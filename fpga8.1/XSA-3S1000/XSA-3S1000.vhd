@@ -6,8 +6,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity PDP8_XSA_3S1000 is
   Port (
      CLK100        : in  std_logic;	-- 100 MHz clock
-     SW2_N         : in  std_logic; -- active-low pushbutton 
-     SW3_N         : in  std_logic; -- active-low pushbutton
+     SW2_N         : in  std_logic; -- active-low pushbutton reset
 
      PS2_CLK       : in  std_logic; 
      PS2_DAT 		 : in  std_logic;
@@ -35,25 +34,30 @@ architecture struct of PDP8_XSA_3S1000 is
    );
    
    Port (
-      sysclk : in std_logic;
-      reset : in std_logic;
+      sysclk      : in std_logic;
+      reset       : in std_logic;
 
-      VGAdotclk : in std_logic;
-      VGAhsync : out std_logic;
-      VGAvsync : out std_logic;
-      VGAred : out std_logic;
-      VGAblue : out std_logic;
-      VGAgreen : out std_logic;
+      VGAdotclk   : in std_logic;
+      VGAhsync    : out std_logic;
+      VGAvsync    : out std_logic;
+      VGAred      : out std_logic;
+      VGAblue     : out std_logic;
+      VGAgreen    : out std_logic;
 
-      PS2KBdata : in std_logic;
-      PS2KBclk : in std_logic;
+      PS2KBdata   : in std_logic;
+      PS2KBclk    : in std_logic;
 
-      CONFIG : in std_logic_vector (1 to 8);
-      CONSOLErxd : in std_logic;
-      CONSOLEtxd : out std_logic;
+      CONFIG      : in std_logic_vector (1 to 8);
 
-      TTY1rxd : in std_logic;
-      TTY1txd : out std_logic
+      CONSOLErxd  : in std_logic;
+      CONSOLEtxd  : out std_logic;
+
+      TTY1rxd     : in std_logic;
+      TTY1txd     : out std_logic;
+
+      Pbuffer     : in  std_logic_vector (7 downto 0);
+      Pstrobe     : in  std_logic;
+      Pbusy       : out std_logic
    );
 end component PDP8sys;
 
@@ -67,14 +71,13 @@ component clkdll_divide is
    );
 end component clkdll_divide;
 
-signal VGAred : std_logic;
+signal VGAred   : std_logic;
 signal VGAgreen : std_logic;
-signal VGAblue : std_logic;
+signal VGAblue  : std_logic;
 
-signal sysclk : std_logic;
-signal dotclk : std_logic;
-signal DIP_SW1 : std_logic_vector(1 to 8) := "00001001"; -- 9600 Bd 
-signal pbutton : std_logic;
+signal sysclk   : std_logic;
+signal dotclk   : std_logic;
+signal pbutton  : std_logic;
 
 begin 
 
@@ -111,7 +114,7 @@ PDP8 : PDP8sys
       PS2KBdata  => PS2_DAT,
       PS2KBclk   => PS2_CLK,
 
-      CONFIG     => DIP_SW1,
+      CONFIG     => "00001001",
 
       CONSOLErxd => RS232_RXD,
       CONSOLEtxd => RS232_TXD,
@@ -122,7 +125,11 @@ PDP8 : PDP8sys
       
 --    TT1rxd     => RS232cts,
 --    TT1txd     => RS232rts,
-      TTY1rxd    => '0'
+      TTY1rxd    => '0',
+
+      Pbuffer    => (others => '0'),
+      Pstrobe    => '0'
+--      Pbusy		  => Pbusy
    );
   
    VGA_RED(0)    <= VGAred;

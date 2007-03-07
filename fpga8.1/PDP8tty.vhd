@@ -17,29 +17,29 @@ entity PDP8tty is
   );
   
   port (
-      clk : in std_logic;
-      reset: in std_logic;
+      clk         : in std_logic;
+      reset       : in std_logic;
 
       -- IO interface
+      
+      IOstart     : in  std_logic;
+      IOwdata     : in  std_logic_vector(0 to 11);
+      IOaddr      : in  std_logic_vector (0 to 5);
+      IOiop       : in  std_logic_vector (0 to 2);
+      IOcaf       : in  std_logic;
+      
       IOinterrupt : out std_logic;
-      
-      IOstart : in std_logic;
-      IOwdata : in std_logic_vector(0 to 11);
-      IOaddr : in std_logic_vector (0 to 5);
-      IOiop : in std_logic_vector (0 to 2);
-      IOcaf : in std_logic;
-      
-      IOrdata : out std_logic_vector(0 to 11);
+      IOrdata     : out std_logic_vector(0 to 11);
       IOdevstatus : out std_logic_vector (0 to 1);
-      IOdone : out std_logic;
-      IOskip : out std_logic;
+      IOdone      : out std_logic;
+      IOskip      : out std_logic;
 
       -- External data source
       
-      Config : in std_logic_vector (1 downto 0);
+      Config      : in  std_logic_vector (1 downto 0);
       
-      RxD : in std_logic;
-      TxD : out std_logic
+      RxD         : in  std_logic;
+      TxD         : out std_logic
     );
 end PDP8tty;
 
@@ -53,21 +53,21 @@ architecture rtl  of PDP8tty  is
 
    signal BAUD : integer;
    
-   signal ttoflag : std_logic;
-   signal ttodone : std_logic;
-   signal ttobusy : std_logic;
-   signal ttonew : std_logic;
-   signal ttobuff : std_logic_vector (0 to 7);
+   signal ttoflag  : std_logic;
+   signal ttodone  : std_logic;
+   signal ttobusy  : std_logic;
+   signal ttonew   : std_logic;
+   signal ttobuff  : std_logic_vector (0 to 7);
    signal ttoshift : std_logic_vector (0 to 10);
    signal ttocount : std_logic_vector(0 to 18);
-   signal ttoclr : std_logic;
+   signal ttoclr   : std_logic;
    
-   signal ttiflag : std_logic;
-   signal ttirun : std_logic;
-   signal ttidone : std_logic;
+   signal ttiflag  : std_logic;
+   signal ttirun   : std_logic;
+   signal ttidone  : std_logic;
    signal ttistarting : std_logic;
    signal ttishift : std_logic_vector (0 to 8);
-   signal ttibuff : std_logic_vector (0 to 7);
+   signal ttibuff  : std_logic_vector (0 to 7);
    signal tticount : std_logic_vector(0 to 18);
 
    signal tty_ienable : std_logic;   
@@ -92,34 +92,37 @@ begin  -- rtl
    tti : process (clk, reset)
    begin
       if reset = '0' then
-	 ttidone <= '0';
-	 ttistarting <= '1';
+	      ttidone     <= '0';
+	      ttistarting <= '1';
+			ttibuff     <= (others => '0');
+			ttishift    <= "100000000";
+			tticount    <= (others => '0');
 
       elsif clk'event and (clk = '1') then
 
          ttidone <= '0';
 
-	 if ttirun = '1' then
+	      if ttirun = '1' then
             if (ttistarting and RxD) = '1' then
-	       tticount <= conv_std_logic_vector (BAUD, 19); -- half a bit
-	    elsif tticount = (BAUD+BAUD) then
+	            tticount <= conv_std_logic_vector (BAUD, 19); -- half a bit
+	         elsif tticount = (BAUD+BAUD) then
                tticount <= (others => '0');
-	       if ttistarting = '1' then 	-- middle of start bit
-	          ttistarting <= '0';
-		  ttishift <= "100000000";
-	       elsif ttishift(8) = '1' then 	-- middle of stop bit
-	          ttistarting <= '1';
-		  if RxD = '1' then
-		     ttidone <= '1';
-		     ttibuff <= ttishift(0 to 7);
-		  else   			-- frame error ???
-		  end if;
-	       else				-- middle of next bit
-	          ttishift <= RxD & ttishift(0 to 7);
-	       end if;
-	    else
+	            if ttistarting = '1' then 	-- middle of start bit
+	               ttistarting <= '0';
+		            ttishift <= "100000000";
+	            elsif ttishift(8) = '1' then 	-- middle of stop bit
+	               ttistarting <= '1';
+		            if RxD = '1' then
+		               ttidone <= '1';
+		               ttibuff <= ttishift(0 to 7);
+		            else   			-- frame error ???
+		            end if;
+	            else				-- middle of next bit
+	               ttishift <= RxD & ttishift(0 to 7);
+	            end if;
+	         else
                tticount <= tticount + 1;
-	    end if;    
+	         end if;    
          end if;
       end if;
    end process tti;
@@ -128,34 +131,35 @@ begin  -- rtl
    tto : process (clk, reset, IOcaf)
    begin
       if (reset = '0') or (IOcaf = '0') then
-	 ttodone <= '0';
-	 ttobusy <= '0';
-	 ttoshift <= "00000000000";
-	 TxD <= '1';
+	      ttodone  <= '0';
+	      ttobusy  <= '0';
+	      ttoshift <= (others => '0');
+	      TxD      <= '1';
+	      ttocount <= (others => '0');
 
       elsif clk'event and (clk = '1') then
 
          if (ttoclr = '1') then
-	    ttodone <= '0';
-	 end if;   
+	         ttodone <= '0';
+	      end if;   
 
-	 if ttocount = (BAUD+BAUD) then
-	    if ttonew = '1' then
-	       ttoshift <= "11" & ttobuff & '0';
-	       ttodone <= '0';
-	       ttobusy <= '1';
-	    elsif ttoshift = 0 then
-	       ttobusy <= '0';
-	       if ttobusy = '1' then
-	          ttodone <= '1';
-	       end if;	  
-	    else   
-	       TxD <= ttoshift (10);
-	       ttocount <= (others => '0');
-  	       ttoshift <= '0' & ttoshift (0 to 9);
+	      if ttocount = (BAUD+BAUD) then
+	         if ttonew = '1' then
+	            ttoshift <= "11" & ttobuff & '0';
+	            ttodone <= '0';
+	            ttobusy <= '1';
+	         elsif ttoshift = 0 then
+	            ttobusy <= '0';
+	            if ttobusy = '1' then
+	               ttodone <= '1';
+	            end if;	  
+	         else   
+	            TxD <= ttoshift (10);
+	            ttocount <= (others => '0');
+  	            ttoshift <= '0' & ttoshift (0 to 9);
             end if;
-	 else
- 	    ttocount <= ttocount + 1;
+	      else
+ 	         ttocount <= ttocount + 1;
          end if;
       end if;
    end process tto;
@@ -163,21 +167,25 @@ begin  -- rtl
    iobus : process (clk, reset, IOcaf)
    begin
      if (reset = '0') or (IOcaf = '0') then
-        IOdone <= 'Z';
-        IOinterrupt <= 'Z';
+--        IOdone <= 'Z';
+--        IOinterrupt <= 'Z';
+        IOdone <= '1';
+        IOinterrupt <= '1';
       	
      elsif clk'event and clk = '1' then
      
         if io_done = '1' then
            IOdone <= '0';
         else
-	   IOdone <= 'Z';
+--           IOdone <= 'Z';
+           IOdone <= '1';
         end if;
 	
         if (tty_ienable and (ttoflag or ttiflag)) = '1' then
            IOinterrupt <= '0';
         else
-           IOinterrupt <= 'Z';
+--           IOinterrupt <= 'Z';
+           IOinterrupt <= '1';
         end if;
 	
      end if;
@@ -188,14 +196,14 @@ begin  -- rtl
   begin
 
      if (reset = '0') or (IOcaf = '0') then
-	io_done <= '0';
+	     io_done <= '0';
 	
-	ttonew <= '0';
-	ttoflag <= '0';
-	ttoclr <= '1';
+	     ttonew <= '0';
+	     ttoflag <= '0';
+	     ttoclr <= '1';
 	
-	ttiflag <= '0';
-	ttirun <= '0';
+	     ttiflag <= '0';
+	     ttirun <= '0';
 	
         tty_ienable <= reset;
 
@@ -204,123 +212,124 @@ begin  -- rtl
         ttoclr <= '0';
 	
         if ttodone = '0' then
-	   ttonew <= '0';
-	else
-	   ttoflag <= '1';
+	        ttonew <= '0';
+	     else
+	        ttoflag <= '1';
         end if;   
 		
-	if ttidone = '1' then
-	   ttiflag <= '1';
-	   ttirun <= '0'; 
-	end if;   
+	     if ttidone = '1' then
+	        ttiflag <= '1';
+	        ttirun <= '0'; 
+	     end if;   
 	
         if (IOstart = '0') and (io_done = '0') then
-  	   if IOaddr = SCRaddr then  -- TTY printer or screen
-   	      IOdevstatus <= ttoflag & ttodone;
+  	        if IOaddr = SCRaddr then  -- TTY printer or screen
+   	        IOdevstatus <= ttoflag & ttodone;
 
               case IOiop is
-	      when o"0" => -- TFL set printer flag
-	         ttoflag <= '1';
+	           when o"0" => -- TFL set printer flag
+	              ttoflag <= '1';
                  IOrdata <= IOwdata;
-	         IOskip <= '0';
+	              IOskip <= '0';
 		 
-	      when o"1" => -- TSF skip on printer flag
-	         IOskip <= ttoflag;
+	           when o"1" => -- TSF skip on printer flag
+	              IOskip <= ttoflag;
                  IOrdata <= IOwdata;
 
-	      when o"2" => -- TCF clear printer flag
-	         ttoflag <= '0';
-		 ttoclr <= '1';
+	           when o"2" => -- TCF clear printer flag
+	              ttoflag <= '0';
+		           ttoclr <= '1';
                  IOrdata <= IOwdata;
-	         IOskip <= '0';
+	              IOskip <= '0';
 		 
-	      when o"4" => -- TPC load print buffer and print
-	         ttobuff <= IOwdata (4 to 11);
-	         ttonew <= '1';
+	           when o"4" => -- TPC load print buffer and print
+	              ttobuff <= IOwdata (4 to 11);
+	              ttonew <= '1';
                  IOrdata <= IOwdata;
-	         IOskip <= '0';
+	              IOskip <= '0';
 		 
-	      when o"5" => -- TSK skip on printer or keyboard interrupt
-	         IOskip <= tty_ienable and (ttoflag or ttiflag);
+	           when o"5" => -- TSK skip on printer or keyboard interrupt
+	              IOskip <= tty_ienable and (ttoflag or ttiflag);
                  IOrdata <= IOwdata;
 	      
-	      when o"6" => -- TLS load print sequence
-	         ttobuff <= IOwdata (4 to 11);
-	         ttoflag <= '0';
-	         ttonew <= '1';
-	      
+	           when o"6" => -- TLS load print sequence
+	              ttobuff <= IOwdata (4 to 11);
+	              ttoflag <= '0';
+	              ttonew <= '1';	      
                  IOrdata <= IOwdata;
-	         IOskip <= '0';
+	              IOskip <= '0';
 	
-	      when o"7" => -- debug
+	           when o"7" => -- debug
                  IOrdata <= ttonew & ttoshift;
-	         IOskip <= '0';
+	              IOskip <= '0';
 		 
-	      when others =>
+	           when others =>
                  IOrdata <= IOwdata;
-	         IOskip <= '0';
-	      end case;
+	              IOskip <= '0';
+	           end case;
 
-	      io_done <= '1';
+	           io_done <= '1';
 	      
-  	   elsif IOaddr = KBaddr then  -- Teletype keyboard
+  	        elsif IOaddr = KBaddr then  -- Teletype keyboard
 	
               case IOiop is
-	      when o"0" => -- KCF clear keyboard flag
-	         ttiflag <= '0';
-		 ttirun <= '1';
-	         IOskip <= '0';
+	           when o"0" => -- KCF clear keyboard flag
+	              ttiflag <= '0';
+		           ttirun <= '1';
+	              IOskip <= '0';
                  IOrdata <= IOwdata;
 		 
-	      when o"1" => -- KSF skip on keyboard flag
-	         IOskip <= ttiflag;
+	           when o"1" => -- KSF skip on keyboard flag
+	              IOskip <= ttiflag;
                  IOrdata <= IOwdata;
 		 
-	      when o"2" => -- KCC clear keyboard flag
-	         ttiflag <= '0';
-		 ttirun <= '1';
-	         IOskip <= '0';
+	           when o"2" => -- KCC clear keyboard flag
+	              ttiflag <= '0';
+		           ttirun <= '1';
+	              IOskip <= '0';
                  IOrdata <= (others => '0');
 		 
-	      when o"4" => -- KRS read keyboard buffer static
+	           when o"4" => -- KRS read keyboard buffer static
                  IOrdata <= IOwdata or ("0000" & ttibuff);
-	         IOskip <= ttiflag;
+	              IOskip <= ttiflag;
 	      
-	      when o"5" => -- KIE Set/clear interrupt enable
-	         tty_ienable <= IOwdata (11);
-	         IOskip <= '0';
+	           when o"5" => -- KIE Set/clear interrupt enable
+	              tty_ienable <= IOwdata (11);
+	              IOskip <= '0';
                  IOrdata <= IOwdata;
 		 
-	      when o"6" => -- KRB read keyboard buffer dynamic
-	         ttiflag <= '0';
-		 ttirun <= '1';
-	         IOskip <= '0';
+	           when o"6" => -- KRB read keyboard buffer dynamic
+	              ttiflag <= '0';
+		           ttirun <= '1';
+	              IOskip <= '0';
                  IOrdata <= "0000" & ttibuff;
 
-	      when o"7" => -- debug
+	           when o"7" => -- debug
                  IOrdata <= ttiflag & ttidone & ttistarting & ttirun & ttishift (1 to 8);
-	         IOskip <= '0';
+	              IOskip <= '0';
 
-	      when others =>
+	           when others =>
                  IOrdata <= IOwdata;
-	         IOskip <= '0';
-	      end case;
+	              IOskip <= '0';
+	           end case;
 
-	      io_done <= '1';
-	   else
-	      IOrdata <= (others => 'Z');
-	      IOskip <= 'Z';
-	      IOdevstatus <= "ZZ";
+	           io_done <= '1';
+	        else
+--	           IOrdata <= (others => 'Z');
+--	           IOskip <= 'Z';
+--	           IOdevstatus <= "ZZ";
+	           IOrdata <= (others => '1');
+	           IOskip <= '1';
+	           IOdevstatus <= "11";
 
-	   end if;
+	        end if;
         else
-	   io_done <= '0';
-	end if;
+	        io_done <= '0';
+	     end if;
      end if;	
   end process tty_IO;
-  
 
-  end rtl ;
+end rtl ;
 
 
 

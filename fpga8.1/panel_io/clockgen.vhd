@@ -64,5 +64,6 @@ begin
    clkdv_bufg_1 : BUFG port map (I => CLKDV, O => clk_out);
 
    clk_fast <= CLK;
+	gnd      <= '0';
    
 end Behavioral;
