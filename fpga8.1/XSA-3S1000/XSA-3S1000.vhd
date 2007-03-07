@@ -20,6 +20,8 @@ entity PDP8_XSA_3S1000 is
 
 	  RS232_TXD     : out std_logic;
 	  RS232_RXD	    : in  std_logic;
+	  RS232_RTS     : out std_logic;
+	  RS232_CTS	    : in  std_logic;
 
 	  ethernet_cs_n : out std_logic
   );
@@ -51,9 +53,11 @@ architecture struct of PDP8_XSA_3S1000 is
 
       CONSOLErxd  : in std_logic;
       CONSOLEtxd  : out std_logic;
+      CONSOLErts  : out std_logic;
 
       TTY1rxd     : in std_logic;
       TTY1txd     : out std_logic;
+      TTY1rts     : out std_logic;
 
       Pbuffer     : in  std_logic_vector (7 downto 0);
       Pstrobe     : in  std_logic;
@@ -118,14 +122,18 @@ PDP8 : PDP8sys
 
       CONSOLErxd => RS232_RXD,
       CONSOLEtxd => RS232_TXD,
+      CONSOLErts => RS232_RTS,
+--    CONSOLEcts => RS232_CTS,
 
       -- With an appropriately modified RS232 cable, the CTS and RTS signals
       -- can be used to drive the RxD and TxD of a second terminal
       -- enable the next two lines and remove the subsequent one
       
---    TT1rxd     => RS232cts,
---    TT1txd     => RS232rts,
-      TTY1rxd    => '0',
+      TTY1rxd    => '1',
+--    TT1rxd     => RS232_CTS,
+--    TT1txd     => RS232_RTS,
+--    TT1rts     => RS232_RTS,
+--    TT1cts     => RS232_CTS,
 
       Pbuffer    => (others => '0'),
       Pstrobe    => '0'

@@ -2,9 +2,21 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 use ieee .std_logic_unsigned.all;
-
+--
 -- Version 0.05 : 5 October 2003
-
+-- HIGH SPEED PERFORATED TAPE READER--TYPE PR8-E
+-- 
+-- RPE      6010  Set Interrupt Enable for Reader      1.2
+--                and Punch
+-- RSF      6011  Skip if Reader Flag = 1              1.2
+-- RRB      6012  Read Reader Buffer and Clear Flag    1.2
+-- RCF      6014  Clear Flag and Buffer and            1.2
+--                Fetch Character
+-- RCC      6016  Read Reader Buffer, Clear Flag and
+--                Buffer, and Fetch Character
+-- PCE      6020  Clear interrupt Enable for Reader    1.2
+--                and Punch
+--
 entity PDP8rdr is
   port (
       clk         : in  std_logic;

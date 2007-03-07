@@ -12,36 +12,33 @@ entity PDP8sys is
    );
 
    Port (
-      sysclk     : in std_logic;
+      sysclk : in std_logic;
       
-      reset      : in std_logic;
+      reset : in std_logic;
 
-      VGAdotclk  : in  std_logic;
-      VGAhsync   : out std_logic;
-      VGAvsync   : out std_logic;
-      VGAred     : out std_logic;
-      VGAblue    : out std_logic;
-      VGAgreen   : out std_logic;
+      VGAdotclk : in std_logic;
+      VGAhsync : out std_logic;
+      VGAvsync : out std_logic;
+      VGAred : out std_logic;
+      VGAblue : out std_logic;
+      VGAgreen : out std_logic;
 
-      PS2KBdata  : in  std_logic;
-      PS2KBclk   : in  std_logic;
+      PS2KBdata : in std_logic;
+      PS2KBclk : in std_logic;
 
-      CONFIG     : in  std_logic_vector (1 to 8);
+      CONFIG : in std_logic_vector (1 to 8);
 
-      LEDS       : out std_logic_vector (0 to 15);
+      LEDS : out std_logic_vector (0 to 15);
       
-      SRAMoe     : out std_logic;
-      SRAMwe     : out std_logic;
-      SRAMaddr   : out std_logic_vector (0 to 14);
-      SRAMdata   : inout std_logic_vector (0 to 15);
-
+      SRAMoe : out std_logic;
+      SRAMwe : out std_logic;
+      SRAMaddr : out std_logic_vector (0 to 14);
+      SRAMdata : inout std_logic_vector (0 to 15);
       CONSOLErxd : in std_logic;
       CONSOLEtxd : out std_logic;
-      CONSOLErts : out std_logic;
 
-      TTY1rxd    : in std_logic;
-      TTY1txd    : out std_logic;
-      TTY1rts    : out std_logic;
+      TTY1rxd : in std_logic;
+      TTY1txd : out std_logic;
 
       Pbuffer : in std_logic_vector (7 downto 0);
       Pbusy : out std_logic;
@@ -66,46 +63,17 @@ architecture struct of PDP8sys is
 
    -- The IO interface
 
+   signal IOinterrupt : std_logic;
    signal IOaddr : std_logic_vector (0 to 5);
    signal IOiop : std_logic_vector (0 to 2);
    signal IOwdata : std_logic_vector (0 to 11);
    signal IOstart : std_logic;
    signal IOcaf : std_logic;
-      
-	-- Peripheral outputs, CPU inputs, active low
-   signal IOinterrupt : std_logic;
+   
    signal IOdevstatus : std_logic_vector (0 to 1);
-   signal IOrdata     : std_logic_vector (0 to 11);
-   signal IOdone      : std_logic;
-   signal IOskip      : std_logic;
-
-	-- Console Keyboard / Printer, active low
-   signal IOinterrupt_console : std_logic;
-   signal IOdevstatus_console : std_logic_vector (0 to 1);
-   signal IOrdata_console     : std_logic_vector (0 to 11);
-   signal IOdone_console      : std_logic;
-   signal IOskip_console      : std_logic;
-
-	-- Secondary Perial Port, active low
-   signal IOinterrupt_tty1 : std_logic;
-   signal IOdevstatus_tty1 : std_logic_vector (0 to 1);
-   signal IOrdata_tty1     : std_logic_vector (0 to 11);
-   signal IOdone_tty1      : std_logic;
-   signal IOskip_tty1      : std_logic;
-
-	-- Realtime Clock, active low
-   signal IOinterrupt_dk8 : std_logic;
-   signal IOdevstatus_dk8 : std_logic_vector (0 to 1);
-   signal IOrdata_dk8     : std_logic_vector (0 to 11);
-   signal IOdone_dk8      : std_logic;
-   signal IOskip_dk8      : std_logic;
-
-	-- Paper tape Reader, active low
-   signal IOinterrupt_rdr : std_logic;
-   signal IOdevstatus_rdr : std_logic_vector (0 to 1);
-   signal IOrdata_rdr     : std_logic_vector (0 to 11);
-   signal IOdone_rdr      : std_logic;
-   signal IOskip_rdr      : std_logic;
+   signal IOrdata : std_logic_vector (0 to 11);
+   signal IOdone : std_logic;
+   signal IOskip : std_logic;
 
    -- The panel interface
 
@@ -241,13 +209,14 @@ cpu : PDP8cpu
       MEMrdata => MEMrdata,
 
       -- IO interface
+      IOinterrupt => IOinterrupt,
       IOstart => IOstart,
       IOcaf => IOcaf,
+      
       IOwdata => IOwdata,
       IOaddr => IOaddr,
       IOiop => IOiop,
 
-      IOinterrupt => IOinterrupt,
       IOdevstatus => IOdevstatus,
       IOrdata => IOrdata,
       IOdone => IOdone,
@@ -270,6 +239,8 @@ mem : PDP8mem
       MEMaddr => MEMaddr,
       MEMwdata => MEMwdata,
       MEMrdata => MEMrdata,
+      
+      MEMromselect => MEMromselect
    );
 
 
@@ -333,16 +304,17 @@ rtclock : PDP8dk8
 
       -- IO interface
       IOstart => IOstart,
+
       IOwdata => IOwdata,
       IOaddr => IOaddr,
       IOiop => IOiop,
       IOcaf => IOcaf,
       
-      IOinterrupt => IOinterrupt_dk8,
-      IOrdata => IOrdata_dk8,
-      IOdone => IOdone_dk8,
-      IOskip => IOskip_dk8,
-      IOdevstatus => IOdevstatus_dk8
+      IOinterrupt => IOinterrupt,
+      IOrdata => IOrdata,
+      IOdone => IOdone,
+      IOskip => IOskip,
+      IOdevstatus => IOdevstatus
 );
 
 
@@ -353,16 +325,17 @@ ptr : PDP8rdr
 
       -- IO interface
       IOstart => IOstart,
+
       IOwdata => IOwdata,
       IOaddr => IOaddr,
       IOiop => IOiop,
       IOcaf => IOcaf,
       
-      IOinterrupt => IOinterrupt_rdr,
-      IOrdata => IOrdata_rdr,
-      IOdone => IOdone_rdr,
-      IOskip => IOskip_rdr,
-      IOdevstatus => IOdevstatus_rdr,
+      IOinterrupt => IOinterrupt,
+      IOrdata => IOrdata,
+      IOdone => IOdone,
+      IOskip => IOskip,
+      IOdevstatus => IOdevstatus,
 
       -- External interface
       Pbuffer => Pbuffer,
@@ -394,18 +367,17 @@ console : entity PDP8tty
       IOiop => IOiop,
       IOcaf => IOcaf,
       
-      IOinterrupt => IOinterrupt_console,
-      IOrdata => IOrdata_console,
-      IOdone => IOdone_console,
-      IOskip => IOskip_console,
-      IOdevstatus => IOdevstatus_console,
+      IOinterrupt => IOinterrupt,
+      IOrdata => IOrdata,
+      IOdone => IOdone,
+      IOskip => IOskip,
+      IOdevstatus => IOdevstatus,
 
       -- External interface
       
       Config => CONFIG (3 to 4),
       TxD => CONSOLEtxd,
-      RxD => CONSOLErxd,
-		RTS => CONSOLErts
+      RxD => CONSOLErxd
     );
 
 tty1 : entity PDP8tty
@@ -431,34 +403,17 @@ tty1 : entity PDP8tty
       IOiop => IOiop,
       IOcaf => IOcaf,
       
-      IOinterrupt => IOinterrupt_tty1,
-      IOrdata => IOrdata_tty1,
-      IOdone => IOdone_tty1,
-      IOskip => IOskip_tty1,
-      IOdevstatus => IOdevstatus_tty1,
+      IOinterrupt => IOinterrupt,
+      IOrdata => IOrdata,
+      IOdone => IOdone,
+      IOskip => IOskip,
+      IOdevstatus => IOdevstatus,
 
       -- External interface
       
       Config => "00",
       TxD => TTY1txd,
-      RxD => TTY1rxd,
-		RTS => TTY1rts
+      RxD => TTY1rxd
     );
-
---
--- Active low signals
---
-PDP8connect : process( IOinterrupt_console, IOinterrupt_tty1, IOinterrupt_dk8, IOinterrupt_rdr,
-                     IOdevstatus_console, IOdevstatus_tty1, IOdevstatus_dk8, IOdevstatus_rdr,
-                     IOrdata_console    , IOrdata_tty1    , IOrdata_dk8,	  IOrdata_rdr,
-                     IOdone_console     , IOdone_tty1     , IOdone_dk8,		  IOdone_rdr,
-                     IOskip_console     , IOskip_tty1     , IOskip_dk8,      IOskip_rdr ) is
-begin
-   IOinterrupt <= IOinterrupt_console and IOinterrupt_tty1 and IOinterrupt_dk8 and IOinterrupt_rdr;
-   IOdevstatus	<=	IOdevstatus_console and IOdevstatus_tty1 and IOdevstatus_dk8 and IOdevstatus_rdr;
-   IOrdata     <=	IOrdata_console     and IOrdata_tty1     and IOrdata_dk8     and IOrdata_rdr;
-   IOdone      <= IOdone_console      and IOdone_tty1      and IOdone_dk8      and IOdone_rdr;
-   IOskip      <= IOskip_console      and IOskip_tty1      and IOskip_dk8      and IOskip_rdr;
-end process;
     
 end architecture struct;

@@ -2,8 +2,36 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 use ieee .std_logic_unsigned.all;
+--
+--TELETYPE KEYBOARD/READER
+--
+--                                            Time (usec.)
+--KCF      6030  Clear Keyboard/Reader Flag,          1.2
+--               do not start Reader
+--KSF      6031  Skip if Keyboard/Reader Flag = 1     1.2
+--KCC      6032  Clear AC and Keyboard/Reader         1.2
+--               Flag, set Reader run
+--KRS      6034  Read Keyboard/Reader Buffer Static   1.2
+--KIE      6035  AC 11 to Keyboard/Reader Interrupt   1.2
+--               Enable F.F.
+--KRB      6036  Clear AC, Read Keyboard Buffer       1.2
+--               Clear Keyboard Flags 
+--
+--TELETYPE TELEPRINTER/PUNCH
+--
+--SPF      6040  Set Teleprinter/Punch Flag           1.2
+--TSF      6041  Skip if Teleprinter/Punch Flag = 1   1.2
+--TCF      6042  Clear Teleprinter/Punch Flag         1.2
+--TPC      6044  Load Teleprinter/Punch Buffer        1.2
+--               Select and Print
+--SPI      6045  Skip if Teletype Interrupt           1.2
+--TLS      6046  Load Teleprinter/Punch Buffer,       1.2
+--               Select and Print and Clear
+--               Teleprinter/Punch Flag
+--
 
 -- Version 0.05 : 5 October 2003
+-- Version 0.06 : 23 February 2007
 
 entity PDP8tty is
   generic (
@@ -38,8 +66,9 @@ entity PDP8tty is
       
       Config      : in  std_logic_vector (1 downto 0);
       
-      RxD         : in  std_logic;
-      TxD         : out std_logic
+      RXD         : in  std_logic;
+      TXD         : out std_logic;
+		RTS         : out std_logic
     );
 end PDP8tty;
 
@@ -131,7 +160,8 @@ begin  -- rtl
    tto : process (clk, reset, IOcaf)
    begin
       if (reset = '0') or (IOcaf = '0') then
-	      ttodone  <= '0';
+--	      ttodone  <= '0';
+	      ttodone  <= '1';
 	      ttobusy  <= '0';
 	      ttoshift <= (others => '0');
 	      TxD      <= '1';
@@ -203,7 +233,8 @@ begin  -- rtl
 	     ttoclr <= '1';
 	
 	     ttiflag <= '0';
-	     ttirun <= '0';
+--	     ttirun <= '0';
+	     ttirun <= '1';
 	
         tty_ienable <= reset;
 
@@ -271,6 +302,8 @@ begin  -- rtl
 	           io_done <= '1';
 	      
   	        elsif IOaddr = KBaddr then  -- Teletype keyboard
+			     -- John Kent 23rd Feb 2007
+   	        IOdevstatus <= ttiflag & ttidone;
 	
               case IOiop is
 	           when o"0" => -- KCF clear keyboard flag
@@ -326,7 +359,8 @@ begin  -- rtl
         else
 	        io_done <= '0';
 	     end if;
-     end if;	
+     end if;
+	  RTS <= not ttirun;
   end process tty_IO;
 
 end rtl ;

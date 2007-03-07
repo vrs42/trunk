@@ -29,9 +29,11 @@ entity PDP8sys is
 
       CONSOLErxd : in std_logic;
       CONSOLEtxd : out std_logic;
+      CONSOLErts : out std_logic;
 
       TTY1rxd    : in std_logic;
       TTY1txd    : out std_logic;
+      TTY1rts    : out std_logic;
 
       Pbuffer     : in  std_logic_vector (7 downto 0);
       Pstrobe     : in  std_logic;
@@ -229,6 +231,7 @@ component PDP8tty
       
       Config      : in std_logic_vector ( 1 downto 0);
       
+      CtS         : out std_logic;
       RxD         : in std_logic;
       TxD         : out std_logic
     );
@@ -401,8 +404,9 @@ console : entity PDP8tty
       -- External interface
       
       Config      => CONFIG (3 to 4),
-      TxD         => CONSOLEtxd,
-      RxD         => CONSOLErxd
+      TXD         => CONSOLEtxd,
+      RXD         => CONSOLErxd,
+      RTS         => CONSOLErts
     );
 
 tty1 : entity PDP8tty
@@ -439,8 +443,9 @@ tty1 : entity PDP8tty
       -- External interface
       
       Config      => "00",
-      TxD         => TTY1txd,
-      RxD         => TTY1rxd
+      TXD         => TTY1txd,
+      RXD         => TTY1rxd,
+      RTS         => TTY1rts
     );
 
 
