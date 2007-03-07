@@ -1,0 +1,176 @@
+Release 7.1.04i par H.42
+Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
+
+HOME1::  Mon Feb 19 00:30:01 2007
+
+par -w -intstyle ise -ol med -t 1 pdp8_xsa_3s1000_map.ncd pdp8_xsa_3s1000.ncd
+pdp8_xsa_3s1000.pcf 
+
+
+Constraints file: pdp8_xsa_3s1000.pcf.
+PMSPEC -- Overriding Xilinx file <G:/Xilinx_ISE_7.1i/spartan3/data/spartan3.acd>
+with local file <G:/Xilinx_ISE_7.1i/spartan3/data/spartan3.acd>
+Loading device for application Rf_Device from file '3s1000.nph' in environment
+G:/Xilinx_ISE_7.1i.
+   "pdp8_xsa_3s1000" is an NCD, version 3.1, device xc3s1000, package ft256,
+speed -4
+
+Initializing temperature to 85.000 Celsius. (default - Range: 0.000 to 85.000
+Celsius)
+Initializing voltage to 1.140 Volts. (default - Range: 1.140 to 1.260 Volts)
+
+
+Device speed data version:  "PRODUCTION 1.37 2005-07-22".
+
+
+Device Utilization Summary:
+
+   Number of BUFGMUXs                  2 out of 8      25%
+   Number of DCMs                      1 out of 4      25%
+   Number of External IOBs            26 out of 173    15%
+      Number of LOCed IOBs            26 out of 26    100%
+
+   Number of RAMB16s                  24 out of 24    100%
+   Number of Slices                 1882 out of 7680   24%
+      Number of SLICEMs               20 out of 3840    1%
+
+
+
+Overall effort level (-ol):   Medium(set by user)
+Placer effort level (-pl):    Medium(set by user)
+Placer cost table entry (-t): 1
+Router effort level (-rl):    Medium(set by user)
+
+Starting initial Timing Analysis.  REAL time: 17 secs 
+Finished initial Timing Analysis.  REAL time: 17 secs 
+
+WARNING:Par:276 - The signal SW3_N_IBUF has no load
+
+Starting Placer
+
+Phase 1.1
+Phase 1.1 (Checksum:99050f) REAL time: 20 secs 
+
+Phase 2.31
+Phase 2.31 (Checksum:1312cfe) REAL time: 20 secs 
+
+Phase 3.2
+.
+
+
+Phase 3.2 (Checksum:1c9c37d) REAL time: 36 secs 
+
+Phase 4.8
+.......................................................................................
+.........
+.......................................................................................
+.........
+Phase 4.8 (Checksum:c91a2f) REAL time: 1 mins 59 secs 
+
+Phase 5.5
+Phase 5.5 (Checksum:2faf07b) REAL time: 1 mins 59 secs 
+
+Phase 6.18
+Phase 6.18 (Checksum:39386fa) REAL time: 2 mins 53 secs 
+
+Phase 7.5
+Phase 7.5 (Checksum:42c1d79) REAL time: 2 mins 54 secs 
+
+Writing design to file pdp8_xsa_3s1000.ncd
+
+
+Total REAL time to Placer completion: 3 mins 1 secs 
+Total CPU time to Placer completion: 2 mins 52 secs 
+
+Starting Router
+
+Phase 1: 13582 unrouted;       REAL time: 3 mins 2 secs 
+
+Phase 2: 12974 unrouted;       REAL time: 3 mins 5 secs 
+
+Phase 3: 3710 unrouted;       REAL time: 3 mins 16 secs 
+
+Phase 4: 3710 unrouted; (0)      REAL time: 3 mins 18 secs 
+
+Phase 5: 3710 unrouted; (0)      REAL time: 3 mins 19 secs 
+
+Phase 6: 3710 unrouted; (0)      REAL time: 3 mins 20 secs 
+
+Phase 7: 0 unrouted; (0)      REAL time: 3 mins 41 secs 
+
+Phase 8: 0 unrouted; (0)      REAL time: 3 mins 48 secs 
+
+
+Total REAL time to Router completion: 3 mins 52 secs 
+Total CPU time to Router completion: 3 mins 40 secs 
+
+Generating "PAR" statistics.
+
+**************************
+Generating Clock Report
+**************************
+
++---------------------+--------------+------+------+------------+-------------+
+|        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
++---------------------+--------------+------+------+------------+-------------+
+|              dotclk |      BUFGMUX0| No   |  562 |  0.494     |  1.196      |
++---------------------+--------------+------+------+------------+-------------+
+
+
+   The Delay Summary Report
+
+
+The NUMBER OF SIGNALS NOT COMPLETELY ROUTED for this design is: 0
+
+   The AVERAGE CONNECTION DELAY for this design is:        1.598
+   The MAXIMUM PIN DELAY IS:                              12.371
+   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:  10.222
+
+   Listing Pin Delays by value: (nsec)
+
+    d < 2.00   < d < 4.00  < d < 6.00  < d < 8.00  < d < 13.00  d >= 13.00
+   ---------   ---------   ---------   ---------   ---------   ---------
+        9511        3422         448          85          47           0
+
+Timing Score: 0
+
+Asterisk (*) preceding a constraint indicates it was not met.
+   This may be due to a setup or hold violation.
+
+--------------------------------------------------------------------------------
+  Constraint                                | Requested  | Actual     | Logic 
+                                            |            |            | Levels
+--------------------------------------------------------------------------------
+  TS_clk = PERIOD TIMEGRP "CLK100" 10 ns HI | N/A        | N/A        | N/A  
+  GH 50%                                    |            |            |      
+--------------------------------------------------------------------------------
+  TS_clks_CLKDV = PERIOD TIMEGRP "clks_CLKD | 40.000ns   | 25.130ns   | 5    
+  V" TS_clk * 4 HIGH 50%                    |            |            |      
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+INFO:Timing:2761 - N/A entries in the Constraints list may indicate that the
+   constraint does not cover any paths or that it has no requested value.
+Generating Pad Report.
+
+All signals are completely routed.
+
+Total REAL time to PAR completion: 4 mins 1 secs 
+Total CPU time to PAR completion: 3 mins 48 secs 
+
+Peak Memory Usage:  146 MB
+
+Placement: Completed - No errors found.
+Routing: Completed - No errors found.
+Timing: Completed - No errors found.
+
+Number of error messages: 0
+Number of warning messages: 1
+Number of info messages: 0
+
+Writing design to file pdp8_xsa_3s1000.ncd
+
+
+
+PAR done!
