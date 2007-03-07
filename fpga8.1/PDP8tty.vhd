@@ -160,12 +160,14 @@ begin  -- rtl
    tto : process (clk, reset, IOcaf)
    begin
       if (reset = '0') or (IOcaf = '0') then
---	      ttodone  <= '0';
-	      ttodone  <= '1';
+	      ttodone  <= '0';
 	      ttobusy  <= '0';
 	      ttoshift <= (others => '0');
 	      TxD      <= '1';
-	      ttocount <= (others => '0');
+-- Fix TLS after CAF bug 2/26/2007 by vrs
+--        ttocount <= (others => '0');
+          ttocount <= conv_std_logic_vector(BAUD+BAUD, 19);
+-- End "Fix TLS after CAF bug"
 
       elsif clk'event and (clk = '1') then
 

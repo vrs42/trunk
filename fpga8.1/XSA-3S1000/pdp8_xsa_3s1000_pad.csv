@@ -1,7 +1,7 @@
-Release 7.1.04i - par H.42
-Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
+#Release 8.1i - par I.24
+#Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
 
-#Mon Feb 19 00:34:01 2007
+#Tue Mar 06 10:12:50 2007
 
 #
 ## NOTE: This file is designed to be imported into a spreadsheet program
@@ -9,8 +9,8 @@ Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
 # character is used as the data field separator. This file is also designed
 # to support parsing.
 #
-#INPUT FILE:       pdp8_xsa_3s1000_map.ncd
-#OUTPUT FILE:      pdp8_xsa_3s1000_pad.csv
+#INPUT FILE:       PDP8_XSA_3S1000_map.ncd
+#OUTPUT FILE:      PDP8_XSA_3S1000_pad.csv
 #PART TYPE:        xc3s1000
 #SPEED GRADE:      -4
 #PACKAGE:          ft256
@@ -18,7 +18,7 @@ Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
 # Pinout by Pin Number:
 # 
 # -----,-----,-----,-----,-----,-----,-----,-----,-----,-----,-----,-----,-----,-----,-----,-----,
-# Pin Number,Signal Name,Pin Usage,Pin Name,Direction,IO Standard,IO Bank Number,Drive (mA),Slew Rate,Termination,IOB Delay,Voltage,Constraint,DCI Value,IO Register,Signal Integrity,
+Pin Number,Signal Name,Pin Usage,Pin Name,Direction,IO Standard,IO Bank Number,Drive (mA),Slew Rate,Termination,IOB Delay,Voltage,Constraint,DCI Value,IO Register,Signal Integrity,
 A1,,,GND,,,,,,,,,,,,,
 A2,,,TDI,,,,,,,,,,,,,
 A3,,IOB,IO/VREF_0,UNUSED,,0,,,,,,,,,,
@@ -31,7 +31,7 @@ A9,,IOB,IO,UNUSED,,1,,,,,,,,,,
 A10,,DIFFS,IO_L31N_1/VREF_1,UNUSED,,1,,,,,,,,,,
 A11,,,VCCAUX,,,,,,,,2.5,,,,,
 A12,,IOB,IO,UNUSED,,1,,,,,,,,,,
-A13,SW3_N,IOB,IO_L10N_1/VREF_1,INPUT,LVCMOS25,1,,,,NONE,,LOCATED,,NO,NONE,
+A13,,DIFFS,IO_L10N_1/VREF_1,UNUSED,,1,,,,,,,,,,
 A14,,DIFFS,IO_L01N_1/VRP_1,UNUSED,,1,,,,,,,,,,
 A15,,,TDO,,,,,,,,,,,,,
 A16,,,GND,,,,,,,,,,,,,
@@ -67,7 +67,7 @@ C13,,,TMS,,,,,,,,,,,,,
 C14,,,TCK,,,,,,,,,,,,,
 C15,,DIFFS,IO_L16N_2,UNUSED,,2,,,,,,,,,,
 C16,,DIFFM,IO_L01P_2/VRN_2,UNUSED,,2,,,,,,,,,,
-D1,,DIFFS,IO_L17N_7,UNUSED,,7,,,,,,,,,,
+D1,RS232_CTS,IOB,IO_L17N_7,INPUT,LVCMOS25,7,,,,NONE,,LOCATED,,NO,NONE,
 D2,,DIFFM,IO_L17P_7,UNUSED,,7,,,,,,,,,,
 D3,,DIFFM,IO_L19P_7,UNUSED,,7,,,,,,,,,,
 D4,,,VCCINT,,,,,,,,1.2,,,,,
@@ -102,7 +102,7 @@ E16,,DIFFM,IO_L20P_2,UNUSED,,2,,,,,,,,,,
 F1,,,VCCAUX,,,,,,,,2.5,,,,,
 F2,,DIFFS,IO_L22N_7,UNUSED,,7,,,,,,,,,,
 F3,,DIFFM,IO_L22P_7,UNUSED,,7,,,,,,,,,,
-F4,,DIFFS,IO_L21N_7,UNUSED,,7,,,,,,,,,,
+F4,RS232_RTS,IOB,IO_L21N_7,OUTPUT,LVCMOS25,7,12,SLOW,NONE**,,,LOCATED,,NO,NONE,
 F5,,DIFFM,IO_L23P_7,UNUSED,,7,,,,,,,,,,
 F6,,,GND,,,,,,,,,,,,,
 F7,,,VCCO_0,,,0,,,,,2.50,,,,,
@@ -280,8 +280,8 @@ T16,,,GND,,,,,,,,,,,,,
 # 
 #* Default value.
 #** This default Pullup/Pulldown value can be overridden in Bitgen. 
-#****** This value can be any of the allowed voltages 
-#       (1.2v,1.5v,1.8v,2.5v,3.3v) or VCCAUX 
+#****** Special VCCO requirements may apply. Please consult the device 
+#       family datasheet for specific guideline on VCCO requirements. 
 #
 #
 #
