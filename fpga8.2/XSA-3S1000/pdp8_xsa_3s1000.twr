@@ -1,0 +1,113 @@
+--------------------------------------------------------------------------------
+Release 7.1.04i Trace H.42
+Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
+
+G:/Xilinx_ISE_7.1i/bin/nt/trce.exe -ise
+g:\vhdl\pdp8-v_1.24\v124\xsa-3s1000\XSA-3S1000.ise -intstyle ise -e 3 -l 3 -a
+-s 5 -xml pdp8_xsa_3s1000 pdp8_xsa_3s1000.ncd -o pdp8_xsa_3s1000.twr
+pdp8_xsa_3s1000.pcf
+
+
+Design file:              pdp8_xsa_3s1000.ncd
+Physical constraint file: pdp8_xsa_3s1000.pcf
+Device,speed:             xc3s1000,-5 (PRODUCTION 1.37 2005-07-22)
+Report level:             error report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2700 - Timing constraints ignored because advanced analysis with
+   offsets was specified.
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths
+   option. All paths that are not constrained will be reported in the
+   unconstrained paths section(s) of the report.
+
+================================================================================
+Timing constraint: Default period analysis for net "dotclk"
+
+ 136150 items analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum period is  21.932ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: Default OFFSET IN BEFORE analysis for clock "dotclk"
+
+ 322 items analyzed, 284 timing errors detected. (284 setup errors, 0 hold errors)
+ Minimum allowable offset is  12.528ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: Default OFFSET OUT AFTER analysis for clock "dotclk"
+
+ 12 items analyzed, 0 timing errors detected.
+ Maximum allowable offset is   9.397ns.
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock CLK100
+------------+------------+------------+------------------+--------+
+            |  Setup to  |  Hold to   |                  |  Clock |
+Source      | clk (edge) | clk (edge) |Internal Clock(s) |  Phase |
+------------+------------+------------+------------------+--------+
+PS2_CLK     |    7.199(R)|   -0.600(R)|dotclk            |   0.000|
+PS2_DAT     |    7.156(R)|   -2.169(R)|dotclk            |   0.000|
+RS232_RXD   |    8.377(R)|   -1.832(R)|dotclk            |   0.000|
+SW2_N       |   12.528(R)|   -3.521(R)|dotclk            |   0.000|
+------------+------------+------------+------------------+--------+
+
+Clock CLK100 to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  |  Clock |
+Destination | to PAD     |Internal Clock(s) |  Phase |
+------------+------------+------------------+--------+
+RS232_TXD   |    4.555(R)|dotclk            |   0.000|
+VGA_BLUE<0> |    5.950(R)|dotclk            |   0.000|
+VGA_BLUE<1> |    6.585(R)|dotclk            |   0.000|
+VGA_BLUE<2> |    7.513(R)|dotclk            |   0.000|
+VGA_GREEN<0>|    5.807(R)|dotclk            |   0.000|
+VGA_GREEN<1>|    6.519(R)|dotclk            |   0.000|
+VGA_GREEN<2>|    6.930(R)|dotclk            |   0.000|
+VGA_HSYNC_N |    6.114(R)|dotclk            |   0.000|
+VGA_RED<0>  |    6.295(R)|dotclk            |   0.000|
+VGA_RED<1>  |    6.915(R)|dotclk            |   0.000|
+VGA_RED<2>  |    9.397(R)|dotclk            |   0.000|
+VGA_VSYNC_N |    6.200(R)|dotclk            |   0.000|
+------------+------------+------------------+--------+
+
+Clock to Setup on destination clock CLK100
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+CLK100         |   16.335|    9.632|   10.966|   13.208|
+---------------+---------+---------+---------+---------+
+
+
+Timing summary:
+---------------
+
+Timing errors: 0  Score: 0
+
+Constraints cover 136484 paths, 0 nets, and 13300 connections
+
+Design statistics:
+   Minimum period:  21.932ns (Maximum frequency:  45.595MHz)
+   Minimum input required time before clock:  12.528ns
+   Maximum output delay after clock:   9.397ns
+
+
+Analysis completed Mon Feb 19 00:34:33 2007
+--------------------------------------------------------------------------------
+
+
+
+Peak Memory Usage: 117 MB
