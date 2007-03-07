@@ -164,45 +164,55 @@ The Display
 -----------
 
 The VGA display shows a number of registers corresponding to the internal state
-of the CPU. On the left on the black background the display is in binary similar
-to the display of the machines at the time of the PDP-8e and before. On the right
-with a green background the same registers are shown in more readable form.
-The instruction register, for example is displayed as an assembler mnemonic and
-other register values are displayed in octal.
+of the CPU. The display is in binary, and is similar to the display of the 
+machines at the time of the PDP-8/I and before.
 
-The first line shows from left to right, the Run light, the Interrupt Enable bit,
-the current instruction, and the current processor state. Of these the Run light
-is probably the most important, it lights up when the processor is executing
-instructions.
+The first row of indicators shows from left to right, the Data Field, the 
+Instruction Field, and the Program Counter.
 
-The next line shows various register values associated with the extended memory
-facility of the processor. 
+To the right, of the rows, there is a column that decode the Instruction Register, 
+indicating which of the eight opcodes is currently being executed (if any).  The 
+next column decodes the states of the machine:
 
-Following that is a display of the current instruction pointer or program counter,
-then the accumulator with its link bit. The next two lines show the state of the
-extended arithmetic registers, the MQ, the counter and the mode and current
-operation of the module.
+Idle	The machine is idle (halted).
+Fetch	The machine is setting up an instruction fetch.
+Decode	The machine is decoding the data from the fetch.
+Defer	The machine is doing a memory indirection.
+Execute	The machine is executing an instruction using the data from memory.
+OPR	The machine is executing a complicated OPR instruction.
+Pause	The machine is waiting for a response to an IOT operation.
+EAE1	The machine is initializing an EAE operation.
+EAEStep	The machine is iterating an EAE operation.
+Break	The machine is off the bus, waiting for a DMA operation.
 
-The memory interface shows the Memory address register followed by the Memory
-Buffer register. All accesses to memory require the setting of a memory address. 
-Data to be written is set in the MB before starting the write operation. For
-reads the data appears from memory in the MB register. To the left of the MB
-binary display are indicators showing the state of the memory cycle in progress.
-Normally these are all off. A display of R indicates a read in progress, a W 
-shows a Write in progress sand a D indicates that the current cycle has ended.
-These indicators can be seen flickering when the processor is executing 
-instructions.
+To the right of that, a column indicates general status of the machine:
 
-The IO line shows the last IO operation executed by the processor. The device 
-addressed is shown and the IOT or operation requested. The STA bits show the
-resulting status information.
+Run	The machine is running (executing instructions).
+ION	Interrupts are enabled.
+User	The machine is in user mode (IOT, OSR, HLT prohibited).
+Trap	The machine has detected a priviledged instruction in user mode.
+Fault	The machine has detected an internal error.
+
+The next row of indicators shows the memory address involved in the most recent 
+memory operation.  The row below that shows the content of that memory address.
+(During IOT and OPR instructions, this will continue to show the instruction 
+being executed.)
+
+Following that is a display of the accumulator with its link bit. The next 
+line show the state of the extended arithmetic registers, the Step Counter 
+and the MQ.
+
+The next display shows some additional CPU state.  The "B" indicator is lit 
+if the EAE option is in mode B.  The "EAE Op" displays the relevant bits 
+that encode EAE operations that take more than a single clock.  The the 
+right of that, the "STA" bits encode information about the last IOT instruction.
+In particular, the leftmost bit will be set if no I/O device responded to the 
+last IOT.  If an I/O device did respond, this bit will be clear, and the I/O 
+device has the option of setting the other two bits.  (This is useful for 
+debugging the I/O devices.)
 
 The ADDRESS KEYS and DATA KEYS lines show the data input registers used to set
 data into the system. They are fully described in the next sections.
-
-The bottom line of the display is primarily a debug feature. It shows the state of 
-the 8 configuration switches and, on the green background the value of the last
-key-code received from the keyboard.
 
 
 
@@ -304,10 +314,11 @@ START key
 ---------
 
 The START key is used to begin execution of a program. START will copy the value
-in the ADDRESS KEYS register into the Program Counter, and execute the instruction
-at that address. Unless the HLT key is active, instruction execution will continue
-at full speed until stopped by a HALT instruction, a processor fault or the action
-of the STOP key.
+in the ADDRESS KEYS register into the Instruction Field, Data Field, and Program 
+Counter, Clear AC and Link, re-initialize the I/O devices (similar to the CAF
+instruction) and execute the instruction at that address. Unless the HLT key is 
+active, instruction execution will continue at full speed until stopped by a 
+HLT instruction, a processor fault or the action of the STOP key.
 
 
 CONT key
@@ -315,8 +326,8 @@ CONT key
 
 The CONT key resumes processor execution at the address in the Program Counter.
 Its operation is similar to the START key with the exception that the PC is not
-changed. If the HLT key is active, CONT will execute a single instruction before
-halting the processor
+changed and re-initialization is not performed.  If the HLT key is active, CONT 
+will execute a single instruction before halting the processor
 
 
 STOP key
@@ -325,37 +336,132 @@ STOP key
 Pressing the STOP key will halt the processor at the end of the current
 instruction. Continuation is possible using the CONT key.
 
-Pressing the STOP key down and keeping it down of a second or two will latch the
+Pressing the STOP key down and keeping it down for a second or two will latch the
 HLT key, in this state START and CONT will execute a single instruction before
-halting the processor.
+halting the processor.  In this mode, the "SI" indicator will appear in the 
+"down" position.  (Unfortunately, debugging in this mode is not as useful as 
+one might expect, since it will always stop in "Idle" state, in which no 
+information about the next instruction is yet available.)  To clear single 
+instruction mode, briefly press the STOP key again.
 
 
 STEP key
 --------
 
-Pressing the STEP key will set the SST or single step key on the panel. With this
-key active, the CONT key will allow the execution of a single processor cycle. 
-Instructions typically take 2 or more cycles to execute and this operation allows
-the individual cycles to be observed. A detailed knowledge of the internal 
-operation of the CPU is required to make sens of single cycle stepping.
-To clear single stepping press the STEP key a second time.
+Pressing the STEP key will toggle the SS or single step key on the panel. With 
+this key active, the CONT key will allow the execution of a single processor 
+cycle. Instructions typically take 2 or more cycles to execute and this 
+operation allows the individual cycles to be observed. A detailed knowledge 
+of the internal operation of the CPU is required to make sense of single 
+cycle stepping.  To clear single stepping press the STEP key a second time.
 
 
 
 Pre-Loaded Programs
 ===================
 
-After loading the FPGA, memory is preset to contain two test programs and the 
-RIM loader. These programs are not protected in any way and they can be 
-overwritten by any other program. In particular, the AC counter and Bouncing Bits
-test programs will be overwritten when the Binary Loader is loaded.
+After loading the FPGA, memory is preset to contain the RIM and BIN loaders, 
+and the Focal 1969 interpreter.  These programs are not protected in any way 
+and they can be overwritten by any other program.
+
+RIM loader
+----------
+A normal PDP/8 had no ROM memory, to load any software it was necessary to key in
+a small bootstrap which was used to load a tape in what is called RIM 
+(Read-In-Mode) format. This is quite an inefficient format with no error checking.
+The normal use of the RIM loader is to load the more capable Binary Loader, which 
+reads a more efficient coding scheme and performs checksums on the values read.
+
+In the PDP-8/V the RIM loader is preset in the memory when the FPGA is programmed.
+To start the RIM loader begin execution at 7756 : {Addr 7756 Start}
+
+The CPU will loop waiting for input from the console tape reader or equivalent.
+On the attached PC, send a file in raw 8-bit binary.
+
+BIN loader
+----------
+To start the Binary Loader begin execution at address 7777 with the data keys set
+to value 7777 for the console reader, or 0000 for the high-speed reader.
+
+Again the CPU will loop waiting for tape input. On the PC send the program you
+wish to run in raw 8-bit binary form.
+
+Most programs start execution at address 200, some require configuration or 
+parameter information to be set in the Data keys also : {Data xxx Addr 200 Start}
+
+FOCAL69
+-------
+Focal is an interactive language somewhat like BASIC. For an information about 
+the language see : 
+
+    http://www.cs.uiowa.edu/~jones/pdp8/focal/
+    http://bitsavers.org/pdf/dec/pdp8/DEC-08-AJBB-DL_AdvFocalTech.pdf  (3.7Mb)
+
+Some sample programs :
+
+    http://bitsavers.org/pdf/dec/decus/FOCAL8-69_AnalysisOfVarianc.pdf
+    http://bitsavers.org/pdf/dec/decus/FOCAL8-81_LunarLanding.pdf
+
+Start FOCAL at 200 : {Addr 200 Start}
+
+There will be a dialog on the TTY asking whether or not you want to keep various
+extended functions. Saying no increases the amount of memory for your programs.
+
+
+
+It can happen that an program overwrites the Binary and even the RIM loader. If
+this happens you have two choices, either reload the FPGA to restore the original
+preset values or type in the RIM loader manually.  It may also be that you want 
+the high speed version of RIM instead of the console verstion.  Here are the 
+sequences to load the two versions:
+
+Set the Addr to 7756 and deposit values as follows:
+
+    High Speed Version	Console Version
+    ------------------  ---------------
+    {Addr 7756 Data     {Addr 7756 Data 
+       6014 Dep		   6032 Dep
+       6011 Dep		   6031 Dep
+       5357 Dep		   5357 Dep
+       6016 Dep		   6036 Dep
+       7106 Dep		   7106 Dep
+       7006 Dep		   7006 Dep
+       7510 Dep		   7510 Dep
+       5374 Dep		   5357 Dep
+       7006 Dep		   7006 Dep
+       6011 Dep		   6031 Dep
+       5367 Dep		   5367 Dep
+       6016 Dep		   6034 Dep
+       7420 Dep		   7420 Dep
+       3776 Dep		   3776 Dep
+       3376 Dep		   3376 Dep
+       5357 Dep }	   5356 Dep }
+
+It is always good form to verify that the correct values have been loaded before
+execution, Type {Enter} and use {Next-Addr} to verify the sequence
+
+
+
+Other Programs
+==============
+
+Chess Program
+-------------
+This is a complete chess playing program which runs in 4K of PDP-8 memory!
+
+Load CHESS using the binary loader as explained above, start at location 200.
+
+CHESS will ask if you want to play white or black, reply 'B" (upper case)
+and CHESS will play the first move. To get a view of the board type *B when CHESS
+asks for your move.
+
 
 
 AC Counter
 ----------
 
-To examine this program type the sequence {Addr 7740 Load-Addr}
-Press {Next-Addr} to see subsequent locations, the program uses 5 memory words :
+To examine this program type the sequence {Addr 7740 Load-Addr}, then deposit
+the values below.  The program uses 5 memory words :
 
    Addr    Data             Assembler           Comment
    --------------------------------------------------------------------------
@@ -369,132 +475,7 @@ The program increments AC then delays by counting the word 7744 til it overflows
 and then jumps back to increment AC again.
 
 Run the program by typing {Addr 7740 Start}. Note the AC is incrementing, a real
-PDP-8/E runs about 10 times slower!
-
-
-Bouncing Bits
--------------
-
-This program is located at address 7700, it actually makes use of some 90% of the
-basic instruction set and is thus quite a good indicator that the system is 
-functioning correctly.
-
-If the processor is running, press {Stop} to halt it.
-
-Type {Addr 7700} to set Addr to the start address
-Type {Data  5} to set the data value to 5.
-Type {Start} to begin execution
-
-The value 5 will appear in the accumulator and will begin shifting left until the
-leftmost bit reaches the Link, then the direction changes and the pattern is 
-shifted right til the right-most bit reaches bit 12 of the AC when the direction
-is changed yet again.
-
-Thus the pattern initially loaded into the data register will be "bounced" left
-and right in the AC.
-
-
-RIM loader
-----------
-
-A normal PDP/8 had no ROM memory, to load any software it was necessary to key in
-a small bootstrap which was used to load a tape in what is called RIM 
-(Read-In-Mode) format. This is quite an inefficient format with no error checking.
-Normally the first program loaded was a more capable Binary Loader which read a  
-more efficient coding scheme and performed checksums on the values read.
-
-In the PDP-8/V the RIM loader is preset in the memory when the FPGA is programmed.
-To start the RIM loader begin execution at 7756 : {Addr 7756 Start}
-
-The CPU will loop waiting for input form the paper tape reader or equivalent.
-On the attached PC, send the file BINLOAD.
-
-The RIM loader is not very smart and continues to try and read tape data even
-after the tape has ended. Stop the processor and verify that the load succeeded
-by checking the value at address 7777 : {Stop Addr 7777 Enter} The value in MB 
-should read 5301.
-
-Once the Binary loader is installed, it is normally preserved by most programs
-so you will not need to reload it too often.
-
-To start the Binary Loader begin execution at address 7777 with the data keys set
-to value 0 : {Data Addr 7777 Start}
-
-Again the CPU will loop waiting for tape input. On the PC send the program you
-wish to run
-
-When a tape is sent form the attached PC, a short text is displayed indicating
-what the program is and, usually how to start it. The loading process can be 
-terminated by typing Esc on the PC keyboard.
-
-Most programs start execution at address 200, some require configuration or 
-parameter information to be set in the Data keys also : {Data xxx Addr 200 Start}
-
-
-It can happen that an program overwrites the Binary and even the RIM loader. If
-this happens you have two choices, either reload the FPGA to restore the original
-preset values or type in the RIM loader manually. Here is the sequence :
-
-Set the Addr to 7756 and deposit values as follows:
-
-    {Addr 7756 Data 
-       6014 Dep
-       6011 Dep
-       5357 Dep
-       6016 Dep
-       7106 Dep
-       7006 Dep
-       7510 Dep
-       5374 Dep
-       7006 Dep
-       6011 Dep
-       5367 Dep
-       6016 Dep
-       7420 Dep
-       3776 Dep
-       3376 Dep
-       5357 Dep }
-
-It is always good form to verify that the correct values have been loaded before
-execution, Type {Enter} and use {Next-Addr} to verify the sequence
-
-
-Chess Program
--------------
-
-This is a complete chess playing program which runs in 4K of PDP-8 memory!
-
-Load CHESS using the binary loader as explained above, start at location 200.
-
-CHESS will ask if you want to play white or black, reply 'B" (upper case)
-and CHESS will play the first move. To get a view of the board type *B when CHESS
-asks for your move.
-
-
-FOCAL69
--------
-
-Focal is an interactive language somewhat like BASIC. For an information about 
-the language see : 
-
-    http://www.cs.uiowa.edu/~jones/pdp8/focal/
-    http://bitsavers.org/pdf/dec/pdp8/DEC-08-AJBB-DL_AdvFocalTech.pdf  (3.7Mb)
-
-Some sample programs :
-
-    http://bitsavers.org/pdf/dec/decus/FOCAL8-69_AnalysisOfVarianc.pdf
-    http://bitsavers.org/pdf/dec/decus/FOCAL8-81_LunarLanding.pdf
-
-
-To load FOCAL69, start BINLOAD : {Data Addr 7777 Start}
-Type FOCAL69 at the PC, wait for the cpu to stop, verify that AC = 0.
-Type {Cont}, to load the second part, verify that AC is zero again when the CPU
-stops
-
-Start FOCAL at 200 : {Addr 200 Start}
-
-There will be a dialog on the TTY asking whether or not you want to keep various
-extended functions. Saying no increases the amount of memory for your programs
+PDP-8/E runs about 6.5 times slower!
 
 
 

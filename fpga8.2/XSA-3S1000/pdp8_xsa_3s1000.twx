@@ -32,10 +32,10 @@
 <!ELEMENT twProc (#PCDATA)>
 <!ELEMENT twTemp (#PCDATA)>
 <!ELEMENT twVolt (#PCDATA)>
-<!ELEMENT twSumRpt (twConstList?, twUnmetConstCnt?, twDebug*, twDataSheet?, twClkTbl?)>
-<!ELEMENT twErrRpt (twCycles?, (twConst | twTIG)*, twUnmetConstCnt?, twDataSheet?, twClkTbl?, twTimeGrp*)>
-<!ELEMENT twTerseErrRpt (twConstList, twUnmetConstCnt?, twDataSheet?, twClkTbl?)>
-<!ELEMENT twVerboseRpt (twCycles?, (twConst | twTIG)*, twUnmetConstCnt?, twDataSheet?, twClkTbl?, twTimeGrp*)>
+<!ELEMENT twSumRpt (twConstList?, twConstSummaryTable?, twUnmetConstCnt?, twDebug*, twDataSheet?)>
+<!ELEMENT twErrRpt (twCycles?, (twConst | twTIG)*, twUnmetConstCnt?, twDataSheet?, twTimeGrp*)>
+<!ELEMENT twTerseErrRpt (twConstList, twUnmetConstCnt?, twDataSheet?)>
+<!ELEMENT twVerboseRpt (twCycles?, (twConst | twTIG)*, twUnmetConstCnt?, twDataSheet?, twTimeGrp*)>
 <!ELEMENT twCycles (twSigConn+)>
 <!ATTLIST twCycles twNum CDATA #REQUIRED>
 <!ELEMENT twSigConn (twSig, twDriver, twLoad)>
@@ -74,7 +74,6 @@
 <!ELEMENT twDel (#PCDATA)>
 <!ELEMENT twSUTime (#PCDATA)>
 <!ELEMENT twTotPathDel (#PCDATA)>
-<!ELEMENT twClkSkew (#PCDATA)>
 <!ELEMENT twClkSkew (#PCDATA)>
 <!ELEMENT twConstPath (twSlack, twSrc, twDest, twTotPathDel?, twClkSkew?, twDelConst, tw2Phase?, twClkUncert?, twDetPath?)>
 <!ATTLIST twConstPath twDataPathType CDATA "twDataPathMaxDelay">
@@ -153,6 +152,17 @@
 <!ELEMENT twNotMet EMPTY>
 <!ELEMENT twReqVal (#PCDATA)>
 <!ELEMENT twActVal (#PCDATA)>
+<!ELEMENT twConstSummaryTable (twConstStats)*>
+<!ATTLIST twConstSummaryTable twEmptyConstraints CDATA #IMPLIED>
+<!ELEMENT twConstStats (twConstName)>
+<!ATTLIST twConstStats twUnits (twTime | twFreq) "twTime">
+<!ATTLIST twConstStats twRequired CDATA #IMPLIED>
+<!ATTLIST twConstStats twActual CDATA #IMPLIED>
+<!ATTLIST twConstStats twSlack CDATA #IMPLIED>
+<!ATTLIST twConstStats twLogLvls CDATA #IMPLIED>
+<!ATTLIST twConstStats twErrors CDATA #IMPLIED>
+<!ATTLIST twConstStats twPCFIndex CDATA #IMPLIED>
+<!ATTLIST twConstStats twAbsSlackIndex CDATA #IMPLIED>
 <!ELEMENT twTimeGrp (twTimeGrpName, twCompList?, twBELList?, twMacList?, twBlockList?, twSigList?, twPinList?)>
 <!ELEMENT twTimeGrpName (#PCDATA)>
 <!ELEMENT twCompList (twCompName+)>
@@ -168,12 +178,12 @@
 <!ELEMENT twPinList (twPinName+)>
 <!ELEMENT twPinName (#PCDATA)>
 <!ELEMENT twUnmetConstCnt (#PCDATA)>
-<!ELEMENT twDataSheet (twSUH2ClkList*, (twClk2PadList|twClk2OutList)*, twClk2SUList*, twPad2PadList?)>
+<!ELEMENT twDataSheet (twSUH2ClkList*, (twClk2PadList|twClk2OutList)*, twClk2SUList*, twPad2PadList?, twOffsetTables?)>
 <!ATTLIST twDataSheet twNameLen CDATA #REQUIRED>
 <!ELEMENT twSUH2ClkList (twDest, twSUH2Clk+)>
 <!ATTLIST twSUH2ClkList twDestWidth CDATA #IMPLIED>
 <!ATTLIST twSUH2ClkList twPhaseWidth CDATA #IMPLIED>
-<!ELEMENT twSUH2Clk (twSrc, twSUHTime, twSUHTime?)>
+<!ELEMENT twSUH2Clk (twSrc, twSUHTime, twSUHTime?)> 
 <!ELEMENT twSUHTime (twSU2ClkTime?,twH2ClkTime?)>
 <!ATTLIST twSUHTime twInternalClk CDATA #IMPLIED>
 <!ATTLIST twSUHTime twClkPhase CDATA #IMPLIED>
@@ -207,6 +217,28 @@
 <!ATTLIST twPad2PadList twSrcWidth CDATA #IMPLIED>
 <!ATTLIST twPad2PadList twDestWidth CDATA #IMPLIED>
 <!ELEMENT twPad2Pad (twSrc, twDest, twDel)>
+<!ELEMENT twOffsetTables (twOffsetInTable*,twOffsetOutTable*)>
+<!ELEMENT twOffsetInTable (twConstName, twOffInTblRow*)>
+<!ATTLIST twOffsetInTable twDestWidth CDATA #IMPLIED>
+<!ATTLIST twOffsetInTable twWorstSetup CDATA #IMPLIED>
+<!ATTLIST twOffsetInTable twWorstHold CDATA #IMPLIED>
+<!ATTLIST twOffsetInTable twWorstSetupSlack CDATA #IMPLIED>
+<!ATTLIST twOffsetInTable twWorstHoldSlack CDATA #IMPLIED>
+<!ELEMENT twOffsetOutTable (twOffOutTblRow*)>
+<!ATTLIST twOffsetOutTable twDestWidth CDATA #IMPLIED>
+<!ATTLIST twOffsetOutTable twMinSlack CDATA #IMPLIED>
+<!ATTLIST twOffsetOutTable twMaxSlack CDATA #IMPLIED>
+<!ATTLIST twOffsetOutTable twRelSkew CDATA #IMPLIED>
+<!ELEMENT twOffInTblRow (twSUHSlackTime*)>       
+<!ELEMENT twSUHSlackTime (twSU2ClkTime?,twH2ClkTime?)>
+<!ATTLIST twSUHSlackTime twSetupRiseSlack CDATA #IMPLIED>
+<!ATTLIST twSUHSlackTime twSetupFallSlack CDATA #IMPLIED>
+<!ATTLIST twSUHSlackTime twHoldRiseSlack CDATA #IMPLIED>
+<!ATTLIST twSUHSlackTime twHoldFallSlack CDATA #IMPLIED>
+<!ELEMENT twOffOutTblRow EMPTY>
+<!ATTLIST twOffOutTblRow twOutPad CDATA #IMPLIED>
+<!ATTLIST twOffOutTblRow twSlack CDATA #IMPLIED>
+<!ATTLIST twOffOutTblRow twRelSkew CDATA #IMPLIED>
 <!ELEMENT twNonDedClks ((twWarn | twInfo), twNonDedClk+)>
 <!ELEMENT twNonDedClk (#PCDATA)>
 <!ELEMENT twSum ( twErrCnt, twScore, twConstCov, twStats)>
@@ -237,12 +269,10 @@
 <!ELEMENT twName (#PCDATA)>
 <!ELEMENT twValue (#PCDATA)>
 ]>
-<twReport><twHead><twExecVer>Release 7.1.04i Trace H.42</twExecVer><twCopyright>Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.</twCopyright><twCmdLine>G:/Xilinx_ISE_7.1i/bin/nt/trce.exe -ise
-g:\vhdl\pdp8-v_1.24\v124\xsa-3s1000\XSA-3S1000.ise -intstyle ise -e 3 -l 3 -a
--s 5 -xml pdp8_xsa_3s1000 pdp8_xsa_3s1000.ncd -o pdp8_xsa_3s1000.twr
-pdp8_xsa_3s1000.pcf
+<twReport><twHead><twExecVer>Release 8.1i Trace I.24</twExecVer><twCopyright>Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.</twCopyright><twCmdLine>C:\Xilinx\bin\nt\trce.exe -ise XSA-3S1000.ise -intstyle ise -e 3 -l 3 -s 4 -xml
+PDP8_XSA_3S1000 PDP8_XSA_3S1000.ncd -o PDP8_XSA_3S1000.twr PDP8_XSA_3S1000.pcf
 
-</twCmdLine><twDesign>pdp8_xsa_3s1000.ncd</twDesign><twPCF>pdp8_xsa_3s1000.pcf</twPCF><twDevInfo arch="spartan3"><twDevName>xc3s1000</twDevName><twSpeedGrade>-5</twSpeedGrade><twSpeedVer>PRODUCTION 1.37 2005-07-22</twSpeedVer></twDevInfo><twRptInfo twRptLvl="twErr" twAdvRpt="TRUE"></twRptInfo><twEnvVar name="NONE" description="No environment variables were set" /></twHead><twInfo>INFO:Timing:2700 - Timing constraints ignored because advanced analysis with offsets was specified.</twInfo><twInfo>INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths option. All paths that are not constrained will be reported in the unconstrained paths section(s) of the report.</twInfo><twBody><twErrRpt><twConst twConstType="twPathConst"><twConstHead><twConstName>Default period analysis for net &quot;dotclk&quot;</twConstName><twItemCnt>136150</twItemCnt><twErrCntSetup>0</twErrCntSetup><twErrCntHold twRaceChecked="TRUE">0</twErrCntHold><twMinPer>21.932</twMinPer></twConstHead></twConst><twConst twConstType="twPathConst"><twConstHead><twConstName>Default OFFSET IN BEFORE analysis for clock &quot;dotclk&quot;</twConstName><twItemCnt>322</twItemCnt><twErrCntSetup>284</twErrCntSetup><twErrCntHold twRaceChecked="TRUE">0</twErrCntHold><twMinOff>12.528</twMinOff></twConstHead></twConst><twConst twConstType="twPathConst"><twConstHead><twConstName>Default OFFSET OUT AFTER analysis for clock &quot;dotclk&quot;</twConstName><twItemCnt>12</twItemCnt><twErrCntSetup>0</twErrCntSetup><twErrCntHold twRaceChecked="FALSE">0</twErrCntHold><twMaxOff>9.397</twMaxOff></twConstHead></twConst><twUnmetConstCnt>0</twUnmetConstCnt><twDataSheet twNameLen="15"><twSUH2ClkList twDestWidth = "9" twPhaseWidth = "6"><twDest>CLK100</twDest><twSUH2Clk ><twSrc>PS2_CLK</twSrc><twSUHTime twInternalClk ="dotclk" twClkPhase ="0.000" ><twSU2ClkTime twEdge="twRising">7.199</twSU2ClkTime><twH2ClkTime twEdge="twRising">-0.600</twH2ClkTime></twSUHTime></twSUH2Clk><twSUH2Clk ><twSrc>PS2_DAT</twSrc><twSUHTime twInternalClk ="dotclk" twClkPhase ="0.000" ><twSU2ClkTime twEdge="twRising">7.156</twSU2ClkTime><twH2ClkTime twEdge="twRising">-2.169</twH2ClkTime></twSUHTime></twSUH2Clk><twSUH2Clk ><twSrc>RS232_RXD</twSrc><twSUHTime twInternalClk ="dotclk" twClkPhase ="0.000" ><twSU2ClkTime twEdge="twRising">8.377</twSU2ClkTime><twH2ClkTime twEdge="twRising">-1.832</twH2ClkTime></twSUHTime></twSUH2Clk><twSUH2Clk ><twSrc>SW2_N</twSrc><twSUHTime twInternalClk ="dotclk" twClkPhase ="0.000" ><twSU2ClkTime twEdge="twRising">12.528</twSU2ClkTime><twH2ClkTime twEdge="twRising">-3.521</twH2ClkTime></twSUHTime></twSUH2Clk></twSUH2ClkList><twClk2OutList twDestWidth = "12" twPhaseWidth = "6"><twSrc>CLK100</twSrc><twClk2Out  twOutPad = "RS232_TXD" twMinTime = "3.316" twMinEdge ="twRising" twMaxTime = "4.555" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_BLUE&lt;0&gt;" twMinTime = "4.419" twMinEdge ="twRising" twMaxTime = "5.950" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_BLUE&lt;1&gt;" twMinTime = "4.927" twMinEdge ="twRising" twMaxTime = "6.585" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_BLUE&lt;2&gt;" twMinTime = "5.670" twMinEdge ="twRising" twMaxTime = "7.513" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_GREEN&lt;0&gt;" twMinTime = "4.303" twMinEdge ="twRising" twMaxTime = "5.807" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_GREEN&lt;1&gt;" twMinTime = "4.873" twMinEdge ="twRising" twMaxTime = "6.519" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_GREEN&lt;2&gt;" twMinTime = "5.201" twMinEdge ="twRising" twMaxTime = "6.930" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_HSYNC_N" twMinTime = "4.550" twMinEdge ="twRising" twMaxTime = "6.114" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_RED&lt;0&gt;" twMinTime = "4.696" twMinEdge ="twRising" twMaxTime = "6.295" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_RED&lt;1&gt;" twMinTime = "5.192" twMinEdge ="twRising" twMaxTime = "6.915" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_RED&lt;2&gt;" twMinTime = "7.177" twMinEdge ="twRising" twMaxTime = "9.397" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out><twClk2Out  twOutPad = "VGA_VSYNC_N" twMinTime = "4.616" twMinEdge ="twRising" twMaxTime = "6.200" twMaxEdge ="twRising" twInternalClk="dotclk" twClkPhase="0.000" ></twClk2Out></twClk2OutList><twClk2SUList twDestWidth = "6"><twDest>CLK100</twDest><twClk2SU><twSrc>CLK100</twSrc><twRiseRise>16.335</twRiseRise><twFallRise>9.632</twFallRise><twRiseFall>10.966</twRiseFall><twFallFall>13.208</twFallFall></twClk2SU></twClk2SUList></twDataSheet></twErrRpt></twBody><twSum><twErrCnt>0</twErrCnt><twScore>0</twScore><twConstCov><twPathCnt>136484</twPathCnt><twNetCnt>0</twNetCnt><twConnCnt>13300</twConnCnt></twConstCov><twStats><twMinPer>21.932</twMinPer><twMaxFreq>45.595</twMaxFreq><twMinInBeforeClk>12.528</twMinInBeforeClk><twMaxOutBeforeClk>9.397</twMaxOutBeforeClk></twStats></twSum><twFoot><twTimestamp>Mon Feb 19 00:34:33 2007</twTimestamp></twFoot><twClientInfo><twClientName>Trace</twClientName><twAttrList><twAttrListItem><twName>Trace Settings</twName><twValue>
+</twCmdLine><twDesign>pdp8_xsa_3s1000.ncd</twDesign><twPCF>pdp8_xsa_3s1000.pcf</twPCF><twDevInfo arch="spartan3"><twDevName>xc3s1000</twDevName><twSpeedGrade>-4</twSpeedGrade><twSpeedVer>PRODUCTION 1.37 2005-11-04</twSpeedVer></twDevInfo><twRptInfo twRptLvl="twErr"></twRptInfo><twEnvVar name="NONE" description="No environment variables were set" /></twHead><twInfo>INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths option. All paths that are not constrained will be reported in the unconstrained paths section(s) of the report.</twInfo><twBody><twErrRpt><twConst twConstType="twPathConst"><twConstHead><twConstName>TS_clk = PERIOD TIMEGRP &quot;CLK100&quot; 10 ns HIGH 50%;</twConstName><twItemCnt>0</twItemCnt><twErrCntSetup>0</twErrCntSetup><twErrCntHold twRaceChecked="FALSE">0</twErrCntHold></twConstHead></twConst><twConst twConstType="twPathConst"><twConstHead><twConstName>TS_clks_CLKDV = PERIOD TIMEGRP &quot;clks_CLKDV&quot; TS_clk * 4 HIGH 50%;</twConstName><twItemCnt>112107</twItemCnt><twErrCntSetup>0</twErrCntSetup><twErrCntHold twRaceChecked="TRUE">0</twErrCntHold><twMinPer>29.570</twMinPer></twConstHead></twConst><twUnmetConstCnt>0</twUnmetConstCnt><twDataSheet twNameLen="15"><twClk2SUList twDestWidth = "6"><twDest>CLK100</twDest><twClk2SU><twSrc>CLK100</twSrc><twRiseRise>18.512</twRiseRise><twFallRise>14.785</twFallRise><twRiseFall>13.789</twRiseFall><twFallFall>17.539</twFallFall></twClk2SU></twClk2SUList><twOffsetTables></twOffsetTables></twDataSheet></twErrRpt></twBody><twSum><twErrCnt>0</twErrCnt><twScore>0</twScore><twConstCov><twPathCnt>112107</twPathCnt><twNetCnt>0</twNetCnt><twConnCnt>13696</twConnCnt></twConstCov><twStats><twMinPer>29.570</twMinPer><twMaxFreq>33.818</twMaxFreq></twStats></twSum><twFoot><twTimestamp>Tue Mar 06 10:12:58 2007</twTimestamp></twFoot><twClientInfo><twClientName>Trace</twClientName><twAttrList><twAttrListItem><twName>Trace Settings</twName><twValue>
 
-Peak Memory Usage: 117 MB
+Peak Memory Usage: 142 MB
 </twValue></twAttrListItem></twAttrList></twClientInfo></twReport>

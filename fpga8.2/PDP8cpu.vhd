@@ -216,8 +216,19 @@ begin  -- rtl
 
 	    if CPUcontrol(CPUstart) = '1' then
                pc <= CPUcontrol(CPUaddr-3 downto CPUaddr - 14) + 1;
-	       ifld <= CPUcontrol(CPUaddr downto CPUaddr - 2);
+               ifld <= CPUcontrol(CPUaddr downto CPUaddr - 2);
+               -- Copy ifld to ibuf and dfld, too.  2/25/2007 by vrs
+               ibuf <= CPUcontrol(CPUaddr downto CPUaddr - 2);
+               dfld <= CPUcontrol(CPUaddr downto CPUaddr - 2);
+               -- End "Copy ifld"
                ma <= CPUcontrol(CPUaddr downto CPUaddr - 14);
+               -- Lifted from CAF 2/25/2007 by vrs
+               lac <= (others => '0');
+               pie <= "000";
+               EAEmode <= '0';
+               userint <= '0';
+               IOCaf <= '0';
+               -- End "Lifted from CAF"
             else
                pc <= pc + 1;
                ma <= ifld & pc;
@@ -890,12 +901,22 @@ begin  -- rtl
       when EAESTEP => 
       
          if EAEop(1) = '0' then
+--          Moved up 2/28/2007 by vrs
+            EAEscnt <= EAEscnt + 1;
+--          End "Moved up"
             if EAEscnt = "11111" then
 	       noshift := EAEmode;
 	       R_etat <= CHERCHE;
+--             Kludge EAEscnt for mode B 2/28/2007 by vrs
+               if EAEop(0) = '1' then
+                   EAEscnt <= EAEscnt;
+               end if;
+--             End "Kludge EAEscnt"
 	    end if;
 	 
-            EAEscnt <= EAEscnt + 1;
+--          Moved up 2/28/2007 by vrs
+--          EAEscnt <= EAEscnt + 1; moved up vrs
+--          End "Moved up"
 	 end if;
 	 
          case EAEop(1 to 4) is
