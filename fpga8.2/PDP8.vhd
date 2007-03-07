@@ -12,60 +12,6 @@ constant CPUversion : std_logic_vector (0 to 11) := o"0124";
 constant CPUcontrolLength : integer := 33;
 constant CPUstateLength :   integer := 108;
 
-component PDP8cpu
-   Port (
-      clk : in std_logic;
-      reset: in std_logic;
-
-      -- Memory Interface
-
-      MEMrd : out std_logic;
-      MEMwr : out std_logic;
-      MEMdone : in std_logic;
-      MEMbusreq : in std_logic;
-      MEMbusgrant : out std_logic;
-      MEMaddr : out std_logic_vector (0 to 14);
-      MEMwdata : out std_logic_vector (0 to 11);
-      MEMrdata : in std_logic_vector (0 to 11);
-
-      -- IO interface
-      IOinterrupt : in std_logic;
-      IOstart : out std_logic;
-      IOcaf : out std_logic;
-
-      IOwdata : out std_logic_vector (0 to 11);
-      IOaddr : out std_logic_vector (0 to 5);
-      IOiop : out std_logic_vector (0 to 2);
-
-      IOdevstatus : in std_logic_vector (0 to 1);
-      IOrdata : in std_logic_vector (0 to 11);
-      IOdone : in std_logic;
-      IOskip : in std_logic;
-
-      -- Panel interface
-
-      CPUcontrol : in std_logic_vector (CPUcontrolLength downto 0);
-      CPUstate : out std_logic_vector (CPUstateLength downto 0)
-   );
-end component PDP8cpu;
-
-
-component PDP8mem
-    Port (
-       clk : in std_logic;
-       reset : in std_logic;
-
-       MEMrd : in std_logic;
-       MEMwr : in std_logic;
-       MEMdone : out std_logic;
-       MEMaddr : in std_logic_vector (0 to 14);
-       MEMwdata : in std_logic_vector (0 to 11);
-       MEMrdata : out std_logic_vector (0 to 11);
-       
-       MEMromselect : in std_logic_vector (2 downto 0)
-    );
-end component PDP8mem;
-
 component DRAM is
   port (
       clk : in std_logic;

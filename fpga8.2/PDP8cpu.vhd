@@ -14,74 +14,73 @@ entity PDP8cpu is
 
       -- Memory Interface
 
-      MEMrd : out std_logic;
-      MEMwr : out std_logic;
-      MEMdone : in std_logic;
-      MEMbusreq : in std_logic;
+      MEMrd       : out std_logic;
+      MEMwr       : out std_logic;
+      MEMdone     : in  std_logic;
+      MEMbusreq   : in  std_logic;
       MEMbusgrant : out std_logic;
-      MEMaddr : out std_logic_vector (0 to 14);
-      MEMwdata : out std_logic_vector (0 to 11);
-      MEMrdata : in std_logic_vector (0 to 11);
+      MEMaddr     : out std_logic_vector (0 to 14);
+      MEMwdata    : out std_logic_vector (0 to 11);
+      MEMrdata    : in  std_logic_vector (0 to 11);
 
       -- IO interface
-      IOinterrupt : in std_logic;
-      IOstart : out std_logic;
-      IOcaf : out std_logic;
-      
-      IOwdata : out std_logic_vector (0 to 11);
-      IOaddr : out std_logic_vector (0 to 5);
-      IOiop : out std_logic_vector (0 to 2);
+      IOstart     : out std_logic;
+      IOcaf       : out std_logic;      
+      IOwdata     : out std_logic_vector (0 to 11);
+      IOaddr      : out std_logic_vector (0 to 5);
+      IOiop       : out std_logic_vector (0 to 2);
 
-      IOdone : in std_logic;
-      IOskip : in std_logic;
-      IOrdata : in std_logic_vector (0 to 11);
-      IOdevstatus : in std_logic_vector (0 to 1);
+      IOinterrupt : in  std_logic;
+      IOdone      : in  std_logic;
+      IOskip      : in  std_logic;
+      IOrdata     : in  std_logic_vector (0 to 11);
+      IOdevstatus : in  std_logic_vector (0 to 1);
       
       -- Panel interface
 
-      CPUcontrol : in std_logic_vector (CPUcontrolLength downto 0);
-      CPUstate : out std_logic_vector (CPUstateLength downto 0)
+      CPUcontrol  : in  std_logic_vector (CPUcontrolLength downto 0);
+      CPUstate    : out std_logic_vector (CPUstateLength downto 0)
     );
 end PDP8cpu;
 
 architecture rtl  of PDP8cpu  is
 
-    signal ma : std_logic_vector (0 to 14);     -- registre d'adresse memoire
-    signal mb : std_logic_vector (0 to 11);     -- registre entree/sortie du memoire
-    signal mrd : std_logic;                    -- Signale pour lancer un cycle de lecture du memoire
-    signal mwr : std_logic;                    -- Signale pour lancer un cycle d'ecriture du memoire
-    signal mbusgrant : std_logic;
-    signal lastMdone : std_logic;
+    signal ma         : std_logic_vector (0 to 14); -- registre d'adresse memoire
+    signal mb         : std_logic_vector (0 to 11); -- registre entree/sortie du memoire
+    signal mrd        : std_logic;                  -- Signale pour lancer un cycle de lecture du memoire
+    signal mwr        : std_logic;                  -- Signale pour lancer un cycle d'ecriture du memoire
+    signal mbusgrant  : std_logic;
+    signal lastMdone  : std_logic;
     
-    signal io_addr : std_logic_vector (0 to 5);
-    signal io_iop : std_logic_vector (0 to 2);
-    signal io_start : std_logic;
+    signal io_addr    : std_logic_vector (0 to 5);
+    signal io_iop     : std_logic_vector (0 to 2);
+    signal io_start   : std_logic;
     signal io_timeout : std_logic;
 
-    signal pc : std_logic_vector (0 to 11);     -- registre instruction suivante
-    signal ir : std_logic_vector(0 to 2);      -- instruction en cours
-    signal lac : std_logic_vector(0 to 12);    -- registre accu avec link
-    signal mq : std_logic_vector (0 to 11);     -- registre MQ (EAE)
-    signal fault : std_logic;
-    signal run : std_logic;
-    signal pie : std_logic_vector (0 to 2);
+    signal pc         : std_logic_vector(0 to 11); -- registre instruction suivante
+    signal ir         : std_logic_vector(0 to 2);  -- instruction en cours
+    signal lac        : std_logic_vector(0 to 12); -- registre accu avec link
+    signal mq         : std_logic_vector(0 to 11); -- registre MQ (EAE)
+    signal fault      : std_logic;
+    signal run        : std_logic;
+    signal pie        : std_logic_vector (0 to 2);
     signal laststatus : std_logic_vector (0 to 1);
-    signal defer : std_logic;
+    signal defer      : std_logic;
     
-    signal ibuf : std_logic_vector(0 to 2);
-    signal ifld : std_logic_vector(0 to 2);
-    signal dfld : std_logic_vector(0 to 2);
-    signal iinhibit : std_logic;
-    signal savfld : std_logic_vector(0 to 6);
+    signal ibuf       : std_logic_vector(0 to 2);
+    signal ifld       : std_logic_vector(0 to 2);
+    signal dfld       : std_logic_vector(0 to 2);
+    signal iinhibit   : std_logic;
+    signal savfld     : std_logic_vector(0 to 6);
 
-    signal userflag : std_logic;
-    signal ubuf : std_logic;
-    signal userint : std_logic;
+    signal userflag   : std_logic;
+    signal ubuf       : std_logic;
+    signal userint    : std_logic;
 
-    signal EAEmode : std_logic;
-    signal EAEop : std_logic_vector (0 to 4);
-    signal EAEscnt : std_logic_vector (0 to 4);
-    signal EAEgtf : std_logic;
+    signal EAEmode    : std_logic;
+    signal EAEop      : std_logic_vector (0 to 4);
+    signal EAEscnt    : std_logic_vector (0 to 4);
+    signal EAEgtf     : std_logic;
     
    type PROC_ETAT is (
       IDLE,
@@ -120,11 +119,15 @@ begin  -- rtl
             MEMwdata <= mb;
             MEMaddr <= ma;
          else
-            MEMrd <= 'Z';
-            MEMwr <= 'Z';
-            MEMaddr <= (others => 'Z');
-            MEMwdata <= (others => 'Z');
-	 end if;
+--            MEMrd <= 'Z';
+--            MEMwr <= 'Z';
+--            MEMaddr <= (others => 'Z');
+--            MEMwdata <= (others => 'Z');
+            MEMrd <= '1';
+            MEMwr <= '1';
+            MEMaddr <= (others => '1');
+            MEMwdata <= (others => '1');
+			end if;
       end if;
    end process mem_if;   
    
@@ -170,7 +173,8 @@ begin  -- rtl
 
       lastMdone <= MEMdone;
       
-      IOcaf <= 'Z';
+--      IOcaf <= 'Z';
+      IOcaf <= '1';
       
       if fault = '1' then
       

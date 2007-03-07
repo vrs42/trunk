@@ -5,23 +5,20 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity PDP8mem is
     Port (
-       clk : in std_logic;
-       reset : in std_logic;
+       clk      : in std_logic;
+       reset    : in std_logic;
 
-       MEMrd : in std_logic;
-       MEMwr : in std_logic;
-       MEMdone : out std_logic;
-       MEMaddr : in std_logic_vector (0 to 14);
-       MEMwdata : in std_logic_vector (0 to 11);
-       MEMrdata : out std_logic_vector (0 to 11);
-
-       MEMromselect : in std_logic_vector (2 downto 0)
+       MEMrd    : in  std_logic;
+       MEMwr    : in  std_logic;
+       MEMdone  : out std_logic;
+       MEMaddr  : in  std_logic_vector (0 to 14);
+       MEMwdata : in  std_logic_vector (0 to 11);
+       MEMrdata : out std_logic_vector (0 to 11)
     );
 end PDP8mem;
 
 architecture rtl of PDP8mem is
    signal we : std_logic;
-   signal zero_nibble : std_logic_vector(3 downto 0);
 
    signal dout0 : std_logic_vector (0 to 11);
    signal dout1 : std_logic_vector (0 to 11);
@@ -40,7 +37,6 @@ architecture rtl of PDP8mem is
    signal ena5 : std_logic;
    signal ena6 : std_logic;
    signal ena7 : std_logic;
-   signal enarom : std_logic;
 
    signal MEMpending : std_logic;
 
@@ -552,8 +548,10 @@ begin
          ena6 <= '0';
          ena7 <= '0';
          we <= '0';
-         MEMdone <= 'Z';
-	      MEMrdata <= (others => 'Z');
+--         MEMdone <= 'Z';
+--         MEMrdata <= (others => 'Z');
+         MEMdone <= '1';
+	      MEMrdata <= (others => '1');
 
   elsif clk'event AND (clk = '0') then
     if MEMpending = '1' then
@@ -590,8 +588,10 @@ begin
 	       ena5 <= '0';
 	       ena6 <= '0';
 	       ena7 <= '0';
-          MEMdone <= 'Z';
-          MEMrdata <= (others => 'Z');
+--          MEMdone  <= 'Z';
+--          MEMrdata <= (others => 'Z');
+          MEMdone  <= '1';
+          MEMrdata <= (others => '1');
       end if;
     elsif ((MEMrd xor MEMwr) = '1') then
             case MEMaddr(0 to 2) is
