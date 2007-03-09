@@ -1,0 +1,311 @@
+
+# UCF for Burched B5X300 board
+
+# Assumes : 
+#         SRAM                    A-B
+#         DIP switches            C
+#         CFlash                  E-F  
+# 	  IO module 		  G
+#         Parallel port           H
+
+#                   SRAM
+#                    | |  
+#                   -- --
+#    DIP sw === |C   A-B   H| ===  Parallel port & download
+#
+#    LEDs   === |D   E-F   G| ===  IOmodule
+#	            -- -- 
+#                    | |
+#                  C-flash
+
+# Fixed pins on the Burched B5X300 board
+
+NET "pbutton" LOC = "P57"  ;
+NET "pbutton" IOSTANDARD = LVTTL;
+
+NET "clkin" LOC = "p77"  ;
+NET "clkin" IOSTANDARD = LVTTL;
+
+NET "led" LOC = "P82" ;
+NET "led" IOSTANDARD = LVTTL;
+
+# Connector G : Peripheral connection module
+
+NET "vgavsync" LOC = "p160";
+NET "vgavsync" IOSTANDARD = LVTTL;
+NET "vgahsync" LOC = "p161"  ;
+NET "vgahsync" IOSTANDARD = LVTTL;
+NET "vgablue0" LOC = "p162"  ;
+NET "vgablue0" IOSTANDARD = LVTTL;
+NET "vgablue1" LOC = "p163"  ;
+NET "vgablue1" IOSTANDARD = LVTTL;
+NET "vgagreen0" LOC = "p164"  ;
+NET "vgagreen0" IOSTANDARD = LVTTL;
+NET "vgagreen1" LOC = "p165"  ;
+NET "vgagreen1" IOSTANDARD = LVTTL;
+NET "vgared0" LOC = "p166"  ;
+NET "vgared0" IOSTANDARD = LVTTL;
+NET "vgared1" LOC = "p167"  ;
+NET "vgared1" IOSTANDARD = LVTTL;
+
+NET "ps2kbclk" LOC = "p168"  ;
+NET "ps2kbclk" IOSTANDARD = LVTTL;
+NET "ps2kbdata" LOC = "p169"  ;
+NET "ps2kbdata" IOSTANDARD = LVTTL;
+
+# NET "ps2mclk" LOC = "p173"  ;
+# NET "ps2mclk" IOSTANDARD = LVTTL;
+# NET "ps2mdata" LOC = "p174"  ;
+# NET "ps2mdata" IOSTANDARD = LVTTL;
+
+# NET "BUZZER" LOC = "p175" ;
+# NET "RS232CTS" IOSTANDARD = LVTTL;
+
+# NET "RS232CTS" LOC = "p176" ;
+# NET "RS232CTS" IOSTANDARD = LVTTL;
+NET "RS232RxD" LOC = "p178" ;
+NET "RS232RxD" IOSTANDARD = LVTTL;
+NET "RS232TxD" LOC = "p179" ;
+NET "RS232TxD" IOSTANDARD = LVTTL;
+# NET "RS232CTS" LOC = "p180" ;
+# NET "RS232CTS" IOSTANDARD = LVTTL;
+
+
+# Connector C : DIP switches (used for configuration input)
+
+NET "DIP_SW1<1>" LOC = "p81" ;
+NET "DIP_SW1<1>" IOSTANDARD = LVTTL;
+NET "DIP_SW1<2>" LOC = "p75" ;
+NET "DIP_SW1<2>" IOSTANDARD = LVTTL;
+NET "DIP_SW1<3>" LOC = "p74" ;
+NET "DIP_SW1<3>" IOSTANDARD = LVTTL;
+NET "DIP_SW1<4>" LOC = "p73" ;
+NET "DIP_SW1<4>" IOSTANDARD = LVTTL;
+NET "DIP_SW1<5>" LOC = "p71" ;
+NET "DIP_SW1<5>" IOSTANDARD = LVTTL;
+NET "DIP_SW1<6>" LOC = "p70" ;
+NET "DIP_SW1<6>" IOSTANDARD = LVTTL;
+NET "DIP_SW1<7>" LOC = "p69" ;
+NET "DIP_SW1<7>" IOSTANDARD = LVTTL;
+NET "DIP_SW1<8>" LOC = "p68" ;
+NET "DIP_SW1<8>" IOSTANDARD = LVTTL;
+
+#NET "DIP_SW2<1>" LOC = "p64" ;
+#NET "DIP_SW2<1>" IOSTANDARD = LVTTL;
+#NET "DIP_SW2<2>" LOC = "p63" ;
+#NET "DIP_SW2<2>" IOSTANDARD = LVTTL;
+#NET "DIP_SW2<3>" LOC = "p62" ;
+#NET "DIP_SW2<3>" IOSTANDARD = LVTTL;
+#NET "DIP_SW2<4>" LOC = "p61" ;
+#NET "DIP_SW2<4>" IOSTANDARD = LVTTL;
+#NET "DIP_SW2<5>" LOC = "p60" ;
+#NET "DIP_SW2<5>" IOSTANDARD = LVTTL;
+#NET "DIP_SW2<6>" LOC = "p59" ;
+#NET "DIP_SW2<6>" IOSTANDARD = LVTTL;
+#NET "DIP_SW2<7>" LOC = "p58" ;
+#NET "DIP_SW2<7>" IOSTANDARD = LVTTL;
+#NET "DIP_SW2<8>" LOC = "p56" ;
+#NET "DIP_SW2<8>" IOSTANDARD = LVTTL;
+
+# Connector H : Parallel port connection
+
+NET "PPstrobe" LOC = "p181"  ;
+NET "PPstrobe" IOSTANDARD = LVTTL;
+NET "PPdata<7>" LOC = "p202"  ;
+NET "PPdata<7>" IOSTANDARD = LVTTL;
+NET "PPdata<6>" LOC = "p201"  ;
+NET "PPdata<6>" IOSTANDARD = LVTTL;
+NET "PPdata<5>" LOC = "p200"  ;
+NET "PPdata<5>" IOSTANDARD = LVTTL;
+NET "PPdata<4>" LOC = "p199"  ;
+NET "PPdata<4>" IOSTANDARD = LVTTL;
+NET "PPdata<3>" LOC = "p198"  ;
+NET "PPdata<3>" IOSTANDARD = LVTTL;
+NET "PPdata<2>" LOC = "p193"  ;
+NET "PPdata<2>" IOSTANDARD = LVTTL;
+NET "PPdata<1>" LOC = "p191"  ;
+NET "PPdata<1>" IOSTANDARD = LVTTL;
+NET "PPdata<0>" LOC = "p188"  ;
+NET "PPdata<0>" IOSTANDARD = LVTTL;
+NET "PPbusy" LOC = "p204"  ;
+NET "PPbusy" IOSTANDARD = LVTTL;
+
+# Connector D : LED s
+
+NET "BLEDS<0>" LOC = "P102";
+NET "BLEDS<0>" IOSTANDARD = LVTTL;
+NET "BLEDS<1>" LOC = "P101";
+NET "BLEDS<1>" IOSTANDARD = LVTTL;
+NET "BLEDS<2>" LOC = "P100";
+NET "BLEDS<2>" IOSTANDARD = LVTTL;
+NET "BLEDS<3>" LOC = "P99";
+NET "BLEDS<3>" IOSTANDARD = LVTTL;
+NET "BLEDS<4>" LOC = "P98";
+NET "BLEDS<4>" IOSTANDARD = LVTTL;
+NET "BLEDS<5>" LOC = "P97";
+NET "BLEDS<5>" IOSTANDARD = LVTTL;
+NET "BLEDS<6>" LOC = "P96";
+NET "BLEDS<6>" IOSTANDARD = LVTTL;
+NET "BLEDS<7>" LOC = "P95";
+NET "BLEDS<7>" IOSTANDARD = LVTTL;
+NET "BLEDS<8>" LOC = "P94";
+NET "BLEDS<8>" IOSTANDARD = LVTTL;
+NET "BLEDS<9>" LOC = "P93";
+NET "BLEDS<9>" IOSTANDARD = LVTTL;
+NET "BLEDS<10>" LOC = "P89";
+NET "BLEDS<10>" IOSTANDARD = LVTTL;
+NET "BLEDS<11>" LOC = "P88";
+NET "BLEDS<11>" IOSTANDARD = LVTTL;
+NET "BLEDS<12>" LOC = "P87";
+NET "BLEDS<12>" IOSTANDARD = LVTTL;
+NET "BLEDS<13>" LOC = "P86";
+NET "BLEDS<13>" IOSTANDARD = LVTTL;
+NET "BLEDS<14>" LOC = "P84";
+NET "BLEDS<14>" IOSTANDARD = LVTTL;
+NET "BLEDS<15>" LOC = "P83"; 
+NET "BLEDS<15>" IOSTANDARD = LVTTL;
+
+# Connectors A-B : SRAM A = J2, B = J1
+
+NET "sramweu" LOC = "p27"  ;
+NET "sramweu" IOSTANDARD = LVTTL;
+NET "sramwel" LOC = "p29"  ;
+NET "sramwel" IOSTANDARD = LVTTL;
+NET "sramce" LOC = "p3"  ;
+NET "sramce" IOSTANDARD = LVTTL;
+
+NET "SRAMaddress<16>" LOC = "P4"  ;
+NET "SRAMaddress<16>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<15>" LOC = "P5"  ;
+NET "SRAMaddress<15>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<14>" LOC = "P6"  ;
+NET "SRAMaddress<14>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<13>" LOC = "P7"  ;
+NET "SRAMaddress<13>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<12>" LOC = "P8"  ;
+NET "SRAMaddress<12>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<11>" LOC = "P9"  ;
+NET "SRAMaddress<11>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<10>" LOC = "p10"  ;
+NET "SRAMaddress<10>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<9>" LOC = "p11"  ;
+NET "SRAMaddress<9>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<8>" LOC = "p15"  ;
+NET "SRAMaddress<8>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<7>" LOC = "p16"  ;
+NET "SRAMaddress<7>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<6>" LOC = "p17"  ;
+NET "SRAMaddress<6>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<5>" LOC = "p18"  ;
+NET "SRAMaddress<5>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<4>" LOC = "p20"  ;
+NET "SRAMaddress<4>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<3>" LOC = "p21"  ;
+NET "SRAMaddress<3>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<2>" LOC = "p22"  ;
+NET "SRAMaddress<2>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<1>" LOC = "p23"  ;
+NET "SRAMaddress<1>" IOSTANDARD = LVTTL;
+NET "SRAMaddress<0>" LOC = "p24"  ;
+NET "SRAMaddress<0>" IOSTANDARD = LVTTL;
+
+NET "sramdata<0>" LOC = "p49"  ;
+NET "sramdata<0>" IOSTANDARD = LVTTL;
+NET "sramdata<1>" LOC = "p48"  ;
+NET "sramdata<1>" IOSTANDARD = LVTTL;
+NET "sramdata<2>" LOC = "p47"  ;
+NET "sramdata<2>" IOSTANDARD = LVTTL;
+NET "sramdata<3>" LOC = "p46"  ;
+NET "sramdata<3>" IOSTANDARD = LVTTL;
+NET "sramdata<4>" LOC = "p45"  ;
+NET "sramdata<4>" IOSTANDARD = LVTTL;
+NET "sramdata<5>" LOC = "p44"  ;
+NET "sramdata<5>" IOSTANDARD = LVTTL;
+NET "sramdata<6>" LOC = "p43"  ;
+NET "sramdata<6>" IOSTANDARD = LVTTL;
+NET "sramdata<7>" LOC = "p42"  ;
+NET "sramdata<7>" IOSTANDARD = LVTTL;
+NET "sramdata<8>" LOC = "p41"  ;
+NET "sramdata<8>" IOSTANDARD = LVTTL;
+NET "sramdata<9>" LOC = "p40"  ;
+NET "sramdata<9>" IOSTANDARD = LVTTL;
+NET "sramdata<10>" LOC = "p36"  ;
+NET "sramdata<10>" IOSTANDARD = LVTTL;
+NET "sramdata<11>" LOC = "p35"  ;
+NET "sramdata<11>" IOSTANDARD = LVTTL;
+NET "sramdata<12>" LOC = "p34"  ;
+NET "sramdata<12>" IOSTANDARD = LVTTL;
+NET "sramdata<13>" LOC = "p33"  ;
+NET "sramdata<13>" IOSTANDARD = LVTTL;
+NET "sramdata<14>" LOC = "p31"  ;
+NET "sramdata<14>" IOSTANDARD = LVTTL;
+NET "sramdata<15>" LOC = "p30"  ;
+NET "sramdata<15>" IOSTANDARD = LVTTL;
+
+
+# Connector E-F : Compact Flash 
+
+# NET "CFirq" LOC="P110" ;
+# NET "CFirq" IOSTANDARD = LVTTL ;
+# NET "CFiord" LOC="P111" ;
+# NET "CFiord" IOSTANDARD = LVTTL ;
+# NET "CFiowr" LOC="P112" ;
+# NET "CFiowr" IOSTANDARD = LVTTL ;
+# NET "CFcs1" LOC="P113" ;
+# NET "CFcs1" IOSTANDARD = LVTTL ;
+# NET "CFcpresent" LOC="P122" ;
+# NET "CFcpresent" IOSTANDARD = LVTTL ;
+# NET "CFcs0" LOC="P132" ;
+# NET "CFcs0" IOSTANDARD = LVTTL ;
+# NET "CFiocs16" LOC="P147" ;
+# NET "CFiocs16" IOSTANDARD = LVTTL ;
+# NET "CFpdiag" LOC="P151" ;
+# NET "CFpdiag" IOSTANDARD = LVTTL ;
+# NET "CFdasp" LOC="P152" ;
+# NET "CFdasp" IOSTANDARD = LVTTL ;
+# NET "CFiordy" LOC="P153" ;
+# NET "CFiordy" IOSTANDARD = LVTTL ;
+# NET "CFreset" LOC="P154" ;
+# NET "CFreset" IOSTANDARD = LVTTL ;
+
+# NET "CFaddr<0>" LOC="P140" ;
+# NET "CFaddr<0>" IOSTANDARD = LVTTL ;
+# NET "CFaddr<1>" LOC="P139" ;
+# NET "CFaddr<1>" IOSTANDARD = LVTTL ;
+# NET "CFaddr<2>" LOC="P138" ;
+# NET "CFaddr<2>" IOSTANDARD = LVTTL ;
+
+# NET "CFdata<0>" LOC="P141" ;
+# NET "CFdata<0>" IOSTANDARD = LVTTL ;
+# NET "CFdata<1>" LOC="P145" ;
+# NET "CFdata<1>" IOSTANDARD = LVTTL ;
+# NET "CFdata<2>" LOC="P146" ;
+# NET "CFdata<2>" IOSTANDARD = LVTTL ;
+# NET "CFdata<3>" LOC="P123" ;
+# NET "CFdata<3>" IOSTANDARD = LVTTL ;
+# NET "CFdata<4>" LOC="P125" ;
+# NET "CFdata<4>" IOSTANDARD = LVTTL ;
+# NET "CFdata<5>" LOC="P126" ;
+# NET "CFdata<5>" IOSTANDARD = LVTTL ;
+# NET "CFdata<6>" LOC="P127" ;
+# NET "CFdata<6>" IOSTANDARD = LVTTL ;
+# NET "CFdata<7>" LOC="P129" ;
+# NET "CFdata<7>" IOSTANDARD = LVTTL ;
+# NET "CFdata<8>" LOC="P150" ;
+# NET "CFdata<8>" IOSTANDARD = LVTTL ;
+# NET "CFdata<9>" LOC="P149" ;
+# NET "CFdata<9>" IOSTANDARD = LVTTL ;
+# NET "CFdata<10>" LOC="P148" ;
+# NET "CFdata<10>" IOSTANDARD = LVTTL ;
+# NET "CFdata<11>" LOC="P121" ;
+# NET "CFdata<11>" IOSTANDARD = LVTTL ;
+# NET "CFdata<12>" LOC="P120" ;
+# NET "CFdata<12>" IOSTANDARD = LVTTL ;
+# NET "CFdata<13>" LOC="P116" ;
+# NET "CFdata<13>" IOSTANDARD = LVTTL ;
+# NET "CFdata<14>" LOC="P115" ;
+# NET "CFdata<14>" IOSTANDARD = LVTTL ;
+# NET "CFdata<15>" LOC="P114" ;
+# NET "CFdata<15>" IOSTANDARD = LVTTL ;
+
+
