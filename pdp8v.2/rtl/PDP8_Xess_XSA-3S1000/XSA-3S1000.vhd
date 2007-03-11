@@ -11,19 +11,24 @@ entity PDP8_XSA_3S1000 is
      PS2_CLK       : in  std_logic; 
      PS2_DAT 		 : in  std_logic;
 
-	  STATUS_LED    : out std_logic_vector(6 downto 0);
-	  VGA_BLUE      : out std_logic_vector(2 downto 0);
-	  VGA_GREEN     : out std_logic_vector(2 downto 0);
-	  VGA_RED       : out std_logic_vector(2 downto 0);
-	  VGA_HSYNC_N   : out std_logic;
-	  VGA_VSYNC_N   : out std_logic;
+     STATUS_LED    : out std_logic_vector(6 downto 0);
+     VGA_BLUE      : out std_logic_vector(2 downto 0);
+     VGA_GREEN     : out std_logic_vector(2 downto 0);
+     VGA_RED       : out std_logic_vector(2 downto 0);
+     VGA_HSYNC_N   : out std_logic;
+     VGA_VSYNC_N   : out std_logic;
 
-	  RS232_TXD     : out std_logic;
-	  RS232_RXD	    : in  std_logic;
-	  RS232_RTS     : out std_logic;
-	  RS232_CTS	    : in  std_logic;
+     RS232_TXD     : out std_logic;
+     RS232_RXD     : in  std_logic;
+     RS232_RTS     : out std_logic;
+--   RS232_CTS     : in  std_logic;
 
-	  ethernet_cs_n : out std_logic
+     TTY1_TXD      : out std_logic;
+     TTY1_RXD      : in  std_logic;
+     TTY1_RTS      : out std_logic;
+--   TTY1_CTS      : in  std_logic;
+
+     ethernet_cs_n : out std_logic
   );
 end PDP8_XSA_3S1000;
 
@@ -90,7 +95,7 @@ clks : clkdll_divide
 
    port map (
       clk_in => CLK100,
---      clk_fast=> sysclk,
+--    clk_fast=> sysclk,
       clk_out => dotclk
    );
 
@@ -125,19 +130,19 @@ PDP8 : PDP8sys
       CONSOLErts => RS232_RTS,
 --    CONSOLEcts => RS232_CTS,
 
-      -- With an appropriately modified RS232 cable, the CTS and RTS signals
+      -- With an appropriate RS232 cable, the CTS and RTS signals
       -- can be used to drive the RxD and TxD of a second terminal
       -- enable the next two lines and remove the subsequent one
       
-      TTY1rxd    => '1',
---    TT1rxd     => RS232_CTS,
---    TT1txd     => RS232_RTS,
---    TT1rts     => RS232_RTS,
---    TT1cts     => RS232_CTS,
+--    TTY1rxd    => '1',
+      TTY1rxd    => TTY1_RXD,
+      TTY1txd    => TTY1_TXD,
+      TTY1rts    => TTY1_RTS,
+--    TTY1cts    => TTY1_CTS,
 
       Pbuffer    => (others => '0'),
+--    Pbusy		  => Pbusy,
       Pstrobe    => '0'
---      Pbusy		  => Pbusy
    );
   
    VGA_RED(0)    <= VGAred;
@@ -150,9 +155,8 @@ PDP8 : PDP8sys
    VGA_BLUE(1)   <= VGAblue;
    VGA_BLUE(2)   <= VGAblue;
 
-	pbutton       <= SW2_N;
-	STATUS_LED    <= "1111111";	
-	ethernet_cs_n <= '1';
+   pbutton       <= SW2_N;
+   STATUS_LED    <= "1111111";	
+   ethernet_cs_n <= '1';
 
 end architecture struct;
-

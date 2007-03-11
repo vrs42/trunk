@@ -66,9 +66,11 @@ entity PDP8tty is
       
       Config      : in  std_logic_vector (1 downto 0);
       
-      RXD         : in  std_logic;
       TXD         : out std_logic;
-		RTS         : out std_logic
+--    CTS         : in  std_logic;
+
+      RXD         : in  std_logic;
+      RTS         : out std_logic
     );
 end PDP8tty;
 
@@ -121,17 +123,17 @@ begin  -- rtl
    tti : process (clk, reset)
    begin
       if reset = '0' then
-	      ttidone     <= '0';
-	      ttistarting <= '1';
-			ttibuff     <= (others => '0');
-			ttishift    <= "100000000";
-			tticount    <= (others => '0');
+         ttidone     <= '0';
+         ttistarting <= '1';
+         ttibuff     <= (others => '0');
+         ttishift    <= "100000000";
+         tticount    <= (others => '0');
 
       elsif clk'event and (clk = '1') then
 
          ttidone <= '0';
 
-	      if ttirun = '1' then
+         if ttirun = '1' then
             if (ttistarting and RxD) = '1' then
 	            tticount <= conv_std_logic_vector (BAUD, 19); -- half a bit
 	         elsif tticount = (BAUD+BAUD) then
@@ -224,7 +226,7 @@ begin  -- rtl
   end process iobus;
 
 
-  tty_IO : process (clk, reset, IOcaf)
+  tty_IO : process (clk, reset, IOcaf, ttirun)
   begin
 
      if (reset = '0') or (IOcaf = '0') then

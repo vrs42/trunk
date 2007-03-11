@@ -100,9 +100,14 @@ architecture rtl  of PDP8cpu  is
 begin  -- rtl
 
    CPUstate (CPUetat-4 downto 0) <= userint & userflag & ifld & dfld & 
-      io_timeout & laststatus & io_iop & io_addr & pie(0) & run & fault & 
+      io_timeout & laststatus & 
+--		io_iop & io_addr & 
+		pie(0) & run & fault & 
       ir & EAEop(1 to 4) & EAEmode & EAEscnt & mq & lac & pc & 
-      not MEMbusreq & mbusgrant & (not MEMdone) & mrd & mwr & ma & mb;
+--    not MEMbusreq & 
+      mbusgrant &
+--    (not MEMdone) & mrd & mwr & 
+      ma & mb;
 
    MEMbusgrant <= mbusgrant;
 
@@ -206,7 +211,14 @@ begin  -- rtl
 
          elsif CPUcontrol(CPUmrd) = '1' then
             mrd <= '1';
-            ma <= CPUcontrol(CPUaddr downto CPUaddr - 14);
+            ma(3 to 14) <= CPUcontrol(CPUkeys downto CPUkeys - 11);
+
+         elsif CPUcontrol(CPUlxa) = '1' then
+            mrd <= '1';
+            ifld       <= CPUcontrol(CPUkeys-6 downto CPUkeys - 8);
+            ibuf       <= CPUcontrol(CPUkeys-6 downto CPUkeys - 8);
+            ma(0 to 2) <= CPUcontrol(CPUkeys-6 downto CPUkeys - 8);
+            dfld       <= CPUcontrol(CPUkeys-9 downto CPUkeys - 11);
 
          elsif CPUcontrol(CPUwrhere) = '1' then
             mwr <= '1';
@@ -215,13 +227,7 @@ begin  -- rtl
          elsif (CPUcontrol(CPUstart) or CPUcontrol(CPUcontinue)) = '1' then
 
 	    if CPUcontrol(CPUstart) = '1' then
-               pc <= CPUcontrol(CPUaddr-3 downto CPUaddr - 14) + 1;
-               ifld <= CPUcontrol(CPUaddr downto CPUaddr - 2);
-               -- Copy ifld to ibuf and dfld, too.  2/25/2007 by vrs
-               ibuf <= CPUcontrol(CPUaddr downto CPUaddr - 2);
-               dfld <= CPUcontrol(CPUaddr downto CPUaddr - 2);
-               -- End "Copy ifld"
-               ma <= CPUcontrol(CPUaddr downto CPUaddr - 14);
+               pc <= ma(3 to 14);
                -- Lifted from CAF 2/25/2007 by vrs
                lac <= (others => '0');
                pie <= "000";
@@ -827,13 +833,13 @@ begin  -- rtl
             end if;
 	end if;
 	
-      when EAESTART =>			-- OPR
-         CPUstate(CPUetat downto CPUetat-3) <= CPU_OPR;
+   when EAESTART =>			-- OPR
+         CPUstate(CPUetat downto CPUetat-3) <= CPU_EAE1;
 
          case EAEop is
 
          when "00001" => -- SCL
-	    EAEscnt <= not mb(7 to 11);
+          EAEscnt <= not mb(7 to 11);
     	    R_etat <= CHERCHE;
 
 	 when "00101" | "00110" | "00111" =>
@@ -899,7 +905,8 @@ begin  -- rtl
          end case;
 
       when EAESTEP => 
-      
+         CPUstate(CPUetat downto CPUetat-3) <= CPU_EAEN;
+
          if EAEop(1) = '0' then
 --          Moved up 2/28/2007 by vrs
             EAEscnt <= EAEscnt + 1;

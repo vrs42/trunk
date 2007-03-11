@@ -64,8 +64,7 @@ architecture rtl of PDP8panel is
 
    constant eae_row   : integer := mq_row + vdelta;
    
-   constant addr_row  : integer := eae_row + 2*vdelta;
-   constant keys_row  : integer := addr_row + vdelta;
+   constant keys_row  : integer := eae_row + 2*vdelta;
 
    constant title_col : integer := 6;
    constant delta     : integer := 3;   -- Width of a lamp
@@ -81,8 +80,8 @@ architecture rtl of PDP8panel is
    constant KEY_HALT  : std_logic_vector (8 downto 0) := o"174";  -- *
    constant KEY_SSTEP : std_logic_vector (8 downto 0) := o"173";  -- -
 
-   constant KEY_DATA  : std_logic_vector (8 downto 0) := o"165";  -- 8
-   constant KEY_ADDR  : std_logic_vector (8 downto 0) := o"175";  -- 9
+   constant KEY_BOOT  : std_logic_vector (8 downto 0) := o"165";  -- 8
+   constant KEY_LXA   : std_logic_vector (8 downto 0) := o"175";  -- 9
    constant KEY_READ  : std_logic_vector (8 downto 0) := o"532";  -- Enter
    constant KEY_RNEXT : std_logic_vector (8 downto 0) := o"171";  -- +
    constant KEY_WRITE : std_logic_vector (8 downto 0) := o"161";  -- .
@@ -126,10 +125,8 @@ architecture rtl of PDP8panel is
       kb_done : std_logic;
 
    signal kb_scancode : std_logic_vector (9 downto 0);
-   signal enterdata : std_logic;
 
    signal switches : std_logic_vector (11 downto 0);
-   signal addrkeys : std_logic_vector (14 downto 0);
    signal SwitchHalt : std_logic;
    signal HaltLatch : std_logic_vector(0 to 1);
    signal SwitchSStep : std_logic;
@@ -156,6 +153,7 @@ architecture rtl of PDP8panel is
       VPOLARITY : std_logic := '1'
 
       -- 640 * 480 85Hz :  36.00 MHz
+
 --      HSYNC : positive := 48;
 --      HBPORCH : positive := 112;
 --      HACTIVE : positive := 640;
@@ -169,6 +167,7 @@ architecture rtl of PDP8panel is
 --      VPOLARITY : std_logic := '1'
 
       -- 800 * 600 60Hz : 40.00 MHz 
+
 --      HSYNC : positive := 128;
 --      HBPORCH : positive := 88;
 --      HACTIVE : positive := 800;
@@ -200,7 +199,8 @@ architecture rtl of PDP8panel is
             kb_data,
             kb_clk : in std_logic;
             kb_done : out std_logic;
-            kb_scancode  : out std_logic_vector (9 downto 0)
+            kb_scancode  : out std_logic_vector (9 downto 0);
+            kb_led : in std_logic_vector(0 to 2)
       );
 
     end component PS2kb;
@@ -227,6 +227,7 @@ begin
             kb_data => PS2KBdata,
             kb_clk => PS2kbclk,
             kb_done => kb_done,
+            kb_led => "000",
             kb_scancode  => kb_scancode
       );
 
@@ -254,7 +255,6 @@ begin
    char_row <= pixel_row(9 downto 3);
 
    CPUcontrol (CPUkeys downto CPUkeys-11) <= switches (11 downto 0);
-   CPUcontrol (CPUaddr downto CPUaddr - 14) <= addrkeys (14 downto 0);
 
    ir_display <= '0' when CPUstate (CPUetat downto CPUetat-3) = CPU_Idle
             else '0' when CPUstate (CPUetat downto CPUetat-3) = CPU_Fetch
@@ -536,7 +536,7 @@ begin
          when o_col + 3 => ccolor <= TEXT; charsel <= charP;
          when o_col + 4 => ccolor <= TEXT; charsel <= charR;
 
-         when s_col + 0 => ccolor <= TEXT; case CPUstate (CPUetat downto CPUetat-3) is when "0111" => charsel <= cb_lamp & '1'; when others => charsel <= cb_lamp & '0'; end case;
+         when s_col + 0 => ccolor <= TEXT; case CPUstate (CPUetat downto CPUetat-3) is when CPU_EAE1 => charsel <= cb_lamp & '1'; when others => charsel <= cb_lamp & '0'; end case;
          when s_col + 1 => ccolor <= LAMP; charsel <= CH_SPACE;
          when s_col + 2 => ccolor <= LAMP; charsel <= charE;
          when s_col + 3 => ccolor <= TEXT; charsel <= charA;
@@ -597,13 +597,12 @@ begin
          when r_col - delta*0 =>
             charsel <= cb_lamp & CPUstate (CPUmq-11);
 
-         when s_col + 0 => ccolor <= TEXT; case CPUstate (CPUetat downto CPUetat-3) is when "1000" => charsel <= cb_lamp & '1'; when others => charsel <= cb_lamp & '0'; end case;
+         when s_col + 0 => ccolor <= TEXT; case CPUstate (CPUetat downto CPUetat-3) is when CPU_EAEN => charsel <= cb_lamp & '1'; when others => charsel <= cb_lamp & '0'; end case;
          when s_col + 2 => ccolor <= LAMP; charsel <= charE;
          when s_col + 3 => ccolor <= TEXT; charsel <= charA;
          when s_col + 4 => ccolor <= TEXT; charsel <= charE;
-         when s_col + 5 => ccolor <= TEXT; charsel <= charS;
-         when s_col + 6 => ccolor <= TEXT; charsel <= charT;
-         when s_col + 7 => ccolor <= TEXT; charsel <= CH_SPACE;
+         when s_col + 5 => ccolor <= TEXT; charsel <= charN;
+         when s_col + 6 => ccolor <= TEXT; charsel <= CH_SPACE;
 
          when others =>
             charsel <= CH_SPACE;
@@ -860,7 +859,7 @@ begin
          when (r_col-delta*1)+0 => charsel <= charT;
          when (r_col-delta*1)+1 => charsel <= charA;
 	    
-         when s_col + 0 => ccolor <= TEXT; charsel <= cb_lamp & CPUstate (CPUmc-1);
+         when s_col + 0 => ccolor <= TEXT; charsel <= cb_lamp & CPUstate (CPUgrant);
          when s_col + 1 => ccolor <= LAMP; charsel <= CH_SPACE;
          when s_col + 2 => ccolor <= LAMP; charsel <= charB;
          when s_col + 3 => ccolor <= TEXT; charsel <= charR;
@@ -910,24 +909,28 @@ begin
       
          case conv_integer (char_col) is
 	 
-         when r_col - delta*14 - 3 => charsel <= charS;
-         when r_col - delta*14 - 2 => charsel <= charI;
+         when r_col + delta*2 + 1 => charsel <= charS;
+         when r_col + delta*2 + 2 => charsel <= charI;
          
-         when r_col - delta*12 - 3 => charsel <= charS;
-         when r_col - delta*12 - 2 => charsel <= charS;
+         when r_col + delta*4 + 1 => charsel <= charS;
+         when r_col + delta*4 + 2 => charsel <= charS;
          
-         when r_col - delta*6 - 1 =>
-            cred <= not enterdata;
-	    cgreen <= '1';
-	    cblue <= not enterdata;  charsel <= charD;
-         when r_col - delta*6 + 0 => charsel <= charA;
-         when r_col - delta*6 + 1 => charsel <= charT;
-         when r_col - delta*6 + 2 => charsel <= charA;
+         when r_col - delta*6 - 5 =>
+            ccolor <= GREEN;         charsel <= charS;
+         when r_col - delta*6 - 4 => charsel <= charW;
+         when r_col - delta*6 - 3 => charsel <= charI;
+         when r_col - delta*6 - 2 => charsel <= charT;
+         when r_col - delta*6 - 1 => charsel <= charC;
+         when r_col - delta*6 + 0 => charsel <= charH;
          
-         when r_col - delta*6 + 4 => charsel <= charK;
-         when r_col - delta*6 + 5 => charsel <= charE;
-         when r_col - delta*6 + 6 => charsel <= charY;
-         when r_col - delta*6 + 7 => charsel <= charS;
+         when r_col - delta*6 + 2 => charsel <= charR;
+         when r_col - delta*6 + 3 => charsel <= charE;
+         when r_col - delta*6 + 4 => charsel <= charG;
+         when r_col - delta*6 + 5 => charsel <= charI;
+         when r_col - delta*6 + 6 => charsel <= charS;
+         when r_col - delta*6 + 7 => charsel <= charT;
+         when r_col - delta*6 + 8 => charsel <= charE;
+         when r_col - delta*6 + 9 => charsel <= charR;
 
 	 when others =>
             charsel <= CH_SPACE;
@@ -943,10 +946,10 @@ begin
 
          case conv_integer (char_col) is
 
-         when r_col - delta*14 - 2 =>
+         when r_col + delta*2 + 2 =>
             charsel <= cb_switch & SwitchHalt;
 
-         when r_col - delta*12 - 2 =>
+         when r_col + delta*4 + 2 =>
             charsel <= cb_switch & SwitchSstep;
 
          when r_col - delta*11=>
@@ -973,91 +976,6 @@ begin
             charsel <= cb_switch & switches (11 - 10);
          when r_col - delta*0 =>
             charsel <= cb_switch & switches (11 - 11);
-
-         when others =>
-            charsel <= CH_SPACE;
-         end case;
-
-      when addr_row-2 =>
-         if conv_integer (char_col) > (r_col - delta*6 -3) then
-            cred <= enterdata;
-            cgreen <= '1';
-	    cblue <= enterdata;
-         else
-            ccolor <= TEXT;
-         end if;
-
-         case conv_integer (char_col) is
-
-         when r_col - delta*6 - 3 =>
-            charsel <= charA;
-         when r_col - delta*6 - 2 =>
-            charsel <= charD;
-         when r_col - delta*6 - 1 =>
-            charsel <= charD;
-         when r_col - delta*6 + 0 =>
-            charsel <= charR;
-         when r_col - delta*6 + 1 =>
-            charsel <= charE;
-         when r_col - delta*6 + 2 =>
-            charsel <= charS;
-         when r_col - delta*6 + 3 =>
-            charsel <= charS;
-         when r_col - delta*6 + 4 =>
-            charsel <= CH_SPACE;
-         when r_col - delta*6 + 5 =>
-            charsel <= charK;
-         when r_col - delta*6 + 6 =>
-            charsel <= charE;
-         when r_col - delta*6 + 7 =>
-            charsel <= charY;
-         when r_col - delta*6 + 8 =>
-            charsel <= charS;
-
-	 when others =>
-            charsel <= CH_SPACE;
-	 end case;
-	 
-      when addr_row =>  -- ADDRESS KEYS
-      
-         if pixel_col > hedge then
-            ccolor <= BG1;
-         else
-            ccolor <= SWITCH;
-         end if;
-
-         case conv_integer (char_col) is
-
-	 when r_col - delta*14 =>
-            charsel <= cb_switch & addrkeys (14 - 0);
-         when r_col - delta*13 =>
-            charsel <= cb_switch & addrkeys (14 - 1);
-         when r_col - delta*12 =>
-            charsel <= cb_switch & addrkeys (14 - 2);
-         when r_col - delta*11 =>
-            charsel <= cb_switch & addrkeys (14 - 3);
-         when r_col - delta*10 =>
-            charsel <= cb_switch & addrkeys (14 - 4);
-         when r_col - delta*9 =>
-            charsel <= cb_switch & addrkeys (14 - 5);
-         when r_col - delta*8 =>
-            charsel <= cb_switch & addrkeys (14 - 6);
-         when r_col - delta*7 =>
-            charsel <= cb_switch & addrkeys (14 - 7);
-         when r_col - delta*6 =>
-            charsel <= cb_switch & addrkeys (14 - 8);
-         when r_col - delta*5 =>
-            charsel <= cb_switch & addrkeys (14 - 9);
-         when r_col - delta*4 =>
-            charsel <= cb_switch & addrkeys (14 - 10);
-         when r_col - delta*3 =>
-            charsel <= cb_switch & addrkeys (14 - 11);
-         when r_col - delta*2 =>
-            charsel <= cb_switch & addrkeys (14 - 12);
-         when r_col - delta*1 =>
-            charsel <= cb_switch & addrkeys (14 - 13);
-         when r_col - delta*0 =>
-            charsel <= cb_switch & addrkeys (14 - 14);
 
          when others =>
             charsel <= CH_SPACE;
@@ -1141,18 +1059,13 @@ begin
 	    (conv_integer (pixel_col) < ((r_col - 11 * delta)* 8)))
          or (((conv_integer (pixel_row) > ((mq_row * 8) - 4)) and 
 	    (conv_integer (pixel_row) < ((mq_row * 8) + 12))) and
-	    (conv_integer (pixel_col) < ((r_col - 11 * delta)* 8)))
-         or (((conv_integer (pixel_row) > ((addr_row * 8) - 4)) and 
-	    (conv_integer (pixel_row) < ((addr_row * 8) + 12))) and
 	    (conv_integer (pixel_col) < ((r_col - 11 * delta)* 8))) then
 	    if conv_integer (pixel_col) = 0 then
 	       bcolor <= BG1;
 	    elsif conv_integer (pixel_col) = ((r_col -14 * delta) * 8) then
 	       bcolor <= BG2;
 	    end if;   
-         elsif ((conv_integer (pixel_row) > ((addr_row * 8) - 4)) and 
-	    (conv_integer (pixel_row) < ((addr_row * 8) + 12)))  
-         or ((conv_integer (pixel_row) > ((keys_row * 8) - 4)) and 
+         elsif ((conv_integer (pixel_row) > ((keys_row * 8) - 4)) and 
 	    (conv_integer (pixel_row) < ((keys_row * 8) + 12))) 
          or ((conv_integer (pixel_row) > ((lac_row * 8) - 4)) and 
 	    (conv_integer (pixel_row) < ((lac_row * 8) + 12))) 
@@ -1198,6 +1111,7 @@ begin
       CPUcontrol(CPUcontinue) <= '0';
       CPUcontrol(CPUhalt) <= SwitchHalt;
       CPUcontrol(CPUSstep) <= SwitchSstep;
+      CPUcontrol(CPUlxa) <= '0';
 
       kb_state <= kb_done;
 
@@ -1238,69 +1152,32 @@ begin
          when '1' & KEY_WRITE =>
             CPUcontrol(CPUmrdnext) <= '1';
 
-         when '0' & KEY_ADDR =>
-            addrkeys <= (others => '0');
-            enterdata <= '0';
-
-         when '0' & KEY_DATA => 
-            switches <= (others => '0');
-            enterdata <= '1';
+         when '1' & KEY_LXA =>
+            CPUcontrol(CPUlxa) <= '1';
 
          when '0' & KEY_7 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "111";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "111";
-            end if;
+            switches <= switches(8 downto 0) & "111";
 
          when '0' & KEY_6 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "110";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "110";
-            end if;
+            switches <= switches(8 downto 0) & "110";
 
          when '0' & KEY_5 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "101";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "101";
-            end if;
+            switches <= switches(8 downto 0) & "101";
 
          when '0' & KEY_4 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "100";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "100";
-            end if;
+            switches <= switches(8 downto 0) & "100";
 
          when '0' & KEY_3 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "011";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "011";
-            end if;
+            switches <= switches(8 downto 0) & "011";
 
          when '0' & KEY_2 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "010";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "010";
-            end if;
+            switches <= switches(8 downto 0) & "010";
 
          when '0' & KEY_1 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "001";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "001";
-            end if;
+            switches <= switches(8 downto 0) & "001";
 
          when '0' & KEY_0 =>
-            if enterdata = '1' then
-               switches <= switches(8 downto 0) & "000";
-            else
-               addrkeys <= addrkeys(11 downto 0) & "000";
-            end if;
+            switches <= switches(8 downto 0) & "000";
 
          when others =>
 	 
