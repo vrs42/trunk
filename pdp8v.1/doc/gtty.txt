@@ -1,0 +1,217 @@
+GTTY - A Glass TTY + Load paper tape software into a PDP-8
+Version 0.96, 8/29/2006
+----------------------------------------------------------
+by Lyle Bickley, Bickley Consulting West Inc.
+
+Changes since release 0.92
+
+    1) Added ability to output a CR, wait for echo, etc. before
+       uploading. Aids in handling paper tape uploads and BUILD.
+
+    2) Tabbing is now supported. Option to specify tab size.
+
+    3) Proper handling of CR on "Enter" (bug fix).
+
+    4) Option to support CF/LF on "Enter" for DOS.
+
+    5) Minor bug fixes.
+
+    6) Documentation improvements
+
+Changes since release 0.91
+
+    1) F6 is now "Clear Screen".
+
+    2) F8 is now "Exit" (was F6).
+
+    3) Help updated appropirately.
+
+    4) Minor code and documentation cleanup.
+
+
+Changes since release 0.8 include:
+
+	1) Ability to "pace" using hardware CTS based on Reader Run.
+	   Helpful in dealing with slow software reads from "paper
+           tape" by FOCAL, etc.
+
+	2) New function to allow escaping from a "hung" load from
+	   CTS drop (Reader Run off). Useful when the BIN loader halts on
+	   completion of a load - and there is still "paper tape"
+	   trailer in a file.
+
+	3) Now supports up to 38400 baud.
+
+    4) There is a new function key and a new parameter (see below).
+
+
+Acknowledgemets
+---------------
+
+This software was inspired by K. McQuiggin's "RIM Client, Version 0.2"
+(July, 1998), AKA "send.c":
+http://highgate.comm.sfu.ca/pdp8/software/send.c
+
+The hardware modifications recommended below are directly or indirectly
+from Aaron Nabil's site: http://pdp-8.org/flow.html.
+
+Also helpful are Douglas Jones "Notes" on the
+KL8E and KL8JA asynchronous Interfaces: 
+http://www.cs.uiowa.edu/~jones/pdp8/hard8e/kl8e.html
+http://www.cs.uiowa.edu/~jones/pdp8/hard8e/kl8ja.html
+
+
+Software - "Glass TTY - GTTY"
+-----------------------------
+
+I decided to write a complete "Glass" TTY that could be used as a console,
+paper tape "reader" and "punch" for my PDP-8/F. I also wanted it to be
+capable of "pacing", so it could be functional with programs such as FOCAL
+and multi-segement tapes.
+
+Starting up, it is a full duplex glass TTY - and sends the characters
+you type to the PDP-8 and displays the characters received from the
+PDP-8 on the screen/monitor.
+
+Hitting the "F2" key - will upload PT (paper tape) images based on
+filename and lets you specify whether you want it to strip
+"garbage" characters from the tape before uploading it to the PDP8.
+(Also, see note #4 below). 
+
+After the upload, GTTY automatically switches back to "glass" TTY mode.
+
+If GTTY get's "hung" while uploading (typically the BIN loader halting
+after completion of a load with trailer remaining in the "reader") hit F3.
+This will escape the pacing wait from CTS dropping (RDR RUN off).
+
+Hitting the "F4" key allows you to create a "Capture" file. After entering
+a filename and hitting "Enter", all data received from the PDP-8 will be
+captured to the file. Note that the display is turned off - as typically
+the data to be "captured" is a binary punch file.
+
+Hitting the "F5" key closes the capture file and GTTY switches back
+to "glass" TTY mode.
+
+"F6" Clears the screen
+
+The other two active function keys are "F1" - Help, and "F8" - Exit.
+
+
+Notes:
+
+1. No function keys get passed to the PDP-8 (even those that are
+    not "progamatically active".
+
+2. Filenames are limited to DOS's 8.3 filename format.
+
+3. The GTTY startup parameters (upper or lower case) are:
+
+
+    -B baud  [Baud rate=110,300,600,1200,2400,4800,9600 or 19200]
+             Default "9600"
+
+    -C Use this flag for "Enter" to produce CR/LF for DOS
+       (default is CR only on "Enter")
+
+    -H help
+
+    -N No CTS hardware flag (Turns OFF pacing for those who haven't
+             made the appropriate hardware changes to their KL8E or
+             KL8-JA boards. NOTE: The default assumes "pacing ON")    
+
+    -P port  [COM port=1,2,3 or 4] Default "1"
+
+
+    -S stop bits [Number of stop bits=1 or 2] Default "1"
+
+    -T tabsize [Default is "8"]
+
+4.  A new (as of 0.96) feature to issue a CR before an upload
+    is very handy for BUILDing from PT and reading PT images. For
+    instance, if you want to do a "PIP" paper tape image to
+    OS/8 file, you can do this easily in OS/8 by:
+
+    .R PIP
+    *file=PTR: [do NOT hit CR here]
+
+    Now Hit "F2" to load PT file to PDP8. Enter the filename, etc.
+    and say "Y" to the option "Output CR before upload?". When
+    the file is opened and before it it uploaded, GTTY does a
+    CR, waits for the echo, "up-arrow" character, etc. and then
+    starts uploading the file.
+
+    I have found this very useful as it eliminates timeout issues, etc.
+    and makes for clean PT image reads into running OS/8 programs.
+
+5. I've successfully uploaded virtually every paper tape diagnostic available
+    for my system (and it's I/O).  In addition, I've uploaded FOCAL and
+    other software without error at 9600 baud. I've tried it using both
+    the M8550-YA and the M8655 "TTY" console boards with equal success.
+
+6. I've tested GTTY with 38400 baud and slow reading - and pacing works!
+
+7. The keyboard backspace and delete keys both generate a TTY rubout
+    (Octal 377) character.
+
+
+Hardware changes to implement "Pacing"
+--------------------------------------
+
+When running programs like the RIM or BIN loaders, the PDP-8/E is easily able
+to "keep up" reading a paper tape file from GTTY. However, some programs as 
+FOCAL, read the paper tape reader slowly. Without hardware modifications,
+GTTY will attempt to "cram" characters to the PDP-8 when it isn't capable of
+reading them - hence missed data.
+
+To fix this problem, your M8550 or M8655 TTY console board needs to be modified.
+The modification essentially ties RTS/DTR (CTS after a full handshake null modem)
+to the Reader Run flip flop on the console board. GTTY is able to sense CTS and
+wait until Reader Run is set (CTS O.K.) before sending a character to the PDP-8.
+
+The hardware changes for the KL8-JA are written up nicely by Aaron Nabil at his
+website: http://pdp-8.org/flow.html.  I suggest that you use the "UNTESTED BUT
+SHOULD WORK" procedure described after steps 1-5. I've tested it - and it works
+perfectly. The big advantage of this procedure is that current loop remains
+functional. Please NOTE: There is a "bug" in Aaron's writeup - Step 5 says
+"Jumper from pin 7 of E39..." it should say "Jumper from pin 6 of E39...".
+
+I also wanted GTTY to work with the older KL8E async controller (M8650). It turns
+out that the hardware modifications are much easier on the older board!
+
+On E32 (MC1488) remove the solder from pins 4 and 5. Gently bend the pins away
+from the board so they no longer make contact. Solder both pins 4 and 5 to a
+jumper wire. Connect the other end of the jumper to E48 (7474 - Rdr Run) pin 9.
+That's it! The older board works great with both current and EIA modes without
+any other changes.
+---------------------------------------
+
+Programming Notes:
+
+1. I'm a *NIX buff and haven't written DOS code for years, but I wrote
+    GTTY as a DOS program because I know there are a lot of collectors
+    that use "imagedisk", "Teledisk", "PUTR", etc. which only operate
+    on DOS - and many folks who don't have *NIX systems. I've successfully
+    tested GTTY on DOS 6.22, Windows 98 SE in a DOS window, and Windows XT
+    [Home Edition] in a DOS window.
+
+2. I'm including the source code, for anyone who would like to "hack"
+    the program, add feature, etc. My only request is that if you release
+    it back to the community that you change it's name, and maintain
+    my copyright notice in the code and startup. Note that it is totally
+    "free" when used for non-commercial use. Please contact me at
+    lbickley at bickleywest.com for commercial use.
+
+3. I wrote GTTY in "C" - and wanted to use a freely available DOS compiler
+    and libraries. I selected Dave Dunfield's "Micro-C". Dave's compiler
+    and libraries let you get close enough to the "metal" to make a
+    program such as GTTY responsive and effective - easily handling
+    communications, screen and keyboard control simultaneously. His
+    compiler can be downloaded from: www.dunfield.com, either "free" or if
+    you want all the examples and library source (I did) for the modest
+    cost of $25.
+
+    Have fun!
+
+    Cheers,
+    Lyle
+

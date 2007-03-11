@@ -9,9 +9,6 @@ package pdp8 is
 
 constant CPUversion : std_logic_vector (0 to 11) := o"0124";
 
-constant CPUcontrolLength : integer := 33;
-constant CPUstateLength :   integer := 108;
-
 component DRAM is
   port (
       clk : in std_logic;
@@ -74,45 +71,49 @@ component SRAM
 end component SRAM;
 
 
--- CPUcontrol index definitions
+   -- CPUcontrol index definitions
 
    constant CPUhalt :     integer :=  0;
    constant CPUstart :    integer :=  CPUhalt+1;
-   constant CPUaddr :     integer :=  CPUstart + 15; -- 
-   constant CPUkeys :     integer :=  CPUaddr + 12;
+   constant CPUkeys :     integer :=  CPUstart + 12;
    constant CPUmrd :      integer :=  CPUkeys + 1;
    constant CPUmrdnext :  integer :=  CPUmrd + 1;
    constant CPUwrhere :   integer :=  CPUmrdnext + 1;
    constant CPUcontinue : integer :=  CPUwrhere + 1;
    constant CPUsstep :    integer :=  CPUcontinue + 1;
+   constant CPUlxa :      integer :=  CPUsstep + 1;
+
+   constant CPUcontrolLength : integer := CPUlxa;
+
 
    -- CPUstate index defintions
 
-   constant CPUmb :    integer := 11;
-   constant CPUma :    integer := 26;
-   constant CPUmc :    integer := 31;
-   constant CPUpc :    integer := 43;
-   constant CPUac :    integer := 55;
-   constant CPUlink :  integer := 56;
-   constant CPUmq :    integer := 68;
-   constant CPUsc :    integer := 73;
-   constant CPUem :    integer := 74;
-   constant CPUeae :   integer := 78;
-   constant CPUir :    integer := 81;
-   constant CPUfault : integer := 82;
-   constant CPUrun :   integer := 83;
-   constant CPUpie :   integer := 84;
-   constant IOaddress :integer := 90;
-   constant IOop :     integer := 93;
-   constant IOstatus : integer := 95;
-   constant IOto :     integer := 96;
+   constant CPUmb    : integer := -1       + 12;
+   constant CPUma    : integer := CPUmb    + 15;
+   constant CPUgrant : integer := CPUma    +  1;
+   constant CPUpc    : integer := CPUgrant + 12;
+   constant CPUac    : integer := CPUpc    + 12;
+   constant CPUlink  : integer := CPUac    +  1;
+   constant CPUmq    : integer := CPUlink  + 12;
+   constant CPUsc    : integer := CPUmq    +  5;
+   constant CPUem    : integer := CPUsc    +  1;
+   constant CPUeae   : integer := CPUem    +  4;
+   constant CPUir    : integer := CPUeae   +  3;
+   constant CPUfault : integer := CPUir    +  1;
+   constant CPUrun   : integer := CPUfault +  1;
+   constant CPUpie   : integer := CPUrun   +  1;
+
+   constant IOstatus : integer := CPUpie   +  2;
+   constant IOto     : integer := IOstatus +  1;
    
-   constant CPUdf :     integer := 99;
-   constant CPUif :     integer := 102;
-   constant CPUuf :     integer := 103;
-   constant CPUui :     integer := 104;
+   constant CPUdf    : integer := IOto     +  3;
+   constant CPUif    : integer := CPUdf    +  3;
+   constant CPUuf    : integer := CPUif    +  1;
+   constant CPUui    : integer := CPUuf    +  1;
    
-   constant CPUetat :  integer := 108;
+   constant CPUetat  : integer := CPUui    +  4;
+
+   constant CPUstateLength :   integer := CPUetat;
    
    constant CPU_Idle      : std_logic_vector (0 to 3) := "0000";
    constant CPU_Fetch     : std_logic_vector (0 to 3) := "0001";
@@ -121,6 +122,8 @@ end component SRAM;
    constant CPU_Execute   : std_logic_vector (0 to 3) := "0100";
    constant CPU_OPR       : std_logic_vector (0 to 3) := "0101";
    constant CPU_IOT       : std_logic_vector (0 to 3) := "0110";
+   constant CPU_EAE1      : std_logic_vector (0 to 3) := "0111";
+   constant CPU_EAEN      : std_logic_vector (0 to 3) := "1000";
 
 end package pdp8;
 

@@ -338,6 +338,8 @@ panel : PDP8panel
       PS2KBdata  => PS2KBdata,
       PS2KBclk   => PS2KBclk,
 
+--    leds       => leds,
+
       CONFIG     => CONFIG
    );
 
@@ -405,6 +407,7 @@ console : entity PDP8tty
       
       Config      => CONFIG (3 to 4),
       TXD         => CONSOLEtxd,
+--    CTS         => CONSOLEcts,
       RXD         => CONSOLErxd,
       RTS         => CONSOLErts
     );
@@ -444,6 +447,7 @@ tty1 : entity PDP8tty
       
       Config      => "00",
       TXD         => TTY1txd,
+--    CTS         => TTY1cts,
       RXD         => TTY1rxd,
       RTS         => TTY1rts
     );
