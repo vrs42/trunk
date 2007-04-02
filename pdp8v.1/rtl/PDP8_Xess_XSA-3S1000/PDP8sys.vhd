@@ -76,7 +76,7 @@ architecture struct of PDP8sys is
    signal IOdone_console      : std_logic;
    signal IOskip_console      : std_logic;
 
-	-- Secondary Perial Port, active low
+	-- Secondary Serial Port, active low
    signal IOinterrupt_tty1 : std_logic;
    signal IOdevstatus_tty1 : std_logic_vector (0 to 1);
    signal IOrdata_tty1     : std_logic_vector (0 to 11);
@@ -108,7 +108,6 @@ component PDP8cpu
       reset       : in std_logic;
 
       -- Memory Interface
-
       MEMrd       : out std_logic;
       MEMwr       : out std_logic;
       MEMdone     : in  std_logic;
