@@ -8,7 +8,7 @@ USE IEEE.STD_LOGIC_UNSIGNED.all;
 entity switchesDeMux is
   generic (
       SYSCLKFREQ : integer;
-      SSCKFREQ   : integer := 10000
+      SSCKFREQ   : integer := 100
    );
 
   port (
@@ -42,7 +42,8 @@ end switchesDeMux;
 architecture behavioral of switchesDeMux is
 
    constant switchBits : integer := 8*4; -- 32 bits
-   constant FREQDIV    : integer := SYSCLKFREQ / SSCKFREQ;
+--   constant FREQDIV    : integer := SYSCLKFREQ / (32*SSCKFREQ); -- BUGBUG: Why doesn't this work?
+   constant FREQDIV    : integer := 10000;
    
    -- The external hardware presents SCF5 first, and SDF0 last.
    constant SDF0   : integer := 0;
@@ -88,6 +89,12 @@ architecture behavioral of switchesDeMux is
    signal ISTOP       : std_logic;
    signal OEXAM       : std_logic;
    signal ODEP        : std_logic;
+   signal OSTART      : std_logic;
+   signal OCONT       : std_logic;
+   signal IEXAM       : std_logic;
+   signal IDEP        : std_logic;
+   signal ISTART      : std_logic;
+   signal ICONT       : std_logic;
 begin
 
    shift: process(clk)
@@ -96,6 +103,11 @@ begin
          if (SSCKCounter < FREQDIV) then
             SSCK <= '1';
             SSCKCounter <= SSCKCounter + 1;
+            IEXAM <= '0';
+            IDEP <= '0';
+            ISTART <= '0';
+            ICONT <= '0';
+            STOP <= ISTOP;
          else
             SSCK <= '0';
             SSCKCounter <= 0;
@@ -107,38 +119,54 @@ begin
             else
                counter <= 0;
                SCL_N <= '0';
-               SR <= switches(SSR0 to SSR11);
+               SR <= not switches(SSR0 to SSR11);
                ISTOP <= switches(SSTOP);
                SS <= switches(SSS);
                ISI <= switches(SSI);
                CONF <= switches(SCF0 to SCF5);
                STOP <= ISI or ISTOP;
                LADDR <= switches(SLADDR);
-               SDF <= switches(SDF0 to SDF2);
-               SIF <= switches(SIF0 to SIF2);
-               PC <= switches(SSR0 to SSR11);
+               SDF <= not switches(SDF0 to SDF2);
+               SIF <= not switches(SIF0 to SIF2);
+               PC <= not switches(SSR0 to SSR11);
                -- Some operations are idempotent, but EXAM, DEP, START, and CONT
                -- must be debounced.  We do that by sampling fairly slowly, then 
                -- detecting an edge.
                if (OEXAM = '0') and (switches(SEXAM) = '1') then 
-                  EXAM <= '1';
+                  IEXAM <= '1';
                else 
-                  EXAM <= '0';
+                  IEXAM <= '0';
                end if;
                OEXAM <= switches(SEXAM);
                if (ODEP = '0') and (switches(SDEP) = '1') then
-                  DEP <= '1';
+                  IDEP <= '1';
                else
-                  DEP <= '0';
+                  IDEP <= '0';
                end if;
                ODEP <= switches(SDEP);
-               -- For START and CONT, it probably suffices to sample slowly.
-               START <= switches(SSTART);
-               CONT <= switches(SCONT);
+               if (OSTART = '0') and (switches(SSTART) = '1') then
+                  ISTART <= '1';
+               else
+                  ISTART <= '0';
+               end if;
+               OSTART <= switches(SSTART);
+               if (OCONT = '0') and (switches(SCONT) = '1') then
+                  ICONT <= '1';
+               else
+                  ICONT <= '0';
+               end if;
+               OCONT <= switches(SCONT);
+               if (ISTART or ICONT or IEXAM or IDEP) = '1' then
+                  STOP <= '0';
+               end if;
                switches <= (others => '0');
             end if;
          end if;
       end if;
    end process;
+   START <= ISTART;
+   CONT <= ICONT;
+   EXAM <= IEXAM;
+   DEP <= IDEP;
 
 end behavioral;
