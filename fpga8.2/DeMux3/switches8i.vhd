@@ -86,6 +86,7 @@ architecture behavioral of switchesDeMux is
    signal SSCKCounter : integer := 0;
    signal counter     : integer := 0;
    signal ISI         : std_logic;
+   signal ISS         : std_logic;
    signal ISTOP       : std_logic;
    signal OEXAM       : std_logic;
    signal ODEP        : std_logic;
@@ -100,6 +101,7 @@ begin
    shift: process(clk)
    begin
       if (clk'event and clk = '1') then
+         -- Every rising clk
          if (SSCKCounter < FREQDIV) then
             SSCK <= '1';
             SSCKCounter <= SSCKCounter + 1;
@@ -107,8 +109,8 @@ begin
             IDEP <= '0';
             ISTART <= '0';
             ICONT <= '0';
-            STOP <= ISTOP;
          else
+            -- Every FREQDIV clks we shift the input register or look at the result.
             SSCK <= '0';
             SSCKCounter <= 0;
             if (counter < switchBits) then
@@ -117,21 +119,18 @@ begin
                switches <= (not SSER_N) & switches(0 to switchBits-2);
                SCL_N <= '1';
             else
+               -- The switches are shifted into their correct locations and we can inspect their values.
                counter <= 0;
                SCL_N <= '0';
                SR <= not switches(SSR0 to SSR11);
-               ISTOP <= switches(SSTOP);
-               SS <= switches(SSS);
-               ISI <= switches(SSI);
                CONF <= switches(SCF0 to SCF5);
-               STOP <= ISI or ISTOP;
                LADDR <= switches(SLADDR);
                SDF <= not switches(SDF0 to SDF2);
                SIF <= not switches(SIF0 to SIF2);
                PC <= not switches(SSR0 to SSR11);
                -- Some operations are idempotent, but EXAM, DEP, START, and CONT
                -- must be debounced.  We do that by sampling fairly slowly, then 
-               -- detecting an edge.
+               -- detecting a rising edge.
                if (OEXAM = '0') and (switches(SEXAM) = '1') then 
                   IEXAM <= '1';
                else 
@@ -156,11 +155,23 @@ begin
                   ICONT <= '0';
                end if;
                OCONT <= switches(SCONT);
-               if (ISTART or ICONT or IEXAM or IDEP) = '1' then
-                  STOP <= '0';
-               end if;
-               switches <= (others => '0');
+               ISTOP <= switches(SSTOP);
+               ISI <= switches(SSI);
+               ISS <= switches(SSS);
+               switches <= (others => '0'); -- What was I thinking here??
             end if;
+         end if;
+         -- Switches that stop the machine should not be debounced, as it is 
+         -- too slow to notice SI and SS.  However, the process above only 
+         -- gives us visibility of the switch values every debounce interval.
+         -- What we do is remember the switches values in internal copies, then 
+         -- use the remembered values to recalculate STOP and SS here every clock.
+         if (ISTART or ICONT or IEXAM or IDEP) = '1' then
+            STOP <= '0';
+            SS   <= '0';
+         else
+            STOP <= (ISI or ISTOP);
+            SS   <= ISS;
          end if;
       end if;
    end process;
@@ -168,5 +179,4 @@ begin
    CONT <= ICONT;
    EXAM <= IEXAM;
    DEP <= IDEP;
-
 end behavioral;

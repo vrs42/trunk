@@ -8,15 +8,15 @@ entity PDP8_XSA_3S1000 is
       CLK100      : in  std_logic; -- 100 MHz clock
       SW2_N       : in  std_logic; -- active-low pushbutton reset
 
---      PS2_CLK     : in  std_logic; 
---      PS2_DAT 	   : in  std_logic;
+      PS2_CLK     : in  std_logic; 
+      PS2_DAT 	   : in  std_logic;
 
 --      STATUS_LED  : out std_logic_vector(6 downto 0);
---      VGA_BLUE    : out std_logic_vector(2 downto 0);
---      VGA_GREEN   : out std_logic_vector(2 downto 0);
---      VGA_RED     : out std_logic_vector(2 downto 0);
---      VGA_HSYNC_N : out std_logic;
---      VGA_VSYNC_N : out std_logic;
+      VGA_BLUE    : out std_logic_vector(2 downto 0);
+      VGA_GREEN   : out std_logic_vector(2 downto 0);
+      VGA_RED     : out std_logic_vector(2 downto 0);
+      VGA_HSYNC_N : out std_logic;
+      VGA_VSYNC_N : out std_logic;
    
       RS232_TXD   : out std_logic;
       RS232_RXD   : in  std_logic;
@@ -95,16 +95,16 @@ architecture struct of PDP8_XSA_3S1000 is
       sysclk      : in std_logic;
       reset       : in std_logic;
 
---      VGAdotclk   : in std_logic;
---      VGAhsync    : out std_logic;
---      VGAvsync    : out std_logic;
---      VGAred      : out std_logic;
---      VGAblue     : out std_logic;
---      VGAgreen    : out std_logic;
---
---      PS2KBdata   : in std_logic;
---      PS2KBclk    : in std_logic;
---
+      VGAdotclk   : in std_logic;
+      VGAhsync    : out std_logic;
+      VGAvsync    : out std_logic;
+      VGAred      : out std_logic;
+      VGAblue     : out std_logic;
+      VGAgreen    : out std_logic;
+
+      PS2KBdata   : in std_logic;
+      PS2KBclk    : in std_logic;
+
       CONFIG      : in std_logic_vector (1 to 8);
 
       CONSOLErxd  : in std_logic;
@@ -141,9 +141,9 @@ component clkdll_divide is
    );
 end component clkdll_divide;
 
---signal VGAred   : std_logic;
---signal VGAgreen : std_logic;
---signal VGAblue  : std_logic;
+signal VGAred   : std_logic;
+signal VGAgreen : std_logic;
+signal VGAblue  : std_logic;
 
 signal sysclk   : std_logic;
 signal dotclk   : std_logic;
@@ -174,16 +174,16 @@ PDP8 : PDP8sys
       sysclk     => sysclk,
       reset      => pbutton,
       
---      VGAdotclk  => dotclk,
---      VGAhsync   => VGA_HSYNC_N,
---      VGAvsync   => VGA_VSYNC_N,
---      VGAred     => VGAred,
---      VGAblue    => VGAblue,
---      VGAgreen   => VGAgreen,
---
---      PS2KBdata  => PS2_DAT,
---      PS2KBclk   => PS2_CLK,
---
+      VGAdotclk  => dotclk,
+      VGAhsync   => VGA_HSYNC_N,
+      VGAvsync   => VGA_VSYNC_N,
+      VGAred     => VGAred,
+      VGAblue    => VGAblue,
+      VGAgreen   => VGAgreen,
+
+      PS2KBdata  => PS2_DAT,
+      PS2KBclk   => PS2_CLK,
+
       CONFIG     => "00001001",
 
       CONSOLErxd => RS232_RXD,
@@ -215,15 +215,15 @@ PDP8 : PDP8sys
 --      Pbusy		  => Pbusy
    );
   
---   VGA_RED(0)    <= VGAred;
---   VGA_RED(1)    <= VGAred;
---   VGA_RED(2)    <= VGAred;
---   VGA_GREEN(0)  <= VGAgreen;
---   VGA_GREEN(1)  <= VGAgreen;
---   VGA_GREEN(2)  <= VGAgreen;
---   VGA_BLUE(0)   <= VGAblue;
---   VGA_BLUE(1)   <= VGAblue;
---   VGA_BLUE(2)   <= VGAblue;
+   VGA_RED(0)    <= VGAred;
+   VGA_RED(1)    <= VGAred;
+   VGA_RED(2)    <= VGAred;
+   VGA_GREEN(0)  <= VGAgreen;
+   VGA_GREEN(1)  <= VGAgreen;
+   VGA_GREEN(2)  <= VGAgreen;
+   VGA_BLUE(0)   <= VGAblue;
+   VGA_BLUE(1)   <= VGAblue;
+   VGA_BLUE(2)   <= VGAblue;
 
 	pbutton       <= SW2_N;
 --     STATUS_LED    <= "1111111";

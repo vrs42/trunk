@@ -161,22 +161,43 @@ architecture behavioral of lightsMux is
    signal BREAK    : std_logic;
    signal PAUSE    : std_logic;
 begin
-   IAND <= '1' when (IR = "000") else '0';
-   ITAD <= '1' when (IR = "001") else '0';
-   IISZ <= '1' when (IR = "010") else '0';
-   IDCA <= '1' when (IR = "011") else '0';
-   IJMS <= '1' when (IR = "100") else '0';
-   IJMP <= '1' when (IR = "101") else '0';
-   IIOT <= '1' when (IR = "110") else '0';
-   IOPR <= '1' when (IR = "111") else '0';
+   -- Display CPU major state
+   stat: process(clk)
+   begin
+      if (clk'event and clk = '1') then
+         case STATE is
+            when CPU_Idle     => --FETCH <= '1';
+                                 --DEFER <= '0';
+                                 --EXEC  <= '0';
+                                 null;
+            when CPU_Fetch    => FETCH <= '1';
+                                 DEFER <= '0';
+                                 EXEC  <= '0';
+            when CPU_Decode   => FETCH <= '0';
+                                 DEFER <= '1';
+            when CPU_Indirect => FETCH <= '0';
+                                 DEFER <= '1';
+            when others       => FETCH <= '0';
+                                 DEFER <= '0';
+                                 EXEC  <= '1';
+         end case;
+      end if;
+   end process;
+   PAUSE <= '1' when (STATE = CPU_IOT) else '0';
 
-   FETCH <= '1' when (STATE = CPU_Fetch) else '0';
-   EXEC  <= '1' when (STATE = CPU_Execute) else '0';
-   DEFER <= '1' when (STATE = CPU_Indirect) else '0';
+   -- Continuously display IR
+   lights(LAND) <= '1' when (IR = "000") else '0';
+   lights(LTAD) <= '1' when (IR = "001") else '0';
+   lights(LISZ) <= '1' when (IR = "010") else '0';
+   lights(LDCA) <= '1' when (IR = "011") else '0';
+   lights(LJMS) <= '1' when (IR = "100") else '0';
+   lights(LJMP) <= '1' when (IR = "101") else '0';
+   lights(LIOT) <= '1' when (IR = "110") else '0';
+   lights(LOPR) <= '1' when (IR = "111") else '0';
+
    WC    <= '0'; -- Not implemented yet.
    CA    <= '0'; -- Not implemented yet.
    BREAK <= '0'; -- Not implemented yet.
-   PAUSE <= '1' when (STATE = CPU_IOT) else '0';
 
    lights(LDF0) <= dfld(2);
    lights(LSC0) <= sc(4);
@@ -259,17 +280,8 @@ begin
    lights(LAC11) <= ac(0);
    lights(LMQ11) <= mq(0);
    lights(LUA6) <= '1';
-   lights(LJMS) <= IJMS;
-
-   lights(LDCA) <= IDCA;
-   lights(LISZ) <= IISZ;
-   lights(LTAD) <= ITAD;
-   lights(LAND) <= IAND;
-   lights(LIOT) <= IIOT;
    lights(LFETCH) <= FETCH;
    lights(LBREAK) <= BREAK;
-   lights(LOPR) <= IOPR;
-   lights(LJMP) <= IJMP;
    lights(LPAUSE) <= PAUSE;
    lights(LRUN) <= RUN;
    lights(LION) <= ION;

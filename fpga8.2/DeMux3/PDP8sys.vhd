@@ -15,16 +15,16 @@ entity PDP8sys is
       sysclk     : in std_logic;     
       reset      : in std_logic;
 
---      VGAdotclk  : in std_logic;
---      VGAhsync   : out std_logic;
---      VGAvsync   : out std_logic;
---      VGAred     : out std_logic;
---      VGAblue    : out std_logic;
---      VGAgreen   : out std_logic;
---
---      PS2KBdata  : in std_logic;
---      PS2KBclk   : in std_logic;
---
+      VGAdotclk  : in std_logic;
+      VGAhsync   : out std_logic;
+      VGAvsync   : out std_logic;
+      VGAred     : out std_logic;
+      VGAblue    : out std_logic;
+      VGAgreen   : out std_logic;
+
+      PS2KBdata  : in std_logic;
+      PS2KBclk   : in std_logic;
+
       CONFIG     : in std_logic_vector (1 to 8);
 
       CONSOLErxd : in std_logic;
@@ -169,29 +169,29 @@ component PDP8mem
     );
 end component PDP8mem;
 
---component PDP8panel
---  generic (
---     CLKFREQ : integer
---  );
---   Port (
---      clk        : in  std_logic;
---      reset      : in  std_logic;
---
+component PDP8panel
+  generic (
+     CLKFREQ : integer
+  );
+   Port (
+      clk        : in  std_logic;
+      reset      : in  std_logic;
+
 --      CPUcontrol : out std_logic_vector (CPUCOntrolLength downto 0);
---      CPUstate   : in  std_logic_vector (CPUstateLength downto 0);
---
---      VGAhsync   : out std_logic;
---      VGAvsync   : out std_logic;
---      VGAred     : out std_logic;
---      VGAblue    : out std_logic;
---      VGAgreen   : out std_logic;
---
---      PS2KBdata  : in  std_logic;
---      PS2KBclk   : in  std_logic;
---
---      CONFIG     : in std_logic_vector (1 to 8)
---   );
---end component PDP8Panel;
+      CPUstate   : in  std_logic_vector (CPUstateLength downto 0);
+
+      VGAhsync   : out std_logic;
+      VGAvsync   : out std_logic;
+      VGAred     : out std_logic;
+      VGAblue    : out std_logic;
+      VGAgreen   : out std_logic;
+
+      PS2KBdata  : in  std_logic;
+      PS2KBclk   : in  std_logic;
+
+      CONFIG     : in std_logic_vector (1 to 8)
+   );
+end component PDP8Panel;
 
 component PDP8dk8 is   -- clock
   generic (
@@ -393,29 +393,29 @@ mem : PDP8mem
       MEMrdata     => MEMrdata
    );
 
---panel : PDP8panel
---   Generic map (
---      CLKFREQ => DOTCLKFREQ
---   )   
---      
---   Port map (
---      clk        => VGAdotclk,
---      reset      => reset,
---
+panel : PDP8panel
+   Generic map (
+      CLKFREQ => DOTCLKFREQ
+   )   
+      
+   Port map (
+      clk        => VGAdotclk,
+      reset      => reset,
+
 --      CPUcontrol => CPUcontrol,
---      CPUstate   => CPUstate,
---
---      VGAhsync   => VGAHsync,
---      VGAvsync   => VGAVsync,
---      VGAred     => VGAred,
---      VGAblue    => VGAblue,
---      VGAgreen   => VGAgreen,
---
---      PS2KBdata  => PS2KBdata,
---      PS2KBclk   => PS2KBclk,
---
---      CONFIG     => CONFIG
---   );
+      CPUstate   => CPUstate,
+
+      VGAhsync   => VGAHsync,
+      VGAvsync   => VGAVsync,
+      VGAred     => VGAred,
+      VGAblue    => VGAblue,
+      VGAgreen   => VGAgreen,
+
+      PS2KBdata  => PS2KBdata,
+      PS2KBclk   => PS2KBclk,
+
+      CONFIG     => CONFIG
+   );
    
 rtclock : PDP8dk8
    generic map (
@@ -579,16 +579,16 @@ lights : lightsMux
       LCL_N => S3_LCL_N,
 
       -- Registers to display
-      PC    => CPUstate(CPUpc downto CPUpc-11),
-      MA    => CPUstate(CPUma downto CPUma-11),
-      MB    => CPUstate(CPUmb downto CPUmb-11),
-      AC    => CPUstate(CPUac downto CPUac-11),
-      MQ    => CPUstate(CPUmq downto CPUmq-11),
-      DFLD  => CPUstate(CPUdf downto CPUdf-2),
-      IFLD  => CPUstate(CPUif downto CPUif-2),
-      SC    => CPUstate(CPUpc downto CPUpc-4),
+      PC    => CPUstate(CPUpc   downto CPUpc-11),
+      MA    => CPUstate(CPUma-3 downto CPUma-14),
+      MB    => CPUstate(CPUmb   downto CPUmb-11),
+      AC    => CPUstate(CPUac   downto CPUac-11),
+      MQ    => CPUstate(CPUmq   downto CPUmq-11),
+      DFLD  => CPUstate(CPUdf   downto CPUdf-2),
+      IFLD  => CPUstate(CPUif   downto CPUif-2),
+      SC    => CPUstate(CPUsc   downto CPUsc-4),
       LINK  => CPUstate(CPUlink),
-      IR    => CPUstate(CPUir downto CPUir-2),
+      IR    => CPUstate(CPUir   downto CPUir-2),
       STATE => CPUstate(CPUetat downto CPUetat-3),
       ION   => CPUstate(CPUpie),
       RUN   => CPUstate(CPUrun)
