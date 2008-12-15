@@ -16,7 +16,7 @@ entity PDP8panel is
       clk : in std_logic;
       reset : in std_logic;
 
-      CPUcontrol : out std_logic_vector (CPUcontrolLength downto 0);
+--      CPUcontrol : out std_logic_vector (CPUcontrolLength downto 0);
       CPUstate : in std_logic_vector (CPUstateLength downto 0);
 
       VGAhsync : out std_logic;
@@ -253,8 +253,8 @@ begin
    char_col <= pixel_col(9 downto 3);
    char_row <= pixel_row(9 downto 3);
 
-   CPUcontrol (CPUkeys downto CPUkeys-11) <= switches (11 downto 0);
-   CPUcontrol (CPUaddr downto CPUaddr - 14) <= addrkeys (14 downto 0);
+--   CPUcontrol (CPUkeys downto CPUkeys-11) <= switches (11 downto 0);
+--   CPUcontrol (CPUaddr downto CPUaddr - 14) <= addrkeys (14 downto 0);
 
    ir_display <= '0' when CPUstate (CPUetat downto CPUetat-3) = CPU_Idle
             else '0' when CPUstate (CPUetat downto CPUetat-3) = CPU_Fetch
@@ -1191,25 +1191,26 @@ begin
   process begin
       wait until (clk'event) AND (clk = '1');
 
-      CPUcontrol(CPUmrd) <= '0';
-      CPUcontrol(CPUmrdnext) <= '0';
-      CPUcontrol(CPUwrhere) <= '0';
-      CPUcontrol(CPUstart) <= '0';
-      CPUcontrol(CPUcontinue) <= '0';
-      CPUcontrol(CPUhalt) <= SwitchHalt;
-      CPUcontrol(CPUSstep) <= SwitchSstep;
+if false then
+--      CPUcontrol(CPUmrd) <= '0';
+--      CPUcontrol(CPUmrdnext) <= '0';
+--      CPUcontrol(CPUwrhere) <= '0';
+--      CPUcontrol(CPUstart) <= '0';
+--      CPUcontrol(CPUcontinue) <= '0';
+--      CPUcontrol(CPUhalt) <= SwitchHalt;
+--      CPUcontrol(CPUSstep) <= SwitchSstep;
 
       kb_state <= kb_done;
 
       if (kb_state = '0') and (kb_done = '1') then
          case kb_scancode is
 
-         when '0' & KEY_START =>
-            SwitchSstep <= '0';
-            CPUcontrol(CPUstart) <= '1';
+--         when '0' & KEY_START =>
+--            SwitchSstep <= '0';
+--            CPUcontrol(CPUstart) <= '1';
 
-         when '0' & KEY_CONT =>
-            CPUcontrol(CPUcontinue) <= '1';
+--         when '0' & KEY_CONT =>
+--            CPUcontrol(CPUcontinue) <= '1';
 
          when '0' & KEY_HALT =>
 	    if HaltLatch = "00" then
@@ -1226,17 +1227,17 @@ begin
          when '0' & KEY_SSTEP =>
             SwitchSstep <= not SwitchSstep;
 
-         when '0' & KEY_READ =>
-            CPUcontrol(CPUmrd) <= '1';
+--         when '0' & KEY_READ =>
+--            CPUcontrol(CPUmrd) <= '1';
 
-         when '0' & KEY_RNEXT =>
-            CPUcontrol(CPUmrdnext) <= '1';
+--         when '0' & KEY_RNEXT =>
+--            CPUcontrol(CPUmrdnext) <= '1';
 
-         when '0' & KEY_WRITE =>
-            CPUcontrol (CPUwrhere) <= '1';
+--         when '0' & KEY_WRITE =>
+--            CPUcontrol (CPUwrhere) <= '1';
 
-         when '1' & KEY_WRITE =>
-            CPUcontrol(CPUmrdnext) <= '1';
+--         when '1' & KEY_WRITE =>
+--            CPUcontrol(CPUmrdnext) <= '1';
 
          when '0' & KEY_ADDR =>
             addrkeys <= (others => '0');
@@ -1306,6 +1307,7 @@ begin
 	 
          end case;
       end if;
+end if;
 
       if (fg = '1') then
          VGAred <= (cred and not VGAblank); 
