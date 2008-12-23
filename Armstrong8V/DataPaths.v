@@ -255,7 +255,9 @@ module FlagsUnit (Clock, Reset, LoadLink, LinkIn, LinkBit, InterruptRequest,
   // for setting (by the ION instruction) and clearing (by IOF).  BTW, notice
   // that RTF (LoadFlags) _doesn't_ restore InterruptEnable; only the LINK!
   always @(posedge Clock or posedge Reset) begin
-    if (Reset | ClearInterruptEnable)
+    if (Reset)
+      InterruptEnable = 1'b0;
+    else if (ClearInterruptEnable)
       InterruptEnable = 1'b0;
     else if (SetInterruptEnable)
       InterruptEnable = 1'b1;

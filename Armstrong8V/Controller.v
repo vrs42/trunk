@@ -154,7 +154,7 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   //   This is the register part of the state machine and synthesizes the flip
   // flops that hold the current state code, and it's as trivial as can be.
   // Notice that a global reset always starts us out in the FETCH1 state.
-  initial State = `FETCH_1;
+  //initial State = `FETCH_1;
   always @(posedge Clock or posedge Reset) begin
     State <= Reset ? `FETCH_1 : NextState;
     //$strobe("OldState=%o, New state = %o", State, NextState);
@@ -165,7 +165,9 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   // LogicUnit via the SetInterruptDelay signal, and it's automatically cleared
   // at the end of each FETCH_1 state...
   always @(posedge Clock or posedge Reset) begin
-    if (Reset | (State == `FETCH_1))
+    if (Reset)
+      InterruptDelay = 1'b0;
+    else if (State == `FETCH_1)
       InterruptDelay = 1'b0;
     else if (SetInterruptDelay)
       InterruptDelay = 1'b1;
