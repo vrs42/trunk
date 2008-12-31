@@ -24,8 +24,13 @@
 //		   The FlagsUnit needs to get its input data from the
 //		    AC_BUS, _not_ the DeviceData bus!
 //  7-Jul-07  RLA  Change to an asynchronous reset for compatibility with GSR.
+//		   Rewrite the Interrupt Enable and LINK code so that XST
+//		    can infer flip flops.
+//  8-Jul-07  RLA  Connect SR and FLAGS directly to the LeftMux 
 //
 // TODO:
+//  Do away with the internal DeviceData and replace it with a mux for
+//  READ_FLAGS, READ_SR, and (default) external data in
 //--
 //000000011111111112222222222333333333344444444445555555555666666666677777777778
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -133,24 +138,26 @@ module ACFunctionUnit (Function, DataIn, LinkIn, DataOut, LinkOut);
 endmodule
 
 
-module LeftSelectionUnit (Select, IO, PC, MQ, EA, MA, MD, MB, Out);
+module LeftSelectionUnit (Select, IO, PC, MQ, EA, MA, MD, MB, SR, FLAGS, Out);
   //++
-  //   This module is a simple eight input, twelve bit multiplexer that
+  //   This module is a simple nine input, twelve bit multiplexer that
   // selects the register for the left input of the ALU...
   //--
   input [`LEFT_SOURCE_WIDTH] Select;  output reg [`DATA_WIDTH] Out;
-  input [`DATA_WIDTH] IO, PC, MQ, EA, MA, MD, MB;
+  input [`DATA_WIDTH] IO, PC, MQ, EA, MA, MD, MB, SR, FLAGS;
 
-  always @(Select, IO, PC, MQ, EA, MA, MD, MB)
+  always @(Select or IO or PC or MQ or EA or MA or MD or MB or SR or FLAGS)
     case (Select)
-      `LEFT_IO: Out <= IO;
-      `LEFT_PC: Out <= PC;
-      `LEFT_MQ: Out <= MQ;
-      `LEFT_EA: Out <= EA;
-      `LEFT_MA: Out <= MA;
-      `LEFT_MD: Out <= MD;
-      `LEFT_MB: Out <= MB;
-      default:	Out <= 12'B0;
+      `LEFT_IO:    Out <= IO;
+      `LEFT_PC:    Out <= PC;
+      `LEFT_MQ:    Out <= MQ;
+      `LEFT_EA:    Out <= EA;
+      `LEFT_MA:    Out <= MA;
+      `LEFT_MD:    Out <= MD;
+      `LEFT_MB:    Out <= MB;
+      `LEFT_SR:    Out <= SR;
+      `LEFT_FLAGS: Out <= FLAGS;
+       default:    Out <= 12'B0;
     endcase
 endmodule
 
@@ -175,80 +182,85 @@ module AddressCalculationUnit (IR, MA, EA, AutoIndex);
 endmodule
 
 
-module RegisterUnit (Clock, Reset, Load, Clear, Read, DataIn, DataOut);
+module RegisterUnit (Clock, Reset, Load, Clear, DataIn, DataOut);
   //++
-  //   This RegisterUnit has a synchronous reset, load and clear, and tristate
-  // outputs.  Clear and reset are exactly the same function - both reset the
-  // register to zero on the next clock - and they're separate inputs only for
-  // convenience.  The tristate outputs are enabled on the DataOut lines when
-  // the Read input is asserted.  Note that Clear takes precedence over Load
-  // if both are asserted.  The MQ, in particular, depends on this particular
-  // behaviour.
+  //   This RegisterUnit has a asynchronous reset, and a synchronous load and
+  // clear.  Clear and reset are exactly the same function except for the
+  // numeric values used.  Note that the value for a Reset doesn't have to be
+  // the same as Clear - the IR depends on that in particular.  And also note
+  // that Clear takes precedence over Load if both are asserted.  The MQ, in
+  // particular, depends on this particular behaviour.  This sufficies for the
+  // AC, PC, IR, MA, MB, SR and MQ - in fact, all registers except for the
+  // FLAGS. 
   //
-  //   This sufficies for the AC, PC, IR, MA, MB, SR and MQ - in fact, all
-  // registers except for the LINK.  Note that many of these registers do not
-  // use all the inputs; for example, only the SR uses the output enable, and
-  // only the MQ uses the clear input, but you can simply tie the unused inputs
-  // to zero and the synthesis tool will be smart enough to optimize away the
-  // useless logic.
+  //   Notice that many of these registers do not use all the inputs; for
+  // example, only the MQ and IR use the Clearn input, but you can simply tie
+  // the unused inputs to zero and the synthesis tool will be smart enough to
+  // optimize away the useless logic.
   //
   //   And finally, the ClearValue and ResetValue parameters can be used to
-  // establish a non-zero values for a reset and clear operation.  
+  // establish non-zero, and possibly different, values for a reset and clear
+  // operation.  For most registers both these values will simply be zero, but
+  // the IR, for example, uses the Clear function to jam the value 04000 (a
+  // "JMS 0" opcode) into the IR during an interrupt acknowledge.  Another
+  // important but subtle difference is that Reset is asynchronous while Clear
+  // is synchronous - other registers (e.g AC, MQ) uses both these operations
+  // to implement both a power on clear and a "clear AC" or "clear MQ" function.
   //--
-  parameter ResetValue = 12'O0000;
-  parameter ClearValue = 12'O0000;
-  input Clock, Reset, Clear, Load, Read;
-  input [`DATA_WIDTH] DataIn;  output [`DATA_WIDTH] DataOut;
-  reg [`DATA_WIDTH] Data = ResetValue;
+  parameter ResetValue = 12'O0000;	// register value for Reset
+  parameter ClearValue = 12'O0000;	//  "    "    "    "  Clear
+  input Clock, Reset, Clear, Load;  input [`DATA_WIDTH] DataIn;
+  output reg[`DATA_WIDTH] DataOut = ResetValue;
 
+  //   This should generate twelve D flop-flops with an asynchronous clear and
+  // a mux on the D input to select either the constant ClearValue or the
+  // current DataIn contents...
   always @(posedge Clock or posedge Reset) begin
     if (Reset)
-      Data <= ResetValue;
+      DataOut <= ResetValue;
     else if (Clear)
-      Data <= ClearValue;
+      DataOut <= ClearValue;
     else if (Load)
-      Data <= DataIn;
+      DataOut <= DataIn;
   end
-  assign DataOut = Read ? Data : 12'BZ;
 endmodule
 
 
 module FlagsUnit (Clock, Reset, LoadLink, LinkIn, LinkBit, InterruptRequest,
 	InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
-	ReadFlags, LoadFlags, DataIn, DataOut);
+	LoadFlags, FlagsIn, FlagsOut);
 
   //++
   //   This module implements the basic, non-EMA, version of the PDP-8 flags
   // register.  This is limited to the LINK bit, the interrupt enable flag,
-  // and the interrupt request status bit.  FYI - the "FlagData" bus is in
-  // reality the DeviceData or I/O bus.  ReadFlags enables bus drivers for
-  // bits 0, 2 and 4 which is then gated thru the ALU and into the AC for
-  // the GTF instruction.  Conversely, the RTF instruction puts the AC data
-  // on the bus and loads bits 0 and into the LINK and Interrupt Enable flip
-  // flops.
+  // and the interrupt request status bit.  In addition to explicit operations
+  // that change the flags (e.g. CLL or ION) the RTF instruction loads these
+  // flags directly from the ALU output bus when LoadFlags is asserted.  And
+  // the current contents of the FLAGS register - all twelve bits of it - are
+  // always available on the FlagsOut bus.  This can be gated into the AC via
+  // the ALU and the left mux for the GTF instruction.
   //--
-  input  Clock, Reset, LoadLink, LinkIn, ReadFlags, LoadFlags;
+  input  Clock, Reset, LoadLink, LinkIn, LoadFlags;
   input  InterruptRequest, SetInterruptEnable, ClearInterruptEnable;
   output reg LinkBit = 1'b0, InterruptEnable = 1'b0;
-  input [`DATA_WIDTH] DataIn;  output [`DATA_WIDTH] DataOut;
+  input [`DATA_WIDTH] FlagsIn;  output [`DATA_WIDTH] FlagsOut;
 
   //   The link logic is pretty straight forward and is largely independent
   // of everything else.  Here's a summary of what happens -
   //
-  //	       Load  Read   Load
-  //	Reset  Link  Flags  Flags       Operation
-  //    -----  ----  -----  -----       ----------------------
-  //	  1      x     x      x		LinkBit <= 0;
-  //      0      1     x      x         LinkBit <= LinkIn;
-  //      0      0     1      0         FlagData[0] = LinkBit;
-  //      0      0     0      1         LinkBit = FlagData[0]
+  //           Load  Load
+  //    Reset  Link  Flags       Operation
+  //    -----  ----  -----       ----------------------
+  //      1      x     x         LinkBit <= 0;
+  //      0      1     x         LinkBit <= LinkIn;
+  //      0      0     1         LinkBit = FlagsIn[0]
   always @(posedge Clock or posedge Reset) begin
     if (Reset)
       LinkBit = 1'b0;
     else if (LoadLink)
       LinkBit = LinkIn;
     else if (LoadFlags)
-      LinkBit = DataIn[0];
+      LinkBit = FlagsIn[0];
   end
 
   //  The Interrupt Enable flag is similar, but it has separate control inputs
@@ -263,13 +275,8 @@ module FlagsUnit (Clock, Reset, LoadLink, LinkIn, LinkBit, InterruptRequest,
       InterruptEnable = 1'b1;
   end
 
-  //   And finally, InterruptRequest is just a status bit.  It can be read by
-  // the GTF instruction via ReadFlags, but it can't be written...
-  assign DataOut = ReadFlags ?
-    {LinkBit, 1'b0, InterruptRequest, 1'b0, InterruptEnable, 7'b0} : 12'bz;
-  //assign FlagData[0] = ReadFlags ? LinkBit : 1'bz;
-  //assign FlagData[2] = ReadFlags ? InterruptRequest : 1'bz;
-  //assign FlagData[4] = ReadFlags ? InterruptEnable : 1'bz;
+  // Put together the virtual flag register from the discrete bits ...
+  assign FlagsOut = {LinkBit,1'b0,InterruptRequest,1'b0,InterruptEnable,7'b0};
 endmodule
 
 
@@ -326,10 +333,10 @@ endmodule
 
 module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   MemoryWrite, DeviceWrite, LoadPC, LoadIR, LoadMA, LoadMB, LoadMQ, ClearMQ,
-  LoadSR, ReadSR, LoadAC, LoadLink, LeftSelect, ALU_Function, AC_Function,
+  LoadSR, LoadAC, LoadLink, LeftSelect, ALU_Function, AC_Function,
   RotateFunction, AC_Zero, AC_Minus, LinkBit, MB_Zero, AutoIndex,
   InterruptRequest, InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
-  InterruptInhibit, ReadFlags, LoadFlags, LoadJMS);
+  InterruptInhibit, LoadFlags, LoadJMS, FrontPanelDisplay);
 
   //++
   //--
@@ -347,8 +354,6 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   input  LoadMA;		//   "   "   "	 "  memory address "     "
   input  LoadMB;		//   "   "   "	 "  memory buffer  "     "
   input  ClearMQ;		// TRUE to load MQ with zero this cycle
-  input  ReadSR;		// TRUE to gate the SR onto the IOBUS
-  input  ReadFlags;		// TRUE to gate the FLAGS into the IOBUS
   input  LoadFlags;		// TRUE to load the FLAGS from the IOBUS
   input  LoadJMS;		// TRUE to load a 4000 (JMS) opcode into the IR
 //input  DataField;		// TRUE with LoadMA to use the data field
@@ -375,33 +380,34 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   inout  [`DATA_WIDTH] MemoryData;		//   "	  data	   "
   inout  [`DATA_WIDTH] DeviceData;		// input/output device data bus
   output [`DATA_WIDTH] Opcode;			// current instruction
+  output [`DATA_WIDTH] FrontPanelDisplay;
 
   // Local signals ...
-  wire [`DATA_WIDTH] AC_Bus, MQ_Bus, PC_Bus, Opcode, EA_Bus, MB_Bus;
-  wire [`DATA_WIDTH] LeftBus, RightBus, ALU_Bus, SumBus;
+  wire [`DATA_WIDTH] AC_Bus, MQ_Bus, PC_Bus, Opcode, EA_Bus, MB_Bus, SR_Bus;
+  wire [`DATA_WIDTH] FlagsBus, LeftBus, RightBus, ALU_Bus, SumBus;
   wire Link1, Link2;
 
   // Processor status flags (LINK, Interrupt Enable, fields) ...
   FlagsUnit FLAGS (Clock, Reset, LoadLink, NewLink, LinkBit,
     InterruptRequest, InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
-    ReadFlags, LoadFlags, AC_Bus, DeviceData);
+    LoadFlags, AC_Bus, FlagsBus);
 
   // Registers ...
-  RegisterUnit AC (Clock, Reset, LoadAC, 1'b0, 1'b1, SumBus, AC_Bus);
-  RegisterUnit MQ (Clock, Reset, LoadMQ, ClearMQ, 1'b1, AC_Bus, MQ_Bus);
-  RegisterUnit MA (Clock, Reset, LoadMA, 1'b0, 1'b1, SumBus, MemoryAddress);
-  RegisterUnit MB (Clock, Reset, LoadMB, 1'b0, 1'b1, SumBus, MB_Bus);
+  RegisterUnit AC (Clock, Reset, LoadAC,    1'b0, SumBus, AC_Bus);
+  RegisterUnit MQ (Clock, Reset, LoadMQ, ClearMQ, AC_Bus, MQ_Bus);
+  RegisterUnit MA (Clock, Reset, LoadMA,    1'b0, SumBus, MemoryAddress);
+  RegisterUnit MB (Clock, Reset, LoadMB,    1'b0, SumBus, MB_Bus);
   RegisterUnit #(12'O0000, 12'O4000)
-		   IR (Clock, Reset, LoadIR, LoadJMS, 1'b1, MemoryData, Opcode);
+	       IR (Clock, Reset, LoadIR, LoadJMS, MemoryData, Opcode);
   RegisterUnit #(12'O0200, 12'O0200)
-		   PC (Clock, Reset, LoadPC, 1'b0, 1'b1, SumBus, PC_Bus);
-  RegisterUnit #(12'O0, 12'O0)
-		   SR (Clock, Reset, LoadSR, 1'b0, ReadSR, AC_Bus, DeviceData);
+	       PC (Clock, Reset, LoadPC,    1'b0, SumBus, PC_Bus);
+  RegisterUnit #(12'O0000, 12'O0000)
+	       SR (Clock, Reset, LoadSR,    1'b0, AC_Bus, SR_Bus);
 
   // And the data paths ...
   AddressCalculationUnit EA (Opcode, MemoryAddress, EA_Bus, AutoIndex);
-  LeftSelectionUnit MUX (LeftSelect, DeviceData, PC_Bus, MQ_Bus,
-			  EA_Bus, MemoryAddress, MemoryData, MB_Bus, LeftBus);
+  LeftSelectionUnit LMUX (LeftSelect, DeviceData, PC_Bus, MQ_Bus,
+	EA_Bus, MemoryAddress, MemoryData, MB_Bus, SR_Bus, FlagsBus, LeftBus);
   ACFunctionUnit ACF (AC_Function, AC_Bus, LinkBit, RightBus, Link1);
   ArithmeticLogicUnit ALU (ALU_Function,LeftBus,RightBus,Link1,ALU_Bus,Link2);
   RotateUnit ROT (RotateFunction, ALU_Bus, Link2, SumBus, NewLink);
@@ -424,4 +430,7 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
     $strobe("AC=%o, L=%b, PC=%o, MQ=%o, IR=%o, IO=%o, IE=%b",
       AC_Bus, LinkBit, PC_Bus, MQ_Bus, Opcode, DeviceData, InterruptEnable);
   end
+
+  // Temporary - for debugging the diagnostics!
+  assign FrontPanelDisplay = AC_Bus;
 endmodule

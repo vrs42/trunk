@@ -1,12 +1,13 @@
 //++
-//parameters.v
+//parameters.v - PDP-8/V Parameters
 //
 //                   PDP-8/V PARAMETER DEFINITIONS
 //  CONFIDENTIAL - CONTAINS TRADE SECRETS OF SPARE TIME GIZMOS, INC.
 //   COPYRIGHT (C) 2007 BY SPARE TIME GIZMOS.  ALL RIGHTS RESERVED.
 //
 // REVISION HISTORY:
-// 30-Jun-07  RLA     New file.
+// 30-Jun-07  RLA  New file.
+//  8-Jul-07  RLA  Add LEFT_SR and LEFT_FLAGS 
 //--
 //000000011111111112222222222333333333344444444445555555555666666666677777777778
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -51,30 +52,43 @@
 
 
 // Selection codes for the ALU Left Data Bus ...
-`define LEFT_IO			3'O0	// Left ALU source is the device I/O bus
-`define LEFT_PC			3'O1	//   ... the program counter
-`define LEFT_MQ			3'O2	//   ... the multiplier quotient
-`define LEFT_EA			3'O3	//   ... effective address calculation
-`define LEFT_MA			3'O4	//   ... the memory address register
-`define LEFT_MD			3'O5	//   ... the memory data bus
-`define LEFT_MB			3'O6	//   ... the memory data buffer
-`define LEFT_UNUSED		3'O7	// unused
-`define LEFT_SOURCE_WIDTH	0:2	// width of the LEFT SOURCE bus 
+`define LEFT_IO			4'O00	// Left ALU source is the device I/O bus
+`define LEFT_PC			4'O01	//   ... the program counter
+`define LEFT_MQ			4'O02	//   ... the multiplier quotient
+`define LEFT_EA			4'O03	//   ... effective address calculation
+`define LEFT_MA			4'O04	//   ... the memory address register
+`define LEFT_MD			4'O05	//   ... the memory data bus
+`define LEFT_MB			4'O06	//   ... the memory data buffer
+`define LEFT_SR			4'O07	//   ... the switch regiter
+`define LEFT_FLAGS		4'O10	//   ... the flags register
+`define LEFT_UNUSED		4'O17	// unused
+`define LEFT_SOURCE_WIDTH	0:3	// width of the LEFT SOURCE bus 
 
 
 // State codes for the timing generator ...
-`define FETCH_1			12'O0001// read the opcode from memory
-`define FETCH_2			12'O0002// increment the PC
-`define FETCH_3			12'O0004// read the operand for MRIs
-`define DEFER_1			12'O0010// fetch an indirect address
-`define AUTOINDEX_1		12'O0020// increment an AI location
-`define AUTOINDEX_2		12'O0040// write the AI register back to memory
-`define AUTOINDEX_3		12'O0100// read the operand for MRIs
-`define EXECUTE_1		12'O0200// execute all opcodes, part 1
-`define EXECUTE_2		12'O0400//  "   "   "   "   "    "   2
-`define INTERRUPT_1		12'O1000// interrupt acknowledge cycle
-`define HALTED_1		12'O2000// CPU halted
-`define STATE_CODE_WIDTH	0:10	// width of the current state register
+`define FETCH_1		12'b00000000001	// read the opcode from memory
+`define FETCH_1X	12'bxxxxxxxxxx1
+`define FETCH_2		12'b00000000010	// increment the PC
+`define FETCH_2X	12'bxxxxxxxxx1x
+`define FETCH_3		12'b00000000100	// read the operand for MRIs
+`define FETCH_3X	12'bxxxxxxxx1xx
+`define DEFER_1		12'b00000001000	// fetch an indirect address
+`define DEFER_1X	12'bxxxxxxx1xxx
+`define AUTOINDEX_1	12'b00000010000	// increment an AI location
+`define AUTOINDEX_1X	12'bxxxxxx1xxxx
+`define AUTOINDEX_2	12'b00000100000	// write the AI register back to memory
+`define AUTOINDEX_2X	12'bxxxxx1xxxxx
+`define AUTOINDEX_3	12'b00001000000	// read the operand for MRIs
+`define AUTOINDEX_3X	12'bxxxx1xxxxxx
+`define EXECUTE_1	12'b00010000000	// execute all opcodes, part 1
+`define EXECUTE_1X	12'bxxx1xxxxxxx
+`define EXECUTE_2	12'b00100000000	//  "   "   "   "   "    "   2
+`define EXECUTE_2X	12'bxx1xxxxxxxx
+`define INTERRUPT_1	12'b01000000000	// interrupt acknowledge cycle
+`define INTERRUPT_1X	12'bx1xxxxxxxxx
+`define HALTED_1	12'b10000000000	// CPU halted
+`define HALTED_1X	12'b1xxxxxxxxxx
+`define STATE_CODE_WIDTH 	   0:10	// width of the current state register
 
 
 //   Define mnemonics for the bit patterns used by various PDP-8 opcodes and

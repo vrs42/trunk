@@ -1,5 +1,5 @@
 //++
-//kk8v.v
+//kl8e.v
 //
 //                       PDP-8/V SERIAL LINE UNIT
 //  CONFIDENTIAL - CONTAINS TRADE SECRETS OF SPARE TIME GIZMOS, INC.
@@ -14,12 +14,17 @@
 //		     simulation window - this lets us actually see
 //  CONGRATULATIONS!!
 //  YOU HAVE SUCCESSFULLY LOADED 'FOCAL,1969' ON A PDP-8 COMPUTER.
-//
 //  7-Jul-07  RLA  Change to an asynchronous reset for compatibility with GSR.
+//            RLA  Rewrite the ReaderRun code so XST can infer a F-F.
+//  8-Jul-07  RLA  OldTBF should reset to 1, not zero!
+//                 Convert open drain signals DeviceSkip, DeviceControl and
+//                   InterruptRequest, to normal signals
+//                 Pass FramingError and ReaderRun back up a level
 //
 // TODO:
 //   Add support for the DECmate style extended serial units 
 //     i.e. modem control, programmable baud rate, etc
+//   Change terminology from "Reset" to "Clear" or "DeviceClear" ...
 //--
 //000000011111111112222222222333333333344444444445555555555666666666677777777778
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -43,9 +48,9 @@
 `define TLS	3'O6	// print character (TCF + TPC)
 
 
-module KeyboardControl (Clock, Reset, IOT, Write, Read, Skip_n, Control_n,
-	InterruptEnable, KeyboardFlag, ReaderRun,SetKeyboardFlag,
-	ClearReaderRun, DataBus, KeyboardData);
+module KeyboardControl (Clock, Reset, IOT, Write, Read, Skip, Control,
+	InterruptEnable, KeyboardFlag, ReaderRun, SetKeyboardFlag,
+	ClearReaderRun, DataBus, ReadKeyboardData);
 
   //++
   //   This module implements the control logic for the keyboard (receiver)
@@ -61,10 +66,10 @@ module KeyboardControl (Clock, Reset, IOT, Write, Read, Skip_n, Control_n,
   // to have one :-)
   //--
   parameter DeviceSelect = 6'O03;
-  input [`DATA_WIDTH] IOT, KeyboardData;  output wand [0:1] Control_n;
-  inout [`DATA_WIDTH] DataBus;  input SetKeyboardFlag, ClearReaderRun;
-  input Clock, Reset, Write, Read;  output wand Skip_n;
-  output reg KeyboardFlag = 1'b0, ReaderRun = 1'b1, InterruptEnable = 1'b1;
+  input [`DATA_WIDTH] IOT;  output ReadKeyboardData;  output [0:1] Control;
+  input [`DATA_WIDTH] DataBus;  input SetKeyboardFlag, ClearReaderRun;
+  input Clock, Reset, Write, Read;  output Skip;
+  output reg KeyboardFlag=1'b0, ReaderRun=1'b1, InterruptEnable=1'b1;
 
   //   Selected is asserted whenever our device code appears, but this alone
   // isn't enough for an I/I - you still have to AND Select with either
@@ -81,19 +86,21 @@ module KeyboardControl (Clock, Reset, IOT, Write, Read, Skip_n, Control_n,
     //   The KeyboardFlag is cleared by KCC, KRS, KRB or Reset (which is
     // itself a combination of global reset or the CAF IOT).  The receiver
     // flag is set only when a new character is received...
-    if (   Reset
-	| (Write & Selected & (IOT[9:11] == `KCC))
-	| (Write & Selected & (IOT[9:11] == `KRS))
-	| (Write & Selected & (IOT[9:11] == `KRB)) )
+    if (Reset)
+      KeyboardFlag = 1'b0;
+    else if (  (Write & Selected & (IOT[9:11] == `KCC))
+	     | (Write & Selected & (IOT[9:11] == `KRS))
+	     | (Write & Selected & (IOT[9:11] == `KRB)) )
       KeyboardFlag = 1'b0;
     else if (SetKeyboardFlag)
       KeyboardFlag = 1'b1;
 
     //   ReaderRun is set by KCC, KRB or Reset and is reset by the start bit
     // of the next incoming character ...
-    if (   Reset
-	| (Write & Selected & (IOT[9:11] == `KCC))
-	| (Write & Selected & (IOT[9:11] == `KRB)) )
+    if (Reset)
+      ReaderRun = 1'b1;
+    else if (  (Write & Selected & (IOT[9:11] == `KCC))
+	     | (Write & Selected & (IOT[9:11] == `KRB)) )
       ReaderRun = 1'b1;
     else if (ClearReaderRun)
       ReaderRun = 1'b0;
@@ -106,25 +113,21 @@ module KeyboardControl (Clock, Reset, IOT, Write, Read, Skip_n, Control_n,
   end
 
   //   C0 (clear the AC) is asserted for KCC and KRB, and C1 (read peripheral
-  // data) is asserted for KRS and KRB.  For everything else, they float...
-  // Notice that the Cx lines are sampled during the DeviceRead time...
-  assign Control_n[0] = 
-    (Read & Selected & ((IOT[9:11]==`KCC) | (IOT[9:11]==`KRB))) ? 1'b0 : 1'bz;
-  assign Control_n[1] =
-    (Read & Selected & ((IOT[9:11]==`KRS) | (IOT[9:11]==`KRB))) ? 1'b0 : 1'bz;
+  // data) is asserted for KRS and KRB.  Notice that the Cx lines are sampled
+  // during the DeviceRead time...
+  assign Control[0] = Read & Selected & ((IOT[9:11]==`KCC) | (IOT[9:11]==`KRB));
+  assign Control[1] = Read & Selected & ((IOT[9:11]==`KRS) | (IOT[9:11]==`KRB));
 
   // Skip is asserted for KSF if the KeyboardFlag is also set ...
   // Notice that Skip is sampled during the DeviceWrite time ...
-  assign Skip_n =
-	(Write & Selected & (IOT[9:11]==`KSF) & KeyboardFlag) ? 1'b0 : 1'bz;
+  assign Skip = Write & Selected & (IOT[9:11]==`KSF) & KeyboardFlag;
 
   // And drive the receiver data onto the bus during KRB or KRS...
-  assign DataBus = (Read & Selected &
-	((IOT[9:11]==`KRS) | (IOT[9:11]==`KRB))) ? KeyboardData : 12'bz;
+  assign ReadKeyboardData = Read & Selected & ((IOT[9:11]==`KRS) | (IOT[9:11]==`KRB));
 endmodule
 
 
-module TeleprinterControl (Clock, Reset, IOT, Write, Read, Skip_n,
+module TeleprinterControl (Clock, Reset, IOT, Write, Read, Skip,
 	InterruptRequest, PrinterFlag, SetPrinterFlag, LoadPrinterData);
 
   //++
@@ -140,8 +143,8 @@ module TeleprinterControl (Clock, Reset, IOT, Write, Read, Skip_n,
   //--
   parameter DeviceSelect = 6'O04;
   input Clock, Reset, Read, Write, InterruptRequest, SetPrinterFlag;
-  input [`DATA_WIDTH] IOT;  output wand Skip_n;
-  output reg PrinterFlag = 1'b0;  output LoadPrinterData;
+  input [`DATA_WIDTH] IOT;  output Skip;
+  output reg PrinterFlag=1'b0;  output LoadPrinterData;
 
   //   Selected is asserted whenever our device code appears, but this alone
   // isn't enough for an I/I - you still have to AND Select with either
@@ -151,9 +154,10 @@ module TeleprinterControl (Clock, Reset, IOT, Write, Read, Skip_n,
   //   The teleprinter section only has one flag, which is set when a
   // byte is sent or by TFL, and is reset by Reset, TCF and TLS...
   always @(posedge Clock or posedge Reset) begin
-    if (   Reset
-	| (Write & Selected & (IOT[9:11] == `TCF))
-	| (Write & Selected & (IOT[9:11] == `TLS)) )
+    if (Reset)
+      PrinterFlag = 1'b0;
+    else if (  (Write & Selected & (IOT[9:11] == `TCF))
+	     | (Write & Selected & (IOT[9:11] == `TLS)) )
       PrinterFlag = 1'b0;
     else if (SetPrinterFlag | (Write & Selected & (IOT[9:11] == `TFL)))
       PrinterFlag = 1'b1;
@@ -163,9 +167,8 @@ module TeleprinterControl (Clock, Reset, IOT, Write, Read, Skip_n,
 
   //   Skip is asserted for TSF if the PrinterFlag is also set, OR for SPI
   // if either the printer or the keyboard is interrupting now ...
-  assign Skip_n = (  (Write & Selected & (IOT[9:11]==`TSF) & PrinterFlag)
-		   | (Write & Selected & (IOT[9:11]==`SPI) & InterruptRequest)
-		  ) ? 1'b0 : 1'bz;
+  assign Skip =   (Write & Selected & (IOT[9:11]==`TSF) & PrinterFlag)
+		| (Write & Selected & (IOT[9:11]==`SPI) & InterruptRequest);
 
   // And LoadPrinterData is asserted for the Write phase of TPC or TLS ...
   assign LoadPrinterData =
@@ -173,8 +176,9 @@ module TeleprinterControl (Clock, Reset, IOT, Write, Read, Skip_n,
 endmodule
 
 
-module KL8E (Clock, Reset, DeviceWrite, DeviceRead, DeviceSkip_n,
-	MemoryData, DeviceData, DeviceControl_n, InterruptRequest_n);
+module KL8E (Clock, Reset, DeviceWrite, DeviceRead, DeviceSkip,
+	MemoryData, DeviceData, DeviceControl, InterruptRequest,
+	SerialDataIn, SerialDataOut, ReaderRun, FramingError);
 
   //++
   //   This module integrates the KeyboardControl, TeleprinterControl, and a
@@ -182,50 +186,86 @@ module KL8E (Clock, Reset, DeviceWrite, DeviceRead, DeviceSkip_n,
   //--
   parameter KeyboardSelect    = 6'O03;
   parameter TransmitterSelect = 6'O04;
-  input Clock;		  		// master clock for all operations
-  input Reset;	  	 		// clear all I/O devices
-  input DeviceWrite;			// strobe to transfer data to the device
-  input DeviceRead;			//  "  "  "   "    "    "  to the AC
-  output wand DeviceSkip_n;		// TRUE during DeviceWrite to skip
-  output wand InterruptRequest_n;	// TRUE to request an interrupt cycle
-  input [`DATA_WIDTH]MemoryData;	// contains the IOT opcode for decoding
-  inout [`DATA_WIDTH]DeviceData;	// input/output device data bus
-  output wand [0:1]DeviceControl_n;	// IOT function (the Cx lines!)
+  input  Clock;		  	// master clock for all operations
+  input  Reset;	  	 	// clear all I/O devices
+  input  DeviceWrite;		// strobe to transfer data to the device
+  input  DeviceRead;		//  "  "  "   "    "    "  to the AC
+  output DeviceSkip;		// TRUE during DeviceWrite to skip
+  output InterruptRequest;	// TRUE to request an interrupt cycle
+  input [`DATA_WIDTH]MemoryData;// contains the IOT opcode for decoding
+  inout [`DATA_WIDTH]DeviceData;// input/output device data bus
+  output [0:1] DeviceControl;	// IOT function (the Cx lines!)
+  input  SerialDataIn;		// transmitted serial data output
+  output SerialDataOut;		// received serial data input
+  output ReaderRun;		// reader run flag (or clear to send)
+  output FramingError;		// BREAK pressed on console terminal
 
   // Local signals ...
-  wire KeyboardFlag, PrinterFlag, InterruptEnable, ReaderRun, InterruptRequest;
-  reg SetKeyboardFlag, ClearReaderRun, SetPrinterFlag;  wire LoadPrinterData;
-  wire [`DATA_WIDTH] KeyboardData;  reg [0:6] ch;
+  wire KeyboardFlag, PrinterFlag, InterruptEnable;
+  wire SetKeyboardFlag, ClearReaderRun, SetPrinterFlag;  wire LoadPrinterData;
+  wire ReadKeyboardData, KeyboardSkip, PrinterSkip;
+  wire OverflowError, TransmitterBufferEmpty, ReceiverBufferFull;
 
   KeyboardControl #(KeyboardSelect) KC (
     .Clock(Clock), .Reset(Reset),
     .IOT(MemoryData), .Write(DeviceWrite), .Read(DeviceRead),
-    .Skip_n(DeviceSkip_n), .Control_n(DeviceControl_n),
+    .Skip(KeyboardSkip), .Control(DeviceControl),
     .InterruptEnable(InterruptEnable), .KeyboardFlag(KeyboardFlag),
     .ReaderRun(ReaderRun),
     .SetKeyboardFlag(SetKeyboardFlag), .ClearReaderRun(ClearReaderRun),
-    .DataBus(DeviceData), .KeyboardData(KeyboardData)
+    .DataBus(DeviceData), .ReadKeyboardData(ReadKeyboardData)
   );
 
   TeleprinterControl #(TransmitterSelect) TC (
     .Clock(Clock), .Reset(Reset),
     .IOT(MemoryData), .Write(DeviceWrite), .Read(DeviceRead),
-    .Skip_n(DeviceSkip_n), 
+    .Skip(PrinterSkip), 
     .InterruptRequest(InterruptRequest), .PrinterFlag(PrinterFlag),
     .SetPrinterFlag(SetPrinterFlag), .LoadPrinterData(LoadPrinterData));
 
-  // Interrupt logic ...
+  // Interrupt and skip logic ...
   assign InterruptRequest = InterruptEnable & (PrinterFlag | KeyboardFlag);
-  assign InterruptRequest_n = InterruptRequest ? 1'b0 : 1'bz;
-  
-  // Send text output to the console for debugging...
-  initial begin
-    SetPrinterFlag = 1'b0;  SetKeyboardFlag = 1'b0;  ClearReaderRun = 1'b0;
-  end
-  always @(negedge Clock) begin
-    if (LoadPrinterData) begin
-      ch = DeviceData[5:11]; $write("%c", ch);  $stop;
-      #500 SetPrinterFlag = 1'b1;  #100 SetPrinterFlag = 1'b0;
+  assign DeviceSkip = KeyboardSkip | PrinterSkip;
+
+  assign DeviceData[0:3] = ReadKeyboardData ? 4'b0 : 4'bz;
+  assign ClearReaderRun = ~SerialDataIn;
+  UART #(163) uart (.SystemClock(Clock), .Reset(Reset), .DataBus(DeviceData[4:11]),
+    .SendData(LoadPrinterData), 
+    .TransmitterBufferEmpty(TransmitterBufferEmpty), .SerialDataOut(SerialDataOut),
+    .ReceiverBufferFull(ReceiverBufferFull), .ReadData(ReadKeyboardData),
+    .SerialDataIn(SerialDataIn), .FramingError(FramingError),
+    .OverflowError(OverflowError), .ClearErrors(1'b0)
+  );
+
+  // Find a 0 -> 1 transition on TransmitterBufferEmpty...
+  reg OldTBE = 1'b1;
+  assign SetPrinterFlag = ~OldTBE & TransmitterBufferEmpty;
+  always @(posedge Clock or posedge Reset)
+    if (Reset)
+      OldTBE <= 1'b1;
+    else begin
+      OldTBE <= TransmitterBufferEmpty;
     end
-  end
+
+  // Find a 0 -> 1 transition on ReceiverBufferFull...
+  reg OldRBF = 1'b0;
+  assign SetKeyboardFlag = ~OldRBF & ReceiverBufferFull;
+  always @(posedge Clock or posedge Reset)
+    if (Reset)
+      OldRBF <= 1'b0;
+    else begin
+      OldRBF <= ReceiverBufferFull;
+    end
+
+//  // Send text output to the console for debugging...
+//  reg [0:6] ch;
+//  initial begin
+//    SetPrinterFlag = 1'b0;  SetKeyboardFlag = 1'b0;  ClearReaderRun = 1'b0;
+//  end
+//  always @(negedge Clock) begin
+//    if (LoadPrinterData) begin
+//      ch = DeviceData[5:11]; $write("%c", ch);
+//      #500 SetPrinterFlag = 1'b1;  #100 SetPrinterFlag = 1'b0;
+//   end
+//  end
 endmodule

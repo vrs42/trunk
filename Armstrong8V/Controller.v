@@ -35,6 +35,7 @@
 //  4-Jul-07  RLA  Finish off the processor IOTs and add interrupt handling
 //		   Fix spurious "EXECUTE WITH JMP" simulation errors 
 //  7-Jul-07  RLA  Change to an asynchronous reset for compatibility with GSR.
+//  8-Jul-07  RLA  Connect SR and FLAGS directly to the LeftMux 
 //
 // TODO:
 //*** TODO NYI IMPORTANT *****
@@ -86,8 +87,8 @@
 //   The interrupt logic is a little obscure, so here's a summary of the
 // players to help get you started -
 //
-//   InterruptRequest_n - Input to KK8V module.
-//			  Global, active low, wire OR interrupt request.
+//   InterruptRequest - Input to KK8V module.
+//			  Global, active high, interrupt request.
 //
 //   InterruptRequest - Input to Controller and DataPaths module.
 //			  Inverted, not wire OR, version of the above.
@@ -154,9 +155,11 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   //   This is the register part of the state machine and synthesizes the flip
   // flops that hold the current state code, and it's as trivial as can be.
   // Notice that a global reset always starts us out in the FETCH1 state.
-  //initial State = `FETCH_1;
   always @(posedge Clock or posedge Reset) begin
-    State <= Reset ? `FETCH_1 : NextState;
+    if (Reset)
+      State = `FETCH_1;
+    else
+      State = NextState;
     //$strobe("OldState=%o, New state = %o", State, NextState);
   end
 
@@ -167,7 +170,7 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   always @(posedge Clock or posedge Reset) begin
     if (Reset)
       InterruptDelay = 1'b0;
-    else if (State == `FETCH_1)
+    else if  (State == `FETCH_1)
       InterruptDelay = 1'b0;
     else if (SetInterruptDelay)
       InterruptDelay = 1'b1;
@@ -176,8 +179,12 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   // And this is the combinatorial block that decodes the next state ...
   always @(State or Opcode or AutoIndex or MemoryData or InterruptRequest
 	or InterruptEnable or InterruptInhibit or InterruptDelay) begin
-    case (State)
+    //   This shouldn't be necessary (all the case options should be covered)
+    // but just in case make sure that there's always an assignment to
+    // NextState.  Otherwise the synthesis tool may try to make extra F-Fs!
+    NextState = `HALTED_1;
 
+    casex (State)
       //   FETCH has either two or three minor states. FETCH_1 and FETCH_2
       // always occur, but FETCH_3 is only used in the case of MRIs.  IOT
       // and OPR instructions go directly from FETCH_2 to EXECUTE_1.  Note
@@ -192,16 +199,16 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
       // FETCH_2, which needs to figure out whether the opcode is an IOT or
       // OPR, and it has to look at the actual MemoryData bus. This is a bit
       // kludgey, but for what it's worth, a real PDP-8 does the same thing :-)
-      `FETCH_1: NextState = (InterruptRequest & InterruptEnable
+      `FETCH_1X: NextState = (InterruptRequest & InterruptEnable
 	  & ~(InterruptInhibit | InterruptDelay)) ? `INTERRUPT_1 : `FETCH_2;
-      `FETCH_2: NextState = (MemoryData[0:1]==2'b11) ? `EXECUTE_1 : `FETCH_3;
+      `FETCH_2X: NextState = (MemoryData[0:1]==2'b11) ? `EXECUTE_1 : `FETCH_3;
 
       //   The FETCH_3 state only occurs for MRIs, and the next state should be
       // either DEFER_1, AUTOINDEX_1 or EXECUTE_1 depending on the addressing
       // mode used.  The sole exception is JMP direct, which is actually exec-
       // uted in the FETCH_3 state (the PC is loaded with the EA and we're
       // done!), so in that specifc case the next state is back to FETCH_1.
-      `FETCH_3: begin
+      `FETCH_3X: begin
 	if (Opcode[0:3] == `OP_JMPD) begin
 	  NextState = `FETCH_1;
 	end else if (Opcode[3])
@@ -214,35 +221,35 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
       // and the next state is always EXECUTE_1, unless the opcode is a JMP.
       // In the sole case of a JMP the PC is actually updated in this state
       // and the next state should be FETCH_1 again.
-      `DEFER_1: NextState = (Opcode[0:2]==`OP_JMP) ? `FETCH_1 : `EXECUTE_1;
+      `DEFER_1X: NextState = (Opcode[0:2]==`OP_JMP) ? `FETCH_1 : `EXECUTE_1;
 
       //   Auto index always requires three states - a memory read and inc-
       // rement, a memory write, and a cycle to update the address.  The next
       // state after AUTOINDEX_3 would normally be EXECUTE_1, except in the
       // special case of a JMP. That instruction actually updates the PC in
       // the AUTOINDEX_3 state and the next state would be FETCH_1 again...
-      `AUTOINDEX_1:  NextState = `AUTOINDEX_2;
-      `AUTOINDEX_2:  NextState = `AUTOINDEX_3;
-      `AUTOINDEX_3:  NextState = (Opcode[0:2]==`OP_JMP) ? `FETCH_1 : `EXECUTE_1;
+      `AUTOINDEX_1X:  NextState = `AUTOINDEX_2;
+      `AUTOINDEX_2X:  NextState = `AUTOINDEX_3;
+      `AUTOINDEX_3X:  NextState = (Opcode[0:2]==`OP_JMP) ? `FETCH_1 : `EXECUTE_1;
 
       //   The EXECUTE major state has either one or two cycles.  The AND, TAD,
       // OPR1 and OPR3 instructions finish in one cycle, but ISZ, DCA, JMS, 
       // IOT and OPR2 instructions take two.  Notice that there's also a small
       // kludge in the EXECUTE_2 phase - if the Opcode contains a HLT micro
       // instruction, then the next state is HALTED, not FETCH_1.  
-      `EXECUTE_1: NextState = (
+      `EXECUTE_1X: NextState = (
 		      (Opcode[0:2]==`OP_ISZ) | ( Opcode[0:2]==`OP_DCA)
 		    | (Opcode[0:2]==`OP_JMS) | ( Opcode[0:2]==`OP_IOT)
 		    | ((Opcode[0:2]==`OP_OPR) & Opcode[3] & ~Opcode[11])
-		  ) ? `EXECUTE_2 : `FETCH_1;
-      `EXECUTE_2: NextState = (
+		   ) ? `EXECUTE_2 : `FETCH_1;
+      `EXECUTE_2X: NextState = (
 		   (Opcode[0:2]==`OP_OPR) & Opcode[3] & Opcode[10] & ~Opcode[11]
-		  ) ? `HALTED_1 : `FETCH_1;
+		   ) ? `HALTED_1 : `FETCH_1;
 
       //   Once we get to the HALTED state, we simply stay there forever.  For
       // the moment, at least, there's no way out.  This useful for testing
       // with the simulator, but for the real CPU we'll want something else.
-      `HALTED_1: begin
+      `HALTED_1X: begin
 	$display("CPU HALTED ...");  $stop;
       end
 
@@ -251,7 +258,7 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
       // etc.  This cycle also forces a "JMS" into the IR and sets up the EA
       // to zero.  We go to the EXECUTE_1 and 2 states next, which will finish
       // up executing the imaginary JMS 0 instruction...
-      `INTERRUPT_1: NextState = `EXECUTE_1;
+      `INTERRUPT_1X: NextState = `EXECUTE_1;
 
       // Trap any unknown conditions for debugging ...
       default: begin
@@ -266,10 +273,10 @@ endmodule
 module LogicUnit (State, Opcode, 
   MemoryWrite, DeviceWrite, DeviceRead, DeviceSkip, DeviceControl,
   AC_Minus, AC_Zero, LinkBit, MB_Zero, LoadAC, LoadLink, LoadPC,
-  LoadIR, LoadMA, LoadMB, LoadMQ, ClearMQ, LoadSR, ReadSR, 
+  LoadIR, LoadMA, LoadMB, LoadMQ, ClearMQ, LoadSR,
   LeftSelect, ALU_Function, AC_Function, RotateFunction,
   SetInterruptEnable, ClearInterruptEnable, SetInterruptDelay,
-  InterruptRequest, InterruptEnable, ReadFlags, LoadFlags, DeviceClear, LoadJMS);
+  InterruptRequest, InterruptEnable, LoadFlags, DeviceClear, LoadJMS);
 
   //++
   //   This module implements all the random logic that tells the DataPaths
@@ -290,8 +297,8 @@ module LogicUnit (State, Opcode,
   input DeviceSkip, AC_Minus, AC_Zero, LinkBit, MB_Zero;
   input InterruptRequest, InterruptEnable;
   input [0:1] DeviceControl;
-  output reg LoadAC, LoadLink, LoadPC, LoadIR, LoadMA, ReadFlags;
-  output reg ClearMQ, LoadSR, ReadSR, LoadMB, LoadMQ, LoadFlags;
+  output reg LoadAC, LoadLink, LoadPC, LoadIR, LoadMA;
+  output reg ClearMQ, LoadSR, LoadMB, LoadMQ, LoadFlags;
   output reg SetInterruptEnable, ClearInterruptEnable, SetInterruptDelay;
   output reg [`LEFT_SOURCE_WIDTH] LeftSelect;
   output reg [`ALU_FUNCTION_WIDTH] ALU_Function;
@@ -309,10 +316,10 @@ module LogicUnit (State, Opcode,
     // a default value to everything right here - this can always be overridden
     // later in specific cases... 
     LoadAC=1'b0; LoadLink =1'b0; LoadPC=1'b0; LoadMQ=1'b0; LoadIR=1'b0;
-    LoadSR=1'b0; LoadMA=1'b0; LoadMB=1'b0; ClearMQ=1'b0;  ReadSR=1'b0;
+    LoadSR=1'b0; LoadMA=1'b0; LoadMB=1'b0; ClearMQ=1'b0;
     DeviceWrite=1'b0; DeviceRead=1'b0; MemoryWrite=1'b0;  LoadJMS=1'b0;
     LeftSelect=`LEFT_UNUSED; ALU_Function=`ALU_LEFT; DeviceClear=1'b0;
-    AC_Function=4'b0; RotateFunction=3'b0; ReadFlags=1'b0; LoadFlags=1'b0;
+    AC_Function=4'b0; RotateFunction=3'b0; LoadFlags=1'b0;
     SetInterruptEnable=1'b0; ClearInterruptEnable=1'b0; SetInterruptDelay=1'b0;
 
     casex ({State, Opcode})
@@ -320,11 +327,11 @@ module LogicUnit (State, Opcode,
       //   States FETCH1 and 2 don't depend on the current opcode, and in fact,
       // it's never safe to depend on the opcode before FETCH3 because the IR
       // isn't loaded until the end of FETCH2 ...
-      {`FETCH_1, `OPX_ANY}: begin
+      {`FETCH_1X, `OPX_ANY}: begin
 	// MA <= PC;
 	LoadMA=1'b1;  LeftSelect=`LEFT_PC;  ALU_Function=`ALU_LEFT;
       end
-      {`FETCH_2, `OPX_ANY}: begin
+      {`FETCH_2X, `OPX_ANY}: begin
 	// PC <= PC + 1;  IR <= MD;
 	//   Check the DataPaths and notice that the IR is loaded directly from
 	// the MemoryData bus and not from the ALU/ROTATE Sum bus.  Otherwise
@@ -336,11 +343,11 @@ module LogicUnit (State, Opcode,
       //   FETCH3 only occurs for MRIs - OPRs and IOTs are in EXECUTE1 by now.
       // Also notice that a direct JMP opcode can be completely executed in this
       // state by loading the operand address into the PC rather than the MA ...
-      {`FETCH_3, `OPX_JMPD}: begin
+      {`FETCH_3X, `OPX_JMPD}: begin
 	// PC <= EA; /* a direct JMP */
 	LoadPC=1'b1;  LeftSelect=`LEFT_EA;  ALU_Function=`ALU_LEFT;
       end
-      {`FETCH_3, `OPX_ANY}: begin
+      {`FETCH_3X, `OPX_ANY}: begin
 	// MA <= EA; /* any other MRI */
 	LoadMA=1'b1;  LeftSelect=`LEFT_EA;  ALU_Function=`ALU_LEFT;
       end
@@ -350,11 +357,11 @@ module LogicUnit (State, Opcode,
       // one extra memory cycle will be required to fetch the actual operand
       // address.  Once again, in the case of a JMP we can load the address
       // directly into the PC rather than the MA and skip any EXECUTE state.
-      {`DEFER_1, `OPX_JMP}: begin
+      {`DEFER_1X, `OPX_JMP}: begin
 	// PC <= MD; /* an indirect JMP */
 	LoadPC=1'b1;  LeftSelect=`LEFT_MD;  ALU_Function=`ALU_LEFT;
       end
-      {`DEFER_1, `OPX_ANY}: begin
+      {`DEFER_1X, `OPX_ANY}: begin
 	// MA <= MD; /* any other indirect MRI */
 	LoadMA=1'b1;  LeftSelect=`LEFT_MD;  ALU_Function=`ALU_LEFT;
       end
@@ -364,19 +371,19 @@ module LogicUnit (State, Opcode,
       // and transfer the pointer to the MA or PC.  Just as before, in the
       // case of a JMP ocopde we save a state by transferring the destination
       // address directly into the PC instead of the MA.
-      {`AUTOINDEX_1, `OPX_ANY}: begin
+      {`AUTOINDEX_1X, `OPX_ANY}: begin
 	// MB <= MD + 1;
 	LoadMB=1'b1;  LeftSelect=`LEFT_MD;  ALU_Function=`ALU_LEFT_PLUS_ONE;
       end
-      {`AUTOINDEX_2, `OPX_ANY}: begin
+      {`AUTOINDEX_2X, `OPX_ANY}: begin
 	// MEMORY_WRITE();
 	MemoryWrite=1'b1;
       end
-      {`AUTOINDEX_3, `OPX_JMP}: begin
+      {`AUTOINDEX_3X, `OPX_JMP}: begin
 	// PC <= MB;  /* an autoindexed JMP */
 	LoadPC=1'b1;  LeftSelect=`LEFT_MB;  ALU_Function=`ALU_LEFT;
       end
-      {`AUTOINDEX_3, `OPX_ANY}: begin
+      {`AUTOINDEX_3X, `OPX_ANY}: begin
 	// MA <= MB;  /* any other autoindexed MRI */
 	LoadMA=1'b1;  LeftSelect=`LEFT_MB;  ALU_Function=`ALU_LEFT;
       end
@@ -386,11 +393,11 @@ module LogicUnit (State, Opcode,
       // TAD also updates the LINK where as AND doesn't.  In either case the
       // operand has already been addressed and is currently sitting on the MD
       // bus waiting for us to use it...
-      {`EXECUTE_1, `OPX_AND}: begin
+      {`EXECUTE_1X, `OPX_AND}: begin
 	// AC <= AC AND MD
 	LoadAC=1'b1;  LeftSelect=`LEFT_MD;  ALU_Function=`ALU_LEFT_AND_RIGHT;
       end
-      {`EXECUTE_1, `OPX_TAD}: begin
+      {`EXECUTE_1X, `OPX_TAD}: begin
 	// AC <= AC + MD;  IF (carry) LINK <= ~ LINK
 	LoadAC=1'b1;  LeftSelect=`LEFT_MD;  ALU_Function=`ALU_LEFT_PLUS_RIGHT;
 	LoadLink=1'b1;
@@ -400,11 +407,11 @@ module LogicUnit (State, Opcode,
       // data and stores the result in the MB, and the second cycle writes the
       // new count back to memory.  In the second cycle the PC is also given an
       // extra increment (for a skip) if the memory buffer contains zero.
-      {`EXECUTE_1, `OPX_ISZ}: begin
+      {`EXECUTE_1X, `OPX_ISZ}: begin
 	// MB <= MD + 1
 	LoadMB=1'b1;  LeftSelect=`LEFT_MD;  ALU_Function=`ALU_LEFT_PLUS_ONE;
       end
-      {`EXECUTE_2, `OPX_ISZ}: begin
+      {`EXECUTE_2X, `OPX_ISZ}: begin
 	// MEMORY_WRITE();  IF (MB == 0) PC <= PC + 1;
 	MemoryWrite=1'b1; LeftSelect=`LEFT_PC; ALU_Function=`ALU_LEFT_PLUS_ONE;
 	//   Notice that the ALU always computes PC+1 regardless of the MB -
@@ -415,11 +422,11 @@ module LogicUnit (State, Opcode,
       //   DCA requires two cycles as well - the first one copies the AC data to
       // the memory buffer, and the second cycle does a memory write and clears
       // the AC.
-      {`EXECUTE_1, `OPX_DCA}: begin
+      {`EXECUTE_1X, `OPX_DCA}: begin
 	// MB <= AC
 	LoadMB=1'b1;  ALU_Function=`ALU_RIGHT;
       end
-      {`EXECUTE_2, `OPX_DCA}: begin
+      {`EXECUTE_2X, `OPX_DCA}: begin
 	// MEMORY_WRITE();  AC <= 0;
 	MemoryWrite=1'b1;
 	LoadAC=1'b1;  ALU_Function=`ALU_RIGHT; AC_Function=`CLEAR_AC;
@@ -430,11 +437,11 @@ module LogicUnit (State, Opcode,
       // to save the return address in memory.  The second cycle also computes
       // PC <= MA + 1 so that we'll jump to the next instruction after the
       // return address.
-      {`EXECUTE_1, `OPX_JMS}: begin
+      {`EXECUTE_1X, `OPX_JMS}: begin
 	// MB <= PC
 	LoadMB=1'b1;  LeftSelect=`LEFT_PC;  ALU_Function=`ALU_LEFT;
       end
-      {`EXECUTE_2, `OPX_JMS}: begin
+      {`EXECUTE_2X, `OPX_JMS}: begin
 	// MEMORY_WRITE();  PC <= MA + 1
 	MemoryWrite=1'b1;
 	LoadPC=1'b1;  LeftSelect=`LEFT_MA;  ALU_Function=`ALU_LEFT_PLUS_ONE;
@@ -445,7 +452,7 @@ module LogicUnit (State, Opcode,
       // all of an AC functions unit (for CLA/CMA/CLL/CML), an ALU (for IAC)
       // and a rotate unit (RxR/RxL/BSW/R3L) in the proper order.  All we have
       // to do is setup the right function codes and it'll happen.
-      {`EXECUTE_1, `OPX_OPR1}: begin
+      {`EXECUTE_1X, `OPX_OPR1}: begin
 	AC_Function = Opcode[4:7];  RotateFunction = Opcode[8:10];
 	ALU_Function = Opcode[11] ? `ALU_RIGHT_PLUS_ONE : `ALU_RIGHT;
 	LoadAC = 1'b1;  LoadLink = 1'b1;
@@ -482,16 +489,16 @@ module LogicUnit (State, Opcode,
       //
       //   I suppose it comes as no suprise to find out that all this can be
       // implemented fairly trivially with just a few gates :-)
-      {`EXECUTE_1, `OPX_OPR2}: begin
+      {`EXECUTE_1X, `OPX_OPR2}: begin
 	// IF (condition) PC <= PC + 1
 	LeftSelect = `LEFT_PC;  ALU_Function = `ALU_LEFT_PLUS_ONE;
 	LoadPC = Opcode[8] ^
 	    ((Opcode[5]&AC_Minus) | (Opcode[6]&AC_Zero) | (Opcode[7]&LinkBit));
       end
-      {`EXECUTE_2, `OPX_OPR2}: begin
+      {`EXECUTE_2X, `OPX_OPR2}: begin
 	//  An OPR2 micro instruction always puts the switch register on the IO
         // bus, even if the OSR bit isn't actually set. This should be harmless.
-	ReadSR = 1'b1;  LeftSelect = `LEFT_IO;
+	LeftSelect = `LEFT_SR;
 	// Set the AC Function unit according to the CLA bit...
 	if (Opcode[4]) AC_Function = `CLEAR_AC;
 	// And set the ALU function according to the OSR bit...
@@ -525,7 +532,7 @@ module LogicUnit (State, Opcode,
       // also set, or using ALU Function LEFT OR RIGHT with CLEAR_AC to get the
       // equivalent of ALU_LEFT) but they make it fairly simple to derive the
       // outputs from the opcode bits...
-      {`EXECUTE_1, `OPX_OPR3}: begin
+      {`EXECUTE_1X, `OPX_OPR3}: begin
 	// LeftSelect can always be set to MQ, no matter what else happens ..
 	LeftSelect=`LEFT_MQ;
 	// LoadAC is TRUE for anything but NOP ...
@@ -544,49 +551,48 @@ module LogicUnit (State, Opcode,
       // executed as if they were "real" instructions rather than IOTs.  None
       // of them will assert either DeviceWrite or DeviceRead, and none of them
       // pay any attention to the DeviceControl or DeviceSkip inputs.
-      {`EXECUTE_1, `OP_CAF}: begin
+      {`EXECUTE_1X, `OP_CAF}: begin
 	//   CAF clears the AC and the LINK and asserts DeviceClear for one
 	// cycle.  It also clears the interrupt enable flag.
 	LoadAC = 1'b1;  ALU_Function = `ALU_RIGHT;
 	LoadLink = 1'b1;  AC_Function = `CLEAR_AC | `CLEAR_LINK;
 	DeviceClear = 1'b1;  ClearInterruptEnable = 1'b1;
       end
-      {`EXECUTE_1, `OP_ION}: begin
+      {`EXECUTE_1X, `OP_ION}: begin
         // Set the interrupt enable, but inhibit interrupts for one instruction...
 	SetInterruptEnable = 1'b1;  SetInterruptDelay = 1'b1;
       end
-      {`EXECUTE_1, `OP_SKON}: begin
+      {`EXECUTE_1X, `OP_SKON}: begin
 	//   SKON skips if the interrupt enable is currently set, and then it
 	// turns the interrupt system off exactly the same way as IOF ...
 	ClearInterruptEnable = 1'b1;
 	LeftSelect = `LEFT_PC;  ALU_Function = `ALU_LEFT_PLUS_ONE;
 	if (InterruptEnable) LoadPC = 1'b1;
       end
-      {`EXECUTE_1, `OP_IOF}: begin
+      {`EXECUTE_1X, `OP_IOF}: begin
         // Clear the interrupt enable flag...
 	ClearInterruptEnable = 1'b1;
       end
-      {`EXECUTE_1, `OP_SRQ}: begin
+      {`EXECUTE_1X, `OP_SRQ}: begin
         //   Skip if the interrupt request line is active.  Note that this only
 	// tests the external interrupt input to the CPU - it doesn't consider
 	// InterruptEnable, InterruptInhibit or InterruptDelay ...
 	LeftSelect = `LEFT_PC;  ALU_Function = `ALU_LEFT_PLUS_ONE;
 	if (InterruptRequest) LoadPC = 1'b1;
       end
-      {`EXECUTE_1, `OP_GTF}: begin
+      {`EXECUTE_1X, `OP_GTF}: begin
 	// GTF reads the flag register into the AC ...
-	LoadAC = 1'b1;  ReadFlags = 1'b1;  LeftSelect = `LEFT_IO;
-	ALU_Function = `ALU_LEFT;
+	LoadAC = 1'b1;  LeftSelect = `LEFT_FLAGS;  ALU_Function = `ALU_LEFT;
       end
-      {`EXECUTE_1, `OP_RTF}: begin
+      {`EXECUTE_1X, `OP_RTF}: begin
 	// RTF sets the flags from the AC _and_ enables interrupts ...
 	LoadFlags=1'b1; SetInterruptEnable=1'b1; SetInterruptDelay=1'b1;
       end
-      {`EXECUTE_1, `OP_SGT}: begin
+      {`EXECUTE_1X, `OP_SGT}: begin
         //   SGT is not yet implemented (that'll have to wait for the EAE!).
 	// It executes as a no-op...
       end
-      {`EXECUTE_1, `OP_WSR}: begin
+      {`EXECUTE_1X, `OP_WSR}: begin
 	//   The WSR instruction loads the switch register from the AC.
 	// Strictly speaking, this is a HD6120 only IOT (the real PDP-8/E
 	// never had a programmable switch register!) but it our case it's
@@ -597,7 +603,7 @@ module LogicUnit (State, Opcode,
       //   All the processor IOTs execute in a single cycle, but the timing
       // generator doesn't know this and still generates EXECUTE_2 just as it
       // would for a real IOT.  Trap that combination and make it a no-op...
-      {`EXECUTE_2, 12'O600x}, {`EXECUTE_2, `OP_WSR}: /* nothing to do! */ ;      
+      {`EXECUTE_2X, 12'O600x}, {`EXECUTE_2X, `OP_WSR}: /* nothing to do! */ ;      
 
       //   The first cycle of any IOT drives the DeviceData bus (aka the I/O
       // bus) with the contents of the AC and asserts DeviceWrite.  If this
@@ -605,7 +611,7 @@ module LogicUnit (State, Opcode,
       // trailing edge of DeviceWrite to latch new data from the AC.  It's
       // also in this cycle that the DeviceSkip input is sampled and, if this
       // is a skip IOT, the ALU can be used to increment the PC.
-      {`EXECUTE_1, `OPX_IOT}: begin
+      {`EXECUTE_1X, `OPX_IOT}: begin
 	DeviceWrite = 1'b1;
 	LeftSelect = `LEFT_PC;  ALU_Function = `ALU_LEFT_PLUS_ONE;
 	if (DeviceSkip) LoadPC = 1'b1;
@@ -616,7 +622,7 @@ module LogicUnit (State, Opcode,
       // both.  DeviceRead is asserted during this time which both signals that
       // the selected device should drive the DeviceControl bus and also that
       // it's OK for the device to drive the DeviceData bus if required.
-      {`EXECUTE_2, `OPX_IOT}: begin
+      {`EXECUTE_2X, `OPX_IOT}: begin
 	DeviceRead = 1'b1;  LeftSelect = `LEFT_IO;
 	// If C0 is set, then the AC is cleared on way or another...
 	AC_Function = DeviceControl[0] ? `CLEAR_AC : 0;
@@ -632,13 +638,13 @@ module LogicUnit (State, Opcode,
       // MA with zero.  The TimingGenerator will schedule EXECUTE_1 and 2
       // states after this, which will store the current PC in location zero
       // and load the PC with 1.  Couldn't be easier :-)
-      {`INTERRUPT_1, `OPX_ANY}: begin
+      {`INTERRUPT_1X, `OPX_ANY}: begin
 	LoadJMS = 1'b1;  ClearInterruptEnable = 1'b1;
 	LoadMA = 1'b1;  AC_Function = `CLEAR_AC;  ALU_Function = `ALU_RIGHT;  
       end
 
       // And don't do anything in the HALT state...
-      {`HALTED_1, `OPX_ANY}: /* do nothing */;
+      {`HALTED_1X, `OPX_ANY}: /* do nothing */;
 
       //   Originally these next two cases were used in simulation to help
       // track down sequencing errors, but they turn out to be more trouble
@@ -649,7 +655,7 @@ module LogicUnit (State, Opcode,
       // didn't seem to be any good way to fix it, so I just punted on the
       // whole concept.  The timing generator works pretty well, anyway :-)
       // ever have an EXECUTE state. They're always completed during fetch.
-      //{`EXECUTE_1, `OPX_JMP}, {`EXECUTE_2, `OPX_JMP}: begin
+      //{`EXECUTE_1X, `OPX_JMP}, {`EXECUTE_2X, `OPX_JMP}: begin
       //$display("EXECUTE STATE WITH JMP"); $stop;
       //end
       default: begin
@@ -666,10 +672,10 @@ module Controller (Clock, Reset, Opcode, MemoryData,
   InterruptRequest, InterruptGrant, Halted,
   AC_Zero, AC_Minus, LinkBit, MB_Zero, AutoIndex,
   LoadPC, LoadIR, LoadMA, LoadMB, LoadMQ, ClearMQ,
-  LoadSR, ReadSR, LoadAC, LoadLink, LoadJMS,
+  LoadSR, LoadAC, LoadLink, LoadJMS,
   LeftSelect, ALU_Function, AC_Function, RotateFunction,
   InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
-  InterruptInhibit, ReadFlags, LoadFlags, DeviceClear);
+  InterruptInhibit, LoadFlags, DeviceClear);
 
   //++
   //   This module implements all the control logic for the PDP-8/V which, at
@@ -713,9 +719,7 @@ module Controller (Clock, Reset, Opcode, MemoryData,
   output LoadMA;		//   "	 "   "	 "  memory address "	 "
   output LoadMB;		//   "	 "   "	 "  memory buffer  "	 "
   output ClearMQ;		// TRUE to load MQ with zero this cycle
-  output ReadSR;		// TRUE to gate the SR onto the IOBUS
-  output ReadFlags;		// TRUE to gate the FLAGS into the IOBUS
-  output LoadFlags;		// TRUE to load the FLAGS from the IOBUS
+  output LoadFlags;		// TRUE to load the FLAGS from the AC
   output LoadJMS;		// TRUE to load 4000 (JMS) into the IR
   output [`LEFT_SOURCE_WIDTH] LeftSelect;	// ALU left input select
   output [`ALU_FUNCTION_WIDTH] ALU_Function;	// ALU function code
@@ -740,17 +744,19 @@ module Controller (Clock, Reset, Opcode, MemoryData,
     .LinkBit(LinkBit), .MB_Zero(MB_Zero),
     .LoadAC(LoadAC), .LoadLink(LoadLink), .LoadPC(LoadPC), .LoadIR(LoadIR),
     .LoadMA(LoadMA), .LoadMB(LoadMB), .LoadMQ(LoadMQ), .ClearMQ(ClearMQ),
-    .LoadSR(LoadSR), .ReadSR(ReadSR), .LoadJMS(LoadJMS),
+    .LoadSR(LoadSR), .LoadJMS(LoadJMS),
     .LeftSelect(LeftSelect), .ALU_Function(ALU_Function),
     .AC_Function(AC_Function), .RotateFunction(RotateFunction),
     .ClearInterruptEnable(ClearInterruptEnable), 
     .SetInterruptEnable(SetInterruptEnable),
     .SetInterruptDelay(SetInterruptDelay),
-    .ReadFlags(ReadFlags), .LoadFlags(LoadFlags), .DeviceClear(DeviceClear),
+    .LoadFlags(LoadFlags), .DeviceClear(DeviceClear),
     .InterruptRequest(InterruptRequest), .InterruptEnable(InterruptEnable)
   );
 
   // These should probably be moved to LogicUnit ...         
   assign Halted = State == `HALTED_1;
   assign InterruptGrant = State == `INTERRUPT_1;
+  //assign Halted = (State & `HALTED_1) != 0;
+  //assign InterruptGrant = (State & `INTERRUPT_1) != 0;
 endmodule

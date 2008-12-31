@@ -42,6 +42,9 @@
 //		   Now runs MAINDEC-8E-D0BB successfully!
 //		   Now runs FOCAL-69 (yowza!)
 //  7-Jul-07  RLA  Change to an asynchronous reset for compatibility with GSR.
+//  8-Jul-07  RLA  Connect SR and FLAGS directly to the LeftMux
+//                 Convert open drain signals DeviceSkip, DeviceControl and
+//                   InterruptRequest, to normal signals
 //
 // TODO:
 //--
@@ -134,8 +137,9 @@
 
 module KK8V (Clock, Reset,
 	MemoryAddress, MemoryData, MemoryWrite,
-	DeviceData, DeviceWrite, DeviceRead, DeviceControl_n, DeviceSkip_n,
-	InterruptRequest_n, InterruptGrant, Halted, DeviceClear);
+	DeviceData, DeviceWrite, DeviceRead, DeviceControl, DeviceSkip,
+	InterruptRequest, InterruptGrant, Halted, DeviceClear,
+	FrontPanelDisplay);
 
   //++
   //   This is the top level module for the PDP-8/V CPU.  All it actually does
@@ -151,20 +155,21 @@ module KK8V (Clock, Reset,
   output DeviceRead;		//  "   "  "  reading from "  "   "
   output DeviceClear;	 	// clear all I/O devices (CAF or master reset)
   // Control and status signals ...
-  input wand InterruptRequest_n;// TRUE to request an interrupt cycle
+  input  InterruptRequest;	// TRUE to request an interrupt cycle
   output InterruptGrant; 	// TRUE while an interrupt cycle is executed
   output Halted;		// TRUE if a HLT instruction is executed
-  input wand DeviceSkip_n;	// TRUE during DeviceWrite if the IOT skips
+  input  DeviceSkip;		// TRUE during DeviceWrite if the IOT skips
   // Memory and I/O device busses ...
   output [`ADDRESS_WIDTH] MemoryAddress;// memory address bus
   inout  [`DATA_WIDTH] MemoryData;	//   "    data     "
   inout  [`DATA_WIDTH] DeviceData;	// input/output device data bus
-  input wand [0:1] DeviceControl_n;	// IOT function (the Cx lines!)
+  input  [0:1] DeviceControl;		// IOT function (the Cx lines!)
+  output [`DATA_WIDTH] FrontPanelDisplay;
  
   // Internal signals ...
   wire [0:11] Opcode;
   wire LoadPC, LoadIR, LoadMA, LoadMB, LoadMQ, ClearMQ, LoadJMS;
-  wire LoadSR, ReadSR, LoadAC, LoadLink, LoadFlags, ReadFlags;
+  wire LoadSR, LoadAC, LoadLink, LoadFlags;
   wire AC_Zero, AC_Minus, LinkBit, MB_Zero, AutoIndex;
   wire InterruptEnable, SetInterruptEnable, ClearInterruptEnable;
   wire [`LEFT_SOURCE_WIDTH] LeftSelect;
@@ -179,16 +184,17 @@ module KK8V (Clock, Reset,
     .DeviceData(DeviceData),
     .MemoryWrite(MemoryWrite), .DeviceWrite(DeviceWrite),
     .LoadPC(LoadPC), .LoadIR(LoadIR), .LoadMA(LoadMA), .LoadMB(LoadMB),
-    .LoadMQ(LoadMQ), .ClearMQ(ClearMQ), .LoadSR(LoadSR), .ReadSR(ReadSR),
+    .LoadMQ(LoadMQ), .ClearMQ(ClearMQ), .LoadSR(LoadSR),
     .LoadAC(LoadAC), .LoadLink(LoadLink), .LeftSelect(LeftSelect),
     .ALU_Function(ALU_Function), .AC_Function(AC_Function),
     .RotateFunction(RotateFunction),
     .AC_Zero(AC_Zero), .AC_Minus(AC_Minus), .LinkBit(LinkBit),
     .MB_Zero(MB_Zero), .AutoIndex(AutoIndex), .LoadJMS(LoadJMS),
-    .InterruptRequest(~InterruptRequest_n), .InterruptEnable(InterruptEnable),
+    .InterruptRequest(InterruptRequest), .InterruptEnable(InterruptEnable),
     .InterruptInhibit(InterruptInhibit),.SetInterruptEnable(SetInterruptEnable),
     .ClearInterruptEnable(ClearInterruptEnable),
-    .ReadFlags(ReadFlags), .LoadFlags(LoadFlags)
+    .LoadFlags(LoadFlags),
+    .FrontPanelDisplay(FrontPanelDisplay)
   );
 
   // And the Controller module ...
@@ -196,19 +202,19 @@ module KK8V (Clock, Reset,
     .Clock(Clock), .Reset(Reset), .Opcode(Opcode),
     .MemoryData(MemoryData), .MemoryWrite(MemoryWrite),
     .DeviceWrite(DeviceWrite), .DeviceRead(DeviceRead),
-    .DeviceSkip(~DeviceSkip_n), .DeviceControl(~DeviceControl_n),
-    .InterruptRequest(~InterruptRequest_n), .InterruptGrant(InterruptGrant),
+    .DeviceSkip(DeviceSkip), .DeviceControl(DeviceControl),
+    .InterruptRequest(InterruptRequest), .InterruptGrant(InterruptGrant),
     .Halted(Halted), .AC_Zero(AC_Zero), .AutoIndex(AutoIndex),
     .AC_Minus(AC_Minus), .LinkBit(LinkBit), .MB_Zero(MB_Zero),
     .LoadPC(LoadPC), .LoadIR(LoadIR), .LoadMA(LoadMA), .LoadMB(LoadMB),
-    .LoadMQ(LoadMQ), .ClearMQ(ClearMQ), .LoadSR(LoadSR), .ReadSR(ReadSR),
+    .LoadMQ(LoadMQ), .ClearMQ(ClearMQ), .LoadSR(LoadSR),
     .LoadAC(LoadAC), .LoadLink(LoadLink), .LoadJMS(LoadJMS),
     .LeftSelect(LeftSelect), .ALU_Function(ALU_Function),
     .AC_Function(AC_Function), .RotateFunction(RotateFunction),
     .SetInterruptEnable(SetInterruptEnable), .InterruptEnable(InterruptEnable),
     .ClearInterruptEnable(ClearInterruptEnable), .DeviceClear(DeviceClear),
     .InterruptInhibit(InterruptInhibit),
-    .ReadFlags(ReadFlags), .LoadFlags(LoadFlags)
+    .LoadFlags(LoadFlags)
   );
 
 endmodule
