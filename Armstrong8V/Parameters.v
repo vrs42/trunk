@@ -66,29 +66,41 @@
 
 
 // State codes for the timing generator ...
-`define FETCH_1		12'b00000000001	// read the opcode from memory
-`define FETCH_1X	12'bxxxxxxxxxx1
-`define FETCH_2		12'b00000000010	// increment the PC
-`define FETCH_2X	12'bxxxxxxxxx1x
-`define FETCH_3		12'b00000000100	// read the operand for MRIs
-`define FETCH_3X	12'bxxxxxxxx1xx
-`define DEFER_1		12'b00000001000	// fetch an indirect address
-`define DEFER_1X	12'bxxxxxxx1xxx
-`define AUTOINDEX_1	12'b00000010000	// increment an AI location
-`define AUTOINDEX_1X	12'bxxxxxx1xxxx
-`define AUTOINDEX_2	12'b00000100000	// write the AI register back to memory
-`define AUTOINDEX_2X	12'bxxxxx1xxxxx
-`define AUTOINDEX_3	12'b00001000000	// read the operand for MRIs
-`define AUTOINDEX_3X	12'bxxxx1xxxxxx
-`define EXECUTE_1	12'b00010000000	// execute all opcodes, part 1
-`define EXECUTE_1X	12'bxxx1xxxxxxx
-`define EXECUTE_2	12'b00100000000	//  "   "   "   "   "    "   2
-`define EXECUTE_2X	12'bxx1xxxxxxxx
-`define INTERRUPT_1	12'b01000000000	// interrupt acknowledge cycle
-`define INTERRUPT_1X	12'bx1xxxxxxxxx
-`define HALTED_1	12'b10000000000	// CPU halted
-`define HALTED_1X	12'b1xxxxxxxxxx
-`define STATE_CODE_WIDTH 	   0:10	// width of the current state register
+`define FETCH_1		17'b00000000000000001	// read the opcode from memory
+`define FETCH_1X	17'bxxxxxxxxxxxxxxxx1
+`define FETCH_2		17'b00000000000000010	// increment the PC
+`define FETCH_2X	17'bxxxxxxxxxxxxxxx1x
+`define FETCH_3		17'b00000000000000100	// read the operand for MRIs
+`define FETCH_3X	17'bxxxxxxxxxxxxxx1xx
+`define DEFER_1		17'b00000000000001000	// fetch an indirect address
+`define DEFER_1X	17'bxxxxxxxxxxxxx1xxx
+`define AUTOINDEX_1	17'b00000000000010000	// increment an AI location
+`define AUTOINDEX_1X	17'bxxxxxxxxxxxx1xxxx
+`define AUTOINDEX_2	17'b00000000000100000	// write the AI register back to memory
+`define AUTOINDEX_2X	17'bxxxxxxxxxxx1xxxxx
+`define AUTOINDEX_3	17'b00000000001000000	// read the operand for MRIs
+`define AUTOINDEX_3X	17'bxxxxxxxxxx1xxxxxx
+`define EXECUTE_1	17'b00000000010000000	// execute all opcodes, part 1
+`define EXECUTE_1X	17'bxxxxxxxxx1xxxxxxx
+`define EXECUTE_2	17'b00000000100000000	//  "   "   "   "   "    "   2
+`define EXECUTE_2X	17'bxxxxxxxx1xxxxxxxx
+`define INTERRUPT_1	17'b00000001000000000	// interrupt acknowledge cycle
+`define INTERRUPT_1X	17'bxxxxxxx1xxxxxxxxx
+`define HALTED_1	17'b00000010000000000	// CPU halted
+`define HALTED_1X	17'bxxxxxx1xxxxxxxxxx
+`define START_1		17'b00000100000000000 // "Clear" during START
+`define START_1X	17'bxxxxx1xxxxxxxxxxx
+`define LADDR_1		17'b00001000000000000 // Load Address, (PC, DF, IF)
+`define LADDR_1X	17'bxxxx1xxxxxxxxxxxx
+`define EXAM_1		17'b00010000000000000 // Examine Memory part 1
+`define EXAM_1X 	17'bxxx1xxxxxxxxxxxxx
+`define EXAM_2		17'b00100000000000000 // Examine Memory part 2
+`define EXAM_2X 	17'bxx1xxxxxxxxxxxxxx
+`define DEP_1		17'b01000000000000000 // Deposit to Memory part 1
+`define DEP_1X  	17'bx1xxxxxxxxxxxxxxx
+`define DEP_2		17'b10000000000000000 // Deposit to Memory part 2
+`define DEP_2X  	17'b1xxxxxxxxxxxxxxxx
+`define STATE_CODE_WIDTH	0:16  // width of the current state register
 
 
 //   Define mnemonics for the bit patterns used by various PDP-8 opcodes and

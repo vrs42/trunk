@@ -139,7 +139,9 @@ module KK8V (Clock, Reset,
 	MemoryAddress, MemoryData, MemoryWrite,
 	DeviceData, DeviceWrite, DeviceRead, DeviceControl, DeviceSkip,
 	InterruptRequest, InterruptGrant, Halted, DeviceClear,
-	FrontPanelDisplay);
+        S3_LSER, S3_LCLK, S3_LCL_N,
+        S3_SSER_N, S3_SCLK, S3_SCL_N
+        );
 
   //++
   //   This is the top level module for the PDP-8/V CPU.  All it actually does
@@ -164,7 +166,9 @@ module KK8V (Clock, Reset,
   inout  [`DATA_WIDTH] MemoryData;	//   "    data     "
   inout  [`DATA_WIDTH] DeviceData;	// input/output device data bus
   input  [0:1] DeviceControl;		// IOT function (the Cx lines!)
-  output [`DATA_WIDTH] FrontPanelDisplay;
+  output S3_LSER, S3_LCLK, S3_LCL_N;
+  output S3_SCLK, S3_SCL_N;
+  input S3_SSER_N;
  
   // Internal signals ...
   wire [0:11] Opcode;
@@ -176,6 +180,7 @@ module KK8V (Clock, Reset,
   wire [`ALU_FUNCTION_WIDTH] ALU_Function;
   wire [`AC_FUNCTION_WIDTH] AC_Function;
   wire [`ROTATE_FUNCTION_WIDTH] RotateFunction;
+  wire [`DATA_WIDTH] SR_Bus;
 
   // The DataPaths module ...
   DataPaths DP (
@@ -194,7 +199,8 @@ module KK8V (Clock, Reset,
     .InterruptInhibit(InterruptInhibit),.SetInterruptEnable(SetInterruptEnable),
     .ClearInterruptEnable(ClearInterruptEnable),
     .LoadFlags(LoadFlags),
-    .FrontPanelDisplay(FrontPanelDisplay)
+    .S3_LSER(S3_LSER), .S3_LCLK(S3_LCLK), .S3_LCL_N(S3_LCL_N), .SR_Bus(SR_Bus),
+    .State(State)
   );
 
   // And the Controller module ...
@@ -214,6 +220,7 @@ module KK8V (Clock, Reset,
     .SetInterruptEnable(SetInterruptEnable), .InterruptEnable(InterruptEnable),
     .ClearInterruptEnable(ClearInterruptEnable), .DeviceClear(DeviceClear),
     .InterruptInhibit(InterruptInhibit),
+    .S3_SSER_N(S3_SSER_N), .S3_SCK(S3_SCLK), .S3_SCL_N(S3_SCL_N), .SR_Bus(SR_Bus),
     .LoadFlags(LoadFlags)
   );
 

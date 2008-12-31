@@ -336,7 +336,9 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   LoadSR, LoadAC, LoadLink, LeftSelect, ALU_Function, AC_Function,
   RotateFunction, AC_Zero, AC_Minus, LinkBit, MB_Zero, AutoIndex,
   InterruptRequest, InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
-  InterruptInhibit, LoadFlags, LoadJMS, FrontPanelDisplay);
+  InterruptInhibit, LoadFlags, LoadJMS,
+  S3_LSER, S3_LCLK, S3_LCL_N, SR_Bus, State, Halted
+  );
 
   //++
   //--
@@ -380,10 +382,13 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   inout  [`DATA_WIDTH] MemoryData;		//   "	  data	   "
   inout  [`DATA_WIDTH] DeviceData;		// input/output device data bus
   output [`DATA_WIDTH] Opcode;			// current instruction
-  output [`DATA_WIDTH] FrontPanelDisplay;
+  output S3_LSER, S3_LCLK, S3_LCL_N;
+  input [`DATA_WIDTH] SR_Bus;
+  input [`STATE_CODE_WIDTH] State;
+  input Halted;
 
   // Local signals ...
-  wire [`DATA_WIDTH] AC_Bus, MQ_Bus, PC_Bus, Opcode, EA_Bus, MB_Bus, SR_Bus;
+  wire [`DATA_WIDTH] AC_Bus, MQ_Bus, PC_Bus, Opcode, EA_Bus, MB_Bus;
   wire [`DATA_WIDTH] FlagsBus, LeftBus, RightBus, ALU_Bus, SumBus;
   wire Link1, Link2;
 
@@ -401,8 +406,8 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
 	       IR (Clock, Reset, LoadIR, LoadJMS, MemoryData, Opcode);
   RegisterUnit #(12'O0200, 12'O0200)
 	       PC (Clock, Reset, LoadPC,    1'b0, SumBus, PC_Bus);
-  RegisterUnit #(12'O0000, 12'O0000)
-	       SR (Clock, Reset, LoadSR,    1'b0, AC_Bus, SR_Bus);
+//RegisterUnit #(12'O0000, 12'O0000)
+//	       SR (Clock, Reset, LoadSR,    1'b0, AC_Bus, SR_Bus);
 
   // And the data paths ...
   AddressCalculationUnit EA (Opcode, MemoryAddress, EA_Bus, AutoIndex);
@@ -412,6 +417,36 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   ArithmeticLogicUnit ALU (ALU_Function,LeftBus,RightBus,Link1,ALU_Bus,Link2);
   RotateUnit ROT (RotateFunction, ALU_Bus, Link2, SumBus, NewLink);
 
+  // Interface the light display ...
+  lightsMux lights (
+      .clk(Clock),
+      .reset(Reset),
+      .LSER(S3_LSER),
+      .LCLK(S3_LCLK),
+      .LCL_N(S3_LCL_N),
+      .PC(PC_Bus),
+      .MA(MemoryAddress),
+      .MB(MB_Bus),
+      .AC(AC_Bus),
+      .MQ(MQ_Bus),
+      .DFLD(3'b0),       // BUGBUG: No EMA yet
+      .IFLD(3'b0),       // BUGBUG: No EMA yet
+      .SC(5'b0),         // BUGBUG: No EAE
+      .LINK(LinkBit),
+      .IR(Opcode[0:2]),
+      .FETCH1(State == `FETCH_1),
+      .FETCH2(State == `FETCH_2),
+      .FETCH3(State == `FETCH_3),
+      .DEFER1(State == `DEFER_1),
+      .AUTOX1(State == `AUTOINDEX_1),
+      .AUTOX2(State == `AUTOINDEX_2),
+      .AUTOX3(State == `AUTOINDEX_3),
+      .EXEC1(State == `EXECUTE_1),
+      .EXEC2(State == `EXECUTE_2),
+      .ION(InterruptEnable),
+      .RUN(~Halted)
+   );
+  
   //   When we're doing a memory write, the MB register actually drives the
   // MD bus, but at all other times the MD bus floats so that the SRAMs can
   // drive data onto it.
@@ -430,7 +465,4 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
     $strobe("AC=%o, L=%b, PC=%o, MQ=%o, IR=%o, IO=%o, IE=%b",
       AC_Bus, LinkBit, PC_Bus, MQ_Bus, Opcode, DeviceData, InterruptEnable);
   end
-
-  // Temporary - for debugging the diagnostics!
-  assign FrontPanelDisplay = AC_Bus;
 endmodule

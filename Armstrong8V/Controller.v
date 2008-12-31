@@ -115,6 +115,7 @@
 
 module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
 	InterruptRequest, InterruptEnable, InterruptInhibit, SetInterruptDelay,
+        START, LADDR, DEP, EXAM, CONT, STOP, SS, SI,
 	State);
 
   //++
@@ -150,7 +151,9 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   input Clock, Reset, AutoIndex;  input [`DATA_WIDTH] Opcode, MemoryData;
   input InterruptRequest, InterruptEnable, InterruptInhibit, SetInterruptDelay;
   output reg [`STATE_CODE_WIDTH] State = `FETCH_1;
+  input START, LADDR, DEP, EXAM, CONT, STOP, SS, SI;
   reg [`STATE_CODE_WIDTH] NextState;  reg InterruptDelay = 1'b0;
+  reg [`STATE_CODE_WIDTH] ResumeState;
 
   //   This is the register part of the state machine and synthesizes the flip
   // flops that hold the current state code, and it's as trivial as can be.
@@ -170,7 +173,7 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   always @(posedge Clock or posedge Reset) begin
     if (Reset)
       InterruptDelay = 1'b0;
-    else if  (State == `FETCH_1)
+    else if (State == `FETCH_1)
       InterruptDelay = 1'b0;
     else if (SetInterruptDelay)
       InterruptDelay = 1'b1;
@@ -241,16 +244,48 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
 		      (Opcode[0:2]==`OP_ISZ) | ( Opcode[0:2]==`OP_DCA)
 		    | (Opcode[0:2]==`OP_JMS) | ( Opcode[0:2]==`OP_IOT)
 		    | ((Opcode[0:2]==`OP_OPR) & Opcode[3] & ~Opcode[11])
-		   ) ? `EXECUTE_2 : `FETCH_1;
+		  ) ? `EXECUTE_2 : `FETCH_1;
       `EXECUTE_2X: NextState = (
 		   (Opcode[0:2]==`OP_OPR) & Opcode[3] & Opcode[10] & ~Opcode[11]
-		   ) ? `HALTED_1 : `FETCH_1;
+		  ) ? `HALTED_1 : `FETCH_1;
 
       //   Once we get to the HALTED state, we simply stay there forever.  For
       // the moment, at least, there's no way out.  This useful for testing
       // with the simulator, but for the real CPU we'll want something else.
       `HALTED_1X: begin
-	$display("CPU HALTED ...");  $stop;
+        if (START) 
+                NextState = `START_1;
+        else if (LADDR) 
+                NextState = `LADDR_1;
+        else if (DEP) 
+                NextState = `DEP_1;
+        else if (EXAM) 
+                NextState = `EXAM_1;
+        else if (CONT) 
+                NextState = ResumeState;
+	//$display("CPU HALTED ...");  $stop;
+      end
+      
+      //   The CAF major state does the CLEAR operation expected during 
+      // the operation of the START key, then proceeds to FETCH_1 state,
+      // disregarding ResumeState (effectively aborting any incomplete 
+      // instruction).
+      `START_1X: NextState = `FETCH_1;
+      
+      //   The LADDR_1 state loads the PC from SR, loads DF and IF from 
+      // SDF and SIF, then returns to halted state.
+      `LADDR_1X: NextState = `HALTED_1;
+      
+      // The DEP key loads MB from SR, stores MB, then does and EXAMine.
+      `DEP_1X:  NextState = `DEP_2;
+      `DEP_2X:  NextState = `EXAM_1;
+      
+      // The EXAMine operation loads MA from PC and reads memory, 
+      // then increments PC.
+      `EXAM_1X: NextState = `EXAM_2;
+      `EXAM_2X: begin
+        NextState = `HALTED_1;
+        ResumeState = `FETCH_1;
       end
 
       //   Interrupts execute a single special cycle, INTERRUPT_1, to clear
@@ -264,8 +299,15 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
       default: begin
 	//$display("UNKNOWN STATE %o", State);  $stop;
 	NextState = `HALTED_1;
+        ResumeState = `HALTED_1; // ...and stay halted
       end
     endcase
+    // SS, SI, and STOP over-ride the NextState as calculated above.
+    if (SS | ((STOP | SI) & (NextState == `FETCH_1)))
+    begin
+        ResumeState = NextState;
+        NextState = `HALTED_1;
+    end
   end
 endmodule
 
@@ -644,7 +686,43 @@ module LogicUnit (State, Opcode,
       end
 
       // And don't do anything in the HALT state...
-      {`HALTED_1X, `OPX_ANY}: /* do nothing */;
+      {`HALTED_1X, `OPX_ANY}: begin
+        /* do nothing */
+      end
+      
+      // Pressing start essentially mimics CAF.
+      {`START_1X, `OPX_ANY}: begin
+	LoadAC = 1'b1;  ALU_Function = `ALU_RIGHT;
+	LoadLink = 1'b1;  AC_Function = `CLEAR_AC | `CLEAR_LINK;
+	DeviceClear = 1'b1;  ClearInterruptEnable = 1'b1;
+      end
+      
+      {`LADDR_1X, `OPX_ANY}: begin
+        // BUGBUG: Need LADDR_2 to implement DF, IF load!
+        // PC <= SR
+	LoadPC=1'b1;  LeftSelect = `LEFT_SR; ALU_Function=`ALU_LEFT;
+      end
+
+      // This mimics the memory read phase, FETCH_1.
+      {`EXAM_1X, `OPX_ANY}: begin
+	// MA <= PC;
+	LoadMA=1'b1;  LeftSelect= `LEFT_PC;  ALU_Function=`ALU_LEFT;
+      end
+      {`EXAM_2X, `OPX_ANY}: begin
+	// PC <= PC + 1;
+	LoadPC=1'b1; LeftSelect= `LEFT_PC; ALU_Function=`ALU_LEFT_PLUS_ONE;
+      end
+
+      //   DEP requires two cycles as well - the first one copies the SR data to
+      // the memory buffer, and the second cycle does a memory write.
+      {`DEP_1X, `OPX_ANY}: begin
+	// MB <= SR
+	LoadMB=1'b1; LeftSelect = `LEFT_SR; ALU_Function=`ALU_LEFT;
+      end
+      {`DEP_2X, `OPX_ANY}: begin
+	// MEMORY_WRITE();
+	MemoryWrite=1'b1; ALU_Function=`ALU_RIGHT;
+      end
 
       //   Originally these next two cases were used in simulation to help
       // track down sequencing errors, but they turn out to be more trouble
@@ -675,6 +753,7 @@ module Controller (Clock, Reset, Opcode, MemoryData,
   LoadSR, LoadAC, LoadLink, LoadJMS,
   LeftSelect, ALU_Function, AC_Function, RotateFunction,
   InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
+  S3_SSER_N, S3_SCK, S3_SCL_N, SR_Bus,
   InterruptInhibit, LoadFlags, DeviceClear);
 
   //++
@@ -725,6 +804,9 @@ module Controller (Clock, Reset, Opcode, MemoryData,
   output [`ALU_FUNCTION_WIDTH] ALU_Function;	// ALU function code
   output [`AC_FUNCTION_WIDTH] AC_Function;	// AC function code
   output [`ROTATE_FUNCTION_WIDTH]RotateFunction;// rotate function code
+  output S3_SCK, S3_SCL_N;
+  input S3_SSER_N;
+  output [`DATA_WIDTH] SR_Bus;
 
   // Local signals ...
   wire [`STATE_CODE_WIDTH] State;
@@ -734,6 +816,8 @@ module Controller (Clock, Reset, Opcode, MemoryData,
     .Clock(Clock), .Reset(Reset), .State(State), .Opcode(Opcode),
     .MemoryData(MemoryData), .AutoIndex(AutoIndex),
     .InterruptRequest(InterruptRequest), .InterruptEnable(InterruptEnable),
+    .START(START), .LADDR(LADDR), .DEP(DEP), .EXAM(EXAM), .CONT(CONT),
+    .STOP(STOP), .SS(SS), .SI(SI),
     .InterruptInhibit(InterruptInhibit), .SetInterruptDelay(SetInterruptDelay)
   );
 
@@ -752,6 +836,29 @@ module Controller (Clock, Reset, Opcode, MemoryData,
     .SetInterruptDelay(SetInterruptDelay),
     .LoadFlags(LoadFlags), .DeviceClear(DeviceClear),
     .InterruptRequest(InterruptRequest), .InterruptEnable(InterruptEnable)
+  );
+
+  wire [0:2] SDF, SIF;
+  wire [0:5] CONF;
+  // The switch panel  controls things, mostly while Halted ...
+  switchesDeMux switches (
+      .clk(Clock),
+      .reset(Reset),
+      .S3_SSER_N(S3_SSER_N),
+      .S3_SCK(S3_SCK),
+      .S3_SCL_N(S3_SCL_N),
+      .SDF(SDF),
+      .SIF(SIF),
+      .SR(SR_Bus),
+      .START(START),
+      .LADDR(LADDR),
+      .DEP(DEP),
+      .EXAM(EXAM),
+      .CONT(CONT),
+      .STOP(STOP),
+      .SS(SS),
+      .SI(SI),
+      .CONF(CONF)
   );
 
   // These should probably be moved to LogicUnit ...         
