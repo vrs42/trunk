@@ -224,7 +224,7 @@ begin  -- rtl
   end process iobus;
 
 
-  tty_IO : process (clk, reset, IOcaf)
+  tty_IO : process (clk, reset, IOcaf, ttirun)
   begin
 
      if (reset = '0') or (IOcaf = '0') then

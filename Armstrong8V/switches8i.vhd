@@ -168,7 +168,8 @@ begin
             STOP <= '0';
             SS   <= '0';
          else
-            STOP <= (ISI or ISTOP);
+            STOP <= ISTOP;
+            SI   <= ISI;
             SS   <= ISS;
          end if;
       end if;

@@ -153,14 +153,6 @@ architecture behavioral of lightsMux is
    signal lights   : std_logic_vector(0 to lightsBits); -- Needs an extra for LRCK.
    signal sr       : std_logic_vector(0 to lightsBits); -- Needs an extra for LRCK.
    signal counter  : integer := 0;
-   signal IAND     : std_logic;
-   signal ITAD     : std_logic;
-   signal IISZ     : std_logic;
-   signal IDCA     : std_logic;
-   signal IJMS     : std_logic;
-   signal IJMP     : std_logic;
-   signal IIOT     : std_logic;
-   signal IOPR     : std_logic;
    signal FETCH    : std_logic;
    signal EXEC     : std_logic;
    signal DEFER    : std_logic;
