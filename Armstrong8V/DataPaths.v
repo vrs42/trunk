@@ -400,7 +400,7 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   // Registers ...
   RegisterUnit AC (Clock, Reset, LoadAC,    1'b0, SumBus, AC_Bus);
   RegisterUnit MQ (Clock, Reset, LoadMQ, ClearMQ, AC_Bus, MQ_Bus);
-  RegisterUnit MA (Clock, Reset, LoadMA,    1'b0, SumBus, MemoryAddress);
+  RegisterUnit MA (~Clock, Reset, LoadMA,    1'b0, SumBus, MemoryAddress);
   RegisterUnit MB (Clock, Reset, LoadMB,    1'b0, SumBus, MB_Bus);
   RegisterUnit #(12'O0000, 12'O4000)
 	       IR (Clock, Reset, LoadIR, LoadJMS, MemoryData, Opcode);
@@ -424,29 +424,27 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
       .LSER(S3_LSER),
       .LCLK(S3_LCLK),
       .LCL_N(S3_LCL_N),
-      .PC(PC_Bus),
-      .MA(MemoryAddress),
-      .MB(MB_Bus),
-      .AC(AC_Bus),
-      .MQ(MQ_Bus),
-      .DFLD(3'b0),       // BUGBUG: No EMA yet
-      .IFLD(3'b0),       // BUGBUG: No EMA yet
-      .SC(5'b0),         // BUGBUG: No EAE
-      .LINK(LinkBit),
-      .IR(Opcode[0:2]),
-      .FETCH1(State == `FETCH_1),
-      .FETCH2(State == `FETCH_2),
-      .FETCH3(State == `FETCH_3),
-      .DEFER1(State == `DEFER_1),
-      .AUTOX1(State == `AUTOINDEX_1),
-      .AUTOX2(State == `AUTOINDEX_2),
-      .AUTOX3(State == `AUTOINDEX_3),
-      .EXEC1(State == `EXECUTE_1),
-      .EXEC2(State == `EXECUTE_2),
-      .ION(InterruptEnable),
-      .RUN(~Halted)
+      .pc(PC_Bus),
+      .ma(MemoryAddress),
+      .mb(MemoryData),
+      .ac(AC_Bus),
+      .mq(MQ_Bus),
+      .dfld(3'b0),       // BUGBUG: No EMA yet
+      .ifld(3'b0),       // BUGBUG: No EMA yet
+      .sc(5'b0),         // BUGBUG: No EAE
+      .link(LinkBit),
+      .ir(Opcode[0:2]),
+      .fetch(State == `FETCH_1 | State == `FETCH_2 | State == `FETCH_3),
+      .defer(State == `DEFER_1
+           | State == `AUTOINDEX_1 | State == `AUTOINDEX_2 | State == `AUTOINDEX_3),
+      .exec(State == `EXECUTE_1 | State == `EXECUTE_2),
+      .ion(InterruptEnable),
+      .wc(1'b0),        // BUGBUG: No Data Break yet
+      .ca(1'b0),        // BUGBUG: No Data Break yet
+      .break(1'b0),     // BUGBUG: No Data Break yet
+      .run(~Halted)
    );
-  
+
   //   When we're doing a memory write, the MB register actually drives the
   // MD bus, but at all other times the MD bus floats so that the SRAMs can
   // drive data onto it.

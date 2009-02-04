@@ -125,7 +125,7 @@ module SerialTransmitter (SystemClock, Reset, BaudClock,
       if (ShifterLoad)
 	Shifter <= {/*1'b1,*/ Buffer, 1'b0};
       else if (ShiftData)
-	Shifter <= {1, Shifter[8:1]};
+	Shifter <= {1'b1, Shifter[8:1]};
       State <= LoadState ? NextState : State+1;
     end
 

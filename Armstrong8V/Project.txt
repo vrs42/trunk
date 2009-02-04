@@ -1,0 +1,18 @@
+The project file must be rebuilt whenever the sources are moved.
+
+To rebuild the project file, you will need the following information:
+
+Set the chip type to xc3s1000-4ft256.
+
+The project's modules are listed in XESS.prj.  You need to add all
+those sources plus the include file Parameters.v and the constraint 
+file XESS.ucf.
+
+If you are building for simulation, look for `ifdef SIMULATION
+and `define SIMULATION for those modules that need it.  If you 
+are building for synthesis, you don't want SIMULATION `defined.
+
+Set the top level to 'xess' for synthesis, or 'testbed' for 
+simulation.
+
+	Vince

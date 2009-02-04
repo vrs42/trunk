@@ -181,6 +181,7 @@ module KK8V (Clock, Reset,
   wire [`AC_FUNCTION_WIDTH] AC_Function;
   wire [`ROTATE_FUNCTION_WIDTH] RotateFunction;
   wire [`DATA_WIDTH] SR_Bus;
+  wire [`STATE_CODE_WIDTH] State;
 
   // The DataPaths module ...
   DataPaths DP (
@@ -200,7 +201,7 @@ module KK8V (Clock, Reset,
     .ClearInterruptEnable(ClearInterruptEnable),
     .LoadFlags(LoadFlags),
     .S3_LSER(S3_LSER), .S3_LCLK(S3_LCLK), .S3_LCL_N(S3_LCL_N), .SR_Bus(SR_Bus),
-    .State(State)
+    .Halted(Halted), .State(State)
   );
 
   // And the Controller module ...
@@ -219,7 +220,7 @@ module KK8V (Clock, Reset,
     .AC_Function(AC_Function), .RotateFunction(RotateFunction),
     .SetInterruptEnable(SetInterruptEnable), .InterruptEnable(InterruptEnable),
     .ClearInterruptEnable(ClearInterruptEnable), .DeviceClear(DeviceClear),
-    .InterruptInhibit(InterruptInhibit),
+    .InterruptInhibit(InterruptInhibit), .State(State),
     .S3_SSER_N(S3_SSER_N), .S3_SCK(S3_SCLK), .S3_SCL_N(S3_SCL_N), .SR_Bus(SR_Bus),
     .LoadFlags(LoadFlags)
   );

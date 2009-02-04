@@ -159,9 +159,12 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   // flops that hold the current state code, and it's as trivial as can be.
   // Notice that a global reset always starts us out in the FETCH1 state.
   always @(posedge Clock or posedge Reset) begin
-    if (Reset)
-      State = `FETCH_1;
-    else
+    if (Reset) begin
+      State = `HALTED_1;
+`ifdef SIMULATION 
+      NextState = `FETCH_1;
+`endif
+    end else
       State = NextState;
     //$strobe("OldState=%o, New state = %o", State, NextState);
   end
@@ -181,6 +184,7 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
 
   // And this is the combinatorial block that decodes the next state ...
   always @(State or Opcode or AutoIndex or MemoryData or InterruptRequest
+        or START or LADDR or DEP or EXAM or CONT or ResumeState or SS or STOP or SI
 	or InterruptEnable or InterruptInhibit or InterruptDelay) begin
     //   This shouldn't be necessary (all the case options should be covered)
     // but just in case make sure that there's always an assignment to
@@ -753,7 +757,7 @@ module Controller (Clock, Reset, Opcode, MemoryData,
   LoadSR, LoadAC, LoadLink, LoadJMS,
   LeftSelect, ALU_Function, AC_Function, RotateFunction,
   InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
-  S3_SSER_N, S3_SCK, S3_SCL_N, SR_Bus,
+  S3_SSER_N, S3_SCK, S3_SCL_N, SR_Bus, State,
   InterruptInhibit, LoadFlags, DeviceClear);
 
   //++
@@ -807,6 +811,7 @@ module Controller (Clock, Reset, Opcode, MemoryData,
   output S3_SCK, S3_SCL_N;
   input S3_SSER_N;
   output [`DATA_WIDTH] SR_Bus;
+  output [`STATE_CODE_WIDTH] State;
 
   // Local signals ...
   wire [`STATE_CODE_WIDTH] State;
@@ -847,18 +852,18 @@ module Controller (Clock, Reset, Opcode, MemoryData,
       .S3_SSER_N(S3_SSER_N),
       .S3_SCK(S3_SCK),
       .S3_SCL_N(S3_SCL_N),
-      .SDF(SDF),
-      .SIF(SIF),
-      .SR(SR_Bus),
-      .START(START),
-      .LADDR(LADDR),
-      .DEP(DEP),
-      .EXAM(EXAM),
-      .CONT(CONT),
-      .STOP(STOP),
-      .SS(SS),
-      .SI(SI),
-      .CONF(CONF)
+      .sdf(SDF),
+      .sif(SIF),
+      .sr(SR_Bus),
+      .start(START),
+      .laddr(LADDR),
+      .dep(DEP),
+      .exam(EXAM),
+      .cont(CONT),
+      .stop(STOP),
+      .ss(SS),
+      .si(SI),
+      .conf(CONF)
   );
 
   // These should probably be moved to LogicUnit ...         
