@@ -77,7 +77,8 @@ LP01,	TAD I AX1
 	40
 	JMP BEGN
 LB,	0
-INDX,	0/
+INDX,	0
+/
 LOAD,   JMS TMES
         MSG1
         JMS ROCT
@@ -111,7 +112,8 @@ ENDP,   JMS CRLF
         JMP BEGN
 CKSM,   0
 /
-        PAGE
+        PAGE
+
 *BEGN+200
 RBIN,   0               /SPECIAL BINARY LOADER
         TAD I RBIN
@@ -234,7 +236,8 @@ ERR1,   0               /CHECKSUM ERROR ON READ
 	RFC
         JMP I ERR1      /RETRY
 /
-        PAGE
+        PAGE
+
 *BEGN+400
 TMES,   0               /MESSAGE TYPEOUT ROUTINE
         TAD I TMES
@@ -350,7 +353,8 @@ TTYI,   0               /TELETYPE INPUT ROUTINE
         TAD (203
         JMP I TTYI
 /
-        PAGE/
+        PAGE
+/
 *BEGN+600
 VRFY,   JMS TMES        /TAPE VERIFICATION ROUTINE
         MSG1
@@ -453,7 +457,8 @@ LP10,   TAD TEM1
         JMP I TOCT
 /
         PAGE
-//
+/
+/
 *BEGN+1000
 MSG1,   TEXT /ENTER LAST BLOCK NR - /
 MSG2,	TEXT /LOAD DUMP OR VERIFY - /
@@ -465,4 +470,5 @@ MSG7,   TEXT /TYPE "R" TO RETRY, "S" TO RESTART - /
 MSG8,   TEXT /TAPE VERIFIED!/
 MSG9,   TEXT /ERROR IN BLOCK /
         PAGE
-        $
+        $
+
