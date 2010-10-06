@@ -1,0 +1,143 @@
+module TTYReceiver(ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, an1, an2, ap2, ar1, ar2, as2, at2, au2, av2, bd1, bd2, be2, bf2, bh2, bj2, bm2, bn2, br1, br2, bs1, bt2, bu1, bu2, bv2); 
+
+input ad2, ae1, af1, ah1, ah2, aj1;
+assign { mb03_, mb04_, mb05_, mb06_, mb07, mb08 }
+     = { ad2,   ae1,   af1,   ah1,   ah2,  aj1 };
+input aj2;
+assign tti3_set = aj2;
+input bd2, bj2, al2;
+assign { iop1, iop2, iop4 } = { bd2, bj2, al2 };
+input av2;
+assign reader_run_clr_ = av2;
+input bf2;
+assign initialize = bf2;
+input an1;
+assign tti_clock_in = an1;
+// synthesis attribute CLOCK_SIGNAL of tti_clock_in is "yes";
+input ar1;
+assign tti0_set = ar1;
+input bm2;
+assign rx_data = bm2;   // Serial input
+input bd1;
+assign clr_flag = bd1;
+input br1;
+assign enable = br1;
+input bu1;
+assign clock_scale_in = bu1;
+// synthesis attribute CLOCK_SIGNAL of clock_scale_in is "yes";
+input br2;
+assign in_stop_ = br2;
+
+wire tt_ac_clr_;
+wire kcc_;
+reg keyboard_flag;
+wire tti_skip_;
+reg [0:2] tti02;
+reg [3:7] tti37;
+wire [0:7] tt_;
+reg reader_run;
+reg [0:2] clock_scale;
+reg [1:2] in_stop;
+reg spike_detector;
+reg in_active;
+reg in_last_unit;
+wire start_enable;
+wire spike_;
+wire active_clear_;
+
+output ae2;
+assign ae2 = kcc_;
+output af2;
+assign af2 = keyboard_flag;
+output ak1;
+assign ak1 = tti02[2];
+output ak2, ar2, as2, al1, am1, ap2, at2, an2;
+assign { ak2, ar2, as2, al1, am1, ap2, at2, an2 } = tt_;
+output au2;
+assign au2 = ~reader_run;
+output be2;
+assign be2 = tt_ac_clr_;
+output bh2;
+assign bh2 = tti_skip_;
+output am2;
+assign am2 = ~rx_data;
+output bs1, bt2;
+assign { bs1, bt2 } = { ~clock_scale[2], clock_scale[2] };
+output bu2, bv2;
+assign { bu2, bv2 } = ~in_stop;
+output bn2;
+assign bn2 = ~in_active;
+
+assign keyboard_select = mb03_ & mb04_ & mb05_ & mb06_ & mb07 & mb08;
+assign tt_ac_clr_ = (keyboard_select & iop2); // KCC instruction
+assign kcc_ = tt_ac_clr_ & ~initialize & ~clr_flag;
+assign tti_shift = in_active & clock_scale_in;
+assign tti_shift_ = ~tti_shift;
+
+assign start_enable = ~in_active & ~in_last_unit;
+assign preset_ = ~(tti_clock_in & start_enable & rx_data & enable);
+
+always @(posedge tti_clock_in, posedge start_enable) begin 
+  if (start_enable)
+    clock_scale <= 0;
+  else
+    clock_scale <= clock_scale + 1;
+end
+
+always @(posedge clock_scale_in, negedge preset_) begin
+  if (~preset_)
+    in_stop <= 0;
+  else
+    in_stop <= { in_active, in_stop[1] }; 
+end
+
+assign spike_ = ~(tti_shift & spike_detector & ~rx_data);
+assign active_clear_ = ~initialize & spike_;
+assign active_clock = tti_shift_ & in_last_unit;
+always @(posedge active_clock, negedge active_clear_, negedge preset_) begin
+  if (~active_clear_)
+    in_active <= 0;
+  else if (~preset_)
+    in_active <= 1;
+  else
+    in_active <= 0;
+end
+
+always @(posedge tti_shift_, posedge initialize, negedge preset_) begin
+  if (initialize)
+    spike_detector <= 0;
+  else if (~preset_)
+    spike_detector <= 1;
+  else
+    spike_detector <= 0;
+end
+
+always @(negedge reader_run_clr_, negedge preset_) begin
+  if (~reader_run_clr_)
+    reader_run <= 1;
+  else
+    reader_run <= 0;
+end
+
+assign tti_skip_ = ~(keyboard_select & iop1 & keyboard_flag);
+
+always @(posedge tti_shift, negedge preset_) begin
+  if (~preset_)
+     { tti02, tti37 } <= ~0;
+  else begin
+     tti02 <= { tti0_set, tti02[0:1] };
+     { tti37, keyboard_flag } <= { tti3_set, tti37 };
+  end
+end
+
+assign krs = keyboard_select & iop4; // KRS instruction
+assign tt_ = krs? { ~tti02, ~tti37 } : ~0;
+
+always @(posedge tti_shift, negedge in_stop_) begin
+  if (~in_stop_)
+    in_last_unit <= 0;
+  else
+    in_last_unit <= ~tti37[7];
+end
+
+endmodule
