@@ -25,11 +25,17 @@ input wire In;      // Data to be delayed
 output wire Out;   // Delayed data
 
 reg [1:Ns/10] Bits;
+reg Edge;
 
 assign Out = Bits[Ns/10];
 
-always @(posedge Dclk)
-begin
-   Bits = {In, Bits[1:Ns/10-1]};
+// Remember the previous value so we can detect an edge.
+// This allows us to generate a fixed-period pulse, no 
+// matter how long the input is asserted.
+always @(posedge Dclk) begin
+  Edge = ~In;
+end
+always @(posedge Dclk) begin
+  Bits = {In & Edge, Bits[1:Ns/10-1]};
 end
 endmodule

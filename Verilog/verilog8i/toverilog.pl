@@ -75,6 +75,7 @@ while (<INPUT>) {
   next if $signal eq "1'b0"; # Skip gnd on I/O connector
   $nets{$signal} = 1;
   $direction{"$part$pad"} = $dir;
+#print "$signal: $dir\n" if $signal =~ /^in00/; 
   next if $ignore{$signal}; # Skip it if blacklisted
   if ($dir eq "out") {
     $out{$signal} = 1;
@@ -82,6 +83,9 @@ while (<INPUT>) {
     warn "Mixed 'out' and 'wc' on $signal; converted 'out' to 'oc\n"
       if (!defined $wand{$signal}) && defined $out{$signal};
     $out{$signal} = 1;
+    $wand{$signal} = 1;
+  } elsif ($dir eq "pas") {
+    # Just assume the passive is actually a pull-up.
     $wand{$signal} = 1;
   } elsif ($dir eq "in") {
     $in{$signal} = 1;
@@ -139,23 +143,25 @@ for $part (sort keys %parts) {
 # declaring them.
 foreach (sort keys %nets) {
   if (defined $io{$_}) {
-    if (defined $out{$_}) {
-      # If it's marked "wand" and also has inputs, it may be an inout.
-      # report it as such, just in case.
-      if ($in{$_} && $wand{$_}) {
-        print "inout wand $_;\n" unless $reg{$_};
+    if (defined $wand{$_}) {
+      if ($out{$_}) {
+        print "output wand $_;\n" unless $in{$_};
+        print "inout wand $_;\n" if $in{$_};
       } else {
-        # GROT: need wand for pullups, but don't know which signals.
-        # Punt and mark them all wand, even those that don't need it.
-        print "output wand $_;\n" unless $reg{$_};
+        print "input wand $_;\n";
       }
-      print "output $_;\n" if $reg{$_};
-      print "reg $_;\n" if $reg{$_};
+      print "// synthesis attribute PULLUP of $_ is \"yes\";\n";
+    } elsif (defined $out{$_}) {
+      # Assume that since we set it, it's an output.
+      print "output $_;\n" unless $reg{$_};
+      print "output reg $_;\n" if $reg{$_};
     } else {
+      # Didn't set it, must be an input.
       print "input $_;\n";
     }
   } elsif (defined $wand{$_}) {
-    print "wand $_;\n";
+    print "wand $_ = 1'b1;\n";
+    print "// synthesis attribute PULLUP of $_ is \"yes\";\n";
   } elsif (defined $reg{$_}) {
     print "reg $_;\n";
   } else {
@@ -181,7 +187,68 @@ for $sheet (sort bynum keys %sheets) {
 }
 print "\n";
 print "endmodule\n";
+close(STDOUT) || die;
 
+# BUGBUG: Experimental
+for $sheet (sort bynum keys %sheets) {
+  open(STDOUT, ">sheet$sheet.v") || die "sheet$sheet.v: $!";
+  #
+  # Iterate over all pads, collecting information for those which 
+  # appear on the current sheet.
+  %sheet_sig = ();
+  %sheet_out = %sheet_in = ();
+  for $partpad (sort keys %signal) {
+    next unless $sheet{$partpad} == $sheet;
+    $dir = $direction{$partpad};
+    $signal = $signal{$partpad};
+    next unless $signal;
+    next if $signal =~ /^1'b/;
+    $sheet_sig{$signal} = 1;
+    $sheet_out{$signal} = 1 if $dir eq "out";
+    $sheet_out{$signal} = 1 if $dir eq "oc";
+    $sheet_in{$signal}  = 1 if $dir eq "in";
+#print "$signal: $dir\n" if $signal =~ /^in00/; 
+  }
+  #
+  # Now output an interface specification for this sheet.
+  print "module sheet$sheet(";
+  foreach $signal (sort keys %sheet_sig) {
+    print "$signal, ";
+  }
+  print "dclk);\n";
+  print "input dclk;\n";
+  print "// synthesis attribute CLOCK_SIGNAL of dclk is \"yes\";\n";
+  # Iterate again and declare a direction for each signal.
+  foreach $signal (sort keys %sheet_sig) {
+#print "$reg{'pause'}: $signal: $reg{$signal}\n";
+    if ($sheet_out{$signal}) {
+      if ($reg{$signal}) {
+        print "output reg";
+      } elsif ($sheet_in{$signal}) {
+        print "inout";
+      } else {
+        print "output";
+      }
+      print " wand" if @wand{$signal};
+      print " $signal;\n";
+    } else {
+      print "input $signal;\n";
+    }
+  }
+  #
+  # Now output the code for the sheet.
+  print "\n// Sheet $sheet\n";
+  for $part (sort keys %parts) {
+    $dev = $partlist{$part};
+    *func = eval "*$dev";
+    #warn "No code generator for $part/$dev" unless defined &func;
+    *func = *foobar unless defined &func;
+    &func;
+  }
+  print "\n";
+  print "endmodule\n";
+  close(STDOUT) || die;
+}
 exit 0;
 
 #
@@ -253,30 +320,15 @@ sub nand {
   }
 }
 
-# For use only in pass 1.
-sub pullup1 {
+# For use only in pass 1.  (The PULLUP attribute must be
+# specified at declaration time.)
+sub pullup {
   foreach $pad (@_) {
     $partpad = "$part$pad";
     next unless $signal{$partpad};
     next if $signal{$partpad} =~ /^1'b1/;
-    # We mark each signal with a pull-up as having an OC output pin.
-    $out{$signal{$partpad}} = 1;
-    $oc{$signal{$partpad}} = 1;
-  }
-}
-
-# For use only in pass 2.
-sub pullup2 {
-  foreach $pad (@_) {
-    $partpad = "$part$pad";
-    next unless $sheet == $sheet{$partpad};
-    next unless $signal{$partpad};
-    next if $signal{$partpad} =~ /^1'b1/;
-    if ($out{$signal{$partpad}}) {
-      print "assign $signal{$partpad} = 1'b1; // $partpad pull-up\n";
-    } else {
-      print "// synthesis attribute PULL_UP of $signal{$partpad} is \"yes\"; // $partpad\n";
-    }
+    # We mark each signal with a pull-up as being "wand".
+    $wand{$signal{$partpad}} = 1;
   }
 }
 
@@ -360,7 +412,14 @@ sub g821 {
 }
 
 sub pass1_g826 {
-  &pullup1("af2", "ah2", "aj2", "as2");
+  &pullup("af2", "ah2", "aj2", "as2");
+  # Convert AJ2 from an output to an input pin.
+  ($aj2) = &lookup("aj2");
+  undef $out{$aj2};
+  $io{$aj2} = 1;
+  $in{$aj2} = 1;
+  ($af2) = &lookup("af2");
+  undef $out{$af2};
 }
 sub g826 {
   return unless $sheet == $sheet{$part};
@@ -368,11 +427,10 @@ sub g826 {
   print "// not implemented (power supply)\n";
   # Just claim that power is OK.
   # BUGBUG: Should really assert as2 at power up.
-  &pullup2("af2", "ah2", "aj2", "as2");
-  #&emit("assign af2 = 1'b1;");
-  #&emit("assign ah2 = 1'b1;");
-  #&emit("assign aj2 = 1'b1;");
-  #&emit("assign as2 = 1'b1;");
+  #&emit("assign af2 = 1'b1;"); # shut_down_
+  #&emit("assign ah2 = 1'b1;"); # stop_ok_ (input with pullup)
+  #&emit("assign aj2 = 1'b0;"); # power_ok_
+  #&emit("assign as2 = 1'b1;"); # power_clear_
 }
  
 sub g921a {
@@ -406,7 +464,7 @@ sub m040 {
 }
 
 sub pass1_m113 {
-  &pullup1("u1", "v1");
+  &pullup("u1", "v1");
 }
 sub m113 {
   # M113 2 Input NAND Gates
@@ -420,7 +478,6 @@ sub m113 {
   &nand("n2", "l2", "m2");
   &nand("s2", "p2", "r2");
   &nand("v2", "t2", "u2");
-  &pullup2("u1", "v1");
 }
 
 sub m115 {
@@ -436,7 +493,7 @@ sub m115 {
 }
 
 sub pass1_m117 {
-  &pullup1("u1", "v1");
+  &pullup("u1", "v1");
 }
 sub m117 {
   # M117 4 Input NAND Gates
@@ -446,18 +503,16 @@ sub m117 {
   &nand("j2", "d2", "e2", "f2", "h2");
   &nand("p2", "k2", "l2", "m2", "n2");
   &nand("v2", "r2", "s2", "t2", "u2");
-  &pullup2("u1", "v1");
 }
 
 sub pass1_m119 {
-  &pullup1("u1", "v1");
+  &pullup("u1", "v1");
 }
 sub m119 {
   # M119 8 Input NAND Gates
   &nand("j2", "a1", "b1", "c1", "d1", "d2", "e2", "f2", "h2");
   &nand("p2", "f1", "h1", "j1", "k1", "k2", "l2", "m2", "n2");
   &nand("v2", "m1", "n1", "p1", "r1", "r2", "s2", "t2", "u2");
-  &pullup2("u1", "v1");
 }
 
 sub m160 {
@@ -513,158 +568,99 @@ sub m162 {
   }
 }
 
-sub pass1_m216 {
-  # By convention, we have chosen to make "Q" a reg, and "Q_" a wire.
-  @foo = ("e1", "h2", "l1", "p2", "s1", "v2");
-  @barpad = ("f1", "j2", "m1", "r2", "u1", "v1");
-  @bar = &lookup(@barpad);
-  foreach $pad (@foo) {
-    $barpad = shift @barpad;
-    $foo = $signal{$part.$pad};
-    $bar = shift @bar;
-    if ($foo) {
-      $reg{$foo} = 1;
-      next;
-    }
-    next unless $bar; # A totally unused flop.
+#
+# Force foo into existence as the complement of bar.
+sub kludge {
+  local($foopad, $barpad) = @_;
+  ($foo, $bar) = &lookup($foopad, $barpad);
+  if (!$foo) { # Already defined
+    return unless $bar;
     $foo = $bar; # Convert $bar to a value for $foo.
     $foo =~ s/_$//; # Convert $bar to a value for $foo.
     $foo = $bar."__" unless $bar =~ /_$/;
     $nets{$foo} = 1;
-    $signal{$part.$pad} = $foo;
-    $reg{$foo} = 1;
-    $sheet{$part.$pad} = $sheet{$part.$barpad};
+    $signal{$part.$foopad} = $foo;
+    $direction{$part.$foopad} = "out";
+    $sheet{$part.$foopad} = $sheet{$part.$barpad};
+    $out{$foo} = 1;
 #print "// kludge: created $bar on sheet ", $sheet{"$part$barpad"}, "\n";
-#print "// kludge: \$sheet{$part.$pad} = \$sheet{$part.$barpad};\n";
-#print "// kludge: $sheet{$part.$pad} = $sheet{$part.$barpad};\n";
+#print "// kludge: \$sheet{$part.$foopad} = \$sheet{$part.$barpad};\n";
+#print "// kludge: $sheet{$part.$foopad} = $sheet{$part.$barpad};\n";
   }
+  $reg{$foo} = 1;
 }
 
+sub pass1_m216 {
+  # By convention, we have chosen to make "Q" a reg, and "Q_" a wire.
+  @foopad = ("e1", "h2", "l1", "p2", "s1", "v2");
+  @barpad = ("f1", "j2", "m1", "r2", "u1", "v1");
+  foreach $foopad (@foopad) {
+    $barpad = shift @barpad;
+    &kludge($foopad, $barpad);
+  }
+}
+sub dflop {
+  if ($sheet == $sheet{"${part}$_[0]"}) {
+    ($q, $q_, $d, $c, $r_, $s_) = &lookup(@_);
+    #print "// synthesis attribute CLOCK_SIGNAL of $c is \"yes\";\n";
+    print "always @(posedge $c";
+    print ", negedge $r_" if $r_ ne "1'b1";
+    print ", negedge $s_" if $s_ ne "1'b1";
+    print ") begin\n  ";
+    if ($d eq "1'b1") {
+      if ($s_ ne "1'b1") {
+        print "if (~$s_)\n    $q <= 1'b1;\n  else\n  ";
+      }
+      if ($r_ ne "1'b1") {
+        print "if (~$r_)\n    $q <= 1'b0;\n  else\n  ";
+      }
+    } else {
+      if ($r_ ne "1'b1") {
+        print "if (~$r_)\n    $q <= 1'b0;\n  else\n  ";
+      }
+      if ($s_ ne "1'b1") {
+        print "if (~$s_)\n    $q <= 1'b1;\n  else\n  ";
+      }
+    }
+    print "  $q <= $d;\nend\n";
+    print "assign $q_ = ~$q;\n" if $q_;
+  }
+}
 sub m216 {
-  if ($sheet == $sheet{"${part}e1"}) {
-    ($q, $q_, $d, $c, $r_, $s_) =
-      &lookup("e1", "f1", "c1", "b1", "a1", "d1");
-    print "// synthesis attribute CLOCK_SIGNAL of $c is \"yes\";\n";
-    print "always @(posedge $c";
-    print ", negedge $r_" if $r_ ne "1'b1";
-    print ", negedge $s_" if $s_ ne "1'b1";
-    print ") begin\n  ";
-    if ($r_ ne "1'b1") {
-      print "if (~$r_)\n    $q <= 1'b0;\n  else ";
-    }
-    if ($s_ ne "1'b1") {
-      print "if (~$s_)\n    $q <= 1'b1;\n  else ";
-    }
-    print "if ($c)\n    $q <= $d;\nend\n";
-    print "assign $q_ = ~$q;\n" if $q_;
-  }
-  if ($sheet == $sheet{"${part}h2"}) {
-    ($q, $q_, $d, $c, $r_, $s_) =
-      &lookup("h2", "j2", "e2", "d2", "a1", "f2");
-    print "// synthesis attribute CLOCK_SIGNAL of $c is \"yes\";\n";
-    print "always @(posedge $c";
-    print ", negedge $r_" if $r_ ne "1'b1";
-    print ", negedge $s_" if $s_ ne "1'b1";
-    print ") begin\n  ";
-    if ($r_ ne "1'b1") {
-      print "if (~$r_)\n    $q <= 1'b0;\n  else ";
-    }
-    if ($s_ ne "1'b1") {
-      print "if (~$s_)\n    $q <= 1'b1;\n  else ";
-    }
-    print "if ($c)\n    $q <= $d;\nend\n";
-    print "assign $q_ = ~$q;\n" if $q_;
-  }
-  if ($sheet == $sheet{"${part}l1"}) {
-    ($q, $q_, $d, $c, $r_, $s_) =
-      &lookup("l1", "m1", "j1", "h1", "a1", "k1");
-    print "// synthesis attribute CLOCK_SIGNAL of $c is \"yes\";\n";
-    print "always @(posedge $c";
-    print ", negedge $r_" if $r_ ne "1'b1";
-    print ", negedge $s_" if $s_ ne "1'b1";
-    print ") begin\n  ";
-    if ($r_ ne "1'b1") {
-      print "if (~$r_)\n    $q <= 1'b0;\n  else ";
-    }
-    if ($s_ ne "1'b1") {
-      print "if (~$s_)\n    $q <= 1'b1;\n  else ";
-    }
-    print "if ($c)\n    $q <= $d;\nend\n";
-    print "assign $q_ = ~$q;\n" if $q_;
-  }
-  if ($sheet == $sheet{"${part}p2"}) {
-    ($q, $q_, $d, $c, $r_, $s_) =
-      &lookup("p2", "r2", "m2", "l2", "k2", "n2");
-    print "// synthesis attribute CLOCK_SIGNAL of $c is \"yes\";\n";
-    print "always @(posedge $c";
-    print ", negedge $r_" if $r_ ne "1'b1";
-    print ", negedge $s_" if $s_ ne "1'b1";
-    print ") begin\n  ";
-    if ($r_ ne "1'b1") {
-      print "if (~$r_)\n    $q <= 1'b0;\n  else ";
-    }
-    if ($s_ ne "1'b1") {
-      print "if (~$s_)\n    $q <= 1'b1;\n  else ";
-    }
-    print "if ($c)\n    $q <= $d;\nend\n";
-    print "assign $q_ = ~$q;\n" if $q_;
-  }
-  if ($sheet == $sheet{"${part}s1"}) {
-    ($q, $q_, $d, $c, $r_, $s_) =
-      &lookup("s1", "u1", "p1", "n1", "k2", "r1");
-    print "// synthesis attribute CLOCK_SIGNAL of $c is \"yes\";\n";
-    print "always @(posedge $c";
-    print ", negedge $r_" if $r_ ne "1'b1";
-    print ", negedge $s_" if $s_ ne "1'b1";
-    print ") begin\n  ";
-    if ($r_ ne "1'b1") {
-      print "if (~$r_)\n    $q <= 1'b0;\n  else ";
-    }
-    if ($s_ ne "1'b1") {
-      print "if (~$s_)\n    $q <= 1'b1;\n  else ";
-    }
-    print "if ($c)\n    $q <= $d;\nend\n";
-    print "assign $q_ = ~$q;\n" if $q_;
-  }
-  if ($sheet == $sheet{"${part}v2"}) {
-    ($q, $q_, $d, $c, $r_, $s_) =
-      &lookup("v2", "v1", "t2", "s2", "k2", "u2");
-    print "// synthesis attribute CLOCK_SIGNAL of $c is \"yes\";\n";
-    print "always @(posedge $c";
-    print ", negedge $r_" if $r_ ne "1'b1";
-    print ", negedge $s_" if $s_ ne "1'b1";
-    print ") begin\n  ";
-    if ($r_ ne "1'b1") {
-      print "if (~$r_)\n    $q <= 1'b0;\n  else ";
-    }
-    if ($s_ ne "1'b1") {
-      print "if (~$s_)\n    $q <= 1'b1;\n  else ";
-    }
-    print "if ($c)\n    $q <= $d;\nend\n";
-    print "assign $q_ = ~$q;\n" if $q_;
-  }
+  &dflop("e1", "f1", "c1", "b1", "a1", "d1");
+  &dflop("h2", "j2", "e2", "d2", "a1", "f2");
+  &dflop("l1", "m1", "j1", "h1", "a1", "k1");
+  &dflop("p2", "r2", "m2", "l2", "k2", "n2");
+  &dflop("s1", "u1", "p1", "n1", "k2", "r1");
+  &dflop("v2", "v1", "t2", "s2", "k2", "u2");
 }
 
 
 sub pass1_m220 {
   # By convention, we have chosen to make "Q" a reg, and "Q_" a wire.
   # Here, we also kludge into existance Q, if only Q_ has a net.
-  @foo = ("ba1", "at2", "ap1", "am2", "av1", "as2", "an1", "al2");
-  @bar = &lookup("bb1", "au2", "ar2", "am1", "av2", "as1", "ap2", "al1");
-  foreach $pad (@foo) {
-    $foo = $signal{$part.$pad};
-    $bar = shift @bar;
-    if ($foo) {
-      $reg{$foo} = 1;
-      next;
-    }
-    next unless $bar; # A totally unused flop.
-    $foo = $bar; # Convert $bar to a value for $foo.
-    $foo =~ s/_$//; # Convert $bar to a value for $foo.
-#print "kludge: creating $foo\n";
-    $nets{$foo} = 1;
-    $signal{$part.$pad} = $foo;
-    $reg{$foo} = 1;
+  @foopad = ("ba1", "at2", "ap1", "am2", "av1", "as2", "an1", "al2");
+  @barpad = ("bb1", "au2", "ar2", "am1", "av2", "as1", "ap2", "al1");
+  foreach $foopad (@foopad) {
+    $barpad = shift @barpad;
+    &kludge($foopad, $barpad);
+  }
+  ($aj1, $ak2, $am2, $al2) = &lookup("aj1", "ak2", "am2", "al2");
+  if (!$aj1) {
+    $aj1 = $am2;
+    $aj1 =~ s/^ma/regbus/;
+    $ak2 = $al2;
+    $ak2 =~ s/^ma/regbus/;
+    $nets{$aj1} = 1;
+    $nets{$ak2} = 1;
+    $signal{"${part}aj1"} = $aj1;
+    $signal{"${part}ak2"} = $ak2;
+    $direction{"${part}aj1"} = "in";
+    $direction{"${part}ak2"} = "in";
+    $sheet{"${part}aj1"} = $sheet{"${part}am2"};
+    $sheet{"${part}ak2"} = $sheet{"${part}al2"};
+    $out{$aj1} = 1;
+    $out{$ak2} = 1;
   }
 }
 
@@ -844,8 +840,8 @@ sub m501 {
 }
 
 sub pass1_m506 {
-  &pullup1("a1", "b1", "f1", "h1", "m1", "n1");
-  &pullup1("d2", "e2", "k2", "l2", "r2", "s2");
+  &pullup("a1", "b1", "f1", "h1", "m1", "n1");
+  &pullup("d2", "e2", "k2", "l2", "r2", "s2");
 }
 sub m506 {
   # Obviously we can't do the negative input conversion for
@@ -856,8 +852,9 @@ sub m506 {
 }
 
 sub pass1_m516 {
-  &pullup1("a1", "b1", "f1", "h1", "m1", "n1");
-  &pullup1("d2", "e2", "k2", "l2", "r2", "s2");
+  &pullup("b1", "h1", "n1", "e2", "l2", "s2");
+  #&pullup("a1", "b1", "f1", "h1", "m1", "n1");
+  #&pullup("d2", "e2", "k2", "l2", "r2", "s2");
 }
 sub m516 {
   # The M516 is essentially a set of NAND gates, with pull-ups 
@@ -868,8 +865,6 @@ sub m516 {
   &nand("j2", "d2", "e2", "f2", "h2");
   &nand("p2", "k2", "l2", "m2", "n2");
   &nand("v2", "r2", "s2", "t2", "u2");
-  &pullup2("a1", "b1", "f1", "h1", "m1", "n1");
-  &pullup2("d2", "e2", "k2", "l2", "r2", "s2");
 }
 
 sub m617 {
@@ -877,7 +872,7 @@ sub m617 {
 }
 
 sub pass1_m650 {
-    &pullup1("d2", "k2", "s2");
+    &pullup("d2", "k2", "s2");
 }
 sub m650 {
   # We can't do the negative logic conversion for the M650, 
@@ -894,24 +889,21 @@ sub m660 {
 }
 
 sub pass1_m661 {
-    &pullup1("d2", "k2", "s2");
+    &pullup("d2", "k2", "s2");
 }
 sub m661 {
   # These are essentially 3-input OC AND gates with a pull-up.
   if ($sheet == $sheet{"${part}d2"}) {
     ($d2, $f2, $h2, $j2) = &lookup("d2", "f2", "h2", "j2");
     print "assign $d2 = ", join(" & ", andr($f2, $h2, $j2)), ";\n";
-    &pullup2("d2");
   }
   if ($sheet == $sheet{"${part}k2"}) {
     ($k2, $m2, $n2, $p2) = &lookup("k2", "m2", "n2", "p2");
     print "assign $k2 = ", join(" & ", andr($m2, $n2, $p2)), ";\n";
-    &pullup2("k2");
   }
   if ($sheet == $sheet{"${part}s2"}) {
     ($s2, $t2, $u2, $v2) = &lookup("s2", "t2", "u2", "v2");
     print "assign $s2 = ", join(" & ", andr($t2, $u2, $v2)), ";\n";
-    &pullup2("s2");
   }
 }
 
@@ -919,7 +911,7 @@ sub pass1_m700 {
   ($aj2, $af2) = &lookup("aj2", "af2");
   $reg{$aj2} = 1;
   $reg{$af2} = 1;
-  &pullup1("be2", "bf2");
+  &pullup("be2", "bf2");
 }
 sub m700 {
   if ($sheet == $sheet{"${part}at2"}) {
@@ -949,14 +941,13 @@ sub m700 {
     print "  else\n";
     print "    $af2 = 1'b1;\n";
     print "end\n";
+    print "assign $ah2 = ~$af2;\n";
   }
   if ($sheet == $sheet{"${part}be2"}) {
     ($be2) = &lookup("be2");
-    &pullup2("be2");
   }
   if ($sheet == $sheet{"${part}bf2"}) {
     ($bf2) = &lookup("bf2");
-    &pullup2("bf2");
   }
 }
 
@@ -1071,7 +1062,6 @@ sub m720 {
     # GROT: Messy work-around for inability to connect "reg" output of
     # Monostable directly to a "wand" output pin.
     print "assign $e2 = ${e2}__;\n";
-    print "assign $e2 = 1'b1;\n";
     print "Monostable #(40000) ${part}d2(dclk, $j2 & $v2, $d2);\n";
   }
   &nand("u2", "s2", "t2");

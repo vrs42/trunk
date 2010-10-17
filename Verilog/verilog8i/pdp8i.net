@@ -1,6 +1,6 @@
 Netlist
 
-Exported from pdp8i.sch at  9/25/2010 10:20:56p
+Exported from pdp8i-fpga.sch at 10/14/2010 09:10:29a
 
 EAGLE Version 4.11 Copyright (c) 1988-2003 CadSoft
 
@@ -55,6 +55,7 @@ Change Class 0;
          B09      D2       IN1        31
          B09      E1       IN2        31
          B09      H2       IN1        30
+         B09      R1       IN2        30
          B09      U1       P$1        30
 
 Change Class 0;
@@ -65,6 +66,7 @@ Change Class 0;
          B09      J1       IN2        30
          B09      M2       IN2        30
          B09      V1       P$1        30
+         B11      K2       R          30
 
 Change Class 0;
 +3V(08)  B11      A1       R          21
@@ -173,13 +175,7 @@ Change Class 0;
 +3V(18)  B16      D1       IN4        21
          B16      H2       IN4        21
          B16      K1       IN4        21
-         B16      N1       IN2        21
-         B16      P1       IN3        21
-         B16      R1       IN4        21
-         B16      S2       IN2        21
-         B16      T2       IN3        21
          B16      U1       P$1        21
-         B16      U2       IN4        21
 
 Change Class 0;
 +3V(19)  A19      U1       P$1        21
@@ -207,39 +203,6 @@ Change Class 0;
          B19      N2       S          21
          B19      R1       S          21
          B19      U2       S          21
-
-Change Class 0;
-+3V(21)  B21      B1       IN2        17
-         B21      E2       IN2        17
-         B21      H1       IN1        17
-         B21      J2       IN2        17
-         B21      U1       P$1        17
-         B22      D1       S          17
-         B22      F2       S          17
-         B30      B1       IN2        17
-         B30      C1       IN3        17
-         B30      D1       IN4        17
-         B30      D2       IN1        17
-
-Change Class 0;
-+3V(22)  B30      E2       IN2        17
-         B30      F2       IN3        17
-         B30      H1       IN2        17
-         B30      J1       IN3        17
-         B30      K1       IN4        17
-         B30      L2       IN2        17
-         B30      M2       IN3        17
-         B30      N1       IN2        17
-         B30      N2       IN4        17
-         B30      P1       IN3        17
-         B30      R1       IN4        17
-         B30      S2       IN2        17
-         B30      T2       IN3        17
-         B30      U1       P$1        1
-         B30      U2       IN4        17
-         D39      A1       A1         17
-         D39      E2       E2         17
-         D39      N2       N2         17
 
 Change Class 0;
 +3V(23)  C10      B1       IN2        29
@@ -456,11 +419,7 @@ Change Class 0;
          E32      U1       P$1        1
 
 Change Class 0;
-+3V(42)  C39      D1       D1         17
-         C39      L1       L1         17
-         D39      D1       D1         17
-         D39      L1       L1         17
-         E32      R2       IN1        5
++3V(42)  E32      R2       IN1        5
          E32      S2       IN2        5
          E32      V1       P$1        1
          E33      A1       R          8
@@ -687,8 +646,6 @@ Change Class 0;
 Change Class 0;
 +3V(58)  D07      E2       IN2        29
          D07      H1       IN1        3
-         D07      H2       IN1        17
-         D07      L2       IN1        17
          D07      P1       IN1        3
          D07      P2       IN1        3
          D07      U1       P$1        3
@@ -701,10 +658,7 @@ Change Class 0;
          E09      P2       IN1        2
 
 Change Class 0;
-+3V(61)  C12      B1       IN2        17
-         C12      C1       IN3        17
-         C12      D1       IN4        17
-         C12      J1       IN3        2
++3V(61)  C12      J1       IN3        2
          C12      K1       IN4        2
          C12      N2       IN4        8
          C12      U1       P$1        2
@@ -762,63 +716,7 @@ Change Class 0;
          HJ28     BU2      P$1        35
 
 Change Class 1;
--6V      A25      E2       P$2        23
-         A26      E2       P$2        23
-         A27      K1       K1         23
-         A27      L2       L2         23
-         A27      S1       S1         23
-         A27      U2       U2         23
-         A36      K1       K1         18
-         A36      L2       L2         18
-         A36      S1       S1         18
-         A36      U2       U2         18
-         A37      L2       L2         18
-         A38      H2       P$1        17
-         A38      J2       P$3        17
-         A38      U2       P$2        17
-         A38      V2       P$1        18
-         A39      E2       P$2        17
-         A39      J2       P$3        17
-         A39      U2       P$2        17
-         A39      V2       P$1        18
-         AB01     BM2      -6V        17
-         AB01     BN2      -6V        17
-         AB01     BP2      -6V        17
-         AB01     BR2      -6V        17
-         AB01     BS2      -6V        17
-         AB01     BT2      -6V        17
-         AB01     BU2      -6V        17
-         AB01     BV2      -6V        17
-         AB02     BM2      -6V        17
-         B25      E2       P$2        23
-         B26      K1       K1         23
-         B26      L2       L2         23
-         B26      S1       S1         23
-         B26      U2       U2         23
-         B27      K1       K1         23
-         B27      L2       L2         23
-         B27      S1       S1         23
-         B27      U2       U2         23
-         B36      K1       K1         18
-         B36      L2       L2         18
-         B36      S1       S1         18
-         B36      U2       U2         18
-         B37      K1       K1         18
-         B37      L2       L2         18
-         B37      S1       S1         18
-         B37      U2       U2         18
-         B38      E2       P$2        17
-         B38      V2       P$1        18
-         B39      V2       P$1        18
-
-Change Class 1;
--15V     A30      B2       -15V       * none *
-         A31      B2       -15V       * none *
-         A32      B2       -15V       * none *
-         A33      B2       -15V       * none *
-         A38      B2       P$1        17
-         A39      B2       P$1        17
-         AB02     AB2      -15V       * none *
+-15V     AB02     AB2      -15V       * none *
          AB03     BK2      -15V       * none *
          AB03     BL2      -15V       * none *
          AB03     BM2      -15V       * none *
@@ -829,11 +727,6 @@ Change Class 1;
          AB03     BT2      -15V       * none *
          AB03     BU2      -15V       * none *
          AB03     BV2      -15V       * none *
-         B31      B2       -15V       * none *
-         B32      B2       -15V       * none *
-         B33      B2       -15V       * none *
-         B38      B2       P$1        17
-         B39      B2       P$1        17
          C02      B2       -15V       * none *
          C03      B2       -15V       * none *
          C04      B2       -15V       * none *
@@ -901,30 +794,7 @@ Change Class 1;
          J40      B2       -15V       * none *
 
 Change Class 1;
--30V     A27      V2       V2         23
-         A36      V2       V2         18
-         A37      V2       V2         18
-         A39      H2       P$1        17
-         A39      M2       P$1        17
-         AB01     AE2      -30V       17
-         AB01     AF2      -30V       17
-         AB01     AH2      -30V       17
-         AB01     AJ2      -30V       17
-         AB01     AK2      -30V       17
-         AB01     AL2      -30V       17
-         AB01     AM2      -30V       17
-         AB01     AN2      -30V       17
-         AB02     BV2      -30V       17
-         B26      V2       V2         23
-         B27      V2       V2         23
-         B36      V2       V2         18
-         B37      V2       V2         18
-         B38      H2       P$1        17
-         B38      J2       P$3        17
-         B38      U2       P$2        17
-         B39      H2       P$1        17
-         B39      J2       P$3        17
-         B39      U2       P$2        17
+-30V     AB02     BV2      -30V       17
          HJ23     AV2      -30V       33
          J12      V2       -30V       15
 
@@ -1395,20 +1265,6 @@ BB_      D01      S2       P$2        36
          HJ26     BR1      BR1        36
 
 Change Class 0;
-BB_FIELD C12      E1       OUT        17
-         C25      D2       D2         25
-         C26      D2       D2         25
-         D25      D2       D2         24
-         D26      D2       D2         24
-
-Change Class 0;
-BB_FIELD_ B30      L1       OUT        17
-         C32      D2       D2         20
-         C33      D2       D2         20
-         D32      D2       D2         19
-         D33      D2       D2         19
-
-Change Class 0;
 BB_LEFT_SHIFT C16      D2       IN1        28
          C16      L1       IN1        28
          C16      P2       IN1        28
@@ -1719,44 +1575,6 @@ B_FETCH  B16      K2       IN1        22
          F31      S1       OUT        4
 
 Change Class 0;
-B_FIELD  A27      E2       E2         23
-         A27      N2       N2         23
-         A37      N2       N2         18
-         B26      E2       E2         23
-         B26      N2       N2         23
-         B27      E2       E2         23
-         B27      N2       N2         23
-         B30      J2       OUT        17
-         C30      D2       D2         24
-         C31      D2       D2         24
-         D30      D2       D2         25
-         D31      D2       D2         25
-
-Change Class 0;
-B_FIELD_ A36      E2       E2         18
-         A36      N2       N2         18
-         A37      E2       E2         18
-         B30      V2       OUT        17
-         B36      E2       E2         18
-         B36      N2       N2         18
-         B37      E2       E2         18
-         B37      N2       N2         18
-         C37      D2       D2         19
-         C38      D2       D2         19
-         D37      D2       D2         20
-         D38      D2       D2         20
-
-Change Class 0;
-B_INHIBIT A27      A1       A1         23
-         A36      A1       A1         18
-         A37      A1       A1         18
-         B26      A1       A1         23
-         B27      A1       A1         23
-         B30      P2       OUT        17
-         B36      A1       A1         18
-         B37      A1       A1         18
-
-Change Class 0;
 B_LEFT_SHIFT C14      D2       IN1        28
          C14      L1       IN1        28
          C14      P2       IN1        28
@@ -1770,16 +1588,6 @@ B_LINE_HOLD_ C07      D2       OUT        29
          D04      D2       P$2        29
 
 Change Class 0;
-B_MEM_ENABLE A30      T2       T2         18
-         A31      T2       T2         18
-         A32      T2       T2         18
-         A33      T2       T2         18
-         B30      E1       OUT        17
-         B31      T2       T2         18
-         B32      T2       T2         18
-         B33      T2       T2         18
-
-Change Class 0;
 B_MEM_START F08      D2       OUT        2
          H05      M2       P$2        2
 
@@ -1788,9 +1596,7 @@ B_MEM_TO_LSR C08      K2       OUT        29
          D04      H2       P$2        29
 
 Change Class 0;
-B_POWER_CLEAR_ B22      A1       R          17
-         B22      K2       R          17
-         C12      S1       OUT        17
+B_POWER_CLEAR_ C12      S1       OUT        17
          D24      K2       R          27
          E18      K2       R          2
          EF10     AL2      CL2        2
@@ -1821,246 +1627,6 @@ C        C10      P2       IN1        29
          D10      N1       IN2        29
          D10      S2       IN2        29
          D11      J2       0          29
-
-Change Class 0;
-C23J1    C33      J2       J2         20
-         CD34     AN2      N2         20
-
-Change Class 0;
-C23J2    C38      J2       J2         19
-         CD36     AN2      N2         19
-
-Change Class 0;
-C23J3    C31      J2       J2         24
-         CD29     AN2      N2         24
-
-Change Class 0;
-C23J4    C26      J2       J2         25
-         CD27     AN2      N2         25
-
-Change Class 0;
-C23K1    C33      K2       K2         20
-         CD34     AM2      M2         20
-
-Change Class 0;
-C23K2    C38      K2       K2         19
-         CD36     AM2      M2         19
-
-Change Class 0;
-C23K3    C31      K2       K2         24
-         CD29     AM2      M2         24
-
-Change Class 0;
-C23K4    C26      K2       K2         25
-         CD27     AM2      M2         25
-
-Change Class 0;
-C23L1    C33      L2       L2         20
-         CD34     AR2      R2         20
-
-Change Class 0;
-C23L2    C38      L2       L2         19
-         CD36     AR2      R2         19
-
-Change Class 0;
-C23L3    C31      L2       L2         24
-         CD29     AR2      R2         24
-
-Change Class 0;
-C23L4    C26      L2       L2         25
-         CD27     AR2      R2         25
-
-Change Class 0;
-C23M1    C33      M2       M2         20
-         CD34     AP2      P2         20
-
-Change Class 0;
-C23M2    C38      M2       M2         19
-         CD36     AP2      P2         19
-
-Change Class 0;
-C23M3    C31      M2       M2         24
-         CD29     AP2      P2         24
-
-Change Class 0;
-C23M4    C26      M2       M2         25
-         CD27     AP2      P2         25
-
-Change Class 0;
-C23N1    C33      N2       N2         20
-         CD34     AT2      T2         20
-
-Change Class 0;
-C23N2    C38      N2       N2         19
-         CD36     AT2      T2         19
-
-Change Class 0;
-C23N3    C31      N2       N2         24
-         CD29     AT2      T2         24
-
-Change Class 0;
-C23N4    C26      N2       N2         25
-         CD27     AT2      T2         25
-
-Change Class 0;
-C23P1    C33      P2       P2         20
-         CD34     AS2      S2         20
-
-Change Class 0;
-C23P2    C38      P2       P2         19
-         CD36     AS2      S2         19
-
-Change Class 0;
-C23P3    C31      P2       P2         24
-         CD29     AS2      S2         24
-
-Change Class 0;
-C23P4    C26      P2       P2         25
-         CD27     AS2      S2         25
-
-Change Class 0;
-C23R1    C33      R2       R2         20
-         CD34     AV2      V2         20
-
-Change Class 0;
-C23R2    C38      R2       R2         19
-         CD36     AV2      V2         19
-
-Change Class 0;
-C23R3    C31      R2       R2         24
-         CD29     AV2      V2         24
-
-Change Class 0;
-C23R4    C26      R2       R2         25
-         CD27     AV2      V2         25
-
-Change Class 0;
-C23S1    C33      S2       S2         20
-         CD34     AU2      U2         20
-
-Change Class 0;
-C23S2    C38      S2       S2         19
-         CD36     AU2      U2         19
-
-Change Class 0;
-C23S3    C31      S2       S2         24
-         CD29     AU2      U2         24
-
-Change Class 0;
-C23S4    C26      S2       S2         25
-         CD27     AU2      U2         25
-
-Change Class 0;
-C24J1    C32      J2       J2         20
-         CD34     AD2      D2         20
-
-Change Class 0;
-C24J2    C37      J2       J2         19
-         CD36     AD2      D2         19
-
-Change Class 0;
-C24J3    C30      J2       J2         24
-         CD29     AD2      D2         24
-
-Change Class 0;
-C24J4    C25      J2       J2         25
-         CD27     AD2      D2         25
-
-Change Class 0;
-C24K1    C32      K2       K2         20
-         CD34     AC2      C2         20
-
-Change Class 0;
-C24K2    C37      K2       K2         19
-         CD36     AC2      C2         19
-
-Change Class 0;
-C24K3    C30      K2       K2         24
-         CD29     AC2      C2         24
-
-Change Class 0;
-C24K4    C25      K2       K2         25
-         CD27     AC2      C2         25
-
-Change Class 0;
-C24M1    C32      M2       M2         20
-         CD34     AE2      E2         20
-
-Change Class 0;
-C24M2    C37      M2       M2         19
-         CD36     AE2      E2         19
-
-Change Class 0;
-C24M3    C30      M2       M2         24
-         CD29     AE2      E2         24
-
-Change Class 0;
-C24M4    C25      M2       M2         25
-         CD27     AE2      E2         25
-
-Change Class 0;
-C24N1    C32      N2       N2         20
-         CD34     AJ2      J2         20
-
-Change Class 0;
-C24N2    C37      N2       N2         19
-         CD36     AJ2      J2         19
-
-Change Class 0;
-C24N3    C30      N2       N2         24
-         CD29     AJ2      J2         24
-
-Change Class 0;
-C24N4    C25      N2       N2         25
-         CD27     AJ2      J2         25
-
-Change Class 0;
-C24P1    C32      P2       P2         20
-         CD34     AH2      H2         20
-
-Change Class 0;
-C24P2    C37      P2       P2         19
-         CD36     AH2      H2         19
-
-Change Class 0;
-C24P3    C30      P2       P2         24
-         CD29     AH2      H2         24
-
-Change Class 0;
-C24P4    C25      P2       P2         25
-         CD27     AH2      H2         25
-
-Change Class 0;
-C24R1    C32      R2       R2         20
-         CD34     AL2      L2         20
-
-Change Class 0;
-C24R2    C37      R2       R2         19
-         CD36     AL2      L2         19
-
-Change Class 0;
-C24R3    C30      R2       R2         24
-         CD29     AL2      L2         24
-
-Change Class 0;
-C24R4    C25      R2       R2         25
-         CD27     AL2      L2         25
-
-Change Class 0;
-C24S1    C32      S2       S2         20
-         CD34     AK2      K2         20
-
-Change Class 0;
-C24S2    C37      S2       S2         19
-         CD36     AK2      K2         19
-
-Change Class 0;
-C24S3    C30      S2       S2         24
-         CD29     AK2      K2         24
-
-Change Class 0;
-C24S4    C25      S2       S2         25
-         CD27     AK2      K2         25
 
 Change Class 0;
 CARRY_INSERT_ EF39     BJ1      BJ1        13
@@ -2156,7 +1722,7 @@ CLOCK_SCALE_2 EF01     BT2      BT2        15
 
 Change Class 0;
 CLR_PARITY_ERROR_ B07      S2       OUT        30
-         B09      P1       IN1        30
+         B11      N2       S          30
 
 Change Class 0;
 CR_READ  HJ34     BP2      P$2        38
@@ -2258,262 +1824,6 @@ D10      J10      E2       P$2        14
 Change Class 0;
 D11      J10      H2       P$2        14
          J19      R2       IN         14
-
-Change Class 0;
-D18J1    CD36     BK2      K2         20
-         D37      J2       J2         20
-
-Change Class 0;
-D18J2    CD34     BK2      K2         19
-         D32      J2       J2         19
-
-Change Class 0;
-D18J3    CD27     BK2      K2         24
-         D25      J2       J2         24
-
-Change Class 0;
-D18J4    CD29     BK2      K2         25
-         D30      J2       J2         25
-
-Change Class 0;
-D18K1    CD36     BL2      L2         20
-         D37      K2       K2         20
-
-Change Class 0;
-D18K2    CD34     BL2      L2         19
-         D32      K2       K2         19
-
-Change Class 0;
-D18K3    CD27     BL2      L2         24
-         D25      K2       K2         24
-
-Change Class 0;
-D18K4    CD29     BL2      L2         25
-         D30      K2       K2         25
-
-Change Class 0;
-D18L1    CD36     BH2      H2         20
-         D37      L2       L2         20
-
-Change Class 0;
-D18L2    CD34     BH2      H2         19
-         D32      L2       L2         19
-
-Change Class 0;
-D18L3    CD27     BH2      H2         24
-         D25      L2       L2         24
-
-Change Class 0;
-D18L4    CD29     BH2      H2         25
-         D30      L2       L2         25
-
-Change Class 0;
-D18M1    CD36     BJ2      J2         20
-         D37      M2       M2         20
-
-Change Class 0;
-D18M2    CD34     BJ2      J2         19
-         D32      M2       M2         19
-
-Change Class 0;
-D18M3    CD27     BJ2      J2         24
-         D25      M2       M2         24
-
-Change Class 0;
-D18M4    CD29     BJ2      J2         25
-         D30      M2       M2         25
-
-Change Class 0;
-D18N1    CD36     BE2      E2         20
-         D37      N2       N2         20
-
-Change Class 0;
-D18N2    CD34     BE2      E2         19
-         D32      N2       N2         19
-
-Change Class 0;
-D18N3    CD27     BE2      E2         24
-         D25      N2       N2         24
-
-Change Class 0;
-D18N4    CD29     BE2      E2         25
-         D30      N2       N2         25
-
-Change Class 0;
-D18P1    CD36     BF2      F2         20
-         D37      P2       P2         20
-
-Change Class 0;
-D18P2    CD34     BF2      F2         19
-         D32      P2       P2         19
-
-Change Class 0;
-D18P3    CD27     BF2      F2         24
-         D25      P2       P2         24
-
-Change Class 0;
-D18P4    CD29     BF2      F2         25
-         D30      P2       P2         25
-
-Change Class 0;
-D18R1    CD36     BC2      C2         20
-         D37      R2       R2         20
-
-Change Class 0;
-D18R2    CD34     BC2      C2         19
-         D32      R2       R2         19
-
-Change Class 0;
-D18R3    CD27     BC2      C2         24
-         D25      R2       R2         24
-
-Change Class 0;
-D18R4    CD29     BC2      C2         25
-         D30      R2       R2         25
-
-Change Class 0;
-D18S1    CD36     BD2      D2         20
-         D37      S2       S2         20
-
-Change Class 0;
-D18S2    CD34     BD2      D2         19
-         D32      S2       S2         19
-
-Change Class 0;
-D18S3    CD27     BD2      D2         24
-         D25      S2       S2         24
-
-Change Class 0;
-D18S4    CD29     BD2      D2         25
-         D30      S2       S2         25
-
-Change Class 0;
-D19J1    CD36     BU2      U2         20
-         D38      J2       J2         20
-
-Change Class 0;
-D19J2    CD34     BU2      U2         19
-         D33      J2       J2         19
-
-Change Class 0;
-D19J3    CD27     BU2      U2         24
-         D26      J2       J2         24
-
-Change Class 0;
-D19J4    CD29     BU2      U2         25
-         D31      J2       J2         25
-
-Change Class 0;
-D19K1    CD36     BV2      V2         20
-         D38      K2       K2         20
-
-Change Class 0;
-D19K2    CD34     BV2      V2         19
-         D33      K2       K2         19
-
-Change Class 0;
-D19K3    CD27     BV2      V2         24
-         D26      K2       K2         24
-
-Change Class 0;
-D19K4    CD29     BV2      V2         25
-         D31      K2       K2         25
-
-Change Class 0;
-D19L1    CD36     BS2      S2         20
-         D38      L2       L2         20
-
-Change Class 0;
-D19L2    CD34     BS2      S2         19
-         D33      L2       L2         19
-
-Change Class 0;
-D19L3    CD27     BS2      S2         24
-         D26      L2       L2         24
-
-Change Class 0;
-D19L4    CD29     BS2      S2         25
-         D31      L2       L2         25
-
-Change Class 0;
-D19M1    CD36     BT2      T2         20
-         D38      M2       M2         20
-
-Change Class 0;
-D19M2    CD34     BT2      T2         19
-         D33      M2       M2         19
-
-Change Class 0;
-D19M3    CD27     BT2      T2         24
-         D26      M2       M2         24
-
-Change Class 0;
-D19M4    CD29     BT2      T2         25
-         D31      M2       M2         25
-
-Change Class 0;
-D19N1    CD36     BP2      P2         20
-         D38      N2       N2         20
-
-Change Class 0;
-D19N2    CD34     BP2      P2         19
-         D33      N2       N2         19
-
-Change Class 0;
-D19N3    CD27     BP2      P2         24
-         D26      N2       N2         24
-
-Change Class 0;
-D19N4    CD29     BP2      P2         25
-         D31      N2       N2         25
-
-Change Class 0;
-D19P1    CD36     BR2      R2         20
-         D38      P2       P2         20
-
-Change Class 0;
-D19P2    CD34     BR2      R2         19
-         D33      P2       P2         19
-
-Change Class 0;
-D19P3    CD27     BR2      R2         24
-         D26      P2       P2         24
-
-Change Class 0;
-D19P4    CD29     BR2      R2         25
-         D31      P2       P2         25
-
-Change Class 0;
-D19R1    CD36     BM2      M2         20
-         D38      R2       R2         20
-
-Change Class 0;
-D19R2    CD34     BM2      M2         19
-         D33      R2       R2         19
-
-Change Class 0;
-D19R3    CD27     BM2      M2         24
-         D26      R2       R2         24
-
-Change Class 0;
-D19R4    CD29     BM2      M2         25
-         D31      R2       R2         25
-
-Change Class 0;
-D19S1    CD36     BN2      N2         20
-         D38      S2       S2         20
-
-Change Class 0;
-D19S2    CD34     BN2      N2         19
-         D33      S2       S2         19
-
-Change Class 0;
-D19S3    CD27     BN2      N2         24
-         D26      S2       S2         24
-
-Change Class 0;
-D19S4    CD29     BN2      N2         25
-         D31      S2       S2         25
 
 Change Class 0;
 DA00     J07      D2       P$2        14
@@ -2849,25 +2159,14 @@ E25D1    E25      D1       OUT        13
 
 Change Class 0;
 EA0      B16      E1       OUT        21
-         B16      M1       IN1        21
          H01      D2       P$2        21
 
 Change Class 0;
-EA0_     B16      S1       OUT        21
-         B21      L1       IN1        17
-
-Change Class 0;
 EA1      B16      J2       OUT        21
-         B16      R2       IN1        21
          H01      E2       P$2        21
 
 Change Class 0;
-EA1_     B16      V2       OUT        21
-         B21      M1       IN2        17
-
-Change Class 0;
 EA2      B16      L1       OUT        21
-         B22      E2       D          17
          H01      H2       P$2        21
 
 Change Class 0;
@@ -3129,18 +2428,6 @@ FETCH_   D40      N1       P$2        4
          F31      M1       IN1        4
 
 Change Class 0;
-FIELD    B22      H2       1          17
-         B24      R2       R          17
-         B30      F1       IN1        17
-         B30      R2       IN1        17
-
-Change Class 0;
-FIELD_   B22      J2       0          17
-         B23      R2       R          17
-         B30      H2       IN4        17
-         C12      A1       IN1        17
-
-Change Class 0;
 F_SET    E13      F1       IN2B       2
          E23      C1       D          4
          F11      U2       IN4        8
@@ -3188,47 +2475,7 @@ GND      A04      C2       GND        * none *
          A19      T1       GND        * none *
          A20      C2       GND        * none *
          A20      T1       GND        * none *
-         A21      C2       GND        * none *
-         A21      T1       GND        * none *
-         A22      C2       GND        * none *
-         A22      T1       GND        * none *
-         A23      C2       GND        * none *
-         A23      T1       GND        * none *
-         A24      C2       GND        * none *
-         A24      T1       GND        * none *
-         A25      H2       P$1        23
-         A26      H2       P$1        23
-         A27      C2       GND        * none *
-         A27      T1       GND        * none *
-         A30      C2       GND        * none *
-         A30      T1       GND        * none *
-         A31      C2       GND        * none *
-         A31      T1       GND        * none *
-         A32      C2       GND        * none *
-         A32      T1       GND        * none *
-         A33      C2       GND        * none *
-         A33      T1       GND        * none *
-         A36      C2       GND        * none *
-         A36      T1       GND        * none *
-         A37      C2       GND        * none *
-         A37      T1       GND        * none *
-         A38      C2       P$2        18
-         A38      E2       P$2        17
-         A39      C2       P$2        18
          A40      C2       P$2        12
-         AB01     AP2      GND        17
-         AB01     AR2      GND        17
-         AB01     AS2      GND        17
-         AB01     AT2      GND        17
-         AB01     AU2      GND        17
-         AB01     BC2      GND        17
-         AB01     BD2      GND        17
-         AB01     BE2      GND        17
-         AB01     BF2      GND        17
-         AB01     BH2      GND        17
-         AB01     BJ2      GND        17
-         AB01     BK2      GND        17
-         AB01     BL2      GND        17
          AB02     AC2      GND        * none *
          AB02     BC2      GND        * none *
          AB03     AD1      GND        * none *
@@ -3276,6 +2523,7 @@ GND      A04      C2       GND        * none *
          B09      T1       GND        * none *
          B10      C2       GND        * none *
          B11      C2       GND        * none *
+         B11      P1       D          22
          B11      T1       GND        * none *
          B12      C2       GND        * none *
          B12      T1       GND        * none *
@@ -3297,33 +2545,6 @@ GND      A04      C2       GND        * none *
          B20      T1       GND        * none *
          B21      C2       GND        * none *
          B21      T1       GND        * none *
-         B22      C2       GND        * none *
-         B22      J1       D          17
-         B22      M2       D          17
-         B22      P1       D          17
-         B22      T1       GND        * none *
-         B23      C2       GND        * none *
-         B24      C2       GND        * none *
-         B25      H2       P$1        23
-         B26      C2       GND        * none *
-         B26      T1       GND        * none *
-         B27      C2       GND        * none *
-         B27      T1       GND        * none *
-         B30      C2       GND        * none *
-         B30      T1       GND        * none *
-         B31      C2       GND        * none *
-         B31      T1       GND        * none *
-         B32      C2       GND        * none *
-         B32      T1       GND        * none *
-         B33      C2       GND        * none *
-         B33      T1       GND        * none *
-         B36      C2       GND        * none *
-         B36      T1       GND        * none *
-         B37      C2       GND        * none *
-         B37      T1       GND        * none *
-         B38      C2       P$2        18
-         B39      C2       P$2        18
-         B39      E2       P$2        17
          B40      C2       P$2        12
          C01      C2       P$2        35
          C01      E2       P$2        35
@@ -3366,16 +2587,6 @@ GND      A04      C2       GND        * none *
          C23      T1       GND        * none *
          C24      C2       GND        * none *
          C24      T1       GND        * none *
-         C25      C2       GND        * none *
-         C26      C2       GND        * none *
-         C30      C2       GND        * none *
-         C31      C2       GND        * none *
-         C32      C2       GND        * none *
-         C33      C2       GND        * none *
-         C37      C2       GND        * none *
-         C38      C2       GND        * none *
-         C39      C2       GND        * none *
-         C39      T1       GND        * none *
          C40      C2       P$2        9
          D02      C2       P$2        34
          D03      C2       P$2        33
@@ -3392,8 +2603,6 @@ GND      A04      C2       GND        * none *
          D06      T1       GND        * none *
          D07      C2       GND        * none *
          D07      T1       GND        * none *
-         D08      C2       GND        * none *
-         D08      T1       GND        * none *
          D09      C2       GND        * none *
          D09      T1       GND        * none *
          D10      C2       GND        * none *
@@ -3428,16 +2637,6 @@ GND      A04      C2       GND        * none *
          D23      T1       GND        * none *
          D24      C2       GND        * none *
          D24      T1       GND        * none *
-         D25      C2       GND        * none *
-         D26      C2       GND        * none *
-         D30      C2       GND        * none *
-         D31      C2       GND        * none *
-         D32      C2       GND        * none *
-         D33      C2       GND        * none *
-         D37      C2       GND        * none *
-         D38      C2       GND        * none *
-         D39      C2       GND        * none *
-         D39      T1       GND        * none *
          E03      C2       GND        * none *
          E04      C2       GND        * none *
          E05      C2       GND        * none *
@@ -3542,20 +2741,15 @@ GND      A04      C2       GND        * none *
          EF37     BC2      GND        * none *
          EF37     BD1      BD1        12
          EF37     BE2      BE2        12
-         EF37     BN1      BN1        12
          EF37     BT1      GND        * none *
          EF38     AC2      GND        * none *
          EF38     AT1      GND        * none *
          EF38     BC2      GND        * none *
-         EF38     BD1      BD1        12
          EF38     BE2      BE2        13
-         EF38     BN1      BN1        13
          EF38     BT1      GND        * none *
          EF39     AC2      GND        * none *
          EF39     AT1      GND        * none *
          EF39     BC2      GND        * none *
-         EF39     BD1      BD1        13
-         EF39     BN1      BN1        13
          EF39     BT1      GND        * none *
          F03      C2       GND        * none *
          F04      C2       GND        * none *
@@ -3919,6 +3113,10 @@ IB_TO_IF A15      A1       IN1        22
          B17      H1       C          22
 
 Change Class 0;
+IB_TO_IF_ A15      C1       OUT        22
+         B11      R1       S          22
+
+Change Class 0;
 IF0      A11      J1       IN2        22
          A16      B1       IN2        21
          B17      E1       1          22
@@ -4033,10 +3231,6 @@ INDEX_MARKERS HJ32     AD2      AD2        39
          J33      J1       J1         38
 
 Change Class 0;
-INHIBIT_ B22      R2       0          17
-         B30      K2       IN1        17
-
-Change Class 0;
 INITIALIZE C12      H1       IN2        2
          EF01     BF2      BF2        15
          EF02     BE2      BE2        16
@@ -4120,13 +3314,8 @@ INT_ENABLE_ D40      D1       P$2        8
          E33      S1       1          8
 
 Change Class 0;
-INT_INHIBIT A15      E1       IN2        22
-         F11      J2       OUT        22
-
-Change Class 0;
-INT_INHIBIT_ A15      F1       OUT        22
+INT_INHIBIT_ B11      S1       1          22
          E25      E2       IN2        8
-         F11      D2       IN1        22
 
 Change Class 0;
 INT_OK   C12      K2       IN1        8
@@ -4402,7 +3591,7 @@ IO_PC_ENABLE_ E09      V2       OUT        5
 
 Change Class 0;
 IO_PC_LOAD F32      L2       IN1        7
-         F32      U1       P$1        1
+         J11      V2       P$2        1
 
 Change Class 0;
 IO_SKIP  E28      K2       IN2B       7
@@ -4732,24 +3921,10 @@ L_ENABLE E28      R1       OUT        5
          F33      K2       IN2B       9
 
 Change Class 0;
-MA00     C31      E2       E2         24
-         C38      E2       E2         19
-         EF34     AM2      AM2        9
-
-Change Class 0;
 MA00_    B14      A1       IN1        21
-         C30      E2       E2         24
-         C37      E2       E2         19
          E40      U2       P$2        9
          EF34     AM1      AM1        9
          F24      D2       IN1        6
-
-Change Class 0;
-MA01     C30      H2       H2         24
-         C31      H2       H2         24
-         C37      H2       H2         19
-         C38      H2       H2         19
-         EF34     AL2      AL2        9
 
 Change Class 0;
 MA01_    B14      D2       IN1        21
@@ -4758,37 +3933,16 @@ MA01_    B14      D2       IN1        21
          F24      E2       IN2        6
 
 Change Class 0;
-MA02     C30      F2       F2         24
-         C31      F2       F2         24
-         C37      F2       F2         19
-         C38      F2       F2         19
-         EF35     AM2      AM2        9
-
-Change Class 0;
 MA02_    B14      F1       IN1        21
          E40      K2       P$2        9
          EF35     AM1      AM1        9
          F24      F2       IN3        6
 
 Change Class 0;
-MA03     D26      E2       E2         24
-         D33      E2       E2         19
-         EF35     AL2      AL2        9
-
-Change Class 0;
 MA03_    B14      K2       IN1        21
-         D25      E2       E2         24
-         D32      E2       E2         19
          E40      E2       P$2        9
          EF35     AL1      AL1        9
          F24      H2       IN4        6
-
-Change Class 0;
-MA04     D25      H2       H2         24
-         D26      H2       H2         24
-         D32      H2       H2         19
-         D33      H2       H2         19
-         EF36     AM2      AM2        9
 
 Change Class 0;
 MA04_    B14      M1       IN1        21
@@ -4797,37 +3951,16 @@ MA04_    B14      M1       IN1        21
          F24      F1       IN1        6
 
 Change Class 0;
-MA05     D25      F2       F2         24
-         D26      F2       F2         24
-         D32      F2       F2         19
-         D33      F2       F2         19
-         EF36     AL2      AL2        9
-
-Change Class 0;
 MA05_    B14      R2       IN1        21
          E40      E1       P$2        9
          EF36     AL1      AL1        9
          F24      H1       IN2        6
 
 Change Class 0;
-MA06     C26      E2       E2         25
-         C33      E2       E2         20
-         EF37     AM2      AM2        9
-
-Change Class 0;
 MA06_    B15      A1       IN1        21
-         C25      E2       E2         25
-         C32      E2       E2         20
          EF37     AM1      AM1        9
          F24      J1       IN3        6
          F40      U2       P$2        9
-
-Change Class 0;
-MA07     C25      H2       H2         25
-         C26      H2       H2         25
-         C32      H2       H2         20
-         C33      H2       H2         20
-         EF37     AL2      AL2        9
 
 Change Class 0;
 MA07_    B15      D2       IN1        21
@@ -4836,11 +3969,7 @@ MA07_    B15      D2       IN1        21
          F40      R2       P$2        9
 
 Change Class 0;
-MA08     C25      F2       F2         25
-         C26      F2       F2         25
-         C32      F2       F2         20
-         C33      F2       F2         20
-         EF38     AM2      AM2        9
+MA08     EF38     AM2      AM2        9
          F25      L1       IN1        6
 
 Change Class 0;
@@ -4849,35 +3978,14 @@ MA08_    B15      F1       IN1        21
          F40      K2       P$2        9
 
 Change Class 0;
-MA09     D31      E2       E2         25
-         D38      E2       E2         20
-         EF38     AL2      AL2        9
-
-Change Class 0;
 MA09_    B15      K2       IN1        21
-         D30      E2       E2         25
-         D37      E2       E2         20
          EF38     AL1      AL1        9
          F40      E2       P$2        9
-
-Change Class 0;
-MA10     D30      H2       H2         25
-         D31      H2       H2         25
-         D37      H2       H2         20
-         D38      H2       H2         20
-         EF39     AM2      AM2        9
 
 Change Class 0;
 MA10_    B15      M1       IN1        21
          EF39     AM1      AM1        9
          F40      L1       P$2        9
-
-Change Class 0;
-MA11     D30      F2       F2         25
-         D31      F2       F2         25
-         D37      F2       F2         20
-         D38      F2       F2         20
-         EF39     AL2      AL2        9
 
 Change Class 0;
 MA11_    B15      R2       IN1        21
@@ -4934,8 +4042,6 @@ MB00     A09      E1       1A         30
 
 Change Class 0;
 MB00_    A09      A1       1B         30
-         A27      D2       D2         23
-         A36      D2       D2         18
          E40      R1       P$2        9
          EF34     AU2      AU2        9
 
@@ -4947,8 +4053,6 @@ MB01     A09      F1       2A         30
 
 Change Class 0;
 MB01_    A09      B1       2B         30
-         A27      D1       D1         23
-         A36      D1       D1         18
          E40      P1       P$2        9
          EF34     AS1      AS1        9
 
@@ -4960,8 +4064,6 @@ MB02     A09      H1       4A         30
 
 Change Class 0;
 MB02_    A09      C1       4B         30
-         A27      M2       M2         23
-         A36      M2       M2         18
          E40      F2       P$2        9
          EF35     AU2      AU2        9
 
@@ -4980,8 +4082,6 @@ MB03     A09      J1       8A         30
 Change Class 0;
 MB03_    A04      D2       D2         32
          A09      D1       8B         30
-         A27      L1       L1         23
-         A36      L1       L1         18
          B07      A1       IN1        30
          B16      L2       IN2        22
          E26      C1       IN1C       7
@@ -5015,8 +4115,6 @@ Change Class 0;
 MB04_    A04      E2       E2         32
          A10      K2       1B         30
          B07      B1       IN2        30
-         B26      D2       D2         23
-         B36      D2       D2         18
          C11      R1       IN2        29
          D21      J1       IN3        27
          E30      H2       IN1D       5
@@ -5049,8 +4147,6 @@ MB05     A04      F2       F2         32
 Change Class 0;
 MB05_    A10      L2       2B         30
          B16      N2       IN4        22
-         B26      D1       D1         23
-         B36      D1       D1         18
          C11      S1       IN3        29
          E28      B1       IN1B       5
          E40      A1       P$2        9
@@ -5091,8 +4187,6 @@ Change Class 0;
 MB06_    A04      H2       H2         32
          A10      M2       4B         30
          B07      D2       IN1        30
-         B26      M2       M2         23
-         B36      M2       M2         18
          C11      T2       IN1        29
          E30      U2       IN2B       5
          EF01     AH1      AH1        15
@@ -5137,8 +4231,6 @@ MB07_    A04      J2       J2         32
          B04      A1       IN1        26
          B04      H1       IN3        26
          B07      E2       IN2        30
-         B26      L1       L1         23
-         B36      L1       L1         18
          C11      U2       IN2        29
          C14      U2       IN2        28
          E28      P1       IN5C       5
@@ -5180,8 +4272,6 @@ MB08_    A04      K2       K2         32
          A20      S1       IN3        22
          B04      B1       IN2        26
          B07      F2       IN3        30
-         B27      D2       D2         23
-         B37      D2       D2         18
          C11      V2       IN3        29
          C15      U2       IN2        28
          E28      M2       IN3B       7
@@ -5214,8 +4304,6 @@ MB09     A09      R2       2A         30
 Change Class 0;
 MB09_    A05      B1       IN2        26
          A09      L2       2B         30
-         B27      D1       D1         23
-         B37      D1       D1         18
          C16      U2       IN2        28
          D13      P1       IN1        27
          EF38     AS1      AS1        9
@@ -5247,8 +4335,6 @@ Change Class 0;
 MB10_    A05      A1       IN1        26
          A09      M2       4B         30
          A15      L1       IN1        22
-         B27      M2       M2         23
-         B37      M2       M2         18
          C17      U2       IN2        28
          D13      R1       IN2        27
          EF39     AU2      AU2        9
@@ -5279,8 +4365,6 @@ Change Class 0;
 MB11_    A09      N2       8B         30
          A13      A1       IN1        22
          B04      D2       IN1        26
-         B27      L1       L1         23
-         B37      L1       L1         18
          C18      R1       IN2        28
          D09      F2       IN3        29
          D10      H2       IN4        29
@@ -5304,8 +4388,6 @@ MB_LOAD  E32      L1       OUT        7
 
 Change Class 0;
 MB_PARITY_ODD A10      K1       ODD        30
-         A37      D2       D2         18
-         A37      M2       M2         18
          H05      T2       P$2        30
 
 Change Class 0;
@@ -5400,7 +4482,6 @@ ME11_    A13      S2       OUT        22
 
 Change Class 0;
 MEM00    A07      E1       1A         31
-         A31      A1       A1         18
          B08      H1       IN1        31
          C09      A1       IN1        29
          EF34     BR1      BR1        10
@@ -5409,7 +4490,6 @@ MEM00    A07      E1       1A         31
 
 Change Class 0;
 MEM01    A07      F1       2A         31
-         A31      U2       U2         18
          B08      D2       IN1        31
          E20      E2       D          4
          EF34     BV2      BV2        10
@@ -5417,7 +4497,6 @@ MEM01    A07      F1       2A         31
 
 Change Class 0;
 MEM02    A07      H1       4A         31
-         A32      A1       A1         18
          B08      D1       IN1        31
          E20      J1       D          4
          EF35     BR1      BR1        10
@@ -5425,21 +4504,18 @@ MEM02    A07      H1       4A         31
 
 Change Class 0;
 MEM03    A07      J1       8A         31
-         A32      U2       U2         18
          B08      A1       IN1        31
          EF35     BV2      BV2        11
          H04      M2       P$2        18
 
 Change Class 0;
 MEM04    A08      P2       1A         31
-         A33      A1       A1         18
          B08      P1       IN1        31
          EF36     BR1      BR1        11
          H04      P2       P$2        18
 
 Change Class 0;
 MEM05    A08      R2       2A         31
-         A33      U2       U2         18
          B08      L2       IN1        31
          EF36     BV2      BV2        11
          H04      S2       P$2        18
@@ -5447,28 +4523,24 @@ MEM05    A08      R2       2A         31
 Change Class 0;
 MEM06    A08      S2       4A         31
          B08      L1       IN1        31
-         B31      A1       A1         18
          EF37     BR1      BR1        12
          H04      T2       P$2        18
 
 Change Class 0;
 MEM07    A08      T2       8A         31
          B08      H2       IN1        31
-         B31      U2       U2         18
          EF37     BV2      BV2        12
          H04      V2       P$2        18
 
 Change Class 0;
 MEM08    A07      P2       1A         31
          B09      D1       IN1        31
-         B32      A1       A1         18
          EF38     BR1      BR1        12
          H05      D2       P$2        18
 
 Change Class 0;
 MEM09    A07      R2       2A         31
          B09      A1       IN1        31
-         B32      U2       U2         18
          D09      C1       IN3        29
          EF38     BV2      BV2        13
          H05      E2       P$2        18
@@ -5476,14 +4548,12 @@ MEM09    A07      R2       2A         31
 Change Class 0;
 MEM10    A07      S2       4A         31
          B08      T2       IN1        31
-         B33      A1       A1         18
          EF39     BR1      BR1        13
          H05      H2       P$2        18
 
 Change Class 0;
 MEM11    A07      T2       8A         31
          B08      P2       IN1        31
-         B33      U2       U2         18
          EF39     BV2      BV2        13
          H05      K2       P$2        18
 
@@ -5493,19 +4563,7 @@ MEMORY_INCREMENT E11      U2       IN2        8
          J20      E1       OUT        14
 
 Change Class 0;
-MEM_BEGIN_ A30      B1       B1         18
-         A31      B1       B1         18
-         A32      B1       B1         18
-         A33      B1       B1         18
-         B22      K1       S          17
-         B30      S1       OUT        17
-         B31      B1       B1         18
-         B32      B1       B1         18
-         B33      B1       B1         18
-
-Change Class 0;
 MEM_DONE_ B10      D2       D2         21
-         B23      V2       OUT        17
          C07      T2       IN3        29
          E18      F2       S          2
          H05      S2       P$2        2
@@ -5541,10 +4599,6 @@ MEM_ENABLE9_11 EF38     BV1      BV1        13
          F11      P2       OUT        5
 
 Change Class 0;
-MEM_ENABLE_ B22      F1       0          17
-         B30      A1       IN1        17
-
-Change Class 0;
 MEM_EXT  A11      A1       IN1        22
          A13      E2       IN2        22
          A14      E2       IN2        22
@@ -5565,12 +4619,6 @@ MEM_EXT_IO_ENABLE_ C12      J2       OUT        22
          F30      E2       IN2        5
 
 Change Class 0;
-MEM_FINISH A24      F1       OUT        17
-         B22      L2       C          17
-         B22      N1       C          17
-         B23      U2       IN         17
-
-Change Class 0;
 MEM_IDLE E14      A1       IN1        2
          E18      H2       1          2
 
@@ -5585,19 +4633,13 @@ MEM_INH9_11_ C09      K2       OUT        29
 
 Change Class 0;
 MEM_P    A08      J1       8A         31
-         A30      A1       A1         18
          B08      V1       P$1        31
          B09      E2       IN2        31
          H04      D2       P$2        18
 
 Change Class 0;
 MEM_PARITY_EVEN_ A08      L1       EVEN       31
-         B09      U2       IN2        30
-
-Change Class 0;
-MEM_START B21      E1       IN2        17
-         B22      B1       C          17
-         E15      F1       OUT        2
+         B09      P1       IN1        30
 
 Change Class 0;
 MEM_TO_LSR_ C08      P2       IN2        29
@@ -5660,13 +4702,8 @@ MID_AC0  D19      M1       IN3        27
          F23      B1       IN2        7
 
 Change Class 0;
-MP_INT   B09      R1       IN2        30
-         B09      S2       OUT        30
-
-Change Class 0;
 MP_INT_  B07      L2       IN3        30
-         B09      P2       IN1        30
-         B09      S1       OUT        30
+         B11      P2       1          30
          J15      H2       IN4        14
 
 Change Class 0;
@@ -5895,6 +4932,10 @@ N$9      F20      L1       IN1        2
          F20      S1       OUT        2
 
 Change Class 0;
+N$10     E32      E2       IN2        7
+         F32      N2       OUT        7
+
+Change Class 0;
 N$11     E13      R1       OUT        2
          E18      M2       D          2
 
@@ -5929,12 +4970,10 @@ N$18     E16      F1       OUT        2
 Change Class 0;
 N$19     E14      D1       OUT        2
          E15      D2       IN1        2
-         E15      E1       IN2        2
          F08      J2       IN2        2
 
 Change Class 0;
 N$20     E15      C1       OUT        2
-         E15      D1       IN1        2
          F08      H2       IN1        2
 
 Change Class 0;
@@ -5957,6 +4996,14 @@ N$24     E15      N1       OUT        2
 Change Class 0;
 N$25     E14      N1       OUT        2
          E14      N2       IN1        2
+
+Change Class 0;
+N$26     B09      S1       OUT        30
+         B11      M2       D          30
+
+Change Class 0;
+N$27     B11      N1       C          22
+         F11      J2       OUT        22
 
 Change Class 0;
 N$29     E15      S2       OUT        2
@@ -6599,563 +5646,11 @@ N$266    E12      P1       IN1        16
          F19      P2       OUT        16
 
 Change Class 0;
-N$267    AB02     BS2      BS2        17
-         AB35     BT2      P$2        17
-
-Change Class 0;
-N$268    AB02     BR2      BR2        17
-         AB35     BS2      P$2        17
-
-Change Class 0;
-N$269    AB01     AV2      AV2        17
-         AB02     BJ2      BJ2        17
-         AB02     BK2      BK2        17
-
-Change Class 0;
 N$270    B21      V2       OUT        17
          C12      M1       IN1        17
          C12      N1       IN2        17
          C12      P1       IN3        17
          C12      R1       IN4        17
-
-Change Class 0;
-N$271    B21      H2       IN1        17
-         B21      N1       OUT        17
-
-Change Class 0;
-N$272    B21      D1       IN1        17
-         B21      K2       OUT        17
-         B22      C1       D          17
-
-Change Class 0;
-N$273    B21      A1       IN1        17
-         B21      F1       OUT        17
-
-Change Class 0;
-N$274    A21      H2       H2         17
-         B21      C1       OUT        17
-         B22      D2       C          17
-
-Change Class 0;
-N$275    A23      H1       IN         17
-         A23      N2       N2         17
-
-Change Class 0;
-N$276    A38      F2       P$1        17
-         C39      U2       U2         17
-         D39      U2       U2         17
-
-Change Class 0;
-N$277    A21      E1       IN         17
-         A21      L2       L2         17
-
-Change Class 0;
-N$278    A39      F2       P$1        17
-         C39      L2       L2         17
-         D39      L2       L2         17
-
-Change Class 0;
-N$279    B39      F2       P$1        17
-         C39      M1       M1         17
-         D39      M1       M1         17
-
-Change Class 0;
-N$280    B38      F2       P$1        17
-         C39      E1       E1         17
-         D39      E1       E1         17
-
-Change Class 0;
-N$281    A21      H1       IN         17
-         A21      N2       N2         17
-
-Change Class 0;
-N$282    A21      F1       OUT        17
-         B30      M1       IN1        17
-
-Change Class 0;
-N$283    A21      J1       OUT        17
-         A22      H2       H2         17
-         B23      P2       P          17
-         B24      P2       P          17
-
-Change Class 0;
-N$284    A22      E1       IN         17
-         A22      R2       R2         17
-
-Change Class 0;
-N$285    A22      F1       OUT        17
-         B22      H1       C          17
-         D07      M1       IN2        17
-         E09      E2       IN2        17
-
-Change Class 0;
-N$286    E09      F2       OUT        17
-         E09      J1       IN2        17
-
-Change Class 0;
-N$287    D07      M2       IN2        17
-         D07      N1       OUT        17
-
-Change Class 0;
-N$288    D07      N2       OUT        17
-         D08      H2       H2         17
-
-Change Class 0;
-N$289    D08      E1       IN         17
-         D08      R2       R2         17
-
-Change Class 0;
-N$290    D07      K2       OUT        17
-         E09      H1       IN1        17
-
-Change Class 0;
-N$291    D07      J2       IN2        17
-         D08      F1       OUT        17
-
-Change Class 0;
-N$292    A23      H2       H2         17
-         E09      K1       OUT        17
-
-Change Class 0;
-N$293    A23      E1       IN         17
-         A23      M2       M2         17
-
-Change Class 0;
-N$294    A23      J1       OUT        17
-         A24      H2       H2         17
-         B21      J1       IN2        17
-
-Change Class 0;
-N$295    A24      E1       IN         17
-         A24      T2       T2         17
-
-Change Class 0;
-N$296    B21      F2       OUT        17
-         B22      N2       S          17
-
-Change Class 0;
-N$297    A23      F1       OUT        17
-         B21      D2       IN1        17
-
-Change Class 0;
-N$298    B21      K1       OUT        17
-         B22      R1       S          17
-
-Change Class 0;
-N$299    A36      F2       F2         18
-         A38      N2       P$1        18
-
-Change Class 0;
-N$300    A36      H2       H          18
-         A38      P2       P$2        18
-
-Change Class 0;
-N$301    A36      F1       H          18
-         A38      R2       P$2        18
-
-Change Class 0;
-N$302    A36      E1       E1         18
-         A38      M2       P$1        18
-
-Change Class 0;
-N$303    A36      R2       H          18
-         A38      S2       P$2        18
-
-Change Class 0;
-N$304    A36      P2       P2         18
-         A38      L2       P$1        18
-
-Change Class 0;
-N$305    A36      N1       H          18
-         A38      T2       P$2        18
-
-Change Class 0;
-N$306    A36      M1       M1         18
-         A38      K2       P$1        18
-
-Change Class 0;
-N$307    A37      H2       H          18
-         A39      P2       P$2        18
-
-Change Class 0;
-N$308    A37      F2       F2         18
-         A39      N2       P$1        18
-
-Change Class 0;
-N$309    B36      E1       E1         18
-         B38      M2       P$1        18
-
-Change Class 0;
-N$310    B36      P2       P2         18
-         B38      L2       P$1        18
-
-Change Class 0;
-N$311    B36      M1       M1         18
-         B38      K2       P$1        18
-
-Change Class 0;
-N$312    B36      F2       F2         18
-         B38      N2       P$1        18
-
-Change Class 0;
-N$313    B36      N1       H          18
-         B38      T2       P$2        18
-
-Change Class 0;
-N$314    B36      R2       H          18
-         B38      S2       P$2        18
-
-Change Class 0;
-N$315    B36      F1       H          18
-         B38      R2       P$2        18
-
-Change Class 0;
-N$316    B36      H2       H          18
-         B38      P2       P$2        18
-
-Change Class 0;
-N$317    B37      F2       F2         18
-         B39      N2       P$1        18
-
-Change Class 0;
-N$318    B37      E1       E1         18
-         B39      M2       P$1        18
-
-Change Class 0;
-N$319    B37      P2       P2         18
-         B39      L2       P$1        18
-
-Change Class 0;
-N$320    B37      M1       M1         18
-         B39      K2       P$1        18
-
-Change Class 0;
-N$321    B37      H2       H          18
-         B39      P2       P$2        18
-
-Change Class 0;
-N$322    B37      N1       H          18
-         B39      T2       P$2        18
-
-Change Class 0;
-N$323    B37      R2       H          18
-         B39      S2       P$2        18
-
-Change Class 0;
-N$324    B37      F1       H          18
-         B39      R2       P$2        18
-
-Change Class 0;
-N$325    A37      J2       J          18
-         AB35     AS2      P$2        18
-
-Change Class 0;
-N$326    A37      K2       K          18
-         AB35     AT2      P$2        18
-
-Change Class 0;
-N$327    A36      J2       J          18
-         AB35     AC2      P$2        18
-
-Change Class 0;
-N$328    A36      K2       K          18
-         AB35     AD2      P$2        18
-
-Change Class 0;
-N$329    A36      H1       J          18
-         AB35     AE2      P$2        18
-
-Change Class 0;
-N$330    A36      J1       K          18
-         AB35     AF2      P$2        18
-
-Change Class 0;
-N$331    A36      S2       J          18
-         AB35     AH2      P$2        18
-
-Change Class 0;
-N$332    A36      T2       K          18
-         AB35     AJ2      P$2        18
-
-Change Class 0;
-N$333    A36      P1       J          18
-         AB35     AK2      P$2        18
-
-Change Class 0;
-N$334    A36      R1       K          18
-         AB35     AL2      P$2        18
-
-Change Class 0;
-N$335    AB35     AM2      P$2        18
-         B36      J2       J          18
-
-Change Class 0;
-N$336    AB35     AN2      P$2        18
-         B36      K2       K          18
-
-Change Class 0;
-N$337    AB35     AP2      P$2        18
-         B36      H1       J          18
-
-Change Class 0;
-N$338    AB35     AR2      P$2        18
-         B36      J1       K          18
-
-Change Class 0;
-N$339    AB35     BR2      P$2        18
-         B37      R1       K          18
-
-Change Class 0;
-N$340    AB35     BP2      P$2        18
-         B37      P1       J          18
-
-Change Class 0;
-N$341    AB35     BN2      P$2        18
-         B37      T2       K          18
-
-Change Class 0;
-N$342    AB35     BM2      P$2        18
-         B37      S2       J          18
-
-Change Class 0;
-N$343    AB35     BL2      P$2        18
-         B37      J1       K          18
-
-Change Class 0;
-N$344    AB35     BK2      P$2        18
-         B37      H1       J          18
-
-Change Class 0;
-N$345    AB35     BJ2      P$2        18
-         B37      K2       K          18
-
-Change Class 0;
-N$346    AB35     BH2      P$2        18
-         B37      J2       J          18
-
-Change Class 0;
-N$347    AB35     BF2      P$2        18
-         B36      R1       K          18
-
-Change Class 0;
-N$348    AB35     BE2      P$2        18
-         B36      P1       J          18
-
-Change Class 0;
-N$349    AB35     BC2      P$2        18
-         B36      S2       J          18
-
-Change Class 0;
-N$350    AB35     BD2      P$2        18
-         B36      T2       K          18
-
-Change Class 0;
-N$351    A30      D2       D2         18
-         AB34     AS2      P$2        18
-
-Change Class 0;
-N$352    A30      E2       E2         18
-         AB34     AT2      P$2        18
-
-Change Class 0;
-N$353    A31      D2       D2         18
-         AB34     AC2      P$2        18
-
-Change Class 0;
-N$354    A31      E2       E2         18
-         AB34     AD2      P$2        18
-
-Change Class 0;
-N$355    A31      L1       L1         18
-         AB34     AE2      P$2        18
-
-Change Class 0;
-N$356    A31      M1       M1         18
-         AB34     AF2      P$2        18
-
-Change Class 0;
-N$357    A32      D2       D2         18
-         AB34     AH2      P$2        18
-
-Change Class 0;
-N$358    A32      E2       E2         18
-         AB34     AJ2      P$2        18
-
-Change Class 0;
-N$359    A32      L1       L1         18
-         AB34     AK2      P$2        18
-
-Change Class 0;
-N$360    A32      M1       M1         18
-         AB34     AL2      P$2        18
-
-Change Class 0;
-N$361    A33      D2       D2         18
-         AB34     AM2      P$2        18
-
-Change Class 0;
-N$362    A33      E2       E2         18
-         AB34     AN2      P$2        18
-
-Change Class 0;
-N$363    A33      L1       L1         18
-         AB34     AP2      P$2        18
-
-Change Class 0;
-N$364    A33      M1       M1         18
-         AB34     AR2      P$2        18
-
-Change Class 0;
-N$365    A30      L1       L1         18
-         AB29     AS2      P$2        18
-
-Change Class 0;
-N$366    A30      M1       M1         18
-         AB29     AT2      P$2        18
-
-Change Class 0;
-N$367    A31      F2       F2         18
-         AB29     AC2      P$2        18
-
-Change Class 0;
-N$368    A31      H2       H2         18
-         AB29     AD2      P$2        18
-
-Change Class 0;
-N$369    A31      N1       N1         18
-         AB29     AE2      P$2        18
-
-Change Class 0;
-N$370    A31      P1       P1         18
-         AB29     AF2      P$2        18
-
-Change Class 0;
-N$371    A32      F2       F2         18
-         AB29     AH2      P$2        18
-
-Change Class 0;
-N$372    A32      H2       H2         18
-         AB29     AJ2      P$2        18
-
-Change Class 0;
-N$373    A32      N1       N1         18
-         AB29     AK2      P$2        18
-
-Change Class 0;
-N$374    A32      P1       P1         18
-         AB29     AL2      P$2        18
-
-Change Class 0;
-N$375    A33      F2       F2         18
-         AB29     AM2      P$2        18
-
-Change Class 0;
-N$376    A33      H2       H2         18
-         AB29     AN2      P$2        18
-
-Change Class 0;
-N$377    A33      N1       N1         18
-         AB29     AP2      P$2        18
-
-Change Class 0;
-N$378    A33      P1       P1         18
-         AB29     AR2      P$2        18
-
-Change Class 0;
-N$379    AB34     BP2      P$2        18
-         B33      L1       L1         18
-
-Change Class 0;
-N$380    AB34     BR2      P$2        18
-         B33      M1       M1         18
-
-Change Class 0;
-N$381    AB34     BM2      P$2        18
-         B33      D2       D2         18
-
-Change Class 0;
-N$382    AB34     BN2      P$2        18
-         B33      E2       E2         18
-
-Change Class 0;
-N$383    AB34     BK2      P$2        18
-         B32      L1       L1         18
-
-Change Class 0;
-N$384    AB34     BL2      P$2        18
-         B32      M1       M1         18
-
-Change Class 0;
-N$385    AB34     BJ2      P$2        18
-         B32      E2       E2         18
-
-Change Class 0;
-N$386    AB34     BH2      P$2        18
-         B32      D2       D2         18
-
-Change Class 0;
-N$387    AB34     BC2      P$2        18
-         B31      D2       D2         18
-
-Change Class 0;
-N$388    AB34     BD2      P$2        18
-         B31      E2       E2         18
-
-Change Class 0;
-N$389    AB34     BE2      P$2        18
-         B31      L1       L1         18
-
-Change Class 0;
-N$390    AB34     BF2      P$2        18
-         B31      M1       M1         18
-
-Change Class 0;
-N$391    AB29     BC2      P$2        18
-         B31      F2       F2         18
-
-Change Class 0;
-N$392    AB29     BD2      P$2        18
-         B31      H2       H2         18
-
-Change Class 0;
-N$393    AB29     BE2      P$2        18
-         B31      N1       N1         18
-
-Change Class 0;
-N$394    AB29     BF2      P$2        18
-         B31      P1       P1         18
-
-Change Class 0;
-N$395    AB29     BH2      P$2        18
-         B32      F2       F2         18
-
-Change Class 0;
-N$396    AB29     BJ2      P$2        18
-         B32      H2       H2         18
-
-Change Class 0;
-N$397    AB29     BK2      P$2        18
-         B32      N1       N1         18
-
-Change Class 0;
-N$398    AB29     BL2      P$2        18
-         B32      P1       P1         18
-
-Change Class 0;
-N$399    AB29     BM2      P$2        18
-         B33      F2       F2         18
-
-Change Class 0;
-N$400    AB29     BN2      P$2        18
-         B33      H2       H2         18
-
-Change Class 0;
-N$401    AB29     BP2      P$2        18
-         B33      N1       N1         18
-
-Change Class 0;
-N$402    AB29     BR2      P$2        18
-         B33      P1       P1         18
 
 Change Class 0;
 N$403    A19      F1       OUT        21
@@ -7515,220 +6010,9 @@ N$493    A13      C1       OUT        22
          A17      T2       IN1        22
 
 Change Class 0;
-N$494    A15      C1       OUT        22
-         A15      D1       IN1        22
-
-Change Class 0;
-N$495    A25      P2       P$2        23
-         A27      H2       H          23
-
-Change Class 0;
-N$496    A25      R2       P$2        23
-         A27      F1       H          23
-
-Change Class 0;
 N$497    A12      C1       OUT        22
+         F11      D2       IN1        22
          F11      E2       IN2        22
-
-Change Class 0;
-N$498    A25      S2       P$2        23
-         A27      R2       H          23
-
-Change Class 0;
-N$499    A25      T2       P$2        23
-         A27      N1       H          23
-
-Change Class 0;
-N$500    A25      N2       P$1        23
-         A27      F2       F2         23
-
-Change Class 0;
-N$501    A25      M2       P$1        23
-         A27      E1       E1         23
-
-Change Class 0;
-N$502    A25      L2       P$1        23
-         A27      P2       P2         23
-
-Change Class 0;
-N$503    A25      K2       P$1        23
-         A27      M1       M1         23
-
-Change Class 0;
-N$504    A27      J2       J          23
-         AB28     BC2      P$2        23
-
-Change Class 0;
-N$505    A27      K2       K          23
-         AB28     BD2      P$2        23
-
-Change Class 0;
-N$506    A26      P2       P$2        23
-         B26      H2       H          23
-
-Change Class 0;
-N$507    A26      R2       P$2        23
-         B26      F1       H          23
-
-Change Class 0;
-N$508    A26      S2       P$2        23
-         B26      R2       H          23
-
-Change Class 0;
-N$509    A26      T2       P$2        23
-         B26      N1       H          23
-
-Change Class 0;
-N$510    A26      N2       P$1        23
-         B26      F2       F2         23
-
-Change Class 0;
-N$511    A26      M2       P$1        23
-         B26      E1       E1         23
-
-Change Class 0;
-N$512    A26      L2       P$1        23
-         B26      P2       P2         23
-
-Change Class 0;
-N$513    A26      K2       P$1        23
-         B26      M1       M1         23
-
-Change Class 0;
-N$514    B25      P2       P$2        23
-         B27      H2       H          23
-
-Change Class 0;
-N$515    B25      R2       P$2        23
-         B27      F1       H          23
-
-Change Class 0;
-N$516    B25      S2       P$2        23
-         B27      R2       H          23
-
-Change Class 0;
-N$517    B25      T2       P$2        23
-         B27      N1       H          23
-
-Change Class 0;
-N$518    B25      N2       P$1        23
-         B27      F2       F2         23
-
-Change Class 0;
-N$519    B25      M2       P$1        23
-         B27      E1       E1         23
-
-Change Class 0;
-N$520    B25      L2       P$1        23
-         B27      P2       P2         23
-
-Change Class 0;
-N$521    B25      K2       P$1        23
-         B27      M1       M1         23
-
-Change Class 0;
-N$522    A27      H1       J          23
-         AB28     BE2      P$2        23
-
-Change Class 0;
-N$523    A27      J1       K          23
-         AB28     BF2      P$2        23
-
-Change Class 0;
-N$524    A27      S2       J          23
-         AB28     BH2      P$2        23
-
-Change Class 0;
-N$525    A27      T2       K          23
-         AB28     BJ2      P$2        23
-
-Change Class 0;
-N$526    A27      P1       J          23
-         AB28     BK2      P$2        23
-
-Change Class 0;
-N$527    A27      R1       K          23
-         AB28     BL2      P$2        23
-
-Change Class 0;
-N$528    AB28     BM2      P$2        23
-         B26      J2       J          23
-
-Change Class 0;
-N$529    AB28     BN2      P$2        23
-         B26      K2       K          23
-
-Change Class 0;
-N$530    AB28     BP2      P$2        23
-         B26      H1       J          23
-
-Change Class 0;
-N$531    AB28     BR2      P$2        23
-         B26      J1       K          23
-
-Change Class 0;
-N$532    AB28     AC2      P$2        23
-         B26      S2       J          23
-
-Change Class 0;
-N$533    AB28     AD2      P$2        23
-         B26      T2       K          23
-
-Change Class 0;
-N$534    AB28     AE2      P$2        23
-         B26      P1       J          23
-
-Change Class 0;
-N$535    AB28     AF2      P$2        23
-         B26      R1       K          23
-
-Change Class 0;
-N$536    AB28     AH2      P$2        23
-         B27      J2       J          23
-
-Change Class 0;
-N$537    AB28     AJ2      P$2        23
-         B27      K2       K          23
-
-Change Class 0;
-N$538    AB28     AK2      P$2        23
-         B27      H1       J          23
-
-Change Class 0;
-N$539    AB28     AL2      P$2        23
-         B27      J1       K          23
-
-Change Class 0;
-N$540    AB28     AM2      P$2        23
-         B27      S2       J          23
-
-Change Class 0;
-N$541    AB28     AN2      P$2        23
-         B27      T2       K          23
-
-Change Class 0;
-N$542    AB28     AP2      P$2        23
-         B27      P1       J          23
-
-Change Class 0;
-N$543    AB28     AR2      P$2        23
-         B27      R1       K          23
-
-Change Class 0;
-N$544    A37      P2       P2         18
-         A39      L2       P$1        18
-
-Change Class 0;
-N$545    A37      R2       H          18
-         A39      S2       P$2        18
-
-Change Class 0;
-N$546    A37      S2       J          18
-         AB28     AS2      P$2        18
-
-Change Class 0;
-N$547    A37      T2       K          18
-         AB28     AT2      P$2        18
 
 Change Class 0;
 N$548    A05      E1       IN2        26
@@ -8357,10 +6641,6 @@ N$700    B07      N1       OUT        30
          B07      N2       IN1        30
 
 Change Class 0;
-N$701    B09      R2       IN2        30
-         B09      V2       OUT        30
-
-Change Class 0;
 N$702    A07      L1       EVEN       31
          A08      A1       1B         31
 
@@ -8576,39 +6856,8 @@ N$749    F20      N2       OUT        5
          F30      A1       IN1        5
 
 Change Class 0;
-N$750    E32      E2       IN2        7
-         F32      N2       OUT        7
-
-Change Class 0;
-NC       A30      F2       F2         18
-         A30      H2       H2         18
-         A30      N1       N1         18
-         A30      P1       P1         18
-         A37      D1       D1         18
-         A37      L1       L1         18
-         J15      H1       IN2        14
+NC       J15      H1       IN2        14
          J30      R2       R2         37
-
-Change Class 0;
-NEG_CLAMP A39      R2       P$2        17
-         C25      V2       V2         25
-         C26      V2       V2         25
-         C30      V2       V2         24
-         C31      V2       V2         24
-         C32      V2       V2         20
-         C33      V2       V2         20
-         C37      V2       V2         19
-         C38      V2       V2         19
-         C39      V2       V2         17
-         D25      V2       V2         24
-         D26      V2       V2         24
-         D30      V2       V2         25
-         D31      V2       V2         25
-         D32      V2       V2         19
-         D33      V2       V2         19
-         D37      V2       V2         20
-         D38      V2       V2         20
-         D39      V2       V2         17
 
 Change Class 0;
 NMI      D14      M2       IN2        27
@@ -8906,13 +7155,6 @@ RD_HOLE8 D01      M2       P$2        36
          HJ26     AF1      AF1        36
 
 Change Class 0;
-READ     B22      L1       1          17
-         C39      D2       D2         17
-         C39      M2       M2         17
-         D39      D2       D2         17
-         D39      M2       M2         17
-
-Change Class 0;
 READER_RUN_ EF01     AU2      AU2        15
          J12      M2       P$2        15
 
@@ -8987,7 +7229,6 @@ S        C07      U2       IN2        29
          C10      R1       IN2        29
          C11      L2       IN3        29
          C11      P2       IN2        29
-         D07      L1       IN1        17
          D07      T2       IN1        3
          D09      A1       IN1        29
          D10      D2       IN1        29
@@ -8998,6 +7239,7 @@ Change Class 0;
 SC0      C21      F2       IN3        28
          C22      E1       1          28
          D23      L1       IN4B       27
+         EF37     BN1      BN1        12
 
 Change Class 0;
 SC0_     C21      C1       IN3        28
@@ -9023,6 +7265,7 @@ SC1      C21      L2       IN3        28
          D20      L2       IN2        27
          D22      A1       IN1        28
          D23      B1       IN1B       27
+         EF38     BD1      BD1        12
 
 Change Class 0;
 SC1_     C21      H1       IN3        28
@@ -9037,6 +7280,7 @@ SC2      C21      R2       IN3        28
          D19      A1       IN1        28
          D19      L2       IN3        27
          D22      B1       IN2        28
+         EF38     BN1      BN1        13
 
 Change Class 0;
 SC2_     C21      M1       IN3        28
@@ -9051,6 +7295,7 @@ SC3      C18      H1       IN1        28
          D19      B1       IN2        28
          D22      C1       IN3        28
          D23      C1       IN1C       27
+         EF39     BD1      BD1        13
 
 Change Class 0;
 SC3_     C21      P1       IN1        28
@@ -9066,6 +7311,7 @@ SC4      C18      J1       IN2        28
          D19      K2       IN2        27
          D22      D1       IN4        28
          D23      D1       IN1D       27
+         EF39     BN1      BN1        13
 
 Change Class 0;
 SC4_     C18      M2       IN2        28
@@ -9169,15 +7415,6 @@ SKIP_OR  B04      V1       OUT        26
          E27      L1       IN4B       6
 
 Change Class 0;
-SLICE    A30      S2       S2         18
-         A31      S2       S2         18
-         A32      S2       S2         18
-         A33      S2       S2         18
-         B31      S2       S2         18
-         B32      S2       S2         18
-         B33      S2       S2         18
-
-Change Class 0;
 SLOW_CYCLE E12      N1       OUT        2
          E15      R1       IN2        2
 
@@ -9271,34 +7508,12 @@ STORE_   D07      D2       IN1        29
 
 Change Class 0;
 STROBE_  B10      E2       E2         21
-         B23      T2       T          17
-         B24      T2       T          17
          E15      H2       IN1        2
          E18      A1       R          2
          E19      D1       S          2
          EF10     BE2      P$1        2
          F20      D1       IN1        8
          H05      P2       P$2        2
-
-Change Class 0;
-STROBE_FIELD0 A30      D1       D1         18
-         A31      D1       D1         18
-         A32      D1       D1         18
-         A33      D1       D1         18
-         B23      S2       S          17
-         B31      D1       D1         18
-         B32      D1       D1         18
-         B33      D1       D1         18
-
-Change Class 0;
-STROBE_FIELD1 A30      R1       R1         18
-         A31      R1       R1         18
-         A32      R1       R1         18
-         A33      R1       R1         18
-         B24      S2       S          17
-         B31      R1       R1         18
-         B32      R1       R1         18
-         B33      R1       R1         18
 
 Change Class 0;
 SYNC_PUN C01      F2       P$2        35
@@ -9308,7 +7523,6 @@ Change Class 0;
 S_       D09      R2       IN3        29
          D11      E1       1          29
          E09      A1       IN1        3
-         E09      D2       IN1        17
 
 Change Class 0;
 S_FEED_HOLE D01      N2       P$2        36
@@ -9368,8 +7582,8 @@ TP3      A13      D2       IN1        22
          A20      B1       IN2        22
          B04      K2       IN2        26
          B05      L2       C          26
-         B09      T2       IN1        30
          B10      V2       V2         21
+         B11      L2       C          30
          C08      J2       IN2        29
          D09      U2       IN2        29
          D12      P2       IN1        27
@@ -9667,22 +7881,6 @@ Change Class 0;
 USF_     B04      T2       IN1        26
          B05      V1       0          26
 
-Change Class 0;
-V24L1    C32      L2       L2         20
-         CD34     AF2      F2         20
-
-Change Class 0;
-V24L2    C37      L2       L2         19
-         CD36     AF2      F2         19
-
-Change Class 0;
-V24L3    C30      L2       L2         24
-         CD29     AF2      F2         24
-
-Change Class 0;
-V24L4    C25      L2       L2         25
-         CD27     AF2      F2         25
-
 Change Class 1;
 VCC      A04      A2       VCC        * none *
          A05      A2       VCC        * none *
@@ -9701,17 +7899,6 @@ VCC      A04      A2       VCC        * none *
          A18      A2       VCC        * none *
          A19      A2       VCC        * none *
          A20      A2       VCC        * none *
-         A21      A2       VCC        * none *
-         A22      A2       VCC        * none *
-         A23      A2       VCC        * none *
-         A24      A2       VCC        * none *
-         A27      A2       VCC        * none *
-         A30      A2       VCC        * none *
-         A31      A2       VCC        * none *
-         A32      A2       VCC        * none *
-         A33      A2       VCC        * none *
-         A36      A2       VCC        * none *
-         A37      A2       VCC        * none *
          A40      A2       P$2        12
          AB02     AA2      VCC        * none *
          AB02     BA2      VCC        * none *
@@ -9753,17 +7940,6 @@ VCC      A04      A2       VCC        * none *
          B19      A2       VCC        * none *
          B20      A2       VCC        * none *
          B21      A2       VCC        * none *
-         B22      A2       VCC        * none *
-         B23      A2       VCC        * none *
-         B24      A2       VCC        * none *
-         B26      A2       VCC        * none *
-         B27      A2       VCC        * none *
-         B30      A2       VCC        * none *
-         B31      A2       VCC        * none *
-         B32      A2       VCC        * none *
-         B33      A2       VCC        * none *
-         B36      A2       VCC        * none *
-         B37      A2       VCC        * none *
          B40      A2       P$2        12
          C02      A2       VCC        * none *
          C03      A2       VCC        * none *
@@ -9788,21 +7964,11 @@ VCC      A04      A2       VCC        * none *
          C22      A2       VCC        * none *
          C23      A2       VCC        * none *
          C24      A2       VCC        * none *
-         C25      A2       VCC        * none *
-         C26      A2       VCC        * none *
-         C30      A2       VCC        * none *
-         C31      A2       VCC        * none *
-         C32      A2       VCC        * none *
-         C33      A2       VCC        * none *
-         C37      A2       VCC        * none *
-         C38      A2       VCC        * none *
-         C39      A2       VCC        * none *
          C40      A2       P$2        9
          D03      A2       P$2        33
          D05      A2       VCC        * none *
          D06      A2       VCC        * none *
          D07      A2       VCC        * none *
-         D08      A2       VCC        * none *
          D09      A2       VCC        * none *
          D10      A2       VCC        * none *
          D11      A2       VCC        * none *
@@ -9819,15 +7985,6 @@ VCC      A04      A2       VCC        * none *
          D22      A2       VCC        * none *
          D23      A2       VCC        * none *
          D24      A2       VCC        * none *
-         D25      A2       VCC        * none *
-         D26      A2       VCC        * none *
-         D30      A2       VCC        * none *
-         D31      A2       VCC        * none *
-         D32      A2       VCC        * none *
-         D33      A2       VCC        * none *
-         D37      A2       VCC        * none *
-         D38      A2       VCC        * none *
-         D39      A2       VCC        * none *
          E03      A2       VCC        * none *
          E04      A2       VCC        * none *
          E05      A2       VCC        * none *
@@ -9999,32 +8156,8 @@ WORD_COUNT_ A19      B1       IN2        21
          E25      H1       IN3        4
 
 Change Class 0;
-WRITE    B22      S1       1          17
-         C39      A1       A1         17
-         C39      E2       E2         17
-         C39      N2       N2         17
-
-Change Class 0;
 X_AXIS   D03      D2       P$2        33
          HJ24     BS2      BS2        33
-
-Change Class 0;
-X_RW_RETURN B39      D2       P$2        17
-         D25      T2       T2         24
-         D26      T2       T2         24
-         D32      T2       T2         19
-         D33      T2       T2         19
-         D39      F2       F2         17
-         D39      K1       K1         17
-
-Change Class 0;
-X_RW_SOURCE A39      D2       P$2        17
-         C30      T2       T2         24
-         C31      T2       T2         24
-         C37      T2       T2         19
-         C38      T2       T2         19
-         C39      F2       F2         17
-         C39      K1       K1         17
 
 Change Class 0;
 X_STROBE HJ23     AS1      AS1        33
@@ -10033,24 +8166,6 @@ X_STROBE HJ23     AS1      AS1        33
 Change Class 0;
 Y_AXIS   D03      E2       P$2        33
          HJ25     BS2      BS2        33
-
-Change Class 0;
-Y_RW_RETURN A38      D2       P$2        17
-         D30      T2       T2         25
-         D31      T2       T2         25
-         D37      T2       T2         20
-         D38      T2       T2         20
-         D39      P2       P2         17
-         D39      S1       S1         17
-
-Change Class 0;
-Y_RW_SOURCE B38      D2       P$2        17
-         C25      T2       T2         25
-         C26      T2       T2         25
-         C32      T2       T2         20
-         C33      T2       T2         20
-         C39      P2       P2         17
-         C39      S1       S1         17
 
 Change Class 0;
 Y_STROBE HJ23     AP2      AP2        33

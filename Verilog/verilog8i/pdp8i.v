@@ -29,43 +29,48 @@ module pdp8i(
 	da09, da10, da11, brq, d_in_, bbreak, badd_accepted_, mem_incr,
 	d00, d01, d02, d03, d04, d05, d06, d07, d08,
 	d09, d10, d11, n3cycle, ca_incr_, bwc_overflow, eda2, eda1, eda0,
+	io_pc_load,
 	rx_data, tx_data, reader_run_,
 	dclk
 );
 input dclk;
 // synthesis attribute CLOCK_SIGNAL of dclk is "yes";
 reg ac00;
-output wand ac00_;
+output ac00_;
 reg ac01;
-output wand ac01_;
+output ac01_;
 reg ac02;
-output wand ac02_;
+output ac02_;
 reg ac03;
-output wand ac03_;
+output ac03_;
 reg ac04;
-output wand ac04_;
+output ac04_;
 reg ac05;
-output wand ac05_;
+output ac05_;
 reg ac06;
-output wand ac06_;
+output ac06_;
 reg ac07;
-output wand ac07_;
+output ac07_;
 reg ac08;
-output wand ac08_;
+output ac08_;
 reg ac09;
-output wand ac09_;
+output ac09_;
 reg ac10;
-output wand ac10_;
+output ac10_;
 reg ac11;
-output wand ac11_;
+output ac11_;
 wire ac_clear;
 wire ac_clear_;
-wand ac_enable;
-wand ac_load;
+wand ac_enable = 1'b1;
+// synthesis attribute PULLUP of ac_enable is "yes";
+wand ac_load = 1'b1;
+// synthesis attribute PULLUP of ac_load is "yes";
 wire ac_to_mq_enable;
 wire ac_to_mq_enable_;
-wand acbar_enable;
-output wand acclr;
+wand acbar_enable = 1'b1;
+// synthesis attribute PULLUP of acbar_enable is "yes";
+input wand acclr;
+// synthesis attribute PULLUP of acclr is "yes";
 wire add_;
 reg add_accepted_;
 wire adder00;
@@ -83,115 +88,172 @@ wire adder11;
 wire adder11_;
 wire adder_l;
 wire adder_l_;
-output wand and_;
-wand and_enable;
+output and_;
+wand and_enable = 1'b1;
+// synthesis attribute PULLUP of and_enable is "yes";
 wire and_enable_;
 wire and_h;
 wire asr_enable;
 wire asr_l_set_;
 wire auto_index_;
 output wand b_c_;
-output wand b_dc_inst;
+// synthesis attribute PULLUP of b_c_ is "yes";
+output b_dc_inst;
 wire b_eae_on;
-wand b_execute;
+wand b_execute = 1'b1;
+// synthesis attribute PULLUP of b_execute is "yes";
 wire b_ext_inst;
-wand b_fetch;
-wand b_field;
-wand b_field_;
-wand b_inhibit;
+wand b_fetch = 1'b1;
+// synthesis attribute PULLUP of b_fetch is "yes";
 wire b_left_shift;
 output wand b_line_hold_;
-wand b_mem_enable;
-output wand b_mem_start;
-output wand b_mem_to_lsr;
-wand b_power_clear_;
-output wand b_r0_;
+// synthesis attribute PULLUP of b_line_hold_ is "yes";
+output b_mem_start;
+output b_mem_to_lsr;
+wand b_power_clear_ = 1'b1;
+// synthesis attribute PULLUP of b_power_clear_ is "yes";
+input wand b_r0_;
+// synthesis attribute PULLUP of b_r0_ is "yes";
 wire b_set;
 wire b_set_;
-output wand ba;
-output wand ba_;
+output ba;
+output ba_;
 output wand bac00;
+// synthesis attribute PULLUP of bac00 is "yes";
 output wand bac01;
+// synthesis attribute PULLUP of bac01 is "yes";
 output wand bac02;
+// synthesis attribute PULLUP of bac02 is "yes";
 output wand bac03;
+// synthesis attribute PULLUP of bac03 is "yes";
 output wand bac04;
+// synthesis attribute PULLUP of bac04 is "yes";
 output wand bac05;
+// synthesis attribute PULLUP of bac05 is "yes";
 output wand bac06;
+// synthesis attribute PULLUP of bac06 is "yes";
 output wand bac07;
+// synthesis attribute PULLUP of bac07 is "yes";
 output wand bac08;
+// synthesis attribute PULLUP of bac08 is "yes";
 output wand bac09;
+// synthesis attribute PULLUP of bac09 is "yes";
 output wand bac10;
+// synthesis attribute PULLUP of bac10 is "yes";
 output wand bac11;
+// synthesis attribute PULLUP of bac11 is "yes";
 output wand badd_accepted_;
-output wand bb;
-output wand bb_;
-wand bb_field;
-wand bb_field_;
+// synthesis attribute PULLUP of badd_accepted_ is "yes";
+output bb;
+output bb_;
 wire bb_left_shift;
 output wand bbreak;
+// synthesis attribute PULLUP of bbreak is "yes";
 reg bf0;
 reg bf1;
 reg bf2;
 wire bf_enable;
 reg bf_enable__;
 output wand binitialize_;
+// synthesis attribute PULLUP of binitialize_ is "yes";
 wire biop1;
 output wand biop1_;
+// synthesis attribute PULLUP of biop1_ is "yes";
 wire biop2;
 output wand biop2_;
+// synthesis attribute PULLUP of biop2_ is "yes";
 wire biop4;
 output wand biop4_;
+// synthesis attribute PULLUP of biop4_ is "yes";
 output wand bma00;
+// synthesis attribute PULLUP of bma00 is "yes";
 output wand bma01;
+// synthesis attribute PULLUP of bma01 is "yes";
 output wand bma02;
+// synthesis attribute PULLUP of bma02 is "yes";
 output wand bma03;
+// synthesis attribute PULLUP of bma03 is "yes";
 output wand bma04;
+// synthesis attribute PULLUP of bma04 is "yes";
 output wand bma05;
+// synthesis attribute PULLUP of bma05 is "yes";
 output wand bma06;
+// synthesis attribute PULLUP of bma06 is "yes";
 output wand bma07;
+// synthesis attribute PULLUP of bma07 is "yes";
 output wand bma08;
+// synthesis attribute PULLUP of bma08 is "yes";
 output wand bma09;
+// synthesis attribute PULLUP of bma09 is "yes";
 output wand bma10;
+// synthesis attribute PULLUP of bma10 is "yes";
 output wand bma11;
+// synthesis attribute PULLUP of bma11 is "yes";
 output wand bmb00;
+// synthesis attribute PULLUP of bmb00 is "yes";
 output wand bmb01;
+// synthesis attribute PULLUP of bmb01 is "yes";
 output wand bmb02;
+// synthesis attribute PULLUP of bmb02 is "yes";
 output wand bmb03;
+// synthesis attribute PULLUP of bmb03 is "yes";
 output wand bmb03_;
+// synthesis attribute PULLUP of bmb03_ is "yes";
 output wand bmb04;
+// synthesis attribute PULLUP of bmb04 is "yes";
 output wand bmb04_;
+// synthesis attribute PULLUP of bmb04_ is "yes";
 output wand bmb05;
+// synthesis attribute PULLUP of bmb05 is "yes";
 output wand bmb05_;
+// synthesis attribute PULLUP of bmb05_ is "yes";
 output wand bmb06;
+// synthesis attribute PULLUP of bmb06 is "yes";
 output wand bmb06_;
+// synthesis attribute PULLUP of bmb06_ is "yes";
 output wand bmb07;
+// synthesis attribute PULLUP of bmb07 is "yes";
 output wand bmb07_;
+// synthesis attribute PULLUP of bmb07_ is "yes";
 output wand bmb08;
+// synthesis attribute PULLUP of bmb08 is "yes";
 output wand bmb08_;
+// synthesis attribute PULLUP of bmb08_ is "yes";
 output wand bmb09;
+// synthesis attribute PULLUP of bmb09 is "yes";
 output wand bmb10;
+// synthesis attribute PULLUP of bmb10 is "yes";
 output wand bmb11;
+// synthesis attribute PULLUP of bmb11 is "yes";
 reg break;
-output wand break_;
+output break_;
 wire break_ok;
 wire break_ok_;
 wire brk_rqst;
 reg brk_sync;
-output wand brq;
+input wand brq;
+// synthesis attribute PULLUP of brq is "yes";
 output wand brun_;
+// synthesis attribute PULLUP of brun_ is "yes";
 output wand bstlr;
-output wand btp2;
-output wand btp3;
+// synthesis attribute PULLUP of bstlr is "yes";
+output btp2;
+output btp3;
 output wand bts1;
+// synthesis attribute PULLUP of bts1 is "yes";
 output wand bts3;
+// synthesis attribute PULLUP of bts3 is "yes";
 output wand btt_inst_;
+// synthesis attribute PULLUP of btt_inst_ is "yes";
 output wand bwc_overflow;
+// synthesis attribute PULLUP of bwc_overflow is "yes";
 wire c;
 reg c_;
 input c_i_r;
 wire c_no_shift_;
 wire c_set_;
-output wand ca_incr_;
+input wand ca_incr_;
+// synthesis attribute PULLUP of ca_incr_ is "yes";
 wire ca_increment;
 wire ca_increment_;
 wire carry_insert_;
@@ -203,50 +265,77 @@ wire clear_df_;
 wire clear_ib_;
 wire clear_if_;
 wire clear_ifdfbf_;
-output wand clear_x_;
-output wand clear_y_;
-wire clock;
+output clear_x_;
+output clear_y_;
+wand clock = 1'b1;
+// synthesis attribute PULLUP of clock is "yes";
 wire clock1;
-wand clock_ac_clr_;
+wand clock_ac_clr_ = 1'b1;
+// synthesis attribute PULLUP of clock_ac_clr_ is "yes";
 wire clock_enable_;
 wire clock_iot;
 wire clock_p4;
 wire clock_scale_2;
 wire clr_parity_error_;
-output wand cr_read;
+output cr_read;
 input cr_ready;
 wire csr_enable_;
 wire cuf;
 wire cuf_;
 reg current_address;
-output wand current_address_;
-output wand d00;
-output wand d01;
-output wand d02;
-output wand d03;
-output wand d04;
-output wand d05;
-output wand d06;
-output wand d07;
-output wand d08;
-output wand d09;
-output wand d10;
-output wand d11;
-output wand d_in_;
+output current_address_;
+input wand d00;
+// synthesis attribute PULLUP of d00 is "yes";
+input wand d01;
+// synthesis attribute PULLUP of d01 is "yes";
+input wand d02;
+// synthesis attribute PULLUP of d02 is "yes";
+input wand d03;
+// synthesis attribute PULLUP of d03 is "yes";
+input wand d04;
+// synthesis attribute PULLUP of d04 is "yes";
+input wand d05;
+// synthesis attribute PULLUP of d05 is "yes";
+input wand d06;
+// synthesis attribute PULLUP of d06 is "yes";
+input wand d07;
+// synthesis attribute PULLUP of d07 is "yes";
+input wand d08;
+// synthesis attribute PULLUP of d08 is "yes";
+input wand d09;
+// synthesis attribute PULLUP of d09 is "yes";
+input wand d10;
+// synthesis attribute PULLUP of d10 is "yes";
+input wand d11;
+// synthesis attribute PULLUP of d11 is "yes";
+input wand d_in_;
+// synthesis attribute PULLUP of d_in_ is "yes";
 wire d_set;
 wire d_set_;
-output wand da00;
-output wand da01;
-output wand da02;
-output wand da03;
-output wand da04;
-output wand da05;
-output wand da06;
-output wand da07;
-output wand da08;
-output wand da09;
-output wand da10;
-output wand da11;
+input wand da00;
+// synthesis attribute PULLUP of da00 is "yes";
+input wand da01;
+// synthesis attribute PULLUP of da01 is "yes";
+input wand da02;
+// synthesis attribute PULLUP of da02 is "yes";
+input wand da03;
+// synthesis attribute PULLUP of da03 is "yes";
+input wand da04;
+// synthesis attribute PULLUP of da04 is "yes";
+input wand da05;
+// synthesis attribute PULLUP of da05 is "yes";
+input wand da06;
+// synthesis attribute PULLUP of da06 is "yes";
+input wand da07;
+// synthesis attribute PULLUP of da07 is "yes";
+input wand da08;
+// synthesis attribute PULLUP of da08 is "yes";
+input wand da09;
+// synthesis attribute PULLUP of da09 is "yes";
+input wand da10;
+// synthesis attribute PULLUP of da10 is "yes";
+input wand da11;
+// synthesis attribute PULLUP of da11 is "yes";
 wire data00;
 wire data01;
 wire data02;
@@ -271,21 +360,23 @@ wire data_add08;
 wire data_add09;
 wire data_add10;
 wire data_add11;
-wand data_add_enable;
-wand data_enable;
+wand data_add_enable = 1'b1;
+// synthesis attribute PULLUP of data_add_enable is "yes";
+wand data_enable = 1'b1;
+// synthesis attribute PULLUP of data_enable is "yes";
 wire data_in;
 wire data_in_;
 wire dc_inst_;
 wire dca;
-output wand dca_;
+output dca_;
 reg defer;
-output wand defer_;
+output defer_;
 reg df0;
-output wand df0_;
+output df0_;
 reg df1;
-output wand df1_;
+output df1_;
 reg df2;
-output wand df2_;
+output df2_;
 wire df_enable;
 wire df_enable_;
 reg df_enable__;
@@ -294,21 +385,24 @@ input dfsr1;
 input dfsr2;
 wire div_last;
 wire div_last_;
-wand double_left_rotate;
-wand double_right_rotate;
-output wand drum_down;
-output wand drum_up;
+wand double_left_rotate = 1'b1;
+// synthesis attribute PULLUP of double_left_rotate is "yes";
+wand double_right_rotate = 1'b1;
+// synthesis attribute PULLUP of double_right_rotate is "yes";
+output drum_down;
+output drum_up;
 wire dvi;
 wire dvi_;
 wire e09f1;
 wire e25d1;
 wire e_set;
 wire e_set_;
-inout wand ea0;
-wand ea0_;
-inout wand ea1;
-wand ea1_;
-inout wand ea2;
+output wand ea0;
+// synthesis attribute PULLUP of ea0 is "yes";
+output wand ea1;
+// synthesis attribute PULLUP of ea1 is "yes";
+output wand ea2;
+// synthesis attribute PULLUP of ea2 is "yes";
 wire eae_ac_enable_;
 wire eae_acbar_enable_;
 wire eae_begin;
@@ -340,13 +434,16 @@ wire eae_start_;
 reg eae_tg;
 wire eae_tp;
 wire eae_tp_;
-output wand eda0;
-output wand eda1;
-output wand eda2;
+input wand eda0;
+// synthesis attribute PULLUP of eda0 is "yes";
+input wand eda1;
+// synthesis attribute PULLUP of eda1 is "yes";
+input wand eda2;
+// synthesis attribute PULLUP of eda2 is "yes";
 wire enable;
 wire enable_;
 reg execute;
-output wand execute_;
+output execute_;
 wire ext_data_add0;
 wire ext_data_add1;
 wire ext_data_add2;
@@ -357,18 +454,25 @@ wire f17f1;
 wire f_set;
 wire f_set_;
 output wand feed_hole;
+// synthesis attribute PULLUP of feed_hole is "yes";
 reg fetch;
-output wand fetch_;
-reg field;
-wire field_;
+output fetch_;
 output wand hole1;
+// synthesis attribute PULLUP of hole1 is "yes";
 output wand hole2;
+// synthesis attribute PULLUP of hole2 is "yes";
 output wand hole3;
+// synthesis attribute PULLUP of hole3 is "yes";
 output wand hole4;
+// synthesis attribute PULLUP of hole4 is "yes";
 output wand hole5;
+// synthesis attribute PULLUP of hole5 is "yes";
 output wand hole6;
+// synthesis attribute PULLUP of hole6 is "yes";
 output wand hole7;
+// synthesis attribute PULLUP of hole7 is "yes";
 output wand hole8;
+// synthesis attribute PULLUP of hole8 is "yes";
 reg hs;
 wire hs_;
 wire hz880;
@@ -378,12 +482,13 @@ reg ib0;
 reg ib1;
 reg ib2;
 wire ib_to_if;
+wire ib_to_if_;
 reg if0;
-output wand if0_;
+output if0_;
 reg if1;
-output wand if1_;
+output if1_;
 reg if2;
-output wand if2_;
+output if2_;
 wire if_enable;
 wire if_enable_;
 reg if_enable__;
@@ -391,24 +496,35 @@ wire if_to_sf;
 input ifsr0;
 input ifsr1;
 input ifsr2;
-output wand in00;
-output wand in01;
-output wand in02;
-output wand in03;
-output wand in04;
-output wand in05;
-output wand in06;
-output wand in07;
-output wand in08;
-output wand in09;
-output wand in10;
-output wand in11;
+input wand in00;
+// synthesis attribute PULLUP of in00 is "yes";
+input wand in01;
+// synthesis attribute PULLUP of in01 is "yes";
+input wand in02;
+// synthesis attribute PULLUP of in02 is "yes";
+input wand in03;
+// synthesis attribute PULLUP of in03 is "yes";
+input wand in04;
+// synthesis attribute PULLUP of in04 is "yes";
+input wand in05;
+// synthesis attribute PULLUP of in05 is "yes";
+input wand in06;
+// synthesis attribute PULLUP of in06 is "yes";
+input wand in07;
+// synthesis attribute PULLUP of in07 is "yes";
+input wand in08;
+// synthesis attribute PULLUP of in08 is "yes";
+input wand in09;
+// synthesis attribute PULLUP of in09 is "yes";
+input wand in10;
+// synthesis attribute PULLUP of in10 is "yes";
+input wand in11;
+// synthesis attribute PULLUP of in11 is "yes";
 wire in_stop_2_;
 input index_markers;
-reg inhibit;
-wire inhibit_;
 wire initialize;
-wand initialize_;
+wand initialize_ = 1'b1;
+// synthesis attribute PULLUP of initialize_ is "yes";
 wire input_bus00;
 wire input_bus01;
 wire input_bus02;
@@ -424,10 +540,8 @@ wire input_bus11;
 wire int_delay;
 reg int_delay__;
 wire int_enable;
-output int_enable_;
-reg int_enable_;
-wire int_inhibit;
-wire int_inhibit_;
+output reg int_enable_;
+reg int_inhibit_;
 wire int_ok;
 wire int_ok_;
 wire int_rqst;
@@ -436,26 +550,41 @@ wire int_strobe;
 wire int_strobe_;
 wire int_sync;
 reg int_sync__;
-wand io_bus_in00_;
-wand io_bus_in01_;
-wand io_bus_in02_;
-wand io_bus_in03_;
-wand io_bus_in04_;
-wand io_bus_in05_;
-wand io_bus_in06_;
-wand io_bus_in07_;
-wand io_bus_in08_;
-wand io_bus_in09_;
-wand io_bus_in10_;
-wand io_bus_in11_;
-wand io_bus_in_int_;
-wand io_bus_in_skip_;
-wand io_enable;
+wand io_bus_in00_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in00_ is "yes";
+wand io_bus_in01_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in01_ is "yes";
+wand io_bus_in02_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in02_ is "yes";
+wand io_bus_in03_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in03_ is "yes";
+wand io_bus_in04_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in04_ is "yes";
+wand io_bus_in05_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in05_ is "yes";
+wand io_bus_in06_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in06_ is "yes";
+wand io_bus_in07_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in07_ is "yes";
+wand io_bus_in08_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in08_ is "yes";
+wand io_bus_in09_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in09_ is "yes";
+wand io_bus_in10_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in10_ is "yes";
+wand io_bus_in11_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in11_ is "yes";
+wand io_bus_in_int_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in_int_ is "yes";
+wand io_bus_in_skip_ = 1'b1;
+// synthesis attribute PULLUP of io_bus_in_skip_ is "yes";
+wand io_enable = 1'b1;
+// synthesis attribute PULLUP of io_enable is "yes";
 wire io_end;
 wire io_end_;
 reg io_on;
 wire io_pc_enable_;
-wire io_pc_load;
+input io_pc_load;
 wire io_skip;
 wire io_start_;
 wire io_strobe;
@@ -475,7 +604,7 @@ wire iop4_set_;
 wire iot;
 wire iot632;
 wire iot634;
-output wand iot_;
+output iot_;
 wire iot_opr_;
 wire ipc_enable;
 wire ir0;
@@ -484,13 +613,14 @@ reg ir1;
 wire ir1_;
 reg ir2;
 wire ir2_;
-output wand irq;
+input wand irq;
+// synthesis attribute PULLUP of irq is "yes";
 wire isz;
-output wand isz_;
+output isz_;
 wire jmp;
-output wand jmp_;
+output jmp_;
 wire jms;
-output wand jms_;
+output jms_;
 wire kcc_;
 wire key_cont;
 input key_cont_;
@@ -515,94 +645,114 @@ input key_stop_;
 wire keyboard_flag_;
 wire l_enable;
 wire lbar_enable;
-wand left_shift;
+wand left_shift = 1'b1;
+// synthesis attribute PULLUP of left_shift is "yes";
 wire left_shift_;
 wire lh_to_hs;
 wire lhs;
-output wand lhs_;
+input wand lhs_;
+// synthesis attribute PULLUP of lhs_ is "yes";
 input light_pen;
 wire line_;
 wire line_hold_;
-output wand line_in;
+input wand line_in;
+// synthesis attribute PULLUP of line_in is "yes";
 reg link;
-output wand link_;
+output link_;
 wire load_bf;
 wire load_counter;
 wire load_ib;
-wand load_sf_;
+wand load_sf_ = 1'b1;
+// synthesis attribute PULLUP of load_sf_ is "yes";
 wire low_ac0;
 // wire m30v;
 // wire m36v;
-// wire m6v;
 reg ma00;
-output wand ma00_;
+output ma00_;
 reg ma01;
-output wand ma01_;
+output ma01_;
 reg ma02;
-output wand ma02_;
+output ma02_;
 reg ma03;
-output wand ma03_;
+output ma03_;
 reg ma04;
-output wand ma04_;
+output ma04_;
 reg ma05;
-output wand ma05_;
+output ma05_;
 reg ma06;
-output wand ma06_;
+output ma06_;
 reg ma07;
-output wand ma07_;
+output ma07_;
 reg ma08;
-output wand ma08_;
+output ma08_;
 reg ma09;
-output wand ma09_;
+output ma09_;
 reg ma10;
-output wand ma10_;
+output ma10_;
 reg ma11;
-output wand ma11_;
-wand ma_enable0_4;
-wand ma_enable5_11;
-wand ma_load;
-wand manual_preset_;
+output ma11_;
+wand ma_enable0_4 = 1'b1;
+// synthesis attribute PULLUP of ma_enable0_4 is "yes";
+wand ma_enable5_11 = 1'b1;
+// synthesis attribute PULLUP of ma_enable5_11 is "yes";
+wand ma_load = 1'b1;
+// synthesis attribute PULLUP of ma_load is "yes";
+wand manual_preset_ = 1'b1;
+// synthesis attribute PULLUP of manual_preset_ is "yes";
 reg mb00;
-output wand mb00_;
+output mb00_;
 reg mb01;
-output wand mb01_;
+output mb01_;
 reg mb02;
-output wand mb02_;
+output mb02_;
 reg mb03;
-output wand mb03_;
+output mb03_;
 reg mb04;
-output wand mb04_;
+output mb04_;
 reg mb05;
-output wand mb05_;
+output mb05_;
 reg mb06;
-output wand mb06_;
+output mb06_;
 wire mb06xmb09;
 reg mb07;
-output wand mb07_;
+output mb07_;
 reg mb08;
-output wand mb08_;
+output mb08_;
 reg mb09;
-output wand mb09_;
+output mb09_;
 reg mb10;
-output wand mb10_;
+output mb10_;
 reg mb11;
-output wand mb11_;
-wand mb_load;
-output wand mb_parity_odd;
+output mb11_;
+wand mb_load = 1'b1;
+// synthesis attribute PULLUP of mb_load is "yes";
+output mb_parity_odd;
 wire mb_to_ib;
 wire mb_to_sc_enable;
 output wand mcbmb00_;
+// synthesis attribute PULLUP of mcbmb00_ is "yes";
 output wand mcbmb01_;
+// synthesis attribute PULLUP of mcbmb01_ is "yes";
 output wand mcbmb02_;
+// synthesis attribute PULLUP of mcbmb02_ is "yes";
 output wand mcbmb03_;
+// synthesis attribute PULLUP of mcbmb03_ is "yes";
 output wand mcbmb04_;
+// synthesis attribute PULLUP of mcbmb04_ is "yes";
 output wand mcbmb05_;
+// synthesis attribute PULLUP of mcbmb05_ is "yes";
 output wand mcbmb06_;
+// synthesis attribute PULLUP of mcbmb06_ is "yes";
 output wand mcbmb07_;
+// synthesis attribute PULLUP of mcbmb07_ is "yes";
 output wand mcbmb08_;
+// synthesis attribute PULLUP of mcbmb08_ is "yes";
 output wand mcbmb09_;
+// synthesis attribute PULLUP of mcbmb09_ is "yes";
 output wand mcbmb10_;
+// synthesis attribute PULLUP of mcbmb10_ is "yes";
 output wand mcbmb11_;
+// synthesis attribute PULLUP of mcbmb11_ is "yes";
 wire me05_;
 wire me06_;
 wire me07_;
@@ -622,25 +772,26 @@ input mem08;
 input mem09;
 input mem10;
 input mem11;
-wand mem_begin_;
 inout wand mem_done_;
-reg mem_enable;
-wand mem_enable0_4;
+// synthesis attribute PULLUP of mem_done_ is "yes";
+wand mem_enable0_4 = 1'b1;
+// synthesis attribute PULLUP of mem_enable0_4 is "yes";
 wire mem_enable0_4_;
-wand mem_enable5_8;
+wand mem_enable5_8 = 1'b1;
+// synthesis attribute PULLUP of mem_enable5_8 is "yes";
 wire mem_enable9_11;
-wire mem_enable_;
 wire mem_ext;
 wire mem_ext_;
 wire mem_ext_ac_load_enable_;
-wand mem_ext_io_enable_;
-wire mem_finish;
+wand mem_ext_io_enable_ = 1'b1;
+// synthesis attribute PULLUP of mem_ext_io_enable_ is "yes";
 reg mem_idle;
-output wand mem_incr;
+input wand mem_incr;
+// synthesis attribute PULLUP of mem_incr is "yes";
 wire mem_inh9_11_;
-output wand mem_p;
+input wand mem_p;
+// synthesis attribute PULLUP of mem_p is "yes";
 wire mem_parity_even_;
-wire mem_start;
 wire mem_to_lsr_;
 wire memory_increment;
 wire mftp0;
@@ -653,43 +804,46 @@ reg mfts2;
 wire mfts2_;
 wire mfts3;
 wire mid_ac0;
-wire mp_int;
-wire mp_int_;
+reg mp_int_;
 wire mp_skip_;
 reg mq00;
-output wand mq00_;
+output mq00_;
 reg mq01;
-output wand mq01_;
+output mq01_;
 reg mq02;
-output wand mq02_;
+output mq02_;
 reg mq03;
-output wand mq03_;
+output mq03_;
 reg mq04;
-output wand mq04_;
+output mq04_;
 reg mq05;
-output wand mq05_;
+output mq05_;
 reg mq06;
-output wand mq06_;
+output mq06_;
 reg mq07;
-output wand mq07_;
+output mq07_;
 reg mq08;
-output wand mq08_;
+output mq08_;
 reg mq09;
-output wand mq09_;
+output mq09_;
 reg mq10;
-output wand mq10_;
+output mq10_;
 reg mq11;
-output wand mq11_;
-wand mq_enable;
-wand mq_load;
+output mq11_;
+wand mq_enable = 1'b1;
+// synthesis attribute PULLUP of mq_enable is "yes";
+wand mq_load = 1'b1;
+// synthesis attribute PULLUP of mq_load is "yes";
 wire mq_low_ac0;
 wire muy;
 wire muy_;
 wire muy_dvi_;
 wire n0_to_int_enab_;
 wire n3_cycle;
-output wand n3cycle;
+input wand n3cycle;
+// synthesis attribute PULLUP of n3cycle is "yes";
 wire n__1;
+wire n__10;
 wire n__100;
 wire n__101;
 wire n__102;
@@ -740,169 +894,99 @@ wire n__18;
 wire n__19;
 wire n__2;
 wire n__20;
-wire n__200;
-wire n__201;
-wire n__202;
-wire n__203;
-wire n__204;
-wire n__205;
-wire n__206;
-wire n__207;
-wire n__208;
-wire n__209;
+wand n__200 = 1'b1;
+// synthesis attribute PULLUP of n__200 is "yes";
+wand n__201 = 1'b1;
+// synthesis attribute PULLUP of n__201 is "yes";
+wand n__202 = 1'b1;
+// synthesis attribute PULLUP of n__202 is "yes";
+wand n__203 = 1'b1;
+// synthesis attribute PULLUP of n__203 is "yes";
+wand n__204 = 1'b1;
+// synthesis attribute PULLUP of n__204 is "yes";
+wand n__205 = 1'b1;
+// synthesis attribute PULLUP of n__205 is "yes";
+wand n__206 = 1'b1;
+// synthesis attribute PULLUP of n__206 is "yes";
+wand n__207 = 1'b1;
+// synthesis attribute PULLUP of n__207 is "yes";
+wand n__208 = 1'b1;
+// synthesis attribute PULLUP of n__208 is "yes";
+wand n__209 = 1'b1;
+// synthesis attribute PULLUP of n__209 is "yes";
 wire n__21;
-wire n__210;
-wire n__211;
-wire n__212;
-wire n__213;
-wire n__214;
-wire n__215;
-wire n__216;
-wire n__217;
-wire n__218;
-wire n__219;
+wand n__210 = 1'b1;
+// synthesis attribute PULLUP of n__210 is "yes";
+wand n__211 = 1'b1;
+// synthesis attribute PULLUP of n__211 is "yes";
+wand n__212 = 1'b1;
+// synthesis attribute PULLUP of n__212 is "yes";
+wand n__213 = 1'b1;
+// synthesis attribute PULLUP of n__213 is "yes";
+wand n__214 = 1'b1;
+// synthesis attribute PULLUP of n__214 is "yes";
+wand n__215 = 1'b1;
+// synthesis attribute PULLUP of n__215 is "yes";
+wand n__216 = 1'b1;
+// synthesis attribute PULLUP of n__216 is "yes";
+wand n__217 = 1'b1;
+// synthesis attribute PULLUP of n__217 is "yes";
+wand n__218 = 1'b1;
+// synthesis attribute PULLUP of n__218 is "yes";
+wand n__219 = 1'b1;
+// synthesis attribute PULLUP of n__219 is "yes";
 wire n__22;
-wire n__220;
-wire n__221;
-wire n__222;
-wire n__223;
+wand n__220 = 1'b1;
+// synthesis attribute PULLUP of n__220 is "yes";
+wand n__221 = 1'b1;
+// synthesis attribute PULLUP of n__221 is "yes";
+wand n__222 = 1'b1;
+// synthesis attribute PULLUP of n__222 is "yes";
+wand n__223 = 1'b1;
+// synthesis attribute PULLUP of n__223 is "yes";
 wire n__23;
 wire n__24;
-wire n__243;
-wire n__245;
-wire n__246;
+wand n__243 = 1'b1;
+// synthesis attribute PULLUP of n__243 is "yes";
+wand n__245 = 1'b1;
+// synthesis attribute PULLUP of n__245 is "yes";
+wand n__246 = 1'b1;
+// synthesis attribute PULLUP of n__246 is "yes";
 wire n__25;
-wire n__250;
-wire n__253;
-wire n__254;
-wire n__259;
-wire n__260;
-wire n__261;
+wand n__250 = 1'b1;
+// synthesis attribute PULLUP of n__250 is "yes";
+wand n__253 = 1'b1;
+// synthesis attribute PULLUP of n__253 is "yes";
+wand n__254 = 1'b1;
+// synthesis attribute PULLUP of n__254 is "yes";
+wand n__259 = 1'b1;
+// synthesis attribute PULLUP of n__259 is "yes";
+wire n__26;
+wand n__260 = 1'b1;
+// synthesis attribute PULLUP of n__260 is "yes";
+wand n__261 = 1'b1;
+// synthesis attribute PULLUP of n__261 is "yes";
 wire n__262;
 wire n__263;
 wire n__264;
 wire n__265;
 wire n__266;
-// wire n__267;
-// wire n__268;
-wire n__269;
+wire n__27;
 wire n__270;
-wire n__271;
-wire n__272;
-wire n__273;
-wire n__274;
-wire n__275;
-wire n__277;
-wire n__281;
-wire n__282;
-wire n__283;
-wire n__284;
-wire n__285;
-wire n__286;
-wire n__287;
-wire n__288;
-wire n__289;
 wire n__29;
-wire n__290;
-wire n__291;
-wire n__292;
-wire n__293;
-wire n__294;
-wire n__295;
-wire n__296;
-wire n__297;
-wire n__298;
 wire n__3;
 wire n__30;
 wire n__31;
 wire n__32;
-// wire n__325;
-// wire n__326;
-// wire n__327;
-// wire n__328;
-// wire n__329;
 wire n__33;
-// wire n__330;
-// wire n__331;
-// wire n__332;
-// wire n__333;
-// wire n__334;
-// wire n__335;
-// wire n__336;
-// wire n__337;
-// wire n__338;
-// wire n__339;
 wire n__34;
-// wire n__340;
-// wire n__341;
-// wire n__342;
-// wire n__343;
-// wire n__344;
-// wire n__345;
-// wire n__346;
-// wire n__347;
-// wire n__348;
-// wire n__349;
 wire n__35;
-// wire n__350;
-// wire n__351;
-// wire n__352;
-// wire n__353;
-// wire n__354;
-// wire n__355;
-// wire n__356;
-// wire n__357;
-// wire n__358;
-// wire n__359;
 wire n__36;
-// wire n__360;
-// wire n__361;
-// wire n__362;
-// wire n__363;
-// wire n__364;
-// wire n__365;
-// wire n__366;
-// wire n__367;
-// wire n__368;
-// wire n__369;
 wire n__37;
-// wire n__370;
-// wire n__371;
-// wire n__372;
-// wire n__373;
-// wire n__374;
-// wire n__375;
-// wire n__376;
-// wire n__377;
-// wire n__378;
-// wire n__379;
 wire n__38;
-// wire n__380;
-// wire n__381;
-// wire n__382;
-// wire n__383;
-// wire n__384;
-// wire n__385;
-// wire n__386;
-// wire n__387;
-// wire n__388;
-// wire n__389;
 wire n__39;
-// wire n__390;
-// wire n__391;
-// wire n__392;
-// wire n__393;
-// wire n__394;
-// wire n__395;
-// wire n__396;
-// wire n__397;
-// wire n__398;
-// wire n__399;
 wire n__4;
 wire n__40;
-// wire n__400;
-// wire n__401;
-// wire n__402;
 wire n__403;
 wire n__404;
 wire n__405;
@@ -954,7 +1038,8 @@ wire n__446;
 wire n__447;
 wire n__45;
 wire n__451;
-wand n__452;
+wand n__452 = 1'b1;
+// synthesis attribute PULLUP of n__452 is "yes";
 wire n__453;
 wire n__454;
 wire n__455;
@@ -997,40 +1082,13 @@ wire n__490;
 wire n__491;
 wire n__492;
 wire n__493;
-wire n__494;
 wire n__497;
 wire n__5;
 wire n__50;
-// wire n__504;
-// wire n__505;
 wire n__51;
 wire n__52;
-// wire n__522;
-// wire n__523;
-// wire n__524;
-// wire n__525;
-// wire n__526;
-// wire n__527;
-// wire n__528;
-// wire n__529;
 wire n__53;
-// wire n__530;
-// wire n__531;
-// wire n__532;
-// wire n__533;
-// wire n__534;
-// wire n__535;
-// wire n__536;
-// wire n__537;
-// wire n__538;
-// wire n__539;
 wire n__54;
-// wire n__540;
-// wire n__541;
-// wire n__542;
-// wire n__543;
-// wire n__546;
-// wire n__547;
 wire n__548;
 wire n__549;
 wire n__55;
@@ -1174,7 +1232,8 @@ wire n__673;
 wire n__674;
 wire n__675;
 wire n__676;
-wand n__677;
+wand n__677 = 1'b1;
+// synthesis attribute PULLUP of n__677 is "yes";
 wire n__678;
 wire n__679;
 wire n__68;
@@ -1202,7 +1261,6 @@ wire n__699;
 wire n__7;
 wire n__70;
 wire n__700;
-wire n__701;
 wire n__702;
 wire n__703;
 wire n__704;
@@ -1254,7 +1312,6 @@ wire n__747;
 wire n__748;
 wire n__749;
 wire n__75;
-wire n__750;
 wire n__76;
 wire n__77;
 wire n__78;
@@ -1281,62 +1338,68 @@ wire n__96;
 wire n__97;
 wire n__98;
 wire n__99;
-wire nc;
+wand nc = 1'b1;
+// synthesis attribute PULLUP of nc is "yes";
 wire nmi;
 wire nmi_;
-wand no_shift;
+wand no_shift = 1'b1;
+// synthesis attribute PULLUP of no_shift is "yes";
 wire norm;
 wire norm_;
 wire op1;
 wire op1_;
 wire op2;
 wire opr;
-output wand opr_;
+output opr_;
 wire osr_;
 wire out_stop2_;
 wire overflow;
 reg pause;
-output wand pause_;
+output pause_;
 reg pc00;
-output wand pc00_;
+output pc00_;
 reg pc01;
-output wand pc01_;
+output pc01_;
 reg pc02;
-output wand pc02_;
+output pc02_;
 reg pc03;
-output wand pc03_;
+output pc03_;
 reg pc04;
-output wand pc04_;
+output pc04_;
 reg pc05;
-output wand pc05_;
+output pc05_;
 reg pc06;
-output wand pc06_;
+output pc06_;
 reg pc07;
-output wand pc07_;
+output pc07_;
 reg pc08;
-output wand pc08_;
+output pc08_;
 reg pc09;
-output wand pc09_;
+output pc09_;
 reg pc10;
-output wand pc10_;
+output pc10_;
 reg pc11;
-output wand pc11_;
-wand pc_enable;
+output pc11_;
+wand pc_enable = 1'b1;
+// synthesis attribute PULLUP of pc_enable is "yes";
 wire pc_enable_;
 wire pc_increment;
-wand pc_load;
+wand pc_load = 1'b1;
+// synthesis attribute PULLUP of pc_load is "yes";
 wire pc_load_;
 wire pc_loadxsr_enable_;
-output wand pen_down;
-output wand pen_left;
-output wand pen_right;
+output pen_down;
+output pen_left;
+output pen_right;
 wire pen_strobe;
-output wand pen_up;
-output wand power_clear_;
-output wand power_ok_;
+output pen_up;
+input wand power_clear_;
+// synthesis attribute PULLUP of power_clear_ is "yes";
+input wand power_ok_;
+// synthesis attribute PULLUP of power_ok_ is "yes";
 wire processor_iot_;
 input pun_feed_switch_;
-output wand pwr;
+output pwr;
 reg pwr_low_;
 wire pwr_skip_;
 wire r0;
@@ -1354,15 +1417,27 @@ input rdr_feed_switch;
 wire rdr_run_;
 wire rdr_shift;
 wire rdr_shift_;
-reg read;
-output wand reader_run_;
+output reader_run_;
+wire regbus00;
+wire regbus01;
+wire regbus02;
+wire regbus03;
+wire regbus04;
+wire regbus05;
+wire regbus06;
+wire regbus07;
+wire regbus08;
+wire regbus09;
+wire regbus10;
+wire regbus11;
 wire restart;
 wire restart_;
 wire rib;
-wand right_shift;
+wand right_shift = 1'b1;
+// synthesis attribute PULLUP of right_shift is "yes";
 wire rmf_;
 reg run;
-output wand run_;
+output run_;
 input rx_data;
 wire s;
 reg s_;
@@ -1370,21 +1445,24 @@ input s_feed_hole;
 wire s_set_;
 reg s_uf;
 reg sc0;
-output wand sc0_;
+output sc0_;
 wire sc0_3_0;
-wand sc0_3_0_;
+wand sc0_3_0_ = 1'b1;
+// synthesis attribute PULLUP of sc0_3_0_ is "yes";
 reg sc1;
-output wand sc1_;
+output sc1_;
 reg sc2;
-output wand sc2_;
+output sc2_;
 reg sc3;
-output wand sc3_;
+output sc3_;
 reg sc4;
-output wand sc4_;
+output sc4_;
 wire sc_0_;
-wand sc_enable;
+wand sc_enable = 1'b1;
+// synthesis attribute PULLUP of sc_enable is "yes";
 wire sc_full;
-wand sc_load;
+wand sc_load = 1'b1;
+// synthesis attribute PULLUP of sc_load is "yes";
 wire scl_;
 reg sf0;
 reg sf1;
@@ -1393,11 +1471,13 @@ reg sf3;
 reg sf4;
 reg sf5;
 wire sf_enable;
-wire shut_down_;
+wand shut_down_ = 1'b1;
+// synthesis attribute PULLUP of shut_down_ is "yes";
 wire sint;
 reg skip_;
 wire skip_or;
-output wand skipb;
+input wand skipb;
+// synthesis attribute PULLUP of skipb is "yes";
 wire slow_cycle;
 wire slow_cycle_;
 wire special_cycle_;
@@ -1413,16 +1493,17 @@ input sr08;
 input sr09;
 input sr10;
 input sr11;
-wand sr_enable;
+wand sr_enable = 1'b1;
+// synthesis attribute PULLUP of sr_enable is "yes";
 wire stop_complete;
-wire stop_ok;
+wand stop_ok = 1'b1;
+// synthesis attribute PULLUP of stop_ok is "yes";
 wire store_;
 inout wand strobe_;
-wire strobe_field0;
-wire strobe_field1;
+// synthesis attribute PULLUP of strobe_ is "yes";
 input sync_pun;
 wire tad;
-output wand tad_;
+output tad_;
 wire teleprinter_flag_;
 wire tp1;
 wire tp2;
@@ -1472,7 +1553,7 @@ wire tti_data;
 wire tti_skip_;
 wire tto_clock_;
 wire tto_skip_;
-output wand tx_data;
+output tx_data;
 reg ub;
 reg uf;
 wire uf_;
@@ -1484,13 +1565,12 @@ reg wc_overflow_;
 wire wc_set;
 wire wc_set_;
 reg word_count;
-output wand word_count_;
-reg write;
-output wand x_axis;
-output wand x_strobe;
-output wand y_axis;
-output wand y_strobe;
-output wand z_axis;
+output word_count_;
+output x_axis;
+output x_strobe;
+output y_axis;
+output y_strobe;
+output z_axis;
 input zone01_index;
 input zone02_index;
 input zone03_index;
@@ -1506,7 +1586,6 @@ input zone12_index;
 
 
 // Sheet 1
-assign io_pc_load = 1'b1; // f32u1 pull-up
 
 // Sheet 2
 assign initialize_ = ~(initialize);
@@ -1535,7 +1614,6 @@ assign key_stexdp = ~(key_st_ & restart_ & key_exdp_);
 assign int_strobe = ~(n__25 & eae_end & io_end_);
 assign n__13 = ~(mfts0 & mfts1_ & mfts2_);
 assign n__20 = ~(mftp2 & key_la_);
-assign mem_start = ~(n__20 & n__19);
 assign n__21 = ~(mftp2 & key_cont);
 assign n__24 = ~(tp2);
 assign io_start_ = ~(tp3 & slow_cycle);
@@ -1550,109 +1628,108 @@ DelayLine #(150) dl_n__22(dclk, e09f1, n__22);
 DelayLine #(450) dl_n__748(dclk, e09f1, n__748);
 assign tp2 = n__22;
 assign tp3 = n__748;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge strobe_, negedge manual_preset_) begin
+  if (~manual_preset_)
+    ts1 <= 1'b1;
+  else
   if (~strobe_)
     ts1 <= 1'b0;
-  else if (~manual_preset_)
-    ts1 <= 1'b1;
-  else if (tp4)
+  else
     ts1 <= 1'b1;
 end
 assign ts1_ = ~ts1;
-// synthesis attribute CLOCK_SIGNAL of 1'b0 is "yes";
 always @(posedge 1'b0, negedge strobe_, negedge mem_done_) begin
   if (~strobe_)
     mem_idle <= 1'b0;
-  else if (~mem_done_)
+  else
+  if (~mem_done_)
     mem_idle <= 1'b1;
-  else if (1'b0)
+  else
     mem_idle <= 1'b0;
 end
-// synthesis attribute CLOCK_SIGNAL of n__18 is "yes";
 always @(posedge n__18, negedge strobe_, negedge n__16) begin
   if (~strobe_)
     pause <= 1'b0;
-  else if (~n__16)
+  else
+  if (~n__16)
     pause <= 1'b1;
-  else if (n__18)
+  else
     pause <= 1'b0;
 end
 assign pause_ = ~pause;
-// synthesis attribute CLOCK_SIGNAL of tp3 is "yes";
 always @(posedge tp3, negedge b_power_clear_) begin
   if (~b_power_clear_)
     run <= 1'b0;
-  else if (tp3)
+  else
     run <= n__11;
 end
 assign run_ = ~run;
-// synthesis attribute CLOCK_SIGNAL of tp2 is "yes";
 always @(posedge tp2, negedge manual_preset_, negedge strobe_) begin
   if (~manual_preset_)
     ts2 <= 1'b0;
-  else if (~strobe_)
+  else
+  if (~strobe_)
     ts2 <= 1'b1;
-  else if (tp2)
+  else
     ts2 <= 1'b0;
 end
-// synthesis attribute CLOCK_SIGNAL of tp3 is "yes";
 always @(posedge tp3, negedge manual_preset_, negedge n__24) begin
   if (~manual_preset_)
     ts3 <= 1'b0;
-  else if (~n__24)
+  else
+  if (~n__24)
     ts3 <= 1'b1;
-  else if (tp3)
+  else
     ts3 <= 1'b0;
 end
 assign ts3_ = ~ts3;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_, negedge int_strobe_) begin
   if (~manual_preset_)
     ts4 <= 1'b0;
-  else if (~int_strobe_)
+  else
+  if (~int_strobe_)
     ts4 <= 1'b1;
-  else if (tp4)
+  else
     ts4 <= 1'b0;
 end
 assign ts4_ = ~ts4;
-// synthesis attribute CLOCK_SIGNAL of iop1_clr is "yes";
 always @(posedge iop1_clr, negedge initialize_, negedge iop1_set_) begin
   if (~initialize_)
     iop1 <= 1'b0;
-  else if (~iop1_set_)
+  else
+  if (~iop1_set_)
     iop1 <= 1'b1;
-  else if (iop1_clr)
+  else
     iop1 <= 1'b0;
 end
 assign iop1_ = ~iop1;
-// synthesis attribute CLOCK_SIGNAL of iop2_clr is "yes";
 always @(posedge iop2_clr, negedge initialize_, negedge iop2_set_) begin
   if (~initialize_)
     iop2 <= 1'b0;
-  else if (~iop2_set_)
+  else
+  if (~iop2_set_)
     iop2 <= 1'b1;
-  else if (iop2_clr)
+  else
     iop2 <= 1'b0;
 end
 assign iop2_ = ~iop2;
-// synthesis attribute CLOCK_SIGNAL of iop4_clr is "yes";
 always @(posedge iop4_clr, negedge initialize_, negedge iop4_set_) begin
   if (~initialize_)
     iop4 <= 1'b0;
-  else if (~iop4_set_)
+  else
+  if (~iop4_set_)
     iop4 <= 1'b1;
-  else if (iop4_clr)
+  else
     iop4 <= 1'b0;
 end
 assign iop4_ = ~iop4;
-// synthesis attribute CLOCK_SIGNAL of io_end is "yes";
 always @(posedge io_end, negedge manual_preset_, negedge io_start_) begin
   if (~manual_preset_)
     io_on <= 1'b0;
-  else if (~io_start_)
+  else
+  if (~io_start_)
     io_on <= 1'b1;
-  else if (io_end)
+  else
     io_on <= 1'b0;
 end
 // TODO: n__7 should be suitably filtered.
@@ -1677,7 +1754,7 @@ always @(posedge mftp1, posedge mftp2, negedge b_power_clear_) begin
   else
     mfts2 = 1'b1;
 end
-assign strobe_ = 1'b1; // ef10be2 pull-up
+assign mfts2_ = ~mfts2;
 assign b_mem_start = ~(n__20 & n__19);
 assign btp2 = ~(n__24);
 DelayLine #(400) dl_n__47(dclk, n__46, n__47);
@@ -1730,35 +1807,31 @@ assign e09f1 = ~(n__5 & n__1);
 
 // Sheet 4
 assign iot = ~(iot_);
-// synthesis attribute CLOCK_SIGNAL of n__51 is "yes";
 always @(posedge n__51, negedge n__6) begin
   if (~n__6)
     ir0_ <= 1'b0;
-  else if (n__51)
+  else
     ir0_ <= n__50;
 end
 assign ir0 = ~ir0_;
-// synthesis attribute CLOCK_SIGNAL of n__51 is "yes";
 always @(posedge n__51, negedge n__6) begin
   if (~n__6)
     ir1 <= 1'b0;
-  else if (n__51)
+  else
     ir1 <= mem01;
 end
 assign ir1_ = ~ir1;
-// synthesis attribute CLOCK_SIGNAL of n__51 is "yes";
 always @(posedge n__51, negedge n__6) begin
   if (~n__6)
     ir2 <= 1'b0;
-  else if (n__51)
+  else
     ir2 <= mem02;
 end
 assign ir2_ = ~ir2;
-// synthesis attribute CLOCK_SIGNAL of tp1 is "yes";
 always @(posedge tp1, negedge manual_preset_) begin
   if (~manual_preset_)
     brk_sync <= 1'b0;
-  else if (tp1)
+  else
     brk_sync <= brk_rqst;
 end
 assign tad_ = ~(ir0_ & ir1_ & ir2);
@@ -1778,53 +1851,48 @@ assign isz = ~(isz_);
 assign dca = ~(dca_);
 assign jmp = ~(jmp_);
 assign opr = ~(opr_);
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_, negedge n__52) begin
   if (~manual_preset_)
     fetch <= 1'b0;
-  else if (~n__52)
+  else
+  if (~n__52)
     fetch <= 1'b1;
-  else if (tp4)
+  else
     fetch <= f_set;
 end
 assign fetch_ = ~fetch;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_) begin
   if (~manual_preset_)
     defer <= 1'b0;
-  else if (tp4)
+  else
     defer <= d_set;
 end
 assign defer_ = ~defer;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_) begin
   if (~manual_preset_)
     execute <= 1'b0;
-  else if (tp4)
+  else
     execute <= e_set;
 end
 assign execute_ = ~execute;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_) begin
   if (~manual_preset_)
     word_count <= 1'b0;
-  else if (tp4)
+  else
     word_count <= wc_set;
 end
 assign word_count_ = ~word_count;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_) begin
   if (~manual_preset_)
     current_address <= 1'b0;
-  else if (tp4)
+  else
     current_address <= word_count;
 end
 assign current_address_ = ~current_address;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_) begin
   if (~manual_preset_)
     break <= 1'b0;
-  else if (tp4)
+  else
     break <= b_set;
 end
 assign break_ = ~break;
@@ -1934,13 +2002,13 @@ assign pc_increment = ~(fetch_ & eae_execute_ & tt_cycle_);
 assign carry_insert_ = ~(n__89);
 
 // Sheet 7
-// synthesis attribute CLOCK_SIGNAL of n__111 is "yes";
 always @(posedge n__111, negedge b_power_clear_, negedge pc_load_) begin
   if (~b_power_clear_)
     skip_ <= 1'b0;
-  else if (~pc_load_)
+  else
+  if (~pc_load_)
     skip_ <= 1'b1;
-  else if (n__111)
+  else
     skip_ <= n__108;
 end
 assign n__104 = ~(ac00 & mb05);
@@ -1957,7 +2025,7 @@ assign n__95 = (tp3 & n__93 & b_execute) | (mftp2 & key_st) | (io_strobe & iot) 
 assign n__108 = (ts2 & b_execute & carry_out0 & isz) | (io_enable & io_skip) | (n__106 & mb08_) | (n__107 & op2 & mb08 & mb11_);
 assign ma_load = ~(n__110 & n__109);
 assign mb_load = ~(n__112);
-assign pc_load = ~(n__750 & n__96 & n__97);
+assign pc_load = ~(n__10 & n__96 & n__97);
 assign ac_load = ~(eae_tp_ & n__95 & tt_ac_load_ & mem_ext_ac_load_enable_);
 assign n__101 = ~(n__103 & mid_ac0 & low_ac0 & mb06);
 assign n__99 = ~(ac04_ & ac05_ & ac06_ & ac07_);
@@ -1972,7 +2040,7 @@ assign n__93 = ~(and_ & tad_ & dca_);
 assign n__110 = ~(mftp1 & key_stexdp);
 assign n__112 = ~(tp2);
 assign n__109 = ~(tp4);
-assign n__750 = ~(io_pc_load);
+assign n__10 = ~(io_pc_load);
 
 // Sheet 8
 assign load_sf_ = ~(int_ok & ts4 & int_strobe_);
@@ -1981,39 +2049,33 @@ assign n__118 = ~(word_count_ & n__117);
 assign clear_ifdfbf_ = ~(n__135 & n__125 & mb10);
 assign int_ok_ = ~(int_sync & int_inhibit_ & int_delay);
 assign n0_to_int_enab_ = (tp1 & int_ok) | (mftp2 & key_st);
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge n__116) begin
   if (~n__116)
     add_accepted_ <= 1'b1;
-  else if (tp4)
+  else
     add_accepted_ <= break_ok_;
 end
-// synthesis attribute CLOCK_SIGNAL of tp2 is "yes";
 always @(posedge tp2) begin
-  if (tp2)
     wc_overflow_ <= n__119;
 end
-// synthesis attribute CLOCK_SIGNAL of int_strobe is "yes";
 always @(posedge int_strobe, negedge manual_preset_) begin
   if (~manual_preset_)
     int_sync__ <= 1'b1;
-  else if (int_strobe)
+  else
     int_sync__ <= n__23;
 end
 assign int_sync = ~int_sync__;
-// synthesis attribute CLOCK_SIGNAL of n__122 is "yes";
 always @(posedge n__122, negedge int_enable) begin
   if (~int_enable)
     int_delay__ <= 1'b1;
-  else if (n__122)
+  else
     int_delay__ <= int_enable_;
 end
 assign int_delay = ~int_delay__;
-// synthesis attribute CLOCK_SIGNAL of n__123 is "yes";
 always @(posedge n__123, negedge n0_to_int_enab_) begin
   if (~n0_to_int_enab_)
     int_enable_ <= 1'b1;
-  else if (n__123)
+  else
     int_enable_ <= mb11_;
 end
 assign int_enable = ~int_enable_;
@@ -2034,14 +2096,11 @@ assign processor_iot_ = ~(n__125 & n__135);
 assign n__134 = ~(mb05_ & mb06_ & mb07_ & mb08_);
 
 // Sheet 9
-// synthesis attribute CLOCK_SIGNAL of ac_load is "yes";
 always @(posedge ac_load) begin
-  if (ac_load)
     link <= n__128;
 end
 assign link_ = ~link;
 // Latch ALU results in the appropriate register.
-wire regbus00, regbus01;
 always @(posedge ma_load) begin
   ma00 <= regbus00; // MA
   ma01 <= regbus01;
@@ -2067,7 +2126,6 @@ end
 assign ac00_ = ~ac00;
 assign ac01_ = ~ac01;
 // Latch ALU results in the appropriate register.
-wire regbus02, regbus03;
 always @(posedge ma_load) begin
   ma02 <= regbus02; // MA
   ma03 <= regbus03;
@@ -2093,7 +2151,6 @@ end
 assign ac02_ = ~ac02;
 assign ac03_ = ~ac03;
 // Latch ALU results in the appropriate register.
-wire regbus04, regbus05;
 always @(posedge ma_load) begin
   ma04 <= regbus04; // MA
   ma05 <= regbus05;
@@ -2119,7 +2176,6 @@ end
 assign ac04_ = ~ac04;
 assign ac05_ = ~ac05;
 // Latch ALU results in the appropriate register.
-wire regbus06, regbus07;
 always @(posedge ma_load) begin
   ma06 <= regbus06; // MA
   ma07 <= regbus07;
@@ -2145,7 +2201,6 @@ end
 assign ac06_ = ~ac06;
 assign ac07_ = ~ac07;
 // Latch ALU results in the appropriate register.
-wire regbus08, regbus09;
 always @(posedge ma_load) begin
   ma08 <= regbus08; // MA
   ma09 <= regbus09;
@@ -2171,7 +2226,6 @@ end
 assign ac08_ = ~ac08;
 assign ac09_ = ~ac09;
 // Latch ALU results in the appropriate register.
-wire regbus10, regbus11;
 always @(posedge ma_load) begin
   ma10 <= regbus10; // MA
   ma11 <= regbus11;
@@ -2230,13 +2284,13 @@ assign regbus05 = ~(and_enable & mb05_ | double_right_rotate & adder03 | no_shif
 // This hair takes two operand bits and carry-in, adds them, and
 // generates two bits of result and a carry-out.  Note that the
 // inputs are complemented, and therefore, so are the outputs.
-assign {carry_out6_, adder06, adder07} = n__132 + { ~(mq_enable & mq06 | ac_enable & ac06 | acbar_enable & ac06_ | data_enable & data06 | sr_enable & sr06 | 1'b0 | io_enable & input_bus06), ~(mq_enable & mq07 | 1'b0 | ac_enable & ac07 | acbar_enable & ac07_ | data_enable & data07 | sr_enable & sr07 | 1'b0 | io_enable & input_bus07) } + { ~(mem_enable5_8 & mem06 | ma_enable5_11 & ma06 | pc_enable & pc06 | data_add_enable & data_add06), ~(mem_enable5_8 & mem07 | ma_enable5_11 & ma07 | pc_enable & pc07 | data_add_enable & data_add07) };
+assign {carry_out6_, adder06, adder07} = n__132 + { ~(mq_enable & mq06 | ac_enable & ac06 | acbar_enable & ac06_ | data_enable & data06 | sr_enable & sr06 | 1'b0 | io_enable & input_bus06), ~(mq_enable & mq07 | 1'b0 | ac_enable & ac07 | acbar_enable & ac07_ | data_enable & data07 | sr_enable & sr07 | sc_enable & sc0 | io_enable & input_bus07) } + { ~(mem_enable5_8 & mem06 | ma_enable5_11 & ma06 | pc_enable & pc06 | data_add_enable & data_add06), ~(mem_enable5_8 & mem07 | ma_enable5_11 & ma07 | pc_enable & pc07 | data_add_enable & data_add07) };
 assign regbus06 = ~(and_enable & mb06_ | double_right_rotate & adder04 | no_shift & adder06 | right_shift & adder05 | left_shift & adder07 | double_left_rotate & adder08 | ~tt_line_shift_ & adder05);
 assign regbus07 = ~(and_enable & mb07_ | double_right_rotate & adder05 | no_shift & adder07 | right_shift & adder06 | left_shift & adder08 | double_left_rotate & adder09 | ~tt_line_shift_ & adder07);
 // This hair takes two operand bits and carry-in, adds them, and
 // generates two bits of result and a carry-out.  Note that the
 // inputs are complemented, and therefore, so are the outputs.
-assign {n__132, adder08, adder09} = n__136 + { ~(mq_enable & mq08 | ac_enable & ac08 | acbar_enable & ac08_ | data_enable & data08 | sr_enable & sr08 | 1'b0 | io_enable & input_bus08), ~(mq_enable & mq09 | 1'b0 | ac_enable & ac09 | acbar_enable & ac09_ | data_enable & data09 | sr_enable & sr09 | 1'b0 | io_enable & input_bus09) } + { ~(mem_enable5_8 & mem08 | ma_enable5_11 & ma08 | pc_enable & pc08 | data_add_enable & data_add08), ~(mem_enable9_11 & mem09 | ma_enable5_11 & ma09 | pc_enable & pc09 | data_add_enable & data_add09) };
+assign {n__132, adder08, adder09} = n__136 + { ~(mq_enable & mq08 | ac_enable & ac08 | acbar_enable & ac08_ | data_enable & data08 | sr_enable & sr08 | sc_enable & sc1 | io_enable & input_bus08), ~(mq_enable & mq09 | 1'b0 | ac_enable & ac09 | acbar_enable & ac09_ | data_enable & data09 | sr_enable & sr09 | sc_enable & sc2 | io_enable & input_bus09) } + { ~(mem_enable5_8 & mem08 | ma_enable5_11 & ma08 | pc_enable & pc08 | data_add_enable & data_add08), ~(mem_enable9_11 & mem09 | ma_enable5_11 & ma09 | pc_enable & pc09 | data_add_enable & data_add09) };
 assign regbus08 = ~(and_enable & mb08_ | double_right_rotate & adder06 | no_shift & adder08 | right_shift & adder07 | left_shift & adder09 | double_left_rotate & adder10 | ~tt_line_shift_ & adder08);
 assign regbus09 = ~(and_enable & mb09_ | double_right_rotate & adder07 | no_shift & adder09 | right_shift & adder08 | left_shift & adder10 | double_left_rotate & adder09 | ~tt_line_shift_ & adder09);
 
@@ -2246,237 +2300,100 @@ assign e25d1 = ~(n__140 & eae_mq0bar_enable_ & eae_mq0_enable_);
 // This hair takes two operand bits and carry-in, adds them, and
 // generates two bits of result and a carry-out.  Note that the
 // inputs are complemented, and therefore, so are the outputs.
-assign {n__136, adder10, adder11} = carry_insert_ + { ~(mq_enable & mq10 | ac_enable & ac10 | acbar_enable & ac10_ | data_enable & data10 | sr_enable & sr10 | 1'b0 | io_enable & input_bus10), ~(mq_enable & mq11 | tt_carry_insert_s | ac_enable & ac11 | acbar_enable & ac11_ | data_enable & data11 | sr_enable & sr11 | 1'b0 | io_enable & input_bus11) } + { ~(mem_enable9_11 & mem10 | ma_enable5_11 & ma10 | pc_enable & pc10 | data_add_enable & data_add10), ~(mem_enable9_11 & mem11 | ma_enable5_11 & ma11 | pc_enable & pc11 | data_add_enable & data_add11) };
+assign {n__136, adder10, adder11} = carry_insert_ + { ~(mq_enable & mq10 | ac_enable & ac10 | acbar_enable & ac10_ | data_enable & data10 | sr_enable & sr10 | sc_enable & sc3 | io_enable & input_bus10), ~(mq_enable & mq11 | tt_carry_insert_s | ac_enable & ac11 | acbar_enable & ac11_ | data_enable & data11 | sr_enable & sr11 | sc_enable & sc4 | io_enable & input_bus11) } + { ~(mem_enable9_11 & mem10 | ma_enable5_11 & ma10 | pc_enable & pc10 | data_add_enable & data_add10), ~(mem_enable9_11 & mem11 | ma_enable5_11 & ma11 | pc_enable & pc11 | data_add_enable & data_add11) };
 assign regbus10 = ~(and_enable & mb10_ | double_right_rotate & adder08 | no_shift & adder10 | right_shift & adder09 | left_shift & adder11 | double_left_rotate & e25d1 | ~tt_line_shift_ & adder10);
 assign regbus11 = ~(and_enable & mb11_ | double_right_rotate & adder09 | no_shift & adder11 | right_shift & adder10 | left_shift & e25d1 | double_left_rotate & adder00 | ~tt_line_shift_ & adder11);
 
 // Sheet 14
 assign bac00 = ac00;
-assign bac00 = 1'b1; // h07d2 pull-up
 assign bac01 = ac01;
-assign bac01 = 1'b1; // h07k2 pull-up
 assign bac02 = ac02;
-assign bac02 = 1'b1; // h07s2 pull-up
 assign bac03 = ac03;
-assign bac03 = 1'b1; // h08d2 pull-up
 assign bac04 = ac04;
-assign bac04 = 1'b1; // h08k2 pull-up
 assign bac05 = ac05;
-assign bac05 = 1'b1; // h08s2 pull-up
 assign bac06 = ac06;
-assign bac06 = 1'b1; // h09d2 pull-up
 assign bac07 = ac07;
-assign bac07 = 1'b1; // h09k2 pull-up
 assign bac08 = ac08;
-assign bac08 = 1'b1; // h09s2 pull-up
 assign bac09 = ac09;
-assign bac09 = 1'b1; // h10d2 pull-up
 assign bac10 = ac10;
-assign bac10 = 1'b1; // h10k2 pull-up
 assign bac11 = ac11;
-assign bac11 = 1'b1; // h10s2 pull-up
 assign biop1_ = iop1_;
-assign biop1_ = 1'b1; // h11d2 pull-up
 assign biop2_ = iop2_;
-assign biop2_ = 1'b1; // h11k2 pull-up
 assign biop4_ = iop4_;
-assign biop4_ = 1'b1; // h11s2 pull-up
 assign bts3 = ts3_;
-assign bts3 = 1'b1; // h12d2 pull-up
 assign bts1 = ts1_;
-assign bts1 = 1'b1; // h12k2 pull-up
 assign binitialize_ = initialize_;
-assign binitialize_ = 1'b1; // h12s2 pull-up
 assign bmb00 = mb00;
-assign bmb00 = 1'b1; // h13d2 pull-up
 assign bmb01 = mb01;
-assign bmb01 = 1'b1; // h13k2 pull-up
 assign bmb02 = mb02;
-assign bmb02 = 1'b1; // h13s2 pull-up
 assign bmb03_ = mb03_;
-assign bmb03_ = 1'b1; // h14d2 pull-up
 assign bmb03 = mb03;
-assign bmb03 = 1'b1; // h14k2 pull-up
 assign bmb04_ = mb04_;
-assign bmb04_ = 1'b1; // h14s2 pull-up
 assign bmb04 = mb04;
-assign bmb04 = 1'b1; // h15d2 pull-up
 assign bmb05_ = mb05_;
-assign bmb05_ = 1'b1; // h15k2 pull-up
 assign bmb05 = mb05;
-assign bmb05 = 1'b1; // h15s2 pull-up
 assign bmb06_ = mb06_;
-assign bmb06_ = 1'b1; // h16d2 pull-up
 assign bmb06 = mb06;
-assign bmb06 = 1'b1; // h16k2 pull-up
 assign bmb07_ = mb07_;
-assign bmb07_ = 1'b1; // h16s2 pull-up
 assign bmb07 = mb07;
-assign bmb07 = 1'b1; // h17d2 pull-up
 assign bmb08_ = mb08_;
-assign bmb08_ = 1'b1; // h17k2 pull-up
 assign bmb08 = mb08;
-assign bmb08 = 1'b1; // h17s2 pull-up
 assign bmb09 = mb09;
-assign bmb09 = 1'b1; // h18d2 pull-up
 assign bmb10 = mb10;
-assign bmb10 = 1'b1; // h18k2 pull-up
 assign bmb11 = mb11;
-assign bmb11 = 1'b1; // h18s2 pull-up
 assign brun_ = run_;
-assign brun_ = 1'b1; // h19d2 pull-up
 assign btt_inst_ = tt_inst_;
-assign btt_inst_ = 1'b1; // h19k2 pull-up
 assign bwc_overflow = wc_overflow_;
-assign bwc_overflow = 1'b1; // h19s2 pull-up
 assign bbreak = break_;
-assign bbreak = 1'b1; // h20d2 pull-up
 assign badd_accepted_ = add_accepted_ & ts1_;
-assign badd_accepted_ = 1'b1; // h20k2 pull-up
 assign input_bus00 = ~(in00 & io_bus_in00_);
 assign input_bus02 = ~(in02 & io_bus_in02_);
 assign input_bus04 = ~(in04 & io_bus_in04_ & tt0_);
 assign input_bus01 = ~(in01 & io_bus_in01_);
 assign input_bus03 = ~(in03 & io_bus_in03_);
 assign input_bus05 = ~(in05 & io_bus_in05_ & tt1_ & me05_);
-assign in00 = 1'b1; // j13a1 pull-up
-assign io_bus_in00_ = 1'b1; // j13b1 pull-up
-assign in02 = 1'b1; // j13f1 pull-up
-assign io_bus_in02_ = 1'b1; // j13h1 pull-up
-assign in04 = 1'b1; // j13m1 pull-up
-assign io_bus_in04_ = 1'b1; // j13n1 pull-up
-assign in01 = 1'b1; // j13d2 pull-up
-assign io_bus_in01_ = 1'b1; // j13e2 pull-up
-assign in03 = 1'b1; // j13k2 pull-up
-assign io_bus_in03_ = 1'b1; // j13l2 pull-up
-assign in05 = 1'b1; // j13r2 pull-up
-assign io_bus_in05_ = 1'b1; // j13s2 pull-up
 assign input_bus06 = ~(in06 & io_bus_in06_ & tt2_ & me06_);
 assign input_bus08 = ~(in08 & io_bus_in08_ & tt4_ & me08_);
 assign input_bus10 = ~(in10 & io_bus_in10_ & tt6_ & me10_);
 assign input_bus07 = ~(in07 & io_bus_in07_ & tt3_ & me07_);
 assign input_bus09 = ~(in09 & io_bus_in09_ & tt5_ & me09_);
 assign input_bus11 = ~(in11 & io_bus_in11_ & tt7_ & me11_);
-assign in06 = 1'b1; // j14a1 pull-up
-assign io_bus_in06_ = 1'b1; // j14b1 pull-up
-assign in08 = 1'b1; // j14f1 pull-up
-assign io_bus_in08_ = 1'b1; // j14h1 pull-up
-assign in10 = 1'b1; // j14m1 pull-up
-assign io_bus_in10_ = 1'b1; // j14n1 pull-up
-assign in07 = 1'b1; // j14d2 pull-up
-assign io_bus_in07_ = 1'b1; // j14e2 pull-up
-assign in09 = 1'b1; // j14k2 pull-up
-assign io_bus_in09_ = 1'b1; // j14l2 pull-up
-assign in11 = 1'b1; // j14r2 pull-up
-assign io_bus_in11_ = 1'b1; // j14s2 pull-up
 assign io_skip = ~(skipb & io_bus_in_skip_ & tt_skip_ & mp_skip_);
 assign ac_clear = ~(acclr & nc & tt_ac_clr_ & clock_ac_clr_);
 assign brk_rqst = ~(brq & n__246 & n__246 & n__246);
 assign int_rqst = ~(irq & io_bus_in_int_ & tt_int_ & mp_int_);
 assign line_ = ~(line_in & n__243 & n__243 & n__243);
 assign data_in_ = ~(d_in_ & n__245 & n__245 & n__245);
-assign skipb = 1'b1; // j15a1 pull-up
-assign io_bus_in_skip_ = 1'b1; // j15b1 pull-up
-assign acclr = 1'b1; // j15f1 pull-up
-assign nc = 1'b1; // j15h1 pull-up
-assign brq = 1'b1; // j15m1 pull-up
-assign n__246 = 1'b1; // j15n1 pull-up
-assign irq = 1'b1; // j15d2 pull-up
-assign io_bus_in_int_ = 1'b1; // j15e2 pull-up
-assign line_in = 1'b1; // j15k2 pull-up
-assign n__243 = 1'b1; // j15l2 pull-up
-assign d_in_ = 1'b1; // j15r2 pull-up
-assign n__245 = 1'b1; // j15s2 pull-up
 assign data_add00 = ~(da00 & n__202 & n__202 & n__202);
 assign data_add02 = ~(da02 & n__203 & n__203 & n__203);
 assign data_add04 = ~(da04 & n__201 & n__201 & n__201);
 assign data_add01 = ~(da01 & n__200 & n__200 & n__200);
 assign data_add03 = ~(da03 & n__204 & n__204 & n__204);
 assign data_add05 = ~(da05 & n__205 & n__205 & n__205);
-assign da00 = 1'b1; // j16a1 pull-up
-assign n__202 = 1'b1; // j16b1 pull-up
-assign da02 = 1'b1; // j16f1 pull-up
-assign n__203 = 1'b1; // j16h1 pull-up
-assign da04 = 1'b1; // j16m1 pull-up
-assign n__201 = 1'b1; // j16n1 pull-up
-assign da01 = 1'b1; // j16d2 pull-up
-assign n__200 = 1'b1; // j16e2 pull-up
-assign da03 = 1'b1; // j16k2 pull-up
-assign n__204 = 1'b1; // j16l2 pull-up
-assign da05 = 1'b1; // j16r2 pull-up
-assign n__205 = 1'b1; // j16s2 pull-up
 assign data_add06 = ~(da06 & n__207 & n__207 & n__207);
 assign data_add08 = ~(da08 & n__209 & n__209 & n__209);
 assign data_add10 = ~(da10 & n__206 & n__206 & n__206);
 assign data_add07 = ~(da07 & n__208 & n__208 & n__208);
 assign data_add09 = ~(da09 & n__210 & n__210 & n__210);
 assign data_add11 = ~(da11 & n__211 & n__211 & n__211);
-assign da06 = 1'b1; // j17a1 pull-up
-assign n__207 = 1'b1; // j17b1 pull-up
-assign da08 = 1'b1; // j17f1 pull-up
-assign n__209 = 1'b1; // j17h1 pull-up
-assign da10 = 1'b1; // j17m1 pull-up
-assign n__206 = 1'b1; // j17n1 pull-up
-assign da07 = 1'b1; // j17d2 pull-up
-assign n__208 = 1'b1; // j17e2 pull-up
-assign da09 = 1'b1; // j17k2 pull-up
-assign n__210 = 1'b1; // j17l2 pull-up
-assign da11 = 1'b1; // j17r2 pull-up
-assign n__211 = 1'b1; // j17s2 pull-up
 assign data00 = ~(d00 & n__223 & n__223 & n__223);
 assign data02 = ~(d02 & n__221 & n__221 & n__221);
 assign data04 = ~(d04 & n__219 & n__219 & n__219);
 assign data01 = ~(d01 & n__222 & n__222 & n__222);
 assign data03 = ~(d03 & n__220 & n__220 & n__220);
 assign data05 = ~(d05 & n__218 & n__218 & n__218);
-assign d00 = 1'b1; // j18a1 pull-up
-assign n__223 = 1'b1; // j18b1 pull-up
-assign d02 = 1'b1; // j18f1 pull-up
-assign n__221 = 1'b1; // j18h1 pull-up
-assign d04 = 1'b1; // j18m1 pull-up
-assign n__219 = 1'b1; // j18n1 pull-up
-assign d01 = 1'b1; // j18d2 pull-up
-assign n__222 = 1'b1; // j18e2 pull-up
-assign d03 = 1'b1; // j18k2 pull-up
-assign n__220 = 1'b1; // j18l2 pull-up
-assign d05 = 1'b1; // j18r2 pull-up
-assign n__218 = 1'b1; // j18s2 pull-up
 assign data06 = ~(d06 & n__217 & n__217 & n__217);
 assign data08 = ~(d08 & n__215 & n__215 & n__215);
 assign data10 = ~(d10 & n__213 & n__213 & n__213);
 assign data07 = ~(d07 & n__216 & n__216 & n__216);
 assign data09 = ~(d09 & n__214 & n__214 & n__214);
 assign data11 = ~(d11 & n__212 & n__212 & n__212);
-assign d06 = 1'b1; // j19a1 pull-up
-assign n__217 = 1'b1; // j19b1 pull-up
-assign d08 = 1'b1; // j19f1 pull-up
-assign n__215 = 1'b1; // j19h1 pull-up
-assign d10 = 1'b1; // j19m1 pull-up
-assign n__213 = 1'b1; // j19n1 pull-up
-assign d07 = 1'b1; // j19d2 pull-up
-assign n__216 = 1'b1; // j19e2 pull-up
-assign d09 = 1'b1; // j19k2 pull-up
-assign n__214 = 1'b1; // j19l2 pull-up
-assign d11 = 1'b1; // j19r2 pull-up
-assign n__212 = 1'b1; // j19s2 pull-up
 assign memory_increment = ~(mem_incr & n__250 & n__250 & n__250);
 assign ca_increment_ = ~(ca_incr_ & n__254 & n__254 & n__254);
 assign ext_data_add1 = ~(eda1 & n__259 & n__259 & n__259);
 assign n3_cycle = ~(n3cycle & n__253 & n__253 & n__253);
 assign ext_data_add0 = ~(eda0 & n__260 & n__260 & n__260);
 assign ext_data_add2 = ~(eda2 & n__261 & n__261 & n__261);
-assign mem_incr = 1'b1; // j20a1 pull-up
-assign n__250 = 1'b1; // j20b1 pull-up
-assign ca_incr_ = 1'b1; // j20f1 pull-up
-assign n__254 = 1'b1; // j20h1 pull-up
-assign eda1 = 1'b1; // j20m1 pull-up
-assign n__259 = 1'b1; // j20n1 pull-up
-assign n3cycle = 1'b1; // j20d2 pull-up
-assign n__253 = 1'b1; // j20e2 pull-up
-assign eda0 = 1'b1; // j20k2 pull-up
-assign n__260 = 1'b1; // j20l2 pull-up
-assign eda2 = 1'b1; // j20r2 pull-up
-assign n__261 = 1'b1; // j20s2 pull-up
 
 // Sheet 15
 TTYReceiver ef01m706(.ad2(mb03_), .ae1(mb04_), .ae2(kcc_), .af1(mb05_), .af2(keyboard_flag_), .ah1(mb06_), .ah2(mb07), .aj1(mb08), .aj2(tti2), .ak1(tti2), .ak2(tt0_), .al1(tt3_), .al2(iop4), .am1(tt4_), .am2(tti_data), .an1(tti_clock), .an2(tt7_), .ap2(tt5_), .ar1(tti_data), .ar2(tt1_), .as2(tt2_), .at2(tt6_), .au2(reader_run_), .av2(kcc_), .bd1(1'b0), .bd2(iop1), .be2(tt_ac_clr_), .bf2(initialize), .bh2(tti_skip_), .bj2(iop2), .bm2(rx_data), .br1(1'b1), .br2(in_stop_2_), .bt2(clock_scale_2), .bu1(clock_scale_2), .bv2(in_stop_2_));
@@ -2492,156 +2409,12 @@ assign n__265 = ~(pwr_low_ & uint_ & keyboard_flag_ & teleprinter_flag_);
 assign n__266 = ~(tti_skip_ & tto_skip_ & pwr_skip_);
 
 // Sheet 17
-DelayLine #(100) dl_n__277(dclk, n__274, n__277);
-DelayLine #(200) dl_n__281(dclk, n__274, n__281);
-assign n__282 = n__277;
-assign n__283 = n__281;
-DelayLine #(300) dl_n__284(dclk, n__283, n__284);
-assign n__285 = n__284;
-DelayLine #(150) dl_n__293(dclk, n__292, n__293);
-DelayLine #(200) dl_n__275(dclk, n__292, n__275);
-assign n__297 = n__293;
-assign n__294 = n__275;
-DelayLine #(400) dl_n__295(dclk, n__294, n__295);
-assign mem_finish = n__295;
-// a38: G624 Resistor Board
-// not implemented (core memory)
-// a39: G624 Resistor Board
-// not implemented (core memory)
-// ab01: G805 Negative Regulator
-// not implemented (power supply)
 // ab02: G826 Regulator Control
 // not implemented (power supply)
-assign shut_down_ = 1'b1; // ab02af2 pull-up
-assign stop_ok = 1'b1; // ab02ah2 pull-up
-assign power_ok_ = 1'b1; // ab02aj2 pull-up
-assign power_clear_ = 1'b1; // ab02as2 pull-up
-assign n__274 = ~(n__273);
-assign n__273 = ~(n__272 & mem_start);
-assign n__298 = ~(n__294);
-assign n__271 = ~(ea0_ & ea1_);
-assign n__296 = ~(n__297);
-assign n__272 = ~(n__271);
 assign n__270 = ~(power_clear_ & power_clear_);
-// synthesis attribute CLOCK_SIGNAL of mem_start is "yes";
-always @(posedge mem_start, negedge b_power_clear_) begin
-  if (~b_power_clear_)
-    mem_enable <= 1'b0;
-  else if (mem_start)
-    mem_enable <= n__272;
-end
-assign mem_enable_ = ~mem_enable;
-// synthesis attribute CLOCK_SIGNAL of n__274 is "yes";
-always @(posedge n__274, negedge b_power_clear_) begin
-  if (~b_power_clear_)
-    field <= 1'b0;
-  else if (n__274)
-    field <= ea2;
-end
-assign field_ = ~field;
-// synthesis attribute CLOCK_SIGNAL of n__285 is "yes";
-always @(posedge n__285, negedge b_power_clear_, negedge mem_begin_) begin
-  if (~b_power_clear_)
-    read <= 1'b0;
-  else if (~mem_begin_)
-    read <= 1'b1;
-  else if (n__285)
-    read <= 1'b0;
-end
-// synthesis attribute CLOCK_SIGNAL of mem_finish is "yes";
-always @(posedge mem_finish, negedge b_power_clear_, negedge n__296) begin
-  if (~b_power_clear_)
-    inhibit <= 1'b0;
-  else if (~n__296)
-    inhibit <= 1'b1;
-  else if (mem_finish)
-    inhibit <= 1'b0;
-end
-assign inhibit_ = ~inhibit;
-// synthesis attribute CLOCK_SIGNAL of mem_finish is "yes";
-always @(posedge mem_finish, negedge b_power_clear_, negedge n__298) begin
-  if (~b_power_clear_)
-    write <= 1'b0;
-  else if (~n__298)
-    write <= 1'b1;
-  else if (mem_finish)
-    write <= 1'b0;
-end
-Monostable #(100) m360s_strobe_field0(dclk, n__283 & field_, strobe_field0);
-assign strobe_ = ~strobe_field0;
-Monostable #(100) m360s_strobe_field1(dclk, n__283 & field, strobe_field1);
-assign strobe_ = ~strobe_field1;
-assign b_mem_enable = ~(mem_enable_);
-assign bb_field_ = ~(field);
-assign mem_begin_ = ~(n__282);
-assign b_field = ~(field_);
-assign b_inhibit = ~(inhibit_);
-assign b_field_ = ~(field);
-// b38: G624 Resistor Board
-// not implemented (core memory)
-// b39: G624 Resistor Board
-// not implemented (core memory)
-assign bb_field = ~(field_);
 assign b_power_clear_ = ~(n__270 & n__270 & n__270 & n__270);
-// c39: G228 Inhibit Driver
-// not implemented (core memory)
-assign n__287 = ~(s & n__285);
-assign n__290 = ~(n__291);
-assign n__288 = ~(n__287);
-DelayLine #(300) dl_n__289(dclk, n__288, n__289);
-assign n__291 = n__289;
-// d39: G228 Inhibit Driver
-// not implemented (core memory)
-assign n__292 = ~(n__290 & n__286);
-assign n__286 = ~(s_ & n__285);
 
 // Sheet 18
-// a30: G021 Core Sense Amplifier
-// not implemented (core memory)
-// a31: G021 Core Sense Amplifier
-// not implemented (core memory)
-// a32: G021 Core Sense Amplifier
-// not implemented (core memory)
-// a33: G021 Core Sense Amplifier
-// not implemented (core memory)
-// a36: G228 Inhibit Driver
-// not implemented (core memory)
-// a37: G228 Inhibit Driver
-// not implemented (core memory)
-// b31: G021 Core Sense Amplifier
-// not implemented (core memory)
-// b32: G021 Core Sense Amplifier
-// not implemented (core memory)
-// b33: G021 Core Sense Amplifier
-// not implemented (core memory)
-// b36: G228 Inhibit Driver
-// not implemented (core memory)
-// b37: G228 Inhibit Driver
-// not implemented (core memory)
-
-// Sheet 19
-// c37: G221 Memory Selector
-// not implemented (core memory)
-// c38: G221 Memory Selector
-// not implemented (core memory)
-// cd34: G610 Diode Board
-// not implemented (core memory)
-// cd36: G611A Diode Board
-// not implemented (core memory)
-// d32: G221 Memory Selector
-// not implemented (core memory)
-// d33: G221 Memory Selector
-// not implemented (core memory)
-
-// Sheet 20
-// c32: G221 Memory Selector
-// not implemented (core memory)
-// c33: G221 Memory Selector
-// not implemented (core memory)
-// d37: G221 Memory Selector
-// not implemented (core memory)
-// d38: G221 Memory Selector
-// not implemented (core memory)
 
 // Sheet 21
 assign n__411 = ~(if_enable & if0);
@@ -2664,29 +2437,25 @@ assign load_bf = ~(n__407);
 assign n__264 = ~(n__53 & load_sf_);
 Monostable #(35000) b10e2(dclk, run & tp3, strobe___);
 assign strobe_ = strobe___;
-assign strobe_ = 1'b1;
 Monostable #(40000) b10d2(dclk, run & tp3, mem_done_);
-// synthesis attribute CLOCK_SIGNAL of n__412 is "yes";
 always @(posedge n__412, negedge manual_preset_) begin
   if (~manual_preset_)
     if_enable__ <= 1'b1;
-  else if (n__412)
+  else
     if_enable__ <= if_enable_;
 end
 assign if_enable = ~if_enable__;
-// synthesis attribute CLOCK_SIGNAL of n__412 is "yes";
 always @(posedge n__412, negedge manual_preset_) begin
   if (~manual_preset_)
     df_enable__ <= 1'b1;
-  else if (n__412)
+  else
     df_enable__ <= df_enable_;
 end
 assign df_enable = ~df_enable__;
-// synthesis attribute CLOCK_SIGNAL of n__412 is "yes";
 always @(posedge n__412, negedge manual_preset_) begin
   if (~manual_preset_)
     bf_enable__ <= 1'b1;
-  else if (n__412)
+  else
     bf_enable__ <= b_set_;
 end
 assign bf_enable = ~bf_enable__;
@@ -2716,52 +2485,32 @@ assign bma09 = ~(ma09_);
 assign bma11 = ~(ma11_);
 assign ea0 = ~(n__411 & n__410 & n__409);
 assign ea2 = ~(n__416 & n__417 & n__418);
-assign ea0_ = ~(ea0);
 assign ea1 = ~(n__413 & n__414 & n__415);
-assign ea1_ = ~(ea1);
-// synthesis attribute CLOCK_SIGNAL of load_bf is "yes";
 always @(posedge load_bf) begin
-  if (load_bf)
     bf0 <= ext_data_add0;
 end
-// synthesis attribute CLOCK_SIGNAL of load_bf is "yes";
 always @(posedge load_bf) begin
-  if (load_bf)
     bf1 <= ext_data_add1;
 end
-// synthesis attribute CLOCK_SIGNAL of load_bf is "yes";
 always @(posedge load_bf) begin
-  if (load_bf)
     bf2 <= ext_data_add2;
 end
-// synthesis attribute CLOCK_SIGNAL of if_to_sf is "yes";
 always @(posedge if_to_sf) begin
-  if (if_to_sf)
     sf0 <= if0;
 end
-// synthesis attribute CLOCK_SIGNAL of if_to_sf is "yes";
 always @(posedge if_to_sf) begin
-  if (if_to_sf)
     sf1 <= if1;
 end
-// synthesis attribute CLOCK_SIGNAL of n__264 is "yes";
 always @(posedge n__264) begin
-  if (n__264)
     sf2 <= if2;
 end
-// synthesis attribute CLOCK_SIGNAL of n__264 is "yes";
 always @(posedge n__264) begin
-  if (n__264)
     sf3 <= df0;
 end
-// synthesis attribute CLOCK_SIGNAL of n__264 is "yes";
 always @(posedge n__264) begin
-  if (n__264)
     sf4 <= df1;
 end
-// synthesis attribute CLOCK_SIGNAL of n__264 is "yes";
 always @(posedge n__264) begin
-  if (n__264)
     sf5 <= df2;
 end
 assign df_enable_ = ~(jmp_ & jms_ & defer);
@@ -2816,8 +2565,7 @@ assign n__454 = ~(mb09 & mem_ext);
 assign ext_inst = ~(n__454);
 assign rib = ~(n__456);
 assign mem_ext_ac_load_enable_ = ~(tp3 & n__458);
-assign n__494 = ~(ib_to_if);
-assign int_inhibit_ = ~(n__494 & int_inhibit);
+assign ib_to_if_ = ~(ib_to_if);
 assign pc_loadxsr_enable_ = ~(pc_load & n__425);
 assign n__424 = ~(mb10_ & rmf_);
 assign mb_to_ib = ~(n__423);
@@ -2855,73 +2603,70 @@ assign n__470 = ~(n__464 & n__463 & n__465);
 assign n__472 = ~(n__468 & n__461 & n__467);
 assign n__456 = ~(b_ext_inst & mb08 & mb07);
 assign n__458 = ~(n__455 & n__456 & n__457);
+always @(posedge n__27, negedge ib_to_if_) begin
+  if (~ib_to_if_)
+    int_inhibit_ <= 1'b1;
+  else
+    int_inhibit_ <= 1'b0;
+end
 assign n__452 = ~(b_fetch & mb03_ & mb04 & mb05_);
-// synthesis attribute CLOCK_SIGNAL of ib_to_if is "yes";
 always @(posedge ib_to_if, negedge clear_if_) begin
   if (~clear_if_)
     if0 <= 1'b0;
-  else if (ib_to_if)
+  else
     if0 <= n__444;
 end
 assign if0_ = ~if0;
-// synthesis attribute CLOCK_SIGNAL of ib_to_if is "yes";
 always @(posedge ib_to_if, negedge clear_if_) begin
   if (~clear_if_)
     if1 <= 1'b0;
-  else if (ib_to_if)
+  else
     if1 <= n__443;
 end
 assign if1_ = ~if1;
-// synthesis attribute CLOCK_SIGNAL of ib_to_if is "yes";
 always @(posedge ib_to_if, negedge clear_if_) begin
   if (~clear_if_)
     if2 <= 1'b0;
-  else if (ib_to_if)
+  else
     if2 <= n__442;
 end
 assign if2_ = ~if2;
-// synthesis attribute CLOCK_SIGNAL of load_ib is "yes";
 always @(posedge load_ib, negedge clear_ib_) begin
   if (~clear_ib_)
     ib0 <= 1'b0;
-  else if (load_ib)
+  else
     ib0 <= n__438;
 end
-// synthesis attribute CLOCK_SIGNAL of load_ib is "yes";
 always @(posedge load_ib, negedge clear_ib_) begin
   if (~clear_ib_)
     ib1 <= 1'b0;
-  else if (load_ib)
+  else
     ib1 <= n__437;
 end
-// synthesis attribute CLOCK_SIGNAL of load_ib is "yes";
 always @(posedge load_ib, negedge clear_ib_) begin
   if (~clear_ib_)
     ib2 <= 1'b0;
-  else if (load_ib)
+  else
     ib2 <= n__436;
 end
-// synthesis attribute CLOCK_SIGNAL of n__489 is "yes";
 always @(posedge n__489, negedge clear_df_) begin
   if (~clear_df_)
     df0 <= 1'b0;
-  else if (n__489)
+  else
     df0 <= n__483;
 end
 assign df0_ = ~df0;
-// synthesis attribute CLOCK_SIGNAL of n__489 is "yes";
 always @(posedge n__489, negedge clear_df_) begin
   if (~clear_df_)
     df1 <= 1'b0;
-  else if (n__489)
+  else
     df1 <= n__484;
 end
 assign df1_ = ~df1;
-// synthesis attribute CLOCK_SIGNAL of n__489 is "yes";
 always @(posedge n__489, negedge clear_df_) begin
   if (~clear_df_)
     df2 <= 1'b0;
-  else if (n__489)
+  else
     df2 <= n__485;
 end
 assign df2_ = ~df2;
@@ -2933,45 +2678,7 @@ assign n__483 = ~(n__482 & n__481 & n__480);
 assign n__485 = ~(n__479 & n__474 & n__475);
 assign mem_ext_io_enable_ = ~(n__458 & ts3 & iot & iot);
 assign n__451 = ~(b_fetch & mb03_ & mb04 & mb05_ & mb06_ & mb09 & iot);
-assign int_inhibit = ~(int_inhibit_ & n__497 & cuf_ & cuf_);
-
-// Sheet 23
-// a25: G624 Resistor Board
-// not implemented (core memory)
-// a26: G624 Resistor Board
-// not implemented (core memory)
-// a27: G228 Inhibit Driver
-// not implemented (core memory)
-// b25: G624 Resistor Board
-// not implemented (core memory)
-// b26: G228 Inhibit Driver
-// not implemented (core memory)
-// b27: G228 Inhibit Driver
-// not implemented (core memory)
-
-// Sheet 24
-// c30: G221 Memory Selector
-// not implemented (core memory)
-// c31: G221 Memory Selector
-// not implemented (core memory)
-// cd27: G610 Diode Board
-// not implemented (core memory)
-// cd29: G611A Diode Board
-// not implemented (core memory)
-// d25: G221 Memory Selector
-// not implemented (core memory)
-// d26: G221 Memory Selector
-// not implemented (core memory)
-
-// Sheet 25
-// c25: G221 Memory Selector
-// not implemented (core memory)
-// c26: G221 Memory Selector
-// not implemented (core memory)
-// d30: G221 Memory Selector
-// not implemented (core memory)
-// d31: G221 Memory Selector
-// not implemented (core memory)
+assign n__27 = ~(n__497 & n__497 & cuf_ & cuf_);
 
 // Sheet 26
 assign n__550 = ~(mb10_ & mb09_);
@@ -2991,43 +2698,39 @@ assign n__566 = ~(n__563 & n__563 & n__565);
 assign n__548 = ~(mb11_ & op2);
 assign n__567 = ~(uint & tp3 & sint);
 assign skip_or = ~(usf_ & skip_);
-// synthesis attribute CLOCK_SIGNAL of n__558 is "yes";
 always @(posedge n__558, negedge clear_if_) begin
   if (~clear_if_)
     ub <= 1'b0;
-  else if (n__558)
+  else
     ub <= n__556;
 end
-// synthesis attribute CLOCK_SIGNAL of ib_to_if is "yes";
 always @(posedge ib_to_if, negedge clear_if_) begin
   if (~clear_if_)
     uf <= 1'b0;
-  else if (ib_to_if)
+  else
     uf <= n__560;
 end
 assign uf_ = ~uf;
-// synthesis attribute CLOCK_SIGNAL of tp3 is "yes";
 always @(posedge tp3, negedge initialize_) begin
   if (~initialize_)
     uint <= 1'b0;
-  else if (tp3)
+  else
     uint <= n__564;
 end
 assign n__565 = ~uint;
-// synthesis attribute CLOCK_SIGNAL of if_to_sf is "yes";
 always @(posedge if_to_sf, negedge initialize_) begin
   if (~initialize_)
     s_uf <= 1'b0;
-  else if (if_to_sf)
+  else
     s_uf <= uf;
 end
-// synthesis attribute CLOCK_SIGNAL of n__569 is "yes";
 always @(posedge n__569, negedge initialize_, negedge n__567) begin
   if (~initialize_)
     usf <= 1'b0;
-  else if (~n__567)
+  else
+  if (~n__567)
     usf <= 1'b1;
-  else if (n__569)
+  else
     usf <= 1'b0;
 end
 assign usf_ = ~usf;
@@ -3048,11 +2751,10 @@ DelayLine #(350) dl_n__596(dclk, n__607, n__596);
 assign n__608 = n__596;
 assign eae_tp = n__597;
 assign norm_ = ~(norm);
-// synthesis attribute CLOCK_SIGNAL of eae_tp is "yes";
 always @(posedge eae_tp, negedge eae_run) begin
   if (~eae_run)
     eae_end <= 1'b1;
-  else if (eae_tp)
+  else
     eae_end <= eae_complete_;
 end
 assign div_last_ = ~(div_last & dvi);
@@ -3142,55 +2844,51 @@ assign sc_enable = ~(n__598);
 assign sc_load = ~(eae_tg & n__599 & n__595);
 assign eae_complete_ = (muy & sc1 & sc3 & sc4) | (div_last & dvi) | (1'b0) | (sc_full & sc0) | (nmi & n__570);
 assign n__585 = (n__589 & mq11) | (mq10 & mq11_);
-// synthesis attribute CLOCK_SIGNAL of n__600 is "yes";
 always @(posedge n__600, negedge eae_ir_clear_) begin
   if (~eae_ir_clear_)
     eae_ir0 <= 1'b0;
-  else if (n__600)
+  else
     eae_ir0 <= mb08;
 end
 assign eae_ir0_ = ~eae_ir0;
-// synthesis attribute CLOCK_SIGNAL of n__600 is "yes";
 always @(posedge n__600, negedge eae_ir_clear_) begin
   if (~eae_ir_clear_)
     eae_ir1 <= 1'b0;
-  else if (n__600)
+  else
     eae_ir1 <= mb09;
 end
 assign eae_ir1_ = ~eae_ir1;
-// synthesis attribute CLOCK_SIGNAL of n__600 is "yes";
 always @(posedge n__600, negedge eae_ir_clear_) begin
   if (~eae_ir_clear_)
     eae_ir2 <= 1'b0;
-  else if (n__600)
+  else
     eae_ir2 <= mb10;
 end
 assign eae_ir2_ = ~eae_ir2;
-// synthesis attribute CLOCK_SIGNAL of n__607 is "yes";
 always @(posedge n__607, negedge b_power_clear_) begin
   if (~b_power_clear_)
     eae_on <= 1'b0;
-  else if (n__607)
+  else
     eae_on <= n__609;
 end
 assign eae_on_ = ~eae_on;
-// synthesis attribute CLOCK_SIGNAL of n__608 is "yes";
 always @(posedge n__608, negedge b_power_clear_, negedge eae_start_) begin
   if (~b_power_clear_)
     eae_run <= 1'b0;
-  else if (~eae_start_)
+  else
+  if (~eae_start_)
     eae_run <= 1'b1;
-  else if (n__608)
+  else
     eae_run <= eae_on;
 end
 assign eae_run_ = ~eae_run;
-// synthesis attribute CLOCK_SIGNAL of n__605 is "yes";
 always @(posedge n__605, negedge b_power_clear_, negedge n__604) begin
   if (~b_power_clear_)
     eae_tg <= 1'b0;
-  else if (~n__604)
+  else
+  if (~n__604)
     eae_tg <= 1'b1;
-  else if (n__605)
+  else
     eae_tg <= n__603;
 end
 
@@ -3268,105 +2966,71 @@ assign n__658 = ~(eae_on & n__677 & sc0);
 assign n__671 = ~(eae_on & n__678 & sc1);
 assign n__672 = ~(eae_on & n__680 & sc2);
 assign n__673 = ~(eae_on & sc3 & sc4_);
-// synthesis attribute CLOCK_SIGNAL of sc_load is "yes";
 always @(posedge sc_load) begin
-  if (sc_load)
     sc0 <= n__661;
 end
 assign sc0_ = ~sc0;
-// synthesis attribute CLOCK_SIGNAL of sc_load is "yes";
 always @(posedge sc_load) begin
-  if (sc_load)
     sc1 <= n__664;
 end
 assign sc1_ = ~sc1;
-// synthesis attribute CLOCK_SIGNAL of sc_load is "yes";
 always @(posedge sc_load) begin
-  if (sc_load)
     sc2 <= n__665;
 end
 assign sc2_ = ~sc2;
-// synthesis attribute CLOCK_SIGNAL of sc_load is "yes";
 always @(posedge sc_load) begin
-  if (sc_load)
     sc3 <= n__666;
 end
 assign sc3_ = ~sc3;
-// synthesis attribute CLOCK_SIGNAL of sc_load is "yes";
 always @(posedge sc_load) begin
-  if (sc_load)
     sc4 <= n__667;
 end
 assign sc4_ = ~sc4;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq00 <= n__646;
 end
 assign mq00_ = ~mq00;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq01 <= n__647;
 end
 assign mq01_ = ~mq01;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq02 <= n__648;
 end
 assign mq02_ = ~mq02;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq03 <= n__649;
 end
 assign mq03_ = ~mq03;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq04 <= n__650;
 end
 assign mq04_ = ~mq04;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq05 <= n__651;
 end
 assign mq05_ = ~mq05;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq06 <= n__652;
 end
 assign mq06_ = ~mq06;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq07 <= n__653;
 end
 assign mq07_ = ~mq07;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq08 <= n__654;
 end
 assign mq08_ = ~mq08;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq09 <= n__655;
 end
 assign mq09_ = ~mq09;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq10 <= n__656;
 end
 assign mq10_ = ~mq10;
-// synthesis attribute CLOCK_SIGNAL of mq_load is "yes";
 always @(posedge mq_load) begin
-  if (mq_load)
     mq11 <= n__657;
 end
 assign mq11_ = ~mq11;
@@ -3380,11 +3044,8 @@ assign n__682 = (sc0_3_0 & sc4_) | (mq11 & adder_l_) | (adder_l & mq11_) | (dvi_
 
 // Sheet 29
 assign b_line_hold_ = line_hold_;
-assign b_line_hold_ = 1'b1; // c07d2 pull-up
 assign b_c_ = c_;
-assign b_c_ = 1'b1; // c07k2 pull-up
 assign bstlr = mem_done_ & s & ts1;
-assign bstlr = 1'b1; // c07s2 pull-up
 assign btp3 = ~(tp3);
 assign b_mem_to_lsr = ~(mem_to_lsr_);
 assign b_dc_inst = ~(dc_inst_);
@@ -3417,10 +3078,6 @@ assign tt_carry_insert_s_ = ~(ts3 & s & c_set_);
 assign n__743 = ~(mb06_ & mb07_ & mb08_);
 assign lhs = ~(lhs_ & lhs_ & lhs_ & lhs_);
 assign r0 = ~(b_r0_ & b_r0_ & b_r0_ & b_r0_);
-assign lhs_ = 1'b1; // d05a1 pull-up
-assign lhs_ = 1'b1; // d05b1 pull-up
-assign b_r0_ = 1'b1; // d05d2 pull-up
-assign b_r0_ = 1'b1; // d05e2 pull-up
 assign c_no_shift_ = ~(n__725 & hs);
 assign csr_enable_ = ~(n__725 & hs_);
 assign n__725 = ~(store_);
@@ -3437,25 +3094,21 @@ assign store_ = ~(r0_ & c & ts3 & mb11);
 assign c_set_ = ~(s & mb10 & mb11_);
 assign tt_inst_ = ~(iot & n__733 & n__744 & b_fetch);
 assign line_hold_ = ~(r0 & c & ts3 & mb11);
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_) begin
   if (~manual_preset_)
     s_ <= 1'b1;
-  else if (tp4)
+  else
     s_ <= s_set_;
 end
 assign s = ~s_;
-// synthesis attribute CLOCK_SIGNAL of tp4 is "yes";
 always @(posedge tp4, negedge manual_preset_) begin
   if (~manual_preset_)
     c_ <= 1'b1;
-  else if (tp4)
+  else
     c_ <= c_set_;
 end
 assign c = ~c_;
-// synthesis attribute CLOCK_SIGNAL of lh_to_hs is "yes";
 always @(posedge lh_to_hs) begin
-  if (lh_to_hs)
     hs <= lhs;
 end
 assign hs_ = ~hs;
@@ -3476,11 +3129,15 @@ assign mp_skip_ = ~(n__697 & iop1 & mp_int_);
 assign clr_parity_error_ = ~(n__700);
 assign n__695 = ~(n__693);
 assign n__698 = ~(n__695 & n__696);
-assign mp_int_ = ~(clr_parity_error_ & mp_int);
+assign n__26 = ~(mem_parity_even_);
 assign n__696 = ~(n__694);
 assign n__697 = ~(n__698);
-assign mp_int = ~(mp_int_ & n__701);
-assign n__701 = ~(tp3 & mem_parity_even_);
+always @(posedge tp3, negedge clr_parity_error_) begin
+  if (~clr_parity_error_)
+    mp_int_ <= 1'b1;
+  else
+    mp_int_ <= n__26;
+end
 
 // Sheet 31
 assign n__703 =  n__716 ^ n__713 ^ n__714 ^ n__715 ^ mem00 ^ mem01 ^ mem02 ^ mem03;
@@ -3501,7 +3158,6 @@ assign n__711 = ~(mem07);
 assign n__709 = ~(mem05);
 assign n__719 = ~(mem11);
 assign n__712 = ~(mem10);
-assign mem_p = 1'b1; // b08v1 pull-up
 assign n__717 = ~(mem09);
 assign n__718 = ~(mem08);
 assign n__720 = ~(mem_p);
