@@ -36,7 +36,7 @@ reg [0:2] tti02;
 reg [3:7] tti37;
 wire [0:7] tt_;
 reg reader_run;
-reg [0:2] clock_scale;
+reg [2:0] clock_scale;
 reg [1:2] in_stop;
 reg spike_detector;
 reg in_active;

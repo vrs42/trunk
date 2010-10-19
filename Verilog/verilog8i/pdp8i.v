@@ -31,6 +31,7 @@ module pdp8i(
 	d09, d10, d11, n3cycle, ca_incr_, bwc_overflow, eda2, eda1, eda0,
 	io_pc_load,
 	rx_data, tx_data, reader_run_,
+	clock,
 	dclk
 );
 input dclk;
@@ -267,8 +268,7 @@ wire clear_if_;
 wire clear_ifdfbf_;
 output clear_x_;
 output clear_y_;
-wand clock = 1'b1;
-// synthesis attribute PULLUP of clock is "yes";
+output clock;
 wire clock1;
 wand clock_ac_clr_ = 1'b1;
 // synthesis attribute PULLUP of clock_ac_clr_ is "yes";
