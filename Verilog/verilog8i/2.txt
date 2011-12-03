@@ -1,0 +1,193 @@
+// Sheet 2
+assign initialize_ = ~(initialize);
+assign biop2 = ~(iop2_);
+assign biop1 = ~(iop1_);
+assign biop4 = ~(iop4_);
+assign key_la = ~(key_la_);
+assign key_la = ~(key_la_);
+assign key_st = ~(key_st_ & restart_);
+assign key_exdp = ~(key_dp_ & key_ex_);
+assign key_sistop = ~(key_stop_ & key_si_);
+assign key_dp = ~(key_dp_);
+assign key_ss = ~(key_ss_);
+assign key_exdp_ = ~(key_exdp);
+assign key_cont = ~(key_cont_);
+assign n__16 = ~(n__15);
+assign n__16 = ~(n__15);
+assign n__15 = ~(io_start_ & eae_start_);
+assign io_end_ = ~(io_end);
+assign slow_cycle = ~(slow_cycle_);
+assign n__17 = ~(eae_end & io_end_);
+assign key_laexdp = ~(key_exdp_ & key_la_);
+assign n__11 = (mb10 & mb11_ & op2 & uf_) | (key_sistop & f_set) | (key_exdp & mfts0) | (stop_ok & power_ok_) | (key_ss);
+assign n__19 = ~(mem_idle & pause_ & run);
+assign n__25 = ~(tp3 & eae_set_ & slow_cycle_);
+assign n__46 = ~(iop4_set_ & iop2_set_ & iop1_set_);
+assign key_stexdp = ~(key_st_ & restart_ & key_exdp_);
+assign int_strobe = ~(n__25 & eae_end & io_end_);
+assign n__13 = ~(mfts0 & mfts1_ & mfts2_);
+assign n__20 = ~(mftp2 & key_la_);
+assign n__20 = ~(mftp2 & key_la_);
+assign mem_start = ~(n__20 & n__19);
+assign n__21 = ~(mftp2 & key_cont);
+assign n__24 = ~(tp2);
+assign io_start_ = ~(tp3 & slow_cycle);
+assign tp4 = ~(n__19 & n__21);
+assign tp1 = ~(strobe_);
+assign int_strobe_ = ~(int_strobe);
+assign n__29 = ~(io_start_);
+assign mfts3 = ~(n__13);
+DelayLine #(300) dl_n__14(dclk, n__17, n__14);
+assign n__18 = n__14;
+DelayLine #(150) dl_n__22(dclk, e09f1, n__22);
+DelayLine #(450) dl_n__748(dclk, e09f1, n__748);
+assign tp2 = n__22;
+assign tp3 = n__748;
+always @(posedge tp4, negedge strobe_, negedge manual_preset_) begin
+  if (~strobe_)
+    ts1 <= 1'b0;
+  else if (~manual_preset_)
+    ts1 <= 1'b1;
+  else if (tp4)
+    ts1 <= 1'b1;
+end
+assign ts1_ = ~ts1;
+always @(posedge 1'b0, negedge strobe_, negedge mem_done_) begin
+  if (~strobe_)
+    mem_idle <= 1'b0;
+  else if (~mem_done_)
+    mem_idle <= 1'b1;
+  else if (1'b0)
+    mem_idle <= 1'b0;
+end
+always @(posedge tp3, negedge b_power_clear_) begin
+  if (~b_power_clear_)
+    run <= 1'b0;
+  else if (tp3)
+    run <= n__11;
+end
+assign run_ = ~run;
+always @(posedge tp2, negedge manual_preset_, negedge strobe_) begin
+  if (~manual_preset_)
+    ts2 <= 1'b0;
+  else if (~strobe_)
+    ts2 <= 1'b1;
+  else if (tp2)
+    ts2 <= 1'b0;
+end
+always @(posedge tp3, negedge manual_preset_, negedge n__24) begin
+  if (~manual_preset_)
+    ts3 <= 1'b0;
+  else if (~n__24)
+    ts3 <= 1'b1;
+  else if (tp3)
+    ts3 <= 1'b0;
+end
+assign ts3_ = ~ts3;
+always @(posedge tp4, negedge manual_preset_, negedge int_strobe_) begin
+  if (~manual_preset_)
+    ts4 <= 1'b0;
+  else if (~int_strobe_)
+    ts4 <= 1'b1;
+  else if (tp4)
+    ts4 <= 1'b0;
+end
+assign ts4_ = ~ts4;
+always @(posedge iop1_clr, negedge initialize_, negedge iop1_set_) begin
+  if (~initialize_)
+    iop1 <= 1'b0;
+  else if (~iop1_set_)
+    iop1 <= 1'b1;
+  else if (iop1_clr)
+    iop1 <= 1'b0;
+end
+assign iop1_ = ~iop1;
+always @(posedge iop2_clr, negedge initialize_, negedge iop2_set_) begin
+  if (~initialize_)
+    iop2 <= 1'b0;
+  else if (~iop2_set_)
+    iop2 <= 1'b1;
+  else if (iop2_clr)
+    iop2 <= 1'b0;
+end
+assign iop2_ = ~iop2;
+always @(posedge iop4_clr, negedge initialize_, negedge iop4_set_) begin
+  if (~initialize_)
+    iop4 <= 1'b0;
+  else if (~iop4_set_)
+    iop4 <= 1'b1;
+  else if (iop4_clr)
+    iop4 <= 1'b0;
+end
+assign iop4_ = ~iop4;
+always @(posedge io_end, negedge manual_preset_, negedge io_start_) begin
+  if (~manual_preset_)
+    io_on <= 1'b0;
+  else if (~io_start_)
+    io_on <= 1'b1;
+  else if (io_end)
+    io_on <= 1'b0;
+end
+// TODO: n__7 should be suitably filtered.
+assign mftp0 = (restart_ & n__7) | ~run_;
+assign mfts0 = ~mftp0;
+always @(posedge mfts0, negedge b_power_clear_, negedge mfts2_) begin
+  if (~mfts2_)
+    mfts1 = 1'b0;
+  else if (~b_power_clear_)
+    mfts1 = 1'b0;
+  else
+    mfts1 = 1'b1;
+end
+assign mfts1_ = ~mfts1;
+DelayLine #(2000) m700ae2(dclk, mftp0, mftp1);
+DelayLine #(2000) m700bd2(dclk, mftp1, mftp2);
+always @(posedge mftp1, posedge mftp2, negedge mfts2_) begin
+  if (~mfts2_)
+    mfts2 = 1'b0;
+  else if (mftp2)
+    mfts2 = 1'b0;
+  else
+    mfts2 = 1'b1;
+end
+assign strobe_ = 1'b1;
+assign b_mem_start = ~(n__20 & n__19);
+assign btp2 = ~(n__24);
+DelayLine #(400) dl_n__47(dclk, n__46, n__47);
+assign io_strobe = n__47;
+DelayLine #(150) dl_n__30(dclk, n__29, n__30);
+DelayLine #(400) dl_n__31(dclk, n__29, n__31);
+assign n__32 = n__31;
+assign n__36 = n__30;
+DelayLine #(350) dl_n__33(dclk, n__32, n__33);
+DelayLine #(400) dl_n__34(dclk, n__32, n__34);
+assign n__35 = n__34;
+assign iop1_clr = n__33;
+DelayLine #(150) dl_n__37(dclk, n__35, n__37);
+DelayLine #(400) dl_n__38(dclk, n__35, n__38);
+assign f15f1 = n__38;
+assign n__39 = n__37;
+DelayLine #(350) dl_n__40(dclk, f15f1, n__40);
+DelayLine #(400) dl_n__41(dclk, f15f1, n__41);
+assign n__42 = n__41;
+assign iop2_clr = n__40;
+DelayLine #(150) dl_n__43(dclk, n__42, n__43);
+DelayLine #(400) dl_n__44(dclk, n__42, n__44);
+assign f17f1 = n__44;
+assign n__45 = n__43;
+DelayLine #(350) dl_n__48(dclk, f17f1, n__48);
+DelayLine #(400) dl_n__49(dclk, f17f1, n__49);
+assign io_end = n__49;
+assign iop4_clr = n__48;
+assign slow_cycle_ = ~(n__12 & mem_ext_ & tt_inst_ & processor_iot_);
+assign n__7 = ~(key_la_ & key_st_ & key_exdp_ & key_cont_);
+assign iop2_set_ = ~(n__39 & mb10);
+assign n__12 = ~(n__9);
+assign n__9 = ~(b_fetch & iot);
+assign iop1_set_ = ~(n__36 & mb11);
+assign iop4_set_ = ~(n__45 & mb09);
+assign initialize = ~(n__8 & b_power_clear_);
+assign n__8 = ~(mftp0 & key_st);
+assign key_laexdp_ = ~(key_laexdp & run_);
+assign manual_preset_ = ~(mftp0);
+

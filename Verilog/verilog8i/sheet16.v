@@ -1,0 +1,51 @@
+module sheet16(ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, enable, enable_, hz880, initialize, iop1, iop2, iop4, keyboard_flag_, mb03_, mb04_, mb05_, mb06, mb07_, mb08_, n__265, n__266, out_stop2_, pwr_low_, pwr_skip_, teleprinter_flag_, tt_int_, tt_skip_, tti_clock, tti_skip_, tto_clock_, tto_skip_, tx_data, uint_, dclk);
+input dclk;
+// synthesis attribute CLOCK_SIGNAL of dclk is "yes";
+input ac04;
+input ac05;
+input ac06;
+input ac07;
+input ac08;
+input ac09;
+input ac10;
+input ac11;
+inout enable;
+inout enable_;
+inout hz880;
+input initialize;
+input iop1;
+input iop2;
+input iop4;
+input keyboard_flag_;
+input mb03_;
+input mb04_;
+input mb05_;
+input mb06;
+input mb07_;
+input mb08_;
+inout n__265;
+inout n__266;
+inout out_stop2_;
+input pwr_low_;
+input pwr_skip_;
+inout teleprinter_flag_;
+output tt_int_;
+output tt_skip_;
+output tti_clock;
+input tti_skip_;
+inout tto_clock_;
+inout tto_skip_;
+output tx_data;
+input uint_;
+
+// Sheet 16
+assign tt_skip_ = ~(n__266);
+assign tt_int_ = ~(n__265);
+TTYTransmitter ef02m707(.ae1(mb04_), .ae2(mb03_), .af1(mb06), .af2(mb05_), .ah1(enable_), .ah2(mb07_), .aj2(mb08_), .ak1(enable), .ak2(enable), .al1(enable_), .al2(ac06), .am2(ac07), .an1(1'b1), .an2(1'b1), .ap2(ac04), .ar2(ac05), .as1(iop4), .as2(ac09), .at2(ac10), .au1(ac11), .au2(ac08), .av2(tx_data), .bd2(iop2), .be2(initialize), .bf2(1'b1), .bh2(iop1), .bj1(1'b1), .bj2(tto_skip_), .bk2(teleprinter_flag_), .bn1(out_stop2_), .bn2(out_stop2_), .bp2(tto_clock_), .bs2(1'b1));
+Oscillator #(880) m452_hz880(dclk, 1'b1, hz880);
+Oscillator #(220) m452_tto_clock_(dclk, 1'b1, tto_clock_);
+assign tti_clock = hz880;
+assign n__265 = ~(pwr_low_ & uint_ & keyboard_flag_ & teleprinter_flag_);
+assign n__266 = ~(tti_skip_ & tto_skip_ & pwr_skip_);
+
+endmodule

@@ -803,6 +803,7 @@ sub m310 {
       $signal = shift @_;
       next unless $signal;
       print "DelayLine #($d) dl_$signal(dclk, $h2, $signal);\n";
+      die "$signal must not be 'wand'" if $wand{$signal};
     }
   }
   if ($sheet == $sheet{"${part}f1"}) {
@@ -828,7 +829,9 @@ sub m452 {
     &lookup("p2", "r2", "j2", "m2", "n2", "l2", "k2");
   # BUGBUG:  This is specific to the particular invocation excpected.
   print "Oscillator #(880) m452_$j2(dclk, 1'b1, $j2);\n";
+  die "$j2 must not be 'wand'" if $wand{$j2};
   print "Oscillator #(220) m452_$k2(dclk, 1'b1, $k2);\n";
+  die "$k2 must not be 'wand'" if $wand{$k2};
   print "assign $r2 = $p2;\n";
 }
 
@@ -837,6 +840,7 @@ sub m501 {
   ($j2, $f2) = &lookup("j2", "f2");
   # BUGBUG:  This is specific to the particular invocation excpected.
   print "Oscillator #(60) m501_$f2(dclk, $j2, $f2);\n";
+  die "$f2 must not be 'wand'" if $wand{$f2};
 }
 
 sub pass1_m506 {
@@ -932,7 +936,9 @@ sub m700 {
     print "assign $ak2 = ~$aj2;\n";
     ($ae2, $bd2, $af2) = &lookup("ae2", "bd2", "af2");
     print "DelayLine #(2000) m700ae2(dclk, $at2, $ae2);\n";
+    die "$ae2 must not be 'wand'" if $wand{$ae2};
     print "DelayLine #(2000) m700bd2(dclk, $ae2, $bd2);\n";
+    die "$bd2 must not be 'wand'" if $wand{$bd2};
     print "always @(posedge $ae2, posedge $bd2, negedge $al2) begin\n";
     print "  if (~$al2)\n";
     print "    $af2 = 1'b0;\n";

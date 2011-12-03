@@ -1,0 +1,52 @@
+module sheet36(ba, ba_, bb, bb_, clock1, initialize, initialize_, io_bus_in04_, io_bus_in05_, io_bus_in06_, io_bus_in07_, io_bus_in08_, io_bus_in09_, io_bus_in10_, io_bus_in11_, io_bus_in_int_, io_bus_in_skip_, iop1, iop2, iop4, m15v, mb03_, mb04_, mb05_, mb06_, mb07_, mb08, pwr, rd_hole1, rd_hole2, rd_hole3, rd_hole4, rd_hole5, rd_hole6, rd_hole7, rd_hole8, rdr_enable_, rdr_feed_switch, rdr_run_, rdr_shift, rdr_shift_, s_feed_hole, stop_complete, dclk);
+input dclk;
+// synthesis attribute CLOCK_SIGNAL of dclk is "yes";
+output ba;
+output ba_;
+output bb;
+output bb_;
+inout clock1;
+input initialize;
+input initialize_;
+output wand io_bus_in04_;
+output wand io_bus_in05_;
+output wand io_bus_in06_;
+output wand io_bus_in07_;
+output wand io_bus_in08_;
+output wand io_bus_in09_;
+output wand io_bus_in10_;
+output wand io_bus_in11_;
+output wand io_bus_in_int_;
+output wand io_bus_in_skip_;
+input iop1;
+input iop2;
+input iop4;
+input m15v;
+input mb03_;
+input mb04_;
+input mb05_;
+input mb06_;
+input mb07_;
+input mb08;
+output pwr;
+input rd_hole1;
+input rd_hole2;
+input rd_hole3;
+input rd_hole4;
+input rd_hole5;
+input rd_hole6;
+input rd_hole7;
+input rd_hole8;
+inout rdr_enable_;
+input rdr_feed_switch;
+inout rdr_run_;
+inout rdr_shift;
+inout rdr_shift_;
+input s_feed_hole;
+inout stop_complete;
+
+// Sheet 36
+ReaderControl hj26m705(.ad1(rd_hole2), .ad2(rd_hole1), .ae1(rd_hole4), .ae2(rd_hole3), .af1(rd_hole8), .af2(rd_hole7), .ah1(rd_hole6), .ah2(rd_hole5), .ak1(rdr_run_), .ak2(io_bus_in_skip_), .al2(io_bus_in_int_), .an1(io_bus_in11_), .an2(io_bus_in07_), .ap1(io_bus_in09_), .ap2(io_bus_in04_), .ar1(io_bus_in06_), .ar2(io_bus_in10_), .as1(io_bus_in08_), .as2(io_bus_in05_), .au2(iop1), .av2(iop2), .bd1(rdr_shift_), .bd2(mb03_), .be1(mb05_), .be2(mb04_), .bf1(mb07_), .bf2(mb06_), .bh2(mb08), .bj1(rdr_shift), .bk1(iop4), .bk2(rdr_enable_), .bm1(rdr_feed_switch), .bm2(s_feed_hole), .bn2(stop_complete), .bp1(initialize_), .bp2(ba), .br1(bb_), .br2(pwr), .bs1(ba_), .bs2(clock1), .bu2(bb));
+ReaderClock hj27m715(.dclk(dclk), .ak2(rdr_enable_), .as2(rdr_shift), .at2(rdr_shift_), .au2(clock1), .bp2(rdr_feed_switch), .br2(stop_complete), .bs2(rdr_run_), .bt2(initialize));
+
+endmodule
