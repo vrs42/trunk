@@ -1,0 +1,439 @@
+module pdp8i;
+
+// Page D-BS-8I-0-2 "Timing, Manual Functions, and Run"
+// This stuff is from sheet 1.
+
+input wand B40l2;
+input wand B40k2;
+input wand B40m2;
+input wand B40r2;
+input wand B40s2;
+input wand B40t2;
+input wand B40u2;
+input wand B40v2;
+assign Key_la_ = B40l2;
+assign Key_st_ = B40k2;
+assign Key_dp_ = B40m2;
+assign Key_ex_ = B40r2;
+assign Key_cont_ = B40s2;
+assign Key_stop_ = B40t2;
+assign Key_ss_ = B40u2;
+assign Key_si_ = B40v2;
+
+input wand H05p2;
+input wand H05s2;
+assign Strobe_ = H05p2;
+assign Mem_done_ = H05s2;
+
+output wire H05v2;
+assign Btp2 = Tp2;;
+assign H05v2 = Btp2;
+
+output D40f1;
+output D40m1;
+assign D40f1 = ~Run;
+assign D40m1 = ~Pause;
+
+assign Key_la = ~Key_la_;
+assign Key_dp = ~Key_dp_;
+assign Key_st = ~Key_st_ & Restart_;
+assign Key_exdp_ = Key_dp_ & Key_ex_;
+assign Key_exdp = ~Key_exdp_;
+assign Key_ss = ~Key_ss_;
+assign Key_sistop = ~Key_si_ | ~Key_stop_;
+assign Key_stexdp = ~Restart_ | ~Key_st_ | ~Key_exdp_;
+assign Key_laexdp = ~Key_la_ | ~Keyexdp_;
+assign Key_cont = ~Key_cont_;
+assign Manual_preset_ = ~Key_cont_ | ~Mftp0;
+
+assign F19j2 = ~Key_la_ | ~Key_st_ | ~Key_exdp_ | ~Key_cont_;
+assign Mfts0_ = (F19j2 & ~Restart) | Run; //BUGBUG: M700 filter and pulse shaping?
+assign Mftp0 = Mfts0_;
+
+assign Mfts1_reset_ = Mfts2_ & B_power_clear_;
+always @(negedge Mfts0_, negedge Mfts1_reset_)
+begin
+    if (~Mfts0)
+        Mfts1 = 1;
+    if (~Mfts1_reset_)
+        Mfts1 = 0;
+end
+
+DelayLine #(200) mftp1(Dclk, Mftp0, Mftp1);
+
+assign Mfts2_reset_ = ~Mftp2 & B_power_clear_;
+always @(posedge Mftp1, negedge Mfts2_reset_)
+begin
+    if (Mftp1)
+        Mfts2 = 1;
+    if (~Mfts2_reset_)
+        Mfts2 = 0;
+end
+
+DelayLine #(200) mftp2(Dclk, Mftp1, Mftp2);
+
+assign mfts3 = Mfts0 & ~Mfts1 & ~Mfts2;
+
+always @(posedge Io_end, negedge Manual_preset_, negedge Io_start_)
+begin
+    if (~Io_start_)
+        Io_on = 1;
+    else
+        Io_on = 0;
+end
+
+assign E12c1 = Io_start_ & Eae_start_;
+assign Io_end_ = ~Io_end;
+assign E12f2 = ~Eae_end | Io_end;
+DelayLine #(300) pauseclk(Dclk, E12f2, Pause_clk);
+always @(posedge Pause_clk, negedge Strobe_, negedge E12c1)
+begin
+    if (~E12c1)
+        Pause = 1;
+    else
+        Pause = 0;
+end
+
+always @(negedge Strobe_, negedge Mem_done_)
+begin
+    if (~Strobe_)
+        Mem_idle = 0;
+    else
+        Mem_idle = 1;
+end
+
+assign E14d1 = Mem_idle & ~Pause;
+assign Mem_start = (Mftp2 & Key_la_) | E14d1;
+assign Tp4 = (Mftp2 & Key_cont) | E14d1;
+
+always @(negedge Strobe_, negedge Manual_preset_, posedge Tp4)
+begin
+    if (~Strobe)
+        Ts1 = 0;
+    else
+        Ts1 = 1;
+end
+
+always @(negedge Strobe_, negedge Manual_preset_, posedge Tp2)
+begin
+    if (~Strobe)
+        Ts2 = 1;
+    else
+        Ts2 = 0;
+end
+
+always @(negedge Tp2, negedge Manual_preset_, posedge Tp3)
+begin
+    if (Tp2)
+        Ts3 = 1;
+    else
+        Ts3 = 0;
+end
+
+always @(negedge Int_strobe_, negedge Manual_preset_, posedge Tp4)
+begin
+    if (~Int_strobe)
+        Ts4 = 1;
+    else
+        Ts4 = 0;
+end
+
+assign Tp1 = ~Strobe_;
+
+DelayLine #(150) tp2(Dclk, E09f1, Tp2);
+DelayLine #(400) tp3(Dclk, E09f1, Tp3);
+
+// BUGBUG: assign E09f1!
+
+assign Int_strobe = (Tp3 & Eae_set_ & Slow_cycle_) | ~Eae_end | Io_end;
+assign Int_strobe_ = ~Int_strobe;
+
+assign Io_start = Tp3 & Slow_cycle;
+assign Io_start_ = ~Io_start;
+
+DelayLine #(150) iop1_set(Dclk, Io_start, Iop1_set);
+DelayLine #(600) iop1_clr(Dclk, Iop1_set, Iop1_clr); // .4-.15+.35 = .75-.15
+DelayLine #(200) iop2_set(Dclk, Iop1_clr, Iop2_set);
+DelayLine #(600) iop2_clr(Dclk, Iop2_set, Iop2_clr);
+DelayLine #(200) iop2_set(Dclk, Iop2_clr, Iop4_set);
+DelayLine #(600) iop4_clr(Dclk, Iop4_set, Iop4_clr);
+DelayLine #( 50) iostrobe(Dclk, Iop4_clr, Io_end);
+
+always @(negedge Initialize_, posedge Iop1_set, posedge Iop1_clr)
+begin
+    if (Iop1_set)
+        Iop1 = 1;
+    else
+        Iop1 = 0;
+end
+
+always @(negedge Initialize_, posedge Iop2_set, posedge Iop2_clr)
+begin
+    if (Iop2_set)
+        Iop2 = 1;
+    else
+        Iop2 = 0;
+end
+
+always @(negedge Initialize_, posedge Iop4_set, posedge Iop4_clr)
+begin
+    if (Iop4_set)
+        Iop4 = 1;
+    else
+        Iop4 = 0;
+end
+
+assign F20u1 = Iop1_set | Iop2_set | Iop4_set;
+DelayLine #(400) iostrobe(Dclk, F20u1, Io_strobe);
+
+assign Initialize = Mftp0 & Key_st | ~B_power_clear;
+assign Initialize_ = ~Intitialize;
+
+assign Slow_cycle = B_fetch & Iot & ~Mem_ext_ & ~Tt_inst_ & ~Processor_iot_;
+assign Slow_cycle_ = ~Slow_cycle;
+
+// E12r1 are essentially reasons to stop.
+assign E12r1_ = Key_ss | (Key_sistop & F_set) | (Mb[10] & ~Mb[11] & Op2 & Uf_)
+              | (Key_exdp & Mfts0) | (Stop_ok & ~Power_ok_);
+
+always @(negedge B_power_clear_, posedge Tp3)
+begin
+    if (~B_power_clear)
+        Run = 0;
+    if (Tp3)
+        Run = ~E12r1_;
+end
+
+
+// Page D-BS-8I-0-2 "Timing, Manual Functions, and Run"
+// This stuff is from sheet 2.
+
+// BUGBUG: What is S?
+assign E08c1_ = Tp1 & ~S;
+assign Mem_to_lsr  = Tp1 & S;
+assign Mem_to_lsr_ = ~Mem_to_lsr;
+
+DelayLine #(300) lhtohs(Dclk, Mem_to_lsr, Lh_to_hs);
+
+assign E09f1 = D08c1_ | Lh_to_hs;
+
+
+// Page D-BS-8I-0-3 "Instruction Register and Major States"
+
+assign E24k2 = Int_ok & Tp4;
+assign Ir_clk = B_fetch & Tp2
+assign Eae_ir_clr_ = ~Ir_clk;
+
+always @(posedge E24k2, posedge Ir_clk)
+begin
+    if (E24k2)
+        Ir = 3b'100; // Force JMS 0
+    else
+        Ir = Mem[0:2];
+end
+
+assign And   = (Ir == 3'b000);
+assign Tad   = (Ir == 3'b001);
+assign Isz   = (Ir == 3'b010);
+assign Dca   = (Ir == 3'b011);
+assign Jms   = (Ir == 3'b100);
+assign Jmp   = (Ir == 3'b101);
+assign I_iot = (Ir == 3'b110);
+assign Opr   = (Ir == 3'b111);
+assign Iot = I_iot & Uf_;
+
+assign And_ = ~And;
+assign Tad_ = ~Tad;
+assign Isz_ = ~Isz;
+assign Dca_ = ~Dca;
+assign Jms_ = ~Jms;
+assign Jmp_ = ~Jmp;
+assign Iot_ = ~Iot;
+assign Opr_ = ~Opr;
+
+output D40m2;
+output D40t2;
+output D40p1;
+output D40r2;
+output D40s1;
+output D40l2;
+output D40h2;
+output D40d2;
+
+assign D40m2 = And_;
+assign D40t2 = Tad_;
+assign D40p1 = Isz_;
+assign D40r2 = Dca_;
+assign D40s1 = Jms_;
+assign D40l2 = Jmp_;
+assign D40h2 = Iot_;
+assign D40d2 = Opr_;
+
+assign Fetch = ~Fetch_;
+assign Execute = ~Execute_;
+
+assign Iot_opr_ = (Ir[0:1] != 2'b11);
+
+assign F_set = D_set_ & E_set_ & Break_ok_ & Special_cycle_;
+assign D_set = B_fetch & Iot_opr_;
+assign E_set = Int_ok
+             | (Jmp_ & Defer) // Follow defer (except Jmp)
+             | Iot_opr_ & Fetch & Jmp_ & ~Mb[3] // Mem op direct, follow fetch
+             | Eae_e_set_;
+assign Wc_set = Cycles3 & Break_ok;
+
+always @(posedge Tp1, negedge Manual_preset_)
+begin
+    if (~Manual_preset)
+        Brk_Sync = 0;
+    else
+        Brk_Sync = Brk_rqst;
+end
+
+assign Special_cycle_ = Tt_set_ & Current_address_ & Word_count_;
+assign Break_ok = E_set_ & Brk_sync & Special_cycle_ & D_set_;
+assign Break_ok_ = ~Break_ok;
+
+assign B_set = (Break_ok & Wc_set_) | Current_address;
+
+assign F_set_ = ~F_set;
+assign D_set_ = ~D_set;
+assign E_set_ = ~E_set;
+assign Wc_set_ = ~Wc_set;
+assign B_set_ = ~B_set;
+
+assign F22f2_ = Key_st & Mftp2;
+always @(negedge Manual_preset_, posedge F22f2_, posedge Tp4);
+begin
+    if (~Manual_preset_)
+        Fetch = 0;
+    else if (F22f2_)
+        Fetch = 1;
+    else
+        Fetch = F_set;
+end
+
+always @(negedge Manual_preset_, posedge Tp4);
+begin
+    if (~Manual_preset_) begin
+        Defer = 0;
+        Execute = 0;
+        Word_count = 0;
+        Current_address = 0;
+        Break = 0;
+    else else begin
+        Defer = D_set;
+        Execute = E_set;
+        Word_count = Wc_set;
+        Current_address = Word_count;
+        Break = B_set;
+    end
+end
+
+output D40n1;
+output D40b1;
+output D40r1;
+output D40a1;
+output D40e1;
+output D40e2;
+assign D40n1 = ~Fetch;
+assign D40b1 = ~Defer;
+assign D40r1 = ~Execute;
+assign D40a1 = ~Word_count;
+assign D40e1 = ~Current_address;
+assign D40e2 = ~Break;
+
+// Page D-BS-8I-0-4 "Register Output Gate Control"
+
+assign E14h2 = Restart_ & Mfts1 & Key_stexdp;
+assign Int_skip_enable = Ts2 & B_execute & Jms;
+assign Pc_enable_ = Ts4 & (F_set | ~Eae_e_set_ | ~Tt_set_);
+assign Pc_enable = ~Pc_enable_ | E14h2 | Int_skip_enable | ~Tt_carry_insert_;
+
+assign Io_enable = Io_on | ~Mem_ext_io_enable | ~Tt_io_enable;
+assign Data_enable = Ts2 & Break & Data_in;
+assign Data_add_enable = Ts4 & Break_ok;
+
+assign Osr = Op2 & Mb[9] & ~Mb[11];
+assign Osr_uf0 = Osr & Uf_;
+assign Key_laf_mfts0 = Key_la & Mfts0;
+assign Sr_enable = (Key_dp & Mfts3)
+                 | Osr_uf0
+                 | Key_la_mfts0;
+assign Lbar_enable = (Op1 & Mb[7]) | Eae_acbar_enable; // CML
+assign L_enable_ = (Mfts2 & Key_st)
+                 | (Op1 & ~Mb[5] & Mb[7]) // CML
+                 | (Op1 & Mb[5] & ~Mb[7]) // CLL
+                 | Tt_l_disable
+                 | Eae_l_disable;
+assign Ac_enable = (Op1 & Mb[6]) | Eae_acbar_enable; // CMA
+
+assign Data_in = ~Data_in_;
+assign E29t2_ = (Dca & B_execute) // Store operations
+              | (Jms & B_execute)
+              | (Data_in & Break)
+              | (Key_dp & Mfts3);
+assign E29r1_ = (~E29t2_ & Ts2)
+              | (Jmp & Defer & Ts3)
+              | (Jmp_ & Defer & Ts4)
+              | (Current_address & Ts4);
+assign Mem_enable0_4 = ~Add | E29r1_ | ~Store_ | ~Eae_mem_enable_;
+
+assign Mem_enable9-11 = Mem_enable5_8 & ~Mem_inh9_11;
+
+assign Mem_enable5-8 = (Jmp & B_fetch & ~Mb[3] & Ts3)
+                     | ((D_set | E_set) & Ts4 & Int_ok_ & Pc_enable_)
+                     | Mem_enable0_4
+                     | Eae_mem_enable;
+
+assign Ma_enable5_11 = (Pc_increment & Ts1)
+                     | (Key_exdp & Mfts2)
+                     | (Jms & B_execute & Ts3)
+                     | (Word_count & Ts4);
+assign Ma_enable0_4 = (~Mem_enable0_4 & Mem_enable5_8 & Mb[4]) // Current page
+                    | Ma_enable5-11;
+
+assign Op2 = Opr & B_fetch & Mb[3] & Ts3;
+assign E30t2_ = (Ac_clear & Io_enable)
+              | (Op2 & ~Mb[4] & Ac_to_mq_enable_;
+              | (Op1 & (Mb[4] == Mb[6]))
+              | (Dca & B_execute & Ts2);
+assign Add = Tad & B_execute & Ts3;
+assign Ac_enable = And_enable | E30t2_ | Add | ~Eae_ac_enable;
+
+
+// Page D-BS-8I-0-5 "Shift and Carry Gate Control"
+
+assign Op1 = Opr & ~Mb[3] & B_fetch & Ts3;
+
+assign Double_right_rotate = Op1 & Mb[8] & Mb[10];
+assign Double_left_rotate = Op1 & Mb[9] & Mb[10];
+assign Right_shift = (Op1 & Mb[8] & ~Mb[10])
+                   | Tt_right_shift_enable
+                   | Eae_right_shift_enable;
+assign Left_shift = (Op1 & Mb[9] & ~Mb[10])
+                   | Eae_left_shift_enable;
+assign No_shift = (Op1 & ~Mb[8] & ~Mb[9])
+                | (~Op1 & ~Tt_shift_enable & Eae_no_shift_enable)
+                | Tt_carry_insert
+                | C_no_shift;
+assign And_enable = And & B_execute & Ts1;
+
+Assign Auto_index = (Defer & (Ma[0:8] == 9'b000000001) | Tt_increment)
+                  & Mem_enable0_4;
+
+assign Ca_increment = ~Ca_increment_;
+assign Pc_increment = ~Fetch | Eae_execute | Tt_cycle;
+assign Carry_insert = (Pc_increment & Ts1)
+                    | (Op1 & Mb[11]) // IAC
+                    | (Jms & B_execute & Ts3)
+                    | ((Int_skip_enable | Pc_enable) & Skip) 
+                    | (Isz & B_execute & Ts2)
+                    | (Key_exdp & Mfts2)
+                    | Word_count
+                    | (Ca_increment & Current_address)
+                    | (Break & Memory_increment & Ts2)
+                    | Auto_index
+                    | Tt_carry_insert;
+
+endmodule

@@ -1,0 +1,3148 @@
+From: <Saved by UnMHT>
+Subject: =?iso-2022-jp?B?VmVyaWxvZyBSZWZlcmVuY2UgTWFudWFs?=
+Date: Tue, Aug 03 2010 19:49:47 GMT-0700
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	boundary="----=_NextPart_000_0000_9712C178.054951CD";
+	type="text/html"
+
+------=_NextPart_000_0000_9712C178.054951CD
+Content-Type: text/html; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://eesun.free.fr/DOC/VERILOG/verilog_manual1.html#6.1
+
+<!DOCTYPE HTML PUBLIC "-//w3c//dtd html 4.0 transitional//en" "">
+<html><head>
+
+
+   <meta content=3D"text/html; charset=3Diso-8859-1" http-equiv=3D"Content-=
+Type">
+   <meta content=3D"Mozilla/4.7 [en] (Win95; I) [Netscape]" name=3D"GENERAT=
+OR">
+   <title>Verilog Reference Manual</title>
+<base href=3D"http://eesun.free.fr/DOC/VERILOG/"></base></head><body link=
+=3D"#0000ee" vlink=3D"#0000ff" text=3D"#000000" bgcolor=3D"#fff8dc" alink=
+=3D"#ff0000">
+
+<h1>
+<font face=3D"Times New Roman,Times"><font size=3D"+4">Verilog Reference Ma=
+nual</font></font></h1>
+
+<hr><font face=3D"Times New Roman,Times"></font>
+<p><b><font face=3D"Times New Roman,Times">Preface:</font></b><font face=3D=
+"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">This is a brief summary of the=
+ syntax
+and semantics of the Verilog Hardware description Language. The summary
+is not intended at being an exhaustive list of all the constructs and is
+not meant to be complete. This reference guide also lists constructs that
+can be synthesized. For any clarifications and to resolve ambiguities,
+please refer to the Verilog Reference Manual Copyright 1993 by Open Verilog
+International Inc. and synthesis vendors Verilog HDL Reference Manuals.</fo=
+nt><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Note: this document will be con=
+stantly
+updated with new verilog design examples and useful tricks. A last modified
+date will be placed at the beginning of the file.</font><font face=3D"Times=
+ New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Last modified 14/04/97</font><f=
+ont face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Quick Reference for Verilog HDL=
+&nbsp;</font>
+</p><hr width=3D"100%"><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">1.0 <a href=3D"#1.0">Lexical Elemen=
+t</a></font>
+</p><ul><font face=3D"Times New Roman,Times">1.1 <a href=3D"#1.1">Integer=
+ Literals</a></font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">1.2 <a href=3D"#1.2">Data Types</a>=
+</font></p></ul>
+<font face=3D"Times New Roman,Times">2.0 <a href=3D"#2.0">Registers and Net=
+s</a></font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">3.0 <a href=3D"#3.0">Compiler Direc=
+tives</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">4.0 <a href=3D"#4.0">System Tas=
+ks and
+Functions</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">5.0 <a href=3D"#5.0">Reserved=
+ Keywords</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">6.0 <a href=3D"#6.0">Structures=
+ and
+Hierarchy</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">6.1 <a href=3D"#6.1">Module Dec=
+larations</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">6.2 <a href=3D"#6.2">UDP Declar=
+ations</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">7.0 <a href=3D"#7.0">Expression=
+s and
+Operators</a></font>
+</p><ul><font face=3D"Times New Roman,Times">7.1 <a href=3D"#7.1">Parallel=
+ Expressions</a></font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">7.2 <a href=3D"#7.2">Conditional St=
+atements</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">7.3 <a href=3D"#7.3">Looping St=
+atements</a></font></p></ul>
+<font face=3D"Times New Roman,Times">8.0 <a href=3D"#8.0">Named Blocks, Dis=
+abled
+Blocks</a></font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">9.0 <a href=3D"#9.0">Tasks and Func=
+tions</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">10.0 <a href=3D"#10.0">Continuo=
+us Assignments</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">11.0 <a href=3D"#11.0">Procedur=
+al Assignments</a></font>
+</p><ul><font face=3D"Times New Roman,Times">11.1 <a href=3D"#11.1">Blockin=
+g Assignment</a></font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">11.2 <a href=3D"#11.2">Non- blocking
+Assignment</a></font></p></ul>
+<font face=3D"Times New Roman,Times">12.0 <a href=3D"#12.0">Gate Types, MOS
+and bidirectional switches</a></font>
+<ul><font face=3D"Times New Roman,Times">12.1 <a href=3D"#12.1">Gate Delays=
+</a></font></ul>
+<font face=3D"Times New Roman,Times">13.0 <a href=3D"#13.0">Specify Blocks<=
+/a></font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">14.0 <a href=3D"#14.0">Verilog Synt=
+hesis
+Constructs</a></font>
+</p><ul><font face=3D"Times New Roman,Times">14.1 <a href=3D"#14.1">Fully=
+ Supported
+Constructs</a></font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">14.2 <a href=3D"#14.2">Partially Su=
+pported
+Constructs</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">14.3 I<a href=3D"#14.3">gnored=
+ Constructs</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">14.4 <a href=3D"#14.4">Unsuppor=
+ted
+Constructs</a></font></p></ul>
+<font face=3D"Times New Roman,Times">15.0 <a href=3D"#Index">Index</a></fon=
+t><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">16.0 <a tppabs=3D"http://ee.ucd.ie/=
+~finbarr/verilog/rtl_in_verilog.html" href=3D"rtl_in_verilog.html">Synopsys
+Methodology Note: Verilog RTL descriptions</a></font><font face=3D"Times Ne=
+w Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">17.0 <a tppabs=3D"http://ee.ucd=
+.ie/~finbarr/verilog/design_partitioning.html" href=3D"design_partitioning.=
+html">Synopsys
+Methodology Note: ASIC Partitioning</a></font><font face=3D"Times New Roman=
+,Times"></font>
+</p><p>
+</p><hr width=3D"100%"><b><font face=3D"Times New Roman,Times">Use and Copy=
+right</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Copyright (c) 1994, 1995 Rajeev Mad=
+havan</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Copyright (c) 1994, 1995 Automa=
+ta
+Publishing Company</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Permission to use, copy and dis=
+tribute
+this book for any purpose is hereby granted without fee provided that</font=
+><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><b>(i)</b> the above copyright=
+ notices
+and this permission notice appears in all copies and</font><font face=3D"Ti=
+mes New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><b>(ii) </b>the name of Rajeev=
+ Madhavan,
+Automata Publishing and AMBIT Design Systems may not be used in any adverti=
+sing
+or publicity relating to this book without the specific prior permission
+of Rajeev Madhavan, Automata Publishing and AMBIT Design Systems.</font><fo=
+nt face=3D"Times New Roman,Times"></font>
+</p><p>
+</p><hr width=3D"100%"><a name=3D"1.0"></a><b><font face=3D"Times New Roman=
+,Times">1.0
+Lexical Elements</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">The language is case sensitive and
+all the keywords are lower case. White space, namely spaces, tabs and new-l=
+ines
+are ignored Verilog has two types of comments:</font><font face=3D"Times Ne=
+w Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">1. One Line comments start with=
+ //
+and end at the end of the line</font><font face=3D"Times New Roman,Times"><=
+/font>
+</p><p><font face=3D"Times New Roman,Times">2. Multi line comments start wi=
+th
+/* and end with */</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Variable names have to start wi=
+th
+an alphanumeric character or underscore followed by alohanumeric or undersc=
+ore
+characters. The only exception to this are the system tasks and functionswh=
+ich
+start with a dollar sign. Escaped Identifiers (identifier whose first chara=
+cter
+is a backslash (\))permit non alphanumeric characters in Verilog name.
+The escaped name includes all the characters following the backslash until
+the first whitespace character.</font><font face=3D"Times New Roman,Times">=
+</font>
+</p><p>
+</p><hr width=3D"100%"><a name=3D"1.1"></a><b><font face=3D"Times New Roman=
+,Times">1.1
+Integer Literals</font></b>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Binary literal: 2&#x27;b1z</fo=
+nt><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Octal literal: 2&#x27;o17</font><fo=
+nt face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Decimal literal: 9 or &#x27;d9<=
+/font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Hexedecimal literal: 9&#x27;h18=
+9</font></p></center>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Integer Literals can have underscao=
+re
+embedded in them for improved readability.</font><font face=3D"Times New Ro=
+man,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">For example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Decimal Literal 24_000</font><=
+/center>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%"><a name=3D"1.2"></a><b><font face=3D"Times New Roman=
+,Times">1.2
+Data Types</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">The values z and Z stand for high
+impedance and x and X stand for uninitialised variables or nets with confli=
+cting
+drivers. String symbols are enclosed with double quotes (&quot;string&quot;=
+) and
+cannot span multiple lines. Real number literals can be either in fixed
+notation or in scientific notation.</font><font face=3D"Times New Roman,Tim=
+es"></font>
+</p><p><i><font face=3D"Times New Roman,Times">Real and integer Variables=
+ example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">real a, b, c ; // a, b, c to be
+real</font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">integer j, k ; // integer variable<=
+/font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">integer i[1:32] ; // array of=
+ integer
+variables</font></p></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><a name=3D"variables"></a><i><font face=3D"Times New Roman,Times">Time,
+registers and variable usage:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">time newtime;</font><font face=3D"=
+Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">/* time and integer are similar in
+functionality,</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">time is an unsigned 64- bit used
+for time variables */</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">reg [3*14:1] string ;</font><fo=
+nt face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">/* this defines a vector with=
+ range</font>
+</p><ul>
+<ul><font face=3D"Times New Roman,Times">[msb_expr: lsb_expr] */</font></ul>
+</ul>
+<font face=3D"Times New Roman,Times">initial begin</font>
+<ul><font face=3D"Times New Roman,Times">a =3D 0.5 ; // same as 5.0e-1 real
+variable</font><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">b =3D 1.2E12 ;</font><font face=3D"=
+Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">c =3D 26.19_60_e-11 ; // the _&=
+#x27;s are
+used for readability</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">string =3D &quot; string exampl=
+e &quot; ;</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">newtime =3D $time ;</font></p><=
+/ul>
+<font face=3D"Times New Roman,Times">end</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%"><font face=3D"Times New Roman,Times"></font>
+<p><a name=3D"2.0"></a><b><font face=3D"Times New Roman,Times">2.0 Registers
+and Nets</font></b><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">A register stores its value from
+one assignment to the next and is used to model data storage elements.</fon=
+t>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">reg {5:0] din;</font><font face=3D=
+"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">/* a 6 bit vector register: individ=
+ual
+bits din[5],... din[0] */</font></p></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Nets correspond to physical wires
+that connect instances. The default range of a wire or reg is one bit.
+Nets do not store values and have to be continuously driven. If a net has
+multiple drivers (for example two gate outputs tied together), then the
+net value is resolved according to its type.</font><font face=3D"Times New=
+ Roman,Times"></font>
+</p><center>
+<p><b><font face=3D"Times New Roman,Times">Net types:</font></b></p></cente=
+r>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">wire&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tri</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">wand&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; triand</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">or&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trior</font>=
+</pre>
+
+<pre><font face=3D"Times New Roman,Times">tri0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tri1</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">supply0&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; supply1</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">trireg</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">For a wire, if all the drivers have
+the same value then the wire resolves to this value. If all the drivers
+except one have a value of z the the wire resolves to the non z value.
+If two or more non z drivers have different drive strength then the wire
+resolves to the stronger driver. If two drivers of equal strength have
+different values, then the wire resolves to x. A trireg net behaves like
+a wire except that when all the drivers of the net are in high impedance
+(z) state, then the net retains its last driven value. trireg &#x27;s are=
+ used
+to model capacitive networks.</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">wire net1;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">/* wire and tri have same functio=
+nality. tri is used&nbsp;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">for multiple drive internal wire=
+ */</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">trireg (medium) capacitor ;</font=
+></pre>
+<font face=3D"Times New Roman,Times">/* small medium and weak are used for
+charge strength modelling */</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">A wand net or triand net perates
+as a wired and (wand) , and a wor net or trior net operates as a wired
+or (wor), tri0 and tri1 nets model nets with resistive pulldown or pullup
+devices on them. When a tri0 net is not driven, then its value is 0. When
+a tri1 net is not driven then its value is 1. supply0 and supply1 model
+nets that are connected to ground or power supply.</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">wand net2; //wired and</font></pr=
+e>
+
+<pre><font face=3D"Times New Roman,Times">wor net3; // wired or</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">triand [4:0] net4; // multiple dr=
+ive wand</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">trior net5; // multiple drive wor=
+</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">tri0 net6;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">tri1 net7;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">supply0 gnd; // logic 0 supply wi=
+re</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">supply1 vcc; // logic 1 supply wi=
+re</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><a name=3D"memories"></a><font face=3D"Times New Roman,Times">Memories=
+ are
+declared using register statements with address range specified as in the
+following example:</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">reg [15:0] mem16x512 [0:511];</fo=
+nt></pre>
+
+<pre><font face=3D"Times New Roman,Times">// 16 bit by 512 word memory</fon=
+t></pre>
+
+<pre><font face=3D"Times New Roman,Times">// mem16x512[4] addresses word 4<=
+/font></pre>
+
+<pre><font face=3D"Times New Roman,Times">// the order of lsb:msb or msb:ls=
+b is not important</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Note: it is not possible to access
+an individual element of an array. Arrays can only be accessed in terms
+of words.</font><font face=3D"Times New Roman,Times"></font>
+</p><p><a name=3D"scalared"></a><font face=3D"Times New Roman,Times">The ke=
+yword
+scalared allows access to bits and parts of a bus and vectored allows the
+vector to be modified only collectively:</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">wire vectored [5:0] neta; /* a si=
+x bit vectored net */</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">tri1 vectored [5:0] netb; /* a si=
+x bit vectored tri1</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%"><a name=3D"3.0"></a><b><font face=3D"Times New Roman=
+,Times">3.0
+Compiler Directives:</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Verilog has compiler directives whi=
+ch
+affect the processing of the input files. The directives start with a grave
+accent (`) followed by some keyword. A directive takes effect from the
+point that it appears in the file until either the end of all files or
+until another directive that cancels the effect of the first one is encount=
+ered.</font><font face=3D"Times New Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">For example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><pre><font face=3D"Times New Roman,Times">`define OPCODEADD&nbsp;=
+ 00010</font></pre></center>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><font face=3D"Times New Roman,Times">This defines a macro named OPCODEAD=
+D.
+When the text `OPCODEADD appears in the text, then it is replaced by 00010.
+Verilog macros are simple text substitutions and do not permit arguments.</=
+font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><pre><font face=3D"Times New Roman,Times">`ifdef SYNTH &lt;Verilog=
+ Code&gt; `endif</font></pre></center>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><font face=3D"Times New Roman,Times">If SYNTH is a defined macro, then
+the verilog code until `endif is inserted for the next processing phase.
+If &#8220;SYNTH&#8221; is not defined macro then the code is discarded.</fo=
+nt>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><pre><font face=3D"Times New Roman,Times">`include &lt;Verilog File=
+&gt;</font></pre></center>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><font face=3D"Times New Roman,Times">The code in &lt;Verilog File&gt; is
+inserted for the next processing phase. Other standard compiler directives
+are listed below.</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">`resetall - resets all compiler=
+ directives to default values
+`define - text macro substitution
+`timescale 1ns / 10ps - specifies time unit/precision
+`ifdef, `else, `endif - conditional compilation
+`include - file inclusion
+`signed, `unsigned -operator selection (OVI 2.0 only)
+`celldefine, `endcelldefine - library modules
+`default_nettype_wire - default net types
+`unconnected_drive pul0|pull1, `nounconnected_drive - pull up or downn unco=
+nnected ports.
+`protect and `endprotect - encryption capability
+`protected and `endprotected - encryption capability
+`expand_vectornets and `noexpand_ectornets,&nbsp;
+`autoexpand_vectornets - vector expansion options
+`remove_gatename, `noremove_gatenames - remove gatenames for more than one=
+ instance.
+`remove netname, `noremove_netnames - remove netnames for more than one ins=
+tance.</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%">
+<br><a name=3D"4.0"></a><b><font face=3D"Times New Roman,Times">4.0 System
+Tasks and Functions</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">System tasks are tool specific tasks
+and functions:</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">$display (&#8220;Example of using=
+ function&#8221;);
+$monitor($time, &#8220;a =3D %b, clk =3D %b, add =3D %h&#8221;,a,clk,add);=
+ // monitor signals
+$setuphold(posedge clk, datain, setup, hold); // setup and hold checks</fon=
+t></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">A list of standard system tasks and
+functions are shown below:</font><a name=3D"systasks"></a>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">$display, $write - utility to dis=
+play information
+$fdisplay, $fwrite - write to file
+$strobe, $fstrobe - display, write simulation data
+$monitor, $fmonitor - monitor, display/write information to file
+$time, $realtime - current simulation time
+$finish - exit the simulator
+$stop - stop the simulator
+$setup - setup timing check
+$hold, $width - hold, width timing checks
+$setuphold - combines setup and hold timing checks
+$readmemb, $readmemh - read stimulus patterns into memory
+$sreadmemb, $sreadmemh - load data into memory
+$getpattern - fast processing of stimulus patterns
+$history - print command history
+$save, $restart, $incsave - saving, restarting, incremental saving
+$shm_open(&quot;database.shm&quot;); -- open/create cwaves database in Veri=
+log-XL</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">$shm_probe(top_level_module,&quot=
+;AS&quot;); - probes all signals (AS) in the&nbsp;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; scope top_level_module. (Verilog-XL)</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">$shm_close(); - will close all op=
+en shm databases in Verilog-XL</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">$scale - scaling timeunits from=
+ another module
+$showscopes - complete list of named blocks, tasks,modules...
+$showvars - show variables at scope.</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p>
+</p><hr width=3D"100%"><font face=3D"Times New Roman,Times"></font>
+<p><a name=3D"5.0"></a><b><font face=3D"Times New Roman,Times">5.0 Reserved
+Keywords</font></b><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">The following is a list of rese=
+rved
+words of Verilog HDL as of OVI LRM 2.0</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">and</font>
+<br><font face=3D"Times New Roman,Times">always</font>
+<br><font face=3D"Times New Roman,Times">assign</font>
+<br><font face=3D"Times New Roman,Times">attribute</font>
+<br><font face=3D"Times New Roman,Times">begin</font>
+<br><font face=3D"Times New Roman,Times">buf</font>
+<br><font face=3D"Times New Roman,Times">bufif0</font>
+<br><font face=3D"Times New Roman,Times">bufif1</font>
+<br><font face=3D"Times New Roman,Times">bufif1</font>
+<br><font face=3D"Times New Roman,Times">case</font>
+<br><font face=3D"Times New Roman,Times">cmos</font>
+<br><font face=3D"Times New Roman,Times">deassign</font>
+<br><font face=3D"Times New Roman,Times">default</font>
+<br><font face=3D"Times New Roman,Times">defparam</font>
+<br><font face=3D"Times New Roman,Times">disable</font>
+<br><font face=3D"Times New Roman,Times">else</font>
+<br><font face=3D"Times New Roman,Times">endattribute</font>
+<br><font face=3D"Times New Roman,Times">end</font>
+<br><font face=3D"Times New Roman,Times">endcase</font>
+<br><font face=3D"Times New Roman,Times">endfunction</font>
+<br><font face=3D"Times New Roman,Times">endprimitive</font>
+<br><font face=3D"Times New Roman,Times">endmodule</font>
+<br><font face=3D"Times New Roman,Times">endtable</font>
+<br><font face=3D"Times New Roman,Times">endtask</font>
+<br><font face=3D"Times New Roman,Times">event</font></td>
+
+<td><font face=3D"Times New Roman,Times">for</font>
+<br><font face=3D"Times New Roman,Times">force</font>
+<br><font face=3D"Times New Roman,Times">forever</font>
+<br><font face=3D"Times New Roman,Times">fork</font>
+<br><font face=3D"Times New Roman,Times">function</font>
+<br><font face=3D"Times New Roman,Times">highhz0</font>
+<br><font face=3D"Times New Roman,Times">highhz1</font>
+<br><font face=3D"Times New Roman,Times">if</font>
+<br><font face=3D"Times New Roman,Times">initial</font>
+<br><font face=3D"Times New Roman,Times">inout</font>
+<br><font face=3D"Times New Roman,Times">input</font>
+<br><font face=3D"Times New Roman,Times">integer</font>
+<br><font face=3D"Times New Roman,Times">join&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">large</font>
+<br><font face=3D"Times New Roman,Times">medium</font>
+<br><font face=3D"Times New Roman,Times">module</font>
+<br><font face=3D"Times New Roman,Times">nand</font>
+<br><font face=3D"Times New Roman,Times">negedge</font>
+<br><font face=3D"Times New Roman,Times">nor</font>
+<br><font face=3D"Times New Roman,Times">not</font>
+<br><font face=3D"Times New Roman,Times">notif0</font>
+<br><font face=3D"Times New Roman,Times">notif1</font>
+<br><font face=3D"Times New Roman,Times">nmos</font>
+<br><font face=3D"Times New Roman,Times">or</font></td>
+
+<td><font face=3D"Times New Roman,Times">output</font>
+<br><font face=3D"Times New Roman,Times">parameter</font>
+<br><font face=3D"Times New Roman,Times">pmos</font>
+<br><font face=3D"Times New Roman,Times">posedge</font>
+<br><font face=3D"Times New Roman,Times">primitive</font>
+<br><font face=3D"Times New Roman,Times">pulldown</font>
+<br><font face=3D"Times New Roman,Times">pullup</font>
+<br><font face=3D"Times New Roman,Times">pull0</font>
+<br><font face=3D"Times New Roman,Times">pull1</font>
+<br><font face=3D"Times New Roman,Times">rcmos</font>
+<br><font face=3D"Times New Roman,Times">reg</font>
+<br><font face=3D"Times New Roman,Times">release</font>
+<br><font face=3D"Times New Roman,Times">repeat</font>
+<br><font face=3D"Times New Roman,Times">rnmos</font>
+<br><font face=3D"Times New Roman,Times">rpmos</font>
+<br><font face=3D"Times New Roman,Times">rtran</font>
+<br><font face=3D"Times New Roman,Times">rtranif0</font>
+<br><font face=3D"Times New Roman,Times">rtranif1</font>
+<br><font face=3D"Times New Roman,Times">scalared</font>
+<br><font face=3D"Times New Roman,Times">small</font>
+<br><font face=3D"Times New Roman,Times">specify</font>
+<br><font face=3D"Times New Roman,Times">specparam</font>
+<br><font face=3D"Times New Roman,Times">strong0</font>
+<br><font face=3D"Times New Roman,Times">strong1</font></td>
+
+<td><font face=3D"Times New Roman,Times">supply0</font>
+<br><font face=3D"Times New Roman,Times">supply1</font>
+<br><font face=3D"Times New Roman,Times">table</font>
+<br><font face=3D"Times New Roman,Times">task</font>
+<br><font face=3D"Times New Roman,Times">tran</font>
+<br><font face=3D"Times New Roman,Times">tranif0</font>
+<br><font face=3D"Times New Roman,Times">tranif1</font>
+<br><font face=3D"Times New Roman,Times">time</font>
+<br><font face=3D"Times New Roman,Times">tri</font>
+<br><font face=3D"Times New Roman,Times">triand</font>
+<br><font face=3D"Times New Roman,Times">trior</font>
+<br><font face=3D"Times New Roman,Times">trireg</font>
+<br><font face=3D"Times New Roman,Times">tri0</font>
+<br><font face=3D"Times New Roman,Times">tri1</font>
+<br><font face=3D"Times New Roman,Times">vectored</font>
+<br><font face=3D"Times New Roman,Times">wait</font>
+<br><font face=3D"Times New Roman,Times">wand</font>
+<br><font face=3D"Times New Roman,Times">weak0</font>
+<br><font face=3D"Times New Roman,Times">weak1</font>
+<br><font face=3D"Times New Roman,Times">while</font>
+<br><font face=3D"Times New Roman,Times">wire</font>
+<br><font face=3D"Times New Roman,Times">wor</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%">
+<br><a name=3D"6.0"></a><b><font face=3D"Times New Roman,Times">6.0 Structu=
+res
+and Hierarchy</font></b>
+<br><font face=3D"Times New Roman,Times">Hierarchical HDL structures are
+achieved by defining modules and instanciating modules. Nested module defin=
+itions
+(i.e. one module definition within another) are not permitted.</font><font=
+ face=3D"Times New Roman,Times"></font>
+<p><a name=3D"6.1"></a><b><font face=3D"Times New Roman,Times">6.1 Module=
+ Declarations</font></b>
+<br><font face=3D"Times New Roman,Times">The module name must be unique and
+no other module or primitive can have the same name. The port list is optio=
+nal.
+A module without a port list or with an empty port list is typically a
+top level module. A macro module is a module with a flattened hiererchy
+and is used by some simulators for efficiency.</font><font face=3D"Times Ne=
+w Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">Module definition example:</=
+font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">module dff (q,qb,clk,d,rst);
+input clk,d,rst; // input signals
+output q,qb; output definition
+
+// inout ofr bidirectionals
+
+//Net type declarations
+wire d1, db1;
+
+parameter value assignment
+parameter delay1 =3D 3,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; delay2 =3D delay1 + 1;&nbsp; // delay2
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //=
+shows parameter dependence.
+
+/* Hierarchy primitive instantiation, port connection in this section is by=
+ ordered list */
+
+nand #delay1 n1(cf,d1,cbf),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n2(cbf,clk,cf,rst);
+nand #delay2 n3(d1,d,db1rst),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n4(db1,d1,clk,cbf=
+),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n5(q,cbf,qb),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n6(qb,db1,q,rst);
+
+/****** for debugging model initial begin
+
+#500 force dff_lab.rst =3D 1;
+#550release dff_lab.rst;
+
+// upward path referencing
+
+end ****/
+
+endmodule</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><i><font face=3D"Times New Roman,Times">Overriding Parameters Example</f=
+ont></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">module dff_lab;
+reg data,rst;
+dff d1 (.qb(outb), .q(out), .clk(clk),.d(data),.rst(rst));
+//overriding module parameters
+defparam
+dff_lab.dff.n1.delay1 =3D 5;
+dff_lab.dff.n2.delay2 =3D 6;
+//full path referencing is used.
+//overriding by using #(8,9) delay1 =3D 8...
+dff d2 #(8,9) (outc, outd, clk, outb, rst);
+//clock generator
+always clk =3D #10 ~clk;
+// stimulus continued...</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><i><font face=3D"Times New Roman,Times">Stimulus and Hierarchy Example:<=
+/font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">initial begin: stimuli&nbsp; //na=
+med block stimulus
+&nbsp;&nbsp; clk =3D 1; data =3D 1; rst =3D 0;
+&nbsp;&nbsp; #20 rst =3D 0;
+&nbsp;&nbsp; #20 rst =3D 0;
+&nbsp;&nbsp; #600 $finish;
+end
+
+initial // hierarchy, downward path referencing
+&nbsp;&nbsp; begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #100 force dff.n2.rst =3D 0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #200 release dff.n2.rst;
+&nbsp;&nbsp;&nbsp; end
+endmosule</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><a name=3D"6.2"></a><b><font face=3D"Times New Roman,Times">6.2 User def=
+ined
+primitives (UDP) declarations</font></b><font face=3D"Times New Roman,Times=
+"></font>
+</p><p><font face=3D"Times New Roman,Times">The UDPs are used to augment the
+gate primitives and are defined by truth tables. Instances of UDPs</font>
+<br><font face=3D"Times New Roman,Times">can be used in the smae way as gate
+primitives. There are two types of primitives:</font><font face=3D"Times Ne=
+w Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">1. Sequential UDPs permit initi=
+alisation
+of output terminals which are declared to be of reg type</font>
+<br><font face=3D"Times New Roman,Times">and they store values. Level sensi=
+tive
+entries take precedence over edge sensitive declarations. An input</font>
+<br><font face=3D"Times New Roman,Times">logic state z is interpreted as
+an x. Similarly only 0, 1, x or - (unchanged) logic values are permitted
+on</font>
+<br><font face=3D"Times New Roman,Times">the output.</font><font face=3D"Ti=
+mes New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">2. Combinational UDPs do not st=
+ore
+values and cannot be initialised. The following additional</font>
+<br><font face=3D"Times New Roman,Times">abbreviations are permitted in UDP
+declarations:</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">Logic/State Representation/transit=
+ion</font></td>
+
+<td><font face=3D"Times New Roman,Times">Abbreviation</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">don&#8217;t care (0, 1 or X)</font=
+></td>
+
+<td><font face=3D"Times New Roman,Times">?</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Transitions from logic x to logic
+y (xy)</font>
+<br><font face=3D"Times New Roman,Times">(01), (10), (0x), (1x), (x1), (x0),
+(?1) ..</font></td>
+
+<td><font face=3D"Times New Roman,Times">(xy)</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Transition from (01)</font></td>
+
+<td><font face=3D"Times New Roman,Times">R or r</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Transition from (10)</font></td>
+
+<td><font face=3D"Times New Roman,Times">F or f</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">(01), (0X), (X1): positive transit=
+ion</font></td>
+
+<td><font face=3D"Times New Roman,Times">P or p</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">(10), (1x), (x0): negative transit=
+ion</font></td>
+
+<td><font face=3D"Times New Roman,Times">N or n</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Any transition</font></td>
+
+<td><font face=3D"Times New Roman,Times">* or (??)</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">binary don&#8217;t care (0,1)</fon=
+t></td>
+
+<td><font face=3D"Times New Roman,Times">B or b</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"combo_udp"></a><i><font face=3D"Times New Roman,Times">Combin=
+ational
+UDP&#8217;s example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">// 3 to 1 multiplexor with 2 sele=
+ct
+
+primitive mux32 (Y, in1, in2, in3, s1, s2);
+&nbsp;input in1, in2, in3, s1, s2;
+&nbsp;output Y;
+table
+// in1 in2 in3 s1 s2&nbsp;&nbsp;&nbsp; Y
+0&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;=
+ :&nbsp; 0;
+1&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;=
+ :&nbsp; 1;
+?&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp; 0&nbsp;=
+ :&nbsp; 0;
+?&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp; 0&nbsp;=
+ :&nbsp; 1;
+?&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp; 1&nbsp;=
+ :&nbsp; 0;
+?&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp; 1&nbsp;=
+ :&nbsp; 1;
+0&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp; 0&nbsp;=
+ :&nbsp; 0;
+1&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp; 0&nbsp;=
+ :&nbsp; 1;
+0&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; ?&nbsp;=
+ :&nbsp; 0;
+1&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; ?&nbsp;=
+ :&nbsp; 1;
+?&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp; ?&nbsp;=
+ :&nbsp; 0;
+?&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp; ?&nbsp;=
+ :&nbsp; 1;
+
+endtable
+endprimitive</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><a name=3D"sequen_udp"></a><i><font face=3D"Times New Roman,Times">Seque=
+ntial
+Level Sensitive UDP&#8217;s Example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">//latch with async reset</font>
+<br><font face=3D"Times New Roman,Times">primitive latch (q, clock, reset,
+data)</font>
+<br><font face=3D"Times New Roman,Times">input clock reset, data;</font>
+<br><font face=3D"Times New Roman,Times">output q;</font>
+<br><font face=3D"Times New Roman,Times">reg q;</font><font face=3D"Times=
+ New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">initial q =3D 1&#8217;b1; // initia=
+lisation</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">table</font>
+<br><font face=3D"Times New Roman,Times">// clock reset data q, q+</font>
+<br><font face=3D"Times New Roman,Times">? 1 ? : ? : 1 ;</font>
+<br><font face=3D"Times New Roman,Times">0 0 0 : ? : 0 ;</font>
+<br><font face=3D"Times New Roman,Times">1 0 ? : ? : - ;</font>
+<br><font face=3D"Times New Roman,Times">0 0 1 : ? : 1 ;</font><font face=
+=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">endtable</font>
+<br><font face=3D"Times New Roman,Times">endprimitive</font></p></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"seq_ed_udp"></a><i><font face=3D"Times New Roman,Times">Seque=
+ntial
+Edge Sensitive UDP&#8217;s example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">// edge triggered D flip flop wit=
+h active high
+// async reset and set.
+&nbsp;Primitive dff (QN, D, CP, R, S);
+output QN;
+input D, CP, R, S;
+reg QN;
+
+table
+//D CP R S : Qtn: Qtn+1
+1 (01) 0&nbsp; 0 : ?&nbsp; : 0 ;
+1 (01) 0&nbsp; x : ?&nbsp; : 0 ;
+?&nbsp;&nbsp; ?&nbsp; 0&nbsp; x : 0&nbsp; : 0 ;
+0 (01) 0&nbsp; 0 : ?&nbsp; : 1 ;&nbsp; // clocked data
+0 (01) x&nbsp; 0 : ?&nbsp; : 1 ;&nbsp; // pessimism
+?&nbsp;&nbsp; ?&nbsp; x&nbsp; 0 : 1&nbsp; : 1 ;&nbsp; // pessemism
+1 (x1) 0&nbsp; 0 : 0&nbsp; : 0 ;
+0 (x1) 0&nbsp; 0 : 1&nbsp; : 1 ;
+1 (0x) 0&nbsp; 0 : 0&nbsp; : 0 ;
+0 (0x) 0&nbsp; 0 : 1&nbsp; : 1 ;
+?&nbsp;&nbsp; ?&nbsp; 1&nbsp; ? : ?&nbsp; : 1 ;&nbsp; // async clear
+?&nbsp;&nbsp; ?&nbsp; 0&nbsp; 1 : ?&nbsp; : 0 ;&nbsp; // async set
+?&nbsp;&nbsp; n&nbsp; 0&nbsp; 0 : ?&nbsp; : - ;
+*&nbsp;&nbsp; ?&nbsp; ?&nbsp; ? : ?&nbsp; : - ;
+?&nbsp;&nbsp; ? (?0)? : ?&nbsp; : - ;
+?&nbsp;&nbsp; ?&nbsp; ?(?0): ?&nbsp; : - ;
+?&nbsp;&nbsp; ?&nbsp; ?&nbsp; ? : ?&nbsp; : x ;
+endtable
+endprimitive</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%">
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><a name=3D"7.0"></a><b><font face=3D"Times New Roman,Times">7.0 Expressi=
+ons
+and Operators</font></b><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Arithmetic and logical operators
+are used to build expressions. Expressions perform operation on one</font>
+<br><font face=3D"Times New Roman,Times">or more operands, the operands bei=
+ng
+vectored or scalared nets, registers, bit selects, part selects,</font>
+<br><font face=3D"Times New Roman,Times">function calls or concatenations
+thereof.</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><ul>
+<li>
+<font face=3D"Times New Roman,Times">Unary Expression:</font></li>
+
+<br><font face=3D"Times New Roman,Times">&lt;operator&gt; &lt;operand&gt;</=
+font></ul>
+<font face=3D"Times New Roman,Times"></font>
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><pre><font face=3D"Times New Roman,Times">a =3D !b</font></pre></ce=
+nter>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<ul>
+<li>
+<font face=3D"Times New Roman,Times">Binary and other expressions</font></l=
+i>
+
+<br><font face=3D"Times New Roman,Times">&lt;operand&gt; &lt;operator&gt;=
+ &lt;operand&gt;</font></ul>
+<font face=3D"Times New Roman,Times"></font>
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">if (a &lt; b) // if expression</f=
+ont></pre>
+
+<pre><font face=3D"Times New Roman,Times">{c,d} =3D a + b;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">/ concatenate and add operator</f=
+ont></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<ul>
+<li>
+<font face=3D"Times New Roman,Times">Parentheses can be used to change the
+precedence of operators. For example ((a + b) * c)</font></li>
+</ul>
+<font face=3D"Times New Roman,Times"></font>
+<center>
+<p><br><a name=3D"oper_prec"></a><b><font face=3D"Times New Roman,Times">Op=
+erator
+Precedence:</font></b></p></center>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">Operator</font></td>
+
+<td><font face=3D"Times New Roman,Times">Precedence</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">+, -, !, ~ (unary)</font></td>
+
+<td><font face=3D"Times New Roman,Times">Highest</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">*, /, %</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">+, - (binary)</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">&lt;&lt;, &gt;&gt;</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">&lt;, &lt;=3D, &gt;, &gt;=3D</font=
+></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">=3D, =3D=3D, !=3D</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">=3D=3D=3D, !=3D=3D</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">&amp;, ~&amp;</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">^, ^~</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">|, ~|</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">&amp;&amp;</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">||</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">?:</font></td>
+
+<td><font face=3D"Times New Roman,Times">Lowest</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<ul>
+<li>
+<font face=3D"Times New Roman,Times">Note all operators associate left to
+right except for the ternary operator &#8220;?:&#8221; which associates fro=
+m right</font></li>
+
+<br><font face=3D"Times New Roman,Times">to left.</font></ul>
+
+<center><a name=3D"relat_oper"></a><b><font face=3D"Times New Roman,Times">=
+Relational
+Operators:</font></b></center>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Operator</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Application</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&lt;</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a &lt; b // is a less than b?</fon=
+t>
+<br><font face=3D"Times New Roman,Times">// returns 1 bit true/false</font>=
+</td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&gt;</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a &gt; b // is a greater than b</f=
+ont></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&gt;=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a &gt;=3D b // is a greater than=
+ or equal
+to b</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&lt;=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a &lt;=3D b // is a less than or=
+ equal
+to b</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<center>
+<p><a name=3D"arith_oper"></a><b><font face=3D"Times New Roman,Times">Arith=
+metic
+Operators</font></b></p></center>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Operator</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Application</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">*</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">c =3D a * b; // multiply a with b<=
+/font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">/</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">c =3D a/b; // int divide a by b</f=
+ont></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">+&nbsp;</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">sum =3D a + b; // add a and b</fon=
+t></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">-</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">diff =3D a - b; // subtract b from
+a</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">%</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">amodb =3D a % b; // a mod(b)</font=
+></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<center>
+<p><a name=3D"logical_oper"></a><b><font face=3D"Times New Roman,Times">Log=
+ical
+Operators:</font></b></p></center>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Operator</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Application</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&amp;&amp;</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a &amp;&amp; b; // is a and b true?
+Returns 1-bit true/false</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">||</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a || b; // is a or b true? Returns
+1-bit true/false</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">!</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">if (!a) // if a is not true</font>
+<br><font face=3D"Times New Roman,Times">c =3D b; // assign b to c</font></=
+td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<center>
+<p><a name=3D"equal_oper"></a><b><font face=3D"Times New Roman,Times">Equal=
+ity
+and Identity Operators</font></b></p></center>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Operator</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Application</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">c =3D a; // assign a to c</font></=
+td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">=3D=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">c =3D=3D a; /* is c equal to a ret=
+urns
+1 bit true/false</font>
+<br><font face=3D"Times New Roman,Times">applies for 1 or 0, logic equality,
+using X or Z&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">operands returns always false</fon=
+t>
+<br><font face=3D"Times New Roman,Times">`hx =3D=3D `h5 returns 0 */</font>=
+</td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">!=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">c !=3D a; // is c not equal to a,
+returns 1-bit true/&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">// false logic equality</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">=3D=3D=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a =3D=3D=3D b // a is identical to=
+ b (includes
+0, 1,x,z)</font>
+<br><font face=3D"Times New Roman,Times">// `hx =3D=3D=3D `h5 will return=
+ 0</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">!=3D=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a !=3D=3D b; / is a not identical<=
+/font>
+<br><font face=3D"Times New Roman,Times">// to b returns 1-bit true/false</=
+font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<center>
+<p><a name=3D"unary_oper"></a><b><font face=3D"Times New Roman,Times">Unary,
+Bitwise and Reduction Operators</font></b></p></center>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">Operator&nbsp;</font></td>
+
+<td><font face=3D"Times New Roman,Times">Application</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">+</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Unary plus and arithmetic (binary)
+addition</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">-</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Unary negation and arithmetic (bin=
+ary)&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">subtraction</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&amp;</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">b =3D &amp;a; // AND all bits of=
+ a</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">|</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">b =3D |a; // OR all bits</font></t=
+d>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">^</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">b =3D ^a; // EXOR all bits of a</f=
+ont></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">~&amp;, ~|, ~^</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">NAND, NOR, EXNOR all bits together.
+e.g. c =3D ~&amp; b; d =3D ~| a; e =3D ^c;</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">~,&amp;,|,^</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">bit-wise NOT, AND, OR EXOR</font>
+<br><font face=3D"Times New Roman,Times">b =3D ~a; // invert a</font>
+<br><font face=3D"Times New Roman,Times">c =3D b &amp; a; // bitwise AND a,=
+b</font>
+<br><font face=3D"Times New Roman,Times">e =3D b | a; // bitwise OR</font>
+<br><font face=3D"Times New Roman,Times">f =3D b ^ a; // bitwise EXOR</font=
+></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">~&amp;,~|,~^</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">bitwise NAND, NOR, EXNOR</font>
+<br><font face=3D"Times New Roman,Times">c =3D a ~&amp; b; d =3D a ~| b;</f=
+ont>
+<br><font face=3D"Times New Roman,Times">e =3D a ~^ b;&nbsp;</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<center>
+<p><a name=3D"shift_oper"></a><b><font face=3D"Times New Roman,Times">Shift
+Operators and other Operators</font></b></p></center>
+
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Operator</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Application</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&lt;&lt;</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a &lt;&lt; 1; shift left a by 1
+bit</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&gt;&gt;</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">a &gt;&gt; 1; shift right a by 1=
+ bit</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">?:</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">c =3D sel ? a : b; /* if sel is tr=
+ue,
+c =3D a, else c =3D b,</font>
+<br><font face=3D"Times New Roman,Times">?: ternary operator</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">{}</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">{co, sum} =3D a + b + ci;</font>
+<br><font face=3D"Times New Roman,Times">/* add, a, b, ci assign the overfl=
+ow
+to co and the&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">result to sum; operator is called
+concatenation */</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">{{}}</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">b =3D {3{a}} /* replicate a three
+times, equivalent to</font>
+<br><font face=3D"Times New Roman,Times">{a, a, a} */</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><a name=3D"7.1"></a><b><font face=3D"Times New Roman,Times">7.1 Parallel
+Expressions</font></b>
+<br><font face=3D"Times New Roman,Times">fork ... join are used for cncurre=
+nt
+expression assignments</font><font face=3D"Times New Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">fork ... join example</font>=
+</i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">initial
+&nbsp;&nbsp; begin : block
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fork
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //This waits=
+ for the first event a
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //or b to occu=
+r.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @a disable blo=
+ck
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @b disable blo=
+ck
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // reset at ab=
+solute time 20
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #20 reset =3D=
+ 1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // data at abs=
+olute time 100
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #100 data =3D=
+ 0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // data at abs=
+olute time 120
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #120 data =3D=
+ 1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; join
+&nbsp;&nbsp;&nbsp; end</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><a name=3D"7.2"></a><b><font face=3D"Times New Roman,Times">7.2 Conditio=
+nal
+Statements</font></b>
+<br><font face=3D"Times New Roman,Times">The most commonly used conditional
+statement is the if, if ... else ... conditions. The statement occurs if</f=
+ont>
+<br><font face=3D"Times New Roman,Times">the expressions controlling the
+if statement evaluates to true.</font><font face=3D"Times New Roman,Times">=
+</font>
+</p><p><i><font face=3D"Times New Roman,Times">if ... else .. conditions ex=
+ample</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">always @(rst)&nbsp; // simple if=
+ ... else
+&nbsp;&nbsp; if (rst)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // procedural assignment
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q =3D 0;
+&nbsp;&nbsp; else // remove the above continuous assign
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deassign q;
+
+always @ (WRITE or READ or STATUS)
+&nbsp;&nbsp; begin
+&nbsp;&nbsp; // if - else - if
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!WRITE) begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out =3D oldval=
+ue;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if&nbsp; (!STATUS) begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q =3D newstatu=
+s;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; STATUS =3D hold;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if&nbsp; (!READ) begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out =3D newvalue;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end
+end</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">case, casex, casez: case statements
+are used for switching between multiple sections ( if (case1) ... else</fon=
+t>
+<br><font face=3D"Times New Roman,Times">if (case2) ... else ...). If there
+are multiple matches, only the first is evaluated. Casez treats high</font>
+<br><font face=3D"Times New Roman,Times">impedance values as don&#8217;t ca=
+re and
+casex treats both unknown and high impedance as don&#8217;t care&#8217;s.</=
+font><font face=3D"Times New Roman,Times"></font>
+</p><p><a name=3D"case"></a><i><font face=3D"Times New Roman,Times">Case st=
+atement
+example</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">module d2x8 (select, out); // pri=
+ority encode
+&nbsp;&nbsp; input [0:2] select
+&nbsp;&nbsp; output [0:7] out;
+&nbsp;&nbsp; reg [0:7] out;
+
+always @ (select) begin
+&nbsp;&nbsp; out =3D 0;&nbsp;&nbsp; //default statement
+case (select)
+&nbsp;&nbsp; 0: begin&nbsp;&nbsp; // can have begin and end statements for<=
+/font></pre>
+
+<pre><font face=3D"Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; out[0]=
+ =3D 1;&nbsp; // multiple lines...</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end
+&nbsp;&nbsp; 1: out[1] =3D 1;
+&nbsp;&nbsp; 2: out[2] =3D 1;
+&nbsp;&nbsp; 3: out[3] =3D 1;
+&nbsp;&nbsp; 4: out[4] =3D 1;
+&nbsp;&nbsp; 5: out[5] =3D 1;
+&nbsp;&nbsp; 6: out[6] =3D 1;
+&nbsp;&nbsp; 7: out[7] =3D 1;
+endcase
+end
+endmodule</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"casex"></a><i><font face=3D"Times New Roman,Times">casex stat=
+ement
+example</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">casex (state)
+&nbsp;&nbsp; // treats both x and z as don&#8217;t care
+&nbsp;&nbsp; // during comparison: 3&#8217;b01z, 3&#8217;b01x, 3&#8217;b011
+&nbsp;&nbsp; // ... match case 3&#8217;b01x
+&nbsp;&nbsp; 3&#8217;b01x: fsm =3D 0;
+&nbsp;&nbsp; 3&#8217;b0xx: fsm =3D 1;
+&nbsp;&nbsp; default: begin
+&nbsp;&nbsp; // default matches all other occurences
+&nbsp;&nbsp; fsm =3D 1;
+&nbsp;&nbsp; next_state =3D 3&#8217;b011;
+&nbsp;&nbsp; end
+endcase</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><a name=3D"casez"></a><i><font face=3D"Times New Roman,Times">casez stat=
+ement
+example</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">casez (state)
+&nbsp;&nbsp; //treats z as don&#8217;t care during comparison:
+&nbsp;&nbsp; // 3&#8217;b11z, 3&#8217;b1zz, ... match 3&#8217;b1??: fsm =3D=
+ 0;
+&nbsp;&nbsp; 3&#8217;b1?? : fsm =3D 0; // is msb&nbsp;&nbsp; =3D 1, matches=
+&nbsp; 3&#8217;b1??
+&nbsp;&nbsp; 3&#8217;b01? : fsm =3D 1;
+&nbsp;&nbsp; default : $display (&#8220;wrong state&#8221;);
+endcase</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"7.3"></a><b><font face=3D"Times New Roman,Times">7.3 Looping
+statements</font></b><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">forever, for, while and repeat=
+ loops
+example</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">forever
+// should be used with disable or timing control
+&nbsp;&nbsp; @(posedge clock) {co,sum} =3D a + b + ci;
+
+for (i=3D0; i&lt; 7; i=3Di+1)
+&nbsp;&nbsp; memory[i] =3D 0; // initialize&nbsp; to 0
+
+for (i=3D0; i&lt;=3D bit-width; i =3D i+1)
+&nbsp;&nbsp; // multiplier using shift left and add
+&nbsp;&nbsp; if (a[i]) out =3D out + (b &lt;&lt; (i-1));
+
+repeat (bit-width) begin
+&nbsp;&nbsp; if (a[0]) out =3D b + out;
+&nbsp;&nbsp; b =3D b &lt;&lt; 1; // multiplier using
+&nbsp;&nbsp; a =3D a &lt;&lt; 1 ;// shift left and add
+end
+
+while (delay) begin @(posedge clk);
+&nbsp;&nbsp; ldlang =3D oldldlang;
+&nbsp;&nbsp; delay =3D delay -1;
+end</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%">
+<br><a name=3D"8.0"></a><b><font face=3D"Times New Roman,Times">8.0 Named=
+ Blocks,
+Disabling Blocks</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Named blocks are used to create hie=
+rarchy
+within modulesand can be used to group a collection of</font>
+<br><font face=3D"Times New Roman,Times">assignments or expressions. Disable
+statement is used to disable or de-activate any named block, tasks</font>
+<br><font face=3D"Times New Roman,Times">or modules. Named blocks, tasks
+can be accessed by full or reference hierarchy paths (example</font>
+<br><font face=3D"Times New Roman,Times">dff_lab.stimuli). Named blocks can
+have local variables.</font><font face=3D"Times New Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">Named blocks and disbale sta=
+tement
+example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">initial forever @(posedge reset)
+&nbsp;&nbsp; disable MAIN;&nbsp;&nbsp; // disable named block
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // tasks and modules can also be disabled.
+
+always begin: MAIN&nbsp; // defining named blocks
+&nbsp;&nbsp; if (!qfull) begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #30 recv(new,newdata); // call task
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (new) begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q[head] =3D newdata;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; head =3D head + 1;&nbsp;&n=
+bsp; // queue
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end
+&nbsp;&nbsp; end
+&nbsp;&nbsp; else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable recv;
+end&nbsp;&nbsp; // MAIN</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%"><a name=3D"9.0"></a><b><font face=3D"Times New Roman=
+,Times">9.0
+Tasks and Functions</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Tasks and functions permit the grou=
+ping
+of common procedures and then executing these procedures</font>
+<br><font face=3D"Times New Roman,Times">from different places. Arguments
+are passed in the form of input/inout values and all calls to functions</fo=
+nt>
+<br><font face=3D"Times New Roman,Times">and tasks share variables.</font><=
+font face=3D"Times New Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">The differences between tasks
+and functions are:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">Tasks</font></td>
+
+<td><font face=3D"Times New Roman,Times">Functions</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Permits time control</font></td>
+
+<td><font face=3D"Times New Roman,Times">Executes in one simulation time</f=
+ont></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Can have zero or more arguments</f=
+ont></td>
+
+<td><font face=3D"Times New Roman,Times">requires at least one input</font>=
+</td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Does not return value, assigns val=
+ue
+to outputs</font></td>
+
+<td><font face=3D"Times New Roman,Times">Returns a single value, no special
+output&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">declarations required</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">Can have output arguments, permits
+#, @, -&gt;,&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">wait, task calls</font></td>
+
+<td><font face=3D"Times New Roman,Times">Does not permit outputs, #, @, -&g=
+t;,
+wait, task calls</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"task_eg"></a><i><font face=3D"Times New Roman,Times">task Exa=
+mple:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">task recv;
+&nbsp;&nbsp; output valid;
+&nbsp;&nbsp; output [9:0] data;
+&nbsp;&nbsp; begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; valid =3D inreg;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (valid) begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ackin =3D 1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D qin;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait(inreg);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ackin =3D 0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end
+&nbsp;&nbsp; end
+
+task instantiation
+always begin : MAIN&nbsp;&nbsp; // named definition
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!qfull) begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; revc(new,newdata);&nbsp; // call=
+ task
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (new) begin)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q[head] =3D ne=
+wdata;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; head =3D head=
+ + 1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable recv;
+end //MAIN</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"func_eg"></a><i><font face=3D"Times New Roman,Times">function
+Example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">module foo2 (cs, in1, in2, ns);
+&nbsp;&nbsp; input [1:0] cs;
+&nbsp;&nbsp; input in1, in2;
+&nbsp;&nbsp; output [1:0] ns;
+&nbsp;
+&nbsp;&nbsp; function [1:0] generate_next_state
+&nbsp;&nbsp; input [1:0] current_state;
+&nbsp;&nbsp; input input, input2;
+&nbsp;&nbsp; reg [1:0] next_state
+&nbsp;&nbsp; // input1 causes 0-&gt;1 transition
+&nbsp;&nbsp; // input2 causes 1-&gt;2 transition
+&nbsp;&nbsp; // 2-&gt;0 illegal and unknown states go to 0
+&nbsp;&nbsp; begin
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case( current_state)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&#8217;h0: next_state =3D input=
+1 ? 2&#8217;h1 : 2&#8217;h0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&#8217;h1: next_state =3D input=
+2 ? 2&#8217;h2 : 2&#8217;h1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&#8217;h2: next_state =3D 2&#82=
+17;h0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default: next_state =3D 2&#8217;=
+h0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; endcase
+&nbsp;&nbsp; generate_next_state =3D next_state;
+end
+endfunction
+
+assign ns =3D generate_next_state(cs,in1,in2);
+
+endmodule</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%">
+<br><a name=3D"10.0"></a><b><font face=3D"Times New Roman,Times">10.0 Conti=
+nuous
+Assignments</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Continuous assignments imply that
+any change on the RHS of the assignment occurs, it is evaluated and assigned
+to the LHS. These assignments thus drive both vector and scalar values
+onto nets. Continuous assignments alwyas implement combinational logic
+(possibly with delays). The driving strengths of a continuous assignment
+can be specified by the user on the net types.</font><font face=3D"Times Ne=
+w Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">Continuous assignment on dec=
+laration:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">/* since only one net15 declarati=
+on exists in a give module, only one such&nbsp;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">declarative continuous assignment=
+ per signal is allowed */
+
+wire #10 (strong1, pull0) net15 =3D enable;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">/* delay of 10 for continuous ass=
+ignment with strengths&nbsp;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">of logic 1 as strong1 and lgic 0=
+ as pull0 */</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">There are <a tppabs=3D"http://ee.uc=
+d.ie/~finbarr/verilog/wires_in_verilog.html" href=3D"wires_in_verilog.html"=
+>4
+ways of instantiating wires</a>/logic</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">Continuous assignment on alr=
+eady
+declared nets.</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">Assign #10 net15 =3D enable;
+assign (weak1, strong0) {s,c} =3D a + b;</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%">
+<br><a name=3D"11.0"></a><b><font face=3D"Times New Roman,Times">11.0 Proce=
+dural
+Assignments</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">Assignments to register data types
+may occur within always, initial, task and functions. These expressions
+are controlled by triggers which cause the assignments to evaluate. The
+variables to which the expressions are assigned must be made of bit-select
+or part-select or whole element of a reg, integer, real or time. These
+triggers can be controlled by loops, if ... else construncts. Assign and
+deassign are used for procedural assignments and to remove the continuous
+assignments.</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">module dff (q, qb, clk, d, rst);
+&nbsp;&nbsp; output q, qb;
+&nbsp;&nbsp; input d, rst, clk;
+&nbsp;&nbsp; reg q, qb, temp;
+&nbsp;&nbsp; always
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #1 qb =3D ~q;&nbsp; // procedural assi=
+gnment
+
+&nbsp;&nbsp; always @(rst)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // procedural assignment with triggers
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (rst) assign q =3D temp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else deassign q;
+
+always @ (posedge clk)
+&nbsp;&nbsp;&nbsp; temp =3D d;
+
+endmodule</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">force and release are also procedur=
+al
+assignments. However they can force or release values on net data</font>
+<br><font face=3D"Times New Roman,Times">types and registers.</font><font=
+ face=3D"Times New Roman,Times"></font>
+</p><p><a name=3D"11.1"></a><b><font face=3D"Times New Roman,Times">11.1 Bl=
+ocking
+Assignment</font></b>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">module adder (a,b,ci,co,sum,clk);
+&nbsp;&nbsp; input a,b,ci,clk;
+&nbsp;&nbsp; output co,sum;
+&nbsp;&nbsp; reg co,sum;
+
+always @(posedge clk) // edge control
+&nbsp;&nbsp; // assign co, sum with previous value of a,b,ci
+&nbsp;&nbsp; {co,sum} =3D #10 a + b + ci;
+endmodule</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">How Synopsys handles <a tppabs=3D"h=
+ttp://ee.ucd.ie/~finbarr/verilog/block_non_block.html" href=3D"block_non_bl=
+ock.html">blocking
+and non-blocking assignments...</a></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+</p><p><a name=3D"11.2"></a><b><font face=3D"Times New Roman,Times">11.2 No=
+n-Blocking
+Assignment</font></b><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Allows scheduling of assignments
+with out blocking the procedural flow. Blocking assignmets allow timing
+control which are delays whereas , non-blocking assignments permit timing
+control which can be delays or event contol. Th non-blocking assignment
+is used to avoid race conditions and can model RTL assignments.</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">/* assume a =3D 10, b =3D 20, c=
+ =3D 30, d =3D 40 at the start of block */
+
+always @ (posedge clk)
+&nbsp;&nbsp; begin: block
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a &lt;=3D #10 b;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b &lt;=3D #10 c;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c &lt;=3D #10 d;
+
+/* at the end of the block + 10 time units, a =3D 20, b =3D 30, c =3D 40 */=
+</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p>
+</p><hr width=3D"100%">
+<br><a name=3D"12.0"></a><b><font face=3D"Times New Roman,Times">12.0 Gate
+Types, MOS and Bidirectional Switches</font></b><font face=3D"Times New Rom=
+an,Times"></font>
+<p><font face=3D"Times New Roman,Times">Gate delcarations permit the user
+to instantiate different gate types and assign drive strengths to the</font>
+<br><font face=3D"Times New Roman,Times">logic values and also any delays.<=
+/font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">&nbsp; &lt;gate-declaration&gt;=
+ ::=3D &lt;component&gt;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; &lt;driv=
+e_strength&gt; ? &lt;delay&gt; ? &lt;gate_instance&gt;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; &lt;,&lt;gate_instance..&gt;&gt;;</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">Gate Types</font></td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+
+<td><font face=3D"Times New Roman,Times">Component</font></td>
+</tr>
+
+<tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">Gates</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">Allows&nbsp;
+Strengths</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">and, nand, or, nor, xor, xnor, bu=
+f, not</font></pre>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">Tristate
+Drivers</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">Allows&nbsp;
+Strengths</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">bufif0, bufif1, notif0, notif1</f=
+ont></pre>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">MOS Switches</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">No Strengths</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">nmos, pmos, cmos, rnmos, rpmos,=
+ rcmos</font></pre>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">Bidirectional
+Switch</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">No strengths,&nbsp;
+non resistive</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">tran, tranif0, tranif1</font></pr=
+e>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">Bidirectional
+Switch</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">No strengths,&nbsp;
+resistive</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">rtran, rtranif0, rtranif1</font><=
+/pre>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">Bidirectional
+Switch</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">Allows strengths</font></pre>
+</td>
+
+<td>
+<pre><font face=3D"Times New Roman,Times">pullup, pulldown</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"switch_types"></a><i><font face=3D"Times New Roman,Times">Gat=
+es,
+switch types and their instantiations</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">cmos i1 (out, datain, ncontrol,=
+ pcontrol)
+nmos i2 (out, datain, ncontrol)
+pmos i3 (out, datain, pcontrol)
+pullup (neta) (netb);
+pulldown (netc);
+nor i4 (out, in1, in2, ...);
+and i5 (out, in1, in2, ...);
+nand i6 (out, in1, in2, ...);
+buf i7 (out1, out2, in);
+bufif1 i8 (out, in, control);
+tranif1 i9 (inout1, inout2, control);</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><i><font face=3D"Times New Roman,Times">Gate level instantiation exmaple=
+</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">// Gate level instantiation
+nor (highz1, strong0) #(2:3:5) (out, in1, in2);
+// instantiates a nor gate with out strength of highz1 (for 1)
+// and strong0 for 0 #(2:3:5) is the min:typ:max delay
+
+pullup1 (strong1) net1;
+//instantiates a logic high pullup
+cmos (out, data, ncontol, pcontrol);
+// MOS devices</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<p><a name=3D"drive_strengths"></a><font face=3D"Times New Roman,Times">The
+following strength definitions exist:</font>
+</p><ul>
+<li>
+<font face=3D"Times New Roman,Times">4 drive strengths (supply, strong, pul=
+l,
+weak)</font></li>
+
+<li>
+<font face=3D"Times New Roman,Times">3 capacitor strengths (large medium,
+small)</font></li>
+
+<li>
+<font face=3D"Times New Roman,Times">1 high impedance state highz</font></l=
+i>
+</ul>
+<font face=3D"Times New Roman,Times">The drive strengths for each of the
+output signals are:</font>
+<ul>
+<li>
+<font face=3D"Times New Roman,Times">Strength of an output signal with logic
+value 1</font></li>
+
+<br><font face=3D"Times New Roman,Times">supply1, strong1, pull1, large1,
+weak1, highz1</font>
+<li>
+<font face=3D"Times New Roman,Times">Strength of an output signal with logic
+value 0</font></li>
+
+<br><font face=3D"Times New Roman,Times">supply0, strong0, pull0, large0,
+weak0, highz0</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;</ul>
+<i><font face=3D"Times New Roman,Times">Drive Strengths:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Logic 0</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+
+<td>
+<center><font face=3D"Times New Roman,Times">Logic 1</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times"></font></td>
+
+<td><font face=3D"Times New Roman,Times">Strength</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">supply0</font></td>
+
+<td><font face=3D"Times New Roman,Times">Su0</font></td>
+
+<td><font face=3D"Times New Roman,Times">supply1</font></td>
+
+<td><font face=3D"Times New Roman,Times">Su1</font></td>
+
+<td><font face=3D"Times New Roman,Times">7</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">strong0</font></td>
+
+<td><font face=3D"Times New Roman,Times">St0</font></td>
+
+<td><font face=3D"Times New Roman,Times">strong1</font></td>
+
+<td><font face=3D"Times New Roman,Times">St1</font></td>
+
+<td><font face=3D"Times New Roman,Times">6</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">pull0</font></td>
+
+<td><font face=3D"Times New Roman,Times">Pu0</font></td>
+
+<td><font face=3D"Times New Roman,Times">pull1</font></td>
+
+<td><font face=3D"Times New Roman,Times">Pu1</font></td>
+
+<td><font face=3D"Times New Roman,Times">5</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">large</font></td>
+
+<td><font face=3D"Times New Roman,Times">La0</font></td>
+
+<td><font face=3D"Times New Roman,Times">large</font></td>
+
+<td><font face=3D"Times New Roman,Times">La1</font></td>
+
+<td><font face=3D"Times New Roman,Times">4</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">weak0</font></td>
+
+<td><font face=3D"Times New Roman,Times">We0</font></td>
+
+<td><font face=3D"Times New Roman,Times">weak1</font></td>
+
+<td><font face=3D"Times New Roman,Times">We1</font></td>
+
+<td><font face=3D"Times New Roman,Times">3</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">medium</font></td>
+
+<td><font face=3D"Times New Roman,Times">Me0</font></td>
+
+<td><font face=3D"Times New Roman,Times">medium</font></td>
+
+<td><font face=3D"Times New Roman,Times">Me1</font></td>
+
+<td><font face=3D"Times New Roman,Times">2</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">small</font></td>
+
+<td><font face=3D"Times New Roman,Times">Sm0</font></td>
+
+<td><font face=3D"Times New Roman,Times">small</font></td>
+
+<td><font face=3D"Times New Roman,Times">Sm1</font></td>
+
+<td><font face=3D"Times New Roman,Times">1</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">highz0</font></td>
+
+<td><font face=3D"Times New Roman,Times">HiZ0</font></td>
+
+<td><font face=3D"Times New Roman,Times">highz1</font></td>
+
+<td><font face=3D"Times New Roman,Times">HiZ1</font></td>
+
+<td><font face=3D"Times New Roman,Times">0</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%"><a name=3D"12.1"></a><b><font face=3D"Times New Roma=
+n,Times">12.1
+Gate Delays</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">The delays allow for modelling of
+rise time, fall time and turn off delays for the gates. Each of these delay
+types may be in the min:typ:max format. The order of the delays are #(trise,
+tfall, tturn-off).</font><font face=3D"Times New Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">For example:</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">nand #(6:7:8, 5:6:7, 12:16:19) (o=
+ut, a, b);&nbsp;</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=3D"=
+1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Delay</font></center>
+</td>
+
+<td>
+<center><font face=3D"Times New Roman,Times">Model</font></center>
+</td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">#(delay)</font></td>
+
+<td><font face=3D"Times New Roman,Times">min:typ:max delay</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">#(delay,delay)</font></td>
+
+<td><font face=3D"Times New Roman,Times">rise time delay, fall time delay
+each delay can be with min:typ:max</font></td>
+</tr>
+
+<tr>
+<td><font face=3D"Times New Roman,Times">#(delay,delay,delay)</font></td>
+
+<td><font face=3D"Times New Roman,Times">rise time delay, fall time delay
+and turn off delay each delay can be with&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">min:typ:max</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">For trireg, the delay of the capaci=
+tive
+network is modelled using the rise time delay, fall time delay and</font>
+<br><font face=3D"Times New Roman,Times">charge decay. For example,</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">trireg (large) #(0,1,9) capacitor
+//charge strength is large
+// decay with tr =3D 0, tf =3D 1, tdecay =3D 9</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p>
+</p><hr width=3D"100%"><font face=3D"Times New Roman,Times"></font>
+<p><a name=3D"13.0"></a><b><font face=3D"Times New Roman,Times">13.0 Specify
+Blocks</font></b><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">A specify block is used to spec=
+ify
+timing information for the module in which the specify block is used. Specp=
+arams
+are used to declare delay constants, much like regular parameters inside
+a module, but unlike module parameters, they cannot be overridden. Paths
+are used to declare time delays between inputs and outputs.</font><font fac=
+e=3D"Times New Roman,Times"></font>
+</p><p><i><font face=3D"Times New Roman,Times">Timing Information using spe=
+cify
+blocks</font></i>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">specify // similar to defparam,=
+ used for timing&nbsp;
+&nbsp;&nbsp; specparam delay1 =3D 25.0, delay2 =3D 24.0;
+&nbsp;
+//edge sensitive delays &#8211; some simulators do not support this
+(posedge clock) =3D&gt; (out1 +: in1) =3D delay1, delay2);
+
+//conditional delays
+if (OPCDE =3D 3&#8217;h4) (in1, in2 *&gt; out1) =3D (delay1, delay2);
+
+// +: implies edge sensitive positive polarity
+// -: implies edge sensitive -ve polarity
+// *&gt; implies multiple paths
+
+// level sensitive delays
+if (clock) (in1, in2 *&gt; out1, out2) =3D 30
+// setuphols
+&nbsp;&nbsp; $setuphols(posedge clock &amp;&amp;&amp; reset, in1 &amp;&amp;=
+&amp; reset,
+&nbsp;&nbsp;&nbsp; 3:5:6, 2:3:6);
+&nbsp;&nbsp; (reset *&gt; out1, out2) =3D (2:3:5,3:4:5);
+
+endspecify</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p>
+</p><hr width=3D"100%">
+<br><a name=3D"SynCon"></a><b><font face=3D"Times New Roman,Times">Verilog
+Synthesis Constructs</font></b><font face=3D"Times New Roman,Times"></font>
+<p><font face=3D"Times New Roman,Times">The following is a set of Verilog
+Constructs that are supported by most synthesis tools at the time of</font>
+<br><font face=3D"Times New Roman,Times">this writing. To prevent variations
+in supported synthesis constructs from tool to tool, this is the least</fon=
+t>
+<br><font face=3D"Times New Roman,Times">common denominator of supported
+constructs. Tool reference guides cover specific constructs.</font><font fa=
+ce=3D"Times New Roman,Times"></font>
+</p><p><a name=3D"14.0"></a><b><font face=3D"Times New Roman,Times">14.0 Ve=
+rilog
+Synthesis Constructs:</font></b><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Since it is very difficult fot=
+ the
+synthesis tool to find hardware with exact delays, all absolute and</font>
+<br><font face=3D"Times New Roman,Times">relative timing declarations are
+ignored by the tools. Also, all signals are assumed to be of maximum</font>
+<br><font face=3D"Times New Roman,Times">strength (strength 7). Boolean ope=
+rations
+on x and z are not permitted. The constructs are classified as</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><ul>
+<li>
+<font face=3D"Times New Roman,Times">Fully supported constructs- Constructs
+that are supported as defined in the Verilog Language Reference Manual.</fo=
+nt></li>
+
+<li>
+<font face=3D"Times New Roman,Times">Partially supported constructs- Constr=
+ucts
+supported with restrictions on them</font></li>
+
+<li>
+<font face=3D"Times New Roman,Times">Ignore constructs - constructs which
+are ignored by the synthesis tool</font></li>
+
+<li>
+<font face=3D"Times New Roman,Times">Unsupportd constructs- constructs which
+if used, may cause the synthesis tool to not accept the Verilog input or
+may cause different results between synthesis and simulation.</font></li>
+</ul>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"14.1"></a><b><font face=3D"Times New Roman,Times">14.1 Fully
+supported constructs:</font></b>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td><font face=3D"Times New Roman,Times">&lt;module instantiation, with nam=
+ed
+and positional notations&gt;</font><font face=3D"Times New Roman,Times"></f=
+ont>
+<p><font face=3D"Times New Roman,Times">&lt;integer data types, with all
+bases&gt;</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">&lt;identifiers&gt;</font><font=
+ face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">&lt;subranges and slices on rig=
+ht
+hand side of assignment&gt;</font><font face=3D"Times New Roman,Times"></fo=
+nt>
+</p><p><font face=3D"Times New Roman,Times">&lt;continuous assignment&gt;</=
+font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">&gt;&gt;,&lt;&lt;,?:,{}</font>
+<br><font face=3D"Times New Roman,Times">assign (procedural and declarative=
+),
+begin, end, case, casex, casez, endcase</font>
+<br><font face=3D"Times New Roman,Times">default</font>
+<br><font face=3D"Times New Roman,Times">disable</font>
+<br><font face=3D"Times New Roman,Times">function, endfunction</font>
+<br><font face=3D"Times New Roman,Times">if, else, else if</font>
+<br><font face=3D"Times New Roman,Times">input, output, inout</font>
+<br><font face=3D"Times New Roman,Times">wire, wand, wor, tri</font>
+<br><font face=3D"Times New Roman,Times">integer, reg</font>
+<br><font face=3D"Times New Roman,Times">macromodule, module</font>
+<br><font face=3D"Times New Roman,Times">parameter</font>
+<br><font face=3D"Times New Roman,Times">supply0, supply1</font>
+<br><font face=3D"Times New Roman,Times">task, endtask</font></p></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><a name=3D"14.2"></a><b><font face=3D"Times New Roman,Times">14.2 Partia=
+lly
+Supported Constructs</font></b>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<center><font face=3D"Times New Roman,Times">Construct</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Constraints</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">*,/,%</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">when both operands constants or
+second operand&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">is a power of 2</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">always</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">only edge triggered events</font><=
+/td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">for</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">bounded by static variables: only
+ise + or - to index</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">posedge, negedge</font></cente=
+r>
+</td>
+
+<td><font face=3D"Times New Roman,Times">only with always @</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">primitive, endprimitive, table,
+endtable</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Combinational and edge sensitive
+user defined&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">primitives are often supported.</f=
+ont></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">&lt;=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">limitations on usage with blocking
+statement</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">and,nand,or,nor,xor,xnor,buf,n=
+ot,,bufif0,bufif1,not</font>
+<br><font face=3D"Times New Roman,Times">if0,notif1</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Gate types supported without X or
+Z constructs</font></td>
+</tr>
+
+<tr>
+<td>
+<center><font face=3D"Times New Roman,Times">!, &amp;&amp;, ||, ~, &amp;,
+|, ^, ^~, ~^, ~&amp;, ~|, +, -, &lt;, &gt;, &lt;=3D,&nbsp;</font>
+<br><font face=3D"Times New Roman,Times">&gt;=3D, ++, !=3D</font></center>
+</td>
+
+<td><font face=3D"Times New Roman,Times">Operators supported without X or
+Z constructs</font></td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+<p><a name=3D"14.3"></a><b><font face=3D"Times New Roman,Times">14.3 Ignored
+Constructs</font></b>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">&lt;intra assignment timing contr=
+ols&gt;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">&lt;delay specifications&gt;</fon=
+t></pre>
+
+<pre><font face=3D"Times New Roman,Times">scalared, vectored
+small medium large
+specify
+time (some tools treat these as integers)
+weak1, weak0, highz0, highz1, pull0, pull1
+$keyword (some tools use these to set synthesis constraints)
+wait (some tools support wait with a bounded condition).</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+<font face=3D"Times New Roman,Times"></font><font face=3D"Times New Roman,T=
+imes"></font>
+<p><a name=3D"14.4"></a><b><font face=3D"Times New Roman,Times">14.4 Unsupp=
+osrted
+constructs</font></b>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p><center><table width=3D"80%" cellspacing=3D"0" cellpadding=3D"0" border=
+=3D"1" bgcolor=3D"#ffffff">
+<tbody><tr>
+<td>
+<pre><font face=3D"Times New Roman,Times">&lt;assignment with variable used=
+ as bit select on LHS of assignment&gt;</font></pre>
+
+<pre><font face=3D"Times New Roman,Times">&lt;global variables&gt;</font></=
+pre>
+
+<pre><font face=3D"Times New Roman,Times">=3D=3D=3D, !=3D=3D
+cmos,nmos,rcmos,rnmos,pmos,rpmos
+deassign
+defparam
+event
+force
+fork,join
+forever,while
+initial
+pullup,pulldown
+release
+repeat
+rtran,tran,tranif0
+tranif1
+rtranif0,rtranif1
+table,endtable,primitive,endprimitive</font></pre>
+</td>
+</tr>
+</tbody></table></center>
+
+<h1>
+<br>
+<br>
+
+<hr width=3D"100%"><a name=3D"Index"></a><font face=3D"Times New Roman,Time=
+s"><font size=3D"+0"><b>Index<br>
+<br>
+</b>Symbols</font></font></h1>
+<font face=3D"Times New Roman,Times"></font>
+<p><br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$display, $wri=
+te</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$fdisplay, $fwrit=
+e</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$finish</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$getpattern</a></=
+font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$history</a></fon=
+t>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$hold, $width</a>=
+</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$monitor, $fmonit=
+or</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$readmemb, $readm=
+emh</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$save, $restart,
+$incsave</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$scale</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$scope, $showscop=
+e</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$setup</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$setuphold</a></f=
+ont>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$showvars</a></fo=
+nt>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$sreadmemb, $srea=
+dmemh</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$stop</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$strobe, $fstrobe=
+</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#4.0">$time, $realtime<=
+/a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#1.0">/* */</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#1.0">//</a></font>
+<br><font face=3D"Times New Roman,Times">&#8216;<a href=3D"#3.0">autoexpand=
+_vectornets</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;celldefine=
+, &#8216;endcelldefine</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;defualt_ne=
+ttype</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;define&#82=
+17;expand_vectornets</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;noexpand_v=
+ectornets</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;ifdef, &#8=
+216;else, &#8216;endif</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;include</a=
+></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">nounconnected_dri=
+ve</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;protect,=
+ &#8216;endprotect</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;protected,=
+ &#8216;endprotected</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;remove_gat=
+ename</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;noremove_g=
+atenames</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;remove_net=
+name</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;noremove_n=
+etnames</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;resetall</=
+a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;signed</a>=
+</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;unsigned</=
+a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;timescale<=
+/a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">&#8216;unconnecte=
+d_drive</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">A</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#arith_oper">Arithemtic
+Operators</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#memories">Arrays</a=
+></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">B</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.0">Binary Expression=
+s</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#11.1">blocking assignm=
+ent</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">C</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#case">case</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#casex">casex</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#casez">casez</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#3.0">compiler directiv=
+es</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#combo_udp">Combinat=
+ional
+UDP example</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#10.0">continuous assig=
+nment</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">D</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#12.1">delays</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#8.0">disable</a></font=
+><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">E</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#equal_oper">equality=
+ operators</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#1.0">escaped identifie=
+rs</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.0">expressions</a></=
+font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">F</font>
+<br><font face=3D"Times New Roman,Times">f<a href=3D"#7.3">or</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.3">forever</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.1">fork ... join</a>=
+</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#14.1">Fully supported
+synthesis constructs</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#9.0">function </a>and
+<a href=3D"#func_eg">function example</a></font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">G</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#12.0">gate declaration=
+</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#12.0">gate-types</a></=
+font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">I</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.2">if, if ... else</=
+a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#1.1">integer literals<=
+/a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#equal_oper">identity=
+ operators</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#14.3">Ignored Synth=
+esis
+Constructs</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">L</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#logical_oper">logical
+opeators</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">M</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#memories">memories</a>=
+</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#6.1">module</a></font>=
+<font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">N</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#8.0">named blocks</a><=
+/font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#2.0">nets</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#11.2">non-blocking ass=
+igments</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#1.1">numbers</a></f=
+ont>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;<font face=3D"Times=
+ New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">O</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#oper_prec">operator pr=
+ecedence</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#relat_oper">operators<=
+/a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">P</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#14.2">partially suppor=
+ted
+synthesis constructs</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#11.0">procedural assig=
+nments</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#switch_types">pulldown=
+</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#switch_types">pullup</=
+a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">R</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#2.0">reg, register</a>=
+</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#relat_oper">relational
+operators</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.3">repeat</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#5.0">reserved words</a=
+></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">S</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#scalared">scalared</a>=
+</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#seq_ed_udp">sequential
+edge sensitive UDP</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#sequen_udp">sequential
+level sensitive UDP</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#shift_oper">Shift, oth=
+er
+operators</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#systasks">shm_open<=
+/a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#systasks">shm_probe=
+</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#13.0">specify block</a=
+></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#13.0">specparam</a></f=
+ont>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#variables">string symb=
+ols</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#drive_strengths">suppl=
+y0</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#drive_strengths">suppl=
+y1</a></font>
+<br><font face=3D"Times New Roman,Times">switch types</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#14.0">synthesis constr=
+ucts</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#14.3">synthesis ignored
+constructs</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#14.4">synthesis unsupp=
+orted
+constructs</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">T</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#9.0">task </a>and <a=
+ href=3D"#task_eg">task
+example</a></font>
+<br><font face=3D"Times New Roman,Times">tri0</font>
+<br><font face=3D"Times New Roman,Times">tri1</font>
+<br><font face=3D"Times New Roman,Times">triand</font>
+<br><font face=3D"Times New Roman,Times">trior</font>
+<br><font face=3D"Times New Roman,Times">trireg</font><font face=3D"Times=
+ New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">U</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#6.2">UDP</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.0">unary expression<=
+/a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#unary_oper">unary, bit=
+wise
+and reduction operators</a></font><font face=3D"Times New Roman,Times"></fo=
+nt>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#14.4">Unsupported=
+ Synthesis
+Constructs</a></font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">V</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#scalared">vectored</a>=
+</font><font face=3D"Times New Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">W</font><font face=3D"Times New=
+ Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times"><a href=3D"#task_eg">wait</a></=
+font>
+<br><font face=3D"Times New Roman,Times">wand</font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#7.3">while</a></font>
+<br><font face=3D"Times New Roman,Times"><a href=3D"#10.0">wire</a></font>
+<br><font face=3D"Times New Roman,Times">wor</font><font face=3D"Times New=
+ Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">X</font>
+<br><font face=3D"Times New Roman,Times">x, X</font><font face=3D"Times New=
+ Roman,Times"></font>
+</p><p><font face=3D"Times New Roman,Times">Z</font>
+<br><font face=3D"Times New Roman,Times">z, Z</font>
+<br><font face=3D"Times New Roman,Times"></font>&nbsp;
+</p></body></html>
+------=_NextPart_000_0000_9712C178.054951CD--

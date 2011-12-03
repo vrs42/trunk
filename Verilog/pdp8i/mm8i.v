@@ -1,0 +1,409 @@
+//
+// This implements the logic for all 32K, which includes all of
+// the MM8i, the 4K of memory in the base CPU, and the 4K in the 
+// MC8i.
+//
+// The core interface has of course been completely replaced by 
+// the FPGA internal RAM.
+//
+// This version implements memory parity, though whether it is 
+// checked depends on the CPU options.
+//
+module mm8i(Dclk, Power_clear_, Mem_start, Btp2, Ea, Ma, Bmb_,
+            Mb_parity_odd,
+            Mem_, Mem_p_, Mem_done_);
+
+parameter MEM_FIELDS = 1;
+
+input wire Dclk;
+input wire Power_clear_;
+input wire Mem_start;
+input wire Btp2;
+input wire [0:2] Ea;
+input wire [0:11] Ma;
+input wire [0:11] Bmb_;
+
+input wire Mb_parity_odd;
+
+// BUGBUG: Is the Mem bus really inverted??
+output wand [0:11] Mem_;
+output wand Mem_done_;
+output wand Mem_p_;
+
+reg [0:7] Field;
+//reg Read;
+//wire Rfinish;
+reg Write;
+wire Mem_finish;
+wire CLK;   // Block memory clock
+
+wire [0:7] High;
+wire [0:7] Low;
+assign High = Ma[0]? Field: 0;
+assign Low  = Ma[0]? 0: Field;
+assign Mem_done_ = ~Mem_finish;
+
+wire [0:3]  Hdata[0:7];
+wire [4:11] Mdata[0:7];
+wire [4:11] Ldata[0:7];
+
+wire [0:7] High_p;
+wire [0:7] Low_p;
+
+// The MM8i decodes Mem_enable, which is true for a pair of 
+// fields, and Field, which is 0 or 1 depending on which 
+// of the two implemented fields is selected.  Here we just 
+// decode 8 Field bits instead.
+always @(posedge Mem_start, negedge Power_clear_)
+begin
+    if (~Power_clear_)
+        Field <= 8'b0;
+    else
+        case (Ea)
+            'b000: Field <= 'b10000000;
+            'b001: Field <= 'b01000000;
+            'b010: Field <= 'b00100000;
+            'b011: Field <= 'b00010000;
+            'b100: Field <= 'b00001000;
+            'b101: Field <= 'b00000100;
+            'b110: Field <= 'b00000010;
+            'b111: Field <= 'b00000001;
+        endcase
+end
+
+//DelayLine #(50)  membegin(Dclk, Mem_start, Mem_begin);
+DelayLine #(150) strobe(Dclk, Mem_start, Strobe);
+//DelayLine #(400) rfinish(Dclk, Strobe, Rfinish);
+//always @(posedge Mem_begin, negedge Power_clear_, posedge Rfinish)
+//begin
+//    if (~Power_clear_)
+//        Read <= 0;
+//    else if (Mem_begin)
+//        Read <= 1;
+//    else
+//        Read <= 0;
+//end
+
+// The inhibit pulse that precedes write by 50ns is omitted,
+// as it is not needed.
+DelayLine #(100) wbegin(Dclk, Btp2, Wbegin);
+DelayLine #(400) mem_finish(Dclk, Wbegin, Mem_finish);
+always @(posedge Wbegin, negedge Power_clear_, posedge Mem_finish)
+begin
+    if (~Power_clear_)
+         Write = 0;
+    else if (Wbegin)
+         Write = 1;
+    else
+         Write = 0;
+end
+
+assign CLK = Strobe | Wbegin;
+
+   // RAMB16_S4: Virtex-II/II-Pro, Spartan-3/3E 4k x 4 Single-Port RAM
+   // Xilinx HDL Language Template version 7.1i
+genvar F;
+generate
+for (F=0; F < MEM_FIELDS; F=F+1) begin: afield
+    RAMB16_S4 #(
+        .INIT(4'h0),  // Value of output RAM registers at startup
+        .SRVAL(4'h0), // Ouput value upon SSR assertion
+        .WRITE_MODE("WRITE_FIRST"), // WRITE_FIRST, READ_FIRST or NO_CHANGE
+
+        // The following INIT_xx declarations specify the initial contents of the RAM
+        .INIT_00(256'h0000000000055527f000d4d00000000000800070000005006f068000d0005bb0),
+        .INIT_01(256'hf8000000054114331440545125411131546666ccb44800ffffff0ff000fff0ff),
+        .INIT_02(256'h26af319a99af2299f9726629f2294aa996296629960a9109962662926266e62b),
+        .INIT_03(256'h22444fbb6ee2f9f02ef02e9fa99622a99962e2e2aa9996e929f20296af2290ae),
+        .INIT_04(256'h01b6309091999a63a93af26eaf3091999362e9af20909929beee0555faaa9a23),
+        .INIT_05(256'h25220005ba47362643e0b82a4736282463e0b8e7e28e630b9f2e2620b8e728e6),
+        .INIT_06(256'ha9af2b6a2a63a93f26eaf3af22999f2a94990193af299902a29bf22962999f11),
+        .INIT_07(256'h0000112b7d99b9af20b4f2026e00be44f62e3af2eaf3630b44bfb9af242b3990),
+        .INIT_08(256'h9499e2939929e290d96339929f2293943a9a9e29bf4f4f262949900000000000),
+        .INIT_09(256'h0214f22111222be9fc3ec9399f2299a59ffaf992bf205d31963f949091909493),
+        .INIT_0A(256'h2099946962726629990a992e92a6299a913994a939a639e4929239a402966ec3),
+        .INIT_0B(256'h0000002022522beaccc0bc6cacce9be4b63632af2af36436e2f0a9209966e2a9),
+        .INIT_0C(256'h4724726229f2e2234a22af2e3af2e26269963962a9aa3996202a399969009000),
+        .INIT_0D(256'h12262222b6362b660c829b4f22bf26224f220040ffa9bf220b44af2e362b0d19),
+        .INIT_0E(256'h20d0909f262ee2af2e26f22629f9af22afeaf2262900a939aaa9699292929201),
+        .INIT_0F(256'h00000000b4899c493899a2e2a3996a099662091aaaa9962096292af9a63bf226),
+        .INIT_10(256'h62e2af2294b9c0b99f2e32630b4f22bf220000003b8620ce99f2095900000000),
+        .INIT_11(256'h55555555555b9b39690aa47362262e262262e262ea2722f2e26af36273eaf2e2),
+        .INIT_12(256'h2f80b66e24faf362afaf3e26262620b62a63a93f249629a627629f22aaa90555),
+        .INIT_13(256'h2b626e27f27273e0ffaeee26e63b22af22602a40a2a6ef2af2ae8b9f2262af22),
+        .INIT_14(256'h92b92af22f0b92292eaf2264a62600b962829280920b2af0cac0f000040c11c1),
+        .INIT_15(256'h000000000000b6e69f60009bf22e2672a40a82be8f02af2f20262bf22f2e20a2),
+        .INIT_16(256'h60b266af206660bc2e2ecc6cac629f2af2262af0cac620e276caf36cac6e6f00),
+        .INIT_17(256'h299926af34992ce62626a47e62e62462acaf2c62e06bc620e272a6c2af2caf3c),
+        .INIT_18(256'h993499999966263bf2e2620a7af2035b60362e6eaf203a4e6292bf2e2af2a629),
+        .INIT_19(256'h000000000000000000000000000000000000000000000000a065a22292901949),
+        .INIT_1A(256'h445406f038eeb0391138354104108388506f8435354308506fdc301006000000),
+        .INIT_1B(256'h38ebab1a207fecb18506fe3e448ecccb8d448206fe8b104888c3eb81db8ecc44),
+        .INIT_1C(256'h8207fb85ecc448207f85dcc448207f2e8ebab1a1eb18507fb338ebab1a207fe0),
+        .INIT_1D(256'hbbbbba482c8117f85841b38517f825423048517ff65417f8b15308507f85ec44),
+        .INIT_1E(256'h81857fbcdbcdc846b48e4057ff6417f8cf6417feba482c8188340b348eb8117f),
+        .INIT_1F(256'h0000000000000000fef45450fbc18938391945384148557fbcdca3b48257feb1),
+        .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_23(256'hcdccc62500000000000000000000000000000000000000000000000000000000),
+        .INIT_24(256'hc4ccccccccca5a7272af2eaf2ea7272afcceafe00caec2c2afcece6282a47edc),
+        .INIT_25(256'hb34396498005c456915122cc4b6222f82a47262622faf82c19cc5555555af22a),
+        .INIT_26(256'h0aab070d9b462202861c290c2560c2d9d51de9690d8969f20000000000000000),
+        .INIT_27(256'h0e7f450350b6f96f350ab06929290c2928d91900000a040040550a500b0a4f34),
+        .INIT_28(256'h897e6663e626e0d719afbf205d99f9f29aaab051d9b49b6e0d719af205d968f2),
+        .INIT_29(256'h000000000be900950939f84f19f65fe8f05f88ff70b03929292929292928d51d),
+        .INIT_2A(256'h282828280c8c6090c409af204096e20c9af204c840ce990c696e9bf2af2040c9),
+        .INIT_2B(256'h000000000000000000000061a09a5fcbbf2e5f00000000676067606760b9b408),
+        .INIT_2C(256'heef2af22af2e45a47af23526e262362ef2af2ef2e62eaf2260af262fe2609260),
+        .INIT_2D(256'hb9f2620a6ea4834929ea3a6ea462ebb490000ccf0f0a62ea92a482fe2af226e2),
+        .INIT_2E(256'h8662626201ffffa02bf22bf22a99f4862ab9bf220b8af2296eaf2af226666660),
+        .INIT_2F(256'h0000bb46e26e26eef2e0b62e622e622e622e0b6e26e26e26e20000b286662888),
+        .INIT_30(256'h9262a479fe43e4247eaf2af3a49626e26277ae099a2e099af2faf269922f2920),
+        .INIT_31(256'h0000000000000000b920bcbfbbbcfff0f00f05b928f2e62af242922f26ef292b),
+        .INIT_32(256'h66f0050a62e0d89ae0d89afbf2019622999af220d999626e3979af229af229f0),
+        .INIT_33(256'h890b62af0c6e1b8b622fcf26e6e200b4bf228a4a4af2620000000000e1bebbf6),
+        .INIT_34(256'h736262e62a2d10ba47362626af362af0ee262e463af026202602af026bf366e0),
+        .INIT_35(256'hdeddbdbdeeea9aa4909f9af909599f266eaf9090909a6666af2a9999a9900aa4),
+        .INIT_36(256'haf2b4a4962eaa48af2af226ef26af2e2bf2f2f2af2f20b6efe26efe26e2e0d0d),
+        .INIT_37(256'h0bb46e26e26eef2e0a666eb0b2964f4a408626eaf290b0b62626262bf2f2abf2),
+        .INIT_38(256'h0000b6862626209209209272092092726a092092720920927266668f82e0f000),
+        .INIT_39(256'hb9f20b6efe26efe26e2e0eeeedbbf29fbf26ef202620db898f8ee29f2b499400),
+        .INIT_3A(256'hf22e622e9f62660ff0000eab54bf732e473e262e36e2a46e2eaf26e2e6266bf0),
+        .INIT_3B(256'h0ebb9fef20db6b89a62e9afe2af2f2f2890b626262a46eb6262a46e26e2e626a),
+        .INIT_3C(256'hf00000006b6a0c9bfeef2e2af2e2af2e262e02609af2f26662e4f6eef29f20c9),
+        .INIT_3D(256'h000000000000000000b29200b92e88ee8e98ee260bcaf2af2299a8282828200a),
+        .INIT_3E(256'h2e80acacb26cac00c0a6202bf4f202af2ae4af2860ffffff20000000000000af),
+        .INIT_3F(256'ha0a67fcaceafeecacc000ab2eee20af47ca2226af8a86862626a8622ff62cccf)
+    ) RAMB16_S4_0H (
+        .DO(Hdata[F]),  // 4-bit Data Output
+        .ADDR(Ma),       // 12-bit Address Input
+        .CLK(CLK),       // Clock
+        .DI(~Bmb_[0:3]), // 4-bit Data Input
+        .EN(Field[F]),   // RAM Enable Input
+        .SSR(1'b0),      // Synchronous Set/Reset Input
+        .WE(Write)       // Write Enable Input
+    );
+    RAMB16_S9 #(
+        .INIT(8'h0),  // Value of output RAM registers at startup
+        .SRVAL(8'h0), // Ouput value upon SSR assertion
+        .WRITE_MODE("WRITE_FIRST"), // WRITE_FIRST, READ_FIRST or NO_CHANGE
+
+        // The following INIT_xx declarations specify the initial contents of the RAM
+        .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_07(256'h0af26a3f627ef8e1000000000000000000000000000000000000000000000000),
+        .INIT_08(256'hc0d9e441c6a801020f61c88061f661f596a87980772000f8f9f2832f0cc0fae6),
+        .INIT_09(256'h212f000000000000000026ccf1cbf38af440caa8f6e4b5a8f7ecc7ebe9eae8a6),
+        .INIT_0A(256'hf0db2f09ed09ec2f50f6c8e428f9f0021160012618181818181818c9c8582fb6),
+        .INIT_0B(256'hf918181f6031e432020207acd204b1068f70d5016e6bc7cb8ce71defee44c8f9),
+        .INIT_0C(256'hbdbebdbe0007d52b00bdcb071bd4c82500000000000000000000000000000000),
+        .INIT_0D(256'h04d6d25e00bdcebd075e1b2424d500ced1d6bdd6d6bec2d6bfbdd6c5d6c8bebd),
+        .INIT_0E(256'hf9fcbebdbd070000000000730000020000011dc501e17607e32c0a6f6ffc02fa),
+        .INIT_0F(256'h002a17fdd31700a61f002cc6fb1cc4ffa31f0014ec00d6bdedbef0bef3d6f6be),
+        .INIT_10(256'hceced2c29c009d9e9d079cf2da93f2a0009d9d9f0791c825009f9d071bf3c825),
+        .INIT_11(256'hef07ee01272625ee2024051ba000eeee9f07b4c05e2825009fee0729c8762825),
+        .INIT_12(256'hfec74fff4000ffe2ff009c009deed6eed9eedceedfeee2eee5eee8ebee9fee9d),
+        .INIT_13(256'h000000000000000000f3a02900000c8b00d6dd64f9c49efcf9e6fdc15dfe894b),
+        .INIT_14(256'h07a5c82500cad2c6d2d6d200072b00d6c6071b20295ec0258de02500d2ced207),
+        .INIT_15(256'hced6e6d6e2d6ded6dad6d2d2ced20700d2d2ca07b1c82500ced2071b201b00d2),
+        .INIT_16(256'h34f9220d01f400000000000000009dee48019dee48029dee48035e295e1b00d2),
+        .INIT_17(256'h00000000000000000000000000000000000000000000770cd500def119fd684c),
+        .INIT_18(256'h40d6b3481a80401b20db1aa09848dbdddb52a1282addd628211a1a526f2adc00),
+        .INIT_19(256'h218040dbed601bddeea82a801bded139deb5c8d8deded5392139de39d939d780),
+        .INIT_1A(256'hda000000006c68f607fa05aadede20c36942c31ade45c8011ae3a81a1b1a211b),
+        .INIT_1B(256'hf929c825282500f3dc20f2dcde0c806942da80cb0ccbdc20ebdc1b1b2080dedd),
+        .INIT_1C(256'h2ca7977197a8b23600809790a8b536b6282091a0499028b43628cc2725242600),
+        .INIT_1D(256'hcdca21252226232700ee6055263ba0523697e0b33697c84a3698b676a0ccb7cb),
+        .INIT_1E(256'h272327c000cdca04ca25042526042627442700000000b7cadb212223cbcddbcd),
+        .INIT_1F(256'h00000000ecec202308232208222108504821c000dbcaca042521250426222604),
+        .INIT_20(256'h0ce8e6e5952000ea07891b0100e4079ce8e1209748241beb69dedcc02569dd00),
+        .INIT_21(256'he9e30ce8b8240ce708001be6001be2240c01b4c8e2b828e6a5ec5724e3ec6024),
+        .INIT_22(256'h9cadbdf3c52280da25ec20242025e0cd40df242569de49c01b2521481b69db80),
+        .INIT_23(256'h00000000000000000000000000000000ec694b0079b90037b7cacbbdf9f6fc64),
+        .INIT_24(256'hc4c2c6a6a0c136001807c7c424c81b21c5c3c5c691a04d36c282a84c36c6a000),
+        .INIT_25(256'h6766fd00000004a61b1b200018b907b6010018bd07b1c080281b0018071b1b27),
+        .INIT_26(256'he290fe0be3d4e3d41af4c01fe34500000000000000000023ddeecc7b97803b68),
+        .INIT_27(256'h646f00d13653d228460e1f2089f3e3e36a56ffa00c20fd1f60fd20fd008a610b),
+        .INIT_28(256'h0646b20d202080202099a8b2b32020b2462080448ea853b2b28028802327c000),
+        .INIT_29(256'h0d0c2f4f0c20200dc3bbc37b0000b2ad2f0c0d2f4f0cc4b2b528b2b2b4b72847),
+        .INIT_2A(256'hb220e2482b2464206324638127262524d5a02581f7fbf9fa81f8f51f2381be2f),
+        .INIT_2B(256'h73474546dbefec93dd046b81f681ebb2f620643863f038642464056376a02523),
+        .INIT_2C(256'h93a82328222821c9a8262825008325411820252641182026272127c0004b004d),
+        .INIT_2D(256'hc4c0209393b8d2d3202020bbb1d2efb5c083bdc8ded2d221408383bb28242120),
+        .INIT_2E(256'h27179320e82301ebe824e900ec0093272326222521242093e083c024c693c024),
+        .INIT_2F(256'hdfefef242708272608262508104825c000e42625247b7917d426ea27250826e4),
+        .INIT_30(256'hbcb304ea2203ea21e92603ea2202ea21e925bebfc0c1ebc8d4200100fffd8aff),
+        .INIT_31(256'h000000008427c127bf26c025c106ea2305ea2204ea21e92705ea2604ea25e923),
+        .INIT_32(256'he628252820c021255424240001d3c1e8ebc0d401212076a821c127e729280000),
+        .INIT_33(256'hfb29c82800eb21411820212241182022232123c00080aeb1dd50d4e6282129c8),
+        .INIT_34(256'hacacac40adacaa2180ad08ac88adab08ae409010abac08ac40adafabac802800),
+        .INIT_35(256'h10212504ae2622405708adb0ac8000e9f40000000042a680acac8010acacab04),
+        .INIT_36(256'hf6fd00b127ac268025ddb7addd04b1258026acb7ad800480ac04ac8026ae25c4),
+        .INIT_37(256'h007b79f6f5c821482500efdd24ddf6fee724246057f0c84425f3a82628272825),
+        .INIT_38(256'h242424a000b8b8bc07b5a8be28bdbbbab9b700b818b80810482476c82500bc07),
+        .INIT_39(256'h43000000000000000d5e249700b8075ec0012140ba2126b1a0b92125b1a0b821),
+        .INIT_3A(256'he8046fe806061a1a004402d2a00ecca04e366965ced71dd719d730d75b000098),
+        .INIT_3B(256'h000000000000000000000000000000000007e81a694bee00d7693f80e8e8080a),
+        .INIT_3C(256'h8a97208a9fe8c0b08a000202020202028a000000000000000000000000007f02),
+        .INIT_3D(256'h8d21e3c0b50eb809b08c8c1eb21900008138988bafae8c96e89648e1bc8c98a0),
+        .INIT_3E(256'h8e81cd8dedfe8ede10e3bd96edb0fe8cde8b8dcb96b1eaebc0848baf8c0c1a02),
+        .INIT_3F(256'hc100eefefe101cf71906ef4806461eef191a000006b2e3ed060646fe00da808e),
+        .INITP_00(256'h0800000000000000000000000000000000000000000000000000000000000000),
+        .INITP_01(256'h308e42a6ec16cb8bc7a8f32abe520000b760a34f99e7b009002e1f32556f60af),
+        .INITP_02(256'h0000019e2c0377150aea5424a5d9484d007050fde4a8023a662bc07cda6f1e16),
+        .INITP_03(256'h01096acc30c8c392034daaf7470b218ae0a8d61382844a6fb349f0daa31b60b2),
+        .INITP_04(256'h14e465c4804801f3a24b385bc2f12ba8000027c14135a4ea96ff992741e27442),
+        .INITP_05(256'h932134a4bc6279959b851da6ca8318754981734903068c5821bb7088b1a4751a),
+        .INITP_06(256'h56173b24d6c3642bcae58458c3d211707529d1e70320abac08727d58fb1f1786),
+        .INITP_07(256'h97e9c1c7b892591bcc246d5a42bf0003000064ad9d60cf7180923423b5f5f073)
+    ) RAMB16_S9_0M (
+        .DO(Mdata[F]),    // 4-bit Data Output
+        .DOP(High_p[F]),  // 1-bit Data Parity
+        .ADDR(Ma[1:11]),  // 11-bit Address Input
+        .CLK(CLK),        // Clock
+        .DI(~Bmb_[4:11]), // 4-bit Data Input
+        .DIP(Mb_parity_odd), // 1-bit Data Parity
+        .EN(High[F]),     // RAM Enable Input
+        .SSR(1'b0),       // Synchronous Set/Reset Input
+        .WE(Write)        // Write Enable Input
+    );
+    RAMB16_S9 #(
+        .INIT(8'h0),  // Value of output RAM registers at startup
+        .SRVAL(8'h0), // Ouput value upon SSR assertion
+        .WRITE_MODE("WRITE_FIRST"), // WRITE_FIRST, READ_FIRST or NO_CHANGE
+
+        // The following INIT_xx declarations specify the initial contents of the RAM
+        .INIT_00(256'h0000f8000000f00000010000000700008d02004ff800000000400b0483030300),
+        .INIT_01(256'h8d8adf83878c0005008d01b6be0cecf0f0000000d40483000000000000000000),
+        .INIT_02(256'h070f8f6086608000cd6d1800803ff7fbfd735260b03ffebf0f7ff080c1aec002),
+        .INIT_03(256'h88f900000000000000d632c0e41d5b4f0bf0a2c2156d35d1cc42bc6c5c3f7551),
+        .INIT_04(256'h700b1d65100f5a666690aa8f663c3b676a175a32085a69950b96164001125f7e),
+        .INIT_05(256'h12127f281289607f6e75b0a04e3666650870083732083076a035546c16b9f271),
+        .INIT_06(256'h71653737042c462ceae071657137046f2776a026fa27f91ed2a84a3670009a01),
+        .INIT_07(256'h6270080c00e080c2350410fba07630463710a04437407608e0716537372cea76),
+        .INIT_08(256'h73090913006db3c83535630f6362126c8b06064600d5d5d5008085209000e36b),
+        .INIT_09(256'h0089be120b0f6435648860766d953718b97318b0e0351801b928123564866076),
+        .INIT_0A(256'h09dca00039c8200b01d1c82039d100c8769819610b0b0b00bfc8200b39c82039),
+        .INIT_0B(256'h35d55f3d978f8ae0ecf339090b394f09ececa000dcc84fe5390b09394fc84fdc),
+        .INIT_0C(256'h6d166c7677fb670b9308fe6865623d3688fe6861a84e36651213766d6c3a8c88),
+        .INIT_0D(256'hb469b9e8356116ab139f3718bb7318c0351801b92813a4a04e3669656ba037b7),
+        .INIT_0E(256'h082c0a20d1d4a03621e0480a0ad100c0c0c0c008c071cfa882c036c0f7687000),
+        .INIT_0F(256'hc4c9c6d38c881dee02fe676aee65f4a01e00e4e4a839443739214400d1c0d1d1),
+        .INIT_10(256'h8195659865f9ff67f7081ae81a48251a49a00b9f748ad2d1cdd7c5ccd4c1c3c7),
+        .INIT_11(256'h601863767cff678a606218767fff67001807180b8a6062187620dd3670036027),
+        .INIT_12(256'h635443c13863621861e025005518db1807180b386418640f6488600f6318638a),
+        .INIT_13(256'h7fae9d844383828c83100b21215e802b082f0b80332b8a6076a0de36622bc105),
+        .INIT_14(256'h69fb0367651683588b6082360b59011e69ad62360360962e7ef967162ea0f173),
+        .INIT_15(256'hb93e67696516403417080837320830766d6cba8465693f20333f842a376c659b),
+        .INIT_16(256'h39393939cc0ad4a039e0480a0acccc3921362800c666b939676a32080130bb66),
+        .INIT_17(256'ha0a4a3a1a2a5cab1b9c2e0b8bbec80ef211626005e0126f2e6dafd002bccc0cc),
+        .INIT_18(256'hcf2baf310bb02e319f729196f768653131523696f768656632768da2748dbbac),
+        .INIT_19(256'h1818cf18183119381976900b6105198127a13818c5a8312118b1e81921181830),
+        .INIT_1A(256'hdba04d36000000004750d065cfa04c3600611818aca0cf210909186100185f07),
+        .INIT_1B(256'h88abab2aa6a99aa139390b125f5e24d800d8e8d807dbdbe8d736dbc82c2cd636),
+        .INIT_1C(256'hd3a801a7282c49185f76ff8aa4740760e3da97742d656281622e622d622c008c),
+        .INIT_1D(256'h55005500072464a02dbcd90a4a2dc8c82d211414c05114142c760872f3c8512c),
+        .INIT_1E(256'h591e185524631890e3daf374652d140063d018622df50872ad2d0b61a82d1418),
+        .INIT_1F(256'hdba8deaaafadaba05e0b8176728774670b817672e336442eecf768652e922464),
+        .INIT_20(256'h512c0003000000009297a718550098000729c89924640563bd8dbbacbedda9bc),
+        .INIT_21(256'h2f13200fb7a04e366516b26d0200a76576a02c210b9c2d0b009d9de0502c9dc0),
+        .INIT_22(256'h302f0a13202f091320c91a391a2f981a61131ad72839395b1513007fa813215b),
+        .INIT_23(256'h7dac95947a4f98759ea85bed69ed9368363400b3e81a090a082f081a0a200830),
+        .INIT_24(256'h309537138f7313c035137508306c7f19305b305d76204a368b929f74d87799c2),
+        .INIT_25(256'h06c8d800a2100f0113a208a620131513b798b6280961370913135b155b006119),
+        .INIT_26(256'h4336365211e51000c548bd4001a840d6a016be20d8bc69a84016363dce2836ef),
+        .INIT_27(256'habf01930300108082031153030150000a1e0dc0a0a4a111020110fd8ee36cba8),
+        .INIT_28(256'h36eea2376942a2526f37008c538d28461e8d1900f6000000000001a8efef828c),
+        .INIT_29(256'h333fb5333fbe284e362800a2694b1a691b80a8408b1a1a1baa1b4b1a46009569),
+        .INIT_2A(256'hef3200d4dd52c200dd205239daa8ec20eeec3939ebed2841ea2836214800bc3e),
+        .INIT_2B(256'h000000000000000000000000dd3220316fa00460ff2076dd900805610b310831),
+        .INIT_2C(256'ha882b2b253a628461ea619b5b34701b5b50e249528b50e2295218108807d0000),
+        .INIT_2D(256'hb600b6be1cbeb7681c005050500000018044810041a41f0aaa091cb276a01ce0),
+        .INIT_2E(256'he202dba00e0137d6a000d6be01b4b34701b4b4b6d30e26b6cca00e02c1a0b401),
+        .INIT_2F(256'h3f6b69694137ff2812126b69412620b4b3b5b31ce92f080008b3202f450e3753),
+        .INIT_30(256'h31413908082032209fa0435239a23200390869a9a1c01721088ca0327f6a5669),
+        .INIT_31(256'h65cc1818696569656965100fcdce1861a81821191830dc993998a006413958a1),
+        .INIT_32(256'h0000000000000000000000000000000029004d22ab184938693f580018071869),
+        .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
+        .INIT_34(256'h2094bacd62e1ce0901158187cf62208a9dcdb9792cc18fed008f000000000000),
+        .INIT_35(256'h3d0420c599d8cd60a00f6776314cc3c62005c10c194cc653c3d5605608d59921),
+        .INIT_36(256'h31a92d0428469aeccdd261a244c58f902114bbe0c4b9310fbbb231c4719e2a04),
+        .INIT_37(256'h0122d4b471751010609e03cdd2a2711090209bf5cdd2222f2d0422d4b76e2cb3),
+        .INIT_38(256'h22d4b671731010a0c962109020b223cd78830922d4b57174101060a811cd22ad),
+        .INIT_39(256'h2846d047cdd3b8203b6e692d042846c63ccdb820fb6ea92d042846bc2fcd622f),
+        .INIT_3A(256'h204cc862201466cd710620c50f59cd61a2525450cfa020da52cdb5207b6e2904),
+        .INIT_3B(256'hb432b432b9728528463b310f1e81cd1f0e012c5820c78c201972cd224e018560),
+        .INIT_3C(256'h7b6d06e032a2cdd2b5728528463b310fbb1f85c9cf2085c922d4b2320f289acd),
+        .INIT_3D(256'h1254132dc4cdb5706cb4706c2e31e945708528c9856028bbcd7006e05aa8cd12),
+        .INIT_3E(256'hd2e053d9a0c59301c5410c62203ce8cdb870ac2e718f7085284632d1cdd2717d),
+        .INIT_3F(256'h00000000000000000000000000000000cdd2718520c55000cdb470e0bbe08f27),
+
+        .INITP_00(256'h1c05039320c4c458a1eccf46ea173df3405f599eea3beb5d74310800024450fe),
+        .INITP_01(256'h972abc4fe1c1f9fe2b2496c893572e31ef3861806840c4082adadc898f86e771),
+        .INITP_02(256'h5a3967f784c4c0b4630fa251130931779a18e2ba7b45bec55776dbf917410485),
+        .INITP_03(256'h4633efe512c27aaeaad7e264d0dae3f89ea83ef5b2293327fa44d50d1c2d6cd0),
+        .INITP_04(256'h709efb1f5c55090ae42e6051bebb8d411ff552988012207a93389d18008bf401),
+        .INITP_05(256'hcc6c599346b86e1999037639e9304608000d272489fded3a4984bb3a45092070),
+        .INITP_06(256'hf1feecb669c9d1c432447f27f6e3dc400000000000008c6e1024e6d29215134a),
+        .INITP_07(256'h0000ccef78ebe4bf85f131cb4315b3efa15e857dcf3e275cbb54f554c399d97f)
+    ) RAMB16_S9_0L (
+        .DO(Ldata[F]),    // 4-bit Data Output
+        .DOP(Low_p[F]),   // 1-bit Data Parity
+        .ADDR(Ma[1:11]),  // 11-bit Address Input
+        .CLK(CLK),        // Clock
+        .DI(~Bmb_[4:11]), // 4-bit Data Input
+        .DIP(Mb_parity_odd), // 1-bit Data Parity
+        .EN(Low[F]),      // RAM Enable Input
+        .SSR(1'b0),       // Synchronous Set/Reset Input
+        .WE(Write)        // Write Enable Input
+    );
+end
+endgenerate
+assign Mem_[0:3] = Field[0]? ~Hdata[0] :
+                   Field[1]? ~Hdata[1] :
+                   Field[2]? ~Hdata[2] :
+                   Field[3]? ~Hdata[3] :
+                   Field[4]? ~Hdata[4] :
+                   Field[5]? ~Hdata[5] :
+                   Field[6]? ~Hdata[6] :
+                   Field[7]? ~Hdata[7] : 4'bZ;
+assign Mem_[4:11] = High[0]? ~Mdata[0] :
+                    Low[0]?  ~Ldata[0] :
+                    High[1]? ~Mdata[1] :
+                    Low[1]?  ~Ldata[1] :
+                    High[2]? ~Mdata[2] :
+                    Low[2]?  ~Ldata[2] :
+                    High[3]? ~Mdata[3] :
+                    Low[3]?  ~Ldata[3] :
+                    High[4]? ~Mdata[4] :
+                    Low[4]?  ~Ldata[4] :
+                    High[5]? ~Mdata[5] :
+                    Low[5]?  ~Ldata[5] :
+                    High[6]? ~Mdata[6] :
+                    Low[6]?  ~Ldata[6] :
+                    High[7]? ~Mdata[7] :
+                    Low[7]?  ~Ldata[7] : 8'bZ;
+assign Mem_p_ = High[0]? High_p[0] :
+                Low[0]?  Low_p[0] :
+                High[1]? High_p[1] :
+                Low[1]?  Low_p[1] :
+                High[2]? High_p[2] :
+                Low[2]?  Low_p[2] :
+                High[3]? High_p[3] :
+                Low[3]?  Low_p[3] :
+                High[4]? High_p[4] :
+                Low[4]?  Low_p[4] :
+                High[5]? High_p[5] :
+                Low[5]?  Low_p[5] :
+                High[6]? High_p[6] :
+                Low[6]?  Low_p[6] :
+                High[7]? High_p[7] :
+                Low[7]?  Low_p[7] : 1'bZ;
+
+endmodule
