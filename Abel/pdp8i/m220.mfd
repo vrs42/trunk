@@ -1,0 +1,529 @@
+MDF Database:  version 1.0
+MDF_INFO | m220 | XC9536XL-5-PC44
+MACROCELL | 1 | 6 | ac_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 3 | 0 | 17 | 0 | 4 | 0 | 5
+INPUTS | 11 | mb  | and_enable  | shift0  | shift1  | shift2  | adder_right1_  | adder_left1_  | adder_right2_  | adder_left2_  | EXP15_.EXP  | EXP16_.EXP
+INPUTMC | 3 | 1 | 15 | 1 | 5 | 1 | 7
+INPUTP | 8 | 6 | 23 | 13 | 18 | 35 | 1 | 34 | 3
+IMPORTS | 2 | 1 | 5 | 1 | 7
+EQ | 17 | 
+   !ac.D = !mb & and_enable
+	# shift0 & !shift1 & !shift2 & adder_left2_
+	# !shift0 & shift1 & adder_right2_ & !shift2
+	# !shift0 & shift1 & shift2 & adder_left1_
+	# !shift0 & !shift1 & shift2 & adder_right1_
+;Imported pterms FB2_6
+	# shift0 & !shift1 & shift2 & tt_ls_in
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2
+;Imported pterms FB2_8
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2;
+   ac.CLK = ac_load;	// GCK
+GLOBALS | 1 | 2 | ac_load
+
+MACROCELL | 1 | 11 | ma_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 6 | 0 | 11 | 0 | 3 | 0 | 16 | 0 | 2 | 0 | 9 | 0 | 13
+INPUTS | 11 | mb  | and_enable  | shift0  | shift1  | shift2  | adder_right1_  | adder_left1_  | adder_right2_  | adder_left2_  | EXP17_.EXP  | EXP18_.EXP
+INPUTMC | 3 | 1 | 15 | 1 | 10 | 1 | 12
+INPUTP | 8 | 6 | 23 | 13 | 18 | 35 | 1 | 34 | 3
+IMPORTS | 2 | 1 | 10 | 1 | 12
+EQ | 17 | 
+   !ma.D = !mb & and_enable
+	# shift0 & !shift1 & !shift2 & adder_left2_
+	# !shift0 & shift1 & adder_right2_ & !shift2
+	# !shift0 & shift1 & shift2 & adder_left1_
+	# !shift0 & !shift1 & shift2 & adder_right1_
+;Imported pterms FB2_11
+	# shift0 & !shift1 & shift2 & tt_ls_in
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2
+;Imported pterms FB2_13
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2;
+   ma.CLK = ma_load;	// GCK
+GLOBALS | 1 | 2 | ma_load
+
+MACROCELL | 1 | 15 | mb_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 4 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1
+INPUTS | 11 | mb  | and_enable  | shift0  | shift1  | shift2  | adder_right1_  | adder_left1_  | adder_right2_  | adder_left2_  | EXP19_.EXP  | EXP20_.EXP
+INPUTMC | 3 | 1 | 15 | 1 | 14 | 1 | 16
+INPUTP | 8 | 6 | 23 | 13 | 18 | 35 | 1 | 34 | 3
+IMPORTS | 2 | 1 | 14 | 1 | 16
+EQ | 17 | 
+   !mb.D = !mb & and_enable
+	# shift0 & !shift1 & !shift2 & adder_left2_
+	# !shift0 & shift1 & adder_right2_ & !shift2
+	# !shift0 & shift1 & shift2 & adder_left1_
+	# !shift0 & !shift1 & shift2 & adder_right1_
+;Imported pterms FB2_15
+	# shift0 & !shift1 & shift2 & tt_ls_in
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2
+;Imported pterms FB2_17
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2;
+   mb.CLK = mb_load;	// GCK
+GLOBALS | 1 | 2 | mb_load
+
+MACROCELL | 1 | 1 | pc_OBUF
+ATTRIBUTES | 8782626 | 0
+OUTPUTMC | 7 | 0 | 11 | 0 | 3 | 0 | 16 | 0 | 5 | 0 | 9 | 0 | 10 | 0 | 12
+INPUTS | 11 | mb  | and_enable  | shift0  | shift1  | shift2  | adder_right1_  | adder_left1_  | adder_right2_  | EXP13_.EXP  | EXP14_.EXP  | pc_load
+INPUTMC | 3 | 1 | 15 | 1 | 0 | 1 | 2
+INPUTP | 8 | 6 | 23 | 13 | 18 | 35 | 1 | 34 | 24
+IMPORTS | 2 | 1 | 0 | 1 | 2
+EQ | 17 | 
+   !pc.D = !mb & and_enable
+	# !shift0 & shift1 & adder_right2_ & !shift2
+	# !shift0 & shift1 & shift2 & adder_left1_
+	# !shift0 & !shift1 & shift2 & adder_right1_
+;Imported pterms FB2_1
+	# shift0 & !shift1 & shift2 & tt_ls_in
+	# shift0 & !shift1 & !shift2 & adder_left2_
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+;Imported pterms FB2_3
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2;
+   pc.CLK = pc_load;
+
+MACROCELL | 0 | 11 | adder__OBUF
+ATTRIBUTES | 264962 | 0
+INPUTS | 10 | carry_in_  | ma  | b_src1  | b_src0  | a_/a__D2  | data_addr  | pc  | b_src2  | EXP10_.EXP  | EXP11_.EXP
+INPUTMC | 5 | 1 | 11 | 0 | 17 | 1 | 1 | 0 | 10 | 0 | 12
+INPUTP | 5 | 47 | 44 | 7 | 4 | 31
+IMPORTS | 2 | 0 | 10 | 0 | 12
+EQ | 36 | 
+   adder_ = carry_in_ & b_src0 & !data_addr & !a_/a__D2
+	# !carry_in_ & b_src0 & !data_addr & a_/a__D2
+	# carry_in_ & !ma & !b_src1 & !b_src0 & !a_/a__D2
+	# carry_in_ & !pc & !b_src2 & !b_src0 & !a_/a__D2
+	# !carry_in_ & !ma & !b_src1 & !b_src0 & a_/a__D2
+;Imported pterms FB1_11
+	# carry_in_ & b_src1 & b_src0 & !a_/a__D2
+	# carry_in_ & b_src2 & b_src0 & !a_/a__D2
+	# !carry_in_ & b_src1 & b_src0 & a_/a__D2
+	# !carry_in_ & b_src2 & b_src0 & a_/a__D2
+	# !carry_in_ & !pc & !b_src2 & !b_src0 & a_/a__D2
+;Imported pterms FB1_10
+	# carry_in_ & ma & !b_src1 & b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & mem & b_src1 & b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & !b_src1 & !b_src2 & b_src0 & 
+	data_addr & a_/a__D2
+	# !carry_in_ & pc & b_src1 & !b_src2 & !b_src0 & 
+	!a_/a__D2
+;Imported pterms FB1_13
+	# carry_in_ & !mem & b_src1 & b_src2 & !a_/a__D2
+	# carry_in_ & !b_src1 & !b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & !mem & b_src1 & b_src2 & a_/a__D2
+	# !carry_in_ & !b_src1 & !b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & pc & b_src1 & !b_src2 & !b_src0 & 
+	a_/a__D2
+;Imported pterms FB1_14
+	# !carry_in_ & ma & !b_src1 & b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & mem & b_src1 & b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & !b_src1 & !b_src2 & b_src0 & 
+	data_addr & !a_/a__D2;
+
+MACROCELL | 0 | 3 | carry_out__OBUF
+ATTRIBUTES | 264962 | 0
+INPUTS | 10 | carry_in_  | b_src1  | b_src2  | b_src0  | data_addr  | ma  | mem  | pc  | EXP6_.EXP  | EXP7_.EXP
+INPUTMC | 4 | 1 | 11 | 1 | 1 | 0 | 2 | 0 | 4
+INPUTP | 6 | 47 | 44 | 31 | 7 | 4 | 27
+IMPORTS | 2 | 0 | 2 | 0 | 4
+EQ | 32 | 
+   !carry_out_ = !carry_in_ & b_src0 & !data_addr
+	# carry_in_ & ma & !b_src1 & b_src2 & !b_src0
+	# carry_in_ & pc & b_src1 & !b_src2 & !b_src0
+	# carry_in_ & mem & b_src1 & b_src2 & !b_src0
+	# carry_in_ & !b_src1 & !b_src2 & b_src0 & 
+	data_addr
+;Imported pterms FB1_3
+	# !carry_in_ & b_src1 & b_src0
+	# !carry_in_ & !ma & !b_src1 & !b_src0
+	# !carry_in_ & !mem & b_src1 & b_src2
+	# carry_in_ & a_src2 & a_src1 & mq & !a_src0
+	# carry_in_ & !a_src2 & !a_src1 & sr & a_src0
+;Imported pterms FB1_2
+	# !carry_in_ & !a_src2 & !a_src1 & !sr
+	# !carry_in_ & a_src2 & !sc & !a_src1 & a_src0
+	# !carry_in_ & a_src2 & a_src1 & !input_bus & 
+	a_src0
+	# !carry_in_ & a_src2 & a_src1 & !mq & !a_src0
+	# !carry_in_ & !a_src2 & a_src1 & !data & a_src0
+;Imported pterms FB1_5
+	# carry_in_ & a_src2 & sc & !a_src1 & a_src0
+	# carry_in_ & a_src2 & a_src1 & input_bus & 
+	a_src0
+	# carry_in_ & a_src2 & !a_src1 & ac & !a_src0
+	# carry_in_ & !a_src2 & a_src1 & !ac & !a_src0
+	# carry_in_ & !a_src2 & a_src1 & data & a_src0
+;Imported pterms FB1_6
+	# !carry_in_ & b_src2 & b_src0
+	# !carry_in_ & !a_src2 & ac & !a_src0
+	# !carry_in_ & !a_src1 & !ac & !a_src0
+	# !carry_in_ & !pc & b_src1 & !b_src2
+	# !carry_in_ & !b_src1 & !b_src2 & !b_src0;
+
+MACROCELL | 0 | 16 | _n0012/_n0012_D2
+ATTRIBUTES | 133888 | 0
+OUTPUTMC | 9 | 1 | 5 | 1 | 10 | 1 | 14 | 1 | 0 | 1 | 2 | 1 | 7 | 1 | 12 | 1 | 16 | 0 | 17
+INPUTS | 11 | pc  | b_src1  | b_src2  | b_src0  | data_addr  | mem  | ma  | a_src2  | a_src1  | input_bus  | a_src0
+INPUTMC | 2 | 1 | 1 | 1 | 11
+INPUTP | 9 | 44 | 31 | 7 | 4 | 27 | 37 | 42 | 8 | 45
+EXPORTS | 1 | 0 | 17
+EQ | 5 | 
+   _n0012/_n0012_D2 = ma & !b_src1 & b_src2 & !b_src0
+	# pc & b_src1 & !b_src2 & !b_src0
+	# mem & b_src1 & b_src2 & !b_src0
+	# !b_src1 & !b_src2 & b_src0 & data_addr;
+    _n0012/_n0012_D2.EXP  =  a_src2 & a_src1 & !input_bus & a_src0
+
+MACROCELL | 0 | 17 | a_/a__D2
+ATTRIBUTES | 133888 | 0
+OUTPUTMC | 13 | 1 | 5 | 1 | 10 | 1 | 14 | 1 | 0 | 0 | 11 | 0 | 9 | 0 | 10 | 0 | 12 | 0 | 13 | 1 | 2 | 1 | 7 | 1 | 12 | 1 | 16
+INPUTS | 9 | a_src2  | ac  | a_src0  | a_src1  | sr  | sc  | mq  | EXP4_.EXP  | _n0012/_n0012_D2.EXP
+INPUTMC | 3 | 1 | 6 | 0 | 0 | 0 | 16
+INPUTP | 6 | 37 | 45 | 42 | 16 | 14 | 25
+IMPORTS | 2 | 0 | 0 | 0 | 16
+EQ | 9 | 
+   a_/a__D2 = !a_src2 & !a_src1 & !sr
+	# !a_src2 & ac & !a_src0
+	# !a_src1 & !ac & !a_src0
+	# a_src2 & !sc & !a_src1 & a_src0
+	# a_src2 & a_src1 & !mq & !a_src0
+;Imported pterms FB1_1
+	# !a_src2 & a_src1 & !data & a_src0
+;Imported pterms FB1_17
+	# a_src2 & a_src1 & !input_bus & a_src0;
+
+MACROCELL | 0 | 0 | EXP4_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 17
+INPUTS | 4 | a_src2  | a_src1  | data  | a_src0
+INPUTP | 4 | 37 | 42 | 43 | 45
+EXPORTS | 1 | 0 | 17
+EQ | 1 | 
+       EXP4_.EXP  =  !a_src2 & a_src1 & !data & a_src0
+
+MACROCELL | 0 | 1 | EXP5_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 2
+INPUTS | 9 | carry_in_  | a_src2  | a_src1  | sr  | sc  | a_src0  | input_bus  | mq  | data
+INPUTP | 9 | 47 | 37 | 42 | 16 | 14 | 45 | 8 | 25 | 43
+EXPORTS | 1 | 0 | 2
+EQ | 6 | 
+       EXP5_.EXP  =  !carry_in_ & !a_src2 & !a_src1 & !sr
+	# !carry_in_ & a_src2 & !sc & !a_src1 & a_src0
+	# !carry_in_ & a_src2 & a_src1 & !input_bus & 
+	a_src0
+	# !carry_in_ & a_src2 & a_src1 & !mq & !a_src0
+	# !carry_in_ & !a_src2 & a_src1 & !data & a_src0
+
+MACROCELL | 0 | 2 | EXP6_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 3
+INPUTS | 12 | carry_in_  | b_src1  | b_src0  | ma  | mem  | b_src2  | a_src2  | a_src1  | mq  | a_src0  | sr  | EXP5_.EXP
+INPUTMC | 2 | 1 | 11 | 0 | 1
+INPUTP | 10 | 47 | 44 | 7 | 27 | 31 | 37 | 42 | 25 | 45 | 16
+EXPORTS | 1 | 0 | 3
+IMPORTS | 1 | 0 | 1
+EQ | 12 | 
+       EXP6_.EXP  =  !carry_in_ & b_src1 & b_src0
+	# !carry_in_ & !ma & !b_src1 & !b_src0
+	# !carry_in_ & !mem & b_src1 & b_src2
+	# carry_in_ & a_src2 & a_src1 & mq & !a_src0
+	# carry_in_ & !a_src2 & !a_src1 & sr & a_src0
+;Imported pterms FB1_2
+	# !carry_in_ & !a_src2 & !a_src1 & !sr
+	# !carry_in_ & a_src2 & !sc & !a_src1 & a_src0
+	# !carry_in_ & a_src2 & a_src1 & !input_bus & 
+	a_src0
+	# !carry_in_ & a_src2 & a_src1 & !mq & !a_src0
+	# !carry_in_ & !a_src2 & a_src1 & !data & a_src0
+
+MACROCELL | 0 | 4 | EXP7_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 3
+INPUTS | 9 | carry_in_  | a_src2  | sc  | a_src1  | a_src0  | input_bus  | ac  | data  | EXP8_.EXP
+INPUTMC | 2 | 1 | 6 | 0 | 5
+INPUTP | 7 | 47 | 37 | 14 | 42 | 45 | 8 | 43
+EXPORTS | 1 | 0 | 3
+IMPORTS | 1 | 0 | 5
+EQ | 12 | 
+       EXP7_.EXP  =  carry_in_ & a_src2 & sc & !a_src1 & a_src0
+	# carry_in_ & a_src2 & a_src1 & input_bus & 
+	a_src0
+	# carry_in_ & a_src2 & !a_src1 & ac & !a_src0
+	# carry_in_ & !a_src2 & a_src1 & !ac & !a_src0
+	# carry_in_ & !a_src2 & a_src1 & data & a_src0
+;Imported pterms FB1_6
+	# !carry_in_ & b_src2 & b_src0
+	# !carry_in_ & !a_src2 & ac & !a_src0
+	# !carry_in_ & !a_src1 & !ac & !a_src0
+	# !carry_in_ & !pc & b_src1 & !b_src2
+	# !carry_in_ & !b_src1 & !b_src2 & !b_src0
+
+MACROCELL | 0 | 5 | EXP8_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 4
+INPUTS | 9 | carry_in_  | b_src2  | b_src0  | a_src2  | ac  | a_src0  | a_src1  | pc  | b_src1
+INPUTMC | 2 | 1 | 6 | 1 | 1
+INPUTP | 7 | 47 | 31 | 7 | 37 | 45 | 42 | 44
+EXPORTS | 1 | 0 | 4
+EQ | 5 | 
+       EXP8_.EXP  =  !carry_in_ & b_src2 & b_src0
+	# !carry_in_ & !a_src2 & ac & !a_src0
+	# !carry_in_ & !a_src1 & !ac & !a_src0
+	# !carry_in_ & !pc & b_src1 & !b_src2
+	# !carry_in_ & !b_src1 & !b_src2 & !b_src0
+
+MACROCELL | 0 | 9 | EXP9_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 10
+INPUTS | 9 | carry_in_  | ma  | b_src1  | b_src2  | b_src0  | a_/a__D2  | mem  | data_addr  | pc
+INPUTMC | 3 | 1 | 11 | 0 | 17 | 1 | 1
+INPUTP | 6 | 47 | 44 | 31 | 7 | 27 | 4
+EXPORTS | 1 | 0 | 10
+EQ | 8 | 
+       EXP9_.EXP  =  carry_in_ & ma & !b_src1 & b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & mem & b_src1 & b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & !b_src1 & !b_src2 & b_src0 & 
+	data_addr & a_/a__D2
+	# !carry_in_ & pc & b_src1 & !b_src2 & !b_src0 & 
+	!a_/a__D2
+
+MACROCELL | 0 | 10 | EXP10_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 11
+INPUTS | 7 | carry_in_  | b_src1  | b_src0  | a_/a__D2  | b_src2  | pc  | EXP9_.EXP
+INPUTMC | 3 | 0 | 17 | 1 | 1 | 0 | 9
+INPUTP | 4 | 47 | 44 | 7 | 31
+EXPORTS | 1 | 0 | 11
+IMPORTS | 1 | 0 | 9
+EQ | 14 | 
+       EXP10_.EXP  =  carry_in_ & b_src1 & b_src0 & !a_/a__D2
+	# carry_in_ & b_src2 & b_src0 & !a_/a__D2
+	# !carry_in_ & b_src1 & b_src0 & a_/a__D2
+	# !carry_in_ & b_src2 & b_src0 & a_/a__D2
+	# !carry_in_ & !pc & !b_src2 & !b_src0 & a_/a__D2
+;Imported pterms FB1_10
+	# carry_in_ & ma & !b_src1 & b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & mem & b_src1 & b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & !b_src1 & !b_src2 & b_src0 & 
+	data_addr & a_/a__D2
+	# !carry_in_ & pc & b_src1 & !b_src2 & !b_src0 & 
+	!a_/a__D2
+
+MACROCELL | 0 | 12 | EXP11_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 11
+INPUTS | 8 | carry_in_  | mem  | b_src1  | b_src2  | a_/a__D2  | b_src0  | pc  | EXP12_.EXP
+INPUTMC | 3 | 0 | 17 | 1 | 1 | 0 | 13
+INPUTP | 5 | 47 | 27 | 44 | 31 | 7
+EXPORTS | 1 | 0 | 11
+IMPORTS | 1 | 0 | 13
+EQ | 15 | 
+       EXP11_.EXP  =  carry_in_ & !mem & b_src1 & b_src2 & !a_/a__D2
+	# carry_in_ & !b_src1 & !b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & !mem & b_src1 & b_src2 & a_/a__D2
+	# !carry_in_ & !b_src1 & !b_src2 & !b_src0 & 
+	a_/a__D2
+	# carry_in_ & pc & b_src1 & !b_src2 & !b_src0 & 
+	a_/a__D2
+;Imported pterms FB1_14
+	# !carry_in_ & ma & !b_src1 & b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & mem & b_src1 & b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & !b_src1 & !b_src2 & b_src0 & 
+	data_addr & !a_/a__D2
+
+MACROCELL | 0 | 13 | EXP12_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 12
+INPUTS | 8 | carry_in_  | ma  | b_src1  | b_src2  | b_src0  | a_/a__D2  | mem  | data_addr
+INPUTMC | 2 | 1 | 11 | 0 | 17
+INPUTP | 6 | 47 | 44 | 31 | 7 | 27 | 4
+EXPORTS | 1 | 0 | 12
+EQ | 6 | 
+       EXP12_.EXP  =  !carry_in_ & ma & !b_src1 & b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & mem & b_src1 & b_src2 & !b_src0 & 
+	!a_/a__D2
+	# !carry_in_ & !b_src1 & !b_src2 & b_src0 & 
+	data_addr & !a_/a__D2
+
+MACROCELL | 1 | 0 | EXP13_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 1
+INPUTS | 8 | shift0  | shift1  | shift2  | tt_ls_in  | adder_left2_  | carry_in_  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 6 | 23 | 13 | 18 | 32 | 3 | 47
+EXPORTS | 1 | 1 | 1
+EQ | 4 | 
+       EXP13_.EXP  =  shift0 & !shift1 & shift2 & tt_ls_in
+	# shift0 & !shift1 & !shift2 & adder_left2_
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+
+MACROCELL | 1 | 2 | EXP14_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 1
+INPUTS | 6 | carry_in_  | shift0  | shift1  | shift2  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 4 | 47 | 23 | 13 | 18
+EXPORTS | 1 | 1 | 1
+EQ | 6 | 
+       EXP14_.EXP  =  carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2
+
+MACROCELL | 1 | 5 | EXP15_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 6
+INPUTS | 7 | shift0  | shift1  | shift2  | tt_ls_in  | carry_in_  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 5 | 23 | 13 | 18 | 32 | 47
+EXPORTS | 1 | 1 | 6
+EQ | 5 | 
+       EXP15_.EXP  =  shift0 & !shift1 & shift2 & tt_ls_in
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2
+
+MACROCELL | 1 | 7 | EXP16_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 6
+INPUTS | 6 | carry_in_  | shift0  | shift1  | shift2  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 4 | 47 | 23 | 13 | 18
+EXPORTS | 1 | 1 | 6
+EQ | 4 | 
+       EXP16_.EXP  =  carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2
+
+MACROCELL | 1 | 10 | EXP17_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 11
+INPUTS | 7 | shift0  | shift1  | shift2  | tt_ls_in  | carry_in_  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 5 | 23 | 13 | 18 | 32 | 47
+EXPORTS | 1 | 1 | 11
+EQ | 5 | 
+       EXP17_.EXP  =  shift0 & !shift1 & shift2 & tt_ls_in
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2
+
+MACROCELL | 1 | 12 | EXP18_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 11
+INPUTS | 6 | carry_in_  | shift0  | shift1  | shift2  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 4 | 47 | 23 | 13 | 18
+EXPORTS | 1 | 1 | 11
+EQ | 4 | 
+       EXP18_.EXP  =  carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2
+
+MACROCELL | 1 | 14 | EXP19_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 15
+INPUTS | 7 | shift0  | shift1  | shift2  | tt_ls_in  | carry_in_  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 5 | 23 | 13 | 18 | 32 | 47
+EXPORTS | 1 | 1 | 15
+EQ | 5 | 
+       EXP19_.EXP  =  shift0 & !shift1 & shift2 & tt_ls_in
+	# carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & a_/a__D2
+
+MACROCELL | 1 | 16 | EXP20_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 15
+INPUTS | 6 | carry_in_  | shift0  | shift1  | shift2  | _n0012/_n0012_D2  | a_/a__D2
+INPUTMC | 2 | 0 | 16 | 0 | 17
+INPUTP | 4 | 47 | 23 | 13 | 18
+EXPORTS | 1 | 1 | 15
+EQ | 4 | 
+       EXP20_.EXP  =  carry_in_ & !shift0 & !shift1 & !shift2 & 
+	!_n0012/_n0012_D2 & !a_/a__D2
+	# !carry_in_ & !shift0 & !shift1 & !shift2 & 
+	_n0012/_n0012_D2 & !a_/a__D2
+
+PIN | carry_in_ | 64 | 0 | N/A | 47 | 18 | 1 | 5 | 1 | 10 | 1 | 14 | 1 | 0 | 0 | 11 | 0 | 3 | 0 | 1 | 0 | 2 | 0 | 4 | 0 | 5 | 0 | 9 | 0 | 10 | 0 | 12 | 0 | 13 | 1 | 2 | 1 | 7 | 1 | 12 | 1 | 16
+PIN | shift0 | 64 | 0 | N/A | 23 | 12 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1 | 1 | 0 | 1 | 2 | 1 | 5 | 1 | 7 | 1 | 10 | 1 | 12 | 1 | 14 | 1 | 16
+PIN | shift1 | 64 | 0 | N/A | 13 | 12 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1 | 1 | 0 | 1 | 2 | 1 | 5 | 1 | 7 | 1 | 10 | 1 | 12 | 1 | 14 | 1 | 16
+PIN | a_src2 | 64 | 0 | N/A | 37 | 7 | 0 | 2 | 0 | 17 | 0 | 0 | 0 | 1 | 0 | 4 | 0 | 5 | 0 | 16
+PIN | sc | 64 | 0 | N/A | 14 | 3 | 0 | 1 | 0 | 17 | 0 | 4
+PIN | a_src1 | 64 | 0 | N/A | 42 | 7 | 0 | 2 | 0 | 17 | 0 | 0 | 0 | 1 | 0 | 4 | 0 | 5 | 0 | 16
+PIN | sr | 64 | 0 | N/A | 16 | 3 | 0 | 2 | 0 | 17 | 0 | 1
+PIN | ac_load | 4096 | 0 | N/A | 10 | 1 | 1 | 6
+PIN | and_enable | 64 | 0 | N/A | 6 | 4 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1
+PIN | shift2 | 64 | 0 | N/A | 18 | 12 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1 | 1 | 0 | 1 | 2 | 1 | 5 | 1 | 7 | 1 | 10 | 1 | 12 | 1 | 14 | 1 | 16
+PIN | adder_right1_ | 64 | 0 | N/A | 35 | 4 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1
+PIN | adder_left1_ | 64 | 0 | N/A | 1 | 4 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1
+PIN | adder_right2_ | 64 | 0 | N/A | 34 | 4 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 1
+PIN | adder_left2_ | 64 | 0 | N/A | 3 | 4 | 1 | 6 | 1 | 11 | 1 | 15 | 1 | 0
+PIN | tt_ls_in | 64 | 0 | N/A | 32 | 4 | 1 | 5 | 1 | 10 | 1 | 14 | 1 | 0
+PIN | ma_load | 8192 | 0 | N/A | 11 | 1 | 1 | 11
+PIN | mb_load | 16384 | 0 | N/A | 12 | 1 | 1 | 15
+PIN | pc_load | 64 | 0 | N/A | 24 | 1 | 1 | 1
+PIN | b_src1 | 64 | 0 | N/A | 44 | 9 | 0 | 11 | 0 | 3 | 0 | 16 | 0 | 2 | 0 | 5 | 0 | 9 | 0 | 10 | 0 | 12 | 0 | 13
+PIN | b_src0 | 64 | 0 | N/A | 7 | 9 | 0 | 11 | 0 | 3 | 0 | 16 | 0 | 2 | 0 | 5 | 0 | 9 | 0 | 10 | 0 | 12 | 0 | 13
+PIN | data_addr | 64 | 0 | N/A | 4 | 5 | 0 | 11 | 0 | 3 | 0 | 16 | 0 | 9 | 0 | 13
+PIN | b_src2 | 64 | 0 | N/A | 31 | 9 | 0 | 11 | 0 | 3 | 0 | 16 | 0 | 2 | 0 | 5 | 0 | 9 | 0 | 10 | 0 | 12 | 0 | 13
+PIN | mem | 64 | 0 | N/A | 27 | 6 | 0 | 9 | 0 | 3 | 0 | 16 | 0 | 2 | 0 | 12 | 0 | 13
+PIN | input_bus | 64 | 0 | N/A | 8 | 3 | 0 | 1 | 0 | 16 | 0 | 4
+PIN | data | 64 | 0 | N/A | 43 | 3 | 0 | 1 | 0 | 4 | 0 | 0
+PIN | mq | 64 | 0 | N/A | 25 | 3 | 0 | 2 | 0 | 17 | 0 | 1
+PIN | a_src0 | 64 | 0 | N/A | 45 | 7 | 0 | 2 | 0 | 17 | 0 | 0 | 0 | 1 | 0 | 4 | 0 | 5 | 0 | 16
+PIN | ac | 536871040 | 0 | N/A | 46
+PIN | ma | 536871040 | 0 | N/A | 41
+PIN | mb | 536871040 | 0 | N/A | 33
+PIN | pc | 536871040 | 0 | N/A | 5
+PIN | adder_ | 536871040 | 0 | N/A | 19
+PIN | carry_out_ | 536871040 | 0 | N/A | 9

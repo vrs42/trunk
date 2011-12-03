@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE ibis [
+<!ELEMENT ibis (part, pin+)>
+<!ELEMENT part EMPTY>
+<!ELEMENT pin EMPTY>
+<!ATTLIST part
+  arch   CDATA #REQUIRED
+  device CDATA #REQUIRED
+  spg    CDATA #REQUIRED
+  pkg    CDATA #REQUIRED>
+<!ATTLIST pin
+  nm     CDATA #REQUIRED
+  no     CDATA #REQUIRED
+  iostd  (TTL|LVTTL|LVCMOS2|NA) "NA"
+  sr     (SLOW|FAST|slow|fast) "SLOW"
+  dir    (BIDIR|bidir|INPUT|input|OUTPUT|output) "BIDIR">
+]>
+<ibis><part pkg="PC44" spg="-5" arch="xc9500xl" device="XC9536XL"/><pin nm="carry_in_" no="39" dir="input"/><pin nm="shift0" no="18" dir="input"/><pin nm="shift1" no="8" dir="input"/><pin nm="a_src2" no="29" dir="input"/><pin nm="sc" no="9" dir="input"/><pin nm="a_src1" no="34" dir="input"/><pin nm="sr" no="11" dir="input"/><pin nm="ac_load" no="5" dir="input"/><pin nm="and_enable" no="1" dir="input"/><pin nm="shift2" no="13" dir="input"/><pin nm="adder_right1_" no="28" dir="input"/><pin nm="adder_left1_" no="40" dir="input"/><pin nm="adder_right2_" no="27" dir="input"/><pin nm="adder_left2_" no="42" dir="input"/><pin nm="tt_ls_in" no="25" dir="input"/><pin nm="ma_load" no="6" dir="input"/><pin nm="mb_load" no="7" dir="input"/><pin nm="pc_load" no="19" dir="input"/><pin nm="b_src1" no="36" dir="input"/><pin nm="b_src0" no="2" dir="input"/><pin nm="data_addr" no="43" dir="input"/><pin nm="b_src2" no="24" dir="input"/><pin nm="mem" no="22" dir="input"/><pin nm="input_bus" no="3" dir="input"/><pin nm="data" no="35" dir="input"/><pin nm="mq" no="20" dir="input"/><pin nm="a_src0" no="37" dir="input"/><pin nm="ac" no="38" sr="fast" dir="output"/><pin nm="ma" no="33" sr="fast" dir="output"/><pin nm="mb" no="26" sr="fast" dir="output"/><pin nm="pc" no="44" sr="fast" dir="output"/><pin nm="adder_" no="14" sr="fast" dir="output"/><pin nm="carry_out_" no="4" sr="fast" dir="output"/></ibis>

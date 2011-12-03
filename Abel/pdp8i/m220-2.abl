@@ -1,0 +1,114 @@
+MODULE m220
+
+Title 'Main registers'
+
+" regbus Device 'xc9536xl';
+
+" $INCLUDE PDP8.DEF
+
+" Input Pins
+adder_left2_ pin;
+adder_left1_ pin;
+adder_right2_ pin;
+adder_right1_ pin;
+and_enable pin;
+tt_ls_in pin;
+// Encoding these next 6 would save 3 pins
+!tt_line_shift_ pin;
+right_shift1 pin;
+right_shift2 pin;
+no_shift pin;
+left_shift1 pin;
+left_shift2 pin;
+!carry_in_ pin;
+mq0, mq1 pin;
+sr0, sr1 pin;
+sc0, sc1 pin;
+data0, data1 pin;
+input_bus0, input_bus1 pin;
+mem0, mem1 pin;
+data_addr0, data_addr1 pin;
+// Encoding these next 7 would save 4 pins
+ac_enable pin;
+acbar_enable pin;
+mq_enable pin;
+sr_enable pin;
+sc_enable pin;
+data_enable pin;
+io_enable pin;
+// Encoding these next 6 would save 3 pins
+ma_enable0, ma_enable1 pin;
+pc_enable pin;
+mem_enable0, mem_enable1 pin;
+data_addr_enable pin;
+// Encoding these next 4 would save 2 pins
+mb_load pin;
+ma_load pin;
+ac_load pin;
+pc_load pin;
+
+" Output pins
+mb0, mb1 pin istype 'reg_d';
+ma0, ma1 pin istype 'reg_d';
+ac0, ac1 pin istype 'reg_d';
+pc0, pc1 pin istype 'reg_d';
+adder0_, adder1_ pin;
+!carry_out_ pin;
+
+a0_, a1_ node;
+b0_, b1_ node;
+regbus0, regbus1 node;
+
+mq = [mq0, mq1];
+sr = [sr0, sr1];
+sc = [sc0, sc1];
+data = [data0, data1];
+input_bus = [input_bus0, input_bus1];
+mem = [mem0, mem1];
+data_addr = [data_addr0, data_addr1];
+
+mb = [mb0, mb1];
+ma = [ma0, ma1];
+ac = [ac0, ac1];
+pc = [pc0, pc1];
+adder_ = [adder0_, adder1_];
+
+a_ = [a0_, a1_];
+b_ = [b0_, b1_];
+regbus = [regbus0, regbus1];
+
+EQUATIONS
+
+a_ = !((ac_enable & ac)
+     # (acbar_enable & !ac)
+     # (mq_enable & mq)
+     # (sr_enable & sr)
+     # (sc_enable & sc)
+     # (data_enable & data)
+     # (io_enable & input_bus));
+
+b_ = !([ma_enable0  & ma0,  ma_enable1  & ma1]
+     # [mem_enable0 & mem0, mem_enable1 & mem1]
+     # (pc_enable & pc)
+     # (data_addr_enable & data_addr));
+
+[carry_out_, adder0_, adder1_] = [0, a0_, a1_] + [0, b0_, b1_] + carry_in_;
+
+regbus = !((and_enable & !mb)
+         # [right_shift1 & adder_left1_, right_shift1 & adder0_]
+         # [right_shift2 & adder_left2_, right_shift2 & adder_left1_]
+         # [left_shift1 & adder1_, left_shift1 & adder_right1_]
+         # [left_shift2 & adder_right1_, left_shift2 & adder_right2_]
+         # (no_shift & adder_)
+         # [!tt_line_shift_ & tt_ls_in, !tt_line_shift_ & adder1_]);
+
+mb.d = regbus;
+ma.d = regbus;
+ac.d = regbus;
+pc.d = regbus;
+mb.clk = mb_load;
+ma.clk = ma_load;
+ac.clk = ac_load;
+pc.clk = pc_load;
+
+END

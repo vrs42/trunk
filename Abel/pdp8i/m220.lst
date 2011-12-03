@@ -1,0 +1,112 @@
+0002 |
+0003 |Title 'Main registers'
+0004 |
+0005 |// This implements a single bit of the ALU.
+0006 |
+0007 |" regbus Device 'xc9536xl';
+0008 |
+0009 |" $INCLUDE PDP8.DEF
+0010 |
+0011 |// Bit patterns for A_SRC
+0012 |NO_ENABLE = 0;
+0013 |AC_ENABLE = 1;
+0014 |ACBAR_ENABLE = 2;
+0015 |MQ_ENABLE = 3;
+0016 |SR_ENABLE = 4;
+0017 |SC_ENABLE = 5;
+0018 |DATA_ENABLE = 6;
+0019 |IO_ENABLE = 7;
+0020 |// TT_CARRY_INSERT = 8;
+0021 |
+0022 |// Bit patterns for B_SRC
+0023 |//NO_ENABLE = 0;
+0024 |MA_ENABLE = 1;
+0025 |PC_ENABLE = 2;
+0026 |MEM_ENABLE = 3;
+0027 |DATA_ADDR_ENABLE = 4;
+0028 |
+0029 |// Bit patters for shifts
+0030 |NO_SHIFT = 0;
+0031 |LEFT1 = 1;
+0032 |LEFT2 = 2;
+0033 |RIGHT1 = 3;
+0034 |RIGHT2 = 4;
+0035 |TT_LINE = 5;
+0036 |
+0037 |" Input Pins
+0038 |adder_left2_ pin;
+0039 |adder_left1_ pin;
+0040 |adder_right2_ pin;
+0041 |adder_right1_ pin;
+0042 |and_enable pin;
+0043 |tt_ls_in pin;
+0044 |// Encoding these next 6 would save 3 pins
+0045 |!carry_in_ pin;
+0046 |mq pin;
+0047 |sr pin;
+0048 |sc pin;
+0049 |data pin;
+0050 |input_bus pin;
+0051 |mem pin;
+0052 |data_addr pin;
+0053 |// Encoding a_src saves 4 pins
+0054 |a_src0, a_src1, a_src2 pin;
+0055 |// Encoding a_src saves 1 pin
+0056 |b_src0, b_src1, b_src2 pin;
+0057 |// Encoding the shift saves 2 pins
+0058 |shift0, shift1, shift2 pin;
+0059 |mb_load pin;
+0060 |ma_load pin;
+0061 |ac_load pin;
+0062 |pc_load pin;
+0063 |
+0064 |" Output pins
+0065 |mb pin istype 'reg_d';
+0066 |ma pin istype 'reg_d';
+0067 |ac pin istype 'reg_d';
+0068 |pc pin istype 'reg_d';
+0069 |adder_ pin;
+0070 |carry_out_ pin;
+0071 |
+0072 |a_src = [a_src0, a_src1, a_src2];
+0073 |b_src = [b_src0, b_src1, b_src2];
+0074 |shift = [shift0, shift1, shift2];
+0075 |a_ node;
+0076 |b_ node;
+0077 |regbus node;
+0078 |
+0079 |EQUATIONS
+0080 |
+0081 |a_ = !(((a_src == AC_ENABLE) & ac)
+0082 |     # ((a_src == ACBAR_ENABLE) & !ac)
+0083 |     # ((a_src == MQ_ENABLE) & mq)
+0084 |     # ((a_src == SR_ENABLE) & sr)
+0085 |     # ((a_src == SC_ENABLE) & sc)
+0086 |     # ((a_src == DATA_ENABLE) & data)
+0087 |     # ((a_src == IO_ENABLE) & input_bus));
+0088 |
+0089 |b_ = !(((b_src == MA_ENABLE)  & ma)
+0090 |     # ((b_src == MEM_ENABLE) & mem)
+0091 |     # ((b_src == PC_ENABLE) & pc)
+0092 |     # ((b_src == DATA_ADDR_ENABLE) & data_addr));
+0093 |
+0094 |[carry_out_, adder_] = [0, a_] + [0, b_] + carry_in_;
+0095 |
+0096 |regbus = !((and_enable & !mb)
+0097 |         # ((shift == RIGHT1) & adder_left1_)
+0098 |         # ((shift == RIGHT2) & adder_left2_)
+0099 |         # ((shift == LEFT1) & adder_right1_)
+0100 |         # ((shift == LEFT2) & adder_right2_)
+0101 |         # ((shift == NO_SHIFT) & adder_)
+0102 |         # ((shift == TT_LINE) & tt_ls_in));
+0103 |
+0104 |mb.d = regbus;
+0105 |ma.d = regbus;
+0106 |ac.d = regbus;
+0107 |pc.d = regbus;
+0108 |mb.clk = mb_load;
+0109 |ma.clk = ma_load;
+0110 |ac.clk = ac_load;
+0111 |pc.clk = pc_load;
+0112 |
+0113 |END

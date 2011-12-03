@@ -1,0 +1,613 @@
+ 
+cpldfit:  version H.38                              Xilinx Inc.
+                                  Fitter Report
+Design Name: regbus                              Date:  5- 9-2011, 11:06PM
+Device Used: XC9536XL-5-PC44
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+20 /36  ( 56%) 176 /180  ( 98%) 55 /108 ( 51%)   15 /36  ( 42%) 16 /34  ( 47%)
+
+** Function Block Resources **
+
+Function    Mcells      FB Inps     Pterms      IO          
+Block       Used/Tot    Used/Tot    Used/Tot    Used/Tot    
+FB1           9/18       26/54       87/90       6/17
+FB2          11/18       29/54       89/90       9/17
+             -----       -----       -----      -----    
+             20/36       55/108     176/180     15/34 
+
+* - Resource is exhausted
+
+** Global Control Resources **
+
+Signal 'clock1' mapped onto global clock net GCK1.
+Global output enable net(s) unused.
+Global set/reset net(s) unused.
+
+** Pin Resources **
+
+Signal Type    Required     Mapped  |  Pin Type            Used    Total 
+------------------------------------|------------------------------------
+Input         :   18          18    |  I/O              :    28      28
+Output        :   15          15    |  GCK/IO           :     3       3
+Bidirectional :    0           0    |  GTS/IO           :     2       2
+GCK           :    1           1    |  GSR/IO           :     1       1
+GTS           :    0           0    |
+GSR           :    0           0    |
+                 ----        ----
+        Total     34          34
+
+** Power Data **
+
+There are 20 macrocells in high performance mode (MCHP).
+There are 0 macrocells in low power mode (MCLP).
+End of Mapped Resource Summary
+*************************  Summary of Mapped Logic  ************************
+
+** 15 Outputs **
+
+Signal                                                                                   Total Total Loc     Pin  Pin     Pin     Pwr  Slew Reg Init
+Name                                                                                     Pts   Inps          No.  Type    Use     Mode Rate State
+mb2                                                                                      16    14    FB1_4   4    I/O     O       STD  FAST RESET
+ma2                                                                                      15    15    FB1_8   9    I/O     O       STD  FAST RESET
+ac2                                                                                      10    15    FB1_11  13   I/O     O       STD  FAST RESET
+pc2                                                                                      9     7     FB1_12  14   I/O     O       STD  FAST RESET
+mem2                                                                                     2     4     FB1_14  19   I/O     O       STD  FAST RESET
+ac1                                                                                      21    21    FB1_16  22   I/O     O       STD  FAST RESET
+pc0                                                                                      21    10    FB2_1   1    I/O     O       STD  FAST RESET
+mb0                                                                                      13    11    FB2_4   43   I/O     O       STD  FAST RESET
+mem1                                                                                     2     4     FB2_7   38   I/O     O       STD  FAST RESET
+ma0                                                                                      12    12    FB2_8   37   I/O     O       STD  FAST RESET
+ac0                                                                                      8     11    FB2_10  35   I/O     O       STD  FAST RESET
+ma1                                                                                      5     8     FB2_12  33   I/O     O       STD  FAST RESET
+pc1                                                                                      5     6     FB2_14  28   I/O     O       STD  FAST RESET
+mb1                                                                                      4     7     FB2_16  26   I/O     O       STD  FAST RESET
+mem0                                                                                     2     4     FB2_17  25   I/O     O       STD  FAST RESET
+
+** 5 Buried Nodes **
+
+Signal                                                                                   Total Total Loc     Pwr  Reg Init
+Name                                                                                     Pts   Inps          Mode State
+AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2                               6     9     FB1_2   STD  
+mux2/mux2_D2                                                                             6     9     FB1_13  STD  
+$OpTx$FX_DC$41                                                                           2     2     FB1_18  STD  
+AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  11    9     FB2_15  STD  
+mux0/mux0_D2                                                                             6     9     FB2_18  STD  
+
+** 19 Inputs **
+
+Signal                                                                                   Loc     Pin  Pin     Pin     
+Name                                                                                             No.  Type    Use     
+sr                                                                                       FB1_1   2    I/O     I
+x0                                                                                       FB1_2   3    I/O     I
+clock1                                                                                   FB1_3   5~   GCK/I/O GCK
+ea2                                                                                      FB1_5   6    GCK/I/O I
+r1                                                                                       FB1_6   8    I/O     I
+sw0                                                                                      FB1_7   7    GCK/I/O I
+sw2                                                                                      FB1_9   11   I/O     I
+inp0                                                                                     FB1_10  12   I/O     I
+r0                                                                                       FB1_13  18   I/O     I
+x2                                                                                       FB1_15  20   I/O     I
+inp1                                                                                     FB1_17  24   I/O     I
+sl                                                                                       FB2_2   44   I/O     I
+ea1                                                                                      FB2_3   42   GTS/I/O I
+r2                                                                                       FB2_5   40   GTS/I/O I
+inp2                                                                                     FB2_6   39   GSR/I/O I
+sw1                                                                                      FB2_9   36   I/O     I
+ea0                                                                                      FB2_11  34   I/O     I
+x1                                                                                       FB2_13  29   I/O     I
+r3                                                                                       FB2_15  27   I/O     I
+
+Legend:
+Pin No. - ~ - User Assigned
+**************************  Function Block Details  ************************
+Legend:
+Total Pt     - Total product terms used by the macrocell signal
+Imp Pt       - Product terms imported from other macrocells
+Exp Pt       - Product terms exported to other macrocells
+               in direction shown
+Unused Pt    - Unused local product terms remaining in macrocell
+Loc          - Location where logic was mapped in device
+Pin Type/Use - I  - Input             GCK - Global Clock
+               O  - Output            GTS - Global Output Enable
+              (b) - Buried macrocell  GSR - Global Set/Reset
+X            - Signal used as input to the macrocell logic.
+Pin No.      - ~  - User Assigned
+*********************************** FB1  ***********************************
+Number of function block inputs used/remaining:               26/28
+Number of signals used by logic mapping into function block:  26
+Signal              Total   Imp   Exp Unused  Loc     Pin   Pin     Pin
+Name                Pt      Pt    Pt  Pt               #    Type    Use
+(unused)              0       0   \/2   3     FB1_1   2     I/O     I
+AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2
+                      6       2<- \/1   0     FB1_2   3     I/O     I
+(unused)              0       0   \/5   0     FB1_3   5     GCK/I/O GCK
+mb2                  16      11<-   0   0     FB1_4   4     I/O     O
+(unused)              0       0   /\5   0     FB1_5   6     GCK/I/O I
+(unused)              0       0   \/5   0     FB1_6   8     I/O     I
+(unused)              0       0   \/5   0     FB1_7   7     GCK/I/O I
+ma2                  15      10<-   0   0     FB1_8   9     I/O     O
+(unused)              0       0   \/5   0     FB1_9   11    I/O     I
+(unused)              0       0   \/5   0     FB1_10  12    I/O     I
+ac2                  10      10<- \/5   0     FB1_11  13    I/O     O
+pc2                   9       5<- \/1   0     FB1_12  14    I/O     O
+mux2/mux2_D2          6       1<-   0   0     FB1_13  18    I/O     I
+mem2                  2       0   \/3   0     FB1_14  19    I/O     O
+(unused)              0       0   \/5   0     FB1_15  20    I/O     I
+ac1                  21      16<-   0   0     FB1_16  22    I/O     O
+(unused)              0       0   /\5   0     FB1_17  24    I/O     I
+$OpTx$FX_DC$41        2       0   /\3   0     FB1_18        (b)     (b)
+
+Signals Used by Logic in Function Block
+  1: AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  10: mb1               19: r3 
+  2: AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2                               11: mb2               20: sl 
+  3: ac1                                                                                      12: mem2              21: sr 
+  4: ac2                                                                                      13: mux2/mux2_D2      22: sw1 
+  5: ea2                                                                                      14: pc1               23: sw2 
+  6: inp1                                                                                     15: pc2               24: x0 
+  7: inp2                                                                                     16: r0                25: x1 
+  8: ma1                                                                                      17: r1                26: x2 
+  9: ma2                                                                                      18: r2               
+
+Signal                        1         2         3         4 FB
+Name                0----+----0----+----0----+----0----+----0 Inputs
+AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 
+                     ...X..X.X.X...X.......XXXX.............. 9
+mb2                  ...X..X.X.XX..XXXXX...XXXX.............. 14
+ma2                  ...XX.X.X.XX..XXXXX...XXXX.............. 15
+ac2                  ...X..X.X.X...XXXXXXX.XXXX.............. 15
+pc2                  ...X........X.XXXXX..................... 7
+mux2/mux2_D2         ...X..X.X.X...X.......XXXX.............. 9
+mem2                 ..........XX...XX....................... 4
+ac1                  ..XX.XXXXXX..XXXXXXXXXXXXX.............. 21
+$OpTx$FX_DC$41       XX...................................... 2
+                    0----+----1----+----2----+----3----+----4
+                              0         0         0         0
+*********************************** FB2  ***********************************
+Number of function block inputs used/remaining:               29/25
+Number of signals used by logic mapping into function block:  29
+Signal              Total   Imp   Exp Unused  Loc     Pin   Pin     Pin
+Name                Pt      Pt    Pt  Pt               #    Type    Use
+pc0                  21      16<-   0   0     FB2_1   1     I/O     O
+(unused)              0       0   /\5   0     FB2_2   44    I/O     I
+(unused)              0       0   /\5   0     FB2_3   42    GTS/I/O I
+mb0                  13      12<- /\4   0     FB2_4   43    I/O     O
+(unused)              0       0   /\5   0     FB2_5   40    GTS/I/O I
+(unused)              0       0   /\5   0     FB2_6   39    GSR/I/O I
+mem1                  2       0   /\2   1     FB2_7   38    I/O     O
+ma0                  12       7<-   0   0     FB2_8   37    I/O     O
+(unused)              0       0   /\5   0     FB2_9   36    I/O     I
+ac0                   8       5<- /\2   0     FB2_10  35    I/O     O
+(unused)              0       0   /\5   0     FB2_11  34    I/O     I
+ma1                   5       0     0   0     FB2_12  33    I/O     O
+(unused)              0       0   \/5   0     FB2_13  29    I/O     I
+pc1                   5       5<- \/5   0     FB2_14  28    I/O     O
+AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D
+                     11       6<-   0   0     FB2_15  27    I/O     I
+mb1                   4       0   /\1   0     FB2_16  26    I/O     O
+mem0                  2       0   \/3   0     FB2_17  25    I/O     O
+mux0/mux0_D2          6       3<- \/2   0     FB2_18        (b)     (b)
+
+Signals Used by Logic in Function Block
+  1: $OpTx$FX_DC$41                                                                           11: ma1               21: r2 
+  2: AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  12: mb0               22: r3 
+  3: AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2                               13: mb1               23: sl 
+  4: ac0                                                                                      14: mem0              24: sr 
+  5: ac1                                                                                      15: mem1              25: sw0 
+  6: ea0                                                                                      16: mux0/mux0_D2      26: sw1 
+  7: ea1                                                                                      17: pc0               27: x0 
+  8: inp0                                                                                     18: pc1               28: x1 
+  9: inp1                                                                                     19: r0                29: x2 
+ 10: ma0                                                                                      20: r1               
+
+Signal                        1         2         3         4 FB
+Name                0----+----0----+----0----+----0----+----0 Inputs
+pc0                  .XXXX..........XX.XXXX.................. 10
+mb0                  .XXXX......X.X.X..XXXX.................. 11
+mem1                 ............X.X...XX.................... 4
+ma0                  .XXXXX...X...X.X..XXXX.................. 12
+ac0                  .XXXX..........X..XXXXXX................ 11
+ma1                  X.....X...X...X...XXXX.................. 8
+pc1                  X................XXXXX.................. 6
+AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D 
+                     ....X...X.X.X....X.......XXXX........... 9
+mb1                  X...........X.X...XXXX.................. 7
+mem0                 ...........X.X....XX.................... 4
+mux0/mux0_D2         ...X...X.X.X....X.......X.XXX........... 9
+                    0----+----1----+----2----+----3----+----4
+                              0         0         0         0
+*******************************  Equations  ********************************
+
+********** Mapped Logic **********
+
+$OpTx$FX_DC$41 = 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D
+	$ 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2;    
+
+AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D = !ac1 & mb1 & !x1 & !x0 & !x2
+	# !ac1 & pc1 & x1 & x0 & !x2
+	# !ac1 & ma1 & !x1 & x0 & !x2
+	# !ac1 & !x1 & x0 & x2 & inp1
+	# !ac1 & !x1 & !x0 & x2 & sw1
+;Imported pterms FB2_14
+	# ac1 & x1 & x2
+	# ac1 & !pc1 & x1 & x0
+	# ac1 & !x0 & x2 & !sw1
+	# ac1 & !mb1 & !x1 & !x0 & !x2
+	# ac1 & !ma1 & !x1 & x0 & !x2
+;Imported pterms FB2_16
+	# ac1 & x0 & x2 & !inp1;    
+
+AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 = ac2 & mb2 & !x0 & !x2
+	# ac2 & pc2 & x1 & !x2
+	# ac2 & x1 & !x0 & !x2
+	# ac2 & ma2 & !x1 & x0 & !x2
+;Imported pterms FB1_1
+	# ac2 & !x1 & x0 & x2 & inp2
+	# ac2 & !x1 & !x0 & x2 & sw2;    
+
+ac0.T = !ac1 & !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac0 & !r3 & r2 & !r0 & sl & r1
+	# !ac0 & !r3 & r2 & !r0 & !r1 & sr
+;Imported pterms FB2_11
+	# ac1 & !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & !r3 & r2 & !r0 & !sl & r1
+	# ac0 & !r3 & r2 & !r0 & !r1 & !sr
+	# !r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2;
+   ac0.CLK = clock1;	// GCK    
+
+ac1.T = ac1 & !r3 & r2 & !r0 & !sl & r1
+	# ac1 & !r3 & r2 & !r0 & !r1 & !sr
+	# !ac1 & !r3 & r2 & !r0 & sl & r1
+	# !ac1 & !r3 & r2 & !r0 & !r1 & sr
+	# !x1 & x0 & !r3 & r2 & r0 & x2 & inp1 & !inp2
+;Imported pterms FB1_15
+	# !ac1 & ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# mb1 & !mb2 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# pc1 & !pc2 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# ma1 & !ma2 & !x1 & x0 & !r3 & r2 & r0 & !x2
+	# !x1 & !x0 & !r3 & r2 & r0 & x2 & sw1 & !sw2
+;Imported pterms FB1_14
+	# !ac2 & pc1 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# ac2 & !ma1 & ma2 & !x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & x0 & !r3 & r2 & r0 & x2 & !inp1 & 
+	inp2
+;Imported pterms FB1_17
+	# ac1 & !ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & mb1 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & ma1 & !x1 & x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & !x1 & x0 & !r3 & r2 & r0 & x2 & inp1
+	# !ac2 & !x1 & !x0 & !r3 & r2 & r0 & x2 & sw1
+;Imported pterms FB1_18
+	# ac2 & !mb1 & mb2 & !x1 & !x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !pc1 & pc2 & x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & !x0 & !r3 & r2 & r0 & x2 & !sw1 & 
+	sw2;
+   ac1.CLK = clock1;	// GCK    
+
+ac2.T = ;Imported pterms FB1_10
+	  !ac2 & !r3 & r2 & !r0 & sl & r1
+	# !ac2 & !r3 & r2 & !r0 & !r1 & sr
+	# pc2 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# !x1 & x0 & !r3 & r2 & r0 & x2 & inp2
+	# !x1 & !x0 & !r3 & r2 & r0 & x2 & sw2
+;Imported pterms FB1_9
+	# ac2 & !r3 & r2 & !r0 & !sl & r1
+	# ac2 & !r3 & r2 & !r0 & !r1 & !sr
+	# ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# mb2 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# ma2 & !x1 & x0 & !r3 & r2 & r0 & !x2;
+   ac2.CLK = clock1;	// GCK    
+
+ma0.D = ma0 & !r3
+	# ma0 & r2
+	# mem0 & r3 & !r2 & !r0 & r1
+	# r3 & !r2 & !r0 & !r1 & ea0
+	# ac0 & r3 & !r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_9
+	# ac1 & ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_10
+	# ac1 & !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2;
+   ma0.CLK = clock1;	// GCK    
+
+ma1.D = ma1 & !r3
+	# ma1 & r2
+	# r3 & !r2 & r0 & $OpTx$FX_DC$41
+	# mem1 & r3 & !r2 & !r0 & r1
+	# r3 & !r2 & !r0 & !r1 & ea1;
+   ma1.CLK = clock1;	// GCK    
+
+ma2.D = ma2 & !r3
+	# ma2 & r2
+	# mem2 & r3 & !r2 & !r0 & r1
+	# r3 & !r2 & !r0 & !r1 & ea2
+	# !ac2 & ma2 & !x1 & x0 & r0 & !x2
+;Imported pterms FB1_7
+	# ac2 & x1 & r3 & !r2 & r0 & x2
+	# ac2 & !pc2 & x1 & x0 & r3 & !r2 & r0
+	# ac2 & x0 & r3 & !r2 & r0 & x2 & !inp2
+	# ac2 & !x0 & r3 & !r2 & r0 & x2 & !sw2
+	# ac2 & !ma2 & !x1 & x0 & r3 & !r2 & r0 & !x2
+;Imported pterms FB1_6
+	# ac2 & !mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & pc2 & x1 & x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & !x1 & x0 & r3 & !r2 & r0 & x2 & inp2
+	# !ac2 & !x1 & !x0 & r3 & !r2 & r0 & x2 & sw2;
+   ma2.CLK = clock1;	// GCK    
+
+mb0.D = mb0 & r2
+;Imported pterms FB2_5
+	# mb0 & r3 & !r1
+	# mb0 & r0 & r1
+	# mb0 & !r0 & !r1
+	# mem0 & !r2 & !r0 & r1
+	# ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_6
+	# ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_7
+	# ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2;
+   mb0.CLK = clock1;	// GCK    
+
+mb1.T = mb1 & !mem1 & !r2 & !r0 & r1
+	# !mb1 & mem1 & !r2 & !r0 & r1
+	# mb1 & !r3 & !r2 & r0 & !r1 & !$OpTx$FX_DC$41
+	# !mb1 & !r3 & !r2 & r0 & !r1 & $OpTx$FX_DC$41;
+   mb1.CLK = clock1;	// GCK    
+
+mb2.D = mb2 & r2
+	# mb2 & r3 & r0
+	# mb2 & r0 & r1
+	# mb2 & !r0 & !r1
+	# mem2 & !r2 & !r0 & r1
+;Imported pterms FB1_3
+	# !ac2 & mb2 & !x1 & !x0 & r0 & !x2
+	# ac2 & x1 & !r3 & !r2 & r0 & !r1 & x2
+	# ac2 & !pc2 & x1 & x0 & !r3 & !r2 & r0 & !r1
+	# ac2 & x0 & !r3 & !r2 & r0 & !r1 & x2 & !inp2
+	# ac2 & !x0 & !r3 & !r2 & r0 & !r1 & x2 & !sw2
+;Imported pterms FB1_2
+	# !ac2 & !x1 & !x0 & !r3 & !r2 & r0 & !r1 & x2 & 
+	sw2
+;Imported pterms FB1_5
+	# ac2 & !mb2 & !x1 & !x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# ac2 & !ma2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & pc2 & x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & ma2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & x2 & 
+	inp2;
+   mb2.CLK = clock1;	// GCK    
+
+mem0.T = mb0 & !mem0 & r0 & r1
+	# !mb0 & mem0 & r0 & r1;
+   mem0.CLK = clock1;	// GCK    
+
+mem1.T = mb1 & !mem1 & r0 & r1
+	# !mb1 & mem1 & r0 & r1;
+   mem1.CLK = clock1;	// GCK    
+
+mem2.T = mb2 & !mem2 & r0 & r1
+	# !mb2 & mem2 & r0 & r1;
+   mem2.CLK = clock1;	// GCK    
+
+mux0/mux0_D2 = mb0 & !x1 & !x0 & !x2
+	# ma0 & !x1 & x0 & !x2
+	# !x1 & !x0 & x2 & sw0
+;Imported pterms FB2_17
+	# ac0 & x1 & !x0 & !x2
+	# pc0 & x1 & x0 & !x2
+	# !x1 & x0 & x2 & inp0;    
+
+mux2/mux2_D2 = mb2 & !x1 & !x0 & !x2
+	# pc2 & x1 & x0 & !x2
+	# ma2 & !x1 & x0 & !x2
+	# !x1 & x0 & x2 & inp2
+	# !x1 & !x0 & x2 & sw2
+;Imported pterms FB1_12
+	# ac2 & x1 & !x0 & !x2;    
+
+pc0.D = pc0 & !r3 & r2
+	# pc0 & !r3 & !r0
+	# pc0 & r2 & !r0
+	# pc0 & !r0 & r1
+	# pc0 & r3 & !r2 & r0
+;Imported pterms FB2_2
+	# !ac1 & ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_3
+	# ac1 & !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_4
+	# ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+;Imported pterms FB2_18
+	# ac1 & ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2;
+   pc0.CLK = clock1;	// GCK    
+
+pc1.T = ;Imported pterms FB2_13
+	  pc1 & !r3 & !r2 & r0
+	# pc1 & r3 & r2 & r0 & !$OpTx$FX_DC$41
+	# !pc1 & r3 & r2 & r0 & $OpTx$FX_DC$41
+	# pc1 & r3 & !r2 & !r0 & !r1 & !$OpTx$FX_DC$41
+	# !pc1 & r3 & !r2 & !r0 & !r1 & $OpTx$FX_DC$41;
+   pc1.CLK = clock1;	// GCK    
+
+!pc2.D = !pc2 & !r3
+	# !pc2 & r2 & !r0
+	# !pc2 & !r0 & r1
+	# !r3 & !r2 & r0
+;Imported pterms FB1_11
+	# !pc2 & !r2 & r0
+	# ac2 & r3 & r2 & r0 & mux2/mux2_D2
+	# !ac2 & r3 & r2 & r0 & !mux2/mux2_D2
+	# ac2 & r3 & !r2 & !r0 & !r1 & mux2/mux2_D2
+	# !ac2 & r3 & !r2 & !r0 & !r1 & !mux2/mux2_D2;
+   pc2.CLK = clock1;	// GCK    
+
+******************************  Device Pin Out *****************************
+
+Device : XC9536XL-5-PC44
+
+
+   --------------------------------  
+  /6  5  4  3  2  1  44 43 42 41 40 \
+ | 7                             39 | 
+ | 8                             38 | 
+ | 9                             37 | 
+ | 10                            36 | 
+ | 11        XC9536XL-5-PC44     35 | 
+ | 12                            34 | 
+ | 13                            33 | 
+ | 14                            32 | 
+ | 15                            31 | 
+ | 16                            30 | 
+ | 17                            29 | 
+ \ 18 19 20 21 22 23 24 25 26 27 28 /
+   --------------------------------  
+
+
+Pin Signal                         Pin Signal                        
+No. Name                           No. Name                          
+  1 pc0                              23 GND                           
+  2 sr                               24 inp1                          
+  3 x0                               25 mem0                          
+  4 mb2                              26 mb1                           
+  5 clock1                           27 r3                            
+  6 ea2                              28 pc1                           
+  7 sw0                              29 x1                            
+  8 r1                               30 TDO                           
+  9 ma2                              31 GND                           
+ 10 GND                              32 VCC                           
+ 11 sw2                              33 ma1                           
+ 12 inp0                             34 ea0                           
+ 13 ac2                              35 ac0                           
+ 14 pc2                              36 sw1                           
+ 15 TDI                              37 ma0                           
+ 16 TMS                              38 mem1                          
+ 17 TCK                              39 inp2                          
+ 18 r0                               40 r2                            
+ 19 mem2                             41 VCC                           
+ 20 x2                               42 ea1                           
+ 21 VCC                              43 mb0                           
+ 22 ac1                              44 sl                            
+
+
+Legend :  NC  = Not Connected, unbonded pin
+         PGND = Unused I/O configured as additional Ground pin
+         TIE  = Unused I/O floating -- must tie to VCC, GND or other signal
+         KPR  = Unused I/O with weak keeper (leave unconnected)
+         VCC  = Dedicated Power Pin
+         GND  = Dedicated Ground Pin
+         TDI  = Test Data In, JTAG pin
+         TDO  = Test Data Out, JTAG pin
+         TCK  = Test Clock, JTAG pin
+         TMS  = Test Mode Select, JTAG pin
+  PROHIBITED  = User reserved pin
+****************************  Compiler Options  ****************************
+
+Following is a list of all global compiler options used by the fitter run.
+
+Device(s) Specified                         : xc9536xl-5-PC44
+Optimization Method                         : SPEED
+Multi-Level Logic Optimization              : ON
+Ignore Timing Specifications                : OFF
+Default Register Power Up Value             : LOW
+Keep User Location Constraints              : ON
+What-You-See-Is-What-You-Get                : OFF
+Exhaustive Fitting                          : OFF
+Keep Unused Inputs                          : OFF
+Slew Rate                                   : FAST
+Power Mode                                  : STD
+Ground on Unused IOs                        : OFF
+Set I/O Pin Termination                     : KEEPER
+Global Clock Optimization                   : ON
+Global Set/Reset Optimization               : ON
+Global Ouput Enable Optimization            : ON
+Input Limit                                 : 54
+Pterm Limit                                 : 25

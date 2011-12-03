@@ -1,0 +1,113 @@
+MODULE m220
+
+Title 'Main registers'
+
+// This implements a single bit of the ALU.
+
+" regbus Device 'xc9536xl';
+
+" $INCLUDE PDP8.DEF
+
+// Bit patterns for A_SRC
+NO_ENABLE = 0;
+AC_ENABLE = 1;
+ACBAR_ENABLE = 2;
+MQ_ENABLE = 3;
+SR_ENABLE = 4;
+SC_ENABLE = 5;
+DATA_ENABLE = 6;
+IO_ENABLE = 7;
+// TT_CARRY_INSERT = 8;
+
+// Bit patterns for B_SRC
+//NO_ENABLE = 0;
+MA_ENABLE = 1;
+PC_ENABLE = 2;
+MEM_ENABLE = 3;
+DATA_ADDR_ENABLE = 4;
+
+// Bit patters for shifts
+NO_SHIFT = 0;
+LEFT1 = 1;
+LEFT2 = 2;
+RIGHT1 = 3;
+RIGHT2 = 4;
+TT_LINE = 5;
+
+" Input Pins
+adder_left2_ pin;
+adder_left1_ pin;
+adder_right2_ pin;
+adder_right1_ pin;
+and_enable pin;
+tt_ls_in pin;
+// Encoding these next 6 would save 3 pins
+!carry_in_ pin;
+mq pin;
+sr pin;
+sc pin;
+data pin;
+input_bus pin;
+mem pin;
+data_addr pin;
+// Encoding a_src saves 4 pins
+a_src0, a_src1, a_src2 pin;
+// Encoding a_src saves 1 pin
+b_src0, b_src1, b_src2 pin;
+// Encoding the shift saves 2 pins
+shift0, shift1, shift2 pin;
+mb_load pin;
+ma_load pin;
+ac_load pin;
+pc_load pin;
+
+" Output pins
+mb pin istype 'reg_d';
+ma pin istype 'reg_d';
+ac pin istype 'reg_d';
+pc pin istype 'reg_d';
+adder_ pin;
+carry_out_ pin;
+
+a_src = [a_src0, a_src1, a_src2];
+b_src = [b_src0, b_src1, b_src2];
+shift = [shift0, shift1, shift2];
+a_ node;
+b_ node;
+regbus node;
+
+EQUATIONS
+
+a_ = !(((a_src == AC_ENABLE) & ac)
+     # ((a_src == ACBAR_ENABLE) & !ac)
+     # ((a_src == MQ_ENABLE) & mq)
+     # ((a_src == SR_ENABLE) & sr)
+     # ((a_src == SC_ENABLE) & sc)
+     # ((a_src == DATA_ENABLE) & data)
+     # ((a_src == IO_ENABLE) & input_bus));
+
+b_ = !(((b_src == MA_ENABLE)  & ma)
+     # ((b_src == MEM_ENABLE) & mem)
+     # ((b_src == PC_ENABLE) & pc)
+     # ((b_src == DATA_ADDR_ENABLE) & data_addr));
+
+[carry_out_, adder_] = [0, a_] + [0, b_] + carry_in_;
+
+regbus = !((and_enable & !mb)
+         # ((shift == RIGHT1) & adder_left1_)
+         # ((shift == RIGHT2) & adder_left2_)
+         # ((shift == LEFT1) & adder_right1_)
+         # ((shift == LEFT2) & adder_right2_)
+         # ((shift == NO_SHIFT) & adder_)
+         # ((shift == TT_LINE) & tt_ls_in));
+
+mb.d = regbus;
+ma.d = regbus;
+ac.d = regbus;
+pc.d = regbus;
+mb.clk = mb_load;
+ma.clk = ma_load;
+ac.clk = ac_load;
+pc.clk = pc_load;
+
+END

@@ -1,0 +1,111 @@
+MODULE pdp8
+
+Title 'State Machine'
+
+// This sequences the states of the machine.
+
+" regbus Device 'xc9536xl';
+
+" $INCLUDE PDP8.DEF
+
+// Bit patterns for A_SRC
+NO_ENABLE = 0;
+AC_ENABLE = 1;
+ACBAR_ENABLE = 2;
+MQ_ENABLE = 3;
+SR_ENABLE = 4;
+SC_ENABLE = 5;
+DATA_ENABLE = 6;
+IO_ENABLE = 7;
+// TT_CARRY_INSERT = 8;
+
+// Bit patterns for B_SRC
+//NO_ENABLE = 0;
+MA_ENABLE = 1;
+PC_ENABLE = 2;
+MEM_ENABLE = 3;
+DATA_ADDR_ENABLE = 4;
+
+// Bit patters for shifts
+NO_SHIFT = 0;
+LEFT1 = 1;
+LEFT2 = 2;
+RIGHT1 = 3;
+RIGHT2 = 4;
+TT_LINE = 5;
+
+" Input Pins
+clock pin;
+brkrq pin;
+intrq pin;
+halt pin;
+mem pin;
+mb0, mb1, mb2, mb3 pin;
+
+" Output pins
+ts1, ts2, ts3, ts4 pin istype 'reg';
+fetch, defer, exec, break, intr pin istype 'reg';
+// Encoding a_src saves 4 pins
+a_src0, a_src1, a_src2 pin;
+// Encoding a_src saves 1 pin
+b_src0, b_src1, b_src2 pin;
+// Encoding the shift saves 2 pins
+shift0, shift1, shift2 pin;
+ir0, ir1, ir2 pin istype 'reg';
+mb_load pin;
+ma_load pin;
+ac_load pin;
+pc_load pin;
+
+ts = [ts1, ts2, ts3, ts4];
+TS1 = 8;
+TS2 = 4;
+TS3 = 2;
+TS4 = 1;
+
+ms = [fetch, defer, exec, break, intr];
+FETCH = 16;
+DEFER = 8;
+EXEC = 4;
+BREAK = 2;
+INTR = 1;
+
+a_src = [a_src0, a_src1, a_src2];
+b_src = [b_src0, b_src1, b_src2];
+shift = [shift0, shift1, shift2];
+ir = [ir0, ir1, ir2];
+
+EQUATIONS
+
+ts.clk = clock;
+ms.clk = clock;
+ir.clk = clock;
+state_diagram ts;   // Minor State
+//  state 0:
+//      goto TS4;
+    state TS4:  // Remain in TS4 until unhalted, interrupt, DMA, etc.
+        if (fetch & (ir != [1, 1, .x.])) then {
+            if (mb3)
+                then TS1 with ms := DEFER
+                else TS1 with ms := EXEC;
+        }
+        if (defer)
+            then TS1 with ms := EXEC
+        // We seem to have finished an instruction
+        if (brkrq)
+            then TS1 with ms := BREAK
+        if (intrq)
+            then TS1 with ms := INTR
+        if (!halt)
+            then TS1 with ms := FETCH
+            else TS4;
+    state TS1:
+        // The job of TS1 is to set up the memory read, if any
+        goto TS2;
+    state TS2:
+        if (fetch) then TS3 with ir := [mb0, mb1, mb2];
+        else TS3;
+    state TS3:
+        goto TS4;
+
+END

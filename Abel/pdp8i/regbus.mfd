@@ -1,0 +1,942 @@
+MDF Database:  version 1.0
+MDF_INFO | regbus | XC9536XL-5-PC44
+MACROCELL | 0 | 15 | ac1_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 15 | 0 | 15 | 1 | 2 | 1 | 9 | 0 | 16 | 1 | 6 | 1 | 14 | 0 | 14 | 1 | 1 | 1 | 3 | 1 | 5 | 1 | 8 | 1 | 10 | 1 | 13 | 1 | 15 | 1 | 17
+INPUTS | 14 | ac1  | r3  | r2  | r0  | sl  | r1  | sr  | x1  | x0  | x2  | inp1  | inp2  | EXP11_.EXP  | EXP12_.EXP
+INPUTMC | 3 | 0 | 15 | 0 | 14 | 0 | 16
+INPUTP | 11 | 34 | 1 | 23 | 5 | 13 | 7 | 37 | 8 | 25 | 31 | 47
+IMPORTS | 2 | 0 | 14 | 0 | 16
+EQ | 31 | 
+   ac1.T = ac1 & !r3 & r2 & !r0 & !sl & r1
+	# ac1 & !r3 & r2 & !r0 & !r1 & !sr
+	# !ac1 & !r3 & r2 & !r0 & sl & r1
+	# !ac1 & !r3 & r2 & !r0 & !r1 & sr
+	# !x1 & x0 & !r3 & r2 & r0 & x2 & inp1 & !inp2
+;Imported pterms FB1_15
+	# !ac1 & ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# mb1 & !mb2 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# pc1 & !pc2 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# ma1 & !ma2 & !x1 & x0 & !r3 & r2 & r0 & !x2
+	# !x1 & !x0 & !r3 & r2 & r0 & x2 & sw1 & !sw2
+;Imported pterms FB1_14
+	# !ac2 & pc1 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# ac2 & !ma1 & ma2 & !x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & x0 & !r3 & r2 & r0 & x2 & !inp1 & 
+	inp2
+;Imported pterms FB1_17
+	# ac1 & !ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & mb1 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & ma1 & !x1 & x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & !x1 & x0 & !r3 & r2 & r0 & x2 & inp1
+	# !ac2 & !x1 & !x0 & !r3 & r2 & r0 & x2 & sw1
+;Imported pterms FB1_18
+	# ac2 & !mb1 & mb2 & !x1 & !x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !pc1 & pc2 & x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & !x0 & !r3 & r2 & r0 & x2 & !sw1 & 
+	sw2;
+   ac1.CLK = clock1;	// GCK
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 0 | 10 | ac2_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 15 | 0 | 14 | 0 | 9 | 0 | 2 | 0 | 10 | 0 | 7 | 0 | 1 | 0 | 11 | 0 | 0 | 0 | 4 | 0 | 5 | 0 | 6 | 0 | 8 | 0 | 13 | 0 | 16 | 0 | 17
+INPUTS | 8 | pc2  | r2  | r0  | ac2  | r3  | mux2/mux2_D2  | r1  | EXP10_.EXP
+INPUTMC | 4 | 0 | 11 | 0 | 10 | 0 | 12 | 0 | 9
+INPUTP | 4 | 1 | 23 | 34 | 13
+EXPORTS | 1 | 0 | 11
+IMPORTS | 1 | 0 | 9
+EQ | 18 | 
+   ac2.T = ;Imported pterms FB1_10
+	  !ac2 & !r3 & r2 & !r0 & sl & r1
+	# !ac2 & !r3 & r2 & !r0 & !r1 & sr
+	# pc2 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# !x1 & x0 & !r3 & r2 & r0 & x2 & inp2
+	# !x1 & !x0 & !r3 & r2 & r0 & x2 & sw2
+;Imported pterms FB1_9
+	# ac2 & !r3 & r2 & !r0 & !sl & r1
+	# ac2 & !r3 & r2 & !r0 & !r1 & !sr
+	# ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# mb2 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# ma2 & !x1 & x0 & !r3 & r2 & r0 & !x2;
+   ac2.CLK = clock1;	// GCK
+    ac2_OBUF.EXP  =  !pc2 & !r2 & r0
+	# ac2 & r3 & r2 & r0 & mux2/mux2_D2
+	# !ac2 & r3 & r2 & r0 & !mux2/mux2_D2
+	# ac2 & r3 & !r2 & !r0 & !r1 & mux2/mux2_D2
+	# !ac2 & r3 & !r2 & !r0 & !r1 & !mux2/mux2_D2
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 3 | mb0_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 5 | 1 | 3 | 1 | 16 | 1 | 17 | 1 | 4 | 1 | 2
+INPUTS | 11 | mb0  | r2  | ac1  | ac0  | r3  | r0  | r1  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | EXP15_.EXP
+INPUTMC | 7 | 1 | 3 | 0 | 15 | 1 | 9 | 1 | 14 | 1 | 17 | 0 | 1 | 1 | 4
+INPUTP | 4 | 1 | 34 | 23 | 13
+EXPORTS | 1 | 1 | 2
+IMPORTS | 1 | 1 | 4
+EQ | 39 | 
+   mb0.D = mb0 & r2
+;Imported pterms FB2_5
+	# mb0 & r3 & !r1
+	# mb0 & r0 & r1
+	# mb0 & !r0 & !r1
+	# mem0 & !r2 & !r0 & r1
+	# ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_6
+	# ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_7
+	# ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2;
+   mb0.CLK = clock1;	// GCK
+    mb0_OBUF.EXP  =  ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 15 | mb1_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 7 | 0 | 14 | 1 | 15 | 1 | 6 | 1 | 14 | 0 | 16 | 0 | 17 | 1 | 13
+INPUTS | 11 | mb1  | mem1  | r2  | r0  | r1  | r3  | $OpTx$FX_DC$41  | ac1  | x0  | x2  | inp1
+INPUTMC | 4 | 1 | 15 | 1 | 6 | 0 | 17 | 0 | 15
+INPUTP | 7 | 1 | 23 | 13 | 34 | 8 | 25 | 31
+EXPORTS | 1 | 1 | 14
+EQ | 6 | 
+   mb1.T = mb1 & !mem1 & !r2 & !r0 & r1
+	# !mb1 & mem1 & !r2 & !r0 & r1
+	# mb1 & !r3 & !r2 & r0 & !r1 & !$OpTx$FX_DC$41
+	# !mb1 & !r3 & !r2 & r0 & !r1 & $OpTx$FX_DC$41;
+   mb1.CLK = clock1;	// GCK
+    mb1_OBUF.EXP  =  ac1 & x0 & x2 & !inp1
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 0 | 3 | mb2_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 10 | 0 | 14 | 0 | 8 | 0 | 3 | 0 | 5 | 0 | 13 | 0 | 1 | 0 | 12 | 0 | 2 | 0 | 4 | 0 | 17
+INPUTS | 8 | mb2  | r2  | r0  | r1  | r3  | mem2  | EXP5_.EXP  | EXP6_.EXP
+INPUTMC | 4 | 0 | 3 | 0 | 13 | 0 | 2 | 0 | 4
+INPUTP | 4 | 1 | 23 | 13 | 34
+IMPORTS | 2 | 0 | 2 | 0 | 4
+EQ | 26 | 
+   mb2.D = mb2 & r2
+	# mb2 & r3 & r0
+	# mb2 & r0 & r1
+	# mb2 & !r0 & !r1
+	# mem2 & !r2 & !r0 & r1
+;Imported pterms FB1_3
+	# !ac2 & mb2 & !x1 & !x0 & r0 & !x2
+	# ac2 & x1 & !r3 & !r2 & r0 & !r1 & x2
+	# ac2 & !pc2 & x1 & x0 & !r3 & !r2 & r0 & !r1
+	# ac2 & x0 & !r3 & !r2 & r0 & !r1 & x2 & !inp2
+	# ac2 & !x0 & !r3 & !r2 & r0 & !r1 & x2 & !sw2
+;Imported pterms FB1_2
+	# !ac2 & !x1 & !x0 & !r3 & !r2 & r0 & !r1 & x2 & 
+	sw2
+;Imported pterms FB1_5
+	# ac2 & !mb2 & !x1 & !x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# ac2 & !ma2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & pc2 & x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & ma2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & x2 & 
+	inp2;
+   mb2.CLK = clock1;	// GCK
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 9 | ac0_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 12 | 1 | 2 | 1 | 9 | 1 | 16 | 1 | 7 | 1 | 1 | 1 | 3 | 1 | 4 | 1 | 5 | 1 | 6 | 1 | 8 | 1 | 10 | 1 | 17
+INPUTS | 12 | ac0  | r3  | r2  | r0  | r1  | sr  | sl  | ac1  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | EXP18_.EXP
+INPUTMC | 6 | 1 | 9 | 0 | 15 | 1 | 14 | 1 | 17 | 0 | 1 | 1 | 10
+INPUTP | 6 | 34 | 1 | 23 | 13 | 7 | 5
+EXPORTS | 1 | 1 | 8
+IMPORTS | 1 | 1 | 10
+EQ | 21 | 
+   ac0.T = !ac1 & !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac0 & !r3 & r2 & !r0 & sl & r1
+	# !ac0 & !r3 & r2 & !r0 & !r1 & sr
+;Imported pterms FB2_11
+	# ac1 & !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & !r3 & r2 & !r0 & !sl & r1
+	# ac0 & !r3 & r2 & !r0 & !r1 & !sr
+	# !r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2;
+   ac0.CLK = clock1;	// GCK
+    ac0_OBUF.EXP  =  ac1 & !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 0 | pc0_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 2 | 1 | 0 | 1 | 16
+INPUTS | 7 | pc0  | r0  | r1  | r2  | r3  | EXP13_.EXP  | mux0/mux0_D2.EXP
+INPUTMC | 3 | 1 | 0 | 1 | 1 | 1 | 17
+INPUTP | 4 | 23 | 13 | 1 | 34
+IMPORTS | 2 | 1 | 1 | 1 | 17
+EQ | 50 | 
+   pc0.D = pc0 & !r3 & r2
+	# pc0 & !r3 & !r0
+	# pc0 & r2 & !r0
+	# pc0 & !r0 & r1
+	# pc0 & r3 & !r2 & r0
+;Imported pterms FB2_2
+	# !ac1 & ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_3
+	# ac1 & !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_4
+	# ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+;Imported pterms FB2_18
+	# ac1 & ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2;
+   pc0.CLK = clock1;	// GCK
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 13 | pc1_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 6 | 0 | 14 | 1 | 12 | 1 | 14 | 0 | 13 | 0 | 17 | 1 | 13
+INPUTS | 9 | ac1  | x1  | x2  | pc1  | x0  | sw1  | mb1  | ma1  | EXP19_.EXP
+INPUTMC | 5 | 0 | 15 | 1 | 13 | 1 | 15 | 1 | 11 | 1 | 12
+INPUTP | 4 | 37 | 25 | 8 | 44
+EXPORTS | 1 | 1 | 14
+IMPORTS | 1 | 1 | 12
+EQ | 12 | 
+   pc1.T = ;Imported pterms FB2_13
+	  pc1 & !r3 & !r2 & r0
+	# pc1 & r3 & r2 & r0 & !$OpTx$FX_DC$41
+	# !pc1 & r3 & r2 & r0 & $OpTx$FX_DC$41
+	# pc1 & r3 & !r2 & !r0 & !r1 & !$OpTx$FX_DC$41
+	# !pc1 & r3 & !r2 & !r0 & !r1 & $OpTx$FX_DC$41;
+   pc1.CLK = clock1;	// GCK
+    pc1_OBUF.EXP  =  ac1 & x1 & x2
+	# ac1 & !pc1 & x1 & x0
+	# ac1 & !x0 & x2 & !sw1
+	# ac1 & !mb1 & !x1 & !x0 & !x2
+	# ac1 & !ma1 & !x1 & x0 & !x2
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 0 | 11 | pc2_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 11 | 0 | 14 | 0 | 9 | 0 | 2 | 0 | 11 | 0 | 6 | 0 | 1 | 0 | 12 | 0 | 4 | 0 | 5 | 0 | 10 | 0 | 17
+INPUTS | 10 | pc2  | r3  | r2  | r0  | r1  | ac2  | x1  | x0  | x2  | ac2_OBUF.EXP
+INPUTMC | 3 | 0 | 11 | 0 | 10 | 0 | 10
+INPUTP | 7 | 34 | 1 | 23 | 13 | 37 | 8 | 25
+EXPORTS | 1 | 0 | 12
+IMPORTS | 1 | 0 | 10
+EQ | 12 | 
+   !pc2.D = !pc2 & !r3
+	# !pc2 & r2 & !r0
+	# !pc2 & !r0 & r1
+	# !r3 & !r2 & r0
+;Imported pterms FB1_11
+	# !pc2 & !r2 & r0
+	# ac2 & r3 & r2 & r0 & mux2/mux2_D2
+	# !ac2 & r3 & r2 & r0 & !mux2/mux2_D2
+	# ac2 & r3 & !r2 & !r0 & !r1 & mux2/mux2_D2
+	# !ac2 & r3 & !r2 & !r0 & !r1 & !mux2/mux2_D2;
+   pc2.CLK = clock1;	// GCK
+    pc2_OBUF.EXP  =  ac2 & x1 & !x0 & !x2
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 7 | ma0_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 2 | 1 | 7 | 1 | 17
+INPUTS | 12 | ma0  | r3  | r2  | mem0  | r0  | r1  | ea0  | ac0  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | EXP17_.EXP
+INPUTMC | 7 | 1 | 7 | 1 | 16 | 1 | 9 | 0 | 1 | 1 | 14 | 1 | 17 | 1 | 8
+INPUTP | 5 | 34 | 1 | 23 | 13 | 42
+IMPORTS | 1 | 1 | 8
+EQ | 27 | 
+   ma0.D = ma0 & !r3
+	# ma0 & r2
+	# mem0 & r3 & !r2 & !r0 & r1
+	# r3 & !r2 & !r0 & !r1 & ea0
+	# ac0 & r3 & !r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_9
+	# ac1 & ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_10
+	# ac1 & !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2;
+   ma0.CLK = clock1;	// GCK
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 11 | ma1_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 6 | 0 | 14 | 1 | 11 | 1 | 14 | 0 | 13 | 0 | 16 | 1 | 13
+INPUTS | 8 | ma1  | r3  | r2  | r0  | $OpTx$FX_DC$41  | mem1  | r1  | ea1
+INPUTMC | 3 | 1 | 11 | 0 | 17 | 1 | 6
+INPUTP | 5 | 34 | 1 | 23 | 13 | 3
+EQ | 6 | 
+   ma1.D = ma1 & !r3
+	# ma1 & r2
+	# r3 & !r2 & r0 & $OpTx$FX_DC$41
+	# mem1 & r3 & !r2 & !r0 & r1
+	# r3 & !r2 & !r0 & !r1 & ea1;
+   ma1.CLK = clock1;	// GCK
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 0 | 7 | ma2_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 8 | 0 | 14 | 0 | 8 | 0 | 12 | 0 | 7 | 0 | 1 | 0 | 4 | 0 | 6 | 0 | 13
+INPUTS | 12 | ma2  | r3  | r2  | r0  | r1  | ea2  | mem2  | ac2  | x1  | x0  | x2  | EXP8_.EXP
+INPUTMC | 4 | 0 | 7 | 0 | 13 | 0 | 10 | 0 | 6
+INPUTP | 8 | 34 | 1 | 23 | 13 | 11 | 37 | 8 | 25
+IMPORTS | 1 | 0 | 6
+EQ | 18 | 
+   ma2.D = ma2 & !r3
+	# ma2 & r2
+	# mem2 & r3 & !r2 & !r0 & r1
+	# r3 & !r2 & !r0 & !r1 & ea2
+	# !ac2 & ma2 & !x1 & x0 & r0 & !x2
+;Imported pterms FB1_7
+	# ac2 & x1 & r3 & !r2 & r0 & x2
+	# ac2 & !pc2 & x1 & x0 & r3 & !r2 & r0
+	# ac2 & x0 & r3 & !r2 & r0 & x2 & !inp2
+	# ac2 & !x0 & r3 & !r2 & r0 & x2 & !sw2
+	# ac2 & !ma2 & !x1 & x0 & r3 & !r2 & r0 & !x2
+;Imported pterms FB1_6
+	# ac2 & !mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & pc2 & x1 & x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & !x1 & x0 & r3 & !r2 & r0 & x2 & inp2
+	# !ac2 & !x1 & !x0 & r3 & !r2 & r0 & x2 & sw2;
+   ma2.CLK = clock1;	// GCK
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 16 | mem0_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 4 | 1 | 16 | 1 | 7 | 1 | 4 | 1 | 17
+INPUTS | 10 | mb0  | mem0  | r0  | r1  | ac0  | x1  | x0  | x2  | pc0  | inp0
+INPUTMC | 4 | 1 | 3 | 1 | 16 | 1 | 9 | 1 | 0
+INPUTP | 6 | 23 | 13 | 37 | 8 | 25 | 17
+EXPORTS | 1 | 1 | 17
+EQ | 6 | 
+   mem0.T = mb0 & !mem0 & r0 & r1
+	# !mb0 & mem0 & r0 & r1;
+   mem0.CLK = clock1;	// GCK
+    mem0_OBUF.EXP  =  ac0 & x1 & !x0 & !x2
+	# pc0 & x1 & x0 & !x2
+	# !x1 & x0 & x2 & inp0
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 1 | 6 | mem1_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 4 | 1 | 15 | 1 | 11 | 1 | 6 | 1 | 5
+INPUTS | 11 | mb1  | mem1  | r0  | r1  | ac1  | ac0  | r3  | r2  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2
+INPUTMC | 7 | 1 | 15 | 1 | 6 | 0 | 15 | 1 | 9 | 1 | 14 | 1 | 17 | 0 | 1
+INPUTP | 4 | 23 | 13 | 34 | 1
+EXPORTS | 1 | 1 | 5
+EQ | 8 | 
+   mem1.T = mb1 & !mem1 & r0 & r1
+	# !mb1 & mem1 & r0 & r1;
+   mem1.CLK = clock1;	// GCK
+    mem1_OBUF.EXP  =  ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 0 | 13 | mem2_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 4 | 0 | 3 | 0 | 7 | 0 | 13 | 0 | 14
+INPUTS | 15 | mb2  | mem2  | r0  | r1  | ac2  | pc1  | x1  | x0  | r3  | r2  | x2  | ma1  | ma2  | inp1  | inp2
+INPUTMC | 6 | 0 | 3 | 0 | 13 | 0 | 10 | 1 | 13 | 1 | 11 | 0 | 7
+INPUTP | 9 | 23 | 13 | 37 | 8 | 34 | 1 | 25 | 31 | 47
+EXPORTS | 1 | 0 | 14
+EQ | 8 | 
+   mem2.T = mb2 & !mem2 & r0 & r1
+	# !mb2 & mem2 & r0 & r1;
+   mem2.CLK = clock1;	// GCK
+    mem2_OBUF.EXP  =  !ac2 & pc1 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# ac2 & !ma1 & ma2 & !x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & x0 & !r3 & r2 & r0 & x2 & !inp1 & 
+	inp2
+GLOBALS | 1 | 2 | clock1
+
+MACROCELL | 0 | 1 | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2
+ATTRIBUTES | 133888 | 0
+OUTPUTMC | 13 | 1 | 2 | 1 | 8 | 0 | 17 | 1 | 7 | 1 | 1 | 1 | 3 | 1 | 4 | 1 | 5 | 1 | 6 | 1 | 9 | 1 | 10 | 1 | 17 | 0 | 2
+INPUTS | 13 | ac2  | mb2  | x0  | x2  | ma2  | x1  | pc2  | r3  | r2  | r0  | r1  | sw2  | EXP4_.EXP
+INPUTMC | 5 | 0 | 10 | 0 | 3 | 0 | 7 | 0 | 11 | 0 | 0
+INPUTP | 8 | 8 | 25 | 37 | 34 | 1 | 23 | 13 | 16
+EXPORTS | 1 | 0 | 2
+IMPORTS | 1 | 0 | 0
+EQ | 9 | 
+   AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 = ac2 & mb2 & !x0 & !x2
+	# ac2 & pc2 & x1 & !x2
+	# ac2 & x1 & !x0 & !x2
+	# ac2 & ma2 & !x1 & x0 & !x2
+;Imported pterms FB1_1
+	# ac2 & !x1 & x0 & x2 & inp2
+	# ac2 & !x1 & !x0 & x2 & sw2;
+    AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2.EXP  =  !ac2 & !x1 & !x0 & !r3 & !r2 & r0 & !r1 & x2 & 
+	sw2
+
+MACROCELL | 1 | 14 | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D
+ATTRIBUTES | 133888 | 0
+OUTPUTMC | 12 | 1 | 2 | 1 | 9 | 0 | 17 | 1 | 7 | 1 | 1 | 1 | 3 | 1 | 4 | 1 | 5 | 1 | 6 | 1 | 8 | 1 | 10 | 1 | 17
+INPUTS | 11 | ac1  | mb1  | x1  | x0  | x2  | sw1  | ma1  | pc1  | inp1  | pc1_OBUF.EXP  | mb1_OBUF.EXP
+INPUTMC | 6 | 0 | 15 | 1 | 15 | 1 | 11 | 1 | 13 | 1 | 13 | 1 | 15
+INPUTP | 5 | 37 | 8 | 25 | 44 | 31
+IMPORTS | 2 | 1 | 13 | 1 | 15
+EQ | 13 | 
+   AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D = !ac1 & mb1 & !x1 & !x0 & !x2
+	# !ac1 & pc1 & x1 & x0 & !x2
+	# !ac1 & ma1 & !x1 & x0 & !x2
+	# !ac1 & !x1 & x0 & x2 & inp1
+	# !ac1 & !x1 & !x0 & x2 & sw1
+;Imported pterms FB2_14
+	# ac1 & x1 & x2
+	# ac1 & !pc1 & x1 & x0
+	# ac1 & !x0 & x2 & !sw1
+	# ac1 & !mb1 & !x1 & !x0 & !x2
+	# ac1 & !ma1 & !x1 & x0 & !x2
+;Imported pterms FB2_16
+	# ac1 & x0 & x2 & !inp1;
+
+MACROCELL | 1 | 17 | mux0/mux0_D2
+ATTRIBUTES | 133888 | 0
+OUTPUTMC | 12 | 1 | 2 | 1 | 9 | 1 | 7 | 1 | 1 | 1 | 3 | 1 | 4 | 1 | 5 | 1 | 6 | 1 | 8 | 1 | 10 | 1 | 17 | 1 | 0
+INPUTS | 15 | mb0  | x1  | x0  | x2  | ma0  | sw0  | ac1  | ac0  | r3  | r2  | r0  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | mem0_OBUF.EXP
+INPUTMC | 8 | 1 | 3 | 1 | 7 | 0 | 15 | 1 | 9 | 1 | 14 | 1 | 17 | 0 | 1 | 1 | 16
+INPUTP | 7 | 37 | 8 | 25 | 12 | 34 | 1 | 23
+EXPORTS | 1 | 1 | 0
+IMPORTS | 1 | 1 | 16
+EQ | 12 | 
+   mux0/mux0_D2 = mb0 & !x1 & !x0 & !x2
+	# ma0 & !x1 & x0 & !x2
+	# !x1 & !x0 & x2 & sw0
+;Imported pterms FB2_17
+	# ac0 & x1 & !x0 & !x2
+	# pc0 & x1 & x0 & !x2
+	# !x1 & x0 & x2 & inp0;
+    mux0/mux0_D2.EXP  =  ac1 & ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+
+MACROCELL | 0 | 17 | $OpTx$FX_DC$41
+ATTRIBUTES | 133888 | 0
+OUTPUTMC | 4 | 1 | 15 | 1 | 12 | 1 | 11 | 0 | 16
+INPUTS | 15 | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | ac2  | mb1  | mb2  | x1  | x0  | r3  | r2  | r0  | x2  | pc1  | pc2  | sw1  | sw2
+INPUTMC | 7 | 1 | 14 | 0 | 1 | 0 | 10 | 1 | 15 | 0 | 3 | 1 | 13 | 0 | 11
+INPUTP | 8 | 37 | 8 | 34 | 1 | 23 | 25 | 44 | 16
+EXPORTS | 1 | 0 | 16
+EQ | 10 | 
+   $OpTx$FX_DC$41 = 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D
+	$ 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2;
+    $OpTx$FX_DC$41.EXP  =  ac2 & !mb1 & mb2 & !x1 & !x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !pc1 & pc2 & x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & !x0 & !r3 & r2 & r0 & x2 & !sw1 & 
+	sw2
+
+MACROCELL | 0 | 12 | mux2/mux2_D2
+ATTRIBUTES | 133888 | 0
+OUTPUTMC | 1 | 0 | 10
+INPUTS | 9 | ma2  | x1  | x0  | x2  | mb2  | inp2  | sw2  | pc2  | pc2_OBUF.EXP
+INPUTMC | 4 | 0 | 7 | 0 | 3 | 0 | 11 | 0 | 11
+INPUTP | 5 | 37 | 8 | 25 | 47 | 16
+IMPORTS | 1 | 0 | 11
+EQ | 7 | 
+   mux2/mux2_D2 = mb2 & !x1 & !x0 & !x2
+	# pc2 & x1 & x0 & !x2
+	# ma2 & !x1 & x0 & !x2
+	# !x1 & x0 & x2 & inp2
+	# !x1 & !x0 & x2 & sw2
+;Imported pterms FB1_12
+	# ac2 & x1 & !x0 & !x2;
+
+MACROCELL | 0 | 0 | EXP4_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 1
+INPUTS | 6 | ac2  | x1  | x0  | x2  | inp2  | sw2
+INPUTMC | 1 | 0 | 10
+INPUTP | 5 | 37 | 8 | 25 | 47 | 16
+EXPORTS | 1 | 0 | 1
+EQ | 2 | 
+       EXP4_.EXP  =  ac2 & !x1 & x0 & x2 & inp2
+	# ac2 & !x1 & !x0 & x2 & sw2
+
+MACROCELL | 0 | 2 | EXP5_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 3
+INPUTS | 13 | ac2  | mb2  | x1  | x0  | r0  | x2  | r3  | r2  | r1  | pc2  | inp2  | sw2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2.EXP
+INPUTMC | 4 | 0 | 10 | 0 | 3 | 0 | 11 | 0 | 1
+INPUTP | 9 | 37 | 8 | 23 | 25 | 34 | 1 | 13 | 47 | 16
+EXPORTS | 1 | 0 | 3
+IMPORTS | 1 | 0 | 1
+EQ | 8 | 
+       EXP5_.EXP  =  !ac2 & mb2 & !x1 & !x0 & r0 & !x2
+	# ac2 & x1 & !r3 & !r2 & r0 & !r1 & x2
+	# ac2 & !pc2 & x1 & x0 & !r3 & !r2 & r0 & !r1
+	# ac2 & x0 & !r3 & !r2 & r0 & !r1 & x2 & !inp2
+	# ac2 & !x0 & !r3 & !r2 & r0 & !r1 & x2 & !sw2
+;Imported pterms FB1_2
+	# !ac2 & !x1 & !x0 & !r3 & !r2 & r0 & !r1 & x2 & 
+	sw2
+
+MACROCELL | 0 | 4 | EXP6_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 3
+INPUTS | 12 | ac2  | mb2  | x1  | x0  | r3  | r2  | r0  | r1  | x2  | ma2  | pc2  | inp2
+INPUTMC | 4 | 0 | 10 | 0 | 3 | 0 | 7 | 0 | 11
+INPUTP | 8 | 37 | 8 | 34 | 1 | 23 | 13 | 25 | 47
+EXPORTS | 1 | 0 | 3
+EQ | 10 | 
+       EXP6_.EXP  =  ac2 & !mb2 & !x1 & !x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# ac2 & !ma2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & pc2 & x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & ma2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & 
+	!x2
+	# !ac2 & !x1 & x0 & !r3 & !r2 & r0 & !r1 & x2 & 
+	inp2
+
+MACROCELL | 0 | 5 | EXP7_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 6
+INPUTS | 11 | ac2  | mb2  | x1  | x0  | r3  | r2  | r0  | x2  | pc2  | inp2  | sw2
+INPUTMC | 3 | 0 | 10 | 0 | 3 | 0 | 11
+INPUTP | 8 | 37 | 8 | 34 | 1 | 23 | 25 | 47 | 16
+EXPORTS | 1 | 0 | 6
+EQ | 5 | 
+       EXP7_.EXP  =  ac2 & !mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & pc2 & x1 & x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & !x1 & x0 & r3 & !r2 & r0 & x2 & inp2
+	# !ac2 & !x1 & !x0 & r3 & !r2 & r0 & x2 & sw2
+
+MACROCELL | 0 | 6 | EXP8_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 7
+INPUTS | 12 | ac2  | x1  | r3  | r2  | r0  | x2  | pc2  | x0  | inp2  | sw2  | ma2  | EXP7_.EXP
+INPUTMC | 4 | 0 | 10 | 0 | 11 | 0 | 7 | 0 | 5
+INPUTP | 8 | 37 | 34 | 1 | 23 | 25 | 8 | 47 | 16
+EXPORTS | 1 | 0 | 7
+IMPORTS | 1 | 0 | 5
+EQ | 11 | 
+       EXP8_.EXP  =  ac2 & x1 & r3 & !r2 & r0 & x2
+	# ac2 & !pc2 & x1 & x0 & r3 & !r2 & r0
+	# ac2 & x0 & r3 & !r2 & r0 & x2 & !inp2
+	# ac2 & !x0 & r3 & !r2 & r0 & x2 & !sw2
+	# ac2 & !ma2 & !x1 & x0 & r3 & !r2 & r0 & !x2
+;Imported pterms FB1_6
+	# ac2 & !mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & mb2 & !x1 & !x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & pc2 & x1 & x0 & r3 & !r2 & r0 & !x2
+	# !ac2 & !x1 & x0 & r3 & !r2 & r0 & x2 & inp2
+	# !ac2 & !x1 & !x0 & r3 & !r2 & r0 & x2 & sw2
+
+MACROCELL | 0 | 8 | EXP9_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 9
+INPUTS | 12 | ac2  | r3  | r2  | r0  | sl  | r1  | sr  | x1  | x0  | x2  | mb2  | ma2
+INPUTMC | 3 | 0 | 10 | 0 | 3 | 0 | 7
+INPUTP | 9 | 34 | 1 | 23 | 5 | 13 | 7 | 37 | 8 | 25
+EXPORTS | 1 | 0 | 9
+EQ | 5 | 
+       EXP9_.EXP  =  ac2 & !r3 & r2 & !r0 & !sl & r1
+	# ac2 & !r3 & r2 & !r0 & !r1 & !sr
+	# ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# mb2 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# ma2 & !x1 & x0 & !r3 & r2 & r0 & !x2
+
+MACROCELL | 0 | 9 | EXP10_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 10
+INPUTS | 14 | ac2  | r3  | r2  | r0  | sl  | r1  | sr  | pc2  | x1  | x0  | x2  | inp2  | sw2  | EXP9_.EXP
+INPUTMC | 3 | 0 | 10 | 0 | 11 | 0 | 8
+INPUTP | 11 | 34 | 1 | 23 | 5 | 13 | 7 | 37 | 8 | 25 | 47 | 16
+EXPORTS | 1 | 0 | 10
+IMPORTS | 1 | 0 | 8
+EQ | 11 | 
+       EXP10_.EXP  =  !ac2 & !r3 & r2 & !r0 & sl & r1
+	# !ac2 & !r3 & r2 & !r0 & !r1 & sr
+	# pc2 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# !x1 & x0 & !r3 & r2 & r0 & x2 & inp2
+	# !x1 & !x0 & !r3 & r2 & r0 & x2 & sw2
+;Imported pterms FB1_9
+	# ac2 & !r3 & r2 & !r0 & !sl & r1
+	# ac2 & !r3 & r2 & !r0 & !r1 & !sr
+	# ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# mb2 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# ma2 & !x1 & x0 & !r3 & r2 & r0 & !x2
+
+MACROCELL | 0 | 14 | EXP11_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 15
+INPUTS | 17 | ac1  | ac2  | x1  | x0  | r3  | r2  | r0  | x2  | mb1  | mb2  | pc1  | pc2  | ma1  | ma2  | sw1  | sw2  | mem2_OBUF.EXP
+INPUTMC | 9 | 0 | 15 | 0 | 10 | 1 | 15 | 0 | 3 | 1 | 13 | 0 | 11 | 1 | 11 | 0 | 7 | 0 | 13
+INPUTP | 8 | 37 | 8 | 34 | 1 | 23 | 25 | 44 | 16
+EXPORTS | 1 | 0 | 15
+IMPORTS | 1 | 0 | 13
+EQ | 11 | 
+       EXP11_.EXP  =  !ac1 & ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# mb1 & !mb2 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# pc1 & !pc2 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# ma1 & !ma2 & !x1 & x0 & !r3 & r2 & r0 & !x2
+	# !x1 & !x0 & !r3 & r2 & r0 & x2 & sw1 & !sw2
+;Imported pterms FB1_14
+	# !ac2 & pc1 & x1 & x0 & !r3 & r2 & r0 & !x2
+	# ac2 & !ma1 & ma2 & !x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & x0 & !r3 & r2 & r0 & x2 & !inp1 & 
+	inp2
+
+MACROCELL | 0 | 16 | EXP12_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 0 | 15
+INPUTS | 13 | ac1  | ac2  | x1  | x0  | r3  | r2  | r0  | x2  | mb1  | ma1  | inp1  | sw1  | $OpTx$FX_DC$41.EXP
+INPUTMC | 5 | 0 | 15 | 0 | 10 | 1 | 15 | 1 | 11 | 0 | 17
+INPUTP | 8 | 37 | 8 | 34 | 1 | 23 | 25 | 31 | 44
+EXPORTS | 1 | 0 | 15
+IMPORTS | 1 | 0 | 17
+EQ | 12 | 
+       EXP12_.EXP  =  ac1 & !ac2 & x1 & !x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & mb1 & !x1 & !x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & ma1 & !x1 & x0 & !r3 & r2 & r0 & !x2
+	# !ac2 & !x1 & x0 & !r3 & r2 & r0 & x2 & inp1
+	# !ac2 & !x1 & !x0 & !r3 & r2 & r0 & x2 & sw1
+;Imported pterms FB1_18
+	# ac2 & !mb1 & mb2 & !x1 & !x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !pc1 & pc2 & x1 & x0 & !r3 & r2 & r0 & 
+	!x2
+	# ac2 & !x1 & !x0 & !r3 & r2 & r0 & x2 & !sw1 & 
+	sw2
+
+MACROCELL | 1 | 1 | EXP13_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 0
+INPUTS | 9 | ac1  | ac0  | r3  | r2  | r0  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | EXP14_.EXP
+INPUTMC | 6 | 0 | 15 | 1 | 9 | 1 | 14 | 1 | 17 | 0 | 1 | 1 | 2
+INPUTP | 3 | 34 | 1 | 23
+EXPORTS | 1 | 1 | 0
+IMPORTS | 1 | 1 | 2
+EQ | 37 | 
+       EXP13_.EXP  =  !ac1 & ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_3
+	# ac1 & !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_4
+	# ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+
+MACROCELL | 1 | 2 | EXP14_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 1
+INPUTS | 10 | ac1  | ac0  | r3  | r2  | r0  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | r1  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | mb0_OBUF.EXP
+INPUTMC | 6 | 0 | 15 | 1 | 9 | 1 | 14 | 1 | 17 | 0 | 1 | 1 | 3
+INPUTP | 4 | 34 | 1 | 23 | 13
+EXPORTS | 1 | 1 | 1
+IMPORTS | 1 | 1 | 3
+EQ | 23 | 
+       EXP14_.EXP  =  ac1 & !ac0 & r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_4
+	# ac1 & !ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & r3 & !r2 & !r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & !r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+
+MACROCELL | 1 | 4 | EXP15_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 3
+INPUTS | 11 | mb0  | r3  | r1  | r0  | mem0  | r2  | ac0  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | EXP16_.EXP
+INPUTMC | 7 | 1 | 3 | 1 | 16 | 1 | 9 | 0 | 1 | 1 | 14 | 1 | 17 | 1 | 5
+INPUTP | 4 | 34 | 13 | 23 | 1
+EXPORTS | 1 | 1 | 3
+IMPORTS | 1 | 1 | 5
+EQ | 26 | 
+       EXP15_.EXP  =  mb0 & r3 & !r1
+	# mb0 & r0 & r1
+	# mb0 & !r0 & !r1
+	# mem0 & !r2 & !r0 & r1
+	# ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_6
+	# ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_7
+	# ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+
+MACROCELL | 1 | 5 | EXP16_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 4
+INPUTS | 10 | ac1  | ac0  | r3  | r2  | r0  | r1  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | mem1_OBUF.EXP
+INPUTMC | 6 | 0 | 15 | 1 | 9 | 1 | 14 | 1 | 17 | 0 | 1 | 1 | 6
+INPUTP | 4 | 34 | 1 | 23 | 13
+EXPORTS | 1 | 1 | 4
+IMPORTS | 1 | 1 | 6
+EQ | 18 | 
+       EXP16_.EXP  =  ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_7
+	# ac1 & !ac0 & !r3 & !r2 & r0 & !r1 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & !r3 & !r2 & r0 & !r1 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+
+MACROCELL | 1 | 8 | EXP17_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 7
+INPUTS | 9 | ac1  | ac0  | r3  | r2  | r0  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2  | ac0_OBUF.EXP
+INPUTMC | 6 | 0 | 15 | 1 | 9 | 1 | 14 | 1 | 17 | 0 | 1 | 1 | 9
+INPUTP | 3 | 34 | 1 | 23
+EXPORTS | 1 | 1 | 7
+IMPORTS | 1 | 1 | 9
+EQ | 18 | 
+       EXP17_.EXP  =  ac1 & ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# !ac1 & ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac1 & !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+	# ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+;Imported pterms FB2_10
+	# ac1 & !ac0 & r3 & !r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !ac0 & r3 & !r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+
+MACROCELL | 1 | 10 | EXP18_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 9
+INPUTS | 11 | ac1  | r3  | r2  | r0  | AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D  | mux0/mux0_D2  | ac0  | sl  | r1  | sr  | AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2
+INPUTMC | 5 | 0 | 15 | 1 | 14 | 1 | 17 | 1 | 9 | 0 | 1
+INPUTP | 6 | 34 | 1 | 23 | 5 | 13 | 7
+EXPORTS | 1 | 1 | 9
+EQ | 10 | 
+       EXP18_.EXP  =  ac1 & !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# ac0 & !r3 & r2 & !r0 & !sl & r1
+	# ac0 & !r3 & r2 & !r0 & !r1 & !sr
+	# !r3 & r2 & r0 & 
+	AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & !mux0/mux0_D2
+	# !r3 & r2 & r0 & 
+	!AIM_0/Madd_RESULT__n0007<0>/AIM_0/Madd_RESULT__n0007<0>_D2 & 
+	AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>/AIM_0/Madd_RESULT_Mxor_Result<1>__n0002<0>_D & mux0/mux0_D2
+
+MACROCELL | 1 | 12 | EXP19_
+ATTRIBUTES | 2048 | 0
+OUTPUTMC | 1 | 1 | 13
+INPUTS | 6 | pc1  | r3  | r2  | r0  | $OpTx$FX_DC$41  | r1
+INPUTMC | 2 | 1 | 13 | 0 | 17
+INPUTP | 4 | 34 | 1 | 23 | 13
+EXPORTS | 1 | 1 | 13
+EQ | 5 | 
+       EXP19_.EXP  =  pc1 & !r3 & !r2 & r0
+	# pc1 & r3 & r2 & r0 & !$OpTx$FX_DC$41
+	# !pc1 & r3 & r2 & r0 & $OpTx$FX_DC$41
+	# pc1 & r3 & !r2 & !r0 & !r1 & !$OpTx$FX_DC$41
+	# !pc1 & r3 & !r2 & !r0 & !r1 & $OpTx$FX_DC$41
+
+PIN | clock1 | 4096 | 0 | N/A | 10 | 15 | 0 | 15 | 0 | 10 | 1 | 3 | 1 | 15 | 0 | 3 | 1 | 9 | 1 | 0 | 1 | 13 | 0 | 11 | 1 | 7 | 1 | 11 | 0 | 7 | 1 | 16 | 1 | 6 | 0 | 13
+PIN | r2 | 64 | 0 | N/A | 1 | 31 | 0 | 15 | 0 | 9 | 1 | 3 | 1 | 15 | 0 | 3 | 1 | 9 | 1 | 0 | 1 | 12 | 0 | 11 | 1 | 7 | 1 | 11 | 0 | 7 | 0 | 1 | 0 | 2 | 0 | 4 | 0 | 5 | 0 | 6 | 0 | 8 | 0 | 10 | 0 | 13 | 0 | 14 | 0 | 16 | 0 | 17 | 1 | 1 | 1 | 2 | 1 | 4 | 1 | 5 | 1 | 6 | 1 | 8 | 1 | 10 | 1 | 17
+PIN | r3 | 64 | 0 | N/A | 34 | 31 | 0 | 15 | 0 | 9 | 1 | 2 | 1 | 15 | 0 | 3 | 1 | 9 | 1 | 0 | 1 | 12 | 0 | 11 | 1 | 7 | 1 | 11 | 0 | 7 | 0 | 1 | 0 | 2 | 0 | 4 | 0 | 5 | 0 | 6 | 0 | 8 | 0 | 10 | 0 | 13 | 0 | 14 | 0 | 16 | 0 | 17 | 1 | 1 | 1 | 3 | 1 | 4 | 1 | 5 | 1 | 6 | 1 | 8 | 1 | 10 | 1 | 17
+PIN | r1 | 64 | 0 | N/A | 13 | 24 | 0 | 15 | 0 | 9 | 1 | 2 | 1 | 15 | 0 | 3 | 1 | 9 | 1 | 0 | 1 | 12 | 0 | 11 | 1 | 7 | 1 | 11 | 0 | 7 | 1 | 16 | 1 | 6 | 0 | 13 | 0 | 1 | 0 | 2 | 0 | 4 | 0 | 8 | 0 | 10 | 1 | 3 | 1 | 4 | 1 | 5 | 1 | 10
+PIN | r0 | 64 | 0 | N/A | 23 | 32 | 0 | 15 | 0 | 9 | 1 | 2 | 1 | 15 | 0 | 3 | 1 | 9 | 1 | 0 | 1 | 12 | 0 | 11 | 1 | 7 | 1 | 11 | 0 | 7 | 1 | 16 | 1 | 6 | 0 | 13 | 0 | 1 | 0 | 2 | 0 | 4 | 0 | 5 | 0 | 6 | 0 | 8 | 0 | 10 | 0 | 14 | 0 | 16 | 0 | 17 | 1 | 1 | 1 | 3 | 1 | 4 | 1 | 5 | 1 | 8 | 1 | 10 | 1 | 17
+PIN | sl | 64 | 0 | N/A | 5 | 5 | 0 | 15 | 0 | 9 | 1 | 9 | 0 | 8 | 1 | 10
+PIN | sr | 64 | 0 | N/A | 7 | 5 | 0 | 15 | 0 | 9 | 1 | 9 | 0 | 8 | 1 | 10
+PIN | x2 | 64 | 0 | N/A | 25 | 21 | 0 | 15 | 0 | 9 | 0 | 2 | 0 | 7 | 0 | 1 | 1 | 14 | 1 | 17 | 0 | 12 | 0 | 0 | 0 | 4 | 0 | 5 | 0 | 6 | 0 | 8 | 0 | 11 | 0 | 13 | 0 | 14 | 0 | 16 | 0 | 17 | 1 | 13 | 1 | 15 | 1 | 16
+PIN | x1 | 64 | 0 | N/A | 37 | 20 | 0 | 15 | 0 | 9 | 0 | 2 | 0 | 7 | 0 | 1 | 1 | 14 | 1 | 17 | 0 | 12 | 0 | 0 | 0 | 4 | 0 | 5 | 0 | 6 | 0 | 8 | 0 | 11 | 0 | 13 | 0 | 14 | 0 | 16 | 0 | 17 | 1 | 13 | 1 | 16
+PIN | x0 | 64 | 0 | N/A | 8 | 21 | 0 | 15 | 0 | 9 | 0 | 2 | 0 | 7 | 0 | 1 | 1 | 14 | 1 | 17 | 0 | 12 | 0 | 0 | 0 | 4 | 0 | 5 | 0 | 6 | 0 | 8 | 0 | 11 | 0 | 13 | 0 | 14 | 0 | 16 | 0 | 17 | 1 | 13 | 1 | 15 | 1 | 16
+PIN | inp1 | 64 | 0 | N/A | 31 | 5 | 0 | 15 | 1 | 14 | 0 | 13 | 0 | 16 | 1 | 15
+PIN | inp2 | 64 | 0 | N/A | 47 | 9 | 0 | 15 | 0 | 9 | 0 | 2 | 0 | 6 | 0 | 0 | 0 | 12 | 0 | 4 | 0 | 5 | 0 | 13
+PIN | sw1 | 64 | 0 | N/A | 44 | 5 | 0 | 14 | 1 | 14 | 0 | 16 | 0 | 17 | 1 | 13
+PIN | sw2 | 64 | 0 | N/A | 16 | 9 | 0 | 14 | 0 | 9 | 0 | 2 | 0 | 6 | 0 | 0 | 0 | 12 | 0 | 1 | 0 | 5 | 0 | 17
+PIN | ea0 | 64 | 0 | N/A | 42 | 1 | 1 | 7
+PIN | ea1 | 64 | 0 | N/A | 3 | 1 | 1 | 11
+PIN | ea2 | 64 | 0 | N/A | 11 | 1 | 0 | 7
+PIN | sw0 | 64 | 0 | N/A | 12 | 1 | 1 | 17
+PIN | inp0 | 64 | 0 | N/A | 17 | 1 | 1 | 16
+PIN | ac1 | 536871040 | 0 | N/A | 27
+PIN | ac2 | 536871040 | 0 | N/A | 18
+PIN | mb0 | 536871040 | 0 | N/A | 4
+PIN | mb1 | 536871040 | 0 | N/A | 33
+PIN | mb2 | 536871040 | 0 | N/A | 9
+PIN | ac0 | 536871040 | 0 | N/A | 43
+PIN | pc0 | 536871040 | 0 | N/A | 6
+PIN | pc1 | 536871040 | 0 | N/A | 35
+PIN | pc2 | 536871040 | 0 | N/A | 19
+PIN | ma0 | 536871040 | 0 | N/A | 45
+PIN | ma1 | 536871040 | 0 | N/A | 41
+PIN | ma2 | 536871040 | 0 | N/A | 14
+PIN | mem0 | 536871040 | 0 | N/A | 32
+PIN | mem1 | 536871040 | 0 | N/A | 46
+PIN | mem2 | 536871040 | 0 | N/A | 24

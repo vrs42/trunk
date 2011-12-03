@@ -1,0 +1,128 @@
+MODULE regbus
+
+Title 'Main register bus'
+
+" regbus Device 'xc9536xl';
+
+" $INCLUDE PDP8.DEF
+
+" Input Pins
+clock1 pin;
+r0, r1, r2, r3 pin; // Destination register select
+x0, x1, x2 pin; // Operand mux select
+ea0, ea1, ea2 pin;
+sr pin;
+sl pin;
+inp0, inp1, inp2 pin;
+sw0, sw1, sw2 pin;
+//s0, cin pin;
+
+" Output pins
+mem0, mem1, mem2 pin istype 'reg_d';
+//ir0, ir1, ir2 pin istype 'reg_d';
+mb0, mb1, mb2 pin istype 'reg_d';
+ma0, ma1, ma2 pin istype 'reg_d';
+ac0, ac1, ac2 pin istype 'reg_d';
+pc0, pc1, pc2 pin istype 'reg_d';
+
+f0, f1, f2 node;
+mux0, mux1, mux2 node;
+
+r = [r0, r1, r2, r3];
+x = [x2, x1, x0];
+f = [f0, f1, f2];
+inp = [inp0, inp1, inp2];
+sw = [sw0, sw1, sw2];
+
+mem = [mem0, mem1, mem2];
+//ir = [ir0, ir1, ir2];
+mb = [mb0, mb1, mb2];
+ma = [ma0, ma1, ma2];
+ac = [ac0, ac1, ac2];
+pc = [pc0, pc1, pc2];
+
+mux = [mux0, mux1, mux2];
+ea  = [ea0,  ea1,  ea2];
+
+EQUATIONS
+
+// Register transfer
+// BUGBUG: Fix hard coding of X and R values to use DEFINEs
+
+// First, Xn selects a register for input to the ALU
+mux = ((x==^b000) & mb) 
+    # ((x==^b001) & ma)
+    # ((x==^b010) & ac)
+    # ((x==^b011) & pc)
+    # ((x==^b100) & sw)
+    # ((x==^b101) & inp) ;
+
+// The output of the ALU returns on input "F".  Other
+// input values may also be selected by "R", to effect
+// one of the 16 implemented register transfers.
+
+// All latches are clocked by clock1
+mem.d = ((r==[ 1,  1,  .x., .x.]) & mb)
+      # ((r==[ 0, .x., .x., .x.]) & mem)
+      # ((r==[.x., 0,  .x., .x.]) & mem) ;
+mem.clk = clock1;
+mem.ar = ^b0;
+mem.sp = ^b0;
+
+//ir.d = ((r==[ 0, 0,  0,  1 ]) & mem)
+//     # ((r==[ 0, 0,  1,  1 ]) & f)
+//     # ((r==[ 1,.x.,.x.,.x.]) & ir)
+//     # ((r==[.x.,1, .x.,.x.]) & ir)
+//     # ((r==[.x.,1, .x., 0 ]) & ir) ;
+//ir.clk = clock1;
+//ir.ar = ^b0;
+//ir.sp = ^b0;
+
+mb.d = ((r==[0, 1,  0, .x.]) & mem)
+     # ((r==[0, 0, .x.,.x.]) & mb)
+     # ((r==[0, 1,  1, .x.]) & mb)
+     # ((r==[1, 0,  0,  0 ]) & f)
+     # ((r==[1, 1, .x.,.x.]) & mb)
+     # ((r==[1,.x., 1, .x.]) & mb)
+     # ((r==[1,.x.,.x., 1 ]) & mb) ;
+mb.clk = clock1;
+mb.ar = ^b0;
+mb.sp = ^b0;
+
+
+ma.d = ((r==[ 0,  0,  0, 1]) & ea)
+     # ((r==[ 0,  1,  0, 1]) & mem)
+     # ((r==[ 1, .x., 0, 1]) & f)
+     # ((r==[.x.,.x.,.x.,0]) & ma)
+     # ((r==[.x.,.x., 1, 1]) & ma) ;
+ma.clk = clock1;
+ma.ar = ^b0;
+ma.sp = ^b0;
+
+ac.d = ((r==[0, 0,  1, 0 ]) & sr)
+     # ((r==[0, 1,  1, 0 ]) & sl)
+     # ((r==[0,.x., 0,.x.]) & ac)
+     # ((r==[0,.x.,.x.,1 ]) & ac)
+     # ((r==[1,.x., 1, 0 ]) & f)
+     # ((r==[1,.x., 0,.x.]) & ac)
+     # ((r==[1,.x.,.x.,1 ]) & ac) ;
+ac.clk = clock1;
+ac.ar = ^b0;
+ac.sp = ^b0;
+
+pc.d = ((r==[0, 0,  0, 1]) & f)
+     # ((r==[0,.x.,.x.,0]) & pc)
+     # ((r==[0, 1, .x.,1]) & pc)
+     # ((r==[0,.x., 1, 1]) & pc)
+     # ((r==[1,.x., 1, 1]) & f)
+     # ((r==[1,.x., 0, 1]) & pc)
+     # ((r==[1,.x., 1, 0]) & pc) ;
+pc.clk = clock1;
+pc.ar = ^b0;
+pc.sp = ^b0;
+
+// TODO: Calculate F from mux and ac
+//f = mux + (s0 & ac) + cin;
+f = mux + ac;
+
+END

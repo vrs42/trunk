@@ -1,0 +1,110 @@
+0002 |
+0003 |Title 'State Machine'
+0004 |
+0005 |// This sequences the states of the machine.
+0006 |
+0007 |" regbus Device 'xc9536xl';
+0008 |
+0009 |" $INCLUDE PDP8.DEF
+0010 |
+0011 |// Bit patterns for A_SRC
+0012 |NO_ENABLE = 0;
+0013 |AC_ENABLE = 1;
+0014 |ACBAR_ENABLE = 2;
+0015 |MQ_ENABLE = 3;
+0016 |SR_ENABLE = 4;
+0017 |SC_ENABLE = 5;
+0018 |DATA_ENABLE = 6;
+0019 |IO_ENABLE = 7;
+0020 |// TT_CARRY_INSERT = 8;
+0021 |
+0022 |// Bit patterns for B_SRC
+0023 |//NO_ENABLE = 0;
+0024 |MA_ENABLE = 1;
+0025 |PC_ENABLE = 2;
+0026 |MEM_ENABLE = 3;
+0027 |DATA_ADDR_ENABLE = 4;
+0028 |
+0029 |// Bit patters for shifts
+0030 |NO_SHIFT = 0;
+0031 |LEFT1 = 1;
+0032 |LEFT2 = 2;
+0033 |RIGHT1 = 3;
+0034 |RIGHT2 = 4;
+0035 |TT_LINE = 5;
+0036 |
+0037 |" Input Pins
+0038 |clock pin;
+0039 |brkrq pin;
+0040 |intrq pin;
+0041 |halt pin;
+0042 |mem pin;
+0043 |mb0, mb1, mb2, mb3 pin;
+0044 |
+0045 |" Output pins
+0046 |ts1, ts2, ts3, ts4 pin istype 'reg';
+0047 |fetch, defer, exec, break, intr pin istype 'reg';
+0048 |// Encoding a_src saves 4 pins
+0049 |a_src0, a_src1, a_src2 pin;
+0050 |// Encoding a_src saves 1 pin
+0051 |b_src0, b_src1, b_src2 pin;
+0052 |// Encoding the shift saves 2 pins
+0053 |shift0, shift1, shift2 pin;
+0054 |ir0, ir1, ir2 pin istype 'reg';
+0055 |mb_load pin;
+0056 |ma_load pin;
+0057 |ac_load pin;
+0058 |pc_load pin;
+0059 |
+0060 |ts = [ts1, ts2, ts3, ts4];
+0061 |TS1 = 8;
+0062 |TS2 = 4;
+0063 |TS3 = 2;
+0064 |TS4 = 1;
+0065 |
+0066 |ms = [fetch, defer, exec, break, intr];
+0067 |FETCH = 16;
+0068 |DEFER = 8;
+0069 |EXEC = 4;
+0070 |BREAK = 2;
+0071 |INTR = 1;
+0072 |
+0073 |a_src = [a_src0, a_src1, a_src2];
+0074 |b_src = [b_src0, b_src1, b_src2];
+0075 |shift = [shift0, shift1, shift2];
+0076 |ir = [ir0, ir1, ir2];
+0077 |
+0078 |EQUATIONS
+0079 |
+0080 |ts.clk = clock;
+0081 |ms.clk = clock;
+0082 |ir.clk = clock;
+0083 |state_diagram ts;   // Minor State
+0084 |//  state 0:
+0085 |//      goto TS4;
+0086 |    state TS4:  // Remain in TS4 until unhalted, interrupt, DMA, etc.
+0087 |        if (fetch & (ir != [1, 1, .x.])) then {
+0088 |            if (mb3)
+0089 |                then TS1 with ms := DEFER
+0090 |                else TS1 with ms := EXEC;
+0091 |        }
+0092 |        if (defer)
+0093 |            then TS1 with ms := EXEC
+0094 |        // We seem to have finished an instruction
+0095 |        if (brkrq)
+0096 |            then TS1 with ms := BREAK
+0097 |        if (intrq)
+0098 |            then TS1 with ms := INTR
+0099 |        if (!halt)
+0100 |            then TS1 with ms := FETCH
+0101 |            else TS4;
+0102 |    state TS1:
+0103 |        // The job of TS1 is to set up the memory read, if any
+0104 |        goto TS2;
+0105 |    state TS2:
+0106 |        if (fetch) then TS3 with ir := [mb0, mb1, mb2];
+0107 |        else TS3;
+0108 |    state TS3:
+0109 |        goto TS4;
+0110 |
+0111 |END

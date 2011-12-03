@@ -1,0 +1,157 @@
+MDF Database:  version 1.0
+MDF_INFO | pdp8 | XC9536XL-5-PC44
+MACROCELL | 0 | 14 | ts3_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 12 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3 | 1 | 7 | 1 | 9 | 1 | 11 | 0 | 1 | 1 | 3 | 0 | 7 | 1 | 13
+INPUTS | 4 | ts3  | ts4  | ts1  | ts2
+INPUTMC | 4 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10
+EQ | 2 | 
+   ts3.D = !ts3 & !ts4 & !ts1 & ts2;
+   ts3.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 0 | 16 | ts4_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 12 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3 | 1 | 7 | 1 | 9 | 1 | 11 | 0 | 1 | 1 | 3 | 0 | 7 | 1 | 13
+INPUTS | 5 | ts3  | ts4  | ts1  | ts2  | halt
+INPUTMC | 4 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10
+INPUTP | 1 | 46
+EQ | 3 | 
+   ts4.D = ts3 & !ts4 & !ts1 & !ts2
+	# !ts3 & ts4 & !ts1 & !ts2 & halt;
+   ts4.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 1 | 16 | ts1_OBUF
+ATTRIBUTES | 4621058 | 0
+OUTPUTMC | 12 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3 | 1 | 7 | 1 | 9 | 1 | 11 | 0 | 1 | 1 | 3 | 0 | 7 | 1 | 13
+INPUTS | 11 | ts4  | ts1  | ts3  | ts2  | fetch  | defer  | brkrq  | halt  | intrq  | ir0  | ir1
+INPUTMC | 8 | 0 | 16 | 1 | 16 | 0 | 14 | 0 | 10 | 0 | 3 | 1 | 7 | 1 | 9 | 1 | 11
+INPUTP | 3 | 44 | 46 | 47
+EQ | 7 | 
+   !ts1.T = ts3 & !ts1
+	# !ts4 & !ts1
+	# !ts1 & ts2
+	# !ts1 & !fetch & !defer & !brkrq & halt & !intrq
+	# !ts1 & !defer & ir0 & ir1 & !brkrq & halt & 
+	!intrq;
+   ts1.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 0 | 10 | ts2_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 12 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3 | 1 | 7 | 1 | 9 | 1 | 11 | 0 | 1 | 1 | 3 | 0 | 7 | 1 | 13
+INPUTS | 4 | ts3  | ts4  | ts1  | ts2
+INPUTMC | 4 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10
+EQ | 2 | 
+   ts2.D = !ts3 & !ts4 & ts1 & !ts2;
+   ts2.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 0 | 3 | fetch_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 6 | 1 | 16 | 1 | 7 | 1 | 9 | 1 | 11 | 1 | 3 | 1 | 13
+INPUTS | 5 | ts3  | ts4  | ts1  | ts2  | halt
+INPUTMC | 4 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10
+INPUTP | 1 | 46
+EQ | 2 | 
+   fetch.D = !ts3 & ts4 & !ts1 & !ts2 & !halt;
+   fetch.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 1 | 7 | defer_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 2 | 1 | 16 | 1 | 3
+INPUTS | 8 | mb3  | ts3  | ts4  | ts1  | ts2  | fetch  | ir0  | ir1
+INPUTMC | 7 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3 | 1 | 9 | 1 | 11
+INPUTP | 1 | 34
+EQ | 3 | 
+   defer.D = mb3 & !ts3 & ts4 & !ts1 & !ts2 & fetch & !ir0
+	# mb3 & !ts3 & ts4 & !ts1 & !ts2 & fetch & !ir1;
+   defer.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 1 | 9 | ir0_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 3 | 1 | 16 | 1 | 7 | 1 | 3
+INPUTS | 6 | mb0  | ts3  | ts4  | ts1  | ts2  | fetch
+INPUTMC | 5 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3
+INPUTP | 1 | 37
+EQ | 2 | 
+   ir0.D = mb0 & !ts3 & !ts4 & !ts1 & ts2 & fetch;
+   ir0.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 1 | 11 | ir1_OBUF
+ATTRIBUTES | 8815362 | 0
+OUTPUTMC | 3 | 1 | 16 | 1 | 7 | 1 | 3
+INPUTS | 6 | mb1  | ts3  | ts4  | ts1  | ts2  | fetch
+INPUTMC | 5 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3
+INPUTP | 1 | 1
+EQ | 2 | 
+   ir1.D = mb1 & !ts3 & !ts4 & !ts1 & ts2 & fetch;
+   ir1.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 0 | 1 | break_OBUF
+ATTRIBUTES | 8684290 | 0
+INPUTS | 5 | ts3  | ts4  | ts1  | ts2  | brkrq
+INPUTMC | 4 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10
+INPUTP | 1 | 44
+EQ | 2 | 
+   break.D = !ts3 & ts4 & !ts1 & !ts2 & brkrq;
+   break.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 1 | 3 | exec_OBUF
+ATTRIBUTES | 8684290 | 0
+INPUTS | 9 | ts3  | ts4  | ts1  | ts2  | defer  | mb3  | fetch  | ir0  | ir1
+INPUTMC | 8 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 1 | 7 | 0 | 3 | 1 | 9 | 1 | 11
+INPUTP | 1 | 34
+EQ | 4 | 
+   exec.D = !ts3 & ts4 & !ts1 & !ts2 & defer
+	# !mb3 & !ts3 & ts4 & !ts1 & !ts2 & fetch & !ir0
+	# !mb3 & !ts3 & ts4 & !ts1 & !ts2 & fetch & !ir1;
+   exec.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 0 | 7 | intr_OBUF
+ATTRIBUTES | 8684290 | 0
+INPUTS | 5 | ts3  | ts4  | ts1  | ts2  | intrq
+INPUTMC | 4 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10
+INPUTP | 1 | 47
+EQ | 2 | 
+   intr.D = !ts3 & ts4 & !ts1 & !ts2 & intrq;
+   intr.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+MACROCELL | 1 | 13 | ir2_OBUF
+ATTRIBUTES | 8684290 | 0
+INPUTS | 6 | mb2  | ts3  | ts4  | ts1  | ts2  | fetch
+INPUTMC | 5 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3
+INPUTP | 1 | 3
+EQ | 2 | 
+   ir2.D = mb2 & !ts3 & !ts4 & !ts1 & ts2 & fetch;
+   ir2.CLK = clock;	// GCK
+GLOBALS | 1 | 2 | clock
+
+PIN | mb3 | 64 | 0 | N/A | 34 | 2 | 1 | 7 | 1 | 3
+PIN | mb0 | 64 | 0 | N/A | 37 | 1 | 1 | 9
+PIN | mb1 | 64 | 0 | N/A | 1 | 1 | 1 | 11
+PIN | mb2 | 64 | 0 | N/A | 3 | 1 | 1 | 13
+PIN | clock | 4096 | 0 | N/A | 10 | 12 | 0 | 14 | 0 | 16 | 1 | 16 | 0 | 10 | 0 | 3 | 1 | 7 | 1 | 9 | 1 | 11 | 0 | 1 | 1 | 3 | 0 | 7 | 1 | 13
+PIN | halt | 64 | 0 | N/A | 46 | 3 | 0 | 16 | 1 | 16 | 0 | 3
+PIN | brkrq | 64 | 0 | N/A | 44 | 2 | 1 | 16 | 0 | 1
+PIN | intrq | 64 | 0 | N/A | 47 | 2 | 1 | 16 | 0 | 7
+PIN | ts3 | 536871040 | 0 | N/A | 25
+PIN | ts4 | 536871040 | 0 | N/A | 31
+PIN | ts1 | 536871040 | 0 | N/A | 32
+PIN | ts2 | 536871040 | 0 | N/A | 18
+PIN | fetch | 536871040 | 0 | N/A | 9
+PIN | defer | 536871040 | 0 | N/A | 45
+PIN | ir0 | 536871040 | 0 | N/A | 43
+PIN | ir1 | 536871040 | 0 | N/A | 41
+PIN | break | 536871040 | 0 | N/A | 8
+PIN | exec | 536871040 | 0 | N/A | 4
+PIN | intr | 536871040 | 0 | N/A | 14
+PIN | ir2 | 536871040 | 0 | N/A | 35

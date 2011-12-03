@@ -1,0 +1,127 @@
+0002 |
+0003 |Title 'Main register bus'
+0004 |
+0005 |" regbus Device 'xc9536xl';
+0006 |
+0007 |" $INCLUDE PDP8.DEF
+0008 |
+0009 |" Input Pins
+0010 |clock1 pin;
+0011 |r0, r1, r2, r3 pin; // Destination register select
+0012 |x0, x1, x2 pin; // Operand mux select
+0013 |ea0, ea1, ea2 pin;
+0014 |sr pin;
+0015 |sl pin;
+0016 |inp0, inp1, inp2 pin;
+0017 |sw0, sw1, sw2 pin;
+0018 |//s0, cin pin;
+0019 |
+0020 |" Output pins
+0021 |mem0, mem1, mem2 pin istype 'reg_d';
+0022 |//ir0, ir1, ir2 pin istype 'reg_d';
+0023 |mb0, mb1, mb2 pin istype 'reg_d';
+0024 |ma0, ma1, ma2 pin istype 'reg_d';
+0025 |ac0, ac1, ac2 pin istype 'reg_d';
+0026 |pc0, pc1, pc2 pin istype 'reg_d';
+0027 |
+0028 |f0, f1, f2 node;
+0029 |mux0, mux1, mux2 node;
+0030 |
+0031 |r = [r0, r1, r2, r3];
+0032 |x = [x2, x1, x0];
+0033 |f = [f0, f1, f2];
+0034 |inp = [inp0, inp1, inp2];
+0035 |sw = [sw0, sw1, sw2];
+0036 |
+0037 |mem = [mem0, mem1, mem2];
+0038 |//ir = [ir0, ir1, ir2];
+0039 |mb = [mb0, mb1, mb2];
+0040 |ma = [ma0, ma1, ma2];
+0041 |ac = [ac0, ac1, ac2];
+0042 |pc = [pc0, pc1, pc2];
+0043 |
+0044 |mux = [mux0, mux1, mux2];
+0045 |ea  = [ea0,  ea1,  ea2];
+0046 |
+0047 |EQUATIONS
+0048 |
+0049 |// Register transfer
+0050 |// BUGBUG: Fix hard coding of X and R values to use DEFINEs
+0051 |
+0052 |// First, Xn selects a register for input to the ALU
+0053 |mux = ((x==^b000) & mb) 
+0054 |    # ((x==^b001) & ma)
+0055 |    # ((x==^b010) & ac)
+0056 |    # ((x==^b011) & pc)
+0057 |    # ((x==^b100) & sw)
+0058 |    # ((x==^b101) & inp) ;
+0059 |
+0060 |// The output of the ALU returns on input "F".  Other
+0061 |// input values may also be selected by "R", to effect
+0062 |// one of the 16 implemented register transfers.
+0063 |
+0064 |// All latches are clocked by clock1
+0065 |mem.d = ((r==[ 1,  1,  .x., .x.]) & mb)
+0066 |      # ((r==[ 0, .x., .x., .x.]) & mem)
+0067 |      # ((r==[.x., 0,  .x., .x.]) & mem) ;
+0068 |mem.clk = clock1;
+0069 |mem.ar = ^b0;
+0070 |mem.sp = ^b0;
+0071 |
+0072 |//ir.d = ((r==[ 0, 0,  0,  1 ]) & mem)
+0073 |//     # ((r==[ 0, 0,  1,  1 ]) & f)
+0074 |//     # ((r==[ 1,.x.,.x.,.x.]) & ir)
+0075 |//     # ((r==[.x.,1, .x.,.x.]) & ir)
+0076 |//     # ((r==[.x.,1, .x., 0 ]) & ir) ;
+0077 |//ir.clk = clock1;
+0078 |//ir.ar = ^b0;
+0079 |//ir.sp = ^b0;
+0080 |
+0081 |mb.d = ((r==[0, 1,  0, .x.]) & mem)
+0082 |     # ((r==[0, 0, .x.,.x.]) & mb)
+0083 |     # ((r==[0, 1,  1, .x.]) & mb)
+0084 |     # ((r==[1, 0,  0,  0 ]) & f)
+0085 |     # ((r==[1, 1, .x.,.x.]) & mb)
+0086 |     # ((r==[1,.x., 1, .x.]) & mb)
+0087 |     # ((r==[1,.x.,.x., 1 ]) & mb) ;
+0088 |mb.clk = clock1;
+0089 |mb.ar = ^b0;
+0090 |mb.sp = ^b0;
+0091 |
+0092 |
+0093 |ma.d = ((r==[ 0,  0,  0, 1]) & ea)
+0094 |     # ((r==[ 0,  1,  0, 1]) & mem)
+0095 |     # ((r==[ 1, .x., 0, 1]) & f)
+0096 |     # ((r==[.x.,.x.,.x.,0]) & ma)
+0097 |     # ((r==[.x.,.x., 1, 1]) & ma) ;
+0098 |ma.clk = clock1;
+0099 |ma.ar = ^b0;
+0100 |ma.sp = ^b0;
+0101 |
+0102 |ac.d = ((r==[0, 0,  1, 0 ]) & sr)
+0103 |     # ((r==[0, 1,  1, 0 ]) & sl)
+0104 |     # ((r==[0,.x., 0,.x.]) & ac)
+0105 |     # ((r==[0,.x.,.x.,1 ]) & ac)
+0106 |     # ((r==[1,.x., 1, 0 ]) & f)
+0107 |     # ((r==[1,.x., 0,.x.]) & ac)
+0108 |     # ((r==[1,.x.,.x.,1 ]) & ac) ;
+0109 |ac.clk = clock1;
+0110 |ac.ar = ^b0;
+0111 |ac.sp = ^b0;
+0112 |
+0113 |pc.d = ((r==[0, 0,  0, 1]) & f)
+0114 |     # ((r==[0,.x.,.x.,0]) & pc)
+0115 |     # ((r==[0, 1, .x.,1]) & pc)
+0116 |     # ((r==[0,.x., 1, 1]) & pc)
+0117 |     # ((r==[1,.x., 1, 1]) & f)
+0118 |     # ((r==[1,.x., 0, 1]) & pc)
+0119 |     # ((r==[1,.x., 1, 0]) & pc) ;
+0120 |pc.clk = clock1;
+0121 |pc.ar = ^b0;
+0122 |pc.sp = ^b0;
+0123 |
+0124 |// TODO: Calculate F from mux and ac
+0125 |//f = mux + (s0 & ac) + cin;
+0126 |f = mux + ac;
+0127 |
+0128 |END
