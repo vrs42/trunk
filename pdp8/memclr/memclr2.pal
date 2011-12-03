@@ -1,0 +1,33 @@
+/
+/   Clear Memory
+/
+*7764
+LOOP,   SKP             / 7764 Skip this until autoindex wraps
+        DCA JLOOP       / 7765 Kill the loop
+        DCA I AUTO      / 7766 Zero a location
+JLOOP,  JMP LOOP        / 7767 Until autoindex wraps
+        JMP .+5         / 7770 Leave AUTO == 7771
+        DCA I AUTO      / 7771 Zero a location
+        DCA I AUTO      / 7772 Zero a location
+        DCA I AUTO      / 7773 Zero a location
+        DCA I AUTO      / 7774 Zero a location
+        DCA I AUTO      / 7775 Zero a location
+        DCA I AUTO      / 7776 Zero a location
+        DCA I AUTO      / 7777 Zero a location
+*0
+DEP,    DCA I AUTO      / 0 Zero a location
+        0               / 1
+        0               / 2
+        0               / 3
+        0               / 4
+        0               / 5
+        0               / 6
+        0               / 7
+AUTO,   .               / Clear AUTO+1 to LOOP.
+/
+/ Load Cruft before and after, to test boundary cases.
+        HLT
+*LOOP-1
+        HLT
+
+$

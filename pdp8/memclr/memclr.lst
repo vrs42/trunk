@@ -1,0 +1,35 @@
+   1            /
+   2            /   Clear Memory
+   3            /
+   4            *3000
+   5            AUTO=DEP-COUNT          / NOTE: Must be the address of an autoindex!
+   6 03000 0016 COUNT,  DEP-COUNT+2     / Words to clear
+   7 03001 3015 TO,     DEP+1           / 10
+   8 03002 3601 LOOP,   DCA I TO        / Erase most of memory
+   9 03003 2201         ISZ TO
+  10 03004 2200         ISZ COUNT
+  11 03005 5202         JMP LOOP
+  12 03006 3203         DCA .-3         / Kill the loop.
+  13 03007 3204         DCA .-3
+  14 03010 3205         DCA .-3
+  15                    / At this point, all of memory except this program 
+  16                    / has been erased, and TO points at this program.
+  17                    / (That also implies it has a value of 3001, a harmless 
+  18                    / DCA instruction.)
+  19 03011 1201         TAD TO
+  20 03012 3014         DCA AUTO        / Set up autoindex register
+  21 03013 3212         DCA .-1         / But only once.
+  22 03014 3414 DEP,    DCA I AUTO      / Zero a word of this program
+  23                    / Now we loop through all of core, clearing a single 
+  24                    / word on each pass, until we clear DEP.
+  25                    / We have arranged that DEP lives at an address that 
+  26                    / doubles as a DCA AUTO instruction.  That instruction
+  27                    / is now in location AUTO.  Fall through memory one 
+  28                    / more time, until we hit it.
+  29            /
+  30            / Load Cruft before and after, to test boundary cases.
+  31 03015 7402         HLT
+  32            *2777
+  33 02777 7402         HLT
+  34            
+  35            $

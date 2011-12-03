@@ -1,0 +1,33 @@
+   1            /
+   2            /   Clear Memory
+   3            /
+   4            *7764
+   5 07764 7410 LOOP,   SKP             / 7764 Skip this until autoindex wraps
+   6 07765 3367         DCA JLOOP       / 7765 Kill the loop
+   7 07766 3410         DCA I AUTO      / 7766 Zero a location
+   8 07767 5364 JLOOP,  JMP LOOP        / 7767 Until autoindex wraps
+   9 07770 5375         JMP .+5         / 7770 Leave AUTO == 7771
+  10 07771 3410         DCA I AUTO      / 7771 Zero a location
+  11 07772 3410         DCA I AUTO      / 7772 Zero a location
+  12 07773 3410         DCA I AUTO      / 7773 Zero a location
+  13 07774 3410         DCA I AUTO      / 7774 Zero a location
+  14 07775 3410         DCA I AUTO      / 7775 Zero a location
+  15 07776 3410         DCA I AUTO      / 7776 Zero a location
+  16 07777 3410         DCA I AUTO      / 7777 Zero a location
+  17            *0
+  18 00000 3410 DEP,    DCA I AUTO      / 0 Zero a location
+  19 00001 0000         0               / 1
+  20 00002 0000         0               / 2
+  21 00003 0000         0               / 3
+  22 00004 0000         0               / 4
+  23 00005 0000         0               / 5
+  24 00006 0000         0               / 6
+  25 00007 0000         0               / 7
+  26 00010 0010 AUTO,   .               / Clear AUTO+1 to LOOP.
+  27            /
+  28            / Load Cruft before and after, to test boundary cases.
+  29 00011 7402         HLT
+  30            *LOOP-1
+  31 07763 7402         HLT
+  32            
+  33            $

@@ -1,0 +1,35 @@
+/
+/   Clear Memory
+/
+*3000
+AUTO=DEP-COUNT          / NOTE: Must be the address of an autoindex!
+COUNT,  DEP-COUNT+2     / Words to clear
+TO,     DEP+1           / 10
+LOOP,   DCA I TO        / Erase most of memory
+        ISZ TO
+        ISZ COUNT
+        JMP LOOP
+        DCA .-3         / Kill the loop.
+        DCA .-3
+        DCA .-3
+        / At this point, all of memory except this program 
+        / has been erased, and TO points at this program.
+        / (That also implies it has a value of 3001, a harmless 
+        / DCA instruction.)
+        TAD TO
+        DCA AUTO        / Set up autoindex register
+        DCA .-1         / But only once.
+DEP,    DCA I AUTO      / Zero a word of this program
+        / Now we loop through all of core, clearing a single 
+        / word on each pass, until we clear DEP.
+        / We have arranged that DEP lives at an address that 
+        / doubles as a DCA AUTO instruction.  That instruction
+        / is now in location AUTO.  Fall through memory one 
+        / more time, until we hit it.
+/
+/ Load Cruft before and after, to test boundary cases.
+        HLT
+*2777
+        HLT
+
+$
