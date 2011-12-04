@@ -337,6 +337,7 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   RotateFunction, AC_Zero, AC_Minus, LinkBit, MB_Zero, AutoIndex,
   InterruptRequest, InterruptEnable, SetInterruptEnable, ClearInterruptEnable,
   InterruptInhibit, LoadFlags, LoadJMS,
+  STATUS_LED,//VRS Debug
   S3_LSER, S3_LCLK, S3_LCL_N, SR_Bus, State, Halted
   );
 
@@ -386,6 +387,7 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
   input [`DATA_WIDTH] SR_Bus;
   input [`STATE_CODE_WIDTH] State;
   input Halted;
+  output [0:6]STATUS_LED;
 
   // Local signals ...
   wire [`DATA_WIDTH] AC_Bus, MQ_Bus, PC_Bus, Opcode, EA_Bus, MB_Bus;
@@ -419,14 +421,17 @@ module DataPaths (Clock, Reset, MemoryAddress, MemoryData, DeviceData, Opcode,
 
   // Interface the light display ...
   lightsMux lights (
-      .clk(Clock),
+      .clock(Clock),
       .reset(Reset),
       .LSER(S3_LSER),
       .LCLK(S3_LCLK),
       .LCL_N(S3_LCL_N),
       .pc(PC_Bus),
-      .ma(MemoryAddress),
-      .mb(MemoryData),
+      //.ma(MemoryAddress),
+      .ma(12'o1234),//VRS Debug
+      .mb(12'o5670),//VRS Debug
+      .STATUS_LED(STATUS_LED),//VRS Debug
+      //.mb(MemoryData),
       .ac(AC_Bus),
       .mq(MQ_Bus),
       .dfld(3'b0),       // BUGBUG: No EMA yet

@@ -160,9 +160,10 @@ module TimingGenerator (Clock, Reset, Opcode, MemoryData, AutoIndex,
   // Notice that a global reset always starts us out in the FETCH1 state.
   always @(posedge Clock or posedge Reset) begin
     if (Reset) begin
-      State = `HALTED_1;
 `ifdef SIMULATION 
-      NextState = `FETCH_1;
+      State = `FETCH_1;
+`else
+      State = `HALTED_1;
 `endif
     end else
       State = NextState;
@@ -847,7 +848,7 @@ module Controller (Clock, Reset, Opcode, MemoryData,
   wire [0:5] CONF;
   // The switch panel  controls things, mostly while Halted ...
   switchesDeMux switches (
-      .clk(Clock),
+      .clock(Clock),
       .reset(Reset),
       .S3_SSER_N(S3_SSER_N),
       .S3_SCK(S3_SCK),

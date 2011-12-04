@@ -3,12 +3,9 @@
 # Clocks
 #
 #net CLKA          loc=T9;        # 100MHz
-#net CLKB          loc=P8;        # 50MHz
+net CLKB          loc=P8;        # 50MHz
 #net CLKC          loc=R9;        # ??Mhz
 #
-# 100MHz Clock
-#
-net CLKB          loc=P8;        # 50MHz Clock
 #
 # Push button switches
 # TODO: Design pushbutton out of DeMux3 and use E11 or A13?
@@ -26,13 +23,13 @@ net CLKB          loc=P8;        # 50MHz Clock
 #
 # Status LED
 #
-#net STATUS_LED<0> loc=M6;
-#net STATUS_LED<1> loc=M11;
-#net STATUS_LED<2> loc=N6;
-#net STATUS_LED<3> loc=R7;
-#net STATUS_LED<4> loc=P10;
-#net STATUS_LED<5> loc=T7;
-#net STATUS_LED<6> loc=R10;
+net STATUS_LED<0> loc=M6;
+net STATUS_LED<1> loc=M11;
+net STATUS_LED<2> loc=N6;
+net STATUS_LED<3> loc=R7;
+net STATUS_LED<4> loc=P10;
+net STATUS_LED<5> loc=T7;
+net STATUS_LED<6> loc=R10;
 #
 # VGA Outputs
 #
@@ -184,6 +181,7 @@ net CLKB          loc=P8;        # 50MHz Clock
 #
 # RS232 PORT
 #
+net "RS232_*"      iostandard=lvttl;
 net RS232_TXD      loc=J2;  # RS232 TD pin 3
 # RS232 TD pin 3
 net RS232_RXD      loc=G5;  # RS232 RD pin 2
@@ -299,6 +297,7 @@ net RS232_RTS      loc=F4;  # RS232 RTS
 #net SD_DAT1	loc=P11
 #net SD_DAT2	loc=T12
 #net SD_DAT3	loc=R12
+net "S3_*"      iostandard=lvttl;
 net S3_SCLK	loc=G12;
 net S3_SSER_N	loc=E16;
 net S3_SCL_N	loc=N3;
@@ -312,4 +311,6 @@ net S3_LCL_N	loc=M15;
 # Timing Constraints
 #
 NET "Clock" TNM_NET = "Clock";
-TIMESPEC "TS_Clock" = PERIOD "Clock" 40 ns HIGH 50 %;
+TIMESPEC "TS_Clock" = PERIOD "Clock" 80 ns HIGH 50%;
+#NET "*" IOSTANDARD=LVTTL;
+#NET "*" DRIVE=24;

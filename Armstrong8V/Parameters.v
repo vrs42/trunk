@@ -13,6 +13,13 @@
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 `timescale 1ns / 1ps
 
+// Define for simulation, undef for synthesis
+`define noSIMULATION
+
+`define INPUT_CLOCK	50000	// Khz
+`define CPU_CLOCK	12500   // Khz
+`define LIGHTS_CLOCK	 20	// Khz
+`define SWITCH_CLOCK	 20	// Khz
 
 // General parameters ...
 `define ADDRESS_WIDTH		0:11	// width of the address bus

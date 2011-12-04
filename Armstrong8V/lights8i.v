@@ -1,7 +1,10 @@
-module lightsMux(clk, reset, LSER, LCLK, LCL_N,
+`include "Parameters.v"		// global declarations for this project
+
+module lightsMux(clock, reset, LSER, LCLK, LCL_N,
+                 STATUS_LED,//VRS Debug
                  pc, ma, mb, ac, mq, dfld, ifld, sc, link, ir,
                  fetch, defer, exec, ion, run, wc, ca, break);
-input clk, reset; 
+input clock, reset; 
 input [0:11]pc;
 input [0:11]ma;
 input [0:11]mb;
@@ -14,7 +17,8 @@ input link;
 input [0:2]ir;
 input fetch, defer, exec, ion, run, wc, ca, break;
 output LSER, LCLK;
-output reg LCL_N;
+output LCL_N;
+output [0:6]STATUS_LED;//VRS Debug
 
 `define LightsBits (8*12) // 96 bits (89 used)
    
@@ -229,25 +233,43 @@ wire pause;
    assign lights[`LDEFER] = defer;
    assign lights[`LRCK] = 1'b1; // Must be 1, must be first out.
 
+   // The CPU clock is too fast for the TTL.
+   // Synthesise a slower Clock here.
+   integer divider;
+   reg clk = 1'b0;
+   always @(posedge clock) begin
+     if (divider >= (`CPU_CLOCK/`LIGHTS_CLOCK)/2) begin
+        divider = 0;
+        clk = ~clk;
+     end else
+        divider = divider + 1;
+   end
+
+   reg lcln = 1'b1;
+   assign LCL_N = lcln;
+   
    always @(posedge clk)
    begin
        if (reset)
-          counter = `LightsBits;
+          counter <= `LightsBits+1;
        else if (counter < `LightsBits) begin
           sr = { 1'b0, sr[0:`LightsBits-1] };
-          counter = counter + 1;
-          LCL_N = 1'b1;
+          counter <= counter + 1;
+          lcln = 1'b1;
        end else if (counter > `LightsBits) begin
           sr = lights;
-          counter = 0;
-          LCL_N = 1'b0;
+          counter <= 0;
        end else begin
-          counter = counter + 1;
+          lcln = 1'b0;
+          counter <= counter + 1;
           // Wait one clock for the lights to latch the shifted data.
        end
    end
 
    assign LCLK = clk;
    assign LSER = sr[`LightsBits];
-    
+
+   assign STATUS_LED = { clk, ~clk, clock, ~clock, LCLK, ~LCLK, reset };
+   //assign STATUS_LED = { clk, ~clk, LCLK, ~LCLK, LCL_N, ~LCL_N, reset };
+   //assign STATUS_LED = { counter[2:0], ~counter[2:0], reset };
 endmodule

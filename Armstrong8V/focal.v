@@ -1,3 +1,5 @@
+`include "Parameters.v"		// global declarations for this project
+
 module PDP8mem(clk, reset, rd, wr, done, addr, wdata, rdata);
 input clk;
 input reset;

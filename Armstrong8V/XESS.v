@@ -24,10 +24,12 @@ module XESS (CLKB, Reset,
 	DeviceData, DeviceWrite, DeviceRead, DeviceControl, DeviceSkip,
 	InterruptRequest, InterruptGrant, Halted, DeviceClear,
         RS232_TXD, RS232_RXD, RS232_RTS,
+        STATUS_LED,//VRS Debug
         S3_LSER, S3_LCLK, S3_LCL_N,
         S3_SSER_N, S3_SCLK, S3_SCL_N
         );
   // Global signals ...
+  // synthesis attribute BUFG of CLCKB is CLK
   input CLKB;			// master clock for all operations
   input Reset;			// asynchronous global reset all registers
   // Timing signals ...
@@ -50,7 +52,7 @@ module XESS (CLKB, Reset,
   output S3_LSER, S3_LCLK, S3_LCL_N;
   output S3_SCLK, S3_SCL_N;
   input S3_SSER_N;
-
+  output [0:6]STATUS_LED;//VRS DEBUG
 
   //++
   // XESS Interface to KK8V ...
@@ -70,17 +72,19 @@ module XESS (CLKB, Reset,
   wire [0:1] ConsoleStatus;
   wire [`DATA_WIDTH] IOrData, IOwData;
 
-  reg CLKC = 1'b0;
-  always @(posedge CLKB) begin
-     CLKC = ~CLKC;
-  end
-  
   // The XESS clocks (100Mhz and 50Mhz) are too fast.
-  // Synthesise a 25Mhz Clock (from the 50Mhz) here.
+  // Synthesise a slower Clock (from the 50Mhz) here.
+  integer divider;
   reg Clock = 1'b0;
-  always @(posedge CLKC) begin
-     Clock = ~Clock;
+  always @(posedge CLKB) begin
+     if (divider >= (`INPUT_CLOCK/`CPU_CLOCK)/2) begin
+        divider = 0;
+        Clock = ~Clock;
+     end else
+        divider = divider + 1;
   end
+
+  //assign STATUS_LED = { CLKB, ~CLKB, CLKC, ~CLKC, Clock, ~Clock, Reset };
 
   // Instantiate the Unit Under Test (UUT)
   KK8V cpu (
@@ -98,6 +102,7 @@ module XESS (CLKB, Reset,
 	.InterruptRequest(InterruptRequest), 
 	.InterruptGrant(InterruptGrant), 
 	.Halted(Halted),
+        .STATUS_LED(STATUS_LED),//VRS Debug
         .S3_LSER(S3_LSER),
         .S3_LCLK(S3_LCLK),
         .S3_LCL_N(S3_LCL_N),
@@ -161,7 +166,8 @@ endmodule
 
 `ifdef SIMULATION
 module testbed;
-  reg Clock;
+  reg CLKB;
+  wire CLKOUT;
   reg Reset;
   wire MemoryWrite;		// strobe for writing to memory
   wire DeviceWrite;	 	//  "   "  "   "   "  "  I/O devices
@@ -187,7 +193,7 @@ module testbed;
   pulldown p4(S3_SSER_N);
   
   XESS xess(
-    .Clock(Clock),
+    .CLKB(CLKOUT),
     .Reset(Reset),
     .MemoryAddress(MemoryAddress),
     .MemoryData(MemoryData),
@@ -211,20 +217,22 @@ module testbed;
     .S3_SCLK(S3_SCLK), 
     .S3_SCL_N(S3_SCL_N)
   );
-
+  
+  assign CLKOUT = CLKB;
   
   initial begin
-     Clock = 1;
+     CLKB = 1;
      Reset = 1;
      #100 Reset = 0;
   end
-  always @(posedge Clock) begin
-     #10 Clock = 0;
+  always @(posedge CLKB) begin
+     #20 CLKB = 0;
   end
-  always @(negedge Clock) begin
-     #10 Clock = 1;
+  always @(negedge CLKB) begin
+     #20 CLKB = 1;
   end
   pullup RXD(RS232_RXD);
   pullup iod(IoDone);
+
 endmodule
 `endif

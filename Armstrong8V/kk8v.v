@@ -139,6 +139,7 @@ module KK8V (Clock, Reset,
 	MemoryAddress, MemoryData, MemoryWrite,
 	DeviceData, DeviceWrite, DeviceRead, DeviceControl, DeviceSkip,
 	InterruptRequest, InterruptGrant, Halted, DeviceClear,
+        STATUS_LED,//VRS Debug
         S3_LSER, S3_LCLK, S3_LCL_N,
         S3_SSER_N, S3_SCLK, S3_SCL_N
         );
@@ -169,6 +170,7 @@ module KK8V (Clock, Reset,
   output S3_LSER, S3_LCLK, S3_LCL_N;
   output S3_SCLK, S3_SCL_N;
   input S3_SSER_N;
+  output [0:6]STATUS_LED;//VRS Debug
  
   // Internal signals ...
   wire [0:11] Opcode;
@@ -200,6 +202,7 @@ module KK8V (Clock, Reset,
     .InterruptInhibit(InterruptInhibit),.SetInterruptEnable(SetInterruptEnable),
     .ClearInterruptEnable(ClearInterruptEnable),
     .LoadFlags(LoadFlags),
+    .STATUS_LED(STATUS_LED),//VRS Debug
     .S3_LSER(S3_LSER), .S3_LCLK(S3_LCLK), .S3_LCL_N(S3_LCL_N), .SR_Bus(SR_Bus),
     .Halted(Halted), .State(State)
   );

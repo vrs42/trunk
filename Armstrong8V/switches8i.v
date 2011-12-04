@@ -1,6 +1,8 @@
-module switchesDeMux(clk, reset, S3_SSER_N, S3_SCK, S3_SCL_N,
+`include "Parameters.v"
+
+module switchesDeMux(clock, reset, S3_SSER_N, S3_SCK, S3_SCL_N,
       sdf, sif, sr, start, laddr, dep, exam, cont, stop, ss, si, conf);
-input clk, reset;
+input clock, reset;
 input S3_SSER_N;
 output reg S3_SCK, S3_SCL_N;
 output reg [0:2] sdf, sif;
@@ -13,7 +15,7 @@ output reg [0:5] conf;
 `ifdef SIMULATION
    `define FREQDIV    100
 `else
-   `define FREQDIV    10000
+   `define FREQDIV    10000 // 1Mhz => 100ms
 `endif
 
    // The external hardware presents SCF5 first, and SDF0 last.
@@ -57,6 +59,18 @@ reg [0:`SwitchBits-1] switches;
 integer SSCKCounter = 0;
 integer counter     = 0;
 reg isi, iss, istop, oexam, odep, ostart, ocont, iexam, idep, istart, icont;
+
+   // The CPU clock is too fast for the user interface.
+   // Synthesise a slower Clock here.
+   integer divider;
+   reg clk = 1'b0;
+   always @(posedge clock) begin
+     divider = divider + 2; // effectively divide ratio by 2
+     if (divider > `CPU_CLOCK/`SWITCH_CLOCK) begin
+        divider = 0;
+        clk = ~clk;
+     end
+   end
 
    always @(posedge clk) begin
      // Every rising clk
