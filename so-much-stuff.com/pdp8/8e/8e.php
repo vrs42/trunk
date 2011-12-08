@@ -8,7 +8,7 @@
 <TD vAlign=top>
     <P><FONT size=3>
     <DIV>I used to have two PDP-8/E computers, but I traded one of them for 
-the BM8L (see <A href=/pdp8/8L/8l.shtml>8L</A>).  I kept all the peripherals 
+the BM8L (see <A href=/pdp8/8L/8L.shtml>8L</A>).  I kept all the peripherals 
 for it, though, and now I have my other 8/E in the double rack where it used 
 to be.
     <P>Here's a couple of pictures of the result:
