@@ -1,5 +1,5 @@
 <?php
-  $title = "FlipChip Spares";
+  $title = "FlipChip Modules";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
 
@@ -7,47 +7,52 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have two PDP-8/A computers (depending on how you count my spares).  
-    <P>Here's a pictures of the first one:
-<TABLE>
-<TR>
-  <TD>
-    <A href="/pdp8/8a/pdp8a-1.jpg">
-    <IMG src="/pdp8/8a/pdp8a-1.jpg" width=320>
-    <BR>My first PDP-8/A, purchased from a fellow in Kansas.
-  </A></TD>
-</TABLE>
-    <P>I don't really know how extensive the problem here is.  I know it didn't 
-work when I tried it, but the problem could be as simple as not getting the front 
-panel hooked up right (I hear it's really easy to reverse the DIP connector), or 
-something more complicated could be wrong with it.
-    <P>Also in this rack (above the CPU) are my RX02 floppy drives, which work :-).
-    <P>Below the CPU, I have a couple of RL02 drives, which I hope someday to rack 
-properly and connect to the 8/A with my RL8A controller.
-</TR>
-</TD><TD>
-<TODO: Get pictures of first 8/a>
-<TODO: Get pictures of second 8/a>
-    <P><FONT size=3>
-    <DIV>I also have enough spares to form a second one...
-<TABLE>
-<TR>
-  <TD>
-    <A href="/pdp8/8a/pdp8a-2.jpg">
-    <IMG src="/pdp8/8a/pdp8a-2.jpg" width=320>
-    <BR>My PDP-8/A spares, mostly from eBay.
-  </A></TD>
-</TABLE>
-    <P>This is my pile of 8/A spares, which has now exceeded the necessary parts 
-to build another.  There is one problem, though.  The chassis is a 50Hz model, 
-so that would need to get reworked for the thing to actually work, at least here 
-in the states.  One thing cool about this is that I have the 128K memory 
-option.  (The 8/A is the only model that can support more than 32K of memory.)
-    <P>..probably should get some pictures up!
-    <P>I also have spent some time and energy with a friend, to come up with a
-<A href=/pdp8/kc8a/kc8a.shtml>KC8A</A> programmer's panel clone for the 8/A.
-</TD>
-</TR>
-</TABLE>
+    <DIV>I have begun an effort to document the flipchips which DEC used
+to implement various CPUs and controllers.  My ultimate goal is to collect 
+the available information about these modules from various places on the 
+web, and add CAD drawings for each revision of each module, thus documenting
+them for posterity.  (Each CAD drawing takes me about a day, so progress
+can be slow.)
+    <P>There are a couple of ways to look at the stuff.  First, there is 
+the classic "module list", much like Zane Healy and others have done:
+<UL>
+<LI><A href=modules.htm target=_blank>modules.htm</A>
+<LI><A href=modules.txt target=_blank>modules.txt</A>
+</UL>
+    <P>Clicking on the links in the HTML version will get you to the
+appropriate directory in the SVN repository, where all the mages and
+other files for all revisions of that module are just sort of there
+in a jumble.
+    <P>Second, I have made some tables that list each known revision of
+each module and what is known about it, with links to the relevant 
+individual files.
+    <P>That makes it easier to see that, say, revision A is lacking a
+DEC schematic, where revision B has one (which may not work too well
+for revision A).  Hopefully there will be an Eagle schematic, though
+that means you'd have to install some version of Eagle CAD to view it.
+    <P>Here are those files:
+<UL>
+<LI><A href=Gxxx.htm target=_blank>Gxxx.htm</A>
+<LI><A href=Mxxx.htm target=_blank>Mxxx.htm</A>
+<LI><A href=Rxxx.htm target=_blank>Rxxx.htm</A>
+<LI><A href=Wxxx.htm target=_blank>Wxxx.htm</A>
+</UL>
+    <P>Currently, Mxxx and Rxxx have had the most work done.
+    <P>If you are looking for information about a Bxxx or an Sxxx module,
+those are often quite similar to the corresponding Rxxx, with some changes
+in component values.
+    <P>There is no information here about Axxx or Kxxx modules yet.
+    <P>In some cases, I have annotated these lists with information about
+whether I am looking to acquire an instance, or have extras to sell.
+    <P>I have seen a problem where I attempted to click on the link for 
+a DEC schematic, and binary gibberish displayed in the browser instead 
+of the nice PDF.  Please let me know something similar happens to you, 
+as it means I have to fix the properties for that particular file in
+the SVN repository.
+    <P>My thanks to the many folks who've helped preserve this information,
+especially Al Kossow of
+<A href=http://www.bitsavers.org target=_blank>www.bitsavers.org</A>.
+    <P>If you want to do CAD drawings like mine, check out the "cad"
+link at the top of the page.
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
