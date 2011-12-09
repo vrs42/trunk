@@ -53,6 +53,7 @@ sub namei {
 #&namei("./pdp8/8a/pdp8a-2.jpg");
 #exit 1;
 
+$status = 0;
 for $i (@ARGV) {
   next if $i =~ m:/oldstuff/:; # BUGBUG Obsolete
   next if $i =~ m:/Oldway/:; # BUGBUG Obsolete
@@ -85,7 +86,11 @@ for $i (@ARGV) {
         } else {
           $d = "$id$d";
         }
-      warn "$i: Didn't find $d$ref\n"  unless &namei("$d$ref");
+      &namei("$d$ref") || do {
+        warn "$i: Didn't find $d$ref\n";
+        $status = 1;
+      };
     }
   }
 }
+exit $status;
