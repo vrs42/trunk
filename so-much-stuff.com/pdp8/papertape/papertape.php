@@ -3,51 +3,34 @@
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
 
-<TABLE>
-<TR>
-<TD vAlign=top>
-    <P><FONT size=3>
-    <DIV>I have two PDP-8/A computers (depending on how you count my spares).  
-    <P>Here's a pictures of the first one:
-<TABLE>
-<TR>
-  <TD>
-    <A href="/pdp8/8a/pdp8a-1.jpg">
-    <IMG src="/pdp8/8a/pdp8a-1.jpg" width=320>
-    <BR>My first PDP-8/A, purchased from a fellow in Kansas.
-  </A></TD>
-</TABLE>
-    <P>I don't really know how extensive the problem here is.  I know it didn't 
-work when I tried it, but the problem could be as simple as not getting the front 
-panel hooked up right (I hear it's really easy to reverse the DIP connector), or 
-something more complicated could be wrong with it.
-    <P>Also in this rack (above the CPU) are my RX02 floppy drives, which work :-).
-    <P>Below the CPU, I have a couple of RL02 drives, which I hope someday to rack 
-properly and connect to the 8/A with my RL8A controller.
-</TR>
-</TD><TD>
-<TODO: Get pictures of first 8/a>
-<TODO: Get pictures of second 8/a>
-    <P><FONT size=3>
-    <DIV>I also have enough spares to form a second one...
-<TABLE>
-<TR>
-  <TD>
-    <A href="/pdp8/8a/pdp8a-2.jpg">
-    <IMG src="/pdp8/8a/pdp8a-2.jpg" width=320>
-    <BR>My PDP-8/A spares, mostly from eBay.
-  </A></TD>
-</TABLE>
-    <P>This is my pile of 8/A spares, which has now exceeded the necessary parts 
-to build another.  There is one problem, though.  The chassis is a 50Hz model, 
-so that would need to get reworked for the thing to actually work, at least here 
-in the states.  One thing cool about this is that I have the 128K memory 
-option.  (The 8/A is the only model that can support more than 32K of memory.)
-    <P>..probably should get some pictures up!
-    <P>I also have spent some time and energy with a friend, to come up with a
-<A href=/pdp8/kc8a/kc8a.shtml>KC8A</A> programmer's panel clone for the 8/A.
-</TD>
-</TR>
-</TABLE>
+<P><FONT size=3>
+<BODY>
+<P><B>Tape Categories:</B>
+<UL>
+<LI><A href=../tapes/dec.html target=_blank>dec</A>
+<LI><A href=../tapes/decus.html target=_blank>decus</A>
+<LI><A href=../tapes/digital.html target=_blank>digital</A>
+<LI><A href=../tapes/maindec.html target=_blank>maindec</A>
+<LI><A href=../tapes/misc.html target=_blank>misc</A>
+<P><P>
+</UL>
+<P>Hello, and welcome to my tape archive.
+<P>The various sub-directories have various tape images in them,using what I hope is a fairly obvious system.
+<P>The actual tape images themselves come as a set of relatedfiles:
+<DL>
+<DT><DD>The tape image itself generally has no extension.
+File names that end in "-pb" should be in BIN format,
+"-pm" is for RIM format, "-pa" is for PAL source code,
+and "-ft" is for FORTRAN source code.
+<DT>.od<DD>There will always be a .od for every tape image,
+which contains a human readable octal dump of the tape image.
+<DT>.txt<DD>If the file looks like it most likely contains
+text, there will be a .txt file, which contains the ASCII
+text, with nulls stripped out, and the eighth bit forced off,
+which is usually necessary for the text to display properly
+with modern equipment.
+</DL>
+<P><P>Vince Slyngstad
+<P><P><A href="../tapes/theworks.tar.gz">tarball</A>
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
