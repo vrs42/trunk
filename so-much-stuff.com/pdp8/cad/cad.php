@@ -6,22 +6,33 @@
 <TABLE>
 <TR>
 <TD vAlign=top>
-    <P>Here are my collection of CAD files.  Beware -- almost none of this stuff 
-has been built or debugged!  It's just here in case it is of some use to someone.
-    <P>Here are some CAD libraries that are used in the boards that follow.  I use 
-Eagle CAD software with the "Pro" license to develop this stuff, but you should be 
-able to use and view it with either the freeware license or the non-profit license.
+    <P>Here are my collection of CAD files.  Beware -- almost none of this
+stuff has been built or debugged!  It's just here in case it is of some use
+to someone.
+    <P>I use Eagle CAD software with the "Pro" license to develop this stuff,
+but you should be able to use and view it with either the freeware license
+or the non-profit license.
 <DL>
 <DT>
-<A href="/pdp8/cad/lbr/74xx-jameco.lbr">74xx-JameCo</A>
+<A href=boards.php>The boards</A>
+<DD>
+    This is a collection of most of my various schematics and boards.
+There's no documentation for them, so you pretty much have to know what
+you're looking at, and it may not be obvious which of the zillion boards
+and schematics is what you want.  The list is automatically generated,
+so if there's stuff in it that I shouldn't be republishing, let me know.
+<P>
+<DT>
+<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/74xx-jameco.lbr">74xx-JameCo</A>
 <DD>
 This is an attempt to put together a library that contains the subset of 74xx TTL 
 that is actually available from JameCo.  The idea was that if it is in this library, 
 you might actually be able to buy it affordably, so it was "safe" to design with.
 Of course, what JameCo actually carries is a moving target, so the correspondence 
 is no longer perfect.
+<P>
 <DT>
-<A href="/pdp8/cad/lbr/dec-con.lbr">dec-con</A>
+<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/dec-con.lbr">dec-con</A>
 <DD>
 This is a collection of board outlines and the occasional obsolete component, which 
 will be useful if you are trying to re-create flip-chip modules.  There are outlines 
@@ -36,8 +47,11 @@ of 100 and 125 mils). Otherwise it will be difficult to route from the edge
 connector to the components, as the edge connector uses a 1/8" grid, and
 the components typically use a 1/10" grid.
 <DT>
-<A href="/pdp8/cad/lbr/dec-m.lbr">dec-m</A>
+<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/dec-m.lbr">dec-m</A>
 <DD>
+Note: This library is sort of obsolete.  I use <b>dec-r</b> instead, these days.
+Some of the older schematics and boards still use it, though.
+<P>
 This is a collection of symbolic representations of various DEC flip-chips. 
 For instance, everything needed to draw the prints for a TC08 DECTape
 controller is here.  Despite the name, there are Gxxx and Wxxx modules, in
@@ -50,7 +64,7 @@ You will want to set the board grid to .125", to get proper placement of the
 parts.  Even so, you may have to move them to get them on-grid, as Eagle 
 tends to place them with incorrect alignment initially.
 <DT>
-<A href="/pdp8/cad/lbr/dec-r.lbr">dec-r</A>
+<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/dec-r.lbr">dec-r</A>
 <DD>
 This is a collection of symbolic representations of various DEC flip-chips.  
 It has newer versions of the stuff in dec-m, as well as a number of Rxxx 
@@ -63,16 +77,8 @@ You will want to set the board grid to .125", to get proper placement of the
 parts.  Even so, you may have to move them to get them on-grid, as Eagle 
 tends to place them with incorrect alignment initially.
 </DL>
-    <P>And here is a scrollable list of my collection of various schematics and 
-boards.  There's no documentation here, so you pretty much have to know what 
-you're looking at, and it may not be obvious which of the zillion boards and 
-schematics is what you want.  This list is automatically generated, so if there's 
-stuff in it that I shouldn't be republishing, let me know:
 </TD>
 </TR>
 </TABLE>
-<IFRAME WIDTH="100%" HEIGHT="40%" SRC="/pdp8/cad/projects/boards.html" FRAMEBORDER=0>
-Cad files for various boards.
-</IFRAME>
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
