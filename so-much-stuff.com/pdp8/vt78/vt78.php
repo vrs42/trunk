@@ -7,47 +7,35 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have two PDP-8/A computers (depending on how you count my spares).  
-    <P>Here's a pictures of the first one:
+    <DIV>I the "word processing" version of the VT78, so it has the "WT/78 word terminal"
+badge: 
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/8a/pdp8a-1.jpg">
-    <IMG src="/pdp8/8a/pdp8a-1.jpg" width=320>
-    <BR>My first PDP-8/A, purchased from a fellow in Kansas.
+    <A href="/pdp8/vt78/wt78.jpg">
+    <IMG src="/pdp8/vt78/wt78.jpg" width=320>
+    <BR>My WT78.
   </A></TD>
 </TABLE>
-    <P>I don't really know how extensive the problem here is.  I know it didn't 
-work when I tried it, but the problem could be as simple as not getting the front 
-panel hooked up right (I hear it's really easy to reverse the DIP connector), or 
-something more complicated could be wrong with it.
-    <P>Also in this rack (above the CPU) are my RX02 floppy drives, which work :-).
-    <P>Below the CPU, I have a couple of RL02 drives, which I hope someday to rack 
-properly and connect to the 8/A with my RL8A controller.
-</TR>
-</TD><TD>
-<TODO: Get pictures of first 8/a>
-<TODO: Get pictures of second 8/a>
-    <P><FONT size=3>
-    <DIV>I also have enough spares to form a second one...
+    <P>These were also sometimes called Decstation 78's, though that name is confusing 
+as later there was a whole other line of DEC gear called Decstations.  They are a 
+predecessor to the Decmates.
+    <P>I haven't really done anything with mine yet.  I believe they originally came with 
+an dual RX01 tower, similar to the RX02 tower I have for one of my Decmates.
+    <P>The VT78 uses the H6100 PDP-8 on a chip, running a little slow so they could use 
+slower RAM chips.  (Decmates used the H6120, which is faster and has an on-chip MMU.)
+It is built into a VT52 terminal chassis.
+    <P>Here is a better picure, of David Gesswein's VT78, from
+<A href=http://www.pdp8.net/vt78/vt78.shtml>http://www.pdp8.net/vt78/vt78.shtml</A>. 
+It shows a clearer view of the front, and a bit of the tower it is sitting on, which 
+houses two 8 inch floppy drives.
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/8a/pdp8a-2.jpg">
-    <IMG src="/pdp8/8a/pdp8a-2.jpg" width=320>
-    <BR>My PDP-8/A spares, mostly from eBay.
+    <A href="/pdp8/vt78/vt78.jpg">
+    <IMG src="/pdp8/vt78/vt78.jpg" width=320>
+    <BR>Dave's VT78.
   </A></TD>
-</TABLE>
-    <P>This is my pile of 8/A spares, which has now exceeded the necessary parts 
-to build another.  There is one problem, though.  The chassis is a 50Hz model, 
-so that would need to get reworked for the thing to actually work, at least here 
-in the states.  One thing cool about this is that I have the 128K memory 
-option.  (The 8/A is the only model that can support more than 32K of memory.)
-    <P>..probably should get some pictures up!
-    <P>I also have spent some time and energy with a friend, to come up with a
-<A href=/pdp8/kc8a/kc8a.shtml>KC8A</A> programmer's panel clone for the 8/A.
-</TD>
-</TR>
 </TABLE>
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
