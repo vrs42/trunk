@@ -10,7 +10,7 @@
 	      echo "Last updated on ",  date("m/j/y h:i", filemtime($file));
         ?>
        </B></FONT></P>
-      <P align=center><FONT size=1><B><A href=mailto:vrs@msn.com>vrs</A></B></FONT></P></TD>
+      <P align=center><FONT size=1><B><A href=http://tinyurl.com/stuffmail target=_blank>vrs</A></B></FONT></P></TD>
     <TD width=5><BR></TD>
     <TD width=2><BR></TD></TR>
   <TR>
