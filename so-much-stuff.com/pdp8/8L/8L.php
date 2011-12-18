@@ -7,7 +7,10 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have two PDP-8/L computers.  Here's a pictures of the first one:
+    <DIV>I have two PDP-8/L computers.  
+Neither of my PDP8-L's originally had the standard graphics on the front panel. 
+Both had been customized with OEM graphics.)
+    <P>Here's a pictures of the first one:
 <TABLE>
 <TR>
   <TD>
@@ -16,8 +19,6 @@
     <BR>My first PDP-8/L, on the shelf in the garage of the guy I bought it from.
   </A></TD>
 </TABLE>
-    <P>Neither of my PDP8-L's have the standard graphics on the front panel. 
-(Both have been customized with OEM graphics.)
     <P>This one is "mostly working".  I can toggle in simple programs and
 they seem to work OK.  Loading something like Focal seems to succeed (zero
 checksum), but it really didn't, and memory is badly corrupted.  (It may be
@@ -32,6 +33,15 @@ that I need to adjust the core for more reliable operation.)
     <A href="/pdp8/8L/pdp8L-2.jpg">
     <IMG src="/pdp8/8L/pdp8L-2.jpg" width=320>
     <BR>My second PDP-8/L, given to me by a fellow on the east coast.
+  </A></TD>
+</TABLE>
+    <P>Here's an older picture of it with the funky front panel artwork:
+<TABLE>
+<TR>
+  <TD>
+    <A href="/pdp8/8L/pdp8L-csi.jpg">
+    <IMG src="/pdp8/8L/pdp8L-csi.jpg" width=320>
+    <BR>My second PDP-8/L again, with the CSI panel artwork.
   </A></TD>
 </TABLE>
     <P>I have a BM8L for one...
