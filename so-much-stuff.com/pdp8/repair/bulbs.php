@@ -20,14 +20,11 @@ many panels in people's collections use the equivalent Oshino OL-2.
 <dt>OL-2/CM2309
 <dd>10V, 40ma, .05mscp, 5,000 hours -- The real deal.  These were the
 "blue base" bulbs.
-<dd>The OL-2/CM2309 was also used in the 5408458 peripheral indicator panel.
-<dd>Generally no longer stocked, but can be special ordered from Mouser
-(last checked 10/2009).
+<dd>The OL-2/CM2309 was also used in the 54-08458 peripheral indicator panel.
 <dd>Oshino OL-367 is a newer part number for what appears to be the same bulb.
 <dt>CM7371
-<dd>12V, 40ma, .12mscp, 10,000 hours -- These derate at 10V to approximately 
-36ma, .06mscp, 89,000 hours.
-<dd>In stock at Mouser for $9.90 qty 10 (last checked 10/2009).
+<dd>12V, 40ma, .12mscp, 10,000 hours -- approximately 36ma, .06mscp, 89,000 hours at 10V.
+<dd>In stock at Mouser for $9.90 qty 10 (last checked 12/2011).
 <dd>These have been used in panels and seem to work well.  The brightness 
 is about 20% high, so you may want to do whole registers at a time to 
 make them less noticeable.
@@ -45,16 +42,19 @@ make them less noticeable.
 <dd>See Oshino's OL-1.
 <dt>OL-1
 <dd>15V, 40ma, .075mscp -- The real deal.  These were the "black base" bulbs.
-<dd>The OL-1 was also used in the RK05 control panel,
-and the KA10 CPU front panel.
-<dd>In stock at www.donsbulbs.com for $8.75 each (as of 10/2009).
+<dd>The OL-1 was also used in the KA10 CPU front panel.
 <dt>OL-6003
 <dd>15V, 37ma, .075mscp, 50,000 hours -- A very close substitute.
 <dd>Mark G. Thomas found them at sunraylighting.com.
+<dt>CM7003
+<dd>15V, 40ma, .075mscp, 2,000 hours.
+<dd>I found some 
+<A href=http://www.atlantalightbulbs.com/ecart/10Expand.asp?ProductCode=7003>here</A>
+(12/2011).
 <dt>CM7370
 <dd>18V, 40ma, .15mscp, 10,000 hours -- These derate at 15V to approximately
 36ma, .08mscp, 89K hours, so they should work well.
-<dd>In stock at Mouser for $7.00 qty 10 (as of 10/2009).
+<dd>In stock at Mouser for $7.00 qty 10 (as of 11/2011).
 <!-- The CM/Sylvania/BP 7003 is an exact equivalent. -->
 <!-- The 12-05859 is Hudson/Sylvania 2339 -- an exact equivalent! -->
 </DL>
@@ -79,18 +79,17 @@ and the KA10 CPU front panel.
 <dd>28V, 40ma, .34mscp, 4,000 hours -- The real deal.
 <dd>Unlike the ones above, it doesn't have a base.  The wires just stick out
 of the glass at the bottom.
-<dd>Some of these are available at www.donsbulbs.com.
-<dd>Can be special ordered from Mouser in qty 500 or more.
+<dd>Some of these are available at www.donsbulbs.com (as of 12/2011).
 <dt>CM2187
 <dd>28V, 40ma, .30mscp, 7,000 hours -- a close match for the original bulb.
-<dd>In stock at Mouser for $4.90 qty 10 (as of 10/2009).
+<dd>In stock at Mouser for $4.90 qty 10 (as of 12/2011).
 <dt>CM7387
 <dd>28V, 40ma, .30mscp, 7,000 hours-- Like the CM2187, but with a bi-pin base.
 (Bi-pin bulbs have the advantage that they can be reliably socketed.)
 <dd>The bi-pin bulbs seem to fit the 8/S panel, but Doug Ingraham reports there
 is not enough vertical clearance in his straight-8.  (A bi-pin bulb is 5/8" tall, 
 my 8/S panel has about 3/4" clearance, and Doug's straight-8 has about 9/16" clearance.)
-<dd>In stock at Mouser for $8.40 qty 10 (as of 10/2009).
+<dd>In stock at Mouser for $8.40 qty 10 (as of 12/2011).
 <!-- The 12-03483 is also the 1762F. -->
 </DL>
 
@@ -99,7 +98,7 @@ my 8/S panel has about 3/4" clearance, and Doug's straight-8 has about 9/16" cle
 <h3>TC01</h3>
 <dt>12-01741
 <dd>The TC01 uses modified 4910 and 4904 indicator brackets, which in turn hold 
-Drake #11-504 or DialCo #39-28-375 or Eldema CF ZWT-1762 (per the PDP-5
+Drake 11-504 or DialCo 39-28-375 or Eldema CF ZWT-1762 (per the PDP-5
 manual).  That last is equivalent to the 1762F.  See PDP-8/S above.
 </DL>
 
@@ -114,7 +113,7 @@ bulb must have been used.  (The circuit is actually powered with 15V, however.)
 <dt>CM2182
 <dd>14V, 80ma, .3mscp, 40,000 hours -- These are the bulb inside the white box
 of the indicator assembly.
-<dd>In stock at Mouser for $3.72 qty 10 (as of 10/2009).
+<dd>In stock at Mouser for $3.01 qty 10 (as of 12/2011).
 </DL>
 
 <DL>
@@ -174,8 +173,8 @@ See PDP-8/S above.
 <dd>See Osram 6475.
 (The Spare parts list has "12V 18W P.T.RDR" hand-written.)
 <dt>Osram 6475
-<dd>A 12V 1.5A SV8.5-8 T4.75 1.77" 300 hour "festoon" bulb sold as an automotive dome light 
-or license plate light.
+<dd>A 12V 1.5A SV8.5-8 T4.75 1.77" 300 hour "festoon" bulb usually sold as an automotive
+dome light or license plate light.
 <!-- The 12-04903 is a similar Osram 6411/8935, also a 12 festoon lamp, but 10W T3.25. -->
 </DL>
 
