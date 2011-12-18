@@ -10,7 +10,7 @@
     <DIV>I have two PDP-8/L computers.  
 Neither of my PDP8-L's originally had the standard graphics on the front panel. 
 Both had been customized with OEM graphics.)
-    <P>Here's a pictures of the first one:
+    <P>Here's a picture of the first one:
 <TABLE>
 <TR>
   <TD>
@@ -25,7 +25,6 @@ checksum), but it really didn't, and memory is badly corrupted.  (It may be
 that I need to adjust the core for more reliable operation.)
 </TR>
 </TD><TD>
-<TODO: Get pictures of second 8/L, BM8L, and BA08>
     <P>I also have a second one...
 <TABLE>
 <TR>

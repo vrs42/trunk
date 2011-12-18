@@ -8,7 +8,7 @@
     <P><FONT size=3>
     <DIV>I have two or three PDP-8/A computers (depending on how you count
 my spares).  
-    <P>Here's a pictures of the first one:
+    <P>Here's a picture of the first one:
 <TABLE>
 <TR>
   <TD>

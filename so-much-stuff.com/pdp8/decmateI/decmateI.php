@@ -9,7 +9,7 @@
     <P><FONT size=3>
     <DIV>I have two Decmate I computers (originally just called Decmates).  
 These were also known as VT278.  They are a successor to the VT78/WT78.
-    <P>Here's a pictures of the first one:
+    <P>Here's a picture of the first one:
 <TABLE>
 <TR>
   <TD>

@@ -8,7 +8,7 @@
 <TD vAlign=top>
     <P><FONT size=3>
     <DIV>I have a Decmate III.  These were also known as the PC238.
-    <P>Here's a pictures of mine:
+    <P>Here's a picture of mine:
 <TABLE>
 <TR>
   <TD>

@@ -9,7 +9,7 @@
     <P><FONT size=3>
     <DIV>I have three Decmate II computers.  These were also known as PC278,
 and were introduced in part to compete with the IBM PC.  
-    <P>Here's a pictures of my first one:
+    <P>Here's a picture of my first one:
 <TABLE>
 <TR>
   <TD>

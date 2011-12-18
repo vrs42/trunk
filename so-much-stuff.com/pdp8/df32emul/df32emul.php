@@ -8,7 +8,7 @@
 <TD vAlign=top>
     <P><FONT size=3>
     <DIV>I this Posibus DF32 emulator, designed and built by Charles Morris.
-    <P>Here's a pictures of it:
+    <P>Here's a picture of it:
 <TABLE>
 <TR>
   <TD>

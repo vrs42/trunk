@@ -7,7 +7,7 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have two PDP-8/I computers.  Here's a pictures of the first one:
+    <DIV>I have two PDP-8/I computers.  Here's a picture of the first one:
 <TABLE>
 <TR>
   <TD>
