@@ -7,47 +7,27 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have two PDP-8/A computers (depending on how you count my spares).  
-    <P>Here's a pictures of the first one:
+    <P>Here are a couple of my RK05 drives, an RK05J and an RK05F:
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/8a/pdp8a-1.jpg">
-    <IMG src="/pdp8/8a/pdp8a-1.jpg" width=320>
-    <BR>My first PDP-8/A, purchased from a fellow in Kansas.
+    <A href="/pdp8/rk05/rk05.jpg">
+    <IMG src="/pdp8/rk05/rk05.jpg" width=320>
+    <BR>My RK05 drives, rack mounted.
   </A></TD>
 </TABLE>
-    <P>I don't really know how extensive the problem here is.  I know it didn't 
-work when I tried it, but the problem could be as simple as not getting the front 
-panel hooked up right (I hear it's really easy to reverse the DIP connector), or 
-something more complicated could be wrong with it.
-    <P>Also in this rack (above the CPU) are my RX02 floppy drives, which work :-).
-    <P>Below the CPU, I have a couple of RL02 drives, which I hope someday to rack 
-properly and connect to the 8/A with my RL8A controller.
-</TR>
-</TD><TD>
-<TODO: Get pictures of first 8/a>
-<TODO: Get pictures of second 8/a>
-    <P><FONT size=3>
-    <DIV>I also have enough spares to form a second one...
-<TABLE>
-<TR>
-  <TD>
-    <A href="/pdp8/8a/pdp8a-2.jpg">
-    <IMG src="/pdp8/8a/pdp8a-2.jpg" width=320>
-    <BR>My PDP-8/A spares, mostly from eBay.
-  </A></TD>
-</TABLE>
-    <P>This is my pile of 8/A spares, which has now exceeded the necessary parts 
-to build another.  There is one problem, though.  The chassis is a 50Hz model, 
-so that would need to get reworked for the thing to actually work, at least here 
-in the states.  One thing cool about this is that I have the 128K memory 
-option.  (The 8/A is the only model that can support more than 32K of memory.)
-    <P>..probably should get some pictures up!
-    <P>I also have spent some time and energy with a friend, to come up with a
-<A href=/pdp8/kc8a/kc8a.shtml>KC8A</A> programmer's panel clone for the 8/A.
-</TD>
-</TR>
-</TABLE>
+    <P>I actually have another drive in rougher shape (parts drive), not pictured.
+    <P>The RK05F drive has twice the capacity, but the media is not removeable.  Hence
+the "0/1" designation in the picture.  (Sometime I should probably get around to changing 
+drive "3" to be drive "2".)
+    <P>Each RK05 unit number corresponds to 1.6Mwords of storage, organized as 203 
+tracks, 2 surfaces, 16 sectors/track, and a sector size of 256 12-bit words.  The 
+transfer rate is about 20% faster than a floppy disk, at 102Kwords per second, and each unit
+holds roughly 41% more than a typical PC diskette.  The average access time was about 
+11 percent faster than a floppy.
+    <P>For it's time, it was hot stuff -- the equipment 
+pictured sold new for about $13,000 (plus installation).
+    <P>My hope is to interface these through my RK8F controller and DW8E to my large 
+PDP-8/i system.
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
