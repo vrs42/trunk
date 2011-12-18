@@ -37,9 +37,11 @@ talking to a terminal).
     <P>This one is reported to mostly work, except for a flaky power 
 supply connection.  I have disconnected the power supply anyway, as part 
 of the effort of getting it into the rack, so I'd have to reconnect 
-that.  It didn't come with a keyswitch, so I installed one I had 
-lying around (even though it isn't really the authentic part).
-    <P>..probably should get some pictures up!
+that.  It didn't come with a keyswitch, so I had to obtain and install one.
+    <P>My hope is to add a bunch of my memory and peripherals to this one, and 
+construct a fairly "top-of-the-line" configuration, including TU55, RK05, FPP-12, 
+etc.
+    <P>..probably should get some pictures of that up!
 </TD>
 </TR>
 </TABLE>
