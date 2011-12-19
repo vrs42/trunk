@@ -7,47 +7,53 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have two PDP-8/A computers (depending on how you count my spares).  
-    <P>Here's a pictures of the first one:
+    <DIV>I have two ASR33 teletypes.
+    <P>Here's a picture of the first one:
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/8a/pdp8a-1.jpg">
-    <IMG src="/pdp8/8a/pdp8a-1.jpg" width=320>
-    <BR>My first PDP-8/A, purchased from a fellow in Kansas.
+    <A href="/pdp8/tty33/mvc-669f.jpg">
+    <IMG src="/pdp8/tty33/mvc-669f.jpg" width=320>
+    <BR>My first ASR33.
   </A></TD>
 </TABLE>
-    <P>I don't really know how extensive the problem here is.  I know it didn't 
-work when I tried it, but the problem could be as simple as not getting the front 
-panel hooked up right (I hear it's really easy to reverse the DIP connector), or 
-something more complicated could be wrong with it.
-    <P>Also in this rack (above the CPU) are my RX02 floppy drives, which work :-).
-    <P>Below the CPU, I have a couple of RL02 drives, which I hope someday to rack 
-properly and connect to the 8/A with my RL8A controller.
-</TR>
-</TD><TD>
-<TODO: Get pictures of first 8/a>
-<TODO: Get pictures of second 8/a>
-    <P><FONT size=3>
-    <DIV>I also have enough spares to form a second one...
+    <P>It's in pretty rough shape cosmetically, but it mostly works.
+After running for a while, one of the connecting bars tends to shake loose 
+and needs to be re-installed, so presumably the parts are worn.
+    <P>I also have a second unit:
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/8a/pdp8a-2.jpg">
-    <IMG src="/pdp8/8a/pdp8a-2.jpg" width=320>
-    <BR>My PDP-8/A spares, mostly from eBay.
+    <A href="/pdp8/tty33/asr33-2.jpg">
+    <IMG src="/pdp8/tty33/asr33-2.jpg" width=320>
+    <BR>My second ASR-33.
   </A></TD>
 </TABLE>
-    <P>This is my pile of 8/A spares, which has now exceeded the necessary parts 
-to build another.  There is one problem, though.  The chassis is a 50Hz model, 
-so that would need to get reworked for the thing to actually work, at least here 
-in the states.  One thing cool about this is that I have the 128K memory 
-option.  (The 8/A is the only model that can support more than 32K of memory.)
-    <P>..probably should get some pictures up!
-    <P>I also have spent some time and energy with a friend, to come up with a
-<A href=/pdp8/kc8a/kc8a.shtml>KC8A</A> programmer's panel clone for the 8/A.
-</TD>
-</TR>
+    <P>This one is much nicer cosmetically, but I haven't made the time to
+try it out yet.
+    <P>I've also been working a bit on the 4915 "reader run" cards to go in these:
+<TABLE>
+<TR>
+  <TD>
+    <A href="/pdp8/tty33/4915top.jpg">
+    <IMG src="/pdp8/tty33/4915top.jpg" width=320>
+    <BR>4915 card, top view.
+  </A></TD>
+  <TD>
+    <A href="/pdp8/tty33/4915bot.jpg">
+    <IMG src="/pdp8/tty33/4915bot.jpg" width=320>
+    <BR>4915 card, bottom view.
+  </A></TD>
+</TR><TR>
+  <TD>
+    <A href="/pdp8/tty33/4915.jpg">
+    <IMG src="/pdp8/tty33/4915.jpg" width=320>
+    <BR>4915 card, installed.
+  </A></TD>
 </TABLE>
+    <P>I've located a source for the relays (and acquired 10 of them), but I'm 
+having trouble sourcing the varactors (I have 4, so far).  I have drawn CAD drawings 
+for the board, which is quite simple.  (My thought is to eventually manufacture a 
+dozen or so of the boards.)
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
