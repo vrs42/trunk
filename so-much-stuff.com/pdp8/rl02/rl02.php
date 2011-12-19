@@ -7,47 +7,22 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have two PDP-8/A computers (depending on how you count my spares).  
-    <P>Here's a pictures of the first one:
+    <P>I have two RL02 disk drives:
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/8a/pdp8a-1.jpg">
-    <IMG src="/pdp8/8a/pdp8a-1.jpg" width=320>
-    <BR>My first PDP-8/A, purchased from a fellow in Kansas.
+    <A href="/pdp8/rl02/rl02.jpg">
+    <IMG src="/pdp8/rl02/rl02.jpg" width=320>
+    <BR>My RL02 drives, cables, a couple of disk packs.
   </A></TD>
 </TABLE>
-    <P>I don't really know how extensive the problem here is.  I know it didn't 
-work when I tried it, but the problem could be as simple as not getting the front 
-panel hooked up right (I hear it's really easy to reverse the DIP connector), or 
-something more complicated could be wrong with it.
-    <P>Also in this rack (above the CPU) are my RX02 floppy drives, which work :-).
-    <P>Below the CPU, I have a couple of RL02 drives, which I hope someday to rack 
-properly and connect to the 8/A with my RL8A controller.
-</TR>
-</TD><TD>
-<TODO: Get pictures of first 8/a>
-<TODO: Get pictures of second 8/a>
-    <P><FONT size=3>
-    <DIV>I also have enough spares to form a second one...
-<TABLE>
-<TR>
-  <TD>
-    <A href="/pdp8/8a/pdp8a-2.jpg">
-    <IMG src="/pdp8/8a/pdp8a-2.jpg" width=320>
-    <BR>My PDP-8/A spares, mostly from eBay.
-  </A></TD>
-</TABLE>
-    <P>This is my pile of 8/A spares, which has now exceeded the necessary parts 
-to build another.  There is one problem, though.  The chassis is a 50Hz model, 
-so that would need to get reworked for the thing to actually work, at least here 
-in the states.  One thing cool about this is that I have the 128K memory 
-option.  (The 8/A is the only model that can support more than 32K of memory.)
-    <P>..probably should get some pictures up!
-    <P>I also have spent some time and energy with a friend, to come up with a
-<A href=/pdp8/kc8a/kc8a.shtml>KC8A</A> programmer's panel clone for the 8/A.
-</TD>
-</TR>
-</TABLE>
+    <P>These theoretically hold about 3.5Mwords per disk pack. In practice, 128 
+words were stored per sector, not 170, so the effective capacity on a PDP-8 
+(running the usual operating system) was 2 surfaces X 256 cylinders X 40 sectors/track
+X 128 words, or 2,621,440 12 bit words.
+    <P>They were also about half-again as fast as the RK05.
+    <P>I plan to rack these up properly and hang them off one of my PDP-8/A CPUs.
+The RL8A controller for them requires a hex backplane slot, which is too large 
+for an 8/E (without an expansion backplane, anyway).
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
