@@ -10,7 +10,7 @@
   <B>A completed w076x without handles.</B></FONT>
   <A href="w076x.jpg" target=_self>
     <FONT face=Verdana,Arial,Helvetica,sans-serif ?><IMG alt=w076x.jpg
-    src="W076X.jpg"
+    src="w076x.jpg"
     border=0></FONT></A><BR>
 </TD>
 <TD align=middle>
@@ -18,7 +18,7 @@
   <B>A completed m452x with handle added.</B></FONT>
   <A href="m452x.jpg"
     target=_self><FONT face=Verdana,Arial,Helvetica,sans-serif ?><IMG alt=m452x.jpg
-    src="M452X.jpg"
+    src="m452x.jpg"
     border=0></FONT></A><BR>
   <FONT face=Verdana,Arial,Helvetica,sans-serif size=1><B>Shows the suggested way to attach the handle,
     too.</B></FONT>
