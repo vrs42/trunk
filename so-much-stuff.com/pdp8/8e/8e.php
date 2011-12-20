@@ -8,7 +8,7 @@
 <TD vAlign=top>
     <P><FONT size=3>
     <DIV>I used to have two PDP-8/E computers, but I traded one of them for 
-the BM8L (see <A href=/pdp8/8L/8L.shtml>8L</A>).  I kept all the peripherals 
+the BM8L (see <A href=/pdp8/8L/8L.php>8L</A>).  I kept all the peripherals 
 for it, though.
     <P>Here are a couple of pictures of what that used to look like:
 <TABLE>
