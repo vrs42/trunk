@@ -13,7 +13,23 @@
   <TD>
     <A href="/pdp8/tty38/asr38.jpg">
     <IMG src="/pdp8/tty38/asr38.jpg" width=320>
-    <BR>My ASR-38.
+    <BR>The ASR-38.
+  </A></TD>
+  <TD>
+    <A href="/pdp8/tty38/m38-asr-1.jpg">
+    <IMG src="/pdp8/tty38/m38-asr-1.jpg" width=320>
+    <BR>Another view.
+  </A></TD>
+</TR><TR>
+  <TD>
+    <A href="/pdp8/tty38/m38-asr-2.jpg">
+    <IMG src="/pdp8/tty38/m38-asr-2.jpg" width=320>
+    <BR>Print mechanism.
+  </A></TD>
+  <TD>
+    <A href="/pdp8/tty38/m38-asr-3.jpg">
+    <IMG src="/pdp8/tty38/m38-asr-3.jpg" width=320>
+    <BR>The keyboard.
   </A></TD>
 </TABLE>
     <P>These are similar to the ASR-33, but have lower case and a choice of red 
