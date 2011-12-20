@@ -1,0 +1,48 @@
+<?php
+    $title = "RL02 Drive Numbers";
+    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+?>
+
+<P>
+I suggested I could make RL01/RL02 drive select keys, because they have a
+simple shape, and don&#039;t need added coloring. A while later, a bunch of
+people indicated a need for these, so I gave it a try. The first attempt:
+<TABLE>
+<TR>
+  <TD>
+    <A href="zero/05010008.jpg">
+    <IMG src="zero/05010008.jpg" width=320>
+    <BR>The "zero" and a (broken) "one". The blueish thing is part of the
+mold,inserted into the part to keep the drive select pins straight while the
+curing continues. I have also colored in the "0" and "READY" with a permanent
+marker.
+  </A></TD>
+  <TD>
+    <A href="zero/05010009.jpg">
+    <IMG src="zero/05010009.jpg" width=320>
+    <BR>Here I&#039;ve turned them around, so you can see the other side of each.
+Notice that I broke off one of the pins of the "one". You can also see where
+a mold defect has marred the appearance of the pin on this side.
+  </A></TD>
+</TR><TR>
+  <TD>
+    <A href="zero/05010010.jpg">
+    <IMG src="zero/05010010.jpg" width=320>
+    <BR>A side view, showing one of the side pins. It should be noted that
+these are not quite the same translucency of the originals (but they will pass light).
+  </A></TD>
+  <TD>
+    <A href="zero/05010011.jpg">
+    <IMG src="zero/05010011.jpg" width=320>
+    <BR>The other side, showing the other side pin. You can also see a
+puckered area on the face of the key, caused by a thin spot in the mold (which
+developed a puncture).
+  </A></TD>
+</TR>
+</TABLE>
+<P>
+If there is interest in these, I&#039;d have to make another (more robust) mold,
+which takes a couple of days, and start casting parts. Each casting takes
+about 3 hours to set up well enough to remove from the mold.
+
+<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
