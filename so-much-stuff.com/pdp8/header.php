@@ -31,15 +31,19 @@ P,H1,H2,H3,H4,H5,H6 { colorx: #00ff00 }
     $root = $_SERVER{'DOCUMENT_ROOT'} . '/pdp8';
     if ($handle = opendir($root)) {
         error_reporting(0);
-        echo "<A class=NavBar target=_parent href=/pdp8/index.php><B>Home</B></A> \n";
         /* This is the correct way to loop over the directory. */
         while (false !== ($d = readdir($handle))) {
             if (filemtime("$root/$d/$d.php") === false)
                 continue;
-echo strpos($d, '.');
-            echo "| <A class=NavBar target=_parent href=/pdp8/$d/$d.php><B>$d</B></A>\n"; 
+            $files[] = $d;
         }
         closedir($handle);
+        sort($files);
+        echo "<A class=NavBar target=_parent href=/pdp8/index.php><B>Home</B></A>\n";
+        foreach ($files as $d) {
+            echo strpos($d, '.');
+            echo "| <A class=NavBar target=_parent href=/pdp8/$d/$d.php><B>$d</B></A>\n"; 
+        }
     }
 ?>
       </DIV>
