@@ -12,4 +12,5 @@ all: .
 test:
 	@find . -name "*.htm" -print | xargs ./casechk.pl
 	@find . -name "*.html" -print | xargs ./casechk.pl
+	@find . -name "*.shtml" -print | xargs ./casechk.pl
 	@find . -name "*.php" -print | xargs ./casechk.pl

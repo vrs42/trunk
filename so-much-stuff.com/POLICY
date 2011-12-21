@@ -1,0 +1,45 @@
+In general, I've tried to follow these rules for the website:
+
+No Tracking
+   Tracking isn't nice, and there's really no need for it, so 
+   no cookies, hidden images, or any of that cruft.
+
+No Client Scripting
+   I run NoScript myself, because after all, *everyone* should 
+   have trust issues online.  Client side scripting is just a 
+   recipe for having the pages render incorrectly in the client's 
+   browser.
+
+No File Duplication
+   In general, every file should be presumed to change once in a 
+   while, so there should be just one copy of it, tracked in the 
+   SVN database.  Serve it from SVN, if you want to serve something 
+   that isn't uniquely part of the website.
+
+Minimal Server Scripting
+   Server side scripting is currently a necessary evil, but it does 
+   slow things down, and adds to the overall complexity.  Generally 
+   it should only be used to include /pdp/header.php and
+   /pdp/footer.php.
+
+Use 'make'
+   Everything that is machine generated should be brought up to 
+   date by a 'make' in this top level directory.  Any checking 
+   scripts should be invoked by 'make test'.  Generally, you 
+   should have a makefile wherever, and this top level one should
+   invoke it indirectly.
+
+Consistent Naming
+   Generally, the currently active files have the extension .php.
+   PHP is being used for the scripting because it is generally 
+   more flexible than .shtml.  The older .shtml stuff is deprecated.
+   Once the .php is released and working well, I hope to delete the
+   .shtml, leaving only the older revisions in SVN.  The HTML stuff
+   generally uses the .html extension, with the exception of the
+   machine generated stuff, which uses .htm.  The .html are being
+   deliberately kept indefinitely, to support those using older
+   URLs.  Eventually, they may be replaced with referring pages
+   (like bulbs.html) that point to the PHP version.  The exception 
+   would be stuff that is not expected to need server scripting, 
+   which mostly means the automatically generated stuff.
+
