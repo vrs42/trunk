@@ -7,7 +7,7 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <P>Here are some pictures of the first PDP-8/S:
+    <P>Here are some pictures of the PDP-8/S:
 <TABLE>
 <TR>
   <TD>
