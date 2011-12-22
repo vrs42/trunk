@@ -1,5 +1,5 @@
 <?php
-  $title = "PDP-8/L Computers";
+  $title = "PDP-8/S Computer";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
 
