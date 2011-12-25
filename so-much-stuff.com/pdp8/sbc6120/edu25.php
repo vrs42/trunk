@@ -108,6 +108,7 @@ Computer Games".
 "SAVE SYS:EDU25S;20200=1000" to create an executable.
 <TR><TD><TR><TD><A href=/pdp8/Basic/EduSystemHandbookJan73.pdf>EduSystem Handbook</A>
 <TD>Describes the dialects of BASIC and features of the various Edusystems.
+<A href=http://www.bitsavers.org/pdf/dec/pdp8/tss8/EduSystemHandbookJan73.pdf>Original URL</A>.
 <TR><TD><TR><TD><A href=/pdp8/Basic/games.zip>BASIC Games</A>
 <TD>The games that seem to run in EDU25 BASIC.
 <TR><TD><TR><TD><A href=/pdp8/Basic/sbcrw.zip>SBC6120 Ramdisk patch</A>
