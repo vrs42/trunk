@@ -769,7 +769,10 @@ proper bus receivers.
 
 </LEGEND><DL>
 <DT>M206</A>
-  <DD>is an Eagle version of DEC's M206 or M216 D Flip-Flop module.</DL>
+  <DD>is an Eagle version of DEC's M206 Flip-Flop module.
+<DT>M206C</A>
+  <DD>is an Eagle version of DEC's M206C Flip-Flop module.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M207 target=_blank>./DEC/Mxxx/M207</a></b>: 6 J-K Flip-Flops
@@ -796,7 +799,7 @@ proper bus receivers.
 
 </LEGEND><DL>
 <DT>M212B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M212B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
