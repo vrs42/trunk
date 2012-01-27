@@ -7,7 +7,8 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I this Posibus DF32 emulator, designed and built by Charles Morris.
+    <DIV>I have this Posibus DF32 emulator, designed and built by
+Charles Morris.
     <P>Here's a picture of it:
 <TABLE>
 <TR>
@@ -18,13 +19,14 @@
   </A></TD>
 </TABLE>
     <P>It is pictured above one of my PDP-8/L, and below it's expansion chassis.
-    <P>A DF32 setup normally consisted of a DF32 controller (Negibus or Posibus), 
-and from 1 to 8 DS32 disk drives.  Each of the drives held a whopping 32K (yes, K) 
-words, for a maximum configuration of 128K words.  They were fixed head disks, 
-however, which made them quite fast (no seek time).
-    <P>The large switch is for power, and the smaller switches write protect the 
-individual "drives".  This version uses NVRAM (with a 10 year life) to hold the 
-data, and TTL to implement the controller.  The whole works is mounted in a nice 
-1U enclosure.
+    <P>A DF32 setup normally consisted of a DF32 controller (Negibus or
+Posibus), and from 1 to 4 DS32 disk drives.  (The first DS32 comes with, and
+is often considered part of, the DF32.)  Each of the drives held a whopping
+32K (yes, K) words, for a maximum configuration of 128K words.  They were
+fixed head disks, however, which made them quite fast (no seek time).
+    <P>The large switch is for power, and the smaller switches write protect
+the upper or lower 16K of each "drive".  This version uses NVRAM (with a 10
+year life) to hold the data, and TTL to implement the controller.  The whole
+works is mounted in a nice 1U enclosure.
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
