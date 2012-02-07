@@ -20,7 +20,7 @@ the classic "module list", much like Zane Healy and others have done:
 <LI><A href=modules.txt target=_blank>modules.txt</A>
 </UL>
     <P>Clicking on the links in the HTML version will get you to the
-appropriate directory in the SVN repository, where all the mages and
+appropriate directory in the SVN repository, where all the images and
 other files for all revisions of that module are just sort of there
 in a jumble.
     <P>Second, I have made some tables that list each known revision of

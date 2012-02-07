@@ -251,7 +251,7 @@ R1110		  R111 with 2mA fan-in & 6534-C transistors, sinks 63ma
 R113	AB	  5 2-Input Gates
 R1130		  R113 with 2mA fan-in & 6534-C transistors, sinks 63ma
 R121	A*B*	  2 2-Input, 1 3-Input, 1 4-Input Gates
-R122		  Logical Complement of R121
+R122	A*	  Logical Complement of R121
 R123	B	  Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
 R131	C	  Exclusive OR, 4 circuits, Output is -3V if inputs are the same
 R141	E	  AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
@@ -264,9 +264,9 @@ R202	DE*	  Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
 R203	D	  Triple FF, Direct Clear, Set DCD Gate each
 R204	B	  Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
 R205	D	  Dual FF, Common Direct Clear, 2 DCD Gates each
-R210		  PDP8 Accumulator
-R211		  MB, PC, MA, (PDP8)
-R212		  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
+R210	A*	  PDP8 Accumulator
+R211	K*	  MB, PC, MA, (PDP8)
+R212	A*	  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
 R220	L*	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 R284		  Quadraflop, PDP8, 4 stable states
 R302	KLM*	  2 One-shots
@@ -284,7 +284,7 @@ R602	H*K*	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pul
 R603	F*	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
 R613	B*	  R603 that cannot be triggered from output, with 5 mA loads
 R623		  R603 with 400us pulse, R603 etch, retrofit for LINC-8
-R650		  Bus Driver, 2 circuits, 2 Inputs & Node
+R650	E*	  Bus Driver, 2 circuits, 2 Inputs & Node
 R663		  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in
 W005	B*	  Clamped Loads
 W023	A*	  Connector
