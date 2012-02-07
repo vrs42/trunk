@@ -2102,7 +2102,7 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx target=_blank>./DEC/Rxxx</a></b>: Rxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R001 target=_blank>./DEC/Rxxx/R001</a></b>: Diode Network
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R001 target=_blank>./DEC/Rxxx/R001</a></b>: Diode Network, 7 diodes, both end brought to pins
 
 </LEGEND><DL>
 <DT>R001A</A>
@@ -2110,7 +2110,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R002 target=_blank>./DEC/Rxxx/R002</a></b>: Diode Cluster
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R002 target=_blank>./DEC/Rxxx/R002</a></b>: Diode Network, 5 groups of 2 diodes, cathode common
 
 </LEGEND><DL>
 <DT>R002A</A>
@@ -2120,7 +2120,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R107 target=_blank>./DEC/Rxxx/R107</a></b>: 7 Inverters
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R012 target=_blank>./DEC/Rxxx/R012</a></b>: Diode Network, R002 etch, anodes common
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R107 target=_blank>./DEC/Rxxx/R107</a></b>: 7 Inverters, 1 with expansion node
 
 </LEGEND><DL>
 <DT>R107C</A>
@@ -2130,7 +2134,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R111 target=_blank>./DEC/Rxxx/R111</a></b>: 3 Diode Gates
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R111 target=_blank>./DEC/Rxxx/R111</a></b>: 3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
 
 </LEGEND><DL>
 <DT>R111D</A>
@@ -2142,7 +2146,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R113 target=_blank>./DEC/Rxxx/R113</a></b>: 5 Diode Gates
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1110 target=_blank>./DEC/Rxxx/R1110</a></b>: R111 with 2mA fan-in & 6534-C transistors, sinks 63ma
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R113 target=_blank>./DEC/Rxxx/R113</a></b>: 5 2-Input Gates
 
 </LEGEND><DL>
 <DT>R113A</A>
@@ -2152,7 +2160,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R121 target=_blank>./DEC/Rxxx/R121</a></b>: 4 Nand Gates
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1130 target=_blank>./DEC/Rxxx/R1130</a></b>: R113 with 2mA fan-in & 6534-C transistors, sinks 63ma
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R121 target=_blank>./DEC/Rxxx/R121</a></b>: 2 2-Input, 1 3-Input, 1 4-Input Gates
 
 </LEGEND><DL>
 <DT>R121A</A>
@@ -2162,7 +2174,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R123 target=_blank>./DEC/Rxxx/R123</a></b>: 6 Diode Gates
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R122 target=_blank>./DEC/Rxxx/R122</a></b>: Logical Complement of R121
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R123 target=_blank>./DEC/Rxxx/R123</a></b>: Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
 
 </LEGEND><DL>
 <DT>R123B</A>
@@ -2170,7 +2186,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R131 target=_blank>./DEC/Rxxx/R131</a></b>: 6 Diode Gates
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R131 target=_blank>./DEC/Rxxx/R131</a></b>: Exclusive OR, 4 circuits, Output is -3V if inputs are the same
 
 </LEGEND><DL>
 <DT>R131C</A>
@@ -2178,7 +2194,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R141 target=_blank>./DEC/Rxxx/R141</a></b>: Diode Gate
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R141 target=_blank>./DEC/Rxxx/R141</a></b>: AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
 
 </LEGEND><DL>
 <DT>R141E</A>
@@ -2186,7 +2202,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R151 target=_blank>./DEC/Rxxx/R151</a></b>: Binary to Octal Decoder
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R151 target=_blank>./DEC/Rxxx/R151</a></b>: Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
 
 </LEGEND><DL>
 <DT>R151D</A>
@@ -2194,7 +2210,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R181 target=_blank>./DEC/Rxxx/R181</a></b>: DC Carry Chain
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R152 target=_blank>./DEC/Rxxx/R152</a></b>: Obsolete, R151 without clamp loads, see B152
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R181 target=_blank>./DEC/Rxxx/R181</a></b>: DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
 
 </LEGEND><DL>
 <DT>R181B</A>
@@ -2204,7 +2224,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R201 target=_blank>./DEC/Rxxx/R201</a></b>: Flip Flop
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R200 target=_blank>./DEC/Rxxx/R200</a></b>: Set-Reset Flip-flop
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R201 target=_blank>./DEC/Rxxx/R201</a></b>: RS FF with 3 Set and 2 Reset DCD Gates
 
 </LEGEND><DL>
 <DT>R201C</A>
@@ -2214,7 +2238,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R202 target=_blank>./DEC/Rxxx/R202</a></b>: Dual Flip Flop
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R202 target=_blank>./DEC/Rxxx/R202</a></b>: Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
 
 </LEGEND><DL>
 <DT>R202D</A>
@@ -2224,7 +2248,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R203 target=_blank>./DEC/Rxxx/R203</a></b>: Triple Flip Flop
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R203 target=_blank>./DEC/Rxxx/R203</a></b>: Triple FF, Direct Clear, Set DCD Gate each
 
 </LEGEND><DL>
 <DT>R203D</A>
@@ -2232,7 +2256,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R204 target=_blank>./DEC/Rxxx/R204</a></b>: Quadruple Flip Flop
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R204 target=_blank>./DEC/Rxxx/R204</a></b>: Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
 
 </LEGEND><DL>
 <DT>R204B</A>
@@ -2240,7 +2264,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R205 target=_blank>./DEC/Rxxx/R205</a></b>: Dual Flip Flop
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R205 target=_blank>./DEC/Rxxx/R205</a></b>: Dual FF, Common Direct Clear, 2 DCD Gates each
 
 </LEGEND><DL>
 <DT>R205D</A>
@@ -2248,7 +2272,27 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R302 target=_blank>./DEC/Rxxx/R302</a></b>: Delay
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R210 target=_blank>./DEC/Rxxx/R210</a></b>: PDP8 Accumulator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R211 target=_blank>./DEC/Rxxx/R211</a></b>: MB, PC, MA, (PDP8)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R212 target=_blank>./DEC/Rxxx/R212</a></b>: MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R220 target=_blank>./DEC/Rxxx/R220</a></b>: 3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R284 target=_blank>./DEC/Rxxx/R284</a></b>: Quadraflop, PDP8, 4 stable states
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R302 target=_blank>./DEC/Rxxx/R302</a></b>: 2 One-shots
 
 </LEGEND><DL>
 <DT>R302K</A>
@@ -2267,6 +2311,66 @@ subsystem replaced with level converters and a ramboard.
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R401 target=_blank>./DEC/Rxxx/R401</a></b>: Variable Clock, 30CPS to 2 MC
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R405 target=_blank>./DEC/Rxxx/R405</a></b>: Crystal Clock, 5KC to 2 Mc Available
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R406 target=_blank>./DEC/Rxxx/R406</a></b>: Clock for PDP9/L, 1.5us
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R407 target=_blank>./DEC/Rxxx/R407</a></b>: PDP9 Parity Clock, 1.2us
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R408 target=_blank>./DEC/Rxxx/R408</a></b>: PDP8 Clock
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R409 target=_blank>./DEC/Rxxx/R409</a></b>: PDP9 Clock, 1 MC
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Clock for use with TTY, first pusle comes 1/2 period late
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R451 target=_blank>./DEC/Rxxx/R451</a></b>: Teletype Clock, for faster teletype thank R450
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R601 target=_blank>./DEC/Rxxx/R601</a></b>: Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R602 target=_blank>./DEC/Rxxx/R602</a></b>: Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R603 target=_blank>./DEC/Rxxx/R603</a></b>: Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R613 target=_blank>./DEC/Rxxx/R613</a></b>: R603 that cannot be triggered from output, with 5 mA loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R623 target=_blank>./DEC/Rxxx/R623</a></b>: R603 with 400us pulse, R603 etch, retrofit for LINC-8
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R650 target=_blank>./DEC/Rxxx/R650</a></b>: Bus Driver, 2 circuits, 2 Inputs & Node
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R663 target=_blank>./DEC/Rxxx/R663</a></b>: B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in
+
+</LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TC08 target=_blank>./DEC/TC08</a></b>: TC08 Backplane

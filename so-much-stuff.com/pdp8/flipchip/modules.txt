@@ -242,24 +242,50 @@ M966	A*	  PDP15 Memory Bus Terminator
 M969	B*	  24 LEVEL TERMINATORS LIKE M952 + 1 THERMISTOR
 M970	D*	  H854 MTD ON SINGLE X 8.5 CARD, ACCEPTS BC05C & BC01V
 M993	A*	  RK8E Control Cable Connector
-R001	A	  Diode Network
-R002	AB	  Diode Cluster
-R107	C*DX	  7 Inverters
-R111	D*EF	  3 Diode Gates
-R113	AB	  5 Diode Gates
-R121	A*B*	  4 Nand Gates
-R123	B	  6 Diode Gates
-R131	C	  6 Diode Gates
-R141	E	  Diode Gate
-R151	D	  Binary to Octal Decoder
-R181	B*C	  DC Carry Chain
-R201	CD*	  Flip Flop
-R202	DE*	  Dual Flip Flop
-R203	D	  Triple Flip Flop
-R204	B	  Quadruple Flip Flop
-R205	D	  Dual Flip Flop
-R302	KLM*	  Delay
+R001	A	  Diode Network, 7 diodes, both end brought to pins
+R002	AB	  Diode Network, 5 groups of 2 diodes, cathode common
+R012		  Diode Network, R002 etch, anodes common
+R107	C*DE*X	  7 Inverters, 1 with expansion node
+R111	D*EF	  3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
+R1110		  R111 with 2mA fan-in & 6534-C transistors, sinks 63ma
+R113	AB	  5 2-Input Gates
+R1130		  R113 with 2mA fan-in & 6534-C transistors, sinks 63ma
+R121	A*B*	  2 2-Input, 1 3-Input, 1 4-Input Gates
+R122		  Logical Complement of R121
+R123	B	  Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
+R131	C	  Exclusive OR, 4 circuits, Output is -3V if inputs are the same
+R141	E	  AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
+R151	D	  Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
+R152		  Obsolete, R151 without clamp loads, see B152
+R181	B*C	  DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
+R200		  Set-Reset Flip-flop
+R201	CD*	  RS FF with 3 Set and 2 Reset DCD Gates
+R202	DE*	  Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
+R203	D	  Triple FF, Direct Clear, Set DCD Gate each
+R204	B	  Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
+R205	D	  Dual FF, Common Direct Clear, 2 DCD Gates each
+R210		  PDP8 Accumulator
+R211		  MB, PC, MA, (PDP8)
+R212		  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
+R220	L*	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
+R284		  Quadraflop, PDP8, 4 stable states
+R302	KLM*	  2 One-shots
 R303	D*	  Integrating One Shot
+R401	H*	  Variable Clock, 30CPS to 2 MC
+R405	H*J*	  Crystal Clock, 5KC to 2 Mc Available
+R406		  Clock for PDP9/L, 1.5us
+R407		  PDP9 Parity Clock, 1.2us
+R408		  PDP8 Clock
+R409		  PDP9 Clock, 1 MC
+R450	D*E*	  Clock for use with TTY, first pusle comes 1/2 period late
+R451	E*	  Teletype Clock, for faster teletype thank R450
+R601	F*H*	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
+R602	H*K*	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
+R603	F*	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
+R613	B*	  R603 that cannot be triggered from output, with 5 mA loads
+R623		  R603 with 400us pulse, R603 etch, retrofit for LINC-8
+R650		  Bus Driver, 2 circuits, 2 Inputs & Node
+R663		  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in
 W005	B*	  Clamped Loads
 W023	A*	  Connector
 W032	A*	  Connector
