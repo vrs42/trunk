@@ -304,6 +304,15 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/buscon target=_blank>./DEC/buscon</a></b>: Negibus/Posibus Connectors
+
+</LEGEND><DL>
+<DT>BusCon</A>
+  <DD>is a version of DEC's M90x and W0x1 connector paddles, 
+(based on the work from the BusCon project).
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DM01 target=_blank>./DEC/DM01</a></b>: Data Break Multiplexor
 
 </LEGEND><DL>
@@ -381,7 +390,23 @@ been checked against the DEC version.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx target=_blank>./DEC/Gxxx</a></b>: Gxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G021 target=_blank>./DEC/Gxxx/G021</a></b>: Sense Amplifier
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G005 target=_blank>./DEC/Gxxx/G005</a></b>: 4-input Sense Amp, PDP-6, 2us, double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G008 target=_blank>./DEC/Gxxx/G008</a></b>: Slice Control for G007 & G009
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G010 target=_blank>./DEC/Gxxx/G010</a></b>: Sense Amp Selector for PDP-9, 164, also used for G012
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G020 target=_blank>./DEC/Gxxx/G020</a></b>: Sense Amp for 8/I, G021 etch, IC levels
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G021 target=_blank>./DEC/Gxxx/G021</a></b>: Dual Sense Amp for 8/I, IC levels, also used for G020
 
 </LEGEND><DL>
 <DT>G021old</A>
@@ -413,16 +438,215 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G228 target=_blank>./DEC/Gxxx/G228</a></b>: Core Inhibit Driver
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G022 target=_blank>./DEC/Gxxx/G022</a></b>: 4-input Sense Amp for PDP-10, with cable, +6.2V, -6.2V
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G023 target=_blank>./DEC/Gxxx/G023</a></b>: Master Slice Control for G022
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G050 target=_blank>./DEC/Gxxx/G050</a></b>: 9 Track, 45 ips, Dual Gap Head Read Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G060 target=_blank>./DEC/Gxxx/G060</a></b>: Mag Tape Compressor, 9 Track
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G062 target=_blank>./DEC/Gxxx/G062</a></b>: Mag Tape Peak Detector, 9 Track
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G064 target=_blank>./DEC/Gxxx/G064</a></b>: Mag Tape Slicer, 9 Track
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G083 target=_blank>./DEC/Gxxx/G083</a></b>: Disk Pre-Amp
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G084 target=_blank>./DEC/Gxxx/G084</a></b>: Mag Tape Read, Rectify, Slice Amp, TU20, also used on G086
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G085 target=_blank>./DEC/Gxxx/G085</a></b>: Disk Amplifier (replaces 1/2 G083 + 1/2 W532) + (1/2 W533)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G100 target=_blank>./DEC/Gxxx/G100</a></b>: Sense Amp & Inhibit Driver, PDP15, 3 wire, 3D memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G102 target=_blank>./DEC/Gxxx/G102</a></b>: Sense, Inhibit, & Register (4 bits) for MM11 & ME10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G103 target=_blank>./DEC/Gxxx/G103</a></b>: Memory Voltage Levels, MM11 & ME10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G206 target=_blank>./DEC/Gxxx/G206</a></b>: Memory Selector, PDP-6, 2us, double, used for G212
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G207 target=_blank>./DEC/Gxxx/G207</a></b>: Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G212 target=_blank>./DEC/Gxxx/G212</a></b>: Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G217 target=_blank>./DEC/Gxxx/G217</a></b>: Word Driver, MA10, uses G219 for Digit Driver
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G219 target=_blank>./DEC/Gxxx/G219</a></b>: Memory Selector (A G209 for negative supply), PDP9
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G221 target=_blank>./DEC/Gxxx/G221</a></b>: Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G222 target=_blank>./DEC/Gxxx/G222</a></b>: Memory Selector, IC Inputs, 4 circuits, 3 wire, 3D memory, PDP15
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G226 target=_blank>./DEC/Gxxx/G226</a></b>: XY Selection Switch, single 8.5", ME10, MM11
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G228 target=_blank>./DEC/Gxxx/G228</a></b>: Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
 
 </LEGEND><DL>
 <DT>G228</A>
-  <DD>is a drawing of DEC's G228 Inhibit Driver, including the 
+  <DD>is a drawing of DEC's G228 Inhibit Driver, including the
 unobtainium T-2052 transformers.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G717 target=_blank>./DEC/Gxxx/G717</a></b>: Positive Bus Control Signal Terminator.
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G230 target=_blank>./DEC/Gxxx/G230</a></b>: Current Source, with Delay Line on input, 0 to 40ns
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G284 target=_blank>./DEC/Gxxx/G284</a></b>: Disk Writer, Disk
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G285 target=_blank>./DEC/Gxxx/G285</a></b>: Series Switch, Disk
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G286 target=_blank>./DEC/Gxxx/G286</a></b>: Center Tap Selector, Disk
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G287 target=_blank>./DEC/Gxxx/G287</a></b>: Mag Tape Writer, 2 channels, 100mA Head Current, no center tap, 0 to -15V
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G290 target=_blank>./DEC/Gxxx/G290</a></b>: Dissk Writer, includes 2.5MHz flip-flop
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G350 target=_blank>./DEC/Gxxx/G350</a></b>: 9 Track, Dual Head, 45 IPS, Mag Tape Write Driver
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G500 target=_blank>./DEC/Gxxx/G500</a></b>: TU55/TU56 Skew Tester
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G589 target=_blank>./DEC/Gxxx/G589</a></b>: Differential Integrator/Amp, RP10 Controller, RP01-Memorex 630-1
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G590 target=_blank>./DEC/Gxxx/G590</a></b>: Differential Filtered Integrator, RP10, RP02, Memorex 660
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G604 target=_blank>./DEC/Gxxx/G604</a></b>: Memory Selection Matrix, PDP-6
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G610 target=_blank>./DEC/Gxxx/G610</a></b>: "A" Diode Matrix Board for PDP-8 stack 30-05256
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G611 target=_blank>./DEC/Gxxx/G611</a></b>: "B" Diode Matrix Board for PDP-8 stack 30-05256
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G613 target=_blank>./DEC/Gxxx/G613</a></b>: X Diode Matrix, 3 wire, 3D memory, 4K, 9/I
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G614 target=_blank>./DEC/Gxxx/G614</a></b>: Y Diode Matrix, 3 wire, 3D memory, 4K, 9/I
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G624 target=_blank>./DEC/Gxxx/G624</a></b>: Resistor Board for 8/I memory, similar to G621
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G626 target=_blank>./DEC/Gxxx/G626</a></b>: Resistor Board for memory, PDP-10, 2.5 D
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G700 target=_blank>./DEC/Gxxx/G700</a></b>: Cable Terminator, W028 etch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7000 target=_blank>./DEC/Gxxx/G7000</a></b>: I/O Bus Terminator 1
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7001 target=_blank>./DEC/Gxxx/G7001</a></b>: I/O Bus Terminator 2
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7002 target=_blank>./DEC/Gxxx/G7002</a></b>: I/O Bus Terminator 3
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7003 target=_blank>./DEC/Gxxx/G7003</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7004 target=_blank>./DEC/Gxxx/G7004</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7005 target=_blank>./DEC/Gxxx/G7005</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7006 target=_blank>./DEC/Gxxx/G7006</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G703 target=_blank>./DEC/Gxxx/G703</a></b>: 100 ohm Terminator, G700 pattern, double board with cut-out to fit over H003 or H004
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G704 target=_blank>./DEC/Gxxx/G704</a></b>: 2mA Level Terminator, G796 etch & components
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G705 target=_blank>./DEC/Gxxx/G705</a></b>: DEC Tape Jumper Module
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G706 target=_blank>./DEC/Gxxx/G706</a></b>: DEC Tape Attenuator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G715 target=_blank>./DEC/Gxxx/G715</a></b>: Terminator, equiv 100 ohms to +4V, uses +10V & ground, G700 pins
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G717 target=_blank>./DEC/Gxxx/G717</a></b>: Positive Bus Control Signal Terminator, 5 100 ohms to ground, pins K2, M2, P2, S2, T2, same grounds as W022
 
 </LEGEND><DL>
 <DT>G717</A>
@@ -430,13 +654,172 @@ unobtainium T-2052 transformers.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G879 target=_blank>./DEC/Gxxx/G879</a></b>: Transport Detector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G718 target=_blank>./DEC/Gxxx/G718</a></b>: Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G726 target=_blank>./DEC/Gxxx/G726</a></b>: ME10 Bus Control, a Jumper Board
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G737 target=_blank>./DEC/Gxxx/G737</a></b>: 9 Dividers, 150 ohms to +3V, W028 pins
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G742 target=_blank>./DEC/Gxxx/G742</a></b>: Jumper Card, pins of non-inverting M500 & M531, TU56 with positive logic controls
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G766 target=_blank>./DEC/Gxxx/G766</a></b>: G796 with 3M cable, 14 signals, 2 grounds
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G775 target=_blank>./DEC/Gxxx/G775</a></b>: 36 wires to Indicator, Q's, +6.5V from lamps, RF09
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G780 target=_blank>./DEC/Gxxx/G780</a></b>: Power Connector Card for PDP-12
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G783 target=_blank>./DEC/Gxxx/G783</a></b>: 9 Twisted Pair and Shield, 1 pair ground return
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G785 target=_blank>./DEC/Gxxx/G785</a></b>: Power Connector, 8/L, with Power OK
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G793 target=_blank>./DEC/Gxxx/G793</a></b>: PDP-8/I Switch Connector, 8/I to console
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G795 target=_blank>./DEC/Gxxx/G795</a></b>: Clamped Level Cable Connector, W021 pins, diodes to +0.7V & -3V, PDP-9, extended memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G796 target=_blank>./DEC/Gxxx/G796</a></b>: Clamped Level Cable Connector, W034 with clamps, ground and -3V with 2mA clamped loads, G704 etch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G800 target=_blank>./DEC/Gxxx/G800</a></b>: Control for 739 Power Supply
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G810 target=_blank>./DEC/Gxxx/G810</a></b>: 6V Regulator Control, Drives a G805
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G816 target=_blank>./DEC/Gxxx/G816</a></b>: Modified G806 for driving 70V Power Supply Regulator Outputs
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G817 target=_blank>./DEC/Gxxx/G817</a></b>: Card 1 for 713
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G818 target=_blank>./DEC/Gxxx/G818</a></b>: Card 2 for 713
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G821 target=_blank>./DEC/Gxxx/G821</a></b>: +5V Regulator Control and Output Card for PDP15 (see G829)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G822 target=_blank>./DEC/Gxxx/G822</a></b>: -6V Regulator (from -10V) for sense amps, PDP15
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G823 target=_blank>./DEC/Gxxx/G823</a></b>: -24V Memory Regulator Control, drives G825, PDP15
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G824 target=_blank>./DEC/Gxxx/G824</a></b>: +5V Regulator Control, PDP-12
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G825 target=_blank>./DEC/Gxxx/G825</a></b>: -24V Pass Element, from G823
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G826 target=_blank>./DEC/Gxxx/G826</a></b>: Regulator Control for 8/I, drives G805 & detects presence of other voltages
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G827 target=_blank>./DEC/Gxxx/G827</a></b>: Low Voltage Detector, PDP-15, + K303 RC's detects +9V, uses +5V
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G828 target=_blank>./DEC/Gxxx/G828</a></b>: Regulator Control, ME10, uses G805
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G829 target=_blank>./DEC/Gxxx/G829</a></b>: 5V Connector Card for PDP15 peripherals, with overvoltage SCR & fuse, can replace G821
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G830 target=_blank>./DEC/Gxxx/G830</a></b>: 5V, 10 Amp Regulator from 8V, KI10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G831 target=_blank>./DEC/Gxxx/G831</a></b>: -10V Reference, +5V output, 0 to +10V 6-bit DAC, Marginal Check Control, KI10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G836 target=_blank>./DEC/Gxxx/G836</a></b>: Positive & -20V Regulator for VT14
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G838 target=_blank>./DEC/Gxxx/G838</a></b>: Fault Protection, provides +5V for intensity board W682, in VR14
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G847 target=_blank>./DEC/Gxxx/G847</a></b>: Dual Voltage Control for G848, TU56
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G848 target=_blank>./DEC/Gxxx/G848</a></b>: TU56 Motor Drive
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G850 target=_blank>./DEC/Gxxx/G850</a></b>: SCR Motor Drive, TU55
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G851 target=_blank>./DEC/Gxxx/G851</a></b>: DEC Tape Relay Module
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G853 target=_blank>./DEC/Gxxx/G853</a></b>: DEC Tape Misc, Single Unit Selection & Timing Track Sensing
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G854 target=_blank>./DEC/Gxxx/G854</a></b>: Telegraph Line Circuit
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G858 target=_blank>./DEC/Gxxx/G858</a></b>: Teletype Connector, PDP-15, 8 pin AMP connector
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G859 target=_blank>./DEC/Gxxx/G859</a></b>: Clock & Regulator for TU56
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G879 target=_blank>./DEC/Gxxx/G879</a></b>: Transport Detector, TC08, TC09, TC15
 
 </LEGEND><DL>
 <DT>G879</A>
   <DD>is an Eagle version of DEC's G879 Transport Detector.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G882 target=_blank>./DEC/Gxxx/G882</a></b>: Manchester Reader-Writer
+
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G888 target=_blank>./DEC/Gxxx/G888</a></b>: Manchester Reader/Writer
 
@@ -455,6 +838,53 @@ MC1709.
 cross-reference information in the schematic.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G903 target=_blank>./DEC/Gxxx/G903</a></b>: Clock Accelerator for Paper Tape Reader
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G912 target=_blank>./DEC/Gxxx/G912</a></b>: Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G913 target=_blank>./DEC/Gxxx/G913</a></b>: Clock Control, (G903 + 1/2 R302 + 1/3 R603)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G916 target=_blank>./DEC/Gxxx/G916</a></b>: Power Detector & Switch Filter, PDP-12
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G917 target=_blank>./DEC/Gxxx/G917</a></b>: Gain & Set Control for VR12
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G918 target=_blank>./DEC/Gxxx/G918</a></b>: Photocell Amplifier for PT04, PT05, replacement for G908, for phototransistors
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G921 target=_blank>./DEC/Gxxx/G921</a></b>: PDP-8/L Console (plugs in)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G932 target=_blank>./DEC/Gxxx/G932</a></b>: Capstan Servo Preamp (drives H603)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G933 target=_blank>./DEC/Gxxx/G933</a></b>: Reel Motor Amp for TU10, +/-12V, +/-6A
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9340 target=_blank>./DEC/Gxxx/G9340</a></b>: Replacement for logic portion of G934
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9341 target=_blank>./DEC/Gxxx/G9341</a></b>: Replacement for output portion of G934, higher current
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G998 target=_blank>./DEC/Gxxx/G998</a></b>: Current Measuring Extender, 1-1/2 length with Bus Loops
+
+</LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/M11x target=_blank>./DEC/M11x</a></b>: Replacement for M11[13579] modules.
@@ -494,15 +924,6 @@ fourth PAL.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx target=_blank>./DEC/Mxxx</a></b>: Mxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/buscon target=_blank>./DEC/Mxxx/buscon</a></b>: Negibus/Posibus Connectors
-
-</LEGEND><DL>
-<DT>BusCon</A>
-  <DD>is a version of DEC's M90x and W0x1 connector paddles, 
-(based on the work from the BusCon project).
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M002 target=_blank>./DEC/Mxxx/M002</a></b>: 15 Loads
 
 </LEGEND><DL>
@@ -2425,22 +2846,67 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx target=_blank>./DEC/Wxxx</a></b>: Wxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W005 target=_blank>./DEC/Wxxx/W005</a></b>: Clamped Loads
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W002 target=_blank>./DEC/Wxxx/W002</a></b>: 15 2mA Clamped Loads, W005 etch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W005 target=_blank>./DEC/Wxxx/W005</a></b>: 15 Clamped Loads
 
 </LEGEND><DL>
 <DT>W005</A>
-  <DD>is a drawing of DEC's W005 Clamped Loads card.</DL>
+  <DD>is a drawing of DEC's W005 Clamped Loads card.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W023 target=_blank>./DEC/Wxxx/W023</a></b>: Connector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W010 target=_blank>./DEC/Wxxx/W010</a></b>: 10 10mA Cleamped loads to -15V
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W011 target=_blank>./DEC/Wxxx/W011</a></b>: W021 but 3.25" long.
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W012 target=_blank>./DEC/Wxxx/W012</a></b>: Flexprint Indicator Cable, -15 +15 Signal, PDP10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W013 target=_blank>./DEC/Wxxx/W013</a></b>: Word Sink Stack Connector, W016 etc, PDP10, 2 1/2 D Memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W014 target=_blank>./DEC/Wxxx/W014</a></b>: Digit Stack Connector, PDP10, 2 1/2 D Memory, modified W015 layout
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W017 target=_blank>./DEC/Wxxx/W017</a></b>: Drive Cable Connector, PDP9 Memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W020 target=_blank>./DEC/Wxxx/W020</a></b>: Indicator Cable Conn,. 18 ribbon cable, 1.5K resistors
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W021 target=_blank>./DEC/Wxxx/W021</a></b>: Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot, 10 grounds: C, F, J, L, N, R, U
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W023 target=_blank>./DEC/Wxxx/W023</a></b>: 18 Line Ribbon Connector, component spaces near A & B, others straight through
 
 </LEGEND><DL>
 <DT>W023</A>
-  <DD>is an obsolete drawing for an 18 pin paddle card.  (Use the one from the 
-BusCon project.)</DL>
+  <DD>is an obsolete drawing for an 18 pin paddle card.  (Use the one from the
+BusCon project.)
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W032 target=_blank>./DEC/Wxxx/W032</a></b>: Connector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W025 target=_blank>./DEC/Wxxx/W025</a></b>: 32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W028 target=_blank>./DEC/Wxxx/W028</a></b>: W021 with lugs for series of shunt resistors or diodes in signal leads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W032 target=_blank>./DEC/Wxxx/W032</a></b>: 5 shielded triples, DEC Tape Signal Connector, double
 
 </LEGEND><DL>
 <DT>W032</A>
@@ -2448,7 +2914,19 @@ BusCon project.)</DL>
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W070 target=_blank>./DEC/Wxxx/W070</a></b>: DEC W070 TTY Connector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W033 target=_blank>./DEC/Wxxx/W033</a></b>: Flexprint, W023 connections on "A" side, side entry cable
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W040 target=_blank>./DEC/Wxxx/W040</a></b>: 2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W051 target=_blank>./DEC/Wxxx/W051</a></b>: 7 Indicator/Solenoid Drivers, 100mA -15V max
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W070 target=_blank>./DEC/Wxxx/W070</a></b>: Teletype Cable Connector, PDP8
 
 </LEGEND><DL>
 <DT>W070</A>
@@ -2457,7 +2935,7 @@ machines.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W076 target=_blank>./DEC/Wxxx/W076</a></b>: TTY Connectors
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W076 target=_blank>./DEC/Wxxx/W076</a></b>: Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
 
 </LEGEND><DL>
 <DT>W076B</A>
@@ -2467,7 +2945,7 @@ machines.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W078 target=_blank>./DEC/Wxxx/W078</a></b>: TTY Connector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W078 target=_blank>./DEC/Wxxx/W078</a></b>: W076 with AMP connector instead of cable
 
 </LEGEND><DL>
 <DT>W078</A>
@@ -2475,7 +2953,7 @@ machines.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W101 target=_blank>./DEC/Wxxx/W101</a></b>: I/O Bus Driver
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W101 target=_blank>./DEC/Wxxx/W101</a></b>: I/O Bus Driver, similar to 4657
 
 </LEGEND><DL>
 <DT>W101B</A>
@@ -2483,7 +2961,213 @@ machines.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W952 target=_blank>./DEC/Wxxx/W952</a></b>: Wire Wrappable Module
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W102 target=_blank>./DEC/Wxxx/W102</a></b>: Memory Bus Transceiver, 1665 type
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W103 target=_blank>./DEC/Wxxx/W103</a></b>: Device Selector, PDP8
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W106 target=_blank>./DEC/Wxxx/W106</a></b>: Priority Interrupt Grant
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W107 target=_blank>./DEC/Wxxx/W107</a></b>: I/O Receiver, PDP10, 7 channels
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W122 target=_blank>./DEC/Wxxx/W122</a></b>: Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W132 target=_blank>./DEC/Wxxx/W132</a></b>: Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W250 target=_blank>./DEC/Wxxx/W250</a></b>: 12 Indicator Drivers, flex print, ground & -15V from male end
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W300 target=_blank>./DEC/Wxxx/W300</a></b>: Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W301 target=_blank>./DEC/Wxxx/W301</a></b>: Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W500 target=_blank>./DEC/Wxxx/W500</a></b>: High Impedance Follower, 7 circuits
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W501 target=_blank>./DEC/Wxxx/W501</a></b>: Schmitt Trigger, +/-10V in, 0 and 03V out
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W504 target=_blank>./DEC/Wxxx/W504</a></b>: Initial Transient Detector, A Schmitt, 0 delay, 10ms blackout
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W505 target=_blank>./DEC/Wxxx/W505</a></b>: Low Voltage Detector, measures +10V & -15V
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W507 target=_blank>./DEC/Wxxx/W507</a></b>: Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W509 target=_blank>./DEC/Wxxx/W509</a></b>: 3 phase AC Low Voltage Detector
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W510 target=_blank>./DEC/Wxxx/W510</a></b>: Positive Level Convertor, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W511 target=_blank>./DEC/Wxxx/W511</a></b>: Negative Level Convertor, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W512 target=_blank>./DEC/Wxxx/W512</a></b>: Positive Level Convertor, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W513 target=_blank>./DEC/Wxxx/W513</a></b>: Negative Level Converter, 6 circuits, used in TU55
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W514 target=_blank>./DEC/Wxxx/W514</a></b>: Positive Level Converter, 6 circuits, 100 ohm input
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W519 target=_blank>./DEC/Wxxx/W519</a></b>: Power Sequence & Crowbar
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W520 target=_blank>./DEC/Wxxx/W520</a></b>: Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W532 target=_blank>./DEC/Wxxx/W532</a></b>: Dual AC coupled Sense Amplifier, used on PDP8-S
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W533 target=_blank>./DEC/Wxxx/W533</a></b>: Dual Rectifying Slicer, was G803
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W591 target=_blank>./DEC/Wxxx/W591</a></b>: Positive Bus to DEC converter, for Memorex, 0 to +3V, 8 MC, 5 channels, W592 pins
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W592 target=_blank>./DEC/Wxxx/W592</a></b>: IBM 360 Bus to DEC Converter (non-inverting)
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W600 target=_blank>./DEC/Wxxx/W600</a></b>: Negative Level Amplifier, like 1667, 3 inverting circuits
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W601 target=_blank>./DEC/Wxxx/W601</a></b>: Positive Level Amplifier, 3 inverting circuits
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W602 target=_blank>./DEC/Wxxx/W602</a></b>: Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W603 target=_blank>./DEC/Wxxx/W603</a></b>: Positive Level Amplifier, 7 circuits
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W607 target=_blank>./DEC/Wxxx/W607</a></b>: 3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W612 target=_blank>./DEC/Wxxx/W612</a></b>: Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W640 target=_blank>./DEC/Wxxx/W640</a></b>: 3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W681 target=_blank>./DEC/Wxxx/W681</a></b>: Scope Intensifier for 34 Display
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W682 target=_blank>./DEC/Wxxx/W682</a></b>: Scope Intensifier, 0 to +3V step, delay 50 to 300ns, 400ns pulse (for VR12 & VR14)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W692 target=_blank>./DEC/Wxxx/W692</a></b>: DEC to IBM 360 Bus Driver
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W693 target=_blank>./DEC/Wxxx/W693</a></b>: DEC to CTUL Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W700 target=_blank>./DEC/Wxxx/W700</a></b>: Switch Filter, 6 circuits, similar to 1703, used on W710
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W701 target=_blank>./DEC/Wxxx/W701</a></b>: Input Network, for PDP8 Card Reader
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W702 target=_blank>./DEC/Wxxx/W702</a></b>: Teletype Level Converter for DC10B Data Line Scanner
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W706 target=_blank>./DEC/Wxxx/W706</a></b>: Teletype Receiver, 8-bit, 11 Unit Code
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W707 target=_blank>./DEC/Wxxx/W707</a></b>: Teletype Transmitter, 8 bit, 2 unit stop code
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W708 target=_blank>./DEC/Wxxx/W708</a></b>: Teletype Communications Interface
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W714 target=_blank>./DEC/Wxxx/W714</a></b>: Switch Module, 2 form C microswitches, no circuits, 9/I memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W726 target=_blank>./DEC/Wxxx/W726</a></b>: 4 DC & 3 Differentiating Switch Filters, for positive logic, TU10
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W800 target=_blank>./DEC/Wxxx/W800</a></b>: 2 Form A Reed Relays, similar to 1803
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W802 target=_blank>./DEC/Wxxx/W802</a></b>: Relay Multiplexer, 8 Reed Relays
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W808 target=_blank>./DEC/Wxxx/W808</a></b>: 2-2 Form A, 1/8 Amp 250V Relays
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W841 target=_blank>./DEC/Wxxx/W841</a></b>: 1/2 W851 for 9 Coax
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W850 target=_blank>./DEC/Wxxx/W850</a></b>: Connector, 2 double boards with W021 layout, frame, hold-down screw
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W851 target=_blank>./DEC/Wxxx/W851</a></b>: Connector, similar to W850, W851 is card & components, BC10 is assembly & cable
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W852 target=_blank>./DEC/Wxxx/W852</a></b>: W851 with no components, used in BC10C-xx, uses W851 board
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W952 target=_blank>./DEC/Wxxx/W952</a></b>: Wire Wrappable Module, W950 with sockets installed
 
 </LEGEND><DL>
 <DT>W952</A>
@@ -2491,15 +3175,16 @@ machines.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W960 target=_blank>./DEC/Wxxx/W960</a></b>: MSI Mounting Board
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W960 target=_blank>./DEC/Wxxx/W960</a></b>: MSI Mounting Board (2 14-16 pin or 1 24 pin, all pins brought out)
 
 </LEGEND><DL>
 <DT>W960</A>
   <DD>is a drawing of DEC's W960 MSI Mounting Board, which allows 16 and 24
-pin DIP components to be connected to a DEC backplane.</DL>
+pin DIP components to be connected to a DEC backplane.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W964 target=_blank>./DEC/Wxxx/W964</a></b>: Blank Universal Terminator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W964 target=_blank>./DEC/Wxxx/W964</a></b>: Blank Universal Terminator, 28 pins, single 5", 50-09733 etch
 
 </LEGEND><DL>
 <DT>W964</A>
@@ -2507,13 +3192,17 @@ pin DIP components to be connected to a DEC backplane.</DL>
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W975 target=_blank>./DEC/Wxxx/W975</a></b>: Perforated double height board
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W975 target=_blank>./DEC/Wxxx/W975</a></b>: Perforated double height board, 72 pins, 0.1" grid, contacts only
 
 </LEGEND><DL>
 <DT>W975</A>
   <DD>is a drawing of DEC's W975 double-height perfboard.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W990 target=_blank>./DEC/Wxxx/W990</a></b>: Blank Module, split lug for each of 18 pins
+
+</LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/X127026 target=_blank>./DEC/X127026</a></b>: Misc. Function Control

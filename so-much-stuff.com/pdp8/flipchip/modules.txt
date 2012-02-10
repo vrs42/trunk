@@ -1,10 +1,115 @@
 Module	Versions  Description
-G021	K	  Sense Amplifier
-G228	H*	  Core Inhibit Driver
-G717		  Positive Bus Control Signal Terminator.
-G879	A*	  Transport Detector
+G005	F*	  4-input Sense Amp, PDP-6, 2us, double
+G008	B*	  Slice Control for G007 & G009
+G010	A*	  Sense Amp Selector for PDP-9, 164, also used for G012
+G020	H*	  Sense Amp for 8/I, G021 etch, IC levels
+G021	H*K	  Dual Sense Amp for 8/I, IC levels, also used for G020
+G022	E*	  4-input Sense Amp for PDP-10, with cable, +6.2V, -6.2V
+G023	F*	  Master Slice Control for G022
+G050	D*	  9 Track, 45 ips, Dual Gap Head Read Amplifier
+G060	D*	  Mag Tape Compressor, 9 Track
+G062	D*	  Mag Tape Peak Detector, 9 Track
+G064	D*	  Mag Tape Slicer, 9 Track
+G083	C*	  Disk Pre-Amp
+G084	C*	  Mag Tape Read, Rectify, Slice Amp, TU20, also used on G086
+G085	E*	  Disk Amplifier (replaces 1/2 G083 + 1/2 W532) + (1/2 W533)
+G100	D*	  Sense Amp & Inhibit Driver, PDP15, 3 wire, 3D memory
+G102	D*	  Sense, Inhibit, & Register (4 bits) for MM11 & ME10
+G103	A*	  Memory Voltage Levels, MM11 & ME10
+G206	B*	  Memory Selector, PDP-6, 2us, double, used for G212
+G207	B*	  Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
+G212	B*	  Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
+G217	H*	  Word Driver, MA10, uses G219 for Digit Driver
+G219	H*	  Memory Selector (A G209 for negative supply), PDP9
+G221	A*B*	  Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
+G222	A*D*	  Memory Selector, IC Inputs, 4 circuits, 3 wire, 3D memory, PDP15
+G226	D*	  XY Selection Switch, single 8.5", ME10, MM11
+G228	H*	  Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
+G230	D*	  Current Source, with Delay Line on input, 0 to 40ns
+G284	C*	  Disk Writer, Disk
+G285	A*B*	  Series Switch, Disk
+G286	A*	  Center Tap Selector, Disk
+G287	B*	  Mag Tape Writer, 2 channels, 100mA Head Current, no center tap, 0 to -15V
+G290	A*	  Dissk Writer, includes 2.5MHz flip-flop
+G350	D*	  9 Track, Dual Head, 45 IPS, Mag Tape Write Driver
+G500	A*	  TU55/TU56 Skew Tester
+G589	C*	  Differential Integrator/Amp, RP10 Controller, RP01-Memorex 630-1
+G590	E*	  Differential Filtered Integrator, RP10, RP02, Memorex 660
+G604	A*	  Memory Selection Matrix, PDP-6
+G610	A*B*	  "A" Diode Matrix Board for PDP-8 stack 30-05256
+G611	B*	  "B" Diode Matrix Board for PDP-8 stack 30-05256
+G613	A*B*C*	  X Diode Matrix, 3 wire, 3D memory, 4K, 9/I
+G614	A*B*C*	  Y Diode Matrix, 3 wire, 3D memory, 4K, 9/I
+G624	C*	  Resistor Board for 8/I memory, similar to G621
+G626	C*	  Resistor Board for memory, PDP-10, 2.5 D
+G700	B*	  Cable Terminator, W028 etch
+G7000	B*	  I/O Bus Terminator 1
+G7001	C*	  I/O Bus Terminator 2
+G7002	B*	  I/O Bus Terminator 3
+G7003	A*	  I/O Bus Terminator used in H807 quicklatch terminator
+G7004	A*	  I/O Bus Terminator used in H807 quicklatch terminator
+G7005	A*	  I/O Bus Terminator used in H807 quicklatch terminator
+G7006	C*	  I/O Bus Terminator used in H807 quicklatch terminator
+G703	A*B*	  100 ohm Terminator, G700 pattern, double board with cut-out to fit over H003 or H004
+G704	A*B*	  2mA Level Terminator, G796 etch & components
+G705	A*B*	  DEC Tape Jumper Module
+G706	A*B*	  DEC Tape Attenuator
+G715	B*	  Terminator, equiv 100 ohms to +4V, uses +10V & ground, G700 pins
+G717	B*	  Positive Bus Control Signal Terminator, 5 100 ohms to ground, pins K2, M2, P2, S2, T2, same grounds as W022
+G718	A*	  Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
+G726	B*	  ME10 Bus Control, a Jumper Board
+G737	A*	  9 Dividers, 150 ohms to +3V, W028 pins
+G742	A*	  Jumper Card, pins of non-inverting M500 & M531, TU56 with positive logic controls
+G766	A*	  G796 with 3M cable, 14 signals, 2 grounds
+G775	A*B*C*	  36 wires to Indicator, Q's, +6.5V from lamps, RF09
+G780	A*	  Power Connector Card for PDP-12
+G783	A*	  9 Twisted Pair and Shield, 1 pair ground return
+G785	D*	  Power Connector, 8/L, with Power OK
+G793	B*	  PDP-8/I Switch Connector, 8/I to console
+G795	D*	  Clamped Level Cable Connector, W021 pins, diodes to +0.7V & -3V, PDP-9, extended memory
+G796	A*B*	  Clamped Level Cable Connector, W034 with clamps, ground and -3V with 2mA clamped loads, G704 etch
+G800	H*	  Control for 739 Power Supply
+G805	E*F*	  Regulator for negative 8 memory
+G810	C*	  6V Regulator Control, Drives a G805
+G816	B*	  Modified G806 for driving 70V Power Supply Regulator Outputs
+G817	A*	  Card 1 for 713
+G818	B*	  Card 2 for 713
+G821	F*	  +5V Regulator Control and Output Card for PDP15 (see G829)
+G822	F*	  -6V Regulator (from -10V) for sense amps, PDP15
+G823	B*C*	  -24V Memory Regulator Control, drives G825, PDP15
+G824	B*	  +5V Regulator Control, PDP-12
+G825	B*	  -24V Pass Element, from G823
+G826	D*E*K*L*	  Regulator Control for 8/I, drives G805 & detects presence of other voltages
+G827	A*	  Low Voltage Detector, PDP-15, + K303 RC's detects +9V, uses +5V
+G828	A*	  Regulator Control, ME10, uses G805
+G829	A*	  5V Connector Card for PDP15 peripherals, with overvoltage SCR & fuse, can replace G821
+G830	J*	  5V, 10 Amp Regulator from 8V, KI10
+G831	E*	  -10V Reference, +5V output, 0 to +10V 6-bit DAC, Marginal Check Control, KI10
+G836	B*	  Positive & -20V Regulator for VT14
+G838	A*	  Fault Protection, provides +5V for intensity board W682, in VR14
+G847	C*E*	  Dual Voltage Control for G848, TU56
+G848	L*M*	  TU56 Motor Drive
+G850	E*H*J*K*L*	  SCR Motor Drive, TU55
+G851	B*	  DEC Tape Relay Module
+G853	A*	  DEC Tape Misc, Single Unit Selection & Timing Track Sensing
+G854	A*	  Telegraph Line Circuit
+G858	A*	  Teletype Connector, PDP-15, 8 pin AMP connector
+G859	A*	  Clock & Regulator for TU56
+G879	A*	  Transport Detector, TC08, TC09, TC15
+G882	B*	  Manchester Reader-Writer
 G888	A	  Manchester Reader/Writer
-buscon		  Negibus/Posibus Connectors
+G903	E*	  Clock Accelerator for Paper Tape Reader
+G912	B*	  Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12
+G913	A*	  Clock Control, (G903 + 1/2 R302 + 1/3 R603)
+G916	A*	  Power Detector & Switch Filter, PDP-12
+G917	A*	  Gain & Set Control for VR12
+G918	D*	  Photocell Amplifier for PT04, PT05, replacement for G908, for phototransistors
+G921	A*	  PDP-8/L Console (plugs in)
+G932	D*	  Capstan Servo Preamp (drives H603)
+G933	E*	  Reel Motor Amp for TU10, +/-12V, +/-6A
+G9340	B*	  Replacement for logic portion of G934
+G9341	B*	  Replacement for output portion of G934, higher current
+G998	A*	  Current Measuring Extender, 1-1/2 length with Bus Loops
 M002	A	  15 Loads
 M040	E	  Solenoid Driver
 M044	B	  4-100mA Solenoid Drivers
@@ -18,7 +123,7 @@ M103	AB	  Device Selector
 M104	D	  I/O Bus Multiplexor
 M105	C-	  Address Selector
 M106	A	  Dot NOR Gates
-M111	ABC	  Inverters
+M111	ABCD*	  Inverters
 M112	D	  NOR Gates
 M113	BCD	  10 2-Input NAND Gates
 M115	CD	  8 3-Input NAND Gates
@@ -96,7 +201,7 @@ M260	A*	  Associative memory, 4x12, KI10, Fairchild 4102 IC, 35ns match time
 M302	K*L*	  One Shot Delay
 M304	B*	  One Shot Delay
 M306	B*	  Integrating One Shot
-M307	B*	  Integrating One Shot
+M307	A*B*	  Integrating One Shot
 M3070	C*	  Dual integrating one-shot 200ns to 20ms in 5 steps
 M308	C*	  Integrating one-shot, edge or pulse triggered, clock, power up & down
 M310	A*B*C*	  Delay Line
@@ -158,11 +263,11 @@ M666	B*C*	  I/O Bus Reset, 12 outputs, 20mA@-3V, 1/3 duty factor max
 M697		  4 Channel IBM Transmitter
 M700	A*B*C*D*E*	  Manual Timing Generator
 M703	J*	  Power Fail Logic, 8/I
-M704	B*	  Plotter Control, 8/I
-M705	J*	  Reader Control
+M704	A*B*	  Plotter Control, 8/I
+M705	A*J*	  Reader Control
 M7050	D*	  Reader Control with feed hole strobe & feed hole transistion out-of-tape sense
 M706	D*K*	  Teletype Receiver
-M707	D*	  Teletype Transmitter
+M707	A*D*	  Teletype Transmitter
 M708	C*	  Clock Control, 8/I
 M709	B*	  Clock Counter, 8/I
 M710	F*H*	  Punch control
@@ -226,7 +331,7 @@ M919	B*	  11 EXTERNAL BUS, 2 60-WIRE MYLAR, 56 SIGNALS, 14 GND PINS
 M921	B*	  DEVICE CODE SELECT JUMPER MODULE, FOR 3 IOT'S
 M922	B*C*	  M901 WITH JUMPERS INSTEAD OF RESISTORS FOR INDICATOR BUS, NOT TO BE USED ON BOTH ENDS OF ANY CABLE
 M926	A*	  M901 WITH 100 OHMS IN SERIES WITH SOME OF THE PINS
-M930	C	  RK05/Unibus Terminator
+M930	CD*	  RK05/Unibus Terminator
 M931	D*	  15 TERMINATORS, 2K TO +5V, CLAMPED AT +.75 & +3V, M903 PINS EXCEPT 9 INDICATOR OUTPUTS, KI10
 M941	A*	  JUMPER/EXTENDER BOARD FOR TU56
 M947	C*	  INDICATOR DRIVER, 24 CKTS, CABLE OUT BACK
@@ -255,7 +360,7 @@ R122	A*	  Logical Complement of R121
 R123	B	  Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
 R131	C	  Exclusive OR, 4 circuits, Output is -3V if inputs are the same
 R141	E	  AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
-R151	D	  Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
+R151	A*D	  Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
 R152		  Obsolete, R151 without clamp loads, see B152
 R181	B*C	  DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
 R200		  Set-Reset Flip-flop
@@ -268,10 +373,10 @@ R210	A*	  PDP8 Accumulator
 R211	K*	  MB, PC, MA, (PDP8)
 R212	A*	  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
 R220	L*	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
-R284		  Quadraflop, PDP8, 4 stable states
+R284	A*	  Quadraflop, PDP8, 4 stable states
 R302	KLM*	  2 One-shots
 R303	D*	  Integrating One Shot
-R401	H*	  Variable Clock, 30CPS to 2 MC
+R401	C*H*	  Variable Clock, 30CPS to 2 MC
 R405	H*J*	  Crystal Clock, 5KC to 2 Mc Available
 R406		  Clock for PDP9/L, 1.5us
 R407		  PDP9 Parity Clock, 1.2us
@@ -281,19 +386,86 @@ R450	D*E*	  Clock for use with TTY, first pusle comes 1/2 period late
 R451	E*	  Teletype Clock, for faster teletype thank R450
 R601	F*H*	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
 R602	H*K*	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
-R603	F*	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
+R603	D*F*	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
 R613	B*	  R603 that cannot be triggered from output, with 5 mA loads
 R623		  R603 with 400us pulse, R603 etch, retrofit for LINC-8
 R650	E*	  Bus Driver, 2 circuits, 2 Inputs & Node
 R663		  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in
-W005	B*	  Clamped Loads
-W023	A*	  Connector
-W032	A*	  Connector
-W070	A*	  DEC W070 TTY Connector
-W076	BD	  TTY Connectors
-W078	A*	  TTY Connector
-W101	B	  I/O Bus Driver
-W952		  Wire Wrappable Module
-W960		  MSI Mounting Board
-W964		  Blank Universal Terminator
-W975		  Perforated double height board
+W002	A*B*	  15 2mA Clamped Loads, W005 etch
+W005	B*	  15 Clamped Loads
+W010	A*	  10 10mA Cleamped loads to -15V
+W011	B*	  W021 but 3.25" long.
+W012	B*C*	  Flexprint Indicator Cable, -15 +15 Signal, PDP10
+W013	A*B*	  Word Sink Stack Connector, W016 etc, PDP10, 2 1/2 D Memory
+W014	A*	  Digit Stack Connector, PDP10, 2 1/2 D Memory, modified W015 layout
+W017	A*B*	  Drive Cable Connector, PDP9 Memory
+W020	A*	  Indicator Cable Conn,. 18 ribbon cable, 1.5K resistors
+W021	A*B*	  Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot, 10 grounds: C, F, J, L, N, R, U
+W023	A*	  18 Line Ribbon Connector, component spaces near A & B, others straight through
+W025	B*	  32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
+W028	C*	  W021 with lugs for series of shunt resistors or diodes in signal leads
+W032	A*	  5 shielded triples, DEC Tape Signal Connector, double
+W033	A*B*C*	  Flexprint, W023 connections on "A" side, side entry cable
+W040	B*	  2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
+W051	D*	  7 Indicator/Solenoid Drivers, 100mA -15V max
+W070	A*	  Teletype Cable Connector, PDP8
+W076	BD	  Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
+W078	A*	  W076 with AMP connector instead of cable
+W101	B	  I/O Bus Driver, similar to 4657
+W102	J*	  Memory Bus Transceiver, 1665 type
+W103	C*	  Device Selector, PDP8
+W106	D*	  Priority Interrupt Grant
+W107	B*	  I/O Receiver, PDP10, 7 channels
+W122	F*	  Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
+W132	D*	  Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
+W250	A*B*	  12 Indicator Drivers, flex print, ground & -15V from male end
+W300	C*	  Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
+W301	C*	  Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
+W500	A*	  High Impedance Follower, 7 circuits
+W501	F*	  Schmitt Trigger, +/-10V in, 0 and 03V out
+W504	A*	  Initial Transient Detector, A Schmitt, 0 delay, 10ms blackout
+W505	B*	  Low Voltage Detector, measures +10V & -15V
+W507	B*	  Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
+W509	F*	  3 phase AC Low Voltage Detector
+W510	B*	  Positive Level Convertor, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
+W511	A*	  Negative Level Convertor, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
+W512	A*	  Positive Level Convertor, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
+W513	F*	  Negative Level Converter, 6 circuits, used in TU55
+W514	A*	  Positive Level Converter, 6 circuits, 100 ohm input
+W519	E*	  Power Sequence & Crowbar
+W520	B*	  Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
+W532	B*	  Dual AC coupled Sense Amplifier, used on PDP8-S
+W533	A*	  Dual Rectifying Slicer, was G803
+W591	A*	  Positive Bus to DEC converter, for Memorex, 0 to +3V, 8 MC, 5 channels, W592 pins
+W592	A*	  IBM 360 Bus to DEC Converter (non-inverting)
+W600	A*	  Negative Level Amplifier, like 1667, 3 inverting circuits
+W601	A*	  Positive Level Amplifier, 3 inverting circuits
+W602	A*	  Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
+W603	B*	  Positive Level Amplifier, 7 circuits
+W607	D*	  3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
+W612	D*	  Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
+W640	J*	  3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
+W681	A*	  Scope Intensifier for 34 Display
+W682	A*	  Scope Intensifier, 0 to +3V step, delay 50 to 300ns, 400ns pulse (for VR12 & VR14)
+W692	B*	  DEC to IBM 360 Bus Driver
+W693	C*	  DEC to CTUL Converter
+W700	B*	  Switch Filter, 6 circuits, similar to 1703, used on W710
+W701	A*	  Input Network, for PDP8 Card Reader
+W702	A*	  Teletype Level Converter for DC10B Data Line Scanner
+W706	C*E*	  Teletype Receiver, 8-bit, 11 Unit Code
+W707	H*L*P*	  Teletype Transmitter, 8 bit, 2 unit stop code
+W708	A*	  Teletype Communications Interface
+W714	A*	  Switch Module, 2 form C microswitches, no circuits, 9/I memory
+W726	B*	  4 DC & 3 Differentiating Switch Filters, for positive logic, TU10
+W800	B*	  2 Form A Reed Relays, similar to 1803
+W802	A*	  Relay Multiplexer, 8 Reed Relays
+W808	B*	  2-2 Form A, 1/8 Amp 250V Relays
+W841	C*	  1/2 W851 for 9 Coax
+W850	C*D*	  Connector, 2 double boards with W021 layout, frame, hold-down screw
+W851	D*E*	  Connector, similar to W850, W851 is card & components, BC10 is assembly & cable
+W852	B*C*D*E*	  W851 with no components, used in BC10C-xx, uses W851 board
+W952	B*	  Wire Wrappable Module, W950 with sockets installed
+W960		  MSI Mounting Board (2 14-16 pin or 1 24 pin, all pins brought out)
+W964		  Blank Universal Terminator, 28 pins, single 5", 50-09733 etch
+W975		  Perforated double height board, 72 pins, 0.1" grid, contacts only
+W990	D*E*	  Blank Module, split lug for each of 18 pins
