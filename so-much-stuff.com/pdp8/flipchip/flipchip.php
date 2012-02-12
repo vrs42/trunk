@@ -32,13 +32,15 @@ for revision A).  Hopefully there will be an Eagle schematic, though
 that means you'd have to install some version of Eagle CAD to view it.
     <P>Here are those files:
 <UL>
+<LI><A href=Bxxx.htm target=_blank>Bxxx.htm</A>
 <LI><A href=Gxxx.htm target=_blank>Gxxx.htm</A>
 <LI><A href=Mxxx.htm target=_blank>Mxxx.htm</A>
 <LI><A href=Rxxx.htm target=_blank>Rxxx.htm</A>
+<LI><A href=Sxxx.htm target=_blank>Sxxx.htm</A>
 <LI><A href=Wxxx.htm target=_blank>Wxxx.htm</A>
 </UL>
     <P>Currently, Mxxx and Rxxx have had the most work done.
-    <P>If you are looking for information about a Bxxx or an Sxxx module,
+    <P>If you are looking for more information about a Bxxx or an Sxxx module,
 those are often quite similar to the corresponding Rxxx, with some changes
 in component values.
     <P>There is no information here about Axxx or Kxxx modules yet.

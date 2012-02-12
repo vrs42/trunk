@@ -313,6 +313,189 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx target=_blank>./DEC/Bxxx</a></b>: Bxxx Modules
+
+</LEGEND><FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B104 target=_blank>./DEC/Bxxx/B104</a></b>: 4 Inverters, 3 Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B105 target=_blank>./DEC/Bxxx/B105</a></b>: 5 Inverters, 5 Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B113 target=_blank>./DEC/Bxxx/B113</a></b>: 4 2-Input Negative NAND Gages, 3 Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B115 target=_blank>./DEC/Bxxx/B115</a></b>: 3 3-Input Negative NAND Gages, 3 Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B117 target=_blank>./DEC/Bxxx/B117</a></b>: 2 5-Input Negative NAND Gates
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B130 target=_blank>./DEC/Bxxx/B130</a></b>: 4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalient to B113
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B134 target=_blank>./DEC/Bxxx/B134</a></b>: 4 2-Input Positive AND Gates, 3 Loads, 2mA equivalent to B124
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B135 target=_blank>./DEC/Bxxx/B135</a></b>: 2 mA equvalent to B115
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B136 target=_blank>./DEC/Bxxx/B136</a></b>: 3 mA equivalent to B134
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B137 target=_blank>./DEC/Bxxx/B137</a></b>: 2 mA equivalent to B117
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B138 target=_blank>./DEC/Bxxx/B138</a></b>: PDP10 Adder (B131 with added diode to kill the carry quickly)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B141 target=_blank>./DEC/Bxxx/B141</a></b>: 7 2-Input Gates, 2mA input equivalent to R141
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B142 target=_blank>./DEC/Bxxx/B142</a></b>: Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B152 target=_blank>./DEC/Bxxx/B152</a></b>: Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B156 target=_blank>./DEC/Bxxx/B156</a></b>: 2mA equivalent to B155
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B163 target=_blank>./DEC/Bxxx/B163</a></b>: 6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B165 target=_blank>./DEC/Bxxx/B165</a></b>: 2mA Diode equivalent of B105
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B166 target=_blank>./DEC/Bxxx/B166</a></b>: Counting Gate for SC Adder of PDP10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B167 target=_blank>./DEC/Bxxx/B167</a></b>: 8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B168 target=_blank>./DEC/Bxxx/B168</a></b>: 4 3-Input NANDs ORed to 3 Outputs with 3 Enable Inputs, 3x3
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B169 target=_blank>./DEC/Bxxx/B169</a></b>: Diode Gate Equivalent to B129, PDP9, 8 2-Input NANDs ORed to 2 Outputs, 4 Enable Inputs, 4x2
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B171 target=_blank>./DEC/Bxxx/B171</a></b>: 6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B172 target=_blank>./DEC/Bxxx/B172</a></b>: Faster B171, 2mA Fan-In
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B173 target=_blank>./DEC/Bxxx/B173</a></b>: 14 Input Negative NAND Gate with one input preceded by a 10 Input Positive NAND, ME10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B198 target=_blank>./DEC/Bxxx/B198</a></b>: Protection Comparator, PDP10  Memory, 0 & -3V in & out, Compares 2 8-bit Words
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B199 target=_blank>./DEC/Bxxx/B199</a></b>: FM Address Decoder for B250 IC's, double
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B204 target=_blank>./DEC/Bxxx/B204</a></b>: 4 Flip-flops
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B211 target=_blank>./DEC/Bxxx/B211</a></b>: Flip-flop, Buffered, No Delay
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B212 target=_blank>./DEC/Bxxx/B212</a></b>: Dual RS Flip-flop, PDP10, Bus Driver Output, Delayed & not Delayed RS Inputs
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B213 target=_blank>./DEC/Bxxx/B213</a></b>: PDP9 Flip-flop, Single Input Jam, no Delay
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B214 target=_blank>./DEC/Bxxx/B214</a></b>: 4 Flip-flops, B204 made out of 3 mA Gates
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B250 target=_blank>./DEC/Bxxx/B250</a></b>: Flip-flop Memory, PDP10, Fairchild IC's, 8x12 bits/card, double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B301 target=_blank>./DEC/Bxxx/B301</a></b>: 10 MC One Shot
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B311 target=_blank>./DEC/Bxxx/B311</a></b>: Tapped Delay Line, 200 ns, 25 ns steps, Emitter Follower Input
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B312 target=_blank>./DEC/Bxxx/B312</a></b>: Delay Line, B311 Continuously Variable, Diode Input, PDP10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B360 target=_blank>./DEC/Bxxx/B360</a></b>: Screwdriver Delay Line + Pulse Amp, 200-250 ns max
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B405 target=_blank>./DEC/Bxxx/B405</a></b>: Crystal Clock, 2 to 10 MC
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B410 target=_blank>./DEC/Bxxx/B410</a></b>: Voltage Controlled Clock, 1-10 MC, 40 to 100 ns negative pulses, potentiometer adjustment
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B602 target=_blank>./DEC/Bxxx/B602</a></b>: Dual 10 MC Pulse Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B611 target=_blank>./DEC/Bxxx/B611</a></b>: Dual Pulse Amplifier, 25 ns, PDP10
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B681 target=_blank>./DEC/Bxxx/B681</a></b>: 4 Power Inverters
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B683 target=_blank>./DEC/Bxxx/B683</a></b>: 3 Bus Drivers, OR output, 50 ohm load, 0 -3V
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B684 target=_blank>./DEC/Bxxx/B684</a></b>: 2 Bus Drivers, like 6684
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B685 target=_blank>./DEC/Bxxx/B685</a></b>: 3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
+
+</LEGEND></FIELDSET>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DM01 target=_blank>./DEC/DM01</a></b>: Data Break Multiplexor
 
 </LEGEND><DL>
@@ -2790,6 +2973,50 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R663 target=_blank>./DEC/Rxxx/R663</a></b>: B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in
+
+</LEGEND></FIELDSET>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx target=_blank>./DEC/Sxxx</a></b>: Sxxx Modules
+
+</LEGEND><FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S107 target=_blank>./DEC/Sxxx/S107</a></b>: R107 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S111 target=_blank>./DEC/Sxxx/S111</a></b>: R111 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S151 target=_blank>./DEC/Sxxx/S151</a></b>: R151 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S181 target=_blank>./DEC/Sxxx/S181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S202 target=_blank>./DEC/Sxxx/S202</a></b>: R202 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S203 target=_blank>./DEC/Sxxx/S203</a></b>: R203 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S205 target=_blank>./DEC/Sxxx/S205</a></b>: R205 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S284 target=_blank>./DEC/Sxxx/S284</a></b>: R284 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S602 target=_blank>./DEC/Sxxx/S602</a></b>: R602 with 5 mA Clamp Loads
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S603 target=_blank>./DEC/Sxxx/S603</a></b>: R603 with 5 mA Clamp Loads
 
 </LEGEND></FIELDSET>
 </FIELDSET>

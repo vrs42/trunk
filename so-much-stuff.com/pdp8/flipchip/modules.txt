@@ -1,4 +1,49 @@
 Module	Versions  Description
+B104	C*	  4 Inverters, 3 Loads
+B105	D*	  5 Inverters, 5 Loads
+B113	C*	  4 2-Input Negative NAND Gages, 3 Loads
+B115	C*	  3 3-Input Negative NAND Gages, 3 Loads
+B117	C*	  2 5-Input Negative NAND Gates
+B130	B*	  4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
+B133	C*	  2 mA equivalient to B113
+B134	B*	  4 2-Input Positive AND Gates, 3 Loads, 2mA equivalent to B124
+B135	C*	  2 mA equvalent to B115
+B136	B*	  3 mA equivalent to B134
+B137	C*	  2 mA equivalent to B117
+B138	B*	  PDP10 Adder (B131 with added diode to kill the carry quickly)
+B141	A*	  7 2-Input Gates, 2mA input equivalent to R141
+B142	A*	  Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
+B152	A*	  Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
+B156	A*	  2mA equivalent to B155
+B163	D*	  6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
+B165	A*	  2mA Diode equivalent of B105
+B166	A*	  Counting Gate for SC Adder of PDP10
+B167	D*	  8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
+B168	B*	  4 3-Input NANDs ORed to 3 Outputs with 3 Enable Inputs, 3x3
+B169	D*	  Diode Gate Equivalent to B129, PDP9, 8 2-Input NANDs ORed to 2 Outputs, 4 Enable Inputs, 4x2
+B171	C*	  6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
+B172	C*	  Faster B171, 2mA Fan-In
+B173	A*	  14 Input Negative NAND Gate with one input preceded by a 10 Input Positive NAND, ME10
+B198	A*	  Protection Comparator, PDP10  Memory, 0 & -3V in & out, Compares 2 8-bit Words
+B199	B*	  FM Address Decoder for B250 IC's, double
+B204	B*	  4 Flip-flops
+B211	E*	  Flip-flop, Buffered, No Delay
+B212	C*	  Dual RS Flip-flop, PDP10, Bus Driver Output, Delayed & not Delayed RS Inputs
+B213	C*	  PDP9 Flip-flop, Single Input Jam, no Delay
+B214	A*	  4 Flip-flops, B204 made out of 3 mA Gates
+B250	C*D*	  Flip-flop Memory, PDP10, Fairchild IC's, 8x12 bits/card, double
+B301	D*	  10 MC One Shot
+B311	D*	  Tapped Delay Line, 200 ns, 25 ns steps, Emitter Follower Input
+B312	B*	  Delay Line, B311 Continuously Variable, Diode Input, PDP10
+B360	D*	  Screwdriver Delay Line + Pulse Amp, 200-250 ns max
+B405	B*	  Crystal Clock, 2 to 10 MC
+B410	D*	  Voltage Controlled Clock, 1-10 MC, 40 to 100 ns negative pulses, potentiometer adjustment
+B602	B*	  Dual 10 MC Pulse Amplifier
+B611	B*	  Dual Pulse Amplifier, 25 ns, PDP10
+B681	B*	  4 Power Inverters
+B683	C*	  3 Bus Drivers, OR output, 50 ohm load, 0 -3V
+B684	J*	  2 Bus Drivers, like 6684
+B685	B*	  3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
 G005	F*	  4-input Sense Amp, PDP-6, 2us, double
 G008	B*	  Slice Control for G007 & G009
 G010	A*	  Sense Amp Selector for PDP-9, 164, also used for G012
@@ -391,6 +436,16 @@ R613	B*	  R603 that cannot be triggered from output, with 5 mA loads
 R623		  R603 with 400us pulse, R603 etch, retrofit for LINC-8
 R650	E*	  Bus Driver, 2 circuits, 2 Inputs & Node
 R663		  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in
+S107	D*E*	  R107 with 5 mA Clamp Loads
+S111	D*F*	  R111 with 5 mA Clamp Loads
+S151	B*C*D*	  R151 with 5 mA Clamp Loads
+S181	C*	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
+S202	D*E*	  R202 with 5 mA Clamp Loads
+S203	D*	  R203 with 5 mA Clamp Loads
+S205	D*	  R205 with 5 mA Clamp Loads
+S284	A*	  R284 with 5 mA Clamp Loads
+S602	H*K*	  R602 with 5 mA Clamp Loads
+S603	D*	  R603 with 5 mA Clamp Loads
 W002	A*B*	  15 2mA Clamped Loads, W005 etch
 W005	B*	  15 Clamped Loads
 W010	A*	  10 10mA Cleamped loads to -15V
