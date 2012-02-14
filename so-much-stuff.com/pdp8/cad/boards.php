@@ -3462,6 +3462,16 @@ chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DS32-pdp8.net target=_blank>./DS32-pdp8.net</a></b>: DS32 replacement based on effort of Dave G. at www.pdp8.net.
+
+</LEGEND><DL>
+<DT>ds32djg</A>
+  <DD>follows Dave's schematic closely, laid out on one long and two standard paddles.
+<DT>ds32</A>
+  <DD>is a start on a "shrink" using SMT.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./EpromEmu target=_blank>./EpromEmu</a></b>: EPROM Emulator based on work of Philip Pemberton.
 
 </LEGEND><DL>
@@ -3562,6 +3572,28 @@ implemented with three FETs and a section of an LM139 comparator.
 </LEGEND><DL>
 <DT>h11-5</A>
   <DD>is drawing of the H11-5 serial controller card by Heathkit.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./IOB6120 target=_blank>./IOB6120</a></b>: IOB 6120 by Jim Kearney
+
+</LEGEND><DL>
+<DT>iob6-r</A>
+  <DD>is the "A" version from Jim Kearney.
+<DT>iob7c</A>
+  <DD>is the "B" version from Jim Kearney.
+<DT>iob7cvrs</A>
+  <DD>is iob7c with the silk-screen visible.
+<DT>iob9avrs</A>
+  <DD>is my first attempt at fixing the battery issue (single CE#, lots of read/write enables).
+<DT>iob9bvrs</A>
+  <DD>is my second attempt at fixing the battery issue (DS1321D, CE# per ramdisk, series batteries).
+<DT>iob9cvrs</A>
+  <DD>is the fixed "9C" version manufactured in 2009 (DS1321D with parallel batteries).
+<DT>iob9xvrs</A>
+  <DD>is iob9c re-routed with slightly beefed up power rails.
+<DT>iob10avrs</A>
+  <DD>is a copy of iob9c with the bottom side silkscreen glitch (RN2) fixed.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
