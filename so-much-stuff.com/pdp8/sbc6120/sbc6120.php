@@ -92,6 +92,9 @@ parts of the mostly-built unit, here's the box of that stuff:
 </TABLE>
     <P>That's actually two pictures of the same box; I just uncovered the
 panels that were beneath the parts, circuit boards, and light bar.
+    <P>I put one of my FP6120 on the scanner to get some measurements of the colors.
+The yellow green color is approximately (173, 134, 36), and the brown is approximately
+(104, 45, 28).  (These aren't the colors used in the actual PDP-8 models.)
     <P>So far, it's actually a fairly vanilla story about buying and building 
 Bob Armstrong's wonderful kits.  From here, the story gets more complicated:
 <UL>
