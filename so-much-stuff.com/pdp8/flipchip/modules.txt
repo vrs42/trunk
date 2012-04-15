@@ -191,10 +191,14 @@ M103	AB	  Device Selector
 M104	D	  I/O Bus Multiplexor
 M105	C-	  Address Selector
 M106	A	  Dot NOR Gates
+M107		  Device Selector
+M108		  Flag Module
+M1103		  10 2-Input AND Gates
 M111	ABCD*	  Inverters
 M112	D	  NOR Gates
 M113	BCD	  10 2-Input NAND Gates
 M115	CD	  8 3-Input NAND Gates
+M116		  6 4-Input NOR Gates
 M117	BCE	  6 4-Input NAND Gates
 M119	BC	  3 8-Input NAND Gates
 M121	BD	  6 AND-NOR Gates
@@ -202,6 +206,7 @@ M126	B*	  H version of M121, not pin compatible
 M127	A	  2 2-2-3 AND-NOR Gates
 M129	A*	  4-4 AND-NOR, H, 4 circuits
 M130	C*	  5 8-bit parity circuits + 5 2-input XOR gates (MC4008)
+M1307		  6 4-Input AND Gates
 M133	AB	  10-2 Input NAND Gates
 M135	A	  8-3 Input NAND Gates
 M139	B*	  H version of M119
@@ -210,8 +215,13 @@ M142	C*	  Adder, discrete equivalent to M132
 M143	A*	  10 2-input NAND gates, with one pair sharing common input, KI10
 M145	A*	  3-input NAND gates, 7 circuits, 74H, KI10
 M149	AC	  9x2 NAND Wired OR Matrix
+M1500		  Bi-directional Bus Interfacing Gates, extended single
+M1501		  Bus Input Interface, extended single
+M1502		  Bus Output Interface, extended single
 M151	B*	  Dual binary to octal with enable, H series, KI10, 74H20
+M1510		  Bus Device Selector Module, extended double
 M152	B*	  M151 non-inverting, KI10, 74H21
+M155		  4 Line to 16 Line Decoder
 M159	A*	  4 bit arithmetic logic unit (DEC 74181), uses 50-08908 board
 M160	C*D*	  AND-NOR Gate Module
 M161	CX	  Binary to Octal/Decimal Decoder
@@ -220,6 +230,7 @@ M163	A*	  Dual binary to decimal decoder
 M164	B*	  6-bit adder for PDP-15, 2 adders for carry-in 1 or 0
 M165	D*	  Memory buffer, inverting and non-inverting output from open collector, 8 channels for KI10
 M166	E*	  9-bit Counting Gate, KI10
+M168		  12 Bit Magnitude Comparator
 M169	B*	  Functional gate module for PDP-12, 4 4-bit output multiplexors
 M170	B*	  3-3-3-2-2-2-2-2 AND-NOR & 3-2-2-2 AND-NOR, H series, KI10
 M1701	D*	  4 to 1 MUX, 4 circuits, 50-08912 etch, 74153
@@ -234,6 +245,7 @@ M178	B*	  8 En x 6 out mixer, 74H53, 74H62, KI10
 M181	A*	  Non-inverting M171
 M182	B*	  M162 with fast ICs, 74H
 M191	C*D*	  2 Look-ahead elements (74182), uses W961 board, used with M190 or M159 (board 50-08912)
+M202		  Triple J-K Flip Flop
 M203	BC*	  8 Set-Reset Flip Flops
 M204	D	  Counter Buffer
 M205	A	  5 D Flip Flops
@@ -242,6 +254,7 @@ M207	CE	  6 J-K Flip-Flops
 M208	C	  Buffer/Shift Register
 M211	B*	  6-bit Up/down counter
 M212	B	  6 Bit L-R Shift Register
+M213		  BCD Up/Down Counter
 M214	B*	  6-bit Accumulator with 3 inputs
 M216	B*C*	  6 D Flip-Flops
 M217	A*	  Clock register for PDP-12, 4 bit counter with buffer register for preset or readout
@@ -254,19 +267,26 @@ M223	B*	  MA,/MB Registers
 M226	A*	  1 Bit, all registers (except ACC) for PDP-15
 M227	B*	  Accumulator for PDP-15, 9 bits
 M228	A*	  Mark Track Decoder
+M230		  Binary to BCD and BCD to Binary Converter, double
+M232		  16x1 RAM
 M233	A*	  Disk Shift Register
+M236		  12 Bit Binary Up/Down Counter
+M237		  3 Digit BCD Up/Down Counter
 M238	D*	  2 4-bit Synchronous up/down counters with parallel load, separate up & down clocks, board etch 50-08912
 M239	A*	  3-4 Bit Counter/Registers
 M240	B*	  6 R/S Flip Flops
 M241	B*	  6 D Flip-flops (74H74) with common clock
 M242	A*	  H version of M202
 M243	B*	  8 D Flip-flops (74H74) with 2 common clocks, 4 bits each
+M245		  Dual 4 Bit Shift Register
 M246	A*	  5 D flip-flops, all pins available (74H74)
 M247	C*	  6 RS flip-flops, clocked to 6 D flip-flops
 M248	B*	  8-bit Shift right, parallel load, 50-08914 etch, 7495
 M250	B*	  16 Words, 4-bit memory (F9035), KI10
 M253	B*	  16 Words, 12-bit memory (TI 7489)
 M260	A*	  Associative memory, 4x12, KI10, Fairchild 4102 IC, 35ns match time
+M261		  4-State Motor Translator
+M262		  10-State Motor Translator, double
 M302	K*L*	  One Shot Delay
 M304	B*	  One Shot Delay
 M306	B*	  Integrating One Shot
@@ -282,6 +302,8 @@ M362	C*	  Delay, 25 to 50 ns
 M363	B*	  Delay, 15 to 30 ns, inverts
 M401	L*M*	  Variable Clock
 M402	B*	  Remotely variable clock, Uses 5V photomod, 2Hz to 1MHz
+M403		  RC Multivibrator Clock
+M404		  Crystal Clock
 M405	A*B*	  Crystal Clock, positive and negative pulse outputs, 5KHz to 10MHz
 M410	A*	  Resonant Reed Clock
 M420	C*	  Phase Lock Clock, RP09, RP15
@@ -299,6 +321,7 @@ M514	H*	  TU10 Transceiver (for connection to TC58, TC59, & TM10), see M519
 M515	D*	  Real Time Clock, 12VAC input on tabs, uses +11V & +5V
 M516	A*	  Hex Positive Bus Receiver
 M517	A*	  M507 with an enable input
+M521		  K to M Converter
 M531	A*	  8 channel Negative Bus Receiver with noise filtering (M500 pins)
 M564	E*	  I/O Bus Receiver, 8 circuits, negative bus, positive logic, light input load
 M565	C*	  Memory Bus Receiver, 8 circuite, negative bus, positive logic
@@ -308,6 +331,7 @@ M597		  6 Channel IBM Receiver
 M602	A	  Pulse Amplifier
 M603	B*	  2 Pulse Amplifiers, negative edge in, 1 positive 60ns & 1 positive 45-100ns out, 4 2-input NANDs (74H00), 3 3-input ANDs (74H11)
 M606	B*	  Pulse Generator
+M610		  6 Open Collector 2-Input NAND Gates + Pulse Amplifier
 M611	A*	  High Speed Power Inverter
 M612	B*	  6 Power Gates, 6 grounds, 5 inputs per gate pair
 M617	A*BCE	  6-4 Input NOR Buffers
@@ -329,6 +353,7 @@ M663	C*	  3 negative Memory Bus Drivers, positive input, 50 ohm load, KI10
 M664	B*	  I/O Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
 M665	E*	  Memory Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
 M666	B*C*	  I/O Bus Reset, 12 outputs, 20mA@-3V, 1/3 duty factor max
+M671		  M to K Converter
 M697		  4 Channel IBM Transmitter
 M700	A*B*C*D*E*	  Manual Timing Generator
 M7011	C*	  Serial Transmitter
@@ -336,8 +361,8 @@ M703	J*	  Power Fail Logic, 8/I
 M704	A*B*	  Plotter Control, 8/I
 M705	A*J*	  Reader Control
 M7050	D*	  Reader Control with feed hole strobe & feed hole transistion out-of-tape sense
-M706	D*K*	  Teletype Receiver
-M707	A*D*	  Teletype Transmitter
+M706	D*K*	  Teletype Receiver, double
+M707	A*D*	  Teletype Transmitter, double
 M708	C*	  Clock Control, 8/I
 M709	B*	  Clock Counter, 8/I
 M710	F*H*	  Punch control
@@ -351,6 +376,16 @@ M716	A*	  Control Logic II, CR8-I, CR8-L
 M717	C*	  Display Control, VP09, VP15
 M719	A*	  Clock Sync & Decade Counter, KW12
 M720	A*	  Memory Detection
+M730		  Positive Output Bus Interface
+M731		  Negative Output Bus Interface
+M732		  Positive Input Bus Interface
+M733		  Negative Input Bus Interface
+M734		  Input/Output Bus Multiplexer
+M735		  Input/Output Bus Transfer Register
+M736		  Priority Interrupt Module
+M737		  12-Bit Bus Receiver Interface
+M738		  Counter-Buffer Interface
+M7390		  Aynchronous Transceiver, extended double
 M750	A*C*	  Line I/O Control, equivalent to 2 W750s
 M751	A*	  Line Register & R Register for DC08A, I/O Bus Connection
 M752	A*	  Instruction Decoder & Gates for DC08A
@@ -369,12 +404,16 @@ M772	A*	  CONSOLE CONTROL #1 FOR PDP-15
 M773	B*	  CONSOLE CONTROL #2 FOR PDP-15
 M775	B*	  TIME STATE GENERATOR
 M776	A*	  Reader Register
-M7820	B*C*	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821
-M7821	B*	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820
-M783	A*B*	  Unibus/Omnibus Drivers
-M784	A*B*C*	  Unibus/Omnibus Receivers
-M785	A*B*	  Unibus/Omnibus Tranceiver
+M7820	B*C*	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
+M7821	B*	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
+M783	A*B*	  Unibus/Omnibus Drivers, extended single
+M784	A*B*C*	  Unibus/Omnibus Receivers, extended single
+M785	A*B*	  Unibus/Omnibus Tranceiver, extended single
+M786		  Device Register Interface, extended double
+M795		  Word Count and Bus Address Module, extended double
+M796		  Unibus Master Control, extended single
 M797	B*	  Register Select
+M798		  Unibus Drivers, extended single
 M837	B*D*	  Omnibus Timeshare Option
 M847	D*	  MI8E Diode Bootstrap Loader
 M850	AX	  EIA Converter and Cable Connector
@@ -387,29 +426,39 @@ M900	C*D*	  CONNECTOR TO 8/I CONSOLE, 30 SIGNALS, 2 GNDS, TTL BUFFERING
 M901	B*C*	  FLAT MYLAR CABLE CONNECTOR, 10 OHMS IN A2,B2,U1 & V1, 2 CA8LES
 M902	A*	  TERMINATOR, 18 100 OHM RESISTORS, M903 & M904 CONNECTIONS
 M903	A*	  FLAT MYLAR CONNECTOR, 18 SIGNALS, 14 GND PINS·
-M904	B*	  COAX CONNECTOR, 2 9-CONDUCTOR COAXES, M903 PINS
+M904	B*	  Coax Connector, 2x 9-signals, split lug, M903 Pins
 M906	A*B*	  Cable Terminator
 M907	A*	  Diode Clamp
 M908	B*	  Connector Module
 M909	A*	  Terminator Card
 M910	A*	  CP Terminator Card
+M9100		  H854 to H854 or Flip Chip Adapter, extended single
 M911	A*	  Memory Bus CP Terminator
-M912	A*	  I/O BUS CARD, 36 PAIRS, M904 CONNECTIONS
+M912	A*	  Coax Connector, 4x 9-conductor, split lug, M904 Connections, double
 M915	B*	  35 WIRES TO PDP-15 CONSOLE WITH PULL-UP RESISTORS
 M916		  36 Pin connector
+M917		  Ribbon Connector, 18 Signals, 14 GND Pins, split lug
+M918		  Flat Mylar Connector, 36 Signals
 M919	B*	  11 EXTERNAL BUS, 2 60-WIRE MYLAR, 56 SIGNALS, 14 GND PINS
+M920		  Unibus Jumper Module
 M921	B*	  DEVICE CODE SELECT JUMPER MODULE, FOR 3 IOT'S
 M922	B*C*	  M901 WITH JUMPERS INSTEAD OF RESISTORS FOR INDICATOR BUS, NOT TO BE USED ON BOTH ENDS OF ANY CABLE
+M925		  Flat Mylar Connector, 18 Signals, 19 Grounds, short single
 M926	A*	  M901 WITH 100 OHMS IN SERIES WITH SOME OF THE PINS
+M927		  Coax Connector, 18-signals, split lug, short
 M929	B*	  Bus Connector, double
 M930	CD*	  RK05/Unibus Terminator
 M931	D*	  15 TERMINATORS, 2K TO +5V, CLAMPED AT +.75 & +3V, M903 PINS EXCEPT 9 INDICATOR OUTPUTS, KI10
+M935		  Omnibus Jumper Module
 M941	A*	  JUMPER/EXTENDER BOARD FOR TU56
 M947	C*	  INDICATOR DRIVER, 24 CKTS, CABLE OUT BACK
 M948	B*	  24 RESISTORS TO CABLE, 4 RESISTORS TO COMMON POINT, COMPANION TO M947
 M949	A*	  9 INDICATOR DRIVERS, 18 SIGNALS, FOR KI CONSOLE
 M950	A*	  9 RESISTORS TO CABLE, 9 R TO COMMON, 18 RC FILTERS, COMPANION TO M949
 M952	C*	  27 LEVEL TERMINATORS, CLAMPS AT +.75 & 3.25V
+M953		  Flat Cable Connector, 18 Signals, 18 Grounds
+M954		  Flat Cable Connector, 36 Signals
+M955		  Flat Cable Connector, 18 Signals
 M956	A*	  18 130 OHMS TO +3.0V, M903 PINS
 M957	C*	  8,5" LONG M908, NO HANOLE, CABLE CLAMP LOCATION ON SIDES & END
 M960	D*	  TD8E Connector #1
@@ -417,6 +466,7 @@ M961	C*D*	  TD8E Connector #2
 M966	A*	  PDP15 Memory Bus Terminator
 M969	B*	  24 LEVEL TERMINATORS LIKE M952 + 1 THERMISTOR
 M970	D*	  H854 MTD ON SINGLE X 8.5 CARD, ACCEPTS BC05C & BC01V
+M975		  Flip Chip to 2x H854 Adapter, special double
 M993	A*	  RK8E Control Cable Connector
 R001	A	  Diode Network, 7 diodes, both end brought to pins
 R002	AB	  Diode Network, 5 groups of 2 diodes, cathode common
@@ -464,11 +514,13 @@ R650	E*	  Bus Driver, 2 circuits, 2 Inputs & Node
 R663		  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in)
 S107	D*E*	  R107 with 5 mA Clamp Loads
 S111	D*F*	  R111 with 5 mA Clamp Loads
+S123	B*	  Diode Gate
 S151	B*C*D*	  R151 with 5 mA Clamp Loads
 S181	C*	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 S202	D*E*	  R202 with 5 mA Clamp Loads
 S203	D*	  R203 with 5 mA Clamp Loads
 S205	D*	  R205 with 5 mA Clamp Loads
+S206	C*D*	  Dual Flip Flop
 S284	A*	  R284 with 5 mA Clamp Loads
 S602	H*K*	  R602 with 5 mA Clamp Loads
 S603	D*	  R603 with 5 mA Clamp Loads
@@ -485,8 +537,11 @@ W020	A*	  Indicator Cable Conn,. 18 ribbon cable, 1.5K resistors
 W021	A*B*	  Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot, 10 grounds: C, F, J, L, N, R, U
 W022		  W021 with 100 ohm shunt terminators
 W023	A*	  18 Line Ribbon Connector, component spaces near A & B, others straight through
+W024		  Coax Connector, 16-signals, split lug, short
 W025	B*	  32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
+W027		  Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
 W028	C*	  W021 with lugs for series of shunt resistors or diodes in signal leads
+W031		  Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
 W032	A*	  5 shielded triples, DEC Tape Signal Connector, double
 W033	A*B*C*	  Flexprint, W023 connections on "A" side, side entry cable
 W040	B*	  2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
@@ -546,25 +601,53 @@ W700	B*	  Switch Filter, 6 circuits, similar to 1703, used on W710
 W701	A*	  Input Network, for PDP8 Card Reader
 W702	A*	  Teletype Level Converter for DC10B Data Line Scanner
 W705		  3.6V Power Supply, triple width
-W706	C*E*	  Teletype Receiver, 8-bit, 11 Unit Code
-W707	H*L*P*	  Teletype Transmitter, 8 bit, 2 unit stop code
+W706	C*E*	  Teletype Receiver, 8-bit, 11 Unit Codem double
+W707	H*L*P*	  Teletype Transmitter, 8 bit, 2 unit stop code, double
 W708	A*	  Teletype Communications Interface
+W709		  Divide by 16/64 Counter
 W714	A*	  Switch Module, 2 form C microswitches, no circuits, 9/I memory
 W726	B*	  4 DC & 3 Differentiating Switch Filters, for positive logic, TU10
 W800	B*	  2 Form A Reed Relays, similar to 1803
-W802	A*	  Relay Multiplexer, 8 Reed Relays
+W802	A*	  Relay Multiplexer, 8 Reed Relays, double
 W808	B*	  2-2 Form A, 1/8 Amp 250V Relays
 W841	C*	  1/2 W851 for 9 Coax
 W850	C*D*	  Connector, 2 double boards with W021 layout, frame, hold-down screw
 W851	D*E*	  Connector, similar to W850, W851 is card & components, BC10 is assembly & cable
 W852	B*C*D*E*	  W851 with no components, used in BC10C-xx, uses W851 board
-W952	B*	  Wire Wrappable Module, W950 with sockets installed
+W940		  Wire Wrappable Module, 50x 16 pin, extended quad
+W941		  Wire Wrappable Module, 25x 16 pin, extended double
+W942		  Wire Wrappable Module, 50x 16 pin, with sockets, extended quad
+W943		  Wire Wrappable Module, 25x 16 pin, with sockets, extended double
+W950		  Wire Wrappable Module, 30x 16 pin, 8x 24 pin, extended quad
+W951		  Wire Wrappable Module, 15x 16 pin, 4x 24 pin, extended double
+W952	B*	  Wire Wrappable Module, 30x 16 pin, 8x 24 pin, with sockets, extended quad
+W953		  Wire Wrappable Module, 15x 16 pin, 4x 24 pin, with sockets, extended double
 W960		  MSI Mounting Board (2 14-16 pin or 1 24 pin, all pins brought out)
 W964		  Blank Universal Terminator, 28 pins, single 5", 50-09733 etch
+W966		  Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, extended quad
+W967		  Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, with sockets, extended quad
+W968		  Collage Mounting Board, 72x 16 pin, extended quad
+W969		  Collage Mounting Board, 36x 16 pin, extended double
 W970		  Bare Board, 36 pins, no split lugs, similar to W990
-W973		  Bare Board, 72 pins, copper clad, similar to W993
+W971		  Bare board, 72 pins, no lugs, similar to W991, double
+W972		  Copper Clad, 36 pins, similar to W992
+W9720		  Copper clad boad, both sides, extended single
+W9721		  Copper clad boad, both sides, extended double
+W9722		  Copper clad boad, both sides, extended quad
+W973		  Bare Board, 72 pins, copper clad, similar to W993, double
+W974		  Perforated single height board, 36 pins, 0.1" grid, contacts only
 W975		  Perforated double height board, 72 pins, 0.1" grid, contacts only
-W980		  Module Extender
+W979		  Collage Mounting Board, 18x 16 pin, double
+W980		  Module Extender, single sided
+W982		  Module Extender, double sided
+W984		  Module Extender, extended double
 W985		  System Module Adapter
+W987		  Module Extender, extended quad
 W990	D*E*	  Blank Module, split lug for each of 18 pins
-W995		  Perforated Module, 36 lands, 0.2" centers
+W991		  Bare board, split lugs, 36 pins, double
+W992		  Copper clad, 18 pins
+W993		  Copper clad, 36 pins, double
+W994		  Perforated Module, 0.2" centers, 18 lands
+W995		  Perforated Module, 0.2" centers, 36 lands, double
+W998		  Perforated single height board, 18 pins, 0.1" grid, contacts only
+W999		  Perforated double height board, 36 pins, 0.1" grid, contacts only
