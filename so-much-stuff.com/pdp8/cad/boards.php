@@ -352,7 +352,7 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B134 target=_blank>./DEC/Bxxx/B134</a></b>: 4 2-Input Positive AND Gates, 3 Loads, 2mA equivalent to B124
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B134 target=_blank>./DEC/Bxxx/B134</a></b>: 4 2-Input Positive AND Gates, 3 Loads, 2mA
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -847,6 +847,10 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G680 target=_blank>./DEC/Gxxx/G680</a></b>: DS32 Disk Head Matrix
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G681 target=_blank>./DEC/Gxxx/G681</a></b>: Track Matrix
 
 </LEGEND></FIELDSET>
@@ -884,6 +888,10 @@ unobtainium T-2052 transformers.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G701 target=_blank>./DEC/Gxxx/G701</a></b>: Cable Terminator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G702 target=_blank>./DEC/Gxxx/G702</a></b>: DS32 Disk Simulator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -953,6 +961,12 @@ unobtainium T-2052 transformers.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G785 target=_blank>./DEC/Gxxx/G785</a></b>: Power Connector, 8/L, with Power OK
 
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G789 target=_blank>./DEC/Gxxx/G789</a></b>: 
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G790 target=_blank>./DEC/Gxxx/G790</a></b>: 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G793 target=_blank>./DEC/Gxxx/G793</a></b>: PDP-8/I Switch Connector, 8/I to console
@@ -3551,6 +3565,10 @@ machines.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W103 target=_blank>./DEC/Wxxx/W103</a></b>: Device Selector, PDP8
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W104 target=_blank>./DEC/Wxxx/W104</a></b>: PDP-9 I/O Bus Module
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
