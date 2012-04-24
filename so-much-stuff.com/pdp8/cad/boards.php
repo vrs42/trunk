@@ -2349,6 +2349,10 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M707 target=_blank>./DEC/Mxxx/M707</a></b>: Teletype Transmitter, double
 
 </LEGEND><DL>
+<DT>M707C</A>
+  <DD>is a drawing of M707 etch C.
+<DT>M707C+</A>
+  <DD>is a drawing of M707 etch C with a resistor in SERIAL OUT, like M707D.
 <DT>M707D</A>
   <DD>needs a drawing.
 </DL>
