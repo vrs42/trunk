@@ -119,7 +119,7 @@ of the indicator assembly.
 <DL>
 <h3>TU55</h3>
 <dt>12-02749 (most likely)
-<dd>The TU55 uses a similar indicator assemblt to that later used in the TU56, 
+<dd>The TU55 uses a similar indicator assembly to that later used in the TU56, 
 but it is a 28V version.  The markings on mine are "1090B44 28V", but the parts 
 list says "1090B" which suggests perhaps a 1090B4-28V would be equivalent.  The
 bulbs inside the assembly seem to be CM2187 equivalents.

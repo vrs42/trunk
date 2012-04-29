@@ -2354,7 +2354,7 @@ by Dave Brockman.
 <DT>M707C+</A>
   <DD>is a drawing of M707 etch C with a resistor in SERIAL OUT, like M707D.
 <DT>M707D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of M707 etch D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
