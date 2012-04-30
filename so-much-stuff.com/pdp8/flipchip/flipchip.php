@@ -33,8 +33,8 @@ DEC schematic, where revision B has one (which may not work too well
 for revision A).  Hopefully there will be an Eagle schematic, though
 that currently means you'd have to install some version of Eagle CAD to
 view it.
-    <P>I should be clear here that what I mean by revision here refers
-to the <I>etch</I> revision, not the DEC internal revision number.  (That
+    <P>I should be clear that what I mean by revision here refers to
+the <I>etch</I> revision, not the DEC internal revision number.  (That
 is, the version numbers here should match those etched into the back of
 the actual modules.  The etch revision number is often missing or less 
 prominently displayed than the internal DEC revision number on DEC
