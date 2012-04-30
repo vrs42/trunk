@@ -10,7 +10,7 @@
 compiler has come up in one or another discussion forum.  The PDP-8 
 is not very suited for C -- there's no stack and consequently no 
 recursion.  There are no addressing modes suitable for accessing a 
-stack even if you create one, and the conveniently addressible 
+stack even if you create one, and the conveniently addressable 
 address space is only 4096 words long.  Folks have argued about 
 whether it was even possible, and how lame would it be if one 
 did get it working.

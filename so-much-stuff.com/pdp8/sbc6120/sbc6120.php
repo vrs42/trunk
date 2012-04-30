@@ -44,7 +44,7 @@ Here are pictures of the mostly assembled setup:
     <BR>The front panel, mostly assembled.
   </A></TD>
 </TABLE>
-    <P>When (or if) I can get get things unjammed enough to use my woodshop, I'd 
+    <P>When (or if) I can get get things unjammed enough to use my wood-shop, I'd 
 like to create an enclosure like these:
 <TABLE>
 <TR>

@@ -9,7 +9,7 @@
     <P><FONT size=3>
     <DIV>I have been working on an FPGA implementation of a PDP-8/i clone.
 I have used my 8/i lights and switches boards, to reconstruct an 8/i front panel
-(the keyswitch isn't authentic to an 8/i, though).  
+(the key-switch isn't authentic to an 8/i, though).  
 I have interfaced it to an XESS development board with another board that mounts 
 between the lights board and the development board.
     <P>Here are some pictures of the first result:

@@ -15,7 +15,7 @@ one to appear, we decided to build one.
     <P>Working from DEC's drawings, he and I drew up a pair of PCB's in Eagle 
 to mimic the originals from DEC.  As always, issues of authenticity will come 
 up, and since nothing like the original keypads seemed to be available, we 
-used a bunch of fairly ordinary tactile switches and their optional keycaps.
+used a bunch of fairly ordinary tactile switches and their optional key-caps.
     <P>Here are some photos of the boards as they came back from the fab:
 <TABLE>
 <TR>
@@ -27,7 +27,7 @@ used a bunch of fairly ordinary tactile switches and their optional keycaps.
   <TD>
     <A href="/pdp8/kc8a/barecut.jpg">
     <IMG src="/pdp8/kc8a/barecut.jpg" width=320>
-    <BR>KC8A boards after a trip through the bandsaw to seperate them.
+    <BR>KC8A boards after a trip through the band-saw to separate them.
   </A></TD>
 </TABLE>
     <P>The original panels are constructed on a pair of PCB's, mounted with 

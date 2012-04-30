@@ -42,7 +42,7 @@ You will need to set the "Copper/Dimension" design rule to 25 mils, to
 eliminate a diagnostic about copper too close to the edge in the edge
 connectors.
 <P>
-You will also want to set the routing grid to 25 mils (or other submultiple
+You will also want to set the routing grid to 25 mils (or other sub-multiple
 of 100 and 125 mils). Otherwise it will be difficult to route from the edge
 connector to the components, as the edge connector uses a 1/8" grid, and
 the components typically use a 1/10" grid.

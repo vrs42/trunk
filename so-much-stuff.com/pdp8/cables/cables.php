@@ -7,7 +7,7 @@
 <TR>
 <TD vAlign=top>
     <P>One of the recurring problems with vintage gear is that the 
-cables are seperated from the machines and lost.  Some cables are 
+cables are separated from the machines and lost.  Some cables are 
 also damaged by wear and tear, but those could probably be fixed 
 or replacement vintage cables could be located, except for the 
 chronic shortage created by the ones that are lost.
@@ -94,7 +94,7 @@ of one of my replacements:
   </A></TD>
 </TABLE>
    <P>Since I don't have any actual Negibus gear (all my systems are 
-Posibus),  I have actually used 5 CAT-5 lenghts, grounding a couple 
+Posibus),  I have actually used 5 CAT-5 lengths, grounding a couple 
 of pairs to get the required 18 pair of wires.  To keep the five CAT-5
 cables together, I have simply braided them.  I think the braid also 
 gives a rugged, retro look :-).  Here's a close-up of the paddle cards
@@ -134,7 +134,7 @@ to a lab panel:
   <TD>
     <A href="cables3.jpg">
     <IMG src="cables3.jpg" width=320>
-    <BR>Where there is a conventional Posibus attachement.
+    <BR>Where there is a conventional Posibus attachment.
   </A></TD>
 </TABLE>
    <P>I mentioned earlier that no-one wanted to mess with CAT-5 

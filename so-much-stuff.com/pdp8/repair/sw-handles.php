@@ -53,7 +53,7 @@ looks quite dark, you can see that it hardened to a lighter (taupe) color.
     <A href="sw-handles/04070007.jpg">
     <IMG src="sw-handles/04070007.jpg" width=320>
 
-    <BR>The other side. Again, a few trapped bubbles of air. None of the trapped bubles affect
+    <BR>The other side. Again, a few trapped bubbles of air. None of the trapped bubbles affect
 the function, but you&#039;d have to decide if the cosmetics were acceptable.
   </A></TD>
   <TD>
@@ -67,7 +67,7 @@ is a kind of peach color.
     <A href="sw-handles/04070009.jpg">
 
     <IMG src="sw-handles/04070009.jpg" width=320>
-    <BR>Again some minor issues with the top side, quite servicable.
+    <BR>Again some minor issues with the top side, quite serviceable.
   </A></TD>
   <TD>
     <A href="sw-handles/04070010.jpg">

@@ -24,8 +24,8 @@ address is fixed.  This, together with the JMS instruction and the lack of
 a call stack, typically means non-recursive code.  Parameters typically 
 follow the JMS instruction.  With the elimination of recursion, local variables 
 can be of "static" storage class, for more efficient referencing.  (The result 
-would actually be a bit like the Fortran II/SABR solution, but for C, or a subset 
-of C, instead of for Fortran II.)
+would actually be a bit like the FORTRAN II/SABR solution, but for C, or a subset 
+of C, instead of for FORTRAN II.)
 <P>
 <DT>
 4K, recursion/stack/VM (Like this implementation.)
@@ -41,7 +41,7 @@ PDP-8, keeping a pointer to a single word limits the address space to 4K.  An ar
 can also be made for one-word "int", since "int"s are supposed to be "fast".  (An 
 "int" is also supposed to be "16 or more bits", but there's probably no way to do 
 that that is not also slow.  There is ample precedent for ignoring the 16 bit rule on 
-small processors in the world of C for microcontrollers.)  If pointers are to be a 
+small processors in the world of C for micro-controllers.)  If pointers are to be a 
 single word, "char" will probably also need to be a simple word.
 <DT>
 32K/128K, recursion/stack/VM, big smart pointers, big ints.
@@ -64,13 +64,13 @@ declared within the module, but "far" references for parameters and for externs
 in other modules, as other modules may have been loaded in a different field.
 <P>
 <DT>
-Fortran IV/FPP output
+FORTRAN IV/FPP output
 <DD>
-The Fortran IV implementation for the PDP-8 used a very different model of 
+The FORTRAN IV implementation for the PDP-8 used a very different model of 
 computation.  Essentially code is generated, not for the PDP-8, but rather 
 for the Floating Point Processor (FPP).  On machines that don't have an FPP, 
 an emulation provides the necessary VM.  The result would be much like the 
-Fortran IV/RALF environment, but for (a subset of) C, rather than Fortran IV.
+FORTRAN IV/RALF environment, but for (a subset of) C, rather than FORTRAN IV.
 </DL>
 <P>
 You can see there are several design decisions, and more combinations than 

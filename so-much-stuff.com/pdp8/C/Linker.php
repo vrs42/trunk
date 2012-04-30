@@ -11,7 +11,7 @@ One of my objectives in choosing the SMAL assembler as the starting point for
 my relocating assembler is that it can also behave as a linker.  The way this 
 works is that the assembler resolves what symbols it can, keeping track of 
 segment names and whatnot, and emits in the ".o" file a kind of stylized 
-assember code.  Fully resolved instructions are emitted as constants,
+assembler code.  Fully resolved instructions are emitted as constants,
 relocatable values are typically output as &lt;symbol&gt; or
 &lt;symbol&gt;+&lt;constant&gt;, and (in smal8) MRI instructions are
 represented as the MRI operation followed by one of the above.  In addition,
@@ -37,7 +37,7 @@ which scans the library files, and builds a "RESOLVER" macro.  This macro
 knows which symbols are in which files, and uses the conditional assembly 
 features of smal8 to INCLUDE the relevant ".o" if one of it's symbols is 
 an unresolved forward reference.  The mkDIR.pl script creates this macro 
-(and invokation) in clib/DIR, where it can be included by the linker 
+(and invocation) in clib/DIR, where it can be included by the linker 
 shell script.
 <P>The linker shell script, then, just sets an origin, "INCLUDE"s any files 
 explicitly referenced on the command line, and "INCLUDE"s clib/DIR.

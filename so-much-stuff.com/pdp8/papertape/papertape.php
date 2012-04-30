@@ -16,7 +16,7 @@
 </UL>
 <P>Hello, and welcome to my tape archive.
 <P>The various sub-directories have various tape images in them,using what I hope is a fairly obvious system.
-<P>The actual tape images themselves come as a set of relatedfiles:
+<P>The actual tape images themselves come as a set of related files:
 <DL>
 <DT><DD>The tape image itself generally has no extension.
 File names that end in "-pb" should be in BIN format,

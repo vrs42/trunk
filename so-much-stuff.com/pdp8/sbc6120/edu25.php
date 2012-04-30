@@ -27,7 +27,7 @@
 the system in the process.
     <P>One unfortunate fact that has always disappointed me is that the H6120 chip 
 used in the Decmates and in the SBC6120 does memory management, but does not include 
-the timesharing option.  So it isn't immediately clear how to get all five of those 
+the time-sharing option.  So it isn't immediately clear how to get all five of those 
 terminals (VT52, original console, plus 3 more) to do something.
     <P>I want to credit Ethan Dicks with the idea of using EDU25 BASIC to show off 
 the SBC6120 and IOB6120.  In February of 2010, Ethan Dicks and Mike Roach had a 
@@ -40,10 +40,10 @@ for a valid copy of EDU25, and Dave Gesswein mentioned that the EDU20 binaries w
 me thinking about using the EDU20 binary to reconstruct EDU25.  In principle, if EDU20 and 
 EDU25 are sufficiently similar, one need only locate the analogous code in EDU20, dis-assemble
 it, and use that to reconstruct the EDU25 code.
-    <P>A bit of background: Among DEC's timesharing systems, the Edusystems were nice
+    <P>A bit of background: Among DEC's time-sharing systems, the Edusystems were nice
 multi-user BASIC systems, at a variety of price points.  One of these, EDU25 BASIC, is the
 largest time-sharing (as opposed to batch processing) BASIC that does not require the hardware 
-timesharing assist.  Conveniently, EDU25 BASIC supports 5 users.
+time-sharing assist.  Conveniently, EDU25 BASIC supports 5 users.
 (The manual mentions 8 users -- was there ever a patch for that?).
     <P>The problem: EDU25 BASIC has been lost for decades.  At least sort of.
 Someone long ago archived the 
@@ -57,7 +57,7 @@ could use in EDU25.  However, I did do a bunch of searching around, and found ma
 of source code around with similarities to the EDU25 code.
     <P>The missing code in EDU25 is mostly part of the floating point output routine.
 Floating point output routines are common in many larger PDP-8 software projects, and 
-many of them follow similar logic.  The remainder of the missing code are: a lookup table
+many of them follow similar logic.  The remainder of the missing code are: a look-up table
 for the 'modify' command, part of the linked list of commands pertaining to 'stop', the 
 floating point constant 10, and about half of a helper routine used by the corrupted floating 
 point output routine.
@@ -74,9 +74,9 @@ The thing that isn't very flexible is that EDU25 is designed to run stand-alone,
 it's own TC08 driver to save and load the users' BASIC programs.  Moreover, the system 
 runs with interrupts enabled, so disabling interrupts to call the OS/8 drivers is not
 really an option.
-    <P>What I did about this (after some study), was to replace the Dectape driver, 
+    <P>What I did about this (after some study), was to replace the DECTape driver, 
 starting at DTAPE, with a simple driver for the ram-disk, which has the same block size
-(128 words) as the Dectape.  I also patched some locations to contain the correct default 
+(128 words) as the DECTape.  I also patched some locations to contain the correct default 
 values for the addresses of the SBC6120/IOB6120 serial ports.
 This patched version I called 'edu25s'.
     <P>The correct sequence of answers to the initial dialog questions is illustrated here:
@@ -112,7 +112,7 @@ Computer Games".
 <TR><TD><TR><TD><A href=/pdp8/Basic/games.zip>BASIC Games</A>
 <TD>The games that seem to run in EDU25 BASIC.
 <TR><TD><TR><TD><A href=/pdp8/Basic/sbcrw.zip>SBC6120 Ramdisk patch</A>
-<TD>The source code for the Ramdisk routine that overlays the original Dectape routine.
+<TD>The source code for the Ramdisk routine that overlays the original DECTape routine.
 <TR><TD><TR><TD><A href=/pdp8/Basic/TODO.zip>Unported BASIC Games</A>
 <TD>The games that were not feasible to port.  Most are too large to fit and run in 
 a single 4K field of memory, but a few use language features not found (nor easily emulated) 

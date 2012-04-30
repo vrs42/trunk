@@ -7,7 +7,7 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <P>I have a TC01 Dectape controller.  Here's a picture:
+    <P>I have a TC01 DECTape controller.  Here's a picture:
 <TABLE>
 <TR>
   <TD>

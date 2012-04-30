@@ -1,5 +1,5 @@
 <?php
-  $title = "TU56 Dectape";
+  $title = "TU56 DECTape";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
 

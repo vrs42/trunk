@@ -25,7 +25,7 @@ an dual RX01 tower, similar to the RX02 tower I have for one of my Decmates.
     <P>The VT78 uses the Intersil 6100 PDP-8 on a chip, running a little slow so they could
 use slower RAM chips.  (Decmates used the H6120, which is faster and has an on-chip MMU.)
 It is built into a VT52 terminal chassis.
-    <P>Here is a better picure, of David Gesswein's VT78, from
+    <P>Here is a better picture, of David Gesswein's VT78, from
 <A href=http://www.pdp8.net/vt78/vt78.shtml>http://www.pdp8.net/vt78/vt78.shtml</A>. 
 It shows a clearer view of the front, and a bit of the tower it is sitting on, which 
 houses two 8 inch floppy drives.

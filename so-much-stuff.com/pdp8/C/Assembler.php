@@ -31,12 +31,12 @@ what I was looking for, and I began to modify it to assemble PDP-8 code.
 <P>
 While creating the assembler, I kept running across a variety of differences 
 between what SMAL32 wanted for assembly language input and the syntactical and 
-lexical conventions commonly used in PDP-8 assember, as well as concepts like 
+lexical conventions commonly used in PDP-8 assembler, as well as concepts like 
 page packing and literals that were not present.  What I eventually did about 
 this was to survey PDP-8 assemblers to try to determine which features a good 
 PDP-8 assembler would need, and how those needs had been addressed before.
 <P>
-There is a surprising amount of variety in PDP-8 assembers.  In the end, I had 
+There is a surprising amount of variety in PDP-8 assemblers.  In the end, I had 
 identified over 130 features that were present in some assemblers and not others.
 That doesn't even include RALF/FLAP, which I decided was different enough to not 
 even really be comparable.  I think RALF/FLAP are so different that they are best 
@@ -52,7 +52,7 @@ The other major assembler for the PDP-8 is SABR, and it is quite different.  SAB
 has a programming model that isn't really quite assembler, as the PAL-style assemblers 
 mean it.
 <P>
-In a PAL-style assembler, addressibility is a big issue.  The addressing modes of 
+In a PAL-style assembler, addressability is a big issue.  The addressing modes of 
 the PDP-8 divide memory into 128-word pages and 4096 word fields.  Extra code is 
 needed to cross these boundaries, and the programmer explicitly writes this 
 code.  The programmer also uses the notions of page and field to organize the code:
@@ -68,7 +68,7 @@ be on your same page is the literal, if you use one.  Since your instruction may
 or may not be on the same page with the preceding instruction, your literal may 
 or not be on the same page as theirs, even if it refers to the same expression.
 This also has all kinds of complex implications about the assembler understanding 
-about skip instructions, knowing how to establish addressibility to your data
+about skip instructions, knowing how to establish addressability to your data
 (which is likely not on the same page), how to get from one page to another, etc.  
 Since the data you are referencing is likely not on the same page (unless it's a 
 literal), I'd guess that the code probably expands about 50% as it passes through 
@@ -79,7 +79,7 @@ in SABR is that each assembly module fits in a single field.  Code to pass param
 and reference data in COMMON or outside the current module must all use helper 
 pseudo-ops and functions to cross a potential field boundary (even if the modules 
 were actually loaded into the same field).  All the helper functions to establish 
-addressibility across page and field boundaries form a small run-time that gets 
+addressability across page and field boundaries form a small run-time that gets 
 copied by the loader into each field which contains SABR code.
 <P>
 For my purposes, I decided that I liked MACREL better than SABR, so the version 

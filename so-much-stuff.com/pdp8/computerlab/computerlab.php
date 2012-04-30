@@ -20,7 +20,7 @@ the thing:
   </A></TD>
 </TABLE>
     <P>You use jumper wires of various lengths to connect together the circuit 
-you want to build.  There is a workbook (and a teacher's edition) of excercises 
+you want to build.  There is a workbook (and a teacher's edition) of exercises 
 that turn it into a course on computer logic.  Here are some pictures of the 
 wires (I think these were taken by Ashley of his wires):
 <TABLE>

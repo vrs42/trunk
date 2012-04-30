@@ -19,17 +19,26 @@ the classic "module list", much like Zane Healy and others have done:
 <LI><A href=modules.htm target=_blank>modules.htm</A>
 <LI><A href=modules.txt target=_blank>modules.txt</A>
 </UL>
-    <P>Clicking on the links in the HTML version will get you to the
-appropriate directory in the SVN repository, where all the images and
-other files for all revisions of that module are just sort of there
-in a jumble.
+    <P>Clicking on the first link for each item in the HTML version will
+get you to the appropriate directory in the SVN repository, where all the
+images and other files for all revisions of that module are just sort of
+there in a jumble.
+    <P>Clicking the second (and third) link, when present, will take you
+to a datasheet (or two) describing the function of that module.
     <P>Second, I have made some tables that list each known revision of
 each module and what is known about it, with links to the relevant 
 individual files.
     <P>That makes it easier to see that, say, revision A is lacking a
 DEC schematic, where revision B has one (which may not work too well
 for revision A).  Hopefully there will be an Eagle schematic, though
-that means you'd have to install some version of Eagle CAD to view it.
+that currently means you'd have to install some version of Eagle CAD to
+view it.
+    <P>I should be clear here that what I mean by revision here refers
+to the <I>etch</I> revision, not the DEC internal revision number.  (That
+is, the version numbers here should match those etched into the back of
+the actual modules.  The etch revision number is often missing or less 
+prominently displayed than the internal DEC revision number on DEC
+schematics.)
     <P>Here are those files:
 <UL>
 <LI><A href=Bxxx.htm target=_blank>Bxxx.htm</A>

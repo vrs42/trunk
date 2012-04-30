@@ -7,7 +7,7 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <P>I have a small collection of PAxx (typsetting) gear:
+    <P>I have a small collection of PAxx (typesetting) gear:
 <P>
 <TABLE>
 <TR>

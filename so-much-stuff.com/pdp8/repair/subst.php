@@ -2,7 +2,7 @@
   $title = "DEC Part Substitution";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
-DEC sometimes provides part substitution information in a litte table at the 
+DEC sometimes provides part substitution information in a little table at the 
 bottom of their schematics.  This table rolls up this information from a 
 number of module schematics.  I haven't made any effort to correct what 
 seems to be misinformation, preferring here to echo the information DEC as
@@ -15,7 +15,7 @@ the field blank, or not.)
 The note "Pair" means that the SDAn part number refers to a matched pair 
 of transistors in a single package.
 <P>
-With a few exceptions DECnnnn transistors map to 2Nxxxx, but for instance, 
+With a few exceptions DECxxxx transistors map to 2Nxxxx, but for instance, 
 the DEC2904 is sometimes 2N2904, but other times is 2N1132, 2N2118, or has 
 no substitute at all, presumably depending on how it is used in the module.
 <P>

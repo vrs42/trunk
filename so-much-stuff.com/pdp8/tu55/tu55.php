@@ -1,5 +1,5 @@
 <?php
-  $title = "TU55 Dectape";
+  $title = "TU55 DECTape";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
 
@@ -7,7 +7,7 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <P>Here's a couple of pictures of the my TU55 Dectape drive:
+    <P>Here's a couple of pictures of the my TU55 DECTape drive:
 <TABLE>
 <TR>
   <TD>

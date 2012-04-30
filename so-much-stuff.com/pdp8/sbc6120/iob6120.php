@@ -109,7 +109,7 @@ back to Bob Armstrong.
 programmer I'd used before didn't work with Windows 64-bit.  While watching bytes load into 
 these boards over and over (until my code worked), I ordered a replacement for my Willem 
 programmer, an all USB version, which was compatible with 64-bit Windows. I also ordered 
-the correct adaptor for the flash chip along with it.  In no time at all, I was able to 
+the correct adapter for the flash chip along with it.  In no time at all, I was able to 
 program the rest of my 29F400 flash chips, and then was ready to assemble the rest of the 
 IOB boards, test them, and rework them until they got the green sticker:
 <TABLE>

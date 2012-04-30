@@ -14,7 +14,7 @@
   <TD>
     <A href="/pdp8/lab/labfront.jpg">
     <IMG src="/pdp8/lab/labfront.jpg" width=320>
-    <BR>A lab panel racked, with banana plug adaptors.
+    <BR>A lab panel racked, with banana plug adapters.
   </A></TD>
   <TD>
     <A href="/pdp8/lab/labback.jpg">
@@ -24,12 +24,12 @@
 </TABLE>
     <P>These are pretty cool, and apparently were used to build the first 
 prototype of a PDP-8/S.  You insert flip-chips in the back, then wire them 
-up with patchcords on the front.  There are logic diagrams on the datasheets 
+up with patch-cords on the front.  There are logic diagrams on the datasheets 
 for the flip-chips (I should scan mine, someday), which fit in the gaps on 
 the front to remind you which pins do what on that flip-chip.
     <P>Their main drawback is that the sockets are single-sided.
 That means they work with most of the older Rxxx, Sxxx, Wxxx modules, but only a 
 small minority of the newer Mxxx.
-    <P>I'd love to get ahold of some of the "911" patchcords for these.
+    <P>I'd love to get ahold of some of the "911" patch-cords for these.
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>

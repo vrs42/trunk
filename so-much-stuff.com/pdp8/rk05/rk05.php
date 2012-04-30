@@ -17,7 +17,7 @@
   </A></TD>
 </TABLE>
     <P>I actually have another drive in rougher shape (parts drive), not pictured.
-    <P>The RK05F drive has twice the capacity, but the media is not removeable.  Hence
+    <P>The RK05F drive has twice the capacity, but the media is not removable.  Hence
 the "0/1" designation in the picture.  (Sometime I should probably get around to changing 
 drive "3" to be drive "2".)
     <P>Each RK05 unit number corresponds to 1.6Mwords of storage, organized as 203 
