@@ -127,7 +127,7 @@ module pdp8_kw(clk, reset, iot, state, mb,
    assign assert_kw_flag = kw_clk == 0;
    
    //
-   always @(posedge kw_src_clk or reset)
+   always @(posedge kw_src_clk or posedge reset)
      if (reset)
        kw_clk <= 0;
      else
@@ -145,7 +145,7 @@ module pdp8_kw(clk, reset, iot, state, mb,
        begin
 	  kw_src_ctr <= kw_src_ctr + 1;
 	  if (kw_src_ctr == 0)
-	    kw_src_clk = ~kw_src_clk;
+	    kw_src_clk <= ~kw_src_clk;
        end
 
 endmodule // pdp8_kw

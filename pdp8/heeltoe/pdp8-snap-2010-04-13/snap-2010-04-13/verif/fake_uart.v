@@ -120,8 +120,7 @@ module fake_uart(clk, reset,
      end
 
    
-   always @(*)
-     begin
+   always @(r_state)
 	if (r_state == 2)
 	  begin
 `ifdef debug_fake_rx
@@ -130,7 +129,6 @@ module fake_uart(clk, reset,
 	     rx_data = rdata[r_index];
 	     r_index = r_index + 1;
 	  end
-     end
    
 	  
    //

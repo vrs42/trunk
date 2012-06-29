@@ -431,6 +431,24 @@ module pdp8(clk, reset,
 		   (state == E0) ||
 		   (state == F2 && ext_ram_read_req);
 
+   //
+   // ea calculation
+   //
+   reg [14:0] ea;
+
+   always @(posedge clk)
+     if (reset)
+       ea <= 0;
+     else
+	  if (state == F1)
+	    ea <= { IF, ir_z_flag ? pc[11:7] : 5'b0, mb[6:0] };
+	  else
+	    if (state == D3)
+	      ea <= { (ir_i_flag && (!jmp && !jms)) ? DF : IF, mb };
+
+   wire is_index_reg;
+   assign is_index_reg = ea[11:3] == 9'o001;
+
    assign ram_wr = (state == D2 && is_index_reg) ||
 		   (state == E2 && (isz || dca || jms)) ||
 		   (state == F2 && ext_ram_write_req);
@@ -450,23 +468,6 @@ module pdp8(clk, reset,
    assign io_select = mb[8:3];
    assign io_data_out = ac;
 
-   //
-   // ea calculation
-   //
-   reg [14:0] ea;
-
-   always @(posedge clk)
-     if (reset)
-       ea <= 0;
-     else
-	  if (state == F1)
-	    ea <= { IF, ir_z_flag ? pc[11:7] : 5'b0, mb[6:0] };
-	  else
-	    if (state == D3)
-	      ea <= { (ir_i_flag && (!jmp && !jms)) ? DF : IF, mb };
-
-   wire is_index_reg;
-   assign is_index_reg = ea[11:3] == 9'o001;
    
    //
    // ma
@@ -759,8 +760,7 @@ module pdp8(clk, reset,
 			 end
 		       3'b100: ac <= ac | mq;
 		       //3'b101: tmq <= mq;
-		       3'b100: ac <= mq;	/* MQA */
-		       3'b101: ac <= mq;
+		       3'b101: ac <= mq;	/* MQA */
 		     endcase
 		end
 	   end

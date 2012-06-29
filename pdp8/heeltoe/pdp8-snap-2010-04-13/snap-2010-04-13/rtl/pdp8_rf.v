@@ -509,7 +509,8 @@ module pdp8_rf(clk, reset, iot, state, mb,
    wire        ide_buffer_wr;
   
    // ide sector buffer
-   ram_256x12 buffer(.A(buff_addr),
+   ram_256x12 buffer(.CLK(clk),
+		     .A(buff_addr),
 		     .DI(buff_in),
 		     .DO(buff_out),
 		     .CE_N(~(buff_rd | buff_wr)),
@@ -572,7 +573,7 @@ module pdp8_rf(clk, reset, iot, state, mb,
 			dma_start = 1'b1;
 			$display("rf: go! disk_addr %o", disk_addr);
 		     end
-		   3'o3: // DMAW
+		   3'o5: // DMAW
 		     begin
 			io_data_out = 0;
 			dma_start = 1'b1;
@@ -703,7 +704,7 @@ $display("rf: DCIM");
 			    DCF <= 1'b0;
 			 end
 
-		       6'o03: // DMAW
+		       6'o05: // DMAW
 			 begin
 			    // clear ac
 			    DMA <= io_data_in;
@@ -758,7 +759,7 @@ $display("rf: set DCF (CIE %b)", CIE);
        endcase // case(state)
 
    // comb logic to create 'next state'
-   always @(*)
+   always //@(*)
      begin
 	db_next_state = DB_idle;
 	case (db_state)
