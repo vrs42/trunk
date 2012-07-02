@@ -541,7 +541,7 @@ module pdp8(clk, reset, initial_pc, pc_out, ac_out,
    //
    // combinatorial
    //
-   always @(*)
+   always @(state, iot, UF, io_select, mb, interrupt_enable, UI)
      begin
 	/* defaults - these should be comb logic */
 //	interrupt_inhibit_clear = 1'b0;

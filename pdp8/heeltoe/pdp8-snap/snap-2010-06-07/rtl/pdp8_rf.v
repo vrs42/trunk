@@ -826,7 +826,7 @@ module pdp8_rf(clk, reset, iot, state, mb,
        endcase // case(state)
 
    // comb logic to create 'next state'
-   always @(*)
+   always @(db_state, dma_start, ram_done, is_read, buffer_matches_DMA, buffer_dirty, dma_done, state, ide_done)
      begin
 	db_next_state = db_state;
 	load_disk_addr = 0;

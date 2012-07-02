@@ -35,7 +35,7 @@ module bootrom(clk, reset, addr, data_out, rd, selected);
 		
     assign data_out = data;
 
-   always @(*)
+   always @(rd, addr, active)
      begin
 	deactivate = 0;
 

@@ -1,0 +1,577 @@
+Index: bootrom.v
+===================================================================
+--- bootrom.v	(revision 2523)
++++ bootrom.v	(working copy)
+@@ -35,7 +35,7 @@
+ 		
+     assign data_out = data;
+ 
+-   always @(*)
++   always @(rd, addr, active)
+      begin
+ 	deactivate = 0;
+ 
+Index: pdp8.v
+===================================================================
+--- pdp8.v	(revision 2523)
++++ pdp8.v	(working copy)
+@@ -541,7 +541,7 @@
+    //
+    // combinatorial
+    //
+-   always @(*)
++   always @(state, iot, UF, io_select, mb, interrupt_enable, UI)
+      begin
+ 	/* defaults - these should be comb logic */
+ //	interrupt_inhibit_clear = 1'b0;
+Index: pdp8_io.v
+===================================================================
+--- pdp8_io.v	(revision 2523)
++++ pdp8_io.v	(working copy)
+@@ -130,9 +130,9 @@
+ 			 tt_io_selected ? tt_io_data_avail :
+ 			 rf_io_selected ? rf_io_data_avail :
+ 			 1'b0;
+-
++
+ `ifdef debug
+-   always @(*)
++   always @(io_interrupt)
+      if (io_interrupt)
+        $display("io: io_interrupt: %b %b %b", 
+ 		kw_io_interrupt, tt_io_interrupt, rf_io_interrupt);
+Index: pdp8_rf.v
+===================================================================
+--- pdp8_rf.v	(revision 2523)
++++ pdp8_rf.v	(working copy)
+@@ -826,7 +826,7 @@
+        endcase // case(state)
+ 
+    // comb logic to create 'next state'
+-   always @(*)
++   always @(db_state, dma_start, ram_done, is_read, buffer_matches_DMA, buffer_dirty, dma_done, state, ide_done)
+      begin
+ 	db_next_state = db_state;
+ 	load_disk_addr = 0;
+Index: ram_32kx12l.v
+===================================================================
+--- ram_32kx12l.v	(revision 0)
++++ ram_32kx12l.v	(revision 0)
+@@ -0,0 +1,97 @@
++module pdp8_ram(clk, reset, addr, data_out, data_in, rd, wr);
++parameter TopBank = 7;
++input clk;
++input reset;
++input [0:14]addr;
++input [0:11]data_in;
++output [0:11]data_out;
++input rd, wr;
++
++`ifdef use_sim_ram_model
++   ram_32kx12 ram(.A(addr),
++                  .DI(data_in),
++                  .DO(data_out),
++                  .CE_N(1'b0),
++                  .WE_N(~wr));
++`else
++
++   //
++   wire          rom_decode;
++   wire [11:0]   rom_data;
++
++   bootrom rom(.clk(clk),
++               .reset(reset),
++               .addr(addr),
++               .data_out(rom_data),
++               .rd(rd),
++               .selected(rom_decode));
++
++wire [0:11] dout[TopBank:0];
++reg ena[TopBank:0];
++wand [0:11]data_o;
++wire we;
++
++genvar bank;
++
++//
++// This declares a pile of Block RAM.  Basically, 
++// RAMxN are defined for N = 0, 1, 2 to be the high, 
++// middle and low bits for a 4K bank.
++//
++generate
++for (bank = 0; bank <= TopBank; bank = bank + 1)
++begin:corebank
++     RAMB16_S4 #(
++     ) RAMx0 (
++        .DO(dout[bank][0:3]),   // 4-bit Data Output
++        .ADDR(addr[3:14]),      // 12-bit Address Input
++        .CLK(clk),              // Clock
++        .DI(data_in[0:3]),      // 4-bit Data Input
++        .EN(ena[bank]),         // RAM Enable Input
++        .SSR(1'b0),             // Synchronous Set/Reset Input
++        .WE(we)                 // Write Enable Input
++     );
++
++     RAMB16_S4 #(
++     ) RAMx1 (
++        .DO(dout[bank][4:7]),   // 4-bit Data Output
++        .ADDR(addr[3:14]),      // 12-bit Address Input
++        .CLK(clk),              // Clock
++        .DI(data_in[4:7]),      // 4-bit Data Input
++        .EN(ena[bank]),         // RAM Enable Input
++        .SSR(1'b0),             // Synchronous Set/Reset Input
++        .WE(we)                 // Write Enable Input
++     );
++
++     RAMB16_S4 #(
++     ) RAMx2 (
++        .DO(dout[bank][8:11]),  // 4-bit Data Output
++        .ADDR(addr[3:14]),      // 12-bit Address Input
++        .CLK(clk),              // Clock
++        .DI(data_in[8:11]),     // 4-bit Data Input
++        .EN(ena[bank]),         // RAM Enable Input
++        .SSR(1'b0),             // Synchronous Set/Reset Input
++        .WE(we)                 // Write Enable Input
++     );
++end
++endgenerate
++
++generate
++for (bank = 0; bank <= TopBank; bank = bank + 1)
++begin:enable
++    always @(reset, addr[0:2]) begin
++        ena[bank] = 1'b0;
++        if (!reset && addr[0:2] == bank)
++            ena[bank] = 1'b1;
++    end
++    assign data_o = (rd & ena[bank])? dout[bank] : 12'bz;
++end
++endgenerate
++
++ assign we = reset? 1'b0 : wr;  // Don't allow writes during reset.
++
++ assign data_out = rom_decode? rom_data: data_o;
++
++`endif
++
++endmodule
+Index: xsa-3s1000.ucf
+===================================================================
+--- xsa-3s1000.ucf	(revision 0)
++++ xsa-3s1000.ucf	(revision 0)
+@@ -0,0 +1,245 @@
++# XSA-3S1000 Board FPGA pin assignment constraints
++
++#TODO:input [11:0] switches;
++
++#
++# Clocks
++#
++#net CLKA          loc=T9;        # 100MHz
++#net CLKB          loc=P8;        # 50MHz
++#net CLKC          loc=R9;        # ??Mhz
++net sysclk         loc=T9;        # 100MHz Clock
++#
++# DIP switches
++#
++NET slideswitch<0> loc=K2;        # active-low dipswitch sw1-3
++NET slideswitch<1> loc=J4;        # active-low dipswitch sw1-4
++#
++# Push button switches
++#
++NET button         loc=E11;       # active-low pushbutton 
++#NET SW3_N         loc=A13;       # active-low pushbutton
++#
++# PS/2 Keyboard
++#net PS2_CLK       loc=B16; 
++#net PS2_DAT       loc=E13; 
++#
++# Status LED
++#
++#net STATUS_LED<0> loc=M6;  
++#net STATUS_LED<1> loc=M11; 
++#net STATUS_LED<2> loc=N6;  
++#net STATUS_LED<3> loc=R7;  
++#net STATUS_LED<4> loc=P10; 
++#net STATUS_LED<5> loc=T7;  
++#net STATUS_LED<6> loc=R10; 
++#
++# VGA Outputs
++#
++#NET VGA_BLUE<0>   LOC=C9;        
++#NET VGA_BLUE<1>   LOC=E7;        
++#NET VGA_BLUE<2>   LOC=D5;        
++#NET VGA_GREEN<0>  LOC=A8;        
++#NET VGA_GREEN<1>  LOC=A5;        
++#NET VGA_GREEN<2>  LOC=C3;        
++#NET VGA_RED<0>    LOC=C8;        
++#NET VGA_RED<1>    LOC=D6;        
++#NET VGA_RED<2>    LOC=B1;        
++#NET VGA_HSYNC_N   LOC=B7;        
++#NET VGA_VSYNC_N   LOC=D8;        
++#
++# Flash memory interface
++#
++#net FLASH_A<0>   LOC=N5;
++#net FLASH_A<1>   LOC=K14;
++#net FLASH_A<2>   LOC=K13;
++#net FLASH_A<3>   LOC=K12;
++#net FLASH_A<4>   LOC=L14;
++#net FLASH_A<5>   LOC=M16;
++#net FLASH_A<6>   LOC=L13;
++#net FLASH_A<7>   LOC=N16;
++#net FLASH_A<8>   LOC=N14;
++#net FLASH_A<9>   LOC=P15;
++#net FLASH_A<10>  LOC=R16;
++#net FLASH_A<11>  LOC=P14;
++#net FLASH_A<12>  LOC=P13;
++#net FLASH_A<13>  LOC=N12;
++#net FLASH_A<14>  LOC=T14;
++#net FLASH_A<15>  LOC=R13;
++#net FLASH_A<16>  LOC=N10;
++#net FLASH_A<17>  LOC=M14;
++#net FLASH_A<18>  LOC=K3;
++#net FLASH_A<19>  LOC=K4;
++#net FLASH_D<8>   LOC=T4;
++#net FLASH_D<9>   LOC=R5;
++#net FLASH_D<10>  LOC=T5;
++#net FLASH_D<11>  LOC=P6;
++#net FLASH_D<12>  LOC=M7;
++#net FLASH_D<13>  LOC=R6;
++#net FLASH_D<14>  LOC=N7;
++#net FLASH_D<15>  LOC=P7;
++#net FLASH_CE_N   LOC=R4;
++#net FLASH_OE_N   LOC=P5;
++#net FLASH_WE_N   LOC=M13;
++#net FLASH_BYTE_N LOC=T8;
++#net FLASH_RDY    LOC=L12;
++#net FLASH_RST_N  LOC=P16;
++#
++# Manually assign locations for the DCMs along the bottom of the FPGA
++# because PAR sometimes places them in opposing corners and that ruins the clocks.
++#INST "u2_dllint" LOC="DCM_X0Y0";
++#INST "u2_dllext" LOC="DCM_X1Y0";
++#
++# SDRAM memory pin assignments
++#
++#net SDRAM_clkfb  loc=N8;  # feedback SDRAM clock after PCB delays
++#net SDRAM_clkout loc=E10; # clock to SDRAM
++#net SDRAM_CKE    loc=D7;  # SDRAM clock enable
++#net SDRAM_CS_N   loc=B8;  # SDRAM chip-select
++#net SDRAM_RAS_N  loc=A9;  
++#net SDRAM_CAS_N  loc=A10; 
++#net SDRAM_WE_N   loc=B10; 
++#net SDRAM_DQMH   loc=D9;  
++#net SDRAM_DQML   loc=C10; 
++#net SDRAM_A<0>   loc=B5;  
++#net SDRAM_A<1>   loc=A4;  
++#net SDRAM_A<2>   loc=B4;  
++#net SDRAM_A<3>   loc=E6;  
++#net SDRAM_A<4>   loc=E3;  
++#net SDRAM_A<5>   loc=C1;  
++#net SDRAM_A<6>   loc=E4;  
++#net SDRAM_A<7>   loc=D3;  
++#net SDRAM_A<8>   loc=C2;  
++#net SDRAM_A<9>   loc=A3;  
++#net SDRAM_A<10>  loc=B6;  
++#net SDRAM_A<11>  loc=C5;  
++#net SDRAM_A<12>  loc=C6;  
++#net SDRAM_D<0>   loc=C15; 
++#net SDRAM_D<1>   loc=D12; 
++#net SDRAM_D<2>   loc=A14; 
++#net SDRAM_D<3>   loc=B13; 
++#net SDRAM_D<4>   loc=D11; 
++#net SDRAM_D<5>   loc=A12; 
++#net SDRAM_D<6>   loc=C11; 
++#net SDRAM_D<7>   loc=D10; 
++#net SDRAM_D<8>   loc=B11; 
++#net SDRAM_D<9>   loc=B12; 
++#net SDRAM_D<10>  loc=C12; 
++#net SDRAM_D<11>  loc=B14; 
++#net SDRAM_D<12>  loc=D14; 
++#net SDRAM_D<13>  loc=C16; 
++#net SDRAM_D<14>  loc=F12; 
++#net SDRAM_D<15>  loc=F13; 
++#net SDRAM_BA<0>  loc=A7;  
++#net SDRAM_BA<1>  loc=C7;  
++#
++# Parallel Port
++#
++#net PPORT_load    loc=n14;
++#net PPORT_clk     loc=p15;
++#net PPORT_din<0>  loc=r16;
++#net PPORT_din<1>  loc=p14;
++#net PPORT_din<2>  loc=p13;
++#net PPORT_din<3>  loc=n12;
++#net PPORT_dout<0> loc=n5;
++#net PPORT_dout<1> loc=k14;
++#net PPORT_dout<2> loc=k13;
++#net PPORT_dout<3> loc=t10;
++#
++#
++#net PPORT_d<0>    loc=N14; # FLASH_A<8>  / PPORT_LOAD
++#net PPORT_d<1>    loc=P15; # FLASH_A<9>  / PPORT_CLK
++#net PPORT_d<2>    loc=R16; # FLASH_A<10> / PPORT_DIN<0>
++#net PPORT_d<3>    loc=P14; # FLASH_A<11> / PPORT_DIN<1>
++#net PPORT_d<4>    loc=P13; # FLASH_A<12> / PPORT_DIN<2>
++#net PPORT_d<5>    loc=N12; # FLASH_A<13> / PPORT_DIN<3>
++## net PPORT_d<6>   loc=T14; # FLASH_A<14>
++## net PPORT_d<7>   loc=R13; # FLASH_A<15>
++#
++#net PPORT_s<3>    loc=N5;  # FLASH_A<0> / PPORT_DOUT<0>
++#net PPORT_s<4>    loc=K14; # FLASH_A<1> / PPORT_DOUT<1>
++#net PPORT_s<5>    loc=K13; # FLASH_A<2> / PPORT_DOUT<2>
++#net PPORT_s<6>    loc=T10; #            / PPORT_DOUT<3>
++#
++########################################################
++#
++# XST3.0 pins
++#
++########################################################
++#
++# BAR LED
++#
++#net BAR_LED<1>     loc=L5;  # barled 1
++#net BAR_LED<2>     loc=N2;  # barled 2
++#net BAR_LED<3>     loc=M3;  # barled 3
++#net BAR_LED<4>     loc=N1;  # barled 4
++#net BAR_LED<5>     loc=T13; # barled 5
++#net BAR_LED<6>     loc=L15; # barled 6
++#net BAR_LED<7>     loc=J13; # barled 7
++#net BAR_LED<8>     loc=H15; # barled 8
++#
++# Push Buttons
++#
++#net PB1_N          loc=H4;  # pushbutton PB1
++#
++# RS232 PORT
++#
++net rs232_txd      loc=J2;  # RS232 TD pin 3
++net rs232_rxd      loc=G5;  # RS232 RD pin 2
++#net RS232_CTS      loc=D1;  # RS232 CTS
++#net RS232_RTS      loc=F4;  # RS232 RTS
++#
++# IDE Interface (XST-4.0)
++#
++net ide_dior       loc=P2;  # disk I/O read control
++net ide_diow       loc=R1;  # disk I/O write control
++net ide_cs<0>      loc=G15; # disk register-bank select
++net ide_cs<1>      loc=G14; # disk register-bank select
++net ide_da<0>      loc=L5;  # 3-bit disk register address bus
++net ide_da<1>      loc=N2;  
++net ide_da<2>      loc=M3;  
++net ide_data_bus<0>  loc=P12; # 16-bit disk data bus
++net ide_data_bus<1>  loc=J1;  
++net ide_data_bus<2>  loc=H1;  
++net ide_data_bus<3>  loc=H3;  
++net ide_data_bus<4>  loc=G2;  
++net ide_data_bus<5>  loc=K15; 
++net ide_data_bus<6>  loc=K16; 
++net ide_data_bus<7>  loc=F15; 
++net ide_data_bus<8>  loc=E2;  
++net ide_data_bus<9>  loc=E1;  
++net ide_data_bus<10> loc=F3;  
++net ide_data_bus<11> loc=F2;  
++net ide_data_bus<12> loc=G4;  
++net ide_data_bus<13> loc=G3;  
++net ide_data_bus<14> loc=G1;  
++net ide_data_bus<15> loc=H4;  
++#net IDE_IRQ        loc=H15; # IDE interrupt
++#net IDE_DMACK_N    loc=K1;  # IDE DMA acknowledge
++#
++# Ethernet Controller
++# Disable if not used
++#
++#net ethernet_cs_n  loc=G13; # Ethernet chip-enable 
++#
++# Input switch register
++# These are mapped to the same place that the XStend 
++# board maps USB and VDIN.
++#
++net switches<0>      loc=M1;
++net switches<1>      loc=J13;
++net switches<2>      loc=L3;
++net switches<3>      loc=H16;
++net switches<4>      loc=H14;
++net switches<5>      loc=M4;
++net switches<6>      loc=P1;
++net switches<7>      loc=N3;
++net switches<8>      loc=M15;
++net switches<9>      loc=H13;
++net switches<10>     loc=G16;
++net switches<11>     loc=N15;
++#
++# Timing Constraints
++#
++NET "sysclk" TNM_NET="sysclk"; 
++TIMESPEC "TS_clk"=PERIOD "sysclk" 10 ns HIGH 50 %; 
+Index: xsa-3s1000.v
+===================================================================
+--- xsa-3s1000.v	(revision 0)
++++ xsa-3s1000.v	(revision 0)
+@@ -0,0 +1,165 @@
++//
++// pdp-8/i in verilog - fpga top level
++// copyright Brad Parker <brad@heeltoe.com> 2009-2010
++//
++
++`timescale 1ns / 1ns
++
++module top(rs232_txd, rs232_rxd,
++	   button, sysclk,
++	   slideswitch, switches,
++	   ide_data_bus, ide_dior, ide_diow, ide_cs, ide_da);
++
++   input	rs232_rxd;
++   output	rs232_txd;
++
++   input 	button;
++
++   input 	sysclk;
++
++   input [1:0] 	slideswitch;
++   input [11:0] switches;
++
++   inout [15:0]  ide_data_bus;
++   output 	 ide_dior;
++   output 	 ide_diow;
++   output [1:0]  ide_cs;
++   output [2:0]  ide_da;
++
++   // -----------------------------------------------------------------
++
++`ifndef sim_time
++ `define slower
++`endif
++
++`ifdef slower
++   reg clk;
++   reg [24:0] clkdiv;
++   wire [24:0] clkmax;
++
++   assign clkmax = (slideswitch == 4'd0)  ? 25'h1 :
++		   (slideswitch == 4'd1)  ? 25'h2 :
++		   (slideswitch == 4'd2)  ? 25'h1ff :
++		   25'h1ffffff;
++     
++   always @(posedge sysclk)
++     begin
++        if (clkdiv == clkmax)
++	  begin
++             clk <= ~clk;
++             clkdiv <= 0;
++	  end
++	else
++          clkdiv <= clkdiv + 25'b1;
++     end
++`else
++   wire 	clk;
++   assign clk = sysclk;
++`endif
++
++   // -------------------------------------------------------------
++   
++   wire       reset;
++
++   wire [11:0] ram_data_in;
++   wire        ram_rd;
++   wire        ram_wr;
++   wire [11:0] ram_data_out;
++   wire [14:0] ram_addr;
++   wire [11:0] io_data_in;
++   wire [11:0] io_data_out;
++   wire        io_data_avail;
++   wire        io_interrupt;
++   wire        io_skip;
++   wire [5:0]  io_select;
++   
++   wire        iot;
++   wire [3:0]  state;
++   wire [11:0] mb;
++
++   wire        ext_ram_read_req;
++   wire        ext_ram_write_req;
++   wire [14:0] ext_ram_ma;
++   wire [11:0] ext_ram_in;
++   wire        ext_ram_done;
++   wire [11:0] ext_ram_out;
++
++   wire [14:0] initial_pc;
++   wire [11:0] pc;
++   wire [11:0] ac;
++   
++   debounce reset_sw(.clk(sysclk), .in(button), .out(reset));
++
++// Unfortunately, the XSA-3S1000 has only a single 7-segment display digit.
++//   display show_pc(.clk(sysclk), .reset(reset),
++//		   .pc(pc), .dots(ac[3:0]),
++//		   .sevenseg(sevenseg), .sevenseg_an(sevenseg_an));
++//   assign led = ac[11:4];
++   
++  pdp8 cpu(.clk(clk),
++	   .reset(reset),
++	   .initial_pc(initial_pc),
++	   .pc_out(pc),
++	   .ac_out(ac),
++	   .ram_addr(ram_addr),
++	   .ram_data_in(ram_data_out),
++	   .ram_data_out(ram_data_in),
++	   .ram_rd(ram_rd),
++	   .ram_wr(ram_wr),
++	   .state(state),
++	   .io_select(io_select),
++	   .io_data_in(io_data_in),
++	   .io_data_out(io_data_out),
++	   .io_data_avail(io_data_avail),
++	   .io_interrupt(io_interrupt),
++	   .io_skip(io_skip),
++	   .io_clear_ac(io_clear_ac),
++	   .iot(iot),
++	   .mb(mb),
++	   .switches(switches),
++	   .ext_ram_read_req(ext_ram_read_req),
++	   .ext_ram_write_req(ext_ram_write_req),
++	   .ext_ram_done(ext_ram_done),
++	   .ext_ram_ma(ext_ram_ma),
++	   .ext_ram_in(ext_ram_out),
++	   .ext_ram_out(ext_ram_in));
++   
++   pdp8_io io(.clk(clk),
++	      .brgclk(sysclk),
++	      .reset(reset),
++	      .iot(iot),
++	      .state(state),
++	      .mb(mb),
++	      .io_data_in(io_data_out),
++	      .io_data_out(io_data_in),
++	      .io_select(io_select),
++	      .io_data_avail(io_data_avail),
++	      .io_interrupt(io_interrupt),
++	      .io_skip(io_skip),
++   	      .io_clear_ac(io_clear_ac),
++	      .io_ram_read_req(ext_ram_read_req),
++	      .io_ram_write_req(ext_ram_write_req),
++	      .io_ram_done(ext_ram_done),
++	      .io_ram_ma(ext_ram_ma),
++	      .io_ram_in(ext_ram_in),
++	      .io_ram_out(ext_ram_out),
++   	      .ide_dior(ide_dior),
++	      .ide_diow(ide_diow),
++	      .ide_cs(ide_cs),
++	      .ide_da(ide_da),
++	      .ide_data_bus(ide_data_bus),
++	      .rs232_in(rs232_rxd),
++	      .rs232_out(rs232_txd));
++
++   pdp8_ram ram(.clk(clk),
++		.reset(reset), 
++		.addr(ram_addr),
++		.data_in(ram_data_in),
++		.data_out(ram_data_out),
++		.rd(ram_rd),
++   		.wr(ram_wr));
++
++   assign initial_pc = 15'o07400;
++
++endmodule
++
