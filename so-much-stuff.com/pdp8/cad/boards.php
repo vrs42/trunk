@@ -537,6 +537,8 @@ chassis to see if it has the needed clearances.)
 from scratch.
 <DT>DM01</A>
   <DD>is DEC's DM01, done up as a board in Eagle.
+<DT>DM01x2</A>
+  <DD>is DEC's DM01, scaled down for just 2 devices.
 <DT>DM01eco</A>
   <DD>is DEC's DM01, with a TechTip fix added.
 <DT>DM04mux</A>
@@ -1981,6 +1983,10 @@ by Dave Brockman.
 </LEGEND><DL>
 <DT>M401</A>
   <DD>is an Eagle version of DEC's M401 Variable Clock module.
+<DT>M401L</A>
+  <DD>needs a drawing.
+<DT>M401M</A>
+  <DD>needs a drawing.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1998,7 +2004,13 @@ by Dave Brockman.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M405 target=_blank>./DEC/Mxxx/M405</a></b>: Crystal Clock, positive and negative pulse outputs, 5KHz to 10MHz
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M405A</A>
+  <DD>needs a drawing.
+<DT>M405B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M410 target=_blank>./DEC/Mxxx/M410</a></b>: Resonant Reed Clock
 
@@ -2026,7 +2038,11 @@ by Dave Brockman.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M501 target=_blank>./DEC/Mxxx/M501</a></b>: Schmitt Trigger
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M501B</A>
+  <DD>is a drawing of DEC's M501, etch revision B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M502 target=_blank>./DEC/Mxxx/M502</a></b>: Negative Input Converter
 
@@ -2360,11 +2376,27 @@ by Dave Brockman.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M708 target=_blank>./DEC/Mxxx/M708</a></b>: Clock Control, 8/I
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M708A</A>
+  <DD>needs a drawing.
+<DT>M708B</A>
+  <DD>is an Eagle version of DEC's M708B.
+<DT>M708C</A>
+  <DD>needs a drawing.
+<DT>M708X</A>
+  <DD>is an Eagle version of DEC's M708B with unused inputs tied high.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M709 target=_blank>./DEC/Mxxx/M709</a></b>: Clock Counter, 8/I
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M709A</A>
+  <DD>needs a drawing.
+<DT>M709B</A>
+  <DD>is an Eagle version of DEC's M708B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M710 target=_blank>./DEC/Mxxx/M710</a></b>: Punch control
 
