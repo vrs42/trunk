@@ -3,6 +3,18 @@
 #
 # Sort a list and make a table.
 
+print "<HTML><HEAD>\n";
+print "<STYLE type=\"text/css\">\n";
+print "BODY { background-color: #000000 }\n";
+print "BODY { color: #00c000 }\n";
+print "</STYLE>\n";
+print "<META http-equiv=Content-Type content=\"text/html; charset=iso-8859-1\">\n";
+print "<META http-equiv=Expires content=0>\n";
+print "<TITLE>PDP-8 Stuff</TITLE>\n";
+print "</HEAD>\n";
+print "<BODY vLink=#00c000 aLink=#00c000 link=#00ff00 bgColor=#000000>\n";
+
+
 open(INPUT, "foo.txt") || die "foo.txt: $!";
 while (<INPUT>) {
   s/\r//g;
@@ -10,7 +22,9 @@ while (<INPUT>) {
   $note = undef;
   ($part, $eia, $module, $note) = split(/,/, $_);
   next if $part eq 'DEC Part';
-  $index = $part . ';' . $eia;
+  $eia = ' ' if $eia eq '';
+  $note = '&nbsp;' unless defined $note;
+  $index = $part . ';' . $eia . ';' . $note;
   if (defined($module{$index})) {
     $module{$index} .= ", $module";
   } else {
@@ -29,8 +43,7 @@ print "<TABLE border=1>\n";
 print "<TH>DEC Part<TH>EIA Part<TH>Note<TH>Modules<TR>\n";
 foreach (sort keys %module) {
   ($part, $eia) = split(/;/, $_);
-  $eia = '&nbsp;' unless $eia ne '';
-  $note{$_} = '&nbsp;' unless defined $note{$_};
+  $eia = '&nbsp;' if $eia eq ' ';
   print "<TD>$part<TD>$eia<TD>$note{$_}<TD>$module{$_}<TR>\n";
 }
-print "</TABLE>\n" if $opart;
+print "</TABLE>\n";
