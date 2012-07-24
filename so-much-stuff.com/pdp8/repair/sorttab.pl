@@ -2,6 +2,7 @@
 
 #
 # Sort a list and make a table.
+#
 
 print "<HTML><HEAD>\n";
 print "<STYLE type=\"text/css\">\n";
@@ -15,6 +16,7 @@ print "</HEAD>\n";
 print "<BODY vLink=#00c000 aLink=#00c000 link=#00ff00 bgColor=#000000>\n";
 
 
+$keysep = ','; # Comma should be safe for input from a .csv
 open(INPUT, "DECSubst.csv") || die "DECSubst.csv: $!";
 while (<INPUT>) {
   s/\r//g;
@@ -24,7 +26,7 @@ while (<INPUT>) {
   next if $part eq 'DEC Part';
   $eia = ' ' if $eia eq '';
   $note = '&nbsp;' unless defined $note;
-  $index = $part . ';' . $eia . ';' . $note;
+  $index = $part . $keysep . $eia . $keysep . $note;
   if (defined($module{$index})) {
     $module{$index} .= ", $module";
   } else {
@@ -39,10 +41,16 @@ while (<INPUT>) {
   }
 }
 
+sub bykey {
+  @a = split(/$keysep/, $a);
+  @b = split(/$keysep/, $b);
+  $a[0] cmp $b[0] || $a[1] cmp $b[1] || $a[2] cmp $b[2];
+}
+
 print "<TABLE border=1>\n";
 print "<TH>DEC Part<TH>EIA Part<TH>Note<TH>Modules<TR>\n";
-foreach (sort keys %module) {
-  ($part, $eia) = split(/;/, $_);
+foreach (sort bykey keys %module) {
+  ($part, $eia) = split(/$keysep/, $_);
   $eia = '&nbsp;' if $eia eq ' ';
   print "<TD>$part<TD>$eia<TD>$note{$_}<TD>$module{$_}<TR>\n";
 }
