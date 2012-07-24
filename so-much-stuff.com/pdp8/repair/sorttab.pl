@@ -15,7 +15,7 @@ print "</HEAD>\n";
 print "<BODY vLink=#00c000 aLink=#00c000 link=#00ff00 bgColor=#000000>\n";
 
 
-open(INPUT, "foo.txt") || die "foo.txt: $!";
+open(INPUT, "DECSubst.csv") || die "DECSubst.csv: $!";
 while (<INPUT>) {
   s/\r//g;
   chop;
