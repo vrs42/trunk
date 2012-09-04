@@ -24,7 +24,7 @@ many panels in people's collections use the equivalent Oshino OL-2.
 <dd>Oshino OL-367 is a newer part number for what appears to be the same bulb.
 <DT>CM7371
 <dd>12V, 40ma, .12mscp, 10,000 hours -- approximately 36ma, .06mscp, 89,000 hours at 10V.
-<dd>In stock at Mouser for $9.90 qty 10 (last checked 12/2011).
+<dd>In stock at Mouser for $9.90 for 10 (last checked 12/2011).
 <dd>These have been used in panels and seem to work well.  The brightness 
 is about 20% high, so you may want to do whole registers at a time to 
 make them less noticeable.
@@ -53,8 +53,9 @@ make them less noticeable.
 (12/2011).
 <DT>CM7370
 <dd>18V, 40ma, .15mscp, 10,000 hours -- These de-rate at 15V to approximately
-36ma, .08mscp, 89K hours, so they should work well.
-<dd>In stock at Mouser for $7.00 qty 10 (as of 11/2011).
+36ma, .08mscp, 89K hours, so they should work well.  Michael Thompson reports
+that they are also an excellent visual match to the OL-1 in PDP-8/i panels.
+<dd>In stock at Mouser for $7.00 for 10 (as of 9/2012).
 <!-- The CM/Sylvania/BP 7003 is an exact equivalent. -->
 <!-- The 12-05859 is Hudson/Sylvania 2339 -- an exact equivalent! -->
 </DL>
@@ -82,14 +83,14 @@ of the glass at the bottom.
 <dd>Some of these are available at www.donsbulbs.com (as of 12/2011).
 <DT>CM2187
 <dd>28V, 40ma, .30mscp, 7,000 hours -- a close match for the original bulb.
-<dd>In stock at Mouser for $4.90 qty 10 (as of 12/2011).
+<dd>In stock at Mouser for $4.90 for 10 (as of 12/2011).
 <DT>CM7387
 <dd>28V, 40ma, .30mscp, 7,000 hours-- Like the CM2187, but with a bi-pin base.
 (Bi-pin bulbs have the advantage that they can be reliably socketed.)
 <dd>The bi-pin bulbs seem to fit the 8/S panel, but Doug Ingraham reports there
 is not enough vertical clearance in his straight-8.  (A bi-pin bulb is 5/8" tall, 
 my 8/S panel has about 3/4" clearance, and Doug's straight-8 has about 9/16" clearance.)
-<dd>In stock at Mouser for $8.40 qty 10 (as of 12/2011).
+<dd>In stock at Mouser for $8.40 for 10 (as of 12/2011).
 <!-- The 12-03483 is also the 1762F. -->
 </DL>
 
@@ -113,7 +114,7 @@ bulb must have been used.  (The circuit is actually powered with 15V, however.)
 <DT>CM2182
 <dd>14V, 80ma, .3mscp, 40,000 hours -- These are the bulb inside the white box
 of the indicator assembly.
-<dd>In stock at Mouser for $3.01 qty 10 (as of 12/2011).
+<dd>In stock at Mouser for $3.01 for 10 (as of 12/2011).
 </DL>
 
 <DL>
