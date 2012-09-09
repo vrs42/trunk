@@ -605,6 +605,10 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/flichip target=_blank>./DEC/flichip</a></b>: 6 pin flip-chip modules
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx target=_blank>./DEC/Gxxx</a></b>: Gxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
@@ -3587,6 +3591,10 @@ machines.
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W080 target=_blank>./DEC/Wxxx/W080</a></b>: Isolated AC/DC Switch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W100 target=_blank>./DEC/Wxxx/W100</a></b>: Emitter Follower
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
