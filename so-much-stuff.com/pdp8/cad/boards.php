@@ -700,6 +700,10 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G094 target=_blank>./DEC/Gxxx/G094</a></b>: Threshold and Buffer
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G100 target=_blank>./DEC/Gxxx/G100</a></b>: Sense Amp & Inhibit Driver, PDP15, 3 wire, 3D memory
 
 </LEGEND></FIELDSET>
@@ -802,6 +806,10 @@ unobtainium T-2052 transformers.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G350 target=_blank>./DEC/Gxxx/G350</a></b>: 9 Track, Dual Head, 45 IPS, Mag Tape Write Driver
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G380 target=_blank>./DEC/Gxxx/G380</a></b>: Solenoid Drivers
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -941,7 +949,15 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G734 target=_blank>./DEC/Gxxx/G734</a></b>: Input Clamp
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G737 target=_blank>./DEC/Gxxx/G737</a></b>: 9 Dividers, 150 ohms to +3V, W028 pins
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G741 target=_blank>./DEC/Gxxx/G741</a></b>: TU10 Negative Bus Terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -997,7 +1013,11 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8004 target=_blank>./DEC/Gxxx/G8004</a></b>: Power Fail
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1041,7 +1061,7 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G825 target=_blank>./DEC/Gxxx/G825</a></b>: -24V Pass Element, from G823
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G825 target=_blank>./DEC/Gxxx/G825</a></b>: -24V Pass Element, from G823, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1057,7 +1077,7 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G829 target=_blank>./DEC/Gxxx/G829</a></b>: 5V Connector Card for PDP15 peripherals, with overvoltage SCR & fuse, can replace G821
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G829 target=_blank>./DEC/Gxxx/G829</a></b>: 5V Connector Card for PDP15 peripherals, with overvoltage SCR & fuse, can replace G821, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1081,7 +1101,7 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G848 target=_blank>./DEC/Gxxx/G848</a></b>: TU56 Motor Drive
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G848 target=_blank>./DEC/Gxxx/G848</a></b>: TU56 Motor Drive, Triple
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1105,7 +1125,7 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G859 target=_blank>./DEC/Gxxx/G859</a></b>: Clock & Regulator for TU56
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G859 target=_blank>./DEC/Gxxx/G859</a></b>: Clock & Regulator for TU56, Long
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1143,7 +1163,7 @@ cross-reference information in the schematic.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G912 target=_blank>./DEC/Gxxx/G912</a></b>: Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G912 target=_blank>./DEC/Gxxx/G912</a></b>: Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12, Long, Double, Thick
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1180,6 +1200,10 @@ cross-reference information in the schematic.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9341 target=_blank>./DEC/Gxxx/G9341</a></b>: Replacement for output portion of G934, higher current
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G938 target=_blank>./DEC/Gxxx/G938</a></b>: DECPack Head Position Servo Preamp, Long, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1737,7 +1761,7 @@ proper bus receivers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M220 target=_blank>./DEC/Mxxx/M220</a></b>: Major Registers
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M220 target=_blank>./DEC/Mxxx/M220</a></b>: Major Registers, double
 
 </LEGEND><DL>
 <DT>m220print</A>
@@ -2020,7 +2044,7 @@ by Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M420 target=_blank>./DEC/Mxxx/M420</a></b>: Phase Lock Clock, RP09, RP15
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M420 target=_blank>./DEC/Mxxx/M420</a></b>: Phase Lock Clock, RP09, RP15, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2092,7 +2116,7 @@ by Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M514 target=_blank>./DEC/Mxxx/M514</a></b>: TU10 Transceiver (for connection to TC58, TC59, & TM10), see M519
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M514 target=_blank>./DEC/Mxxx/M514</a></b>: TU10 Transceiver (for connection to TC58, TC59, & TM10), see M519, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2256,6 +2280,10 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M640 target=_blank>./DEC/Mxxx/M640</a></b>: Master Interface Bus Driver, double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M650 target=_blank>./DEC/Mxxx/M650</a></b>: Negative output converter, 3 channels, R650 type outputs
 
 </LEGEND></FIELDSET>
@@ -2352,7 +2380,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transistion out-of-tape sense
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2542,11 +2570,11 @@ Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M763 target=_blank>./DEC/Mxxx/M763</a></b>: 9 TRACK WRITE BUFFER, FOR TU10, NEG LOGIC, SEE M893
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M763 target=_blank>./DEC/Mxxx/M763</a></b>: 9 Track Write Buffler for TU10, negative logic, see M893, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M765 target=_blank>./DEC/Mxxx/M765</a></b>: 9 TRACK READ BUFFER, FOR TU10
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M765 target=_blank>./DEC/Mxxx/M765</a></b>: 9 Track Read Buffer for TU10, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2564,7 +2592,7 @@ Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7672 target=_blank>./DEC/Mxxx/M7672</a></b>: TU10 Command Buffers
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7672 target=_blank>./DEC/Mxxx/M7672</a></b>: TU10 Command Buffers, Double
 
 </LEGEND><DL>
 <DT>M7672</A>
@@ -2576,7 +2604,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M768 target=_blank>./DEC/Mxxx/M768</a></b>: DELAY SELECTOR FOR TU10 WITH TC58, TC59, TM10
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M768 target=_blank>./DEC/Mxxx/M768</a></b>: Delay Selector for TU10, with TC58, TC59, TM10, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2604,7 +2632,7 @@ the hard to find 8202 chip.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M776 target=_blank>./DEC/Mxxx/M776</a></b>: Reader Register
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M776 target=_blank>./DEC/Mxxx/M776</a></b>: Reader Register, PC15, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2734,7 +2762,15 @@ with input flow control implemented.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M891 target=_blank>./DEC/Mxxx/M891</a></b>: TU10 CRC and Write Gating
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M891 target=_blank>./DEC/Mxxx/M891</a></b>: TU10 CRC and Write Gating, Double
+
+</LEGEND><DL>
+<DT>M891</A>
+  <DD>is a version of DEC's M891 CRC and Write Gating module.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M892 target=_blank>./DEC/Mxxx/M892</a></b>: TU10 CRC and Write Gating, Double
 
 </LEGEND><DL>
 <DT>M891</A>
@@ -3536,6 +3572,10 @@ BusCon project.)
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W033 target=_blank>./DEC/Wxxx/W033</a></b>: Flexprint, W023 connections on "A" side, side entry cable
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W034 target=_blank>./DEC/Wxxx/W034</a></b>: Flexprint, 16 connections on "B" side 10 ohms on A2, B2
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
