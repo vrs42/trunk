@@ -269,19 +269,6 @@ panel replacement.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/A601 target=_blank>./DEC/A601</a></b>: 3 Bit DAC
-
-</LEGEND><DL>
-<DT>A601hand</A>
-  <DD>is a partially hand routed A601 DAC replacement as a single-sided
-board.
-<DT>A601</A>
-  <DD>is another version of the A601 DAC replacement.
-<DT>A601new</A>
-  <DD>is the latest version of the A601 DAC replacement.
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/BM812i target=_blank>./DEC/BM812i</a></b>: Omnibus Memory adapter for PDP-8/i and PDP-12
 
 </LEGEND><DL>
@@ -2592,6 +2579,10 @@ Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7671 target=_blank>./DEC/Mxxx/M7671</a></b>: Master Slave Bus Driver, TU10, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7672 target=_blank>./DEC/Mxxx/M7672</a></b>: TU10 Command Buffers, Double
 
 </LEGEND><DL>
@@ -2603,6 +2594,10 @@ the hard to find 8202 chip.
 8202 replaced with a 74821 chip.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7673 target=_blank>./DEC/Mxxx/M7673</a></b>: Data Checker, TU10, Double
+
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M768 target=_blank>./DEC/Mxxx/M768</a></b>: Delay Selector for TU10, with TC58, TC59, TM10, double
 
