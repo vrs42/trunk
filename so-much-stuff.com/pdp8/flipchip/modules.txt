@@ -1,4 +1,38 @@
 Module	Versions  Description
+A100		  Multiplexor Switch
+A103		  Multiplexor Switch
+A121		  Multiplexor Switch
+A124	A* B* 	  4 Input Multiplexer Switch
+A131	B* 	  Multiplexer
+A133	B* 	  Analog Switch
+A163	A* 	  Multiplexer and Amplifier
+A200		  Operational Amplifier
+A214	A* B* 	  2 Analog Amplifiers
+A215	A* 	  Analog Buffer
+A222	A* 	  Selectable Gain Amplifier
+A225	B* 	  Deflection Amplifier
+A400		  Sample and Hold Amplifier
+A401	B* 	  Sample and Hold
+A404	A* 	  Sample and Hold
+A405		  Sample and Hold Amplifier
+A502		  Comparator
+A601	D* E* 	  3 Bit DAC
+A604	A* 	  2-bit D-A Converter
+A605		  2-bit D-A Converter
+A606		  D-A Converter
+A607	A* B* 	  10-bit D/A Converter, Single Buffered
+A612	A* B* 	  D/A Converter, Double
+A615	B* D* 	  D/A Converter
+A702	B* 	  Reference Supply
+A704	E* F* 	  Reference Supply, Double
+A706	C* 	  Power Supply for A202
+A708	D* 	  Dual Voltage Regulator
+A801		  !0-bit A/D Converter
+A811	E* 	  10-bit A/D Converter
+A860	A* 	  A/D Converter, Double
+A877		  13-bit A/D Converter
+A990		  Operational Amplifier
+A992		  Operational Amplifier
 B104	B* C* 	  4 Inverters, 3 Loads
 B105	B* D* E* 	  5 Inverters, 5 Loads
 B113	C* 	  4 2-Input Negative NAND Gages, 3 Loads
@@ -82,7 +116,7 @@ G221	A* B* 	  Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
 G222	A* D* 	  Memory Selector, IC Inputs, 4 circuits, 3 wire, 3D memory, PDP15
 G223	D* 	  2 Read-Write Drivers, PDP-15
 G226	D* 	  XY Selection Switch, single 8.5", ME10, MM11
-G228	B* H* 	  Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
+G228	B* C* H* 	  Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
 G230	D* 	  Current Source, with Delay Line on input, 0 to 40ns
 G284	C* D* 	  Disk Writer, Disk
 G285	A* B* 	  Series Switch, Disk
@@ -127,6 +161,7 @@ G715	B* 	  Terminator, equiv 100 ohms to +4V, uses +10V & ground, G700 pins
 G717	B* 	  Positive Bus Control Signal Terminator, 5 100 ohms to ground, pins K2, M2, P2, S2, T2, same grounds as W022
 G718	A* 	  Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
 G726	B* 	  ME10 Bus Control, a Jumper Board
+G727	A* 	  Grant Continuity, a Jumper Board
 G734	E* 	  Input Clamp
 G737	A* 	  9 Dividers, 150 ohms to +3V, W028 pins
 G741	C* CYA* 	  TU10 Negative Bus Terminator
@@ -138,6 +173,7 @@ G783	A* 	  9 Twisted Pair and Shield, 1 pair ground return
 G785	D* 	  Power Connector, 8/L, with Power OK
 G789	A* 	  Signal Simulator Connector
 G790	C* 	  Signal Simulator Generator
+G792	B* 	  Power Connector
 G793	B* 	  PDP-8/I Switch Connector, 8/I to console
 G795	D* 	  Clamped Level Cable Connector, W021 pins, diodes to +0.7V & -3V, PDP-9, extended memory
 G796	A* B* 	  Clamped Level Cable Connector, W034 with clamps, ground and -3V with 2mA clamped loads, G704 etch
@@ -188,6 +224,33 @@ G9340	B* 	  Replacement for logic portion of G934
 G9341	B* 	  Replacement for output portion of G934, higher current
 G938	K* 	  DECPack Head Position Servo Preamp, Long, Double
 G998	A* 	  Current Measuring Extender, 1-1/2 length with Bus Loops
+K003	A* 	  Gate Expander
+K026	A* 	  Gate Expander
+K113	A* 	  Inverting Gate
+K123		  English Gate
+K138	A* B* 	  Eight Inverters
+K210		  Decimal or Binary Counter
+K220		  Decimal Up/Down Counter, Double
+K230		  Parallel Input Shift Register
+K271	A* 	  Set/Reset Memory
+K273		  Retentive Memory
+K303	B* 	  Delay Timer
+K374	A* B* C* 	  Calibrated Timer Control
+K376	B* C* 	  Calibrated Timer Control
+K378	B* C* 	  Calibrated Timer Control
+K508		  Pilot Circuit Converter, Double
+K522	A* 	  Comparator
+K604		  Pilot Circuit Converter, Double
+K614	D* 	  Isolated AC Switch
+K652	B* 	  DC Driver
+K671		  Decade Display
+K683	B* 	  Driver
+K716		  Pilot Circuit Converter, Double
+K731	E* 	  Multi-Purpose Source
+K732	A* B* 	  Slave Regulator
+K791		  Test Probe
+K940		  Mounting Bar Support
+K941		  Mounting Bar
 M002	A 	  15 Loads
 M040	E 	  Solenoid Driver
 M044	B 	  4-100mA Solenoid Drivers
@@ -271,8 +334,8 @@ M217	A* 	  Clock register for PDP-12, 4 bit counter with buffer register for pre
 M218	A* 	  Bi-directional shift register, 9 bits, 2 parallel loads
 M219	B* 	  7-bit synchronous counter with jam and clear presets
 M220	A* B* 	  Major Registers, double
-M221	D* 	  Register for PDP-12 (M220 plus extra logic)
-M222	B* 	  Tape register for PDP-12, 2 bits, 6 registers
+M221	D* 	  Register for PDP-12 (M220 plus extra logic), Double
+M222	B* 	  Tape register for PDP-12, 2 bits, 6 registers, Double
 M223	B* 	  MA,/MB Registers
 M226	A* 	  1 Bit, all registers (except ACC) for PDP-15
 M227	B* 	  Accumulator for PDP-15, 9 bits
@@ -298,7 +361,7 @@ M260	A* 	  Associative memory, 4x12, KI10, Fairchild 4102 IC, 35ns match time
 M261		  4-State Motor Translator
 M262		  10-State Motor Translator, double
 M302	C* K* L* 	  One Shot Delay
-M304	B* 	  One Shot Delay
+M304	A* B* 	  One Shot Delay
 M306	B* 	  Integrating One Shot
 M307	A* B* 	  Integrating One Shot
 M3070	C* 	  Dual integrating one-shot 200ns to 20ms in 5 steps
@@ -310,7 +373,7 @@ M321	B* 	  M311 except one delay line, one output buffer can drive 30 TTL H load
 M360	A* B* 	  Variable Delay
 M362	C* 	  Delay, 25 to 50 ns
 M363	B* 	  Delay, 15 to 30 ns, inverts
-M401	L* M* 	  Variable Clock
+M401	B* L* M* 	  Variable Clock
 M402	B* 	  Remotely variable clock, Uses 5V photomod, 2Hz to 1MHz
 M403		  RC Multivibrator Clock
 M404		  Crystal Clock
@@ -582,6 +645,7 @@ W132	D* 	  Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W1
 W250	A* B* 	  12 Indicator Drivers, flex print, ground & -15V from male end
 W300	C* 	  Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
 W301	C* 	  Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
+W404	C* 	  DTR Jumper
 W500	A* 	  High Impedance Follower, 7 circuits
 W501	C* D* F* 	  Schmitt Trigger, +/-10V in, 0 and 03V out
 W502		  2 Photon Coupled Triggers
@@ -631,6 +695,7 @@ W841	C* 	  1/2 W851 for 9 Coax
 W850	A* C* D* 	  Connector, 2 double boards with W021 layout, frame, hold-down screw
 W851	D* E* 	  Connector, similar to W850, W851 is card & components, BC10 is assembly & cable
 W852	B* C* D* E* 	  W851 with no components, used in BC10C-xx, uses W851 board
+W900	C* 	  Multilayer Externder, Long Double
 W940		  Wire Wrappable Module, 50x 16 pin, extended quad
 W941		  Wire Wrappable Module, 25x 16 pin, extended double
 W942		  Wire Wrappable Module, 50x 16 pin, with sockets, extended quad
@@ -667,4 +732,4 @@ W993		  Copper clad, 36 pins, double
 W994		  Perforated Module, 0.2" centers, 18 lands
 W995		  Perforated Module, 0.2" centers, 36 lands, double
 W998		  Perforated single height board, 18 pins, 0.1" grid, contacts only
-W999		  Perforated double height board, 36 pins, 0.1" grid, contacts only
+W999	A* 	  Perforated double height board, 36 pins, 0.1" grid, contacts only

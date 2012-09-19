@@ -269,6 +269,155 @@ panel replacement.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx target=_blank>./DEC/Axxx</a></b>: Axxx Modules
+
+</LEGEND><FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A100 target=_blank>./DEC/Axxx/A100</a></b>: Multiplexor Switch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A103 target=_blank>./DEC/Axxx/A103</a></b>: Multiplexor Switch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A121 target=_blank>./DEC/Axxx/A121</a></b>: Multiplexor Switch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A124 target=_blank>./DEC/Axxx/A124</a></b>: 4 Input Multiplexer Switch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A131 target=_blank>./DEC/Axxx/A131</a></b>: Multiplexer
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A133 target=_blank>./DEC/Axxx/A133</a></b>: Analog Switch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A163 target=_blank>./DEC/Axxx/A163</a></b>: Multiplexer and Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A200 target=_blank>./DEC/Axxx/A200</a></b>: Operational Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A214 target=_blank>./DEC/Axxx/A214</a></b>: 2 Analog Amplifiers
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A215 target=_blank>./DEC/Axxx/A215</a></b>: Analog Buffer
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A222 target=_blank>./DEC/Axxx/A222</a></b>: Selectable Gain Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A225 target=_blank>./DEC/Axxx/A225</a></b>: Deflection Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A400 target=_blank>./DEC/Axxx/A400</a></b>: Sample and Hold Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A401 target=_blank>./DEC/Axxx/A401</a></b>: Sample and Hold
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A404 target=_blank>./DEC/Axxx/A404</a></b>: Sample and Hold
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A405 target=_blank>./DEC/Axxx/A405</a></b>: Sample and Hold Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A502 target=_blank>./DEC/Axxx/A502</a></b>: Comparator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A601 target=_blank>./DEC/Axxx/A601</a></b>: 3 Bit DAC
+
+</LEGEND><DL>
+<DT>A601hand</A>
+  <DD>is a partially hand routed A601 DAC replacement as a single-sided
+board.
+<DT>A601</A>
+  <DD>is another version of the A601 DAC replacement.
+<DT>A601new</A>
+  <DD>is the latest version of the A601 DAC replacement.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A604 target=_blank>./DEC/Axxx/A604</a></b>: 2-bit D-A Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A605 target=_blank>./DEC/Axxx/A605</a></b>: 2-bit D-A Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A606 target=_blank>./DEC/Axxx/A606</a></b>: D-A Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A607 target=_blank>./DEC/Axxx/A607</a></b>: 10-bit D/A Converter, Single Buffered
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A612 target=_blank>./DEC/Axxx/A612</a></b>: D/A Converter, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A615 target=_blank>./DEC/Axxx/A615</a></b>: D/A Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A702 target=_blank>./DEC/Axxx/A702</a></b>: Reference Supply
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A704 target=_blank>./DEC/Axxx/A704</a></b>: Reference Supply, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A706 target=_blank>./DEC/Axxx/A706</a></b>: Power Supply for A202
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A708 target=_blank>./DEC/Axxx/A708</a></b>: Dual Voltage Regulator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A801 target=_blank>./DEC/Axxx/A801</a></b>: !0-bit A/D Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A811 target=_blank>./DEC/Axxx/A811</a></b>: 10-bit A/D Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A860 target=_blank>./DEC/Axxx/A860</a></b>: A/D Converter, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A877 target=_blank>./DEC/Axxx/A877</a></b>: 13-bit A/D Converter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A990 target=_blank>./DEC/Axxx/A990</a></b>: Operational Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A992 target=_blank>./DEC/Axxx/A992</a></b>: Operational Amplifier
+
+</LEGEND></FIELDSET>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/BM812i target=_blank>./DEC/BM812i</a></b>: Omnibus Memory adapter for PDP-8/i and PDP-12
 
 </LEGEND><DL>
@@ -936,6 +1085,10 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G727 target=_blank>./DEC/Gxxx/G727</a></b>: Grant Continuity, a Jumper Board
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G734 target=_blank>./DEC/Gxxx/G734</a></b>: Input Clamp
 
 </LEGEND></FIELDSET>
@@ -977,6 +1130,10 @@ unobtainium T-2052 transformers.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G790 target=_blank>./DEC/Gxxx/G790</a></b>: Signal Simulator Generator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G792 target=_blank>./DEC/Gxxx/G792</a></b>: Power Connector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1195,6 +1352,118 @@ cross-reference information in the schematic.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G998 target=_blank>./DEC/Gxxx/G998</a></b>: Current Measuring Extender, 1-1/2 length with Bus Loops
+
+</LEGEND></FIELDSET>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx target=_blank>./DEC/Kxxx</a></b>: Kxxx modules
+
+</LEGEND><FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K003 target=_blank>./DEC/Kxxx/K003</a></b>: Gate Expander
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K026 target=_blank>./DEC/Kxxx/K026</a></b>: Gate Expander
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K113 target=_blank>./DEC/Kxxx/K113</a></b>: Inverting Gate
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K123 target=_blank>./DEC/Kxxx/K123</a></b>: English Gate
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K138 target=_blank>./DEC/Kxxx/K138</a></b>: Eight Inverters
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K210 target=_blank>./DEC/Kxxx/K210</a></b>: Decimal or Binary Counter
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K220 target=_blank>./DEC/Kxxx/K220</a></b>: Decimal Up/Down Counter, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K230 target=_blank>./DEC/Kxxx/K230</a></b>: Parallel Input Shift Register
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K271 target=_blank>./DEC/Kxxx/K271</a></b>: Set/Reset Memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K273 target=_blank>./DEC/Kxxx/K273</a></b>: Retentive Memory
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K303 target=_blank>./DEC/Kxxx/K303</a></b>: Delay Timer
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K374 target=_blank>./DEC/Kxxx/K374</a></b>: Calibrated Timer Control
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K376 target=_blank>./DEC/Kxxx/K376</a></b>: Calibrated Timer Control
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K378 target=_blank>./DEC/Kxxx/K378</a></b>: Calibrated Timer Control
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K508 target=_blank>./DEC/Kxxx/K508</a></b>: Pilot Circuit Converter, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K522 target=_blank>./DEC/Kxxx/K522</a></b>: Comparator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K604 target=_blank>./DEC/Kxxx/K604</a></b>: Pilot Circuit Converter, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K614 target=_blank>./DEC/Kxxx/K614</a></b>: Isolated AC Switch
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K652 target=_blank>./DEC/Kxxx/K652</a></b>: DC Driver
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K671 target=_blank>./DEC/Kxxx/K671</a></b>: Decade Display
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K683 target=_blank>./DEC/Kxxx/K683</a></b>: Driver
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K716 target=_blank>./DEC/Kxxx/K716</a></b>: Pilot Circuit Converter, Double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K731 target=_blank>./DEC/Kxxx/K731</a></b>: Multi-Purpose Source
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K732 target=_blank>./DEC/Kxxx/K732</a></b>: Slave Regulator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K791 target=_blank>./DEC/Kxxx/K791</a></b>: Test Probe
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K940 target=_blank>./DEC/Kxxx/K940</a></b>: Mounting Bar Support
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K941 target=_blank>./DEC/Kxxx/K941</a></b>: Mounting Bar
 
 </LEGEND></FIELDSET>
 </FIELDSET>
@@ -1767,11 +2036,11 @@ m220pgm1.pds and m220pgm2.pds.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M221 target=_blank>./DEC/Mxxx/M221</a></b>: Register for PDP-12 (M220 plus extra logic)
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M221 target=_blank>./DEC/Mxxx/M221</a></b>: Register for PDP-12 (M220 plus extra logic), Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M222 target=_blank>./DEC/Mxxx/M222</a></b>: Tape register for PDP-12, 2 bits, 6 registers
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M222 target=_blank>./DEC/Mxxx/M222</a></b>: Tape register for PDP-12, 2 bits, 6 registers, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -3685,6 +3954,10 @@ machines.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W404 target=_blank>./DEC/Wxxx/W404</a></b>: DTR Jumper
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W500 target=_blank>./DEC/Wxxx/W500</a></b>: High Impedance Follower, 7 circuits
 
 </LEGEND></FIELDSET>
@@ -3878,6 +4151,10 @@ machines.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W852 target=_blank>./DEC/Wxxx/W852</a></b>: W851 with no components, used in BC10C-xx, uses W851 board
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W900 target=_blank>./DEC/Wxxx/W900</a></b>: Multilayer Externder, Long Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>

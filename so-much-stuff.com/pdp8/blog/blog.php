@@ -6,7 +6,7 @@
 <TABLE>
 <TR>
 <TD vAlign=top>
-    <P>Since sometime in 2011, this website and the files I used to 
+    <P>Since sometime in 2011, this website and the files I use to 
 keep track of my PDP-8 stuff have been in an SVN repository.  That
 provides (by way of the revision log) a blow-by-blow account of what 
 I've been up to.  So, I'm including links to that information here, 

@@ -41,8 +41,10 @@ prominently displayed than the internal DEC revision number on DEC
 schematics.)
     <P>Here are those files:
 <UL>
+<LI><A href=Axxx.htm target=_blank>Axxx.htm</A>
 <LI><A href=Bxxx.htm target=_blank>Bxxx.htm</A>
 <LI><A href=Gxxx.htm target=_blank>Gxxx.htm</A>
+<LI><A href=Kxxx.htm target=_blank>Kxxx.htm</A>
 <LI><A href=Mxxx.htm target=_blank>Mxxx.htm</A>
 <LI><A href=Rxxx.htm target=_blank>Rxxx.htm</A>
 <LI><A href=Sxxx.htm target=_blank>Sxxx.htm</A>
@@ -52,7 +54,7 @@ schematics.)
     <P>If you are looking for more information about a Bxxx or an Sxxx module,
 those are often quite similar to the corresponding Rxxx, with some changes
 in component values.
-    <P>There is no information here about Axxx or Kxxx modules yet.
+    <P>There is not much information here about Axxx or Kxxx modules yet.
     <P>In some cases, I have annotated these lists with information about
 whether I am looking to acquire an instance, or have extras to sell.
     <P>I have seen a problem where I attempted to click on the link for 

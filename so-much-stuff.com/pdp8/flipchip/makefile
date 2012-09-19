@@ -1,5 +1,5 @@
 EPROJECTS = ../../../Eagle/projects/DEC
-ALL = Bxxx.htm Gxxx.htm Mxxx.htm Rxxx.htm Sxxx.htm Wxxx.htm \
+ALL = Axxx.htm Bxxx.htm Gxxx.htm Kxxx.htm Mxxx.htm Rxxx.htm Sxxx.htm Wxxx.htm \
 	modules.txt modules.htm
 
 $(ALL): .
