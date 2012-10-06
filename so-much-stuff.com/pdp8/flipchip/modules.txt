@@ -22,6 +22,7 @@ A605		  2-bit D-A Converter
 A606		  D-A Converter
 A607	A* B* 	  10-bit D/A Converter, Single Buffered
 A612	A* B* 	  D/A Converter, Double
+A614	C* 	  12 Bit bipolar D/A Converter, Double Long
 A615	B* D* 	  D/A Converter
 A702	B* 	  Reference Supply
 A704	E* F* 	  Reference Supply, Double
@@ -545,34 +546,34 @@ M969	B* 	  24 LEVEL TERMINATORS LIKE M952 + 1 THERMISTOR
 M970	D* 	  H854 MTD ON SINGLE X 8.5 CARD, ACCEPTS BC05C & BC01V
 M975		  Flip Chip to 2x H854 Adapter, special double
 M993	A* B* 	  RK8E Control Cable Connector
-R001	A 	  Diode Network, 7 diodes, both end brought to pins
-R002	A B 	  Diode Network, 5 groups of 2 diodes, cathode common
+R001	A X 	  Diode Network, 7 diodes, both end brought to pins
+R002	A B X 	  Diode Network, 5 groups of 2 diodes, cathode common
 R012	B* 	  Diode Network, R002 etch, anodes common
 R107	A B* C* D E* S1A X 	  7 Inverters, 1 with expansion node
-R111	A* D* E F 	  3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
+R111	A* D* E F X 	  3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
 R1110	E* 	  R111 with 2mA fan-in & 6534-C transistors, sinks 63ma
-R113	A B 	  5 2-Input Gates
+R113	A B X 	  5 2-Input Gates
 R1130	B* 	  R113 with 2mA fan-in & 6534-C transistors, sinks 63ma
-R121	A* B* 	  2 2-Input, 1 3-Input, 1 4-Input Gates
-R122	A* 	  Logical Complement of R121
-R123	B 	  Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
-R131	B* C 	  Exclusive OR, 4 circuits, Output is -3V if inputs are the same
-R141	C* D* E 	  AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
-R151	A* B* D 	  Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
+R121	A B* X 	  2 2-Input, 1 3-Input, 1 4-Input Gates
+R122	A* X 	  Logical Complement of R121
+R123	B X 	  Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
+R131	B* C X 	  Exclusive OR, 4 circuits, Output is -3V if inputs are the same
+R141	C* D* E X 	  AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
+R151	A B* D X 	  Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
 R152	D* 	  Obsolete, R151 without clamp loads, see B152
-R181	B* C 	  DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
+R181	B* C X 	  DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
 R200		  Set-Reset Flip-flop
-R201	A* C D* 	  RS FF with 3 Set and 2 Reset DCD Gates
-R202	A* D E* 	  Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
-R203	A* C* D 	  Triple FF, Direct Clear, Set DCD Gate each
-R204	A* B 	  Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
-R205	D 	  Dual FF, Common Direct Clear, 2 DCD Gates each
-R210	A* 	  PDP8 Accumulator
+R201	A* C D* X 	  RS FF with 3 Set and 2 Reset DCD Gates
+R202	A* D E X 	  Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
+R203	A* C* D X 	  Triple FF, Direct Clear, Set DCD Gate each
+R204	A* B X 	  Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
+R205	D X 	  Dual FF, Common Direct Clear, 2 DCD Gates each
+R210	A 	  PDP8 Accumulator
 R211	K* 	  MB, PC, MA, (PDP8)
 R212	A* 	  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
 R220	L* 	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 R284	A* 	  Quadraflop, PDP8, 4 stable states
-R302	J* K L M* S* 	  2 One-shots
+R302	J* K L M* S* X 	  2 One-shots
 R303	B* D* 	  Integrating One Shot
 R401	C* D* H* 	  Variable Clock, 30CPS to 2 MC
 R405	H* J* 	  Crystal Clock, 5KC to 2 Mc Available

@@ -373,6 +373,10 @@ board.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A614 target=_blank>./DEC/Axxx/A614</a></b>: 12 Bit bipolar D/A Converter, Double Long
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A615 target=_blank>./DEC/Axxx/A615</a></b>: D/A Converter
 
 </LEGEND></FIELDSET>
@@ -3376,6 +3380,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R001A</A>
   <DD>is a drawing of DEC's R001A.
+<DT>R001X</A>
+  <DD>is a 'modernized' R001.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3386,6 +3392,8 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a drawing of DEC's R002A.
 <DT>R002B</A>
   <DD>is a drawing of DEC's R002B.
+<DT>R107X</A>
+  <DD>is a 'modernized' R002.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3396,10 +3404,20 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R107 target=_blank>./DEC/Rxxx/R107</a></b>: 7 Inverters, 1 with expansion node
 
 </LEGEND><DL>
+<DT>R107A</A>
+  <DD>is a drawing of DEC's R107A.
+<DT>R107B</A>
+  <DD>needs a drawing.
 <DT>R107C</A>
   <DD>needs a drawing.
 <DT>R107D</A>
   <DD>is a drawing of DEC's R107D.
+<DT>R107E</A>
+  <DD>needs a drawing.
+<DT>R107S1A</A>
+  <DD>is a drawing of DEC's R107S1A.
+<DT>R107X</A>
+  <DD>is a 'modernized' R107.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3412,6 +3430,8 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a drawing of DEC's R111E.
 <DT>R111F</A>
   <DD>is a drawing of DEC's R111F.
+<DT>R111X</A>
+  <DD>is a 'modernized' R111.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3426,6 +3446,8 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a drawing of DEC's R113A.
 <DT>R113B</A>
   <DD>is a drawing of DEC's R113B.
+<DT>R113X</A>
+  <DD>is a 'modernized' R113.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3437,21 +3459,29 @@ subsystem replaced with level converters and a ramboard.
 
 </LEGEND><DL>
 <DT>R121A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing if DEC's R121A.
 <DT>R121B</A>
   <DD>needs a drawing.
+<DT>R121X</A>
+  <DD>is a 'modernized' R121.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R122 target=_blank>./DEC/Rxxx/R122</a></b>: Logical Complement of R121
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R121X</A>
+  <DD>is a drawing of a 'modernized' R121.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R123 target=_blank>./DEC/Rxxx/R123</a></b>: Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
 
 </LEGEND><DL>
 <DT>R123B</A>
   <DD>is a drawing of DEC's R123B.
+<DT>R123X</A>
+  <DD>is a 'modernized' R123.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3460,6 +3490,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R131C</A>
   <DD>is a drawing of DEC's R131C.
+<DT>R131X</A>
+  <DD>is a 'modernized' R131.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3468,14 +3500,20 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R141E</A>
   <DD>is a drawing of DEC's R141E.
+<DT>R141X</A>
+  <DD>is a 'modernized' R141.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R151 target=_blank>./DEC/Rxxx/R151</a></b>: Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
 
 </LEGEND><DL>
+<DT>R151A</A>
+  <DD>is a drawing of DEC's R151A.
 <DT>R151D</A>
   <DD>is a drawing of DEC's R151D.
+<DT>R151X</A>
+  <DD>is a 'modernized' R151.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3490,6 +3528,8 @@ subsystem replaced with level converters and a ramboard.
   <DD>needs a drawing.
 <DT>R181C</A>
   <DD>is a drawing of DEC's R181C.
+<DT>R181X</A>
+  <DD>is a 'modernized' R181.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3500,10 +3540,14 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R201 target=_blank>./DEC/Rxxx/R201</a></b>: RS FF with 3 Set and 2 Reset DCD Gates
 
 </LEGEND><DL>
+<DT>R201A</A>
+  <DD>needs a drawing.
 <DT>R201C</A>
   <DD>is a drawing of DEC's R201C.
 <DT>R201D</A>
   <DD>needs a drawing.
+<DT>R201X</A>
+  <DD>is a 'modernized' R201.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3513,7 +3557,9 @@ subsystem replaced with level converters and a ramboard.
 <DT>R202D</A>
   <DD>is a drawing of DEC's R202D.
 <DT>R202E</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R202E.
+<DT>R202X</A>
+  <DD>is a 'modernized' R202.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3522,6 +3568,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R203D</A>
   <DD>is a drawing of DEC's R203D.
+<DT>R203X</A>
+  <DD>is a 'modernized' R203.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3530,6 +3578,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R204B</A>
   <DD>is a drawing of DEC's R204B.
+<DT>R204X</A>
+  <DD>is a 'modernized' R204.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3538,6 +3588,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R205D</A>
   <DD>is a drawing of DEC's R205D.
+<DT>R205X</A>
+  <DD>is a 'modernized' R205.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3570,6 +3622,8 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a drawing of DEC's R302L.
 <DT>R302M</A>
   <DD>needs a drawing.
+<DT>R302X</A>
+  <DD>is a 'modernized' R302.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>

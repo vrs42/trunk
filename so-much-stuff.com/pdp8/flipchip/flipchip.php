@@ -27,7 +27,10 @@ there in a jumble.
 to a datasheet (or two) describing the function of that module.
     <P>Second, I have made some tables that list each known revision of
 each module and what is known about it, with links to the relevant 
-individual files.
+individual files.  In many cases I have added an "X" version, which is 
+intended to be a version of the module built with components that are 
+still currently available.  (Most "X" versions have not yet been built
+and tested.)
     <P>That makes it easier to see that, say, revision A is lacking a
 DEC schematic, where revision B has one (which may not work too well
 for revision A).  Hopefully there will be an Eagle schematic, though

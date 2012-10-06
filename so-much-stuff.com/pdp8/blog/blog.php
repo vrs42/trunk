@@ -23,7 +23,7 @@ in lieu of a proper blog.
 I was never very prompt about updating it, and finally admitted that
 I was not likely to ever get it up to date and keep it that way.
     <P>That's probably too bad, because there was a lot more detail 
-that way.  On the other hand, I think it was a lot easier now to find,
+that way.  On the other hand, I think it is a lot easier now to find,
 say, all the things I have done to my TU56, even if you don't get to 
 see me struggle with each little thing.
     <P>
