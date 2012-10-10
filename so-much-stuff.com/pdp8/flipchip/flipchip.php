@@ -69,6 +69,7 @@ the SVN repository.
 especially Al Kossow of
 <A href=http://www.bitsavers.org target=_blank>www.bitsavers.org</A>.
     <P>If you want to do CAD drawings like mine, check out the "cad"
-link at the top of the page.
+link at the top of the page.  <A href=eagle.php>This page</A> also 
+gives information about how these drawings are created.
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
