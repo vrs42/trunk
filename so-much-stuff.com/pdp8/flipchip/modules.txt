@@ -88,8 +88,8 @@ B683	C* 	  3 Bus Drivers, OR output, 50 ohm load, 0 -3V
 B684	J* 	  2 Bus Drivers, like 6684
 B685	B* 	  3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
 G005	F* 	  4-input Sense Amp, PDP-6, 2us, double
-G007	A* 	  Sense Amplifier
-G008	B* 	  Slice Control for G007 & G009
+G007	A* M* 	  Sense Amplifier
+G008	B* C* 	  Slice Control for G007 & G009
 G010	A* 	  Sense Amp Selector for PDP-9, 164, also used for G012
 G020	D* E* H* 	  Sense Amp for 8/I, G021 etch, IC levels
 G021	E* H* K 	  Dual Sense Amp for 8/I, IC levels, also used for G020
@@ -108,8 +108,8 @@ G102	D* 	  Sense, Inhibit, & Register (4 bits) for MM11 & ME10
 G103	A* 	  Memory Voltage Levels, MM11 & ME10
 G206	B* 	  Memory Selector, PDP-6, 2us, double, used for G212
 G207	B* 	  Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
-G208	A* 	  Inhibit Driver
-G209	A* 	  Memory Selector
+G208	A* L* 	  Inhibit Driver
+G209	A* J* 	  Memory Selector
 G212	B* 	  Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
 G217	H* 	  Word Driver, MA10, uses G219 for Digit Driver
 G219	H* 	  Memory Selector (A G209 for negative supply), PDP9
@@ -132,7 +132,7 @@ G380	E* 	  Solenoid Drivers
 G500	A* 	  TU55/TU56 Skew Tester
 G589	C* 	  Differential Integrator/Amp, RP10 Controller, RP01-Memorex 630-1
 G590	E* 	  Differential Filtered Integrator, RP10, RP02, Memorex 660
-G603	A* 	  Memory Selector Matrix
+G603	A* E* 	  Memory Selector Matrix
 G604	A* 	  Memory Selection Matrix, PDP-6
 G609	A* 	  Memory Mounting Board
 G610	A* B* 	  "A" Diode Matrix Board for PDP-8 stack 30-05256
@@ -182,8 +182,8 @@ G799	A* 	  Cable Connector
 G800	H* 	  Control for 739 Power Supply
 G8004	B* 	  Power Fail
 G805	E* F* 	  Regulator for negative 8 memory, Double
-G808	A* 	  Control for 708 Power Supply
-G809	A* 	  -15V Sense and Relay Driver
+G808	A* K* 	  Control for 708 Power Supply
+G809	A* J* 	  -15V Sense and Relay Driver
 G810	C* 	  6V Regulator Control, Drives a G805
 G816	B* 	  Modified G806 for driving 70V Power Supply Regulator Outputs
 G817	A* 	  Card 1 for 713
@@ -568,10 +568,10 @@ R202	A* D E X 	  Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate eac
 R203	A* C* D X 	  Triple FF, Direct Clear, Set DCD Gate each
 R204	A* B X 	  Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
 R205	D X 	  Dual FF, Common Direct Clear, 2 DCD Gates each
-R210	A 	  PDP8 Accumulator
-R211	K* 	  MB, PC, MA, (PDP8)
-R212	A* 	  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
-R220	L* 	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
+R210	A I L S* X 	  PDP8 Accumulator
+R211	K* L* 	  MB, PC, MA, (PDP8)
+R212	A* J* 	  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
+R220	F* L* 	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 R284	A* 	  Quadraflop, PDP8, 4 stable states
 R302	J* K L M* S* X 	  2 One-shots
 R303	B* D* 	  Integrating One Shot
@@ -590,16 +590,16 @@ R613	B* 	  R603 that cannot be triggered from output, with 5 mA loads
 R623	D* 	  R603 with 400us pulse, R603 etch, retrofit for LINC-8
 R650	E* 	  Bus Driver, 2 circuits, 2 Inputs & Node
 R663	D* 	  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in)
-S107	D* E* S1A* 	  R107 with 5 mA Clamp Loads
+S107	C* D* E* S1A* 	  R107 with 5 mA Clamp Loads
 S111	D* E* F* 	  R111 with 5 mA Clamp Loads
 S123	B* 	  Diode Gate
 S151	B* C* D* 	  R151 with 5 mA Clamp Loads
 S181	A* C* 	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 S202	D* E* 	  R202 with 5 mA Clamp Loads
 S203	C* D* 	  R203 with 5 mA Clamp Loads
-S205	D* 	  R205 with 5 mA Clamp Loads
+S205	C* D* 	  R205 with 5 mA Clamp Loads
 S206	B* C* D* 	  Dual Flip Flop
-S284	A* 	  R284 with 5 mA Clamp Loads
+S284	A* C* 	  R284 with 5 mA Clamp Loads
 S602	H* K* 	  R602 with 5 mA Clamp Loads
 S603	D* 	  R603 with 5 mA Clamp Loads
 W002	A* B* 	  15 2mA Clamped Loads, W005 etch
@@ -629,7 +629,7 @@ W043		  2 Solenoid Drivers, 2 Inputs plus a node, 2.0A max, similar to W040
 W050	B* C* 	  7 Indicator/Solenoid Drivers, 30mA -20V max
 W051	A* C* D* 	  7 Indicator/Solenoid Drivers, 100mA -15V max
 W061		  4 Relay Drivers, 250mA +55V max
-W070	A* 	  Teletype Cable Connector, PDP8
+W070	A* C* 	  Teletype Cable Connector, PDP8
 W076	B D 	  Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
 W078	A* 	  W076 with AMP connector instead of cable
 W080		  Isolated AC/DC Switch
@@ -644,7 +644,7 @@ W108	A* 	  Bipolar Decoding Driver, double
 W122	F* 	  Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
 W132	D* 	  Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
 W250	A* B* 	  12 Indicator Drivers, flex print, ground & -15V from male end
-W300	C* 	  Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
+W300	C* E* 	  Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
 W301	C* 	  Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
 W404	C* 	  DTR Jumper
 W500	A* 	  High Impedance Follower, 7 circuits
@@ -670,7 +670,7 @@ W592	A* 	  IBM 360 Bus to DEC Converter (non-inverting)
 W600	A* 	  Negative Level Amplifier, like 1667, 3 inverting circuits
 W601	A* D* 	  Positive Level Amplifier, 3 inverting circuits
 W602	A* 	  Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
-W603	B* 	  Positive Level Amplifier, 7 circuits
+W603	A B X 	  Positive Level Amplifier, 7 circuits
 W607	D* 	  3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
 W612	C* D* 	  Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
 W640	D* H* J* 	  3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out

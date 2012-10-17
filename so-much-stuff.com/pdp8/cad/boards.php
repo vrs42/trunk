@@ -3595,7 +3595,16 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R210 target=_blank>./DEC/Rxxx/R210</a></b>: PDP8 Accumulator
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R210A</A>
+  <DD>is a drawing of DEC's R210A.
+<DT>R210I</A>
+  <DD>is a drawing of DEC's R210I.
+<DT>R210L</A>
+  <DD>is a drawing of DEC's R210L.
+<DT>R205X</A>
+  <DD>is a 'modernized' R210.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R211 target=_blank>./DEC/Rxxx/R211</a></b>: MB, PC, MA, (PDP8)
 
