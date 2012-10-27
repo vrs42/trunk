@@ -573,19 +573,19 @@ R211	K* L* 	  MB, PC, MA, (PDP8)
 R212	A* J* 	  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
 R220	F* L* 	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 R284	A* 	  Quadraflop, PDP8, 4 stable states
-R302	J* K L M* S* X 	  2 One-shots
-R303	B* D* 	  Integrating One Shot
-R401	C* D* H* 	  Variable Clock, 30CPS to 2 MC
-R405	H* J* 	  Crystal Clock, 5KC to 2 Mc Available
+R302	J K L M* S* X 	  2 One-shots
+R303	B* D X 	  Integrating One Shot
+R401	C D* H X 	  Variable Clock, 30CPS to 2 MC
+R405	H J X 	  Crystal Clock, 5KC to 2 Mc Available
 R406	A* 	  Clock for PDP9/L, 1.5us
 R407	A* 	  PDP9 Parity Clock, 1.2us
 R408	A* 	  PDP8 Clock
-R409	A* H* 	  PDP9 Clock, 1 MC
+R409	H J X 	  PDP9 Clock (R405 configured for 1MC)
 R450	D* E* 	  Clock for use with TTY, first pusle comes 1/2 period late
 R451	E* 	  Teletype Clock, for faster teletype thank R450
 R601	B* F* H* 	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
-R602	H* K* 	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
-R603	D* F* 	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
+R602	H K X 	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
+R603	D F* X 	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
 R613	B* 	  R603 that cannot be triggered from output, with 5 mA loads
 R623	D* 	  R603 with 400us pulse, R603 etch, retrofit for LINC-8
 R650	E* 	  Bus Driver, 2 circuits, 2 Inputs & Node

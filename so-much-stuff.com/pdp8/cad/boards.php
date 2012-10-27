@@ -3625,6 +3625,8 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R302 target=_blank>./DEC/Rxxx/R302</a></b>: 2 One-shots
 
 </LEGEND><DL>
+<DT>R302J</A>
+  <DD>is a drawing of DEC's R302J.
 <DT>R302K</A>
   <DD>is a drawing of DEC's R302K.
 <DT>R302L</A>
@@ -3641,16 +3643,34 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R303D</A>
   <DD>needs a drawing.
+<DT>R303X</A>
+  <DD>is a 'modernized' R303.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R401 target=_blank>./DEC/Rxxx/R401</a></b>: Variable Clock, 30CPS to 2 MC
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R401C</A>
+  <DD>is a drawing of DEC's R401C.
+<DT>R401H</A>
+  <DD>is a drawing of DEC's R401H.
+<DT>R401X</A>
+  <DD>is a 'modernized' R401.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R405 target=_blank>./DEC/Rxxx/R405</a></b>: Crystal Clock, 5KC to 2 Mc Available
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R405H</A>
+  <DD>is a drawing of DEC's R405H.
+<DT>R405J</A>
+  <DD>is a drawing of DEC's R405J.
+<DT>R405X</A>
+  <DD>is a 'modernized' R405.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R406 target=_blank>./DEC/Rxxx/R406</a></b>: Clock for PDP9/L, 1.5us
 
@@ -3664,9 +3684,17 @@ subsystem replaced with level converters and a ramboard.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R409 target=_blank>./DEC/Rxxx/R409</a></b>: PDP9 Clock, 1 MC
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R409 target=_blank>./DEC/Rxxx/R409</a></b>: PDP9 Clock (R405 configured for 1MC)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R409H</A>
+  <DD>is a drawing of DEC's R409H.
+<DT>R409J</A>
+  <DD>is a drawing of DEC's R409J.
+<DT>R409X</A>
+  <DD>is a 'modernized' R409.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Clock for use with TTY, first pusle comes 1/2 period late
 
@@ -3682,11 +3710,23 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R602 target=_blank>./DEC/Rxxx/R602</a></b>: Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R602H</A>
+  <DD>is a drawing of DEC's R602H.
+<DT>R602K</A>
+  <DD>is a drawing of DEC's R602K.
+<DT>R602X</A>
+  <DD>is a 'modernized' R602.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R603 target=_blank>./DEC/Rxxx/R603</a></b>: Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R603D</A>
+  <DD>is a drawing of DEC's R603D.
+<DT>R603X</A>
+  <DD>is a 'modernized' R603.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R613 target=_blank>./DEC/Rxxx/R613</a></b>: R603 that cannot be triggered from output, with 5 mA loads
 
