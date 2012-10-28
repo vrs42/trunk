@@ -1165,6 +1165,10 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G803 target=_blank>./DEC/Gxxx/G803</a></b>: Rectifying Slicer
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory, Double
 
 </LEGEND></FIELDSET>
@@ -1616,6 +1620,10 @@ proper bus receivers.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M108 target=_blank>./DEC/Mxxx/M108</a></b>: Flag Module
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M109 target=_blank>./DEC/Mxxx/M109</a></b>: Device Select Module
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -3424,8 +3432,6 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R111 target=_blank>./DEC/Rxxx/R111</a></b>: 3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
 
 </LEGEND><DL>
-<DT>R111D</A>
-  <DD>is a drawing of DEC's R111D.
 <DT>R111E</A>
   <DD>is a drawing of DEC's R111E.
 <DT>R111F</A>
@@ -3696,11 +3702,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Clock for use with TTY, first pusle comes 1/2 period late
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Clock for use with TTY, first pulse comes 1/2 period late
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R451 target=_blank>./DEC/Rxxx/R451</a></b>: Teletype Clock, for faster teletype thank R450
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R451 target=_blank>./DEC/Rxxx/R451</a></b>: Teletype Clock, for faster teletype think R450
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -3750,37 +3756,90 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S107 target=_blank>./DEC/Sxxx/S107</a></b>: R107 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S107D</A>
+  <DD>is a drawing of DEC's S107D.
+<DT>S107S1A</A>
+  <DD>is a drawing of DEC's S107S1A.
+<DT>S107X</A>
+  <DD>is a 'modernized' S107.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S111 target=_blank>./DEC/Sxxx/S111</a></b>: R111 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S111E</A>
+  <DD>is a drawing of DEC's S111E.
+<DT>S111F</A>
+  <DD>is a drawing of DEC's S111F.
+<DT>S111X</A>
+  <DD>is a 'modernized' RS111.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S123 target=_blank>./DEC/Sxxx/S123</a></b>: Diode Gate
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S123B</A>
+  <DD>is a drawing of DEC's S123B.
+<DT>S123X</A>
+  <DD>is a 'modernized' S123.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S151 target=_blank>./DEC/Sxxx/S151</a></b>: R151 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S151A</A>
+  <DD>is a drawing of DEC's S151A.
+<DT>S151D</A>
+  <DD>is a drawing of DEC's S151D.
+<DT>S151X</A>
+  <DD>is a 'modernized' S151.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S181 target=_blank>./DEC/Sxxx/S181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S181C</A>
+  <DD>is a drawing of DEC's S181C.
+<DT>S181X</A>
+  <DD>is a 'modernized' S181.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S202 target=_blank>./DEC/Sxxx/S202</a></b>: R202 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S202D</A>
+  <DD>is a drawing of DEC's S202D.
+<DT>S202X</A>
+  <DD>is a 'modernized' S202.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S203 target=_blank>./DEC/Sxxx/S203</a></b>: R203 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S203D</A>
+  <DD>is a drawing of DEC's S203D.
+<DT>S203X</A>
+  <DD>is a 'modernized' S203.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S205 target=_blank>./DEC/Sxxx/S205</a></b>: R205 with 5 mA Clamp Loads
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S205 target=_blank>./DEC/Sxxx/S205</a></b>: R205 Dual Flip Flop with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S205D</A>
+  <DD>is a drawing of DEC's S205D.
+<DT>S205X</A>
+  <DD>is a 'modernized' S205.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S206 target=_blank>./DEC/Sxxx/S206</a></b>: Dual Flip Flop
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S206 target=_blank>./DEC/Sxxx/S206</a></b>: S205 Dual Flip Flop with 10mA clamp loads
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -3790,11 +3849,25 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S602 target=_blank>./DEC/Sxxx/S602</a></b>: R602 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S602H</A>
+  <DD>is a drawing of DEC's S602H.
+<DT>S602K</A>
+  <DD>is a drawing of DEC's S602K.
+<DT>S602X</A>
+  <DD>is a 'modernized' S602.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S603 target=_blank>./DEC/Sxxx/S603</a></b>: R603 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R603D</A>
+  <DD>is a drawing of DEC's R603D.
+<DT>R603X</A>
+  <DD>is a 'modernized' R603.
+</DL>
+</FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TC08 target=_blank>./DEC/TC08</a></b>: TC08 Backplane

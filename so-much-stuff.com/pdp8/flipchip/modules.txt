@@ -181,6 +181,7 @@ G796	A* B* 	  Clamped Level Cable Connector, W034 with clamps, ground and -3V wi
 G799	A* 	  Cable Connector
 G800	H* 	  Control for 739 Power Supply
 G8004	B* 	  Power Fail
+G803	A* 	  Rectifying Slicer
 G805	E* F* 	  Regulator for negative 8 memory, Double
 G808	A* K* 	  Control for 708 Power Supply
 G809	A* J* 	  -15V Sense and Relay Driver
@@ -267,6 +268,7 @@ M105	C 	  Address Selector
 M106	A 	  Dot NOR Gates
 M107		  Device Selector
 M108		  Flag Module
+M109	A* 	  Device Select Module
 M1103	A* 	  10 2-Input AND Gates
 M111	A B C D* 	  Inverters
 M112	D 	  NOR Gates
@@ -581,8 +583,8 @@ R406	A* 	  Clock for PDP9/L, 1.5us
 R407	A* 	  PDP9 Parity Clock, 1.2us
 R408	A* 	  PDP8 Clock
 R409	H J X 	  PDP9 Clock (R405 configured for 1MC)
-R450	D* E* 	  Clock for use with TTY, first pusle comes 1/2 period late
-R451	E* 	  Teletype Clock, for faster teletype thank R450
+R450	D* E* 	  Clock for use with TTY, first pulse comes 1/2 period late
+R451	E* 	  Teletype Clock, for faster teletype think R450
 R601	B* F* H* 	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
 R602	H K X 	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
 R603	D F* X 	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
@@ -590,18 +592,18 @@ R613	B* 	  R603 that cannot be triggered from output, with 5 mA loads
 R623	D* 	  R603 with 400us pulse, R603 etch, retrofit for LINC-8
 R650	E* 	  Bus Driver, 2 circuits, 2 Inputs & Node
 R663	D* 	  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in)
-S107	C* D* E* S1A* 	  R107 with 5 mA Clamp Loads
-S111	D* E* F* 	  R111 with 5 mA Clamp Loads
-S123	B* 	  Diode Gate
-S151	B* C* D* 	  R151 with 5 mA Clamp Loads
-S181	A* C* 	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
-S202	D* E* 	  R202 with 5 mA Clamp Loads
-S203	C* D* 	  R203 with 5 mA Clamp Loads
-S205	C* D* 	  R205 with 5 mA Clamp Loads
-S206	B* C* D* 	  Dual Flip Flop
+S107	C* D E* S1A X 	  R107 with 5 mA Clamp Loads
+S111	D* E F X 	  R111 with 5 mA Clamp Loads
+S123	B X 	  Diode Gate
+S151	A B* C* D X 	  R151 with 5 mA Clamp Loads
+S181	A* C X 	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
+S202	D E* X 	  R202 with 5 mA Clamp Loads
+S203	C* D X 	  R203 with 5 mA Clamp Loads
+S205	C* D X 	  R205 Dual Flip Flop with 5 mA Clamp Loads
+S206	B* C* D X 	  S205 Dual Flip Flop with 10mA clamp loads
 S284	A* C* 	  R284 with 5 mA Clamp Loads
-S602	H* K* 	  R602 with 5 mA Clamp Loads
-S603	D* 	  R603 with 5 mA Clamp Loads
+S602	H K X 	  R602 with 5 mA Clamp Loads
+S603	D X 	  R603 with 5 mA Clamp Loads
 W002	A* B* 	  15 2mA Clamped Loads, W005 etch
 W005	A* B* 	  15 Clamped Loads
 W010	A* 	  10 10mA Cleamped loads to -15V
