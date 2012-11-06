@@ -35,9 +35,9 @@ A877		  13-bit A/D Converter
 A990		  Operational Amplifier
 A992		  Operational Amplifier
 B104	B* C* 	  4 Inverters, 3 Loads
-B105	B* D* E* 	  5 Inverters, 5 Loads
+B105	B D E* X 	  5 Inverters, 5 Loads
 B113	C* 	  4 2-Input Negative NAND Gages, 3 Loads
-B115	A* B* C* 	  3 3-Input Negative NAND Gages, 3 Loads
+B115	A B C* X 	  3 3-Input Negative NAND Gages, 3 Loads
 B117	C* 	  2 5-Input Negative NAND Gates
 B123	A* 	  4 2-Input OC NAND Gates
 B124		  3 3-Input OC NOR Gates
@@ -53,7 +53,7 @@ B142	A* 	  Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for P
 B152	A* 	  Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
 B155		  Half Binary to Octal Decoder
 B156	A* 	  2mA equivalent to B155
-B163	D* 	  6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
+B163	D X 	  6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
 B165	A* 	  2mA Diode equivalent of B105
 B166	A* 	  Counting Gate for SC Adder of PDP10
 B167	D* 	  8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
@@ -72,11 +72,11 @@ B212	C* 	  Dual RS Flip-flop, PDP10, Bus Driver Output, Delayed & not Delayed RS
 B213	C* F* 	  PDP9 Flip-flop, Single Input Jam, no Delay
 B214	A* 	  4 Flip-flops, B204 made out of 3 mA Gates
 B250	C* D* 	  Flip-flop Memory, PDP10, Fairchild IC's, 8x12 bits/card, double
-B301	B* D* 	  10 MC One Shot
+B301	B D* 	  10 MC One Shot
 B310	A* 	  4 Delay Lines, double
 B311	D* 	  Tapped Delay Line, 200 ns, 25 ns steps, Emitter Follower Input
 B312	B* 	  Delay Line, B311 Continuously Variable, Diode Input, PDP10
-B360	C* D* 	  Screwdriver Delay Line + Pulse Amp, 200-250 ns max
+B360	C D 	  Screwdriver Delay Line + Pulse Amp, 200-250 ns max
 B401		  Variable Clock
 B405	B* 	  Crystal Clock, 2 to 10 MC
 B410	D* 	  Voltage Controlled Clock, 1-10 MC, 40 to 100 ns negative pulses, potentiometer adjustment
@@ -585,12 +585,12 @@ R408	A* 	  PDP8 Clock
 R409	H J X 	  PDP9 Clock (R405 configured for 1MC)
 R450	D* E* 	  Clock for use with TTY, first pulse comes 1/2 period late
 R451	E* 	  Teletype Clock, for faster teletype think R450
-R601	B* F* H* 	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
+R601	B* F H* X 	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
 R602	H K X 	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
 R603	D F* X 	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
-R613	B* 	  R603 that cannot be triggered from output, with 5 mA loads
+R613	B X 	  R603 that cannot be triggered from output, with 5 mA loads
 R623	D* 	  R603 with 400us pulse, R603 etch, retrofit for LINC-8
-R650	E* 	  Bus Driver, 2 circuits, 2 Inputs & Node
+R650	B* C E X 	  Bus Driver, 2 circuits, 2 Inputs & Node
 R663	D* 	  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in)
 S107	C* D E* S1A X 	  R107 with 5 mA Clamp Loads
 S111	D* E F X 	  R111 with 5 mA Clamp Loads

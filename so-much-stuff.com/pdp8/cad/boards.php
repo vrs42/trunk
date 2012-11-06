@@ -462,7 +462,15 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B105 target=_blank>./DEC/Bxxx/B105</a></b>: 5 Inverters, 5 Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B105B</A>
+  <DD>is a drawing of DEC's B105B.
+<DT>B105D</A>
+  <DD>is a drawing of DEC's B105D.
+<DT>B105X</A>
+  <DD>is a 'modernized' B105.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B113 target=_blank>./DEC/Bxxx/B113</a></b>: 4 2-Input Negative NAND Gages, 3 Loads
 
@@ -470,7 +478,14 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B115 target=_blank>./DEC/Bxxx/B115</a></b>: 3 3-Input Negative NAND Gages, 3 Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B115A</A>
+  <DD>is a drawing of DEC's B115A.
+<DT>B115B</A>
+  <DD>is a drawing of DEC's B115B.
+<DT>B115X</A>
+  <DD>is a 'modernized' B115.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B117 target=_blank>./DEC/Bxxx/B117</a></b>: 2 5-Input Negative NAND Gates
 
@@ -534,7 +549,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B163 target=_blank>./DEC/Bxxx/B163</a></b>: 6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B163D</A>
+  <DD>is a drawing of DEC's B163D.
+<DT>B163X</A>
+  <DD>is a 'modernized' B163.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B165 target=_blank>./DEC/Bxxx/B165</a></b>: 2mA Diode equivalent of B105
 
@@ -610,7 +631,11 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B301 target=_blank>./DEC/Bxxx/B301</a></b>: 10 MC One Shot
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B301B</A>
+  <DD>is a drawing of DEC's B301B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B310 target=_blank>./DEC/Bxxx/B310</a></b>: 4 Delay Lines, double
 
@@ -626,7 +651,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B360 target=_blank>./DEC/Bxxx/B360</a></b>: Screwdriver Delay Line + Pulse Amp, 200-250 ns max
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B360C</A>
+  <DD>is a drawing of DEC's B360C.
+<DT>B360D</A>
+  <DD>is a drawing of DEC's B360D.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B401 target=_blank>./DEC/Bxxx/B401</a></b>: Variable Clock
 
@@ -3712,7 +3743,12 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R601 target=_blank>./DEC/Rxxx/R601</a></b>: Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R601F</A>
+  <DD>is a drawing of DEC's R601F.
+<DT>R601X</A>
+  <DD>is a 'modernized' R601.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R602 target=_blank>./DEC/Rxxx/R602</a></b>: Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
 
@@ -3736,7 +3772,12 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R613 target=_blank>./DEC/Rxxx/R613</a></b>: R603 that cannot be triggered from output, with 5 mA loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R613B</A>
+  <DD>is a drawing of DEC's R613B.
+<DT>R613X</A>
+  <DD>is a 'modernized' R613.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R623 target=_blank>./DEC/Rxxx/R623</a></b>: R603 with 400us pulse, R603 etch, retrofit for LINC-8
 
@@ -3744,7 +3785,17 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R650 target=_blank>./DEC/Rxxx/R650</a></b>: Bus Driver, 2 circuits, 2 Inputs & Node
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R650BS1B</A>
+  <DD>is a drawing of DEC's R650BS1B.
+<DT>R650C</A>
+  <DD>is a drawing of DEC's R650C.
+<DT>R650E</A>
+  <DD>is a drawing of DEC's R650E.
+<DT>R650X</A>
+  <DD>is a 'modernized' R650.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R663 target=_blank>./DEC/Rxxx/R663</a></b>: B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in)
 
