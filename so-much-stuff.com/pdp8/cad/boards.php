@@ -3639,17 +3639,38 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a drawing of DEC's R210I.
 <DT>R210L</A>
   <DD>is a drawing of DEC's R210L.
-<DT>R205X</A>
-  <DD>is a 'modernized' R210.</DL>
+<DT>R210X</A>
+  <DD>is a 'modernized' R210.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R211 target=_blank>./DEC/Rxxx/R211</a></b>: MB, PC, MA, (PDP8)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R211J</A>
+  <DD>is a drawing of DEC's R211J.
+<DT>R211K</A>
+  <DD>needs a drawing.
+<DT>R211L</A>
+  <DD>needs a drawing.
+<DT>R211X</A>
+  <DD>is a 'modernized' R211.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R212 target=_blank>./DEC/Rxxx/R212</a></b>: MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R212D</A>
+  <DD>is a drawing of DEC's R212D.
+<DT>R212F</A>
+  <DD>is a drawing of DEC's R212F.
+<DT>R212J</A>
+  <DD>needs a drawing.
+<DT>R212X</A>
+  <DD>is a 'modernized' R212.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R220 target=_blank>./DEC/Rxxx/R220</a></b>: 3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 
