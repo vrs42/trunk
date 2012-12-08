@@ -1124,6 +1124,9 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7273 target=_blank>./DEC/Gxxx/G7273</a></b>: Grant Continuity, double height
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G734 target=_blank>./DEC/Gxxx/G734</a></b>: Input Clamp
 
 </LEGEND></FIELDSET>
@@ -3674,7 +3677,13 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R220 target=_blank>./DEC/Rxxx/R220</a></b>: 3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R220J</A>
+  <DD>is a drawing of DEC's R220J.
+<DT>R220X</A>
+  <DD>is a 'modernized' R220.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R284 target=_blank>./DEC/Rxxx/R284</a></b>: Quadraflop, PDP8, 4 stable states
 
@@ -3709,8 +3718,10 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R401 target=_blank>./DEC/Rxxx/R401</a></b>: Variable Clock, 30CPS to 2 MC
 
 </LEGEND><DL>
-<DT>R401C</A>
-  <DD>is a drawing of DEC's R401C.
+<DT>R401D</A>
+  <DD>is a drawing of DEC's R401D.
+<DT>R401F</A>
+  <DD>is a drawing of DEC's R401F.
 <DT>R401H</A>
   <DD>is a drawing of DEC's R401H.
 <DT>R401X</A>
@@ -3754,9 +3765,15 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Clock for use with TTY, first pulse comes 1/2 period late
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Variable Clock
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>R450E</A>
+  <DD>is a drawing of DEC's R450E.
+<DT>R450X</A>
+  <DD>is a 'modernized' R450.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R451 target=_blank>./DEC/Rxxx/R451</a></b>: Teletype Clock, for faster teletype think R450
 
@@ -3767,6 +3784,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R601F</A>
   <DD>is a drawing of DEC's R601F.
+<DT>R601H</A>
+  <DD>is a drawing of DEC's R601H.
 <DT>R601X</A>
   <DD>is a 'modernized' R601.</DL>
 </FIELDSET>
@@ -3917,7 +3936,12 @@ subsystem replaced with level converters and a ramboard.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S284 target=_blank>./DEC/Sxxx/S284</a></b>: R284 with 5 mA Clamp Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>S284B</A>
+  <DD>is a drawing of DEC's S284B.
+<DT>S284X</A>
+  <DD>is a 'modernized' S284.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S602 target=_blank>./DEC/Sxxx/S602</a></b>: R602 with 5 mA Clamp Loads
 
@@ -4524,6 +4548,10 @@ pin DIP components to be connected to a DEC backplane.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W982 target=_blank>./DEC/Wxxx/W982</a></b>: Module Extender, double sided
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W983 target=_blank>./DEC/Wxxx/W983</a></b>: Module Extender, double height double sided
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>

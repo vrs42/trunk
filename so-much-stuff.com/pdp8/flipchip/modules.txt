@@ -163,6 +163,7 @@ G717	B* 	  Positive Bus Control Signal Terminator, 5 100 ohms to ground, pins K2
 G718	A* 	  Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
 G726	B* 	  ME10 Bus Control, a Jumper Board
 G727	A* 	  Grant Continuity, a Jumper Board
+G7273	A* 	  Grant Continuity, double height
 G734	E* 	  Input Clamp
 G737	A* 	  9 Dividers, 150 ohms to +3V, W028 pins
 G741	C* CYA* 	  TU10 Negative Bus Terminator
@@ -573,19 +574,19 @@ R205	D X 	  Dual FF, Common Direct Clear, 2 DCD Gates each
 R210	A I L S* X 	  PDP8 Accumulator
 R211	J K* L* X 	  MB, PC, MA, (PDP8)
 R212	A* D F J* X 	  MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
-R220	F* J* L* 	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
+R220	F* J L* X 	  3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 R284	A* 	  Quadraflop, PDP8, 4 stable states
 R302	J K L M* S* X 	  2 One-shots
 R303	B* D X 	  Integrating One Shot
-R401	C D* H X 	  Variable Clock, 30CPS to 2 MC
+R401	D F H X 	  Variable Clock, 30CPS to 2 MC
 R405	H J X 	  Crystal Clock, 5KC to 2 Mc Available
 R406	A* 	  Clock for PDP9/L, 1.5us
 R407	A* 	  PDP9 Parity Clock, 1.2us
 R408	A* 	  PDP8 Clock
 R409	H J X 	  PDP9 Clock (R405 configured for 1MC)
-R450	D* E* 	  Clock for use with TTY, first pulse comes 1/2 period late
+R450	D* E X 	  Variable Clock
 R451	E* 	  Teletype Clock, for faster teletype think R450
-R601	B* F H* X 	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
+R601	B* F H X 	  Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
 R602	H K X 	  Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
 R603	D F* X 	  Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
 R613	B X 	  R603 that cannot be triggered from output, with 5 mA loads
@@ -601,7 +602,7 @@ S202	D E* X 	  R202 with 5 mA Clamp Loads
 S203	C* D X 	  R203 with 5 mA Clamp Loads
 S205	C* D X 	  R205 Dual Flip Flop with 5 mA Clamp Loads
 S206	B* C* D X 	  S205 Dual Flip Flop with 10mA clamp loads
-S284	A* B* C* 	  R284 with 5 mA Clamp Loads
+S284	A* B C* X 	  R284 with 5 mA Clamp Loads
 S602	H K X 	  R602 with 5 mA Clamp Loads
 S603	D X 	  R603 with 5 mA Clamp Loads
 W002	A* B* 	  15 2mA Clamped Loads, W005 etch
@@ -630,7 +631,7 @@ W042		  10 Amp Driver (double height, double width)
 W043		  2 Solenoid Drivers, 2 Inputs plus a node, 2.0A max, similar to W040
 W050	B* C* 	  7 Indicator/Solenoid Drivers, 30mA -20V max
 W051	A* C* D* 	  7 Indicator/Solenoid Drivers, 100mA -15V max
-W061		  4 Relay Drivers, 250mA +55V max
+W061	C* 	  4 Relay Drivers, 250mA +55V max
 W070	A* C* 	  Teletype Cable Connector, PDP8
 W076	B D 	  Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
 W078	A* 	  W076 with AMP connector instead of cable
@@ -725,6 +726,7 @@ W975		  Perforated double height board, 72 pins, 0.1" grid, contacts only
 W979	C* 	  Collage Mounting Board, 18x 16 pin, double
 W980		  Module Extender, single sided
 W982		  Module Extender, double sided
+W983	A* 	  Module Extender, double height double sided
 W984		  Module Extender, extended double
 W985		  System Module Adapter
 W987		  Module Extender, extended quad
