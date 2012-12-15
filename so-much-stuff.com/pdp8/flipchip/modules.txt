@@ -24,7 +24,7 @@ A607	A* B* 	  10-bit D/A Converter, Single Buffered
 A612	A* B* 	  D/A Converter, Double
 A614	C* 	  12 Bit bipolar D/A Converter, Double Long
 A615	B* D* 	  D/A Converter
-A702	B* 	  Reference Supply
+A702	B C* X 	  Reference Supply (-10V), double
 A704	E* F* 	  Reference Supply, Double
 A706	C* 	  Power Supply for A202
 A708	D* 	  Dual Voltage Regulator
@@ -182,7 +182,7 @@ G796	A* B* 	  Clamped Level Cable Connector, W034 with clamps, ground and -3V wi
 G799	A* 	  Cable Connector
 G800	H* 	  Control for 739 Power Supply
 G8004	B* 	  Power Fail
-G803	A* 	  Rectifying Slicer
+G803	A X 	  Rectifying Slicer
 G805	E* F* 	  Regulator for negative 8 memory, Double
 G808	A* K* 	  Control for 708 Power Supply
 G809	A* J* 	  -15V Sense and Relay Driver
@@ -272,10 +272,10 @@ M108		  Flag Module
 M109	A* 	  Device Select Module
 M1103	A* 	  10 2-Input AND Gates
 M111	A B C D* 	  Inverters
-M112	D 	  NOR Gates
+M112	D E* 	  NOR Gates
 M113	B C D 	  10 2-Input NAND Gates
 M115	C D 	  8 3-Input NAND Gates
-M116		  6 4-Input NOR Gates
+M116	A* 	  6 4-Input NOR Gates
 M117	A* B C E 	  6 4-Input NAND Gates
 M119	A* B C 	  3 8-Input NAND Gates
 M121	A* B D 	  6 AND-NOR Gates
@@ -409,7 +409,7 @@ M602	A 	  Pulse Amplifier
 M603	B* 	  2 Pulse Amplifiers, negative edge in, 1 positive 60ns & 1 positive 45-100ns out, 4 2-input NANDs (74H00), 3 3-input ANDs (74H11)
 M606	A* B* 	  Pulse Generator
 M610		  6 Open Collector 2-Input NAND Gates + Pulse Amplifier
-M611	A* 	  High Speed Power Inverter
+M611	A* B* 	  High Speed Power Inverter
 M612	B* 	  6 Power Gates, 6 grounds, 5 inputs per gate pair
 M617	A* B C E 	  6-4 Input NOR Buffers
 M621	A* 	  Bus Driver, 6 circuits, enables for each of 2 6-bit words
@@ -439,7 +439,7 @@ M703	J* 	  Power Fail Logic, 8/I
 M704	A* B* 	  Plotter Control, 8/I
 M705	A* J* 	  Reader Control
 M7050	D* E* 	  Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
-M706	D* K* 	  Teletype Receiver, double
+M706	D* H* K* 	  Teletype Receiver, double
 M707	A* C D 	  Teletype Transmitter, double
 M708	A* B C* X 	  Clock Control, 8/I
 M709	A* B 	  Clock Counter, 8/I
@@ -485,13 +485,13 @@ M773	B* 	  CONSOLE CONTROL #2 FOR PDP-15
 M775	B* 	  TIME STATE GENERATOR
 M776	A* 	  Reader Register, PC15, Double
 M7820	B* C* 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
-M7821	B* 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
+M7821	B* D* 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
 M783	A* B* 	  Unibus/Omnibus Drivers, extended single
 M784	A* B* C* 	  Unibus/Omnibus Receivers, extended single
 M785	A* B* 	  Unibus/Omnibus Tranceiver, extended single
 M786		  Device Register Interface, extended double
 M795		  Word Count and Bus Address Module, extended double
-M796		  Unibus Master Control, extended single
+M796	C* 	  Unibus Master Control, extended single
 M797	B* 	  Register Select
 M798		  Unibus Drivers, extended single
 M837	B* D* 	  Omnibus Timeshare Option
@@ -521,7 +521,7 @@ M916		  36 Pin connector
 M917		  Ribbon Connector, 18 Signals, 14 GND Pins, split lug
 M918		  Flat Mylar Connector, 36 Signals
 M919	B* C* 	  11 EXTERNAL BUS, 2 60-WIRE MYLAR, 56 SIGNALS, 14 GND PINS
-M920		  Unibus Jumper Module
+M920	B* 	  Unibus Jumper Module
 M921	B* 	  DEVICE CODE SELECT JUMPER MODULE, FOR 3 IOT'S
 M922	B* C* 	  M901 WITH JUMPERS INSTEAD OF RESISTORS FOR INDICATOR BUS, NOT TO BE USED ON BOTH ENDS OF ANY CABLE
 M925		  Flat Mylar Connector, 18 Signals, 19 Grounds, short single
@@ -549,7 +549,7 @@ M969	B* 	  24 LEVEL TERMINATORS LIKE M952 + 1 THERMISTOR
 M970	D* 	  H854 MTD ON SINGLE X 8.5 CARD, ACCEPTS BC05C & BC01V
 M975		  Flip Chip to 2x H854 Adapter, special double
 M993	A* B* 	  RK8E Control Cable Connector
-R001	A X 	  Diode Network, 7 diodes, both end brought to pins
+R001	A B X 	  Diode Network, 7 diodes, both ends brought to pins
 R002	A B X 	  Diode Network, 5 groups of 2 diodes, cathode common
 R012	B* 	  Diode Network, R002 etch, anodes common
 R107	A B* C* D E* S1A X 	  7 Inverters, 1 with expansion node
@@ -600,7 +600,7 @@ S151	A B* C* D X 	  R151 with 5 mA Clamp Loads
 S181	A* C X 	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 S202	D E* X 	  R202 with 5 mA Clamp Loads
 S203	C* D X 	  R203 with 5 mA Clamp Loads
-S205	C* D X 	  R205 Dual Flip Flop with 5 mA Clamp Loads
+S205	C D X 	  R205 Dual Flip Flop with 5 mA Clamp Loads
 S206	B* C* D X 	  S205 Dual Flip Flop with 10mA clamp loads
 S284	A* B C* X 	  R284 with 5 mA Clamp Loads
 S602	H K X 	  R602 with 5 mA Clamp Loads
@@ -619,7 +619,7 @@ W021	A* B* 	  Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot,
 W022		  W021 with 100 ohm shunt terminators
 W023	A* 	  18 Line Ribbon Connector, component spaces near A & B, others straight through
 W024		  Coax Connector, 16-signals, split lug, short
-W025	B* 	  32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
+W025	A* B* 	  32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
 W027		  Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
 W028	A* C* 	  W021 with lugs for series of shunt resistors or diodes in signal leads
 W031		  Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
@@ -643,7 +643,7 @@ W103	C* D* 	  Device Selector, PDP8
 W104	A* C* 	  PDP-9 I/O Bus Module
 W106	D* 	  Priority Interrupt Grant
 W107	A* B* 	  I/O Receiver, PDP10, 7 channels
-W108	A* 	  Bipolar Decoding Driver, double
+W108	A* C* 	  Bipolar Decoding Driver, double
 W122	F* 	  Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
 W132	D* 	  Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
 W250	A* B* 	  12 Indicator Drivers, flex print, ground & -15V from male end
@@ -655,7 +655,7 @@ W501	C* D* F* 	  Schmitt Trigger, +/-10V in, 0 and 03V out
 W502		  2 Photon Coupled Triggers
 W504	A* 	  Initial Transient Detector, A Schmitt, 0 delay, 10ms blackout
 W505	B* 	  Low Voltage Detector, measures +10V & -15V
-W506	A* 	  Power Monitor
+W506	A* C* 	  Power Monitor
 W507	B* 	  Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
 W509	F* 	  3 phase AC Low Voltage Detector
 W510	B* 	  Positive Level Convertor, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
@@ -666,7 +666,7 @@ W514	A* 	  Positive Level Converter, 6 circuits, 100 ohm input
 W519	E* 	  Power Sequence & Crowbar
 W520	B* 	  Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
 W532	B* 	  Dual AC coupled Sense Amplifier, used on PDP8-S
-W533	A* 	  Dual Rectifying Slicer, was G803
+W533	A X 	  Dual Rectifying Slicer, was G803
 W590		  IBM N Line to DEC converter
 W591	A* 	  Positive Bus to DEC converter, for Memorex, 0 to +3V, 8 MC, 5 channels, W592 pins
 W592	A* 	  IBM 360 Bus to DEC Converter (non-inverting)
@@ -732,7 +732,7 @@ W985		  System Module Adapter
 W987		  Module Extender, extended quad
 W990	D* E* 	  Blank Module, split lug for each of 18 pins
 W991		  Bare board, split lugs, 36 pins, double
-W992		  Copper clad, 18 pins
+W992	A* B* 	  Copper clad, 18 pins
 W993		  Copper clad, 36 pins, double
 W994		  Perforated Module, 0.2" centers, 18 lands
 W995		  Perforated Module, 0.2" centers, 36 lands, double

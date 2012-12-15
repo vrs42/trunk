@@ -381,9 +381,14 @@ board.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A702 target=_blank>./DEC/Axxx/A702</a></b>: Reference Supply
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A702 target=_blank>./DEC/Axxx/A702</a></b>: Reference Supply (-10V), double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>A702B</A>
+  <DD>is a drawing of DEC's A702B.
+<DT>A702X</A>
+  <DD>is a 'modernized' version of the A702.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A704 target=_blank>./DEC/Axxx/A704</a></b>: Reference Supply, Double
 
@@ -1201,7 +1206,12 @@ unobtainium T-2052 transformers.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G803 target=_blank>./DEC/Gxxx/G803</a></b>: Rectifying Slicer
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G803A</A>
+  <DD>is a drawing of DEC's G803A.
+<DT>G803X</A>
+  <DD>is a 'modernized' G803.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory, Double
 
@@ -3417,11 +3427,13 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx target=_blank>./DEC/Rxxx</a></b>: Rxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R001 target=_blank>./DEC/Rxxx/R001</a></b>: Diode Network, 7 diodes, both end brought to pins
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R001 target=_blank>./DEC/Rxxx/R001</a></b>: Diode Network, 7 diodes, both ends brought to pins
 
 </LEGEND><DL>
 <DT>R001A</A>
   <DD>is a drawing of DEC's R001A.
+<DT>R001B</A>
+  <DD>is a drawing of DEC's R001B.
 <DT>R001X</A>
   <DD>is a 'modernized' R001.
 </DL>
@@ -3923,6 +3935,8 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S205 target=_blank>./DEC/Sxxx/S205</a></b>: R205 Dual Flip Flop with 5 mA Clamp Loads
 
 </LEGEND><DL>
+<DT>S205C</A>
+  <DD>is a drawing of DEC's S205C.
 <DT>S205D</A>
   <DD>is a drawing of DEC's S205D.
 <DT>S205X</A>
@@ -4296,7 +4310,12 @@ machines.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W533 target=_blank>./DEC/Wxxx/W533</a></b>: Dual Rectifying Slicer, was G803
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W533A</A>
+  <DD>is a drawing of DEC's W533A.
+<DT>W533X</A>
+  <DD>is a 'modernized' W533.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W590 target=_blank>./DEC/Wxxx/W590</a></b>: IBM N Line to DEC converter
 
