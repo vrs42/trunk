@@ -1311,9 +1311,14 @@ unobtainium T-2052 transformers.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G851 target=_blank>./DEC/Gxxx/G851</a></b>: DEC Tape Relay Module
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G851 target=_blank>./DEC/Gxxx/G851</a></b>: DECtape Relay Module
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G851B</A>
+  <DD>is a drawing of DEC's G851B.
+<DT>G851X</A>
+  <DD>is a 'modernized' G851.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G853 target=_blank>./DEC/Gxxx/G853</a></b>: DEC Tape Misc, Single Unit Selection & Timing Track Sensing
 
