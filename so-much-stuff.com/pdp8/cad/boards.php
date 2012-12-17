@@ -1301,9 +1301,15 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G850 target=_blank>./DEC/Gxxx/G850</a></b>: SCR Motor Drive, TU55
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G850 target=_blank>./DEC/Gxxx/G850</a></b>: SCR Motor Driver, TU55
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G850L</A>
+  <DD>is a drawing of DEC's G850L.
+<DT>G850X</A>
+  <DD>is a 'modernized' G850.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G851 target=_blank>./DEC/Gxxx/G851</a></b>: DEC Tape Relay Module
 
@@ -2364,6 +2370,14 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M452A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M453 target=_blank>./DEC/Mxxx/M453</a></b>: Variable Clock
+
+</LEGEND><DL>
+<DT>M453A</A>
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
