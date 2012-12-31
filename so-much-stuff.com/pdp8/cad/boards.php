@@ -1320,9 +1320,14 @@ unobtainium T-2052 transformers.
   <DD>is a 'modernized' G851.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G853 target=_blank>./DEC/Gxxx/G853</a></b>: DEC Tape Misc, Single Unit Selection & Timing Track Sensing
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G853 target=_blank>./DEC/Gxxx/G853</a></b>: DECtape Misc, Single Unit Selection & Timing Track Sensing
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G853A</A>
+  <DD>is a drawing of DEC's G853A.
+<DT>G853X</A>
+  <DD>is a 'modernized' G853.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G854 target=_blank>./DEC/Gxxx/G854</a></b>: Telegraph Line Circuit
 
@@ -1346,7 +1351,12 @@ unobtainium T-2052 transformers.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G882 target=_blank>./DEC/Gxxx/G882</a></b>: Manchester Reader-Writer
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G882B</A>
+  <DD>is a drawing of DEC's G882B.
+<DT>G882X</A>
+  <DD>is a 'modernized' G882.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G888 target=_blank>./DEC/Gxxx/G888</a></b>: Manchester Reader/Writer
 
@@ -4053,13 +4063,21 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </LEGEND><FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W002 target=_blank>./DEC/Wxxx/W002</a></b>: 15 2mA Clamped Loads, W005 etch
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W002B</A>
+  <DD>is a drawing of DEC's W002B.
+<DT>W002X</A>
+  <DD>is a 'modernized' W002.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W005 target=_blank>./DEC/Wxxx/W005</a></b>: 15 Clamped Loads
 
 </LEGEND><DL>
-<DT>W005</A>
-  <DD>is a drawing of DEC's W005 Clamped Loads card.
+<DT>W005B</A>
+  <DD>is a drawing of DEC's W005B.
+<DT>W005X</A>
+  <DD>is a 'modernized' W005.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -4097,7 +4115,14 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W021 target=_blank>./DEC/Wxxx/W021</a></b>: Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot, 10 grounds: C, F, J, L, N, R, U
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W021A</A>
+  <DD>is a drawing of DEC's W021A.
+<DT>W021B</A>
+  <DD>is a drawing of DEC's W021B.
+<DT>W021X</A>
+  <DD>is a 'modernized' W021.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W022 target=_blank>./DEC/Wxxx/W022</a></b>: W021 with 100 ohm shunt terminators
 
@@ -4126,7 +4151,12 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W028 target=_blank>./DEC/Wxxx/W028</a></b>: W021 with lugs for series of shunt resistors or diodes in signal leads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W028A</A>
+  <DD>is a drawing of DEC's W028A.
+<DT>W028X</A>
+  <DD>is a 'modernized' W028.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W031 target=_blank>./DEC/Wxxx/W031</a></b>: Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
 
@@ -4150,7 +4180,13 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W040 target=_blank>./DEC/Wxxx/W040</a></b>: 2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W040B</A>
+  <DD>is a drawing of DEC's W040B.
+<DT>W040X</A>
+  <DD>is a 'modernized' W040.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W042 target=_blank>./DEC/Wxxx/W042</a></b>: 10 Amp Driver (double height, double width)
 
@@ -4162,7 +4198,12 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W050 target=_blank>./DEC/Wxxx/W050</a></b>: 7 Indicator/Solenoid Drivers, 30mA -20V max
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W050C</A>
+  <DD>is a drawing of DEC's W050C.
+<DT>W050X</A>
+  <DD>is a 'modernized' W050.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W051 target=_blank>./DEC/Wxxx/W051</a></b>: 7 Indicator/Solenoid Drivers, 100mA -15V max
 
@@ -4172,12 +4213,13 @@ BusCon project.)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W070 target=_blank>./DEC/Wxxx/W070</a></b>: Teletype Cable Connector, PDP8
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W070 target=_blank>./DEC/Wxxx/W070</a></b>: Teletype Cable Connector, PDP8, PT08
 
 </LEGEND><DL>
-<DT>W070</A>
-  <DD>is a drawing of DEC's W070 TTY Connector card used with Negibus
-machines.
+<DT>W070C</A>
+  <DD>is a drawing of DEC's W070C.
+<DT>W070X</A>
+  <DD>is a 'modernized' W070.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -4221,7 +4263,13 @@ machines.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W103 target=_blank>./DEC/Wxxx/W103</a></b>: Device Selector, PDP8
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W103C</A>
+  <DD>is a drawing of DEC's W103C.
+<DT>W103X</A>
+  <DD>is a 'modernized' W103.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W104 target=_blank>./DEC/Wxxx/W104</a></b>: PDP-9 I/O Bus Module
 
