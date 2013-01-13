@@ -904,7 +904,7 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G209 target=_blank>./DEC/Gxxx/G209</a></b>: Memory Selector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G209 target=_blank>./DEC/Gxxx/G209</a></b>: Memory Selector, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -4145,6 +4145,9 @@ BusCon project.)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W026 target=_blank>./DEC/Wxxx/W026</a></b>: 18 Split Lugs, diode and resistor termination
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W027 target=_blank>./DEC/Wxxx/W027</a></b>: Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
 
 </LEGEND></FIELDSET>
@@ -4261,7 +4264,7 @@ BusCon project.)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W103 target=_blank>./DEC/Wxxx/W103</a></b>: Device Selector, PDP8
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W103 target=_blank>./DEC/Wxxx/W103</a></b>: Device Selector, PDP8, double
 
 </LEGEND><DL>
 <DT>W103C</A>
@@ -4285,7 +4288,12 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W108 target=_blank>./DEC/Wxxx/W108</a></b>: Bipolar Decoding Driver, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W108C</A>
+  <DD>is a drawing of DEC's W108C.
+<DT>W108X</A>
+  <DD>is a 'modernized' W108.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W122 target=_blank>./DEC/Wxxx/W122</a></b>: Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
 
@@ -4317,7 +4325,13 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W501 target=_blank>./DEC/Wxxx/W501</a></b>: Schmitt Trigger, +/-10V in, 0 and 03V out
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W501F</A>
+  <DD>is a drawing of DEC's W501F.
+<DT>W501X</A>
+  <DD>is a 'modernized' W501.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W502 target=_blank>./DEC/Wxxx/W502</a></b>: 2 Photon Coupled Triggers
 
@@ -4333,7 +4347,12 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W506 target=_blank>./DEC/Wxxx/W506</a></b>: Power Monitor
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W506C</A>
+  <DD>is a drawing of DEC's W506C.
+<DT>W506X</A>
+  <DD>is a 'modernized' W506.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W507 target=_blank>./DEC/Wxxx/W507</a></b>: Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
 
@@ -4349,7 +4368,12 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W511 target=_blank>./DEC/Wxxx/W511</a></b>: Negative Level Convertor, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W511A</A>
+  <DD>is a drawing of DEC's W511A.
+<DT>W511X</A>
+  <DD>is a 'modernized' W511.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W512 target=_blank>./DEC/Wxxx/W512</a></b>: Positive Level Convertor, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
 
@@ -4369,11 +4393,21 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W520 target=_blank>./DEC/Wxxx/W520</a></b>: Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W520B</A>
+  <DD>is a drawing of DEC's W520B.
+<DT>W520X</A>
+  <DD>is a 'modernized' W520.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W532 target=_blank>./DEC/Wxxx/W532</a></b>: Dual AC coupled Sense Amplifier, used on PDP8-S
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W532B</A>
+  <DD>is a drawing of DEC's W532B.
+<DT>W532X</A>
+  <DD>is a 'modernized' W532.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W533 target=_blank>./DEC/Wxxx/W533</a></b>: Dual Rectifying Slicer, was G803
 
@@ -4460,9 +4494,14 @@ BusCon project.)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W706 target=_blank>./DEC/Wxxx/W706</a></b>: Teletype Receiver, 8-bit, 11 Unit Codem double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W706 target=_blank>./DEC/Wxxx/W706</a></b>: Teletype Receiver, 8-bit, 11 Unit Codes, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W706C</A>
+  <DD>is a drawing of DEC's W706C.
+<DT>W706X</A>
+  <DD>is a 'modernized' W706.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W707 target=_blank>./DEC/Wxxx/W707</a></b>: Teletype Transmitter, 8 bit, 2 unit stop code, double
 

@@ -15,9 +15,9 @@ A400		  Sample and Hold Amplifier
 A401	B* 	  Sample and Hold
 A404	A* 	  Sample and Hold
 A405		  Sample and Hold Amplifier
-A502		  Comparator
+A502	D* 	  Comparator
 A601	D* E* 	  3 Bit DAC
-A604	A* 	  2-bit D-A Converter
+A604	A* E* 	  2-bit D-A Converter
 A605		  2-bit D-A Converter
 A606		  D-A Converter
 A607	A* B* 	  10-bit D/A Converter, Single Buffered
@@ -80,7 +80,7 @@ B360	C D 	  Screwdriver Delay Line + Pulse Amp, 200-250 ns max
 B401		  Variable Clock
 B405	B* 	  Crystal Clock, 2 to 10 MC
 B410	D* 	  Voltage Controlled Clock, 1-10 MC, 40 to 100 ns negative pulses, potentiometer adjustment
-B602	B* 	  Dual 10 MC Pulse Amplifier
+B602	A* B* 	  Dual 10 MC Pulse Amplifier
 B611	B* 	  Dual Pulse Amplifier, 25 ns, PDP10
 B620		  Dual Carry Pulse Amplifier
 B681	B* 	  4 Power Inverters
@@ -88,8 +88,8 @@ B683	C* 	  3 Bus Drivers, OR output, 50 ohm load, 0 -3V
 B684	J* 	  2 Bus Drivers, like 6684
 B685	B* 	  3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
 G005	F* 	  4-input Sense Amp, PDP-6, 2us, double
-G007	A* M* 	  Sense Amplifier
-G008	B* C* 	  Slice Control for G007 & G009
+G007	A* C* M* 	  Sense Amplifier
+G008	A* B* C* 	  Slice Control for G007 & G009
 G010	A* 	  Sense Amp Selector for PDP-9, 164, also used for G012
 G020	D* E* H* 	  Sense Amp for 8/I, G021 etch, IC levels
 G021	E* H* K 	  Dual Sense Amp for 8/I, IC levels, also used for G020
@@ -108,8 +108,8 @@ G102	D* 	  Sense, Inhibit, & Register (4 bits) for MM11 & ME10
 G103	A* 	  Memory Voltage Levels, MM11 & ME10
 G206	B* 	  Memory Selector, PDP-6, 2us, double, used for G212
 G207	B* 	  Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
-G208	A* L* 	  Inhibit Driver
-G209	A* J* 	  Memory Selector
+G208	A* B* L* 	  Inhibit Driver
+G209	A* B* J* 	  Memory Selector, double
 G212	B* 	  Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
 G217	H* 	  Word Driver, MA10, uses G219 for Digit Driver
 G219	H* 	  Memory Selector (A G209 for negative supply), PDP9
@@ -621,10 +621,11 @@ W022		  W021 with 100 ohm shunt terminators
 W023	A* 	  18 Line Ribbon Connector, component spaces near A & B, others straight through
 W024		  Coax Connector, 16-signals, split lug, short
 W025	A* B* 	  32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
+W026	B* 	  18 Split Lugs, diode and resistor termination
 W027		  Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
 W028	A C* X 	  W021 with lugs for series of shunt resistors or diodes in signal leads
 W031		  Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
-W032	A* 	  5 shielded triples, DEC Tape Signal Connector, double
+W032	A* B* 	  5 shielded triples, DEC Tape Signal Connector, double
 W033	A* B* C* 	  Flexprint, W023 connections on "A" side, side entry cable
 W034	D* H* 	  Flexprint, 16 connections on "B" side 10 ohms on A2, B2
 W040	B X 	  2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
@@ -640,11 +641,11 @@ W080		  Isolated AC/DC Switch
 W100	A* 	  Emitter Follower
 W101	B 	  I/O Bus Driver, similar to 4657
 W102	J* 	  Memory Bus Transceiver, 1665 type
-W103	C D* X 	  Device Selector, PDP8
+W103	C D* X 	  Device Selector, PDP8, double
 W104	A* C* 	  PDP-9 I/O Bus Module
 W106	D* 	  Priority Interrupt Grant
 W107	A* B* 	  I/O Receiver, PDP10, 7 channels
-W108	A* C* 	  Bipolar Decoding Driver, double
+W108	A* C X 	  Bipolar Decoding Driver, double
 W122	F* 	  Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
 W132	D* 	  Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
 W250	A* B* 	  12 Indicator Drivers, flex print, ground & -15V from male end
@@ -652,21 +653,21 @@ W300	C* E* 	  Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, repl
 W301	C* 	  Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
 W404	C* 	  DTR Jumper
 W500	A* 	  High Impedance Follower, 7 circuits
-W501	C* D* F* 	  Schmitt Trigger, +/-10V in, 0 and 03V out
+W501	C* D* F X 	  Schmitt Trigger, +/-10V in, 0 and 03V out
 W502		  2 Photon Coupled Triggers
 W504	A* 	  Initial Transient Detector, A Schmitt, 0 delay, 10ms blackout
 W505	B* 	  Low Voltage Detector, measures +10V & -15V
-W506	A* C* 	  Power Monitor
+W506	A* C E* X 	  Power Monitor
 W507	B* 	  Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
 W509	F* 	  3 phase AC Low Voltage Detector
 W510	B* 	  Positive Level Convertor, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
-W511	A* 	  Negative Level Convertor, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
+W511	A X 	  Negative Level Convertor, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
 W512	A* 	  Positive Level Convertor, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
 W513	F* 	  Negative Level Converter, 6 circuits, used in TU55
 W514	A* 	  Positive Level Converter, 6 circuits, 100 ohm input
 W519	E* 	  Power Sequence & Crowbar
-W520	B* 	  Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
-W532	B* 	  Dual AC coupled Sense Amplifier, used on PDP8-S
+W520	B X 	  Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
+W532	B X 	  Dual AC coupled Sense Amplifier, used on PDP8-S
 W533	A X 	  Dual Rectifying Slicer, was G803
 W590		  IBM N Line to DEC converter
 W591	A* 	  Positive Bus to DEC converter, for Memorex, 0 to +3V, 8 MC, 5 channels, W592 pins
@@ -675,7 +676,7 @@ W600	A* 	  Negative Level Amplifier, like 1667, 3 inverting circuits
 W601	A* D* 	  Positive Level Amplifier, 3 inverting circuits
 W602	A* 	  Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
 W603	A B X 	  Positive Level Amplifier, 7 circuits
-W607	D* 	  3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
+W607	B* D* 	  3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
 W612	C* D* 	  Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
 W640	D* H* J* 	  3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
 W681	A* 	  Scope Intensifier for 34 Display
@@ -686,8 +687,8 @@ W693	C* 	  DEC to CTUL Converter
 W700	B* 	  Switch Filter, 6 circuits, similar to 1703, used on W710
 W701	A* 	  Input Network, for PDP8 Card Reader
 W702	A* 	  Teletype Level Converter for DC10B Data Line Scanner
-W705	A* 	  3.6V Power Supply, triple width
-W706	C* E* 	  Teletype Receiver, 8-bit, 11 Unit Codem double
+W705	A B* X 	  3.6V Power Supply, triple width
+W706	C E* X 	  Teletype Receiver, 8-bit, 11 Unit Codes, double
 W707	H* L* P* 	  Teletype Transmitter, 8 bit, 2 unit stop code, double
 W708	A* 	  Teletype Communications Interface
 W709		  Divide by 16/64 Counter
