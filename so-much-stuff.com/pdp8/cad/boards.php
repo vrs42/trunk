@@ -4499,8 +4499,7 @@ BusCon project.)
 </LEGEND><DL>
 <DT>W706C</A>
   <DD>is a drawing of DEC's W706C.
-<DT>W706X</A>
-  <DD>is a 'modernized' W706.</DL>
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W707 target=_blank>./DEC/Wxxx/W707</a></b>: Teletype Transmitter, 8 bit, 2 unit stop code, double
