@@ -3,10 +3,12 @@ A100		  Multiplexor Switch
 A103		  Multiplexor Switch
 A121		  Multiplexor Switch
 A124	A* B* 	  4 Input Multiplexer Switch
+A130	A* 	  Multiplexor
 A131	B* 	  Multiplexer
 A133	B* 	  Analog Switch
 A163	A* 	  Multiplexer and Amplifier
 A200		  Operational Amplifier
+A202	A* 	  Two Analog Preamplifiers
 A214	A* B* 	  2 Analog Amplifiers
 A215	A* 	  Analog Buffer
 A222	A* 	  Selectable Gain Amplifier
@@ -15,9 +17,9 @@ A400		  Sample and Hold Amplifier
 A401	B* 	  Sample and Hold
 A404	A* 	  Sample and Hold
 A405		  Sample and Hold Amplifier
-A502	D* 	  Comparator
-A601	D* E* 	  3 Bit DAC
-A604	A* E* 	  2-bit D-A Converter
+A502	C* D X 	  Difference Amplifier
+A601	A* D* E X 	  3 Bit DAC
+A604	A* E X 	  2-bit D-A Converter
 A605		  2-bit D-A Converter
 A606		  D-A Converter
 A607	A* B* 	  10-bit D/A Converter, Single Buffered
@@ -25,7 +27,7 @@ A612	A* B* 	  D/A Converter, Double
 A614	C* 	  12 Bit bipolar D/A Converter, Double Long
 A615	B* D* 	  D/A Converter
 A702	B C* X 	  Reference Supply (-10V), double
-A704	E* F* 	  Reference Supply, Double
+A704	A* D* E F* X 	  Reference Supply, Double
 A706	C* 	  Power Supply for A202
 A708	D* 	  Dual Voltage Regulator
 A801		  !0-bit A/D Converter
@@ -85,7 +87,7 @@ B611	B* 	  Dual Pulse Amplifier, 25 ns, PDP10
 B620		  Dual Carry Pulse Amplifier
 B681	B* 	  4 Power Inverters
 B683	C* 	  3 Bus Drivers, OR output, 50 ohm load, 0 -3V
-B684	J* 	  2 Bus Drivers, like 6684
+B684	C* J* 	  2 Bus Drivers, like 6684
 B685	B* 	  3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
 G005	F* 	  4-input Sense Amp, PDP-6, 2us, double
 G007	A* C* M* 	  Sense Amplifier
@@ -215,6 +217,7 @@ G879	A* 	  Transport Detector, TC08, TC09, TC15
 G882	B D* X 	  Manchester Reader-Writer
 G888	A 	  Manchester Reader/Writer
 G903	E* 	  Clock Accelerator for Paper Tape Reader
+G906	A* 	  LINC-8 Capacitor and Power Up
 G912	B* 	  Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12, Long, Double, Thick
 G913	A* 	  Clock Control, (G903 + 1/2 R302 + 1/3 R603)
 G916	A* 	  Power Detector & Switch Filter, PDP-12
@@ -628,6 +631,7 @@ W031		  Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
 W032	A* B* 	  5 shielded triples, DEC Tape Signal Connector, double
 W033	A* B* C* 	  Flexprint, W023 connections on "A" side, side entry cable
 W034	D* H* 	  Flexprint, 16 connections on "B" side 10 ohms on A2, B2
+W035	A* 	  Cable Connector
 W040	B X 	  2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
 W042		  10 Amp Driver (double height, double width)
 W043		  2 Solenoid Drivers, 2 Inputs plus a node, 2.0A max, similar to W040
@@ -635,6 +639,8 @@ W050	B* C X 	  7 Indicator/Solenoid Drivers, 30mA -20V max
 W051	A* C* D* 	  7 Indicator/Solenoid Drivers, 100mA -15V max
 W061	C* 	  4 Relay Drivers, 250mA +55V max
 W070	A* C X 	  Teletype Cable Connector, PDP8, PT08
+W072	A* 	  LINC-8 Scope Cable Connector
+W073	A* 	  LINC-8 Tape Cable Connector
 W076	B D 	  Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
 W078	A* 	  W076 with AMP connector instead of cable
 W080		  Isolated AC/DC Switch
@@ -689,7 +695,7 @@ W701	A* 	  Input Network, for PDP8 Card Reader
 W702	A* 	  Teletype Level Converter for DC10B Data Line Scanner
 W705	A B* X 	  3.6V Power Supply, triple width
 W706	C E* 	  Teletype Receiver, 8-bit, 11 Unit Codes, double
-W707	F H L P 	  Teletype Transmitter, 8 bit, 2 unit stop code, double
+W707	E* F H L P 	  Teletype Transmitter, 8 bit, 2 unit stop code, double
 W708	A* 	  Teletype Communications Interface
 W709		  Divide by 16/64 Counter
 W714	A* 	  Switch Module, 2 form C microswitches, no circuits, 9/I memory

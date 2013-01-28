@@ -288,6 +288,10 @@ panel replacement.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A130 target=_blank>./DEC/Axxx/A130</a></b>: Multiplexor
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A131 target=_blank>./DEC/Axxx/A131</a></b>: Multiplexer
 
 </LEGEND></FIELDSET>
@@ -301,6 +305,10 @@ panel replacement.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A200 target=_blank>./DEC/Axxx/A200</a></b>: Operational Amplifier
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A202 target=_blank>./DEC/Axxx/A202</a></b>: Two Analog Preamplifiers
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -336,26 +344,33 @@ panel replacement.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A502 target=_blank>./DEC/Axxx/A502</a></b>: Comparator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A502 target=_blank>./DEC/Axxx/A502</a></b>: Difference Amplifier
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>A502D</A>
+  <DD>is a drawing of DEC's A502D.
+<DT>A502X</A>
+  <DD>is a 'modernized' version of the A502.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A601 target=_blank>./DEC/Axxx/A601</a></b>: 3 Bit DAC
 
 </LEGEND><DL>
-<DT>A601hand</A>
-  <DD>is a partially hand routed A601 DAC replacement as a single-sided
-board.
-<DT>A601</A>
-  <DD>is another version of the A601 DAC replacement.
-<DT>A601new</A>
-  <DD>is the latest version of the A601 DAC replacement.
+<DT>A601E</A>
+  <DD>is a drawing of DEC's A601E.
+<DT>A601X</A>
+  <DD>is a 'modernized' version of the A601.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A604 target=_blank>./DEC/Axxx/A604</a></b>: 2-bit D-A Converter
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>A604E</A>
+  <DD>is a drawing of DEC's A604E.
+<DT>A604X</A>
+  <DD>is a 'modernized' version of the A604.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A605 target=_blank>./DEC/Axxx/A605</a></b>: 2-bit D-A Converter
 
@@ -392,7 +407,12 @@ board.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A704 target=_blank>./DEC/Axxx/A704</a></b>: Reference Supply, Double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>A704E</A>
+  <DD>is a drawing of DEC's A704E.
+<DT>A704X</A>
+  <DD>is a 'modernized' version of the A704.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A706 target=_blank>./DEC/Axxx/A706</a></b>: Power Supply for A202
 
@@ -1377,6 +1397,10 @@ cross-reference information in the schematic.
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G903 target=_blank>./DEC/Gxxx/G903</a></b>: Clock Accelerator for Paper Tape Reader
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G906 target=_blank>./DEC/Gxxx/G906</a></b>: LINC-8 Capacitor and Power Up
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -4181,6 +4205,10 @@ BusCon project.)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W035 target=_blank>./DEC/Wxxx/W035</a></b>: Cable Connector
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W040 target=_blank>./DEC/Wxxx/W040</a></b>: 2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
 
 </LEGEND><DL>
@@ -4225,6 +4253,14 @@ BusCon project.)
   <DD>is a 'modernized' W070.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W072 target=_blank>./DEC/Wxxx/W072</a></b>: LINC-8 Scope Cable Connector
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W073 target=_blank>./DEC/Wxxx/W073</a></b>: LINC-8 Tape Cable Connector
+
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W076 target=_blank>./DEC/Wxxx/W076</a></b>: Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
 
