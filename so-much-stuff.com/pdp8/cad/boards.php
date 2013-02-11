@@ -833,7 +833,7 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/flichip target=_blank>./DEC/flichip</a></b>: 6 pin flip-chip modules
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/flipchip target=_blank>./DEC/flipchip</a></b>: 6 pin flip-chip modules
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -4567,11 +4567,23 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W603 target=_blank>./DEC/Wxxx/W603</a></b>: Positive Level Amplifier, 7 circuits
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W603A</A>
+  <DD>is a drawing of DEC's W603A.
+<DT>W603B</A>
+  <DD>is a drawing of DEC's W603B.
+<DT>W603X</A>
+  <DD>is a 'modernized' W603.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W607 target=_blank>./DEC/Wxxx/W607</a></b>: 3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W607B</A>
+  <DD>is a drawing of DEC's W607B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W612 target=_blank>./DEC/Wxxx/W612</a></b>: Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
 
@@ -4579,7 +4591,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W640 target=_blank>./DEC/Wxxx/W640</a></b>: 3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W640D</A>
+  <DD>is a drawing of DEC's W640D.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W681 target=_blank>./DEC/Wxxx/W681</a></b>: Scope Intensifier for 34 Display
 
@@ -4615,7 +4631,13 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W705 target=_blank>./DEC/Wxxx/W705</a></b>: 3.6V Power Supply, triple width
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W705A</A>
+  <DD>is a drawing of DEC's W705A.
+<DT>W705X</A>
+  <DD>is a 'modernized' W705.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W706 target=_blank>./DEC/Wxxx/W706</a></b>: Teletype Receiver, 8-bit, 11 Unit Codes, double
 
@@ -4627,7 +4649,17 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W707 target=_blank>./DEC/Wxxx/W707</a></b>: Teletype Transmitter, 8 bit, 2 unit stop code, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W707F</A>
+  <DD>is a drawing of DEC's W707F.
+<DT>W707H</A>
+  <DD>is a drawing of DEC's W707H.
+<DT>W707L</A>
+  <DD>is a drawing of DEC's W707L.
+<DT>W707P</A>
+  <DD>is a drawing of DEC's W707P.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W708 target=_blank>./DEC/Wxxx/W708</a></b>: Teletype Communications Interface
 
@@ -4816,7 +4848,13 @@ pin DIP components to be connected to a DEC backplane.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W990 target=_blank>./DEC/Wxxx/W990</a></b>: Blank Module, split lug for each of 18 pins
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W990D</A>
+  <DD>is a drawing of DEC's W990D.
+<DT>W990X</A>
+  <DD>is a 'modernized' W990.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W991 target=_blank>./DEC/Wxxx/W991</a></b>: Bare board, split lugs, 36 pins, double
 
