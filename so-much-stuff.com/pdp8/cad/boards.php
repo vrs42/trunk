@@ -483,7 +483,13 @@ chassis to see if it has the needed clearances.)
 </LEGEND><FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B104 target=_blank>./DEC/Bxxx/B104</a></b>: 4 Inverters, 3 Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B104B</A>
+  <DD>is a drawing of DEC's B104B.
+<DT>B104X</A>
+  <DD>is a 'modernized' B104.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B105 target=_blank>./DEC/Bxxx/B105</a></b>: 5 Inverters, 5 Loads
 
@@ -526,7 +532,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B130 target=_blank>./DEC/Bxxx/B130</a></b>: 4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B130B</A>
+  <DD>is a drawing of DEC's B130B.
+<DT>B130X</A>
+  <DD>is a 'modernized' B130.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalient to B113
 
@@ -558,7 +570,12 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B142 target=_blank>./DEC/Bxxx/B142</a></b>: Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B142A</A>
+  <DD>is a drawing of DEC's B142A.
+<DT>B142X</A>
+  <DD>is a 'modernized' B142.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B152 target=_blank>./DEC/Bxxx/B152</a></b>: Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
 
@@ -632,7 +649,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B204 target=_blank>./DEC/Bxxx/B204</a></b>: 4 Flip-flops
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B204B</A>
+  <DD>is a drawing of DEC's B204B.
+<DT>B204X</A>
+  <DD>is a 'modernized' B204.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B211 target=_blank>./DEC/Bxxx/B211</a></b>: Flip-flop, Buffered, No Delay
 
@@ -698,7 +721,11 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B602 target=_blank>./DEC/Bxxx/B602</a></b>: Dual 10 MC Pulse Amplifier
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B602A</A>
+  <DD>is a drawing of DEC's B602A.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B611 target=_blank>./DEC/Bxxx/B611</a></b>: Dual Pulse Amplifier, 25 ns, PDP10
 
@@ -718,7 +745,12 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B684 target=_blank>./DEC/Bxxx/B684</a></b>: 2 Bus Drivers, like 6684
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B684C</A>
+  <DD>is a drawing of DEC's B684C.
+<DT>B684X</A>
+  <DD>is a 'modernized' B684.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B685 target=_blank>./DEC/Bxxx/B685</a></b>: 3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
 
@@ -814,11 +846,23 @@ been checked against the DEC version.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G007 target=_blank>./DEC/Gxxx/G007</a></b>: Sense Amplifier
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G007C</A>
+  <DD>is a drawing of DEC's G007C.
+<DT>G007X</A>
+  <DD>is a 'modernized' G007.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G008 target=_blank>./DEC/Gxxx/G008</a></b>: Slice Control for G007 & G009
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G008A</A>
+  <DD>is a drawing of DEC's G008A.
+<DT>G008X</A>
+  <DD>is a 'modernized' G008.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G010 target=_blank>./DEC/Gxxx/G010</a></b>: Sense Amp Selector for PDP-9, 164, also used for G012
 
@@ -922,11 +966,18 @@ LM837.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G208 target=_blank>./DEC/Gxxx/G208</a></b>: Inhibit Driver
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G208B</A>
+  <DD>is a drawing of DEC's G208B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G209 target=_blank>./DEC/Gxxx/G209</a></b>: Memory Selector, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G209B</A>
+  <DD>is a drawing of DEC's G209B.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G212 target=_blank>./DEC/Gxxx/G212</a></b>: Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
 
@@ -3575,8 +3626,8 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R122 target=_blank>./DEC/Rxxx/R122</a></b>: Logical Complement of R121
 
 </LEGEND><DL>
-<DT>R121X</A>
-  <DD>is a drawing of a 'modernized' R121.
+<DT>R122X</A>
+  <DD>is a drawing of a 'modernized' R122.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3615,6 +3666,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>R151A</A>
   <DD>is a drawing of DEC's R151A.
+<DT>R151B</A>
+  <DD>is a drawing of DEC's R151B.
 <DT>R151D</A>
   <DD>is a drawing of DEC's R151D.
 <DT>R151X</A>
@@ -3629,8 +3682,8 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R181 target=_blank>./DEC/Rxxx/R181</a></b>: DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
 
 </LEGEND><DL>
-<DT>R181B</A>
-  <DD>needs a drawing.
+<DT>R181A</A>
+  <DD>is a drawing of DEC's R181A.
 <DT>R181C</A>
   <DD>is a drawing of DEC's R181C.
 <DT>R181X</A>
@@ -3948,6 +4001,8 @@ subsystem replaced with level converters and a ramboard.
 </LEGEND><DL>
 <DT>S151A</A>
   <DD>is a drawing of DEC's S151A.
+<DT>S151B</A>
+  <DD>is a drawing of DEC's S151B.
 <DT>S151D</A>
   <DD>is a drawing of DEC's S151D.
 <DT>S151X</A>
@@ -3958,6 +4013,8 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S181 target=_blank>./DEC/Sxxx/S181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 
 </LEGEND><DL>
+<DT>S181A</A>
+  <DD>is a drawing of DEC's S181A.
 <DT>S181C</A>
   <DD>is a drawing of DEC's S181C.
 <DT>S181X</A>
@@ -4111,7 +4168,12 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W011 target=_blank>./DEC/Wxxx/W011</a></b>: W021 but 3.25" long.
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W011B</A>
+  <DD>is a drawing of DEC's W011B.
+<DT>W011X</A>
+  <DD>is a 'modernized' W011.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W012 target=_blank>./DEC/Wxxx/W012</a></b>: Flexprint Indicator Cable, -15 +15 Signal, PDP10
 
@@ -4155,22 +4217,36 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W023 target=_blank>./DEC/Wxxx/W023</a></b>: 18 Line Ribbon Connector, component spaces near A & B, others straight through
 
 </LEGEND><DL>
-<DT>W023</A>
-  <DD>is an obsolete drawing for an 18 pin paddle card.  (Use the one from the
-BusCon project.)
-</DL>
+<DT>W023A</A>
+  <DD>is a drawing of DEC's W023A.
+<DT>W023X</A>
+  <DD>is a 'modernized' W023.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W024 target=_blank>./DEC/Wxxx/W024</a></b>: Coax Connector, 16-signals, split lug, short
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W024X</A>
+  <DD>is a 'modernized' W024.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W025 target=_blank>./DEC/Wxxx/W025</a></b>: 32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W025A</A>
+  <DD>is a drawing of DEC's W025A.
+<DT>W025X</A>
+  <DD>is a 'modernized' W025.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W026 target=_blank>./DEC/Wxxx/W026</a></b>: 18 Split Lugs, diode and resistor termination
-</LEGEND></FIELDSET>
+
+</LEGEND><DL>
+<DT>W026B</A>
+  <DD>is a drawing of DEC's W026B.
+<DT>W026X</A>
+  <DD>is a 'modernized' W026.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W027 target=_blank>./DEC/Wxxx/W027</a></b>: Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
 
@@ -4192,8 +4268,10 @@ BusCon project.)
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W032 target=_blank>./DEC/Wxxx/W032</a></b>: 5 shielded triples, DEC Tape Signal Connector, double
 
 </LEGEND><DL>
-<DT>W032</A>
-  <DD>is a drawing of DEC's W032 Connector cable paddle.
+<DT>W032B</A>
+  <DD>is a drawing of DEC's W032B.
+<DT>W032X</A>
+  <DD>is a 'modernized' W032.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -4345,7 +4423,11 @@ BusCon project.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W300 target=_blank>./DEC/Wxxx/W300</a></b>: Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W300C</A>
+  <DD>is a drawing of DEC's W300C.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W301 target=_blank>./DEC/Wxxx/W301</a></b>: Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
 
@@ -4411,9 +4493,14 @@ BusCon project.)
   <DD>is a 'modernized' W511.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W512 target=_blank>./DEC/Wxxx/W512</a></b>: Positive Level Convertor, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W512 target=_blank>./DEC/Wxxx/W512</a></b>: Positive Level Converter, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W512A</A>
+  <DD>is a drawing of DEC's W512A.
+<DT>W512X</A>
+  <DD>is a 'modernized' W512.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W513 target=_blank>./DEC/Wxxx/W513</a></b>: Negative Level Converter, 6 circuits, used in TU55
 

@@ -36,14 +36,14 @@ A860	A* 	  A/D Converter, Double
 A877		  13-bit A/D Converter
 A990		  Operational Amplifier
 A992		  Operational Amplifier
-B104	B* C* 	  4 Inverters, 3 Loads
+B104	B C* X 	  4 Inverters, 3 Loads
 B105	B D E* X 	  5 Inverters, 5 Loads
 B113	C* 	  4 2-Input Negative NAND Gages, 3 Loads
 B115	A B C* X 	  3 3-Input Negative NAND Gages, 3 Loads
 B117	C* 	  2 5-Input Negative NAND Gates
 B123	A* 	  4 2-Input OC NAND Gates
 B124		  3 3-Input OC NOR Gates
-B130	B* 	  4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
+B130	B X 	  4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
 B133	B* C* 	  2 mA equivalient to B113
 B134	B* 	  4 2-Input Positive AND Gates, 3 Loads, 2mA
 B135	C* 	  2 mA equvalent to B115
@@ -51,7 +51,7 @@ B136	B* 	  3 mA equivalent to B134
 B137	C* 	  2 mA equivalent to B117
 B138	B* 	  PDP10 Adder (B131 with added diode to kill the carry quickly)
 B141	A* 	  7 2-Input Gates, 2mA input equivalent to R141
-B142	A* 	  Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
+B142	A X 	  Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
 B152	A* 	  Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
 B155		  Half Binary to Octal Decoder
 B156	A* 	  2mA equivalent to B155
@@ -68,7 +68,7 @@ B198	A* 	  Protection Comparator, PDP10  Memory, 0 & -3V in & out, Compares 2 8-
 B199	B* 	  FM Address Decoder for B250 IC's, double
 B200		  Flip Flop
 B201		  Flip Flop
-B204	B* 	  4 Flip-flops
+B204	B X 	  4 Flip-flops
 B211	E* 	  Flip-flop, Buffered, No Delay
 B212	C* 	  Dual RS Flip-flop, PDP10, Bus Driver Output, Delayed & not Delayed RS Inputs
 B213	C* F* 	  PDP9 Flip-flop, Single Input Jam, no Delay
@@ -82,16 +82,16 @@ B360	C D 	  Screwdriver Delay Line + Pulse Amp, 200-250 ns max
 B401		  Variable Clock
 B405	B* 	  Crystal Clock, 2 to 10 MC
 B410	D* 	  Voltage Controlled Clock, 1-10 MC, 40 to 100 ns negative pulses, potentiometer adjustment
-B602	A* B* 	  Dual 10 MC Pulse Amplifier
+B602	A B* 	  Dual 10 MC Pulse Amplifier
 B611	B* 	  Dual Pulse Amplifier, 25 ns, PDP10
 B620		  Dual Carry Pulse Amplifier
 B681	B* 	  4 Power Inverters
 B683	C* 	  3 Bus Drivers, OR output, 50 ohm load, 0 -3V
-B684	C* J* 	  2 Bus Drivers, like 6684
+B684	C J* X 	  2 Bus Drivers, like 6684
 B685	B* 	  3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
 G005	F* 	  4-input Sense Amp, PDP-6, 2us, double
-G007	A* C* M* 	  Sense Amplifier
-G008	A* B* C* 	  Slice Control for G007 & G009
+G007	C D* M* X 	  Sense Amplifier
+G008	A B* C* X 	  Slice Control for G007 & G009
 G010	A* 	  Sense Amp Selector for PDP-9, 164, also used for G012
 G020	D* E* H* 	  Sense Amp for 8/I, G021 etch, IC levels
 G021	E* H* K 	  Dual Sense Amp for 8/I, IC levels, also used for G020
@@ -110,8 +110,8 @@ G102	D* 	  Sense, Inhibit, & Register (4 bits) for MM11 & ME10
 G103	A* 	  Memory Voltage Levels, MM11 & ME10
 G206	B* 	  Memory Selector, PDP-6, 2us, double, used for G212
 G207	B* 	  Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
-G208	A* B* L* 	  Inhibit Driver
-G209	A* B* J* 	  Memory Selector, double
+G208	A* B L* 	  Inhibit Driver
+G209	A* B J* 	  Memory Selector, double
 G212	B* 	  Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
 G217	H* 	  Word Driver, MA10, uses G219 for Digit Driver
 G219	H* 	  Memory Selector (A G209 for negative supply), PDP9
@@ -566,9 +566,9 @@ R122	A* X 	  Logical Complement of R121
 R123	B X 	  Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
 R131	B* C X 	  Exclusive OR, 4 circuits, Output is -3V if inputs are the same
 R141	C* D* E X 	  AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
-R151	A B* D X 	  Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
+R151	A B D X 	  Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
 R152	D* 	  Obsolete, R151 without clamp loads, see B152
-R181	B* C X 	  DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
+R181	A B* C X 	  DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
 R200		  Set-Reset Flip-flop
 R201	A* C D* X 	  RS FF with 3 Set and 2 Reset DCD Gates
 R202	A* D E X 	  Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
@@ -600,8 +600,8 @@ R663	D* 	  B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pai
 S107	C* D E* S1A X 	  R107 with 5 mA Clamp Loads
 S111	D* E F X 	  R111 with 5 mA Clamp Loads
 S123	B X 	  Diode Gate
-S151	A B* C* D X 	  R151 with 5 mA Clamp Loads
-S181	A* C X 	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
+S151	A B C* D X 	  R151 with 5 mA Clamp Loads
+S181	A C X 	  DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 S202	D E* X 	  R202 with 5 mA Clamp Loads
 S203	C* D X 	  R203 with 5 mA Clamp Loads
 S205	C D X 	  R205 Dual Flip Flop with 5 mA Clamp Loads
@@ -612,7 +612,7 @@ S603	D X 	  R603 with 5 mA Clamp Loads
 W002	A* B X 	  15 2mA Clamped Loads, W005 etch
 W005	A* B X 	  15 Clamped Loads
 W010	A* 	  10 10mA Cleamped loads to -15V
-W011	B* 	  W021 but 3.25" long.
+W011	B X 	  W021 but 3.25" long.
 W012	B* C* 	  Flexprint Indicator Cable, -15 +15 Signal, PDP10
 W013	A* B* 	  Word Sink Stack Connector, W016 etc, PDP10, 2 1/2 D Memory
 W014	A* 	  Digit Stack Connector, PDP10, 2 1/2 D Memory, modified W015 layout
@@ -621,14 +621,14 @@ W018	A* 	  Cable Connector for Indicator Amplifiers (with diodes)
 W020	A* 	  Indicator Cable Conn,. 18 ribbon cable, 1.5K resistors
 W021	A B X 	  Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot, 10 grounds: C, F, J, L, N, R, U
 W022		  W021 with 100 ohm shunt terminators
-W023	A* 	  18 Line Ribbon Connector, component spaces near A & B, others straight through
-W024		  Coax Connector, 16-signals, split lug, short
-W025	A* B* 	  32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
-W026	B* 	  18 Split Lugs, diode and resistor termination
+W023	A X 	  18 Line Ribbon Connector, component spaces near A & B, others straight through
+W024	X 	  Coax Connector, 16-signals, split lug, short
+W025	A B* X 	  32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
+W026	B X 	  18 Split Lugs, diode and resistor termination
 W027		  Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
 W028	A C* X 	  W021 with lugs for series of shunt resistors or diodes in signal leads
 W031		  Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
-W032	A* B* 	  5 shielded triples, DEC Tape Signal Connector, double
+W032	A* B X 	  5 shielded triples, DEC Tape Signal Connector, double
 W033	A* B* C* 	  Flexprint, W023 connections on "A" side, side entry cable
 W034	D* H* 	  Flexprint, 16 connections on "B" side 10 ohms on A2, B2
 W035	A* 	  Cable Connector
@@ -655,7 +655,7 @@ W108	A* C X 	  Bipolar Decoding Driver, double
 W122	F* 	  Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
 W132	D* 	  Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
 W250	A* B* 	  12 Indicator Drivers, flex print, ground & -15V from male end
-W300	C* E* 	  Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
+W300	B* C 	  Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
 W301	C* 	  Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
 W404	C* 	  DTR Jumper
 W500	A* 	  High Impedance Follower, 7 circuits
@@ -668,7 +668,7 @@ W507	B* 	  Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, 
 W509	F* 	  3 phase AC Low Voltage Detector
 W510	B* 	  Positive Level Convertor, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
 W511	A X 	  Negative Level Convertor, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
-W512	A* 	  Positive Level Convertor, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
+W512	A X 	  Positive Level Converter, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
 W513	F* 	  Negative Level Converter, 6 circuits, used in TU55
 W514	A* 	  Positive Level Converter, 6 circuits, 100 ohm input
 W519	E* 	  Power Sequence & Crowbar
@@ -682,9 +682,9 @@ W600	A* 	  Negative Level Amplifier, like 1667, 3 inverting circuits
 W601	A* D* 	  Positive Level Amplifier, 3 inverting circuits
 W602	A* 	  Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
 W603	A B X 	  Positive Level Amplifier, 7 circuits
-W607	B* D* 	  3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
+W607	B D* 	  3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
 W612	C* D* 	  Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
-W640	D* H* J* 	  3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
+W640	D H* J* 	  3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
 W681	A* 	  Scope Intensifier for 34 Display
 W682	A* 	  Scope Intensifier, 0 to +3V step, delay 50 to 300ns, 400ns pulse (for VR12 & VR14)
 W690		  DEC to IBM N Line Converter
@@ -738,7 +738,7 @@ W983	A* 	  Module Extender, double height double sided
 W984		  Module Extender, extended double
 W985		  System Module Adapter
 W987		  Module Extender, extended quad
-W990	D* E* 	  Blank Module, split lug for each of 18 pins
+W990	D E* X 	  Blank Module, split lug for each of 18 pins
 W991		  Bare board, split lugs, 36 pins, double
 W992	A* B* 	  Copper clad, 18 pins
 W993		  Copper clad, 36 pins, double
