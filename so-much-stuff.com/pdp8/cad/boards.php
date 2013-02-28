@@ -396,6 +396,10 @@ panel replacement.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A701 target=_blank>./DEC/Axxx/A701</a></b>: Reference Supply
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A702 target=_blank>./DEC/Axxx/A702</a></b>: Reference Supply (-10V), double
 
 </LEGEND><DL>
@@ -1658,6 +1662,8 @@ fourth PAL.
 </LEGEND><DL>
 <DT>M002A</A>
   <DD>is a drawing of DEC's M002A.
+<DT>M002X</A>
+  <DD>is a 'modernized' M002.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1666,7 +1672,8 @@ fourth PAL.
 </LEGEND><DL>
 <DT>M040E</A>
   <DD>is a drawing of DEC's M040E.
-</DL>
+<DT>M040X</A>
+  <DD>is a 'modernized' M040.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M044 target=_blank>./DEC/Mxxx/M044</a></b>: 4-100mA Solenoid Drivers
@@ -1674,7 +1681,8 @@ fourth PAL.
 </LEGEND><DL>
 <DT>M044B</A>
   <DD>is a drawing of DEC's M044B.
-</DL>
+<DT>M044X</A>
+  <DD>is a 'modernized' M044.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M050 target=_blank>./DEC/Mxxx/M050</a></b>: Inverter driver, 12 circuits, switch -30V and 50mA max/driver
@@ -1690,7 +1698,8 @@ fourth PAL.
 </LEGEND><DL>
 <DT>M060A</A>
   <DD>is a drawing of DEC's M060A.
-</DL>
+<DT>M060X</A>
+  <DD>is a 'modernized' M060.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M100 target=_blank>./DEC/Mxxx/M100</a></b>: Bus Data Interface
@@ -1698,16 +1707,17 @@ fourth PAL.
 </LEGEND><DL>
 <DT>M100A</A>
   <DD>is a drawing of DEC's M100A.
-</DL>
+<DT>M100X</A>
+  <DD>is a 'modernized' M100.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M101 target=_blank>./DEC/Mxxx/M101</a></b>: Bus Data Interface
 
 </LEGEND><DL>
-<DT>M101</A>
-  <DD>is an Eagle version of DEC's M101 Bus Interface.
 <DT>M101A</A>
   <DD>is a drawing of DEC's M101A.
+<DT>M101X</A>
+  <DD>is a 'modernized' M101.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1718,12 +1728,12 @@ fourth PAL.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M103 target=_blank>./DEC/Mxxx/M103</a></b>: Device Selector
 
 </LEGEND><DL>
-<DT>M103</A>
-  <DD>is an Eagle version of DEC's M103 Device Selector.
 <DT>M103A</A>
   <DD>is a drawing of DEC's M103A.
 <DT>M103B</A>
   <DD>is a drawing of DEC's M103B.
+<DT>M103X</A>
+  <DD>is a 'modernized' M103.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1738,12 +1748,10 @@ fourth PAL.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M105 target=_blank>./DEC/Mxxx/M105</a></b>: Address Selector
 
 </LEGEND><DL>
-<DT>M105-bad</A>
-  <DD>is an Eagle version of DEC's M105 Address Selector, but 
-without bus receivers that won't actually work.
-<DT>M105</A>
-  <DD>is an Eagle version of DEC's M105 Address Selector with 
-proper bus receivers.
+<DT>M105C</A>
+  <DD>is a drawing of DEC's M105C.
+<DT>M105X</A>
+  <DD>is a 'modernized' M105.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1752,7 +1760,8 @@ proper bus receivers.
 </LEGEND><DL>
 <DT>M106A</A>
   <DD>is a drawing of DEC's M106A.
-</DL>
+<DT>M106X</A>
+  <DD>is a 'modernized' M106.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M107 target=_blank>./DEC/Mxxx/M107</a></b>: Device Selector
@@ -1765,19 +1774,35 @@ proper bus receivers.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M109 target=_blank>./DEC/Mxxx/M109</a></b>: Device Select Module
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M109A</A>
+  <DD>is a drawing of DEC's M109A.
+<DT>M109X</A>
+  <DD>is a 'modernized' M109.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1103 target=_blank>./DEC/Mxxx/M1103</a></b>: 10 2-Input AND Gates
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M1103A</A>
+  <DD>is a drawing of DEC's M1103A.
+<DT>M1103X</A>
+  <DD>is a 'modernized' M1103.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M111 target=_blank>./DEC/Mxxx/M111</a></b>: Inverters
 
 </LEGEND><DL>
-<DT>M111</A>
-  <DD>is an Eagle version of DEC's M111 Inverter card.
+<DT>M111A</A>
+  <DD>is a drawing of DEC's M111A.
+<DT>M111B</A>
+  <DD>is a drawing of DEC's M111B.
 <DT>M111C</A>
   <DD>is a drawing of DEC's M111C.
+<DT>M111D</A>
+  <DD>is a drawing of DEC's M111D.
+<DT>M111X</A>
+  <DD>is a 'modernized' M111.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1786,60 +1811,69 @@ proper bus receivers.
 </LEGEND><DL>
 <DT>M112D</A>
   <DD>is a drawing of DEC's M112D.
-</DL>
+<DT>M112E</A>
+  <DD>is a drawing of DEC's M112E.
+<DT>M112X</A>
+  <DD>is a 'modernized' M112.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M113 target=_blank>./DEC/Mxxx/M113</a></b>: 10 2-Input NAND Gates
 
 </LEGEND><DL>
-<DT>M113</A>
-  <DD>is an Eagle version of DEC's M113 NAND Gates
+<DT>M113B</A>
+  <DD>is a drawing of DEC's M113B.
 <DT>M113C</A>
   <DD>is a drawing of DEC's M113C.
 <DT>M113D</A>
   <DD>is a drawing of DEC's M113D.
-</DL>
+<DT>M113X</A>
+  <DD>is a 'modernized' M113.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M115 target=_blank>./DEC/Mxxx/M115</a></b>: 8 3-Input NAND Gates
 
 </LEGEND><DL>
-<DT>M115</A>
-  <DD>is an Eagle version of DEC's M119 NAND Gates
 <DT>M115C</A>
   <DD>is a drawing of DEC's M115C.
 <DT>M115D</A>
   <DD>is a drawing of DEC's M115D.
+<DT>M115X</A>
+  <DD>is a 'modernized' M115.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M116 target=_blank>./DEC/Mxxx/M116</a></b>: 6 4-Input NOR Gates
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M116A</A>
+  <DD>is a drawing of DEC's M116A.
+<DT>M116X</A>
+  <DD>is a 'modernized' M116.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M117 target=_blank>./DEC/Mxxx/M117</a></b>: 6 4-Input NAND Gates
 
 </LEGEND><DL>
-<DT>M117</A>
-  <DD>is an Eagle version of DEC's M117 4-Input NAND Gate Module
 <DT>M117B</A>
   <DD>is a drawing of DEC's M117B.
 <DT>M117C</A>
   <DD>is a drawing of DEC's M117C.
 <DT>M117E</A>
   <DD>is a drawing of DEC's M117E.
+<DT>M117X</A>
+  <DD>is a 'modernized' M117.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M119 target=_blank>./DEC/Mxxx/M119</a></b>: 3 8-Input NAND Gates
 
 </LEGEND><DL>
-<DT>M119</A>
-  <DD>is an Eagle version of DEC's M119 8-Input NAND Gate module.
 <DT>M119B</A>
   <DD>is a drawing of DEC's M119B.
 <DT>M119C</A>
   <DD>is a drawing of DEC's M119C.
+<DT>M119X</A>
+  <DD>is a 'modernized' M119.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2774,6 +2808,10 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M701 target=_blank>./DEC/Mxxx/M701</a></b>: Display Control, VC8/I
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7011 target=_blank>./DEC/Mxxx/M7011</a></b>: Serial Transmitter
 
 </LEGEND></FIELDSET>
@@ -3194,13 +3232,13 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M892 target=_blank>./DEC/Mxxx/M892</a></b>: TU10 CRC and Write Gating, Double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M892 target=_blank>./DEC/Mxxx/M892</a></b>: TU10 Write Gap Timing, Double
 
-</LEGEND><DL>
-<DT>M891</A>
-  <DD>is a version of DEC's M891 CRC and Write Gating module.
-</DL>
-</FIELDSET>
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M895 target=_blank>./DEC/Mxxx/M895</a></b>: TU10/TU15 Read Timing, Double
+
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M896 target=_blank>./DEC/Mxxx/M896</a></b>: TU10 CRC Checker
 

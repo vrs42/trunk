@@ -26,6 +26,7 @@ A607	A* B* 	  10-bit D/A Converter, Single Buffered
 A612	A* B* 	  D/A Converter, Double
 A614	C* 	  12 Bit bipolar D/A Converter, Double Long
 A615	B* D* 	  D/A Converter
+A701	A* 	  Reference Supply
 A702	B C* X 	  Reference Supply (-10V), double
 A704	A* D* E F* X 	  Reference Supply, Double
 A706	C* 	  Power Supply for A202
@@ -174,7 +175,7 @@ G766	A* 	  G796 with 3M cable, 14 signals, 2 grounds
 G775	A* B* C* 	  36 wires to Indicator, Q's, +6.5V from lamps, RF09
 G780	A* 	  Power Connector Card for PDP-12
 G783	A* 	  9 Twisted Pair and Shield, 1 pair ground return
-G785	D* 	  Power Connector, 8/L, with Power OK
+G785	D* E* 	  Power Connector, 8/L, with Power OK
 G789	A* 	  Signal Simulator Connector
 G790	C* 	  Signal Simulator Generator
 G792	B* 	  Power Connector
@@ -257,30 +258,30 @@ K732	A* B* 	  Slave Regulator
 K791		  Test Probe
 K940		  Mounting Bar Support
 K941		  Mounting Bar
-M002	A 	  15 Loads
-M040	E 	  Solenoid Driver
-M044	B 	  4-100mA Solenoid Drivers
+M002	A X 	  15 Loads
+M040	E X 	  Solenoid Driver
+M044	B X 	  4-100mA Solenoid Drivers
 M050	B* 	  Inverter driver, 12 circuits, switch -30V and 50mA max/driver
 M051	A* 	  Level Converter, positive logic in and negative logic out, 12 circuits, open collector
-M060	A 	  Solenoid Driver
-M100	A 	  Bus Data Interface
-M101	A 	  Bus Data Interface
+M060	A X 	  Solenoid Driver
+M100	A X 	  Bus Data Interface
+M101	A X 	  Bus Data Interface
 M102	A* 	  Negative Bus Equivalent to M103
-M103	A B 	  Device Selector
+M103	A B X 	  Device Selector
 M104	D 	  I/O Bus Multiplexor
-M105	C 	  Address Selector
-M106	A 	  Dot NOR Gates
+M105	C X 	  Address Selector
+M106	A X 	  Dot NOR Gates
 M107		  Device Selector
 M108		  Flag Module
-M109	A* 	  Device Select Module
-M1103	A* 	  10 2-Input AND Gates
-M111	A B C D* 	  Inverters
-M112	D E* 	  NOR Gates
-M113	B C D 	  10 2-Input NAND Gates
-M115	C D 	  8 3-Input NAND Gates
-M116	A* 	  6 4-Input NOR Gates
-M117	A* B C E 	  6 4-Input NAND Gates
-M119	A* B C 	  3 8-Input NAND Gates
+M109	A X 	  Device Select Module
+M1103	A X 	  10 2-Input AND Gates
+M111	A B C D X 	  Inverters
+M112	D E X 	  NOR Gates
+M113	B C D X 	  10 2-Input NAND Gates
+M115	C D X 	  8 3-Input NAND Gates
+M116	A X 	  6 4-Input NOR Gates
+M117	A* B C E X 	  6 4-Input NAND Gates
+M119	A* B C X 	  3 8-Input NAND Gates
 M121	A* B D 	  6 AND-NOR Gates
 M126	B* 	  H version of M121, not pin compatible
 M127	A 	  2 2-2-3 AND-NOR Gates
@@ -290,7 +291,7 @@ M1307		  6 4-Input AND Gates
 M133	A B 	  10-2 Input NAND Gates
 M135	A 	  8-3 Input NAND Gates
 M139	B* 	  H version of M119
-M141	C* 	  2-2-2-2 AND-NOR gates, 3 circuits, 2 inverters
+M141	B* C* 	  2-2-2-2 AND-NOR gates, 3 circuits, 2 inverters
 M142	C* 	  Adder, discrete equivalent to M132
 M143	A* 	  10 2-input NAND gates, with one pair sharing common input, KI10
 M145	A* 	  3-input NAND gates, 7 circuits, 74H, KI10
@@ -367,7 +368,7 @@ M253	B* 	  16 Words, 12-bit memory (TI 7489)
 M260	A* 	  Associative memory, 4x12, KI10, Fairchild 4102 IC, 35ns match time
 M261		  4-State Motor Translator
 M262		  10-State Motor Translator, double
-M302	C* K* L* 	  One Shot Delay
+M302	C* D* K* L* 	  One Shot Delay
 M304	A* B* 	  One Shot Delay
 M306	B* 	  Integrating One Shot
 M307	A* B* 	  Integrating One Shot
@@ -393,7 +394,7 @@ M500	A* B* 	  Negative Input Converter
 M501	B 	  Schmitt Trigger
 M502	A* B* C* 	  Negative Input Converter
 M503	A* 	  Differential Schmitt, 2 channels, pulse amplifier in each
-M506	D* 	  Negative Input Converter, 6 channels, 0 and -3V in
+M506	C* D* 	  Negative Input Converter, 6 channels, 0 and -3V in
 M507	A* B* F* 	  Bus Converter
 M508	C* 	  Negative bus to positive bus converter, 6 circuits, open collector outputs, GND in = positive out
 M510	A* 	  I/O Bus Receiver
@@ -438,6 +439,7 @@ M666	B* C* 	  I/O Bus Reset, 12 outputs, 20mA@-3V, 1/3 duty factor max
 M671		  M to K Converter
 M697	D* 	  4 Channel IBM Transmitter
 M700	A* B* C* D* E* 	  Manual Timing Generator
+M701	A* D* 	  Display Control, VC8/I
 M7011	C* 	  Serial Transmitter
 M703	J* 	  Power Fail Logic, 8/I
 M704	A* B* 	  Plotter Control, 8/I
@@ -505,12 +507,13 @@ M868	D* 	  TD8E Simple Dectape Controller
 M870	A* 	  IMPLEMENTS SIMPLE CLOCK IN PDP12
 M890	H* 	  Motion Control for TU10
 M891	D* 	  TU10 CRC and Write Gating, Double
-M892	E* 	  TU10 CRC and Write Gating, Double
+M892	E* 	  TU10 Write Gap Timing, Double
+M895	H* 	  TU10/TU15 Read Timing, Double
 M896	B* X 	  TU10 CRC Checker
 M900	C* D* 	  CONNECTOR TO 8/I CONSOLE, 30 SIGNALS, 2 GNDS, TTL BUFFERING
 M901	B* C* 	  FLAT MYLAR CABLE CONNECTOR, 10 OHMS IN A2,B2,U1 & V1, 2 CA8LES
 M902	A* AYA* AYB* 	  TERMINATOR, 18 100 OHM RESISTORS, M903 & M904 CONNECTIONS
-M903	A* 	  FLAT MYLAR CONNECTOR, 18 SIGNALS, 14 GND PINS·
+M903	A* B* 	  FLAT MYLAR CONNECTOR, 18 SIGNALS, 14 GND PINS·
 M904	B* 	  Coax Connector, 2x 9-signals, split lug, M903 Pins
 M906	A* B* 	  Cable Terminator
 M907	A* 	  Diode Clamp
@@ -562,7 +565,7 @@ R1110	E* 	  R111 with 2mA fan-in & 6534-C transistors, sinks 63ma
 R113	A B X 	  5 2-Input Gates
 R1130	B* 	  R113 with 2mA fan-in & 6534-C transistors, sinks 63ma
 R121	A B* X 	  2 2-Input, 1 3-Input, 1 4-Input Gates
-R122	A* X 	  Logical Complement of R121
+R122	A* C* X 	  Logical Complement of R121
 R123	B X 	  Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
 R131	B* C X 	  Exclusive OR, 4 circuits, Output is -3V if inputs are the same
 R141	C* D* E X 	  AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
