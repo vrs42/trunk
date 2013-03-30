@@ -229,6 +229,7 @@ G932	D* 	  Capstan Servo Preamp (drives H603)
 G933	E* 	  Reel Motor Amp for TU10, +/-12V, +/-6A
 G9340	B* 	  Replacement for logic portion of G934
 G9341	B* 	  Replacement for output portion of G934, higher current
+G936	E* 	  Reel Motor Amp for TU10, +/-12V, +/-6A
 G938	K* 	  DECPack Head Position Servo Preamp, Long, Double
 G998	A* 	  Current Measuring Extender, 1-1/2 length with Bus Loops
 K003	A* 	  Gate Expander
@@ -282,20 +283,20 @@ M115	C D X 	  8 3-Input NAND Gates
 M116	A X 	  6 4-Input NOR Gates
 M117	A* B C E X 	  6 4-Input NAND Gates
 M119	A* B C X 	  3 8-Input NAND Gates
-M121	A* B D 	  6 AND-NOR Gates
+M121	A* B D X 	  6 AND-NOR Gates
 M126	B* 	  H version of M121, not pin compatible
-M127	A 	  2 2-2-3 AND-NOR Gates
+M127	A X 	  2 2-2-3 AND-NOR Gates
 M129	A* 	  4-4 AND-NOR, H, 4 circuits
 M130	C* 	  5 8-bit parity circuits + 5 2-input XOR gates (MC4008)
 M1307		  6 4-Input AND Gates
-M133	A B 	  10-2 Input NAND Gates
-M135	A 	  8-3 Input NAND Gates
+M133	A B X 	  10-2 Input NAND Gates
+M135	A X 	  8-3 Input NAND Gates
 M139	B* 	  H version of M119
-M141	B* C* 	  2-2-2-2 AND-NOR gates, 3 circuits, 2 inverters
+M141	B C* X 	  Two 2-2-2-2 AND-NOR gates, 2-2-2 AND-NOR gate. 2 input NAND, 2 inverters
 M142	C* 	  Adder, discrete equivalent to M132
 M143	A* 	  10 2-input NAND gates, with one pair sharing common input, KI10
 M145	A* 	  3-input NAND gates, 7 circuits, 74H, KI10
-M149	A C 	  9x2 NAND Wired OR Matrix
+M149	A C X 	  9x2 NAND Wired OR Matrix
 M1500		  Bi-directional Bus Interfacing Gates, extended single
 M1501		  Bus Input Interface, extended single
 M1502		  Bus Output Interface, extended single
@@ -304,19 +305,19 @@ M1510		  Bus Device Selector Module, extended double
 M152	B* 	  M151 non-inverting, KI10, 74H21
 M155		  4 Line to 16 Line Decoder
 M159	A* 	  4 bit arithmetic logic unit (DEC 74181), uses 50-08908 board
-M160	C* D* 	  AND-NOR Gate Module
+M160	C D* X 	  AND-NOR Gate Module
 M161	A* B* C X 	  Binary to Octal/Decimal Decoder
-M162	B 	  Parity Circuit
+M162	B X 	  Parity Circuit
 M163	A* 	  Dual binary to decimal decoder
 M164	B* 	  6-bit adder for PDP-15, 2 adders for carry-in 1 or 0
 M165	D* 	  Memory buffer, inverting and non-inverting output from open collector, 8 channels for KI10
 M166	E* 	  9-bit Counting Gate, KI10
 M168		  12 Bit Magnitude Comparator
-M169	A* B* 	  Functional gate module for PDP-12, 4 4-bit output multiplexors
+M169	A* B X 	  Functional gate module for PDP-12, 4 4-bit output multiplexors
 M170	B* 	  3-3-3-2-2-2-2-2 AND-NOR & 3-2-2-2 AND-NOR, H series, KI10
 M1701	D* 	  4 to 1 MUX, 4 circuits, 50-08912 etch, 74153
 M171	A* 	  2-2-2-3 AND-NOR, 3 circuits, different pins than M127
-M1713	A* 	  16 to 1 MUX inverting, 74150, 50-08908 etch
+M1713	A X 	  16 to 1 MUX inverting, 74150, 50-08908 etch
 M172	A* 	  2 En x 9 out mixer, 74H50, for KI10
 M173	A* B* 	  Non-inverting M143
 M174	A* 	  4 En x 9 out mixer, 74H53s, KI10
@@ -325,24 +326,24 @@ M177	A* 	  Non-inverting M147
 M178	B* 	  8 En x 6 out mixer, 74H53, 74H62, KI10
 M181	A* 	  Non-inverting M171
 M182	B* 	  M162 with fast ICs, 74H
-M191	C* D* 	  2 Look-ahead elements (74182), uses W961 board, used with M190 or M159 (board 50-08912)
+M191	C D* X 	  2 Look-ahead elements (74182), uses W961 board, used with M190 or M159 (board 50-08912)
 M202		  Triple J-K Flip Flop
-M203	B C* 	  8 Set-Reset Flip Flops
-M204	A* D 	  Counter Buffer
-M205	A 	  5 D Flip Flops
-M206	C D* 	  6 D Flip-Flops
-M207	B* C E 	  6 J-K Flip-Flops
-M208	C 	  Buffer/Shift Register
+M203	B C* X 	  8 Set-Reset Flip Flops
+M204	A* D X 	  Counter Buffer
+M205	A X 	  5 D Flip Flops
+M206	C D* X 	  6 D Flip-Flops
+M207	B* C E X 	  6 J-K Flip-Flops
+M208	C X 	  Buffer/Shift Register
 M211	B* 	  6-bit Up/down counter
-M212	B 	  6 Bit L-R Shift Register
+M212	B X 	  6 Bit L-R Shift Register
 M213		  BCD Up/Down Counter
 M214	B* 	  6-bit Accumulator with 3 inputs
-M216	B* C* 	  6 D Flip-Flops
-M217	A* 	  Clock register for PDP-12, 4 bit counter with buffer register for preset or readout
+M216	B C* X 	  6 D Flip-Flops
+M217	A X 	  Clock register for PDP-12, 4 bit counter with buffer register for preset or readout
 M218	A* 	  Bi-directional shift register, 9 bits, 2 parallel loads
 M219	B* 	  7-bit synchronous counter with jam and clear presets
-M220	A* B* 	  Major Registers, double
-M221	D* 	  Register for PDP-12 (M220 plus extra logic), Double
+M220	A B X 	  Major Registers, double
+M221	D 	  Register for PDP-12 (M220 plus extra logic), Double
 M222	B* 	  Tape register for PDP-12, 2 bits, 6 registers, Double
 M223	B* 	  MA,/MB Registers
 M226	A* 	  1 Bit, all registers (except ACC) for PDP-15
