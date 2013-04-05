@@ -19,6 +19,12 @@ the classic "module list", much like Zane Healy and others have done:
 <LI><A href=modules.htm target=_blank>modules.htm</A>
 <LI><A href=modules.txt target=_blank>modules.txt</A>
 </UL>
+    <P>A "+" next to a revision means that I have the information to do 
+CAD drawings for that module, but haven't gotten to it yet.  A "*" means 
+I don't have sufficient information to do CAD drawings (usually high 
+quality photos of the front and back of the board will suffice).  No 
+revisions listed means I don't even have the schematics (for any revision)
+to work from.
     <P>Clicking on the first link for each item in the HTML version will
 get you to the appropriate directory in the SVN repository, where all the
 images and other files for all revisions of that module are just sort of
