@@ -21,7 +21,7 @@ many panels in people's collections use the equivalent Oshino OL-2.
 <dd>10V, 40ma, .05mscp, 5,000 hours -- The real deal.  These were the
 "blue base" bulbs.
 <dd>The OL-2/CM2309 was also used in the 54-08458 peripheral indicator panel.
-<dd>Oshino OL-367 is a newer part number for what appears to be the same bulb.
+<dd>Oshino OL-367BP is a newer part number for what appears to be the same bulb.
 <DT>CM7371
 <dd>12V, 40ma, .12mscp, 10,000 hours -- approximately 36ma, .06mscp, 89,000 hours at 10V.
 <dd>In stock at Mouser for $9.90 for 10 (last checked 12/2011).
@@ -43,7 +43,7 @@ make them less noticeable.
 <DT>OL-1
 <dd>15V, 40ma, .075mscp -- The real deal.  These were the "black base" bulbs.
 <dd>The OL-1 was also used in the KA10 CPU front panel.
-<DT>OL-6003
+<DT>OL-6003BP
 <dd>15V, 37ma, .075mscp, 50,000 hours -- A very close substitute.
 <dd>Mark G. Thomas found them at sunraylighting.com.
 <DT>CM7003
