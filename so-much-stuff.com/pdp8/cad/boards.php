@@ -2272,13 +2272,16 @@ m220a.v, m220b.v, and m220c.v.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M222 target=_blank>./DEC/Mxxx/M222</a></b>: Tape register for PDP-12, 2 bits, 6 registers, Double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M222B</A>
+  <DD>is a drawing of DEC's M222B.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M223 target=_blank>./DEC/Mxxx/M223</a></b>: MA,/MB Registers
 
 </LEGEND><DL>
 <DT>M223B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M223B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2293,12 +2296,10 @@ m220a.v, m220b.v, and m220c.v.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M228 target=_blank>./DEC/Mxxx/M228</a></b>: Mark Track Decoder
 
 </LEGEND><DL>
-<DT>M228</A>
-  <DD>is DEC's M228 Mark Track Decoder
-<DT>M228pnames</A>
-  <DD>is a version where the pin names are used instead of signal names.
 <DT>M228A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M228A.
+<DT>M228X</A>
+  <DD>is a 'modernized' M228.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2330,7 +2331,9 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M239A</A>
-  <DD>needs a drawing and a DEC schematic.
+  <DD>is a drawing of DEC's M239A.
+<DT>M239X</A>
+  <DD>is a 'modernized' M239.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2338,8 +2341,9 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M240B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M240B.
+<DT>M240X</A>
+  <DD>is a 'modernized' M240.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M241 target=_blank>./DEC/Mxxx/M241</a></b>: 6 D Flip-flops (74H74) with common clock
@@ -2393,24 +2397,32 @@ m220a.v, m220b.v, and m220c.v.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M302 target=_blank>./DEC/Mxxx/M302</a></b>: One Shot Delay
 
 </LEGEND><DL>
-<DT>M302</A>
-  <DD>is an Eagle version of DEC's M302 One Shot Delay Board.</DL>
+<DT>M302D</A>
+  <DD>is a drawing of DEC's M302D.
+<DT>M302K</A>
+  <DD>is a drawing of DEC's M302K.
+<DT>M302X</A>
+  <DD>is a 'modernized' M302.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M304 target=_blank>./DEC/Mxxx/M304</a></b>: One Shot Delay
 
 </LEGEND><DL>
+<DT>M304A</A>
+  <DD>is a drawing of DEC's M304A.
 <DT>M304B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M304B.
+<DT>M304X</A>
+  <DD>is a 'modernized' M304.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M306 target=_blank>./DEC/Mxxx/M306</a></b>: Integrating One Shot
 
 </LEGEND><DL>
 <DT>M306B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M306B.
+<DT>M306X</A>
+  <DD>is a 'modernized' M306.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M307 target=_blank>./DEC/Mxxx/M307</a></b>: Integrating One Shot
@@ -2419,16 +2431,15 @@ m220a.v, m220b.v, and m220c.v.
 <DT>M307-9601</A>
   <DD>is DEC's M307 Integrating One Shot module, with the
 now hard to find 9601 monostables.
-<DT>M307foo</A>
-  <DD>is a messed up version.
-<DT>M307mod</A>
-  <DD>is a checkpoint of an early version of M307.
 <DT>M307</A>
   <DD>is a version of the M307 using the more readily available
 74123 instead of the 9601.
+<DT>M307A</A>
+  <DD>is a drawing of DEC's M307A.
 <DT>M307B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M307B.
+<DT>M307X</A>
+  <DD>is a 'modernized' M307.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M3070 target=_blank>./DEC/Mxxx/M3070</a></b>: Dual integrating one-shot 200ns to 20ms in 5 steps
@@ -2443,27 +2454,26 @@ now hard to find 9601 monostables.
 
 </LEGEND><DL>
 <DT>M310A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M310A.
 <DT>M310B</A>
-  <DD>needs a drawing.
-<DT>M310C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M310B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M311 target=_blank>./DEC/Mxxx/M311</a></b>: Tap Delay Line
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M311 target=_blank>./DEC/Mxxx/M311</a></b>: Tapped Delay Lines
 
 </LEGEND><DL>
 <DT>M311A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M311A.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M312 target=_blank>./DEC/Mxxx/M312</a></b>: Delay Module
 
 </LEGEND><DL>
+<DT>M312B</A>
+  <DD>is a drawing of DEC's M312B.
 <DT>M312C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M312C.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2477,11 +2487,8 @@ now hard to find 9601 monostables.
 <DT>M360</A>
   <DD>is a replacement for DEC's M360 Variable Delay, based in part on the MM360,
 by Dave Brockman.
-<DT>M360A</A>
-  <DD>needs a drawing.
 <DT>M360B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M360B.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M362 target=_blank>./DEC/Mxxx/M362</a></b>: Delay, 25 to 50 ns
@@ -2495,12 +2502,12 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M401 target=_blank>./DEC/Mxxx/M401</a></b>: Variable Clock
 
 </LEGEND><DL>
-<DT>M401</A>
-  <DD>is an Eagle version of DEC's M401 Variable Clock module.
-<DT>M401L</A>
-  <DD>needs a drawing.
+<DT>M401B</A>
+  <DD>is a drawing of DEC's M401B.
 <DT>M401M</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M401M.
+<DT>M401X</A>
+  <DD>is a 'modernized' M401.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2520,10 +2527,11 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M405A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M405A.
 <DT>M405B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M405B.
+<DT>M405X</A>
+  <DD>is a 'modernized' M405.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M410 target=_blank>./DEC/Mxxx/M410</a></b>: Resonant Reed Clock
@@ -2532,13 +2540,21 @@ by Dave Brockman.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M420 target=_blank>./DEC/Mxxx/M420</a></b>: Phase Lock Clock, RP09, RP15, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M420C</A>
+  <DD>is a drawing of DEC's M420C.
+<DT>M420X</A>
+  <DD>is a 'modernized' M420.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M452 target=_blank>./DEC/Mxxx/M452</a></b>: Variable Clock
 
 </LEGEND><DL>
 <DT>M452A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M452A.
+<DT>M452X</A>
+  <DD>is a 'modernized' M452.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2546,7 +2562,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M453A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M453A.
+<DT>M453X</A>
+  <DD>is a 'modernized' M453.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
