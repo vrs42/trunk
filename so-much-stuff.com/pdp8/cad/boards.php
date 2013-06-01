@@ -2571,8 +2571,10 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M500 target=_blank>./DEC/Mxxx/M500</a></b>: Negative Input Converter
 
 </LEGEND><DL>
-<DT>M500A</A>
-  <DD>needs a drawing.
+<DT>M500B</A>
+  <DD>is a drawing of DEC's M500B.
+<DT>M500X</A>
+  <DD>is a 'modernized' M500.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2580,36 +2582,50 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M501B</A>
-  <DD>is a drawing of DEC's M501, etch revision B.
+  <DD>is a drawing of DEC's M501B.
+<DT>M501X</A>
+  <DD>is a 'modernized' M501.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M502 target=_blank>./DEC/Mxxx/M502</a></b>: Negative Input Converter
 
 </LEGEND><DL>
-<DT>M502-3</A>
-  <DD>is a checkpoint of an early version.
-<DT>M502</A>
-  <DD>is DEC's M502 Negative Input Converter.
+<DT>M502A</A>
+  <DD>is a drawing of DEC's M502A.
+<DT>M502B</A>
+  <DD>is a drawing of DEC's M502B.
+<DT>M502X</A>
+  <DD>is a 'modernized' M502.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M503 target=_blank>./DEC/Mxxx/M503</a></b>: Differential Schmitt, 2 channels, pulse amplifier in each
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M503A</A>
+  <DD>is a drawing of DEC's M503A.
+<DT>M503X</A>
+  <DD>is a 'modernized' M503.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M506 target=_blank>./DEC/Mxxx/M506</a></b>: Negative Input Converter, 6 channels, 0 and -3V in
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M506C</A>
+  <DD>is a drawing of DEC's M506C.
+<DT>M506X</A>
+  <DD>is a 'modernized' M506.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M507 target=_blank>./DEC/Mxxx/M507</a></b>: Bus Converter
 
 </LEGEND><DL>
-<DT>M507B</A>
-  <DD>needs a drawing.
-<DT>M507F</A>
-  <DD>needs a drawing.
-</DL>
+<DT>M507A</A>
+  <DD>is a drawing of DEC's M507A.
+<DT>M507X</A>
+  <DD>is a 'modernized' M507.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M508 target=_blank>./DEC/Mxxx/M508</a></b>: Negative bus to positive bus converter, 6 circuits, open collector outputs, GND in = positive out
@@ -2620,8 +2636,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M510A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M510A.
+<DT>M510X</A>
+  <DD>is a 'modernized' M510.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M511 target=_blank>./DEC/Mxxx/M511</a></b>: Unibus Reciever, 15 circuits, 4 GND, DS11, DL10
@@ -2630,7 +2647,12 @@ by Dave Brockman.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M514 target=_blank>./DEC/Mxxx/M514</a></b>: TU10 Transceiver (for connection to TC58, TC59, & TM10), see M519, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M514H</A>
+  <DD>is a drawing of DEC's M514H.
+<DT>M514X</A>
+  <DD>is a 'modernized' M514.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M515 target=_blank>./DEC/Mxxx/M515</a></b>: Real Time Clock, 12VAC input on tabs, uses +11V & +5V
 
@@ -2639,9 +2661,10 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M516 target=_blank>./DEC/Mxxx/M516</a></b>: Hex Positive Bus Receiver
 
 </LEGEND><DL>
-<DT>M516</A>
-  <DD>is DEC's M516 Hex Positive Bus Receiver module.
-</DL>
+<DT>M516A</A>
+  <DD>is a drawing of DEC's M516A.
+<DT>M516X</A>
+  <DD>is a 'modernized' M516.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M517 target=_blank>./DEC/Mxxx/M517</a></b>: M507 with an enable input
@@ -2676,18 +2699,17 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M597D</A>
-  <DD>needs a drawing and a DEC schematic.
+  <DD>is a drawing of DEC's M597D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M602 target=_blank>./DEC/Mxxx/M602</a></b>: Pulse Amplifier
 
 </LEGEND><DL>
-<DT>M602</A>
-  <DD>is DEC's M602 Pulse Amplifier module.
-<DT>M602a</A>
-  <DD>is essentially the same as M602.
-</DL>
+<DT>M602A</A>
+  <DD>is a drawing of DEC's M602A.
+<DT>M602X</A>
+  <DD>is a 'modernized' M602.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M603 target=_blank>./DEC/Mxxx/M603</a></b>: 2 Pulse Amplifiers, negative edge in, 1 positive 60ns & 1 positive 45-100ns out, 4 2-input NANDs (74H00), 3 3-input ANDs (74H11)
@@ -2697,9 +2719,12 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M606 target=_blank>./DEC/Mxxx/M606</a></b>: Pulse Generator
 
 </LEGEND><DL>
+<DT>M606A</A>
+  <DD>is a drawing of DEC's M606A.
 <DT>M606B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M606B.
+<DT>M606X</A>
+  <DD>is a 'modernized' M606.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M610 target=_blank>./DEC/Mxxx/M610</a></b>: 6 Open Collector 2-Input NAND Gates + Pulse Amplifier
@@ -2710,8 +2735,11 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M611A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M611A.
+<DT>M611B</A>
+  <DD>is a drawing of DEC's M611B.
+<DT>M611X</A>
+  <DD>is a 'modernized' M611.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M612 target=_blank>./DEC/Mxxx/M612</a></b>: 6 Power Gates, 6 grounds, 5 inputs per gate pair
@@ -2721,15 +2749,14 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M617 target=_blank>./DEC/Mxxx/M617</a></b>: 6-4 Input NOR Buffers
 
 </LEGEND><DL>
-<DT>M617A</A>
-  <DD>needs a drawing.
 <DT>M617B</A>
   <DD>is a drawing of DEC's M617B.
 <DT>M617C</A>
   <DD>is a drawing of DEC's M617C.
 <DT>M617E</A>
   <DD>is a drawing of DEC's M617E.
-</DL>
+<DT>M617X</A>
+  <DD>is a 'modernized' M617.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M621 target=_blank>./DEC/Mxxx/M621</a></b>: Bus Driver, 6 circuits, enables for each of 2 6-bit words
@@ -2740,15 +2767,20 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M622A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M622A.
+<DT>M622X</A>
+  <DD>is a 'modernized' M622.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M623 target=_blank>./DEC/Mxxx/M623</a></b>: Bus Drivers
 
 </LEGEND><DL>
-<DT>M623</A>
-  <DD>is DEC's M623 Bus Driver module.
+<DT>M623A</A>
+  <DD>is a drawing of DEC's M623A.
+<DT>M623E</A>
+  <DD>is a drawing of DEC's M623E.
+<DT>M623X</A>
+  <DD>is a 'modernized' M623.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2756,21 +2788,32 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M624A</A>
-  <DD>needs a drawing and a DEC schematic.
+  <DD>is a drawing of DEC's M624A.
+<DT>M624X</A>
+  <DD>is a 'modernized' M624.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M627 target=_blank>./DEC/Mxxx/M627</a></b>: Power Amplifier Module
 
 </LEGEND><DL>
-<DT>M627</A>
-  <DD>is DEC's M627 Power Amplifier module.
+<DT>M627A</A>
+  <DD>is a drawing of DEC's M627A.
+<DT>M627C</A>
+  <DD>is a drawing of DEC's M627C.
+<DT>M627X</A>
+  <DD>is a 'modernized' M627.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M628 target=_blank>./DEC/Mxxx/M628</a></b>: 3 switches, 2 bit adder, 1 M621 type driver, for MX15
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M628 target=_blank>./DEC/Mxxx/M628</a></b>: 2 switches, 2 bit adder, 1 M621 type driver, for MX15
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M628A</A>
+  <DD>is a drawing of DEC's M628A.
+<DT>M628X</A>
+  <DD>is a 'modernized' M628.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M629 target=_blank>./DEC/Mxxx/M629</a></b>: Bus Driver, 11 circuits, for positive bus, PDP11, 8881's
 
@@ -2779,36 +2822,59 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M632 target=_blank>./DEC/Mxxx/M632</a></b>: Positive Input Converter Drivers
 
 </LEGEND><DL>
-<DT>M632A</A>
-  <DD>needs a drawing.
-</DL>
+<DT>M632B</A>
+  <DD>is a drawing of DEC's M632B.
+<DT>M632X</A>
+  <DD>is a 'modernized' M632.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M633 target=_blank>./DEC/Mxxx/M633</a></b>: Negative Bus Driver
 
 </LEGEND><DL>
-<DT>M633</A>
-  <DD>is DEC's M633 Negative Bus Driver.
+<DT>M633B</A>
+  <DD>is a drawing of DEC's M633B.
+<DT>M633X</A>
+  <DD>is a 'modernized' M633.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M640 target=_blank>./DEC/Mxxx/M640</a></b>: Master Interface Bus Driver, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M640C</A>
+  <DD>is a drawing of DEC's M640C.
+<DT>M640X</A>
+  <DD>is a 'modernized' M640.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M650 target=_blank>./DEC/Mxxx/M650</a></b>: Negative output converter, 3 channels, R650 type outputs
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M650D</A>
+  <DD>is a drawing of DEC's M650D.
+<DT>M650X</A>
+  <DD>is a 'modernized' M650.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M651 target=_blank>./DEC/Mxxx/M651</a></b>: M650 with outputs clamped to ground when 5V goes away
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M651C</A>
+  <DD>is a drawing of DEC's M651C.
+<DT>M651X</A>
+  <DD>is a 'modernized' M651.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M652 target=_blank>./DEC/Mxxx/M652</a></b>: Negative Output Converters
 
 </LEGEND><DL>
 <DT>M652A</A>
-  <DD>needs a drawing and a DEC schematic.
+  <DD>is a drawing of DEC's M652A.
+<DT>M652X</A>
+  <DD>is a 'modernized' M652.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2816,15 +2882,23 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M660A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M660A.
 <DT>M660B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M660B.
+<DT>M660X</A>
+  <DD>is a 'modernized' M660.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M661 target=_blank>./DEC/Mxxx/M661</a></b>: Positive Level Driver for 8/I bus, 3 circuits, output clamped to +3V, M660 pins
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M661A</A>
+  <DD>is a drawing of DEC's M661A.
+<DT>M661X</A>
+  <DD>is a 'modernized' M661.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M663 target=_blank>./DEC/Mxxx/M663</a></b>: 3 negative Memory Bus Drivers, positive input, 50 ohm load, KI10
 
@@ -2850,7 +2924,7 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M697D</A>
-  <DD>needs a drawing and a DEC schematic.
+  <DD>is a drawing of DEC's M697D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
