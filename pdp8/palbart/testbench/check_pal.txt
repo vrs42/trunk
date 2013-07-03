@@ -1,0 +1,25 @@
+#!/bin/bash
+# This script checks that palbart generates the same binary as OS/8 PAL
+function finish {
+   printf "\n$fn testing failed\n"
+}
+trap finish EXIT
+
+set -e
+for fn in $*; do
+   filename="${fn%.*}"
+   cp $fn .
+   palname=`basename $fn`
+   if [ -e "$filename.flags" ]
+   then
+      flags=`cat $filename.flags`
+   else
+      flags=""
+   fi
+   ../pal8 -d $flags $palname
+   base_noext=`basename $filename`
+   ../../cmp_tape/cmp_tape `dirname $fn`/$base_noext.bn  $base_noext.bin
+   rm $base_noext.bin $base_noext.lst $palname
+done
+printf "\nAll files processed without error\n"
+trap - EXIT

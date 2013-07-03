@@ -1,0 +1,19 @@
+#!/bin/bash
+# This script uses simh to get a bin file and listing for a pal file
+function finish {
+   printf "\nBuilding failed\n"
+   rm -f a.pa a.bn a.ls
+}
+trap finish EXIT
+
+set -e
+for fn in $*; do
+   filename="${fn%.*}"
+   unix2dos -f -n $fn a.pa
+   expect pal_simh_expect 
+   mv a.bn $filename.bn
+   /mnt/pdp/code/utils/strip8 < a.ls > $filename.ls
+   rm -f a.pa a.bn a.ls
+done
+printf "\nAll files processed\n"
+trap - EXIT
