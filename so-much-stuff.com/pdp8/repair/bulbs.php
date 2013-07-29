@@ -161,6 +161,13 @@ See PDP-8/S above.
 </DL>
 
 <DL>
+<h3>TU20</h3>
+<DT>12-09169
+<dd>See PDP-8/i above.
+Michael Thompson reports no problems when using the CM7370 with TU20 panels.
+</DL>
+
+<DL>
 <h3>RL01/RL02</h3>
 <DT>12-12716
 <dd>See GE 73.
