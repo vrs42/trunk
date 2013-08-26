@@ -172,13 +172,14 @@ G737	A* 	  9 Dividers, 150 ohms to +3V, W028 pins
 G741	C+ CYA+ 	  TU10 Negative Bus Terminator
 G742	A* 	  Jumper Card, pins of non-inverting M500 & M531, TU56 with positive logic controls
 G766	A* 	  G796 with 3M cable, 14 signals, 2 grounds
+G772	B+ 	  PDP-11 Power Connector
 G775	A* B* C* 	  36 wires to Indicator, Q's, +6.5V from lamps, RF09
 G780	A* 	  Power Connector Card for PDP-12
 G783	A* 	  9 Twisted Pair and Shield, 1 pair ground return
 G785	D* E+ 	  Power Connector, 8/L, with Power OK
 G789	A* 	  Signal Simulator Connector
 G790	C* 	  Signal Simulator Generator
-G792	B+ 	  Power Connector
+G792	A+ 	  PDP-8/I Power Connector
 G793	B* 	  PDP-8/I Switch Connector, 8/I to console
 G795	D* 	  Clamped Level Cable Connector, W021 pins, diodes to +0.7V & -3V, PDP-9, extended memory
 G796	A* B* 	  Clamped Level Cable Connector, W034 with clamps, ground and -3V with 2mA clamped loads, G704 etch
@@ -229,7 +230,7 @@ G932	D* 	  Capstan Servo Preamp (drives H603)
 G933	E+ 	  Reel Motor Amp for TU10, +/-12V, +/-6A
 G9340	B* 	  Replacement for logic portion of G934
 G9341	B+ 	  Replacement for output portion of G934, higher current
-G936	E* 	  Reel Motor Amp for TU10, +/-12V, +/-6A
+G936	C+ E* 	  Reel Motor Amp for TU10, +/-12V, +/-6A
 G938	K+ 	  DECPack Head Position Servo Preamp, Long, Double
 G998	A* 	  Current Measuring Extender, 1-1/2 length with Bus Loops
 K003	A* 	  Gate Expander
@@ -342,7 +343,7 @@ M216	B C* X 	  6 D Flip-Flops
 M217	A X 	  Clock register for PDP-12, 4 bit counter with buffer register for preset or readout
 M218	A* 	  Bi-directional shift register, 9 bits, 2 parallel loads
 M219	B* 	  7-bit synchronous counter with jam and clear presets
-M220	A B X 	  Major Registers, double
+M220	A B C+ X 	  Major Registers, double
 M221	D 	  Register for PDP-12 (M220 plus extra logic), Double
 M222	B 	  Tape register for PDP-12, 2 bits, 6 registers, Double
 M223	B 	  MA,/MB Registers
@@ -429,7 +430,7 @@ M632	A* B X 	  Positive Input Converter Drivers
 M633	A* B X 	  Negative Bus Driver
 M640	C X 	  Master Interface Bus Driver, double
 M650	D X 	  Negative output converter, 3 channels, R650 type outputs
-M651	A* C X 	  M650 with outputs clamped to ground when 5V goes away
+M651	A+ C X 	  M650 with outputs clamped to ground when 5V goes away
 M652	A X 	  Negative Output Converters
 M660	A B X 	  Positive Level Drivers
 M661	A X 	  Positive Level Driver for 8/I bus, 3 circuits, output clamped to +3V, M660 pins
@@ -439,24 +440,24 @@ M665	E* 	  Memory Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
 M666	B* C* 	  I/O Bus Reset, 12 outputs, 20mA@-3V, 1/3 duty factor max
 M671		  M to K Converter
 M697	D 	  4 Channel IBM Transmitter
-M700	A+ B+ C+ D* E* 	  Manual Timing Generator
-M701	A* D+ 	  Display Control, VC8/I
+M700	A B D* E X 	  Manual Timing Generator, double
+M701	A* D X 	  Display Control, VC8/I, double
 M7011	C* 	  Serial Transmitter
-M703	J* 	  Power Fail Logic, 8/I
+M703	E J* X 	  Power Fail Logic, 8/I
 M704	A* B* 	  Plotter Control, 8/I
-M705	A* J* 	  Reader Control
-M7050	D+ E+ 	  Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
+M705	D J X 	  Reader Control, double
+M7050	D E+ 	  Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
 M706	D+ H+ K+ 	  Teletype Receiver, double
 M707	A+ C D 	  Teletype Transmitter, double
 M708	A* B C* X 	  Clock Control, 8/I
 M709	A* B 	  Clock Counter, 8/I
-M710	F* H+ 	  Punch control
+M710	B+ F* H+ 	  Punch control, double
 M7100	B* 	  I/O Device Control, used with M592, 10 74H IC's
 M7102	C* 	  Positive I/O Bus Converter
 M7103	F* 	  Negative I/O Bus Converter
 M711	C* 	  Scope Control, PDP-12
 M714	B* 	  Control Logic I, CR8-I, CR8-L
-M715	E* F+ 	  Reader Clock
+M715	A+ E* F+ 	  Reader Clock, double
 M716	A* B* 	  Control Logic II, CR8-I, CR8-L
 M717	C* 	  Display Control, VP09, VP15
 M719	A+ 	  Clock Sync & Decade Counter, KW12
@@ -545,7 +546,7 @@ M948	B* 	  24 RESISTORS TO CABLE, 4 RESISTORS TO COMMON POINT, COMPANION TO M947
 M949	A* 	  9 INDICATOR DRIVERS, 18 SIGNALS, FOR KI CONSOLE
 M950	A* 	  9 RESISTORS TO CABLE, 9 R TO COMMON, 18 RC FILTERS, COMPANION TO M949
 M952	C* 	  27 LEVEL TERMINATORS, CLAMPS AT +.75 & 3.25V
-M953		  Flat Cable Connector, 18 Signals, 18 Grounds
+M953	B+ 	  Flat Cable Connector, 18 Signals, 18 Grounds
 M954		  Flat Cable Connector, 36 Signals
 M955		  Flat Cable Connector, 18 Signals
 M956	A* 	  18 130 OHMS TO +3.0V, M903 PINS

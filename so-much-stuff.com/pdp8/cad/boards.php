@@ -1227,6 +1227,10 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G772 target=_blank>./DEC/Gxxx/G772</a></b>: PDP-11 Power Connector
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G775 target=_blank>./DEC/Gxxx/G775</a></b>: 36 wires to Indicator, Q's, +6.5V from lamps, RF09
 
 </LEGEND></FIELDSET>
@@ -1251,7 +1255,7 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G792 target=_blank>./DEC/Gxxx/G792</a></b>: Power Connector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G792 target=_blank>./DEC/Gxxx/G792</a></b>: PDP-8/I Power Connector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2928,25 +2932,29 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M700 target=_blank>./DEC/Mxxx/M700</a></b>: Manual Timing Generator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M700 target=_blank>./DEC/Mxxx/M700</a></b>: Manual Timing Generator, double
 
 </LEGEND><DL>
 <DT>M700A</A>
-  <DD>needs a drawing and a DEC schematic.
+  <DD>is a drawing of DEC's M700A.
 <DT>M700B</A>
-  <DD>needs a drawing and a DEC schematic.
-<DT>M700C</A>
-  <DD>needs a drawing and a DEC schematic.
-<DT>M700D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M700B.
 <DT>M700E</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M700E.
+<DT>M700X</A>
+  <DD>is a 'modernized' M700.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M701 target=_blank>./DEC/Mxxx/M701</a></b>: Display Control, VC8/I
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M701 target=_blank>./DEC/Mxxx/M701</a></b>: Display Control, VC8/I, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M701D</A>
+  <DD>is a drawing of DEC's M701D.
+<DT>M701X</A>
+  <DD>is a 'modernized' M701.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7011 target=_blank>./DEC/Mxxx/M7011</a></b>: Serial Transmitter
 
@@ -2954,20 +2962,27 @@ by Dave Brockman.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M703 target=_blank>./DEC/Mxxx/M703</a></b>: Power Fail Logic, 8/I
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M703E</A>
+  <DD>is a drawing of DEC's M703E.
+<DT>M703X</A>
+  <DD>is a 'modernized' M703.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M704 target=_blank>./DEC/Mxxx/M704</a></b>: Plotter Control, 8/I
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M705 target=_blank>./DEC/Mxxx/M705</a></b>: Reader Control
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M705 target=_blank>./DEC/Mxxx/M705</a></b>: Reader Control, double
 
 </LEGEND><DL>
-<DT>M705</A>
-  <DD>is DEC's M705 PR8i Reader Logic board.
-<DT>M705ok</A>
-  <DD>is a checkpoint of M705.
-</DL>
+<DT>M705D</A>
+  <DD>is a drawing of DEC's M705D.
+<DT>M705J</A>
+  <DD>is a drawing of DEC's M705J.
+<DT>M705X</A>
+  <DD>is a 'modernized' M705.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
@@ -3020,7 +3035,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M710 target=_blank>./DEC/Mxxx/M710</a></b>: Punch control
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M710 target=_blank>./DEC/Mxxx/M710</a></b>: Punch control, double
 
 </LEGEND><DL>
 <DT>M710-9601</A>
@@ -3064,7 +3079,7 @@ uses the hard to find 9601 monstable.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M715 target=_blank>./DEC/Mxxx/M715</a></b>: Reader Clock
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M715 target=_blank>./DEC/Mxxx/M715</a></b>: Reader Clock, double
 
 </LEGEND><DL>
 <DT>M715</A>
