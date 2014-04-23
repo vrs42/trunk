@@ -40,6 +40,8 @@ hook into a PDP-8/i or PDP-12.
   <DD>is a drawing of the MSC3102 design.
 <DT>Omnimem</A>
   <DD>is a simplified version using 74244 instead of 74125.
+<DT>Lafferty1</A>
+  <DD>is a drawing based on Steve Lafferty's prototype.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -796,6 +798,10 @@ based on DEC's DM01.
   <DD>is a drawing of the 21-de-7.
 <DT>21-de-77</A>
   <DD>is a drawing of the 21-de-77.
+<DT>26-de-8</A>
+  <DD>is a drawing of the 26-de-8.
+<DT>26-de-8x</A>
+  <DD>is a drawing of the 26-de-8 done with more mordern components.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
