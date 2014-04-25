@@ -42,14 +42,6 @@ from the board shop.
 is the one with the components marked, and also is the side from 
 which the components are inserted.
   </A></TD>
-  <TD>
-    <A href="/pdp8/32KOmnibus/P1040569.jpg">
-    <IMG src="/pdp8/32KOmnibus/P1040569.jpg" width=320>
-    <A href="/pdp8/32KOmnibus/P1040570.jpg">
-    <IMG src="/pdp8/32KOmnibus/P1040570.jpg" width=320>
-    <P>These are pictures of a defect in the keyways of the boards, 
-which will hopefully be corrected before you receive them.
-  </A></TD>
 </TABLE><P><TABLE>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040575.jpg">
@@ -81,14 +73,20 @@ a 14 pin socket into a place where the 16 pin socket should be.
   <TD>
     <A href="/pdp8/32KOmnibus/P1040580.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040580.jpg" width=320>
-    <P>Solder in the DIP switch.  The orientation shown should correctly 
-number the banks of memory, so that switch one controls the first bank 
-(00000-07777), etc.
+    <P>Solder in the DIP switch.  The orientation shown will correctly 
+make the "disabled" position to the left.  The silkscreen is wrong about 
+the dip switch orientation, and also about the ordering of the banks.  
+I've made a little sticker which numbers the banks to match the actual 
+implementation.
+    <P>It is also possible to cut traces and install blue wires to 
+interchange pin 1 and pin 3 of IC5 (which is just below the DIP 
+switch).  This should make the switches correspond to the banks
+as indicated by the silk screen.
   </A></TD>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040583.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040583.jpg" width=320>
-    <P>Solder in electrolytic.  This is a polarized component, so be 
+    <P>Solder in the electrolytic.  This is a polarized component, so be 
 sure that the "-" end is away from the edge connector, and the ridged 
 end is toward them, as shown.  Bend the long leads slightly after inserting, 
 so that the part doesn't fall back out.  Trim the leads after soldering.
@@ -142,8 +140,6 @@ Bend the center lead back gently to get it into the hole.
   </A></TD>
 </TABLE><P><TABLE>
   <TD>
-    <A href="/pdp8/32KOmnibus/P1040591.jpg">
-    <IMG src="/pdp8/32KOmnibus/P1040591.jpg" width=320>
     <A href="/pdp8/32KOmnibus/P1040592.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040592.jpg" width=320>
     <P>Insert the various chips.  Be sure to get the right chips 
