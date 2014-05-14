@@ -2,6 +2,14 @@
 <STYLE type="text/css">
 BODY { background-color: #000000 }
 BODY { color: #00c000 }
+a:link { color: #00ff00 }
+a:visited { color: #00c000 }
+@media print {
+  BODY { background-color: #ffffff }
+  BODY { color: #000000 }
+  a:link { color: #000000 }
+  a:visited { color: #000000 }
+}
 BODY { font-family: courier, "courier new", monospace }
 BODY { font-size: 120% }
 H3 { margin-bottom:2 }
@@ -11,12 +19,11 @@ P,H1,H2,H3,H4,H5,H6 { colorx: #00ff00 }
 <META http-equiv=Expires content=0>
 <?php echo "<TITLE>$title</TITLE>"; ?>
 </HEAD>
-<BODY vLink=#00c000 aLink=#00c000 link=#00ff00 bgColor=#000000>
+<aBODY vLink=#00c000 aLink=#00c000 link=#00ff00 xbgColor=#000000>
 <HTML><HEAD>
 <META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
 <META http-equiv=Expires content=0>
 </HEAD>
-<BODY vLink=#00c000 aLink=#00c000 link=#00ff00 bgColor=#000000>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" align=middle border=0>
   <TBODY>
   <TR>
