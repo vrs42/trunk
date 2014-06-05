@@ -26,7 +26,7 @@ finish, so soldering this is about as easy as soldering gets.
 get one snack-size ziploc with the discretes, one anti-static bag 
 with chips and sockets, and a board, for each kit you have ordered.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040562.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040562.jpg" width=320>
@@ -42,7 +42,7 @@ from the board shop.
 is the one with the components marked, and also is the side from 
 which the components are inserted.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040575.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040575.jpg" width=320>
@@ -69,7 +69,7 @@ yourself (they are about twice the price of these).
 Working from large to small ensures you don't solder (for instance) 
 a 14 pin socket into a place where the 16 pin socket should be.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040580.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040580.jpg" width=320>
@@ -91,7 +91,7 @@ sure that the "-" end is away from the edge connector, and the ridged
 end is toward them, as shown.  Bend the long leads slightly after inserting, 
 so that the part doesn't fall back out.  Trim the leads after soldering.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040584.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040584.jpg" width=320>
@@ -106,7 +106,7 @@ capacitors, paying attention to which value goes in which spot.  I like
 to orient the markings on the components to match the markings on the 
 silkscreen.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040586.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040586.jpg" width=320>
@@ -122,9 +122,10 @@ silkscreen.
 flat to the board, and yes, the "+" lead hole is oversized.
 Since you'll need to use more solder, you might also need 
 a little more heating time to make sure it doesn't end up a 
-cold solder joint.
+cold solder joint.  Be sure to trim the "+" lead flush when
+you are done.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040589.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040589.jpg" width=320>
@@ -138,7 +139,7 @@ Bend the center lead back gently to get it into the hole.
     <IMG src="/pdp8/32KOmnibus/P1040590.jpg" width=320>
     <P>That's basically it for the soldering.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040592.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040592.jpg" width=320>
@@ -159,11 +160,21 @@ inside the holes.  You should be able to tell when it is seated.
   <TD>
     <A href="/pdp8/32KOmnibus/P1040593.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040593.jpg" width=320>
-    <P>Lastly, insert the battery from the left, writing side up, 
+    <P>Insert the battery from the left, writing side up, 
 and press down until the plastic tab on the left clicks over the 
 top of the battery.
   </A></TD>
-</TABLE><P><TABLE>
+</TR><TR>
+  <TD>
+    <A href="/pdp8/32KOmnibus/P1040699.jpg">
+    <IMG src="/pdp8/32KOmnibus/P1040699.jpg" width=320>
+    <P>Lastly, you may wish to cover the exposed "+" battery
+wiring at the battery terminals and at the diodes with a couple
+of layers of non-conductive tape.  This limits the likelyhood
+of shorting the battery when setting the board down.  If you
+want to be completely paranoid about it, cover pin 28 of IC3
+and IC4, too.  (Sorry, no handles come with your kit.)
+  </A></TD>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040594.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040594.jpg" width=320>
