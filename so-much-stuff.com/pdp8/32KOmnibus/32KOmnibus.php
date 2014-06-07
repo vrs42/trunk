@@ -116,6 +116,17 @@ silkscreen.
 (yellow stripe) resistors go on the right.
   </A></TD>
   <TD>
+    <A href="/pdp8/32KOmnibus/P1040700.jpg">
+    <IMG src="/pdp8/32KOmnibus/P1040700.jpg" width=320>
+    <P>If you plan to install the board in an 8/A, you'll find
+there is an interference fit between the battery holder and the 
+card guides.  You may wish to take some time to file off the 
+excess plastic near the "+" terminal.  Alternatively, you may 
+be able to skew the battery terminal leads enough to scoot the 
+battery holder out of the way.
+  </A></TD>
+</TR><TR>
+  <TD>
     <A href="/pdp8/32KOmnibus/P1040588.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040588.jpg" width=320>
     <P>The battery holder goes as shown.  Be sure to get it 
@@ -125,7 +136,6 @@ a little more heating time to make sure it doesn't end up a
 cold solder joint.  Be sure to trim the "+" lead flush when
 you are done.
   </A></TD>
-</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040589.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040589.jpg" width=320>
@@ -134,12 +144,12 @@ but I wanted to double check it's orientation.  It looks like the way
 it is drawn in the silkscreen is correct for the transistor provided.
 Bend the center lead back gently to get it into the hole.
   </A></TD>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040590.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040590.jpg" width=320>
     <P>That's basically it for the soldering.
   </A></TD>
-</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040592.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040592.jpg" width=320>
@@ -157,6 +167,7 @@ hole before applying pressure.  When everything is looking good,
 press firmly on the chip body to press the pins into the grippers 
 inside the holes.  You should be able to tell when it is seated.
   </A></TD>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040593.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040593.jpg" width=320>
@@ -164,7 +175,6 @@ inside the holes.  You should be able to tell when it is seated.
 and press down until the plastic tab on the left clicks over the 
 top of the battery.
   </A></TD>
-</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040699.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040699.jpg" width=320>
@@ -175,6 +185,7 @@ of shorting the battery when setting the board down.  If you
 want to be completely paranoid about it, cover pin 28 of IC3
 and IC4, too.  (Sorry, no handles come with your kit.)
   </A></TD>
+</TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040594.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040594.jpg" width=320>
