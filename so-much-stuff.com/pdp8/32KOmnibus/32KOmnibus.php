@@ -2,14 +2,27 @@
   $title = "32K Memory for Omnibus";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
-
+<P><pfFONT size=3>
+<P>Some of you have asked, so
+<A HREF=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/>here</A>
+is a shortcut to the CAD drawings.<P>
 <TABLE>
 <TR>
 <TD vAlign=top>
-    <P><FONT size=3>
-    <P>Here are some assembly hints for the Omnibus memory:
-    <P>
+<P>Of these, the "Lafferty1" drawings are the board as sent off for
+fabrication, and the "Lafferty1ab" (as built) drawings are the board as
+it looks if you bought a kit and built it as recommended.
+<DL>
+<DT>.brd<DD>is the Eagle board drawing.
+<DT>.sch<DD>is the Eagle schematic.  (The action is on sheet 2.)
+<DT>bot.pdf<DD>is the solder side of the board, as a PDF.
+<DT>top.pdf<DD>is the component side of the board, as a PDF.
+<DT>sch.pdf<DD>is the schematic the board, as a PDF (you want page 2).
+</DL>
+</TABLE>
+<P>Here are some assembly hints for the Omnibus memory:
 <TABLE>
+<TR>
 <P><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040579.jpg">
@@ -25,6 +38,8 @@ finish, so soldering this is about as easy as soldering gets.
     <P>Here are the parts kits, all sitting in a box.  You should 
 get one snack-size ziploc with the discretes, one anti-static bag 
 with chips and sockets, and a board, for each kit you have ordered.
+You should also get a printed sheet with the most important release 
+notes as of wheever your board was shipped.
   </A></TD>
 </TR><TR>
   <TD>
@@ -123,7 +138,8 @@ there is an interference fit between the battery holder and the
 card guides.  You may wish to take some time to file off the 
 excess plastic near the "+" terminal.  Alternatively, you may 
 be able to skew the battery terminal leads enough to scoot the 
-battery holder out of the way.
+battery holder out of the way.  I have ordered some of Mouser 
+part #534-103, and will let you know if they fix the problem.
   </A></TD>
 </TR><TR>
   <TD>
