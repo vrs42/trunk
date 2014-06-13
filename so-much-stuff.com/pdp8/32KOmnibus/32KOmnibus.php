@@ -138,8 +138,8 @@ there is an interference fit between the battery holder and the
 card guides.  You may wish to take some time to file off the 
 excess plastic near the "+" terminal.  Alternatively, you may 
 be able to skew the battery terminal leads enough to scoot the 
-battery holder out of the way.  I have ordered some of Mouser 
-part #534-103, and will let you know if they fix the problem.
+battery holder out of the way.  I have ordered some of JameCo 
+part #355434, and will let you know if they fix the problem.
   </A></TD>
 </TR><TR>
   <TD>
