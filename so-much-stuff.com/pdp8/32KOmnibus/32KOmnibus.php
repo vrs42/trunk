@@ -136,7 +136,7 @@ silkscreen.
     <A href="/pdp8/32KOmnibus/P1040735.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040735.jpg" width=320></A>
     <P>If you plan to install the board in an 8/A, you'll find
-there is an interference fit (upper pic)b etween the battery holder
+there is an interference fit (upper pic) between the battery holder
 and the card guides.  One solution to that problem can be found 
 <A href="/pdp8/32KOmnibus/32K-8a.php">here</A>.
 Alternatively, you can substitute JameCo part #355434, which
