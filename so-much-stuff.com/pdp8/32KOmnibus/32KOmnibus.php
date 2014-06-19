@@ -133,25 +133,26 @@ silkscreen.
   <TD>
     <A href="/pdp8/32KOmnibus/P1040700.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040700.jpg" width=320></A>
+    <A href="/pdp8/32KOmnibus/P1040735.jpg">
+    <IMG src="/pdp8/32KOmnibus/P1040735.jpg" width=320></A>
     <P>If you plan to install the board in an 8/A, you'll find
-there is an interference fit between the battery holder and the 
-card guides.  One solution to that problem can be found 
+there is an interference fit (upper pic)b etween the battery holder
+and the card guides.  One solution to that problem can be found 
 <A href="/pdp8/32KOmnibus/32K-8a.php">here</A>.
-Alternatively, you may wish to take some time to file off the 
-excess plastic near the "+" terminal.  Or, you may be able to
-skew the battery terminal leads enough to scoot the battery
-holder out of the way.  I have also ordered some of JameCo 
-part #355434, and will let you know if they fix the problem.
+Alternatively, you can substitute JameCo part #355434, which
+does not have the problem (lower pic).  I can furnish you with
+the JameCo part upon request.
   </TD>
 </TR><TR>
   <TD>
     <A href="/pdp8/32KOmnibus/P1040588.jpg">
     <IMG src="/pdp8/32KOmnibus/P1040588.jpg" width=320></A>
-    <P>The battery holder goes as shown.  Be sure to get it 
-flat to the board, and yes, the "+" lead hole is oversized.
-Since you'll need to use more solder, you might also need 
-a little more heating time to make sure it doesn't end up a 
-cold solder joint.  Be sure to trim the "+" lead flush when
+    <A href="/pdp8/32KOmnibus/P1040730.jpg">
+    <IMG src="/pdp8/32KOmnibus/P1040730.jpg" width=320></A>
+    <P>The battery holder goes as shown (8/A version in lower pic).
+Be sure to get it flat to the board, and yes, the "+" lead hole is oversized.
+You might also need a little more heating time to make sure these don't end
+up with cold solder joints.  Be sure to trim the "+" lead flush when
 you are done.
   </TD>
   <TD>
