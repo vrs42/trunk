@@ -36,12 +36,18 @@ hook into a PDP-8/i or PDP-12.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./32k-Omnibus target=_blank>./32k-Omnibus</a></b>: Omnibus 32K SRAM board
 
 </LEGEND><DL>
+<DT>Lafferty1</A>
+  <DD>is a drawing based on Steve Lafferty's prototype.
+<DT>Lafferty1ab</A>
+  <DD>is an "as built" version of Lafferty1, with the changes incorporated in the group buy.
+<DT>Lafferty2</A>
+  <DD>is a drawing with ideas about a follow-on to Lafferty1.
 <DT>msc3102</A>
   <DD>is a drawing of the MSC3102 design.
 <DT>Omnimem</A>
   <DD>is a simplified version using 74244 instead of 74125.
-<DT>Lafferty1</A>
-  <DD>is a drawing based on Steve Lafferty's prototype.
+<DT>rtc</A>
+  <DD>is a version of Lafferty1 with some thoughts about adding a clock circuit.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2993,7 +2999,11 @@ by Dave Brockman.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M7050D</A>
+  <DD>is a version of DEC's M7050D.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M706 target=_blank>./DEC/Mxxx/M706</a></b>: Teletype Receiver, double
 
@@ -3698,6 +3708,16 @@ This one uses an open collector bus to reduce the number of drivers.
 <DT>memory</A>
   <DD>is a complete schematic for the 8/S, with the core memory 
 subsystem replaced with level converters and a ramboard.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Proto target=_blank>./DEC/Proto</a></b>: DEC Compatible Prototyping boards
+
+</LEGEND><DL>
+<DT>proto</A>
+  <DD>is a quad prototype board suitable for DIP/through hole designs.
+<DT>omniproto</A>
+  <DD>is a quad prototype board suitable for Omnibus DIP/through hole designs.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5212,6 +5232,8 @@ implemented with three FETs and a section of an LM139 comparator.
   <DD>is the flipchip tester, revision 1 (similar to iotst).
 <DT>tester-rp</A>
   <DD>is another copy of the flipchip tester, revision 1.
+<DT>diodes</A>
+  <DD>is an attempt to lay out diode level converters for the flipchip tester.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5419,6 +5441,8 @@ cheaper SMT versions of the SRAM chip.
 <DT>RF08b</A>
   <DD>is the latest version of the controller for the RF08 
 replacement.
+<DT>RF08bOmnibus</A>
+  <DD>is an start on an Omnibus version.
 </DL>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RF08/Old8x12 target=_blank>./RF08/Old8x12</a></b>: RF08 Replacement (Old Version)
