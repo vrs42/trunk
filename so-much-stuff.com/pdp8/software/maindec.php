@@ -2,7 +2,7 @@
   $title = "MAINDEC Software Files";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
-<BODY>
+<BODY><FONT size=4>
 This is an archive of the MAINDEC software diagnostics.
 <P>
 Since the diagnostics files are organized by DEC part number, a 

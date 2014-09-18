@@ -12,8 +12,7 @@
 <TABLE>
 <TR>
   <TD>
-    <A href="http://www.whynotgif.com/">
-    <IMG src="http://img.whynotgif.com/under-construction/under-construction-153.gif" style="border:0;" alt="Under Construction from whynotgif.com" /></a>
+    <IMG src=../pictures/construction10.gif style="border:0;" alt="Under Construction" />
     <BR>Coming soon...hopefully.
   </A></TD>
 </TABLE>

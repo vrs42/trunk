@@ -77,6 +77,7 @@ for $i (@ARGV) {
       $ref =~ s/'([^']*)'/\1/g;
       next if $ref =~ /^(mailto|http):/;
       next if $ref =~ /\$/; # Skip variable references
+      next if $ref =~ /^\#/; # Pound sign must be first.
       die "$i: Illegal character in '$ref'\n" if $ref =~ /\#/;
       $ref = $1 if $ref =~ /^"(.*)"$/;
         $d = "./";
