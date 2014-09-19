@@ -11,6 +11,14 @@ keep track of my PDP-8 stuff have been in an SVN repository.  That
 provides (by way of the revision log) a blow-by-blow account of what 
 I've been up to.  So, I'm including links to that information here, 
 in lieu of a proper blog.
+    <P><table>
+<td>
+<a href="rss.xml"><img src="../pictures/feed-icon-28x28.png" alt="RSS"></a>
+<td>
+You can also <a href="rss.xml">subscribe</a> to an RSS feed to
+be notified when changes are made to these blog pages (or the
+other website pages).
+</table>
     <P>
     <TABLE><TR><TD valign=top>
     <TD>
