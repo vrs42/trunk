@@ -41,7 +41,7 @@ have taken the time to scan and archive this software and documentation.
 <a href=#decus-focal8-300>focal8-300</a>
 </div>
 <div>You can also scroll around, or you could try searching (i.e., 'disassembler').</div><p>
-<div style='overflow-y: auto; height:40%; border:thick green ridge'>
+<div style='overflow-y: auto; height:35%; border:thick green ridge'>
 <table width=100% border=1>
 <col width=15%><col width=50%><col width=35%>
 <a name=decus-8-1></a>
