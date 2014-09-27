@@ -5397,6 +5397,8 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>One-Sample Statistics: Two-Sample Statistics: Welch </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-16/decus-focal8-16.htm target=_blank>decus-focal8-16.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-16/stat1.fc target=_blank>stat1.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-16/stat2.fc target=_blank>stat2.fc</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-17 target=_blank>focal8-17
 </a><td><div>FOCAL: How to Write New Subroutines and Use Internal </div>
@@ -5473,6 +5475,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Sines; Factors; Figure Eight; Right Triangle Solutions </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-31/decus-focal8-31.htm target=_blank>decus-focal8-31.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-31/triang.fc target=_blank>triang.fc</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-32 target=_blank>focal8-32
 </a><td><div>Translation Table - French </div>
@@ -5517,6 +5520,7 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-40 target=_blank>focal8-40
 </a><td><div>Simple Chi-Square Test </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-40/chisqr.fc target=_blank>chisqr.fc</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-40/decus-focal8-40.htm target=_blank>decus-focal8-40.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-41 target=_blank>focal8-41
@@ -6895,6 +6899,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>U/W FOCAL FOCAL</div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/decus-focal8-301.htm target=_blank>decus-focal8-301.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/decus-focal8-301.pdf target=_blank>decus-focal8-301.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-302 target=_blank>focal8-302
 </a><td><div>XSTOCK: Stockmarket Simulation Game FOCAL</div>

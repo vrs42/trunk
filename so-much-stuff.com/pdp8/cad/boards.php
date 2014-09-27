@@ -3379,8 +3379,9 @@ with input flow control implemented.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M868 target=_blank>./DEC/Mxxx/M868</a></b>: TD8E Simple Dectape Controller
 
 </LEGEND><DL>
-<DT>M868</A>
-  <DD>is an Eagle version of DEC's M868 Simple Dectape Controller.</DL>
+<DT>M868H</A>
+  <DD>is an Eagle version of DEC's M868 (ECO Rev. K) Simple Dectape Controller.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M870 target=_blank>./DEC/Mxxx/M870</a></b>: IMPLEMENTS SIMPLE CLOCK IN PDP12

@@ -131,7 +131,7 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d0aa-pb.od>maindec-08-d0aa-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>Memory Address Test (renamed 08-D1B0)
+<td>Memory Address Test (renamed to 08-D1B0)
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-d.pdf>maindec-08-d11a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-pb1>maindec-08-d11a-pb1</a><td>(BIN image #1)<tr>
@@ -140,14 +140,14 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-pb2.od>maindec-08-d11a-pb2.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>Memory Address Test Low (renamed 08-D1B0)
+<td>Memory Address Test Low (renamed to 08-D1B0)
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-pb1.bin>maindec-08-d11a-pb1.bin</a><td>(BIN format)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-pb1.lst>maindec-08-d11a-pb1.lst</a><td>(PAL listing)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-pb1.pal>maindec-08-d11a-pb1.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
-<td>Memory Address Test High (renamed 08-D1B0)
+<td>Memory Address Test High (renamed to 08-D1B0)
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-pb2.bin>maindec-08-d11a-pb2.bin</a><td>(BIN format)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d11a-pb2.lst>maindec-08-d11a-pb2.lst</a><td>(PAL listing)<tr>
@@ -162,7 +162,7 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1ac-pb.od>maindec-08-d1ac-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>Memory Address Test (replaces 08/D11A)
+<td>Memory Address Test (replaces 08-D11A)
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1b0-d.pdf>maindec-08-d1b0-d.pdf</a><td>(PDF write-up)<tr>
 </table>
@@ -1840,7 +1840,7 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d8ab-d-d.pdf>maindec-8e-d8ab-d-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
-<td>DK8E Clocks Diagnostic (renamed 08-DHDKA-A)
+<td>DK8E Clocks Diagnostic (renamed to 08-DHDKA-A)
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d8ac-d.pdf>maindec-8e-d8ac-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d8ac-pb>maindec-8e-d8ac-pb</a><td>(BIN image)<tr>
