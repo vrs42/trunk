@@ -1,0 +1,94 @@
+#!/usr/bin/perl
+
+# Read an ASCII format STL file
+
+# solid 1170Handle
+# facet normal -0.000148266570749099 -0.00460401291523558 0.999989390484769
+#   outer loop
+#     vertex 0.000140744572064588 1.4493726055151 0.146
+#     vertex -0.0370754460367823 1.67815054731263 0.146999999999999
+#     vertex -0.0413711642044813 1.68852132837323 0.146999999999999
+#   endloop
+# endfacet
+# endsolid 1170Handle
+
+#
+# Sort two points into an appropriately ordered edge with 
+# standardized precision.
+sub mkedge {
+  local($p, $t) = @_;
+  ($x1, $y1, $z1) = split(/\s+/, $p);
+  ($x2, $y2, $z2) = split(/\s+/, $t);
+  # Round each coordinate to the desired resolution.
+  $resolution = 1000;
+  $x1 = int($x1*$resolution+0.5);
+  $y1 = int($y1*$resolution+0.5);
+  $z1 = int($z1*$resolution+0.5);
+  $x2 = int($x2*$resolution+0.5);
+  $y2 = int($y2*$resolution+0.5);
+  $z2 = int($z2*$resolution+0.5);
+  $cmp = $x1 <=> $x2;
+  $cmp = $y1 <=> $y2 unless $cmp;
+  $cmp = $z1 <=> $z2 unless $cmp;
+  if ($cmp > 0) {
+    # Swap them
+    ($p, $t) = ($t, $p);
+    ($x1, $y1, $z1, $x2, $y2, $z2) = ($x2, $y2, $z2, $x1, $y1, $z1);
+  }
+# return "($x1 $y1 $z1) ($x2, $y2, $z2)";
+  return "$p $t";
+}
+
+# Check that every line segment joins two faces.
+
+$badfiles = 0;
+foreach $f (@ARGV) {
+  open(INPUT, $f) || die "$f: $!";
+  $_ = <INPUT>;
+  die "$f: Not an ASCII STL file" unless /^solid /;
+
+  $previous = undef;
+  %edge = ();
+  while (<INPUT>) {
+    s/\r$//; chop;
+    last if /^\s*endsolid /;
+    next if /^\s*facet /;
+    next if /^\s*endloop/;
+    next if /^\s*outer loop/;
+    if (/^\s*endfacet/) {
+      $edge = &mkedge($first, $this);
+      $edge{$edge} = 0 unless defined $edge{$edge};
+      $edge{$edge}++;
+      $edges++;
+      $previous = undef;
+      next;
+    }
+    die "syntax error: $_" unless /\s*vertex ([-e\d.\s]+)$/i;
+    $this = $1;
+    if (defined $previous) {
+      $edge = &mkedge($previous, $this);
+      $edge{$edge} = 0 unless defined $edge{$edge};
+      $edge{$edge}++;
+      $edges++;
+    } else {
+      $first = $this;
+    }
+    $previous = $this;
+  }
+
+  $bad = 0;
+  foreach $edge (keys %edge) {
+    if ($edge{$edge} != 2) {
+      print "$edge occurs $edge{$edge} times\n";
+      $bad++;
+    }
+  }
+
+  if ($bad) {
+    print "$f: $bad out of $edges edges were open\n";
+    $badfiles++;
+  }
+
+}
+
+exit $badfiles;
