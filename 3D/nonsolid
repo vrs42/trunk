@@ -19,14 +19,14 @@ sub mkedge {
   local($p, $t) = @_;
   ($x1, $y1, $z1) = split(/\s+/, $p);
   ($x2, $y2, $z2) = split(/\s+/, $t);
-  # Round each coordinate to the desired resolution.
-  $resolution = 1000;
-  $x1 = int($x1*$resolution+0.5);
-  $y1 = int($y1*$resolution+0.5);
-  $z1 = int($z1*$resolution+0.5);
-  $x2 = int($x2*$resolution+0.5);
-  $y2 = int($y2*$resolution+0.5);
-  $z2 = int($z2*$resolution+0.5);
+# # Round each coordinate to the desired resolution.
+# $resolution = 1000;
+# $x1 = int($x1*$resolution+0.5);
+# $y1 = int($y1*$resolution+0.5);
+# $z1 = int($z1*$resolution+0.5);
+# $x2 = int($x2*$resolution+0.5);
+# $y2 = int($y2*$resolution+0.5);
+# $z2 = int($z2*$resolution+0.5);
   $cmp = $x1 <=> $x2;
   $cmp = $y1 <=> $y2 unless $cmp;
   $cmp = $z1 <=> $z2 unless $cmp;
@@ -45,8 +45,11 @@ $badfiles = 0;
 foreach $f (@ARGV) {
   open(INPUT, $f) || die "$f: $!";
   $_ = <INPUT>;
-  die "$f: Not an ASCII STL file" unless /^solid /;
-
+  unless (/^solid /) {
+    warn "$f: Not an ASCII STL file\n";
+    $badfiles++;
+    next;
+  }
   $previous = undef;
   %edge = ();
   while (<INPUT>) {

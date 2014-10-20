@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+# Read an ASCII format STL file
+
+# solid 1170Handle
+# facet normal -0.000148266570749099 -0.00460401291523558 0.999989390484769
+#   outer loop
+#     vertex 0.000140744572064588 1.4493726055151 0.146
+#     vertex -0.0370754460367823 1.67815054731263 0.146999999999999
+#     vertex -0.0413711642044813 1.68852132837323 0.146999999999999
+#   endloop
+# endfacet
+# endsolid 1170Handle
+
+# Round every endpoint to the specified precision.
+$resolution = 1000;
+$fmt = '%5.3f';
+
+$f = $ARGV[0];
+open(INPUT, $f) || die "$f: $!";
+$_ = <INPUT>;
+die "$f: Not an ASCII STL file" unless /^solid /;
+print $_;
+
+while (<INPUT>) {
+  if (/(\s*)vertex ([-e\d.\s]+)$/i) {
+    $indent = $1;
+    $this = $2;
+    ($x1, $y1, $z1) = split(/\s+/, $this);
+    # Round each coordinate to the desired resolution.
+    $x1 = int($x1*$resolution+0.5)/$resolution;
+    $y1 = int($y1*$resolution+0.5)/$resolution;
+    $z1 = int($z1*$resolution+0.5)/$resolution;
+    printf "${indent}vertex $fmt $fmt $fmt\r\n", $x1, $y1, $z1;
+#   print $_;
+  } else {
+    print $_;
+    last if /^\s*endsolid /;
+    next if /^\s*facet /;
+    next if /^\s*endloop/;
+    next if /^\s*outer loop/;
+    next if /^\s*endfacet/;
+    die "syntax error: $_";
+  }
+}
+
+exit 0;
