@@ -1,0 +1,10 @@
+#!/bin/sh
+
+new=mangled
+
+rm -rf $new; mkdir $new
+
+for i in */*.stl; do
+  f=`basename $i`
+  ./roundit "$i" >$new/"$f" || rm $new/"$f"
+done
