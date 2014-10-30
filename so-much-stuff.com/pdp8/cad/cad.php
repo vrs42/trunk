@@ -6,7 +6,9 @@
 <TABLE>
 <TR>
 <TD vAlign=top>
-    <P>Here are my collection of CAD files.  Beware -- almost none of this
+    <P>Most of this page is 2D circuit boards.
+    <P><B>For the 3D stuff go <A href=3d.php>here</A></B>.
+    <P>Beware -- almost none of this
 stuff has been built or debugged!  It's just here in case it is of some use
 to someone.
     <P>I use Eagle CAD software with the "Pro" license to develop this stuff,

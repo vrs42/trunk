@@ -1,4 +1,6 @@
-SVN = ../../../Eagle/projects
+EAGLE = ../../../Eagle/projects
+STL = ../../../3D
 
 all: .
-	(cd $(SVN); ./publish.pl) > boards.php
+	(cd $(EAGLE); ./publish.pl) > boards.php
+	(cd $(STL); ./publish.pl) > 3d.php
