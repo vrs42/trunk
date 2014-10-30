@@ -15,7 +15,8 @@ print $head;
 
 print "Here are some 3D design files mostly relevant to the PDP-8.\n";
 print "These should mostly be printable with common 3D printing services\n";
-print "like Shapeways, etc.\n";
+print "like Shapeways, etc.  Be advised that the STL files are in inches,\n";
+print "not mm.\n";
 print "<P>Use the link in the page footer to let me know if there are issues\n";
 print "with these files.\n";
 print "<P>In no particular order:<P>\n";
@@ -28,18 +29,23 @@ foreach $stl (sort <*/*.stl>) {
   $txt = $stl; $txt =~ s/.stl$/.txt/;
   if (-f $txt) {
     open(INPUT, $txt) || die "$txt: $!";
+    $dsc = <INPUT> || ($dsc = "");
+    print "$dsc<BR>\n";
+    $dsc = "";
     while (<INPUT>) {
-      print $_;
+      $dsc .= $_;
     }
     close(INPUT);
+  } else {
+    $dsc = "";
   }
-# $dir = $stl; $dir =~ s:/[^/]+$::;
   print "<A href=$url/$jpg><IMG src=$url/$jpg width=320></A><BR>\n";
   print "<A href=$url/$stl>STL file</A><BR>\n";
   $skp = $stl; $skp =~ s/.stl$/.skp/;
   if (-f $skp) {
     print "<A href=$url/$skp>Sketchup file</A><BR>\n";
   }
+  print $dsc;
   print "</TD>\n";
   $thisrow++;
   if ($thisrow > 1) {
