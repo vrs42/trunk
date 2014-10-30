@@ -5,7 +5,9 @@
 <BODY><FONT size=4>
 Here are some 3D design files mostly relevant to the PDP-8.
 These should mostly be printable with common 3D printing services
-like Shapeways, etc.<P>
+like Shapeways, etc.
+<P>Use the link in the page footer to let me know if there are issues
+with these files.
 <P>In no particular order:<P>
 <TABLE>
 <TD>An 11/70 style switch lever.
