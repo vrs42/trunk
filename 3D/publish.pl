@@ -15,7 +15,9 @@ print $head;
 
 print "Here are some 3D design files mostly relevant to the PDP-8.\n";
 print "These should mostly be printable with common 3D printing services\n";
-print "like Shapeways, etc.<P>\n";
+print "like Shapeways, etc.\n";
+print "<P>Use the link in the page footer to let me know if there are issues\n";
+print "with these files.\n";
 print "<P>In no particular order:<P>\n";
 print "<TABLE>\n";
 $thisrow = 0;
