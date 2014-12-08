@@ -25,8 +25,9 @@ $thisrow = 0;
 foreach $stl (sort <*/*.stl>) {
   $jpg = $stl; $jpg =~ s/.stl$/.jpg/;
   next unless -f $jpg;
-  print "<TD>";
   $txt = $stl; $txt =~ s/.stl$/.txt/;
+  next unless -f $txt;
+  print "<TD>";
   if (-f $txt) {
     open(INPUT, $txt) || die "$txt: $!";
     $dsc = <INPUT> || ($dsc = "");
