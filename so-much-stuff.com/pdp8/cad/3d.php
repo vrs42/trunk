@@ -24,6 +24,7 @@ than the others.
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/8ISwitch/HandleOK.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/8ISwitch/HandleOK.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/8ISwitch/HandleOK.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/8ISwitch/HandleOK.skp>Sketchup file</A><BR>
+These are also used for peripherals (TU56, TU10, etc).
 </TD>
 <TR><TD><BR><BR></TD></TR>
 <TR></TR>
@@ -39,6 +40,22 @@ I think these may also be suitable for 11/34 and similar machines.
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/CardHandle.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/CardHandle.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/CardHandle.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/CardHandle.skp>Sketchup file</A><BR>
+</TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
+<TD>An experimental H-850 card extender.
+<BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/H-850.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/H-850.jpg width=320></A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/H-850.stl>STL file</A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/CardHandle/H-850.skp>Sketchup file</A><BR>
+I haven't had any of these printed yet.
+</TD>
+<TD>An experimental Nova 3 switch lever.
+<BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.jpg width=320></A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.stl>STL file</A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.skp>Sketchup file</A><BR>
+I haven't had any of these printed yet.
 </TD>
 <TR><TD><BR><BR></TD></TR>
 <TR></TR>
@@ -69,7 +86,7 @@ will have lights behind them.
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.skp>Sketchup file</A><BR>
-I've also got "4" through "7", if you've got an 
+I also have drawings for "4" through "7", if you've got an 
 RK06/RK07.
 </TD>
 <TR><TD><BR><BR></TD></TR>

@@ -3757,9 +3757,15 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615.htm target=_blank>decus-8-615.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-616 target=_blank>8-616</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-616 target=_blank>8-616
+</a><td><div>Octal Character Equivalent</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-616/decus-8-616.htm target=_blank>decus-8-616.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-617 target=_blank>8-617</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-617 target=_blank>8-617
+</a><td><div>V.A. PKS.-l and V.A. PKS.-2, Real Time G. C. Data</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-617/decus-8-617.htm target=_blank>decus-8-617.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-618 target=_blank>8-618
 </a><td><div>OS/8 Device Handlers for the 57A Magnetic </div>
@@ -3767,7 +3773,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-618/decus-8-618.htm target=_blank>decus-8-618.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-619 target=_blank>8-619</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-619 target=_blank>8-619
+</a><td><div>FORTRAN-Callable Scope Subroutines for the KV8/VT01</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-619/decus-8-619.htm target=_blank>decus-8-619.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-620 target=_blank>8-620
 </a><td><div>PHA-8 Data Acquisition System </div>
@@ -3844,7 +3853,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-633/decus-8-633.htm target=_blank>decus-8-633.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-634 target=_blank>8-634</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-634 target=_blank>8-634
+</a><td><div>MOVE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-634/decus-8-634.htm target=_blank>decus-8-634.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-635 target=_blank>8-635
 </a><td><div>PAL12D </div>
@@ -3856,7 +3868,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-636/decus-8-636.htm target=_blank>decus-8-636.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-637 target=_blank>8-637</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-637 target=_blank>8-637
+</a><td><div>A Flexible Data Buffer Display Routine for LAB-8 Systems</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-637/decus-8-637.htm target=_blank>decus-8-637.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-638 target=_blank>8-638
 </a><td><div>GEOMAS </div>
@@ -3880,7 +3895,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-641/decus-8-641.htm target=_blank>decus-8-641.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-642 target=_blank>8-642</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-642 target=_blank>8-642
+</a><td><div>AUTOCO - Autocorrelation for Poor People (Without EAE)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-642/decus-8-642.htm target=_blank>decus-8-642.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-643 target=_blank>8-643
 </a><td><div>LIFE </div>
@@ -3892,7 +3910,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-644/decus-8-644.htm target=_blank>decus-8-644.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-645 target=_blank>8-645</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-645 target=_blank>8-645
+</a><td><div>Interfacing the PDP-8 to the Printec-100 Line Printer</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-645/decus-8-645.htm target=_blank>decus-8-645.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-646 target=_blank>8-646
 </a><td><div>DECsystem-8 </div>
@@ -3901,14 +3922,20 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-646/decus-8-646.htm target=_blank>decus-8-646.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-646/decus-8-646.pdf target=_blank>decus-8-646.pdf</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-647 target=_blank>8-647</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-647 target=_blank>8-647
+</a><td><div>FULMIX - Complete Permutation Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-647/decus-8-647.htm target=_blank>decus-8-647.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-648 target=_blank>8-648
 </a><td><div>LOGMIN: Logic Minimization Program </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-648/decus-8-648.htm target=_blank>decus-8-648.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-649 target=_blank>8-649</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-649 target=_blank>8-649
+</a><td><div>QPIP - OS/8 Directory Editing Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-649/decus-8-649.htm target=_blank>decus-8-649.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-650 target=_blank>8-650
 </a><td><div>AMIPED: Automated Medical Interview With </div>
@@ -3916,7 +3943,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-650/decus-8-650.htm target=_blank>decus-8-650.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-651 target=_blank>8-651</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-651 target=_blank>8-651
+</a><td><div>SOLMT (Sort Overlay Listings Using Magnetic Tape)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-651/decus-8-651.htm target=_blank>decus-8-651.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-652 target=_blank>8-652
 </a><td><div>Regression Analysis Package </div>
@@ -3973,22 +4003,40 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-658/decus-8-658.htm target=_blank>decus-8-658.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-659 target=_blank>8-659</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-659 target=_blank>8-659
+</a><td><div>VT05</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-659/decus-8-659.htm target=_blank>decus-8-659.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-660 target=_blank>8-660
 </a><td><div>STAT, <I>Version</I>: August 1976 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-660/decus-8-660.htm target=_blank>decus-8-660.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-661 target=_blank>8-661</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-661 target=_blank>8-661
+</a><td><div>LESQ, General Non-Linear Least Squares</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-661/decus-8-661.htm target=_blank>decus-8-661.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-662 target=_blank>8-662</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-662 target=_blank>8-662
+</a><td><div>UNDEFSYBLIST - Undefined Symbol List</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-662/decus-8-662.htm target=_blank>decus-8-662.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-663 target=_blank>8-663</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-663 target=_blank>8-663
+</a><td><div>REPROD - Read, Punch and Verify Product</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-663/decus-8-663.htm target=_blank>decus-8-663.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-664 target=_blank>8-664</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-664 target=_blank>8-664
+</a><td><div>FREQHS - A Subroutine to Generate a Frequency Histogram</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-664/decus-8-664.htm target=_blank>decus-8-664.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-665 target=_blank>8-665</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-665 target=_blank>8-665
+</a><td><div>INTVAL - A Subroutine to Measure Inter-Event Intervals</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-665/decus-8-665.htm target=_blank>decus-8-665.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-666 target=_blank>8-666
 </a><td><div>NORDER: A Subroutine to Generate nth Order </div>
@@ -4017,7 +4065,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-670/decus-8-670.htm target=_blank>decus-8-670.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-671 target=_blank>8-671</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-671 target=_blank>8-671
+</a><td><div>Restoring Symbolprint</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-671/decus-8-671.htm target=_blank>decus-8-671.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-672 target=_blank>8-672
 </a><td><div>XCBL and XBIN Loader </div>
@@ -4030,7 +4081,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-673/decus-8-673.htm target=_blank>decus-8-673.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-674 target=_blank>8-674</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-674 target=_blank>8-674
+</a><td><div>External - Or RC - Clock (AX08) Calibration</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-674/decus-8-674.htm target=_blank>decus-8-674.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-675 target=_blank>8-675
 </a><td><div>INDUMP: Input Dump </div>
@@ -4069,7 +4123,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-681/decus-8-681.htm target=_blank>decus-8-681.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-682 target=_blank>8-682</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-682 target=_blank>8-682
+</a><td><div>SCPSYS (Scope System)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-682/decus-8-682.htm target=_blank>decus-8-682.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-683 target=_blank>8-683
 </a><td><div>BNLOAD, TSS/8 Binary Loader </div>
@@ -4114,7 +4171,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-690/decus-8-690.htm target=_blank>decus-8-690.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-691 target=_blank>8-691</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-691 target=_blank>8-691
+</a><td><div>ACCK Timeshare Accounting System</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-691/decus-8-691.htm target=_blank>decus-8-691.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-692 target=_blank>8-692
 </a><td><div>OLEVX AND OLEVAX: 4-ChanneI Averager </div>
@@ -4133,7 +4193,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-694/decus-8-694.htm target=_blank>decus-8-694.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-695 target=_blank>8-695</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-695 target=_blank>8-695
+</a><td><div>Real Time Display Processor for a KV8 Graphic System and</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-695/decus-8-695.htm target=_blank>decus-8-695.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-696 target=_blank>8-696
 </a><td><div>DECTYP: One-Word Signed Decimal Print </div>
@@ -4152,7 +4215,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-698/decus-8-698.htm target=_blank>decus-8-698.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-699 target=_blank>8-699</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-699 target=_blank>8-699
+</a><td><div>MPS External Event Common Routines</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-699/decus-8-699.htm target=_blank>decus-8-699.htm</a></div>
 <a name=decus-8-700></a>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-700 target=_blank>8-700

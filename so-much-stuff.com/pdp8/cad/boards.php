@@ -804,6 +804,8 @@ based on DEC's DM01.
   <DD>is a drawing of the 21-de-7.
 <DT>21-de-77</A>
   <DD>is a drawing of the 21-de-77.
+<DT>9-de-8</A>
+  <DD>is a drawing of the 9-de-8.
 <DT>26-de-8</A>
   <DD>is a drawing of the 26-de-8.
 <DT>26-de-8x</A>
@@ -2086,6 +2088,10 @@ fourth PAL.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1701 target=_blank>./DEC/Mxxx/M1701</a></b>: 4 to 1 MUX, 4 circuits, 50-08912 etch, 74153
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1705 target=_blank>./DEC/Mxxx/M1705</a></b>: Omnibus Output Interface
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
