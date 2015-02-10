@@ -53,6 +53,7 @@ foreach (<*.txt>) {
     $desc = <TXT>;
     $desc =~ s/\(<a .*<\/a>\)//;
     $pic = $_; $pic =~ s/\.txt/.jpg/;
+    $pic =~ s:(/[^/]*)$:/thumbs\1:;
     $pic =~ s/\.jpg/.gif/ unless -f $pic;
     $pic =~ s/\.gif/.jpg/ unless -f $pic;
     die "$pic: $!" unless -f $pic;
@@ -75,6 +76,7 @@ foreach (<*.txt>) {
     }
     #
     # Emit the individual page, as well.
+    $pic =~ s:/thumbs/:/:;
     $phtml = $txt; $phtml =~ s/\.txt/.html/;
     open(PHTML, ">$phtml") || die "$phtml: $!";
     print PHTML "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n";
