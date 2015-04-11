@@ -26,6 +26,7 @@ foreach $stl (sort <*/*.stl>) {
   $jpg = $stl; $jpg =~ s/.stl$/.jpg/;
   next unless -f $jpg;
   $txt = $stl; $txt =~ s/.stl$/.txt/;
+  warn "$stl: no descriptive .txt\n" unless -f $txt;
   next unless -f $txt;
   print "<TD>";
   if (-f $txt) {
