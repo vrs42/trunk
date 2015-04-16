@@ -1202,6 +1202,21 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159-pb.od target=_blank>decus-8-159-pb.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159.htm target=_blank>decus-8-159.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159.pdf target=_blank>decus-8-159.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159a-pb target=_blank>decus-8-159a-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159a-pb.od target=_blank>decus-8-159a-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159abc-pb target=_blank>decus-8-159abc-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159abc-pb.lbl target=_blank>decus-8-159abc-pb.lbl</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159abc-pb.od target=_blank>decus-8-159abc-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159b-kk-pb target=_blank>decus-8-159b-kk-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159b-kk-pb.lbl target=_blank>decus-8-159b-kk-pb.lbl</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159b-kk-pb.lst target=_blank>decus-8-159b-kk-pb.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159b-kk-pb.od target=_blank>decus-8-159b-kk-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159b-kk-pb.txt target=_blank>decus-8-159b-kk-pb.txt</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159b-pb target=_blank>decus-8-159b-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159b-pb.od target=_blank>decus-8-159b-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159c-pb target=_blank>decus-8-159c-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/decus-8-159c-pb.od target=_blank>decus-8-159c-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159/pdp8.exe target=_blank>pdp8.exe</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-160 target=_blank>8-160
 </a><td><div>FASTLOAD </div>
@@ -6324,8 +6339,19 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177 target=_blank>focal8-177
 </a><td><div>PS/8 FOCAL, 1971 </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/OMSI_FOCAL_1971.pdf target=_blank>OMSI_FOCAL_1971.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/OMSI_FOCAL_ProgCard.pdf target=_blank>OMSI_FOCAL_ProgCard.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/ReadMe-VRS.txt target=_blank>ReadMe-VRS.txt</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/decus-focal8-177.htm target=_blank>decus-focal8-177.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/decus-focal8-177.pdf target=_blank>decus-focal8-177.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/dsk target=_blank>dsk</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/foc71-omsi target=_blank>foc71-omsi</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/foc71-omsi.dir target=_blank>foc71-omsi.dir</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/foc71-omsi.tu56 target=_blank>foc71-omsi.tu56</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/focal-ps8-src.rk05 target=_blank>focal-ps8-src.rk05</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/src target=_blank>src</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/sys target=_blank>sys</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-177/vrs target=_blank>vrs</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-178 target=_blank>focal8-178
 </a><td><div>Motion Picture Package </div>
