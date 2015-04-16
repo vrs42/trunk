@@ -39,7 +39,7 @@ sub namei {
       $found = 1;
       last;
     }
-#warn "namei: failed '$f'\n" unless $found;
+warn "namei: failed '$f'\n" unless $found || !$debug;
     return 0 unless $found;
     # So far, so good.  Now confirm the rest of the path.
     $dir .= "$f/";
@@ -90,6 +90,7 @@ for $i (@ARGV) {
       &namei("$d$ref") || do {
         warn "$i: Didn't find $d$ref\n";
         $status = 1;
+#$debug = 1;
       };
     }
   }
