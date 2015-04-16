@@ -59,6 +59,22 @@ I haven't had any of these printed yet.
 </TD>
 <TR><TD><BR><BR></TD></TR>
 <TR></TR>
+<TD>The computer end of a DEC current loop cable.
+<BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.jpg width=320></A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.stl>STL file</A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.skp>Sketchup file</A><BR>
+(This end has the female sockets/pins inside.)
+I haven't printed or debugged these yet.</TD>
+<TD>The terminal end of a DEC current loop cable.
+<BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg width=320></A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.stl>STL file</A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.skp>Sketchup file</A><BR>
+(This end has the male pins inside.)
+I haven't printed or debugged these yet.</TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An RL02 "drive 0" indicator.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/0.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/0.jpg width=320></A><BR>

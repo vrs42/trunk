@@ -277,6 +277,14 @@ panel replacement.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/8ePanel target=_blank>./DEC/8ePanel</a></b>: 8/E Front Panel
+
+</LEGEND><DL>
+<DT>5409057D</A>
+  <DD>is a drawing of DEC's 5409057 (bulb panel) revision D,
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx target=_blank>./DEC/Axxx</a></b>: Axxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
@@ -769,6 +777,26 @@ chassis to see if it has the needed clearances.)
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Charmille_Andrews target=_blank>./DEC/Charmille_Andrews</a></b>: Charmille Andrews Paper Tape Reader Controller
+
+</LEGEND><DL>
+<DT>005743-001</A>
+  <DD>is a drawing of CA's 005743-001 paper tape reader controller,
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/COI_LINCtape target=_blank>./DEC/COI_LINCtape</a></b>: COI LINC Tape Controller
+
+</LEGEND><DL>
+<DT>C10450-01</A>
+  <DD>is a reverse engineered drawing of Doug Jones'
+LINC tape controller.
+<DT>C1316G</A>
+  <DD>is a reverse engineered drawing of the board inside
+Doug Jones' COI LINC tape drive.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DM01 target=_blank>./DEC/DM01</a></b>: Data Break Multiplexor
 
 </LEGEND><DL>
@@ -888,7 +916,15 @@ been checked against the DEC version.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G020 target=_blank>./DEC/Gxxx/G020</a></b>: Sense Amp for 8/I, G021 etch, IC levels
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G020E</A>
+  <DD>needs a drawing.
+<DT>G020H</A>
+  <DD>is a drawing of DEC's G020H.
+<DT>G020X</A>
+  <DD>is a 'modernized' G020H.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G021 target=_blank>./DEC/Gxxx/G021</a></b>: Dual Sense Amp for 8/I, IC levels, also used for G020
 
@@ -1011,7 +1047,15 @@ LM837.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G221 target=_blank>./DEC/Gxxx/G221</a></b>: Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G221A</A>
+  <DD>needs a drawing.
+<DT>G221B</A>
+  <DD>is a drawing of DEC's G221B.
+<DT>G221X</A>
+  <DD>is a 'modernized' version of DEC's G221B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G222 target=_blank>./DEC/Gxxx/G222</a></b>: Memory Selector, IC Inputs, 4 circuits, 3 wire, 3D memory, PDP15
 
@@ -1028,9 +1072,14 @@ LM837.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G228 target=_blank>./DEC/Gxxx/G228</a></b>: Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
 
 </LEGEND><DL>
-<DT>G228</A>
-  <DD>is a drawing of DEC's G228 Inhibit Driver, including the
-unobtainium T-2052 transformers.
+<DT>G228B</A>
+  <DD>needs a drawing.
+<DT>G228C</A>
+  <DD>needs a drawing.
+<DT>G228H</A>
+  <DD>is a drawing of DEC's G228H.
+<DT>G228X</A>
+  <DD>is a 'modernized' version of DEC's G228H.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1106,7 +1155,7 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G611 target=_blank>./DEC/Gxxx/G611</a></b>: "B" Diode Matrix Board for PDP-8 stack 30-05256
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G611 target=_blank>./DEC/Gxxx/G611</a></b>: "B" Diode Matrix Board for PDP-8 stack 30-05256 (double)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1120,7 +1169,13 @@ unobtainium T-2052 transformers.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G624 target=_blank>./DEC/Gxxx/G624</a></b>: Resistor Board for 8/I memory, similar to G621
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G624C</A>
+  <DD>is a drawing of DEC's G624C.
+<DT>G624X</A>
+  <DD>is a 'modernized' version of DEC's G624C.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G626 target=_blank>./DEC/Gxxx/G626</a></b>: Resistor Board for memory, PDP-10, 2.5 D
 
@@ -1257,9 +1312,17 @@ unobtainium T-2052 transformers.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G785 target=_blank>./DEC/Gxxx/G785</a></b>: Power Connector, 8/L, with Power OK
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G785 target=_blank>./DEC/Gxxx/G785</a></b>: Power Connector, 8/L, with Power OK (double)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G785D</A>
+  <DD>needs a drawing.
+<DT>G785E</A>
+  <DD>is a drawing of DEC's G785E.
+<DT>G785X</A>
+  <DD>is a 'modernized' version of DEC's G785E.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G789 target=_blank>./DEC/Gxxx/G789</a></b>: Signal Simulator Connector
 
@@ -1271,7 +1334,11 @@ unobtainium T-2052 transformers.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G792 target=_blank>./DEC/Gxxx/G792</a></b>: PDP-8/I Power Connector
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G792A</A>
+  <DD>is an drawing of DEC's G792A power connector.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G793 target=_blank>./DEC/Gxxx/G793</a></b>: PDP-8/I Switch Connector, 8/I to console
 
@@ -1356,7 +1423,15 @@ unobtainium T-2052 transformers.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G826 target=_blank>./DEC/Gxxx/G826</a></b>: Regulator Control for 8/I, drives G805 & detects presence of other voltages
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G826D</A>
+  <DD>needs a drawing.
+<DT>G826K</A>
+  <DD>is a drawing of DEC's G826K.
+<DT>G826X</A>
+  <DD>is a 'modernized' version of DEC's G826K.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G827 target=_blank>./DEC/Gxxx/G827</a></b>: Low Voltage Detector, PDP-15, + K303 RC's detects +9V, uses +5V
 
@@ -1454,18 +1529,10 @@ unobtainium T-2052 transformers.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G888 target=_blank>./DEC/Gxxx/G888</a></b>: Manchester Reader/Writer
 
 </LEGEND><DL>
-<DT>G888</A>
-  <DD>is an early attempt to draw the G888.
-<DT>G888a</A>
-  <DD>is an Eagle version of DEC's G888 with DIP versions of the 
-MC1709.
-<DT>G888b</A>
-  <DD>an updated version of G888a.
-<DT>G888c</A>
-  <DD>an older version of G888a.
-<DT>G888x</A>
-  <DD>The latest verion of the G888, with a bunch of
-cross-reference information in the schematic.
+<DT>G888A</A>
+  <DD>is a drawing DEC's G888A.
+<DT>G888X</A>
+  <DD>is a 'modernized' version of the G888A.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1745,7 +1812,13 @@ fourth PAL.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M102 target=_blank>./DEC/Mxxx/M102</a></b>: Negative Bus Equivalent to M103
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M102A</A>
+  <DD>is a drawing of DEC's M102A.
+<DT>M102X</A>
+  <DD>is a 'modernized' M102.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M103 target=_blank>./DEC/Mxxx/M103</a></b>: Device Selector
 
@@ -2091,9 +2164,13 @@ fourth PAL.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1705 target=_blank>./DEC/Mxxx/M1705</a></b>: Omnibus Output Interface
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1705 target=_blank>./DEC/Mxxx/M1705</a></b>: Omnibus Dual 12 bit Output Interface
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M1705B</A>
+  <DD>is a drawing of DEC's M1705B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M171 target=_blank>./DEC/Mxxx/M171</a></b>: 2-2-2-3 AND-NOR, 3 circuits, different pins than M127
 
@@ -3017,7 +3094,9 @@ by Dave Brockman.
 <DT>M706D</A>
   <DD>needs a drawing.
 <DT>M706K</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M706K.
+<DT>M706X</A>
+  <DD>is a 'modernized' version of DEC's M706K.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3030,6 +3109,8 @@ by Dave Brockman.
   <DD>is a drawing of M707 etch C with a resistor in SERIAL OUT, like M707D.
 <DT>M707D</A>
   <DD>is a drawing of M707 etch D.
+<DT>M707X</A>
+  <DD>is a 'modernized' version of M707D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3043,7 +3124,7 @@ by Dave Brockman.
 <DT>M708C</A>
   <DD>needs a drawing.
 <DT>M708X</A>
-  <DD>is an Eagle version of DEC's M708B with unused inputs tied high.
+  <DD>is an modernized version of DEC's M708B with unused inputs tied high.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3060,16 +3141,12 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M710 target=_blank>./DEC/Mxxx/M710</a></b>: Punch control, double
 
 </LEGEND><DL>
-<DT>M710-9601</A>
-  <DD>is a drawing of DEC's M710 Punch Controller card, which
-uses the hard to find 9601 monstable.
-<DT>M710</A>
-  <DD>is a drawing of DEC's M710 Punch Controller card, which
-uses the hard to find 9601 monstable.
 <DT>M710F</A>
   <DD>needs a drawing.
 <DT>M710H</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M710H.
+<DT>M710X</A>
+  <DD>is a 'modernized' M710H.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3093,6 +3170,30 @@ uses the hard to find 9601 monstable.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7104 target=_blank>./DEC/Mxxx/M7104</a></b>: RK8E Data Buffer and Status
+
+</LEGEND><DL>
+<DT>M7104</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7105 target=_blank>./DEC/Mxxx/M7105</a></b>: RK8E Major Registers
+
+</LEGEND><DL>
+<DT>M7105</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7106 target=_blank>./DEC/Mxxx/M7106</a></b>: RK8E Control
+
+</LEGEND><DL>
+<DT>M7106</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M711 target=_blank>./DEC/Mxxx/M711</a></b>: Scope Control, PDP-12
 
 </LEGEND></FIELDSET>
@@ -3104,13 +3205,14 @@ uses the hard to find 9601 monstable.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M715 target=_blank>./DEC/Mxxx/M715</a></b>: Reader Clock, double
 
 </LEGEND><DL>
-<DT>M715</A>
-  <DD>is a drawing of DEC's M715 Reader Clock module, with the hard to find
-9601 monostables.
+<DT>M715A</A>
+  <DD>needs a drawing.
 <DT>M715E</A>
   <DD>needs a drawing.
 <DT>M715F</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M715F Reader Clock module.
+<DT>M715X</A>
+  <DD>is a 'modernized' drawing of DEC's M715F.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3350,6 +3452,22 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8340 target=_blank>./DEC/Mxxx/M8340</a></b>: KE8E Decoder and Step Counter
+
+</LEGEND><DL>
+<DT>M8340F</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8341 target=_blank>./DEC/Mxxx/M8341</a></b>: KE8E Multiplexers and Timing Generator
+
+</LEGEND><DL>
+<DT>M8341D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M837 target=_blank>./DEC/Mxxx/M837</a></b>: Omnibus Timeshare Option
 
 </LEGEND><DL>
@@ -3387,6 +3505,12 @@ with input flow control implemented.
 </LEGEND><DL>
 <DT>M868H</A>
   <DD>is an Eagle version of DEC's M868 (ECO Rev. K) Simple Dectape Controller.
+<DT>M868Hcjl</A>
+  <DD>is a version of M868Hl with an SDLD bug fix described by Charles Lasner.
+<DT>M868Hvrs1</A>
+  <DD>is a version of M868Hl with an SDLD bug with easier mods.
+<DT>M868Hvrs2</A>
+  <DD>is another version of M868Hl with an SDLD bug fix (cleaner design).
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3430,17 +3554,29 @@ the more common 74174.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M901 target=_blank>./DEC/Mxxx/M901</a></b>: FLAT MYLAR CABLE CONNECTOR, 10 OHMS IN A2,B2,U1 & V1, 2 CA8LES
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M901 target=_blank>./DEC/Mxxx/M901</a></b>: Flat Mylar Cable Connector, 10 ohms in A2,B2,U1 & V1, 2 cables
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M901B</A>
+  <DD>is a drawing if DEC's M901B.
+<DT>M901X</A>
+  <DD>is a 'mdernized' version of M901.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M902 target=_blank>./DEC/Mxxx/M902</a></b>: TERMINATOR, 18 100 OHM RESISTORS, M903 & M904 CONNECTIONS
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M903 target=_blank>./DEC/Mxxx/M903</a></b>: FLAT MYLAR CONNECTOR, 18 SIGNALS, 14 GND PINS·
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M903 target=_blank>./DEC/Mxxx/M903</a></b>: Flat Mylar Connector, 18 signals, 14 GND pins
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M903B</A>
+  <DD>is a drawing if DEC's M903B.
+<DT>M903X</A>
+  <DD>is a 'mdernized' version of M903.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M904 target=_blank>./DEC/Mxxx/M904</a></b>: Coax Connector, 2x 9-signals, split lug, M903 Pins
 
@@ -3450,9 +3586,9 @@ the more common 74174.
 
 </LEGEND><DL>
 <DT>M906A</A>
-  <DD>needs a drawing.
-<DT>M906b</A>
-  <DD>needs a drawing.
+  <DD>is a drawing if DEC's M906A.
+<DT>M906X</A>
+  <DD>is a 'mdernized' version of M906A.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3468,7 +3604,9 @@ the more common 74174.
 
 </LEGEND><DL>
 <DT>M908B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M908B.
+<DT>M908X</A>
+  <DD>is a 'modernized' version of DEC's M908B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -4343,6 +4481,14 @@ error messages.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TP34_Autoloader target=_blank>./DEC/TP34_Autoloader</a></b>: TP-34 Autoloader
+
+</LEGEND><DL>
+<DT>tp34</A>
+  <DD>is a drawing of the Tennecomp TP-34 Autoloader for Omnibus machines.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TR02x target=_blank>./DEC/TR02x</a></b>: TR02 Incremental Tape Controller
 
 </LEGEND><DL>
@@ -4569,6 +4715,10 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a drawing of DEC's W076B.
 <DT>W076D</A>
   <DD>is a drawing of DEC's W076D.
+<DT>W076X</A>
+  <DD>is a 'modernized' W076D.
+<DT>W076Dclone</A>
+  <DD>is a drawing of a clone of DEC's W076D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
