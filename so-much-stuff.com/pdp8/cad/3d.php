@@ -16,8 +16,8 @@ with these files.
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/11-70/1170Handle.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/11-70/1170Handle.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/11-70/1170Handle.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/11-70/1170Handle.skp>Sketchup file</A><BR>
-I don't actually have a machine, so this one's a little rougher
-than the others.
+I don't actually have a machine, but they seem to operate
+like the originals.
 </TD>
 <TD>A PDP-8/I style switch lever.
 <BR>
@@ -55,7 +55,7 @@ I haven't had any of these printed yet.
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/DataGeneral/Nova3Handle.skp>Sketchup file</A><BR>
-I haven't had any of these printed yet.
+These still have some fit issues.
 </TD>
 <TR><TD><BR><BR></TD></TR>
 <TR></TR>
@@ -65,14 +65,16 @@ I haven't had any of these printed yet.
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.skp>Sketchup file</A><BR>
 (This end has the female sockets/pins inside.)
-I haven't printed or debugged these yet.</TD>
+I have printed these sucessfully.
+</TD>
 <TD>The terminal end of a DEC current loop cable.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.skp>Sketchup file</A><BR>
 (This end has the male pins inside.)
-I haven't printed or debugged these yet.</TD>
+These still have some fit issues.
+</TD>
 <TR><TD><BR><BR></TD></TR>
 <TR></TR>
 <TD>An RL02 "drive 0" indicator.

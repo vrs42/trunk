@@ -3083,6 +3083,8 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
 
 </LEGEND><DL>
+<DT>M7050C</A>
+  <DD>is a version of DEC's M7050C.
 <DT>M7050D</A>
   <DD>is a version of DEC's M7050D.
 </DL>
@@ -3452,6 +3454,42 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8300 target=_blank>./DEC/Mxxx/M8300</a></b>: KK8E Major Registers
+
+</LEGEND><DL>
+<DT>M8300E</A>
+  <DD>needs a drawing.</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8310 target=_blank>./DEC/Mxxx/M8310</a></b>: KK8E Major Register Control
+
+</LEGEND><DL>
+<DT>M8310H</A>
+  <DD>needs a drawing.</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8320 target=_blank>./DEC/Mxxx/M8320</a></b>: KK8E Bus Loads
+
+</LEGEND><DL>
+<DT>M8320D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8330 target=_blank>./DEC/Mxxx/M8330</a></b>: KK8E Timing Generator
+
+</LEGEND><DL>
+<DT>M8330C</A>
+  <DD>needs a drawing.
+<DT>M8330D</A>
+  <DD>needs a drawing.
+<DT>M8330E</A>
+  <DD>needs a drawing.
+<DT>M8330F</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8340 target=_blank>./DEC/Mxxx/M8340</a></b>: KE8E Decoder and Step Counter
 
 </LEGEND><DL>
@@ -3468,13 +3506,31 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M837 target=_blank>./DEC/Mxxx/M837</a></b>: Omnibus Timeshare Option
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8350 target=_blank>./DEC/Mxxx/M8350</a></b>: KA8E Positive I/O Bus Interface
 
 </LEGEND><DL>
-<DT>M837bb</A>
-  <DD>is a 06/15/2007 checkpoint of M837.
-M837 is a drawing of DEC's M837 Omnibus Timeshare Option board,
+<DT>M8350C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M837 target=_blank>./DEC/Mxxx/M837</a></b>: Omnibus Memory Extension and Timeshare Option
+
+</LEGEND><DL>
+<DT>M837</A>
+  <DD>is a drawing of DEC's M837 Omnibus Timeshare Option board,
 which uses a lot of hard to find chips.
+M837bb is a version of M837 with the signals renamed to match their function.
+M837cc is a variant without the the TP_CB1 input.
+
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8416 target=_blank>./DEC/Mxxx/M8416</a></b>: KT8A 128K Memory Management Board
+
+</LEGEND><DL>
+<DT>M8416C</A>
+  <DD>needs a drawing.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5432,6 +5488,9 @@ implemented with three FETs and a section of an LM139 comparator.
 Guy Sotomayor is much better.)
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./LD12 target=_blank>./LD12</a></b>: PDP-8 Clone based on Prosser Book
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./LogoPanel target=_blank>./LogoPanel</a></b>: Logo Panel for the top of the rack.
 
