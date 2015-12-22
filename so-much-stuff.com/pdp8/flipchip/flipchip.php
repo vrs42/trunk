@@ -53,6 +53,7 @@ schematics.)
 <LI><A href=Axxx.htm target=_blank>Axxx.htm</A>
 <LI><A href=Bxxx.htm target=_blank>Bxxx.htm</A>
 <LI><A href=Gxxx.htm target=_blank>Gxxx.htm</A>
+<LI><A href=Hxxx.htm target=_blank>Hxxx.htm</A>
 <LI><A href=Kxxx.htm target=_blank>Kxxx.htm</A>
 <LI><A href=Mxxx.htm target=_blank>Mxxx.htm</A>
 <LI><A href=Rxxx.htm target=_blank>Rxxx.htm</A>
@@ -63,7 +64,7 @@ schematics.)
     <P>If you are looking for more information about a Bxxx or an Sxxx module,
 those are often quite similar to the corresponding Rxxx, with some changes
 in component values.
-    <P>There is not much information here about Axxx or Kxxx modules yet.
+    <P>There is not much information here about Axxx, Hxxx, or Kxxx modules yet.
     <P>In some cases, I have annotated these lists with information about
 whether I am looking to acquire an instance, or have extras to sell.
     <P>I have seen a problem where I attempted to click on the link for 
@@ -73,7 +74,10 @@ as it means I have to fix the properties for that particular file in
 the SVN repository.
     <P>My thanks to the many folks who've helped preserve this information,
 especially Al Kossow of
-<A href=http://www.bitsavers.org target=_blank>www.bitsavers.org</A>.
+<A href=http://www.bitsavers.org target=_blank>www.bitsavers.org</A>. 
+Special thanks also to Joerg Hoppe of
+<A href=http://retrocmp.com target=_blank>retrocmp.com</A>
+for many of the module images.
     <P>If you want to do CAD drawings like mine, check out the "cad"
 link at the top of the page.  <A href=eagle.php>This page</A> also 
 gives information about how these drawings are created.
