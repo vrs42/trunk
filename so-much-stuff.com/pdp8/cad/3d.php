@@ -59,6 +59,14 @@ These still have some fit issues.
 </TD>
 <TR><TD><BR><BR></TD></TR>
 <TR></TR>
+<TD>The LED guide block for the Life board from
+<BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Life/LedGuide.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/Life/LedGuide.jpg width=320></A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Life/LedGuide.stl>STL file</A><BR>
+<A href=http://svn.so-much-stuff.com/svn/trunk/3D/Life/LedGuide.skp>Sketchup file</A><BR>
+Spare Time Gizmos.
+I have not printed this.
+</TD>
 <TD>The computer end of a DEC current loop cable.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.jpg width=320></A><BR>
@@ -67,16 +75,15 @@ These still have some fit issues.
 (This end has the female sockets/pins inside.)
 I have printed these sucessfully.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>The terminal end of a DEC current loop cable.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.skp>Sketchup file</A><BR>
 (This end has the male pins inside.)
-These still have some fit issues.
-</TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
+I have printed these sucessfully.</TD>
 <TD>An RL02 "drive 0" indicator.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/0.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/0.jpg width=320></A><BR>
@@ -85,20 +92,22 @@ These still have some fit issues.
 Print the indicators in something translucent (nylon), as they 
 will have lights behind them.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An RL02 "drive 1" indicator.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>An RL02 "drive 2" indicator.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.skp>Sketchup file</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An RL02 "drive 3" indicator.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.jpg width=320></A><BR>
@@ -107,8 +116,6 @@ will have lights behind them.
 I also have drawings for "4" through "7", if you've got an 
 RK06/RK07.
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>The switch toggle used on most models of PDP-8.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch-vrs.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch-vrs.jpg width=320></A><BR>
@@ -117,6 +124,8 @@ RK06/RK07.
 This is based on some earlier work by
 <A href=http://www.thingiverse.com/thing:360853>phooky</A>.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>Thin trim panel bracket with barbs.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-barbs.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-barbs.jpg width=320></A><BR>
@@ -125,22 +134,20 @@ This is based on some earlier work by
 Use thick or thin depending on whether there's equipment 
 behind the trim panel or not.
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>Thin trim panel bracket with screw holes.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.skp>Sketchup file</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>Thick trim panel bracket with barbs.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.jpg width=320></A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.stl>STL file</A><BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>The classic XX2247 keyswitch.
 <BR>
 <A href=http://svn.so-much-stuff.com/svn/trunk/3D/xx2247/xx2247.jpg><IMG src=http://svn.so-much-stuff.com/svn/trunk/3D/xx2247/xx2247.jpg width=320></A><BR>
@@ -149,5 +156,7 @@ behind the trim panel or not.
 You're better off getting these duplicated at your local 
 locksmith.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 </TABLE>
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
