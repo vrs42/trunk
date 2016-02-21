@@ -66,10 +66,6 @@ hook into a PDP-8/i or PDP-12.
   <DD>is a wacky idea with a molex connector.
 <DT>BusCon</A>
   <DD>uses two 34-wire cables to carry Posibus, or just one for Negibus.
-<DT>BusCon10</A>
-  <DD>is BusCon again.
-<DT>BusCon15</A>
-  <DD>is BusCon again.
 <DT>BusConPoly</A>
   <DD>is BusCon with Polygon fill.
 <DT>tester</A>
@@ -80,8 +76,6 @@ hook into a PDP-8/i or PDP-12.
   <DD>is essentially a BC08J paddle with a cheaper ribbon connector.
 <DT>merge4</A>
   <DD>is four 8j-merge paddles on a single board.
-<DT>proto</A>
-  <DD>is four 8j-merge paddles simply panelized.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -92,9 +86,6 @@ hook into a PDP-8/i or PDP-12.
   <DD>is a simple rack terminus for Posibus.
 </DL>
 </FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ByteBlaster target=_blank>./ByteBlaster</a></b>: Yet another ByteBlaster clone.
-</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./chipfudge target=_blank>./chipfudge</a></b>: Replacements for obsolete chips
 
@@ -4294,9 +4285,6 @@ M837cc is a variant without the the TP_CB1 input.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M847 target=_blank>./DEC/Mxxx/M847</a></b>: MI8E Diode Bootstrap Loader
 
 </LEGEND><DL>
-<DT>fig4-9</A>
-  <DD>is an early checkpoint of an attempt to draw the boot 
-loader card.
 <DT>M847</A>
   <DD>is a drawing of DEC's M847 Diode bootstrap loader.
 </DL>
@@ -6660,7 +6648,7 @@ replacement.
 
 </LEGEND><DL>
 <DT>writelockswitches</A>
-  <DD>is the writelockswitches board from the DF32 
+  <DD>is the writelockswitches board from the DF32
 project, for reference.
 <DT>RS08-.brd</A>
   <DD>is the disk emulator from the DF32 project, for
@@ -6672,16 +6660,12 @@ reference.
   <DD>is revision B of the DF32 project, for
 reference.
 <DT>DEC8i-buscon</A>
-  <DD>is a slightly updated version of the paddle cable 
+  <DD>is a slightly updated version of the paddle cable
 used with the DF32 project.
 <DT>DEC8L-buscon</A>
   <DD>is a paddle cable similar to the BC08J.
 <DT>busadapt</A>
   <DD>is the bus adaptor board from the DF32 project.
-<DT>DF32-revision-C</A>
-  <DD>is an attempted revision to the DF32 board.
-<DT>DF32-revision-D</A>
-  <DD>is another attempted revision to the DF32 board.
 <DT>DataBreak</A>
   <DD>is some schematic musings about data break.
 <DT>array</A>
@@ -6701,10 +6685,10 @@ project.
   <DD>is a newer version of the RF08 replacement, that didn't
 route.
 <DT>RF08indx.sch</A>
-  <DD>is the RF08 schematic with an extra sheet for 
+  <DD>is the RF08 schematic with an extra sheet for
 the indicators and their drivers.
 <DT>RF08ind</A>
-  <DD>is a routed oversize board with the controller and the 
+  <DD>is a routed oversize board with the controller and the
 indicators.
 <DT>olimex</A>
   <DD>is the controller and the drives, without the indicators.
@@ -6712,7 +6696,7 @@ indicators.
   <DD>is a set of controller, drives and indicators in an 8"x12.6"
 panel.
 <DT>swizzle</A>
-  <DD>is a swizzle board to allow the use of new paddles (34 
+  <DD>is a swizzle board to allow the use of new paddles (34
 wire ribbons) with the DF32 project.
 <DT>RF08-1</A>
   <DD>is a revision to the controller that doesn't quite route.
@@ -6816,7 +6800,7 @@ something more current and affordable (2x20 header).
 
 </LEGEND><DL>
 <DT>tu56</A>
-  <DD>is a drawing for a proposed TU56 replacement using anSD card.
+  <DD>is a drawing for a proposed TU56 replacement using an SD card.
 <DT>tu56o</A>
   <DD>is a older, less flexible version.
 </DL>
@@ -6871,15 +6855,6 @@ Generator based on the M8655 (doesn't route).
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X4915 target=_blank>./X4915</a></b>: DEC 4915 Reader Control for ASR-33.
-
-</LEGEND><DL>
-<DT>4915.sch</A>
-  <DD>is a schematic for DEC's 4915 Reader Control modifications for
-the ASR-33.
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X8iHenk target=_blank>./X8iHenk</a></b>: 8iPanel Driver boards for Henk
 
 </LEGEND><DL>
@@ -6909,9 +6884,6 @@ the ASR-33.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X8iPanel target=_blank>./X8iPanel</a></b>: PDP-8/i Front Panel PCB
 
 </LEGEND><DL>
-<DT>foo</A>
-  <DD>is a messed up version of the indicator PCB of an 8/i front
-panel.
 <DT>M900dec</A>
   <DD>is a drawing of DEC's M900 paddle card, which contains
 the indicator drivers, as well as connecting to the front panel cabling.
