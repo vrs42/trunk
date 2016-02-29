@@ -5376,8 +5376,6 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TC08 target=_blank>./DEC/TC08</a></b>: TC08 Backplane
 
 </LEGEND><DL>
-<DT>tc083-18</A>
-  <DD>is a 3-18-2004 checkpoint of TC08 drawing in progress.
 <DT>indicators</A>
   <DD>is an LED version of the TC08 Indicator panel.
 <DT>so-indicators</A>
@@ -5385,22 +5383,14 @@ subsystem replaced with level converters and a ramboard.
 board.
 <DT>so-indicators-ok</A>
   <DD>is a backup of so-indicators.
-<DT>tc08ss</A>
-  <DD>is an experiment with routing one layer at a time.
 <DT>tc08nh</A>
-  <DD>is a successful routing without screw holes.  (It also
-lacks an NC layer.)
-<DT>tc08ttl</A>
-  <DD>is an aborted attempt to convert to a "big board"
-TTL implementation.
+  <DD>is a successful routing without screw holes.
 <DT>tc08</A>
   <DD>is a drawing of DEC's TC08 DECtape Controller.
 <DT>tc08-6u</A>
   <DD>is a drawing of DEC's TC08 DECtape Controller, drawn to fit in 6Uin a DEC rack.
 <DT>tc08-8-07</A>
-  <DD>is an 8/2007 checkpoint of the TC08 drawing.  This one
-does have the hidden "NC" layer, to simplify routing and reduce spurious
-error messages.
+  <DD>is an 8/2007 checkpoint of the TC08 drawing.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
