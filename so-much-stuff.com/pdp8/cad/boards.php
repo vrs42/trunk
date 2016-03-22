@@ -5946,7 +5946,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W682 target=_blank>./DEC/Wxxx/W682</a></b>: Scope Intensifier, 0 to +3V step, delay 50 to 300ns, 400ns pulse (for VR12 & VR14)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W682A</A>
+  <DD>is a drawing of DEC's W682A.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W690 target=_blank>./DEC/Wxxx/W690</a></b>: DEC to IBM N Line Converter
 
@@ -6352,35 +6356,35 @@ placement.
 <DT>io2</A>
   <DD>is another copy of the I/O board.
 <DT>iotst</A>
-  <DD>is an early version of the tester, which connects the 
+  <DD>is an early version of the tester, which connects the
 I/O board from the ConsoleEmu project to a DEC connector block.
 <DT>cblockyeesh</A>
-  <DD>is a messy connector block mounting board that 
+  <DD>is a messy connector block mounting board that
 attempts to give each socket it's own connection.
 <DT>cblockyeeshok</A>
-  <DD>is a version of connectorblockyeesh which is 
+  <DD>is a version of connectorblockyeesh which is
 fully routed.
 <DT>cblock-vrs</A>
-  <DD>is a simple connector block board that uses paddle 
+  <DD>is a simple connector block board that uses paddle
 cards to connect up to four sockets.
 <DT>tester-7410</A>
-  <DD>is a version of the tester board that builds a 
+  <DD>is a version of the tester board that builds a
 latch for the OC line using a 7410.
 <DT>pcbproto-.brd</A>
   <DD>is a panelization of two copies of the tester,
 connector block boards, and an experimental G888 board. 
 <DT>pcbproto.brd</A>
-  <DD>is a newer version of the panelization, with 
+  <DD>is a newer version of the panelization, with
 silkscreen scripts run.
 <DT>FlipChip.brd</A>
   <DD>is still a newer version of the panelization.
 <DT>cblock</A>
-  <DD>is a version of the connector block board, modified 
+  <DD>is a version of the connector block board, modified
 to implement four pairs of socket connections.
 <DT>tester-2</A>
   <DD>is revision 2 of the tester board.
 <DT>transducer</A>
-  <DD>is a messy design for a transducer for negative logic, 
+  <DD>is a messy design for a transducer for negative logic,
 etc.
 <DT>transistor</A>
   <DD>is another messy design for a transducer.
@@ -6391,10 +6395,10 @@ etc.
 <DT>cd4007</A>
   <DD>is yet another transducer, this time using the 4007.
 <DT>5transistor</A>
-  <DD>is a transducer for positive or negative logic, 
+  <DD>is a transducer for positive or negative logic,
 implemented with five FETs.
 <DT>3transistor</A>
-  <DD>is a transducer for positive or negative logic, 
+  <DD>is a transducer for positive or negative logic,
 implemented with three FETs and a section of an LM139 comparator.
 <DT>32pins</A>
   <DD>is a set of 32 transducers of the 3transistor variety.
@@ -6404,6 +6408,8 @@ implemented with three FETs and a section of an LM139 comparator.
   <DD>is another copy of the flipchip tester, revision 1.
 <DT>diodes</A>
   <DD>is an attempt to lay out diode level converters for the flipchip tester.
+<DT>Rxxx</A>
+  <DD>is an exploration of ideas about conversion of negative logic levels.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6874,6 +6880,9 @@ Generator based on the M8655 (doesn't route).
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X8iPanel target=_blank>./X8iPanel</a></b>: PDP-8/i Front Panel PCB
 
 </LEGEND><DL>
+<DT>1switch</A>
+  <DD>is an exploration of ideas about using reed switches to 
+construct switch substitutes that fit in the original footprints.
 <DT>M900dec</A>
   <DD>is a drawing of DEC's M900 paddle card, which contains
 the indicator drivers, as well as connecting to the front panel cabling.
@@ -6909,6 +6918,8 @@ for ordering from a prototype house.
   <DD>is a drawing of a replacement for the switches PCB.
 <DT>8iSwitchesOK</A>
   <DD>is a checkpoint of the replacement for the switches PCB.
+<DT>PiPanel</A>
+  <DD>is an exploration of interfacing a Raspberry Pi to the switches and lights.
 <DT>G793</A>
   <DD>is a pull-up and clamping module for the switch register of the PDP-8/i.
 </DL>
