@@ -114,8 +114,8 @@ G084	C+ 	  Mag Tape Read, Rectify, Slice Amp, TU20, also used on G086
 G085	D* E+ 	  Disk Amplifier, replaces 1/2 G083 + 1/2 W532 + 1/2 W533 (double)
 G094	C+ 	  Threshold and Buffer
 G100	D* E+ 	  Sense Amp & Inhibit Driver, PDP15, 3 wire, 3D memory (double)
-G102	D* 	  Sense, Inhibit, & Register (4 bits) for MM11 & ME10
-G103	A* 	  Memory Voltage Levels, MM11 & ME10
+G102	D+ 	  Sense, Inhibit, & Register (4 bits) for MM11 & ME10 (long)
+G103	A+ 	  Memory Levels and Gates (long)
 G206	B* 	  Memory Selector, PDP-6, 2us, double, used for G212
 G207	B* 	  Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
 G208	A* B L* 	  Inhibit Driver
@@ -126,7 +126,8 @@ G219	H* 	  Memory Selector (A G209 for negative supply), PDP9
 G221	A+ B X 	  Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
 G222	A+ D* 	  Memory Selector, PDP15
 G223	D+ 	  2 Read-Write Drivers, PDP-15
-G226	D* 	  XY Selection Switch, single 8.5", ME10, MM11
+G225	D+ 	  X and Y Current Source (long)
+G226	C+ D* 	  XY Selection Switch, single 8.5", ME10, MM11 (long)
 G228	B+ C+ H X 	  Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
 G230	D* 	  Current Source, with Delay Line on input, 0 to 40ns
 G284	C+ D+ 	  Disc Writer
@@ -290,7 +291,7 @@ M101	A X 	  Bus Data Interface
 M102	A X 	  Negative Bus Equivalent to M103
 M103	A B X 	  Device Selector
 M104	C+ D 	  I/O Bus Multiplexor
-M105	C X 	  Address Selector
+M105	B+ C X 	  Address Selector (long)
 M106	A X 	  Dot NOR Gates
 M107		  Device Selector
 M108		  Flag Module
@@ -370,6 +371,8 @@ M220	A B C+ X 	  Major Registers, double
 M221	D 	  Register for PDP-12 (M220 plus extra logic), Double
 M222	B 	  Tape register for PDP-12, 2 bits, 6 registers, Double
 M223	B 	  MA,/MB Registers
+M224	B+ 	  Data Paths (double, long)
+M225	A+ 	  Memory (double, long)
 M226	A+ 	  1 Bit, all registers (except ACC) for PDP-15
 M227	B+ 	  Accumulator for PDP-15, 9 bits
 M228	A X 	  Mark Track Decoder
@@ -497,7 +500,13 @@ M717	A+ C* 	  Display Control, VP09, VP15
 M719	A+ 	  Clock Sync & Decade Counter, KW12
 M720	A* 	  Memory Detection
 M7212	C+ 	  Bus Repeater (long)
+M724	C+ 	  Bus and Console Control (quad, long)
 M7246	H+ 	  Modem Control Scan (double, long)
+M725	B+ 	  Bus Interface and IR (quad, long)
+M726	B+ 	  IR Decode (quad, long)
+M727	C+ 	  State Control (quad, long)
+M728	D+ 	  Timing and States (quad, long)
+M7290	C+ 	  Control Logic (double, long)
 M730		  Positive Output Bus Interface
 M731		  Negative Output Bus Interface
 M732		  Positive Input Bus Interface
@@ -540,16 +549,25 @@ M7724	B+ 	  Character Generator ROM (double)
 M773	B+ 	  CONSOLE CONTROL #2 FOR PDP-15
 M775	B+ 	  TIME STATE GENERATOR
 M776	A+ 	  Reader Register, PC15, Double
+M780	A+ 	  TTY Transmitter & Receiver, 110 baud (double, long)
+M782	E+ 	  Interrupt Control (long)
 M7820	B* C* 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
 M7821	B+ D+ 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
 M783	A* B+ 	  Unibus/Omnibus Drivers, extended single
 M784	A* B* C+ 	  Unibus/Omnibus Receivers, extended single
 M785	A* B+ 	  Unibus/Omnibus Tranceiver, extended single
 M786		  Device Register Interface, extended double
+M792	DYB+ 	  ROM Diode Matrix (long)
 M795	D+ 	  Word Count and Bus Address Module, extended double
 M796	C+ 	  Unibus Master Control, extended single
 M797	B+ 	  Register Select
 M798	B+ 	  Unibus Drivers, extended single
+M820	C+ 	  Data Path Control (quad, long)
+M821	C+ 	  Register Control (double, long)
+M822	A+ 	  Flag Control (double, long)
+M823	A+ 	  Codes Data (long)
+M824	C+ 	  Priority (double, long)
+M825	C+ 	  Power Fail and Control (long)
 M8300	E* 	  KK8E Major Registers
 M8310	H* 	  KK8E Major Register Control
 M8320	D* 	  KK8E Bus Loads
@@ -562,6 +580,7 @@ M8416	C* 	  KT8A 128K Memory Management Board
 M847	D+ 	  MI8E Diode Bootstrap Loader
 M850	A X 	  EIA Converter and Cable Connector
 M851	E+ 	  Bus Receiver - Address Decoder (double)
+M865	B C 	  KL8E Terminal Control (Obsoleted by M8650)
 M8650	B* C* D 	  KL8E Terminal Control
 M8655	B 	  KL8J Terminal Control
 M868	D+ H 	  TD8E Simple Dectape Controller
@@ -597,7 +616,7 @@ M925		  Flat Mylar Connector, 18 Signals, 19 Grounds, short single
 M926	A* 	  M901 WITH 100 OHMS IN SERIES WITH SOME OF THE PINS
 M927		  Coax Connector, 18-signals, split lug, short
 M929	B* C* 	  Bus Connector, double
-M930	C D+ E+ 	  RK05/Unibus Terminator
+M930	C D+ E+ 	  Bus Terminator (double, short)
 M931	D* 	  15 TERMINATORS, 2K TO +5V, CLAMPED AT +.75 & +3V, M903 PINS EXCEPT 9 INDICATOR OUTPUTS, KI10
 M935	B+ 	  Omnibus Jumper Module
 M941	A* 	  JUMPER/EXTENDER BOARD FOR TU56

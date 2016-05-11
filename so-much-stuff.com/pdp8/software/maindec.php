@@ -693,6 +693,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>KP8E Power Fail/Auto Restart
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkpa-b-d.pdf>maindec-08-dhkpa-b-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkpa-b-pb>maindec-08-dhkpa-b-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkpa-b-pb.lbl>maindec-08-dhkpa-b-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkpa-b-pb.od>maindec-08-dhkpa-b-pb.od</a><td>(BIN image in octal)<tr>
@@ -1773,6 +1774,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>MI8-E Bootstrap Diagnostic (Low, High)
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1ib-d.pdf>maindec-8e-d1ib-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1ib-pb1>maindec-8e-d1ib-pb1</a><td>(BIN image #1)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1ib-pb1.od>maindec-8e-d1ib-pb1.od</a><td>(BIN image in octal)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1ib-pb2>maindec-8e-d1ib-pb2</a><td>(BIN image #2)<tr>

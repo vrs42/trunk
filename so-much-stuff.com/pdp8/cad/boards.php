@@ -1114,13 +1114,21 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G102 target=_blank>./DEC/Gxxx/G102</a></b>: Sense, Inhibit, & Register (4 bits) for MM11 & ME10
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G102 target=_blank>./DEC/Gxxx/G102</a></b>: Sense, Inhibit, & Register (4 bits) for MM11 & ME10 (long)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G102D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G103 target=_blank>./DEC/Gxxx/G103</a></b>: Memory Voltage Levels, MM11 & ME10
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G103 target=_blank>./DEC/Gxxx/G103</a></b>: Memory Levels and Gates (long)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G103A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G206 target=_blank>./DEC/Gxxx/G206</a></b>: Memory Selector, PDP-6, 2us, double, used for G212
 
@@ -1185,9 +1193,21 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G226 target=_blank>./DEC/Gxxx/G226</a></b>: XY Selection Switch, single 8.5", ME10, MM11
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G225 target=_blank>./DEC/Gxxx/G225</a></b>: X and Y Current Source (long)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G225D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G226 target=_blank>./DEC/Gxxx/G226</a></b>: XY Selection Switch, single 8.5", ME10, MM11 (long)
+
+</LEGEND><DL>
+<DT>H3190B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G228 target=_blank>./DEC/Gxxx/G228</a></b>: Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
 
@@ -2198,9 +2218,11 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M105 target=_blank>./DEC/Mxxx/M105</a></b>: Address Selector
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M105 target=_blank>./DEC/Mxxx/M105</a></b>: Address Selector (long)
 
 </LEGEND><DL>
+<DT>M105B</A>
+  <DD>needs a drawing.
 <DT>M105C</A>
   <DD>is a drawing of DEC's M105C.
 <DT>M105X</A>
@@ -2823,6 +2845,22 @@ m220a.v, m220b.v, and m220c.v.
 </LEGEND><DL>
 <DT>M223B</A>
   <DD>is a drawing of DEC's M223B.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M224 target=_blank>./DEC/Mxxx/M224</a></b>: Data Paths (double, long)
+
+</LEGEND><DL>
+<DT>M224B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M225 target=_blank>./DEC/Mxxx/M225</a></b>: Memory (double, long)
+
+</LEGEND><DL>
+<DT>M225A</A>
+  <DD>needs a drawing.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3817,10 +3855,58 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M724 target=_blank>./DEC/Mxxx/M724</a></b>: Bus and Console Control (quad, long)
+
+</LEGEND><DL>
+<DT>M724C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7246 target=_blank>./DEC/Mxxx/M7246</a></b>: Modem Control Scan (double, long)
 
 </LEGEND><DL>
 <DT>M7246H</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M725 target=_blank>./DEC/Mxxx/M725</a></b>: Bus Interface and IR (quad, long)
+
+</LEGEND><DL>
+<DT>M725B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M726 target=_blank>./DEC/Mxxx/M726</a></b>: IR Decode (quad, long)
+
+</LEGEND><DL>
+<DT>M726B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M727 target=_blank>./DEC/Mxxx/M727</a></b>: State Control (quad, long)
+
+</LEGEND><DL>
+<DT>M727C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M728 target=_blank>./DEC/Mxxx/M728</a></b>: Timing and States (quad, long)
+
+</LEGEND><DL>
+<DT>M728D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7290 target=_blank>./DEC/Mxxx/M7290</a></b>: Control Logic (double, long)
+
+</LEGEND><DL>
+<DT>M7290C</A>
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
@@ -4101,6 +4187,22 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M780 target=_blank>./DEC/Mxxx/M780</a></b>: TTY Transmitter & Receiver, 110 baud (double, long)
+
+</LEGEND><DL>
+<DT>M780A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M782 target=_blank>./DEC/Mxxx/M782</a></b>: Interrupt Control (long)
+
+</LEGEND><DL>
+<DT>M782E</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7820 target=_blank>./DEC/Mxxx/M7820</a></b>: Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
 
 </LEGEND></FIELDSET>
@@ -4170,6 +4272,14 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M792 target=_blank>./DEC/Mxxx/M792</a></b>: ROM Diode Matrix (long)
+
+</LEGEND><DL>
+<DT>M792D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M795 target=_blank>./DEC/Mxxx/M795</a></b>: Word Count and Bus Address Module, extended double
 
 </LEGEND><DL>
@@ -4198,6 +4308,54 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 
 </LEGEND><DL>
 <DT>M798B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M820 target=_blank>./DEC/Mxxx/M820</a></b>: Data Path Control (quad, long)
+
+</LEGEND><DL>
+<DT>M820C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M821 target=_blank>./DEC/Mxxx/M821</a></b>: Register Control (double, long)
+
+</LEGEND><DL>
+<DT>M821C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M822 target=_blank>./DEC/Mxxx/M822</a></b>: Flag Control (double, long)
+
+</LEGEND><DL>
+<DT>M822A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M823 target=_blank>./DEC/Mxxx/M823</a></b>: Codes Data (long)
+
+</LEGEND><DL>
+<DT>M823A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M824 target=_blank>./DEC/Mxxx/M824</a></b>: Priority (double, long)
+
+</LEGEND><DL>
+<DT>M824C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M825 target=_blank>./DEC/Mxxx/M825</a></b>: Power Fail and Control (long)
+
+</LEGEND><DL>
+<DT>M825C</A>
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
@@ -4306,6 +4464,14 @@ with input flow control implemented.
 </LEGEND><DL>
 <DT>M851E</A>
   <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M865 target=_blank>./DEC/Mxxx/M865</a></b>: KL8E Terminal Control (Obsoleted by M8650)
+
+</LEGEND><DL>
+<DT>M865C</A>
+  <DD>is a drawing of the M865D schematic on the C etch.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -4551,7 +4717,7 @@ the more common 74174.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M930 target=_blank>./DEC/Mxxx/M930</a></b>: RK05/Unibus Terminator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M930 target=_blank>./DEC/Mxxx/M930</a></b>: Bus Terminator (double, short)
 
 </LEGEND><DL>
 <DT>M930</A>
@@ -6436,10 +6602,10 @@ implemented with three FETs and a section of an LM139 comparator.
   <DD>is my second attempt at fixing the battery issue (DS1321D, CE# per ramdisk, series batteries).
 <DT>iob9cvrs</A>
   <DD>is the fixed "9C" version manufactured in 2009 (DS1321D with parallel batteries).
-<DT>iob9xvrs</A>
-  <DD>is iob9c re-routed with slightly beefed up power rails.
 <DT>iob10avrs</A>
-  <DD>is a copy of iob9c with the bottom side silkscreen glitch (RN2) fixed.
+  <DD>is a copy of "9C" with the bottom side silkscreen glitch (RN2) fixed.
+<DT>iob16avrs</A>
+  <DD>is a copy of "10a" with Eagle library updates and new routing.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
