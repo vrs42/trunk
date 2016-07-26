@@ -2,7 +2,7 @@
 
 # Scan for images.  For each image, ensure that a 
 # smaller version of the file is available in the 
-# corresponding 'thumbnail' directory.  Calling the 
+# corresponding 'thumbs' directory.  Calling the 
 # output a thumbnail is a bit of a strecth, as it 
 # is still fairly large, but the idea is to load a 
 # little faster, not to be really tiny.
