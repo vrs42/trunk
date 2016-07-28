@@ -41,6 +41,12 @@ foreach (<*.txt>) {
   print AHTML "  height: expression(this.height > 180 ? \"180px\" : true);\n";
   print AHTML "}\n</STYLE>\n";
   print AHTML "<HTML>\n<HEAD>\n<TITLE>$dir</TITLE></HEAD>\n<BODY>\n";
+  if (open(INC, "$dir.inc")) {
+    while (<INC>) {
+      print AHTML $_;
+    }
+    close(INC);
+  }
   # Emit thumbnails and links for each picture in the album.
   print AHTML "<TABLE>\n<CAPTION class=header>$dir<P>\n</CAPTION>\n";
   $idone = 0;
@@ -64,14 +70,14 @@ foreach (<*.txt>) {
       $arow = 1;
     }
     $html = $txt; $html =~ s/\.txt$/.html/;
-    print AHTML "<TD><A href=$html><IMG class=thumbnail src=$pic></A>\n$desc\n";
+    print AHTML "<TD><A href=$html><IMG class=thumbnail src=$pic></A>\n<br>$desc\n";
     if (!$idone) {
       # We have text and a picture. Emit them for the album index.
       if (++$irow > 5) {
         print IHTML "<TR>\n"; # Start a fresh row if needed.
         $irow = 1;
       }
-      print IHTML "<TD><A href=$dir.html><IMG class=thumbnail src=$pic></A>\n$dir\n";
+      print IHTML "<TD><A href=$dir.html><IMG class=thumbnail src=$pic></A>\n<br>$dir\n";
       $idone = 1;
     }
     #
