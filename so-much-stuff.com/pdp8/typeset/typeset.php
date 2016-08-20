@@ -14,7 +14,7 @@
   <TD>
     <A href="/pdp8/typeset/pa-box.jpg">
     <IMG src="/pdp8/typeset/pa-box.jpg" width=320>
-    <BR>PA36 backplane, used for flipchip storage.
+    <BR>PA63 backplane, used for flipchip storage.
   </A></TD>
   <TD>
     <A href="/pdp8/typeset/pa-backplanes.jpg">
