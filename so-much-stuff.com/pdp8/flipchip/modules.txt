@@ -5,7 +5,7 @@ A111	C+ 	  Millivolt Multiplex Switch
 A121		  Multiplexor Switch
 A124	A* B* 	  4 Input Multiplexer Switch
 A130	A* 	  Multiplexor
-A131	B+ 	  Multiplexer
+A131	B X 	  Multiplexer
 A133	B* 	  Analog Switch
 A140	C+ 	  2 Chan. Analog Switch, for VT15
 A163	A* 	  Multiplexer and Amplifier
@@ -48,7 +48,7 @@ B104	B C* X 	  4 Inverters, 3 Loads
 B105	B D E* X 	  5 Inverters, 5 Loads
 B113	C* 	  4 2-Input Negative NAND Gages, 3 Loads
 B115	A B C* X 	  3 3-Input Negative NAND Gages, 3 Loads
-B117	C* 	  2 5-Input Negative NAND Gates
+B117	C X 	  2 5-Input Negative NAND Gates
 B123	A* 	  4 2-Input OC NAND Gates
 B124		  3 3-Input OC NOR Gates
 B130	B X 	  4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
@@ -56,7 +56,7 @@ B133	B* C+ 	  2 mA equivalient to B113
 B134	B+ 	  4 2-Input Positive AND Gates, 3 Loads, 2mA
 B135	C+ 	  2 mA equvalent to B115
 B136	B+ 	  3 mA equivalent to B134
-B137	C+ 	  2 mA equivalent to B117
+B137	C X 	  2 mA equivalent to B117
 B138	B+ 	  PDP10 Adder (B131 with added diode to kill the carry quickly)
 B141	A+ 	  7 2-Input Gates, 2mA input equivalent to R141
 B142	A X 	  Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
@@ -69,8 +69,8 @@ B166	A+ 	  Counting Gate for SC Adder of PDP10
 B167	D+ 	  8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
 B168	B+ 	  4 3-Input NANDs ORed to 3 Outputs with 3 Enable Inputs, 3x3
 B169	D* 	  Diode Gate Equivalent to B129, PDP9, 8 2-Input NANDs ORed to 2 Outputs, 4 Enable Inputs, 4x2
-B171	B* C* 	  6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
-B172	C+ 	  Faster B171, 2mA Fan-In
+B171	B* C X 	  6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
+B172	C X 	  Faster B171, 2mA Fan-In
 B173	A* 	  14 Input Negative NAND Gate with one input preceded by a 10 Input Positive NAND, ME10
 B198	A+ 	  Protection Comparator, PDP10  Memory, 0 & -3V in & out, Compares 2 8-bit Words
 B199	B* 	  FM Address Decoder for B250 IC's, double
@@ -125,7 +125,7 @@ G217	H* 	  Word Driver, MA10, uses G219 for Digit Driver
 G219	H* 	  Memory Selector (A G209 for negative supply), PDP9
 G221	A+ B X 	  Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
 G222	A+ D* 	  Memory Selector, PDP15
-G223	D+ 	  2 Read-Write Drivers, PDP-15
+G223	D 	  2 Read-Write Drivers, PDP-15
 G225	D+ 	  X and Y Current Source (long)
 G226	C+ D* 	  XY Selection Switch, single 8.5", ME10, MM11 (long)
 G228	B+ C+ H X 	  Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
@@ -321,8 +321,8 @@ M143	A* 	  10 2-input NAND gates, with one pair sharing common input, KI10
 M145	A* 	  3-input NAND gates, 7 circuits, 74H, KI10
 M149	A C X 	  9x2 NAND Wired OR Matrix
 M1500		  Bi-directional Bus Interfacing Gates, extended single
-M1501		  Bus Input Interface, extended single
-M1502		  Bus Output Interface, extended single
+M1501	B+ 	  Bus Input Interface, extended single
+M1502	C+ 	  Bus Output Interface, extended double
 M151	B* 	  Dual binary to octal with enable, H series, KI10, 74H20
 M1510		  Bus Device Selector Module, extended double
 M152	B+ 	  M151 non-inverting, KI10, 74H21
@@ -491,7 +491,7 @@ M7102	C* 	  Positive I/O Bus Converter
 M7103	F* 	  Negative I/O Bus Converter
 M7104	A* B+ 	  RK8E Data Buffer and Status
 M7105	A* B+ 	  RK8E Major Registers
-M7106	A* C+ 	  RK8E Control
+M7106	A* B+ C+ 	  RK8E Control
 M711	C* 	  Scope Control, PDP-12
 M714	B* 	  Control Logic I, CR8-I, CR8-L
 M715	A+ E* F X 	  Reader Clock, double
@@ -512,6 +512,10 @@ M731		  Negative Output Bus Interface
 M732		  Positive Input Bus Interface
 M733		  Negative Input Bus Interface
 M734		  Input/Output Bus Multiplexer
+M7341	E+ 	  MPS Processor Module, quad
+M7344	CYA+ 	  MPS Read/Write Memory Module, quad
+M7345	C+ 	  MPS 4Kx8 Read Only Memory Module, quad
+M7346	B+ 	  MPS External Event Detection Module, extended single
 M7347	B 	  MPS Reader Run
 M735		  Input/Output Bus Transfer Register
 M736		  Priority Interrupt Module
@@ -570,14 +574,16 @@ M824	C+ 	  Priority (double, long)
 M825	C+ 	  Power Fail and Control (long)
 M8300	E* 	  KK8E Major Registers
 M8310	H* 	  KK8E Major Register Control
-M8320	D* 	  KK8E Bus Loads
+M8320	D+ 	  KK8E Bus Loads
+M833	D+ 	  KK8E Timing Generator (obsoleted by M8330)
 M8330	C+ D+ E+ F+ 	  KK8E Timing Generator
+M8331	B+ 	  TA8E Cassette Interface
 M8340	F+ 	  KE8E Decoder and Step Counter
 M8341	D+ 	  KE8E Multiplexers and Timing Generator
 M8350	C* 	  KA8E Positive I/O Bus Interface
 M837	B+ D+ 	  Omnibus Memory Extension and Timeshare Option
 M8416	C* 	  KT8A 128K Memory Management Board
-M847	D+ 	  MI8E Diode Bootstrap Loader
+M847	D+ E* 	  MI8E Diode Bootstrap Loader
 M850	A X 	  EIA Converter and Cable Connector
 M851	E+ 	  Bus Receiver - Address Decoder (double)
 M865	B C 	  KL8E Terminal Control (Obsoleted by M8650)

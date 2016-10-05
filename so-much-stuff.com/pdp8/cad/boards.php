@@ -290,7 +290,13 @@ schematics work. (Has a consistency problem to highlight changes.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A131 target=_blank>./DEC/Axxx/A131</a></b>: Multiplexer
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>A131B</A>
+  <DD>is a drawing of DEC's A131B.
+<DT>A131X</A>
+  <DD>is a 'modernized' version of the A131.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A133 target=_blank>./DEC/Axxx/A133</a></b>: Analog Switch
 
@@ -576,7 +582,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B117 target=_blank>./DEC/Bxxx/B117</a></b>: 2 5-Input Negative NAND Gates
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B117C</A>
+  <DD>is a drawing of DEC's B117C.
+<DT>B117X</A>
+  <DD>is a 'modernized' B117.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B123 target=_blank>./DEC/Bxxx/B123</a></b>: 4 2-Input OC NAND Gates
 
@@ -614,7 +626,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B137 target=_blank>./DEC/Bxxx/B137</a></b>: 2 mA equivalent to B117
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B137C</A>
+  <DD>is a drawing of DEC's B137C.
+<DT>B137X</A>
+  <DD>is a 'modernized' B137.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B138 target=_blank>./DEC/Bxxx/B138</a></b>: PDP10 Adder (B131 with added diode to kill the carry quickly)
 
@@ -685,13 +703,21 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B171 target=_blank>./DEC/Bxxx/B171</a></b>: 6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B171C</A>
+  <DD>is a drawing of DEC's B171C.
+<DT>B171X</A>
+  <DD>is a 'modernized' B171.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B172 target=_blank>./DEC/Bxxx/B172</a></b>: Faster B171, 2mA Fan-In
 
 </LEGEND><DL>
 <DT>B172C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B172C.
+<DT>B172X</A>
+  <DD>is a 'modernized' B172.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1189,7 +1215,7 @@ LM837.
 
 </LEGEND><DL>
 <DT>G223D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's G223D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2115,6 +2141,15 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/MSC_303-0115 target=_blank>./DEC/MSC_303-0115</a></b>: Omnibus Memory Extension and Timeshare Option (M837 clone)
+
+</LEGEND><DL>
+<DT>MSC_303-0115</A>
+  <DD>needs a drawing.
+
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx target=_blank>./DEC/Mxxx</a></b>: Mxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
@@ -2474,11 +2509,19 @@ fourth PAL.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1501 target=_blank>./DEC/Mxxx/M1501</a></b>: Bus Input Interface, extended single
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M1501B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1502 target=_blank>./DEC/Mxxx/M1502</a></b>: Bus Output Interface, extended single
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1502 target=_blank>./DEC/Mxxx/M1502</a></b>: Bus Output Interface, extended double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M1502C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M151 target=_blank>./DEC/Mxxx/M151</a></b>: Dual binary to octal with enable, H series, KI10, 74H20
 
@@ -3931,6 +3974,38 @@ Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7341 target=_blank>./DEC/Mxxx/M7341</a></b>: MPS Processor Module, quad
+
+</LEGEND><DL>
+<DT>M7341E</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7344 target=_blank>./DEC/Mxxx/M7344</a></b>: MPS Read/Write Memory Module, quad
+
+</LEGEND><DL>
+<DT>M7344CYA</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7345 target=_blank>./DEC/Mxxx/M7345</a></b>: MPS 4Kx8 Read Only Memory Module, quad
+
+</LEGEND><DL>
+<DT>M7345C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7346 target=_blank>./DEC/Mxxx/M7346</a></b>: MPS External Event Detection Module, extended single
+
+</LEGEND><DL>
+<DT>M7346B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7347 target=_blank>./DEC/Mxxx/M7347</a></b>: MPS Reader Run
 
 </LEGEND><DL>
@@ -4382,6 +4457,14 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M833 target=_blank>./DEC/Mxxx/M833</a></b>: KK8E Timing Generator (obsoleted by M8330)
+
+</LEGEND><DL>
+<DT>M833D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8330 target=_blank>./DEC/Mxxx/M8330</a></b>: KK8E Timing Generator
 
 </LEGEND><DL>
@@ -4392,6 +4475,14 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 <DT>M8330E</A>
   <DD>needs a drawing.
 <DT>M8330F</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8331 target=_blank>./DEC/Mxxx/M8331</a></b>: TA8E Cassette Interface
+
+</LEGEND><DL>
+<DT>M8331B</A>
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
@@ -5563,7 +5654,7 @@ board.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TP34_Autoloader target=_blank>./DEC/TP34_Autoloader</a></b>: TP-34 Autoloader
 
 </LEGEND><DL>
-<DT>tp34</A>
+<DT>TP-34</A>
   <DD>is a drawing of the Tennecomp TP-34 Autoloader for Omnibus machines.
 </DL>
 </FIELDSET>
@@ -7074,7 +7165,7 @@ the use of LEDs instead of indicator lamps.
 <DT>LEDPanelmpsl</A>
   <DD>is a version of 8iPanel with current limiting resistors suitable for
 the use of LEDs instead of indicator lamps.
-<DT>protol</A>
+<DT>LEDproto</A>
   <DD>is a version of my indicator panel, broken in two, so it
 could be ordered from a protoype shop.
 <DT>proto2.brd</A>

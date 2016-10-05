@@ -5518,6 +5518,10 @@ have taken the time to scan and archive this software and documentation.
 <div>1983 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/decus-8-933.htm target=_blank>decus-8-933.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/pascal.bin target=_blank>pascal.bin</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/pascal.hl target=_blank>pascal.hl</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/pascal.lst target=_blank>pascal.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/pascal.pa target=_blank>pascal.pa</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-934 target=_blank>8-934
 </a><td><div>PASCAL - OS/8, <I>Version</I>: V1-0-F, February 1984 </div>
