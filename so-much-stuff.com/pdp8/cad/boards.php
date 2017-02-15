@@ -3882,9 +3882,9 @@ by Dave Brockman.
 <DT>M709A</A>
   <DD>needs a drawing.
 <DT>M709B</A>
-  <DD>is an Eagle version of DEC's M708B.
+  <DD>is an Eagle version of DEC's M709B.
 <DT>M709X</A>
-  <DD>is an Eagle version of DEC's M708X.
+  <DD>is an Eagle version of DEC's M709X.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
