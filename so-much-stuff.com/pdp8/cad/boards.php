@@ -208,6 +208,14 @@ prototype.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC target=_blank>./DEC</a></b>: Various stuff pertaining to DEC gear.
 
 </LEGEND><FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/4U-4452 target=_blank>./DEC/4U-4452</a></b>: 4U 4452 Prototype card
+
+</LEGEND><DL>
+<DT>4U-4452</A>
+  <DD>is a drawing of a prototyping card I purchased in eBay.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/8aPanel target=_blank>./DEC/8aPanel</a></b>: PDP-8a Programmer's Panel
 
 </LEGEND><DL>
@@ -2185,13 +2193,21 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M050B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M050B.
+<DT>M050X</A>
+  <DD>is a 'modernized' M050.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M051 target=_blank>./DEC/Mxxx/M051</a></b>: Level Converter, positive logic in and negative logic out, 12 circuits, open collector
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M051B</A>
+  <DD>is a drawing of DEC's M051B.
+<DT>M051X</A>
+  <DD>is a 'modernized' M051.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M060 target=_blank>./DEC/Mxxx/M060</a></b>: Solenoid Driver
 
@@ -2247,7 +2263,7 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M104C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M104C.
 <DT>M104D</A>
   <DD>is a drawing of DEC's M104D.
 </DL>
@@ -2257,7 +2273,7 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M105B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M105B.
 <DT>M105C</A>
   <DD>is a drawing of DEC's M105C.
 <DT>M105X</A>
@@ -2295,7 +2311,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M1091A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M1091A.
+<DT>M1091X</A>
+  <DD>is a 'modernized' drawing of DEC's M1091.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2339,7 +2357,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M1125A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M1125A.
+<DT>M1125X</A>
+  <DD>is a 'modernized' M1125.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2431,7 +2451,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M129A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M129A.
+<DT>M129X</A>
+  <DD>is a 'modernized' M129.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2467,7 +2489,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M139A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M139A.
+<DT>M139X</A>
+  <DD>is a 'modernized' M139.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2511,7 +2535,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M1501B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M1501B.
+<DT>M1501X</A>
+  <DD>is a 'modernized' M1501.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2519,7 +2545,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M1502C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M1502C.
+<DT>M1502X</A>
+  <DD>is a 'modernized' M1502.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2535,23 +2563,29 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M152B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M152B.
+<DT>M152X</A>
+  <DD>is a 'modernized' M152.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M155 target=_blank>./DEC/Mxxx/M155</a></b>: 4 Line to 16 Line Decoder
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M155 target=_blank>./DEC/Mxxx/M155</a></b>: 4 Line to 16 Line Decoder, uses 50-08908 board
 
 </LEGEND><DL>
 <DT>M155A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M155A.
+<DT>M155X</A>
+  <DD>is a 'modernized' M155.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M159 target=_blank>./DEC/Mxxx/M159</a></b>: 4 bit arithmetic logic unit (DEC 74181), uses 50-08908 board
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M159 target=_blank>./DEC/Mxxx/M159</a></b>: 4 bit Arithmetic Logic Unit (DEC 74181), uses 50-08908 board
 
 </LEGEND><DL>
 <DT>M159A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M159A.
+<DT>M159X</A>
+  <DD>is a 'modernized' M159.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2581,35 +2615,39 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M162A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M162A.
 <DT>M162B</A>
   <DD>is a drawing of DEC's M162B.
 <DT>M162X</A>
-  <DD>is a 'modernized' M161.</DL>
+  <DD>is a 'modernized' M162.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M163 target=_blank>./DEC/Mxxx/M163</a></b>: Dual binary to decimal decoder
 
 </LEGEND><DL>
 <DT>M163A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M163A.
+<DT>M163X</A>
+  <DD>is a 'modernized' M163.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M164 target=_blank>./DEC/Mxxx/M164</a></b>: 6-bit adder for PDP-15, 2 adders for carry-in 1 or 0
 
 </LEGEND><DL>
 <DT>M164B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M164B.
+<DT>M164X</A>
+  <DD>is a 'modernized' M164.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M165 target=_blank>./DEC/Mxxx/M165</a></b>: Memory buffer, inverting and non-inverting output from open collector, 8 channels for KI10
 
 </LEGEND><DL>
 <DT>M165D</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M165D.
+<DT>M165X</A>
+  <DD>is a 'modernized' M165.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M166 target=_blank>./DEC/Mxxx/M166</a></b>: 9-bit Counting Gate, KI10
@@ -2620,8 +2658,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M168A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M168A.
+<DT>M168X</A>
+  <DD>is a 'modernized' M168.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M169 target=_blank>./DEC/Mxxx/M169</a></b>: Functional gate module for PDP-12, 4 4-bit output multiplexors
@@ -2637,11 +2676,13 @@ fourth PAL.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1701 target=_blank>./DEC/Mxxx/M1701</a></b>: 4 to 1 MUX, 4 circuits, 50-08912 etch, 74153
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1701 target=_blank>./DEC/Mxxx/M1701</a></b>: 4 to 1 MUX, 4 circuits, 74153, 08912 etch
 
 </LEGEND><DL>
 <DT>M1701D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M1701D.
+<DT>M1701X</A>
+  <DD>is a 'modernized' M1701.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2650,6 +2691,12 @@ fourth PAL.
 </LEGEND><DL>
 <DT>M1705B</A>
   <DD>is a drawing of DEC's M1705B.
+<DT>M1705Beco</A>
+  <DD>is a drawing of DEC's M1705B with blue wires.
+<DT>M1705X</A>
+  <DD>is a'modernized' drawing of DEC's M1705.
+<DT>M1705Xeco</A>
+  <DD>is a drawing of DEC's M1705X with blue wires.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2696,7 +2743,14 @@ fourth PAL.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M182 target=_blank>./DEC/Mxxx/M182</a></b>: M162 with fast ICs, 74H
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M182A</A>
+  <DD>is a drawing of DEC's M182A.
+<DT>M182B</A>
+  <DD>is a drawing of DEC's M182B.
+<DT>M182X</A>
+  <DD>is a 'modernized' M182.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M191 target=_blank>./DEC/Mxxx/M191</a></b>: 2 Look-ahead elements (74182), uses W961 board, used with M190 or M159 (board 50-08912)
 
@@ -2711,7 +2765,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M202B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M202B.
+<DT>M202X</A>
+  <DD>is a 'modernized' M202.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2795,7 +2851,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M214A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M214A.
+<DT>M214X</A>
+  <DD>is a 'modernized' M214.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2803,7 +2861,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M215A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M215A.
+<DT>M215X</A>
+  <DD>is a 'modernized' M215.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2830,7 +2890,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M218A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M218A.
+<DT>M218X</A>
+  <DD>is a 'modernized' M218.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2838,7 +2900,9 @@ fourth PAL.
 
 </LEGEND><DL>
 <DT>M219B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M219B.
+<DT>M219X</A>
+  <DD>is a 'modernized' M219.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -2849,6 +2913,8 @@ fourth PAL.
   <DD>is a drawing of DEC's M220A.
 <DT>M220B</A>
   <DD>is a drawing of DEC's M220B.
+<DT>M220C</A>
+  <DD>is a drawing of DEC's M220C.
 <DT>M220new</A>
   <DD>is an implementation that doesn't use the hard to find
 7453 and 7482 chips.
@@ -2873,14 +2939,17 @@ m220a.v, m220b.v, and m220c.v.
 </LEGEND><DL>
 <DT>M221D</A>
   <DD>is a drawing of DEC's M221D.
-</DL>
+<DT>M221X</A>
+  <DD>is a 'modernized' M221.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M222 target=_blank>./DEC/Mxxx/M222</a></b>: Tape register for PDP-12, 2 bits, 6 registers, Double
 
 </LEGEND><DL>
 <DT>M222B</A>
-  <DD>is a drawing of DEC's M222B.</DL>
+  <DD>is a drawing of DEC's M222B.
+<DT>M222X</A>
+  <DD>is a 'modernized' M222.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M223 target=_blank>./DEC/Mxxx/M223</a></b>: MA,/MB Registers
@@ -2888,39 +2957,44 @@ m220a.v, m220b.v, and m220c.v.
 </LEGEND><DL>
 <DT>M223B</A>
   <DD>is a drawing of DEC's M223B.
-</DL>
+<DT>M223X</A>
+  <DD>is a 'modernized' M223.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M224 target=_blank>./DEC/Mxxx/M224</a></b>: Data Paths (double, long)
 
 </LEGEND><DL>
 <DT>M224B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M224B.
+<DT>M224X</A>
+  <DD>is a 'modernized' M224.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M225 target=_blank>./DEC/Mxxx/M225</a></b>: Memory (double, long)
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M225 target=_blank>./DEC/Mxxx/M225</a></b>: 16x16 Memory (double, long)
 
 </LEGEND><DL>
 <DT>M225A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M225A.
+<DT>M225X</A>
+  <DD>is a 'modernized' M225.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M226 target=_blank>./DEC/Mxxx/M226</a></b>: 1 Bit, all registers (except ACC) for PDP-15
 
 </LEGEND><DL>
 <DT>M226A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M226A.
+<DT>M226X</A>
+  <DD>is a 'modernized' M226.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M227 target=_blank>./DEC/Mxxx/M227</a></b>: Accumulator for PDP-15, 9 bits
 
 </LEGEND><DL>
 <DT>M227B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M227B.
+<DT>M227X</A>
+  <DD>is a 'modernized' M227.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M228 target=_blank>./DEC/Mxxx/M228</a></b>: Mark Track Decoder
@@ -2945,12 +3019,13 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M236 target=_blank>./DEC/Mxxx/M236</a></b>: 12 Bit Binary Up/Down Counter
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M236 target=_blank>./DEC/Mxxx/M236</a></b>: 12 Bit Binary Up/Down Counter, 8931 etch
 
 </LEGEND><DL>
 <DT>M236B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M236B.
+<DT>M236X</A>
+  <DD>is a 'modernized' M236.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M237 target=_blank>./DEC/Mxxx/M237</a></b>: 3 Digit BCD Up/Down Counter
@@ -2961,8 +3036,9 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M238D</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M238D.
+<DT>M238X</A>
+  <DD>is a 'modernized' M238.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M239 target=_blank>./DEC/Mxxx/M239</a></b>: 3-4 Bit Counter/Registers
@@ -2992,8 +3068,9 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M242A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M242A.
+<DT>M242X</A>
+  <DD>is a 'modernized' M242.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M243 target=_blank>./DEC/Mxxx/M243</a></b>: 8 D Flip-flops (74H74) with 2 common clocks, 4 bits each
@@ -3008,8 +3085,9 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M246A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M246A.
+<DT>M246X</A>
+  <DD>is a 'modernized' M246.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M247 target=_blank>./DEC/Mxxx/M247</a></b>: 6 RS flip-flops, clocked to 6 D flip-flops
@@ -3020,19 +3098,22 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M248B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M248B.
+<DT>M248X</A>
+  <DD>is a 'modernized' M248.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M250 target=_blank>./DEC/Mxxx/M250</a></b>: 16 Words, 4-bit memory (F9035), KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M2500 target=_blank>./DEC/Mxxx/M2500</a></b>: 2 64-Word, 4-Bit MOS Memories
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M2500 target=_blank>./DEC/Mxxx/M2500</a></b>: 2 64-Word, 4-Bit MOS Memories, 08912 etch
 
 </LEGEND><DL>
 <DT>M2500D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M2500D.
+<DT>M2500X</A>
+  <DD>is a 'modernized' M2500.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3040,8 +3121,9 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M253B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M253B.
+<DT>M253X</A>
+  <DD>is a 'modernized' M253.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M260 target=_blank>./DEC/Mxxx/M260</a></b>: Associative memory, 4x12, KI10, Fairchild 4102 IC, 35ns match time
@@ -3071,8 +3153,9 @@ m220a.v, m220b.v, and m220c.v.
 
 </LEGEND><DL>
 <DT>M3020A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M3020A.
+<DT>M3020X</A>
+  <DD>is a 'modernized' M3020.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M304 target=_blank>./DEC/Mxxx/M304</a></b>: One Shot Delay
@@ -3185,7 +3268,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M402B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M402B.
+<DT>M402X</A>
+  <DD>is a 'modernized' M402.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3212,7 +3297,7 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M410A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M410A.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3250,7 +3335,7 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M500A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M500A.
 <DT>M500B</A>
   <DD>is a drawing of DEC's M500B.
 <DT>M500X</A>
@@ -3338,7 +3423,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M515C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M515C.
+<DT>M515X</A>
+  <DD>is a 'modernized' M515.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3379,15 +3466,18 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M5921A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M5921A.
+<DT>M5921X</A>
+  <DD>is a 'modernized' M5921.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M594 target=_blank>./DEC/Mxxx/M594</a></b>: EIA Level Converter (long)
 
 </LEGEND><DL>
 <DT>M594B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M594B.
+<DT>M594X</A>
+  <DD>is a 'modernized' M594.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3423,10 +3513,9 @@ by Dave Brockman.
   <DD>is a drawing of DEC's M606A.
 <DT>M606B</A>
   <DD>is a drawing of DEC's M606B.
-<DT>M606D</A>
-  <DD>needs a drawing.
 <DT>M606X</A>
-  <DD>is a 'modernized' M606.</DL>
+  <DD>is a 'modernized' M606.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M610 target=_blank>./DEC/Mxxx/M610</a></b>: 6 Open Collector 2-Input NAND Gates + Pulse Amplifier
@@ -3465,8 +3554,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M621A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's M621A.
+<DT>M621X</A>
+  <DD>is a 'modernized' M621.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M622 target=_blank>./DEC/Mxxx/M622</a></b>: Bus Drivers
@@ -3508,7 +3598,7 @@ by Dave Brockman.
 <DT>M627C</A>
   <DD>is a drawing of DEC's M627C.
 <DT>M627E</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M627E.
 <DT>M627X</A>
   <DD>is a 'modernized' M627.
 </DL>
@@ -3632,7 +3722,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M688B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M688B.
+<DT>M688X</A>
+  <DD>is a 'modernized' M688.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3672,7 +3764,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M7010B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M7010B.
+<DT>M7010X</A>
+  <DD>is a'modernized' drawing of DEC's M7010.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -3712,18 +3806,23 @@ by Dave Brockman.
   <DD>is a version of DEC's M7050C.
 <DT>M7050D</A>
   <DD>is a version of DEC's M7050D.
-</DL>
+<DT>M7050E</A>
+  <DD>is a version of DEC's M7050E.
+<DT>M7050X</A>
+  <DD>is a'modernized' drawing of DEC's M7050.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M706 target=_blank>./DEC/Mxxx/M706</a></b>: Teletype Receiver, double
 
 </LEGEND><DL>
 <DT>M706D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M706D.
+<DT>M706H</A>
+  <DD>is a drawing of DEC's M706H.
 <DT>M706K</A>
   <DD>is a drawing of DEC's M706K.
 <DT>M706O</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M706O.
 <DT>M706X</A>
   <DD>is a 'modernized' version of DEC's M706K.
 </DL>
@@ -3733,15 +3832,16 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M7065C</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a version of DEC's M7065C.
+<DT>M7065X</A>
+  <DD>is a'modernized' drawing of DEC's M7065.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M707 target=_blank>./DEC/Mxxx/M707</a></b>: Teletype Transmitter, double
 
 </LEGEND><DL>
 <DT>M707A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of M707 etch A with a resistor in SERIAL OUT, like M707D.
 <DT>M707C</A>
   <DD>is a drawing of M707 etch C.
 <DT>M707C+</A>
@@ -3757,8 +3857,9 @@ by Dave Brockman.
 
 </LEGEND><DL>
 <DT>M7075C</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a version of DEC's M7075C.
+<DT>M7075X</A>
+  <DD>is a'modernized' drawing of DEC's M7075.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M708 target=_blank>./DEC/Mxxx/M708</a></b>: Clock Control, 8/I
@@ -3782,12 +3883,16 @@ by Dave Brockman.
   <DD>needs a drawing.
 <DT>M709B</A>
   <DD>is an Eagle version of DEC's M708B.
+<DT>M709X</A>
+  <DD>is an Eagle version of DEC's M708X.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M710 target=_blank>./DEC/Mxxx/M710</a></b>: Punch control, double
 
 </LEGEND><DL>
+<DT>M710B</A>
+  <DD>is a drawing of DEC's M710B.
 <DT>M710F</A>
   <DD>needs a drawing.
 <DT>M710H</A>
@@ -4654,7 +4759,13 @@ the more common 74174.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M900 target=_blank>./DEC/Mxxx/M900</a></b>: CONNECTOR TO 8/I CONSOLE, 30 SIGNALS, 2 GNDS, TTL BUFFERING
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M900D</A>
+  <DD>is a drawing of DEC's M900D.
+<DT>M900X</A>
+  <DD>is a 'modernized' version of M900.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M901 target=_blank>./DEC/Mxxx/M901</a></b>: Flat Mylar Cable Connector, 10 ohms in A2,B2,U1 & V1, 2 cables
 
@@ -5656,6 +5767,8 @@ board.
 </LEGEND><DL>
 <DT>TP-34</A>
   <DD>is a drawing of the Tennecomp TP-34 Autoloader for Omnibus machines.
+<DT>TP-34ren</A>
+  <DD>is a drawing of the TP-34 Autoloader with the original wonky chip numbering.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
