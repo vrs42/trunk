@@ -6576,8 +6576,12 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-187 target=_blank>focal8-187
 </a><td><div>Display FOCAL </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-187/Reconstruction.txt target=_blank>Reconstruction.txt</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-187/decus-focal8-187.htm target=_blank>decus-focal8-187.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-187/decus-focal8-187.pdf target=_blank>decus-focal8-187.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-187/focal8-187.bin target=_blank>focal8-187.bin</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-187/focal8-187.lst target=_blank>focal8-187.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-187/focal8-187.pal target=_blank>focal8-187.pal</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-188 target=_blank>focal8-188
 </a><td><div>Generating Random Numbers with FOCAL </div>
