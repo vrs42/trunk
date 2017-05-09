@@ -17,6 +17,8 @@ There are currently only a few things here:
 new switch toggles.<P>
 <DT>The <A HREF=zero.php>zero page,</A>
 <DD>provides information about attempting to mold new RL01/RL02 drive numbers.<P>
+<DT>The <A HREF=pulse.php>pulse transformer page,</A>
+<DD>provides information potentially useful for attempting to create or find replacements for pulse transformers.<P>
 </DL>
 
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>

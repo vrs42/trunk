@@ -2,10 +2,20 @@
   $title = "DEC Part Substitution";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
+I have added copies of these documents, which cross reference DEC part numbers
+to vendor information, because I can no longer find them elsewhere online:
+<TABLE>
+<TD><A href="Spare Parts List Volume I.pdf">Spare Parts List Volume I.pdf</A>
+<TR>
+<TD><A href="Spare Parts List Volume II.pdf">Spare Parts List Volume II.pdf</A>
+<TR>
+</TABLE>
+(Volume II is generally the more useful one.)
+<P>
 DEC sometimes provides part substitution information in a little table at the 
-bottom of their schematics.  This table rolls up this information from a 
-number of module schematics.  I haven't made any effort to correct what 
-seems to be misinformation, preferring here to echo the information DEC as
+bottom of their schematics.  The following table rolls up this information
+from a number of module schematics.  I haven't made any effort to correct what 
+seems to be misinformation, preferring here to echo the information as DEC
 provided it, even if it is possibly in error.  For instance, I suspect "D660" 
 is a typo for "D668" on the W509 schematic.  The inconsistencies in the 
 use of "NONE" vs leaving the EIA part number field blank are also preserved.
