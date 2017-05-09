@@ -24,7 +24,7 @@ A404	A* 	  Sample and Hold
 A405		  Sample and Hold Amplifier
 A502	C* D X 	  Difference Amplifier
 A601	A* D* E X 	  3 Bit DAC
-A604	A* E X 	  2-bit D-A Converter
+A604	A* E F X 	  2-bit D-A Converter
 A605		  2-bit D-A Converter
 A606		  D-A Converter
 A607	A* B X 	  10-bit Single Buffered D/A Converter, double
@@ -144,7 +144,7 @@ G381	A+ 	  Line Feed Solenoid Driver
 G500	A* 	  TU55/TU56 Skew Tester
 G589	C* 	  Differential Integrator/Amp, RP10 Controller, RP01-Memorex 630-1
 G590	E* 	  Differential Filtered Integrator, RP10, RP02, Memorex 660
-G603	A+ E* 	  Memory Selector Matrix
+G603	A 	  Memory Selector Matrix (non-standard size)
 G604	A* 	  Memory Selection Matrix, PDP-6
 G609	A* 	  Memory Mounting Board
 G610	A* B* 	  "A" Diode Matrix Board for PDP-8 stack 30-05256
@@ -189,8 +189,9 @@ G740	A+ 	  Disk Selection
 G741	B+ C+ CYA+ 	  TU10 Negative Bus Terminator
 G742	A* 	  Jumper Card, pins of non-inverting M500 & M531, TU56 with positive logic controls
 G766	A* 	  G796 with 3M cable, 14 signals, 2 grounds
-G772	B+ 	  PDP-11 Power Connector
+G772	B X 	  PDP-11 Power Connector
 G775	A* B* C* 	  36 wires to Indicator, Q's, +6.5V from lamps, RF09
+G778	A X 	  KV8I Cable Connector
 G780	A* 	  Power Connector Card for PDP-12
 G783	A* 	  9 Twisted Pair and Shield, 1 pair ground return
 G785	D* E X 	  Power Connector, 8/L, with Power OK (double)
@@ -489,9 +490,9 @@ M710	B F* H X 	  Punch control, double
 M7100	B* 	  I/O Device Control, used with M592, 10 74H IC's
 M7102	C* 	  Positive I/O Bus Converter
 M7103	F* 	  Negative I/O Bus Converter
-M7104	A* B+ 	  RK8E Data Buffer and Status
-M7105	A* B+ 	  RK8E Major Registers
-M7106	A* B+ C+ 	  RK8E Control
+M7104	A* B 	  RK8E Data Buffer and Status
+M7105	A* B 	  RK8E Major Registers
+M7106	A* B C 	  RK8E Control
 M711	C* 	  Scope Control, PDP-12
 M714	B* 	  Control Logic I, CR8-I, CR8-L
 M715	A+ E* F X 	  Reader Clock, double
@@ -581,6 +582,7 @@ M8331	B+ 	  TA8E Cassette Interface
 M8340	F+ 	  KE8E Decoder and Step Counter
 M8341	D+ 	  KE8E Multiplexers and Timing Generator
 M8350	C* 	  KA8E Positive I/O Bus Interface
+M8365	B* 	  LA180 Interface, Omnibus (quad, extended)
 M837	B+ D+ 	  Omnibus Memory Extension and Timeshare Option
 M8416	C* 	  KT8A 128K Memory Management Board
 M847	D+ E* 	  MI8E Diode Bootstrap Loader

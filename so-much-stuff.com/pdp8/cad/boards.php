@@ -261,7 +261,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 
 </LEGEND><DL>
 <DT>5409057D</A>
-  <DD>is a drawing of DEC's 5409057 (bulb panel) revision D,
+  <DD>is a drawing of DEC's 5409057 (bulb panel) revision D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -410,6 +410,8 @@ schematics work. (Has a consistency problem to highlight changes.)
 </LEGEND><DL>
 <DT>A604E</A>
   <DD>is a drawing of DEC's A604E.
+<DT>A604F</A>
+  <DD>is a drawing of DEC's A604F.
 <DT>A604X</A>
   <DD>is a 'modernized' version of the A604.</DL>
 </FIELDSET>
@@ -1347,9 +1349,13 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G603 target=_blank>./DEC/Gxxx/G603</a></b>: Memory Selector Matrix
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G603 target=_blank>./DEC/Gxxx/G603</a></b>: Memory Selector Matrix (non-standard size)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G603A</A>
+  <DD>is a drawing of DEC's G603A.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G604 target=_blank>./DEC/Gxxx/G604</a></b>: Memory Selection Matrix, PDP-6
 
@@ -1604,11 +1610,27 @@ LM837.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G772 target=_blank>./DEC/Gxxx/G772</a></b>: PDP-11 Power Connector
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G772B</A>
+  <DD>is a drawing of DEC's G772B.
+<DT>G772X</A>
+  <DD>is a 'modernized' version of DEC's G772B.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G775 target=_blank>./DEC/Gxxx/G775</a></b>: 36 wires to Indicator, Q's, +6.5V from lamps, RF09
 
 </LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G778 target=_blank>./DEC/Gxxx/G778</a></b>: KV8I Cable Connector
+
+</LEGEND><DL>
+<DT>G778A</A>
+  <DD>is a drawing of DEC's G778A.
+<DT>G778X</A>
+  <DD>is a 'modernized' version of DEC's G778A.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G780 target=_blank>./DEC/Gxxx/G780</a></b>: Power Connector Card for PDP-12
 
@@ -3925,24 +3947,24 @@ by Dave Brockman.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7104 target=_blank>./DEC/Mxxx/M7104</a></b>: RK8E Data Buffer and Status
 
 </LEGEND><DL>
-<DT>M7104</A>
-  <DD>needs a drawing.
+<DT>M7104B</A>
+  <DD>is a drawing of DEC's M7104B RK8E Data Buffer and Status Board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7105 target=_blank>./DEC/Mxxx/M7105</a></b>: RK8E Major Registers
 
 </LEGEND><DL>
-<DT>M7105</A>
-  <DD>needs a drawing.
+<DT>M7105B</A>
+  <DD>is a drawing of DEC's M7105B RK8E Major Registers Board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7106 target=_blank>./DEC/Mxxx/M7106</a></b>: RK8E Control
 
 </LEGEND><DL>
-<DT>M7106</A>
-  <DD>needs a drawing.
+<DT>M7106C</A>
+  <DD>is a drawing of DEC's M7106C RK8E Control Board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -4616,6 +4638,14 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8365 target=_blank>./DEC/Mxxx/M8365</a></b>: LA180 Interface, Omnibus (quad, extended)
+
+</LEGEND><DL>
+<DT>M8365B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M837 target=_blank>./DEC/Mxxx/M837</a></b>: Omnibus Memory Extension and Timeshare Option
 
 </LEGEND><DL>
@@ -4771,9 +4801,9 @@ the more common 74174.
 
 </LEGEND><DL>
 <DT>M901B</A>
-  <DD>is a drawing if DEC's M901B.
+  <DD>is a drawing of DEC's M901B.
 <DT>M901X</A>
-  <DD>is a 'mdernized' version of M901.
+  <DD>is a 'modernized' version of M901.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
