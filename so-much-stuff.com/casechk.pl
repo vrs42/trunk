@@ -16,6 +16,7 @@ sub namei {
   local($path) = @_;
   local($f, $found);
   local($dir) = "./";
+  $path =~ s/\%20/ /g;
   $path =~ s/\%23/#/g;
   while ($path) {
 #warn "namei: $dir $path\n";
