@@ -5,9 +5,9 @@
 I have added copies of these documents, which cross reference DEC part numbers
 to vendor information, because I can no longer find them elsewhere online:
 <TABLE>
-<TD><A href="Spare Parts List Volume I.pdf">Spare Parts List Volume I.pdf</A>
+<TD><A href="Spare%20Parts%20List%20Volume%20I.pdf">Spare Parts List Volume I.pdf</A>
 <TR>
-<TD><A href="Spare Parts List Volume II.pdf">Spare Parts List Volume II.pdf</A>
+<TD><A href="Spare%20Parts%20List%20Volume%20II.pdf">Spare Parts List Volume II.pdf</A>
 <TR>
 </TABLE>
 (Volume II is generally the more useful one.)
