@@ -186,5 +186,11 @@ dome light or license plate light.
 <!-- The 12-04903 is a similar Osram 6411/8935, also a 12 festoon lamp, but 10W T3.25. -->
 </DL>
 
+<DL>
+<h3>RP06 (Memorex 677)</h3>
+<DT>CM7387
+<dd>See above.
+(According to Dave McGuire.)
+</DL>
 
 <?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
