@@ -1264,6 +1264,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0ab-pb.od>maindec-12-d0ab-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>PDP-12 CP Test 2
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0ab-b-d.pdf>maindec-12-d0ab-b-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>PDP-12 Instruction Test part 1
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0ba-pb>maindec-12-d0ba-pb</a><td>(BIN image)<tr>
@@ -1278,6 +1283,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>PDP-12 CP Test 3
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0cb-d.pdf>maindec-12-d0cb-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0cb-pb>maindec-12-d0cb-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0cb-pb.od>maindec-12-d0cb-pb.od</a><td>(BIN image in octal)<tr>
 </table>
@@ -1319,6 +1325,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0sa-pb.od>maindec-12-d0sa-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>KF12B Auto Priority Interrupt
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0sa-d-d.pdf>maindec-12-d0sa-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>FPP-12 Trace EPM Version
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0ta-pb>maindec-12-d0ta-pb</a><td>(BIN image)<tr>
@@ -1344,8 +1355,14 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ac-pb.od>maindec-12-d1ac-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>PDP-12 Extended Memory Control
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ac-d-d.pdf>maindec-12-d1ac-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>JMP Self
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ba-d.pdf>maindec-12-d1ba-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ba-pb>maindec-12-d1ba-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ba-pb.od>maindec-12-d1ba-pb.od</a><td>(BIN image in octal)<tr>
 </table>
@@ -1362,14 +1379,25 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1da-pb.od>maindec-12-d1da-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>PFP-12 Checkerboard
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1da-d-d.pdf>maindec-12-d1da-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>Float 1's and 0's Through Memory
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ea-pb>maindec-12-d1ea-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ea-pb.od>maindec-12-d1ea-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>Float 1's and 0's Through Memory
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1ea-d-d.pdf>maindec-12-d1ea-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>PDP-12 Basic Memory Control Test
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1fa-d.pdf>maindec-12-d1fa-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1fa-pb>maindec-12-d1fa-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d1fa-pb.od>maindec-12-d1fa-pb.od</a><td>(BIN image in octal)<tr>
 </table>
@@ -1397,6 +1425,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d3db-pb.od>maindec-12-d3db-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>PDP-12 Tape Data Exerciser
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d3db-d-d.pdf>maindec-12-d3db-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>TC12-F Option Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d3eb-pb>maindec-12-d3eb-pb</a><td>(BIN image)<tr>
@@ -1407,6 +1440,11 @@ when referring to the older part numbers.
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d3fb-pb>maindec-12-d3fb-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d3fb-pb.od>maindec-12-d3fb-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>PDP-12 Tape Data Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d3fb-d-d.pdf>maindec-12-d3fb-d-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>PDP-12 Tape Control Test part 2 of 2
@@ -1426,10 +1464,20 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6ba-pb.od>maindec-12-d6ba-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>VR12 Display Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6ba-d-d.pdf>maindec-12-d6ba-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>VR14/VR20 Display Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-pb>maindec-12-d6bc-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-pb.od>maindec-12-d6bc-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>VR14/VR20 Display Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-d-d.pdf>maindec-12-d6bc-d-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>A to D Test
@@ -1444,10 +1492,25 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6cc-pb.od>maindec-12-d6cc-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>A to D Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6cc-d-d.pdf>maindec-12-d6cc-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
+<td>PDP-12 System Exerciser
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d7cd-d.pdf>maindec-12-d7cd-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>PDP-12 Relay Register Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8ab-pb>maindec-12-d8ab-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8ab-pb.od>maindec-12-d8ab-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>PDP-12 Relay Register Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8ab-d-d.pdf>maindec-12-d8ab-d-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>KW12 Clock Test for Units w/o ECO #55
@@ -1456,10 +1519,25 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8ca-pb.od>maindec-12-d8ca-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>KW12 Clock Test for Units w/o ECO #55
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8ca-d-d.pdf>maindec-12-d8ca-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>KW12A Clock Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8cc-pb>maindec-12-d8cc-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8cc-pb.od>maindec-12-d8cc-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>KW12A Clock Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8cc-d-d.pdf>maindec-12-d8cc-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
+<td>KW12A Clock Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d8cd-d-d.pdf>maindec-12-d8cd-d-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>PDP-12 Operating Procedure
