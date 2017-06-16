@@ -1777,9 +1777,12 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G824 target=_blank>./DEC/Gxxx/G824</a></b>: +5V Regulator Control, PDP-12
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G824 target=_blank>./DEC/Gxxx/G824</a></b>: +5V Regulator Control for PDP-12, double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G824A</A>
+  <DD>is a drawing of DEC's G824A.</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G825 target=_blank>./DEC/Gxxx/G825</a></b>: -24V Pass Element (double)
 
@@ -2460,13 +2463,14 @@ fourth PAL.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M127 target=_blank>./DEC/Mxxx/M127</a></b>: 2 2-2-3 AND-NOR Gates
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M127 target=_blank>./DEC/Mxxx/M127</a></b>: 3 2-2-2-3 AND-NOR Gates
 
 </LEGEND><DL>
 <DT>M127A</A>
   <DD>is a drawing of DEC's M127A.
 <DT>M127X</A>
-  <DD>is a 'modernized' M127.</DL>
+  <DD>is a 'modernized' M127.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M129 target=_blank>./DEC/Mxxx/M129</a></b>: 4-4 AND-NOR, H, 4 circuits
