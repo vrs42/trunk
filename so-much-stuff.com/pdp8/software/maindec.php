@@ -1275,7 +1275,7 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0ba-pb.od>maindec-12-d0ba-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>
+<td>PDP-12 CP Test 3
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0ca-pb>maindec-12-d0ca-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d0ca-pb.od>maindec-12-d0ca-pb.od</a><td>(BIN image in octal)<tr>
