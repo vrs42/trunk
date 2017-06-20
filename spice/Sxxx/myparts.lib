@@ -10,6 +10,9 @@
 *               Motorola        pid=1N748       case=DO-35
 *               89-9-18 gjg
 *               Vz = 3.9 @ 20mA, Zz = 345 @ 1mA, Zz = 49 @ 5mA, Zz = 5.8 @ 20mA
+.model 1N751A ako: 1N750 Vrev=5.1V
+* AZ1 should be 1% (not 5% as 1N751A)
+.model AZ1 ako: 1N751A
 .model 2N2219 ako: 2N2219A
 .MODEL PN3640   PNP(Is=545.6E-18 Xti=3 Eg=1.11 Vaf=100 Bf=59.22 Ne=1.5 Ise=0
 +               Ikf=50m Xtb=1.5 Br=1.438 Nc=2 Isc=0 Ikr=0 Rc=3.75 Cjc=2.77p
@@ -57,34 +60,22 @@ D3 d2d3 d3d4 1N645
 D4 d3d4 -3V 1N645
 R1 -15V -3V 1500
 .ends
-.subckt 2N2060 c1 b1 e1 c2 b2 e2
-Q1 c1 b1 e1 2N2219
-Q2 c2 b2 e2 2N2219
-.ends
-.subckt SDA-5 c1 b1 e1 c2 b2 e2
-Q1 c1 b1 e1 2N2219
-Q2 c2 b2 e2 2N2219
-.ends
-*.model SDA-5 ako: 2N2060
-*.subckt 2N3811 c1 b1 e1 c2 b2 e2
-*Q1 c1 b1 e1 2N2907
-*Q2 c2 b2 e2 2N2907
-*.ends
-*.subckt SDA-7 c1 b1 e1 c2 b2 e2
-*Q1 c1 b1 e1 2N2907
-*Q2 c2 b2 e2 2N2907
-*.ends
+* Each "A" or "B" gate of the duak transistors maps to a standard part.
+.model 2N2260 ako: 2N2219
+.model 2N3811 ako: 2N2907
+.model SDA-5 ako: 2N2219
 .model SDA-7 ako: 2N2907
 * SCR model based on
 * http://www.edn.com/design/analog/4425804/Greatly-improve-dV-dt-immunity-of-SCRs
-* BUGBUG: These values are not correct yet.
 .subckt mcr649 a g c
-Q1 NPN c g hidden 2N4036
-Q2 PNP a hidden g BSY34
-RB1 c g 1M
-CB1 c g 100pF
-RB2 a hidden 1M
-CB2 a hidden 100pF
+Q1 NPN c g hidden 2N3055
+Q2 PNP a hidden g D45H11
+Q3 NPN c g hidden 2N3055
+Q4 PNP a hidden g D45H11
+RB1 c g 10
+CB1 c g 1nF
+RB2 a hidden 10
+CB2 a hidden 1nF
 .ends
 .model BOGUS ako: 2N2222
 *SYMATTR Value 1N3606
@@ -95,9 +86,6 @@ CB2 a hidden 100pF
 *SYMATTR Value 1N748
 *SYMATTR Value 1N748 3.9V
 *SYMATTR Value 1N748A
-*SYMATTR Value 1N751A
-.model 1N751A ako: 1N750 Vrev=5.1V
-.model AZ1 ako: 1N751A
 *SYMATTR Value 1N753A
 *SYMATTR Value 1N756A
 *SYMATTR Value 1N758
