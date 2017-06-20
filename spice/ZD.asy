@@ -15,6 +15,8 @@ SYMATTR Prefix D
 SYMATTR Description diode/ZD
 PIN -16 0 none 0
 PINATTR PinName A
+PINATTR SpiceOrder 1
 PIN 16 0 none 0
 PINATTR PinName C
+PINATTR SpiceOrder 2
 

@@ -1,0 +1,36 @@
+Version 4
+Symboltype CELL
+LINE Normal 0 -32 0 32
+LINE Normal 16 32 16 -32
+ARC Normal -32 -32 -16 -16 -16 -16 -16 -32
+ARC Normal -32 -16 -16 0 -16 0 -16 -16
+ARC Normal -32 0 -16 16 -16 16 -16 0
+ARC Normal -32 16 -16 32 -16 32 -16 16
+ARC Normal 32 32 48 16 32 16 32 32
+ARC Normal 32 16 48 0 32 0 32 16
+ARC Normal 32 0 48 -16 32 -16 32 0
+ARC Normal 32 -16 48 -32 32 -32 32 -16
+CIRCLE Normal -17 -26 -15 -24
+CIRCLE Normal 31 -26 33 -24
+WINDOW 3 -9 41 Left 2
+WINDOW 0 -9 -38 Left 2
+LINE Normal -48 -32 -16 -32
+WINDOW 123 -48 -40 Right 2
+LINE Normal -48 32 -16 32
+WINDOW 123 -48 24 Right 2
+LINE Normal 64 -32 32 -32
+WINDOW 123 64 -40 Right 2
+LINE Normal 64 32 32 32
+WINDOW 123 64 24 Right 2
+SYMATTR Value TRANSFORMER
+SYMATTR Prefix X
+SYMATTR Description dec-con/TRANSFORMER
+PIN -48 -32 none 0
+PINATTR PinName P$2
+PIN -48 32 none 0
+PINATTR PinName P$7
+PIN 64 -32 none 0
+PINATTR PinName P$4
+PIN 64 32 none 0
+PINATTR PinName P$5
+

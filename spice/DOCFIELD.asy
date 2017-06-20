@@ -20,13 +20,13 @@ LINE Normal 0 -144 640 -144
 LINE Normal 0 -144 0 -224
 LINE Normal 640 -144 640 -96
 TEXT 8 -8 Left 4 Date:
-TEXT 80 -8 Left 4 Sat May 27 11:01:12 2017
+TEXT 80 -8 Left 4 Fri Jun  2 15:09:28 2017
 TEXT 456 -8 Left 4 Sheet:
 WINDOW 3 544 -8 Left 2
 TEXT 560 -72 Left 4 REV:
 TEXT 8 -120 Left 4 TITLE:
 TEXT 8 -72 Left 4 Document Number:
-TEXT 112 -120 Left 4 R650X.asc
+TEXT 112 -120 Left 4 G824A.asc
 SYMATTR Value DOCFIELD
 SYMATTR Prefix -
 SYMATTR Description frames/DOCFIELD

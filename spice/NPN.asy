@@ -18,11 +18,14 @@ LINE Normal 16 32 16 16
 LINE Normal 16 -32 16 -16
 SYMATTR Value NPN
 SYMATTR Prefix Q
-SYMATTR Description transistor/NPN
+SYMATTR Description transistor-npn/NPN
 PIN -16 0 none 0
 PINATTR PinName B
+PINATTR SpiceOrder 2
 PIN 16 32 none 0
 PINATTR PinName E
+PINATTR SpiceOrder 3
 PIN 16 -32 none 0
 PINATTR PinName C
+PINATTR SpiceOrder 1
 
