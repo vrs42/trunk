@@ -381,12 +381,11 @@ sub drawpin {
   if ($function eq "none") {
     return;
   } elsif ($function eq "dot") {
-    $x2 -= $x1/2;
-    $y2 += $y1/2;
-    $x1 = $x2 - $x1;
-    $y1 = $y2 - $y1;
-warn "GOT HERE";
-    $symdraw .= "CIRCLE Normal $x1 $x2 $x2 $y2\n";
+    $x1 = $x2;
+    $y1 = $y2 - 4;
+    $x2 = $x1 + 8;
+    $y2 = $y1 + 8;
+    $symdraw .= "CIRCLE Normal $x1 $y1 $x2 $y2\n";
   } else {
     die "drawpin function: $function";
   }
@@ -410,7 +409,55 @@ die "polygon: $nxt";
     } elsif ($nxt =~ /^wire\b/) {
       &wire();
       # Add a drawing command for a symbol.
-      $symdraw .= "LINE Normal $x1 $y1 $x2 $y2\n";
+      if ($curve == -180) {
+        # BUGBUG: Assumes vertical orientation.
+        $x3 = $x2 - $x1;
+        $y3 = $y2 - $y1;
+        warn "not vertical: $x3 $y3\n" if $x3; 
+        $radius = sqrt($x3*$x3+$y3*$y3)/2;
+        $x3 = &grid_snap($x1 - $radius);
+        $y3 = &grid_snap($y1);
+        $x4 = &grid_snap($x2 + $radius);
+        $y4 = &grid_snap($y2);
+        $symdraw .= "ARC Normal $x3 $y3 $x4 $y4 $x2 $y2 $x1 $y1\n";
+      } else {
+        if ($curve) {
+          # Compute the sign of the angle.
+          $sign = ($x2-$x1)*($y2-$y1);
+          $sign = $sign/abs($sign) unless $sign == 0;
+          $curve *= $sign;
+          $curve *= -3.14159/360; # Half angle
+#         warn "radians: $curve\n";
+          # Find the midpoint
+          $x3 = ($x1 + $x2)/2;
+          $y3 = ($y1 + $y2)/2;
+          # Calculate distance from the midpoint to center.
+          $distance = sqrt(($x3-$x1)**2 + ($y3-$y1)**2);
+#         warn "length/2: $distance\n";
+          $distance = abs($distance/sin($curve));
+#         warn "distance: $distance\n";
+          # Solve for the center point.
+          $radius = int(abs($distance/cos($curve)) + 0.5);
+#         warn "radius: $radius\n";
+          $angle = $curve - 3.14159/2;
+#         warn "angle: $angle\n";
+          $x3 = int($x3 - $distance*cos($angle) + 0.5);
+          $y3 = int($y3 - $distance*sin($angle) + 0.5);
+#         warn "center $x3 $y3\n";
+          # From the center and radius, calulate the bounding box.
+          $x3 -= $radius;
+          $y3 -= $radius;
+          $x4 = $x3 + 2*$radius;
+          $y4 = $y3 + 2*$radius;
+          # OK, we need $curve degrees of a circle with $radius,
+          # starting at ($x1, $y1) and ending at ($x2, $y2) and 
+          # determined by the bounding box.
+#         warn        "ARC Normal $x3 $y3 $x4 $y4 $x2 $y2 $x1 $y1\n";
+          $symdraw .= "ARC Normal $x3 $y3 $x4 $y4 $x2 $y2 $x1 $y1\n";
+        } else {
+          $symdraw .= "LINE Normal $x1 $y1 $x2 $y2\n";
+        }
+      }
     } elsif ($nxt =~ /^text\b/) {
       &text();
       # Replace >Name, >Value, etc.
@@ -487,7 +534,7 @@ die "dimension: $nxt";
       print OUTPUT "Symboltype $type\n";
       print OUTPUT "$symdraw";
       print OUTPUT "SYMATTR Value $symbol\n";
-      $prefix = "?";
+      $prefix = "X";
       $prefix = "D" if $library eq "diode";
       $prefix = "R" if ($library eq "rcl") && ($symbol =~ /^R/);
       $prefix = "R" if ($symbol =~ /^POT_US-/);
