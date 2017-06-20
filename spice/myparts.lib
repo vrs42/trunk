@@ -43,6 +43,12 @@
 +               Tr=116.8n Tf=603.7p Itf=.65 Vtf=5 Xtf=1.7 Rb=10)
 *               National        pid=63          case=TO5
 *               88-09-09 bam    creation
+.model 2N3715   NPN(Is=10p Xti=3 Eg=1.11 Vaf=100 Bf=120 Ne=3.41 Ise=0.211E-6 
++               Ikf=1.52 Xtb=1.665 Br=4.29 Nc=3.41 Isc=211n Ikr=1.52 Rc=140E-3
++               Cjc=700p Mjc=.3333 Vjc=.7 Fc=.5 Cje=5E-12 Mje=.3333 Vje=.7
++               Tr=116.7n Tf=23.0n Itf=10 Vtf=20 Xtf=1.383 Rb=1.6 Nf=1.053
++               Nr=1.053 Vjs=0.6 Var=100 Rbm=1.6 Re=.01 Xcjc=.5 Mjs=.5)
+.model DEC3715 ako: 2N3715
 .model PN3569 ako: BC337-25
 .subckt DGL-3V -15V GND OUT
 D1 GND d1d2 1N645
@@ -128,7 +134,3 @@ CB2 a hidden 100pF
 *SYMATTR Value TYN612
 *SYMATTR Value Tamura G500
 *SYMATTR Value open
-*SYMATTR Value DEC3715
-* BUGBUG: 3715 models are probably not correct.
-.model 2N3715 ako: 2N3019 Vceo=50
-.model DEC3715 ako: 2N3715
