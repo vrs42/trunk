@@ -527,9 +527,12 @@ die "dimension: $nxt";
     } elsif ($nxt =~ /^\/symbol\b/) {
       $type = "CELL";
       $type = "GRAPHIC" if $order == 0;
-#     mkdir $library unless -d $libraary;
-#     open(OUTPUT, ">$library/$symbol.asy") || die "$library/$symbol: $!";
-      open(OUTPUT, ">$symbol.asy") || die "$symbol: $!";
+      # Don't clobber existing symbol files!
+      if (-f "$symbol.asy") {
+        open(OUTPUT, ">/dev/null") || die "$symbol: $!";
+      } else {
+        open(OUTPUT, ">$symbol.asy") || die "$symbol: $!";
+      }
       print OUTPUT "Version 4\n";
       print OUTPUT "Symboltype $type\n";
       print OUTPUT "$symdraw";

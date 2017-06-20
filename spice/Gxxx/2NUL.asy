@@ -1,0 +1,51 @@
+Version 4
+Symboltype CELL
+LINE Normal -24 -20 -24 -12
+LINE Normal -28 -16 -20 -16
+LINE Normal -28 16 -20 16
+LINE Normal -16 -32 -16 -24
+LINE Normal 0 -31 0 -16
+LINE Normal 0 16 0 32
+LINE Normal -16 24 -16 32
+LINE Normal 32 -16 16 -8
+LINE Normal 32 0 -32 -32
+LINE Normal -32 -32 -32 32
+LINE Normal -32 32 32 0
+WINDOW 0 16 -36 Left 2
+WINDOW 3 16 32 Left 2
+LINE Normal 48 -16 32 -16
+WINDOW 123 48 -24 Right 2
+LINE Normal 0 -48 0 -32
+WINDOW 123 0 -56 Right 2
+LINE Normal -48 16 -32 16
+WINDOW 123 -48 8 Right 2
+LINE Normal -48 -16 -32 -16
+WINDOW 123 -48 -24 Right 2
+LINE Normal 48 0 32 0
+WINDOW 123 48 -8 Right 2
+LINE Normal 0 48 0 32
+WINDOW 123 0 40 Right 2
+LINE Normal -16 -48 -16 -32
+WINDOW 123 -16 -56 Right 2
+LINE Normal -16 48 -16 32
+WINDOW 123 -16 40 Right 2
+SYMATTR Value 2NUL
+SYMATTR Prefix X
+SYMATTR Description dec-con/2NUL
+PIN 48 -16 none 0
+PINATTR PinName ON2
+PIN 0 -48 none 0
+PINATTR PinName ON1
+PIN -48 16 none 0
+PINATTR PinName -IN
+PIN -48 -16 none 0
+PINATTR PinName +IN
+PIN 48 0 none 0
+PINATTR PinName OUT
+PIN 0 48 none 0
+PINATTR PinName OPT
+PIN -16 -48 none 0
+PINATTR PinName V+
+PIN -16 48 none 0
+PINATTR PinName V-
+

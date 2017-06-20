@@ -1,0 +1,26 @@
+Version 4
+Symboltype CELL
+LINE Normal 3 -9 16 -16
+LINE Normal 3 9 16 16
+LINE Normal 11 9 16 16
+LINE Normal 16 16 8 16
+LINE Normal 8 16 11 9
+WINDOW 0 24 0 Left 2
+WINDOW 3 24 16 Left 2
+RECTANGLE Normal -1 16 3 -16
+LINE Normal -16 0 0 0
+WINDOW 123 -16 -8 Right 2
+LINE Normal 16 32 16 16
+WINDOW 123 16 24 Right 2
+LINE Normal 16 -32 16 -16
+WINDOW 123 16 -40 Right 2
+SYMATTR Value NPN-L
+SYMATTR Prefix X
+SYMATTR Description linear/NPN-L
+PIN -16 0 none 0
+PINATTR PinName B
+PIN 16 32 none 0
+PINATTR PinName E
+PIN 16 -32 none 0
+PINATTR PinName C
+

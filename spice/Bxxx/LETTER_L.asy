@@ -1,0 +1,10 @@
+Version 4
+Symboltype GRAPHIC
+LINE Normal 0 0 0 -1168
+LINE Normal 0 -1168 1568 -1168
+LINE Normal 1568 -1168 1568 0
+LINE Normal 1568 0 0 0
+SYMATTR Value LETTER_L
+SYMATTR Prefix -
+SYMATTR Description frames/LETTER_L
+
