@@ -26,10 +26,14 @@ SYMATTR Prefix Q
 SYMATTR Description transistor-neu-to92/NPN2
 PIN -16 0 none 0
 PINATTR PinName B
+PINATTR SpiceOrder 2
 PIN 16 32 none 0
 PINATTR PinName E
+PINATTR SpiceOrder 3
 PIN 16 -32 none 0
 PINATTR PinName C
+PINATTR SpiceOrder 1
 PIN 16 -16 none 0
 PINATTR PinName C@1
+PINATTR SpiceOrder 4
 
