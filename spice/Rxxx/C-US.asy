@@ -9,7 +9,7 @@ WINDOW 3 6 26 Left 2
 LINE Normal 0 -16 0 0
 LINE Normal 0 32 0 16
 SYMATTR Value C-US
-SYMATTR Prefix X
+SYMATTR Prefix C
 SYMATTR Description dec-con/C-US
 PIN 0 -16 none 0
 PINATTR PinName 1

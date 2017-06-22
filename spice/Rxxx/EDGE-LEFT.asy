@@ -1,7 +1,7 @@
 Version 4
 Symboltype CELL
-LINE Normal -16 0 16 0
-WINDOW 123 -16 -8 Right 2
+LINE Normal -48 0 -16 0
+WINDOW 123 -48 -8 Right 2
 SYMATTR Value EDGE-LEFT
 SYMATTR Prefix R
 SYMATTR Description dec-con/EDGE-LEFT

@@ -1,13 +1,11 @@
 Version 4
 Symboltype CELL
-LINE Normal -8 0 8 0
-LINE Normal 8 0 0 8
-LINE Normal 0 8 -8 0
-WINDOW 3 -12 20 Left 2
-LINE Normal 0 -16 0 0
+LINE Normal -32 -16 0 -16
 SYMATTR Value GND
 SYMATTR Prefix -
 SYMATTR Description supply2/GND
 PIN 0 -16 none 0
-PINATTR PinName GND
+PINATTR PinName 1
+PIN -32 -16 none 0
+PINATTR PinName 2
 

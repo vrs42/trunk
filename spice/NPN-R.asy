@@ -15,7 +15,7 @@ WINDOW 123 -16 24 Right 2
 LINE Normal -16 -32 -16 -16
 WINDOW 123 -16 -40 Right 2
 SYMATTR Value NPN-R
-SYMATTR Prefix X
+SYMATTR Prefix Q
 SYMATTR Description linear/NPN-R
 PIN 16 0 none 0
 PINATTR PinName B

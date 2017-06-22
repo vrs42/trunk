@@ -1,12 +1,11 @@
 Version 4
 Symboltype CELL
-LINE Normal 0 0 8 0
-WINDOW 0 12 4 Left 2
-WINDOW 3 -16 -8 Left 2
-LINE Normal -16 0 0 0
+LINE Normal -48 0 -16 0
 SYMATTR Value MV
-SYMATTR Prefix X
+SYMATTR Prefix R
 SYMATTR Description con-subd/MV
 PIN -16 0 none 0
-PINATTR PinName M
+PINATTR PinName 1
+PIN -48 0 none 0
+PINATTR PinName 2
 

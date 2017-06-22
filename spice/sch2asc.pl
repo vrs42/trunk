@@ -487,15 +487,6 @@ die "dimension: $nxt";
       $pinx{$symbol} = $x;
       $piny{$symbol} = $y;
       &drawpin($x, $y, $length, $function, $rot);
-      # Kludge extra pin for EDGE-RIGHT.
-      if ($symbol =~ /^EDGE-/) {
-        $name = "1";
-        $sympins .= "PIN $x $y $function 0\n";
-        $sympins .= "PINATTR PinName $name\n";
-        ++$order;
-        $name = "2";
-        $x -= 32;
-      }
       # Place and name the pin.
       $sympins .= "PIN $x $y $function 0\n";
       $sympins .= "PINATTR PinName $name\n";
@@ -512,8 +503,7 @@ die "dimension: $nxt";
     } elsif ($nxt =~ /^rectangle\b/) {
       &rectangle();
       warn "rotated rectangle: $rot" unless $rot eq "R0";
-      $symdraw .= "RECTANGLE Normal $x1 $y1 $x2 $y2\n"
-        unless $symbol =~ /^EDGE-/
+      $symdraw .= "RECTANGLE Normal $x1 $y1 $x2 $y2\n";
     } elsif ($nxt =~ /^frame\b/) {
       &frame();
       $symdraw .= "LINE Normal $x1 $y1 $x1 $y2\n";
@@ -526,18 +516,28 @@ die "dimension: $nxt";
       warn "borderbottom labels omitted" unless $borderbottom eq "no";
     } elsif ($nxt =~ /^\/symbol\b/) {
       $type = "CELL";
+      # Symbols with 0 pins are GRAPHIC, and don't have a model.
       $type = "GRAPHIC" if $order == 0;
-      # Don't clobber existing symbol files!
-      if (-f "$symbol.asy") {
-        open(OUTPUT, ">/dev/null") || die "$symbol: $!";
-      } else {
-        open(OUTPUT, ">$symbol.asy") || die "$symbol: $!";
-      }
-      print OUTPUT "Version 4\n";
-      print OUTPUT "Symboltype $type\n";
-      print OUTPUT "$symdraw";
-      print OUTPUT "SYMATTR Value $symbol\n";
       $prefix = "X";
+      # Symbols with exactly one pin are assumed to be connections
+      # to the outside world.  Replace the pins in $sympins with
+      # a pair of pins and model it as a resistor.
+      if ($order == 1) {
+        $sympins =~ /PIN ([\S.]+) ([\S.]+) ([\S.]+)/;
+        ($x, $y, $function) = ($1, $2, $3);
+        $offset{$symbol} = $x;
+        $sympins  = "PIN $x $y $function 0\n";
+        $sympins .= "PINATTR PinName 1\n";
+        $length = 32;
+        $x -= $length;
+        $sympins .= "PIN $x $y $function 0\n";
+        $sympins .= "PINATTR PinName 2\n";
+        $symdraw = "";
+        $length = 32; $rot = "R0";
+        &drawpin($x, $y, $length, $function, $rot);
+        $prefix = "R";
+      }
+      $order{$symbol} = $order;
       $prefix = "D" if $library eq "diode";
       $prefix = "R" if ($library eq "rcl") && ($symbol =~ /^R/);
       $prefix = "R" if ($symbol =~ /^POT_US-/);
@@ -548,11 +548,22 @@ die "dimension: $nxt";
       $prefix = "C" if ($symbol =~ /^CRYSTAL/);
       $prefix = "L" if ($symbol =~ /^L-US/);
       $prefix = "Q" if $library =~ /^transistor/;
+      $prefix = "Q" if $symbol =~ /^NPN/;
+      $prefix = "Q" if $symbol =~ /^PNP/;
       $prefix = "-" if $library =~ /^supply/;
       $prefix = "-" if $library =~ /^frame/;
       $prefix = "-" if $symbol =~ /^device/i;
-      $prefix = "R" if $symbol =~ /^EDGE-/;
       $prefix{$symbol} = $prefix;
+      # Don't clobber existing symbol files!
+      if (-f "$symbol.asy") {
+        open(OUTPUT, ">/dev/null") || die "$symbol: $!";
+      } else {
+        open(OUTPUT, ">$symbol.asy") || die "$symbol: $!";
+      }
+      print OUTPUT "Version 4\n";
+      print OUTPUT "Symboltype $type\n";
+      print OUTPUT "$symdraw";
+      print OUTPUT "SYMATTR Value $symbol\n";
       print OUTPUT "SYMATTR Prefix $prefix\n";
       print OUTPUT "SYMATTR Description $library/$symbol\n";
       print OUTPUT "$sympins\n";
@@ -781,7 +792,7 @@ sub library {
 
 #<!ELEMENT libraries (library)*>
 sub libraries {
-  %pinx = %piny = %prefix = ();
+  %pinx = %piny = %prefix = %order = ();
   while (&nxt) {
     if ($nxt =~ /^library\b/) {
       &library();
@@ -872,6 +883,8 @@ sub part {
   $value = $deviceset;
   $value = $1 if $nxt =~ /\bvalue="([^"]*)"/;
   $value =~ s/\*/$device/ if $deviceset =~ /\*/;
+  $value =~ s/\s*mfd/uF/i;
+  $value =~ s/\s*mf/uF/i;
   while (&nxt) {
     if ($nxt =~ /^attribute\b/) {
       &attribute();
@@ -1024,11 +1037,14 @@ sub instances {
         $gate = "" if $gate eq 'G$1';
         $sheet .= "SYMATTR InstName $part$gate\n";
         $value = $value{$part};
-        $value = "1u" if $symbol =~ /^EDGE-/;
+        $value = "1u" if $order{$symbol} == 1;
         $value = $sheetno if $symbol eq "DOCFIELD";
         $sheet .= "SYMATTR Value $value\n";
-        if ($symbol =~ /^EDGE-/) {
-          $offset = 16;
+        if ($order{$symbol} == 1) {
+          # When there's only one gate, sometimes the name isn't useful;
+          $gate = $part unless $gate;
+          $gate .= $part if $gate eq "P";
+          $offset = 32 - $offset{$symbol};
           $mirror = 1;
           $mirror = -$mirror if $rot =~ /^M/;
           $x -= $mirror*$offset if $rot =~ /R0$/i;
