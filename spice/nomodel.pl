@@ -51,6 +51,10 @@ $models{"MCR649"} = 1;
 $models{"OUTLINE-DOUBLE"} = 1;
 $models{"OUTLINE-SINGLE"} = 1;
 $models{"OUTLINE-SINGLE-R"} = 1;
+$models{"T-2037"} = 1;
+$models{"T-2052"} = 1;
+$models{"PT55"} = 1;
+$models{"TAMURA"} = 1;
 
 open(INPUT, "myparts.lib") || die "myparts.lib: $!";
 while (<INPUT>) {

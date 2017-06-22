@@ -16,6 +16,7 @@
 .model 1N4744   D(Is=3.142f Rs=3.544 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=72.5p M=.3282
 +               Vj=.75 Fc=.5 Isr=1.973n Nr=2 Bv=15 Ibv=.14467 Nbv=1.093
 +               Ibvl=.1m Nbvl=1.2722 Tbv1=001433.3u)
+.model 1N4744A ako: 1N4744
 *1N5235 6.8V 5% ?W Zener
 .model 1N5235   D(Is=1.616f Rs=1.818 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=120p M=.5117
 +               Vj=.75 Fc=.5 Isr=1.698n Nr=2 Bv=6.8 Ibv=2.8814 Nbv=.28248
@@ -46,7 +47,6 @@
 +               Vj=.75 Fc=.5 Isr=1.803n Nr=2 Bv=8.2 Ibv=1.5593 Nbv=.51406
 +               Ibvl=8.3521e-5 Nbvl=.1313 Tbv1=585.366u)
 .model 1N756A ako: 1N756
-*SYMATTR Value 1N758
 *1N758 10V 0.5W Zener
 .model 1N758    D(Is=1.953f Rs=2.305 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=68p M=.3856
 +               Vj=.75 Fc=.5 Isr=1.939n Nr=2 Bv=10 Ibv=.16597 Nbv=.84122
@@ -147,26 +147,32 @@ CB2 a hidden 1nF
 +               XTF=10 VTF=10 ITF=800.0E-3 PTF=30 CJC=16.81E-12 VJC=0.797553
 +               MJC=0.3364217 XCJC=1 TR=1.0E-8 CJS=0 VJS=750.0E-3 MJS=330.0E-3
 +               XTB=1.500 EG=1.110 XTI=3 KF=0 AF=1 FC=500.0E-3)
+.subckt T-2037 2 4 5 7
+primary L 4 5 220uH
+secondary L 2 7 43uH
+K1 primary secondary .95
+.ends
+.subckt T-2052 2 4 5 7
+primary L 4 5 550uH
+secondary L 2 7 550uH
+K1 primary secondary .95
+.ends
+.subckt PT55 2 4 5 7
+primary L 4 5 5mH
+secondary L 2 7 5mH
+K1 primary secondary .95
+.ends
+.subckt Tamura 2 4 5 7
+primary L 4 5 4500uH
+secondary L 2 7 4500uH
+K1 primary secondary .95
+.ends
 *SYMATTR Value PN3569
 *SYMATTR Value 7440N
 *SYMATTR Value 74N00
 *SYMATTR Value 74N01
 *SYMATTR Value AD8044
-*SYMATTR Value DINA3_L
-*SYMATTR Value FLIPCHIP
-*SYMATTR Value FR154
-*SYMATTR Value J
 *SYMATTR Value LM301AN
-*SYMATTR Value LUG
-*SYMATTR Value M25?S
-*SYMATTR Value NZX5V6C
-*SYMATTR Value OPEN
 *SYMATTR Value S7346-ND
-*SYMATTR Value ST2,8
-*SYMATTR Value T-2037
-*SYMATTR Value T-2052
-*SYMATTR Value TABL_L
-*SYMATTR Value TYN612
-*SYMATTR Value Tamura G500
-*SYMATTR Value open
+*SYMATTR Value TYN612 Thyristor
 *SYMATTR Value 2N4870 Unijunction
