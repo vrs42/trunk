@@ -19,8 +19,11 @@ SYMATTR Prefix Q
 SYMATTR Description linear/NPN-R
 PIN 16 0 none 0
 PINATTR PinName B
+PINATTR SpiceOrder 2
 PIN -16 32 none 0
 PINATTR PinName E
+PINATTR SpiceOrder 3
 PIN -16 -32 none 0
 PINATTR PinName C
+PINATTR SpiceOrder 1
 
