@@ -885,6 +885,8 @@ sub part {
   $value =~ s/\*/$device/ if $deviceset =~ /\*/;
   $value =~ s/\s*mfd/uF/i;
   $value =~ s/\s*mf/uF/i;
+  # A jumper is a 1u resistor. 
+  $value = "1u" if $deviceset eq "J";
   while (&nxt) {
     if ($nxt =~ /^attribute\b/) {
       &attribute();

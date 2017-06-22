@@ -2,13 +2,14 @@
 *+               N=1.45 TT=4.32u)
 .model 1N4001   D(Is=14.11n N=1.984 Rs=33.89m Ikf=94.81 Xti=3 Eg=1.11
 +               Cjo=25.89p M=.44 Vj=.3245 Fc=.5 Bv=75 Ibv=10u Tt=5.7u)
-.model 1N4002 ako:D1N4001 D(Bv=150)
-.model 1N4003 ako:D1N4001 D(Bv=300)
-.model 1N4004 ako:D1N4001 D(Bv=600)
-.model 1N4005 ako:D1N4001 D(Bv=900)
-.model 1N4006 ako:D1N4001 D(Bv=1200)
-.model 1N4007 ako:D1N4001 D(Bv=1500)
+.model 1N4002 ako: 1N4001 D(Bv=150)
+.model 1N4003 ako: 1N4001 D(Bv=300)
+.model 1N4004 ako: 1N4001 D(Bv=600)
+.model 1N4005 ako: 1N4001 D(Bv=900)
+.model 1N4006 ako: 1N4001 D(Bv=1200)
+.model 1N4007 ako: 1N4001 D(Bv=1500)
 .model 1N4009   D(Is=0.1p Rs=4 CJO=2p Tt=3n Bv=60 Ibv=0.1p)
+.model FR154 ako: 1N4001
 .model 1N4154 ako: 1N914 Vfwd=0.6
 .model 1N3606 ako: 1N4154
 *1N4744A 15V 5% 1W Zener
@@ -71,6 +72,14 @@
 +               Ise=34.11p Ikf=.2617 Xtb=1.5 Br=3.587 Nc=2 Isc=0 Ikr=0 Rc=1.75
 +               Cjc=4.256p Mjc=.1053 Vjc=.75 Fc=.5 Cje=8.359p Mje=.3504 Vje=.75
 +               Tr=5.32n Tf=289.3p Itf=.35 Vtf=5 Xtf=2 Rb=10)
+.model 2N3567   NPN(Is=1.227E-13 Bf=3.819E+02 Nf=1.043 Vaf=17.02 IKF=.18991
++               ISE=8.002E-13 NE=1.755 BR=25.88 NR=1.059 VAR=42.12
++               IKR=5.994E-02 ISC=3.855E-12 NC=1.463 IRB=8.313E-04 RE=.8171
++               RC=.7492 CJE=2.082E-11 VJE=.5915 MJE=.3254 TF=5.427E-10
++               XTF=1.000E+02 VTF=38.12 ITF=.8028 PTF=0 CJC=7.637E-12
++               VJC=.4465 MJC=.3124 XCJC=1 TR=0 CJS=0 VJS=.75 MJS=0 XTB=1.5
++               EG=1.11 XTI=3 KF=0 AF=1.0 FC=0.5)
+.model PN3567 ako: 2N3567
 .model 2N3640   PNP(Is=545.6E-18 Xti=3 Eg=1.11 Vaf=100 Bf=59.22 Ne=1.5 Ise=0
 +               Ikf=50m Xtb=1.5 Br=1.438 Nc=2 Isc=0 Ikr=0 Rc=3.75 Cjc=2.77p
 +               Mjc=.1416 Vjc=.75 Fc=.5 Cje=2.65p Mje=.3083 Vje=.75 Tr=4.123n
@@ -138,7 +147,6 @@ CB2 a hidden 1nF
 +               XTF=10 VTF=10 ITF=800.0E-3 PTF=30 CJC=16.81E-12 VJC=0.797553
 +               MJC=0.3364217 XCJC=1 TR=1.0E-8 CJS=0 VJS=750.0E-3 MJS=330.0E-3
 +               XTB=1.500 EG=1.110 XTI=3 KF=0 AF=1 FC=500.0E-3)
-*SYMATTR Value PN3567
 *SYMATTR Value PN3569
 *SYMATTR Value 7440N
 *SYMATTR Value 74N00

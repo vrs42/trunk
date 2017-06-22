@@ -12,8 +12,9 @@ WINDOW 123 -32 -8 Right 2
 LINE Normal 32 0 16 0
 WINDOW 123 32 -8 Right 2
 SYMATTR Value J
-SYMATTR Prefix X
+SYMATTR Prefix R
 SYMATTR Description jumper/J
+SYMATTR Value 1u
 PIN -32 0 none 0
 PINATTR PinName 1
 PIN 32 0 none 0
