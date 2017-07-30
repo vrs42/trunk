@@ -270,7 +270,11 @@ schematics work. (Has a consistency problem to highlight changes.)
 </LEGEND><FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A100 target=_blank>./DEC/Axxx/A100</a></b>: Multiplexor Switch
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>A100C</A>
+  <DD>is a drawing of DEC's A100C.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A103 target=_blank>./DEC/Axxx/A103</a></b>: Multiplexor Switch
 
@@ -575,11 +579,11 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B113 target=_blank>./DEC/Bxxx/B113</a></b>: 4 2-Input Negative NAND Gages, 3 Loads
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B113 target=_blank>./DEC/Bxxx/B113</a></b>: 4 2-Input Negative NAND Gates, 3 Loads
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B115 target=_blank>./DEC/Bxxx/B115</a></b>: 3 3-Input Negative NAND Gages, 3 Loads
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B115 target=_blank>./DEC/Bxxx/B115</a></b>: 3 3-Input Negative NAND Gates, 3 Loads
 
 </LEGEND><DL>
 <DT>B115A</A>
@@ -1305,6 +1309,10 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G291 target=_blank>./DEC/Gxxx/G291</a></b>: Disc Writer with Power Fail
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G294 target=_blank>./DEC/Gxxx/G294</a></b>: Disc Writer
 
 </LEGEND></FIELDSET>
@@ -1489,6 +1497,10 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G708 target=_blank>./DEC/Gxxx/G708</a></b>: Diode Board (double)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G709 target=_blank>./DEC/Gxxx/G709</a></b>: Cable Terminator
 
 </LEGEND><DL>
@@ -1577,6 +1589,10 @@ LM837.
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G737 target=_blank>./DEC/Gxxx/G737</a></b>: 9 Dividers, 150 ohms to +3V, W028 pins
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G739 target=_blank>./DEC/Gxxx/G739</a></b>: Peripheral Terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1705,6 +1721,13 @@ LM837.
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8004 target=_blank>./DEC/Gxxx/G8004</a></b>: Power Fail
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8010 target=_blank>./DEC/Gxxx/G8010</a></b>: -5.2V Control (long)
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8014 target=_blank>./DEC/Gxxx/G8014</a></b>: Low Voltage Detector (long)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1932,6 +1955,10 @@ LM837.
   <DD>is a 'modernized' version of the G888A.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9002 target=_blank>./DEC/Gxxx/G9002</a></b>: AC/DC Low Sensor
+
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G903 target=_blank>./DEC/Gxxx/G903</a></b>: Clock Accelerator for Paper Tape Reader
 
@@ -3932,6 +3959,14 @@ by Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7101 target=_blank>./DEC/Mxxx/M7101</a></b>: Control
+
+</LEGEND><DL>
+<DT>M7101F</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7102 target=_blank>./DEC/Mxxx/M7102</a></b>: Positive I/O Bus Converter
 
 </LEGEND><DL>
@@ -4304,6 +4339,10 @@ the hard to find 8202 chip.
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7711 target=_blank>./DEC/Mxxx/M7711</a></b>: Control Logic A (double)
+
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7712 target=_blank>./DEC/Mxxx/M7712</a></b>: Control Logic B (double)
 
@@ -5246,6 +5285,14 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1075 target=_blank>./DEC/Rxxx/R1075</a></b>: 7 Inverters, 1 with expansion node
+
+</LEGEND><DL>
+<DT>R1075B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R111 target=_blank>./DEC/Rxxx/R111</a></b>: 3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
 
 </LEGEND><DL>
@@ -5293,6 +5340,8 @@ subsystem replaced with level converters and a ramboard.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R122 target=_blank>./DEC/Rxxx/R122</a></b>: Logical Complement of R121
 
 </LEGEND><DL>
+<DT>R122C</A>
+  <DD>is a drawing if DEC's R122C.
 <DT>R122X</A>
   <DD>is a drawing of a 'modernized' R122.
 </DL>
@@ -5370,7 +5419,7 @@ subsystem replaced with level converters and a ramboard.
 <DT>R201C</A>
   <DD>is a drawing of DEC's R201C.
 <DT>R201D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R201D.
 <DT>R201X</A>
   <DD>is a 'modernized' R201.
 </DL>
@@ -5412,7 +5461,7 @@ subsystem replaced with level converters and a ramboard.
 
 </LEGEND><DL>
 <DT>R205B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R205B.
 <DT>R205D</A>
   <DD>is a drawing of DEC's R205D.
 <DT>R205X</A>
@@ -5468,9 +5517,9 @@ subsystem replaced with level converters and a ramboard.
 <DT>R220J</A>
   <DD>is a drawing of DEC's R220J.
 <DT>R220L</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R220L.
 <DT>R220X</A>
-  <DD>is a 'modernized' R220.
+  <DD>is a 'modernized' R220J.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5556,7 +5605,7 @@ subsystem replaced with level converters and a ramboard.
 
 </LEGEND><DL>
 <DT>R450B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R450B.
 <DT>R450E</A>
   <DD>is a drawing of DEC's R450E.
 <DT>R450X</A>
@@ -5568,7 +5617,9 @@ subsystem replaced with level converters and a ramboard.
 
 </LEGEND><DL>
 <DT>R451E</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R451E.
+<DT>R451X</A>
+  <DD>is a 'modernized' R451.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5705,7 +5756,7 @@ subsystem replaced with level converters and a ramboard.
 <DT>S202D</A>
   <DD>is a drawing of DEC's S202D.
 <DT>S202E</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's S202E.
 <DT>S202X</A>
   <DD>is a 'modernized' S202.
 </DL>
@@ -5859,7 +5910,9 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W010A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W010A.
+<DT>W010X</A>
+  <DD>is a 'modernized' W010.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5896,7 +5949,9 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W020B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W020B.
+<DT>W020X</A>
+  <DD>is a 'modernized' W020.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5976,17 +6031,27 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W033 target=_blank>./DEC/Wxxx/W033</a></b>: Flexprint, W023 connections on "A" side, side entry cable
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W033 target=_blank>./DEC/Wxxx/W033</a></b>: Flexprint, W023 connections, side entry cable
 
 </LEGEND><DL>
 <DT>W033C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W033C.
+<DT>W033X</A>
+  <DD>is a 'modernized' W033.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W034 target=_blank>./DEC/Wxxx/W034</a></b>: Flexprint, 16 connections on "B" side 10 ohms on A2, B2
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W034D</A>
+  <DD>is a drawing of DEC's W034D.
+<DT>W034H</A>
+  <DD>is a drawing of DEC's W034H.
+<DT>W034X</A>
+  <DD>is a 'modernized' W034.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W035 target=_blank>./DEC/Wxxx/W035</a></b>: Cable Connector
 
@@ -6013,23 +6078,36 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W050 target=_blank>./DEC/Wxxx/W050</a></b>: 7 Indicator/Solenoid Drivers, 30mA -20V max
 
 </LEGEND><DL>
+<DT>W050B</A>
+  <DD>is a drawing of DEC's W050B.
 <DT>W050C</A>
   <DD>is a drawing of DEC's W050C.
 <DT>W050X</A>
-  <DD>is a 'modernized' W050.</DL>
+  <DD>is a 'modernized' W050.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W051 target=_blank>./DEC/Wxxx/W051</a></b>: 7 Indicator/Solenoid Drivers, 100mA -15V max
 
 </LEGEND><DL>
 <DT>W051D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W051D.
+<DT>W051X</A>
+  <DD>is a 'modernized' W051.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W061 target=_blank>./DEC/Wxxx/W061</a></b>: 4 Relay Drivers, 250mA +55V max
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W061B</A>
+  <DD>is a drawing of DEC's W061B.
+<DT>W061C</A>
+  <DD>is a drawing of DEC's W061C.
+<DT>W061X</A>
+  <DD>is a 'modernized' W061.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W070 target=_blank>./DEC/Wxxx/W070</a></b>: Teletype Cable Connector, PDP8, PT08
 
@@ -6084,6 +6162,8 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </LEGEND><DL>
 <DT>W101B</A>
   <DD>is a drawing of DEC's W101B.
+<DT>W101X</A>
+  <DD>is a 'modernized' W101B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6091,7 +6171,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W102J</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W102J.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6105,7 +6185,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W104 target=_blank>./DEC/Wxxx/W104</a></b>: PDP-9 I/O Bus Module
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W104 target=_blank>./DEC/Wxxx/W104</a></b>: PDP-9 I/O Bus Module (double)
 
 </LEGEND><DL>
 <DT>W104C</A>
@@ -6121,7 +6201,9 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W107B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W107B.
+<DT>W107X</A>
+  <DD>is a 'modernized' W107.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6142,7 +6224,9 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W123C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W123C.
+<DT>W123X</A>
+  <DD>is a 'modernized' W123.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6166,17 +6250,31 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W404 target=_blank>./DEC/Wxxx/W404</a></b>: DTR Jumper
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W404 target=_blank>./DEC/Wxxx/W404</a></b>: DTR Jumper (2.5" length)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W404C</A>
+  <DD>is a drawing of DEC's W404C.
+<DT>W404X</A>
+  <DD>is a 'modernized' W404.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W500 target=_blank>./DEC/Wxxx/W500</a></b>: High Impedance Follower, 7 circuits
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W500A</A>
+  <DD>is a drawing of DEC's W500A.
+<DT>W500X</A>
+  <DD>is a 'modernized' W500.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W501 target=_blank>./DEC/Wxxx/W501</a></b>: Schmitt Trigger, +/-10V in, 0 and -3V out
 
 </LEGEND><DL>
+<DT>W501D</A>
+  <DD>is a drawing of DEC's W501D.
 <DT>W501F</A>
   <DD>is a drawing of DEC's W501F.
 <DT>W501X</A>
@@ -6192,7 +6290,9 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W504A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W504A.
+<DT>W504X</A>
+  <DD>is a 'modernized' W504.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6205,8 +6305,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </LEGEND><DL>
 <DT>W506C</A>
   <DD>is a drawing of DEC's W506C.
+<DT>W506E</A>
+  <DD>is a drawing of DEC's W506E.
 <DT>W506X</A>
-  <DD>is a 'modernized' W506.</DL>
+  <DD>is a 'modernized' W506.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W507 target=_blank>./DEC/Wxxx/W507</a></b>: Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
@@ -6294,20 +6397,29 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W600A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W600A.
+<DT>W600X</A>
+  <DD>is a 'modernized' W600.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W601 target=_blank>./DEC/Wxxx/W601</a></b>: Positive Level Amplifier, 3 inverting circuits
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W601D</A>
+  <DD>is a drawing of DEC's W601D.
+<DT>W601X</A>
+  <DD>is a 'modernized' W601.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W602 target=_blank>./DEC/Wxxx/W602</a></b>: Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
 
 </LEGEND><DL>
 <DT>W602A</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's W602A.
+<DT>W602X</A>
+  <DD>is a 'modernized' W602.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W603 target=_blank>./DEC/Wxxx/W603</a></b>: Positive Level Amplifier, 7 circuits
@@ -6340,19 +6452,25 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 <DT>W640D</A>
   <DD>is a drawing of DEC's W640D.
 <DT>W640J</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W640J.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W681 target=_blank>./DEC/Wxxx/W681</a></b>: Scope Intensifier for 34 Display
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>W681X</A>
+  <DD>is a 'modernized' W681.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W682 target=_blank>./DEC/Wxxx/W682</a></b>: Scope Intensifier, 0 to +3V step, delay 50 to 300ns, 400ns pulse (for VR12 & VR14)
 
 </LEGEND><DL>
 <DT>W682A</A>
   <DD>is a drawing of DEC's W682A.
+<DT>W682X</A>
+  <DD>is a 'modernized' W682.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
