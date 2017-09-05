@@ -562,6 +562,8 @@ chassis to see if it has the needed clearances.)
 </LEGEND><DL>
 <DT>B104B</A>
   <DD>is a drawing of DEC's B104B.
+<DT>B104C</A>
+  <DD>is a drawing of DEC's B104C.
 <DT>B104X</A>
   <DD>is a 'modernized' B104.
 </DL>
@@ -581,7 +583,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B113 target=_blank>./DEC/Bxxx/B113</a></b>: 4 2-Input Negative NAND Gates, 3 Loads
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B113A</A>
+  <DD>is a drawing of DEC's B113A.
+<DT>B113X</A>
+  <DD>is a 'modernized' B113.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B115 target=_blank>./DEC/Bxxx/B115</a></b>: 3 3-Input Negative NAND Gates, 3 Loads
 
@@ -590,8 +598,11 @@ chassis to see if it has the needed clearances.)
   <DD>is a drawing of DEC's B115A.
 <DT>B115B</A>
   <DD>is a drawing of DEC's B115B.
+<DT>B115C</A>
+  <DD>is a drawing of DEC's B115C.
 <DT>B115X</A>
-  <DD>is a 'modernized' B115.</DL>
+  <DD>is a 'modernized' B115.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B117 target=_blank>./DEC/Bxxx/B117</a></b>: 2 5-Input Negative NAND Gates
@@ -624,19 +635,43 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalient to B113
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B133C</A>
+  <DD>is a drawing of DEC's B133C.
+<DT>B133X</A>
+  <DD>is a 'modernized' B133.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B134 target=_blank>./DEC/Bxxx/B134</a></b>: 4 2-Input Positive AND Gates, 3 Loads, 2mA
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B134B</A>
+  <DD>is a drawing of DEC's B134B.
+<DT>B134X</A>
+  <DD>is a 'modernized' B134.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B135 target=_blank>./DEC/Bxxx/B135</a></b>: 2 mA equvalent to B115
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B135C</A>
+  <DD>is a drawing of DEC's B135C.
+<DT>B135X</A>
+  <DD>is a 'modernized' B135.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B136 target=_blank>./DEC/Bxxx/B136</a></b>: 3 mA equivalent to B134
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B136B</A>
+  <DD>is a drawing of DEC's B136B.
+<DT>B136X</A>
+  <DD>is a 'modernized' B136.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B137 target=_blank>./DEC/Bxxx/B137</a></b>: 2 mA equivalent to B117
 
@@ -650,11 +685,23 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B138 target=_blank>./DEC/Bxxx/B138</a></b>: PDP10 Adder (B131 with added diode to kill the carry quickly)
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B138B</A>
+  <DD>is a drawing of DEC's B138B.
+<DT>B138X</A>
+  <DD>is a 'modernized' B138.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B141 target=_blank>./DEC/Bxxx/B141</a></b>: 7 2-Input Gates, 2mA input equivalent to R141
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B141A</A>
+  <DD>is a drawing of DEC's B141A.
+<DT>B141X</A>
+  <DD>is a 'modernized' B141.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B142 target=_blank>./DEC/Bxxx/B142</a></b>: Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
 
@@ -667,7 +714,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B152 target=_blank>./DEC/Bxxx/B152</a></b>: Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B152A</A>
+  <DD>is a drawing of DEC's B152A.
+<DT>B152X</A>
+  <DD>is a 'modernized' B152.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B155 target=_blank>./DEC/Bxxx/B155</a></b>: Half Binary to Octal Decoder
 
@@ -675,7 +728,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B156 target=_blank>./DEC/Bxxx/B156</a></b>: 2mA equivalent to B155
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B156A</A>
+  <DD>is a drawing of DEC's B156A.
+<DT>B156X</A>
+  <DD>is a 'modernized' B156.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B163 target=_blank>./DEC/Bxxx/B163</a></b>: 6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
 
@@ -689,17 +748,31 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B165 target=_blank>./DEC/Bxxx/B165</a></b>: 2mA Diode equivalent of B105
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B165A</A>
+  <DD>is a drawing of DEC's B165A.
+<DT>B165X</A>
+  <DD>is a 'modernized' B165.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B166 target=_blank>./DEC/Bxxx/B166</a></b>: Counting Gate for SC Adder of PDP10
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B166A</A>
+  <DD>is a drawing of DEC's B166A.
+<DT>B166X</A>
+  <DD>is a 'modernized' B166.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B167 target=_blank>./DEC/Bxxx/B167</a></b>: 8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
 
 </LEGEND><DL>
 <DT>B167D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B167D.
+<DT>B167X</A>
+  <DD>is a 'modernized' B167.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -707,7 +780,9 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B168B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B168B.
+<DT>B168X</A>
+  <DD>is a 'modernized' B168.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -718,6 +793,8 @@ chassis to see if it has the needed clearances.)
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B171 target=_blank>./DEC/Bxxx/B171</a></b>: 6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
 
 </LEGEND><DL>
+<DT>B171B</A>
+  <DD>is a drawing of DEC's B171B.
 <DT>B171C</A>
   <DD>is a drawing of DEC's B171C.
 <DT>B171X</A>
@@ -743,7 +820,9 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B198A</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B198A.
+<DT>B198X</A>
+  <DD>is a 'modernized' B198.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -757,7 +836,13 @@ chassis to see if it has the needed clearances.)
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B201 target=_blank>./DEC/Bxxx/B201</a></b>: Flip Flop
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>B201E</A>
+  <DD>is a drawing of DEC's B201E.
+<DT>B201X</A>
+  <DD>is a 'modernized' B201.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B204 target=_blank>./DEC/Bxxx/B204</a></b>: 4 Flip-flops
 
@@ -765,7 +850,7 @@ chassis to see if it has the needed clearances.)
 <DT>B204B</A>
   <DD>is a drawing of DEC's B204B.
 <DT>B204D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B204D.
 <DT>B204X</A>
   <DD>is a 'modernized' B204.
 </DL>
@@ -779,7 +864,7 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B212C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B212C.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -795,7 +880,7 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B250D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B250D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -805,7 +890,7 @@ chassis to see if it has the needed clearances.)
 <DT>B301B</A>
   <DD>is a drawing of DEC's B301B.
 <DT>B301D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B301D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -817,7 +902,7 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B311D</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B311D.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -825,7 +910,7 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B312B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's B312B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -863,8 +948,7 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B611B</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's B611B.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B620 target=_blank>./DEC/Bxxx/B620</a></b>: Dual Carry Pulse Amplifier
@@ -879,8 +963,9 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND><DL>
 <DT>B683C</A>
-  <DD>needs a drawing.
-</DL>
+  <DD>is a drawing of DEC's B683C.
+<DT>B683X</A>
+  <DD>is a 'modernized' B683.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B684 target=_blank>./DEC/Bxxx/B684</a></b>: 2 Bus Drivers, like 6684
@@ -888,10 +973,11 @@ chassis to see if it has the needed clearances.)
 </LEGEND><DL>
 <DT>B684C</A>
   <DD>is a drawing of DEC's B684C.
-<DT>B684J</A>
-  <DD>needs a drawing.
 <DT>B684X</A>
-  <DD>is a 'modernized' B684.</DL>
+  <DD>is a 'modernized' B684.
+<DT>B684X</A>
+  <DD>is a 'modernized' B684.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B685 target=_blank>./DEC/Bxxx/B685</a></b>: 3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
@@ -4605,6 +4691,14 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8290 target=_blank>./DEC/Mxxx/M8290</a></b>: CR11 Card Reader Interface (unibus)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8291 target=_blank>./DEC/Mxxx/M8291</a></b>: CR11 Card Reader Interface (unibus)
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8300 target=_blank>./DEC/Mxxx/M8300</a></b>: KK8E Major Registers
 
 </LEGEND><DL>
@@ -4705,6 +4799,22 @@ M837cc is a variant without the the TP_CB1 input.
 
 </LEGEND><DL>
 <DT>M8416C</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M842 target=_blank>./DEC/Mxxx/M842</a></b>: XY8E Plotter Control (Omnibus)
+
+</LEGEND><DL>
+<DT>M843E</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M843 target=_blank>./DEC/Mxxx/M843</a></b>: CR8E Card Reader Control (Omnibus)
+
+</LEGEND><DL>
+<DT>M843E</A>
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
@@ -5271,7 +5381,7 @@ subsystem replaced with level converters and a ramboard.
 <DT>R107A</A>
   <DD>is a drawing of DEC's R107A.
 <DT>R107B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R107B.
 <DT>R107C</A>
   <DD>needs a drawing.
 <DT>R107D</A>
@@ -5289,7 +5399,9 @@ subsystem replaced with level converters and a ramboard.
 
 </LEGEND><DL>
 <DT>R1075B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's R1075B.
+<DT>R1075X</A>
+  <DD>is a 'modernized' R1075.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
