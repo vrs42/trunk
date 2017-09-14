@@ -633,7 +633,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalient to B113
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalent to B113
 
 </LEGEND><DL>
 <DT>B133C</A>
@@ -653,7 +653,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B135 target=_blank>./DEC/Bxxx/B135</a></b>: 2 mA equvalent to B115
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B135 target=_blank>./DEC/Bxxx/B135</a></b>: 2 mA equivalent to B115
 
 </LEGEND><DL>
 <DT>B135C</A>
@@ -826,7 +826,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B199 target=_blank>./DEC/Bxxx/B199</a></b>: FM Address Decoder for B250 IC's, double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B199 target=_blank>./DEC/Bxxx/B199</a></b>: FM Address Decoder for B250, ICs, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -876,7 +876,7 @@ chassis to see if it has the needed clearances.)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B250 target=_blank>./DEC/Bxxx/B250</a></b>: Flip-flop Memory, PDP10, Fairchild IC's, 8x12 bits/card, double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B250 target=_blank>./DEC/Bxxx/B250</a></b>: Flip-flop Memory, PDP10, Fairchild ICs, 8x12 bits/card, double
 
 </LEGEND><DL>
 <DT>B250D</A>
@@ -1539,19 +1539,19 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7003 target=_blank>./DEC/Gxxx/G7003</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7003 target=_blank>./DEC/Gxxx/G7003</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7004 target=_blank>./DEC/Gxxx/G7004</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7004 target=_blank>./DEC/Gxxx/G7004</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7005 target=_blank>./DEC/Gxxx/G7005</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7005 target=_blank>./DEC/Gxxx/G7005</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7006 target=_blank>./DEC/Gxxx/G7006</a></b>: I/O Bus Terminator used in H807 quicklatch terminator
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7006 target=_blank>./DEC/Gxxx/G7006</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -1925,7 +1925,7 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G829 target=_blank>./DEC/Gxxx/G829</a></b>: 5V Connector Card for PDP15 peripherals, with overvoltage SCR & fuse, can replace G821 (double)
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G829 target=_blank>./DEC/Gxxx/G829</a></b>: 5V Connector Card for PDP15 peripherals, with over-voltage SCR & fuse, can replace G821 (double)
 
 </LEGEND><DL>
 <DT>G829A</A>
@@ -2070,7 +2070,7 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G918 target=_blank>./DEC/Gxxx/G918</a></b>: Photocell Amplifier for PT04, PT05, replacement for G908, for phototransistors
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G918 target=_blank>./DEC/Gxxx/G918</a></b>: Photocell Amplifier for PT04, PT05, replacement for G908, for photo-transistors
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -3545,7 +3545,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M510.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M511 target=_blank>./DEC/Mxxx/M511</a></b>: Unibus Reciever, 15 circuits, 4 GND, DS11, DL10
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M511 target=_blank>./DEC/Mxxx/M511</a></b>: Unibus Receiver, 15 circuits, 4 GND, DS11, DL10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -3593,21 +3593,22 @@ by Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M565 target=_blank>./DEC/Mxxx/M565</a></b>: Memory Bus Receiver, 8 circuite, negative bus, positive logic
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M565 target=_blank>./DEC/Mxxx/M565</a></b>: Memory Bus Receiver, 8 circuits, negative bus, positive logic
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M592 target=_blank>./DEC/Mxxx/M592</a></b>: I/O Device Select (used with M71000)10 74H IC's
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M592 target=_blank>./DEC/Mxxx/M592</a></b>: I/O Device Select (used with M71000)10 74H ICs
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5921 target=_blank>./DEC/Mxxx/M5921</a></b>: Bus Transciever
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5921 target=_blank>./DEC/Mxxx/M5921</a></b>: Bus Transceiver
 
 </LEGEND><DL>
 <DT>M5921A</A>
   <DD>is a drawing of DEC's M5921A.
 <DT>M5921X</A>
-  <DD>is a 'modernized' M5921.</DL>
+  <DD>is a 'modernized' M5921.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M594 target=_blank>./DEC/Mxxx/M594</a></b>: EIA Level Converter (long)
@@ -3620,7 +3621,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5940 target=_blank>./DEC/Mxxx/M5940</a></b>: 8 channel EIA-CCITT to DEC, 7 DEC to EIA-CCITT, DF11-A, 1V hysteresis, 5" veersion
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5940 target=_blank>./DEC/Mxxx/M5940</a></b>: 8 channel EIA-CCITT to DEC, 7 DEC to EIA-CCITT, DF11-A, 1V hysteresis, 5" version
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -3938,7 +3939,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M705.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transistion out-of-tape sense, Double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transition out-of-tape sense, Double
 
 </LEGEND><DL>
 <DT>M7050C</A>
@@ -3948,7 +3949,8 @@ by Dave Brockman.
 <DT>M7050E</A>
   <DD>is a version of DEC's M7050E.
 <DT>M7050X</A>
-  <DD>is a'modernized' drawing of DEC's M7050.</DL>
+  <DD>is a'modernized' drawing of DEC's M7050.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M706 target=_blank>./DEC/Mxxx/M706</a></b>: Teletype Receiver, double
@@ -4041,7 +4043,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7100 target=_blank>./DEC/Mxxx/M7100</a></b>: I/O Device Control, used with M592, 10 74H IC's
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7100 target=_blank>./DEC/Mxxx/M7100</a></b>: I/O Device Control, used with M592, 10 74H ICs
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -4282,7 +4284,7 @@ Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7390 target=_blank>./DEC/Mxxx/M7390</a></b>: Aynchronous Transceiver, extended double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7390 target=_blank>./DEC/Mxxx/M7390</a></b>: Asynchronous Transceiver, extended double
 
 </LEGEND><DL>
 <DT>M7390D</A>
@@ -4326,7 +4328,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M763 target=_blank>./DEC/Mxxx/M763</a></b>: 9 Track Write Buffler for TU10, negative logic, see M893, double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M763 target=_blank>./DEC/Mxxx/M763</a></b>: 9 Track Write Buffer for TU10, negative logic, see M893, double
 
 </LEGEND><DL>
 <DT>M763C</A>
@@ -4582,7 +4584,7 @@ AM26S10 instead of the SP380.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M785 target=_blank>./DEC/Mxxx/M785</a></b>: Unibus/Omnibus Tranceiver, extended single
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M785 target=_blank>./DEC/Mxxx/M785</a></b>: Unibus/Omnibus Transceiver, extended single
 
 </LEGEND><DL>
 <DT>M785B</A>
@@ -4691,11 +4693,11 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8290 target=_blank>./DEC/Mxxx/M8290</a></b>: CR11 Card Reader Interface (unibus)
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8290 target=_blank>./DEC/Mxxx/M8290</a></b>: CR11 Card Reader Interface (Unibus)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8291 target=_blank>./DEC/Mxxx/M8291</a></b>: CR11 Card Reader Interface (unibus)
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8291 target=_blank>./DEC/Mxxx/M8291</a></b>: CR11 Card Reader Interface (Unibus)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -4878,7 +4880,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M868 target=_blank>./DEC/Mxxx/M868</a></b>: TD8E Simple Dectape Controller
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M868 target=_blank>./DEC/Mxxx/M868</a></b>: TD8E Simple DECtape Controller
 
 </LEGEND><DL>
 <DT>M868H</A>
@@ -5507,7 +5509,7 @@ subsystem replaced with level converters and a ramboard.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R181 target=_blank>./DEC/Rxxx/R181</a></b>: DC Carry Cahin, 6 Interconnected Diode Gates + 1 Inverter
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R181 target=_blank>./DEC/Rxxx/R181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 
 </LEGEND><DL>
 <DT>R181A</A>
@@ -5677,7 +5679,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R405 target=_blank>./DEC/Rxxx/R405</a></b>: Crystal Clock, 5KC to 2 Mc Available
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R405 target=_blank>./DEC/Rxxx/R405</a></b>: Crystal Clock, 5 KC to 2 MC Available
 
 </LEGEND><DL>
 <DT>R405H</A>
@@ -6018,7 +6020,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W010 target=_blank>./DEC/Wxxx/W010</a></b>: 10 10mA Cleamped loads to -15V
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W010 target=_blank>./DEC/Wxxx/W010</a></b>: 10 10mA Clamped loads to -15V
 
 </LEGEND><DL>
 <DT>W010A</A>
@@ -6432,17 +6434,18 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W510 target=_blank>./DEC/Wxxx/W510</a></b>: Positive Level Convertor, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W510 target=_blank>./DEC/Wxxx/W510</a></b>: Positive Level Converter, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W511 target=_blank>./DEC/Wxxx/W511</a></b>: Negative Level Convertor, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W511 target=_blank>./DEC/Wxxx/W511</a></b>: Negative Level Converter, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
 
 </LEGEND><DL>
 <DT>W511A</A>
   <DD>is a drawing of DEC's W511A.
 <DT>W511X</A>
-  <DD>is a 'modernized' W511.</DL>
+  <DD>is a 'modernized' W511.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W512 target=_blank>./DEC/Wxxx/W512</a></b>: Positive Level Converter, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
@@ -6546,7 +6549,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W607 target=_blank>./DEC/Wxxx/W607</a></b>: 3 Pulse Converters, positive or negarive, 70ns 2.5V pulse out
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W607 target=_blank>./DEC/Wxxx/W607</a></b>: 3 Pulse Converters, positive or negative, 70ns 2.5V pulse out
 
 </LEGEND><DL>
 <DT>W607B</A>
@@ -6672,7 +6675,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W714 target=_blank>./DEC/Wxxx/W714</a></b>: Switch Module, 2 form C microswitches, no circuits, 9/I memory
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W714 target=_blank>./DEC/Wxxx/W714</a></b>: Switch Module, 2 form C micro-switches, no circuits, 9/I memory
 
 </LEGEND><DL>
 <DT>W714A</A>
@@ -6716,7 +6719,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W900 target=_blank>./DEC/Wxxx/W900</a></b>: Multilayer Externder, Long Double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W900 target=_blank>./DEC/Wxxx/W900</a></b>: Multilayer Extender, long double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -6801,15 +6804,15 @@ pin DIP components to be connected to a DEC backplane.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9720 target=_blank>./DEC/Wxxx/W9720</a></b>: Copper clad boad, both sides, extended single
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9720 target=_blank>./DEC/Wxxx/W9720</a></b>: Copper clad board, both sides, extended single
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9721 target=_blank>./DEC/Wxxx/W9721</a></b>: Copper clad boad, both sides, extended double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9721 target=_blank>./DEC/Wxxx/W9721</a></b>: Copper clad board, both sides, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9722 target=_blank>./DEC/Wxxx/W9722</a></b>: Copper clad boad, both sides, extended quad
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9722 target=_blank>./DEC/Wxxx/W9722</a></b>: Copper clad board, both sides, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
