@@ -1,0 +1,1231 @@
+
+tester-   PDP8 card tester via printer port
+version 0.85 June 4, 2015
+
+
+mapping[] is verified
+
+
+Main menu   Sat Jul 11 07:32:19 2015
+   test file is: <none>
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+Enter test file name? trying to open test file: tests\m222.new
+reading test file: tests\m222.new
+  comment: M222   PCB REV B   SCHEMATIC REV A   LINC TAPE REGISTERS 
+  comment: 
+  comment: TERMINOLOGY- SIGNALS REFER TO VOL4 M222 SCHEMATIC.  
+  comment: 
+  comment: BUT...
+  comment: 
+  comment: DEC USES AND-NOR GATES TO ROUTE THE ADDER A AND B INPUTS, SO...
+  comment: DEC RENAMED THE ADDER TO NEGATIVE LOGIC TERMS (I.E. A-N + B-N + C-N -> SUM-N, C1-N).
+  comment: (NOT THE 7482 DATASHEET NAMES OF A + B + C -> SUM, C1).
+  comment: 
+  comment: SO, WITH ALL 'AND ENABLES' LOW, THE AND-NOR OUTPUTS = HIGH. 
+  comment: WITH C-L HIGH, THE ADDER OUTPUT IS SUM-N=1, C1-N=1;
+  comment: THE INVERTED ADDER OUTPUT IS LOW (TAPE BUS).
+  comment: AND THERE IS NO CARRY (C1-N IS HI).
+  comment: 
+  comment: THE TWO ADDERS, TWO REGISTER BITS, ETC ARE LABELED BIT 2 (EVEN, MSB) AND BIT 3 (ODD, LSB).
+  comment: THE ADDERS ARE REFERRED TO AS                      'ADDER2' (MSB)    AND 'ADDER3' (LSB).
+  comment: 
+  comment: POWER PINS:
+  comment:   AA2	+5V
+  comment:   AT1	GROUND
+  comment:   AC2 	GROUND
+  comment:   BA2	+5V
+  comment:   BT1	GROUND
+  comment:   BC2	GROUND
+  comment: 
+  comment: (ALL PINS ARE USED).
+  comment: 
+  comment: 
+     pins: PINS
+     pins:  1 I BA1	CARRY IN-N, (TO E9-5 7482 C0)					C-N		    TO ADDER2
+     pins:  2 I AL2	AND-NOR ENABLE: TAC		TAC3	TO PIN BB2 (TO ADDER3)	TAC2	TO PIN AN2 (TO ADDER2) 
+     pins:  3 I AP1	AND-NOR ENABLE: TMA SETUP	(TMAS)3 TO PIN BB2 (TO ADDER3),	(TMAS)3 TO PIN AN2 (TO ADDER2)
+     pins:  4 I AS2	AND-NOR ENABLE: TMA		TMA3	TO PIN BB2 (TO ADDER3),	TMA2	TO PIN AN2 (TO ADDER2)
+     pins:  5 I AL1	AND-NOR ENABLE:			PIN AF2 TO PIN BB2 (TO ADDER3),	PIN AM1 TO PIN AN2 (TO ADDER2)
+     pins:  6 I AF2	AND-NOR INPUT (AL1 ENABLES)		TO PIN BB2 (TO ADDER3).
+     pins:  7 I AM1	AND-NOR INPUT (AL1 ENABLES)						TO PIN AN2 (TO ADDER2)
+     pins:  8 I AD2	AND-NOR ENABLE: RWB		RWB3	TO PIN BB2 (TO ADDER3),	RWB2	TO PIN AN2 (TO ADDER2)
+     pins:  9 I AE2	AND-NOR ENABLE:			PIN AE1 TO PIN BB2 (TO ADDER3),	PIN AM2 TO PIN AN2 (TO ADDER2)
+     pins: 10 I AE1	AND-NOR INPUT (AE2 ENABLES)		TO PIN BB2 (TO ADDER3).
+     pins: 11 I AM2	AND-NOR INPUT (AE2 ENABLES)						TO PIN AN2 (TO ADDER2)
+     pins: 12 I AC1	AND-NOR INPUT, AND WITH PIN AB2		TO PIN BB2 (TO ADDER3)
+     pins: 13 I AB2	AND-NOR INPUT, AND WITH PIN AC1		TO PIN BB2 (TO ADDER3)
+     pins: 14 I AF1	AND-NOR INPUT (AND WITH ITSELF)		TO PIN BB2 (TO ADDER3)
+     pins: 15 I AR2	AND-NOR INPUT, AND WITH PIN AS1						TO PIN AN2 (TO ADDER2)
+     pins: 16 I AS1	AND-NOR INPUT, AND WITH PIN AR2						TO PIN AN2 (TO ADDER2)
+     pins: 17 I AP2	AND-NOR INPUT (AND WITH ITSELF)						TO PIN AN2 (TO ADDER2)
+     pins: 18 I BK1	AND-NOR ENABLE: 		TB3     TO PIN BB1 (TO ADDER3),	TB2     TO PIN BN1 (TO ADDER2)
+     pins: 19 I BL1      	AND-NOR ENABLE:			PIN BE1 TO PIN BB1 (TO ADDER3),	PIN BM1 TO PIN BN1 (TO ADDER2)
+     pins: 20 I BE1	AND-NOR INPUT (BL1 ENABLES)		TO PIN BB1 (TO ADDER3).
+     pins: 21 I BM1	AND-NOR INPUT (BL1 ENABLES)						TO PIN BN1 (TO ADDER2)
+     pins: 22 I BF1	AND-NOR ENABLE:			PIN BH1 TO PIN BB1 (TO ADDER3),	PIN BR1 TO PIN BN1 (TO ADDER2)
+     pins: 23 I BH1	AND-NOR INPUT (BF1 ENABLES):		TO PIN BB1 (TO ADDER3),
+     pins: 24 I BR1	AND-NOR INPUT (BF1 ENABLES):						TO PIN BN1 (TO ADDER2)
+     pins: 25 I BS1	AND-NOR ENABLE:			PIN BC1 TO PIN BB1 (TO ADDER3),	PIN BJ2 TO PIN BN1 (TO ADDER2)
+     pins: 26 I BC1	AND-NOR INPUT (BS1 ENABLES):		TO PIN BB1 (TO ADDER3),
+     pins: 27 I BJ2	AND-NOR INPUT (BS1 ENABLES):						TO PIN BN1 (TO ADDER2)
+     pins: 28 I BL2	AND-NOR ENABLE:			PIN BJ1 TO PIN BB1 (TO ADDER3),	PIN BK2 TO PIN BN1 (TO ADDER2)
+     pins: 29 I BJ1	AND-NOR INPUT (BL2 ENABLES):		TO PIN BB1 (TO ADDER3),
+     pins: 30 I BK2	AND-NOR INPUT (BL2 ENABLES):						TO PIN BN1 (TO ADDER2)
+     pins: 31 I BU1	AND-NOR ENABLE:			PIN BH2 TO PIN BB1 (TO ADDER3),	PIN BP2 TO PIN BN1 (TO ADDER2)
+     pins: 32 I BH2	AND-NOR INPUT (BU1 ENABLES):		TO PIN BB1 (TO ADDER3),
+     pins: 33 I BP2	AND-NOR INPUT (BU1 ENABLES):						TO PIN BN1 (TO ADDER2)
+     pins: 34 I BN2	AND-NOR INPUT (AND WITH BM2):						TO PIN BN1 (TO ADDER2)
+     pins: 35 I BM2	AND-NOR INPUT (AND WITH BM2):						TO PIN BN1 (TO ADDER2)
+     pins: 36 O BB2	AND-NOR OUTPUT, (DRIVES E9-2 7482 A1)   TO ADDER3 INPUT
+     pins: 37 O BB1	AND-NOR OUTPUT, (DRIVES E9-3 7482 B1)	TO ADDER3 INPUT
+     pins: 38 O BN1        AND-NOR OUTPUT, (DRIVES E9-14 7482 A2) 					TO ADDER2 INPUT
+     pins: 39 O AN2	AND-NOR OUTPUT, (DRIVES E9-13 7482 B2) 					TO ADDER2 INPUT
+     pins: 40 O AV2	CARRY OUT-N (E9-10 7482 C2)
+     pins: 41 O BV2	TAPE BUS 2 OUTPUT (INVERTED ADDER2 SUM-N (E9-12 7482 SUM2)
+     pins: 42 O BR2	TAPE BUS 3 OUTPUT (INVERTED ADDER3 SUM-N (E9-1 7482 SUM1)
+     pins: 43 I AK1	LOAD TMA SETUP (FROM TAPE BUS) (RISING EDGE CLOCK)
+     pins: 44 O AR1	TMA SETUP 2
+     pins: 45 O AH1	TMA SETUP 3
+     pins: 46 I AU2	LOAD TMA (FROM TAPE BUS) (RISING EDGE CLOCK)
+     pins: 47 O AT2	TMA 2
+     pins: 48 O AD1	TMA 3
+     pins: 49 I AJ1	LOAD TBN (FROM TAPE BUS) (RISING EDGE CLOCK)
+     pins: 50 O AU1	TBN 2
+     pins: 51 O AK2	TBN 3
+     pins: 52 I AA1	LOAD TAC (FROM TAPE BUS) (RISING EDGE CLOCK)
+     pins: 53 O AN1	TAC 2
+     pins: 54 O AJ2	TAC 2-N
+     pins: 55 O AH2	TAC 3
+     pins: 56 O AB1	TAC 3-N
+     pins: 57 I BT2 	LOAD TB (FROM TAPE BUS) (RISING EDGE CLOCK)
+     pins: 58 O BP1	TB 2
+     pins: 59 O BD1	TB 3
+     pins: 60 I BF2	LOAD RWB (FROM TB) (JAMS CLEAR,SET)
+     pins: 61 I BS2	PHASE (SELECTS POLARITY OF RWB OUT, 0 -> INVERTED)
+     pins: 62 O BV1	RWB OUT (=RWB 2 IF PHASE=1; =RWB 2-N IF PHASE=0)
+     pins: 63 O BD2	RWB 3
+     pins: 64 I BE2	SHIFT RWB (SHIFTS PIN AV1 INTO RWB 3, SHIFTS RWB3 TO RWB2) (RISING CLOCK)
+     pins: 65 I AV1	RWB IN (SHIFTED INTO RWB 2)
+     pins: 66 O BU2	+3.5V
+     pins: 
+direction: IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIOOIIO
+  comment: ; all registers are unknown
+  comment: ; turn on C0, PHASE
+  comment: ; with no ENABLES, BUS2,BUS3 is 11, C2 is 1
+test    1: 1000000000000000000000000000000000011111000XX0XX0XX0XXXX0XX01XX001
+  comment: 
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;
+  comment: ; set all registers LOW
+  comment: ;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: 
+  comment: ; load TMA SETUP from tape bus (00)
+test    2:                                           100
+test    3:                                           0
+  comment: ; load TMA from tape bus (00)                                            
+test    4:                                              100
+test    5:                                              0
+  comment: ; load TBN from tape bus (00)                   
+test    6:                                                 100
+test    7:                                                 0
+  comment: ; load TAC from tape bus (00)                      
+test    8:                                                    10101
+test    9:                                                    0
+  comment: ; load TB from tape bus (00)
+test   10:                                                         100
+test   11:                                                         0
+  comment: ; load RWB from TB (JAMS CLEAR AND PRESET)
+test   12:                                                            1 00
+test   13:                                                            0
+  comment: ; (no change)
+test   14: 100000000000000000000000000000000001111100000000000001010000100001
+  comment: 
+  comment: 
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;
+  comment: ; set all registers HIGH
+  comment: ; 
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: 
+  comment: ; set   pin AF1 (AND with itself) to clear pin BB2 (AND-NOR output) and set pin BR2 TAPE BUS 3 OUTPUT
+test   15:              1                     0     1
+  comment: ; set   pin AP2 (AND with itself) to clear pin AN2 (AND-NOR output) and set pin BV2 TAPE BUS 2 OUTPUT 
+test   16:                 1                     0 1
+  comment: 
+  comment: 
+  comment: ; load TMA SETUP from tape bus (11)
+test   17:                                           111                     
+test   18:                                           0                       
+  comment: ; load TMA from tape bus (11)                                            
+test   19:                                              111                  
+test   20:                                              0                    
+  comment: ; load TBN from tape bus (11)                                     
+test   21:                                                 111              
+test   22:                                                 0              
+  comment: ; load TAC from tape bus (11)                                 
+test   23:                                                    11010       
+test   24:                                                    0            
+  comment: ; load TB from tape bus (11)                                   
+test   25:                                                         111      
+test   26:                                                         0        
+  comment: ; load RWB from TB (JAMS CLEAR AND PRESET)                        
+test   27:                                                            1 11  
+test   28:                                                            0     
+  comment: ; clear pin AF1 (AND with itself) to set pin BB2 (AND-NOR output) and clear pin BR2 TAPE BUS 3 OUTPUT
+test   29:              0                     1     0                        
+  comment: ; clear pin AP2 (AND with itself) to set pin AN2 (AND-NOR output) and clear pin BV2 TAPE BUS 2 OUTPUT 
+test   30:                 0                     1 0                        
+  comment: ; (no change)                                                       
+test   31: 100000000000000000000000000000000001111100011011011010100110111001
+  comment: 
+  comment: 
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;
+  comment: ; test AND-NOR logic
+  comment: ; 
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: 
+  comment: ; (all registers are HIGH)
+  comment: ; set all pins HIGH except ENABLES
+  comment: 
+  comment: ; set pin AF2 HIGH
+test   32:      1
+  comment: ; set pin AM1 HIGH
+test   33:       1
+  comment: ; set pin AE1 HIGH
+test   34:          1
+  comment: ; set pin AM2 HIGH
+test   35:           1
+  comment: ; set pin AB2 HIGH
+test   36:             1
+  comment: ; set pin AS1 HIGH
+test   37:                1
+  comment: ; set pin BE1 HIGH
+test   38:                    1
+  comment: ; set pin BM1 HIGH
+test   39:                     1
+  comment: ; set pin BH1 HIGH
+test   40:                       1
+  comment: ; set pin BR1 HIGH
+test   41:                        1
+  comment: ; set pin BC1 HIGH
+test   42:                          1
+  comment: ; set pin BJ2 HIGH
+test   43:                           1
+  comment: ; set pin BJ1 HIGH
+test   44:                             1
+  comment: ; set pin BK2 HIGH
+test   45:                              1
+  comment: ; set pin BH2 HIGH
+test   46:                                1
+  comment: ; set pin BP2 HIGH
+test   47:                                 1
+  comment: ; set pin BN2 HIGH
+test   48:                                  1
+  comment: ; toggle each ENABLE
+  comment: 
+  comment: ; set pin AL2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   49:  1                                 0  0 11
+test   50:  0                                 1  1 00
+  comment: ; set pin AP1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   51:   1                                0  0 11
+test   52:   0                                1  1 00
+  comment: ; set pin AS2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   53:    1                               0  0 11
+test   54:    0                               1  1 00
+  comment: ; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   55:     1                              0  0 11
+test   56:     0                              1  1 00
+  comment: ; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   57:        1                           0  0 11
+test   58:        0                           1  1 00
+  comment: ; set pin AE2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   59:         1                          0  0 11
+test   60:         0                          1  1 00
+  comment: ; set pin AC1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT 
+test   61:            1                       0     1
+test   62:            0                       1     0
+  comment: ; set pin AF1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT 
+test   63:              1                     0     1
+test   64:              0                     1     0
+  comment: ; set pin AR2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT 
+test   65:               1                       0 1 
+test   66:               0                       1 0 
+  comment: ; set pin AP2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT 
+test   67:                 1                     0 1 
+test   68:                 0                     1 0 
+  comment: 
+  comment: ; set pin BK1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   69:                  1                  00  11
+test   70:                  0                  11  00
+  comment: ; set pin BL1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   71:                   1                 00  11
+test   72:                   0                 11  00
+  comment: ; set pin BF1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   73:                      1              00  11
+test   74:                      0              11  00
+  comment: ; set pin BS1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   75:                         1           00  11
+test   76:                         0           11  00
+  comment: ; set pin BL2 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   77:                            1        00  11
+test   78:                            0        11  00
+  comment: ; set pin BU1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+test   79:                               1     00  11
+test   80:                               0     11  00
+  comment: ; set pin BM2 to clear pin BB1                             and                            TAPE BUS 3 OUTPUT 
+test   81:                                   1  0  1
+test   82:                                   0  1  0
+  comment: 
+  comment: 
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ; needs work
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      end: END
+
+
+summary
+
+column  1: offset 2, mask 0x2000
+column  2: offset 1, mask 0x0002
+column  3: offset 1, mask 0x0800
+column  4: offset 1, mask 0x0040
+column  5: offset 1, mask 0x4000
+column  6: offset 0, mask 0x0004
+column  7: offset 1, mask 0x2000
+column  8: offset 0, mask 0x0010
+column  9: offset 0, mask 0x0008
+column 10: offset 0, mask 0x0800
+column 11: offset 1, mask 0x0004
+column 12: offset 0, mask 0x2000
+column 13: offset 0, mask 0x0040
+column 14: offset 0, mask 0x0400
+column 15: offset 1, mask 0x0020
+column 16: offset 1, mask 0x0200
+column 17: offset 1, mask 0x0010
+column 18: offset 3, mask 0x2000
+column 19: offset 3, mask 0x1000
+column 20: offset 2, mask 0x0200
+column 21: offset 3, mask 0x0800
+column 22: offset 2, mask 0x0100
+column 23: offset 3, mask 0x8000
+column 24: offset 3, mask 0x0100
+column 25: offset 4, mask 0x8000
+column 26: offset 2, mask 0x0800
+column 27: offset 3, mask 0x0002
+column 28: offset 3, mask 0x0008
+column 29: offset 3, mask 0x4000
+column 30: offset 3, mask 0x0004
+column 31: offset 4, mask 0x2000
+column 32: offset 3, mask 0x0001
+column 33: offset 3, mask 0x0040
+column 34: offset 3, mask 0x0020
+column 35: offset 3, mask 0x0010
+column 36: offset 2, mask 0x0008
+column 37: offset 2, mask 0x1000
+column 38: offset 3, mask 0x0400
+column 39: offset 1, mask 0x0008
+column 40: offset 2, mask 0x0002
+column 41: offset 4, mask 0x0008
+column 42: offset 3, mask 0x0080
+column 43: offset 1, mask 0x8000
+column 44: offset 1, mask 0x0400
+column 45: offset 0, mask 0x0200
+column 46: offset 2, mask 0x0001
+column 47: offset 1, mask 0x0080
+column 48: offset 0, mask 0x1000
+column 49: offset 0, mask 0x0100
+column 50: offset 2, mask 0x8000
+column 51: offset 1, mask 0x0001
+column 52: offset 0, mask 0x8000
+column 53: offset 1, mask 0x1000
+column 54: offset 0, mask 0x0001
+column 55: offset 0, mask 0x0002
+column 56: offset 0, mask 0x4000
+column 57: offset 4, mask 0x0002
+column 58: offset 3, mask 0x0200
+column 59: offset 2, mask 0x0400
+column 60: offset 2, mask 0x0080
+column 61: offset 4, mask 0x0001
+column 62: offset 4, mask 0x1000
+column 63: offset 2, mask 0x0020
+column 64: offset 2, mask 0x0040
+column 65: offset 2, mask 0x4000
+column 66: offset 4, mask 0x0004
+
+direction bits (1=input)
+   0x52A3 0x1589 0x943A 0x0680 0x50FC
+
+pullup bits (1=pullup)
+   0x0000 0x0000 0x0000 0x0000 0x0000
+
+test step    out_data                     dont care
+   1: 0x0000 0x0008 0x300A 0x0400 0x0005  0x5203 0x1481 0x8420 0x0200 0x1000
+   2: 0x0000 0x8008 0x300A 0x0400 0x0005  0x5003 0x1081 0x8420 0x0200 0x1000
+   3: 0x0000 0x0008 0x300A 0x0400 0x0005  0x5003 0x1081 0x8420 0x0200 0x1000
+   4: 0x0000 0x0008 0x300B 0x0400 0x0005  0x4003 0x1001 0x8420 0x0200 0x1000
+   5: 0x0000 0x0008 0x300A 0x0400 0x0005  0x4003 0x1001 0x8420 0x0200 0x1000
+   6: 0x0100 0x0008 0x300A 0x0400 0x0005  0x4003 0x1000 0x0420 0x0200 0x1000
+   7: 0x0000 0x0008 0x300A 0x0400 0x0005  0x4003 0x1000 0x0420 0x0200 0x1000
+   8: 0xC001 0x0008 0x300A 0x0400 0x0005  0x0000 0x0000 0x0420 0x0200 0x1000
+   9: 0x4001 0x0008 0x300A 0x0400 0x0005  0x0000 0x0000 0x0420 0x0200 0x1000
+  10: 0x4001 0x0008 0x300A 0x0400 0x0007  0x0000 0x0000 0x0020 0x0000 0x1000
+  11: 0x4001 0x0008 0x300A 0x0400 0x0005  0x0000 0x0000 0x0020 0x0000 0x1000
+  12: 0x4001 0x0008 0x308A 0x0400 0x0005
+  13: 0x4001 0x0008 0x300A 0x0400 0x0005
+  14: 0x4001 0x0008 0x300A 0x0400 0x0005
+  15: 0x4401 0x0008 0x3002 0x0480 0x0005
+  16: 0x4401 0x0010 0x3002 0x0480 0x000D
+  17: 0x4601 0x8410 0x3002 0x0480 0x000D
+  18: 0x4601 0x0410 0x3002 0x0480 0x000D
+  19: 0x5601 0x0490 0x3003 0x0480 0x000D
+  20: 0x5601 0x0490 0x3002 0x0480 0x000D
+  21: 0x5701 0x0491 0xB002 0x0480 0x000D
+  22: 0x5601 0x0491 0xB002 0x0480 0x000D
+  23: 0x9602 0x1491 0xB002 0x0480 0x000D
+  24: 0x1602 0x1491 0xB002 0x0480 0x000D
+  25: 0x1602 0x1491 0xB402 0x0680 0x000F
+  26: 0x1602 0x1491 0xB402 0x0680 0x000D
+  27: 0x1602 0x1491 0xB4A2 0x0680 0x100D
+  28: 0x1602 0x1491 0xB422 0x0680 0x100D
+  29: 0x1202 0x1491 0xB42A 0x0600 0x100D
+  30: 0x1202 0x1489 0xB42A 0x0600 0x1005
+  31: 0x1202 0x1489 0xB42A 0x0600 0x1005
+  32: 0x1206 0x1489 0xB42A 0x0600 0x1005
+  33: 0x1206 0x3489 0xB42A 0x0600 0x1005
+  34: 0x1A06 0x3489 0xB42A 0x0600 0x1005
+  35: 0x1A06 0x348D 0xB42A 0x0600 0x1005
+  36: 0x1A46 0x348D 0xB42A 0x0600 0x1005
+  37: 0x1A46 0x368D 0xB42A 0x0600 0x1005
+  38: 0x1A46 0x368D 0xB62A 0x0600 0x1005
+  39: 0x1A46 0x368D 0xB62A 0x0E00 0x1005
+  40: 0x1A46 0x368D 0xB62A 0x8E00 0x1005
+  41: 0x1A46 0x368D 0xB62A 0x8F00 0x1005
+  42: 0x1A46 0x368D 0xBE2A 0x8F00 0x1005
+  43: 0x1A46 0x368D 0xBE2A 0x8F02 0x1005
+  44: 0x1A46 0x368D 0xBE2A 0xCF02 0x1005
+  45: 0x1A46 0x368D 0xBE2A 0xCF06 0x1005
+  46: 0x1A46 0x368D 0xBE2A 0xCF07 0x1005
+  47: 0x1A46 0x368D 0xBE2A 0xCF47 0x1005
+  48: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  49: 0x1A46 0x3687 0xBE22 0xCFE7 0x100D
+  50: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  51: 0x1A46 0x3E85 0xBE22 0xCFE7 0x100D
+  52: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  53: 0x1A46 0x36C5 0xBE22 0xCFE7 0x100D
+  54: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  55: 0x1A46 0x7685 0xBE22 0xCFE7 0x100D
+  56: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  57: 0x1A56 0x3685 0xBE22 0xCFE7 0x100D
+  58: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  59: 0x1A4E 0x3685 0xBE22 0xCFE7 0x100D
+  60: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  61: 0x3A46 0x368D 0xBE22 0xCFE7 0x1005
+  62: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  63: 0x1E46 0x368D 0xBE22 0xCFE7 0x1005
+  64: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  65: 0x1A46 0x36A5 0xBE2A 0xCF67 0x100D
+  66: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  67: 0x1A46 0x3695 0xBE2A 0xCF67 0x100D
+  68: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  69: 0x1A46 0x368D 0xAE2A 0xEBE7 0x100D
+  70: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  71: 0x1A46 0x368D 0xAE2A 0xDBE7 0x100D
+  72: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  73: 0x1A46 0x368D 0xAF2A 0xCBE7 0x100D
+  74: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  75: 0x1A46 0x368D 0xAE2A 0xCBE7 0x900D
+  76: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  77: 0x1A46 0x368D 0xAE2A 0xCBEF 0x100D
+  78: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  79: 0x1A46 0x368D 0xAE2A 0xCBE7 0x300D
+  80: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+  81: 0x1A46 0x368D 0xBE2A 0xCB77 0x100D
+  82: 0x1A46 0x368D 0xBE2A 0xCF67 0x1005
+
+PINs used (in edge connector order) (G=ground,P=power)
+SLOT   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+LETTER ABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUV
+SIDE   111111111111111111222222222222222222111111111111111111222222222222222222
+USAGE  IOIOIIOIIIIOIOIGOIPIGIIIOOOIIOIIIOIOIOIOIIIIIIIOOIIGIOPOGOIIIIIIIIIOIIOO
+UUT has 44 inputs
+UUT has 22 outputs
+contains 66 pins/columns
+0 pins are not used
+contains 82 'test steps'
+M222   PCB REV B   SCHEMATIC REV A   LINC TAPE REGISTERS 
+
+TERMINOLOGY- SIGNALS REFER TO VOL4 M222 SCHEMATIC.  
+
+BUT...
+
+DEC USES AND-NOR GATES TO ROUTE THE ADDER A AND B INPUTS, SO...
+DEC RENAMED THE ADDER TO NEGATIVE LOGIC TERMS (I.E. A-N + B-N + C-N -> SUM-N, C1-N).
+(NOT THE 7482 DATASHEET NAMES OF A + B + C -> SUM, C1).
+
+SO, WITH ALL 'AND ENABLES' LOW, THE AND-NOR OUTPUTS = HIGH. 
+WITH C-L HIGH, THE ADDER OUTPUT IS SUM-N=1, C1-N=1;
+THE INVERTED ADDER OUTPUT IS LOW (TAPE BUS).
+AND THERE IS NO CARRY (C1-N IS HI).
+
+THE TWO ADDERS, TWO REGISTER BITS, ETC ARE LABELED BIT 2 (EVEN, MSB) AND BIT 3 (ODD, LSB).
+THE ADDERS ARE REFERRED TO AS                      'ADDER2' (MSB)    AND 'ADDER3' (LSB).
+
+POWER PINS:
+  AA2	+5V
+  AT1	GROUND
+  AC2 	GROUND
+  BA2	+5V
+  BT1	GROUND
+  BC2	GROUND
+
+(ALL PINS ARE USED).
+
+
+PINS
+
+
+Main menu   Sat Jul 11 07:32:25 2015
+   test file is: tests\m222.new
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+
+UUT power is okay    Sat Jul 11 07:32:27 2015
+
+ space  single step
+ O      run once (one test, all steps)
+ F      run, stop on fail
+ G      go (run tests
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ C      toggle comment printout
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit test
+comment_flag is 1
+ space  single step
+ O      run once (one test, all steps)
+ F      run, stop on fail
+ G      go (run tests
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ C      toggle comment printout
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit test
+source:   ; all registers are unknown
+source:   ; turn on C0, PHASE
+source:   ; with no ENABLES, BUS2,BUS3 is 11, C2 is 1
+source:   1000000000000000000000000000000000011111000XX0XX0XX0XXXX0XX01XX001
+changed:                                                                    
+step    1 100000000000000000000000000000000001111100000000000001010000100001
+source:   
+source:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+source:   ;
+source:   ; set all registers LOW
+source:   ;
+source:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+source:   
+source:   ; load TMA SETUP from tape bus (00)
+source:                                             100
+changed:                                            1                       
+step    2 100000000000000000000000000000000001111100100000000001010000100001
+source:                                             0
+changed:                                            0                       
+step    3 100000000000000000000000000000000001111100000000000001010000100001
+source:   ; load TMA from tape bus (00)                                            
+source:                                                100
+changed:                                               1                    
+step    4 100000000000000000000000000000000001111100000100000001010000100001
+source:                                                0
+changed:                                               0                    
+step    5 100000000000000000000000000000000001111100000000000001010000100001
+source:   ; load TBN from tape bus (00)                   
+source:                                                   100
+changed:                                                  1                 
+step    6 100000000000000000000000000000000001111100000000100001010000100001
+source:                                                   0
+changed:                                                  0                 
+step    7 100000000000000000000000000000000001111100000000000001010000100001
+source:   ; load TAC from tape bus (00)                      
+source:                                                      10101
+changed:                                                     1              
+step    8 100000000000000000000000000000000001111100000000000101010000100001
+source:                                                      0
+changed:                                                     0              
+step    9 100000000000000000000000000000000001111100000000000001010000100001
+source:   ; load TB from tape bus (00)
+source:                                                           100
+changed:                                                          1         
+step   10 100000000000000000000000000000000001111100000000000001011000100001
+source:                                                           0
+changed:                                                          0         
+step   11 100000000000000000000000000000000001111100000000000001010000100001
+source:   ; load RWB from TB (JAMS CLEAR AND PRESET)
+source:                                                              1 00
+changed:                                                             1      
+step   12 100000000000000000000000000000000001111100000000000001010001100001
+source:                                                              0
+changed:                                                             0      
+step   13 100000000000000000000000000000000001111100000000000001010000100001
+source:   ; (no change)
+source:   100000000000000000000000000000000001111100000000000001010000100001
+changed:                                                                    
+step   14 100000000000000000000000000000000001111100000000000001010000100001
+source:   
+source:   
+source:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+source:   ;
+source:   ; set all registers HIGH
+source:   ; 
+source:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+source:   
+source:   ; set   pin AF1 (AND with itself) to clear pin BB2 (AND-NOR output) and set pin BR2 TAPE BUS 3 OUTPUT
+source:                1                     0     1
+changed:               1                     0     1                        
+step   15 100000000000010000000000000000000000111101000000000001010000100001
+source:   ; set   pin AP2 (AND with itself) to clear pin AN2 (AND-NOR output) and set pin BV2 TAPE BUS 2 OUTPUT 
+source:                   1                     0 1
+changed:                  1                     0 1                         
+step   16 100000000000010010000000000000000000110111000000000001010000100001
+source:   
+source:   
+source:   ; load TMA SETUP from tape bus (11)
+source:                                             111                     
+changed:                                            111                     
+step   17 100000000000010010000000000000000000110111111000000001010000100001
+source:                                             0                       
+changed:                                            0                       
+step   18 100000000000010010000000000000000000110111011000000001010000100001
+source:   ; load TMA from tape bus (11)                                            
+source:                                                111                  
+changed:                                               111                  
+step   19 100000000000010010000000000000000000110111011111000001010000100001
+source:                                                0                    
+changed:                                               0                    
+step   20 100000000000010010000000000000000000110111011011000001010000100001
+source:   ; load TBN from tape bus (11)                                     
+source:                                                   111              
+changed:                                                  111               
+step   21 100000000000010010000000000000000000110111011011111001010000100001
+source:                                                   0              
+changed:                                                  0                 
+step   22 100000000000010010000000000000000000110111011011011001010000100001
+source:   ; load TAC from tape bus (11)                                 
+source:                                                      11010       
+changed:                                                     11010          
+step   23 100000000000010010000000000000000000110111011011011110100000100001
+source:                                                      0            
+changed:                                                     0              
+step   24 100000000000010010000000000000000000110111011011011010100000100001
+source:   ; load TB from tape bus (11)                                   
+source:                                                           111      
+changed:                                                          111       
+step   25 100000000000010010000000000000000000110111011011011010101110100001
+source:                                                           0        
+changed:                                                          0         
+step   26 100000000000010010000000000000000000110111011011011010100110100001
+source:   ; load RWB from TB (JAMS CLEAR AND PRESET)                        
+source:                                                              1 11  
+changed:                                                             1 11   
+step   27 100000000000010010000000000000000000110111011011011010100111111001
+source:                                                              0     
+changed:                                                             0      
+step   28 100000000000010010000000000000000000110111011011011010100110111001
+source:   ; clear pin AF1 (AND with itself) to set pin BB2 (AND-NOR output) and clear pin BR2 TAPE BUS 3 OUTPUT
+source:                0                     1     0                        
+changed:               0                     1     0                        
+step   29 100000000000000010000000000000000001110110011011011010100110111001
+source:   ; clear pin AP2 (AND with itself) to set pin AN2 (AND-NOR output) and clear pin BV2 TAPE BUS 2 OUTPUT 
+source:                   0                     1 0                        
+changed:                  0                     1 0                         
+step   30 100000000000000000000000000000000001111100011011011010100110111001
+source:   ; (no change)                                                       
+source:   100000000000000000000000000000000001111100011011011010100110111001
+changed:                                                                    
+step   31 100000000000000000000000000000000001111100011011011010100110111001
+source:   
+source:   
+source:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+source:   ;
+source:   ; test AND-NOR logic
+source:   ; 
+source:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+source:   
+source:   ; (all registers are HIGH)
+source:   ; set all pins HIGH except ENABLES
+source:   
+source:   ; set pin AF2 HIGH
+source:        1
+changed:       1                                                            
+step   32 100001000000000000000000000000000001111100011011011010100110111001
+source:   ; set pin AM1 HIGH
+source:         1
+changed:        1                                                           
+step   33 100001100000000000000000000000000001111100011011011010100110111001
+source:   ; set pin AE1 HIGH
+source:            1
+changed:           1                                                        
+step   34 100001100100000000000000000000000001111100011011011010100110111001
+source:   ; set pin AM2 HIGH
+source:             1
+changed:            1                                                       
+step   35 100001100110000000000000000000000001111100011011011010100110111001
+source:   ; set pin AB2 HIGH
+source:               1
+changed:              1                                                     
+step   36 100001100110100000000000000000000001111100011011011010100110111001
+source:   ; set pin AS1 HIGH
+source:                  1
+changed:                 1                                                  
+step   37 100001100110100100000000000000000001111100011011011010100110111001
+source:   ; set pin BE1 HIGH
+source:                      1
+changed:                     1                                              
+step   38 100001100110100100010000000000000001111100011011011010100110111001
+source:   ; set pin BM1 HIGH
+source:                       1
+changed:                      1                                             
+step   39 100001100110100100011000000000000001111100011011011010100110111001
+source:   ; set pin BH1 HIGH
+source:                         1
+changed:                        1                                           
+step   40 100001100110100100011010000000000001111100011011011010100110111001
+source:   ; set pin BR1 HIGH
+source:                          1
+changed:                         1                                          
+step   41 100001100110100100011011000000000001111100011011011010100110111001
+source:   ; set pin BC1 HIGH
+source:                            1
+changed:                           1                                        
+step   42 100001100110100100011011010000000001111100011011011010100110111001
+source:   ; set pin BJ2 HIGH
+source:                             1
+changed:                            1                                       
+step   43 100001100110100100011011011000000001111100011011011010100110111001
+source:   ; set pin BJ1 HIGH
+source:                               1
+changed:                              1                                     
+step   44 100001100110100100011011011010000001111100011011011010100110111001
+source:   ; set pin BK2 HIGH
+source:                                1
+changed:                               1                                    
+step   45 100001100110100100011011011011000001111100011011011010100110111001
+source:   ; set pin BH2 HIGH
+source:                                  1
+changed:                                 1                                  
+step   46 100001100110100100011011011011010001111100011011011010100110111001
+source:   ; set pin BP2 HIGH
+source:                                   1
+changed:                                  1                                 
+step   47 100001100110100100011011011011011001111100011011011010100110111001
+source:   ; set pin BN2 HIGH
+source:                                    1
+changed:                                   1                                
+step   48 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; toggle each ENABLE
+source:   
+source:   ; set pin AL2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:    1                                 0  0 11
+changed:   1                                 0  0 11                        
+step   49 110001100110100100011011011011011100110111011011011010100110111001
+source:    0                                 1  1 00
+changed:   0                                 1  1 00                        
+step   50 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AP1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:     1                                0  0 11
+changed:    1                                0  0 11                        
+step   51 101001100110100100011011011011011100110111011011011010100110111001
+source:     0                                1  1 00
+changed:    0                                1  1 00                        
+step   52 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AS2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:      1                               0  0 11
+changed:     1                               0  0 11                        
+step   53 100101100110100100011011011011011100110111011011011010100110111001
+source:      0                               1  1 00
+changed:     0                               1  1 00                        
+step   54 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:       1                              0  0 11
+changed:      1                              0  0 11                        
+step   55 100011100110100100011011011011011100110111011011011010100110111001
+source:       0                              1  1 00
+changed:      0                              1  1 00                        
+step   56 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:          1                           0  0 11
+changed:         1                           0  0 11                        
+step   57 100001110110100100011011011011011100110111011011011010100110111001
+source:          0                           1  1 00
+changed:         0                           1  1 00                        
+step   58 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AE2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:           1                          0  0 11
+changed:          1                          0  0 11                        
+step   59 100001101110100100011011011011011100110111011011011010100110111001
+source:           0                          1  1 00
+changed:          0                          1  1 00                        
+step   60 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AC1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT 
+source:              1                       0     1
+changed:             1                       0     1                        
+step   61 100001100111100100011011011011011100111101011011011010100110111001
+source:              0                       1     0
+changed:             0                       1     0                        
+step   62 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AF1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT 
+source:                1                     0     1
+changed:               1                     0     1                        
+step   63 100001100110110100011011011011011100111101011011011010100110111001
+source:                0                     1     0
+changed:               0                     1     0                        
+step   64 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AR2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT 
+source:                 1                       0 1 
+changed:                1                       0 1                         
+step   65 100001100110101100011011011011011101110110011011011010100110111001
+source:                 0                       1 0 
+changed:                0                       1 0                         
+step   66 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin AP2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT 
+source:                   1                     0 1 
+changed:                  1                     0 1                         
+step   67 100001100110100110011011011011011101110110011011011010100110111001
+source:                   0                     1 0 
+changed:                  0                     1 0                         
+step   68 100001100110100100011011011011011101111100011011011010100110111001
+source:   
+source:   ; set pin BK1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:                    1                  00  11
+changed:                   1                  00  11                        
+step   69 100001100110100101011011011011011101001111011011011010100110111001
+source:                    0                  11  00
+changed:                   0                  11  00                        
+step   70 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin BL1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:                     1                 00  11
+changed:                    1                 00  11                        
+step   71 100001100110100100111011011011011101001111011011011010100110111001
+source:                     0                 11  00
+changed:                    0                 11  00                        
+step   72 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin BF1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:                        1              00  11
+changed:                       1              00  11                        
+step   73 100001100110100100011111011011011101001111011011011010100110111001
+source:                        0              11  00
+changed:                       0              11  00                        
+step   74 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin BS1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:                           1           00  11
+changed:                          1           00  11                        
+step   75 100001100110100100011011111011011101001111011011011010100110111001
+source:                           0           11  00
+changed:                          0           11  00                        
+step   76 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin BL2 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:                              1        00  11
+changed:                             1        00  11                        
+step   77 100001100110100100011011011111011101001111011011011010100110111001
+source:                              0        11  00
+changed:                             0        11  00                        
+step   78 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin BU1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+source:                                 1     00  11
+changed:                                1     00  11                        
+step   79 100001100110100100011011011011111101001111011011011010100110111001
+source:                                 0     11  00
+changed:                                0     11  00                        
+step   80 100001100110100100011011011011011101111100011011011010100110111001
+source:   ; set pin BM2 to clear pin BB1                             and                            TAPE BUS 3 OUTPUT 
+source:                                     1  0  1
+changed:                                    1  0  1                         
+step   81 100001100110100100011011011011011111101110011011011010100110111001
+source:                                     0  1  0
+changed:                                    0  1  0                         
+step   82 100001100110100100011011011011011101111100011011011010100110111001
+
+test 1: pass 
+
+SLOT      BAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBAABBAAAAAAAAAAAAAABBBBBBBBAB
+LETTER    ALPSLFMDEEMCBFRSPKLEMFHRSCJLJKUHPNMBBNNVVRKRHUTDJUKANJHBTPDFSVDEVU
+SIDE      121212122121212121111111112212122222112222111221112112212112212212
+DIRECTION IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIOOIIO
+this fail                                                                   
+all fails                                                                   
+was hi    111111111111111111111111111111111111111111111111111111111111111  1
+rising     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^ ^ ^^^^ ^^   
+falling    vvvv  vv  v vv vvv  v  v  v  v   vvvvv vvv  v  v  v v vv  v      
+was lo     00000000000000000000000000000000000000 00000000000000000000 0000 
+
+ total fails 0, total passes 1
+
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+failure mode analysis:
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+up to this point:
+
+PINS that are always low
+64 I BE2	SHIFT RWB (SHIFTS PIN AV1 INTO RWB 3, SHIFTS RWB3 TO RWB2) (RISING CLOCK)
+65 I AV1	RWB IN (SHIFTED INTO RWB 2)
+
+PINS that are always high
+ 1 I BA1	CARRY IN-N, (TO E9-5 7482 C0)					C-N		    TO ADDER2
+40 O AV2	CARRY OUT-N (E9-10 7482 C2)
+61 I BS2	PHASE (SELECTS POLARITY OF RWB OUT, 0 -> INVERTED)
+66 O BU2	+3.5V
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+SLOT      BAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBAABBAAAAAAAAAAAAAABBBBBBBBAB
+LETTER    ALPSLFMDEEMCBFRSPKLEMFHRSCJLJKUHPNMBBNNVVRKRHUTDJUKANJHBTPDFSVDEVU
+SIDE      121212122121212121111111112212122222112222111221112112212112212212
+DIRECTION IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIOOIIO
+all fails                                                                   
+was lo     00000000000000000000000000000000000000 00000000000000000000 0000 
+falling    vvvv  vv  v vv vvv  v  v  v  v   vvvvv vvv  v  v  v v vv  v      
+rising     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^ ^ ^^^^ ^^   
+was hi    111111111111111111111111111111111111111111111111111111111111111  1
+
+ total fails 0, total passes 1
+
+
+
+
+Main menu   Sat Jul 11 07:32:46 2015
+   test file is: tests\m222.new
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+
+
+*****************************
+  UUT power is OFF          *
+*****************************
+
+
+
+
+Main menu   Sat Jul 11 07:33:14 2015
+   test file is: tests\m222.new
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+
+UUT power is okay    Sat Jul 11 07:33:19 2015
+
+ space  single step
+ O      run once (one test, all steps)
+ F      run, stop on fail
+ G      go (run tests
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ C      toggle comment printout
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit test
+step    1 100000000000000000000000000000000001111100011001011010100100110001
+step    2 100000000000000000000000000000000001111100100001011010100100110001
+step    3 100000000000000000000000000000000001111100000001011010100100110001
+step    4 100000000000000000000000000000000001111100000100011010100100110001
+step    5 100000000000000000000000000000000001111100000000011010100100110001
+step    6 100000000000000000000000000000000001111100000000100010100100110001
+step    7 100000000000000000000000000000000001111100000000000010100100110001
+step    8 100000000000000000000000000000000001111100000000000101010100110001
+step    9 100000000000000000000000000000000001111100000000000001010100110001
+step   10 100000000000000000000000000000000001111100000000000001011000110001
+step   11 100000000000000000000000000000000001111100000000000001010000110001
+step   12 100000000000000000000000000000000001111100000000000001010001100001
+step   13 100000000000000000000000000000000001111100000000000001010000100001
+step   14 100000000000000000000000000000000001111100000000000001010000100001
+step   15 100000000000010000000000000000000000111101000000000001010000100001
+step   16 100000000000010010000000000000000000110111000000000001010000100001
+step   17 100000000000010010000000000000000000110111111000000001010000100001
+step   18 100000000000010010000000000000000000110111011000000001010000100001
+step   19 100000000000010010000000000000000000110111011111000001010000100001
+step   20 100000000000010010000000000000000000110111011011000001010000100001
+step   21 100000000000010010000000000000000000110111011011111001010000100001
+step   22 100000000000010010000000000000000000110111011011011001010000100001
+step   23 100000000000010010000000000000000000110111011011011110100000100001
+step   24 100000000000010010000000000000000000110111011011011010100000100001
+step   25 100000000000010010000000000000000000110111011011011010101110100001
+step   26 100000000000010010000000000000000000110111011011011010100110100001
+step   27 100000000000010010000000000000000000110111011011011010100111111001
+step   28 100000000000010010000000000000000000110111011011011010100110111001
+step   29 100000000000000010000000000000000001110110011011011010100110111001
+step   30 100000000000000000000000000000000001111100011011011010100110111001
+step   31 100000000000000000000000000000000001111100011011011010100110111001
+step   32 100001000000000000000000000000000001111100011011011010100110111001
+step   33 100001100000000000000000000000000001111100011011011010100110111001
+step   34 100001100100000000000000000000000001111100011011011010100110111001
+step   35 100001100110000000000000000000000001111100011011011010100110111001
+step   36 100001100110100000000000000000000001111100011011011010100110111001
+step   37 100001100110100100000000000000000001111100011011011010100110111001
+step   38 100001100110100100010000000000000001111100011011011010100110111001
+step   39 100001100110100100011000000000000001111100011011011010100110111001
+step   40 100001100110100100011010000000000001111100011011011010100110111001
+step   41 100001100110100100011011000000000001111100011011011010100110111001
+step   42 100001100110100100011011010000000001111100011011011010100110111001
+step   43 100001100110100100011011011000000001111100011011011010100110111001
+step   44 100001100110100100011011011010000001111100011011011010100110111001
+step   45 100001100110100100011011011011000001111100011011011010100110111001
+step   46 100001100110100100011011011011010001111100011011011010100110111001
+step   47 100001100110100100011011011011011001111100011011011010100110111001
+step   48 100001100110100100011011011011011101111100011011011010100110111001
+step   49 110001100110100100011011011011011100110111011011011010100110111001
+step   50 100001100110100100011011011011011101111100011011011010100110111001
+step   51 101001100110100100011011011011011100110111011011011010100110111001
+step   52 100001100110100100011011011011011101111100011011011010100110111001
+step   53 100101100110100100011011011011011100110111011011011010100110111001
+step   54 100001100110100100011011011011011101111100011011011010100110111001
+step   55 100011100110100100011011011011011100110111011011011010100110111001
+step   56 100001100110100100011011011011011101111100011011011010100110111001
+step   57 100001110110100100011011011011011100110111011011011010100110111001
+step   58 100001100110100100011011011011011101111100011011011010100110111001
+step   59 100001101110100100011011011011011100110111011011011010100110111001
+step   60 100001100110100100011011011011011101111100011011011010100110111001
+step   61 100001100111100100011011011011011100111101011011011010100110111001
+step   62 100001100110100100011011011011011101111100011011011010100110111001
+step   63 100001100110110100011011011011011100111101011011011010100110111001
+step   64 100001100110100100011011011011011101111100011011011010100110111001
+step   65 100001100110101100011011011011011101110110011011011010100110111001
+step   66 100001100110100100011011011011011101111100011011011010100110111001
+step   67 100001100110100110011011011011011101110110011011011010100110111001
+step   68 100001100110100100011011011011011101111100011011011010100110111001
+step   69 100001100110100101011011011011011101001111011011011010100110111001
+step   70 100001100110100100011011011011011101111100011011011010100110111001
+step   71 100001100110100100111011011011011101001111011011011010100110111001
+step   72 100001100110100100011011011011011101111100011011011010100110111001
+step   73 100001100110100100011111011011011101001111011011011010100110111001
+step   74 100001100110100100011011011011011101111100011011011010100110111001
+step   75 100001100110100100011011111011011101001111011011011010100110111001
+step   76 100001100110100100011011011011011101111100011011011010100110111001
+step   77 100001100110100100011011011111011101001111011011011010100110111001
+step   78 100001100110100100011011011011011101111100011011011010100110111001
+step   79 100001100110100100011011011011111101001111011011011010100110111001
+step   80 100001100110100100011011011011011101111100011011011010100110111001
+step   81 100001100110100100011011011011011111101110011011011010100110111001
+step   82 100001100110100100011011011011011101111100011011011010100110111001
+
+test 1: pass 
+
+SLOT      BAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBAABBAAAAAAAAAAAAAABBBBBBBBAB
+LETTER    ALPSLFMDEEMCBFRSPKLEMFHRSCJLJKUHPNMBBNNVVRKRHUTDJUKANJHBTPDFSVDEVU
+SIDE      121212122121212121111111112212122222112222111221112112212112212212
+DIRECTION IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIOOIIO
+this fail                                                                   
+all fails                                                                   
+was hi    111111111111111111111111111111111111111111111111111111111111111  1
+rising     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^ ^^   
+falling    vvvv  vv  v vv vvv  v  v  v  v   vvvvv vvvvvv vvvvvvvvvvv v v    
+was lo     00000000000000000000000000000000000000 00000000000000000000 0000 
+
+ total fails 0, total passes 1
+
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+failure mode analysis:
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+up to this point:
+
+PINS that are always low
+64 I BE2	SHIFT RWB (SHIFTS PIN AV1 INTO RWB 3, SHIFTS RWB3 TO RWB2) (RISING CLOCK)
+65 I AV1	RWB IN (SHIFTED INTO RWB 2)
+
+PINS that are always high
+ 1 I BA1	CARRY IN-N, (TO E9-5 7482 C0)					C-N		    TO ADDER2
+40 O AV2	CARRY OUT-N (E9-10 7482 C2)
+61 I BS2	PHASE (SELECTS POLARITY OF RWB OUT, 0 -> INVERTED)
+66 O BU2	+3.5V
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+SLOT      BAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBAABBAAAAAAAAAAAAAABBBBBBBBAB
+LETTER    ALPSLFMDEEMCBFRSPKLEMFHRSCJLJKUHPNMBBNNVVRKRHUTDJUKANJHBTPDFSVDEVU
+SIDE      121212122121212121111111112212122222112222111221112112212112212212
+DIRECTION IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIOOIIO
+all fails                                                                   
+was lo     00000000000000000000000000000000000000 00000000000000000000 0000 
+falling    vvvv  vv  v vv vvv  v  v  v  v   vvvvv vvvvvv vvvvvvvvvvv v v    
+rising     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^ ^^   
+was hi    111111111111111111111111111111111111111111111111111111111111111  1
+
+ total fails 0, total passes 1
+
+
+
+
+Main menu   Sat Jul 11 07:33:34 2015
+   test file is: tests\m222.new
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+exiting

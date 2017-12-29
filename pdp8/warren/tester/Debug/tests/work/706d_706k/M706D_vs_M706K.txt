@@ -1,0 +1,29 @@
+M706D_vs_M706K.txt	05 June 2015 wrs
+
+Differences in the schematics for PCB Rev D and PCB Rev K.
+
+
+	M706 Rev D			M706 Rev K
+
+1.					Adds bypass cap C26 (probably near E21).
+2.					Adds bypass cap C27 to +3V.
+3.					Adds D7 on Reader Run current output circuit.
+4.					Adds output Pin AV1 Buffer Strobe 
+					   (existing signal: selected & AL2 Read Buffer).
+5.					Adds input Pin BM1 to new gate E21-4 (input to 2-in NAND).
+6.					Adds connection 'Buffer Strobe' to E21-5 (input to 2-in NAND).
+7.					Adds output Pin BN1, output E21-6 of NAND of E21-4,5.			
+
+8.					Adds E15 DEC7440N, R, C, Diode
+					   to generate very short
+					   pulse on ACTIVE 0->1 rising edge.
+
+9.					Changes 'start of character' presets/clears
+					   (spike detect, Reader Run, Stop Bit counter,
+					   presets to BIT FFs) 
+					   (note: start bit shifts thru 
+					   BIT FFs to determine char done). 
+	level PRESET/CLEAR on		very short pulse (from ACTIVE 0->1) on
+	'BS2 FROM PRESET'		'BS2 FROM PRESET'
+
+last line.

@@ -1,0 +1,1607 @@
+version 1.0 July 2, 2017
+M221   PCB REV D   SCHEMATIC REV B   MAIN GISTER 
+
+**********needs work
+
+
+PINS
+
+***************m220 VVVVVVVVVVVVVVVVVVVVVV
+
+ 1 I BE2        E12-13 (add 01)                             BE2    to ADDER3 A1
+ 2 I BH2 E16-3  E12-3  AC ENABLE      AC2    to ADDER2 A2   AC3    to ADDER3 A1
+ 3 I BJ2 E16-5  E12-5  AC-N ENABLE    AC2-N  to ADDER2 A2   AC3-N  to ADDER3 A1
+ 4 I BF1 E16-10 E12-10 MQ ENABLE      MQ2    to ADDER2 A2   MQ3    to ADDER3 A1         
+ 5 I BH1 E16-9         MQ2            (and)     ADDER2 A2             ADDER3 A1
+ 6 I BN2        E12-9  MQ3                      ADDER2 A2             ADDER3 A1
+ 7 I BC1 E14-1  E15-1  SR ENABLE      SR2    to ADDER2 A2   SR3    to ADDER3 A1
+ 8 I BE1 E14-13        SR2            (and)     ADDER2 A2
+ 9 I BD2        E15-13 SR3                                  (and)     ADDER3 A1
+10 I BF2               SC ENABLE      SC2    to ADDER2 A2   SC3    to ADDER3 A1
+11 I BD1 E14-2         SC2            (and)     ADDER2 A2
+12 I BN1        E15-2  SC3                                  (and)     ADDER3 A1
+13 I BL1 E14-5  E15-5  DATA ENABLE    DATA2  to ADDER2 A2   DATA3  to ADDER3 A1
+14 I BM2 E14-4         DATA2          (and)     ADDER2 A2
+15 I BP2        E15-4  DATA3                                (and)     ADDER3 A1
+16 I BL2 E14-10 E15-10 IO ENABLE      IO2    to ADDER2 A2   IO3    to ADDER3 A1
+17 I BK1 E14-9         IO2            (and)     ADDER2 A2
+18 I BM1        E15-9  IO3                                  (and)     ADDER3 A1
+19 I BP1 E17-13        MA ENABLE      MA2    to ADDER2 B2
+20 I BR2        E18-13 (MA3 ENABLE)                         MA3    to ADDER3 B1
+21 I BS2 E17-3  E18-3  PC ENABLE      PC2    to ADDER2 B2   PC3    to ADDER3 B1
+22 I BU2 E17-5         MEM ENABLE     MEM2   to ADDER2 B2
+23 I BR1 E17-4         MEM2           (and)     ADDER2 B2
+24 I BV1        E18-5  (MEM3 ENABLE)                        MA3    to ADDER3 B1
+25 I BV2        E18-4  MEM3                                 (and)     ADDER3 B1
+26 I BT2 E17-10 E18-10 DATA ADDR EN   DADDR2 to ADDER2 B2   DADDR3 to ADDER3 B1
+27 I BS1 E17-9         DADDR2         (and)     ADDER2 B2  
+28 I BU1        E18-9  DADDR3                               (and)     ADDER3 B1
+29 I BJ1 E13-5         CO                                             ADDER3 C0
+30 O BK2 E13-10        C2                       ADDER2 C2
+31 O AE2 E13-12        ADDER2                   ADDER2 SUM2
+32 O AF1 E13-1         ADDER3                                         ADDER3 SUM1
+33 I AA1 E3-13  E5-13  AND                  MB2    to BUS2  MB3    to BUS3 
+34 I AD2 E1-1   E2-5   SHIFT RIGHT          ADDER1 to BUS2  ADDER2 to BUS3
+35 I AD1 E1-9   E2-9   SHIFT RIGHT TWICE    ADDER0 to BUS2  ADDER1 to BUS3
+36 I AB1 E1-10         ADDER0               (and)     BUS2          
+37 I AC1 E1-13  E2-10  ADDER1               (and)     BUS2  (and)     BUS3
+38 I AH2 E3-8   E1-1   ADDER4               (and)     BUS2  (and)     BUS3 
+39 I AJ2 E3-6          ADDER5                               (and)     BUS3
+
+^^^^^^^^^^^^^^^M220^^^^^^^^^^^^^^^^^^^^^^^
+
+
+PINS
+ 1 I                   (add 01)                             BE2    to ADDER3 A1
+ 2 I                   AC ENABLE      AC2    to ADDER2 A2   AC3    to ADDER3 A1
+ 3 I                   AC-N ENABLE    AC2-N  to ADDER2 A2   AC3-N  to ADDER3 A1
+ 4 I                   MQ ENABLE      MQ2    to ADDER2 A2   MQ3    to ADDER3 A1         
+ 5 I                   MQ2            (and)     ADDER2 A2             ADDER3 A1
+ 6 I                   MQ3                      ADDER2 A2             ADDER3 A1
+ 7 I                   SR ENABLE      SR2    to ADDER2 A2   SR3    to ADDER3 A1
+ 8 I                   SR2            (and)     ADDER2 A2
+ 9 I                   SR3                                  (and)     ADDER3 A1
+10 I                   SC ENABLE      SC2    to ADDER2 A2   SC3    to ADDER3 A1
+11 I                   SC2            (and)     ADDER2 A2
+12 I                   SC3                                  (and)     ADDER3 A1
+13 I                   DATA ENABLE    DATA2  to ADDER2 A2   DATA3  to ADDER3 A1
+14 I                   DATA2          (and)     ADDER2 A2
+15 I                   DATA3                                (and)     ADDER3 A1
+16 I                   IO ENABLE      IO2    to ADDER2 A2   IO3    to ADDER3 A1
+17 I                   IO2            (and)     ADDER2 A2
+18 I                   IO3                                  (and)     ADDER3 A1
+19 I                   MA ENABLE      MA2    to ADDER2 B2
+20 I                   (MA3 ENABLE)                         MA3    to ADDER3 B1
+21 I                   PC ENABLE      PC2    to ADDER2 B2   PC3    to ADDER3 B1
+22 I                   MEM ENABLE     MEM2   to ADDER2 B2
+23 I                   MEM2           (and)     ADDER2 B2
+24 I                   (MEM3 ENABLE)                        MA3    to ADDER3 B1
+25 I                   MEM3                                 (and)     ADDER3 B1
+26 I                   DATA ADDR EN   DADDR2 to ADDER2 B2   DADDR3 to ADDER3 B1
+27 I                   DADDR2         (and)     ADDER2 B2  
+28 I                   DADDR3                               (and)     ADDER3 B1
+29 I                   CO                                             ADDER3 C0
+30 O                   C2                       ADDER2 C2
+31 O                   ADDER2                   ADDER2 SUM2
+32 O                   ADDER3                                         ADDER3 SUM1
+33 I                   AND                  MB2    to BUS2  MB3    to BUS3
+34 I                   SHIFT RIGHT          ADDER1 to BUS2  ADDER2 to BUS3
+35 I                   SHIFT_RIGHT_TWICE    ADDER0 to BUS2  ADDER1 to BUS3
+36 I                   ADDER0               (and)     BUS2          
+37 I                   ADDER1               (and)     BUS2  (and)     BUS3
+38 I                   ADDER4               (and)     BUS2  (and)     BUS3 
+39 I                   ADDER5                               (and)     BUS3
+
+
+
+
+40 I AJ2 E2-4 E6-9     ENABLE NO ROT        ADDER2 to BUS2  ADDER3 to BUS3
+41 I AF1 E2-2 E6-3     ENABLE ROT LEFT      ADDER3 to BUS2  ADDER4 to BUS3
+42 I NO PIN            SHIFT_LEFT_TWICE     ADDER4 to BUS2  ADDER5 to BUS3
+43 O AD1 E2-8          REG BUS 2
+44 O AV2 E6-8          REG BUS 3
+45 I BF2 E17-11 E17-3  LOAD MA
+46 O BV1 E17-8         (MA2 Q-N)
+47 O AS1 E17-9         (MA2 Q)
+48 O BK2 E17-6         (MA3 Q-N)
+49 O BN2 E17-5         (MA3 Q)
+50 I BA1 E14-11 E14-3  LOAD PC
+51 O BB1 E14-8         (PC2 Q-N)
+52 O BE2 E14-6         (PC3 Q-N)
+53 I BC1 E11-11 E11-3  LOAD MB
+54 O BS1 E21-11        OUTPUT MB2(0) (BUFFER)
+55 O BF1 E21-8         OUTPUT MB2(1) (BUFFER)
+56 O BR1 E21-3         OUTPUT MB3(0) (BUFFER)
+57 O BR2 E21-6         OUTPUT MB3(1) (BUFFER)
+58 I AU2 E8-11 E8-3    LOAD AC
+59 O BU1 E18-6         OUTPUT AC2(0) (BUFFER)
+60 O AB2 E18-11        OUTPUT AC2(1) (BUFFER)
+61 O BD2 E18-8         OUTPUT AC3(0) (BUFFER)
+62 O BJ2 E18-3         OUTPUT AC3(1) (BUFFER)
+
+
+
+AA1
+AB1
+AC1
+AE1
+AH1
+AJ1
+AK1
+AL1
+AM1
+AN1
+AP1
+AR1
+AT1
+AU1
+AV1
+AA2
+AC2
+AD2
+AE2
+AF2
+AH2
+AK2
+AL2
+AM2
+AN2
+AP2
+AR2
+AS2
+AT2
+BD1
+BE1
+BH1
+BJ1
+BK1
+BL1
+BM1
+BN1
+BP1
+BT1
+BA2
+BB2
+BC2
+BH2
+BL2
+BM2
+BP2
+BS2
+BT2
+BU2
+BV2
+
+
+
+****CUTHERE****
+
+
+
+
+
+
+IIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOIIIIIIIIIIOOIOOOOIOOIOOOOIOOOO
+; all registers are unknown
+; turn on C0, C2,ADDER2,ADDER3
+; with no ENABLES, BUS2,BUS3 is 11
+000000000000000000000000000011110000000000110XXXX0XX0XXXX0XXXX
+;
+; test all registers using SHIFT_RIGHT_TWICE path
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+                                  111     00
+; set all registers to 00
+                                            110101111101011010
+                                            0    0  0    0
+; set all registers to 01
+                                  110     01
+                                            1  011 01  011  01
+                                            0    0  0    0
+; set all registers to 11
+                                  100     11
+                                            101011001010110101
+                                            0    0  0    0
+; set all registers to 01
+                                  110     01
+                                            110  11 110  110
+                                            0    0  0    0
+; set all registers to 00
+                                  111     00
+                                            110101111101011010
+                                            0    0  0    0
+; remove SHIFT_RIGHT_TWICE, ADDER0, ADDER1
+                                  000     11
+00000000000000000000000000001111000000000011010100110101001010
+;
+; same tests, but use SHIFT_LEFT_TWICE path
+;
+; use SHIFT_LEFT_TWICE, ADDER4, ADDER5 to setup BUS2,BUS3
+                                     11  100
+; set all registers to 00
+                                            110101111101011010
+                                            0    0  0    0
+; set all registers to 01
+                                     10  101
+                                            1  011 01  011  01
+                                            0    0  0    0
+; set all registers to 11
+                                     00  111
+                                            101011001010110101
+                                            0    0  0    0
+; set all registers to 01
+                                     10  101
+                                            110  11 110  110
+                                            0    0  0    0
+; set all registers to 00
+                                     11  100
+                                            110101111101011010
+                                            0    0  0    0
+; remove SHIFT_LEFT_TWICE, ADDER4, ADDER5
+                                     00  011
+00000000000000000000000000001111000000000011010100110101001010
+;
+; change each register individually (only one bit changes per strobe)
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set each register to 00
+                                  111     00
+                                            1
+                                            0
+                                                 1
+                                                 0
+                                                    1
+                                                    0
+                                                         1
+                                                         0
+; set each register to 01
+                                  110     01
+                                            1  01
+                                            0
+                                                 1 0
+                                                 0
+                                                    1  01
+                                                    0
+                                                         1  01
+                                                         0
+; set each register to 11
+                                  100     11
+                                            101  
+                                            0
+                                                 10 
+                                                 0
+                                                    101  
+                                                    0
+                                                         101  
+                                                         0
+; set each register to 10
+                                  101     10
+                                            1  10
+                                            0
+                                                 1 1
+                                                 0
+                                                    1  10
+                                                    0
+                                                         1  10
+                                                         0
+; set each register to 00
+                                  111     00
+                                            110  
+                                            0
+                                                 11 
+                                                 0
+                                                    110  
+                                                    0
+                                                         110  
+                                                         0
+; all registers are 00
+00000000000000000000000000001111001110000000010100110101001010
+;
+; with all registers 00; change each register individually to 00,01,10,11
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; change each regster to 00 and back to 00
+                                  111       1
+                                            0
+                                  111            1  
+                                                 0
+                                  111               1    
+                                                    0
+                                  111                    1
+                                                         0
+; change each register to 01 and back to 00
+                                  110     01
+                                            1  01
+                                            0
+                                  111     00
+                                            1  10
+                                            0
+                                  110     01
+                                                 1 0
+                                                 0
+                                  111     00
+                                                 1 1
+                                                 0
+                                  110     01
+                                                    1  01
+                                                    0
+                                  111     00
+                                                    1  10
+                                                    0
+                                  110     01
+                                                         1  01
+                                                         0
+                                  111     00
+                                                         1  10
+                                                         0
+; change each register to 10 and back to 00
+                                  101     10
+                                            101
+                                            0
+                                  111     00
+                                            110
+                                            0
+                                  101     10
+                                                 10
+                                                 0
+                                  111     00
+                                                 11
+                                                 0
+                                  101     10
+                                                    101
+                                                    0
+                                  111     00
+                                                    110
+                                                    0
+                                  101     10
+                                                         101
+                                                         0
+                                  111     00
+                                                         110
+                                                         0
+; change each register to 11 and back to 00
+                                  100     11
+                                          1110101
+                                            0
+                                  111     00
+                                            11010
+                                            0
+                                  100     11
+                                                 100
+                                                 0
+                                  111     00
+                                                 111
+                                                 0
+                                  100     11
+                                                    10101
+                                                    0
+                                  111     00
+                                                    11010
+                                                    0
+                                  100     11
+                                                         10101
+                                                         0
+                                  111     00
+                                                         11010
+                                                         0
+; all registers are 00
+00000000000000000000000000001111001110000000010100110101001010
+;
+; with all registers 01; change each register individually to 00,01,10,11
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set all registers to 01
+                                  110     01
+                                            110011101100111001
+                                            0    0  0    0
+; all registers are 01
+00000000000000000000000000001111001100000001010010100100101001
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set each register to 00 and back to 01
+                                  111     00
+                                            1  10
+                                            0
+                                  110     01
+                                            1  01
+                                            0
+                                  111     00
+                                                 1 1
+                                                 0
+                                  110     01
+                                                 1 0
+                                                 0
+                                  111     00
+                                                    1  10
+                                                    0
+                                  110     01
+                                                    1  01
+                                                    0
+                                  111     00
+                                                         1  10
+                                                         0
+                                  110     01
+                                                         1  01
+                                                         0
+; set each register to 01 and back to 01
+                                            1
+                                            0
+                                                 1
+                                                 0
+                                                    1
+                                                    0
+                                                         1
+                                                         0
+; set each register to 10 and back to 01
+                                  101     10
+                                            10110
+                                            0
+                                  110     01
+                                            11001
+                                            0
+                                  101     10
+                                                 101
+                                                 0
+                                  110     01
+                                                 110
+                                                 0
+                                  101     10
+                                                    10110
+                                                    0
+                                  110     01
+                                                    11001
+                                                    0
+                                  101     10
+                                                         10110
+                                                         0
+                                  110     01
+                                                         11001
+                                                         0
+; set each register to 11 and back to 01
+                                  100     11
+                                            101
+                                            0
+                                  110     01
+                                            110
+                                            0
+                                  100     11
+                                                 10
+                                                 0
+                                  110     01
+                                                 11
+                                                 0
+                                  100     11
+                                                    101
+                                                    0
+                                  110     01
+                                                    110
+                                                    0
+                                  100     11
+                                                         101
+                                                         0
+                                  110     01
+                                                         110
+                                                         0
+; all registers are 01
+00000000000000000000000000001111001100000001010010100100101001
+;
+; with all registers 10; change each register individually to 00,01,10,11
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set all registers to 10
+                                  101     10
+                                            101101011011010110
+                                            0    0  0    0   
+; all registers are 10
+00000000000000000000000000001111001010000010001100010011000110
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set each register to 00 and back to 10
+                                  111     00
+                                            110  
+                                            0
+                                  101     10
+                                            101  
+                                            0
+                                  111     00
+                                                 11 
+                                                 0
+                                  101     10
+                                                 10 
+                                                 0
+                                  111     00
+                                                    110  
+                                                    0
+                                  101     10
+                                                    101  
+                                                    0
+                                  111     00
+                                                         110  
+                                                         0
+                                  101     10
+                                                         101  
+                                                         0
+; set each register to 01 and back to 10
+                                  110     01
+                                            11001
+                                            0
+                                  101     10
+                                            10110
+                                            0
+                                  110     01
+                                                 110
+                                                 0
+                                  101     10
+                                                 101
+                                                 0
+                                  110     01
+                                                    11001
+                                                    0
+                                  101     10
+                                                    10110
+                                                    0
+                                  110     01
+                                                         11001
+                                                         0
+                                  101     10
+                                                         10110
+                                                         0
+; set each register to 10 and back to 10
+                                  101     10
+                                            1    
+                                            0
+                                                 1  
+                                                 0
+                                                    1    
+                                                    0
+                                                         1    
+                                                         0
+; set each register to 11 and back to 10
+                                  100     11
+                                            1  01
+                                            0
+                                  101     10
+                                            1  10
+                                            0
+                                  100     11
+                                                 1 0
+                                                 0
+                                  101     10
+                                                 1 1
+                                                 0
+                                  100     11
+                                                    1  01
+                                                    0
+                                  101     10
+                                                    1  10
+                                                    0
+                                  100     11
+                                                         1  01
+                                                         0
+                                  101     10
+                                                         1  10
+                                                         0
+; all registers are 10
+00000000000000000000000000001111001000000011001100010011000110
+;
+; with all registers 11; change each register individually to 00,01,10,11
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set all registers to 11
+                                  100     11
+                                            101011001010110101
+                                            0    0  0    0
+; all registers are 11
+00000000000000000000000000001111001000000011001010000010100101
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set each register to 00 and back to 11
+                                  111     00
+                                            11010
+                                            0
+                                  100     11
+                                            10101
+                                            0
+                                  111     00
+                                                 111
+                                                 0
+                                  100     11
+                                                 100
+                                                 0
+                                  111     00
+                                                    11010
+                                                    0
+                                  100     11
+                                                    10101
+                                                    0
+                                  111     00
+                                                         11010
+                                                         0
+                                  100     11
+                                                         10101
+                                                         0
+; set each register to 01 and back to 11
+                                  110     01
+                                            110  
+                                            0
+                                  100     11
+                                            101
+                                            0
+                                  110     01
+                                                 11
+                                                 0
+                                  100     11
+                                                 10
+                                                 0
+                                  110     01
+                                                    110
+                                                    0
+                                  100     11
+                                                    101
+                                                    0
+                                  110     01
+                                                         110
+                                                         0
+                                  100     11
+                                                         101
+                                                         0
+; set each register to 10 and back to 11
+                                  101     10
+                                            1  10
+                                            0
+                                  100     11
+                                            1  01
+                                            0
+                                  101     10
+                                                 1 1
+                                                 0
+                                  100     11
+                                                 1 0
+                                                 0
+                                  101     10
+                                                    1  10
+                                                    0
+                                  100     11
+                                                    1  01
+                                                    0
+                                  101     10
+                                                         1  10
+                                                         0
+                                  100     11
+                                                         1  01
+                                                         0
+; set each register to 11 and back to 11
+                                  100     11
+                                            1    
+                                            0
+                                  100            1  
+                                                 0
+                                  100               1    
+                                                    0
+                                  100                    1
+                                                         0
+; all registers are 11
+00000000000000000000000000001111001000000011001010000010100101
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set registers to 00
+                                  111     00
+                                            110101111101011010
+                                            0    0  0    0
+; all registers are 00
+00000000000000000000000000001111001110000000010100110101001010
+;
+; now test each register using SHIFT_LEFT_TWICE/ADDER4/ADDER5
+
+; disable SHIFT_RIGHT_TWICE, ADDER0, ADDER1
+                                  000     11
+; use SHIFT_LEFT_TWICE, ADDER4, ADDER5 to set BUS2,BUS3 to 00
+                                     11  100
+; all registers are 00
+00000000000000000000000000001111000001100100010100110101001010
+; use SHIFT_LEFT_TWICE, ADDER4, ADDER5 to set BUS2,BUS3 to 00
+; set each register to 00
+                                     11  1001
+                                            0
+                                          00     1
+                                                 0
+                                          00        1
+                                                    0
+                                          00             1
+                                                         0
+                                          00
+; set each register to 01
+                                     10  101
+                                          011  01
+                                            0
+                                          01     1 0
+                                                 0
+                                          01        1  01
+                                                    0
+                                          01             1  01
+                                                         0
+; set each register to 11
+                                     00  111
+                                          11101  
+                                            0
+                                          11     10 
+                                                 0
+                                          11        101  
+                                                    0
+                                          11             101  
+                                                         0
+; set each register to 10
+                                     01  110
+                                          101  10
+                                            0
+                                          10     1 1
+                                                 0
+                                          10        1  10
+                                                    0
+                                          10             1  10
+                                                         0
+; set each register to 00
+                                     11  100110  
+                                            0
+                                          00     11 
+                                                 0
+                                          00        110  
+                                                    0
+                                          00             110  
+                                                         0
+                                          00
+; all registers are 00
+00000000000000000000000000001111000001100100010100110101001010
+;
+; test AND/MB path
+;
+; set registers MA,PC,MB,AC to 00,00,11,00
+; use SHIFT_LEFT_TWICE, ADDER4, ADDER5 to set BUS2,BUS3 to 00
+                                     00  111
+                                                    10101
+                                                    0
+                                     11  100
+                                            11010111     11010
+                                            0    0       0
+; use AND enable to setup BUS2,BUS3 to 11
+; set MA,PC,xx,AC to 11 and back to 00
+                                     11  011
+                                1         11
+                                            10101
+                                            0
+                                0         11
+                                     11  100
+                                            11010
+                                            0
+                                     11  011
+                                1         11
+                                                 100
+                                                 0
+                                0
+                                     11  100
+                                                 111
+                                                 0
+                                     11  011
+                                1         11
+                                                    1    
+                                                    0
+                                                         10101
+                                                         0
+                                0
+                                     11  100
+                                                         11010
+                                                         0
+                                     11  011
+; set registers MA,PC,MB,AC to 01,01,10,01
+; use SHIFT_LEFT_TWICE, ADDER4, ADDER5 to set BUS2,BUS3 to 01
+                                     01  110
+                                                    10110
+                                                    0
+                                     10  101
+                                            11001110     11001
+                                            0    0       0
+; use AND enable to setup BUS2,BUS3 to 10
+; set MA,PC,xx,AC to 10 and back to 01
+                                     01  011
+                                1         10
+                                            10110
+                                            0
+                                0         11
+                                     10  101
+                                            11001
+                                            0
+                                     10  011
+                                1         10
+                                                 101
+                                                 0
+                                0         11
+                                     10  101
+                                                 110
+                                                 0
+                                     10  011
+                                1         10
+                                                    1
+                                                    0
+                                                         10110
+                                                         0
+                                0         11
+                                     10  101
+                                                         11001
+                                                         0
+                                     10  011
+; set registers MA,PC,MB,AC to 10,10,01,10
+; use SHIFT_LEFT_TWICE, ADDER4, ADDER5 to set BUS2,BUS3 to 01
+                                     10  101
+                                                    11001
+                                                    0
+                                     01  110
+                                            10110101     10110
+                                            0    0       0
+; use AND enable to setup BUS2,BUS3 to 01
+; set MA,PC,xx,AC to 01 and back to 10
+                                     01  011
+                                1         01
+                                            11001
+                                            0
+                                0         11
+                                     01  110
+                                            10110
+                                            0
+                                     01  011
+                                1         01
+                                                 110
+                                                 0
+                                0         11
+                                     01  110
+                                                 101
+                                                 0
+                                     01  011
+                                1         01
+                                                    1
+                                                    0
+                                                         11001
+                                                         0
+                                0         11
+                                     01  110
+                                                         10110
+                                                         0
+                                     01  011
+; set registers MA,PC,MB,AC to 11,11,00,11
+; use SHIFT_LEFT_TWICE, ADDER4, ADDER5 to set BUS2,BUS3 to 01
+                                     11  100
+                                                    11010
+                                                    0
+                                     00  111
+                                            10101100     10101
+                                            0    0       0
+; use AND enable to setup BUS2,BUS3 to 00
+; set MA,PC,xx,AC to 00 and back to 11
+                                     00  011
+                                1         00
+                                            11010
+                                            0
+                                0         11
+                                     00  111
+                                            10101
+                                            0
+                                     00  011
+                                1         00
+                                                 111
+                                                 0
+                                0         11
+                                     00  111
+                                                 100
+                                                 0
+                                     00  011
+                                1         00
+                                                    1
+                                                    0
+                                                         11010
+                                                         0
+                                0         11
+                                     00  111
+                                                         10101
+                                                         0
+                                     00  011
+
+; using SHIFT_LEFT_TWICE,ADDER4,ADDER5; set all registers to 00
+                                     11  100
+                                            110101111101011010
+                                            0    0  0    0
+; disable SHIFT_LEFT_TWICE, ADDER4, ADDER5
+                                     00  011
+; all registers are 00
+00000000000000000000000000001111000000000011010100110101001010
+;
+; initial ADDER tests
+;
+; with no ENABLES, C0 HI, should have ADDER2,ADDER3,C2
+                            1111
+; enable MQ ENABLE; toggle MQ2, MQ3 to ADDER2, ADDER3
+   100                      1111
+   101                      1110
+   111                      1100
+   110                      1101
+   100                      1111
+; disable MQ ENABLE
+   0                        1111
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; need more ENABLE tests to isolate AND/OR errors
+; (should set all regsters to 11)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; enable ENABLE NO ROT to connect ADDER2,ADDER3 to BUS2,BUS3
+   111                      1100       1  11
+   110                      1101       1  10
+   101                      1110       1  01
+   100                      1111       1  00
+; disable ENABLE NO ROT
+   100                      1111       0  11
+; enable SHIFT RIGHT to connect ADDER1,ADDER2 to BUS2,BUS3
+   100                      1111 1  1     00
+   101                      1110 1
+   110                      1101 1  1     01
+   111                      1100 1
+   111                      1100 1  0     11
+   110                      1101 1
+   101                      1110 1  0     10
+   100                      1111 1
+; disable SHIFT RIGHT
+   100                      1111 0        11
+; enable SHIFT_RIGHT_TWICE to connect ADDER0, ADDER1 to BUS2,BUS3
+                                  111     00
+                                  110     01
+                                  101     10
+                                  100     11
+; disable SHIFT_RIGHT_TWICE
+                                  0       11
+;enable SHIFT_LEFT_TWICE to connect ADDER4,ADDER5 to BUS2,BUS3
+                                     11  100
+                                     10  101
+                                     01  110
+                                     00  111
+; disable SHIFT_LEFT_TWICE
+                                         011
+; enable ENABLE ROT LEFT to connect ADDER3,ADDER4 to BUS2,BUS3
+   100                      1111     1  1 00
+   110                      1101        1
+   111                      1100     1  1 10
+   101                      1110        1
+   101                      1110     0  1 11
+   111                      1100        1
+   110                      1101     0  1 01
+   100                      1111        1
+; disable ENABLE ROT LEFT
+   100                      1111        0 11
+   100                      1111     1   
+; disable MQ ENABLE
+   0                                 
+00000000000000000000000000001111000000000011010100110101001010
+; using SHIFT_LEFT_TWICE,ADDER4,ADDER5; set all registers to 00
+                                     11  100
+                                            110101111101011010
+                                            0    0  0    0
+; disable SHIFT_LEFT_TWICE, ADDER4, ADDER5
+                                     00  011
+; all registers are 00
+00000000000000000000000000001111000000000011010100110101001010
+; set all registers to 00
+                                     11  100
+                                            110101111101011010
+                                            0    0  0    0
+; disable SHIFT_LEFT_TWICE, ADDER4, ADDER5
+                                     00  011
+; all registers are 00
+00000000000000000000000000001111000000000011010100110101001010
+; use ENABLE NO ROT to route ADDER2,ADDER3 to BUS2,BUS3
+; toggle C0 
+                            1111       1  00
+                            0110       1  01
+                            1111       1  00
+; enable (add 01); toggle C0
+1                           1110       1  01
+1                           0101       1  10
+1                           1110       1  01
+0                           1111       1  00
+; enable MQ ENABLE; toggle C0, MQ2, MQ3
+   100                      1111       1  00
+   100                      0110       1  01
+   100                      1111       1  00
+   101                      1110       1  01
+   101                      0101       1  10
+   101                      1110       1  01
+   110                      1101       1  10
+   110                      0100       1  11
+   110                      1101       1  10
+   111                      1100       1  11
+   111                      0011       1  00
+   111                      1100       1  11
+   000                      1111       1  00
+; enable SR ENABLE; toggle C0, SR2, SR3
+      100                   1111       1  00
+      100                   0110       1  01
+      100                   1111       1  00
+      101                   1110       1  01
+      101                   0101       1  10
+      101                   1110       1  01
+      110                   1101       1  10
+      110                   0100       1  11
+      110                   1101       1  10
+      111                   1100       1  11
+      111                   0011       1  00
+      111                   1100       1  11
+      000                   1111       1  00
+; enable SC ENABLE; toggel C0, SC2, SC3
+         100                1111       1  00
+         100                0110       1  01
+         100                1111       1  00
+         101                1110       1  01
+         101                0101       1  10
+         101                1110       1  01
+         110                1101       1  10
+         110                0100       1  11
+         110                1101       1  10
+         111                1100       1  11
+         111                0011       1  00
+         111                1100       1  11
+         000                1111       1  00
+; enable DATA ENABLE; toggle C0, DATA2, DATA3
+            100             1111       1  00
+            100             0110       1  01
+            100             1111       1  00
+            101             1110       1  01
+            101             0101       1  10
+            101             1110       1  01
+            110             1101       1  10
+            110             0100       1  11
+            110             1101       1  10
+            111             1100       1  11
+            111             0011       1  00
+            111             1100       1  11
+            000             1111       1  00
+; enable IO ENABLE; toggle C0, IO2, IO3
+               100          1111       1  00
+               100          0110       1  01
+               100          1111       1  00
+               101          1110       1  01
+               101          0101       1  10
+               101          1110       1  01
+               110          1101       1  10
+               110          0100       1  11
+               110          1101       1  10
+               111          1100       1  11
+               111          0011       1  00
+               111          1100       1  11
+               000          1111       1  00
+; enable MEM ENABLE; toggle C0, MEM2
+                     10     1111       1  00
+                     10     0110       1  01
+                     10     1111       1  00
+                     11     1101       1  10
+                     11     0100       1  11
+                     11     1101       1  10
+                     00     1111       1  00
+; enable (MEM3 ENABLE); toggle C0, MEM3
+                       10   1111       1  00
+                       10   0110       1  01
+                       10   1111       1  00
+                       11   1110       1  01
+                       11   0101       1  10
+                       11   1110       1  01
+                       00   1111       1  00
+; enable MEM ENABLE, (MEM3 ENABLE); toggle C0, MEM2, MEM3
+                     1010   1111       1  00
+                     1010   0110       1  01
+                     1010   1111       1  00
+                     1011   1110       1  01
+                     1011   0101       1  10
+                     1011   1110       1  01
+                     1110   1101       1  10
+                     1110   0100       1  11
+                     1110   1101       1  10
+                     1111   1100       1  11
+                     1111   0011       1  00
+                     1111   1100       1  11
+                     0000   1111       1  00
+; enable DATA ADDR EN; toggle C0, DADDR2, DADDR3
+                         1001111       1  00
+                         1000110       1  01
+                         1001111       1  00
+                         1011110       1  01
+                         1010101       1  10
+                         1011110       1  01
+                         1101101       1  10
+                         1100100       1  11
+                         1101101       1  10
+                         1111100       1  11
+                         1110011       1  00
+                         1111100       1  11
+                         0001111       1  00
+00000000000000000000000000001111000000010000010100110101001010
+; turn on MQ2 (not enabled)
+    1                       1111       1  00
+; turn on MQ3 (not enabled)
+     1                      1111       1  00
+; turn on SR2 (not enabled)
+       1                    1111       1  00
+; turn on SR3 (not enabled)
+        1                   1111       1  00
+; turn on SC2 (not enabled)
+          1                 1111       1  00
+; turn on SC3 (not enabled)
+           1                1111       1  00
+; turn on DATA2 (not enabled)
+             1              1111       1  00
+; turn on DATA3 (not enabled)
+              1             1111       1  00
+; turn on IO2 (not enabled)
+                1           1111       1  00
+; turn on IO3 (not enabled)
+                 1          1111       1  00
+; turn on MEM2 (not enabled)
+                      1     1111       1  00
+; turn on MEM3 (not enabled)
+                        1   1111       1  00
+; turn on DADDR2 (not enabled)
+                          1 1111       1  00
+; turn on DADDR3 (not enabled)
+                           11111       1  00
+; turn on ADDER0 (not enabled)
+                            1111   1   1  00
+; turn on ADDER1 (not enabled)
+                            1111    1  1  00
+; turn on ADDER4 (not enabled)
+                            1111     1 1  00
+; turn on ADDER5 (not enabled)
+                            1111      11  00
+; not enabled, signals hi
+00001101101101101100001010111111000111110000010100110101001010
+; toggle C0 
+                            1111       1  00
+                            0110       1  01
+                            1111       1  00
+; enable (add 01); toggle C0
+1                           1110       1  01
+1                           0101       1  10
+1                           1110       1  01
+0                           1111       1  00
+; enable MQ ENABLE; toggle C0, MQ2, MQ3
+   100                      1111       1  00
+   100                      0110       1  01
+   100                      1111       1  00
+   101                      1110       1  01
+   101                      0101       1  10
+   101                      1110       1  01
+   110                      1101       1  10
+   110                      0100       1  11
+   110                      1101       1  10
+   111                      1100       1  11
+   111                      0011       1  00
+   111                      1100       1  11
+   0                        1111       1  00
+; enable SR ENABLE; toggle C0, SR2, SR3
+      100                   1111       1  00
+      100                   0110       1  01
+      100                   1111       1  00
+      101                   1110       1  01
+      101                   0101       1  10
+      101                   1110       1  01
+      110                   1101       1  10
+      110                   0100       1  11
+      110                   1101       1  10
+      111                   1100       1  11
+      111                   0011       1  00
+      111                   1100       1  11
+      0                     1111       1  00
+; enable SC ENABLE; toggel C0, SC2, SC3
+         100                1111       1  00
+         100                0110       1  01
+         100                1111       1  00
+         101                1110       1  01
+         101                0101       1  10
+         101                1110       1  01
+         110                1101       1  10
+         110                0100       1  11
+         110                1101       1  10
+         111                1100       1  11
+         111                0011       1  00
+         111                1100       1  11
+         0                  1111       1  00
+; enable DATA ENABLE; toggle C0, DATA2, DATA3
+            100             1111       1  00
+            100             0110       1  01
+            100             1111       1  00
+            101             1110       1  01
+            101             0101       1  10
+            101             1110       1  01
+            110             1101       1  10
+            110             0100       1  11
+            110             1101       1  10
+            111             1100       1  11
+            111             0011       1  00
+            111             1100       1  11
+            0               1111       1  00
+; enable IO ENABLE; toggle C0, IO2, IO3
+               100          1111       1  00
+               100          0110       1  01
+               100          1111       1  00
+               101          1110       1  01
+               101          0101       1  10
+               101          1110       1  01
+               110          1101       1  10
+               110          0100       1  11
+               110          1101       1  10
+               111          1100       1  11
+               111          0011       1  00
+               111          1100       1  11
+               0            1111       1  00
+; enable MEM ENABLE; toggle C0, MEM2
+                     10     1111       1  00
+                     10     0110       1  01
+                     10     1111       1  00
+                     11     1101       1  10
+                     11     0100       1  11
+                     11     1101       1  10
+                     0      1111       1  00
+; enable (MEM3 ENABLE); toggle C0, MEM3
+                       10   1111       1  00
+                       10   0110       1  01
+                       10   1111       1  00
+                       11   1110       1  01
+                       11   0101       1  10
+                       11   1110       1  01
+                       0    1111       1  00
+; enable MEM ENABLE, (MEM3 ENABLE); toggle C0, MEM2, MEM3
+                     1010   1111       1  00
+                     1010   0110       1  01
+                     1010   1111       1  00
+                     1011   1110       1  01
+                     1011   0101       1  10
+                     1011   1110       1  01
+                     1110   1101       1  10
+                     1110   0100       1  11
+                     1110   1101       1  10
+                     1111   1100       1  11
+                     1111   0011       1  00
+                     1111   1100       1  11
+                     0 0    1111       1  00
+; enable DATA ADDR EN; toggle C0, DADDR2, DADDR3
+                         1001111       1  00
+                         1000110       1  01
+                         1001111       1  00
+                         1011110       1  01
+                         1010101       1  10
+                         1011110       1  01
+                         1101101       1  10
+                         1100100       1  11
+                         1101101       1  10
+                         1111100       1  11
+                         1110011       1  00
+                         1111100       1  11
+                         0  1111       1  00
+; not enabled, signals hi
+00001101101101101100001010111111001110010000010100110101001010
+
+; all registers are 00
+00000000000000000000000000001111000000000011010100110101001010
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set registers MA,PC,MB,AC to 11,11,11,00
+                                  100     11
+                                            1010110010101     
+                                            0    0  0     
+                                  111     00
+                                                         11010
+                                                         0
+                                  000     11
+; use ENABLE NO ROT to route ADDER2,ADDER3 to BUS2,BUS3
+                            1111       1  00   
+; enable AC ENABLE to ADDER2,ADDER3
+ 1                          1111       1  00
+                                            11010
+                                            0
+                                                 111
+                                                 0
+                                                    11010
+                                                    0
+                                                         1    
+                                                         0
+; disable AC ENABLE
+ 0                          1111       1  00
+; enable AC ENABLE-N to ADDER2,ADDER3
+  1                         1100       1  11
+                                            10101
+                                            0
+                                                 100
+                                                 0
+                                                    10101
+                                                    0
+                            1100       1  11
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1111       1  00             10101
+                                                         0
+                            1111       1  00
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1100       1  11             11010
+                                                         0
+                            1100       1  11
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1111       1  00             10101
+                                                         0
+; disable AC ENABLE-N
+  0                         1111       1  00
+; disable ENABLE NO ROT                0  11
+; all registers are 11
+00000000000000000000000000001111000000000011001010000010100101
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set registers MA,PC,MB,AC to 10,10,10,01
+                                  101     10
+                                            1011010110110     
+                                            0    0  0     
+                                  110     01
+                                                         11001
+                                                         0
+                                  000     11
+; use ENABLE NO ROT to route ADDER2,ADDER3 to BUS2,BUS3
+                            1111       1  00   
+; enable AC ENABLE to ADDER2,ADDER3
+ 1                          1110       1  01
+                                            11001
+                                            0
+                                                 110
+                                                 0
+                                                    11001
+                                                    0
+                                                         1    
+                                                         0
+; disable AC ENABLE
+ 0                          1111       1  00
+; enable AC ENABLE-N to ADDER2,ADDER3
+  1                         1101       1  10
+                                            10110
+                                            0
+                                                 101
+                                                 0
+                                                    10110
+                                                    0
+                            1101       1  10
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1110       1  01             10110
+                                                         0
+                            1110       1  01
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1101       1  10             11001
+                                                         0
+                            1101       1  10
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1110       1  01             10110
+; disable AC ENABLE-N
+  0                         1111       1  00
+; disable ENABLE NO ROT                0  11
+; all registers are 10
+00000000000000000000000000001111000000000011001100010011000110
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set registers MA,PC,MB,AC to 01,01,01,10
+                                  110     01
+                                            1100111011001     
+                                            0    0  0     
+                                  101     10
+                                                         10110
+                                                         0
+                                  000     11
+; use ENABLE NO ROT to route ADDER2,ADDER3 to BUS2,BUS3
+                            1111       1  00   
+; enable AC ENABLE to ADDER2,ADDER3
+ 1                          1101       1  10
+                                            10110
+                                            0
+                                                 101
+                                                 0
+                                                    10110
+                                                    0
+                                                         1    
+                                                         0
+; disable AC ENABLE
+ 0                          1111       1  00
+; enable AC ENABLE-N to ADDER2,ADDER3
+  1                         1110       1  01
+                                            11001
+                                            0
+                                                 110
+                                                 0
+                                                    11001
+                                                    0
+                            1110       1  01
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1101       1  10             11001
+                                                         0
+                            1101       1  10
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1110       1  01             10110
+                                                         0
+                            1110       1  01
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1101       1  10             11001
+; disable AC ENABLE-N
+  0                         1111       1  00
+; disable ENABLE NO ROT                0  11
+; all registers are 01
+00000000000000000000000000001111000000000011010010100100101001
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set registers MA,PC,MB,AC to 00,00,00,11
+                                  111     00
+                                            1101011111010     
+                                            0    0  0     
+                                  100     11
+                                                         10101
+                                                         0
+                                  000     11
+; use ENABLE NO ROT to route ADDER2,ADDER3 to BUS2,BUS3
+                            1111       1  00   
+; enable AC ENABLE to ADDER2,ADDER3
+ 1                          1100       1  11
+                                            10101
+                                            0
+                                                 100
+                                                 0
+                                                    10101
+                                                    0
+                                                         1    
+                                                         0
+; disable AC ENABLE
+ 0                          1111       1  00
+; enable AC ENABLE-N to ADDER2,ADDER3
+  1                         1111       1  00
+                                            11010
+                                            0
+                                                 111
+                                                 0
+                                                    11010
+                                                    0
+                            1111       1  00
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1100       1  11             11010
+                                                         0
+                            1100       1  11
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1111       1  00             10101
+                                                         0
+                            1111       1  00
+; note that ADDER2,ADDER3 and BUS2,BUS3 are the NEW values
+                            1100       1  11             11010
+                                                         0
+; disable AC ENABLE-N
+  0                         1111       1  00
+; disable ENABLE NO ROT                0  11
+; all registers are 00
+00000000000000000000000000001111000000000011010100110101001010
+;
+; test MA ENABLES (they are separate)
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set registers MA,PC,MB,AC to 11,00,00,00
+                                  111     00
+                                                 1111101011010
+                                                 0  0    0
+                                  100     11
+                                            10101
+                                            0
+; enable MA ENABLE/(MA3 ENABLE) to ADDER2/ADDER3
+                  10          01
+                  11          00
+                  01          10
+                  00          11
+; set registers MA,PC,MB,AC to 01,10,10,10
+                                  101     10
+                                                 1011011010110
+                                                 0  0    0
+                                  110     01
+                                            11001
+                                            0
+; enable MA ENABLE/(MA3 ENABLE) to ADDER2/ADDER3
+                  10          11
+                  11          10
+                  01          10
+                  00          11
+; set registers MA,PC,MB,AC to 00,11,11,11
+                                  100     11
+                                                 1001010110101
+                                                 0  0    0
+                                  111     00
+                                            11010
+                                            0
+; enable MA ENABLE/(MA3 ENABLE) to ADDER2/ADDER3
+                  10          11
+                  11          11
+                  01          11
+                  00          11
+; set registers MA,PC,MB,AC to 10,01,01,01
+                                  110     01
+                                                 1101100111001
+                                                 0  0    0
+                                  101     10
+                                            10110
+                                            0
+; enable MA ENABLE/(MA3 ENABLE) to ADDER2/ADDER3
+                  10          01
+                  11          01
+                  01          11
+                  00          11
+; set registers MA,PC,MB,AC to 00,00,00,00
+                                  111     00
+                                            110101111101011010
+                                            0    0  0    0
+; disable SHIFT_RIGHT_TWICE/ADDER0/ADDER1
+                                  000     11
+; all registers are 00
+00000000000000000000000000001111000000000011010100110101001010
+;
+; test PC ENABLE
+;
+; use SHIFT_RIGHT_TWICE, ADDER0, ADDER1 to setup BUS2,BUS3
+; set registers MA,PC,MB,AC to 00,11,00,00
+                                  111     00
+                                            11010   1101011010
+                                            0       0    0
+                                  100     11
+                                                 100
+                                                 0
+; enable PC ENABLE to ADDER2/ADDER3
+                    1         00
+                    0         11
+; set registers MA,PC,MB,AC to 10,01,10,10
+                                  101     10
+                                            10110   1011010110
+                                            0       0    0
+                                  110     01
+                                                 110
+                                                 0
+; enable PC ENABLE to ADDER2/ADDER3
+                    1         10
+                    0         11
+; set registers MA,PC,MB,AC to 11,00,11,11
+                                  100     11
+                                            10101   1010110101
+                                            0       0    0
+                                  111     00
+                                                 111
+                                                 0
+; enable PC ENABLE to ADDER2/ADDER3
+                    1         11
+                    0         11
+; set registers MA,PC,MB,AC to 01,10,01,01
+                                  110     01
+                                            11001   1100111001
+                                            0       0    0
+                                  101     10
+                                                 101
+                                                 0
+; enable PC ENABLE to ADDER2/ADDER3
+                    1         01
+                    0         11
+; set registers MA,PC,MB,AC to 00,00,00,00
+                                  111     00
+                                            110101111101011010
+                                            0    0  0    0
+; disable SHIFT_RIGHT_TWICE/ADDER0/ADDER1
+                                  000     11
+; all registers are 00
+00000000000000000000000000001111000000000011010100110101001010
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; still need
+;
+; more adder tests
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+END
