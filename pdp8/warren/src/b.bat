@@ -1,2 +1,2 @@
-cl -W4 -AL tester.c
+cl -W4 -AH tester.c
 

@@ -7,7 +7,9 @@
 /*                                                                      */
 /************************************************************************/
 
-#define VERSION_STRING  "version 0.85 June 4, 2015"
+#define VERSION_STRING  "version 0.91 November 27, 2015"
+
+#define _CRT_SECURE_NO_WARNINGS	1	/* disable Microsoft 'old library' warnings	*/
 
 #include <conio.h>
 #include <ctype.h>
@@ -419,7 +421,7 @@ unsigned int reg_init_and_verify( void )  /* returns 0 if okay    */
 
 
 
-const char edge_pins[18] = "ABCDEFHJKLMNPRSTUV";
+const char edge_pins[19] = "ABCDEFHJKLMNPRSTUV";
 #define PIN_DRIVERS  80
 #define TEST_COLUMNS 72
 const struct
@@ -433,12 +435,12 @@ const struct
     { 0, (1U << 13)  },     /* AC1  */
     { 0, (1U << 12)  },     /* AD1  */
     { 0, (1U << 11)  },     /* AE1  */
-    { 0, (1U << 10)  },     /* AF1  */
+    { 0, (1U << 10)  },     /* AF1  */			/* PIN  5	*/
     { 0, (1U << 9)   },     /* AH1  */
     { 0, (1U << 8)   },     /* AJ1  */
     { 1, (1U << 15)  },     /* AK1  */
     { 1, (1U << 14)  },     /* AL1  */
-    { 1, (1U << 13)  },     /* AM1  */
+    { 1, (1U << 13)  },     /* AM1  */			/* PIN 10	*/
     { 1, (1U << 12)  },     /* AN1  */
     { 1, (1U << 11)  },     /* AP1  */
     { 1, (1U << 10)  },     /* AR1  */
@@ -454,60 +456,60 @@ const struct
     { 0, (1U << 3)   },     /* AE2  */
     { 0, (1U << 2)   },     /* AF2  */
     { 0, (1U << 1)   },     /* AH2  */
-    { 0, (1U << 0)   },     /* AJ2  */
+    { 0, (1U << 0)   },     /* AJ2  */			/* PIN 25	*/
     { 1, (1U << 0)   },     /* AK2  */
     { 1, (1U << 1)   },     /* AL2  */
     { 1, (1U << 2)   },     /* AM2  */
     { 1, (1U << 3)   },     /* AN2  */
-    { 1, (1U << 4)   },     /* AP2  */
+    { 1, (1U << 4)   },     /* AP2  */			/* PIN 30	*/
     { 1, (1U << 5)   },     /* AR2  */
     { 1, (1U << 6)   },     /* AS2  */
     { 1, (1U << 7)   },     /* AT2  */
     { 2, (1U << 0)   },     /* AU2  */
-    { 2, (1U << 1)   },     /* AV2  */
+    { 2, (1U << 1)   },     /* AV2  */			/* PIN 35	*/
 
     { 2, (1U << 13)  },     /* BA1  */          /* PIN 36   */
     { 2, (1U << 12)  },     /* BB1  */
     { 2, (1U << 11)  },     /* BC1  */
     { 2, (1U << 10)  },     /* BD1  */
-    { 2, (1U << 9)   },     /* BE1  */
+    { 2, (1U << 9)   },     /* BE1  */			/* PIN 40	*/
     { 2, (1U << 8)   },     /* BF1  */
     { 3, (1U << 15)  },     /* BH1  */
     { 3, (1U << 14)  },     /* BJ1  */
     { 3, (1U << 13)  },     /* BK1  */
-    { 3, (1U << 12)  },     /* BL1  */
+    { 3, (1U << 12)  },     /* BL1  */			/* PIN 45	*/
     { 3, (1U << 11)  },     /* BM1  */
     { 3, (1U << 10)  },     /* BN1  */
     { 3, (1U << 9)   },     /* BP1  */
     { 3, (1U << 8)   },     /* BR1  */
-    { 4, (1U << 15)  },     /* BS1  */
+    { 4, (1U << 15)  },     /* BS1  */			/* PIN 50	*/
     { 4, (1U << 14)  },     /* BT1  */          /* PIN 51 is PIN_GROUND_BT1 */
     { 4, (1U << 13)  },     /* BU1  */
     { 4, (1U << 12)  },     /* BV1  */
 
     { 2, (1U << 2)   },     /* BA2  */          /* PIN 54 is PIN_POWER_BA2_NC (no connection)  */
-    { 2, (1U << 3)   },     /* BB2  */
+    { 2, (1U << 3)   },     /* BB2  */			/* PIN 55	*/
     { 2, (1U << 4)   },     /* BC2  */          /* PIN 56 is PIN_GROUND_BC2 */
     { 2, (1U << 5)   },     /* BD2  */
     { 2, (1U << 6)   },     /* BE2  */
     { 2, (1U << 7)   },     /* BF2  */
-    { 3, (1U << 0)   },     /* BH2  */
+    { 3, (1U << 0)   },     /* BH2  */			/* PIN 60	*/
     { 3, (1U << 1)   },     /* BJ2  */
     { 3, (1U << 2)   },     /* BK2  */
     { 3, (1U << 3)   },     /* BL2  */
     { 3, (1U << 4)   },     /* BM2  */
-    { 3, (1U << 5)   },     /* BN2  */
+    { 3, (1U << 5)   },     /* BN2  */			/* PIN 65	*/
     { 3, (1U << 6)   },     /* BP2  */
     { 3, (1U << 7)   },     /* BR2  */
     { 4, (1U << 0)   },     /* BS2  */
     { 4, (1U << 1)   },     /* BT2  */
-    { 4, (1U << 2)   },     /* BU2  */
+    { 4, (1U << 2)   },     /* BU2  */			/* PIN 70	*/
     { 4, (1U << 3)   },     /* BV2  */
 
     { 4, (1U << 4)   },     /* PROBE_1      */  /* PIN 72    */
     { 4, (1U << 5)   },     /* PROBE_2      */
     { 4, (1U << 6)   },     /* PROBE_3      */
-    { 4, (1U << 7)   },     /* PROBE_4      */
+    { 4, (1U << 7)   },     /* PROBE_4      */	/* PIN 75	*/
     { 4, (1U << 8)   },     /* GREEN  LED   */
     { 4, (1U << 9)   },     /* RED    LED   */
     { 4, (1U << 10)  },     /* YELLOW LED   */
@@ -728,20 +730,22 @@ void verify_mapping( void )
     for (i = 0; i < PIN_DRIVERS; i++)
     {
         offset = mapping[i].offset;
-        mask   = mapping[i].mask;
         if (offset > 4)
         {
             sprintf( print_buffer, "broken software: mapping[%u].offset is bad\r\n", i );
             print( print_buffer );
             exit( 1 );
         }
-        if ((mask ^ (~mask)) != 0xFFFF)
+		/* expect one and only one bit in the mask	*/
+        mask = mapping[i].mask;
+		mask = mask & (unsigned)(-(signed)mask);		/* keeps lowest bit that is set	*/
+		if ((mask == 0) || (mask != mapping[i].mask))	/* no bits or more than one bit?	*/
         {
             sprintf( print_buffer, "broken software: mapping[%u].mask is bad\r\n", i );
             print( print_buffer );
             exit( 1 );
         }
-        if (temp[offset] & mask)
+        if (temp[offset] & mask)	/* mask already used?	*/
         {
             sprintf( print_buffer, "broken software: mapping[%u] is bad (already used)\r\n", i );
             print( print_buffer );
@@ -986,8 +990,8 @@ void do_diags( void )
                 if (verify_power( reg_in )) stage_pin( PIN_LED_GREEN, 1, reg_out );
                 if (lo_count == 1) stage_pin( PIN_LED_RED2, 1, reg_out );
                 reg_write( REG_OLAT, reg_out );
-            } while (!kbhit());
-            if (kbhit()) key = get_a_key();
+            } while (!_kbhit());
+            if (_kbhit()) key = get_a_key();
             key = '1';      /* make sure it's not 'quit'    */
             break;
 
@@ -1086,8 +1090,8 @@ void do_diags( void )
                     if (hi_count == 1)          stage_pin( PIN_LED_RED,   1, reg_out );
                     reg_write( REG_OLAT, reg_out );
                 }
-            } while (!kbhit());
-            if (kbhit()) key = get_a_key();
+            } while (!_kbhit());
+            if (_kbhit()) key = get_a_key();
             key = '1';      /* make sure it's not 'quit'    */
             break;
 
@@ -1172,7 +1176,7 @@ void do_diags( void )
                             }
                             print( "\r\n" );
                         }
-                        if (kbhit()) key = get_a_key_convert_to_upper();
+                        if (_kbhit()) key = get_a_key_convert_to_upper();
                     } while ((key >= 'A') && (key <= 'F'));
                     key = '3';      /* make sure it's not 'quit'    */
                     break;
@@ -1199,11 +1203,11 @@ void do_diags( void )
                             if (index > 20)
                             {
                                 index = 0;
-                                if (kbhit()) break;
+                                if (_kbhit()) break;
                             }
                         } while (key == 'G');
                     } while (key != 'Q');
-                    if (kbhit()) key = get_a_key();
+                    if (_kbhit()) key = get_a_key();
                     key = '4';      /* make sure it's not 'quit'    */
                     break;
 
@@ -1247,7 +1251,7 @@ void do_diags( void )
                             }
                         }
                         for (delay = 0UL; delay < 100000UL; delay++) spi_output();
-                        if (kbhit()) key = get_a_key_convert_to_upper();
+                        if (_kbhit()) key = get_a_key_convert_to_upper();
                     } while ((key >= 'A') && (key <= 'F'));
                     key = '5';      /* make sure it's not 'quit'    */
                     break;
@@ -1288,7 +1292,7 @@ void do_diags( void )
                             }
                             print( "\r\n" );
                         }
-                        if (kbhit()) key = get_a_key_convert_to_upper();
+                        if (_kbhit()) key = get_a_key_convert_to_upper();
                     } while ((key >= 'A') && (key <= 'F'));
                     key = '6';      /* make sure it's not 'quit'    */
                     break;
@@ -1330,7 +1334,7 @@ void do_diags( void )
             case '4':
                 print( "\r\ntesting spi_open, spi_close\r\n" );
                 index = 0;
-                for (;;)        /* break on kbhit() */
+                for (;;)        /* break on _kbhit() */
                 {
                     spi_open();
                     spi_close();
@@ -1338,16 +1342,16 @@ void do_diags( void )
                     if (index > 9)
                     {
                         index = 0;
-                        if (kbhit()) break;
+                        if (_kbhit()) break;
                     }
                 }
-                if (kbhit()) key = get_a_key();
+                if (_kbhit()) key = get_a_key();
                 break;
             case '5':
             case '6':
                 print( "\r\ntesting spi_txrx\r\n" );
                 index = 0;
-                for (;;)        /* break on kbhit() */
+                for (;;)        /* break on _kbhit() */
                 {
                     for (i = 0; i < 5; i++) spi_out[i] = 0;
                     for (i = 0; i < 5; i++) spi_in[i]  = 0;
@@ -1378,16 +1382,16 @@ void do_diags( void )
                         index = 0;
                         if (key == '6')
                         {
-                            if (kbhit()) break;
+                            if (_kbhit()) break;
                         }
                     }
                     if (key == '5')     /* print?   */
                     {
                         for (i = 0; i < 10000; i++) spi_output();
-                        if (kbhit()) break;
+                        if (_kbhit()) break;
                     }
                 }
-                if (kbhit()) key = get_a_key();
+                if (_kbhit()) key = get_a_key();
                 key = '5';      /* make sure it's not 'quit'    */
                 break;
             default:
@@ -1438,9 +1442,9 @@ void do_diags( void )
                     {
                         lpt_input_status();
                         status = lpt_value_status_last_read;
-                    } while ((status == last_status) && (!kbhit()));
+                    } while ((status == last_status) && (!_kbhit()));
 
-                    if (kbhit())
+                    if (_kbhit())
                     {
                         key = get_a_key();
                         if ((key >= '0') && (key <= '7'))
@@ -1483,8 +1487,8 @@ void do_diags( void )
 
 
 #define MAX_STRING  120
-#define MAX_LINES   3000
-#define MAX_STEPS   2000
+#define MAX_LINES   4000
+#define MAX_STEPS   2200
 
 struct
 {
@@ -1609,7 +1613,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             raw_test.line[raw_test.number_lines] = ptr;
             raw_test.number_lines++;
 
-            (void)strupr( buffer );
+            (void)_strupr( buffer );
             compare = strcmp( "PINS", buffer );
             if (compare != 0)
             {
@@ -1661,7 +1665,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             raw_test.line[raw_test.number_lines] = ptr;
             raw_test.number_lines++;
 
-            (void)strupr( buffer );
+            (void)_strupr( buffer );
             sprintf( print_buffer, "     pins: %s\r\n", buffer );        /* show file contents  */
             print( print_buffer );
             if (strlen( buffer ) == 0) break;           /* blank line ends PINS */
@@ -1790,7 +1794,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             fgets( buffer, sizeof( buffer ), file_test );
             if (feof( file_test )) break;;
 
-            (void)strupr( buffer );
+            (void)_strupr( buffer );
             ptr = strchr( buffer, '\n' );
             if (ptr != (char *)NULL) *ptr = '\0';
             ptr = strchr( buffer, '\r' );
@@ -2135,16 +2139,21 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
         print( "\r\n" );
 
         printf( "\r\n" );
-        sprintf( print_buffer, "UUT has %u inputs\r\n", number_UUT_inputs );
+        sprintf( print_buffer, "UUT inputs:  %2u\r\n", 	number_UUT_inputs );
         print( print_buffer );
-        sprintf( print_buffer, "UUT has %u outputs\r\n", number_UUT_outputs );
+        sprintf( print_buffer, "UUT outputs: %2u\r\n", 	number_UUT_outputs );
         print( print_buffer );
 
-        sprintf( print_buffer, "contains %u pins/columns\r\n", test.number_columns );
+        sprintf( print_buffer, "pins used:   %2u\r\n", 	test.number_columns );
         print( print_buffer );
-        sprintf( print_buffer, "%u pins are not used\r\n", 66 - test.number_columns );
+        sprintf( print_buffer, " not used:   %2u\r\n", 	66 - test.number_columns );
         print( print_buffer );
-        sprintf( print_buffer, "contains %u 'test steps'\r\n", test.number_steps );
+        sprintf( print_buffer, "%4u 'test steps'\r\n", 	test.number_steps );
+	print( print_buffer );
+        sprintf( print_buffer, "%4u lines\r\n", 	raw_test.number_lines );
+        print( print_buffer );
+
+        sprintf( print_buffer, "\r\n" );
         print( print_buffer );
 
         for (i = 0; i < test.raw_line_pins; i++)
@@ -2303,7 +2312,9 @@ void run_a_test( unsigned int delay, unsigned int trigger )
         print( " G      go (run tests\r\n" );
         print( " N      run, stop on fail, no print\r\n" );
         print( " S      scope (run, no print)\r\n" );
-        print( " C      toggle comment printout\r\n" );
+        print( " C      turn " );
+		print( (comment_flag) ? "off" : "on" );
+		print( " comment printout\r\n" );
         print( " +      increase speed (less delay)\r\n" );
         print( " -      decrease speed (more delay)(slower)\r\n" );
         print( " Q      quit test\r\n" );
@@ -2625,13 +2636,13 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 /* extra slow when printing */
                 for (delay_count = 0; delay_count < (delay * 20000UL); delay_count++)
                 {
-                    if (kbhit()) break;
+                    if (_kbhit()) break;
                 }
             }
         }
 
         key = 0;
-        if (kbhit()) key = get_a_key_convert_to_upper();
+        if (_kbhit()) key = get_a_key_convert_to_upper();
         if ((key == '+') || (key == '=') || (key == KEY_CURSOR_UP))
         {
             if (delay > 0) delay--;
@@ -2663,7 +2674,9 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 print( " M      mapping\r\n" );
                 print( " R      show registers\r\n" );
                 print( " D      diagnostics\r\n" );
-                print( " C      toggle comment printout\r\n" );
+		        print( " C      turn " );
+				print( (comment_flag) ? "off" : "on" );
+				print( " comment printout\r\n" );
                 print( " A      failure mode analysis\r\n" );
                 print( " +      increase speed (less delay)\r\n" );
                 print( " -      decrease speed (more delay)(slower)\r\n" );
@@ -2972,9 +2985,11 @@ void output_load_test( void )
     first_flag = 1;
     pin_driver = PIN_DRIVERS;
     step = 0;
+	column		= 0;
     do
     {
         /* find the next pin driver that is a test output       */
+        
         for (;;)            /* will break on next output column */
         {
             no_output_flag = 0;
@@ -3077,7 +3092,7 @@ void output_load_test( void )
                         print( print_buffer );
                         break;
                     }
-                    if (kbhit()) break;
+                    if (_kbhit()) break;
                 }   /* for (;;) break on changing output    */
             }   /* if (key == ' ')  */
             if (key == 'N') break;
