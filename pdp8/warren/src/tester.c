@@ -7,7 +7,7 @@
 /*                                                                      */
 /************************************************************************/
 
-#define VERSION_STRING  "version 0.8 12/18/2012"
+#define VERSION_STRING  "version 0.85 June 4, 2015"
 
 #include <conio.h>
 #include <ctype.h>
@@ -15,26 +15,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 #define     LOG_FILENAME    "tester.log"
 FILE *file_log = (FILE *)NULL;
 char  print_buffer[1024];
 
+
 void print( char *buffer )
 {
     if (file_log == (FILE *)NULL)
     {
-        file_log = fopen( LOG_FILENAME, "w+a" );
+        file_log = fopen( LOG_FILENAME, "a+" );		/* append to existing file (we will only write)	*/
         if (file_log == (FILE *)NULL)
         {
-            printf( "FATAL ERROR: could not open 'log file': " LOG_FILENAME "\n" );
+            printf( "FATAL ERROR: could not open 'log file': " LOG_FILENAME "\r\n" );
             exit( 1 );
         }
     }
     printf(            "%s", buffer );
     fprintf( file_log, "%s", buffer );
 }
+
+
+
+void print_timestamp( void )
+{
+	time_t	now_time32;					/* MSVC 1.52 is only 32 bit times.  BLOWS UP in 2038	*/
+	char	time_buffer[ 26 ];
+	char   *ptr;
+
+	time( &now_time32 );
+	strcpy( time_buffer, ctime( &now_time32 ) );	/* ctime() returns pointer to static 26 character string	*/
+    ptr = strchr( time_buffer, '\n' );
+    if (ptr != (char *)NULL) *ptr = '\0';
+
+	print( time_buffer );
+}
+
 
 
 unsigned short  lpt_base                = 0x378;   /* LPT1 on Dell D610    */
@@ -95,7 +114,7 @@ void lpt_set_data_bit( unsigned int bit_number )
 {
     if (bit_number > 7)
     {
-        print( "ERROR: broken software\n" );
+        print( "ERROR: broken software\r\n" );
         exit( 1 );
     }
     lpt_value_new_data |= (1 << bit_number);
@@ -105,7 +124,7 @@ void lpt_clr_data_bit( unsigned int bit_number )
 {
     if (bit_number > 7)
     {
-        print( "ERROR: broken software\n" );
+        print( "ERROR: broken software\r\n" );
         exit( 1 );
     }
     lpt_value_new_data &= ~(1 << bit_number);
@@ -115,7 +134,7 @@ void lpt_set_control_bit( unsigned int bit_number )
 {
     if (bit_number > 7)
     {
-        print( "ERROR: broken software\n" );
+        print( "ERROR: broken software\r\n" );
         exit( 1 );
     }
     lpt_value_new_control |= (1 << bit_number);
@@ -125,7 +144,7 @@ void lpt_clr_control_bit( unsigned int bit_number )
 {
     if (bit_number > 7)
     {
-        print( "ERROR: broken software\n" );
+        print( "ERROR: broken software\r\n" );
         exit( 1 );
     }
     lpt_value_new_control &= ~(1 << bit_number);
@@ -135,7 +154,7 @@ void lpt_toggle_data_bit( unsigned int bit_number )
 {
     if (bit_number > 7)
     {
-        print( "ERROR: broken software\n" );
+        print( "ERROR: broken software\r\n" );
         exit( 1 );
     }
     lpt_value_new_data ^= (1 << bit_number);
@@ -145,7 +164,7 @@ void lpt_toggle_control_bit( unsigned int bit_number )
 {
     if (bit_number > 7)
     {
-        print( "ERROR: broken software\n" );
+        print( "ERROR: broken software\r\n" );
         exit( 1 );
     }
     lpt_value_new_control ^= (1 << bit_number);
@@ -386,14 +405,14 @@ unsigned int reg_init_and_verify( void )  /* returns 0 if okay    */
     else
     {
         result = 1;         /* error    */
-        print( "\n" );
-        print( "\n" );
-        print( "***************************************************************************\n" );
-        print( "*  did not verify registers after initialize (chip reset).                *\n" );
-        print( "*  check that the tester is cabled to LPT port and that the power is on.  *\n" );
-        print( "***************************************************************************\n" );
-        print( "\n" );
-        print( "\n" );
+        print( "\r\n" );
+        print( "\r\n" );
+        print( "***************************************************************************\r\n" );
+        print( "*  did not verify registers after initialize (chip reset).                *\r\n" );
+        print( "*  check that the tester is cabled to LPT port and that the power is on.  *\r\n" );
+        print( "***************************************************************************\r\n" );
+        print( "\r\n" );
+        print( "\r\n" );
     }
     return (result);
 }
@@ -712,34 +731,34 @@ void verify_mapping( void )
         mask   = mapping[i].mask;
         if (offset > 4)
         {
-            sprintf( print_buffer, "broken software: mapping[%u].offset is bad\n", i );
+            sprintf( print_buffer, "broken software: mapping[%u].offset is bad\r\n", i );
             print( print_buffer );
             exit( 1 );
         }
         if ((mask ^ (~mask)) != 0xFFFF)
         {
-            sprintf( print_buffer, "broken software: mapping[%u].mask is bad\n", i );
+            sprintf( print_buffer, "broken software: mapping[%u].mask is bad\r\n", i );
             print( print_buffer );
             exit( 1 );
         }
         if (temp[offset] & mask)
         {
-            sprintf( print_buffer, "broken software: mapping[%u] is bad (already used)\n", i );
+            sprintf( print_buffer, "broken software: mapping[%u] is bad (already used)\r\n", i );
             print( print_buffer );
             exit( 1 );
         }
         temp[offset] |= mask;
     }
-    print( "\n" );
+    print( "\r\n" );
     for (i = 0; i < 5; i++)
     {
         if (temp[i] != 0xFFFF)
         {
-            print( "broken software: mapping[] does not define all 80 bits\n" );
+            print( "broken software: mapping[] does not define all 80 bits\r\n" );
             exit( 1 );
         }
     }
-    print( "mapping[] is verified\n" );
+    print( "mapping[] is verified\r\n" );
 }
 
 
@@ -785,27 +804,28 @@ unsigned int tester_init_and_uut_power_verify( void )       /* returns 0 if no e
         set_default_outputs( data_out );
         if (power_valid)
         {
-            print( "\n" );
-            print( "UUT power is okay\n" );
-            print( "\n" );
+            print( "\r\n" );
+            print( "UUT power is okay    " );	print_timestamp();  print( "\r\n" );
+            print( "\r\n" );
             stage_pin( PIN_LED_RED, 1, data_out );
         }
         else
         {
             result = 1;         /* error    */
-            print( "\n" );
-            print( "\n" );
-            print( "*****************************\n" );
-            print( "  UUT power is OFF          *\n" );
-            print( "*****************************\n" );
-            print( "\n" );
-            print( "\n" );
+            print( "\r\n" );
+            print( "\r\n" );
+            print( "*****************************\r\n" );
+            print( "  UUT power is OFF          *\r\n" );
+            print( "*****************************\r\n" );
+            print( "\r\n" );
+            print( "\r\n" );
         }
         reg_write( REG_OLAT, data_out );
     }
     return (result);
 }
 
+#define KEY_ESCAPE			0x001B
 #define KEY_CURSOR_UP       0x0148
 #define KEY_CURSOR_LEFT     0x014B
 #define KEY_CURSOR_RIGHT    0x014D
@@ -862,15 +882,15 @@ void do_diags( void )
     do
     {
 
-        print( "\n" );
-        print( "diags menu\n" );
-        print( " 1 card edge input  test\n" );
-        print( " 2 card edge output test\n" );
-        print( " 3 tester_init_and_uut_power_verify\n" );
-        print( " 6 register tests\n" );
-        print( " 7 SPI functions\n" );
-        print( " 8 LPT functions\n" );
-        print( " 9 exit diags\n" );
+        print( "\r\n" );
+        print( "diags menu\r\n" );
+        print( " 1 card edge input  test\r\n" );
+        print( " 2 card edge output test\r\n" );
+        print( " 3 tester_init_and_uut_power_verify\r\n" );
+        print( " 6 register tests\r\n" );
+        print( " 7 SPI functions\r\n" );
+        print( " 8 LPT functions\r\n" );
+        print( " 9 exit diags\r\n" );
         
         key = get_a_key();
         switch (key)
@@ -883,19 +903,19 @@ void do_diags( void )
                 if (index > 20)
                 {
                     index = 0;
-                    print( "\n" );
-                    print( "green led:  on = all power good (UUT Power Pins (5V) high; Ground pins low\n" );
-                    print( "red2  led:  on = only one pin grounded\n" );
-                    print( "pullups on, test with 100k to ground;     Ground Pin; Power pin\n" );
-                    print( "<---------------SLOT A-------------><---------------SLOT B------------->\n" );
+                    print( "\r\n" );
+                    print( "green led:  on = all power good (UUT Power Pins (5V) high; Ground pins low\r\n" );
+                    print( "red2  led:  on = only one pin grounded\r\n" );
+                    print( "pullups on, test with 100k to ground;     Ground Pin; Power pin\r\n" );
+                    print( "<---------------SLOT A-------------><---------------SLOT B------------->\r\n" );
                     for (i = 0; i < TEST_COLUMNS; i++)
                     {
                         sprintf( print_buffer, "%c", get_pin_type_char( i ) );
                         print( print_buffer );
                     }
-                    print( "\n" );
-                    print( "ABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUV\n" );
-                    print( "111111111111111111222222222222222222111111111111111111222222222222222222\n" );
+                    print( "\r\n" );
+                    print( "ABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUV\r\n" );
+                    print( "111111111111111111222222222222222222111111111111111111222222222222222222\r\n" );
                 }
 
                 set_default_directions( reg_out );  /* all inputs + fixed outputs   */
@@ -959,7 +979,7 @@ void do_diags( void )
                             }
                         }
                     }
-                    print( "\n" );
+                    print( "\r\n" );
                 }
                 for (i = 0; i < 5; i++) reg_in_old[i] = reg_in[i];
                 set_default_outputs( reg_out );
@@ -972,7 +992,7 @@ void do_diags( void )
             break;
 
         case '2':   /* card edge output test   */
-            print( "green led:  on = all power good (UUT Power Pins (5V) high; Ground pins low\n" );
+            print( "green led:  on = all power good (UUT Power Pins (5V) high; Ground pins low\r\n" );
 
             set_default_directions( reg_out );  /* all inputs + fixed outputs   */
             reg_write( REG_IODIR, reg_out );
@@ -988,17 +1008,17 @@ void do_diags( void )
                 if (index > 79)
                 {
                     index = 0;
-                    print( "\n" );
-                    print( "walking one output                       Ground Pin; Power pin\n" );
-                    print( "<---------------SLOT A-------------><---------------SLOT B------------->\n" );
+                    print( "\r\n" );
+                    print( "walking one output                       Ground Pin; Power pin\r\n" );
+                    print( "<---------------SLOT A-------------><---------------SLOT B------------->\r\n" );
                     for (i = 0; i < TEST_COLUMNS; i++)
                     {
                         sprintf( print_buffer, "%c", get_pin_type_char( i ) );
                         print( print_buffer );
                     }
-                    print( "\n" );
-                    print( "ABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUV\n" );
-                    print( "111111111111111111222222222222222222111111111111111111222222222222222222\n" );
+                    print( "\r\n" );
+                    print( "ABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUV\r\n" );
+                    print( "111111111111111111222222222222222222111111111111111111222222222222222222\r\n" );
                     
                 }
 
@@ -1059,7 +1079,7 @@ void do_diags( void )
                             }
                         }
                     }
-                    print( "\n" );
+                    print( "\r\n" );
                     for (i = 0; i < 5; i++) reg_in_old[i] = reg_in[i];
                     set_default_outputs( reg_out );
                     if (verify_power( reg_in )) stage_pin( PIN_LED_GREEN, 1, reg_out );
@@ -1072,57 +1092,57 @@ void do_diags( void )
             break;
 
         case '3':   /* tester_init_and_uut_power_verify */
-            print( "calling 'tester_init_and_uut_power_verify'\n" );
+            print( "calling 'tester_init_and_uut_power_verify'\r\n" );
             uTemp = tester_init_and_uut_power_verify();
-            sprintf( print_buffer, "tester_init_and_uut_power_verify() returns %u\n", uTemp );
+            sprintf( print_buffer, "tester_init_and_uut_power_verify() returns %u\r\n", uTemp );
             print( print_buffer );
-            if (uTemp == 0) print( "UUT power is okay\n" );
-            if (uTemp != 0) print( "Error occurred or power is not on\n" );
+            if (uTemp == 0) print( "UUT power is okay\r\n" );
+            if (uTemp != 0) print( "Error occurred or power is not on\r\n" );
             break;
 
         case '6':   /* register tests   */
             do
             {
-                print( "\n" );
-                print( " 1 reg_init()\n" );
-                print( " 2 reg_init_and_verify (reset chips)\n" );
-                print( " 3 inputs (with pullups)\n" );
-                print( " 4 outputs toggle\n" );
-                print( " 5 read all registers\n" );
-                print( " 6 read GPIO registers (no changes)\n" );
-                print( " 9 quit register tests\n" );
+                print( "\r\n" );
+                print( " 1 reg_init()\r\n" );
+                print( " 2 reg_init_and_verify (reset chips)\r\n" );
+                print( " 3 inputs (with pullups)\r\n" );
+                print( " 4 outputs toggle\r\n" );
+                print( " 5 read all registers\r\n" );
+                print( " 6 read GPIO registers (no changes)\r\n" );
+                print( " 9 quit register tests\r\n" );
 
                 key = get_a_key_convert_to_upper();
                 switch( key )
                 {
                 case '1':   /* reg_init()  */
-                    print( "calling 'reg_init'\n" );
+                    print( "calling 'reg_init'\r\n" );
                     reg_init();
                     break;
 
                 case '2':   /* reg_init_and_verify      */
-                    print( "calling 'reg_init_and_verify()'\n" );
+                    print( "calling 'reg_init_and_verify()'\r\n" );
                     uTemp = reg_init_and_verify();     /* leaves all pins inputs; output latches = 0   */
-                    sprintf( print_buffer, "reg_init_and_verify() returns %u\n", uTemp );
+                    sprintf( print_buffer, "reg_init_and_verify() returns %u\r\n", uTemp );
                     print( print_buffer );
-                    if (uTemp == 0) print( "initialize was verified\n" );
-                    if (uTemp != 0) print( "ERROR, initialize did not verify\n" );
+                    if (uTemp == 0) print( "initialize was verified\r\n" );
+                    if (uTemp != 0) print( "ERROR, initialize did not verify\r\n" );
                     break;
 
                 case '3':   /* inputs (with pullups)    */
-                    print( "  A print chip A in binary\n" );
-                    print( "  B print chip B in binary\n" );
-                    print( "  C print chip C in binary\n" );
-                    print( "  D print chip D in binary\n" );
-                    print( "  E print chip E in binary\n" );
-                    print( "  F no print (scope)\n" );
+                    print( "  A print chip A in binary\r\n" );
+                    print( "  B print chip B in binary\r\n" );
+                    print( "  C print chip C in binary\r\n" );
+                    print( "  D print chip D in binary\r\n" );
+                    print( "  E print chip E in binary\r\n" );
+                    print( "  F no print (scope)\r\n" );
                     key = get_a_key_convert_to_upper();
 
-                    print( "setting to inputs\n" );
+                    print( "setting to inputs\r\n" );
                     set_default_directions( reg_out );  /* all inputs + fixed outputs   */
                     reg_write( REG_IODIR, reg_out );
 
-                    print( "setting pullups\n" );
+                    print( "setting pullups\r\n" );
                     for (i = 0; i < 5; i++) reg_out[i] = 0xFFFF;    /* direction in     */
                     reg_write( REG_GPPU, reg_out );
 
@@ -1150,7 +1170,7 @@ void do_diags( void )
                                     print( " " ); print_bin8( byte0 );
                                 }
                             }
-                            print( "\n" );
+                            print( "\r\n" );
                         }
                         if (kbhit()) key = get_a_key_convert_to_upper();
                     } while ((key >= 'A') && (key <= 'F'));
@@ -1158,16 +1178,16 @@ void do_diags( void )
                     break;
 
                 case '4':   /* output toggle    */
-                    print( "toggling outputs\n" );
+                    print( "toggling outputs\r\n" );
 
                     for (i = 0; i < 5; i++) reg_out[i] = 0;     /* direction out    */
                     reg_write( REG_IODIR, reg_out );
 
                     do 
                     {
-                        print( " S or space  single step\n" );
-                        print( " G           go (run)\n" );
-                        print( " Q           quit\n" );
+                        print( " S or space  single step\r\n" );
+                        print( " G           go (run)\r\n" );
+                        print( " Q           quit\r\n" );
                         key = get_a_key_convert_to_upper();
 
                         index = 0;
@@ -1188,18 +1208,18 @@ void do_diags( void )
                     break;
 
                 case '5':   /* read all registers   */
-                    print( "\n" );
-                    print( "\n" );
-                    print( "  A print chip A in binary\n" );
-                    print( "  B print chip B in binary\n" );
-                    print( "  C print chip C in binary\n" );
-                    print( "  D print chip D in binary\n" );
-                    print( "  E print chip E in binary\n" );
-                    print( "  F no print (scope)\n" );
+                    print( "\r\n" );
+                    print( "\r\n" );
+                    print( "  A print chip A in binary\r\n" );
+                    print( "  B print chip B in binary\r\n" );
+                    print( "  C print chip C in binary\r\n" );
+                    print( "  D print chip D in binary\r\n" );
+                    print( "  E print chip E in binary\r\n" );
+                    print( "  F no print (scope)\r\n" );
                     key = get_a_key_convert_to_upper();
                     do
                     {
-                        if (key != 'F') print( "\n" );
+                        if (key != 'F') print( "\r\n" );
                         for (reg = 0; reg < 0x16; reg += 2)
                         {
                             if (key != 'F')
@@ -1223,7 +1243,7 @@ void do_diags( void )
                                         print( " " ); print_bin8( byte1 );
                                     }
                                 }
-                                print( "\n" );
+                                print( "\r\n" );
                             }
                         }
                         for (delay = 0UL; delay < 100000UL; delay++) spi_output();
@@ -1233,14 +1253,14 @@ void do_diags( void )
                     break;
 
                 case '6':   /* read GPIO registers (no changes) */
-                    print( "\n" );
-                    print( "\n" );
-                    print( "  A print chip A in binary\n" );
-                    print( "  B print chip B in binary\n" );
-                    print( "  C print chip C in binary\n" );
-                    print( "  D print chip D in binary\n" );
-                    print( "  E print chip E in binary\n" );
-                    print( "  F no print (scope)\n" );
+                    print( "\r\n" );
+                    print( "\r\n" );
+                    print( "  A print chip A in binary\r\n" );
+                    print( "  B print chip B in binary\r\n" );
+                    print( "  C print chip C in binary\r\n" );
+                    print( "  D print chip D in binary\r\n" );
+                    print( "  E print chip E in binary\r\n" );
+                    print( "  F no print (scope)\r\n" );
                     key = get_a_key_convert_to_upper();
                     reg = 0x12;
                     do
@@ -1266,7 +1286,7 @@ void do_diags( void )
                                     print( " " ); print_bin8( byte0 );
                                 }
                             }
-                            print( "\n" );
+                            print( "\r\n" );
                         }
                         if (kbhit()) key = get_a_key_convert_to_upper();
                     } while ((key >= 'A') && (key <= 'F'));
@@ -1281,34 +1301,34 @@ void do_diags( void )
             break;
 
         case '7':   /* SPI functions    */
-            print( "\n" );
-            print( "\n" );
-            print( "  1 spi_init()\n" );
-            print( "  2 spi_open()\n" );
-            print( "  3 spi_close()\n" );
-            print( "  4 spi_open(),spi_close (scope)\n" );
-            print( "  5 spi_txrx()\n" );
-            print( "  6 spi_txrx(), no print (scope)\n" );
+            print( "\r\n" );
+            print( "\r\n" );
+            print( "  1 spi_init()\r\n" );
+            print( "  2 spi_open()\r\n" );
+            print( "  3 spi_close()\r\n" );
+            print( "  4 spi_open(),spi_close (scope)\r\n" );
+            print( "  5 spi_txrx()\r\n" );
+            print( "  6 spi_txrx(), no print (scope)\r\n" );
             key = get_a_key();
             switch (key)
             {
             case '1':
                 print( "calling spi_init()" );
                 spi_init();
-                print( "\n" );
+                print( "\r\n" );
                 break;
             case '2':
                 print( "calling spi_open()" );
                 spi_open();
-                print( "\n" );
+                print( "\r\n" );
                 break;
             case '3':
                 print( "calling spi_close()" );
                 spi_close();
-                print( "\n" );
+                print( "\r\n" );
                 break;
             case '4':
-                print( "\ntesting spi_open, spi_close\n" );
+                print( "\r\ntesting spi_open, spi_close\r\n" );
                 index = 0;
                 for (;;)        /* break on kbhit() */
                 {
@@ -1325,7 +1345,7 @@ void do_diags( void )
                 break;
             case '5':
             case '6':
-                print( "\ntesting spi_txrx\n" );
+                print( "\r\ntesting spi_txrx\r\n" );
                 index = 0;
                 for (;;)        /* break on kbhit() */
                 {
@@ -1350,7 +1370,7 @@ void do_diags( void )
                             }
                             print_bin8( spi_in[i] );
                         }
-                        print( "b\n" );
+                        print( "b\r\n" );
                     }
                     index++;
                     if (index > 39)
@@ -1375,12 +1395,12 @@ void do_diags( void )
             }
             break;
         case '8':   /* LPT function     */
-            print( "\n" );
-            print( "\n" );
-            print( "  D change DATA    output\n" );
-            print( "  C change CONTROL output\n" );
-            print( "  S read   STATUS  inputs\n" );
-            print( "  R SPI init\n" );
+            print( "\r\n" );
+            print( "\r\n" );
+            print( "  D change DATA    output\r\n" );
+            print( "  C change CONTROL output\r\n" );
+            print( "  S read   STATUS  inputs\r\n" );
+            print( "  R SPI init\r\n" );
             key = get_a_key();
             switch (key)
             {
@@ -1390,14 +1410,14 @@ void do_diags( void )
             case 'c':
             case 'S':
             case 's':
-                print( "COMMAND  -----DATA-----  ----CONTROL---  ----STATUS----  ---CHANGED----\n" );
+                print( "COMMAND  -----DATA-----  ----CONTROL---  ----STATUS----  ---CHANGED----\r\n" );
                 command = toupper( key );
                 lpt_init();
                 status      = lpt_value_status_last_read;
                 last_status = status;
                 for (;;)
                 {
-                    sprintf( print_buffer, "\n   %c     ", command );           
+                    sprintf( print_buffer, "\r\n   %c     ", command );           
                     print( print_buffer );
                     sprintf( print_buffer, "0x%02X ",         lpt_value_last_data_out );
                     print( print_buffer );
@@ -1572,7 +1592,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
 
             if (raw_test.number_lines >= MAX_LINES)
             {
-                sprintf( print_buffer, "error: test file is too long\n" );
+                sprintf( print_buffer, "error: test file is too long\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1580,7 +1600,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             ptr = (char *)malloc( strlen( buffer ) + 1 );
             if (ptr == (char *)NULL)
             {
-                sprintf( print_buffer, "error: malloc() failed, out of memory!\n" );
+                sprintf( print_buffer, "error: malloc() failed, out of memory!\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1593,20 +1613,20 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             compare = strcmp( "PINS", buffer );
             if (compare != 0)
             {
-                sprintf( print_buffer, "  comment: %s\n", ptr );
+                sprintf( print_buffer, "  comment: %s\r\n", ptr );
                 print( print_buffer );
             }
             else
             {
                 test.raw_line_pins = raw_test.number_lines;
-                sprintf( print_buffer, "     pins: %s\n", ptr );        /* show file contents  */
+                sprintf( print_buffer, "     pins: %s\r\n", ptr );        /* show file contents  */
                 print( print_buffer );
                 break;
             }
         }
         if (feof( file_test ))
         {
-            print( "error: did not find 'PINS' line\n" );
+            print( "error: did not find 'PINS' line\r\n" );
             result = 1;         /* error    */
         }
         if (result == 1) break;          /* break on error   */
@@ -1624,7 +1644,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
 
             if (raw_test.number_lines >= MAX_LINES)
             {
-                sprintf( print_buffer, "error: test file is too long\n" );
+                sprintf( print_buffer, "error: test file is too long\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1632,7 +1652,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             ptr = (char *)malloc( strlen( buffer ) + 1 );
             if (ptr == (char *)NULL)
             {
-                sprintf( print_buffer, "error: malloc() failed, out of memory!\n" );
+                sprintf( print_buffer, "error: malloc() failed, out of memory!\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1642,13 +1662,13 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             raw_test.number_lines++;
 
             (void)strupr( buffer );
-            sprintf( print_buffer, "     pins: %s\n", buffer );        /* show file contents  */
+            sprintf( print_buffer, "     pins: %s\r\n", buffer );        /* show file contents  */
             print( print_buffer );
             if (strlen( buffer ) == 0) break;           /* blank line ends PINS */
 
             if ((strlen(buffer) + 1) >= sizeof( test.columns[0].string))
             {
-                print( "error: line is too long\n" );
+                print( "error: line is too long\r\n" );
                 result = 1;
                 break;
             }
@@ -1658,26 +1678,26 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             sscanf( buffer, " %u %c %80s", &i, &dir_character, string );   /* MAX_STRING   */
             if (i != (test.number_columns + 1))
             {
-                sprintf( print_buffer, "error: expected column %d: %s\n", test.number_columns + 1, buffer );
+                sprintf( print_buffer, "error: expected column %d: %s\r\n", test.number_columns + 1, buffer );
                 print( print_buffer );
                 result = 1;     /* error    */
                 break;
             }
             if (test.number_columns >= (sizeof( test.columns ) / sizeof( test.columns[0])))
             {
-                print( "error: too many columns\n" );
+                print( "error: too many columns\r\n" );
                 result = 1;
                 break;
             }
             if ((dir_character != 'I') && (dir_character != 'O') && (dir_character != 'P'))
             {
-                print( "error: expected 'I' (input) or 'O' (output) or 'P' (open drain output + pullup)\n" );
+                print( "error: expected 'I' (input) or 'O' (output) or 'P' (open drain output + pullup)\r\n" );
                 result = 1;
                 break;
             }
             if (strlen( string ) < 3)
             {
-                print( "error: expected pin location (ex: BV2)\n" );
+                print( "error: expected pin location (ex: BV2)\r\n" );
                 result = 1;
                 break;
             }
@@ -1687,7 +1707,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             character = string[0];
             if ((character != 'A') && (character != 'B'))
             {
-                print( "error: expected SLOT 'A' or 'B'\n" );
+                print( "error: expected SLOT 'A' or 'B'\r\n" );
                 result = 1;
                 break;
             }
@@ -1698,7 +1718,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             ptr = strchr( edge_pins, character );
             if (ptr == (char *)NULL)
             {
-                sprintf( print_buffer, "error: expected EDGE CONNECTOR PIN: %s\n", edge_pins );
+                sprintf( print_buffer, "error: expected EDGE CONNECTOR PIN: %s\r\n", edge_pins );
                 print( print_buffer );
                 result = 1;
                 break;          /* error    */
@@ -1709,7 +1729,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             character = string[2];
             if ((character != '1') && (character != '2'))
             {
-                print( "error: expected EDGE CONNECTOR PIN, side 1 or 2\n" );
+                print( "error: expected EDGE CONNECTOR PIN, side 1 or 2\r\n" );
                 result = 1;
                 break;          /* error    */
             }
@@ -1741,8 +1761,8 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
 
             if (pin_used[offset] & mask)    /* already used?    */
             {
-                print( "error: PIN is already used\n" );
-                sprintf( print_buffer, "column %u is not a unique pin (another column uses it)\n", test.number_columns + 1);
+                print( "error: PIN is already used\r\n" );
+                sprintf( print_buffer, "column %u is not a unique pin (another column uses it)\r\n", test.number_columns + 1);
                 print( print_buffer );
                 result = 1;
                 break;          /* error    */
@@ -1759,7 +1779,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
         }
         if (test.number_columns == 0)
         {
-            print( "error: no PINS columns\n" );
+            print( "error: no PINS columns\r\n" );
             result = 1;
             break;
         }
@@ -1778,7 +1798,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
 
             if (raw_test.number_lines >= MAX_LINES)
             {
-                sprintf( print_buffer, "error: test file is too long\n" );
+                sprintf( print_buffer, "error: test file is too long\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1786,7 +1806,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             ptr = (char *)malloc( strlen( buffer ) + 1 );
             if (ptr == (char *)NULL)
             {
-                sprintf( print_buffer, "error: malloc() failed, out of memory!\n" );
+                sprintf( print_buffer, "error: malloc() failed, out of memory!\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1796,12 +1816,12 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             test.raw_line_direction = raw_test.number_lines;
             raw_test.number_lines++;
 
-            sprintf( print_buffer, "direction: %s\n", buffer );         /* show file contents  */
+            sprintf( print_buffer, "direction: %s\r\n", buffer );         /* show file contents  */
             print( print_buffer );
             length = strlen( buffer );
             if (length != test.number_columns)
             {
-                sprintf( print_buffer, "expected 'direction' (%d columns of 'I' or 'O' or 'P')\n", test.number_columns );
+                sprintf( print_buffer, "expected 'direction' (%d columns of 'I' or 'O' or 'P')\r\n", test.number_columns );
                 print( print_buffer );
                 result = 1;     /* error    */
                 break;
@@ -1825,7 +1845,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
                 }
                 if (character != dir_character)
                 {
-                    print( "error: direction did not match PIN line\n" );
+                    print( "error: direction did not match PIN line\r\n" );
                     result = 1;
                     break;
                 }
@@ -1842,7 +1862,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
                 }
                 else
                 {
-                    print( "error: expected 'I' or 'O' or 'P' for pin direction\n" );
+                    print( "error: expected 'I' or 'O' or 'P' for pin direction\r\n" );
                     result = 1;     /* error    */
                     break;
                 }
@@ -1867,7 +1887,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
 
             if (raw_test.number_lines >= MAX_LINES)
             {
-                sprintf( print_buffer, "error: test file is too long\n" );
+                sprintf( print_buffer, "error: test file is too long\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1875,7 +1895,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             ptr = (char *)malloc( strlen( buffer ) + 1 );
             if (ptr == (char *)NULL)
             {
-                sprintf( print_buffer, "error: malloc() failed, out of memory!\n" );
+                sprintf( print_buffer, "error: malloc() failed, out of memory!\r\n" );
                 print( print_buffer );
                 result = 1;
                 break;              /* break on error   */
@@ -1887,7 +1907,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
 
             if ((buffer[0] == ';') || (buffer[0] == 0))
             {
-                sprintf( print_buffer, "  comment: %s\n", buffer );    /* show file contents  */
+                sprintf( print_buffer, "  comment: %s\r\n", buffer );    /* show file contents  */
                 print( print_buffer );
                 continue;
             }
@@ -1895,20 +1915,20 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             compare = strcmp( "END", buffer );
             if (compare == 0)
             {
-                sprintf( print_buffer, "      end: %s\n", buffer );    /* show file contents  */
+                sprintf( print_buffer, "      end: %s\r\n", buffer );    /* show file contents  */
                 print( print_buffer );
                 break;
             }
             else
             {
-                sprintf( print_buffer, "test %4u: %s\n", test.number_steps + 1, buffer );  /* show file contents  */
+                sprintf( print_buffer, "test %4u: %s\r\n", test.number_steps + 1, buffer );  /* show file contents  */
                 print( print_buffer );
             }
             length = strlen( buffer );
             if (length > test.number_columns)
             {
-                print( "'test step' is too long\n" );
-                sprintf( print_buffer, "expected 'test step' (%d columns of '0','1','X', or ' ')\n", test.number_columns );
+                print( "'test step' is too long\r\n" );
+                sprintf( print_buffer, "expected 'test step' (%d columns of '0','1','X', or ' ')\r\n", test.number_columns );
                 print( print_buffer );
                 result = 1;     /* error    */
                 break;
@@ -1917,9 +1937,9 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             {
                 if (test.number_steps == 0)
                 {
-                    print( "error: the first 'test step' is too short\n" );
-                    print( "error: it must set EVERY column\n" );
-                    sprintf( print_buffer, "expected 'test step' (%d columns of '0','1','X', or ' ')\n", test.number_columns );
+                    print( "error: the first 'test step' is too short\r\n" );
+                    print( "error: it must set EVERY column\r\n" );
+                    sprintf( print_buffer, "expected 'test step' (%d columns of '0','1','X', or ' ')\r\n", test.number_columns );
                     print( print_buffer );
                     result = 1;     /* error    */
                     break;
@@ -1929,7 +1949,7 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
             }
             if (test.number_steps >= MAX_STEPS)
             {
-                sprintf( print_buffer, "error: too many test steps: %u\n", test.number_steps );
+                sprintf( print_buffer, "error: too many test steps: %u\r\n", test.number_steps );
                 print( print_buffer );
                 result = 1;
                 break;      /* error    */
@@ -1971,9 +1991,9 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
                 }
                 else
                 {
-                    sprintf( print_buffer, "error: unexpect character: 0x%02X %c\n", character, character );
+                    sprintf( print_buffer, "error: unexpect character: 0x%02X %c\r\n", character, character );
                     print( print_buffer );
-                    print( "error: expected '0', '1', or 'X' for test step\n" );
+                    print( "error: expected '0', '1', or 'X' for test step\r\n" );
                     result = 1;     /* error    */
                     break;
                 }
@@ -1983,48 +2003,48 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
         if (result) break;      /* break on error   */
         if (feof( file_test ))
         {
-            print( "error: did not find 'END' following 'test steps'\n" );
+            print( "error: did not find 'END' following 'test steps'\r\n" );
             result = 1;         /* error    */
         }
         if (test.number_steps == 0)
         {
-            print( "error: no TEST STEPs\n" );
+            print( "error: no TEST STEPs\r\n" );
             result = 1;
         }
         if (result) break;      /* break on error   */
 
-        print( "\n" );
-        print( "\n" );
-        print( "summary\n" );
-        print( "\n" );
+        print( "\r\n" );
+        print( "\r\n" );
+        print( "summary\r\n" );
+        print( "\r\n" );
         for (i = 0; i < test.number_columns;i++)
         {
-            sprintf( print_buffer, "column %2u: offset %u, mask 0x%04X\n",
+            sprintf( print_buffer, "column %2u: offset %u, mask 0x%04X\r\n",
                     i + 1,
                     test.columns[i].offset,
                     test.columns[i].mask        );
             print( print_buffer );
         }
-        print( "\n" );
-        print( "direction bits (1=input)\n" );
-        sprintf( print_buffer, "   0x%04X 0x%04X 0x%04X 0x%04X 0x%04X\n",
+        print( "\r\n" );
+        print( "direction bits (1=input)\r\n" );
+        sprintf( print_buffer, "   0x%04X 0x%04X 0x%04X 0x%04X 0x%04X\r\n",
                     test.direction[0],
                     test.direction[1],
                     test.direction[2],
                     test.direction[3],
                     test.direction[4] );
         print( print_buffer );
-        print( "\n" );
-        print( "pullup bits (1=pullup)\n" );
-        sprintf( print_buffer, "   0x%04X 0x%04X 0x%04X 0x%04X 0x%04X\n",
+        print( "\r\n" );
+        print( "pullup bits (1=pullup)\r\n" );
+        sprintf( print_buffer, "   0x%04X 0x%04X 0x%04X 0x%04X 0x%04X\r\n",
                     test.pullup[0],
                     test.pullup[1],
                     test.pullup[2],
                     test.pullup[3],
                     test.pullup[4] );
         print( print_buffer );
-        print( "\n" );
-        print( "test step    out_data                     dont care\n" );
+        print( "\r\n" );
+        print( "test step    out_data                     dont care\r\n" );
         for (i = 0; i < test.number_steps;i++)
         {
             sprintf( print_buffer, "%4u:", i + 1 );
@@ -2045,33 +2065,33 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
                     print( print_buffer );
                 }
             }
-            print( "\n" );
+            print( "\r\n" );
         }
 
         /* print stats  */
-        print( "\n" );
-        print( "PINs used (in edge connector order) (G=ground,P=power)\n" );
+        print( "\r\n" );
+        print( "PINs used (in edge connector order) (G=ground,P=power)\r\n" );
         print( "SLOT   " );
         for (i = 0; i < TEST_COLUMNS; i++)
         {
             sprintf( print_buffer, "%c", (i / 36) + 'A' );
             print( print_buffer );
         }
-        print( "\n" );
+        print( "\r\n" );
         print( "LETTER " );
         for (i = 0; i < TEST_COLUMNS; i++)
         {
             sprintf( print_buffer, "%c", edge_pins[i % 18] );
             print( print_buffer );
         }
-        print( "\n" );
+        print( "\r\n" );
         print( "SIDE   " );
         for (i = 0; i < TEST_COLUMNS; i++)
         {
             sprintf( print_buffer, "%u", 1 + ((i / 18) % 2) );
             print( print_buffer );
         }
-        print( "\n" );
+        print( "\r\n" );
         print( "USAGE  " );
         for (i = 0; i < TEST_COLUMNS; i++)
         {
@@ -2112,24 +2132,24 @@ int read_test( FILE *file_test )    /* returns 0 if no error    */
                 print( " " );
             }
         }
-        print( "\n" );
+        print( "\r\n" );
 
-        printf( "\n" );
-        sprintf( print_buffer, "UUT has %u inputs\n", number_UUT_inputs );
+        printf( "\r\n" );
+        sprintf( print_buffer, "UUT has %u inputs\r\n", number_UUT_inputs );
         print( print_buffer );
-        sprintf( print_buffer, "UUT has %u outputs\n", number_UUT_outputs );
+        sprintf( print_buffer, "UUT has %u outputs\r\n", number_UUT_outputs );
         print( print_buffer );
 
-        sprintf( print_buffer, "contains %u pins/columns\n", test.number_columns );
+        sprintf( print_buffer, "contains %u pins/columns\r\n", test.number_columns );
         print( print_buffer );
-        sprintf( print_buffer, "%u pins are not used\n", 66 - test.number_columns );
+        sprintf( print_buffer, "%u pins are not used\r\n", 66 - test.number_columns );
         print( print_buffer );
-        sprintf( print_buffer, "contains %u 'test steps'\n", test.number_steps );
+        sprintf( print_buffer, "contains %u 'test steps'\r\n", test.number_steps );
         print( print_buffer );
 
         for (i = 0; i < test.raw_line_pins; i++)
         {
-            sprintf( print_buffer, "%s\n", raw_test.line[i] );
+            sprintf( print_buffer, "%s\r\n", raw_test.line[i] );
             print( print_buffer );
         }
 
@@ -2158,7 +2178,7 @@ void print_pin_heading( void )
         sprintf( print_buffer, "%c", test.columns[i].slot );
         print( print_buffer );
     }
-    print( "\n" );
+    print( "\r\n" );
 
     print( "LETTER    " );
     for (i = 0; i < test.number_columns; i++)
@@ -2166,7 +2186,7 @@ void print_pin_heading( void )
         sprintf( print_buffer, "%c", test.columns[i].edge );
         print( print_buffer );
     }
-    print( "\n" );
+    print( "\r\n" );
 
     print( "SIDE      " );
     for (i = 0; i < test.number_columns; i++)
@@ -2174,7 +2194,7 @@ void print_pin_heading( void )
         sprintf( print_buffer, "%c", test.columns[i].side );
         print( print_buffer );
     }
-    print( "\n" );
+    print( "\r\n" );
 }
 
 
@@ -2190,7 +2210,7 @@ void print_direction_heading( void )
         sprintf( print_buffer, "%c", test.columns[i].direction );
         print( print_buffer );
     }
-    print( "\n" );
+    print( "\r\n" );
 }
 
 
@@ -2219,6 +2239,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
     unsigned long   tests_run;
     unsigned long   tests_pass;
     unsigned long   tests_fail;
+	unsigned int	scope_cols_left;
     unsigned int    i;
     unsigned int    j;
     unsigned int    step;
@@ -2276,27 +2297,27 @@ void run_a_test( unsigned int delay, unsigned int trigger )
     do
     {
         test_mode = TEST_MODE_UNKNOWN;
-        print( " space  single step\n" );
-        print( " O      run once (one test, all steps)\n" );
-        print( " F      run, stop on fail\n" );
-        print( " G      go (run tests\n" );
-        print( " N      run, stop on fail, no print\n" );
-        print( " S      scope (run, no print)\n" );
-        print( " C      toggle comment printout\n" );
-        print( " +      increase speed (less delay)\n" );
-        print( " -      decrease speed (more delay)(slower)\n" );
-        print( " Q      quit test\n" );
+        print( " space  single step\r\n" );
+        print( " O      run once (one test, all steps)\r\n" );
+        print( " F      run, stop on fail\r\n" );
+        print( " G      go (run tests\r\n" );
+        print( " N      run, stop on fail, no print\r\n" );
+        print( " S      scope (run, no print)\r\n" );
+        print( " C      toggle comment printout\r\n" );
+        print( " +      increase speed (less delay)\r\n" );
+        print( " -      decrease speed (more delay)(slower)\r\n" );
+        print( " Q      quit test\r\n" );
         key = get_a_key_convert_to_upper();
         if (key == '+')
         {
             if (delay > 0) delay--;
-            sprintf( print_buffer, "the delay is now %u\n", delay );
+            sprintf( print_buffer, "the delay is now %u\r\n", delay );
             print( print_buffer );
         }
         if (key == '-')
         {
             if (delay < 100) delay++;
-            sprintf( print_buffer, "the delay is now %u\n", delay );
+            sprintf( print_buffer, "the delay is now %u\r\n", delay );
             print( print_buffer );
         }
         if (key == ' ') test_mode = TEST_MODE_SINGLE_STEP;
@@ -2309,7 +2330,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
         if (key == 'C') 
         {
             comment_flag = 1 - comment_flag;
-            sprintf( print_buffer, "comment_flag is %u\n", comment_flag );
+            sprintf( print_buffer, "comment_flag is %u\r\n", comment_flag );
             print( print_buffer );
         }
     } while (test_mode == TEST_MODE_UNKNOWN);
@@ -2325,18 +2346,19 @@ void run_a_test( unsigned int delay, unsigned int trigger )
     {
         print_flag        = 0;
         stop_on_fail_flag = 1;
-        print( "run, stop on fail, no print\n" );
+        print( "run, stop on fail, no print\r\n" );
     }
     if (test_mode == TEST_MODE_SCOPE)
     {
         print_flag = 0;
-        print( "scope (run, no print)\n" );
+        print( "scope (run, no print)\r\n" );
     }
 
     tests_run  = 0UL;
     tests_pass = 0UL;
     tests_fail = 0UL;
     first_flag = 1;     /* first time   */
+	scope_cols_left = 79;
 
     step = 0;
     while (test_mode != TEST_MODE_QUIT)
@@ -2467,7 +2489,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
 
         if (error_flag && stop_on_fail_flag)
         {
-            if (print_flag == 0) print( "\n" );
+            if (print_flag == 0) print( "\r\n" );
             print_flag = 1;
             test_mode  = TEST_MODE_SINGLE_STEP;
         }
@@ -2503,7 +2525,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 }
                 while (i <= test.step[step].raw_line_test)
                 {
-                    sprintf( print_buffer, "source:   %s\n", raw_test.line[i] );
+                    sprintf( print_buffer, "source:   %s\r\n", raw_test.line[i] );
                     print( print_buffer );
                     i++;
                 }
@@ -2511,21 +2533,21 @@ void run_a_test( unsigned int delay, unsigned int trigger )
 
             if (need_change)
             {
-                sprintf( print_buffer, "changed:  %s\n", change_string );
+                sprintf( print_buffer, "changed:  %s\r\n", change_string );
                 print( print_buffer );
             }
 
             /* print the test step results  */
-            sprintf( print_buffer, "step %4u %s\n", step + 1, input_string );
+            sprintf( print_buffer, "step %4u %s\r\n", step + 1, input_string );
             print( print_buffer );
             if (error_flag)     /* errors?  */
             {
-                sprintf( print_buffer, "fail      %s\n", error_string );
+                sprintf( print_buffer, "fail      %s\r\n", error_string );
                 print( print_buffer );
             }
             else if (test_mode == TEST_MODE_SINGLE_STEP)
             {
-                print( "okay\n" );
+                print( "okay\r\n" );
             }
         }
         if (step >= (test.number_steps - 1))    /* last test?   */
@@ -2551,10 +2573,16 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 {
                     print( "p" );
                 }
-            }
+				scope_cols_left--;
+				if (scope_cols_left == 0)
+				{		
+					scope_cols_left = 79;	
+					print( "\r\n" );
+				}
+			}
             else if (test_mode != TEST_MODE_TOGGLE)
             {
-                print( "\n" );
+                print( "\r\n" );
                 sprintf( print_buffer, "test %lu: ", tests_run );
                 print( print_buffer );
                 if (step_fail_count)
@@ -2566,27 +2594,27 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 {
                     print( "pass " );
                 }
-                print( "\n" );
-                print( "\n" );
+                print( "\r\n" );
+                print( "\r\n" );
                 print_pin_and_direction_heading();
-                sprintf( print_buffer, "this fail %s\n", test_fail_string );
+                sprintf( print_buffer, "this fail %s\r\n", test_fail_string );
                 print( print_buffer );
-                sprintf( print_buffer, "all fails %s\n", all_fail_string );
+                sprintf( print_buffer, "all fails %s\r\n", all_fail_string );
                 print( print_buffer );
-                sprintf( print_buffer, "was hi    %s\n", hi_string );
+                sprintf( print_buffer, "was hi    %s\r\n", hi_string );
                 print( print_buffer );
-                sprintf( print_buffer, "rising    %s\n", rising_string );
+                sprintf( print_buffer, "rising    %s\r\n", rising_string );
                 print( print_buffer );
-                sprintf( print_buffer, "falling   %s\n", falling_string );
+                sprintf( print_buffer, "falling   %s\r\n", falling_string );
                 print( print_buffer );
-                sprintf( print_buffer, "was lo    %s\n", lo_string );
+                sprintf( print_buffer, "was lo    %s\r\n", lo_string );
                 print( print_buffer );
-                print( "\n" );
-                sprintf( print_buffer, " total fails %lu, total passes %lu\n", tests_fail, tests_pass );
+                print( "\r\n" );
+                sprintf( print_buffer, " total fails %lu, total passes %lu\r\n", tests_fail, tests_pass );
                 print( print_buffer );
-                print( "\n" );
-                print( "\n" );
-                print( "\n" );
+                print( "\r\n" );
+                print( "\r\n" );
+                print( "\r\n" );
             }
         }
 
@@ -2621,36 +2649,36 @@ void run_a_test( unsigned int delay, unsigned int trigger )
             do
             {
                 test_mode = TEST_MODE_UNKNOWN;
-                print( "\n" );
-                print( "\n" );
-                print( " space  single step\n" );
-                print( " B      go back one step\n" );
-                print( " T      toggle (previous and current step)\n" );
-                print( " O      run one test (all steps)\n" );
-                print( " G      go\n" );
-                print( " F      go, stop on failure\n" );
-                print( " N      run, stop on fail, no print\n" );
-                print( " S      scope (run, no print)\n" );
-                print( " P      show pins\n" );
-                print( " M      mapping\n" );
-                print( " R      show registers\n" );
-                print( " D      diagnostics\n" );
-                print( " C      toggle comment printout\n" );
-                print( " A      failure mode analysis\n" );
-                print( " +      increase speed (less delay)\n" );
-                print( " -      decrease speed (more delay)(slower)\n" );
-                print( " Q      quit\n" );
+                print( "\r\n" );
+                print( "\r\n" );
+                print( " space  single step\r\n" );
+                print( " B      go back one step\r\n" );
+                print( " T      toggle (previous and current step)\r\n" );
+                print( " O      run one test (all steps)\r\n" );
+                print( " G      go\r\n" );
+                print( " F      go, stop on failure\r\n" );
+                print( " N      run, stop on fail, no print\r\n" );
+                print( " S      scope (run, no print)\r\n" );
+                print( " P      show pins\r\n" );
+                print( " M      mapping\r\n" );
+                print( " R      show registers\r\n" );
+                print( " D      diagnostics\r\n" );
+                print( " C      toggle comment printout\r\n" );
+                print( " A      failure mode analysis\r\n" );
+                print( " +      increase speed (less delay)\r\n" );
+                print( " -      decrease speed (more delay)(slower)\r\n" );
+                print( " Q      quit\r\n" );
                 key = get_a_key_convert_to_upper();
                 if (key == '+')
                 {
                     if (delay > 0) delay--;
-                    sprintf( print_buffer, "the delay is now %u\n", delay );
+                    sprintf( print_buffer, "the delay is now %u\r\n", delay );
                     print( print_buffer );
                 }
                 if (key == '-')
                 {
                     if (delay < 100) delay++;
-                    sprintf( print_buffer, "the delay is now %u\n", delay );
+                    sprintf( print_buffer, "the delay is now %u\r\n", delay );
                     print( print_buffer );
                 }
 
@@ -2667,7 +2695,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 if (key == 'C') 
                 {
                     comment_flag = 1 - comment_flag;
-                    sprintf( print_buffer, "comment_flag is %u\n", comment_flag );
+                    sprintf( print_buffer, "comment_flag is %u\r\n", comment_flag );
                     print( print_buffer );
                 }
 
@@ -2679,7 +2707,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                              (change_string[i] != ' ') ||
                              (all_pins_flag)              )
                         {
-                            sprintf( print_buffer, "%s\n", test.columns[i].string );
+                            sprintf( print_buffer, "%s\r\n", test.columns[i].string );
                             print( print_buffer );
                         }
                     }
@@ -2690,7 +2718,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 {
                     for (i = 0; i < test.number_columns; i++)
                     {
-                        sprintf( print_buffer, "pin %2u: offset is %u; mask is 0x%04X\n",
+                        sprintf( print_buffer, "pin %2u: offset is %u; mask is 0x%04X\r\n",
                                 i + 1, test.columns[i].offset, test.columns[i].mask );
                         print( print_buffer );
                     }
@@ -2715,7 +2743,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                         if (index == 5) reg = REG_GPPU;
                         if (index == 6) reg = REG_OLAT;
                         if (index == 7) reg = REG_GPIO;
-                        print( "\n" );
+                        print( "\r\n" );
                         print_reg_name( reg );
                         sprintf( print_buffer, " %02X/%02X", reg + 1, reg );   
                         print( print_buffer );
@@ -2733,16 +2761,16 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                             }
                         }
                     }
-                    print( "\n" );
+                    print( "\r\n" );
                 }
 
                 if (key == 'D')
                 {
-                    print( "\n" );
-                    print( "\n" );
-                    print( "up to this point:\n" );
-                    print( "\n" );
-                    print( "PINS that are always low\n" );
+                    print( "\r\n" );
+                    print( "\r\n" );
+                    print( "up to this point:\r\n" );
+                    print( "\r\n" );
+                    print( "PINS that are always low\r\n" );
                     print_flag = 0;
                     for (i = 0; i < test.number_columns; i++)
                     {
@@ -2752,14 +2780,14 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                             (hi_string[i]      == ' ')      )
                         {
                             print_flag = 1;
-                            sprintf( print_buffer, "%s\n", test.columns[i].string );
+                            sprintf( print_buffer, "%s\r\n", test.columns[i].string );
                             print( print_buffer );
                         }
                     }
-                    if (print_flag == 0) print( "<none>\n" );
+                    if (print_flag == 0) print( "<none>\r\n" );
 
-                    print( "\n" );
-                    print( "PINS that are always high\n" );
+                    print( "\r\n" );
+                    print( "PINS that are always high\r\n" );
                     print_flag = 0;
                     for (i = 0; i < test.number_columns; i++)
                     {
@@ -2769,27 +2797,27 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                             (hi_string[i]      != ' ')      )
                         {
                             print_flag = 1;
-                            sprintf( print_buffer, "%s\n", test.columns[i].string );
+                            sprintf( print_buffer, "%s\r\n", test.columns[i].string );
                             print( print_buffer );
                         }
                     }
-                    if (print_flag == 0) print( "<none>\n" );
-                    print( "\n" );
-                    print( "\n" );
+                    if (print_flag == 0) print( "<none>\r\n" );
+                    print( "\r\n" );
+                    print( "\r\n" );
                 }
 
                 if (key == 'A')
                 {
-                    print( "\n" );
-                    print( "\n" );
-                    print( "failure mode analysis:\n" );
+                    print( "\r\n" );
+                    print( "\r\n" );
+                    print( "failure mode analysis:\r\n" );
                     
                     for (i = 0; i < test.number_columns; i++)
                     {
                         if (all_fail_string[i] != ' ')
                         {
-                            print( "\n" );
-                            sprintf( print_buffer, "pin:      %s\n", test.columns[i].string );
+                            print( "\r\n" );
+                            sprintf( print_buffer, "pin:      %s\r\n", test.columns[i].string );
                             print( print_buffer );
                             print_pin_and_direction_heading();
 
@@ -2801,7 +2829,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                                     error_string[j] = '1';
                                 }
                             }
-                            sprintf( print_buffer, "fails LO: %s\n", error_string );
+                            sprintf( print_buffer, "fails LO: %s\r\n", error_string );
                             print( print_buffer );
 
                             strcpy( error_string, blank_string );
@@ -2812,7 +2840,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                                     error_string[j] = '0';
                                 }
                             }
-                            sprintf( print_buffer, "fails LO: %s\n", error_string );
+                            sprintf( print_buffer, "fails LO: %s\r\n", error_string );
                             print( print_buffer );
 
                             strcpy( error_string, blank_string );
@@ -2823,7 +2851,7 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                                     error_string[j] = '1';
                                 }
                             }
-                            sprintf( print_buffer, "fails HI: %s\n", error_string );
+                            sprintf( print_buffer, "fails HI: %s\r\n", error_string );
                             print( print_buffer );
                             strcpy( error_string, blank_string );
                             for (j = 0; j < test.number_columns; j++)
@@ -2833,12 +2861,12 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                                     error_string[j] = '0';
                                 }
                             }
-                            sprintf( print_buffer, "fails HI: %s\n", error_string );
+                            sprintf( print_buffer, "fails HI: %s\r\n", error_string );
                             print( print_buffer );
                         }
                     }
-                    print( "\n" );
-                    print( "\n" );
+                    print( "\r\n" );
+                    print( "\r\n" );
                 }
 
                 print_flag          = 1;   /* assume printing is on    */
@@ -2852,12 +2880,12 @@ void run_a_test( unsigned int delay, unsigned int trigger )
                 {
                     print_flag        = 0;
                     stop_on_fail_flag = 1;
-                    print( "run, stop on fail, no print\n" );
+                    print( "run, stop on fail, no print\r\n" );
                 }
                 if (test_mode == TEST_MODE_SCOPE)
                 {
                     print_flag = 0;
-                    print( "scope (run, no print)\n" );
+                    print( "scope (run, no print)\r\n" );
                 }
                 if (test_mode == TEST_MODE_TOGGLE)
                 {
@@ -2897,25 +2925,25 @@ void run_a_test( unsigned int delay, unsigned int trigger )
         if (step >  test.number_steps) step = test.number_steps - 1;
     }
 
-    print( "\n" );
-    print( "\n" );
+    print( "\r\n" );
+    print( "\r\n" );
 
     print_pin_and_direction_heading();
-    sprintf( print_buffer, "all fails %s\n", all_fail_string );
+    sprintf( print_buffer, "all fails %s\r\n", all_fail_string );
     print( print_buffer );
-    sprintf( print_buffer, "was lo    %s\n", lo_string );
+    sprintf( print_buffer, "was lo    %s\r\n", lo_string );
     print( print_buffer );
-    sprintf( print_buffer, "falling   %s\n", falling_string );
+    sprintf( print_buffer, "falling   %s\r\n", falling_string );
     print( print_buffer );
-    sprintf( print_buffer, "rising    %s\n", rising_string );
+    sprintf( print_buffer, "rising    %s\r\n", rising_string );
     print( print_buffer );
-    sprintf( print_buffer, "was hi    %s\n", hi_string );
+    sprintf( print_buffer, "was hi    %s\r\n", hi_string );
     print( print_buffer );
-    print( "\n" );
-    sprintf( print_buffer, " total fails %lu, total passes %lu\n", tests_fail, tests_pass );
+    print( "\r\n" );
+    sprintf( print_buffer, " total fails %lu, total passes %lu\r\n", tests_fail, tests_pass );
     print( print_buffer );
-    print( "\n" );
-    print( "\n" );
+    print( "\r\n" );
+    print( "\r\n" );
 }
 
 
@@ -2956,7 +2984,7 @@ void output_load_test( void )
                 no_output_flag++;
                 if (no_output_flag > 1)
                 {
-                    print( "ERROR: no outputs found\n" );
+                    print( "ERROR: no outputs found\r\n" );
                     break;
                 }
                 pin_driver = 0;
@@ -2980,13 +3008,13 @@ void output_load_test( void )
 
         for (;;)        /* will break on 'N' or 'Q' */
         {
-            print( "output is:\n" );
-            sprintf( print_buffer, "%s\n", test.columns[column].string );
+            print( "output is:\r\n" );
+            sprintf( print_buffer, "%s\r\n", test.columns[column].string );
             print( print_buffer );
-            print( "\n" );
-            print( " space  toggle output\n" );
-            print( " N      next output\n" );
-            print( " Q      quit\n" );
+            print( "\r\n" );
+            print( " space  toggle output\r\n" );
+            print( " N      next output\r\n" );
+            print( " Q      quit\r\n" );
             key = get_a_key_convert_to_upper();
             if (key == ' ')
             {
@@ -3033,7 +3061,7 @@ void output_load_test( void )
                     /* done with all test columns   */
 
                     /* print the test step results  */
-                    sprintf( print_buffer, "step %4u %s\n", step + 1, input_string );
+                    sprintf( print_buffer, "step %4u %s\r\n", step + 1, input_string );
                     print( print_buffer );
                     /* find next step       */
                     step++;
@@ -3045,7 +3073,7 @@ void output_load_test( void )
                         {
                             if (i != column) change_string[i] = ' ';
                         }
-                        sprintf( print_buffer, "output:   %s\n", change_string );
+                        sprintf( print_buffer, "output:   %s\r\n", change_string );
                         print( print_buffer );
                         break;
                     }
@@ -3056,8 +3084,8 @@ void output_load_test( void )
             if (key == 'Q') break;
         }
     } while (key != 'Q');
-    print( "\n" );
-    print( "\n" );
+    print( "\r\n" );
+    print( "\r\n" );
 }
 
 
@@ -3070,14 +3098,14 @@ void main( int argc, char *argv[])
     unsigned int    test_delay    = 0UL;
 	unsigned int    test_trigger  = 1UL;
 
-
     (void)argv;     /* unreferenced parameter   */
 
-    print( "\n" );
-    print( "tester-   PDP8 card tester via printer port\n" );
-    print( VERSION_STRING "\n" );
-    print( "\n" );
-    if (argc != 1)
+    print( "\r\n" );
+    print( "tester-   PDP8 card tester via printer port\r\n" );
+    print( VERSION_STRING "\r\n" );
+    print( "\r\n" );
+
+	if (argc != 1)
     {
         exit( 1 );
     }
@@ -3093,56 +3121,69 @@ void main( int argc, char *argv[])
     {
         int             i;
         char            buffer[MAX_STRING];
+		char			buffer2[MAX_STRING];
         char           *ptr;
         FILE           *file_test;
 
 
-        print( "\n" );
-        print( "\n" );
-        print( "Main menu\n" );
-        sprintf( print_buffer, "   test file is: %s\n", test.filename );
+        print( "\r\n" );
+        print( "\r\n" );
+        print( "Main menu   " );	print_timestamp();  print( "\r\n" );
+        sprintf( print_buffer, "   test file is: %s\r\n", test.filename );
         print( print_buffer );
-        sprintf( print_buffer, "   delay is:   %u\n", test_delay );
+        sprintf( print_buffer, "   delay is:   %u\r\n", test_delay );
         print( print_buffer );
-		sprintf( print_buffer, "   trigger is: %u\n", test_trigger );
+		sprintf( print_buffer, "   trigger is: %u\r\n", test_trigger );
         print( print_buffer );
-        print( " 1 read test file\n" );
-        print( " 2 set test delay\n" );
-		print( " 3 set test trigger\n" );
-        print( " 4 run test\n" );
-        print( " 5 output loading test\n" );
-        print( " 8 diags\n" );
-        print( " 9 exit\n" );
+        print( " 1 read test file\r\n" );
+        print( " 2 set test delay\r\n" );
+		print( " 3 set test trigger\r\n" );
+        print( " 4 run test\r\n" );
+        print( " 5 output loading test\r\n" );
+        print( " 8 diags\r\n" );
+        print( " 9 exit\r\n" );
 
         key = get_a_key();
         switch (key)
         {
         case '1':   /* read test file    */
-            print( "Enter test file name? " );
-            (void)fgets( buffer, sizeof( buffer ), stdin );
-            ptr = strchr( buffer, '\n' );
-            if (ptr != (char *)NULL) *ptr = '\0';
+            for (;;)			/* will break on success	*/
+			{
+				print( "Enter test file name? " );
+				(void)fgets( buffer, sizeof( buffer ), stdin );
+				ptr = strchr( buffer, '\n' );
+				if (ptr != (char *)NULL) *ptr = '\0';
+				ptr = strchr( buffer, '\r' );
+				if (ptr != (char *)NULL) *ptr = '\0';
 
-            sprintf( print_buffer, "trying to open test file: %s\n", buffer );
+				strcpy( buffer2, "tests\\" );			/* directory of the tests	*/
+				if ( (strlen( buffer2 ) + strlen( buffer ) + 2) < sizeof( buffer2 )) break;		/* break on success	*/
+
+				print( "test file name is too long. Try again.\r\n" );
+			}
+			strcat( buffer2, buffer );	  /* lengths have been checked	*/
+
+
+            sprintf( print_buffer, "trying to open test file: %s\r\n", buffer2 );
             print( print_buffer );
-            file_test = fopen( buffer, "rt" );
+            file_test = fopen( buffer2, "rt" );
             if (file_test == (FILE *)NULL)
             {
-                print( "could not open test file.\n" );
-                print( "valid test files are:\n" );
-                system( "dir /a-d *.new" );
-                system( "dir /a-d *.tst" );
-                sprintf( print_buffer, "reverting back to test file: %s\n", test.filename );
+                print( "could not open test file.\r\n" );
+                print( "valid test files are:\r\n" );
+                system( "dir /a-d tests\\*.*" );
+                system( "dir /a-d /w tests\\*.*" );
+                sprintf( print_buffer, "reverting back to test file: %s\r\n", test.filename );
                 print( print_buffer );
             }
             else
             {
-                strcpy( test.filename, buffer );
-                sprintf( print_buffer, "reading test file: %s\n", test.filename );
+                strcpy( test.filename, buffer2 );
+                sprintf( print_buffer, "reading test file: %s\r\n", test.filename );
                 print( print_buffer );
                 if (read_test( file_test ))
                 {
-                    print( "bad test file\n" );
+                    print( "bad test file\r\n" );
                 }
             }
             break;
@@ -3152,20 +3193,23 @@ void main( int argc, char *argv[])
             (void)fgets( buffer, sizeof( buffer ), stdin );
             ptr = strchr( buffer, '\n' );
             if (ptr != (char *)NULL) *ptr = '\0';
-            i = sscanf( buffer, "%u", &uTemp );
+            ptr = strchr( buffer, '\r' );
+            if (ptr != (char *)NULL) *ptr = '\0';
+
+			i = sscanf( buffer, "%u", &uTemp );
             if (i != 1)
             {
-                sprintf( print_buffer, "could not 'sscanf(...\"%u\"..)\n" );
+                sprintf( print_buffer, "could not 'sscanf(...\"%u\"..)\r\n" );
                 print( print_buffer );
             }
             else if (uTemp > 100)
             {
-                print( "test_delay must be 0 to 100)\n" );
+                print( "test_delay must be 0 to 100)\r\n" );
             }
             else
             {
 
-                sprintf( print_buffer, "setting test delay to: %u\n", uTemp );
+                sprintf( print_buffer, "setting test delay to: %u\r\n", uTemp );
                 print( print_buffer );
                 test_delay = uTemp;
             }
@@ -3174,7 +3218,7 @@ void main( int argc, char *argv[])
         case '3':   /* set test trigger   */
             if (test.number_steps == 0)
             {
-                print( "there are no test steps\n" );
+                print( "there are no test steps\r\n" );
             }
 			else
 			{
@@ -3183,20 +3227,23 @@ void main( int argc, char *argv[])
 				(void)fgets( buffer, sizeof( buffer ), stdin );
 				ptr = strchr( buffer, '\n' );
 				if (ptr != (char *)NULL) *ptr = '\0';
+				ptr = strchr( buffer, '\r' );
+				if (ptr != (char *)NULL) *ptr = '\0';
+
 				i = sscanf( buffer, "%u", &uTemp );
 				if (i != 1)
 				{
-					sprintf( print_buffer, "could not 'sscanf(...\"%u\"..)\n" );
+					sprintf( print_buffer, "could not 'sscanf(...\"%u\"..)\r\n" );
 					print( print_buffer );
 				}
 				else if ( (uTemp < 1) || (uTemp > test.number_steps) )
 				{
-					sprintf( print_buffer, "test_trigger must be 1 to %u)\n", test.number_steps );
+					sprintf( print_buffer, "test_trigger must be 1 to %u)\r\n", test.number_steps );
 					print( print_buffer );
 				}
 				else
 				{
-	                sprintf( print_buffer, "setting test delay to: %u\n", uTemp );
+	                sprintf( print_buffer, "setting test delay to: %u\r\n", uTemp );
 		            print( print_buffer );
 			        test_trigger = uTemp;
 				}
@@ -3207,15 +3254,15 @@ void main( int argc, char *argv[])
         case '5':   /* output loading test  */
             if (strcmp( test.filename, TEST_FILENAME_NONE ) == 0)
             {
-                print( "there is no test file\n" );
+                print( "there is no test file\r\n" );
             }
             else if (test.number_columns == 0)
             {
-                print( "there are no test columns\n" );
+                print( "there are no test columns\r\n" );
             }
             else if (test.number_steps == 0)
             {
-                print( "there are no test steps\n" );
+                print( "there are no test steps\r\n" );
             }
             else if (tester_init_and_uut_power_verify())
             {
@@ -3236,7 +3283,7 @@ void main( int argc, char *argv[])
                     }
                     if (uTemp >= test.number_columns)
                     {
-                        print( "there are no outputs\n" );
+                        print( "there are no outputs\r\n" );
                     }
                     else
                     {
@@ -3251,16 +3298,19 @@ void main( int argc, char *argv[])
             break;
 
         case '9':
+		case 'Q':
+		case 'q':
+		case KEY_ESCAPE:
             exit_flag = 1;
             break;
 
         default:
-            sprintf( print_buffer, "\nkey is 0x%04X\n", key );
+            sprintf( print_buffer, "\r\nkey is 0x%04X\r\n", key );
             print( print_buffer );
             break;
         }
         if (exit_flag) break;       /* break on exit    */
     }
-    print( "exiting\n" );
+    print( "exiting\r\n" );
     exit( 0 );
 }
