@@ -7,7 +7,9 @@
 /*                                                                      */
 /************************************************************************/
 
-#define VERSION_STRING  "version 1.0 July 2, 2017"
+#define START_CUT_STRING	"****CUTHERE****"
+
+#define VERSION_STRING  "version 1.0 July 3, 2017"
 
 #define _CRT_SECURE_NO_WARNINGS	1	/* disable Microsoft 'old library' warnings	*/
 
@@ -21,7 +23,6 @@
 void main( int argc, char *argv[])
 {
 	unsigned int	i;
-	unsigned int	j;
 	unsigned int	column_first;
 	unsigned int	column_last;
 	unsigned int	cut_flag;					/* 0=not cutting		*/
@@ -100,6 +101,9 @@ void main( int argc, char *argv[])
 		exit( 1 );
 	}
 
+	printf( "removing column %u thru %u\n", column_first, column_last );
+
+
 	/* process input file	*/	
 	
 	cut_flag = 0;
@@ -120,40 +124,48 @@ void main( int argc, char *argv[])
         if (ptr != (char *)NULL) *ptr = '\0';
         ptr = strchr( buffer, '\r' );
         if (ptr != (char *)NULL) *ptr = '\0';
+		length = strlen( buffer );
 
 		if (cut_flag == 0)
 		{
-			if (strcmp( buffer, "****CUTHERE****" ))
+			if (strcmp( buffer, START_CUT_STRING ) == 0)
 			{
 				cut_flag = 1;
 			}
+			/* copy lines before START_CUT_STRING	*/
+			printf( "%s\n", buffer );
 		}
 		else
 		{
 			/* cutting	*/
 			if ((length > 0) && (buffer[0] != ';'))
 			{
-				/* remove columns	*/
-	  			i = column_first - 1;		/* zero-base array	*/
-				j = column_last + 1 -1;		/* zero-base array	*/
-				for (;;)		/* will break when done	*/
+				/* copy columns before the cut	*/
+				for (i = 0; i < (column_first - 1); i++)	/* zero-based array	*/
 				{
-					if (j >= length) 
+					if (i < length)
 					{
-						buffer[i] = (char) 0;
-						length = i;
-						break;
+						printf( "%c", buffer[i] );
 					}
-					else
-					{
-						buffer[i] = buffer[j];
-						i++;
-						j++;
-					}
+				}	
+
+				/* skip the cut columns	*/
+				i      += column_last + 1 - column_first;
+
+				/* copy remaining columns	*/
+				while (i < length)
+				{
+					printf( "%c", buffer[i] );
+					i++;
 				}
+				printf( "\n" );
+			}
+			else
+			{
+				/* copy empty lines and comments	*/
+				printf( "%s\n", buffer );
 			}
 		}
-		printf( "%s\n", buffer );
 	}
 	fclose( file_in );
 }
