@@ -1,0 +1,111 @@
+PDP-8 mSeries Tester		wrs	2013_09_20
+
+Parallel 
+Port Pin	Name		Tester Usage
+
+ 1		C0- Control 0	SPARE_PIN_1
+ 2		D0+ Data 0	RESET_N
+ 3		D1+ Data 1	CS_N
+ 4		D2+ Data 2	SCK
+ 5              D3+ Data 3      chip A SI
+ 6              D4+ Data 4      chip B SI
+ 7              D5+ Data 5      chip C SI
+ 8              D6+ Data 6      chip D SI
+ 9              D7+ Data 7      chip E SI
+10              S6+ -Ack        chip D S0
+11              S7- +Busy       chip E SO
+12              S5+ +PaperEnd   chip C SO
+13              S4+ +SelectIn   chip B SO
+14		C1- -AutoFd	SPARE_PIN_14
+15              S3+ -Error      chip A SO
+16		C2+ -Init	SPARE_PIN_16
+17		C3- -Select	SPARE_PIN_17
+18 thru 25	ground
+
+
+In register order:
+
+Parallel 
+Port Pin	Name		Tester Usage
+
+ 1		C0- Control 0	SPARE_PIN_1
+14		C1- -AutoFd	SPARE_PIN_14
+16		C2+ -Init	SPARE_PIN_16
+17		C3- -Select	SPARE_PIN_17
+
+ 2		D0+ Data 0	RESET_N
+ 3		D1+ Data 1	CS_N
+ 4		D2+ Data 2	SCK
+ 5              D3+ Data 3      chip A SI
+ 6              D4+ Data 4      chip B SI
+ 7              D5+ Data 5      chip C SI
+ 8              D6+ Data 6      chip D SI
+ 9              D7+ Data 7      chip E SI
+
+
+15              S3+ -Error      chip A SO
+13              S4+ +SelectIn   chip B SO
+12              S5+ +PaperEnd   chip C SO
+10              S6+ -Ack        chip D SO
+11              S7- +Busy       chip E SO
+
+
+
+Wiring for Microchip MCP23S17 16-bit GPIO expander
+
+Pin     Name    Usage           Chip A  Chip B  Chip C  Chip D  Chip E
+
+ 1      GPBO    I/O pin
+ 2      GPB1    I/O pin
+ 3      GPB2    I/O pin
+ 4      GPB3    I/O pin
+ 5      GPB4    I/O pin
+ 6      GPB5    I/O pin
+ 7      GPB6    I/O pin
+ 8      GPB7    I/O pin
+ 9      VDD     3.7v
+10      VSS     Ground
+11      CS-N	PPort D1+   
+12      SCK	PPort D2+
+13      SI      PPort           D3+     D4+     D5+     D6+     D7-     
+14      SO      PPort           S3+     S4+     S5+     S6+     S7+
+
+15      A0	PPort D0+
+16      A1	PPort D0+
+17      A2	PPort D0+
+18      RESET-N	PPort D0+
+19      INTB	n.c.
+20      INTA	n.c.
+21      GPA0    I/O pin
+22      GPA1    I/O pin
+23      GPA2    I/O pin
+24      GPA3    I/O pin
+25      GPA4    I/O pin
+26      GPA5    I/O pin
+27      GPA6    I/O pin
+28      GPA7    I/O pin
+
+
+
+
+Power for Microchip MCP23S17 16-bit GPIO expander is about 3.6v
+(+5v, 2 series diodes).
+
+LEDs:
+   ???, +3.6V (from +5v raw).
+   ???, +5v UUT.
+   ???, 'LED?'
+   ???, 'LED?'
+   ???, 'LED?'
+   ???, 'LED?'
+
+4 spare inputs/outputs are for strobes/probes (someday).
+
+4 resistive loads:
+     H   5.6K to ground           @2.4v, about  -420 uA (7400 spec:  -400A).
+    3H   2.0K to ground           @2.4v, about -1200 uA (7440 spec: -1200uA).
+     L   280 (560 || 560) to +5v  @0.4v, about 16 ma (7400 spec: 16 ma).
+    3L    90 (180 || 180) to +5v  @0.4v, about 51 ma (7440 spec: 48 ma).
+
+last line.
+				

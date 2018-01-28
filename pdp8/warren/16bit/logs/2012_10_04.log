@@ -1,0 +1,1841 @@
+
+tester-   PDP8 card tester via printer port
+version 0.7  10/4/2012
+
+
+mapping[] is verified
+
+
+Main menu
+   test file is: <none>
+   delay is: 0
+ 1 read test file
+ 2 set test delay
+ 3 run test
+ 4 output loading test
+ 8 diags
+ 9 exit
+Enter test file name? trying to open test file: m706k.tst
+reading test file: m706k.tst
+  comment: M706   PCB REV K   SCHEMATIC REV L   TELETYPE RECEIVER
+  comment: 
+  comment: NOTE: 17 PINS not used
+  comment:        1 AA1  PAD, NOT CONNECTED
+  comment:        2 AB1  NOT CONNECTED
+  comment:        3 AC1  NOT CONNECTED
+  comment:        4 AU1  NOT CONNECTED
+  comment:        5 AB2  NOT CONNECTED
+  comment:        6 BA1  NOT CONNECTED
+  comment:        7 BB1  NOT CONNECTED
+  comment:        8 BC1  NOT CONNECTED
+  comment:        9 BE1  NOT CONNECTED
+  comment:       10 BF1  NOT CONNECTED
+  comment:       11 BH1  NOT CONNECTED
+  comment:       12 BJ1  NOT CONNECTED
+  comment:       13 BK1  NOT CONNECTED
+  comment:       14 BL1  PAD, NOT CONNECTED
+  comment:       15 BV1  PAD, NOT CONNECTED
+  comment:       16 BB2  NOT CONNECTED
+  comment:       17 BK2  NOT CONNECTED CPU schematics shows output TT SHIFT-N
+  comment: 
+     pins: PINS
+     pins:  1 O AD1        +3V
+     pins:  2 I AL2        READ BUFFER (NORMALLY IOP4)                  
+     pins:  3 I AD2        (DEVICE SELECTOR BMB INPUTS)  (NAND)-> (DEVICE SELECT-N)
+     pins:  4 I AE1        (DEVICE SELECTOR BMB INPUTS)  (NAND)-> (DEVICE SELECT-N)
+     pins:  5 I AF1        (DEVICE SELECTOR BMB INPUTS)  (NAND)-> (DEVICE SELECT-N)
+     pins:  6 I AH1        (DEVICE SELECTOR BMB INPUTS)  (NAND)-> (DEVICE SELECT-N)
+     pins:  7 I AH2        (DEVICE SELECTOR BMB INPUTS)  (NAND)-> (DEVICE SELECT-N)
+     pins:  8 I AJ1        (DEVICE SELECTOR BMB INPUTS)  (NAND)-> (DEVICE SELECT-N)
+     pins:  9 I AP1        (FORCE SELECT-N) (NORMALLY HI) NAND(DEVICE SELECT-N)=(SELECTED)
+     pins: 10 I BF2        I/O CLEAR (NORMALLY INITIALIZE)
+     pins: 11 I BJ2        CLEAR FLAG 1 (NORMALLY IOP2)
+     pins: 12 O BE2        (SELECTED IOP2-N) = CLEAR FLAG 1 NAND (SELECTED)
+     pins: 13 I BD1        CLEAR FLAG 2 (NORMALLY CONNECTED TO GROUND)
+     pins: 14 O AE2        (KCC-N) = (SELECTED IOP2) NOR I/O CLEAR NOR CLEAR FLAG 2
+     pins: 15 O AV1        BUFFER STROBE = READ BUFFER AND (SELECTED)
+     pins: 16 I BM1        (EXTRA IN)  (NOT USED? ON CPU SCHEMATIC)
+     pins: 17 O BN1        (EXTRA-N)   = (EXTRA IN) NAND BUFFER STROBE
+     pins: 18 I BD2        SKP. STROBE (NORMALLY IOP1)
+     pins: 19 O AF2        FLAG-N (AKA P.I. REQUEST)
+     pins: 20 O BH2        I/O SKIP = FLAG NAND SKP. STROBE NAND (SELECTED) (ACTIVE LO)
+     pins: 21 I AV2        (READER RUN SET-N) (NORMALLY CONNECTED TO (KCC-N))
+     pins: 22 O BL2        READER RUN
+     pins: 23 O AU2        READER ENABLE CANNOT TEST (PNP HI DRIVER; 26MA @1V; OPEN (-15?)
+     pins: 24 O BN2        (ACTIVE-N) (AKA IN ACTIVE ON CPU SCHEMATIC)
+     pins: 25 O BS2        (PRESET-N) = (200NS?) PULSE ON ACTIVE-N FALLING EDGE 
+     pins: 26 I AN1        CLOCK 8 BAUD
+     pins: 27 O BS1        CLOCK SCALE 2-N (CLOCK 8 BAUD / 4) NORMALLY DRIVES (STOP CLOCK)
+     pins: 28 O BT2        CLOCK SCALE 2   (CLOCK 8 BAUD DIVIDED BY 4)
+     pins: 29 I BP2        (STOP CLOCK) (<-CLOCK SCALE 2-N FOR 0.5 STOP; -P FOR X.0) 
+     pins: 30 I BP1        (STOP SET-N) (NORMALLY +3?)
+     pins: 31 O BU2        STOP 1-N
+     pins: 32 O BV2        STOP 2-N (NORMALLY DRIVES IN LAST UNIT) 
+     pins: 33 I BR2        IN LAST UNIT CLEAR-N (<-STOP 1-N FOR 1.X STOP; STOP 2-N FOR 2)
+     pins: 34 I BM2        TELETYPE SERIAL INPUT
+     pins: 35 O AM2        (TELETYPE SERIAL INPUT-N)
+     pins: 36 I BR1        ENABLE (NORMALLY +3V (33))
+     pins: 37 I AR1        (TT0 DATA) (NORMALLY CONNECTED TO (TELETYPE SERIAL INPUT-N)
+     pins: 38 O AK1        (TT2) (NORMALLY CONNECTED TO AJ2 (TT3 DATA) FOR 8 BIT DATA)
+     pins: 39 I AJ2        (TT3 DATA) =(DATA IN) FOR 5 BIT; = (TT2) FOR 8 BIT
+     pins: 40 I BU1        SHIFT CLOCK (NORMALLY CLOCK SCALE 2)
+     pins: 41 O AS1        TT SHIFT (100NS? PULSE)  AKA SHIFT ON CPU SCHEMATIC
+     pins: 42 O AK2        TT0-N (MSB) = TT0 NAND BUFFER STROBE
+     pins: 43 O AR2        TT1-N       = TT0 NAND BUFFER STROBE
+     pins: 44 O AS2        TT2-N       = TT0 NAND BUFFER STROBE
+     pins: 45 O AL1        TT3-N       = TT0 NAND BUFFER STROBE
+     pins: 46 O AM1        TT4-N       = TT0 NAND BUFFER STROBE
+     pins: 47 O AP2        TT5-N       = TT0 NAND BUFFER STROBE
+     pins: 48 O AT2        TT6-N       = TT0 NAND BUFFER STROBE
+     pins: 49 O AN2        TT7-N (LSB) = TT0 NAND BUFFER STROBE
+     pins: 
+direction: OIIIIIIIIIIOIOOIOIOOIOOOOIOOIIOOIIOIIOIIOOOOOOOOO
+  comment: ; note COLUMN 21 PIN AU2 is PNP hi side driver; can not test
+  comment: ; I/O CLEAR hi
+  comment: ; (READER RUN SET-N) low to set READER RUN (not normal powerup)
+  comment: ; (STOP SET-N) low to set STOP 1 and STOP 2 (not normal powerup)
+  comment: ; IN LAST UNIT CLEAR-N low to clear CLOCK SCALE 1 and CLOCK SCALE 2
+test    1: 1000000011010000101101X11010000000101X00011111111
+  comment: ; toggle TELETYPE SERIAL INPUT with I/O CLEAR active -> no change
+test    2:                                  10
+  comment: ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+test    3:                                     0
+test    4:                                  01
+  comment: ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+test    5:                                     1
+  comment: ;
+  comment: ; undo the initial setup that is not normal powerup
+  comment: ;
+  comment: ; release I/O CLEAR; (KCC-N) goes hi
+test    6:          0   1
+  comment: ; release (STOP SET-N)
+test    7:                              1
+  comment: ; release (READER RUN SET-N)
+test    8:                     1
+  comment: ; release IN LAST UNIT CLEAR-N
+test    9:                                 1
+  comment: ; check that STOP 1, STOP 2 do not count when not ACTIVE
+  comment: ; clock (STOP CLOCK). since ACTIVE-N is 1; no count STOP 1; STOP 2
+test   10:                             1
+test   11:                             0
+  comment: ; clock CLOCK 8 BAUD to set (CLOCK SCALE 0)
+test   12:                          1
+test   13:                          0
+  comment: ; set/clear CLEAR FLAG 2;  (KCC-N) goes lo/hi  
+test   14:             10
+test   15:             01
+  comment: ;
+  comment: ; check 'not selected' does not change
+  comment: ; set/clear READ BUFFER  -> no change (not selected)
+test   16:  1
+test   17:  0
+  comment: ; set/clear (EXTRA IN)   -> no change (not selected)
+test   18:                1
+test   19:                0
+  comment: ; set/clear CLEAR FLAG 1 -> no change (not selected)
+test   20:           1
+test   21:           0
+  comment: ; set/clear SKP. STROBE  -> no change (not selected)
+test   22:                  1
+test   23:                  0
+  comment: ;
+  comment: ; forced select tests
+  comment: ;
+  comment: ; (FORCE SELECT-N)
+test   24:         0
+  comment: ; set CLEAR FLAG 1        -> (SELECTED IOP2-N) lo; (KCC-N) lo
+test   25:           10 0
+  comment: ; clear/set (FORCE SELECT-N) -> (SELECTED IOP2-N) hi/lo; (KCC-N) hi/lo
+test   26:         1  1 1
+test   27:         0  0 0
+  comment: ; set READ BUFFER  -> BUFFFER STROBE goes hi; TTn-N go to ??
+test   28:  1            1                          XXXXXXXX
+  comment: ; set (EXTRA IN) -. (EXTRA-N) goes lo
+test   29:                10
+  comment: ; clear READ BUFFER -> BUFFER STROBE goes lo; (EXTRA-N) goes hi
+test   30:  0            0 1                        11111111
+  comment: ; set READ BUFFER   -> BUFFER STROBE goes hi; (EXTRA-N) goes ho
+test   31:  1            1 0                        XXXXXXXX
+  comment: ; set SKP. STROBE  -> no change (flag is off)
+test   32:                  1
+  comment: ; remove force select -> (SELECTED IOP2-N),(KCC-N),(EXTRA-N) hi; BUFFER STROBE lo
+test   33:         1  1 10 1                        11111111
+  comment: ;
+  comment: ; check device select
+  comment: ;
+  comment: ; device select       -> (SELECTED IOP2-N),(KCC-N),(EXTRA-N) lo; BUFFER STROBE hi
+test   34:   100000
+test   35:   110000
+test   36:   111000
+test   37:   111100
+test   38:   111110
+test   39:   111111   0 01 0                        XXXXXXXX
+test   40:   011111   1 10 1                        11111111
+test   41:   001111
+test   42:   000111
+test   43:   000011
+test   44:   000001
+test   45:   000000
+test   46:   111111   0 01 0                        XXXXXXXX
+test   47:   011111   1 10 1                        11111111
+test   48:   111111   0 01 0                        XXXXXXXX
+test   49:   101111   1 10 1                        11111111
+test   50:   111111   0 01 0                        XXXXXXXX
+test   51:   110111   1 10 1                        11111111
+test   52:   111111   0 01 0                        XXXXXXXX
+test   53:   111011   1 10 1                        11111111
+test   54:   111111   0 01 0                        XXXXXXXX
+test   55:   111101   1 10 1                        11111111
+test   56:   111111   0 01 0                        XXXXXXXX
+test   57:   111110   1 10 1                        11111111
+test   58:   111111   0 01 0                        XXXXXXXX
+test   59:   000000   1 10 1                        11111111
+test   60:   000001
+test   61:   000010
+test   62:   000011
+test   63:   000100
+test   64:   000101
+test   65:   000110
+test   66:   000111
+test   67:   001000
+test   68:   001001
+test   69:   001010
+test   70:   001011
+test   71:   001100
+test   72:   001101
+test   73:   001110
+test   74:   001111
+test   75:   010000
+test   76:   010001
+test   77:   010010
+test   78:   010011
+test   79:   010100
+test   80:   010101
+test   81:   010110
+test   82:   010111
+test   83:   011000
+test   84:   011001
+test   85:   011010
+test   86:   011011
+test   87:   011100
+test   88:   011101
+test   89:   011110
+test   90:   011111
+test   91:   100000
+test   92:   100001
+test   93:   100010
+test   94:   100011
+test   95:   100100
+test   96:   100101
+test   97:   100110
+test   98:   100111
+test   99:   101000
+test  100:   101001
+test  101:   101010
+test  102:   101011
+test  103:   101100
+test  104:   101101
+test  105:   101110
+test  106:   101111
+test  107:   110000
+test  108:   110001
+test  109:   110010
+test  110:   110011
+test  111:   110100
+test  112:   110101
+test  113:   110110
+test  114:   110111
+test  115:   111000
+test  116:   111001
+test  117:   111010
+test  118:   111011
+test  119:   111100
+test  120:   111101
+test  121:   111110
+test  122:   111111   0 01 0                        XXXXXXXX
+  comment: ; remove CLEAR FLAG 1 while selected -> (SELECTED IOP2-N) hi; (KCC-N) hi
+test  123:           01 1
+  comment: ; remove (EXTRA IN)   -> (EXTRA-N) goes hi
+test  124:                01
+  comment: ; remove READ BUFFER  -> BUFFER STROBE lo; TTn-N go hi
+test  125:  0            0                          11111111
+  comment: ; deselect
+test  126:   000000      0
+  comment: ;
+  comment: ; test the start bit detect gate
+  comment: ;
+  comment: ; verify each signal does not falsely start bit detect with START ENABLE hi
+  comment: ;
+  comment: ; make sure they are off
+test  127:                          0       010
+  comment: ; set/clear TELETYPE SERIAL INPUT -> no change
+  comment: ; set/clear ENABLE -> no change
+test  128:                                    1
+test  129:                                    0
+test  130:                                  10
+test  131:                                  01
+  comment: ; set/clear CLOCK 8 BAUD -> no change
+test  132:                          1
+test  133:                          0
+  comment: ;
+  comment: ; verify each signal inhibits start bit detect with START ENABLE hi
+  comment: ;
+  comment: ; set ENABLE -> no change
+test  134:                                    1
+  comment: ; set/clear TELETYPE SERIAL INPUT -> no change
+test  135:                                  10
+test  136:                                  01
+  comment: ; set/clear CLOCK 8 BAUD -> no change
+test  137:                          1
+test  138:                          0
+  comment: ; clear ENABLE
+test  139:                                    0
+  comment: ; set CLOCK 8 BAUD -> no change
+test  140:                          1
+  comment: ; set/clear TELETYPE SERIAL INPUT -> no change
+test  141:                                  10
+test  142:                                  01
+  comment: ; clear CLOCK 8 BAUD -> no change
+test  143:                          0
+  comment: ;
+  comment: ; do START BIT detect
+  comment: ;
+  comment: ; set CLOCK 8 BAUD
+test  144:                          1
+  comment: ; set ENABLE
+test  145:                                    1  
+  comment: ; prestage (TT0 DATA) due to clock edge
+test  146:                                     0
+  comment: ; set TELETYPE SERIAL INPUT ->
+  comment: ;         READER RUN,ACTIVE-N,STOP 1-N,STOP 2-N go lo
+test  147:                      0 0      11 10
+  comment: ; select and READ BUFFER -> BUFFER STROBE hi, TTn-N go lo
+test  148:  1111111      1                      1   00000000
+  comment: ; set (TT5 DATA) to match TT6
+test  149:                                       1
+  comment: ; CLOCK 8 BAUD to toggle CLOCK SCALE 2-N and CLOCK SCALE 2
+test  150:                          0
+test  151:                          1
+test  152:                          0
+test  153:                          1
+test  154:                          0
+test  155:                          101
+test  156:                          0
+test  157:                          1
+test  158:                          0
+test  159:                          1
+test  160:                          0
+test  161:                          1
+test  162:                          0
+test  163:                          110
+  comment: ; leave CLOCK SCALE 2 set
+test  164:                          0
+test  165:                          1
+test  166:                          0
+test  167:                          1
+test  168:                          0
+test  169:                          1
+test  170:                          0
+test  171:                          101
+  comment: ; (STOP CLOCK) does not change STOP 1, STOP 2 since ACTIVE
+test  172:                             1
+test  173:                             0
+test  174:                             1
+test  175:                             0
+  comment: ; clear TELETYPE SERIAL INPUT (do a short START BT)
+test  176:                                  01
+  comment: ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+test  177:                                     1
+  comment: ; SHIFT CLOCK to shift 1 (short START BIT sets SPIKE DETECTOR)
+  comment: ; note: ACTIVE-N goes hi AFTER rising edge due to SPIKE DETECTOR
+  comment: ;       and CLOCK SCLE 2 gets cleared
+test  178:                        1  10         1 1 00000000
+test  179:                                        0
+  comment: ;
+  comment: ; receive a '00000000' character
+  comment: ;
+  comment: ; prestage (TT0 DATA) due to clock edge
+test  180:                                     0
+  comment: ; set TELETYPE SERIAL INPUT (START BIT) ->
+  comment: ;        READER RUN,ACTIVE-N,TT0-N go lo; STOP 1-N,STOP 2-N go hi
+  comment: ; note: (TT2) is value AFTER rising clock
+test  181:                      0 0      11 10      0
+  comment: ; CLOCK 8 BAUD to setup CLOCK SCALE 2-N lo; CLOCK SCALE 2 hi
+test  182:                          0
+test  183:                          1
+test  184:                          0
+test  185:                          1
+test  186:                          0
+test  187:                          1
+test  188:                          0
+test  189:                          101
+  comment: ; toggle SHIFT CLOCK -> shift in a '00000000' character
+test  190:                                        1 10000000
+test  191:                                        0
+  comment: 
+test  192:                                        1 11000000
+test  193:                                        0
+test  194:                                      0 1 11100000
+  comment: ; clear (TT3 DATA) to match TT2
+test  195:                                       0
+test  196:                                        0
+test  197:                                        1 11110000
+test  198:                                        0
+test  199:                                        1 11111000
+test  200:                                        0
+test  201:                                        1 11111100
+test  202:                                        0
+test  203:                                        1 11111110
+test  204:                                        0
+test  205:                                        1 11111111
+test  206:                                        0
+  comment: ; shift start bit into FLAG -> I/O SKIP lo, FLAG-N (aka P.I. REQUEST) lo
+test  207:                   00                   1
+  comment: ; turn off READ BUFFER -> BUFFER STROBE lo,  (TTn-N still hi)
+test  208:  0            0
+test  209:  1            1
+  comment: ; disable SKP. STROBE -> I/O SKIP goes hi
+test  210:                  0 1
+  comment: ; on SHIFT CLOCK falling edge, ACTIVE-N hi
+test  211:                        1               0
+  comment: ; clear TELETYPE SERIAL INPUT (stop bit); set TT0 DATA
+test  212:                                  01
+  comment: ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+test  213:                                     1
+test  214:                                        1
+test  215:                                        0
+test  216:                                        1
+test  217:                                        0
+  comment: ; IN LAST UNIT CLEAR-N -> CLOCK SCALE 2 lo; CLOCK SCALE 2-N hi
+test  218:                           10    0
+  comment: ;
+  comment: ; receive a '11111111' character
+  comment: ;
+  comment: ;;;;;;;;;;;;;;;;;;;;;;
+  comment: ;
+      end: END
+
+
+summary
+
+column  1: offset 0, mask 0x1000
+column  2: offset 1, mask 0x0002
+column  3: offset 0, mask 0x0010
+column  4: offset 0, mask 0x0800
+column  5: offset 0, mask 0x0400
+column  6: offset 0, mask 0x0200
+column  7: offset 0, mask 0x0002
+column  8: offset 0, mask 0x0100
+column  9: offset 1, mask 0x0800
+column 10: offset 2, mask 0x0080
+column 11: offset 3, mask 0x0002
+column 12: offset 2, mask 0x0040
+column 13: offset 2, mask 0x0400
+column 14: offset 0, mask 0x0008
+column 15: offset 2, mask 0x4000
+column 16: offset 3, mask 0x0800
+column 17: offset 3, mask 0x0400
+column 18: offset 2, mask 0x0020
+column 19: offset 0, mask 0x0004
+column 20: offset 3, mask 0x0001
+column 21: offset 2, mask 0x0002
+column 22: offset 3, mask 0x0008
+column 23: offset 2, mask 0x0001
+column 24: offset 3, mask 0x0020
+column 25: offset 4, mask 0x0001
+column 26: offset 1, mask 0x1000
+column 27: offset 4, mask 0x8000
+column 28: offset 4, mask 0x0002
+column 29: offset 3, mask 0x0040
+column 30: offset 3, mask 0x0200
+column 31: offset 4, mask 0x0004
+column 32: offset 4, mask 0x0008
+column 33: offset 3, mask 0x0080
+column 34: offset 3, mask 0x0010
+column 35: offset 1, mask 0x0004
+column 36: offset 3, mask 0x0100
+column 37: offset 1, mask 0x0400
+column 38: offset 1, mask 0x8000
+column 39: offset 0, mask 0x0001
+column 40: offset 4, mask 0x2000
+column 41: offset 1, mask 0x0200
+column 42: offset 1, mask 0x0001
+column 43: offset 1, mask 0x0020
+column 44: offset 1, mask 0x0040
+column 45: offset 1, mask 0x4000
+column 46: offset 1, mask 0x2000
+column 47: offset 1, mask 0x0010
+column 48: offset 1, mask 0x0080
+column 49: offset 1, mask 0x0008
+
+direction bits (1=input)
+   0xF0EC 0xE3FD 0xFB59 0xF42D 0xD0FF
+
+pullup bits (1=pullup)
+   0x0000 0x0000 0x0000 0x0000 0x0000
+
+test step    out_data                     dont care
+   1: 0x1004 0x6CFD 0x00C0 0x0429 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   2: 0x1004 0x6CF9 0x00C0 0x0439 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   3: 0x1004 0x68F9 0x00C0 0x0439 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   4: 0x1004 0x68FD 0x00C0 0x0429 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   5: 0x1004 0x6CFD 0x00C0 0x0429 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   6: 0x100C 0x6CFD 0x0040 0x0429 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   7: 0x100C 0x6CFD 0x0040 0x0629 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   8: 0x100C 0x6CFD 0x0042 0x0629 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+   9: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  10: 0x100C 0x6CFD 0x0042 0x06E9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  11: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  12: 0x100C 0x7CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  13: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  14: 0x1004 0x6CFD 0x0442 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  15: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  16: 0x100C 0x6CFF 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  17: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  18: 0x100C 0x6CFD 0x0042 0x0EA9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  19: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  20: 0x100C 0x6CFD 0x0042 0x06AB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  21: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  22: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  23: 0x100C 0x6CFD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  24: 0x100C 0x64FD 0x0042 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  25: 0x1004 0x64FD 0x0002 0x06AB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  26: 0x100C 0x6CFD 0x0042 0x06AB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  27: 0x1004 0x64FD 0x0002 0x06AB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  28: 0x1004 0x0406 0x4002 0x06AB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  29: 0x1004 0x0406 0x4002 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  30: 0x1004 0x64FD 0x0002 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  31: 0x1004 0x0406 0x4002 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  32: 0x1004 0x0406 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  33: 0x100C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  34: 0x101C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  35: 0x181C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  36: 0x1C1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  37: 0x1E1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  38: 0x1E1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  39: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  40: 0x1F0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  41: 0x170E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  42: 0x130E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  43: 0x110E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  44: 0x110C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  45: 0x100C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  46: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  47: 0x1F0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  48: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  49: 0x171E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  50: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  51: 0x1B1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  52: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  53: 0x1D1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  54: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  55: 0x1F1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  56: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  57: 0x1E1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  58: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+  59: 0x100C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  60: 0x110C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  61: 0x100E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  62: 0x110E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  63: 0x120C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  64: 0x130C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  65: 0x120E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  66: 0x130E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  67: 0x140C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  68: 0x150C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  69: 0x140E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  70: 0x150E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  71: 0x160C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  72: 0x170C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  73: 0x160E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  74: 0x170E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  75: 0x180C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  76: 0x190C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  77: 0x180E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  78: 0x190E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  79: 0x1A0C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  80: 0x1B0C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  81: 0x1A0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  82: 0x1B0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  83: 0x1C0C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  84: 0x1D0C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  85: 0x1C0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  86: 0x1D0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  87: 0x1E0C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  88: 0x1F0C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  89: 0x1E0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  90: 0x1F0E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  91: 0x101C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  92: 0x111C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  93: 0x101E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  94: 0x111E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  95: 0x121C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  96: 0x131C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  97: 0x121E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  98: 0x131E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+  99: 0x141C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 100: 0x151C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 101: 0x141E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 102: 0x151E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 103: 0x161C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 104: 0x171C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 105: 0x161E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 106: 0x171E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 107: 0x181C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 108: 0x191C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 109: 0x181E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 110: 0x191E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 111: 0x1A1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 112: 0x1B1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 113: 0x1A1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 114: 0x1B1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 115: 0x1C1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 116: 0x1D1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 117: 0x1C1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 118: 0x1D1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 119: 0x1E1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 120: 0x1F1C 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 121: 0x1E1E 0x6CFF 0x0062 0x0EAB 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 122: 0x1F16 0x0C06 0x4022 0x0AAB 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+ 123: 0x1F1E 0x0C06 0x4062 0x0AA9 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+ 124: 0x1F1E 0x0C06 0x4062 0x06A9 0x8001  0x0000 0xE0F9 0x0001 0x0000 0x0000
+ 125: 0x1F1E 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 126: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 127: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 128: 0x100C 0x6CFD 0x0062 0x07A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 129: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 130: 0x100C 0x6CF9 0x0062 0x06B9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 131: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 132: 0x100C 0x7CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 133: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 134: 0x100C 0x6CFD 0x0062 0x07A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 135: 0x100C 0x6CF9 0x0062 0x07B9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 136: 0x100C 0x6CFD 0x0062 0x07A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 137: 0x100C 0x7CFD 0x0062 0x07A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 138: 0x100C 0x6CFD 0x0062 0x07A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 139: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 140: 0x100C 0x7CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 141: 0x100C 0x7CF9 0x0062 0x06B9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 142: 0x100C 0x7CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 143: 0x100C 0x6CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 144: 0x100C 0x7CFD 0x0062 0x06A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 145: 0x100C 0x7CFD 0x0062 0x07A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 146: 0x100C 0x78FD 0x0062 0x07A9 0x8001  0x0000 0x8000 0x0001 0x0000 0x0000
+ 147: 0x100C 0x78F9 0x0062 0x0791 0x800D  0x0000 0x8000 0x0001 0x0000 0x0000
+ 148: 0x1F1E 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 149: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 150: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 151: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 152: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 153: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 154: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 155: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 156: 0x1F1F 0x8802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 157: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 158: 0x1F1F 0x8802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 159: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 160: 0x1F1F 0x8802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 161: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 162: 0x1F1F 0x8802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 163: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 164: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 165: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 166: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 167: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 168: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 169: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 170: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 171: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 172: 0x1F1F 0x9802 0x4062 0x07D1 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 173: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 174: 0x1F1F 0x9802 0x4062 0x07D1 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 175: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 176: 0x1F1F 0x9806 0x4062 0x0781 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 177: 0x1F1F 0x9C06 0x4062 0x0781 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 178: 0x1F1F 0x9C06 0x4062 0x07A1 0xA00D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 179: 0x1F1F 0x9C06 0x4062 0x07A1 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 180: 0x1F1F 0x9806 0x4062 0x07A1 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 181: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 182: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 183: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 184: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 185: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 186: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 187: 0x1F1F 0x9802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 188: 0x1F1F 0x8802 0x4062 0x0791 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+ 189: 0x1F1F 0x9802 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 190: 0x1F1F 0x9803 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 191: 0x1F1F 0x9803 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 192: 0x1F1F 0x9823 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 193: 0x1F1F 0x9823 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 194: 0x1F1F 0x1863 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 195: 0x1F1E 0x1863 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 196: 0x1F1E 0x1863 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 197: 0x1F1E 0x5863 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 198: 0x1F1E 0x5863 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 199: 0x1F1E 0x7863 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 200: 0x1F1E 0x7863 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 201: 0x1F1E 0x7873 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 202: 0x1F1E 0x7873 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 203: 0x1F1E 0x78F3 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 204: 0x1F1E 0x78F3 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 205: 0x1F1E 0x78FB 0x4062 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 206: 0x1F1E 0x78FB 0x4062 0x0791 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 207: 0x1F1A 0x78FB 0x4062 0x0790 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 208: 0x1F1A 0x78F9 0x0062 0x0790 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 209: 0x1F1A 0x78FB 0x4062 0x0790 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 210: 0x1F1A 0x78FB 0x4042 0x0791 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 211: 0x1F1A 0x78FB 0x4042 0x07B1 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 212: 0x1F1A 0x78FF 0x4042 0x07A1 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 213: 0x1F1A 0x7CFF 0x4042 0x07A1 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 214: 0x1F1A 0x7CFF 0x4042 0x07A1 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 215: 0x1F1A 0x7CFF 0x4042 0x07A1 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 216: 0x1F1A 0x7CFF 0x4042 0x07A1 0x200F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 217: 0x1F1A 0x7CFF 0x4042 0x07A1 0x000F  0x0000 0x0000 0x0001 0x0000 0x0000
+ 218: 0x1F1A 0x7CFF 0x4042 0x0721 0x800D  0x0000 0x0000 0x0001 0x0000 0x0000
+
+PINs used (in edge connector order) (G=ground,P=power)
+SLOT   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+LETTER ABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUV
+SIDE   111111111111111111222222222222222222111111111111111111222222222222222222
+USAGE     OIIIIOOOIIIOG OP GIOOIIOIOOOOOOOI   I      IOIIOGI P GIOIOI OIOIIOOOO
+UUT has 23 inputs
+UUT has 26 outputs
+contains 49 pins/columns
+17 pins are not used
+contains 218 'test steps'
+
+
+Main menu
+   test file is: m706k.tst
+   delay is: 0
+ 1 read test file
+ 2 set test delay
+ 3 run test
+ 4 output loading test
+ 8 diags
+ 9 exit
+
+
+*****************************
+  UUT power is OFF          *
+*****************************
+
+
+
+
+Main menu
+   test file is: m706k.tst
+   delay is: 0
+ 1 read test file
+ 2 set test delay
+ 3 run test
+ 4 output loading test
+ 8 diags
+ 9 exit
+
+UUT power is okay
+
+ space  single step
+ O      run once (one test, all steps)
+ F      run, stop on fail
+ G      go (run tests
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ C      toggle comment printout
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit test
+step    1 1000000011010000101101011010000000101100011111111
+step    2 1000000011010000101101011010000001001100011111111
+step    3 1000000011010000101101011010000001000100011111111
+step    4 1000000011010000101101011010000000100100011111111
+step    5 1000000011010000101101011010000000101100011111111
+step    6 1000000010010100101101011010000000101100011111111
+step    7 1000000010010100101101011010010000101100011111111
+step    8 1000000010010100101111011010010000101100011111111
+step    9 1000000010010100101111011010010010101100011111111
+step   10 1000000010010100101111011010110010101100011111111
+step   11 1000000010010100101111011010010010101100011111111
+step   12 1000000010010100101111011110010010101100011111111
+step   13 1000000010010100101111011010010010101100011111111
+step   14 1000000010011000101111011010010010101100011111111
+step   15 1000000010010100101111011010010010101100011111111
+step   16 1100000010010100101111011010010010101100011111111
+step   17 1000000010010100101111011010010010101100011111111
+step   18 1000000010010101101111011010010010101100011111111
+step   19 1000000010010100101111011010010010101100011111111
+step   20 1000000010110100101111011010010010101100011111111
+step   21 1000000010010100101111011010010010101100011111111
+step   22 1000000010010100111111011010010010101100011111111
+step   23 1000000010010100101111011010010010101100011111111
+step   24 1000000000010100101111011010010010101100011111111
+step   25 1000000000100000101111011010010010101100011111111
+step   26 1000000010110100101111011010010010101100011111111
+step   27 1000000000100000101111011010010010101100011111111
+step   28 1100000000100010101111011010010010101100000000000
+step   29 1100000000100011001111011010010010101100000000000
+step   30 1000000000100001101111011010010010101100011111111
+step   31 1100000000100011001111011010010010101100000000000
+step   32 1100000000100011011111011010010010101100000000000
+step   33 1100000010110101111111011010010010101100011111111
+step   34 1110000010110101111111011010010010101100011111111
+step   35 1111000010110101111111011010010010101100011111111
+step   36 1111100010110101111111011010010010101100011111111
+step   37 1111110010110101111111011010010010101100011111111
+step   38 1111111010110101111111011010010010101100011111111
+step   39 1111111110100011011111011010010010101100000000000
+step   40 1101111110110101111111011010010010101100011111111
+step   41 1100111110110101111111011010010010101100011111111
+step   42 1100011110110101111111011010010010101100011111111
+step   43 1100001110110101111111011010010010101100011111111
+step   44 1100000110110101111111011010010010101100011111111
+step   45 1100000010110101111111011010010010101100011111111
+step   46 1111111110100011011111011010010010101100000000000
+step   47 1101111110110101111111011010010010101100011111111
+step   48 1111111110100011011111011010010010101100000000000
+step   49 1110111110110101111111011010010010101100011111111
+step   50 1111111110100011011111011010010010101100000000000
+step   51 1111011110110101111111011010010010101100011111111
+step   52 1111111110100011011111011010010010101100000000000
+step   53 1111101110110101111111011010010010101100011111111
+step   54 1111111110100011011111011010010010101100000000000
+step   55 1111110110110101111111011010010010101100011111111
+step   56 1111111110100011011111011010010010101100000000000
+step   57 1111111010110101111111011010010010101100011111111
+step   58 1111111110100011011111011010010010101100000000000
+step   59 1100000010110101111111011010010010101100011111111
+step   60 1100000110110101111111011010010010101100011111111
+step   61 1100001010110101111111011010010010101100011111111
+step   62 1100001110110101111111011010010010101100011111111
+step   63 1100010010110101111111011010010010101100011111111
+step   64 1100010110110101111111011010010010101100011111111
+step   65 1100011010110101111111011010010010101100011111111
+step   66 1100011110110101111111011010010010101100011111111
+step   67 1100100010110101111111011010010010101100011111111
+step   68 1100100110110101111111011010010010101100011111111
+step   69 1100101010110101111111011010010010101100011111111
+step   70 1100101110110101111111011010010010101100011111111
+step   71 1100110010110101111111011010010010101100011111111
+step   72 1100110110110101111111011010010010101100011111111
+step   73 1100111010110101111111011010010010101100011111111
+step   74 1100111110110101111111011010010010101100011111111
+step   75 1101000010110101111111011010010010101100011111111
+step   76 1101000110110101111111011010010010101100011111111
+step   77 1101001010110101111111011010010010101100011111111
+step   78 1101001110110101111111011010010010101100011111111
+step   79 1101010010110101111111011010010010101100011111111
+step   80 1101010110110101111111011010010010101100011111111
+step   81 1101011010110101111111011010010010101100011111111
+step   82 1101011110110101111111011010010010101100011111111
+step   83 1101100010110101111111011010010010101100011111111
+step   84 1101100110110101111111011010010010101100011111111
+step   85 1101101010110101111111011010010010101100011111111
+step   86 1101101110110101111111011010010010101100011111111
+step   87 1101110010110101111111011010010010101100011111111
+step   88 1101110110110101111111011010010010101100011111111
+step   89 1101111010110101111111011010010010101100011111111
+step   90 1101111110110101111111011010010010101100011111111
+step   91 1110000010110101111111011010010010101100011111111
+step   92 1110000110110101111111011010010010101100011111111
+step   93 1110001010110101111111011010010010101100011111111
+step   94 1110001110110101111111011010010010101100011111111
+step   95 1110010010110101111111011010010010101100011111111
+step   96 1110010110110101111111011010010010101100011111111
+step   97 1110011010110101111111011010010010101100011111111
+step   98 1110011110110101111111011010010010101100011111111
+step   99 1110100010110101111111011010010010101100011111111
+step  100 1110100110110101111111011010010010101100011111111
+step  101 1110101010110101111111011010010010101100011111111
+step  102 1110101110110101111111011010010010101100011111111
+step  103 1110110010110101111111011010010010101100011111111
+step  104 1110110110110101111111011010010010101100011111111
+step  105 1110111010110101111111011010010010101100011111111
+step  106 1110111110110101111111011010010010101100011111111
+step  107 1111000010110101111111011010010010101100011111111
+step  108 1111000110110101111111011010010010101100011111111
+step  109 1111001010110101111111011010010010101100011111111
+step  110 1111001110110101111111011010010010101100011111111
+step  111 1111010010110101111111011010010010101100011111111
+step  112 1111010110110101111111011010010010101100011111111
+step  113 1111011010110101111111011010010010101100011111111
+step  114 1111011110110101111111011010010010101100011111111
+step  115 1111100010110101111111011010010010101100011111111
+step  116 1111100110110101111111011010010010101100011111111
+step  117 1111101010110101111111011010010010101100011111111
+step  118 1111101110110101111111011010010010101100011111111
+step  119 1111110010110101111111011010010010101100011111111
+step  120 1111110110110101111111011010010010101100011111111
+step  121 1111111010110101111111011010010010101100011111111
+step  122 1111111110100011011111011010010010101100000000000
+step  123 1111111110010111011111011010010010101100000000000
+step  124 1111111110010110111111011010010010101100000000000
+step  125 1011111110010100111111011010010010101100011111111
+step  126 1000000010010100111111011010010010101100011111111
+step  127 1000000010010100111111011010010010101100011111111
+step  128 1000000010010100111111011010010010111100011111111
+step  129 1000000010010100111111011010010010101100011111111
+step  130 1000000010010100111111011010010011001100011111111
+step  131 1000000010010100111111011010010010101100011111111
+step  132 1000000010010100111111011110010010101100011111111
+step  133 1000000010010100111111011010010010101100011111111
+step  134 1000000010010100111111011010010010111100011111111
+step  135 1000000010010100111111011010010011011100011111111
+step  136 1000000010010100111111011010010010111100011111111
+step  137 1000000010010100111111011110010010111100011111111
+step  138 1000000010010100111111011010010010111100011111111
+step  139 1000000010010100111111011010010010101100011111111
+step  140 1000000010010100111111011110010010101100011111111
+step  141 1000000010010100111111011110010011001100011111111
+step  142 1000000010010100111111011110010010101100011111111
+step  143 1000000010010100111111011010010010101100011111111
+step  144 1000000010010100111111011110010010101100011111111
+step  145 1000000010010100111111011110010010111100011111111
+step  146 1000000010010100111111011110010010110100011111111
+step  147 1000000010010100111110001110011111010100011111111
+step  148 1111111110010110111110001110011111010100000000000
+step  149 1111111110010110111110001110011111010110000000000
+step  150 1111111110010110111110001010011111010110000000000
+step  151 1111111110010110111110001110011111010110000000000
+step  152 1111111110010110111110001010011111010110000000000
+step  153 1111111110010110111110001110011111010110000000000
+step  154 1111111110010110111110001010011111010110000000000
+step  155 1111111110010110111110001101011111010110000000000
+step  156 1111111110010110111110001001011111010110000000000
+step  157 1111111110010110111110001101011111010110000000000
+step  158 1111111110010110111110001001011111010110000000000
+step  159 1111111110010110111110001101011111010110000000000
+step  160 1111111110010110111110001001011111010110000000000
+step  161 1111111110010110111110001101011111010110000000000
+step  162 1111111110010110111110001001011111010110000000000
+step  163 1111111110010110111110001110011111010110000000000
+step  164 1111111110010110111110001010011111010110000000000
+step  165 1111111110010110111110001110011111010110000000000
+step  166 1111111110010110111110001010011111010110000000000
+step  167 1111111110010110111110001110011111010110000000000
+step  168 1111111110010110111110001010011111010110000000000
+step  169 1111111110010110111110001110011111010110000000000
+step  170 1111111110010110111110001010011111010110000000000
+step  171 1111111110010110111110001101011111010110000000000
+step  172 1111111110010110111110001101111111010110000000000
+step  173 1111111110010110111110001101011111010110000000000
+step  174 1111111110010110111110001101111111010110000000000
+step  175 1111111110010110111110001101011111010110000000000
+step  176 1111111110010110111110001101011110110110000000000
+step  177 1111111110010110111110001101011110111110000000000
+step  178 1111111110010110111110011110011110111111000000000
+step  179 1111111110010110111110011110011110111110000000000
+step  180 1111111110010110111110011110011110110110000000000
+step  181 1111111110010110111110001110011111010110000000000
+step  182 1111111110010110111110001010011111010110000000000
+step  183 1111111110010110111110001110011111010110000000000
+step  184 1111111110010110111110001010011111010110000000000
+step  185 1111111110010110111110001110011111010110000000000
+step  186 1111111110010110111110001010011111010110000000000
+step  187 1111111110010110111110001110011111010110000000000
+step  188 1111111110010110111110001010011111010110000000000
+step  189 1111111110010110111110001101011111010110000000000
+step  190 1111111110010110111110001101011111010111010000000
+step  191 1111111110010110111110001101011111010110010000000
+step  192 1111111110010110111110001101011111010111011000000
+step  193 1111111110010110111110001101011111010110011000000
+step  194 1111111110010110111110001101011111010011011100000
+step  195 1111111110010110111110001101011111010001011100000
+step  196 1111111110010110111110001101011111010000011100000
+step  197 1111111110010110111110001101011111010001011110000
+step  198 1111111110010110111110001101011111010000011110000
+step  199 1111111110010110111110001101011111010001011111000
+step  200 1111111110010110111110001101011111010000011111000
+step  201 1111111110010110111110001101011111010001011111100
+step  202 1111111110010110111110001101011111010000011111100
+step  203 1111111110010110111110001101011111010001011111110
+step  204 1111111110010110111110001101011111010000011111110
+step  205 1111111110010110111110001101011111010001011111111
+step  206 1111111110010110111110001101011111010000011111111
+step  207 1111111110010110110010001101011111010001011111111
+step  208 1011111110010100110010001101011111010001011111111
+step  209 1111111110010110110010001101011111010001011111111
+step  210 1111111110010110100110001101011111010001011111111
+step  211 1111111110010110100110011101011111010000011111111
+step  212 1111111110010110100110011101011110110000011111111
+step  213 1111111110010110100110011101011110111000011111111
+step  214 1111111110010110100110011101011110111001011111111
+step  215 1111111110010110100110011101011110111000011111111
+step  216 1111111110010110100110011101011110111001011111111
+step  217 1111111110010110100110011101011110111000011111111
+step  218 1111111110010110100110011110011100111000011111111
+
+test 1: pass 
+
+SLOT      AAAAAAAAABBBBAABBBABABABBABBBBBBBBABAAABAAAAAAAAA
+LETTER    DLDEFHHJPFJEDEVMNDFHVLUNSNSTPPUVRMMRRKJUSKRSLMPTN
+SIDE      1221112112221211122222222112212222211121122211222
+DIRECTION OIIIIIIIIIIOIOOIOIOOIOOOOIOOIIOOIIOIIOIIOOOOOOOOO
+this fail                                                  
+all fails                                                  
+was hi    1111111111111111111111 11111111111111111 11111111
+rising     ^^^^^^^^ ^^^^^^^^ ^^  ^ ^^^^^^^^^^^^ ^^ ^^^^^^^^
+falling    vvvvvvvvvvvvvvvvvvv v v vvvv   vvvvvvvv vvvvvvvv
+was lo     00000000000000000000000 000000000000000000000000
+
+ total fails 0, total passes 1
+
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+comment_flag is 1
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+source:   ; note COLUMN 21 PIN AU2 is PNP hi side driver; can not test
+source:   ; I/O CLEAR hi
+source:   ; (READER RUN SET-N) low to set READER RUN (not normal powerup)
+source:   ; (STOP SET-N) low to set STOP 1 and STOP 2 (not normal powerup)
+source:   ; IN LAST UNIT CLEAR-N low to clear CLOCK SCALE 1 and CLOCK SCALE 2
+source:   1000000011010000101101X11010000000101X00011111111
+changed:   0000000 1   00   1 01   0   000   0             
+step    1 1000000011010000101101011010000000101000011111111
+source:   ; toggle TELETYPE SERIAL INPUT with I/O CLEAR active -> no change
+source:                                    10
+changed:                                   10              
+step    2 1000000011010000101101011010000001001000011111111
+source:   ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+source:                                       0
+changed:                                      0            
+step    3 1000000011010000101101011010000001000000011111111
+source:                                    01
+changed:                                   01              
+step    4 1000000011010000101101011010000000100000011111111
+source:   ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+source:                                       1
+changed:                                      1            
+step    5 1000000011010000101101011010000000101000011111111
+source:   ;
+source:   ; undo the initial setup that is not normal powerup
+source:   ;
+source:   ; release I/O CLEAR; (KCC-N) goes hi
+source:            0   1
+changed:           0   1                                   
+step    6 1000000010010100101101011010000000101000011111111
+source:   ; release (STOP SET-N)
+source:                                1
+changed:                               1                   
+step    7 1000000010010100101101011010010000101000011111111
+source:   ; release (READER RUN SET-N)
+source:                       1
+changed:                      1                            
+step    8 1000000010010100101111011010010000101000011111111
+source:   ; release IN LAST UNIT CLEAR-N
+source:                                   1
+changed:                                  1                
+step    9 1000000010010100101111011010010010101000011111111
+source:   ; check that STOP 1, STOP 2 do not count when not ACTIVE
+source:   ; clock (STOP CLOCK). since ACTIVE-N is 1; no count STOP 1; STOP 2
+source:                               1
+changed:                              1                    
+step   10 1000000010010100101111011010110010101000011111111
+source:                               0
+changed:                              0                    
+step   11 1000000010010100101111011010010010101000011111111
+source:   ; clock CLOCK 8 BAUD to set (CLOCK SCALE 0)
+source:                            1
+changed:                           1                       
+step   12 1000000010010100101111011110010010101000011111111
+source:                            0
+changed:                           0                       
+step   13 1000000010010100101111011010010010101000011111111
+source:   ; set/clear CLEAR FLAG 2;  (KCC-N) goes lo/hi  
+source:               10
+changed:              10                                   
+step   14 1000000010011000101111011010010010101000011111111
+source:               01
+changed:              01                                   
+step   15 1000000010010100101111011010010010101000011111111
+source:   ;
+source:   ; check 'not selected' does not change
+source:   ; set/clear READ BUFFER  -> no change (not selected)
+source:    1
+changed:   1                                               
+step   16 1100000010010100101111011010010010101000011111111
+source:    0
+changed:   0                                               
+step   17 1000000010010100101111011010010010101000011111111
+source:   ; set/clear (EXTRA IN)   -> no change (not selected)
+source:                  1
+changed:                 1                                 
+step   18 1000000010010101101111011010010010101000011111111
+source:                  0
+changed:                 0                                 
+step   19 1000000010010100101111011010010010101000011111111
+source:   ; set/clear CLEAR FLAG 1 -> no change (not selected)
+source:             1
+changed:            1                                      
+step   20 1000000010110100101111011010010010101000011111111
+source:             0
+changed:            0                                      
+step   21 1000000010010100101111011010010010101000011111111
+source:   ; set/clear SKP. STROBE  -> no change (not selected)
+source:                    1
+changed:                   1                               
+step   22 1000000010010100111111011010010010101000011111111
+source:                    0
+changed:                   0                               
+step   23 1000000010010100101111011010010010101000011111111
+source:   ;
+source:   ; forced select tests
+source:   ;
+source:   ; (FORCE SELECT-N)
+source:           0
+changed:          0                                        
+step   24 1000000000010100101111011010010010101000011111111
+source:   ; set CLEAR FLAG 1        -> (SELECTED IOP2-N) lo; (KCC-N) lo
+source:             10 0
+changed:            10 0                                   
+step   25 1000000000100000101111011010010010101000011111111
+source:   ; clear/set (FORCE SELECT-N) -> (SELECTED IOP2-N) hi/lo; (KCC-N) hi/lo
+source:           1  1 1
+changed:          1  1 1                                   
+step   26 1000000010110100101111011010010010101000011111111
+source:           0  0 0
+changed:          0  0 0                                   
+step   27 1000000000100000101111011010010010101000011111111
+source:   ; set READ BUFFER  -> BUFFFER STROBE goes hi; TTn-N go to ??
+source:    1            1                          XXXXXXXX
+changed:   1            1                                  
+step   28 1100000000100010101111011010010010101000011111111
+source:   ; set (EXTRA IN) -. (EXTRA-N) goes lo
+source:                  10
+changed:                 10                                
+step   29 1100000000100011001111011010010010101000011111111
+source:   ; clear READ BUFFER -> BUFFER STROBE goes lo; (EXTRA-N) goes hi
+source:    0            0 1                        11111111
+changed:   0            0 1                                
+step   30 1000000000100001101111011010010010101000011111111
+source:   ; set READ BUFFER   -> BUFFER STROBE goes hi; (EXTRA-N) goes ho
+source:    1            1 0                        XXXXXXXX
+changed:   1            1 0                                
+step   31 1100000000100011001111011010010010101000011111111
+source:   ; set SKP. STROBE  -> no change (flag is off)
+source:                    1
+changed:                   1                               
+step   32 1100000000100011011111011010010010101000011111111
+source:   ; remove force select -> (SELECTED IOP2-N),(KCC-N),(EXTRA-N) hi; BUFFER STROBE lo
+source:           1  1 10 1                        11111111
+changed:          1  1 10 1                                
+step   33 1100000010110101111111011010010010101000011111111
+source:   ;
+source:   ; check device select
+source:   ;
+source:   ; device select       -> (SELECTED IOP2-N),(KCC-N),(EXTRA-N) lo; BUFFER STROBE hi
+source:     100000
+changed:    1                                              
+step   34 1110000010110101111111011010010010101000011111111
+source:     110000
+changed:     1                                             
+step   35 1111000010110101111111011010010010101000011111111
+source:     111000
+changed:      1                                            
+step   36 1111100010110101111111011010010010101000011111111
+source:     111100
+changed:       1                                           
+step   37 1111110010110101111111011010010010101000011111111
+source:     111110
+changed:        1                                          
+step   38 1111111010110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:         1   0 01 0                                
+step   39 1111111110100011011111011010010010101000011111111
+source:     011111   1 10 1                        11111111
+changed:    0        1 10 1                                
+step   40 1101111110110101111111011010010010101000011111111
+source:     001111
+changed:     0                                             
+step   41 1100111110110101111111011010010010101000011111111
+source:     000111
+changed:      0                                            
+step   42 1100011110110101111111011010010010101000011111111
+source:     000011
+changed:       0                                           
+step   43 1100001110110101111111011010010010101000011111111
+source:     000001
+changed:        0                                          
+step   44 1100000110110101111111011010010010101000011111111
+source:     000000
+changed:         0                                         
+step   45 1100000010110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:    111111   0 01 0                                
+step   46 1111111110100011011111011010010010101000011111111
+source:     011111   1 10 1                        11111111
+changed:    0        1 10 1                                
+step   47 1101111110110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:    1        0 01 0                                
+step   48 1111111110100011011111011010010010101000011111111
+source:     101111   1 10 1                        11111111
+changed:     0       1 10 1                                
+step   49 1110111110110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:     1       0 01 0                                
+step   50 1111111110100011011111011010010010101000011111111
+source:     110111   1 10 1                        11111111
+changed:      0      1 10 1                                
+step   51 1111011110110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:      1      0 01 0                                
+step   52 1111111110100011011111011010010010101000011111111
+source:     111011   1 10 1                        11111111
+changed:       0     1 10 1                                
+step   53 1111101110110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:       1     0 01 0                                
+step   54 1111111110100011011111011010010010101000011111111
+source:     111101   1 10 1                        11111111
+changed:        0    1 10 1                                
+step   55 1111110110110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:        1    0 01 0                                
+step   56 1111111110100011011111011010010010101000011111111
+source:     111110   1 10 1                        11111111
+changed:         0   1 10 1                                
+step   57 1111111010110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:         1   0 01 0                                
+step   58 1111111110100011011111011010010010101000011111111
+source:     000000   1 10 1                        11111111
+changed:    000000   1 10 1                                
+step   59 1100000010110101111111011010010010101000011111111
+source:     000001
+changed:         1                                         
+step   60 1100000110110101111111011010010010101000011111111
+source:     000010
+changed:        10                                         
+step   61 1100001010110101111111011010010010101000011111111
+source:     000011
+changed:         1                                         
+step   62 1100001110110101111111011010010010101000011111111
+source:     000100
+changed:       100                                         
+step   63 1100010010110101111111011010010010101000011111111
+source:     000101
+changed:         1                                         
+step   64 1100010110110101111111011010010010101000011111111
+source:     000110
+changed:        10                                         
+step   65 1100011010110101111111011010010010101000011111111
+source:     000111
+changed:         1                                         
+step   66 1100011110110101111111011010010010101000011111111
+source:     001000
+changed:      1000                                         
+step   67 1100100010110101111111011010010010101000011111111
+source:     001001
+changed:         1                                         
+step   68 1100100110110101111111011010010010101000011111111
+source:     001010
+changed:        10                                         
+step   69 1100101010110101111111011010010010101000011111111
+source:     001011
+changed:         1                                         
+step   70 1100101110110101111111011010010010101000011111111
+source:     001100
+changed:       100                                         
+step   71 1100110010110101111111011010010010101000011111111
+source:     001101
+changed:         1                                         
+step   72 1100110110110101111111011010010010101000011111111
+source:     001110
+changed:        10                                         
+step   73 1100111010110101111111011010010010101000011111111
+source:     001111
+changed:         1                                         
+step   74 1100111110110101111111011010010010101000011111111
+source:     010000
+changed:     10000                                         
+step   75 1101000010110101111111011010010010101000011111111
+source:     010001
+changed:         1                                         
+step   76 1101000110110101111111011010010010101000011111111
+source:     010010
+changed:        10                                         
+step   77 1101001010110101111111011010010010101000011111111
+source:     010011
+changed:         1                                         
+step   78 1101001110110101111111011010010010101000011111111
+source:     010100
+changed:       100                                         
+step   79 1101010010110101111111011010010010101000011111111
+source:     010101
+changed:         1                                         
+step   80 1101010110110101111111011010010010101000011111111
+source:     010110
+changed:        10                                         
+step   81 1101011010110101111111011010010010101000011111111
+source:     010111
+changed:         1                                         
+step   82 1101011110110101111111011010010010101000011111111
+source:     011000
+changed:      1000                                         
+step   83 1101100010110101111111011010010010101000011111111
+source:     011001
+changed:         1                                         
+step   84 1101100110110101111111011010010010101000011111111
+source:     011010
+changed:        10                                         
+step   85 1101101010110101111111011010010010101000011111111
+source:     011011
+changed:         1                                         
+step   86 1101101110110101111111011010010010101000011111111
+source:     011100
+changed:       100                                         
+step   87 1101110010110101111111011010010010101000011111111
+source:     011101
+changed:         1                                         
+step   88 1101110110110101111111011010010010101000011111111
+source:     011110
+changed:        10                                         
+step   89 1101111010110101111111011010010010101000011111111
+source:     011111
+changed:         1                                         
+step   90 1101111110110101111111011010010010101000011111111
+source:     100000
+changed:    100000                                         
+step   91 1110000010110101111111011010010010101000011111111
+source:     100001
+changed:         1                                         
+step   92 1110000110110101111111011010010010101000011111111
+source:     100010
+changed:        10                                         
+step   93 1110001010110101111111011010010010101000011111111
+source:     100011
+changed:         1                                         
+step   94 1110001110110101111111011010010010101000011111111
+source:     100100
+changed:       100                                         
+step   95 1110010010110101111111011010010010101000011111111
+source:     100101
+changed:         1                                         
+step   96 1110010110110101111111011010010010101000011111111
+source:     100110
+changed:        10                                         
+step   97 1110011010110101111111011010010010101000011111111
+source:     100111
+changed:         1                                         
+step   98 1110011110110101111111011010010010101000011111111
+source:     101000
+changed:      1000                                         
+step   99 1110100010110101111111011010010010101000011111111
+source:     101001
+changed:         1                                         
+step  100 1110100110110101111111011010010010101000011111111
+source:     101010
+changed:        10                                         
+step  101 1110101010110101111111011010010010101000011111111
+source:     101011
+changed:         1                                         
+step  102 1110101110110101111111011010010010101000011111111
+source:     101100
+changed:       100                                         
+step  103 1110110010110101111111011010010010101000011111111
+source:     101101
+changed:         1                                         
+step  104 1110110110110101111111011010010010101000011111111
+source:     101110
+changed:        10                                         
+step  105 1110111010110101111111011010010010101000011111111
+source:     101111
+changed:         1                                         
+step  106 1110111110110101111111011010010010101000011111111
+source:     110000
+changed:     10000                                         
+step  107 1111000010110101111111011010010010101000011111111
+source:     110001
+changed:         1                                         
+step  108 1111000110110101111111011010010010101000011111111
+source:     110010
+changed:        10                                         
+step  109 1111001010110101111111011010010010101000011111111
+source:     110011
+changed:         1                                         
+step  110 1111001110110101111111011010010010101000011111111
+source:     110100
+changed:       100                                         
+step  111 1111010010110101111111011010010010101000011111111
+source:     110101
+changed:         1                                         
+step  112 1111010110110101111111011010010010101000011111111
+source:     110110
+changed:        10                                         
+step  113 1111011010110101111111011010010010101000011111111
+source:     110111
+changed:         1                                         
+step  114 1111011110110101111111011010010010101000011111111
+source:     111000
+changed:      1000                                         
+step  115 1111100010110101111111011010010010101000011111111
+source:     111001
+changed:         1                                         
+step  116 1111100110110101111111011010010010101000011111111
+source:     111010
+changed:        10                                         
+step  117 1111101010110101111111011010010010101000011111111
+source:     111011
+changed:         1                                         
+step  118 1111101110110101111111011010010010101000011111111
+source:     111100
+changed:       100                                         
+step  119 1111110010110101111111011010010010101000011111111
+source:     111101
+changed:         1                                         
+step  120 1111110110110101111111011010010010101000011111111
+source:     111110
+changed:        10                                         
+step  121 1111111010110101111111011010010010101000011111111
+source:     111111   0 01 0                        XXXXXXXX
+changed:         1   0 01 0                                
+step  122 1111111110100011011111011010010010101000011111111
+source:   ; remove CLEAR FLAG 1 while selected -> (SELECTED IOP2-N) hi; (KCC-N) hi
+source:             01 1
+changed:            01 1                                   
+step  123 1111111110010111011111011010010010101000011111111
+source:   ; remove (EXTRA IN)   -> (EXTRA-N) goes hi
+source:                  01
+changed:                 01                                
+step  124 1111111110010110111111011010010010101000011111111
+source:   ; remove READ BUFFER  -> BUFFER STROBE lo; TTn-N go hi
+source:    0            0                          11111111
+changed:   0            0                                  
+step  125 1011111110010100111111011010010010101000011111111
+source:   ; deselect
+source:     000000      0
+changed:    000000                                         
+step  126 1000000010010100111111011010010010101000011111111
+source:   ;
+source:   ; test the start bit detect gate
+source:   ;
+source:   ; verify each signal does not falsely start bit detect with START ENABLE hi
+source:   ;
+source:   ; make sure they are off
+source:                            0       010
+changed:                                                   
+step  127 1000000010010100111111011010010010101000011111111
+source:   ; set/clear TELETYPE SERIAL INPUT -> no change
+source:   ; set/clear ENABLE -> no change
+source:                                      1
+changed:                                     1             
+step  128 1000000010010100111111011010010010111000011111111
+source:                                      0
+changed:                                     0             
+step  129 1000000010010100111111011010010010101000011111111
+source:                                    10
+changed:                                   10              
+step  130 1000000010010100111111011010010011001000011111111
+source:                                    01
+changed:                                   01              
+step  131 1000000010010100111111011010010010101000011111111
+source:   ; set/clear CLOCK 8 BAUD -> no change
+source:                            1
+changed:                           1                       
+step  132 1000000010010100111111011110010010101000011111111
+source:                            0
+changed:                           0                       
+step  133 1000000010010100111111011010010010101000011111111
+source:   ;
+source:   ; verify each signal inhibits start bit detect with START ENABLE hi
+source:   ;
+source:   ; set ENABLE -> no change
+source:                                      1
+changed:                                     1             
+step  134 1000000010010100111111011010010010111000011111111
+source:   ; set/clear TELETYPE SERIAL INPUT -> no change
+source:                                    10
+changed:                                   10              
+step  135 1000000010010100111111011010010011011000011111111
+source:                                    01
+changed:                                   01              
+step  136 1000000010010100111111011010010010111000011111111
+source:   ; set/clear CLOCK 8 BAUD -> no change
+source:                            1
+changed:                           1                       
+step  137 1000000010010100111111011110010010111000011111111
+source:                            0
+changed:                           0                       
+step  138 1000000010010100111111011010010010111000011111111
+source:   ; clear ENABLE
+source:                                      0
+changed:                                     0             
+step  139 1000000010010100111111011010010010101000011111111
+source:   ; set CLOCK 8 BAUD -> no change
+source:                            1
+changed:                           1                       
+step  140 1000000010010100111111011110010010101000011111111
+source:   ; set/clear TELETYPE SERIAL INPUT -> no change
+source:                                    10
+changed:                                   10              
+step  141 1000000010010100111111011110010011001000011111111
+source:                                    01
+changed:                                   01              
+step  142 1000000010010100111111011110010010101000011111111
+source:   ; clear CLOCK 8 BAUD -> no change
+source:                            0
+changed:                           0                       
+step  143 1000000010010100111111011010010010101000011111111
+source:   ;
+source:   ; do START BIT detect
+source:   ;
+source:   ; set CLOCK 8 BAUD
+source:                            1
+changed:                           1                       
+step  144 1000000010010100111111011110010010101000011111111
+source:   ; set ENABLE
+source:                                      1  
+changed:                                     1             
+step  145 1000000010010100111111011110010010111000011111111
+source:   ; prestage (TT0 DATA) due to clock edge
+source:                                       0
+changed:                                      0            
+step  146 1000000010010100111111011110010010110000011111111
+source:   ; set TELETYPE SERIAL INPUT ->
+source:   ;         READER RUN,ACTIVE-N,STOP 1-N,STOP 2-N go lo
+source:                        0 0      11 10
+changed:                       0 0      11 10  1           
+step  147 1000000010010100111110001110011111010100011111111
+source:   ; select and READ BUFFER -> BUFFER STROBE hi, TTn-N go lo
+source:    1111111      1                      1   00000000
+changed:   1111111      1                          00000000
+step  148 1111111110010110111110001110011111010100000000000
+source:   ; set (TT5 DATA) to match TT6
+source:                                         1
+changed:                                        1          
+step  149 1111111110010110111110001110011111010110000000000
+source:   ; CLOCK 8 BAUD to toggle CLOCK SCALE 2-N and CLOCK SCALE 2
+source:                            0
+changed:                           0                       
+step  150 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  151 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  152 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  153 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  154 1111111110010110111110001010011111010110000000000
+source:                            101
+changed:                           101                     
+step  155 1111111110010110111110001101011111010110000000000
+source:                            0
+changed:                           0                       
+step  156 1111111110010110111110001001011111010110000000000
+source:                            1
+changed:                           1                       
+step  157 1111111110010110111110001101011111010110000000000
+source:                            0
+changed:                           0                       
+step  158 1111111110010110111110001001011111010110000000000
+source:                            1
+changed:                           1                       
+step  159 1111111110010110111110001101011111010110000000000
+source:                            0
+changed:                           0                       
+step  160 1111111110010110111110001001011111010110000000000
+source:                            1
+changed:                           1                       
+step  161 1111111110010110111110001101011111010110000000000
+source:                            0
+changed:                           0                       
+step  162 1111111110010110111110001001011111010110000000000
+source:                            110
+changed:                           110                     
+step  163 1111111110010110111110001110011111010110000000000
+source:   ; leave CLOCK SCALE 2 set
+source:                            0
+changed:                           0                       
+step  164 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  165 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  166 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  167 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  168 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  169 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  170 1111111110010110111110001010011111010110000000000
+source:                            101
+changed:                           101                     
+step  171 1111111110010110111110001101011111010110000000000
+source:   ; (STOP CLOCK) does not change STOP 1, STOP 2 since ACTIVE
+source:                               1
+changed:                              1                    
+step  172 1111111110010110111110001101111111010110000000000
+source:                               0
+changed:                              0                    
+step  173 1111111110010110111110001101011111010110000000000
+source:                               1
+changed:                              1                    
+step  174 1111111110010110111110001101111111010110000000000
+source:                               0
+changed:                              0                    
+step  175 1111111110010110111110001101011111010110000000000
+source:   ; clear TELETYPE SERIAL INPUT (do a short START BT)
+source:                                    01
+changed:                                   01              
+step  176 1111111110010110111110001101011110110110000000000
+source:   ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+source:                                       1
+changed:                                      1            
+step  177 1111111110010110111110001101011110111110000000000
+source:   ; SHIFT CLOCK to shift 1 (short START BIT sets SPIKE DETECTOR)
+source:   ; note: ACTIVE-N goes hi AFTER rising edge due to SPIKE DETECTOR
+source:   ;       and CLOCK SCLE 2 gets cleared
+source:                          1  10         1 1 00000000
+changed:                         1  10           1         
+step  178 1111111110010110111110011110011110111111000000000
+source:                                          0
+changed:                                         0         
+step  179 1111111110010110111110011110011110111110000000000
+source:   ;
+source:   ; receive a '00000000' character
+source:   ;
+source:   ; prestage (TT0 DATA) due to clock edge
+source:                                       0
+changed:                                      0            
+step  180 1111111110010110111110011110011110110110000000000
+source:   ; set TELETYPE SERIAL INPUT (START BIT) ->
+source:   ;        READER RUN,ACTIVE-N,TT0-N go lo; STOP 1-N,STOP 2-N go hi
+source:   ; note: (TT2) is value AFTER rising clock
+source:                        0 0      11 10      0
+changed:                         0         10              
+step  181 1111111110010110111110001110011111010110000000000
+source:   ; CLOCK 8 BAUD to setup CLOCK SCALE 2-N lo; CLOCK SCALE 2 hi
+source:                            0
+changed:                           0                       
+step  182 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  183 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  184 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  185 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  186 1111111110010110111110001010011111010110000000000
+source:                            1
+changed:                           1                       
+step  187 1111111110010110111110001110011111010110000000000
+source:                            0
+changed:                           0                       
+step  188 1111111110010110111110001010011111010110000000000
+source:                            101
+changed:                           101                     
+step  189 1111111110010110111110001101011111010110000000000
+source:   ; toggle SHIFT CLOCK -> shift in a '00000000' character
+source:                                          1 10000000
+changed:                                         1 1       
+step  190 1111111110010110111110001101011111010111010000000
+source:                                          0
+changed:                                         0         
+step  191 1111111110010110111110001101011111010110010000000
+source:   
+source:                                          1 11000000
+changed:                                         1  1      
+step  192 1111111110010110111110001101011111010111011000000
+source:                                          0
+changed:                                         0         
+step  193 1111111110010110111110001101011111010110011000000
+source:                                        0 1 11100000
+changed:                                       0 1   1     
+step  194 1111111110010110111110001101011111010011011100000
+source:   ; clear (TT3 DATA) to match TT2
+source:                                         0
+changed:                                        0          
+step  195 1111111110010110111110001101011111010001011100000
+source:                                          0
+changed:                                         0         
+step  196 1111111110010110111110001101011111010000011100000
+source:                                          1 11110000
+changed:                                         1    1    
+step  197 1111111110010110111110001101011111010001011110000
+source:                                          0
+changed:                                         0         
+step  198 1111111110010110111110001101011111010000011110000
+source:                                          1 11111000
+changed:                                         1     1   
+step  199 1111111110010110111110001101011111010001011111000
+source:                                          0
+changed:                                         0         
+step  200 1111111110010110111110001101011111010000011111000
+source:                                          1 11111100
+changed:                                         1      1  
+step  201 1111111110010110111110001101011111010001011111100
+source:                                          0
+changed:                                         0         
+step  202 1111111110010110111110001101011111010000011111100
+source:                                          1 11111110
+changed:                                         1       1 
+step  203 1111111110010110111110001101011111010001011111110
+source:                                          0
+changed:                                         0         
+step  204 1111111110010110111110001101011111010000011111110
+source:                                          1 11111111
+changed:                                         1        1
+step  205 1111111110010110111110001101011111010001011111111
+source:                                          0
+changed:                                         0         
+step  206 1111111110010110111110001101011111010000011111111
+source:   ; shift start bit into FLAG -> I/O SKIP lo, FLAG-N (aka P.I. REQUEST) lo
+source:                     00                   1
+changed:                    00                   1         
+step  207 1111111110010110110010001101011111010001011111111
+source:   ; turn off READ BUFFER -> BUFFER STROBE lo,  (TTn-N still hi)
+source:    0            0
+changed:   0            0                                  
+step  208 1011111110010100110010001101011111010001011111111
+source:    1            1
+changed:   1            1                                  
+step  209 1111111110010110110010001101011111010001011111111
+source:   ; disable SKP. STROBE -> I/O SKIP goes hi
+source:                    0 1
+changed:                   0 1                             
+step  210 1111111110010110100110001101011111010001011111111
+source:   ; on SHIFT CLOCK falling edge, ACTIVE-N hi
+source:                          1               0
+changed:                         1               0         
+step  211 1111111110010110100110011101011111010000011111111
+source:   ; clear TELETYPE SERIAL INPUT (stop bit); set TT0 DATA
+source:                                    01
+changed:                                   01              
+step  212 1111111110010110100110011101011110110000011111111
+source:   ; have (TT0 DATA) track (TELETYPE SERIAL INPUT-N)
+source:                                       1
+changed:                                      1            
+step  213 1111111110010110100110011101011110111000011111111
+source:                                          1
+changed:                                         1         
+step  214 1111111110010110100110011101011110111001011111111
+source:                                          0
+changed:                                         0         
+step  215 1111111110010110100110011101011110111000011111111
+source:                                          1
+changed:                                         1         
+step  216 1111111110010110100110011101011110111001011111111
+source:                                          0
+changed:                                         0         
+step  217 1111111110010110100110011101011110111000011111111
+source:   ; IN LAST UNIT CLEAR-N -> CLOCK SCALE 2 lo; CLOCK SCALE 2-N hi
+source:                             10    0
+changed:                            10    0                
+step  218 1111111110010110100110011110011100111000011111111
+
+test 2: pass 
+
+SLOT      AAAAAAAAABBBBAABBBABABABBABBBBBBBBABAAABAAAAAAAAA
+LETTER    DLDEFHHJPFJEDEVMNDFHVLUNSNSTPPUVRMMRRKJUSKRSLMPTN
+SIDE      1221112112221211122222222112212222211121122211222
+DIRECTION OIIIIIIIIIIOIOOIOIOOIOOOOIOOIIOOIIOIIOIIOOOOOOOOO
+this fail                                                  
+all fails                                                  
+was hi    1111111111111111111111 11111111111111111 11111111
+rising     ^^^^^^^^^^^^^^^^^^^^^ ^ ^^^^^^^^^^^^^^^ ^^^^^^^^
+falling    vvvvvvvvvvvvvvvvvvvvv v vvvvvvvvvvvvvvv vvvvvvvv
+was lo     00000000000000000000000 000000000000000000000000
+
+ total fails 0, total passes 2
+
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      toggle comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+SLOT      AAAAAAAAABBBBAABBBABABABBABBBBBBBBABAAABAAAAAAAAA
+LETTER    DLDEFHHJPFJEDEVMNDFHVLUNSNSTPPUVRMMRRKJUSKRSLMPTN
+SIDE      1221112112221211122222222112212222211121122211222
+DIRECTION OIIIIIIIIIIOIOOIOIOOIOOOOIOOIIOOIIOIIOIIOOOOOOOOO
+all fails                                                  
+was lo     00000000000000000000000 000000000000000000000000
+falling    vvvvvvvvvvvvvvvvvvvvv v vvvvvvvvvvvvvvv vvvvvvvv
+rising     ^^^^^^^^^^^^^^^^^^^^^ ^ ^^^^^^^^^^^^^^^ ^^^^^^^^
+was hi    1111111111111111111111 11111111111111111 11111111
+
+ total fails 0, total passes 2
+
+
+
+
+Main menu
+   test file is: m706k.tst
+   delay is: 0
+ 1 read test file
+ 2 set test delay
+ 3 run test
+ 4 output loading test
+ 8 diags
+ 9 exit
+exiting

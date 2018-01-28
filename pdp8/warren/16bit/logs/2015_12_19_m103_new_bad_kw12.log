@@ -1,0 +1,2337 @@
+
+tester-   PDP8 card tester via printer port
+version 0.91 November 27, 2015
+
+
+mapping[] is verified
+
+
+Main menu   Sat Dec 19 09:11:47 2015
+   test file is: <none>
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+Enter test file name? trying to open test file: tests\m103.new
+reading test file: tests\m103.new
+  comment: ; M103   PCB REV B   SCHEMATIC REV A   DEVICE SELECTOR
+  comment: ;
+  comment: ;
+  comment: 
+  comment: ; currently works, but needs tests with all inputs on.
+  comment: 
+     pins: PINS
+     pins:  1 I AH1 E4-12  NAND_A_IN_1
+     pins:  2 I AJ1 E4-13  NAND_A_IN_2
+     pins:  3 O AK1 E4-11  NAND_A_OUT    (OUT = IN_1 NAND IN_2)
+     pins:  4 I AL1 E4-4   NAND_B_IN_1
+     pins:  5 I AM1 E4-5   NAND_B_IN_2
+     pins:  6 O AN1 E4-6   NAND_B_OUT    (OUT = IN_1 NAND IN_2)
+     pins:  7 I AD2 E1-11  DEV_CODE_1
+     pins:  8 I AE2 E1-12  DEV_CODE_2
+     pins:  9 I AF2 E1-1   DEV_CODE_3
+     pins: 10 I AH2 E1-2   DEV_CODE_4
+     pins: 11 I AJ2 E1-3   DEV_CODE_5
+     pins: 12 I AK2 E1-4   DEV_CODE_6
+     pins: 13 I AL2 E1-5   DEV_CODE_7      (HAS PULLUP)
+     pins: 14 I AN2 E1-6   DEV_CODE_8      (HAS PULLUP)
+     pins: 15 I AU2 E4-9   FORCE_SELECT-N  (HAS PULLUP)      
+     pins: 16 O AV2 Q1-C   SELECTED        (O.C. WITH PULLUP) = ((AND OF DEV_CODES) OR FORCE_SELECT)
+     pins: 17 I AP2 E5-5   IOP1
+     pins: 18 O AA1 E5-8   SELECTED_IOP1   (=IOP1  AND SELECTED)
+     pins: 19 O AB1 E5-6   SELECTED_IOP1-N	(=IOP1 NAND SELECTED)
+     pins: 20 I AR2 E3-5   IOP2
+     pins: 21 O AC1 E3-8   SELECTED_IOP2   (=IOP2  AND SELECTED)
+     pins: 22 O AD1 E3-6   SELECTED_IOP2-N (=IOP2 NAND SELECTED)
+     pins: 23 I AS2 E2-5   IOP4
+     pins: 24 O AE1 E2-8   SELECTED_IOP4   (=IOP4  AND SELECTED)
+     pins: 25 O AF1 E2-6   SELECTED_IOP4-N (=IOP4 NAND SELECTED)
+     pins: 
+direction: IIOIIOIIIIIIIIIOIOOIOOIOO
+test    1: 0010010000000010001001001
+  comment: 
+  comment: ; TEST NAND_A
+test    2: 011
+test    3: 110
+test    4: 101
+test    5: 001
+  comment: 
+  comment: ; TEST NAND_B
+test    6:    011
+test    7:    110
+test    8:    101
+test    9:    001
+  comment: 
+test   10: 0010010000000010001001001
+  comment: 
+  comment: ; TEST NOT SELECTED (FORCE_SELECT-N is HIGH)  WITH IOPs PRESENT
+test   11:                  01 01 01
+test   12:                 1
+test   13:                    1
+test   14:                       1
+test   15:                 0
+test   16:                    0
+test   17:                       0
+  comment: ; FORCE SELECT-N
+test   18:               01
+  comment: 
+  comment: ; TEST SELECTED + IOPS
+test   19:                  01 01 01
+test   20:                 110
+test   21:                 001
+test   22:                    110
+test   23:                    001
+test   24:                       110
+test   25:                       001
+  comment: 
+  comment: ; TURN OFF- FORCE SELECT-N HIGH
+test   26:               10
+  comment: 
+  comment: ; TEST SELECTED VIA DEVICE CODES + IOPS
+test   27:       10000000 0
+test   28:       11000000 0
+test   29:       11100000 0
+test   30:       11110000 0
+test   31:       11111000 0
+test   32:       11111100 0
+test   33:       11111110 0
+test   34:       11111111 1
+test   35:                  01 01 01
+test   36:                 110
+test   37:                 001
+test   38:                    110
+test   39:                    001
+test   40:                       110
+test   41:                       001
+test   42:       01111111 0
+test   43:       00111111 0
+test   44:       00011111 0
+test   45:       00001111 0
+test   46:       00000111 0
+test   47:       00000011 0
+test   48:       00000001 0
+test   49:       00000000 0
+  comment: 
+  comment: 
+  comment: ; TEST DEVICE CODE (ALL INPUT VALUES)
+  comment: 
+test   50:       00000000 0
+test   51:       00000001 0
+test   52:       00000011 0
+test   53:       00000010 0
+test   54:       00000110 0
+test   55:       00000111 0
+test   56:       00000101 0
+test   57:       00000100 0
+test   58:       00001100 0
+test   59:       00001101 0
+test   60:       00001111 0
+test   61:       00001110 0
+test   62:       00001010 0
+test   63:       00001011 0
+test   64:       00001001 0
+test   65:       00001000 0
+  comment: 
+test   66:       00011000 0
+test   67:       00011001 0
+test   68:       00011011 0
+test   69:       00011010 0
+test   70:       00011110 0
+test   71:       00011111 0
+test   72:       00011101 0
+test   73:       00011100 0
+test   74:       00010100 0
+test   75:       00010101 0
+test   76:       00010111 0
+test   77:       00010110 0
+test   78:       00010010 0
+test   79:       00010011 0
+test   80:       00010001 0
+test   81:       00010000 0
+  comment: 
+test   82:       00110000 0
+test   83:       00110001 0
+test   84:       00110011 0
+test   85:       00110010 0
+test   86:       00110110 0
+test   87:       00110111 0
+test   88:       00110101 0
+test   89:       00110100 0
+test   90:       00111100 0
+test   91:       00111101 0
+test   92:       00111111 0
+test   93:       00111110 0
+test   94:       00111010 0
+test   95:       00111011 0
+test   96:       00111001 0
+test   97:       00111000 0
+  comment: 
+test   98:       00101000 0
+test   99:       00101001 0
+test  100:       00101011 0
+test  101:       00101010 0
+test  102:       00101110 0
+test  103:       00101111 0
+test  104:       00101101 0
+test  105:       00101100 0
+test  106:       00100100 0
+test  107:       00100101 0
+test  108:       00100111 0
+test  109:       00100110 0
+test  110:       00100010 0
+test  111:       00100011 0
+test  112:       00100001 0
+test  113:       00100000 0
+  comment: 
+test  114:       01100000 0
+test  115:       01100001 0
+test  116:       01100011 0
+test  117:       01100010 0
+test  118:       01100110 0
+test  119:       01100111 0
+test  120:       01100101 0
+test  121:       01100100 0
+test  122:       01101100 0
+test  123:       01101101 0
+test  124:       01101111 0
+test  125:       01101110 0
+test  126:       01101010 0
+test  127:       01101011 0
+test  128:       01101001 0
+test  129:       01101000 0
+  comment: 
+test  130:       01111000 0
+test  131:       01111001 0
+test  132:       01111011 0
+test  133:       01111010 0
+test  134:       01111110 0
+test  135:       01111111 0
+test  136:       01111101 0
+test  137:       01111100 0
+test  138:       01110100 0
+test  139:       01110101 0
+test  140:       01110111 0
+test  141:       01110110 0
+test  142:       01110010 0
+test  143:       01110011 0
+test  144:       01110001 0
+test  145:       01110000 0
+  comment: 
+test  146:       01010000 0
+test  147:       01010001 0
+test  148:       01010011 0
+test  149:       01010010 0
+test  150:       01010110 0
+test  151:       01010111 0
+test  152:       01010101 0
+test  153:       01010100 0
+test  154:       01011100 0
+test  155:       01011101 0
+test  156:       01011111 0
+test  157:       01011110 0
+test  158:       01011010 0
+test  159:       01011011 0
+test  160:       01011001 0
+test  161:       01011000 0
+  comment: 
+test  162:       01001000 0
+test  163:       01001001 0
+test  164:       01001011 0
+test  165:       01001010 0
+test  166:       01001110 0
+test  167:       01001111 0
+test  168:       01001101 0
+test  169:       01001100 0
+test  170:       01000100 0
+test  171:       01000101 0
+test  172:       01000111 0
+test  173:       01000110 0
+test  174:       01000010 0
+test  175:       01000011 0
+test  176:       01000001 0
+test  177:       01000000 0
+  comment: 
+test  178:       11000000 0
+test  179:       11000001 0
+test  180:       11000011 0
+test  181:       11000010 0
+test  182:       11000110 0
+test  183:       11000111 0
+test  184:       11000101 0
+test  185:       11000100 0
+test  186:       11001100 0
+test  187:       11001101 0
+test  188:       11001111 0
+test  189:       11001110 0
+test  190:       11001010 0
+test  191:       11001011 0
+test  192:       11001001 0
+test  193:       11001000 0
+  comment: 
+test  194:       11011000 0
+test  195:       11011001 0
+test  196:       11011011 0
+test  197:       11011010 0
+test  198:       11011110 0
+test  199:       11011111 0
+test  200:       11011101 0
+test  201:       11011100 0
+test  202:       11010100 0
+test  203:       11010101 0
+test  204:       11010111 0
+test  205:       11010110 0
+test  206:       11010010 0
+test  207:       11010011 0
+test  208:       11010001 0
+test  209:       11010000 0
+  comment: 
+test  210:       11110000 0
+test  211:       11110001 0
+test  212:       11110011 0
+test  213:       11110010 0
+test  214:       11110110 0
+test  215:       11110111 0
+test  216:       11110101 0
+test  217:       11110100 0
+test  218:       11111100 0
+test  219:       11111101 0
+test  220:       11111111 1
+test  221:       11111110 0
+test  222:       11111010 0
+test  223:       11111011 0
+test  224:       11111001 0
+test  225:       11111000 0
+  comment: 
+test  226:       11101000 0
+test  227:       11101001 0
+test  228:       11101011 0
+test  229:       11101010 0
+test  230:       11101110 0
+test  231:       11101111 0
+test  232:       11101101 0
+test  233:       11101100 0
+test  234:       11100100 0
+test  235:       11100101 0
+test  236:       11100111 0
+test  237:       11100110 0
+test  238:       11100010 0
+test  239:       11100011 0
+test  240:       11100001 0
+test  241:       11100000 0
+  comment: 
+test  242:       10100000 0
+test  243:       10100001 0
+test  244:       10100011 0
+test  245:       10100010 0
+test  246:       10100110 0
+test  247:       10100111 0
+test  248:       10100101 0
+test  249:       10100100 0
+test  250:       10101100 0
+test  251:       10101101 0
+test  252:       10101111 0
+test  253:       10101110 0
+test  254:       10101010 0
+test  255:       10101011 0
+test  256:       10101001 0
+test  257:       10101000 0
+  comment: 
+test  258:       10111000 0
+test  259:       10111001 0
+test  260:       10111011 0
+test  261:       10111010 0
+test  262:       10111110 0
+test  263:       10111111 0
+test  264:       10111101 0
+test  265:       10111100 0
+test  266:       10110100 0
+test  267:       10110101 0
+test  268:       10110111 0
+test  269:       10110110 0
+test  270:       10110010 0
+test  271:       10110011 0
+test  272:       10110001 0
+test  273:       10110000 0
+  comment: 
+test  274:       10010000 0
+test  275:       10010001 0
+test  276:       10010011 0
+test  277:       10010010 0
+test  278:       10010110 0
+test  279:       10010111 0
+test  280:       10010101 0
+test  281:       10010100 0
+test  282:       10011100 0
+test  283:       10011101 0
+test  284:       10011111 0
+test  285:       10011110 0
+test  286:       10011010 0
+test  287:       10011011 0
+test  288:       10011001 0
+test  289:       10011000 0
+  comment: 
+test  290:       10001000 0
+test  291:       10001001 0
+test  292:       10001011 0
+test  293:       10001010 0
+test  294:       10001110 0
+test  295:       10001111 0
+test  296:       10001101 0
+test  297:       10001100 0
+test  298:       10000100 0
+test  299:       10000101 0
+test  300:       10000111 0
+test  301:       10000110 0
+test  302:       10000010 0
+test  303:       10000011 0
+test  304:       10000001 0
+test  305:       10000000 0
+  comment: 
+test  306:       00000000 0
+  comment: 
+test  307: 0010010000000010001001001
+  comment: 
+  comment: 
+  comment: 
+  comment: ; TEST FORCE SELECT-N + IOPs (ALL PATTERNS)
+test  308:               10 01 01 01
+test  309:                 0  0  0
+test  310:                 0  0  1
+test  311:                 0  1  1
+test  312:                 0  1  0
+test  313:                 1  1  0
+test  314:                 1  1  1
+test  315:                 1  0  1
+test  316:                 1  0  0
+test  317:                 0  0  0
+  comment: 
+  comment: 
+  comment: ; TEST FORCE SELECT + IOPs (ALL PATTERNS)
+test  318:                  01 01 01
+test  319:               01
+test  320:                 0  0  0
+test  321:                 0  0  110
+test  322:                 0  1101
+test  323:                 0  1  001
+test  324:                 1101  0
+test  325:                 1  1  110
+test  326:                 1  0011
+test  327:                 1  0  001
+test  328:                 0010  0
+test  329:               10
+  comment: 
+  comment: ; TEST DEVICE CODE SELECT + IOPs (ALL PATTERNS)
+test  330:                  01 01 01
+test  331:       10000000 0
+test  332:       11000000 0
+test  333:       11100000 0
+test  334:       11110000 0
+test  335:       11111000 0
+test  336:       11111100 0
+test  337:       11111110 0
+test  338:       11111111 1
+  comment: 
+test  339:                 0  0  0
+test  340:                 0  0  110
+test  341:                 0  1101
+test  342:                 0  1  001
+test  343:                 1101  0
+test  344:                 1  1  110
+test  345:                 1  0011
+test  346:                 1  0  001
+test  347:                 0010  0
+  comment: 
+test  348:       01111111 0
+test  349:       00111111 0
+test  350:       00011111 0
+test  351:       00001111 0
+test  352:       00000111 0
+test  353:       00000011 0
+test  354:       00000001 0
+test  355:       00000000 0
+  comment: 
+  comment: 
+  comment: 
+  comment: ; BACK TO INITAL CONDITIONS
+  comment: 
+test  356: 0010010000000010001001001
+      end: END
+
+
+summary
+
+column  1: offset 0, mask 0x0200
+column  2: offset 0, mask 0x0100
+column  3: offset 1, mask 0x8000
+column  4: offset 1, mask 0x4000
+column  5: offset 1, mask 0x2000
+column  6: offset 1, mask 0x1000
+column  7: offset 0, mask 0x0010
+column  8: offset 0, mask 0x0008
+column  9: offset 0, mask 0x0004
+column 10: offset 0, mask 0x0002
+column 11: offset 0, mask 0x0001
+column 12: offset 1, mask 0x0001
+column 13: offset 1, mask 0x0002
+column 14: offset 1, mask 0x0008
+column 15: offset 2, mask 0x0001
+column 16: offset 2, mask 0x0002
+column 17: offset 1, mask 0x0010
+column 18: offset 0, mask 0x8000
+column 19: offset 0, mask 0x4000
+column 20: offset 1, mask 0x0020
+column 21: offset 0, mask 0x2000
+column 22: offset 0, mask 0x1000
+column 23: offset 1, mask 0x0040
+column 24: offset 0, mask 0x0800
+column 25: offset 0, mask 0x0400
+
+direction bits (1=input)
+   0xFCE0 0x9F84 0xFFFA 0xFFFF 0xF0FF
+
+pullup bits (1=pullup)
+   0x0000 0x0000 0x0000 0x0000 0x0000
+
+test step    out_data                     dont care
+   1: 0x5400 0x9000 0x0001 0x0000 0x0000
+   2: 0x5500 0x9000 0x0001 0x0000 0x0000
+   3: 0x5700 0x1000 0x0001 0x0000 0x0000
+   4: 0x5600 0x9000 0x0001 0x0000 0x0000
+   5: 0x5400 0x9000 0x0001 0x0000 0x0000
+   6: 0x5400 0xB000 0x0001 0x0000 0x0000
+   7: 0x5400 0xE000 0x0001 0x0000 0x0000
+   8: 0x5400 0xD000 0x0001 0x0000 0x0000
+   9: 0x5400 0x9000 0x0001 0x0000 0x0000
+  10: 0x5400 0x9000 0x0001 0x0000 0x0000
+  11: 0x5400 0x9000 0x0001 0x0000 0x0000
+  12: 0x5400 0x9010 0x0001 0x0000 0x0000
+  13: 0x5400 0x9030 0x0001 0x0000 0x0000
+  14: 0x5400 0x9070 0x0001 0x0000 0x0000
+  15: 0x5400 0x9060 0x0001 0x0000 0x0000
+  16: 0x5400 0x9040 0x0001 0x0000 0x0000
+  17: 0x5400 0x9000 0x0001 0x0000 0x0000
+  18: 0x5400 0x9000 0x0002 0x0000 0x0000
+  19: 0x5400 0x9000 0x0002 0x0000 0x0000
+  20: 0x9400 0x9010 0x0002 0x0000 0x0000
+  21: 0x5400 0x9000 0x0002 0x0000 0x0000
+  22: 0x6400 0x9020 0x0002 0x0000 0x0000
+  23: 0x5400 0x9000 0x0002 0x0000 0x0000
+  24: 0x5800 0x9040 0x0002 0x0000 0x0000
+  25: 0x5400 0x9000 0x0002 0x0000 0x0000
+  26: 0x5400 0x9000 0x0001 0x0000 0x0000
+  27: 0x5410 0x9000 0x0001 0x0000 0x0000
+  28: 0x5418 0x9000 0x0001 0x0000 0x0000
+  29: 0x541C 0x9000 0x0001 0x0000 0x0000
+  30: 0x541E 0x9000 0x0001 0x0000 0x0000
+  31: 0x541F 0x9000 0x0001 0x0000 0x0000
+  32: 0x541F 0x9001 0x0001 0x0000 0x0000
+  33: 0x541F 0x9003 0x0001 0x0000 0x0000
+  34: 0x541F 0x900B 0x0003 0x0000 0x0000
+  35: 0x541F 0x900B 0x0003 0x0000 0x0000
+  36: 0x941F 0x901B 0x0003 0x0000 0x0000
+  37: 0x541F 0x900B 0x0003 0x0000 0x0000
+  38: 0x641F 0x902B 0x0003 0x0000 0x0000
+  39: 0x541F 0x900B 0x0003 0x0000 0x0000
+  40: 0x581F 0x904B 0x0003 0x0000 0x0000
+  41: 0x541F 0x900B 0x0003 0x0000 0x0000
+  42: 0x540F 0x900B 0x0001 0x0000 0x0000
+  43: 0x5407 0x900B 0x0001 0x0000 0x0000
+  44: 0x5403 0x900B 0x0001 0x0000 0x0000
+  45: 0x5401 0x900B 0x0001 0x0000 0x0000
+  46: 0x5400 0x900B 0x0001 0x0000 0x0000
+  47: 0x5400 0x900A 0x0001 0x0000 0x0000
+  48: 0x5400 0x9008 0x0001 0x0000 0x0000
+  49: 0x5400 0x9000 0x0001 0x0000 0x0000
+  50: 0x5400 0x9000 0x0001 0x0000 0x0000
+  51: 0x5400 0x9008 0x0001 0x0000 0x0000
+  52: 0x5400 0x900A 0x0001 0x0000 0x0000
+  53: 0x5400 0x9002 0x0001 0x0000 0x0000
+  54: 0x5400 0x9003 0x0001 0x0000 0x0000
+  55: 0x5400 0x900B 0x0001 0x0000 0x0000
+  56: 0x5400 0x9009 0x0001 0x0000 0x0000
+  57: 0x5400 0x9001 0x0001 0x0000 0x0000
+  58: 0x5401 0x9001 0x0001 0x0000 0x0000
+  59: 0x5401 0x9009 0x0001 0x0000 0x0000
+  60: 0x5401 0x900B 0x0001 0x0000 0x0000
+  61: 0x5401 0x9003 0x0001 0x0000 0x0000
+  62: 0x5401 0x9002 0x0001 0x0000 0x0000
+  63: 0x5401 0x900A 0x0001 0x0000 0x0000
+  64: 0x5401 0x9008 0x0001 0x0000 0x0000
+  65: 0x5401 0x9000 0x0001 0x0000 0x0000
+  66: 0x5403 0x9000 0x0001 0x0000 0x0000
+  67: 0x5403 0x9008 0x0001 0x0000 0x0000
+  68: 0x5403 0x900A 0x0001 0x0000 0x0000
+  69: 0x5403 0x9002 0x0001 0x0000 0x0000
+  70: 0x5403 0x9003 0x0001 0x0000 0x0000
+  71: 0x5403 0x900B 0x0001 0x0000 0x0000
+  72: 0x5403 0x9009 0x0001 0x0000 0x0000
+  73: 0x5403 0x9001 0x0001 0x0000 0x0000
+  74: 0x5402 0x9001 0x0001 0x0000 0x0000
+  75: 0x5402 0x9009 0x0001 0x0000 0x0000
+  76: 0x5402 0x900B 0x0001 0x0000 0x0000
+  77: 0x5402 0x9003 0x0001 0x0000 0x0000
+  78: 0x5402 0x9002 0x0001 0x0000 0x0000
+  79: 0x5402 0x900A 0x0001 0x0000 0x0000
+  80: 0x5402 0x9008 0x0001 0x0000 0x0000
+  81: 0x5402 0x9000 0x0001 0x0000 0x0000
+  82: 0x5406 0x9000 0x0001 0x0000 0x0000
+  83: 0x5406 0x9008 0x0001 0x0000 0x0000
+  84: 0x5406 0x900A 0x0001 0x0000 0x0000
+  85: 0x5406 0x9002 0x0001 0x0000 0x0000
+  86: 0x5406 0x9003 0x0001 0x0000 0x0000
+  87: 0x5406 0x900B 0x0001 0x0000 0x0000
+  88: 0x5406 0x9009 0x0001 0x0000 0x0000
+  89: 0x5406 0x9001 0x0001 0x0000 0x0000
+  90: 0x5407 0x9001 0x0001 0x0000 0x0000
+  91: 0x5407 0x9009 0x0001 0x0000 0x0000
+  92: 0x5407 0x900B 0x0001 0x0000 0x0000
+  93: 0x5407 0x9003 0x0001 0x0000 0x0000
+  94: 0x5407 0x9002 0x0001 0x0000 0x0000
+  95: 0x5407 0x900A 0x0001 0x0000 0x0000
+  96: 0x5407 0x9008 0x0001 0x0000 0x0000
+  97: 0x5407 0x9000 0x0001 0x0000 0x0000
+  98: 0x5405 0x9000 0x0001 0x0000 0x0000
+  99: 0x5405 0x9008 0x0001 0x0000 0x0000
+ 100: 0x5405 0x900A 0x0001 0x0000 0x0000
+ 101: 0x5405 0x9002 0x0001 0x0000 0x0000
+ 102: 0x5405 0x9003 0x0001 0x0000 0x0000
+ 103: 0x5405 0x900B 0x0001 0x0000 0x0000
+ 104: 0x5405 0x9009 0x0001 0x0000 0x0000
+ 105: 0x5405 0x9001 0x0001 0x0000 0x0000
+ 106: 0x5404 0x9001 0x0001 0x0000 0x0000
+ 107: 0x5404 0x9009 0x0001 0x0000 0x0000
+ 108: 0x5404 0x900B 0x0001 0x0000 0x0000
+ 109: 0x5404 0x9003 0x0001 0x0000 0x0000
+ 110: 0x5404 0x9002 0x0001 0x0000 0x0000
+ 111: 0x5404 0x900A 0x0001 0x0000 0x0000
+ 112: 0x5404 0x9008 0x0001 0x0000 0x0000
+ 113: 0x5404 0x9000 0x0001 0x0000 0x0000
+ 114: 0x540C 0x9000 0x0001 0x0000 0x0000
+ 115: 0x540C 0x9008 0x0001 0x0000 0x0000
+ 116: 0x540C 0x900A 0x0001 0x0000 0x0000
+ 117: 0x540C 0x9002 0x0001 0x0000 0x0000
+ 118: 0x540C 0x9003 0x0001 0x0000 0x0000
+ 119: 0x540C 0x900B 0x0001 0x0000 0x0000
+ 120: 0x540C 0x9009 0x0001 0x0000 0x0000
+ 121: 0x540C 0x9001 0x0001 0x0000 0x0000
+ 122: 0x540D 0x9001 0x0001 0x0000 0x0000
+ 123: 0x540D 0x9009 0x0001 0x0000 0x0000
+ 124: 0x540D 0x900B 0x0001 0x0000 0x0000
+ 125: 0x540D 0x9003 0x0001 0x0000 0x0000
+ 126: 0x540D 0x9002 0x0001 0x0000 0x0000
+ 127: 0x540D 0x900A 0x0001 0x0000 0x0000
+ 128: 0x540D 0x9008 0x0001 0x0000 0x0000
+ 129: 0x540D 0x9000 0x0001 0x0000 0x0000
+ 130: 0x540F 0x9000 0x0001 0x0000 0x0000
+ 131: 0x540F 0x9008 0x0001 0x0000 0x0000
+ 132: 0x540F 0x900A 0x0001 0x0000 0x0000
+ 133: 0x540F 0x9002 0x0001 0x0000 0x0000
+ 134: 0x540F 0x9003 0x0001 0x0000 0x0000
+ 135: 0x540F 0x900B 0x0001 0x0000 0x0000
+ 136: 0x540F 0x9009 0x0001 0x0000 0x0000
+ 137: 0x540F 0x9001 0x0001 0x0000 0x0000
+ 138: 0x540E 0x9001 0x0001 0x0000 0x0000
+ 139: 0x540E 0x9009 0x0001 0x0000 0x0000
+ 140: 0x540E 0x900B 0x0001 0x0000 0x0000
+ 141: 0x540E 0x9003 0x0001 0x0000 0x0000
+ 142: 0x540E 0x9002 0x0001 0x0000 0x0000
+ 143: 0x540E 0x900A 0x0001 0x0000 0x0000
+ 144: 0x540E 0x9008 0x0001 0x0000 0x0000
+ 145: 0x540E 0x9000 0x0001 0x0000 0x0000
+ 146: 0x540A 0x9000 0x0001 0x0000 0x0000
+ 147: 0x540A 0x9008 0x0001 0x0000 0x0000
+ 148: 0x540A 0x900A 0x0001 0x0000 0x0000
+ 149: 0x540A 0x9002 0x0001 0x0000 0x0000
+ 150: 0x540A 0x9003 0x0001 0x0000 0x0000
+ 151: 0x540A 0x900B 0x0001 0x0000 0x0000
+ 152: 0x540A 0x9009 0x0001 0x0000 0x0000
+ 153: 0x540A 0x9001 0x0001 0x0000 0x0000
+ 154: 0x540B 0x9001 0x0001 0x0000 0x0000
+ 155: 0x540B 0x9009 0x0001 0x0000 0x0000
+ 156: 0x540B 0x900B 0x0001 0x0000 0x0000
+ 157: 0x540B 0x9003 0x0001 0x0000 0x0000
+ 158: 0x540B 0x9002 0x0001 0x0000 0x0000
+ 159: 0x540B 0x900A 0x0001 0x0000 0x0000
+ 160: 0x540B 0x9008 0x0001 0x0000 0x0000
+ 161: 0x540B 0x9000 0x0001 0x0000 0x0000
+ 162: 0x5409 0x9000 0x0001 0x0000 0x0000
+ 163: 0x5409 0x9008 0x0001 0x0000 0x0000
+ 164: 0x5409 0x900A 0x0001 0x0000 0x0000
+ 165: 0x5409 0x9002 0x0001 0x0000 0x0000
+ 166: 0x5409 0x9003 0x0001 0x0000 0x0000
+ 167: 0x5409 0x900B 0x0001 0x0000 0x0000
+ 168: 0x5409 0x9009 0x0001 0x0000 0x0000
+ 169: 0x5409 0x9001 0x0001 0x0000 0x0000
+ 170: 0x5408 0x9001 0x0001 0x0000 0x0000
+ 171: 0x5408 0x9009 0x0001 0x0000 0x0000
+ 172: 0x5408 0x900B 0x0001 0x0000 0x0000
+ 173: 0x5408 0x9003 0x0001 0x0000 0x0000
+ 174: 0x5408 0x9002 0x0001 0x0000 0x0000
+ 175: 0x5408 0x900A 0x0001 0x0000 0x0000
+ 176: 0x5408 0x9008 0x0001 0x0000 0x0000
+ 177: 0x5408 0x9000 0x0001 0x0000 0x0000
+ 178: 0x5418 0x9000 0x0001 0x0000 0x0000
+ 179: 0x5418 0x9008 0x0001 0x0000 0x0000
+ 180: 0x5418 0x900A 0x0001 0x0000 0x0000
+ 181: 0x5418 0x9002 0x0001 0x0000 0x0000
+ 182: 0x5418 0x9003 0x0001 0x0000 0x0000
+ 183: 0x5418 0x900B 0x0001 0x0000 0x0000
+ 184: 0x5418 0x9009 0x0001 0x0000 0x0000
+ 185: 0x5418 0x9001 0x0001 0x0000 0x0000
+ 186: 0x5419 0x9001 0x0001 0x0000 0x0000
+ 187: 0x5419 0x9009 0x0001 0x0000 0x0000
+ 188: 0x5419 0x900B 0x0001 0x0000 0x0000
+ 189: 0x5419 0x9003 0x0001 0x0000 0x0000
+ 190: 0x5419 0x9002 0x0001 0x0000 0x0000
+ 191: 0x5419 0x900A 0x0001 0x0000 0x0000
+ 192: 0x5419 0x9008 0x0001 0x0000 0x0000
+ 193: 0x5419 0x9000 0x0001 0x0000 0x0000
+ 194: 0x541B 0x9000 0x0001 0x0000 0x0000
+ 195: 0x541B 0x9008 0x0001 0x0000 0x0000
+ 196: 0x541B 0x900A 0x0001 0x0000 0x0000
+ 197: 0x541B 0x9002 0x0001 0x0000 0x0000
+ 198: 0x541B 0x9003 0x0001 0x0000 0x0000
+ 199: 0x541B 0x900B 0x0001 0x0000 0x0000
+ 200: 0x541B 0x9009 0x0001 0x0000 0x0000
+ 201: 0x541B 0x9001 0x0001 0x0000 0x0000
+ 202: 0x541A 0x9001 0x0001 0x0000 0x0000
+ 203: 0x541A 0x9009 0x0001 0x0000 0x0000
+ 204: 0x541A 0x900B 0x0001 0x0000 0x0000
+ 205: 0x541A 0x9003 0x0001 0x0000 0x0000
+ 206: 0x541A 0x9002 0x0001 0x0000 0x0000
+ 207: 0x541A 0x900A 0x0001 0x0000 0x0000
+ 208: 0x541A 0x9008 0x0001 0x0000 0x0000
+ 209: 0x541A 0x9000 0x0001 0x0000 0x0000
+ 210: 0x541E 0x9000 0x0001 0x0000 0x0000
+ 211: 0x541E 0x9008 0x0001 0x0000 0x0000
+ 212: 0x541E 0x900A 0x0001 0x0000 0x0000
+ 213: 0x541E 0x9002 0x0001 0x0000 0x0000
+ 214: 0x541E 0x9003 0x0001 0x0000 0x0000
+ 215: 0x541E 0x900B 0x0001 0x0000 0x0000
+ 216: 0x541E 0x9009 0x0001 0x0000 0x0000
+ 217: 0x541E 0x9001 0x0001 0x0000 0x0000
+ 218: 0x541F 0x9001 0x0001 0x0000 0x0000
+ 219: 0x541F 0x9009 0x0001 0x0000 0x0000
+ 220: 0x541F 0x900B 0x0003 0x0000 0x0000
+ 221: 0x541F 0x9003 0x0001 0x0000 0x0000
+ 222: 0x541F 0x9002 0x0001 0x0000 0x0000
+ 223: 0x541F 0x900A 0x0001 0x0000 0x0000
+ 224: 0x541F 0x9008 0x0001 0x0000 0x0000
+ 225: 0x541F 0x9000 0x0001 0x0000 0x0000
+ 226: 0x541D 0x9000 0x0001 0x0000 0x0000
+ 227: 0x541D 0x9008 0x0001 0x0000 0x0000
+ 228: 0x541D 0x900A 0x0001 0x0000 0x0000
+ 229: 0x541D 0x9002 0x0001 0x0000 0x0000
+ 230: 0x541D 0x9003 0x0001 0x0000 0x0000
+ 231: 0x541D 0x900B 0x0001 0x0000 0x0000
+ 232: 0x541D 0x9009 0x0001 0x0000 0x0000
+ 233: 0x541D 0x9001 0x0001 0x0000 0x0000
+ 234: 0x541C 0x9001 0x0001 0x0000 0x0000
+ 235: 0x541C 0x9009 0x0001 0x0000 0x0000
+ 236: 0x541C 0x900B 0x0001 0x0000 0x0000
+ 237: 0x541C 0x9003 0x0001 0x0000 0x0000
+ 238: 0x541C 0x9002 0x0001 0x0000 0x0000
+ 239: 0x541C 0x900A 0x0001 0x0000 0x0000
+ 240: 0x541C 0x9008 0x0001 0x0000 0x0000
+ 241: 0x541C 0x9000 0x0001 0x0000 0x0000
+ 242: 0x5414 0x9000 0x0001 0x0000 0x0000
+ 243: 0x5414 0x9008 0x0001 0x0000 0x0000
+ 244: 0x5414 0x900A 0x0001 0x0000 0x0000
+ 245: 0x5414 0x9002 0x0001 0x0000 0x0000
+ 246: 0x5414 0x9003 0x0001 0x0000 0x0000
+ 247: 0x5414 0x900B 0x0001 0x0000 0x0000
+ 248: 0x5414 0x9009 0x0001 0x0000 0x0000
+ 249: 0x5414 0x9001 0x0001 0x0000 0x0000
+ 250: 0x5415 0x9001 0x0001 0x0000 0x0000
+ 251: 0x5415 0x9009 0x0001 0x0000 0x0000
+ 252: 0x5415 0x900B 0x0001 0x0000 0x0000
+ 253: 0x5415 0x9003 0x0001 0x0000 0x0000
+ 254: 0x5415 0x9002 0x0001 0x0000 0x0000
+ 255: 0x5415 0x900A 0x0001 0x0000 0x0000
+ 256: 0x5415 0x9008 0x0001 0x0000 0x0000
+ 257: 0x5415 0x9000 0x0001 0x0000 0x0000
+ 258: 0x5417 0x9000 0x0001 0x0000 0x0000
+ 259: 0x5417 0x9008 0x0001 0x0000 0x0000
+ 260: 0x5417 0x900A 0x0001 0x0000 0x0000
+ 261: 0x5417 0x9002 0x0001 0x0000 0x0000
+ 262: 0x5417 0x9003 0x0001 0x0000 0x0000
+ 263: 0x5417 0x900B 0x0001 0x0000 0x0000
+ 264: 0x5417 0x9009 0x0001 0x0000 0x0000
+ 265: 0x5417 0x9001 0x0001 0x0000 0x0000
+ 266: 0x5416 0x9001 0x0001 0x0000 0x0000
+ 267: 0x5416 0x9009 0x0001 0x0000 0x0000
+ 268: 0x5416 0x900B 0x0001 0x0000 0x0000
+ 269: 0x5416 0x9003 0x0001 0x0000 0x0000
+ 270: 0x5416 0x9002 0x0001 0x0000 0x0000
+ 271: 0x5416 0x900A 0x0001 0x0000 0x0000
+ 272: 0x5416 0x9008 0x0001 0x0000 0x0000
+ 273: 0x5416 0x9000 0x0001 0x0000 0x0000
+ 274: 0x5412 0x9000 0x0001 0x0000 0x0000
+ 275: 0x5412 0x9008 0x0001 0x0000 0x0000
+ 276: 0x5412 0x900A 0x0001 0x0000 0x0000
+ 277: 0x5412 0x9002 0x0001 0x0000 0x0000
+ 278: 0x5412 0x9003 0x0001 0x0000 0x0000
+ 279: 0x5412 0x900B 0x0001 0x0000 0x0000
+ 280: 0x5412 0x9009 0x0001 0x0000 0x0000
+ 281: 0x5412 0x9001 0x0001 0x0000 0x0000
+ 282: 0x5413 0x9001 0x0001 0x0000 0x0000
+ 283: 0x5413 0x9009 0x0001 0x0000 0x0000
+ 284: 0x5413 0x900B 0x0001 0x0000 0x0000
+ 285: 0x5413 0x9003 0x0001 0x0000 0x0000
+ 286: 0x5413 0x9002 0x0001 0x0000 0x0000
+ 287: 0x5413 0x900A 0x0001 0x0000 0x0000
+ 288: 0x5413 0x9008 0x0001 0x0000 0x0000
+ 289: 0x5413 0x9000 0x0001 0x0000 0x0000
+ 290: 0x5411 0x9000 0x0001 0x0000 0x0000
+ 291: 0x5411 0x9008 0x0001 0x0000 0x0000
+ 292: 0x5411 0x900A 0x0001 0x0000 0x0000
+ 293: 0x5411 0x9002 0x0001 0x0000 0x0000
+ 294: 0x5411 0x9003 0x0001 0x0000 0x0000
+ 295: 0x5411 0x900B 0x0001 0x0000 0x0000
+ 296: 0x5411 0x9009 0x0001 0x0000 0x0000
+ 297: 0x5411 0x9001 0x0001 0x0000 0x0000
+ 298: 0x5410 0x9001 0x0001 0x0000 0x0000
+ 299: 0x5410 0x9009 0x0001 0x0000 0x0000
+ 300: 0x5410 0x900B 0x0001 0x0000 0x0000
+ 301: 0x5410 0x9003 0x0001 0x0000 0x0000
+ 302: 0x5410 0x9002 0x0001 0x0000 0x0000
+ 303: 0x5410 0x900A 0x0001 0x0000 0x0000
+ 304: 0x5410 0x9008 0x0001 0x0000 0x0000
+ 305: 0x5410 0x9000 0x0001 0x0000 0x0000
+ 306: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 307: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 308: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 309: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 310: 0x5400 0x9040 0x0001 0x0000 0x0000
+ 311: 0x5400 0x9060 0x0001 0x0000 0x0000
+ 312: 0x5400 0x9020 0x0001 0x0000 0x0000
+ 313: 0x5400 0x9030 0x0001 0x0000 0x0000
+ 314: 0x5400 0x9070 0x0001 0x0000 0x0000
+ 315: 0x5400 0x9050 0x0001 0x0000 0x0000
+ 316: 0x5400 0x9010 0x0001 0x0000 0x0000
+ 317: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 318: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 319: 0x5400 0x9000 0x0002 0x0000 0x0000
+ 320: 0x5400 0x9000 0x0002 0x0000 0x0000
+ 321: 0x5800 0x9040 0x0002 0x0000 0x0000
+ 322: 0x6800 0x9060 0x0002 0x0000 0x0000
+ 323: 0x6400 0x9020 0x0002 0x0000 0x0000
+ 324: 0xA400 0x9030 0x0002 0x0000 0x0000
+ 325: 0xA800 0x9070 0x0002 0x0000 0x0000
+ 326: 0x9800 0x9050 0x0002 0x0000 0x0000
+ 327: 0x9400 0x9010 0x0002 0x0000 0x0000
+ 328: 0x5400 0x9000 0x0002 0x0000 0x0000
+ 329: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 330: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 331: 0x5410 0x9000 0x0001 0x0000 0x0000
+ 332: 0x5418 0x9000 0x0001 0x0000 0x0000
+ 333: 0x541C 0x9000 0x0001 0x0000 0x0000
+ 334: 0x541E 0x9000 0x0001 0x0000 0x0000
+ 335: 0x541F 0x9000 0x0001 0x0000 0x0000
+ 336: 0x541F 0x9001 0x0001 0x0000 0x0000
+ 337: 0x541F 0x9003 0x0001 0x0000 0x0000
+ 338: 0x541F 0x900B 0x0003 0x0000 0x0000
+ 339: 0x541F 0x900B 0x0003 0x0000 0x0000
+ 340: 0x581F 0x904B 0x0003 0x0000 0x0000
+ 341: 0x681F 0x906B 0x0003 0x0000 0x0000
+ 342: 0x641F 0x902B 0x0003 0x0000 0x0000
+ 343: 0xA41F 0x903B 0x0003 0x0000 0x0000
+ 344: 0xA81F 0x907B 0x0003 0x0000 0x0000
+ 345: 0x981F 0x905B 0x0003 0x0000 0x0000
+ 346: 0x941F 0x901B 0x0003 0x0000 0x0000
+ 347: 0x541F 0x900B 0x0003 0x0000 0x0000
+ 348: 0x540F 0x900B 0x0001 0x0000 0x0000
+ 349: 0x5407 0x900B 0x0001 0x0000 0x0000
+ 350: 0x5403 0x900B 0x0001 0x0000 0x0000
+ 351: 0x5401 0x900B 0x0001 0x0000 0x0000
+ 352: 0x5400 0x900B 0x0001 0x0000 0x0000
+ 353: 0x5400 0x900A 0x0001 0x0000 0x0000
+ 354: 0x5400 0x9008 0x0001 0x0000 0x0000
+ 355: 0x5400 0x9000 0x0001 0x0000 0x0000
+ 356: 0x5400 0x9000 0x0001 0x0000 0x0000
+
+PINs used (in edge connector order) (G=ground,P=power)
+SLOT   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+LETTER ABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUVABCDEFHJKLMNPRSTUV
+SIDE   111111111111111111222222222222222222111111111111111111222222222222222222
+USAGE  OOOOOOIIOIIO   G  P GIIIIIII IIII IO               G  P G               
+UUT inputs:  16
+UUT outputs:  9
+pins used:   25
+ not used:   41
+ 356 'test steps'
+ 442 lines
+
+; M103   PCB REV B   SCHEMATIC REV A   DEVICE SELECTOR
+;
+;
+
+; currently works, but needs tests with all inputs on.
+
+PINS
+
+
+Main menu   Sat Dec 19 09:11:52 2015
+   test file is: tests\m103.new
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+
+UUT power is okay    Sat Dec 19 09:11:55 2015
+
+ space  single step
+ O      run once (one test, all steps)
+ F      run, stop on fail
+ G      go (run tests
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ C      turn on comment printout
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit test
+comment_flag is 1
+ space  single step
+ O      run once (one test, all steps)
+ F      run, stop on fail
+ G      go (run tests
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ C      turn off comment printout
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit test
+source:   0010010000000010001001001
+changed:                           
+step    1 0010010000000010001001001
+source:   
+source:   ; TEST NAND_A
+source:   011
+changed:   1                       
+step    2 0110010000000010001001001
+source:   110
+changed:  1 0                      
+step    3 1100010000000010001001001
+source:   101
+changed:   01                      
+step    4 1010010000000010001001001
+source:   001
+changed:  0                        
+step    5 0010010000000010001001001
+source:   
+source:   ; TEST NAND_B
+source:      011
+changed:      1                    
+step    6 0010110000000010001001001
+source:      110
+changed:     1 0                   
+step    7 0011100000000010001001001
+source:      101
+changed:      01                   
+step    8 0011010000000010001001001
+source:      001
+changed:     0                     
+step    9 0010010000000010001001001
+source:   
+source:   0010010000000010001001001
+changed:                           
+step   10 0010010000000010001001001
+source:   
+source:   ; TEST NOT SELECTED (FORCE_SELECT-N is HIGH)  WITH IOPs PRESENT
+source:                    01 01 01
+changed:                           
+step   11 0010010000000010001001001
+source:                   1
+changed:                  1        
+step   12 0010010000000010101001001
+source:                      1
+changed:                     1     
+step   13 0010010000000010101101001
+source:                         1
+changed:                        1  
+step   14 0010010000000010101101101
+source:                   0
+changed:                  0        
+step   15 0010010000000010001101101
+source:                      0
+changed:                     0     
+step   16 0010010000000010001001101
+source:                         0
+changed:                        0  
+step   17 0010010000000010001001001
+source:   ; FORCE SELECT-N
+source:                 01
+changed:                01         
+step   18 0010010000000001001001001
+source:   
+source:   ; TEST SELECTED + IOPS
+source:                    01 01 01
+changed:                           
+step   19 0010010000000001001001001
+source:                   110
+changed:                  110      
+step   20 0010010000000001110001001
+source:                   001
+changed:                  001      
+step   21 0010010000000001001001001
+source:                      110
+changed:                     110   
+step   22 0010010000000001001110001
+source:                      001
+changed:                     001   
+step   23 0010010000000001001001001
+source:                         110
+changed:                        110
+step   24 0010010000000001001001110
+source:                         001
+changed:                        001
+step   25 0010010000000001001001001
+source:   
+source:   ; TURN OFF- FORCE SELECT-N HIGH
+source:                 10
+changed:                10         
+step   26 0010010000000010001001001
+source:   
+source:   ; TEST SELECTED VIA DEVICE CODES + IOPS
+source:         10000000 0
+changed:        1                  
+step   27 0010011000000010001001001
+source:         11000000 0
+changed:         1                 
+step   28 0010011100000010001001001
+source:         11100000 0
+changed:          1                
+step   29 0010011110000010001001001
+source:         11110000 0
+changed:           1               
+step   30 0010011111000010001001001
+source:         11111000 0
+changed:            1              
+step   31 0010011111100010001001001
+source:         11111100 0
+changed:             1             
+step   32 0010011111110010001001001
+source:         11111110 0
+changed:              1            
+step   33 0010011111111010001001001
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:         11111111 1
+changed:               1           
+step   34 0010011111111110001001001
+fail                     ^         
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                    01 01 01
+changed:                           
+step   35 0010011111111110001001001
+fail                     ^         
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   110
+changed:                  1        
+step   36 0010011111111110101001001
+fail                     ^ ^^      
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   001
+changed:                  0        
+step   37 0010011111111110001001001
+fail                     ^         
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                      110
+changed:                     1     
+step   38 0010011111111110001101001
+fail                     ^    ^^   
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                      001
+changed:                     0     
+step   39 0010011111111110001001001
+fail                     ^         
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                         110
+changed:                        1  
+step   40 0010011111111110001001101
+fail                     ^       ^^
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                         001
+changed:                        0  
+step   41 0010011111111110001001001
+fail                     ^         
+source:         01111111 0
+changed:        0                  
+step   42 0010010111111110001001001
+source:         00111111 0
+changed:         0                 
+step   43 0010010011111110001001001
+source:         00011111 0
+changed:          0                
+step   44 0010010001111110001001001
+source:         00001111 0
+changed:           0               
+step   45 0010010000111110001001001
+source:         00000111 0
+changed:            0              
+step   46 0010010000011110001001001
+source:         00000011 0
+changed:             0             
+step   47 0010010000001110001001001
+source:         00000001 0
+changed:              0            
+step   48 0010010000000110001001001
+source:         00000000 0
+changed:               0           
+step   49 0010010000000010001001001
+source:   
+source:   
+source:   ; TEST DEVICE CODE (ALL INPUT VALUES)
+source:   
+source:         00000000 0
+changed:                           
+step   50 0010010000000010001001001
+source:         00000001 0
+changed:               1           
+step   51 0010010000000110001001001
+source:         00000011 0
+changed:              1            
+step   52 0010010000001110001001001
+source:         00000010 0
+changed:               0           
+step   53 0010010000001010001001001
+source:         00000110 0
+changed:             1             
+step   54 0010010000011010001001001
+source:         00000111 0
+changed:               1           
+step   55 0010010000011110001001001
+source:         00000101 0
+changed:              0            
+step   56 0010010000010110001001001
+source:         00000100 0
+changed:               0           
+step   57 0010010000010010001001001
+source:         00001100 0
+changed:            1              
+step   58 0010010000110010001001001
+source:         00001101 0
+changed:               1           
+step   59 0010010000110110001001001
+source:         00001111 0
+changed:              1            
+step   60 0010010000111110001001001
+source:         00001110 0
+changed:               0           
+step   61 0010010000111010001001001
+source:         00001010 0
+changed:             0             
+step   62 0010010000101010001001001
+source:         00001011 0
+changed:               1           
+step   63 0010010000101110001001001
+source:         00001001 0
+changed:              0            
+step   64 0010010000100110001001001
+source:         00001000 0
+changed:               0           
+step   65 0010010000100010001001001
+source:   
+source:         00011000 0
+changed:           1               
+step   66 0010010001100010001001001
+source:         00011001 0
+changed:               1           
+step   67 0010010001100110001001001
+source:         00011011 0
+changed:              1            
+step   68 0010010001101110001001001
+source:         00011010 0
+changed:               0           
+step   69 0010010001101010001001001
+source:         00011110 0
+changed:             1             
+step   70 0010010001111010001001001
+source:         00011111 0
+changed:               1           
+step   71 0010010001111110001001001
+source:         00011101 0
+changed:              0            
+step   72 0010010001110110001001001
+source:         00011100 0
+changed:               0           
+step   73 0010010001110010001001001
+source:         00010100 0
+changed:            0              
+step   74 0010010001010010001001001
+source:         00010101 0
+changed:               1           
+step   75 0010010001010110001001001
+source:         00010111 0
+changed:              1            
+step   76 0010010001011110001001001
+source:         00010110 0
+changed:               0           
+step   77 0010010001011010001001001
+source:         00010010 0
+changed:             0             
+step   78 0010010001001010001001001
+source:         00010011 0
+changed:               1           
+step   79 0010010001001110001001001
+source:         00010001 0
+changed:              0            
+step   80 0010010001000110001001001
+source:         00010000 0
+changed:               0           
+step   81 0010010001000010001001001
+source:   
+source:         00110000 0
+changed:          1                
+step   82 0010010011000010001001001
+source:         00110001 0
+changed:               1           
+step   83 0010010011000110001001001
+source:         00110011 0
+changed:              1            
+step   84 0010010011001110001001001
+source:         00110010 0
+changed:               0           
+step   85 0010010011001010001001001
+source:         00110110 0
+changed:             1             
+step   86 0010010011011010001001001
+source:         00110111 0
+changed:               1           
+step   87 0010010011011110001001001
+source:         00110101 0
+changed:              0            
+step   88 0010010011010110001001001
+source:         00110100 0
+changed:               0           
+step   89 0010010011010010001001001
+source:         00111100 0
+changed:            1              
+step   90 0010010011110010001001001
+source:         00111101 0
+changed:               1           
+step   91 0010010011110110001001001
+source:         00111111 0
+changed:              1            
+step   92 0010010011111110001001001
+source:         00111110 0
+changed:               0           
+step   93 0010010011111010001001001
+source:         00111010 0
+changed:             0             
+step   94 0010010011101010001001001
+source:         00111011 0
+changed:               1           
+step   95 0010010011101110001001001
+source:         00111001 0
+changed:              0            
+step   96 0010010011100110001001001
+source:         00111000 0
+changed:               0           
+step   97 0010010011100010001001001
+source:   
+source:         00101000 0
+changed:           0               
+step   98 0010010010100010001001001
+source:         00101001 0
+changed:               1           
+step   99 0010010010100110001001001
+source:         00101011 0
+changed:              1            
+step  100 0010010010101110001001001
+source:         00101010 0
+changed:               0           
+step  101 0010010010101010001001001
+source:         00101110 0
+changed:             1             
+step  102 0010010010111010001001001
+source:         00101111 0
+changed:               1           
+step  103 0010010010111110001001001
+source:         00101101 0
+changed:              0            
+step  104 0010010010110110001001001
+source:         00101100 0
+changed:               0           
+step  105 0010010010110010001001001
+source:         00100100 0
+changed:            0              
+step  106 0010010010010010001001001
+source:         00100101 0
+changed:               1           
+step  107 0010010010010110001001001
+source:         00100111 0
+changed:              1            
+step  108 0010010010011110001001001
+source:         00100110 0
+changed:               0           
+step  109 0010010010011010001001001
+source:         00100010 0
+changed:             0             
+step  110 0010010010001010001001001
+source:         00100011 0
+changed:               1           
+step  111 0010010010001110001001001
+source:         00100001 0
+changed:              0            
+step  112 0010010010000110001001001
+source:         00100000 0
+changed:               0           
+step  113 0010010010000010001001001
+source:   
+source:         01100000 0
+changed:         1                 
+step  114 0010010110000010001001001
+source:         01100001 0
+changed:               1           
+step  115 0010010110000110001001001
+source:         01100011 0
+changed:              1            
+step  116 0010010110001110001001001
+source:         01100010 0
+changed:               0           
+step  117 0010010110001010001001001
+source:         01100110 0
+changed:             1             
+step  118 0010010110011010001001001
+source:         01100111 0
+changed:               1           
+step  119 0010010110011110001001001
+source:         01100101 0
+changed:              0            
+step  120 0010010110010110001001001
+source:         01100100 0
+changed:               0           
+step  121 0010010110010010001001001
+source:         01101100 0
+changed:            1              
+step  122 0010010110110010001001001
+source:         01101101 0
+changed:               1           
+step  123 0010010110110110001001001
+source:         01101111 0
+changed:              1            
+step  124 0010010110111110001001001
+source:         01101110 0
+changed:               0           
+step  125 0010010110111010001001001
+source:         01101010 0
+changed:             0             
+step  126 0010010110101010001001001
+source:         01101011 0
+changed:               1           
+step  127 0010010110101110001001001
+source:         01101001 0
+changed:              0            
+step  128 0010010110100110001001001
+source:         01101000 0
+changed:               0           
+step  129 0010010110100010001001001
+source:   
+source:         01111000 0
+changed:           1               
+step  130 0010010111100010001001001
+source:         01111001 0
+changed:               1           
+step  131 0010010111100110001001001
+source:         01111011 0
+changed:              1            
+step  132 0010010111101110001001001
+source:         01111010 0
+changed:               0           
+step  133 0010010111101010001001001
+source:         01111110 0
+changed:             1             
+step  134 0010010111111010001001001
+source:         01111111 0
+changed:               1           
+step  135 0010010111111110001001001
+source:         01111101 0
+changed:              0            
+step  136 0010010111110110001001001
+source:         01111100 0
+changed:               0           
+step  137 0010010111110010001001001
+source:         01110100 0
+changed:            0              
+step  138 0010010111010010001001001
+source:         01110101 0
+changed:               1           
+step  139 0010010111010110001001001
+source:         01110111 0
+changed:              1            
+step  140 0010010111011110001001001
+source:         01110110 0
+changed:               0           
+step  141 0010010111011010001001001
+source:         01110010 0
+changed:             0             
+step  142 0010010111001010001001001
+source:         01110011 0
+changed:               1           
+step  143 0010010111001110001001001
+source:         01110001 0
+changed:              0            
+step  144 0010010111000110001001001
+source:         01110000 0
+changed:               0           
+step  145 0010010111000010001001001
+source:   
+source:         01010000 0
+changed:          0                
+step  146 0010010101000010001001001
+source:         01010001 0
+changed:               1           
+step  147 0010010101000110001001001
+source:         01010011 0
+changed:              1            
+step  148 0010010101001110001001001
+source:         01010010 0
+changed:               0           
+step  149 0010010101001010001001001
+source:         01010110 0
+changed:             1             
+step  150 0010010101011010001001001
+source:         01010111 0
+changed:               1           
+step  151 0010010101011110001001001
+source:         01010101 0
+changed:              0            
+step  152 0010010101010110001001001
+source:         01010100 0
+changed:               0           
+step  153 0010010101010010001001001
+source:         01011100 0
+changed:            1              
+step  154 0010010101110010001001001
+source:         01011101 0
+changed:               1           
+step  155 0010010101110110001001001
+source:         01011111 0
+changed:              1            
+step  156 0010010101111110001001001
+source:         01011110 0
+changed:               0           
+step  157 0010010101111010001001001
+source:         01011010 0
+changed:             0             
+step  158 0010010101101010001001001
+source:         01011011 0
+changed:               1           
+step  159 0010010101101110001001001
+source:         01011001 0
+changed:              0            
+step  160 0010010101100110001001001
+source:         01011000 0
+changed:               0           
+step  161 0010010101100010001001001
+source:   
+source:         01001000 0
+changed:           0               
+step  162 0010010100100010001001001
+source:         01001001 0
+changed:               1           
+step  163 0010010100100110001001001
+source:         01001011 0
+changed:              1            
+step  164 0010010100101110001001001
+source:         01001010 0
+changed:               0           
+step  165 0010010100101010001001001
+source:         01001110 0
+changed:             1             
+step  166 0010010100111010001001001
+source:         01001111 0
+changed:               1           
+step  167 0010010100111110001001001
+source:         01001101 0
+changed:              0            
+step  168 0010010100110110001001001
+source:         01001100 0
+changed:               0           
+step  169 0010010100110010001001001
+source:         01000100 0
+changed:            0              
+step  170 0010010100010010001001001
+source:         01000101 0
+changed:               1           
+step  171 0010010100010110001001001
+source:         01000111 0
+changed:              1            
+step  172 0010010100011110001001001
+source:         01000110 0
+changed:               0           
+step  173 0010010100011010001001001
+source:         01000010 0
+changed:             0             
+step  174 0010010100001010001001001
+source:         01000011 0
+changed:               1           
+step  175 0010010100001110001001001
+source:         01000001 0
+changed:              0            
+step  176 0010010100000110001001001
+source:         01000000 0
+changed:               0           
+step  177 0010010100000010001001001
+source:   
+source:         11000000 0
+changed:        1                  
+step  178 0010011100000010001001001
+source:         11000001 0
+changed:               1           
+step  179 0010011100000110001001001
+source:         11000011 0
+changed:              1            
+step  180 0010011100001110001001001
+source:         11000010 0
+changed:               0           
+step  181 0010011100001010001001001
+source:         11000110 0
+changed:             1             
+step  182 0010011100011010001001001
+source:         11000111 0
+changed:               1           
+step  183 0010011100011110001001001
+source:         11000101 0
+changed:              0            
+step  184 0010011100010110001001001
+source:         11000100 0
+changed:               0           
+step  185 0010011100010010001001001
+source:         11001100 0
+changed:            1              
+step  186 0010011100110010001001001
+source:         11001101 0
+changed:               1           
+step  187 0010011100110110001001001
+source:         11001111 0
+changed:              1            
+step  188 0010011100111110001001001
+source:         11001110 0
+changed:               0           
+step  189 0010011100111010001001001
+source:         11001010 0
+changed:             0             
+step  190 0010011100101010001001001
+source:         11001011 0
+changed:               1           
+step  191 0010011100101110001001001
+source:         11001001 0
+changed:              0            
+step  192 0010011100100110001001001
+source:         11001000 0
+changed:               0           
+step  193 0010011100100010001001001
+source:   
+source:         11011000 0
+changed:           1               
+step  194 0010011101100010001001001
+source:         11011001 0
+changed:               1           
+step  195 0010011101100110001001001
+source:         11011011 0
+changed:              1            
+step  196 0010011101101110001001001
+source:         11011010 0
+changed:               0           
+step  197 0010011101101010001001001
+source:         11011110 0
+changed:             1             
+step  198 0010011101111010001001001
+source:         11011111 0
+changed:               1           
+step  199 0010011101111110001001001
+source:         11011101 0
+changed:              0            
+step  200 0010011101110110001001001
+source:         11011100 0
+changed:               0           
+step  201 0010011101110010001001001
+source:         11010100 0
+changed:            0              
+step  202 0010011101010010001001001
+source:         11010101 0
+changed:               1           
+step  203 0010011101010110001001001
+source:         11010111 0
+changed:              1            
+step  204 0010011101011110001001001
+source:         11010110 0
+changed:               0           
+step  205 0010011101011010001001001
+source:         11010010 0
+changed:             0             
+step  206 0010011101001010001001001
+source:         11010011 0
+changed:               1           
+step  207 0010011101001110001001001
+source:         11010001 0
+changed:              0            
+step  208 0010011101000110001001001
+source:         11010000 0
+changed:               0           
+step  209 0010011101000010001001001
+source:   
+source:         11110000 0
+changed:          1                
+step  210 0010011111000010001001001
+source:         11110001 0
+changed:               1           
+step  211 0010011111000110001001001
+source:         11110011 0
+changed:              1            
+step  212 0010011111001110001001001
+source:         11110010 0
+changed:               0           
+step  213 0010011111001010001001001
+source:         11110110 0
+changed:             1             
+step  214 0010011111011010001001001
+source:         11110111 0
+changed:               1           
+step  215 0010011111011110001001001
+source:         11110101 0
+changed:              0            
+step  216 0010011111010110001001001
+source:         11110100 0
+changed:               0           
+step  217 0010011111010010001001001
+source:         11111100 0
+changed:            1              
+step  218 0010011111110010001001001
+source:         11111101 0
+changed:               1           
+step  219 0010011111110110001001001
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:         11111111 1
+changed:              1            
+step  220 0010011111111110001001001
+fail                     ^         
+source:         11111110 0
+changed:               0           
+step  221 0010011111111010001001001
+source:         11111010 0
+changed:             0             
+step  222 0010011111101010001001001
+source:         11111011 0
+changed:               1           
+step  223 0010011111101110001001001
+source:         11111001 0
+changed:              0            
+step  224 0010011111100110001001001
+source:         11111000 0
+changed:               0           
+step  225 0010011111100010001001001
+source:   
+source:         11101000 0
+changed:           0               
+step  226 0010011110100010001001001
+source:         11101001 0
+changed:               1           
+step  227 0010011110100110001001001
+source:         11101011 0
+changed:              1            
+step  228 0010011110101110001001001
+source:         11101010 0
+changed:               0           
+step  229 0010011110101010001001001
+source:         11101110 0
+changed:             1             
+step  230 0010011110111010001001001
+source:         11101111 0
+changed:               1           
+step  231 0010011110111110001001001
+source:         11101101 0
+changed:              0            
+step  232 0010011110110110001001001
+source:         11101100 0
+changed:               0           
+step  233 0010011110110010001001001
+source:         11100100 0
+changed:            0              
+step  234 0010011110010010001001001
+source:         11100101 0
+changed:               1           
+step  235 0010011110010110001001001
+source:         11100111 0
+changed:              1            
+step  236 0010011110011110001001001
+source:         11100110 0
+changed:               0           
+step  237 0010011110011010001001001
+source:         11100010 0
+changed:             0             
+step  238 0010011110001010001001001
+source:         11100011 0
+changed:               1           
+step  239 0010011110001110001001001
+source:         11100001 0
+changed:              0            
+step  240 0010011110000110001001001
+source:         11100000 0
+changed:               0           
+step  241 0010011110000010001001001
+source:   
+source:         10100000 0
+changed:         0                 
+step  242 0010011010000010001001001
+source:         10100001 0
+changed:               1           
+step  243 0010011010000110001001001
+source:         10100011 0
+changed:              1            
+step  244 0010011010001110001001001
+source:         10100010 0
+changed:               0           
+step  245 0010011010001010001001001
+source:         10100110 0
+changed:             1             
+step  246 0010011010011010001001001
+source:         10100111 0
+changed:               1           
+step  247 0010011010011110001001001
+source:         10100101 0
+changed:              0            
+step  248 0010011010010110001001001
+source:         10100100 0
+changed:               0           
+step  249 0010011010010010001001001
+source:         10101100 0
+changed:            1              
+step  250 0010011010110010001001001
+source:         10101101 0
+changed:               1           
+step  251 0010011010110110001001001
+source:         10101111 0
+changed:              1            
+step  252 0010011010111110001001001
+source:         10101110 0
+changed:               0           
+step  253 0010011010111010001001001
+source:         10101010 0
+changed:             0             
+step  254 0010011010101010001001001
+source:         10101011 0
+changed:               1           
+step  255 0010011010101110001001001
+source:         10101001 0
+changed:              0            
+step  256 0010011010100110001001001
+source:         10101000 0
+changed:               0           
+step  257 0010011010100010001001001
+source:   
+source:         10111000 0
+changed:           1               
+step  258 0010011011100010001001001
+source:         10111001 0
+changed:               1           
+step  259 0010011011100110001001001
+source:         10111011 0
+changed:              1            
+step  260 0010011011101110001001001
+source:         10111010 0
+changed:               0           
+step  261 0010011011101010001001001
+source:         10111110 0
+changed:             1             
+step  262 0010011011111010001001001
+source:         10111111 0
+changed:               1           
+step  263 0010011011111110001001001
+source:         10111101 0
+changed:              0            
+step  264 0010011011110110001001001
+source:         10111100 0
+changed:               0           
+step  265 0010011011110010001001001
+source:         10110100 0
+changed:            0              
+step  266 0010011011010010001001001
+source:         10110101 0
+changed:               1           
+step  267 0010011011010110001001001
+source:         10110111 0
+changed:              1            
+step  268 0010011011011110001001001
+source:         10110110 0
+changed:               0           
+step  269 0010011011011010001001001
+source:         10110010 0
+changed:             0             
+step  270 0010011011001010001001001
+source:         10110011 0
+changed:               1           
+step  271 0010011011001110001001001
+source:         10110001 0
+changed:              0            
+step  272 0010011011000110001001001
+source:         10110000 0
+changed:               0           
+step  273 0010011011000010001001001
+source:   
+source:         10010000 0
+changed:          0                
+step  274 0010011001000010001001001
+source:         10010001 0
+changed:               1           
+step  275 0010011001000110001001001
+source:         10010011 0
+changed:              1            
+step  276 0010011001001110001001001
+source:         10010010 0
+changed:               0           
+step  277 0010011001001010001001001
+source:         10010110 0
+changed:             1             
+step  278 0010011001011010001001001
+source:         10010111 0
+changed:               1           
+step  279 0010011001011110001001001
+source:         10010101 0
+changed:              0            
+step  280 0010011001010110001001001
+source:         10010100 0
+changed:               0           
+step  281 0010011001010010001001001
+source:         10011100 0
+changed:            1              
+step  282 0010011001110010001001001
+source:         10011101 0
+changed:               1           
+step  283 0010011001110110001001001
+source:         10011111 0
+changed:              1            
+step  284 0010011001111110001001001
+source:         10011110 0
+changed:               0           
+step  285 0010011001111010001001001
+source:         10011010 0
+changed:             0             
+step  286 0010011001101010001001001
+source:         10011011 0
+changed:               1           
+step  287 0010011001101110001001001
+source:         10011001 0
+changed:              0            
+step  288 0010011001100110001001001
+source:         10011000 0
+changed:               0           
+step  289 0010011001100010001001001
+source:   
+source:         10001000 0
+changed:           0               
+step  290 0010011000100010001001001
+source:         10001001 0
+changed:               1           
+step  291 0010011000100110001001001
+source:         10001011 0
+changed:              1            
+step  292 0010011000101110001001001
+source:         10001010 0
+changed:               0           
+step  293 0010011000101010001001001
+source:         10001110 0
+changed:             1             
+step  294 0010011000111010001001001
+source:         10001111 0
+changed:               1           
+step  295 0010011000111110001001001
+source:         10001101 0
+changed:              0            
+step  296 0010011000110110001001001
+source:         10001100 0
+changed:               0           
+step  297 0010011000110010001001001
+source:         10000100 0
+changed:            0              
+step  298 0010011000010010001001001
+source:         10000101 0
+changed:               1           
+step  299 0010011000010110001001001
+source:         10000111 0
+changed:              1            
+step  300 0010011000011110001001001
+source:         10000110 0
+changed:               0           
+step  301 0010011000011010001001001
+source:         10000010 0
+changed:             0             
+step  302 0010011000001010001001001
+source:         10000011 0
+changed:               1           
+step  303 0010011000001110001001001
+source:         10000001 0
+changed:              0            
+step  304 0010011000000110001001001
+source:         10000000 0
+changed:               0           
+step  305 0010011000000010001001001
+source:   
+source:         00000000 0
+changed:        0                  
+step  306 0010010000000010001001001
+source:   
+source:   0010010000000010001001001
+changed:                           
+step  307 0010010000000010001001001
+source:   
+source:   
+source:   
+source:   ; TEST FORCE SELECT-N + IOPs (ALL PATTERNS)
+source:                 10 01 01 01
+changed:                           
+step  308 0010010000000010001001001
+source:                   0  0  0
+changed:                           
+step  309 0010010000000010001001001
+source:                   0  0  1
+changed:                        1  
+step  310 0010010000000010001001101
+source:                   0  1  1
+changed:                     1     
+step  311 0010010000000010001101101
+source:                   0  1  0
+changed:                        0  
+step  312 0010010000000010001101001
+source:                   1  1  0
+changed:                  1        
+step  313 0010010000000010101101001
+source:                   1  1  1
+changed:                        1  
+step  314 0010010000000010101101101
+source:                   1  0  1
+changed:                     0     
+step  315 0010010000000010101001101
+source:                   1  0  0
+changed:                        0  
+step  316 0010010000000010101001001
+source:                   0  0  0
+changed:                  0        
+step  317 0010010000000010001001001
+source:   
+source:   
+source:   ; TEST FORCE SELECT + IOPs (ALL PATTERNS)
+source:                    01 01 01
+changed:                           
+step  318 0010010000000010001001001
+source:                 01
+changed:                01         
+step  319 0010010000000001001001001
+source:                   0  0  0
+changed:                           
+step  320 0010010000000001001001001
+source:                   0  0  110
+changed:                        110
+step  321 0010010000000001001001110
+source:                   0  1101
+changed:                     110   
+step  322 0010010000000001001110110
+source:                   0  1  001
+changed:                        001
+step  323 0010010000000001001110001
+source:                   1101  0
+changed:                  110      
+step  324 0010010000000001110110001
+source:                   1  1  110
+changed:                        110
+step  325 0010010000000001110110110
+source:                   1  0011
+changed:                     001   
+step  326 0010010000000001110001110
+source:                   1  0  001
+changed:                        001
+step  327 0010010000000001110001001
+source:                   0010  0
+changed:                  001      
+step  328 0010010000000001001001001
+source:                 10
+changed:                10         
+step  329 0010010000000010001001001
+source:   
+source:   ; TEST DEVICE CODE SELECT + IOPs (ALL PATTERNS)
+source:                    01 01 01
+changed:                           
+step  330 0010010000000010001001001
+source:         10000000 0
+changed:        1                  
+step  331 0010011000000010001001001
+source:         11000000 0
+changed:         1                 
+step  332 0010011100000010001001001
+source:         11100000 0
+changed:          1                
+step  333 0010011110000010001001001
+source:         11110000 0
+changed:           1               
+step  334 0010011111000010001001001
+source:         11111000 0
+changed:            1              
+step  335 0010011111100010001001001
+source:         11111100 0
+changed:             1             
+step  336 0010011111110010001001001
+source:         11111110 0
+changed:              1            
+step  337 0010011111111010001001001
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:         11111111 1
+changed:               1           
+step  338 0010011111111110001001001
+fail                     ^         
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:   
+source:                   0  0  0
+changed:                           
+step  339 0010011111111110001001001
+fail                     ^         
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   0  0  110
+changed:                        1  
+step  340 0010011111111110001001101
+fail                     ^       ^^
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   0  1101
+changed:                     1     
+step  341 0010011111111110001101101
+fail                     ^    ^^ ^^
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   0  1  001
+changed:                        0  
+step  342 0010011111111110001101001
+fail                     ^    ^^   
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   1101  0
+changed:                  1        
+step  343 0010011111111110101101001
+fail                     ^ ^^ ^^   
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   1  1  110
+changed:                        1  
+step  344 0010011111111110101101101
+fail                     ^ ^^ ^^ ^^
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   1  0011
+changed:                     0     
+step  345 0010011111111110101001101
+fail                     ^ ^^    ^^
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   1  0  001
+changed:                        0  
+step  346 0010011111111110101001001
+fail                     ^ ^^      
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+source:                   0010  0
+changed:                  0        
+step  347 0010011111111110001001001
+fail                     ^         
+source:   
+source:         01111111 0
+changed:        0                  
+step  348 0010010111111110001001001
+source:         00111111 0
+changed:         0                 
+step  349 0010010011111110001001001
+source:         00011111 0
+changed:          0                
+step  350 0010010001111110001001001
+source:         00001111 0
+changed:           0               
+step  351 0010010000111110001001001
+source:         00000111 0
+changed:            0              
+step  352 0010010000011110001001001
+source:         00000011 0
+changed:             0             
+step  353 0010010000001110001001001
+source:         00000001 0
+changed:              0            
+step  354 0010010000000110001001001
+source:         00000000 0
+changed:               0           
+step  355 0010010000000010001001001
+source:   
+source:   
+source:   
+source:   ; BACK TO INITAL CONDITIONS
+source:   
+source:   0010010000000010001001001
+changed:                           
+step  356 0010010000000010001001001
+
+test 1: *** FAIL *************************** 19 steps failed
+
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+this fail                O OO OO OO
+all fails                O OO OO OO
+was hi    1111111111111111111111111
+rising    ^^^^^^^^^^^^^^^^^^^^^^^^^
+falling   vvvvvvvvvvvvvvvvvvvvvvvvv
+was lo    0000000000000000000000000
+
+ total fails 1, total passes 0
+
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      turn off comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+failure mode analysis:
+
+pin:      16 O AV2 Q1-C   SELECTED        (O.C. WITH PULLUP) = ((AND OF DEV_CODES) OR FORCE_SELECT)
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+fails LO:   1  1111111111 1 11 11 1
+fails LO: 00 00           00 00 00 
+fails HI:                          
+fails HI:                          
+
+pin:      18 O AA1 E5-8   SELECTED_IOP1   (=IOP1  AND SELECTED)
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+fails LO:   1  1111111111 1 11 11 1
+fails LO: 00 00          0   00 00 
+fails HI:                          
+fails HI:                          
+
+pin:      19 O AB1 E5-6   SELECTED_IOP1-N	(=IOP1 NAND SELECTED)
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+fails LO:                          
+fails LO:                          
+fails HI:   1  1111111111 1  1 11 1
+fails HI: 00 00          0 0 00 00 
+
+pin:      21 O AC1 E3-8   SELECTED_IOP2   (=IOP2  AND SELECTED)
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+fails LO:   1  1111111111 1 11 11 1
+fails LO: 00 00          000    00 
+fails HI:                          
+fails HI:                          
+
+pin:      22 O AD1 E3-6   SELECTED_IOP2-N (=IOP2 NAND SELECTED)
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+fails LO:                          
+fails LO:                          
+fails HI:   1  1111111111 1 11  1 1
+fails HI: 00 00          000  0 00 
+
+pin:      24 O AE1 E2-8   SELECTED_IOP4   (=IOP4  AND SELECTED)
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+fails LO:   1  1111111111 1 11 11 1
+fails LO: 00 00          000 00    
+fails HI:                          
+fails HI:                          
+
+pin:      25 O AF1 E2-6   SELECTED_IOP4-N (=IOP4 NAND SELECTED)
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+fails LO:                          
+fails LO:                          
+fails HI:   1  1111111111 1 11 11  
+fails HI: 00 00          000 00  0 
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      turn off comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+up to this point:
+
+PINS that are always low
+<none>
+
+PINS that are always high
+<none>
+
+
+
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      turn off comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+scope (run, no print)
+FFFFFFFFFFFFF
+
+ space  single step
+ B      go back one step
+ T      toggle (previous and current step)
+ O      run one test (all steps)
+ G      go
+ F      go, stop on failure
+ N      run, stop on fail, no print
+ S      scope (run, no print)
+ P      show pins
+ M      mapping
+ R      show registers
+ D      diagnostics
+ C      turn off comment printout
+ A      failure mode analysis
+ +      increase speed (less delay)
+ -      decrease speed (more delay)(slower)
+ Q      quit
+
+
+SLOT      AAAAAAAAAAAAAAAAAAAAAAAAA
+LETTER    HJKLMNDEFHJKLNUVPABRCDSEF
+SIDE      1111112222222222211211211
+DIRECTION IIOIIOIIIIIIIIIOIOOIOOIOO
+all fails                O OO OO OO
+was lo    0000000000000000000000000
+falling   vvvvvvvvvvvvvvvvvvvvvvvvv
+rising    ^^^^^^^^^^^^^^^^^^^^^^^^^
+was hi    1111111111111111111111111
+
+ total fails 14, total passes 0
+
+
+
+
+Main menu   Sat Dec 19 09:12:19 2015
+   test file is: tests\m103.new
+   delay is:   0
+   trigger is: 1
+ 1 read test file
+ 2 set test delay
+ 3 set test trigger
+ 4 run test
+ 5 output loading test
+ 8 diags
+ 9 exit
+exiting
