@@ -1,6 +1,4 @@
-M660   PCB Rev B Schematic Rev A     Three 2-input NAND Positive Level Driver
-
-
+number of inputs per gates? number of gates? 
 PINS
  1 I AH2 E1-6
  2 I AJ2 E1-5

@@ -71,15 +71,7 @@ PINS
 58 P AJ2 E7-3       OUTPUT I/O BUS DATA2-N		(75452 OPEN COLLECTOR OUTPUT)		
 
 IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIIIIPPPPPP
-0101010000001001001010010010010000000000101010000000111000
-
-
-
-
-; test with most inputs LOW
-
-
-
+0101010000001001001010010010010000000000101010000111111111
 
 ; INPUT 1 -> OUTPUT 1-N
 10
@@ -160,7 +152,7 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIIIIPPPPPP
                                          01
 
 ; (no change)
-0101010000001001001010010010010000000000101010000000111000
+0101010000001001001010010010010000000000101010000111111111
 
 
 
@@ -175,230 +167,7 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIIIIPPPPPP
 ;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
                                            011
 ; (no change)
-                                              000000111000
-
-; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
-                                                 001   001
-                                                 011   011
-                                                 010   010
-                                                 110   110
-                                                 111   111
-                                                 101   101
-                                                 100   100
-                                                 000   000
-
-
-
-; Select Omnibus DATA00:02-N -> PosiBus ACIN0:2-N
-
-;   OMNIBUS DATA TO I/O DATA-N HI, OUT-N HI; OMNIBUS DATA TO I/O DATA -> LO
-                                           101      000111
-; (no change)
-                                              000000000111
-
-; All DATA00:02-N patterns (Posibus DATA0:2-N always HI).
-                                                 001001
-                                                 011011
-                                                 010010
-                                                 110110
-                                                 111111
-                                                 101101
-                                                 100100
-                                                 000000
-
-
-; Do not select Posibus BAC0:2 -> Omnibus DATA00:02-N
-; (we drive Omnibus DATA00:02-N in PART 2).
-;                               skip >>>>> 100
-
-
-
-; Select Omnibus DATA00:02-N -> Posibus DATA0:2-N
-
-;   Do 2 steps to avoid              >>>>> 100
-;   (Select Omnibus DATA00:02-N -> Posibus DATA0:2-N)
-;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
-                                           011      111000
-
-;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N LO; OMNIBUS DATA TO I/O DATA -> HI
-                                           010
-; (no change)
-                                              000000111000
-
-; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
-                                                 001   001
-                                                 011   011
-                                                 010   010
-                                                 110   110
-                                                 111   111
-                                                 101   101
-                                                 100   100
-                                                 000   000
-
-
-
-; (no change)
-0101010000001001001010010010010000000000101010000000111000
-
-; change inputs to HIGH
-10
-  10
-    10
-      11
-        11
-          110
-             110
-                110
-                   10
-                     010
-                     110
-                        010
-                        110
-                           011
-                           110
-                              11
-                                11
-                                  11
-                                    11
-                                      110
-                                         10
-                                           011
-                                           101      000111
-                                              100
-                                              110
-                                              111
-                                                 100100
-                                                 110110
-                                                 111111
-                                              
-
-; (no change)
-1010101111110110110101101101101111111111010101111111111111
-
-; INPUT 1 -> OUTPUT 1-N
-10
-01
-
-; INPUT 2 -> OUTPUT 2-N
-  01
-  10
-
-; INPUT 3 -> OUTPUT 3-N
-    01
-    10
-
-; INPUT 4 -> OUTPUT 4
-      00
-      11
-
-; INPUT 5 -> OUTPUT 5
-        00
-        11
-
-; INPUT 6 -> OUTPUT 6, OUTPUT 6-N
-          001
-          110
-
-; INPUT 7 -> OUTPUT 7, OUTPUT 7-N
-             001
-             110
-
-; INPUT 8 -> OUTPUT 8, OUTPUT 8-N
-                001
-                110
-
-; INPUT 9 -> OOUTPUT 9-N
-                   01
-                   10
-
-; INPUT 10A NOR INPUT 10B -> OUTPUT 10 
-                     100
-                     001
-                     010
-                     110
-
-; INPUT 11A NOR INPUT 11B -> OUTPUT 11
-                        100
-                        001
-                        010
-                        110
-
-; INPUT 12A NAND INPUT 12B -> OUTPUT 12
-                           101
-                           001
-                           011
-                           110
-
-; INPUT 13 -> OUTPUT 13
-                              00
-                              11
-
-; INPUT 14 -> OUTPUT 14
-                                00
-                                11
-
-; INPUT 15 -> OUTPUT 15
-                                  00
-                                  11
-
-; INPUT 16 -> OUTPUT 16
-                                    00
-                                    11
-
-; INPUT 17 -> OUTPUT 17, OUTPUT 17-N
-                                      001
-                                      110
-
-; INPUT 18 -> OUTPUT 18-N
-                                         01
-                                         10
-
-; (no change)
-1010101111110110110101101101101111111111010101111111111111
-
-
-
-; PART 2 unique tests (Omnibus DATA00:02-N driving Posibus ACIN and DATA)
-
-; (See PART 1 for Posibus driving Omnibus).
-
-
-
-; SKIP (do not select) Posibus BAC0:2 -> Omnibus DATA00:02-N
-; (we drive Omnibus DATA00:02-N in PART 2).
-;                               skip >>>>> 100
-
-
-
-; Select Omnibus DATA00:02-N -> Posibus DATA0:2-N
-
-;   Do 2 steps to avoid              >>>>> 100
-;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
-                                           011
-
-;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N LO; OMNIBUS DATA TO I/O DATA -> HI
-                                           010
-; (no change)
-                                              111111111111
-
-; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
-                                                 101   101
-                                                 100   100
-                                                 000   000
-                                                 001   001
-                                                 011   011
-                                                 010   010
-                                                 110   110
-                                                 111   111
-
-
-
-; Select Omnibus DATA00:02-N -> Posibus DATA0:2-N
-
-;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
-                                           011
-; (no change)
-                                              111111111111
+                                              000111111111
 
 ; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
                                                  101   101
@@ -417,7 +186,7 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIIIIPPPPPP
 ;   OMNIBUS DATA TO I/O DATA-N HI, OUT-N HI; OMNIBUS DATA TO I/O DATA -> LO
                                            101
 ; (no change)
-                                              111111111111
+                                              000111111111
 
 ; All DATA00:02-N patterns (Posibus DATA0:2-N always HI).
                                                  101101
@@ -430,41 +199,33 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIIIIPPPPPP
                                                  111111
 
 
-; (no change)
-1010101111110110110101101101101111111111010101111111111111
+; Do not select Posibus BAC0:2 -> Omnibus DATA00:02-N
+; (we drive Omnibus DATA00:02-N in PART 2).
+;                               skip >>>>> 100
 
 
-; change inputs to LOW
-01
-  01
-    01
-      00
-        00
-          001
-             001
-                001
-                   01
-                     100
-                     001
-                        100
-                        001
-                           101
-                           001
-                              00
-                                00
-                                  00
-                                    00
-                                      001
-                                         01
+
+; Select Omnibus DATA00:02-N -> Posibus DATA0:2-N
+
+;   Do 2 steps to avoid              >>>>> 100
+;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
                                            011
+
+;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N LO; OMNIBUS DATA TO I/O DATA -> HI
                                            010
-                                              011
-                                              001
-                                              000
-                                                 011   011
-                                                 001   001
+; (no change)
+                                              000111111111
+
+; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
+                                                 101   101
+                                                 100   100
                                                  000   000
+                                                 001   001
+                                                 011   011
+                                                 010   010
+                                                 110   110
+                                                 111   111
 
 ; (no change)
-0101010000001001001010010010010000000000101010000000111000
+0101010000001001001010010010010000000000101010000111111111
 END
