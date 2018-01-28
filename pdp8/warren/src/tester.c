@@ -430,7 +430,7 @@ const struct
     unsigned int  mask;
 } mapping[PIN_DRIVERS] =     /* 80 pin drivers   */
 {
-    { 0, (1U << 15)  },     /* AA1  */          /* PIN 0    */
+    { 0, (1U << 15)  },     /* AA1  */          /* PIN  0   */
     { 0, (1U << 14)  },     /* AB1  */
     { 0, (1U << 13)  },     /* AC1  */
     { 0, (1U << 12)  },     /* AD1  */
@@ -1487,8 +1487,8 @@ void do_diags( void )
 
 
 #define MAX_STRING  120
-#define MAX_LINES   4000
-#define MAX_STEPS   2200
+#define MAX_LINES   30000
+#define MAX_STEPS   10000
 
 struct
 {
@@ -2982,15 +2982,15 @@ void output_load_test( void )
     strcpy( blank_string, "" );
     for (i = 0; i < test.number_columns; i++) strcat( blank_string, " " );
 
-    first_flag = 1;
-    pin_driver = PIN_DRIVERS;
-    step = 0;
+    first_flag	= 1;
+    pin_driver	= PIN_DRIVERS;
+    step		= 0;
 	column		= 0;
     do
     {
         /* find the next pin driver that is a test output       */
         
-        for (;;)            /* will break on next output column */
+		for (;;)            /* will break on next output column */
         {
             no_output_flag = 0;
             pin_driver++;
