@@ -1,1 +1,1 @@
-start porttalk\allowio.exe tester.exe 0x378
+start allowio tester.exe 0x378
