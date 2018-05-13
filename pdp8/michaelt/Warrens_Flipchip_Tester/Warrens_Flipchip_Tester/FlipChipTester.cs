@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*      -*- c# -*-
+ *
+ * Copyright (C) 2018, The Rhode Island Computer Museum
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * Author(s):
+ *      Michael Thompson <mike@ricomputermuseum.com>
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +21,7 @@ using System.Windows.Forms;
 using FTD2XX_NET;
 using libMPSSEWrapper;
 using libMPSSEWrapper.Types;
+using libMPSSEWrapper.Exceptions;
 
 namespace Warrens_Flipchip_Tester
 {
@@ -238,55 +251,62 @@ namespace Warrens_Flipchip_Tester
             UInt16 RegisterContents = 0;
             string ResponseText = "";
 
-            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            try
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
-                LatencyTimer = LatencyTimer,
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
+                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+                {
+                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
 
-            MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
+                MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
-            //Setup the SPI chips for Hardware Address
-            Gpio0.HardwareAddressEnable();
-            ResponseText += "Wrote 0x08 to all of the IOCON registers.\n";
+                //Setup the SPI chips for Hardware Address
+                Gpio0.HardwareAddressEnable();
+                ResponseText += "Wrote 0x08 to all of the IOCON registers.\n";
 
-            //Set the IODIR register so that everything is an input
-            for (UInt16 i = 1; i < 6; i++)
-            {
-                RegisterContents = 0xFFFF;
-                Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
-            }
-            ResponseText += "Wrote the 0xFFFF into the IODIR registers so everything is an input.\n";
+                //Set the IODIR register so that everything is an input
+                for (UInt16 i = 1; i < 6; i++)
+                {
+                    RegisterContents = 0xFFFF;
+                    Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+                }
+                ResponseText += "Wrote the 0xFFFF into the IODIR registers so everything is an input.\n";
 
-            //Write the Hardware Address into the IOLAT register so we can read it back
-            for (UInt16 i = 1; i < 6; i++)
-            {
-                RegisterContents = i;
-                Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
-            }
-            ResponseText += "Wrote the Hardware Address into the IOLAT register so we can read it back.\n";
+                //Write the Hardware Address into the IOLAT register so we can read it back
+                for (UInt16 i = 1; i < 6; i++)
+                {
+                    RegisterContents = i;
+                    Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
+                }
+                ResponseText += "Wrote the Hardware Address into the IOLAT register so we can read it back.\n";
 
-            //Read the Hardware Address in the IOLAT register and see if it is correct
-            for (UInt16 i = 1; i < 6; i++)
-            {
-                RegisterContents = Gpio0.ReadDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT);
-                if (i != RegisterContents)
-                    ResponseText += "The SPI chip with a Hardware Address of " + i + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
+                //Read the Hardware Address in the IOLAT register and see if it is correct
+                for (UInt16 i = 1; i < 6; i++)
+                {
+                    RegisterContents = Gpio0.ReadDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT);
+                    if (i != RegisterContents)
+                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
+                    else
+                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
+                }
+
+                //Make sure that AA2 is in input
+                RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR);
+                RegisterContents = (UInt16)(RegisterContents | 0x0080);
+                Gpio0.WriteDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+
+                RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.GPIO);
+                if ((RegisterContents & (UInt16)0x0080) == 0)
+                    ResponseText += "The power to the FlipChip is off.\n";
                 else
-                    ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
+                    ResponseText += "The power to the FlipChip is on.\n";
             }
-
-            //Make sure that AA2 is in input
-            RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR);
-            RegisterContents = (UInt16)(RegisterContents | 0x0080);
-            Gpio0.WriteDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
-
-            RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.GPIO);
-            if ((RegisterContents & (UInt16)0x0080) == 0)
-                ResponseText += "The power to the FlipChip is off.\n";
-            else
-                ResponseText += "The power to the FlipChip is on.\n";
+            catch (SpiChannelNotConnectedException)
+            {
+                ResponseText = "Could not connect to USB/SPI cable.";
+            }
 
             return ResponseText;
         }
@@ -381,35 +401,42 @@ namespace Warrens_Flipchip_Tester
             UInt16 RegisterContents = 0;
             string ResponseText = "";
 
-            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            try
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
-                LatencyTimer = LatencyTimer,
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
+                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+                {
+                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
 
-            MCP23S17 Gpio0 = new MCP23S17(SpiConfig);
-            ResponseText += "Wrote 0x08 to all of the IOCON registers.\n";
+                MCP23S17 Gpio0 = new MCP23S17(SpiConfig);
+                ResponseText += "Wrote 0x08 to all of the IOCON registers.\n";
 
-            //Setup the SPI chips for Hardware Address
-            Gpio0.HardwareAddressEnable();
+                //Setup the SPI chips for Hardware Address
+                Gpio0.HardwareAddressEnable();
 
-            //Write the Hardware Address into the IOLAT register so we can read it back
-            for (UInt16 i = 1; i < 6; i++)
-            {
-                RegisterContents = i;
-                Gpio0.WriteDoubleRegister(i, (int)MCP23S17.Register.OLAT, RegisterContents);
+                //Write the Hardware Address into the IOLAT register so we can read it back
+                for (UInt16 i = 1; i < 6; i++)
+                {
+                    RegisterContents = i;
+                    Gpio0.WriteDoubleRegister(i, (int)MCP23S17.Register.OLAT, RegisterContents);
+                }
+                ResponseText += "Wrote the Hardware Address into the IOLAT register so we can read it back.\n";
+
+                //Read the Hardware Address in the IOLAT register and see if it is correct
+                for (UInt16 i = 1; i < 6; i++)
+                {
+                    RegisterContents = Gpio0.ReadDoubleRegister(i, (int)MCP23S17.Register.OLAT);
+                    if (i != RegisterContents)
+                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
+                    else
+                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
+                }
             }
-            ResponseText += "Wrote the Hardware Address into the IOLAT register so we can read it back.\n";
-
-            //Read the Hardware Address in the IOLAT register and see if it is correct
-            for (UInt16 i = 1; i < 6; i++)
+            catch (SpiChannelNotConnectedException)
             {
-                RegisterContents = Gpio0.ReadDoubleRegister(i, (int)MCP23S17.Register.OLAT);
-                if (i != RegisterContents)
-                    ResponseText += "The SPI chip with a Hardware Address of " + i + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
-                else
-                    ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
+                ResponseText = "Could not connect to USB/SPI cable.";
             }
 
             return ResponseText;
@@ -686,50 +713,57 @@ namespace Warrens_Flipchip_Tester
             byte value = 0xb0;
             string ResponseText = "";
 
-            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            try
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
-                LatencyTimer = LatencyTimer,
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
-
-            MpsseStatus = LibMpsseSpi.SPI_GetNumChannels(out MpsseChannelCount);
-
-            if (MpsseStatus == 0 && MpsseChannelCount > 0)
-            {
-                ResponseText += "I found " + MpsseChannelCount + " FTDI USB MPSSE Serial devices.\n\n";
-
-                MpsseStatus = LibMpsseSpi.SPI_OpenChannel(MpsseChannel, out SpiHandle);
-
-                if (MpsseStatus == FtResult.Ok)
+                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
-                    MpsseStatus = LibMpsseSpi.FT_WriteGPIO(SpiHandle, dir, value);
+                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
+
+                MpsseStatus = LibMpsseSpi.SPI_GetNumChannels(out MpsseChannelCount);
+
+                if (MpsseStatus == 0 && MpsseChannelCount > 0)
+                {
+                    ResponseText += "I found " + MpsseChannelCount + " FTDI USB MPSSE Serial devices.\n\n";
+
+                    MpsseStatus = LibMpsseSpi.SPI_OpenChannel(MpsseChannel, out SpiHandle);
 
                     if (MpsseStatus == FtResult.Ok)
                     {
-                        ResponseText += "I turned the GPIO for the red LED on.\n\n";
+                        MpsseStatus = LibMpsseSpi.FT_WriteGPIO(SpiHandle, dir, value);
 
-                        //Thread.Sleep(500);
+                        if (MpsseStatus == FtResult.Ok)
+                        {
+                            ResponseText += "I turned the GPIO for the red LED on.\n\n";
 
-                        //.MpsseStatus = LibMpsseSpi.FT_ReadGPIO(.SpiHandle, out value);
+                            //Thread.Sleep(500);
 
-                        //if (.MpsseStatus == FtResult.Ok)
-                        //{
-                        //    .ConsolerichTextBox.Text += "The GPIO state is " + value.ToString("X2") + ".\n\n";
-                        //}
-                        //else
-                        //    .ConsolerichTextBox.Text += "I could not read the GPIOs state.\n\n";
+                            //.MpsseStatus = LibMpsseSpi.FT_ReadGPIO(.SpiHandle, out value);
+
+                            //if (.MpsseStatus == FtResult.Ok)
+                            //{
+                            //    .ConsolerichTextBox.Text += "The GPIO state is " + value.ToString("X2") + ".\n\n";
+                            //}
+                            //else
+                            //    .ConsolerichTextBox.Text += "I could not read the GPIOs state.\n\n";
+                        }
+                        else
+                            ResponseText += "I could not change the GPIOs.\n\n";
+
+                        MpsseStatus = LibMpsseSpi.SPI_CloseChannel(SpiHandle);
                     }
                     else
-                        ResponseText += "I could not change the GPIOs.\n\n";
-
-                    MpsseStatus = LibMpsseSpi.SPI_CloseChannel(SpiHandle);
+                        ResponseText += "I could not open SPI Channel " + MpsseChannel + "\n";
                 }
                 else
-                    ResponseText += "I could not open SPI Channel " + MpsseChannel + "\n";
+                    ResponseText += "I could not find any FTDI USB devices.\n";
             }
-            else
-                ResponseText += "I could not find any FTDI USB devices.\n";
+            catch (SpiChannelNotConnectedException)
+            {
+                ResponseText = "Could not connect to USB/SPI cable.";
+            }
 
             return ResponseText;
         }
@@ -747,58 +781,65 @@ namespace Warrens_Flipchip_Tester
 
             MpsseChannel = 0; //The first MPSSE cable
 
-            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            try
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
-                LatencyTimer = LatencyTimer,
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
+                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+                {
+                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
 
-            MpsseStatus = LibMpsseSpi.SPI_GetNumChannels(out MpsseChannelCount);
+                MpsseStatus = LibMpsseSpi.SPI_GetNumChannels(out MpsseChannelCount);
 
-            if (MpsseStatus == 0 && MpsseChannelCount > 0)
-            {
-                ResponseText += "I found " + MpsseChannelCount + " FTDI USB MPSSE Serial devices.\n\n";
-
-                MpsseStatus = LibMpsseSpi.SPI_OpenChannel(MpsseChannel, out SpiHandle);
                 if (MpsseStatus == 0 && MpsseChannelCount > 0)
                 {
-                    MpsseStatus = LibMpsseSpi.SPI_InitChannel(SpiHandle, ref SpiConfig);
+                    ResponseText += "I found " + MpsseChannelCount + " FTDI USB MPSSE Serial devices.\n\n";
 
-                    if (MpsseStatus == FtResult.Ok)
+                    MpsseStatus = LibMpsseSpi.SPI_OpenChannel(MpsseChannel, out SpiHandle);
+                    if (MpsseStatus == 0 && MpsseChannelCount > 0)
                     {
-                        MpsseStatus = LibMpsseSpi.FT_WriteGPIO(SpiHandle, dir, value);
+                        MpsseStatus = LibMpsseSpi.SPI_InitChannel(SpiHandle, ref SpiConfig);
 
                         if (MpsseStatus == FtResult.Ok)
                         {
-                            ResponseText += "I turned all of the GPIOs off.\n\n";
+                            MpsseStatus = LibMpsseSpi.FT_WriteGPIO(SpiHandle, dir, value);
 
-                            //Thread.Sleep(500);
+                            if (MpsseStatus == FtResult.Ok)
+                            {
+                                ResponseText += "I turned all of the GPIOs off.\n\n";
 
-                            //.MpsseStatus = LibMpsseSpi.FT_ReadGPIO(.SpiHandle, out value);
+                                //Thread.Sleep(500);
 
-                            //if (.MpsseStatus == FtResult.Ok)
-                            //{
-                            //    .ConsolerichTextBox.Text += "The GPIO state is " + value.ToString("X2") + ".\n\n";
-                            //}
-                            //else
-                            //    .ConsolerichTextBox.Text += "I could not read the GPIOs state.\n\n";
+                                //.MpsseStatus = LibMpsseSpi.FT_ReadGPIO(.SpiHandle, out value);
+
+                                //if (.MpsseStatus == FtResult.Ok)
+                                //{
+                                //    .ConsolerichTextBox.Text += "The GPIO state is " + value.ToString("X2") + ".\n\n";
+                                //}
+                                //else
+                                //    .ConsolerichTextBox.Text += "I could not read the GPIOs state.\n\n";
+                            }
+                            else
+                                ResponseText += "I could not change the GPIOs.\n\n";
+
+                            MpsseStatus = LibMpsseSpi.SPI_CloseChannel(SpiHandle);
+                            if (!(MpsseStatus == FtResult.Ok))
+                                ResponseText += "I could not close the SPI Channel " + MpsseChannel + "\n";
                         }
                         else
-                            ResponseText += "I could not change the GPIOs.\n\n";
-
-                        MpsseStatus = LibMpsseSpi.SPI_CloseChannel(SpiHandle);
-                        if (!(MpsseStatus == FtResult.Ok))
-                            ResponseText += "I could not close the SPI Channel " + MpsseChannel + "\n";
+                            ResponseText += "I could not initialize SPI Channel " + MpsseChannel + "\n";
                     }
                     else
-                        ResponseText += "I could not initialize SPI Channel " + MpsseChannel + "\n";
+                        ResponseText += "I could not open SPI Channel " + MpsseChannel + "\n";
                 }
                 else
-                    ResponseText += "I could not open SPI Channel " + MpsseChannel + "\n";
+                    ResponseText += "I could not find any FTDI USB devices.\n";
             }
-            else
-                ResponseText += "I could not find any FTDI USB devices.\n";
+            catch (SpiChannelNotConnectedException)
+            {
+                ResponseText = "Could not connect to USB/SPI cable.";
+            }
 
             return ResponseText;
         }
@@ -819,20 +860,27 @@ namespace Warrens_Flipchip_Tester
         {
             string ResponseText = "";
 
-            UInt16 DeviceAddress = Convert.ToUInt16(DeviceAddressText, 16);
-
-            FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig
+            try
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
-                LatencyTimer = LatencyTimer,
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
+                UInt16 DeviceAddress = Convert.ToUInt16(DeviceAddressText, 16);
 
-            MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig0);
+                FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig
+                {
+                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
 
-            for (UInt16 i = 0; i < 22; i = (UInt16)(i + 2))
+                MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig0);
+
+                for (UInt16 i = 0; i < 22; i = (UInt16)(i + 2))
+                {
+                    ResponseText += "MCP23S17 Register " + ((MCP23S17.Register)i).ToString() + ": 0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, i).ToString("X4") + "\n";
+                }
+            }
+            catch (SpiChannelNotConnectedException)
             {
-                ResponseText += "MCP23S17 Register " + ((MCP23S17.Register)i).ToString() + ": 0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, i).ToString("X4") + "\n";
+                ResponseText = "Could not connect to USB/SPI cable.";
             }
 
             return ResponseText;
@@ -853,81 +901,88 @@ namespace Warrens_Flipchip_Tester
             UInt16 RegisterNumber = 0;
             string ResponseText = "";
 
-            switch (RegisterNameText)
+            try
             {
-                case "IODIR":
-                    {
-                        RegisterNumber = 0x00;
-                        break;
-                    }
-                case "IOPOL":
-                    {
-                        RegisterNumber = 0x02;
-                        break;
-                    }
-                case "GPINTEN":
-                    {
-                        RegisterNumber = 0x04;
-                        break;
-                    }
-                case "DEFVAL":
-                    {
-                        RegisterNumber = 0x06;
-                        break;
-                    }
-                case "INTCON":
-                    {
-                        RegisterNumber = 0x08;
-                        break;
-                    }
-                case "IOCON":
-                    {
-                        RegisterNumber = 0x0A;
-                        break;
-                    }
-                case "GPPU":
-                    {
-                        RegisterNumber = 0x0C;
-                        break;
-                    }
-                case "INTF":
-                    {
-                        RegisterNumber = 0x0E;
-                        break;
-                    }
-                case "INTCAP":
-                    {
-                        RegisterNumber = 0x10;
-                        break;
-                    }
-                case "GPIO":
-                    {
-                        RegisterNumber = 0x12;
-                        break;
-                    }
-                case "OLAT":
-                    {
-                        RegisterNumber = 0x14;
-                        break;
-                    }
+                switch (RegisterNameText)
+                {
+                    case "IODIR":
+                        {
+                            RegisterNumber = 0x00;
+                            break;
+                        }
+                    case "IOPOL":
+                        {
+                            RegisterNumber = 0x02;
+                            break;
+                        }
+                    case "GPINTEN":
+                        {
+                            RegisterNumber = 0x04;
+                            break;
+                        }
+                    case "DEFVAL":
+                        {
+                            RegisterNumber = 0x06;
+                            break;
+                        }
+                    case "INTCON":
+                        {
+                            RegisterNumber = 0x08;
+                            break;
+                        }
+                    case "IOCON":
+                        {
+                            RegisterNumber = 0x0A;
+                            break;
+                        }
+                    case "GPPU":
+                        {
+                            RegisterNumber = 0x0C;
+                            break;
+                        }
+                    case "INTF":
+                        {
+                            RegisterNumber = 0x0E;
+                            break;
+                        }
+                    case "INTCAP":
+                        {
+                            RegisterNumber = 0x10;
+                            break;
+                        }
+                    case "GPIO":
+                        {
+                            RegisterNumber = 0x12;
+                            break;
+                        }
+                    case "OLAT":
+                        {
+                            RegisterNumber = 0x14;
+                            break;
+                        }
+                }
+
+                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+                {
+                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
+
+                MCP23S17 Gpio0 = new MCP23S17(SpiConfig);
+
+                RegisterContents = Convert.ToUInt16(RegisterContentsText, 16);
+                SpiRegisterContents[0] = Convert.ToByte(RegisterContents & 0xff);
+                SpiRegisterContents[1] = Convert.ToByte(RegisterContents >> 8);
+                Gpio0.WriteDoubleRegister(Convert.ToUInt16(DeviceAddressText, 16), RegisterNumber, SpiRegisterContents);
+
+                ResponseText += "Wrote 0x" + SpiRegisterContents[0].ToString("X2") + SpiRegisterContents[1].ToString("X2") + " to " + RegisterNameText + "\n";
+
             }
-
-            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            catch (SpiChannelNotConnectedException)
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
-                LatencyTimer = LatencyTimer,
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
-
-            MCP23S17 Gpio0 = new MCP23S17(SpiConfig);
-
-            RegisterContents = Convert.ToUInt16(RegisterContentsText, 16);
-            SpiRegisterContents[0] = Convert.ToByte(RegisterContents & 0xff);
-            SpiRegisterContents[1] = Convert.ToByte(RegisterContents >> 8);
-            Gpio0.WriteDoubleRegister(Convert.ToUInt16(DeviceAddressText, 16), RegisterNumber, SpiRegisterContents);
-
-            ResponseText += "Wrote 0x" + SpiRegisterContents[0].ToString("X2") + SpiRegisterContents[1].ToString("X2") + " to " + RegisterNameText + "\n";
-
+                ResponseText = "Could not connect to USB/SPI cable.";
+            }
             return ResponseText;
         }
 

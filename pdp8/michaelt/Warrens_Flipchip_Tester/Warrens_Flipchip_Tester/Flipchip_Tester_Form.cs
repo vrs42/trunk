@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*      -*- c# -*-
+ *
+ * Copyright (C) 2018, The Rhode Island Computer Museum
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * Author(s):
+ *      Michael Thompson <mike@ricomputermuseum.com>
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +26,7 @@ using System.Windows.Forms;
 using FTD2XX_NET;
 using libMPSSEWrapper;
 using libMPSSEWrapper.Types;
+using libMPSSEWrapper.Exceptions;
 
 namespace Warrens_Flipchip_Tester
 {
@@ -119,39 +132,46 @@ namespace Warrens_Flipchip_Tester
             byte[] SpiRegisterContents = new byte[2];
             UInt16 RegisterContents = 0;
 
-            DiagRichTextBox.Text = "Reading 1000 registers.\n";
-            DiagRichTextBox.Text += "The SPI bus is running at " + Convert.ToInt32(BusSpeedTextBox.Text) + "Hz.\n";
-            Application.DoEvents();
-
-            DeviceAddress = Convert.ToUInt16(DeviceAddressNumericUpDown.Text, 16);
-
-            RegisterContents = Convert.ToUInt16(RegisterContentsTextBox.Text, 16);
-            SpiRegisterContents[0] = Convert.ToByte(RegisterContents >> 8);
-            SpiRegisterContents[1] = Convert.ToByte(RegisterContents & 0xff);
-
-            FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig //Configuration for the FTDI USB cable's SPI bus
+            try
             {
-                ClockRate = Convert.ToInt32(BusSpeedTextBox.Text),
-                LatencyTimer = LatencyTimer, //Locally defined
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
+                DiagRichTextBox.Text = "Reading 1000 registers.\n";
+                DiagRichTextBox.Text += "The SPI bus is running at " + Convert.ToInt32(BusSpeedTextBox.Text) + "Hz.\n";
+                Application.DoEvents();
 
-            MCP23S17 Gpio0 = new MCP23S17(SpiConfig0);
+                DeviceAddress = Convert.ToUInt16(DeviceAddressNumericUpDown.Text, 16);
 
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
+                RegisterContents = Convert.ToUInt16(RegisterContentsTextBox.Text, 16);
+                SpiRegisterContents[0] = Convert.ToByte(RegisterContents >> 8);
+                SpiRegisterContents[1] = Convert.ToByte(RegisterContents & 0xff);
 
-            for (int i = 0; i < 1000; i++)
-            {
-                Gpio0.WriteReadFiveRegisters(DeviceAddress, RegistercomboBox.SelectedIndex * 2, SpiRegisterContents);
+                FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig //Configuration for the FTDI USB cable's SPI bus
+                {
+                    ClockRate = Convert.ToInt32(BusSpeedTextBox.Text),
+                    LatencyTimer = LatencyTimer, //Locally defined
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
+
+                MCP23S17 Gpio0 = new MCP23S17(SpiConfig0);
+
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+
+                for (int i = 0; i < 1000; i++)
+                {
+                    Gpio0.WriteReadFiveRegisters(DeviceAddress, RegistercomboBox.SelectedIndex * 2, SpiRegisterContents);
+                }
+                timer.Stop();
+                long milliSec = timer.ElapsedMilliseconds;
+
+                long vectorsSec = (1000 / (milliSec / 1000));
+
+                DiagRichTextBox.Text += "The elapsed time for 1000 sets of 5x register write/reads was " + milliSec + "ms.\n";
+                DiagRichTextBox.Text += "I can do: " + vectorsSec + " vectors/second.";
             }
-            timer.Stop();
-            long milliSec = timer.ElapsedMilliseconds;
-
-            long vectorsSec = (1000 / (milliSec / 1000));
-
-            DiagRichTextBox.Text += "The elapsed time for 1000 sets of 5x register write/reads was " + milliSec + "ms.\n";
-            DiagRichTextBox.Text += "I can do: " + vectorsSec + " vectors/second.";
+            catch (SpiChannelNotConnectedException)
+            {
+                DiagRichTextBox.Text = "Could not connect to USB/SPI cable.";
+            }
         }
 
         private void WriteSingleMPC23S17Registerbutton_Click(object sender, EventArgs e)
