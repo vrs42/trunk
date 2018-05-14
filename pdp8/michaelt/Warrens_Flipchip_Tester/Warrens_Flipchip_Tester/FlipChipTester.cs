@@ -928,16 +928,13 @@ namespace Warrens_Flipchip_Tester
         /// Return the contents of the SPI device registers in hex
         /// </summary>
         /// <param name="BusSpeedText"></param>
-        /// <param name="DeviceAddressText"></param>
         /// <returns>Contents of the SPI device registers</returns>
-        public String ReadMPC23S17Registers(String BusSpeedText, String DeviceAddressText)
+        public String ReadMPC23S17Registers(String BusSpeedText)
         {
-            string ResponseText = "";
+            string ResponseText = "Register\tIC1\t\tIC2\t\tIC3\t\tIC4\t\tIC5 \n";
 
             try
             {
-                UInt16 DeviceAddress = Convert.ToUInt16(DeviceAddressText, 16);
-
                 FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig
                 {
                     ClockRate = Convert.ToInt32(BusSpeedText),
@@ -947,9 +944,14 @@ namespace Warrens_Flipchip_Tester
 
                 MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig0);
 
-                for (UInt16 i = 0; i < 22; i = (UInt16)(i + 2))
+                for (UInt16 RegisterAddress = 0; RegisterAddress < 22; RegisterAddress = (UInt16)(RegisterAddress + 2))
                 {
-                    ResponseText += "MCP23S17 Register " + ((MCP23S17.Register)i).ToString() + ": 0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, i).ToString("X4") + "\n";
+                    ResponseText += String.Format("{0,-10}",((MCP23S17.Register)RegisterAddress).ToString());
+                    for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                    {
+                        ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, RegisterAddress).ToString("X4");
+                    }
+                    ResponseText += "\n";
                 }
             }
             catch (SpiChannelNotConnectedException)
@@ -1180,8 +1182,6 @@ namespace Warrens_Flipchip_Tester
                             }
                     }
 
-                    ResponseText = "Reading 1000 registers.\n";
-                ResponseText += "The SPI bus is running at " + Convert.ToInt32(BusSpeedText) + "Hz.\n";
                 Application.DoEvents();
 
                 RegisterContents = Convert.ToUInt16(RegisterContentsText, 16);

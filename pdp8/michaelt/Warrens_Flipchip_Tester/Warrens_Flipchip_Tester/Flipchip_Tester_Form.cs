@@ -96,15 +96,16 @@ namespace Warrens_Flipchip_Tester
 
         private void ReadMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.ReadMPC23S17Registers(BusSpeedTextBox.Text, DeviceAddressNumericUpDown.Text);
+            DiagRichTextBox.Text = WarrensFlipChipTester.ReadMPC23S17Registers(BusSpeedTextBox.Text);
         }
 
         private void Read1kMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
-                DiagRichTextBox.Text = "The SPI bus is running at " + Convert.ToInt32(BusSpeedTextBox.Text) + "Hz.\n";
-                Application.DoEvents();
+                DiagRichTextBox.Text = "The SPI bus is running at " + Convert.ToInt32(BusSpeedTextBox.Text) + "Hz.\n" + "Reading 5x registers 1000 times.\n";
 
-            DiagRichTextBox.Text = WarrensFlipChipTester.Read1kMPC23S17Registers(BusSpeedTextBox.Text, DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
+            Application.DoEvents();
+
+            DiagRichTextBox.Text += WarrensFlipChipTester.Read1kMPC23S17Registers(BusSpeedTextBox.Text, DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
         }
 
         private void WriteSingleMPC23S17Registerbutton_Click(object sender, EventArgs e)
