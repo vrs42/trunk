@@ -101,7 +101,7 @@ namespace Warrens_Flipchip_Tester
 
         private void Read1kMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
-                DiagRichTextBox.Text = "The SPI bus is running at " + Convert.ToInt32(BusSpeedTextBox.Text) + "Hz.\n" + "Reading 5x registers 1000 times.\n";
+            DiagRichTextBox.Text = "The SPI bus is running at " + Convert.ToInt32(BusSpeedTextBox.Text) + "Hz.\n" + "Reading 5x registers 1000 times.\n";
 
             Application.DoEvents();
 
@@ -123,11 +123,6 @@ namespace Warrens_Flipchip_Tester
             TesterRichTextBox.Text = WarrensFlipChipTester.OpenTestVectorFile();
         }
 
-        private void InitializeTestHardwareButton_Click(object sender, EventArgs e)
-        {
-            TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text);
-        }
-
         private void DisplayTheCommentsButton_Click(object sender, EventArgs e)
         {
             TesterRichTextBox.Text = WarrensFlipChipTester.GetCommentLines();
@@ -146,6 +141,24 @@ namespace Warrens_Flipchip_Tester
             WarrensFlipChipTester.CycleTheLEDs(BusSpeedTextBox.Text);
 
             DiagRichTextBox.Text += "Done.";
+        }
+
+        private void StartTestButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text);
+                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text);
+
+            }
+            catch (SpiChannelNotConnectedException)
+            {
+                TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
+            }
+            catch (InvalidOperationException)
+            {
+                TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+            }
         }
     }
 }

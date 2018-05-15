@@ -52,14 +52,13 @@
             this.TestingTabPage = new System.Windows.Forms.TabPage();
             this.DisplayTheCommentsButton = new System.Windows.Forms.Button();
             this.DisplayThePinTableButton = new System.Windows.Forms.Button();
-            this.InitializeTestHardwareButton = new System.Windows.Forms.Button();
             this.StartTestButton = new System.Windows.Forms.Button();
             this.SaveTestInformationInLogFileButton = new System.Windows.Forms.Button();
             this.OpenTestVectorFileButton = new System.Windows.Forms.Button();
             this.TesterRichTextBox = new System.Windows.Forms.RichTextBox();
             this.DiagsTabPage = new System.Windows.Forms.TabPage();
-            this.CycleTheLEDsButton = new System.Windows.Forms.Button();
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.CycleTheLEDsButton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.DiagsTabPage.SuspendLayout();
@@ -278,7 +277,6 @@
             // 
             this.TestingTabPage.Controls.Add(this.DisplayTheCommentsButton);
             this.TestingTabPage.Controls.Add(this.DisplayThePinTableButton);
-            this.TestingTabPage.Controls.Add(this.InitializeTestHardwareButton);
             this.TestingTabPage.Controls.Add(this.StartTestButton);
             this.TestingTabPage.Controls.Add(this.SaveTestInformationInLogFileButton);
             this.TestingTabPage.Controls.Add(this.OpenTestVectorFileButton);
@@ -313,26 +311,16 @@
             this.DisplayThePinTableButton.UseVisualStyleBackColor = true;
             this.DisplayThePinTableButton.Click += new System.EventHandler(this.DisplayThePinTableButton_Click);
             // 
-            // InitializeTestHardwareButton
-            // 
-            this.InitializeTestHardwareButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InitializeTestHardwareButton.Location = new System.Drawing.Point(6, 275);
-            this.InitializeTestHardwareButton.Name = "InitializeTestHardwareButton";
-            this.InitializeTestHardwareButton.Size = new System.Drawing.Size(230, 23);
-            this.InitializeTestHardwareButton.TabIndex = 6;
-            this.InitializeTestHardwareButton.Text = "Initialize Test Hardware";
-            this.InitializeTestHardwareButton.UseVisualStyleBackColor = true;
-            this.InitializeTestHardwareButton.Click += new System.EventHandler(this.InitializeTestHardwareButton_Click);
-            // 
             // StartTestButton
             // 
             this.StartTestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartTestButton.Location = new System.Drawing.Point(6, 304);
+            this.StartTestButton.Location = new System.Drawing.Point(6, 122);
             this.StartTestButton.Name = "StartTestButton";
             this.StartTestButton.Size = new System.Drawing.Size(230, 23);
             this.StartTestButton.TabIndex = 5;
             this.StartTestButton.Text = "Start Test";
             this.StartTestButton.UseVisualStyleBackColor = true;
+            this.StartTestButton.Click += new System.EventHandler(this.StartTestButton_Click);
             // 
             // SaveTestInformationInLogFileButton
             // 
@@ -397,17 +385,6 @@
             this.DiagsTabPage.Text = "Test the Tester";
             this.DiagsTabPage.UseVisualStyleBackColor = true;
             // 
-            // CycleTheLEDsButton
-            // 
-            this.CycleTheLEDsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CycleTheLEDsButton.Location = new System.Drawing.Point(6, 581);
-            this.CycleTheLEDsButton.Name = "CycleTheLEDsButton";
-            this.CycleTheLEDsButton.Size = new System.Drawing.Size(230, 23);
-            this.CycleTheLEDsButton.TabIndex = 22;
-            this.CycleTheLEDsButton.Text = "Cycle The LEDs";
-            this.CycleTheLEDsButton.UseVisualStyleBackColor = true;
-            this.CycleTheLEDsButton.Click += new System.EventHandler(this.CycleTheLEDsButton_Click);
-            // 
             // DeviceAddressNumericUpDown
             // 
             this.DeviceAddressNumericUpDown.Hexadecimal = true;
@@ -425,6 +402,17 @@
             0,
             0,
             0});
+            // 
+            // CycleTheLEDsButton
+            // 
+            this.CycleTheLEDsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CycleTheLEDsButton.Location = new System.Drawing.Point(6, 581);
+            this.CycleTheLEDsButton.Name = "CycleTheLEDsButton";
+            this.CycleTheLEDsButton.Size = new System.Drawing.Size(230, 23);
+            this.CycleTheLEDsButton.TabIndex = 22;
+            this.CycleTheLEDsButton.Text = "Cycle The LEDs";
+            this.CycleTheLEDsButton.UseVisualStyleBackColor = true;
+            this.CycleTheLEDsButton.Click += new System.EventHandler(this.CycleTheLEDsButton_Click);
             // 
             // Flipchip_Tester_Form
             // 
@@ -470,7 +458,6 @@
         private System.Windows.Forms.RichTextBox TesterRichTextBox;
         private System.Windows.Forms.Button StartTestButton;
         private System.Windows.Forms.Button SaveTestInformationInLogFileButton;
-        private System.Windows.Forms.Button InitializeTestHardwareButton;
         private System.Windows.Forms.Button DisplayThePinTableButton;
         private System.Windows.Forms.Button DisplayTheCommentsButton;
         private System.Windows.Forms.Button CycleTheLEDsButton;

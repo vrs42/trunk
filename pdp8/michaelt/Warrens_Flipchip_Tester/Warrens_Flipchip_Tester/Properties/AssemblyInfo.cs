@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Warrens_Flipchip_Tester")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A DEC M-Module FlipChip Tester With a USB/SPI interface.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Rhode Island Computer Museum")]
 [assembly: AssemblyProduct("Warrens_Flipchip_Tester")]

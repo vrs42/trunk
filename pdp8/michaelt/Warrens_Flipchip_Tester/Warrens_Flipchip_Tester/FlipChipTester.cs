@@ -267,15 +267,15 @@ namespace Warrens_Flipchip_Tester
 
                 //Setup the SPI chips for Hardware Address
                 Gpio0.HardwareAddressEnable();
-                ResponseText += "Wrote 0x08 to all of the IOCON registers.\n";
+                ResponseText += "Enabled SPI Hardware Address Mode.\n";
 
-                //Set the IODIR register so that everything is an input
+                //Set the IODIR registers to the test values
                 for (UInt16 i = 1; i < 6; i++)
                 {
                     RegisterContents = 0xFFFF;
                     Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
                 }
-                ResponseText += "Wrote the 0xFFFF into the IODIR registers so everything is an input.\n";
+                ResponseText += "Configured the IODIR registers for all inputs.\n";
 
                 //Write the Hardware Address into the IOLAT register so we can read it back
                 for (UInt16 i = 1; i < 6; i++)
@@ -283,7 +283,6 @@ namespace Warrens_Flipchip_Tester
                     RegisterContents = i;
                     Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
                 }
-                ResponseText += "Wrote the Hardware Address into the IOLAT register so we can read it back.\n";
 
                 //Read the Hardware Address in the IOLAT register and see if it is correct
                 for (UInt16 i = 1; i < 6; i++)
@@ -295,21 +294,54 @@ namespace Warrens_Flipchip_Tester
                         ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
                 }
 
-                //Make sure that AA2 is in input
-                RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR);
-                RegisterContents = (UInt16)(RegisterContents | 0x0080);
-                Gpio0.WriteDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+                RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR); //Read the IODIR register for IC1
+                RegisterContents = (UInt16)(RegisterContents | 0x0080); //Make sure that pin AA2 is in input so we can read the Vpp state
+                Gpio0.WriteDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR, RegisterContents); //Write the IODIR register for IC1
 
                 RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.GPIO);
                 if ((RegisterContents & (UInt16)0x0080) == 0)
+                {
                     ResponseText += "The power to the FlipChip is off.\n";
+                    throw new InvalidOperationException();
+                }
                 else
                     ResponseText += "The power to the FlipChip is on.\n";
             }
             catch (SpiChannelNotConnectedException)
             {
                 ResponseText = "Could not connect to USB/SPI cable.";
+                throw new SpiChannelNotConnectedException(FtResult.DeviceNotFound);
             }
+
+            return ResponseText;
+        }
+
+        /// <summary>
+        /// Write the IODIR registers so we can test a FlipChip
+        /// </summary>
+        /// <param name="BusSpeedText"></param>
+        /// <returns></returns>
+        public String SetupIodirRegisters(String BusSpeedText)
+        {
+            UInt16 RegisterContents = 0;
+            string ResponseText = "";
+
+            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            {
+                ClockRate = Convert.ToInt32(BusSpeedText),
+                LatencyTimer = LatencyTimer,
+                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+            };
+
+            MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
+
+            //Set the IODIR registers to the test values
+            for (UInt16 i = 1; i < 6; i++)
+            {
+                RegisterContents = IodirRegisters[i-1]; //Get the IODIR that we need
+                Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+            }
+            ResponseText += "Configured the IODIR registers for all inputs.\n";
 
             return ResponseText;
         }
@@ -1210,7 +1242,7 @@ namespace Warrens_Flipchip_Tester
                 long vectorsSec = (1000 / (milliSec / 1000));
 
                 ResponseText += "The elapsed time for 1000 sets of 5x register write/reads was " + milliSec + "ms.\n";
-                ResponseText += "I can do: " + vectorsSec + " vectors/second.";
+                ResponseText += "I can process " + vectorsSec + " vectors/second.";
             }
             catch (SpiChannelNotConnectedException)
             {
