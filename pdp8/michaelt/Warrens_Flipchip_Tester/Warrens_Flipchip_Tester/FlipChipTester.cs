@@ -9,7 +9,7 @@
  * Author(s):
  *      Michael Thompson <mike@ricomputermuseum.com>
  */
- 
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -75,7 +75,7 @@ namespace Warrens_Flipchip_Tester
         {
             public UInt16 SpiAddress { get; }
             public UInt16 Mask { get; }
-            public String PinName{get; }
+            public String PinName { get; }
             public PinMappingStruct(UInt16 o, UInt16 m, String p)
             {
                 SpiAddress = o;
@@ -87,78 +87,78 @@ namespace Warrens_Flipchip_Tester
         //IC Number -1, Pin mask
         readonly PinMappingStruct[] PinMappingTable = new PinMappingStruct[NumberOfPinDrivers] {
             new PinMappingStruct( 1, (1 << 15), "AA1" ),
-            new PinMappingStruct( 1, (1 << 14), "AB1" ),  
-            new PinMappingStruct( 1, (1 << 13), "AC1" ),  
-	        new PinMappingStruct( 1, (1 << 12), "AD1" ),  
-	        new PinMappingStruct( 1, (1 << 11), "AE1" ),  
-	        new PinMappingStruct( 1, (1 << 10), "AF1" ),
-	        new PinMappingStruct( 1, (1 << 9),  "AH1" ),  
-	        new PinMappingStruct( 1, (1 << 8),  "AJ1" ),  
-	        new PinMappingStruct( 2, (1 << 15), "AK1" ),  
-            new PinMappingStruct( 2, (1 << 14), "AL1" ),  
+            new PinMappingStruct( 1, (1 << 14), "AB1" ),
+            new PinMappingStruct( 1, (1 << 13), "AC1" ),
+            new PinMappingStruct( 1, (1 << 12), "AD1" ),
+            new PinMappingStruct( 1, (1 << 11), "AE1" ),
+            new PinMappingStruct( 1, (1 << 10), "AF1" ),
+            new PinMappingStruct( 1, (1 << 9),  "AH1" ),
+            new PinMappingStruct( 1, (1 << 8),  "AJ1" ),
+            new PinMappingStruct( 2, (1 << 15), "AK1" ),
+            new PinMappingStruct( 2, (1 << 14), "AL1" ),
             new PinMappingStruct( 2, (1 << 13), "AM1" ),
-	        new PinMappingStruct( 2, (1 << 12), "AN1" ),  
-	        new PinMappingStruct( 2, (1 << 11), "AP1" ),  
-	        new PinMappingStruct( 2, (1 << 10), "AR1" ),  
-	        new PinMappingStruct( 2, (1 << 9),  "AS1" ),  
-	        new PinMappingStruct( 2, (1 << 8),  "AT2" ),
-	        new PinMappingStruct( 3, (1 << 15), "AU1" ),  
-	        new PinMappingStruct( 3, (1 << 14), "AV1" ),  
+            new PinMappingStruct( 2, (1 << 12), "AN1" ),
+            new PinMappingStruct( 2, (1 << 11), "AP1" ),
+            new PinMappingStruct( 2, (1 << 10), "AR1" ),
+            new PinMappingStruct( 2, (1 << 9),  "AS1" ),
+            new PinMappingStruct( 2, (1 << 8),  "AT1" ),
+            new PinMappingStruct( 3, (1 << 15), "AU1" ),
+            new PinMappingStruct( 3, (1 << 14), "AV1" ),
             new PinMappingStruct( 1, (1 << 7),  "AA2" ), //Vpp
-	        new PinMappingStruct( 1, (1 << 6),  "AB2" ),  
-	        new PinMappingStruct( 1, (1 << 5),  "AC2" ), //GND
-	        new PinMappingStruct( 1, (1 << 4),  "AD2" ),  
-	        new PinMappingStruct( 1, (1 << 3),  "AE2" ),  
-	        new PinMappingStruct( 1, (1 << 2),  "AF2" ),  
-	        new PinMappingStruct( 1, (1 << 1),  "AH2" ),  
-	        new PinMappingStruct( 1, (1 << 0),  "AJ2" ),
-	        new PinMappingStruct( 2, (1 << 0),  "AK2" ),  
-	        new PinMappingStruct( 2, (1 << 1),  "AL2" ),  
-	        new PinMappingStruct( 2, (1 << 2),  "AM2" ),  
-	        new PinMappingStruct( 2, (1 << 3),  "AN2" ),  
-	        new PinMappingStruct( 2, (1 << 4),  "AP2" ),
-	        new PinMappingStruct( 2, (1 << 5),  "AR2" ),  
-	        new PinMappingStruct( 2, (1 << 6),  "AS2" ),  
-	        new PinMappingStruct( 2, (1 << 7),  "AT2" ),  
-	        new PinMappingStruct( 3, (1 << 0),  "AU2" ),  
-	        new PinMappingStruct( 3, (1 << 1),  "AV2" ),
-	        new PinMappingStruct( 3, (1 << 13), "BA1" ),
-	        new PinMappingStruct( 3, (1 << 12), "BB1" ),
+	        new PinMappingStruct( 1, (1 << 6),  "AB2" ),
+            new PinMappingStruct( 1, (1 << 5),  "AC2" ), //GND
+	        new PinMappingStruct( 1, (1 << 4),  "AD2" ),
+            new PinMappingStruct( 1, (1 << 3),  "AE2" ),
+            new PinMappingStruct( 1, (1 << 2),  "AF2" ),
+            new PinMappingStruct( 1, (1 << 1),  "AH2" ),
+            new PinMappingStruct( 1, (1 << 0),  "AJ2" ),
+            new PinMappingStruct( 2, (1 << 0),  "AK2" ),
+            new PinMappingStruct( 2, (1 << 1),  "AL2" ),
+            new PinMappingStruct( 2, (1 << 2),  "AM2" ),
+            new PinMappingStruct( 2, (1 << 3),  "AN2" ),
+            new PinMappingStruct( 2, (1 << 4),  "AP2" ),
+            new PinMappingStruct( 2, (1 << 5),  "AR2" ),
+            new PinMappingStruct( 2, (1 << 6),  "AS2" ),
+            new PinMappingStruct( 2, (1 << 7),  "AT2" ),
+            new PinMappingStruct( 3, (1 << 0),  "AU2" ),
+            new PinMappingStruct( 3, (1 << 1),  "AV2" ),
+            new PinMappingStruct( 3, (1 << 13), "BA1" ),
+            new PinMappingStruct( 3, (1 << 12), "BB1" ),
             new PinMappingStruct( 3, (1 << 11), "BC1" ), //GND
-	        new PinMappingStruct( 3, (1 << 10), "BD1" ),  
-	        new PinMappingStruct( 3, (1 << 9),  "BE1" ),
-	        new PinMappingStruct( 3, (1 << 8),  "BF1" ),  
-	        new PinMappingStruct( 4, (1 << 15), "BH1" ),  
-	        new PinMappingStruct( 4, (1 << 14), "BJ1" ),  
-	        new PinMappingStruct( 4, (1 << 13), "BK1" ),  
-	        new PinMappingStruct( 4, (1 << 12), "BL1" ),
-	        new PinMappingStruct( 4, (1 << 11), "BM1" ),  
-	        new PinMappingStruct( 4, (1 << 10), "BN1" ),  
-	        new PinMappingStruct( 4, (1 << 9),  "BP1" ),  
-	        new PinMappingStruct( 4, (1 << 8),  "BR1" ),  
-	        new PinMappingStruct( 5, (1 << 15), "BS1" ),
-	        new PinMappingStruct( 5, (1 << 14), "BT1" ), //GND
-	        new PinMappingStruct( 5, (1 << 13), "BU1" ),  
-	        new PinMappingStruct( 5, (1 << 12), "BV1" ),  
-	        new PinMappingStruct( 3, (1 << 2),  "BA2" ), //Floating
+	        new PinMappingStruct( 3, (1 << 10), "BD1" ),
+            new PinMappingStruct( 3, (1 << 9),  "BE1" ),
+            new PinMappingStruct( 3, (1 << 8),  "BF1" ),
+            new PinMappingStruct( 4, (1 << 15), "BH1" ),
+            new PinMappingStruct( 4, (1 << 14), "BJ1" ),
+            new PinMappingStruct( 4, (1 << 13), "BK1" ),
+            new PinMappingStruct( 4, (1 << 12), "BL1" ),
+            new PinMappingStruct( 4, (1 << 11), "BM1" ),
+            new PinMappingStruct( 4, (1 << 10), "BN1" ),
+            new PinMappingStruct( 4, (1 << 9),  "BP1" ),
+            new PinMappingStruct( 4, (1 << 8),  "BR1" ),
+            new PinMappingStruct( 5, (1 << 15), "BS1" ),
+            new PinMappingStruct( 5, (1 << 14), "BT1" ), //GND
+	        new PinMappingStruct( 5, (1 << 13), "BU1" ),
+            new PinMappingStruct( 5, (1 << 12), "BV1" ),
+            new PinMappingStruct( 3, (1 << 2),  "BA2" ), //Floating
 	        new PinMappingStruct( 3, (1 << 3),  "BB2" ),
-	        new PinMappingStruct( 3, (1 << 4),  "BC2" ), //GND
-	        new PinMappingStruct( 3, (1 << 5),  "BD2" ),  
-	        new PinMappingStruct( 3, (1 << 6),  "BE2" ),  
-	        new PinMappingStruct( 3, (1 << 7),  "BF2" ),  
-	        new PinMappingStruct( 4, (1 << 0),  "BH2" ),
-	        new PinMappingStruct( 4, (1 << 1),  "BJ2" ),  
-	        new PinMappingStruct( 4, (1 << 2),  "BK2" ),  
-	        new PinMappingStruct( 4, (1 << 3),  "BL2" ),  
-	        new PinMappingStruct( 4, (1 << 4),  "BM2" ),  
-	        new PinMappingStruct( 4, (1 << 5),  "BN2" ),
-	        new PinMappingStruct( 4, (1 << 6),  "BP2" ),  
-	        new PinMappingStruct( 4, (1 << 7),  "BR2" ),  
-	        new PinMappingStruct( 5, (1 << 0),  "BS2" ),  
-	        new PinMappingStruct( 5, (1 << 1),  "BT2" ),  
-	        new PinMappingStruct( 5, (1 << 2),  "BU2" ),
-	        new PinMappingStruct( 5, (1 << 3),  "BV2" ),  
-	        new PinMappingStruct( 5, (1 << 5),  "PROBE1" ),
+            new PinMappingStruct( 3, (1 << 4),  "BC2" ), //GND
+	        new PinMappingStruct( 3, (1 << 5),  "BD2" ),
+            new PinMappingStruct( 3, (1 << 6),  "BE2" ),
+            new PinMappingStruct( 3, (1 << 7),  "BF2" ),
+            new PinMappingStruct( 4, (1 << 0),  "BH2" ),
+            new PinMappingStruct( 4, (1 << 1),  "BJ2" ),
+            new PinMappingStruct( 4, (1 << 2),  "BK2" ),
+            new PinMappingStruct( 4, (1 << 3),  "BL2" ),
+            new PinMappingStruct( 4, (1 << 4),  "BM2" ),
+            new PinMappingStruct( 4, (1 << 5),  "BN2" ),
+            new PinMappingStruct( 4, (1 << 6),  "BP2" ),
+            new PinMappingStruct( 4, (1 << 7),  "BR2" ),
+            new PinMappingStruct( 5, (1 << 0),  "BS2" ),
+            new PinMappingStruct( 5, (1 << 1),  "BT2" ),
+            new PinMappingStruct( 5, (1 << 2),  "BU2" ),
+            new PinMappingStruct( 5, (1 << 3),  "BV2" ),
+            new PinMappingStruct( 5, (1 << 5),  "PROBE1" ),
             new PinMappingStruct( 5, (1 << 5),  "PROBE2" ),
             new PinMappingStruct( 5, (1 << 6),  "PROBE3" ),
             new PinMappingStruct( 5, (1 << 7),  "PROBE4" ),
@@ -177,11 +177,12 @@ namespace Warrens_Flipchip_Tester
 
         PinTableStruct[] PinTable = new PinTableStruct[80]; //The Pin Table, we only have 80 GPIO pins
         int NumberOfPins = 0; //Number of Pins in the Pin Table
-        UInt16[] IodirRegisters = new UInt16[5] {0xffff, 0xffff, 0xffff, 0xffff, 0xffff}; //The I/O Direction Registers in the MCP23S17s start as inputs
+        UInt16[] IodirRegisters = new UInt16[5] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
         UInt16[] OlatRegisters = new UInt16[5] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
         UInt16[] GpioRegisters = new UInt16[5] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
         String CommentLines; //A place to save the comments
         String PinLines; //A place to save the PIN statements
+        String IodirLine; //A place to save the IODIR line
 
         public FlipChipTester()
         {
@@ -338,7 +339,7 @@ namespace Warrens_Flipchip_Tester
             //Set the IODIR registers to the test values
             for (UInt16 i = 1; i < 6; i++)
             {
-                RegisterContents = IodirRegisters[i-1]; //Get the IODIR that we need
+                RegisterContents = IodirRegisters[i - 1]; //Get the IODIR that we need
                 Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
             }
             ResponseText += "Configured the IODIR registers for all inputs.\n";
@@ -355,12 +356,13 @@ namespace Warrens_Flipchip_Tester
             bool WeHavePinLines = false;
             bool FinishedWithComments = false;
 
-            CommentLines = "";
+            CommentLines = ""; 
             PinLines = "";
+            IodirLine = "";
 
             InitializeFlipChipTester(); //Clear everything and get ready to read in new test values
 
-            TestVectorOpenFileDialog.InitialDirectory = "C:\\FAQ\\DEC\\modules\\Warren's Tester\\Original Software\\msvc152\\tester\\tests\\";
+            TestVectorOpenFileDialog.InitialDirectory = "..\\tests\\";
             TestVectorOpenFileDialog.Filter = "tst files (*.TST)|*.TST|All files (*.*)|*.*";
             TestVectorOpenFileDialog.FilterIndex = 2;
             TestVectorOpenFileDialog.RestoreDirectory = true;
@@ -401,12 +403,22 @@ namespace Warrens_Flipchip_Tester
                                     if (!FinishedWithComments) //Put all of the lines up to the "PINS" line in the comments
                                         CommentLines += TestVectorFileLine + "\n";
 
+                                    if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Contains("I") & TestVectorFileLine.Contains("O")) //Must be the IODIR line
+                                    {
+                                        IodirLine = TestVectorFileLine; //Save the IODIR line
+                                    }
+
                                     TestVectorFileResults += TestVectorFileLine + "\n";
                                 }
                                 ProcessPinStatementLines(); //Turn the pin table into the IODIR register contents
+                                CheckIodirLine(); //Compare the IodirLine to the Pin Table
                             }
                         }
                     }
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    TestVectorFileResults = "The Pin Table and the IODIR line in the file do not match.";
                 }
                 catch (Exception ex)
                 {
@@ -427,6 +439,12 @@ namespace Warrens_Flipchip_Tester
         {
             return PinLines;
         }
+
+        public String GetIodirLine()
+        {
+            return IodirLine;
+        }
+
         /// <summary>
         /// Enable the Hardware Addressing mode in the SPI chips
         /// </summary>
@@ -505,17 +523,32 @@ namespace Warrens_Flipchip_Tester
                 IodirRegisters[i] = 0x0000; //The I/O Direction Registers in the MCP23S17s start as outputs for now
             }
 
-                for (int i = 0; i < NumberOfPins; i++)
+            for (int i = 0; i < NumberOfPins; i++)
             {
-                PinName = PinTable[i].FlipChipPin; //Get the Pin Name
-                IcAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
-                IoDirMask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
-                IodirRegisters[IcAddress-1] |= IoDirMask; //Or the mask to the IODIR Register contents
+                if (PinTable[i].Direction == "I") //Only process inputs to the FlipChip
+                {
+                    PinName = PinTable[i].FlipChipPin; //Get the Pin Name
+                    IcAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
+                    IoDirMask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
+                    IodirRegisters[IcAddress - 1] |= IoDirMask; //Or the mask to the IODIR Register contents
+                }
             }
 
             for (int i = 0; i < 5; i++)
             {
                 IodirRegisters[i] = (UInt16)~IodirRegisters[i]; //Flip the bits in the I/O Direction Registers
+            }
+        }
+
+        /// <summary>
+        /// Compare the I/O direction in the IodirLine to the direction in the pin table
+        /// </summary>
+        public void CheckIodirLine()
+        {
+            for (int i = 0; i < NumberOfPins; i++)
+            {
+                if (IodirLine.Substring(i, 1) != PinTable[i].Direction)
+                    throw new ArgumentOutOfRangeException(); //The IodirLine and the Pin Table don't match
             }
         }
 
@@ -587,7 +620,7 @@ namespace Warrens_Flipchip_Tester
             //Write a count into the IOLAT register so we can read it back
             for (UInt16 i = 0; i < 16; i++)
             {
-                RegisterContents = (UInt16)(0x0000 | i<< 8);
+                RegisterContents = (UInt16)(0x0000 | i << 8);
                 Gpio0.WriteDoubleRegister(5, (int)MCP23S17.Register.OLAT, RegisterContents);
                 Thread.Sleep(250);
             }
@@ -766,7 +799,7 @@ namespace Warrens_Flipchip_Tester
             else
                 ResponseText += "I could not find any FTDI devices.\n";
 
-        return ResponseText;
+            return ResponseText;
         }
 
         /// <summary>
@@ -978,7 +1011,7 @@ namespace Warrens_Flipchip_Tester
 
                 for (UInt16 RegisterAddress = 0; RegisterAddress < 22; RegisterAddress = (UInt16)(RegisterAddress + 2))
                 {
-                    ResponseText += String.Format("{0,-10}",((MCP23S17.Register)RegisterAddress).ToString());
+                    ResponseText += String.Format("{0,-10}", ((MCP23S17.Register)RegisterAddress).ToString());
                     for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
                     {
                         ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, RegisterAddress).ToString("X4");
@@ -1153,66 +1186,66 @@ namespace Warrens_Flipchip_Tester
             UInt16 RegisterNumber = 0;
             UInt16 RegisterContents = 0;
 
-                try
+            try
+            {
+                switch (RegisterNameText)
                 {
-                    switch (RegisterNameText)
-                    {
-                        case "IODIR":
-                            {
-                                RegisterNumber = 0x00;
-                                break;
-                            }
-                        case "IOPOL":
-                            {
-                                RegisterNumber = 0x02;
-                                break;
-                            }
-                        case "GPINTEN":
-                            {
-                                RegisterNumber = 0x04;
-                                break;
-                            }
-                        case "DEFVAL":
-                            {
-                                RegisterNumber = 0x06;
-                                break;
-                            }
-                        case "INTCON":
-                            {
-                                RegisterNumber = 0x08;
-                                break;
-                            }
-                        case "IOCON":
-                            {
-                                RegisterNumber = 0x0A;
-                                break;
-                            }
-                        case "GPPU":
-                            {
-                                RegisterNumber = 0x0C;
-                                break;
-                            }
-                        case "INTF":
-                            {
-                                RegisterNumber = 0x0E;
-                                break;
-                            }
-                        case "INTCAP":
-                            {
-                                RegisterNumber = 0x10;
-                                break;
-                            }
-                        case "GPIO":
-                            {
-                                RegisterNumber = 0x12;
-                                break;
-                            }
-                        case "OLAT":
-                            {
-                                RegisterNumber = 0x14;
-                                break;
-                            }
-                    }
+                    case "IODIR":
+                        {
+                            RegisterNumber = 0x00;
+                            break;
+                        }
+                    case "IOPOL":
+                        {
+                            RegisterNumber = 0x02;
+                            break;
+                        }
+                    case "GPINTEN":
+                        {
+                            RegisterNumber = 0x04;
+                            break;
+                        }
+                    case "DEFVAL":
+                        {
+                            RegisterNumber = 0x06;
+                            break;
+                        }
+                    case "INTCON":
+                        {
+                            RegisterNumber = 0x08;
+                            break;
+                        }
+                    case "IOCON":
+                        {
+                            RegisterNumber = 0x0A;
+                            break;
+                        }
+                    case "GPPU":
+                        {
+                            RegisterNumber = 0x0C;
+                            break;
+                        }
+                    case "INTF":
+                        {
+                            RegisterNumber = 0x0E;
+                            break;
+                        }
+                    case "INTCAP":
+                        {
+                            RegisterNumber = 0x10;
+                            break;
+                        }
+                    case "GPIO":
+                        {
+                            RegisterNumber = 0x12;
+                            break;
+                        }
+                    case "OLAT":
+                        {
+                            RegisterNumber = 0x14;
+                            break;
+                        }
+                }
 
                 Application.DoEvents();
 

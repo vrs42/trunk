@@ -130,7 +130,8 @@ namespace Warrens_Flipchip_Tester
 
         private void DisplayThePinTableButton_Click(object sender, EventArgs e)
         {
-            TesterRichTextBox.Text = WarrensFlipChipTester.GetPinLines();
+            TesterRichTextBox.Text = WarrensFlipChipTester.GetPinLines() + "\n";
+            TesterRichTextBox.Text += WarrensFlipChipTester.GetIodirLine() + "\n";
         }
 
         private void CycleTheLEDsButton_Click(object sender, EventArgs e)
@@ -147,8 +148,8 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
-                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text);
-                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text);
+                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
+                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
 
             }
             catch (SpiChannelNotConnectedException)
