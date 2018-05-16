@@ -403,9 +403,10 @@ namespace Warrens_Flipchip_Tester
                                     if (!FinishedWithComments) //Put all of the lines up to the "PINS" line in the comments
                                         CommentLines += TestVectorFileLine + "\n";
 
-                                    if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Contains("I") & TestVectorFileLine.Contains("O")) //Must be the IODIR line
+                                    if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Length > 0) //Must be the IODIR line
                                     {
-                                        IodirLine = TestVectorFileLine; //Save the IODIR line
+                                        if  (TestVectorFileLine.Substring(0, 1) == "I" | TestVectorFileLine.Substring(0, 1) == "O")
+                                            IodirLine = TestVectorFileLine; //Save the IODIR line
                                     }
 
                                     TestVectorFileResults += TestVectorFileLine + "\n";

@@ -70,6 +70,7 @@
             this.DiagRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DiagRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.DiagRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiagRichTextBox.Location = new System.Drawing.Point(242, 6);
             this.DiagRichTextBox.Name = "DiagRichTextBox";
@@ -281,6 +282,7 @@
             this.TestingTabPage.Controls.Add(this.SaveTestInformationInLogFileButton);
             this.TestingTabPage.Controls.Add(this.OpenTestVectorFileButton);
             this.TestingTabPage.Controls.Add(this.TesterRichTextBox);
+            this.TestingTabPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TestingTabPage.Location = new System.Drawing.Point(4, 22);
             this.TestingTabPage.Name = "TestingTabPage";
             this.TestingTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -348,6 +350,7 @@
             this.TesterRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.TesterRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.TesterRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TesterRichTextBox.Location = new System.Drawing.Point(261, 6);
             this.TesterRichTextBox.Name = "TesterRichTextBox";
