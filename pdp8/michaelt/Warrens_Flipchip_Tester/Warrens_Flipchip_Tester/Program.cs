@@ -7,7 +7,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * Author(s):
- *      Michael Thompson <mike@ricomputermuseum.com>
+ *      Michael Thompson <mike@ricomputermuseum.org>
  */
  
 using System;

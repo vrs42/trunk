@@ -7,7 +7,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * Author(s):
- *      Michael Thompson <mike@ricomputermuseum.com>
+ *      Michael Thompson <mike@ricomputermuseum.org>
  */
 
 using System;
@@ -177,9 +177,11 @@ namespace Warrens_Flipchip_Tester
 
         PinTableStruct[] PinTable = new PinTableStruct[80]; //The Pin Table, we only have 80 GPIO pins
         int NumberOfPins = 0; //Number of Pins in the Pin Table
+        int NumberOfTestVectors = 0; //The number of test vector lines
         UInt16[] IodirRegisters = new UInt16[5] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
         UInt16[] OlatRegisters = new UInt16[5] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
         UInt16[] GpioRegisters = new UInt16[5] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
+        String[] TestVectors = new String[2000]; //A place to hold up to 2000 test vectors
         String CommentLines; //A place to save the comments
         String PinLines; //A place to save the PIN statements
         String IodirLine; //A place to save the IODIR line
@@ -347,18 +349,24 @@ namespace Warrens_Flipchip_Tester
             return ResponseText;
         }
 
+        /// <summary>
+        /// Ask the operator to select the test vector file, open it, and process the contents.
+        /// </summary>
+        /// <returns></returns>
         public String OpenTestVectorFile()
         {
             Stream TestVectorFileStream = null;
             OpenFileDialog TestVectorOpenFileDialog = new OpenFileDialog();
             String TestVectorFileLine;
             String TestVectorFileResults = "";
-            bool WeHavePinLines = false;
-            bool FinishedWithComments = false;
+            bool WeHavePinLines = false; //Flag to indicate that we found the PINS line
+            bool FinishedWithComments = false; //Flag to indicate that we found the end if the initial comments
+            bool FinishedWithIodir = false; //Flag to indicate we found the IODIR line
 
             CommentLines = ""; 
             PinLines = "";
             IodirLine = "";
+            NumberOfTestVectors = 0;
 
             InitializeFlipChipTester(); //Clear everything and get ready to read in new test values
 
@@ -403,10 +411,19 @@ namespace Warrens_Flipchip_Tester
                                     if (!FinishedWithComments) //Put all of the lines up to the "PINS" line in the comments
                                         CommentLines += TestVectorFileLine + "\n";
 
+                                    if (FinishedWithIodir & TestVectorFileLine.Length > 0)
+                                    {
+                                        if (TestVectorFileLine.Substring(0, 1) != ";")
+                                            TestVectors[NumberOfTestVectors++] += TestVectorFileLine; //Save the test vector in the test vector array.
+                                    }
+
                                     if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Length > 0) //Must be the IODIR line
                                     {
-                                        if  (TestVectorFileLine.Substring(0, 1) == "I" | TestVectorFileLine.Substring(0, 1) == "O")
+                                        if (TestVectorFileLine.Substring(0, 1) == "I" | TestVectorFileLine.Substring(0, 1) == "O")
+                                        {
                                             IodirLine = TestVectorFileLine; //Save the IODIR line
+                                            FinishedWithIodir = true; //We found the IODIR line, so everything else is a comment or a test vector
+                                        }
                                     }
 
                                     TestVectorFileResults += TestVectorFileLine + "\n";
@@ -446,6 +463,17 @@ namespace Warrens_Flipchip_Tester
             return IodirLine;
         }
 
+        public String GetTestVectors()
+        {
+            String TestVectorString = ""; //A place to hold the Test Vectors
+
+            for (int Index = 0; Index < NumberOfTestVectors - 1; Index++)
+            {
+                TestVectorString += "#" + (Index + 1) + ": " + TestVectors[Index] + "\n";
+            }
+
+            return TestVectorString;
+        }
         /// <summary>
         /// Enable the Hardware Addressing mode in the SPI chips
         /// </summary>

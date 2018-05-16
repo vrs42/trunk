@@ -134,6 +134,11 @@ namespace Warrens_Flipchip_Tester
             TesterRichTextBox.Text += WarrensFlipChipTester.GetIodirLine() + "\n";
         }
 
+        private void DisplayTheTestVectorsButton_Click(object sender, EventArgs e)
+        {
+            TesterRichTextBox.Text = WarrensFlipChipTester.GetTestVectors() + "\n";
+        }
+
         private void CycleTheLEDsButton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = "Sending binary pattern to the LEDs\n";

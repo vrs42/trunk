@@ -59,6 +59,7 @@
             this.DiagsTabPage = new System.Windows.Forms.TabPage();
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
+            this.DisplayTheTestVectorsButton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.DiagsTabPage.SuspendLayout();
@@ -276,6 +277,7 @@
             // 
             // TestingTabPage
             // 
+            this.TestingTabPage.Controls.Add(this.DisplayTheTestVectorsButton);
             this.TestingTabPage.Controls.Add(this.DisplayTheCommentsButton);
             this.TestingTabPage.Controls.Add(this.DisplayThePinTableButton);
             this.TestingTabPage.Controls.Add(this.StartTestButton);
@@ -316,7 +318,7 @@
             // StartTestButton
             // 
             this.StartTestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartTestButton.Location = new System.Drawing.Point(6, 122);
+            this.StartTestButton.Location = new System.Drawing.Point(6, 151);
             this.StartTestButton.Name = "StartTestButton";
             this.StartTestButton.Size = new System.Drawing.Size(230, 23);
             this.StartTestButton.TabIndex = 5;
@@ -417,6 +419,17 @@
             this.CycleTheLEDsButton.UseVisualStyleBackColor = true;
             this.CycleTheLEDsButton.Click += new System.EventHandler(this.CycleTheLEDsButton_Click);
             // 
+            // DisplayTheTestVectorsButton
+            // 
+            this.DisplayTheTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisplayTheTestVectorsButton.Location = new System.Drawing.Point(6, 122);
+            this.DisplayTheTestVectorsButton.Name = "DisplayTheTestVectorsButton";
+            this.DisplayTheTestVectorsButton.Size = new System.Drawing.Size(230, 23);
+            this.DisplayTheTestVectorsButton.TabIndex = 9;
+            this.DisplayTheTestVectorsButton.Text = "Display the Test Vectors";
+            this.DisplayTheTestVectorsButton.UseVisualStyleBackColor = true;
+            this.DisplayTheTestVectorsButton.Click += new System.EventHandler(this.DisplayTheTestVectorsButton_Click);
+            // 
             // Flipchip_Tester_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -465,6 +478,7 @@
         private System.Windows.Forms.Button DisplayTheCommentsButton;
         private System.Windows.Forms.Button CycleTheLEDsButton;
         private System.Windows.Forms.NumericUpDown DeviceAddressNumericUpDown;
+        private System.Windows.Forms.Button DisplayTheTestVectorsButton;
     }
 }
 
