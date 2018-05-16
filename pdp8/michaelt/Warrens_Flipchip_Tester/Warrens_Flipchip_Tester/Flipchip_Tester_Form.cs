@@ -151,11 +151,12 @@ namespace Warrens_Flipchip_Tester
 
         private void StartTestButton_Click(object sender, EventArgs e)
         {
+            int VectorNumber = 0; //The index for the first test vector
             try
             {
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
-
+                TesterRichTextBox.Text += WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
             }
             catch (SpiChannelNotConnectedException)
             {

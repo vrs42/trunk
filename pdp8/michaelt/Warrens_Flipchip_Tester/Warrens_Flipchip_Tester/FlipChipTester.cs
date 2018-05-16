@@ -297,6 +297,12 @@ namespace Warrens_Flipchip_Tester
                         ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
                 }
 
+                //Clear the IOLAT registers
+                for (UInt16 i = 1; i < 6; i++)
+                {
+                    Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, 0x0000);
+                }
+
                 RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR); //Read the IODIR register for IC1
                 RegisterContents = (UInt16)(RegisterContents | 0x0080); //Make sure that pin AA2 is in input so we can read the Vpp state
                 Gpio0.WriteDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR, RegisterContents); //Write the IODIR register for IC1
@@ -344,8 +350,47 @@ namespace Warrens_Flipchip_Tester
                 RegisterContents = IodirRegisters[i - 1]; //Get the IODIR that we need
                 Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
             }
-            ResponseText += "Configured the IODIR registers for all inputs.\n";
 
+            ResponseText += "Configured the IODIR registers.\n";
+
+            return ResponseText;
+        }
+        public string ProcessTestVector(String BusSpeedText, int VectorNumber)
+        {
+            UInt16 Mask = 0; //The mask for this pin
+            UInt16 IcNumber = 0; //The index for the IC
+            UInt16 RegisterContents = 0;
+            String ResponseText = "";
+            String TestPin = "";
+
+            for (int Pin = 0; Pin < NumberOfPins; Pin++)
+            {
+                TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
+                if (TestPin == "1")
+                {
+                    Mask = PinMappingTable[Pin].Mask; //Get the Mask for this pin
+                    IcNumber = PinMappingTable[Pin].SpiAddress; //Get the SPI address for this IC
+                    OlatRegisters[IcNumber - 1] |= Mask; //Add in the bit for this pin
+                }
+            }
+
+            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            {
+                ClockRate = Convert.ToInt32(BusSpeedText),
+                LatencyTimer = LatencyTimer,
+                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+            };
+
+            MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
+
+            //Set the OLAT registers to the test vector values
+            for (UInt16 i = 1; i < 6; i++)
+            {
+                RegisterContents = OlatRegisters[i - 1]; //Get the OLAT that we need
+                Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
+            }
+
+            ResponseText = "Processed Test Vector " + VectorNumber;
             return ResponseText;
         }
 
@@ -547,11 +592,6 @@ namespace Warrens_Flipchip_Tester
             UInt16 IcAddress = 0; //The SPI chip Address
             UInt16 IoDirMask = 0; //This Pin's bit mask
 
-            for (int i = 0; i < 5; i++)
-            {
-                IodirRegisters[i] = 0x0000; //The I/O Direction Registers in the MCP23S17s start as outputs for now
-            }
-
             for (int i = 0; i < NumberOfPins; i++)
             {
                 if (PinTable[i].Direction == "I") //Only process inputs to the FlipChip
@@ -559,13 +599,8 @@ namespace Warrens_Flipchip_Tester
                     PinName = PinTable[i].FlipChipPin; //Get the Pin Name
                     IcAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
                     IoDirMask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
-                    IodirRegisters[IcAddress - 1] |= IoDirMask; //Or the mask to the IODIR Register contents
+                    IodirRegisters[IcAddress - 1] ^= IoDirMask; //Or the mask to the IODIR Register contents
                 }
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                IodirRegisters[i] = (UInt16)~IodirRegisters[i]; //Flip the bits in the I/O Direction Registers
             }
         }
 
