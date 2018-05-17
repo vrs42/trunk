@@ -381,16 +381,40 @@ namespace Warrens_Flipchip_Tester
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
 
-            MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
+            MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
             //Set the OLAT registers to the test vector values
             for (UInt16 i = 1; i < 6; i++)
             {
                 RegisterContents = OlatRegisters[i - 1]; //Get the OLAT that we need
-                Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
+                SpiGpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
             }
+            
+            ResponseText = "Processed Test Vector " + VectorNumber + "\n";
+            ResponseText += "Set the IOLAT Registers to ";
 
-            ResponseText = "Processed Test Vector " + VectorNumber;
+            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+            {
+                ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT).ToString("X4");
+            }
+            ResponseText += "\n";
+
+            ResponseText += "The the IODIR Registers are ";
+
+            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+            {
+                ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR).ToString("X4");
+            }
+            ResponseText += "\n";
+
+            ResponseText += "The the GPIO Registers are ";
+
+            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+            {
+                ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.GPIO).ToString("X4");
+            }
+            ResponseText += "\n";
+
             return ResponseText;
         }
 

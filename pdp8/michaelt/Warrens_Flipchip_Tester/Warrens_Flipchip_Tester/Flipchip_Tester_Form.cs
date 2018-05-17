@@ -38,6 +38,7 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         FlipChipTester WarrensFlipChipTester = new FlipChipTester();  //Make a new instance of the FlipChip Tester
+        int VectorNumber = 0; //The index for the first test vector
 
         public Flipchip_Tester_Form()
         {
@@ -151,7 +152,6 @@ namespace Warrens_Flipchip_Tester
 
         private void StartTestButton_Click(object sender, EventArgs e)
         {
-            int VectorNumber = 0; //The index for the first test vector
             try
             {
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
