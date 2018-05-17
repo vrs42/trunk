@@ -178,9 +178,9 @@ namespace Warrens_Flipchip_Tester
         PinTableStruct[] PinTable = new PinTableStruct[80]; //The Pin Table, we only have 80 GPIO pins
         int NumberOfPins = 0; //Number of Pins in the Pin Table
         int NumberOfTestVectors = 0; //The number of test vector lines
-        UInt16[] IodirRegisters = new UInt16[5] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
-        UInt16[] OlatRegisters = new UInt16[5] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
-        UInt16[] GpioRegisters = new UInt16[5] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
+        UInt16[] IodirRegisters = new UInt16[8] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
+        UInt16[] OlatRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
+        UInt16[] GpioRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
         String[] TestVectors = new String[2000]; //A place to hold up to 2000 test vectors
         String CommentLines; //A place to save the comments
         String PinLines; //A place to save the PIN statements
@@ -237,8 +237,7 @@ namespace Warrens_Flipchip_Tester
         {
             NumberOfPins = 0; //No Pins in the Pin Table
 
-            NumberOfPins = 0; //No Pins in the Pin Table
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 8; i++) //Preset the Register values
             {
                 IodirRegisters[i] = 0xffff; //The I/O Direction Registers in the MCP23S17s start as inputs
                 OlatRegisters[i] = 0x0000; //The I/O Latch Registers in the MCP23S17s start low
@@ -358,19 +357,23 @@ namespace Warrens_Flipchip_Tester
         public string ProcessTestVector(String BusSpeedText, int VectorNumber)
         {
             UInt16 Mask = 0; //The mask for this pin
-            UInt16 IcNumber = 0; //The index for the IC
+            UInt16 DeviceAddress = 0; //The index for the IC
             UInt16 RegisterContents = 0;
             String ResponseText = "";
             String TestPin = "";
+            String GpioPin = "";
+            String PassFail = "";
+            String PinName = "";
 
             for (int Pin = 0; Pin < NumberOfPins; Pin++)
             {
                 TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
                 if (TestPin == "1")
                 {
-                    Mask = PinMappingTable[Pin].Mask; //Get the Mask for this pin
-                    IcNumber = PinMappingTable[Pin].SpiAddress; //Get the SPI address for this IC
-                    OlatRegisters[IcNumber - 1] |= Mask; //Add in the bit for this pin
+                    PinName = PinTable[Pin].FlipChipPin; //Get the FlipChip pin name
+                    DeviceAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
+                    Mask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
+                    OlatRegisters[DeviceAddress - 1] |= Mask; //Add in the bit for this pin
                 }
             }
 
@@ -393,7 +396,7 @@ namespace Warrens_Flipchip_Tester
             ResponseText = "Processed Test Vector " + VectorNumber + "\n";
             ResponseText += "Set the IOLAT Registers to ";
 
-            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+            for (DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
             {
                 ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT).ToString("X4");
             }
@@ -401,7 +404,7 @@ namespace Warrens_Flipchip_Tester
 
             ResponseText += "The the IODIR Registers are ";
 
-            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+            for (DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
             {
                 ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR).ToString("X4");
             }
@@ -409,11 +412,30 @@ namespace Warrens_Flipchip_Tester
 
             ResponseText += "The the GPIO Registers are ";
 
-            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+            for (DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
             {
-                ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.GPIO).ToString("X4");
+                GpioRegisters[DeviceAddress] = SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.GPIO);
+                ResponseText += "\t0x" + GpioRegisters[DeviceAddress].ToString("X4");
             }
             ResponseText += "\n";
+
+            for (int Pin = 0; Pin < NumberOfPins; Pin++)
+            {
+                TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin logic value from the Test Vector
+                PinName = PinTable[Pin].FlipChipPin; //Get the FlipChip pin name
+                DeviceAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
+                Mask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
+                RegisterContents = (UInt16)(GpioRegisters[DeviceAddress] & Mask);
+                if (RegisterContents == 0)
+                    GpioPin = "0";
+                else
+                    GpioPin = "1";
+                if (TestPin == GpioPin)
+                    PassFail = "";
+                else
+                    PassFail = "Fail";
+                ResponseText += "Pin " + PinName + " Should Be: " + TestPin + " Was: " + GpioPin + " " + PassFail + "\n";
+            }
 
             return ResponseText;
         }
