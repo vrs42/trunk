@@ -365,7 +365,7 @@ namespace Warrens_Flipchip_Tester
             String PassFail = "";
             String PinName = "";
 
-            for (int Pin = 0; Pin < NumberOfPins; Pin++)
+            for (int Pin = 0; Pin < TestVectors[VectorNumber].Length; Pin++)
             {
                 TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
                 if (TestPin == "1")
@@ -419,7 +419,7 @@ namespace Warrens_Flipchip_Tester
             }
             ResponseText += "\n";
 
-            for (int Pin = 0; Pin < NumberOfPins; Pin++)
+            for (int Pin = 0; Pin < TestVectors[VectorNumber].Length; Pin++)
             {
                 TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin logic value from the Test Vector
                 PinName = PinTable[Pin].FlipChipPin; //Get the FlipChip pin name
