@@ -154,7 +154,8 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
-                VectorNumber = Convert.ToInt32(VectorNumberTextBox.Text);
+                VectorNumberTextBox.Text = "0";
+                VectorNumber = 0;
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
                 TesterRichTextBox.Text += WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
@@ -173,6 +174,7 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
+                VectorNumber = Convert.ToInt32(VectorNumberTextBox.Text);
                 VectorNumber++;
                 VectorNumberTextBox.Text = VectorNumber.ToString();
                 Application.DoEvents(); //Make the text show up now
