@@ -190,5 +190,31 @@ namespace Warrens_Flipchip_Tester
                 TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
             }
         }
+
+        private void RunAllTestVectorsButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                VectorNumberTextBox.Text = "0";
+                VectorNumber = 0;
+                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
+                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
+                for (int Vector = 0; Vector < 2000; Vector++)
+                {
+                    TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
+                    VectorNumber++;
+                    VectorNumberTextBox.Text = VectorNumber.ToString();
+                    Application.DoEvents(); //Make the text show up now
+                }
+            }
+            catch (SpiChannelNotConnectedException)
+            {
+                TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
+            }
+            catch (InvalidOperationException)
+            {
+                TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+            }
+        }
     }
 }

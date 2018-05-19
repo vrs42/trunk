@@ -348,10 +348,10 @@ namespace Warrens_Flipchip_Tester
             MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
             //Set the IODIR registers to the test values
-            for (UInt16 i = 1; i < 6; i++)
+            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
             {
-                RegisterContents = IodirRegisters[i - 1]; //Get the IODIR that we need
-                Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+                RegisterContents = IodirRegisters[DeviceAddress]; //Get the IODIR that we need
+                Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
             }
 
             ResponseText += "Configured the IODIR registers.\n";
@@ -372,13 +372,19 @@ namespace Warrens_Flipchip_Tester
             if (VectorNumber < NumberOfTestVectors)
             {
                 //Update the CurrentTestVector from this TestTector
-                for (int Pin = 0; Pin < TestVectors[VectorNumber].Length; Pin++)
+                for (int Pin = 0; Pin < TestVectors[VectorNumber].Length - 1; Pin++)
                 {
                     TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
                     if (TestPin == "1" | TestPin == "0")
                     {
                         CurrentTextVector[Pin] = TestVectors[VectorNumber].Substring(Pin, 1);
                     }
+                }
+
+                //Set the OLAT registers to zeros
+                for (UInt16 i = 1; i < 6; i++)
+                {
+                    OlatRegisters[i] = 0x0000; //Clear the register bits
                 }
 
                 for (int Pin = 0; Pin < NumberOfPinDrivers; Pin++)
@@ -389,7 +395,7 @@ namespace Warrens_Flipchip_Tester
                         PinName = PinTable[Pin].FlipChipPin; //Get the FlipChip pin name
                         DeviceAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
                         Mask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
-                        OlatRegisters[DeviceAddress - 1] |= Mask; //Add in the bit for this pin
+                        OlatRegisters[DeviceAddress] |= Mask; //Add in the bit for this pin
                     }
                 }
 
@@ -405,7 +411,7 @@ namespace Warrens_Flipchip_Tester
                 //Set the OLAT registers to the test vector values
                 for (UInt16 i = 1; i < 6; i++)
                 {
-                    RegisterContents = OlatRegisters[i - 1]; //Get the OLAT that we need
+                    RegisterContents = OlatRegisters[i]; //Get the OLAT that we need
                     SpiGpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
                 }
 
@@ -445,14 +451,17 @@ namespace Warrens_Flipchip_Tester
                     DeviceAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
                     Mask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
                     RegisterContents = (UInt16)(GpioRegisters[DeviceAddress] & Mask);
+
                     if (RegisterContents == 0)
                         GpioPin = "0";
                     else
                         GpioPin = "1";
-                    if (TestPin == GpioPin)
+
+                    if (TestPin == GpioPin | TestPin == "X")
                         PassFail = "";
                     else
                         PassFail = "Fail";
+
                     ResponseText += "Pin " + PinName + " Should Be: " + TestPin + " Was: " + GpioPin + " " + PassFail + "\n";
                 }
             }
@@ -660,7 +669,7 @@ namespace Warrens_Flipchip_Tester
         public void ProcessPinStatementLines()
         {
             String PinName = ""; //The Pin Name
-            UInt16 IcAddress = 0; //The SPI chip Address
+            UInt16 DeviceAddress = 0; //The SPI chip Address
             UInt16 IoDirMask = 0; //This Pin's bit mask
 
             for (int i = 0; i < NumberOfPins; i++)
@@ -668,9 +677,9 @@ namespace Warrens_Flipchip_Tester
                 if (PinTable[i].Direction == "I") //Only process inputs to the FlipChip
                 {
                     PinName = PinTable[i].FlipChipPin; //Get the Pin Name
-                    IcAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
+                    DeviceAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
                     IoDirMask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
-                    IodirRegisters[IcAddress - 1] ^= IoDirMask; //Or the mask to the IODIR Register contents
+                    IodirRegisters[DeviceAddress] ^= IoDirMask; //Or the mask to the IODIR Register contents
                 }
             }
         }

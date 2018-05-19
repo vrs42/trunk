@@ -50,6 +50,9 @@
             this.HardwareAddressEnablebutton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl = new System.Windows.Forms.TabControl();
             this.TestingTabPage = new System.Windows.Forms.TabPage();
+            this.VectorNumberLabel = new System.Windows.Forms.Label();
+            this.VectorNumberTextBox = new System.Windows.Forms.TextBox();
+            this.NextTestVectorButton = new System.Windows.Forms.Button();
             this.DisplayTheTestVectorsButton = new System.Windows.Forms.Button();
             this.DisplayTheCommentsButton = new System.Windows.Forms.Button();
             this.DisplayThePinTableButton = new System.Windows.Forms.Button();
@@ -60,9 +63,7 @@
             this.DiagsTabPage = new System.Windows.Forms.TabPage();
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
-            this.NextTestVectorButton = new System.Windows.Forms.Button();
-            this.VectorNumberTextBox = new System.Windows.Forms.TextBox();
-            this.VectorNumberLabel = new System.Windows.Forms.Label();
+            this.RunAllTestVectorsButton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.DiagsTabPage.SuspendLayout();
@@ -280,6 +281,7 @@
             // 
             // TestingTabPage
             // 
+            this.TestingTabPage.Controls.Add(this.RunAllTestVectorsButton);
             this.TestingTabPage.Controls.Add(this.VectorNumberLabel);
             this.TestingTabPage.Controls.Add(this.VectorNumberTextBox);
             this.TestingTabPage.Controls.Add(this.NextTestVectorButton);
@@ -298,6 +300,34 @@
             this.TestingTabPage.TabIndex = 0;
             this.TestingTabPage.Text = "FlipChip Testing";
             this.TestingTabPage.UseVisualStyleBackColor = true;
+            // 
+            // VectorNumberLabel
+            // 
+            this.VectorNumberLabel.AutoSize = true;
+            this.VectorNumberLabel.Location = new System.Drawing.Point(6, 285);
+            this.VectorNumberLabel.Name = "VectorNumberLabel";
+            this.VectorNumberLabel.Size = new System.Drawing.Size(78, 13);
+            this.VectorNumberLabel.TabIndex = 12;
+            this.VectorNumberLabel.Text = "Vector Number";
+            // 
+            // VectorNumberTextBox
+            // 
+            this.VectorNumberTextBox.Location = new System.Drawing.Point(6, 301);
+            this.VectorNumberTextBox.Name = "VectorNumberTextBox";
+            this.VectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
+            this.VectorNumberTextBox.TabIndex = 11;
+            this.VectorNumberTextBox.Text = "0";
+            // 
+            // NextTestVectorButton
+            // 
+            this.NextTestVectorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NextTestVectorButton.Location = new System.Drawing.Point(6, 180);
+            this.NextTestVectorButton.Name = "NextTestVectorButton";
+            this.NextTestVectorButton.Size = new System.Drawing.Size(230, 23);
+            this.NextTestVectorButton.TabIndex = 10;
+            this.NextTestVectorButton.Text = "Run Next Test Vector";
+            this.NextTestVectorButton.UseVisualStyleBackColor = true;
+            this.NextTestVectorButton.Click += new System.EventHandler(this.NextTestVectorButton_Click);
             // 
             // DisplayTheTestVectorsButton
             // 
@@ -339,7 +369,7 @@
             this.StartTestButton.Name = "StartTestButton";
             this.StartTestButton.Size = new System.Drawing.Size(230, 23);
             this.StartTestButton.TabIndex = 5;
-            this.StartTestButton.Text = "Start Test";
+            this.StartTestButton.Text = "Start Test, Run One Vector";
             this.StartTestButton.UseVisualStyleBackColor = true;
             this.StartTestButton.Click += new System.EventHandler(this.StartTestButton_Click);
             // 
@@ -436,33 +466,16 @@
             this.CycleTheLEDsButton.UseVisualStyleBackColor = true;
             this.CycleTheLEDsButton.Click += new System.EventHandler(this.CycleTheLEDsButton_Click);
             // 
-            // NextTestVectorButton
+            // RunAllTestVectorsButton
             // 
-            this.NextTestVectorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NextTestVectorButton.Location = new System.Drawing.Point(6, 180);
-            this.NextTestVectorButton.Name = "NextTestVectorButton";
-            this.NextTestVectorButton.Size = new System.Drawing.Size(230, 23);
-            this.NextTestVectorButton.TabIndex = 10;
-            this.NextTestVectorButton.Text = "Next Test Vector";
-            this.NextTestVectorButton.UseVisualStyleBackColor = true;
-            this.NextTestVectorButton.Click += new System.EventHandler(this.NextTestVectorButton_Click);
-            // 
-            // VectorNumberTextBox
-            // 
-            this.VectorNumberTextBox.Location = new System.Drawing.Point(6, 222);
-            this.VectorNumberTextBox.Name = "VectorNumberTextBox";
-            this.VectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
-            this.VectorNumberTextBox.TabIndex = 11;
-            this.VectorNumberTextBox.Text = "0";
-            // 
-            // VectorNumberLabel
-            // 
-            this.VectorNumberLabel.AutoSize = true;
-            this.VectorNumberLabel.Location = new System.Drawing.Point(6, 206);
-            this.VectorNumberLabel.Name = "VectorNumberLabel";
-            this.VectorNumberLabel.Size = new System.Drawing.Size(78, 13);
-            this.VectorNumberLabel.TabIndex = 12;
-            this.VectorNumberLabel.Text = "Vector Number";
+            this.RunAllTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RunAllTestVectorsButton.Location = new System.Drawing.Point(9, 209);
+            this.RunAllTestVectorsButton.Name = "RunAllTestVectorsButton";
+            this.RunAllTestVectorsButton.Size = new System.Drawing.Size(230, 23);
+            this.RunAllTestVectorsButton.TabIndex = 13;
+            this.RunAllTestVectorsButton.Text = "Run All Test Vectors";
+            this.RunAllTestVectorsButton.UseVisualStyleBackColor = true;
+            this.RunAllTestVectorsButton.Click += new System.EventHandler(this.RunAllTestVectorsButton_Click);
             // 
             // Flipchip_Tester_Form
             // 
@@ -517,6 +530,7 @@
         private System.Windows.Forms.Button NextTestVectorButton;
         private System.Windows.Forms.Label VectorNumberLabel;
         private System.Windows.Forms.TextBox VectorNumberTextBox;
+        private System.Windows.Forms.Button RunAllTestVectorsButton;
     }
 }
 
