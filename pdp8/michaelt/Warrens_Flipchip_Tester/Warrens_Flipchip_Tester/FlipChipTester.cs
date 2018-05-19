@@ -158,14 +158,14 @@ namespace Warrens_Flipchip_Tester
             new PinMappingStruct( 5, (1 << 1),  "BT2" ),
             new PinMappingStruct( 5, (1 << 2),  "BU2" ),
             new PinMappingStruct( 5, (1 << 3),  "BV2" ),
-            new PinMappingStruct( 5, (1 << 5),  "PROBE1" ),
-            new PinMappingStruct( 5, (1 << 5),  "PROBE2" ),
-            new PinMappingStruct( 5, (1 << 6),  "PROBE3" ),
-            new PinMappingStruct( 5, (1 << 7),  "PROBE4" ),
-            new PinMappingStruct( 5, (1 << 8),  "GREEN" ),
-            new PinMappingStruct( 5, (1 << 9),  "RED" ),
-            new PinMappingStruct( 5, (1 << 10), "YELLOW" ),
-            new PinMappingStruct( 5, (1 << 11), "RED2" ),
+            new PinMappingStruct( 5, (1 << 5),  "PR1" ),
+            new PinMappingStruct( 5, (1 << 5),  "PR2" ),
+            new PinMappingStruct( 5, (1 << 6),  "PR3" ),
+            new PinMappingStruct( 5, (1 << 7),  "PR4" ),
+            new PinMappingStruct( 5, (1 << 8),  "LG1" ),
+            new PinMappingStruct( 5, (1 << 9),  "LR1" ),
+            new PinMappingStruct( 5, (1 << 10), "LY1" ),
+            new PinMappingStruct( 5, (1 << 11), "LR2" ),
         };
 
         struct PinTableStruct
