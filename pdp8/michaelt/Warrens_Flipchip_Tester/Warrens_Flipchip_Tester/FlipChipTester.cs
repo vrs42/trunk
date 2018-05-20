@@ -186,6 +186,7 @@ namespace Warrens_Flipchip_Tester
         String CommentLines; //A place to save the comments
         String PinLines; //A place to save the PIN statements
         String IodirLine; //A place to save the IODIR line
+        int BusSpeed = 100000; //Set the default Bus Speed to 100kHz
 
         public FlipChipTester()
         {
@@ -232,7 +233,7 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         /// <summary>
-        /// initialise the FlipChip Tester Data Structures
+        /// Initialize the FlipChip Tester Data Structures
         /// </summary>
         public void InitializeFlipChipTester()
         {
@@ -273,37 +274,33 @@ namespace Warrens_Flipchip_Tester
 
                 //Setup the SPI chips for Hardware Address
                 Gpio0.HardwareAddressEnable();
-                ResponseText += "Enabled SPI Hardware Address Mode.\n";
 
                 //Set the IODIR registers to the test values
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
                 {
                     RegisterContents = 0xFFFF;
-                    Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+                    Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
                 }
-                ResponseText += "Configured the IODIR registers for all inputs.\n";
 
                 //Write the Hardware Address into the IOLAT register so we can read it back
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
                 {
-                    RegisterContents = i;
-                    Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
+                    RegisterContents = DeviceAddress;
+                    Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
                 }
 
                 //Read the Hardware Address in the IOLAT register and see if it is correct
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
                 {
-                    RegisterContents = Gpio0.ReadDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT);
-                    if (i != RegisterContents)
-                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
-                    else
-                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
+                    RegisterContents = Gpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT);
+                    if (DeviceAddress != RegisterContents)
+                        ResponseText += "The SPI chip with a Hardware Address of " + DeviceAddress + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
                 }
 
                 //Clear the IOLAT registers
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
                 {
-                    Gpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, 0x0000);
+                    Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT, 0x0000);
                 }
 
                 RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR); //Read the IODIR register for IC1
@@ -316,8 +313,6 @@ namespace Warrens_Flipchip_Tester
                     ResponseText += "The power to the FlipChip is off.\n";
                     throw new InvalidOperationException();
                 }
-                else
-                    ResponseText += "The power to the FlipChip is on.\n";
             }
             catch (SpiChannelNotConnectedException)
             {
@@ -354,8 +349,6 @@ namespace Warrens_Flipchip_Tester
                 Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
             }
 
-            ResponseText += "Configured the IODIR registers.\n";
-
             return ResponseText;
         }
         public string ProcessTestVector(String BusSpeedText, int VectorNumber)
@@ -363,16 +356,26 @@ namespace Warrens_Flipchip_Tester
             UInt16 Mask = 0; //The mask for this pin
             UInt16 DeviceAddress = 0; //The index for the IC
             UInt16 RegisterContents = 0;
+            UInt16 LedState = 0;
             String ResponseText = "";
             String TestPin = "";
             String GpioPin = "";
             String PassFail = "";
             String PinName = "";
 
+            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            {
+                ClockRate = Convert.ToInt32(BusSpeedText),
+                LatencyTimer = LatencyTimer,
+                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+            };
+
+            MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
+
             if (VectorNumber < NumberOfTestVectors)
             {
                 //Update the CurrentTestVector from this TestTector
-                for (int Pin = 0; Pin < TestVectors[VectorNumber].Length - 1; Pin++)
+                for (int Pin = 0; Pin < TestVectors[VectorNumber].Length; Pin++)
                 {
                     TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
                     if (TestPin == "1" | TestPin == "0")
@@ -381,11 +384,16 @@ namespace Warrens_Flipchip_Tester
                     }
                 }
 
+                LedState = SpiGpio0.ReadDoubleRegister(5, (UInt16)MCP23S17.Register.OLAT); //Get Register contents
+                LedState = (UInt16)(LedState & 0x0F00);
+
                 //Set the OLAT registers to zeros
                 for (UInt16 i = 1; i < 6; i++)
                 {
                     OlatRegisters[i] = 0x0000; //Clear the register bits
                 }
+
+                OlatRegisters[5] = (UInt16)(OlatRegisters[5] | LedState);
 
                 for (int Pin = 0; Pin < NumberOfPinDrivers; Pin++)
                 {
@@ -398,15 +406,6 @@ namespace Warrens_Flipchip_Tester
                         OlatRegisters[DeviceAddress] |= Mask; //Add in the bit for this pin
                     }
                 }
-
-                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
-                {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
-                    LatencyTimer = LatencyTimer,
-                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-                };
-
-                MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
                 //Set the OLAT registers to the test vector values
                 for (UInt16 i = 1; i < 6; i++)
@@ -444,7 +443,7 @@ namespace Warrens_Flipchip_Tester
                 }
                 ResponseText += "\n";
 
-                for (int Pin = 0; Pin < NumberOfPins - 1; Pin++)
+                for (int Pin = 0; Pin < NumberOfPins; Pin++)
                 {
                     TestPin = CurrentTextVector[Pin]; //Get a single Pin logic value from the Test Vector
                     PinName = PinTable[Pin].FlipChipPin; //Get the FlipChip pin name
@@ -460,13 +459,17 @@ namespace Warrens_Flipchip_Tester
                     if (TestPin == GpioPin | TestPin == "X")
                         PassFail = "";
                     else
+                    {
                         PassFail = "Fail";
+                        SetLedState("GREEN", "OFF"); //Turn the RED1 LED on
+                        SetLedState("RED1", "ON"); //Turn the RED1 LED on
+                    }
 
                     ResponseText += "Pin " + PinName + " Should Be: " + TestPin + " Was: " + GpioPin + " " + PassFail + "\n";
                 }
             }
             else //We ran out of test vectors
-                ResponseText += "No more test vectors.\n";
+                throw new ArgumentOutOfRangeException("No more test vectors.\n");
 
             return ResponseText;
         }
@@ -535,8 +538,8 @@ namespace Warrens_Flipchip_Tester
 
                                     if (FinishedWithIodir & TestVectorFileLine.Length > 0)
                                     {
-                                        if (TestVectorFileLine.Substring(0, 1) != ";")
-                                            TestVectors[NumberOfTestVectors++] += TestVectorFileLine; //Save the test vector in the test vector array.
+                                        if ((TestVectorFileLine.Substring(0, 1) != ";") & (TestVectorFileLine.Substring(0, 1) != "E"))
+                                                    TestVectors[NumberOfTestVectors++] += TestVectorFileLine; //Save the test vector in the test vector array.
                                     }
 
                                     if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Length > 0) //Must be the IODIR line
@@ -682,6 +685,8 @@ namespace Warrens_Flipchip_Tester
                     IodirRegisters[DeviceAddress] ^= IoDirMask; //Or the mask to the IODIR Register contents
                 }
             }
+
+            IodirRegisters[5] = Convert.ToUInt16(IodirRegisters[5] & 0xF0FF); //Set the LED bits to outputs
         }
 
         /// <summary>
@@ -1427,6 +1432,81 @@ namespace Warrens_Flipchip_Tester
             }
 
             return ResponseText;
+        }
+
+        /// <summary>
+        /// Turn an LED on or off
+        /// </summary>
+        /// <param name="LedName">GREEN, YELLOW, RED1, or RED2</param>
+        /// <param name="State">ON or OFF</param>
+        public void SetLedState(String LedName, String State)
+        {
+            UInt16 RegisterContents = 0x0000; //Empty for now
+            int Mask = 0x0000;  //Empty for now
+            try
+            {
+                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+                {
+                    ClockRate = BusSpeed,
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
+
+                MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
+
+                //Read the IOLAT register in IC 5 so we can turn on or off an LED
+                RegisterContents = Gpio0.ReadDoubleRegister(0x05, (UInt16)MCP23S17.Register.OLAT);
+
+                switch (LedName) //Determine the Mask for this LED
+                {
+                    case "ALL":
+                        {
+                            Mask = 0x0F00;
+                            break;
+                        }
+                    case "GREEN":
+                        {
+                            Mask = 0x0100;
+                            break;
+                        }
+                    case "RED1":
+                        {
+                            Mask = 0x0200;
+                            break;
+                        }
+                    case "YELLOW":
+                        {
+                            Mask = 0x0400;
+                            break;
+                        }
+                    case "RED2":
+                        {
+                            Mask = 0x0800;
+                            break;
+                        }
+                    default: //Bad LED name, so no action
+                        {
+                            Mask = 0x0000;
+                            break;
+                        }
+                }
+
+                if (State == "ON")
+                {
+                    RegisterContents = (UInt16)(RegisterContents | Mask);
+                }
+                else if (State == "OFF")
+                {
+                    RegisterContents = (UInt16)(RegisterContents & ~Mask);
+                }
+
+                //Write the IOLAT register in IC 5 so we can turn on or off an LED
+                Gpio0.WriteDoubleRegister(0x05, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
+
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

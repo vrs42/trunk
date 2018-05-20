@@ -159,6 +159,8 @@ namespace Warrens_Flipchip_Tester
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
                 TesterRichTextBox.Text += WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
+                WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the Green LED on
+                WarrensFlipChipTester.SetLedState("GREEN", "ON"); //Turn the Green LED on
             }
             catch (SpiChannelNotConnectedException)
             {
@@ -167,6 +169,10 @@ namespace Warrens_Flipchip_Tester
             catch (InvalidOperationException)
             {
                 TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
         }
 
@@ -189,6 +195,10 @@ namespace Warrens_Flipchip_Tester
             {
                 TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
             }
+            catch (ArgumentOutOfRangeException)
+            {
+                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+            }
         }
 
         private void RunAllTestVectorsButton_Click(object sender, EventArgs e)
@@ -199,6 +209,8 @@ namespace Warrens_Flipchip_Tester
                 VectorNumber = 0;
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
+                WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the Green LED on
+                WarrensFlipChipTester.SetLedState("GREEN", "ON"); //Turn the Green LED on
                 for (int Vector = 0; Vector < 2000; Vector++)
                 {
                     TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
@@ -214,6 +226,10 @@ namespace Warrens_Flipchip_Tester
             catch (InvalidOperationException)
             {
                 TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
         }
     }
