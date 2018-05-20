@@ -101,7 +101,7 @@ namespace Warrens_Flipchip_Tester
             new PinMappingStruct( 2, (1 << 11), "AP1" ),
             new PinMappingStruct( 2, (1 << 10), "AR1" ),
             new PinMappingStruct( 2, (1 << 9),  "AS1" ),
-            new PinMappingStruct( 2, (1 << 8),  "AT1" ),
+            new PinMappingStruct( 2, (1 << 8),  "AT1" ), //GND
             new PinMappingStruct( 3, (1 << 15), "AU1" ),
             new PinMappingStruct( 3, (1 << 14), "AV1" ),
             new PinMappingStruct( 1, (1 << 7),  "AA2" ), //Vpp
@@ -527,11 +527,12 @@ namespace Warrens_Flipchip_Tester
                                         PinLines += TestVectorFileLine + "\n";
                                     }
 
-                                    if (TestVectorFileLine.Contains("PINS"))
-                                    {
-                                        FinishedWithComments = true;
-                                        WeHavePinLines = true;
-                                    }
+                                    if (TestVectorFileLine.Length > 3)
+                                        if (TestVectorFileLine.Substring(0, 4) == "PINS")
+                                        {
+                                            FinishedWithComments = true;
+                                            WeHavePinLines = true;
+                                        }
 
                                     if (!FinishedWithComments) //Put all of the lines up to the "PINS" line in the comments
                                         CommentLines += TestVectorFileLine + "\n";
@@ -539,7 +540,7 @@ namespace Warrens_Flipchip_Tester
                                     if (FinishedWithIodir & TestVectorFileLine.Length > 0)
                                     {
                                         if ((TestVectorFileLine.Substring(0, 1) != ";") & (TestVectorFileLine.Substring(0, 1) != "E"))
-                                                    TestVectors[NumberOfTestVectors++] += TestVectorFileLine; //Save the test vector in the test vector array.
+                                            TestVectors[NumberOfTestVectors++] += TestVectorFileLine; //Save the test vector in the test vector array.
                                     }
 
                                     if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Length > 0) //Must be the IODIR line
