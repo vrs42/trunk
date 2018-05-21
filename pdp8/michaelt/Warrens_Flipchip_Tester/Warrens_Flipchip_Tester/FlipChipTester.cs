@@ -28,8 +28,8 @@ namespace Warrens_Flipchip_Tester
 {
     class FlipChipTester : IDisposable
     {
-        IntPtr unmanagedResource;
-        bool disposed = false;
+        private IntPtr unmanagedResource;
+        private bool disposed = false;
 
         //**************************************************************************
         //
@@ -37,12 +37,12 @@ namespace Warrens_Flipchip_Tester
         //
         //**************************************************************************
 
-        UInt32 FtdiDeviceCount = 0; //Number of FTDI devices found
-        FTDI.FT_STATUS FtdiStatus = FTDI.FT_STATUS.FT_OK; //The status of the last FTDI command
-        FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceInfoNode = new FTDI.FT_DEVICE_INFO_NODE[10]; //Get read for 10 USB cables
-        FTDI FtdiUSB0 = new FTDI(); // Create new instance of the FTDI device class
-        FTDI.FT232R_EEPROM_STRUCTURE FtdiREepromStructure = new FTDI.FT232R_EEPROM_STRUCTURE();
-        FTDI.FT232H_EEPROM_STRUCTURE FtdiHEepromStructure = new FTDI.FT232H_EEPROM_STRUCTURE();
+        private UInt32 FtdiDeviceCount = 0; //Number of FTDI devices found
+        private FTDI.FT_STATUS FtdiStatus = FTDI.FT_STATUS.FT_OK; //The status of the last FTDI command
+        private FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceInfoNode = new FTDI.FT_DEVICE_INFO_NODE[10]; //Get read for 10 USB cables
+        private FTDI FtdiUSB0 = new FTDI(); // Create new instance of the FTDI device class
+        private FTDI.FT232R_EEPROM_STRUCTURE FtdiREepromStructure = new FTDI.FT232R_EEPROM_STRUCTURE();
+        private FTDI.FT232H_EEPROM_STRUCTURE FtdiHEepromStructure = new FTDI.FT232H_EEPROM_STRUCTURE();
 
         //**************************************************************************
         //
@@ -51,11 +51,11 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         private const int LatencyTimer = 2; //Small value to make USB go faster
-        UInt32 MpsseChannelCount = 0;
-        int MpsseChannel = 0;
-        FtResult MpsseStatus = FtResult.Ok; //The status of the last Wrapper call command
-        FtDeviceInfo MpsseDeviceInfo;
-        IntPtr SpiHandle;
+        private UInt32 MpsseChannelCount = 0;
+        private int MpsseChannel = 0;
+        private FtResult MpsseStatus = FtResult.Ok; //The status of the last Wrapper call command
+        private FtDeviceInfo MpsseDeviceInfo;
+        private IntPtr SpiHandle;
 
         //**************************************************************************
         //
@@ -63,15 +63,15 @@ namespace Warrens_Flipchip_Tester
         //
         //**************************************************************************
 
-        const int NumberOfPinDrivers = 80;
-        const int TEST_COLUMNS = 72;
-        const int PIN_GROUND_AT1 = 15;
-        const int PIN_GROUND_AC2 = 20;
-        const int PIN_GROUND_BT1 = 51;
-        const int PIN_GROUND_BC2 = 56;
-        readonly char[] edge_pins = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V' };
+        private const int NumberOfPinDrivers = 80;
+        private const int TEST_COLUMNS = 72;
+        private const int PIN_GROUND_AT1 = 15;
+        private const int PIN_GROUND_AC2 = 20;
+        private const int PIN_GROUND_BT1 = 51;
+        private const int PIN_GROUND_BC2 = 56;
+        private readonly char[] edge_pins = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V' };
 
-        struct PinMappingStruct // 80 pin drivers
+        private struct PinMappingStruct // 80 pin drivers
         {
             public UInt16 SpiAddress { get; }
             public UInt16 Mask { get; }
@@ -85,7 +85,7 @@ namespace Warrens_Flipchip_Tester
         }
 
         //IC Number -1, Pin mask
-        readonly PinMappingStruct[] PinMappingTable = new PinMappingStruct[NumberOfPinDrivers] {
+        private readonly PinMappingStruct[] PinMappingTable = new PinMappingStruct[NumberOfPinDrivers] {
             new PinMappingStruct( 1, (1 << 15), "AA1" ),
             new PinMappingStruct( 1, (1 << 14), "AB1" ),
             new PinMappingStruct( 1, (1 << 13), "AC1" ),
@@ -168,26 +168,31 @@ namespace Warrens_Flipchip_Tester
             new PinMappingStruct( 5, (1 << 11), "LR2" ),
         };
 
-        struct PinTableStruct
+        private struct PinTableStruct
         {
             public int PinColumn;      //The Column in the Test Vector File
             public String Direction;   //Input, Output, or Pullup
             public String FlipChipPin; //The pin on the FlipChip
         }
 
-        PinTableStruct[] PinTable = new PinTableStruct[NumberOfPinDrivers]; //The Pin Table, we only have 80 GPIO pins
-        int NumberOfPins = 0; //Number of Pins in the Pin Table
-        int NumberOfTestVectors = 0; //The number of test vector lines
-        UInt16[] IodirRegisters = new UInt16[8] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
-        UInt16[] OlatRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
-        UInt16[] GpioRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
-        String[] TestVectors = new String[2000]; //A place to hold up to 2000 test vectors
-        String[] CurrentTextVector = new String[NumberOfPinDrivers]; //This holds the ones and zeros that are modified by each test vector
-        String CommentLines; //A place to save the comments
-        String PinLines; //A place to save the PIN statements
-        String IodirLine; //A place to save the IODIR line
-        int BusSpeed = 100000; //Set the default Bus Speed to 100kHz
+        private PinTableStruct[] PinTable = new PinTableStruct[NumberOfPinDrivers]; //The Pin Table, we only have 80 GPIO pins
+        private int NumberOfPins = 0; //Number of Pins in the Pin Table
+        private int NumberOfTestVectors = 0; //The number of test vector lines
+        private UInt16[] IodirRegisters = new UInt16[8] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
+        private UInt16[] OlatRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
+        private UInt16[] GpioRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
+        private String[] TestVectors = new String[2000]; //A place to hold up to 2000 test vectors
+        private String[] CurrentTextVector = new String[NumberOfPinDrivers]; //This holds the ones and zeros that are modified by each test vector
+        private String CommentLines; //A place to save the comments
+        private String PinLines; //A place to save the PIN statements
+        private String IodirLine; //A place to save the IODIR line
+        private int SpiBusSpeed = 100000; //Set the default Bus Speed to 100kHz
 
+        public int BusSpeed
+        {
+            get { return SpiBusSpeed; }
+            set { SpiBusSpeed = value; }
+        }
         public FlipChipTester()
         {
             InitializeFlipChipTester(); //Get everything ready
@@ -253,9 +258,8 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Initialize the FlipChip Tester hardware
         /// </summary>
-        /// <param name="BusSpeedText"></param>
         /// <returns>The messages from the initialization</returns>
-        public String InitializeTestHardware(String BusSpeedText)
+        public String InitializeTestHardware()
         {
             byte[] SpiRegisterContents = new byte[2];
             UInt16 RegisterContents = 0;
@@ -265,7 +269,7 @@ namespace Warrens_Flipchip_Tester
             {
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    ClockRate = SpiBusSpeed,
                     LatencyTimer = LatencyTimer,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
@@ -326,16 +330,15 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Write the IODIR registers so we can test a FlipChip
         /// </summary>
-        /// <param name="BusSpeedText"></param>
         /// <returns></returns>
-        public String SetupIodirRegisters(String BusSpeedText)
+        public String SetupIodirRegisters()
         {
             UInt16 RegisterContents = 0;
             string ResponseText = "";
 
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
+                ClockRate = SpiBusSpeed,
                 LatencyTimer = LatencyTimer,
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
@@ -351,7 +354,7 @@ namespace Warrens_Flipchip_Tester
 
             return ResponseText;
         }
-        public string ProcessTestVector(String BusSpeedText, int VectorNumber)
+        public string ProcessTestVector(int VectorNumber)
         {
             UInt16 Mask = 0; //The mask for this pin
             UInt16 DeviceAddress = 0; //The index for the IC
@@ -365,7 +368,7 @@ namespace Warrens_Flipchip_Tester
 
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
+                ClockRate = SpiBusSpeed,
                 LatencyTimer = LatencyTimer,
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
@@ -606,9 +609,8 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Enable the Hardware Addressing mode in the SPI chips
         /// </summary>
-        /// <param name="BusSpeedText"></param>
         /// <returns>The messages from the initialization</returns>
-        public String HardwareAddressEnable(String BusSpeedText)
+        public String HardwareAddressEnable()
         {
             UInt16 RegisterContents = 0;
             string ResponseText = "";
@@ -617,7 +619,7 @@ namespace Warrens_Flipchip_Tester
             {
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    ClockRate = SpiBusSpeed,
                     LatencyTimer = LatencyTimer,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
@@ -747,16 +749,15 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Cycle the LEDs on the tester through a binary pattern
         /// </summary>
-        /// <param name="BusSpeedText"></param>
         /// <returns></returns>
-        public string CycleTheLEDs(String BusSpeedText)
+        public string CycleTheLEDs()
         {
             UInt16 RegisterContents = 0;
             string ResponseText = "";
 
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
+                ClockRate = SpiBusSpeed,
                 LatencyTimer = LatencyTimer,
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
@@ -996,7 +997,7 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Turn on the LEDs in the FTDI USB cable
         /// </summary>
-        public String TurnOnLEDs(String BusSpeedText)
+        public String TurnOnLEDs()
         {
             byte dir = 0xff;
             byte value = 0xb0;
@@ -1006,7 +1007,7 @@ namespace Warrens_Flipchip_Tester
             {
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    ClockRate = SpiBusSpeed,
                     LatencyTimer = LatencyTimer,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
@@ -1062,7 +1063,7 @@ namespace Warrens_Flipchip_Tester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public String TurnOffLEDs(String BusSpeedText)
+        public String TurnOffLEDs()
         {
             byte dir = 0xff;
             byte value = 0xff;
@@ -1074,7 +1075,7 @@ namespace Warrens_Flipchip_Tester
             {
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    ClockRate = SpiBusSpeed,
                     LatencyTimer = LatencyTimer,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
@@ -1142,9 +1143,8 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Return the contents of the SPI device registers in hex
         /// </summary>
-        /// <param name="BusSpeedText"></param>
         /// <returns>Contents of the SPI device registers</returns>
-        public String ReadMPC23S17Registers(String BusSpeedText)
+        public String ReadMPC23S17Registers()
         {
             string ResponseText = "Register\tIC1\t\tIC2\t\tIC3\t\tIC4\t\tIC5 \n";
 
@@ -1152,7 +1152,7 @@ namespace Warrens_Flipchip_Tester
             {
                 FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig
                 {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    ClockRate = SpiBusSpeed,
                     LatencyTimer = LatencyTimer,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
@@ -1180,12 +1180,11 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Return the contents of the specified SPI device register in hex
         /// </summary>
-        /// <param name="BusSpeedText"></param>
         /// <param name="DeviceAddressText"></param>
         /// <param name="RegisterNameText"></param>
         /// <param name="RegisterContentsText"></param>
         /// <returns>String containing the results of the register write</returns>
-        public String WriteSingleMPC23S17Register(String BusSpeedText, String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
+        public String WriteSingleMPC23S17Register(String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
         {
             byte[] SpiRegisterContents = new byte[2];
             UInt16 RegisterContents = 0;
@@ -1255,7 +1254,7 @@ namespace Warrens_Flipchip_Tester
 
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    ClockRate = SpiBusSpeed,
                     LatencyTimer = LatencyTimer,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
@@ -1280,7 +1279,7 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Reset the SPI bus by toggling a USB Cable GPIO
         /// </summary>
-        public String ResetSpiBus(String BusSpeedText)
+        public String ResetSpiBus()
         {
             byte direction = 0xff; //0 is input, 1 is output
             byte value = 0xb0;
@@ -1288,7 +1287,7 @@ namespace Warrens_Flipchip_Tester
 
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
-                ClockRate = Convert.ToInt32(BusSpeedText),
+                ClockRate = SpiBusSpeed,
                 LatencyTimer = LatencyTimer,
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
@@ -1329,7 +1328,7 @@ namespace Warrens_Flipchip_Tester
 
             return ResponseText;
         }
-        public String Read1kMPC23S17Registers(String BusSpeedText, String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
+        public String Read1kMPC23S17Registers(String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
         {
             string ResponseText = "";
             byte[] SpiRegisterContents = new byte[2];
@@ -1405,7 +1404,7 @@ namespace Warrens_Flipchip_Tester
 
                 FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig //Configuration for the FTDI USB cable's SPI bus
                 {
-                    ClockRate = Convert.ToInt32(BusSpeedText),
+                    ClockRate = SpiBusSpeed,
                     LatencyTimer = LatencyTimer, //Locally defined
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };

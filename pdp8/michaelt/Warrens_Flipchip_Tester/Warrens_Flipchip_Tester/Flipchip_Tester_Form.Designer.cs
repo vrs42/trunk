@@ -50,6 +50,7 @@
             this.HardwareAddressEnablebutton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl = new System.Windows.Forms.TabControl();
             this.TestingTabPage = new System.Windows.Forms.TabPage();
+            this.RunAllTestVectorsButton = new System.Windows.Forms.Button();
             this.VectorNumberLabel = new System.Windows.Forms.Label();
             this.VectorNumberTextBox = new System.Windows.Forms.TextBox();
             this.NextTestVectorButton = new System.Windows.Forms.Button();
@@ -63,7 +64,7 @@
             this.DiagsTabPage = new System.Windows.Forms.TabPage();
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
-            this.RunAllTestVectorsButton = new System.Windows.Forms.Button();
+            this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.DiagsTabPage.SuspendLayout();
@@ -245,6 +246,7 @@
             this.BusSpeedTextBox.Size = new System.Drawing.Size(108, 20);
             this.BusSpeedTextBox.TabIndex = 19;
             this.BusSpeedTextBox.Text = "100000";
+            this.BusSpeedTextBox.TextChanged += new System.EventHandler(this.BusSpeedChanged);
             // 
             // BusSpeedlabel
             // 
@@ -300,6 +302,17 @@
             this.TestingTabPage.TabIndex = 0;
             this.TestingTabPage.Text = "FlipChip Testing";
             this.TestingTabPage.UseVisualStyleBackColor = true;
+            // 
+            // RunAllTestVectorsButton
+            // 
+            this.RunAllTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RunAllTestVectorsButton.Location = new System.Drawing.Point(9, 209);
+            this.RunAllTestVectorsButton.Name = "RunAllTestVectorsButton";
+            this.RunAllTestVectorsButton.Size = new System.Drawing.Size(230, 23);
+            this.RunAllTestVectorsButton.TabIndex = 13;
+            this.RunAllTestVectorsButton.Text = "Run All Test Vectors";
+            this.RunAllTestVectorsButton.UseVisualStyleBackColor = true;
+            this.RunAllTestVectorsButton.Click += new System.EventHandler(this.RunAllTestVectorsButton_Click);
             // 
             // VectorNumberLabel
             // 
@@ -466,16 +479,13 @@
             this.CycleTheLEDsButton.UseVisualStyleBackColor = true;
             this.CycleTheLEDsButton.Click += new System.EventHandler(this.CycleTheLEDsButton_Click);
             // 
-            // RunAllTestVectorsButton
+            // FlipChipTestBackgroundWorker
             // 
-            this.RunAllTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunAllTestVectorsButton.Location = new System.Drawing.Point(9, 209);
-            this.RunAllTestVectorsButton.Name = "RunAllTestVectorsButton";
-            this.RunAllTestVectorsButton.Size = new System.Drawing.Size(230, 23);
-            this.RunAllTestVectorsButton.TabIndex = 13;
-            this.RunAllTestVectorsButton.Text = "Run All Test Vectors";
-            this.RunAllTestVectorsButton.UseVisualStyleBackColor = true;
-            this.RunAllTestVectorsButton.Click += new System.EventHandler(this.RunAllTestVectorsButton_Click);
+            this.FlipChipTestBackgroundWorker.WorkerReportsProgress = true;
+            this.FlipChipTestBackgroundWorker.WorkerSupportsCancellation = true;
+            this.FlipChipTestBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RunFlipChipTest);
+            this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
+            this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
             // 
             // Flipchip_Tester_Form
             // 
@@ -531,6 +541,7 @@
         private System.Windows.Forms.Label VectorNumberLabel;
         private System.Windows.Forms.TextBox VectorNumberTextBox;
         private System.Windows.Forms.Button RunAllTestVectorsButton;
+        private System.ComponentModel.BackgroundWorker FlipChipTestBackgroundWorker;
     }
 }
 

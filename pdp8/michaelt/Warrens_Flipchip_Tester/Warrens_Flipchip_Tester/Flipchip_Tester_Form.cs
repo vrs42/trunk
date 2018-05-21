@@ -15,14 +15,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FTD2XX_NET;
 using libMPSSEWrapper;
 using libMPSSEWrapper.Types;
 using libMPSSEWrapper.Exceptions;
@@ -43,6 +40,17 @@ namespace Warrens_Flipchip_Tester
         public Flipchip_Tester_Form()
         {
             InitializeComponent();
+            BusSpeedTextBox.Text = WarrensFlipChipTester.BusSpeed.ToString();
+        }
+
+        /// <summary>
+        /// The Bus Speed TextBox changed, so save the new speed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BusSpeedChanged(object sender, EventArgs e)
+        {
+            WarrensFlipChipTester.BusSpeed = Convert.ToInt32(BusSpeedTextBox.Text);
         }
 
         /// <summary>
@@ -72,7 +80,7 @@ namespace Warrens_Flipchip_Tester
         /// <param name="e"></param>
         private void TurnOnLEDsbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.TurnOnLEDs(BusSpeedTextBox.Text);
+            DiagRichTextBox.Text = WarrensFlipChipTester.TurnOnLEDs();
         }
 
         /// <summary>
@@ -82,7 +90,7 @@ namespace Warrens_Flipchip_Tester
         /// <param name="e"></param>
         private void TurnOffLEDsbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.TurnOffLEDs(BusSpeedTextBox.Text);
+            DiagRichTextBox.Text = WarrensFlipChipTester.TurnOffLEDs();
         }
 
         private void ReadEEPROMInFTDIDevicesbutton_Click(object sender, EventArgs e)
@@ -97,26 +105,26 @@ namespace Warrens_Flipchip_Tester
 
         private void ReadMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.ReadMPC23S17Registers(BusSpeedTextBox.Text);
+            DiagRichTextBox.Text = WarrensFlipChipTester.ReadMPC23S17Registers();
         }
 
         private void Read1kMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = "The SPI bus is running at " + Convert.ToInt32(BusSpeedTextBox.Text) + "Hz.\n" + "Reading 5x registers 1000 times.\n";
+            DiagRichTextBox.Text = "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed + "Hz.\n" + "Reading 5x registers 1000 times.\n";
 
             Application.DoEvents();
 
-            DiagRichTextBox.Text += WarrensFlipChipTester.Read1kMPC23S17Registers(BusSpeedTextBox.Text, DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
+            DiagRichTextBox.Text += WarrensFlipChipTester.Read1kMPC23S17Registers(DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
         }
 
         private void WriteSingleMPC23S17Registerbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.WriteSingleMPC23S17Register(BusSpeedTextBox.Text, DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
+            DiagRichTextBox.Text = WarrensFlipChipTester.WriteSingleMPC23S17Register(DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
         }
 
         private void HardwareAddressEnablebutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.HardwareAddressEnable(BusSpeedTextBox.Text);
+            DiagRichTextBox.Text = WarrensFlipChipTester.HardwareAddressEnable();
         }
 
         private void OpenTestVectorFileButton_Click(object sender, EventArgs e)
@@ -145,7 +153,7 @@ namespace Warrens_Flipchip_Tester
             DiagRichTextBox.Text = "Sending binary pattern to the LEDs\n";
             Application.DoEvents(); //Make sure that the message gets displayed
 
-            WarrensFlipChipTester.CycleTheLEDs(BusSpeedTextBox.Text);
+            WarrensFlipChipTester.CycleTheLEDs();
 
             DiagRichTextBox.Text += "Done.";
         }
@@ -156,9 +164,9 @@ namespace Warrens_Flipchip_Tester
             {
                 VectorNumberTextBox.Text = "0";
                 VectorNumber = 0;
-                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
-                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
-                TesterRichTextBox.Text += WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
+                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
+                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
+                TesterRichTextBox.Text += WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
                 WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the Green LED on
                 WarrensFlipChipTester.SetLedState("GREEN", "ON"); //Turn the Green LED on
             }
@@ -185,7 +193,7 @@ namespace Warrens_Flipchip_Tester
                 VectorNumberTextBox.Text = VectorNumber.ToString();
                 Application.DoEvents(); //Make the text show up now
 
-                TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
+                TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
             }
             catch (SpiChannelNotConnectedException)
             {
@@ -207,13 +215,13 @@ namespace Warrens_Flipchip_Tester
             {
                 VectorNumberTextBox.Text = "0";
                 VectorNumber = 0;
-                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(BusSpeedTextBox.Text); //Turn on hardware addressing and test it
-                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(BusSpeedTextBox.Text); //Write the bits into the IODIR registers
+                TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
+                TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
                 WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the Green LED on
                 WarrensFlipChipTester.SetLedState("GREEN", "ON"); //Turn the Green LED on
                 for (int Vector = 0; Vector < 2000; Vector++)
                 {
-                    TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(BusSpeedTextBox.Text, VectorNumber); //Process a test vector
+                    TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
                     VectorNumber++;
                     VectorNumberTextBox.Text = VectorNumber.ToString();
                     Application.DoEvents(); //Make the text show up now
@@ -231,6 +239,42 @@ namespace Warrens_Flipchip_Tester
             {
                 TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
+        }
+
+        //**************************************************************************
+        //
+        // Run the FlipChip Testing on a separate Thread so that the GUI remains responsive
+        //
+        //**************************************************************************
+
+        /// <summary>
+        /// Spin off a Thread to perform the FlipChip test
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RunFlipChipTest(object sender, DoWorkEventArgs e)
+        {
+            TesterRichTextBox.Text += "\nStarting FlipChip Test Thread.\n";
+        }
+
+        /// <summary>
+        /// Get and display a status update from the FlipChip tester
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FlipChipTestStatus(object sender, ProgressChangedEventArgs e)
+        {
+            TesterRichTextBox.Text += "\nProcessed test vector # x.\n";
+        }
+
+        /// <summary>
+        /// Display the FlipChip test results
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FlipChipTestCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            TesterRichTextBox.Text += "\nFinished with test vectors.\n";
         }
     }
 }
