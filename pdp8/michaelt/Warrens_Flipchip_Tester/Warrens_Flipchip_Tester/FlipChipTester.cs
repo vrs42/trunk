@@ -543,7 +543,7 @@ namespace Warrens_Flipchip_Tester
                                     if (FinishedWithIodir & TestVectorFileLine.Length > 0)
                                     {
                                         if ((TestVectorFileLine.Substring(0, 1) != ";") & (TestVectorFileLine.Substring(0, 1) != "E"))
-                                            TestVectors[NumberOfTestVectors++] += TestVectorFileLine; //Save the test vector in the test vector array.
+                                            TestVectors[NumberOfTestVectors++] = TestVectorFileLine; //Save the test vector in the test vector array.
                                     }
 
                                     if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Length > 0) //Must be the IODIR line

@@ -217,8 +217,10 @@ namespace Warrens_Flipchip_Tester
                 VectorNumber = 0;
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
-                WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the Green LED on
+                WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the all LEDs off
                 WarrensFlipChipTester.SetLedState("GREEN", "ON"); //Turn the Green LED on
+                WarrensFlipChipTester.SetLedState("YELLOW", "ON"); //Turn the Yellow LED on
+
                 for (int Vector = 0; Vector < 2000; Vector++)
                 {
                     TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
@@ -237,6 +239,7 @@ namespace Warrens_Flipchip_Tester
             }
             catch (ArgumentOutOfRangeException)
             {
+                WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
                 TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
         }
