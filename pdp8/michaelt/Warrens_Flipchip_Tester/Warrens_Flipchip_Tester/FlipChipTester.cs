@@ -23,6 +23,8 @@ using FTD2XX_NET;
 using libMPSSEWrapper;
 using libMPSSEWrapper.Types;
 using libMPSSEWrapper.Exceptions;
+using Warrens_Flipchip_Tester.Exceptions;
+using Warrens_Flipchip_Tester.Types;
 
 namespace Warrens_Flipchip_Tester
 {
@@ -63,6 +65,7 @@ namespace Warrens_Flipchip_Tester
         //
         //**************************************************************************
 
+        private bool StopTestOnFault = true; //The test sequence will stop if a fault is found
         private const int NumberOfPinDrivers = 80;
         private const int TEST_COLUMNS = 72;
         private const int PIN_GROUND_AT1 = 15;
@@ -193,6 +196,12 @@ namespace Warrens_Flipchip_Tester
             get { return SpiBusSpeed; }
             set { SpiBusSpeed = value; }
         }
+
+        public bool StopTestIfFaultDetected
+        {
+            get { return StopTestOnFault; }
+            set { StopTestOnFault = value; }
+        }
         public FlipChipTester()
         {
             InitializeFlipChipTester(); //Get everything ready
@@ -298,7 +307,7 @@ namespace Warrens_Flipchip_Tester
                 {
                     RegisterContents = Gpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT);
                     if (DeviceAddress != RegisterContents)
-                        ResponseText += "The SPI chip with a Hardware Address of " + DeviceAddress + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
+                        throw new FlipchipTesterException(FlipChipTestResult.SpiTestFailed);
                 }
 
                 //Clear the IOLAT registers
@@ -314,13 +323,11 @@ namespace Warrens_Flipchip_Tester
                 RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.GPIO);
                 if ((RegisterContents & (UInt16)0x0080) == 0)
                 {
-                    ResponseText += "The power to the FlipChip is off.\n";
-                    throw new InvalidOperationException();
+                    throw new FlipchipTesterException(FlipChipTestResult.VppPowerIsOff);
                 }
             }
             catch (SpiChannelNotConnectedException)
             {
-                ResponseText = "Could not connect to USB/SPI cable.";
                 throw new SpiChannelNotConnectedException(FtResult.DeviceNotFound);
             }
 
@@ -466,13 +473,16 @@ namespace Warrens_Flipchip_Tester
                         PassFail = "Fail";
                         SetLedState("GREEN", "OFF"); //Turn the RED1 LED on
                         SetLedState("RED1", "ON"); //Turn the RED1 LED on
+
+                        if (StopTestIfFaultDetected)
+                            throw new FlipchipTesterException(FlipChipTestResult.InvalidTestResult);
                     }
 
                     ResponseText += "Pin " + PinName + " Should Be: " + TestPin + " Was: " + GpioPin + " " + PassFail + "\n";
                 }
             }
             else //We ran out of test vectors
-                throw new ArgumentOutOfRangeException("No more test vectors.\n");
+                throw new FlipchipTesterException(FlipChipTestResult.FinishedWithTests);
 
             return ResponseText;
         }
@@ -755,25 +765,32 @@ namespace Warrens_Flipchip_Tester
             UInt16 RegisterContents = 0;
             string ResponseText = "";
 
-            FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+            try
             {
-                ClockRate = SpiBusSpeed,
-                LatencyTimer = LatencyTimer,
-                configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
-            };
+                FtdiChannelConfig SpiConfig = new FtdiChannelConfig
+                {
+                    ClockRate = SpiBusSpeed,
+                    LatencyTimer = LatencyTimer,
+                    configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
+                };
 
-            MCP23S17 Gpio0 = new MCP23S17(SpiConfig);
-            ResponseText += "Writing to the IODIR and IOLAT registers in IC5.\n";
+                MCP23S17 Gpio0 = new MCP23S17(SpiConfig);
+                ResponseText += "Writing to the IODIR and IOLAT registers in IC5.\n";
 
-            RegisterContents = 0xF0FF; //Pins 1-4 are outputs
-            Gpio0.WriteDoubleRegister(5, (int)MCP23S17.Register.IODIR, RegisterContents);
+                RegisterContents = 0xF0FF; //Pins 1-4 are outputs
+                Gpio0.WriteDoubleRegister(5, (int)MCP23S17.Register.IODIR, RegisterContents);
 
-            //Write a count into the IOLAT register so we can read it back
-            for (UInt16 i = 0; i < 16; i++)
+                //Write a count into the IOLAT register so we can read it back
+                for (UInt16 i = 0; i < 16; i++)
+                {
+                    RegisterContents = (UInt16)(0x0000 | i << 8);
+                    Gpio0.WriteDoubleRegister(5, (int)MCP23S17.Register.OLAT, RegisterContents);
+                    Thread.Sleep(250);
+                }
+            }
+            catch (SpiChannelNotConnectedException)
             {
-                RegisterContents = (UInt16)(0x0000 | i << 8);
-                Gpio0.WriteDoubleRegister(5, (int)MCP23S17.Register.OLAT, RegisterContents);
-                Thread.Sleep(250);
+                throw new SpiChannelNotConnectedException(FtResult.DeviceNotFound);
             }
 
             return ResponseText;

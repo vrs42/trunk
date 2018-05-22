@@ -65,10 +65,14 @@
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.StopTestIfFaultDetectedRadioButton = new System.Windows.Forms.RadioButton();
+            this.DontStopTestIfFaultDetectedRadioButton = new System.Windows.Forms.RadioButton();
+            this.StopTestIfFaultDetectedGroupBox = new System.Windows.Forms.GroupBox();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.DiagsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).BeginInit();
+            this.StopTestIfFaultDetectedGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // DiagRichTextBox
@@ -108,6 +112,7 @@
             // 
             // ReadMPC23S17Registersbutton
             // 
+            this.ReadMPC23S17Registersbutton.Enabled = false;
             this.ReadMPC23S17Registersbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadMPC23S17Registersbutton.Location = new System.Drawing.Point(5, 209);
             this.ReadMPC23S17Registersbutton.Name = "ReadMPC23S17Registersbutton";
@@ -195,6 +200,7 @@
             // 
             // WriteSingleMPC23S17Registerbutton
             // 
+            this.WriteSingleMPC23S17Registerbutton.Enabled = false;
             this.WriteSingleMPC23S17Registerbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WriteSingleMPC23S17Registerbutton.Location = new System.Drawing.Point(6, 238);
             this.WriteSingleMPC23S17Registerbutton.Name = "WriteSingleMPC23S17Registerbutton";
@@ -283,6 +289,7 @@
             // 
             // TestingTabPage
             // 
+            this.TestingTabPage.Controls.Add(this.StopTestIfFaultDetectedGroupBox);
             this.TestingTabPage.Controls.Add(this.RunAllTestVectorsButton);
             this.TestingTabPage.Controls.Add(this.VectorNumberLabel);
             this.TestingTabPage.Controls.Add(this.VectorNumberTextBox);
@@ -306,7 +313,7 @@
             // RunAllTestVectorsButton
             // 
             this.RunAllTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunAllTestVectorsButton.Location = new System.Drawing.Point(9, 209);
+            this.RunAllTestVectorsButton.Location = new System.Drawing.Point(6, 209);
             this.RunAllTestVectorsButton.Name = "RunAllTestVectorsButton";
             this.RunAllTestVectorsButton.Size = new System.Drawing.Size(230, 23);
             this.RunAllTestVectorsButton.TabIndex = 13;
@@ -317,7 +324,7 @@
             // VectorNumberLabel
             // 
             this.VectorNumberLabel.AutoSize = true;
-            this.VectorNumberLabel.Location = new System.Drawing.Point(6, 285);
+            this.VectorNumberLabel.Location = new System.Drawing.Point(6, 263);
             this.VectorNumberLabel.Name = "VectorNumberLabel";
             this.VectorNumberLabel.Size = new System.Drawing.Size(78, 13);
             this.VectorNumberLabel.TabIndex = 12;
@@ -325,7 +332,7 @@
             // 
             // VectorNumberTextBox
             // 
-            this.VectorNumberTextBox.Location = new System.Drawing.Point(6, 301);
+            this.VectorNumberTextBox.Location = new System.Drawing.Point(6, 279);
             this.VectorNumberTextBox.Name = "VectorNumberTextBox";
             this.VectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
             this.VectorNumberTextBox.TabIndex = 11;
@@ -470,8 +477,9 @@
             // 
             // CycleTheLEDsButton
             // 
+            this.CycleTheLEDsButton.Enabled = false;
             this.CycleTheLEDsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CycleTheLEDsButton.Location = new System.Drawing.Point(6, 581);
+            this.CycleTheLEDsButton.Location = new System.Drawing.Point(3, 180);
             this.CycleTheLEDsButton.Name = "CycleTheLEDsButton";
             this.CycleTheLEDsButton.Size = new System.Drawing.Size(230, 23);
             this.CycleTheLEDsButton.TabIndex = 22;
@@ -486,6 +494,40 @@
             this.FlipChipTestBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RunFlipChipTest);
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
+            // 
+            // StopTestIfFaultDetectedRadioButton
+            // 
+            this.StopTestIfFaultDetectedRadioButton.AutoSize = true;
+            this.StopTestIfFaultDetectedRadioButton.Checked = true;
+            this.StopTestIfFaultDetectedRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.StopTestIfFaultDetectedRadioButton.Name = "StopTestIfFaultDetectedRadioButton";
+            this.StopTestIfFaultDetectedRadioButton.Size = new System.Drawing.Size(43, 17);
+            this.StopTestIfFaultDetectedRadioButton.TabIndex = 14;
+            this.StopTestIfFaultDetectedRadioButton.TabStop = true;
+            this.StopTestIfFaultDetectedRadioButton.Text = "Yes";
+            this.StopTestIfFaultDetectedRadioButton.UseVisualStyleBackColor = true;
+            this.StopTestIfFaultDetectedRadioButton.CheckedChanged += new System.EventHandler(this.StopTestIfFaultDetected_Changed);
+            // 
+            // DontStopTestIfFaultDetectedRadioButton
+            // 
+            this.DontStopTestIfFaultDetectedRadioButton.AutoSize = true;
+            this.DontStopTestIfFaultDetectedRadioButton.Location = new System.Drawing.Point(6, 41);
+            this.DontStopTestIfFaultDetectedRadioButton.Name = "DontStopTestIfFaultDetectedRadioButton";
+            this.DontStopTestIfFaultDetectedRadioButton.Size = new System.Drawing.Size(39, 17);
+            this.DontStopTestIfFaultDetectedRadioButton.TabIndex = 15;
+            this.DontStopTestIfFaultDetectedRadioButton.Text = "No";
+            this.DontStopTestIfFaultDetectedRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // StopTestIfFaultDetectedGroupBox
+            // 
+            this.StopTestIfFaultDetectedGroupBox.Controls.Add(this.DontStopTestIfFaultDetectedRadioButton);
+            this.StopTestIfFaultDetectedGroupBox.Controls.Add(this.StopTestIfFaultDetectedRadioButton);
+            this.StopTestIfFaultDetectedGroupBox.Location = new System.Drawing.Point(6, 339);
+            this.StopTestIfFaultDetectedGroupBox.Name = "StopTestIfFaultDetectedGroupBox";
+            this.StopTestIfFaultDetectedGroupBox.Size = new System.Drawing.Size(230, 60);
+            this.StopTestIfFaultDetectedGroupBox.TabIndex = 16;
+            this.StopTestIfFaultDetectedGroupBox.TabStop = false;
+            this.StopTestIfFaultDetectedGroupBox.Text = "Stop Test If Fault Detected";
             // 
             // Flipchip_Tester_Form
             // 
@@ -502,6 +544,8 @@
             this.DiagsTabPage.ResumeLayout(false);
             this.DiagsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).EndInit();
+            this.StopTestIfFaultDetectedGroupBox.ResumeLayout(false);
+            this.StopTestIfFaultDetectedGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -542,6 +586,9 @@
         private System.Windows.Forms.TextBox VectorNumberTextBox;
         private System.Windows.Forms.Button RunAllTestVectorsButton;
         private System.ComponentModel.BackgroundWorker FlipChipTestBackgroundWorker;
+        private System.Windows.Forms.GroupBox StopTestIfFaultDetectedGroupBox;
+        private System.Windows.Forms.RadioButton DontStopTestIfFaultDetectedRadioButton;
+        private System.Windows.Forms.RadioButton StopTestIfFaultDetectedRadioButton;
     }
 }
 

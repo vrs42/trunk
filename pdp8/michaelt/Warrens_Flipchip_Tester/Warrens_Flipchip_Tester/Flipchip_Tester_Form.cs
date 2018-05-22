@@ -9,7 +9,7 @@
  * Author(s):
  *      Michael Thompson <mike@ricomputermuseum.com>
  */
- 
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +23,8 @@ using System.Windows.Forms;
 using libMPSSEWrapper;
 using libMPSSEWrapper.Types;
 using libMPSSEWrapper.Exceptions;
+using Warrens_Flipchip_Tester.Exceptions;
+using Warrens_Flipchip_Tester.Types;
 
 namespace Warrens_Flipchip_Tester
 {
@@ -125,6 +127,10 @@ namespace Warrens_Flipchip_Tester
         private void HardwareAddressEnablebutton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = WarrensFlipChipTester.HardwareAddressEnable();
+
+            CycleTheLEDsButton.Enabled = true; //Enable these buttons after Harware Addressing is enabled
+            ReadMPC23S17Registersbutton.Enabled = true;
+            WriteSingleMPC23S17Registerbutton.Enabled = true;
         }
 
         private void OpenTestVectorFileButton_Click(object sender, EventArgs e)
@@ -150,12 +156,19 @@ namespace Warrens_Flipchip_Tester
 
         private void CycleTheLEDsButton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = "Sending binary pattern to the LEDs\n";
-            Application.DoEvents(); //Make sure that the message gets displayed
+            try
+            {
+                DiagRichTextBox.Text = "Sending binary pattern to the LEDs\n";
+                Application.DoEvents(); //Make sure that the message gets displayed
 
-            WarrensFlipChipTester.CycleTheLEDs();
+                WarrensFlipChipTester.CycleTheLEDs();
 
-            DiagRichTextBox.Text += "Done.";
+                DiagRichTextBox.Text += "Done.";
+            }
+            catch (SpiChannelNotConnectedException)
+            {
+                TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
+            }
         }
 
         private void StartTestButton_Click(object sender, EventArgs e)
@@ -174,13 +187,31 @@ namespace Warrens_Flipchip_Tester
             {
                 TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
             }
-            catch (InvalidOperationException)
+            catch (FlipchipTesterException ex)
             {
-                TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+                if (ex.Reason == FlipChipTestResult.VppPowerIsOff)
+                {
+                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+                    TesterRichTextBox.Text += "Flip the toggle switch and make sure that the yellow LED for Vpp goes on.\n";
+                }
+
+                if (ex.Reason == FlipChipTestResult.FinishedWithTests)
+                    TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+
+                if (ex.Reason == FlipChipTestResult.InvalidTestResult)
+                    TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+
+                if (ex.Reason == FlipChipTestResult.SpiTestFailed)
+                {
+                    TesterRichTextBox.Text = "SPI Chip Hardware Address Fault.\n\n";
+                    TesterRichTextBox.Text += "One of the MCP23S17 ICs could not be configured for Hardware Addressing.\n";
+                    TesterRichTextBox.Text += "Try disconnecting & reconnecting the USB cable and restarting the FlipChip tester program.\n";
+                    TesterRichTextBox.Text += "Try running Hardware Address Enable and Test in the Test the Tester tab.\n";
+                }
             }
-            catch (ArgumentOutOfRangeException)
+            finally
             {
-                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+                WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
             }
         }
 
@@ -199,13 +230,31 @@ namespace Warrens_Flipchip_Tester
             {
                 TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
             }
-            catch (InvalidOperationException)
+            catch (FlipchipTesterException ex)
             {
-                TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+                if (ex.Reason == FlipChipTestResult.VppPowerIsOff)
+                {
+                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+                    TesterRichTextBox.Text = "Flip the toggle switch and make sure that the yellow LED for Vpp goes on.\n";
+                }
+
+                if (ex.Reason == FlipChipTestResult.FinishedWithTests)
+                    TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+
+                if (ex.Reason == FlipChipTestResult.InvalidTestResult)
+                    TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+
+                if (ex.Reason == FlipChipTestResult.SpiTestFailed)
+                {
+                    TesterRichTextBox.Text += "SPI Chip Hardware Address Fault.\n\n";
+                    TesterRichTextBox.Text += "One of the MCP23S17 ICs could not be configured for Hardware Addressing.\n";
+                    TesterRichTextBox.Text += "Try disconnecting & reconnecting the USB cable and restarting the FlipChip tester program.\n";
+                    TesterRichTextBox.Text += "Try running Hardware Address Enable and Test in the Test the Tester tab.\n";
+                }
             }
-            catch (ArgumentOutOfRangeException)
+            finally
             {
-                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+                WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
             }
         }
 
@@ -233,14 +282,31 @@ namespace Warrens_Flipchip_Tester
             {
                 TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
             }
-            catch (InvalidOperationException)
+            catch (FlipchipTesterException ex)
             {
-                TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+                if (ex.Reason == FlipChipTestResult.VppPowerIsOff)
+                {
+                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
+                    TesterRichTextBox.Text = "Flip the toggle switch and make sure that the yellow LED for Vpp goes on.\n";
+                }
+
+                if (ex.Reason == FlipChipTestResult.FinishedWithTests)
+                    TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+
+                if (ex.Reason == FlipChipTestResult.InvalidTestResult)
+                    TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+
+                if (ex.Reason == FlipChipTestResult.SpiTestFailed)
+                {
+                    TesterRichTextBox.Text += "SPI Chip Hardware Address Fault.\n\n";
+                    TesterRichTextBox.Text += "One of the MCP23S17 ICs could not be configured for Hardware Addressing.\n";
+                    TesterRichTextBox.Text += "Try disconnecting & reconnecting the USB cable and restarting the FlipChip tester program.\n";
+                    TesterRichTextBox.Text += "Try running Hardware Address Enable and Test in the Test the Tester tab.\n";
+                }
             }
-            catch (ArgumentOutOfRangeException)
+            finally
             {
                 WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
-                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
         }
 
@@ -278,6 +344,16 @@ namespace Warrens_Flipchip_Tester
         private void FlipChipTestCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+        }
+
+        /// <summary>
+        /// The StopTestIfFaultDetected radio button was changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopTestIfFaultDetected_Changed(object sender, EventArgs e)
+        {
+            WarrensFlipChipTester.StopTestIfFaultDetected = StopTestIfFaultDetectedRadioButton.Checked;
         }
     }
 }
