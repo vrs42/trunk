@@ -189,7 +189,13 @@ namespace Warrens_Flipchip_Tester
         private String CommentLines; //A place to save the comments
         private String PinLines; //A place to save the PIN statements
         private String IodirLine; //A place to save the IODIR line
-        private int SpiBusSpeed = 100000; //Set the default Bus Speed to 100kHz
+        private int SpiBusSpeed = 1000000; //Set the default Bus Speed to 1MHz
+
+        //**************************************************************************
+        //
+        // Properties for the FlipChip Tester
+        //
+        //**************************************************************************
 
         public int BusSpeed
         {
@@ -202,14 +208,20 @@ namespace Warrens_Flipchip_Tester
             get { return StopTestOnFault; }
             set { StopTestOnFault = value; }
         }
+
+        //**************************************************************************
+        //
+        // The FlipChip Tester Constructor and Destructor
+        //
+        //**************************************************************************
         public FlipChipTester()
         {
             InitializeFlipChipTester(); //Get everything ready
-        }
 
-        public void UnmanagedResources()
+        }
+        ~FlipChipTester()
         {
-            // Allocate the unmanaged resource ...
+            Dispose(false);
         }
 
         public void Dispose()
@@ -235,14 +247,9 @@ namespace Warrens_Flipchip_Tester
             }
         }
 
-        ~FlipChipTester()
-        {
-            Dispose(false);
-        }
-
         //**************************************************************************
         //
-        // Work with the FlipChip Tester
+        // Methods for the FlipChip Tester
         //
         //**************************************************************************
 
@@ -307,7 +314,10 @@ namespace Warrens_Flipchip_Tester
                 {
                     RegisterContents = Gpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT);
                     if (DeviceAddress != RegisterContents)
-                        throw new FlipchipTesterException(FlipChipTestResult.SpiTestFailed);
+                    {
+                        ResponseText = "IC" + DeviceAddress + " failed to enable Hardware Addressing Mode.\n";
+                        throw new FlipchipTesterException(FlipChipTestResult.SpiTestFailed, ResponseText);
+                    }
                 }
 
                 //Clear the IOLAT registers
@@ -316,10 +326,12 @@ namespace Warrens_Flipchip_Tester
                     Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT, 0x0000);
                 }
 
+                //Configure pin AA2 as an input so we can read the Vpp state
                 RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR); //Read the IODIR register for IC1
                 RegisterContents = (UInt16)(RegisterContents | 0x0080); //Make sure that pin AA2 is in input so we can read the Vpp state
                 Gpio0.WriteDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR, RegisterContents); //Write the IODIR register for IC1
 
+                //Make sure that Vpp power is on
                 RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.GPIO);
                 if ((RegisterContents & (UInt16)0x0080) == 0)
                 {
@@ -637,7 +649,7 @@ namespace Warrens_Flipchip_Tester
                 };
 
                 MCP23S17 Gpio0 = new MCP23S17(SpiConfig);
-                ResponseText += "Wrote 0x08 to all of the IOCON registers.\n";
+                ResponseText += "Wrote 0x08 to all of the IOCON registers to enable Hardware Addressing Mode.\n";
 
                 //Setup the SPI chips for Hardware Address
                 Gpio0.HardwareAddressEnable();
@@ -651,13 +663,13 @@ namespace Warrens_Flipchip_Tester
                 ResponseText += "Wrote the Hardware Address into the IOLAT register so we can read it back.\n";
 
                 //Read the Hardware Address in the IOLAT register and see if it is correct
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
                 {
-                    RegisterContents = Gpio0.ReadDoubleRegister(i, (int)MCP23S17.Register.OLAT);
-                    if (i != RegisterContents)
-                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
+                    RegisterContents = Gpio0.ReadDoubleRegister(DeviceAddress, (int)MCP23S17.Register.OLAT);
+                    if (DeviceAddress != RegisterContents)
+                        ResponseText += "SPI chip IC" + DeviceAddress + " contained 0x" + RegisterContents.ToString("X4") + ".\n";
                     else
-                        ResponseText += "The SPI chip with a Hardware Address of " + i + " contained the correct value.\n"; ;
+                        ResponseText += "SPI chip IC" + DeviceAddress + " contained the correct value.\n"; ;
                 }
             }
             catch (SpiChannelNotConnectedException)

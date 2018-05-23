@@ -175,7 +175,7 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
-                VectorNumberTextBox.Text = "0";
+                StartingVectorNumberTextBox.Text = "0";
                 VectorNumber = 0;
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
@@ -207,7 +207,7 @@ namespace Warrens_Flipchip_Tester
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)
                 {
                     TesterRichTextBox.Text = "SPI Chip Hardware Address Fault.\n\n";
-                    TesterRichTextBox.Text += "One of the MCP23S17 ICs could not be configured for Hardware Addressing.\n";
+                    TesterRichTextBox.Text += ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "Try disconnecting & reconnecting the USB cable and restarting the FlipChip tester program.\n";
                     TesterRichTextBox.Text += "Try running Hardware Address Enable and Test in the Test the Tester tab.\n";
                 }
@@ -222,9 +222,9 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
-                VectorNumber = Convert.ToInt32(VectorNumberTextBox.Text);
+                VectorNumber = Convert.ToInt32(StartingVectorNumberTextBox.Text);
                 VectorNumber++;
-                VectorNumberTextBox.Text = VectorNumber.ToString();
+                StartingVectorNumberTextBox.Text = VectorNumber.ToString();
                 Application.DoEvents(); //Make the text show up now
 
                 TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
@@ -253,7 +253,7 @@ namespace Warrens_Flipchip_Tester
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)
                 {
                     TesterRichTextBox.Text += "SPI Chip Hardware Address Fault.\n\n";
-                    TesterRichTextBox.Text += "One of the MCP23S17 ICs could not be configured for Hardware Addressing.\n";
+                    TesterRichTextBox.Text += ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "Try disconnecting & reconnecting the USB cable and restarting the FlipChip tester program.\n";
                     TesterRichTextBox.Text += "Try running Hardware Address Enable and Test in the Test the Tester tab.\n";
                 }
@@ -268,7 +268,7 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
-                VectorNumberTextBox.Text = "0";
+                StartingVectorNumberTextBox.Text = "0";
                 VectorNumber = 0;
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
@@ -280,7 +280,7 @@ namespace Warrens_Flipchip_Tester
                 {
                     TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
                     VectorNumber++;
-                    VectorNumberTextBox.Text = VectorNumber.ToString();
+                    StartingVectorNumberTextBox.Text = VectorNumber.ToString();
                     Application.DoEvents(); //Make the text show up now
                 }
             }
@@ -308,7 +308,7 @@ namespace Warrens_Flipchip_Tester
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)
                 {
                     TesterRichTextBox.Text += "SPI Chip Hardware Address Fault.\n\n";
-                    TesterRichTextBox.Text += "One of the MCP23S17 ICs could not be configured for Hardware Addressing.\n";
+                    TesterRichTextBox.Text += ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "Try disconnecting & reconnecting the USB cable and restarting the FlipChip tester program.\n";
                     TesterRichTextBox.Text += "Try running Hardware Address Enable and Test in the Test the Tester tab.\n";
                 }
