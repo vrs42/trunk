@@ -21,10 +21,17 @@ namespace Warrens_Flipchip_Tester.Exceptions
     public class FlipchipTesterException : Exception
     {
         public FlipChipTestResult Reason { get; private set; }
+        public String FlipChipTestMessage { get; private set; }
 
-        public FlipchipTesterException(FlipChipTestResult res)
+        public FlipchipTesterException(FlipChipTestResult paramName)
         {
-            Reason = res;
+            Reason = paramName;
+        }
+
+        public FlipchipTesterException(FlipChipTestResult paramName, String TestMessage)
+        {
+            Reason = paramName;
+            FlipChipTestMessage = TestMessage;
         }
     }
 }

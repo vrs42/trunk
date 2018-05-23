@@ -372,6 +372,7 @@ namespace Warrens_Flipchip_Tester
             String GpioPin = "";
             String PassFail = "";
             String PinName = "";
+            bool FaultDetected = false; //Flag to indicate that we need to stop at the end of this pass
 
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
@@ -473,13 +474,14 @@ namespace Warrens_Flipchip_Tester
                         PassFail = "Fail";
                         SetLedState("GREEN", "OFF"); //Turn the RED1 LED on
                         SetLedState("RED1", "ON"); //Turn the RED1 LED on
-
-                        if (StopTestIfFaultDetected)
-                            throw new FlipchipTesterException(FlipChipTestResult.InvalidTestResult);
+                        FaultDetected = true; //We detected a fault
                     }
 
                     ResponseText += "Pin " + PinName + " Should Be: " + TestPin + " Was: " + GpioPin + " " + PassFail + "\n";
                 }
+
+                if (FaultDetected & StopTestIfFaultDetected)
+                    throw new FlipchipTesterException(FlipChipTestResult.InvalidTestResult, ResponseText);
             }
             else //We ran out of test vectors
                 throw new FlipchipTesterException(FlipChipTestResult.FinishedWithTests);

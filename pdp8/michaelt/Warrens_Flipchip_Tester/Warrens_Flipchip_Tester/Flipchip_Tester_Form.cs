@@ -191,15 +191,18 @@ namespace Warrens_Flipchip_Tester
             {
                 if (ex.Reason == FlipChipTestResult.VppPowerIsOff)
                 {
-                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
-                    TesterRichTextBox.Text += "Flip the toggle switch and make sure that the yellow LED for Vpp goes on.\n";
+                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n\n";
+                    TesterRichTextBox.Text += "Flip the toggle switch and make sure that the amber LED for UUT_PWR goes on.\n";
                 }
 
                 if (ex.Reason == FlipChipTestResult.FinishedWithTests)
                     TesterRichTextBox.Text += "\nFinished with test vectors.\n";
 
                 if (ex.Reason == FlipChipTestResult.InvalidTestResult)
+                {
+                    TesterRichTextBox.Text = ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+                }
 
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)
                 {
@@ -234,15 +237,18 @@ namespace Warrens_Flipchip_Tester
             {
                 if (ex.Reason == FlipChipTestResult.VppPowerIsOff)
                 {
-                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
-                    TesterRichTextBox.Text = "Flip the toggle switch and make sure that the yellow LED for Vpp goes on.\n";
+                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n\n";
+                    TesterRichTextBox.Text += "Flip the toggle switch and make sure that the amber LED for UUT_PWR goes on.\n";
                 }
 
                 if (ex.Reason == FlipChipTestResult.FinishedWithTests)
                     TesterRichTextBox.Text += "\nFinished with test vectors.\n";
 
                 if (ex.Reason == FlipChipTestResult.InvalidTestResult)
+                {
+                    TesterRichTextBox.Text = ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+                }
 
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)
                 {
@@ -286,15 +292,18 @@ namespace Warrens_Flipchip_Tester
             {
                 if (ex.Reason == FlipChipTestResult.VppPowerIsOff)
                 {
-                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n";
-                    TesterRichTextBox.Text = "Flip the toggle switch and make sure that the yellow LED for Vpp goes on.\n";
+                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n\n";
+                    TesterRichTextBox.Text += "Flip the toggle switch and make sure that the amber LED for UUT_PWR goes on.\n";
                 }
 
                 if (ex.Reason == FlipChipTestResult.FinishedWithTests)
                     TesterRichTextBox.Text += "\nFinished with test vectors.\n";
 
                 if (ex.Reason == FlipChipTestResult.InvalidTestResult)
+                {
+                    TesterRichTextBox.Text = ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+                }
 
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)
                 {
