@@ -21,6 +21,7 @@ namespace Warrens_Flipchip_Tester.Types
     {
         Ok = 0,
         InvalidTestResult,
+        InvalidPin,
         VppPowerIsOff,
         SpiTestFailed,
         IoError,

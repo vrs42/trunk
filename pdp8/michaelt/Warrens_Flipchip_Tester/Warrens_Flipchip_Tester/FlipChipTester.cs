@@ -10,6 +10,13 @@
  *      Michael Thompson <mike@ricomputermuseum.org>
  */
 
+//**************************************************************************
+//
+// This class contains everything for the FlipChip tester except for the GUI
+// and the code supplied by FTDI for the USB/SPI cable.
+//
+//**************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -68,7 +75,6 @@ namespace Warrens_Flipchip_Tester
         private bool StopTestOnFault = true; //The test sequence will stop if a fault is found
         private const int NumberOfPinDrivers = 80;
         private const int TEST_COLUMNS = 72;
-        private const int PIN_GROUND_AT1 = 15;
         private const int PIN_GROUND_AC2 = 20;
         private const int PIN_GROUND_BT1 = 51;
         private const int PIN_GROUND_BC2 = 56;
@@ -590,6 +596,10 @@ namespace Warrens_Flipchip_Tester
                         }
                     }
                 }
+                catch (FlipchipTesterException ex)
+                {
+                    TestVectorFileResults = ex.FlipChipTestMessage; //The message about a bad pin definition
+                }
                 catch (ArgumentOutOfRangeException)
                 {
                     TestVectorFileResults = "The Pin Table and the IODIR line in the file do not match.";
@@ -598,7 +608,6 @@ namespace Warrens_Flipchip_Tester
                 {
                     TestVectorFileResults = "Error: Could not read file from disk. Original error: " + ex.Message;
                 }
-
 
             }
             return TestVectorFileResults;
@@ -682,14 +691,28 @@ namespace Warrens_Flipchip_Tester
 
         /// <summary>
         /// Decode a PINS line from the Test Vector file
+        /// Check for pins that are tied high or low
         /// </summary>
         /// <param name="TestVectorLine"></param>
         public void DecodePinStatementLine(String TestVectorLine)
         {
+            String ResponseText = "";
             string[] Columns = TestVectorLine.TrimStart(' ').Split(' ');
             PinTable[NumberOfPins].PinColumn = Convert.ToInt16(Columns[0]);
             PinTable[NumberOfPins].Direction = Columns[1];
             PinTable[NumberOfPins].FlipChipPin = Columns[2];
+
+            if (PinTable[NumberOfPins].FlipChipPin == "AT1"
+                | PinTable[NumberOfPins].FlipChipPin == "AA2"
+                | PinTable[NumberOfPins].FlipChipPin == "AC2"
+                | PinTable[NumberOfPins].FlipChipPin == "BT1"
+                | PinTable[NumberOfPins].FlipChipPin == "BA2"
+                | PinTable[NumberOfPins].FlipChipPin == "BC2")
+            {
+                ResponseText = "Pin " + PinTable[NumberOfPins].FlipChipPin + " is tied to a voltage or ground and cannot be used.";
+                throw new FlipchipTesterException(FlipChipTestResult.InvalidPin, ResponseText);
+            }
+
             NumberOfPins++; //Add a Pin to the Pin Table
         }
 
