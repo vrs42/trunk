@@ -182,6 +182,7 @@ namespace Warrens_Flipchip_Tester
             public int PinColumn;      //The Column in the Test Vector File
             public String Direction;   //Input, Output, or Pullup
             public String FlipChipPin; //The pin on the FlipChip
+            public bool Changed;       //Flag to indicate that the current test vector changed the state of this pin
         }
 
         private PinTableStruct[] PinTable = new PinTableStruct[NumberOfPinDrivers]; //The Pin Table, we only have 80 GPIO pins
@@ -191,7 +192,7 @@ namespace Warrens_Flipchip_Tester
         private UInt16[] OlatRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
         private UInt16[] GpioRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
         private String[] TestVectors = new String[2000]; //A place to hold up to 2000 test vectors
-        private String[] CurrentTextVector = new String[NumberOfPinDrivers]; //This holds the ones and zeros that are modified by each test vector
+        private String[] CurrentTestVector = new String[NumberOfPinDrivers]; //This holds the ones and zeros that are modified by each test vector
         private String CommentLines; //A place to save the comments
         private String PinLines; //A place to save the PIN statements
         private String IodirLine; //A place to save the IODIR line
@@ -267,7 +268,7 @@ namespace Warrens_Flipchip_Tester
             NumberOfPins = 0; //No Pins in the Pin Table
 
             for (int Pin = 0; Pin < NumberOfPinDrivers; Pin++)
-                CurrentTextVector[Pin] = ""; //Clear the current test vector
+                CurrentTestVector[Pin] = ""; //Clear the current test vector
 
             for (int i = 0; i < 8; i++) //Preset the Register values
             {
@@ -379,6 +380,12 @@ namespace Warrens_Flipchip_Tester
 
             return ResponseText;
         }
+
+        /// <summary>
+        /// Execute a test vector
+        /// </summary>
+        /// <param name="VectorNumber"></param>
+        /// <returns></returns>
         public string ProcessTestVector(int VectorNumber)
         {
             UInt16 Mask = 0; //The mask for this pin
@@ -403,13 +410,20 @@ namespace Warrens_Flipchip_Tester
 
             if (VectorNumber < NumberOfTestVectors)
             {
+                for(int Pin = 0; Pin < NumberOfPins; Pin++) //Set Changed to false for all pins
+                    PinTable[Pin].Changed = false;
+
                 //Update the CurrentTestVector from this TestTector
                 for (int Pin = 0; Pin < TestVectors[VectorNumber].Length; Pin++)
                 {
                     TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
+
+                    if (TestPin != " " & TestPin != CurrentTestVector[Pin] ) //Check if the 0, 1 or X changed
+                        PinTable[Pin].Changed = true;
+
                     if (TestPin == "1" | TestPin == "0")
                     {
-                        CurrentTextVector[Pin] = TestVectors[VectorNumber].Substring(Pin, 1);
+                        CurrentTestVector[Pin] = TestVectors[VectorNumber].Substring(Pin, 1);
                     }
                 }
 
@@ -426,7 +440,7 @@ namespace Warrens_Flipchip_Tester
 
                 for (int Pin = 0; Pin < NumberOfPinDrivers; Pin++)
                 {
-                    TestPin = CurrentTextVector[Pin]; //Get a single Pin character from the Test Vector
+                    TestPin = CurrentTestVector[Pin]; //Get a single Pin character from the Test Vector
                     if (TestPin == "1")
                     {
                         PinName = PinTable[Pin].FlipChipPin; //Get the FlipChip pin name
@@ -446,7 +460,7 @@ namespace Warrens_Flipchip_Tester
                 ResponseText = "Processed Test Vector " + VectorNumber + "\n";
 
                 for (int Pin = 0; Pin < NumberOfPins; Pin++)
-                    ResponseText += CurrentTextVector[Pin];
+                    ResponseText += CurrentTestVector[Pin];
                 ResponseText += "\nSet the IOLAT Registers to ";
 
                 for (DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
@@ -474,7 +488,7 @@ namespace Warrens_Flipchip_Tester
 
                 for (int Pin = 0; Pin < NumberOfPins; Pin++)
                 {
-                    TestPin = CurrentTextVector[Pin]; //Get a single Pin logic value from the Test Vector
+                    TestPin = CurrentTestVector[Pin]; //Get a single Pin logic value from the Test Vector
                     PinName = PinTable[Pin].FlipChipPin; //Get the FlipChip pin name
                     DeviceAddress = PinNameToIC(PinName); //Get the corresponding SPI Address
                     Mask = PinNameToMask(PinName); //Get the corresponding IODIR Register Mask
@@ -495,7 +509,10 @@ namespace Warrens_Flipchip_Tester
                         FaultDetected = true; //We detected a fault
                     }
 
-                    ResponseText += "Pin " + PinName + " Should Be: " + TestPin + " Was: " + GpioPin + " " + PassFail + "\n";
+                    if (PinTable[Pin].Changed)
+                        ResponseText += "Pin " + PinName + " Should Be: " + TestPin + "* Was: " + GpioPin + " " + PassFail + "\n";
+                    else
+                        ResponseText += "Pin " + PinName + " Should Be: " + TestPin + "  Was: " + GpioPin + " " + PassFail + "\n";
                 }
 
                 if (FaultDetected & StopTestIfFaultDetected)
@@ -591,7 +608,7 @@ namespace Warrens_Flipchip_Tester
                                 CheckIodirLine(); //Compare the IodirLine to the Pin Table
 
                                 for (int Pin = 0; Pin < NumberOfPins; Pin++)
-                                    CurrentTextVector[Pin] = TestVectors[0].Substring(Pin, 1); //Load the current test vector from the first test vector in the file
+                                    CurrentTestVector[Pin] = TestVectors[0].Substring(Pin, 1); //Load the current test vector from the first test vector in the file
                             }
                         }
                     }
@@ -701,6 +718,7 @@ namespace Warrens_Flipchip_Tester
             PinTable[NumberOfPins].PinColumn = Convert.ToInt16(Columns[0]);
             PinTable[NumberOfPins].Direction = Columns[1];
             PinTable[NumberOfPins].FlipChipPin = Columns[2];
+            PinTable[NumberOfPins].Changed = false; //We start out with the pin not changed
 
             if (PinTable[NumberOfPins].FlipChipPin == "AT1"
                 | PinTable[NumberOfPins].FlipChipPin == "AA2"
