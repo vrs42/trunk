@@ -74,11 +74,6 @@ namespace Warrens_Flipchip_Tester
 
         private bool StopTestOnFault = true; //The test sequence will stop if a fault is found
         private const int NumberOfPinDrivers = 80;
-        private const int TEST_COLUMNS = 72;
-        private const int PIN_GROUND_AC2 = 20;
-        private const int PIN_GROUND_BT1 = 51;
-        private const int PIN_GROUND_BC2 = 56;
-        private readonly char[] edge_pins = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V' };
 
         private struct PinMappingStruct // 80 pin drivers
         {
@@ -385,7 +380,7 @@ namespace Warrens_Flipchip_Tester
         /// Execute a test vector
         /// </summary>
         /// <param name="VectorNumber"></param>
-        /// <returns></returns>
+        /// <returns>The test results</returns>
         public string ProcessTestVector(int VectorNumber)
         {
             UInt16 Mask = 0; //The mask for this pin
@@ -525,9 +520,9 @@ namespace Warrens_Flipchip_Tester
         }
 
         /// <summary>
-        /// Ask the operator to select the test vector file, open it, and process the contents.
+        /// Ask the operator to select the Test Vector file, open it, and process the contents.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The results of opening the Test Vector file</returns>
         public String OpenTestVectorFile()
         {
             Stream TestVectorFileStream = null;
@@ -625,26 +620,41 @@ namespace Warrens_Flipchip_Tester
                 {
                     TestVectorFileResults = "Error: Could not read file from disk. Original error: " + ex.Message;
                 }
-
             }
             return TestVectorFileResults;
         }
 
+        /// <summary>
+        /// Get the saved comment lines from the Test Vector file
+        /// </summary>
+        /// <returns>The Comment lines</returns>
         public String GetCommentLines()
         {
             return CommentLines;
         }
 
+        /// <summary>
+        /// Get the saved Pin lines from the Test Vector file
+        /// </summary>
+        /// <returns>The Pin line</returns>
         public String GetPinLines()
         {
             return PinLines;
         }
 
+        /// <summary>
+        /// Get the saved IO Direction line from the Test Vector file
+        /// </summary>
+        /// <returns>The IO Direction line</returns>
         public String GetIodirLine()
         {
             return IodirLine;
         }
 
+        /// <summary>
+        /// Gets the saved Test Vectors
+        /// </summary>
+        /// <returns>Test Vectors</returns>
         public String GetTestVectors()
         {
             String TestVectorString = ""; //A place to hold the Test Vectors
@@ -658,6 +668,7 @@ namespace Warrens_Flipchip_Tester
         }
         /// <summary>
         /// Enable the Hardware Addressing mode in the SPI chips
+        /// and test that it worked
         /// </summary>
         /// <returns>The messages from the initialization</returns>
         public String HardwareAddressEnable()
@@ -814,7 +825,7 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Cycle the LEDs on the tester through a binary pattern
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The results of cycling the LEDs</returns>
         public string CycleTheLEDs()
         {
             UInt16 RegisterContents = 0;
@@ -1069,6 +1080,7 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Turn on the LEDs in the FTDI USB cable
         /// </summary>
+        /// <returns>The results of turning the LEDs on</returns>
         public String TurnOnLEDs()
         {
             byte dir = 0xff;
@@ -1133,8 +1145,7 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Turn off the LEDs in the FTDI USB cable
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <returns>The results of turning the LEDs off</returns>
         public String TurnOffLEDs()
         {
             byte dir = 0xff;
@@ -1213,9 +1224,9 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         /// <summary>
-        /// Return the contents of the SPI device registers in hex
+        /// Read all of the SPI device registers
         /// </summary>
-        /// <returns>Contents of the SPI device registers</returns>
+        /// <returns>Contents of all of the SPI device registers in hex</returns>
         public String ReadMPC23S17Registers()
         {
             string ResponseText = "Register\tIC1\t\tIC2\t\tIC3\t\tIC4\t\tIC5 \n";
@@ -1400,6 +1411,14 @@ namespace Warrens_Flipchip_Tester
 
             return ResponseText;
         }
+
+        /// <summary>
+        /// Read 5x Registers 1,000 times and measure the time it takes
+        /// </summary>
+        /// <param name="DeviceAddressText"></param>
+        /// <param name="RegisterNameText"></param>
+        /// <param name="RegisterContentsText"></param>
+        /// <returns>The test results</returns>
         public String Read1kMPC23S17Registers(String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
         {
             string ResponseText = "";
@@ -1468,8 +1487,6 @@ namespace Warrens_Flipchip_Tester
                         }
                 }
 
-                Application.DoEvents();
-
                 RegisterContents = Convert.ToUInt16(RegisterContentsText, 16);
                 SpiRegisterContents[0] = Convert.ToByte(RegisterContents >> 8);
                 SpiRegisterContents[1] = Convert.ToByte(RegisterContents & 0xff);
@@ -1507,7 +1524,7 @@ namespace Warrens_Flipchip_Tester
         }
 
         /// <summary>
-        /// Turn an LED on or off
+        /// Turn a LED on or off
         /// </summary>
         /// <param name="LedName">GREEN, YELLOW, RED1, or RED2</param>
         /// <param name="State">ON or OFF</param>
@@ -1572,9 +1589,8 @@ namespace Warrens_Flipchip_Tester
                     RegisterContents = (UInt16)(RegisterContents & ~Mask);
                 }
 
-                //Write the IOLAT register in IC 5 so we can turn on or off an LED
+                //Write the IOLAT register in IC 5 so we can turn a LED on or off
                 Gpio0.WriteDoubleRegister(0x05, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
-
             }
             catch (Exception)
             {
