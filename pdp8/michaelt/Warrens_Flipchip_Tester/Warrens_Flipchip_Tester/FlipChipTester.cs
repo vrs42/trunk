@@ -311,20 +311,20 @@ namespace Warrens_Flipchip_Tester
                 Gpio0.HardwareAddressEnable();
 
                 //Set the IODIR registers all inputs
-                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, 0xFFFF);
                 }
 
                 //Write the Hardware Address into the IOLAT register so we can read it back
-                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     RegisterContents = DeviceAddress;
                     Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
                 }
 
                 //Read the Hardware Address in the IOLAT register and see if it is correct
-                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     RegisterContents = Gpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT);
                     if (DeviceAddress != RegisterContents)
@@ -335,7 +335,7 @@ namespace Warrens_Flipchip_Tester
                 }
 
                 //Clear the IOLAT registers
-                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT, 0x0000);
                 }
@@ -380,7 +380,7 @@ namespace Warrens_Flipchip_Tester
             MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
             //Set the IODIR registers to the test values
-            for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+            for (UInt16 DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
             {
                 Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, IodirRegisters[DeviceAddress]);
             }
@@ -438,12 +438,12 @@ namespace Warrens_Flipchip_Tester
                 LedState = (UInt16)(LedState & 0x0F00);
 
                 //Set the OLAT registers to zeros
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 i = 1; i < ICMax; i++)
                 {
                     OlatRegisters[i] = 0x0000; //Clear the register bits
                 }
 
-                OlatRegisters[5] = (UInt16)(OlatRegisters[5] | LedState);
+                OlatRegisters[IC5] = (UInt16)(OlatRegisters[IC5] | LedState);
 
                 for (int Pin = 0; Pin < NumberOfPinDrivers; Pin++)
                 {
@@ -458,7 +458,7 @@ namespace Warrens_Flipchip_Tester
                 }
 
                 //Set the OLAT registers to the test vector values
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 i = 1; i < ICMax; i++)
                 {
                     RegisterContents = OlatRegisters[i]; //Get the OLAT that we need
                     SpiGpio0.WriteDoubleRegister(i, (UInt16)MCP23S17.Register.OLAT, RegisterContents);
@@ -470,7 +470,7 @@ namespace Warrens_Flipchip_Tester
                     ResponseText += CurrentTestVector[Pin];
                 ResponseText += "\nSet the IOLAT Registers to ";
 
-                for (DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.OLAT).ToString("X4");
                 }
@@ -478,7 +478,7 @@ namespace Warrens_Flipchip_Tester
 
                 ResponseText += "The the IODIR Registers are ";
 
-                for (DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR).ToString("X4");
                 }
@@ -486,7 +486,7 @@ namespace Warrens_Flipchip_Tester
 
                 ResponseText += "The the GPIO Registers are ";
 
-                for (DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     GpioRegisters[DeviceAddress] = SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.GPIO);
                     ResponseText += "\t0x" + GpioRegisters[DeviceAddress].ToString("X4");
@@ -704,7 +704,7 @@ namespace Warrens_Flipchip_Tester
                 Gpio0.HardwareAddressEnable();
 
                 //Write the Hardware Address into the IOLAT register so we can read it back
-                for (UInt16 i = 1; i < 6; i++)
+                for (UInt16 i = 1; i < ICMax; i++)
                 {
                     RegisterContents = i;
                     Gpio0.WriteDoubleRegister(i, (int)MCP23S17.Register.OLAT, RegisterContents);
@@ -712,7 +712,7 @@ namespace Warrens_Flipchip_Tester
                 ResponseText += "Wrote the Hardware Address into the IOLAT register so we can read it back.\n";
 
                 //Read the Hardware Address in the IOLAT register and see if it is correct
-                for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                for (UInt16 DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                 {
                     RegisterContents = Gpio0.ReadDoubleRegister(DeviceAddress, (int)MCP23S17.Register.OLAT);
                     if (DeviceAddress != RegisterContents)
@@ -777,7 +777,7 @@ namespace Warrens_Flipchip_Tester
                 }
             }
 
-            IodirRegisters[5] = Convert.ToUInt16(IodirRegisters[5] & 0xF0FF); //Set the LED bits to outputs
+            IodirRegisters[IC5] = Convert.ToUInt16(IodirRegisters[IC5] & 0xF0FF); //Set the LED bits to outputs
         }
 
         /// <summary>
@@ -1257,7 +1257,7 @@ namespace Warrens_Flipchip_Tester
                 for (UInt16 RegisterAddress = 0; RegisterAddress < 22; RegisterAddress = (UInt16)(RegisterAddress + 2))
                 {
                     ResponseText += String.Format("{0,-10}", ((MCP23S17.Register)RegisterAddress).ToString());
-                    for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
+                    for (UInt16 DeviceAddress = 1; DeviceAddress < ICMax; DeviceAddress++)
                     {
                         ResponseText += "\t0x" + SpiGpio0.ReadDoubleRegister(DeviceAddress, RegisterAddress).ToString("X4");
                     }
