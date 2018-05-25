@@ -48,7 +48,7 @@ namespace Warrens_Flipchip_Tester
 
         private UInt32 FtdiDeviceCount = 0; //Number of FTDI devices found
         private FTDI.FT_STATUS FtdiStatus = FTDI.FT_STATUS.FT_OK; //The status of the last FTDI command
-        private FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceInfoNode = new FTDI.FT_DEVICE_INFO_NODE[10]; //Get read for 10 USB cables
+        private FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceInfoNode = new FTDI.FT_DEVICE_INFO_NODE[10]; //Get read for up to 10 USB cables
         private FTDI FtdiUSB0 = new FTDI(); // Create new instance of the FTDI device class
         private FTDI.FT232R_EEPROM_STRUCTURE FtdiREepromStructure = new FTDI.FT232R_EEPROM_STRUCTURE();
         private FTDI.FT232H_EEPROM_STRUCTURE FtdiHEepromStructure = new FTDI.FT232H_EEPROM_STRUCTURE();
@@ -73,8 +73,19 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         private bool StopTestOnFault = true; //The test sequence will stop if a fault is found
+        private int SpiBusSpeed = 1000000; //Set the default Bus Speed to 1MHz
         private const int NumberOfPinDrivers = 80;
+        private const int IC1 = 1; //SPI Addresses for the chips
+        private const int IC2 = 2;
+        private const int IC3 = 3;
+        private const int IC4 = 4;
+        private const int IC5 = 5;
+        private const int ICMax = 6; //The SPI address used to terminate loops
 
+        /// <summary>
+        /// The FlipChip Pin Mapping Structure used to find the SPI IC address
+        /// and the I/O pin mask from a pin name
+        /// </summary>
         private struct PinMappingStruct // 80 pin drivers
         {
             public UInt16 SpiAddress { get; }
@@ -172,10 +183,13 @@ namespace Warrens_Flipchip_Tester
             new PinMappingStruct( 5, (1 << 11), "LR2" ),
         };
 
+        /// <summary>
+        /// The structure for the Pin Table that is populated from the PINS section of the test vector file
+        /// </summary>
         private struct PinTableStruct
         {
             public int PinColumn;      //The Column in the Test Vector File
-            public String Direction;   //Input, Output, or Pullup
+            public String Direction;   //Input, Output, Don't Care, or Pullup
             public String FlipChipPin; //The pin on the FlipChip
             public bool Changed;       //Flag to indicate that the current test vector changed the state of this pin
         }
@@ -191,7 +205,6 @@ namespace Warrens_Flipchip_Tester
         private String CommentLines; //A place to save the comments
         private String PinLines; //A place to save the PIN statements
         private String IodirLine; //A place to save the IODIR line
-        private int SpiBusSpeed = 1000000; //Set the default Bus Speed to 1MHz
 
         //**************************************************************************
         //
@@ -297,11 +310,10 @@ namespace Warrens_Flipchip_Tester
                 //Setup the SPI chips for Hardware Address
                 Gpio0.HardwareAddressEnable();
 
-                //Set the IODIR registers to the test values
+                //Set the IODIR registers all inputs
                 for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
                 {
-                    RegisterContents = 0xFFFF;
-                    Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+                    Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, 0xFFFF);
                 }
 
                 //Write the Hardware Address into the IOLAT register so we can read it back
@@ -329,13 +341,15 @@ namespace Warrens_Flipchip_Tester
                 }
 
                 //Configure pin AA2 as an input so we can read the Vpp state
-                RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR); //Read the IODIR register for IC1
-                RegisterContents = (UInt16)(RegisterContents | 0x0080); //Make sure that pin AA2 is in input so we can read the Vpp state
+                RegisterContents = Gpio0.ReadDoubleRegister(IC1, (UInt16)MCP23S17.Register.IODIR); //Read the IODIR register for IC1
+                //RegisterContents = (UInt16)(RegisterContents | 0x0080); //Make sure that pin AA2 is in input so we can read the Vpp state
+                RegisterContents = (UInt16)(RegisterContents | PinNameToMask("AA2")); //Make sure that pin AA2 is in input so we can read the Vpp state
                 Gpio0.WriteDoubleRegister(1, (UInt16)MCP23S17.Register.IODIR, RegisterContents); //Write the IODIR register for IC1
 
                 //Make sure that Vpp power is on
-                RegisterContents = Gpio0.ReadDoubleRegister(1, (UInt16)MCP23S17.Register.GPIO);
-                if ((RegisterContents & (UInt16)0x0080) == 0)
+                RegisterContents = Gpio0.ReadDoubleRegister(IC1, (UInt16)MCP23S17.Register.GPIO);
+                //if ((RegisterContents & (UInt16)0x0080) == 0)
+                if ((RegisterContents & PinNameToMask("AA2")) == 0)
                 {
                     throw new FlipchipTesterException(FlipChipTestResult.VppPowerIsOff);
                 }
@@ -354,7 +368,6 @@ namespace Warrens_Flipchip_Tester
         /// <returns></returns>
         public String SetupIodirRegisters()
         {
-            UInt16 RegisterContents = 0;
             string ResponseText = "";
 
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
@@ -369,8 +382,7 @@ namespace Warrens_Flipchip_Tester
             //Set the IODIR registers to the test values
             for (UInt16 DeviceAddress = 1; DeviceAddress < 6; DeviceAddress++)
             {
-                RegisterContents = IodirRegisters[DeviceAddress]; //Get the IODIR that we need
-                Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, RegisterContents);
+                Gpio0.WriteDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.IODIR, IodirRegisters[DeviceAddress]);
             }
 
             return ResponseText;
@@ -403,9 +415,9 @@ namespace Warrens_Flipchip_Tester
 
             MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
-            if (VectorNumber < NumberOfTestVectors)
+            if (VectorNumber < NumberOfTestVectors) //See if we are finished with the test vectors
             {
-                for(int Pin = 0; Pin < NumberOfPins; Pin++) //Set Changed to false for all pins
+                for (int Pin = 0; Pin < NumberOfPins; Pin++) //Set Changed to false for all pins
                     PinTable[Pin].Changed = false;
 
                 //Update the CurrentTestVector from this TestTector
@@ -413,7 +425,7 @@ namespace Warrens_Flipchip_Tester
                 {
                     TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
 
-                    if (TestPin != " " & TestPin != CurrentTestVector[Pin] ) //Check if the 0, 1 or X changed
+                    if (TestPin != " " & TestPin != CurrentTestVector[Pin]) //Check if the 0, 1, X, or P changed
                         PinTable[Pin].Changed = true;
 
                     if (TestPin == "1" | TestPin == "0")
@@ -422,7 +434,7 @@ namespace Warrens_Flipchip_Tester
                     }
                 }
 
-                LedState = SpiGpio0.ReadDoubleRegister(5, (UInt16)MCP23S17.Register.OLAT); //Get Register contents
+                LedState = SpiGpio0.ReadDoubleRegister(IC5, (UInt16)MCP23S17.Register.OLAT); //Get Register contents
                 LedState = (UInt16)(LedState & 0x0F00);
 
                 //Set the OLAT registers to zeros
@@ -1544,7 +1556,7 @@ namespace Warrens_Flipchip_Tester
                 MCP23S17 Gpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
                 //Read the IOLAT register in IC 5 so we can turn on or off an LED
-                RegisterContents = Gpio0.ReadDoubleRegister(0x05, (UInt16)MCP23S17.Register.OLAT);
+                RegisterContents = Gpio0.ReadDoubleRegister(IC5, (UInt16)MCP23S17.Register.OLAT);
 
                 switch (LedName) //Determine the Mask for this LED
                 {
