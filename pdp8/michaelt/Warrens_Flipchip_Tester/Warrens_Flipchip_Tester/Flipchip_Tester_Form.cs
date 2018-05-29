@@ -186,6 +186,7 @@ namespace Warrens_Flipchip_Tester
             catch (SpiChannelNotConnectedException)
             {
                 TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
+                TesterRichTextBox.Text += "Try unplugging the USB/SPI cable, and the plugging it back in.\n";
             }
             catch (FlipchipTesterException ex)
             {
@@ -232,6 +233,7 @@ namespace Warrens_Flipchip_Tester
             catch (SpiChannelNotConnectedException)
             {
                 TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
+                TesterRichTextBox.Text += "Try unplugging the USB/SPI cable, and the plugging it back in.\n";
             }
             catch (FlipchipTesterException ex)
             {
@@ -269,24 +271,36 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 StartingVectorNumberTextBox.Text = "0";
-                VectorNumber = 0;
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
                 WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the all LEDs off
                 WarrensFlipChipTester.SetLedState("GREEN", "ON"); //Turn the Green LED on
                 WarrensFlipChipTester.SetLedState("YELLOW", "ON"); //Turn the Yellow LED on
+                WarrensFlipChipTester.ContinuouslyLoopTest = ContinuouslyLoopRadioButton.Checked; //Set the flag to control looping
 
-                for (int Vector = 0; Vector < 2000; Vector++)
+                do
                 {
-                    TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
-                    VectorNumber++;
-                    StartingVectorNumberTextBox.Text = VectorNumber.ToString();
-                    Application.DoEvents(); //Make the text show up now
-                }
+                    for (int TestVector = 0; TestVector < WarrensFlipChipTester.NumberOfTestVectorsRead; TestVector++)
+                    {
+                        TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(TestVector); //Process a test vector
+                        StartingVectorNumberTextBox.Text = TestVector.ToString();
+                        Application.DoEvents(); //Make the text show up now
+
+                        if (TestVector > Convert.ToInt32(EndingVectorNumberTextBox.Text))
+                        {
+                            TesterRichTextBox.Text += "\nStopped at test vector number " + EndingVectorNumberTextBox.Text + " of " + (WarrensFlipChipTester.NumberOfTestVectorsRead - 1) + ".\n";
+                            ContinuouslyLoopRadioButton.Checked = false; //Uncheck the button so we can stop the tester
+                            DontContinuouslyLoopRadioButton.Checked = true;
+                            break;
+                        }
+                    }
+                } while (ContinuouslyLoopRadioButton.Checked);
+                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
             catch (SpiChannelNotConnectedException)
             {
                 TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
+                TesterRichTextBox.Text += "Try unplugging the USB/SPI cable, and the plugging it back in.\n";
             }
             catch (FlipchipTesterException ex)
             {

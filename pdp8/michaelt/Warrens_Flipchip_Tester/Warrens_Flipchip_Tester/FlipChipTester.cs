@@ -73,6 +73,7 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         private bool StopTestOnFault = true; //The test sequence will stop if a fault is found
+        private bool ContinuouslyLoop = false; //Stop when we run out of test vectors
         private int SpiBusSpeed = 1000000; //Set the default Bus Speed to 1MHz
         private const int NumberOfPinDrivers = 80;
         private const int IC1 = 1; //SPI Addresses for the chips
@@ -81,6 +82,8 @@ namespace Warrens_Flipchip_Tester
         private const int IC4 = 4;
         private const int IC5 = 5;
         private const int ICMax = 6; //The SPI address used to terminate loops
+        private int NumberOfPins = 0; //Number of Pins in the Pin Table
+        private int NumberOfTestVectors = 0; //The number of test vector lines
 
         /// <summary>
         /// The FlipChip Pin Mapping Structure used to find the SPI IC address
@@ -195,8 +198,6 @@ namespace Warrens_Flipchip_Tester
         }
 
         private PinTableStruct[] PinTable = new PinTableStruct[NumberOfPinDrivers]; //The Pin Table, we only have 80 GPIO pins
-        private int NumberOfPins = 0; //Number of Pins in the Pin Table
-        private int NumberOfTestVectors = 0; //The number of test vector lines
         private UInt16[] IodirRegisters = new UInt16[8] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
         private UInt16[] OlatRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
         private UInt16[] GpioRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
@@ -222,6 +223,18 @@ namespace Warrens_Flipchip_Tester
         {
             get { return StopTestOnFault; }
             set { StopTestOnFault = value; }
+        }
+
+        public int NumberOfTestVectorsRead
+        {
+            get { return NumberOfTestVectors; }
+            set { NumberOfTestVectors = value; }
+        }
+
+        public bool ContinuouslyLoopTest
+        {
+            get { return ContinuouslyLoop; }
+            set { ContinuouslyLoop = value; }
         }
 
         //**************************************************************************
@@ -596,7 +609,7 @@ namespace Warrens_Flipchip_Tester
 
                                     if (FinishedWithIodir & TestVectorFileLine.Length > 0)
                                     {
-                                        if ((TestVectorFileLine.Substring(0, 1) != ";") & (TestVectorFileLine.Substring(0, 1) != "E"))
+                                        if ((TestVectorFileLine.Substring(0, 1) != ";") & (TestVectorFileLine.Substring(0, 1) != "E")) //Check for comment and END
                                             TestVectors[NumberOfTestVectors++] = TestVectorFileLine; //Save the test vector in the test vector array.
                                     }
 
@@ -671,7 +684,7 @@ namespace Warrens_Flipchip_Tester
         {
             String TestVectorString = ""; //A place to hold the Test Vectors
 
-            for (int Index = 0; Index < NumberOfTestVectors - 1; Index++)
+            for (int Index = 0; Index < NumberOfTestVectors; Index++)
             {
                 TestVectorString += "#" + (Index) + ": " + TestVectors[Index] + "\n";
             }
