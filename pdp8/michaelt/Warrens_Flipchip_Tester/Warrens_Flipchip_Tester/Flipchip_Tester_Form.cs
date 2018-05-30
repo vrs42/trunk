@@ -175,8 +175,8 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
-                StartingVectorNumberTextBox.Text = "0";
-                VectorNumber = 0;
+                StartingVectorNumberTextBox.Text = "1";
+                VectorNumber = 1;
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
                 TesterRichTextBox.Text += WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
@@ -266,11 +266,17 @@ namespace Warrens_Flipchip_Tester
             }
         }
 
+        /// <summary>
+        /// Run all of the test vectors from the beginning
+        /// Loop through all of the vectors if ContinuouslyLoopRadioButton is Checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RunAllTestVectorsButton_Click(object sender, EventArgs e)
         {
             try
             {
-                StartingVectorNumberTextBox.Text = "0";
+                StartingVectorNumberTextBox.Text = "1";
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
                 WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the all LEDs off
@@ -280,7 +286,7 @@ namespace Warrens_Flipchip_Tester
 
                 do
                 {
-                    for (int TestVector = 0; TestVector < WarrensFlipChipTester.NumberOfTestVectorsRead; TestVector++)
+                    for (int TestVector = 1; TestVector < WarrensFlipChipTester.NumberOfTestVectorsRead +1; TestVector++)
                     {
                         TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(TestVector); //Process a test vector
                         StartingVectorNumberTextBox.Text = TestVector.ToString();
@@ -310,7 +316,7 @@ namespace Warrens_Flipchip_Tester
                     TesterRichTextBox.Text += "Flip the toggle switch and make sure that the amber LED for UUT_PWR goes on.\n";
                 }
 
-                if (ex.Reason == FlipChipTestResult.FinishedWithTests)
+                if (ex.Reason == FlipChipTestResult.FinishedWithTests) //We should only get here if we try to process a test vector number that is higher than what we have
                     TesterRichTextBox.Text += "\nFinished with test vectors.\n";
 
                 if (ex.Reason == FlipChipTestResult.InvalidTestResult)

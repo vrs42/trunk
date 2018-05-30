@@ -50,6 +50,11 @@
             this.HardwareAddressEnablebutton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl = new System.Windows.Forms.TabControl();
             this.TestingTabPage = new System.Windows.Forms.TabPage();
+            this.ContinuousLoopGroupBox = new System.Windows.Forms.GroupBox();
+            this.DontContinuouslyLoopRadioButton = new System.Windows.Forms.RadioButton();
+            this.ContinuouslyLoopRadioButton = new System.Windows.Forms.RadioButton();
+            this.EndingVectorNumberLabel = new System.Windows.Forms.Label();
+            this.EndingVectorNumberTextBox = new System.Windows.Forms.TextBox();
             this.StopTestIfFaultDetectedGroupBox = new System.Windows.Forms.GroupBox();
             this.DontStopTestIfFaultDetectedRadioButton = new System.Windows.Forms.RadioButton();
             this.StopTestIfFaultDetectedRadioButton = new System.Windows.Forms.RadioButton();
@@ -68,17 +73,12 @@
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.EndingVectorNumberLabel = new System.Windows.Forms.Label();
-            this.EndingVectorNumberTextBox = new System.Windows.Forms.TextBox();
-            this.ContinuousLoopGroupBox = new System.Windows.Forms.GroupBox();
-            this.DontContinuouslyLoopRadioButton = new System.Windows.Forms.RadioButton();
-            this.ContinuouslyLoopRadioButton = new System.Windows.Forms.RadioButton();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
+            this.ContinuousLoopGroupBox.SuspendLayout();
             this.StopTestIfFaultDetectedGroupBox.SuspendLayout();
             this.DiagsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).BeginInit();
-            this.ContinuousLoopGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // DiagRichTextBox
@@ -319,6 +319,56 @@
             this.TestingTabPage.Text = "FlipChip Testing";
             this.TestingTabPage.UseVisualStyleBackColor = true;
             // 
+            // ContinuousLoopGroupBox
+            // 
+            this.ContinuousLoopGroupBox.Controls.Add(this.DontContinuouslyLoopRadioButton);
+            this.ContinuousLoopGroupBox.Controls.Add(this.ContinuouslyLoopRadioButton);
+            this.ContinuousLoopGroupBox.Location = new System.Drawing.Point(6, 448);
+            this.ContinuousLoopGroupBox.Name = "ContinuousLoopGroupBox";
+            this.ContinuousLoopGroupBox.Size = new System.Drawing.Size(230, 60);
+            this.ContinuousLoopGroupBox.TabIndex = 17;
+            this.ContinuousLoopGroupBox.TabStop = false;
+            this.ContinuousLoopGroupBox.Text = "Continuously Loop Through Test";
+            // 
+            // DontContinuouslyLoopRadioButton
+            // 
+            this.DontContinuouslyLoopRadioButton.AutoSize = true;
+            this.DontContinuouslyLoopRadioButton.Location = new System.Drawing.Point(6, 41);
+            this.DontContinuouslyLoopRadioButton.Name = "DontContinuouslyLoopRadioButton";
+            this.DontContinuouslyLoopRadioButton.Size = new System.Drawing.Size(39, 17);
+            this.DontContinuouslyLoopRadioButton.TabIndex = 15;
+            this.DontContinuouslyLoopRadioButton.Text = "No";
+            this.DontContinuouslyLoopRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ContinuouslyLoopRadioButton
+            // 
+            this.ContinuouslyLoopRadioButton.AutoSize = true;
+            this.ContinuouslyLoopRadioButton.Checked = true;
+            this.ContinuouslyLoopRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.ContinuouslyLoopRadioButton.Name = "ContinuouslyLoopRadioButton";
+            this.ContinuouslyLoopRadioButton.Size = new System.Drawing.Size(43, 17);
+            this.ContinuouslyLoopRadioButton.TabIndex = 14;
+            this.ContinuouslyLoopRadioButton.TabStop = true;
+            this.ContinuouslyLoopRadioButton.Text = "Yes";
+            this.ContinuouslyLoopRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // EndingVectorNumberLabel
+            // 
+            this.EndingVectorNumberLabel.AutoSize = true;
+            this.EndingVectorNumberLabel.Location = new System.Drawing.Point(6, 307);
+            this.EndingVectorNumberLabel.Name = "EndingVectorNumberLabel";
+            this.EndingVectorNumberLabel.Size = new System.Drawing.Size(114, 13);
+            this.EndingVectorNumberLabel.TabIndex = 18;
+            this.EndingVectorNumberLabel.Text = "Ending Vector Number";
+            // 
+            // EndingVectorNumberTextBox
+            // 
+            this.EndingVectorNumberTextBox.Location = new System.Drawing.Point(6, 323);
+            this.EndingVectorNumberTextBox.Name = "EndingVectorNumberTextBox";
+            this.EndingVectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
+            this.EndingVectorNumberTextBox.TabIndex = 17;
+            this.EndingVectorNumberTextBox.Text = "9999";
+            // 
             // StopTestIfFaultDetectedGroupBox
             // 
             this.StopTestIfFaultDetectedGroupBox.Controls.Add(this.DontStopTestIfFaultDetectedRadioButton);
@@ -379,7 +429,7 @@
             this.StartingVectorNumberTextBox.Name = "StartingVectorNumberTextBox";
             this.StartingVectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
             this.StartingVectorNumberTextBox.TabIndex = 11;
-            this.StartingVectorNumberTextBox.Text = "0";
+            this.StartingVectorNumberTextBox.Text = "1";
             // 
             // NextTestVectorButton
             // 
@@ -538,56 +588,6 @@
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
             // 
-            // EndingVectorNumberLabel
-            // 
-            this.EndingVectorNumberLabel.AutoSize = true;
-            this.EndingVectorNumberLabel.Location = new System.Drawing.Point(6, 307);
-            this.EndingVectorNumberLabel.Name = "EndingVectorNumberLabel";
-            this.EndingVectorNumberLabel.Size = new System.Drawing.Size(114, 13);
-            this.EndingVectorNumberLabel.TabIndex = 18;
-            this.EndingVectorNumberLabel.Text = "Ending Vector Number";
-            // 
-            // EndingVectorNumberTextBox
-            // 
-            this.EndingVectorNumberTextBox.Location = new System.Drawing.Point(6, 323);
-            this.EndingVectorNumberTextBox.Name = "EndingVectorNumberTextBox";
-            this.EndingVectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
-            this.EndingVectorNumberTextBox.TabIndex = 17;
-            this.EndingVectorNumberTextBox.Text = "9999";
-            // 
-            // ContinuousLoopGroupBox
-            // 
-            this.ContinuousLoopGroupBox.Controls.Add(this.DontContinuouslyLoopRadioButton);
-            this.ContinuousLoopGroupBox.Controls.Add(this.ContinuouslyLoopRadioButton);
-            this.ContinuousLoopGroupBox.Location = new System.Drawing.Point(6, 448);
-            this.ContinuousLoopGroupBox.Name = "ContinuousLoopGroupBox";
-            this.ContinuousLoopGroupBox.Size = new System.Drawing.Size(230, 60);
-            this.ContinuousLoopGroupBox.TabIndex = 17;
-            this.ContinuousLoopGroupBox.TabStop = false;
-            this.ContinuousLoopGroupBox.Text = "Continuously Loop Through Test";
-            // 
-            // DontContinuouslyLoopRadioButton
-            // 
-            this.DontContinuouslyLoopRadioButton.AutoSize = true;
-            this.DontContinuouslyLoopRadioButton.Location = new System.Drawing.Point(6, 41);
-            this.DontContinuouslyLoopRadioButton.Name = "DontContinuouslyLoopRadioButton";
-            this.DontContinuouslyLoopRadioButton.Size = new System.Drawing.Size(39, 17);
-            this.DontContinuouslyLoopRadioButton.TabIndex = 15;
-            this.DontContinuouslyLoopRadioButton.Text = "No";
-            this.DontContinuouslyLoopRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // ContinuouslyLoopRadioButton
-            // 
-            this.ContinuouslyLoopRadioButton.AutoSize = true;
-            this.ContinuouslyLoopRadioButton.Checked = true;
-            this.ContinuouslyLoopRadioButton.Location = new System.Drawing.Point(6, 18);
-            this.ContinuouslyLoopRadioButton.Name = "ContinuouslyLoopRadioButton";
-            this.ContinuouslyLoopRadioButton.Size = new System.Drawing.Size(43, 17);
-            this.ContinuouslyLoopRadioButton.TabIndex = 14;
-            this.ContinuouslyLoopRadioButton.TabStop = true;
-            this.ContinuouslyLoopRadioButton.Text = "Yes";
-            this.ContinuouslyLoopRadioButton.UseVisualStyleBackColor = true;
-            // 
             // Flipchip_Tester_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -600,13 +600,13 @@
             this.FlipChipTesterTabControl.ResumeLayout(false);
             this.TestingTabPage.ResumeLayout(false);
             this.TestingTabPage.PerformLayout();
+            this.ContinuousLoopGroupBox.ResumeLayout(false);
+            this.ContinuousLoopGroupBox.PerformLayout();
             this.StopTestIfFaultDetectedGroupBox.ResumeLayout(false);
             this.StopTestIfFaultDetectedGroupBox.PerformLayout();
             this.DiagsTabPage.ResumeLayout(false);
             this.DiagsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).EndInit();
-            this.ContinuousLoopGroupBox.ResumeLayout(false);
-            this.ContinuousLoopGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -201,7 +201,7 @@ namespace Warrens_Flipchip_Tester
         private UInt16[] IodirRegisters = new UInt16[8] { 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff }; //The I/O Direction Registers in the MCP23S17s start as inputs
         private UInt16[] OlatRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The I/O Latch Registers in the MCP23S17s start low
         private UInt16[] GpioRegisters = new UInt16[8] { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }; //The GPIO Registers in the MCP23S17s are read only
-        private String[] TestVectors = new String[2000]; //A place to hold up to 2000 test vectors
+        private String[] TestVectors = new String[2000]; //A place to hold up to 2000 test vectors, we don't use #0 to make the code easier to understand
         private String[] CurrentTestVector = new String[NumberOfPinDrivers]; //This holds the ones and zeros that are modified by each test vector
         private String CommentLines; //A place to save the comments
         private String PinLines; //A place to save the PIN statements
@@ -428,7 +428,7 @@ namespace Warrens_Flipchip_Tester
 
             MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
-            if (VectorNumber < NumberOfTestVectors) //See if we are finished with the test vectors
+            if (VectorNumber < NumberOfTestVectors +1) //See if we are finished with the test vectors
             {
                 for (int Pin = 0; Pin < NumberOfPins; Pin++) //Set Changed to false for all pins
                     PinTable[Pin].Changed = false;
@@ -610,7 +610,10 @@ namespace Warrens_Flipchip_Tester
                                     if (FinishedWithIodir & TestVectorFileLine.Length > 0)
                                     {
                                         if ((TestVectorFileLine.Substring(0, 1) != ";") & (TestVectorFileLine.Substring(0, 1) != "E")) //Check for comment and END
-                                            TestVectors[NumberOfTestVectors++] = TestVectorFileLine; //Save the test vector in the test vector array.
+                                        {
+                                            NumberOfTestVectors++; //Bump the Test Vector count
+                                            TestVectors[NumberOfTestVectors] = TestVectorFileLine; //Save the test vector in the test vector array.
+                                        }
                                     }
 
                                     if ((FinishedWithComments & !WeHavePinLines) & TestVectorFileLine.Length > 0) //Must be the IODIR line
@@ -628,7 +631,7 @@ namespace Warrens_Flipchip_Tester
                                 CheckIodirLine(); //Compare the IodirLine to the Pin Table
 
                                 for (int Pin = 0; Pin < NumberOfPins; Pin++)
-                                    CurrentTestVector[Pin] = TestVectors[0].Substring(Pin, 1); //Load the current test vector from the first test vector in the file
+                                    CurrentTestVector[Pin] = TestVectors[1].Substring(Pin, 1); //Load the current test vector from the first test vector in the file
                             }
                         }
                     }
@@ -684,7 +687,7 @@ namespace Warrens_Flipchip_Tester
         {
             String TestVectorString = ""; //A place to hold the Test Vectors
 
-            for (int Index = 0; Index < NumberOfTestVectors; Index++)
+            for (int Index = 1; Index < NumberOfTestVectors +1; Index++)
             {
                 TestVectorString += "#" + (Index) + ": " + TestVectors[Index] + "\n";
             }
