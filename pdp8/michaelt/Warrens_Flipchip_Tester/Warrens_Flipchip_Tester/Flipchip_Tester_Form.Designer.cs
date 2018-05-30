@@ -72,13 +72,16 @@
             this.DiagsTabPage = new System.Windows.Forms.TabPage();
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
+            this.HelpTabPage = new System.Windows.Forms.TabPage();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.ContinuousLoopGroupBox.SuspendLayout();
             this.StopTestIfFaultDetectedGroupBox.SuspendLayout();
             this.DiagsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).BeginInit();
+            this.HelpTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // DiagRichTextBox
@@ -88,7 +91,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DiagRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.DiagRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DiagRichTextBox.Location = new System.Drawing.Point(242, 6);
+            this.DiagRichTextBox.Location = new System.Drawing.Point(258, 6);
             this.DiagRichTextBox.Name = "DiagRichTextBox";
             this.DiagRichTextBox.Size = new System.Drawing.Size(1147, 598);
             this.DiagRichTextBox.TabIndex = 1;
@@ -287,6 +290,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FlipChipTesterTabControl.Controls.Add(this.TestingTabPage);
             this.FlipChipTesterTabControl.Controls.Add(this.DiagsTabPage);
+            this.FlipChipTesterTabControl.Controls.Add(this.HelpTabPage);
             this.FlipChipTesterTabControl.Location = new System.Drawing.Point(12, 12);
             this.FlipChipTesterTabControl.Name = "FlipChipTesterTabControl";
             this.FlipChipTesterTabControl.SelectedIndex = 0;
@@ -323,7 +327,7 @@
             // 
             this.ContinuousLoopGroupBox.Controls.Add(this.DontContinuouslyLoopRadioButton);
             this.ContinuousLoopGroupBox.Controls.Add(this.ContinuouslyLoopRadioButton);
-            this.ContinuousLoopGroupBox.Location = new System.Drawing.Point(6, 448);
+            this.ContinuousLoopGroupBox.Location = new System.Drawing.Point(6, 540);
             this.ContinuousLoopGroupBox.Name = "ContinuousLoopGroupBox";
             this.ContinuousLoopGroupBox.Size = new System.Drawing.Size(230, 60);
             this.ContinuousLoopGroupBox.TabIndex = 17;
@@ -355,7 +359,7 @@
             // EndingVectorNumberLabel
             // 
             this.EndingVectorNumberLabel.AutoSize = true;
-            this.EndingVectorNumberLabel.Location = new System.Drawing.Point(6, 307);
+            this.EndingVectorNumberLabel.Location = new System.Drawing.Point(6, 408);
             this.EndingVectorNumberLabel.Name = "EndingVectorNumberLabel";
             this.EndingVectorNumberLabel.Size = new System.Drawing.Size(114, 13);
             this.EndingVectorNumberLabel.TabIndex = 18;
@@ -363,17 +367,18 @@
             // 
             // EndingVectorNumberTextBox
             // 
-            this.EndingVectorNumberTextBox.Location = new System.Drawing.Point(6, 323);
+            this.EndingVectorNumberTextBox.Location = new System.Drawing.Point(6, 424);
             this.EndingVectorNumberTextBox.Name = "EndingVectorNumberTextBox";
             this.EndingVectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
             this.EndingVectorNumberTextBox.TabIndex = 17;
             this.EndingVectorNumberTextBox.Text = "9999";
+            this.EndingVectorNumberTextBox.TextChanged += new System.EventHandler(this.EndingVectorNumberTextBox_TextChanged);
             // 
             // StopTestIfFaultDetectedGroupBox
             // 
             this.StopTestIfFaultDetectedGroupBox.Controls.Add(this.DontStopTestIfFaultDetectedRadioButton);
             this.StopTestIfFaultDetectedGroupBox.Controls.Add(this.StopTestIfFaultDetectedRadioButton);
-            this.StopTestIfFaultDetectedGroupBox.Location = new System.Drawing.Point(6, 382);
+            this.StopTestIfFaultDetectedGroupBox.Location = new System.Drawing.Point(6, 474);
             this.StopTestIfFaultDetectedGroupBox.Name = "StopTestIfFaultDetectedGroupBox";
             this.StopTestIfFaultDetectedGroupBox.Size = new System.Drawing.Size(230, 60);
             this.StopTestIfFaultDetectedGroupBox.TabIndex = 16;
@@ -406,7 +411,7 @@
             // RunAllTestVectorsButton
             // 
             this.RunAllTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunAllTestVectorsButton.Location = new System.Drawing.Point(6, 209);
+            this.RunAllTestVectorsButton.Location = new System.Drawing.Point(6, 257);
             this.RunAllTestVectorsButton.Name = "RunAllTestVectorsButton";
             this.RunAllTestVectorsButton.Size = new System.Drawing.Size(230, 23);
             this.RunAllTestVectorsButton.TabIndex = 13;
@@ -417,7 +422,7 @@
             // StartingVectorNumberLabel
             // 
             this.StartingVectorNumberLabel.AutoSize = true;
-            this.StartingVectorNumberLabel.Location = new System.Drawing.Point(6, 263);
+            this.StartingVectorNumberLabel.Location = new System.Drawing.Point(6, 364);
             this.StartingVectorNumberLabel.Name = "StartingVectorNumberLabel";
             this.StartingVectorNumberLabel.Size = new System.Drawing.Size(117, 13);
             this.StartingVectorNumberLabel.TabIndex = 12;
@@ -425,16 +430,17 @@
             // 
             // StartingVectorNumberTextBox
             // 
-            this.StartingVectorNumberTextBox.Location = new System.Drawing.Point(6, 279);
+            this.StartingVectorNumberTextBox.Location = new System.Drawing.Point(6, 380);
             this.StartingVectorNumberTextBox.Name = "StartingVectorNumberTextBox";
             this.StartingVectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
             this.StartingVectorNumberTextBox.TabIndex = 11;
             this.StartingVectorNumberTextBox.Text = "1";
+            this.StartingVectorNumberTextBox.TextChanged += new System.EventHandler(this.StartingVectorNumberTextBox_TextChanged);
             // 
             // NextTestVectorButton
             // 
             this.NextTestVectorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NextTestVectorButton.Location = new System.Drawing.Point(6, 180);
+            this.NextTestVectorButton.Location = new System.Drawing.Point(6, 228);
             this.NextTestVectorButton.Name = "NextTestVectorButton";
             this.NextTestVectorButton.Size = new System.Drawing.Size(230, 23);
             this.NextTestVectorButton.TabIndex = 10;
@@ -445,7 +451,7 @@
             // DisplayTheTestVectorsButton
             // 
             this.DisplayTheTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisplayTheTestVectorsButton.Location = new System.Drawing.Point(6, 122);
+            this.DisplayTheTestVectorsButton.Location = new System.Drawing.Point(6, 145);
             this.DisplayTheTestVectorsButton.Name = "DisplayTheTestVectorsButton";
             this.DisplayTheTestVectorsButton.Size = new System.Drawing.Size(230, 23);
             this.DisplayTheTestVectorsButton.TabIndex = 9;
@@ -456,7 +462,7 @@
             // DisplayTheCommentsButton
             // 
             this.DisplayTheCommentsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisplayTheCommentsButton.Location = new System.Drawing.Point(6, 93);
+            this.DisplayTheCommentsButton.Location = new System.Drawing.Point(6, 116);
             this.DisplayTheCommentsButton.Name = "DisplayTheCommentsButton";
             this.DisplayTheCommentsButton.Size = new System.Drawing.Size(230, 23);
             this.DisplayTheCommentsButton.TabIndex = 8;
@@ -467,7 +473,7 @@
             // DisplayThePinTableButton
             // 
             this.DisplayThePinTableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisplayThePinTableButton.Location = new System.Drawing.Point(6, 64);
+            this.DisplayThePinTableButton.Location = new System.Drawing.Point(6, 87);
             this.DisplayThePinTableButton.Name = "DisplayThePinTableButton";
             this.DisplayThePinTableButton.Size = new System.Drawing.Size(230, 23);
             this.DisplayThePinTableButton.TabIndex = 7;
@@ -478,11 +484,11 @@
             // StartTestButton
             // 
             this.StartTestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartTestButton.Location = new System.Drawing.Point(6, 151);
+            this.StartTestButton.Location = new System.Drawing.Point(6, 199);
             this.StartTestButton.Name = "StartTestButton";
             this.StartTestButton.Size = new System.Drawing.Size(230, 23);
             this.StartTestButton.TabIndex = 5;
-            this.StartTestButton.Text = "Start Test, Run One Vector";
+            this.StartTestButton.Text = "Start Test, Run The First Vector";
             this.StartTestButton.UseVisualStyleBackColor = true;
             this.StartTestButton.Click += new System.EventHandler(this.StartTestButton_Click);
             // 
@@ -514,7 +520,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TesterRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.TesterRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TesterRichTextBox.Location = new System.Drawing.Point(261, 6);
+            this.TesterRichTextBox.Location = new System.Drawing.Point(258, 6);
             this.TesterRichTextBox.Name = "TesterRichTextBox";
             this.TesterRichTextBox.Size = new System.Drawing.Size(1147, 598);
             this.TesterRichTextBox.TabIndex = 2;
@@ -580,6 +586,16 @@
             this.CycleTheLEDsButton.UseVisualStyleBackColor = true;
             this.CycleTheLEDsButton.Click += new System.EventHandler(this.CycleTheLEDsButton_Click);
             // 
+            // HelpTabPage
+            // 
+            this.HelpTabPage.BackColor = System.Drawing.Color.Transparent;
+            this.HelpTabPage.Controls.Add(this.richTextBox1);
+            this.HelpTabPage.Location = new System.Drawing.Point(4, 22);
+            this.HelpTabPage.Name = "HelpTabPage";
+            this.HelpTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.HelpTabPage.TabIndex = 2;
+            this.HelpTabPage.Text = "Help";
+            // 
             // FlipChipTestBackgroundWorker
             // 
             this.FlipChipTestBackgroundWorker.WorkerReportsProgress = true;
@@ -587,6 +603,19 @@
             this.FlipChipTestBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RunFlipChipTest);
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.richTextBox1.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.Location = new System.Drawing.Point(258, 6);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(1147, 598);
+            this.richTextBox1.TabIndex = 2;
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // Flipchip_Tester_Form
             // 
@@ -607,6 +636,7 @@
             this.DiagsTabPage.ResumeLayout(false);
             this.DiagsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).EndInit();
+            this.HelpTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -655,6 +685,8 @@
         private System.Windows.Forms.GroupBox ContinuousLoopGroupBox;
         private System.Windows.Forms.RadioButton DontContinuouslyLoopRadioButton;
         private System.Windows.Forms.RadioButton ContinuouslyLoopRadioButton;
+        private System.Windows.Forms.TabPage HelpTabPage;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

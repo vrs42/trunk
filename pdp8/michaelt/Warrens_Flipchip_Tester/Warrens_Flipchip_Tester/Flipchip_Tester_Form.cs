@@ -7,7 +7,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * Author(s):
- *      Michael Thompson <mike@ricomputermuseum.com>
+ *      Michael Thompson <mike@ricomputermuseum.org>
  */
 
 using System;
@@ -39,6 +39,9 @@ namespace Warrens_Flipchip_Tester
         FlipChipTester WarrensFlipChipTester = new FlipChipTester();  //Make a new instance of the FlipChip Tester
         int VectorNumber = 0; //The index for the first test vector
 
+        /// <summary>
+        /// Create the Windows Form and get the GUI going
+        /// </summary>
         public Flipchip_Tester_Form()
         {
             InitializeComponent();
@@ -171,6 +174,11 @@ namespace Warrens_Flipchip_Tester
             }
         }
 
+        /// <summary>
+        /// Initialize the hardware and execute one test vector
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartTestButton_Click(object sender, EventArgs e)
         {
             try
@@ -219,6 +227,12 @@ namespace Warrens_Flipchip_Tester
             }
         }
 
+        /// <summary>
+        /// Execute one test vector and increment the Starting Vector Number field
+        /// You need to run Start Test first to initialize the hardware
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextTestVectorButton_Click(object sender, EventArgs e)
         {
             try
@@ -343,6 +357,8 @@ namespace Warrens_Flipchip_Tester
         //
         // Run the FlipChip Testing on a separate Thread so that the GUI remains responsive
         //
+        // Not Implemented yet
+        //
         //**************************************************************************
 
         /// <summary>
@@ -383,6 +399,29 @@ namespace Warrens_Flipchip_Tester
         private void StopTestIfFaultDetected_Changed(object sender, EventArgs e)
         {
             WarrensFlipChipTester.StopTestIfFaultDetected = StopTestIfFaultDetectedRadioButton.Checked;
+        }
+
+        /// <summary>
+        /// Don't let the user enter a starting vector number less than 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartingVectorNumberTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(StartingVectorNumberTextBox.Text) < 1)
+                StartingVectorNumberTextBox.Text = "1";
+        }
+
+        /// <summary>
+        /// Don't let the user enter an ending vector number less than 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EndingVectorNumberTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(EndingVectorNumberTextBox.Text) < 1)
+                EndingVectorNumberTextBox.Text = "1";
+
         }
     }
 }
