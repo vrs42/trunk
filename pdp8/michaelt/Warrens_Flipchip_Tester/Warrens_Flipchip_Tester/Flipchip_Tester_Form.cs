@@ -139,6 +139,8 @@ namespace Warrens_Flipchip_Tester
         private void OpenTestVectorFileButton_Click(object sender, EventArgs e)
         {
             TesterRichTextBox.Text = WarrensFlipChipTester.OpenTestVectorFile();
+            StartingVectorNumberTextBox.Text = "1"; //Set the ending vector number to the first vector
+            EndingVectorNumberTextBox.Text = "9999"; //Set the ending vector number to a high value
         }
 
         private void DisplayTheCommentsButton_Click(object sender, EventArgs e)
