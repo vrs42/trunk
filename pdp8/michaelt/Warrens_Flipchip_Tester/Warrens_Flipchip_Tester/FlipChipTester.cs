@@ -583,10 +583,11 @@ namespace Warrens_Flipchip_Tester
                             {
                                 while ((TestVectorFileLine = TestVectorStreamReader.ReadLine()) != null)
                                 {
-                                    if (WeHavePinLines & (TestVectorFileLine.Length == 0)) //No more pin lines
-                                        WeHavePinLines = false;
+                                    if (WeHavePinLines & (TestVectorFileLine.Length > 0)) //See if we are done with the pin lines
+                                        if (TestVectorFileLine.Substring(0, 1) == "I" | TestVectorFileLine.Substring(0, 1) == "O") //We have an IO direction line
+                                            WeHavePinLines = false;
 
-                                    if (WeHavePinLines) //Process the PINS statements
+                                    if (WeHavePinLines & (TestVectorFileLine.Length > 0)) //Process the PINS statements
                                     {
                                         int index = TestVectorFileLine.IndexOf(' ');
                                         if (index != -1)

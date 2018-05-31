@@ -1,6 +1,6 @@
-M222   PCB REV B   SCHEMATIC REV A   LINC TAPE REGISTERS 
+M222   PCB REV B   SCHEMATIC REV A   LINC TAPE REGISTERS
 
-TERMINOLOGY- SIGNALS REFER TO PDP12 MAINT VOL4 M222 SCHEMATIC.  
+TERMINOLOGY- SIGNALS REFER TO PDP12 MAINT VOL4 M222 SCHEMATIC.
 
 BUT...
 
@@ -8,7 +8,7 @@ DEC USES AND-NOR GATES TO ROUTE THE ADDER A AND B INPUTS, SO...
 DEC RENAMED THE ADDER TO NEGATIVE LOGIC TERMS (I.E. A-N + B-N + C-N -> SUM-N, C1-N).
 (NOT THE 7482 DATASHEET NAMES OF A + B + C -> SUM, C1).
 
-SO, WITH ALL 'AND ENABLES' LOW, THE AND-NOR OUTPUTS = HIGH. 
+SO, WITH ALL 'AND ENABLES' LOW, THE AND-NOR OUTPUTS = HIGH.
 WITH C-L HIGH, THE ADDER OUTPUT IS SUM-N=1, C1-N=1;
 THE INVERTED ADDER OUTPUT IS LOW (TAPE BUS).
 AND THERE IS NO CARRY (C1-N IS HI).
@@ -23,7 +23,7 @@ POWER PINS:
 
 PINS
  1 I BA1	CARRY IN-N, (TO E9-5 7482 C0)					C-N		    TO ADDER2
- 2 I AL2	AND-NOR ENABLE: TAC		TAC3	TO PIN BB2 (TO ADDER3)	TAC2	TO PIN AN2 (TO ADDER2) 
+ 2 I AL2	AND-NOR ENABLE: TAC		TAC3	TO PIN BB2 (TO ADDER3)	TAC2	TO PIN AN2 (TO ADDER2)
  3 I AP1	AND-NOR ENABLE: TMA SETUP	(TMAS)3 TO PIN BB2 (TO ADDER3),	(TMAS)3 TO PIN AN2 (TO ADDER2)
  4 I AS2	AND-NOR ENABLE: TMA		TMA3	TO PIN BB2 (TO ADDER3),	TMA2	TO PIN AN2 (TO ADDER2)
  5 I AL1	AND-NOR ENABLE:			PIN AF2 TO PIN BB2 (TO ADDER3),	PIN AM1 TO PIN AN2 (TO ADDER2)
@@ -104,13 +104,13 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
 ; load TMA SETUP from tape bus (00)
                                           100
                                           0
-; load TMA from tape bus (00)                                            
+; load TMA from tape bus (00)
                                              100
                                              0
-; load TBN from tape bus (00)                   
+; load TBN from tape bus (00)
                                                 100
                                                 0
-; load TAC from tape bus (00)                      
+; load TAC from tape bus (00)
                                                    10101
                                                    0
 ; load TB from tape bus (00)
@@ -126,38 +126,38 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ; set all registers HIGH
-; 
+;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 
 
 ; load TMA SETUP from tape bus (11)
-                                          111                     
-                                          0                       
+                                          111
+                                          0
 ; load TMA from tape bus (11)
-                                             111                  
-                                             0                    
-; load TBN from tape bus (11)                                     
-                                                111              
-                                                0              
-; load TAC from tape bus (11)                                 
-                                                   11010       
-                                                   0            
-; load TB from tape bus (11)                                   
-                                                        111      
-                                                        0        
-; load RWB from TB (JAMS CLEAR AND PRESET)                        
+                                             111
+                                             0
+; load TBN from tape bus (11)
+                                                111
+                                                0
+; load TAC from tape bus (11)
+                                                   11010
+                                                   0
+; load TB from tape bus (11)
+                                                        111
+                                                        0
+; load RWB from TB (JAMS CLEAR AND PRESET)
                                                            1   11
-                                                           0     
+                                                           0
 ; clear pin AF1 (AND with itself) to set pin BB2 (AND-NOR output) and clear pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
-; clear pin AP2 (AND with itself) to set pin AN2 (AND-NOR output) and clear pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
-; (no change)                                                       
+             0                     1     0
+; clear pin AP2 (AND with itself) to set pin AN2 (AND-NOR output) and clear pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
+; (no change)
 100000000000000000000000000000000001111100011011011010100110110111
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -167,31 +167,31 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-; walk a 0, TMA SETUP 2 
+; walk a 0, TMA SETUP 2
 
 
-; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
+; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
 ; load TMA SETUP from tape bus (01)
                                           101
                                           0
 ; restore TMA SETUP 2
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; load TMA SETUP from tape bus (11)
                                           111
                                           0
 
 
-; walk a 0, TMA SETUP 3 
+; walk a 0, TMA SETUP 3
 
 
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; clear pin AF1 which sets   pin BB2 and clears pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
+             0                     1     0
 ; load TMA SETUP from tape bus (10)
                                           110
                                           0
@@ -203,126 +203,126 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
                                           0
 
 
-; walk a 0, TMA 2 
+; walk a 0, TMA 2
 
 
-; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
+; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
-; load TMA from tape bus (01)                                            
+; load TMA from tape bus (01)
                                              101
                                              0
 ; restore TMA 2
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
-; load TMA from tape bus (11)                                            
+; load TMA from tape bus (11)
                                              111
                                              0
 
 
-; walk a 0, TMA 3 
+; walk a 0, TMA 3
 
 
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; clear pin AF1 which sets   pin BB2 and clears pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
-; load TMA from tape bus (10)                                            
+             0                     1     0
+; load TMA from tape bus (10)
                                              110
                                              0
 ; restore TMA 3
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
-; load TMA from tape bus (11)                                            
+; load TMA from tape bus (11)
                                              111
                                              0
 
 
-; walk a 0, TBN 2 
+; walk a 0, TBN 2
 
 
-; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
+; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
-; load TBN from tape bus (01)                   
+; load TBN from tape bus (01)
                                                 101
                                                 0
 ; restore TBN 2
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
-; load TBN from tape bus (11)                   
+; load TBN from tape bus (11)
                                                 111
                                                 0
 
 
-; walk a 0, TBN 3 
+; walk a 0, TBN 3
 
 
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; clear pin AF1 which sets   pin BB2 and clears pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
-; load TBN from tape bus (10)                   
+             0                     1     0
+; load TBN from tape bus (10)
                                                 110
                                                 0
 ; restore TBN 3
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
-; load TBN from tape bus (11)                   
+; load TBN from tape bus (11)
                                                 111
                                                 0
 
 
-; walk a 0, TAC 2 
+; walk a 0, TAC 2
 
 
-; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
+; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
-; load TAC from tape bus (01)                   
+; load TAC from tape bus (01)
                                                    10110
                                                    0
 ; restore TAC 2
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
-; load TAC from tape bus (11)                   
+; load TAC from tape bus (11)
                                                    11010
                                                    0
 
 
-; walk a 0, TAC 3 
+; walk a 0, TAC 3
 
 
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; clear pin AF1 which sets   pin BB2 and clears pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
-; load TAC from tape bus (10)                      
+             0                     1     0
+; load TAC from tape bus (10)
                                                    11001
                                                    0
 ; restore TAC 3
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
-; load TAC from tape bus (11)                   
+; load TAC from tape bus (11)
                                                    11010
                                                    0
 
 
-; walk a 0, TB 2 
+; walk a 0, TB 2
 
 
-; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
+; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
 ; load TB from tape bus (01)
                                                         101
                                                         0
 ; restore TB 2
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; load TB from tape bus (11)
                                                         111
@@ -332,10 +332,10 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
 ; walk a 0, TB 3
 
 
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; clear pin AF1 which sets   pin BB2 and clears pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
+             0                     1     0
 ; load TB from tape bus (10)
                                                         110
                                                         0
@@ -347,11 +347,11 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
                                                         0
 
 
-; walk a 0, RWB 2 
+; walk a 0, RWB 2
 
 
-; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
+; clear pin AP2 which sets   pin AN2 and clears pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
 ; set   pin AF1 which clears pin BB2 and sets   pin BR2 TAPE BUS 3 OUTPUT
              1                     0     1
 ; load TB from tape bus (01)
@@ -361,7 +361,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
                                                            1   01
                                                            0
 ; restore TB 2 and RWB 2
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; load TB from tape bus (11)
                                                         111
@@ -371,13 +371,13 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
                                                            0
 
 
-; walk a 0, RWB 3 
+; walk a 0, RWB 3
 
 
-; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT 
+; set   pin AP2 which clears pin AN2 and sets   pin BV2 TAPE BUS 2 OUTPUT
                 1                     0 1
 ; clear pin AF1 which sets   pin BB2 and clears pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
+             0                     1     0
 ; load TB from tape bus (10)
                                                         110
                                                         0
@@ -395,10 +395,10 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
                                                            0
 
 ; clear pin AF1 (AND with itself) to set pin BB2 (AND-NOR output) and clear pin BR2 TAPE BUS 3 OUTPUT
-             0                     1     0                        
-; clear pin AP2 (AND with itself) to set pin AN2 (AND-NOR output) and clear pin BV2 TAPE BUS 2 OUTPUT 
-                0                     1 0                        
-; (no change)                                                       
+             0                     1     0
+; clear pin AP2 (AND with itself) to set pin AN2 (AND-NOR output) and clear pin BV2 TAPE BUS 2 OUTPUT
+                0                     1 0
+; (no change)
 100000000000000000000000000000000001111100011011011010100110110111
 
 
@@ -415,7 +415,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ; test AND-NOR logic
-; 
+;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; (all registers are HIGH)
@@ -457,56 +457,56 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIOOOOOOOIOOIOOIOOIOOOOIOOIIIIOOO
                                  1
 ; toggle each ENABLE
 
-; set pin AL2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin AL2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
  1                                 0  0 11
  0                                 1  1 00
-; set pin AP1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin AP1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
   1                                0  0 11
   0                                1  1 00
-; set pin AS2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin AS2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
    1                               0  0 11
    0                               1  1 00
-; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
     1                              0  0 11
     0                              1  1 00
-; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin AL1 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
        1                           0  0 11
        0                           1  1 00
-; set pin AE2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin AE2 to clear pin BB2 and pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
         1                          0  0 11
         0                          1  1 00
-; set pin AC1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT 
+; set pin AC1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT
            1                       0     1
            0                       1     0
-; set pin AF1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT 
+; set pin AF1 to clear pin BB2                             and set                       TAPE BUS 3 OUTPUT
              1                     0     1
              0                     1     0
-; set pin AR2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT 
-              1                       0 1 
-              0                       1 0 
-; set pin AP2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT 
-                1                     0 1 
-                0                     1 0 
+; set pin AR2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT
+              1                       0 1
+              0                       1 0
+; set pin AP2 to clear             pin AN2 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT
+                1                     0 1
+                0                     1 0
 
-; set pin BK1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin BK1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
                  1                  00  11
                  0                  11  00
-; set pin BL1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin BL1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
                   1                 00  11
                   0                 11  00
-; set pin BF1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin BF1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
                      1              00  11
                      0              11  00
-; set pin BS1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin BS1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
                         1           00  11
                         0           11  00
-; set pin BL2 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin BL2 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
                            1        00  11
                            0        11  00
-; set pin BU1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT 
+; set pin BU1 to clear pin BB1 and pin BN1 AND-NOR OUTPUTS and set TAPE BUS 2 OUTPUT and TAPE BUS 3 OUTPUT
                               1     00  11
                               0     11  00
-; set pin BM2 to clear pin BB1                             and                            TAPE BUS 3 OUTPUT 
+; set pin BM2 to clear pin BB1                             and                            TAPE BUS 3 OUTPUT
                                   1  0  1
                                   0  1  0
 ; no change
