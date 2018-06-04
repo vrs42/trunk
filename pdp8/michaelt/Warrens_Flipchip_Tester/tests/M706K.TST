@@ -1,5 +1,9 @@
 M706   PCB REV K   SCHEMATIC REV L   TELETYPE RECEIVER
 
+If this diagnostic fails on the first test vector with pin BN1 not a 1,
+then you might have the earlier revision D printed circuit board.
+Try the M706D.TST test file.
+
 NOTE: 17 PINS not used
        1 AA1  PAD, NOT CONNECTED
        2 AB1  NOT CONNECTED

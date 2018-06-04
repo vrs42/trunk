@@ -139,24 +139,12 @@ namespace Warrens_Flipchip_Tester
         private void OpenTestVectorFileButton_Click(object sender, EventArgs e)
         {
             TesterRichTextBox.Text = WarrensFlipChipTester.OpenTestVectorFile();
+            PinTableRichTextBox.Text = WarrensFlipChipTester.GetPinLines() + "\n";
+            PinTableRichTextBox.Text += WarrensFlipChipTester.GetIodirLine();
+            CommentsRichTextBox.Text = WarrensFlipChipTester.GetCommentLines();
+            TestVectorsRichTextBox.Text = WarrensFlipChipTester.GetTestVectors();
             StartingVectorNumberTextBox.Text = "1"; //Set the ending vector number to the first vector
             EndingVectorNumberTextBox.Text = "9999"; //Set the ending vector number to a high value
-        }
-
-        private void DisplayTheCommentsButton_Click(object sender, EventArgs e)
-        {
-            TesterRichTextBox.Text = WarrensFlipChipTester.GetCommentLines();
-        }
-
-        private void DisplayThePinTableButton_Click(object sender, EventArgs e)
-        {
-            TesterRichTextBox.Text = WarrensFlipChipTester.GetPinLines() + "\n";
-            TesterRichTextBox.Text += WarrensFlipChipTester.GetIodirLine() + "\n";
-        }
-
-        private void DisplayTheTestVectorsButton_Click(object sender, EventArgs e)
-        {
-            TesterRichTextBox.Text = WarrensFlipChipTester.GetTestVectors() + "\n";
         }
 
         private void CycleTheLEDsButton_Click(object sender, EventArgs e)
@@ -187,6 +175,7 @@ namespace Warrens_Flipchip_Tester
             {
                 StartingVectorNumberTextBox.Text = "1";
                 VectorNumber = 1;
+                PassCountTextBox.Text = "0";
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
                 TesterRichTextBox.Text += WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
@@ -293,6 +282,7 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 StartingVectorNumberTextBox.Text = "1";
+                PassCountTextBox.Text = "0";
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
                 TesterRichTextBox.Text += WarrensFlipChipTester.SetupIodirRegisters(); //Write the bits into the IODIR registers
                 WarrensFlipChipTester.SetLedState("ALL", "OFF"); //Turn the all LEDs off
@@ -316,6 +306,7 @@ namespace Warrens_Flipchip_Tester
                             break;
                         }
                     }
+                    PassCountTextBox.Text = (Convert.ToInt32(PassCountTextBox.Text) + 1).ToString();
                 } while (ContinuouslyLoopRadioButton.Checked);
                 TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }

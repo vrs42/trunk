@@ -438,10 +438,11 @@ namespace Warrens_Flipchip_Tester
                 {
                     TestPin = TestVectors[VectorNumber].Substring(Pin, 1); //Get a single Pin character from the Test Vector
 
+
                     if (TestPin != " " & TestPin != CurrentTestVector[Pin]) //Check if the 0, 1, X, or P changed
                         PinTable[Pin].Changed = true;
 
-                    if (TestPin == "1" | TestPin == "0")
+                    if (TestPin == "1" | TestPin == "0" | TestPin == "X")
                     {
                         CurrentTestVector[Pin] = TestVectors[VectorNumber].Substring(Pin, 1);
                     }
