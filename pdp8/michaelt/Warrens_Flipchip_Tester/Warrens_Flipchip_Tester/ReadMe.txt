@@ -3,14 +3,18 @@
 You need to reinstall the driver for the USB serial port and use the FTDI VCP driver.
 http://www.ftdichip.com
 
-You need to put FTD2XX_NET.dll, libMPSSEWrapper.dll, and libMPSSE.dll in the same directory as the executable.
+You need to put FTD2XX_NET.dll, libMPSSEWrapper.dll, and libMPSSE.dll files in the same directory as the executable.
+I will make an installation package that will do this.
 
-https://github.com/DVDPT/libMPSSE-.Net-Wrapper
+The DLLs from FTDI are not Managed Code. The C# language always uses managed code, so it requires a wrapper to hide the uglyness of using Non-Managed code from a Managed code language.
+I found the original code for the wrapper here: https://github.com/DVDPT/libMPSSE-.Net-Wrapper
+I modified the code by adding support for the MCP23S17 SPI GPIO part, and added FlipChip Tester specific Exceptions.
 
-The cable C232HM-DDHSL-0 supplies 3.3V, This is the one that I bought.
-The cable C232HM-EDHSL-0 supplies 5.0V
+Two USB/SPI cables are available from FTDI. It shouldn't make a different which one you use.
+	C232HM-DDHSL-0 supplies 3.3V, This is the one that I bought.
+	C232HM-EDHSL-0 supplies 5.0V
 
-The SPI cable works up to 10MHz with the MCP23S17 GOIP part
+The SPI cable works up to 10MHz with the MCP23S17 GOIP part.
 
 Cable Wiring
 Color	Pin Number	Name	Type			Description						MCP23S17 Pin
@@ -34,26 +38,26 @@ RedLed	ACBUS6
 GrnLed	ACBUS8
 XtrnPwr	ACBUS9
 
-Modifications to the PCB for the USB SPI interface:
+Modifications to the original FlipChip Tester PCB for the USB/SPI interface:
 
 	Add 10k pullup from IC5-18 (RESET-N) to Vdd.
 	Cut A0(15), A1(16), A2(17) to RESET-N(18) traces for all 5x SPI chips.
 	Jumper all 5x RESET-N(18) pins together.
 		IC5-18 is already connected to PC1-4.
 
-	Add 10k pullup from IC1-15 to Vdd.
-	Add Ground to IC1-16, 17.
-	Add 10k pullup from IC2-16 to Vdd.
-	Add Ground to IC1-15, 17.
-	Add 10k pullup from IC3-15, 16 to Vdd.
-	Add Ground to IC1-17.
-	Add 10k pullup from IC4-17 to Vdd.
-	Add Ground to IC1-15, 16.
-	Add 10k pullup from IC5-15, 17 to Vdd.
-	Add Ground to IC1-16.
-		SPI addresses will match the IC number.
+	These modifications set th SPI Hardware Addresses of each IC to match the IC number.
+		Add 10k pullup from IC1-15 to Vdd.
+		Add Ground to IC1-16, 17.
+		Add 10k pullup from IC2-16 to Vdd.
+		Add Ground to IC1-15, 17.
+		Add 10k pullup from IC3-15, 16 to Vdd.
+		Add Ground to IC1-17.
+		Add 10k pullup from IC4-17 to Vdd.
+		Add Ground to IC1-15, 16.
+		Add 10k pullup from IC5-15, 17 to Vdd.
+		Add Ground to IC1-16.
 
-	Do not install IC6. This socket cab be used to jumper the SO and SI signals together.
+	Do not install IC6. This IC location can be used to jumper the SO and SI signals together.
 
 	Connect SO at IC6-1, 3, 4, 5, 9, 11 together.
 		SO will be on PC1-26
@@ -65,7 +69,7 @@ Modifications to the PCB for the USB SPI interface:
 		Color	Pin Number	Name	Type			Description						Connector PC1
 		Red		1			Vcc		Output			3.3V @ 250mA source				4 Used for the RESET-N pullup
 		Orange	2	SCK		SK		Output			Serial Clock					8
-		Yellow	3	MOSI	DO		Output			Serial data output				10
+		Yellow	3	MOSI	DO		Output			Serial Data output				10
 		Green	4	MISO	DI		Input			Serial Data Input				26
 		Brown	5	#CS		CS		Output			Serial Chip Select				6
 		Gray	6			GPIOL0	Input/Output	General Purpose input/output
@@ -80,10 +84,8 @@ Modifications to the PCB for the USB SPI interface:
 Software implementation notes:
 
 	Before you can use Hardware Adressing, you need to write 0x08 to the IOCON register.
-	0x40 0x0a 0x08 0x08 and 0x4e 0x0a 0x08 0x08
-
-	There is a bug in the MCP23S17 so you should use a hardware address of 0x7 when Hardware Adressing is not enabled.
-
+	There is a bug in the MCP23S17 so you need to send the Hardware Address configuration to an address of 0x00 and 0x07.
+	The SPI command is: 0x40 0x0a 0x08 0x08 and 0x4e 0x0a 0x08 0x08
 
 	IC IOLAT Register to GP Pin Name Mapping
 	GPB7..GPB0 GPA7..GPA0
