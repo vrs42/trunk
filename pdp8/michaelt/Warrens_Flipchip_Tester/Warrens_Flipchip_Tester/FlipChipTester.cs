@@ -206,6 +206,7 @@ namespace Warrens_Flipchip_Tester
         private String CommentLines; //A place to save the comments
         private String PinLines; //A place to save the PIN statements
         private String IodirLine; //A place to save the IODIR line
+        private String TestVectorsAndComments; //A place to save the Test Vectors, including the comments
 
         //**************************************************************************
         //
@@ -611,9 +612,14 @@ namespace Warrens_Flipchip_Tester
 
                                     if (FinishedWithIodir & TestVectorFileLine.Length > 0)
                                     {
-                                        if ((TestVectorFileLine.Substring(0, 1) != ";") & (TestVectorFileLine.Substring(0, 1) != "E")) //Check for comment and END
+                                        if ((TestVectorFileLine.Substring(0, 1) == ";") | (TestVectorFileLine.Substring(0, 1) == "E")) //Check for comment and END
+                                        {
+                                            TestVectorsAndComments += TestVectorFileLine + "\n"; //Save the commend or end line
+                                        }
+                                        else
                                         {
                                             NumberOfTestVectors++; //Bump the Test Vector count
+                                            TestVectorsAndComments += String.Format("#{0,4}: {1}\n", NumberOfTestVectors, TestVectorFileLine);
                                             TestVectors[NumberOfTestVectors] = TestVectorFileLine; //Save the test vector in the test vector array.
                                         }
                                     }
@@ -687,14 +693,7 @@ namespace Warrens_Flipchip_Tester
         /// <returns>Test Vectors</returns>
         public String GetTestVectors()
         {
-            String TestVectorString = ""; //A place to hold the Test Vectors
-
-            for (int Index = 1; Index < NumberOfTestVectors +1; Index++)
-            {
-                TestVectorString += "#" + (Index) + ": " + TestVectors[Index] + "\n";
-            }
-
-            return TestVectorString;
+                return TestVectorsAndComments;
         }
         /// <summary>
         /// Enable the Hardware Addressing mode in the SPI chips
