@@ -143,6 +143,7 @@ namespace Warrens_Flipchip_Tester
             PinTableRichTextBox.Text += WarrensFlipChipTester.GetIodirLine();
             CommentsRichTextBox.Text = WarrensFlipChipTester.GetCommentLines();
             TestVectorsRichTextBox.Text = WarrensFlipChipTester.GetTestVectors();
+            TestVectorsHeaderRichTextBox.Text = WarrensFlipChipTester.GetTestVectorsHeader();
             StartingVectorNumberTextBox.Text = "1"; //Set the ending vector number to the first vector
             EndingVectorNumberTextBox.Text = "9999"; //Set the ending vector number to a high value
         }

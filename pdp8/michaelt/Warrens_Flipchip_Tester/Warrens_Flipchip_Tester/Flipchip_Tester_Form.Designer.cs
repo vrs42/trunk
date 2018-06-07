@@ -50,6 +50,8 @@
             this.HardwareAddressEnablebutton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl = new System.Windows.Forms.TabControl();
             this.TestingTabPage = new System.Windows.Forms.TabPage();
+            this.PassCountlabel = new System.Windows.Forms.Label();
+            this.PassCountTextBox = new System.Windows.Forms.TextBox();
             this.ContinuousLoopGroupBox = new System.Windows.Forms.GroupBox();
             this.DontContinuouslyLoopRadioButton = new System.Windows.Forms.RadioButton();
             this.ContinuouslyLoopRadioButton = new System.Windows.Forms.RadioButton();
@@ -66,30 +68,29 @@
             this.SaveTestInformationInLogFileButton = new System.Windows.Forms.Button();
             this.OpenTestVectorFileButton = new System.Windows.Forms.Button();
             this.TesterRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.PinTableTabPage = new System.Windows.Forms.TabPage();
+            this.PinTableRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.CommentsTabPage = new System.Windows.Forms.TabPage();
+            this.CommentsRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.TestVectorsTabPage = new System.Windows.Forms.TabPage();
+            this.TestVectorsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.DiagsTabPage = new System.Windows.Forms.TabPage();
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
             this.HelpTabPage = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.PassCountlabel = new System.Windows.Forms.Label();
-            this.PassCountTextBox = new System.Windows.Forms.TextBox();
-            this.PinTableTabPage = new System.Windows.Forms.TabPage();
-            this.CommentsTabPage = new System.Windows.Forms.TabPage();
-            this.TestVectorsTabPage = new System.Windows.Forms.TabPage();
-            this.PinTableRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.CommentsRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.TestVectorsRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.TestVectorsHeaderRichTextBox = new System.Windows.Forms.RichTextBox();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.ContinuousLoopGroupBox.SuspendLayout();
             this.StopTestIfFaultDetectedGroupBox.SuspendLayout();
-            this.DiagsTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).BeginInit();
-            this.HelpTabPage.SuspendLayout();
             this.PinTableTabPage.SuspendLayout();
             this.CommentsTabPage.SuspendLayout();
             this.TestVectorsTabPage.SuspendLayout();
+            this.DiagsTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).BeginInit();
+            this.HelpTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // DiagRichTextBox
@@ -333,6 +334,23 @@
             this.TestingTabPage.Text = "FlipChip Testing";
             this.TestingTabPage.UseVisualStyleBackColor = true;
             // 
+            // PassCountlabel
+            // 
+            this.PassCountlabel.AutoSize = true;
+            this.PassCountlabel.Location = new System.Drawing.Point(6, 320);
+            this.PassCountlabel.Name = "PassCountlabel";
+            this.PassCountlabel.Size = new System.Drawing.Size(61, 13);
+            this.PassCountlabel.TabIndex = 20;
+            this.PassCountlabel.Text = "Pass Count";
+            // 
+            // PassCountTextBox
+            // 
+            this.PassCountTextBox.Location = new System.Drawing.Point(6, 336);
+            this.PassCountTextBox.Name = "PassCountTextBox";
+            this.PassCountTextBox.Size = new System.Drawing.Size(230, 20);
+            this.PassCountTextBox.TabIndex = 19;
+            this.PassCountTextBox.Text = "0";
+            // 
             // ContinuousLoopGroupBox
             // 
             this.ContinuousLoopGroupBox.Controls.Add(this.DontContinuouslyLoopRadioButton);
@@ -503,6 +521,76 @@
             this.TesterRichTextBox.TabIndex = 2;
             this.TesterRichTextBox.Text = "";
             // 
+            // PinTableTabPage
+            // 
+            this.PinTableTabPage.Controls.Add(this.PinTableRichTextBox);
+            this.PinTableTabPage.Location = new System.Drawing.Point(4, 22);
+            this.PinTableTabPage.Name = "PinTableTabPage";
+            this.PinTableTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.PinTableTabPage.TabIndex = 3;
+            this.PinTableTabPage.Text = "Pin Table";
+            this.PinTableTabPage.UseVisualStyleBackColor = true;
+            // 
+            // PinTableRichTextBox
+            // 
+            this.PinTableRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PinTableRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.PinTableRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PinTableRichTextBox.Location = new System.Drawing.Point(258, 6);
+            this.PinTableRichTextBox.Name = "PinTableRichTextBox";
+            this.PinTableRichTextBox.Size = new System.Drawing.Size(1147, 598);
+            this.PinTableRichTextBox.TabIndex = 3;
+            this.PinTableRichTextBox.Text = "";
+            // 
+            // CommentsTabPage
+            // 
+            this.CommentsTabPage.Controls.Add(this.CommentsRichTextBox);
+            this.CommentsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.CommentsTabPage.Name = "CommentsTabPage";
+            this.CommentsTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.CommentsTabPage.TabIndex = 4;
+            this.CommentsTabPage.Text = "Comments";
+            this.CommentsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // CommentsRichTextBox
+            // 
+            this.CommentsRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommentsRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.CommentsRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CommentsRichTextBox.Location = new System.Drawing.Point(258, 6);
+            this.CommentsRichTextBox.Name = "CommentsRichTextBox";
+            this.CommentsRichTextBox.Size = new System.Drawing.Size(1147, 598);
+            this.CommentsRichTextBox.TabIndex = 3;
+            this.CommentsRichTextBox.Text = "";
+            // 
+            // TestVectorsTabPage
+            // 
+            this.TestVectorsTabPage.Controls.Add(this.TestVectorsHeaderRichTextBox);
+            this.TestVectorsTabPage.Controls.Add(this.TestVectorsRichTextBox);
+            this.TestVectorsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.TestVectorsTabPage.Name = "TestVectorsTabPage";
+            this.TestVectorsTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.TestVectorsTabPage.TabIndex = 5;
+            this.TestVectorsTabPage.Text = "Test Vectors";
+            this.TestVectorsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // TestVectorsRichTextBox
+            // 
+            this.TestVectorsRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TestVectorsRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.TestVectorsRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TestVectorsRichTextBox.Location = new System.Drawing.Point(258, 55);
+            this.TestVectorsRichTextBox.Name = "TestVectorsRichTextBox";
+            this.TestVectorsRichTextBox.Size = new System.Drawing.Size(1147, 549);
+            this.TestVectorsRichTextBox.TabIndex = 3;
+            this.TestVectorsRichTextBox.Text = "";
+            // 
             // DiagsTabPage
             // 
             this.DiagsTabPage.Controls.Add(this.DeviceAddressNumericUpDown);
@@ -594,91 +682,18 @@
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
             // 
-            // PassCountlabel
+            // TestVectorsHeaderRichTextBox
             // 
-            this.PassCountlabel.AutoSize = true;
-            this.PassCountlabel.Location = new System.Drawing.Point(6, 320);
-            this.PassCountlabel.Name = "PassCountlabel";
-            this.PassCountlabel.Size = new System.Drawing.Size(61, 13);
-            this.PassCountlabel.TabIndex = 20;
-            this.PassCountlabel.Text = "Pass Count";
-            // 
-            // PassCountTextBox
-            // 
-            this.PassCountTextBox.Location = new System.Drawing.Point(6, 336);
-            this.PassCountTextBox.Name = "PassCountTextBox";
-            this.PassCountTextBox.Size = new System.Drawing.Size(230, 20);
-            this.PassCountTextBox.TabIndex = 19;
-            this.PassCountTextBox.Text = "0";
-            // 
-            // PinTableTabPage
-            // 
-            this.PinTableTabPage.Controls.Add(this.PinTableRichTextBox);
-            this.PinTableTabPage.Location = new System.Drawing.Point(4, 22);
-            this.PinTableTabPage.Name = "PinTableTabPage";
-            this.PinTableTabPage.Size = new System.Drawing.Size(1411, 610);
-            this.PinTableTabPage.TabIndex = 3;
-            this.PinTableTabPage.Text = "Pin Table";
-            this.PinTableTabPage.UseVisualStyleBackColor = true;
-            // 
-            // CommentsTabPage
-            // 
-            this.CommentsTabPage.Controls.Add(this.CommentsRichTextBox);
-            this.CommentsTabPage.Location = new System.Drawing.Point(4, 22);
-            this.CommentsTabPage.Name = "CommentsTabPage";
-            this.CommentsTabPage.Size = new System.Drawing.Size(1411, 610);
-            this.CommentsTabPage.TabIndex = 4;
-            this.CommentsTabPage.Text = "Comments";
-            this.CommentsTabPage.UseVisualStyleBackColor = true;
-            // 
-            // TestVectorsTabPage
-            // 
-            this.TestVectorsTabPage.Controls.Add(this.TestVectorsRichTextBox);
-            this.TestVectorsTabPage.Location = new System.Drawing.Point(4, 22);
-            this.TestVectorsTabPage.Name = "TestVectorsTabPage";
-            this.TestVectorsTabPage.Size = new System.Drawing.Size(1411, 610);
-            this.TestVectorsTabPage.TabIndex = 5;
-            this.TestVectorsTabPage.Text = "Test Vectors";
-            this.TestVectorsTabPage.UseVisualStyleBackColor = true;
-            // 
-            // PinTableRichTextBox
-            // 
-            this.PinTableRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TestVectorsHeaderRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PinTableRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.PinTableRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PinTableRichTextBox.Location = new System.Drawing.Point(258, 6);
-            this.PinTableRichTextBox.Name = "PinTableRichTextBox";
-            this.PinTableRichTextBox.Size = new System.Drawing.Size(1147, 598);
-            this.PinTableRichTextBox.TabIndex = 3;
-            this.PinTableRichTextBox.Text = "";
-            // 
-            // CommentsRichTextBox
-            // 
-            this.CommentsRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CommentsRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CommentsRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CommentsRichTextBox.Location = new System.Drawing.Point(258, 6);
-            this.CommentsRichTextBox.Name = "CommentsRichTextBox";
-            this.CommentsRichTextBox.Size = new System.Drawing.Size(1147, 598);
-            this.CommentsRichTextBox.TabIndex = 3;
-            this.CommentsRichTextBox.Text = "";
-            // 
-            // TestVectorsRichTextBox
-            // 
-            this.TestVectorsRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TestVectorsRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.TestVectorsRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TestVectorsRichTextBox.Location = new System.Drawing.Point(258, 6);
-            this.TestVectorsRichTextBox.Name = "TestVectorsRichTextBox";
-            this.TestVectorsRichTextBox.Size = new System.Drawing.Size(1147, 598);
-            this.TestVectorsRichTextBox.TabIndex = 3;
-            this.TestVectorsRichTextBox.Text = "";
+            this.TestVectorsHeaderRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.TestVectorsHeaderRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TestVectorsHeaderRichTextBox.Location = new System.Drawing.Point(258, 3);
+            this.TestVectorsHeaderRichTextBox.Name = "TestVectorsHeaderRichTextBox";
+            this.TestVectorsHeaderRichTextBox.Size = new System.Drawing.Size(1147, 55);
+            this.TestVectorsHeaderRichTextBox.TabIndex = 4;
+            this.TestVectorsHeaderRichTextBox.Text = "";
             // 
             // Flipchip_Tester_Form
             // 
@@ -696,13 +711,13 @@
             this.ContinuousLoopGroupBox.PerformLayout();
             this.StopTestIfFaultDetectedGroupBox.ResumeLayout(false);
             this.StopTestIfFaultDetectedGroupBox.PerformLayout();
+            this.PinTableTabPage.ResumeLayout(false);
+            this.CommentsTabPage.ResumeLayout(false);
+            this.TestVectorsTabPage.ResumeLayout(false);
             this.DiagsTabPage.ResumeLayout(false);
             this.DiagsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).EndInit();
             this.HelpTabPage.ResumeLayout(false);
-            this.PinTableTabPage.ResumeLayout(false);
-            this.CommentsTabPage.ResumeLayout(false);
-            this.TestVectorsTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -758,6 +773,7 @@
         private System.Windows.Forms.RichTextBox CommentsRichTextBox;
         private System.Windows.Forms.TabPage TestVectorsTabPage;
         private System.Windows.Forms.RichTextBox TestVectorsRichTextBox;
+        private System.Windows.Forms.RichTextBox TestVectorsHeaderRichTextBox;
     }
 }
 

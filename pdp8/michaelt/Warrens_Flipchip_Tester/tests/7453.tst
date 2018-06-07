@@ -16,15 +16,15 @@ CONNECT:
 DOES NOT TEST EXPANDER INPUTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 PINS
-1  I AA1 E1-1   7453 pin 1  A
-2  I AS2 E1-15  7453 pin 13 B
-3  I AB2 E1-2   7453 pin 2  C
-4  I AC1 E1-3   7453 pin 3  D
-5  I AD2 E1-4   7453 pin 4  E
-6  I AE2 E1-5   7453 pin 5  F
-7  I AM2 E1-11  7453 pin 9  G
-8  I AN2 E1-12  7453 pin 10 H
-9  O AL2 E1-10  7453 pin 8  Y = (A AND B) NOR (C AND D) NOR (E AND F) NOR (G AND H) (X,X-N EXPANDER)
+ 1 I AA1 E1-1   7453 pin 1  A
+ 2 I AS2 E1-15  7453 pin 13 B
+ 3 I AB2 E1-2   7453 pin 2  C
+ 4 I AC1 E1-3   7453 pin 3  D
+ 5 I AD2 E1-4   7453 pin 4  E
+ 6 I AE2 E1-5   7453 pin 5  F
+ 7 I AM2 E1-11  7453 pin 9  G
+ 8 I AN2 E1-12  7453 pin 10 H
+ 9 O AL2 E1-10  7453 pin 8  Y = (A AND B) NOR (C AND D) NOR (E AND F) NOR (G AND H) (X,X-N EXPANDER)
 10 I AF2 E1-6   7453 pin 6  n.c.
 11 O AP2 E1-13  7450 pin 11 X   (EXPANDER)
 12 O AR2 E1-14  7450 pin 12 X-N (EXPANDER)

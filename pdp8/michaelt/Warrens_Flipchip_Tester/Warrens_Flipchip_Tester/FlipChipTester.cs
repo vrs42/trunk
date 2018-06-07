@@ -563,6 +563,7 @@ namespace Warrens_Flipchip_Tester
             CommentLines = "";
             PinLines = "";
             IodirLine = "";
+            TestVectorsAndComments = "";
             NumberOfTestVectors = 0;
 
             InitializeFlipChipTester(); //Clear everything and get ready to read in new test values
@@ -619,7 +620,7 @@ namespace Warrens_Flipchip_Tester
                                         else
                                         {
                                             NumberOfTestVectors++; //Bump the Test Vector count
-                                            TestVectorsAndComments += String.Format("#{0,4}: {1}\n", NumberOfTestVectors, TestVectorFileLine);
+                                            TestVectorsAndComments += String.Format("#{0:0000}: {1}\n", NumberOfTestVectors, TestVectorFileLine);
                                             TestVectors[NumberOfTestVectors] = TestVectorFileLine; //Save the test vector in the test vector array.
                                         }
                                     }
@@ -695,6 +696,37 @@ namespace Warrens_Flipchip_Tester
         {
                 return TestVectorsAndComments;
         }
+
+        /// <summary>
+        /// Gets the header for saved Test Vectors
+        /// </summary>
+        /// <returns>Test Vectors Header</returns>
+        public String GetTestVectorsHeader()
+        {
+            String header = "Vector ";
+
+            for (int Pin = 0; Pin < NumberOfPins; Pin++)
+                header += PinTable[Pin].FlipChipPin.Substring(0, 1);
+
+            try
+            {
+                header += "\nNumber ";
+                for (int Pin = 0; Pin < NumberOfPins; Pin++)
+                    header += PinTable[Pin].FlipChipPin.Substring(1, 1);
+            }
+            catch { }
+
+            try
+            {
+                header += "\n       ";
+            for (int Pin = 0; Pin < NumberOfPins; Pin++)
+                header += PinTable[Pin].FlipChipPin.Substring(2, 1);
+            }
+            catch { }
+
+            return header;
+        }
+
         /// <summary>
         /// Enable the Hardware Addressing mode in the SPI chips
         /// and test that it worked
