@@ -556,6 +556,7 @@ namespace Warrens_Flipchip_Tester
             OpenFileDialog TestVectorOpenFileDialog = new OpenFileDialog();
             String TestVectorFileLine;
             String TestVectorFileResults = "";
+            StringBuilder CRs = new StringBuilder(); //Carriage Returns to append to the test vector listing
             bool WeHavePinLines = false; //Flag to indicate that we found the PINS line
             bool FinishedWithComments = false; //Flag to indicate that we found the end if the initial comments
             bool FinishedWithIodir = false; //Flag to indicate we found the IODIR line
@@ -641,6 +642,10 @@ namespace Warrens_Flipchip_Tester
 
                                 for (int Pin = 0; Pin < NumberOfPins; Pin++)
                                     CurrentTestVector[Pin] = TestVectors[1].Substring(Pin, 1); //Load the current test vector from the first test vector in the file
+
+                                for (int i = 0; i < 50; i++)
+                                    CRs.Append("\n");
+                                TestVectorsAndComments = TestVectorsAndComments + CRs; //Append a bunch of CRs to the text so you can scroll the window to the top
                             }
                         }
                     }
