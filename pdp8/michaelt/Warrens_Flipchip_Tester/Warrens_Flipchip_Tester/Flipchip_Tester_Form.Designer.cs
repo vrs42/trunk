@@ -73,6 +73,7 @@
             this.CommentsTabPage = new System.Windows.Forms.TabPage();
             this.CommentsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.TestVectorsTabPage = new System.Windows.Forms.TabPage();
+            this.TestVectorsHeaderRichTextBox = new System.Windows.Forms.RichTextBox();
             this.TestVectorsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.DiagsTabPage = new System.Windows.Forms.TabPage();
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -80,7 +81,6 @@
             this.HelpTabPage = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.TestVectorsHeaderRichTextBox = new System.Windows.Forms.RichTextBox();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.ContinuousLoopGroupBox.SuspendLayout();
@@ -578,6 +578,18 @@
             this.TestVectorsTabPage.Text = "Test Vectors";
             this.TestVectorsTabPage.UseVisualStyleBackColor = true;
             // 
+            // TestVectorsHeaderRichTextBox
+            // 
+            this.TestVectorsHeaderRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TestVectorsHeaderRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.TestVectorsHeaderRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TestVectorsHeaderRichTextBox.Location = new System.Drawing.Point(258, 3);
+            this.TestVectorsHeaderRichTextBox.Name = "TestVectorsHeaderRichTextBox";
+            this.TestVectorsHeaderRichTextBox.Size = new System.Drawing.Size(1147, 55);
+            this.TestVectorsHeaderRichTextBox.TabIndex = 4;
+            this.TestVectorsHeaderRichTextBox.Text = "";
+            // 
             // TestVectorsRichTextBox
             // 
             this.TestVectorsRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -585,9 +597,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TestVectorsRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.TestVectorsRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TestVectorsRichTextBox.Location = new System.Drawing.Point(258, 55);
+            this.TestVectorsRichTextBox.Location = new System.Drawing.Point(258, 60);
             this.TestVectorsRichTextBox.Name = "TestVectorsRichTextBox";
-            this.TestVectorsRichTextBox.Size = new System.Drawing.Size(1147, 549);
+            this.TestVectorsRichTextBox.Size = new System.Drawing.Size(1147, 540);
             this.TestVectorsRichTextBox.TabIndex = 3;
             this.TestVectorsRichTextBox.Text = "";
             // 
@@ -681,19 +693,6 @@
             this.FlipChipTestBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RunFlipChipTest);
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
-            // 
-            // TestVectorsHeaderRichTextBox
-            // 
-            this.TestVectorsHeaderRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TestVectorsHeaderRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.TestVectorsHeaderRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TestVectorsHeaderRichTextBox.Location = new System.Drawing.Point(258, 3);
-            this.TestVectorsHeaderRichTextBox.Name = "TestVectorsHeaderRichTextBox";
-            this.TestVectorsHeaderRichTextBox.Size = new System.Drawing.Size(1147, 55);
-            this.TestVectorsHeaderRichTextBox.TabIndex = 4;
-            this.TestVectorsHeaderRichTextBox.Text = "";
             // 
             // Flipchip_Tester_Form
             // 
