@@ -195,6 +195,7 @@ namespace Warrens_Flipchip_Tester
             public String Direction;   //Input, Output, Don't Care, or Pullup
             public String FlipChipPin; //The pin on the FlipChip
             public bool Changed;       //Flag to indicate that the current test vector changed the state of this pin
+            public String Comments;    //The comments from the test vector file
         }
 
         private PinTableStruct[] PinTable = new PinTableStruct[NumberOfPinDrivers]; //The Pin Table, we only have 80 GPIO pins
@@ -525,7 +526,7 @@ namespace Warrens_Flipchip_Tester
                         PassFail = "";
                     else
                     {
-                        PassFail = "Fail";
+                        PassFail = "Fail " + PinTable[Pin].Comments;
                         SetLedState("GREEN", "OFF"); //Turn the RED1 LED on
                         SetLedState("RED1", "ON"); //Turn the RED1 LED on
                         FaultDetected = true; //We detected a fault
@@ -796,6 +797,10 @@ namespace Warrens_Flipchip_Tester
             PinTable[NumberOfPins].Direction = Columns[1];
             PinTable[NumberOfPins].FlipChipPin = Columns[2];
             PinTable[NumberOfPins].Changed = false; //We start out with the pin not changed
+
+            int StartingChar = TestVectorLine.TrimStart(' ').IndexOf(PinTable[NumberOfPins].FlipChipPin); //Find the Pin Name in the test vector
+            int PinNameLength = PinTable[NumberOfPins].FlipChipPin.Length; //Get the length of the Pin Name
+            PinTable[NumberOfPins].Comments = TestVectorLine.TrimStart(' ').Substring(StartingChar + PinNameLength).TrimStart(' ');
 
             if (PinTable[NumberOfPins].FlipChipPin == "AT1"
                 | PinTable[NumberOfPins].FlipChipPin == "AA2"

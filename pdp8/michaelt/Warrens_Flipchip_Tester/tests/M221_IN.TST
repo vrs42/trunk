@@ -14,7 +14,7 @@ PINS
 7  O AD1 E2-8          REG BUS 2
 8  O AV2 E6-8          REG BUS 3
 9  I BF2 E17-11 E17-3  LOAD MA
-10  O BV1 E17-8         (MA2 Q-N)
+10 O BV1 E17-8         (MA2 Q-N)
 11 O AS1 E17-9         (MA2 Q)
 12 O BK2 E17-6         (MA3 Q-N)
 13 O BN2 E17-5         (MA3 Q)
