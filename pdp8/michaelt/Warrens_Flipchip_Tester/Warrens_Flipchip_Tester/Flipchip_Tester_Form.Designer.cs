@@ -50,6 +50,7 @@
             this.HardwareAddressEnablebutton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl = new System.Windows.Forms.TabControl();
             this.TestingTabPage = new System.Windows.Forms.TabPage();
+            this.ContinueTestAfterStopButton = new System.Windows.Forms.Button();
             this.PassCountlabel = new System.Windows.Forms.Label();
             this.PassCountTextBox = new System.Windows.Forms.TextBox();
             this.ContinuousLoopGroupBox = new System.Windows.Forms.GroupBox();
@@ -81,7 +82,6 @@
             this.HelpTabPage = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.ContinueTestAfterStopButton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.ContinuousLoopGroupBox.SuspendLayout();
@@ -336,6 +336,18 @@
             this.TestingTabPage.Text = "FlipChip Testing";
             this.TestingTabPage.UseVisualStyleBackColor = true;
             // 
+            // ContinueTestAfterStopButton
+            // 
+            this.ContinueTestAfterStopButton.Enabled = false;
+            this.ContinueTestAfterStopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ContinueTestAfterStopButton.Location = new System.Drawing.Point(6, 146);
+            this.ContinueTestAfterStopButton.Name = "ContinueTestAfterStopButton";
+            this.ContinueTestAfterStopButton.Size = new System.Drawing.Size(230, 23);
+            this.ContinueTestAfterStopButton.TabIndex = 21;
+            this.ContinueTestAfterStopButton.Text = "Continue Test After Stop";
+            this.ContinueTestAfterStopButton.UseVisualStyleBackColor = true;
+            this.ContinueTestAfterStopButton.Click += new System.EventHandler(this.ContinueTestAfterStopButton_Click);
+            // 
             // PassCountlabel
             // 
             this.PassCountlabel.AutoSize = true;
@@ -440,6 +452,7 @@
             // 
             // RunAllTestVectorsButton
             // 
+            this.RunAllTestVectorsButton.Enabled = false;
             this.RunAllTestVectorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RunAllTestVectorsButton.Location = new System.Drawing.Point(6, 175);
             this.RunAllTestVectorsButton.Name = "RunAllTestVectorsButton";
@@ -469,6 +482,7 @@
             // 
             // NextTestVectorButton
             // 
+            this.NextTestVectorButton.Enabled = false;
             this.NextTestVectorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NextTestVectorButton.Location = new System.Drawing.Point(6, 117);
             this.NextTestVectorButton.Name = "NextTestVectorButton";
@@ -480,6 +494,7 @@
             // 
             // StartTestButton
             // 
+            this.StartTestButton.Enabled = false;
             this.StartTestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartTestButton.Location = new System.Drawing.Point(6, 88);
             this.StartTestButton.Name = "StartTestButton";
@@ -695,17 +710,6 @@
             this.FlipChipTestBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RunFlipChipTest);
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
-            // 
-            // ContinueTestAfterStopButton
-            // 
-            this.ContinueTestAfterStopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContinueTestAfterStopButton.Location = new System.Drawing.Point(6, 146);
-            this.ContinueTestAfterStopButton.Name = "ContinueTestAfterStopButton";
-            this.ContinueTestAfterStopButton.Size = new System.Drawing.Size(230, 23);
-            this.ContinueTestAfterStopButton.TabIndex = 21;
-            this.ContinueTestAfterStopButton.Text = "Continue Test After Stop";
-            this.ContinueTestAfterStopButton.UseVisualStyleBackColor = true;
-            this.ContinueTestAfterStopButton.Click += new System.EventHandler(this.ContinueTestAfterStopButton_Click);
             // 
             // Flipchip_Tester_Form
             // 

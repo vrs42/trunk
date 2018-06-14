@@ -146,6 +146,10 @@ namespace Warrens_Flipchip_Tester
             TestVectorsHeaderRichTextBox.Text = WarrensFlipChipTester.GetTestVectorsHeader();
             StartingVectorNumberTextBox.Text = "1"; //Set the ending vector number to the first vector
             EndingVectorNumberTextBox.Text = "9999"; //Set the ending vector number to a high value
+            StartTestButton.Enabled = true; //Turn the buttons on because we have a test vector file
+            NextTestVectorButton.Enabled = false;
+            ContinueTestAfterStopButton.Enabled = false;
+            RunAllTestVectorsButton.Enabled = true;
         }
 
         private void CycleTheLEDsButton_Click(object sender, EventArgs e)
@@ -174,7 +178,7 @@ namespace Warrens_Flipchip_Tester
         {
             try
             {
-                StartingVectorNumberTextBox.Text = "1";
+                StartingVectorNumberTextBox.Text = "1"; //Reset the test vector number to the first one
                 VectorNumber = 1;
                 PassCountTextBox.Text = "0";
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it
@@ -216,6 +220,9 @@ namespace Warrens_Flipchip_Tester
             finally
             {
                 WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
+                StartingVectorNumberTextBox.Text = "2"; //We only ran the first test vector, so the second is next
+                NextTestVectorButton.Enabled = true;
+                ContinueTestAfterStopButton.Enabled = true;
             }
         }
 
@@ -230,8 +237,12 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 VectorNumber = Convert.ToInt32(StartingVectorNumberTextBox.Text);
-                VectorNumber++;
-                StartingVectorNumberTextBox.Text = VectorNumber.ToString();
+                if (VectorNumber == WarrensFlipChipTester.NumberOfTestVectorsRead + 1)
+                {
+                    VectorNumber = 1;
+                    StartingVectorNumberTextBox.Text = VectorNumber.ToString();
+                }
+
                 Application.DoEvents(); //Make the text show up now
 
                 TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(VectorNumber); //Process a test vector
@@ -269,6 +280,8 @@ namespace Warrens_Flipchip_Tester
             finally
             {
                 WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
+                VectorNumber++;
+                StartingVectorNumberTextBox.Text = VectorNumber.ToString();
             }
         }
 
@@ -413,6 +426,8 @@ namespace Warrens_Flipchip_Tester
             finally
             {
                 WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
+                NextTestVectorButton.Enabled = true;
+                ContinueTestAfterStopButton.Enabled = true;
             }
         }
 
