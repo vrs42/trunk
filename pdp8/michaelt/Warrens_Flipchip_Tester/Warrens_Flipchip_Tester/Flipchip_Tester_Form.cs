@@ -273,6 +273,75 @@ namespace Warrens_Flipchip_Tester
         }
 
         /// <summary>
+        /// Run the remaining test vectors after the test has halted
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ContinueTestAfterStopButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                WarrensFlipChipTester.SetLedState("YELLOW", "ON"); //Turn the Yellow LED on
+                WarrensFlipChipTester.ContinuouslyLoopTest = ContinuouslyLoopRadioButton.Checked; //Set the flag to control looping
+
+                do
+                {
+                    for (int TestVector = Convert.ToInt16(StartingVectorNumberTextBox.Text); TestVector < WarrensFlipChipTester.NumberOfTestVectorsRead + 1; TestVector++)
+                    {
+                        TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(TestVector); //Process a test vector
+                        StartingVectorNumberTextBox.Text = TestVector.ToString();
+                        Application.DoEvents(); //Make the text show up now
+
+                        if (TestVector > Convert.ToInt32(EndingVectorNumberTextBox.Text))
+                        {
+                            TesterRichTextBox.Text += "\nStopped at test vector number " + EndingVectorNumberTextBox.Text + " of " + (WarrensFlipChipTester.NumberOfTestVectorsRead - 1) + ".\n";
+                            ContinuouslyLoopRadioButton.Checked = false; //Uncheck the button so we can stop the tester
+                            DontContinuouslyLoopRadioButton.Checked = true;
+                            break;
+                        }
+                    }
+                    PassCountTextBox.Text = (Convert.ToInt32(PassCountTextBox.Text) + 1).ToString();
+                    StartingVectorNumberTextBox.Text = "1"; //Reset the next test vector to run
+                } while (ContinuouslyLoopRadioButton.Checked);
+                TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+            }
+            catch (SpiChannelNotConnectedException)
+            {
+                TesterRichTextBox.Text = "Could not connect to the USB/SPI cable.\n";
+                TesterRichTextBox.Text += "Try unplugging the USB/SPI cable, and the plugging it back in.\n";
+            }
+            catch (FlipchipTesterException ex)
+            {
+                if (ex.Reason == FlipChipTestResult.VppPowerIsOff)
+                {
+                    TesterRichTextBox.Text = "The Vpp Power to the FlipChip is not turned on.\n\n";
+                    TesterRichTextBox.Text += "Flip the toggle switch and make sure that the amber LED for UUT_PWR goes on.\n";
+                }
+
+                if (ex.Reason == FlipChipTestResult.FinishedWithTests) //We should only get here if we try to process a test vector number that is higher than what we have
+                    TesterRichTextBox.Text += "\nFinished with test vectors.\n";
+
+                if (ex.Reason == FlipChipTestResult.InvalidTestResult)
+                {
+                    TesterRichTextBox.Text = ex.FlipChipTestMessage;
+                    TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+                }
+
+                if (ex.Reason == FlipChipTestResult.SpiTestFailed)
+                {
+                    TesterRichTextBox.Text += "SPI Chip Hardware Address Fault.\n\n";
+                    TesterRichTextBox.Text += ex.FlipChipTestMessage;
+                    TesterRichTextBox.Text += "Try disconnecting & reconnecting the USB cable and restarting the FlipChip tester program.\n";
+                    TesterRichTextBox.Text += "Try running Hardware Address Enable and Test in the Test the Tester tab.\n";
+                }
+            }
+            finally
+            {
+                WarrensFlipChipTester.SetLedState("YELLOW", "OFF"); //Turn the Yellow LED off
+            }
+        }
+
+        /// <summary>
         /// Run all of the test vectors from the beginning
         /// Loop through all of the vectors if ContinuouslyLoopRadioButton is Checked
         /// </summary>
