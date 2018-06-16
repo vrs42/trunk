@@ -14,6 +14,12 @@ extern unsigned short lpt_base;
 //
 volatile unsigned char *PortBase = 0;
 
+// BUGBUG: This is overkill for just one status bit!
+// (Control bits are unused after initialization.)
+int lp_invert[] = {
+    0x0, 0x80, 0xB
+};
+
 void
 dos_bcm2835()
 {
@@ -30,34 +36,34 @@ dos_bcm2835()
     //
 #if 1
     for (i = 8; i < 24; i++) {
-	bcm2835_gpio_fsel(i, i < 1/*6*/);
+	bcm2835_gpio_fsel(i, i < 16);
     }
 #else
-	bcm2835_gpio_fsel(8, 1);
-	bcm2835_gpio_fsel(9, 1);
-	bcm2835_gpio_fsel(10, 1);
-	bcm2835_gpio_fsel(11, 1);
-	bcm2835_gpio_fsel(12, 1);
-	bcm2835_gpio_fsel(13, 1);
-	bcm2835_gpio_fsel(14, 1);
-	bcm2835_gpio_fsel(15, 1);
+    bcm2835_gpio_fsel(8, 1);
+    bcm2835_gpio_fsel(9, 1);
+    bcm2835_gpio_fsel(10, 1);
+    bcm2835_gpio_fsel(11, 1);
+    bcm2835_gpio_fsel(12, 1);
+    bcm2835_gpio_fsel(13, 1);
+    bcm2835_gpio_fsel(14, 1);
+    bcm2835_gpio_fsel(15, 1);
 
-	bcm2835_gpio_fsel(16, 0);
-	bcm2835_gpio_fsel(17, 0);
-	bcm2835_gpio_fsel(18, 0);
-	bcm2835_gpio_fsel(19, 0);
-	bcm2835_gpio_fsel(20, 0);
-	bcm2835_gpio_fsel(21, 0);
-	bcm2835_gpio_fsel(22, 0);
-	bcm2835_gpio_fsel(23, 0);
+    bcm2835_gpio_fsel(16, 0);
+    bcm2835_gpio_fsel(17, 0);
+    bcm2835_gpio_fsel(18, 0);
+    bcm2835_gpio_fsel(19, 0);
+    bcm2835_gpio_fsel(20, 0);
+    bcm2835_gpio_fsel(21, 0);
+    bcm2835_gpio_fsel(22, 0);
+    bcm2835_gpio_fsel(23, 0);
 
-	bcm2835_gpio_fsel(24, 0);
-	bcm2835_gpio_fsel(25, 0);
-	bcm2835_gpio_fsel(26, 0);
-	bcm2835_gpio_fsel(27, 0);
-	bcm2835_gpio_fsel(28, 0);
-	bcm2835_gpio_fsel(29, 0);
-	bcm2835_gpio_fsel(30, 0);
+    bcm2835_gpio_fsel(24, 0);
+    bcm2835_gpio_fsel(25, 0);
+    bcm2835_gpio_fsel(26, 0);
+    bcm2835_gpio_fsel(27, 0);
+    bcm2835_gpio_fsel(28, 0);
+    bcm2835_gpio_fsel(29, 0);
+    bcm2835_gpio_fsel(30, 0);
 //	bcm2835_gpio_fsel(31, 0); // BUGBUG -- crashes system
 #endif
 //fprintf(stderr, "Not dead yet\n");
@@ -68,17 +74,19 @@ dos_bcm2835()
 int
 do_inp(unsigned short port)
 {
+    register int i = port-lpt_base;
 //fprintf(stderr, "read port %04x\n", port);
 //fflush(stderr); //sleep(1);
-    return *(PortBase+(port-lpt_base));
+    return *(PortBase+i) ^ lp_invert[i];;
 }
 
 void
 do_outp(unsigned short port, int val)
 {
+    register int i = port-lpt_base;
 //fprintf(stderr, "write %02x to port %04x\n", val, port);
 //fflush(stderr); if ((val&0xFE) != 0x6) sleep(1);
-    *(PortBase+(port-lpt_base)) = val;
+    *(PortBase+i) = val ^ lp_invert[i];;
 }
 
 int init_inp(unsigned short port)
