@@ -10,15 +10,9 @@
 extern unsigned short lpt_base;
 
 //
-// Low level I/O.  Port is assumed to be in the extern "lpt_base".
+// Low level I/O.  LPT Port base address is assumed to be in the extern "lpt_base".
 //
-volatile unsigned char *PortBase = 0;
-
-// BUGBUG: This is overkill for just one status bit!
-// (Control bits are unused after initialization.)
-int lp_invert[] = {
-    0x0, 0x80, 0xB
-};
+volatile unsigned int *PortLev = 0;
 
 void
 dos_bcm2835()
@@ -26,69 +20,64 @@ dos_bcm2835()
     int i;
 
     bcm2835_init();
-    PortBase = ((unsigned char *)bcm2835_gpio) + 1;
+    //PortLev = ((unsigned char *)bcm2835_gpio) + BCM2835_GPLEV0;
+    PortLev = bcm2835_gpio + BCM2835_GPLEV0 / 4;
     // 
     // Set I/O direction for each GPIO we intend to access.
-    // We set data to 001 for output, others to 000 for input.
-    // This sets us up to later ignore writes to the LPT Control port.
-    // (The tester code can try to test control port, but it isn't 
-    // actually used when talking SPI to the tester.)
+    // Also, disable pull-ups for output pins, but enable them
+    // for input pins.
     //
-#if 1
-    for (i = 8; i < 24; i++) {
-	bcm2835_gpio_fsel(i, i < 16);
+    for (i = 8; i < 16; i++) {
+	bcm2835_gpio_fsel(i, BCM2835_GPIO_FSEL_OUTP);
+        bcm2835_gpio_set_pud(i, BCM2835_GPIO_PUD_OFF);
     }
-#else
-    bcm2835_gpio_fsel(8, 1);
-    bcm2835_gpio_fsel(9, 1);
-    bcm2835_gpio_fsel(10, 1);
-    bcm2835_gpio_fsel(11, 1);
-    bcm2835_gpio_fsel(12, 1);
-    bcm2835_gpio_fsel(13, 1);
-    bcm2835_gpio_fsel(14, 1);
-    bcm2835_gpio_fsel(15, 1);
-
-    bcm2835_gpio_fsel(16, 0);
-    bcm2835_gpio_fsel(17, 0);
-    bcm2835_gpio_fsel(18, 0);
-    bcm2835_gpio_fsel(19, 0);
-    bcm2835_gpio_fsel(20, 0);
-    bcm2835_gpio_fsel(21, 0);
-    bcm2835_gpio_fsel(22, 0);
-    bcm2835_gpio_fsel(23, 0);
-
-    bcm2835_gpio_fsel(24, 0);
-    bcm2835_gpio_fsel(25, 0);
-    bcm2835_gpio_fsel(26, 0);
-    bcm2835_gpio_fsel(27, 0);
-    bcm2835_gpio_fsel(28, 0);
-    bcm2835_gpio_fsel(29, 0);
-    bcm2835_gpio_fsel(30, 0);
-//	bcm2835_gpio_fsel(31, 0); // BUGBUG -- crashes system
-#endif
-//fprintf(stderr, "Not dead yet\n");
-//sleep(1);
-//exit(0);
+    for (i = 16; i < 24; i++) {
+	bcm2835_gpio_fsel(i, BCM2835_GPIO_FSEL_INPT);
+        bcm2835_gpio_set_pud(i, BCM2835_GPIO_PUD_UP);
+    }
 }
+
+// This is overkill for just one status bit!
+// (Control bits are unused after initialization.)
+unsigned char lp_invert[] = {
+    0x0, 0x80, 0xB
+};
 
 int
 do_inp(unsigned short port)
 {
     register int i = port-lpt_base;
-//fprintf(stderr, "read port %04x\n", port);
-//fflush(stderr); //sleep(1);
-    return *(PortBase+i) ^ lp_invert[i];;
+    register int val;
+    val = *PortLev;		// Get the value
+    val >>= 8*(i+1);		// Shift the value
+// Tricky inverted inversion here comensates for removed LS06 inverter chip.
+    val ^= ~lp_invert[i];	// Perform inversion as needed.
+    return val & 0xFF;
 }
 
+//
+// Tried to do byte wide writes, but they didn't seem to work.
+// Fall back to tried-and-true library calls, which want 32 bit / values.
+//
 void
 do_outp(unsigned short port, int val)
 {
     register int i = port-lpt_base;
-//fprintf(stderr, "write %02x to port %04x\n", val, port);
-//fflush(stderr); if ((val&0xFE) != 0x6) sleep(1);
-    *(PortBase+i) = val ^ lp_invert[i];;
+    if (i) return;		// Ignore writes to everything except the data port.
+//  val ^= lp_invert[i];	// No inversion needed for data output.
+    i = 8*(i+1);		// Bits to shift
+    val <<= i;			// Shift the value
+    i = 0xFF << i;		// ... and a mask
+    bcm2835_gpio_write_mask(val, i); // Set and clear the bits of the relevant byte.
+    bcm2835_gpio_write_mask(val, i); // Slow down just a hair.
+    //bcm2835_delayMicroseconds(1); // Too slow.
 }
 
+//
+// These once-only versions of _inp() and _outp() initialize the library, 
+// set the regular routines to called henceforth, and finally punt to the 
+// regular routines.
+//
 int init_inp(unsigned short port)
 {
     dos_bcm2835();
@@ -105,13 +94,18 @@ void init_outp(unsigned short port, int val)
     return do_outp(port, val);
 }
 
-
+//
+// Finally, everything is in place to initialize the function pointers.
+//
 int (*_inp)(unsigned short port) = init_inp;
 void (*_outp)(unsigned short port, int val) = init_outp;
 
 
 //
 // Convert a string (in place) to uppercase.
+// A kludge is added to uppercase the file names, to mimic the MS-DOS 
+// behavior.  '\' is also "uppercased" to '/' so that the result will 
+// be Linux compatible.
 //
 char *
 _strupr(char *str)

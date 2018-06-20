@@ -1,0 +1,21 @@
+The code should be run with group "gpio", and uses /dev/gpiomem.
+I set up a user "tester", who logs in the gpio group.
+
+If you try this with the PiDP code installed, you'll have to kill 
+the SIMH instance.  It is not sufficient to request PiDP to "stop".  
+I use a command like 
+    $ ps -aef | grep pidp
+to obtain the pid (usually 790 or so), and then a command like 
+    $ sudo kill 790
+to nuke the running PiDP software.
+
+You need the cable adapter board, or a homebrew equivalent.  You 
+can get the Eagle drawings in the directory:
+    http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/Stearns%20Tester/
+
+You also need to replace the LS06 (IC6) in your tester with a 
+jumper block.  To make a suitable block, take a 14 pin socket 
+and install jumpers: 1-2, 3-4, 5-6, 8-9, 10-11, and 12-13.
+Leave pins 8 and 14 empty.
+
+    Vince

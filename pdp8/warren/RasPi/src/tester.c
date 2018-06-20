@@ -388,7 +388,7 @@ unsigned int reg_init_and_verify( void )  /* returns 0 if okay    */
     unsigned int    result;
     unsigned int    i;
     unsigned int    data_in[5];
-    unsigned int    uTemp;
+    unsigned short  uTemp;
 
 
     reg_init();
