@@ -83,6 +83,7 @@ namespace Warrens_Flipchip_Tester
 
         private bool StopTestOnFault = true; //The test sequence will stop if a fault is found
         private bool ContinuouslyLoop = false; //Stop when we run out of test vectors
+        private bool DisplayResults = true; //Display the test results for every test vector
         private int SpiBusSpeed = 1000000; //Set the default Bus Speed to 1MHz
         private const int NumberOfPinDrivers = 80;
         private const int IC1 = 1; //SPI Addresses for the chips
@@ -234,6 +235,12 @@ namespace Warrens_Flipchip_Tester
         {
             get { return StopTestOnFault; }
             set { StopTestOnFault = value; }
+        }
+
+        public bool DisplayTestResults
+        {
+            get { return DisplayResults; }
+            set { DisplayResults = value; }
         }
 
         public int NumberOfTestVectorsRead
@@ -439,7 +446,7 @@ namespace Warrens_Flipchip_Tester
 
             MCP23S17 SpiGpio0 = new MCP23S17(SpiConfig); //Make a SPI chip handler
 
-            if (VectorNumber < NumberOfTestVectors +1) //See if we are finished with the test vectors
+            if (VectorNumber < NumberOfTestVectors + 1) //See if we are finished with the test vectors
             {
                 for (int Pin = 0; Pin < NumberOfPins; Pin++) //Set Changed to false for all pins
                     PinTable[Pin].Changed = false;
@@ -516,6 +523,7 @@ namespace Warrens_Flipchip_Tester
                     GpioRegisters[DeviceAddress] = SpiGpio0.ReadDoubleRegister(DeviceAddress, (UInt16)MCP23S17.Register.GPIO);
                     ResponseText += "\t0x" + GpioRegisters[DeviceAddress].ToString("X4");
                 }
+
                 ResponseText += "\n";
 
                 for (int Pin = 0; Pin < NumberOfPins; Pin++)
@@ -553,7 +561,10 @@ namespace Warrens_Flipchip_Tester
             else //We ran out of test vectors
                 throw new FlipchipTesterException(FlipChipTestResult.FinishedWithTests);
 
-            return ResponseText;
+            if (DisplayResults)
+                return ResponseText;
+            else
+                return "";
         }
 
         /// <summary>
@@ -709,7 +720,7 @@ namespace Warrens_Flipchip_Tester
         /// <returns>Test Vectors</returns>
         public String GetTestVectors()
         {
-                return TestVectorsAndComments;
+            return TestVectorsAndComments;
         }
 
         /// <summary>
@@ -734,8 +745,8 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 header += "\n       ";
-            for (int Pin = 0; Pin < NumberOfPins; Pin++)
-                header += PinTable[Pin].FlipChipPin.Substring(2, 1);
+                for (int Pin = 0; Pin < NumberOfPins; Pin++)
+                    header += PinTable[Pin].FlipChipPin.Substring(2, 1);
             }
             catch { }
 

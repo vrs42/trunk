@@ -103,6 +103,9 @@
             this.HelpTabPage = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.DisplayTestResultsGroupBox1 = new System.Windows.Forms.GroupBox();
+            this.DontDisplayTestResultsRadioButton = new System.Windows.Forms.RadioButton();
+            this.DisplayTestResultsRadioButton = new System.Windows.Forms.RadioButton();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.ContinuousLoopGroupBox.SuspendLayout();
@@ -113,6 +116,7 @@
             this.DiagsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).BeginInit();
             this.HelpTabPage.SuspendLayout();
+            this.DisplayTestResultsGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DiagRichTextBox
@@ -328,11 +332,12 @@
             this.FlipChipTesterTabControl.Location = new System.Drawing.Point(12, 12);
             this.FlipChipTesterTabControl.Name = "FlipChipTesterTabControl";
             this.FlipChipTesterTabControl.SelectedIndex = 0;
-            this.FlipChipTesterTabControl.Size = new System.Drawing.Size(1419, 636);
+            this.FlipChipTesterTabControl.Size = new System.Drawing.Size(1419, 657);
             this.FlipChipTesterTabControl.TabIndex = 21;
             // 
             // TestingTabPage
             // 
+            this.TestingTabPage.Controls.Add(this.DisplayTestResultsGroupBox1);
             this.TestingTabPage.Controls.Add(this.ContinueTestAfterStopButton);
             this.TestingTabPage.Controls.Add(this.PassCountlabel);
             this.TestingTabPage.Controls.Add(this.PassCountTextBox);
@@ -352,7 +357,7 @@
             this.TestingTabPage.Location = new System.Drawing.Point(4, 22);
             this.TestingTabPage.Name = "TestingTabPage";
             this.TestingTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.TestingTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.TestingTabPage.Size = new System.Drawing.Size(1411, 631);
             this.TestingTabPage.TabIndex = 0;
             this.TestingTabPage.Text = "FlipChip Testing";
             this.TestingTabPage.UseVisualStyleBackColor = true;
@@ -372,7 +377,7 @@
             // PassCountlabel
             // 
             this.PassCountlabel.AutoSize = true;
-            this.PassCountlabel.Location = new System.Drawing.Point(6, 320);
+            this.PassCountlabel.Location = new System.Drawing.Point(6, 256);
             this.PassCountlabel.Name = "PassCountlabel";
             this.PassCountlabel.Size = new System.Drawing.Size(61, 13);
             this.PassCountlabel.TabIndex = 20;
@@ -380,7 +385,7 @@
             // 
             // PassCountTextBox
             // 
-            this.PassCountTextBox.Location = new System.Drawing.Point(6, 336);
+            this.PassCountTextBox.Location = new System.Drawing.Point(6, 272);
             this.PassCountTextBox.Name = "PassCountTextBox";
             this.PassCountTextBox.Size = new System.Drawing.Size(230, 20);
             this.PassCountTextBox.TabIndex = 19;
@@ -390,7 +395,7 @@
             // 
             this.ContinuousLoopGroupBox.Controls.Add(this.DontContinuouslyLoopRadioButton);
             this.ContinuousLoopGroupBox.Controls.Add(this.ContinuouslyLoopRadioButton);
-            this.ContinuousLoopGroupBox.Location = new System.Drawing.Point(6, 540);
+            this.ContinuousLoopGroupBox.Location = new System.Drawing.Point(9, 476);
             this.ContinuousLoopGroupBox.Name = "ContinuousLoopGroupBox";
             this.ContinuousLoopGroupBox.Size = new System.Drawing.Size(230, 60);
             this.ContinuousLoopGroupBox.TabIndex = 17;
@@ -422,7 +427,7 @@
             // EndingVectorNumberLabel
             // 
             this.EndingVectorNumberLabel.AutoSize = true;
-            this.EndingVectorNumberLabel.Location = new System.Drawing.Point(6, 404);
+            this.EndingVectorNumberLabel.Location = new System.Drawing.Point(6, 340);
             this.EndingVectorNumberLabel.Name = "EndingVectorNumberLabel";
             this.EndingVectorNumberLabel.Size = new System.Drawing.Size(114, 13);
             this.EndingVectorNumberLabel.TabIndex = 18;
@@ -430,7 +435,7 @@
             // 
             // EndingVectorNumberTextBox
             // 
-            this.EndingVectorNumberTextBox.Location = new System.Drawing.Point(6, 422);
+            this.EndingVectorNumberTextBox.Location = new System.Drawing.Point(6, 358);
             this.EndingVectorNumberTextBox.Name = "EndingVectorNumberTextBox";
             this.EndingVectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
             this.EndingVectorNumberTextBox.TabIndex = 17;
@@ -441,7 +446,7 @@
             // 
             this.StopTestIfFaultDetectedGroupBox.Controls.Add(this.DontStopTestIfFaultDetectedRadioButton);
             this.StopTestIfFaultDetectedGroupBox.Controls.Add(this.StopTestIfFaultDetectedRadioButton);
-            this.StopTestIfFaultDetectedGroupBox.Location = new System.Drawing.Point(6, 474);
+            this.StopTestIfFaultDetectedGroupBox.Location = new System.Drawing.Point(9, 410);
             this.StopTestIfFaultDetectedGroupBox.Name = "StopTestIfFaultDetectedGroupBox";
             this.StopTestIfFaultDetectedGroupBox.Size = new System.Drawing.Size(230, 60);
             this.StopTestIfFaultDetectedGroupBox.TabIndex = 16;
@@ -486,7 +491,7 @@
             // StartingVectorNumberLabel
             // 
             this.StartingVectorNumberLabel.AutoSize = true;
-            this.StartingVectorNumberLabel.Location = new System.Drawing.Point(6, 361);
+            this.StartingVectorNumberLabel.Location = new System.Drawing.Point(6, 297);
             this.StartingVectorNumberLabel.Name = "StartingVectorNumberLabel";
             this.StartingVectorNumberLabel.Size = new System.Drawing.Size(117, 13);
             this.StartingVectorNumberLabel.TabIndex = 12;
@@ -494,7 +499,7 @@
             // 
             // StartingVectorNumberTextBox
             // 
-            this.StartingVectorNumberTextBox.Location = new System.Drawing.Point(6, 379);
+            this.StartingVectorNumberTextBox.Location = new System.Drawing.Point(6, 315);
             this.StartingVectorNumberTextBox.Name = "StartingVectorNumberTextBox";
             this.StartingVectorNumberTextBox.Size = new System.Drawing.Size(230, 20);
             this.StartingVectorNumberTextBox.TabIndex = 11;
@@ -555,7 +560,7 @@
             this.TesterRichTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TesterRichTextBox.Location = new System.Drawing.Point(258, 6);
             this.TesterRichTextBox.Name = "TesterRichTextBox";
-            this.TesterRichTextBox.Size = new System.Drawing.Size(1147, 598);
+            this.TesterRichTextBox.Size = new System.Drawing.Size(1147, 619);
             this.TesterRichTextBox.TabIndex = 2;
             this.TesterRichTextBox.Text = "";
             // 
@@ -732,11 +737,44 @@
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
             // 
+            // DisplayTestResultsGroupBox1
+            // 
+            this.DisplayTestResultsGroupBox1.Controls.Add(this.DontDisplayTestResultsRadioButton);
+            this.DisplayTestResultsGroupBox1.Controls.Add(this.DisplayTestResultsRadioButton);
+            this.DisplayTestResultsGroupBox1.Location = new System.Drawing.Point(9, 542);
+            this.DisplayTestResultsGroupBox1.Name = "DisplayTestResultsGroupBox1";
+            this.DisplayTestResultsGroupBox1.Size = new System.Drawing.Size(230, 60);
+            this.DisplayTestResultsGroupBox1.TabIndex = 22;
+            this.DisplayTestResultsGroupBox1.TabStop = false;
+            this.DisplayTestResultsGroupBox1.Text = "Display Test Results for Each Test Vector";
+            // 
+            // DontDisplayTestResultsRadioButton
+            // 
+            this.DontDisplayTestResultsRadioButton.AutoSize = true;
+            this.DontDisplayTestResultsRadioButton.Location = new System.Drawing.Point(6, 41);
+            this.DontDisplayTestResultsRadioButton.Name = "DontDisplayTestResultsRadioButton";
+            this.DontDisplayTestResultsRadioButton.Size = new System.Drawing.Size(39, 17);
+            this.DontDisplayTestResultsRadioButton.TabIndex = 15;
+            this.DontDisplayTestResultsRadioButton.Text = "No";
+            this.DontDisplayTestResultsRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DisplayTestResultsRadioButton
+            // 
+            this.DisplayTestResultsRadioButton.AutoSize = true;
+            this.DisplayTestResultsRadioButton.Checked = true;
+            this.DisplayTestResultsRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.DisplayTestResultsRadioButton.Name = "DisplayTestResultsRadioButton";
+            this.DisplayTestResultsRadioButton.Size = new System.Drawing.Size(43, 17);
+            this.DisplayTestResultsRadioButton.TabIndex = 14;
+            this.DisplayTestResultsRadioButton.TabStop = true;
+            this.DisplayTestResultsRadioButton.Text = "Yes";
+            this.DisplayTestResultsRadioButton.UseVisualStyleBackColor = true;
+            // 
             // Flipchip_Tester_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1443, 660);
+            this.ClientSize = new System.Drawing.Size(1443, 681);
             this.Controls.Add(this.FlipChipTesterTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Flipchip_Tester_Form";
@@ -755,6 +793,8 @@
             this.DiagsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).EndInit();
             this.HelpTabPage.ResumeLayout(false);
+            this.DisplayTestResultsGroupBox1.ResumeLayout(false);
+            this.DisplayTestResultsGroupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -812,6 +852,9 @@
         private System.Windows.Forms.RichTextBox TestVectorsRichTextBox;
         private System.Windows.Forms.RichTextBox TestVectorsHeaderRichTextBox;
         private System.Windows.Forms.Button ContinueTestAfterStopButton;
+        private System.Windows.Forms.GroupBox DisplayTestResultsGroupBox1;
+        private System.Windows.Forms.RadioButton DontDisplayTestResultsRadioButton;
+        private System.Windows.Forms.RadioButton DisplayTestResultsRadioButton;
     }
 }
 
