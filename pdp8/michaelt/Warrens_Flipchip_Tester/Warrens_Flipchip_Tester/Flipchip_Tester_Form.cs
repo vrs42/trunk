@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -327,6 +328,7 @@ namespace Warrens_Flipchip_Tester
                     }
                     PassCountTextBox.Text = (Convert.ToInt32(PassCountTextBox.Text) + 1).ToString();
                     StartingVectorNumberTextBox.Text = "1"; //Reset the next test vector to run
+                    SystemSounds.Beep.Play(); //Make a beep at the end of the pass
                 } while (ContinuouslyLoopRadioButton.Checked);
                 TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
@@ -403,6 +405,7 @@ namespace Warrens_Flipchip_Tester
                         }
                     }
                     PassCountTextBox.Text = (Convert.ToInt32(PassCountTextBox.Text) + 1).ToString();
+                    SystemSounds.Beep.Play(); //Make a beep at the end of the pass
                 } while (ContinuouslyLoopRadioButton.Checked);
                 TesterRichTextBox.Text += "\nFinished with test vectors.\n";
             }
