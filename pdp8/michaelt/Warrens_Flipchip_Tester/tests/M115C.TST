@@ -1,4 +1,4 @@
-M115 REV C   8 3-input NAND
+M115, PCB REV C, 8 3-input NAND
 
 PINS
  1 I AA1 E1-11
