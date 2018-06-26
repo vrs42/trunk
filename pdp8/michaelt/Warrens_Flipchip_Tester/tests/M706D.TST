@@ -1,4 +1,4 @@
-M706   PCB REV (D?)   SCHEMATIC REV B   TELETYPE RECEIVER
+M706, PCB REV D, TELETYPE RECEIVER
 
 source: schematic, pdf page 39 of 41 of:
 	PDP-8/L

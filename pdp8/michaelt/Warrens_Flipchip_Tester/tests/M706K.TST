@@ -1,4 +1,4 @@
-M706   PCB REV K   SCHEMATIC REV L   TELETYPE RECEIVER
+M706, PCB REV K, TELETYPE RECEIVER
 
 If this diagnostic fails on the first test vector with pin BN1 not a 1,
 then you might have the earlier revision D printed circuit board.
