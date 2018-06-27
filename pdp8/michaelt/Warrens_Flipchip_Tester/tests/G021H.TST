@@ -1,4 +1,4 @@
-G021 REV K SCHEMATIC    REV H PCB    SENSE AMP
+G021, PCB REV H, SENSE AMP
 
 NOTE:  Install 8.2K resistors on 8 inputs.  If not installed,
        test will work, but the 8 inputs will fail (always LOW).
