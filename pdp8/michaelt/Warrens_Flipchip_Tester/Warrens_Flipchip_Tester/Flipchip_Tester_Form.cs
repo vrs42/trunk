@@ -314,8 +314,8 @@ namespace Warrens_Flipchip_Tester
                 {
                     for (int TestVector = Convert.ToInt16(StartingVectorNumberTextBox.Text); TestVector < WarrensFlipChipTester.NumberOfTestVectorsRead + 1; TestVector++)
                     {
-                        TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(TestVector); //Process a test vector
                         StartingVectorNumberTextBox.Text = TestVector.ToString();
+                        TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(TestVector); //Process a test vector
                         Application.DoEvents(); //Make the text show up now
 
                         if (TestVector > Convert.ToInt32(EndingVectorNumberTextBox.Text))
@@ -352,6 +352,7 @@ namespace Warrens_Flipchip_Tester
                 {
                     TesterRichTextBox.Text = ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+                    StartingVectorNumberTextBox.Text = (Convert.ToInt16(StartingVectorNumberTextBox.Text) + 1).ToString(); //Its a lot of work to increment the number
                 }
 
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)
@@ -392,8 +393,8 @@ namespace Warrens_Flipchip_Tester
                 {
                     for (int TestVector = 1; TestVector < WarrensFlipChipTester.NumberOfTestVectorsRead +1; TestVector++)
                     {
-                        TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(TestVector); //Process a test vector
                         StartingVectorNumberTextBox.Text = TestVector.ToString();
+                        TesterRichTextBox.Text = WarrensFlipChipTester.ProcessTestVector(TestVector); //Process a test vector
                         Application.DoEvents(); //Make the text show up now
 
                         if (TestVector > Convert.ToInt32(EndingVectorNumberTextBox.Text))
@@ -429,6 +430,7 @@ namespace Warrens_Flipchip_Tester
                 {
                     TesterRichTextBox.Text = ex.FlipChipTestMessage;
                     TesterRichTextBox.Text += "\nFlipChip fault detected.\n";
+                    StartingVectorNumberTextBox.Text = (Convert.ToInt16(StartingVectorNumberTextBox.Text) + 1).ToString(); //Its a lot of work to increment the number
                 }
 
                 if (ex.Reason == FlipChipTestResult.SpiTestFailed)

@@ -1,4 +1,4 @@
-M113, PCB REV B, 10 2-input NAND 
+M133, PCB REV B, 10 2-input NAND with SN74H00
 
 PINS
  1 I AA1 E1-13
