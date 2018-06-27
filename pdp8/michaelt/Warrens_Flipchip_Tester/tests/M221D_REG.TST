@@ -1,4 +1,4 @@
-M221   PCB REV D   SCHEMATIC REV B   MAIN REGISTER 
+M221, PCB REV D, MAIN REGISTER 
 
 Just tests the registers
 

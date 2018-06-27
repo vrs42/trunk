@@ -1,4 +1,4 @@
-M651 REV B   PCB A    NEGATIVE OUTPUT CONVERTER (3 3-input NAND)
+M651, PCB REV A&B, NEGATIVE OUTPUT CONVERTER (3 3-input NAND)
 
 Note:  must probe all outputs.
 

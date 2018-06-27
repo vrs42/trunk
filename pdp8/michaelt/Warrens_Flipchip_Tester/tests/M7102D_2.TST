@@ -1,11 +1,11 @@
-M7102   PCB REV D   SCHEMATIC REV C    Positive I/O Bus Converter (DW08E)
+M7102, PCB REV D, Positive I/O Bus Converter (DW08E)
 
-PART 1    Tests Posibus driving Omnibus DATA BUS.     
-          (See PART 2 for Omnibus driving Posibus.
+PART 2    Tests Omnibus DATA BUS driving Posibus ACIN and DATA.     
+          (See PART 1 for Posibus driving Omnibus.
 
 (Two parts are necessary due to the Omnibus DATA00:02-N is a bidirectional bus).
 
-Needs 3.3k ohm pullups to +5v on pin:
+Tolerates 3.3k ohm pullups to +5v on pin (are needed for PART 1):
   BK2   Omnibus DATA00 (bidirectional, input + open collector output)  
   BL2   Omnibus DATA01 (bidirectional, input + open collector output)
   BM2   Omnibus DATA02 (bidirectional, input + open collector output)
@@ -60,9 +60,9 @@ PINS
 47 I AK1 E3-6	    INPUT BAC0	    (DATA FROM I/O BUS)
 48 I AL1 E3-5       INPUT BAC1      (DATA FROM I/O BUS)
 49 I AM1 E6-11      INPUT BAC2      (DATA FROM I/O BUS)
-50 O BK2 E15-1      OUTPUT DATA00-N (OMNIBUS DATA00)  	(8881 OPEN COLLECTOR OUTPUT)
-51 O BL2 E15-4      OUTPUT DATA01-N (OMNIBUS DATA01)  	(8881 OPEN COLLECTOR OUTPUT)
-52 O BM2 E15-10     OUTPUT DATA02-N (OMNIBUS DATA02)  	(8881 OPEN COLLECTOR OUTPUT)
+50 I BK2 E15-1      INPUT  DATA00-N (OMNIBUS DATA00)  	(8881 OPEN COLLECTOR OUTPUT)
+51 I BL2 E15-4      INPUT  DATA01-N (OMNIBUS DATA01)  	(8881 OPEN COLLECTOR OUTPUT)
+52 I BM2 E15-10     INPUT  DATA02-N (OMNIBUS DATA02)  	(8881 OPEN COLLECTOR OUTPUT)
 53 P AF1 E4-3       OUTPUT I/O BUS ACIN0-N		(75452 OPEN COLLECTOR OUTPUT)		
 54 P AH1 E5-3       OUTPUT I/O BUS ACIN1-N		(75452 OPEN COLLECTOR OUTPUT)		
 55 P AJ1 E8-5       OUTPUT I/O BUS ACIN2-N		(75452 OPEN COLLECTOR OUTPUT)		
@@ -70,8 +70,9 @@ PINS
 57 P AH2 E3-3       OUTPUT I/O BUS DATA1-N		(75452 OPEN COLLECTOR OUTPUT)		
 58 P AJ2 E7-3       OUTPUT I/O BUS DATA2-N		(75452 OPEN COLLECTOR OUTPUT)		
 
-IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
-0101010000001001001010010010010000000000101010000111111111
+IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIIIIPPPPPP
+0101010000001001001010010010010000000000101010000000111000
+
 
 
 
@@ -79,6 +80,7 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
 
 
 
+
 ; INPUT 1 -> OUTPUT 1-N
 10
 01
@@ -158,13 +160,13 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
                                          01
 
 ; (no change)
-0101010000001001001010010010010000000000101010000111111111
+0101010000001001001010010010010000000000101010000000111000
 
 
 
-; PART 1 unique tests (Posibus BAC0:2 driving Omnibus DATA00:02-N). 
+; PART 2 unique tests (Omnibus DATA00:02-N driving Posibus ACIN and DATA)
 
-; (See PART 2 for Omnibus DATA00:02-N driving).
+; (See PART 1 for Posibus driving Omnibus).
 
 
 
@@ -173,90 +175,72 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
 ;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
                                            011
 ; (no change)
-                                              000111111111
+                                              000000111000
 
-; All BAC0:2 patterns (Omnibus DATA00:02-N, Posibus ACIN0:2-N, Posibus DATA0:2-N always HI).
-;   (Omnibus DATA00:02-N always high due to pullups and no drivers in PART 1 tests)
-                                              001
-                                              011
-                                              010
-                                              110
-                                              111
-                                              101
-                                              100
-                                              000
+; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
+                                                 001   001
+                                                 011   011
+                                                 010   010
+                                                 110   110
+                                                 111   111
+                                                 101   101
+                                                 100   100
+                                                 000   000
 
 
 
 ; Select Omnibus DATA00:02-N -> PosiBus ACIN0:2-N
 
 ;   OMNIBUS DATA TO I/O DATA-N HI, OUT-N HI; OMNIBUS DATA TO I/O DATA -> LO
-                                           101
+                                           101      000111
 ; (no change)
-                                              000111111111
+                                              000000000111
 
-; All BAC0:2 patterns (Omnibus DATA00:02-N, Posibus ACIN0:2-N, Posibus DATA0:2-N always HI).
-;   (Omnibus DATA00:02-N always high due to pullups and no drivers in PART 1 tests)
-                                              001
-                                              011
-                                              010
-                                              110
-                                              111
-                                              101
-                                              100
-                                              000
-
+; All DATA00:02-N patterns (Posibus DATA0:2-N always HI).
+                                                 001001
+                                                 011011
+                                                 010010
+                                                 110110
+                                                 111111
+                                                 101101
+                                                 100100
+                                                 000000
 
 
-; Select Posibus BAC0:2 -> Omnibus DATA00:02-N  
-
-;   OMNIBUS DATA TO I/O DATA-N HI, OUT-N LO; OMNIBUS DATA TO I/O DATA -> LO
-                                           100
-; (no change)
-                                              000111111111
-
-; All BAC0:2 patterns (PosibusACIN0:2-N and Posibus DATA0:2-N always HI).
-                                              001110
-                                              011100
-                                              010101
-                                              110001
-                                              111000
-                                              101010
-                                              100011
-                                              000111
+; Do not select Posibus BAC0:2 -> Omnibus DATA00:02-N
+; (we drive Omnibus DATA00:02-N in PART 2).
+;                               skip >>>>> 100
 
 
 
 ; Select Omnibus DATA00:02-N -> Posibus DATA0:2-N
+
+;   Do 2 steps to avoid              >>>>> 100
+;   (Select Omnibus DATA00:02-N -> Posibus DATA0:2-N)
+;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
+                                           011      111000
 
 ;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N LO; OMNIBUS DATA TO I/O DATA -> HI
                                            010
 ; (no change)
-                                              000111111111
+                                              000000111000
 
-; All BAC0:2 patterns (Omnibus DATA00:02-N, Posibus ACIN0:2-N, Posibus DATA0:2-N always HI).
-;   (Omnibus DATA00:02-N always high due to pullups and no drivers in PART 1 tests)
-                                              001
-                                              011
-                                              010
-                                              110
-                                              111
-                                              101
-                                              100
-                                              000
- 
+; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
+                                                 001   001
+                                                 011   011
+                                                 010   010
+                                                 110   110
+                                                 111   111
+                                                 101   101
+                                                 100   100
+                                                 000   000
+
+
+
 ; (no change)
-0101010000001001001010010010010000000000101010000111111111
-
-
-
-
-; test with most inputs HIGH
-
-
+0101010000001001001010010010010000000000101010000000111000
 
 ; change inputs to HIGH
-
 10
   10
     10
@@ -279,17 +263,21 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
                                       110
                                          10
                                            011
-                                           101
+                                           101      000111
                                               100
                                               110
                                               111
+                                                 100100
+                                                 110110
+                                                 111111
+                                              
 
 ; (no change)
 1010101111110110110101101101101111111111010101111111111111
 
 ; INPUT 1 -> OUTPUT 1-N
-01
 10
+01
 
 ; INPUT 2 -> OUTPUT 2-N
   01
@@ -370,49 +358,41 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
 
 
 
-; PART 1 unique tests (Posibus BAC0:2 driving Omnibus DATA00:02-N). 
+; PART 2 unique tests (Omnibus DATA00:02-N driving Posibus ACIN and DATA)
 
-; (See PART 2 for Omnibus DATA00:02-N driving).
+; (See PART 1 for Posibus driving Omnibus).
 
 
 
-; Select Posibus BAC0:2 -> Omnibus DATA00:02-N  
-
-;   OMNIBUS DATA TO I/O DATA-N HI, OUT-N LO; OMNIBUS DATA TO I/O DATA -> LO
-                                           100   000
-; (no change)
-                                              111000111111
-
-; All BAC0:2 patterns (PosibusACIN0:2-N and Posibus DATA0:2-N always HI).
-                                              101010
-                                              100011
-                                              000111
-                                              001110
-                                              011100
-                                              010101
-                                              110001
-                                              111000
+; SKIP (do not select) Posibus BAC0:2 -> Omnibus DATA00:02-N
+; (we drive Omnibus DATA00:02-N in PART 2).
+;                               skip >>>>> 100
 
 
 
 ; Select Omnibus DATA00:02-N -> Posibus DATA0:2-N
 
+;   Do 2 steps to avoid              >>>>> 100
+;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
+                                           011
+
 ;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N LO; OMNIBUS DATA TO I/O DATA -> HI
-                                           010   111
+                                           010
 ; (no change)
                                               111111111111
 
-; All BAC0:2 patterns (Omnibus DATA00:02-N, Posibus ACIN0:2-N, Posibus DATA0:2-N always HI).
-;   (Omnibus DATA00:02-N always high due to pullups and no drivers in PART 1 tests)
-                                              101
-                                              100
-                                              000
-                                              001
-                                              011
-                                              010
-                                              110
-                                              111
- 
+; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
+                                                 101   101
+                                                 100   100
+                                                 000   000
+                                                 001   001
+                                                 011   011
+                                                 010   010
+                                                 110   110
+                                                 111   111
+
+
+
 ; Select Omnibus DATA00:02-N -> Posibus DATA0:2-N
 
 ;   OMNIBUS DATA TO I/O DATA-N LO, OUT-N HI; OMNIBUS DATA TO I/O DATA -> HI
@@ -420,16 +400,15 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
 ; (no change)
                                               111111111111
 
-; All BAC0:2 patterns (Omnibus DATA00:02-N, Posibus ACIN0:2-N, Posibus DATA0:2-N always HI).
-;   (Omnibus DATA00:02-N always high due to pullups and no drivers in PART 1 tests)
-                                              101
-                                              100
-                                              000
-                                              001
-                                              011
-                                              010
-                                              110
-                                              111
+; All DATA00:02-N patterns (Posibus ACIN0:2-N always HI).
+                                                 101   101
+                                                 100   100
+                                                 000   000
+                                                 001   001
+                                                 011   011
+                                                 010   010
+                                                 110   110
+                                                 111   111
 
 
 
@@ -440,17 +419,15 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
 ; (no change)
                                               111111111111
 
-; All BAC0:2 patterns (Omnibus DATA00:02-N, Posibus ACIN0:2-N, Posibus DATA0:2-N always HI).
-;   (Omnibus DATA00:02-N always high due to pullups and no drivers in PART 1 tests)
-                                              101
-                                              100
-                                              000
-                                              001
-                                              011
-                                              010
-                                              110
-                                              111
-
+; All DATA00:02-N patterns (Posibus DATA0:2-N always HI).
+                                                 101101
+                                                 100100
+                                                 000000
+                                                 001001
+                                                 011011
+                                                 010010
+                                                 110110
+                                                 111111
 
 
 ; (no change)
@@ -479,12 +456,15 @@ IPIPIPIOIOIOOIOOIPOIOIIOIIOIIOIPIPIPIPIPOIPIOIIIIOOOPPPPPP
                                     00
                                       001
                                          01
-                                           100   000
-                                           010   111
+                                           011
+                                           010
                                               011
                                               001
                                               000
+                                                 011   011
+                                                 001   001
+                                                 000   000
 
 ; (no change)
-0101010000001001001010010010010000000000101010000111111111
+0101010000001001001010010010010000000000101010000000111000
 END

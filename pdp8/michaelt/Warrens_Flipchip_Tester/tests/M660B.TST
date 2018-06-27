@@ -1,4 +1,4 @@
-M660   PCB Rev B Schematic Rev A     Three 2-input NAND Positive Level Driver
+M660, PCB REV B, Three 2-input NAND Positive Level Driver
 
 
 PINS

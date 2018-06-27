@@ -1,4 +1,4 @@
- M119 REV B   3 8-input NAND
+M119, REV B, 3 8-input NAND
 
 PINS
  1 I AA1 E1-12

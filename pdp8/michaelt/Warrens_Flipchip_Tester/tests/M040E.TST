@@ -1,5 +1,5 @@
-M040   PCB Rev E Schematic Rev E   	Two 4-input AND Solenoid Driver
-					PNP Darlingtion Open Collector (to GND).
+M040, PCB Rev E, Two 4-input AND Solenoid Driver
+PNP Darlingtion Open Collector (to GND).
 NO REAL TESTS, you must scope the outputs
 
 To test outputs:

@@ -1,4 +1,4 @@
-M044   PCB Rev B Schematic Rev B   	Four 2-input AND 100ma Solenoid Driver
+M044, PCB REV B, Four 2-input AND 100ma Solenoid Driver
 					PNP Open Collector (to GND).
 NO REAL TESTS, you must scope the outputs
 
