@@ -13,7 +13,7 @@ PINS
 10 I AF1
 11 I AH1
 12 O AJ1 E13-12 Test Point
-13 I AJ2
+13 I AJ2 E9-8   Test Point
 14 I AK2
 15 I AL2
 16 O AM2
@@ -42,7 +42,8 @@ PINS
 39 I BK1 E13-2  IOP4(1)
 
 IIIOIIIOIIIOIIIOIIIOIIIOIIIOOIIOIIIIIII
-000000000001000000000000000000000000000
+XXXXXXXXXXX1XXX0XXXXXXXXXXXX000X0000000
+; Cycle through MB3-MB8 patterns with IOP4(1) on, result on AJ1 Test Point, Tests E12, E11, and E13
            1                    0000011
            1                    0000101
            1                    0000111
@@ -55,5 +56,66 @@ IIIOIIIOIIIOIIIOIIIOIIIOIIIOOIIOIIIIIII
            1                    0010101
            1                    0010111
            1                    0011001
+           1                    0011011
+           1                    0011101
+           1                    0011111
+           1                    0100001
+           1                    0100011
+           1                    0100101
+           1                    0100111
+           1                    0101001
+           1                    0101011
+           1                    0101101
+           1                    0101111
+           1                    0110001
+           1                    0110011
+           1                    0110101
+           1                    0110111
+           1                    0111001
+           1                    0111011
+           1                    0111101
+           1                    0111111
+           1                    1000001
+           1                    1000011
+           1                    1000101
+           1                    1000111
+           1                    1001001
+           1                    1001011
+           1                    1001101
+           1                    1001111
+           1                    1010001
+           1                    1010011
+           1                    1010101
+           1                    1010111
+           1                    1011001
+           1                    1011011
+           1                    1011101
+           1                    1011111
+           1                    1100001
+           1                    1100011
+           1                    1100101
+           1                    1100111
+           1                    1101001
+           1                    1101011
+           1                    1101101
+           1                    1101111
+           1                    1110001
+           1                    1110011
+           1                    1110101
+           1                    1110111
+           1                    1111001
+           1                    1111011
+           1                    1111101
+; With a MB3-MB8 and IOP4(1) on we should see AJ1 Test Point off, Tests E13
            0                    1111111
+; With a MB3-MB8 and IOP4(1) off we should see AJ1 Test Point on, Tests E13
+           1                    1111110
+; With a MB3-MB8 and IOP1(1) on we should see AM2 Test Point on, Tests E8
+           0   1             1  1111111
+; With a MB3-MB8 and IOP1(1) on we should see AM2 Test Point off, Tests E8
+           0   0             0  1111111
+; With a MB3-MB8 and IOP2(1) on we should see AT2 Test Point on, Tests E8
+           0                1 1 1111111
+; With a MB3-MB8 and IOP2(1) on we should see AT2 Test Point off, Tests E8
+           0                0 0 1111111
 END
