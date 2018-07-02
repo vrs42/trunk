@@ -38,6 +38,9 @@ using Warrens_Flipchip_Tester.Types;
 
 namespace Warrens_Flipchip_Tester
 {
+    /// <summary>
+    /// The whole GUI for Warren's Flipchip Tester
+    /// </summary>
     public partial class Flipchip_Tester_Form : Form
     {
         //**************************************************************************

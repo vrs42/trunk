@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Warrens_Flipchip_Tester</name>
+    </assembly>
+    <members>
+        <member name="T:Warrens_Flipchip_Tester.FlipChipTester.PinMappingStruct">
+            <summary>
+            The FlipChip Pin Mapping Structure used to find the SPI IC address
+            and the I/O pin mask from a pin name
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.FlipChipTester.PinTableStruct">
+            <summary>
+            The structure for the Pin Table that is populated from the PINS section of the test vector file
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.InitializeFlipChipTester">
+            <summary>
+            Initialize the FlipChip Tester Data Structures
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.InitializeTestHardware">
+            <summary>
+            Initialize the FlipChip Tester hardware
+            </summary>
+            <returns>The messages from the initialization</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.SetupIodirRegisters">
+            <summary>
+            Write the IODIR registers so we can test a FlipChip
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.ProcessTestVector(System.Int32)">
+            <summary>
+            Execute a test vector
+            </summary>
+            <param name="VectorNumber"></param>
+            <returns>The test results</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.OpenTestVectorFile">
+            <summary>
+            Ask the operator to select the Test Vector file, open it, and process the contents.
+            </summary>
+            <returns>The results of opening the Test Vector file</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.GetCommentLines">
+            <summary>
+            Get the saved comment lines from the Test Vector file
+            </summary>
+            <returns>The Comment lines</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.GetPinLines">
+            <summary>
+            Get the saved Pin lines from the Test Vector file
+            </summary>
+            <returns>The Pin line</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.GetIodirLine">
+            <summary>
+            Get the saved IO Direction line from the Test Vector file
+            </summary>
+            <returns>The IO Direction line</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.GetTestVectors">
+            <summary>
+            Gets the saved Test Vectors
+            </summary>
+            <returns>Test Vectors</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.GetTestVectorsHeader">
+            <summary>
+            Gets the header for saved Test Vectors
+            </summary>
+            <returns>Test Vectors Header</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.HardwareAddressEnable">
+            <summary>
+            Enable the Hardware Addressing mode in the SPI chips
+            and test that it worked
+            </summary>
+            <returns>The messages from the initialization</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.DecodePinStatementLine(System.String)">
+            <summary>
+            Decode a PINS line from the Test Vector file
+            Check for pins that are tied high or low
+            </summary>
+            <param name="TestVectorLine"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.ProcessPinStatementLines">
+            <summary>
+            Process the entries PinTable save the results in IodirRegisters
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.CheckIodirLine">
+            <summary>
+            Compare the I/O direction in the IodirLine to the direction in the pin table
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.PinNameToIC(System.String)">
+            <summary>
+            Lookup the Pin Name in the PinMappingTable
+            </summary>
+            <param name="PinName"></param>
+            <returns>The corresponding IC SPI Address</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.PinNameToMask(System.String)">
+            <summary>
+            Lookup the Pin Name in the PinMappingTable
+            </summary>
+            <param name="PinName"></param>
+            <returns>The corresponding IODIR Register Mask</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.CycleTheLEDs">
+            <summary>
+            Cycle the LEDs on the tester through a binary pattern
+            </summary>
+            <returns>The results of cycling the LEDs</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.GetDriverVersions">
+            <summary>
+            Get the versions of the SPI and USB drivers
+            </summary>
+            <returns>The results of the query</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.ScanForFtdiDevices">
+            <summary>
+            Find out how many FTDI USB devices we have
+            </summary>
+            <returns>Results of scanning for the FTDI USB devices</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.ReadEEPROMInFTDIDevices">
+            <summary>
+            Read all of the SPI-USB cable SEEPROMs
+            </summary>
+            <returns>The contents of the SPI-USB cable SEEPROMs</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.ScanForFtdiMpsseDevices">
+            <summary>
+            Find out how many FTDI MPSSE Capable USB devices we have
+            </summary>
+            <returns>Results of scanning for the FTDI USB devices</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.TurnOnLEDs">
+            <summary>
+            Turn on the LEDs in the FTDI USB cable
+            </summary>
+            <returns>The results of turning the LEDs on</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.TurnOffLEDs">
+            <summary>
+            Turn off the LEDs in the FTDI USB cable
+            </summary>
+            <returns>The results of turning the LEDs off</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.ReadMPC23S17Registers">
+            <summary>
+            Read all of the SPI device registers
+            </summary>
+            <returns>Contents of all of the SPI device registers in hex</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.WriteSingleMPC23S17Register(System.String,System.String,System.String)">
+            <summary>
+            Return the contents of the specified SPI device register in hex
+            </summary>
+            <param name="DeviceAddressText"></param>
+            <param name="RegisterNameText"></param>
+            <param name="RegisterContentsText"></param>
+            <returns>String containing the results of the register write</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.ResetSpiBus">
+            <summary>
+            Reset the SPI bus by toggling a USB Cable GPIO
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.Read1kMPC23S17Registers(System.String,System.String,System.String)">
+            <summary>
+            Read 5x Registers 1,000 times and measure the time it takes
+            </summary>
+            <param name="DeviceAddressText"></param>
+            <param name="RegisterNameText"></param>
+            <param name="RegisterContentsText"></param>
+            <returns>The test results</returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.SetLedState(System.String,System.String)">
+            <summary>
+            Turn a LED on or off
+            </summary>
+            <param name="LedName">GREEN, YELLOW, RED1, or RED2</param>
+            <param name="State">ON or OFF</param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.#ctor">
+            <summary>
+            Create the Windows Form and get the GUI going
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.BusSpeedChanged(System.Object,System.EventArgs)">
+            <summary>
+            The Bus Speed TextBox changed, so save the new speed
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.ScanForFtdiDevicesbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Find out how many FTDI USB devices we have
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.ScanForFtdiMpsseDevicesbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Find out how many FTDI MPSSE Capable USB devices we have
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.TurnOnLEDsbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Turn on the LEDs in the FTDI USB cable
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.TurnOffLEDsbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Turn off the LEDs in the FTDI USB cable
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.StartTestButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Initialize the hardware and execute one test vector
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.NextTestVectorButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Execute one test vector and increment the Starting Vector Number field
+            You need to run Start Test first to initialize the hardware
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.ContinueTestAfterStopButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Run the remaining test vectors after the test has halted
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.RunAllTestVectorsButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Run all of the test vectors from the beginning
+            Loop through all of the vectors if ContinuouslyLoopRadioButton is Checked
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.RunFlipChipTest(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Spin off a Thread to perform the FlipChip test
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.FlipChipTestStatus(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <summary>
+            Get and display a status update from the FlipChip tester
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.FlipChipTestCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <summary>
+            Display the FlipChip test results
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.StopTestIfFaultDetected_Changed(System.Object,System.EventArgs)">
+            <summary>
+            The StopTestIfFaultDetected radio button was changed
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.StartingVectorNumberTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Don't let the user enter a starting vector number less than 1
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.EndingVectorNumberTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Don't let the user enter an ending vector number less than 1
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Warrens_Flipchip_Tester.Flipchip_Tester_Form.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.MCP23S17.ReadDoubleRegister(System.UInt16,System.UInt16)">
+            <summary>
+            Read a 16-bit register
+            </summary>
+            <param name="DeviceAddress">[0..7]</param>
+            <param name="Register">Even value in the range of [0..14]</param>
+            <returns></returns>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.MCP23S17.WriteDoubleRegister(System.UInt16,System.UInt16,System.Byte[])">
+            <summary>
+            Write a 16-bit register
+            </summary>
+            <param name="DeviceAddress">[0..7]</param>
+            <param name="Register">Even value in the range of [0..14]</param>
+            <param name="RegisterContents">2 byte array containing the register contents</param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.MCP23S17.WriteDoubleRegister(System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Write a 16-bit register
+            </summary>
+            <param name="DeviceAddress">[0..7]</param>
+            <param name="Register">Even value in the range of [0..14]</param>
+            <param name="RegisterContents">UInt16 containing the register contents</param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.MCP23S17.HardwareAddressEnable">
+            <summary>
+            Enable Hardware Addressing in the SPI chip and check that it worked
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Warrens_Flipchip_Tester.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Warrens_Flipchip_Tester.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

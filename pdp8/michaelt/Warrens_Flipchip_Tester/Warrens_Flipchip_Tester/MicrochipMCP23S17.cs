@@ -26,12 +26,18 @@ using libMPSSEWrapper.Types;
 
 namespace Warrens_Flipchip_Tester
 {
+    /// <summary>
+    /// The definition of the MCP23S17 device
+    /// </summary>
     public class MCP23S17 : SpiDevice
     {
         byte[] ControlWordAndRegister = new byte[2]; //A place to hold the Control Word and Register Address
         byte[] SingleRegisterContents = new byte[1]; //A place to hold the register contents that we just read
         byte[] DoubleRegisterContents = new byte[2]; //A place to hold the register contents that we just read
 
+        /// <summary>
+        /// The Register Addresses
+        /// </summary>
         [Flags]
         public enum Register
         {
@@ -48,6 +54,9 @@ namespace Warrens_Flipchip_Tester
             OLAT = 0x14,
         }
 
+        /// <summary>
+        /// The bits for the IODIR Register
+        /// </summary>
         [Flags]
         public enum IODIR //0x00
         {
@@ -61,6 +70,9 @@ namespace Warrens_Flipchip_Tester
             IO0IN = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the IPOL Register
+        /// </summary>
         [Flags]
         public enum IPOL //0x02
         {
@@ -74,6 +86,9 @@ namespace Warrens_Flipchip_Tester
             IP0 = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the GPINTEN Register
+        /// </summary>
         [Flags]
         public enum GPINTEN //0x04
         {
@@ -87,6 +102,9 @@ namespace Warrens_Flipchip_Tester
             GPINT0 = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the DEFVAL Register
+        /// </summary>
         [Flags]
         public enum DEFVAL //0x06
         {
@@ -100,6 +118,9 @@ namespace Warrens_Flipchip_Tester
             DEF0 = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the INTCon Register
+        /// </summary>
         [Flags]
         public enum INTCON //0x08
         {
@@ -113,6 +134,9 @@ namespace Warrens_Flipchip_Tester
             IOC0 = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the IOCON Register
+        /// </summary>
         [Flags]
         public enum IOCON //0x0A or 0x0B
         {
@@ -125,6 +149,9 @@ namespace Warrens_Flipchip_Tester
             INTPOL = 0x02,
         }
 
+        /// <summary>
+        /// The bits for the GPPU Register
+        /// </summary>
         [Flags]
         public enum GPPU //0x0C
         {
@@ -138,6 +165,9 @@ namespace Warrens_Flipchip_Tester
             PU0 = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the INTF Register
+        /// </summary>
         [Flags]
         public enum INTF //0x0E
         {
@@ -151,6 +181,8 @@ namespace Warrens_Flipchip_Tester
             INT0 = 0x01,
         }
 
+        /// <summary>
+        /// </summary>
         [Flags]
         public enum INTCAP //0x10
         {
@@ -164,6 +196,9 @@ namespace Warrens_Flipchip_Tester
             ICP0 = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the GPIO Register
+        /// </summary>
         [Flags]
         public enum GPIO //0x12
         {
@@ -177,6 +212,9 @@ namespace Warrens_Flipchip_Tester
             GP0 = 0x01,
         }
 
+        /// <summary>
+        /// The bits for the Output Latch Register
+        /// </summary>
         [Flags]
         public enum OLAT //0x14
         {
@@ -190,11 +228,20 @@ namespace Warrens_Flipchip_Tester
             OL0 = 0x01,
         }
 
+        /// <summary>
+        /// Create an MSP23S17
+        /// </summary>
+        /// <param name="config"></param>
         public MCP23S17(FtdiChannelConfig config)
             : this(config, null)
         {
         }
 
+        /// <summary>
+        /// Create an MSP23S17
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="spiConfig"></param>
         public MCP23S17(FtdiChannelConfig config, SpiConfiguration spiConfig)
             : base(config, spiConfig)
         {
@@ -290,6 +337,13 @@ namespace Warrens_Flipchip_Tester
             return;
         }
 
+        /// <summary>
+        /// Write and then read 5x SPI registers for a speed test
+        /// </summary>
+        /// <param name="DeviceAddress"></param>
+        /// <param name="Register"></param>
+        /// <param name="RegisterContents"></param>
+        /// <returns></returns>
         public int WriteReadFiveRegisters(int DeviceAddress, int Register, byte[] RegisterContents)
         {
             var sizeTransfered = 0;

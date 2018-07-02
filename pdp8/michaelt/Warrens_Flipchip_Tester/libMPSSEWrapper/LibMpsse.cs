@@ -11,6 +11,9 @@ using libMPSSEWrapper.Types;
 
 namespace libMPSSEWrapper
 {
+    /// <summary>
+    /// The LibPmsse Wrapper Class for C#
+    /// </summary>
     public class LibMpsse
     {
         private static int _initializations = 0;

@@ -26,6 +26,9 @@ using System.Text;
 
 namespace Warrens_Flipchip_Tester.Types
 {
+    /// <summary>
+    /// The return values when a Text Vector is processed
+    /// </summary>
     public enum FlipChipTestResult
     {
         Ok = 0,
