@@ -5,6 +5,9 @@ using System.Text;
 
 namespace libMPSSEWrapper.Types
 {
+    /// <summary>
+    /// SPI Transfer options for the LibMpsseSpi Wrapper
+    /// </summary>
     [Flags]
     public enum FtSpiTransferOptions : int
     {

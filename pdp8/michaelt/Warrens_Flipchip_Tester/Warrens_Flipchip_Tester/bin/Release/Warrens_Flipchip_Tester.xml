@@ -4,6 +4,18 @@
         <name>Warrens_Flipchip_Tester</name>
     </assembly>
     <members>
+        <member name="T:Warrens_Flipchip_Tester.Exceptions.FlipchipTesterException">
+            <summary>
+            Properties for an Exception when working with the FlipChip Tester
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Exceptions.FlipchipTesterException.#ctor(Warrens_Flipchip_Tester.Types.FlipChipTestResult,System.String)">
+            <summary>
+            Properties for an Exception when working with the FlipChip Tester
+            </summary>
+            <param name="paramName"></param>
+            <param name="TestMessage"></param>
+        </member>
         <member name="T:Warrens_Flipchip_Tester.FlipChipTester.PinMappingStruct">
             <summary>
             The FlipChip Pin Mapping Structure used to find the SPI IC address
@@ -191,6 +203,11 @@
             <param name="LedName">GREEN, YELLOW, RED1, or RED2</param>
             <param name="State">ON or OFF</param>
         </member>
+        <member name="T:Warrens_Flipchip_Tester.Flipchip_Tester_Form">
+            <summary>
+            The whole GUI for Warren's Flipchip Tester
+            </summary>
+        </member>
         <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.#ctor">
             <summary>
             Create the Windows Form and get the GUI going
@@ -320,6 +337,83 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17">
+            <summary>
+            The definition of the MCP23S17 device
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.Register">
+            <summary>
+            The Register Addresses
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.IODIR">
+            <summary>
+            The bits for the IODIR Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.IPOL">
+            <summary>
+            The bits for the IPOL Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.GPINTEN">
+            <summary>
+            The bits for the GPINTEN Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.DEFVAL">
+            <summary>
+            The bits for the DEFVAL Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.INTCON">
+            <summary>
+            The bits for the INTCon Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.IOCON">
+            <summary>
+            The bits for the IOCON Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.GPPU">
+            <summary>
+            The bits for the GPPU Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.INTF">
+            <summary>
+            The bits for the INTF Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.INTCAP">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.GPIO">
+            <summary>
+            The bits for the GPIO Register
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.MCP23S17.OLAT">
+            <summary>
+            The bits for the Output Latch Register
+            </summary>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.MCP23S17.#ctor(libMPSSEWrapper.Types.FtdiChannelConfig)">
+            <summary>
+            Create an MSP23S17
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.MCP23S17.#ctor(libMPSSEWrapper.Types.FtdiChannelConfig,libMPSSEWrapper.Spi.SpiConfiguration)">
+            <summary>
+            Create an MSP23S17
+            </summary>
+            <param name="config"></param>
+            <param name="spiConfig"></param>
+        </member>
         <member name="M:Warrens_Flipchip_Tester.MCP23S17.ReadDoubleRegister(System.UInt16,System.UInt16)">
             <summary>
             Read a 16-bit register
@@ -344,6 +438,15 @@
             <param name="Register">Even value in the range of [0..14]</param>
             <param name="RegisterContents">UInt16 containing the register contents</param>
         </member>
+        <member name="M:Warrens_Flipchip_Tester.MCP23S17.WriteReadFiveRegisters(System.Int32,System.Int32,System.Byte[])">
+            <summary>
+            Write and then read 5x SPI registers for a speed test
+            </summary>
+            <param name="DeviceAddress"></param>
+            <param name="Register"></param>
+            <param name="RegisterContents"></param>
+            <returns></returns>
+        </member>
         <member name="M:Warrens_Flipchip_Tester.MCP23S17.HardwareAddressEnable">
             <summary>
             Enable Hardware Addressing in the SPI chip and check that it worked
@@ -352,6 +455,11 @@
         <member name="M:Warrens_Flipchip_Tester.Program.Main">
             <summary>
             The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Warrens_Flipchip_Tester.Types.FlipChipTestResult">
+            <summary>
+            The return values when a Text Vector is processed
             </summary>
         </member>
         <member name="T:Warrens_Flipchip_Tester.Properties.Resources">

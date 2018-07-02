@@ -5,6 +5,9 @@ using System.Text;
 
 namespace libMPSSEWrapper.Types
 {
+    /// <summary>
+    /// Returned Results from an FTDI call from the LibMpsseSpi Wrapper
+    /// </summary>
     public enum FtResult
     {
         Ok = 0,

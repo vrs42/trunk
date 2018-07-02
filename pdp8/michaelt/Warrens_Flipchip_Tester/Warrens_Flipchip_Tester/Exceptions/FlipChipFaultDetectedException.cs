@@ -27,6 +27,9 @@ using Warrens_Flipchip_Tester.Types;
 
 namespace Warrens_Flipchip_Tester.Exceptions
 {
+    /// <summary>
+    /// Properties for an Exception when working with the FlipChip Tester
+    /// </summary>
     public class FlipchipTesterException : Exception
     {
         public FlipChipTestResult Reason { get; private set; }
@@ -37,6 +40,11 @@ namespace Warrens_Flipchip_Tester.Exceptions
             Reason = paramName;
         }
 
+        /// <summary>
+        /// Properties for an Exception when working with the FlipChip Tester
+        /// </summary>
+        /// <param name="paramName"></param>
+        /// <param name="TestMessage"></param>
         public FlipchipTesterException(FlipChipTestResult paramName, String TestMessage)
         {
             Reason = paramName;

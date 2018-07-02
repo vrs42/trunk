@@ -4,5 +4,313 @@
         <name>libMPSSEWrapper</name>
     </assembly>
     <members>
+        <member name="T:libMPSSEWrapper.Exceptions.SpiChannelNotConnectedException">
+            <summary>
+            The SpiChannelNotConnectedException Class
+            </summary>
+        </member>
+        <member name="P:libMPSSEWrapper.Exceptions.SpiChannelNotConnectedException.Reason">
+            <summary>
+            the Reason for the SpiChannelNotConnectedException
+            </summary>
+        </member>
+        <member name="M:libMPSSEWrapper.Exceptions.SpiChannelNotConnectedException.#ctor(libMPSSEWrapper.Types.FtResult)">
+            <summary>
+            The Accessor for the SpiChannelNotConnectedException Reason
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="T:libMPSSEWrapper.LibMpsse">
+            <summary>
+            The LibPmsse Wrapper Class for C#
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.LibMpsse.DllName">
+            <summary>
+            Constant name of FTDI Library
+            </summary>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsse.Init">
+            <summary>
+            Initialize the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsse.Cleanup">
+            <summary>
+            Clean Up the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="T:libMPSSEWrapper.LibMpsseSpi">
+            <summary>
+             The LibMpsseSpi Wrapper Classes
+            </summary>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_OpenChannel(System.Int32,System.IntPtr@)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_OpenChannel()
+            </summary>
+            <param name="index"></param>
+            <param name="handle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_CloseChannel(System.IntPtr)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_CloseChannel()
+            </summary>
+            <param name="handle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_GetNumChannels(System.UInt32@)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_GetNumChannels()
+            </summary>
+            <param name="numChannels"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_GetChannelInfo(System.Int32,libMPSSEWrapper.Types.FtDeviceInfo@)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_GetChannelInfo()
+            </summary>
+            <param name="index"></param>
+            <param name="chanInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_InitChannel(System.IntPtr,libMPSSEWrapper.Types.FtdiChannelConfig@)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_InitChannel()
+            </summary>
+            <param name="handle"></param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_ChangeCS(System.IntPtr,libMPSSEWrapper.Types.FtdiConfigOptions)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_ChangeCS()
+            </summary>
+            <param name="handle"></param>
+            <param name="configOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_IsBusy(System.IntPtr,System.Boolean@)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI)IsBusy()
+            </summary>
+            <param name="handle"></param>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.FT_WriteGPIO(System.IntPtr,System.Byte,System.Byte)">
+            <summary>
+            LibMpsseSpi Wrapper for FT_WriteGPIO()
+            </summary>
+            <param name="handle"></param>
+            <param name="dir"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.FT_ReadGPIO(System.IntPtr,System.Byte@)">
+            <summary>
+            LibMpsseSpi Wrapper for FT_ReadGPIO()
+            </summary>
+            <param name="handle"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_Read(System.IntPtr,System.Byte[],System.Int32,System.Int32@,libMPSSEWrapper.Types.FtSpiTransferOptions)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_Read()
+            </summary>
+            <param name="handle"></param>
+            <param name="buffer"></param>
+            <param name="sizeToTransfer"></param>
+            <param name="sizeTransfered"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_ReadWrite(System.IntPtr,System.Byte[],System.Byte[],System.Int32,System.Int32@,libMPSSEWrapper.Types.FtSpiTransferOptions)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_ReadWrite
+            </summary>
+            <param name="handle"></param>
+            <param name="inBuffer"></param>
+            <param name="outBuffer"></param>
+            <param name="sizeToTransfer"></param>
+            <param name="sizeTransferred"></param>
+            <param name="transferOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.LibMpsseSpi.SPI_Write(System.IntPtr,System.Byte[],System.Int32,System.Int32@,libMPSSEWrapper.Types.FtSpiTransferOptions)">
+            <summary>
+            LibMpsseSpi Wrapper for SPI_Write
+            </summary>
+            <param name="handle"></param>
+            <param name="buffer"></param>
+            <param name="sizeToTransfer"></param>
+            <param name="sizeTransfered"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:libMPSSEWrapper.Spi.SpiConfiguration">
+            <summary>
+            The SpiConfiguration within the libMPSSEWrapper
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Spi.SpiConfiguration.ChannelZeroConfiguration">
+            <summary>
+            Construct a new SpiConfiguration for the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="P:libMPSSEWrapper.Spi.SpiConfiguration.ChannelIndex">
+            <summary>
+            The ChannelIndex Accessor within SpiConfiguration
+            </summary>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiConfiguration.#ctor(System.Int32)">
+            <summary>
+            The SpiConfiguration constructor within SpiConfiguration
+            </summary>
+            <param name="channelIndex"></param>
+        </member>
+        <member name="T:libMPSSEWrapper.Spi.SpiDevice">
+            <summary>
+            The chass definitions for SpiDevice
+            </summary>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.#ctor(libMPSSEWrapper.Types.FtdiChannelConfig)">
+            <summary>
+            Constructor for the SPI Device in the LibMpsseSpi Wrapper
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.#ctor(libMPSSEWrapper.Types.FtdiChannelConfig,libMPSSEWrapper.Spi.SpiConfiguration)">
+            <summary>
+            Constructor for the SPI Device in the LibMpsseSpi Wrapper
+            </summary>
+            <param name="config"></param>
+            <param name="spiConfig"></param>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Write(System.Byte[],System.Int32,System.Int32@,libMPSSEWrapper.Types.FtSpiTransferOptions)">
+            <summary>
+            The Wrapper for SPI_Write()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeToTransfer"></param>
+            <param name="sizeTransfered"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Write(System.Byte[],System.Int32@,libMPSSEWrapper.Types.FtSpiTransferOptions)">
+            <summary>
+            The Wrapper for Write()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeTransfered"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Write(System.Byte[],System.Int32,System.Int32@)">
+            <summary>
+            The Wrapper for Write()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeToTransfer"></param>
+            <param name="sizeTransfered"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Write(System.Byte[],System.Int32@)">
+            <summary>
+            The Wrapper for Write()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeTransfered"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Read(System.Byte[],System.Int32,System.Int32@,libMPSSEWrapper.Types.FtSpiTransferOptions)">
+            <summary>
+            The Wrapper for Read()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeToTransfer"></param>
+            <param name="sizeTransfered"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Read(System.Byte[],System.Int32@,libMPSSEWrapper.Types.FtSpiTransferOptions)">
+            <summary>
+            The Wrapper for Read()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeTransfered"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Read(System.Byte[],System.Int32,System.Int32@)">
+            <summary>
+            The Wrapper for Read()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeToTransfer"></param>
+            <param name="sizeTransfered"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Read(System.Byte[],System.Int32@)">
+            <summary>
+            The Wrapper for Read()
+            </summary>
+            <param name="buffer"></param>
+            <param name="sizeTransfered"></param>
+            <returns></returns>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.CheckResult(libMPSSEWrapper.Types.FtResult)">
+            <summary>
+            Throw an Exception if the I/O didn't work correctly
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:libMPSSEWrapper.Spi.SpiDevice.Dispose">
+            <summary>
+            Dispose of the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="T:libMPSSEWrapper.Types.FtdiChannelConfig">
+            <summary>
+            The FTDI Channel Configuration for the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiChannelConfig.ClockRate">
+            <summary>
+            SPI Clock Rate
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiChannelConfig.LatencyTimer">
+            <summary>
+            USB Latency Timer
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiChannelConfig.configOptions">
+            <summary>
+            FTDI SPI Configuration Options
+            </summary>
+        </member>
+        <member name="T:libMPSSEWrapper.Types.FtdiConfigOptions">
+            <summary>
+            SPI Configuration Options for the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="T:libMPSSEWrapper.Types.FtDeviceInfo">
+            <summary>
+            FTDI Device Information for the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="T:libMPSSEWrapper.Types.FtResult">
+            <summary>
+            Returned Results from an FTDI call from the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="T:libMPSSEWrapper.Types.FtSpiTransferOptions">
+            <summary>
+            SPI Transfer options for the LibMpsseSpi Wrapper
+            </summary>
+        </member>
     </members>
 </doc>

@@ -18,8 +18,14 @@ namespace libMPSSEWrapper
     {
         private static int _initializations = 0;
 
+        /// <summary>
+        /// Constant name of FTDI Library
+        /// </summary>
         public const string DllName = "libMPSSE.dll";
 
+        /// <summary>
+        /// Initialize the LibMpsseSpi Wrapper
+        /// </summary>
         public static void Init()
         {
             if(Interlocked.Increment(ref _initializations) == 1)
@@ -27,6 +33,9 @@ namespace libMPSSEWrapper
 
         }
 
+        /// <summary>
+        /// Clean Up the LibMpsseSpi Wrapper
+        /// </summary>
         public static void Cleanup()
         {
             if(Interlocked.Decrement(ref _initializations) == 0)

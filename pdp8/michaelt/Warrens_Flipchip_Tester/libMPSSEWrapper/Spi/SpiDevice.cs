@@ -7,6 +7,9 @@ using libMPSSEWrapper.Types;
 
 namespace libMPSSEWrapper.Spi
 {
+    /// <summary>
+    /// The chass definitions for SpiDevice
+    /// </summary>
     public abstract class SpiDevice : IDisposable
     {
         private static IntPtr _handle = IntPtr.Zero;
@@ -17,12 +20,21 @@ namespace libMPSSEWrapper.Spi
         private bool _isDisposed;
         private SpiConfiguration _spiConfig;
 
+        /// <summary>
+        /// Constructor for the SPI Device in the LibMpsseSpi Wrapper
+        /// </summary>
+        /// <param name="config"></param>
         protected SpiDevice(FtdiChannelConfig config)
             : this(config, null)
         {
 
         }
 
+        /// <summary>
+        /// Constructor for the SPI Device in the LibMpsseSpi Wrapper
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="spiConfig"></param>
         protected SpiDevice(FtdiChannelConfig config, SpiConfiguration spiConfig)
         {
             _spiConfig = spiConfig ?? SpiConfiguration.ChannelZeroConfiguration;
@@ -53,6 +65,14 @@ namespace libMPSSEWrapper.Spi
 
         }
 
+        /// <summary>
+        /// The Wrapper for SPI_Write()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeToTransfer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         protected FtResult Write(byte[] buffer, int sizeToTransfer, out int sizeTransfered, FtSpiTransferOptions options)
         {
             EnforceRightConfiguration();
@@ -60,44 +80,94 @@ namespace libMPSSEWrapper.Spi
             return LibMpsseSpi.SPI_Write(_handle, buffer, sizeToTransfer, out sizeTransfered, options);
         }
 
-
+        /// <summary>
+        /// The Wrapper for Write()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         protected FtResult Write(byte[] buffer, out int sizeTransfered, FtSpiTransferOptions options)
         {
             return Write(buffer, buffer.Length, out sizeTransfered, options);
         }
 
+        /// <summary>
+        /// The Wrapper for Write()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeToTransfer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <returns></returns>
         protected FtResult Write(byte[] buffer, int sizeToTransfer, out int sizeTransfered)
         {
             return Write(buffer, sizeToTransfer, out sizeTransfered, FtSpiTransferOptions.ToogleChipSelect);
         }
 
+        /// <summary>
+        /// The Wrapper for Write()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <returns></returns>
         protected FtResult Write(byte[] buffer, out int sizeTransfered)
         {
             return Write(buffer, out sizeTransfered, FtSpiTransferOptions.ToogleChipSelect);
         }
 
+        /// <summary>
+        /// The Wrapper for Read()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeToTransfer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         protected FtResult Read(byte[] buffer, int sizeToTransfer, out int sizeTransfered, FtSpiTransferOptions options)
         {
             EnforceRightConfiguration();
             return LibMpsseSpi.SPI_Read(_handle, buffer, sizeToTransfer, out sizeTransfered, options);
         }
 
+        /// <summary>
+        /// The Wrapper for Read()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         protected FtResult Read(byte[] buffer, out int sizeTransfered, FtSpiTransferOptions options)
         {
             return Read(buffer, buffer.Length, out sizeTransfered, options);
         }
 
+        /// <summary>
+        /// The Wrapper for Read()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeToTransfer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <returns></returns>
         protected FtResult Read(byte[] buffer,int sizeToTransfer, out int sizeTransfered)
         {
             return Read(buffer, buffer.Length, out sizeTransfered, FtSpiTransferOptions.ToogleChipSelect);
         }
 
+        /// <summary>
+        /// The Wrapper for Read()
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="sizeTransfered"></param>
+        /// <returns></returns>
         protected FtResult Read(byte[] buffer, out int sizeTransfered)
         {
             return Read(buffer, out sizeTransfered, FtSpiTransferOptions.ToogleChipSelect);
         }
-
-
+        
+        /// <summary>
+        /// Throw an Exception if the I/O didn't work correctly
+        /// </summary>
+        /// <param name="result"></param>
         protected static void CheckResult(FtResult result)
         {
             if (result != FtResult.Ok)
@@ -113,7 +183,9 @@ namespace libMPSSEWrapper.Spi
             }
         }
 
-
+        /// <summary>
+        /// Dispose of the LibMpsseSpi Wrapper
+        /// </summary>
         public void Dispose()
         {
             if (_isDisposed)

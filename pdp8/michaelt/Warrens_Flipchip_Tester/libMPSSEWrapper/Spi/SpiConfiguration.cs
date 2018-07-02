@@ -10,6 +10,9 @@ namespace libMPSSEWrapper.Spi
     /// </summary>
     public class SpiConfiguration
     {
+        /// <summary>
+        /// Construct a new SpiConfiguration for the LibMpsseSpi Wrapper
+        /// </summary>
         public static readonly SpiConfiguration ChannelZeroConfiguration = new SpiConfiguration(0);
 
         /// <summary>

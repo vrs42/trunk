@@ -84,6 +84,7 @@ namespace Warrens_Flipchip_Tester
         private bool StopTestOnFault = true; //The test sequence will stop if a fault is found
         private bool ContinuouslyLoop = false; //Stop when we run out of test vectors
         private bool DisplayResults = true; //Display the test results for every test vector
+        private bool DisplayPinTableComments = true; //Display the Pin Table Comments for every test vector
         private int SpiBusSpeed = 1000000; //Set the default Bus Speed to 1MHz
         private const int NumberOfPinDrivers = 80;
         private const int IC1 = 1; //SPI Addresses for the chips
@@ -241,6 +242,12 @@ namespace Warrens_Flipchip_Tester
         {
             get { return DisplayResults; }
             set { DisplayResults = value; }
+        }
+
+        public bool DisplayTestPinTableComments
+        {
+            get { return DisplayPinTableComments; }
+            set { DisplayPinTableComments = value; }
         }
 
         public int NumberOfTestVectorsRead
@@ -550,9 +557,14 @@ namespace Warrens_Flipchip_Tester
                     }
 
                     if (PinTable[Pin].Changed)
-                        ResponseText += "Pin " + PinName + " Should Be: " + TestPin + "* Was: " + GpioPin + " " + PassFail + "\n";
+                        ResponseText += "Pin " + PinName + " Should Be: " + TestPin + "* Was: " + GpioPin + " " + PassFail + " ";
                     else
-                        ResponseText += "Pin " + PinName + " Should Be: " + TestPin + "  Was: " + GpioPin + " " + PassFail + "\n";
+                        ResponseText += "Pin " + PinName + " Should Be: " + TestPin + "  Was: " + GpioPin + " " + PassFail + " ";
+
+                    if (DisplayTestPinTableComments)
+                        ResponseText += PinTable[Pin].Comments + "\n"; //Add the Pin Comments from the Pin Table
+                    else
+                        ResponseText += "\n"; //Add just a return
                 }
 
                 if (FaultDetected & StopTestIfFaultDetected)

@@ -192,6 +192,7 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 WarrensFlipChipTester.DisplayTestResults = true; //Configure the tester to display test results
+                WarrensFlipChipTester.DisplayTestPinTableComments = true; //Configure the tester to display Pin Table Comments
                 StartingVectorNumberTextBox.Text = "1"; //Reset the test vector number to the first one
                 VectorNumber = 1;
                 PassCountTextBox.Text = "0";
@@ -251,6 +252,7 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 WarrensFlipChipTester.DisplayTestResults = true; //Configure the tester to display test results
+                WarrensFlipChipTester.DisplayTestPinTableComments = true; //Configure the tester to display Pin Table Comments
                 VectorNumber = Convert.ToInt32(StartingVectorNumberTextBox.Text);
                 if (VectorNumber == WarrensFlipChipTester.NumberOfTestVectorsRead + 1)
                 {
@@ -310,6 +312,7 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 WarrensFlipChipTester.DisplayTestResults = DisplayTestResultsRadioButton.Checked; //Configure the tester to display test results or not
+                WarrensFlipChipTester.DisplayTestPinTableComments = false; //Configure the tester to not display Pin Table Comments
                 WarrensFlipChipTester.SetLedState("YELLOW", "ON"); //Turn the Yellow LED on
                 WarrensFlipChipTester.ContinuouslyLoopTest = ContinuouslyLoopRadioButton.Checked; //Set the flag to control looping
 
@@ -383,6 +386,7 @@ namespace Warrens_Flipchip_Tester
             try
             {
                 WarrensFlipChipTester.DisplayTestResults = DisplayTestResultsRadioButton.Checked; //Configure the tester to display test results or not
+                WarrensFlipChipTester.DisplayTestPinTableComments = false; //Configure the tester to not display Pin Table Comments
                 StartingVectorNumberTextBox.Text = "1";
                 PassCountTextBox.Text = "0";
                 TesterRichTextBox.Text = WarrensFlipChipTester.InitializeTestHardware(); //Turn on hardware addressing and test it

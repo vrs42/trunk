@@ -6,8 +6,9 @@ using System.Text;
 
 namespace libMPSSEWrapper.Types
 {
-    
-
+    /// <summary>
+    /// FTDI Device Information for the LibMpsseSpi Wrapper
+    /// </summary>
     [StructLayout(LayoutKind.Sequential,CharSet = CharSet.Ansi)]
     public struct FtDeviceInfo
     {

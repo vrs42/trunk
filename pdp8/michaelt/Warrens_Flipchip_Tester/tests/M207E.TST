@@ -203,4 +203,35 @@ IIIIOOIIIOOIIIOOIIIIOOIIIOOIIIOO
                            1
 ; Lower E3-1 CLOCK, E3-12 Q & E3-13 Q-N toggle
                            0  01
+; Wiggle all 6x flip-flops at the same time
+; Hold both CLEAR-N and all J & K low, all Q low & Q-N high
+00000100001000010000010000100001
+; Raise both CLEAR-N, no change in any Q & Q-N
+1               1
+; Raise CLOCK, no change in Q & Q-N
+ 1    1    1     1    1    1
+; Lower CLOCK, no change in Q & Q-N
+ 0    0    0     0    0    0
+; Raise J, no change in Q & Q-N
+   1    1    1     1    1    1
+; Raise CLOCK, no change in Q & Q-N
+ 1    1    1     1    1    1
+; Lower CLOCK, Q & Q-N toggle
+ 0  100  100  10 0  100  100  10
+; Lower J & Raise K, no change in Q & Q-N
+  10   10   10    10   10   10
+; Raise CLOCK, no change in Q & Q-N
+ 1    1    1     1    1    1
+; Lower CLOCK, Q & Q-N toggle
+ 0  010  010  01 0  010  010  01
+; Raise J, no change in Q & Q-N
+   1    1    1     1    1    1
+; Raise CLOCK, no change in Q & Q-N
+ 1    1    1     1    1    1
+; Lower CLOCK, Q & Q-N toggle
+ 0  100  100  10 0  100  100  10
+; Raise CLOCK, no change in Q & Q-N
+ 1    1    1     1    1    1
+; Lower CLOCK, Q & Q-N toggle
+ 0  010  010  01 0  010  010  01
 END

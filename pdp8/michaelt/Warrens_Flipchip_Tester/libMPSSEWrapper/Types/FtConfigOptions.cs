@@ -5,6 +5,9 @@ using System.Text;
 
 namespace libMPSSEWrapper.Types
 {
+    /// <summary>
+    /// SPI Configuration Options for the LibMpsseSpi Wrapper
+    /// </summary>
     [Flags]
     public enum FtdiConfigOptions
     {
