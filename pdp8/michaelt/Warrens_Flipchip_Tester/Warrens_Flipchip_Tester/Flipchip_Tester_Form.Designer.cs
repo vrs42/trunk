@@ -71,6 +71,9 @@
             this.HardwareAddressEnablebutton = new System.Windows.Forms.Button();
             this.FlipChipTesterTabControl = new System.Windows.Forms.TabControl();
             this.TestingTabPage = new System.Windows.Forms.TabPage();
+            this.DisplayTestResultsGroupBox1 = new System.Windows.Forms.GroupBox();
+            this.DontDisplayTestResultsRadioButton = new System.Windows.Forms.RadioButton();
+            this.DisplayTestResultsRadioButton = new System.Windows.Forms.RadioButton();
             this.ContinueTestAfterStopButton = new System.Windows.Forms.Button();
             this.PassCountlabel = new System.Windows.Forms.Label();
             this.PassCountTextBox = new System.Windows.Forms.TextBox();
@@ -103,11 +106,9 @@
             this.HelpTabPage = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.DisplayTestResultsGroupBox1 = new System.Windows.Forms.GroupBox();
-            this.DontDisplayTestResultsRadioButton = new System.Windows.Forms.RadioButton();
-            this.DisplayTestResultsRadioButton = new System.Windows.Forms.RadioButton();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
+            this.DisplayTestResultsGroupBox1.SuspendLayout();
             this.ContinuousLoopGroupBox.SuspendLayout();
             this.StopTestIfFaultDetectedGroupBox.SuspendLayout();
             this.PinTableTabPage.SuspendLayout();
@@ -116,7 +117,6 @@
             this.DiagsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).BeginInit();
             this.HelpTabPage.SuspendLayout();
-            this.DisplayTestResultsGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DiagRichTextBox
@@ -238,7 +238,7 @@
             this.Read10kMPC23S17Registersbutton.Name = "Read10kMPC23S17Registersbutton";
             this.Read10kMPC23S17Registersbutton.Size = new System.Drawing.Size(230, 23);
             this.Read10kMPC23S17Registersbutton.TabIndex = 10;
-            this.Read10kMPC23S17Registersbutton.Text = "Read MPC23S17 Registers 1,000x";
+            this.Read10kMPC23S17Registersbutton.Text = "Read MPC23S17 Registers 100 Times";
             this.Read10kMPC23S17Registersbutton.UseVisualStyleBackColor = true;
             this.Read10kMPC23S17Registersbutton.Click += new System.EventHandler(this.Read100kMPC23S17Registersbutton_Click);
             // 
@@ -361,6 +361,39 @@
             this.TestingTabPage.TabIndex = 0;
             this.TestingTabPage.Text = "FlipChip Testing";
             this.TestingTabPage.UseVisualStyleBackColor = true;
+            // 
+            // DisplayTestResultsGroupBox1
+            // 
+            this.DisplayTestResultsGroupBox1.Controls.Add(this.DontDisplayTestResultsRadioButton);
+            this.DisplayTestResultsGroupBox1.Controls.Add(this.DisplayTestResultsRadioButton);
+            this.DisplayTestResultsGroupBox1.Location = new System.Drawing.Point(9, 542);
+            this.DisplayTestResultsGroupBox1.Name = "DisplayTestResultsGroupBox1";
+            this.DisplayTestResultsGroupBox1.Size = new System.Drawing.Size(230, 60);
+            this.DisplayTestResultsGroupBox1.TabIndex = 22;
+            this.DisplayTestResultsGroupBox1.TabStop = false;
+            this.DisplayTestResultsGroupBox1.Text = "Display Test Results for Each Test Vector";
+            // 
+            // DontDisplayTestResultsRadioButton
+            // 
+            this.DontDisplayTestResultsRadioButton.AutoSize = true;
+            this.DontDisplayTestResultsRadioButton.Location = new System.Drawing.Point(6, 41);
+            this.DontDisplayTestResultsRadioButton.Name = "DontDisplayTestResultsRadioButton";
+            this.DontDisplayTestResultsRadioButton.Size = new System.Drawing.Size(39, 17);
+            this.DontDisplayTestResultsRadioButton.TabIndex = 15;
+            this.DontDisplayTestResultsRadioButton.Text = "No";
+            this.DontDisplayTestResultsRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DisplayTestResultsRadioButton
+            // 
+            this.DisplayTestResultsRadioButton.AutoSize = true;
+            this.DisplayTestResultsRadioButton.Checked = true;
+            this.DisplayTestResultsRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.DisplayTestResultsRadioButton.Name = "DisplayTestResultsRadioButton";
+            this.DisplayTestResultsRadioButton.Size = new System.Drawing.Size(43, 17);
+            this.DisplayTestResultsRadioButton.TabIndex = 14;
+            this.DisplayTestResultsRadioButton.TabStop = true;
+            this.DisplayTestResultsRadioButton.Text = "Yes";
+            this.DisplayTestResultsRadioButton.UseVisualStyleBackColor = true;
             // 
             // ContinueTestAfterStopButton
             // 
@@ -569,7 +602,7 @@
             this.PinTableTabPage.Controls.Add(this.PinTableRichTextBox);
             this.PinTableTabPage.Location = new System.Drawing.Point(4, 22);
             this.PinTableTabPage.Name = "PinTableTabPage";
-            this.PinTableTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.PinTableTabPage.Size = new System.Drawing.Size(1411, 631);
             this.PinTableTabPage.TabIndex = 3;
             this.PinTableTabPage.Text = "Pin Table";
             this.PinTableTabPage.UseVisualStyleBackColor = true;
@@ -592,7 +625,7 @@
             this.CommentsTabPage.Controls.Add(this.CommentsRichTextBox);
             this.CommentsTabPage.Location = new System.Drawing.Point(4, 22);
             this.CommentsTabPage.Name = "CommentsTabPage";
-            this.CommentsTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.CommentsTabPage.Size = new System.Drawing.Size(1411, 631);
             this.CommentsTabPage.TabIndex = 4;
             this.CommentsTabPage.Text = "Comments";
             this.CommentsTabPage.UseVisualStyleBackColor = true;
@@ -616,7 +649,7 @@
             this.TestVectorsTabPage.Controls.Add(this.TestVectorsRichTextBox);
             this.TestVectorsTabPage.Location = new System.Drawing.Point(4, 22);
             this.TestVectorsTabPage.Name = "TestVectorsTabPage";
-            this.TestVectorsTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.TestVectorsTabPage.Size = new System.Drawing.Size(1411, 631);
             this.TestVectorsTabPage.TabIndex = 5;
             this.TestVectorsTabPage.Text = "Test Vectors";
             this.TestVectorsTabPage.UseVisualStyleBackColor = true;
@@ -671,7 +704,7 @@
             this.DiagsTabPage.Location = new System.Drawing.Point(4, 22);
             this.DiagsTabPage.Name = "DiagsTabPage";
             this.DiagsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DiagsTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.DiagsTabPage.Size = new System.Drawing.Size(1411, 631);
             this.DiagsTabPage.TabIndex = 1;
             this.DiagsTabPage.Text = "Test the Tester";
             this.DiagsTabPage.UseVisualStyleBackColor = true;
@@ -712,7 +745,7 @@
             this.HelpTabPage.Controls.Add(this.richTextBox1);
             this.HelpTabPage.Location = new System.Drawing.Point(4, 22);
             this.HelpTabPage.Name = "HelpTabPage";
-            this.HelpTabPage.Size = new System.Drawing.Size(1411, 610);
+            this.HelpTabPage.Size = new System.Drawing.Size(1411, 631);
             this.HelpTabPage.TabIndex = 2;
             this.HelpTabPage.Text = "Help";
             // 
@@ -737,39 +770,6 @@
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
             // 
-            // DisplayTestResultsGroupBox1
-            // 
-            this.DisplayTestResultsGroupBox1.Controls.Add(this.DontDisplayTestResultsRadioButton);
-            this.DisplayTestResultsGroupBox1.Controls.Add(this.DisplayTestResultsRadioButton);
-            this.DisplayTestResultsGroupBox1.Location = new System.Drawing.Point(9, 542);
-            this.DisplayTestResultsGroupBox1.Name = "DisplayTestResultsGroupBox1";
-            this.DisplayTestResultsGroupBox1.Size = new System.Drawing.Size(230, 60);
-            this.DisplayTestResultsGroupBox1.TabIndex = 22;
-            this.DisplayTestResultsGroupBox1.TabStop = false;
-            this.DisplayTestResultsGroupBox1.Text = "Display Test Results for Each Test Vector";
-            // 
-            // DontDisplayTestResultsRadioButton
-            // 
-            this.DontDisplayTestResultsRadioButton.AutoSize = true;
-            this.DontDisplayTestResultsRadioButton.Location = new System.Drawing.Point(6, 41);
-            this.DontDisplayTestResultsRadioButton.Name = "DontDisplayTestResultsRadioButton";
-            this.DontDisplayTestResultsRadioButton.Size = new System.Drawing.Size(39, 17);
-            this.DontDisplayTestResultsRadioButton.TabIndex = 15;
-            this.DontDisplayTestResultsRadioButton.Text = "No";
-            this.DontDisplayTestResultsRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // DisplayTestResultsRadioButton
-            // 
-            this.DisplayTestResultsRadioButton.AutoSize = true;
-            this.DisplayTestResultsRadioButton.Checked = true;
-            this.DisplayTestResultsRadioButton.Location = new System.Drawing.Point(6, 18);
-            this.DisplayTestResultsRadioButton.Name = "DisplayTestResultsRadioButton";
-            this.DisplayTestResultsRadioButton.Size = new System.Drawing.Size(43, 17);
-            this.DisplayTestResultsRadioButton.TabIndex = 14;
-            this.DisplayTestResultsRadioButton.TabStop = true;
-            this.DisplayTestResultsRadioButton.Text = "Yes";
-            this.DisplayTestResultsRadioButton.UseVisualStyleBackColor = true;
-            // 
             // Flipchip_Tester_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -782,6 +782,8 @@
             this.FlipChipTesterTabControl.ResumeLayout(false);
             this.TestingTabPage.ResumeLayout(false);
             this.TestingTabPage.PerformLayout();
+            this.DisplayTestResultsGroupBox1.ResumeLayout(false);
+            this.DisplayTestResultsGroupBox1.PerformLayout();
             this.ContinuousLoopGroupBox.ResumeLayout(false);
             this.ContinuousLoopGroupBox.PerformLayout();
             this.StopTestIfFaultDetectedGroupBox.ResumeLayout(false);
@@ -793,8 +795,6 @@
             this.DiagsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).EndInit();
             this.HelpTabPage.ResumeLayout(false);
-            this.DisplayTestResultsGroupBox1.ResumeLayout(false);
-            this.DisplayTestResultsGroupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
