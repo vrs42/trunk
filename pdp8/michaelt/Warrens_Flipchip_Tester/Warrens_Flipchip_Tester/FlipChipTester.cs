@@ -1516,13 +1516,13 @@ namespace Warrens_Flipchip_Tester
         }
 
         /// <summary>
-        /// Read 5x Registers 1,000 times and measure the time it takes
+        /// Read 5x Registers 100 times and measure the time it takes
         /// </summary>
         /// <param name="DeviceAddressText"></param>
         /// <param name="RegisterNameText"></param>
         /// <param name="RegisterContentsText"></param>
         /// <returns>The test results</returns>
-        public String Read1kMPC23S17Registers(String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
+        public String Read100MPC23S17Registers(String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
         {
             string ResponseText = "";
             byte[] SpiRegisterContents = new byte[2];
@@ -1606,16 +1606,16 @@ namespace Warrens_Flipchip_Tester
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
 
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     Gpio0.WriteReadFiveRegisters(Convert.ToUInt16(DeviceAddressText, 16), RegisterNumber, SpiRegisterContents);
                 }
                 timer.Stop();
                 long milliSec = timer.ElapsedMilliseconds;
 
-                long vectorsSec = (1000 / (milliSec / 1000));
+                long vectorsSec = (1000 / (milliSec / 100));
 
-                ResponseText += "The elapsed time for 1000 sets of 5x register write/reads was " + milliSec + "ms.\n";
+                ResponseText += "The elapsed time for 100 sets of 5x register write/reads was " + milliSec + "ms.\n";
                 ResponseText += "I can process " + vectorsSec + " vectors/second.";
             }
             catch (SpiChannelNotConnectedException)

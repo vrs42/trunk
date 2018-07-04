@@ -240,7 +240,7 @@
             this.Read10kMPC23S17Registersbutton.TabIndex = 10;
             this.Read10kMPC23S17Registersbutton.Text = "Read MPC23S17 Registers 1,000x";
             this.Read10kMPC23S17Registersbutton.UseVisualStyleBackColor = true;
-            this.Read10kMPC23S17Registersbutton.Click += new System.EventHandler(this.Read1kMPC23S17Registersbutton_Click);
+            this.Read10kMPC23S17Registersbutton.Click += new System.EventHandler(this.Read100kMPC23S17Registersbutton_Click);
             // 
             // WriteSingleMPC23S17Registerbutton
             // 
