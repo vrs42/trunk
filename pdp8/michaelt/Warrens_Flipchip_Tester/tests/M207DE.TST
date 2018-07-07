@@ -1,4 +1,4 @@
-M207, PCB REV E, 6 J-K Flip-Flops With Clear
+M207, PCB REV D & E, 6 J-K Flip-Flops With Clear
 
 PINS
  1 I AA1 E1-2  CLEAR-N E1-12/13 E1-9/8 E2-12/13
