@@ -1,121 +1,157 @@
 M705, PCB REV J, Reader Control
 
-PINS
- 1 I AA1
- 2 I AB1
- 3 I AC1
- 4 O AD1
- 5 I AD2
- 6 I AE2
- 7 I AF2
- 8 O AH2
- 9 I AE1
-10 I AF1
-11 I AH1
-12 O AJ1 E13-12 Test Point
-13 I AJ2 E9-8   Test Point
-14 I AK2
-15 I AL2
-16 O AM2
-17 I AK1
-18 I AL1
-19 I AM1
-20 O AN1
-21 I AN2
-22 I AP2
-23 I AR2
-24 O AS2
-25 I AP1
-26 I AR1
-27 I AS1
-28 O AU1
-29 O AT2 E8-11 Test Point
-30 I AU2 E8-5 IOP1(1)
-31 I AV2 E8-2 IOP2(1)
-32 O AV1
-33 I BD2 E12-1  MB3(0)
-34 I BE1 E12-11 MB5(0)
-35 I BE2 E12-2  MB4(0)
-36 I BF1 E12-3  MB7(0)
-36 I BF2 E12-4  MB6(0)
-38 I BH2 E12-5  MB8(1)
-39 I BK1 E13-2  IOP4(1)
+Caution: There is no way to know the state of the A & B flip-flops, other than at power on.
+         We need the signals a Test Point BV2 on to latch data into the RD 0 through RD 7 flip-flops.
+         Please power cycle the flip-chip and then start this test.
 
-IIIOIIIOIIIOIIIOIIIOIIIOIIIOOIIOIIIIIII
-XXXXXXXXXXX1XXX0XXXXXXXXXXXX000X0000000
+PINS
+ 1 I BD2 E12-1  MB3(0)
+ 2 I BE2 E12-2  MB4(0)
+ 3 I BE1 E12-11 MB5(0)
+ 4 I BF2 E12-4  MB6(0)
+ 5 I BF1 E12-3  MB7(0)
+ 6 I BH2 E12-5  MB8(1)
+ 7 I AU2 E8-5   IOP1(1)
+ 8 I AV2 E8-2   IOP2(1)
+ 9 I BK1 E13-2  IOP4(1)
+10 O AM2 E8-8   IOT011 Test Point
+11 O AT2 E8-11  IOP2(1) Test Point
+12 O AJ1 E13-12 IOP4(1) Test Point
+13 I BM2 E6-2   FEED HOLE
+14 I BP1 E11-1  INITIALIZE-N
+15 I BS2 E17-12 CLOCK 1
+16 I BM1 E13-4  FEED SWITCH
+17 I BN2 E14-3  STOP COMPLETE
+18 I BD1 E14-4  SHIFT-N
+19 O BR2 E15-11 PWR
+20 O BK2 E14-8  ENABLE(0)
+21 O AK2 E6-13  I/O BUS IN SKIP
+22 O AL2 E6-10  I/O BUS IN INT
+23 O AK1 E10-8  Test Point
+24 O BJ2 E11-8  Test Point
+25 O AJ2 E9-8   Test Point
+26 O BN1 E13-6  Test Point
+27 I BJ1 E18-3  SHIFT
+28 O BP2 E16-11 BA(1)
+29 O BS1 E16-3  BA(0)
+30 O BU2 E16-6  BB(1)
+31 O BR1 E16-8  BB(0)
+32 O BV2 E15-6  Test Point
+33 O AP2 E5-1   I/O BUS IN 4
+34 O AS2 E7-1   I/O BUS IN 5
+35 O AR1 E7-10  I/O BUS IN 6
+36 O AN2 E5-13  I/O BUS IN 7
+37 O AS1 E7-4   I/O BUS IN 8
+38 O AP1 E5-4   I/O BUS IN 9
+39 O AR2 E7-13  I/O BUS IN 10
+40 O AN1 E5-10  I/O BUS IN 11
+41 I AF1 E4-2   RD HOLE 8
+42 I AF2 E4-2   RD HOLE 7
+43 I AH1 E4-2   RD HOLE 6
+44 I AH2 E4-2   RD HOLE 5
+45 I AE1 E4-2   RD HOLE 4
+46 I AE2 E4-2   RD HOLE 3
+47 I AD1 E4-2   RD HOLE 2
+48 I AD2 E4-2   RD HOLE 1
+
+IIIIIIIIIOOOIIIIIIOOOOOOOOIOOOOOOOOOOOOOIIIIIIII
+; Hold INITIALIZE-N and then let it go
+; Will Clear the RDR RUN, POWER, and ENABLE flip-flops
+000000000XXXX0XXXXXXXXXXXX010101XXXXXXXXXXXXXXXX
+000000000001 1    11      0             00000000
+
+; Shift the following three lines to the left by one character to help with programming
+;BBBBBBAABAAABBBBBBBBAAABABBBBBBBAAAAAAAAAAAAAAAA
+;DEEFFHUVKMTJMPSMNDRKKLKJJNJPSURVPSRNSPRNFFHHEEDD
+;221212221221212121222212211212122212112112121212
+
 ; Cycle through MB3-MB8 patterns with IOP4(1) on, result on AJ1 Test Point, Tests E12, E11, and E13
-           1                    0000011
-           1                    0000101
-           1                    0000111
-           1                    0001001
-           1                    0001011
-           1                    0001101
-           1                    0001111
-           1                    0010001
-           1                    0010011
-           1                    0010101
-           1                    0010111
-           1                    0011001
-           1                    0011011
-           1                    0011101
-           1                    0011111
-           1                    0100001
-           1                    0100011
-           1                    0100101
-           1                    0100111
-           1                    0101001
-           1                    0101011
-           1                    0101101
-           1                    0101111
-           1                    0110001
-           1                    0110011
-           1                    0110101
-           1                    0110111
-           1                    0111001
-           1                    0111011
-           1                    0111101
-           1                    0111111
-           1                    1000001
-           1                    1000011
-           1                    1000101
-           1                    1000111
-           1                    1001001
-           1                    1001011
-           1                    1001101
-           1                    1001111
-           1                    1010001
-           1                    1010011
-           1                    1010101
-           1                    1010111
-           1                    1011001
-           1                    1011011
-           1                    1011101
-           1                    1011111
-           1                    1100001
-           1                    1100011
-           1                    1100101
-           1                    1100111
-           1                    1101001
-           1                    1101011
-           1                    1101101
-           1                    1101111
-           1                    1110001
-           1                    1110011
-           1                    1110101
-           1                    1110111
-           1                    1111001
-           1                    1111011
-           1                    1111101
+000001  1
+000010
+000011
+000100
+000101
+000110
+000111
+001000
+001001
+001010
+001011
+001100
+001101
+001110
+001111
+010000
+010001
+010010
+010011
+010100
+010101
+010110
+010111
+011000
+011001
+011010
+011011
+011100
+011101
+011110
+011111
+100000
+100001
+100010
+100011
+100100
+100101
+100110
+100111
+101000
+101001
+101010
+101011
+101100
+101101
+101110
+101111
+110000
+110001
+110010
+110011
+110100
+110101
+110110
+110111
+111000
+111001
+111010
+111011
+111100
+111101
+111110
 ; With a MB3-MB8 and IOP4(1) on we should see AJ1 Test Point off, Tests E13
-           0                    1111111
+; This address will also Clear the RD 1 through RD 8 and RDR FLAG, flip-flops
+111111     0
 ; With a MB3-MB8 and IOP4(1) off we should see AJ1 Test Point on, Tests E13
-           1                    1111110
+111111  0  1
 ; With a MB3-MB8 and IOP1(1) on we should see AM2 Test Point on, Tests E8
-           0   1             1  1111111
+1111111  1
 ; With a MB3-MB8 and IOP1(1) on we should see AM2 Test Point off, Tests E8
-           0   0             0  1111111
+1111110  0
 ; With a MB3-MB8 and IOP2(1) on we should see AT2 Test Point on, Tests E8
-           0                1 1 1111111
+111111 1  1  
 ; With a MB3-MB8 and IOP2(1) on we should see AT2 Test Point off, Tests E8
-           0                0 0 1111111
+111111 0  0
+; Test the RD 0 through RD 7 flip-flops
+; Pin PV2 is on from power on
+; We need to drive pin BS2 CLOCK 1 high and low to drive the flip-flop Clock signal high and low
+; Set the flip-flop inputs high, the outputs will be low.
+                                        11111111
+; Drive pin BS2 CLOCK high and low, ENABLE 0 will go low
+; Turn IOP2(1) on so we can see what was latched
+       1  1   1    0            00000000
+              0
+; Set the flip-flop inputs low, the outputs will be high.
+                                        00000000
+              1                 11111111
+              0
 END
