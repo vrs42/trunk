@@ -70,13 +70,13 @@ Modifications to the original FlipChip Tester PCB for the USB/SPI interface:
 		Add 10k pullup from IC1-15 to Vdd.
 		Add Ground to IC1-16, 17.
 		Add 10k pullup from IC2-16 to Vdd.
-		Add Ground to IC1-15, 17.
+		Add Ground to IC2-15, 17.
 		Add 10k pullup from IC3-15, 16 to Vdd.
-		Add Ground to IC1-17.
+		Add Ground to IC3-17.
 		Add 10k pullup from IC4-17 to Vdd.
-		Add Ground to IC1-15, 16.
+		Add Ground to IC4-15, 16.
 		Add 10k pullup from IC5-15, 17 to Vdd.
-		Add Ground to IC1-16.
+		Add Ground to IC5-16.
 
 	Do not install IC6. This IC location can be used to jumper the SO and SI signals together.
 
