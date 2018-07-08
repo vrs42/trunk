@@ -66,7 +66,7 @@ Modifications to the original FlipChip Tester PCB for the USB/SPI interface:
 	Jumper all 5x RESET-N(18) pins together.
 		IC5-18 is already connected to PC1-4.
 
-	These modifications set th SPI Hardware Addresses of each IC to match the IC number.
+	These modifications set the SPI Hardware Addresses of each IC to match the IC number.
 		Add 10k pullup from IC1-15 to Vdd.
 		Add Ground to IC1-16, 17.
 		Add 10k pullup from IC2-16 to Vdd.
