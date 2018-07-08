@@ -192,3 +192,6 @@ Software implementation notes:
 	IC4, GPB1, RED    LED   
 	IC4, GPB2, YELLOW LED   
 	IC4, GPB3, RED2   LED   
+
+To Do:
+	Replace "Continuously Loop Through Test" with the maximum number of loops to run.
