@@ -41,16 +41,49 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum Register
         {
+            /// <summary>
+            /// The MCP23S17 IODIR Register
+            /// </summary>
             IODIR = 0x00,    //This assumes that IOCON.BANK = 0 so that the chip works in Byte Mode
+            /// <summary>
+            /// The MCP23S17 IPOL Register
+            /// </summary>
             IPOL = 0x02,
+            /// <summary>
+            /// The MCP23S17 GPINTEN Register
+            /// </summary>
             GPINTEN = 0x04,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register
+            /// </summary>
             DEFVAL = 0x06,
+            /// <summary>
+            /// The MCP23S17 INTCON Register
+            /// </summary>
             INTCON = 0x08,
+            /// <summary>
+            /// The MCP23S17 IOCON Register
+            /// </summary>
             IOCON = 0x0A,
+            /// <summary>
+            /// The MCP23S17 GPPU Register
+            /// </summary>
             GPPU = 0x0C,
+            /// <summary>
+            /// The MCP23S17 INTF Register
+            /// </summary>
             INTF = 0x0E,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register
+            /// </summary>
             INTCAP = 0x10,
+            /// <summary>
+            /// The MCP23S17 GPIO Register
+            /// </summary>
             GPIO = 0x12,
+            /// <summary>
+            /// The MCP23S17 OLAT Register
+            /// </summary>
             OLAT = 0x14,
         }
 
@@ -60,13 +93,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum IODIR //0x00
         {
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 7
+            /// </summary>
             IO7IN = 0x80,
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 6
+            /// </summary>
             IO6IN = 0x40,
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 5
+            /// </summary>
             IO5IN = 0x20,
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 4
+            /// </summary>
             IO4IN = 0x10,
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 3
+            /// </summary>
             IO3IN = 0x08,
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 2
+            /// </summary>
             IO2IN = 0x04,
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 1
+            /// </summary>
             IO1IN = 0x02,
+            /// <summary>
+            /// The MCP23S17 IODIR Register bit 0
+            /// </summary>
             IO0IN = 0x01,
         }
 
@@ -76,13 +133,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum IPOL //0x02
         {
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 7
+            /// </summary>
             IP7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 6
+            /// </summary>
             IP6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 5
+            /// </summary>
             IP5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 4
+            /// </summary>
             IP4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 3
+            /// </summary>
             IP3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 2
+            /// </summary>
             IP2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 1
+            /// </summary>
             IP1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 IOPOL Register bit 0
+            /// </summary>
             IP0 = 0x01,
         }
 
@@ -92,13 +173,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum GPINTEN //0x04
         {
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 7
+            /// </summary>
             GPINT7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 8
+            /// </summary>
             GPINT6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 8
+            /// </summary>
             GPINT5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 8
+            /// </summary>
             GPINT4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 8
+            /// </summary>
             GPINT3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 8
+            /// </summary>
             GPINT2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 8
+            /// </summary>
             GPINT1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 GPINT Register bit 8
+            /// </summary>
             GPINT0 = 0x01,
         }
 
@@ -108,13 +213,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum DEFVAL //0x06
         {
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 7
+            /// </summary>
             DEF7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 6
+            /// </summary>
             DEF6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 5
+            /// </summary>
             DEF5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 4
+            /// </summary>
             DEF4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 3
+            /// </summary>
             DEF3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 2
+            /// </summary>
             DEF2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 1
+            /// </summary>
             DEF1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 DEFVAL Register bit 0
+            /// </summary>
             DEF0 = 0x01,
         }
 
@@ -124,13 +253,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum INTCON //0x08
         {
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 7
+            /// </summary>
             IOC7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 6
+            /// </summary>
             IOC6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 5
+            /// </summary>
             IOC5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 4
+            /// </summary>
             IOC4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 3
+            /// </summary>
             IOC3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 2
+            /// </summary>
             IOC2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 1
+            /// </summary>
             IOC1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 INTCON Register bit 0
+            /// </summary>
             IOC0 = 0x01,
         }
 
@@ -140,12 +293,33 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum IOCON //0x0A or 0x0B
         {
+            /// <summary>
+            /// The MCP23S17 IOCON Register for BANK
+            /// </summary>
             BANK = 0x80,
+            /// <summary>
+            /// The MCP23S17 IOCON Register for MIRROT
+            /// </summary>
             MIRROR = 0x40,
+            /// <summary>
+            /// The MCP23S17 IOCON Register for SEQOP
+            /// </summary>
             SEQOP = 0x20,
+            /// <summary>
+            /// The MCP23S17 IOCON Register for DISSLW
+            /// </summary>
             DISSLW = 0x10,
+            /// <summary>
+            /// The MCP23S17 IOCON Register for HAEN
+            /// </summary>
             HAEN = 0x08,
+            /// <summary>
+            /// The MCP23S17 IOCON Register for ODR
+            /// </summary>
             ODR = 0x04,
+            /// <summary>
+            /// The MCP23S17 IOCON Register for INTPOL
+            /// </summary>
             INTPOL = 0x02,
         }
 
@@ -155,13 +329,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum GPPU //0x0C
         {
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 7
+            /// </summary>
             PU7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 6
+            /// </summary>
             PU6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 5
+            /// </summary>
             PU5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 4
+            /// </summary>
             PU4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 3
+            /// </summary>
             PU3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 2
+            /// </summary>
             PU2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 1
+            /// </summary>
             PU1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 GPPU Register bit 0
+            /// </summary>
             PU0 = 0x01,
         }
 
@@ -171,13 +369,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum INTF //0x0E
         {
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 7
+            /// </summary>
             INT7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 6
+            /// </summary>
             INT6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 5
+            /// </summary>
             INT5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 4
+            /// </summary>
             INT4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 3
+            /// </summary>
             INT3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 2
+            /// </summary>
             INT2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 1
+            /// </summary>
             INT1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 INTF Register bit 0
+            /// </summary>
             INT0 = 0x01,
         }
 
@@ -186,13 +408,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum INTCAP //0x10
         {
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 7
+            /// </summary>
             ICP7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 6
+            /// </summary>
             ICP6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 5
+            /// </summary>
             ICP5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 4
+            /// </summary>
             ICP4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 3
+            /// </summary>
             ICP3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 2
+            /// </summary>
             ICP2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 1
+            /// </summary>
             ICP1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 INTCAP Register bit 0
+            /// </summary>
             ICP0 = 0x01,
         }
 
@@ -202,13 +448,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum GPIO //0x12
         {
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 7
+            /// </summary>
             GP7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 6
+            /// </summary>
             GP6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 5
+            /// </summary>
             GP5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 4
+            /// </summary>
             GP4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 3
+            /// </summary>
             GP3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 2
+            /// </summary>
             GP2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 1
+            /// </summary>
             GP1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 GPIO Register bit 0
+            /// </summary>
             GP0 = 0x01,
         }
 
@@ -218,13 +488,37 @@ namespace Warrens_Flipchip_Tester
         [Flags]
         public enum OLAT //0x14
         {
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 7
+            /// </summary>
             OL7 = 0x80,
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 6
+            /// </summary>
             OL6 = 0x40,
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 5
+            /// </summary>
             OL5 = 0x20,
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 4
+            /// </summary>
             OL4 = 0x10,
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 3
+            /// </summary>
             OL3 = 0x08,
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 2
+            /// </summary>
             OL2 = 0x04,
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 1
+            /// </summary>
             OL1 = 0x02,
+            /// <summary>
+            /// The MCP23S17 OLAT Register bit 0
+            /// </summary>
             OL0 = 0x01,
         }
 

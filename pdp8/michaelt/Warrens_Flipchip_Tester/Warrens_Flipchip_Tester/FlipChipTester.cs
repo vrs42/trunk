@@ -58,7 +58,7 @@ namespace Warrens_Flipchip_Tester
         private UInt32 FtdiDeviceCount = 0; //Number of FTDI devices found
         private FTDI.FT_STATUS FtdiStatus = FTDI.FT_STATUS.FT_OK; //The status of the last FTDI command
         private FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceInfoNode = new FTDI.FT_DEVICE_INFO_NODE[10]; //Get read for up to 10 USB cables
-        private FTDI FtdiUSB0 = new FTDI(); // Create new instance of the FTDI device class
+        private FTDI FtdiUSB0 = new FTDI(); // Create the first instance of the FTDI device class
         private FTDI.FT232R_EEPROM_STRUCTURE FtdiREepromStructure = new FTDI.FT232R_EEPROM_STRUCTURE();
         private FTDI.FT232H_EEPROM_STRUCTURE FtdiHEepromStructure = new FTDI.FT232H_EEPROM_STRUCTURE();
 
@@ -1020,7 +1020,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiStatus = FtdiUSB0.Close();
             }
             else
-                ResponseText += "I could not open FTDI device " + 0 + " .\n";
+                ResponseText += "I could not open FTDI device " + 0 + ".\n";
 
             return ResponseText;
         }
@@ -1147,35 +1147,43 @@ namespace Warrens_Flipchip_Tester
         {
             string ResponseText = "";
 
-            MpsseStatus = LibMpsseSpi.SPI_GetNumChannels(out MpsseChannelCount);
-
-            if (MpsseStatus == FtResult.Ok)
+            try
             {
-                ResponseText += "I found " + MpsseChannelCount + " FTDI USB MPSSE Serial devices.\n\n";
+                MpsseStatus = LibMpsseSpi.SPI_GetNumChannels(out MpsseChannelCount);
 
-                if (MpsseChannelCount > 0)
+                if (MpsseStatus == FtResult.Ok)
                 {
-                    MpsseStatus = LibMpsseSpi.SPI_GetChannelInfo(MpsseChannel, out MpsseDeviceInfo);
+                    ResponseText += "I found " + MpsseChannelCount + " FTDI USB MPSSE Serial devices.\n\n";
 
-                    if (MpsseStatus == FtResult.Ok)
+                    if (MpsseChannelCount > 0)
                     {
-                        for (uint i = 0; i < MpsseChannelCount; i++)
+                        MpsseStatus = LibMpsseSpi.SPI_GetChannelInfo(MpsseChannel, out MpsseDeviceInfo);
+
+                        if (MpsseStatus == FtResult.Ok)
                         {
-                            ResponseText += "Device " + i + "\n";
-                            ResponseText += "\tDescription:   " + MpsseDeviceInfo.Description + "\n";
-                            ResponseText += "\tFlags:         " + MpsseDeviceInfo.Flags + "\n";
-                            ResponseText += "\tID:            0x" + MpsseDeviceInfo.ID.ToString("X4") + "\n";
-                            ResponseText += "\tLocation ID:   " + MpsseDeviceInfo.LocId + "\n";
-                            ResponseText += "\tSerial Number: " + MpsseDeviceInfo.SerialNumber + "\n";
-                            ResponseText += "\tType:          " + MpsseDeviceInfo.Type + "\n\n";
+                            for (uint i = 0; i < MpsseChannelCount; i++)
+                            {
+                                ResponseText += "Device " + i + "\n";
+                                ResponseText += "\tDescription:   " + MpsseDeviceInfo.Description + "\n";
+                                ResponseText += "\tFlags:         " + MpsseDeviceInfo.Flags + "\n";
+                                ResponseText += "\tID:            0x" + MpsseDeviceInfo.ID.ToString("X4") + "\n";
+                                ResponseText += "\tLocation ID:   " + MpsseDeviceInfo.LocId + "\n";
+                                ResponseText += "\tSerial Number: " + MpsseDeviceInfo.SerialNumber + "\n";
+                                ResponseText += "\tType:          " + MpsseDeviceInfo.Type + "\n\n";
+                            }
                         }
+                        else
+                            ResponseText += "I could not get a list of the FTDI USB MPSSE Serial devices.\n";
                     }
-                    else
-                        ResponseText += "I could not get a list of the FTDI USB MPSSE Serial devices.\n";
                 }
+                else
+                    ResponseText += "I could not find any FTDI USB MPSSE Serial devices.\n";
             }
-            else
-                ResponseText += "I could not find any FTDI USB MPSSE Serial devices.\n";
+            catch (DllNotFoundException)
+            {
+                ResponseText += "The tester application needs the FTDI USB MPSSE DLL (libMPSSE.dll) to be in the same directory as the Warrens_Flipchip_Tester.exe file.\n";
+                ResponseText += "Please copy libMPSSE.dll to the same directory as the Warrens_Flipchip_Tester.exe file and restart the application.\n";
+            }
 
             return ResponseText;
         }

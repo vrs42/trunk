@@ -292,9 +292,69 @@
             FTDI SPI Configuration Options
             </summary>
         </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiChannelConfig.Pin">
+            <summary>
+            The FTDI cable pin to use for SPI CS
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiChannelConfig.reserved">
+            <summary>
+            FTDI reserved for future use
+            </summary>
+        </member>
         <member name="T:libMPSSEWrapper.Types.FtdiConfigOptions">
             <summary>
             SPI Configuration Options for the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.Mode0">
+            <summary>
+            Configure the FTDI cable for SPI Mode 0
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.Mode1">
+            <summary>
+            Configure the FTDI cable for SPI Mode 1
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.Mode2">
+            <summary>
+            Configure the FTDI cable for SPI Mode 2
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.Mode3">
+            <summary>
+            Configure the FTDI cable for SPI Mode 3
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.CsDbus3">
+            <summary>
+            Use the FTDI Cable signal Dbus3 for the SPI CS
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.CsDbus4">
+            <summary>
+            Use the FTDI Cable signal Dbus4 for the SPI CS
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.CsDbus5">
+            <summary>
+            Use the FTDI Cable signal Dbus5 for the SPI CS
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.CsDbus6">
+            <summary>
+            Use the FTDI Cable signal Dbus6 for the SPI CS
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.CsDbus7">
+            <summary>
+            Use the FTDI Cable signal Dbus7 for the SPI CS
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtdiConfigOptions.CsActivelow">
+            <summary>
+            Use CS signal on the FTDI Cable is active when it is low
             </summary>
         </member>
         <member name="T:libMPSSEWrapper.Types.FtDeviceInfo">
@@ -302,14 +362,114 @@
             FTDI Device Information for the LibMpsseSpi Wrapper
             </summary>
         </member>
+        <member name="F:libMPSSEWrapper.Types.FtDeviceInfo.Flags">
+            <summary>
+            The Flags used with the FTDI device
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtDeviceInfo.Type">
+            <summary>
+            The Type used with the FTDI device
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtDeviceInfo.ID">
+            <summary>
+            The ID used with the FTDI device
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtDeviceInfo.LocId">
+            <summary>
+            The LocId used with the FTDI device
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtDeviceInfo.SerialNumber">
+            <summary>
+            The Serial Number of the FTDI device
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtDeviceInfo.Description">
+            <summary>
+            The Description of the FTDI device
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtDeviceInfo.ftHandle">
+            <summary>
+            The Handle used with the FTDI device
+            </summary>
+        </member>
         <member name="T:libMPSSEWrapper.Types.FtResult">
             <summary>
             Returned Results from an FTDI call from the LibMpsseSpi Wrapper
             </summary>
         </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.Ok">
+            <summary>
+            The call to libMPSSEWrapper.dll worked OK
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.InvalidHandle">
+            <summary>
+            An invalid handle was used with libMPSSEWrapper.dll
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.DeviceNotFound">
+            <summary>
+            The FTDi cable used with libMPSSEWrapper.dll does not exist
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.DeviceNotOpened">
+            <summary>
+            The call to libMPSSEWrapper.dll was tried before the device was opened
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.IoError">
+            <summary>
+            There was an I/O error on the device used with libMPSSEWrapper.dll
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.InsufficientResources">
+            <summary>
+            The application has insufficient resources to execute the call to libMPSSEWrapper.dll
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.InvalidParameter">
+            <summary>
+            An invalid parameter was used with libMPSSEWrapper.dll
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtResult.InvalidBaudRate">
+            <summary>
+            An invalid SPI speed was used with libMPSSEWrapper.dll
+            </summary>
+        </member>
         <member name="T:libMPSSEWrapper.Types.FtSpiTransferOptions">
             <summary>
             SPI Transfer options for the LibMpsseSpi Wrapper
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtSpiTransferOptions.SizeInBytes">
+            <summary>
+            The SPI transfer size will be specified in bytes
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtSpiTransferOptions.SizeInBits">
+            <summary>
+            The SPI transfer size will be specified in bits
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtSpiTransferOptions.ToogleChipSelect">
+            <summary>
+            The Chip Select signal should toggle during the SPI transfer
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtSpiTransferOptions.ChipselectEnable">
+            <summary>
+            Use the Chip Select signal during the SPI transfer
+            </summary>
+        </member>
+        <member name="F:libMPSSEWrapper.Types.FtSpiTransferOptions.ChipselectDisable">
+            <summary>
+            Don't use the Chip Select signal during the SPI transfer
             </summary>
         </member>
     </members>

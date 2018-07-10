@@ -24,7 +24,13 @@ namespace libMPSSEWrapper.Types
         /// FTDI SPI Configuration Options
         /// </summary>
         public FtdiConfigOptions configOptions;
+        /// <summary>
+        /// The FTDI cable pin to use for SPI CS
+        /// </summary>
         public int Pin;
+        /// <summary>
+        /// FTDI reserved for future use
+        /// </summary>
         public short reserved;
     }
 }

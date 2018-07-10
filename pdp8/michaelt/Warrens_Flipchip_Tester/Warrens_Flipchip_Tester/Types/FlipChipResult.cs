@@ -27,16 +27,37 @@ using System.Text;
 namespace Warrens_Flipchip_Tester.Types
 {
     /// <summary>
-    /// The return values when a Text Vector is processed
+    /// The return values when a Test Vector is processed
     /// </summary>
     public enum FlipChipTestResult
     {
+        /// <summary>
+        /// The FlipChip Test Vector worked OK
+        /// </summary>
         Ok = 0,
+        /// <summary>
+        /// The FlipChip Test Vector had an invalid result
+        /// </summary>
         InvalidTestResult,
+        /// <summary>
+        /// The FlipChip Test Vector had an invalid pin
+        /// </summary>
         InvalidPin,
+        /// <summary>
+        /// The Vdd power to the FlipChip is off
+        /// </summary>
         VppPowerIsOff,
+        /// <summary>
+        /// The SPI bus test failed
+        /// </summary>
         SpiTestFailed,
+        /// <summary>
+        /// There was an I/O error to the SPI bus
+        /// </summary>
         IoError,
+        /// <summary>
+        /// All of the Test Vectors have been executed successfully
+        /// </summary>
         FinishedWithTests,
     }
 }

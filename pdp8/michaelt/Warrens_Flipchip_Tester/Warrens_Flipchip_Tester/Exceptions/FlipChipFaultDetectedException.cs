@@ -32,9 +32,18 @@ namespace Warrens_Flipchip_Tester.Exceptions
     /// </summary>
     public class FlipchipTesterException : Exception
     {
+        /// <summary>
+        /// The reason for the Flipchip Tester Exception
+        /// </summary>
         public FlipChipTestResult Reason { get; private set; }
+        /// <summary>
+        /// The Flipchip Tester Exception Message
+        /// </summary>
         public String FlipChipTestMessage { get; private set; }
 
+        /// <summary>
+        /// The method to get the Flipchip Tester Result
+        /// </summary>
         public FlipchipTesterException(FlipChipTestResult paramName)
         {
             Reason = paramName;
