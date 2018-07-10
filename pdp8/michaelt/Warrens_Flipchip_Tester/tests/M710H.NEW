@@ -12,7 +12,7 @@ PINS
  7 I AR2 E8-5   IOP 1
  8 I AR1 E8-9   IOP 2
  9 I AP2 E8-12  IOP 4
-10 O AS1 E6-6   IOP 02 Test Point
+10 O AS1 E6-6   IOP 021 Test Point
 11 O AJ1 E6-4   CLEAR-N Test Point
 12 O AJ2 E6-2   CLOCK A Test Point
 13 O AP1 E6-12  CLOCK B Test Point
@@ -121,8 +121,12 @@ IIIIIIIIIOOOOIOOIOOIIOIIOOOIIIIIIIIOOOOOOOO
 111100
 111101
 111110
-; With a MB3-MB8 and IOP 1 on we should see AM2 Test Point on, Tests E8
-1111111  1
+; With a MB3-MB8 and IOP 4 on we should see AP1 and AJ2 Test Points on, and AU2 off, Tests E8, E6 and E9
+111111     11     0
+; With a MB3-MB8 and IOP 4 on we should see AP1 and AJ2 Test Points off, and AU2 off, Tests E8, E6 and E9
+111111  0  00     0
+; With a MB3-MB8 and IOP 1 on we should see AS1 Test Point on, Tests E8 and E6
+1111111 01
 ; With a MB3-MB8 and IOP 1 on we should see AM2 Test Point off, Tests E8
 1111110  0
 ; With a MB3-MB8 and IOP 4 on we should see AP1 Test Point off, Tests E11, E14, E8, E6
