@@ -106,6 +106,8 @@
             this.HelpTabPage = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.HelpVersionLabel = new System.Windows.Forms.Label();
+            this.HelpVersionTextBox = new System.Windows.Forms.TextBox();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.DisplayTestResultsGroupBox1.SuspendLayout();
@@ -742,6 +744,8 @@
             // HelpTabPage
             // 
             this.HelpTabPage.BackColor = System.Drawing.Color.Transparent;
+            this.HelpTabPage.Controls.Add(this.HelpVersionTextBox);
+            this.HelpTabPage.Controls.Add(this.HelpVersionLabel);
             this.HelpTabPage.Controls.Add(this.richTextBox1);
             this.HelpTabPage.Location = new System.Drawing.Point(4, 22);
             this.HelpTabPage.Name = "HelpTabPage";
@@ -770,6 +774,22 @@
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
             // 
+            // HelpVersionLabel
+            // 
+            this.HelpVersionLabel.AutoSize = true;
+            this.HelpVersionLabel.Location = new System.Drawing.Point(20, 73);
+            this.HelpVersionLabel.Name = "HelpVersionLabel";
+            this.HelpVersionLabel.Size = new System.Drawing.Size(132, 13);
+            this.HelpVersionLabel.TabIndex = 3;
+            this.HelpVersionLabel.Text = "Application Revision Level";
+            // 
+            // HelpVersionTextBox
+            // 
+            this.HelpVersionTextBox.Location = new System.Drawing.Point(23, 89);
+            this.HelpVersionTextBox.Name = "HelpVersionTextBox";
+            this.HelpVersionTextBox.Size = new System.Drawing.Size(188, 20);
+            this.HelpVersionTextBox.TabIndex = 4;
+            // 
             // Flipchip_Tester_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -795,6 +815,7 @@
             this.DiagsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceAddressNumericUpDown)).EndInit();
             this.HelpTabPage.ResumeLayout(false);
+            this.HelpTabPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -855,6 +876,8 @@
         private System.Windows.Forms.GroupBox DisplayTestResultsGroupBox1;
         private System.Windows.Forms.RadioButton DontDisplayTestResultsRadioButton;
         private System.Windows.Forms.RadioButton DisplayTestResultsRadioButton;
+        private System.Windows.Forms.TextBox HelpVersionTextBox;
+        private System.Windows.Forms.Label HelpVersionLabel;
     }
 }
 

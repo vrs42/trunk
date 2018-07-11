@@ -113,9 +113,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="libMPSSE.dll" />
+    <Content Include="Properties\AssemblyInfo_template.h" />
     <Content Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>SubWCRev.exe ..\..\Properties ..\..\Properties\AssemblyInfo_template.h ..\..\Properties\AssemblyInfo.cs</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

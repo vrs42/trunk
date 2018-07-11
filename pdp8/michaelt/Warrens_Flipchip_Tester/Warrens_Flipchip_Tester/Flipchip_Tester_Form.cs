@@ -29,6 +29,7 @@ using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows.Forms;
 using libMPSSEWrapper;
 using libMPSSEWrapper.Types;
@@ -59,6 +60,7 @@ namespace Warrens_Flipchip_Tester
         {
             InitializeComponent();
             BusSpeedTextBox.Text = WarrensFlipChipTester.BusSpeed.ToString();
+            HelpVersionTextBox.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         /// <summary>
