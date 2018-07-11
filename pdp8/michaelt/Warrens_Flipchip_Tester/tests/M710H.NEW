@@ -123,32 +123,26 @@ IIIIIIIIIOOOOIOOIOOIIOIIOOOIIIIIIIIOOOOOOOO
 111110
 ; With a MB3-MB8 and IOP 4 on we should see AP1 and AJ2 Test Points on, and AU2 off, Tests E8, E6 and E9
 111111     11     0
-; With a MB3-MB8 and IOP 4 on we should see AP1 and AJ2 Test Points off, and AU2 off, Tests E8, E6 and E9
+; With a MB3-MB8 and IOP 4 off we should see AP1 and AJ2 Test Points off, and AU2 off, Tests E8, E6 and E9
 111111  0  00     0
 ; With a MB3-MB8 and IOP 1 on we should see AS1 Test Point on, Tests E8 and E6
-1111111 01
+1111111  1
 ; With a MB3-MB8 and IOP 1 on we should see AM2 Test Point off, Tests E8
 1111110  0
-; With a MB3-MB8 and IOP 4 on we should see AP1 Test Point off, Tests E11, E14, E8, E6
-; This address will also Clear the RD 1 through RD 8 and RDR FLAG, flip-flops
-111111      1
-; With a MB3-MB8 and IOP 4 off we should see AJ1 Test Point on, Tests E13
-111111  0   0
-; With a MB3-MB8 and IOP 2 on we should see AT2 Test Point on, Tests E8
-111111 1  0  
-; With a MB3-MB8 and IOP 2 on we should see AT2 Test Point off, Tests E8
+; With a MB3-MB8 and IOP 2 on we should see AJ1 Test Point off, Tests E9, E8, E6
+; This address will Set the FLAG and ACTIVE flip-flops
+111111 1  0       1
+; With a MB3-MB8 and IOP 2 off we should see AJ1 Test Point on, Tests E9, E8, E6
 111111 0  1
-; Test the RD 0 through RD 7 flip-flops
-; Pin PV2 is on from power on
-; We need to drive pin BS2 CLOCK 1 high and low to drive the flip-flop Clock signal high and low
+; Test the PB0 through PB7 flip-flops
 ; Set the flip-flop inputs high, the outputs will be low.
-                                        11111111
-; Drive pin BS2 CLOCK high and low, ENABLE 0 will go low
-; Turn IOP2(1) on so we can see what was latched
-       1  1   1    0            00000000
-              0
+                           11111111
+; Turn IOP4 on so we latch the data, FEED SWITCH-N to high
+        1  11   1 0
+        0  00                      00000000
 ; Set the flip-flop inputs low, the outputs will be high.
-                                        00000000
-              1                 11111111
-              0
+                           00000000
+; Turn IOP4 on so we latch the data
+        1  11     0
+        0  00                      11111111
 END
