@@ -307,6 +307,22 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         /// <summary>
+        /// Open the USB/SPI bus
+        /// </summary>
+        public void OpenUSBSpi()
+        {
+
+        }
+
+        /// <summary>
+        /// Close the USB/SPI bus
+        /// </summary>
+        public void CloseUSBSpi()
+        {
+
+        }
+
+        /// <summary>
         /// Initialize the FlipChip Tester Data Structures
         /// </summary>
         public void InitializeFlipChipTester()
@@ -1534,74 +1550,12 @@ namespace Warrens_Flipchip_Tester
         {
             string ResponseText = "";
             byte[] SpiRegisterContents = new byte[2];
-            UInt16 RegisterNumber = 0;
-            UInt16 RegisterContents = 0;
+            UInt16 RegisterNumber = 0x00;
+            SpiRegisterContents[0] = 0x00;
+            SpiRegisterContents[1] = 0x00;
 
             try
-            {
-                switch (RegisterNameText)
-                {
-                    case "IODIR":
-                        {
-                            RegisterNumber = 0x00;
-                            break;
-                        }
-                    case "IOPOL":
-                        {
-                            RegisterNumber = 0x02;
-                            break;
-                        }
-                    case "GPINTEN":
-                        {
-                            RegisterNumber = 0x04;
-                            break;
-                        }
-                    case "DEFVAL":
-                        {
-                            RegisterNumber = 0x06;
-                            break;
-                        }
-                    case "INTCON":
-                        {
-                            RegisterNumber = 0x08;
-                            break;
-                        }
-                    case "IOCON":
-                        {
-                            RegisterNumber = 0x0A;
-                            break;
-                        }
-                    case "GPPU":
-                        {
-                            RegisterNumber = 0x0C;
-                            break;
-                        }
-                    case "INTF":
-                        {
-                            RegisterNumber = 0x0E;
-                            break;
-                        }
-                    case "INTCAP":
-                        {
-                            RegisterNumber = 0x10;
-                            break;
-                        }
-                    case "GPIO":
-                        {
-                            RegisterNumber = 0x12;
-                            break;
-                        }
-                    case "OLAT":
-                        {
-                            RegisterNumber = 0x14;
-                            break;
-                        }
-                }
-
-                RegisterContents = Convert.ToUInt16(RegisterContentsText, 16);
-                SpiRegisterContents[0] = Convert.ToByte(RegisterContents >> 8);
-                SpiRegisterContents[1] = Convert.ToByte(RegisterContents & 0xff);
-
+            {            
                 FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig //Configuration for the FTDI USB cable's SPI bus
                 {
                     ClockRate = SpiBusSpeed,
