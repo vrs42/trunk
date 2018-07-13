@@ -68,7 +68,7 @@ namespace Warrens_Flipchip_Tester
         //
         //**************************************************************************
 
-        private const int LatencyTimer = 2; //Small value to make USB go faster
+        private const int LatencyValue = 2; //Small value to make USB go faster
         private UInt32 MpsseChannelCount = 0;
         private int MpsseChannel = 0;
         private FtResult MpsseStatus = FtResult.Ok; //The status of the last Wrapper call command
@@ -355,7 +355,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -427,7 +427,7 @@ namespace Warrens_Flipchip_Tester
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
                 ClockRate = SpiBusSpeed,
-                LatencyTimer = LatencyTimer,
+                LatencyTimer = LatencyValue,
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
 
@@ -463,7 +463,7 @@ namespace Warrens_Flipchip_Tester
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
                 ClockRate = SpiBusSpeed,
-                LatencyTimer = LatencyTimer,
+                LatencyTimer = LatencyValue,
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
 
@@ -796,7 +796,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -955,7 +955,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -1219,7 +1219,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -1286,7 +1286,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -1363,7 +1363,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -1465,7 +1465,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -1498,7 +1498,7 @@ namespace Warrens_Flipchip_Tester
             FtdiChannelConfig SpiConfig = new FtdiChannelConfig
             {
                 ClockRate = SpiBusSpeed,
-                LatencyTimer = LatencyTimer,
+                LatencyTimer = LatencyValue,
                 configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
             };
 
@@ -1546,20 +1546,17 @@ namespace Warrens_Flipchip_Tester
         /// <param name="RegisterNameText"></param>
         /// <param name="RegisterContentsText"></param>
         /// <returns>The test results</returns>
-        public String Read100MPC23S17Registers(String DeviceAddressText, String RegisterNameText, String RegisterContentsText)
+        public String Read100MPC23S17Registers()
         {
             string ResponseText = "";
-            byte[] SpiRegisterContents = new byte[2];
-            UInt16 RegisterNumber = 0x00;
-            SpiRegisterContents[0] = 0x00;
-            SpiRegisterContents[1] = 0x00;
+            byte[] SpiRegisterContents = new byte[2] { 0x00, 0x00 };
 
             try
             {            
                 FtdiChannelConfig SpiConfig0 = new FtdiChannelConfig //Configuration for the FTDI USB cable's SPI bus
                 {
                     ClockRate = SpiBusSpeed,
-                    LatencyTimer = LatencyTimer, //Locally defined
+                    LatencyTimer = LatencyValue, //Locally defined
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 
@@ -1570,15 +1567,17 @@ namespace Warrens_Flipchip_Tester
 
                 for (int i = 0; i < 100; i++)
                 {
-                    Gpio0.WriteReadFiveRegisters(Convert.ToUInt16(DeviceAddressText, 16), RegisterNumber, SpiRegisterContents);
+                    Gpio0.WriteReadFiveRegisters(0x01, (int)MCP23S17.Register.OLAT, SpiRegisterContents);
                 }
                 timer.Stop();
                 long milliSec = timer.ElapsedMilliseconds;
 
-                long vectorsSec = (1000 / (milliSec / 100));
+                long vectorsSec = (100 / (milliSec / 1000));
 
                 ResponseText += "The elapsed time for 100 sets of 5x register write/reads was " + milliSec + "ms.\n";
                 ResponseText += "I can process " + vectorsSec + " vectors/second.";
+
+                Gpio0.Dispose(); //We are done with the MSCP23S17
             }
             catch (SpiChannelNotConnectedException)
             {
@@ -1602,7 +1601,7 @@ namespace Warrens_Flipchip_Tester
                 FtdiChannelConfig SpiConfig = new FtdiChannelConfig
                 {
                     ClockRate = BusSpeed,
-                    LatencyTimer = LatencyTimer,
+                    LatencyTimer = LatencyValue,
                     configOptions = FtdiConfigOptions.Mode0 | FtdiConfigOptions.CsDbus3 | FtdiConfigOptions.CsActivelow
                 };
 

@@ -70,7 +70,14 @@ namespace Warrens_Flipchip_Tester
         /// <param name="e"></param>
         private void BusSpeedChanged(object sender, EventArgs e)
         {
+            if (Convert.ToInt32(BusSpeedTextBox.Text) > 10000000) //Make sure that the bus speed is not set to over 10 MHz
+                BusSpeedTextBox.Text = "10000000";
+
+            if (Convert.ToInt32(BusSpeedTextBox.Text) < 1000) //Make sure that the bus speed is not set to less than 1 KHz
+                BusSpeedTextBox.Text = "1000";
+
             WarrensFlipChipTester.BusSpeed = Convert.ToInt32(BusSpeedTextBox.Text);
+            DiagRichTextBox.Text = "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed.ToString("N0") + " Hz";
         }
 
         /// <summary>
@@ -113,45 +120,80 @@ namespace Warrens_Flipchip_Tester
             DiagRichTextBox.Text = WarrensFlipChipTester.TurnOffLEDs();
         }
 
+        /// <summary>
+        /// Read the EEPROM in all of the FTDI cables
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReadEEPROMInFTDIDevicesbutton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = WarrensFlipChipTester.ReadEEPROMInFTDIDevices();
         }
 
+        /// <summary>
+        /// Get the versions of the FTDI drivers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetDriverVersionsbutton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = WarrensFlipChipTester.GetDriverVersions();
         }
 
+        /// <summary>
+        /// Read all of the MPC23S17 registers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReadMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = WarrensFlipChipTester.ReadMPC23S17Registers();
         }
 
+        /// <summary>
+        /// Read all of the MPC23S17 registers 100 times and calculate the vectors/second
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Read100kMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed + " Hz.\n" + "Reading 5x registers 100 times.\n";
 
             Application.DoEvents();
             WarrensFlipChipTester.OpenUSBSpi(); //Open the USB/SPI Channel
-            DiagRichTextBox.Text += WarrensFlipChipTester.Read100MPC23S17Registers(DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
+            DiagRichTextBox.Text += WarrensFlipChipTester.Read100MPC23S17Registers();
             WarrensFlipChipTester.CloseUSBSpi(); //Close the USB/SPI Channel
         }
 
+        /// <summary>
+        /// Write one of the MPC23S17 registers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WriteSingleMPC23S17Registerbutton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = WarrensFlipChipTester.WriteSingleMPC23S17Register(DeviceAddressNumericUpDown.Text, RegistercomboBox.SelectedItem.ToString(), RegisterContentsTextBox.Text);
         }
 
+        /// <summary>
+        /// Configure all of the MPC23S17 devices for hardware addressing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HardwareAddressEnablebutton_Click(object sender, EventArgs e)
         {
             DiagRichTextBox.Text = WarrensFlipChipTester.HardwareAddressEnable();
 
-            CycleTheLEDsButton.Enabled = true; //Enable these buttons after Harware Addressing is enabled
+            CycleTheLEDsButton.Enabled = true; //Enable these buttons after Hardware Addressing is enabled
             ReadMPC23S17Registersbutton.Enabled = true;
             WriteSingleMPC23S17Registerbutton.Enabled = true;
         }
 
+        /// <summary>
+        /// Open and process a test vector file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenTestVectorFileButton_Click(object sender, EventArgs e)
         {
             TesterRichTextBox.Text = WarrensFlipChipTester.OpenTestVectorFile();
@@ -168,6 +210,11 @@ namespace Warrens_Flipchip_Tester
             RunAllTestVectorsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// Cycle the state of the 4x LEDs on the tester
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CycleTheLEDsButton_Click(object sender, EventArgs e)
         {
             try
