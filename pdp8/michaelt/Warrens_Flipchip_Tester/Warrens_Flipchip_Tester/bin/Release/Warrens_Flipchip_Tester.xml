@@ -212,13 +212,10 @@
             Reset the SPI bus by toggling a USB Cable GPIO
             </summary>
         </member>
-        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.Read100MPC23S17Registers(System.String,System.String,System.String)">
+        <member name="M:Warrens_Flipchip_Tester.FlipChipTester.Read100MPC23S17Registers">
             <summary>
             Read 5x Registers 100 times and measure the time it takes
             </summary>
-            <param name="DeviceAddressText"></param>
-            <param name="RegisterNameText"></param>
-            <param name="RegisterContentsText"></param>
             <returns>The test results</returns>
         </member>
         <member name="M:Warrens_Flipchip_Tester.FlipChipTester.SetLedState(System.String,System.String)">
@@ -269,6 +266,62 @@
         <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.TurnOffLEDsbutton_Click(System.Object,System.EventArgs)">
             <summary>
             Turn off the LEDs in the FTDI USB cable
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.ReadEEPROMInFTDIDevicesbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Read the EEPROM in all of the FTDI cables
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.GetDriverVersionsbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Get the versions of the FTDI drivers
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.ReadMPC23S17Registersbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Read all of the MPC23S17 registers
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.Read100kMPC23S17Registersbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Read all of the MPC23S17 registers 100 times and calculate the vectors/second
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.WriteSingleMPC23S17Registerbutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Write one of the MPC23S17 registers
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.HardwareAddressEnablebutton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Configure all of the MPC23S17 devices for hardware addressing
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.OpenTestVectorFileButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Open and process a test vector file
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Warrens_Flipchip_Tester.Flipchip_Tester_Form.CycleTheLEDsButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Cycle the state of the 4x LEDs on the tester
             </summary>
             <param name="sender"></param>
             <param name="e"></param>

@@ -68,7 +68,7 @@ namespace Warrens_Flipchip_Tester
         //
         //**************************************************************************
 
-        private const int LatencyValue = 255; //Small value to make USB go faster
+        private const int LatencyValue = 1; //Small value to make USB go faster
         private UInt32 MpsseChannelCount = 0;
         private int MpsseChannel = 0;
         private FtResult MpsseStatus = FtResult.Ok; //The status of the last Wrapper call command
@@ -1542,14 +1542,11 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Read 5x Registers 100 times and measure the time it takes
         /// </summary>
-        /// <param name="DeviceAddressText"></param>
-        /// <param name="RegisterNameText"></param>
-        /// <param name="RegisterContentsText"></param>
         /// <returns>The test results</returns>
         public String Read100MPC23S17Registers()
         {
             string ResponseText = "";
-            byte[] SpiRegisterContents = new byte[2] { 0x00, 0x00 };
+            byte[] SpiRegisterContents = new byte[2] { 0x55, 0x55 };
 
             try
             {            
@@ -1582,6 +1579,10 @@ namespace Warrens_Flipchip_Tester
             catch (SpiChannelNotConnectedException)
             {
                 ResponseText = "Could not connect to USB/SPI cable.";
+            }
+            catch (DivideByZeroException)
+            {
+                ResponseText = "The USB/SPI cable didn't work.";
             }
 
             return ResponseText;

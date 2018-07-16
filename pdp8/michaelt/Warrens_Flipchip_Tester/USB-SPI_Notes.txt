@@ -1,0 +1,24 @@
+Click on Flipchip_Tester_Form.cs:Read10kMPC23S17Registersbutton
+Call Flipchip_Tester_Form.cs:Read100kMPC23S17Registersbutton_Click()
+Call FlipChipTester.cs:WarrensFlipChipTester.Read100MPC23S17Registers()
+	SpiConfig0 = new FtdiChannelConfig
+	Gpio0 = new MCP23S17(SpiConfig0)
+		SpiDevice.cs:SpiDevice(FtdiChannelConfig config, SpiConfiguration spiConfig)
+			config = SpiConfig0, spiConfig = null
+				_cfg = config, _spiConfig = channel 0
+			call SpiDevice.cs:InitLibAndHandle()
+				call SpiDevice.cs:LibMpsseSpi.SPI_OpenChannel(_spiConfig.ChannelIndex, out _handle)
+
+					This function opens the indexed channel and provides a handle to it.
+					Valid values for the index of channel can be from 0 to the value obtained using SPI_GetNumChannels - 1).
+					Returns: Pointer to the handle of type FT_HANDLE
+
+				call SpiDevice.cs:LibMpsseSpi.SPI_InitChannel(_handle, ref _cfg)
+
+					This function initializes the channel and the communication parameters associated with it.
+
+	call FlipChipTester.cs:Gpio0.WriteReadFiveRegisters(0x01, (int)MCP23S17.Register.OLAT, SpiRegisterContents)
+		call MicrochipMCP23S17.cs:Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable)
+			call SpiDevice.cs:Write(byte[] buffer, out int sizeTransfered, FtSpiTransferOptions options)
+				call SpiDevice.cs:Write(byte[] buffer, int sizeToTransfer, out int sizeTransfered, FtSpiTransferOptions options)
+					call SpiDevice.cs:LibMpsseSpi.SPI_Write(_handle, buffer, sizeToTransfer, out sizeTransfered, options)
