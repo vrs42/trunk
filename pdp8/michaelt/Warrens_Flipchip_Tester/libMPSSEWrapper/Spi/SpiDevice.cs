@@ -45,11 +45,11 @@ namespace libMPSSEWrapper.Spi
         /// <summary>
         /// Destructor for the SPI Device in the LibMpsseSpi Wrapper
         /// </summary>
-        ~SpiDevice()
-        {
-            FtResult result;
-            result = LibMpsseSpi.SPI_CloseChannel(_handle);
-        }
+        //~SpiDevice()
+        //{
+        //    FtResult result;
+        //    result = LibMpsseSpi.SPI_CloseChannel(_handle);
+        //}
 
         private void InitLibAndHandle()
         {
@@ -196,14 +196,14 @@ namespace libMPSSEWrapper.Spi
         /// </summary>
         public void Dispose()
         {
-            FtResult result;
+            //FtResult result;
 
             if (_isDisposed)
                 return;
 
             _isDisposed = true; //Yes we are disposed
-            result = LibMpsseSpi.SPI_CloseChannel(_handle); //Close the SPI channel
-            _handle = IntPtr.Zero; //Zero the handle
+            //result = LibMpsseSpi.SPI_CloseChannel(_handle); //Close the SPI channel
+            //_handle = IntPtr.Zero; //Zero the handle
             LibMpsse.Cleanup(); //Cleanup the library
         }
     }
