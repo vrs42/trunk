@@ -1545,7 +1545,8 @@ namespace Warrens_Flipchip_Tester
         /// <returns>The test results</returns>
         public String Read100MPC23S17Registers()
         {
-            string ResponseText = "";
+            String ResponseText = "";
+            String TimerResponse = "";
             byte[] SpiRegisterContents = new byte[2] { 0x55, 0x55 };
 
             try
@@ -1559,18 +1560,18 @@ namespace Warrens_Flipchip_Tester
 
                 MCP23S17 Gpio0 = new MCP23S17(SpiConfig0);
 
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
+                Stopwatch VectorTimer = new Stopwatch();
+                VectorTimer.Start();
 
                 for (int i = 0; i < 100; i++)
                 {
-                    Gpio0.WriteReadFiveRegisters(0x01, (int)MCP23S17.Register.OLAT, SpiRegisterContents);
+                    TimerResponse = Gpio0.WriteReadFiveRegisters(0x01, (int)MCP23S17.Register.OLAT, SpiRegisterContents);
                 }
-                timer.Stop();
-                long milliSec = timer.ElapsedMilliseconds;
-
+                VectorTimer.Stop();
+                long milliSec = VectorTimer.ElapsedMilliseconds;
                 long vectorsSec = (100 / (milliSec / 1000));
 
+                ResponseText += TimerResponse; //Get the SPI Write/Read timer results
                 ResponseText += "The elapsed time for 100 sets of 5x register write/reads was " + milliSec + "ms.\n";
                 ResponseText += "I can process " + vectorsSec + " vectors/second.";
 

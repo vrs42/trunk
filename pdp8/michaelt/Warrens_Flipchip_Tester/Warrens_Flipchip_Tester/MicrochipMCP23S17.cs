@@ -634,12 +634,13 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Write and then read 5x SPI registers for a speed test
         /// </summary>
-        /// <param name="DeviceAddress"></param>
-        /// <param name="Register"></param>
-        /// <param name="RegisterContents"></param>
+        /// <param name="DeviceAddress">The SPI Device Address</param>
+        /// <param name="Register">The SPI Register</param>
+        /// <param name="RegisterContents">The SPI Register Contents for the write</param>
         /// <returns></returns>
-        public int WriteReadFiveRegisters(int DeviceAddress, int Register, byte[] RegisterContents)
+        public String WriteReadFiveRegisters(int DeviceAddress, int Register, byte[] RegisterContents)
         {
+            String TimerResults = "";
             var sizeTransfered = 0;
             int ControlWord = 0x40; //0100rrr1 for this device type
    
@@ -647,9 +648,14 @@ namespace Warrens_Flipchip_Tester
             ControlWordAndRegister[0] = (byte)ControlWord;
             ControlWordAndRegister[1] = (byte)Register;
 
+            Stopwatch SpiWriteTimer = new Stopwatch(); //The timer for a SPI Register Write
+            Stopwatch SpiReadTimer = new Stopwatch(); //The timer for a SPI Register Read
+
             //5x Register writes
+            SpiWriteTimer.Start(); SpiWriteTimer.Start();
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            SpiWriteTimer.Stop();
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
@@ -663,8 +669,10 @@ namespace Warrens_Flipchip_Tester
             ControlWordAndRegister[0] = (byte)ControlWord;
 
             //5x Register Reads
+            SpiReadTimer.Start();
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            SpiReadTimer.Stop();
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
@@ -674,7 +682,22 @@ namespace Warrens_Flipchip_Tester
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
 
-            return (DoubleRegisterContents[0] << 8 | DoubleRegisterContents[1]);
+            if (Stopwatch.IsHighResolution)
+            {
+                double Frequency = Stopwatch.Frequency;
+                double MicrosecondsPerTick = (1000L * 1000L) / Frequency;
+                double WriteMicroSeconds = SpiWriteTimer.ElapsedTicks * MicrosecondsPerTick;
+                double ReadMicroSeconds = SpiReadTimer.ElapsedTicks * MicrosecondsPerTick;
+
+                TimerResults += "The Timer is High Resolution.\n";
+                TimerResults += "The Timer Frequency is " +  Frequency  + "Hz.\n";
+                TimerResults += "One SPI Write took " + Convert.ToInt64(WriteMicroSeconds) + " microseconds.\n";
+                TimerResults += "One SPI Read took " + Convert.ToInt64(ReadMicroSeconds) + " microseconds.\n";
+            }
+            else
+                TimerResults += "Sorry, no high-resolution timer is available.\n";
+
+            return TimerResults;
         }
 
         /// <summary>
