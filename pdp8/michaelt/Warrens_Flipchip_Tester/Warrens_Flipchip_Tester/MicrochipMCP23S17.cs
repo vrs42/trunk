@@ -572,7 +572,7 @@ namespace Warrens_Flipchip_Tester
         public void WriteDoubleRegister(UInt16 DeviceAddress, UInt16 Register, byte[] RegisterContents)
         {
             int sizeTransfered = 0;
-            int ControlWord = 0x40; //0x0100rrr0 for this device type and a write
+            int ControlWord = 0x40; //0x0100aaa0 for this device type and a write
 
             if (DeviceAddress < 0 | DeviceAddress > 7)
                 throw new System.ArgumentOutOfRangeException("Device Address", "The Device Address must be between 0 and 7.");
@@ -634,19 +634,19 @@ namespace Warrens_Flipchip_Tester
         /// <summary>
         /// Write and then read 5x SPI registers for a speed test
         /// </summary>
-        /// <param name="DeviceAddress">The SPI Device Address</param>
-        /// <param name="Register">The SPI Register</param>
-        /// <param name="RegisterContents">The SPI Register Contents for the write</param>
-        /// <returns></returns>
-        public String WriteReadFiveRegisters(int DeviceAddress, int Register, byte[] RegisterContents)
+        /// <returns>Timing information.</returns>
+        public String WriteReadFiveRegisters()
         {
             String TimerResults = "";
             var sizeTransfered = 0;
-            int ControlWord = 0x40; //0100rrr1 for this device type
-   
-            ControlWord |= DeviceAddress << 1; //Device Address
-            ControlWordAndRegister[0] = (byte)ControlWord;
-            ControlWordAndRegister[1] = (byte)Register;
+            int Address = 0x01; //Starting device address
+            int ControlWord = 0x40; //0100aaa0 to write this device type
+            int DeviceAddress = 0;
+            byte[] RegisterContents = new byte[2] { 0x55, 0x55 };
+
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
+            ControlWordAndRegister[1] = (byte)Register.OLAT;
 
             Stopwatch SpiWriteTimer = new Stopwatch(); //The timer for a SPI Register Write
             Stopwatch SpiReadTimer = new Stopwatch(); //The timer for a SPI Register Read
@@ -656,29 +656,55 @@ namespace Warrens_Flipchip_Tester
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             SpiWriteTimer.Stop();
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
 
-            ControlWord |= 1; //Add the read bit
-            ControlWordAndRegister[0] = (byte)ControlWord;
+            ControlWord = 0x41; //0100aaa1 to read this device type
+            Address = 0x01; //Starting device address
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
 
             //5x Register Reads
             SpiReadTimer.Start();
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             SpiReadTimer.Stop();
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            Address++;
+            DeviceAddress = Address << 1; //Device Address
+            ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             Read(DoubleRegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
 
@@ -690,7 +716,7 @@ namespace Warrens_Flipchip_Tester
                 double ReadMicroSeconds = SpiReadTimer.ElapsedTicks * MicrosecondsPerTick;
 
                 TimerResults += "The Timer is High Resolution.\n";
-                TimerResults += "The Timer Frequency is " +  Frequency  + "Hz.\n";
+                TimerResults += "The Timer Frequency is " +  Frequency  + " Hz.\n";
                 TimerResults += "One SPI Write took " + Convert.ToInt64(WriteMicroSeconds) + " microseconds.\n";
                 TimerResults += "One SPI Read took " + Convert.ToInt64(ReadMicroSeconds) + " microseconds.\n";
             }

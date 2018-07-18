@@ -1547,7 +1547,6 @@ namespace Warrens_Flipchip_Tester
         {
             String ResponseText = "";
             String TimerResponse = "";
-            byte[] SpiRegisterContents = new byte[2] { 0x55, 0x55 };
 
             try
             {            
@@ -1565,7 +1564,7 @@ namespace Warrens_Flipchip_Tester
 
                 for (int i = 0; i < 100; i++)
                 {
-                    TimerResponse = Gpio0.WriteReadFiveRegisters(0x01, (int)MCP23S17.Register.OLAT, SpiRegisterContents);
+                    TimerResponse = Gpio0.WriteReadFiveRegisters();
                 }
                 VectorTimer.Stop();
                 long milliSec = VectorTimer.ElapsedMilliseconds;
