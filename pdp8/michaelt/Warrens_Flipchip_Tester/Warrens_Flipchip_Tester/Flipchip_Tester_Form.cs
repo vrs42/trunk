@@ -157,9 +157,11 @@ namespace Warrens_Flipchip_Tester
         /// <param name="e"></param>
         private void Read100kMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed + " Hz.\n" + "Reading 5x registers 100 times.\n";
+            DiagRichTextBox.Text = WarrensFlipChipTester.GetDriverVersions();
+            DiagRichTextBox.Text += WarrensFlipChipTester.ScanForFtdiMpsseDevices();
+            DiagRichTextBox.Text += "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed + " Hz.\n";
+            Application.DoEvents(); //Get the text on the screen
 
-            Application.DoEvents();
             WarrensFlipChipTester.OpenUSBSpi(); //Open the USB/SPI Channel
             DiagRichTextBox.Text += WarrensFlipChipTester.Read100MPC23S17Registers();
             WarrensFlipChipTester.CloseUSBSpi(); //Close the USB/SPI Channel
