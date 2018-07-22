@@ -137,7 +137,7 @@ namespace Warrens_Flipchip_Tester
         /// <param name="e"></param>
         private void GetDriverVersionsbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.GetDriverVersions();
+            DiagRichTextBox.Text = WarrensFlipChipTester.GetFtdiDriverVersions();
         }
 
         /// <summary>
@@ -157,7 +157,17 @@ namespace Warrens_Flipchip_Tester
         /// <param name="e"></param>
         private void Read100kMPC23S17Registersbutton_Click(object sender, EventArgs e)
         {
-            DiagRichTextBox.Text = WarrensFlipChipTester.GetDriverVersions();
+            if (Environment.Is64BitOperatingSystem)
+                DiagRichTextBox.Text ="The Windows Operating System is 64-bit.\n";
+            else
+                DiagRichTextBox.Text = "The Windows Operating System is 32-bit.\n";
+            if (Environment.Is64BitProcess)
+                DiagRichTextBox.Text += "The FlipChip Tester Application is 64-bit.\n";
+            else
+                DiagRichTextBox.Text += "The FlipChip Tester Application is 32-bit.\n";
+
+            DiagRichTextBox.Text += "The libMPSSEWrapper.dll version is: " + AssemblyName.GetAssemblyName(@"libMPSSEWrapper.dll ").Version + ".\n";
+            DiagRichTextBox.Text += WarrensFlipChipTester.GetFtdiDriverVersions();
             DiagRichTextBox.Text += WarrensFlipChipTester.ScanForFtdiMpsseDevices();
             DiagRichTextBox.Text += "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed + " Hz.\n";
             Application.DoEvents(); //Get the text on the screen

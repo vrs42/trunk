@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -991,7 +992,7 @@ namespace Warrens_Flipchip_Tester
         /// Get the versions of the SPI and USB drivers
         /// </summary>
         /// <returns>The results of the query</returns>
-        public String GetDriverVersions()
+        public String GetFtdiDriverVersions()
         {
             uint Version = 0;
             uint MajorVersion = 0;
