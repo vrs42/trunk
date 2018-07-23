@@ -1,0 +1,81 @@
+Raspberry Pi Setup Instructions:
+
+There are a number of steps you'll need to carry out on your Raspberry Pi to 
+get it set up with the Flip Chip Tester software.
+
+First, you need to locate a flash drive with a suitable version of Linux for 
+your Pi.  Since Pi software continuously changes, you'll probably want to get 
+that from your Pi vendor or www.raspberrypi.org.  NOOBS is fine.
+
+You'll need a monitor, keyboard, and mouse at first.  Once you've got that 
+running, and can log in as "pi", do the following (or whatever the equivalent 
+is on your system:
+
+Use Menu->Preferences->RasPi Configuration to:
+	Check "Disabled" for serial.
+	Check "Enabled" for ssh.
+	In Localization->Locale, select USA for Country (or your country).
+	In Localization->Timezone, select US for Area (or your area).
+	In Localization->Timezone, select Pacific for Location (etc).
+	In Localization->Keyboard, select United States.
+	In Wifi->Country, select US.
+Reboot for the new settings to take effect.
+
+Click the Networking icon, and select an access point.  Enter the Wifi password.
+Verify the networking is working by using the browser icon to fire up the 
+browser and going somewhere other than the welcome page.
+
+A variety of packages may be useful.  Here's what I found during my 
+installation:
+	cc, perl, and python were already present.
+	vi was present, emacs was not.
+	cs (C# compiler) was not.
+	git was present, but svn (subversion) was not.
+Of these, you will need at least cc (the C compiler), and svn.
+
+To get them, I did these commands:
+	sudo apt-get install subversion
+	sudo apt-get update
+
+In order to access the GPIO pins, you'll need a user who logs in into group 
+"gpio".  I did the following:
+	sudo adduser --ingroup gpio --add_extra_groups tester
+I used the password "tester123", answered "Flip Chip Tester" for name, and 
+just hit enter for everything else.
+
+As a shortcut to allow my new user to use sudo, I did:
+	sudo visudo
+and copy-pasted the line for "pi" to make another copy, and changed the new 
+line to say "tester" instead.
+
+Use Shutdown->Log out, then log in as the new "tester" user.
+Get the tester software:
+	svn co http://svn.so-much-stuff.com/svn/trunk/pdp8/warren/RasPi/ .
+You want the dot out there by itself!
+	cd src
+	make
+
+To test an M216 module:
+	./tester
+Enter "1" to read a file, enter "m216.tst" for the name.
+Flip the switch on the tester so that the yellow UUT power LED is NOT LIT.
+Insert the module you wish to test.
+Enter "4".  It should complain that UUT Power is off.
+Flip the switch on the tester, and the UUT Power light should light.
+Enter "4" again to confirm that initializion is working.
+Enter <garbled>
+
+Since every Pi installation comes with user "pi" set to the same password, 
+let's fix that.  I used "tester123" again as the password:
+	sudo passwd pi
+
+Also, we don't need the user "pi" autologin, so use 
+Menu->Prefereces->RasPi Configuration to clear the System->Log in as pi 
+checkbox.
+
+It should now be possible to ssh in as user "tester".  If that works, you can 
+use the menus to Shutdown-Shutdown, or just:
+	sudo halt
+Remove the keyboard, mouse, and monitor, and your tester is good to go.
+
+	Vince
