@@ -34,6 +34,7 @@ namespace Warrens_Flipchip_Tester
         byte[] ControlWordAndRegister = new byte[2]; //A place to hold the Control Word and Register Address
         byte[] SingleRegisterContents = new byte[1]; //A place to hold the register contents that we just read
         byte[] DoubleRegisterContents = new byte[2]; //A place to hold the register contents that we just read
+        byte[] ControlWordRegisterData = new byte[4]; //A place to hold the Control Word and Register Address and tge register contents
 
         /// <summary>
         /// The Register Addresses
@@ -651,10 +652,15 @@ namespace Warrens_Flipchip_Tester
             Stopwatch SpiWriteTimer = new Stopwatch(); //The timer for a SPI Register Write
             Stopwatch SpiReadTimer = new Stopwatch(); //The timer for a SPI Register Read
 
+            ControlWordRegisterData[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
+            ControlWordRegisterData[1] = (byte)Register.OLAT;
+            ControlWordRegisterData[2] = 0x01;
+            ControlWordRegisterData[3] = 0x01;
+
             //5x Register writes
             SpiWriteTimer.Start(); SpiWriteTimer.Start();
-            Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
-            Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
+            Write(ControlWordRegisterData, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
+            //Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             SpiWriteTimer.Stop();
             Address++;
             DeviceAddress = Address << 1; //Device Address
