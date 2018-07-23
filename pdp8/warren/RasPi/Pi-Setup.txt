@@ -52,7 +52,16 @@ Use Shutdown->Log out, then log in as the new "tester" user.
 Get the tester software:
 	svn co http://svn.so-much-stuff.com/svn/trunk/pdp8/warren/RasPi/ .
 You want the dot out there by itself!
+
+Make sure that src/TESTS exists and is a symlink to something sensible:
 	cd src
+	ls TESTS/.
+If it is not, do this:
+	rm TESTS
+	ln -s $HOME/TESTS TESTS
+
+Subversion will not generally check in unmodified files, even though their 
+date stamps change.  To work around this and bring everything up to date:
 	make
 
 To test an M216 module:
