@@ -642,7 +642,7 @@ namespace Warrens_Flipchip_Tester
             int Address = 0x01; //Starting device address
             int ControlWord = 0x40; //0100aaa0 to write this device type
             int DeviceAddress = 0;
-            byte[] RegisterContents = new byte[2] { 0x55, 0x55 };
+            byte[] RegisterContents = new byte[2] { 0x01, 0x01 };
 
             DeviceAddress = Address << 1; //Device Address
             ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
@@ -660,21 +660,29 @@ namespace Warrens_Flipchip_Tester
             DeviceAddress = Address << 1; //Device Address
             ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
+            RegisterContents[0] = 0x02;
+            RegisterContents[1] = 0x02;
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             Address++;
             DeviceAddress = Address << 1; //Device Address
             ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
+            RegisterContents[0] = 0x03;
+            RegisterContents[1] = 0x03;
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             Address++;
             DeviceAddress = Address << 1; //Device Address
             ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
+            RegisterContents[0] = 0x04;
+            RegisterContents[1] = 0x04;
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             Address++;
             DeviceAddress = Address << 1; //Device Address
             ControlWordAndRegister[0] = (byte)(ControlWord | DeviceAddress); //Device Address;
             Write(ControlWordAndRegister, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
+            RegisterContents[0] = 0x05;
+            RegisterContents[1] = 0x05;
             Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
 
             ControlWord = 0x41; //0100aaa1 to read this device type

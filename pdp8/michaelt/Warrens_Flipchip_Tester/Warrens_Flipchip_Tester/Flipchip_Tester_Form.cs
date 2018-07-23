@@ -166,7 +166,8 @@ namespace Warrens_Flipchip_Tester
             else
                 DiagRichTextBox.Text += "The FlipChip Tester Application is 32-bit.\n";
 
-            DiagRichTextBox.Text += "The libMPSSEWrapper.dll version is: " + AssemblyName.GetAssemblyName(@"libMPSSEWrapper.dll ").Version + ".\n";
+            DiagRichTextBox.Text += "The FlipChip Tester Application version is: " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + ".\n";
+            DiagRichTextBox.Text += "The libMPSSEWrapper.dll version is: " + AssemblyName.GetAssemblyName(@"libMPSSEWrapper.dll").Version + ".\n";
             DiagRichTextBox.Text += WarrensFlipChipTester.GetFtdiDriverVersions();
             DiagRichTextBox.Text += WarrensFlipChipTester.ScanForFtdiMpsseDevices();
             DiagRichTextBox.Text += "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed + " Hz.\n";

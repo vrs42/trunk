@@ -1001,24 +1001,12 @@ namespace Warrens_Flipchip_Tester
 
             string ResponseText = "";
 
+            //ResponseText += "The libMPSSE.dll version is: " + AssemblyName.GetAssemblyName(@"libMPSSE.dll").Version + ".\n";
+
             FtdiStatus = FtdiUSB0.OpenByIndex(0); //We need to open one of the FTDI devices to load the driver
 
             if (FtdiStatus == FTDI.FT_STATUS.FT_OK)
             {
-                FtdiStatus = FtdiUSB0.GetDriverVersion(ref Version);
-
-                if (FtdiStatus == FTDI.FT_STATUS.FT_OK)
-                {
-                    MajorVersion = (Version & 0x00FF0000) >> 16;
-                    MinorVersion = (Version & 0x0000FF00) >> 8;
-                    BuildVersion = (Version & 0x000000FF);
-
-                    ResponseText += "The FTDIBUS.SYS driver version is: " + MajorVersion.ToString("X2") + "." +
-                        MinorVersion.ToString("X2") + "." + BuildVersion.ToString("X2") + "\n";
-                }
-                else
-                    ResponseText += "I could not get the FTDIBUS.SYS driver version.\n";
-
                 FtdiStatus = FtdiUSB0.GetLibraryVersion(ref Version);
 
                 if (FtdiStatus == FTDI.FT_STATUS.FT_OK)
@@ -1032,7 +1020,21 @@ namespace Warrens_Flipchip_Tester
                             MinorVersion.ToString("X2") + "." + BuildVersion.ToString("X2") + "\n";
                 }
                 else
-                    ResponseText += "I could not get the FTD2XX.dl driver version.\n";
+                    ResponseText += "I could not get the FTD2XX.dll driver version.\n";
+
+                FtdiStatus = FtdiUSB0.GetDriverVersion(ref Version);
+
+                if (FtdiStatus == FTDI.FT_STATUS.FT_OK)
+                {
+                    MajorVersion = (Version & 0x00FF0000) >> 16;
+                    MinorVersion = (Version & 0x0000FF00) >> 8;
+                    BuildVersion = (Version & 0x000000FF);
+
+                    ResponseText += "The FTDIBUS.SYS driver version is: " + MajorVersion.ToString("X2") + "." +
+                        MinorVersion.ToString("X2") + "." + BuildVersion.ToString("X2") + "\n";
+                }
+                else
+                    ResponseText += "I could not get the FTDIBUS.SYS driver version.\n";
 
                 FtdiStatus = FtdiUSB0.Close();
             }
