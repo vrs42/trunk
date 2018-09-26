@@ -10,7 +10,7 @@ all: .
 # valid, exist, and are spelled with the correct upper and 
 # lower case.
 test:
-	@find . -name "*.htm" -print | xargs ./casechk.pl
-	@find . -name "*.html" -print | xargs ./casechk.pl
-	@find . -name "*.shtml" -print | xargs ./casechk.pl
-	@find . -name "*.php" -print | xargs ./casechk.pl
+	@find . -name "*.htm" -print0 | xargs -0 ./casechk.pl
+	@find . -name "*.html" -print0 | xargs -0 ./casechk.pl
+	@find . -name "*.shtml" -print0 | xargs -0 ./casechk.pl
+	@find . -name "*.php" -print0 | xargs -0 ./casechk.pl

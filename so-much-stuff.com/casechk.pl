@@ -72,12 +72,13 @@ for $i (@ARGV) {
   #
   # Innocently assume each href fits on a single line, for now.
   foreach $txt (<INPUT>) {
-    while ($txt =~ s/(href|src)=([^\s>]+)//) {
+    while ($txt =~ s/\b(href|src)=("[^"]*"|[^\s>]+)//) {
       $ref = $2;
       $ref =~ s/"([^"]*)"/\1/g;
       $ref =~ s/'([^']*)'/\1/g;
       next if $ref =~ /^(mailto|http):/;
       next if $ref =~ /\$/; # Skip variable references
+      next if $ref =~ /\[/; # Skip variable references
       next if $ref =~ /^\#/; # Pound sign must be first.
       die "$i: Illegal character in '$ref'\n" if $ref =~ /\#/;
       $ref = $1 if $ref =~ /^"(.*)"$/;
