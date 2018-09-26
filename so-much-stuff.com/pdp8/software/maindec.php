@@ -471,6 +471,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d9ka-pb.od>maindec-08-d9ka-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>DR8-EA 12 Channel Interface on DW8/E Converter
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dgdra-a-d.pdf>maindec-08-dgdra-a-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>Extended Memory Control
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dgmca-b-pb>maindec-08-dgmca-b-pb</a><td>(BIN image)<tr>
@@ -527,6 +532,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>DR8-EA 12 Channel Interface
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhdra-a-d.pdf>maindec-08-dhdra-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhdra-a-pb>maindec-08-dhdra-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhdra-a-pb.od>maindec-08-dhdra-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
@@ -985,6 +991,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>VT8-E Video Display Test 1
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvta-b-d.pdf>maindec-08-dhvta-b-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvta-b-pb>maindec-08-dhvta-b-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvta-b-pb.od>maindec-08-dhvta-b-pb.od</a><td>(BIN image in octal)<tr>
 </table>
@@ -1014,6 +1021,16 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/didfc-a-d.pdf>maindec-08-didfc-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/didfc-a-pb>maindec-08-didfc-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/didfc-a-pb.od>maindec-08-didfc-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>KL8-JA Loopback Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dikla-b-d.pdf>maindec-08-dikla-b-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
+<td>KL8-JA Loopback Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dikla-c-d.pdf>maindec-08-dikla-c-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>KL8-JA Teletype Test
