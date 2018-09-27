@@ -214,6 +214,19 @@ desired.
   </A></TD>
 </TR>
 </TABLE>
+<DT>Thanks!
+<P>
+This tester wouldn't have been possible without the help of these 
+folks:
+<P>
+Warren Stearns of course, for creating the tester on which this work 
+is based.
+<P>
+Doug Ingraham, obtaining an image of Warren's laptop and exracting 
+the software to run the tester.
+<P>
+Michael Thompson and the team at RICM, for his extensive assistance
+with the hardware debug, as well as their work with Warren.
 </DL>
 
 <?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
