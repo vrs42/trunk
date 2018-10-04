@@ -46,6 +46,13 @@ when referring to the older part numbers.
 <col width=50%>
 <col width=50%>
 </tr><tr>
+<td>Instruction Test, part 1
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./801-1-pm>maindec-801-1-pm</a><td>(RIM image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./801-1-pm.lbl>maindec-801-1-pm.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./801-1-pm.od>maindec-801-1-pm.od</a><td>(RIM image in octal)<tr>
+</table>
+</tr><tr>
 <td>TTY Punch Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./812-pm>maindec-812-pm</a><td>(RIM image)<tr>
@@ -657,6 +664,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>PDP-8/E Extended Memory Data
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkma-a-d.pdf>maindec-08-dhkma-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkma-a-pb>maindec-08-dhkma-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkma-a-pb.od>maindec-08-dhkma-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
@@ -1151,18 +1159,21 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/divtc-a-pb.od>maindec-08-divtc-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>DC8-AA Option Text No. 1
+<td>DC8-AA Option Test No. 1
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-b-d.pdf>maindec-08-djdka-b-d.pdf</a><td>(PDF write-up)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-b-pb>maindec-08-djdka-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-b-pb.lbl>maindec-08-djdka-b-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-b-pb.od>maindec-08-djdka-b-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>DC8-AA Option Text No. 1
+<td>DC8-AA Option Test No. 1
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-c-pb>maindec-08-djdka-c-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-c-pb.od>maindec-08-djdka-c-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>DC8-AA Option Text No. 1
+<td>DC8-AA Option Test No. 1
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-d-bn.htm>maindec-08-djdka-d-bn.htm</a><td>(Saved web page)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djdka-d-pb>maindec-08-djdka-d-pb</a><td>(BIN image)<tr>
@@ -1174,6 +1185,8 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djexb-a-d.pdf>maindec-08-djexb-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djexb-a-pb>maindec-08-djexb-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djexb-a-pb.od>maindec-08-djexb-a-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djexb-a-pm>maindec-08-djexb-a-pm</a><td>(RIM image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djexb-a-pm.od>maindec-08-djexb-a-pm.od</a><td>(RIM image in octal)<tr>
 </table>
 </tr><tr>
 <td>PDP-8/A 4K-32K Exerciser
@@ -1205,6 +1218,8 @@ when referring to the older part numbers.
 <td>KK8A PDP-8/A CPU Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djkka-b-d.pdf>maindec-08-djkka-b-d.pdf</a><td>(PDF write-up)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djkka-b-pb>maindec-08-djkka-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djkka-b-pb.od>maindec-08-djkka-b-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>KK8A PDP-8/A CPU Test
@@ -1237,6 +1252,13 @@ when referring to the older part numbers.
 </tr><tr>
 <td>KM8-A Option Test No. 2
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djkma-a-d.pdf>maindec-08-djkma-a-d.pdf</a><td>(PDF write-up)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djkma-a-pb>maindec-08-djkma-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djkma-a-pb.od>maindec-08-djkma-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>KM8-A Option Test No. 2
+<td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djkma-b-d.pdf>maindec-08-djkma-b-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
@@ -1252,6 +1274,8 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-d.pdf>maindec-08-djmsa-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-pb>maindec-08-djmsa-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-pb.od>maindec-08-djmsa-a-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-pm>maindec-08-djmsa-a-pm</a><td>(RIM image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-pm.od>maindec-08-djmsa-a-pm.od</a><td>(RIM image in octal)<tr>
 </table>
 </tr><tr>
 <td>VT78 MOS Memory Test

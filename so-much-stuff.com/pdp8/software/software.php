@@ -10,7 +10,8 @@
     <DIV>My plan is to index here as much PDP-8 related software as possible.
     <P>So far, what I have is:
     <UL>
-    <LI> an index of the <A href=maindec.php>DEC diagnostic software</A>.
+    <LI> an index of the <A href=dec.php>DEC-xx software</A>.
+    <LI> an index of the <A href=maindec.php>MAINDEC diagnostic software</A>.
     <LI> an index of the <A href=decus.php>DECUS (contributed) software</A>.
     </UL>
 <TABLE>
