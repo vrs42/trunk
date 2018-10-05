@@ -1,5 +1,5 @@
 <?php
-  $title = "ASR43 Teletype";
+  $title = "KSR43 Teletype";
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
 
@@ -7,7 +7,7 @@
 <TR>
 <TD vAlign=top>
     <P><FONT size=3>
-    <DIV>I have a couple of ASR-43 terminals:
+    <DIV>I have a couple of KSR-43 terminals:
 <TABLE>
 <TR>
   <TD>
@@ -16,8 +16,8 @@
     <BR>My model 43 terminals.
   </A></TD>
 </TABLE>
-    <P>These actually consist of a KSR-43 unit, with reader/punch units that bolt 
-on the side.
+    <P>These are actually a pair of KSR-43.  ASR-43 would have reader/punch 
+units that bolt on the side, but I have never found those.
     <P>At least one of these seems to work OK, but they are on the shelf for now, 
 as it seems virtually impossible to find ribbons for them.  (I actually have several 
 of the ribbons, but it seems they are all dried out.)
