@@ -45,6 +45,18 @@ int port, speed, mode, modem;
     case 4:
       fname = "/dev/com4";
       break;
+    case 5:
+      fname = "/dev/ttyUSB0";
+      break;
+    case 6:
+      fname = "/dev/ttyUSB1";
+      break;  
+    case 7:
+      fname = "/dev/ttyUSB2";
+      break;
+    case 8:
+      fname = "/dev/ttyUSB3";  
+      break;
     default:
       return ERANGE;	// Invalid port number
   }

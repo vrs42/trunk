@@ -1,5 +1,5 @@
 CFLAGS = -Wall -Wno-multichar
-LFLAGS = -l:libncurses.a
+LFLAGS = -l ncurses
 ALL = gtty2.0.o comm.o video.o
 
 all: gtty gtty.zip
