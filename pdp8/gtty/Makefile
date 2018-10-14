@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wno-multichar
+CFLAGS = -Wall
 LFLAGS = -l ncurses
 ALL = gtty2.0.o comm.o video.o
 

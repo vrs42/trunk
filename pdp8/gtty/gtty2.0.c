@@ -52,8 +52,13 @@ main(int argc, char *argv[])
         j = (toupper((int)*p++)<<8); // VRS - Order these two ++ operators.
         switch(j|toupper((int)*p++)) {
 
-            case '-B':
-                ptxt=argv[++i];
+#define DASH(c) (('-'<<8)+(c))
+            case DASH('B'):
+                if (!*p) p = argv[++i];
+                if (!p || !*p) {
+                    p = "0";
+                }
+                ptxt=p;
                 found=0;
                 for (j=0; j<9; ++j) {
                     if(!strcmp(ptxt, baudtext[j])) {
@@ -68,20 +73,28 @@ main(int argc, char *argv[])
             /*  printf("debug baud=%d\n",baud); */
                 break;
 
-            case '-C':
+            case DASH('C'):
                 crflag=1;
                 break;
 
-            case '-N':
+            case DASH('N'):
                 ctsflag=0;
                 break;
 
-            case '-P':
-                port=atoi(argv[++i]);
+            case DASH('P'):
+                if (!*p) p = argv[++i];
+                if (!p || !*p) {
+                    p = "0";
+                }
+                port=atoi(p);
                 break;
 
-            case '-S':
-                switch (atoi(argv[++i])) {
+            case DASH('S'):
+                if (!*p) p = argv[++i];
+                if (!p || !*p) {
+                    p = "0";
+                }
+                switch (atoi(p)) {
                     case 1:
                         sbits=STOP_1;
                         break;
@@ -94,12 +107,16 @@ main(int argc, char *argv[])
                 }
                 break;
 
-            case '-T':
-                tabsiz=atoi(argv[++i]);
+            case DASH('T'):
+                if (!*p) p = argv[++i];
+                if (!p || !*p) {
+                    p = "0";
+                }
+                tabsiz=atoi(argv[i]);
                 if(!tabsiz) tabsiz=8;
                 break;
 
-            case '-H':
+            case DASH('H'):
                 fprintf(stderr, "Usage: %s [-b baud] [-c] [-h] [-n] [-p port] [-s bits] [-t tabsize]\n", argv[0]);
                 exit(0);
 
@@ -248,9 +265,8 @@ main(int argc, char *argv[])
         }
 
         if(((kbd&0xff00) == 0) && (kbd > 0)) {
-            if (kbd == 10) {
-                if (crflag) Cputc(kbd | 0x80); /* LF for non-OS/8 use */
-                kbd=13; /* CR for OS/8 */
+            if (kbd == '\r') {
+                if (crflag) Cputc('\n' | 0x80); /* LF for non-OS/8 use */
             }
             Cputc(kbd | 0x80);
         }

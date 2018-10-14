@@ -102,8 +102,12 @@ char chr;
         move(y, x);
       }
       break;
-    default:
+    case '\b':
+    case '\r':
       addch(chr);
+    default:
+      if (chr >= ' ')
+        addch(chr);
   }
   getyx(stdscr, y, x);
   V_XY = xy(x, y);
@@ -143,7 +147,7 @@ vtstc()
     case KEY_DC:
       return _KBS;
     case KEY_BACKSPACE:
-      return _KBS;
+      return '\b';
     case KEY_F(1):
       return _K1;
     case KEY_F(2):
