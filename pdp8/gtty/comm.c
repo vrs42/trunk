@@ -129,19 +129,21 @@ int
 Ctestc()
 {
   char buf;
-  int flags;
+  int flags, ret;
 
   // Set nodelay.
-  if (fcntl(cfd, F_GETFL, &flags) < 0)
+  flags = fcntl(cfd, F_GETFL, 0);
+  if (flags == -1)
     return -1;
-  if (fcntl(cfd, F_SETFL, flags|O_NDELAY) < 0)
+  if (fcntl(cfd, F_SETFL, flags|O_NONBLOCK) == -1)
     return -1;
   // Try to read a character.
-  if (read(cfd, &buf, 1) < 0)
-    buf = -1;
+  ret = read(cfd, &buf, 1);
   // Unset nodelay.
-  if (fcntl(cfd, F_SETFL, flags) < 0)
+  if (fcntl(cfd, F_SETFL, flags) == -1)
     abort();
+  if (ret < 0)
+    return ret;
   return buf;
 }
 
