@@ -155,6 +155,9 @@ int
 Csignals()
 {
   int i;
+
+  // Wait for output to drain, so that CTS is accurate.
+  tcsetattr(cfd, TCSADRAIN, &config);
   // BUGBUG: The caller checks == for CTS, so must 
   //         not return other bits.
   i = 0;
