@@ -73,7 +73,11 @@
 
 extern char Cflags;			/* Driver control flags */
 
+#ifdef __MSDOS__
 extern int Copen(int port, int speed, int mode, int modem);
+#else
+extern int Copen(char *port, int speed, int mode, int modem);
+#endif
 extern void Cclose();
 extern int Cgetc();
 extern void Cputc(char c);

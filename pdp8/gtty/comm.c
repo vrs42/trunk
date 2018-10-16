@@ -18,11 +18,14 @@ static struct termios config;
 // and performing I/O on COM ports.
 //
 
+#ifndef __MSDOS__
+#define MyCopen Copen
+#endif
 int
-Copen(port, speed, mode, modem)
-int port, speed, mode, modem;
+MyCopen(fname, speed, mode, modem)
+char *fname;
+int speed, mode, modem;
 {
-  char *fname;
   const int speeds[] = {
     _110,  _300,   _600,   _1200,  _2400,  _4800,
     _9600, _19200, _38400, _57600, _115200 };
@@ -31,35 +34,6 @@ int port, speed, mode, modem;
     B9600, B19200, B38400, B57600, B115200 };
   int baud, i;
 
-  // Get File Handle
-  switch (port) {
-    case 1:
-      fname = "/dev/com1";
-      break;
-    case 2:
-      fname = "/dev/com2";
-      break;
-    case 3:
-      fname = "/dev/com3";
-      break;
-    case 4:
-      fname = "/dev/com4";
-      break;
-    case 5:
-      fname = "/dev/ttyUSB0";
-      break;
-    case 6:
-      fname = "/dev/ttyUSB1";
-      break;  
-    case 7:
-      fname = "/dev/ttyUSB2";
-      break;
-    case 8:
-      fname = "/dev/ttyUSB3";  
-      break;
-    default:
-      return ERANGE;	// Invalid port number
-  }
   cfd = open(fname, O_RDWR|O_NOCTTY);
   if (cfd < 0)
     return errno;
@@ -100,6 +74,36 @@ int port, speed, mode, modem;
     return errno;
   return 0;			// Success!
 }
+
+// __MSDOS__ is not expected to be #defined.
+// (If you've got a POSIX environment for DOS, you can try it.)
+#ifdef __MSDOS__
+int
+Copen(port, speed, mode, modem)
+int port, speed, mode, modem;
+{
+  char *fname;
+
+  // Get File Handle
+  switch (port) {
+    case 1:
+      fname = "/dev/com1";
+      break;
+    case 2:
+      fname = "/dev/com2";
+      break;
+    case 3:
+      fname = "/dev/com3";
+      break;
+    case 4:
+      fname = "/dev/com4";
+      break;
+    default:
+      return ERANGE;	// Invalid port number
+  }
+  return MyCopen(fname, speed, mode, modem);
+}
+#endif
 
 void
 Cclose()

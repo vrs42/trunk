@@ -34,7 +34,12 @@ main(int argc, char *argv[])
 
     char *p, *ptxt;
     unsigned baud;
-    int c, d, build, found, i, j, port, skip, sbits, strip, tcr, tspace;
+#ifdef __MSDOS__
+    int port;
+#else
+    char *port;
+#endif
+    int c, d, build, found, i, j, skip, sbits, strip, tcr, tspace;
     int com, kbd, savpos, tabpos, tabsiz, crflag, cflag, ctsflag, morech;
     char fname[40+1], lname[40+1], yn[1+1];
 
@@ -45,7 +50,12 @@ main(int argc, char *argv[])
     tabsiz=8;      /* default tab size */
 
     /* Communication Defaults */
-    ctsflag=1; port=1; baud=_9600; sbits=STOP_1;
+#ifdef __MSDOS__
+    port=1;
+#else
+    port="/dev/com1";
+#endif
+    ctsflag=1; baud=_9600; sbits=STOP_1;
 
     for (i=1; i<argc; ++i) {
         p=argv[i];
@@ -84,9 +94,13 @@ main(int argc, char *argv[])
             case DASH('P'):
                 if (!*p) p = argv[++i];
                 if (!p || !*p) {
-                    p = "0";
+                    p = "/dev/ttyUSB0";
                 }
+#ifdef __MSDOS__
                 port=atoi(p);
+#else
+                port=p;
+#endif
                 break;
 
             case DASH('S'):
@@ -129,7 +143,11 @@ main(int argc, char *argv[])
 
 
     if (Copen(port, baud, PAR_NO|DATA_8|sbits, SET_RTS|SET_DTR|OUTPUT_2)) {
+#ifdef __MSDOS__
         fprintf(stderr,"Cannot open COM port %1d\n",port);
+#else
+        fprintf(stderr,"Cannot open COM port %s\n",port);
+#endif
         exit(1);
     }
 
@@ -140,7 +158,7 @@ main(int argc, char *argv[])
     vopen();
     vcursor_line();
     vprintf("GTTY (c) Bickley Consulting West Inc. 2006\n");
-    vprintf("Version 2.0 (GCC Port)\n\n");
+    vprintf("$Id$\n\n");
     vupdatexy();
 
     while (1) {
