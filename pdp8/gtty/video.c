@@ -48,6 +48,7 @@ v_printf(char *fmt, ...)
 
   ret = vw_printw(stdscr, fmt, args);
   getyx(stdscr, y, x);
+  refresh(); // Is this needed?
   V_XY = xy(x, y);
   va_end(args);
   return ret;
@@ -66,24 +67,30 @@ vgets(x, y, prompt, field, width)
 int x, y, width;
 char *prompt, *field;
 {
-  move(x, y);
-  // BUGBUG: Don't bother with box subwindow here.
-  //box(stdscr, '|', '-');
-  move(x, y); // redundant
-  printw(prompt);
+  WINDOW *win;
+
+  win = newwin(0, 0, 0, 0);
+  // BUGBUG: Don't bother with a box for the new window.
+  //box(win, '|', '-');
+  mvwprintw(win, y, x, prompt);
   echo();
   noraw();
   nodelay(stdscr, 0);
-  if (getnstr(field, width) != OK) {
+  if (wgetnstr(win, field, width) != OK) {
+    delwin(win);
     noecho();
     raw();
     nodelay(stdscr, 1);
+    touchwin(stdscr);
+    wrefresh(stdscr);
     return 1;
   }
+  delwin(win);
   noecho();
   raw();
   nodelay(stdscr, 1);
-  vclscr();
+  touchwin(stdscr);
+  wrefresh(stdscr);
   return 0;
 }
 
@@ -104,10 +111,10 @@ char chr;
       break;
     case '\b':
     case '\r':
-      addch(chr);
+      echochar(chr);
     default:
       if (chr >= ' ')
-        addch(chr);
+        echochar(chr);
   }
   getyx(stdscr, y, x);
   V_XY = xy(x, y);
@@ -178,8 +185,8 @@ void
 vgotoxy(x, y)
 int x, y;
 {
-  move(0, 0);
-  V_XY = xy(0, 0);
+  move(y, x);
+  V_XY = xy(x, y);
 }
 
 void
