@@ -5,7 +5,9 @@
 #include <sys/ioctl.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <termios.h>
 
 char Cflags;
@@ -33,7 +35,17 @@ int speed, mode, modem;
     B110,  B300,   B600,   B1200,  B2400,  B4800,
     B9600, B19200, B38400, B57600, B115200 };
   int baud, i;
+  char buf[40+1];
 
+  i = atoi(fname);
+  if (i > 0) {
+#ifdef __CYGWIN__
+    sprintf(buf, "/dev/com%d", i);
+#else
+    sprintf(buf, "/dev/USB%d", i-1);
+#endif
+    fname = buf;
+  }
   cfd = open(fname, O_RDWR|O_NOCTTY);
   if (cfd < 0)
     return errno;

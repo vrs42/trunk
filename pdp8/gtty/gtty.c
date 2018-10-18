@@ -53,7 +53,7 @@ main(int argc, char *argv[])
 #ifdef __MSDOS__
     port=1;
 #else
-    port="/dev/com1";
+    port="1";
 #endif
     ctsflag=1; baud=_9600; sbits=STOP_1;
 
@@ -94,7 +94,7 @@ main(int argc, char *argv[])
             case DASH('P'):
                 if (!*p) p = argv[++i];
                 if (!p || !*p) {
-                    p = "/dev/ttyUSB0";
+                    p = "1";
                 }
 #ifdef __MSDOS__
                 port=atoi(p);
