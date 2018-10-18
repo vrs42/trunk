@@ -42,7 +42,7 @@ int speed, mode, modem;
 #ifdef __CYGWIN__
     sprintf(buf, "/dev/com%d", i);
 #else
-    sprintf(buf, "/dev/USB%d", i-1);
+    sprintf(buf, "/dev/ttyUSB%d", i-1);
 #endif
     fname = buf;
   }
