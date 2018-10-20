@@ -256,6 +256,7 @@ main(int argc, char *argv[])
                 vupdatexy();
                 cflag=0;
             }
+            vprintf("\nCapture file '%s' open...\n", fname);
         }
 
         /* F5 is Close Capture File */
@@ -264,7 +265,7 @@ main(int argc, char *argv[])
             if(cflag) {
                 fclose(fhc);
                 cflag=0;
-                vprintf("\nCapture file closed...\n");
+                vprintf("Capture file closed.\n");
                 vupdatexy();
             }
         }
