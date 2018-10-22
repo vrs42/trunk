@@ -1,9 +1,14 @@
+AK = ../../../pdp8/src/ak
 DEC = ../../../pdp8/src/dec
 DECUS = ../../../pdp8/src/decus
 MAINDEC = ../../../pdp8/src/maindec
-ALL = dec.php decus.php maindec.php 
+ALL = ak.php dec.php decus.php maindec.php 
 
 all:	$(ALL)
+
+ak.php: .
+	cd $(AK); ./publish.pl
+	(cd $(AK); tar cf - $@) | tar xvf -
 
 dec.php: .
 	cd $(DEC); ./publish.pl
