@@ -191,6 +191,14 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/aj6e-pb.od>dec-08-aj6e-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>Focal, 1968 + Initial Dialogue
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/ajab-d.pdf>dec-08-ajab-d.pdf</a><td>(PDF write-up)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/ajab-pb>dec-08-ajab-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/ajab-pb.lbl>dec-08-ajab-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/ajab-pb.od>dec-08-ajab-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
 <td>Focal, 1969 + Initial Dialogue
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/ajae-pb>dec-08-ajae-pb</a><td>(BIN image)<tr>
@@ -217,6 +225,13 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/cddb-pb>dec-08-cddb-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/cddb-pb.lbl>dec-08-cddb-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/cddb-pb.od>dec-08-cddb-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>MACRO-8
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/cmaa-d.pdf>dec-08-cmaa-d.pdf</a><td>(PDF write-up)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/cmaa-pb>dec-08-cmaa-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/cmaa-pb.od>dec-08-cmaa-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>ODT Debugger (Low)
@@ -252,6 +267,13 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/d5db-pb>dec-08-d5db-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/d5db-pb.lbl>dec-08-d5db-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/d5db-pb.od>dec-08-d5db-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>DP01A Bit Synchronous IOT and Data Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/d8fa-pb>dec-08-d8fa-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/d8fa-pb.lbl>dec-08-d8fa-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/d8fa-pb.od>dec-08-d8fa-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>Symbolic Tape Editor
@@ -299,9 +321,17 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 </tr><tr>
 <td>BIN Loader
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa-d.pdf>dec-08-lbaa-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa-pm>dec-08-lbaa-pm</a><td>(RIM image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa-pm.lbl>dec-08-lbaa-pm.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa-pm.od>dec-08-lbaa-pm.od</a><td>(RIM image in octal)<tr>
+</table>
+</tr><tr>
+<td>Focal-8 Family of 8 Overlay
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lfoca-a-pb>dec-08-lfoca-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lfoca-a-pb.lbl>dec-08-lfoca-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lfoca-a-pb.od>dec-08-lfoca-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>Help Bootstrap Loader
@@ -316,6 +346,13 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lha2-pb>dec-08-lha2-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lha2-pb.lbl>dec-08-lha2-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lha2-pb.od>dec-08-lha2-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>PAL III, replaces DEC-08-ASB1
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lpala-a-pb>dec-08-lpala-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lpala-a-pb.lbl>dec-08-lpala-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lpala-a-pb.od>dec-08-lpala-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>TC01 Bootstrap Loader
@@ -381,6 +418,12 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/yisb-pa.lbl>dec-08-yisb-pa.lbl</a><td>(PAL Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/yisb-pa.od>dec-08-yisb-pa.od</a><td>(PAL image in octal)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/yisb-pa.txt>dec-08-yisb-pa.txt</a><td>(PAL Source as text file)<tr>
+</table>
+</tr><tr>
+<td>Octal Memory Dump
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/yppa-pb>dec-08-yppa-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/yppa-pb.od>dec-08-yppa-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>DECtape Copy Routine
@@ -497,6 +540,60 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/zj6a-pb>dec-08-zj6a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/zj6a-pb.lbl>dec-08-zj6a-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/zj6a-pb.od>dec-08-zj6a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</table>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b>dec-12</b>: Titles suitable for the PDP-12.
+
+</LEGEND><table width=100% border=1>
+<col width=50%>
+<col width=50%>
+</tr><tr>
+<td>OS/12 FORTRAN IV ADC Routine
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa1>dec-12-lliba-b-pa1</a><td>(DEC PAL tape #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa1.lbl.jpg>dec-12-lliba-b-pa1.lbl.jpg</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa1.od>dec-12-lliba-b-pa1.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa1.txt>dec-12-lliba-b-pa1.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa2>dec-12-lliba-b-pa2</a><td>(DEC PAL tape #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa2.lbl.jpg>dec-12-lliba-b-pa2.lbl.jpg</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa2.od>dec-12-lliba-b-pa2.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa2.txt>dec-12-lliba-b-pa2.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa3>dec-12-lliba-b-pa3</a><td>(DEC PAL tape #3)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa3.lbl>dec-12-lliba-b-pa3.lbl</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa3.lbl.jpg>dec-12-lliba-b-pa3.lbl.jpg</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa3.od>dec-12-lliba-b-pa3.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./12/lliba-b-pa3.txt>dec-12-lliba-b-pa3.txt</a><td>(PAL Source as text file)<tr>
+</table>
+</table>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b>dec-8e</b>: Titles suitable for the PDP-8/E.
+
+</LEGEND><table width=100% border=1>
+<col width=50%>
+<col width=50%>
+</tr><tr>
+<td>Focal-8 and Init
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb>dec-8e-lfoca-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb.lbl>dec-8e-lfoca-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb.od>dec-8e-lfoca-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>Focal-8 Quad
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lquda-a-pb>dec-8e-lquda-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lquda-a-pb.lbl>dec-8e-lquda-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lquda-a-pb.od>dec-8e-lquda-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>Self Starting Binary Loader
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/xbina-a-pb>dec-8e-xbina-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/xbina-a-pb.lbl>dec-8e-xbina-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/xbina-a-pb.od>dec-8e-xbina-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </table>
 </FIELDSET>
@@ -787,6 +884,386 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./p8/yrxa-pb>dec-p8-yrxa-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./p8/yrxa-pb.lbl>dec-p8-yrxa-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./p8/yrxa-pb.od>dec-p8-yrxa-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</table>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b>dec-s8</b>: Titles suitable for the OS/8 environment.
+
+</LEGEND><table width=100% border=1>
+<col width=50%>
+<col width=50%>
+</tr><tr>
+<td>BASIC-8 (8K)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb1>dec-s8-lbasa-a-pb1</a><td>(BIN image #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb1.od>dec-s8-lbasa-a-pb1.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb2>dec-s8-lbasa-a-pb2</a><td>(BIN image #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb2.od>dec-s8-lbasa-a-pb2.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb3>dec-s8-lbasa-a-pb3</a><td>(BIN image #3)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb3.od>dec-s8-lbasa-a-pb3.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb4>dec-s8-lbasa-a-pb4</a><td>(BIN image #4)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb4.od>dec-s8-lbasa-a-pb4.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb5>dec-s8-lbasa-a-pb5</a><td>(BIN image #5)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lbasa-a-pb5.od>dec-s8-lbasa-a-pb5.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAN IV Compiler (F4.SV)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps1>dec-s8-lfiva-b-ps1</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps1.lbl.jpg>dec-s8-lfiva-b-ps1.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps1.od>dec-s8-lfiva-b-ps1.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps2>dec-s8-lfiva-b-ps2</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps2.lbl.jpg>dec-s8-lfiva-b-ps2.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps2.od>dec-s8-lfiva-b-ps2.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps3>dec-s8-lfiva-b-ps3</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps3.lbl.jpg>dec-s8-lfiva-b-ps3.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps3.od>dec-s8-lfiva-b-ps3.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps4>dec-s8-lfiva-b-ps4</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps4.lbl.jpg>dec-s8-lfiva-b-ps4.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfiva-b-ps4.od>dec-s8-lfiva-b-ps4.od</a><td>(OS/8 .SV image octal dump)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAN II Compiler
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfora-b-pb>dec-s8-lfora-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfora-b-pb.lbl.jpg>dec-s8-lfora-b-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lfora-b-pb.od>dec-s8-lfora-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAN IV Librarian (LIBRA)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/llbra-b-ps>dec-s8-llbra-b-ps</a><td>(OS/8 .SV image (paper tape))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/llbra-b-ps.od>dec-s8-llbra-b-ps.od</a><td>(OS/8 .SV image octal dump)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAN IV Library (FORLIB)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps1>dec-s8-lliba-b-ps1</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps1.lbl.jpg>dec-s8-lliba-b-ps1.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps1.od>dec-s8-lliba-b-ps1.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps2>dec-s8-lliba-b-ps2</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps2.lbl.jpg>dec-s8-lliba-b-ps2.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps2.od>dec-s8-lliba-b-ps2.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps3>dec-s8-lliba-b-ps3</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps3.lbl.jpg>dec-s8-lliba-b-ps3.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps3.od>dec-s8-lliba-b-ps3.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps4>dec-s8-lliba-b-ps4</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps4.lbl.jpg>dec-s8-lliba-b-ps4.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps4.od>dec-s8-lliba-b-ps4.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps5>dec-s8-lliba-b-ps5</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps5.lbl.jpg>dec-s8-lliba-b-ps5.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps5.od>dec-s8-lliba-b-ps5.od</a><td>(OS/8 .SV image octal dump)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps6>dec-s8-lliba-b-ps6</a><td>(OS/8 .SV image (paper tape #1))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps6.lbl.jpg>dec-s8-lliba-b-ps6.lbl.jpg</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lliba-b-ps6.od>dec-s8-lliba-b-ps6.od</a><td>(OS/8 .SV image octal dump)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAM IV Loader
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lloda-b-ps>dec-s8-lloda-b-ps</a><td>(OS/8 .SV image (paper tape))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lloda-b-ps.od>dec-s8-lloda-b-ps.od</a><td>(OS/8 .SV image octal dump)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAN IV RALF
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lrafa-b-ps>dec-s8-lrafa-b-ps</a><td>(OS/8 .SV image (paper tape))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lrafa-b-ps.od>dec-s8-lrafa-b-ps.od</a><td>(OS/8 .SV image octal dump)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAN IV V02 FRTS.SV
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lrtsa-b-ps>dec-s8-lrtsa-b-ps</a><td>(OS/8 .SV image (paper tape))<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lrtsa-b-ps.lbl>dec-s8-lrtsa-b-ps.lbl</a><td>(OS/8 .SV image tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/lrtsa-b-ps.od>dec-s8-lrtsa-b-ps.od</a><td>(OS/8 .SV image octal dump)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Auxiliary Device Drivers
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/obada-b-pb>dec-s8-obada-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/obada-b-pb.od>dec-s8-obada-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Batch
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/obata-a-pb>dec-s8-obata-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/obata-a-pb.od>dec-s8-obata-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Builder (BUILD)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oblda-b-pb>dec-s8-oblda-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oblda-b-pb.od>dec-s8-oblda-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Configuration (CONFIG)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa1>dec-s8-ocfga-b-pa1</a><td>(DEC PAL tape #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa1.lbl.jpg>dec-s8-ocfga-b-pa1.lbl.jpg</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa1.od>dec-s8-ocfga-b-pa1.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa1.txt>dec-s8-ocfga-b-pa1.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa2>dec-s8-ocfga-b-pa2</a><td>(DEC PAL tape #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa2.lbl.jpg>dec-s8-ocfga-b-pa2.lbl.jpg</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa2.od>dec-s8-ocfga-b-pa2.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa2.txt>dec-s8-ocfga-b-pa2.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa3>dec-s8-ocfga-b-pa3</a><td>(DEC PAL tape #3)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa3.lbl.jpg>dec-s8-ocfga-b-pa3.lbl.jpg</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa3.od>dec-s8-ocfga-b-pa3.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocfga-b-pa3.txt>dec-s8-ocfga-b-pa3.txt</a><td>(PAL Source as text file)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Command Decoder/ODT
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocmda-b-pb>dec-s8-ocmda-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocmda-b-pb.od>dec-s8-ocmda-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Cross Reverence Program (CREF)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocrfa-b-pb>dec-s8-ocrfa-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocrfa-b-pb.lbl.jpg>dec-s8-ocrfa-b-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ocrfa-b-pb.od>dec-s8-ocrfa-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 DF32 Configure
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oddfa-b-pb>dec-s8-oddfa-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oddfa-b-pb.od>dec-s8-oddfa-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 RF08 Configure
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/odrfa-b-pb>dec-s8-odrfa-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/odrfa-b-pb.od>dec-s8-odrfa-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 RK8 Configure
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/odrka-b-pb>dec-s8-odrka-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/odrka-b-pb.od>dec-s8-odrka-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Editor (EDIT)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oedta-b-pb>dec-s8-oedta-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oedta-b-pb.lbl.jpg>dec-s8-oedta-b-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oedta-b-pb.od>dec-s8-oedta-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 FORTRAN Library (LIB 8)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oliba-b-pr>dec-s8-oliba-b-pr</a><td>(Fortram Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oliba-b-pr.od>dec-s8-oliba-b-pr.od</a><td>(Fortral Library image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Linking Loader
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ollda-b-pb>dec-s8-ollda-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ollda-b-pb.lbl.jpg>dec-s8-ollda-b-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ollda-b-pb.od>dec-s8-ollda-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Library Setup (LIBSET)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/olsta-b-pb>dec-s8-olsta-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/olsta-b-pb.od>dec-s8-olsta-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Monitor and Absolute Loader
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oos8a-b-pb>dec-s8-oos8a-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oos8a-b-pb.od>dec-s8-oos8a-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 PAL 8 Assembler
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/opala-b-pb>dec-s8-opala-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/opala-b-pb.lbl.jpg>dec-s8-opala-b-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/opala-b-pb.od>dec-s8-opala-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 PIP
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/opipa-b-pb>dec-s8-opipa-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/opipa-b-pb.lbl.jpg>dec-s8-opipa-b-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/opipa-b-pb.od>dec-s8-opipa-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 SABR Assembler
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osaba-b-pb>dec-s8-osaba-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osaba-b-pb.lbl.jpg>dec-s8-osaba-b-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osaba-b-pb.od>dec-s8-osaba-b-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 VIII Base System
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa>dec-s8-osysb-a-pa</a><td>(DEC PAL tape)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa.lbl>dec-s8-osysb-a-pa.lbl</a><td>(PAL Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa.od>dec-s8-osysb-a-pa.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa.txt>dec-s8-osysb-a-pa.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa1>dec-s8-osysb-a-pa1</a><td>(DEC PAL tape #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa1.od>dec-s8-osysb-a-pa1.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa1.txt>dec-s8-osysb-a-pa1.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa2>dec-s8-osysb-a-pa2</a><td>(DEC PAL tape #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa2.od>dec-s8-osysb-a-pa2.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa2.txt>dec-s8-osysb-a-pa2.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa3>dec-s8-osysb-a-pa3</a><td>(DEC PAL tape #3)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa3.od>dec-s8-osysb-a-pa3.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa3.txt>dec-s8-osysb-a-pa3.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa4>dec-s8-osysb-a-pa4</a><td>(DEC PAL tape #4)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa4.od>dec-s8-osysb-a-pa4.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa4.txt>dec-s8-osysb-a-pa4.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa5>dec-s8-osysb-a-pa5</a><td>(DEC PAL tape #5)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa5.od>dec-s8-osysb-a-pa5.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa5.txt>dec-s8-osysb-a-pa5.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa6>dec-s8-osysb-a-pa6</a><td>(DEC PAL tape #6)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa6.od>dec-s8-osysb-a-pa6.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa6.txt>dec-s8-osysb-a-pa6.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa7>dec-s8-osysb-a-pa7</a><td>(DEC PAL tape #7)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa7.od>dec-s8-osysb-a-pa7.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa7.txt>dec-s8-osysb-a-pa7.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa8>dec-s8-osysb-a-pa8</a><td>(DEC PAL tape #8)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa8.od>dec-s8-osysb-a-pa8.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa8.txt>dec-s8-osysb-a-pa8.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa9>dec-s8-osysb-a-pa9</a><td>(DEC PAL tape #9)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa9.od>dec-s8-osysb-a-pa9.od</a><td>(PAL image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pa9.txt>dec-s8-osysb-a-pa9.txt</a><td>(PAL Source as text file)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb1>dec-s8-osysb-a-pb1</a><td>(BIN image #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb1.lbl.jpg>dec-s8-osysb-a-pb1.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb1.od>dec-s8-osysb-a-pb1.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb10>dec-s8-osysb-a-pb10</a><td>(BIN image #10)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb10.lbl.jpg>dec-s8-osysb-a-pb10.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb10.od>dec-s8-osysb-a-pb10.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb11>dec-s8-osysb-a-pb11</a><td>(BIN image #11)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb11.lbl.jpg>dec-s8-osysb-a-pb11.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb11.od>dec-s8-osysb-a-pb11.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb12>dec-s8-osysb-a-pb12</a><td>(BIN image #12)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb12.lbl.jpg>dec-s8-osysb-a-pb12.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb12.od>dec-s8-osysb-a-pb12.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb13>dec-s8-osysb-a-pb13</a><td>(BIN image #13)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb13.lbl.jpg>dec-s8-osysb-a-pb13.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb13.od>dec-s8-osysb-a-pb13.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb14>dec-s8-osysb-a-pb14</a><td>(BIN image #14)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb14.lbl.jpg>dec-s8-osysb-a-pb14.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb14.od>dec-s8-osysb-a-pb14.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb15>dec-s8-osysb-a-pb15</a><td>(BIN image #15)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb15.lbl.jpg>dec-s8-osysb-a-pb15.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb15.od>dec-s8-osysb-a-pb15.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb16>dec-s8-osysb-a-pb16</a><td>(BIN image #16)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb16.lbl.jpg>dec-s8-osysb-a-pb16.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb16.od>dec-s8-osysb-a-pb16.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb17>dec-s8-osysb-a-pb17</a><td>(BIN image #17)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb17.lbl.jpg>dec-s8-osysb-a-pb17.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb17.od>dec-s8-osysb-a-pb17.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb18>dec-s8-osysb-a-pb18</a><td>(BIN image #18)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb18.lbl.jpg>dec-s8-osysb-a-pb18.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb18.od>dec-s8-osysb-a-pb18.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb19>dec-s8-osysb-a-pb19</a><td>(BIN image #19)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb19.lbl.jpg>dec-s8-osysb-a-pb19.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb19.od>dec-s8-osysb-a-pb19.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb2>dec-s8-osysb-a-pb2</a><td>(BIN image #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb2.lbl.jpg>dec-s8-osysb-a-pb2.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb2.od>dec-s8-osysb-a-pb2.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb20>dec-s8-osysb-a-pb20</a><td>(BIN image #20)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb20.lbl.jpg>dec-s8-osysb-a-pb20.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb20.od>dec-s8-osysb-a-pb20.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb21>dec-s8-osysb-a-pb21</a><td>(BIN image #21)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb21.lbl.jpg>dec-s8-osysb-a-pb21.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb21.od>dec-s8-osysb-a-pb21.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb22>dec-s8-osysb-a-pb22</a><td>(BIN image #22)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb22.lbl.jpg>dec-s8-osysb-a-pb22.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb22.od>dec-s8-osysb-a-pb22.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb23>dec-s8-osysb-a-pb23</a><td>(BIN image #23)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb23.lbl.jpg>dec-s8-osysb-a-pb23.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb23.od>dec-s8-osysb-a-pb23.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb24>dec-s8-osysb-a-pb24</a><td>(BIN image #24)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb24.lbl.jpg>dec-s8-osysb-a-pb24.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb24.od>dec-s8-osysb-a-pb24.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb3>dec-s8-osysb-a-pb3</a><td>(BIN image #3)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb3.lbl.jpg>dec-s8-osysb-a-pb3.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb3.od>dec-s8-osysb-a-pb3.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb4>dec-s8-osysb-a-pb4</a><td>(BIN image #4)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb4.lbl.jpg>dec-s8-osysb-a-pb4.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb4.od>dec-s8-osysb-a-pb4.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb5>dec-s8-osysb-a-pb5</a><td>(BIN image #5)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb5.lbl.jpg>dec-s8-osysb-a-pb5.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb5.od>dec-s8-osysb-a-pb5.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb6>dec-s8-osysb-a-pb6</a><td>(BIN image #6)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb6.lbl.jpg>dec-s8-osysb-a-pb6.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb6.od>dec-s8-osysb-a-pb6.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb7>dec-s8-osysb-a-pb7</a><td>(BIN image #7)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb7.lbl.jpg>dec-s8-osysb-a-pb7.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb7.od>dec-s8-osysb-a-pb7.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb8>dec-s8-osysb-a-pb8</a><td>(BIN image #8)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb8.lbl.jpg>dec-s8-osysb-a-pb8.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb8.od>dec-s8-osysb-a-pb8.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb9>dec-s8-osysb-a-pb9</a><td>(BIN image #9)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb9.lbl.jpg>dec-s8-osysb-a-pb9.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb9.od>dec-s8-osysb-a-pb9.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr>dec-s8-osysb-a-pr</a><td>(Fortram Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr.lbl>dec-s8-osysb-a-pr.lbl</a><td>(Fortram Library image label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr.od>dec-s8-osysb-a-pr.od</a><td>(Fortral Library image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Bitmap
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ubita-a-pb>dec-s8-ubita-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/ubita-a-pb.od>dec-s8-ubita-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 VIII Extensions
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb1>dec-s8-uextb-a-pb1</a><td>(BIN image #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb1.lbl.jpg>dec-s8-uextb-a-pb1.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb1.od>dec-s8-uextb-a-pb1.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb2>dec-s8-uextb-a-pb2</a><td>(BIN image #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb2.lbl.jpg>dec-s8-uextb-a-pb2.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb2.od>dec-s8-uextb-a-pb2.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb3>dec-s8-uextb-a-pb3</a><td>(BIN image #3)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb3.lbl.jpg>dec-s8-uextb-a-pb3.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb3.od>dec-s8-uextb-a-pb3.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb4>dec-s8-uextb-a-pb4</a><td>(BIN image #4)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb4.lbl.jpg>dec-s8-uextb-a-pb4.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb4.od>dec-s8-uextb-a-pb4.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb5>dec-s8-uextb-a-pb5</a><td>(BIN image #5)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb5.lbl.jpg>dec-s8-uextb-a-pb5.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb5.od>dec-s8-uextb-a-pb5.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb6>dec-s8-uextb-a-pb6</a><td>(BIN image #6)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb6.lbl.jpg>dec-s8-uextb-a-pb6.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb6.od>dec-s8-uextb-a-pb6.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb7>dec-s8-uextb-a-pb7</a><td>(BIN image #7)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb7.lbl.jpg>dec-s8-uextb-a-pb7.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb7.od>dec-s8-uextb-a-pb7.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb8>dec-s8-uextb-a-pb8</a><td>(BIN image #8)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb8.lbl.jpg>dec-s8-uextb-a-pb8.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb8.od>dec-s8-uextb-a-pb8.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb9>dec-s8-uextb-a-pb9</a><td>(BIN image #9)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb9.lbl.jpg>dec-s8-uextb-a-pb9.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb9.od>dec-s8-uextb-a-pb9.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr>dec-s8-uextb-a-pr</a><td>(Fortram Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr.lbl.jpg>dec-s8-uextb-a-pr.lbl.jpg</a><td>(Fortram Library image label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr.od>dec-s8-uextb-a-pr.od</a><td>(Fortral Library image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 EPIC (Edit, Patch, & Compare)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uptha-a-pb>dec-s8-uptha-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uptha-a-pb.lbl>dec-s8-uptha-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uptha-a-pb.od>dec-s8-uptha-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 Source Compare (SRCCOM)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/usrca-a-pb>dec-s8-usrca-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/usrca-a-pb.od>dec-s8-usrca-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 TECO
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uteca-a-pb>dec-s8-uteca-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uteca-a-pb.lbl.jpg>dec-s8-uteca-a-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uteca-a-pb.od>dec-s8-uteca-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </table>
 </FIELDSET>
