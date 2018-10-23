@@ -425,6 +425,10 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A603 target=_blank>./DEC/Axxx/A603</a></b>: 2 Bit DAC
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A604 target=_blank>./DEC/Axxx/A604</a></b>: 2-bit D-A Converter
 
 </LEGEND><DL>
