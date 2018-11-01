@@ -130,7 +130,7 @@ Cgetc()
   char buf;
   if (read(cfd, &buf, 1) < 0)
     return -1;
-  return buf;
+  return 0xff & buf;
 }
 
 void
@@ -160,7 +160,7 @@ Ctestc()
     abort();
   if (ret < 0)
     return ret;
-  return buf;
+  return 0xff & buf;
 }
 
 int
