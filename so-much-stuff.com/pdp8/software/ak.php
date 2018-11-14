@@ -104,6 +104,13 @@ test.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./5606c-ba-pb.od>5606c-ba-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>AHDKAB0 DK8E Clock Diagnostic
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./6222b-ma-pb>6222b-ma-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./6222b-ma-pb.lbl.jpg>6222b-ma-pb.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./6222b-ma-pb.od>6222b-ma-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
 <td>LA36 Terminal Diagnostic
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./6537e-ma-pb>6537e-ma-pb</a><td>(BIN image)<tr>
@@ -124,8 +131,8 @@ test.
 <td>RL8-A Diskless Controller Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./c658d-ma_ajrlad0-pb>c658d-ma_ajrlad0-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./c658d-ma_ajrlad0-pb.lbl.jpg>c658d-ma_ajrlad0-pb.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./c658d-ma_ajrlad0-pb.od>c658d-ma_ajrlad0-pb.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./c658d-ma_ajrlad0.lbl.jpg>c658d-ma_ajrlad0.lbl.jpg</a><td>(Tape label image)<tr>
 </table>
 </tr><tr>
 <td>RL8/RL02 Drive, Part 1
@@ -136,8 +143,8 @@ test.
 <td>RL8/RL02 Drive, Part 1
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f363b-ma_ajrlhb0-pb>f363b-ma_ajrlhb0-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f363b-ma_ajrlhb0-pb.lbl.jpg>f363b-ma_ajrlhb0-pb.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f363b-ma_ajrlhb0-pb.od>f363b-ma_ajrlhb0-pb.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f363b-ma_ajrlhb0.lbl.jpg>f363b-ma_ajrlhb0.lbl.jpg</a><td>(Tape label image)<tr>
 </table>
 </tr><tr>
 <td>RL8/RL02 Drive, Part 2
@@ -148,8 +155,8 @@ test.
 <td>RL8/RL02 Drive, Part 2
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f367b-ma_ajrlib0-pb>f367b-ma_ajrlib0-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f367b-ma_ajrlib0-pb.lbl.jpg>f367b-ma_ajrlib0-pb.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f367b-ma_ajrlib0-pb.od>f367b-ma_ajrlib0-pb.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f367b-ma_ajrlib0.lbl.jpg>f367b-ma_ajrlib0.lbl.jpg</a><td>(Tape label image)<tr>
 </table>
 </tr><tr>
 <td>RL8/RL02 Drive Compatibility Test
@@ -160,8 +167,8 @@ test.
 <td>RL8/RL02 Drive Compatibility Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f371b-ma_ajrljb0-pb>f371b-ma_ajrljb0-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f371b-ma_ajrljb0-pb.lbl.jpg>f371b-ma_ajrljb0-pb.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f371b-ma_ajrljb0-pb.od>f371b-ma_ajrljb0-pb.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f371b-ma_ajrljb0.lbl.jpg>f371b-ma_ajrljb0.lbl.jpg</a><td>(Tape label image)<tr>
 </table>
 </tr><tr>
 <td>RL8/RL02 Performance Exerciser
@@ -172,8 +179,8 @@ test.
 <td>RL8/RL02 Performance Exerciser
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f375b-ma_ajrlkb0-pb>f375b-ma_ajrlkb0-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f375b-ma_ajrlkb0-pb.lbl.jpg>f375b-ma_ajrlkb0-pb.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f375b-ma_ajrlkb0-pb.od>f375b-ma_ajrlkb0-pb.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f375b-ma_ajrlkb0.lbl.jpg>f375b-ma_ajrlkb0.lbl.jpg</a><td>(Tape label image)<tr>
 </table>
 </tr><tr>
 <td>RL8/RL02 Pack Verifier
@@ -184,8 +191,8 @@ test.
 <td>RL8/RL02 Pack Verifier
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f379b-ma_ajrllb0-pb>f379b-ma_ajrllb0-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f379b-ma_ajrllb0-pb.lbl.jpg>f379b-ma_ajrllb0-pb.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f379b-ma_ajrllb0-pb.od>f379b-ma_ajrllb0-pb.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/ak/./f379b-ma_ajrllb0.lbl.jpg>f379b-ma_ajrllb0.lbl.jpg</a><td>(Tape label image)<tr>
 </table>
 </tr><tr>
 <td>RL8-A Tests

@@ -106,6 +106,16 @@ when referring to the older part numbers.
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./ac-6527d-ma.pdf>maindec-ac-6527d-ma.pdf</a><td>(PDF write-up)<tr>
 </table>
+</tr><tr>
+<td>Simple DR8E test program
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./dr8ea-pb>maindec-dr8ea-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./dr8ea-pb.lbl.jpg>maindec-dr8ea-pb.lbl.jpg</a><td>(Tape label image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./dr8ea-pb.od>maindec-dr8ea-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./dr8ea.bin>maindec-dr8ea.bin</a><td>(BIN format)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./dr8ea.lst>maindec-dr8ea.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./dr8ea.pal>maindec-dr8ea.pal</a><td>(PAL source)<tr>
+</table>
 </table>
 <FIELDSET><LEGEND>
   <b>maindec-08</b>: Diagnostics suitable for more than one CPU model.
@@ -1070,6 +1080,7 @@ when referring to the older part numbers.
 <td>VC8-E Display Diagnostic
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvca-a-pb>maindec-08-dhvca-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvca-a-pb.lbl.jpg>maindec-08-dhvca-a-pb.lbl.jpg</a><td>(Tape label image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvca-a-pb.od>maindec-08-dhvca-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
@@ -1234,6 +1245,13 @@ when referring to the older part numbers.
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/divtc-a-pb>maindec-08-divtc-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/divtc-a-pb.od>maindec-08-divtc-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>AD8A A/D Converter Multiplexer Diagnostic
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djada-c-pb>maindec-08-djada-c-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djada-c-pb.lbl.jpg>maindec-08-djada-c-pb.lbl.jpg</a><td>(Tape label image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djada-c-pb.od>maindec-08-djada-c-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>DC8-AA Option Test No. 1
@@ -1904,6 +1922,13 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1bb-pb.od>maindec-8e-d1bb-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>KM8E 4K Extended Memory Checkerboard
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1bc-pb>maindec-8e-d1bc-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1bc-pb.lbl.jpg>maindec-8e-d1bc-pb.lbl.jpg</a><td>(Tape label image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1bc-pb.od>maindec-8e-d1bc-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
 <td>Memory Address Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d1ea-pm>maindec-8e-d1ea-pm</a><td>(RIM image)<tr>
@@ -1994,6 +2019,13 @@ when referring to the older part numbers.
 </tr><tr>
 <td>PDP-8/E Teletype and KL8 Asynchronous Data Control Tests
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d2ab-pb>maindec-8e-d2ab-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d2ab-pb.lbl.jpg>maindec-8e-d2ab-pb.lbl.jpg</a><td>(Tape label image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d2ab-pb.od>maindec-8e-d2ab-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>PDP-8/E Teletype and KL8 Asynchronous Data Control Tests
+<td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d2ab-d-d.pdf>maindec-8e-d2ab-d-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
@@ -2009,7 +2041,7 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d2fb-pb.od>maindec-8e-d2fb-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>TD8-E DECTape Diagnostic 
+<td>TD8-E DECTape Diagnostic
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d3aa-pb1>maindec-8e-d3aa-pb1</a><td>(BIN image #1)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d3aa-pb1.od>maindec-8e-d3aa-pb1.od</a><td>(BIN image in octal)<tr>

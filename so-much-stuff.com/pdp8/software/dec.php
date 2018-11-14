@@ -102,23 +102,23 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 </tr><tr>
 <td>8K Fortran Library Subroutines 1/2
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b4-pr>dec-08-a2b4-pr</a><td>(Fortram Library image)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b4-pr.lbl>dec-08-a2b4-pr.lbl</a><td>(Fortram Library image label)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b4-pr.od>dec-08-a2b4-pr.od</a><td>(Fortral Library image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b4-pr>dec-08-a2b4-pr</a><td>(Fortran Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b4-pr.lbl>dec-08-a2b4-pr.lbl</a><td>(Fortran Library image label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b4-pr.od>dec-08-a2b4-pr.od</a><td>(Fortran Library image in octal)<tr>
 </table>
 </tr><tr>
 <td>8K Fortran Library Subroutines 2/2
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b5-pr>dec-08-a2b5-pr</a><td>(Fortram Library image)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b5-pr.lbl>dec-08-a2b5-pr.lbl</a><td>(Fortram Library image label)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b5-pr.od>dec-08-a2b5-pr.od</a><td>(Fortral Library image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b5-pr>dec-08-a2b5-pr</a><td>(Fortran Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b5-pr.lbl>dec-08-a2b5-pr.lbl</a><td>(Fortran Library image label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b5-pr.od>dec-08-a2b5-pr.od</a><td>(Fortran Library image in octal)<tr>
 </table>
 </tr><tr>
 <td>8K Fortran Library Dectape I/O
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b6-pr>dec-08-a2b6-pr</a><td>(Fortram Library image)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b6-pr.lbl>dec-08-a2b6-pr.lbl</a><td>(Fortram Library image label)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b6-pr.od>dec-08-a2b6-pr.od</a><td>(Fortral Library image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b6-pr>dec-08-a2b6-pr</a><td>(Fortran Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b6-pr.lbl>dec-08-a2b6-pr.lbl</a><td>(Fortran Library image label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/a2b6-pr.od>dec-08-a2b6-pr.od</a><td>(Fortran Library image in octal)<tr>
 </table>
 </tr><tr>
 <td>8K SABR Assembler
@@ -1052,8 +1052,8 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 </tr><tr>
 <td>OS/8 FORTRAN Library (LIB 8)
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oliba-b-pr>dec-s8-oliba-b-pr</a><td>(Fortram Library image)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oliba-b-pr.od>dec-s8-oliba-b-pr.od</a><td>(Fortral Library image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oliba-b-pr>dec-s8-oliba-b-pr</a><td>(Fortran Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/oliba-b-pr.od>dec-s8-oliba-b-pr.od</a><td>(Fortran Library image in octal)<tr>
 </table>
 </tr><tr>
 <td>OS/8 Linking Loader
@@ -1201,9 +1201,9 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb9>dec-s8-osysb-a-pb9</a><td>(BIN image #9)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb9.lbl.jpg>dec-s8-osysb-a-pb9.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pb9.od>dec-s8-osysb-a-pb9.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr>dec-s8-osysb-a-pr</a><td>(Fortram Library image)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr.lbl>dec-s8-osysb-a-pr.lbl</a><td>(Fortram Library image label)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr.od>dec-s8-osysb-a-pr.od</a><td>(Fortral Library image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr>dec-s8-osysb-a-pr</a><td>(Fortran Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr.lbl>dec-s8-osysb-a-pr.lbl</a><td>(Fortran Library image label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/osysb-a-pr.od>dec-s8-osysb-a-pr.od</a><td>(Fortran Library image in octal)<tr>
 </table>
 </tr><tr>
 <td>OS/8 Bitmap
@@ -1241,9 +1241,9 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb9>dec-s8-uextb-a-pb9</a><td>(BIN image #9)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb9.lbl.jpg>dec-s8-uextb-a-pb9.lbl.jpg</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pb9.od>dec-s8-uextb-a-pb9.od</a><td>(BIN image in octal)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr>dec-s8-uextb-a-pr</a><td>(Fortram Library image)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr.lbl.jpg>dec-s8-uextb-a-pr.lbl.jpg</a><td>(Fortram Library image label)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr.od>dec-s8-uextb-a-pr.od</a><td>(Fortral Library image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr>dec-s8-uextb-a-pr</a><td>(Fortran Library image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr.lbl.jpg>dec-s8-uextb-a-pr.lbl.jpg</a><td>(Fortran Library image label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uextb-a-pr.od>dec-s8-uextb-a-pr.od</a><td>(Fortran Library image in octal)<tr>
 </table>
 </tr><tr>
 <td>OS/8 EPIC (Edit, Patch, & Compare)
@@ -1251,6 +1251,11 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uptha-a-pb>dec-s8-uptha-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uptha-a-pb.lbl>dec-s8-uptha-a-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uptha-a-pb.od>dec-s8-uptha-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>OS/8 EPIC (Edit, Patch, & Compare)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./s8/uptha-b-d.pdf>dec-s8-uptha-b-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>OS/8 Source Compare (SRCCOM)
