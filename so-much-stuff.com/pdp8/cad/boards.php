@@ -5470,7 +5470,7 @@ grounded to suppress warnings, and the hand-wired +5 distribution connections om
 
 </LEGEND><DL>
 <DT>Memory-4K.sch</A>
-  <DD>is a schematic by John Price of a proposed core 
+  <DD>is a schematic by John Price of a proposed core
 replacement for the 8/S.
 <DT>memory-32kx13.sch</A>
   <DD>is another schematic by John Price of a proposed
@@ -5479,15 +5479,17 @@ core replacement for the 8/S.
   <DD>is my drawing for a battery backed SRAM for the 8/S.
 This one uses an open collector bus to reduce the number of drivers.
 <DT>mtiming</A>
-  <DD>is a schematic with my notes on memory timing in the 
+  <DD>is a schematic with my notes on memory timing in the
 8/S.
 <DT>PDP8S</A>
   <DD>is a snapshot of the 8/S schematics (just the first page).
 <DT>pre-io</A>
   <DD>is another snapshot of the 8/S schematics (9 pages done).
 <DT>memory</A>
-  <DD>is a complete schematic for the 8/S, with the core memory 
+  <DD>is a complete schematic for the 8/S, with the core memory
 subsystem replaced with level converters and a ramboard.
+<DT>5403833B</A>
+  <DD>is a drawing of the front panel lights board for the 8/S.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
