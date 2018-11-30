@@ -1,5 +1,7 @@
 #pragma once
 
+#include "libMPSSE_spi.h"
+
 namespace SpiTestGui {
 
 	using namespace System;
