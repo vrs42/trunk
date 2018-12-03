@@ -1,6 +1,7 @@
 #pragma once
 
 #include "libMPSSE_spi.h"
+#include "WinTypes.h"
 
 namespace SpiTestGui {
 

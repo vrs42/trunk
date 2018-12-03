@@ -2,7 +2,7 @@
 #define __WINDOWS_TYPES__
 
 #define MAX_NUM_DEVICES 50
-#include <sys/time.h>
+//#include <sys/time.h>
 
 typedef unsigned int			DWORD;
 typedef unsigned int			ULONG;

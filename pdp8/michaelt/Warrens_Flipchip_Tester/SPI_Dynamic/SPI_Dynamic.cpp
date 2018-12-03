@@ -112,7 +112,7 @@ int main()
 
 	FT_STATUS status;
 	//FT_DEVICE_LIST_INFO_NODE devList;
-	uint8 address = 3; //Address of MCP23S17
+	uint8 address = 5; //Address of MCP23S17
 	uint8 counter = 0; //Counter value to wiggle output pins
 	channelConf.ClockRate = 100000; //100 KHz
 	channelConf.LatencyTimer = 255;
