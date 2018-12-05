@@ -90,15 +90,14 @@ FT_STATUS write_byte(uint8 address, uint8 register_contents)
 	sizeToTransfer = 32;  // 3 Bytes Opcodes + Data
 	sizeTransfered = 0;
 	buffer[0] = 0x40 | (address << 1);  //  Opcode to select device
-	buffer[1] = 0x0A;  //  Opcode for OLAT Register
-	buffer[2] = register_contents;  //  Data to write to OLAT
-	buffer[3] = register_contents;  //  Data to write to OLAT
+	buffer[1] = 0x12;  //  Opcode for GPIO Register
+	buffer[2] = register_contents;  //  Data to write to GPIOA
+	buffer[3] = register_contents;  //  Data to write to GPIOB
 	status = p_SPI_Write(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
 		SPI_TRANSFER_OPTIONS_SIZE_IN_BITS | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
 
 	return status;
 }
-
 
 int main()
 {
@@ -114,7 +113,7 @@ int main()
 	//FT_DEVICE_LIST_INFO_NODE devList;
 	uint8 address = 5; //Address of MCP23S17
 	uint8 counter = 0; //Counter value to wiggle output pins
-	channelConf.ClockRate = 100000; //100 KHz
+	channelConf.ClockRate = 1000000; //1 MHz
 	channelConf.LatencyTimer = 255;
 	channelConf.configOptions = SPI_CONFIG_OPTION_MODE0 | SPI_CONFIG_OPTION_CS_DBUS3 | SPI_CONFIG_OPTION_CS_ACTIVELOW;
 	channelConf.Pin = 0x00000000;/* FinalVal-FinalDir-InitVal-InitDir (for dir: 0=in, 1=out) */
@@ -152,7 +151,6 @@ int main()
 	printf("Entering write_byte loop\n");
 
 	do {
-
 	// Call Write Byte Function to activate LEDs on GPIO pins
 	write_byte(address, counter);
 	counter++; //Bump the counter value
