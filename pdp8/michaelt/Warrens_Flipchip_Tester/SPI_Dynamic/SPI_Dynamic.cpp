@@ -66,14 +66,14 @@ FT_STATUS write_IODIR(uint8 address)
 	FT_STATUS status;
 
 	/*Write command to configure MCP23S17's IODIR register as all outputs*/
-	sizeToTransfer = 32;  //4 Bytes Opcodes and Data
+	sizeToTransfer = 4;  //4 Bytes Opcodes and Data
 	sizeTransfered = 0;
 	buffer[0] = 0x40 | (address << 1); // Opcode to select device 
 	buffer[1] = 0x00; // Opcode for IODIR register
 	buffer[2] = 0x00; // Data Packet - Make GPIO pins outputs
 	buffer[3] = 0x00; // Data Packet - Make GPIO pins outputs
 	status = p_SPI_Write(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
-		SPI_TRANSFER_OPTIONS_SIZE_IN_BITS | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
+		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
 
 	return status;
 }
@@ -87,14 +87,14 @@ FT_STATUS write_byte(uint8 address, uint8 register_contents)
 	FT_STATUS status;
 
 	/* Write Data to MCP23S17's OLAT Register */
-	sizeToTransfer = 32;  // 3 Bytes Opcodes + Data
+	sizeToTransfer = 4;  // 4 Bytes Opcodes + Data
 	sizeTransfered = 0;
 	buffer[0] = 0x40 | (address << 1);  //  Opcode to select device
 	buffer[1] = 0x12;  //  Opcode for GPIO Register
 	buffer[2] = register_contents;  //  Data to write to GPIOA
 	buffer[3] = register_contents;  //  Data to write to GPIOB
 	status = p_SPI_Write(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
-		SPI_TRANSFER_OPTIONS_SIZE_IN_BITS | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
+		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
 
 	return status;
 }
@@ -114,9 +114,9 @@ int main()
 	uint8 address = 5; //Address of MCP23S17
 	uint8 counter = 0; //Counter value to wiggle output pins
 	channelConf.ClockRate = 1000000; //1 MHz
-	channelConf.LatencyTimer = 255;
+	channelConf.LatencyTimer = 2;
 	channelConf.configOptions = SPI_CONFIG_OPTION_MODE0 | SPI_CONFIG_OPTION_CS_DBUS3 | SPI_CONFIG_OPTION_CS_ACTIVELOW;
-	channelConf.Pin = 0x00000000;/* FinalVal-FinalDir-InitVal-InitDir (for dir: 0=in, 1=out) */
+	channelConf.Pin = 0x00000000; // Set all of the pins to outputs
 
 // Load libMPSSE
 #ifdef _WIN32
