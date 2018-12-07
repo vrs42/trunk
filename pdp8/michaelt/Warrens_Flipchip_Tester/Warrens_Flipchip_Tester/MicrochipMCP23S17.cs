@@ -658,7 +658,7 @@ namespace Warrens_Flipchip_Tester
             ControlWordRegisterData[3] = 0x01;
 
             //5x Register writes
-            SpiWriteTimer.Start(); SpiWriteTimer.Start();
+            SpiWriteTimer.Start();
             Write(ControlWordRegisterData, out sizeTransfered, FtSpiTransferOptions.ChipselectEnable);
             //Write(RegisterContents, out sizeTransfered, FtSpiTransferOptions.ChipselectDisable);
             SpiWriteTimer.Stop();

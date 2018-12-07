@@ -171,7 +171,7 @@ namespace Warrens_Flipchip_Tester
             DiagRichTextBox.Text += WarrensFlipChipTester.GetFtdiDriverVersions();
             DiagRichTextBox.Text += WarrensFlipChipTester.ScanForFtdiMpsseDevices();
             DiagRichTextBox.Text += "The SPI bus is running at " + WarrensFlipChipTester.BusSpeed + " Hz.\n";
-            Application.DoEvents(); //Get the text on the screen
+            Application.DoEvents(); //Put the text on the screen
 
             WarrensFlipChipTester.OpenUSBSpi(); //Open the USB/SPI Channel
             DiagRichTextBox.Text += WarrensFlipChipTester.Read100MPC23S17Registers();

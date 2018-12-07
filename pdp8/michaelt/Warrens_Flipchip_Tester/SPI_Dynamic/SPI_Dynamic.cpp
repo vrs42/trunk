@@ -79,7 +79,7 @@ FT_STATUS write_IODIR(uint8 address)
 	return status;
 }
 
-FT_STATUS write_byte(uint8 address, uint8 register_contents)
+FT_STATUS write_two_bytes(uint8 address, uint8 register_contents)
 {
 	uint32 sizeToTransfer = 0;
 	uint32 sizeTransfered = 0;
@@ -87,7 +87,7 @@ FT_STATUS write_byte(uint8 address, uint8 register_contents)
 	uint32 retry = 0;
 	FT_STATUS status;
 
-	/* Write Data to MCP23S17's OLAT Register */
+	/* Write Data to MCP23S17's GPIO Register */
 	sizeToTransfer = 4;  // 4 Bytes Opcodes + Data
 	sizeTransfered = 0;
 	buffer[0] = 0x40 | (address << 1);  //  Opcode to select device
@@ -95,6 +95,27 @@ FT_STATUS write_byte(uint8 address, uint8 register_contents)
 	buffer[2] = register_contents;  //  Data to write to GPIOA
 	buffer[3] = register_contents;  //  Data to write to GPIOB
 	status = p_SPI_Write(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
+		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
+
+	return status;
+}
+
+FT_STATUS read_two_bytes(uint8 address, uint8 register_contents)
+{
+	uint32 sizeToTransfer = 0;
+	uint32 sizeTransfered = 0;
+	bool writeComplete = 0;
+	uint32 retry = 0;
+	FT_STATUS status;
+
+	/* Read Data from MCP23S17's GPIO Register */
+	sizeToTransfer = 4;  // 4 Bytes Opcodes + Data
+	sizeTransfered = 0;
+	buffer[0] = 0x40 | (address << 1);  //  Opcode to select device
+	buffer[1] = 0x12;  //  Opcode for GPIO Register
+	buffer[2] = register_contents;  //  Data to write to GPIOA
+	buffer[3] = register_contents;  //  Data to write to GPIOB
+	status = p_SPI_Read(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
 		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
 
 	return status;
@@ -114,6 +135,8 @@ int main()
 	//FT_DEVICE_LIST_INFO_NODE devList;
 	uint8 address = 5; //Address of MCP23S17
 	uint8 counter = 0; //Counter value to wiggle output pins
+	uint8 spi_register = 0; //The register contents
+
 	channelConf.ClockRate = 1000000; //1 MHz
 	channelConf.LatencyTimer = 2;
 	channelConf.configOptions = SPI_CONFIG_OPTION_MODE0 | SPI_CONFIG_OPTION_CS_DBUS3 | SPI_CONFIG_OPTION_CS_ACTIVELOW;
@@ -150,23 +173,33 @@ int main()
 	printf("write_IODIR\n");
 	status = write_IODIR(address); //Configure the IODIR register
 
-	printf("Entering write_byte loop\n");
+	printf("Entering 256x write_byte loop\n");
 
 	QueryPerformanceFrequency(&Frequency); //Get the processor clock frequency
 	QueryPerformanceCounter(&timer1); //Get the first timer
 
 	do {
-		write_byte(address, counter); // Call Write Byte Function to activate LEDs on GPIO pins
+		write_two_bytes(address, counter); // Call Write Byte Function to activate LEDs on GPIO pins
 		counter++; //Bump the counter value
-		if (counter == 255)
-		{
-			QueryPerformanceCounter(&timer2); //Get the current timer
-			double differential_seconds = (timer2.QuadPart - timer1.QuadPart) / (double)Frequency.QuadPart * 1000 /256; //Differential time in milliseconds
-			printf("Milliseconds for one SPI transactions = %f\n", differential_seconds);
-			QueryPerformanceCounter(&timer1); //Get the first timer
-		}
-	} while (true);
+	} while (counter != 255);
 
+	QueryPerformanceCounter(&timer2); //Get the current timer
+	double differential_seconds = (timer2.QuadPart - timer1.QuadPart) / (double)Frequency.QuadPart * 1000 / 256; //Differential time in milliseconds
+	printf("One SPI write took %f milliseconds\n", differential_seconds);
+
+	printf("Entering 256x read_byte loop\n");
+
+	QueryPerformanceCounter(&timer1); //Get the first timer
+	counter = 0;
+
+	do {
+		read_two_bytes(address, spi_register); // Call Read Byte Function
+		counter++; //Bump the counter value
+	} while (counter != 255);
+
+	QueryPerformanceCounter(&timer2); //Get the current timer
+	differential_seconds = (timer2.QuadPart - timer1.QuadPart) / (double)Frequency.QuadPart * 1000 / 256; //Differential time in milliseconds
+	printf("One SPI read took %f milliseconds\n", differential_seconds);
 	printf("CloseChannel");
 	status = p_SPI_CloseChannel(ftHandle);
 }
