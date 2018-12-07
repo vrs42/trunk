@@ -16,6 +16,7 @@
  *
  */
 
+#include "stdafx.h"
 #include<stdio.h>
 #include<stdlib.h>
 #ifdef _WIN32
@@ -117,8 +118,9 @@ int main()
 	channelConf.LatencyTimer = 2;
 	channelConf.configOptions = SPI_CONFIG_OPTION_MODE0 | SPI_CONFIG_OPTION_CS_DBUS3 | SPI_CONFIG_OPTION_CS_ACTIVELOW;
 	channelConf.Pin = 0x00000000; // Set all of the pins to outputs
+	LARGE_INTEGER Frequency, timer1, timer2;
 
-// Load libMPSSE
+	// Load libMPSSE
 #ifdef _WIN32
 #ifdef _MSC_VER
 	h_libMPSSE = LoadLibrary(L"libMPSSE.dll");
@@ -150,12 +152,20 @@ int main()
 
 	printf("Entering write_byte loop\n");
 
+	QueryPerformanceFrequency(&Frequency); //Get the processor clock frequency
+	QueryPerformanceCounter(&timer1); //Get the first timer
+
 	do {
-	// Call Write Byte Function to activate LEDs on GPIO pins
-	write_byte(address, counter);
-	counter++; //Bump the counter value
-	}
-	while (true);
+		write_byte(address, counter); // Call Write Byte Function to activate LEDs on GPIO pins
+		counter++; //Bump the counter value
+		if (counter == 255)
+		{
+			QueryPerformanceCounter(&timer2); //Get the current timer
+			double differential_seconds = (timer2.QuadPart - timer1.QuadPart) / (double)Frequency.QuadPart * 1000 /256; //Differential time in milliseconds
+			printf("Milliseconds for one SPI transactions = %f\n", differential_seconds);
+			QueryPerformanceCounter(&timer1); //Get the first timer
+		}
+	} while (true);
 
 	printf("CloseChannel");
 	status = p_SPI_CloseChannel(ftHandle);

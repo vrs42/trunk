@@ -70,7 +70,7 @@ namespace Warrens_Flipchip_Tester
         //**************************************************************************
 
         private const int LatencyValue = 2; //Small value to make USB go faster
-        private UInt32 MpsseChannelCount = 0;
+        private uint MpsseChannelCount = 0;
         private int MpsseChannel = 0;
         private FtResult MpsseStatus = FtResult.Ok; //The status of the last Wrapper call command
         private FtDeviceInfo MpsseDeviceInfo;
