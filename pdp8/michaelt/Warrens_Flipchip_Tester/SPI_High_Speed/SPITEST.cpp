@@ -263,7 +263,7 @@ int _tmain(int argc, _TCHAR* argv[])
        printf("  LocId=0x%x\n",devInfo[i].LocId); 
        printf("  SerialNumber=%s\n",devInfo[i].SerialNumber); 
        printf("  Description=%s\n",devInfo[i].Description); 
-       printf("  ftHandle=0x%x\n",devInfo[i].f9tHandle); 
+       printf("  ftHandle=0x%x\n",devInfo[i].ftHandle); 
      }
     }
   }
