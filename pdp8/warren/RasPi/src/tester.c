@@ -3187,7 +3187,7 @@ void main( int argc, char *argv[])
             {
                 print( "could not open test file.\r\n" );
                 print( "valid test files are:\r\n" );
-                system( "cd tests; dir -C *.*" );
+                system( "cd TESTS; dir -C *.*" );
                 //system( "dir /a-d /w tests/*.*" );
                 sprintf( print_buffer, "reverting back to test file: %s\r\n", test.filename );
                 print( print_buffer );
