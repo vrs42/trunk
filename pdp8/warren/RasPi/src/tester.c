@@ -3172,9 +3172,9 @@ void main( int argc, char *argv[])
 				if (ptr != (char *)NULL) *ptr = '\0';
 
 				strcpy( buffer2, "tests\\" );			/* directory of the tests	*/
-				if ( (strlen( buffer2 ) + strlen( buffer ) + 2) < sizeof( buffer2 )) break;		/* break on success	*/
+				if ( *buffer && (strlen( buffer2 ) + strlen( buffer ) + 2) < sizeof( buffer2 )) break;		/* break on success	*/
 
-				print( "test file name is too long. Try again.\r\n" );
+				if ( *buffer ) print( "test file name is too long. Try again.\r\n" );
 			}
 			strcat( buffer2, buffer );	  /* lengths have been checked	*/
 			_strupr(buffer2); /* VRS */
