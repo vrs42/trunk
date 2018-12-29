@@ -95,7 +95,7 @@ FT_STATUS write_two_bytes(uint8 address, uint8 register_contents)
 	buffer[2] = register_contents;  //  Data to write to GPIOA
 	buffer[3] = register_contents;  //  Data to write to GPIOB
 	status = p_SPI_Write(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
-		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
+		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
 
 	return status;
 }
@@ -111,12 +111,12 @@ FT_STATUS read_two_bytes(uint8 address, uint8 register_contents)
 	/* Read Data from MCP23S17's GPIO Register */
 	sizeToTransfer = 4;  // 4 Bytes Opcodes + Data
 	sizeTransfered = 0;
-	buffer[0] = 0x40 | (address << 1);  //  Opcode to select device
+	buffer[0] = 0x40 | (address << 1) | 0x01;  //  Opcode to select device
 	buffer[1] = 0x12;  //  Opcode for GPIO Register
 	buffer[2] = register_contents;  //  Data to write to GPIOA
 	buffer[3] = register_contents;  //  Data to write to GPIOB
 	status = p_SPI_Read(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
-		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
+		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES | SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE | SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
 
 	return status;
 }
@@ -137,7 +137,7 @@ int main()
 	uint8 counter = 0; //Counter value to wiggle output pins
 	uint8 spi_register = 0; //The register contents
 
-	channelConf.ClockRate = 1000000; //1 MHz
+	channelConf.ClockRate = 10000; //1 MHz
 	channelConf.LatencyTimer = 2;
 	channelConf.configOptions = SPI_CONFIG_OPTION_MODE0 | SPI_CONFIG_OPTION_CS_DBUS3 | SPI_CONFIG_OPTION_CS_ACTIVELOW;
 	channelConf.Pin = 0x00000000; // Set all of the pins to outputs

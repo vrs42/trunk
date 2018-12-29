@@ -1,6 +1,6 @@
 //
 // SPITEST.cpp : Defines the entry point for the console application.
-// this example project use port A of FT2232H to access SPI EEPROM 93C46
+// this example project use port A of C232HM to access SPI GPIO MCP23S17
 
 //
 #include "stdafx.h"
@@ -13,7 +13,7 @@
 #include "FTD2XX.h"
 //============================================================================
 #include <stdlib.h>
-//declare parameters for 93C46
+//declare parameters for MCP23S17
 #define MemSize 16
 const BYTE SPIDATALENGTH = 10;
 const BYTE READ = '\xC0';
@@ -34,12 +34,10 @@ const BYTE MSB_RISING_EDGE_CLOCK_BIT_IN = '\x22';
 const BYTE MSB_FALLING_EDGE_CLOCK_BYTE_IN = '\x24';
 const BYTE MSB_FALLING_EDGE_CLOCK_BIT_IN = '\x26';
 
-
-
 FT_STATUS ftStatus;			//Status defined in D2XX to indicate operation result
 
-BYTE OutputBuffer[512];		//Buffer to hold MPSSE commands and data to be sent to FT2232H
-BYTE InputBuffer[512];		//Buffer to hold Data bytes to be read from FT2232H
+BYTE OutputBuffer[512];		//Buffer to hold MPSSE commands and data to be sent to C232HM
+BYTE InputBuffer[512];		//Buffer to hold Data bytes to be read from C232HM
 DWORD dwClockDivisor = 29;  	//Value of clock divisor, SCL Frequency = 60/((1+29)*2) (MHz) = 1Mhz
 DWORD dwNumBytesToSend = 0; 	//Index of output buffer
 DWORD dwNumBytesSent = 0, 	dwNumBytesRead = 0, dwNumInputBuffer = 0;
@@ -56,7 +54,7 @@ void SPI_CSEnable()
 	for(int loop=0;loop<5;loop++)
 	{
 	  OutputBuffer[dwNumBytesToSend++] = '\x80';
-	  OutputBuffer[dwNumBytesToSend++] = '\x08';
+	  OutputBuffer[dwNumBytesToSend++] = '\x00';
 	  OutputBuffer[dwNumBytesToSend++] = '\x0b';
 	}
 }
@@ -66,7 +64,7 @@ void SPI_CSDisable()
 	for(int loop=0;loop<5;loop++)
 	{
 	  OutputBuffer[dwNumBytesToSend++] = '\x80';
-	  OutputBuffer[dwNumBytesToSend++] = '\x00';
+	  OutputBuffer[dwNumBytesToSend++] = '\x08';
 	  OutputBuffer[dwNumBytesToSend++] = '\x0b';
 	}
 }
@@ -92,20 +90,20 @@ BOOL SPI_Initial(FT_HANDLE ftHandle)
 {		
 	DWORD dwCount;
 	ftStatus = FT_ResetDevice(ftHandle); 	//Reset USB device
-	//Purge USB receive buffer first by reading out all old data from FT2232H receive buffer
-	ftStatus |= FT_GetQueueStatus(ftHandle, &dwNumInputBuffer);	 // Get the number of bytes in the FT2232H receive buffer
+	//Purge USB receive buffer first by reading out all old data from C232HM receive buffer
+	ftStatus |= FT_GetQueueStatus(ftHandle, &dwNumInputBuffer);	 // Get the number of bytes in the C232HM receive buffer
 	if ((ftStatus == FT_OK) && (dwNumInputBuffer > 0))
-		ftStatus |= FT_Read(ftHandle, InputBuffer, dwNumInputBuffer, &dwNumBytesRead);  	//Read out the data from FT2232H receive buffer
+		ftStatus |= FT_Read(ftHandle, InputBuffer, dwNumInputBuffer, &dwNumBytesRead);  	//Read out the data from C232HM receive buffer
 	ftStatus |= FT_SetUSBParameters(ftHandle, 65535, 65535);	//Set USB request transfer size
 	ftStatus |= FT_SetChars(ftHandle, false, 0, false, 0);	 //Disable event and error characters
-	ftStatus |= FT_SetTimeouts(ftHandle, 3000, 3000);		//Sets the read and write timeouts in milliseconds for the FT2232H
+	ftStatus |= FT_SetTimeouts(ftHandle, 3000, 3000);		//Sets the read and write timeouts in milliseconds for the C232HM
 	ftStatus |= FT_SetLatencyTimer(ftHandle, 1);		//Set the latency timer
 	ftStatus |= FT_SetBitMode(ftHandle, 0x0, 0x00); 		//Reset controller
 	ftStatus |= FT_SetBitMode(ftHandle, 0x0, 0x02);	 	//Enable MPSSE mode
 
 	if (ftStatus != FT_OK)
 	{
-		printf("fail on initialize FT2232H device ! \n");
+		printf("fail on initialize C232HM device ! \n");
 		return false;
 	}
 	Sleep(50);	// Wait for all the USB stuff to complete and work
@@ -270,14 +268,14 @@ int _tmain(int argc, _TCHAR* argv[])
   else
 	  return 1;
 
-  ftStatus = FT_OpenEx("FT2232H module A",FT_OPEN_BY_DESCRIPTION,&ftdiHandle);
+  ftStatus = FT_OpenEx("C232HM-DDHSL-0",FT_OPEN_BY_DESCRIPTION,&ftdiHandle);
   if (ftStatus != FT_OK)
   {
-  	printf("Can't open FT2232H device! \n");
+  	printf("Can't open C232HM device! \n");
   	return 1;
   }
   else  // Port opened successfully
-  	printf("Successfully open FT2232H device! \n");
+  	printf("Successfully opened C232HM device! \n");
   
   if(SPI_Initial(ftdiHandle) == TRUE)
   {
