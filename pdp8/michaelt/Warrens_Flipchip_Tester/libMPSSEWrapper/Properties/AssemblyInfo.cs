@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Rhode Island Computer Museum")]
 [assembly: AssemblyProduct("libMPSSEWrapper")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © 2018-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,13 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-<<<<<<< .mine
-[assembly: AssemblyVersion("1.0.0.4454")]
-[assembly: AssemblyFileVersion("1.0.0.4454")]
-||||||| .r4454
-[assembly: AssemblyVersion("1.0.0.4453")]
-[assembly: AssemblyFileVersion("1.0.0.4453")]
-=======
-[assembly: AssemblyVersion("1.0.0.4455")]
-[assembly: AssemblyFileVersion("1.0.0.4455")]
->>>>>>> .r4463
+[assembly: AssemblyVersion("1.0.0.4464")]
+[assembly: AssemblyFileVersion("1.0.0.4464")]

@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Rhode Island Computer Museum")]
 [assembly: AssemblyProduct("Warrens_Flipchip_Tester")]
-[assembly: AssemblyCopyright("Copyright © RICM 2018")]
+[assembly: AssemblyCopyright("Copyright © RICM 2018-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
