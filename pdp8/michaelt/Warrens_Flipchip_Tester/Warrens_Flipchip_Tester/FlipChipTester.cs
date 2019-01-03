@@ -1574,7 +1574,7 @@ namespace Warrens_Flipchip_Tester
                 long vectorsSec = (100 / (milliSec / 1000));
 
                 ResponseText += TimerResponse; //Get the SPI Write/Read timer results
-                ResponseText += "The elapsed time for 100 sets of 5x register write/reads was " + milliSec + "ms.\n";
+                ResponseText += "The elapsed time for 100 sets of 5x register write/reads was " + milliSec + " milliseconds.\n";
                 ResponseText += "I can process " + vectorsSec + " vectors/second.";
 
                 Gpio0.Dispose(); //We are done with the MSCP23S17

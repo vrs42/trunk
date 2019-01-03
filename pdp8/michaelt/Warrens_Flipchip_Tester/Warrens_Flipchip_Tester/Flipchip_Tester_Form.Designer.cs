@@ -104,10 +104,10 @@
             this.DeviceAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CycleTheLEDsButton = new System.Windows.Forms.Button();
             this.HelpTabPage = new System.Windows.Forms.TabPage();
+            this.HelpVersionTextBox = new System.Windows.Forms.TextBox();
+            this.HelpVersionLabel = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.FlipChipTestBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.HelpVersionLabel = new System.Windows.Forms.Label();
-            this.HelpVersionTextBox = new System.Windows.Forms.TextBox();
             this.FlipChipTesterTabControl.SuspendLayout();
             this.TestingTabPage.SuspendLayout();
             this.DisplayTestResultsGroupBox1.SuspendLayout();
@@ -139,7 +139,7 @@
             this.ScanForFTDIDevicesbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ScanForFTDIDevicesbutton.Location = new System.Drawing.Point(6, 6);
             this.ScanForFTDIDevicesbutton.Name = "ScanForFTDIDevicesbutton";
-            this.ScanForFTDIDevicesbutton.Size = new System.Drawing.Size(230, 23);
+            this.ScanForFTDIDevicesbutton.Size = new System.Drawing.Size(246, 23);
             this.ScanForFTDIDevicesbutton.TabIndex = 2;
             this.ScanForFTDIDevicesbutton.Text = "Scan for FTDI USB Devices";
             this.ScanForFTDIDevicesbutton.UseVisualStyleBackColor = true;
@@ -150,7 +150,7 @@
             this.ReadEEPROMInFTDIDevicesbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadEEPROMInFTDIDevicesbutton.Location = new System.Drawing.Point(6, 64);
             this.ReadEEPROMInFTDIDevicesbutton.Name = "ReadEEPROMInFTDIDevicesbutton";
-            this.ReadEEPROMInFTDIDevicesbutton.Size = new System.Drawing.Size(230, 23);
+            this.ReadEEPROMInFTDIDevicesbutton.Size = new System.Drawing.Size(246, 23);
             this.ReadEEPROMInFTDIDevicesbutton.TabIndex = 3;
             this.ReadEEPROMInFTDIDevicesbutton.Text = "Read EEPROM in FTDI USB Devices";
             this.ReadEEPROMInFTDIDevicesbutton.UseVisualStyleBackColor = true;
@@ -162,9 +162,9 @@
             this.ReadMPC23S17Registersbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadMPC23S17Registersbutton.Location = new System.Drawing.Point(5, 209);
             this.ReadMPC23S17Registersbutton.Name = "ReadMPC23S17Registersbutton";
-            this.ReadMPC23S17Registersbutton.Size = new System.Drawing.Size(230, 23);
+            this.ReadMPC23S17Registersbutton.Size = new System.Drawing.Size(246, 23);
             this.ReadMPC23S17Registersbutton.TabIndex = 4;
-            this.ReadMPC23S17Registersbutton.Text = "Read MPC23S17 Registers";
+            this.ReadMPC23S17Registersbutton.Text = "Read All MPC23S17 Registers";
             this.ReadMPC23S17Registersbutton.UseVisualStyleBackColor = true;
             this.ReadMPC23S17Registersbutton.Click += new System.EventHandler(this.ReadMPC23S17Registersbutton_Click);
             // 
@@ -173,7 +173,7 @@
             this.GetDriverVersionsbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GetDriverVersionsbutton.Location = new System.Drawing.Point(6, 93);
             this.GetDriverVersionsbutton.Name = "GetDriverVersionsbutton";
-            this.GetDriverVersionsbutton.Size = new System.Drawing.Size(230, 23);
+            this.GetDriverVersionsbutton.Size = new System.Drawing.Size(246, 23);
             this.GetDriverVersionsbutton.TabIndex = 5;
             this.GetDriverVersionsbutton.Text = "Get FTDI USB Driver Versions";
             this.GetDriverVersionsbutton.UseVisualStyleBackColor = true;
@@ -184,7 +184,7 @@
             this.ScanForFtdiMpsseDevicesbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ScanForFtdiMpsseDevicesbutton.Location = new System.Drawing.Point(6, 35);
             this.ScanForFtdiMpsseDevicesbutton.Name = "ScanForFtdiMpsseDevicesbutton";
-            this.ScanForFtdiMpsseDevicesbutton.Size = new System.Drawing.Size(230, 23);
+            this.ScanForFtdiMpsseDevicesbutton.Size = new System.Drawing.Size(246, 23);
             this.ScanForFtdiMpsseDevicesbutton.TabIndex = 6;
             this.ScanForFtdiMpsseDevicesbutton.Text = "Scan for FTDI MPSSE USB Devices";
             this.ScanForFtdiMpsseDevicesbutton.UseVisualStyleBackColor = true;
@@ -195,7 +195,7 @@
             this.TurnOnLEDsbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TurnOnLEDsbutton.Location = new System.Drawing.Point(6, 122);
             this.TurnOnLEDsbutton.Name = "TurnOnLEDsbutton";
-            this.TurnOnLEDsbutton.Size = new System.Drawing.Size(230, 23);
+            this.TurnOnLEDsbutton.Size = new System.Drawing.Size(246, 23);
             this.TurnOnLEDsbutton.TabIndex = 7;
             this.TurnOnLEDsbutton.Text = "Turn On FTDI Red LED";
             this.TurnOnLEDsbutton.UseVisualStyleBackColor = true;
@@ -206,7 +206,7 @@
             this.TurnOffLEDsbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TurnOffLEDsbutton.Location = new System.Drawing.Point(6, 151);
             this.TurnOffLEDsbutton.Name = "TurnOffLEDsbutton";
-            this.TurnOffLEDsbutton.Size = new System.Drawing.Size(230, 23);
+            this.TurnOffLEDsbutton.Size = new System.Drawing.Size(246, 23);
             this.TurnOffLEDsbutton.TabIndex = 8;
             this.TurnOffLEDsbutton.Text = "Turn Off FTDI Red LED";
             this.TurnOffLEDsbutton.UseVisualStyleBackColor = true;
@@ -238,9 +238,9 @@
             this.Read10kMPC23S17Registersbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Read10kMPC23S17Registersbutton.Location = new System.Drawing.Point(6, 470);
             this.Read10kMPC23S17Registersbutton.Name = "Read10kMPC23S17Registersbutton";
-            this.Read10kMPC23S17Registersbutton.Size = new System.Drawing.Size(230, 23);
+            this.Read10kMPC23S17Registersbutton.Size = new System.Drawing.Size(246, 23);
             this.Read10kMPC23S17Registersbutton.TabIndex = 10;
-            this.Read10kMPC23S17Registersbutton.Text = "Read MPC23S17 Registers 100 Times";
+            this.Read10kMPC23S17Registersbutton.Text = "Write/Read 5x MPC23S17 Registers 100 Times";
             this.Read10kMPC23S17Registersbutton.UseVisualStyleBackColor = true;
             this.Read10kMPC23S17Registersbutton.Click += new System.EventHandler(this.Read100kMPC23S17Registersbutton_Click);
             // 
@@ -250,7 +250,7 @@
             this.WriteSingleMPC23S17Registerbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WriteSingleMPC23S17Registerbutton.Location = new System.Drawing.Point(6, 238);
             this.WriteSingleMPC23S17Registerbutton.Name = "WriteSingleMPC23S17Registerbutton";
-            this.WriteSingleMPC23S17Registerbutton.Size = new System.Drawing.Size(230, 23);
+            this.WriteSingleMPC23S17Registerbutton.Size = new System.Drawing.Size(246, 23);
             this.WriteSingleMPC23S17Registerbutton.TabIndex = 12;
             this.WriteSingleMPC23S17Registerbutton.Text = "Write a singleMPC23S17 Register";
             this.WriteSingleMPC23S17Registerbutton.UseVisualStyleBackColor = true;
@@ -314,7 +314,7 @@
             this.HardwareAddressEnablebutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HardwareAddressEnablebutton.Location = new System.Drawing.Point(6, 267);
             this.HardwareAddressEnablebutton.Name = "HardwareAddressEnablebutton";
-            this.HardwareAddressEnablebutton.Size = new System.Drawing.Size(230, 23);
+            this.HardwareAddressEnablebutton.Size = new System.Drawing.Size(246, 23);
             this.HardwareAddressEnablebutton.TabIndex = 20;
             this.HardwareAddressEnablebutton.Text = "Hardware Address Enable and Test";
             this.HardwareAddressEnablebutton.UseVisualStyleBackColor = true;
@@ -735,7 +735,7 @@
             this.CycleTheLEDsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CycleTheLEDsButton.Location = new System.Drawing.Point(3, 180);
             this.CycleTheLEDsButton.Name = "CycleTheLEDsButton";
-            this.CycleTheLEDsButton.Size = new System.Drawing.Size(230, 23);
+            this.CycleTheLEDsButton.Size = new System.Drawing.Size(246, 23);
             this.CycleTheLEDsButton.TabIndex = 22;
             this.CycleTheLEDsButton.Text = "Cycle The LEDs";
             this.CycleTheLEDsButton.UseVisualStyleBackColor = true;
@@ -752,6 +752,22 @@
             this.HelpTabPage.Size = new System.Drawing.Size(1411, 631);
             this.HelpTabPage.TabIndex = 2;
             this.HelpTabPage.Text = "Help";
+            // 
+            // HelpVersionTextBox
+            // 
+            this.HelpVersionTextBox.Location = new System.Drawing.Point(23, 89);
+            this.HelpVersionTextBox.Name = "HelpVersionTextBox";
+            this.HelpVersionTextBox.Size = new System.Drawing.Size(188, 20);
+            this.HelpVersionTextBox.TabIndex = 4;
+            // 
+            // HelpVersionLabel
+            // 
+            this.HelpVersionLabel.AutoSize = true;
+            this.HelpVersionLabel.Location = new System.Drawing.Point(20, 73);
+            this.HelpVersionLabel.Name = "HelpVersionLabel";
+            this.HelpVersionLabel.Size = new System.Drawing.Size(132, 13);
+            this.HelpVersionLabel.TabIndex = 3;
+            this.HelpVersionLabel.Text = "Application Revision Level";
             // 
             // richTextBox1
             // 
@@ -773,22 +789,6 @@
             this.FlipChipTestBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RunFlipChipTest);
             this.FlipChipTestBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FlipChipTestStatus);
             this.FlipChipTestBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FlipChipTestCompleted);
-            // 
-            // HelpVersionLabel
-            // 
-            this.HelpVersionLabel.AutoSize = true;
-            this.HelpVersionLabel.Location = new System.Drawing.Point(20, 73);
-            this.HelpVersionLabel.Name = "HelpVersionLabel";
-            this.HelpVersionLabel.Size = new System.Drawing.Size(132, 13);
-            this.HelpVersionLabel.TabIndex = 3;
-            this.HelpVersionLabel.Text = "Application Revision Level";
-            // 
-            // HelpVersionTextBox
-            // 
-            this.HelpVersionTextBox.Location = new System.Drawing.Point(23, 89);
-            this.HelpVersionTextBox.Name = "HelpVersionTextBox";
-            this.HelpVersionTextBox.Size = new System.Drawing.Size(188, 20);
-            this.HelpVersionTextBox.TabIndex = 4;
             // 
             // Flipchip_Tester_Form
             // 
