@@ -1078,6 +1078,8 @@ based on DEC's DM01.
   <DD>is a drawing of the 9-de-8.
 <DT>26-de-8</A>
   <DD>is a drawing of the 26-de-8.
+<DT>104-de-8</A>
+  <DD>is a drawing of the 104-de-8.
 <DT>26-de-8x</A>
   <DD>is a drawing of the 26-de-8 done with more mordern components.
 </DL>
@@ -2884,6 +2886,14 @@ fourth PAL.
   <DD>is a drawing of DEC's M1701D.
 <DT>M1701X</A>
   <DD>is a 'modernized' M1701.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1703 target=_blank>./DEC/Mxxx/M1703</a></b>: Omnibus Dual 12 bit Input Interface
+
+</LEGEND><DL>
+<DT>M1703C</A>
+  <DD>is a drawing of DEC's M1703C.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>

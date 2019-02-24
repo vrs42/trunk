@@ -1079,6 +1079,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>VC8-E Display Diagnostic
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvca-a-d.pdf>maindec-08-dhvca-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvca-a-pb>maindec-08-dhvca-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvca-a-pb.lbl.jpg>maindec-08-dhvca-a-pb.lbl.jpg</a><td>(Tape label image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhvca-a-pb.od>maindec-08-dhvca-a-pb.od</a><td>(BIN image in octal)<tr>
@@ -1249,6 +1250,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>AD8A A/D Converter Multiplexer Diagnostic
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djada-c-d.pdf>maindec-08-djada-c-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djada-c-pb>maindec-08-djada-c-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djada-c-pb.lbl.jpg>maindec-08-djada-c-pb.lbl.jpg</a><td>(Tape label image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djada-c-pb.od>maindec-08-djada-c-pb.od</a><td>(BIN image in octal)<tr>

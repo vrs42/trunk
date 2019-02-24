@@ -285,9 +285,13 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 </tr><tr>
 <td>Symbolic Tape Editor
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/esac-pa>dec-08-esac-pa</a><td>(DEC PAL tape)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/esac-pb>dec-08-esac-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/esac-pb.lbl>dec-08-esac-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/esac-pb.od>dec-08-esac-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/esac.bin>dec-08-esac.bin</a><td>(BIN format)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/esac.lst>dec-08-esac.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/esac.pal>dec-08-esac.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
 <td>TC01-TU55 DECtape Formatter
