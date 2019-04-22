@@ -9,9 +9,10 @@ bootstrap support for a
 The memory provided is 32K, switchable to enable or disable each 4K
 memory bank, allowing you also use any vintage memory you might have.
 <P>The memory implementation is based on a design by
-<A href=http://tronola.com/>Stephen Lafferty</A>.
+<A href=http://tronola.com/>Stephen</A> 
+<A href=http://www.tronola.com/html/ram_for_pdp-8e.html>Lafferty</A>.
 <P>The bootstrap implementation is based on the work of
-<A href=http://www.technischmuseum.nl/>Roland </A>
+<A href=http://www.technischmuseum.nl/>Roland</A> 
 <A href=https://github.com/Roland-Huisman>Huisman</A>.
 <P>While supplies last, you can obtain a kit by clicking
 <A href=http://tinyurl.com/stuffmail>here</A>,
