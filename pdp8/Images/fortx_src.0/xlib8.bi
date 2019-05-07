@@ -1,0 +1,26 @@
+$JOB    < Generate XLIB8.RL Library >
+$MSG    Please mount RX8-220 'XLIB8 Library' in FLIP:
+$MSG    Please mount RX8-4   'FORTRAN II System' in FLOP:
+.RUN FLOP LIBSET
+*XLIB8<
+*FLIP:IOH
+*FLIP:UTILTY
+*FLIP:FLOAT
+*FLIP:UNITIO
+*FLIP:POWERS
+*FLIP:TRIG
+*FLIP:ATAN
+*FLIP:INTEGR
+*FLIP:IPOWRS
+*FLIP:SQRT
+*FLIP:CHAIN
+*FLIP:CHRIO
+*FLIP:SUBS
+/*FLIP:SUBBIN   (Use UNITIO routines instead)
+*FLIP:KEY
+*$
+.COPY FLOP:<XLIB8.RL
+.RUN FLOP LIBCAT
+*CRT:<XLIB8
+$END    < XLIB8.RL Library Generation Complete >
+
