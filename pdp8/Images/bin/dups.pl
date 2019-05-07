@@ -94,6 +94,7 @@ while (@todo) {
 $f =~ y?/A-Z?\\a-z?;
 	next if $_ eq ".";
 	next if $_ eq "..";
+	next if $_ eq ".svn";
 	next if $_ eq "backup";
 	next if $_ eq "Camera";
 	next if $_ eq "Casio";
