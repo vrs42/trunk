@@ -1,0 +1,629 @@
+/LPTSPL FOR MULTOS TIME SHARING SYSTEM          12-12-79
+/               EDIT 105
+/       BY FRED  D.  BRANDT
+/          SENSORY COMMUNICATION RESEARCH LABORATORY
+/           GALLAUDET COLLEGE
+/             WASHINGTON   D.C.   20002
+/                202-651-5439
+/
+/12-3-80
+/       INSERTED CODE SO THAT A '0' DEVICE NUMBER WILL CAUSE THE
+/       MULTOS/8  TIME SHARING SYSTEM TO RETURN THE LPT QUEUE
+/       AND PRINT IT ON THE TERMINAL
+/
+/
+/       SOME DEFINATIONS
+/
+        SPOL=6660       /SPOOL THE REQUESTED FILE TO LPT QUE
+        TOD=6114        /RETURN THE TIME OF DAY
+        DATE=6115       /RETURN THE SYSTEM DATE
+        TASK=6116       /RETURN THE USER TASK NO TO AC
+        TSS=6111        /SKIP IF IN TIME SHARING
+/
+        ACL=7701
+        CAM=7621
+        USR=200
+/
+        FIXTAB
+/
+        *10
+ADD,    0               /ADDRESS TO MOVE THE WORDS FROM
+ADD1,   0
+/
+        *20
+TEMP,   0
+TEMP1,  0
+COPIES, 0       /COPIES OF FILE TO MAKE
+COPY,   0       /SAVE FOR SUMMARY
+FILE,   0       /SAVE FOR SUMMARY
+KILL,   0       /FLAG FOR KILLED FILES
+PNTCTL, ZBLOCK 6        /PRINT CONTROL AND FILE NAME LOCATIONS
+BUF,    ZBLOCK 6
+TBUF,   ZBLOCK 6
+JOBCNT, 0
+/
+        *200
+        CLL CLA
+        DCA COPY
+        DCA FILE        /ZERO COUNTERS
+        TSS             /BE SURE WE ARE IN TIME SHARING
+        JMS I (NOTSS    /NOT IN TIME SHARING.....GIVE MESSAVE AND RETURN
+/
+/       THE FILES ARE NOW IN A SPECIFIED AREA
+/       THS FIRST FILE SPECIFICATION IS IN LOC 17605-611, 2 ND IN
+/       17612-616, 3 RD  17617-623, 4 TH 17624-630 AND LAST IN
+/       17631-635
+/
+/       THE OPTIONS TABLE STARTS AT 17643 FOR LETTERS A-L
+/                                    17644 FOR LETTERS M-X
+/                                   17645 Y,Z 0-9
+/       HIGH ORDER BITS FOR = 17642 & LOW ORDER BITS 17646
+/
+/
+/       FIRST FIND OUT HOW MANY COPIES WE WANT OF A FILE
+/
+        CDF 10          /SET THE DATA FIELD TO FIELD 1
+        TAD (7643       /HAS A C BEEN SET FOR COPIES ?
+        CDF 0
+        AND (1000       / IS IT SET ?
+        SNA CLA
+        JMP COP         /ONLY ONE COPY OF THIS FILE
+        CDF 10
+        TAD I (7646     /LOW ORDER OPTIONS N= BITS
+        CDF 0
+        SNA
+        JMP COP         /IF ZERO DON'T CHECK
+        AND (7
+        CIA
+COP,    DCA COPIES      /SAVE THE NO OF COPIES
+/
+/       IF COPIES IS POISTIVE ONLY MOVE ONE FILE...GIVE MESSAGE
+/       IF COPIES IS ZERO MOVE UP TO THE FIVE ALLOWED INPUT FILES
+/
+/       IF K OPTION IS SET ONLY CHECK ONE FILE THE FIRST....! AND KILL IT
+/
+/       NOW SEE IF THE K OPTION WAS SET
+/
+        CDF 10
+        TAD I (7643     /LETTERS A-L
+        CDF 0
+        AND (2          /WAS BIT 10 SET    = "K"
+        SZA CLA         /IF NON ZERO SET THE DE-QUEUE BIT
+        TAD (4000       /SET BIT ONE FOR THE PRINT CONTROL WORD
+        DCA PNTCTL      /SET THE FIRST PART OF THE PRINT CONTROL WORD
+        TAD PNTCTL      /GET THE CONTROL WORD AGAIN
+        SZA CLA
+        CMA             /SET KILL = -1 IF A FILE WAS KILLED
+        DCA KILL
+/
+/       NOW CHECK IF K OPTION WAS GIVEN OR =N OPTION.....IF SO....
+/       ONLY CHECK THE FIRST FILE
+/
+/       IF THEY WERE NOT GIVEN THEN MOVE UP TO FIVE FILES
+/
+        TAD COPIES
+        SPA CLA
+        JMP ONECOP      /ONLY MOVE ONE FILE
+        TAD PNTCTL
+        SNA CLA         /IF ZERO WE CAN MOVE UP TO FIVE FILES
+        TAD (-4
+ONECOP, TAD (-1         /CHECK ONLY ONE FILE OF THESE ARE NON ZERO
+        DCA TEMP
+/
+/       NOW MOVE THE FILE OR FILES TO THE QUEUE
+/
+        TAD (7604       /GET THE STARTING ADDRESS
+        DCA ADD         /SAVE IN THE AUTO INDEX REG
+/
+/
+/       CHECK IF A ZERO DEVICE NO HAS BEEN SPECIFIED
+/
+        CDF 10
+        TAD I ADD       /GET TEH FIRST DATA WORD
+        CDF 0
+        SNA             /IF THE WORD IS NON ZERO PROCEED NORMALLY
+        JMS I (PNTQUE   /PRINT THE LPNE PRINTER QUEUE
+        JMP AGAA        /CONTINUE NORMALLY...ENCODE THE REQUEST
+/
+AGAIN,  CDF 10
+        TAD I ADD       /GET THE CONTENTS OF THE FIRST WORD...THE DEVICE NO.
+        CDF 0
+        SNA             /A ZERO IN THE FIRST WORD TERMINATES THE LIST
+        JMS ENDLPT      /EXIT
+AGAA,   DCA TEMP2       /SAVE THE DEVICE WORD FOR NOW
+        TAD PNTCTL      /GET THE PRINT CONTROL WORD
+        AND (7760       /MASK OFF THE DEVICE BITS
+        TAD TEMP2       /ADD BACK THE DEVICE FOR THE FILE
+        DCA PNTCTL      /PUT IT PACK WITH THE DEVICE NO IN IT
+        TAD (-4         /NOW MOVE THE FOUR FILE WORDS
+        DCA TEMP1
+        TAD (PNTCTL     /GET THE ADDRESS OF THE PRINT CONTROL WORD
+        DCA ADD1
+AGA,    CDF 10
+        TAD I ADD
+        CDF 0
+        DCA I ADD1
+        ISZ TEMP1
+        JMP AGA
+MCOP,   TAD (PNTCTL     /PASS THE ADDRESS FOF THE CONTROL WORD TO THE SPOOLER
+        SPOL            /ACTIVATE THE SPOOLER
+        JMS I (SPLERR   /ERROR EXIT
+        ISZ COPY        /COUNT THE NO OF FILES
+        ISZ COPIES      /MORE THAN ONE COPY
+        NOP             /PROTECT FROM SKIP
+        TAD COPIES      /MADE ALL NECESSARY COPIES
+        SPA CLA
+        JMP MCOP        /REGET THE FIRST FILE
+        ISZ TEMP        /MOVED ALL THE FILES
+        JMP AGAIN
+/
+        SKP
+ENDLPT, 0
+        CLL CLA
+        JMS I (PNTDAT   /PRINT THE FILE DATA
+SPLEX,  CDF CIF 0
+        JMP I (7600     /RETURN TO MONITOR
+/
+TEMP2,  0
+/
+        PAGE
+/       THIS SUBROUTINE PRINTS THE LPT QUEUE AS RETURNED BY MULTOS/8
+/
+PNTQUE, 0
+        CLL CLA
+        DCA PNTCTL      /BE SURE THE PRINT CONTROL WORD IS ZERO
+        TAD (PNTCTL     /NOW PASS THE CONTROL WORD WITH THE SPOOL REQUEST
+        SPOL            /ISSUE THE SPOLLER IOT
+        QUEBUF          /THIS IS THE BUFFER FOR THE DATA
+        CLL CLA         /BE SURE ALL IS CLEAR
+        TAD (QUEBUF-1           /GET THE BUFFER ADDRESS
+        DCA ADD         /SAVE IT IN THE AUTO INDEX REG
+        TAD I ADD       /GET THE FIRST DEVICE -JOB WORD
+        DCA TEMP
+        TAD TEMP
+        SNA CLA         /IF ZERO THE QUE IS EMPTY
+        JMS I (NOQUE    /PUT UP MESSAGE AND DEPART
+        ISZ JOBCNT      /INCREMENT THE JOB COUNTER
+        JMS I (PTXT
+        TXT200          /PUT UP THE QUE HEADER
+        JMS I (SPC
+        2               /OUTPUT 2 SPACES
+        6663            /CHECK LPT STATUS
+        SKP
+        JMP QUD
+        TAD TEMP
+        SMA CLA
+        TAD (7          /WE WILL MAKE AN "R"
+        TAD (53         /IF LINK IS SET MAKE A "K"
+QUD,    TAD (240        /OTHERWISE A SPACE
+        JMS I (TERM     /OUTPUT THE CHARCTER
+        JMS I (SPC
+        3
+        JMP PNTB        /BYPASS THE FIRST PART ON THE FIRST PASS
+/
+/       NOW BEGIN THE DECODING OF THE DEVICE-JOB WORD
+/        AND PRINT THDE REST OF THE WORDS
+/
+PNTA,   TAD I ADD       /GET THE FIRST WORD
+        SNA
+        JMS PNEXT
+        DCA TEMP
+        ISZ JOBCNT      /INCREMEN THE JOB COUNTER
+        TAD TEMP
+        SPA CLA
+        TAD (53         /IF NEGITIVE THE JOB WAS KILLED
+        TAD (240        /IF POSITIVE THE JOB IS WAITING TO BE PRINTED
+        JMS I (TERM     /OUTPUT THE CODE
+        JMS I (SPC
+        3               /MOVE OVER 3 SPACES
+PNTB,   TAD TEMP
+        AND (7          /MASK OFF ALL BUT THE JOB NO.
+        JMS I (SSPRNT
+        JMS I (SPC
+        4
+        TAD TEMP
+        BSW
+        AND (17         /GET THE DEVICE NO.
+        JMS I (SSPRNT   /PRINT THE DEVICE NO.
+        JMS I (SPC
+        4
+        CLL CLA CMA RTL /MAKE A -3
+        DCA PCNT
+PTC,    TAD I ADD
+        DCA PTMP
+        TAD PTMP
+        BSW
+        AND (77
+        SNA             /MUST BE NON ZERO
+        TAD (40         /OUTPUT A SPACE
+        JMS I (PTST     /UNPACK AND PRINT THE CHARCTER
+        TAD PTMP
+        AND (77
+        SNA
+        TAD (40         /OUTPUT A SPACE
+        JMS I (PTST
+        ISZ PCNT
+        JMP PTC
+PTD,    TAD (".
+        JMS I (TERM
+        TAD I ADD       /GET THE FILE EXTENSION
+        DCA PTMP
+        TAD PTMP
+        BSW
+        AND (77         /MASK OFF THE OTHER WORDS
+        SNA
+        TAD (40         /OUTPUT A SPACE
+        JMS I (PTST
+        TAD PTMP
+        AND (77         /MASK OFF THE OTHER WORDS
+        SNA
+        TAD (40         /OUTPUT A SPACE
+        JMS I (PTST
+PTE,    JMS I (LFCR     /DROP TO THE NEXT LINE
+        JMS I (SPC
+        2
+        JMP PNTA        /GO AND DO THE NEXT ONE
+/
+PTMP,   0
+PCNT,   0
+/
+/
+PNEXT,  0
+        6663            /CHECK LPT STATUS
+        JMP PNEX
+        JMS I (PTXT
+        TXT303          /LINE PRINTER NO ON LINE
+PNEX,   JMS I (PTXT
+        TXT305
+        JMS I (PTXT
+        TXT310
+        TAD JOBCNT
+        JMS I (SSPRNT
+        JMS I (LFCR
+        JMS I (LFCR
+        JMP I (SPLEX    /EXIT TO OS/8
+/
+        PAGE
+QUEBUF,/        0102
+/       FILENAME DATA.LS
+/       0403
+/       FILENAME TEST10.LS
+/       4501
+/       FILENAME TRYIT.MA
+        ZBLOCK 256
+        /
+        PAGE
+/       THE SPOOLER ERROR MESSAGES ARE
+/       1= SPOOLER QUEUE FULL
+/       2=DEVICE ZERO SELECTED
+/
+/
+SPLERR, 0
+        AND (2          /WAS THE 2 BIT SET
+        SZA CLA
+        JMP TWO         /ERROR 2
+        JMS I (PTXT
+        TXTE1           /ERROR 1 SPOOLER QUEUE FULL
+        JMS I (GTIME
+        JMP I (SPLEX
+TWO,    JMS I (PTXT
+        TXTE2           /ERROR 2 ....DEVICE 0 SELECTED !
+        JMP I (SPLEX    /EXIT
+        HLT             /SAFETY.....NEVER SEE THIS
+/
+/
+/
+/       THIS SUBROUTINE PRINTS THE SPOOL DATA IN RESPONCE TO A SPOOL REQUEST
+/
+PNTDAT, 0
+        CLL CLA
+        ISZ KILL        /WAS THE KILL FLAG SET
+        SKP             /PRINT THE NORMAL SUMMARY
+        JMP FKILL       /HAD A FILL KILLED
+        JMS I (LFCR     /DO A C.R. & L F FIRST
+        TAD COPY        /GET THE NO OF FILES PRINTED
+        JMS I (SSPRNT   /PRINT THE NO.
+        JMS I (PTXT
+        TXT100          /FILES PRINTED
+        JMS I (GTIME    /PRINT THE TIME
+        JMS I (LFCR     /DO ANOTHER C.R. & L F
+        JMP I (SPLEX    /GO TO THE EXIT
+/
+/       NOW FOR THE MESSAGE ABOUT KILLED FILES
+/
+FKILL,  CLL CLA
+        JMS I (LFCR
+        TAD COPY
+        JMS I (SSPRNT   /PRINT THE NO OF FILES KILLED
+        JMS I (PTXT
+        TXTFKL
+        JMS I (GTIME    /PRINT THE TIME
+        JMS I (LFCR
+        JMP I (SPLEX    /EXIT
+/       NOT IN TIME SHARING ERROR RETURN
+/
+NOTSS,  0
+        CLL CLA
+        JMS I (PTXT
+        TXNTSS          /NOT IN TIME SHARING......!
+        JMP I (SPLEX    /EXIT
+/
+/       C.R. & L.F.
+/
+LFCR,   0
+        TAD (215
+        TLS
+        CLL CLA
+        TAD (212
+        TLS
+        CLL CLA
+        JMP I LFCR
+/
+NOQUE,  0
+        JMS I (PTXT
+        TXT300
+        JMP I (SPLEX    /EXIT HERE
+        HLT             /NEVER RETURN....!
+/
+SPC,    0
+        TAD I SPC       /GET THE NO OF SPACES
+        CIA
+        DCA SPD
+SPAC,   TAD (" 
+        JMS I (TERM
+        ISZ SPD
+        JMP SPAC
+        JMP I SPC
+/
+SPD,    0
+        PAGE
+/THIS SUBROUTINE PRINTS THE TIME ON THE TERMINAL
+/
+GTIME,  0
+        CLA CLL
+        CLA CLL CML RAR
+        TOD             /GET THE TIME OF DAY
+        TBUF
+        TAD TBUF
+        CLL RAR
+        DCA TBUF
+        TAD TBUF+1
+        RAR
+        DCA TBUF+1
+        JMS B           /SUBROUTINE CALL
+        0053
+        SZA
+        JMS CA          /SUBROUTINE
+        JMS DA
+        JMS B
+        0000
+        5670
+        JMS CA          /SUBROUTINE
+        JMS DA
+        JMS B
+        0000
+        0062
+        JMS CA
+        JMS A           /SUBROUTINE
+        0015
+        0012
+        0000
+        JMP I GTIME
+/
+B,        HLT
+        CLA CLL IAC
+        TAD B
+        DCA TBUF+5
+        TAD I TBUF+5
+        CLL CMA IAC
+        DCA TBUF+4
+        CML RAL
+        TAD I B
+        CMA IAC
+        DCA TBUF+3
+        DCA TBUF+2
+X,      CLA CLL
+        TAD TBUF+4
+        TAD TBUF+1
+        DCA TBUF+1
+        RAL
+        TAD TBUF+3
+        TAD TBUF
+        DCA TBUF
+        TAD TBUF
+        CLA SPA
+        JMP ZA
+        ISZ TBUF+2
+        JMP X
+ZA,     CLA CLL
+        TAD I TBUF+5
+        TAD TBUF+1
+        DCA TBUF+1
+        RAL
+        TAD I B
+        TAD TBUF
+        DCA TBUF
+        ISZ TBUF+5
+        TAD TBUF+2
+        JMP I TBUF+5
+/
+A,      0               /SUBROUTINE
+        TAD I A
+        ISZ A
+        SNA
+        JMP I A
+        JMS TYCHAR      /TYPE THE CHARCTER
+        JMP A+1
+/
+TYCHAR, 0
+        TLS
+        CLA CLL
+        JMP I TYCHAR
+/
+CA,     HLT
+        DCA TBUF+7
+        DCA TBUF+6
+        TAD TBUF+7
+T,      TAD (7766
+        SPA
+        JMP Y
+        ISZ TBUF+6
+        JMP T
+Y,      TAD (12
+        DCA TBUF+7
+        TAD TBUF+6
+        TAD (60
+        JMS TYCHAR
+        TAD TBUF+7
+        TAD (60
+        JMS TYCHAR
+        JMP I CA
+/
+DA,     HLT
+        TAD (72
+        JMS TYCHAR
+        JMP I DA
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+/
+        PAGE
+/TEXT UNPACKING AND OUTPUTTING ROUTINE.
+/
+PTXT,   0
+        CLA
+        RAR
+        DCA LNK         /SAVE THE LINK
+        TAD I PTXT      /GET POINTER
+        DCA COL
+        ISZ PTXT        /ADVANCE RETURN POINTER
+PXT,    TAD I COL       /GET 1 WORD
+        BSW
+        AND (77
+        SNA
+        JMP STRA
+        JMS PTST        /UNPACK,TEST,PRNT
+        TAD I COL
+        AND (77
+        SNA
+        JMP STRA
+        JMS PTST        /UNPACK,TEST,PRNT
+        ISZ COL
+        JMP PXT         /GET NXT PNT
+STRA,   CLL CLA
+        TAD LNK
+        RAL
+         CLA
+        JMP I PTXT
+/
+LNK,    0
+/
+PTST,   0               /UNPACK,TEST,PRNT
+        AND (77         /NO. IN AC SO MASK IT
+        MQL             /TEMP SAVE IT
+        MQA             /GET IS AGAIN & TEST IT
+        TAD (-43        /FOR A LINE FEED
+        SZA CLA
+        JMP PTSTA
+        TAD (212
+        TLS
+        TAD (3
+        TLS
+        CLA
+        JMP I PTST      /GET NXT CHARCTER
+PTSTA,  MQA
+        AND (40         /WAS IT A NUMBER ?
+        SNA CLA         /NON ZERO = NUMBER
+        TAD (100        /CONVER TO ASCII
+        TAD (200
+        MQA             /PUT IN CHARCTER PART NOW
+        TLS
+        CLL CLA
+        JMP I PTST
+/
+COL,    0
+/
+SSPRNT, 0
+        DCA DPRREG      /SAVE THE NO TO BE PRINTED
+        TAD DPRINS
+        DCA DPRPTP
+        TAD M4
+        DCA DPRFAC
+        DCA DPRFL
+        DCA DPRFIG
+DPRSUB, CLL
+        TAD DPRREG
+DPRPTP, TAD DPRTEN
+        SNL
+        JMP .+4
+        DCA DPRREG
+        ISZ DPRFIG
+        JMP DPRSUB
+        CLL CLA
+        TAD DPRFIG
+        SNA
+        JMP DPRZRO
+DPRIN,  TAD (20
+        ISZ DPRFL
+DPRIN1, TAD (" 
+        JMS TERM
+        ISZ DPRPTP
+        ISZ DPRFAC
+        JMP DPRSUB-1
+        JMP I SSPRNT
+/
+DPRZRO, CLL CLA IAC
+        TAD DPRFAC      /IS THIS THE LAST DIGIT
+        SNA CLA
+        CLL CLA IAC
+        RAR             /ROTATE INTO THE LINK
+        TAD DPRFL
+        SZA CLA
+        JMP DPRIN
+        SNL             /CHECK THE LINK...IF SET = LAST DIGIT SO PRINT 0
+        JMP DPRIN1
+        JMP DPRIN
+/
+DPRREG, 0
+DPRFL,  0
+DPRINS, TAD DPRTEN
+DPRFAC, 0
+DPRFIG, 0
+DPRTEN, DECIMAL
+        -1000
+        -100
+        -10
+        -1
+OCTAL
+/
+M4,     -4
+/
+TERM,   0
+        TSF
+        JMP .-1
+        TLS
+        CLL CLA
+        JMP I TERM
+/
+        PAGE
+/TEXT PAGE
+/
+TXTE1,  TEXT *#LINE PRINTER QUEUE FULL        AT  *
+TXTE2,  TEXT *#ILLEGAL INPUT DEVICE SELECTED !#*
+TXNTSS, TEXT *NOT IN MULTOS-8    TIME SHARING....!*
+TXTFKL, TEXT *    FILES KILLED     AT  *
+TXT100, TEXT *    FILES ENTERED IN LPT QUEUE   AT  *
+TXT200, TEXT *##STATE  JOB   DEVICE   FILENAME#_____  ___   ______   ________#*
+TXT300, TEXT *##THE QUEUE IS EMPTY ###*
+TXT303, TEXT *#LINE PRINTER NOT ON LINE  !!*
+TXT305, TEXT *##R = JOB BEING PRINTED#K = JOB KILLED*
+TXT310, TEXT *###TOTAL JOBS IN QUEUE *
+

@@ -1,0 +1,199 @@
+/       MULTOS-8 TALK PROGRAM
+/
+/       Gene A. Ware
+/       Electrical Engineering Department
+/       Utah State University
+/       Logan  Utah  84322
+/
+/
+/       This program transmitts a message to another
+/       user on the MULTOS-8 time share system.
+/       If time share is not in operation, no operation
+/       occurrs.
+/
+/       MODIFIED  1-JAN-82     BY   F. BRANDT
+/                                       SCRL- GALLAUDET COLLEGE
+/
+/
+/     
+/     
+TALK=   6124      
+TSS=    6111      
+SPR=    6125      
+
+        *200      
+/     
+/CONTINUE ONLY IF TIME SHARING      
+/     
+        CLA 
+        TSS 
+        JMP I K7600     
+/     
+/GET THIS TERMINAL NUMBER     
+/     
+        CLA 
+        SPR 
+        TERMS1    
+        TAD I (TERMS1   /GET SOURCE TERMINAL NUMBER   
+        TAD K0060               /CONVERT TO ASCII     
+        DCA I (TERMS    /PUT IN OUTPUT BUFFER   
+/     
+/GET THE DESTINATION TERMINAL NUMBER      
+/     
+        CLA 
+        TAD KN          /PRINT A '#'      
+        TLS 
+        JMS TTYI        /GET AN INPUT CHARACTER 
+        TLS             /ECHO IT    
+        AND K0007       /MAX OF 6 TERMINALS IN MULTOS 
+        CLL RTR   
+        RTR 
+        DCA TERMD 
+      
+/     
+/TALK STRING INPUT      
+/     
+INPUT,  TAD KCR         /CR-LF ON SOURCE TERMINAL     
+        TLS 
+        CLA 
+        TAD KLF   
+        TLS 
+        CLA 
+        TAD KA          /PRINT A '*'      
+        TLS 
+        CLA 
+        TAD K7600       /SET COUNTER AND POINTER      
+        DCA CNTR  
+        TAD K0410       /STORE CHARS AFTER HEADER     
+        DCA PNTR  
+INLOOP, JMS TTYI        /GET A CHARACTER  
+        DCA I PNTR      /STORE IT   
+        TAD I PNTR      /GET IT AGAIN     
+        CIA 
+        TAD K0177       /IS IT A RUBOUT?  
+        SNA CLA   
+        JMP RUBOUT      /YES  
+        TAD I PNTR      /GET CHARACTER AGAIN    
+        TLS             /ECHO IT    
+        CIA 
+        TAD KCR         /IS IT A CARRIAGE RETURN?     
+        SNA CLA   
+        JMP OUT         /YES  
+        ISZ PNTR  
+        ISZ CNTR  
+        JMP INLOOP      
+      
+/     
+/OUTPUT LOOP      
+/     
+OUT,    TAD PNTR        /RESET STRING COUNTER   
+        AND K0177 
+        SNA 
+        JMP I K7600     
+        CIA 
+        DCA CNTR  
+        TAD K0400       /RESET STRING POINTER   
+        DCA PNTR  
+OUTLP,  TAD I PNTR      
+        JMS TALKS 
+        ISZ PNTR  
+        ISZ CNTR  
+        JMP OUTLP 
+        JMS CRLF  
+        CLA 
+        JMP INPUT 
+      
+/     
+/SUBROUTINES      
+/     
+/RUBOUT INPUT CHARACTER 
+/     
+RUBOUT, CLA 
+        TAD KBS   
+        TLS 
+        CLA 
+        TAD KBLK  
+        TLS 
+        CLA 
+        TAD KBS   
+        TLS 
+        STA 
+        TAD PNTR  
+        DCA PNTR  
+        STA 
+        TAD CNTR  
+        DCA CNTR  
+        JMP INLOOP      
+/     
+/CARRIAGE RETURN LINE FEED SUBROUTINE     
+/     
+CRLF,   0   
+        CLA 
+        TAD KCR   
+        JMS TALKS 
+        TAD KLF   
+        JMS TALKS 
+        JMP I CRLF      
+/     
+/TALK SUBROUTINE  
+/     
+TALKS,  0   
+        TAD TERMD 
+        TALK      
+        JMP .-1   
+        CLA 
+        JMP I TALKS     
+/     
+/SOURCE TERMINAL INPUT SUBROUTINE   
+/     
+TTYI,   0   
+        KRB             /GET THE CHARACTER      
+        AND K0177       /MASK IT    
+        TAD M3          /CONTROL C? 
+        SNA 
+        JMP I K7600     
+        TAD O3          /RESET      
+        JMP I TTYI      
+      
+/     
+/PARAMETERS AND CONSTANTS     
+/     
+K7600,  7600      
+K0060,  0060      
+K0400,  0400      
+K0410,  TERMS1    
+K0007,  0007      
+K0177,  0177      
+KCR,    015 
+KLF,    012 
+KN,     043 
+KA,     052 
+KBS,    010 
+KBLK,   040 
+CNTR,   0   
+PNTR,   0   
+TERMD,  0   
+M3,     -3  
+O3,     3   
+      
+/BUFFER PAGE HEADER     
+/     
+      
+      
+        *400      
+        07      /BELL   
+        212     /LF     
+        212     /LF     
+        "*  
+        "*  
+TERMS,  40      /SOURCE TERMINAL NUMBER   
+        "*  
+        "*  
+        40      /SPACE  
+        40  
+        EBUF=.&177      
+        ENDBUF=177-EBUF 
+      
+TERMS1, ZBLOCK ENDBUF   
+/       ZBLOCK 167      
+$$$$$$$$$$$ 

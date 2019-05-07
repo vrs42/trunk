@@ -1,0 +1,621 @@
+/SYSTAT.PA                      MULTOS-8                AUG 23,1979
+/
+/       EDIT 105
+/
+/UPDATED TO ELIMINATE THE NEED FOR EAE NUMBER PRINT
+/
+/       ADDED TO BUFFER SIZE AND ADDED WAIT STATUS,PC, AND CORE INFORMATION
+/
+/       DEFINATIONS
+/
+        SPR=6125
+        SYN=6120        /SUSPEND FOR TEH NEXT TIME QUANTUM
+        TOD=6114        /TIME OF DAY
+        DATE=6115
+        SPF=6040        /SET THE TTY FLAG
+/
+/       EAE INSTRUCTIONS
+/
+        ACL=7701
+/       SWBA=7447
+/       SWAB=7431
+/       DAD=7443
+/       MUY=7405
+/       DVI=7407
+        CAM=7621
+/
+/
+        *10
+PT1,    0
+        *20
+/
+BUF,    0
+        ZBLOCK 50       /SAVE A FIVE WORD STATUS BUFFER
+/
+        *.+5
+TEMP,   0
+DBUF,   ZBLOCK 2
+TBUF,   0
+CSW,    7777
+TIMOUT, 0
+        144
+/
+/
+        *200
+/
+        CLL CLA         /BE SURE ALL IS CLEAR
+        SPF             /SET TY FLAG
+        TAD (214
+        TLS
+/       JMP .+2
+/AGAIN, TAD (201        /CLEAR ANN ARBOR TERMINAL
+/       TLS             /CLEAR THE TERMINAL
+        SYN             /GIVE THE TERMINAL SOME TIME...
+        CLL CLA         /CLEAR AC AGAIN
+        SPR             /READ THE STATUS REGISTER
+        BUF             /PUT IT INTO BUF @ LOC 20
+        STL CLA IAC RAL /MAKE A 3
+        DATE            /GET THE SYSTEM DATE
+        DCA DBUF        /SAVE THE DAY- MO
+        ACL             /GET THE MQ
+        DCA DBUF+1      /SAVE THE YEAR
+        JMS I (PTXT     /OUTPUT THE HEADER
+        TXT1            /DISPLAY HEADER
+        TAD DBUF
+        AND (7700       /MASK OFF THE MOUNTH
+        BSW             /SWAP BYTES
+        JMS I (SSPRNT
+        TAD ("-
+        TLS             /OUTPUT A DASH
+        CLL CLA
+        TAD DBUF
+        AND (77
+        TAD I (MPNT     /GET THE MONTH POINTER
+        DCA TEMP
+        TAD I TEMP
+        DCA .+2
+        JMS I (PTXT
+        TXT200          /MOUNTH
+        TAD ("-
+        TLS
+        CLL CLA
+        TAD DBUF+1
+        JMS I (SSPRNT
+        JMS I (PTXT
+        TXT1A           /OUTPUT THE TIME
+        JMS I (GTIME    /OUTPUT THE TIME
+        JMS I (PTXT     /SECOND LINE OF HEADER
+        TXT2            /SYSTEM MEMORY
+        TAD I (BUF+4    /GET THE 4 TH WORD FROM THE BUFFER
+        AND (70         /MAKE TO GET THE AMOUNT OF MEMORY
+        RAR             /MOVE RIGHT
+                        /THIS GIVES A MULTIPLY BY 4 FOR 'K' MEM
+        JMS I (SSPRNT
+        TAD (240        /OUTPUT A SPACE
+        TLS             /OUTPUT THE CHARACTER
+        CLL CLA
+        TAD ("K
+        TLS             /OUTPUT THE MEMORY AVAILABLE
+        CLL CLA
+        JMS I (PTXT
+        TXT3            /SWAPPING FIELDS
+        TAD I (BUF+4
+        AND (7          /GET THE LOW ORDER BITS
+        TAD ("0         /CONVER TO ASCII
+        TLS             /OUTPUT IT
+        CLL CLA
+        JMS I (PTXT
+        TXT4            /USER MAX
+        TAD I (BUF+4
+        AND (700        /GET BITS 3-5
+        BSW             /SWAP BYTES
+        DCA I (USMAX    /SAVE THE USER MAX FOR NOW
+        TAD I (USMAX
+        TAD ("0         /CONVER TO ASCII
+        TLS
+        CLL CLA
+        JMS I (PTXT
+        TXT5            /NOW PUT UP THE STATUS HEADER
+        TAD I (BUF      /GET THE USER NO WHO CALLED THIS
+        CIA             /NEGATE IT
+        DCA I (UJOB
+        TAD (BUF+4
+        DCA PT1
+        JMS I (GDAT
+        2000            /MASK STATUS WORDS
+        1               /FOR JOB NO 1
+        JMS I (GDAT
+        1000            /MASK STATUS WORDS
+        2               /FOR JOB NO 2
+        JMS I (GDAT
+        400             /MASK STATUS WORDS
+        3               /FOR JOB NO 3
+        JMS I (GDAT
+        200             /MASK STATUS WORDS
+        4               /FOR JOB NO 4
+        JMS I (GDAT
+        100             /MASK STATUS WORDS
+        5               /FOR JOB NO 5
+        JMS I (SHOMEM   /SHOW MEMORY USEAGE
+        TAD I (BUF+1
+        SNA CLA
+        JMP NLPT
+        JMS I (PTXT
+        TXT6            /JOBS IN LPT: QUE
+        TAD I (BUF+1
+        JMS I (SSPRNT   /PRINT THE NO. OF JOBS IN THE LPT QUEUE
+        JMP EX
+NLPT,   JMS I (PTXT
+        TXT7
+EX,     CLL CLA
+/       JMP AGAIN
+        CIF CDF 0
+        JMP I (7600     /RETURN TO OS-8
+/
+        PAGE
+/THIS SUB GETS THE STATUS WORDS
+/CALL +1 = MASK
+/CALL +2 = JOB NO
+GDAT,   0
+        TAD I GDAT
+        DCA MASK
+        ISZ GDAT
+        TAD I GDAT
+        DCA JOBNO
+        TAD I (BUF+2    /GET THE STATUS WORD
+        AND MASK        /IF BIT 1 SET JOB 1 ACTIVE EXT
+        DCA ACT
+        TAD ACT
+        SNA CLA         /ACTIVE OR NOT ?
+        JMP GDATEX      /NO DON'T PRINT ANYTHING
+        TAD USMAX
+        CIA
+        TAD JOBNO       /GET THE CURRENT JOB NO.
+        SPA SNA CLA
+        JMP D2          /CHECK FURTHER
+        JMS I (PTXT
+        TXLPT           /LPT SPOOLER
+        JMP D1          /CONTINUE
+D2,     TAD UJOB        /CHECK THE CALLING JOB
+        TAD JOBNO
+        SZA CLA
+        JMP D           /PRINT THE JOB NO.
+        JMS I (PTXT
+        TXTSLF          /OUTPUT SELF INSTEAD OF THE JOB NO.
+        JMP D1
+D,      TAD JOBNO
+        JMS I (SSPRNT
+D1,     TAD (-10
+        DCA TEMP
+        TAD (240        /OUTPUT SOME SPACES
+E,      TLS
+        ISZ TEMP
+        JMP E
+        CLL CLA
+        TAD ACT         /GET THE ACTIVITY WORD
+        SZA CLA
+        IAC
+        TAD ("0         /ZERO = NOT BUSY     1 = BUSY
+        TLS             /OUTPUT THE CHARCTER
+        CLL CLA
+        TAD (-15
+        DCA TEMP
+        TAD (240        /OUTPUT SOME SPACES
+C,      TLS
+        ISZ TEMP
+        JMP C
+        CLL CLA
+        TAD I (BUF+3
+        AND MASK        /GET THE DATA FOR BUSY
+        SZA CLA
+        IAC
+        TAD ("0         /ZERO = NOT BUSY     1 = BUSY
+        TLS             /OUTPUT THE CHARCTER
+/THIS SUBROUTINE SHOWS WHAT IS HAPPENING TO THE JOBS AND THE CURRENT 'PC'
+/
+        CLL CLA
+        TAD USMAX
+        CIA
+        TAD JOBNO       /GET THE CURRENT JOB NO.
+        SPA SNA CLA
+        SKP
+        JMP GDAT1
+        JMS I (SPC
+        7
+        CLL CLA
+        TAD I PT1       /GET THE FIRST POINT
+        CIA
+        MQL             /SAVE IT FOPR NOW
+        ACL
+        AND (1          /ARE WE WAITING FOR THE DISK
+        SNA CLA
+        JMP WA1
+        JMS I (PTXT
+        TXT100          /DISK I/O WAIT
+        JMP APC         /AT 'PC'
+WA1,    ACL
+        AND (6          /TTY WAIT ?
+        SNA CLA
+        JMP WA2
+        JMS I (PTXT
+        TXT101          /TTY WAIT
+        JMP APC
+WA2,    ACL
+        AND (200        /DECTAPE WAIT
+        SNA CLA
+        JMP APC
+        JMS I (PTXT
+        TXT102
+APC,    CLL CLA
+        TAD I PT1       /GET THE USER PC
+        JMS I (OPRNT    /OCTAL PRINT
+        TAD (212
+        TLS
+        TAD (3
+        TLS
+        CLL CLA
+        JMP GDAT1       /BYPASS IF ABNORMAL EXIT
+GDATEX, ISZ PT1
+        ISZ PT1
+GDAT1,  JMP I GDAT
+/
+ACT,    0
+MASK,   0
+JOBNO,  0
+UJOB,   0
+USMAX,  0
+/
+/
+        PAGE
+/THIS SUBROUTINE SHOWS HOW FIELDS 2-7 ARE USED
+/
+SHOMEM, 0
+        CLL CLA
+        TAD (-6
+        DCA TEMPB
+	TAD I (USMAX
+	RAL
+	TAD (26
+        DCA PT1
+        JMS I (PTXT
+        TXT120
+MEM1,   TAD I PT1       /GET THE DATA FOR FIELD 2
+        SNA             /IT THERE DATA FOR THIS FIELD ?
+        JMP MEM2
+        MQL             /SAVE IT FOR NOW
+        TAD TEMPB
+        DECIMAL
+        TAD (8
+        OCTAL
+        JMS I (SSPRNT
+        JMS I (SPC
+        3
+        ACL
+        AND (7          /GET THE JOB NUMBER FOR THIS FIELD
+        JMS I (SSPRNT   /PRINT THE NUMBER
+        JMS I (SPC
+        3
+        ACL
+        AND (70         /NOW SHOW THE RELATIVE FIELD NUMBER
+        RTR
+        RAR
+        JMS I (SSPRNT
+        CLL CLA
+        TAD (212
+        TLS
+        TAD (3
+        TLS
+        CLL CLA
+MEM2,   ISZ TEMPB
+        JMP MEM1
+        CLL CLA
+        JMP I SHOMEM
+/
+TEMPB,  0
+SPC,    0
+        TAD I SPC
+        CIA
+        DCA TEMPA
+SPCA,   TAD (" 
+        JMS I (TERM
+        ISZ TEMPA
+        JMP SPCA
+        JMP I SPC
+/
+TEMPA,  0
+/
+/
+/       OCTAL NUMBER PRINTER
+/
+OPRNT,  0
+        MQL
+        ACL
+        AND (7000
+        RTL
+        RTL             /PUT IN THE LOW ORDER BYTE POSITION
+        TAD ("0         /ADD ASCII 0 CODE
+        TLS
+        ACL
+        AND (700        /GET THE SECOND DIGIT
+        BSW             /PUT IN THE LOWER ORDER BYTE
+        TAD ("0
+        TLS
+        ACL
+        AND (70
+        RAR
+        RTR
+        TAD ("0
+        TLS
+        ACL
+        AND (7
+        TAD ("0
+        TLS
+        CLL CLA
+        JMP I OPRNT
+/
+MPNT,   .
+        TXT200                  /JAN
+        TXT201          /FEB
+        TXT202          /MAR
+        TXT203          /APR
+        TXT204          /MAY
+        TXT205          /JUN
+        TXT206          /JUL
+        TXT207          /AUG
+        TXT208          /SEP
+        TXT209          /OCT
+        TXT210          /NOV
+        TXT211          /DEC
+        0
+/
+        PAGE
+GTIME,  0
+        CLL CLA CML RAR
+        TOD
+        TBUF
+        TAD TBUF
+        CLL RAR
+        DCA TBUF
+        TAD TBUF+1
+        RAR
+        DCA TBUF+1
+        JMS B
+        0053
+        SZA
+        JMS CA          /SUBROUTINE
+        JMS DA
+        JMS B
+        0000
+        5670
+        JMS CA          /SUBROUTINE
+        JMS DA
+        JMS B
+        0000
+        0062
+        JMS CA
+        JMS A           /SUBROUTINE
+        0015
+        0012
+        0000
+        JMP I GTIME
+/
+B,        HLT
+        CLA CLL IAC
+        TAD B
+        DCA TBUF+5
+        TAD I TBUF+5
+        CLL CMA IAC
+        DCA TBUF+4
+        CML RAL
+        TAD I B
+        CMA IAC
+        DCA TBUF+3
+        DCA TBUF+2
+X,      CLA CLL
+        TAD TBUF+4
+        TAD TBUF+1
+        DCA TBUF+1
+        RAL
+        TAD TBUF+3
+        TAD TBUF
+        DCA TBUF
+        TAD TBUF
+        CLA SPA
+        JMP ZA
+        ISZ TBUF+2
+        JMP X
+ZA,     CLA CLL
+        TAD I TBUF+5
+        TAD TBUF+1
+        DCA TBUF+1
+        RAL
+        TAD I B
+        TAD TBUF
+        DCA TBUF
+        ISZ TBUF+5
+        TAD TBUF+2
+        JMP I TBUF+5
+/
+A,      0               /SUBROUTINE
+        TAD I A
+        ISZ A
+        SNA
+        JMP I A
+        JMS TYCHAR      /TYPE THE CHARCTER
+        JMP A+1
+/
+TYCHAR, 0
+        TLS
+        CLA CLL
+        JMP I TYCHAR
+/
+CA,     HLT
+        DCA TBUF+7
+        DCA TBUF+6
+        TAD TBUF+7
+T,      TAD (7766
+        SPA
+        JMP Y
+        ISZ TBUF+6
+        JMP T
+Y,      TAD (12
+        DCA TBUF+7
+        TAD TBUF+6
+        TAD (60
+        JMS TYCHAR
+        TAD TBUF+7
+        TAD (60
+        JMS TYCHAR
+        JMP I CA
+/
+DA,     HLT
+        TAD (72
+        JMS TYCHAR
+        JMP I DA
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+        HLT
+/
+        PAGE
+/TEXT UNPACKING AND OUTPUTTING ROUTINE.
+/
+PTXT,   0
+        TAD I PTXT      /GET POINTER
+        DCA COL
+        ISZ PTXT        /ADVANCE RETURN POINTER
+PXT,    TAD I COL       /GET 1 WORD
+        BSW
+        JMS PTST        /UNPACK,TEST,PRNT
+        TAD I COL
+        JMS PTST        /UNPACK,TEST,PRNT
+        ISZ COL
+        JMP PXT         /GET NXT PNT
+STRA,   CLL CLA
+        JMP I PTXT
+/
+PTST,   0               /UNPACK,TEST,PRNT
+        AND (77         /NO. IN AC SO MASK IT
+        MQL             /TEMP SAVE IT
+        MQA             /GET IS AGAIN & TEST IT
+        SNA             /WAS IT ZERO ??
+        JMP STRA        /JMP OUT  FINISHED !!
+        TAD (-43        /FOR A LINE FEED
+        SZA CLA
+        JMP PTSTA
+        TAD (212
+        TLS
+        TAD (3
+        TLS
+        CLA
+        JMP I PTST      /GET NXT CHARCTER
+PTSTA,  MQA
+        AND (40         /WAS IT A NUMBER ?
+        SNA CLA         /NON ZERO = NUMBER
+        TAD (100        /CONVER TO ASCII
+        TAD (200
+        MQA             /PUT IN CHARCTER PART NOW
+        TLS
+        CLL CLA
+        JMP I PTST
+/
+COL,    0
+/
+SSPRNT, 0
+        DCA DPRREG      /SAVE THE NO TO BE PRINTED
+        TAD DPRINS
+        DCA DPRPTP
+        TAD M4
+        DCA DPRFAC
+        DCA DPRFL
+        DCA DPRFIG
+DPRSUB, CLL
+        TAD DPRREG
+DPRPTP, TAD DPRTEN
+        SNL
+        JMP .+4
+        DCA DPRREG
+        ISZ DPRFIG
+        JMP DPRSUB
+        CLL CLA
+        TAD DPRFIG
+        SNA
+        JMP DPRZRO
+DPRIN,  TAD (20
+        ISZ DPRFL
+DPRIN1, TAD (" 
+        JMS TERM
+        ISZ DPRPTP
+        ISZ DPRFAC
+        JMP DPRSUB-1
+        JMP I SSPRNT
+/
+DPRZRO, CLL CLA IAC
+        TAD DPRFAC      /IS THIS THE LAST DIGIT
+        SNA CLA
+        CLL CLA IAC
+        RAR             /ROTATE INTO THE LINK
+        TAD DPRFL
+        SZA CLA
+        JMP DPRIN
+        SNL             /CHECK THE LINK...IF SET = LAST DIGIT SO PRINT 0
+        JMP DPRIN1
+        JMP DPRIN
+/
+DPRREG, 0
+DPRFL,  0
+DPRINS, TAD DPRTEN
+DPRFAC, 0
+DPRFIG, 0
+DPRTEN, DECIMAL
+        -1000
+        -100
+        -10
+        -1
+OCTAL
+/
+M4,     -4
+/
+TERM,   0
+        TSF
+        JMP .-1
+        TLS
+        CLL CLA
+        JMP I TERM
+/
+        PAGE
+/
+TXT1,   TEXT *MULTOS-8   SYSTEM STATUS    *
+TXT1A,  TEXT *    AT    *
+TXT2,   TEXT *#UNASSIGNED MEMORY  *
+TXT3,   TEXT *     SWAPPING FIELDS  *
+TXT4,   TEXT *    MAX NO. USERS   *
+TXT5,   TEXT *##JOB       ACTIVE        BUSY#*
+TXT6,   TEXT *# NO. OF JOBS IN LPT QUEUE   *
+TXT7,   TEXT *# LPT QUEUE EMPTY #*
+TXTSLF, TEXT *SELF*
+TXLPT,  TEXT *LPT *
+TXT100, TEXT *DISK I/O WAIT AT PC *
+TXT101, TEXT *TTY  I/O WAIT AT PC *
+TXT102, TEXT *TAPE I/O WAIT AT PC *
+TXT120, TEXT *#MEMORY USEAGE#FIELD   JOB  REL FIELD#*
+TXT200, TEXT *JAN*
+TXT201, TEXT *FEB*
+TXT202, TEXT *MAR*
+TXT203, TEXT *APR*
+TXT204, TEXT *MAY*
+TXT205, TEXT *JUN*
+TXT206, TEXT *JUL*
+TXT207, TEXT *AUG*
+TXT208, TEXT *SEP*
+TXT209, TEXT *OCT*
+TXT210, TEXT *NOV*
+TXT211, TEXT *DEC*
+
