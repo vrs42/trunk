@@ -179,7 +179,8 @@ sub os8fs {
 	  $ext .= ".tent" if $flen == 0;
           $i = shift @blk;
           die "$dsk: Tentative file not followed by empty space!" if $i;
-          $flen = shift @blk;
+          $flen = 010000 - shift @blk;
+          $nent--;
         }
         $fname =~ s/$/./ unless $ext eq "";
       } else {
