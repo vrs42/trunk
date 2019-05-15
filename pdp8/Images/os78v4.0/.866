@@ -1,0 +1,870 @@
+2-X2)\PRINT "WARP ENGINES SHUTDOWN AT SECTOR";
+2035 PRINT S1;",";S2;"DUE TO BAD NAVAGATION"
+2040 GOTO 2080
+2070 NEXT I
+2075 S1=INT(S1)\S2=INT(S2)
+2080 A$="<*>"\Z1=S1\Z2=S2
+2110 GOSUB 5510
+2120 E=E-N+5\T=(INT(10*T+1.1))/10\IF W1<1 THEN 2150
+2140 T=(INT(10*T+9))/10
+2150 IF T>T0+T9 THEN 3970
+2160 GOTO 1260
+2170 X=Q1*8+X+X1*N\Y=Q2*8+Y+X2*N
+2190 Q1=INT(X/8)\Q2=INT(Y/8)\S1=INT(X-Q1*8)\S2=INT(Y-Q2*8)
+2230 IF S1<>0 THEN 2260
+2240 Q1=Q1-1\S1=8
+2260 IF S2<>0 THEN 2290
+2270 Q2=Q2-1\S2=8
+2290 T=T+1\E=E-N+5
+2310 IF T>T0 + T9 THEN 3970
+2320 GOTO 810
+2321 REM *** LONG RANGE SENSON SCAN CODE BEGINS HERE
+2330 IF D(3)>=0 THEN 2370
+2340 PRINT "LONG RANGE SENSORS ARE INOPERABLE"
+2360 GOTO 1270
+2370 PRINT "LONG RANGE SENSOR SCAN FOR QUADRANT";Q1;",";Q2
+2380 PRINT"-------------------"
+2390 FOR I=Q1-1 TO Q1+1
+2410 FOR J=Q2-1 TO Q2+1
+2420 IF I<1 GOTO 2500\IF I>8 GOTO 2500\IF J<1 GOTO 2500\IF J>8 GOTO 2500
+2430 N(J-Q2+2)=G(I,J)
+2440 IF D(8)<0 THEN 2460
+2450 Z(I,J)=G(I,J)
+2460 NEXT J
+2470 PRINT ":";N(1);TAB(7);":";N(2);TAB(13);":";N(3);TAB(19);":"
+2480 PRINT"-------------------"
+2490 NEXT I
+2495 GOTO 1270
+2500 N(J-Q2+2)=0\GOTO 2460
+2501 REM *** PHASER CONTROL CODE BEGINS HERE
+2530 IF K3<=0 THEN 3670
+2540 IF D(4)>=0 THEN 2570
+2550 PRINT "PHASERS NOT OPERATIONAL"
+2560 GOTO 1270
+2570 IF D(8)>=0 THEN 2590
+2580 PRINT " COMPUTER FAILURE HAMPERS ACCURACY"
+2590 PRINT "PHASERS LOCKED ON TARGET.  ENERGY AVAILABLE =";E
+2600 PRINT "NUMBER OF UNITS TO FIRE:";\INPUT X
+2620 IF X<=0 THEN 1270
+2630 IF E-X<0 THEN 2590
+2640 E=E-X
+2650 GOSUB 3790
+2660 IF D(7)>=0 THEN 2680
+2670 X=X*RND(1)
+2680 FOR I=1TO3
+2690 IF K(I,3)<=0 THEN 2770
+2700 H=INT((X/K3/FND(0))*(2*RND(1)))
+2710 K(I,3)=K(I,3)-H
+2720 PRINT H;" UNIT HIT ON KLINGON AT SECTOR";K(I,1);",";K(I,2);
+2721 PRINT "     (";K(I,3);" LEFT)"
+2740 IF K(I,3)>0 THEN 2770
+2750 GOSUB 3690
+2760 IF K9<=0 THEN 4040
+2770 NEXT I
+2780 IF E<0 THEN 4000
+2790 GOTO 1270
+2791 REM *** PHOTON TORPEDO CODE BEGINS HERE
+2800 IF D(5)>=0 THEN 2830
+2810 PRINT "PHOTON TUBES ARE NOT OPERATIONAL"
+2820 GOTO 1270
+2830 IF P>0 THEN 2860
+2840 PRINT "ALL PHOTON TORPEDOES EXPENDED"
+2850 GOTO 1270
+2860 PRINT "TORPEDO COURSE (1-9):";\INPUT C1
+2880 IF C1=0 THEN 1270
+2890 IF C1<1 GOTO 2860\IF C1>=9 GOTO 2860
+2900 X1=C(C1,1)+(C(C1+1,1)-C(C1,1))*(C1-INT(C1))
+2910 X2=C(C1,2)+(C(C1+1,2)-C(C1,2))*(C1-INT(C1))
+2920 X=S1\Y=S2\P=P-1
+2950 PRINT "TORPEDO TRACK:"
+2960 X=X+X1\Y=Y+X2
+2980 IF X<1 GOTO 3420\IF X>=9 GOTO 3420\IF Y<1 GOTO 3420\IF Y>=9 GOTO3420
+2990 PRINT "               ";X;",";Y
+2992 IF INT(X+.25)<>INT(X+.75) GOTO 2960
+2994 IF INT(Y+.25)<>INT(Y+.75) GOTO 2960
+3000 Z1=INT(X+.5)\Z2=INT(Y+.5)
+3010 A$="   "
+3040 GOSUB 5680
+3050 IF Z3=0 THEN 3070
+3060 GOTO 2960
+3070 A$="+++"
+3100 GOSUB 5680
+3110 IF Z3=0 THEN 3220
+3120 PRINT "*** KLINGON DESTROYED ***"
+3130 K3=K3-1\K9=K9-1
+3150 IF K9<=0 THEN 4040
+3160 FOR I=1TO3\IF INT(X)<>K(I,1) THEN 3190
+3180 IF INT(Y)=K(I,2) THEN 3200
+3190 NEXT I
+3200 K(I,3)=0\GOTO 3360
+3220 A$=" * "
+3250 GOSUB 5680
+3260 IF Z3=0 THEN 3290
+3270 PRINT "YOU CAN'T DESTROY STARS, SILLY"
+3280 GOTO 3420
+3290 A$=">!<"
+3320 GOSUB 5680
+3330 IF Z3=0 THEN 2960
+3340 PRINT "*** STAR BASE DESTROYED *** .......CONGRATULATIONS"
+3350 B3=B3-1
+3360 A$="   "
+3390 GOSUB 5510
+3400 G(Q1,Q2)=K3*100+B3*10+S3
+3405 IF Z(Q1,Q2)<1 GOTO 3410\Z(Q1,Q2)=G(Q1,Q2)
+3410 GOTO 3430
+3420 PRINT "TORPEDO MISSED"
+3430 GOSUB 3790
+3440 IF E<0 THEN 4000
+3450 GOTO 1270
+3451 REM *** SHIELD CONTROL CODE BEGINS HERE
+3460 IF D(7)>=0 THEN 3490
+3470 PRINT "SHIELD CONTROL IS NON-OPERATIONAL"
+3480 GOTO 1270
+3490 PRINT "ENERGY AVAILABLE =";E+S
+3500 PRINT "   NUMBER OF UNITS TO SHIELDS:";\INPUT X
+3510 IF X<0 GOTO 1270
+3520 IF E+S-X<0 THEN 3490
+3530 E=E+S-X\S=X
+3550 GOTO 1270
+3551 REM *** DAMAGE CONTROL REPORT CODE BEGINS HERE
+3560 IF D(6)>=0 THEN 3590
+3570 PRINT "DAMAGE CONTROL REPORT IS NOT AVAILABLE"
+3580 GOTO 1270
+3590 PRINT\PRINT "DEVICE        STATE OF REPAIR"
+3610 FOR R1=1TO8
+3620 GOSUB 5610
+3630 PRINTD(R1)
+3640 NEXT R1\PRINT
+3660 GOTO 1270
+3670 PRINT"SHORT RANGE SENSORS REPORT NO KLINGONS IN THIS QUADRANT"
+3680 GOTO 1270
+3690 PRINT "KLINGON AT SECTOR ";K(I,1);",";K(I,2);"DESTROYED ***"
+3710 K3=K3-1\K9=K9-1\A$="   "\Z1=K(I,1)\Z2=K(I,2)
+3760 GOSUB 5510
+3770 G(Q1,Q2)=K3*100+B3*10+S3
+3775 IF Z(Q1,Q2) <1 GOTO 3780\Z(Q1,Q2)=G(Q1,Q2)
+3780 RETURN
+3790 IF C$<>"DOCKED" THEN 3820
+3800 PRINT "STAR BASE SHIELDS PROTECT THE ENTERPRISE"
+3810 RETURN
+3820    IF K3<=0 THEN 3910
+3830 FOR I=1TO3\IF K(I,3)<=0 THEN 3900
+3850 H=INT((K(I,3)/FND(0))*(2+RND(1)))\S=S-H
+3860 PRINT "KLINGON ATTACK"
+3870 PRINT H;" UNIT HIT ON ENTERPRISE FROM SECTOR ";K(I,1);",";K(I,2);
+3871 PRINT "     (";S;" LEFT)"
+3890 IF S<0 THEN 4000
+3900 NEXT I
+3910 RETURN
+3920 PRINT "THE ENTERPRISE IS DEAD IN SPACE.  IF YOU SURVIVE ALL IMPENDING"
+3930 PRINT "ATTACKS YOU WILL BE DEMOTED TO THE RANK OF PRIVATE"
+3940 IF K3<=0 THEN 4020
+3950 GOSUB 3790
+3960 GOTO 3940
+3970 PRINT\PRINT "IT IS STARDATE";T
+3990 GOTO 4020
+3991 REM *** NO ENERGY LEFT
+4000 PRINT\PRINT"THE ENTERPRISE HAS BEEN DESTROYED.  THE FEDERATION WILL BE CONQUERED"
+4020 PRINT "THERE ARE STILL ";K9;" KLINGON BATTLE CRUISERS"
+4030 PRINT\PRINT\PRINT\PRINT "YOU GET ANOTHER CHANCE...."\GOTO 180
+4040 PRINT\PRINT"THE LAST KLINGON BATTLE CRUISER IN THE GALAXY HAS BEEN DESTROYED"
+4050 PRINT"THE FEDERATION HAS BEEN SAVED!!!!!"\PRINT
+4075 E5=((K7/(T-T0))*1000)
+4080 PRINT "YOUR EFFICIENCY RATING =";E5
+4100 PRINT "YOUR ACTUAL TIME OF MISSION =";
+4101 PRINT (INT((T-T0)*10))/10;"STARDATES"
+4105 PRINT\PRINT\PRINT
+4106 PRINT "DO YOU WANT TO TRY AGAIN";\INPUT R$
+4107 IF R$="YES" THEN 180
+4110  GOTO 5820
+4111 REM *** SHORT RANGE SENSOR SCAN AND STARTING POINT CODE
+4120 FOR I=S1-1TO S1+1
+4130 FOR J=S2-1TO S2+1
+4140 IF I<1 GOTO 4200\IF I>8 GOTO 4200\IF J<1 GOTO 4200\IF J>8 GOTO 4200
+4150 A$=">!<"\Z1=I\Z2=J
+4180 GOSUB 5680
+4190 IF Z3=1 THEN 4240
+4200 NEXT J
+4210 NEXT I
+4220 D0=0\GOTO 4310
+4240 D0=1\C$="DOCKED"\E=3000\P=10
+4280 PRINT "SHIELDS DROPPED FOR DOCKING PURPOSES"
+4281 REMEMBER TO GET REPAIRS
+4282 FOR I=1 TO 8
+4284 IF D(I)=>0 GOTO 4288
+4286 D(I)=0
+4288 NEXT I
+4290 S=0\GOTO 4380
+4310 IF K3>0 THEN 4350
+4320 IF E<E0 *.1 THEN 4370
+4330 C$="GREEN"
+4340 GOTO 4380
+4350 C$="RED"\GOTO 4380
+4370 C$="YELLOW"
+4380 IF D(2)>=0 THEN 4430
+4390 PRINT\PRINT"*** SHORT RANGE SENSORS ARE OUT ***"\PRINT
+4420 GOTO 4530
+4430 O1$="------------------------"
+4435 PRINT\PRINT O1$
+4445 PRINT SEG$(Q$,1,24)
+4455 PRINT SEG$(Q$,25,48);TAB(41);"STARDATE";TAB(57);T
+4465 PRINT SEG$(Q$,49,72);TAB(41);"CONDITION";TAB(58);C$
+4475 PRINT SEG$(R$,1,24);TAB(41);"QUADRANT";TAB(57);Q1;",";Q2
+4485 PRINT SEG$(R$,25,48);TAB(41);"SECTOR";TAB(57);S1;",";S2
+4495 PRINT SEG$(R$,49,72);TAB(41);"TOTAL ENERGY";TAB(57);E
+4505 PRINT SEG$(S$,1,24);TAB(41);"PHOTON TORPEDOES";TAB(57);P
+4515 PRINT SEG$(S$,25,48);TAB(41);"SHIELDS";TAB(57);S
+4520 PRINT O1$\PRINT
+4530 RETURN
+4620 REM *** LIBRARY COMPUTER CODE BEGINS HERE
+4630 IF D(8)>=0 THEN 4660
+4640 PRINT "COMPUTER DISABLED"\GOTO 1270
+4660 PRINT "COMPUTER ACTIVE AND AWAITING COMMAND:";\INPUT A
+4680 IF A=0 GOTO 4740
+4681 IF A=1 GOTO 4830
+4682 IF A=2 GOTO 4880
+4690 PRINT "FUNCTIONS AVAILABLE FROM COMPUTER"
+4700 PRINT "   0 = CUMULATIVE GALACTIC RECORD"
+4710 PRINT "   1 = STATUS REPORT"
+4720 PRINT "   2 = PHOTON TORPEDO DATA"
+4730 GOTO 4660
+4731 REM *** CUMULATIVE GALACTIC RECORD CODE BEGINS HERE
+4740 PRINT "COMPUTER RECORD OF GALAXY FOR ALL LONG RANGE SENSOR SCANS"
+4760 PRINT"     1     2     3     4     5     6     7     8"
+4770 PRINT"   ----- ----- ----- ----- ----- ----- ----- -----"
+4780 FOR I=1TO8
+4795 PRINT I;TAB(5);Z(I,1);TAB(11);Z(I,2);TAB(17);Z(I,3);TAB(23);Z(I,4);
+4796 PRINT TAB(29);Z(I,5);TAB(35);Z(I,6);TAB(41);Z(I,7);TAB(47);Z(I,8)
+4800 PRINT"   ----- ----- ----- ----- ----- ----- ----- -----"
+4810 NEXT I
+4820 GOTO 1270
+4821 REM *** STATUS REPORT CODE BEGINS HERE
+4830 PRINT "   STATUS REPORT"
+4840 PRINT "NUMBER OF KLINGONS LEFT =";K9
+4850 V5=(INT(((T0+T9)-T)*10))/10
+4851 PRINT "NUMBER OF STARDATES LEFT =";V5
+4860 PRINT "NUMBER OF STARBASES LEFT =";B9
+4870 GOTO 3560
+4880 PRINT\H8=0
+4881 REM *** PHOTON TORPEDO DATA CODE BEGINS HERE
+4900 FOR I=1TO3
+4910 IF K(I,3)<=0 THEN 5260
+4920 C1=S1\A=S2\W1=K(I,1)\X=K(I,2)
+4960 GOTO 5010
+4970 PRINT "YOU ARE AT QUADRANT ( ";Q1;",";Q2;" ) SECTOR ( ";S1;",";S2;" )"
+4990 PRINT "SHIP AND TARGET COORDINATES ARE:";\INPUT C1,A,W1,X
+5010 X=X-A\A=C1-W1
+5030 IF X<0 THEN 5130
+5031 IF A<0 THEN 5190
+5050 IF X>0 THEN 5070
+5051 IF A=0 THEN 5150
+5070 C1=1
+5080 IF ABS(A) <= ABS(X) THEN 5110
+5085 V5=C1+(((ABS(A)-ABS(X))+ABS(A))/ABS(A))
+5090 PRINT "DIRECTION =";V5
+5100 GOTO 5240
+5110 PRINT "DIRECTION =";C1+(ABS(A)/ABS(X))
+5120 GOTO 5240
+5130 IF A>0 THEN 5170
+5140 IF X=0 THEN 5190
+5150 C1=5\GOTO 5080
+5170 C1=3\GOTO5200
+5190 C1=7
+5200 IF ABS(A)>=ABS(X) THEN 5230
+5210 PRINT "DIRECTION =";C1+(((ABS(X)-ABS(A))+ABS(X))/ABS(X))
+5220 GOTO 5240
+5230 PRINT "DIRECTION =";C1+(ABS(X)/ABS(A))
+5240 PRINT "DISTANCE =";SQR(X**2+A**2)
+5250 IF H8=1 THEN 5320
+5260 NEXT I
+5270 H8=0
+5280 PRINT "DO YOU WANT TO USE THE CALCULATOR";\INPUT A$
+5300 IF A$="YES" THEN 4970
+5310 IF A$<>"NO" THEN 5280
+5320 GOTO 1270
+5321 REM *** END OF LIBRARY COMPUTER CODE
+5380 R1=INT(RND(1)*8+1)\R2=INT(RND(1)*8+1)\A$="   "\Z1=R1\Z2=R2
+5430 GOSUB 5680
+5440 IF Z3=0 THEN 5380
+5450 RETURN
+5510 REM *** INSERTION IN STRING ARRAY FOR QUADRANT ***
+5520 S8=Z1*24+Z2*3-26\IF S8>72 THEN 5560
+5540 Q$=SEG$(Q$,1,S8-1)&A$&SEG$(Q$,S8+3,72)
+5550 GOTO 5600
+5560 IF S8>144 THEN 5590
+5570  R$=SEG$(R$,1,S8-73)&A$&SEG$(R$,S8-69,72)
+5580 GOTO 5600
+5590 S$=SEG$(S$,1,S8-145)&A$&SEG$(S$,S8-141,72)
+5600 RETURN
+5610 REM *** PRINTS DEVICE NAME FROM ARRAY***
+5620 S8=R1*12-11\IF S8>72 THEN 5660
+5640 PRINT SEG$(D$,S8,S8+11);\GOTO 5670
+5660 PRINT SEG$(E$,S8-72,S8-61);
+5670 RETURN
+5680 REM ***STRING COMPARISON IN QUADRANT ARRAY***
+5690 S8=Z1*24+Z2*3-26\Z3=0\IF S8>72 THEN 5750
+5720 IF SEG$(Q$,S8,S8+2)<>A$ THEN 5810
+5730 Z3=1\GOTO 5810
+5750 IF S8>144 THEN 5790
+5760 IF SEG$(R$,S8-72,S8-70)<>A$ THEN 5810
+5770 Z3=1\GOTO 5810
+5790 IF SEG$(S$,S8-144,S8-142)<>A$ THEN 5810
+5800 Z3=1
+5810 RETURN
+5820 END
+                                                                                                                       100     REM *** PROGRAM SIMULATES TV PROGRAM STARTREK
+110     REM *** WRITTEN BY MIKE MAYFIELD, CENTERLINE ENGINEERING
+180     PRINT "                  * * *  STAR TREK  * * *"\PRINT
+181 PRINT\PRINT
+200 PRINT "        FOR INSTRUCTIONS USE OS-8 HELP COMMAND FOR 'SPACWR'  "
+205 RANDOMIZE
+235 DIM Z$(72),R$(72),Q$(72),S$(48),A$(3),O1$(24),D$(72)
+236 DIM E$(20)
+240 Q$="                                                  "
+245 Q$=Q$&"                      "
+250 Z$=Q$\R$=Q$\S$=SEG$(Q$,1,48)
+260 DIM G(8,8),C(9,2),K(3,3),N(3),Z(8,8)
+290 T=INT(RND(1)*20+20)*100\T0=T
+300 T9=30\D0=0\E=3000\P=10\S9=200\S=0\H8=0\E0=3000\P0=10
+360 DEF FND(D)=SQR((K(I,1)-S1)**2+(K(I,2)-S2)**2)
+370 Q1=INT(RND(1)*8+1)
+380 Q2=INT(RND(1)*8+1)
+390 S1=INT(RND(1)*8+1)
+400 S2=INT(RND(1)*8+1)
+420 C(2,1)=-1\C(3,1)=-1\C(4,1)=-1\C(4,2)=-1\C(5,2)=-1\C(6,2)=-1
+430 C(1,1)=0\C(3,2)=0\C(5,1)=0\C(7,2)=0\C(9,1)=0
+440 C(1,2)=1\C(2,2)=1\C(6,1)=1\C(7,1)=1\C(8,1)=1\C(8,2)=1\C(9,2)=1
+460 D$="WARP ENGINESS.R. SENSORSL.R. SENSORSPHASER CNTRL"
+470 D$=D$&"PHOTON TUBESDAMAGE CNTRL"
+480 E$="SHIELD CNTRLCOMPUTER"
+490 K9=0\B9=0
+491 REM *** SETS UP WHAT EXISTS IN GALAXY
+500 FOR I=1TO8
+510 FOR J=1TO8
+520 R1=RND(1)
+530 IF R1>.98 THEN 580
+540 IF R1>.95 THEN 610
+550 IF R1>.8 THEN 640
+560 K3=0\GOTO 660
+580 K3=3\K9=K9+3\GOTO 660
+610 K3=2\K9=K9+2\GOTO 660
+640 K3=1\K9=K9+1
+660 R1=RND(1)
+670 IF R1>.96 THEN 700
+680 B3=0\GOTO 720
+700 B3=1\B9=B9+1
+720 S3=INT(RND(1)*8+1)
+730 G(I,J)=K3*100+B3*10+S3
+740 Z(I,J)=0
+750 NEXT J
+760 NEXT I
+770 K7=K9
+775 PRINT\PRINT
+776 IF B9>0 GOTO 780
+777 G(6,3)=G(6,3)+10
+778 B9=1
+780 PRINT "YOU MUST DESTROY";K9;"KLINGONS IN";T9;
+800 PRINT "STARDATES WITH";B9;"STARBASES"
+810 S3=0\K3=0\B3=0
+820 IF Q1<1 GOTO 920\IF Q1>8 GOTO 920\IF Q2<1 GOTO 920\IF Q2>8 GOTO 920
+830 X=G(Q1,Q2)*.01
+840 K3=INT(X)
+850 B3=INT((X-K3)*10)
+860 S3=G(Q1,Q2)-INT(G(Q1,Q2)*.1)*10
+870 IF K3=0 THEN920
+880 IF S>200 THEN 900
+890 PRINT "   SHIELDS DANGEROUSLY LOW"
+900 PRINT "COMBAT AREA      CONDITION RED"
+920 FOR I=1TO3
+930 K(I,3)=0
+940 NEXT I
+950 Q$=Z$\R$=Z$
+970 S$=SEG$(Z$,1,48)
+971 REM *** PUT ENTERPRISE SOMEWHERE
+980 A$="<*>"
+990 Z1=S1
+1000 Z2=S2
+1010 GOSUB 5510
+1020 FOR I=1TOK3
+1030 GOSUB 5380
+1031 REM *** PUT KLINGONS SOMEWHERE
+1040 A$="+++"
+1050 Z1=R1
+1060 Z2=R2
+1070 GOSUB 5510
+1080 K(I,1)=R1\ K(I,2)=R2\ K(I,3)=S9
+1110 NEXT I
+1120 FOR I=1TOB3
+1130 GOSUB 5380
+1131 REM *** PUT STARBASE(S) SOMEWHERE
+1140 A$=">!<"\ Z1=R1\ Z2=R2
+1170 GOSUB 5510
+1180 NEXT I
+1190 FOR I=1TOS3
+1200 GOSUB 5380
+1201 REM *** PUT STARS SOMEWHERE
+1210 A$=" * "\ Z1=R1\ Z2=R2
+1240 GOSUB 5510
+1250 NEXT I
+1260 GOSUB 4120
+1270 PRINT "COMMAND:";\INPUT A
+1290 IF A=0 GOTO 1410
+1291 IF A=1 GOTO 1260
+1292 IF A=2 GOTO 2330
+1293 IF A=3 GOTO 2530
+1294 IF A=4 GOTO 2800
+1295 IF A=5 GOTO 3460
+1296 IF A=6 GOTO 3560
+1297 IF A=7 GOTO 4630
+1298 IF A=8 GOTO 180
+1310 PRINT\PRINT"   0 = SET COURSE"
+1320 PRINT"   1 = SHORT RANGE SENSOR SCAN"
+1330 PRINT"   2 = LONG RANGE SENSOR SCAN"
+1340 PRINT"   3 = FIRE PHASERS"
+1350 PRINT"   4 = FIRE PHOTON TORPEDOES"
+1360 PRINT"   5 = SHIELD CONTROL"
+1370 PRINT"   6 = DAMAGE CONTROL REPORT"
+1380 PRINT"   7 = CALL ON LIBRARY COMPUTER"
+1390 PRINT"   8 = BEGIN NEW CONTEST"\PRINT
+1400 GOTO 1270
+1401 REM *** COURSE CONTROL CODE BEGINS HERE
+1410 PRINT "COURSE (1-9):";\INPUT C1
+1430 IF C1=0 THEN 1270
+1440 IF C1<1 GOTO 1410\IF C1=>9 GOTO 1410
+1450 PRINT "WARP FACTOR (0-8):";\INPUT W1
+1470 IF W1<=0 GOTO 1410\IF W1<=.2 GOTO 1510
+1480 IF D(1)>=0 GOTO 1510\IF W1<=.2 GOTO 1510
+1490 PRINT "WARP DRIVE IS DISABLED!"\PRINT "IMPULSE ENGINES ACTIVATED."
+1495 PRINT "MAXIMUM SPEED = WARP .2"
+1500 GOTO 1410
+1510 IF K3<=0 THEN 1560
+1520 GOSUB 3790
+1530 IF K3<=0 THEN 1560
+1540 IF S<0 THEN 4000
+1550 GOTO 1610
+1560    IF E>0 THEN 1610
+1570    IF S<1 THEN 3920
+1580 PRINT "YOU HAVE";E;"UNITS OF ENERGY"
+1590 PRINT "SUGGEST YOU GET SOME FROM YOUR SHIELDS WHICH HAVE";S;"UNITS LEFT"
+1600 GOTO 1270
+1610 FOR I=1TO8\ IF D(I)>=0 THEN 1640
+1611 REM *** FIX ANY DAMAGED DEVICE
+1630 D(I)=D(I)+1
+1640 NEXT I
+1650 IF RND(1)>.2 THEN 1810
+1660 R1=INT(RND(1)*8+1)
+1670 IF RND(1)>= .5 THEN 1750
+1680 D(R1)=D(R1)-(RND(1)*5+1)
+1690 PRINT\PRINT "DAMAGE CONTROL REPORT:";
+1710 GOSUB 5610
+1720 PRINT" DAMAGED"\PRINT\GOTO 1810
+1750 D(R1)=D(R1)+(RND(1)*5+1)
+1760 PRINT\PRINT "DAMAGE CONTROL REPORT:";
+1780 GOSUB 5610
+1790 PRINT" STATE OF REPAIR IMPROVED"\PRINT
+1810 N=INT((W1+.0625)*8)\A$="   "\Z1=S1\Z2=S2
+1850 GOSUB 5510
+1870 X=S1\Y=S2
+1890 X1=C(C1,1)+(C(C1+1,1)-C(C1,1))*(C1-INT(C1))
+1900 X2=C(C1,2)+(C(C1+1,2)-C(C1,2))*(C1-INT(C1))
+1910 FOR I=1TON\S1=S1+X1\S2=S2+X2
+1940 IF S1<1 GOTO 2170\IF S1>=9 GOTO 2170\IF S2<1 GOTO 2170\IF S2>=9 GOTO 2170
+1950 S8=S1*24+S2*3-26\ IF S8>72 THEN 1990
+1970 IF SEG$(Q$,S8,S8+2)="   " GOTO 2070
+1980 GOTO 2030
+1990 IF S8>144 THEN 2020
+2000 IF SEG$(R$,S8-72,S8-70)="   " GOTO 2070
+2010 GOTO 2030
+2020 IF SEG$(S$,S8-144,S8-142)="   " GOTO 2070
+2030 S1=INT(S1-X1)\S2=INT(S2-X2)\PRINT "WARP ENGINES SHUTDOWN AT SECTOR";
+2035 PRINT S1;",";S2;"DUE TO BAD NAVAGATION"
+2040 GOTO 2080
+2070 NEXT I
+2075 S1=INT(S1)\S2=INT(S2)
+2080 A$="<*>"\Z1=S1\Z2=S2
+2110 GOSUB 5510
+2120 E=E-N+5\T=(INT(10*T+1.1))/10\IF W1<1 THEN 2150
+2140 T=(INT(10*T+9))/10
+2150 IF T>T0+T9 THEN 3970
+2160 GOTO 1260
+2170 X=Q1*8+X+X1*N\Y=Q2*8+Y+X2*N
+2190 Q1=INT(X/8)\Q2=INT(Y/8)\S1=INT(X-Q1*8)\S2=INT(Y-Q2*8)
+2230 IF S1<>0 THEN 2260
+2240 Q1=Q1-1\S1=8
+2260 IF S2<>0 THEN 2290
+2270 Q2=Q2-1\S2=8
+2290 T=T+1\E=E-N+5
+2310 IF T>T0 + T9 THEN 3970
+2320 GOTO 810
+2321 REM *** LONG RANGE SENSON SCAN CODE BEGINS HERE
+2330 IF D(3)>=0 THEN 2370
+2340 PRINT "LONG RANGE SENSORS ARE INOPERABLE"
+2360 GOTO 1270
+2370 PRINT "LONG RANGE SENSOR SCAN FOR QUADRANT";Q1;",";Q2
+2380 PRINT"-------------------"
+2390 FOR I=Q1-1 TO Q1+1
+2410 FOR J=Q2-1 TO Q2+1
+2420 IF I<1 GOTO 2500\IF I>8 GOTO 2500\IF J<1 GOTO 2500\IF J>8 GOTO 2500
+2430 N(J-Q2+2)=G(I,J)
+2440 IF D(8)<0 THEN 2460
+2450 Z(I,J)=G(I,J)
+2460 NEXT J
+2470 PRINT ":";N(1);TAB(7);":";N(2);TAB(13);":";N(3);TAB(19);":"
+2480 PRINT"-------------------"
+2490 NEXT I
+2495 GOTO 1270
+2500 N(J-Q2+2)=0\GOTO 2460
+2501 REM *** PHASER CONTROL CODE BEGINS HERE
+2530 IF K3<=0 THEN 3670
+2540 IF D(4)>=0 THEN 2570
+2550 PRINT "PHASERS NOT OPERATIONAL"
+2560 GOTO 1270
+2570 IF D(8)>=0 THEN 2590
+2580 PRINT " COMPUTER FAILURE HAMPERS ACCURACY"
+2590 PRINT "PHASERS LOCKED ON TARGET.  ENERGY AVAILABLE =";E
+2600 PRINT "NUMBER OF UNITS TO FIRE:";\INPUT X
+2620 IF X<=0 THEN 1270
+2630 IF E-X<0 THEN 2590
+2640 E=E-X
+2650 GOSUB 3790
+2660 IF D(7)>=0 THEN 2680
+2670 X=X*RND(1)
+2680 FOR I=1TO3
+2690 IF K(I,3)<=0 THEN 2770
+2700 H=INT((X/K3/FND(0))*(2*RND(1)))
+2710 K(I,3)=K(I,3)-H
+2720 PRINT H;" UNIT HIT ON KLINGON AT SECTOR";K(I,1);",";K(I,2);
+2721 PRINT "     (";K(I,3);" LEFT)"
+2740 IF K(I,3)>0 THEN 2770
+2750 GOSUB 3690
+2760 IF K9<=0 THEN 4040
+2770 NEXT I
+2780 IF E<0 THEN 4000
+2790 GOTO 1270
+2791 REM *** PHOTON TORPEDO CODE BEGINS HERE
+2800 IF D(5)>=0 THEN 2830
+2810 PRINT "PHOTON TUBES ARE NOT OPERATIONAL"
+2820 GOTO 1270
+2830 IF P>0 THEN 2860
+2840 PRINT "ALL PHOTON TORPEDOES EXPENDED"
+2850 GOTO 1270
+2860 PRINT "TORPEDO COURSE (1-9):";\INPUT C1
+2880 IF C1=0 THEN 1270
+2890 IF C1<1 GOTO 2860\IF C1>=9 GOTO 2860
+2900 X1=C(C1,1)+(C(C1+1,1)-C(C1,1))*(C1-INT(C1))
+2910 X2=C(C1,2)+(C(C1+1,2)-C(C1,2))*(C1-INT(C1))
+2920 X=S1\Y=S2\P=P-1
+2950 PRINT "TORPEDO TRACK:"
+2960 X=X+X1\Y=Y+X2
+2980 IF X<1 GOTO 3420\IF X>=9 GOTO 3420\IF Y<1 GOTO 3420\IF Y>=9 GOTO3420
+2990 PRINT "               ";X;",";Y
+2992 IF INT(X+.25)<>INT(X+.75) GOTO 2960
+2994 IF INT(Y+.25)<>INT(Y+.75) GOTO 2960
+3000 Z1=INT(X+.5)\Z2=INT(Y+.5)
+3010 A$="   "
+3040 GOSUB 5680
+3050 IF Z3=0 THEN 3070
+3060 GOTO 2960
+3070 A$="+++"
+3100 GOSUB 5680
+3110 IF Z3=0 THEN 3220
+3120 PRINT "*** KLINGON DESTROYED ***"
+3130 K3=K3-1\K9=K9-1
+3150 IF K9<=0 THEN 4040
+3160 FOR I=1TO3\IF INT(X)<>K(I,1) THEN 3190
+3180 IF INT(Y)=K(I,2) THEN 3200
+3190 NEXT I
+3200 K(I,3)=0\GOTO 3360
+3220 A$=" * "
+3250 GOSUB 5680
+3260 IF Z3=0 THEN 3290
+3270 PRINT "YOU CAN'T DESTROY STARS, SILLY"
+3280 GOTO 3420
+3290 A$=">!<"
+3320 GOSUB 5680
+3330 IF Z3=0 THEN 2960
+3340 PRINT "*** STAR BASE DESTROYED *** .......CONGRATULATIONS"
+3350 B3=B3-1
+3360 A$="   "
+3390 GOSUB 5510
+3400 G(Q1,Q2)=K3*100+B3*10+S3
+3405 IF Z(Q1,Q2)<1 GOTO 3410\Z(Q1,Q2)=G(Q1,Q2)
+3410 GOTO 3430
+3420 PRINT "TORPEDO MISSED"
+3430 GOSUB 3790
+3440 IF E<0 THEN 4000
+3450 GOTO 1270
+3451 REM *** SHIELD CONTROL CODE BEGINS HERE
+3460 IF D(7)>=0 THEN 3490
+3470 PRINT "SHIELD CONTROL IS NON-OPERATIONAL"
+3480 GOTO 1270
+3490 PRINT "ENERGY AVAILABLE =";E+S
+3500 PRINT "   NUMBER OF UNITS TO SHIELDS:";\INPUT X
+3510 IF X<0 GOTO 1270
+3520 IF E+S-X<0 THEN 3490
+3530 E=E+S-X\S=X
+3550 GOTO 1270
+3551 REM *** DAMAGE CONTROL REPORT CODE BEGINS HERE
+3560 IF D(6)>=0 THEN 3590
+3570 PRINT "DAMAGE CONTROL REPORT IS NOT AVAILABLE"
+3580 GOTO 1270
+3590 PRINT\PRINT "DEVICE        STATE OF REPAIR"
+3610 FOR R1=1TO8
+3620 GOSUB 5610
+3630 PRINTD(R1)
+3640 NEXT R1\PRINT
+3660 GOTO 1270
+3670 PRINT"SHORT RANGE SENSORS REPORT NO KLINGONS IN THIS QUADRANT"
+3680 GOTO 1270
+3690 PRINT "KLINGON AT SECTOR ";K(I,1);",";K(I,2);"DESTROYED ***"
+3710 K3=K3-1\K9=K9-1\A$="   "\Z1=K(I,1)\Z2=K(I,2)
+3760 GOSUB 5510
+3770 G(Q1,Q2)=K3*100+B3*10+S3
+3775 IF Z(Q1,Q2) <1 GOTO 3780\Z(Q1,Q2)=G(Q1,Q2)
+3780 RETURN
+3790 IF C$<>"DOCKED" THEN 3820
+3800 PRINT "STAR BASE SHIELDS PROTECT THE ENTERPRISE"
+3810 RETURN
+3820    IF K3<=0 THEN 3910
+3830 FOR I=1TO3\IF K(I,3)<=0 THEN 3900
+3850 H=INT((K(I,3)/FND(0))*(2+RND(1)))\S=S-H
+3860 PRINT "KLINGON ATTACK"
+3870 PRINT H;" UNIT HIT ON ENTERPRISE FROM SECTOR ";K(I,1);",";K(I,2);
+3871 PRINT "     (";S;" LEFT)"
+3890 IF S<0 THEN 4000
+3900 NEXT I
+3910 RETURN
+3920 PRINT "THE ENTERPRISE IS DEAD IN SPACE.  IF YOU SURVIVE ALL IMPENDING"
+3930 PRINT "ATTACKS YOU WILL BE DEMOTED TO THE RANK OF PRIVATE"
+3940 IF K3<=0 THEN 4020
+3950 GOSUB 3790
+3960 GOTO 3940
+3970 PRINT\PRINT "IT IS STARDATE";T
+3990 GOTO 4020
+3991 REM *** NO ENERGY LEFT
+4000 PRINT\PRINT"THE ENTERPRISE HAS BEEN DESTROYED.  THE FEDERATION WILL BE CONQUERED"
+4020 PRINT "THERE ARE STILL ";K9;" KLINGON BATTLE CRUISERS"
+4030 PRINT\PRINT\PRINT\PRINT "YOU GET ANOTHER CHANCE...."\GOTO 180
+4040 PRINT\PRINT"THE LAST KLINGON BATTLE CRUISER IN THE GALAXY HAS BEEN DESTROYED"
+4050 PRINT"THE FEDERATION HAS BEEN SAVED!!!!!"\PRINT
+4075 E5=((K7/(T-T0))*1000)
+4080 PRINT "YOUR EFFICIENCY RATING =";E5
+4100 PRINT "YOUR ACTUAL TIME OF MISSION =";
+4101 PRINT (INT((T-T0)*10))/10;"STARDATES"
+4105 PRINT\PRINT\PRINT
+4106 PRINT "DO YOU WANT TO TRY AGAIN";\INPUT R$
+4107 IF R$="YES" THEN 180
+4110  GOTO 5820
+4111 REM *** SHORT RANGE SENSOR SCAN AND STARTING POINT CODE
+4120 FOR I=S1-1TO S1+1
+4130 FOR J=S2-1TO S2+1
+4140 IF I<1 GOTO 4200\IF I>8 GOTO 4200\IF J<1 GOTO 4200\IF J>8 GOTO 4200
+4150 A$=">!<"\Z1=I\Z2=J
+4180 GOSUB 5680
+4190 IF Z3=1 THEN 4240
+4200 NEXT J
+4210 NEXT I
+4220 D0=0\GOTO 4310
+4240 D0=1\C$="DOCKED"\E=3000\P=10
+4280 PRINT "SHIELDS DROPPED FOR DOCKING PURPOSES"
+4281 REMEMBER TO GET REPAIRS
+4282 FOR I=1 TO 8
+4284 IF D(I)=>0 GOTO 4288
+4286 D(I)=0
+4288 NEXT I
+4290 S=0\GOTO 4380
+4310 IF K3>0 THEN 4350
+4320 IF E<E0 *.1 THEN 4370
+4330 C$="GREEN"
+4340 GOTO 4380
+4350 C$="RED"\GOTO 4380
+4370 C$="YELLOW"
+4380 IF D(2)>=0 THEN 4430
+4390 PRINT\PRINT"*** SHORT RANGE SENSORS ARE OUT ***"\PRINT
+4420 GOTO 4530
+4430 O1$="------------------------"
+4435 PRINT\PRINT O1$
+4445 PRINT SEG$(Q$,1,24)
+4455 PRINT SEG$(Q$,25,48);TAB(41);"STARDATE";TAB(57);T
+4465 PRINT SEG$(Q$,49,72);TAB(41);"CONDITION";TAB(58);C$
+4475 PRINT SEG$(R$,1,24);TAB(41);"QUADRANT";TAB(57);Q1;",";Q2
+4485 PRINT SEG$(R$,25,48);TAB(41);"SECTOR";TAB(57);S1;",";S2
+4495 PRINT SEG$(R$,49,72);TAB(41);"TOTAL ENERGY";TAB(57);E
+4505 PRINT SEG$(S$,1,24);TAB(41);"PHOTON TORPEDOES";TAB(57);P
+4515 PRINT SEG$(S$,25,48);TAB(41);"SHIELDS";TAB(57);S
+4520 PRINT O1$\PRINT
+4530 RETURN
+4620 REM *** LIBRARY COMPUTER CODE BEGINS HERE
+4630 IF D(8)>=0 THEN 4660
+4640 PRINT "COMPUTER DISABLED"\GOTO 1270
+4660 PRINT "COMPUTER ACTIVE AND AWAITING COMMAND:";\INPUT A
+4680 IF A=0 GOTO 4740
+4681 IF A=1 GOTO 4830
+4682 IF A=2 GOTO 4880
+4690 PRINT "FUNCTIONS AVAILABLE FROM COMPUTER"
+4700 PRINT "   0 = CUMULATIVE GALACTIC RECORD"
+4710 PRINT "   1 = STATUS REPORT"
+4720 PRINT "   2 = PHOTON TORPEDO DATA"
+4730 GOTO 4660
+4731 REM *** CUMULATIVE GALACTIC RECORD CODE BEGINS HERE
+4740 PRINT "COMPUTER RECORD OF GALAXY FOR ALL LONG RANGE SENSOR SCANS"
+4760 PRINT"     1     2     3     4     5     6     7     8"
+4770 PRINT"   ----- ----- ----- ----- ----- ----- ----- -----"
+4780 FOR I=1TO8
+4795 PRINT I;TAB(5);Z(I,1);TAB(11);Z(I,2);TAB(17);Z(I,3);TAB(23);Z(I,4);
+4796 PRINT TAB(29);Z(I,5);TAB(35);Z(I,6);TAB(41);Z(I,7);TAB(47);Z(I,8)
+4800 PRINT"   ----- ----- ----- ----- ----- ----- ----- -----"
+4810 NEXT I
+4820 GOTO 1270
+4821 REM *** STATUS REPORT CODE BEGINS HERE
+4830 PRINT "   STATUS REPORT"
+4840 PRINT "NUMBER OF KLINGONS LEFT =";K9
+4850 V5=(INT(((T0+T9)-T)*10))/10
+4851 PRINT "NUMBER OF STARDATES LEFT =";V5
+4860 PRINT "NUMBER OF STARBASES LEFT =";B9
+4870 GOTO 3560
+4880 PRINT\H8=0
+4881 REM *** PHOTON TORPEDO DATA CODE BEGINS HERE
+4900 FOR I=1TO3
+4910 IF K(I,3)<=0 THEN 5260
+4920 C1=S1\A=S2\W1=K(I,1)\X=K(I,2)
+4960 GOTO 5010
+4970 PRINT "YOU ARE AT QUADRANT ( ";Q1;",";Q2;" ) SECTOR ( ";S1;",";S2;" )"
+4990 PRINT "SHIP AND TARGET COORDINATES ARE:";\INPUT C1,A,W1,X
+5010 X=X-A\A=C1-W1
+5030 IF X<0 THEN 5130
+5031 IF A<0 THEN 5190
+5050 IF X>0 THEN 5070
+5051 IF A=0 THEN 5150
+5070 C1=1
+5080 IF ABS(A) <= ABS(X) THEN 5110
+5085 V5=C1+(((ABS(A)-ABS(X))+ABS(A))/ABS(A))
+5090 PRINT "DIRECTION =";V5
+5100 GOTO 5240
+5110 PRINT "DIRECTION =";C1+(ABS(A)/ABS(X))
+5120 GOTO 5240
+5130 IF A>0 THEN 5170
+5140 IF X=0 THEN 5190
+5150 C1=5\GOTO 5080
+5170 C1=3\GOTO5200
+5190 C1=7
+5200 IF ABS(A)>=ABS(X) THEN 5230
+5210 PRINT "DIRECTION =";C1+(((ABS(X)-ABS(A))+ABS(X))/ABS(X))
+5220 GOTO 5240
+5230 PRINT "DIRECTION =";C1+(ABS(X)/ABS(A))
+5240 PRINT "DISTANCE =";SQR(X**2+A**2)
+5250 IF H8=1 THEN 5320
+5260 NEXT I
+5270 H8=0
+5280 PRINT "DO YOU WANT TO USE THE CALCULATOR";\INPUT A$
+5300 IF A$="YES" THEN 4970
+5310 IF A$<>"NO" THEN 5280
+5320 GOTO 1270
+5321 REM *** END OF LIBRARY COMPUTER CODE
+5380 R1=INT(RND(1)*8+1)\R2=INT(RND(1)*8+1)\A$="   "\Z1=R1\Z2=R2
+5430 GOSUB 5680
+5440 IF Z3=0 THEN 5380
+5450 RETURN
+5510 REM *** INSERTION IN STRING ARRAY FOR QUADRANT ***
+5520 S8=Z1*24+Z2*3-26\IF S8>72 THEN 5560
+5540 Q$=SEG$(Q$,1,S8-1)&A$&SEG$(Q$,S8+3,72)
+5550 GOTO 5600
+5560 IF S8>144 THEN 5590
+5570  R$=SEG$(R$,1,S8-73)&A$&SEG$(R$,S8-69,72)
+5580 GOTO 5600
+5590 S$=SEG$(S$,1,S8-145)&A$&SEG$(S$,S8-141,72)
+5600 RETURN
+5610 REM *** PRINTS DEVICE NAME FROM ARRAY***
+5620 S8=R1*12-11\IF S8>72 THEN 5660
+5640 PRINT SEG$(D$,S8,S8+11);\GOTO 5670
+5660 PRINT SEG$(E$,S8-72,S8-61);
+5670 RETURN
+5680 REM ***STRING COMPARISON IN QUADRANT ARRAY***
+5690 S8=Z1*24+Z2*3-26\Z3=0\IF S8>72 THEN 5750
+5720 IF SEG$(Q$,S8,S8+2)<>A$ THEN 5810
+5730 Z3=1\GOTO 5810
+5750 IF S8>144 THEN 5790
+5760 IF SEG$(R$,S8-72,S8-70)<>A$ THEN 5810
+5770 Z3=1\GOTO 5810
+5790 IF SEG$(S$,S8-144,S8-142)<>A$ THEN 5810
+5800 Z3=1
+5810 RETURN
+5820 END
+                                                                                                                        Ä¡AqˇO  ˇa ¸ÅA  ˇ  ¬AqˇO aˇ ¸@q/Ea ¸Eq/@a_ P¬qÙTa_ EqOaO_ıa ¸ê$éÚN%E  √
+	EEEEEEEEE!™I¬çT T>ıI¬çT T>ûˇ p√éO! N ı Ä√éO! N"ı ê√éO! Nı  ƒéO! Nı  ƒOò°‘˘#°çO$ò°‘˘$°çO%ò°‘˘&°ç 0ƒI°çI#°çI%°çI'°çI(°ç @ƒI°çI°çI&°çI'°çI!°çI!°çI(°ç `ƒqÙ	a_ pƒq	Ù	a ¸ÄqO
+Ea ¸êD)T* \ !T+T+$Ô+† \!T-T-$˝-†, \ Té.ı 0≈/.F$´ @≈0.F$'´ P≈1.F$9´ `≈2E!E´ Ä≈#2E#)@)!ZE ºd2T))!E´ @∆2E)@) \`dé.ı p∆3.F$W´ Ä∆4E!c´  «4E*@* \ té!ÚN5 \0t26%4B65 ,ò† ‹@t,ò§‘,!˚™O!
+Ì ¨p)t7 \uA  ˇ v«*F$ó´ w«#I& ç#&ò† ‹xt* \ÄAqÙaˇ)
+OqÙaˇ	
+O  »AqˇOa*Ù
+qˇO aˇ »5E2E4E  » F%Ó´! F$Ó´"F%Ó´!"F$Ó´ 0»9"I @ç8 \@8ÑN2ı P»28FN/4 \`:Ñ" ò@Nﬂ") ¿ç5 \pÑ2&jÓ ºÄÑ$j$ ÃêAèqÙ ˇa ¸ AüqÙ ˇa ¸ #î6T6$\6¿ \0î#ò¢‘!Z¨ P…qÙTa_ p… EqOaO_ıa ¸ÄqüEa ¸êî;\ <\ 
+ûÃ 2=T=$¨=¿\0 
+∏Ã@qEa¸P.;\`><\p 
+ûÃÄ.ò¢>‘ò¢‘#ò¢‘!™¨ ¡4?E?A$ˆ¨?0¡ ∏¨@¡qÙa_.;E><Ep¡ û¨O!
+ÙÃê5@T@$(@–\  *∏Ãq/Ea.Ù;>T<\@ *ûƒ!&≠`¬ X≠p¬AqˇOa	ˇA\ê$A&jt‹ë$A&jR‹í$A&jÜ‹ì#$A&jí‹î$$A&jû‹ï%$A&j™‹ñ&$A&j∂‹ó'$A&j¬‹ò!$A&júA? qˇO aˇ √AqˇO aˇ0√AqˇO aˇ@√AqˇO aˇP√AqˇO aˇ`√Aqˇ O aˇp√Aqˇ!O aˇÄ√Aqˇ"O aˇê√Aqˇ#O  ˇa!˙^‹AOq$Ùaˇ	Bı0ƒBF&^≠@ƒBF%t≠(BF"t≠PƒAqˇ%Oa	ˇC\pDC'jtD‘C'j	¸ÄD≈ç"	ØDCF'	ØêƒAqˇ&O 'Ù ˇa¸ïAOq(Ù ˇa!˙t‹T2'je¸  Zq¸0T2'je¸@TEjA
+`TDjpTEj#ÄA_q)Ùaˇ
+Oq*Ù ˇa¸êA_q+Ùaˇ
+Oq,Ù ˇa!˙^‹!dETEDÖE T≈çBã†0∆Hÿ•‘AÉ†P∆éODD£`dé!ÚN.\pdéFÒBª†Ä∆éO% .≈ç.•çê∆A ˇq-Ùaˇ«@Ê† «Aqˇ.O  ˇaA˙£Pté%Ú..ÿ•‹`A qˇ-Oa¸Ä@zÊêAq/Ù ˇ aˇ»HC@!N/Gq_0EaÙ;T<\P äûÃpÑ8TI\êÑBKBòÅŸK¡çLBTNBˆL)BçJ\ îBKBòÅŸK¡çLBTNBˆL)BçM\GîKTKDSKJTM@\@îEj_(Bj_Ej_(Bj_POîL%#BLPNQTNDj}pîN NqOaO_0ÒaF˙âAïêRîNDj° QNLeSNF LTqÙa_ˇ0aFâ°Aï° ¿RNFLTTN eLqOaO_0ÒaF˙â0JNoMTNoA_q1Ùaˇ5¿AÙ
+qˇ2OaÙ
+qˇ3O aˇA˚°OA
+QuNıNO\ÄqEaÙ;T<\ ûÃ G%`TU NÛTCEj,@( NÛ\P	D%¢!R≠p¡! B8LGJBL8!"BILGMBLIê¡!8GN ı!IGN"ı! B8No!T"I&Nı0¬FC=¢@¬ F !T\`$CjI,p$""e!Eê¬@GT%`\	4D%¢!‚´0√#H≈B⁄g,@A?q4Ù ˇa!˙^‹pA?q5Ùaˇ 
+Oq2Ùaˇ"
+O ¸ÄA?q6Ù ˇa¸ê4 L FLD L \D"V"FVDÿV ,\ DEj‰!$Dj‰$,Ej‰!$,Dj‰,0"D,`W,YÄçW£ç@ƒ!H≈E⁄˙,P,IÄç,ò§‘,A÷¢pƒAqˇ7Oa¯É
+ﬂ'@Oq7ÙaˇÉç
+XÙ@qˇ7Oa#¯É
+ﬂY@Oq7Ù ˇa¸ÄAOq6Ù ˇaÙA»¢!^≠ ≈",FWWH£A⁄˙,0T2Gj5<@T$≈çBA£P≈Aqˇ8O aˇ!^≠p≈!H≈B⁄g<ÄA_q9Ù ˇa¸êA_q:Ùaˇ
+O ¸ Aoq;Ùaˇ	8ı ∆8F'^≠0∆8FEg<@8deP∆ qØ`∆'H≈B⁄Ë<pdé8Ú8\Ä#dWTWDÚW0\êd#ò¬G⁄˛< 2t8[uE ™[\uéO\"NZı«Z#I¬ç#ò¢‹ AZ
+Oq<ÙaˇòÇ
+ﬂq2ÙaˇòÇ
+ﬂ!«Aqˇ=Oa#˘Çç
+qˇ>O aˇ@«#I¬çD˛£P«@X§`«)FGd§OA
+<ÄtEj!
+^‹ Ñ%≈çB|§»Aqˇ?O aˇ!^≠0»FD®§@»Aqˇ@O aˇ!^≠`»AqˇAOa	ˇB\ÄÑB&j^‹êÑBEj®(DBBj®L îB[BòÅŸ[¡ç\BTNBˆ\)BçJ\îB[BòÅŸ[¡ç\BTNBˆ\)BçM\ î8TITeP…AqˇBO aˇ`…J8@8MTIIÄ…8FE"•(8FB"•IFE"•(IFB"•ê…AqˇCOa8Ù
+qˇ2OaIÙ
+ ˇí…]8@N[ı^8@N[ˆC•î…]I@N[ı^I@N[ˆC• ¿F8@N;ıFI@N<ı¿q0Ùa_@¿@f•P¿_FFr•A•p¿qÙa_ ¡@f•¡_FFä• ¡AqˇDO aˇ0¡2F2T))eP¡)FGd§`¡#[E[ADª•[8NO\YÇç\Cj¡\ÄIN\ıòÇ\÷FÕ•OA
+π\ $#ò¢A⁄”\ q/Ea¸P@*f\`$_FjÂ\pA/qEÙ ˇaA˙"\êq/Ea¸ @:f\04_Fj\@A?qFÙ ˇa¸P444e`√q0Ùa_ê√ û¨ ƒ2B\T4\ 5"	 †çƒ"I ƒçE_¶" òÄ"Ÿ §çAe¶ ƒAqˇGO aˇ0ƒ qØ@ƒFE†!^≠`ƒ'H≈B⁄ãlpAOqHÙ ˇa!˙^‹êAOqIÙaˇ@
+ ˇ ≈AqˇJOa	ˇ8\T8%j^‹ T8Eãl0T88T!Z^‹`T&≈çBßp≈AqˇKO aˇ!^≠ê≈A ˇqLÙ ˇa¸!d\T\DO\p.\ @jÊ0Ao.Öç
+ ˇO.A
+MA !˙^‹pAoqMÙ ˇa!˙^‹êAoqNÙaˇòÇ
+ﬂq2ÙaˇòÇ
+ﬂqOÙ ˇa¸t22e)F)q_0Ea˘Çç;YÇç<\` zûÃpt2`%4B`5 " ò†‹ut" òƒE⁄’"y Äç" ò§‹Äê«qPÙQaC„ß »AqˇRO aˇ»¸ Ñ2Gjå0#Ñ`T`D`ÄT#ò¬G⁄$åPÑ Z#©‚çaTéaN/ZZTe`»AqˇSO aˇp»AZÙ
+qˇTOa˘Çç
+qˇ2Oa˘Çç
+¸qAèq=Ùaˇ
+Oq>Ù ˇa¸êÑEjA®…¸ AüqUÙ ˇa¸0AüqVÙ ˇa¸@î2Gj÷åP öqA˙–åpAü qˇWOaÙ
+ ˇA÷® ¿A ˇqXÙ ˇa¸ AqYÙaˇ)
+OqZÙ ˇa¸0A  ˇ qˇ[O aˇ!©@¿A ˇq\Ù ˇa¸PAq]Ù ˇ aˇu¿F7crb\ÄAq^Ùaˇb
+O ¸ Aq_Ùaˇ¡AÙbNÛ
+qˇ`O aˇ¡A ˇ  ˇ¡AqˇaOa/¡qÙba&©AI™ ¡@aTaaDS™a0¡@dTdaDa™d,@¡FEm™!FDm™,FEm™!,FDm™P¡qÙa_;E,<EÄ¡@f•ê¡_FFÖ™O,A
+_§AQ™ ¬EAó™@¬EqQÙPa_EEÄ¬AqˇcO aˇÇ¬!eEeADÕ™eÑ¬H≈B⁄Ÿ¨Ü$•çOA
+À¨ê$AZÎ¨42DjÒ¨ :4&E˝™0√qdÙPa_AÎ™P√qeÙPa_AÎ™p√qfÙPa_Ä√H≈B⁄%ºêA? qˇgO  ˇaA˙Sº0qOhEa¸5AO qˇO aˇEƒAOÙ TqÙa_ˇ ˇa¸UAO EfqOaO_ˇagÙ@qˇiOahÙ@Ù
+ ˇeƒAQÙ iTqÙa_ˇaˇg@OqjÙaˇj@OqPÙ ˇa¸uAOO EqOaO_ˇagÙ@qˇkOahÙ@ Ù
+qˇ2Oa"Ù
+ ˇÖƒAÙ fTqÙa_ˇaˇg@OqlÙaˇh@O
+Oq2Ùaˇ
+O ¸ïAOQ EiqOaO_ˇagÙ@qˇmOahÙ@Ù
+ ˇ≈AOÙ TqÙa_ˇaˇg@OqnÙaˇh@O
+O ¸A_ EfqOaO_ˇagÙ@qˇoOahÙ@Ù
+ ˇ ≈AqˇO  ˇa¸0_0∆!H≈B⁄Ã@AoqpÙ ˇa!˙^‹`AoqqÙaˇ	AıÄ∆AFFV¨Å∆AFFb¨Ç∆AFFn¨ê∆AqˇrO aˇ «AqˇsO aˇ«AqˇtO aˇ «AqˇuO aˇA¨@«AqˇvO aˇ`«AqˇwO aˇp«AqˇxO aˇÄ«!kEkAD|≠kï«AÙ
+%Ù@˘Ñç
+lÙ@˘Ñç
+mÙ@#˘Ñç
+nÙ@$˘Ñç
+¸ñAo@O%òÑ
+ﬂp@O&òÑ
+ﬂg@O'òÑ
+ﬂq@O!òÑ
+ﬂ ¸ AèqxÙ ˇaÙAz≠!^≠0»AqˇyO aˇ@»AqˇzOa)Ù
+ ˇP»	@NÛr\QAèq{Ùaˇr
+O ¸`Aèq|Ùaˇ*
+O !˙∂‹ÄAè Ù\ #îsTsDFs‡\î#ò¬G⁄RÏ îBTAYÇçCYÇç8AZdÏpAüq}Ùaˇ 
+Oq2Ùaˇ"
+Oq~Ùaˇ
+Oq2Ùaˇ
+OqÙ ˇa¸êAüqÄÙaˇ	Bı	Aı	Cı	8ı¿A8F8CTBAe0¿8FEªÆ1¿AFE«ÆP¿8FD”ÆQ¿AFFﬂÆp¿BEÄ¿A Ot8T tˆGÔÆÖ¿A Ot8T tˆuAT uvAT v˜Brê¿AqˇÅOarÙ
+ ˇAØ¡AqˇÅOaAÙ tı8 OtBp
+ ˇAØ0¡AFD'Ø@¡8FF«ÆP¡%BEAÂÆp¡#BEA3Øê¡'BE ¬A Ot8T tˆB9Ø¬AqˇÅOa8Ù tıA Otue8 Ouv8 OvBp
+ ˇAØ0¬AqˇÅOa8Ù tıA OtBp
+ ˇ@¬AqˇÇOaÙ 8T>tı EA>Otû
+ ˇP¬FF\ØOA
+DÏp$\ÄA/qÉÙÚa¸ q?bAaF˙jÏq?ÑAaC˙h!˙^‹Ä4é!ÚN.Té!ÚN>q_0Ea.Ù;>T<\0@Jf\@D_&j∏ÃPO ≈O;Bt#T<t PNQNFdO†@≈NF TqÙa_ˇÖa#ÙNtQ EtqOaO_ÜıÖÜ@a_ai†`≈RNFdo†p≈wNF TqÙa_ˇÖaxÙNteQ EtqOaO_ÜıÖÜ@a_ai†ê≈yNF TqÙa_ˇÖazÙNteQ EtqOaO_ÜıÖÜ@a_ ∆¸ {d.l!NQTNdj•@AolN@ NTq	Ùa_ˇaˇa±†`∆AQÙNte|NF tTq
+Ùa_ˇaˇp∆¸êOd;t%#<BtPNT_QTNdj√ tN NqOaO_Òac˙œ0t_aZœPRtNdj€`QtNteSNF tTqÙa_ˇacœ†p«_Eaœ†ê«RNFtTTN etqOaO_Òac˙œ Ñ_\èl@˙f\@D_&j∏ÃPO ≈O;Bt#T<t PNQNFdO†@≈NF TqÙa_ˇÖa#ÙNtQ EtqOaO_ÜıÖÜ@a_ai†`≈RNFdo†p≈wNF TqÙa_ˇÖaxÙNteQ EtqOaO_ÜıÖÜ@a_ai†ê≈yNF TqÙa_ˇÖazÙNteQ EtqOaO_ÜıÖÜ@a_ ∆¸ {d.l!NQTNdj•@AolN@ NTq	Ùa_ˇaˇa±†`∆AQÙNte|NF tT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
