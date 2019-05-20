@@ -1,0 +1,333 @@
+FIXMRI FGET=5000
+FIXMRI FPUT=6000
+FIXMRI FADD=1000
+FIXMRI FSUB=2000
+FIXMRI FJMP=0000
+FIXMRI FMPY=3000
+FIXMRI FDIV=4000
+FFIX=0013
+FLOT=0014
+FSQR=0002
+FSQU=0001
+FISZ=0000
+FCDF=7001
+FSPA=7100
+FEXT=0000
+*70
+TYPE, 0
+      TSF
+      JMP .-1  /WAIT TILL TTY IS READY
+      TLS
+      CLA
+      JMP I TYPE  /RETURN
+CRLF, 0
+      TAD (215  /CR
+      JMS  TYPE
+      TAD  (212  /LF
+      JMS TYPE
+      JMP I CRLF   /RETURN
+*160
+N, 0
+T, 0
+M, 0
+K, 0
+L, 0
+P, 0
+NN, 0
+*200
+      CLA CLL   /INITIALIZE TTY
+      TLS
+      KCC
+      TAD  (N
+      DCA  R1
+      TAD  (7772    /INITIALIZE  LOOP
+      DCA  CNT
+      TAD  (ADDR
+      DCA  R2
+LOOP, JMS CRLF
+      TAD I R2   /LOOP TYPES
+      JMS  PRINT  /QUESTIONS
+      JMS LISTN   /ON THE TTY
+      DCA I R1    /STORES
+      ISZ  R1     /ESPONCES
+      ISZ  R2    / IN LOCATIONS
+      ISZ  CNT   /N THRU P
+      JMP  LOOP
+      TAD  P
+      SZA
+      JMP  .+3    /JULP IF POLARITY IS +
+      TAD  (7041  /CIA INSTRUCTUON CO@E
+      DCA  S0     /PUT IN SAMPLE ROUTINE
+      CLA
+      TAD  N
+      CIA
+      DCA  NN
+      TAD  K
+      RTL
+      RAL
+      TAD  (6201   /SET UP CDF INSTRUCTION
+      DCA  S1
+      JMP I (400
+Q1, TEXT /NUMBER OF SAMPLES:/
+Q2, TEXT /SAMPLE INTERVAL IN MSEC:/
+Q3, TEXT  /CHANNEL NUMBER:/
+Q4,  TEXT /SAMPLES STORED IN FIELD:/
+Q5, TEXT /STARTING AT LOCATION:/
+Q6, TEXT /POLARITY OF START PULSE:/
+R1, 0
+R2, 0
+CNT, 0
+ADDR, Q1
+     Q2
+     Q3
+      Q4
+     Q5
+     Q6
+*400
+      CLA
+      CDF  20    /ZERO OUT
+      TAD  (2400   /THE
+      DCA  DA     /DISPLAY
+      DCA I DA    /BUFFER
+      ISZ DA
+      JMP   .-2
+      6500   /START UP ADC
+      6506    /RE@D CHANNEL 0
+      NOP
+      NOP
+      NOP
+      NOP
+      6505     /WAIT FOR START PULSE
+      6501
+      JMP  .-1
+S0,   NOP      /CHANFE@ TO CIA ON - POLARTY
+      TAD  (7463
+      SPA  CLA
+      JMP  .-6
+SAMPLE, TAD  M
+      6506      /SAMPLE CHANNEL M
+      NOP
+      NOP
+      NOP
+      NOP
+      6505
+      6501    /WAIT FOR SAMPLE
+      JMP  .-1
+      CLL
+      SMA
+      JMP  POS    /JUMP IF SAMPLE IP POSITIVE
+      STL RAR
+      STL RAR    /DIVIDE BY 4
+      JMP  .+3
+POS,  CLL RAR
+      RAR
+S1,   CDF 10    /SEL@CT DATA FIELD K
+      DCA I L  /SAVE SAMPL@
+      TAD I L
+      CDF  20
+      DCA I L    /SAVE IN FIELD 2 ALSO
+      CDF  0
+      ISZ  L
+      ISZ  NN
+      JMP  .+2
+      JMP  S2
+      JMS  DELAY
+      JMP  SAMPLE   /TAKE NEXT SAMPLE
+S2,   CLL
+      CDF  10   /SET UP
+      TAD  N
+      DCA I (20   /FOR FFT
+      TAD  (-1
+      DCA I (21
+      TAD  N      /ROUTINE
+      RAR
+      ISZ I (21
+      SZA
+      JMP .-3
+      CIF  10
+      JMS I (150     /DO FFT ON SAMPLES
+      CDF 0
+      JMS  POWER    /COMPUTE THE COEF SQUARED
+      JMS I (3400    /DISPLAY
+      HLT
+DELAY,  0
+      TAD  T
+      CIA
+      DCA  TC
+      TAD  (7435  /1ST TIME DDLAY ONLY .967 MSEC
+      DCA  DA
+      ISZ  DA
+      JMP  .-1   /DELAY
+      TAD  (7375  / DELAY 1MSEC 
+      DCA  DA
+      ISZ  TC
+      JMP  .-5    / DELAY SOME MORE
+      JMP I DELAY
+TC, 0
+DA, 0
+*600
+LISTN, 0
+      CLA CLL
+      DCA NEXT
+L1,   KSF
+      JMP  L1   /WAIT FOR A CHAR
+      KRB
+      TLS   /READ AND ECHO CHAR
+      TAD  (7530  /-250
+      SPA
+      JMP  LISTRN
+      TAD  (7770   /-10
+      SMA
+      JMP  .+3  / JUMP IF A NUMBER
+      TAD  (5  /AC=0 IF MINUS  AC=2 IF POSITIVE
+      AND  (7
+      TAD  NEXT
+      RTL
+      RAL
+      DCA  NEXT   / SAVE NUMBER*8
+      JMP  L1
+LISTRN, CLA
+      TAD  NEXT
+      RAR
+      RTR
+      JMP I LISTN   /RET@RN WITH NIMBER IN AC
+PRINT, 0
+      DCA  NEXT
+PRT,   TAD I NEXT
+      BSW
+      AND  (77   /GET 1ST CHAR
+      SNA
+      JMP I PRINT   /RETURN IF DONE
+      TAD (-40
+      SPA
+      TAD  (100
+      TAD  (240     /MAKE 8 B@T ASCII CODE
+      JMS  TYPE
+      TAD I NEXT
+      AND  (77   /GET 2ND CHAR
+      SNA
+      JMP I PRINT  /RETURN IF DONE
+      TAD  (-40
+      SPA
+      TAD  (100
+      TAD  (240
+      JMS TYPE   /TYPE CHAP
+      ISZ  NEXT
+      JMP  PRT
+NEXT, 0
+*1000
+POWER, 0
+      CLA  CLL
+      TAD  N
+      RAR
+      CIA
+      DCA  NCOUNT
+      TAD  (2400
+      DCA  S
+      TAD  (1600          /INITIALIZATION
+      DCA  TEMP
+P1,   CDF  10
+   TAD I S  /GET REAL PART
+      CDF  0
+      DCA  44
+      JMS I 7
+      FLOT
+      FSQU     /SQUARE IT
+      FPUT  STEMP    /SAVE TEMPORARILY
+      FEXT
+      ISZ  S
+      CDF  10
+      TAD I S    /GET IMAG PART
+      CDF  0
+      DCA  44
+      JMS I 7
+      FLOT
+      FSQU     /SQUARE IT
+      FADD  STEMP    /ADD REAL PART
+      FEXT
+      CDF  30
+      JMP I 7
+      FPUT I TEMP   /SAVE IN FIELD 3
+      FGET I TEMP
+      FEXT
+      CDF 0
+      JMS I 7
+      FSUB  SMAX   /CHECK FOR MAX VALUE
+      FSPA
+      FJMP  .+3    /JUMP IF NOT > MAX VZLUE
+      FADD  SMAX
+      FPUT  SMAX    /SAVE NEW MAX VALUE
+      FISZ  TEMP
+      FEXT
+      CDF  0
+      ISZ  S
+      ISZ  NCOUNT    /INCREMENY COUNTER
+      JMP  P1
+      TAD  N
+      RAR
+      CIA
+      DCA  NCOUNT
+      TAD  (1600    /REINITIALIZE
+      DCA  TEMP
+      TAD  (4400
+      DCA  S
+P2,   JMS I 7
+      FGET  SMAX
+      FSQR
+      FPUT  SMAX
+      FEXT
+      CDF 30
+      JMS I 7
+      FGET I TEMP   /GET COEF SQUARED
+      FEXT
+      CDF 0
+      JMS I 7
+      FISZ  TEMP
+      FSQR
+      FDIV  SMAX    /DIVIDE BY MAX VALUE
+      FMPY  NUMB    /MULTIPLY BY 2047
+      FFIX
+      FEXT
+      CDF  20
+      TAD  44
+      DCA I S   /STORE IN BUFFER
+      CDF 0
+      ISZ  S
+      ISZ  NCOUNT
+      JMP  P2    /DO NEXT COEF
+      CLA CLL
+      TAD  N
+      RAR 
+      CIA
+      DCA  NCOUNT    /  N/2
+      TAD  S
+      TAD  (-1
+      DCA  TEMP
+      CDF  20
+P3,   TAD I TEMP   /SAVE MIRROR
+      DCA I S   /IMAGE OF  COEF
+      ISZ  S
+      TAD TEMP
+      TAD  (-1
+      DCA  TEMP
+      ISZ  NCOUNT
+      JMP  P3
+      CDF 0
+      JMP I POWER   /RETURN
+S,  2400
+TEMP, 1600
+SMAX, 0;0;0
+STEMP, 0;0;0
+NUMB, 0013;3777;0000
+NCOUNT, 0
+      FIELD 1
+*150
+DOFFT=60
+SORT=54
+FFT,  0
+      CDF  10
+      JMS I DOFFT
+      JMS I SORT
+      CIF 0
+      JMP I FFT   /RETURN
+

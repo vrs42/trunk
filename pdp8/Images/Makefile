@@ -11,7 +11,7 @@ XML  = $(MDSK:.dsk=.xml) $(DSK:.dsk=.xml)
 all: $(MDSK) $(XML)
 
 %.dsk: %.rk05
-	ln $< $@
+	rm -f $@; ln $< $@
 
 %.dsk: %.rx01
 	$(BIN)/rx2dk.pl $<

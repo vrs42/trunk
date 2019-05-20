@@ -1,0 +1,111 @@
+
+                  ---- HELP FILE ON USING TVEDIT ----
+
+           THIS HELP FILE PROVIDES INFORMATION NESSARY FOR
+       CREATING AND EDITING A FILE ON THE PDP-8 USING THE TV
+       SCREEN EDITOR TVEDIT. IT DESCRIBES THE OS/8 COMMANDS TO
+       RUN TVEDIT, THE FORMAT FOR SPECIFYING INPUT & OUTPUT
+       FILES, AND THE COMMANDS THAT ARE AVAILABLE WITHIN THE
+       EDITOR FOR CHANGING TEXT.
+
+    -- TO OBTAIN A COPY OF THIS HELP FILE TYPE:
+            .TYPE TVEDIT.HL (CR)   (THE . IS SUPPLIED BY OS/8)
+                                   (NOTE: (CR)=CARRIAGE RETURN)
+
+    -- KEYBOARD MONITOR CALL:  (TO RUN THE TV EDITOR)
+            .R TVEDIT (CR)
+
+    -- COMMAND DECODER CALLS:  (TO SPECIFY INPUT & OUTPUT FILES)
+
+            GENERAL FORMAT:
+                *DEV:OUTPUT.1<DEV:INPUT.1,...DEV:INPUT.9 (CR)
+
+            CREATING A FILE:
+                *DTA1:FILENA.PA< (CR)    NOTE: DTA1=DEC.TAPE#1
+
+            READING A FILE:
+                *<DSK:FILENA.PA  (CR)    NOTE: DSK=DISK
+
+            MODIFYING A FILE:
+                *DTA0:FILEN1.PA<DTA1:FILEN2.PA (CR)
+
+            MERGING FILES:
+                *DTA0:FILEN1.PA<DTA1:FILEN2.PA,DSK:FILEN3.PA(CR
+
+    -- TVEDIT COMMANDS FOR EDITING FILES  (TO CHANGE TEXT)
+
+    -- CURSOR POSITIONING:
+         HOME CURSOR   HOME OR (CTRL) ]       UPPER LEFT CORNER
+                                              OF SCREEN
+         UP CURSOR   (CTRL) Z OR (UP ARROW)   ONE POSITION UP
+         DOWN CURSOR (CTRL) K OR (DOWN ARROW) ONE POSITION DOWN
+         RIGHT CURSOR(CTRL) X OR (RHT ARROW)  ONE POSITION RIGHT
+         LEFT CURSOR (CTRL) H OR (LEFT ARROW) ONE POSTION LEFT
+         TAB SET       (CTRL) T               SET TAB MARK AT
+                                              CURSOR POSITION
+              (NOTE- TAB SET IN COLUMN 1 CLEARS ALL TABS)
+
+         TAB CURSOR    TAB OR (CTRL) I        MOVE CURSOR RIGHT
+                                              TO NEXT TAB MARK
+
+    -- CHARACTER MANIPULATION:
+         DELETE CHARACTER     (CTRL) D    DELETE CURSOR CHAR
+         LINE DELETE          (CTRL) L    DELETE BLANK LINE
+         BLANK LINE           (CTRL) B    BLANK LINE FROM CURSOR
+                                          TO END OF LINE
+         ADD-TEXT MODE        (CTRL) A    ENTER CHARACTER INSERT
+                                          MODE
+         NORMAL-TEXT MODE     (CTRL) N    ENTER CHARACTER
+                                          OVER-WRITE MODE
+         PAGE                 (CTRL) P    SCROLL UP FOUR LINES
+                                          OF TEXT
+         VIEW                 (CTRL) V    SCROLL THROUGH TEXT
+                                          (ANY CHAR TERMINATES)
+
+    -- TEXT SEARCH: (TO FIND SOME TEXT IN THE FILE)
+
+      ($ IS TERMINATOR CHAR, (AT SYMBOL)= ANY CHAR FOR SEARCH)
+         SEARCH TEXT          (CTRL) S    SEARCH FILE FOR 1 TO
+                                          17 CHARACTERS
+         REPLACE TEXT         (CTRL) R    REPLACE 1 TO 17 CHAR
+                                          BY 0 TO 17 CHARS
+            (EITHER SEARCH OR REPLACE STOPPED BY ANY CHAR)
+         UNDO TEXT STRING     (CTRL) U    CLEAR CURRENT TEXT
+                                          STRING BUFFER
+         QUIT EDITTING        (CTRL) Q    COMPLETE EDIT WITH
+                                          CURSOR LINE
+         END EDITTING         (CTRL) E    COMPLETE EDIT WITH
+                                          ALL TEXT
+
+
+    -- MISCELLANEOUS:
+         BREAKPOINT           (CTRL) C    RETURN TO KEYBOARD
+                                          MONITOR
+         REPEAT LAST COMMAND  (AT SYMBOL) REPEAT LAST COMMAND
+
+    --NOTE: WHEN YOU ARE THROUGH, PLEASE TYPE THE FOLLOWING
+
+            DEL *.BN,*.LS,*.TM
+
+            SQUISH SYS:/0
+
+            THESE COMMANDS WILL GET RID OF ANY TEMPORARY FILES
+            THE SYSTEM MAY HAVE CREATED AND WILL INSURE THE
+            MAXIMUM AMOUNT OF FREE SPACE ON DEC TAPE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
