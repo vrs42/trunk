@@ -1,0 +1,560 @@
+	XLIST
+/ETOS DEFINITIONS
+/.SBTTL		8-E INSTRUCTIONS
+CUF=	6264
+CINT=	6204
+SINT=	6254
+SUF=	6274
+GTF=	6004
+RTF=	6005
+CAF=	6007
+SKON=	6000
+BSW=	7002
+MQL=	7421
+MQA=	7501
+SWP=	MQA MQL
+SWAB=	7431
+SWBA=	7447
+SCA=	7441
+ACS=	7403
+ASC=	ACS
+CAM=	CLA MQL
+DAD=	7443
+DLD=	CAM DAD
+LSR=	7417
+DST=	7445
+DPIC=	7537
+DCM=	7575
+DDZ=	CAM DST
+DPSZ=	7451
+
+/.SBTTL		CONSTANT LOADS
+
+L5777=	CLA CLL CMA RTR
+L6000=	CLA CLL CML IAC RTR
+L7775=	CLA CLL CMA RTL
+L7776=	CLA CLL CMA RAL
+L7777=	CLA CLL CMA
+L4000=	CLA CLL CML RAR
+L0001=	CLA CLL IAC
+L0002=	CLA CLL CML RTL
+L0003=	CLA CLL CML IAC RAL
+L0004=	CLA CLL IAC RTL
+L0006=	CLA CLL CML IAC RTL
+L0100=	CLA IAC BSW
+L2000=	CLA CLL CML RTR
+L3777=	CLA CLL CMA RAR
+/.SBTTL		ETOS IOT MONITOR CALLS
+SKETOS=	6107	/SKIP IF ETOS (AND REPLACES SKETOS WITE SKP)
+/*******************************************************************************
+KCLEAR=	6033	/CLEAR KEYBOARD BUFFER
+/*******************************************************************************
+GETSTAT=6037	/GET STATUS 
+		/CALL:	TAD	(BUFF
+		/	CDF BUFFLD
+		/	GETSTAT
+		/	(RETURN AC=0)
+		/	...
+		/	FIELD BUFF
+		/BUFF,	0	/KSTAT
+		/	0	/BREAK
+		/	0	/ ^C RESTART ADDRESS
+		/	0	/ ^P RESTART ADDRESS
+/*******************************************************************************
+TCLEAR=	6043	/CLEAR TELEPRINTER BUFFER
+/*******************************************************************************
+SETSTAT=6047	/SET STATUS 
+		/CALL:	TAD	(BUFF
+		/	CDF BUFFLD
+		/	SETSTAT
+		/	(RETURN AC=0)
+		/	...
+		/	FIELD BUFF
+		/BUFF,	0	/KSTAT
+		/	0	/BREAK
+		/	0	/ ^C RESTART ADDRESS
+		/	0	/ ^P RESTART ADDRESS
+/*******************************************************************************
+CHANIO=	6100	/CHANNEL I/O FUNCTION
+		/CALL:	TAD	(FNCT+CHN
+		/	MQL
+		/	TAD	(ARGLST-1
+		/	CDF X		/FUNCTION DEPENDENT
+		/	CHANIO
+		/	(RETURN AC=XXXX)
+/-------------------------------------------------------------------------------
+	READW=	   0	/READ WAIT
+	READC=	 100	/READ CONTINUE
+	WRITEW=	 200	/WRITE WAIT
+	WRITEC=	 300	/WRITE CONTINUE
+		/READ WRITE CALLS:
+		/	...
+		/	TAD	(FNCT+CHN
+		/	MQL
+		/	TAD	(ARGLST-1
+		/	CDF BUFFLD
+		/	CHANIO
+		/	(AC= ERROR CODE
+		/	...
+		/ARGLST,HIGH BLOCK /ARGLST IN  INSTRUCTION FIELD
+		/	LOW BLOCK
+		/	-WORD COUNT
+		/	BUFFER ADDRESS
+		/
+		/	FIELD BUFFLD
+		/BUF,	ZBLOCK WORDCOUNT
+/-------------------------------------------------------------------------------
+	ENTER=	 400	/ENTER A FILE INTO THE ETOS FILE SYSTEM
+		/CALL:	TAD	(ENTER+CHN
+		/	MQL
+		/	TAD	(LIST-1
+		/	CDF LSTFLD
+		/	CHANIO
+		/	(AC = ERROR CODE)
+		/
+		/	FIELD LSTFLD%10
+		/LIST,	DEVICE	SYS	/OR DK1,DK2,DK3 OR WHATEVER
+		/ACCNT,	0	/ACCOUNT #
+		/NAME,	ETOSFILE ABCDEFG.HIJ /10 CHARACTERS
+		/PROT,	0	/PROTECTION
+		/DATE,	0	/DATE WORD
+		/HSIZE,	0	/IF SIZE "-", FIXED LENGTH
+		/LSIZE,	0	/IF SIZE "+", VARIABLE LENGTH
+/-------------------------------------------------------------------------------
+/-------------------------------------------------------------------------------
+	LOOKUP=	 500	/LOOKUP A FILE
+		/CALL:	TAD	(LOOKUP+CHN
+		/	MQL
+		/	TAD	(LIST-1
+		/	CDF LSTFLD
+		/	CHANIO
+		/	(AC = ERROR CODE)
+		/
+		/	FIELD LSTFLD%10
+		/LIST,	DEVICE	SYS	/DK1,....
+		/ACCNT,	0	/ACCOUNT #
+		/NAME,	ETOSFILE ABCDEFG.HIJ /10 CHARACTERS
+/-------------------------------------------------------------------------------
+	EXTEND=	 600	/EXTEND A FILE
+		/CALL:	TAD	(EXTEND+CHN
+		/	MQL
+		/	TAD	(EXTLST-1
+		/	CDF EXTFLD
+		/	CHANIO
+		/	(AC = ERROR)
+		/	...
+		/	FIELD EXTFLD
+		/EXTLST,HIBASE	/BASE OF WHERE TO START EXTEND
+		/	LOBASE	/IF "-" THEN EXTEND FROM END
+		/	HISIZE
+		/	LOSIZE
+		/** NOTE IF FILE HAS ZERO LENGTH BLOCK 0
+		/** DOES NOT EXIST. THEREFORE A BASE ADDRESS
+		/** OF 0 IS ILLEGAL, SO USE EXTEND FROM END
+		/** TECNIQUE.
+/-------------------------------------------------------------------------------
+	REDUCE=	 700	/REDUCE A FILE
+		/CALL: ** SAME AS EXTEND **
+		/** NOTE FILES CAN HAVE ZERO LENGTH
+		/** USE DELETE TO REMOVE FILE
+		/** BASE ADDRESS CAN BE IN THE
+		/** RANGE OF 0 TO SIZE OF FILE -1
+		DELETE=	1000	/DELETE A FILE
+		/CALL:	TAD	(DELETE+CHN
+		/	MQL
+		/	CHANIO
+		/	(AC = ERROR)
+		/** NOTE FILE MUST BE OPEN ON CHANNEL CHN
+/-------------------------------------------------------------------------------
+	RENAME=	1100	/RENAME A FILE
+		/CALL:	TAD	(RENAME+CHN
+		/	MQL
+		/	TAD	(RENLST-1
+		/	CDF RENFLD
+		/	CHANIO
+		/	(AC=ERROR CODE)
+		/	FIELD RENFLD%10
+		/RENLST,ETOSFILE NEWNAME.EXT
+		/	(NEW PROTECTION CODE)
+		/** NOTE FILE MUST BE OPEN ON CHANNEL CHN
+/-------------------------------------------------------------------------------
+	WAITW=	1200	/WAIT FOR I/O COMPLETION
+		/	TAD	(WAITW+CHN
+		/	CHANIO
+		/	(AC = ERROR)
+/-------------------------------------------------------------------------------
+	WAITC=	1300	/TEST FOR I/O COMPLETION
+		/CALL: ** SAME AS WAITW
+/-------------------------------------------------------------------------------
+	CLOSE=	1400	/CLOSE CHANNEL
+		/CALL:	TAD	(CLOSE+CHN
+		/	MQL
+		/	CHANIO
+		/	(NO ERRORS)
+/-------------------------------------------------------------------------------
+	INQUIRE=1500	/GET FILE INFORMATION
+		/CALL:	TAD	(INQUIRE+CHN
+		/	MQL
+		/	TAD	(ARGBUF-1
+		/	CDF ARGFLD
+		/	CHANIO
+		/	(AC = 1, CHANNEL NOT OPEN)
+		/	(AC = 2, NOT FILE STRUCTURED)
+		/	(AC = 0, ARGLST IN ARGFLD CONTAINS:
+		/		DE
+		/		V  (ICE)
+		/		(ACCOUNT)
+		/		FI
+		/		LE
+		/		NA
+		/		MX
+		/		TN
+		/		(PROTECT)
+		/		SEGMENT COUNT
+		/		.SYSTEM USE.
+		/		.SYSTEM USE.
+		/		L.O. SIZE
+		/		H.O. SIZE
+		/		ENTRY # IN UFD
+		/		.FCB		(POINTER TO FILE CONTROL BLOCK)
+		/	IF NON FILE STRUCTURED
+		/	ONLY DEVICE NAME IS RETURNED
+/-------------------------------------------------------------------------------
+/*******************************************************************************
+	SYSCALL=6200	/SYSTEM FUNCTION CALLS
+/-------------------------------------------------------------------------------
+	SSW=	   0	/SET SWITCH REGISTER
+		/CALL:	TAD	(SSW
+		/	MQL
+		/	TAD	(VALUE
+		/	SYSCALL
+		/	(AC = 0)
+/-------------------------------------------------------------------------------
+	TOD=	   1	/RETURN TIME OF DAY
+		/CALL:	TAD	(TOD
+		/	MQL
+		/	TAD	(TODBUF-1
+		/	CDF BUFFLD
+		/	SYSCAL
+		/	(AC = 0)
+		/	...
+		/	FIELD BUFFLD
+		/TODBUF,0	/-# MILISECONDS TO NEXT MINUTE
+		/	0	/-# MINUTES TO MIDNIGHT
+		/	0	/-# DAYS TO NEW YEAR
+		/	0	/+# YEAR A.D.
+/-------------------------------------------------------------------------------
+/-------------------------------------------------------------------------------
+	W100MS=	   2	/WAIT ON 100 M.S. TIMER
+		/CALL:	TAD	(W100MS
+		/	MQL
+		/	TAD	(COUNT	/-# TICKS (100 M.S.)
+		/	SYSCALL
+		/	(RETURN -COUNT*100M.S.+DELTA SECONDS LATER)
+		/** DELTA  IS PROGRAM AND SYSTEM LOAD DEPENDANT
+		/** 0 < DELTA < 300 M.S.+DELTA2
+		/** DELTA2 = TIME TO COMPLETE SYSTEM CALL TO
+		/** DMON OR SCALE
+/-------------------------------------------------------------------------------
+	W1MIN=	   3	/WAIT ON 1 MINUTE TIMER
+		/CALL: ** SAME AS W100MS EXCEPT COUNT IS # MINUTES
+/-------------------------------------------------------------------------------
+/-------------------------------------------------------------------------------
+	LOCK=	   4	/LOCK IN CORE (PRIVLEGED FUNCTION)
+		/CALL:	TAD	(LOCK
+		/	MQL
+		/	(CDF EXTRA FIELD)
+		/	SYSCALL	/LOCK I.F. AND D.F. IN CORE
+/-------------------------------------------------------------------------------
+	UNLOCK=	   5	/UNLOCK ALL FIELDS LOCKED IN CORE FOR THIS USER
+		/CALL:	TAD	(UNLOCK
+		/	SYSCALL
+/-------------------------------------------------------------------------------
+	HOOK=	   6	/HOOK IN REAL-TIME JOB (PRIVLEGED)
+		/CALL:	TAD	(HOOK
+		/	MQL
+		/	(CDF EXTRA FIELD)
+		/	TAD	SWITCH
+		/	SYSCALL	/LOCK I.F. AN D.F. IN CORE
+		/	CLA	/HOOK I.F. INTO SKIP CHAIN
+/-------------------------------------------------------------------------------
+	UNHOOK=	   7	/UNHOOK REAL-TIME
+		/CALL:	TAD	(UNHOOK
+		/	MQL
+		/	SYSCALL	/UNHOOK REAL-TIME JOB
+		/		/FROM SKIP CHAIN
+/-------------------------------------------------------------------------------
+	WAIT=	  10	/WAIT FOR STATUS BIT
+		/CALL:	TAD	(WAIT
+		/	MQL
+		/	TAD	(MASK
+		/	SYSCALL
+		/	(RETURN WHEN STATUS CLEARED)
+		/** SEE USTR FOR BIT ASSIGNMENTS **
+/-------------------------------------------------------------------------------
+	DATAPK=	  11	/FETCH DATA WORD
+		/CALL:	TAD	(DATA
+		/	MQL
+		/	TAD	(JOB^100+REG
+		/	SYSCALL
+		/	(AC = ERROR IF JOB # TOO LARGE)
+		/	(MQ = VALUE)
+		/IF JOB # REQUESTED IS 0 THEN THE PROGRAM'S
+		/JOB NUMBER IS USED. ERROR WORD IF ANY
+		/EQUALS JOB# REQUESTED - JOBMAX
+		/** SEE JOB DATA AREA FOR ASSIGNMENTS
+/-------------------------------------------------------------------------------
+	VERSION=	  12	/RETURN VERSION NUMBER
+		/CALL:	TAD	(VERSION
+		/	MQL
+		/	SYSCAL
+		/	(AC = VERSION OF SYSTEM)
+/-------------------------------------------------------------------------------
+/-------------------------------------------------------------------------------
+	TXTSET=	  13	/SET TEXT AREA (PROGRAM NAME ETC.)
+		/CALL:	TAD	(TXTSET
+		/	MQL
+		/	TAD	(STRING-1
+		/	CDF TXTFLD
+		/	SYSCALL
+		/	(AC = 0)
+		/	...
+		/	FIELD TXTFLD
+		/STRING, TEXT "ABCDEFGHIJ" 10 CHARACTERS
+/-------------------------------------------------------------------------------
+	LOGOUT=	  14	/LOGOUT (PRIVLEGED)
+/-------------------------------------------------------------------------------
+	JOBNUM=	  15	/RETURN JOB NUMBER
+/-------------------------------------------------------------------------------
+
+	XSCALE=	16	/EXICUTE ONE SCALE COMMAND
+		/CALL:	TAD	(XSCALE
+		/	MQL
+		/	CDF	CMDFLD
+		/	TAD	(CMD-1
+		/	SYSCALL
+		/	...
+		/	FIELD CMDFLD%10
+		/CMD,	"A;"S;"S;"I;"G;"N;" ;"L;"P;"T;":;215
+		/THE COMMAND TEXT MUST END WITH A 215 (RETURN)
+/-------------------------------------------------------------------------------
+
+	MOUNT=	17	/MOUNT A PUBLIC DISK
+		/CALL:	TAD	(MOUNT
+		/	MQL
+		/	CDF	MOUARG
+		/	TAD	(MOUTXT-1
+		/	SYSCALL
+		/	...		/AC = 0, OK
+		/			/AC <> 0, FAILD
+		/	FIELD MOUARG%10
+		/MOUTXT, DEVICE	DK1
+		/	1		/MFD P,PN = 0,1
+		/	1		/P,PN OF PASSWORD
+		/	TEXT "PASSWORD";*.-1
+		/	(H.O. OFFSET [USUALLY 0])
+		/	(L.O. OFFSET [1200 IF COPY OF ETOS SYSTEM PACK])
+		/** NOTE SINCE THE 'FIRST TWO' CAARACTERS ARE
+		/THE P,PN OF THE PASSWORD THE PAL8 PSEUDO-OP
+		/'ETOSFILE' CANNOT BE USED HERE.
+/-------------------------------------------------------------------------------
+
+	ENDRUN=	20	/PLACE ON END (LAST) RUN QUEUE
+		/USUALLY CALLED IF JOB WISHES TO REMAIN COMPUTE BOUND
+		/BUT DOES NOT NEED TO RUN AT THIS TIME. THIS WILL ALLOW
+		/ALL OTHER JOBS TO RUN (IF COMPUTE BOUND) BEFORE
+		/THIS JOB WILL RUN AGAIN (A COURTISIE CALL)
+/-------------------------------------------------------------------------------
+/-------------------------------------------------------------------------------
+	DEBUG=21
+
+	/
+/DEBUG MODE (EMULATION MODE)
+/ETOS PERMITS USER PROGRAMS TO TRAP THEIR OWN IOT'S FOR DEBUGGING
+/OR EMULATION OF NON-EXISTANT DEVICES OR INSTRUCTIONS.
+/TO SET DEBUG MODE THE PROGRAMMING SEQUENCE IS AS FOLLOWS:
+	/
+	/
+	/	...
+	/	TAD	(DEBUG
+	/	MQL
+	/	TAD	(ARGLST-1
+	/	CDF ARGFLD
+	/	SYSCALL
+/WHEN THE SYSCALL IS EXECUTED THE USER PROGRAM WILL CONTINUE
+/AT THE LOCATION AND STATUS AS INDICATED BY THE ARGMUNT
+/LIST AND WITH THE DEBUG STATUS BIT ENABLED. THE ARGUMENT LIST
+/IS LAID OUT AS FOLLOWS:
+	/
+	/	FIELD	ARGFLD%10
+	/ARGLST,XYZZ	/NEW FLAGS
+	/		/X= LINK,GT,CIF PENDING
+	/		/Y=FIELD TO GO TO ON JMP/JMS IF CIF PENDING
+	/		/ZZ= I.F.,D.F.
+	/	NEWPC
+	/	NEWAC
+	/	NEWMQ
+	/
+	/
+/WHEN AN IOT, HLT, OR OSR IS EXECUTED (THIS INCLUDES CDF'S ETC.)
+/THE MONITOR WILL TRAP TO THE USERS PROGRAM BY A JMS TO LOCATION
+/0000 IN FIELD 0, SIMILAR TO AN INTERRUPT ON THE REAL MACHINE.
+/THE FLAG WORD OF THE EMULATED PROGRAM WILL BE STORED IN THE JOB
+/DATA AREA AT LOCATION 'USTRAP' WHICH IS RELATIVE LOCATION 32 AND CAN
+/BE RETRIEVED USING THE DATAPK SYSCALL FUNCTION. THE TRAP ENTTRY
+/SERVICE CAN BE CODED AS FOLLOWS:
+	/
+	/	FIELD 0
+	/*0
+	/TRP,	0000	/PC+1 OF IOT
+	/	JMP I	.+1
+	/	TRPSRV
+	/....
+	/TRPSRV,DCA	ARGLST+2	/SAVE AC IN ARGLST BLOCK
+	/	MQA
+	/	DCA	ARGLST+3	/SAVE MQ
+	/	TAD	TRP
+	/	DCA	ARGLST+1	/PC
+	/	TAD	(DATAPK
+	/	MQL
+	/	TAD	(USTRAP
+	/	SYSCALL
+	/	CLA MQA		/GET FLAG WORD
+	/	DCA	ARGLST	/SAVE IT FOR LATER
+	/	STA
+	/	TAD	TRP
+	/	DCA	TRP	/POINT BACK TO IOT
+	/	TAD	ARGLST
+	/	AND	(7	/GET JUST THE DF
+	/	CLL RTL
+	/	RAL
+	/	TAD	(CDF
+	/	DCA	.+1
+	/	NOP		/CDF TO FIELD WHERE IOT WAS
+	/	TAD I	TRP	/FETCH IOT
+	/	CDF 0
+	/	DCA	TRPIOT
+	/
+/AT THIS POINT YOU CAN ANALIZE THE TRAPPED IOT ANDTAKE APPROPRIATE ACTION
+/AFTER THE EMULATION YOU CAN RETURN USING THE
+/SETUP PROCEDURE AS DISCRIBED ABOVE
+/-------------------------------------------------------------------------------
+/*******************************************************************************
+/.SBTTL	 USER DATA SPACE
+
+PUSMAP=	0		/POINTER TO USER MAP
+	USMAP0=	0^100	/SSSF, F=FIELD (0) IF NONRESIDENT
+	USMAP1=	1^100	/SSS=SWAP TRACK/2
+	USMAP2=	2^100
+	USMAP3=	3^100
+	USMAP4=	4^100
+	USMAP5=	5^100
+	USMAP6=	6^100
+	USMAP7=	7^100
+USTR=	1		/USER STATUS REGISTER
+	DMYWAT=	1	/WAITING IN SCALE MODE
+	KBDWAT=	2
+	TTYWAT=	4
+	LPTWAT=	10
+	FIOWAT=	20
+	CDRWAT=	40
+	MILWAT=	100
+	MINWAT=	200
+	DMONWT=	400	/WAITING FOR DMON
+	NOTRES=4000	/PROGRAM MAY BE RUNABLE BUT NOT RESIDENT
+PCCBP=	2		/POINTER TO CCB POINTERS
+	PCCB0=	0^100
+	PCCB1=	1^100
+	PCCB2=	2^100
+	PCCB3=	3^100
+	PCCB4=	4^100
+	PCCB5=	5^100
+	PCCB6=	6^100
+	PCCB7=	7^100
+URT1=	3		/LOW ORDER RUN TIME
+URT2=	4		/HIGH ORDER RUN TIME
+UPRV=	5
+	/BIT 0 = PRIVILEGED
+	/BIT 1 TEMPORRARILY PRIVILEGED
+	BDEBUG=	1000
+	/BITS 3-5 = MAX CORE ALLOWED
+	/BITS 6-8 = PRIORITY COMPUTE BOUND RUN QUEUE #
+	/BITS 9-11= - # OF EXTRA SYSTEM TICKS (QUANTUMS)
+CIFBUF=	6
+USL2SV=	7		/LEVEL 2 SERVICE TO RUN BEFORE RUNNING THIS JOB
+USFLAG=	10
+UMESDD=	11
+	IFNZRO UMESDD-USFLAG-1	<? RUN WON'T WORK ?>
+USPC=	12
+	IFNZRO USPC-UMESDD-1	<? RUN WON'T WORK ?>
+USAC=	13
+	IFNZRO USAC-USPC-1	<? RUN WON'T WORK ?>
+USMQ=	14
+	IFNZRO USMQ-USAC-1	<? RUN WON'T WORK ?>
+USSC=	15
+	IFNZRO USSC-USMQ-1	<? RUN WON'T WORK ?>
+USCON=	16
+	IFNZRO USCON-USSC-1	<? RUN WON'T WORK ?>
+USSR=	17
+	IFNZRO USSR-USCON-1	<? RUN WON'T WORK ?>
+UACCNT=	20		/ACCOUNT NUMBER
+USTT1=	21	/USER START TIME 1
+USTT2=	22	/USER START TIME 2
+USTT3=	23	/USER START TIME 3
+USTT4=	24	/USER START TIME 4
+UKBDDB=	25
+UTTDDB=	26
+WSTMP1=	27
+WSTMP2=	30
+JOBPRV=	31		/(PROTECT WORD OF UFD)
+USTRAP=	32	/USER URAP FLAGS ON DEBUG TRAP
+UTXT1=	33	/USER TEXT 1
+UTXT2=	34	/USER TEXT 2
+UTXT3=	35	/USER TEXT 3
+UTXT4=	36	/USER TEXT 4
+UTXT5=	37	/USER TEXT 5
+/.SBTTL	 LAYOUT FOR DDB'S
+
+STATUS=	0^100
+OWNER=	1^100		/JOB NUMBER ASSIGNED TO DDB
+DDEP0=	2^100		/DEVICE DEPENDANT WORD 0
+DDEP1=	3^100		/DEVICE DEPENDANT WORD 1
+DDBFPT=	4^100		/DDB FILL POINTER
+DDBEPT=	5^100		/DDB EMPTY POINTER
+DDBCNT=	6^100		/COUNT OF NUMBER OF CHARACTERS IN BUFFER
+DDEP2=	7^100		/DEVICE DEPENDENT WORD 2
+
+/.SBTTL		KBDDDB
+STATUS=	0^100
+	DUPL=	4000	/CONSOL IN DUPLEX MODE
+	DXON=	2000	/XOFF SENT FLAG
+	DSCALE=	1000	/DESTINATION SCALE FLAG
+	ENCTLC=	200	/ENABLE CONTROL C
+	ENCTLO=	100	/ENABLE CONTROL O
+	ENCTLQ=	40	/ENABLE CONTROL Q
+	ENCTLS=	20	/ENABLE CONTROL S
+	ENCTLU=	10	/ENABLE CONTROL U
+	ENCTLV=	4	/ENABLE CONTROL V
+	ENCTLP=	2	/ENABLE CONTROL P
+	ENRUBO=	1	/ENABLE RUBOUT
+OWNER=	1^100		/JOB NUMBER ASSIGNED TO DDB
+LSTCHR=	2^100		/LAST CHARACTER READ
+SBRMSK=	3^100		/SAVED BREAK MASK
+DDBFPT=	4^100		/DDB FILL POINTER
+DDBEPT=	5^100		/DDB EMPTY POINTER
+DDBCNT=	6^100		/COUNT OF NUMBER OF CHARACTERS IN BUFFER
+ABRMSK=	7^100		/ACTIVE BREAK MASK
+
+/.SBTTL	TTYDDB
+STATUS= 0^100
+	DCTRLO= 4000
+	DXOFF=  2000
+	/JAMOUT BITS 6-11
+OWNER=	1^100		/JOB NUMBER ASSIGNED TO DDB
+CTCADD=	2^100		/CONTROLL C RESTART ADDRESS
+CTPADD=	3^100		/CONTROLL P RESTART ADDRESS
+DDBFPT=	4^100		/DDB FILL POINTER
+DDBEPT=	5^100		/DDB EMPTY POINTER
+DDBCNT=	6^100		/COUNT OF NUMBER OF CHARACTERS IN BUFFER
+DDEP2=	7^100		/***** FREE *****
+	XLIST

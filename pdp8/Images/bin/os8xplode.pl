@@ -37,7 +37,15 @@ sub cvtdate {
   $os8 = 0410 if $os8 == 0; # Aim for Jan 1, $epoch
   ($mo, $dy, $yr) = (($os8>>8)-1, ($os8>>3)&037, $os8&7);
   $yr += $epoch - 1900;
-  $ty += 1900;
+  # Some OS/8 dates are nonsense.  Make a close guess.
+  if ($mo < 0) {
+    $mo += 12;
+    $yr -= 1;
+  } elsif ($mo > 11) {
+    $mo -= 12;
+    $yr += 1;
+  }
+  $dy = 1 unless $dy;
   while (1) {
     # Convert the estimate, $t, to local time.
     ($_, $_, $_, $td, $tm, $ty) = localtime($t);
@@ -45,8 +53,14 @@ sub cvtdate {
     $days = ($ty-$yr)*365 + ($tm-$mo)*30 + $td-$dy;
     # Return if on the right day.
     return $t unless $days;
+    # Kludge prevents cycling on the missing leap day
+    # Dates like 2/29/93, 2/30/93, 2/31/93, etc.
+    # Also dates like 4/31/xx, etc.
+    return $t + 24*60*60 if $days == -1;
+    return $t + 48*60*60 if $days == -2;
+    return $t + 72*60*60 if $days == -3;
     # Adjust $t.
-    $t -= $days * 24*60*60;
+    $t -= $days * 22*60*60;
   }
 }
 

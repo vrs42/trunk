@@ -1,0 +1,94 @@
+/ALIGN - DECTAPE ALIGNMENT ROUNTINE
+/   ^C STOPS & RETURNS TO OS-8 MONITOR
+/STARTING LOCATION IS 00200
+/ AC=WORD OF BLOCK
+/ MQ=ACTUAL BLOCK NUMBER
+FIND=JMS I [XFIND
+ENDZONE=-22
+BLOCKMARK=-26
+DATAWORD=-31
+READ=JMS I [XREAD
+DIRECTION=JMS I [XDIR
+FORWARD=1000
+REVERSE=3000
+OS8=7600
+STOP=0000
+LOAD=JMS I [XLOAD
+SDSS=6771
+SDSQ=6773
+SDLC=6774
+SDLD=6775
+SDRC=6776
+SDRD=6777
+
+
+*400
+REWIND, DIRECTION       /START TAPE REWINDING
+        REVERSE
+        FIND
+        ENDZONE         /FIND THE END ZONE
+        DIRECTION       /FORWARD FOR NEXT 
+        FORWARD
+NEXT,   FIND            /GET BLOCKMARK
+        BLOCKMARK
+        LOAD
+        MQL             /PUT BLOCK # IN MQ
+        TAD (-200
+        DCA TOTAL
+        FIND            /FIND A DATA WORD FOR AC!
+        DATAWORD
+        READ
+        ISZ TOTAL       /ANY MORE WORDS TO READ?
+        JMP .-2
+        KSF             /GUESS NOT!, SO CHECK FOR ^C!
+        JMP CLEAR       /NOTHING HAS BEEN TYPED!, SO GO!
+        KRB             /READ KEY
+        AND (177        /OMIT PARITY
+        TAD (-3         /MINUS CONTROL-C CODE
+        SZA CLA         /SKIP ON CONTROL-C
+        JMP CLEAR       /NO SO IGNORE THIS TRASH!
+        DIRECTION
+        STOP            /KILL MOTION & RETURN TO OS-8!
+        JMP I (OS8
+CLEAR,  SDRC
+        SDLC            /CLEAR TIME ERRORS AND OTHER FLAGS
+        JMP NEXT
+XREAD,  0
+        SDSQ
+        JMP .-1         /WAIT FOR A WORD OVER THE HEADS!
+        SDRD            /NOW READ IT!
+        JMP I XREAD     /LET'S RETURN!
+XLOAD,  0
+        SDSS
+        JMP .-1         /WAIT FOR CONTROL WORD THEN GET STATUS
+        SDRC            /OK LET'S READ STATUS
+        JMP I XLOAD
+XDIR,   0
+        TAD I XDIR
+        ISZ XDIR
+        SDLC                    /LOAD DIRECTION
+        JMP I XDIR              /LEAVE DIRECTION ROUTINE
+XFIND,  0
+        LOAD            /GET STATE
+        AND (77
+        DCA XDIR        /SAVE STATE OF CONTROL WORDS
+        TAD XDIR
+        TAD I XFIND
+        SZA CLA         /DID WE FIND IT?
+	JMP .+3
+	ISZ XFIND
+	JMP I XFIND
+        TAD REWIND+3
+        TAD XDIR
+        SZA CLA
+        JMP XFIND+1
+        SDRC
+        RTL
+        CML
+        RTR
+        SDLC            /TURN IT AROUND, ROCK OFF!
+        JMP XFIND+1
+TOTAL,0
+$
+
+
