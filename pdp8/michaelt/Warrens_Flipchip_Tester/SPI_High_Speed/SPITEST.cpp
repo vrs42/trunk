@@ -38,14 +38,16 @@ FT_STATUS ftStatus;			//Status defined in D2XX to indicate operation result
 
 BYTE OutputBuffer[512];		//Buffer to hold MPSSE commands and data to be sent to C232HM
 BYTE InputBuffer[512];		//Buffer to hold Data bytes to be read from C232HM
-DWORD dwClockDivisor = 29;  	//Value of clock divisor, SCL Frequency = 60/((1+29)*2) (MHz) = 1Mhz
-DWORD dwNumBytesToSend = 0; 	//Index of output buffer
-DWORD dwNumBytesSent = 0, 	dwNumBytesRead = 0, dwNumInputBuffer = 0;
+DWORD dwClockDivisor = 29;  //Value of clock divisor, SCL Frequency = 60/((1+29)*2) (MHz) = 1Mhz
+DWORD dwNumBytesToSend = 0; //Index of output buffer
+DWORD dwNumBytesSent = 0;
+DWORD dwNumBytesRead = 0;
+DWORD dwNumInputBuffer = 0;
 
 BYTE ByteDataRead;
 WORD MemAddress = 0x00;		
 
-WORD i=0;
+WORD i = 0;
 BYTE DataOutBuffer[MemSize];		
 BYTE DataInBuffer[MemSize];
 
@@ -72,18 +74,18 @@ void SPI_CSDisable()
 FT_STATUS WriteEECmd(FT_HANDLE ftHandle, BYTE command) 
 {
 	dwNumBytesSent=0;
-    SPI_CSEnable();
+    SPI_CSEnable(); //Enable the SPI Chip Select
 	OutputBuffer[dwNumBytesToSend++] = MSB_FALLING_EDGE_CLOCK_BIT_OUT;
 	OutputBuffer[dwNumBytesToSend++] = 7;
 	OutputBuffer[dwNumBytesToSend++] = command;
 	OutputBuffer[dwNumBytesToSend++] = MSB_FALLING_EDGE_CLOCK_BIT_OUT;
 	OutputBuffer[dwNumBytesToSend++] = SPIDATALENGTH - (8+1);
 	OutputBuffer[dwNumBytesToSend++] = '\xff';
-	SPI_CSDisable();
-	ftStatus = FT_Write(ftHandle, OutputBuffer, dwNumBytesToSend, &dwNumBytesSent);		
-	dwNumBytesToSend = 0;			//Clear output buffer
+	SPI_CSDisable(); //Disable the SPI Chip Select
+	ftStatus = FT_Write(ftHandle, OutputBuffer, dwNumBytesToSend, &dwNumBytesSent); //Write the OutputBufer to the MCP23S17
+	dwNumBytesToSend = 0; //Clear output buffer
 
-	return ftStatus;
+	return ftStatus; //Return the status from the D2XX dll call
 }
 
 BOOL SPI_Initial(FT_HANDLE ftHandle)
@@ -106,7 +108,9 @@ BOOL SPI_Initial(FT_HANDLE ftHandle)
 		printf("fail on initialize C232HM device ! \n");
 		return false;
 	}
+
 	Sleep(50);	// Wait for all the USB stuff to complete and work
+
 	//////////////////////////////////////////////////////////////////
 	// Synchronize the MPSSE interface by sending bad command ¡®0xAA¡¯
 	//////////////////////////////////////////////////////////////////
@@ -114,12 +118,14 @@ BOOL SPI_Initial(FT_HANDLE ftHandle)
 	OutputBuffer[dwNumBytesToSend++] = '\xAA';		//Add BAD command ¡®0xAA¡¯
 	ftStatus = FT_Write(ftHandle, OutputBuffer, dwNumBytesToSend, &dwNumBytesSent);	// Send off the BAD commands
 	dwNumBytesToSend = 0;			//Clear output buffer
+
 	do{
 		ftStatus = FT_GetQueueStatus(ftHandle, &dwNumInputBuffer);	 // Get the number of bytes in the device input buffer
 	}while ((dwNumInputBuffer == 0) && (ftStatus == FT_OK));   	//or Timeout
 	
 	bool bCommandEchod = false;
 	ftStatus = FT_Read(ftHandle, InputBuffer, dwNumInputBuffer, &dwNumBytesRead);  //Read out the data from input buffer
+
 	for (dwCount = 0; dwCount < (dwNumBytesRead - 1); dwCount++)	//Check if Bad command and echo command received
 	{
 		if ((InputBuffer[dwCount] == BYTE('\xFA')) && (InputBuffer[dwCount+1] == BYTE('\xAA')))
@@ -291,7 +297,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	WriteEECmd(ftdiHandle, WREN);
 	WriteEECmd(ftdiHandle, ERAL);
+
 	Sleep(20);
+
 	for(i=0;i<MemSize;i++)
 	{
 		SPI_WriteByte2RandomAddr(ftdiHandle, i,DataOutBuffer[i]);
@@ -307,8 +315,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		printf("Read data from address %d = %d\n",i,DataInBuffer[i]);
 	}
 
-  	getchar();
+  	getchar(); //Wait for the user to hit a key and then close the window
   }
+
   FT_Close(ftdiHandle);
   return 0;
 }
