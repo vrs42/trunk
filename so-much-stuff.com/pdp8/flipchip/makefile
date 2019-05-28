@@ -1,4 +1,4 @@
-EPROJECTS = ../../../Eagle/projects/DEC
+EPROJECTS = `/bin/pwd`/../../../Eagle/projects/DEC
 ALL = Axxx.htm Bxxx.htm Gxxx.htm Hxxx.htm Kxxx.htm Mxxx.htm \
 	Rxxx.htm Sxxx.htm Wxxx.htm modules.txt modules.htm
 

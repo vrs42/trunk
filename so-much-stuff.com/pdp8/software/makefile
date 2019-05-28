@@ -1,8 +1,8 @@
-AK = ../../../pdp8/src/ak
-DEC = ../../../pdp8/src/dec
-DECUS = ../../../pdp8/src/decus
-MAINDEC = ../../../pdp8/src/maindec
-SI = ../../../pdp8/src/si
+AK = `/bin/pwd`/../../../pdp8/src/ak
+DEC = `/bin/pwd`/../../../pdp8/src/dec
+DECUS = `/bin/pwd`/../../../pdp8/src/decus
+MAINDEC = `/bin/pwd`/../../../pdp8/src/maindec
+SI = `/bin/pwd`/../../../pdp8/src/si
 ALL = ak.php dec.php decus.php maindec.php si.php
 
 all:	$(ALL)

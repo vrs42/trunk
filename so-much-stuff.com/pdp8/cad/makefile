@@ -1,5 +1,5 @@
-EAGLE = ../../../Eagle
-STL = ../../../3D
+EAGLE = `/bin/pwd`/../../../Eagle
+STL = `/bin/pwd`/../../../3D
 
 all: .
 	# Do the work elsewhere so that this picks up only committed changes.

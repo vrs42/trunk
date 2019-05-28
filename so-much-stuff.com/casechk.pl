@@ -76,7 +76,7 @@ for $i (@ARGV) {
       $ref = $2;
       $ref =~ s/"([^"]*)"/\1/g;
       $ref =~ s/'([^']*)'/\1/g;
-      next if $ref =~ /^(mailto|http):/;
+      next if $ref =~ /^(mailto|http[s]*):/;
       next if $ref =~ /\$/; # Skip variable references
       next if $ref =~ /\[/; # Skip variable references
       next if $ref =~ /^\#/; # Pound sign must be first.
