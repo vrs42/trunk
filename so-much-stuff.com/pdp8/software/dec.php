@@ -787,7 +787,7 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 </tr><tr>
 <td>Disk System Restore
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./d8/rwda.lst>dec-d8-rwda.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./d8/rwda-lst>dec-d8-rwda-lst</a><td>(PAL listing)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./d8/rwda-lst.lbl>dec-d8-rwda-lst.lbl</a><td>(PAL listing tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./d8/rwda-lst.od>dec-d8-rwda-lst.od</a><td>(PAL listing as octal image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./d8/rwda-lst.txt>dec-d8-rwda-lst.txt</a><td>(PAL listing as a text file)<tr>

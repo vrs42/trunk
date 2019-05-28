@@ -5,7 +5,10 @@ MAINDEC = `/bin/pwd`/../../../pdp8/src/maindec
 SI = `/bin/pwd`/../../../pdp8/src/si
 ALL = ak.php dec.php decus.php maindec.php si.php
 
-all:	$(ALL)
+all:	update $(ALL)
+
+update:
+	cd $(AK)/..; svn update .
 
 ak.php: .
 	cd $(AK); ./publish.pl
