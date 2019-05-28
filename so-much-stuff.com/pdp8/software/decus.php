@@ -1311,8 +1311,6 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/c0X0X.bin target=_blank>c0X0X.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/c0X0X.lst target=_blank>c0X0X.lst</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/c0X0X.pal target=_blank>c0X0X.pal</a></div>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/code.bin- target=_blank>code.bin-</a></div>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/code.txt target=_blank>code.txt</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/coding.bn target=_blank>coding.bn</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/coding.pal target=_blank>coding.pal</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-152/decus-8-152-lst.pdf target=_blank>decus-8-152-lst.pdf</a></div>
