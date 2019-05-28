@@ -42,6 +42,10 @@ hook into a PDP-8/i or PDP-12.
   <DD>is an "as built" version of Lafferty1, with the changes incorporated in the group buy.
 <DT>Lafferty2</A>
   <DD>is a drawing with ideas about a follow-on to Lafferty1.
+<DT>Roland+mem1</A>
+  <DD>is a combination of the Lafferty memory design and Roland's bootloader.
+<DT>Roland+mem2</A>
+  <DD>is a minor revision of Roland+mem1.
 <DT>msc3102</A>
   <DD>is a drawing of the MSC3102 design.
 <DT>Omnimem</A>
@@ -1151,6 +1155,14 @@ been checked against the DEC version.
   <DD>is a drawing of DEC's G008A.
 <DT>G008X</A>
   <DD>is a 'modernized' G008.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G009 target=_blank>./DEC/Gxxx/G009</a></b>: Sense Amplifier
+
+</LEGEND><DL>
+<DT>G009B</A>
+  <DD>is a drawing of DEC's G009B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
