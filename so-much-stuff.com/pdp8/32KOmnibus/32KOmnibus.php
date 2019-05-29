@@ -5,15 +5,15 @@
 <TABLE>
 <P>This page describes a replacement for core memory, which also provides
 bootstrap support for a
-<A href=https://github.com/Roland-Huisman/M847-extended-version-V1.1/blob/master/M847%20programs.docx?raw=true>variety of devices</A>.
+<A href=M847%20programs.txt target=_blank>variety of devices</A>.
 The memory provided is 32K, switchable to enable or disable each 4K
 memory bank, allowing you also use any vintage memory you might have.
 <P>The memory implementation is based on a design by
-<A href=http://tronola.com/>Stephen</A> 
-<A href=http://www.tronola.com/html/ram_for_pdp-8e.html>Lafferty</A>.
+<A href=http://tronola.com/ target=_blank>Stephen</A> 
+<A href=http://www.tronola.com/html/ram_for_pdp-8e.html target=_blank>Lafferty</A>.
 <P>The bootstrap implementation is based on the work of
-<A href=http://www.technischmuseum.nl/>Roland</A> 
-<A href=https://github.com/Roland-Huisman>Huisman</A>.
+<A href=http://www.technischmuseum.nl/ target=_blank>Roland</A> 
+<A href=https://github.com/Roland-Huisman target=_blank>Huisman</A>.
 <P>While supplies last, you can obtain a kit by clicking
 <A href=http://tinyurl.com/stuffmail>here</A>,
 and letting me know of your interest.
@@ -21,18 +21,18 @@ I'm asking $95 plus shipping (which is typically another $15 within the USA).
 <P>The older 32K Memory card, without bootstrap circuitry, is described
 <A HREF=32KOmnibus-.php>here</A>.
 <P>Some of you have asked, so
-<A HREF=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/>here</A>
+<A HREF=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/ target=_blank>here</A>
 is a shortcut to the CAD drawings.
 Of these, the "Roland+mem1" drawings are the board as sent off for
 fabrication.
 <DL>
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.brd>Roland+mem1.brd</A>
+<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.brd target=_blank>Roland+mem1.brd</A>
 <DD>is the Eagle board drawing.
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.sch>Roland+mem1.sch</A>
+<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.sch target=_blank>Roland+mem1.sch</A>
 <DD>is the Eagle schematic.  (The action is on sheets 2 and 3.)
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1BRD.pdf>Roland+mem1BRD.pdf</A>
+<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1BRD.pdf target=_blank>Roland+mem1BRD.pdf</A>
 <DD>is the board drawing, as a PDF.
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1SCH.pdf>Roland+mem1SCH.pdf</A>
+<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1SCH.pdf target=_blank>Roland+mem1SCH.pdf</A>
 <DD>is the schematic the board, as a PDF (you want pages 2 and 3).
 </DL>
 </TABLE>
@@ -42,7 +42,7 @@ fabrication.
 <P><TR>
 <OL>
   <LI>
-    <A href="/pdp8/32KOmnibus/boot+mem/boot+mem.jpg">
+    <A href="/pdp8/32KOmnibus/boot+mem/boot+mem.jpg" target=_blank>
     <IMG src="/pdp8/32KOmnibus/boot+mem/boot+mem.jpg" width=100%></A>
     <P>Here is a photo of an assembled board, for reference below.  (You can click on the photo 
 to get a bigger version.)
