@@ -1,11 +1,11 @@
 M169, PCB REV B, 4 AND-OR TREES (2-2-2-2) WITH 2 SETS OF ENABLES, EXTRA OR ON OUTPUT
 
-PINS HEADER
-PIN HEADER                      A1A2A3A4 B1B2B3B4 C1C2C3C4 D1D2D3D4
-EX EQUATION:  A = A5-N OR (EN_A1B1 AND A1) 
-                       OR (EN_A2B2 AND A2)
-                       OR (EN_A3B3 AND A3)
-                       OR (EN_A4B4 AND A4)
+;PINS HEADER
+;PIN HEADER                      A1A2A3A4 B1B2B3B4 C1C2C3C4 D1D2D3D4
+;EX EQUATION:  A = A5-N OR (EN_A1B1 AND A1) 
+;                       OR (EN_A2B2 AND A2)
+;                       OR (EN_A3B3 AND A3)
+;                       OR (EN_A4B4 AND A4)
 
 PINS
  1 I AC1 E1-13,E2-13  EN_A1B1  1-x-x-x  1-x-x-x 
