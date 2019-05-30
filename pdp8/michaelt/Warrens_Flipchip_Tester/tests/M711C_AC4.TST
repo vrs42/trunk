@@ -1,12 +1,13 @@
 M711, PCB REV C, SCOPE CONTROL
+;Last modified on 5/29/19 by MGT
 
 ****************EXTREMELY LIMITED, ONLY CHECKS SIZE FF (HAS AC4 INPUT).
 
 PINS
-1  I AR2 E6-10+++       SIZE FF SET-N       (IO PRESET)
-2  I BD1 E6-12          SIZE FF DATA IN     (AC04(1)H)
-3  I AV1 E6-11          SIZE FF CLOCK       (LOAD TRAP)
-4  O BU2 E6-8           SIZE FF Q-N OUTPUT
+1 I AR2 E6-10+++       SIZE FF SET-N       (IO PRESET)
+2 I BD1 E6-12          SIZE FF DATA IN     (AC04(1)H)
+3 I AV1 E6-11          SIZE FF CLOCK       (LOAD TRAP)
+4 O BU2 E6-8           SIZE FF Q-N OUTPUT
 
 IIIO
 
