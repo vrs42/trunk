@@ -27,8 +27,8 @@ print "$d\n";
     if (!-f $t) {
       # A thumbnail is missing, create it.
       #print "$f: $t\n";
-      print "jpegtopnm \"$f\" | pamscale -xysize 640 640 | pnmtojpeg >\"$t\"\n";
-      system "jpegtopnm \"$f\" 2>/dev/null | pamscale -xysize 640 640 | pnmtojpeg >\"$t\"\n";
+      print "jpegtopnm \"$f\" | pnmscale -xysize 640 640 | pnmtojpeg >\"$t\"\n";
+      system "jpegtopnm \"$f\" 2>/dev/null | pnmscale -xysize 640 640 | pnmtojpeg >\"$t\"\n";
     }
   }
 }

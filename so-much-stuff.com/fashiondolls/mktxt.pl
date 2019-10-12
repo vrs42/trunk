@@ -34,7 +34,7 @@ print "$d\n";
     $t =~ s:\r*$::;
     if (!-f $t) {
       # A .txt file is missing, create one.
-      $exif = `./exiftool -S -Title $f`;
+      $exif = `exiftool -S -Title $f`;
       $exif =~ s/.*: //;
       $exif = `basename $f` unless $exif;
 #     warn "$t: missing, got $exif\n";
