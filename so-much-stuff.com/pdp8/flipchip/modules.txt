@@ -1,4 +1,5 @@
 Module	Versions  Description
+A008	B+ 	  AD8A 10 Bit A-D
 A100	C 	  Multiplexor Switch
 A103		  Multiplexor Switch
 A111	C+ 	  Millivolt Multiplex Switch
@@ -56,6 +57,7 @@ B123	A* 	  4 2-Input OC NAND Gates
 B124		  3 3-Input OC NOR Gates
 B130	A+ B X 	  4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
 B131	F 	  PDP10 Adder
+B132	B* 	  LINC Adder
 B133	B* C X 	  2 mA equivalent to B113
 B134	B X 	  4 2-Input Positive AND Gates, 3 Loads, 2mA
 B135	C X 	  2 mA equivalent to B115
@@ -72,7 +74,7 @@ B165	A X 	  2mA Diode equivalent of B105
 B166	A X 	  Counting Gate for SC Adder of PDP10
 B167	D X 	  8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
 B168	B X 	  4 3-Input NANDs ORed to 3 Outputs with 3 Enable Inputs, 3x3
-B169	D* 	  Diode Gate Equivalent to B129, PDP9, 8 2-Input NANDs ORed to 2 Outputs, 4 Enable Inputs, 4x2
+B169	B* D* 	  Diode Gate Equivalent to B129, PDP9, 8 2-Input NANDs ORed to 2 Outputs, 4 Enable Inputs, 4x2
 B171	B C X 	  6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
 B172	C X 	  Faster B171, 2mA Fan-In
 B173	A* 	  14 Input Negative NAND Gate with one input preceded by a 10 Input Positive NAND, ME10
@@ -81,12 +83,13 @@ B199	B* 	  FM Address Decoder for B250, ICs, double
 B200		  Flip Flop
 B201	E X 	  Flip Flop
 B204	B D X 	  4 Flip-flops
+B210	B C+ 	  PDP-7 Accumulator, double
 B211	E* 	  Flip-flop, Buffered, No Delay
 B212	C 	  Dual RS Flip-flop, PDP10, Bus Driver Output, Delayed & not Delayed RS Inputs
 B213	C+ F* 	  PDP9 Flip-flop, Single Input Jam, no Delay
 B214	A* 	  4 Flip-flops, B204 made out of 3 mA Gates
 B250	C* D 	  Flip-flop Memory, PDP10, Fairchild ICs, 8x12 bits/card, double
-B301	B D 	  10 MC One Shot
+B301	B C* D 	  10 MC One Shot
 B310	A* 	  4 Delay Lines, double
 B311	D 	  Tapped Delay Line, 200 ns, 25 ns steps, Emitter Follower Input
 B312	B 	  Delay Line, B311 Continuously Variable, Diode Input, PDP10
@@ -101,10 +104,11 @@ B681	B* 	  4 Power Inverters
 B683	C X 	  3 Bus Drivers, OR output, 50 ohm load, 0 -3V
 B684	C J X 	  2 Bus Drivers, like 6684
 B685	B* 	  3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
+G001	D* 	  DC Sense Amp, PDP-7, double
 G005	F* 	  4-input Sense Amp, PDP-6, 2us, double
 G007	C D* M* X 	  Sense Amplifier
 G008	A B* C* X 	  Slice Control for G007 & G009
-G009	B 	  Sense Amplifier
+G009	B C* 	  Sense Amplifier
 G010	A* 	  Sense Amp Selector for PDP-9, 164, also used for G012
 G020	D+ E+ H X 	  Sense Amp for 8/I, G021 etch, IC levels
 G021	B+ E+ H K 	  Dual Sense Amp for 8/I, IC levels, also used for G020
@@ -128,7 +132,7 @@ G208	A* B L* 	  Inhibit Driver
 G209	A* B J* 	  Memory Selector, double
 G212	B* 	  Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
 G217	H* 	  Word Driver, MA10, uses G219 for Digit Driver
-G219	H* 	  Memory Selector (A G209 for negative supply), PDP9
+G219	E* H* 	  Memory Selector (A G209 for negative supply), PDP9
 G221	A+ B X 	  Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
 G222	A+ D* 	  Memory Selector, PDP15
 G223	D 	  2 Read-Write Drivers, PDP-15
@@ -159,6 +163,7 @@ G611	B+ 	  "B" Diode Matrix Board for PDP-8 stack 30-05256 (double)
 G613	A* B* C* 	  X Diode Matrix, 3 wire, 3D memory, 4K, 9/I
 G614	A* B* C* 	  Y Diode Matrix, 3 wire, 3D memory, 4K, 9/I
 G618	B* BYA+ BYB+ BYC+ BYD+ BYE+ BYF+ BYG+ BYH+ 	  VT15 Character Generator
+G622	D* 	  Resistor Board
 G624	C X 	  Resistor Board for 8/I memory, similar to G621
 G626	C+ 	  Resistor Board for memory, PDP-10, 2.5 D
 G680		  DS32 Disk Head Matrix
@@ -219,6 +224,7 @@ G8004	B+ 	  Power Fail
 G8010	B+ 	  -5.2V Control (long)
 G8014	B+ 	  Low Voltage Detector (long)
 G803	A X 	  Rectifying Slicer
+G804	D* 	  Control for G805
 G805	E* F+ 	  Regulator for negative 8 memory, Double
 G808	A* K* 	  Control for 708 Power Supply
 G809	A* J* 	  -15V Sense and Relay Driver
@@ -259,6 +265,7 @@ G913	A* 	  Clock Control, (G903 + 1/2 R302 + 1/3 R603)
 G916	A* 	  Power Detector & Switch Filter, PDP-12
 G917	A* 	  Gain & Set Control for VR12
 G918	D+ 	  Photocell Amplifier for PT04, PT05, replacement for G908, for photo-transistors
+G920	D* 	  Control Memory
 G921	A* 	  PDP-8/L Console (plugs in)
 G932	D* 	  Capstan Servo Preamp (drives H603)
 G933	D+ E+ 	  Reel Motor Amp for TU10, +/-12V, +/-6A
@@ -580,16 +587,16 @@ M773	B+ 	  CONSOLE CONTROL #2 FOR PDP-15
 M775	B+ 	  TIME STATE GENERATOR
 M776	A+ 	  Reader Register, PC15, Double
 M780	A+ C* 	  TTY Transmitter & Receiver, 110 baud (double, long)
-M7800	A+ 	  KL11 Asynch Interface (quad)
-M782	E+ 	  Interrupt Control (long)
-M7820	B* C* 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
-M7821	B+ D+ 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
+M7800	A+ E* H* 	  DL11 Asynch Interface (quad)
+M782	A* E+ 	  Interrupt Control (long)
+M7820	B* C+ 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
+M7821	B+ C+ D+ 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
 M783	A* B+ 	  Unibus/Omnibus Drivers, extended single
 M784	A* B* C+ 	  Unibus/Omnibus Receivers, extended single
 M785	A* B+ 	  Unibus/Omnibus Transceiver, extended single
 M786		  Device Register Interface, extended double
 M792	DYB+ E* 	  ROM Diode Matrix (long)
-M795	D+ 	  Word Count and Bus Address Module, extended double
+M795	A* B* C+ D+ 	  Word Count and Bus Address Module, extended double
 M796	C+ 	  Unibus Master Control, extended single
 M797	B+ 	  Register Select
 M798	B+ 	  Unibus Drivers, extended single
@@ -608,8 +615,9 @@ M8320	D+ 	  KK8E Bus Loads
 M833	D+ 	  KK8E Timing Generator (obsoleted by M8330)
 M8330	C+ D+ E+ F+ 	  KK8E Timing Generator
 M8331	B+ 	  TA8E Cassette Interface
-M8340	E* F+ 	  KE8E Decoder and Step Counter
-M8341	D+ 	  KE8E Multiplexers and Timing Generator
+M8335	B+ 	  VT8E Keyboard/Printer Control
+M8340	E F+ X 	  KE8E Decoder and Step Counter
+M8341	D X 	  KE8E Multiplexers and Timing Generator
 M8350	C* 	  KA8E Positive I/O Bus Interface
 M8365	B* 	  LA180 Interface, Omnibus (quad, extended)
 M837	B+ D+ 	  Omnibus Memory Extension and Timeshare Option

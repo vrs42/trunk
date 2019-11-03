@@ -272,6 +272,14 @@ schematics work. (Has a consistency problem to highlight changes.)
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx target=_blank>./DEC/Axxx</a></b>: Axxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A008 target=_blank>./DEC/Axxx/A008</a></b>: AD8A 10 Bit A-D
+
+</LEGEND><DL>
+<DT>A00B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A100 target=_blank>./DEC/Axxx/A100</a></b>: Multiplexor Switch
 
 </LEGEND><DL>
@@ -671,6 +679,14 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B132 target=_blank>./DEC/Bxxx/B132</a></b>: LINC Adder
+
+</LEGEND><DL>
+<DT>B131B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalent to B113
 
 </LEGEND><DL>
@@ -893,6 +909,10 @@ chassis to see if it has the needed clearances.)
   <DD>is a 'modernized' B204.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B210 target=_blank>./DEC/Bxxx/B210</a></b>: PDP-7 Accumulator, double
+
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B211 target=_blank>./DEC/Bxxx/B211</a></b>: Flip-flop, Buffered, No Delay
 
@@ -1134,6 +1154,10 @@ been checked against the DEC version.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx target=_blank>./DEC/Gxxx</a></b>: Gxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G001 target=_blank>./DEC/Gxxx/G001</a></b>: DC Sense Amp, PDP-7, double
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G005 target=_blank>./DEC/Gxxx/G005</a></b>: 4-input Sense Amp, PDP-6, 2us, double
 
 </LEGEND></FIELDSET>
@@ -1553,6 +1577,10 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G622 target=_blank>./DEC/Gxxx/G622</a></b>: Resistor Board
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G624 target=_blank>./DEC/Gxxx/G624</a></b>: Resistor Board for 8/I memory, similar to G621
 
 </LEGEND><DL>
@@ -1894,6 +1922,10 @@ LM837.
   <DD>is a 'modernized' G803.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G804 target=_blank>./DEC/Gxxx/G804</a></b>: Control for G805
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory, Double
 
 </LEGEND></FIELDSET>
@@ -2139,6 +2171,10 @@ LM837.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G918 target=_blank>./DEC/Gxxx/G918</a></b>: Photocell Amplifier for PT04, PT05, replacement for G908, for photo-transistors
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G920 target=_blank>./DEC/Gxxx/G920</a></b>: Control Memory
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -4684,7 +4720,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7800 target=_blank>./DEC/Mxxx/M7800</a></b>: KL11 Asynch Interface (quad)
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7800 target=_blank>./DEC/Mxxx/M7800</a></b>: DL11 Asynch Interface (quad)
 
 </LEGEND><DL>
 <DT>M7800A</A>
@@ -4920,6 +4956,14 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 
 </LEGEND><DL>
 <DT>M8331B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8335 target=_blank>./DEC/Mxxx/M8335</a></b>: VT8E Keyboard/Printer Control
+
+</LEGEND><DL>
+<DT>M8335B</A>
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
