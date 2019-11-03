@@ -1242,8 +1242,9 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/divtb-a-pb.od>maindec-08-divtb-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
-<td>VT20 Acceptance Test
+<td>VT55 Acceptance Test
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/divtc-a-d.pdf>maindec-08-divtc-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/divtc-a-pb>maindec-08-divtc-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/divtc-a-pb.od>maindec-08-divtc-a-pb.od</a><td>(BIN image in octal)<tr>
 </table>

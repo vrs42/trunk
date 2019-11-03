@@ -329,6 +329,9 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa-pm>dec-08-lbaa-pm</a><td>(RIM image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa-pm.lbl>dec-08-lbaa-pm.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa-pm.od>dec-08-lbaa-pm.od</a><td>(RIM image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa.bin>dec-08-lbaa.bin</a><td>(BIN format)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa.lst>dec-08-lbaa.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa.pal>dec-08-lbaa.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
 <td>Focal-8 Family of 8 Overlay
