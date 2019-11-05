@@ -830,8 +830,13 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90 target=_blank>8-90
 </a><td><div>Histogram on Teletype </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90/decus-8-90-src.pdf target=_blank>decus-8-90-src.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90/decus-8-90.bin target=_blank>decus-8-90.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90/decus-8-90.htm target=_blank>decus-8-90.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90/decus-8-90.lst target=_blank>decus-8-90.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90/decus-8-90.pa target=_blank>decus-8-90.pa</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90/decus-8-90.pal target=_blank>decus-8-90.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-90/decus-8-90.pdf target=_blank>decus-8-90.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-91 target=_blank>8-91
 </a><td><div>MICRO-8 On-line Assembler </div>
@@ -1134,6 +1139,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>PDP-8 Oscilloscope Display of Mathematical Functions </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-128/decus-8-128.htm target=_blank>decus-8-128.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-128/decus-8-128.pdf target=_blank>decus-8-128.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-129 target=_blank>8-129
 </a><td><div>PDP-8/57A Magnetic Tape Program Library System </div>
@@ -4265,7 +4271,9 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-628/POLPRL.LI target=_blank>POLPRL.LI</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-628/PROGIT.LI target=_blank>PROGIT.LI</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-628/SORT.LI target=_blank>SORT.LI</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-628/decus-8-628-lst.pdf target=_blank>decus-8-628-lst.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-628/decus-8-628.htm target=_blank>decus-8-628.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-628/decus-8-628.pdf target=_blank>decus-8-628.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-629 target=_blank>8-629
 </a><td><div>Graphing Subroutines for 8K FORTRAN </div>
@@ -4474,6 +4482,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>STAT, <I>Version</I>: August 1976 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-660/decus-8-660.htm target=_blank>decus-8-660.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-660/decus-8-660.pdf target=_blank>decus-8-660.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-661 target=_blank>8-661
 </a><td><div>LESQ, General Non-Linear Least Squares</div>
@@ -4654,6 +4663,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Teletype Line Printer Emulator Handler for OS/8 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-694/decus-8-694.htm target=_blank>decus-8-694.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-694/decus-8-694.pdf target=_blank>decus-8-694.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-695 target=_blank>8-695
 </a><td><div>Real Time Display Processor for a KV8 Graphic System and</div>
@@ -4802,6 +4812,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Computer Catalog System </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-724/decus-8-724.htm target=_blank>decus-8-724.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-724/decus-8-724.pdf target=_blank>decus-8-724.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-725 target=_blank>8-725
 </a><td><div>The Pipe Stress Problem on a PDP-8/F </div>
@@ -4843,6 +4854,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>BAVIRF: A Virtual File UDEF for OS/8 BASIC </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-732/decus-8-732.htm target=_blank>decus-8-732.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-732/decus-8-732.pdf target=_blank>decus-8-732.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-733 target=_blank>8-733
 </a><td><div>RJE System for PDP-8/E (IBM 2780 Emulator) </div>
@@ -4964,7 +4976,9 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-753 target=_blank>8-753
 </a><td><div>OS/8 System Output Handlers </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-753/decus-8-753-lst.pdf target=_blank>decus-8-753-lst.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-753/decus-8-753.htm target=_blank>decus-8-753.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-753/decus-8-753.pdf target=_blank>decus-8-753.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-754 target=_blank>8-754
 </a><td><div>NUMBER and REDATE-OS/8 File Utility </div>
@@ -5044,6 +5058,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>EDAS: Editing and Assembling System </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-768/decus-8-768.htm target=_blank>decus-8-768.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-768/decus-8-768.pdf target=_blank>decus-8-768.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-769 target=_blank>8-769
 </a><td><div>SELFDR: The Selfdrill Program, 8K Version </div>
@@ -5065,6 +5080,7 @@ have taken the time to scan and archive this software and documentation.
 <div>  Storage Systems </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-772/decus-8-772.htm target=_blank>decus-8-772.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-772/decus-8-772.pdf target=_blank>decus-8-772.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-773 target=_blank>8-773
 </a><td><div>Graphics Package for the Tektronix 4010 Under </div>
@@ -5343,6 +5359,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>CHEKMO II: Chess Playing Program </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-822/decus-8-822.htm target=_blank>decus-8-822.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-822/decus-8-822.pdf target=_blank>decus-8-822.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-823 target=_blank>8-823
 </a><td><div>DDTG: Real Time Picture Processor Monitor- </div>
@@ -5371,7 +5388,9 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>DDCMP: Half-Duplex Subset of Digital Data </div>
 <div>Communications Message Protocol </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-827/decus-8-827-lst.pdf target=_blank>decus-8-827-lst.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-827/decus-8-827.htm target=_blank>decus-8-827.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-827/decus-8-827.pdf target=_blank>decus-8-827.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-828 target=_blank>8-828
 </a><td><div>OS/8 FORTRAN-IV Routines </div>
@@ -5525,6 +5544,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Extensions To OS/8 BASIC </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-860/decus-8-860.htm target=_blank>decus-8-860.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-860/decus-8-860.pdf target=_blank>decus-8-860.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-861 target=_blank>8-861
 </a><td><div>Mass Spectrometer Functions for OS/8 BASIC </div>
@@ -5593,6 +5613,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>RSTS Terminal Monitor On A PDP-8 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-873/decus-8-873.htm target=_blank>decus-8-873.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-873/decus-8-873.pdf target=_blank>decus-8-873.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-874 target=_blank>8-874
 </a><td><div>Serial Input/Output Handlers For Interprocessor </div>
@@ -5631,6 +5652,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>RUNOFF V.6 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/decus-8-880.htm target=_blank>decus-8-880.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/decus-8-880.pdf target=_blank>decus-8-880.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-881 target=_blank>8-881
 </a><td><div>COS 310 Compatible Floppy Disk Handler for </div>
@@ -5676,6 +5698,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Adventure, <I>Version</I>: February 1979 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-889/decus-8-889.htm target=_blank>decus-8-889.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-889/decus-9-889.pdf target=_blank>decus-9-889.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-890 target=_blank>8-890
 </a><td><div>LPTSPL: OS/8 "PRINT" Utility Package, <I>Version</I>: March 1979 </div>
@@ -5771,6 +5794,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>TELCOM: Telecommunications/Teleprocessing </div>
 <div>Program <I>Version</I>: February 1979 </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-908/decus-8-908-lst.pdf target=_blank>decus-8-908-lst.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-908/decus-8-908.htm target=_blank>decus-8-908.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-909 target=_blank>8-909</a><td>No abstract found<td>
@@ -5810,11 +5834,13 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>OS/8 VAX Handler, <I>Version</I>: B, August 1980 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-921/decus-8-921.htm target=_blank>decus-8-921.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-921/decus-8-921.pdf target=_blank>decus-8-921.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-922 target=_blank>8-922
 </a><td><div>IKT-TUB FOCAL '81, <I>Version</I>: April 1981 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-922/decus-8-922.htm target=_blank>decus-8-922.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-922/decus-8-922.pdf target=_blank>decus-8-922.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-923 target=_blank>8-923
 </a><td><div>FORTRAN IV Support for the Houston HI </div>
@@ -5839,6 +5865,7 @@ have taken the time to scan and archive this software and documentation.
 <div>Utility, <I>Version</I>: December 1981 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-926/decus-8-926.htm target=_blank>decus-8-926.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-926/decus-8-926.pdf target=_blank>decus-8-926.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-927 target=_blank>8-927
 </a><td><div>SPLT55: Data Display/Plotting System for </div>
@@ -5851,6 +5878,7 @@ have taken the time to scan and archive this software and documentation.
 <div>Program, <I>Version</I>: March 1982 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-928/decus-8-928.htm target=_blank>decus-8-928.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-928/decus-8-928.pdf target=_blank>decus-8-928.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-929 target=_blank>8-929
 </a><td><div>Random-Letter Generator, <I>Version</I>: March </div>
@@ -5879,7 +5907,9 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Moedling PASCAL-S, <I>Version</I>: V2.0, March </div>
 <div>1983 </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/decus-8-933-cod.pdf target=_blank>decus-8-933-cod.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/decus-8-933.htm target=_blank>decus-8-933.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/decus-9-933.pdf target=_blank>decus-9-933.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/pascal.bin target=_blank>pascal.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/pascal.hl target=_blank>pascal.hl</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-933/pascal.lst target=_blank>pascal.lst</a></div>
@@ -5889,6 +5919,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>PASCAL - OS/8, <I>Version</I>: V1-0-F, February 1984 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-934/decus-8-934.htm target=_blank>decus-8-934.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-934/decus-8-934.pdf target=_blank>decus-8-934.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-935 target=_blank>8-935
 </a><td><div>FODT: FORTRAN IV On-line Debugging Tool </div>
@@ -5900,6 +5931,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>VISTA EDITOR <I>Version</I>: June 1986 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-938/decus-8-938.htm target=_blank>decus-8-938.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-938/decus-8-938.pdf target=_blank>decus-8-938.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-939 target=_blank>8-939
 </a><td><div>ICE TEXT EDITOR <I>Version</I>: June 1986 </div>
