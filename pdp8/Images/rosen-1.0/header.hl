@@ -1,0 +1,26 @@
+.R LDF
+*L G HEADER
+
+DEVICE NAME? SYS or SYS: or DSK or RKB1 or RXA1: etc.
+DEVICE LENGTH? 737 or 3248 or 494 or 988 etc. (total)
+
+if the device contains a system area the following applies:
+SYSTEM ID? OS/8, OS/12, OS/78, DS/8, or PS/8
+VERSION NO.?  3 or whatever
+RELEASE CODE? C or D or ......
+if there is no system area the questions above are skipped
+
+LOGICAL DEVICE NAME? CHEM or BOB: or LDF or 1234 (1-4 chars)
+VOLUME NO.? 1 or any number up to 4095; 0 = none
+DESCRIPTIVE LABEL:
+Here you may enter any identifying information (UPPER/lower
+case, as you wish) - up to 128 characters, including CR/LF.
+Terminate input with a CTRL/Z.  Rubout, linefeed and CTRL/U
+work in their normal OS/8 fashion.  End input with a CTRL/Z
+
+*L Q (or type CTRL/C)
+
+.R DIRECT  or DIR DEV:/H
+*DEV:/H$
+This will list the header information you have just written.
+

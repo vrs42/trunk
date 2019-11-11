@@ -1,0 +1,11 @@
+To patch either FRTS.SV or BRTS.SV so that they will work correctly
+with all 12K system handlers, do the following:
+
+	.DA 16-JAN-79	.DA 16-JAN-79	(reflect date of the patch)
+	.LO FRTS.SV/I$	.LO BRTS.SV/I$  ('$' is ALTMODE or ESCAPE)
+	*FPAT$		*BPAT$
+	.SA SYS FRTS	.SA SYS BRTS	(doing it twice keeps the
+	.SA SYS FRTS	.SA SYS BRTS	 program in the same place)
+
+A new version of BLOAD.SV (dated 16-JAN-79) is also required.  These
+patches were part of the 'OS/8 Device Extension Kit' upgrade in 1979.
