@@ -83,9 +83,13 @@ sub ofile {
   binmode(OUTPUT);
   $mask = 0377; $chr1 = "binary";
   $mask = 0177 if $f =~ /[.]BI$/i; # BATCH Input
+  $mask = 0177 if $f =~ /[.]FC$/i; # FOCAL Source
+  $mask = 0177 if $f =~ /[.]FT$/i; # FORTRAN Source
   $mask = 0177 if $f =~ /[.]HL$/i; # HELP
   $mask = 0177 if $f =~ /[.]LS$/i; # Listing
   $mask = 0177 if $f =~ /[.]PA$/i; # PAL Source
+  $mask = 0177 if $f =~ /[.]TX$/i; # Text File
+  $mask = 0177 if $f =~ /[.]WU$/i; # Write Up
   $chr1 = "text" if $mask != 0377;
 
   printf XML "<file name='$f' start=0%o end=0%o mode=$chr1>", $first, $last;
