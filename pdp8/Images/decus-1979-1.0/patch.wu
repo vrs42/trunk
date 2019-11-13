@@ -1,0 +1,112 @@
+To all that I've sent USAGE7.PA,   (ETOS & Ft. Chase)
+
+From Earl Ellis                                         11 A.M. 20-FEB-79
+
+
+Subj: Additional discussion on USAGE, Version 2.005 dtd 20-FEB-79
+
+    USAGE V2.005 is only a patch-Update to USAGE V2.004, but a lot has been
+learned.  The insight is mainly to LOGIN.SAV.  The problem this time is the
+'Protection Code' assigned to the E*T*O*S file ACCTIM?.???.  ETOS V5's LOGIN.SAV
+assigned these files a protection code of <25>.  This resulted in USAGE having
+to Privilidge itself to read the ACCTIM?.??? file.  To make USAGE more universal,
+I corrected this to Zero.  Daniel Yagusic commented that this allowed anyone
+to zap the information and recommented a <52>, write-locking the file to
+everyone.  PROBLEM...This also write-locks the file to LOGIN.SAV, and it's
+attempts to write usage result in an error, and NO update.  Compromise
+Solution....Set protection code to <0050> until some other combination can
+be found.
+
+
+SRCCOM V4A
+
+1)	/USAGE STATISTICS V2.004
+2)	/USAGE STATISTICS V2.005
+
+1)001	/USAGE.PA  V2.004  12:45 A.M.  1/24/79
+1)	/WRITTEN BY TOM SCHREIER, QUODATA CORPORATION
+****
+2)001	/USAGE.PA  V2.005  10:32 A.M.  2/19/79
+2)	/WRITTEN BY TOM SCHREIER, QUODATA CORPORATION
+
+********
+
+1)001	/		 25
+1)	/		!DEP 1751 0
+1)	/		!WRITE 3,0,5000,0
+****
+2)001	/		 25 or 0 or 52  ****** all are wrong !*****
+2)	/		!DEP 1751 50
+2)	/		!WRITE 3,0,5000,0
+
+********
+
+1)001	/
+****
+2)001	/VERSION 2.005.......Patched V2.004.....20-FEB-79
+2)	/
+
+********
+
+1)009        DCA SECLOC        /NUMBER OF MILLISECONDS
+1)           TAD I (BUFFER+1
+****
+2)009        DCA MILL          /NUMBER OF MILLISECONDS
+2)           TAD I (BUFFER+1
+
+*******
+
+1)014	VERTEX,	TEXT "'USAGE'  V2.004"
+1)	CONTEX,	TEXT "CONNECT-TIME = "
+****
+2)014	VERTEX,	TEXT "'USAGE'  V2.005"
+2)	CONTEX,	TEXT "CONNECT-TIME = "
+
+********
+
+
+SRCCOM V4A
+
+1)	/LOGIN.SAV FOR E*T*O*S V5.05?
+2)	/LOGIN.SAV FOR E*T*O*S V5.05?
+
+1)020		TEXT	/ACCTIMXXXX/;*.-1
+1)		25	/?PROT?
+1)		0000	/?DATE?
+****
+2)020		TEXT	/ACCTIMXXXX/;*.-1	/XXXX CHANGES
+2)		0050	/?PROT?
+2)		0000	/?DATE?
+
+********
+
+
+SRCCOM V4A
+
+1)	                       USAGE V2.004    24-JAN-79
+2)	                       USAGE V2.005    20-FEB-79
+
+1)001	from the current <25> t a ZERO.  I have accomplished this to existing ACCTIM#.##
+1)	files using ACCNT to RENAME the files.  In addition, an easy patch to LOGIN.SAV 
+1)	makes all new files have a Protection Code of Zero.  See PAGE 1 of the Source 
+1)	File.
+1)	     When USAGE is run, either with the 'R' command or BATCH, it will type
+1)	out it's name, version number (2.004) and the Date/Time from the System.  This
+1)	will look something like this:
+1)	.R USAGE
+1)	'USAGE'  V2.004                09:12:46 A. M. 25-JAN-79
+1)	*
+****
+2)001	from the current <25> to a <50>.  I have accomplished this to existing ACCTIM#.##
+2)	files using ACCNT to RENAME the files.  In addition, an easy patch to LOGIN.SAV 
+2)	makes all new files have a Protection Code of fifty.  See PAGE 1 of the Source 
+2)	File.
+2)	     When USAGE is run, either with the 'R' command or BATCH, it will type
+2)	out it's name, version number (2.005) and the Date/Time from the System.  This
+2)	will look something like this:
+2)	.R USAGE
+2)	'USAGE'  V2.005                09:12:46 A. M. 25-JAN-79
+2)	*
+
+********
+

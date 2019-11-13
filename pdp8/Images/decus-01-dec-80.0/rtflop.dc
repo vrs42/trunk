@@ -1,0 +1,431 @@
+
+
+
+
+
+
+
+
+
+
+                RT-11 Floppy Interchange Program
+
+
+                           Written by:
+
+                           Dick Murphy
+                  Digital Equipment Corporation
+                      Santa Clara, CA 95051
+
+
+                          User's notes                          User's notes                          User's notes
+
+
+    This program is used to manipulate RT-11  floppy  disk  file
+structures under OS/8. Both single and double  density  floppies
+can be accessed.
+
+    The operations available allow most of the functions of OS/8
+PIP to be simulated on the RT-11 disk. These functions include:
+
+    1.   Creating a file on a RT-11 floppy
+
+    2.   Copying a file from an RT-11 floppy to an
+         OS/8 device (disk, dectape, TTY:, LPT:, etc.)
+
+    3.   Deleting files from the RT-11 floppy
+
+    4.   Listing the directory of the RT-11 floppy
+
+    5.   ZEROing (INITing) the directory of a floppy
+         to an empty state.
+
+    The user interface is similar to the OS/8 command decoder.
+
+    When the program desires file specifications, it  prints  an
+asterisk (*) and waits for input. The file specification line is
+very similar to OS/8's. A sample input line is detailed below:
+
+    *RTFLOP.PAL<RTFLOP.PA/O$
+
+    The "*" is the prompt printed when the program wants  input.
+The name "RTFLOP.PAL" is the name of a file to be created on  an
+RT-11 floppy. The "<" character specifies that this is an output
+file, and that the input file names  are  to  follow.  The  name
+"RTFLOP.PA" is the name of the OS/8 file to be  read  to  create
+the RT-11 file. The characters "/O" are an option flag  used  to
+specify the operation  to  be  performed.  In  this  case,  they
+specify that the RT-11 file is an Output file.
+
+
+    The general command line is of the form
+
+    *output<input/opt[/opt]....{$} or {return}
+
+    Where "output" is an output file specification  and  "input"
+is an input file specification. For an RT-11 file, the spec is a
+file name, of up to six characters, a  period,  followed  by  an
+extension of up to three characters. If there is  no  extension,
+the period following the name can be omitted. The OS/8 file spec
+uses the standard name format "device:file.ex" explained in  the
+OS/8 Handbook, page 1-45.
+
+
+
+
+
+
+
+    The "<" character is used to separate the output  file  from
+the input file. If only an output file is to be specified,  this
+"<" character can be omitted.
+
+    The file names are followed by at  least  one  and  possibly
+several option flags. These are entered by typing  a  slash  "/"
+followed by the desired character, for example "/L".
+
+    The possible options are detailed later.  If  a  "$",  which
+could be either a dollar sign, escape, or alt mode character, is
+used to end the command line, it tells the program to return  to
+the OS/8 monitor when it is done processing this command. If  an
+error occurs while executing this command,  however,the  program
+will prompt with another "*". If the command line is ended  with
+a return, the program will prompt with another "*"  when  it  is
+finished executing the command.
+
+    While entering this command line,  all  the  normal  editing
+functions of OS/8 can be used. Rubout deletes the last character
+entered, and ^U (control-U) deletes the entire line.  Line  feed
+causes the line being entered to be retyped.
+
+    If a  character  is  entered  which  the  program  does  not
+understand,  the  terminal  bell  rings  and  the  character  is
+ignored. The OS/8  wildcard  characters  "*"  and  "?"  are  not
+functional and are ignored. (See the OS/8  Handbook,  page  1-55
+for a description of wildcards).
+
+
+                       Functions Available                       Functions Available                       Functions Available
+
+
+    The function desired is entered in a  command  string  as  a
+slash option  of  the  form  "/char"  where  "char"  is  a  one-
+character option flag. The available options are:
+
+Option        Operation
+
+/O            Write RT-11 file (RT 'O'utput)
+/I            Read RT-11 file (RT 'I'nput)
+/L            List RT-11 directory
+/D            Delete RT-11 file
+/Z            ZERO RT-11 directory
+/V            Print RTFLOP's version
+/0 (zero)     Select drive zero
+/1 (one)      Select drive one
+
+
+    Only one option  at  a  time  can  be  performed;  the  last
+operation switch (i.e. "O", "I", "L", "D", or "Z") in the  input
+string is the one executed.
+
+(This limitation of one option switch does not include the drive
+selection options, /0 and /1. Also, the Version option (/V)  can
+be included in any command line.)
+
+
+
+
+
+
+/O Option - Write RT-11 File____________________________
+
+    This option is used to create a  RT-11  file  from  an  OS/8
+device. The format of the command is:
+
+    *rtfile.ext<[dev:]osfile.ex/O[/1][/0]
+
+    rtfile =  Name of the RT11 output file
+    osfile =  Name of the OS/8 input file
+
+    The items in braces ([]) are optional; if no device is given
+for the OS/8 file, DSK:  is  assumed;  if  no  drive  number  is
+specified, the same drive as  last  specified  is  used.  RTFLOP
+initially assumes drive zero is to be used. After /1 is  entered
+to change to drive one, this drive is  used  in  all  subsequent
+commands until /0 is entered to change back to drive zero.
+
+    If a file with the same name  as  the  file  to  be  created
+exists on the floppy already, it is deleted before the new  file
+is written. This means that if the new file  cannot  be  created
+due to an I/O error, neither copy  of  the  file  exists.  Sorry
+about that.
+
+/I - Read RT-11 file____________________
+
+    This option is used to copy a file from an RT-11  device  to
+an OS/8 device.
+
+    The command string is as follows:
+
+    *[dev:][osname.ex]<rtname.ex/I[/0][/1]
+
+    Again, the braces enclose optional items. If no OS/8  device
+is specified, DSK: is assumed. If a non-file  structured  output
+device is specified (such as TTY: or LPT:) the file name is  not
+needed. If no unit switch (/0 or/1) is  given,  the  last  drive
+accessed is assumed.
+
+
+/L - List directory___________________
+
+    This option is used to  list  the  directory  of  the  RT-11
+floppy. The listing is given in four columns. The first  is  the
+name of the file, the second is  it's  size  (in  decimal),  the
+third is its starting block number (also decimal) and  the  last
+column is the file's creation date.  Also  included  is  summary
+information about the number of files and free blocks.
+
+    The format of the command string is:
+
+    *[dev:][name.ex]</L[/0][/1]
+
+    If no device is specified, TTY: is assumed. If only  a  file
+name is entered, TTY: is  still  assumed.  This  means  that  an
+explicit device name must be entered to cause a  listing  to  be
+written to a mass storage device, including DSK:.
+
+    For example:
+
+    *LPT:/L        List on line printer
+    *DIR.DI/L      Lists on TTY:!
+    *DSK:DIR.DI/L  Creates listing file on DSK:
+
+
+
+
+
+
+
+
+
+
+/D - Delete RT-11 file______________________
+
+    This option is used to delete a file from  a  RT-11  floppy.
+This can be used to try to gain space to copy  another  file  to
+the floppy. The command string is:
+
+    *file.ext/D[/0][/1]
+
+
+/Z - Zero the floppy____________________
+
+    This option writes a new directory on the  floppy  with  one
+empty file. This is necessary if yours is a new floppy or if  it
+has an OS/8 directory. The command string is:
+
+    */Z[/0][/1]
+
+    To be sure that this is what you want, the program asks:
+
+    Zero - are you sure?
+
+    Respond with "Y" if you want a new directory.
+
+
+                       General Information                       General Information                       General Information
+
+
+                      Assembly Instructions                      Assembly Instructions                      Assembly Instructions
+
+
+    Type the following:
+
+    .PAL RTFLOP/L
+    .SAVE dev RTFLOP=2401
+
+
+    This program requires 8K  of  memory  to  run.  The  program
+itself resides in field zero, field one  is  used  for  buffers,
+message storage, and the like. RTFLOP V3 will run on either RX01
+or RX02 floppy drives, and allows access  of  either  single  or
+double density RT-11 floppies on an RX02 drive.  Double  density
+RT-11 floppies are an excellent archival medium as they  utilize
+8 bit mode to access the floppy disk, whigh provides  about  25%
+more file storage area than the OS/8 12-bit packing scheme.
+
+
+    This program will run under BATCH. The  commands  should  be
+entered into the batch stream as one normally does.
+
+    This program does  not  recognize  wildcards.  Therefore,  a
+command such as :
+
+    *ABC???.PAL<*.PA/O
+
+is  illegal.  However,  There  are  two  OS/8   BASIC   programs
+distributed with this program which  allow  one  to  approximate
+this function.
+
+    The first program copies a series of OS/8 files to  a  RT-11
+floppy. The second copies a series of files from a RT-11  floppy
+to an OS/8 device.
+
+
+
+
+
+
+              RTOUT.BA - Writing files to a floppy
+
+
+    This program reads a file with a  list  of  file  names  and
+creates a BATCH stream to write  the  files  to  a  floppy.  The
+format of the entries in this file is:
+
+namexx.ex
+nameyy.ex
+namezz.ex
+    .
+    .
+    .
+
+
+    Where each "name" is padded with blanks,  if  necessary,  to
+six characters.
+
+
+    The DIRECT command can be used  to  create  this  file.  For
+example,
+
+    .DIR FILE<SYS:*.BN=1
+
+creates  a  file  called  FILE.DI  with  the  desired  directory
+listing. The "=1" is necessary to insure a  one-column  listing.
+Giving this file to  RTOUT  will  copy  all  files  with  a  .BN
+extension to a floppy.
+
+    To execute RTOUT, enter a EXECUTE command:
+
+    .EXECUTE RTOUT.BA
+
+RTOUT will ask you for the name of the file  that  contains  the
+OS/8 directory, the extension to give the RT-11 files,  and  the
+name of the OS/8 device that has the files to be copied.
+
+    To copy all the .PA files on RKB0: to  a  floppy,  type  the
+commands:
+
+    .DIR PALFIL<RKB0:*.PA=1
+    .EXEC RTOUT
+
+    For RTOUT to function, BATCH.SV must reside on SYS:.
+
+    Another  BASIC  program  is  provided  which  provides   the
+converse function to RTOUT. This program  copies  files  from  a
+floppy to an  OS/8  device.  This  program,  RTIN.BA,  is  quite
+similar to RTOUT.
+
+    To copy all the files from a floppy to an OS/8 device:
+
+    .R RTFLOP
+    *SYS:FLOP.DI/L$ (generate a directory listing)
+    .EXEC RTIN.BA
+
+    You then answer the questions, specifying  the  output  OS/8
+device, the extension to be given to the files, and the name  of
+the directory file. You  can  edit  the  directory  file  before
+running RTIN in order to select files to be copied.
+
+
+
+
+
+
+
+
+
+
+
+
+                      RTFLOP Error Messages                      RTFLOP Error Messages                      RTFLOP Error Messages
+
+
+                        Bad slash option
+
+    The character following a "/" was not one of the  following:
+V, I, O, L, Z, D, 1, 0.
+
+                         No option flag
+
+    No file copy ("I" or "O") or directory listing ("L")  option
+was  specified.  Re-enter   the   command   with   a   operation
+specification.
+
+                          Bad directory
+
+    The directory  on  the  floppy  has  an  invalid  structure.
+(Possibly an OS/8 directory)
+
+                          No Input file
+
+    Both input and  output  files  were  required,  but  no  "<"
+separator character was found.
+
+                      Handler fetch failed
+
+    An attempt to fetch the OS/8 handler specified failed.  This
+usually means that a non-existant device was specified.
+
+                         OS/8 I/O Error
+
+    An I/O error ocurred reading or writing the OS/8 file.
+
+                   Cannot specify RT-11 device
+
+    A device specification (e.g. RXA0:) was found in  the  RT-11
+name. This is illegal. Use /0 and /1 to specify drives.
+
+                         Need file name
+
+    A file structured OS/8 device was  specified  for  input  or
+output without giving a file name.
+
+                          Out dev full
+
+    The OS/8 output device did not have sufficient  empty  space
+for the directory listing.
+
+                       OS/8 File overflow
+
+    The empty space on the OS/8 device was too small to hold the
+output file. SQUISH or try another device.
+
+                         File not found
+
+    The input file specified could not be found.
+
+                  Segment full (SQUEEZE floppy)
+
+    The last open segment of the RT-11 directory is full. RTFLOP
+cannot create a new file on this floppy. A SQUEEZE  under  RT-11
+may fix this.
+
+
+
+
+
+
+
+                        No room on floppy
+
+    There was not enough room on the floppy for the output file.
+SQUEEZE or delete files to create room.
+
+                        Floppy I/O error
+
+    An input or output error ocurred on the floppy. Read  errors
+are retried eight times before this message. Write  errors  fail
+immediately.
+
+                                                                                                                               

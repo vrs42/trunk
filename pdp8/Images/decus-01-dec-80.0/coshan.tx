@@ -1,0 +1,176 @@
+
+
+
+
+
+
+              COS compatible RX01 floppy handlers for OS/8
+
+
+    These files allo non-system handlers are on your OS/8
+                        !system.
+
+    To build a systemw an OS/8 user more efficient  usage  of  the  space
+available on an RX01 floppy disk. The two  floppy, first boot your conventional  OS/8  system
+in drive 1. Then:
+
+.RUN SYS BUILD
+$LOAD files, RXBNS.PA  and  RXBSY.PA
+are the non-system and system handlers,  respectively.  They  arRXBSY1            !Load the system handler (RX01 Version)
+$REPLACE SYS=BYTE,SYS   !Change the se  fully
+compatible with the OS/8 operating system. The  system  handler  is  two
+pages long aystem handler
+$INSERT BYTE,RXB0-1     !Install the co-resident drive 0 and 1 handlers.
+$BOOT  nd follows the conventions for two page handlers that allows
+BASIC and FORTRAN to work properly                 !Boot the new OS/8 system.
+WRITE ZERO DIRECT?YES
+SYS BUILT
+.SAVE SYS BUILD  . They allow the OS/8 diskette to hold
+658 blocks as opposed to only 494 with the OS/8 handler.       !Save the new build.
+.RUN RXA1 FOTP          !Copy files to the new drive
+*SYS:<RXA1:BU
+
+    The system handler can not be  booted  with  the  conventional  RX01
+bootstrap program.ILD.SV/V   !Except BUILD.
+*^C
+.R RXFIX                !Fix the boot.
+Setting up bootstrap
+
+ To correct this, a program called RXFIX is  included.
+This program is run after BUILD to modif    Before running BUILD on the new system device, run RXFIX  to  repair
+block zero:
+
+.R RXFIy the system head (block  0)  to
+allow bootstrap with the conventional program. It is very impoX
+Restoring OS/8 or OS/78 monitor
+.RUN SYS BUILD
+    .
+    .                   !BUILD Commanrtant that
+this program be run again to restore block 0 before BUILD  is  run  from
+the systemds
+    .
+$BOOT
+SYS BUILT
+.SAVE SYS BUILD
+.R RXFIX                !Make it bootable.
+Settin.
+
+Examples on how to install the handlers:
+
+.SET SYS NO INIT        !In case there is an ing up bootstrap
+
+
+
+
+
+
+
+    A patch must be installed to OS/8 PIP to allow the ZERO  and itial command set up.
+.RUN SYS BUILD
+$LOAD RXBNS             !Load the handlers.
+$INSERT RX8: SQUISH
+commands to work with the new handlers.
+
+.GET SYS PIP
+.ODT
+13650/0000 6556
+^C
+.SARXB0-1      !Install the non-system handlers
+$BOOT
+SYS BUILT
+.SAVE SYS BUILD         !Now theVE SYS PIP
+
+    Since these handlers are COS compatible, they can be  used  to  copy
+files to non-system handlers are on your OS/8
+                        !system.
+
+    To build a systemw an OS/8 user more efficient  usage  of  the  space
+available on an RX01 floppy disk. The two  floppy, first boot your conventional  OS/8  system
+in drive 1. Then:
+
+.RUN SYS BUILD
+$LOAD files, RXBNS.PA  and  RXBSY.PA
+are the non-system and system handlers,  respectively.  They  arRXBSY1            !Load the system handler (RX01 Version)
+$REPLACE SYS=BYTE,SYS   !Change the se  fully
+compatible with the OS/8 operating system. The  system  handler  is  two
+pages long aystem handler
+$INSERT BYTE,RXB0-1     !Install the co-resident drive 0 and 1 handlers.
+$BOOT  nd follows the conventions for two page handlers that allows
+BASIC and FORTRAN to work properly                 !Boot the new OS/8 system.
+WRITE ZERO DIRECT?YES
+SYS BUILT
+.SAVE SYS BUILD  . They allow the OS/8 diskette to hold
+658 blocks as opposed to only 494 with the OS/8 handler.       !Save the new build.
+.RUN RXA1 FOTP          !Copy files to the new drive
+*SYS:<RXA1:BU
+
+    The system handler can not be  booted  with  the  conventional  RX01
+bootstrap program.ILD.SV/V   !Except BUILD.
+*^C
+.R RXFIX                !Fix the boot.
+Setting up bootstrap
+
+ To correct this, a program called RXFIX is  included.
+This program is run after BUILD to modif    Before running BUILD on the new system device, run RXFIX  to  repair
+block zero:
+
+.R RXFIy the system head (block  0)  to
+allow bootstrap with the conventional program. It is very impoX
+Restoring OS/8 or OS/78 monitor
+.RUN SYS BUILD
+    .
+    .                   !BUILD Commanrtant that
+this program be run again to restore block 0 before BUILD  is  run  from
+the systemds
+    .
+$BOOT
+SYS BUILT
+.SAVE SYS BUILD
+.R RXFIX                !Make it bootable.
+Settin.
+
+Examples on how to install the handlers:
+
+.SET SYS NO INIT        !In case there is an ing up bootstrap
+
+
+
+
+
+
+
+    A patch must be installed to OS/8 PIP to allow the ZERO  and itial command set up.
+.RUN SYS BUILD
+$LOAD RXBNS             !Load the handlers.
+$INSERT RX8: SQUISH
+commands to work with the new handlers.
+
+.GET SYS PIP
+.ODT
+13650/0000 6556
+^C
+.SARXB0-1      !Install the non-system handlers
+$BOOT
+SYS BUILT
+.SAVE SYS BUILD         !Now theVE SYS PIP
+
+    Since these handlers are COS compatible, they can be  used  to  copy
+files to non-system handlers are on your OS/8
+                        !system.
+
+    To build a systemw an OS/8 user more efficient  usage  of  the  space
+available on an RX01 floppy disk. The two  floppy, first boot your conventional  OS/8  system
+in drive 1. Then:
+
+.RUN SYS BUILD
+$LOAD files, RXBNS.PA  and  RXBSY.PA
+are the non-system and system handlers,  respectively.  They  arRXBSY1            !Load the system handler (RX01 Version)
+$REPLACE SYS=BYTE,SYS   !Change the se  fully
+compatible with the OS/8 operating system. The  system  handler  is  two
+pages long aystem handler
+$INSERT BYTE,RXB0-1     !Install the co-resident drive 0 and 1 handlers.
+$BOOT  nd follows the conventions for two page handlers that allows
+BASIC and FORTRAN to work properly                 !Boot the new OS/8 system.
+WRITE ZERO DIRECT?YES
+SYS BUILT
+.SAVE SYS BUILD  

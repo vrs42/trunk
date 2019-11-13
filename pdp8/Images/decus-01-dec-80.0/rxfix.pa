@@ -1,0 +1,310 @@
+/RBFIX - BYTE MODE BOOT FIXER
+/Version 2 - Swaps the blocks to allow restoring.
+/Version 3 - Changes for RX02 Compatibility
+/Version 4 - Proper error recovery
+/
+/	This program is designed to work in conjunction with the COS mode
+/RX01 handler. It allows system floppies created with this handler to be
+/bootstrapped with the normal OS/8 RX01 boot. This is done by replacing
+/the byte mode sectors with a word mode sector which contains code
+/which obtains them from alternate locations. The sectors which would
+/normally be read by the toggle-in boot are moved to track 0. The new
+/boot reads them from there and starts the secondary boot.
+
+/IOT Definitions
+LCD=6751
+XDR=6752
+STR=6753
+SER=6754
+SDN=6755
+INIT=6757
+
+RX2SKP=	7522		/IMPORTANT Location in secondary boot.
+			/If you change the system handler, change this!!
+
+	*10
+BTPTR,	NEWBOOT-1	/Points to new bootstrap
+RDPTR,	777		/Points to buffer at 1000.
+PRTPTR,	0		/Used to point to print text
+	*20
+PRTCHR,	0
+ULCASE,	100
+
+/Utility routines
+
+READ,	0		/Reads a sector
+	CLA CLL CML IAC RTL	/Read sector command
+	TAD I	READ	/Get rest of command bits
+	ISZ	READ
+	JMS	DOLCD	/Do the LCD
+	TAD I	READ	/Get the sector
+	ISZ	READ
+	JMS	LOADIT
+	CLA CLL
+	TAD I	READ
+	ISZ	READ
+	JMS	LOADIT	/And track
+	CLA CLL
+	JMP I	READ	/All done.
+
+WRITE,	0		/Writes a sector
+	CLA CLL IAC RTL	/Write sector cmd
+	TAD I	WRITE
+	ISZ	WRITE	/The full command
+	JMS	DOLCD
+	TAD I	WRITE	/The sector
+	ISZ	WRITE
+	JMS	LOADIT
+	CLA CLL
+	TAD I	WRITE
+	ISZ	WRITE
+	JMS	LOADIT	/The track
+	CLA CLL
+	JMP I	WRITE
+DOLCD,	0		/Wait for done, then load command.
+	DCA	CMD	/Save the command
+	TAD	CMD
+	SDN
+	JMP	.-1
+	SER
+	SKP
+	JMP	ERRRR	/Oops!
+	LCD
+	TAD	CMD	/Check for BYTE mode bit..
+	AND	(100
+	SZA CLA		/Nothing special if was not set
+RXTYP,	JMS	LOADIT	/If RX02 and byte mode, do XDR (if RX01, do nothing)
+	JMP I	DOLCD
+
+LOADIT,	0		/Transfer data to/from RX
+	STR
+	JMP	.-1
+	XDR
+	JMP I	LOADIT	
+
+CMD,	0		/Command is saved here for testing
+ERRRR,	JMS	PRINT
+		ERROR
+	INIT
+	JMP I	(7600	/Return
+	PAGE
+	*200
+START,	SDN		/Wait for done
+	JMP	START
+	XDR		/Get status
+	AND	[10	/Check RX02 bit
+	SNA CLA		/Skip if RX02
+	DCA	RXTYP	/Clear the RX02 location
+	TAD	[16	/Read error register to set DONE again
+	LCD
+	JMS	READ	/First read the first sector of block 0
+	  0		/In 12-bit mode
+	  1		/Sector
+	  1		/Track
+	CLA CLL CML RTL	/Empty buffer, 12 bit mode.
+	JMS	DOLCD
+READIT,	JMS	LOADIT	/Get a word
+	DCA I	RDPTR	/Store it.
+	ISZ	WORDCT
+	JMP	READIT	/Read the whole thing.
+	TAD I	[1020	/Check the first word
+	SNA		/Should not be zero.
+	JMP	OLDVER	/Old version!
+	TAD	[-5021	/Should be this (from boot)
+	SZA CLA		/Have we already set this up?
+	JMP	FIXIT	/Nope. Set up new boot.
+	TAD I	[1021	/Check the next to be sure.
+	TAD	[-7327	/Should be this.
+	SNA CLA		/Skips if wrong.
+	JMP	RESTOR	/Restore the system head.
+FIXIT,	TAD I	[1020	/Check if un-swapped yet
+	TAD	[-360	/Should be 360
+	SZA CLA
+	JMP	UNREC	/Can't recognize this
+	TAD I	[1021	/Is this right, too?
+	TAD	[-360
+	SZA CLA
+	JMP	UNREC	/Badness.
+	JMS	PRINT
+		SETTNG	/Tell user we're setting up the boot
+	JMS	READ	/Re-read in 8-bit mode.
+	100
+	  1
+	  1
+	JMS	WRITE	/Now write it
+	100		/Byte mode
+	  1		/Sector 1
+	  0		/Track 0  (notice that I didn't have to empty
+			/	   the data before I rewrote it?)
+	JMS	READ	/Now the second half
+	100
+	  4		/Sector 4 of track 1
+	  1
+	JMS	WRITE
+	100
+	  4		/To track 0
+	  0
+	JMS	DOLCD	/Load a "fill buffer" command
+	TAD	[-100	/Words per sector....
+	DCA	WORDCT
+FILLIT,	TAD I	BTPTR	/Get a word
+	JMS	LOADIT	/To the RX
+	CLA CLL
+	ISZ	WORDCT	/Check word count
+	JMP	FILLIT
+	JMS	WRITE	/Now write the sector just filled
+	0		/In word mode
+	1		/Track 1
+	1		/Sector 1
+	JMP I	[7600	/Return to OS/8 (with flag set)
+
+WORDCT,	-100		/Number of words in a sector (12 bit)
+/Restore the boot block.
+
+RESTOR,	JMS	PRINT
+		REST
+	JMS	READ
+	100		/8-bit
+	  1		/Track 0, Sector 1
+	  0
+	JMS	WRITE	/Sector 1 from track 0 to track 1.
+	100
+	  1
+	  1
+	JMS	READ	/Restore the second sector
+	100
+	  4
+	  0
+	JMS	WRITE
+	100
+	  4
+	  1
+	JMP I	[7600	/Done!
+OLDVER,	JMS	PRINT
+		BADVER
+	JMP I	[7600
+UNREC,	JMS	PRINT
+		WRONG
+
+PRINT,	0
+	STA		/Set up for autoindex
+	TAD I	PRINT
+	DCA	PRTPTR
+	ISZ	PRINT
+PRTLP,	TAD I	PRTPTR
+	DCA	PRTCHR
+	TAD	PRTCHR
+	BSW
+	JMS	PRTSIX
+	TAD	PRTCHR
+	JMS	PRTSIX
+	JMP	PRTLP
+
+PRTSIX,	0
+	AND	[77
+	SNA
+	JMP I	PRINT	/Return after end of string
+	TAD	[-33	/Is it [?
+	SNA
+	JMP	SETUC	/Yes. Set upper case
+	TAD	[33-35	/Is it ]
+	SNA
+	JMP	SETLC	/Yes, set lower case
+	TAD	[35-40	/Subtract 40
+	SPA		/Minus if punctuation
+	TAD	ULCASE
+	TAD	[40	/Finish the char
+	TLS
+	TSF
+	JMP	.-1
+	CLA CLL
+	JMP I	PRTSIX
+
+SETLC,	TAD	[40
+SETUC,	TAD	[100
+	DCA	ULCASE
+	JMP I	PRTSIX
+	PAGE
+/This is the actual boot code loaded into logical sector 0
+
+LOAD=	53		/Address in primary boot
+TEMP=	1		/Temporary storage location
+
+NEWBOOT,
+	RELOC 2
+SECTOR,	1;4		/Sector list
+BIT8,	7400		/Storage pointer for 8-bit sector
+BIT4,	7400		/Storage pointer for 4-bit sector
+RX2PT,	RX2SKP		/Points to RX type word in secondary boot
+K7400,	7400		/Mask, starting location of boot
+K102,	102		/RX Commands
+K10,	10		/Mask for RX02 bit of status register
+XR,	77		/Finish loading at 100
+
+DONE,	TAD	RX1SKP	/Move the skip instruction
+	SNA CLA		/Skip if RX02
+	TAD	KSKP	/If RX01, use a SKP, If RX01, zero
+	DCA I	RX2PT	/Into the secondary
+	JMP I	K7400	/Call the secondary boot
+
+BTREAD,	MT4		/Dummy return first time
+	SDN		/Wait for done
+	JMP	.-1
+BTRD1,	CLA STL IAC RTL	/Get the read sector instruction
+	LCD
+SECTR,	TAD	SECTOR	/Get desired sector
+	JMS	LOAD	/Load to the RX
+CNT8,	7600		/The track #
+	JMS	LOAD	/Always 0
+	ISZ	SECTR	/Point to the next sector
+	TAD	K102	/Get an empty buffer cmd
+			/And wait for read to complete
+	IFNZRO	33-. <Error - must line up with primary boot>
+HANG,	SDN		/Must line up with toggle-in
+	JMP	LOAD+1	/Figure-8 skip
+	SER
+KSKP,	SKP
+	HLT		/Halt if any errors
+	SNA		/AC not zero if reading.
+	JMP	GOBOOT	/Start the boot
+	LCD		/Load the empty buffer command
+RX1SKP,	JMS	LOAD	/If RX02, do 'extra' XDR to send high 4 bits of cmd
+	JMP I	BTREAD	/Back to caller
+BIT12,	JMS	LOAD	/Get a word
+	DCA I	XR	/Into 100-
+	IFNZRO	47-.	<Error - must line up with primary boot>
+	JMP	BIT12	/When we read location 47, begin loading at 100
+	RELOC 100
+GOBOOT,	XDR		/Get status
+	AND	K10	/Keep only the RX02 Bit
+	SNA CLA		/Skip if RX02
+	DCA	RX1SKP	/Clear the RX02's 'extra' XDR
+	JMP	BTRD1	/Read a sector (Dummy JMS BTREAD)
+MT4,	JMS	LOAD	/Get a byte
+	CLL RTL
+	DCA	TEMP	/Unpack 4 bit
+	TAD	TEMP
+	CLL RTL
+	DCA I	BIT4	/Stash first 4
+	ISZ	BIT4	/Point to next
+	TAD 	TEMP
+	BSW
+	DCA I	BIT4	/Done.
+	ISZ	BIT4	/Point to next
+	JMP	MT4	/Store until 7777
+	JMS	BTREAD	/Read next.
+MT8,	TAD I	BIT8	/Get the high 4 already set
+	AND	K7400
+	JMS	LOAD	/Get the low 8
+	DCA I	BIT8	/Store the whole word
+	ISZ	BIT8
+	ISZ	CNT8	/Done yet?
+	JMP	MT8	/Nope.
+	JMP	DONE	/Yes
+	RELOC
+SETTNG,	TEXT	'S]ETTING UP BOOTSTRAP'
+REST,	TEXT	'R]ESTORING [OS/8] OR [OS/78] MONITOR'
+BADVER,	TEXT	'W]RONG VERSION OF [BYTE] MODE HANDLER ON DISK!'
+WRONG,	TEXT	'N]OT A [BYTE] MODE SYSTEM DISKETTE!'
+ERROR,	TEXT	'F]LOPPY [I/O] ERROR!'
+$$$$

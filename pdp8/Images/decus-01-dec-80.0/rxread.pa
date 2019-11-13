@@ -1,0 +1,553 @@
+/FLOPPY READ CHECK PROGRAM
+/
+/RHM 8-SEP-79
+/Version 2, 22-Jul-80: RX02 support
+/And now, a word from our sponsor:
+/
+/Copyright (c) 1979
+/Digital Equipment Corporation, Maynard, Mass.
+/
+/
+/This software is furnished under a license for use only
+/on a single computer system and may be copied only with
+/the  inclusion  of  the  above  copyright notice.  This
+/software, or any other copies thereof,  may not be pro-
+/vided or otherwise  made available to any  other person
+/except for use on such system  and to one who agrees to
+/these  license  terms.  Title to and  ownership  of the
+/software shall remain in DEC.
+/
+/The  information in this  document is subject to change
+/without notice and should  not be  construed  as a com-
+/mittment by Digital Equipment Corporation.
+/
+/DEC   assumes   no   responsibility   for  the  use  or
+/reliability  of  its software on equipment which is not
+/supplied by DEC.
+/
+/	This program is used to read-check floppy disks. It scans
+/the entire disk surface, checking for errors. If any errors are found,
+/the track, sector, status, and error code are reported.
+
+/RX01 IOT Definitions
+
+LCD=6751		/Load command
+XDR=6752		/Transfer data register
+STR=6753		/Skip on transfer request
+SER=6754		/Skip on error
+SDN=6755		/Skip if done
+INTR=6756		/Set/reset interrupt
+INIT=6757		/Initialize RX
+
+/Command bit assignments
+FILL=0			/Fill sector buffer
+EMPTY=2			/Empty sector buffer
+WRITE=4			/Write sector
+READ=6			/Read sector
+SDEN=10			/Set density for RX02.
+RDSTAT=12		/Read status
+DELDAT=14		/Write with deleted data
+RDERR=16		/Read definitive error code
+BYTE=100		/Byte mode (8-bit mode)
+DDEN=400		/Double density bit, high Byte.
+DRV1=20			/Drive 1 select
+
+/RXES (Status word) bit assignments
+CRC=1			/CRC Error
+PAR=2			/Parity error
+INDON=4			/Init done
+RX02=10			/Drive is a RX02
+DNERR=20		/Drive density error
+DBIT=40			/Density bit
+DEL=100			/Deleted data
+READY=200		/Drive ready
+FIXTAB
+DECIMAL
+RXSIZE=2002		/Size of the RX in sectors
+OCTAL
+/Page zero
+	*10
+AUTO,	.-.
+ERRPTR,	.-.
+	*100
+DRIVE,	.-.		/Drive # 0=0; 1=20.
+DENSE,	.-.		/Drive density
+RXES,	.-.		/RX error and status bits.
+LSN,	.-.		/Logical sector number.
+DIVCNT,	.-.		/Division counter
+TRKSEC,	.-.		/Track/sector temporary
+WS,	.-.		/Working storage
+TRACK,	.-.		/Track #
+SECTOR,	.-.		/Sector #
+SECCTR,	.-.		/Sector counter - number of sectors on the disk.
+ERRCOD,	.-.		/Storage of definitive error code.
+TWO,	.-.		/Used to count density attempts
+/Main read loop
+
+/Initialize RX
+
+	*200
+START,	TAD	[-RXSIZE	/Minus the number of sectors
+	DCA	SECCTR
+	DCA	LSN		/Start logical sector 0
+	TAD	[INTER		/If an error now, INIT error.
+	DCA	ERTYP
+	CLA CLL CMA RAL		/Set AC = -2,
+	DCA	TWO		/For two density attempts.
+	JMS I	[PRINT		/Say who we are.
+		HELLO
+DRVASK,	JMS I	[CRLF
+	JMS I	[PRINT		/Ask for drive number.
+		WHATDRV
+	JMS I	[KEY		/Get keyboard input
+	DCA	WS		/Save it.
+	TAD	WS		/Echo it.
+	JMS	TTOUT
+	JMS I	[CRLF		/New line.
+	TAD	WS		/Check for 0 or 1
+	TAD	[-60		/Zero?
+	SNA
+	JMP	DRVOK		/No change.
+	TAD	[-1		/Is it one?
+	SNA CLA
+	JMP	DRVONE		/Set drive 1
+	JMS I	[PRINT		/Zero or one, please.
+		ZERONE
+	JMP	DRVASK
+DRVONE,	TAD	[20		/Set drive 1
+DRVOK,	TAD	[BYTE		/Set 8 bit mode.
+	DCA	DRIVE		/Or drive 0.
+	JMS	SKPDON		/Wait for done
+TRYIT,	TAD	DRIVE		/Read status to find drive type
+	TAD	[RDSTAT-100	/In 12 bit mode for 02-01 compat.
+	LCD
+	SDN;JMP .-1
+	SER
+	JMP	DOK		/Density seems OK
+	TAD	[DDEN		/Try double density
+	ISZ	TWO
+	JMumber. The diskette
+/is read with a 2-sector interleave and a six-sector skew between
+/tracks,P	TRYIT		/Try it again
+	JMP I	[ERRRPT		/Report an error
+DOK,	XDR			/Get the status
+	DCA	RXES	 in order to speed the read process.
+
+CONVRT,	HLT
+	TAD	LSN		/Display the logical sector
+	MQL	/Save it.
+	TAD	RXES		/Check the density bit
+	AND	[DBIT		/Is it double?
+	SZA CLA			/Not if it
+	TAD	[-7		/Init the divide counter
+	DCA	DIVCNT
+	TAD	LSN		/Get the sector number
+	CLL			/Mak skips.
+	TAD	[DDEN		/Yes.
+	DCA	DENSE		/Set the density
+	TAD	RXES		/Was it an RX02
+	AND	[RX02e sure the link is clear
+DIVLP,	TAD	[4600		/Subtract 3200 (32 octal - 26 decimal)
+	SNL			/Over
+	SZA CLA
+	TAD	[SKP		/Set to do the 'extra' XDR.
+	DCA I	[RX0102		/Set the specific instructioflow?
+	JMP	ADD
+	CLL
+	SKP
+ADD,	TAD	[3200		/Restore
+	CML RAL			/Link is the new quot bit
+	ISn
+	INIT			/Now init the floppy
+	JMS	SKPDON		/Wait for done, check for errors.
+	TAD	[READERR	/Z	DIVCNT		/Done yet?
+	JMP	DIVLP		/Nope.
+	DCA	TRKSEC		/Now AC bits 0-4 are the sector,
+	TAD	TRErrors now are read errors.
+	DCA	ERTYP
+/Read loop
+
+RDLOOP,	JMS	CONVRT			/Convert the logicaKSEC		/Bits 5-11 are the track.
+	AND	[7600		/Isolate the sector bits.
+	CLL RTL;RTL;RTL		/Shiftl sector to
+					/Track and sector
+	TAD	[READ			/Get a read command
+	JMS	DOLCD			/To the RX
+ into position
+	DCA	SECTOR		/Save it.
+	TAD	TRKSEC		/Get track number
+	AND	[177		/Only inporta	TAD	SECTOR			/Send the sector
+	STR;JMP	.-1
+	XDR;CLA
+	TAD	TRACK			/And the track
+	STR;JMP	.-nt bits
+	DCA	TRACK		/Save it.
+	TAD	SECTOR		/Do the interleave stuff.
+	DECIMAL
+	TAD	[-13		/Se1
+	XDR;CLA
+	JMS	SKPDON			/Wait for done.
+	ISZ	LSN			/Bump the sector
+	ISZ	SECCTR			/Check fots the link if sector <= 13
+	OCTAL
+	CLA
+	TAD	SECTOR
+	RAL			/Now have the proper sector for ir the end
+	JMP	RDLOOP
+	JMS I	[PRINT			/Print "end of pass"
+		COMPLT
+EXIT,	TAD	[RDERR			/Setsnterleaving
+	DCA	SECTOR		/Save it.
+	TAD	TRACK		/Get 2*track
+	RAL
+	TAD	TRACK		/Now 3*track
+	 the DONE flag.
+	JMS	DOLCD
+	JMP I	[7600			/Back to os/8.
+/Sector conversion routine.
+/	ThisCLL RAL			/6*Track
+	TAD	SECTOR		/Now have the skew factor.
+
+MOD,	TAD	[-32		/Get in the range CLL RAL			/6*Track
+	TAD	SECTOR		/Now have the skew factor.
+
+MOD,	TAD	[-32		/Get in the range  routine converts the Logical sector number (from
+/0 to 2002 decimal) to a track and a sector n[1-26]
+	SMA			/Negative yet?
+	JMP	MOD		/Keep trying.
+	TAD	[33		/Restore to positive.
+	DCA	SEumber. The diskette
+/is read with a 2-sector interleave and a six-sector skew between
+/tracks,P	TRYIT		/Try it again
+	JMP I	[ERRRPT		/Report an error
+DOK,	XDR			/Get the status
+	DCA	RXES	 in order to speed the read process.
+
+CONVRT,	HLT
+	TAD	LSN		/Display the logical sector
+	MQL	/Save it.
+	TAD	RXES		/Check the density bit
+	AND	[DBIT		/Is it double?
+	SZA CLA			/Not if it
+	TAD	[-7		/Init the divide counter
+	DCA	DIVCNT
+	TAD	LSN		/Get the sector number
+	CLL			/Mak skips.
+	TAD	[DDEN		/Yes.
+	DCA	DENSE		/Set the density
+	TAD	RXES		/Was it an RX02
+	AND	[RX02e sure the link is clear
+DIVLP,	TAD	[4600		/Subtract 3200 (32 octal - 26 decimal)
+	SNL			/Over
+	SZA CLA
+	TAD	[SKP		/Set to do the 'extra' XDR.
+	DCA I	[RX0102		/Set the specific instructioflow?
+	JMP	ADD
+	CLL
+	SKP
+ADD,	TAD	[3200		/Restore
+	CML RAL			/Link is the new quot bit
+	ISn
+	INIT			/Now init the floppy
+	JMS	SKPDON		/Wait for done, check for errors.
+	TAD	[READERR	/Z	DIVCNT		/Done yet?
+	JMP	DIVLP		/Nope.
+	DCA	TRKSEC		/Now AC bits 0-4 are the sector,
+	TAD	TRErrors now are read errors.
+	DCA	ERTYP
+/Read loop
+
+RDLOOP,	JMS	CONVRT			/Convert the logicaKSEC		/Bits 5-11 are the track.
+	AND	[7600		/Isolate the sector bits.
+	CLL RTL;RTL;RTL		/Shiftl sector to
+					/Track and sector
+	TAD	[READ			/Get a read command
+	JMS	DOLCD			/To the RX
+ into position
+	DCA	SECTOR		/Save it.
+	TAD	TRKSEC		/Get track number
+	AND	[177		/Only inporta	TAD	SECTOR			/Send the sector
+	STR;JMP	.-1
+	XDR;CLA
+	TAD	TRACK			/And the track
+	STR;JMP	.-nt bits
+	DCA	TRACK		/Save it.
+	TAD	SECTOR		/Do the interleave stuff.
+	DECIMAL
+	TAD	[-13		/Se1
+	XDR;CLA
+	JMS	SKPDON			/Wait for done.
+	ISZ	LSN			/Bump the sector
+	ISZ	SECCTR			/Check fots the link if sector <= 13
+	OCTAL
+	CLA
+	TAD	SECTOR
+	RAL			/Now have the proper sector for ir the end
+	JMP	RDLOOP
+	JMS I	[PRINT			/Print "end of pass"
+		COMPLT
+EXIT,	TAD	[RDERR			/Setsnterleaving
+	DCA	SECTOR		/Save it.
+	TAD	TRACK		/Get 2*track
+	RAL
+	TAD	TRACK		/Now 3*track
+	 the DONE flag.
+	JMS	DOLCD
+	JMP I	[7600			/Back to os/8.
+/Sector conversion routine.
+/	ThisCLL RAL			/6*Track
+	TAD	SECTOR		/Now have the skew factor.
+
+MOD,	TAD	[-32		/Get in the range  routine converts the Logical sector number (from
+/0 to 2002 decimal) to a track and a sector n[1-26]
+	SMA			/Negative yet?
+	JMP	MOD		/Keep trying.
+	TAD	[33		/Restore to positive.
+	DCA	SEumber. The diskette
+/is read with a 2-sector interleave and a six-sector skew between
+/tracks,P	TRYIT		/Try it again
+	JMP I	[ERRRPT		/Report an error
+DOK,	XDR			/Get the status
+	DCA	RXES	 in order to speed the read process.
+
+CONVRT,	HLT
+	TAD	LSN		/Display the logical sector
+	MQL	/Save it.
+	TAD	RXES		/Check the density bit
+	AND	[DBIT		/Is it double?
+	SZA CLA			/Not if it
+	TAD	[-7		/Init the divide counter
+	DCA	DIVCNT
+	TAD	LSN		/Get the sector number
+	CLL			/Mak skips.
+	TAD	[DDEN		/Yes.
+	DCA	DENSE		/Set the density
+	TAD	RXES		/Was it an RX02
+	AND	[RX02e sure the link is clear
+DIVLP,	TAD	[4600		/Subtract 3200 (32 octal - 26 decimal)
+	SNL			/Over
+	SZA CLA
+	TAD	[SKP		/Set to do the 'extra' XDR.
+	DCA I	[RX0102		/Set the specific instructioflow?
+	JMP	ADD
+	CLL
+	SKP
+ADD,	TAD	[3200		/Restore
+	CML RAL			/Link is the new quot bit
+	ISn
+	INIT			/Now init the floppy
+	JMS	SKPDON		/Wait for done, check for errors.
+	TAD	[READERR	/Z	DIVCNT		/Done yet?
+	JMP	DIVLP		/Nope.
+	DCA	TRKSEC		/Now AC bits 0-4 are the sector,
+	TAD	TRErrors now are read errors.
+	DCA	ERTYP
+/Read loop
+
+RDLOOP,	JMS	CONVRT			/Convert the logicaKSEC		/Bits 5-11 are the track.
+	AND	[7600		/Isolate the sector bits.
+	CLL RTL;RTL;RTL		/Shiftl sector to
+					/Track and sector
+	TAD	[READ			/Get a read command
+	JMS	DOLCD			/To the RX
+ into position
+	DCA	SECTOR		/Save it.
+	TAD	TRKSEC		/Get track number
+	AND	[177		/Only inporta	TAD	SECTOR			/Send the sector
+	STR;JMP	.-1
+	XDR;CLA
+	TAD	TRACK			/And the track
+	STR;JMP	.-nt bits
+	DCA	TRACK		/Save it.
+	TAD	SECTOR		/Do the interleave stuff.
+	DECIMAL
+	TAD	[-13		/Se1
+	XDR;CLA
+	JMS	SKPDON			/Wait for done.
+	ISZ	LSN			/Bump the sector
+	ISZ	SECCTR			/Check fots the link if sector <= 13
+	OCTAL
+	CLA
+	TAD	SECTOR
+	RAL			/Now have the proper sector for ir the end
+	JMP	RDLOOP
+	JMS I	[PRINT			/Print "end of pass"
+		COMPLT
+EXIT,	TAD	[RDERR			/Setsnterleaving
+	DCA	SECTOR		/Save it.
+	TAD	TRACK		/Get 2*track
+	RAL
+	TAD	TRACK		/Now 3*track
+	 the DONE flag.
+	JMS	DOLCD
+	JMP I	[7600			/Back to os/8.
+/Sector conversion routine.
+/	ThisCLL RAL			/6*Track
+	TAD	SECTOR		/Now have the skew factor.
+
+MOD,	TAD	[-32		/Get in the range  routine converts the Logical sector number (from
+/0 to 2002 decimal) to a track and a sector n[1-26]
+	SMA			/Negative yet?
+	JMP	MOD		/Keep trying.
+	TAD	[33		/Restore to positive.
+	DCA	SEumber. The diskette
+/is read with a 2-sector interleave and a six-sector skew between
+/tracks,P	TRYIT		/Try it again
+	JMP I	[ERRRPT		/Report an error
+DOK,	XDR			/Get the status
+	DCA	RXES	 in order to speed the read process.
+
+CONVRT,	HLT
+	TAD	LSN		/Display the logical sector
+	MQL	/Save it.
+	TAD	RXES		/Check the density bit
+	AND	[DBIT		/Is it double?
+	SZA CLA			/Not if it
+	TAD	[-7		/Init the divide counter
+	DCA	DIVCNT
+	TAD	LSN		/Get the sector number
+	CLL			/Mak skips.
+	TAD	[DDEN		/Yes.
+	DCA	DENSE		/Set the density
+	TAD	RXES		/Was it an RX02
+	AND	[RX02e sure the link is clear
+DIVLP,	TAD	[4600		/Subtract 3200 (32 octal - 26 decimal)
+	SNL			/Overl c
+	SER			/Check for error
+	JMP I	SKPDON		/No error, return.
+ERRRPT,	JMS I	[PRINT		/Print thRROR TALKING TO [RX01]'
+CRCERR,	TEXT	'CRC E]RROR READING SECTOR.'
+ERCODE,	TEXT	'D]EFINITIVE ERe error type
+ERTYP,		.-.
+	JMS	REPORT		/Report the error
+	JMS	REWRIT		/Ask if he wants to re-wROR CODE:'
+ERRBAD,	TEXT	'I]LLEGAL ERROR CODE FROM [RX01.
+WRTBAK,	TEXT	'D]O YOU WANT TO RE-WRITrite it.
+	JMP I	SKPDON		/Return
+
+CHKCC,	KSF
+	JMP	SKPDON+1
+	KRS
+	AND	[177		/Kill parity
+	TE THE SECTOR?'
+YESNO,	TEXT 	'"Y" ]OR[ "N"], PLEASE!'
+RX2,	TEXT	'RX02 T]YPE DRIVE.'
+DNSERR,	TEAD	[-3		/^C?
+	SNA CLA
+	JMP I	[7600		/Return to OS/8
+	JMP	SKPDON+1	/Wait for flag.
+/Message XT	'D]RIVE DENSITY ERROR.'
+DBL,	TEXT	'D]ISKETTE IS DOUBLE DENSITY.'
+/Definitive error codes:tables and text
+
+RDYLST,	DRVNOT
+	DRVRDY
+
+ERRTBL,	ERR010
+	ERR020
+	ERR030
+	ERR040
+	ERR050
+
+ERR010,	TEXT	'D]RIVE 0 FAILED TO SEE [HOME] ON [INIT.'
+ERR020,	TEXT	'D]RIVE 1 FAILED TO SEE 
+	ERR060
+	ERR070
+	ERR100
+	ERR110
+	ERR120
+	ERR130
+	ERR140
+	ERR150
+	ERR160
+	ERR170
+	ERR[HOME] IN [INIT.'
+ERR030,	TEXT	'F]OUND [HOME] WHILE STEPPING OUT 10 TRACKS FOR [INIT.'
+ERR040,200
+	ERR210
+	ERR220
+	ERR230
+	ERR240
+	ERR250
+
+ERRLST,	CRC;CRCERR
+	PAR;PARERR
+	INDON;INIT	TEXT	'T]RIED TO ACCESS A TRACK > 76!'
+ERR050,	TEXT	'HOME F]OUND BEFORE DESIRED TRACK.'
+ERR060DN
+	RX02;RX2
+	DNERR;DNSERR
+	DBIT;DBL
+	DEL;DELSTAT
+	0
+	PAGE
+/Message text
+
+HELLO,	TEXT	
+/Get keyboard input
+
+KEY,	0
+	KSF
+	JMP	.-1
+	KRB
+	AND	[177		/Zap parity
+	JMP I	KEY
+/Do 'RXREAD V]ERSION 2.0'
+WHATDRV,TEXT	'W]HAT DRIVE DO YOU WANT TO CHECK?'
+ZERONE,	TEXT	'D]RIVES Za LCD instruction
+
+DOLCD,	0
+	TAD	DRIVE		/Get the drive bit
+	LCD
+RX0102,	NOP			/NOP for RX01ERO (0) OR ONE (1) ONLY, PLEASE!'
+DRVRDY,	TEXT	'D]RIVE IS READY'
+DRVNOT,	TEXT	'D]RIVE NOT READ, becomes SKP for RX02.
+	JMP I	DOLCD
+	STR
+	JMP	.-1
+	TAD	DENSE		/Get the density bit if RX02.Y.'
+INTER,	TEXT	'RX INIT  E]RROR'
+READERR,TEXT	'RX READ  E]RROR'
+WRTER,	TEXT	'RX WRITE E]RROR
+	BSW
+	CLL RTR			/High 4 bits now are in low 4.
+	XDR
+	CLA CLL
+	JMP I	DOLCD
+
+/Wait for RX '
+COMPLT,	TEXT	'R]EAD COMPLETE!'
+TRK,	TEXT	' T]RACK:'
+SEC,	TEXT	' S]ECTOR:'
+STATUS,	TEXT	' Rdone or ^c, Check for and display errors.
+
+SKPDON,	0
+	SDN
+	JMP	CHKCC		/No done, check controXES:'
+DELSTAT,TEXT	'DELETED DATA B]IT SET.'
+INITDN,	TEXT	'INIT D]ONE'
+PARERR,	TEXT	'PARITY E]l c
+	SER			/Check for error
+	JMP I	SKPDON		/No error, return.
+ERRRPT,	JMS I	[PRINT		/Print thRROR TALKING TO [RX01]'
+CRCERR,	TEXT	'CRC E]RROR READING SECTOR.'
+ERCODE,	TEXT	'D]EFINITIVE ERe error type
+ERTYP,		.-.
+	JMS	REPORT		/Report the error
+	JMS	REWRIT		/Ask if he wants to re-wROR CODE:'
+ERRBAD,	TEXT	'I]LLEGAL ERROR CODE FROM [RX01.
+WRTBAK,	TEXT	'D]O YOU WANT TO RE-WRITrite it.
+	JMP I	SKPDON		/Return
+
+CHKCC,	KSF
+	JMP	SKPDON+1
+	KRS
+	AND	[177		/Kill parity
+	TE THE SECTOR?'
+YESNO,	TEXT 	'"Y" ]OR[ "N"], PLEASE!'
+RX2,	TEXT	'RX02 T]YPE DRIVE.'
+DNSERR,	TEAD	[-3		/^C?
+	SNA CLA
+	JMP I	[7600		/Return to OS/8
+	JMP	SKPDON+1	/Wait for flag.
+/Message 

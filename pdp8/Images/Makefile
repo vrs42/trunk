@@ -3,15 +3,19 @@ RK05 = $(wildcard *.rk05)
 RX01 = $(wildcard *.rx01)
 RX02 = $(wildcard *.rx02)
 TU56 = $(wildcard *.tu56)
+TRPL = $(wildcard *.3p)
 DSK  = $(wildcard *.dsk)
 MDSK = $(RK05:.rk05=.dsk) $(RX01:.rx01=.dsk) $(RX02:.rx02=.dsk) \
-       $(TU56:.tu56=.dsk) $(DSK)
+       $(TRPL:.3p=.dsk) $(TU56:.tu56=.dsk) $(DSK)
 XML  = $(MDSK:.dsk=.xml) $(DSK:.dsk=.xml)
 
 all: $(MDSK) $(XML)
 
 %.dsk: %.rk05
 	rm -f $@; ln $< $@
+
+%.dsk: %.3p
+	$(BIN)/3to4.pl $<
 
 %.dsk: %.rx01
 	$(BIN)/rx2dk.pl $<
@@ -23,4 +27,4 @@ all: $(MDSK) $(XML)
 	$(BIN)/dt2dk.pl $<
 
 %.xml: %.dsk
-	$(BIN)/os8xplode.pl $<
+	$(BIN)/os8xplode.pl $< || (rm $@; exit 1)

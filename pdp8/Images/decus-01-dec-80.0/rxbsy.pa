@@ -1,0 +1,563 @@
+/RX8E SYS BYTE MODE HANDLER FOR OS/8       EJML  3/77
+/ * * MODIFIED FOR COS - 310 COMPATIBILITY
+/ 7/9 RHM
+
+/     This handler increases the storage capacity of a
+/floppy disk by storing a block in three disk sectors,
+/rather than four used by the standard handler.  This
+/increases the available file space on a system disk
+/by 40%, and on a non-system disk by 35% (658 vs. 494
+/blocks).  It is a two page handler, and thus
+/requires at least 12K to run.
+/Note: If the parameter "SAVDAT" is defined, the secondary
+/boot will restore the date word after the boot is complete.
+/If it is not defined, the date will be reset as usual.
+
+SAVDAT=	1
+RXTYP=	1			/Set to 1 for RX01 build, 2 for RX02
+
+
+VERSION="D&77			/RX02 Compatible version
+
+/ASSEMBLY PARAMETERS
+
+DEVTYP=	50			/Device type definition for USR and PIP
+DEVCOD=	75			/RX8 Device code
+
+/RX IOTs
+
+LCD=	DEVCOD^10+6001
+XDR=	LCD+1
+STR=	XDR+1
+SER=	STR+1
+SDN=	SER+1
+INIT=	SDN+2
+
+/Handy constant generators
+AC0001=	CLA CLL IAC		/Set 1 into AC.
+AC0003=	CLA CLL CML IAC RAL	/Set 3 into AC.
+AC0004=	CLA CLL IAC RTL		/Set 4 into AC.
+AC0006=	CLA CLL CML IAC RTL	/Set 6 into AC.
+AC4000=	CLA CLL CML RAR
+DECIMAL
+SIZE=658
+OCTAL
+
+	*0			/BUILD Header block
+
+	-3			/Three entry points
+
+	DEVICE BYTE		/Group name
+	DEVICE SYS		/Permanent name:SYS
+	DEVTYP^10+4000		/Device Control Word
+	SYSENT&177+6000		/Entry point
+	0
+	SIZE
+
+	
+	DEVICE BYTE
+	DEVICE RXB0		/Entry point name
+	DEVTYP^10+4000		/Two-pages long,
+	SYSENT&177+5000		/Entry point, co-resident with SYS
+	0
+	SIZE
+
+	DEVICE BYTE
+	DEVICE RXB1		/Entry point for drive 1
+	DEVTYP^10+4000
+	DISK1&177+5000		/Location
+	0
+	SIZE
+/Secondary boot
+/The primary (toggle-in) boot is responsible for getting
+/this code loaded into 7400-7577 by reading the first two
+/sectors of block 0. This code then reads the second half of
+/block 0 into 7600-7777 and reads block 66 into 17600-17777 and
+/27600-27777.
+
+	STRTBT-ENDBT	/Minus length of bootstrap.
+	RELOC 7400	/Loads here.
+STRTBT,
+	IFDEF SAVDAT <
+	CDF	10
+	TAD I	DATPTR
+	DCA	DATE
+	CDF	0
+	>
+	TAD	CSECLS	/Reset sector list pointer
+	DCA	SECPTR
+	JMS	RDSEC	/Read the third sector of block 0
+	JMS	MT8	/Read the sector to 7600-7777
+	TAD	C7600	/Reset pointer
+	DCA	BTPTR
+	JMS	RDSEC	/Read the first sector of block 66.
+	CDF	10	/Want to read the first half to 17600
+LP4,	JMS	BTXDR	/Get a byte.
+	CLL RTL
+	DCA	TEMPLC	/Do this again
+	TAD	TEMPLC
+	CLL RTL
+	DCA I	BTPTR	/Stash the first
+	ISZ	BTPTR	/Point to next
+	TAD	TEMPLC
+	BSW
+	DCA I	BTPTR
+	ISZ	BTPTR	/Done yet?
+	JMP	LP4	/Keep trying
+	ISZ	LPCTR	/Read the whole sector yet?
+	SKP		/Not if this skips.
+	JMP	DO8BT	/Read the 8 bit stuff.
+	TAD	C7600
+	DCA	BTPTR	/Reset pointer
+	CDF	20
+	JMP	LP4	/Read the rest to 27600-
+DO8BT,	CDF	0	/Read the 8-bit sectors now.
+	JMS	RDSEC	/Read the first.
+	CDF	10	/Get it into memory
+	JMS	MT8
+	CDF	0	/Read the last sector now
+	JMS	RDSEC
+	CDF	20
+	JMS	MT8
+	IFDEF SAVDAT <
+	CDF	10
+	TAD	DATE
+	DCA I	DATPTR
+	>
+	CIF CDF	0
+	TAD	RX2SKP	/Get secondary boot skip type (RX01 or RX02)
+	DCA I	SYSPTR	/Save in system handler
+	JMP I	C7600	/Start OS/8!!!
+
+C7600,	7600
+C74001,	7400		/Another 7400. Can't use primary boot copy.
+K102,	102
+CSECLS,	SECLS1-1
+BTPTR,	0
+TEMPLC,	0
+SYSPTR,	RXSKP
+	IFDEF SAVDAT <
+DATE,	0
+DATPTR,	7666
+	>
+LPCTR,	-2		/Read 2 pages of 4-bit.
+/Track-sector list: sector first, as the RX wants them.
+SECLS1,	7;1		/Third piece of block 0 - track 1 sector 7
+	23;7		/Block 66 - track 7, sectors 23, 26, and 31
+	26;7
+	31;7
+/Utility routines for secondary boot
+RDSEC,	0		/Read a sector
+	SDN		/Wait on done flag
+	JMP	.-1
+	AC0006		/Read sector command.
+	LCD
+	TAD I	SECPTR	/Get sector #
+	JMS	BTXDR	/To the RX
+	CLA
+	TAD I	SECPTR	/Next sector
+	JMS	BTXDR
+	CLA
+	TAD	K102	/Empty buffer command
+	SDN
+	JMP	.-1	/Wait for done
+	SER
+	SKP
+	HLT		/Halt if error
+	LCD		/Send empty buffer cmd
+RX2SKP,	SKP		/SKP if RX01, NOP if RX02.
+	JMS	BTXDR	/If RX02, need to do another XDR after LCD
+	JMP I	RDSEC	/Return
+
+BTXDR,	0
+	STR		/Transfer to/rfom RX
+	JMP	.-1
+	XDR
+	JMP I	BTXDR	/Done.
+
+MT8,	0		/Empty the buffer in 8-bit mode.
+	TAD	C7600	/Reset pointer
+	DCA	BTPTR
+MT8LP,	TAD I	BTPTR	/Get the old contents
+	AND	C74001	/Mask the good bits
+	JMS	BTXDR	/Get from RX the low 8
+	DCA I	BTPTR	/Into buffer
+	ISZ	BTPTR	/If skips, end of page.
+	JMP	MT8LP
+	JMP I	MT8	/All done.
+ENDBT=.
+	RELOC
+	NOPUNCH
+/Primary boot - Toggle this in to boot the floppy.
+
+	*16
+STORE,	7377		/Used to store 4-bit stuff
+SECPTR,	SECLST-1	/Points to sector list
+BYTPTR,	7400		/Used to store 8-bit stuff
+CNT8,	7600		/Counts 8 bit sector
+C102,	102
+SECLST,	1;4		/List of sectors in block 0
+RX02,	10		/RX02 bit of status register
+RX2PT,	RX2SKP		/Pointer to RX01 skip in secondary boot
+
+START,	SDN		/Wait for init to finish
+	JMP	.-1
+	XDR		/Get the status word
+	AND	RX02	/Keep just the RX02 bit
+	SZA CLA		/Skip if RX01
+	DCA	RX1SKP	/If RX02, clear the skip location
+	JMP	BTRD1	/Read a sector
+RD4BT,	JMS	LOAD	/Get a byte
+	CLL RTL		/Break it up into two four-bit pieces.
+	DCA	TEMP	/Store it
+	TAD	TEMP
+	CLL RTL		/FInish shift of first half
+	DCA I	STORE
+	TAD	TEMP	/Get it back
+	BSW		/Finish shift of last half.
+	DCA I	STORE	/Into buffer.
+	ISZ	CNT4	/Check if done yet.
+	JMP	RD4BT	/Not yet.
+	JMS	BTREAD	/Read the next sector.
+C7400,	7400		/Used as mask and pointer for starting address.
+RD8BT,	TAD I	BYTPTR	/Get high 4 bits of the location
+	AND	C7400	/Only 4 bits.
+	JMS	LOAD	/Get the low 8
+	DCA I	BYTPTR	/Store it
+	ISZ	BYTPTR	/Increment pointer
+CNT4,	7600		/Cover skip
+	ISZ	CNT8	/Check if done
+	JMP	RD8BT	/Not yet.
+	TAD	RX1SKP	/Set the secondary boot's type
+	DCA I	RX2PT	
+	JMP I	C7400	/Start the secondary boot.
+
+BTREAD,	RD4BT		/Fake return first time thru
+	SDN
+	JMP	.-1	/Wait for done flag to set
+BTRD1,	AC0006		/Send read sector command
+	LCD
+	TAD I	SECPTR	/Get sector number
+	JMS	LOAD	/To the RX
+FIXSEC,	AC0001		/Assume track 1 until secondary boot.
+	JMS	LOAD	/Send to RX
+	CLA CLL
+	TAD	C102	/Empty buffer, 8-bit mode
+	SDN		/Wait for done.
+	JMP	.-1
+	LCD		/To RX
+RX1SKP,	SKP		/Cleared if we are an RX02
+	JMS	LOAD	/If RX02, do an extra XDR
+	JMP I	BTREAD	/All done.
+TEMP=.
+LOAD,	0
+	STR		/Wait for TR flag
+	JMP	.-1
+	XDR		/Send/get byte
+	JMP I	LOAD
+	ENPUNCH
+/     The coding for the handler
+/follows.  The first page contains the entry point at
+/7607 for SYS:, some initialization code,
+/several subroutines, and the return.  The "main line"
+/is in the second page, which acquires and decodes the
+/arguments, then executes the read or write routine,
+/which does the byte/word translation.  Each byte is
+/sent or fetched by the first page routine CHKSEC
+/which also reads or writes a new sector when
+/necessary.  Three sectors are used to store each
+/block, and every three sectors are interleaved.
+/The total number of blocks (658) is mapped
+/sequentially up the floppy. Block 0 uses track 1, sectors
+/1, 4, and 7. Block 1 uses track 1, sectors 10, 13, 16, etc.
+/Track 0 is not used.
+
+
+
+
+
+	*200		/First handler page
+	RELOC	7600	/Loads into field 0 locn. 7600-7777
+
+	ZBLOCK 7	/Actually starts at 7607.
+SYSENT,
+DISK0,	VERSION		/Entry point for SYS: and RBA0:
+K7600,	7600		/Clears the AC.
+	JMP	SETDRV	/Set drive to zero and continue.
+	IFNZRO .-7612	<?Build will bomb!>
+WASTE,	3		/Flag as 2-page.
+/Put some constants here to pad the CIF below to 7642:
+KM32,	-32
+K32,	32
+CDIF0,	CIF CDF 0
+
+/The entry point for drive one:
+
+DISK1,	0
+	CLA CLL
+	TAD	DISK1	/Move the user call pointer to the common location
+	DCA	DISK0	
+	TAD	K20	/Get the bit selecting drive 1
+			/And fall thru to the common code.
+/Get the user's data field for return.
+
+SETDRV,	DCA	FLMTCD	/Set the drive bit of the command.
+	RDF		/Where was I called from?
+	TAD	CDIF0	/Create a CIF CDF for the guy's field
+	DCA	RTNDF	/Stash it away where it will do the most good.
+	TAD I	DISK0	/Get the first argument (read/write)
+	RAL		/Put read/write bit in link (1 is write)
+	SNL CLA		/Skip if write, if skipping set fill buffer cmd.
+	CLA CLL CML RTL	/Put fill buffer cmd in AC, leave link 0
+	TAD	FLMTCD	/Get the drive number already set.
+	DCA	FLMTCD	/Stash command.
+			/Now, link=0 for read, 1 for write.
+	TAD	K7600	/Set byte count for write.
+K20,	SNL		/Skip if write.
+	STA		/Want an immediate read.
+	DCA	BYTCNT	/Set counter: -1 for read, 7600 for write.
+	TAD	DISK0	/Get the argument pointer for the other page.
+	IFNZRO .-7642 <?Fortran and BASIC will STB!!>
+	CIF	20	/This must be at 7642 for BASIC and F4!
+	JMP	PAGE2	/Start the I/O on the other page.
+
+WRTRT,	JMS	DSKRW	/Return from write
+RDRT,	ISZ	DISK0	/Point to normal return
+BADRT,
+RTNDF,	HLT		/Set to user's field CIF CDF.
+	JMP I	DISK0	/Return.
+
+
+CHKSEC,	0		/This checks the byte count for a sector.
+	CLA CLL		/Zap out the AC
+	ISZ	BYTCNT	/Done the buffer yet?
+	JMP	CHKRTN	/Nope.
+	JMS	DSKRW	/Read or write it.
+	ISZ	BKNO3	/Point to the next sector.
+	TAD	FLMTCD	/Give the control the data transfer command -
+	JMS	LOAD0	/Read or write buffer as set earlier.
+	ISZ	CHKSEC	/Skip on return to tell him it's a new sector.
+	TAD	K7600
+	DCA	BYTCNT	/Reset the counter.
+CHKRTN,	CIF	20
+	JMP I	CHKSEC	/Finis!
+/This routine is used to load registers in the RX.
+/If done is set, it loads a command (after setting the 8-bit
+/mode bit). If transfer request comes up, it will transfer a
+/byte to the RX. It assumes that the caller knows the state
+/of the flags and where the data is going. There is also a
+/routine in field 0 for calling this from field 2.
+
+LOAD0,	HLT		/Load RX registers
+LOADDN,	SDN		/Done flag up?
+	JMP	TESTTR	/No - check xfer req.
+	TAD	K100	/Oh Boy! let's see...set the byte mode...
+	LCD		/Then to the RX as a command....
+RXSKP,			/Set at boot time to SKP (RX01) or NOP (RX02)
+	IFZERO	RXTYP-1	<SKP>	/RX01 instruction for BUILD time
+	IFNZRO	RXTYP-1	<NOP>	/RX02 instruction for BUILD time
+	SKP
+	JMP I	LOAD0	/And return! Easy, huh?
+TESTTR,	STR		/Is the xfer req flag up?
+	JMP	LOADDN	/Neither flag yet. Hope one will come up soon.
+	XDR		/Transfer a byte to or from RX (depends on function).
+	JMP I	LOAD0	/Back to the caller!
+DSKRW,	0		/This reads/writes the sector.
+	AC0004		/This bit makes read/write out of fill/empty
+	TAD	FLMTCD	/Plus the fill or empty to make it read or write.
+	JMS	LOAD0	/Tell the poor, suffering RX he has work to do.
+			/First calculate the track/sector address.
+	DCA	TRACK	/Initialize quotient
+	TAD	BKNO3	/Pick up the logical sector number
+DIV26,	ISZ	TRACK	/New partial quotient.;ISZ First so that we start
+			/on track 1, not track 0.
+	TAD	KM32	/Subtract 26 (32 octal).
+K100,	SMA		/Loop until we overdo it by one time.
+	JMP	DIV26
+	DCA	SECTOR	/Save remainder (-26)
+	TAD	SECTOR
+	CLL	RAL	/Interleave step - multiply by two,
+	TAD	SECTOR	/Then by three.
+MOD,	TAD	K32	/Put the sector in the range 0-31
+	SPA		/In range yet?
+	JMP	MOD	/Nope, keep trying.
+	IAC		/There is no sector 0!
+	JMS	LOAD0	/To RX
+	CLA		/The RX doesn't clear the AC for us.
+	TAD	TRACK	/Get track
+	JMS	LOAD0	/To RX
+	CLA
+	TAD	RDERR	/Wait for the I/O to finish, then set the done flag.
+	JMS	LOAD0	/Send the no-operation
+	SER		/Did the I/O operation happen OK?
+	JMP I	DSKRW	/Yup. Go back to work.
+	INIT		/No good - make noises and clear the world.
+	STA STL RAR	/Flag a fatal I/O error.
+	JMP	BADRT	/And tell the guy the bad news for today.
+
+LOAD2,	0		/Called to load registers for field 2
+	JMS	LOAD0	/Load the command.
+	CIF	20	/Back to field 2
+	JMP I	LOAD2
+RDERR,	16		/Read error register command, used to set DONE flag
+	IFZERO .-7745&4000 <?First page too big!>
+
+/Use the data break locations as temps.
+
+SECTOR=	7750
+FLMTCD=	7751
+TRACK=	7752
+BYTCNT=	7753
+BKNO3=	7754
+	RELOC
+	NOPUNCH
+	FIELD 2
+	ENPUNCH
+	*400
+	RELOC 7600
+
+PAGE2,	DCA	CALENT	/Save the argument pointer
+	AC4000		/Set high bit of AC
+	TAD I	CALENT	/Plus the function word;Link gets rd/wrt bit.
+	AND	K70	/Buffer field bits only.
+	TAD	CDF0	/Make a CDF to the buffer field.
+	DCA	BUFCDF	/Stash it in line.
+	CMA CML RAL	/Set AC=-1 for read, -2 for write.
+	DCA	LNKSAV	/Store for later testing.
+	TAD I	CALENT	/Get the function word again.
+	CLL RAL		/Convert the page count to a word count.
+	AND	K76002	/Keep only the word count bits.
+	CIA		/Get the negative word count.
+	DCA	DWCNT	/Store it.
+	ISZ	CALENT	/Point to next argument,
+	TAD I	CALENT	/Which is the buffer address.
+	DCA	BUFADD	/Store it.
+	ISZ	CALENT	/To the next arg.
+	TAD I	CALENT	/The block number to start at.
+	CLL RAL		/Multiply by two,
+	TAD I	CALENT	/Now by three.
+	ISZ	CALENT	/Point to error return
+CDF0,	CDF	0	/Reset to the first page's field.
+	DCA I	PBKNO3	/Store the trebled block number. (Gosh! big words!)
+	TAD	CALENT	/Copy the user's return pointer.
+	DCA I	PDISK0	/To field 0
+SECCTR,			/Sector counter.
+BUFSAV,			/Save buffer pointer here too.
+BUFCDF,	CDF	0	/Change to the field of the buffer.
+	ISZ	LNKSAV	/Will skip if we are doing a read.
+	JMP	WRITE	/Do the write.
+/	Read routine
+/Reads three sectors from the RX01 into a buffer. The
+/first sector goes into the high 4 bits of the block, and
+/the next two sectors go into the low eight bits.
+
+	CIF	0
+	JMS 	CHKSEC	/Start the read.
+PDISK0,	DISK0		/The above call will skip (I hope!)
+READ,	TAD	DWCNT	/Get the word count for the first sector:
+	STL RAR		/The normal W.C. divided by two (there are two
+			/words per byte).
+	DCA	HICNT	/Set the counter.
+	TAD	BUFADD	/Save the buffer pointer.
+	DCA	BUFSAV
+BIT4,	JMS 	RXTRNS	/Get a byte...
+	CLL RTL		/Shift left two  ....
+	DCA	SYSTMP	/Save it that way.
+	TAD	SYSTMP	/Get it back,
+	CLL RTL		/Finish the left shift.
+	JMS	STASH	/Put in the guy's buffer.
+	TAD	SYSTMP	/Get the shifted two thing back,
+	BSW		/shifted eight now.
+	JMS	STASH	/Store as the second word.
+	CIF	0
+	JMS 	CHKSEC	/Is the sector done yet?
+	SKP		/Nope. Check word count.
+	JMP	FIXED	/Yup. Read the other two.
+	ISZ	HICNT	/Is the word count done?
+	JMP	BIT4	/Nope. Keep flogging away.
+EMPTY,	JMS 	RXTRNS	/Empty the remainder of the buffer.
+	CIF	0
+	JMS 	CHKSEC	/Check for done.
+	JMP	EMPTY	/Loop until something happens.
+FIXED,	TAD	BUFSAV	/Restore the buffer pointer.
+	DCA	BUFADD
+	CLA CLL CMA RAL	/Set the sector counter (fo the 8-bit sectors) to -2.
+	DCA	SECCTR
+BIT8,	TAD I	BUFADD	/Get the high four bits already set.
+	AND	K7400	/Keep only the significant ones.
+	JMS 	RXTRNS	/Get the low eight bits form the RX
+	JMS	STASH	/Store in the user's buffer.
+	CIF	0	/Next is on other page.
+	ISZ	DWCNT	/Is word count done?
+	SKP		/Nope.
+	JMP	RDRT	/Return.
+	JMS	CHKSEC	/Done yet?
+	JMP	BIT8	/Nope.
+	ISZ	SECCTR	/Done both 8 bit sectors?
+	JMP	BIT8	/Nope. Do second eight bitter.
+	JMP	READ	/Do a four bit sector.
+/	Write routine -  writes full blocks only, packs
+/using COS-310 scheme.
+
+WRITE,	JMS	RXTRNS	/Send fill buffer command.
+WRT4,	TAD	BUFADD	/Save the buffer address.
+	DCA	BUFSAV
+WRT4LP,	JMS	GETBYT	/Get a byte from the guy's buffer.
+	AND	K7400	/Only the high 4 bits.
+	RTR		/Begin shifting over.
+	DCA	SYSTMP	/Store those bits
+	JMS	GETBYT	/Get the next word.
+	AND	K7400	/Only the good bits.
+	BSW		/Shift over 6,
+	TAD	SYSTMP	/then get the high four bits.
+	RTR		/Finish shifting.
+	JMS	RXTRNS	/Give the byte to the RX01.
+	CIF	0
+	JMS 	CHKSEC	/Check if the sector buffer is full.
+	JMP	WRT4LP	/Continue 4 bit things if not.
+	TAD	BUFSAV	/Reset the buffer pointer
+	DCA	BUFADD
+	CLA CLL CMA RAL	/Minus 2 to 8-bit sector counter.
+	DCA	SECCTR
+/Write the low bits in two sectors.
+WRT8,	JMS	GETBYT	/Get a word, the RX ignores the high 4 bits.
+	JMS	RXTRNS	/Put it in the sector buffer.
+K76002,	7600		/CLA Too.
+	CIF	0	/Check for doneness.
+	ISZ	DWCNT	/Word count?
+	SKP		/Not yet.
+	JMP	WRTRT	/Yup. All done!
+	JMS	CHKSEC	/Check for sector done.
+	JMP	WRT8	/Not yet.
+	ISZ	SECCTR	/Done with both 8-bitters?
+	JMP	WRT8	/Nope. Do the second.
+	JMP	WRT4	/Write the next in 4-bit mode.
+/Store a value in the user's buffer.
+CALENT,
+STASH,	0		/Routine to put byte in buffer
+	DCA I	BUFADD	/Store the data,
+	ISZ	BUFADD	/then bump the pointer.
+K70,	70		/Cover the possible skip.
+	JMP I	STASH	/Return.
+
+SYSTMP,
+RXTRNS,	0
+	CIF	0	/Call the transfer routine in field 0
+	JMS	LOAD2
+	JMP I	RXTRNS
+
+LNKSAV,			/Temp location for read/write cmd.
+GETBYT,	0
+	TAD I	BUFADD	/Get a byte from the user buffer
+	ISZ	BUFADD	/Point to next
+K7400,	7400		/Hopefully a NOP!!!
+	JMP I	GETBYT
+
+BUFADD,	0		/Buffer address pointer.
+DWCNT,	0		/Word count.
+HICNT,	0		/Word count for 4-bit stuff during read
+PBKNO3,	BKNO3
+	IFZERO .-7775&4000 <?Second page too big!>
+	RELOC
+$
+

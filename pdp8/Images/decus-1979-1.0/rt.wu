@@ -1,0 +1,188 @@
+
+
+
+
+
+
+
+
+                  Documentation of the Program RT.SV                  _____________ __ ___ _______ _____
+
+
+This  program  is  used to read and list the directory of RT-11 format
+floppy disks.  The input is a disk written under the  RT-11  operating
+system,  and  the  output is an OS/8 file.  Since RT-11 file names are
+six characters, with a  three  character  extension,  they  cannot  be
+specified  in  the OS/8 Command Decoder.  Instead, after the OS/8 file
+and options are specified, the  program  requests  "ENTER  RT-11  FILE
+NAME:".   The  "*"  wild card can be used in the RT-11 file name for a
+wildcard file or extension, but should normally only be used  with  /Q
+or  /L,  because  multiple input files are concatenated into the first
+output file.  If only return is typed for the file specifier, "*.*" is
+assumed.  
+
+The options available are:
+
+     /E Same as /L, included for compatability with DIRECT and
+        PIP.  
+
+     /L List the directory of an RT-11 disk.  
+
+     /R (Default) 
+        Read an  RT-11  floppy,  putting  the  output  in  the
+        specified  OS/8  file.   Input  must  be a valid RT-11
+        device.  
+
+     /Q Query mode -- after every specified file the user  may
+        type  Y or some other character to indicate acceptance
+        or rejection of the given file, respectively.  
+
+     /W Write an RT-11 floppy (NOT IMPLEMENTED YET) 
+
+The default output device is TTY:, and the  default  input  device  is
+RXA1:.   If  the command decoder line is ended with an escape, control
+is returned to the monitor when the transfer is  completed,  otherwise
+the command decoder is re-invoked for another command.  
+
+
+                                   Examples                                   ________
+
+To  run  the  program  type:  "R RT" if RT.SV is on the system device,
+otherwise "RUN Dev RT" where "Dev" is device on which  RT.SV  resides.
+Insert the RT-11 disk into drive #1 (usually the right hand drive) and
+close the door.  
+
+.R RT
+*/L                                     List directory on TTY:
+ENTER RT-11 FILE NAME:                  Return means "*.*"
+*8FILE.EX</R                            Indicates the Read operation
+ENTER RT-11 FILE NAME:11FILE.EXT        User types the RT-11 filename
+1 FILES TRANSFERED                      (Pardon the bad grammar)
+
+
+
+
+                                                                         PAGE 2
+
+
+
+
+*$                                      Escape returns to OS/8 Monitor
+.
+.R RT
+*MANY<RXA0:/R/Q                         Drive 0 contains RT-11 Disk
+ENTER RT-11 FILE NAME:*.LST             Wildcard specified
+FILE1.LST?Y
+FILE2.LST?N
+FILE3.LST?Y                             Files 1 and 3 are concatenated
+2 FILES TRANSFERED                      into the OS/8 file "DSK:MANY."
+*^C
+.
+
+
+
+                                Error Messages                                _____ ________
+
+
+In addition to the OS/8 command decoder error messages, RT prints  the
+following:  
+
+NOT A VALID RT-11 DEVICE 
+
+        The device used for input with the /R option or output
+        with the /W option was not a valid RT-11 device.  Note
+        that  although  the  given  device must be in the OS/8
+        system to get past the command  decoder,  the  program
+        has  an  internal handler for every valid RT-11 device
+        because PDP-11 byte packing is not the same  as  OS/8.
+        At  the  present time the only valid RT-11 devices are
+        floppy disk units zero and one, RXA0: and RXA1:.  
+
+
+OUTPUT ERROR 
+
+        This error will be given  when  a  hardware  error  is
+        detected  on  the output operation.  However, the most
+        common cause for this message is because there  is  no
+        room on the output device to hold that size file.  
+
+
+** DIRECTORY ERROR ** 
+
+        This  message  indicates  that the RT-11 device has an
+        invalid directory.  Most  probably  this  willl  occur
+        when  an OS/8 volume is used where the program expects
+        to find an RT-11 volume.  
+
+
+
+
+
+
+
+
+
+
+
+                                                                         PAGE 3
+
+
+
+
+** READ ERROR ** 
+
+        This message indicates that a hardware  error  occured
+        while reading the input device.  
+
+
+NO SUCH FILE(S) 
+
+        There  were no files on the RT-11 device which matched
+        the specification given.  Note that the question  mark
+        ("?") wildcard construction is not supported, and that
+        the RT-11 filename  is  entered  in  response  to  the
+        special  "ENTER RT-11 FILE NAME:" prompt; any filename
+        entered on the command decoder line is ignored.  
+
+
+BAD FILE NAME 
+
+        The response to the "ENTER RT-11  FILE  NAME:"  prompt
+        must  be  a  file specification of the following form:
+        The filename can be 1-6  alphanumeric  characters,  or
+        the  single  symbol  "*".   The  period  (".") used to
+        separate filename and extension must be present,  even
+        if  the  extension  is null.  The extension can be 0-3
+        alphanumeric characters, or the single symbol "*".  
+
+
+
+Anyone who wants this program can contact:  
+
+        Bill Nowicki
+        Northwestern University Computer Science Laboratory
+        Technological Institute Room B626
+        2145 Sheridan Road      
+        Evanston Illinois 60201
+        (312) 492-5248
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
