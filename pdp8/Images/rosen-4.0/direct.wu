@@ -1,0 +1,115 @@
+back to DEC's version.  The .CCLX command un-defines
+all .DEFined commands.  The 'native' command list is shown below:
+
+ BACksp   DEassign EJect    LIst     PRint    SKip     UA       ZERO
+ BASic    DEFine   EOf      LOad     PUnch    SQuish   UB
+ BOot     DELete   EXecute  MACrel   RECall   SUbmit   UC
+ CCLx     DEScribe FUtil    MAKe     REName   TEco     UNload
+ COMpile  DIFfer   HElp     MAP      RESource TERmin   VERsion
+ COPy     DIRect   LDF      MEMory   REWind   TIDY     VIew
+ CReate   DUPace.
+
+5.  Format changes: spacing between columns was reduced so that three
+columns could be displayed on a normal terminal; likewise fewer blank
+lines are output to reduce loss of information on video terminals, and
+the formfeed at the end of each listing has been made optional.  Text
+strings now appear in a more pleasing upper/lower case style, and the
+summary indicates the amount of space used by the files listed as well
+as the amount of 'empty' space.
+
+6) Input changes: omitting the 'extension' is equivalent to specifying
+'*' and '*'s can now also be used in names: .DIR ABC* = .DIR ABC???.*.
+
+     The new features are controlled by the /A, /D, /H, /N, /P, /T, /X
+switches.  '/A' produces an Alphabetical list, while '/X' groups files
+by their eXtensions, '/D' organizes the listing by Date and '/T' lists
+the most Timely (recent) files first.  If '/E' is specified, 'empties'
+appear at the end of the sorted listing.  '/P' starts a new page while
+'/N' generates Numeric dates; '/H' prints the H be arranged alphabeti-
+cally (by name or extension), or viewed in forward or reverse chrono-
+logical order.  Ordering is first by date, then extension, then name.
+
+3.  Dates can be printed in either the 'DD-MMM-YY' format of the orig-
+inal version or the numeric 'MM/DD/YY' style used by the monitor DATE
+command prior to 1978.  The extended date algorithm devised for V3D is
+used to interpret file dates after 1977.  (Good through 1999!)
+
+4.  The header block defined by the DECSYSTEM-8 program HEADER.SV can
+be listed at the beginning to provide a convenient identification of
+the media and the program contents, all in one plChanging the default for '.DIR'
+via the '.SET TTY COL N' directive does not alter the value in DIRECT.
+
+     Optional patches (shown in ODT format: 'location/ value  change')
+
+12261/ 7710 7700 Change /N to mean 'print non-numeric dates'
+12275/ 7640 7650 Change /H to mean 'do not print header information'
+13267/ 7640 7650 Change /P to mean 'do not output a formfeed'
+14037/ 0040 0000 Force all text strings to be in upper case
+13177/ 0003 0004 Change spacing between columms (your choice)
+14777/ 0003 0004 Change default to 4 columns (or your choice)
+     Implementation notes: the /W option now prints only the version
+number.  This is consistent with the documentation, but differs from
+the way DEC's version works (it also prints a directory listing).  To
+ensure complete compatibility, all the error messages were kept intact
+(even impossible ones!).  The 'version release number' of the monitor
+system is now printed in the header.  Note that this 'number' is actu-
+ally printed as a letter to conforeader block if there is
+one.  Note that the date options only work if the system date has been
+specified (by a .DA command), and that '/B' and '/I' now automatically
+reduce the column count by one to compensate for the extra space used.
+
+     Some of the switches can be inverted to further enhance operation
+of the program.  Thus '/P' can be changed to Prevent Paging, and '/N'
+can be changed to specify Non-Numeric dates rather than Numeric ones.
+Users who do not want lower-case text strings can remove this feature.
+The default value for the number of columns has been changed to '3' in
+order to agree with the .DIR command.   Acknowledgments: The initial work was done by Larry Fowler of the
+Boeing Commercial Airplane Co. in Seattle, Washington.  He put in the
+/A and /H options and then turned it over to Dr. Thomas W. McIntyre of
+the West Virginia University Medical Center in Morgantown, W.V.  Tom
+added the column-output feature and sent it back to Jim van Zee in the
+Chemistry Department at the University of Washington in Seattle, where
+the remaining options were added and everything was condensed in order
+to fit in the original file space.  Thanks to Rev. Geoffrey Chase of
+the Portsmouth Abbey school in Portsmouth R.I. for suggesting the /X
+switch and to Tom McIntyre for encouraging the addition of /D.  Dick
+Murphy at DEC's Santa Clara office suggested an easy way to get lower
+case text from 6-bit strings, and Don Harmer at the Georgia Institute
+of Technology in Atlanta fixed a bug in the /T option.
+
+Loading Instructions:     .DA 7-NOV-84       (Identifies version 7C)
+(Delete the original      .R ABSLDR
+version first so this     *PTR:=14600(89P)$
+one will replace it.)     .SA SYS DIRECT     (optional: use '=6503')
+
+
+     Summary of the command decoder options:
+
+     /A      ALPHABETIZE DIRECTORY BEFORE PROCESSING
+     /B      PRINT STARTING BLOCK NUMBERS (OCTAL)
+     /C      LIST ONLY FILES WITH THE CURRENT DATE
+     /D      ORDER FILES BY DATE, THEN ALPHABETICALLY
+     /E      INm to the DEC convention - hence you
+should use the value '4' in HEADER if you want to have the letter 'D'
+printed.  System ID=5 identifies 'OS/78' while ID=6 indicates OS/278.
+Header information may be upper/lower case, either 7- or 8-bit ASCII.
+
+    T DATES IN NUMERIC FORM (MM/DD/YY)
+     /O      LIST ONLY FILES WITH OTHER THAN TODAY'S DATE
+     /P      PAGE AFTER EACH LISTING
+     /R      LIST REMAINDER OF FILES AFTER THE FIRST ONE
+     /T      LIST THE MOST TIMELY (RECENT) FILES FIRST
+     /U      TREAT EACH INPUT SPECIFICATION SEPARATELY
+     /V      LIST ALL FILES NOT-OF-THE-FORM SPECIFIED
+     /W      PRINT THE VERSION NUMBER ON THE TERMINAL
+     /X      ALPHABETIZE BY EXTENSION, THEN BY NAME
+     =N      USE N COLUMNS - OUTPUT IS ORDERED BY COLUMN
+             (NOTE: /B AND /I REDUCE NO. COLUMNS BY ONE)
+
+     *       WILD NAME OR EXTENSION (NULL EXTENSION = *)
+     ?       WILD CHARACTER ('?X*' IS EQUAL TO '?X????')
+
+     DEFAULT INPUT SPECIFICATION:    *.*
+     DEFAULT OUTPUT DEVICE:          TTY:
+     DEFAULT OUTPUT FILE EXTENSION:  .DI
+

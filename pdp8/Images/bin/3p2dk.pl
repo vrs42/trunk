@@ -7,7 +7,7 @@
 foreach $f (@ARGV) {
   open(INPUT, $f) || die "$f: $!";
   binmode(INPUT);
-  $of = $f; $of =~ s/[.]rx01/.3p/; $of =~ s/[.]3p/.dsk/;
+  $of = $f; $of =~ s/[.]rx01//; $of =~ s/[.]3p//; $of .= ".dsk";
   open(OUTPUT, ">$of") || die "$of: $!";
   binmode(OUTPUT);
   while (read(INPUT, $buf, 3*128) == 3*128) {

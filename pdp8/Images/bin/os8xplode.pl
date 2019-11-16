@@ -88,6 +88,7 @@ sub ofile {
   $mask = 0177 if $f =~ /[.]HL$/i; # HELP
   $mask = 0177 if $f =~ /[.]LS$/i; # Listing
   $mask = 0177 if $f =~ /[.]PA$/i; # PAL Source
+  $mask = 0177 if $f =~ /[.]PS$/i; # Pascal Source?
   $mask = 0177 if $f =~ /[.]TX$/i; # Text File
   $mask = 0177 if $f =~ /[.]WU$/i; # Write Up
   $chr1 = "text" if $mask != 0377;

@@ -15,7 +15,7 @@ $i += 70;
 	 "AUG", "SEP", "OCT", "NOV", "DEC", "13",  "14",  "15");
 print " $dy-$month[$mo+1]-$i\n\n";
 
-open(INPUT, "myrk.dsk") || die "myrk.dsk: $!";
+open(INPUT, $ARGV[0]) || die "$ARGV[0]: $!";
 binmode(INPUT);
 
 #
