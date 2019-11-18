@@ -1,1 +1,38 @@
-цч▌══марцх═══╡╟════╠╧╥╣█┼ц▌┴бигоне█┼ц┴тхе═инитиализер═парт═оф═бигстат═програм█┼ц┴инитиализес═свитцхес═анд═филе═ареас█┼┴суброутине═бигоне╗к╘█┼┴цоммон╞парамс╞деж╢╛нг╛нк╛цургрп╛темп╗╣╘╛нрек╛нкол█┼ц┴логицал═а╛б█┼ц┴филес█┼ц┴унит█┼ц┴унит┴тыпе┴┴усед═бы┴ас█┼ц┴╤┴р╝а╝┴┴но═┴┴инпут█┼ц┴┴┴┴╞б╗лист╘┴инпут█┼ц┴╤┴┴┴╞а╗маке╘┴оутпут█┼ц┴╥┴оутлаы┴┴ноне┴┴оутпут█┼ц┴╣┴параметерс┴ноне┴┴яуестионс█┼ц┴╦┴унформатед┴╞а┴┴инпут█┼ц█┼ц┴ис═унит═╢╫тты©█┼┴логицал═а╛б█┼┴деж╢╫филсиз╗╣╘╝ея╝╟╝╡╣█┼ц┴тыпе═оф═оператион©█┼┴цалл═цмдопт╗╟╛а╘█┼┴цалл═цмдопт╗╠╛б╘█┼┴иер╫╧╧█┼┴иф╗а╝анд╝б╘гото═╧╧╧█┼█┼┴иф╗а╘реад╗╦╛╠╟╟╟╘нрек╛нкол╛темп╗╡╘█┼╠╟╟╟┴формат╗╠╟и╣╘█┼┴иф╗╝нот╝а╘реад╗╤╘нрек╛нкол█┼┴гото═╠╟╟█┼╧╧╧┴цалл═бигерр╗иер╘█┼┴иф╗а╝ор╝б╘стоп█┼╠╟╟┴темп╗╠╘╫а█┼┴к╫╠█┼┴иф╗а╝ор╝б╘к╫╟█┼┴ретурн█┼┴енд█┼█┼ ─────────────────────────
+C^  MARCH   20    1975
+C	BIGONE
+C	THE INITIALIZER PART OF BIGSTAT PROGRAM
+C	INITIALIZES SWITCHES AND FILE AREAS
+	SUBROUTINE BIGONE(K)
+	COMMON/PARAMS/DEV4,NG,NK,CURGRP,TEMP(5),NREK,NKOL
+C	LOGICAL A,B
+C	FILES
+C	UNIT
+C	UNIT	TYPE		USED BY	AS
+C	6	R.A.		NO 		INPUT
+C				/B(LIST)	INPUT
+C	6			/A(MAKE)	OUTPUT
+C	7	OUTLAY		NONE		OUTPUT
+C	5	PARAMETERS	NONE		QUESTIONS
+C	8	UNFORMATED	/A		INPUT
+C
+C	IS UNIT 4=TTY?
+	LOGICAL A,B
+	DEV4=FILSIZ(5).EQ.0.25
+C	TYPE OF OPERATION?
+	CALL CMDOPT(0,A)
+	CALL CMDOPT(1,B)
+	IER=99
+	IF(A.AND.B)GOTO 999
+
+	IF(A)READ(8,1000)NREK,NKOL,TEMP(2)
+1000	FORMAT(10I5)
+	IF(.NOT.A)READ(6)NREK,NKOL
+	GOTO 100
+999	CALL BIGERR(IER)
+	IF(A.OR.B)STOP
+100	TEMP(1)=A
+	K=1
+	IF(A.OR.B)K=0
+	RETURN
+	END
+

@@ -1,1 +1,37 @@
-Ðòïçòáí‰ÎÕÂÁÓ± ¨Éîðõô¬ Ïõôðõô©»ŠŠ¨ª óôòáéçèôæïò÷áòä ôòáîóãòéðôéïî æòïí ÂÁÓÉÃ ïæ âáóå ãïîöåòóéïîŠ   ÐÁÓ‰µ¯¸³ ª©ŠŠöáò‰Òåíáéîäåòº  áòòáù Û±®®±°°Ý ïæ éîôåçåò»Š‰Ëïõîô¬ Âáóåéîôï¬ Ñõïôéåîô¬ Äåãöáìõåº‰éîôåçåò»ŠŠÂÅÇÉÎŠŠ×òéôå ¨§äåãéíáì éîôåçåò §©» Òåáä ¨Äåãöáìõå©»Š×òéôå ¨§îå÷ âáóå éó     §©» Òåáä ¨Âáóåéîôï©»ŠŠËïõîô º½ °»ŠŠ×èéìå‰Äåãöáìõå ¾ ° äïŠ âåçéîŠ‰Ëïõîô º½ Ëïõîô«±»Š‰Ñõïôéåîô º½ Äåãöáìõå äéö Âáóåéîôï»‰‰¨ª éîôåçåò äéöéóéïî ª©Š‰ÒåíáéîäåòÛËïõîôÝ º½ Äåãöáìõå ­ Âáóåéîôï ª Ñõïôéåîô»Š‰Äåãöáìõå º½ ÑõïôéåîôŠ åîä»ŠŠ×òéôåìî»ŠŠ¨ª ÷å ãïõìä äï á  §Æïò Ê º½ Ëïõîô äï÷îôï ±§  áô ôèéó ðïéîô¬ ïòº‰ª©ŠŠ×èéìå‰Ëïõîô ¾ ° äïŠ âåçéîŠ‰×òéôå ¨Òåíáéîäåò ÛËïõîôÝº³©»Š‰Ëïõîô º½ Ëïõîô­±Š åîä»ŠŠ×òéôåìîŠŠÅÎÄ®ŠŒš€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+Program	NUBAS1 (Input, Output);
+
+(* straightforward transcription from BASIC of base conversion
+   PAS	5/83 *)
+
+var	Remainder:  array [1..100] of integer;
+	Kount, Baseinto, Quotient, Decvalue:	integer;
+
+BEGIN
+
+Write ('decimal integer '); Read (Decvalue);
+Write ('new base is     '); Read (Baseinto);
+
+Kount := 0;
+
+While	Decvalue > 0 do
+ begin
+	Kount := Kount+1;
+	Quotient := Decvalue div Baseinto;		(* integer division *)
+	Remainder[Kount] := Decvalue - Baseinto * Quotient;
+	Decvalue := Quotient
+ end;
+
+Writeln;
+
+(* we could do a  'For J := Kount downto 1'  at this point, or:	*)
+
+While	Kount > 0 do
+ begin
+	Write (Remainder [Kount]:3);
+	Kount := Kount-1
+ end;
+
+Writeln
+
+END.
+

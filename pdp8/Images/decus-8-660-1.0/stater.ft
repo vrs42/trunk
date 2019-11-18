@@ -1,1 +1,19 @@
-ц▌┴статер█┼ц▌┴парт═оф═стат█┼┴логицал═фунцтион═статер╗к╛д╘█┼ц┴статер═ис═цаллед═ин═╡═оццатионс█┼ц┴╠┴то═гиже═ан═унцондитионал═еррор═мессаге═сет═к╫╟█┼ц█┼ц┴╡┴то═реяуест═а═дата═ареа═фор═темпорары═цалцулатионс█┼ц┴┴сет═к╫нумбер═оф═цолумс═дата═ареа═реяуиред█┼ц┴┴ретурнс═труе═иф═нот═поссибле█┼┴цоммон═╞парам╞нгу╛нгр╛лист╛атт╛лдежл╛лдеже╛мисс╛нопаге█┼┴цоммон═иан╛кол╠╛кол╡╛нк╛н█┼┴цоммон═╞сизе╞маььл█┼┴статер╫╝фалсе╝█┼┴иф╗к╝не╝╟╝анд╝маььл╝гт╝н╙╗нк╚к╘╘ретурн█┼┴статер╫╝труе╝█┼┴врите╗лдежл╛╠╟╟╟╘д█┼╠╟╟╟┴формат╗╖═специфицатион═еррор═ин═стат╖╛а╡╘█┼┴ретурн█┼┴енд█┼ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+C	STATER
+C	PART OF STAT
+	LOGICAL FUNCTION STATER(K,D)
+C	STATER IS CALLED IN 2 OCCATIONS
+C	1	TO GIVE AN UNCONDITIONAL ERROR MESSAGE SET K=0
+C
+C	2	TO REQUEST A DATA AREA FOR TEMPORARY CALCULATIONS
+C		SET K=NUMBER OF COLUMS DATA AREA REQUIRED
+C		RETURNS TRUE IF NOT POSSIBLE
+	COMMON /PARAM/NGU,NGR,LIST,ATT,LDEVL,LDEVE,MISS,NOPAGE
+	COMMON IAN,KOL1,KOL2,NK,N
+	COMMON /SIZE/MAXXL
+	STATER=.FALSE.
+	IF(K.NE.0.AND.MAXXL.GT.N*(NK+K))RETURN
+	STATER=.TRUE.
+	WRITE(LDEVL,1000)D
+1000	FORMAT(' SPECIFICATION ERROR IN STAT',A2)
+	RETURN
+	END

@@ -1,1 +1,53 @@
-ц┴ясум▌█┼ц┴▌парт═оф═стат█┼ц┴▌╥Ё╜╡╡╜╠╟█┼ц┴ясум█┼ц┴сумс═сумс═анд═сумс═оф═сяуарес█┼ц┴иф═иопт╫╠═сумс═фор═ал═нонзеро═елементс═ин═ь█┼ц┴иф═иопт╫╡═сумс═фор═алл═нонзеро═елементс═ин═ь═анд═ы█┼ц┴ретурнс╨═он═иопт═╠█┼ц┴сум╛ясум╛нт█┼ц█┼ц┴он═иопт═╡═алсо█┼ц┴сумы╛ясумы╛╪нт═ис═тхе═нумбер═оф═нонзеро═ин═ботх╬█┼ц┴сумд═сумдя═сумьы█┼ц█┼ц┴он═цаллинг═нис═нумбер═оф═обсержатионс█┼ц┴ь╛ы╛н═анд═иопт═аре═лефт═унцхангед█┼█┼┴суброутине═ясум╗н╛иопт╛ь╛ы╛сум╛сумя╛нт╛█┼═════╠сумы╛сумяы╛сумд╛сумдя╛сумьы╘█┼┴цоммон═╞парам╞нгу╛нгр╛лист╛атт╛лдеже╛лдежл╛мисс╛нопаге█┼┴дименсион═ь╗╠╘╛ы╗╠╘█┼┴сум╫╟█┼┴сумя╫╟█┼┴нт╫╟█┼┴сумы╫╟█┼┴сумяы╫╟█┼┴сумд╫╟█┼┴сумдя╫╟█┼┴сумьы╫╟█┼┴до═╠╟╟═и╫╠╛н█┼┴ь╠╫ь╗и╘█┼┴иф╗ь╠╝ея╝╟╘гото═╠╟╟█┼┴иф╗иопт╝ея╝╡╘гото═╣╟█┼┴сум╫сум╚ь╠█┼┴сумя╫сумя╚ь╠╙ь╠█┼┴нт╫нт╚╠█┼┴гото═╠╟╟█┼╣╟┴ы╠╫ы╗и╘█┼┴иф═╗ы╠╝ея╝╟╘гото═╠╟╟█┼┴сум╫сум╚ь╠█┼┴сумя╫сумя╚ь╠╙ь╠█┼┴нт╫нт╚╠█┼┴сумы╫сумы╚ы╠█┼┴сумяы╫сумяы╚ы╠╙ы╠█┼┴сумьы╫сумьы╚ь╠╙ы╠█┼┴сумд╫сумд╚ь╠╜ы╠█┼┴сумдя╫сумдя╚╗ь╠╜ы╠╘╙╗ь╠╜ы╠╘█┼╠╟╟┴цонтинуе█┼ц┴врите╗лдежл╛╠╟╟╟╘сум╛сумя╛нт╛сумы╛сумяы╛сумьы█┼ц═════╠╛сумд╛сумдя█┼ц╠╟╟╟┴формат╗╠х═╛╡г╠╟╝╣╛и╣╛╞╛╠х═╛╤г╠╟╝╣╘█┼┴ретурн█┼┴енд█┼ ───────────────────────────────────────────────────────────────────────────────────────
+C	QSUM
+C	PART OF STAT
+C	73-22-10
+C	QSUM
+C	SUMS SUMS AND SUMS OF SQUARES
+C	IF IOPT=1 SUMS FOR AL NONZERO ELEMENTS IN X
+C	IF IOPT=2 SUMS FOR ALL NONZERO ELEMENTS IN X AND Y
+C	RETURNS: ON IOPT 1
+C	SUM,QSUM,NT
+C
+C	ON IOPT 2 ALSO
+C	SUMY,QSUMY,<NT IS THE NUMBER OF NONZERO IN BOTH>
+C	SUMD SUMDQ SUMXY
+C
+C	ON CALLING NIS NUMBER OF OBSERVATIONS
+C	X,Y,N AND IOPT ARE LEFT UNCHANGED
+
+	SUBROUTINE QSUM(N,IOPT,X,Y,SUM,SUMQ,NT,
+     1SUMY,SUMQY,SUMD,SUMDQ,SUMXY)
+	COMMON /PARAM/NGU,NGR,LIST,ATT,LDEVE,LDEVL,MISS,NOPAGE
+	DIMENSION X(1),Y(1)
+	SUM=0
+	SUMQ=0
+	NT=0
+	SUMY=0
+	SUMQY=0
+	SUMD=0
+	SUMDQ=0
+	SUMXY=0
+	DO 100 I=1,N
+	X1=X(I)
+	IF(X1.EQ.0)GOTO 100
+	IF(IOPT.EQ.2)GOTO 50
+	SUM=SUM+X1
+	SUMQ=SUMQ+X1*X1
+	NT=NT+1
+	GOTO 100
+50	Y1=Y(I)
+	IF (Y1.EQ.0)GOTO 100
+	SUM=SUM+X1
+	SUMQ=SUMQ+X1*X1
+	NT=NT+1
+	SUMY=SUMY+Y1
+	SUMQY=SUMQY+Y1*Y1
+	SUMXY=SUMXY+X1*Y1
+	SUMD=SUMD+X1-Y1
+	SUMDQ=SUMDQ+(X1-Y1)*(X1-Y1)
+100	CONTINUE
+C	WRITE(LDEVL,1000)SUM,SUMQ,NT,SUMY,SUMQY,SUMXY
+C     1,SUMD,SUMDQ
+C1000	FORMAT(1H ,2G10.5,I5,/,1H ,6G10.5)
+	RETURN
+	END

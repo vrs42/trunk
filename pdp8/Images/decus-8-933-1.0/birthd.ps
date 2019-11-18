@@ -1,1 +1,30 @@
-Ðòïçòáí‰ÂÉÒÔÈÄ ¨Éîðõô¬ Ïõôðõô©»‰‰¨ª ÐÁÓ ±³¬ ±µ­Áðò®­±¹¸³ ª©ŠŠÃïîóô‰Ùåáò ½ ³¶µ» Ùåáòðìõó± ½ ³¶¶»ŠŠÖáò‰Ãìáóóóéúåº‰éîôåçåò»Š‰Ðòïâáâéìéôùº‰òåáì»ŠŠÂÅÇÉÎŠŠÐòïâáâéìéôù º½ ±®°»‰‰‰¨ª ïæ ÎÏ ô÷ï èáöéîç óáíå âéòôèäáù ª©ŠÃìáóóóéúå º½ °»ŠŠ×èéìå Ðòïâáâéìéôù ¾°®µ äïŠÂåçéîŠ‰Ãìáóóóéúå º½ Ãìáóóóéúå « ±»Š¨ª îïôå ôèå áõôïíáôéã ãïîöåòóéïî æòïíŠ   éîôåçåò ôï òåáì ôùðå éî ôèå îåøô ìéîåº ª©Š‰Ðòïâáâéìéôù º½ Ðòïâáâéìéôù ª ¨Ùåáòðìõó± ­ Ãìáóóóéúå© ¯ Ùåáò»Š‰×òéôåìî ¨Ãìáóóóéúå¬ Ðòïâáâéìéôùº±°º¶©ŠÅîä»ŠŠÐòïâáâéìéôù º½ ±°°®ª¨±®­Ðòïâáâéìéôù©»‰¨ª éîöåòô¬ ãïîöåòô ôï ðåò ãåîô ª©ŠŠ×òéôåìî ¨§×éôè§¬Ãìáóóóéúåº³¬§ óôõäåîôó¬ ãèáîãåó áòå§¬Ðòïâáâéìéôùº·º²¬§ ¥§©»ŠÁóãéé ¨¹©»‰‰‰‰¨ª ÷èù îïô âå îáõçèôù¿ ª©Š×òéôåìî ¨§®®®ôèáô áô ìåáóô ïîå âéòôè äáôå éó îïô õîéñõå¡§©ŠŠŠÅÎÄ®ŠŒš€€€€€€
+Program	BIRTHD (Input, Output);		(* PAS 13, 15-Apr.-1983 *)
+
+Const	Year = 365; Yearplus1 = 366;
+
+Var	Classsize:	integer;
+	Probability:	real;
+
+BEGIN
+
+Probability := 1.0;			(* of NO two having same birthday *)
+Classsize := 0;
+
+While Probability >0.5 do
+Begin
+	Classsize := Classsize + 1;
+(* note the automatic conversion from
+   integer to real type in the next line: *)
+	Probability := Probability * (Yearplus1 - Classsize) / Year;
+	Writeln (Classsize, Probability:10:6)
+End;
+
+Probability := 100.*(1.-Probability);	(* invert, convert to per cent *)
+
+Writeln ('With',Classsize:3,' students, chances are',Probability:7:2,' %');
+Ascii (9);				(* why not be naughty? *)
+Writeln ('...that at least one birth date is not unique!')
+
+
+END.
+
