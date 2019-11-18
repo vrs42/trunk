@@ -11,19 +11,6 @@ are included in EXPAND.PA.
 KP52EX is an example of an 'expansion routine'.  It implements the KEYPAD
 and PLOT commands in another field, thus freeing a little space in Field 1
 for something simple (like an A/D function, for example).  This file has
-not been upgraded for VT100 support, hence anNUMVF'
-
-	FIELD P%10
-	*FIRSTV
-IFZERO	X-30   <STVAR>	/REDUCE THE SYMBOL TABLE SIZE
-
-	*COMGO+"@-"@	/EXPAND THE COMMAND TABLE...
-	EXPAND
-	*COMGO+"K-"@
-	EXPAND
-	*COMGO+"P-"@
-	EXPAND
-
-	*P237+2		/IMPLEMENT 'USER' COMMANDS
-	CIF X
-	JMP I .+1	/WAS 'CD
+not been upgraded for VT100 support, hence anyone interested in actually
+using this code with a VT100 should compare the code with that in VTPLOT.
+

@@ -1,25 +1,8 @@
-NE CAN INCREASE THE EFFECTIVE 'Y'
-/RESOLUTION BY USING THE 'SCAN-LINE' CHARACTERS; THE COMMAND
-/FOR DOING THIS IS: 'PLOT X,Y=...,20-7*FRAC(Y)' [VT100=4*].
-
-PLOT,	GETNXT		/GET THE 'X' VALUE
-	TAD KEYF	/XX40
-	AND P177
-	DCA PLTX
-	TAD LORD	/SET 'TAB' COUNTER
-	DCA I TABCNT
-	TSTCMA		/CHECK FOR 'Y'
-PM40,	SMA SZA CLA
-	GETNXT
-	CIA
-	TAD P67		/ADD (40+27
-	AND P177
-	DCA PLTY
-	JADC' READS ANALOG INPUTS AND 'FLGS' RETURNS BITS SET
-/BY THE SCHMITT TRIGGERS.  ('FQ' WOULD BE USED TO SETUP
-/EXTERNAL 'DO' CALLS FOR EACH INPUT.)  THE 'FDIN' FUNC-
-/TION PROVIDES A WAY TO READ BITS SET IN INPUT REGISTER.
-/LASTLY, 'FVB' PROVIDES ACCESS TO THE 'VIEW BUFFER'.
-
-/'FDIN(1,2)' WILL READ BITS '1,2' AND IGNORE ALL OTHERS
-/'FDIN(-1,-2)' WILL READ EVERYTHING BUT BITS 
+LAB8E.PA contains all the routines supporting the LAB8/e configuration (i.e.
+the DK8EP clock and Schmitt Triggers, the VC8E 'scope (D/A) interface, the
+AD8E A/D and the DR8E parallel I/O card.  Users who have only some of these
+options, or who have built similar, but not identical interfaces, can cana-
+balize this file for ideas.  The refreshed display is a real tour de force -
+almost totally superfluous at this point in time - but kept intact for those
+with only a TTY and a CRT at their disposal.
+

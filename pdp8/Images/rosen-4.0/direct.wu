@@ -1,13 +1,25 @@
-back to DEC's version.  The .CCLX command un-defines
-all .DEFined commands.  The 'native' command list is shown below:
+                              DIRECT  V7C
 
- BACksp   DEassign EJect    LIst     PRint    SKip     UA       ZERO
- BASic    DEFine   EOf      LOad     PUnch    SQuish   UB
- BOot     DELete   EXecute  MACrel   RECall   SUbmit   UC
- CCLx     DEScribe FUtil    MAKe     REName   TEco     UNload
- COMpile  DIFfer   HElp     MAP      RESource TERmin   VERsion
- COPy     DIRect   LDF      MEMory   REWind   TIDY     VIew
- CReate   DUPace.
+     This is an improved version of the directory listing program dis-
+tributed with OS/8, OS/12, OS/78 and OS/278.  It is functionally equi-
+valent to the official version, with a host of new features:
+
+1.   Multiple column listings are now printed in column order rather
+than in row order.  This makes the listing much more 'readable' since
+sequential files and embedded empties appear in their natural order.
+
+2.  The listing can be sorted!  The output can be arranged alphabeti-
+cally (by name or extension), or viewed in forward or reverse chrono-
+logical order.  Ordering is first by date, then extension, then name.
+
+3.  Dates can be printed in either the 'DD-MMM-YY' format of the orig-
+inal version or the numeric 'MM/DD/YY' style used by the monitor DATE
+command prior to 1978.  The extended date algorithm devised for V3D is
+used to interpret file dates after 1977.  (Good through 1999!)
+
+4.  The header block defined by the DECSYSTEM-8 program HEADER.SV can
+be listed at the beginning to provide a convenient identification of
+the media and the program contents, all in one place.
 
 5.  Format changes: spacing between columns was reduced so that three
 columns could be displayed on a normal terminal; likewise fewer blank
@@ -25,18 +37,17 @@ switches.  '/A' produces an Alphabetical list, while '/X' groups files
 by their eXtensions, '/D' organizes the listing by Date and '/T' lists
 the most Timely (recent) files first.  If '/E' is specified, 'empties'
 appear at the end of the sorted listing.  '/P' starts a new page while
-'/N' generates Numeric dates; '/H' prints the H be arranged alphabeti-
-cally (by name or extension), or viewed in forward or reverse chrono-
-logical order.  Ordering is first by date, then extension, then name.
+'/N' generates Numeric dates; '/H' prints the Header block if there is
+one.  Note that the date options only work if the system date has been
+specified (by a .DA command), and that '/B' and '/I' now automatically
+reduce the column count by one to compensate for the extra space used.
 
-3.  Dates can be printed in either the 'DD-MMM-YY' format of the orig-
-inal version or the numeric 'MM/DD/YY' style used by the monitor DATE
-command prior to 1978.  The extended date algorithm devised for V3D is
-used to interpret file dates after 1977.  (Good through 1999!)
-
-4.  The header block defined by the DECSYSTEM-8 program HEADER.SV can
-be listed at the beginning to provide a convenient identification of
-the media and the program contents, all in one plChanging the default for '.DIR'
+     Some of the switches can be inverted to further enhance operation
+of the program.  Thus '/P' can be changed to Prevent Paging, and '/N'
+can be changed to specify Non-Numeric dates rather than Numeric ones.
+Users who do not want lower-case text strings can remove this feature.
+The default value for the number of columns has been changed to '3' in
+order to agree with the .DIR command.  Changing the default for '.DIR'
 via the '.SET TTY COL N' directive does not alter the value in DIRECT.
 
      Optional patches (shown in ODT format: 'location/ value  change')
@@ -53,17 +64,12 @@ the way DEC's version works (it also prints a directory listing).  To
 ensure complete compatibility, all the error messages were kept intact
 (even impossible ones!).  The 'version release number' of the monitor
 system is now printed in the header.  Note that this 'number' is actu-
-ally printed as a letter to conforeader block if there is
-one.  Note that the date options only work if the system date has been
-specified (by a .DA command), and that '/B' and '/I' now automatically
-reduce the column count by one to compensate for the extra space used.
+ally printed as a letter to conform to the DEC convention - hence you
+should use the value '4' in HEADER if you want to have the letter 'D'
+printed.  System ID=5 identifies 'OS/78' while ID=6 indicates OS/278.
+Header information may be upper/lower case, either 7- or 8-bit ASCII.
 
-     Some of the switches can be inverted to further enhance operation
-of the program.  Thus '/P' can be changed to Prevent Paging, and '/N'
-can be changed to specify Non-Numeric dates rather than Numeric ones.
-Users who do not want lower-case text strings can remove this feature.
-The default value for the number of columns has been changed to '3' in
-order to agree with the .DIR command.   Acknowledgments: The initial work was done by Larry Fowler of the
+     Acknowledgments: The initial work was done by Larry Fowler of the
 Boeing Commercial Airplane Co. in Seattle, Washington.  He put in the
 /A and /H options and then turned it over to Dr. Thomas W. McIntyre of
 the West Virginia University Medical Center in Morgantown, W.V.  Tom
@@ -89,12 +95,12 @@ one will replace it.)     .SA SYS DIRECT     (optional: use '=6503')
      /B      PRINT STARTING BLOCK NUMBERS (OCTAL)
      /C      LIST ONLY FILES WITH THE CURRENT DATE
      /D      ORDER FILES BY DATE, THEN ALPHABETICALLY
-     /E      INm to the DEC convention - hence you
-should use the value '4' in HEADER if you want to have the letter 'D'
-printed.  System ID=5 identifies 'OS/78' while ID=6 indicates OS/278.
-Header information may be upper/lower case, either 7- or 8-bit ASCII.
-
-    T DATES IN NUMERIC FORM (MM/DD/YY)
+     /E      INCLUDE EMPTIES IN THE LISTING
+     /F      FAST MODE (NO LENGTHS OR DATES)
+     /H      PRINT CONTENTS OF THE HEADER BLOCK
+     /I      PRINT ADDITIONAL INFORMATION WORDS (OCTAL)
+     /M      LIST ONLY THE EMPTIES AND THE FILE SUMMARY
+     /N      PRINT DATES IN NUMERIC FORM (MM/DD/YY)
      /O      LIST ONLY FILES WITH OTHER THAN TODAY'S DATE
      /P      PAGE AFTER EACH LISTING
      /R      LIST REMAINDER OF FILES AFTER THE FIRST ONE

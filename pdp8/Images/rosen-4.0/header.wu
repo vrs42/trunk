@@ -1,10 +1,7 @@
-CLUDE EMPTIES IN THE LISTING
-     /F      FAST MODE (NO LENGTHS OR DATES)
-     /H      PRINT CONTENTS OF THE HEADER BLOCK
-     /I      PRINT ADDITIONAL INFORMATION WORDS (OCTAL)
-     /M      LIST ONLY THE EMPTIES AND THE FILE SUMMARY
-     /N      PRIN files typically reside on SYS:, however they may also be on DSK0:
-(this is for MULTI8 users), or on the device called HELP: (p as DECtapes or floppy
+HEADER.SV is a program for creating DECSYSTEM-8 header blocks, which
+are used for machine-readable identification of each media 'volume'.
+The header information is stored in block 6, which is the last block
+used by the directory.  On small devices, such as DECtapes or floppy
 disks, this block is never used; on large disks, however, the header
 block may ultimately be overwritten, in which case the header infor-
 mation will be lost, but no other side-effects will occur.

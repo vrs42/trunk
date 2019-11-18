@@ -23,6 +23,30 @@
 # We work around this by offsetting track by 
 # 1, then wrapping to use track 0 last.
 
+sub readsector {
+  local($lsect) = @_;
+  local($track, $sector, $spos);
+  local($count);
+
+  $track = int($lsect/26); # 26 sectors/track
+  # Offset 3 per track.
+  $sector = $lsect % 26;
+  # Then interleave 2 within the track.
+  # This needs to perform as two 13-long rotors.
+  $sector = ($track*6 + $sector*2 + ($sector > 12)) % 26;
+  # Offset the track mapping to move track 0.
+  $track = ($track+1) % 77;
+  # Now find and read it.
+  $spos = (($track*26)+$sector) * $size;
+#printf "$lsect->$track $sector %lo; ", $spos;
+  seek(INPUT, $spos, 0) || die "seek($flp): $!";
+  $count = read(INPUT, $buf, $size);
+  die "read($flp): $!" if $count < 0;
+  last unless $count;
+  die "read($flp): wrong count $!" if $count != $size;
+  return unpack("C*", $buf);
+}
+
 foreach $flp (@ARGV) {
   open(INPUT, $flp) || die "$flp: $!";
   binmode(INPUT);
@@ -41,44 +65,31 @@ foreach $flp (@ARGV) {
   open(OUTPUT, ">$f") || die "$f: $!";
   binmode(OUTPUT);
 
-  # The tracks are in the right order.
-  # Skip the first 06400 bytes!
+  # The tracks are in the right order, except track 0,
+  # which is logically last, not first.
   # RX01: 26*76 = 1976 sectors.  1976 sectors == 494 OS/8 blocks.
-  # RX02: 26*76 = 1976 sectors.  1976 sectors == 988 OS/8 blocks.
-  $mod3 = 0; # No block yet!
-  for ($ltrack = 0; $ltrack < 77; $ltrack++) {
-    $track = ($ltrack+1) % 77;
-    $tpos = $track * 26 * $size;
-    for ($lsect = 0; $lsect < 26; $lsect++) {
-      # Note: Sector numbering is traditionally 1..26, not 0..25.
-      # We use 0..25 here to make the match easier.
-      # Sectors are interleaved within the track.
-      $psect = ($lsect*2) % 26 + ($lsect > 12) if $ileave == 2;
-      $psect = ($lsect*$ileave) % 26 unless $ileave == 2;
-#print "$lsect: $psect\n";
-      $spos = $tpos + $psect * $size;
-      seek(INPUT, $spos, 0) || die "seek($flp): $!";
-      $count = read(INPUT, $buf, $size);
-      die "read($flp): $!" if $count < 0;
-      last unless $count;
-      die "read($flp): wrong count $!" if $count != $size;
-      # 3 bytes doesn't divide the sector size of 128 bytes.
-      # Collect @ buf for 3 sectors, to form an OS/8 block.
-      push(@buf, unpack("C*", $buf));
-      next if ++$mod3 % 3;
-      # OK, we have enough to build an OS/8 block.
-      while (@buf) {
-        $b1 = shift @buf;
-        $b2 = shift @buf;
-        $b3 = shift @buf;
-        # The bit ordering is OS8:
-        # abcdefgh ijklmnop qrstuvwx
-        # -> qrstabcdefgh uvwxijklmnop
-        $word1 = $b1 + (($b3 >> 4)<<8);
-        $word2 = $b2 + (($b3 & 017)<<8);
-        print OUTPUT pack("SS", $word1, $word2);
-      }
-      $mod3 = 0;
+  # RX02: Packed RX02 format doesn't seem reasonable, as each OS/8 
+  # block would be 1.5 sectors!
+  # The last sector of track 0 is not accessible, as
+  # it is not paart of a triplet.
+  for ($block = 0; $block < 667; $block++) {
+    $lsect = 3*$block;
+    @buf = &readsector($lsect);
+    $lsect++;
+    push(@buf, &readsector($lsect));
+    $lsect++;
+    push(@buf, &readsector($lsect));
+#printf "output: %lo\n", tell(OUTPUT);
+    while (@buf) {
+      $b1 = shift @buf;
+      $b2 = shift @buf;
+      $b3 = shift @buf;
+      # The bit ordering is OS8:
+      # abcdefgh ijklmnop qrstuvwx
+      # -> qrstabcdefgh uvwxijklmnop
+      $word1 = $b1 + (($b3 >> 4)<<8);
+      $word2 = $b2 + (($b3 & 017)<<8);
+      print OUTPUT pack("SS", $word1, $word2);
     }
   }
 }

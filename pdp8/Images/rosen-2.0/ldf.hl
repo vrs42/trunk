@@ -1,16 +1,25 @@
 
-&DEASSIGN
-&GET
-&MEMORY
-&R
-&RUN
-&SAVE
-&START
-&UA
-	KEYBOARD MONITOR AND OTHER COMMANDS
+&
+			COMMAND AND FUNCTION SUMMARY
 
-@CALLING COMMANDS:
-.ASSIGN DEVITR	FLEN	FLGS*	FLOG	FLS*	FMAX	FMIN
+@@ (*)	Ask	Break	Comment	Do	Erase	For	Goto	Hesitate  If
+Jump	Key*	Modify	Next	On	Plot*	Quit	Return	Set	Type
+Until	View*	Write	X(nop)	Yncrement(+-1)	Zero		* = optional
+
+Input Buffer	Input Close	Input File	Input Host*	Input Terminal
+
+Open Input	Open Output	Output Abort	Output Close	Output Dump
+Output Buffer	Output Echo	Output File	Output Host*	Output Lineprnt
+Output Plotter*	Output Scope	Output Terminal			* = optional
+
+List All	List Files	List Only	List Programs
+Library Save	Library Erase	Library Load	Libr Comment	Libr Quit
+Load In		Load ('n) Go	Load ('n) Do
+
+Use Host*    (connects the terminal to a remote computer for interactive use)
+
+FABS	FADC*	FAND	FATN	FBLK	FCOM	FCOS	FCUR*	FDAY	FDIN*
+FEXP	FIN	FIND	FITR	FLEN	FLGS*	FLOG	FLS*	FMAX	FMIN
 FMQ	FOUT	FPAL	FQ	FRA	FRAC	FRAN	FRS*	FRDG	FSGN
 FSIN	FSQT	FSR	FSS*	FTAB	FTIM	FTRM	FVB*	FXL*	*=opt
 
@@ -36,23 +45,15 @@ The ASK command reads numeric data from the Current Input Device.  Decimal
 numbers are converted to binary and stored in the memory locations indica-
 ted by the variable name.  Input is 'free format' with no distinction made
 between integer and 'real' values; the customary power-of-ten (E) notation
-may be used, butQuit	Return	Set	Type
-Until	View*	Write	X(nop)	Yncrement(+-1)	Zero		* = optional
-
-Input Buffer	Input Close	Input File	Input Host*	Input Terminal
-
-Open Input	Open Output	Output Abort	Output Close	Output Dump
-Output Buffer	Output Echo	Output File	Output Host*	Output Lineprnt
-Output Plotter*	Output Scope	Output Terminal			* = optional
-
-List All	List Files	List Only	List Programs
-Library Save	Library Erase	Library Load	Libr Comment	Libr Quit
-Load In		Load ('n) Go	Load ('n) Do
-
-Use Host*    (connects the terminal to a remote computer for interactive use)
-
-FABS	FADC*	FAND	FATN	FBLK	FCOM	FCOS	FCUR*	FDAY	FDIN*
-FEXP	FIN	FIND	F10^615.  Additional (non-
+may be used, but otherwise LETTERS are treated as NUMBERS (A=a=1, Z=z=26).
+Prompting information may be output by the command, and DELETE (or RUBOUT)
+used to indicate a typing mistake (a '?' is printed, then the entire value
+must be re-entered).  Hitting the '=' key during input retains the current
+value of the variable.  Any other non-numeric or non-alphabetic character
+terminates input, so CR, SPACE, COMMA, SEMI-COLON, TAB, STAR(*), etc., may
+be used to separate input items.  (The FTRM function returns the character
+code of the last input terminator.)  The binary result has an accuracy of
+10-11 significant digits and a magnitude range of 10^615.  Additional (non-
 significant) digits will be accepted, but serve only to locate the decimal
 point.  The ':-N' option may be used to skip fields when reading data from
 a file.
@@ -75,15 +76,14 @@ ASK "YES or NO? ", ANS=0YES
 $..."	Writes Escape Sequence to current output device
 %expr	Changes output format (for later use by TYPE)
 :+expr	Spaces to specified column on current output device
-:-expr	Read otherwise LETTERS are treated as NUMBERS (A=a=1, Z=z=26).
-Prompting information may be output by the command, and DELETE (or RUBOUT)
-used to indicate a typing mistake (a '?' is printed, then the entire value
-must be re-entered).  Hitting the '=' key during input retains the current
-value of the variable.  Any other non-numeric or non-alphabetic character
-terminates input, so CR, SPACE, COMMA, SEMI-COLON, TAB, STAR(*), etc., may
-be used to separate input items.  (The FTRM function returns the character
-code of the last input terminator.)  The binary result has an accuracy of
-10-11 significant digits and a magnitude range of line number is specified, to branch to that line).  If more than
+:-expr	Reads and ignores specified number of characters
+
+&BREAK
+			BREAK [line or group number]
+
+The BREAK command terminates FOR or UNTIL loops, causing the program to ex-
+it from the loop and continue with the command following the BREAK (or, if
+a non-zero line number is specified, to branch to that line).  If more than
 one loop is active (nested loops), BREAK exits only from the current level;
 several BREAKS may thus be necessary.  If NO loops are active when a BREAK
 is executed, the command becomes a NOP (unless a non-zero line number was
@@ -110,14 +110,15 @@ included in a program without marking them as 'comment' lines.
 @Examples
 FOR I=1,100; Create a short delay, interruptable by external DO calls
 FOR I=1,100; Next; Create an un-interruptable delay
-ASK X=-1; C Initialize X to -1; use the '=' key to sigs and ignores specified number of characters
+ASK X=-1; C Initialize X to -1; use the '=' key to signal End-of-Data
 
-&BREAK
-			BREAK [line or group number]
+&CONTROL
+				CONTROL CODES
 
-The BREAK command terminates FOR or UNTIL loops, causing the program to ex-
-it from the loop and continue with the command following the BREAK (or, if
-a non-zero pro-
+The following CONTROL CODES are recognized when entered from the keyboard:
+
+CTRL/C	[03]	This causes LDF to return to the monitor system.  The con-
+		tents of memory are saved, hence one may restart the pro-
 		gram by using the '.START' command.  CTRL/C restores the
 		KEYPAD on 'VT52' terminals to normal (numeric) operation.
 		CTRL/C is NOT trapped during a USE HOST command and can
@@ -145,18 +146,7 @@ CTRL/H	[08]	This is the BACKSPACE character; it has no special meaning
 		to replace the previous one on the display.  This does NOT
 		mean that the first character has been DELETED!  It is
 		still there, but 'hidden' by the second character, and can
-		tnal End-of-Data
-
-&CONTROL
-				CONTROL CODES
-
-The following CONTROL CODES are recognized when entered from the keyboard:
-
-CTRL/C	[03]	This causes LDF to return to the monitor system.  The con-
-		tents of memory are saved, hence one may restart the ce of the search character.
-		The screen is NOT erased in this case.
-
-CTRL/M	[13]	This is the RETURN or CARRIAGE RETURN (CR) herefore cause confusing results.
+		therefore cause confusing results.
 
 CTRL/I	[09]	This is the horizontal TAB character; it has no special
 		meaning to LDF, and is not recognized by all terminals.
@@ -187,9 +177,10 @@ CTRL/L	[12]	This is the FORMFEED character; it is IGNORED during com-
 		wise ignored.
 
 		During a MODIFY or MOVE command, CTRL/L causes the editor
-		to look for the next occurrenwed by another prompt (*).  CTRL/Z
-		is also used as the EOF code on most HOST machines, hence
-		typing this character during character (also
+		to look for the next occurrence of the search character.
+		The screen is NOT erased in this case.
+
+CTRL/M	[13]	This is the RETURN or CARRIAGE RETURN (CR) character (also
 		called ENTER on some terminals).  CR must be typed at the
 		end of every command line before LDF will respond to the
 		commands on the line.  CR is one of the ways to terminate
@@ -221,17 +212,9 @@ CTRL/U	[21]	Typing CTRL/U while LDF is in Command Mode deletes the en-
 
 CTRL/Z	[26]	This character is used throughout LDF as the END-of-FILE
 		code.  Typing CTRL/Z while LDF is in Command Mode causes a
-		'?' to be printed, folloacter in
-		LDF programs.
-
-DELETE	[127]	This character (called RUBOUT on some terminals) removes
-		the previous character on the command line.  On video ter-
-		minals the character actually disappears from the screen,
-		while on hardcopy terminals a '\' is echoed each time the
-		DELETE key is used.  DELETE works in the same way during a
-		MODIFY or MOVE command that it does during Command Mode,
-		with the minor difference that one cannot erase the line
-		number of an existing line.  Note that LDF ia USE HOST command is one way
+		'?' to be printed, followed by another prompt (*).  CTRL/Z
+		is also used as the EOF code on most HOST machines, hence
+		typing this character during a USE HOST command is one way
 		to close a data file.
 
 ESCAPE	[27]	This character is used by many terminals (and other I/O de-
@@ -253,17 +236,17 @@ ALTMODE [125]	This key is used by the monitor system as a command option;
 PREFIX	[126]	This key is recognized by the monitor as yet another kind
 		of 'altmode'.  Terminals with a PREFIX key do not have ALT-
 		MODE or ESCAPE keys (and vice versa).  This key generates
-		the 'vertical bar' (|) and as such is a legal charices.  Subroutines may thus change these settings,
-knowing that the previous values will be restored (with some restrictions)
-upon completion of the DO call.  (Note effect of NEXT and BREAK commands.)
+		the 'vertical bar' (|) and as such is a legal character in
+		LDF programs.
 
-@Examples
-DO		Executes the entire program, then does the next command
-DO 0		Same - '0' refers to the entire program
-DO-.01		Executes all of Group 0 (can't use 'DO 0' - see above)
-DO 1.1		Executes line 1.10
-DO 1		Executes all lines in Group 1 unless stopped by a RETURN
-DO-1.5		Executes all lines in Ggnores further
+DELETE	[127]	This character (called RUBOUT on some terminals) removes
+		the previous character on the command line.  On video ter-
+		minals the character actually disappears from the screen,
+		while on hardcopy terminals a '\' is echoed each time the
+		DELETE key is used.  DELETE works in the same way during a
+		MODIFY or MOVE command that it does during Command Mode,
+		with the minor difference that one cannot erase the line
+		number of an existing line.  Note that LDF ignores further
 		use of the DELETE key when there are no more characters to
 		be deleted.
 
@@ -285,7 +268,33 @@ the range by means of further DO calls.  The ON command and the Library DO
 command, as well as FSFs, FQ and KEYPAD calls, all use the same 'DO' mech-
 anism (sometimes with a restriction to positive arguments).  All such calls
 always save and restore the current FORMAT specification, as well as the
-current INPUT/OUTPUT devamples
+current INPUT/OUTPUT devices.  Subroutines may thus change these settings,
+knowing that the previous values will be restored (with some restrictions)
+upon completion of the DO call.  (Note effect of NEXT and BREAK commands.)
+
+@Examples
+DO		Executes the entire program, then does the next command
+DO 0		Same - '0' refers to the entire program
+DO-.01		Executes all of Group 0 (can't use 'DO 0' - see above)
+DO 1.1		Executes line 1.10
+DO 1		Executes all lines in Group 1 unless stopped by a RETURN
+DO-1.5		Executes all lines in Group 1, starting with line 1.5
+DO 1,2,3	Executes all lines in Groups 1,2,3; same as DO 1;DO 2;DO 3
+DO .5		Executes line xx.50 in the current group
+DO-.5		Executes lines xx.50-xx.99 in the current group
+DO SUB		Executes subroutine identified by the value of a variable
+DO 2+LINE/10	Executes a specific line in Group 2 (if LINE=0, then DO 2)
+
+&ERASE
+			ERASE [line or group number]
+
+The ERASE command removes one or more lines from the current program.  Only
+a single parameter may be specified and the program returns to command mode
+following execution of the command.  Lines removed are GONE FOREVER!  There
+is no way to restore erased lines, hence be careful when typing 'W' (WRITE)
+that you do not accidentally hit the 'E' (ERASE) key instead!
+
+@Examples
 E		Erases the entire program
 E 0		Same
 Erase All	Erases portion of the program denoted by the value of 'Al'
@@ -305,23 +314,23 @@ The last character must be followed by a closing quote (") to indicate the
 end of the sequence.  The SPACE character cannot be sent as part of the se-
 quence; SPACES are used to delimit ARITHMETIC EXPRESSIONS, which are evalu-
 ated and then output under a temporary %-5 format.  Characters, other than
-SProup 1, starting with line 1.5
-DO 1,2,3	Executes all lines in Groups 1,2,3; same as DO 1;DO 2;DO 3
-DO .5		Executes line xx.50 in the current group
-DO-.5		Executes lines xx.50-xx.99 in the current group
-DO SUB		Executes subroutine identified by the value of a variable
-DO 2+LINE/10	Executes a specific line in Group 2 (if LINE=0, then DO 2)
+SPACES and those required for the sequence, may be included in the string.
+
+@Examples
+TYPE $\"	Exit from 'hold-screen' mode on a VT52 terminal
+TYPE $="	Select 'alternate keypad mode' on a VT52 terminal
+TYPE $H$J"	Clear the screen on a VT52 (or equivalent) terminal
+TYPE $"#	Clear the screen on a Tektronix 4010 terminal (ESC FF)
+ASK #0M$I$K"	Clear previous line on a VT52 terminal (CR ESC I ESC K)
+TYPE $\$<$[?2l"	Turn a VT100 into a VT52 (last char is a lowercase 'L')
+TYPE $[10;1H"	Position the cursor at (row=10,col=1) on a VT100 terminal
+T $[ R; C H"	Position cursor at row,col location given by variables R,C
+T $[ R; C H*"	Same, plus print a '*' at that loc. (VT-100 plot command!)
 
-&ERASE
-			ERASE [line or group number]
+&FILENAMES
+			    FILENAME EXPRESSIONS
 
-The ERASE command removes one or more lines from the current program.  Only
-a single parameter may be specified and the program returns to command mode
-following execution of the command.  Lines removed are GONE FOREVER!  There
-is no way to restore erased lines, hence be careful when typing 'W' (WRITE)
-that you do not accidentally hit the 'E' (ERASE) key instead!
-
-@Exrary, List, Load and Open commands have the form:
+Filenames used by the Library, List, Load and Open commands have the form:
 
 		DEVICE:FILENAME.EXTENSION[SIZE],option=value
 
@@ -338,23 +347,12 @@ Filenames may be entirely numeric, and are not necessary when refering to
 non-directory devices.  In LIST commands the filename may be replaced by a
 '*', which means 'all files with the specified (or assumed) extension'.
 
-EXTENSIACES and those required for the sequence, may be included in the string.
-
-@Examples
-TYPE $\"	Exit from 'hold-screen' mode on a VT52 terminal
-TYPE $="	Select 'alternate keypad mode' on a VT52 terminal
-TYPE $H$J"	Clear the screen on a VT52 (or equivalent) terminal
-TYPE $"#	Clear the screen on a Tektronix 4010 terminal (ESC FF)
-ASK #0M$I$K"	Clear previous line on a VT52 terminal (CR ESC I ESC K)
-TYPE $\$<$[?2l"	Turn a VT100 into a VT52 (last char is a lowercase 'L')
-TYPE $[10;1H"	Position the cursor at (row=10,col=1) on a VT100 terminal
-T $[ R; C H"	Position cursor at row,col location given by variables R,C
-T $[ R; C H*"	Same, plus print a '*' at that loc. (VT-100 plot command!)
-
-&FILENAMES
-			    FILENAME EXPRESSIONS
-
-Filenames used by the Libor her own unique set of programs.  If no extension is supplied,
+EXTENSION is a character string which must be preceded by a period.  Only
+the first 2 characters are significant.  The extension is commonly used to
+denote the file-type, i.e. Program, Data, Random Access, etc.  Another com-
+mon practice, especially when several people share the same disk, is to use
+the programmer's initials for the extension, allowing each person to refer-
+ence his or her own unique set of programs.  If no extension is supplied,
 the 'L' commands assume an extension of .FP, while the 'O' commands assume
 an extension of .DA.  In LIST commands only, a '*' may be used for the ex-
 tension to indicate 'all files with the specified name and ANY extension'.
@@ -376,12 +374,12 @@ be preceded by an '=' sign.
 SPACES and 'case' are ignored in filename expressions: the name 'My File'
 is the same as 'MYFILE'.  VARIABLE (programmable) expressions may be used
 in place of the FIXED expressions shown above.  These are indicated by en-
-closing ON is a character string which must be preceded by a period.  Only
-the first 2 characters are significant.  The extension is commonly used to
-denote the file-type, i.e. Program, Data, Random Access, etc.  Another com-
-mon practice, especially when several people share the same disk, is to use
-the programmer's initials for the extension, allowing each person to refer-
-ence his ric string, using as many of the leading digits as possible (only
+closing portions of the character string in parentheses.  Characters inside
+parentheses are processed as arithmetic expressions whose value is inserted
+in the filename at that point.  Either NUMERIC or CHARACTER values may be
+programmed.  If the value of the expression is NEGATIVE, it is treated as a
+character code; if the value of the expression is POSITIVE, it is converted
+to a numeric string, using as many of the leading digits as possible (only
 the integer part of the value is used).  Both the ':' and '.' characters
 can also be programmed, hence the entire 14-character filename expression
 can be specified at run-time.  SPACES or '@-signs' are used to fill in un-
@@ -405,12 +403,7 @@ List All LTA1:,E=4	Lists all files + 'empties' on LTA1: in 4 columns
 	FOR variable=initial value, [increment,] final value; commands
 
 The FOR command establishes a loop controlled by the value of the associa-
-ted loop variable.  The assumed incremenportions of the character string in parentheses.  Characters inside
-parentheses are processed as arithmetic expressions whose value is inserted
-in the filename at that point.  Either NUMERIC or CHARACTER values may be
-programmed.  If the value of the expression is NEGATIVE, it is treated as a
-character code; if the value of the expression is POSITIVE, it is converted
-to a numet is '1' (note that the increment
+ted loop variable.  The assumed increment is '1' (note that the increment
 is the 'middle' parameter).  Parameters may be positive or negative, inte-
 ger or non-integer.  A non-integer increment may cause UNEXPECTED operation
 due to roundoff errors: e.g. 'I' is never EXACTLY equal to '0' in the loop
@@ -467,13 +460,7 @@ TYPE %6.04	Print values <1e6 as numbers with up to 4 decimal places
 TYPE %-6.04	Print values <1e6 as mixed decimals with no leading spaces
 TYPE %6.4	Improper format (6 digits, 40 decimal places) becomes %6.05
 TYPE %10.1	Default format until changed by the user (equal to %10.09)
-TYPE %30.1	Print values <1e30 with up to 10 deth upper-case-only terminals may use the symbols (!,",#,$,%)
-in place of (a,b,c,d,e), remembering that these symbols are used as opera-
-tors in ASK/TYPE commands, and must therefore be preceeded by a '+' sign to
-output their values.
-
-The actual line or group-number is best replaced by a suitably-chosen vari-
-able whose value is defined at the start of the program; this permitcimal places, 21 spaces
+TYPE %30.1	Print values <1e30 with up to 10 decimal places, 21 spaces
 TYPE %.05	Print values in scientific format with 5 significant digits
 TYPE %-.05	Same, but left-justify the value by omitting leading spaces
 TYPE %.50	Print 10 significant digits followed by 40 trailing zeros
@@ -496,16 +483,13 @@ of each being saved in one of the 'protected' variables: a,b,c,d,e.  (arg1
 goes in 'a', arg2 in 'b', etc.) The value of the LAST ARITHMETIC EXPRESSION
 processed by the subroutine is returned as the value of the function call.
 
-Note: users wiine 1.50 (or the next-higher line)
-G .5		Executed in a program: branches to line xx.50
-		Executed from command mode: starts at line 00.50
-G 2+LINE/10	Branches to a computed line number
-
-&HESITATE
-	HESITATE [number of seconds, to nearest 0.1 second]
+Note: users with upper-case-only terminals may use the symbols (!,",#,$,%)
+in place of (a,b,c,d,e), remembering that these symbols are used as opera-
+tors in ASK/TYPE commands, and must therefore be preceeded by a '+' sign to
+output their values.
 
-The HESITATE command puts the program in a wait loop during which external
-subroutine calls may occur (see FQ).  The PDP12 (s modi-
+The actual line or group-number is best replaced by a suitably-chosen vari-
+able whose value is defined at the start of the program; this permits modi-
 fication of the function itself without having to change other parts of the
 program and provides added perspicuity as well (compare 'F(TAN,angle)' with
 'F(3.1,angle)').
@@ -534,19 +518,16 @@ G		Starts program at lowest-numbered line
 G 0		Same
 G 1		Branches to the lowest-numbered line in Group 1
 G 1.5		Branches to line 1.50 - gives error if missing
-G-1.5		Branches to l
+G-1.5		Branches to line 1.50 (or the next-higher line)
+G .5		Executed in a program: branches to line xx.50
+		Executed from command mode: starts at line 00.50
+G 2+LINE/10	Branches to a computed line number
+
+&HESITATE
+	HESITATE [number of seconds, to nearest 0.1 second]
 
-The IF command causes a conditional GOTO branch based upon either the SIGN
-or the VALUE of an expression.  The expression must be enclosed by a pair
-of matching parentheses (any of the 4 types may be used - spaces preceeding
-the left member are optional).  A list of target line numbers appears fol-
-lowing the test expression, with the symbolic placement shown above, i.e.
-the first line number is the target if the expression is NEGATIVE, the se-
-cond if the expression is EXACTLY ZERO, and so forth.  If more than 3 line
-numbers are included, the target is determined by the INTEGER VALUE of the
-expression.  Line numbers may be OMITTED (or the value '0' used) when NO
-branch is to occur on a given condition.  Line numbers may also be computed
-from eLAB8E) display is also re-
+The HESITATE command puts the program in a wait loop during which external
+subroutine calls may occur (see FQ).  The PDP12 (LAB8E) display is also re-
 freshed during a HESITATE command.  This command normally assumes the exis-
 tence of a Real Time Clock running with the interrupt system enabled.  For
 machines without a RTC, or for non-interrupt operation (BATCH mode, RTS/8
@@ -563,7 +544,34 @@ H T		Delays T seconds, measured to the nearest 1/10 second
 H 10		Create a 10-second pause for external DO calls, refresh
 
 &IF
-	IF(expression)-,0,+	or	IF(expression)-,0,1,2,3,4,5...>20, and if so, reset I to 0.  This command does
+	IF(expression)-,0,+	or	IF(expression)-,0,1,2,3,4,5...
+
+The IF command causes a conditional GOTO branch based upon either the SIGN
+or the VALUE of an expression.  The expression must be enclosed by a pair
+of matching parentheses (any of the 4 types may be used - spaces preceeding
+the left member are optional).  A list of target line numbers appears fol-
+lowing the test expression, with the symbolic placement shown above, i.e.
+the first line number is the target if the expression is NEGATIVE, the se-
+cond if the expression is EXACTLY ZERO, and so forth.  If more than 3 line
+numbers are included, the target is determined by the INTEGER VALUE of the
+expression.  Line numbers may be OMITTED (or the value '0' used) when NO
+branch is to occur on a given condition.  Line numbers may also be computed
+from expressions THAT DO NOT CONTAIN COMMAS (i.e. functions with more than
+one argument or double-subscripted variables).  RELATIONAL expressions may
+be used directly, with the '-' branch taken if the relation is TRUE, the
+'+' branch if it is FALSE.  The PDP-12 display will be refreshed when the
+branch occurs.
+
+@Examples
+IF(A,LT,5)2	Branch to the lowest-numbered line in Group 2 if A is < 5
+IF(X-Y).2,.3,.4 Branch to xx.20, xx.30 or xx.40, depending on sign of X-Y
+IF(N),-2.5;	Branch to line 2.50 (or next higher line) only if N=0
+IF(K),,5.1,6,,7 Branch to line 5.10 if K is greater than 0 but less than 2,
+		or GOTO group 6 if K is between 2-3, or GOTO group 7 if K
+		is between 4-5, else continue with next sequential command.
+IF(I=I+1,eq,10) Increment I and test to see if it is equal to 10.  The '-'
+		branch will be taken if this is true, else the '+' branch
+IF(20-I)I=0	Test if I>20, and if so, reset I to 0.  This command does
 		not branch because a line-number of '0' means 'continue'
 IF(20-I).*I=1	Test if I>20, and if so, reset I to 1.  The '.*' converts
 		the value '1' (or any arbitrary value) to '0' (no branch)
@@ -580,22 +588,19 @@ The following INPUT commands are available:
 INPUT commands are two-word (two-letter) commands which change the Current
 Input Device (CID), and may, in addition, change the setting of the 'input
 echo' switch by means of the ',Echo' and ',Noecho' options.  When the echo
-is enabled (as it is by default for the Terminal), each character rexpressions THAT DO NOT CONTAIN COMMAS (i.e. functions with more than
-one argument or double-subscripted variables).  RELATIONAL expressions may
-be used directly, with the '-' branch taken if the relation is TRUE, the
-'+' branch if it is FALSE.  The PDP-12 display will be refreshed when the
-branch occurs.
+is enabled (as it is by default for the Terminal), each character read from
+the input device is automatically sent to the Current Output Device (COD).
+Input from devices other than the Terminal will not echo unless the ',Echo'
+option is specified.  The available input devices are:
 
-@Examples
-IF(A,LT,5)2	Branch to the lowest-numbered line in Group 2 if A is < 5
-IF(X-Y).2,.3,.4 Branch to xx.20, xx.30 or xx.40, depending on sign of X-Y
-IF(N),-2.5;	Branch to line 2.50 (or next higher line) only if N=0
-IF(K),,5.1,6,,7 Branch to line 5.10 if K is greater than 0 but less than 2,
-		or GOTO group 6 if K is between 2-3, or GOTO group 7 if K
-		is between 4-5, else continue with next sequential command.
-IF(I=I+1,eq,10) Increment I and test to see if it is equal to 10.  The '-'
-		branch will be taken if this is true, else the '+' branch
-IF(20-I)I=0	Test if IFile input comes from the most recently selected file by
+		Buffer		Any one of the 4 internal buffers
+		File		Any one of 4 input files
+		Host		An optional communications line
+		Terminal	The default input device, restored
+				after an error occurs
+
+Input from a File or one of the Buffers is further selected by means of the
+'/Buffer' option.  File input comes from the most recently selected file by
 default, which is File/1 until this setting is changed - either by an Open
 Input command or by another Input File command.  Input from one of the Buf-
 fers is handled similarly, except that there is no default: the buffer de-
@@ -615,19 +620,20 @@ I B,E		Same, but with the echo enabled
 I B/0,E 	Reset input to the beginning of buffer/0, echoing each char
 I H,E		Select the HOST as the CID, echoing all characters received
 
-The INPUT CLOSE cad from
-the input device is automatically sent to the Current Output Device (COD).
-Input from devices other than the Terminal will not echo unless the ',Echo'
-option is specified.  The available input devices are:
+The INPUT CLOSE command serves two purposes: (1) it severs all connections
+between the program and the designated file and (2) it selects the terminal
+as the CID.  Until it is CLOSED, an input file can always be restarted with
+an 'O I,R' command, or used by the FRA function; CLOSING the file prohibits
+all further use until it is OPENED again.
 
-		Buffer		Any one of the 4 internal buffers
-		File		Any one of 4 input files
-		Host		An optional communications line
-		Terminal	The default input device, restored
-				after an error occurs
+@Examples
+I C		Close the current input file
+I C/3		Close input file/3 (makes buffer/3 the default)
+
+&JUMP
+			JUMP line- or group-number
 
-Input from a File or one of the Buffers is further selected by means of the
-'/Buffer' option.  l GOTO which branches to the specified line
+The JUMP command is a conditional GOTO which branches to the specified line
 UNLESS a character is waiting in the terminal-input buffer.  The effect is
 that the program loops, waiting for the operator to hit ANY key on the key-
 board.  The JUMP command does nothing further with this character, leaving
@@ -649,20 +655,8 @@ time the branch occurs.
 
 The KEY command associates subroutine (DO) calls with the keypad keys on a
 VT52, WT78, VT100* or Z19 terminal.  Defining any key puts the terminal in
-'alternate keypad mode',ommand serves two purposes: (1) it severs all connections
-between the program and the designated file and (2) it selects the terminal
-as the CID.  Until it is CLOSED, an input file can always be restarted with
-an 'O I,R' command, or used by the FRA function; CLOSING the file prohibits
-all further use until it is OPENED again.
-
-@Examples
-I C		Close the current input file
-I C/3		Close input file/3 (makes buffer/3 the default)
-
-&JUMP
-			JUMP line- or group-number
-
-The JUMP command is a conditiona
+'alternate keypad mode', while executing a 'KEY ZERO' command (or returning
+to the monitor with CTRL/C) restores 'numeric keypad mode'.  (*VT100 termi-
 nals must be put in 'VT52 mode' first with a TYPE $\$<$[?2l" command.)
 
 Only one KEYPAD subroutine call is normally permitted at a time - further
@@ -691,8 +685,9 @@ Keypad calls can specify only single lines or groups; partial group calls
 
 @Examples
 K		A null command which allows nested keypad calls to occur
-K Z		Remove all keypad assignme while executing a 'KEY ZERO' command (or returning
-to the monitor with CTRL/C) restores 'numeric keypad mode'.  (*VT100 termi-nd '2' keys to call their respective groups
+K Z		Remove all keypad assignments and restore normal operation
+K 0=0		Remove the assignment for the '0' key, leaving all others
+K Z,1=1,2=2	Define the '1' and '2' keys to call their respective groups
 K enter=9.1	Use the ENTER key to execute line 9.1
 K ^=.1,v=.2	Define (and enable) the 'up' and 'down' keys for this group
 K -=11,,=12	Define the '-' and ',' keypad keys on a VT100 terminal
@@ -716,14 +711,7 @@ expression which is preceeded by an '=' sign.  The 'bit names' used in this
 version run from 1-12, not from 0-11, which allows the value '0' to be used
 to clear all bits.  Since the processing time for a simple numeric argument
 is typically several milliseconds, short pulses can be created by closing
-and immediately opening the same relay.nts and restore normal operation
-K 0=0		Remove the assignment for the '0' key, leaving all others
-K Z,1=1,2=2	Define the '1' a directory
-Lib Load	Loads a program from the device specified (none=DSK:)
-Lib Quit	Exits from the program to the monitor (used under BATCH)
-Lib Save*	Names & saves the current program on the device specified
-
-*Note: These two commands close the output
+and immediately opening the same relay.
 
 @Examples:
 K		Open all relays (PDP12)
@@ -765,13 +753,12 @@ specify the extension (.DA).
 See FILENAMES for additional information.
 
 Lib Comment	Changes the comment (header) line in the program
-Lib Erase*	Removes the file specified from the  The
-LIST ONLY command, for example, searches for a particular file, which is a
-useful thing to do before saving a program with a name you may have already
-used!  Wildcards (*) may be used for listing all programs with a given name
-or extension.
+Lib Erase*	Removes the file specified from the directory
+Lib Load	Loads a program from the device specified (none=DSK:)
+Lib Quit	Exits from the program to the monitor (used under BATCH)
+Lib Save*	Names & saves the current program on the device specified
 
-Li file before they are executed.
+*Note: These two commands close the output file before they are executed.
 
 @Options
 =line number	Specifies error-return point for the Library Erase command
@@ -799,18 +786,13 @@ l s rka1:junk	Saves the text buffer on device RKA1: with the name JUNK.FP
 
 The LIST commands search the directory of a specified device (default=DSK:)
 reporting the files present and (optionally) the amount of free space left.
-Commands are provided for showing all files or only a selected subset.ename[+options]
+Commands are provided for showing all files or only a selected subset.  The
+LIST ONLY command, for example, searches for a particular file, which is a
+useful thing to do before saving a program with a name you may have already
+used!  Wildcards (*) may be used for listing all programs with a given name
+or extension.
 
-The LOAD commands read a program (.FP) file into memory.  The program can
-optionally be started at a specified line (Load and Go calls), or a part of
-the program can be executed as a subroutine (Load and Do calls) after which
-the 'calling' program is automatically reloaded.  In the case of subroutine
-calls, a program that has not been saved since it was last modified will be
-saved automatically on DSK: with the name FOCAL.TM before the 'L D' call is
-executed.  (Note: this 'save' operation also closes any open output file.)
-
-Load In      Loads the specified program and then returns to command mode
-Load Go st All	Lists programs on selected device, starting with filename
+List All	Lists programs on selected device, starting with filename
 List Only	Lists only programs of the form given (default is .FP)
 List Programs	Lists all .FP programs, starting with filename
 List Files	Lists all .DA files, starting with filename
@@ -832,17 +814,18 @@ L F LTA1:,E	Lists all the data files (and empties) on LTA1:
 L P,E		Lists all programs (*.FP) on DSK:, plus 'empties'
 
 &LOAD
-			Load Command filhout having to re-type any of the
-unchanged part of the code.  These commands also allow selected lines of a
-program to be copied (with or without any changes) in order to insert addi-
-tional lines in their proper logical sequence or to create variations of a
-particular command string.  See MOVGRP for information on moving groups of
-lines.
+			Load Command filename[+options]
 
-The MODIFY command is normally executed from Command Mode, and always re-
-turns to command mode upon completion.  Input comes from the Current Input
-Device, which is normally the Keyboard, but can just as well be a file or
-one of the four internal buffers.  'Self-modifying' programs, fo     Loads the program and automatically starts at specified line
+The LOAD commands read a program (.FP) file into memory.  The program can
+optionally be started at a specified line (Load and Go calls), or a part of
+the program can be executed as a subroutine (Load and Do calls) after which
+the 'calling' program is automatically reloaded.  In the case of subroutine
+calls, a program that has not been saved since it was last modified will be
+saved automatically on DSK: with the name FOCAL.TM before the 'L D' call is
+executed.  (Note: this 'save' operation also closes any open output file.)
+
+Load In      Loads the specified program and then returns to command mode
+Load Go      Loads the program and automatically starts at specified line
 Load Do      Loads the program and executes the specified subroutine, then
 	     reloads the calling program, continuing with the next command
 
@@ -865,7 +848,27 @@ L D SUBS=SubNo	  Loads SUBS.FP and executes the routine specified by 'So'
 	MODIFY line1		or		MOVE line1,line2
 
 The MODIFY/MOVE commands provide a limited-function editor that can be used
-to make changes to existing programs witn point, pick a search character which is at or just before
+to make changes to existing programs without having to re-type any of the
+unchanged part of the code.  These commands also allow selected lines of a
+program to be copied (with or without any changes) in order to insert addi-
+tional lines in their proper logical sequence or to create variations of a
+particular command string.  See MOVGRP for information on moving groups of
+lines.
+
+The MODIFY command is normally executed from Command Mode, and always re-
+turns to command mode upon completion.  Input comes from the Current Input
+Device, which is normally the Keyboard, but can just as well be a file or
+one of the four internal buffers.  'Self-modifying' programs, for instance,
+may output a command string to one of the buffers and then execute a MODIFY
+or MOVE command after selecting that buffer as the Current Input Device.
+
+The only difference between MODIFY and MOVE is whether a single line or two
+lines are specified.  In the case of a MOVE, line #1 remains unchanged.
+After the command has been typed (including the CR), the editor waits for a
+'search character' to be supplied; there is no prompt for this, so if noth-
+ing seems to be happening, try typing a second CR.  This will cause the en-
+tire line to be written out as the editor searches for a CR.  To modify the
+line at a certain point, pick a search character which is at or just before
 that point.  If the character is not unique the editor may stop before get-
 ting to that point, in which case you may type CTRL/L to repeat the search.
 When the search character is found, you may add new commands just by typing
@@ -880,17 +883,20 @@ CTRL/L (FF)	Find the next occurrence of the search character
 CTRL/J (LF)	Keep the rest of the line as it was without any changes
 CTRL/M (CR)	Terminate the line at this point (delete to end-of-line)
 CTRL/U		Delete from current position to the beginning-of-line
-DELETE		Remove previous character (does not remove line numberr instance,
-may output a command string to one of the buffers and then execute a MODIFY
-or MOVE command after selecting that buffer as the Current Input Device.
+DELETE		Remove previous character (does not remove line number)
 
-The only difference between MODIFY and MOVE is whether a single line or two
-lines are specified.  In the case of a MOVE, line #1 remains unchanged.
-After the command has been typed (including the CR), the editor waits for a
-'search character' to be supplied; there is no prompt for this, so if noth-
-ing seems to be happening, try typing a second CR.  This will cause the en-
-tire line to be written out as the editor searches for a CR.  To modify the
-line at a certait respond to a FF.  The line number of the
+@Hints
+A semicolon is a good search character when there are multiple commands on
+one line.  Typing CTRL/L will advance one command at a time.  You can also
+initially select a semicolon as the search character and then, when you are
+near the part of the line being changed, select a different character.
+
+Remember to type LINEFEED, not RETURN, when you finish with changes in the
+middle of a line.  RETURN truncates the line at that point, thus requiring
+a second MODIFY to restore the commands that were deleted.
+
+CTRL/L is not echoed back to the terminal, hence no screen-erasure or page-
+eject will occur on terminals that respond to a FF.  The line number of the
 line being changed (line #2 in the case of a MOVE) is normally displayed on
 video terminals, but not on hard-copy terminals.  This leaves more room for
 changes on terminals that do not remove deleted characters.  Disabling the
@@ -908,20 +914,15 @@ in one of the buffers, which is then selected as the Current Input Device.
 The default input device is re-selected upon completion of the moves.  The
 procedure as supplied uses BUFFER/2 and BUFFER/3.
 
-To execute the MOVGRP command file)
+To execute the MOVGRP command file, do the following:
 
-@Hints
-A semicolon is a good search character when there are multiple commands on
-one line.  Typing CTRL/L will advance one command at a time.  You can also
-initially select a semicolon as the search character and then, when you are
-near the part of the line being changed, select a different character.
+		*Open Input/3 MOVGRP; Input File <CR>
+		Move Group? xx To Group? yy <CR>
+		(line numbers will appear on the terminal)
+		*
 
-Remember to type LINEFEED, not RETURN, when you finish with changes in the
-middle of a line.  RETURN truncates the line at that point, thus requiring
-a second MODIFY to restore the commands that were deleted.
-
-CTRL/L is not echoed back to the terminal, hence no screen-erasure or page-
-eject will occur on terminals thaand, do the following:
+To move a second (or third ...) group without the overhead associated with
+the initial Open Input command, do the following:
 
 		*Open Input,Restart; Input File <CR>
 		Move Group? xx To Group? yy <CR>
@@ -948,15 +949,11 @@ selection saved by the subroutine (DO) call.  If a NEXT command is executed
 when no loop is in progress, the command is ignored unless it specifies a
 non-zero line number, in which case the GOTO branch is executed.  Note that
 NEXT commands which are not executed by the loop on its final pass are also
-ignored.  This c, do the following:
+ignored.  This can happen with UNTIL loops (which skip the loop entirely if
+the test expression is negative) as well as with FOR loops that have condi-
+tional branches.  (See UNTIL for syntax requirements when used with NEXT.)
 
-		*Open Input/3 MOVGRP; Input File <CR>
-		Move Group? xx To Group? yy <CR>
-		(line numbers will appear on the terminal)
-		*
-
-To move a second (or third ...) group without the overhead associated with
-the initial Open Input commout NEXT commands - the use of NEXT
+Loops may be written either with or without NEXT commands - the use of NEXT
 is entirely optional, allowing loops with different end-points to be placed
 on a single line, and to facilitate the programming of multiple-line loops.
 A given NEXT is automatically matched with the inner-most loop existing at
@@ -981,16 +978,7 @@ preceeding the left member are optional).  The list of subroutines follows
 the test expression with the order shown symbolically above, i.e. the first
 subroutine is called if the test expression is NEGATIVE, the second if the
 expression is EXACTLY ZERO, and so forth.  If more than 3 subroutines are
-given, the INTEGER VALUE of the expression is used to an happen with UNTIL loops (which skip the loop entirely if
-the test expression is negative) as well as with FOR loops that have condi-
-tional branches.  (See UNTIL for syntax requirements when used with NEXT.)
-
-Loops may be written either with or with these commands is
-(xxxx = Input or Output):
-
-		OPEN xxxx [/buffer] [filename] [options]
-
-where the three major parameter gpick the desired one.
+given, the INTEGER VALUE of the expression is used to pick the desired one.
 If no call is desired for a given condition, simply omit the corresponding
 identifier (or use the value '0').  Subroutine calls may be computed from
 expressions THAT CONTAIN NO COMMAS (i.e. functions with more than one argu-
@@ -1026,10 +1014,12 @@ Device Selection:	Output Buffer	Output Echo	Output File
 				OPEN COMMANDS
 
 The OPEN INPUT and OPEN OUTPUT commands do the work of setting up the files
-used by the Input File/Output File commands.  The form ofESTARTED at any time until it is finally 'disconnected'
-		by an INPUT CLOSE command.
+used by the Input File/Output File commands.  The form of these commands is
+(xxxx = Input or Output):
 
-=linenumber	This option allows the progroups are indicated.  The '/buffer' option
+		OPEN xxxx [/buffer] [filename] [options]
+
+where the three major parameter groups are indicated.  The '/buffer' option
 selects one of four possible INPUT FILES (0-3), each file being associated
 with a given buffer.  It is meaningful only for OPEN INPUT commands, since
 output files always use 'buffer/0' no matter what value is specified.  When
@@ -1054,18 +1044,10 @@ the SQUARE BRACKET [size] option is often useful in OPEN OUTPUT commands.
 		the file.  Thus all previous output is lost and input com-
 		mences with the first character of the file.  No FILENAME
 		should be specified when this option is used.  A file may
-		be Ruding writing an EOF mark (CTRL/Z).
-			The optional size parameter allows the user to
-			increase (or decrease??) the size of the file.
-			An O C command always resets the COD device to
-			that selected by the 'O E' command.  If no file
-			is open this is all the O C command will do.
+		be RESTARTED at any time until it is finally 'disconnected'
+		by an INPUT CLOSE command.
 
-Output Dump		This command dumps the current contents of buf-
-			fer/0 to the file device.  It does not change
-			the COD.  For certain devices (such as the LQP
-			printer) this provides a convenient method of
-			achram to recover from errors (such
+=linenumber	This option allows the program to recover from errors (such
 		as 'file not found') by executing a GOTO to the line speci-
 		fied.  If this option is omitted (or has the value '0') an
 		OPEN error will print an error message and stop the program
@@ -1090,18 +1072,18 @@ Output Abort [size]	This command 'closes' the output file without
 			unless there is actually a file open.
 
 Output Close [size]	This command closes the output file in a normal
-			manner, inclT (Lineprinter, Scope and Terminal).
+			manner, including writing an EOF mark (CTRL/Z).
+			The optional size parameter allows the user to
+			increase (or decrease??) the size of the file.
+			An O C command always resets the COD device to
+			that selected by the 'O E' command.  If no file
+			is open this is all the O C command will do.
 
-Output File [,options]	This command selects the OUTPUT FILE as the COD.
-			Options are available for echoing file output to
-			the Terminal the Lineprinter or the Echo device.
-			The '=' option provides an error return in case
-			there is no file open.
-
-Output Host [,options]	This is an optional command for selecting a HOST
-			machine as the COD.  Output to the Host may also
-			be echoed to the Terminal, Lineprinter or Echo de-
-			vice by specifying the approieving line-by-line output on an otherwise
+Output Dump		This command dumps the current contents of buf-
+			fer/0 to the file device.  It does not change
+			the COD.  For certain devices (such as the LQP
+			printer) this provides a convenient method of
+			achieving line-by-line output on an otherwise
 			buffered device.
 
 Output Buffer [/buffer]	This command selects one of the 4 buffers as
@@ -1126,7 +1108,36 @@ Output Echo [,options]	This command selects and/or defines the ECHO
 			Device as the COD.  'O E,L' selects the line-
 			printer as the Echo Device and then makes it
 			the COD device as well.  The vailable options
-			are : L,S,the COD.  If neither of these is available the
+			are : L,S,T (Lineprinter, Scope and Terminal).
+
+Output File [,options]	This command selects the OUTPUT FILE as the COD.
+			Options are available for echoing file output to
+			the Terminal the Lineprinter or the Echo device.
+			The '=' option provides an error return in case
+			there is no file open.
+
+Output Host [,options]	This is an optional command for selecting a HOST
+			machine as the COD.  Output to the Host may also
+			be echoed to the Terminal, Lineprinter or Echo de-
+			vice by specifying the appropriate option (T,L,E).
+
+Output LPT [,options]	This command selects the user's Lineprinter as the
+			COD.  If desired, output sent to the Lineprinter
+			can be echoed to either the Echo Device (,E) or to
+			the Terminal (,T).  To send output to a file, AND
+			to the Lineprinter AND to the terminal (3 places),
+			use the commands: O L,T;O F,L.
+
+Output Plotter		This command selects the incremental plotter as
+			the COD.  No echo options are available, and out-
+			put to the plotter is further controlled by the
+			PLOT command (which sets the initial position on
+			the paper) and the two 'Plot Variables' (S., D.)
+			which control the Size and Direction of the char-
+			acters.
+
+Output Scope		This command selects the PDP12 (or LAB8E) scope
+			as the COD.  If neither of these is available the
 			O S command selects the Terminal instead.
 
 Output Terminal 	This command selects the Terminal as the COD.  No
@@ -1150,43 +1161,7 @@ Arithmetic Operators:	(All may serve as command delimiters)
 	() <> [] {}	Perform inside operations first
 	'	'A	Value of character following the ' mark
 
-Prioritpriate option (T,L,E).
-
-Output LPT [,options]	This command selects the user's Lineprinter as the
-			COD.  If desired, output sent to the Lineprinter
-			can be echoed to either the Echo Device (,E) or to
-			the Terminal (,T).  To send output to a file, AND
-			to the Lineprinter AND to the terminal (3 places),
-			use the commands: O L,T;O F,L.
-
-Output Plotter		This command selects the incremental plotter as
-			the COD.  No echo options are available, and out-
-			put to the plotter is further controlled by the
-			PLOT command (which sets the initial position on
-			the paper) and the two 'Plot Variables' (S., D.)
-			which control the Size and Direction of the char-
-			acters.
-
-Output Scope		This command selects the PDP12 (or LAB8E) scope
-			as  (Calcomp, Houston Instruments, Benson, etc.), and one for use on
-VT52/VT78 video terminals.  There are also two related VIEW commands for
-displaying (plotting) data on Tektronix terminals, the PDP12, or a LAB8E
-'scope.
-
-For info on incremental plotters, see PLOTXY.  For info on the VT52/VT78
-plot command, see VTPLOT.  See TEKTRONIX and SCOPE for info on the VIEW
-commands.
-
-&PLOTXY
-			    INCREMENTAL PLOTTERS
-
-Machines equiped with an incremental plotter are supported by the PLOT com-
-mand and the OUTPUT PLOTTER routines.  Plotters with a resolution of 0.01"
-or 0.25mm are considered 'standard', however plotters with 0.005" or 0.10mm
-step size can also be used, with a corresponding improvement in line quali-
-ty, but no increase in resolution.  The maximum plotting area is +/-20.47"
-(or +/-51.1cm).  Plotter operations overlap calculations, providing smooth,
-continuouy:	(low)	=, +, -, /, *, ^, ()-<>-[]-{}, ' (high)
+Priority:	(low)	=, +, -, /, *, ^, ()-<>-[]-{}, ' (high)
 
 Relational Expressions: (must be 'enclosed', TRUE=-1, FALSE=+1)
 
@@ -1211,7 +1186,31 @@ ASK/TYPE operators:
 	PLOT X,Y,LINE,MARK	    or		PLOT HORZ,VERT,CHAR
 
 The optional PLOT command has two forms: one for use with an incremental
-plotterplier.') before being sent to the plotter routines.  Thus the
+plotter (Calcomp, Houston Instruments, Benson, etc.), and one for use on
+VT52/VT78 video terminals.  There are also two related VIEW commands for
+displaying (plotting) data on Tektronix terminals, the PDP12, or a LAB8E
+'scope.
+
+For info on incremental plotters, see PLOTXY.  For info on the VT52/VT78
+plot command, see VTPLOT.  See TEKTRONIX and SCOPE for info on the VIEW
+commands.
+
+&PLOTXY
+			    INCREMENTAL PLOTTERS
+
+Machines equiped with an incremental plotter are supported by the PLOT com-
+mand and the OUTPUT PLOTTER routines.  Plotters with a resolution of 0.01"
+or 0.25mm are considered 'standard', however plotters with 0.005" or 0.10mm
+step size can also be used, with a corresponding improvement in line quali-
+ty, but no increase in resolution.  The maximum plotting area is +/-20.47"
+(or +/-51.1cm).  Plotter operations overlap calculations, providing smooth,
+continuous output.  A choice of 8 different axis orientations is provided.
+
+The command used is 'PLOT X,Y,L,M' where 'X' and 'Y' are the coordinates of
+the desired pen position, specified in some -arbitrary- set of units.  The
+default is 'inches' for 'english' plotters and 'cm' for 'metric' plotters.
+The actual values of 'X' and 'Y' are scaled by the value of the variable
+'M.' ('Multiplier.') before being sent to the plotter routines.  Thus the
 program can change the scale factor at any time just by changing the value
 of 'M.'.  (The default value is '1'; setting M. to '-1' inverts the axes!)
 
@@ -1231,13 +1230,13 @@ other marks provide 'open' or 'filled' symbols for identifying data points:
 	1 dot	    5 cross (x)      9 f. triangle    13 f. diamond
 	2 dash	    6 o. circle     10 o. square      14 asterisk
 	3 tick	    7 f. circle     11 f. square      15 5-point star
-	4 plus	    8 o. triangle   12 o. diams output.  A choice of 8 different axis orientations is provided.
+	4 plus	    8 o. triangle   12 o. diamond     16 Maltese cross
 
-The command used is 'PLOT X,Y,L,M' where 'X' and 'Y' are the coordinates of
-the desired pen position, specified in some -arbitrary- set of units.  The
-default is 'inches' for 'english' plotters and 'cm' for 'metric' plotters.
-The actual values of 'X' and 'Y' are scaled by the value of the variable
-'M.' ('Multiplots as they are being
+The labeling of the 'X' and 'Y' axes is essentially arbitrary; commonly 'X'
+moves the paper, while 'Y' moves the pen.  To achieve this orientation the
+variable 'R.' ('Rotation.') should be set to '0'.  Many programmers prefer
+to rotate the axes clockwise 90 degrees, so that 'X' moves the pen and 'Y'
+moves the paper.  This makes it easier to view the plots as they are being
 drawn, and is achieved by setting the variable 'R.' to the value '2' (this
 is the default value).  Other values of 'R.' may be used to rotate the axes
 in increments of 45 degrees; values are modulo 8, hence 'R.=-2' and 'R.=6'
@@ -1257,13 +1256,7 @@ motion' direction.
 
 The last special 'plot variable' is 'S.' ('Size.'), which controls the size
 of ASCII characters drawn on the plotter.  (The size of the MARKS is fixed,
-except ond     16 Maltese cross
-
-The labeling of the 'X' and 'Y' axes is essentially arbitrary; commonly 'X'
-moves the paper, while 'Y' moves the pen.  To achieve this orientation the
-variable 'R.' ('Rotation.') should be set to '0'.  Many programmers prefer
-to rotate the axes clockwise 90 degrees, so that 'X' moves the pen and 'Y'
-moves the paper.  This makes it easier to view the for the effects of a 45 degree rotation.)  The basic character cell
+except for the effects of a 45 degree rotation.)  The basic character cell
 is 6 units wide by 10 units high (0.06" by 0.10" on an 'inch' plotter).  Of
 this 6x10 area, only 4x6 is used for the character.  Characters using this
 basic grid are scaled by the value of 'S.', in increments of 0.5.  Thus if
@@ -1326,16 +1319,7 @@ R		Exit from the subroutine call or return to Command Mode
 R 0		Same - the RETURN command always looks for a line number
 R 5.1		Exit from the call and branch (GOTO) line 5.1 if the call
 		was made by a DO, ON or Lib Do command.  If the call was
-		made by a FSF s storage mode
-S ?PI?		Type out the value of PI (3.14...) (Trace mode)
-S-1		Put '-1' in the Floating Accumulator as a FSF result
-
-&SCOPE
-			PDP-12 and LAB8/E DISPLAY ROUTINES
-
-The OUTPUT SCOPE command selects the refreshed display on a PDP12 or LAB8E.
-The screen is refreshed entirely by routines in LDF and hence represents a
-compromise between frequent updates and the desor an 'external' source such as the KEYPAD,
+		made by a FSF or an 'external' source such as the KEYPAD,
 		the branch option is ignored and the normal return occurs.
 R expr		Selects the type of return from the value of the expression
 
@@ -1358,15 +1342,16 @@ S A=1,B=2,C=3	Assign different values to three variables
 S A=B=C=1+2+3	Assign the value '6' to each of three variables
 S A=1+B=2+C=3	Assign the value '6' to A, '5' to B, and '3' to C
 S FMQ(FSR())	Display the switch-register setting in the MQ
-S FRA(-1,4)	Select the desired Random Acces the char buffer, while
-a 'VIEW-1' command will clear the view buffer.  Interestingly enough, how-
-ever, a 'VIEW-3' command will cause  the first two data points to reappear!
-Here is how the VIEW command works:
+S FRA(-1,4)	Select the desired Random Access storage mode
+S ?PI?		Type out the value of PI (3.14...) (Trace mode)
+S-1		Put '-1' in the Floating Accumulator as a FSF result
+
+&SCOPE
+			PDP-12 and LAB8/E DISPLAY ROUTINES
 
-		VIEW +1 	Enables refreshing of the display
-		VIEW [0]	Disables refreshing of the display
-		VIEW -1 	Displays 0 points of the 'view buffer'
-		VIEW -N 	Displays N-1ire to use the CPU for run-
+The OUTPUT SCOPE command selects the refreshed display on a PDP12 or LAB8E.
+The screen is refreshed entirely by routines in LDF and hence represents a
+compromise between frequent updates and the desire to use the CPU for run-
 ning the user's program.  Refreshing occurs whenever the program is waiting
 for keyboard input, on any branch or subroutine call (as well as when the
 program merely 'falls into' the next line), and during a HESITATE command.
@@ -1387,20 +1372,15 @@ other one.  On the PDP12, in fact, the two buffers are displayed on differ-
 ent 'channels', hence the selector switch must be set to '1+2' in order to
 see both images.
 
-Sending a FORMFEED (CTRL/L) to the 'scope will clearithmetic/relational expressions and converts
-the resulting binary values to decimal values which are formatted and sent
-to the Current Output Device.  In addition the TYPE command recognizes six
-OPERATORS which are used for various control purposes.  The SET command is
-equivalent to TYPE when a program is being TRACED.
+Sending a FORMFEED (CTRL/L) to the 'scope will clear the char buffer, while
+a 'VIEW-1' command will clear the view buffer.  Interestingly enough, how-
+ever, a 'VIEW-3' command will cause  the first two data points to reappear!
+Here is how the VIEW command works:
 
-@Examples
-T 1+2+3 	Evaluates the expression and writes result to the COD
-T "2+2="2+2	Same, but outputs an identifying label for the result
-T ?2+2? 	Same, using the TRACE operator to provide identification
-T I=I+1 	Increments I and outputs new value
-T 1,2,3,4,5!	Outputs 5 values, followed by a CR/LF
-T H=.5,4-H,4+H	Sets H to 1/2, outputs values of .5, 3.5 and 4.5
-T "Ready?":-1	Prints prompt, then waits for one character from the CI points of the  "	 "
+		VIEW +1 	Enables refreshing of the display
+		VIEW [0]	Disables refreshing of the display
+		VIEW -1 	Displays 0 points of the 'view buffer'
+		VIEW -N 	Displays N-1 points of the  "	 "
 		VIEW  X,Y	Places a new point in the view buffer
 
 To plot points on the screen the VIEW command is called with TWO arguments:
@@ -1417,21 +1397,20 @@ View Buffer.  The maximum number of points that can be displayed is roughly
 &TYPE
 	    TYPE [arithmetic, relational expressions, operators]
 
-The TYPE command evaluates ar whenever a '?' is encountered in a program (unless
-it is part of a quoted string or following the character-value operator).
-A second '?' turns off the trace switch, a third turns it on again, and so
-forth.  To trace the entire program, simply start it with a 'GO?' or 'DO?'
-command.  To trace selected portions of a program, bracket the desired com-
-mands with a pair of '?'s.
-
-This feature can also be used as a 'shortcut' for generating labels in an
-ASK or TYPE command by 'tracing' the name of a variable as it is used.  A
-disadvantage of this scheme is that these labels are NOT output during an
-actual trace because of the toggling nature of the trace switch.
+The TYPE command evaluates arithmetic/relational expressions and converts
+the resulting binary values to decimal values which are formatted and sent
+to the Current Output Device.  In addition the TYPE command recognizes six
+OPERATORS which are used for various control purposes.  The SET command is
+equivalent to TYPE when a program is being TRACED.
 
 @Examples
-DO 1,2?,?3,4		Traces only subroutine 2
-X?"Double Quotes"?;	Prints '"Double QD
+T 1+2+3 	Evaluates the expression and writes result to the COD
+T "2+2="2+2	Same, but outputs an identifying label for the result
+T ?2+2? 	Same, using the TRACE operator to provide identification
+T I=I+1 	Increments I and outputs new value
+T 1,2,3,4,5!	Outputs 5 values, followed by a CR/LF
+T H=.5,4-H,4+H	Sets H to 1/2, outputs values of .5, 3.5 and 4.5
+T "Ready?":-1	Prints prompt, then waits for one character from the CID
 
 @Operators
 !	Writes a CR/LF to the current output device
@@ -1453,7 +1432,34 @@ all SET commands are interpreted as TYPE commands during a trace, allowing
 intermediate values to be output without having to make additional changes
 to the program.
 
-The TRACE SWITCH is setw a 'dot' at the current point
+The TRACE SWITCH is set whenever a '?' is encountered in a program (unless
+it is part of a quoted string or following the character-value operator).
+A second '?' turns off the trace switch, a third turns it on again, and so
+forth.  To trace the entire program, simply start it with a 'GO?' or 'DO?'
+command.  To trace selected portions of a program, bracket the desired com-
+mands with a pair of '?'s.
+
+This feature can also be used as a 'shortcut' for generating labels in an
+ASK or TYPE command by 'tracing' the name of a variable as it is used.  A
+disadvantage of this scheme is that these labels are NOT output during an
+actual trace because of the toggling nature of the trace switch.
+
+@Examples
+DO 1,2?,?3,4		Traces only subroutine 2
+X?"Double Quotes"?;	Prints '"Double Quotes"' (hard to do with TYPE!)
+TYPE %4.03,?A=?5,? B=?6 Prints 'A=  5.000 B=  6.000'
+ASK ?A,B,C ?		Prompts for the variable by printing its name
+FOR I=1,5;?SET I	Prints the values 1,3,5 (every other pass)
+
+&TEKTRONIX
+			    TEKTRONIX SUPPORT
+
+Plotting on a Tektronix 4010 terminal is done by the 'VIEW X,Y,Z' command,
+where 'X' is the horizontal coordinate (0-1023) and 'Y' is the vertical
+coordinate (0-780, approximately).  The 'Z' value (-1, 0, +1) selects the
+desired type of line:
+
+		Z= -1	Draw a 'dot' at the current point
 		Z= [0]	Move without drawing a line
 		Z= +1	Draw a line from the previous point
 
@@ -1478,20 +1484,16 @@ See ESCAPE and FCUR for additional information.
 The UNTIL command starts a conditional loop that executes the commands on
 the remainder of the line until the value of the expression is NEGATIVE.
 If the expression is initially negative, none of the commands are executed
-and the program skips to the next line.  UNTIL loops may be tuotes"' (hard to do with TYPE!)
-TYPE %4.03,?A=?5,? B=?6 Prints 'A=  5.000 B=  6.000'
-ASK ?A,B,C ?		Prompts for the variable by printing its name
-FOR I=1,5;?SET I	Prints the values 1,3,5 (every other pass)
-
-&TEKTRONIX
-			    TEKTRONIX SUPPORT
+and the program skips to the next line.  UNTIL loops may be terminated by a
+NEXT command, but the user should be aware that if the loop is not executed
+the commands following the NEXT command will not be executed either.  Also,
+when UNTIL is used with a NEXT command that specifies a branch, the right-
+hand parenthesis MUST be followed by a SPACE.  UNTIL commands that test re-
+lational expressions loop until the expression is TRUE (-1); a null expres-
+sion creates an endless loop that can only be interrupted by typing CTRL/F.
 
-Plotting on a Tektronix 4010 terminal is done by the 'VIEW X,Y,Z' command,
-where 'X' is the horizontal coordinate (0-1023) and 'Y' is the vertical
-coordinate (0-780, approximately).  The 'Z' value (-1, 0, +1) selects the
-desired type of line:
-
-		Z= -1	Drandless loop which displays the SR in the MQ
+@Examples:
+U();S FMQ(FSR())	An endless loop which displays the SR in the MQ
 Z I;U(FTRM(),EQ,'*);A X(I=I+1)
 			A loop to read an array of X values ended by '*'
 Z I;U(C(I=I+1)=FIN(),EQ,0M);N
@@ -1513,16 +1515,9 @@ high as 9600 may be used, although some problems have been noted with KL8E
 and M707 interfaces at high baud rates.
 
 The USE HOST command allows the programmer to run programs on both the PDP8
-(or PDP12) and the Host macerminated by a
-NEXT command, but the user should be aware that if the loop is not executed
-the commands following the NEXT command will not be executed either.  Also,
-when UNTIL is used with a NEXT command that specifies a branch, the right-
-hand parenthesis MUST be followed by a SPACE.  UNTIL commands that test re-
-lational expressions loop until the expression is TRUE (-1); a null expres-
-sion creates an endless loop that can only be interrupted by typing CTRL/F.
-
-@Examples:
-U();S FMQ(FSR())	An eeatures of both systems.  The USE HOST command can be built into programs,
+(or PDP12) and the Host machine concurrently.  File transfers can be set up
+interactively and programs developed in a concerted fashion, using the best
+features of both systems.  The USE HOST command can be built into programs,
 or it can be used from Command Mode.  The normal EXIT is by means of typing
 CTRL/E; note that CTRL/C is NOT trapped during a USE HOST command, allowing
 this character to be sent to the remote machine.  The USE HOST command also
@@ -1553,9 +1548,10 @@ Step 1: Convert UWF Program ('.FC') Files to ASCII.  This is done with the
 	it is probably most convenient to use your favorite editor to work
 	on this ASCII file, rather than using the MODIFY command later on.
 	MODIFY can be used, but it is often tedious and error-prone.  After
-	all the changes have been madhine concurrently.  File transfers can be set up
-interactively and programs developed in a concerted fashion, using the best
-fng series of commands:
+	all the changes have been made, you can then do
+
+Step 2: convert this ASCII file back into a LDF Program File ('.FP' file).
+	This is done with the following series of commands:
 
 			.R LDF
 			*O I program.TM; I F
@@ -1590,15 +1586,7 @@ Step 7: Expressions that test character values must be changed from '8-bit'
 	value of all constants.  Expressions that use the 'character-value'
 	operator (') do not need to be changed.
 
-Step 8: JUMP coe, you can then do
-
-Step 2: convert this ASCII file back into a LDF Program File ('.FP' file).
-	This is done with the followithout-LF, the value '0M'
-	(followed by a terminator) must be added, i.e. '#' becomes '#0M,'.
-
-Step13: ASK or TYPE commands using Negative Formats to specify the number
-	of digits printed in Scientific Notation must be changed to use a
-	format of the fmmands must be examined.  Those which are used as 'computed
+Step 8: JUMP commands must be examined.  Those which are used as 'computed
 	DOs' (or in earlier versions, 'computed GOTOs') must be changed to
 	extended 'ON' or 'IF' commands.  This requires changing the command
 	word (letter) and adding two commas after the closing parenthesis.
@@ -1622,13 +1610,12 @@ Step11: All 'X' (eXecute) commands must be changed to 'Set' commands.  'X'
 Step12: ASK or TYPE commands using the '#' operator must be examined.  In
 	versions which use '#' to clear the screen (PDP12, LAB8E) this op-
 	erator MUST be followed by a comma (which was optional before).  In
-	versions which use '#' to generate a CR-wi be changed to OUTPUT DUMP commands.
+	versions which use '#' to generate a CR-without-LF, the value '0M'
+	(followed by a terminator) must be added, i.e. '#' becomes '#0M,'.
 
-Step21: OPEN OUTPUT TTY: or 'O O' commands must be changed to 'O T' (OUTPUT
-	TERMINAL) commands.
-
-Step22: OPEN INPUT TTY:,ECHO or 'O I,E' commands should be changed to INPUT
-	TERMINAL commands.  'O I' commands WIorm '00.xx'.  This change affects only very old UWF
+Step13: ASK or TYPE commands using Negative Formats to specify the number
+	of digits printed in Scientific Notation must be changed to use a
+	format of the form '00.xx'.  This change affects only very old UWF
 	programs.
 
 Step14: ASK or TYPE commands which use the '$' operator to dump the symbol
@@ -1656,20 +1643,13 @@ Step18: If you have an Incremental Plotter, all references to the variables
 
 Step19: OUTPUT DATE commands must be changed to FDAY calls ('SHOW FDAY()').
 
-Step20: OUTPUT BUFFER commands shouldInput Device.  Conversely, the 'O I,E' command that often
-	follows 'Open Input filexx' commands should be removed. If an error
-	return option is included in such commands, it MUST be preceded by
-	an '=' sign (which replaces the 'space' used in UWF).
+Step20: OUTPUT BUFFER commands should be changed to OUTPUT DUMP commands.
 
-Step28: OPEN RESUME INPUT commands should be changed to INPUT FILE[,ECHO].
+Step21: OPEN OUTPUT TTY: or 'O O' commands must be changed to 'O T' (OUTPUT
+	TERMINAL) commands.
 
-Step29: OPEN SECOND commands must be changed to OPEN INPUT/2 followed by an
-	INPUT FILE command.  Switching between two input files requires the
-	use of the '/buffer' option.
-
-Step30: OPEN RESUME SECOND commands should be changed to INPUT FILE/2.
-
-Step31: OUTPUT ECHO LPT: commands should be changed THOUT the ',E' option must be
+Step22: OPEN INPUT TTY:,ECHO or 'O I,E' commands should be changed to INPUT
+	TERMINAL commands.  'O I' commands WITHOUT the ',E' option must be
 	changed to 'I T,N' commands.  (The echo sense has been reveresd.)
 
 Step23: ONLY LIST commands should be changed to LIST FILES.
@@ -1689,7 +1669,43 @@ Step26: OPEN RESUME OUTPUT commands must be changed to OUTPUT FILE[,ECHO].
 
 Step27: OPEN INPUT filexx commands must be followed by 'INPUT FILE[,ECHO]'.
 	Opening a file for input no longer automatically makes the file the
-	Current RARY LIST commands should be changed to LIST PROGRAM commands.
+	Current Input Device.  Conversely, the 'O I,E' command that often
+	follows 'Open Input filexx' commands should be removed. If an error
+	return option is included in such commands, it MUST be preceded by
+	an '=' sign (which replaces the 'space' used in UWF).
+
+Step28: OPEN RESUME INPUT commands should be changed to INPUT FILE[,ECHO].
+
+Step29: OPEN SECOND commands must be changed to OPEN INPUT/2 followed by an
+	INPUT FILE command.  Switching between two input files requires the
+	use of the '/buffer' option.
+
+Step30: OPEN RESUME SECOND commands should be changed to INPUT FILE/2.
+
+Step31: OUTPUT ECHO LPT: commands should be changed to 'O E,L'.
+	OUTPUT ECHO TTY: commands should be changed to 'O E,T'.
+
+Step32: LIBRARY BRANCH commands should be changed to JUMP commands.  ('L B'
+	is used only in rather old versions.)
+
+Step33: LIBRARY NAME commands must be changed to LIBRARY COMMENT commands.
+	Note: 'L N' commands set the 'program changed' flag, causing 'L G'
+	commands to save the program; 'L C' commands do not set this flag.
+
+Step34: LIBRARY EXIT commands should be changed to LIBRARY QUIT commands.
+
+Step35: LIBRARY DELETE commands must be changed to LIBRARY ERASE commands.
+	If such commands use an error-return option, it MUST be preceded
+	by an '=' sign (which replaces the 'space' used by UWF).
+
+Step36: LIBRARY GOSUB commands should be changed to LIBRARY DO commands.
+	If such commands specified a line- or group-number, this value
+	must be preceded by an '=' sign.
+
+Step37: LIBRARY RUN commands should be changed to LIBRARY GO commands.  If
+	such commands specify a line-number, it must be preceded by an '='.
+
+Step38: LIBRARY LIST commands should be changed to LIST PROGRAM commands.
 
 Step39: LIBRARY CALL commands (used in 'Command Mode' to load a program)
 	should be replaced by LOAD IN or LIBRARY LOAD (your choice).
@@ -1713,30 +1729,16 @@ SCOPE, and VTPLOT (respectively) for additional information.
 &VTPLOT
 			    VT52 GRAPHICS SUPPORT
 
-Very effective graphics displato 'O E,L'.
-	OUTPUT ECHO TTY: commands should be changed to 'O E,T'.
+Very effective graphics displays can be produced on VT52 or WT78 terminals
+with the PLOT command.  PLOT works on VT100 terminals too - after they are
+set to 'VT52 mode' (use TYPE $\$<$[?2l"); to make plots in 'ANSI mode' one
+can use programmable escape sequences (see ESCAPE for details).
 
-Step32: LIBRARY BRANCH commands should be changed to JUMP commands.  ('L B'
-	is used only in rather old versions.)
-
-Step33: LIBRARY NAME commands must be changed to LIBRARY COMMENT commands.
-	Note: 'L N' commands set the 'program changed' flag, causing 'L G'
-	commands to save the program; 'L C' commands do not set this flag.
-
-Step34: LIBRARY EXIT commands should be changed to LIBRARY QUIT commands.
-
-Step35: LIBRARY DELETE commands must be changed to LIBRARY ERASE commands.
-	If such commands use an error-return option, it MUST be preceded
-	by an '=' sign (which replaces the 'space' used by UWF).
-
-Step36: LIBRARY GOSUB commands should be changed to LIBRARY DO commands.
-	If such commands specified a line- or group-number, this value
-	must be preceded by an '=' sign.
-
-Step37: LIBRARY RUN commands should be changed to LIBRARY GO commands.  If
-	such commands specify a line-number, it must be preceded by an '='.
-
-Step38: LIBant I
+The PLOT command has the form: PLOT HORZ,VERT,CHAR, where each of the three
+parameters can be an arithmetic expression.  HORZ values range from 0-79,
+VERT values from 0-23, and CHAR values from 0-127.  Parameters may be omit-
+ted, in which case the value '0' is assumed.  The origin for HORZ and VERT
+values is at the bottom-lower-left, hence all coordinates lie in Quadrant I
 The PLOT command allows any character (including the special graphics char-
 acters) to be displayed at any position on the screen.  Resolution is thus
 limited to full character cells (80x24), however the 'scan line' characters
@@ -1754,16 +1756,22 @@ dicates the graphic symbol produced by a given code (on VT52s, not VT100s):
 	1 c/d		 9 right arrow	17 scan4	25 sub-4
 	2 solid block	10 ellipsis	18 scan5	26 sub-5
 	3 1/		11 divide sign	19 scan6	27 sub-6
-	4 3/		12 down arrys can be produced on VT52 or WT78 terminals
-with the PLOT command.  PLOT works on VT100 terminals too - after they are
-set to 'VT52 mode' (use TYPE $\$<$[?2l"); to make plots in 'ANSI mode' one
-can use programmable escape sequences (see ESCAPE for details).
+	4 3/		12 down arrow	20 scan7 (bot)	28 sub-7
+	5 5/		13 scan0 (top)	21 sub-0	29 sub-8
+	6 7/		14 scan1	22 sub-1	30 sub-9
+	7 o (degrees)	15 scan2	23 sub-2	31 paragraph
 
-The PLOT command has the form: PLOT HORZ,VERT,CHAR, where each of the three
-parameters can be an arithmetic expression.  HORZ values range from 0-79,
-VERT values from 0-23, and CHAR values from 0-127.  Parameters may be omit-
-ted, in which case the value '0' is assumed.  The origin for HORZ and VERT
-values is at the bottom-lower-left, hence all coordinates lie in Quadr0-Z*FRAC(Y)
+The scan-line characters allow one to increase the vertical resolution from
+24 to 196 (120 on a VT100).  The command for doing this looks like:
+
+			PLOT X,Y=...,20-Z*FRAC(Y)
+
+where 'X' is the HORZ coordinate, 'Y' is the VERT coordinate (NOT an inte-
+ger!) and 'Z' is '7' for a VT52 ('4' for a VT100).  Try the example below
+with Z=0, then repeat with Z=7 (or 4) to see the difference (other examples
+may be found in the VTDEMO program):
+
+@Example 	    FOR X=0,79;PLOT X,Y=X/5,20-Z*FRAC(Y)
 
 Interaction of the PLOT and TYPE commands: the PLOT command puts the cursor
 at the desired screen position and adjusts the 'tab' counter appropriately;
@@ -1782,22 +1790,11 @@ are ignored during keyboard input.)
 				Variable Names
 
 There are four classes of Variables available: (1) protected variables; (2)
-global variablesow	20 scan7 (bot)	28 sub-7
-	5 5/		13 scan0 (top)	21 sub-0	29 sub-8
-	6 7/		14 scan1	22 sub-1	30 sub-9
-	7 o (degrees)	15 scan2	23 sub-2	31 paragraph
+global variables; (3) local variables; (4) double-subscripted variables.
 
-The scan-line characters allow one to increase the vertical resolution from
-24 to 196 (120 on a VT100).  The command for doing this looks like:
-
-			PLOT X,Y=...,20-Z*FRAC(Y)
-
-where 'X' is the HORZ coordinate, 'Y' is the VERT coordinate (NOT an inte-
-ger!) and 'Z' is '7' for a VT52 ('4' for a VT100).  Try the example below
-with Z=0, then repeat with Z=7 (or 4) to see the difference (other examples
-may be found in the VTDEMO program):
-
-@Example 	    FOR X=0,79;PLOT X,Y=X/5,2,$,%.  (These are the punctuation
+PROTECTED variables are those that are not automatically 'wiped out' by the
+ZERO command.  There are 7 such variables: @,PI,a,b,c,d,e; the last 5 (a-e)
+may also be referenced by the names: !,",#,$,%.  (These are the punctuation
 symbols used as operators in ASK/TYPE commands.  This is for the benefit of
 users with upper-case only terminals).  These 7 variables are used for many
 special purposes and hence should not be used without some thought on the
@@ -1821,11 +1818,10 @@ ZERO command.  They are stored in whatever space is available for user var-
 iables and hence will be effectively set to '0' by that command.  Variables
 defined by the user's program are identified by a two-character name and a
 single 12-bit subscript.  The internal name is abstracted from the name in
-the user's program by k; (3) local variables; (4) double-subscripted variables.
-
-PROTECTED variables are those that are not automatically 'wiped out' by the
-ZERO command.  There are 7 such variables: @,PI,a,b,c,d,e; the last 5 (a-e)
-may also be referenced by the names: !,",#: upper- and lower-case
+the user's program by keeping only the FIRST and LAST letters.  Thus 'TEMP'
+is reduced to 'TP'.  Similarly the internal subscript may differ from the
+subscript(s) appearing in the program.  Note especially that variable names
+(unlike other symbols in LDF) are NOT 'case-blind': upper- and lower-case
 variable names are DIFFERENT, hence the names 'KW', 'Kw', 'kW' and 'kw' re-
 present 4 different variables.  As discussed below, the first two are clas-
 sified as GLOBAL variables, while the latter two are considered to be LOCAL
@@ -1848,12 +1844,7 @@ as the GLOBAL variable 'i(12)'.  Local variables can thus be accessed from
 any part of the program just by adding an explicit subscript.
 
 As mentioned above, all variables have an internal subscript, even if they
-aeeping only the FIRST and LAST letters.  Thus 'TEMP'
-is reduced to 'TP'.  Similarly the internal subscript may differ from the
-subscript(s) appearing in the program.  Note especially that variable names
-(unlike other symbols in LDF) are NOT 'case-blind'ed quite so easily, since in this case the value
-of the dimension constant must be set to satisfy the array with the largest
-'re not subscripted in the user's program.  Un-subscripted variables with
+are not subscripted in the user's program.  Un-subscripted variables with
 Uppercase names are given an internal subscript of '0'.  (Thus there is NO
 DISTINCTION between the variables 'A' and 'A(0)'.)  Unsubscripted variables
 with lowercase names are given a subscript equal to the current group num-
@@ -1875,9 +1866,9 @@ in fact, it is both expedient and wise to use the symbol '@' throughout the
 program for all loop limits and subscript caluclations.  Written this way,
 the entire calculation can be scaled for a different size array merely by
 changing the value of a single variable.  Programs involving non-conformal
-arrays cannot be generalizhe variable 'AL'
-W-.01		List all lines in Group 0 (can't use 'W 0' - see above)
-W 1,-2.5	List all lines in Group 1, and any lirow' index.
+arrays cannot be generalized quite so easily, since in this case the value
+of the dimension constant must be set to satisfy the array with the largest
+'row' index.
 
 To summarize the use of TWO-DIMENSIONAL arrays: The variable '@' must first
 be set to a value equal to (or greater than) the maximum value of the FIRST
@@ -1904,16 +1895,9 @@ if a designated section is missing: what you see is what you've got!
 @Examples:
 W		List the entire program on the Current Output Device
 W 0		Same - an argument of '0' means 'all'
-WRITE ALL	List section of the program selected by tmeric argument] or [list of variables]
-
-The ZERO command is used to set ALL, or just a few, of the user's variables
-to zero.  When called without an argument (or with an argument of '0'), the
-entire 'symbol table' is cleared, thus resetting ALL user-defined variables
-to zero.  (Note that this operation DOES NOT clear any of the 'protected'
-variables.)  To 'zero' only selected variables, the command is used with a
-list of variable names: 'ZERO I,J' will set those two variables to zero.
-
-The amount ones from 2.50-2.99
+WRITE ALL	List section of the program selected by the variable 'AL'
+W-.01		List all lines in Group 0 (can't use 'W 0' - see above)
+W 1,-2.5	List all lines in Group 1, and any lines from 2.50-2.99
 W 9.1		List only line 9.10
 F I=10,31;W I	List all lines in Groups 10-31
 
@@ -1944,22 +1928,16 @@ Y I,J,K 	Increment three variables
 Y-I,-J,K	Decrement two variables and increment the third
 
 &ZERO
-		ZERO [nu  'Z 0' is equivalent to 'Z' and merely
-clears the table without changing its size.  To determine the current size
-of the symbol table you can use this little FPAL function:
+		ZERO [numeric argument] or [list of variables]
 
-	  TYPE FPAL(,1030,7040,2204); C GET SIZE OF SYMBOL TABLE.
-
-&FABS
-				ABSOLUTE-VALUE
+The ZERO command is used to set ALL, or just a few, of the user's variables
+to zero.  When called without an argument (or with an argument of '0'), the
+entire 'symbol table' is cleared, thus resetting ALL user-defined variables
+to zero.  (Note that this operation DOES NOT clear any of the 'protected'
+variables.)  To 'zero' only selected variables, the command is used with a
+list of variable names: 'ZERO I,J' will set those two variables to zero.
 
-FABS(arg) returns the absolute value of the argument.
-
-&FADC
-			ANALOG-TO-DIGITAL CONVERSION
-
-FADC(channel#) returns the value of the signal connected to the specified
-channel.  Channels are numbered from '0'.  The LAB8E has 8 channelf memory set aside for user variable storage is dependent on a
+The amount of memory set aside for user variable storage is dependent on a
 number of different hardware and software considerations that are resolved
 by the initialization routine each time LDF is loaded into memory.  In the
 absence of other complicating factors, each FIELD of memory, beginning with
@@ -1975,7 +1953,34 @@ or expand the active size of the symbol table, up to a maximum size set by
 the initialization code.  The format for such commands is: ZERO (N), where
 (N) is a numeric parameter (or an expression enclosed in parentheses), that
 indicates the number of FIELDS desired.  Values above '5' are illegal, as
-is a 'Z 2' command on a 16K machine.tly 'noisy'! - 'clean' signals are not
+is a 'Z 2' command on a 16K machine.  'Z 0' is equivalent to 'Z' and merely
+clears the table without changing its size.  To determine the current size
+of the symbol table you can use this little FPAL function:
+
+	  TYPE FPAL(,1030,7040,2204); C GET SIZE OF SYMBOL TABLE.
+
+&FABS
+				ABSOLUTE-VALUE
+
+FABS(arg) returns the absolute value of the argument.
+
+&FADC
+			ANALOG-TO-DIGITAL CONVERSION
+
+FADC(channel#) returns the value of the signal connected to the specified
+channel.  Channels are numbered from '0'.  The LAB8E has 8 channels (0-7),
+while the PDP-12 has 16, the first 8 of which are the 'pots' on the front
+panel.  The value returned by the function ranges from -512 to +511 (for
+a 10-bit ADC).  The scale factor depends on the input range selected - it
+should be checked by measuring a known voltage.
+
+Some versions allow calls of the form 'FADC(channel,#samples)', where the
+(optional) second argument specifies the number of times to read the A/D
+converter.  The readings are taken as rapidly as possible and the average
+value is returned by the function.  This feature improves the accuracy of
+the reading by roughly the square-root of the number of samples, e.g. the
+average of 4 samples of a 10-bit converter gives approximately 12-bit ac-
+curacy (if the signal is sufficiently 'noisy'! - 'clean' signals are not
 improved by this technique, due to the quantized nature of the converter).
 The number of samples is limited to 2^23/(size of signal).
 
@@ -1993,37 +1998,7 @@ each other.  The FAND function is useful for extracting data from a packed
 format, for instance separating the MONTH, DAY and YEAR bits from the sys-
 tem date word, or decoding the information saved in SKED files. (SKED files
 use a 24-bit data word.)  Another common use is with FIN to convert lower-
-case input to upper-case.  This is done by maskins (0-7),
-while the PDP-12 has 16, the first 8 of which are the 'pots' on the front
-panel.  The value returned by the function ranges from -512 to +511 (for
-a 10-bit ADC).  The scale factor depends on the input range selected - it
-should be checked by measuring a known voltage.
-
-Some versions allow calls of the form 'FADC(channel,#samples)', where the
-(optional) second argument specifies the number of times to read the A/D
-converter.  The readings are taken as rapidly as possible and the average
-value is returned by the function.  This feature improves the accuracy of
-the reading by roughly the square-root of the number of samples, e.g. the
-average of 4 samples of a 10-bit converter gives approximately 12-bit ac-
-curacy (if the signal is sufficien		 BLOCK NUMBER OF INPUT FILE
-
-FBLK() returns the location of the first block of the current input file.
-This value may be used for later 'direct access' calls.  FBLK has no argu-
-ment; to get the value for a given file one must first use an 'O I/buffer'
-or 'I F/buffer' command to select the desired file.  Note that selecting
-buffer/0 will return the starting-block number of the output file.
-
-&FCOM
-			    COMMON AREA STORAGE
-
-The FCOM function allows any unused memory in the text (program) buffer to
-be used for data storage.  For small (1-2 block) programs this offers stor-
-age for 600-800 floating-point values, or twice that many double-precision
-integers.  The FCOM area is a convenient place to store experimental data,
-as well as providing additional 'variable' storage in systems with limited
-memory.
-
-FCOM calls have the form: FCOM(index) or FCOM(index,data).  A g with the constant '95'.
+case input to upper-case.  This is done by masking with the constant '95'.
 
 @Examples
 TYPE FAND(1,3)		  Returns the value '1'
@@ -2043,7 +2018,30 @@ FATN(-1) returns '-PI/4'.  In 'degree mode', these values would be +45 and
 -45, respectively.
 
 &FBLK
-	o a data range
+			 BLOCK NUMBER OF INPUT FILE
+
+FBLK() returns the location of the first block of the current input file.
+This value may be used for later 'direct access' calls.  FBLK has no argu-
+ment; to get the value for a given file one must first use an 'O I/buffer'
+or 'I F/buffer' command to select the desired file.  Note that selecting
+buffer/0 will return the starting-block number of the output file.
+
+&FCOM
+			    COMMON AREA STORAGE
+
+The FCOM function allows any unused memory in the text (program) buffer to
+be used for data storage.  For small (1-2 block) programs this offers stor-
+age for 600-800 floating-point values, or twice that many double-precision
+integers.  The FCOM area is a convenient place to store experimental data,
+as well as providing additional 'variable' storage in systems with limited
+memory.
+
+FCOM calls have the form: FCOM(index) or FCOM(index,data).  A call with two
+arguments STORES data at the location indicated by the index value, while a
+call with a single argument READS data from that location.  The SIGN of the
+index determines the storage MODE.  POSITIVE indices (0,1,2,3...) reference
+data in a 'floating-point' format, while NEGATIVE indices (-1,-2,-3...) re-
+fer to data in a 'double-precision integer' format, limited to a data range
 of 2^23-1 (+/-8388607).  Values stored in this format take up only half the
 space of values stored in floating-point format.
 
@@ -2073,12 +2071,13 @@ by the FRDG function.  The default mode is 'radians', thus FCOS(PI/2)= '0'.
 &FCUR
 			  TEKTRONIX CURSOR POSITION
 
-The FCUR() function is part of the 'Tecall with two
-arguments STORES data at the location indicated by the index value, while a
-call with a single argument READS data from that location.  The SIGN of the
-index determines the storage MODE.  POSITIVE indices (0,1,2,3...) reference
-data in a 'floating-point' format, while NEGATIVE indices (-1,-2,-3...) re-
-fer to data in a 'double-precision integer' format, limited tt turn on the 'GIN mode' cursor and
+The FCUR() function is part of the 'Tektronix' routines.  It determines the
+current cursor position, either in 'alpha' or 'Graphics Input' mode, allow-
+ing the user to interact with the display.  Information obtained by FCUR is
+returned in two ways: (1) as the value of the function and (2) as the value
+of two special variables 'X.' and 'Y.' (the '.' stands for 'position').
+
+FCUR() calls with a null or '0' argument turn on the 'GIN mode' cursor and
 wait for the user to position it with the cursor controls.  Hitting any key
 on the keyboard ends the call and returns the character code of the key as
 the value of the function.  In addition the variables 'X.' and 'Y.' are up-
@@ -2109,13 +2108,7 @@ UNTIL(Z=FCUR()); VIEW X,Y; VIEW X=X.,Y=Y.,FSGN('N-Z)
 &FDAY
 			    SYSTEM DATE FUNCTION
 
-The FDAktronix' routines.  It determines the
-current cursor position, either in 'alpha' or 'Graphics Input' mode, allow-
-ing the user to interact with the display.  Information obtained by FCUR is
-returned in two ways: (1) as the value of the function and (2) as the value
-of two special variables 'X.' and 'Y.' (the '.' stands for 'position').
-
-FCUR() calls with a null or '0' argumenY() function provides three services: (1) it prints the current sys-
+The FDAY() function provides three services: (1) it prints the current sys-
 tem date as an ASCII string; (2) it returns the binary value of the current
 date; (3) it allows the user to change the system date.
 
@@ -2180,13 +2173,7 @@ tested, and (b) if they are 'edge-sensitive', not 'level-sensitive'.
 			     BASE-e EXPONENTIAL
 
 The FEXP(X) function returns a value for e^X (e=2.71828...).  Calling the
-function with an argument of '1' thus returns an accuratee FIND() function is passed to the Current Output Device
-with the exception of the search character. If the Input Echo is turned off
-all characters read by the FIND() function are effectively discarded.
-
-FIND() normally returns the value of the search character as the value of
-the function.  However, if an End of File mark (CTRL/Z) is found before the
-search character, FIND() value for 'e'.
+function with an argument of '1' thus returns an accurate value for 'e'.
 To avoid arithmetic overflow, the maximum value of the argument should be
 less than approximately 1400.
 
@@ -2214,13 +2201,13 @@ turned in the 'zeroth' element of the array (C(0)=C):
 
 The FIND() function reads characters from the Current Input Device, seeking
 one which matches the argument.  If the INPUT ECHO is enabled, each charac-
-ter processed by this may be contrasted with the
-'entier' function found in some languages, which returns the 'integer less
-than or equal to the argument'.  For negative arguments such functions give
-a result that is one less than that returned by FITR - unless the argument
-is already an integer, in which case the results are the same!
+ter processed by the FIND() function is passed to the Current Output Device
+with the exception of the search character. If the Input Echo is turned off
+all characters read by the FIND() function are effectively discarded.
 
-The user should note that LDF converts many arguments to i returns the value '0'. Conversely, searching for a
+FIND() normally returns the value of the search character as the value of
+the function.  However, if an End of File mark (CTRL/Z) is found before the
+search character, FIND() returns the value '0'. Conversely, searching for a
 'null' is equivalent to searching for the EOF, since 'nulls' are always ig-
 nored by the input routine.
 
@@ -2243,23 +2230,13 @@ as well as of input from any one of the four internal buffers (I B/n).
 The FITR() function returns the InTegeR part of the argument (the name has
 historical origins).  Numbers that cannot be represented as 35-bit integers
 are not affected by this function call.  The SIGN of the argument does not
-change the result, i.e. FITR(-3.9) is -3.  Th output while the latter returns the size of the
-original 'empty' area (which for an output file is its effective 'length').
+change the result, i.e. FITR(-3.9) is -3.  This may be contrasted with the
+'entier' function found in some languages, which returns the 'integer less
+than or equal to the argument'.  For negative arguments such functions give
+a result that is one less than that returned by FITR - unless the argument
+is already an integer, in which case the results are the same!
 
-@Examples
-O I/0;T FLEN(),FLEN(1)	Type remaining length, empty size
-O I/1;T FLEN(1) 	Type the length of File/1
-F i=,3;O I/i;T FLEN(1)	Type the length of all files
-
-&FLGS
-				EVENT FLAGS
-
-The FLGS() function is part of the PDP12 and LAB8E overlays.  It monitors
-event flags which have not (yet) caused a program interrupt.  High-priority
-subroutines can thus use the FLGS function to see if some other action is
-necessary before they exit.  Event Flags are cleared as soon as the program
-responds to that event; if the corresponding bit in the EVENT FLAG MASK is
-cleared, however, no response will ever occur.  Thus the FLGS funteger form auto-
+The user should note that LDF converts many arguments to integer form auto-
 matically.  Subscripts, values used as indices or placed in hardware regis-
 ters are always converted internally before being used - hence the use of
 FITR() in such cases is unnecessary.
@@ -2277,21 +2254,23 @@ To determine the length of a specific input file one must first select this
 file as the Current Input File by using the appropriate Open Input or Input
 File command.  Note that with respect to File/0, the value of FLEN() and
 FLEN(1) are both meaningful: the first returns the number of unused blocks
-still available for furtherno argument
-(or '0') is used, the call returns the weighted sum of all pending event
-flags (but will not reset any of them).  If a non-zero argument is used,
-only bits in the event flag register that match those in the argument will
-be returned, and in that case those same bits will then be cleared so that
-the program will see a given event only once.  The call FLGS(-1) will thus
-return all pending bits (just as a FLGS(0) call does), but in this case the
-entire register will be cleared.  In the example above, to check and reset
-the bit corresponding to S.T.#1, one would use FLGS(4).  To check this bit
-WITHOUT resetting it, use the expression 'FAND(FLGS(),4)'.
-
-&FLOG
-			     NATURAL LOGARITHM
+still available for further output while the latter returns the size of the
+original 'empty' area (which for an output file is its effective 'length').
 
-The FLOG() function returns the natural (base e) lonction can
+@Examples
+O I/0;T FLEN(),FLEN(1)	Type remaining length, empty size
+O I/1;T FLEN(1) 	Type the length of File/1
+F i=,3;O I/i;T FLEN(1)	Type the length of all files
+
+&FLGS
+				EVENT FLAGS
+
+The FLGS() function is part of the PDP12 and LAB8E overlays.  It monitors
+event flags which have not (yet) caused a program interrupt.  High-priority
+subroutines can thus use the FLGS function to see if some other action is
+necessary before they exit.  Event Flags are cleared as soon as the program
+responds to that event; if the corresponding bit in the EVENT FLAG MASK is
+cleared, however, no response will ever occur.  Thus the FLGS function can
 be used to watch for 'non-interrupt' events too.
 
 The Schmitt Triggers provide a good example: it is not always convenient to
@@ -2308,7 +2287,30 @@ no 'external DO' call will occur.  The FLGS function, however, can be used
 to monitor the Event Register for any Schmitt Trigger events.  (Note: the
 Event Register is always cleared when the program returns to Command Mode.)
 
-FLGS() may be called with or without an explicit argument.  If e common log of 100)
+FLGS() may be called with or without an explicit argument.  If no argument
+(or '0') is used, the call returns the weighted sum of all pending event
+flags (but will not reset any of them).  If a non-zero argument is used,
+only bits in the event flag register that match those in the argument will
+be returned, and in that case those same bits will then be cleared so that
+the program will see a given event only once.  The call FLGS(-1) will thus
+return all pending bits (just as a FLGS(0) call does), but in this case the
+entire register will be cleared.  In the example above, to check and reset
+the bit corresponding to S.T.#1, one would use FLGS(4).  To check this bit
+WITHOUT resetting it, use the expression 'FAND(FLGS(),4)'.
+
+&FLOG
+			     NATURAL LOGARITHM
+
+The FLOG() function returns the natural (base e) logarithm of the argument.
+A value of '0' generates an error.  Negative arguments, while undefined for
+the 'real' logarithm function, are accepted by FLOG() and give the same re-
+sult as positive arguments.  This unusual behavior allows the FLOG function
+to be used for extracting roots of both positive and negative numbers.  To
+get the 'common' (base 10) logarithm, simply divide the result by FLOG(10).
+
+@Examples
+TYPE FLOG(1)		'0' is the value output
+TYPE FLOG(100)/FLOG(10) '2' is the answer here (the common log of 100)
 TYPE FEXP(FLOG(-27)/3)	'3' is output, but the cube root of -27 is -3!
 			 Correct the result by multiplying by FSGN(-3)
 
@@ -2338,16 +2340,21 @@ SET MAX=N(1); FOR I=2,LAST; SET MAX=FMAX(MAX,N(I))
 &FMIN
 			       MINIMUM VALUE
 
-The FMIN(arg1,arg2) function returns the argument having garithm of the argument.
-A value of '0' generates an error.  Negative arguments, while undefined for
-the 'real' logarithm function, are accepted by FLOG() and give the same re-
-sult as positive arguments.  This unusual behavior allows the FLOG function
-to be used for extracting roots of both positive and negative numbers.  To
-get the 'common' (base 10) logarithm, simply divide the result by FLOG(10).
+The FMIN(arg1,arg2) function returns the argument having the algebraically
+smallest value.  Only two arguments can be compared, hence a simple loop is
+required to sort an entire array for a minimum value.  To place upper and
+lower bounds on a number, use 'FMIN(FMAX(value,lower-limit),upper-limit)'.
 
 @Examples
-TYPE FLOG(1)		'0' is the value output
-TYPE FLOG(100)/FLOG(10) '2' is the answer here (th
+TYPE FMIN(1,2)		'1' is the answer
+TYPE FMIN(1,-2) 	'-2' is the answer
+SET MIN=N(1); FOR I=2,LAST; SET MIN=FMIN(MIN,N(I))
+			This loop will return the algebraically
+			smallest value in the array N(1)...N(LAST)
+
+&FMQ
+			      LOAD MQ REGISTER
+
 The FMQ function is available for machines with a 'MQ' register and a front
 panel with which to monitor its contents.  FMQ(X) stores the least-signifi-
 cant 12 bits of the argument in the MQ, providing a convenient way to moni-
@@ -2369,21 +2376,9 @@ U();S FMQ(FADC(FSR()))	Displays selected channel of the A/D, allowing
 			      CHARACTER OUTPUT
 
 The FOUT() function is the converse of the FIN() function.  It evaluates an
-arithmetic expression, converting this value to a single character whthe algebraically
-smallest value.  Only two arguments can be compared, hence a simple loop is
-required to sort an entire array for a minimum value.  To place upper and
-lower bounds on a number, use 'FMIN(FMAX(value,lower-limit),upper-limit)'.
-
-@Examples
-TYPE FMIN(1,2)		'1' is the answer
-TYPE FMIN(1,-2) 	'-2' is the answer
-SET MIN=N(1); FOR I=2,LAST; SET MIN=FMIN(MIN,N(I))
-			This loop will return the algebraically
-			smallest value in the array N(1)...N(LAST)
-
-&FMQ
-			      LOAD MQ REGISTER
-dentical functions.  FOUT() will
+arithmetic expression, converting this value to a single character which is
+sent to the COD.  The FOUT() function and the '#' operator in ASK/TYPE com-
+mands perform very similar, but not quite identical functions.  FOUT() will
 output a 'null' character if the expression is '0', while the '#' operator
 generates a FORMFEED in that case; FOUT(0M) produces a CR/LF and resets the
 'tab counter', while #0M generates only a CR and does not change the tab
@@ -2412,9 +2407,8 @@ to return 24-bit or larger values to the program, but such programming re-
 quires a specific instruction at the end of the routine (see examples).
 
 The first argument is always treated as an arithmetic expression.  Thus it
-may contain otheich is
-sent to the COD.  The FOUT() function and the '#' operator in ASK/TYPE com-
-mands perform very similar, but not quite iAL num-
+may contain other functions, loop indices, etc. This is the value passed to
+the function in the AC.  The remaining arguments are treated as OCTAL num-
 bers, which are assumed to be valid machine instructions; no checking what-
 soever is done on these arguments!  The final user-supplied instruction is
 automatically followed by a 'return' instruction, which ends the function
@@ -2440,13 +2434,7 @@ calls.
 @Examples
 FOR Channel_#=0,7; TYPE FPAL(C#,6531,6532,6534,5203,6533)
 		   This function reads the LAB8/E A/D converter, using the
-		   AC to select the appropriar functions, loop indices, etc. This is the value passed to
-the function in the AC.  The remaining arguments are treated as OCT
-favor of servicing one of the External Subroutine Calls.
-
-EXTERNAL subroutine calls can occur from at least 4 sources (more may be
-added by the user if her or she so desires): (1) the MAIN program can issue
-an external call.  Thus in addition to the te channel.  It is equivalent
+		   AC to select the appropriate channel.  It is equivalent
 		   to the normal FADC() function except for execution time.
 TYPE FPAL(,6770)   Get the current Time-of-day from the MULTI8 monitor
 
@@ -2473,10 +2461,12 @@ ciated PRIORITY value which is used to determine the order in which it will
 be executed. This priority value is, in fact, just the TASK NUMBER assigned
 by the FQ function (Argument #1 in the list above).  Tasks are numbered 1
 to 12, with #1 having the highest priority and #12 the lowest.  Lower still
-than #12 is the MAIN program, which will always be temporarily suspended inn hand we will now step into the details of programming
-the FQ function.  It is important to note at the beginning that external DO
-calls do not reference the subroutine directly, but rather specify the TASK
-number associated with that call.  An externanormal DO call, the main program
+than #12 is the MAIN program, which will always be temporarily suspended in
+favor of servicing one of the External Subroutine Calls.
+
+EXTERNAL subroutine calls can occur from at least 4 sources (more may be
+added by the user if her or she so desires): (1) the MAIN program can issue
+an external call.  Thus in addition to the normal DO call, the main program
 can call a subroutine which then runs IN PARALLEL with it, returning not to
 the calling point when it is done, but simply disappearing.  This method is
 convenient for testing routines that are to be called by some other means
@@ -2500,19 +2490,10 @@ which, however, are handled by a different mechanism.  Keypad calls have a
 priority just above that of the main program.  Their purpose is basically
 convenience, not real-time programming.
 
-With this outline iTASK 1 as a 'DO 12' call
-SET FQ(2,1.2)	 	Identify TASK 2 as a 'DO 1.2' call
-SET FQ(3,.2)		Identify TASK 3 as a 'DO xx.2' call
-SET FQ(4,-5.6)		Attempt to identify TASK 4 as a 'DO-5.6' call.
-			The 'sign' is ignored, turning TASK 4 into a
-			'DO 5.6' call WITHOUT signalling an error.
-SET FQ(5,0)		Attempt to identify TASK 5 as a 'DO 0' (entire
-			program) call.	This is likewise not allowed,
-			with the effect that TASK 5 becomes a 'NOP'.
-
-From the last example we see that the way to remove a task assignment from
-the table is to assign it a '0' subroutine call.  This is an important fea-
-ture because it allows tasks to 'shutl call is initiated by placing
+With this outline in hand we will now step into the details of programming
+the FQ function.  It is important to note at the beginning that external DO
+calls do not reference the subroutine directly, but rather specify the TASK
+number associated with that call.  An external call is initiated by placing
 its task number in an EVENT REGISTER (see discussion of the FLGS function).
 This alerts the scheduler to the fact that there is something to do besides
 running the main program.  The task with the highest priority at any given
@@ -2529,17 +2510,19 @@ values) cannot be stored in the table.  If such calls are necessary, they
 can be included in the code executed by the external call.
 
 @Examples
-SET FQ(1,12)		Identify am is running.  The reason for this is
-so that direct commands for editing, listing programs, etc. can be executed
-without interference from unexpected external calls.
+SET FQ(1,12)		Identify TASK 1 as a 'DO 12' call
+SET FQ(2,1.2)	 	Identify TASK 2 as a 'DO 1.2' call
+SET FQ(3,.2)		Identify TASK 3 as a 'DO xx.2' call
+SET FQ(4,-5.6)		Attempt to identify TASK 4 as a 'DO-5.6' call.
+			The 'sign' is ignored, turning TASK 4 into a
+			'DO 5.6' call WITHOUT signalling an error.
+SET FQ(5,0)		Attempt to identify TASK 5 as a 'DO 0' (entire
+			program) call.	This is likewise not allowed,
+			with the effect that TASK 5 becomes a 'NOP'.
 
-Thus there is a mechanism for 'turning off' external calls, which implies
-that there must also be a way to turn this feature on initially, or after a
-new program has been loaded.  The 'turn on' signal is ANY FQ call having a
-POSITIVE, NON-ZERO first argument (the task number).  Thus calls which fill
-in the task table also enable external calls.  If the program itself wishes
-to temporarily inhibit external calls, the 'enable switch' can be reset by
-calling F themselves off' by putting a '0' in
+From the last example we see that the way to remove a task assignment from
+the table is to assign it a '0' subroutine call.  This is an important fea-
+ture because it allows tasks to 'shut themselves off' by putting a '0' in
 the table.  On a more global scale, calling the FQ function with a single
 NEGATIVE argument will clear the entire task table - thus disabling in one
 call ALL external subroutines.  A 'SET FQ(-1)' call at the beginning of the
@@ -2555,7 +2538,26 @@ can occur as a result of a program swap, or simply because the main program
 came to a stopping point and returned to Command Mode.
 
 It has not been explictly mentioned thus far, but in fact, external calls
-are only allowed while the main progro Command Mode, or by means of a FQ()
+are only allowed while the main program is running.  The reason for this is
+so that direct commands for editing, listing programs, etc. can be executed
+without interference from unexpected external calls.
+
+Thus there is a mechanism for 'turning off' external calls, which implies
+that there must also be a way to turn this feature on initially, or after a
+new program has been loaded.  The 'turn on' signal is ANY FQ call having a
+POSITIVE, NON-ZERO first argument (the task number).  Thus calls which fill
+in the task table also enable external calls.  If the program itself wishes
+to temporarily inhibit external calls, the 'enable switch' can be reset by
+calling FQ with a 'null' or 'zero' argument: SET FQ();C INHIBIT EXT. CALLS.
+
+Once an entry has been made in the task table, that subroutine will be run
+whenever the corresponding EVENT FLAG is set.  The easiest way to set this
+flag is to again invoke the FQ function, but this time with a SINGLE, NON-
+ZERO, POSITIVE argument.  The command 'SET FQ(1)' will set the 'event flag'
+for task #1, and PRESTO! it will be executed just as soon as the scheduler
+gets a chance.  Notice that calls which set event flags also 'turn on' the
+scheduler, hence even if the 'inhibit switch' had been previously set (due
+to loading a new program, returning to Command Mode, or by means of a FQ()
 call), setting the Event Flag this way ensures that the subroutine will be
 executed (provided the 'main' program continues running).
 
@@ -2572,16 +2574,20 @@ FLGS function (PDP12, LAB8E, and others) recognize three-argument calls.
 To allow Schmitt Trigger events to generate External Subroutine Calls, we
 need to associate a 'task number' with each event.  This is accomplished by
 calling the FQ function with 3 arguments: the first two store information
-in the task table as discussed above, whileQ with a 'null' or 'zero' argument: SET FQ();C INHIBIT EXT. CALLS.
+in the task table as discussed above, while the third specifies which input
+goes with that entry.  Thus a 'SET FQ(1,2,3)' call specifies the following:
 
-Once an entry has been made in the task table, that subroutine will be run
-whenever the corresponding EVENT FLAG is set.  The easiest way to set this
-flag is to again invoke the FQ function, but this time with a SINGLE, NON-
-ZERO, POSITIVE argument.  The command 'SET FQ(1)' will set the 'event flag'
-for task #1, and PRESTO! it will be executed just as soon as the scheduler
-gets a chance.  Notice that calls which set event flags also 'turn on' the
-scheduler, hence even if the 'inhibit switch' had been previously set (due
-to loading a new program, returning ts.  Such calls are used for
+		The TASK NUMBER is 1 (highest priority)
+		The SUBROUTINE is Group 2
+		The Schmitt Trigger is #3
+
+Once a Schmitt Trigger has been associated with ANY task, signals detected
+by that trigger will cause that task to be scheduled.  The only way to DIS-
+ABLE Schmitt events is to re-define the task as the 'null' task by using
+'0' as the second argument, or else to clear the corresponding bits in the
+Event Flag Mask.  (See the FLGS section for more information on this.)
+
+Finally we consider FQ calls with FOUR arguments.  Such calls are used for
 initializing the four internal timers that are available for creating timed
 subroutine calls; these timers are completely independent of the timer used
 by the FTIM function, although all timers are ultimately driven by the same
@@ -2598,20 +2604,15 @@ where the first 3 arguments are similar to those in a call defining Schmitt
 Trigger events - the timer number simply replacing the Schmitt Trigger num-
 ber.  (The timers are numbered '0-3', whereas the Schmitt Triggers are num-
 bered 1-3.)  The fourth parameter is the time interval (to the neaarest 0.1
-second) that the t the third specifies which input
-goes with that entry.  Thus a 'SET FQ(1,2,3)' call specifies the following:
+second) that the timer should wait before setting the event flag.  The com-
+mand 'SET FQ(1,2,3,4.5)' thus has the following meaning:
 
-		The TASK NUMBER is 1 (highest priority)
-		The SUBROUTINE is Group 2
-		The Schmitt Trigger is #3
+			The TASK number is 1
+			The SUBROUTINE is Group 2
+			The TIMER is #3
+			The time INTERVAL is 4.5 seconds
 
-Once a Schmitt Trigger has been associated with ANY task, signals detected
-by that trigger will cause that task to be scheduled.  The only way to DIS-
-ABLE Schmitt events is to re-define the task as the 'null' task by using
-'0' as the second argument, or else to clear the corresponding bits in the
-Event Flag Mask.  (See the FLGS section for more information on this.)
-
-Finally we consider FQ calls with FOUR argumentither POSITIVE or NEGATIVE numbers; Positive values
+Time intervals may be either POSITIVE or NEGATIVE numbers; Positive values
 are interpreted as REPETITIVE intervals, i.e. once the specified interval
 has elapsed, the counter is automatically reset so that the event flag is
 set over and over again.  Negative intervals are interpreted as 'one-time'
@@ -2634,15 +2635,10 @@ limit the rate of Schmitt Trigger events, of course, but it would obviously
 behoove the user to think in terms of 200 interrupts per second as an upper
 limit.
 
-What happens imer should wait before setting the event flag.  The com-
-mand 'SET FQ(1,2,3,4.5)' thus has the following meaning:
-
-			The TASK number is 1
-			The SUBROUTINE is Group 2
-			The TIMER is #3
-			The time INTERVAL is 4.5 seconds
-
-Time intervals may be ee the first one has been serviced it
+What happens if external calls are requested faster than they can be execu-
+ted?  Answer: some calls are simply missed.  The EVENT FLAG mechanism is a
+rather primative one - there is no queue of requests, only a single bit, so
+if a second interrupt comes along before the first one has been serviced it
 will simply set the same bit again.  External calls are thus best suited to
 applications with modest interrupt rates (say 50/second), which occur for a
 reasonably long period of time (hours to a few weeks).
@@ -2663,12 +2659,7 @@ arguments, the first of which is '0'.  You will recall that calls with '0'
 as the first argument DISABLE the scheduler, hence it is convenient to add
 an option to only partially disable things.  The second argument in such a
 call is the desired event mask, with '-1' enabling all events, and '0' dis-
-abling them all.  To disable if external calls are requested faster than they can be execu-
-ted?  Answer: some calls are simply missed.  The EVENT FLAG mechanism is a
-rather primative one - there is no queue of requests, only a single bit, so
-if a second interrupt comes along beforccur at any time would require that
-the state of all internal routines be saved, each of which has a return ad-
-dress and a nu'task 1', use FQ(,-2048-1), etc.
+abling them all.  To disable 'task 1', use FQ(,-2048-1), etc.
 
 Here is a summary of all the different FQ calls:
 
@@ -2696,9 +2687,9 @@ then all 'unfinished business' at that point would have to be saved so that
 the state of the machine could be restored at the end of the interrupt. For
 hardware interrupts this would require knowledge of the state of all flip-
 flops, etc.  For the sort of 'high-level' interrupts implemented by the FQ
-function, allowing external calls to os where it
-is easy, but as a practical matter, most programs come to the end of a com-
-mand line rather often, so the time reqmber of parameters.  Thus hundreds of memory locations would
+function, allowing external calls to occur at any time would require that
+the state of all internal routines be saved, each of which has a return ad-
+dress and a number of parameters.  Thus hundreds of memory locations would
 have to be saved in this case, when, if one simply waits until the program
 comes to the beginning of a NEW LINE, the number of things that must be re-
 membered is VASTLY reduced.  In fact, switching to an external task at that
@@ -2720,16 +2711,9 @@ by one of the Schmitt triggers.
 There is one other moment when it is relatively easy to respond to external
 DO calls, and that is during a HESITATE command.  Thus while the program is
 doing little more than counting clock ticks, it is possible to also acknow-
-ledge external subroutine requests.  These are the only two place using any of the four
-possible files. Four data modes are provided: unsigned integers, signed in-
-tegers, double-precision integers and floating-point, which is the default.
-Random Access files may be as large as the largest system device, hence it
-is possible to randomly access over a million different 12-bit values per
-file, or the same number of floating-point values split into four different
-files.
-
-The FRA() function is easy to use: to retrieve the value of the 'Nth' data
-point in a file takeuired to respond to an external call
+ledge external subroutine requests.  These are the only two places where it
+is easy, but as a practical matter, most programs come to the end of a com-
+mand line rather often, so the time required to respond to an external call
 is typically on the order of 10 milliseconds.  The only particularly nasty
 situation occurs with long 'FOR loops' that are written all-on-one-line and
 thus effectively 'lock out' the scheduler.  Being aware of such situations,
@@ -2759,15 +2743,16 @@ thing really happens via interrupts!
 &FRA
 				RANDOM ACCESS
 
-The FRA function provides Random Access data storage
+The FRA function provides Random Access data storage using any of the four
+possible files. Four data modes are provided: unsigned integers, signed in-
+tegers, double-precision integers and floating-point, which is the default.
+Random Access files may be as large as the largest system device, hence it
+is possible to randomly access over a million different 12-bit values per
+file, or the same number of floating-point values split into four different
+files.
 
-If these examples were actually carried out, we would have at this point 2
-different files 'attached' to the program.  The CIF is 'file/2' since it
-was the last one selected.  Values obtained by the FRA function would thus
-come from FILE2.DA.  To select 'file/1', one would use an 'O I/1' command.
-Notice that NO FILENAME is required: filenames are only necessary when new
-files are 'looked up', hence there is no 'system overhead' associated with
-OPEN INPUT commands that merely specify a new buffer.  s only two commands: OPEN INPUT filename; TYPE FRA(N).
+The FRA() function is easy to use: to retrieve the value of the 'Nth' data
+point in a file takes only two commands: OPEN INPUT filename; TYPE FRA(N).
 Calls with ONE argument return the data value stored at that file location,
 while calls with TWO arguments store the value of the second argument at
 the specified location.  FRA() works just like the FCOM function, but with
@@ -2786,7 +2771,29 @@ If several files were required, each one must be OPENed with a different
 @Examples
 Open Input file1	The CIF becomes 'FILE1.DA'
 O I/1 file1		Same, but with an explicit /buffer specification
-O I/2 file2		Selects 'FILE2.DA' as the CIF, using buffer/2ecision mode, for example, there are 128 values per block, with a
+O I/2 file2		Selects 'FILE2.DA' as the CIF, using buffer/2
+
+If these examples were actually carried out, we would have at this point 2
+different files 'attached' to the program.  The CIF is 'file/2' since it
+was the last one selected.  Values obtained by the FRA function would thus
+come from FILE2.DA.  To select 'file/1', one would use an 'O I/1' command.
+Notice that NO FILENAME is required: filenames are only necessary when new
+files are 'looked up', hence there is no 'system overhead' associated with
+OPEN INPUT commands that merely specify a new buffer.  The only effect of
+such commands is to change a few memory locations so that the FRA(), FBLK()
+and FLEN() functions know which file is the Current Input File.
+
+@Example 	O I/1; TYPE FRA(100); O I/2; TYPE FRA(100)
+
+Two values will be typed out: one from 'file/1' and one from 'file/2'; this
+idea can obviously be extended to all four files (/0,/1,/2,/3) if need be.
+
+DATA MODES: FRA can access data in any of 4 different 'modes'.  The default
+mode is 'floating-point', which preserves all significant bits and requires
+the least conversion time between file storage and memory storage.  In this
+mode there are 64 values per block.  Other modes pack 2 to 4 times as much
+data in the same file space at the expense of a smaller range of values. In
+double-precision mode, for example, there are 128 values per block, with a
 data range of +/-8388607; in single-precision mode there are 256 values per
 block with a data range of 4096.
 
@@ -2804,21 +2811,18 @@ if one is using files with different storage modes one must change the mode
 each time one changes the CIF. Obviously it would be nice if the 'mode set-
 ting' were remembered along with the other file information, but it is not.
 
-STORING DATA: as mentioThe only effect of
-such commands is to change a few memory locations so that the FRA(), FBLK()
-and FLEN() functions know which file is the Current Input File.
+STORING DATA: as mentioned above, to STORE data in a file one simply calls
+the FRA() function with two arguments.  However, you may be wondering just
+how this works, since it has also been emphasized that FRA() uses the four
+INPUT files, while 'storing' data seems to imply some sort of OUTPUT opera-
+tion.  The answer is that the FRA() routines can both READ & WRITE a given
+block of data, while the INPUT routines can only READ it.  Much of the code
+is the same however, which is why the FRA function and the OPEN INPUT com-
+mand are intimately connected.
 
-@Example 	O I/1; TYPE FRA(100); O I/2; TYPE FRA(100)
-
-Two values will be typed out: one from 'file/1' and one from 'file/2'; this
-idea can obviously be extended to all four files (/0,/1,/2,/3) if need be.
-
-DATA MODES: FRA can access data in any of 4 different 'modes'.  The default
-mode is 'floating-point', which preserves all significant bits and requires
-the least conversion time between file storage and memory storage.  In this
-mode there are 64 values per block.  Other modes pack 2 to 4 times as much
-data in the same file space at the expense of a smaller range of values. In
-double-pr to me
+The other question that usually arises at this point is: how do I initially
+open a file to put data in?  All the discussion so far has been in terms of
+files that ALREADY EXIST, whereas when I want to STORE data, it seems to me
 that I need a NEW file, don't I?
 
 The answers here are slightly more complicated, and involve the design of
@@ -2833,18 +2837,14 @@ When using the FRA function to store experimental data one has two choices:
 one can create a 'dummy' input file with a fixed length that can be safely
 predicted to be large enough for all the data, or one can use the OUTPUT
 file (treated as Input File/0), if one needs to store an unknown amount of
-data, with a limit set only by the maxined above, to STORE data in a file one simply calls
-the FRA() function with two arguments.  However, you may be wondering just
-how this works, since it has also been emphasized that FRA() uses the four
-INPUT files, while 'storing' data seems to imply some sort of OUTPUT opera-
-tion.  The answer is that the FRA() routines can both READ & WRITE a given
-block of data, while the INPUT routines can only READ it.  Much of the code
-is the same however, which is why the FRA function and the OPEN INPUT com-
-mand are intimately connected.
+data, with a limit set only by the maximum number of blocks available.  If
+one uses 'method A' (fixed-length input file) then one can use the normal
+output file for other purposes, whereas if one uses 'method B' this option
+is not available, and in general one must be a bit more careful while the
+file is 'open' so that nothing happens to accidentally destroy the data you
+have put there.
 
-The other question that usually arises at this point is: how do I initially
-open a file to put data in?  All the discussion so far has been in terms of
-files that ALREADY EXIST, whereas when I want to STORE data, it seemseriment generates 256 data points every 10 minutes
+Method A: Suppose the experiment generates 256 data points every 10 minutes
 or so.  If you plan to work all day on this experiment, and the data can be
 adequately represented as double-precision integers, then you would need a
 100-block file in which to store the data.  This file can be created by the
@@ -2868,14 +2868,12 @@ the following method may be used:
 
 Thus one simply deletes the file and then creates a new one with a shorter
 length. The problem here is GUARANTEEING that the 'new' DATA01.DP file will
-really be just the first 20 blmum number of blocks available.  If
-one uses 'method A' (fixed-length input file) then one can use the normal
-output file for other purposes, whereas if one uses 'method B' this option
-is not available, and in general one must be a bit more careful while the
-file is 'open' so that nothing happens to accidentally destroy the data you
-have put there.
-
-Method A: Suppose the exp function before and after (or just by do-
+really be just the first 20 blocks of the 'old' DATA01.DP file.  IF (and I
+repeat), IF no other files have been created on this device in the meantime
+then everything will be OK.  If, however, other files have been added (or
+deleted), then the 'allocation algorithm' may well decide to put the 'new'
+DATA01.DP file in a different place.  You can, of course, watch for this by
+comparing the value of the FBLK() function before and after (or just by do-
 ing a 'List All,E'), and you can also eliminate the problem almost entirely
 by using a 'square bracket' option in the OPEN OUTPUT command to force the
 system to put the file in an empty area whose size equals the value in [].
@@ -2897,12 +2895,7 @@ if something happens during the day there will be no record in the directoy
 that this area of the disk has valuable information in it.  An even worse
 feature is that you cannot make any program changes without the certainty
 of destroying your file, for if you thoughtlessly decide to do a 'Lib SAVE'
-of some little program change, youocks of the 'old' DATA01.DP file.  IF (and I
-repeat), IF no other files have been created on this device in the meantime
-then everything will be OK.  If, however, other files have been added (or
-deleted), then the 'allocation algorithm' may well decide to put the 'new'
-DATA01.DP file in a different place.  You can, of course, watch for this by
-comparing the value of the FBLK()r output file will be immediately CLOSED
+of some little program change, your output file will be immediately CLOSED
 (not ABORTED), leaving you with a 1 block file containing mostly zeros!
 
 This discussion is not meant to deter anyone from using FRA files, but only
@@ -2963,14 +2956,7 @@ part that FITR discards.  Since this involves subtracting two nearly equal
 values from each other, the result may have only limited precision! In gen-
 eral the value returned by FRAC() should NEVER be tested for an 'exact' re-
 sult, but only for values within a certain range (c.f. example below which
-shows substantial differences from apparently equivalent expressioeasure for use by the three 'trig' functions (FSIN,FCOS
-FATN).  The common choices are Radians, Degrees and Grads (hence the name
-'FRDG'), with the default being RADIANS (for consistency with other imple-
-mentations of FOCAL). The desired set of units is selected by a call of the
-form:
-			SET FRDG(units in a quadrant)
-
-where the argument is equal to the number of units in a ns!).
+shows substantial differences from apparently equivalent expressions!).
 
 @Examples
 TYPE FRAC(PI)		Answer:   0.1415926536
@@ -3002,20 +2988,14 @@ For i=pi=0,399;If(fran()^2+fran()^2,le,1).*pi=pi+1;Next;Type pi/100
 			       ANGULAR MEASURE
 
 The FRDG() function allows the programmer to choose a completely arbitrary
-system of angular m    Answer: +1
-TYPE FSGN(PI)	    Answer: +1		TYPE (PI,LT,)	    Answer: +1
-
-&FSIN
-			       SINE FUNCTION
+system of angular measure for use by the three 'trig' functions (FSIN,FCOS
+FATN).  The common choices are Radians, Degrees and Grads (hence the name
+'FRDG'), with the default being RADIANS (for consistency with other imple-
+mentations of FOCAL). The desired set of units is selected by a call of the
+form:
+			SET FRDG(units in a quadrant)
 
-FSIN(arg) returns the cosine of the argument using the 'trig mode' selected
-by the FRDG function.  The default mode is 'radians', thus FSIN(PI/2)= '1'.
-
-&FSQT
-				SQUARE ROOT
-
-The FSQT() function returns the Square Root of the argument (positive argu-
-ments only)'quadrant'.  This
+where the argument is equal to the number of units in a 'quadrant'.  This
 value is also returned by the function and should be saved in one of the
 Protected Variables so that it can be easily refered to by other routines
 which need to know the current system of units.  This value can be found
@@ -3043,23 +3023,20 @@ the argument is negative, and '+1' ('false') if it is zero or positive.
 
 @Examples
 TYPE FSGN(-PI)	    Answer: -1		TYPE (-PI,LT,)	    Answer: -1
-TYPE FSGN(PI-PI)    Answer:  0		TYPE (PI-PI,LT,)error message).  The value re-
-turned by the function is '-1' when the switch is OPEN, and '+1' when it is
-CLOSED.  (These are just the reverse of 'truth values' assigned to logical
-expressions, hence conditional commands effectively test 'not switch xx'.)
-
-@Examples
-FOR I=0,5;T %-1,FSS(I)	Output status of all 6 Sense Switches
-UNTIL(FSS());T #7	Ring the bell until switch '0' is reset
-IF(FSS(1)).1		Branch to line xx.10 if Switch 1 is OFF
+TYPE FSGN(PI-PI)    Answer:  0		TYPE (PI-PI,LT,)    Answer: +1
+TYPE FSGN(PI)	    Answer: +1		TYPE (PI,LT,)	    Answer: +1
 
-&FTAB
-			    CURRENT PRINT POSITION
+&FSIN
+			       SINE FUNCTION
 
-FTAB returns the value of the 'tab counter', which is incremented for each
-printing character output (with the exception of those generated by the '#'
-operator), and reset to '0' following a CR.  'Fancy' output routines some-
-times need to know how much has been written o.  Newton's method is used, with an accuracy of 1 part in 10^10.
+FSIN(arg) returns the cosine of the argument using the 'trig mode' selected
+by the FRDG function.  The default mode is 'radians', thus FSIN(PI/2)= '1'.
+
+&FSQT
+				SQUARE ROOT
+
+The FSQT() function returns the Square Root of the argument (positive argu-
+ments only).  Newton's method is used, with an accuracy of 1 part in 10^10.
 
 @Examples
 TYPE FSQT(2)		Answer:  1.414213562
@@ -3084,22 +3061,23 @@ T FAND(FSR(),120)/120	Type the value of bits 5-8 taken as a 4-bit entity
 				SENSE SWITCHES
 
 The FSS(N) function returns the value of the Nth Sense Switch on the PDP12,
-where 'N' is 0-5 (other values result in an keeps a running counter which is incremented 100 times
-per second.  Thus successive calls to this function can be used to measure
-the total elapsed time to the nearest 0.01 sec.  A 24-bit counter is used,
-which, if left undisturbed, will overflow approximately every 23.5 hours.
-The counter can be reset to '0' at any time, or preset to any integer num-
-ber of seconds.  The FTIM() function is particularly useful for measuring
-execution time of critical program steps since it can be started (reset)
-under program control.  Here is a summary of FTIM() calls:
-
-	FTIM(-1)	Resets the counter to '0'
-	FTIM()		Returns counter value divided by 100
-	FTIM(+N)	Presets the counter to 'N' seconds
+where 'N' is 0-5 (other values result in an error message).  The value re-
+turned by the function is '-1' when the switch is OPEN, and '+1' when it is
+CLOSED.  (These are just the reverse of 'truth values' assigned to logical
+expressions, hence conditional commands effectively test 'not switch xx'.)
 
 @Examples
-TYPE "HIT A KEY":FTIM(-1):-1,FTIM()
-			Measure reaction a line, which FTAB thus in-
+FOR I=0,5;T %-1,FSS(I)	Output status of all 6 Sense Switches
+UNTIL(FSS());T #7	Ring the bell until switch '0' is reset
+IF(FSS(1)).1		Branch to line xx.10 if Switch 1 is OFF
+
+&FTAB
+			    CURRENT PRINT POSITION
+
+FTAB returns the value of the 'tab counter', which is incremented for each
+printing character output (with the exception of those generated by the '#'
+operator), and reset to '0' following a CR.  'Fancy' output routines some-
+times need to know how much has been written on a line, which FTAB thus in-
 dicates.  FTAB also allows the tab operator to perform INCREMENTAL spacing
 (see example below).  Note that LDF has only ONE 'tab counter', even though
 there are many different output devices; if the tab operator (:) is to work
@@ -3120,7 +3098,34 @@ IF(-FTAB())FOUT(0M)	Outputs a CR/LF only if the line is not blank
 &FTIM
 				ELAPSED TIME
 
-The FTIM() function 9' and the letters 'A-Z' (or 'a-z'),
+The FTIM() function keeps a running counter which is incremented 100 times
+per second.  Thus successive calls to this function can be used to measure
+the total elapsed time to the nearest 0.01 sec.  A 24-bit counter is used,
+which, if left undisturbed, will overflow approximately every 23.5 hours.
+The counter can be reset to '0' at any time, or preset to any integer num-
+ber of seconds.  The FTIM() function is particularly useful for measuring
+execution time of critical program steps since it can be started (reset)
+under program control.  Here is a summary of FTIM() calls:
+
+	FTIM(-1)	Resets the counter to '0'
+	FTIM()		Returns counter value divided by 100
+	FTIM(+N)	Presets the counter to 'N' seconds
+
+@Examples
+TYPE "HIT A KEY":FTIM(-1):-1,FTIM()
+			Measure reaction time
+FOR I=FTIM(-1),999;NEXT;TYPE FTIM()
+			Measure how long it takes to do 1000 loops
+			(Note: FTIM(-1) returns the value '0'.)
+
+&FTRM
+			      ASK TERMINATOR
+
+The FTRM function returns the character code of the LAST TERMINATOR found
+by an ASK command.  This information may be used to create an 'indefinite'
+input loop, which continues to request data until a special terminator is
+found that indicates 'The End'.  Since ASK commands can be terminated by
+almost everything EXCEPT the digits '0-9' and the letters 'A-Z' (or 'a-z'),
 imaginative programmers have many possibilities to choose from.  A few sug-
 gestions: any arithmetic operator may be used, or any special symbol (such
 as a '$' or '!').  A second decimal point likewise acts as a terminator, as
@@ -3138,19 +3143,21 @@ universal than using a supposedly 'impossible' data value.
 
 Input loops using the UNTIL command generally test FTRM before reading the
 next set of data - this means that they initially test the value of a pre-
-vioun time
-FOR I=FTIM(-1),999;NEXT;TYPE FTIM()
-			Measure how long it takes to do 1000 loops
-			(Note: FTIM(-1) returns the value '0'.)
-
-&FTRM
-			      ASK TERMINATOR
+vious ASK command.  To prevent the loop from terminating on the first pass
+FTRM clears the terminator after it reads it; hence if more than one check
+of a given terminator is necessary, the value of FTRM should be saved.
 
-The FTRM function returns the character code of the LAST TERMINATOR found
-by an ASK command.  This information may be used to create an 'indefinite'
-input loop, which continues to request data until a special terminator is
-found that indicates 'The End'.  Since ASK commands can be terminated by
-almost everything EXCEPT the digits '0-s or change data stored by the VIEW command.  FVB() calls are
+@Examples
+ASK A;TYPE FTRM(),FTRM()
+		The second value will always be '0'
+ZERO I;UNTIL(FTRM(),eq,'*);ASK D(I=I+1)
+		Reads successive 'D' values until terminated by a '*'
+
+&FVB
+				VIEW BUFFER
+
+The FVB() function appears in the LAB8E and PDP12 versions.  It provides a
+way to access or change data stored by the VIEW command.  FVB() calls are
 similar to FCOM or FRA calls: one argument means 'read from this location',
 while two arguments mean 'store new value in this location'.  Locations are
 numbered from '0', with all even locations holding 'X' (horizontal) values,
