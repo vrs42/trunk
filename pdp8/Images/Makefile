@@ -9,8 +9,9 @@ DSK  = $(wildcard *.dsk)
 MDSK = $(RK05:.rk05=.dsk) $(RX01:.rx01=.dsk) $(RX02:.rx02=.dsk) \
        $(OS8P:.os8p=.dsk) $(TRPL:.3p=.dsk) $(TU56:.tu56=.dsk)
 XML  = $(MDSK:.dsk=.xml) $(DSK:.dsk=.xml)
+DIR  = $(XML:.xml=.dir.txt)
 
-all: $(MDSK) $(XML)
+all: $(MDSK) $(XML) $(DIR)
 
 %.dsk: %.rk05
 	rm -f $@; ln $< $@
@@ -29,6 +30,9 @@ all: $(MDSK) $(XML)
 
 %.dsk: %.tu56
 	$(BIN)/dt2dk.pl $<
+
+%.dir.txt: %.dsk
+	$(BIN)/os8dir.pl $< >$@
 
 %.xml: %.dsk
 	@rm -f $@.bad
