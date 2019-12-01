@@ -54,6 +54,35 @@ $epoch = 1978; # Or should it be 1964, per the User's Guide?
 
 open(INPUT, $ARGV[0]) || die "$ARGV[0]: $!";
 binmode(INPUT);
+#
+# Convert TSS8 date word to time_t.
+# Would it be more efficient to know the 
+# seconds in a (short) year and the number 
+# of seconds in each month since the epoch?
+sub cvtdate {
+  local($mo, $dy, $yr) = @_;
+  local($tm, $td, $ty, $days);
+  local($t) = time;
+
+  $yr += $epoch - 1900;
+  $dy = 1 if $dy == 0;
+  while (1) {
+    # Convert the estimate, $t, to local time.
+    ($_, $_, $_, $td, $tm, $ty) = localtime($t);
+    # Estimate the difference in days.
+    $days = ($ty-$yr)*365 + ($tm-$mo)*30 + $td-$dy;
+    # Return if on the right day.
+    return $t unless $days;
+    # Kludge prevents cycling on the missing leap day
+    # Dates like 2/29/93, 2/30/93, 2/31/93, etc.
+    # Also dates like 4/31/xx, etc.
+    return $t + 24*60*60 if $days == -1;
+    return $t + 48*60*60 if $days == -2;
+    return $t + 72*60*60 if $days == -3;
+    # Adjust $t.
+    $t -= $days * 22*60*60;
+  }
+}
 
 #
 # An OS/8 directory starts in block 1, but the TSS MFD 
@@ -86,7 +115,7 @@ for ($users = 20; $users < 32; $users++) {
     next unless $mfd[020] == 0000;
     warn "users = $users\n";
     $mfbase = $link*01000;
-    $mfbase -= 512; # Work around first "block is block 1".
+    $mfbase -= 512; # Work around "first block is block 1".
     last;
 }
 exit 1 unless $mfbase;
@@ -135,10 +164,26 @@ sub readfile {
 # Since the MFD is allowed just the one RIB, we have 
 # enough context now to read in the rest of the MFD.
 $mfd = &readfile(*mfd, 020, 0, 4096);
-@mfd = unpack("S*", $mfd);
+@mfd = unpack("S*", $mfd); # Read in the entire MFD.
+
+# We found a TSS image, let's start the XML.
+$fs = $ARGV[0];
+$fs =~ s/[.]dsk$//;
+$fs =~ s/[.]tss8*$//;
+open(XML, ">$fs.xml") || die "$fs.xml: $!";
+$bsize = 256*2;
+($_, $_, $_, $_, $_, $_, $_, $b, $_, $_, $ctime) = stat(INPUT);
+die "$dsk: Not an integral number of blocks!\n" if $b % $bsize;
+$blocks = $b / $bsize;
+printf XML "<image name='$ARGV[0]' size=0%o>\n", $blocks;
+$fs .= ".0";
+mkdir($fs) unless -d $fs;
+die "mkdir($fs): $!" unless -d $fs;
+printf XML "<tss8fs name='$fs' users=%d base=0%o size=0%o>\n", $users, 0, $blocks;
 
 #
 # Walk the MFD, processing each UFD.
+printf XML "<mfd>\n";
 for ($link = 010; $link; $link = $next) {
     #
     # Process a user's UFD.
@@ -154,16 +199,17 @@ for ($link = 010; $link; $link = $next) {
     $ufd = &readfile(*mfd, $frib, 0, 4096);
     @ufd = unpack("S*", $ufd);
     # Make a pretty name for the directory.
-    $dir = sprintf("[%o,%o]%s%s%s%s", $uid>>6, $uid&077, &asc($pw1>>6), &asc($pw1&077), &asc($pw2>>6), &asc($pw2&077));
-    $dir =~ s/ *$//;
-    print "$dir:\n";
-#   next if $uid == 1;
+    $dir = sprintf("$fs/[%o,%o]", $uid>>6, $uid&077);
+    $pwd = sprintf("%s%s%s%s", &asc($pw1>>6), &asc($pw1&077), &asc($pw2>>6), &asc($pw2&077));
+    $pwd =~ s/ *$//;
+    mkdir("$dir") unless -d "$fs/dir";
+    die "mkdir($dir): $!" unless -d $dir;
+    printf XML "<ufd user=%04o password='%s' prot=%02o cputime=%d devtime=%d>\n", $uid, $pwd, $prot, $cput, $devt;
     # Walk the directory, listing the files.
     for ($fl = $ufd[3]; $fl; $fl = $lnxt) {
         $nam1 = $ufd[$fl+0];
         $nam2 = $ufd[$fl+1];
         $nam3 = $ufd[$fl+2];
-#warn "fn: $nam1 $nam2 $nam3\n";
         $lnxt = $ufd[$fl+3];
         $prot = $ufd[$fl+4];
         $size = $ufd[$fl+5];
@@ -171,10 +217,16 @@ for ($link = 010; $link; $link = $next) {
         $day = $date % 31;
         $month = ($date / 31) % 12;
         $year = int($date / 372); # 12*31=372
+        $ctime = cvtdate($month, $day, $year);
         $frib = $ufd[$fl+7];
         $fn = sprintf("%s%s%s%s%s%s", &asc($nam1>>6), &asc($nam1&077), &asc($nam2>>6), &asc($nam2&077), &asc($nam3>>6), &asc($nam3&077));
         $ext = $ext[$prot>>7];
-        printf "  %s%s\t%4d\t%02o\t%2d-%3s-%4d\n", $fn, $ext[$prot>>7], $size, $prot&017, $day+1, $month[$month+1], $year+$epoch;
+        $fn =~ s/ *$//; $fn .= $ext; $fn =~ y/A-Z/a-z/;
+        $mode = $binary{$ext}? "binary": "text";
+        chmod(0666, "$dir/$fn"); # Ignore error here.
+        open(OUTPUT, ">$dir/$fn") || die "$dir/$fn: $!";
+        binmode(OUTPUT);
+        printf XML "<file name='%s' prot=%02o size=%d ctime=%d mode=%s>", $fn, $prot, $size, $ctime, $mode;
         $file = &readfile(*ufd, $frib, 0, 4096*256);
         #
         # At this point the data is in "S*" format.
@@ -197,7 +249,18 @@ for ($link = 010; $link; $link = $next) {
             }
             #print "$file\n";
         }
-        # BUGBUG: Create the output file here.
+        print OUTPUT $file;
+        close(OUTPUT) || die "close($fn): $!";
+        # Set the creation time on the output file.
+        utime($ctime, $ctime, "$dir/$fn") || die "utime($dir/$fn): $!";
+        # Set the permissions on the output file.
+        $prot = $prot[$prot&037];
+        chmod($prot, "$dir/$fn") || die "chmod($prot, $dir/$fn): $!";
+        printf XML "</file>\n";
     }
+    printf XML "</ufd>\n";
 }
+print XML "</mfd>\n";
+printf XML "</tss8fs>\n";
+print XML "</image>\n";
 exit 0;
