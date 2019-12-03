@@ -20,6 +20,7 @@
 # 2400		.LST
 # 2600		.PAL
 @ext = ("", ".ASC", ".SAV", ".BIN", ".BAS", ".BAC", ".FCL", ".TMP", "", ".DAT", ".LST", ".PAL");
+$binary{""} = 1;
 $binary{".SAV"} = 1;
 $binary{".BIN"} = 1;
 $binary{".BAC"} = 1;
@@ -229,26 +230,48 @@ for ($link = 010; $link; $link = $next) {
         printf XML "<file name='%s' prot=%02o size=%d ctime=%d mode=%s>", $fn, $prot, $size, $ctime, $mode;
         $file = &readfile(*ufd, $frib, 0, 4096*256);
         #
-        # At this point the data is in "S*" format.
-# BUGBUG: For consistency, we should repack binary 
-# data too, but in "natural" format.
-        # TSS uses an "unnatural" text file byte order:
-        # aaaaaaaabbbb bbbbcccccccc
-        # Here we unmangle this.  At the same time, 
-        # we strip bit 8, making our output legible
-        # on modern systems.
-        if (!$binary{$ext}) {
+        # At this point the native TSS data is in "S*" format.
+        if (!$binary{$ext} || $ext eq ".BIN") {
+            # TSS uses a funky byte ordering, so .bin and text files
+            # Need to be swizzled to the more natural "OS/8" byte
+            # order.
             @file = unpack("S*", $file);
             $file = "";
             while (@file) {
+                # 0000aaaaaaaabbbb 0000bbbbcccccccc
                 $dword = ((shift @file)<<12) + (shift @file);
-                $c1 = chr(($dword >> 16) & 0177);
-                $c2 = chr(($dword >> 8) & 0177);
-                $c3 = chr($dword & 0177);
-                $file .= $c1 . $c2 . $c3;
+                # 00000000aaaaaaaabbbbbbbbcccccccc
+                $c1 = $dword >> 16; # aaaaaaaa
+                $c2 = ($dword >> 8) & 0xFF; # bbbbbbbb
+                $c3 = $dword & 0xFF; # cccccccc
+                if (!$binary{$ext}) {
+                    $c1 &= 0177;
+                    $c2 &= 0177;
+                    $c3 &= 0177;
+                }
+                $c1 += ($c3 << 4) & 0xF00; # ccccaaaaaaaa (high c)
+                $c2 += ($c3 << 8) & 0xF00; # ccccbbbbbbbb (low c)
+#$dword = ($c1 << 12) + $c2;
+#warn "o dword $dword\n" if $ext eq ".BIN";
+                $file .= pack("SS", $c1, $c2);
             }
-            #print "$file\n";
         }
+        #
+        # Now pack each pair of 12 bit words into 
+        # three 8 bit bytes.
+        @file = unpack("S*", $file);
+        $file = "";
+        while (@file) {
+            $dword = ((shift @file)<<12) + (shift @file);
+            # 00000000cccc aaaaaaaaccccbbbbbbbb
+#warn "i dword $dword\n" if $ext eq ".BIN";
+            $c1 = ($dword >> 12) & 0xFF;
+            $c2 = $dword & 0xFF;
+            $c3 = (($dword >> 8) & 0xF) + (($dword >> 16) & 0xF0);
+#warn "$c1 $c2 $c3\n" if $ext eq ".BIN";
+            $file .= pack("CCC", $c1, $c2, $c3);
+        }
+        # Finally, write the result.
         print OUTPUT $file;
         close(OUTPUT) || die "close($fn): $!";
         # Set the creation time on the output file.
@@ -261,6 +284,8 @@ for ($link = 010; $link; $link = $next) {
     printf XML "</ufd>\n";
 }
 print XML "</mfd>\n";
+# BUGBUG: Should dump reserved areas as well!!
+# BUGBUG: Doesn't recognize LCM image as TSS8.
 printf XML "</tss8fs>\n";
 print XML "</image>\n";
 exit 0;
