@@ -20,12 +20,9 @@
 # 2400		.LST
 # 2600		.PAL
 @ext = ("", ".ASC", ".SAV", ".BIN", ".BAS", ".BAC", ".FCL", ".TMP", "", ".DAT", ".LST", ".PAL");
-$binary{""} = 1;
-$binary{".SAV"} = 1;
-$binary{".BIN"} = 1;
-$binary{".BAC"} = 1;
-$binary{".TMP"} = 1;
-$binary{".DAT"} = 1;
+$text{".ASC"} = 1;
+$text{".LST"} = 1;
+$text{".PAL"} = 1;
 sub ext {
   return $ext[($_[0]&07700)/2];
 }
@@ -48,8 +45,8 @@ sub asc {
 
 #
 # The date is not optional in TSS directories.
-# DATE FORMAT: <mmmm><ddddd><yyy>  Year is yyy+78.
-$epoch = 1978; # Or should it be 1964, per the User's Guide?
+# DATE FORMAT: <mmmm><ddddd><yyy>  Year is yyy+74.
+$epoch = 1974; # Or should it be 1964, per the User's Guide?
 @month = ("0",  "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL",
 	 "AUG", "SEP", "OCT", "NOV", "DEC", "13",  "14",  "15");
 
@@ -86,13 +83,71 @@ sub cvtdate {
 }
 
 #
+# Lifted from os8xplode.pl.  Stubbed out non-binary 
+# support, but left the bones in case we want them 
+# someday.  Changed byte packing order to TSS.
+sub ofile {
+  local($f, $first, $last, $ctime) = @_;
+  local($mask, $eof, $chr1, $chr2, $chr3);
+  local(@buf);
+
+  open(OUTPUT, ">$f") || die "$f: $!";
+  binmode(OUTPUT);
+  $mask = 0377; $chr1 = "binary";
+
+  printf XML "<file name='$f' start=0%o end=0%o mode=$chr1>", $first, $last;
+  seek(INPUT, $bsize*($fsbase+$first), 0) || die "seek($dsk): $!";
+  $eof = 0;
+  for ($i = $first; $i <= $last; $i++) {
+    # Read a block
+    read(INPUT, $buf, $bsize) || die "read($dsk): $!";
+    @buf = unpack("S512", $buf);
+    # Repack the bits amd write the block.
+    while (@buf && !$eof) {
+#     $chr1 = shift @buf;
+#     $chr2 = shift @buf;
+#     $chr3 = (($chr2 >> 8) & 017) | (($chr1 >> 4) & 0360);
+      $chr1 = shift @buf;
+      $chr2 = shift @buf;
+      $chr3 = $chr2 & 0377;
+      $chr2 = ($chr2>>8) + (($chr1<<4)&0360);
+      $chr1 = $chr1 >> 4;
+      if ((($chr1 & $mask) == 032) && ($mask == 0177)) {
+        $eof = 1;
+        next;
+      }
+      print OUTPUT pack("C", $chr1 & $mask);
+      if ((($chr2 & $mask) == 032) && ($mask == 0177)) {
+        $eof = 1;
+        next;
+      }
+      print OUTPUT pack("C", $chr2 & $mask);
+      if ((($chr3 & $mask) == 032) && ($mask == 0177)) {
+        $eof = 1;
+        next;
+      }
+      print OUTPUT pack("C", $chr3 & $mask);
+    }
+    # Mark the block used
+    die "Block $i was used for both $blocks[$i] and $f\n"
+      if defined $blocks[$i];
+    $blocks[$i] = $f;
+  }
+  close(OUTPUT) || die "close($f): $!";
+  # Set the creation time on the output file.
+  utime($ctime, $ctime, $f) || die "utime($f): $!";
+  # Now update the XML
+  print XML "</file>\n";
+}
+
+#
 # An OS/8 directory starts in block 1, but the TSS MFD 
 # location depends on the number of users.  There are 
 # 4K each for SIP, FIP, INIT, then 8K for the RM.
 # That's 20K of fixed overhead, followed by the swap
 # area, 4K per user.
 $mfbase = 0;
-for ($users = 20; $users < 32; $users++) {
+for ($users = 8; $users <= 32; $users++) {
     $link = (20 + 4*$users) * 4; # 1K == 4 blocks
     #
     # Attempt to find the MFD at the next proposed spot.
@@ -110,9 +165,14 @@ for ($users = 20; $users < 32; $users++) {
     @mfd = unpack("S*", $mfd);
     #
     # @mfd starts with an MFD.
+#warn "$mfd[003] == 010? ($users)\n";
     next unless $mfd[003] == 0010;
-    next unless $mfd[014] == 0012;
+#warn "$mfd[014] == 012?\n";
+#   next unless $mfd[014] == 0012;
+    next if $mfd[014] & 07740;
+#warn "$mfd[017] == 020?\n";
     next unless $mfd[017] == 0020;
+#warn "$mfd[020] == 0?\n";
     next unless $mfd[020] == 0000;
     warn "users = $users\n";
     $mfbase = $link*01000;
@@ -177,11 +237,13 @@ $bsize = 256*2;
 die "$dsk: Not an integral number of blocks!\n" if $b % $bsize;
 $blocks = $b / $bsize;
 printf XML "<image name='$ARGV[0]' size=0%o>\n", $blocks;
+
+#
+# Create a directory for the filesystem contents.
 $fs .= ".0";
 mkdir($fs) unless -d $fs;
 die "mkdir($fs): $!" unless -d $fs;
 printf XML "<tss8fs name='$fs' users=%d base=0%o size=0%o>\n", $users, 0, $blocks;
-
 #
 # Walk the MFD, processing each UFD.
 printf XML "<mfd>\n";
@@ -223,7 +285,8 @@ for ($link = 010; $link; $link = $next) {
         $fn = sprintf("%s%s%s%s%s%s", &asc($nam1>>6), &asc($nam1&077), &asc($nam2>>6), &asc($nam2&077), &asc($nam3>>6), &asc($nam3&077));
         $ext = $ext[$prot>>7];
         $fn =~ s/ *$//; $fn .= $ext; $fn =~ y/A-Z/a-z/;
-        $mode = $binary{$ext}? "binary": "text";
+        $mode = $text{$ext}? "text": "binary";
+$fn =~ s:/:.:g; # BUGBUG: No slashes allowed in file name!
         chmod(0666, "$dir/$fn"); # Ignore error here.
         open(OUTPUT, ">$dir/$fn") || die "$dir/$fn: $!";
         binmode(OUTPUT);
@@ -231,47 +294,35 @@ for ($link = 010; $link; $link = $next) {
         $file = &readfile(*ufd, $frib, 0, 4096*256);
         #
         # At this point the native TSS data is in "S*" format.
-        if (!$binary{$ext} || $ext eq ".BIN") {
-            # TSS uses a funky byte ordering, so .bin and text files
-            # Need to be swizzled to the more natural "OS/8" byte
-            # order.
-            @file = unpack("S*", $file);
-            $file = "";
-            while (@file) {
-                # 0000aaaaaaaabbbb 0000bbbbcccccccc
-                $dword = ((shift @file)<<12) + (shift @file);
-                # 00000000aaaaaaaabbbbbbbbcccccccc
-                $c1 = $dword >> 16; # aaaaaaaa
-                $c2 = ($dword >> 8) & 0xFF; # bbbbbbbb
-                $c3 = $dword & 0xFF; # cccccccc
-                if (!$binary{$ext}) {
-                    $c1 &= 0177;
-                    $c2 &= 0177;
-                    $c3 &= 0177;
-                }
-                $c1 += ($c3 << 4) & 0xF00; # ccccaaaaaaaa (high c)
-                $c2 += ($c3 << 8) & 0xF00; # ccccbbbbbbbb (low c)
-#$dword = ($c1 << 12) + $c2;
-#warn "o dword $dword\n" if $ext eq ".BIN";
-                $file .= pack("SS", $c1, $c2);
-            }
-        }
-        #
-        # Now pack each pair of 12 bit words into 
-        # three 8 bit bytes.
+        # Please note that TSS packs bytes into words differently 
+        # thank OS/8.  That means when we convert words back to 
+        # bytes here, we get a different bit ordering than the 
+        # OS/8 tools do.
+        $mask = 0377;
+        $mask = 0177 if $text{$ext};
         @file = unpack("S*", $file);
         $file = "";
+        $eof = 0;
         while (@file) {
+            # 0000aaaaaaaabbbb 0000bbbbcccccccc
             $dword = ((shift @file)<<12) + (shift @file);
-            # 00000000cccc aaaaaaaaccccbbbbbbbb
-#warn "i dword $dword\n" if $ext eq ".BIN";
-            $c1 = ($dword >> 12) & 0xFF;
-            $c2 = $dword & 0xFF;
-            $c3 = (($dword >> 8) & 0xF) + (($dword >> 16) & 0xF0);
-#warn "$c1 $c2 $c3\n" if $ext eq ".BIN";
+            # 00000000aaaaaaaabbbbbbbbcccccccc
+            $c1 = $mask & ($dword >> 16); # aaaaaaaa
+            $c2 = $mask & (($dword >> 8) & 0xFF); # bbbbbbbb
+            $c3 = $mask & ($dword & 0xFF); # cccccccc
+            # The variable $eof suppresses the cruft after
+            # the ^Z at the end of text files.
+            if ($mask != 0377) {
+                last if $eof;
+                $eof = 1 if $c1 == 032;
+                $c3 = 0 if $eof;
+                $eof = 1 if $c2 == 032;
+                $c3 = 0 if $eof;
+                $eof = 1 if $c3 == 032;
+            }
             $file .= pack("CCC", $c1, $c2, $c3);
         }
-        # Finally, write the result.
+        # Write the result.
         print OUTPUT $file;
         close(OUTPUT) || die "close($fn): $!";
         # Set the creation time on the output file.
@@ -284,8 +335,15 @@ for ($link = 010; $link; $link = $next) {
     printf XML "</ufd>\n";
 }
 print XML "</mfd>\n";
-# BUGBUG: Should dump reserved areas as well!!
-# BUGBUG: Doesn't recognize LCM image as TSS8.
+
+#
+# Dump reserved areas as well!
+&ofile("$fs/.si", 0, 15, $ctime);
+&ofile("$fs/.fip", 16, 31, $ctime);
+&ofile("$fs/.init", 32, 47, $ctime);
+&ofile("$fs/.tss8", 48, 79, $ctime);
+&ofile("$fs/.swap", 80, 80+$users*16-1, $ctime);
+
 printf XML "</tss8fs>\n";
 print XML "</image>\n";
 exit 0;

@@ -47,8 +47,8 @@ sub asc {
 
 #
 # The date is not optional in TSS directories.
-# DATE FORMAT: <mmmm><ddddd><yyy>  Year is yyy+78.
-$epoch = 1978; # Or should it be 1964, per the User's Guide?
+# DATE FORMAT: <mmmm><ddddd><yyy>  Year is yyy+74.
+$epoch = 1974; # Or should it be 1964, per the User's Guide?
 @month = ("0",  "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL",
 	 "AUG", "SEP", "OCT", "NOV", "DEC", "13",  "14",  "15");
 
@@ -81,7 +81,8 @@ for ($users = 20; $users < 32; $users++) {
     #
     # @mfd starts with an MFD.
     next unless $mfd[003] == 0010;
-    next unless $mfd[014] == 0012;
+#   next unless $mfd[014] == 0012;
+    next if $mfd[014] & 07700;
     next unless $mfd[017] == 0020;
     next unless $mfd[020] == 0000;
     warn "users = $users\n";
