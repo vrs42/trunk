@@ -1,1 +1,419 @@
-╞╠╡┴мацрел═литерал═ожерлаы█┼╞═╦╜мар╜╥╦┴клудгед═ин═ауьилиары═сецт═цхунк═суппорт█┼╞═╠╥╜ауг╜╥╦┴фиьед═буг═витх═╗зл█┼╞═╡Ё╜ауг╜╥╦┴фсецт═литералс█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацлит╛лежел╫╡╛ожерлаы╫╠╟█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═пуны╛паге╟╛цомн╛литком╛цурпаг╛пусхл╛прндсх╛оутдат╛попл█┼┴╝еьтернал═литкрф╛цнжцнж█┼┴фиелд═╢█┼┴╝глобал═зсецтг╛пургел╛оутлит╛клу╦╛клу╠╠█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╡╢╟╟█┼█┼┴Ё╠█┼█┼зсецтг╛┴╟█┼┴тад═цурсцт█┼┴ймс═и═╗цнжадр█┼┴дца═ьр╢█┼┴стл═рар┴┴╞╢╟╟╟█┼┴тад═и═ьр╢█┼┴дца═наме╠█┼┴тад═и═ьр╢█┼┴дца═наме╡█┼┴тад═и═ьр╢█┼┴дца═намеЁ█┼┴исз═ьр╢█┼┴тад═и═ьр╢┴╞гет═флаг█┼┴анд═л╠╟╟█┼┴сза═цла█┼┴ймп═генун┴╞специал╨█┼┴┴┴╞генерате═паге═╟═литерал═фор═уннамед═сецтион█┼┴дца═яуал█┼┴цдф═╟█┼┴ймс═и═яялоокуп█┼┴ймс═и═яяентер█┼┴ймс═и═яягетсым█┼┴тад═злтлоц█┼┴иац█┼┴дца═сымжал█┼┴тад═флаг█┼┴спа═цла█┼┴ймп═зсго█┼┴тад═╗╢╟╣╟█┼┴дца═флаг┴╞ит╖с═а═зсецт█┼┴тад═фреептр█┼┴сна█┼┴хлт█┼┴дца═сымсцт█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴дца═зл█┼┴тад═и═зл█┼┴дца═фреептр█┼┴дца═и═зл█┼┴исз═зл█┼┴стл═рар┴┴╞рестрицт═литерал═сецт█┼┴дца═и═зл┴╞то═тхе═саме═фиелд═ас═маин═сецт█┼┴исз═зл█┼┴тад═цурсцт█┼┴дца═и═зл█┼┴исз═зл█┼╞┴тад═╗╢╟╢╟┴╞тхис═уселесс═лине═воулд═гуарантее█┼┴┴┴╞тхат═паге═╟═литерал═сецт═вент═инто═роот█┼┴дца═и═зл┴╞нот═ин═ожерлаы█┼┴исз═зл█┼┴дца═и═зл┴╞нон╜цонцатенатед█┼┴цдф═╟█┼зсго╛┴ймс═и═яяпутсым█┼┴тад═сымнум█┼┴дца═и═╗зсецтн█┼╞┴дца═злтлоц█┼┴тад═и═╗зсецтн█┼┴ймп═и═зсецтг█┼▄зл╛┴╟█┼┴сна═цла█┼┴ймп═пргенд┴╞но═литералс█┼╞┴тад═и═╗зсецтн█┼╞┴сна█┼┴ймс═зсецтг┴╞гет═сецт═оф═литералс█┼┴ймс═и═яягетсым┴╞╙╙╙═маы═хаже═доне═ит═алреады═╗инефф╘█┼┴ймс═и═╗пуны┴╞пасс═╡█┼┴ймп═зоут┴╞но█┼┴тад═╗Ё┴┴╞ыес█┼┴дца═флг█┼┴тад═яуал█┼┴анд═яяЁ╥╥┴╞гет═лсднум█┼┴тад═╗невсцт┴╞свитцх═то═нев═сецтион█┼┴ймс═и═яяпунбит█┼зоут╛┴ймс═и═╗оутлит█┼┴паге╟█┼пргенд╛┴ймп═и═зл█┼▄генун╛┴тад═трмабс█┼┴цма█┼┴тад═яя╡╟╟█┼┴дца═трмабс┴╞тхесе═литералс═рун═довн═фром═╠╥╥█┼┴дца═трмрел┴╞ин═саме═абсолуте═сецтион█┼┴тад═трмабс█┼┴ймс═и═╗хгхсцт█┼┴тад═злтлоц█┼┴сна█┼┴ймп═и═╗цомн┴╞фирст═литерал█┼┴циа█┼┴тад═трмабс█┼┴сма═цла┴┴╞нев═лов©█┼┴ймп═и═╗литком┴╞но█┼┴ймп═и═╗цомн┴╞ыес█┼▄злит╛┴тад═цурсцт█┼┴ймс═и═яягетсым█┼┴циф═╡╟█┼┴ймс═и═╗клу╠█┼┴ймс═зл█┼┴дца═злтлоц█┼┴дца═и═╗зсецтн█┼┴ймп═и═╗пурго█┼█┼┴╟█┼леь╠╛┴пц█┼┴бинары█┼┴еьпрел█┼┴еьпцод█┼┴цурсцт█┼┴цстыпе█┼л╠╟╟╛┴хисек█┼┴флг█┼леь╡╛┴форм█┼┴╟█┼█┼┴╝иф═не═хисек╜╠╟╟═╪ъерроръ╬█┼▄фло╡╛┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴тад═╗╣┴┴╞поинт═то═╣тх═ворд═оф═ауьилиары═цхунк█┼┴дца═зл█┼┴тад═сымжал┴╞саже═аваы═ленгтх═оф═тхис═фсецт█┼┴дца═и═зл┴╞бефоре═аддинг═ин═аны═литералс█┼┴цдф═╟█┼┴ймп═и═╗фло█┼┴паге█┼▄пургел╛┴╟█┼┴дца═кинд█┼┴циф═╡╟█┼┴ймс═и═╗клу╠╟█┼┴ймс═оутлит█┼лпаг╛┴цурпаг█┼нол╠╛┴дца═цлтлоц█┼┴дца═хгхлоц█┼пурго╛┴ймп═и═пургел█┼█┼ллоц╛┴╟█┼кинд╛┴╟┴┴╞╠═иф═пургинг═паге═╟═литералс█┼┴┴┴╞╟═иф═пургинг═цуррент═пагелитералс█┼▄литкнт╛┴╟┴┴╞цоунтер█┼литптр╛┴╟┴┴╞птс═инто═цуррент═паге═литерал═табле█┼█┼╞┴тад═лоц═оф═ласт═литерал═генератед█┼╞┴ймс═оутлит█┼╞┴птр═то═литерал═табле█┼█┼оутлит╛┴╟█┼┴дца═ллоц┴╞саже═лоц═оф═ласт═литерал═генератед█┼┴тад═и═оутлит█┼┴дца═лпаг┴╞саже═литерал═паге█┼┴инцр═оутлит█┼┴ймс═и═╗пусхл█┼┴леь╠█┼┴дца═еьпцод█┼┴тад═кинд█┼┴сза═цла█┼┴ймп═зло█┼┴тад═цстыпе█┼┴тад═╗╜Ё╟█┼┴сна═цла█┼┴ймп═и═╗фло╡┴╞ве═аре═ин═ан═фсецт█┼┴тад═ллоц┴╞вхат╖с═ласт═литерал═лоцатион©█┼┴анд═яя╠╥╥┴╞гет═рел═лоц═он═паге█┼┴циа█┼┴тад═яя╡╟╟┴╞цонжерт═то═литерал═нумбер═╗╠╜╥╥╘█┼┴циа█┼┴дца═литкнт┴╞нег═оф═но╝═оф═литералс█┼┴ста█┼┴дца═инк█┼┴ймп═оф█┼▄зло╛╞┴тад═злтлоц█┼╞┴цма█┼╞┴дца═литкнт█┼┴тад═и═╗зсецтн█┼┴дца═цурсцт█┼┴тад═╗╣╟█┼┴дца═цстыпе█┼┴дца═хисек█┼фло╛┴дца═литкнт┴╞лет═╜╠═енд═табле█┼┴цла═иац█┼┴дца═инк█┼┴ста█┼┴ймп═оф╡█┼оф╛┴тад═литкнт█┼┴циа█┼┴цлл═рал┴┴╞доубле╝═╗╡═вордс═пер═литерал╘█┼оф╡╛┴тад═лпаг┴╞гет═птр═то═енд═оф═литерал═табле█┼┴дца═литптр█┼┴дца═форм█┼┴тад═линоут█┼┴ймс═и═яяпусх█┼┴дца═линоут█┼┴тад═цстыпе█┼┴тад═╗╜Ё╟╜╠█┼┴тад═инк█┼┴сна═цла┴┴╞но═дасхес═он═цуррент═паге═фсецт═литералс█┼┴ймп═литлп┴╞анд═но═оригин═цханге█┼┴ймс═и═яяпассЁ█┼┴скп█┼┴ймс═и═╗прндсх┴╞хацк╨═принт═дасхес█┼┴тад═ллоц█┼┴ймс═и═яяориг█┼литлп╛┴ймс═цмнмож█┼┴сзл█┼┴дца═наме╡█┼┴снл█┼┴дца═еьпрел█┼┴ймс═цмнмож█┼┴сзл█┼┴дца═еьпрел█┼┴снл█┼┴дца═наме╡█┼┴тад═еьпрел█┼┴иац█┼┴сна═цла█┼┴ймп═Ё╓┴┴╞╜╠═ендс═табле═ас═велл═ас═литкнт█┼┴тад═наме╡█┼┴ймс═и═╗оутдата┴╞генерате═бинары█┼┴тад═пасс█┼┴тад═╗╜╢█┼┴сза═цла█┼┴ймп═╡╓█┼┴тад═лпаг█┼┴тад═мпаге╟█┼┴ймс═и═╗литкрф█┼╡╓╨┴исз═литкнт█┼┴ймп═литлп█┼Ё╓╨┴ста█┼┴цдф═╠╟█┼┴дца═и═лпаг█┼┴цдф═╟█┼┴ймс═и═яяпоп█┼┴дца═линоут█┼╞┴тад═ллоц█┼╞┴тад═яя╡╟╟█┼╞┴анд═яя╥╤╟╟█┼┴тад═пц█┼┴ймс═и═яяхгхсцт█┼┴ймс═и═╗попл█┼┴леь╡█┼┴ймп═и═оутлит█┼▄цмнмож╛┴╟█┼┴цлл█┼┴тад═инк█┼┴тад═литптр█┼┴дца═литптр┴╞поинт═то═жалуе═оф═литерал█┼┴цдф═╠╟█┼┴тад═и═литптр┴╞гет═абс═жалуе█┼┴цдф═╟█┼┴ймп═и═цмнмож█┼█┼инк╛┴╟┴┴╞╠═иф═╟╜паге╛═╜╠═иф═цур╜паге█┼█┼╞паге═╟═литералс═го═инто═а═специал═сецт╝█┼╞саме═наме═ас═парент╛═бут═стартс═витх═╓╝█┼╞а═регулар═сецт═наме═маы═нот═старт═витх═а═╓╝█┼█┼мпаге╟╛┴╜паге╟█┼┴паге█┼┴релоц█┼▄┴╝рсецт═клудг╠█┼┴фиелд═╡█┼клу╠╛┴╟█┼┴тад═и═╗флаг█┼┴анд═╗╠╟╟█┼┴сза═цла█┼┴ймп═пргспл┴╞уннамед═сецтион█┼┴цдф═╠╟█┼┴тад═и═╗паге╟█┼┴иац█┼┴циф═цдф═╟█┼┴ймп═и═клу╠█┼█┼пргспл╛┴тад═и═╗злтлоц█┼┴дца═и═╗цлтлоц┴╞треат═ас═цурпаге═литс═бут═он═паге═╟█┼┴тад═╗паге╟█┼┴дца═и═╗лпаг█┼┴дца═и═╗кинд┴╞претенд═ит╖с═а═цуррент═паге═литерал█┼┴ймп═плит█┼█┼клу╠╟╛┴╟┴┴╞ватцх═ит║═странге═иф╛дф█┼┴тад═и═╗кинд█┼┴циф═╟█┼┴сза═цла█┼┴ймп═и═╗злит█┼┴циф═╡╟█┼┴тад═╗цурпаг█┼┴дца═и═╗лпаг█┼плит╛┴тад═и═╗лпаг█┼┴дца═т╓█┼┴цдф═╠╟█┼┴тад═и═т╓█┼┴иац█┼┴циф═цдф═╟█┼┴сна═цла█┼┴ймп═и═╗нол╠█┼┴тад═и═╗цлтлоц█┼┴дца═ятем╓█┼┴дца═и═╗цлтлоц█┼┴тад═ятем╓█┼┴ймп═и═клу╠╟█┼█┼т╓╨┴╟█┼ятем╓╨┴╟█┼▄клу╠╠╛┴╟█┼┴дца═лнум┴╞саже═литерал═нумбер█┼┴тад═и═╗цстыпе█┼┴тад═╗╜Ё╟█┼┴сза═цла┴┴╞аре═ве═ин═ан═фсецт©█┼┴ймп═╡╓┴┴╞но█┼┴тад═и═╗цурсцт┴╞ыес█┼┴циф═╟█┼┴ймс═и═╗цнжцнж█┼┴тад═╗╤█┼┴дца═тт╓█┼┴тад═и═тт╓█┼┴циф═╟█┼┴ймс═и═╗цнжцнж█┼┴тад═╗╣█┼┴дца═тт╓█┼┴ста┴┴╞лнум╖с═бегин═ат═╠═╗нот═╟╘█┼┴тад═и═тт╓█┼┴цдф═╟█┼┴тад═лнум█┼┴дца═и═╗трмабс█┼┴ймп═Ё╓█┼╡╓╨┴тад═лнум█┼┴циа█┼┴тад═╗╡╟╟█┼┴тад═и═╗литпаг█┼┴дца═и═╗трмабс█┼┴тад═и═╗цлтлоц█┼┴сна┴┴╞вере═тхере═аны═литералс═ыет©█┼┴ймп═╣╓┴┴╞но╛═инитиализе═фирст═оне█┼┴циа═цлл┴┴╞негате█┼┴тад═и═╗трмабс┴╞цомпаре═тхис═лоц═витх═олд═оне█┼┴сзл═цла┴┴╞вхицх═ис═смаллер©█┼┴ймп═╤╓┴┴╞╖цлтлоц╖═ис═смаллер╛═со═нев═ловер═лимит█┼╣╓╨┴тад═и═╗трмабс┴╞жалуе═ис═смаллер═со═сет═нев═╖цлтлоц╖█┼┴дца═и═╗цлтлоц┴╞ремембер═вхере═ве═генератед═а═литерал═ласт█┼╤╓╨┴тад═и═╗цстыпе┴╞гет═тыпе═оф═цуррент═сецт█┼┴тад═╗╜╠╟█┼┴сза═цла┴┴╞ис═ит═ан═а╜сецт©█┼Ё╓╨┴тад═и═╗цурсцт┴╞но╩═литерал═аддресс═ис═╠╡╜бит═релоцатабле█┼┴дца═и═╗трмрел┴╞ыес█┼┴циф═╟█┼┴ймп═и═клу╠╠█┼█┼тт╓╨┴╟█┼лнум╛┴╟█┼▄клу╦╛┴дца═и═╗трмрел█┼┴тад═и═╗трмабс█┼┴циа█┼┴тад═и═╗злтлоц█┼┴циф═цдф═╟█┼┴сма═цла┴┴╞нев═хигх═лит═лоц©█┼┴ймп═и═╗литком┴╞но█┼┴ймп═и═╗цомн┴╞ыес█┼┴паге█┼ ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/12	MACREL LITERAL OVERLAY
+/ 8-MAR-78	KLUDGED IN AUXILIARY SECT CHUNK SUPPORT
+/ 17-AUG-78	FIXED BUG WITH (ZL
+/ 23-AUG-78	FSECT LITERALS
+	.INCLUDE MGLOB.MA
+	.ASECT MACLIT,LEVEL=2,OVERLAY=10
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL PUNY,PAGE0,COMN,LITKOM,CURPAG,PUSHL,PRNDSH,OUTDAT,POPL
+	.EXTERNAL LITKRF,CNVCNV
+	FIELD 4
+	.GLOBAL ZSECTG,PURGEL,OUTLIT,KLU8,KLU11
+
+	*2000
+
+	RELOC 2400
+
+	31
+
+ZSECTG,	0
+	TAD CURSCT
+	JMS I (CNVADR
+	DCA XR4
+	STL RAR		/4000
+	TAD I XR4
+	DCA NAME1
+	TAD I XR4
+	DCA NAME2
+	TAD I XR4
+	DCA NAME3
+	ISZ XR4
+	TAD I XR4	/GET FLAG
+	AND L100
+	SZA CLA
+	JMP GENUN	/SPECIAL:
+			/GENERATE PAGE 0 LITERAL FOR UNNAMED SECTION
+	DCA QUAL
+	CDF 0
+	JMS I QQLOOKUP
+	JMS I QQENTER
+	JMS I QQGETSYM
+	TAD ZLTLOC
+	IAC
+	DCA SYMVAL
+	TAD FLAG
+	SPA CLA
+	JMP ZSGO
+	TAD (4050
+	DCA FLAG	/IT'S A ZSECT
+	TAD FREEPTR
+	SNA
+	HLT
+	DCA SYMSCT
+	TAD SYMSCT
+	JMS I (CNVADR
+	DCA ZL
+	TAD I ZL
+	DCA FREEPTR
+	DCA I ZL
+	ISZ ZL
+	STL RAR		/RESTRICT LITERAL SECT
+	DCA I ZL	/TO THE SAME FIELD AS MAIN SECT
+	ISZ ZL
+	TAD CURSCT
+	DCA I ZL
+	ISZ ZL
+/	TAD (4040	/THIS USELESS LINE WOULD GUARANTEE
+			/THAT PAGE 0 LITERAL SECT WENT INTO ROOT
+	DCA I ZL	/NOT IN OVERLAY
+	ISZ ZL
+	DCA I ZL	/NON-CONCATENATED
+	CDF 0
+ZSGO,	JMS I QQPUTSYM
+	TAD SYMNUM
+	DCA I (ZSECTN
+/	DCA ZLTLOC
+	TAD I (ZSECTN
+	JMP I ZSECTG
+ZL,	0
+	SNA CLA
+	JMP PRGEND	/NO LITERALS
+/	TAD I (ZSECTN
+/	SNA
+	JMS ZSECTG	/GET SECT OF LITERALS
+	JMS I QQGETSYM	/*** MAY HAVE DONE IT ALREADY (INEFF)
+	JMS I (PUNY	/PASS 2
+	JMP ZOUT	/NO
+	TAD (3		/YES
+	DCA FLG
+	TAD QUAL
+	AND QQ377	/GET LSDNUM
+	TAD (NEWSCT	/SWITCH TO NEW SECTION
+	JMS I QQPUNBIT
+ZOUT,	JMS I (OUTLIT
+	PAGE0
+PRGEND,	JMP I ZL
+GENUN,	TAD TRMABS
+	CMA
+	TAD QQ200
+	DCA TRMABS	/THESE LITERALS RUN DOWN FROM 177
+	DCA TRMREL	/IN SAME ABSOLUTE SECTION
+	TAD TRMABS
+	JMS I (HGHSCT
+	TAD ZLTLOC
+	SNA
+	JMP I (COMN	/FIRST LITERAL
+	CIA
+	TAD TRMABS
+	SMA CLA		/NEW LOW?
+	JMP I (LITKOM	/NO
+	JMP I (COMN	/YES
+ZLIT,	TAD CURSCT
+	JMS I QQGETSYM
+	CIF 20
+	JMS I (KLU1
+	JMS ZL
+	DCA ZLTLOC
+	DCA I (ZSECTN
+	JMP I (PURGO
+
+	0
+LEX1,	PC
+	BINARY
+	EXPREL
+	EXPCOD
+	CURSCT
+	CSTYPE
+L100,	HISEK
+	FLG
+LEX2,	FORM
+	0
+
+	.IF NE HISEK-100 <_ERROR_>
+FLO2,	TAD SYMSCT
+	JMS I (CNVADR
+	TAD (5		/POINT TO 5TH WORD OF AUXILIARY CHUNK
+	DCA ZL
+	TAD SYMVAL	/SAVE AWAY LENGTH OF THIS FSECT
+	DCA I ZL	/BEFORE ADDING IN ANY LITERALS
+	CDF 0
+	JMP I (FLO
+	PAGE
+PURGEL,	0
+	DCA KIND
+	CIF 20
+	JMS I (KLU10
+	JMS OUTLIT
+LPAG,	CURPAG
+NOL1,	DCA CLTLOC
+	DCA HGHLOC
+PURGO,	JMP I PURGEL
+
+LLOC,	0
+KIND,	0		/1 IF PURGING PAGE 0 LITERALS
+			/0 IF PURGING CURRENT PAGELITERALS
+LITKNT,	0		/COUNTER
+LITPTR,	0		/PTS INTO CURRENT PAGE LITERAL TABLE
+
+/	TAD LOC OF LAST LITERAL GENERATED
+/	JMS OUTLIT
+/	PTR TO LITERAL TABLE
+
+OUTLIT,	0
+	DCA LLOC	/SAVE LOC OF LAST LITERAL GENERATED
+	TAD I OUTLIT
+	DCA LPAG	/SAVE LITERAL PAGE
+	INCR OUTLIT
+	JMS I (PUSHL
+	LEX1
+	DCA EXPCOD
+	TAD KIND
+	SZA CLA
+	JMP ZLO
+	TAD CSTYPE
+	TAD (-30
+	SNA CLA
+	JMP I (FLO2	/WE ARE IN AN FSECT
+	TAD LLOC	/WHAT'S LAST LITERAL LOCATION?
+	AND QQ177	/GET REL LOC ON PAGE
+	CIA
+	TAD QQ200	/CONVERT TO LITERAL NUMBER (1-77)
+	CIA
+	DCA LITKNT	/NEG OF NO. OF LITERALS
+	STA
+	DCA INK
+	JMP OF
+ZLO,/	TAD ZLTLOC
+/	CMA
+/	DCA LITKNT
+	TAD I (ZSECTN
+	DCA CURSCT
+	TAD (50
+	DCA CSTYPE
+	DCA HISEK
+FLO,	DCA LITKNT	/LET -1 END TABLE
+	CLA IAC
+	DCA INK
+	STA
+	JMP OF2
+OF,	TAD LITKNT
+	CIA
+	CLL RAL		/DOUBLE. (2 WORDS PER LITERAL)
+OF2,	TAD LPAG	/GET PTR TO END OF LITERAL TABLE
+	DCA LITPTR
+	DCA FORM
+	TAD LINOUT
+	JMS I QQPUSH
+	DCA LINOUT
+	TAD CSTYPE
+	TAD (-30-1
+	TAD INK
+	SNA CLA		/NO DASHES ON CURRENT PAGE FSECT LITERALS
+	JMP LITLP	/AND NO ORIGIN CHANGE
+	JMS I QQPASS3
+	SKP
+	JMS I (PRNDSH	/HACK: PRINT DASHES
+	TAD LLOC
+	JMS I QQORIG
+LITLP,	JMS CMNMOV
+	SZL
+	DCA NAME2
+	SNL
+	DCA EXPREL
+	JMS CMNMOV
+	SZL
+	DCA EXPREL
+	SNL
+	DCA NAME2
+	TAD EXPREL
+	IAC
+	SNA CLA
+	JMP 3$		/-1 ENDS TABLE AS WELL AS LITKNT
+	TAD NAME2
+	JMS I (OUTDATA	/GENERATE BINARY
+	TAD PASS
+	TAD (-4
+	SZA CLA
+	JMP 2$
+	TAD LPAG
+	TAD MPAGE0
+	JMS I (LITKRF
+2$:	ISZ LITKNT
+	JMP LITLP
+3$:	STA
+	CDF 10
+	DCA I LPAG
+	CDF 0
+	JMS I QQPOP
+	DCA LINOUT
+/	TAD LLOC
+/	TAD QQ200
+/	AND QQ7600
+	TAD PC
+	JMS I QQHGHSCT
+	JMS I (POPL
+	LEX2
+	JMP I OUTLIT
+CMNMOV,	0
+	CLL
+	TAD INK
+	TAD LITPTR
+	DCA LITPTR	/POINT TO VALUE OF LITERAL
+	CDF 10
+	TAD I LITPTR	/GET ABS VALUE
+	CDF 0
+	JMP I CMNMOV
+
+INK,	0		/1 IF 0-PAGE, -1 IF CUR-PAGE
+
+/PAGE 0 LITERALS GO INTO A SPECIAL SECT.
+/SAME NAME AS PARENT, BUT STARTS WITH $.
+/A REGULAR SECT NAME MAY NOT START WITH A $.
+
+MPAGE0,	-PAGE0
+	PAGE
+	RELOC
+	.RSECT KLUDG1
+	FIELD 2
+KLU1,	0
+	TAD I (FLAG
+	AND (100
+	SZA CLA
+	JMP PRGSPL	/UNNAMED SECTION
+	CDF 10
+	TAD I (PAGE0
+	IAC
+	CIF CDF 0
+	JMP I KLU1
+
+PRGSPL,	TAD I (ZLTLOC
+	DCA I (CLTLOC	/TREAT AS CURPAGE LITS BUT ON PAGE 0
+	TAD (PAGE0
+	DCA I (LPAG
+	DCA I (KIND	/PRETEND IT'S A CURRENT PAGE LITERAL
+	JMP PLIT
+
+KLU10,	0		/WATCH IT! STRANGE IF,DF
+	TAD I (KIND
+	CIF 0
+	SZA CLA
+	JMP I (ZLIT
+	CIF 20
+	TAD (CURPAG
+	DCA I (LPAG
+PLIT,	TAD I (LPAG
+	DCA T$
+	CDF 10
+	TAD I T$
+	IAC
+	CIF CDF 0
+	SNA CLA
+	JMP I (NOL1
+	TAD I (CLTLOC
+	DCA QTEM$
+	DCA I (CLTLOC
+	TAD QTEM$
+	JMP I KLU10
+
+T$:	0
+QTEM$:	0
+KLU11,	0
+	DCA LNUM	/SAVE LITERAL NUMBER
+	TAD I (CSTYPE
+	TAD (-30
+	SZA CLA		/ARE WE IN AN FSECT?
+	JMP 2$		/NO
+	TAD I (CURSCT	/YES
+	CIF 0
+	JMS I (CNVCNV
+	TAD (6
+	DCA TT$
+	TAD I TT$
+	CIF 0
+	JMS I (CNVCNV
+	TAD (5
+	DCA TT$
+	STA		/LNUM'S BEGIN AT 1 (NOT 0)
+	TAD I TT$
+	CDF 0
+	TAD LNUM
+	DCA I (TRMABS
+	JMP 3$
+2$:	TAD LNUM
+	CIA
+	TAD (200
+	TAD I (LITPAG
+	DCA I (TRMABS
+	TAD I (CLTLOC
+	SNA		/WERE THERE ANY LITERALS YET?
+	JMP 5$		/NO, INITIALIZE FIRST ONE
+	CIA CLL		/NEGATE
+	TAD I (TRMABS	/COMPARE THIS LOC WITH OLD ONE
+	SZL CLA		/WHICH IS SMALLER?
+	JMP 6$		/'CLTLOC' IS SMALLER, SO NEW LOWER LIMIT
+5$:	TAD I (TRMABS	/VALUE IS SMALLER SO SET NEW 'CLTLOC'
+	DCA I (CLTLOC	/REMEMBER WHERE WE GENERATED A LITERAL LAST
+6$:	TAD I (CSTYPE	/GET TYPE OF CURRENT SECT
+	TAD (-10
+	SZA CLA		/IS IT AN A-SECT?
+3$:	TAD I (CURSCT	/NO; LITERAL ADDRESS IS 12-BIT RELOCATABLE
+	DCA I (TRMREL	/YES
+	CIF 0
+	JMP I KLU11
+
+TT$:	0
+LNUM,	0
+KLU8,	DCA I (TRMREL
+	TAD I (TRMABS
+	CIA
+	TAD I (ZLTLOC
+	CIF CDF 0
+	SMA CLA		/NEW HIGH LIT LOC?
+	JMP I (LITKOM	/NO
+	JMP I (COMN	/YES
+	PAGE

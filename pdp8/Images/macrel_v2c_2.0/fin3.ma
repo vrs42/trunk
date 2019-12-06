@@ -1,1 +1,509 @@
-╞╠╠═финЁ╝па═цреатес═ожрк╝сж═анд═ожри╝сж┴пост═фт╜╠█┼╞═╦╜мар╜╥╦┴аддед═суппорт═оф═ауьилиары═сецт═цхунк█┼╞═╠╣╜ауг╜╥╦┴цхецк═ст═бит═то═сее═иф═принт═ст█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═финЁ╛лежел╫╠╛ожерлаы╫╠╡█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═лоад╛букетс╛цлосо╛невпаг╛таб╛гетсым╛путсым╛црлф╛опринт╛бран█┼┴фиелд═Ё█┼╞═тхе═пасс═Ё═фин═ожерлаы═анд═итс═еьтенсион═ожерлаы█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╤╢╟╟█┼█┼┴╠Ё┴┴╞ожерлаы═нумбер█┼█┼┴ймс═и═╗лоад┴╞лоад═тхе═еьтенсион═то═тхис═ожерлаы█┼┴╡╟╟╟╚╠╠█┼╞┴исз═пагено┴╞го═то═нев═паге█┼┴тад═и═╗листвд█┼┴рал█┼┴цлл═рар█┼┴дца═и═╗листвд┴╞аллов═листинг█┼┴тад═╗букетс╜╠█┼┴дца═ьр╡┴┴╞гет═сет═то═го═тхроугх═буцкетс█┼╞█┼╞┴линк═алл═цхаинс═тогетхер█┼╞█┼╞┴тхис═схоулдн╖т═хурт═синце═ве═дон╖т═еьпецт═то═до═аны█┼╞┴нев═ентерс═он═пасс═╢╝█┼╞┴унфортунателы╛═ве═цан╖т═унлинк═тхе═перманент═сымболс█┼╞┴бецаусе═тхеы═аре═стилл═неедед═иф═ве═гет═а═креф═пасс╝█┼█┼┴тад═и═ьр╡┴╞гет═старт═оф═неьт═цхаин╛═фиелд═╟█┼┴сна┴┴╞ис═тхере═а═цхаин═ин═тхис═буцкет©█┼┴ймп═╝╜╡┴┴╞но╛═бут═тхере═муст═бе═соме═сымбол█┼┴дца═сымнум┴╞ыес╛═саже═╠╣╜бит═птр═то═старт═оф═цхаин█┼┴тад═сымнум█┼┴ймп═фдЁ█┼█┼фбЁ╛┴ймс═и═╗цнжадр┴╞цонжерт═то═╠╡╜бит═поинтер█┼┴дца═лптр┴╞поинт═то═╠╣╜бит═птр═то═неьт═цхунк█┼┴тад═и═лптр┴╞гет═птр═то═неьт═цхунк█┼┴сза┴┴╞ис═тхис═тхе═енд═оф═тхе═цхаин©█┼┴ймп═фбЁ┴┴╞но╛═кееп═лоокинг█┼┴тад═ньтптр┴╞ыес█┼┴дца═и═лптр┴╞линк═тхис═цхаин═то═неьт═оне█┼┴цдф═╟█┼┴тад═ньтптр█┼фдЁ╛┴дца═темп█┼фцЁ╛┴тад═ьр╡█┼┴тад═ммм█┼┴сна═цла█┼┴ймп═доне┴╞ат═енд═оф═буцкетс█┼┴тад═и═ьр╡┴╞гет═неьт═цхаин█┼┴сна┴┴╞ис═тхере═оне©█┼┴ймп═фцЁ┴┴╞но█┼┴дца═ньтптр┴╞ыес╛═тхис═ис═тхе═неьт═поинтер█┼┴тад═темп█┼┴ймп═фбЁ█┼█┼ньтптр╛┴╟█┼▄доне╛┴дца═нум█┼┴тад═видтх┴╞гет═видтх█┼┴тад═л╠╟┴┴╞бумп═бы═╦█┼┴тад═м╢╟┴┴╞дижиде═бы═╢╟█┼┴исз═нум█┼┴сма█┼┴ймп═╝╜Ё█┼м╢╟╛┴сма═сза═цла┴╞алваыс═скипс█┼л╠╟╛┴╠╟█┼┴тад═нум█┼┴анд═яя╥┴┴╞дон╖т═аллов═море═тхан═╥═цолумнс█┼┴сна█┼┴иац┴┴╞бут═ат═леаст═оне█┼┴дца═цолнум┴╞анд═сторе═аваы═нумбер═оф═цолумнс█┼╞█┼╞┴гет═поинтерс═то═старт═оф═еацх═цолумн═он═тхис═паге█┼╞█┼█┼╞█┼╞┴╖сымнум╖═ис═тхе═цуррент═цхунк█┼╞█┼длуп╛┴тад═╗птртбл█┼┴дца═цптр█┼┴тад═цолнум█┼┴циа█┼┴дца═цолкнт█┼┴ста┴┴╞╤╤╗╦╘╫╣╢╗╠╟╘═итемс═пер═цолумн█┼┴дца═ровкнт█┼┴ймп═д╡█┼д╢╛┴тад═╗╜╤╤█┼┴дца═ровкнт█┼┴тад═и═цптр█┼┴сна═цла█┼┴ймп═денд┴╞прематуре═енд█┼┴исз═цптр█┼┴тад═ньтптр█┼д╡а╛┴дца═сымнум█┼д╡╛┴тад═сымнум█┼┴ймс═и═╗цнжадр█┼┴дца═лптр┴╞гет═поинтер═то═птр═то═неьт═цхунк█┼┴тад═лптр█┼┴тад═╗╣█┼┴дца═лптр╡┴╞гет═поинтер═то═флаг═ворд█┼┴тад═и═лптр╡┴╞гет═флаг═ворд═агаин█┼┴анд═╗╠╡╟╟┴╞цхецк═перм═бит═анд═лоцал═бит█┼┴сза═цла█┼┴ста┴┴╞дон╖т═цоунт═перманент═ор═лоцал═сымболс█┼ноцнт╛┴тад═ровкнт█┼┴дца═ровкнт█┼┴тад═и═лптр┴╞гет═птр═то═неьт═цхунк█┼┴сна█┼┴ймп═дЁ█┼┴исз═ровкнт█┼┴ймп═д╡а█┼┴дца═ньтптр█┼╞╙╙╙═буг═иф═ласт═ентры═ендс═ат═боттом═оф═цолумн█┼┴тад═сымнум█┼дЁ╛┴цдф═╟█┼┴дца═и═цптр┴╞сет═неьт═итем█┼┴исз═цолкнт┴╞ласт═цолумн©█┼┴ймп═д╢┴┴╞но█┼денд╛┴тад═и═цптр┴╞саже═ласт═итем═ас═неьт█┼┴дца═сымнум█┼┴дца═и═цптр┴╞алваыс═енд═витх═╟█┼┴ймс═и═╗стпрнт┴╞принт═паге═оф═сымбол═табле█┼┴тад═сымнум┴╞аны═море©█┼┴сза═цла█┼┴ймп═длуп┴╞ыес╛═го═принт═неьт═паге█┼┴тад═╗╜оутцрс╜╠┴╞оутпут═ласт═буффер█┼┴дца═кнт┴┴╞бы═вритинг═цтрл╞з═фолловед═бы═зероес█┼┴тад═╗Ё╡┴┴╞чз█┼┴ймс═и═яялистер┴╞врите═еноугх═то═думп═буффер█┼┴исз═кнт┴┴╞инцлудинг═чз█┼┴ймп═╝╜╡█┼┴циф═цдф═╠╟█┼┴ймс═и═╗цлосо█┼┴ймп═и═╗неь█┼█┼лптр╡╛┴╟█┼цптр╛┴╟┴┴╞поинтс═инто═птртбл█┼цолкнт╛┴╟█┼цолнум╛┴╟█┼ровкнт╛┴╟█┼ммм╛┴╜букетс╜╥╥█┼┴паге█┼▄стпрнт╛┴╟█┼┴тад═и═╗листвд█┼┴анд═╗╡╟█┼┴сза═цла█┼┴ймп═╡╓█┼┴тад═субпаг█┼┴ймс═и═╗невпаг█┼┴исз═субпаг┴╞го═то═неьт═суб╜паге═нумбер█┼╡╓╨┴тад═╗╜╤╤█┼┴дца═кнт┴┴╞╤╤═ровс█┼фе╛┴тад═╗птртбл█┼┴дца═цолптр┴╞поинт═ат═поинтер═фор═фирст═цолумн█┼┴скп┴┴╞но═таб═фирст═тиме═тхру█┼фи╛┴ймс═и═╗таб█┼┴тад═и═цолптр█┼┴сна█┼┴ймп═ендров┴╞ат═енд═оф═ров█┼┴ймс═и═╗цнжадр█┼┴дца═лптр┴╞гет═поинтер═то═птр═то═неьт═цхунк█┼┴тад═и═лптр█┼┴дца═ньтл┴╞гет═╠╣╜бит═птр═то═неьт═цхунк█┼┴тад═лптр█┼┴дца═ьр╡┴┴╞поинт═инто═цхунк█┼┴тад═и═ьр╡┴╞пулл═оут═наме█┼┴дца═наме╠█┼┴тад═и═ьр╡█┼┴дца═наме╡█┼┴тад═и═ьр╡█┼┴дца═намеЁ█┼┴цдф═╟█┼┴тад═и═цолптр█┼┴ймс═и═╗гетсым█┼┴тад═и═╗листвд█┼┴анд═╗╡╟█┼┴сза═цла█┼┴ймп═Ё╓█┼┴ймс═и═╗прн┴╞принт═наме█┼┴ймс═и═╗таб█┼┴ймс═и═╗ьпринт┴╞принт═стуфф█┼┴ймс═и═╗таб┴╞принт═еьтра═таб═фор═виде═спацинг█┼╣╓╨┴тад═флаг█┼┴анд═яя╥╟█┼┴сна═цла┴┴╞сецт©█┼┴ймп═фх┴┴╞но█┼┴дца═сымжал┴╞ыес╛═зеро═пц═фор═сецтс█┼┴тад═флаг█┼┴анд═яя╥╟█┼┴тад═ям╠╟█┼┴сза═цла█┼┴ймп═Ё╓█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴тад═╗╡█┼┴дца═прнт╡█┼┴ста┴┴╞сет═мин═то═╜╠═фор═а╜сецтс█┼┴дца═и═прнт╡█┼┴цдф═╟█┼Ё╓╨┴тад═и═цолптр█┼┴ймс═и═╗путсым┴╞врите═ит═бацк█┼фх╛┴тад═ньтл█┼┴сна█┼┴ймп═фг┴┴╞но═море═цхункс█┼┴ймс═и═╗цнжадр█┼┴дца═лптр█┼┴тад═лптр█┼┴тад═╗╣█┼┴дца═лптрЁ┴╞поинт═то═флаг█┼┴тад═и═лптрЁ┴╞гет═флаг█┼┴анд═╗╠╡╟╟█┼┴сна═цла█┼┴ймп═окст╡┴╞нот═перманент═ор═лоцал█┼┴тад═и═лптр┴╞гет═птр═то═неьт═цхунк█┼┴дца═ньтл█┼┴ймп═фх█┼█┼окст╡╛┴тад═ньтл█┼фг╛┴цдф═╟█┼┴дца═и═цолптр┴╞сет═неьт═итем█┼┴исз═цолптр┴╞поинт═то═неьт═цолумн█┼┴ймп═фи█┼▄ньтл╛┴╟█┼цолптр╛┴╟█┼лптрЁ╛┴╟█┼█┼ендров╛┴тад═цолптр█┼┴тад═╗╜птртбл█┼┴сна═цла█┼┴ймп═и═стпрнт┴╞доне█┼┴тад═и═╗листвд█┼┴анд═╗╡╟█┼┴сна═цла█┼┴ймс═и═╗црлф█┼┴исз═кнт┴┴╞аны═море═ровс©█┼┴ймп═фе┴┴╞ыес█┼┴ймп═и═стпрнт┴╞но╛═доне═витх═тхис═паге█┼█┼субпаг╛┴╟┴┴╞сымбол═табле═суб╜паге═нумбер█┼▄╞┴╖прнт╡╖═принтс═тво═мацрел═сиьбит═цхарс═╗пацкед═инто═ворд═ин═ац╘█┼█┼прнт╡╛┴╟█┼┴дца═сымтем█┼┴тад═сымтем█┼┴цлл═ртр█┼┴ртр█┼┴ртр█┼┴ймс═и═╗прнт╤█┼┴тад═сымтем█┼┴ймс═и═╗прнт╤█┼┴ймп═и═прнт╡█┼█┼сымтем╛┴╟█┼┴паге█┼┴релоц█┼▄┴╝асецт═финЁь╛лежел╫╠╛ожерлаы╫╠╟█┼█┼┴фиелд═Ё█┼█┼┴╙╡╟╟╟█┼█┼┴┴┴╞еьтенсион═ожерлаы█┼█┼┴╠╠┴┴╞ожерлаы═и█┼█┼прн╛┴╟█┼прнаме╛┴тад═наме╠█┼┴спа█┼┴ймп═прдол█┼┴ймс═и═╗прнт╡█┼┴тад═наме╡█┼┴ймс═и═╗прнт╡█┼┴тад═намеЁ█┼┴ймс═и═╗прнт╡█┼┴ймп═и═прн█┼прдол╛┴рал█┼┴цлл═рар┴┴╞реможе═доллар═бит█┼┴дца═наме╠█┼┴тад═╗╢╢┴┴╞╓█┼┴ймс═и═яялистер█┼┴ймп═прнаме█┼▄ьпринт╛┴╟█┼┴тад═сымжал█┼┴дца═пртжал█┼┴тад═флаг█┼┴анд═╗╢█┼┴сза═цла█┼┴ймп═лсд┴┴╞до═специал═стуфф═фор═лсд═ентриес█┼┴тад═флаг█┼┴анд═яя╥█┼┴тад═╗╜╠█┼┴сза═цла█┼┴ймп═╝╚Ё█┼┴дца═пртжал┴╞мацро═╜═принт═╟═ас═жалуе█┼┴тад═╗╒м╜╢╟┴╞цоде═цхарацтер═ис═╒м╒█┼┴тад═яя╢╟█┼ьп╡╛┴ймс═и═яялистер┴╞принт═спаце═бефоре═жалуе█┼┴тад═яя╢╟█┼┴ймс═и═яялистер█┼┴тад═флаг█┼┴сма═цла█┼┴ймп═и═╗ундф┴╞ундефинед═жалуе█┼┴тад═пртжал█┼┴стл█┼┴ймс═и═╗опринт┴╞принт═жалуе█┼ьпЁ╛┴тад═флаг█┼┴анд═яя╥╟█┼┴цлл═ртр█┼┴рар█┼┴ймс═и═╗бран█┼┴нотсцт┴┴╞╟═нот═а═сецт█┼┴ас┴┴╞╠█┼┴рс┴┴╞╡█┼┴фс┴┴╞Ё█┼┴дс┴┴╞╢█┼┴зс┴┴╞╣█┼┴ьс┴┴╞╤█┼┴нотсцт┴┴╞╥═унусед█┼█┼ьс╛┴тад═╗╒ь╜╒з█┼зс╛┴тад═╗╒з╜╒д█┼дс╛┴тад═╗╒д╜╒ф█┼фс╛┴тад═╗╒ф╜╒р█┼рс╛┴тад═╗╒р╜╒а█┼ас╛┴тад═╗╒а█┼┴дца═ьцнт█┼┴тад═╗╢╟╢╟█┼┴ймс═и═╗прнт╡█┼┴тад═ьцнт█┼┴ймс═и═яялистер█┼┴тад═╗╡Ё╟╣┴╞се█┼┴ймс═и═╗прнт╡█┼┴тад═╗╟Ё╡╢┴╞цт█┼┴ймс═и═╗прнт╡█┼ьрет╛┴ймп═и═ьпринт█┼█┼пртжал╛┴╟█┼▄лсд╛┴тад═флаг█┼┴анд═╗Ё█┼┴ймс═и═╗бран█┼┴ьентры█┼┴ьглоб█┼┴ьеьт█┼┴ьзте█┼█┼ьентры╛┴тад═╗╒е╜╒г┴╞╒е╒═меанс═ентры█┼ьглоб╛┴тад═╗╒г┴┴╞принт═╒г╒═бефоре═жалуе█┼┴ймп═ьп╡┴┴╞то═индицате═а═глобал█┼█┼ьцнт╛┴╟█┼█┼ьзте╛┴тад═╗╒╟╜╒╙┴╞хацк╨═зтернал═принтс═ас═а═жалуе═оф═╟╙╙╙█┼ьеьт╛┴дца═и═╗снам█┼┴тад═и═╗снам█┼┴сна═цла█┼┴тад═╗╒ь╜╒з█┼┴тад═╗╒з█┼┴тад═пртжал┴╞цханге═╒ь╒═то═╒ы╒═фор═а═сецондары═референце█┼┴ймс═и═яялистер┴╞ь═меанс═еьтернал╛═з═меанс═зтернал█┼┴тад═яя╢╟█┼┴ймс═и═яялистер┴╞принт═спаце═бефоре═ункновн═жалуе█┼┴тад═╗╜╢█┼┴дца═ьцнт┴╞гет═сет═то═принт═╢═яуестион═маркс█┼┴тад═и═╗снам┴╞цонжерт═фирст═╒╙╒═то═╒╟╒═ин═цасе═оф═зтернал█┼┴ймс═старс┴╞тхен═принт═Ё═старс█┼┴ймп═ьпЁ█┼█┼старс╛┴╟┴┴╞принт═╢═старс█┼┴тад═╗╒╙┴┴╞ац═маы═бе═нон╜╟█┼┴ймс═и═яялистер█┼┴исз═ьцнт█┼┴ймп═╝╜Ё█┼┴ймп═и═старс█┼┴паге█┼▄нотсцт╛┴тад═флаг█┼┴анд═яя╥█┼┴ймс═и═╗бран█┼┴рег█┼┴мац█┼┴псмац█┼┴псоп█┼┴ент█┼┴гло█┼┴еьт█┼┴зте█┼█┼█┼ент╛█┼гло╛█┼рег╛┴тад═сымсцт█┼┴сна═цла█┼┴ймп═абс█┼┴тад═╗╒╚█┼┴ймс═и═яялистер█┼┴тад═яя╢╟█┼┴ймс═и═яялистер█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴иац█┼┴дца═снам█┼┴тад═и═снам█┼┴дца═наме╠█┼┴исз═снам█┼┴тад═и═снам█┼┴дца═наме╡█┼┴исз═снам█┼┴тад═и═снам█┼┴дца═намеЁ█┼┴цдф═╟█┼┴ймс═и═╗прн█┼┴ймп═и═╗ьрет█┼█┼снам╛┴╟█┼▄ундф╛┴тад═╗╜╢█┼┴дца═и═╗ьцнт█┼┴ймс═и═╗старс┴╞принт═╢═старс█┼┴тад═╗╒©█┼┴ймс═и═яялистер┴╞тхен═а═яуестион═марк█┼┴ймс═и═╗таб█┼┴тад═╗╥╢╣╣┴╞тхен═ан═обтрусиже═арров█┼┴ймс═и═╗прнт╡█┼┴тад═╗╣╣╣╣█┼┴ймс═и═╗прнт╡█┼┴тад═╗╒╜█┼┴ймс═и═яялистер█┼мац╛█┼псмац╛█┼псоп╛█┼еьт╛█┼зте╛█┼абс╛┴ймс═и═╗таб█┼┴ймп═и═╗ьрет█┼▄╞импортант═цонжентион╨█┼█┼╞тхе═нон╜╟═итемс═ин═птртбл═алваыс═поинт═то█┼╞сымбол═табле═цхункс═вхицх═аре═нот═перманент═сымболс═╗фиьтаббед╘╝█┼█┼птртбл╛┴зблоцк═╠╟┴╞уп═то═╥═╠╣╜бит═поинтерс═поинтинг═то═сымбол█┼┴┴┴╞вхицх═стартс═а═цолумн╝█┼┴┴┴╞ендс═витх═а═╟╝█┼█┼╞┴╖прнт╤╖═принтс═а═сингле═мацрел═сиьбит═цхар═ин═лов═ордер═ац█┼█┼прнт╤╛┴╟█┼┴анд═яя╥╥█┼┴сна█┼┴ймп═и═прнт╤█┼┴тад═╗╜Ё╢┴╞╝█┼┴сна█┼┴тад═╗╣╤╜Ё╢┴╞цонжерт═Ё╢═то═╣╤█┼┴иац█┼┴сна┴┴╞╓█┼┴тад═╗╢╢╜ЁЁ┴╞цонжерт═ЁЁ═то═╢╢█┼┴тад═╗ЁЁ╚╢╟█┼┴анд═яя╥╥█┼┴тад═яя╢╟█┼┴ймс═и═яялистер█┼┴ймп═и═прнт╤█┼┴паге█┼ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/11 FIN3.PA CREATES OVRK.SV AND OVRI.SV	POST FT-1
+/ 8-MAR-78	ADDED SUPPORT OF AUXILIARY SECT CHUNK
+/ 15-AUG-78	CHECK ST BIT TO SEE IF PRINT ST
+	.INCLUDE MGLOB.MA
+	.ASECT FIN3,LEVEL=1,OVERLAY=12
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL LOAD,BUKETS,CLOSO,NEWPAG,TAB,GETSYM,PUTSYM,CRLF,OPRINT,BRAN
+	FIELD 3
+/ THE PASS 3 FIN OVERLAY AND ITS EXTENSION OVERLAY
+
+	*2000
+
+	RELOC 6400
+
+	13		/OVERLAY NUMBER
+
+	JMS I (LOAD	/LOAD THE EXTENSION TO THIS OVERLAY
+	2000+11
+/	ISZ PAGENO	/GO TO NEW PAGE
+	TAD I (LISTWD
+	RAL
+	CLL RAR
+	DCA I (LISTWD	/ALLOW LISTING
+	TAD (BUKETS-1
+	DCA XR2		/GET SET TO GO THROUGH BUCKETS
+/
+/	LINK ALL CHAINS TOGETHER
+/
+/	THIS SHOULDN'T HURT SINCE WE DON'T EXPECT TO DO ANY
+/	NEW ENTERS ON PASS 4.
+/	UNFORTUNATELY, WE CAN'T UNLINK THE PERMANENT SYMBOLS
+/	BECAUSE THEY ARE STILL NEEDED IF WE GET A KREF PASS.
+
+	TAD I XR2	/GET START OF NEXT CHAIN, FIELD 0
+	SNA		/IS THERE A CHAIN IN THIS BUCKET?
+	JMP .-2		/NO, BUT THERE MUST BE SOME SYMBOL
+	DCA SYMNUM	/YES, SAVE 15-BIT PTR TO START OF CHAIN
+	TAD SYMNUM
+	JMP FD3
+
+FB3,	JMS I (CNVADR	/CONVERT TO 12-BIT POINTER
+	DCA LPTR	/POINT TO 15-BIT PTR TO NEXT CHUNK
+	TAD I LPTR	/GET PTR TO NEXT CHUNK
+	SZA		/IS THIS THE END OF THE CHAIN?
+	JMP FB3		/NO, KEEP LOOKING
+	TAD NXTPTR	/YES
+	DCA I LPTR	/LINK THIS CHAIN TO NEXT ONE
+	CDF 0
+	TAD NXTPTR
+FD3,	DCA TEMP
+FC3,	TAD XR2
+	TAD MMM
+	SNA CLA
+	JMP DONE	/AT END OF BUCKETS
+	TAD I XR2	/GET NEXT CHAIN
+	SNA		/IS THERE ONE?
+	JMP FC3		/NO
+	DCA NXTPTR	/YES, THIS IS THE NEXT POINTER
+	TAD TEMP
+	JMP FB3
+
+NXTPTR,	0
+DONE,	DCA NUM
+	TAD WIDTH	/GET WIDTH
+	TAD L10		/BUMP BY 8
+	TAD M40		/DIVIDE BY 40
+	ISZ NUM
+	SMA
+	JMP .-3
+M40,	SMA SZA CLA	/ALWAYS SKIPS
+L10,	10
+	TAD NUM
+	AND QQ7		/DON'T ALLOW MORE THAN 7 COLUMNS
+	SNA
+	IAC		/BUT AT LEAST ONE
+	DCA COLNUM	/AND STORE AWAY NUMBER OF COLUMNS
+/
+/	GET POINTERS TO START OF EACH COLUMN ON THIS PAGE
+/
+
+/
+/	'SYMNUM' IS THE CURRENT CHUNK
+/
+DLUP,	TAD (PTRTBL
+	DCA CPTR
+	TAD COLNUM
+	CIA
+	DCA COLKNT
+	STA		/66(8)=54(10) ITEMS PER COLUMN
+	DCA ROWKNT
+	JMP D2
+D4,	TAD (-66
+	DCA ROWKNT
+	TAD I CPTR
+	SNA CLA
+	JMP DEND	/PREMATURE END
+	ISZ CPTR
+	TAD NXTPTR
+D2A,	DCA SYMNUM
+D2,	TAD SYMNUM
+	JMS I (CNVADR
+	DCA LPTR	/GET POINTER TO PTR TO NEXT CHUNK
+	TAD LPTR
+	TAD (5
+	DCA LPTR2	/GET POINTER TO FLAG WORD
+	TAD I LPTR2	/GET FLAG WORD AGAIN
+	AND (1200	/CHECK PERM BIT AND LOCAL BIT
+	SZA CLA
+	STA		/DON'T COUNT PERMANENT OR LOCAL SYMBOLS
+NOCNT,	TAD ROWKNT
+	DCA ROWKNT
+	TAD I LPTR	/GET PTR TO NEXT CHUNK
+	SNA
+	JMP D3
+	ISZ ROWKNT
+	JMP D2A
+	DCA NXTPTR
+/*** BUG IF LAST ENTRY ENDS AT BOTTOM OF COLUMN
+	TAD SYMNUM
+D3,	CDF 0
+	DCA I CPTR	/SET NEXT ITEM
+	ISZ COLKNT	/LAST COLUMN?
+	JMP D4		/NO
+DEND,	TAD I CPTR	/SAVE LAST ITEM AS NEXT
+	DCA SYMNUM
+	DCA I CPTR	/ALWAYS END WITH 0
+	JMS I (STPRNT	/PRINT PAGE OF SYMBOL TABLE
+	TAD SYMNUM	/ANY MORE?
+	SZA CLA
+	JMP DLUP	/YES, GO PRINT NEXT PAGE
+	TAD (-OUTCRS-1	/OUTPUT LAST BUFFER
+	DCA KNT		/BY WRITING CTRL/Z FOLLOWED BY ZEROES
+	TAD (32		/^Z
+	JMS I QQLISTER	/WRITE ENOUGH TO DUMP BUFFER
+	ISZ KNT		/INCLUDING ^Z
+	JMP .-2
+	CIF CDF 10
+	JMS I (CLOSO
+	JMP I (NEX
+
+LPTR2,	0
+CPTR,	0		/POINTS INTO PTRTBL
+COLKNT,	0
+COLNUM,	0
+ROWKNT,	0
+MMM,	-BUKETS-77
+	PAGE
+STPRNT,	0
+	TAD I (LISTWD
+	AND (20
+	SZA CLA
+	JMP 2$
+	TAD SUBPAG
+	JMS I (NEWPAG
+	ISZ SUBPAG	/GO TO NEXT SUB-PAGE NUMBER
+2$:	TAD (-66
+	DCA KNT		/66 ROWS
+FE,	TAD (PTRTBL
+	DCA COLPTR	/POINT AT POINTER FOR FIRST COLUMN
+	SKP		/NO TAB FIRST TIME THRU
+FI,	JMS I (TAB
+	TAD I COLPTR
+	SNA
+	JMP ENDROW	/AT END OF ROW
+	JMS I (CNVADR
+	DCA LPTR	/GET POINTER TO PTR TO NEXT CHUNK
+	TAD I LPTR
+	DCA NXTL	/GET 15-BIT PTR TO NEXT CHUNK
+	TAD LPTR
+	DCA XR2		/POINT INTO CHUNK
+	TAD I XR2	/PULL OUT NAME
+	DCA NAME1
+	TAD I XR2
+	DCA NAME2
+	TAD I XR2
+	DCA NAME3
+	CDF 0
+	TAD I COLPTR
+	JMS I (GETSYM
+	TAD I (LISTWD
+	AND (20
+	SZA CLA
+	JMP 3$
+	JMS I (PRN	/PRINT NAME
+	JMS I (TAB
+	JMS I (XPRINT	/PRINT STUFF
+	JMS I (TAB	/PRINT EXTRA TAB FOR WIDE SPACING
+5$:	TAD FLAG
+	AND QQ70
+	SNA CLA		/SECT?
+	JMP FH		/NO
+	DCA SYMVAL	/YES, ZERO PC FOR SECTS
+	TAD FLAG
+	AND QQ70
+	TAD QM10
+	SZA CLA
+	JMP 3$
+	TAD SYMSCT
+	JMS I (CNVADR
+	TAD (2
+	DCA PRNT2
+	STA		/SET MIN TO -1 FOR A-SECTS
+	DCA I PRNT2
+	CDF 0
+3$:	TAD I COLPTR
+	JMS I (PUTSYM	/WRITE IT BACK
+FH,	TAD NXTL
+	SNA
+	JMP FG		/NO MORE CHUNKS
+	JMS I (CNVADR
+	DCA LPTR
+	TAD LPTR
+	TAD (5
+	DCA LPTR3	/POINT TO FLAG
+	TAD I LPTR3	/GET FLAG
+	AND (1200
+	SNA CLA
+	JMP OKST2	/NOT PERMANENT OR LOCAL
+	TAD I LPTR	/GET PTR TO NEXT CHUNK
+	DCA NXTL
+	JMP FH
+
+OKST2,	TAD NXTL
+FG,	CDF 0
+	DCA I COLPTR	/SET NEXT ITEM
+	ISZ COLPTR	/POINT TO NEXT COLUMN
+	JMP FI
+NXTL,	0
+COLPTR,	0
+LPTR3,	0
+
+ENDROW,	TAD COLPTR
+	TAD (-PTRTBL
+	SNA CLA
+	JMP I STPRNT	/DONE
+	TAD I (LISTWD
+	AND (20
+	SNA CLA
+	JMS I (CRLF
+	ISZ KNT		/ANY MORE ROWS?
+	JMP FE		/YES
+	JMP I STPRNT	/NO, DONE WITH THIS PAGE
+
+SUBPAG,	0		/SYMBOL TABLE SUB-PAGE NUMBER
+/	'PRNT2' PRINTS TWO MACREL SIXBIT CHARS (PACKED INTO WORD IN AC)
+
+PRNT2,	0
+	DCA SYMTEM
+	TAD SYMTEM
+	CLL RTR
+	RTR
+	RTR
+	JMS I (PRNT6
+	TAD SYMTEM
+	JMS I (PRNT6
+	JMP I PRNT2
+
+SYMTEM,	0
+	PAGE
+	RELOC
+	.ASECT FIN3X,LEVEL=1,OVERLAY=10
+
+	FIELD 3
+
+	*2000
+
+			/EXTENSION OVERLAY
+
+	11		/OVERLAY I
+
+PRN,	0
+PRNAME,	TAD NAME1
+	SPA
+	JMP PRDOL
+	JMS I (PRNT2
+	TAD NAME2
+	JMS I (PRNT2
+	TAD NAME3
+	JMS I (PRNT2
+	JMP I PRN
+PRDOL,	RAL
+	CLL RAR		/REMOVE DOLLAR BIT
+	DCA NAME1
+	TAD (44		/$
+	JMS I QQLISTER
+	JMP PRNAME
+XPRINT,	0
+	TAD SYMVAL
+	DCA PRTVAL
+	TAD FLAG
+	AND (4
+	SZA CLA
+	JMP LSD		/DO SPECIAL STUFF FOR LSD ENTRIES
+	TAD FLAG
+	AND QQ7
+	TAD (-1
+	SZA CLA
+	JMP .+3
+	DCA PRTVAL	/MACRO - PRINT 0 AS VALUE
+	TAD ("M-40	/CODE CHARACTER IS "M"
+	TAD QQ40
+XP2,	JMS I QQLISTER	/PRINT SPACE BEFORE VALUE
+	TAD QQ40
+	JMS I QQLISTER
+	TAD FLAG
+	SMA CLA
+	JMP I (UNDF	/UNDEFINED VALUE
+	TAD PRTVAL
+	STL
+	JMS I (OPRINT	/PRINT VALUE
+XP3,	TAD FLAG
+	AND QQ70
+	CLL RTR
+	RAR
+	JMS I (BRAN
+	NOTSCT		/0 NOT A SECT
+	AS		/1
+	RS		/2
+	FS		/3
+	DS		/4
+	ZS		/5
+	XS		/6
+	NOTSCT		/7 UNUSED
+
+XS,	TAD ("X-"Z
+ZS,	TAD ("Z-"D
+DS,	TAD ("D-"F
+FS,	TAD ("F-"R
+RS,	TAD ("R-"A
+AS,	TAD ("A
+	DCA XCNT
+	TAD (4040
+	JMS I (PRNT2
+	TAD XCNT
+	JMS I QQLISTER
+	TAD (2305	/SE
+	JMS I (PRNT2
+	TAD (0324	/CT
+	JMS I (PRNT2
+XRET,	JMP I XPRINT
+
+PRTVAL,	0
+LSD,	TAD FLAG
+	AND (3
+	JMS I (BRAN
+	XENTRY
+	XGLOB
+	XEXT
+	XZTE
+
+XENTRY,	TAD ("E-"G	/"E" MEANS ENTRY
+XGLOB,	TAD ("G		/PRINT "G" BEFORE VALUE
+	JMP XP2		/TO INDICATE A GLOBAL
+
+XCNT,	0
+
+XZTE,	TAD ("0-"*	/HACK: ZTERNAL PRINTS AS A VALUE OF 0***
+XEXT,	DCA I (SNAM
+	TAD I (SNAM
+	SNA CLA
+	TAD ("X-"Z
+	TAD ("Z
+	TAD PRTVAL	/CHANGE "X" TO "Y" FOR A SECONDARY REFERENCE
+	JMS I QQLISTER	/X MEANS EXTERNAL, Z MEANS ZTERNAL
+	TAD QQ40
+	JMS I QQLISTER	/PRINT SPACE BEFORE UNKNOWN VALUE
+	TAD (-4
+	DCA XCNT	/GET SET TO PRINT 4 QUESTION MARKS
+	TAD I (SNAM	/CONVERT FIRST "*" TO "0" IN CASE OF ZTERNAL
+	JMS STARS	/THEN PRINT 3 STARS
+	JMP XP3
+
+STARS,	0		/PRINT 4 STARS
+	TAD ("*		/AC MAY BE NON-0
+	JMS I QQLISTER
+	ISZ XCNT
+	JMP .-3
+	JMP I STARS
+	PAGE
+NOTSCT,	TAD FLAG
+	AND QQ7
+	JMS I (BRAN
+	REG
+	MAC
+	PSMAC
+	PSOP
+	ENT
+	GLO
+	EXT
+	ZTE
+
+
+ENT,
+GLO,
+REG,	TAD SYMSCT
+	SNA CLA
+	JMP ABS
+	TAD ("+
+	JMS I QQLISTER
+	TAD QQ40
+	JMS I QQLISTER
+	TAD SYMSCT
+	JMS I (CNVADR
+	IAC
+	DCA SNAM
+	TAD I SNAM
+	DCA NAME1
+	ISZ SNAM
+	TAD I SNAM
+	DCA NAME2
+	ISZ SNAM
+	TAD I SNAM
+	DCA NAME3
+	CDF 0
+	JMS I (PRN
+	JMP I (XRET
+
+SNAM,	0
+UNDF,	TAD (-4
+	DCA I (XCNT
+	JMS I (STARS	/PRINT 4 STARS
+	TAD ("?
+	JMS I QQLISTER	/THEN A QUESTION MARK
+	JMS I (TAB
+	TAD (7455	/THEN AN OBTRUSIVE ARROW
+	JMS I (PRNT2
+	TAD (5555
+	JMS I (PRNT2
+	TAD ("-
+	JMS I QQLISTER
+MAC,
+PSMAC,
+PSOP,
+EXT,
+ZTE,
+ABS,	JMS I (TAB
+	JMP I (XRET
+/IMPORTANT CONVENTION:
+
+/THE NON-0 ITEMS IN PTRTBL ALWAYS POINT TO
+/SYMBOL TABLE CHUNKS WHICH ARE NOT PERMANENT SYMBOLS (FIXTABBED).
+
+PTRTBL,	ZBLOCK 10	/UP TO 7 15-BIT POINTERS POINTING TO SYMBOL
+			/WHICH STARTS A COLUMN.
+			/ENDS WITH A 0.
+
+/	'PRNT6' PRINTS A SINGLE MACREL SIXBIT CHAR IN LOW ORDER AC
+
+PRNT6,	0
+	AND QQ77
+	SNA
+	JMP I PRNT6
+	TAD (-34	/.
+	SNA
+	TAD (56-34	/CONVERT 34 TO 56
+	IAC
+	SNA		/$
+	TAD (44-33	/CONVERT 33 TO 44
+	TAD (33+40
+	AND QQ77
+	TAD QQ40
+	JMS I QQLISTER
+	JMP I PRNT6
+	PAGE

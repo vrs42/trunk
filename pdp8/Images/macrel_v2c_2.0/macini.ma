@@ -1,1 +1,796 @@
-╞╡╢═мацини═╗мацрел═инитиализатион╘┴пост═ж╟а█┼╞┴╧╜мар╜╥╦┴инсталлед═патцх═то═фиь═дате╜╥╦═буг█┼╞┴╠╣╜ауг╜╥╦┴╞с═свитцх═меанс═омит═сымбол═табле█┼╞┴╠╥╜ауг╜╥╦┴аддед═╝лежел═дирецтиже█┼╞┴╠╧╜ауг╜╥╦┴ресидент═ожерлаы═инитиализатион█┼╞┴╡╠╜ауг╜╥╦┴ленгтхенед═фиелд═╡═сымбол═табле╛═реможед═╞д═свитцх█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацини█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═ожрблк╛дат█┼┴╝еьтернал═╓паге╛╓фиелд╛╓оцтал╛╓децимал╛╓радиь╛╓дот╛╓зблоцк█┼┴╝еьтернал═╓теьт╛╓ифдеф╛╓ифндеф╛╓ифзеро╛╓ифнзро╛╓иф╛╓фиьмри█┼┴╝еьтернал═╓филенаме╛╓дежице╛╓и╛╓з╛╓нопунцх╛╓енпунцх╛╓старт█┼┴╝еьтернал═╓йсв╛╓жерсион╛╓пусх╛╓поп╛╓титле╛╓ейецт╛╓релоц█┼┴╝еьтернал═╓инцлуде╛╓цхаин╛╓сбттл╛╓дисабл╛╓енабле╛╓глобал█┼┴╝еьтернал═╓еьтернал╛╓зтернал╛╓сецт╛╓асецт╛╓ьсецт╛╓зсецт█┼┴╝еьтернал═╓дсецт╛╓фсецт╛╓рсецт╛╓мацро╛╓репт╛╓меьит╛╓ьлист█┼┴╝еьтернал═╓лист╛╓нолист╛╓ентры╛╓циф╛╓цдф╛╓едф╛╓наргс╛╓флд█┼┴╝еьтернал═╓ьедф╛╓лежел╛╓сецреф█┼┴╝еьтернал═╓фиьтаб╛╓еьпунге╛╓нцхарс╛╓паусе█┼┴╝глобал═инит╛онце█┼█┼┴╙╠╢╟╟█┼█┼┴╟┴┴╞иллегал═ожерлаы═нумбер█┼█┼┴паге█┼█┼┴╟█┼┴паге█┼▄┴╙╡╟╟╟█┼█┼┴╟┴┴╞иллегал═ожерлаы═нумбер█┼█┼батсиз╛┴╟█┼┴тад═и═╗╥╥╥╥█┼┴анд═яя╥╟█┼┴цлл═ртр█┼┴тад═╗лимтбл╚╠█┼┴дца═темп█┼┴тад═и═╗╥╥╥╥█┼┴ртл┴┴╞батцх═бит═то═линк█┼┴снл═цла█┼┴ймп═и═батсиз█┼┴тад═свыто╧█┼┴рал┴┴╞═══╞з═свитцх═то═сигн█┼┴спа═цла█┼┴ймп═и═батсиз█┼┴тад═╗╣╟╟╟█┼┴дца═и═темп┴╞дон╖т═дестроы═батцх═унлесс═╞з═специфиед█┼┴ймп═и═батсиз█┼▄┴нумрес╫╤┴┴╞муст═агрее═витх═жалуе═ин═мацлод█┼█┼лимсет╛┴╟█┼╞┴тад═сватол█┼╞┴анд═╗╢╟╟█┼╞┴сза═цла┴┴╞вас═дебуг═свитцх═специфиед©█┼╞┴тад═╗╠╢╟╟┴╞ыес╛═фрееспаце═ин═фиелд═╡═гетс═╤═пагес═схортер█┼╞┴тад═и═╗лимтбл╚╢┴╞но█┼╞┴дца═и═╗лимтбл╚╢█┼┴цлл═ста═ртл┴╞╜Ё█┼┴тад═и═╗╥╤╠╡█┼┴сза═цла┴┴╞аре═ве═руннинг═витх═а═╡╜паге═сыс═хандлер©█┼┴ймп═╝╚Ё┴┴╞но█┼┴тад═яя╥╤╟╟┴╞ыес█┼┴дца═и═╗лимтбл╚╣┴╞схортен═фиелд═╡═сымбол═табле═спаце█┼┴╝иф═не═нумрес═╪█┼┴цлл═ста═рал┴╞╜╡█┼┴тад═и═╗амтцор█┼┴сма═сза═цла█┼┴ймп═ноы█┼┴тад═свыто╧█┼┴рал█┼┴стл═рар█┼┴дца═свыто╧┴╞сет═╞ы═свитцх═иф═╟╛╠╛ор═╡═фиелдс█┼ноы╛┴тад═свыто╧┴╞нов═лоок═ат═╞ы═бит█┼┴сма═цла█┼┴тад═╗╢╟╟╟█┼┴дца═и═╗лимтбл╚╤┴╞сет═фиелд═Ё═лов═то═╡╟╟╟═иф═ресидент═ожерлаыс█┼┴сзл█┼┴ймп═ыесы█┼┴цдф═Ё╟┴┴╞╙╙╙═темп═фиелд█┼┴ннн╫╟█┼┴╝репт═нумрес█┼┴дца═и═╗ннн┴╞марк═ресиденцы═блоцкс═ас═унусед█┼┴ннн╫ннн╚╢╟╟█┼┴╝ендр█┼┴цдф═╟█┼┴╬█┼ыесы╛┴ста█┼┴тад═и═╗амтцор█┼┴сна═цла█┼╞┴хлт┴┴╞темп═╜═фор═еррор═стуфф█┼┴ноп█┼┴тад═и═╗амтцор█┼┴иац█┼┴цлл═рал█┼┴тад═╗лимтбл█┼┴дца═темп█┼┴ста█┼┴дца═и═темп┴╞лимит═цоре═фор═сымбол═табле█┼┴ймп═и═лимсет█┼▄йан╛┴╟█┼феб╛┴Ё█┼┴╢╩╟╩╡╩╣╩╟╩Ё╩╤╩╠╩╢╩╤█┼┴паге█┼▄┴╟█┼┴паге█┼▄┴╙╡╢╟╟█┼█┼┴╟┴┴╞иллегал═ожерлаы═нумбер█┼┴паге█┼┴╟█┼┴паге█┼▄┴софсет╫╥╥╢╥█┼█┼┴╝асецт═мацин╡█┼┴╙╤╢╟╟█┼█┼╞┴лоадс═ожер═инпут═хандлер█┼█┼┴╟┴┴╞муст═марк═ожерлаы═ас═уноццупиед█┼онце╛┴╟█┼┴ймс═и═╗дате█┼╞┴може═свитцх═оптионс═то═цонжениент═спот═ин═фиелд═╟█┼╞┴лоц┴наме┴свитцхес█┼╞┴╢┴сватол┴а╜л█┼╞┴╣┴свмтоь┴м╜ь█┼╞┴╤┴свыто╧┴ы╛з╛╟╜╧█┼┴цдф═╠╟█┼┴тад═и═╗╥╤╢Ё█┼┴дца═сватол█┼┴тад═и═╗╥╤╢╢█┼┴дца═свмтоь█┼┴тад═и═╗╥╤╢╣█┼┴дца═свыто╧█┼┴тад═и═╗╥╤╟╣█┼┴цдф═╟█┼┴дца═и═╗цтрло┴╞иф═лист═филе═специфиед╛═симулате█┼┴┴┴╞инитиал═цтрл╞о█┼┴дца═и═╗ужер┴╞сет═усер═жерсион═ё═то═╟█┼╞┴ймс═и═╗локожр┴╞лоок═уп═ожерлаы█┼╞┴филенаме═мацожр╝сж█┼╞┴дца═и═╗ожрблк█┼╞┴ймс═и═╗локожр█┼╞┴филенаме═мацерр╝сж█┼╞┴дца═и═╗еррблк█┼╞┴цдф═╠╟█┼╞┴тад═и═╗лооклн┴╞мацерр╝сж═муст═бе═╡Ё═блоцкс═лонг█┼╞┴цдф═╟█┼╞┴тад═╗╡Ё█┼╞┴сза═цла█┼╞┴ймп═и═╗╥╤╟╣┴╞╙╙╙╙═схоулд═гиже═еррор═мессаге█┼┴тад═и═╗софсет█┼┴тад═╗╢╢╜╠┴╞магиц═нумберс═готтен═фром═ленгтх═оф═сж═имаге█┼┴дца═и═╗ожрблк┴╞сее═мацрел╝дц═фор═детаилс█┼┴тад═и═╗софсет█┼┴тад═╗╠╟╠╜╠█┼┴дца═и═╗еррблк█┼╞телл═креф═абоут═╞п█┼┴тад═сватол█┼┴анд═╗╠╟╟┴╞лоок═ат═тхе═╞ф═свитцх█┼┴сза═цла█┼┴ста█┼┴дца═и═╗еррлжл┴╞сет═тты═еррор═лежел═то═╜╠═иф═╞ф█┼┴тад═свмтоь█┼┴рар┴┴╞ь═бит═то═линк█┼┴сзл═цла█┼┴исз═и═╗еррлжл┴╞сет═тты═еррор═лежел═то═╠═иф═╞ь█┼┴скп█┼ер╛┴ноп┴┴╞ботх═╞ф═анд═╞ь═специфиед█┼┴цдф═╠╟█┼┴тад═и═╗╥╤╢╤┴╞гет═╫═оптион█┼┴анд═яя╥╥╥╟█┼┴сна█┼┴ймп═онца█┼╞┴цма█┼┴цдф═╟█┼┴дца═видтх█┼онцб╛┴тад═свмтоь█┼┴рар█┼┴анд═╗╡╟█┼┴дца═амтцор┴╞саже═статус═оф═╞с█┼┴тад═свмтоь█┼┴ртл█┼┴цла═рар┴┴╞н═свитцх═то═сигн█┼┴тад═амтцор█┼┴тад═и═╗инилст█┼┴дца═и═╗инилст┴╞старт═листинг═офф═иф═╞н═специфиед█┼┴ймс═и═╗цоре█┼┴дца═амтцор█┼┴ймс═и═╗лимсет┴╞фиьуп═лимит═табле█┼┴ймс═и═╗преформ┴╞формат═фрееспаце█┼┴ймс═и═╗сымини█┼┴тад═и═╗╥╥╢╤┴╞гет═йсв█┼┴анд═╗╤Ё╥╥█┼┴тад═╗╠╟╟╟┴╞нон╜рестартабле═╕═усес═хигхест═меморы═фиелд█┼┴дца═и═╗╥╥╢╤█┼┴ймп═и═онце█┼амтцор╛┴╟█┼▄онца╛┴тад═и═╗╥╤╟╣┴╞гет═листинг═дежице═ё█┼┴цдф═╟█┼┴сна█┼┴ймп═онцб┴╞но═листинг═дежице█┼┴тад═╗╥╥╣╥█┼┴дца═темп█┼┴цдф═╠╟█┼┴тад═и═темп█┼┴цдф═╟█┼┴анд═╗╥╥╟┴╞исолате═дежице═тыпе═цоде█┼┴тад═╗╜╢█┼┴сза═цла█┼┴ймп═онцб┴╞лист═деж═ис═нот═лпт█┼╞сет═видтх═фром═хандлер█┼╞лоад═хандлер╛═бут═нот═ожер═онце╜онлы═цоде█┼╞╙╙╙═цоулд═лоад═ит═ожер═тхе═дирецтижес═ожерлаы█┼┴ймп═онцб█┼▄диж╠╟╛┴╟┴┴╞дижиде═бы═╠╟═децимал█┼┴дца═темп█┼┴дца═нум█┼┴тад═темп█┼┴исз═нум█┼┴тад═╗╜╠╡█┼┴сма█┼┴ймп═╝╜Ё█┼┴тад═╗╠╡█┼┴дца═ремаин┴╞леаже═ремаиндер═ароунд█┼┴ста█┼┴тад═нум┴┴╞ретурн═яуотиент═ин═ац█┼┴ймп═и═диж╠╟█┼┴паге█┼▄╞┴онце╜онлы═цоде█┼█┼сымини╛┴╟█┼┴тад═╗инит█┼сы╟╛┴дца═ьр╡┴┴╞поинт═то═бегин═оф═табле█┼сы╠╛┴цдф═╠╟█┼┴тад═и═ьр╡┴╞гет═цоде█┼┴дца═цоде┴╞саже═ит█┼┴цла═иац█┼┴тад═цоде█┼┴сна═цла█┼┴ймп═сымиен┴╞╜╠═ендс═ит█┼┴тад═цоде█┼┴анд═╗уннец█┼┴анд═свмтоь█┼┴сза═цла█┼┴ймп═скипит┴╞скип═уннецессары═сымбол═иф═╞р█┼┴тад═сватол█┼┴анд═цоде█┼┴спа═цла█┼┴ймп═скипит┴╞скип═╦╞е═сымбол═иф═╞а█┼┴тад═свмтоь█┼┴цма█┼┴анд═цоде█┼┴анд═╗еае█┼┴сза═цла█┼┴ймп═скипит┴╞скип═еае═сымбол═иф═нот╞я█┼┴тад═цоде█┼┴анд═╗мацро█┼┴анд═свмтоь█┼┴сза═цла█┼┴ймп═скипит┴╞скип═мацро═сымболс═иф═╞о█┼┴тад═и═ьр╡█┼┴дца═наме╠█┼┴тад═и═ьр╡█┼┴дца═наме╡█┼┴тад═и═ьр╡█┼┴дца═намеЁ█┼┴тад═и═ьр╡█┼┴дца═сымжал█┼┴тад═и═ьр╡█┼┴тад═╗перм╚╢╟╟╟█┼┴дца═флаг█┼┴тад═и═ьр╡┴╞гет═ожерлаы═нумбер█┼┴дца═сымсцт█┼┴дца═яуал█┼┴исз═ьр╡█┼┴цдф═╟█┼┴ймс═и═яялоокуп█┼┴ймс═и═яяентер█┼┴ймс═и═яяпутсым█┼┴ймп═сы╠█┼▄сымиен╛┴цдф═╟█┼┴ймп═и═сымини█┼█┼цоде╛┴╟█┼█┼скипит╛┴тад═ьр╡┴┴╞дон╖т═пут═тхис═сымбол═ин█┼┴тад═яя╥┴┴╞инитиал═сымбол═табле█┼┴ймп═сы╟█┼▄┴╝енабле═асции█┼┴╝дисабл═филл█┼даылст╛┴теьт┴╒сатсунмонтуеведтхуфри╒█┼▄монлст╛┴теьт┴╒йанфебмарапрмаыйунйулаугсепоцтнождец╒█┼┴╝енабле═сиьбит█┼┴╝енабле═филл█┼┴паге█┼▄┴ифдеф═плм══╪█┼╞█┼╞┴сбттл┴дате═принтер█┼╞█┼╞┴формат═оф═ос╞╦═дате╨█┼╞█┼╞┴битс═╟╜Ё╨┴╠╜╠╢┴репресентс═йан╜дец═респ╝█┼╞┴битс═╢╜╦╨┴╠╜Ё╥┴репресентс═даы═оф═монтх█┼╞┴битс═╧╜╠╠╨┴╟╜╥┴репресентс═ыеар═╜═╠╧╥╟█┼╞█┼╞┴тхис═роутине═цонжертс═ос╞╦═дате═то═нице═форм╛█┼╞┴и╝е╝═══фоодаы╛═дд╜мон╜ыы═█┼╞┴анд═инсертс═тхесе═цхарацтерс═╗оне═асции═цхар═пер═ворд╘█┼╞┴инто═тхе═хеадер═буффер█┼╞█┼╞┴ймс═дате█┼╞█┼╞┴иф═но═дате═вас═ин═усе╛═тхе═буффер═ис═паддед═витх═бланкс╝█┼╞┴еьацтлы═╠╤═╗оцтал╘═вордс═аре═сет═бы═тхис═роутине╝█┼╞█┼╞тхис═роутине═оутпутс═тхе═дате═ин═тхе═дец═стандард═формат█┼╞фор═оутпут═репресентатионс═оф═датес╝█┼┴╬█┼▄┴╝асецт═мацинЁ█┼┴╙╥╡╟╟█┼█┼╞паге═╥╟╟╟═ис═нот═фрее█┼█┼дате╛┴╟█┼┴тад═╗дат╜╠█┼┴дца═ьр╠┴┴╞█┼┴цдф═╠╟┴┴╞го═то═фиелд═оф═дате═ворд█┼┴тад═и═╗датевд┴╞гет═ос╞╦═дате═ин═интернал═формат█┼┴цдф═╟█┼┴сна┴┴╞ис═а═дате═специфиед©█┼┴ймп═нодате┴╞но╛═го═пад═буффер═витх═спацес█┼┴дца═датем┴╞саже═дате═темпорарилы═╗ин═тхис═фиелд╘█┼┴тад═датем┴╞гет═бацк═дате═╗интернал═форм╘█┼┴цлл═ртл█┼┴ртл█┼┴рал█┼┴анд═╗╠╥┴┴╞исолате═монтх═ин═битс═╦╜╠╠═оф═ац█┼┴дца═монтх┴╞саже═монтх█┼┴тад═датем┴╞лоок═ат═интернал═репресентатион═агаин█┼┴анд═яя╥┴┴╞исолате═ыеар█┼┴дца═ыеар┴╞саже═ит█┼┴тад═и═╗╥╥╥╥█┼┴ртр█┼┴ртр█┼┴анд═╗Ё╟█┼┴тад═ыеар█┼┴дца═ыеар█┼┴тад═датем┴╞гет═бацк═интернал═репресентатион█┼┴цлл═ртр█┼┴рар█┼┴анд═╗Ё╥┴┴╞исолате═даы═оф═монтх█┼┴дца═даы┴┴╞саже═ит█┼┴стл═цла═ртл┴╞╡█┼┴тад═ыеар█┼┴цлл═ртр█┼┴снл═сма┴┴╞ис═ыеар═а═мултипле═оф═╢©█┼┴ймп═леап┴╞ыес╛═ит╖с═а═леап═ыеар║█┼┴исз═и═╗йан┴╞но╛═итс═нот═а═леап═ыеар█┼┴исз═и═╗феб┴╞фиьуп═табле═фор═нон╜леап╜ыеарс█┼леап╛┴анд═╗Ё╥█┼┴тад═ыеар█┼┴тад═╗Ё█┼┴тад═даы█┼┴дца═тм╢█┼┴тад═монтх█┼┴тад═╗йан╜╠█┼┴дца═тмЁ█┼┴тад═и═тмЁ█┼┴тад═тм╢┴┴╞дижиде═тхис═нумбер═бы═╥═то═гет═даы═оф═веек█┼┴тад═╗╜╥█┼┴сма█┼┴ймп═╝╜╡█┼┴дца═нум█┼┴тад═нум█┼┴тад═нум█┼┴тад═нум█┼┴тад═╗даылст╜╠╚╥╚╥╚╥┴╞гет═птр═то═наме═оф═даы═оф═веек█┼┴ймс═путЁ┴╞пут═тхесе═Ё═цхарс═ин═буффер█┼┴тад═яя╢╟█┼┴ймс═пут╠┴╞пут═а═спаце═ин═буффер█┼┴тад═даы┴┴╞гет═даы═оф═монтх═бацк█┼┴ймс═пут╡┴╞оутпут═ит═инто═буффер═ас═тво═децимал═дигитс█┼┴тад═╗╒╜█┼┴ймс═пут╠┴╞тхен═пут═оут═а═хыпхен█┼┴тад═монтх█┼┴цлл═рал█┼┴тад═монтх┴╞мултиплы═монтх═нумбер═бы═Ё█┼┴тад═╗монлст╜╢┴╞гет═птр═то═Ё╜цхар═аббрежиатион═оф═монтх█┼┴ймс═путЁ┴╞пут═ит═инто═буффер█┼┴тад═╗╒╜█┼┴ймс═пут╠┴╞пут═анотхер═хыпхен═афтер═ит█┼┴тад═ыеар┴╞гет═бацк═ыеар█┼┴тад═╗╠╟╤┴╞адд═╥╟═╗децимал╘═то═ит█┼┴ймс═пут╡┴╞цонжерт═то═тво═децимал═дигитс═анд═пут═ин═буффер█┼┴ймп═и═дате┴╞ретурн█┼▄путЁ╛┴╟┴┴╞пут═тхрее═цхарс═ин═буффер█┼┴дца═ьр╡┴┴╞саже═птр█┼┴тад═и═ьр╡┴╞гет═цхар█┼┴ймс═пут╠┴╞пут═ит═ин═буффер█┼┴тад═и═ьр╡█┼┴ймс═пут╠█┼┴тад═и═ьр╡█┼┴ймс═пут╠█┼┴ймп═и═путЁ█┼█┼пут╡╛┴╟┴┴╞цонжерт═нумбер═ин═ац═то═╡═дигитс█┼┴ймс═и═╗диж╠╟┴╞дижиде═бы═╠╟═децимал█┼┴тад═╗╤╟┴┴╞цонжерт═яуотиент═то═асции█┼┴ймс═пут╠┴╞пут═ин═буффер█┼┴тад═ремаин┴╞гет═ремаиндер█┼┴тад═╗╤╟┴┴╞цонжерт═ит═то═асции█┼┴ймс═пут╠┴╞пут═унит╖с═дигит═ин═буффер█┼┴ймп═и═пут╡┴╞ретурн█┼█┼пут╠╛┴╟┴┴╞пут═оне═цхар═ин═буффер█┼┴цдф═╠╟█┼┴дца═и═ьр╠█┼┴цдф═╟█┼┴ймп═и═пут╠█┼▄нодате╛┴тад═╗╜╠╣┴╞пад═витх═╠Ё═╗децимал╘═спацес█┼┴дца═кнт█┼инспац╛┴тад═яя╢╟█┼┴ймс═пут╠┴╞инсерт═а═спаце═ин═тхе═буффер█┼┴исз═кнт┴┴╞доне©█┼┴ймп═инспац┴╞но█┼┴ймп═и═дате┴╞ыес╛═ретурн█┼█┼монтх╛┴╟█┼даы╛┴╟█┼датем╛┴╟█┼ыеар╛┴╟█┼тм╢╛┴╟█┼тмЁ╛┴╟█┼┴паге█┼▄╞суброутине═то═детермине═реал═пхысицал═цоре═сизе█┼█┼цоре╛┴╟█┼┴тад═и═╗╥╥╥╥█┼┴анд═цор╥╟█┼┴сза█┼┴ймп═софцор█┼цор╟╛┴цдф═╟┴┴╞неедед═фор═пдп╜╦л█┼┴тад═цорсиз┴╞гет═фиелд═то═тест█┼┴ртл█┼┴рал█┼┴анд═цор╥╟┴╞маск═усефул═битс█┼┴тад═цореь█┼┴дца═╝╚╠┴┴╞сет═уп═цдф═то═фиелд█┼цор╠╛┴цдф═╞н┴┴╞н═ис═фиелд═то═тест█┼┴тад═и═цорлоц┴╞саже═цуррент═цонтентс█┼цор╡╛┴ноп┴┴╞хацк═фор═пдп╜╦║█┼┴дца═цор╠█┼┴тад═цор╡┴╞╥╟╟╟═ис═а═╒гоод╒═паттерн█┼┴дца═и═цорлоц█┼цор╥╟╛┴╥╟┴┴╞хацк═фор═пдп╜╦╛═ноп█┼┴тад═и═цорлоц┴╞тры═то═реад═бацк═╥╟╟╟█┼цорь╛┴╥╢╟╟┴┴╞хацк═фор═пдп╜╦╛═ноп█┼┴тад═цорь┴╞гуард═агаинст═врап╜ароунд█┼┴тад═цорж┴╞тад═╗╠╢╟╟█┼┴сза═цла█┼┴ймп═цореь┴╞нон╜еьистент═фиелд═еьит█┼┴тад═цор╠┴╞ресторе═цонтентс═дестроыед█┼┴дца═и═цорлоц█┼┴исз═цорсиз┴╞тры═неьт═хигхер═фиелд█┼┴ймп═цор╟█┼█┼цореь╛┴цдф═╟┴┴╞леаже═витх═дата═фиелд═╟█┼┴ста█┼┴тад═цорсиз┴╞фирст═нон╜еьистент═фиелд█┼┴ймп═и═цоре┴╞ретурн█┼█┼цорлоц╛┴цорь┴┴╞аддресс═то═тест═ин═еацх═фиелд█┼цорж╛┴╠╢╟╟┴┴╞╥╟╟╟╚╥╢╟╟╚╠╢╟╟╫╟█┼цорсиз╛┴╠┴┴╞цуррент═фиелд═то═тест█┼█┼софцор╛┴цлл═рар█┼┴ртр█┼┴ймп═и═цоре█┼▄┴ифдеф═плм══╪█┼█┼╞┴╠╣╜бит═поинтерс█┼╞█┼╞╠╣╜бит═поинтерс╛═хереафтер═реферед═то═ас═╠╣╜бит═поинтерс╛█┼╞аре═оф═тхе═форм╨█┼╞█┼╞┴битс═╟╜╡┴фиелд═оф═лоцатион█┼╞┴битс═Ё╜╠╠┴╠╡╜бит═лоцатион═дижидед═бы═╦█┼╞┴┴┴и╝е╝═аппенд═Ё═зероес═он═ригхт═то═гет═ацтуал═аддресс╝█┼╞█┼╞фрееспаце═ис═аллоцатед═ин═╦╜ворд═цхункс╛═нот═инцлудинг═паге═╥╤╟╟█┼╞оф═фиелд═╟═ор═╠═ор═╥╤╟╟═оф═фиелд═╡═ин═цасе═оф═а═тд╦е═сыстем╝█┼╞фуртхер═рестрицтионс═аре═маде═вхен═руннинг═ундер═батцх╝█┼┴╬█┼█┼╞╙╙╙═тхис═хас═то═бе═цхангед═то═аллоцате═ин═инцрементс█┼╞оф═оне═блоцк╝█┼█┼лимтбл╛┴╟╩╥╤╟╟┴╞╟█┼┴╟╩╥╤╟╟┴╞╠█┼┴╠╡╟╟╩╥╥╥╟╞╡█┼┴╟╩╥╥╥╟┴╞Ё█┼┴╟╩╥╥╥╟┴╞╢█┼┴╟╩╥╥╥╟┴╞╣█┼┴╟╩╥╥╥╟┴╞╤█┼┴╟╩╥╥╥╟┴╞╥┴цан╖т═аллов═ласт═сегмент█┼┴╜╠█┼█┼┴ифдеф═плм══╪█┼╞тхис═табле═гижес═тхе═ловер═анд═уппер═лимитс═оф═цоре═ажаилабилиты█┼╞ин═еацх═фиелд╝══тхис═ис═пробаблы═меанинглесс═фор═фиелд═╟╝█┼╞а═фирст═ентры═оф═╜╠═меанс═тхат═фиелд═╗анд═алл═абоже═ит╘═ис═нот█┼╞ажаилабле╝█┼╞█┼╞еацх═цхунк═бегинс═витх═а═╠╣╜бит═поинтер═то═тхе═неьт═цхунк╛═ор═╟█┼╞иф═ит═ис═тхе═ласт═цхунк═ин═тхе═буцкет╝█┼╞█┼╞фрееспаце═вилл═бе═пре╜форматтед╛═и╝е╝═тхесе═╠╣╜бит═поинтерс█┼╞вилл═алреады═еьист╝█┼╞ин═аддитион═то═буцкетс╛═тхере═ис═а═лоцатион═╖фреептр╖═вхицх═поинтс█┼╞то═тхе═фирст═цхунк═оф═ажаилабле═фрее═спаце╝══иф═тхис═ис═╟╛═тхен█┼╞тхере═ис═но═море═фрее═спаце═ажаилабле╝█┼┴╬█┼▄╞тхис═роутине═пре╜форматс═цоре╝█┼█┼преформ╛╟█┼┴ймс═и═╗батсиз┴╞цхецк═иф═батцх═ис═руннинг█┼┴цла═иац█┼┴дца═флд█┼┴тад═флд█┼┴цлл═рал█┼┴тад═╗лимтбл┴╞поинт═инто═лимит═табле═то═гет═уппер═лимит═ин═тхис═фиелд█┼┴дца═ьр╠┴┴╞ьр╠═поинтс═инто═лимит═табле█┼┴тад═фреептр█┼┴дца═лптр█┼цдф╟╛┴цдф═╟█┼┴тад═и═ьр╠┴╞гет═уппер═лимит═ин═тхис═фиелд█┼┴дца═лимсуп┴╞саже═ит█┼┴тад═и═ьр╠┴╞гет═ловер═лимит═ин═неьт═фиелд█┼┴дца═лиминф┴╞саже═ит█┼┴тад═лптр┴╞гет═инитиал═фрее═лоцатион█┼┴ймс═и═╗цнжадр┴╞цонжерт═то═╠╡╜бит═птр█┼преф╠╛┴дца═невлнк┴╞саже═╠╡╜бит═птр═╗птинг═то═линкворд═оф═цуррент═цхунк╘█┼┴тад═невлнк█┼┴тад═╗╠╟┴┴╞цхункс═аре═╦═вордс═лонг█┼┴дца═ньтфрее┴╞поинт═то═неьт═фрее═лоцатион═ин═тхис═фиелд█┼┴тад═ньтфрее█┼┴циа█┼┴тад═лимсуп┴╞аре═ве═ат═тхе═лимитс═оф═ендуранце©█┼┴сна═цла█┼┴ймп═ендоф┴╞ыес╛═тхис═фиелд═ис═фулл█┼┴тад═ньтфрее┴╞но█┼┴цлл═ртр█┼┴рар█┼┴дца═ньтемп█┼┴тад═флд┴┴╞цонжерт═то═╠╣╜бит═поинтер█┼┴цлл═ртр█┼┴ртр█┼┴тад═ньтемп█┼┴дца═и═невлнк┴╞сет═линк═ворд═поинтинг═то═неьт═лоцатион═афтер═цхунк█┼┴тад═ньтфрее█┼┴ймп═преф╠┴╞цонтинуе█┼▄ендоф╛┴тад═лиминф┴╞го═то═бегиннинг═оф═неьт═фиелд█┼┴цма┴┴╞бут═фирст═сее═иф═тхере═ис═а═неьт═фиелд█┼┴сна┴┴╞а═лиминф═оф═╜╠═меанс═енд═оф═цоре█┼┴ймп═ендоцоре┴╞цоре═ис═фулл█┼┴цма┴┴╞гет═нев═╠╡╜бит═лоцатион█┼┴цлл═рал█┼┴исз═флд┴┴╞ин═жеры═неьт═фиелд█┼┴тад═флд┴┴╞цонжерт═то═╠╣╜бит═поинтер█┼┴ртр█┼┴ртр█┼┴дца═лптр█┼┴тад═лптр█┼┴дца═и═невлнк┴╞сет═линк═ворд═оф═прежиоус═ентры█┼┴ймп═цдф╟┴╞реитерате═фор═нев═фиелд█┼▄ендоцор╛дца═и═невлнк┴╞╟═меанс═но═море═линкс╛═и╝е╝═буцкет╖с═енд█┼┴цдф═╟█┼┴ймп═и═преформ┴╞ретурн█┼█┼флд╛┴╟┴┴╞цуррент═фиелд═оф═цхунк█┼ньтфрее╛╟┴┴╞неьт═фрее═лоцатион═ин═тхис═фиелд█┼невлнк╛┴╟┴┴╞птс═то═линк═ворд═ин═тхис═цхунк█┼лимсуп╛┴╟┴┴╞фирст═унажаилабле═лоцатион═ин═тхис═фиелд█┼лиминф╛┴╟┴┴╞фирст═цоре═лоцатион═ин═неьт═фиелд═╗╜╠═иф═ноне╘█┼ньтемп╛┴╟█┼┴паге█┼▄╞┴цоде═вордс═усед█┼█┼┴пдп╦е╫╢╟╟╟┴╞сымбол═ис═неедед═онлы═фор═╜╦╞е═ор═латер█┼┴┴┴╞усе═╞а═свитцх═то═делете═ит█┼┴уннец╫╠╟╟┴╞сымбол═ис═редундант█┼┴┴┴╞усе═╞р═свитцх═то═гет═рид═оф═ит█┼┴еае╫╡╟╟┴┴╞сымбол═ис═неедед═онлы═витх═еае═оптион█┼┴┴┴╞усе═╞я═свитцх═то═инцлуде═ит█┼┴мацро╫╠╟╟╟┴╞сымбол═ис═неед═фор═мацрос█┼┴┴┴╞усе═╞о═свитцх═то═делете═ит█┼▄┴╝асецт═сымтаб█┼┴фиелд═╠█┼┴╙╣╢╟╟█┼█┼╞унусед╩цоде╩наме╠╩наме╡╩намеЁ╩жалуе╩флаг╩ожерлаы═нумбер█┼╞табле═ендс═витх═а═╜╠█┼█┼▄┴╝нолист═бе█┼инит╛┴╟╩╟╩┴теьт═╞анд╞╩╟╩┴╟╟╟╟╩┴мри╩┴╟█┼┴╟╩╟╩┴теьт═╞тад╞╩╟╩┴╠╟╟╟╩┴мри╩┴╟█┼┴╟╩╟╩┴теьт═╞исз╞╩╟╩┴╡╟╟╟╩┴мри╩┴╟█┼┴╟╩╟╩┴теьт═╞дца╞╩╟╩┴Ё╟╟╟╩┴мри╩┴╟█┼┴╟╩╟╩┴теьт═╞ймс╞╩╟╩┴╢╟╟╟╩┴мри╩┴╟█┼┴╟╩╟╩┴теьт═╞ймп╞╩╟╩┴╣╟╟╟╩┴мри╩┴╟█┼┴╟╩╟╩┴теьт═╞ноп╞╩╟╩┴╥╟╟╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞цла╞╩╟╩┴╥╡╟╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞цлл╞╩╟╩┴╥╠╟╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞цма╞╩╟╩┴╥╟╢╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞цмл╞╩╟╩┴╥╟╡╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞рар╞╩╟╩┴╥╟╠╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞рал╞╩╟╩┴╥╟╟╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞ртр╞╩╟╩┴╥╟╠╡╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞ртл╞╩╟╩┴╥╟╟╤╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞иац╞╩╟╩┴╥╟╟╠╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞паге╞╩┴╓паге╩┴псеуд╩┴╠█┼┴╟╩╟╩┴теьт═╞фиелд╞╩┴╓фиелд╩┴псеуд╩┴╡╢█┼┴╟╩╟╩┴теьт═╞сма╞╩╟╩┴╥╣╟╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞сза╞╩╟╩┴╥╢╢╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞спа╞╩╟╩┴╥╣╠╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞сна╞╩╟╩┴╥╢╣╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞снл╞╩╟╩┴╥╢╡╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞сзл╞╩╟╩┴╥╢Ё╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞скп╞╩╟╩┴╥╢╠╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞оср╞╩╟╩┴╥╢╟╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞хлт╞╩╟╩┴╥╢╟╡╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞циа╞╩╟╩┴╥╟╢╠╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞лас╞╩╟╩┴╥╤╟╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞стл╞╩╟╩┴╥╠╡╟╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞сцл╞╩╟╩┴╥╢╟Ё╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞муы╞╩╟╩┴╥╢╟╣╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞джи╞╩╟╩┴╥╢╟╥╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞нми╞╩╟╩┴╥╢╠╠╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞схл╞╩╟╩┴╥╢╠Ё╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞аср╞╩╟╩┴╥╢╠╣╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞лср╞╩╟╩┴╥╢╠╥╩┴╟╩┴╟█┼┴╟╩еае╩┴теьт═╞сца╞╩╟╩┴╥╢╢╠╩┴╟╩┴╟█┼┴╟╩уннец╩теьт═╞глк╞╩╟╩┴╥╡╟╢╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞бсв╞╩╟╩┴╥╟╟╡╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞мял╞╩╟╩┴╥╢╡╠╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞мяа╞╩╟╩┴╥╣╟╠╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞цам╞╩╟╩┴╥╤╡╠╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞свп╞╩╟╩┴╥╣╡╠╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞ацл╞╩╟╩┴╥╥╟╠╩┴╟╩┴╟█┼┴╟╩уннец╩теьт═╞оцтал╞╩┴╓оцтал╩┴псеуд╩┴Ё█┼┴╟╩уннец╩теьт═╞децима╞╩╙╝╜╠╩╓децимал╩┴псеуд╩┴Ё█┼┴╟╩╟╩┴теьт═╞эрадиь╞╩╙╝╜╠╩┴╓радиь╩┴псеуд╩┴Ё█┼┴╟╩пдп╦е╩теьт═╞скон╞╩┴╤╟╟╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞ион╞╩╟╩┴╤╟╟╠╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞иоф╞╩╟╩┴╤╟╟╡╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞сря╞╩╟╩┴╤╟╟Ё╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞гтф╞╩╟╩┴╤╟╟╢╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞ртф╞╩╟╩┴╤╟╟╣╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞сгт╞╩╟╩┴╤╟╟╤╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞цаф╞╩╟╩┴╤╟╟╥╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞кцф╞╩╟╩┴╤╟Ё╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞ксф╞╩╟╩┴╤╟Ё╠╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞кцц╞╩╟╩┴╤╟Ё╡╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞крс╞╩╟╩┴╤╟Ё╢╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞кие╞╩╟╩┴╤╟Ё╣╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞крб╞╩╟╩┴╤╟Ё╤╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞тсф╞╩╟╩┴╤╟╢╠╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞тцф╞╩╟╩┴╤╟╢╡╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞тпц╞╩╟╩┴╤╟╢╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞тлс╞╩╟╩┴╤╟╢╤╩┴╟╩┴╟█┼┴╟╩╟╩┴Ё╢╟╟╩╟╩╟╩┴╓дот╩┴псеум╩┴╟█┼┴╟╩╟╩┴теьт═╞рдф╞╩╟╩┴╤╡╠╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞риф╞╩╟╩┴╤╡╡╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞риб╞╩╟╩┴╤╡Ё╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞рмф╞╩╟╩┴╤╡╢╢╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞зблоцк╞╩╙╝╜╠╩┴╓зблоцк╩┴псеуд╩┴╠█┼┴╟╩╟╩┴теьт═╞теьт╞╩┴╓теьт╩┴псеуд╩┴╠█┼┴╟╩уннец╩теьт═╞ифдеф╞╩┴╓ифдеф╩┴псеуд╩┴╡█┼┴╟╩уннец╩теьт═╞ифндеф╞╩╙╝╜╠╩┴╓ифндеф╩┴псеуд╩┴╡█┼┴╟╩уннец╩теьт═╞ифзеро╞╩╙╝╜╠╩┴╓ифзеро╩┴псеуд╩┴╡█┼┴╟╩уннец╩теьт═╞ифнзро╞╩╙╝╜╠╩┴╓ифнзро╩┴псеуд╩┴╡█┼┴╟╩╟╩┴теьт═╞эиф╞╩╟╩┴┴╓иф╩┴псеуд╩┴╡█┼┴╟╩╟╩┴теьт═╞фиьмри╞╩╙╝╜╠╩┴╓фиьмри╩┴псеуд╩┴╟█┼┴╟╩╟╩┴теьт═╞филена╞╩╙╝╜╠╩┴╓филенаме╩┴псеуд╩┴Ё█┼┴╟╩╟╩┴теьт═╞дежице╞╩╙╝╜╠╩┴╓дежице╩┴псеуд╩┴Ё█┼┴╟╩╟╩┴теьт═╞ста╞╩╟╩┴╥╡╢╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞и╞╩╟╩╟╩┴╓и╩┴псеум╩┴╟█┼┴╟╩╟╩┴теьт═╞з╞╩╟╩╟╩┴╓з╩┴псеум╩┴╟█┼┴╟╩уннец╩теьт═╞паусе╞╩┴╓паусе╩┴псеуд╩┴╟█┼┴╟╩уннец╩теьт═╞нопунц╞╩╙╝╜╠╩┴╓нопунцх╩┴псеуд╩┴╡╡█┼┴╟╩уннец╩теьт═╞енпунц╞╩╙╝╜╠╩┴╓енпунцх╩┴псеуд╩┴╡╡█┼┴╟╩уннец╩теьт═╞эстарт╞╩╙╝╜╠╩┴╓старт╩┴псеуд╩┴╡╡█┼┴╟╩уннец╩теьт═╞эйсв╞╩┴╓йсв╩┴псеуд╩┴╡╡█┼┴╟╩уннец╩теьт═╞эжерси╞╩╙╝╜╠╩┴╓жерсион╩┴псеуд╩┴╡╡█┼┴╟╩╟╩┴теьт═╞эпусх╞╩┴╓пусх╩┴псеуд╩┴╡╣█┼┴╟╩╟╩┴теьт═╞эпоп╞╩┴╓поп╩┴псеуд╩┴╡╣█┼┴╟╩╟╩┴теьт═╞этитле╞╩╙╝╜╠╩┴╓титле╩┴псеуд╩┴╡╣█┼┴╟╩╟╩┴теьт═╞ейецт╞╩┴╓ейецт╩┴псеуд╩┴╡╣█┼┴╟╩╟╩┴теьт═╞релоц╞╩┴╓релоц╩┴псеуд╩┴╡╣█┼┴╟╩╟╩┴теьт═╞эинцлу╞╩╙╝╜╠╩┴╓инцлуде╩┴псеуд╩┴╣█┼┴╟╩╟╩┴теьт═╞эцхаин╞╩╙╝╜╠╩┴╓цхаин╩┴псеуд╩┴╣█┼┴╟╩╟╩┴теьт═╞эсбттл╞╩╙╝╜╠╩┴╓сбттл╩┴псеуд╩┴╡╣█┼┴╟╩╟╩┴теьт═╞эдисаб╞╩╙╝╜╠╩┴╓дисабле╩┴псеуд╩┴Ё█┼┴╟╩╟╩┴теьт═╞эенабл╞╩╙╝╜╠╩┴╓енабле╩┴псеуд╩┴Ё█┼┴╟╩╟╩┴теьт═╞эглоба╞╩╙╝╜╠╩┴╓глобал╩┴псеуд╩┴╣█┼┴╟╩╟╩┴теьт═╞эеьтер╞╩╙╝╜╠╩┴╓еьтернал╩┴псеуд╩┴╣█┼┴╟╩╟╩┴теьт═╞эсецре╞╩╙╝╜╠╩┴╓сецреф╩┴псеуд╩┴╣█┼▄┴╟╩╟╩┴теьт═╞эзтерн╞╩╙╝╜╠╩┴╓зтернал╩┴псеуд╩┴╣█┼┴╟╩╟╩┴теьт═╞эсецт╞╩┴╓сецт╩┴псеуд╩┴╢█┼┴╟╩уннец╩теьт═╞эасецт╞╩╙╝╜╠╩┴╓асецт╩┴псеуд╩┴╢█┼┴╟╩уннец╩теьт═╞эьсецт╞╩╙╝╜╠╩┴╓ьсецт╩┴псеуд╩┴╢█┼┴╟╩уннец╩теьт═╞эзсецт╞╩╙╝╜╠╩┴╓зсецт╩┴псеуд╩┴╢█┼┴╟╩уннец╩теьт═╞эдсецт╞╩╙╝╜╠╩┴╓дсецт╩┴псеуд╩┴╢█┼┴╟╩уннец╩теьт═╞эфсецт╞╩╙╝╜╠╩┴╓фсецт╩┴псеуд╩┴╢█┼┴╟╩уннец╩теьт═╞эрсецт╞╩╙╝╜╠╩┴╓рсецт╩┴псеуд╩┴╢█┼┴╟╩мацро╩теьт═╞эмацро╞╩╙╝╜╠╩┴╓мацро╩┴псеуд╩┴╡╤█┼┴╟╩мацро╩теьт═╞эрепт╞╩┴╓репт╩┴псеуд╩┴╡╥█┼┴╟╩мацро╩теьт═╞эмеьит╞╩╙╝╜╠╩┴╓меьит╩┴псеуд╩┴Ё╟█┼┴╟╩уннец╩теьт═╞ьлист╞╩┴╓ьлист╩┴псеуд╩┴╡╡█┼┴╟╩╟╩┴теьт═╞элист╞╩┴╓лист╩┴псеуд╩┴╡╡█┼┴╟╩╟╩┴теьт═╞энолис╞╩╙╝╜╠╩┴╓нолист╩┴псеуд╩┴╡╡█┼┴╟╩╟╩┴теьт═╞эентры╞╩╙╝╜╠╩┴╓ентры╩┴псеуд╩┴╣█┼┴╟╩╟╩┴╟Ё╠╠╩╟╤╟╟╩╟╟╟╟╩┴╓циф╩┴псеум╩┴╟█┼┴╟╩╟╩┴╟Ё╟╢╩╟╤╟╟╩╟╟╟╟╩┴╓цдф╩┴псеум╩┴╟█┼┴╟╩╟╩┴╟╣╟╢╩╟╤╟╟╩╟╟╟╟╩┴╓едф╩┴псеум╩┴╟█┼┴╟╩╟╩┴Ё╟╟╣╩╟╢╟╤╩╟╟╟╟╩┴╓ьедф╩┴псеум╩┴╟█┼┴╟╩╟╩┴теьт═╞энаргс╞╩╙╝╜╠╩┴╓наргс╩┴псеум╩┴╟█┼┴╟╩╟╩┴теьт═╞эфлд╞╩┴╓флд╩┴псеум╩┴╟█┼┴╟╩╟╩┴теьт═╞фиьтаб╞╩╙╝╜╠╩┴╓фиьтаб╩┴псеуд╩┴╡Ё█┼┴╟╩╟╩┴теьт═╞еьпунг╞╩╙╝╜╠╩┴╓еьпунге╩┴псеуд╩┴╡Ё█┼┴╟╩╟╩┴теьт═╞энцхар╞╩╙╝╜╠╩┴╓нцхарс╩┴псеум╩┴╟█┼┴╟╩пдп╦е╩теьт═╞тфл╞╩╟╩┴╤╟╢╟╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞тск╞╩╟╩┴╤╟╢╣╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞рсф╞╩╟╩┴╤╟╠╠╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞ррб╞╩╟╩┴╤╟╠╡╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞рфц╞╩╟╩┴╤╟╠╢╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞псф╞╩╟╩┴╤╟╡╠╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞пцф╞╩╟╩┴╤╟╡╡╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞ппц╞╩╟╩┴╤╟╡╢╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞плс╞╩╟╩┴╤╟╡╤╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞рпе╞╩╟╩┴╤╟╠╟╩┴╟╩┴╟█┼┴╟╩пдп╦е╩теьт═╞пце╞╩╟╩┴╤╟╡╟╩┴╟╩┴╟█┼┴╟╩уннец╩теьт═╞иот╞╩╟╩┴╤╟╟╟╩┴╟╩┴╟█┼┴╟╩уннец╩теьт═╞опр╞╩╟╩┴╥╟╟╟╩┴╟╩┴╟█┼┴╟╩╟╩┴теьт═╞элежел╞╩╙╝╜╠╩┴╓лежел╩┴псеум╩┴╟█┼┴╜╠╩╜╠█┼┴ифзеро═╝╚╡╟╟╕╢╟╟╟═╪ожрфлв╛ъерроръ╬█┼▄ ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/24 MACINI (MACREL INITIALIZATION)	POST V0A
+/	9-MAR-78	INSTALLED PATCH TO FIX DATE-78 BUG
+/	15-AUG-78	/S SWITCH MEANS OMIT SYMBOL TABLE
+/	17-AUG-78	ADDED .LEVEL DIRECTIVE
+/	19-AUG-78	RESIDENT OVERLAY INITIALIZATION
+/	21-AUG-78	LENGTHENED FIELD 2 SYMBOL TABLE, REMOVED /D SWITCH
+	.INCLUDE MGLOB.MA
+	.ASECT MACINI
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL OVRBLK,DAT
+	.EXTERNAL $PAGE,$FIELD,$OCTAL,$DECIMAL,$RADIX,$DOT,$ZBLOCK
+	.EXTERNAL $TEXT,$IFDEF,$IFNDEF,$IFZERO,$IFNZRO,$IF,$FIXMRI
+	.EXTERNAL $FILENAME,$DEVICE,$I,$Z,$NOPUNCH,$ENPUNCH,$START
+	.EXTERNAL $JSW,$VERSION,$PUSH,$POP,$TITLE,$EJECT,$RELOC
+	.EXTERNAL $INCLUDE,$CHAIN,$SBTTL,$DISABL,$ENABLE,$GLOBAL
+	.EXTERNAL $EXTERNAL,$ZTERNAL,$SECT,$ASECT,$XSECT,$ZSECT
+	.EXTERNAL $DSECT,$FSECT,$RSECT,$MACRO,$REPT,$MEXIT,$XLIST
+	.EXTERNAL $LIST,$NOLIST,$ENTRY,$CIF,$CDF,$EDF,$NARGS,$FLD
+	.EXTERNAL $XEDF,$LEVEL,$SECREF
+	.EXTERNAL $FIXTAB,$EXPUNGE,$NCHARS,$PAUSE
+	.GLOBAL INIT,ONCE
+
+	*1400
+
+	0		/ILLEGAL OVERLAY NUMBER
+
+	PAGE
+
+	0
+	PAGE
+	*2000
+
+	0		/ILLEGAL OVERLAY NUMBER
+
+BATSIZ,	0
+	TAD I (7777
+	AND QQ70
+	CLL RTR
+	TAD (LIMTBL+1
+	DCA TEMP
+	TAD I (7777
+	RTL		/BATCH BIT TO LINK
+	SNL CLA
+	JMP I BATSIZ
+	TAD SWYTO9
+	RAL		/   /Z SWITCH TO SIGN
+	SPA CLA
+	JMP I BATSIZ
+	TAD (5000
+	DCA I TEMP	/DON'T DESTROY BATCH UNLESS /Z SPECIFIED
+	JMP I BATSIZ
+	NUMRES=6		/MUST AGREE WITH VALUE IN MACLOD
+
+LIMSET,	0
+/	TAD SWATOL
+/	AND (400
+/	SZA CLA		/WAS DEBUG SWITCH SPECIFIED?
+/	TAD (1400	/YES, FREESPACE IN FIELD 2 GETS 6 PAGES SHORTER
+/	TAD I (LIMTBL+4	/NO
+/	DCA I (LIMTBL+4
+	CLL STA RTL	/-3
+	TAD I (7612
+	SZA CLA		/ARE WE RUNNING WITH A 2-PAGE SYS HANDLER?
+	JMP .+3		/NO
+	TAD QQ7600	/YES
+	DCA I (LIMTBL+5	/SHORTEN FIELD 2 SYMBOL TABLE SPACE
+	.IF NE NUMRES <
+	CLL STA RAL	/-2
+	TAD I (AMTCOR
+	SMA SZA CLA
+	JMP NOY
+	TAD SWYTO9
+	RAL
+	STL RAR
+	DCA SWYTO9	/SET /Y SWITCH IF 0,1,OR 2 FIELDS
+NOY,	TAD SWYTO9	/NOW LOOK AT /Y BIT
+	SMA CLA
+	TAD (4000
+	DCA I (LIMTBL+6	/SET FIELD 3 LOW TO 2000 IF RESIDENT OVERLAYS
+	SZL
+	JMP YESY
+	CDF 30		/*** TEMP FIELD
+	NNN=0
+	.REPT NUMRES
+	DCA I (NNN	/MARK RESIDENCY BLOCKS AS UNUSED
+	NNN=NNN+400
+	.ENDR
+	CDF 0
+	>
+YESY,	STA
+	TAD I (AMTCOR
+	SNA CLA
+/	HLT		/TEMP - FOR ERROR STUFF
+	NOP
+	TAD I (AMTCOR
+	IAC
+	CLL RAL
+	TAD (LIMTBL
+	DCA TEMP
+	STA
+	DCA I TEMP	/LIMIT CORE FOR SYMBOL TABLE
+	JMP I LIMSET
+JAN,	0
+FEB,	3
+	4;0;2;5;0;3;6;1;4;6
+	PAGE
+	0
+	PAGE
+	*2400
+
+	0		/ILLEGAL OVERLAY NUMBER
+	PAGE
+	0
+	PAGE
+	SOFSET=7747
+
+	.ASECT MACIN2
+	*6400
+
+/	LOADS OVER INPUT HANDLER
+
+	0		/MUST MARK OVERLAY AS UNOCCUPIED
+ONCE,	0
+	JMS I (DATE
+/	MOVE SWITCH OPTIONS TO CONVENIENT SPOT IN FIELD 0
+/	LOC	NAME	SWITCHES
+/	4	SWATOL	A-L
+/	5	SWMTOX	M-X
+/	6	SWYTO9	Y,Z,0-9
+	CDF 10
+	TAD I (7643
+	DCA SWATOL
+	TAD I (7644
+	DCA SWMTOX
+	TAD I (7645
+	DCA SWYTO9
+	TAD I (7605
+	CDF 0
+	DCA I (CTRLO	/IF LIST FILE SPECIFIED, SIMULATE
+			/INITIAL CTRL/O
+	DCA I (UVER	/SET USER VERSION # TO 0
+/	JMS I (LOKOVR	/LOOK UP OVERLAY
+/	FILENAME MACOVR.SV
+/	DCA I (OVRBLK
+/	JMS I (LOKOVR
+/	FILENAME MACERR.SV
+/	DCA I (ERRBLK
+/	CDF 10
+/	TAD I (LOOKLN	/MACERR.SV MUST BE 23 BLOCKS LONG
+/	CDF 0
+/	TAD (23
+/	SZA CLA
+/	JMP I (7605	/**** SHOULD GIVE ERROR MESSAGE
+	TAD I (SOFSET
+	TAD (44-1	/MAGIC NUMBERS GOTTEN FROM LENGTH OF SV IMAGE
+	DCA I (OVRBLK	/SEE MACREL.DC FOR DETAILS
+	TAD I (SOFSET
+	TAD (101-1
+	DCA I (ERRBLK
+/TELL KREF ABOUT /P
+	TAD SWATOL
+	AND (100	/LOOK AT THE /F SWITCH
+	SZA CLA
+	STA
+	DCA I (ERRLVL	/SET TTY ERROR LEVEL TO -1 IF /F
+	TAD SWMTOX
+	RAR		/X BIT TO LINK
+	SZL CLA
+	ISZ I (ERRLVL	/SET TTY ERROR LEVEL TO 1 IF /X
+	SKP
+ER,	NOP		/BOTH /F AND /X SPECIFIED
+	CDF 10
+	TAD I (7646	/GET = OPTION
+	AND QQ7770
+	SNA
+	JMP ONCA
+/	CMA
+	CDF 0
+	DCA WIDTH
+ONCB,	TAD SWMTOX
+	RAR
+	AND (20
+	DCA AMTCOR	/SAVE STATUS OF /S
+	TAD SWMTOX
+	RTL
+	CLA RAR		/N SWITCH TO SIGN
+	TAD AMTCOR
+	TAD I (INILST
+	DCA I (INILST	/START LISTING OFF IF /N SPECIFIED
+	JMS I (CORE
+	DCA AMTCOR
+	JMS I (LIMSET	/FIXUP LIMIT TABLE
+	JMS I (PREFORM	/FORMAT FREESPACE
+	JMS I (SYMINI
+	TAD I (7746	/GET JSW
+	AND (6377
+	TAD (1000	/NON-RESTARTABLE & USES HIGHEST MEMORY FIELD
+	DCA I (7746
+	JMP I ONCE
+AMTCOR,	0
+ONCA,	TAD I (7605	/GET LISTING DEVICE #
+	CDF 0
+	SNA
+	JMP ONCB	/NO LISTING DEVICE
+	TAD (7757
+	DCA TEMP
+	CDF 10
+	TAD I TEMP
+	CDF 0
+	AND (770	/ISOLATE DEVICE TYPE CODE
+	TAD (-4
+	SZA CLA
+	JMP ONCB	/LIST DEV IS NOT LPT
+/SET WIDTH FROM HANDLER
+/LOAD HANDLER, BUT NOT OVER ONCE-ONLY CODE
+/*** COULD LOAD IT OVER THE DIRECTIVES OVERLAY
+	JMP ONCB
+DIV10,	0		/DIVIDE BY 10 DECIMAL
+	DCA TEMP
+	DCA NUM
+	TAD TEMP
+	ISZ NUM
+	TAD (-12
+	SMA
+	JMP .-3
+	TAD (12
+	DCA REMAIN	/LEAVE REMAINDER AROUND
+	STA
+	TAD NUM		/RETURN QUOTIENT IN AC
+	JMP I DIV10
+	PAGE
+/	ONCE-ONLY CODE
+
+SYMINI,	0
+	TAD (INIT
+SY0,	DCA XR2		/POINT TO BEGIN OF TABLE
+SY1,	CDF 10
+	TAD I XR2	/GET CODE
+	DCA CODE	/SAVE IT
+	CLA IAC
+	TAD CODE
+	SNA CLA
+	JMP SYMIEN	/-1 ENDS IT
+	TAD CODE
+	AND (UNNEC
+	AND SWMTOX
+	SZA CLA
+	JMP SKIPIT	/SKIP UNNECESSARY SYMBOL IF /R
+	TAD SWATOL
+	AND CODE
+	SPA CLA
+	JMP SKIPIT	/SKIP 8/E SYMBOL IF /A
+	TAD SWMTOX
+	CMA
+	AND CODE
+	AND (EAE
+	SZA CLA
+	JMP SKIPIT	/SKIP EAE SYMBOL IF NOT/Q
+	TAD CODE
+	AND (MACRO
+	AND SWMTOX
+	SZA CLA
+	JMP SKIPIT	/SKIP MACRO SYMBOLS IF /O
+	TAD I XR2
+	DCA NAME1
+	TAD I XR2
+	DCA NAME2
+	TAD I XR2
+	DCA NAME3
+	TAD I XR2
+	DCA SYMVAL
+	TAD I XR2
+	TAD (PERM+4000
+	DCA FLAG
+	TAD I XR2	/GET OVERLAY NUMBER
+	DCA SYMSCT
+	DCA QUAL
+	ISZ XR2
+	CDF 0
+	JMS I QQLOOKUP
+	JMS I QQENTER
+	JMS I QQPUTSYM
+	JMP SY1
+SYMIEN,	CDF 0
+	JMP I SYMINI
+
+CODE,	0
+
+SKIPIT,	TAD XR2		/DON'T PUT THIS SYMBOL IN
+	TAD QQ7		/INITIAL SYMBOL TABLE
+	JMP SY0
+	.ENABLE ASCII
+	.DISABL FILL
+DAYLST,	TEXT	"SATSUNMONTUEWEDTHUFRI"
+MONLST,	TEXT	"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"
+	.ENABLE SIXBIT
+	.ENABLE FILL
+	PAGE
+	IFDEF PLM  <
+/
+/	SBTTL	DATE PRINTER
+/
+/	FORMAT OF OS/8 DATE:
+/
+/	BITS 0-3:	1-14	REPRESENTS JAN-DEC RESP.
+/	BITS 4-8:	1-37	REPRESENTS DAY OF MONTH
+/	BITS 9-11:	0-7	REPRESENTS YEAR - 1970
+/
+/	THIS ROUTINE CONVERTS OS/8 DATE TO NICE FORM,
+/	I.E.   FOODAY, DD-MON-YY 
+/	AND INSERTS THESE CHARACTERS (ONE ASCII CHAR PER WORD)
+/	INTO THE HEADER BUFFER
+/
+/	JMS DATE
+/
+/	IF NO DATE WAS IN USE, THE BUFFER IS PADDED WITH BLANKS.
+/	EXACTLY 16 (OCTAL) WORDS ARE SET BY THIS ROUTINE.
+/
+/THIS ROUTINE OUTPUTS THE DATE IN THE DEC STANDARD FORMAT
+/FOR OUTPUT REPRESENTATIONS OF DATES.
+	>
+	.ASECT MACIN3
+	*7200
+
+/PAGE 7000 IS NOT FREE
+
+DATE,	0
+	TAD (DAT-1
+	DCA XR1		/
+	CDF 10		/GO TO FIELD OF DATE WORD
+	TAD I (DATEWD	/GET OS/8 DATE IN INTERNAL FORMAT
+	CDF 0
+	SNA		/IS A DATE SPECIFIED?
+	JMP NODATE	/NO, GO PAD BUFFER WITH SPACES
+	DCA DATEM	/SAVE DATE TEMPORARILY (IN THIS FIELD)
+	TAD DATEM	/GET BACK DATE (INTERNAL FORM)
+	CLL RTL
+	RTL
+	RAL
+	AND (17		/ISOLATE MONTH IN BITS 8-11 OF AC
+	DCA MONTH	/SAVE MONTH
+	TAD DATEM	/LOOK AT INTERNAL REPRESENTATION AGAIN
+	AND QQ7		/ISOLATE YEAR
+	DCA YEAR	/SAVE IT
+	TAD I (7777
+	RTR
+	RTR
+	AND (30
+	TAD YEAR
+	DCA YEAR
+	TAD DATEM	/GET BACK INTERNAL REPRESENTATION
+	CLL RTR
+	RAR
+	AND (37		/ISOLATE DAY OF MONTH
+	DCA DAY		/SAVE IT
+	STL CLA RTL	/2
+	TAD YEAR
+	CLL RTR
+	SNL SMA		/IS YEAR A MULTIPLE OF 4?
+	JMP LEAP	/YES, IT'S A LEAP YEAR!
+	ISZ I (JAN	/NO, ITS NOT A LEAP YEAR
+	ISZ I (FEB	/FIXUP TABLE FOR NON-LEAP-YEARS
+LEAP,	AND (37
+	TAD YEAR
+	TAD (3
+	TAD DAY
+	DCA TM4
+	TAD MONTH
+	TAD (JAN-1
+	DCA TM3
+	TAD I TM3
+	TAD TM4		/DIVIDE THIS NUMBER BY 7 TO GET DAY OF WEEK
+	TAD (-7
+	SMA
+	JMP .-2
+	DCA NUM
+	TAD NUM
+	TAD NUM
+	TAD NUM
+	TAD (DAYLST-1+7+7+7	/GET PTR TO NAME OF DAY OF WEEK
+	JMS PUT3	/PUT THESE 3 CHARS IN BUFFER
+	TAD QQ40
+	JMS PUT1	/PUT A SPACE IN BUFFER
+	TAD DAY		/GET DAY OF MONTH BACK
+	JMS PUT2	/OUTPUT IT INTO BUFFER AS TWO DECIMAL DIGITS
+	TAD ("-
+	JMS PUT1	/THEN PUT OUT A HYPHEN
+	TAD MONTH
+	CLL RAL
+	TAD MONTH	/MULTIPLY MONTH NUMBER BY 3
+	TAD (MONLST-4	/GET PTR TO 3-CHAR ABBREVIATION OF MONTH
+	JMS PUT3	/PUT IT INTO BUFFER
+	TAD ("-
+	JMS PUT1	/PUT ANOTHER HYPHEN AFTER IT
+	TAD YEAR	/GET BACK YEAR
+	TAD (106	/ADD 70 (DECIMAL) TO IT
+	JMS PUT2	/CONVERT TO TWO DECIMAL DIGITS AND PUT IN BUFFER
+	JMP I DATE	/RETURN
+PUT3,	0		/PUT THREE CHARS IN BUFFER
+	DCA XR2		/SAVE PTR
+	TAD I XR2	/GET CHAR
+	JMS PUT1	/PUT IT IN BUFFER
+	TAD I XR2
+	JMS PUT1
+	TAD I XR2
+	JMS PUT1
+	JMP I PUT3
+
+PUT2,	0		/CONVERT NUMBER IN AC TO 2 DIGITS
+	JMS I (DIV10	/DIVIDE BY 10 DECIMAL
+	TAD (60		/CONVERT QUOTIENT TO ASCII
+	JMS PUT1	/PUT IN BUFFER
+	TAD REMAIN	/GET REMAINDER
+	TAD (60		/CONVERT IT TO ASCII
+	JMS PUT1	/PUT UNIT'S DIGIT IN BUFFER
+	JMP I PUT2	/RETURN
+
+PUT1,	0		/PUT ONE CHAR IN BUFFER
+	CDF 10
+	DCA I XR1
+	CDF 0
+	JMP I PUT1
+NODATE,	TAD (-15	/PAD WITH 13 (DECIMAL) SPACES
+	DCA KNT
+INSPAC,	TAD QQ40
+	JMS PUT1	/INSERT A SPACE IN THE BUFFER
+	ISZ KNT		/DONE?
+	JMP INSPAC	/NO
+	JMP I DATE	/YES, RETURN
+
+MONTH,	0
+DAY,	0
+DATEM,	0
+YEAR,	0
+TM4,	0
+TM3,	0
+	PAGE
+/SUBROUTINE TO DETERMINE REAL PHYSICAL CORE SIZE
+
+CORE,	0
+	TAD I (7777
+	AND COR70
+	SZA
+	JMP SOFCOR
+COR0,	CDF 0		/NEEDED FOR PDP-8L
+	TAD CORSIZ	/GET FIELD TO TEST
+	RTL
+	RAL
+	AND COR70	/MASK USEFUL BITS
+	TAD COREX
+	DCA .+1		/SET UP CDF TO FIELD
+COR1,	CDF /N		/N IS FIELD TO TEST
+	TAD I CORLOC	/SAVE CURRENT CONTENTS
+COR2,	NOP		/HACK FOR PDP-8!
+	DCA COR1
+	TAD COR2	/7000 IS A "GOOD" PATTERN
+	DCA I CORLOC
+COR70,	70		/HACK FOR PDP-8, NOP
+	TAD I CORLOC	/TRY TO READ BACK 7000
+CORX,	7400		/HACK FOR PDP-8, NOP
+	TAD CORX	/GUARD AGAINST WRAP-AROUND
+	TAD CORV	/TAD (1400
+	SZA CLA
+	JMP COREX	/NON-EXISTENT FIELD EXIT
+	TAD COR1	/RESTORE CONTENTS DESTROYED
+	DCA I CORLOC
+	ISZ CORSIZ	/TRY NEXT HIGHER FIELD
+	JMP COR0
+
+COREX,	CDF 0		/LEAVE WITH DATA FIELD 0
+	STA
+	TAD CORSIZ	/FIRST NON-EXISTENT FIELD
+	JMP I CORE	/RETURN
+
+CORLOC,	CORX		/ADDRESS TO TEST IN EACH FIELD
+CORV,	1400		/7000+7400+1400=0
+CORSIZ,	1		/CURRENT FIELD TO TEST
+
+SOFCOR,	CLL RAR
+	RTR
+	JMP I CORE
+	IFDEF PLM  <
+
+/	15-BIT POINTERS
+/
+/15-BIT POINTERS, HEREAFTER REFERED TO AS 15-BIT POINTERS,
+/ARE OF THE FORM:
+/
+/	BITS 0-2	FIELD OF LOCATION
+/	BITS 3-11	12-BIT LOCATION DIVIDED BY 8
+/			I.E. APPEND 3 ZEROES ON RIGHT TO GET ACTUAL ADDRESS.
+/
+/FREESPACE IS ALLOCATED IN 8-WORD CHUNKS, NOT INCLUDING PAGE 7600
+/OF FIELD 0 OR 1 OR 7600 OF FIELD 2 IN CASE OF A TD8E SYSTEM.
+/FURTHER RESTRICTIONS ARE MADE WHEN RUNNING UNDER BATCH.
+	>
+
+/*** THIS HAS TO BE CHANGED TO ALLOCATE IN INCREMENTS
+/OF ONE BLOCK.
+
+LIMTBL,	0;7600	/0
+	0;7600	/1
+	1200;7770/2
+	0;7770	/3
+	0;7770	/4
+	0;7770	/5
+	0;7770	/6
+	0;7770	/7	CAN'T ALLOW LAST SEGMENT
+	-1
+
+	IFDEF PLM  <
+/THIS TABLE GIVES THE LOWER AND UPPER LIMITS OF CORE AVAILABILITY
+/IN EACH FIELD.  THIS IS PROBABLY MEANINGLESS FOR FIELD 0.
+/A FIRST ENTRY OF -1 MEANS THAT FIELD (AND ALL ABOVE IT) IS NOT
+/AVAILABLE.
+/
+/EACH CHUNK BEGINS WITH A 15-BIT POINTER TO THE NEXT CHUNK, OR 0
+/IF IT IS THE LAST CHUNK IN THE BUCKET.
+/
+/FREESPACE WILL BE PRE-FORMATTED, I.E. THESE 15-BIT POINTERS
+/WILL ALREADY EXIST.
+/IN ADDITION TO BUCKETS, THERE IS A LOCATION 'FREEPTR' WHICH POINTS
+/TO THE FIRST CHUNK OF AVAILABLE FREE SPACE.  IF THIS IS 0, THEN
+/THERE IS NO MORE FREE SPACE AVAILABLE.
+	>
+/THIS ROUTINE PRE-FORMATS CORE.
+
+PREFORM,0
+	JMS I (BATSIZ	/CHECK IF BATCH IS RUNNING
+	CLA IAC
+	DCA FLD
+	TAD FLD
+	CLL RAL
+	TAD (LIMTBL	/POINT INTO LIMIT TABLE TO GET UPPER LIMIT IN THIS FIELD
+	DCA XR1		/XR1 POINTS INTO LIMIT TABLE
+	TAD FREEPTR
+	DCA LPTR
+CDF0,	CDF 0
+	TAD I XR1	/GET UPPER LIMIT IN THIS FIELD
+	DCA LIMSUP	/SAVE IT
+	TAD I XR1	/GET LOWER LIMIT IN NEXT FIELD
+	DCA LIMINF	/SAVE IT
+	TAD LPTR	/GET INITIAL FREE LOCATION
+	JMS I (CNVADR	/CONVERT TO 12-BIT PTR
+PREF1,	DCA NEWLNK	/SAVE 12-BIT PTR (PTING TO LINKWORD OF CURRENT CHUNK)
+	TAD NEWLNK
+	TAD (10		/CHUNKS ARE 8 WORDS LONG
+	DCA NXTFREE	/POINT TO NEXT FREE LOCATION IN THIS FIELD
+	TAD NXTFREE
+	CIA
+	TAD LIMSUP	/ARE WE AT THE LIMITS OF ENDURANCE?
+	SNA CLA
+	JMP ENDOF	/YES, THIS FIELD IS FULL
+	TAD NXTFREE	/NO
+	CLL RTR
+	RAR
+	DCA NXTEMP
+	TAD FLD		/CONVERT TO 15-BIT POINTER
+	CLL RTR
+	RTR
+	TAD NXTEMP
+	DCA I NEWLNK	/SET LINK WORD POINTING TO NEXT LOCATION AFTER CHUNK
+	TAD NXTFREE
+	JMP PREF1	/CONTINUE
+ENDOF,	TAD LIMINF	/GO TO BEGINNING OF NEXT FIELD
+	CMA		/BUT FIRST SEE IF THERE IS A NEXT FIELD
+	SNA		/A LIMINF OF -1 MEANS END OF CORE
+	JMP ENDOCORE	/CORE IS FULL
+	CMA		/GET NEW 12-BIT LOCATION
+	CLL RAL
+	ISZ FLD		/IN VERY NEXT FIELD
+	TAD FLD		/CONVERT TO 15-BIT POINTER
+	RTR
+	RTR
+	DCA LPTR
+	TAD LPTR
+	DCA I NEWLNK	/SET LINK WORD OF PREVIOUS ENTRY
+	JMP CDF0	/REITERATE FOR NEW FIELD
+ENDOCOR,DCA I NEWLNK	/0 MEANS NO MORE LINKS, I.E. BUCKET'S END
+	CDF 0
+	JMP I PREFORM	/RETURN
+
+FLD,	0		/CURRENT FIELD OF CHUNK
+NXTFREE,0		/NEXT FREE LOCATION IN THIS FIELD
+NEWLNK,	0		/PTS TO LINK WORD IN THIS CHUNK
+LIMSUP,	0		/FIRST UNAVAILABLE LOCATION IN THIS FIELD
+LIMINF,	0		/FIRST CORE LOCATION IN NEXT FIELD (-1 IF NONE)
+NXTEMP,	0
+	PAGE
+/	CODE WORDS USED
+
+	PDP8E=4000	/SYMBOL IS NEEDED ONLY FOR -8/E OR LATER
+			/USE /A SWITCH TO DELETE IT
+	UNNEC=100	/SYMBOL IS REDUNDANT
+			/USE /R SWITCH TO GET RID OF IT
+	EAE=200		/SYMBOL IS NEEDED ONLY WITH EAE OPTION
+			/USE /Q SWITCH TO INCLUDE IT
+	MACRO=1000	/SYMBOL IS NEED FOR MACROS
+			/USE /O SWITCH TO DELETE IT
+	.ASECT SYMTAB
+	FIELD 1
+	*5400
+
+/UNUSED;CODE;NAME1;NAME2;NAME3;VALUE;FLAG;OVERLAY NUMBER
+/TABLE ENDS WITH A -1
+
+	.NOLIST BE
+INIT,	0;0;	TEXT /AND/;0;	0000;	MRI;	0
+	0;0;	TEXT /TAD/;0;	1000;	MRI;	0
+	0;0;	TEXT /ISZ/;0;	2000;	MRI;	0
+	0;0;	TEXT /DCA/;0;	3000;	MRI;	0
+	0;0;	TEXT /JMS/;0;	4000;	MRI;	0
+	0;0;	TEXT /JMP/;0;	5000;	MRI;	0
+	0;0;	TEXT /NOP/;0;	7000;	0;	0
+	0;0;	TEXT /CLA/;0;	7200;	0;	0
+	0;0;	TEXT /CLL/;0;	7100;	0;	0
+	0;0;	TEXT /CMA/;0;	7040;	0;	0
+	0;0;	TEXT /CML/;0;	7020;	0;	0
+	0;0;	TEXT /RAR/;0;	7010;	0;	0
+	0;0;	TEXT /RAL/;0;	7004;	0;	0
+	0;0;	TEXT /RTR/;0;	7012;	0;	0
+	0;0;	TEXT /RTL/;0;	7006;	0;	0
+	0;0;	TEXT /IAC/;0;	7001;	0;	0
+	0;0;	TEXT /PAGE/;	$PAGE;	PSEUD;	1
+	0;0;	TEXT /FIELD/;	$FIELD;	PSEUD;	24
+	0;0;	TEXT /SMA/;0;	7500;	0;	0
+	0;0;	TEXT /SZA/;0;	7440;	0;	0
+	0;0;	TEXT /SPA/;0;	7510;	0;	0
+	0;0;	TEXT /SNA/;0;	7450;	0;	0
+	0;0;	TEXT /SNL/;0;	7420;	0;	0
+	0;0;	TEXT /SZL/;0;	7430;	0;	0
+	0;0;	TEXT /SKP/;0;	7410;	0;	0
+	0;0;	TEXT /OSR/;0;	7404;	0;	0
+	0;0;	TEXT /HLT/;0;	7402;	0;	0
+	0;0;	TEXT /CIA/;0;	7041;	0;	0
+	0;0;	TEXT /LAS/;0;	7604;	0;	0
+	0;0;	TEXT /STL/;0;	7120;	0;	0
+	0;EAE;	TEXT /SCL/;0;	7403;	0;	0
+	0;EAE;	TEXT /MUY/;0;	7405;	0;	0
+	0;EAE;	TEXT /DVI/;0;	7407;	0;	0
+	0;EAE;	TEXT /NMI/;0;	7411;	0;	0
+	0;EAE;	TEXT /SHL/;0;	7413;	0;	0
+	0;EAE;	TEXT /ASR/;0;	7415;	0;	0
+	0;EAE;	TEXT /LSR/;0;	7417;	0;	0
+	0;EAE;	TEXT /SCA/;0;	7441;	0;	0
+	0;UNNEC;TEXT /GLK/;0;	7204;	0;	0
+	0;PDP8E;TEXT /BSW/;0;	7002;	0;	0
+	0;PDP8E;TEXT /MQL/;0;	7421;	0;	0
+	0;PDP8E;TEXT /MQA/;0;	7501;	0;	0
+	0;PDP8E;TEXT /CAM/;0;	7621;	0;	0
+	0;PDP8E;TEXT /SWP/;0;	7521;	0;	0
+	0;PDP8E;TEXT /ACL/;0;	7701;	0;	0
+	0;UNNEC;TEXT /OCTAL/;	$OCTAL;	PSEUD;	3
+	0;UNNEC;TEXT /DECIMA/;*.-1;$DECIMAL;	PSEUD;	3
+	0;0;	TEXT /\RADIX/;*.-1;	$RADIX;	PSEUD;	3
+	0;PDP8E;TEXT /SKON/;	6000;	0;	0
+	0;0;	TEXT /ION/;0;	6001;	0;	0
+	0;0;	TEXT /IOF/;0;	6002;	0;	0
+	0;PDP8E;TEXT /SRQ/;0;	6003;	0;	0
+	0;PDP8E;TEXT /GTF/;0;	6004;	0;	0
+	0;PDP8E;TEXT /RTF/;0;	6005;	0;	0
+	0;PDP8E;TEXT /SGT/;0;	6006;	0;	0
+	0;PDP8E;TEXT /CAF/;0;	6007;	0;	0
+	0;PDP8E;TEXT /KCF/;0;	6030;	0;	0
+	0;0;	TEXT /KSF/;0;	6031;	0;	0
+	0;0;	TEXT /KCC/;0;	6032;	0;	0
+	0;0;	TEXT /KRS/;0;	6034;	0;	0
+	0;PDP8E;TEXT /KIE/;0;	6035;	0;	0
+	0;0;	TEXT /KRB/;0;	6036;	0;	0
+	0;0;	TEXT /TSF/;0;	6041;	0;	0
+	0;0;	TEXT /TCF/;0;	6042;	0;	0
+	0;0;	TEXT /TPC/;0;	6044;	0;	0
+	0;0;	TEXT /TLS/;0;	6046;	0;	0
+	0;0;	3400;0;0;	$DOT;	PSEUM;	0
+	0;0;	TEXT /RDF/;0;	6214;	0;	0
+	0;0;	TEXT /RIF/;0;	6224;	0;	0
+	0;0;	TEXT /RIB/;0;	6234;	0;	0
+	0;0;	TEXT /RMF/;0;	6244;	0;	0
+	0;0;	TEXT /ZBLOCK/;*.-1;	$ZBLOCK;	PSEUD;	1
+	0;0;	TEXT /TEXT/;	$TEXT;	PSEUD;	1
+	0;UNNEC;TEXT /IFDEF/;	$IFDEF;	PSEUD;	2
+	0;UNNEC;TEXT /IFNDEF/;*.-1;	$IFNDEF;	PSEUD;	2
+	0;UNNEC;TEXT /IFZERO/;*.-1;	$IFZERO;	PSEUD;	2
+	0;UNNEC;TEXT /IFNZRO/;*.-1;	$IFNZRO;	PSEUD;	2
+	0;0;	TEXT /\IF/;0;		$IF;	PSEUD;	2
+	0;0;	TEXT /FIXMRI/;*.-1;	$FIXMRI;	PSEUD;	0
+	0;0;	TEXT /FILENA/;*.-1;	$FILENAME;	PSEUD;	3
+	0;0;	TEXT /DEVICE/;*.-1;	$DEVICE;	PSEUD;	3
+	0;0;	TEXT /STA/;0;	7240;	0;	0
+	0;0;	TEXT /I/;0;0;	$I;	PSEUM;	0
+	0;0;	TEXT /Z/;0;0;	$Z;	PSEUM;	0
+	0;UNNEC;TEXT /PAUSE/;	$PAUSE;	PSEUD;	0
+	0;UNNEC;TEXT /NOPUNC/;*.-1;	$NOPUNCH;	PSEUD;	22
+	0;UNNEC;TEXT /ENPUNC/;*.-1;	$ENPUNCH;	PSEUD;	22
+	0;UNNEC;TEXT /\START/;*.-1;	$START;	PSEUD;	22
+	0;UNNEC;TEXT /\JSW/;	$JSW;	PSEUD;	22
+	0;UNNEC;TEXT /\VERSI/;*.-1;	$VERSION;	PSEUD;	22
+	0;0;	TEXT /\PUSH/;	$PUSH;	PSEUD;	25
+	0;0;	TEXT /\POP/;	$POP;	PSEUD;	25
+	0;0;	TEXT /\TITLE/;*.-1;	$TITLE;	PSEUD;	25
+	0;0;	TEXT /EJECT/;	$EJECT;	PSEUD;	25
+	0;0;	TEXT /RELOC/;	$RELOC;	PSEUD;	25
+	0;0;	TEXT /\INCLU/;*.-1;	$INCLUDE;	PSEUD;	5
+	0;0;	TEXT /\CHAIN/;*.-1;	$CHAIN;	PSEUD;	5
+	0;0;	TEXT /\SBTTL/;*.-1;	$SBTTL;	PSEUD;	25
+	0;0;	TEXT /\DISAB/;*.-1;	$DISABLE;	PSEUD;	3
+	0;0;	TEXT /\ENABL/;*.-1;	$ENABLE;	PSEUD;	3
+	0;0;	TEXT /\GLOBA/;*.-1;	$GLOBAL;	PSEUD;	5
+	0;0;	TEXT /\EXTER/;*.-1;	$EXTERNAL;	PSEUD;	5
+	0;0;	TEXT /\SECRE/;*.-1;	$SECREF;	PSEUD;	5
+	0;0;	TEXT /\ZTERN/;*.-1;	$ZTERNAL;	PSEUD;	5
+	0;0;	TEXT /\SECT/;	$SECT;	PSEUD;	4
+	0;UNNEC;TEXT /\ASECT/;*.-1;	$ASECT;	PSEUD;	4
+	0;UNNEC;TEXT /\XSECT/;*.-1;	$XSECT;	PSEUD;	4
+	0;UNNEC;TEXT /\ZSECT/;*.-1;	$ZSECT;	PSEUD;	4
+	0;UNNEC;TEXT /\DSECT/;*.-1;	$DSECT;	PSEUD;	4
+	0;UNNEC;TEXT /\FSECT/;*.-1;	$FSECT;	PSEUD;	4
+	0;UNNEC;TEXT /\RSECT/;*.-1;	$RSECT;	PSEUD;	4
+	0;MACRO;TEXT /\MACRO/;*.-1;	$MACRO;	PSEUD;	26
+	0;MACRO;TEXT /\REPT/;	$REPT;	PSEUD;	27
+	0;MACRO;TEXT /\MEXIT/;*.-1;	$MEXIT;	PSEUD;	30
+	0;UNNEC;TEXT /XLIST/;	$XLIST;	PSEUD;	22
+	0;0;	TEXT /\LIST/;	$LIST;	PSEUD;	22
+	0;0;	TEXT /\NOLIS/;*.-1;	$NOLIST;	PSEUD;	22
+	0;0;	TEXT /\ENTRY/;*.-1;	$ENTRY;	PSEUD;	5
+	0;0;	0311;0600;0000;	$CIF;	PSEUM;	0
+	0;0;	0304;0600;0000;	$CDF;	PSEUM;	0
+	0;0;	0504;0600;0000;	$EDF;	PSEUM;	0
+	0;0;	3005;0406;0000;	$XEDF;	PSEUM;	0
+	0;0;	TEXT /\NARGS/;*.-1;	$NARGS;	PSEUM;	0
+	0;0;	TEXT /\FLD/;	$FLD;	PSEUM;	0
+	0;0;	TEXT /FIXTAB/;*.-1;	$FIXTAB;	PSEUD;	23
+	0;0;	TEXT /EXPUNG/;*.-1;	$EXPUNGE;	PSEUD;	23
+	0;0;	TEXT /\NCHAR/;*.-1;	$NCHARS;	PSEUM;	0
+	0;PDP8E;TEXT /TFL/;0;	6040;	0;	0
+	0;PDP8E;TEXT /TSK/;0;	6045;	0;	0
+	0;PDP8E;TEXT /RSF/;0;	6011;	0;	0
+	0;PDP8E;TEXT /RRB/;0;	6012;	0;	0
+	0;PDP8E;TEXT /RFC/;0;	6014;	0;	0
+	0;PDP8E;TEXT /PSF/;0;	6021;	0;	0
+	0;PDP8E;TEXT /PCF/;0;	6022;	0;	0
+	0;PDP8E;TEXT /PPC/;0;	6024;	0;	0
+	0;PDP8E;TEXT /PLS/;0;	6026;	0;	0
+	0;PDP8E;TEXT /RPE/;0;	6010;	0;	0
+	0;PDP8E;TEXT /PCE/;0;	6020;	0;	0
+	0;UNNEC;TEXT /IOT/;0;	6000;	0;	0
+	0;UNNEC;TEXT /OPR/;0;	7000;	0;	0
+	0;0;	TEXT /\LEVEL/;*.-1;	$LEVEL;	PSEUM;	0
+	-1;-1
+	IFZERO .+200&4000 <OVRFLW,_ERROR_>
+

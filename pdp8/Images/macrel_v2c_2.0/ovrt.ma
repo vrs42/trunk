@@ -1,1 +1,259 @@
-╞╥┴блоцк═леттер═инфо┴пост═фт═╠█┼╞┴алсо═фиелд═анд═лнкцхн█┼╞═╦╜мар╜╥╦┴аддед═╠╡╦к═суппорт█┼╞┴┴нов═усес═аддитионал═сецт═цхунк█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═ожрт╛лежел╫╡╛ожерлаы╫Ё█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═рбфиле╛лооку╛кффиле╛прглит╛прзлит╛уннам█┼┴фиелд═╢█┼┴╝глобал═ер╡╡╟╛ер╡╡╧█┼┴╝глобал═лнкцхн╛крфцхн╛╓фиелд█┼█┼┴╙╡╟╟╟█┼█┼┴╡╢┴┴╞ожерлаы═нумбер█┼█┼лнкцхн╛┴тад═сватол█┼┴ртл█┼┴спа═цла█┼┴ймп═крфцхн┴╞тхе═╞ц═оптион═хас═приориты═ожер═╞л═ор═╞г█┼┴цдф═╠╟┴┴╞цхаин═то═линкер█┼┴стл═цла═рар┴╞фирст═фиь═уп═свитцхес█┼┴дца═и═╗╥╤╢╡┴╞пасс═алтмоде═то═линкер█┼┴тад═и═╗╥╤╢Ё┴╞анд═онлы═цертаин═свитцхес█┼┴анд═╗╤╟┴┴╞г═анд═х═аре═аццептабле█┼┴дца═и═╗╥╤╢Ё█┼┴тад═и═╗╥╤╢╢█┼┴анд═╗╢╤┴┴╞со═аре═с╛ж╛═анд═в█┼┴дца═и═╗╥╤╢╢█┼┴тад═и═╗╥╤╢╣█┼┴анд═╗╠╥╥╥┴╞алсо═╟╜╧█┼┴дца═и═╗╥╤╢╣█┼┴дца═и═╗╥╤╢╤┴╞но═╫═оптион█┼┴тад═и═╗╥╤╟╠█┼┴сна═цла█┼┴ймп═ерь┴┴╞но═бинары═вас═продуцед═инто═а═филе█┼┴тад═╗╡Ё╡╤█┼┴дца═и═╗╥╤╟╢┴╞гиже═ит═╝сж═еьтенсион█┼┴тад═╗╠╣╡╟█┼┴дца═и═╗╥╤╠╠┴╞мап═гетс═╝мп═еьтенсион█┼┴тад═и═яя╥╤╟╟█┼┴дца═и═╗╥╤╠╥┴╞линкер═такес═мы═╝рб═филе═ас═инпут█┼┴тад═и═╗рбфиле█┼┴дца═и═╗╥╤╡╟█┼┴дца═и═╗╥╤╡╠┴╞анд═но═отхер═филе█┼┴цдф═╟█┼┴тад═╗╠╢╠╠┴╞ли█┼┴дца═наме╠█┼┴тад═╗╠╤╠Ё┴╞нк█┼цмн╛┴дца═наме╡█┼┴дца═намеЁ█┼┴тад═╗╡Ё╡╤┴╞сж█┼┴дца═наме╢█┼┴циф═╠╟█┼┴цла═иац┴┴╞дежице═сыс╨█┼┴ймс═и═╗лооку█┼┴дца═лнкблк┴╞фирст═блоцк═оф═линк╝сж█┼┴циф═╠╟█┼┴ймс═и═╗╥╥╟╟┴╞цалл═уср█┼┴╤┴┴╞то═до═а═цхаин█┼лнкблк╛┴╟┴┴╞цхаин═то═линкер═ор═креф█┼█┼ерь╛┴цдф═╟█┼ер╡╡╟╛┴ймс═и═яяеррор█┼┴ймп═и═╗╥╤╟╣█┼▄крфцхн╛┴цдф═╠╟█┼┴тад═и═╗╥╤╠╡█┼┴сна═цла█┼┴ймп═ерь┴┴╞╙╙╙═пробаблы═цан╖т═хаппен█┼┴тад═╗╥╤╟╟╜╠█┼┴дца═ьр╟█┼┴тад═╗╥╤╟╣╜╠█┼┴дца═ьр╠█┼┴тад═и═ьр╠█┼┴дца═и═ьр╟█┼┴тад═и═ьр╠█┼┴дца═и═ьр╟█┼┴тад═и═ьр╠█┼┴дца═и═ьр╟█┼┴тад═и═ьр╠█┼┴дца═и═ьр╟█┼┴тад═и═ьр╠█┼┴сза█┼┴иац┴┴╞╙╙═клудге═╜═модифы═еьтенсион█┼┴сна█┼┴тад═╗╠╢╡╢┴╞лт█┼┴дца═и═ьр╟█┼┴тад═и═ьр╠█┼┴дца═и═╗╥╤╠╥█┼┴тад═и═╗кффиле█┼┴дца═и═╗╥╤╡╟█┼┴дца═и═╗╥╤╡╠█┼┴цдф═╟█┼┴тад═╗╠Ё╡╡┴╞кр█┼┴дца═наме╠█┼┴тад═╗╟╣╟╤┴╞еф█┼┴ймп═цмн█┼┴паге█┼▄╓фиелд╛┴ймс═и═яясцан█┼┴ймс═и═яябацкуп█┼╞┴дца═таглоц┴╞енд═лсб█┼┴дца═ундеф█┼┴ймс═и═яяеьпр█┼┴дца═фтемп█┼┴тад═фтемп█┼┴анд═╗╥╥╢╟█┼┴сза═цла█┼┴ймс═флде█┼┴тад═фтемп█┼┴анд═╗Ё╥█┼┴дца═цурфлд█┼┴дца═флг█┼┴тад═ундеф█┼┴сза═цла█┼┴ймс═флде█┼┴тад═цурсцт█┼┴ймс═и═яягетсым█┼┴тад═цурфлд█┼┴дца═бинары█┼┴тад═флаг█┼┴анд═╗╠╟╟█┼┴сза═цла█┼┴ймп═унфлд┴╞гад═╜═ит╖с═ан═уннамед═сецтион█┼┴тад═цстыпе█┼┴тад═ям╠╟█┼┴сна═цла█┼┴ймп═арест█┼┴тад═╗ртабсф┴╞сет═абсолуте═фиелд═рестрицтион█┼┴дца═ртип█┼┴тад═цурфлд█┼┴дца═ржыл█┼┴тад═еьпрел█┼┴сна█┼┴ймп═сетрть█┼┴дца═ржыл┴╞иф═еьпр═хас═релоцатабле═парт╛═тхен█┼┴┴┴╞усер═ис═специфыинг═╖саме═фиелд═ас╖═рестрицтион█┼┴ста█┼┴дца═цурфлд┴╞хацк█┼┴тад═╗ртсамф█┼┴дца═ртип█┼сетрть╛┴дца═флде█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴тад═╗╡█┼┴дца═тмп█┼┴тад═и═тмп█┼┴сна█┼┴ймп═╝╚╣█┼┴циа█┼┴тад═ржыл█┼┴сза═цла█┼┴исз═флде┴╞фиелд═рестрицтион═цхангед█┼┴тад═ржыл█┼┴дца═и═тмп┴╞сет═жалуе═оф═рестрицтион█┼┴цдф═╟█┼┴тад═флде█┼┴сза═цла█┼┴ймс═флде█┼фи╡╛┴дца═флде█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴иац█┼┴дца═тмп┴┴╞поинт═то═рт█┼┴тад═и═тмп█┼┴сна█┼┴ймп═невф┴╞но═прежиоус═рестрицтион█┼┴циа█┼┴тад═ртип█┼┴сза═цла█┼┴исз═флде┴╞цханге═ин═рестрицтион█┼невф╛┴тад═ртип█┼┴дца═и═тмп┴╞сет═нев═рестрицтион█┼┴цдф═╟█┼┴тад═флде█┼┴сза═цла█┼┴ймс═флде█┼╞┴тад═цурсцт█┼╞┴ймс═и═яяпутсым█┼┴ймп═и═╗псеудп█┼█┼флде╛┴╟█┼ер╡╡╧╛┴ймс═и═яяеррор█┼┴ймп═и═флде█┼█┼тмп╛┴╟█┼▄ртип╛┴╟█┼ржыл╛┴╟┴┴╞тыпе═анд═жалуе═оф═рестрицтион═респ╝█┼арест╛┴тад═цурфлд█┼┴анд═яя╥█┼┴цлл═ртр█┼┴ртр┴┴╞бринг═фиелд═то═битс═╟╜╡█┼┴дца═ртип█┼┴тад═цурфлд█┼┴анд═╗Ё╟█┼┴цлл═ртл┴┴╞битс═╥╛╦═го═то═Ё╛╢█┼┴ртл┴┴╞битс═╧╛╠╟╛╠╠═го═то═╟╛╠╛╡█┼┴тад═ртип█┼┴дца═ртип█┼┴ймп═фи╡┴┴╞специал═цасе═усед═фор═асецт═онлы═синце█┼┴┴┴╞ит═ис═тхе═онлы═тыпе═оф═сецт═витх═ботх═паге═анд═фиелд█┼┴┴┴╞рестрицтионс═вхицх═аре═индепендент█┼█┼унфлд╛┴тад═пц█┼┴ймс═и═яяхгхсцт┴╞рецомпуте═хигх═пц█┼┴ймс═и═╗прглит█┼┴ймс═и═╗прзлит█┼┴исз═пцфлаг█┼┴ймс═и═яяоут█┼┴ймс═и═╗уннам█┼┴ймп═и═╗псеудн█┼█┼фтемп╛┴╟█┼┴паге█┼▄ ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/7	BLOCK LETTER INFO	POST FT 1
+/	ALSO FIELD AND LNKCHN
+/ 8-MAR-78	ADDED 128K SUPPORT
+/		NOW USES ADDITIONAL SECT CHUNK
+	.INCLUDE MGLOB.MA
+	.ASECT OVRT,LEVEL=2,OVERLAY=3
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL RBFILE,LOOKU,KFFILE,PRGLIT,PRZLIT,UNNAM
+	FIELD 4
+	.GLOBAL ER220,ER229
+	.GLOBAL LNKCHN,KRFCHN,$FIELD
+
+	*2000
+
+	24		/OVERLAY NUMBER
+
+LNKCHN,	TAD SWATOL
+	RTL
+	SPA CLA
+	JMP KRFCHN	/THE /C OPTION HAS PRIORITY OVER /L OR /G
+	CDF 10		/CHAIN TO LINKER
+	STL CLA RAR	/FIRST FIX UP SWITCHES
+	DCA I (7642	/PASS ALTMODE TO LINKER
+	TAD I (7643	/AND ONLY CERTAIN SWITCHES
+	AND (60		/G AND H ARE ACCEPTABLE
+	DCA I (7643
+	TAD I (7644
+	AND (46		/SO ARE S,V, AND W
+	DCA I (7644
+	TAD I (7645
+	AND (1777	/ALSO 0-9
+	DCA I (7645
+	DCA I (7646	/NO = OPTION
+	TAD I (7601
+	SNA CLA
+	JMP ERX		/NO BINARY WAS PRODUCED INTO A FILE
+	TAD (2326
+	DCA I (7604	/GIVE IT .SV EXTENSION
+	TAD (1520
+	DCA I (7611	/MAP GETS .MP EXTENSION
+	TAD I QQ7600
+	DCA I (7617	/LINKER TAKES MY .RB FILE AS INPUT
+	TAD I (RBFILE
+	DCA I (7620
+	DCA I (7621	/AND NO OTHER FILE
+	CDF 0
+	TAD (1411	/LI
+	DCA NAME1
+	TAD (1613	/NK
+CMN,	DCA NAME2
+	DCA NAME3
+	TAD (2326	/SV
+	DCA NAME4
+	CIF 10
+	CLA IAC		/DEVICE SYS:
+	JMS I (LOOKU
+	DCA LNKBLK	/FIRST BLOCK OF LINK.SV
+	CIF 10
+	JMS I (7700	/CALL USR
+	6		/TO DO A CHAIN
+LNKBLK,	0		/CHAIN TO LINKER OR KREF
+
+ERX,	CDF 0
+ER220,	JMS I QQERROR
+	JMP I (7605
+KRFCHN,	CDF 10
+	TAD I (7612
+	SNA CLA
+	JMP ERX		/*** PROBABLY CAN'T HAPPEN
+	TAD (7600-1
+	DCA XR0
+	TAD (7605-1
+	DCA XR1
+	TAD I XR1
+	DCA I XR0
+	TAD I XR1
+	DCA I XR0
+	TAD I XR1
+	DCA I XR0
+	TAD I XR1
+	DCA I XR0
+	TAD I XR1
+	SZA
+	IAC		/** KLUDGE - MODIFY EXTENSION
+	SNA
+	TAD (1424	/LT
+	DCA I XR0
+	TAD I XR1
+	DCA I (7617
+	TAD I (KFFILE
+	DCA I (7620
+	DCA I (7621
+	CDF 0
+	TAD (1322	/KR
+	DCA NAME1
+	TAD (0506	/EF
+	JMP CMN
+	PAGE
+$FIELD,	JMS I QQSCAN
+	JMS I QQBACKUP
+/	DCA TAGLOC	/END LSB
+	DCA UNDEF
+	JMS I QQEXPR
+	DCA FTEMP
+	TAD FTEMP
+	AND (7740
+	SZA CLA
+	JMS FLDE
+	TAD FTEMP
+	AND (37
+	DCA CURFLD
+	DCA FLG
+	TAD UNDEF
+	SZA CLA
+	JMS FLDE
+	TAD CURSCT
+	JMS I QQGETSYM
+	TAD CURFLD
+	DCA BINARY
+	TAD FLAG
+	AND (100
+	SZA CLA
+	JMP UNFLD	/GAD - IT'S AN UNNAMED SECTION
+	TAD CSTYPE
+	TAD QM10
+	SNA CLA
+	JMP AREST
+	TAD (RTABSF	/SET ABSOLUTE FIELD RESTRICTION
+	DCA RTIP
+	TAD CURFLD
+	DCA RVYL
+	TAD EXPREL
+	SNA
+	JMP SETRTX
+	DCA RVYL	/IF EXPR HAS RELOCATABLE PART, THEN
+			/USER IS SPECIFYING 'SAME FIELD AS' RESTRICTION
+	STA
+	DCA CURFLD	/HACK
+	TAD (RTSAMF
+	DCA RTIP
+SETRTX,	DCA FLDE
+	TAD SYMSCT
+	JMS I (CNVADR
+	TAD (2
+	DCA TMP
+	TAD I TMP
+	SNA
+	JMP .+5
+	CIA
+	TAD RVYL
+	SZA CLA
+	ISZ FLDE	/FIELD RESTRICTION CHANGED
+	TAD RVYL
+	DCA I TMP	/SET VALUE OF RESTRICTION
+	CDF 0
+	TAD FLDE
+	SZA CLA
+	JMS FLDE
+FI2,	DCA FLDE
+	TAD SYMSCT
+	JMS I (CNVADR
+	IAC
+	DCA TMP		/POINT TO RT
+	TAD I TMP
+	SNA
+	JMP NEWF	/NO PREVIOUS RESTRICTION
+	CIA
+	TAD RTIP
+	SZA CLA
+	ISZ FLDE	/CHANGE IN RESTRICTION
+NEWF,	TAD RTIP
+	DCA I TMP	/SET NEW RESTRICTION
+	CDF 0
+	TAD FLDE
+	SZA CLA
+	JMS FLDE
+/	TAD CURSCT
+/	JMS I QQPUTSYM
+	JMP I (PSEUDP
+
+FLDE,	0
+ER229,	JMS I QQERROR
+	JMP I FLDE
+
+TMP,	0
+RTIP,	0
+RVYL,	0		/TYPE AND VALUE OF RESTRICTION RESP.
+AREST,	TAD CURFLD
+	AND QQ7
+	CLL RTR
+	RTR		/BRING FIELD TO BITS 0-2
+	DCA RTIP
+	TAD CURFLD
+	AND (30
+	CLL RTL		/BITS 7,8 GO TO 3,4
+	RTL		/BITS 9,10,11 GO TO 0,1,2
+	TAD RTIP
+	DCA RTIP
+	JMP FI2		/SPECIAL CASE USED FOR ASECT ONLY SINCE
+			/IT IS THE ONLY TYPE OF SECT WITH BOTH PAGE AND FIELD
+			/RESTRICTIONS WHICH ARE INDEPENDENT
+
+UNFLD,	TAD PC
+	JMS I QQHGHSCT	/RECOMPUTE HIGH PC
+	JMS I (PRGLIT
+	JMS I (PRZLIT
+	ISZ PCFLAG
+	JMS I QQOUT
+	JMS I (UNNAM
+	JMP I (PSEUDN
+
+FTEMP,	0
+	PAGE
+

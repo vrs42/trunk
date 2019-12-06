@@ -1,1 +1,339 @@
-╞ос╞╦═ремемберинг═режеалер█┼╞█┼╞алловс═оне═то═иняуире═вхат═ос╞╦═ремемберс═оф═тхе═ццл═цоммандс█┼╞анд═тхе═инит═╗сет═сыс═инит═ььььь╘═лине█┼╞█┼┴╝нолист═ме╛бе┴╞но═мацро═листинг═ор═еьпандед═теьт═линес█┼┴╝енабле═асции█┼█┼┴╝мацро═╝еьит█┼┴ймп═и┴╗╥╤╟╣█┼┴╝ендм█┼┴╝мацро═╝реад═пагес╛═буффер╛═блоцк╛═еррор█┼┴ймс═и┴╗╥╤╟╥┴┴╞цалл═сыс═хандлер█┼┴пагес╕Ё╥ч╠╟╟█┼┴буффер█┼┴блоцк█┼┴ймп┴еррор█┼┴╝ендм█┼┴╝иф═ндф═бсв═╪█┼┴╝мацро═бсв█┼┴цлл═ртл█┼┴ртл█┼┴ртл█┼┴╝ендм┴╬█┼▄╞маин═програм█┼┴фиелд═╟█┼┴╝рсецт┴ццлбуф█┼┴зблоцк═╡╟╟█┼█┼┴╝асецт═ремем█┼┴╙╠╟█┼цмдптр╛┴╟█┼┴╙╡╟╟█┼┴╝старт═старт┴┴╞старт═хере╝█┼█┼старт╛┴ноп┴┴╞фор═цхаин█┼┴тлс┴┴┴╞сет═уп═принтер█┼┴ймс┴принт█┼┴интро█┼┴╝реад═╡╛ццлбуф╛╤╣╛бадрд┴╞реад═ццл═реминисценцес═блоцк█┼┴тад┴╗цмдтбл╜╠┴╞инит═поинтер═то═табле█┼┴дца┴цмдптр█┼цмдлп╛┴тад═и┴цмдптр┴┴╞гет═неьт═цомманд╖с═лоцатион█┼┴сна█┼┴ймп┴кминит┴┴╞енд═оф═табле═╜═до═кмон═инит█┼┴дца┴ццлптр┴┴╞саже═поинтер═то═сажед═цомманд█┼┴тад═и┴цмдптр┴┴╞гет═теьт═поинтер█┼┴дца┴╠╓┴┴╞саже═фор═латер█┼┴тад═и┴ццлптр┴┴╞гет═ин╜усе═флаг╝═ис═╒╠╡Ё╢╒═иф═ок█┼┴тад┴╗╜╠╡Ё╢█┼┴сза═цла█┼┴ймп┴цмдлп┴┴╞нот═а═жалид═цомманд╝═гет═неьт█┼┴ймс┴принт┴┴╞принт═тхе═цомманд═наме█┼╠╓╨┴╟█┼┴исз┴ццлптр┴┴╞поинт═то═дате═ворд█┼┴тад═и┴ццлптр█┼┴ймс┴дате┴┴╞принт═тхе═дате█┼┴ймс┴принт█┼┴цлосеп┴┴┴╞формат═тхе═лине═витх═╒╘╨╒█┼┴исз┴ццлптр█┼┴исз┴ццлптр█┼┴исз┴ццлптр┴┴╞поинт═то═старт═оф═цомманд█┼лооп╓╨┴тад═и┴ццлптр┴┴╞гет═тво═сиьбит═цхарс█┼┴анд┴╗╥╥╟╟█┼┴сна█┼┴ймп┴ендцмд┴┴╞стоп═вхен═хит═а═зеро█┼┴бсв█┼┴ймс┴сиьбит┴┴╞принт█┼┴тад═и┴ццлптр┴┴╞гет═сиьбит═паир═бацк█┼┴анд┴╗╟╟╥╥┴┴╞ригхт═халф█┼┴сна█┼┴ймп┴ендцмд┴┴╞яуит═вхен═╫═╟█┼┴ймс┴сиьбит┴┴╞принт═ит█┼┴исз┴ццлптр┴┴╞поинт═то═неьт═паир█┼┴ймп┴лооп╓█┼▄╞енд═оф═цомманд╛═црлф═анд═до═неьт═оне█┼█┼ендцмд╛┴ймс┴принт█┼┴црлф█┼┴ймп┴цмдлп█┼█┼кминит╛┴╝реад═╡╛ццлбуф╛╟╛бадрд┴┴╞реад═тхе═боот═блоцк█┼┴тад═и┴╗ццлбуф╚╥╥┴╞гет═тхе═╒инит╒═ворд█┼┴тад┴╗╜╢╟╟█┼┴сна═цла█┼┴ймп┴доне┴┴╞иф═╢╟╟╛═сет═сыс═но═инит╝█┼╝реад═╡╛ццлбуф╛╠╠╛бадрд┴╞реад═тхе═кмон═блоцк█┼┴ймс═принт█┼┴инитть┴┴┴╞принт═инит═╕═етц╝█┼┴тад┴ццлбуф┴┴╞гет═фирст═цхар╝█┼┴сна═цла█┼┴ймп┴ноинит┴┴╞но═инит╛═принт═╒но═инит╒╝═╗логицал╘█┼┴тад┴╗ццлбуф╜╠┴╞сет═уп═то═принт█┼┴дца┴цмдптр█┼┴тад┴╗╜╣┴┴╞маь╝═╣═цхарс╛═унлесс═енд═витх═╟█┼┴дца┴цтр█┼лооп╓╨┴тад═и┴цмдптр┴┴╞гет═цхар╝█┼┴сна█┼┴ймп┴доне█┼┴ймс┴ттыоут┴┴╞принт═ит█┼┴исз┴цтр█┼┴ймп┴лооп╓█┼ноинит╛█┼доне╛┴ймс═принт█┼┴црлф█┼┴ймс┴принт█┼┴црлф█┼┴╝еьит█┼█┼ццлптр╛┴╟█┼цтр╛┴╟█┼┴паге█┼▄╞дате═принтинг═роутине█┼╞█┼дате╛┴╟█┼┴дца┴датевд┴┴╞саже═тхе═цомманд╖с═дате█┼┴иац█┼┴тад┴датевд┴┴╞╜╠═ин═датевд═меанс═аны═дате═о╝к╝█┼┴сна═цла█┼┴ймп┴форежер┴┴╞принт═╒аны═дате╒█┼┴тад┴датевд┴┴╞сплит═оут═монтх╛═даы╛═ыеар█┼┴сна█┼┴ймп┴нодат┴┴╞оопс║═ноне═ат═алл║█┼┴анд┴╗╥╢╟╟█┼┴цлл═ртл█┼┴ртл█┼┴рал█┼┴дца┴монтх┴┴╞гет═монтх═битс█┼┴тад┴датевд█┼┴анд┴╗Ё╥╟█┼┴цлл═ртр█┼┴рар█┼┴дца┴даы┴┴╞даы═битс█┼┴тад┴датевд█┼┴анд┴╗╥█┼┴дца┴ыеар┴┴╞анд═ыеар═битс█┼┴тад═и┴╗╥╥╥╥█┼┴анд┴╗╤╟╟┴┴╞гет═ос╞╦═еьтендед═ыеар═битс█┼┴цлл═рар█┼┴бсв┴┴┴╞ин═ац═╠╟═╕═╠╠█┼┴дца┴еьтенд┴┴╞саже═тхем█┼┴цдф═╠╟█┼┴тад═и┴╗╥╤╤╤┴┴╞ос╞╦═дате═ворд█┼┴цдф═╟█┼┴сна█┼┴ймп┴баддат┴┴╞но═ос╞╦═дате║█┼┴анд┴╗╥█┼┴циа█┼┴тад┴ыеар┴┴╞гет═ыеар╜ос╦═ыеар█┼┴сма═сза═цла█┼┴ста█┼┴тад┴еьтенд┴┴╞иф═╬═ос╦═ыеар╛═бацк═уп═оффсет╝█┼┴цлл═ртл█┼┴рал┴┴┴╞гет═реал═ыеар█┼адд╛┴тад┴ыеар█┼┴тад┴╗╥╟╝┴┴╞плус═╥╟█┼┴дца┴ыеар┴┴╞анд═саже═ит╝█┼┴тад┴даы┴┴╞принт═тхе═даы█┼┴ймс┴децпрт█┼┴ста█┼┴тад┴монтх┴┴╞цонжерт═монтх═фром═╠╜╠╡═то═╟╜╠╠█┼┴дца┴монтх█┼┴тад┴монтх█┼┴спа═цла█┼┴ймп┴бадмо┴┴╞╪╟═ис═а═бад═монтх█┼┴тад┴монтх█┼┴тад┴╗╜╠╡┴┴╞со═ис═╫╬═╠╡█┼┴спа═сна═цла█┼┴ймп┴монок┴┴╞монтх═ок╝█┼бадмо╛┴тад┴╗╠╡┴┴╞принт═╒бад╒═фор═монтх╝█┼┴дца┴монтх█┼монок╛┴тад┴монтх┴┴╞мултиплы═бы═сиз═фор═теьт═табле═поинтер█┼┴цлл═рал┴┴┴╞монтх═╙╡█┼┴тад┴монтх┴┴╞══════╙Ё█┼┴цлл═рал┴┴┴╞══════╙╤█┼┴тад┴╗монлст█┼┴дца┴╠╓█┼█┼┴ймс┴принт┴┴╞принт═тхе═монтх═наме█┼╠╓╨┴╟█┼┴тад┴ыеар┴┴╞принт═тхе═ыеар█┼┴ймс┴децпрт█┼┴ймп═и┴дате█┼▄╞фунны═дате═роутинес█┼█┼форежер╛ймс┴принт┴┴╞принт═╒аны═дате╒█┼┴аныдаы█┼┴ймп═и┴дате█┼█┼нодат╛┴ймс┴принт┴┴╞но═дате█┼┴нодате█┼┴ймп═и┴дате█┼█┼баддат╛┴тад┴╗╠╟┴┴╞фудге═ыеар█┼┴ймп┴адд█┼█┼█┼датевд╛┴╟█┼монтх╛┴╟█┼даы╛┴╟█┼ыеар╛┴╟█┼еьтенд╛┴╟█┼┴паге█┼▄╞тты═утилиты═роутинес█┼█┼ттыоут╛┴╟█┼┴тсф█┼┴ймс┴цхккбд┴┴╞цхецк═фор═чс╛чя╛чц╝█┼┴тлс█┼┴цла═цлл█┼┴ймп═и┴ттыоут█┼█┼дигит╛┴╟█┼┴анд┴╗╠╥█┼┴тад┴╗╡╤╟█┼┴ймс┴ттыоут█┼┴ймп═и┴дигит█┼█┼сиьбит╛┴╟█┼┴анд┴╗╥╥┴┴╞принт═сиьбит═цхарацтер█┼┴тад┴╗╜╢╟█┼┴спа█┼┴тад┴╗╠╟╟█┼┴тад┴╗╡╢╟█┼┴ймс┴ттыоут█┼┴ймп═и┴сиьбит█┼█┼децпрт╛┴╟█┼┴дца┴т╓┴┴╞тво═дигит═децимал═принт█┼┴дца┴децдиг┴┴╞инит═хигх═дигит█┼┴тад┴т╓█┼лооп╓╨┴тад┴╗╜╠╟╝┴┴╞╬╠╟═стилл©█┼┴спа█┼┴ймп┴╡╓█┼┴исз┴децдиг┴┴╞ыес╝═инцремент═дигит═анд═лооп█┼┴ймп┴лооп╓█┼╡╓╨┴тад┴╗╠╟╝┴┴╞ресторе═хигх═дигит█┼┴дца┴т╓█┼┴тад┴децдиг█┼┴ймс┴дигит┴┴╞принт═хигх═дигит█┼┴тад┴т╓█┼┴ймс┴дигит┴┴╞анд═лов═дигит█┼┴ймп═и┴децпрт█┼█┼т╓╨┴╟█┼децдиг╛┴╟█┼▄╞кеыбоард═цхецкинг═роутине█┼╞лоокс═фор═чц╛═чс╛═чя╝█┼█┼цхккбд╛┴╟█┼┴дца┴саже┴┴╞саже═цхар╝═ин═ац█┼┴тад┴╗╡╟╟┴┴╞сет═париты═бит█┼┴крс┴┴┴╞реад═статиц█┼┴тад┴╗╜ч╒ц┴┴╞чц©©█┼┴сна█┼┴ймп═и┴╗╥╤╟╣┴┴╞ретурн═то═монитор█┼┴тад┴╗ч╒ц╜ч╒с┴╞чс©©©█┼┴сза═цла█┼┴ймп┴ретурн┴┴╞нопе╝═ретурн╝█┼┴кцф┴┴┴╞цлеар═цхар█┼ваитлп╛┴ксф█┼┴ймп┴╝╜╠┴┴╞ваит═фор═цхар█┼┴крб█┼┴анд┴╗╠╥╥█┼┴тад┴╗╡╟╟┴┴╞сет═париты█┼┴тад┴╗╜ч╒ц┴┴╞чц═агаин©█┼┴сна█┼┴ймп═и┴╗╥╤╟╣█┼┴тад┴╗ч╒ц╜ч╒я┴╞чя©©©©█┼┴сза═цла█┼┴ймп┴ваитлп┴┴╞нот═ыет╝█┼ретурн╛┴тад┴цхккбд┴╞сетуп═ретурн█┼┴тад┴╗╜╡█┼┴дца┴цхккбд█┼┴тад┴саже┴┴╞ресторе═цхар█┼┴ймп═и┴цхккбд┴┴╞ретурн█┼саже╛┴╟█┼▄╞мессаге═принтер█┼█┼принт╛┴╟█┼┴тад═и┴принт┴┴╞гет═поинтер█┼┴исз┴принт█┼┴дца┴╠╓█┼лооп╓╨┴тад═и┴╠╓█┼┴сна█┼┴ймп═и┴принт┴┴╞доне║█┼┴ймс┴ттыоут█┼┴исз┴╠╓█┼┴ймп┴лооп╓┴┴╞кееп═гоинг█┼╠╓╨┴╟█┼█┼╞бад═реад═еррор═роутине█┼█┼бадрд╛┴ймс┴принт█┼┴бадио█┼┴ймс┴принт█┼┴црлф█┼┴╝еьит█┼┴паге█┼▄╞цомманд═табле█┼█┼цмдтбл╛┴ццлбуф╚╟╩┴тецтьт█┼┴ццлбуф╚╢╟╩┴едитть█┼┴ццлбуф╚╠╟╟╩┴еьетьт█┼┴ццлбуф╚╠╢╟╩┴уатьт█┼┴ццлбуф╚╡╟╟╩┴убтьт█┼┴ццлбуф╚╡╢╟╩┴уцтьт█┼┴ццлбуф╚Ё╟╟╩┴усерть█┼┴╟┴┴┴┴╞енд═оф═табле█┼█┼тецтьт╛┴теьт═╒тецо═╗╒█┼едитть╛┴теьт═╒едит═╗╒█┼еьетьт╛┴теьт═╒еьец═╗╒█┼уатьт╛┴теьт═╒уа═══╗╒█┼убтьт╛┴теьт═╒уб═══╗╒█┼уцтьт╛┴теьт═╒уц═══╗╒█┼усерть╛┴теьт═╒усер═╗╒█┼цлосеп╛┴теьт═╒╘╨═╒█┼црлф╛┴теьт═╪╠╣╬═╪╠╡╬█┼бадио╛┴теьт═╒сЫСТЕМ═и╞о═еРРОР╒█┼инитть╛┴теьт═╒инит═╗аНЫ═ДАТЕ═╘╨═╒█┼нодате╛┴теьт═╒═нО═ДАТЕ═╒█┼аныдаы╛┴теьт═╒аНЫ═ДАТЕ═╒█┼монлст╛┴теьт═╒╜йАН╜╒█┼┴теьт═╒╜фЕБ╜╒█┼┴теьт═╒╜мАР╜╒█┼┴теьт═╒╜аПР╜╒█┼┴теьт═╒╜мАР╜╒█┼┴теьт═╒╜йУН╜╒█┼┴теьт═╒╜йУЛ╜╒█┼┴теьт═╒╜аУГ╜╒█┼┴теьт═╒╜сЕП╜╒█┼┴теьт═╒╜оЦТ╜╒█┼┴теьт═╒╜нОЖ╜╒█┼┴теьт═╒╜дЕЦ╜╒█┼┴теьт═╒╜бАД╜╒█┼█┼интро╛┴теьт═╪╠╣╬╪╠╡╬═╒ццл═рЕМИНИСЦЕНЦЕС╨╒╪╠╣╬╪╠╡╬╪╠╣╬╪╠╡╬█┼╓╓╓╓╓█┼ ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/OS/8 REMEMBERING REVEALER
+/
+/ALLOWS ONE TO INQUIRE WHAT OS/8 REMEMBERS OF THE CCL COMMANDS
+/AND THE INIT (SET SYS INIT XXXXX) LINE
+/
+	.NOLIST ME,BE	/NO MACRO LISTING OR EXPANDED TEXT LINES
+	.ENABLE ASCII
+
+	.MACRO .EXIT
+	JMP I	(7605
+	.ENDM
+	.MACRO .READ PAGES, BUFFER, BLOCK, ERROR
+	JMS I	(7607		/CALL SYS HANDLER
+	PAGES&37^100
+	BUFFER
+	BLOCK
+	JMP	ERROR
+	.ENDM
+	.IF NDF BSW <
+	.MACRO BSW
+	CLL RTL
+	RTL
+	RTL
+	.ENDM	>
+/MAIN PROGRAM
+	FIELD 0
+	.RSECT	CCLBUF
+	ZBLOCK 200
+
+	.ASECT REMEM
+	*10
+CMDPTR,	0
+	*200
+	.START START		/START HERE.
+
+START,	NOP		/FOR CHAIN
+	TLS			/SET UP PRINTER
+	JMS	PRINT
+	INTRO
+	.READ 2,CCLBUF,65,BADRD	/READ CCL REMINISCENCES BLOCK
+	TAD	(CMDTBL-1	/INIT POINTER TO TABLE
+	DCA	CMDPTR
+CMDLP,	TAD I	CMDPTR		/GET NEXT COMMAND'S LOCATION
+	SNA
+	JMP	KMINIT		/END OF TABLE - DO KMON INIT
+	DCA	CCLPTR		/SAVE POINTER TO SAVED COMMAND
+	TAD I	CMDPTR		/GET TEXT POINTER
+	DCA	1$		/SAVE FOR LATER
+	TAD I	CCLPTR		/GET IN-USE FLAG. IS "1234" IF OK
+	TAD	(-1234
+	SZA CLA
+	JMP	CMDLP		/NOT A VALID COMMAND. GET NEXT
+	JMS	PRINT		/PRINT THE COMMAND NAME
+1$:	0
+	ISZ	CCLPTR		/POINT TO DATE WORD
+	TAD I	CCLPTR
+	JMS	DATE		/PRINT THE DATE
+	JMS	PRINT
+	CLOSEP			/FORMAT THE LINE WITH "):"
+	ISZ	CCLPTR
+	ISZ	CCLPTR
+	ISZ	CCLPTR		/POINT TO START OF COMMAND
+LOOP$:	TAD I	CCLPTR		/GET TWO SIXBIT CHARS
+	AND	(7700
+	SNA
+	JMP	ENDCMD		/STOP WHEN HIT A ZERO
+	BSW
+	JMS	SIXBIT		/PRINT
+	TAD I	CCLPTR		/GET SIXBIT PAIR BACK
+	AND	(0077		/RIGHT HALF
+	SNA
+	JMP	ENDCMD		/QUIT WHEN = 0
+	JMS	SIXBIT		/PRINT IT
+	ISZ	CCLPTR		/POINT TO NEXT PAIR
+	JMP	LOOP$
+/END OF COMMAND, CRLF AND DO NEXT ONE
+
+ENDCMD,	JMS	PRINT
+	CRLF
+	JMP	CMDLP
+
+KMINIT,	.READ 2,CCLBUF,0,BADRD		/READ THE BOOT BLOCK
+	TAD I	(CCLBUF+77	/GET THE "INIT" WORD
+	TAD	(-400
+	SNA CLA
+	JMP	DONE		/IF 400, SET SYS NO INIT.
+.READ 2,CCLBUF,11,BADRD	/READ THE KMON BLOCK
+	JMS PRINT
+	INITTX			/PRINT INIT & ETC.
+	TAD	CCLBUF		/GET FIRST CHAR.
+	SNA CLA
+	JMP	NOINIT		/NO INIT, PRINT "NO INIT". (LOGICAL)
+	TAD	(CCLBUF-1	/SET UP TO PRINT
+	DCA	CMDPTR
+	TAD	(-5		/MAX. 5 CHARS, UNLESS END WITH 0
+	DCA	CTR
+LOOP$:	TAD I	CMDPTR		/GET CHAR.
+	SNA
+	JMP	DONE
+	JMS	TTYOUT		/PRINT IT
+	ISZ	CTR
+	JMP	LOOP$
+NOINIT,
+DONE,	JMS PRINT
+	CRLF
+	JMS	PRINT
+	CRLF
+	.EXIT
+
+CCLPTR,	0
+CTR,	0
+	PAGE
+/DATE PRINTING ROUTINE
+/
+DATE,	0
+	DCA	DATEWD		/SAVE THE COMMAND'S DATE
+	IAC
+	TAD	DATEWD		/-1 IN DATEWD MEANS ANY DATE O.K.
+	SNA CLA
+	JMP	FOREVER		/PRINT "ANY DATE"
+	TAD	DATEWD		/SPLIT OUT MONTH, DAY, YEAR
+	SNA
+	JMP	NODAT		/OOPS! NONE AT ALL!
+	AND	(7400
+	CLL RTL
+	RTL
+	RAL
+	DCA	MONTH		/GET MONTH BITS
+	TAD	DATEWD
+	AND	(370
+	CLL RTR
+	RAR
+	DCA	DAY		/DAY BITS
+	TAD	DATEWD
+	AND	(7
+	DCA	YEAR		/AND YEAR BITS
+	TAD I	(7777
+	AND	(600		/GET OS/8 EXTENDED YEAR BITS
+	CLL RAR
+	BSW			/IN AC 10 & 11
+	DCA	EXTEND		/SAVE THEM
+	CDF 10
+	TAD I	(7666		/OS/8 DATE WORD
+	CDF 0
+	SNA
+	JMP	BADDAT		/NO OS/8 DATE!
+	AND	(7
+	CIA
+	TAD	YEAR		/GET YEAR-OS8 YEAR
+	SMA SZA CLA
+	STA
+	TAD	EXTEND		/IF > OS8 YEAR, BACK UP OFFSET.
+	CLL RTL
+	RAL			/GET REAL YEAR
+ADD,	TAD	YEAR
+	TAD	(70.		/PLUS 70
+	DCA	YEAR		/AND SAVE IT.
+	TAD	DAY		/PRINT THE DAY
+	JMS	DECPRT
+	STA
+	TAD	MONTH		/CONVERT MONTH FROM 1-12 TO 0-11
+	DCA	MONTH
+	TAD	MONTH
+	SPA CLA
+	JMP	BADMO		/<0 IS A BAD MONTH
+	TAD	MONTH
+	TAD	(-12		/SO IS => 12
+	SPA SNA CLA
+	JMP	MONOK		/MONTH OK.
+BADMO,	TAD	(12		/PRINT "BAD" FOR MONTH.
+	DCA	MONTH
+MONOK,	TAD	MONTH		/MULTIPLY BY SIZ FOR TEXT TABLE POINTER
+	CLL RAL			/MONTH *2
+	TAD	MONTH		/      *3
+	CLL RAL			/      *6
+	TAD	(MONLST
+	DCA	1$
+
+	JMS	PRINT		/PRINT THE MONTH NAME
+1$:	0
+	TAD	YEAR		/PRINT THE YEAR
+	JMS	DECPRT
+	JMP I	DATE
+/FUNNY DATE ROUTINES
+
+FOREVER,JMS	PRINT		/PRINT "ANY DATE"
+	ANYDAY
+	JMP I	DATE
+
+NODAT,	JMS	PRINT		/NO DATE
+	NODATE
+	JMP I	DATE
+
+BADDAT,	TAD	(10		/FUDGE YEAR
+	JMP	ADD
+
+
+DATEWD,	0
+MONTH,	0
+DAY,	0
+YEAR,	0
+EXTEND,	0
+	PAGE
+/TTY UTILITY ROUTINES
+
+TTYOUT,	0
+	TSF
+	JMS	CHKKBD		/CHECK FOR ^S,^Q,^C.
+	TLS
+	CLA CLL
+	JMP I	TTYOUT
+
+DIGIT,	0
+	AND	(17
+	TAD	(260
+	JMS	TTYOUT
+	JMP I	DIGIT
+
+SIXBIT,	0
+	AND	(77		/PRINT SIXBIT CHARACTER
+	TAD	(-40
+	SPA
+	TAD	(100
+	TAD	(240
+	JMS	TTYOUT
+	JMP I	SIXBIT
+
+DECPRT,	0
+	DCA	T$		/TWO DIGIT DECIMAL PRINT
+	DCA	DECDIG		/INIT HIGH DIGIT
+	TAD	T$
+LOOP$:	TAD	(-10.		/>10 STILL?
+	SPA
+	JMP	2$
+	ISZ	DECDIG		/YES. INCREMENT DIGIT AND LOOP
+	JMP	LOOP$
+2$:	TAD	(10.		/RESTORE HIGH DIGIT
+	DCA	T$
+	TAD	DECDIG
+	JMS	DIGIT		/PRINT HIGH DIGIT
+	TAD	T$
+	JMS	DIGIT		/AND LOW DIGIT
+	JMP I	DECPRT
+
+T$:	0
+DECDIG,	0
+/KEYBOARD CHECKING ROUTINE
+/LOOKS FOR ^C, ^S, ^Q.
+
+CHKKBD,	0
+	DCA	SAVE		/SAVE CHAR. IN AC
+	TAD	(200		/SET PARITY BIT
+	KRS			/READ STATIC
+	TAD	(-^"C		/^C??
+	SNA
+	JMP I	(7605		/RETURN TO MONITOR
+	TAD	(^"C-^"S	/^S???
+	SZA CLA
+	JMP	RETURN		/NOPE. RETURN.
+	KCF			/CLEAR CHAR
+WAITLP,	KSF
+	JMP	.-1		/WAIT FOR CHAR
+	KRB
+	AND	(177
+	TAD	(200		/SET PARITY
+	TAD	(-^"C		/^C AGAIN?
+	SNA
+	JMP I	(7605
+	TAD	(^"C-^"Q	/^Q????
+	SZA CLA
+	JMP	WAITLP		/NOT YET.
+RETURN,	TAD	CHKKBD	/SETUP RETURN
+	TAD	(-2
+	DCA	CHKKBD
+	TAD	SAVE		/RESTORE CHAR
+	JMP I	CHKKBD		/RETURN
+SAVE,	0
+/MESSAGE PRINTER
+
+PRINT,	0
+	TAD I	PRINT		/GET POINTER
+	ISZ	PRINT
+	DCA	1$
+LOOP$:	TAD I	1$
+	SNA
+	JMP I	PRINT		/DONE!
+	JMS	TTYOUT
+	ISZ	1$
+	JMP	LOOP$		/KEEP GOING
+1$:	0
+
+/BAD READ ERROR ROUTINE
+
+BADRD,	JMS	PRINT
+	BADIO
+	JMS	PRINT
+	CRLF
+	.EXIT
+	PAGE
+/COMMAND TABLE
+
+CMDTBL,	CCLBUF+0;	TECTXT
+	CCLBUF+40;	EDITTX
+	CCLBUF+100;	EXETXT
+	CCLBUF+140;	UATXT
+	CCLBUF+200;	UBTXT
+	CCLBUF+240;	UCTXT
+	CCLBUF+300;	USERTX
+	0				/END OF TABLE
+
+TECTXT,	TEXT "TECO ("
+EDITTX,	TEXT "EDIT ("
+EXETXT,	TEXT "EXEC ("
+UATXT,	TEXT "UA   ("
+UBTXT,	TEXT "UB   ("
+UCTXT,	TEXT "UC   ("
+USERTX,	TEXT "USER ("
+CLOSEP,	TEXT "): "
+CRLF,	TEXT <15> <12>
+BADIO,	TEXT "System I/O Error"
+INITTX,	TEXT "INIT (Any date ): "
+NODATE,	TEXT " No date "
+ANYDAY,	TEXT "Any date "
+MONLST,	TEXT "-Jan-"
+	TEXT "-Feb-"
+	TEXT "-Mar-"
+	TEXT "-Apr-"
+	TEXT "-Mar-"
+	TEXT "-Jun-"
+	TEXT "-Jul-"
+	TEXT "-Aug-"
+	TEXT "-Sep-"
+	TEXT "-Oct-"
+	TEXT "-Nov-"
+	TEXT "-Dec-"
+	TEXT "-Bad-"
+
+INTRO,	TEXT <15><12> "CCL Reminiscences:"<15><12><15><12>
+$$$$$

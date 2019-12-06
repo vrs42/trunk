@@ -1,1 +1,154 @@
-╞╢┴мацрел═ожерлаы═лоадер█┼█┼╞┴╝инцлуде═мглоб█┼█┼┴╝рсецт═мацлод█┼┴фиелд═╡█┼█┼┴╝еьтернал═ожрблк█┼┴╝глобал═лоады█┼█┼┴нумрес╫╤┴╞нумбер═оф═ресидент═ожерлаы═ареас█┼█┼╞иф═тхе═ожерлаы═ис═ин═плаце╛═ве═бумп═итс═цоре═аццесс═цоунт█┼█┼╞иф═нот╛═ве═сеарцх═реслоц═фор═ит═╗ат═тхе═саме═тиме█┼╞финдинг═тхе═минимум═аццесс═цоунт╘█┼█┼╞иф═фоунд╛═ве═свап═цоре═витх═тхе═ресидент═ожерлаы█┼█┼╞иф═нот═фоунд╛═ве═свап═цоре═витх═тхе═минимум═гуы╛█┼╞децремент═алл═аццесс═цоунтс═бы═цоунт═нов═ин═цоре╛█┼╞анд═бумп═тхе═цоре═аццесс═цоунт═╗╙╙╙═нот═яуите═имплементед═тхис═ваы╘█┼█┼█┼┴свыто╧╫╤┴╞╙╙╙█┼█┼оне╛┴╢╟┴┴╞оне═аццесс═инцремент█┼▄лоады╛┴╟█┼┴дца═лоцо┴╞саже═ожерлаы═ареа═╗битс═╟╜╤╘═анд═ожерлаы═нумбер═╗битс═╥╜╠╠╘█┼┴тад═лоцо█┼┴анд═╗╥╥╢╟█┼┴дца═ожрлоц┴╞гет═ожерлаы═лоцатион█┼┴тад═и═ожрлоц┴╞вхат═ожерлаы═ис═тхере©█┼┴циа█┼┴тад═лоцо█┼┴анд═╗Ё╥█┼┴сна═цла█┼┴ймп═тхере┴╞ит╖с═алреады═тхере█┼┴╝иф═не═нумрес═╪█┼┴тад═и═╗свыто╧█┼┴спа═цла█┼┴ймп═свап┴╞но═ресидент═ожерлаыс═он═╞ы█┼┴цла═иац█┼┴дца═мин┴┴╞нот═тхере█┼┴дца═ресн█┼┴дца═реслов█┼┴дца═респтр█┼┴тад═╗╜нумрес█┼┴дца═ресцнт█┼л╓╨┴цдф═Ё╟█┼┴тад═и═респтр█┼┴дца═ресацц┴╞гет═ожерлаы═анд═аццесс═цоунт█┼┴тад═ресацц█┼┴циа█┼┴тад═лоцо█┼┴анд═╗Ё╥█┼┴сна═цла┴┴╞ис═тхис═ит©█┼┴ймп═васрес┴╞ыес█┼┴тад═ресацц┴╞но█┼┴анд═╗╥╥╢╟┴╞цомпаре═итс═аццесс═цоунт█┼┴стл═циа┴┴╞агаинст═алл╜тиме═лов█┼┴тад═мин█┼┴сзл═сна═цла█┼┴ймп═╠╓┴┴╞хигхер█┼┴тад═ресацц┴╞ловер═ор═еяуал█┼┴анд═╗╥╥╢╟█┼┴дца═мин┴┴╞нев═мин█┼┴тад═ресн█┼┴дца═реслов┴╞нев═лов█┼╠╓╨┴тад═респтр█┼┴тад═╗╢╟╟█┼┴дца═респтр┴╞бумп═то═неьт═ожерлаы═ресиденце█┼┴исз═ресн█┼┴исз═ресцнт█┼┴ймп═л╓█┼╞схоулд═децремент═алл═аццесс═цоунтс═нов═бы═мин█┼┴тад═реслов█┼┴дца═ресн█┼┴цдф═╟█┼┴тад═и═ожрлоц█┼┴сза═цла┴┴╞но═неед═то═свап═иф═мем╫╟█┼┴ймс═свапы█┼┴╬█┼свап╛┴тад═лоцо█┼┴анд═╗Ё╥█┼┴цдф═╟█┼┴тад═и═╗ожрблк█┼┴дца═облк┴╞гет═блоцк═он═сыс═дежице═то═реад═ин█┼┴цдф═╡╟█┼┴циф═╟█┼┴ймс═и═╗╥╤╟╥█┼┴╡╟╟┴┴╞реад═╡═пагес█┼ожрлоц╛┴╡╟╟╟█┼темпо╛█┼облк╛┴╟█┼┴хлт┴┴╞ер╣╠█┼┴╝иф═ея═╟═╪█┼┴цдф═╟█┼┴тад═и═ожрлоц█┼┴циа█┼┴тад═лоцо█┼┴анд═╗Ё╥█┼┴сза═цла█┼┴хлт┴┴╞гот═вронг═оне█┼┴╬█┼тхере╛┴цдф═╟█┼┴тад═и═ожрлоц┴╞бумп═итс═аццесс═цоунт█┼┴тад═оне█┼┴дца═и═ожрлоц█┼лодоне╛┴циф═цдф═╟█┼┴ймп═и═лоады█┼▄респтр╛┴╟█┼ресцнт╛┴╟█┼лоцо╛┴╟█┼ресацц╛┴╟█┼ресн╛┴╟█┼реслов╛┴╟█┼мин╛┴╟█┼█┼┴╝иф═не═нумрес═╪█┼васрес╛┴ймс═свапы█┼┴ймп═тхере█┼█┼свапы╛┴╟█┼┴тад═ожрлоц█┼┴дца═п╠╓█┼┴тад═ресн█┼┴цлл═ртр█┼┴ртр█┼┴рар┴┴╞╙╙╙═ассумес═старт═ат═╟█┼┴дца═п╡╓█┼┴тад═╗╜╢╟╟█┼┴дца═кнт╓█┼л╓╨┴цдф═╟█┼┴тад═и═п╠╓█┼┴дца═темпо█┼┴цдф═Ё╟█┼┴тад═и═п╡╓█┼┴цдф═╟█┼┴дца═и═п╠╓█┼┴тад═темпо█┼┴цдф═Ё╟█┼┴дца═и═п╡╓█┼┴исз═п╠╓█┼┴исз═п╡╓█┼┴исз═кнт╓█┼┴ймп═л╓█┼┴ймп═и═свапы█┼█┼п╠╓╨┴╟█┼п╡╓╨┴╟█┼кнт╓╨┴╟█┼┴╬█┼┴паге█┼ ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/4	MACREL OVERLAY LOADER
+
+/	.INCLUDE MGLOB
+
+	.RSECT MACLOD
+	FIELD 2
+
+	.EXTERNAL OVRBLK
+	.GLOBAL LOADY
+
+	NUMRES=6	/NUMBER OF RESIDENT OVERLAY AREAS
+
+/IF THE OVERLAY IS IN PLACE, WE BUMP ITS CORE ACCESS COUNT
+
+/IF NOT, WE SEARCH RESLOC FOR IT (AT THE SAME TIME
+/FINDING THE MINIMUM ACCESS COUNT)
+
+/IF FOUND, WE SWAP CORE WITH THE RESIDENT OVERLAY
+
+/IF NOT FOUND, WE SWAP CORE WITH THE MINIMUM GUY,
+/DECREMENT ALL ACCESS COUNTS BY COUNT NOW IN CORE,
+/AND BUMP THE CORE ACCESS COUNT (*** NOT QUITE IMPLEMENTED THIS WAY)
+
+
+	SWYTO9=6	/***
+
+ONE,	40		/ONE ACCESS INCREMENT
+LOADY,	0
+	DCA LOCO	/SAVE OVERLAY AREA (BITS 0-6) AND OVERLAY NUMBER (BITS 7-11)
+	TAD LOCO
+	AND (7740
+	DCA OVRLOC	/GET OVERLAY LOCATION
+	TAD I OVRLOC	/WHAT OVERLAY IS THERE?
+	CIA
+	TAD LOCO
+	AND (37
+	SNA CLA
+	JMP THERE	/IT'S ALREADY THERE
+	.IF NE NUMRES <
+	TAD I (SWYTO9
+	SPA CLA
+	JMP SWAP	/NO RESIDENT OVERLAYS ON /Y
+	CLA IAC
+	DCA MIN		/NOT THERE
+	DCA RESN
+	DCA RESLOW
+	DCA RESPTR
+	TAD (-NUMRES
+	DCA RESCNT
+L$:	CDF 30
+	TAD I RESPTR
+	DCA RESACC	/GET OVERLAY AND ACCESS COUNT
+	TAD RESACC
+	CIA
+	TAD LOCO
+	AND (37
+	SNA CLA		/IS THIS IT?
+	JMP WASRES	/YES
+	TAD RESACC	/NO
+	AND (7740	/COMPARE ITS ACCESS COUNT
+	STL CIA		/AGAINST ALL-TIME LOW
+	TAD MIN
+	SZL SNA CLA
+	JMP 1$		/HIGHER
+	TAD RESACC	/LOWER OR EQUAL
+	AND (7740
+	DCA MIN		/NEW MIN
+	TAD RESN
+	DCA RESLOW	/NEW LOW
+1$:	TAD RESPTR
+	TAD (400
+	DCA RESPTR	/BUMP TO NEXT OVERLAY RESIDENCE
+	ISZ RESN
+	ISZ RESCNT
+	JMP L$
+/SHOULD DECREMENT ALL ACCESS COUNTS NOW BY MIN
+	TAD RESLOW
+	DCA RESN
+	CDF 0
+	TAD I OVRLOC
+	SZA CLA		/NO NEED TO SWAP IF MEM=0
+	JMS SWAPY
+	>
+SWAP,	TAD LOCO
+	AND (37
+	CDF 0
+	TAD I (OVRBLK
+	DCA OBLK	/GET BLOCK ON SYS DEVICE TO READ IN
+	CDF 20
+	CIF 0
+	JMS I (7607
+	200		/READ 2 PAGES
+OVRLOC,	2000
+TEMPO,
+OBLK,	0
+	HLT		/ER51
+	.IF EQ 0 <
+	CDF 0
+	TAD I OVRLOC
+	CIA
+	TAD LOCO
+	AND (37
+	SZA CLA
+	HLT		/GOT WRONG ONE
+	>
+THERE,	CDF 0
+	TAD I OVRLOC	/BUMP ITS ACCESS COUNT
+	TAD ONE
+	DCA I OVRLOC
+LODONE,	CIF CDF 0
+	JMP I LOADY
+RESPTR,	0
+RESCNT,	0
+LOCO,	0
+RESACC,	0
+RESN,	0
+RESLOW,	0
+MIN,	0
+
+	.IF NE NUMRES <
+WASRES,	JMS SWAPY
+	JMP THERE
+
+SWAPY,	0
+	TAD OVRLOC
+	DCA P1$
+	TAD RESN
+	CLL RTR
+	RTR
+	RAR		/*** ASSUMES START AT 0
+	DCA P2$
+	TAD (-400
+	DCA KNT$
+L$:	CDF 0
+	TAD I P1$
+	DCA TEMPO
+	CDF 30
+	TAD I P2$
+	CDF 0
+	DCA I P1$
+	TAD TEMPO
+	CDF 30
+	DCA I P2$
+	ISZ P1$
+	ISZ P2$
+	ISZ KNT$
+	JMP L$
+	JMP I SWAPY
+
+P1$:	0
+P2$:	0
+KNT$:	0
+	>
+	PAGE

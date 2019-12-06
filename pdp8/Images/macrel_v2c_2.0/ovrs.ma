@@ -1,1 +1,304 @@
-¯·‰ÏÖÅÒÌÁÙ ²³ ¨ÏÖÒÓ©Š¯‰·­ÍÁÒ­·¸‰ÉÎÓÔÁÌÌÅÄ ÐÁÔÃÈ ÔÏ ÐÒÅÖÅÎÔ ÈÁÌÔ ×ÈÅÎŠ¯‰‰‰ÅØÐÕÎÇÉÎÇ Á ÍÁÃÒÏŠ¯‰±¶­ÁÕÇ­·¸‰ÆÉØÅÄ ÂÕÇ ÉÎ ÅØÐÕÎÇÅŠ¯‰‰‰ÃÁÎ§Ô ÅØÐÕÎÇÅ ®ÌÉÓÔ×Ä ÏÒ ®ÅÎÁÂ×ÄŠ¯‰±·­ÁÕÇ­·¸‰ÁÌÌÏ× ¾ ÏÎ ÆÉØÔÁÂ ÁÎÄ ÅØÐÕÎÇÅ ÓÔÁÔÅÍÅÎÔÓŠ‰®ÉÎÃÌÕÄÅ ÍÇÌÏÂ®ÍÁŠ‰®ÁÓÅÃÔ ÏÖÒÓ¬ÌÅÖÅÌ½²¬ÏÖÅÒÌÁÙ½²Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÃÏÐÙÒÉÇÈÔ  ¨Ã©  ±¹·· ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎŠ¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÔÈÅ ÉÎÆÏÒÍÁÔÉÏÎ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÓÕÂÊÅÃÔ ÔÏ ÃÈÁÎÇÅ ×ÉÔÈÏÕÔ ÎÏÔÉÃÅŠ¯ÁÎÄ ÓÈÏÕÌÄ ÎÏÔ ÂÅ ÃÏÎÓÔÒÕÅÄ ÁÓ Á ÃÏÍÍÉÔÍÅÎÔ ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔŠ¯ÃÏÒÐÏÒÁÔÉÏÎ®  ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙŠ¯ÆÏÒ ÁÎÙ ÅÒÒÏÒÓ ÔÈÁÔ ÍÁÙ ÁÐÐÅÁÒ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ®Š¯Š¯ÔÈÅ ÓÏÆÔ×ÁÒÅ ÄÅÓÃÒÉÂÅÄ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÆÕÒÎÉÓÈÅÄ ÔÏ ÔÈÅ ÐÕÒÃÈÁÓÅÒŠ¯ÕÎÄÅÒ Á ÌÉÃÅÎÓÅ ÆÏÒ ÕÓÅ ÏÎ Á ÓÉÎÇÌÅ ÃÏÍÐÕÔÅÒ ÓÙÓÔÅÍ ÁÎÄ ÃÁÎ ÂÅ ÃÏÐÉÅÄŠ¯¨×ÉÔÈ ÉÎÃÌÕÓÉÏÎ ÏÆ ÄÉÇÉÔÁÌ§Ó ÃÏÐÙÒÉÇÈÔ ÎÏÔÉÃÅ© ÏÎÌÙ ÆÏÒ ÕÓÅ ÉÎ ÓÕÃÈŠ¯ÓÙÓÔÅÍ¬ ÅØÃÅÐÔ ÁÓ ÍÁÙ ÏÔÈÅÒ×ÉÓÅ ÂÅ ÐÒÏÖÉÄÅÄ ÉÎ ×ÒÉÔÉÎÇ ÂÙ ÄÉÇÉÔÁÌ®Š¯Š¯ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙ ÆÏÒ ÔÈÅ ÕÓÅŠ¯ÏÒ ÒÅÌÉÁÂÉÌÉÔÙ ÏÆ ÉÔÓ ÓÏÆÔ×ÁÒÅ ÏÎ ÅÑÕÉÐÍÅÎÔ ÔÈÁÔ ÉÓ ÎÏÔ ÓÕÐÐÌÉÅÄ ÂÙŠ¯ÄÉÇÉÔÁÌ®Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ŠŒ‰®ÅØÔÅÒÎÁÌ ÁÓÅÍÌÖ¬ÂÁÃËÕÐ¬ÂÒÁÎÃÈ¬ÃÒÅÆ¬ÃÒÌÆ¬ÄÐÒÉÎÔ¬ÅÎÔÅÒ¬ÅÏÓ¬ÅÒÒÏÒ¬ÅØÐÒŠ‰®ÅØÔÅÒÎÁÌ ÆÓÃÈÅË¬ÇÅÔÃÈÒ¬ÇÅÔËÁÒ¬ÇÅÔÓÙÍ¬ÌÅÔÔÅÒ¬ÌÉÓÔÅÒ¬ÌÏÏËÕÐ¬ÏÒÉÇ¬ÏÕÔ¬ÐÁÒÓÙÍŠ‰®ÅØÔÅÒÎÁÌ ÐÁÓÓ³¬ÐÏÐ¬ÐÕÓÈ¬ÐÕÎÂÉÔ¬ÐÕÔÂÉÔ¬ÐÕÔÓÙÍ¬ÐÕØÂÉÎ¬ÒÅÁÄÌÎ¬ÒÏÔÌ¶¬ÓÃÁÎŠ‰®ÅØÔÅÒÎÁÌ ÂÕËÅÔÓ¬ÂÕËÆÌÇŠ‰ÆÉÅÌÄ ´Š‰®ÇÌÏÂÁÌ ÅÒ²¬ÅÒ³¬ÅÒ²²±Š‰®ÇÌÏÂÁÌ ¤ÆÉØÔÁÂ¬¤ÅØÐÕÎÇÅŠ‰ª²°°°ŠŠ‰²³‰‰¯ÏÖÅÒÌÁÙ ÎÕÍÂÅÒŠŠ¯‰ÆÉØÔÁÂ ÄÉÒÅÃÔÉÖÅŠŠ¯‰ÆÉØÔÁÂ Á¬Â¬Ã¬®®®Š¯‰×ÏÒËÓ ÏÎ ÁÌÌ ÐÁÓÓÅÓ® ÍÁËÅÓ ÔÈÅ ÓÐÅÃÉÆÉÅÄ ÓÙÍÂÏÌÓ ÐÅÒÍÁÎÅÎÔ®Š¯‰ÉÆ ÎÏ ÓÙÍÂÏÌÓ ÓÐÅÃÉÆÉÅÄ¬ ÔÈÅÎ ÁÌÌ ÄÅÆÉÎÅÄ ÓÙÍÂÏÌÓ ÂÅÃÏÍÅ ÐÅÒÍÁÎÅÎÔŠ¯‰ÂÕÔ ÏÎÌÙ ÏÎ ÐÁÓÓ ± ¨ÅØÃÅÐÔ ×ÈÅÎ ÍÏÄÉÆÉÅÄ ÂÙ ÁÎ ÅÎÁÂÌÅ ÅØÐÕÎÇÅ©®ŠŠ¤ÆÉØÔÁÂ¬ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÂÌÁÎËÓŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÁÎÙ ÁÒÇÓ¿Š‰ÊÍÐ ÆÉØÁÌÌ‰¯ÎÏ¬ ÆÉØ ÁÌÌ ÓÙÍÂÏÌÓŠÆØÔ²¬‰ÊÍÓ É ÑÑÌÅÔÔÅÒ‰¯ÙÅÓ¬ ÆÉØ ÌÉÓÔŠ‰ÊÍÐ ÅÒ²²±‰¯ÎÏÔ Á ÌÅÔÔÅÒ¬ ÅÒÒÏÒŠ‰ÊÍÓ É ÑÑÐÁÒÓÙÍ‰¯ÇÅÔ ÉÄÅÎÔÉÆÉÅÒŠ‰ÊÍÓ É ÑÑÌÏÏËÕÐ‰¯ÌÏÏË ÈÉÍ ÕÐŠ‰ÊÍÓ É ÑÑÅÎÔÅÒ‰¯ÅÎÔÅÒ ÈÉÍ ÉÆ ÎÏÔ ÔÈÅÒÅŠ‰ÊÍÓ É ÑÑÇÅÔÓÙÍ‰¯ÇÅÔ ÉÎÆÏ ÏÎ ÇÕÙŠ‰ÔÁÄ ÆÌÁÇŠ‰ÁÎÄ ¨¶···Š‰ÔÁÄ ¨±°°°‰¯ÓÅÔ ÐÅÒÍ ÂÉÔŠ‰ÄÃÁ ÆÌÁÇŠ‰ÊÍÓ É ÑÑÐÕÔÓÙÍ‰¯ÐÕÔ ÉÎÆÏ ÂÁÃËŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÓÐÁÃÅÓŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÁÔ ÅÎÄ ÏÆ ÌÉÎÅ¿Š‰ÊÍÐ É ¨ÐÓÅÕÄÂ‰¯ÙÅÓŠ‰ÔÁÄ ÃÈÁÒ‰¯ÎÏŠ‰ÔÁÄ ¨­µ´Š‰ÓÚÁ ÃÌÁŠÅÒ²²±¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÍÉÓÓÉÎÇ ÃÏÍÍÁŠ‰ÊÍÓ É ÑÑÇÅÔÃÈÒŠ‰ÊÍÓ É ÑÑÓÃÁÎŠ‰ÊÍÐ ÆØÔ²ŠŒ¯‰ÆÉØ ÁÌÌ ÓÙÍÂÏÌÓŠŠÆÉØÁÌÌ¬‰ÓÔÁŠ‰ÔÁÄ ÐÁÓÓŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ É ¨ÐÓÅÕÄÂŠ‰ÔÁÄ ¨ÂÕËÅÔÓ­±Š‰ÄÃÁ ÂÕËÐÔÒ‰¯ÇÅÔ ÓÅÔ ÔÏ ÇÏ ÔÈÒÏÕÇÈ ÂÕÃËÅÔÓŠ‰ÔÁÄ ¨­··Š‰ÄÃÁ ËÎÔŠÆÉØ²¬‰ÉÓÚ ÂÕËÐÔÒ‰¯ÇÏ ÔÏ ÎÅØÔ ÂÕÃËÅÔŠ‰ÔÁÄ É ÂÕËÐÔÒ‰¯ÇÅÔ ÐÏÉÎÔÅÒŠÆÉØ³¬‰ÃÄÆ °Š‰ÓÎÁŠ‰ÊÍÐ ÆÉØ´‰¯ÅÎÄ ÏÆ ÃÈÁÉÎŠ‰ÄÃÁ ÓÙÍÎÕÍ‰¯ÈÁÖÅ Á ÎÅ× ÃÈÕÎË ÐÏÉÎÔÅÒŠ‰ÔÁÄ ÓÙÍÎÕÍŠ‰ÊÍÓ É ¨ÃÎÖÁÄÒŠ‰ÄÃÁ ÌÐÔÒŠ‰ÔÁÄ ÌÐÔÒŠ‰ÔÁÄ ¨µŠ‰ÄÃÁ ÔÅÍÐ‰¯ÐÏÉÎÔ ÔÏ ÆÌÁÇ ×ÏÒÄŠ‰ÔÁÄ É ÔÅÍÐŠ‰ÁÎÄ ¨¶···Š‰ÔÁÄ ¨±°°°‰¯ÓÅÔ ÐÅÒÍ ÂÉÔŠ‰ÄÃÁ É ÔÅÍÐ‰¯ÓÔÏÒÅ ÉÔ ÂÁÃËŠ‰ÔÁÄ É ÌÐÔÒ‰¯ÇÅÔ ÐÔÒ ÔÏ ÎÅØÔ ÃÈÕÎËŠ‰ÊÍÐ ÆÉØ³ŠŠÆÉØ´¬‰ÉÓÚ ËÎÔŠ‰ÊÍÐ ÆÉØ²Š‰ÊÍÐ É ¨ÐÓÅÕÄÂ‰¯ÄÏÎÅŠŠÂÕËÐÔÒ¬‰°ŠŒ¯‰ÅØÐÕÎÇÅ ÁÌÌ ÒÅÇÕÌÁÒ ÓÙÍÂÏÌÓ®Š¯‰ÐÁÓÓ ± ÏÎÌÙ ¨ÉÎÄÅÐÅÎÄÅÎÔ ÏÆ ®ÅÎÁÂÌÅ©®Š¯‰ÄÏÅÓ ÎÏÔ ÅØÐÕÎÇÅ ÌÓÄ ÅÎÔÒÉÅÓ¬ ÍÁÃÒÏÓ¬ ÄÉÒÅÃÔÉÖÅÓ¬ ÅÔÃ®ŠŠÄÏÁÌÌ¬‰ÓÔÁŠ‰ÔÁÄ ÐÁÓÓŠ‰ÓÚÁ ÃÌÁ‰‰¯×ÈÁÔ ÐÁÓÓ ÉÓ ÔÈÉÓ¿Š‰ÊÍÐ É ¨ÐÓÅÕÄÂ‰¯ÎÏÔ ÐÁÓÓ ± ­ ÉÇÎÏÒÅ ÔÈÉÓ ÄÉÒÅÃÔÉÖÅŠ‰ÔÁÄ ¨ÂÕËÅÔÓ­±‰¯ÐÁÓÓ ±Š‰ÄÃÁ ÂËÐÔÒ‰¯ÇÅÔ ÒÅÁÄÙ ÔÏ ÇÏ ÔÈÒÏÕÇÈ ÔÈÅ ÂÕÃËÅÔÓŠ‰ÔÁÄ ¨­··Š‰ÄÃÁ ËÎÔŠÄÏ²¬‰ÉÓÚ ÂËÐÔÒ‰¯ÇÏ ÔÏ ÎÅØÔ ÂÕÃËÅÔŠ‰ÄÃÁ ÏÌÄÎÕÍ‰¯ÎÏÔÅ ÔÈÁÔ ÆÁÃÔ ÂÙ ° ÉÎ §ÏÌÄÎÕÍ§Š‰ÔÁÄ É ÂËÐÔÒ‰¯ÇÅÔ ÐÏÉÎÔÅÒŠÄÏµ¬‰ÃÄÆ °Š‰ÓÎÁŠ‰ÊÍÐ ÄÏ¶‰‰¯ÅÎÄ ÏÆ ÃÈÁÉÎŠ‰ÄÃÁ ÓÙÍÎÕÍ‰¯ÓÁÖÅ ÎÅ× ÃÈÕÎË ÐÏÉÎÔÅÒŠ‰ÔÁÄ ÓÙÍÎÕÍŠ‰ÊÍÓ É ¨ÃÎÖÁÄÒŠ‰ÄÃÁ ÌÐÔÒŠ‰ÒÄÆŠ‰ÓÎÁ ÃÌÁŠ‰ÊÍÐ Ë¤‰‰¯ÃÁÎ§Ô ÅØÐÕÎÇÅ ®ÌÉÓÔ×ÄŠ‰ÔÁÄ ÌÐÔÒŠ‰ÔÁÄ ¨µŠ‰ÄÃÁ ÔÅÍÐ‰¯ÐÏÉÎÔ ÔÏ ÆÌÁÇ ×ÏÒÄŠ‰ÔÁÄ É ÔÅÍÐ‰¯ÌÏÏË ÁÔ ÆÌÁÇ ×ÏÒÄŠ‰ÁÎÄ ÑÑ··Š‰ÓÎÁ ÃÌÁ‰‰¯×ÈÁÔ ËÉÎÄ ÏÆ ÓÙÍÂÏÌ ÈÁÖÅ ×Å ÈÅÒÅ¿Š‰ÊÍÐ ÄÏ´‰‰¯Á ÒÅÇÕÌÁÒ ÓÙÍÂÏÌ ­ ÅØÐÕÎÇÅ ÉÔŠË¤º‰ÔÁÄ ÓÙÍÎÕÍ‰¯ÎÏÔ Á ÒÅÇÕÌÁÒ ÓÙÍÂÏÌ ­ ËÅÅÐ ÉÔŠ‰ÄÃÁ ÏÌÄÎÕÍ‰¯ÔÈÉÓ ÂÅÃÏÍÅÓ ÎÅ× ÐÒÅÖÉÏÕÓ ÃÈÕÎËŠ‰ÔÁÄ É ÌÐÔÒ‰¯ÇÅÔ ÐÔÒ ÔÏ ÎÅØÔ ÃÈÕÎËŠ‰ÊÍÐ ÄÏµŠŠ¯ÃÕÒÒÅÎÔ ÃÈÕÎË ÉÓ ÔÏ ÂÅ ÅØÐÕÎÇÅÄŠŠÄÏ´¬‰ÔÁÄ É ÌÐÔÒ‰¯ÇÅÔ ÐÔÒ ÔÏ ÎÅØÔ ÃÈÕÎËŠ‰ÄÃÁ ÔÅÍÐÃ‰¯ÓÁÖÅ ÉÔŠ‰ÔÁÄ ÆÒÅÅÐÔÒŠ‰ÄÃÁ É ÌÐÔÒ‰¯ÌÉÎË ÔÈÉÓ ÃÈÕÎË ÏÎÔÏ ÂÅÇÉÎÎÉÎÇŠ‰ÔÁÄ ÓÙÍÎÕÍ‰¯ÏÆ ÆÒÅÅ ÌÉÓÔŠ‰ÄÃÁ ÆÒÅÅÐÔÒŠ‰ÃÄÆ °Š‰ÔÁÄ ÏÌÄÎÕÍ‰¯ÐÏÉÎÔ ÐÒÅÖÉÏÕÓ ÃÈÕÎË ÔÏ ÎÅØÔ ÏÎÅŠ‰ÓÚÁŠ‰ÊÍÐ ®«³Š‰ÔÁÄ ÂËÐÔÒŠ‰ÓËÐŠ‰ÊÍÓ É ¨ÃÎÖÁÄÒŠ‰ÄÃÁ ÌÐÔÒŠ‰ÔÁÄ ÔÅÍÐÃŠ‰ÄÃÁ É ÌÐÔÒŠ‰ÔÁÄ É ÌÐÔÒŠ‰ÊÍÐ ÄÏµŠŠÄÏ¶¬‰ÉÓÚ ËÎÔ‰‰¯ÌÁÓÔ ÂÕÃËÅÔ¿Š‰ÊÍÐ ÄÏ²‰‰¯ÎÏŠ‰ÊÍÐ É ¨ÐÓÅÕÄÂ‰¯ÙÅÓ¬ ÄÏÎÅŠŠÔÅÍÐÃ¬‰°ŠÏÌÄÎÕÍ¬‰°‰‰¯ÈÏÌÄÓ ÐÔÒ ÔÏ ÐÒÅÖÉÏÕÓ ÃÈÕÎËŠ‰‰‰¯ÏÒ ° ÍÅÁÎÉÎÇ ÐÒÅÖÉÏÕÓ ÐÔÒ ×ÁÓ ÉÎ ÂÕÃËÅÔ ÐÏÉÎÔÅÄ ÔÏ ÂÙ ÂËÐÔÒŠÂËÐÔÒ¬‰°‰‰¯ÐÏÉÎÔÓ ÉÎÔÏ ÂÕÃËÅÔÓŠ‰ÐÁÇÅŠŒ¯‰ÅØÐÕÎÇÅ ÄÉÒÅÃÔÉÖÅŠŠ¤ÅØÐÕÎÇÅ¬ÄÃÁ ØÆÌÁÇŠ‰ÔÁÄ É ¨ÅÎÁÂ×ÄŠ‰ÒÔÌ‰‰¯ÅØÐÕÎÇÅ ÂÉÔ ÔÏ ÓÉÇÎŠ‰ÓÐÁ ÃÌÁ‰‰¯ÉÓ ÅØÐÕÎÇÅ ÅÎÁÂÌÅÄ ÔÏ ×ÏÒË ÏÎ ÁÌÌ ÐÁÓÓÅÓ¿Š‰ÊÍÐ ÐÕÎÇÅ‰¯ÙÅÓŠ‰ÓÔÁ‰‰¯ÎÏ¬ ÏÎÌÙ ÏÎ ÐÁÓÓ ±Š‰ÔÁÄ ÐÁÓÓ‰¯ÉÎ ÔÈÁÔ ÃÁÓÅ¬Š‰ÓÚÁ ÃÌÁ‰‰¯×ÈÁÔ ÐÁÓÓ ÉÓ ÔÈÉÓ¿Š‰ÉÓÚ ØÆÌÁÇ‰¯ÎÏÔ ÐÁÓÓ ± ­ ÎÏÔÅ ÔÈÁÔ ÅØÐÕÎÇÅ ÓÈÏÕÌÄ ÎÏÔ ×ÏÒËŠ‰‰‰¯ÂÕÔ ÄÏ ÓÙÎÔÁØ ÃÈÅÃËÉÎÇ ÁÎÙÈÏ×ŠÐÕÎÇÅ¬‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÂÌÁÎËÓŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÁÎÙ ÁÒÇÓ¿Š‰ÊÍÐ É ¨ÄÏÁÌÌ‰¯ÎÏ¬ ÅØÐÕÎÇÅ ÁÌÌ ÒÅÇÕÌÁÒ ÓÙÍÂÏÌÓŠÐÕÎÇ²¬‰ÊÍÓ É ÑÑÌÅÔÔÅÒ‰¯ÙÅÓ¬ ÅØÐÕÎÇÅ ÊÕÓÔ ÔÈÏÓÅ ÓÙÍÂÏÌÓ ÍÅÎÔÉÏÎÅÄŠ‰ÊÍÐ ÅÒ²‰‰¯ÎÏÔ Á ÌÅÔÔÅÒ¬ ÅÒÒÏÒŠ‰ÊÍÓ É ÑÑÐÁÒÓÙÍ‰¯ÇÅÔ ÉÄÅÎÔÉÆÉÅÒŠ‰ÊÍÓ É ÑÑÌÏÏËÕÐ‰¯ÌÏÏË ÈÉÍ ÕÐŠ‰ÊÍÐ ÐÕÎÇ³‰¯ÎÏÔ ÔÈÅÒÅ ­ ÆÉÎÅŠ‰ÔÁÄ ØÆÌÁÇŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÐÕÎÇ³‰¯ÄÏ ÎÏÔÈÉÎÇ ÉÆ ×ÒÏÎÇ ÐÁÓÓŠ‰ÊÍÓ É ÑÑÇÅÔÓÙÍ‰¯ÇÅÔ ÉÎÆÏ ÏÎ ÇÕÙŠ‰ÔÁÄ ÓÙÍÎÕÍŠ‰ÁÎÄ ÑÑ·°°°Š‰ÓÎÁ ÃÌÁŠ‰ÊÍÐ ÅÒ²‰‰¯ÃÁÎ ÅØÐÕÎÇÅ ÓÐÅÃÉÁÌ ÓÙÍÂÏÌ ÉÎ ÆÉÅÌÄ °Š‰ÔÁÄ ÆÌÁÇ‰¯ÌÏÏË ÁÔ ÆÌÁÇŠ‰ÁÎÄ ¨·´Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÅÒ²‰‰¯ÎÏÔ ÁÌÌÏ×ÅÄ ÔÏ ÅØÐÕÎÇÅ Á ÇÌÏÂÁÌ ¨ÍÅÍÂÅÒ ÏÆ ÌÓÄ©Š‰ÓÔÁ‰‰¯ÏÒ Á ÓÅÃÔ ÎÁÍÅŠ‰ÔÁÄ ÆÌÁÇŠ‰ÁÎÄ ÑÑ·Š‰ÓÎÁ ÃÌÁŠ‰ÃÌÁ‰‰¯ªªª ÄÏ ÓÐÅÃÉÁÌ ÓÔÕÆÆ ÔÏ ÅØÐÕÎÇÅ Á ÍÁÃÒÏŠ‰ÄÃÁ ÓÙÍÖÁÌŠ‰ÄÃÁ ÆÌÁÇŠ‰ÄÃÁ ÓÙÍÓÃÔŠ‰ÄÃÁ ÑÕÁÌŠ‰ÊÍÓ É ÑÑÐÕÔÓÙÍ‰¯° ÍÁÉÎ ÅÎÔÒÉÅÓŠ‰ÔÁÄ ÆÒÅÅÐÔÒŠ‰ÄÃÁ ØÔÅÍÐŠ‰ÔÁÄ ÓÙÍÎÕÍŠ‰ÄÃÁ ÆÒÅÅÐÔÒŠ‰ÔÁÄ ÓÙÍÎÕÍ‰¯ÄÅÌÅÔÅ ÓÙÍÂÏÌ ÔÁÂÌÅ ÅÎÔÒÙŠ‰ÊÍÓ É ¨ÃÎÖÁÄÒŠ‰ÄÃÁ ØÐÔÒŠ‰ÔÁÄ É ØÐÔÒ‰¯ÇÅÔ ÎÅØÔ ÉÔÅÍ ÉÎ ÃÈÁÉÎŠ‰ÄÃÁ ØÓÁÖ‰¯ÓÁÖÅ ÉÔŠ‰ÄÃÁ É ØÐÔÒ‰¯ÐÒÅÔÅÎÄ ÔÈÉÓ ÉÓ ÅÎÄ ÏÆ ÃÈÁÉÎŠ‰ÉÓÚ ØÐÔÒŠ‰ÉÓÚ ØÐÔÒŠ‰ÉÓÚ ØÐÔÒŠ‰ÉÓÚ É ØÐÔÒŠ‰ÃÄÆ °Š‰ÊÍÓ É ÑÑÌÏÏËÕÐ‰¯ÔÒÙ ÔÏ ÌÏÏË ÕÐ ÓÙÍÂÏÌ ÁÇÁÉÎŠ‰ÓËÐ‰‰¯ÍÕÓÔ ÆÁÉÌŠ‰ÈÌÔ‰‰¯Á ÐÈÙÓÉÃÁÌ ÉÍÐÏÓÓÉÂÉÌÉÔÙŠ¯ÎÏ× ÓÙÍÎÕÍ ÐÏÉÉÎÔÓ ÔÏ ÐÒÅÖÉÏÕÓ ÃÈÕÎËŠ¯ÈÏ×ÅÖÅÒ¬ ÉÆ ÂÕËÆÌÇ ÉÓ ÎÏÔ °¬ ÔÈÅÎ ÌÐÔÒ ÉÓ ÁŠ¯±²­ÂÉÔ ÐÏÉÎÔÅÒ ÉÎ ÆÉÅÌÄ °Š‰ÔÁÄ É ¨ÂÕËÆÌÇŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÂÕËŠ‰ÔÁÄ ÓÙÍÎÕÍŠ‰ÊÍÓ É ¨ÃÎÖÁÄÒŠ‰ÄÃÁ ÌÐÔÒŠÂÕË¬‰ÔÁÄ ØÓÁÖŠ‰ÄÃÁ É ÌÐÔÒŠ¯‰ÃÄÆ °Š¯ÆÒÅÅÐÔÒ ÉÓ ÏÒÉÇÉÎÁÌ ÓÙÍÎÕÍŠ‰ÔÁÄ ÆÒÅÅÐÔÒŠ‰ÊÍÓ É ¨ÃÎÖÁÄÒŠ‰ÄÃÁ ØÐÔÒŠ‰ÔÁÄ ØÔÅÍÐŠ‰ÄÃÁ É ØÐÔÒŠ‰ÃÄÆ °ŠÐÕÎÇ³¬‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÓÐÁÃÅÓŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÁÔ ÅÎÄ ÏÆ ÌÉÎÅ¿Š‰ÊÍÐ É ¨ÐÓÅÕÄÂ‰¯ÙÅÓŠ‰ÔÁÄ ÃÈÁÒ‰¯ÎÏŠ‰ÔÁÄ ¨­µ´‰¯ÃÈÅÃË ÆÏÒ ÃÏÍÍÁŠ‰ÓÚÁ ÃÌÁŠÅÒ³¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÍÉÓÓÉÎÇ ÃÏÍÍÁ ­ ÐÒÅÔÅÎÄ ÉÔ ×ÁÓ ÏÎÅŠ‰ÊÍÓ É ÑÑÇÅÔÃÈÒ‰¯ÐÁÓÓ ÕÐ ÃÏÍÍÁŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÁÎÄ ÂÌÁÎËÓŠ‰ÊÍÐ ÐÕÎÇ²‰¯ÇÅÔ ÎÅØÔ ÎÁÍÅ ÔÏ ÂÅ ÅØÐÕÎÇÅÄŠŠØÆÌÁÇ¬‰°‰‰¯± ÍÅÁÎÓ ÄÏÎ§Ô ÅØÐÕÎÇÅ ÏÎ ÔÈÉÓ ÐÁÓÓŠØÔÅÍÐ¬‰°ŠØÐÔÒ¬‰°ŠØÓÁÖ¬‰°ŠŠÅÒ²¬‰ÊÍÓ É ÑÑÅÒÒÏÒŠ‰ÊÍÐ ÐÕÎÇ³Š‰ÐÁÇÅŠš€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+/7	OVERLAY 23 (OVRS)
+/	7-MAR-78	INSTALLED PATCH TO PREVENT HALT WHEN
+/			EXPUNGING A MACRO
+/	16-AUG-78	FIXED BUG IN EXPUNGE
+/			CAN'T EXPUNGE .LISTWD OR .ENABWD
+/	17-AUG-78	ALLOW > ON FIXTAB AND EXPUNGE STATEMENTS
+	.INCLUDE MGLOB.MA
+	.ASECT OVRS,LEVEL=2,OVERLAY=2
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL BUKETS,BUKFLG
+	FIELD 4
+	.GLOBAL ER2,ER3,ER221
+	.GLOBAL $FIXTAB,$EXPUNGE
+	*2000
+
+	23		/OVERLAY NUMBER
+
+/	FIXTAB DIRECTIVE
+
+/	FIXTAB A,B,C,...
+/	WORKS ON ALL PASSES. MAKES THE SPECIFIED SYMBOLS PERMANENT.
+/	IF NO SYMBOLS SPECIFIED, THEN ALL DEFINED SYMBOLS BECOME PERMANENT
+/	BUT ONLY ON PASS 1 (EXCEPT WHEN MODIFIED BY AN ENABLE EXPUNGE).
+
+$FIXTAB,JMS I QQSCAN	/IGNORE BLANKS
+	TAD CHAR
+	TAD (-76
+	SZA CLA
+	JMS I QQEOS	/ANY ARGS?
+	JMP FIXALL	/NO, FIX ALL SYMBOLS
+FXT2,	JMS I QQLETTER	/YES, FIX LIST
+	JMP ER221	/NOT A LETTER, ERROR
+	JMS I QQPARSYM	/GET IDENTIFIER
+	JMS I QQLOOKUP	/LOOK HIM UP
+	JMS I QQENTER	/ENTER HIM IF NOT THERE
+	JMS I QQGETSYM	/GET INFO ON GUY
+	TAD FLAG
+	AND (6777
+	TAD (1000	/SET PERM BIT
+	DCA FLAG
+	JMS I QQPUTSYM	/PUT INFO BACK
+	JMS I QQSCAN	/IGNORE SPACES
+	TAD CHAR
+	TAD (-76
+	SZA CLA
+	JMS I QQEOS	/AT END OF LINE?
+	JMP I (PSEUDB	/YES
+	TAD CHAR	/NO
+	TAD (-54
+	SZA CLA
+ER221,	JMS I QQERROR	/MISSING COMMA
+	JMS I QQGETCHR
+	JMS I QQSCAN
+	JMP FXT2
+/	FIX ALL SYMBOLS
+
+FIXALL,	STA
+	TAD PASS
+	SZA CLA
+	JMP I (PSEUDB
+	TAD (BUKETS-1
+	DCA BUKPTR	/GET SET TO GO THROUGH BUCKETS
+	TAD (-77
+	DCA KNT
+FIX2,	ISZ BUKPTR	/GO TO NEXT BUCKET
+	TAD I BUKPTR	/GET POINTER
+FIX3,	CDF 0
+	SNA
+	JMP FIX4	/END OF CHAIN
+	DCA SYMNUM	/HAVE A NEW CHUNK POINTER
+	TAD SYMNUM
+	JMS I (CNVADR
+	DCA LPTR
+	TAD LPTR
+	TAD (5
+	DCA TEMP	/POINT TO FLAG WORD
+	TAD I TEMP
+	AND (6777
+	TAD (1000	/SET PERM BIT
+	DCA I TEMP	/STORE IT BACK
+	TAD I LPTR	/GET PTR TO NEXT CHUNK
+	JMP FIX3
+
+FIX4,	ISZ KNT
+	JMP FIX2
+	JMP I (PSEUDB	/DONE
+
+BUKPTR,	0
+/	EXPUNGE ALL REGULAR SYMBOLS.
+/	PASS 1 ONLY (INDEPENDENT OF .ENABLE).
+/	DOES NOT EXPUNGE LSD ENTRIES, MACROS, DIRECTIVES, ETC.
+
+DOALL,	STA
+	TAD PASS
+	SZA CLA		/WHAT PASS IS THIS?
+	JMP I (PSEUDB	/NOT PASS 1 - IGNORE THIS DIRECTIVE
+	TAD (BUKETS-1	/PASS 1
+	DCA BKPTR	/GET READY TO GO THROUGH THE BUCKETS
+	TAD (-77
+	DCA KNT
+DO2,	ISZ BKPTR	/GO TO NEXT BUCKET
+	DCA OLDNUM	/NOTE THAT FACT BY 0 IN 'OLDNUM'
+	TAD I BKPTR	/GET POINTER
+DO5,	CDF 0
+	SNA
+	JMP DO6		/END OF CHAIN
+	DCA SYMNUM	/SAVE NEW CHUNK POINTER
+	TAD SYMNUM
+	JMS I (CNVADR
+	DCA LPTR
+	RDF
+	SNA CLA
+	JMP K$		/CAN'T EXPUNGE .LISTWD
+	TAD LPTR
+	TAD (5
+	DCA TEMP	/POINT TO FLAG WORD
+	TAD I TEMP	/LOOK AT FLAG WORD
+	AND QQ77
+	SNA CLA		/WHAT KIND OF SYMBOL HAVE WE HERE?
+	JMP DO4		/A REGULAR SYMBOL - EXPUNGE IT
+K$:	TAD SYMNUM	/NOT A REGULAR SYMBOL - KEEP IT
+	DCA OLDNUM	/THIS BECOMES NEW PREVIOUS CHUNK
+	TAD I LPTR	/GET PTR TO NEXT CHUNK
+	JMP DO5
+
+/CURRENT CHUNK IS TO BE EXPUNGED
+
+DO4,	TAD I LPTR	/GET PTR TO NEXT CHUNK
+	DCA TEMPC	/SAVE IT
+	TAD FREEPTR
+	DCA I LPTR	/LINK THIS CHUNK ONTO BEGINNING
+	TAD SYMNUM	/OF FREE LIST
+	DCA FREEPTR
+	CDF 0
+	TAD OLDNUM	/POINT PREVIOUS CHUNK TO NEXT ONE
+	SZA
+	JMP .+3
+	TAD BKPTR
+	SKP
+	JMS I (CNVADR
+	DCA LPTR
+	TAD TEMPC
+	DCA I LPTR
+	TAD I LPTR
+	JMP DO5
+
+DO6,	ISZ KNT		/LAST BUCKET?
+	JMP DO2		/NO
+	JMP I (PSEUDB	/YES, DONE
+
+TEMPC,	0
+OLDNUM,	0		/HOLDS PTR TO PREVIOUS CHUNK
+			/OR 0 MEANING PREVIOUS PTR WAS IN BUCKET POINTED TO BY BKPTR
+BKPTR,	0		/POINTS INTO BUCKETS
+	PAGE
+/	EXPUNGE DIRECTIVE
+
+$EXPUNGE,DCA XFLAG
+	TAD I (ENABWD
+	RTL		/EXPUNGE BIT TO SIGN
+	SPA CLA		/IS EXPUNGE ENABLED TO WORK ON ALL PASSES?
+	JMP PUNGE	/YES
+	STA		/NO, ONLY ON PASS 1
+	TAD PASS	/IN THAT CASE,
+	SZA CLA		/WHAT PASS IS THIS?
+	ISZ XFLAG	/NOT PASS 1 - NOTE THAT EXPUNGE SHOULD NOT WORK
+			/BUT DO SYNTAX CHECKING ANYHOW
+PUNGE,	JMS I QQSCAN	/IGNORE BLANKS
+	TAD CHAR
+	TAD (-76
+	SZA CLA
+	JMS I QQEOS	/ANY ARGS?
+	JMP I (DOALL	/NO, EXPUNGE ALL REGULAR SYMBOLS
+PUNG2,	JMS I QQLETTER	/YES, EXPUNGE JUST THOSE SYMBOLS MENTIONED
+	JMP ER2		/NOT A LETTER, ERROR
+	JMS I QQPARSYM	/GET IDENTIFIER
+	JMS I QQLOOKUP	/LOOK HIM UP
+	JMP PUNG3	/NOT THERE - FINE
+	TAD XFLAG
+	SZA CLA
+	JMP PUNG3	/DO NOTHING IF WRONG PASS
+	JMS I QQGETSYM	/GET INFO ON GUY
+	TAD SYMNUM
+	AND QQ7000
+	SNA CLA
+	JMP ER2		/CAN EXPUNGE SPECIAL SYMBOL IN FIELD 0
+	TAD FLAG	/LOOK AT FLAG
+	AND (74
+	SZA CLA
+	JMP ER2		/NOT ALLOWED TO EXPUNGE A GLOBAL (MEMBER OF LSD)
+	STA		/OR A SECT NAME
+	TAD FLAG
+	AND QQ7
+	SNA CLA
+	CLA		/*** DO SPECIAL STUFF TO EXPUNGE A MACRO
+	DCA SYMVAL
+	DCA FLAG
+	DCA SYMSCT
+	DCA QUAL
+	JMS I QQPUTSYM	/0 MAIN ENTRIES
+	TAD FREEPTR
+	DCA XTEMP
+	TAD SYMNUM
+	DCA FREEPTR
+	TAD SYMNUM	/DELETE SYMBOL TABLE ENTRY
+	JMS I (CNVADR
+	DCA XPTR
+	TAD I XPTR	/GET NEXT ITEM IN CHAIN
+	DCA XSAV	/SAVE IT
+	DCA I XPTR	/PRETEND THIS IS END OF CHAIN
+	ISZ XPTR
+	ISZ XPTR
+	ISZ XPTR
+	ISZ I XPTR
+	CDF 0
+	JMS I QQLOOKUP	/TRY TO LOOK UP SYMBOL AGAIN
+	SKP		/MUST FAIL
+	HLT		/A PHYSICAL IMPOSSIBILITY
+/NOW SYMNUM POIINTS TO PREVIOUS CHUNK
+/HOWEVER, IF BUKFLG IS NOT 0, THEN LPTR IS A
+/12-BIT POINTER IN FIELD 0
+	TAD I (BUKFLG
+	SZA CLA
+	JMP BUK
+	TAD SYMNUM
+	JMS I (CNVADR
+	DCA LPTR
+BUK,	TAD XSAV
+	DCA I LPTR
+/	CDF 0
+/FREEPTR IS ORIGINAL SYMNUM
+	TAD FREEPTR
+	JMS I (CNVADR
+	DCA XPTR
+	TAD XTEMP
+	DCA I XPTR
+	CDF 0
+PUNG3,	JMS I QQSCAN	/IGNORE SPACES
+	TAD CHAR
+	TAD (-76
+	SZA CLA
+	JMS I QQEOS	/AT END OF LINE?
+	JMP I (PSEUDB	/YES
+	TAD CHAR	/NO
+	TAD (-54	/CHECK FOR COMMA
+	SZA CLA
+ER3,	JMS I QQERROR	/MISSING COMMA - PRETEND IT WAS ONE
+	JMS I QQGETCHR	/PASS UP COMMA
+	JMS I QQSCAN	/AND BLANKS
+	JMP PUNG2	/GET NEXT NAME TO BE EXPUNGED
+
+XFLAG,	0		/1 MEANS DON'T EXPUNGE ON THIS PASS
+XTEMP,	0
+XPTR,	0
+XSAV,	0
+
+ER2,	JMS I QQERROR
+	JMP PUNG3
+	PAGE

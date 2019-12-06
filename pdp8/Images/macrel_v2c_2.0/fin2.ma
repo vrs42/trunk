@@ -1,1 +1,463 @@
-╞╠╧═фин╡╝па═цреатес═ожрй╝сж═тхе═пасс═╡═фин═ожерлаы┴пост═ж╟а█┼╞┴╥╜мар╜╥╦┴инцлудед═патцх═абоут═цхецкинг═фор═тоо═маны═лсд═сымболс█┼╞═╦╜мар╜╥╦┴цомментед═оут═патцх═ентирелы█┼╞┴┴аддед═ауьилиары═сецт═цхунк═суппорт█┼╞═╡╠╜ауг╜╥╦┴фиьед═лсд═бланк═буффер═буг█┼╞┴┴аддед═сецреф█┼╞═╡Ё╜ауг╜╥╦┴фсецт═литералс█┼╞═╡╧╜ауг╜╥╦┴бумпед═рб═спец═лежел═то═╡╝╟█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═фин╡╛лежел╫╠╛ожерлаы╫╠╠█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═клу╤╛ожл╛цхкфул█┼┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═пуны╛цлосо╛финио╛лоад╛букетс╛лоцофф╛тьтблк╛оутрец█┼┴╝еьтернал═путбт╛оутсиз╛бран╛хеадинг█┼┴фиелд═Ё█┼┴╝глобал═ер╡╟╤█┼╞┴╝глобал═фжал█┼█┼╞┴тхис═ис═цаллед═ат═тхе═енд═оф═пассес═╠╛╡╛═анд═╢█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╤╢╟╟█┼█┼┴╠╡┴┴╞ожерлаы═нумбер█┼█┼┴дца═и═╗лсднум█┼┴ймс═и═╗пуны┴╞пасс═╡©█┼┴ймп═фц┴┴╞но█┼┴тад═╗Ё┴┴╞ыес█┼┴дца═флг█┼┴ймс═и═яяпунбит┴╞енд═теьт█┼┴ймс═и═╗зпад┴╞думп═теьт═буффер█┼┴циф═цдф═╠╟█┼┴ймс═и═╗цлосо┴╞цлосе═бинары═филе█┼┴циф═цдф═╠╟█┼┴ймс═и═╗финио█┼┴ймс═и═╗лоад█┼┴╡╟╟╟╚╠╢┴┴╞лоад═еьтенсионс═ожерлаы█┼┴┴┴╞инто═дирецтижес═ареа█┼┴ймс═и═╗лсдини┴╞инитиал═стуфф═то═лсд█┼фц╛┴тад═╗букетс╜╠█┼┴дца═ьр╡█┼┴тад═╗╜╥╥█┼┴дца═кнт█┼фд╛┴тад═и═ьр╡┴╞гет═птр═фром═неьт═буцкет█┼фб╛┴цдф═╟█┼┴сна█┼┴ймп═фп┴┴╞енд═оф═цхаин█┼┴дца═сымнум█┼┴тад═сымнум█┼┴ймс═и═╗цнжадр█┼┴дца═лптр█┼┴тад═лптр█┼┴дца═ьр╠█┼┴тад═и═ьр╠█┼┴дца═наме╠█┼┴тад═и═ьр╠█┼┴дца═наме╡█┼┴тад═и═ьр╠█┼┴дца═намеЁ█┼┴тад═и═лптр┴╞гет═╠╣╜бит═птр═то═неьт═цхунк█┼┴цдф═╟█┼┴дца═сымт╡█┼┴ймс═и═яягетсым█┼┴тад═флаг█┼┴анд═╗╥╢█┼┴сза═цла┴┴╞скип═иф═нот═лсд═сымбол█┼┴ймс═и═╗лсдоут┴╞оутпут═лсд█┼┴тад═флаг█┼┴анд═яя╥╟█┼┴сза═цла┴┴╞ис═сымбол═а═сецт═наме©█┼┴дца═сымжал┴╞ыес╛═зеро═итс═хи═пц█┼┴тад═флаг█┼┴анд═яя╥╟█┼┴тад═ям╠╟█┼┴сза═цла█┼┴ймп═╢╓█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴тад═╗╡█┼┴дца═т█┼┴ста█┼┴дца═и═т█┼╢╓╨┴ймс═и═яяпутсым┴╞╙╙╙═инеф█┼┴тад═сымт╡█┼┴ймп═фб█┼█┼фп╛┴исз═кнт┴┴╞енд═оф═цхаин█┼┴ймп═фд█┼╞┴ймс═и═яяцрлф█┼┴ста█┼┴тад═пасс█┼┴сза═цла┴┴╞пасс═╠©█┼┴ймп═оутбе┴╞но█┼┴тад═и═╗лсднум█┼┴цлл═рал█┼┴тад═и═╗лсднум█┼┴цлл═рал┴┴╞мултиплы═бы═╤═╗а═бит═вастефул╘█┼┴┴┴╞╙╙╙═маы═леад═то═буг█┼┴тад═╗╢╢╟┴╞адд═ин═фудге═шклудгещ█┼┴цлл═рал█┼┴анд═ям╠╟╟╟█┼┴цлл═ртл█┼┴ртл┴┴╞винд═уп═витх═ё═оф═блоцкс═неедед═бы═лсд█┼┴цдф═╠╟█┼┴дца═и═╗лоцофф┴╞тхис═ис═инитиал═блоцк═оффсет█┼┴цдф═╟█┼┴тад═и═╗сбткнт█┼┴сна═цла┴┴╞вас═тхере═т╜оф╜ц©█┼┴ймп═и═╗неь┴╞но█┼оутбе╛┴тад═пасс┴╞ыес╛═оутпут═ласт═буффер█┼┴рар█┼┴сзл═цла┴┴╞одд═пасс©█┼┴ймп═и═╗оутасц┴╞ыес╛═оутпуттинг═асции█┼┴ймс═и═╗пуны█┼┴ймп═цлскрф█┼┴ймс═и═╗цхкфул┴╞думп═буффер═иф═хаппен═то═бе═еьацтлы═ат═енд█┼╡╓╨┴цдф═╠╟┴┴╞фиь═фор═лсд═естимате═тоо═биг═буг█┼┴тад═и═╗тьтблк█┼┴цлл═циа█┼┴тад═и═╗оутрец█┼┴цдф═╟█┼┴сзл═цла█┼┴ймп═и═╗финн┴╞доесн╖т═цатцх═естимате═тоо═смалл═╙╙╙█┼┴ймс═и═╗зпад█┼┴ймп═╡╓█┼цлскрф╛┴ймс═и═╗зпад┴╞но╛═оутпуттинг═бинары█┼┴ймп═и═╗финн█┼сымт╡╛┴╟█┼т╛┴╟█┼▄┴паге█┼▄лсднум╛┴╟█┼оутасц╛┴тад═╗╜оутцрс╜╠┴╞оутпут═ласт═буффер█┼┴дца═кнт┴┴╞бы═вритинг═чз═фолловед═бы═зероес█┼┴ймс═и═яялистер┴╞маке═суре═врите═еноугх═то═думп█┼┴┴┴╞буффер█┼┴исз═кнт┴┴╞инцлудинг═чз█┼┴ймп═╝╜╡█┼┴цдф═╠╟┴┴╞пасс═╠═фин═цоде█┼┴тад═и═╗оутсиз█┼┴цдф═╟█┼┴дца═и═╗тоцсиз█┼финн╛┴тад═пасс█┼┴тад═╗╜╢█┼┴сза═цла█┼┴ймп═и═╗неь█┼╞цлосе═креф═филе═он═пасс═╢█┼┴циф═цдф═╠╟█┼┴ймс═и═╗цлосо█┼┴ймп═и═╗неь█┼▄лсдоут╛┴╟┴┴╞оутпут═лсд═ентры█┼┴исз═лсднум█┼╞┴тад═яуал█┼╞┴анд═╗╥╢╟╟█┼┴тад═лсднум█┼┴дца═яуал█┼╞цхецк═иф═агрее═он═нон═пасс═╠█┼┴ймс═и═╗пуны┴╞пасс═╡©█┼┴ймп═и═лсдоут┴╞но╛═но═лсд═оутпут═тхис═пасс█┼┴ймп═и═╗парт╡█┼█┼зпад╛┴╟┴┴╞цан═онлы═бе═цаллед═он═ежен═пасс█┼┴тад═╗╜Ё╥╥┴╞буффер═цонсистс═оф═Ё╥╥═вордс═плус═хеадер═ворд█┼┴дца═еокнт█┼┴ймс═и═╗путбт█┼┴исз═еокнт█┼┴ймп═╝╜╡█┼┴ймп═и═зпад█┼еокнт╛┴╟█┼▄╞цоде═белов═цалцулатес═тыпе═цоде═но╝═еьпецтед═бы═линкер█┼█┼╞┴╠╢┴ентры█┼╞┴╠╣┴глобал█┼╞┴╠╤┴еьтернал═╗сымжал╫╠═меанс═сецреф╘█┼╞┴╠╥┴зтернал█┼█┼╞итем┴интернал═еьтернал█┼╞глобал┴╢┴╠╢█┼╞ентры┴╣┴╠╣█┼╞еьтерн┴╤┴╠╤█┼╞зтерн┴╥┴╠╥┴╗саме═ас═╠╤╘█┼█┼носецт╛┴тад═флаг█┼┴анд═╗╥█┼┴тад═╗╜╤█┼┴сна═цла█┼┴тад═сымжал█┼┴сза═цла█┼┴ймп═сецреф█┼┴тад═флаг█┼┴анд═╗Ё█┼глобб╛┴тад═╗Ё┴┴╞╠╢┴глобал█┼зс╛┴иац┴┴╞╠╠┴зсецт█┼ьс╛┴тад═╗Ё┴┴╞╠╟┴ьсецт█┼дс╛┴иац┴┴╞╣┴дсецт█┼фс╛┴иац┴┴╞╢┴фсецт█┼рс╛┴иац┴┴╞Ё┴рсецт█┼ас╛┴иац┴┴╞╡┴асецт█┼сецреф╛═иац┴┴╞╠┴сецондары═референце█┼┴дца═лтыпе┴╞╟█┼╞иф═нот═а═сецт╛═битс═╟╜╥═схоулд═цонтаин═лсднум█┼╞обтаинед═фром═битс═╢╜╠╠═оф═яуал═ворд═оф═сецт═оф═сымбол█┼┴тад═флаг█┼┴анд═яя╥╟█┼┴сза█┼┴ймп═лсдЁ┴╞сымбол═ис═а═сецт═наме█┼┴дца═зтем█┼┴тад═сымсцт┴╞гет═сецт═оф═сымбол█┼┴сна█┼┴ймп═лсд╢┴╞ноне╛═ас═ин═еьтернал█┼┴ймс═и═╗гетлсд┴╞цонжерт═то═лсд═нумбер█┼┴цлл═ртл█┼┴ртл┴┴╞може═лсднум═то═битс═╟╜╥█┼┴ймп═лсд╢█┼▄лсдЁ╛┴дца═зтем█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴циф═╡╟█┼┴ймс═и═╗клу╤█┼лсд╢╛┴тад═лтыпе┴╞адд═ин═сымбол═тыпе█┼┴ймс═и═яяпутбит┴╞оутпут█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴иац█┼┴дца═тмп█┼┴тад═и═тмп█┼┴дца═ртем█┼┴исз═тмп█┼┴тад═и═тмп█┼┴дца═тмп█┼┴цдф═╟█┼┴тад═флаг█┼┴анд═яя╥┴┴╞исолате═тыпе█┼┴тад═╗╜еьтрн█┼┴сма═цла█┼┴ймп═ноеьт┴╞дон╖т═оутпут═жалуе═иф═еьтернал═ор═зтернал█┼┴тад═зтем█┼┴тад═ям╠╟█┼┴сна═цла█┼┴тад═тмп█┼┴циа█┼╞┴тад═фжал┴╞адд═ин═ленгтх═оф═ф╜сецт═литералс█┼┴тад═сымжал█┼┴ймс═и═яяпутбит┴╞оутпут═жалуе═ор═ленгтх█┼█┼╞фжал╛┴╟┴┴╞╟═еьцепт═ин═фсецтс═ин═вхицх═цасе█┼╞┴┴┴╞ит═ис═тхе═ленгтх═оф═тхе═литерал═поол█┼█┼╞схоулд═ве═оутпут═рестрицтионс═ежен═иф═рестрицтион═тыпе═ис═╟©█┼╞и═суггест═ве═до═тхис═онлы═иф═флаг═╗╥╟═анд═сымжал═╕╥╟╟╟═етц╝█┼█┼ноеьт╛┴ймс═и═╗парт╡а█┼┴ймп═и═лсдоут█┼█┼ртем╛┴╟█┼тмп╛┴╟█┼▄лтыпе╛┴╟┴┴╞тыпе═неедед═бы═линкер═╗битс═╦╜╠╠╘█┼зтем╛┴╟█┼┴паге█┼┴релоц█┼▄┴╝асецт═фин╡ь╛лежел╫╠╛ожерлаы╫╠Ё█┼┴фиелд═Ё█┼┴╙╡╟╟╟█┼█┼┴птцхлоц╫хеадинг╚╣Ё█┼█┼╞фин═цоде═еьтенсион═фор═пассес═╡═анд═╢█┼█┼┴╠╢┴┴╞ожерлаы═нумбер█┼█┼лсдини╛┴╟┴┴╞оутпут═специал═стуфф═ат═бегин═оф═лсд█┼┴цдф═╠╟█┼┴тад═и═╗датевд┴╞гет═тодаы╖с═дате█┼┴цдф═╟█┼┴дца═д╦█┼┴тад═и═╗╥╥╥╥┴╞гет═ворд═витх═дате═еьтенсион═битс█┼┴дца═д╦а┴┴╞вхы═нот©═╜═сторе═ентире═ворд█┼┴стл═ртл┴┴╞╡█┼┴тад═пагено█┼┴дца═пгн█┼┴тад═и═╗йсв█┼┴дца═йсвд█┼┴тад═и═╗стартр█┼┴анд═яя╥╥╥╟┴╞╠╜╥═меанс═фиелд═специфиед█┼┴сза═цла█┼┴иац┴┴╞╡═меанс═лсд█┼┴иац┴┴╞╠═меанс═абс█┼┴дца═сатыпе█┼┴тад═и═╗старт█┼┴дца═саабс█┼┴тад═и═╗стартр█┼┴анд═яя╥╥╥╟█┼┴сна═цла█┼┴ймп═сть█┼┴тад═и═╗стартр█┼┴ймс═и═╗гетлсд█┼┴скп█┼сть╛┴тад═и═╗стартр█┼┴дца═сарел█┼┴тад═и═╗ужер█┼┴дца═ужерн█┼┴цдф═╠╟█┼┴тад═и═╗птцхлоц█┼┴цдф═╟█┼┴дца═птцхл█┼┴тад═╗╜╡╤┴╞╡╤═итемс═ин═лист█┼┴ймс═путхдр█┼┴╡╡╟╡┴┴╞рб█┼█┼┴╜╢█┼┴Ё┴┴╞дате█┼д╦╛┴╟█┼д╦а╛┴╟┴┴╞дате═еьтенсион█┼█┼┴╜╢█┼┴╢┴┴╞рб═спец═лежел█┼┴╡█┼┴╟┴┴╞╡╝╟█┼█┼┴╜╥█┼┴╣┴┴╞аутхор█┼┴теьт═╞мацрел╞█┼┴╙╝╜╠█┼┴жернум█┼птцхл╛┴птцхлеж█┼█┼┴╜Ё█┼┴╤┴┴╞паге═нумбер█┼пгн╛┴╟█┼█┼┴╜Ё█┼┴╠Ё█┼ужерн╛┴╟┴┴╞усер═жерсион═нумбер█┼█┼┴тад═и═╗стартк█┼┴сза═цла┴┴╞вас═а═стартинг═аддресс═специфиед©█┼┴ймп═носта┴╞но█┼┴тад═м╢┴┴╞ыес╛═оутпут═╢═вордс█┼┴ймс═путхдр█┼м╢╛┴╜╢█┼сатыпе╛┴╟█┼сарел╛┴╟█┼саабс╛┴╟█┼носта╛┴тад═и═╗йсвкеы█┼┴сза═цла┴┴╞вас═а═йоб═статус═ворд═специфиед©█┼┴ймп═нойсв┴╞но█┼┴тад═мЁ┴┴╞ыес╛═оутпут═Ё═вордс█┼┴ймс═путхдр█┼мЁ╛┴╜Ё█┼┴╠╡█┼йсвд╛┴╟█┼█┼нойсв╛┴ста┴┴╞оутпут═оне═ворд█┼┴ймс═путхдр█┼┴╟┴┴╞енд═оф═префаце█┼█┼┴ймп═и═лсдини█┼▄путхдр╛┴╟█┼┴дца═хкнт█┼хлуп╛┴тад═и═путхдр█┼┴исз═путхдр█┼┴ймс═и═яяпутбит█┼┴исз═хкнт█┼┴ймп═хлуп█┼┴ймп═и═путхдр█┼█┼хкнт╛┴╟█┼▄парт╡а╛┴╟█┼ь╠╟╟╟╛┴тад═флаг█┼┴анд═яя╥╟█┼┴сна█┼┴ймп═и═парт╡а█┼┴тад═ям╠╟┴╞бут═цхецк═фор═асецт█┼┴сза═цла┴┴╞царефул╨═ин═асецт╛═рт═битс═аре═ацтуаллы═а═фиелд═нумбер█┼┴тад═и═╗ртем┴╞аны═╠╟ьь═вилл═до█┼┴тад═ь╠╟╟╟┴╞╒█┼┴рал┴┴╞линк═он═иф═р╝т╝═ис═Ё═ор═╢█┼┴цла█┼┴тад═и═╗тмп█┼┴сзл█┼┴ймс═и═╗гетлсд┴╞рестрицтион═ис═╠╣╜бит═птр█┼┴┴┴╞цонжерт═ит═то═лсд═нум═╗рестр═тыпе╫Ё═ор═╢╘█┼┴ймс═и═яяпутбит┴╞оутпут═рестрицтион█┼┴цдф═╡╟█┼┴тад═и═╗ожл█┼┴цдф═╟█┼┴сна█┼┴ймп═и═парт╡а█┼┴анд═╗Ё╥Ё╥█┼┴ймс═и═яяпутбит█┼┴ймп═и═парт╡а█┼┴паге█┼▄парт╡╛┴тад═и═╗лсднум█┼┴анд═╗╥╢╟╟█┼┴сза═цла█┼ер╡╟╤╛┴ймс═и═яяеррор┴╞тоо═маны═лсд═ентриес█┼┴тад═наме╠┴╞ыес█┼┴ймс═и═яяпутбит┴╞оутпут═наме█┼┴тад═наме╡█┼┴ймс═и═яяпутбит█┼┴тад═намеЁ█┼┴ймс═и═яяпутбит█┼┴тад═флаг█┼┴анд═яя╥╟┴┴╞гет═сецт═тыпе█┼┴цлл═ртр█┼┴рар█┼┴ймс═и═╗бран█┼┴носецт┴╞╟█┼┴ас┴╞╠█┼┴рс┴╞╡█┼┴фс┴╞Ё█┼┴дс┴╞╢█┼┴зс┴╞╣█┼┴ьс┴╞╤█┼┴носецт┴╞╥█┼┴паге█┼▄ ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/19 FIN2.PA CREATES OVRJ.SV THE PASS 2 FIN OVERLAY	POST V0A
+/	7-MAR-78	INCLUDED PATCH ABOUT CHECKING FOR TOO MANY LSD SYMBOLS
+/ 8-MAR-78	COMMENTED OUT PATCH ENTIRELY
+/		ADDED AUXILIARY SECT CHUNK SUPPORT
+/ 21-AUG-78	FIXED LSD BLANK BUFFER BUG
+/		ADDED SECREF
+/ 23-AUG-78	FSECT LITERALS
+/ 29-AUG-78	BUMPED RB SPEC LEVEL TO 2.0
+	.INCLUDE MGLOB.MA
+	.ASECT FIN2,LEVEL=1,OVERLAY=11
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL KLU6,OVL,CHKFUL
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL PUNY,CLOSO,FINIO,LOAD,BUKETS,LOCOFF,TXTBLK,OUTREC
+	.EXTERNAL PUTBT,OUTSIZ,BRAN,HEADING
+	FIELD 3
+	.GLOBAL ER206
+/	.GLOBAL FVAL
+
+/	THIS IS CALLED AT THE END OF PASSES 1,2, AND 4
+
+	*2000
+
+	RELOC 6400
+
+	12		/OVERLAY NUMBER
+
+	DCA I (LSDNUM
+	JMS I (PUNY	/PASS 2?
+	JMP FC		/NO
+	TAD (3		/YES
+	DCA FLG
+	JMS I QQPUNBIT	/END TEXT
+	JMS I (ZPAD	/DUMP TEXT BUFFER
+	CIF CDF 10
+	JMS I (CLOSO	/CLOSE BINARY FILE
+	CIF CDF 10
+	JMS I (FINIO
+	JMS I (LOAD
+	2000+14		/LOAD EXTENSIONS OVERLAY
+			/INTO DIRECTIVES AREA
+	JMS I (LSDINI	/INITIAL STUFF TO LSD
+FC,	TAD (BUKETS-1
+	DCA XR2
+	TAD (-77
+	DCA KNT
+FD,	TAD I XR2	/GET PTR FROM NEXT BUCKET
+FB,	CDF 0
+	SNA
+	JMP FP		/END OF CHAIN
+	DCA SYMNUM
+	TAD SYMNUM
+	JMS I (CNVADR
+	DCA LPTR
+	TAD LPTR
+	DCA XR1
+	TAD I XR1
+	DCA NAME1
+	TAD I XR1
+	DCA NAME2
+	TAD I XR1
+	DCA NAME3
+	TAD I LPTR	/GET 15-BIT PTR TO NEXT CHUNK
+	CDF 0
+	DCA SYMT2
+	JMS I QQGETSYM
+	TAD FLAG
+	AND (74
+	SZA CLA		/SKIP IF NOT LSD SYMBOL
+	JMS I (LSDOUT	/OUTPUT LSD
+	TAD FLAG
+	AND QQ70
+	SZA CLA		/IS SYMBOL A SECT NAME?
+	DCA SYMVAL	/YES, ZERO ITS HI PC
+	TAD FLAG
+	AND QQ70
+	TAD QM10
+	SZA CLA
+	JMP 4$
+	TAD SYMSCT
+	JMS I (CNVADR
+	TAD (2
+	DCA T
+	STA
+	DCA I T
+4$:	JMS I QQPUTSYM	/*** INEF
+	TAD SYMT2
+	JMP FB
+
+FP,	ISZ KNT		/END OF CHAIN
+	JMP FD
+/	JMS I QQCRLF
+	STA
+	TAD PASS
+	SZA CLA		/PASS 1?
+	JMP OUTBE	/NO
+	TAD I (LSDNUM
+	CLL RAL
+	TAD I (LSDNUM
+	CLL RAL		/MULTIPLY BY 6 (A BIT WASTEFUL)
+			/*** MAY LEAD TO BUG
+	TAD (440	/ADD IN FUDGE [KLUDGE]
+	CLL RAL
+	AND QM1000
+	CLL RTL
+	RTL		/WIND UP WITH # OF BLOCKS NEEDED BY LSD
+	CDF 10
+	DCA I (LOCOFF	/THIS IS INITIAL BLOCK OFFSET
+	CDF 0
+	TAD I (SBTKNT
+	SNA CLA		/WAS THERE T-OF-C?
+	JMP I (NEX	/NO
+OUTBE,	TAD PASS	/YES, OUTPUT LAST BUFFER
+	RAR
+	SZL CLA		/ODD PASS?
+	JMP I (OUTASC	/YES, OUTPUTTING ASCII
+	JMS I (PUNY
+	JMP CLSKRF
+	JMS I (CHKFUL	/DUMP BUFFER IF HAPPEN TO BE EXACTLY AT END
+2$:	CDF 10		/FIX FOR LSD ESTIMATE TOO BIG BUG
+	TAD I (TXTBLK
+	CLL CIA
+	TAD I (OUTREC
+	CDF 0
+	SZL CLA
+	JMP I (FINN	/DOESN'T CATCH ESTIMATE TOO SMALL ***
+	JMS I (ZPAD
+	JMP 2$
+CLSKRF,	JMS I (ZPAD	/NO, OUTPUTTING BINARY
+	JMP I (FINN
+SYMT2,	0
+T,	0
+	PAGE
+LSDNUM,	0
+OUTASC,	TAD (-OUTCRS-1	/OUTPUT LAST BUFFER
+	DCA KNT		/BY WRITING ^Z FOLLOWED BY ZEROES
+	JMS I QQLISTER	/MAKE SURE WRITE ENOUGH TO DUMP
+			/BUFFER
+	ISZ KNT		/INCLUDING ^Z
+	JMP .-2
+	CDF 10		/PASS 1 FIN CODE
+	TAD I (OUTSIZ
+	CDF 0
+	DCA I (TOCSIZ
+FINN,	TAD PASS
+	TAD (-4
+	SZA CLA
+	JMP I (NEX
+/CLOSE KREF FILE ON PASS 4
+	CIF CDF 10
+	JMS I (CLOSO
+	JMP I (NEX
+LSDOUT,	0		/OUTPUT LSD ENTRY
+	ISZ LSDNUM
+/	TAD QUAL
+/	AND (7400
+	TAD LSDNUM
+	DCA QUAL
+/CHECK IF AGREE ON NON PASS 1
+	JMS I (PUNY	/PASS 2?
+	JMP I LSDOUT	/NO, NO LSD OUTPUT THIS PASS
+	JMP I (PART2
+
+ZPAD,	0		/CAN ONLY BE CALLED ON EVEN PASS
+	TAD (-377	/BUFFER CONSISTS OF 377 WORDS PLUS HEADER WORD
+	DCA EOKNT
+	JMS I (PUTBT
+	ISZ EOKNT
+	JMP .-2
+	JMP I ZPAD
+EOKNT,	0
+/CODE BELOW CALCULATES TYPE CODE NO. EXPECTED BY LINKER
+
+/	14	ENTRY
+/	15	GLOBAL
+/	16	EXTERNAL (SYMVAL=1 MEANS SECREF)
+/	17	ZTERNAL
+
+/ITEM	INTERNAL EXTERNAL
+/GLOBAL	4	14
+/ENTRY	5	15
+/EXTERN	6	16
+/ZTERN	7	17	(SAME AS 16)
+
+NOSECT,	TAD FLAG
+	AND (7
+	TAD (-6
+	SNA CLA
+	TAD SYMVAL
+	SZA CLA
+	JMP SECREF
+	TAD FLAG
+	AND (3
+GLOBB,	TAD (3		/14	GLOBAL
+ZS,	IAC		/11	ZSECT
+XS,	TAD (3		/10	XSECT
+DS,	IAC		/5	DSECT
+FS,	IAC		/4	FSECT
+RS,	IAC		/3	RSECT
+AS,	IAC		/2	ASECT
+SECREF, IAC		/1	SECONDARY REFERENCE
+	DCA LTYPE	/0
+/IF NOT A SECT, BITS 0-7 SHOULD CONTAIN LSDNUM
+/OBTAINED FROM BITS 4-11 OF QUAL WORD OF SECT OF SYMBOL
+	TAD FLAG
+	AND QQ70
+	SZA
+	JMP LSD3	/SYMBOL IS A SECT NAME
+	DCA ZTEM
+	TAD SYMSCT	/GET SECT OF SYMBOL
+	SNA
+	JMP LSD4	/NONE, AS IN EXTERNAL
+	JMS I (GETLSD	/CONVERT TO LSD NUMBER
+	CLL RTL
+	RTL		/MOVE LSDNUM TO BITS 0-7
+	JMP LSD4
+LSD3,	DCA ZTEM
+	TAD SYMSCT
+	JMS I (CNVADR
+	CIF 20
+	JMS I (KLU6
+LSD4,	TAD LTYPE	/ADD IN SYMBOL TYPE
+	JMS I QQPUTBIT	/OUTPUT
+	TAD SYMSCT
+	JMS I (CNVADR
+	IAC
+	DCA TMP
+	TAD I TMP
+	DCA RTEM
+	ISZ TMP
+	TAD I TMP
+	DCA TMP
+	CDF 0
+	TAD FLAG
+	AND QQ7		/ISOLATE TYPE
+	TAD (-EXTRN
+	SMA CLA
+	JMP NOEXT	/DON'T OUTPUT VALUE IF EXTERNAL OR ZTERNAL
+	TAD ZTEM
+	TAD QM10
+	SNA CLA
+	TAD TMP
+	CIA
+/	TAD FVAL	/ADD IN LENGTH OF F-SECT LITERALS
+	TAD SYMVAL
+	JMS I QQPUTBIT	/OUTPUT VALUE OR LENGTH
+
+/FVAL,	0		/0 EXCEPT IN FSECTS IN WHICH CASE
+/			/IT IS THE LENGTH OF THE LITERAL POOL
+
+/SHOULD WE OUTPUT RESTRICTIONS EVEN IF RESTRICTION TYPE IS 0?
+/I SUGGEST WE DO THIS ONLY IF FLAG (70 AND SYMVAL &7000 ETC.
+
+NOEXT,	JMS I (PART2A
+	JMP I LSDOUT
+
+RTEM,	0
+TMP,	0
+LTYPE,	0		/TYPE NEEDED BY LINKER (BITS 8-11)
+ZTEM,	0
+	PAGE
+	RELOC
+	.ASECT FIN2X,LEVEL=1,OVERLAY=13
+	FIELD 3
+	*2000
+
+	PTCHLOC=HEADING+53
+
+/FIN CODE EXTENSION FOR PASSES 2 AND 4
+
+	14		/OVERLAY NUMBER
+
+LSDINI,	0		/OUTPUT SPECIAL STUFF AT BEGIN OF LSD
+	CDF 10
+	TAD I (DATEWD	/GET TODAY'S DATE
+	CDF 0
+	DCA D8
+	TAD I (7777	/GET WORD WITH DATE EXTENSION BITS
+	DCA D8A		/WHY NOT? - STORE ENTIRE WORD
+	STL RTL		/2
+	TAD PAGENO
+	DCA PGN
+	TAD I (JSW
+	DCA JSWD
+	TAD I (STARTR
+	AND QQ7770	/1-7 MEANS FIELD SPECIFIED
+	SZA CLA
+	IAC		/2 MEANS LSD
+	IAC		/1 MEANS ABS
+	DCA SATYPE
+	TAD I (START
+	DCA SAABS
+	TAD I (STARTR
+	AND QQ7770
+	SNA CLA
+	JMP STX
+	TAD I (STARTR
+	JMS I (GETLSD
+	SKP
+STX,	TAD I (STARTR
+	DCA SAREL
+	TAD I (UVER
+	DCA UVERN
+	CDF 10
+	TAD I (PTCHLOC
+	CDF 0
+	DCA PTCHL
+	TAD (-26	/26 ITEMS IN LIST
+	JMS PUTHDR
+	2202		/RB
+
+	-4
+	3		/DATE
+D8,	0
+D8A,	0		/DATE EXTENSION
+
+	-4
+	4		/RB SPEC LEVEL
+	2
+	0		/2.0
+
+	-7
+	5		/AUTHOR
+	TEXT /MACREL/
+	*.-1
+	VERNUM
+PTCHL,	PTCHLEV
+
+	-3
+	6		/PAGE NUMBER
+PGN,	0
+
+	-3
+	13
+UVERN,	0		/USER VERSION NUMBER
+
+	TAD I (STARTK
+	SZA CLA		/WAS A STARTING ADDRESS SPECIFIED?
+	JMP NOSTA	/NO
+	TAD M4		/YES, OUTPUT 4 WORDS
+	JMS PUTHDR
+M4,	-4
+SATYPE,	0
+SAREL,	0
+SAABS,	0
+NOSTA,	TAD I (JSWKEY
+	SZA CLA		/WAS A JOB STATUS WORD SPECIFIED?
+	JMP NOJSW	/NO
+	TAD M3		/YES, OUTPUT 3 WORDS
+	JMS PUTHDR
+M3,	-3
+	12
+JSWD,	0
+
+NOJSW,	STA		/OUTPUT ONE WORD
+	JMS PUTHDR
+	0		/END OF PREFACE
+
+	JMP I LSDINI
+PUTHDR,	0
+	DCA HKNT
+HLUP,	TAD I PUTHDR
+	ISZ PUTHDR
+	JMS I QQPUTBIT
+	ISZ HKNT
+	JMP HLUP
+	JMP I PUTHDR
+
+HKNT,	0
+PART2A,	0
+X1000,	TAD FLAG
+	AND QQ70
+	SNA
+	JMP I PART2A
+	TAD QM10	/BUT CHECK FOR ASECT
+	SZA CLA		/CAREFUL: IN ASECT, RT BITS ARE ACTUALLY A FIELD NUMBER
+	TAD I (RTEM	/ANY 10XX WILL DO
+	TAD X1000	/"
+	RAL		/LINK ON IF R.T. IS 3 OR 4
+	CLA
+	TAD I (TMP
+	SZL
+	JMS I (GETLSD	/RESTRICTION IS 15-BIT PTR
+			/CONVERT IT TO LSD NUM (RESTR TYPE=3 OR 4)
+	JMS I QQPUTBIT	/OUTPUT RESTRICTION
+	CDF 20
+	TAD I (OVL
+	CDF 0
+	SNA
+	JMP I PART2A
+	AND (3737
+	JMS I QQPUTBIT
+	JMP I PART2A
+	PAGE
+PART2,	TAD I (LSDNUM
+	AND (7400
+	SZA CLA
+ER206,	JMS I QQERROR	/TOO MANY LSD ENTRIES
+	TAD NAME1	/YES
+	JMS I QQPUTBIT	/OUTPUT NAME
+	TAD NAME2
+	JMS I QQPUTBIT
+	TAD NAME3
+	JMS I QQPUTBIT
+	TAD FLAG
+	AND QQ70		/GET SECT TYPE
+	CLL RTR
+	RAR
+	JMS I (BRAN
+	NOSECT	/0
+	AS	/1
+	RS	/2
+	FS	/3
+	DS	/4
+	ZS	/5
+	XS	/6
+	NOSECT	/7
+	PAGE
+

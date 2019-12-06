@@ -1,1 +1,439 @@
-╞╠╡═мацро═процессор┴пост═фт═╠█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацро█┼┴╝глобал═инитмс╛стормс╛финмс╛мс╛тстенд╛сксеп╛сымбол█┼┴╝глобал═неьтлине╛цреате╛ресцан█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═реадлн╛фини█┼┴╝глобал═ер╠╟Ё╛ер╠╟╢█┼█┼╞цопыригхт═╗ц╘═╠╧╥╥═дигитал═еяуипмент═цорпоратион█┼█┼╞едит═хисторы╨█┼╞═╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜█┼╞═дате┴┴наме┴┴десцриптион█┼╞═╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜█┼╞══╤═сеп═╥╤┴дажид═спецтор┴цреатион█┼╞═╠╣═сеп═╥╤┴стан═рабиновитз┴интерфаце═цоде█┼╞═╠╡═оцт═╥╤┴дажид═спецтор┴еьпериментал═релеасе█┼╞══Ё═нож═╥╤┴с╝р╝┴┴цхангед═╖таб╖═то═╖табцхр╖█┼╞┴┴┴┴тоок═оут═генератед═линкс█┼╞══╣╜дец╜╥╤┴с╝р╝┴┴дисалловед═цомма═афтер═мацро═наме═ин═╝мацро█┼╞┴┴┴┴маде═рун═ин═фиелд═╟█┼╞══╠Ё╜йан╜╥╥┴с╝р╝┴┴можед═аргумент═табле═то═нев═фиелд╛═╖атфлд╖█┼╞══╠╣╜йан╜╥╥┴с╝р╝┴┴аддед═еррор═мессагес█┼╞┴┴┴┴аддед═еррор═ретурн═то═╖неьтлине╖█┼╞══╡Ё╜йан╜╥╥┴с╝р╝┴┴реаррангед═логиц═ин═ваы═╒═ис═тестед═фор█┼╞┴┴┴┴аддед═э█┼╞══╡╣╜йан╜╥╥┴с╝р╝┴┴можед═мц═то═╝репт═ожерлаы█┼╞┴┴┴┴алловед═оптионал═╪╝╝╝╬═фор═цомпатибилиты█┼╞══╟Ё╜мар╜╥╥┴с╝р╝┴┴майор═ресхуффле═оф═ожерлаыс█┼╞┴┴┴┴аддед═шм╨нщ═то═мацро═боды═сцаннер█┼█┼╞цонтентс╨█┼╞┴╠╝═мацро═дирецтиже█┼╞┴╡╝═мацро═цалл█┼╞┴Ё╝═репеат═дирецтиже█┼╞┴╢╝═суброутинес█┼╞┴╣╝═мацро═процессор═интерфаце█┼█┼╞ноте╨═сее═неьт═паге═фор═фулл═оутлине═оф═имплементатион╝█┼█┼╞индеь═регистерс█┼┴ьр╟╫╠╟█┼┴ьр╠╫╠╠█┼┴ьр╡╫╠╡█┼█┼╞десцриптионс═оф═суброутинес╨█┼╞╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜█┼╞цреате┴гет═а═мацро═спаце═целл═фром═фрее═лист█┼╞делете┴делете═а═стринг═╗лист╘═оф═цхарс═фром═мацро═спаце█┼╞делите┴делете═олд═мацро═дефинитион═упон═редефинитион█┼╞финмс┴терминате═стораге═инто═мацро═спаце█┼╞инитмп┴инитиализе═мацро═процессор═ат═старт═оф═еацх═пасс█┼╞инитмс┴инитиализе═а═нев═целл═фор═стораге█┼╞матцх┴тест═сымбол═йуст═обтаинед═фор═матцх═витх═гижен═кеыворд═лист█┼╞мс┴сторе═а═ворд═ин═цуррент═лоц═ин═мацро═спаце█┼╞ренев┴ресет═цхар═сцан═то═бегиннинг═оф═лине█┼╞сксеп┴скип═паст═сепаратор═╗бланкс═анд╞ор═цомма╘█┼╞стормс┴сторе═ац═инто═мацро═спаце█┼╞тстеол┴тест═фор═енд╜оф╜лине═цхар█┼╞тстяуоте┴тест═фор═яуоте═цхар█┼╞тсттерм┴тест═фор═терминатор═╗сласх╛═семицолон╛═еол╘█┼█┼╞╙╙╙═муст═модифы═╖мс╖═анд═маыбе═елсевхере█┼╞то═буффер═уп═а═цхунк═ат═а═тиме╝█┼▄╞оутлине═оф═имплементатион═оф═мацрел═мацро═процессор█┼╞╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜█┼╞█┼╞╠╝═мацро═дирецтиже█┼╞═══╠╝╡═процесс═формал═аргументс█┼╞═══════╠╝╡╝╠═инитиализе═стораге═инто═формал═арг═табле═╗фт╘█┼╞═══════╠╝╡╝╡═сторе═формал═аргс═инто═фт█┼╞═══════╠╝╡╝Ё═терминате═фт═стораге█┼╞═══╠╝Ё═сторе═мацро═боды═инто═мацро═спаце█┼╞═══════╠╝Ё╝╠═инитиализе═мацро═боды═стораге█┼╞═══════╠╝Ё╝╡═процесс═анд═сторе═тхе═мацро═боды█┼╞█┼╞╡╝═мацро═цалл█┼╞═══╡╝╠═процесс═ацтуал═аргументс█┼╞═══════╡╝╠╝╠═инитиализе═сторинг═арг═поинтерс═инто═неьт═лежел═оф═а╝т╝█┼╞═══════╡╝╠╝╡═сторе═неьт═ацтуал═арг═инто═мацро═спаце╛═фирст═целл═анд█┼╞═════════════ласт═целл═поинтерс═инто═а╝т╝█┼╞═══════╡╝╠╝Ё═терминате═аргумент═стораге█┼╞═══╡╝╡═еьпанд═мацро█┼╞═══════╡╝╡╝╠═пусх═а╝т╝═то═неьт═лежел█┼╞═══════╡╝╡╝╡═свитцх═стреам═то═мгет█┼╞═══════╡╝╡╝Ё═старт═мгет═ат═пресент═мацро═боды█┼╞═══════╡╝╡╝╢═енд═оф═мацро═цалл█┼╞█┼╞Ё╝═репеат═дирецтиже█┼╞═══Ё╝╠═реад═аргументс█┼╞═══════Ё╝╠╝╠═парсе═еьпрессион═то═гет═репеат═жалуе█┼╞═══Ё╝╡═сторе═ранге═ин═мацро═спаце█┼╞═══════Ё╝╡╝╠═инитиализе═ранге═стораге█┼╞═══════Ё╝╡╝╡═процесс═анд═сторе═тхе═ранге█┼╞█┼╞╢╝═мацро═процессор═суброутинес█┼╞█┼╞╣╝═мацро═процессор═интерфаце█┼▄┴╙╣╤╟╟█┼█┼╞╢╝═мацро═процессор═суброутинес█┼█┼╞цонтентс╨█┼╞┴мацро═спаце═стораге═суброутинес█┼╞┴цхарацтер═сцаннинг═суброутинес█┼╞┴мисцелланеоус═суброутинес█┼█┼╞мацро═спаце═стораге═суброутинес█┼█┼╞═ц═р═е═а═т═е█┼╞гет═а═нев═целл═ин═мацро═спаце═фром═фрее═лист█┼█┼╞ноте╨═мацро═спаце═схарес═целлс═витх═сымбол═табле╝█┼╞фиелд═╟═лоц═╒фреептр╒══ис═тхе═поинтер═то═тхе═фрее═лист╨═ит═цонтаинс█┼╞а═поинтер═то═тхе═фирст═целл═оф═тхе═фрее═лист═оф═целлс╝══тхис█┼╞поинтер═ис═ин═стандард═формат═фор═целл═поинтерс═╜═тхе═ригхт╜мост█┼╞╧═битс═цонтаинс═тхе═аддресс═оф═тхе═фирст═ворд╛═тхе═лефт╜мост═Ё█┼╞битс═цонтаинс═тхе═фиелд═оф═тхе═целл═╗еацх═целл═цонтаинс═╦█┼╞вордс╛═тхе═фирст═оне═оф═вхицх═ис═тхе═линкаге═ворд═╜█┼╞тхис═цонтаинс═еитхер═╟═то═индицате═тхе═енд═оф═а═лист╛═ор═а═поинтер█┼╞то═тхе═неьт═целл╘╝█┼█┼╞╒фреептр╒═цонтаинс═поинтер═то═а═фрее═целл═╜═тхис═целл█┼╞вилл═нов═бецоме═тхе═целл═ретурнед═бы═╒цреате╒╝█┼█┼╞┴┴┴фирст═целл┴┴════сецонд═целл█┼╞══╚╜╜╜╜╜╜╜╜╜╚═════╚╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╚═════╚╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╚█┼╞══║═фреептр═╚╜╜╜╜╬║══════════╙╜╜╜╜╜╜╜╜╜╚╜╜╜╜╬║════════════════════║█┼╞══╚╜╜╜╜╜╜╜╜╜╚═════╚╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╚═════╚╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╚█┼╞┴┴═══║════════дата════════║═════║════════дата════════║█┼╞┴┴═══║════════════════════║═════║════════════════════║█┼╞┴┴═══║══════┴════════║═════║═┴┴═══║█┼╞┴┴═══║════┴┴║═════║════════════════════║█┼╞┴┴═══╚╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╚═════╚╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╜╚█┼▄╞╣╝═мацро═процессор═интерфаце█┼█┼╞┴мацро═ентры═ин═сымбол═табле╨█┼█┼╞ворд┴цонтентс█┼█┼╞╟╝┴поинтер═то═неьт═сымбол═табле═ентры█┼╞╠╝┴наме┴╗лоц═╒сым╒═вхен═ин═фиелд═╟╘█┼╞╡╝┴наме█┼╞Ё╝┴наме█┼╞╢╝┴╠╣╜бит═птр═то═фирст═цхунк═оф═мацро═боды═цонтентс█┼╞╣╝┴флаг═ворд█┼╞╤╝┴╠╣╜бит═птр═то═ласт═цхунк═оф═мацро═боды═цонтентс█┼╞╥╝┴унусед█┼█┼█┼╞┴флаг═ворд╨█┼█┼╞бит┴меанинг█┼█┼╞╟╨┴╠╫дефинед█┼╞╠╨┴н╞а█┼╞╡╨┴╠╫перманент═сымбол█┼╞Ё╨┴ресержед═фор═пасс═╠═дефинед═бит█┼╞╢╛╣╨┴унусед█┼╞╤╜╦╨┴муст═бе═╟█┼╞╧╜╠╠╨┴╠═иф═усер═мацро█┼╞┴╡═иф═псеудо╜мацро═╗ресержед═фор═футуре═усе╘█┼█┼█┼█┼█┼█┼█┼┴╝енабле═╥бит█┼▄╞═и═н═и═т═м═с█┼╞инитиализе═нев═целл═фор═стораге█┼инитмс╛┴╟█┼┴тад═мс╠┴┴╞гет═целл═аддр█┼┴ймс═и═╗цнжадр┴╞цонжерт═то═цдф═анд═аддр█┼┴дца═мс╡┴┴╞лоц═фор═аддр█┼┴тад═╗╜╥┴┴╞сетуп═цоунтер█┼┴дца═мсЁ┴┴╞фор═╥═дата═вордс█┼┴рдф█┼┴тад═ьцдф█┼┴дца═мс╢█┼ьцдф╛┴цдф═╟█┼┴ймп═и═инитмс┴╞доне█┼█┼╞═с═т═о═р═м═с█┼╞сторе═цонтентс═оф═ац═╗а═цхар╘═инто═мацро═спаце═╗цуррент═целл╘█┼стормс╛┴╟█┼┴исз═мс╡┴┴╞неьт═ворд═ин═цуррент═целл█┼┴ймс═мс┴┴╞сторе═тхе═ац█┼┴исз═мсЁ┴┴╞цоунт═ит█┼┴ймп═и═стормс┴╞море═вордс═ин═целл╨═доне█┼┴ймс═и═╗цреате┴╞еьтенд═спаце═фром═фрее═лист█┼┴дца═мс╠┴┴╞стораге═вилл═цонтинуе═ин═тхис═нев═целл█┼┴тад═мс╡┴┴╞лоцате═линкаге═ворд═оф═олд═целл█┼┴анд═яя╥╥╥╟█┼┴дца═мс╡█┼┴тад═мс╠█┼┴ймс═мс┴┴╞сторе═прежиоус═целл╖с═линкаге═ворд█┼┴ймс═инитмс┴╞инитиализе═тхис═нев═целл█┼┴ймп═и═стормс┴╞реады═фор═сторинг═неьт═╜═доне█┼█┼╞═ф═и═н═м═с█┼╞финисх═сторинг═инто═мацро═спаце█┼╞ноте╨═тхис═ис═цаллед═афтер═сторинг═соме═сорт═оф═терминатинг═цхар█┼финмс╛┴╟█┼┴тад═мс╡┴┴╞лоцате═тхе═линкаге═ворд═оф═тхе═пресент═целл█┼┴анд═яя╥╥╥╟█┼┴дца═мс╡█┼┴ймс═мс┴┴╞сторе═а═╟═линкаге═то═индицате═╖енд═оф═лист╖█┼┴ймп═и═финмс┴╞доне█┼█┼мсЁ╛┴╟┴┴╞цуррент═цоунтер═╗╥═вдс═пер═целл╘█┼█┼╞═м═с█┼╞суброутине═то═сторе═а═ворд█┼╞┴инпут╨┴ац╫вд═то═бе═сторед█┼╞┴оутпут╨┴ац╫╟█┼█┼╞╙╙╙═с╝р╝═╜═цханге█┼мс╛┴╟█┼мс╢╛┴╟┴┴╞цдф═то═цуррент═целл═ворд█┼┴дца═и═мс╡█┼┴цдф═╟█┼┴ймп═и═мс┴╞доне█┼▄╞═т═с═т═е═н═д█┼╞тест═фор═легал═енд╜оф╜лине═сынтаь╛═вхицх═ис╨█┼╞оптионал═бланкс═фолловед═бы═сласх═ор═еол═цхарс╝█┼тстенд╛┴╟█┼┴ймс═и═яясцан┴╞скип═аны═инитиал═бланкс█┼┴тад═цхар┴╞гет═фирст═нон╜бланк═цхар╝█┼┴сна┴┴╞ис═ит═еол═╗╟╘©█┼┴ймп═и═тстенд┴╞ыес╨═доне╝█┼┴тад═╗╜╒╞┴╞но╨═ис═ит═сласх©█┼┴сза═цла█┼┴┴┴╞но╨═децларе═бад═сынтаь═еррор╝█┼ер╠╟╢╛┴ймс═и═яяеррор█┼┴ймп═и═тстенд┴╞ыес╨═доне╝█┼▄╞═с═к═с═е═п█┼╞скип═паст═цуррент═сепаратор╛═иф═аны╝█┼╞а═сепаратор═ис═оне═ор═море═бланкс═ор═а═цомма═вхицх█┼╞ис═ембеддед═ин═оптионал═бланкс╝█┼сксеп╛┴╟█┼┴ймс═и═яясцан┴╞скип═паст═аны═бланкс╝█┼┴тад═цхар┴╞гет═фирст═нон╜бланк═цхар╝█┼┴тад═╗╜╒╛┴╞ис═ит═а═цомма©█┼┴сза═цла█┼┴ймп═и═сксеп┴╞но╨═доне╝█┼┴ймс═и═яягетцхр┴╞ыес╨═лоок═ат═неьт═цхар╝█┼┴ймс═и═яясцан┴╞бланкс═маы═фоллов═тхе═цомма╝█┼┴ймп═и═сксеп┴╞доне╝█┼▄╞┴сымбол█┼█┼╞┴цаллинг═сеяуенце╨┴ймс═сымбол█┼╞┴┴┴┴╗нормал═ретурн╘█┼╞┴┴┴┴╗сымбол═ретурн╘█┼█┼╞десцриптион╨█┼╞┴иф═тхе═цуррент═цхар═ис═а═леттер╛═период╛═ор═доллар═сигн╛█┼╞┴до═тхе═фолловинг╨█┼╞┴╠╝═саже═цуррент═цхар═поситион═фор═латер═усе═бы═╒ресцан╒╝█┼╞┴╡╝═трансфер═цхарацтерс╛═стартинг═ат═тхе═цуррент═цхар╛█┼╞┴┴инто═лоцатион═╒сым╒═╗ор═╒наме╠╒╘═ин═фиелд═╟╝█┼╞┴┴цхарс═аре═ин═╤бит═пацкед═формат╛═анд═аре═трансферред█┼╞┴┴унтил═а═нон╜алпханумериц═цхар═ис═реад█┼╞┴┴ор═унтил═╤═цхарс═хаже═беен═трансферред╛█┼╞┴┴вхицхежер═цомес═фирст╝═иф═февер═тхан═╤═цхарс█┼╞┴┴аре═реад╛═╒сым╒═ис═паддед═то═╤═витх█┼╞┴┴╟═цхарс╝═тхе═цуррент═цхар═бецомес═тхе═нон╜█┼╞┴┴алпханумериц═цхар═вхицх═иммедиателы═фолловс█┼╞┴┴тхе═сымбол═йуст═парсед╝█┼╞┴Ё╝═таке═тхе═сымбол═ретурн═витх═ац╫╟╝█┼╞┴отхервисе╛═таке═тхе═нормал═ретурн═витх═ац╫╟╝█┼█┼█┼█┼сымбол╛┴╟█┼┴ймс═и═яялеттер┴╞ис═цуррент═цхарацтер═а═леттер©█┼┴ймп═и═сымбол┴╞но╨═таке═нормал═ретурн╝█┼┴┴┴╞ыес╨═гет═цуррент═фиелд═╟═цхар═поинтер█┼┴тад═линптр█┼┴дца═сажлин┴╞саже═ит═фор═╒ресцан╒╝█┼┴ймс═и═яяпарсым┴╞парсе═тхе═сымбол═сторинг═инто═╖сымм╖█┼┴исз═сымбол┴╞таке═сымбол═ретурн╝█┼┴ймп═и═сымбол█┼▄╞┴неьтлине█┼█┼╞┴цаллинг═сеяуенце╨┴ймс═неьтлине█┼╞┴┴┴┴╪но═лине╬┴╞еррор═ретурн█┼█┼╞десцриптион╨█┼╞┴тхис═роутине═реадс═а═нев═лине═инто═тхе═лине═буффер╝█┼╞┴тхе═цуррент═цхарацтер═бецомес═тхе═фирст═цхар═он═тхе═нев═лине╝█┼╞┴ац╫╟═он═ретурн╝█┼█┼неьтлине╛╟█┼┴тад═пасс█┼┴тад═линфлг┴╞вере═ве═ат═енд═оф═филе©█┼┴сна═цла█┼┴ймп═атеоф┴╞ыес╛═таке═еррор═ретурн█┼┴исз═пцфлаг┴╞но═пц═то═принт█┼┴исз═бнфлаг┴╞но═бинары═то═принт█┼┴ймс═патцх┴╞може═ин╜лине═дуринг═неьт═ассемблы█┼┴ймс═и═╗реадлн█┼┴ймп═атеоф┴╞таке═еррор═ретурн█┼┴ймс═и═яягетцхр┴╞реад═фирст═цхарацтер█┼┴исз═неьтлине┴╞таке═нормал═ретурн█┼┴ймп═и═неьтлине█┼линфлг╛┴╟┴┴╞╫цуррент═пасс═иф═еоф═вас═фоунд═прежиоуслы█┼атеоф╛┴тад═пасс█┼┴циа█┼┴дца═линфлг█┼┴дца═цхар█┼┴ймп═и═неьтлине┴╞маке═суре═лине═ис═емпты█┼█┼╞ноте╨═тхис═роутине═ис═усед═онлы═бы═ожерлаы═в█┼▄╞═ц═р═е═а═т═е█┼╞сее═прежиоус═паге═фор═десцриптион╝█┼цреате╛┴╟█┼┴цдф═╟█┼┴тад═фреептр█┼┴сна█┼┴ймп═ер╠╟Ё┴╞но═роом═ин═фрееспаце█┼┴дца═мс╠█┼┴тад═мс╠█┼┴ймс═и═╗цнжадр┴╞гет═аддр═оф═фирст═целл█┼┴дца═темп█┼┴┴┴╞гет═аддр═оф═╡нд═целл═ин═фрее═лист█┼┴тад═и═темп┴╞реад═линкаге═ворд═оф═фирст═целл█┼╞унхоок═╠ст═целл═фром═тхе═лист█┼┴цдф═╟█┼┴дца═фреептр█┼╞ретурн═аддр═оф═╠ст═целл█┼┴тад═мс╠█┼┴ймп═и═цреате┴╞доне█┼█┼ер╠╟Ё╛┴ймс═и═яяеррор┴╞ран═оут═оф═роом═ин═фрееспаце█┼┴ймп═и═╗фини┴╞аборт═пасс█┼╞╙╙╙═ацтуаллы╛═схоулд═цлеан═уп═фрееспаце═а═бит█┼▄╞тхис═цоулд═реаллы═бе═ин═оне═оф═тхе═ожерлаыс█┼█┼╞┴ресцан█┼█┼╞┴цаллинг═сеяуенце╨┴ймс═ресцан█┼█┼╞десцриптион╨█┼╞┴ноте╨═муст═бе═цаллед═афтер═╒сымбол╒═онлы╝█┼█┼╞┴╠╝═сторе═негатед═цоунт═оф═нумбер═оф═цхарс█┼╞┴═══ин═сымбол═йуст═парсед═ин═паге═╟═лоц═╒смцоунт╒╝█┼╞┴╡╝═тхе═фирст═цхар═ин═тхе═сымбол═йуст═парсед█┼╞┴═══бецомес═тхе═цуррент═цхар╝█┼╞┴Ё╝═ретурн═витх═ац╫╟╝█┼█┼█┼ресцан╛┴╟█┼┴тад═линптр┴╞цалцулате═сымбол═ленгтх╝█┼┴циа█┼┴тад═сажлин┴╞╗сее═╒сымбол╒═абоже╝╘█┼┴дца═смцоунт█┼┴ста█┼┴тад═сажлин█┼┴дца═линптр┴╞пусх═бацк═инпут═лине═буффер═поинтер█┼┴ймс═и═яягетцхр┴╞инитиализе═цуррент═цхар╝█┼┴ймп═и═ресцан█┼█┼патцх╛┴╟┴┴╞белонгс═ин╜лине█┼┴тад═и═╗листвд█┼┴анд═яя╢╟┴┴╞мд█┼┴сна═цла█┼┴ймс═и═яяоут┴╞принт═лине█┼┴ймп═и═патцх█┼┴паге█┼▄╞═а═т█┼╞ацтуал═аргумент═табле█┼╞тхис═табле═ис═усед═рецурсижелы═дуринг═тхе═еьпансион═оф═мацрос█┼╞то═холд═поинтерс═то═аргументс═стрингс═╗листс╘═сторед═ин═мацро═спаце╝█┼╞┴формат╨█┼╞┴┴лежел═╠┴┴арг═╠┴┴фирст═целл═поинтер█┼╞┴┴лежел═╠┴┴арг═╠┴┴ласт═целл═поинтер█┼╞┴┴лежел═╠┴┴арг═╡┴┴фирст═целл═поинтер█┼╞┴┴лежел═╠┴┴арг═╡┴┴ласт═целл═поинтер█┼╞┴┴╝═╝═╝┴┴╝═╝═╝┴┴╝═╝═╝█┼╞┴┴лежел═╡┴┴арг═╠┴┴фирст═целл═поинтер█┼╞┴┴╝═╝═╝┴┴╝═╝═╝┴┴╝═╝═╝█┼╞┴┴лежел═н┴┴арг═м┴┴ласт═целл═поинтер█┼┴╝асецт═ат█┼█┼┴фиелд═атфлд╔╠╟█┼┴╙╠╟╟╟█┼█┼┴зблоцк═маьргсч╡чмаьлжс█┼атенд╛┴╟┴┴╞унусед█┼┴паге█┼▄▄ ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/12 MACRO PROCESSOR	POST FT 1
+	.INCLUDE MGLOB.MA
+	.ASECT MACRO
+	.GLOBAL INITMS,STORMS,FINMS,MS,TSTEND,SKSEP,SYMBOL
+	.GLOBAL NEXTLINE,CREATE,RESCAN
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL READLN,FINI
+	.GLOBAL ER103,ER104
+
+/COPYRIGHT (C) 1977 DIGITAL EQUIPMENT CORPORATION
+
+/EDIT HISTORY:
+/ --------------------------------------------
+/ DATE		NAME		DESCRIPTION
+/ --------------------------------------------
+/  6 SEP 76	DAVID SPECTOR	CREATION
+/ 15 SEP 76	STAN RABINOWITZ	INTERFACE CODE
+/ 12 OCT 76	DAVID SPECTOR	EXPERIMENTAL RELEASE
+/  3 NOV 76	S.R.		CHANGED 'TAB' TO 'TABCHR'
+/				TOOK OUT GENERATED LINKS
+/  5-DEC-76	S.R.		DISALLOWED COMMA AFTER MACRO NAME IN .MACRO
+/				MADE RUN IN FIELD 0
+/  13-JAN-77	S.R.		MOVED ARGUMENT TABLE TO NEW FIELD, 'ATFLD'
+/  15-JAN-77	S.R.		ADDED ERROR MESSAGES
+/				ADDED ERROR RETURN TO 'NEXTLINE'
+/  23-JAN-77	S.R.		REARRANGED LOGIC IN WAY " IS TESTED FOR
+/				ADDED \
+/  25-JAN-77	S.R.		MOVED MC TO .REPT OVERLAY
+/				ALLOWED OPTIONAL <...> FOR COMPATIBILITY
+/  03-MAR-77	S.R.		MAJOR RESHUFFLE OF OVERLAYS
+/				ADDED [M:N] TO MACRO BODY SCANNER
+
+/CONTENTS:
+/	1. MACRO DIRECTIVE
+/	2. MACRO CALL
+/	3. REPEAT DIRECTIVE
+/	4. SUBROUTINES
+/	5. MACRO PROCESSOR INTERFACE
+
+/NOTE: SEE NEXT PAGE FOR FULL OUTLINE OF IMPLEMENTATION.
+
+/INDEX REGISTERS
+	XR0=10
+	XR1=11
+	XR2=12
+
+/DESCRIPTIONS OF SUBROUTINES:
+/-------------------------------------------------------------
+/CREATE	GET A MACRO SPACE CELL FROM FREE LIST
+/DELETE	DELETE A STRING (LIST) OF CHARS FROM MACRO SPACE
+/DELITE	DELETE OLD MACRO DEFINITION UPON REDEFINITION
+/FINMS	TERMINATE STORAGE INTO MACRO SPACE
+/INITMP	INITIALIZE MACRO PROCESSOR AT START OF EACH PASS
+/INITMS	INITIALIZE A NEW CELL FOR STORAGE
+/MATCH	TEST SYMBOL JUST OBTAINED FOR MATCH WITH GIVEN KEYWORD LIST
+/MS	STORE A WORD IN CURRENT LOC IN MACRO SPACE
+/RENEW	RESET CHAR SCAN TO BEGINNING OF LINE
+/SKSEP	SKIP PAST SEPARATOR (BLANKS AND/OR COMMA)
+/STORMS	STORE AC INTO MACRO SPACE
+/TSTEOL	TEST FOR END-OF-LINE CHAR
+/TSTQUOTE	TEST FOR QUOTE CHAR
+/TSTTERM	TEST FOR TERMINATOR (SLASH, SEMICOLON, EOL)
+
+/*** MUST MODIFY 'MS' AND MAYBE ELSEWHERE
+/TO BUFFER UP A CHUNK AT A TIME.
+/OUTLINE OF IMPLEMENTATION OF MACREL MACRO PROCESSOR
+/---------------------------------------------------
+/
+/1. MACRO DIRECTIVE
+/   1.2 PROCESS FORMAL ARGUMENTS
+/       1.2.1 INITIALIZE STORAGE INTO FORMAL ARG TABLE (FT)
+/       1.2.2 STORE FORMAL ARGS INTO FT
+/       1.2.3 TERMINATE FT STORAGE
+/   1.3 STORE MACRO BODY INTO MACRO SPACE
+/       1.3.1 INITIALIZE MACRO BODY STORAGE
+/       1.3.2 PROCESS AND STORE THE MACRO BODY
+/
+/2. MACRO CALL
+/   2.1 PROCESS ACTUAL ARGUMENTS
+/       2.1.1 INITIALIZE STORING ARG POINTERS INTO NEXT LEVEL OF A.T.
+/       2.1.2 STORE NEXT ACTUAL ARG INTO MACRO SPACE, FIRST CELL AND
+/             LAST CELL POINTERS INTO A.T.
+/       2.1.3 TERMINATE ARGUMENT STORAGE
+/   2.2 EXPAND MACRO
+/       2.2.1 PUSH A.T. TO NEXT LEVEL
+/       2.2.2 SWITCH STREAM TO MGET
+/       2.2.3 START MGET AT PRESENT MACRO BODY
+/       2.2.4 END OF MACRO CALL
+/
+/3. REPEAT DIRECTIVE
+/   3.1 READ ARGUMENTS
+/       3.1.1 PARSE EXPRESSION TO GET REPEAT VALUE
+/   3.2 STORE RANGE IN MACRO SPACE
+/       3.2.1 INITIALIZE RANGE STORAGE
+/       3.2.2 PROCESS AND STORE THE RANGE
+/
+/4. MACRO PROCESSOR SUBROUTINES
+/
+/5. MACRO PROCESSOR INTERFACE
+	*5600
+
+/4. MACRO PROCESSOR SUBROUTINES
+
+/CONTENTS:
+/	MACRO SPACE STORAGE SUBROUTINES
+/	CHARACTER SCANNING SUBROUTINES
+/	MISCELLANEOUS SUBROUTINES
+
+/MACRO SPACE STORAGE SUBROUTINES
+
+/ C R E A T E
+/GET A NEW CELL IN MACRO SPACE FROM FREE LIST
+
+/NOTE: MACRO SPACE SHARES CELLS WITH SYMBOL TABLE.
+/FIELD 0 LOC "FREEPTR"  IS THE POINTER TO THE FREE LIST: IT CONTAINS
+/A POINTER TO THE FIRST CELL OF THE FREE LIST OF CELLS.  THIS
+/POINTER IS IN STANDARD FORMAT FOR CELL POINTERS - THE RIGHT-MOST
+/9 BITS CONTAINS THE ADDRESS OF THE FIRST WORD, THE LEFT-MOST 3
+/BITS CONTAINS THE FIELD OF THE CELL (EACH CELL CONTAINS 8
+/WORDS, THE FIRST ONE OF WHICH IS THE LINKAGE WORD -
+/THIS CONTAINS EITHER 0 TO INDICATE THE END OF A LIST, OR A POINTER
+/TO THE NEXT CELL).
+
+/"FREEPTR" CONTAINS POINTER TO A FREE CELL - THIS CELL
+/WILL NOW BECOME THE CELL RETURNED BY "CREATE".
+
+/			FIRST CELL		    SECOND CELL
+/  +---------+     +--------------------+     +--------------------+
+/  ! FREEPTR +---->!          *---------+---->!                    !
+/  +---------+     +--------------------+     +--------------------+
+/		   !        DATA        !     !        DATA        !
+/		   !                    !     !                    !
+/		   !      	        !     ! 		   !
+/		   !    		!     !                    !
+/		   +--------------------+     +--------------------+
+/5. MACRO PROCESSOR INTERFACE
+
+/	MACRO ENTRY IN SYMBOL TABLE:
+
+/WORD	CONTENTS
+
+/0.	POINTER TO NEXT SYMBOL TABLE ENTRY
+/1.	NAME	(LOC "SYM" WHEN IN FIELD 0)
+/2.	NAME
+/3.	NAME
+/4.	15-BIT PTR TO FIRST CHUNK OF MACRO BODY CONTENTS
+/5.	FLAG WORD
+/6.	15-BIT PTR TO LAST CHUNK OF MACRO BODY CONTENTS
+/7.	UNUSED
+
+
+/	FLAG WORD:
+
+/BIT	MEANING
+
+/0:	1=DEFINED
+/1:	N/A
+/2:	1=PERMANENT SYMBOL
+/3:	RESERVED FOR PASS 1 DEFINED BIT
+/4,5:	UNUSED
+/6-8:	MUST BE 0
+/9-11:	1 IF USER MACRO
+/	2 IF PSEUDO-MACRO (RESERVED FOR FUTURE USE)
+
+
+
+
+
+
+	.ENABLE 7BIT
+/ I N I T M S
+/INITIALIZE NEW CELL FOR STORAGE
+INITMS,	0
+	TAD MS1		/GET CELL ADDR
+	JMS I (CNVADR	/CONVERT TO CDF AND ADDR
+	DCA MS2		/LOC FOR ADDR
+	TAD (-7		/SETUP COUNTER
+	DCA MS3		/FOR 7 DATA WORDS
+	RDF
+	TAD XCDF
+	DCA MS4
+XCDF,	CDF 0
+	JMP I INITMS	/DONE
+
+/ S T O R M S
+/STORE CONTENTS OF AC (A CHAR) INTO MACRO SPACE (CURRENT CELL)
+STORMS,	0
+	ISZ MS2		/NEXT WORD IN CURRENT CELL
+	JMS MS		/STORE THE AC
+	ISZ MS3		/COUNT IT
+	JMP I STORMS	/MORE WORDS IN CELL: DONE
+	JMS I (CREATE	/EXTEND SPACE FROM FREE LIST
+	DCA MS1		/STORAGE WILL CONTINUE IN THIS NEW CELL
+	TAD MS2		/LOCATE LINKAGE WORD OF OLD CELL
+	AND QQ7770
+	DCA MS2
+	TAD MS1
+	JMS MS		/STORE PREVIOUS CELL'S LINKAGE WORD
+	JMS INITMS	/INITIALIZE THIS NEW CELL
+	JMP I STORMS	/READY FOR STORING NEXT - DONE
+
+/ F I N M S
+/FINISH STORING INTO MACRO SPACE
+/NOTE: THIS IS CALLED AFTER STORING SOME SORT OF TERMINATING CHAR
+FINMS,	0
+	TAD MS2		/LOCATE THE LINKAGE WORD OF THE PRESENT CELL
+	AND QQ7770
+	DCA MS2
+	JMS MS		/STORE A 0 LINKAGE TO INDICATE 'END OF LIST'
+	JMP I FINMS	/DONE
+
+MS3,	0		/CURRENT COUNTER (7 WDS PER CELL)
+
+/ M S
+/SUBROUTINE TO STORE A WORD
+/	INPUT:	AC=WD TO BE STORED
+/	OUTPUT:	AC=0
+
+/*** S.R. - CHANGE
+MS,	0
+MS4,	0		/CDF TO CURRENT CELL WORD
+	DCA I MS2
+	CDF 0
+	JMP I MS	/DONE
+/ T S T E N D
+/TEST FOR LEGAL END-OF-LINE SYNTAX, WHICH IS:
+/OPTIONAL BLANKS FOLLOWED BY SLASH OR EOL CHARS.
+TSTEND,	0
+	JMS I QQSCAN	/SKIP ANY INITIAL BLANKS
+	TAD CHAR	/GET FIRST NON-BLANK CHAR.
+	SNA		/IS IT EOL (0)?
+	JMP I TSTEND	/YES: DONE.
+	TAD (-"/	/NO: IS IT SLASH?
+	SZA CLA
+			/NO: DECLARE BAD SYNTAX ERROR.
+ER104,	JMS I QQERROR
+	JMP I TSTEND	/YES: DONE.
+/ S K S E P
+/SKIP PAST CURRENT SEPARATOR, IF ANY.
+/A SEPARATOR IS ONE OR MORE BLANKS OR A COMMA WHICH
+/IS EMBEDDED IN OPTIONAL BLANKS.
+SKSEP,	0
+	JMS I QQSCAN	/SKIP PAST ANY BLANKS.
+	TAD CHAR	/GET FIRST NON-BLANK CHAR.
+	TAD (-",	/IS IT A COMMA?
+	SZA CLA
+	JMP I SKSEP	/NO: DONE.
+	JMS I QQGETCHR	/YES: LOOK AT NEXT CHAR.
+	JMS I QQSCAN	/BLANKS MAY FOLLOW THE COMMA.
+	JMP I SKSEP	/DONE.
+/	SYMBOL
+
+/	CALLING SEQUENCE:	JMS SYMBOL
+/				(NORMAL RETURN)
+/				(SYMBOL RETURN)
+
+/DESCRIPTION:
+/	IF THE CURRENT CHAR IS A LETTER, PERIOD, OR DOLLAR SIGN,
+/	DO THE FOLLOWING:
+/	1. SAVE CURRENT CHAR POSITION FOR LATER USE BY "RESCAN".
+/	2. TRANSFER CHARACTERS, STARTING AT THE CURRENT CHAR,
+/		INTO LOCATION "SYM" (OR "NAME1") IN FIELD 0.
+/		CHARS ARE IN 6BIT PACKED FORMAT, AND ARE TRANSFERRED
+/		UNTIL A NON-ALPHANUMERIC CHAR IS READ
+/		OR UNTIL 6 CHARS HAVE BEEN TRANSFERRED,
+/		WHICHEVER COMES FIRST. IF FEWER THAN 6 CHARS
+/		ARE READ, "SYM" IS PADDED TO 6 WITH
+/		0 CHARS. THE CURRENT CHAR BECOMES THE NON-
+/		ALPHANUMERIC CHAR WHICH IMMEDIATELY FOLLOWS
+/		THE SYMBOL JUST PARSED.
+/	3. TAKE THE SYMBOL RETURN WITH AC=0.
+/	OTHERWISE, TAKE THE NORMAL RETURN WITH AC=0.
+
+
+
+SYMBOL,	0
+	JMS I QQLETTER	/IS CURRENT CHARACTER A LETTER?
+	JMP I SYMBOL	/NO: TAKE NORMAL RETURN.
+			/YES: GET CURRENT FIELD 0 CHAR POINTER
+	TAD LINPTR
+	DCA SAVLIN	/SAVE IT FOR "RESCAN".
+	JMS I QQPARSYM	/PARSE THE SYMBOL STORING INTO 'SYMM'
+	ISZ SYMBOL	/TAKE SYMBOL RETURN.
+	JMP I SYMBOL
+/	NEXTLINE
+
+/	CALLING SEQUENCE:	JMS NEXTLINE
+/				<NO LINE>	/ERROR RETURN
+
+/DESCRIPTION:
+/	THIS ROUTINE READS A NEW LINE INTO THE LINE BUFFER.
+/	THE CURRENT CHARACTER BECOMES THE FIRST CHAR ON THE NEW LINE.
+/	AC=0 ON RETURN.
+
+NEXTLINE,0
+	TAD PASS
+	TAD LINFLG	/WERE WE AT END OF FILE?
+	SNA CLA
+	JMP ATEOF	/YES, TAKE ERROR RETURN
+	ISZ PCFLAG	/NO PC TO PRINT
+	ISZ BNFLAG	/NO BINARY TO PRINT
+	JMS PATCH	/MOVE IN-LINE DURING NEXT ASSEMBLY
+	JMS I (READLN
+	JMP ATEOF	/TAKE ERROR RETURN
+	JMS I QQGETCHR	/READ FIRST CHARACTER
+	ISZ NEXTLINE	/TAKE NORMAL RETURN
+	JMP I NEXTLINE
+LINFLG,	0		/=CURRENT PASS IF EOF WAS FOUND PREVIOUSLY
+ATEOF,	TAD PASS
+	CIA
+	DCA LINFLG
+	DCA CHAR
+	JMP I NEXTLINE	/MAKE SURE LINE IS EMPTY
+
+/NOTE: THIS ROUTINE IS USED ONLY BY OVERLAY W
+/ C R E A T E
+/SEE PREVIOUS PAGE FOR DESCRIPTION.
+CREATE,	0
+	CDF 0
+	TAD FREEPTR
+	SNA
+	JMP ER103	/NO ROOM IN FREESPACE
+	DCA MS1
+	TAD MS1
+	JMS I (CNVADR	/GET ADDR OF FIRST CELL
+	DCA TEMP
+			/GET ADDR OF 2ND CELL IN FREE LIST
+	TAD I TEMP	/READ LINKAGE WORD OF FIRST CELL
+/UNHOOK 1ST CELL FROM THE LIST
+	CDF 0
+	DCA FREEPTR
+/RETURN ADDR OF 1ST CELL
+	TAD MS1
+	JMP I CREATE	/DONE
+
+ER103,	JMS I QQERROR	/RAN OUT OF ROOM IN FREESPACE
+	JMP I (FINI	/ABORT PASS
+/*** ACTUALLY, SHOULD CLEAN UP FREESPACE A BIT
+/THIS COULD REALLY BE IN ONE OF THE OVERLAYS
+
+/	RESCAN
+
+/	CALLING SEQUENCE:	JMS RESCAN
+
+/DESCRIPTION:
+/	NOTE: MUST BE CALLED AFTER "SYMBOL" ONLY.
+
+/	1. STORE NEGATED COUNT OF NUMBER OF CHARS
+/	   IN SYMBOL JUST PARSED IN PAGE 0 LOC "SMCOUNT".
+/	2. THE FIRST CHAR IN THE SYMBOL JUST PARSED
+/	   BECOMES THE CURRENT CHAR.
+/	3. RETURN WITH AC=0.
+
+
+RESCAN,	0
+	TAD LINPTR	/CALCULATE SYMBOL LENGTH.
+	CIA
+	TAD SAVLIN	/(SEE "SYMBOL" ABOVE.)
+	DCA SMCOUNT
+	STA
+	TAD SAVLIN
+	DCA LINPTR	/PUSH BACK INPUT LINE BUFFER POINTER
+	JMS I QQGETCHR	/INITIALIZE CURRENT CHAR.
+	JMP I RESCAN
+
+PATCH,	0		/BELONGS IN-LINE
+	TAD I (LISTWD
+	AND QQ40		/MD
+	SNA CLA
+	JMS I QQOUT	/PRINT LINE
+	JMP I PATCH
+	PAGE
+/ A T
+/ACTUAL ARGUMENT TABLE
+/THIS TABLE IS USED RECURSIVELY DURING THE EXPANSION OF MACROS
+/TO HOLD POINTERS TO ARGUMENTS STRINGS (LISTS) STORED IN MACRO SPACE.
+/	FORMAT:
+/		LEVEL 1		ARG 1		FIRST CELL POINTER
+/		LEVEL 1		ARG 1		LAST CELL POINTER
+/		LEVEL 1		ARG 2		FIRST CELL POINTER
+/		LEVEL 1		ARG 2		LAST CELL POINTER
+/		. . .		. . .		. . .
+/		LEVEL 2		ARG 1		FIRST CELL POINTER
+/		. . .		. . .		. . .
+/		LEVEL N		ARG M		LAST CELL POINTER
+	.ASECT AT
+
+	FIELD ATFLD%10
+	*1000
+
+	ZBLOCK MAXRGS^2^MAXLVS
+ATEND,	0		/UNUSED
+	PAGE
+

@@ -1,1 +1,340 @@
-╞╠╟═литтле╜усед═дирецтижес═ожерлаы═Ё═фор═мацрел┴пост═ж╟а█┼╞┴╥╜мар╜╥╦┴инсталлед═патцх═то═прежент═дежице█┼╞┴┴┴фром═генератинг═релоцатабле═дата█┼╞┴╠╣╜ауг╜╥╦┴фиьед═принтинг═еьтра═ворд═ат═енд═оф═филенаме█┼╞┴┴┴дид═еррор═цхецкинг═фор═еьтранеоус═цхарс═он═филенаме█┼╞┴╠╤╜ауг╜╥╦┴аддед═цос═пацкинг═енабле█┼╞┴┴┴аллов═мултипле═енаблес═пер═лине█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═ожрц╛лежел╫╠╛ожерлаы╫╡█┼█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═бпут█┼┴╝глобал═ер╠╡╛ер╠╦╛ер╠╧╛ер╡╤╛ер╡╥╛ер╢╟█┼┴╝глобал═╓оцтал╛╓децимал╛╓радиь╛╓филенаме╛╓дежице╛╓енабле█┼┴╝глобал═╓дисабле█┼█┼█┼┴лсдбит╫еьтрн╕глоб╕зтрн╕ентрыы█┼█┼┴фиелд═Ё█┼┴╙╡╟╟╟█┼█┼┴Ё┴┴╞ожерлаы═нумбер█┼█┼ер╠╡╛┴ймс═и═яяеррор┴╞но═таск═наме█┼╞┴ймс═и═яяеос█┼╞┴ймп═и═╗быеь█┼╞┴ймс═и═яягетцхр█┼╞таскы╛┴ймс═и═яясцан┴╞игноре═бланкс█┼╞┴ймс═и═яялеттер┴╞леттер©█┼╞┴ймп═ер╠╡┴╞но█┼╞┴ймс═и═яяпарсым┴╞ыес╛═гет═таск═наме█┼╞┴ймс═и═яялоокуп█┼╞┴ймс═и═яяентер█┼╞┴ймс═и═яягетсым█┼╞┴ймс═и═яяцреф█┼╞┴тад═флаг█┼╞┴сна┴┴╞дефинед©█┼╞┴ймп═невт┴╞но█┼╞┴анд═╗лсдбит┴╞ыес█┼╞┴сна═цла█┼╞ер╠╦╛┴ймс═и═яяеррор┴╞нот═регулар═ор═еьтернал█┼╞ток╛┴тад═╗Ё█┼╞┴дца═флг┴┴╞усе═специал═тыпе═Ё═лоадер═цоде█┼╞┴инцр═пцфлаг█┼╞┴инцр═бнфлаг█┼╞┴тад═яуал█┼╞┴анд═яяЁ╥╥┴╞гет═лсд═нумбер═оф═таск█┼╞┴тад═╗таскод█┼╞┴дца═бинары█┼╞┴ймс═и═╗бпут┴╞генерате═бинары═бут═но═пц═бумп█┼╞┴ймс═и═яяоут█┼╞┴тад═цурсцт█┼╞┴ймс═и═яягетсым█┼╞┴тад═яуал█┼╞┴анд═яяЁ╥╥█┼╞┴ймс═и═яяпутбит┴╞лсд═фор═сецт═оф═старт═оф═таск█┼╞┴тад═пц█┼╞┴ймс═и═яяпутбит┴╞старт═оф═таск█┼╞┴ймс═и═яяпутбит┴╞жерсион═нумбер█┼╞┴ймс═и═яяпутбит┴╞инитиал═ваит═цоде█┼╞┴ймп═и═╗псеудн█┼╞невт╛┴тад═╗еьтрн╚╢╟╟╟┴╞дефине═ит═ас═еьтернал█┼╞┴дца═флаг█┼╞┴ймс═и═яяпутсым┴╞пут═инфо═бацк█┼╞┴ймп═ток█┼▄ер╡╤╛┴ймс═и═яяеррор┴╞радиь═╫╟╛╠╛═ор═╝гт╝═╠╟═ор═нег█┼┴┴┴╞тхен═сет═радиь═бацк═то═оцтал█┼╓оцтал╛┴цлл═ста═рал┴╞╜╡╚╠╡╫╠╟█┼╓децимал╛тад═╗╠╡█┼┴дца═и═╗радьвд█┼┴инцр═бнфлаг┴╞прохибит═бинары═принтоут█┼┴ймп═и═╗псеудп█┼█┼╓радиь╛┴ймс═и═яябацкуп█┼┴тад═╗╠╡█┼┴дца═и═╗радьвд┴╞темпорарилы═маке═радиь═децимал█┼┴ймс═и═яяеьпр┴╞парсе═офф═еьпрессион═инитиаллы═ин═децимал█┼╞╙╙цхецк═фор═иллегал═сецт█┼┴цлл█┼┴тад═╗╜╠Ё█┼┴сзл█┼┴ймп═ер╡╤┴╞радиь═╝гт╝═╠╟╝═ор═негатиже█┼┴тад═╗╠Ё█┼┴цлл═рар█┼┴сна█┼┴ймп═ер╡╤┴╞радиь═╫═╟═ор═╠█┼┴рал█┼┴дца═и═╗радьвд┴╞сторе═аваы═нев═радиь█┼┴тад═еьпрел█┼┴сза═цла█┼┴ймп═ер╡╤┴╞радиь═то═нон╜абсолуте═еьпр█┼┴тад═и═╗радьвд█┼┴дца═бинары┴╞бе═кинд═╜═дисплаы═нев═радиь═ин═бинары═принт═поситион█┼┴ймп═и═╗псеудп█┼▄╓филенаме╛ймс═и═яясцан┴╞скип═спацес█┼┴цла═иац█┼┴ймс═и═яяпарсым┴╞парсе═офф═филенаме█┼┴дца═флг█┼┴тад═наме╠█┼┴сна█┼┴ймп═ер╠╧┴╞бад═филенаме█┼┴ймс═и═яяпунбит█┼┴тад═наме╡█┼┴ймс═и═яяпунбит█┼┴тад═намеЁ█┼┴ймс═и═яяпунбит█┼┴тад═наме╢█┼фил╡╛┴ймс═и═яяпунбит█┼┴ймп═и═╗псеудб█┼╓дежице╛ймс═и═яясцан█┼┴цла═иац█┼┴ймс═и═яяпарсым┴╞парсе═идентифиер█┼┴дца═флг█┼┴тад═намеЁ█┼┴тад═наме╢█┼┴сза═цла█┼ер╡╥╛┴ймс═и═яяеррор┴╞дежице═наме═╝гт╝═╢═цхарс═ор═хад═еьтенсион█┼┴┴┴╞ор═хад═но═наме█┼┴тад═наме╠█┼┴сна█┼┴ймп═ер╠╧█┼╞╙╙╙═дон╖т═цатцх═траилинг═╝═ин═дежице═наме█┼┴ймс═и═яяпунбит█┼┴тад═наме╡█┼┴ймп═фил╡█┼█┼ер╠╧╛┴ймс═и═яяеррор┴╞миссинг═дежице═ор═филенаме█┼┴ймп═и═╗быеб█┼┴паге█┼▄┴ифдеф═плм═╪█┼╞┴легал═енабле═цондитионс╨█┼█┼╞┴╥бит┴цаусес═асции═теьт═статементс═анд═╒═то═генерате═╥╜бит═цодес█┼╞┴╦бит┴цаусес═асции═теьт═статементс═анд═╒═то═генерате═╦╜бит═цодес█┼╞┴сиьбит┴цаусес═теьт═статемент═то═генерате═сиьбит═цодес█┼╞┴ос╦┴цаусес═теьт═статемент═то═генерате═ос╞╦═пацкинг█┼╞┴филл┴цаусес═теьт═статемент═то═генерате═оне═зеро═цхарацтер═ат═енд█┼╞┴схифт┴цаусес═║═оператор═то═меан═╖схифт╖█┼╞┴ор┴цаусес═║═оператор═то═меан═╖ор╖█┼╞┴еьпунге┴цаусес═еьпунге═витх═аргументс═то═ворк═он═алл═пассес█┼╞┴перм┴цаусес═перманент═сымболс═то═бе═црефед█┼╞┴пунцх┴саме═ас═╖енпунцх╖═псеудо╜оп█┼█┼╞┴легал═дисабле═цондитионс╨█┼█┼╞┴филл┴прежентс═теьт═статемент═фром═зеро╜паддинг█┼╞┴еьпунге┴цаусес═еьпунге═то═ворк═онлы═он═пасс═╠█┼╞┴перм┴прежентс═перманент═сымболс═фром═беинг═црефед█┼╞┴лсб┴терминатес═тхе═цуррент═лоцал═сымбол═блоцк█┼╞┴пунцх┴┴саме═ас═╖нопунцх╖═псеудо╜оп█┼█┼╞┴ит═ис═алсо═пермиссибле═то═енабле═тхе═фолловинг═цондитионс█┼█┼╞┴цондитион┴саме═ас█┼╞┴енаблед┴┴дисаблинг█┼█┼╞┴нофилл┴┴филл█┼╞┴ноеьпунге┴еьпунге█┼╞┴ноперм┴┴перм█┼╞┴нолсб┴┴лсб█┼╞┴нопунцх┴┴пунцх█┼┴╬█┼▄╓енабле╛ймс═и═яясцан█┼╞┴инцр═бнфлаг█┼┴дца═едфлаг┴╞╟═меанс═енабле█┼енЁ╛┴ймс═и═яяпарсым┴╞парсе═офф═енабле█┼┴тад═наме╠┴╞маке═усе═оф═фацт═легал═наме═хере═ис═пос█┼┴┴┴╞со═итс═негатиже═ис═негатиже█┼┴спа█┼┴циа█┼┴ймс═и═яябранцх█┼┴╤╥╟╡╩бит╥┴╞ноте╨═дон╖т═неед═минус═сигн█┼┴╥╟╟╡╩бит╦┴╞╥бит═анд═╦бит█┼┴╜╖ас╩асции┴╞ас█┼┴╜╖си╩сиьбит┴╞си█┼┴╜╖цо╩цос┴╞цос█┼┴╜╖ос╩ос╦┴╞ос█┼┴╜╖фи╩филл┴╞фи█┼┴╜╖сх╩схифтт┴╞сх█┼┴╜╖ор╩орр┴╞ор█┼┴╜╖еь╩еьпун┴╞еь█┼┴╜╖пе╩пермы┴╞пе█┼┴╜╖пу╩пунцх┴╞пу█┼┴╜╖но╩но┴┴╞но█┼┴╟█┼ер╢╟╛┴ймс═и═яяеррор┴╞ункновн═цондитион█┼┴ймп═и═╗быеь█┼█┼бит╥╛┴тад═яя╡╟╟█┼бит╦╛┴дца═темп█┼┴тад═и═╗енабвд█┼┴анд═╗╥╣╥╥█┼енабфь╛┴тад═темп█┼┴дца═и═╗енабвд█┼┴ймп═ен╢█┼█┼едфлаг╛┴╟┴┴╞╟═фор═енабле╛═╠═фор═диабле█┼▄неьпун╛┴тад═╗╠╟╟╟█┼еьпун╛┴дца═темп█┼┴тад═и═╗енабвд█┼┴анд═╗╤╥╥╥█┼┴ймп═енабфь█┼█┼ноперм╛┴тад═╗╢╟╟█┼пермы╛┴дца═темп█┼┴тад═и═╗енабвд█┼┴анд═╗╥Ё╥╥█┼┴ймп═енабфь█┼█┼но╛┴тад═наме╡┴╞усе═наме╡═инстеад═оф═наме╠█┼┴ймп═дс╡┴┴╞анд═претенд═тхис═ис═а═дисабле═цомманд█┼█┼ен╡а╛┴ймс═и═яягетцхр█┼╓дисабле╛ймс═и═яясцан█┼╞┴инцр═бнфлаг┴╞но═бинары█┼┴цла═иац█┼┴дца═едфлаг┴╞╠═меанс═дисабле█┼┴ймс═и═яяпарсым┴╞парсе═офф═а═наме█┼┴тад═наме╠█┼дс╡╛┴ймс═и═яябранцх█┼┴╜╖фи╩нофилл┴╞фи█┼┴╜╖еь╩неьпун┴╞еь█┼┴╜╖пе╩ноперм┴╞пе█┼┴╜╖пу╩нопун┴╞пу█┼┴╜╖лс╩нолсб┴╞лс█┼┴╟█┼┴ймп═ер╢╟┴╞бад═дисабле═цондитион█┼█┼нопун╛┴цла═иац█┼пунцх╛┴дца═пунфлг█┼┴ймп═ен╢█┼█┼нолсб╛┴дца═таглоц█┼┴ймп═ен╢█┼▄цос╛┴иац█┼ос╦╛┴иац█┼асции╛┴иац█┼сиьбит╛┴дца═темп█┼┴тад═и═╗енабвд█┼┴анд═╗╥╥╥╢█┼ецмн╛┴тад═темп█┼┴дца═и═╗енабвд█┼ен╢╛┴ймс═и═яясцан█┼┴ймс═и═яяеос┴╞еол©█┼┴ймп═и═╗псеудб┴╞ыес█┼┴тад═цхар█┼┴тад═╗╜╣╢█┼┴сза═цла█┼┴ймп═ер╢╟█┼┴ймс═и═яягетцхр┴╞пасс═ожер═цомма█┼┴тад═едфлаг█┼┴сза═цла█┼┴ймп═╓дисабле┴╞ретурн═фор═море═дисабле█┼┴ймп═╓енабле┴╞ретурн═фор═море═енабле█┼█┼нофилл╛┴стл═цла═рар█┼филл╛┴дца═темп█┼┴тад═и═╗енабвд█┼┴рал█┼┴цлл═рар█┼┴ймп═ецмн█┼█┼схифтт╛┴стл═цла═ртр█┼орр╛┴дца═темп█┼┴тад═и═╗енабвд█┼┴ртл█┼┴цлл═ртр█┼┴ймп═ецмн█┼▄┴ифдеф═плм══╪█┼╞енабле═битс═ин═╖енабвд╖═╗╟═ис═дефаулт╘█┼╞█┼╞╟┴филл┴╟┴зеро═филл█┼╞┴┴╠┴но═зеро═филл█┼╞╠┴║┴╟┴ор█┼╞┴┴╠┴схифт█┼╞╡┴еьпунге┴╟┴еьпунге═витх═аргументс═воркс═он═пасс═╠═онлы█┼╞┴┴╠┴еьпунге═витх═аргументс═воркс═он═алл═пассес█┼╞Ё┴перм┴╟┴дон╖т═цреф═перманент═сымболс█┼╞┴┴╠┴цреф═перманент═сымболс█┼╞╢┴бит┴╟┴╦╜бит█┼╞┴┴╠┴╥╜бит█┼╞╠╟╛╠╠┴теьт┴╟╟┴сиьбит█┼╞┴┴╟╠┴асции█┼╞┴┴╠╟┴ос╞╦═пацкинг█┼╞┴┴╠╠┴ресержед═фор═усер█┼╞█┼╞нот═алловинг═оптион═фор═нот═оригининг═то═╙╡╟╟═афтер═а═фиелд═псеудо╜оп█┼┴╬█┼╞ер╡╠╛┴ймс═и═яяеррор█┼╞┴ймп═и═╗псеудЁ┴╞миссинг═цомма═ин═енабле═статемент█┼█┼╞╙╙╙═до═ве═вант═ан═енабле═анд═дисабле═лсб═╗лоцал═сымбол═блоцк╘█┼┴паге█┼▄▄ ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/10 LITTLE-USED DIRECTIVES OVERLAY 3 FOR MACREL	POST V0A
+/	7-MAR-78	INSTALLED PATCH TO PREVENT DEVICE
+/			FROM GENERATING RELOCATABLE DATA
+/	15-AUG-78	FIXED PRINTING EXTRA WORD AT END OF FILENAME
+/			DID ERROR CHECKING FOR EXTRANEOUS CHARS ON FILENAME
+/	16-AUG-78	ADDED COS PACKING ENABLE
+/			ALLOW MULTIPLE ENABLES PER LINE
+	.INCLUDE MGLOB.MA
+	.ASECT OVRC,LEVEL=1,OVERLAY=2
+
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL BPUT
+	.GLOBAL ER12,ER18,ER19,ER26,ER27,ER40
+	.GLOBAL $OCTAL,$DECIMAL,$RADIX,$FILENAME,$DEVICE,$ENABLE
+	.GLOBAL $DISABLE
+
+
+	LSDBIT=EXTRN&GLOB&ZTRN&ENTRYY
+
+	FIELD 3
+	*2000
+
+	3		/OVERLAY NUMBER
+
+ER12,	JMS I QQERROR	/NO TASK NAME
+/	JMS I QQEOS
+/	JMP I (BYEX
+/	JMS I QQGETCHR
+/TASKY,	JMS I QQSCAN	/IGNORE BLANKS
+/	JMS I QQLETTER	/LETTER?
+/	JMP ER12	/NO
+/	JMS I QQPARSYM	/YES, GET TASK NAME
+/	JMS I QQLOOKUP
+/	JMS I QQENTER
+/	JMS I QQGETSYM
+/	JMS I QQCREF
+/	TAD FLAG
+/	SNA		/DEFINED?
+/	JMP NEWT	/NO
+/	AND (LSDBIT	/YES
+/	SNA CLA
+/ER18,	JMS I QQERROR	/NOT REGULAR OR EXTERNAL
+/TOK,	TAD (3
+/	DCA FLG		/USE SPECIAL TYPE 3 LOADER CODE
+/	INCR PCFLAG
+/	INCR BNFLAG
+/	TAD QUAL
+/	AND QQ377	/GET LSD NUMBER OF TASK
+/	TAD (TASKOD
+/	DCA BINARY
+/	JMS I (BPUT	/GENERATE BINARY BUT NO PC BUMP
+/	JMS I QQOUT
+/	TAD CURSCT
+/	JMS I QQGETSYM
+/	TAD QUAL
+/	AND QQ377
+/	JMS I QQPUTBIT	/LSD FOR SECT OF START OF TASK
+/	TAD PC
+/	JMS I QQPUTBIT	/START OF TASK
+/	JMS I QQPUTBIT	/VERSION NUMBER
+/	JMS I QQPUTBIT	/INITIAL WAIT CODE
+/	JMP I (PSEUDN
+/NEWT,	TAD (EXTRN+4000	/DEFINE IT AS EXTERNAL
+/	DCA FLAG
+/	JMS I QQPUTSYM	/PUT INFO BACK
+/	JMP TOK
+ER26,	JMS I QQERROR	/RADIX =0,1, OR .GT. 10 OR NEG
+			/THEN SET RADIX BACK TO OCTAL
+$OCTAL,	CLL STA RAL	/-2+12=10
+$DECIMAL,TAD (12
+	DCA I (RADXWD
+	INCR BNFLAG	/PROHIBIT BINARY PRINTOUT
+	JMP I (PSEUDP
+
+$RADIX,	JMS I QQBACKUP
+	TAD (12
+	DCA I (RADXWD	/TEMPORARILY MAKE RADIX DECIMAL
+	JMS I QQEXPR	/PARSE OFF EXPRESSION INITIALLY IN DECIMAL
+/**CHECK FOR ILLEGAL SECT
+	CLL
+	TAD (-13
+	SZL
+	JMP ER26	/RADIX .GT. 10. OR NEGATIVE
+	TAD (13
+	CLL RAR
+	SNA
+	JMP ER26	/RADIX = 0 OR 1
+	RAL
+	DCA I (RADXWD	/STORE AWAY NEW RADIX
+	TAD EXPREL
+	SZA CLA
+	JMP ER26	/RADIX TO NON-ABSOLUTE EXPR
+	TAD I (RADXWD
+	DCA BINARY	/BE KIND - DISPLAY NEW RADIX IN BINARY PRINT POSITION
+	JMP I (PSEUDP
+$FILENAME,JMS I QQSCAN	/SKIP SPACES
+	CLA IAC
+	JMS I QQPARSYM	/PARSE OFF FILENAME
+	DCA FLG
+	TAD NAME1
+	SNA
+	JMP ER19	/BAD FILENAME
+	JMS I QQPUNBIT
+	TAD NAME2
+	JMS I QQPUNBIT
+	TAD NAME3
+	JMS I QQPUNBIT
+	TAD NAME4
+FIL2,	JMS I QQPUNBIT
+	JMP I (PSEUDB
+$DEVICE,JMS I QQSCAN
+	CLA IAC
+	JMS I QQPARSYM	/PARSE IDENTIFIER
+	DCA FLG
+	TAD NAME3
+	TAD NAME4
+	SZA CLA
+ER27,	JMS I QQERROR	/DEVICE NAME .GT. 4 CHARS OR HAD EXTENSION
+			/OR HAD NO NAME
+	TAD NAME1
+	SNA
+	JMP ER19
+/*** DON'T CATCH TRAILING . IN DEVICE NAME
+	JMS I QQPUNBIT
+	TAD NAME2
+	JMP FIL2
+
+ER19,	JMS I QQERROR	/MISSING DEVICE OR FILENAME
+	JMP I (BYEB
+	PAGE
+	IFDEF PLM <
+/	LEGAL ENABLE CONDITIONS:
+
+/	7BIT	CAUSES ASCII TEXT STATEMENTS AND " TO GENERATE 7-BIT CODES
+/	8BIT	CAUSES ASCII TEXT STATEMENTS AND " TO GENERATE 8-BIT CODES
+/	SIXBIT	CAUSES TEXT STATEMENT TO GENERATE SIXBIT CODES
+/	OS8	CAUSES TEXT STATEMENT TO GENERATE OS/8 PACKING
+/	FILL	CAUSES TEXT STATEMENT TO GENERATE ONE ZERO CHARACTER AT END
+/	SHIFT	CAUSES ! OPERATOR TO MEAN 'SHIFT'
+/	OR	CAUSES ! OPERATOR TO MEAN 'OR'
+/	EXPUNGE	CAUSES EXPUNGE WITH ARGUMENTS TO WORK ON ALL PASSES
+/	PERM	CAUSES PERMANENT SYMBOLS TO BE CREFED
+/	PUNCH	SAME AS 'ENPUNCH' PSEUDO-OP
+
+/	LEGAL DISABLE CONDITIONS:
+
+/	FILL	PREVENTS TEXT STATEMENT FROM ZERO-PADDING
+/	EXPUNGE	CAUSES EXPUNGE TO WORK ONLY ON PASS 1
+/	PERM	PREVENTS PERMANENT SYMBOLS FROM BEING CREFED
+/	LSB	TERMINATES THE CURRENT LOCAL SYMBOL BLOCK
+/	PUNCH		SAME AS 'NOPUNCH' PSEUDO-OP
+
+/	IT IS ALSO PERMISSIBLE TO ENABLE THE FOLLOWING CONDITIONS
+
+/	CONDITION	SAME AS
+/	ENABLED		DISABLING
+
+/	NOFILL		FILL
+/	NOEXPUNGE	EXPUNGE
+/	NOPERM		PERM
+/	NOLSB		LSB
+/	NOPUNCH		PUNCH
+	>
+$ENABLE,JMS I QQSCAN
+/	INCR BNFLAG
+	DCA EDFLAG	/0 MEANS ENABLE
+EN3,	JMS I QQPARSYM	/PARSE OFF ENABLE
+	TAD NAME1	/MAKE USE OF FACT LEGAL NAME HERE IS POS
+			/SO ITS NEGATIVE IS NEGATIVE
+	SPA
+	CIA
+	JMS I QQBRANCH
+	6702;BIT7	/NOTE: DON'T NEED MINUS SIGN
+	7002;BIT8	/7BIT AND 8BIT
+	-'AS;ASCII	/AS
+	-'SI;SIXBIT	/SI
+	-'CO;COS	/COS
+	-'OS;OS8	/OS
+	-'FI;FILL	/FI
+	-'SH;SHIFTT	/SH
+	-'OR;ORR	/OR
+	-'EX;EXPUN	/EX
+	-'PE;PERMY	/PE
+	-'PU;PUNCH	/PU
+	-'NO;NO		/NO
+	0
+ER40,	JMS I QQERROR	/UNKNOWN CONDITION
+	JMP I (BYEX
+
+BIT7,	TAD QQ200
+BIT8,	DCA TEMP
+	TAD I (ENABWD
+	AND (7577
+ENABFX,	TAD TEMP
+	DCA I (ENABWD
+	JMP EN4
+
+EDFLAG,	0		/0 FOR ENABLE, 1 FOR DIABLE
+NEXPUN,	TAD (1000
+EXPUN,	DCA TEMP
+	TAD I (ENABWD
+	AND (6777
+	JMP ENABFX
+
+NOPERM,	TAD (400
+PERMY,	DCA TEMP
+	TAD I (ENABWD
+	AND (7377
+	JMP ENABFX
+
+NO,	TAD NAME2	/USE NAME2 INSTEAD OF NAME1
+	JMP DS2		/AND PRETEND THIS IS A DISABLE COMMAND
+
+EN2A,	JMS I QQGETCHR
+$DISABLE,JMS I QQSCAN
+/	INCR BNFLAG	/NO BINARY
+	CLA IAC
+	DCA EDFLAG	/1 MEANS DISABLE
+	JMS I QQPARSYM	/PARSE OFF A NAME
+	TAD NAME1
+DS2,	JMS I QQBRANCH
+	-'FI;NOFILL	/FI
+	-'EX;NEXPUN	/EX
+	-'PE;NOPERM	/PE
+	-'PU;NOPUN	/PU
+	-'LS;NOLSB	/LS
+	0
+	JMP ER40	/BAD DISABLE CONDITION
+
+NOPUN,	CLA IAC
+PUNCH,	DCA PUNFLG
+	JMP EN4
+
+NOLSB,	DCA TAGLOC
+	JMP EN4
+COS,	IAC
+OS8,	IAC
+ASCII,	IAC
+SIXBIT,	DCA TEMP
+	TAD I (ENABWD
+	AND (7774
+ECMN,	TAD TEMP
+	DCA I (ENABWD
+EN4,	JMS I QQSCAN
+	JMS I QQEOS	/EOL?
+	JMP I (PSEUDB	/YES
+	TAD CHAR
+	TAD (-54
+	SZA CLA
+	JMP ER40
+	JMS I QQGETCHR	/PASS OVER COMMA
+	TAD EDFLAG
+	SZA CLA
+	JMP $DISABLE	/RETURN FOR MORE DISABLE
+	JMP $ENABLE	/RETURN FOR MORE ENABLE
+
+NOFILL,	STL CLA RAR
+FILL,	DCA TEMP
+	TAD I (ENABWD
+	RAL
+	CLL RAR
+	JMP ECMN
+
+SHIFTT,	STL CLA RTR
+ORR,	DCA TEMP
+	TAD I (ENABWD
+	RTL
+	CLL RTR
+	JMP ECMN
+	IFDEF PLM  <
+/ENABLE BITS IN 'ENABWD' (0 IS DEFAULT)
+/
+/0	FILL	0	ZERO FILL
+/		1	NO ZERO FILL
+/1	!	0	OR
+/		1	SHIFT
+/2	EXPUNGE	0	EXPUNGE WITH ARGUMENTS WORKS ON PASS 1 ONLY
+/		1	EXPUNGE WITH ARGUMENTS WORKS ON ALL PASSES
+/3	PERM	0	DON'T CREF PERMANENT SYMBOLS
+/		1	CREF PERMANENT SYMBOLS
+/4	BIT	0	8-BIT
+/		1	7-BIT
+/10,11	TEXT	00	SIXBIT
+/		01	ASCII
+/		10	OS/8 PACKING
+/		11	RESERVED FOR USER
+/
+/NOT ALLOWING OPTION FOR NOT ORIGINING TO *200 AFTER A FIELD PSEUDO-OP
+	>
+/ER21,	JMS I QQERROR
+/	JMP I (PSEUD3	/MISSING COMMA IN ENABLE STATEMENT
+
+/*** DO WE WANT AN ENABLE AND DISABLE LSB (LOCAL SYMBOL BLOCK)
+	PAGE
+

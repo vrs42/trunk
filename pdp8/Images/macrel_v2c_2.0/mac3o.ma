@@ -1,1 +1,327 @@
-╞╧┴пасс═Ё═специфиц═цоде█┼╞═╦╜мар╜╥╦┴аллов═принтинг═╤╜дигит═пц█┼╞═╠╤╜ауг╜╥╦┴цхангед═лине═цоунтер═со═тхат═ит═доесн╖т═цоунт═унлистед═линес█┼╞┴┴тхис═меанс═нот═алл═пассес═кнов═абоут═суб═паге═нумберс█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацЁо╛лежел╫╠╛ожерлаы╫╠╢█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═клу╥╛прлино█┼┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═оутскп╛линбуф╛цолцнт╛ожрлин╛сетит╛хеадинг█┼┴╝глобал═принты╛сетт╛црлф╛лист╛таб█┼┴╝глобал═дпринт╛опринт╛прндсх█┼█┼┴мебит╫╢╟╟█┼┴меббит╫╡╟╟█┼█┼┴фиелд═Ё█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╠╢╟╟█┼█┼┴╠╣┴┴╞пассес═╠═анд═Ё═специфиц█┼█┼принты╛┴╟█┼┴дца═лнфлаг┴╞ац╫╠═меанс═вант═а═лине═нумбер█┼┴тад═и═╗оутскп█┼┴тад═яя╥╟█┼┴сна═цла█┼┴тад═и═╗мацлеж█┼┴сна═цла█┼┴ймп═принт╠┴╞алваыс═принт═он═еррор═ор═нот═ин═мацро█┼┴тад═и═╗листвд┴╞иф═╢╟╟═бит═оф═листвд═он█┼┴анд═╗мебит┴╞ретурн█┼┴сна═цла█┼┴ймп═принт╠█┼┴тад═пцфлаг█┼┴сза═цла█┼┴ймп═и═принты█┼┴тад═и═╗листвд█┼┴анд═яя╡╟╟┴╞╙╙╙┴анд═шмеббит█┼┴сза═цла█┼┴ймп═и═принты█┼принт╠╛┴ймс═и═╗ожрлин█┼┴тад═лнфлаг█┼┴сна═цла█┼┴ймп═Ё╓┴┴╞но═лине═нумбер═вантед█┼┴тад═и═╗мацлеж█┼┴сза═цла█┼┴ймп═Ё╓┴┴╞но═лине═нумберс═он═мацро═генератед═линес█┼┴циф═╡╟█┼┴ймс═и═╗прлино█┼Ё╓╨┴ймс═и═╗таб┴╞таб═оут═то═пц═цолумн█┼┴тад═пцфлаг┴╞ыес█┼┴сза═цла█┼┴ймп═спацит█┼┴циф═╡╟█┼┴ймс═и═╗клу╥█┼┴тад═релок█┼┴сна═цла█┼┴ймп═спацит┴╞но═релоц█┼┴тад═╗╒╙█┼┴ймс═и═яялистер┴╞принт═╙═афтер═релоцатед═пц█┼спацит╛┴ймс═и═╗таб┴╞таб═оут═то═бинары═фиелд█┼┴тад═бнфлаг█┼┴сза═цла█┼┴ймп═спакит█┼┴ймс═и═╗прнбин█┼┴тад═и═╗лнкген┴╞╥═иф═линк═генератед═╗елсе═╟╘█┼┴тад═яя╢╟┴┴╞мерелы═принт═спаце═ор═яуоте█┼┴ймс═и═яялистер█┼┴тад═флг█┼┴анд═яя╥┴┴╞╗Ё═ис═гоод═еноугх█┼┴тад═╗релтаб█┼┴дца═темп█┼┴тад═и═темп┴╞гет═релоцатион═сымбол█┼┴ймс═и═яялистер┴╞принт═ит█┼спакит╛┴тад═╗линбуф╜╠█┼┴дца═линп█┼┴тад═линоут█┼┴сна═цла┴┴╞ис═тхере═а═лине═то═принт©█┼┴ймп═еол┴┴╞но█┼тттаб╛┴ймс═и═╗таб┴╞спаце═оут═то═соурце═лине═фиелд█┼врлооп╛┴инцр═линп█┼тсл╠╠╛┴цдф═╠╟█┼┴тад═и═линп█┼┴цдф═╟█┼┴сна┴┴╞ласт═цхар©█┼┴ймп═еол┴┴╞ыес╛═ат═енд═оф═лине█┼┴тад═╗╜╠╠█┼┴сна┴┴╞ис═ит═а═таб©█┼┴ймп═тттаб█┼┴тад═тсл╠╠█┼┴ймс═и═яялистер┴╞пут═цхар═ин═оутпут═лине═буффер█┼┴исз═и═╗цолцнт█┼┴ймп═врлооп█┼┴ймс═и═яяцрлф┴╞╙╙╙цонтрожерсиал█┼┴ймс═и═╗ожрлин┴╞╙╙╙╙█┼┴тад═╗╜ьтабс╜Ё█┼┴дца═темп█┼┴ймс═и═╗таб█┼┴исз═темп█┼┴ймп═╝╜╡█┼┴ймп═врлооп█┼█┼линсаж╛┴╟█┼лнфлаг╛┴╟█┼▄еол╛┴ймс═и═яяцрлф█┼┴ймп═и═принты█┼▄линп╛┴┴┴╞лине═поинтер█┼сетт╛┴╟█┼┴тад═линптр█┼┴дца═линсаж█┼┴тад═╗линбуф╜╠█┼┴дца═линптр█┼┴ймс═и═╗сетит┴╞сет═нев═титле═фром═ентире═фирст═лине█┼┴╜хеадлн┴┴╞витх═тхис═ленгтх█┼┴хеадинг╜╠┴╞сторе═ит═хере█┼пс╤╟╛┴ста═цмл█┼┴тад═линсаж█┼┴дца═линптр█┼┴ймс═и═яягетцхр┴╞сет═уп═╖цхар╖═анд═╖битс╖═агаин█┼┴ймп═и═сетт┴╞рейоин═процессинг█┼█┼╞╙╙╙═вант═то═гет═то═сетт═он═пасс═╠═иф═т╜оф╜ц█┼█┼┴паге█┼▄┴ифдеф═плм══╪█┼╞┴сбттл┴оцтал═анд═децимал═принт═роутинес█┼╞█┼╞┴╖опринт╖═анд═╖дпринт╖═аре═усед═то═принт═оут═а═нумбер█┼╞┴ин═оцтал═ор═децимал═асции═респецтижелы╝══еацх═ис═цаллед█┼╞┴витх═тхе═нумбер═ин═тхе═ац╝█┼╞┴иф═тхе═линк═ис═он═╜══тхен═принт═тхе═нумбер═то═╢═плацес█┼╞┴витх═леадинг═╟╖с╝█┼╞┴иф═тхе═линк═ис═офф═╜═тхен═принт═тхе═нумбер═витх═леадинг█┼╞┴спацес═иф═╖пад╖═ис═сет═то═╢╟═╗то═╢═плацес╘═ор═игноре█┼╞┴леадинг═╟╖с═иф═пад═ис═╟╝═══и╝е╝═╖пад╖═ис═усед═то═пад█┼╞┴оут═он═тхе═лефт╝█┼┴╬█┼█┼дпринт╛┴╟█┼┴дца═нум█┼┴ймс═нпринт█┼┴ймп═и═дпринт█┼█┼лфлаг╛┴╟┴┴╞нон╜╟═меанс═дон╖т═црлф═ат═енд█┼ллптр╛┴╟█┼█┼опринт╛┴╟█┼┴дца═нум█┼┴тад═яя╢╟█┼┴дца═пад█┼┴тад═яя╥┴┴╞цханге═╖дтабле╖═то═╖отабле╖█┼┴ймс═нпринт█┼┴ймп═и═опринт█┼▄╞линк═он═меанс═принт═леадинг═╟╖с═╛═линк═офф═меанс═суппресс═тхем█┼█┼нпринт╛┴╟┴┴╞линк═он═меанс═принт═леадинг═╟╖с█┼┴тад═╗дтабле█┼┴дца═нптр█┼┴рар┴┴╞линк═то═ац╟█┼нпр╠╛┴дца═яуот┴╞зеро═яуотиент█┼┴ймп═нплооп┴╞йумп═инто═лооп█┼нпр╡╛┴дца═нум┴┴╞упдате═ремаиндер█┼┴инцр═яуот┴╞бумп═яуотиент═бы═╠█┼нплооп╛┴тад═и═нптр┴╞субтрацт═╠╟╟╟╛═╠╟╟╛═ор═╠╟█┼┴сна┴┴╞аре═ве═ат═енд═оф═табле©█┼┴ймп═нпрЁ┴╞ыес╛═сав═╟╝█┼┴цлл█┼┴тад═нум┴┴╞субтрацт═фром═╖нум╖█┼┴сзл┴┴╞хаже═ве═гоне═негатиже©█┼┴ймп═нпр╡┴╞но╛═кееп═субтрацтинг█┼┴цла┴┴╞ыес╛═тхис═дигит═доне█┼┴инцр═нптр┴╞поинт═то═неьт═дижисор═ин═лист█┼┴тад═яуот┴╞лоок═ат═нев═дигит█┼┴сна┴┴╞ис═ит═╟©█┼┴ймп═леад╟┴╞ыес╛═игноре═леадинг═╟╖с█┼┴тад═╗╒╟┴┴╞но╛═цонжерт═то═асции█┼┴ймс═и═яялистер┴╞оутпут═дигит█┼┴стл═цла═рар┴╞╢╟╟╟█┼┴ймп═нпр╠┴╞форце═зероес═то═принт█┼нпрЁ╛┴тад═нум┴┴╞гет═ремаиндер═╗унит╖с═дигит╘█┼┴тад═╗╒╟┴┴╞цонжерт═то═асции█┼┴ймс═и═яялистер┴╞алваыс═принт═ит█┼┴ймп═и═нпринт┴╞ретурн█┼█┼леад╟╛┴тад═пад┴┴╞принт═леадинг═╟═ас═а═спаце█┼┴сна█┼┴ймп═нплооп┴╞игноре═нуллс█┼┴ймс═и═яялистер█┼┴ймп═нплооп█┼▄дсхцнт╛█┼црлф╛┴╟█┼┴тад═╗╠╣┴┴╞принт═цр╞лф█┼┴ймс═и═яялистер█┼┴тад═╗╠╡█┼┴ймс═и═яялистер█┼┴ймп═и═црлф█┼▄╞┴ймс═лист█┼╞┴птр═то═асции═лине══╗ин═фиелд═╠╘█┼█┼╞тхис═роутине═ис═цаллед═то═сенд═а═стринг═оф═асции═цхарацтерс█┼╞то═тхе═листинг═филе╝═арг═ис═птр═то═стринг═вхицх═цонсистс═оф█┼╞цонсецутиже═асции═цхарс═╗╠═пер═ворд╘═терминатед█┼╞бы═а═ворд═оф═╟╝═ац═нон╜╟═меанс═дон╖т═цр╜лф╝█┼█┼лист╛┴╟█┼┴дца═лфлаг┴╞ац═нон╜╟═меанс═донт═цр╜лф█┼┴тад═и═лист┴╞пицк═уп═аргумент█┼┴дца═ллптр┴╞саже═птр═то═асции═лине█┼┴инцр═лист┴╞поинт═то═нормал═ретурн█┼лст╠╠╛█┼лстлуп╛┴цдф═╠╟█┼┴тад═и═ллптр┴╞гет═неьт═цхарацтер█┼┴цдф═╟█┼┴сна┴┴╞ис═тхере═аны═море©█┼┴ймп═ендофл┴╞но█┼┴ймс═и═яялистер┴╞ыес╛═сенд═то═лист═филе█┼┴инцр═ллптр┴╞поинт═то═неьт═цхарацтер█┼┴ймп═лстлуп┴╞реитерате█┼█┼ендофл╛┴тад═лфлаг█┼┴сна═цла┴┴╞доес═цаллер═вант═а═цр╜лф©█┼┴ймс═црлф┴╞ыес█┼┴ймп═и═лист┴╞ретурн█┼█┼нптр╛┴╟█┼яуот╛┴╟█┼▄прндсх╛┴╟┴┴╞принт═дасхес═он═лист═филе█┼┴тад═и═╗листвд┴╞то═маке═литералс═станд═оут█┼┴сма═цла┴┴╞вхы═ме═год©█┼┴ймс═и═яяпассЁ┴╞ис═ит═пасс═Ё©█┼┴ймп═и═прндсх┴╞но╛═но═дасхес█┼┴ймс═таб┴┴╞ыес╛═таб═оут═то═пц═цолумн█┼┴тад═╗╜╤█┼┴дца═дсхцнт█┼дсхлуп╛┴тад═дасх█┼┴ймс═и═яялистер█┼┴исз═дсхцнт█┼┴ймп═дсхлуп┴╞принт═╣═дасхес█┼┴ймс═и═яяцрлф█┼┴ймп═и═прндсх┴╞ретурн╛═но═висер█┼█┼╞╙╙╙═цолумн═цоунт═бад█┼█┼┴децимал█┼дтабле╛┴╜╠╟╟╩╜╠╟╩╟█┼┴оцтал█┼релтаб╛┴╢╟┴╞╟█┼┴╒╚┴╞╠█┼дасх╛┴╒╜┴╞╡█┼стар╛┴╒╙┴╞Ё█┼отабле╛┴╜╠╟╟╟╩╜╠╟╟╩╜╠╟╩╟█┼┴ифнзро═отабле╜дтабле╜╥═╪ъерроръ╬█┼█┼╞табле═оф═релоцатион═маркингс═фор═╢═маин═тыпес═оф═релоцатион█┼▄прнбин╛┴╟█┼┴тад═флг█┼┴спа═цла█┼┴ймп═старс█┼┴тад═бинары█┼┴стл█┼┴ймс═опринт█┼┴ймп═и═прнбин█┼старс╛┴тад═╗╜╢█┼┴дца═темп█┼┴тад═стар█┼┴ймс═и═яялистер█┼┴исз═темп█┼┴ймп═╝╜Ё█┼┴ймп═и═прнбин█┼█┼таб╛┴╟█┼┴тад═лст╠╠█┼┴ймс═и═яялистер█┼┴тад═и═╗цолцнт█┼┴тад═╗╠╟█┼┴анд═яя╥╥╥╟█┼┴дца═и═╗цолцнт█┼┴ймп═и═таб█┼┴паге█┼┴релоц█┼ ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/9	PASS 3 SPECIFIC CODE
+/ 8-MAR-78	ALLOW PRINTING 6-DIGIT PC
+/ 16-AUG-78	CHANGED LINE COUNTER SO THAT IT DOESN'T COUNT UNLISTED LINES
+/		THIS MEANS NOT ALL PASSES KNOW ABOUT SUB PAGE NUMBERS
+	.INCLUDE MGLOB.MA
+	.ASECT MAC3O,LEVEL=1,OVERLAY=14
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL KLU7,PRLINO
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL OUTSKP,LINBUF,COLCNT,OVRLIN,SETIT,HEADING
+	.GLOBAL PRINTY,SETT,CRLF,LIST,TAB
+	.GLOBAL DPRINT,OPRINT,PRNDSH
+
+	MEBIT=400
+	MEBBIT=200
+
+	FIELD 3
+
+	*2000
+
+	RELOC 1400
+
+	15		/PASSES 1 AND 3 SPECIFIC
+
+PRINTY,	0
+	DCA LNFLAG	/AC=1 MEANS WANT A LINE NUMBER
+	TAD I (OUTSKP
+	TAD QQ70
+	SNA CLA
+	TAD I (MACLEV
+	SNA CLA
+	JMP PRINT1	/ALWAYS PRINT ON ERROR OR NOT IN MACRO
+	TAD I (LISTWD	/IF 400 BIT OF LISTWD ON
+	AND (MEBIT	/RETURN
+	SNA CLA
+	JMP PRINT1
+	TAD PCFLAG
+	SZA CLA
+	JMP I PRINTY
+	TAD I (LISTWD
+	AND QQ200	/***	AND [MEBBIT
+	SZA CLA
+	JMP I PRINTY
+PRINT1,	JMS I (OVRLIN
+	TAD LNFLAG
+	SNA CLA
+	JMP 3$		/NO LINE NUMBER WANTED
+	TAD I (MACLEV
+	SZA CLA
+	JMP 3$		/NO LINE NUMBERS ON MACRO GENERATED LINES
+	CIF 20
+	JMS I (PRLINO
+3$:	JMS I (TAB	/TAB OUT TO PC COLUMN
+	TAD PCFLAG	/YES
+	SZA CLA
+	JMP SPACIT
+	CIF 20
+	JMS I (KLU7
+	TAD RELOK
+	SNA CLA
+	JMP SPACIT	/NO RELOC
+	TAD ("*
+	JMS I QQLISTER	/PRINT * AFTER RELOCATED PC
+SPACIT,	JMS I (TAB	/TAB OUT TO BINARY FIELD
+	TAD BNFLAG
+	SZA CLA
+	JMP SPAKIT
+	JMS I (PRNBIN
+	TAD I (LNKGEN	/7 IF LINK GENERATED (ELSE 0)
+	TAD QQ40		/MERELY PRINT SPACE OR QUOTE
+	JMS I QQLISTER
+	TAD FLG
+	AND QQ7		/(3 IS GOOD ENOUGH
+	TAD (RELTAB
+	DCA TEMP
+	TAD I TEMP	/GET RELOCATION SYMBOL
+	JMS I QQLISTER	/PRINT IT
+SPAKIT,	TAD (LINBUF-1
+	DCA LINP
+	TAD LINOUT
+	SNA CLA		/IS THERE A LINE TO PRINT?
+	JMP EOL		/NO
+TTTAB,	JMS I (TAB	/SPACE OUT TO SOURCE LINE FIELD
+WRLOOP,	INCR LINP
+TSL11,	CDF 10
+	TAD I LINP
+	CDF 0
+	SNA		/LAST CHAR?
+	JMP EOL		/YES, AT END OF LINE
+	TAD (-11
+	SNA		/IS IT A TAB?
+	JMP TTTAB
+	TAD TSL11
+	JMS I QQLISTER	/PUT CHAR IN OUTPUT LINE BUFFER
+	ISZ I (COLCNT
+	JMP WRLOOP
+	JMS I QQCRLF	/***CONTROVERSIAL
+	JMS I (OVRLIN	/****
+	TAD (-XTABS-3
+	DCA TEMP
+	JMS I (TAB
+	ISZ TEMP
+	JMP .-2
+	JMP WRLOOP
+
+LINSAV,	0
+LNFLAG,	0
+EOL,	JMS I QQCRLF
+	JMP I PRINTY
+LINP,			/LINE POINTER
+SETT,	0
+	TAD LINPTR
+	DCA LINSAV
+	TAD (LINBUF-1
+	DCA LINPTR
+	JMS I (SETIT	/SET NEW TITLE FROM ENTIRE FIRST LINE
+	-HEADLN		/WITH THIS LENGTH
+	HEADING-1	/STORE IT HERE
+PS60,	STA CML
+	TAD LINSAV
+	DCA LINPTR
+	JMS I QQGETCHR	/SET UP 'CHAR' AND 'BITS' AGAIN
+	JMP I SETT	/REJOIN PROCESSING
+
+/*** WANT TO GET TO SETT ON PASS 1 IF T-OF-C
+
+	PAGE
+	IFDEF PLM  <
+/	SBTTL	OCTAL AND DECIMAL PRINT ROUTINES
+/
+/	'OPRINT' AND 'DPRINT' ARE USED TO PRINT OUT A NUMBER
+/	IN OCTAL OR DECIMAL ASCII RESPECTIVELY.  EACH IS CALLED
+/	WITH THE NUMBER IN THE AC.
+/	IF THE LINK IS ON -  THEN PRINT THE NUMBER TO 4 PLACES
+/	WITH LEADING 0'S.
+/	IF THE LINK IS OFF - THEN PRINT THE NUMBER WITH LEADING
+/	SPACES IF 'PAD' IS SET TO 40 (TO 4 PLACES) OR IGNORE
+/	LEADING 0'S IF PAD IS 0.   I.E. 'PAD' IS USED TO PAD
+/	OUT ON THE LEFT.
+	>
+
+DPRINT,	0
+	DCA NUM
+	JMS NPRINT
+	JMP I DPRINT
+
+LFLAG,	0		/NON-0 MEANS DON'T CRLF AT END
+LLPTR,	0
+
+OPRINT,	0
+	DCA NUM
+	TAD QQ40
+	DCA PAD
+	TAD QQ7		/CHANGE 'DTABLE' TO 'OTABLE'
+	JMS NPRINT
+	JMP I OPRINT
+/LINK ON MEANS PRINT LEADING 0'S , LINK OFF MEANS SUPPRESS THEM
+
+NPRINT,	0		/LINK ON MEANS PRINT LEADING 0'S
+	TAD (DTABLE
+	DCA NPTR
+	RAR		/LINK TO AC0
+NPR1,	DCA QUOT	/ZERO QUOTIENT
+	JMP NPLOOP	/JUMP INTO LOOP
+NPR2,	DCA NUM		/UPDATE REMAINDER
+	INCR QUOT	/BUMP QUOTIENT BY 1
+NPLOOP,	TAD I NPTR	/SUBTRACT 1000, 100, OR 10
+	SNA		/ARE WE AT END OF TABLE?
+	JMP NPR3	/YES, SAW 0.
+	CLL
+	TAD NUM		/SUBTRACT FROM 'NUM'
+	SZL		/HAVE WE GONE NEGATIVE?
+	JMP NPR2	/NO, KEEP SUBTRACTING
+	CLA		/YES, THIS DIGIT DONE
+	INCR NPTR	/POINT TO NEXT DIVISOR IN LIST
+	TAD QUOT	/LOOK AT NEW DIGIT
+	SNA		/IS IT 0?
+	JMP LEAD0	/YES, IGNORE LEADING 0'S
+	TAD ("0		/NO, CONVERT TO ASCII
+	JMS I QQLISTER	/OUTPUT DIGIT
+	STL CLA RAR	/4000
+	JMP NPR1	/FORCE ZEROES TO PRINT
+NPR3,	TAD NUM		/GET REMAINDER (UNIT'S DIGIT)
+	TAD ("0		/CONVERT TO ASCII
+	JMS I QQLISTER	/ALWAYS PRINT IT
+	JMP I NPRINT	/RETURN
+
+LEAD0,	TAD PAD		/PRINT LEADING 0 AS A SPACE
+	SNA
+	JMP NPLOOP	/IGNORE NULLS
+	JMS I QQLISTER
+	JMP NPLOOP
+DSHCNT,
+CRLF,	0
+	TAD (15		/PRINT CR/LF
+	JMS I QQLISTER
+	TAD (12
+	JMS I QQLISTER
+	JMP I CRLF
+/	JMS LIST
+/	PTR TO ASCII LINE  (IN FIELD 1)
+
+/THIS ROUTINE IS CALLED TO SEND A STRING OF ASCII CHARACTERS
+/TO THE LISTING FILE. ARG IS PTR TO STRING WHICH CONSISTS OF
+/CONSECUTIVE ASCII CHARS (1 PER WORD) TERMINATED
+/BY A WORD OF 0. AC NON-0 MEANS DON'T CR-LF.
+
+LIST,	0
+	DCA LFLAG	/AC NON-0 MEANS DONT CR-LF
+	TAD I LIST	/PICK UP ARGUMENT
+	DCA LLPTR	/SAVE PTR TO ASCII LINE
+	INCR LIST	/POINT TO NORMAL RETURN
+LST11,
+LSTLUP,	CDF 10
+	TAD I LLPTR	/GET NEXT CHARACTER
+	CDF 0
+	SNA		/IS THERE ANY MORE?
+	JMP ENDOFL	/NO
+	JMS I QQLISTER	/YES, SEND TO LIST FILE
+	INCR LLPTR	/POINT TO NEXT CHARACTER
+	JMP LSTLUP	/REITERATE
+
+ENDOFL,	TAD LFLAG
+	SNA CLA		/DOES CALLER WANT A CR-LF?
+	JMS CRLF	/YES
+	JMP I LIST	/RETURN
+
+NPTR,	0
+QUOT,	0
+PRNDSH,	0		/PRINT DASHES ON LIST FILE
+	TAD I (LISTWD	/TO MAKE LITERALS STAND OUT
+	SMA CLA		/WHY ME GOD?
+	JMS I QQPASS3	/IS IT PASS 3?
+	JMP I PRNDSH	/NO, NO DASHES
+	JMS TAB		/YES, TAB OUT TO PC COLUMN
+	TAD (-6
+	DCA DSHCNT
+DSHLUP,	TAD DASH
+	JMS I QQLISTER
+	ISZ DSHCNT
+	JMP DSHLUP	/PRINT 5 DASHES
+	JMS I QQCRLF
+	JMP I PRNDSH	/RETURN, NO WISER
+
+/*** COLUMN COUNT BAD
+
+	DECIMAL
+DTABLE,	-100;-10;0
+	OCTAL
+RELTAB,	40	/0
+	"+	/1
+DASH,	"-	/2
+STAR,	"*	/3
+OTABLE,	-1000;-100;-10;0
+	IFNZRO OTABLE-DTABLE-7 <_ERROR_>
+
+/TABLE OF RELOCATION MARKINGS FOR 4 MAIN TYPES OF RELOCATION
+PRNBIN,	0
+	TAD FLG
+	SPA CLA
+	JMP STARS
+	TAD BINARY
+	STL
+	JMS OPRINT
+	JMP I PRNBIN
+STARS,	TAD (-4
+	DCA TEMP
+	TAD STAR
+	JMS I QQLISTER
+	ISZ TEMP
+	JMP .-3
+	JMP I PRNBIN
+
+TAB,	0
+	TAD LST11
+	JMS I QQLISTER
+	TAD I (COLCNT
+	TAD (10
+	AND QQ7770
+	DCA I (COLCNT
+	JMP I TAB
+	PAGE
+	RELOC

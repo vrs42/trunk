@@ -1,1 +1,309 @@
-¯±² ÄÉÒÅÃÔÉÖÅÓ ÏÖÅÒÌÁÙ ± ÔÏ ÍÁÃÒÅÌ‰ÐÏÓÔ Ö°ÁŠ¯‰·­ÍÁÒ­·¸‰ÉÎÓÔÁÌÌÅÄ ÐÁÔÃÈÅÓ ÔÏ ÆÉØ ÏÓ¸ ÐÁÃËÉÎÇŠ¯‰±µ­ÁÕÇ­·¸‰ÚÂÌÏÃË ÃÈÅÃËÓ ÆÏÒ ÉÌÌÅÇÁÌ ÁÒÇŠ¯‰±¶­ÁÕÇ­·¸‰ÆÉØÅÄ ÆÉÌÌÉÎÇ ÏÆ ÏÓ¯¸ ÐÁÃËÉÎÇŠ¯‰‰‰ÁÄÄÅÄ ÃÏÓ ­²³· ÐÁÃËÉÎÇŠ¯‰±·­ÁÕÇ­·¸‰ÁÌÌÏ×ÅÄ ÐÁÇÅ¾Š¯‰²³­ÁÕÇ­·¸‰ÐÒÏÈÉÂÉÔ ÐÁÇÅ ÉÎ ÆÓÅÃÔ ×ÉÔÈ ÌÉÔÅÒÁÌÓŠ‰®ÉÎÃÌÕÄÅ ÍÇÌÏÂ®ÍÁŠ‰®ÁÓÅÃÔ ÏÖÒÁ¬ÌÅÖÅÌ½±¬ÏÖÅÒÌÁÙ½°Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÃÏÐÙÒÉÇÈÔ  ¨Ã©  ±¹·· ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎŠ¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÔÈÅ ÉÎÆÏÒÍÁÔÉÏÎ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÓÕÂÊÅÃÔ ÔÏ ÃÈÁÎÇÅ ×ÉÔÈÏÕÔ ÎÏÔÉÃÅŠ¯ÁÎÄ ÓÈÏÕÌÄ ÎÏÔ ÂÅ ÃÏÎÓÔÒÕÅÄ ÁÓ Á ÃÏÍÍÉÔÍÅÎÔ ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔŠ¯ÃÏÒÐÏÒÁÔÉÏÎ®  ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙŠ¯ÆÏÒ ÁÎÙ ÅÒÒÏÒÓ ÔÈÁÔ ÍÁÙ ÁÐÐÅÁÒ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ®Š¯Š¯ÔÈÅ ÓÏÆÔ×ÁÒÅ ÄÅÓÃÒÉÂÅÄ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÆÕÒÎÉÓÈÅÄ ÔÏ ÔÈÅ ÐÕÒÃÈÁÓÅÒŠ¯ÕÎÄÅÒ Á ÌÉÃÅÎÓÅ ÆÏÒ ÕÓÅ ÏÎ Á ÓÉÎÇÌÅ ÃÏÍÐÕÔÅÒ ÓÙÓÔÅÍ ÁÎÄ ÃÁÎ ÂÅ ÃÏÐÉÅÄŠ¯¨×ÉÔÈ ÉÎÃÌÕÓÉÏÎ ÏÆ ÄÉÇÉÔÁÌ§Ó ÃÏÐÙÒÉÇÈÔ ÎÏÔÉÃÅ© ÏÎÌÙ ÆÏÒ ÕÓÅ ÉÎ ÓÕÃÈŠ¯ÓÙÓÔÅÍ¬ ÅØÃÅÐÔ ÁÓ ÍÁÙ ÏÔÈÅÒ×ÉÓÅ ÂÅ ÐÒÏÖÉÄÅÄ ÉÎ ×ÒÉÔÉÎÇ ÂÙ ÄÉÇÉÔÁÌ®Š¯Š¯ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙ ÆÏÒ ÔÈÅ ÕÓÅŠ¯ÏÒ ÒÅÌÉÁÂÉÌÉÔÙ ÏÆ ÉÔÓ ÓÏÆÔ×ÁÒÅ ÏÎ ÅÑÕÉÐÍÅÎÔ ÔÈÁÔ ÉÓ ÎÏÔ ÓÕÐÐÌÉÅÄ ÂÙŠ¯ÄÉÇÉÔÁÌ®Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ŠŒ‰®ÅØÔÅÒÎÁÌ ÁÓÅÍÌÖ¬ÂÁÃËÕÐ¬ÂÒÁÎÃÈ¬ÃÒÅÆ¬ÃÒÌÆ¬ÄÐÒÉÎÔ¬ÅÎÔÅÒ¬ÅÏÓ¬ÅÒÒÏÒ¬ÅØÐÒŠ‰®ÅØÔÅÒÎÁÌ ÆÓÃÈÅË¬ÇÅÔÃÈÒ¬ÇÅÔËÁÒ¬ÇÅÔÓÙÍ¬ÌÅÔÔÅÒ¬ÌÉÓÔÅÒ¬ÌÏÏËÕÐ¬ÏÒÉÇ¬ÏÕÔ¬ÐÁÒÓÙÍŠ‰®ÅØÔÅÒÎÁÌ ÐÁÓÓ³¬ÐÏÐ¬ÐÕÓÈ¬ÐÕÎÂÉÔ¬ÐÕÔÂÉÔ¬ÐÕÔÓÙÍ¬ÐÕØÂÉÎ¬ÒÅÁÄÌÎ¬ÒÏÔÌ¶¬ÓÃÁÎŠ‰®ÅØÔÅÒÎÁÌ ÐÒÇÌÉÔ¬ÃÕÒÐÁÇŠ‰®ÇÌÏÂÁÌ ÅÒ³µ¬ÅÒ´´¬ÅÒ´µ¬ÅÒ´¶¬ÅÒµ¸Š‰®ÇÌÏÂÁÌ ¤ÐÁÇÅ¬¤ÚÂÌÏÃË¬¤ÔÅØÔŠŒ‰ÆÉÅÌÄ ³Š‰ª²°°°ŠŠ‰±‰‰¯ÏÖÅÒÌÁÙ ÎÕÍÂÅÒŠ¤ÐÁÇÅ¬‰ÔÁÄ ÐÃŠ‰ÊÍÓ É ÑÑÈÇÈÓÃÔ‰¯ÒÅÃÏÍÐÕÔÅ ÈÉÇÈ ÐÃŠ‰ÔÁÄ ÃÓÔÙÐÅŠ‰ÔÁÄ ¨­³°Š‰ÓÚÁ ÃÌÁ‰‰¯ÉÓ ÔÈÉÓ ÁÎ ÆÓÅÃÔ¿Š‰ÊÍÐ ±¤‰‰¯ÎÏŠ‰ÃÄÆ ±°‰‰¯ÙÅÓŠ‰ÔÁÄ É ¨ÃÕÒÐÁÇ‰¯ÁÎÄ ÁÒÅ ÔÈÅÒÅ ÁÎÙ ÃÕÒÒÅÎÔ ÐÁÇÅ ÌÉÔÅÒÁÌÓ¿Š‰ÃÄÆ °Š‰ÉÁÃŠ‰ÓÚÁ ÃÌÁŠÅÒµ¸º‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÙÅÓ¬ ÏÏÐÓŠ±¤º‰ÔÁÄ ÐÃŠ‰ÔÁÄ ÑÑ±··Š‰ÁÎÄ ÑÑ·¶°°‰¯ÒÏÕÎÄ ÕÐ ÔÏ ÎÅØÔ ÐÁÇÅŠ‰ÄÃÁ ÐÃŠ‰ÄÃÁ ÔÁÇÌÏÃ‰¯ÌÓÂ ÅÎÄÓ ÁÔ ÅÎÄ ÏÆ ÐÁÇÅŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÐÁÓÓ ÕÐ ÓÐÁÃÅÓŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÁÔ ÅÎÄ ÏÆ ÓÔÁÔÅÍÅÎÔ¿Š‰ÊÍÐ ÐÁÇÅ±Ø‰¯ÙÅÓ¬ ÎÏ ÁÒÇÕÍÅÎÔ ÔÏ ÐÁÇÅ ÐÓÅÕÄÏ­ÏÐŠ‰ÊÍÓ É ÑÑÂÁÃËÕÐ‰¯ÎÏ¬ ÔÈÅÒÅ ÉÓ ÁÎ ÁÒÇÕÍÅÎÔŠ‰ÊÍÓ É ÑÑÅØÐÒ‰¯ÉÔ ÍÁÙ ÂÅ ÁÎ ÅØÐÒÅÓÓÉÏÎŠÐÁÇÇ±¬‰ÄÃÁ ÐÃ‰‰¯ÇÅÔ ÉÔÓ ÖÁÌÕÅŠ‰ÔÁÄ ÅØÐÃÏÄŠ‰ÓÎÁŠ‰ÔÁÄ ÅØÐÒÅÌŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÅÒ³µ‰¯ÒÅÌÏÃÁÔÁÂÌÅ ÐÁÒÔŠ‰ÔÁÄ ÐÃŠ‰ÁÎÄ ¨··´°Š‰ÓÚÁ ÃÌÁ‰‰¯ÉÔ ÍÕÓÔ ÂÅ ÉÎ ÔÈÅ ÒÁÎÇÅ °­³·Š‰ÊÍÐ ÅÒ³µ‰¯ÉÔ ×ÁÓÎ§ÔŠ‰ÔÁÄ ÐÃŠ‰ÊÍÓ É ÑÑÒÏÔÌ¶Š‰ÒÁÌ‰‰¯ÍÕÌÔÉÐÌÙ ÂÙ ²°°Š‰ÄÃÁ ÐÃŠÐÁÇÅ±Ø¬‰ÔÁÄ ÐÃ‰‰¯ÓÅÅ ÉÆ ÎÅ× ÐÁÇÅ ÉÓ ÓÁÍÅ ÁÓ ÏÌÄ ÐÁÇÅŠ‰ÃÉÁŠ‰ÔÁÄ ÌÉÔÐÁÇ‰¯ÍÕÓÔ ÂÅ Á ÂÅÔÔÅÒ ×ÁÙ ªªªŠ‰ÓÚÁ ÃÌÁ‰‰¯ÎÏÔÅº ÔÈÉÓ ÉÓ ÂÕÇ ÉÆ ÉÓÓÕÅ ÐÁÇÅ ÁÔ ÅÎÄ ÏÆ ÐÁÇÅŠ‰ÊÍÓ É ¨ÐÒÇÌÉÔŠ‰ÉÎÃÒ ÐÃÆÌÁÇŠ‰ÔÁÄ ÐÃŠ‰ÊÍÓ É ÑÑÏÒÉÇŠ‰ÊÍÐ É ¨ÐÓÅÕÄÐŠŒÅÒ³µ¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÁÒÇ ÔÏ §ÐÁÇÅ§ ÏÕÔ ÏÆ ÒÁÎÇÅŠ‰‰‰¯ÏÒ ÂÁÄ ÚÂÌÏÃË ÁÒÇÕÍÅÎÔŠ‰ÔÁÄ ÐÃŠ‰ÁÎÄ ¨³·Š‰ÊÍÐ ÐÁÇÇ±ŠŒ¯ªªª ÒÅÌÏÃ ÓÔÕÆÆŠ¤ÚÂÌÏÃË¬ÊÍÓ É ÑÑÂÁÃËÕÐŠ‰ÊÍÓ É ÑÑÅØÐÒ‰¯ÇÅÔ ÅØÐÒÅÓÓÉÏÎ ÁÆÔÅÒ ÚÂÌÏÃË ÃÏÍÍÁÎÄŠ‰ÄÃÁ ÔÅŠ‰ÔÁÄ ÅØÐÒÅÌŠ‰ÓÎÁŠ‰ÔÁÄ ÅØÐÃÏÄŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÅÒ³µŠ‰ÔÁÄ ÔÅŠ‰ÓÎÁ‰‰¯ÉÓ ÉÔ °¿Š‰ÊÍÐ É ¨ÐÓÅÕÄÂ‰¯ÙÅÓ ­ ÓÐÅÃÉÁÌ ÃÁÓÅ¬ ÇÅÎÅÒÁÔÅ ÎÏ ÃÏÄÅŠ‰ÃÉÁŠ‰ÄÃÁ ÔÅŠ‰ÔÁÄ É ¨ÌÉÓÔ×ÄŠ‰ÄÃÁ ÓÁÖÂÅŠ‰ÔÁÄ É ¨ÌÉÓÔ×Ä‰¯ÅØÔÒÁ ÚÅÒÏÅÓ ÎÅÖÅÒ ÐÒÉÎÔŠ‰ÁÎÄ ¨¶···Š‰ÔÁÄ ¨±°°°Š‰ÄÃÁ É ¨ÌÉÓÔ×ÄŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­µ´Š‰ÓÎÁ ÃÌÁŠ‰ÊÍÓ É ÑÑÅØÐÒŠ‰ÄÃÁ ÔÅÖŠ‰ÄÃÁ ÆÌÇŠÚÂÌÕÐ¬‰ÔÁÄ ÔÅÖŠ‰ÊÍÓ É ÑÑÐÕÎÂÉÔŠ¯ªªª ÔÅÍÐ ¨¿© ÏÕÔÐÕÔ ×ÏÒÄ ÁÔ ÔÉÍÅ¿Š‰ÉÓÚ ÔÅŠ‰ÊÍÐ ÚÂÌÕÐŠ‰ÔÁÄ ÓÁÖÂÅŠ‰ÄÃÁ É ¨ÌÉÓÔ×ÄŠ‰ÊÍÐ É ¨ÐÓÅÕÄÎŠ¯ÁÌÌÏ× ÚÂÌÏÃË Î¬Š¯ÃÈÅÃË ÆÏÒ ÌÉÔÅÒÁÌ ÏÖÅÒÌÁÐ ÅÔÃ®ŠÔÅ¬‰°ŠÔÅÖ¬‰°‰‰¯ÖÁÌÕÅ ÔÏ ÂÅ ÓÔÏÒÅÄŠÓÁÖÂÅ¬‰°ŠŒÔÅØÌÓÔ¬‰ÓÉØÔØÔ»­²‰¯° ­ ÓÉØÂÉÔŠ‰ÁÓÃÔØÔ»­±‰¯± ­ ÁÓÃÉÉŠ‰ÏÓ¸ÔØÔ»­³‰¯² ­ ÏÓ¯¸ ÐÁÃËÅÄ ÔÅØÔŠ‰ÕÓÒÔØÔ»­²‰¯³ ­ ÕÓÅÒ­ÉÍÐÌÅÍÅÎÔÅÄ ÔÅØÔ ÐÁÃËÉÎÇ ÓÃÈÅÍÅŠŠÕÓÒÔØÔ¬‰ÔÁÄ ¨­²³·Š‰ÁÎÄ ÑÑ·°‰¯ÕÓÅÒ ÃÁÎ ÐÁÔÃÈ ÔÈÉÓ ×ÉÔÈ ÈÉÓ Ï×Î ÃÏÄÅŠ‰ÊÍÓ É ÑÑÒÏÔÌ¶Š‰ÄÃÁ ÓÖ¤Š‰ÊÍÓ É ¨ÇÏÔØÔŠ‰ÔÁÄ ¨­²³·Š‰ÁÎÄ ÑÑ··Š‰ÔÁÄ ÓÖ¤Š‰ÊÍÓ É ÑÑÐÕÎÂÉÔŠ‰ÊÍÓ É ¨ÇÏÔØÔŠ‰ÊÍÐ ÕÓÒÔØÔŠŠÓÖ¤º‰°Š‰ÐÁÇÅŠŒ¤ÔÅØÔ¬‰ÔÁÄ É ¨ÅÎÁÂ×ÄŠ‰ÁÎÄ ¨³Š‰ÃÌÌ ÒÁÌŠ‰ÔÁÄ ¨ÔÅØÌÓÔ­±Š‰ÄÃÁ ØÒ±Š‰ÔÁÄ É ØÒ±Š‰ÄÃÁ ÇÏÔØÔŠ‰ÔÁÄ É ØÒ±Š‰ÄÃÁ ÆÉÌÃÎÔŠ‰ÔÁÄ É ¨ÅÎÁÂ×ÄŠ‰ÃÍÁŠ‰ÁÎÄ ÑÑ²°°Š‰ÄÃÁ ÐÁÒÉÔÙŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÉÎÉÔÉÁÌ ÂÌÁÎËÓŠ‰ÄÃÁ ÆÌÇ‰‰¯ÔÙÐÅ ° ÂÉÎÁÒÙŠ¯‰ÉÓÚ ÐÃÆÌÁÇŠ¯‰ÉÓÚ ÂÎÆÌÁÇ‰¯ÊÕÓÔ ÉÎ ÃÁÓÅ ÎÏ ÂÉÎÁÒÙ ÉÓ ÇÅÎÅÒÁÔÅÄŠÔÅØ³¬‰ÔÁÄ ÃÈÁÒŠ‰ÓÎÁŠ‰ÊÍÐ ÅÒ´´Š‰ÊÍÓ É ÑÑÂÒÁÎÃÈŠ‰­·´»ÔÅØ´‰¯ÏÐÅÎ ÁÎÇÌÅ ÂÒÁÃËÅÔŠ‰­·³»ÅÒ´´‰¯»Š‰±»­³¶»ÅÒ´µ‰¯ÕÎÐÒÉÎÔÁÂÌÅ ÒÁÎÇÅ ªªªŠ‰°Š‰ÔÁÄ ÃÈÁÒŠ‰ÄÃÁ ÔØÔÃÈÒ‰¯ÓÁÖÅ ÃÈÁÒ ÁÓ ÔÅÒÍÉÎÁÔÏÒŠÔÅØÌÕÐ¬‰ÊÍÓ É ÑÑÇÅÔËÁÒ‰¯ÇÅÔ Á ÃÈÁÒ ÆÒÏÍ ×ÉÔÈÉÎ ÔÅØÔ ÓÔÁÔÅÍÅÎÔŠ‰ÊÍÐ ÔÅØÅÎÄ‰¯ÅÎÄ­ÏÆ­ÌÉÎÅ ÅÎÄÓ ÔÅØÔ ÓÔÒÅÁÍŠ‰ÊÍÓ ÐÒÎÔÂÌŠ‰ÃÉÁŠ‰ÔÁÄ ÔØÔÃÈÒ‰¯ÃÏÍÐÁÒÅ ÃÈÁÒ ×ÉÔÈ ÄÅÌÉÍÅÔÅÒŠ‰ÓÎÁ ÃÌÁ‰‰¯ÉÓ ÔÈÉÓ ÔÈÅ ÅÎÄ¿Š‰ÊÍÐ ÔÅØ²‰¯ÙÅÓŠ‰ÔÁÄ ÃÈÁÒ‰¯ÎÏ¬ ÓÅÎÄ ÃÈÁÒ ÔÏ ÃÏÒÏÕÔÉÎÅŠ‰ÊÍÓ ÐÕÔØÔŠ¯‰ÄÃÁ ÐÃÆÌÁÇŠ¯‰ÄÃÁ ÂÎÆÌÁÇŠ‰ÊÍÐ ÔÅØÌÕÐŠŠÔÅØ²¬‰ÊÍÓ É ÑÑÇÅÔÃÈÒŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÂÌÁÎËÓŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÅÎÄ ÏÆ ÓÔÁÔÅÍÅÎÔ¿Š‰ÊÍÐ ÔÅØÅÎÄ‰¯ÙÅÓŠ‰ÊÍÐ ÔÅØ³‰¯ÎÏŠ¯ÆÏÒ ÃÏÍÐÁÔÉÂÉÌÉÔÙ ×ÉÔÈ ÐÁÌ¸¬ ¯ ÍÅÁÎÓ ÃÏÍÍÅÎÔ ÁÆÔÅÒ ÆÉÒÓÔ ÇÒÏÕÐŠÔÅØÅÎÄ¬‰ÔÁÄ É ¨ÅÎÁÂ×Ä‰¯ÚÅÒÏ ÆÉÌÌ ÂÉÔ ÉÓ ÉÎ ÁÃ°Š‰ÓÍÁ ÃÌÁ‰‰¯ÏÎÅ ÌÅÓÓ ° ÉÆ ÎÏ ÚÅÒÏ­ÆÉÌÌŠ‰ÊÍÓ ÐÕÔØÔŠ‰ÉÓÚ ÆÉÌÃÎÔŠ‰ÊÍÐ ®­²Š‰ÉÓÚ ÐÃÆÌÁÇŠ‰ÉÓÚ ÂÎÆÌÁÇ‰¯ÉÎ ÃÁÓÅ ÎÏ ÂÉÎÁÒÙ ÇÅÎÅÒÁÔÅÄŠ‰ÊÍÐ É ¨ÂÙÅØŠ¯ÐÒÏÈÉÂÉÔ ÕÎÐÒÉÎÔÁÂÌÅ ÃÈÁÒÓŠŒÔÅØ´¬‰ÊÍÓ É ÑÑÅØÐÒ‰¯ÎÕÌÌ ÅØÐÒÅÓÓÉÏÎ ªªªŠ‰ÊÍÓ ÐÕÔØÔŠ¯ªªª ÒÅÌÏÃ ÐÁÒÔ¿Š‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶‰¯ÃÌÏÓÅ ÁÎÇÌÅ ÂÒÁÃËÅÔŠ‰ÓÎÁ ÃÌÁŠ‰ÊÍÐ ÔÅØ²ŠÅÒ´¶¬‰ÊÍÓ É ÑÑÅÒÒÏÒŠ‰ÊÍÐ É ¨ÐÓÅÕÄÐŠÅÒ´´¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÍÉÓÓÉÎÇ ÉÔÅÍŠ‰ÊÍÐ É ¨ÐÓÅÕÄÐŠÅÒ´µ¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÕÎÐÒÉÎÔÁÂÌÅ ÃÈÁÒŠ‰ÊÍÓ É ÑÑÇÅÔÃÈÒ‰¯ÓËÉÐ ÉÔŠ‰ÊÍÐ ÔÅØ³ŠŠÔØÔÃÈÒ¬‰°‰‰¯ÄÅÌÉÍÉÔÅÒ ÃÈÁÒ ÆÏÒ ÔÅØÔŠÓÖËÒ¬‰°ŠŠÆÉÌÃÎÔ¬‰­²‰‰¯ÎÅÇ ÏÆ ÎÏ® ÏÆ ÆÉÌÌÅÒ °§Ó ÎÅÅÄÅÄ ÔÏ ÚÅÒÏ ÆÉÌÌŠŠ¯ªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªª¯ŠÐÕÔØÔ¬‰°‰‰¯ÃÏÒÏÕÔÉÎÅ ÌÉÎËÁÇÅŠ‰ÁÎÄ ÑÑ±··‰¯ÆÏÒÃÅ ÔÏ ·­ÂÉÔŠ‰ÊÍÐ É ÇÏÔØÔŠÇÏÔØÔ¬‰ÓÉØÔØÔŠ‰ÊÍÐ É ÐÕÔØÔŠ¯ªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªªª¯Š¯ÃÏÒÏÕÔÉÎÅ ÉÎÉÔÉÁÌÉÚÁÔÉÏÎº     Ã¨ÇÏÔØÔ©ß§ÓÉØÔØÔ§ŠŒÓÉØÔØÔ¬‰ÁÎÄ ÑÑ··‰¯ÃÈÁÒ ÔÏ ÂÅ ÓÉØÂÉÔ ÐÁÃËÅÄ ÉÓ ÉÎ ÁÃŠ‰ÊÍÓ É ÑÑÒÏÔÌ¶‰¯ÍÏÖÅ ÌÏ× ÏÒÄÅÒ · ÂÉÔÓ ÔÏ ÌÅÆÔ ÂÙÔÅ ÏÆ ÁÃŠ‰ÄÃÁ ÓÖËÒ‰¯ÓÁÖÅ ÌÅÆÔ ÂÙÔÅŠ‰ÊÍÓ ÇÏÔØÔ‰¯ÇÅÔ ÎÅØÔ ÂÙÔÅ ÔÏ ÐÁÃËŠ‰ÁÎÄ ÑÑ··Š‰ÔÁÄ ÓÖËÒ‰¯ÃÏÍÂÉÎÅ ×ÉÔÈ ÌÅÆÔ ÈÁÌÆŠ‰ÊÍÓ É ÑÑÐÕÎÂÉÔŠ‰ÊÍÓ ÇÏÔØÔ‰¯ÇÅÔ ÌÅÆÔ ÂÙÔÅŠ‰ÊÍÐ ÓÉØÔØÔŠŠÐÒÎÔÂÌ¬‰°‰‰¯ÃÈÅÃË ÉÆ ÃÈÁÒ ÉÎ ÁÃ ÉÓ ÐÒÉÎÔÁÂÌÅŠ‰‰‰¯ÌÅÁÖÅ ÉÔ ÉÎ ÁÃ ÉÆ ÉÔ ÉÓŠ‰‰‰¯ÉÆ ÉÔ ÉÓÎ§Ô¬ ÇÅÎÅÒÁÔÅ ÁÎ ÅÒÒÏÒ ÍÅÓÓÁÇÅŠ‰‰‰¯ÁÎÄ ÔÒÙ ÁÇÁÉÎ ×ÉÔÈ ÎÅØÔ ÃÈÁÒÁÃÔÅÒŠ‰‰‰¯° ÇÉÖÅÓ ÅÒÒÏÒ ÁÎÄ ÂÒÁÎÃÈÅÓ ÔÏ §ÁÓÅÍÌÖ§Š‰ÊÍÐ É ÐÒÎÔÂÌŠŒÁÓÃÔØÔ¬‰ÓÚÁŠ‰ÔÁÄ ÐÁÒÉÔÙ‰¯ÍÁËÅ ¸­ÂÉÔ ÁÓÃÉÉ ÉÆ ÓÏ ÅÎÁÂÌÅÄŠ‰ÊÍÓ É ÑÑÐÕÎÂÉÔŠ‰ÊÍÓ ÇÏÔØÔŠ‰ÊÍÐ ÁÓÃÔØÔŠÐÁÒÉÔÙ¬‰°ŠŒÓÖËÒ²¬‰°ŠÓÖËÒ³¬‰°ŠŠÏÓ¸ÔØÔ¬‰ÓÚÁŠ‰ÔÁÄ ÐÁÒÉÔÙŠ‰ÄÃÁ ÓÖËÒ‰¯ÓÁÖÅ ÆÉÒÓÔ ÃÈÁÒÁÃÔÅÒŠ‰ÊÍÓ ÇÏÔØÔŠ‰ÓÚÁŠ‰ÔÁÄ ÐÁÒÉÔÙŠ‰ÄÃÁ ÓÖËÒ²Š‰ÊÍÓ ÇÏÔØÔŠ‰ÓÚÁŠ‰ÔÁÄ ÐÁÒÉÔÙŠ‰ÄÃÁ ÓÖËÒ³Š‰ÔÁÄ ÓÖËÒ³Š‰ÒÔÌŠ‰ÒÔÌŠ‰ÁÎÄ ¨·´°°Š‰ÔÁÄ ÓÖËÒŠ‰ÊÍÓ É ÑÑÐÕÎÂÉÔŠ‰ÔÁÄ ÓÖËÒ³Š‰ÒÔÒŠ‰ÒÔÒŠ‰ÒÁÒŠ‰ÁÎÄ ¨·´°°Š‰ÔÁÄ ÓÖËÒ²Š‰ÊÍÓ É ÑÑÐÕÎÂÉÔŠ‰ÊÍÓ ÇÏÔØÔŠ‰ÊÍÐ ÏÓ¸ÔØÔŠ‰ÐÁÇÅŠŒš€€€€€€€€€€€€
+/12 DIRECTIVES OVERLAY 1 TO MACREL	POST V0A
+/	7-MAR-78	INSTALLED PATCHES TO FIX OS8 PACKING
+/	15-AUG-78	ZBLOCK CHECKS FOR ILLEGAL ARG
+/	16-AUG-78	FIXED FILLING OF OS/8 PACKING
+/			ADDED COS -237 PACKING
+/	17-AUG-78	ALLOWED PAGE>
+/	23-AUG-78	PROHIBIT PAGE IN FSECT WITH LITERALS
+	.INCLUDE MGLOB.MA
+	.ASECT OVRA,LEVEL=1,OVERLAY=0
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL PRGLIT,CURPAG
+	.GLOBAL ER35,ER44,ER45,ER46,ER58
+	.GLOBAL $PAGE,$ZBLOCK,$TEXT
+	FIELD 3
+	*2000
+
+	1		/OVERLAY NUMBER
+$PAGE,	TAD PC
+	JMS I QQHGHSCT	/RECOMPUTE HIGH PC
+	TAD CSTYPE
+	TAD (-30
+	SZA CLA		/IS THIS AN FSECT?
+	JMP 1$		/NO
+	CDF 10		/YES
+	TAD I (CURPAG	/AND ARE THERE ANY CURRENT PAGE LITERALS?
+	CDF 0
+	IAC
+	SZA CLA
+ER58:	JMS I QQERROR	/YES, OOPS
+1$:	TAD PC
+	TAD QQ177
+	AND QQ7600	/ROUND UP TO NEXT PAGE
+	DCA PC
+	DCA TAGLOC	/LSB ENDS AT END OF PAGE
+	JMS I QQSCAN	/PASS UP SPACES
+	TAD CHAR
+	TAD (-76
+	SZA CLA
+	JMS I QQEOS	/AT END OF STATEMENT?
+	JMP PAGE1X	/YES, NO ARGUMENT TO PAGE PSEUDO-OP
+	JMS I QQBACKUP	/NO, THERE IS AN ARGUMENT
+	JMS I QQEXPR	/IT MAY BE AN EXPRESSION
+PAGG1,	DCA PC		/GET ITS VALUE
+	TAD EXPCOD
+	SNA
+	TAD EXPREL
+	SZA CLA
+	JMP ER35	/RELOCATABLE PART
+	TAD PC
+	AND (7740
+	SZA CLA		/IT MUST BE IN THE RANGE 0-37
+	JMP ER35	/IT WASN'T
+	TAD PC
+	JMS I QQROTL6
+	RAL		/MULTIPLY BY 200
+	DCA PC
+PAGE1X,	TAD PC		/SEE IF NEW PAGE IS SAME AS OLD PAGE
+	CIA
+	TAD LITPAG	/MUST BE A BETTER WAY ***
+	SZA CLA		/NOTE: THIS IS BUG IF ISSUE PAGE AT END OF PAGE
+	JMS I (PRGLIT
+	INCR PCFLAG
+	TAD PC
+	JMS I QQORIG
+	JMP I (PSEUDP
+ER35,	JMS I QQERROR	/ARG TO 'PAGE' OUT OF RANGE
+			/OR BAD ZBLOCK ARGUMENT
+	TAD PC
+	AND (37
+	JMP PAGG1
+/*** RELOC STUFF
+$ZBLOCK,JMS I QQBACKUP
+	JMS I QQEXPR	/GET EXPRESSION AFTER ZBLOCK COMMAND
+	DCA TE
+	TAD EXPREL
+	SNA
+	TAD EXPCOD
+	SZA CLA
+	JMP ER35
+	TAD TE
+	SNA		/IS IT 0?
+	JMP I (PSEUDB	/YES - SPECIAL CASE, GENERATE NO CODE
+	CIA
+	DCA TE
+	TAD I (LISTWD
+	DCA SAVBE
+	TAD I (LISTWD	/EXTRA ZEROES NEVER PRINT
+	AND (6777
+	TAD (1000
+	DCA I (LISTWD
+	TAD CHAR
+	TAD (-54
+	SNA CLA
+	JMS I QQEXPR
+	DCA TEV
+	DCA FLG
+ZBLUP,	TAD TEV
+	JMS I QQPUNBIT
+/*** TEMP (?) OUTPUT WORD AT TIME?
+	ISZ TE
+	JMP ZBLUP
+	TAD SAVBE
+	DCA I (LISTWD
+	JMP I (PSEUDN
+/ALLOW ZBLOCK N,
+/CHECK FOR LITERAL OVERLAP ETC.
+TE,	0
+TEV,	0		/VALUE TO BE STORED
+SAVBE,	0
+TEXLST,	SIXTXT;-2	/0 - SIXBIT
+	ASCTXT;-1	/1 - ASCII
+	OS8TXT;-3	/2 - OS/8 PACKED TEXT
+	USRTXT;-2	/3 - USER-IMPLEMENTED TEXT PACKING SCHEME
+
+USRTXT,	TAD (-237
+	AND QQ70	/USER CAN PATCH THIS WITH HIS OWN CODE
+	JMS I QQROTL6
+	DCA SV$
+	JMS I (GOTXT
+	TAD (-237
+	AND QQ77
+	TAD SV$
+	JMS I QQPUNBIT
+	JMS I (GOTXT
+	JMP USRTXT
+
+SV$:	0
+	PAGE
+$TEXT,	TAD I (ENABWD
+	AND (3
+	CLL RAL
+	TAD (TEXLST-1
+	DCA XR1
+	TAD I XR1
+	DCA GOTXT
+	TAD I XR1
+	DCA FILCNT
+	TAD I (ENABWD
+	CMA
+	AND QQ200
+	DCA PARITY
+	JMS I QQSCAN	/IGNORE INITIAL BLANKS
+	DCA FLG		/TYPE 0 BINARY
+/	ISZ PCFLAG
+/	ISZ BNFLAG	/JUST IN CASE NO BINARY IS GENERATED
+TEX3,	TAD CHAR
+	SNA
+	JMP ER44
+	JMS I QQBRANCH
+	-74;TEX4	/OPEN ANGLE BRACKET
+	-73;ER44	/;
+	1;-36;ER45	/UNPRINTABLE RANGE ***
+	0
+	TAD CHAR
+	DCA TXTCHR	/SAVE CHAR AS TERMINATOR
+TEXLUP,	JMS I QQGETKAR	/GET A CHAR FROM WITHIN TEXT STATEMENT
+	JMP TEXEND	/END-OF-LINE ENDS TEXT STREAM
+	JMS PRNTBL
+	CIA
+	TAD TXTCHR	/COMPARE CHAR WITH DELIMETER
+	SNA CLA		/IS THIS THE END?
+	JMP TEX2	/YES
+	TAD CHAR	/NO, SEND CHAR TO COROUTINE
+	JMS PUTXT
+/	DCA PCFLAG
+/	DCA BNFLAG
+	JMP TEXLUP
+
+TEX2,	JMS I QQGETCHR
+	JMS I QQSCAN	/IGNORE BLANKS
+	JMS I QQEOS	/END OF STATEMENT?
+	JMP TEXEND	/YES
+	JMP TEX3	/NO
+/FOR COMPATIBILITY WITH PAL8, / MEANS COMMENT AFTER FIRST GROUP
+TEXEND,	TAD I (ENABWD	/ZERO FILL BIT IS IN AC0
+	SMA CLA		/ONE LESS 0 IF NO ZERO-FILL
+	JMS PUTXT
+	ISZ FILCNT
+	JMP .-2
+	ISZ PCFLAG
+	ISZ BNFLAG	/IN CASE NO BINARY GENERATED
+	JMP I (BYEX
+/PROHIBIT UNPRINTABLE CHARS
+TEX4,	JMS I QQEXPR	/NULL EXPRESSION ***
+	JMS PUTXT
+/*** RELOC PART?
+	TAD CHAR
+	TAD (-76	/CLOSE ANGLE BRACKET
+	SNA CLA
+	JMP TEX2
+ER46,	JMS I QQERROR
+	JMP I (PSEUDP
+ER44,	JMS I QQERROR	/MISSING ITEM
+	JMP I (PSEUDP
+ER45,	JMS I QQERROR	/UNPRINTABLE CHAR
+	JMS I QQGETCHR	/SKIP IT
+	JMP TEX3
+
+TXTCHR,	0		/DELIMITER CHAR FOR TEXT
+SVKR,	0
+
+FILCNT,	-2		/NEG OF NO. OF FILLER 0'S NEEDED TO ZERO FILL
+
+/***************************************************/
+PUTXT,	0		/COROUTINE LINKAGE
+	AND QQ177	/FORCE TO 7-BIT
+	JMP I GOTXT
+GOTXT,	SIXTXT
+	JMP I PUTXT
+/***************************************************/
+/COROUTINE INITIALIZATION:     C(GOTXT)_'SIXTXT'
+SIXTXT,	AND QQ77	/CHAR TO BE SIXBIT PACKED IS IN AC
+	JMS I QQROTL6	/MOVE LOW ORDER 7 BITS TO LEFT BYTE OF AC
+	DCA SVKR	/SAVE LEFT BYTE
+	JMS GOTXT	/GET NEXT BYTE TO PACK
+	AND QQ77
+	TAD SVKR	/COMBINE WITH LEFT HALF
+	JMS I QQPUNBIT
+	JMS GOTXT	/GET LEFT BYTE
+	JMP SIXTXT
+
+PRNTBL,	0		/CHECK IF CHAR IN AC IS PRINTABLE
+			/LEAVE IT IN AC IF IT IS
+			/IF IT ISN'T, GENERATE AN ERROR MESSAGE
+			/AND TRY AGAIN WITH NEXT CHARACTER
+			/0 GIVES ERROR AND BRANCHES TO 'ASEMLV'
+	JMP I PRNTBL
+ASCTXT,	SZA
+	TAD PARITY	/MAKE 8-BIT ASCII IF SO ENABLED
+	JMS I QQPUNBIT
+	JMS GOTXT
+	JMP ASCTXT
+PARITY,	0
+SVKR2,	0
+SVKR3,	0
+
+OS8TXT,	SZA
+	TAD PARITY
+	DCA SVKR	/SAVE FIRST CHARACTER
+	JMS GOTXT
+	SZA
+	TAD PARITY
+	DCA SVKR2
+	JMS GOTXT
+	SZA
+	TAD PARITY
+	DCA SVKR3
+	TAD SVKR3
+	RTL
+	RTL
+	AND (7400
+	TAD SVKR
+	JMS I QQPUNBIT
+	TAD SVKR3
+	RTR
+	RTR
+	RAR
+	AND (7400
+	TAD SVKR2
+	JMS I QQPUNBIT
+	JMS GOTXT
+	JMP OS8TXT
+	PAGE
+

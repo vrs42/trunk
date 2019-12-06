@@ -1,1 +1,236 @@
-¯±² ÉÎÃÌÕÄÅ ÏÖÅÒÌÁÙ µ ÆÏÒ ÍÁÃÒÅÌ‰ÐÏÓÔ Ö°ÁŠ¯‰·­ÍÁÒ­·¸‰ÉÎÃÌÕÄÅÄ ÐÁÔÃÈ ÔÏ ÃÈÅÃË ÆÏÒ ¾ ÁÔ ÅÎÄ ÏÆ ÄÅÃÌÁÒÁÔÉÏÎŠ¯‰±µ­ÁÕÇ­·¸‰ÆÉØ ÂÕÇ ÒÅ ÐÒÉÎÔÉÎÇ ÂÉÎÁÒÙ ÏÎ ®ÉÎÃÌÕÄÅŠ¯‰²±­ÁÕÇ­·¸‰ÍÏÖÅÄ ®ÐÕÓÈ ÁÎÄ ®ÐÏÐ ÔÏ ÏÖÒÅŠ¯‰‰‰ÁÄÄÅÄ ¤ÓÅÃÒÅÆŠ‰®ÉÎÃÌÕÄÅ ÍÇÌÏÂ®ÍÁŠ‰®ÁÓÅÃÔ ÏÖÒÅ¬ÌÅÖÅÌ½±¬ÏÖÅÒÌÁÙ½´Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÃÏÐÙÒÉÇÈÔ  ¨Ã©  ±¹·· ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎŠ¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÔÈÅ ÉÎÆÏÒÍÁÔÉÏÎ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÓÕÂÊÅÃÔ ÔÏ ÃÈÁÎÇÅ ×ÉÔÈÏÕÔ ÎÏÔÉÃÅŠ¯ÁÎÄ ÓÈÏÕÌÄ ÎÏÔ ÂÅ ÃÏÎÓÔÒÕÅÄ ÁÓ Á ÃÏÍÍÉÔÍÅÎÔ ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔŠ¯ÃÏÒÐÏÒÁÔÉÏÎ®  ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙŠ¯ÆÏÒ ÁÎÙ ÅÒÒÏÒÓ ÔÈÁÔ ÍÁÙ ÁÐÐÅÁÒ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ®Š¯Š¯ÔÈÅ ÓÏÆÔ×ÁÒÅ ÄÅÓÃÒÉÂÅÄ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÆÕÒÎÉÓÈÅÄ ÔÏ ÔÈÅ ÐÕÒÃÈÁÓÅÒŠ¯ÕÎÄÅÒ Á ÌÉÃÅÎÓÅ ÆÏÒ ÕÓÅ ÏÎ Á ÓÉÎÇÌÅ ÃÏÍÐÕÔÅÒ ÓÙÓÔÅÍ ÁÎÄ ÃÁÎ ÂÅ ÃÏÐÉÅÄŠ¯¨×ÉÔÈ ÉÎÃÌÕÓÉÏÎ ÏÆ ÄÉÇÉÔÁÌ§Ó ÃÏÐÙÒÉÇÈÔ ÎÏÔÉÃÅ© ÏÎÌÙ ÆÏÒ ÕÓÅ ÉÎ ÓÕÃÈŠ¯ÓÙÓÔÅÍ¬ ÅØÃÅÐÔ ÁÓ ÍÁÙ ÏÔÈÅÒ×ÉÓÅ ÂÅ ÐÒÏÖÉÄÅÄ ÉÎ ×ÒÉÔÉÎÇ ÂÙ ÄÉÇÉÔÁÌ®Š¯Š¯ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙ ÆÏÒ ÔÈÅ ÕÓÅŠ¯ÏÒ ÒÅÌÉÁÂÉÌÉÔÙ ÏÆ ÉÔÓ ÓÏÆÔ×ÁÒÅ ÏÎ ÅÑÕÉÐÍÅÎÔ ÔÈÁÔ ÉÓ ÎÏÔ ÓÕÐÐÌÉÅÄ ÂÙŠ¯ÄÉÇÉÔÁÌ®Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ŠŒ‰®ÅØÔÅÒÎÁÌ ÁÓÅÍÌÖ¬ÂÁÃËÕÐ¬ÂÒÁÎÃÈ¬ÃÒÅÆ¬ÃÒÌÆ¬ÄÐÒÉÎÔ¬ÅÎÔÅÒ¬ÅÏÓ¬ÅÒÒÏÒ¬ÅØÐÒŠ‰®ÅØÔÅÒÎÁÌ ÆÓÃÈÅË¬ÇÅÔÃÈÒ¬ÇÅÔËÁÒ¬ÇÅÔÓÙÍ¬ÌÅÔÔÅÒ¬ÌÉÓÔÅÒ¬ÌÏÏËÕÐ¬ÏÒÉÇ¬ÏÕÔ¬ÐÁÒÓÙÍŠ‰®ÅØÔÅÒÎÁÌ ÐÁÓÓ³¬ÐÏÐ¬ÐÕÓÈ¬ÐÕÎÂÉÔ¬ÐÕÔÂÉÔ¬ÐÕÔÓÙÍ¬ÐÕØÂÉÎ¬ÒÅÁÄÌÎ¬ÒÏÔÌ¶¬ÓÃÁÎŠ‰®ÅØÔÅÒÎÁÌ ÄÖÎÏ¬ÆÉÌÅÎÏ¬ÆÉÌÓÁÖ¬ÃÈÁÉÎÉ¬ÉÎÈÁÎÄÌ¬ÌÏÏËÕ¬ÉÎÒÅÃ¬ÌÏÏËÌÎŠ‰®ÅØÔÅÒÎÁÌ ÉÎÌÅÎ¬ÉÎÈÎÄÌ¬ÅÎÔÅÒÒŠ‰®ÇÌÏÂÁÌ ÅÒ·²¬ÅÒ·³¬ÅÒ·´¬ÅÒ·¸¬ÅÒ¹°¬ÅÒ¹±Š‰®ÇÌÏÂÁÌ ¤ÉÎÃÌÕÄÅ¬¤ÃÈÁÉÎŠ‰®ÇÌÏÂÁÌ ¤ÅÎÔÒÙ¬¤ÅØÔÅÒÎÁÌ¬¤ÚÔÅÒÎÁÌ¬¤ÇÌÏÂÁÌ¬¤ÓÅÃÒÅÆŠŠ‰ÆÉÅÌÄ ³ŠŠ‰ª²°°°ŠŠ‰µ‰‰¯ÏÖÅÒÌÁÙ ÎÕÍÂÅÒŠŠ¯‰ÉÎÃÌÕÄÅ ÁÎÄ ÃÈÁÉÎ ÄÉÒÅÃÔÉÖÅÓŠŠÃÈÎÆÌÇ¬‰°‰‰¯± ÉÆ §ÃÈÁÉÎ§¬ ° ÉÆ §ÉÎÃÌÕÄÅ§Š¤ÃÈÁÉÎ¬‰ÃÌÁ ÉÁÃŠ¤ÉÎÃÌÕÄÅ¬ÄÃÁ ÃÈÎÆÌÇŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÓÃÁÎ ÐÁÓÔ ÂÌÁÎËÓ ÉÆ ÁÎÙŠ‰ÃÌÁ ÉÁÃŠ‰ÊÍÓ É ÑÑÐÁÒÓÙÍ‰¯ÇÅÔ ÆÉÌÅÎÁÍÅŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·²‰¯ºŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÄÉÓË‰¯ÁÓÓÕÍÅ ÄÉÓË ÉÆ ÎÏ ÄÅÖÉÃÅ ÓÐÅÃÉÆÉÅÄŠ‰ÔÁÄ ÎÁÍÅ³Š‰ÔÁÄ ÎÁÍÅ´Š‰ÓÚÁ ÃÌÁŠÅÒ·²¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÄÅÖÉÃÅ ÎÁÍÅ ÇÔ ´ ÃÈÁÒÓ ¨ÔÅÓÔ ÆÏÒ ® ÏÒ ÅØÔÅÎÓÉÏÎ¿©Š‰ÔÁÄ ÎÁÍÅ±Š‰ÄÃÁ ÄÖÎ±Š‰ÔÁÄ ÎÁÍÅ²Š‰ÄÃÁ ÄÖÎ²Š‰ÊÍÓ ÆÅÔÃÈÍ‰¯ÆÅÔÃÈ ÄÅÖÉÃÅ ÈÁÎÄÌÅÒ ÂÙ ÎÁÍÅŠ‰ÊÍÓ É ÑÑÇÅÔÃÈÒŠ‰ÊÍÓ É ÑÑÌÅÔÔÅÒ‰¯ÉÓ ÔÈÅÒÅ ÁÎ ÉÄÅÎÔÉÆÉÅÒ ÁÆÔÅÒ ÄÅÖÉÃÅ¿Š‰ÊÍÐ ÎÏÎÁÍ‰¯ÎÏ¬ ÁÓÓÕÍÅ ÎÏÎ­ÆÉÌÅ ÓÔÒÕÃÔÕÒÅÄŠ‰ÃÌÁ ÉÁÃ‰‰¯ÙÅÓ¬ ÇÅÔ ÆÉÌÅÎÁÍÅŠ‰ÊÍÓ É ÑÑÐÁÒÓÙÍŠÆÉÌ¬‰ÉÎÃÒ ÂÎÆÌÁÇŠ‰ÉÎÃÒ ÐÃÆÌÁÇŠ‰ÊÍÓ É ÑÑÏÕÔŠ‰ÊÍÓ É ÑÑÓÃÁÎŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÃÈÅÃË ÆÏÒ ÅÎÄ­ÏÆ­ÓÔÁÔÅÍÅÎÔŠ‰ÓËÐ‰‰¯ÔÅÍÐÏÒÁÒÙ ÂÕÇ ÉÆ » ÏÃÃÕÒÓ ÁÆÔÅÒ ÉÎÃÌÕÄÅŠÅÒ·¸¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÉÎÃÌÕÄÅ ÍÕÓÔ ÂÅ ÏÎ ÌÉÎÅ ÂÙ ÉÔÓÅÌÆŠ‰ÃÄÆ ±°Š‰ÔÁÄ É ¨ÄÖÎÏ‰¯ÇÅÔ ÃÕÒÒÅÎÔ ÄÅÖÉÃÅ ÆÏÒ ÏÓ¯¸ ÆÉÌÅŠ‰ÔÁÄ ¨··µ·Š‰ÄÃÁ ÔÅÍÐŠ‰ÔÁÄ É ÔÅÍÐ‰¯ÇÅÔ ÄÅÖÉÃÅ ÃÏÎÔÒÏÌ ×ÏÒÄŠ‰ÃÄÆ °Š‰ÓÍÁ ÃÌÁŠ‰ÊÍÐ ÅÒ¹±‰¯ÄÅÖÉÃÅ ÉÓ ÎÏÎ­ÆÉÌÅ ÓÔÒÕÃÔÕÒÅÄŠ¯‰ÃÌÁ ÉÁÃ‰‰¯ÓÉÍÕÌÁÔÅ §ÎÅ×ÆÉÌ§Š¯‰ÄÃÁ ÎÅ×ÔÉÔ‰¯×ÁÎÔ ÔÏ ÓÅÔ Á ÎÅ× ÔÉÔÌÅ ¨¿©Š¯‰ÃÌÁ ÉÁÃŠ¯‰ÄÃÁ ÆÏÒÍ‰¯×ÁÎÔ ÔÏ ÄÏ Á ÆÏÒÍ ÆÅÅÄŠ‰ÃÄÆ ±°Š‰ÔÁÄ É ¨ÆÉÌÅÎÏŠ‰ÓÐÁŠ‰ÔÁÄ ¨­±Š‰ÓÍÁŠ‰ÄÃÁ É ¨ÆÉÌÓÁÖ‰¯ÓÁÖÅ ÆÉÌÅ ÎÕÍÂÅÒ ÉÆ ÆÉÒÓÔ ÉÎÃÌÕÄÅŠ‰ÓÍÁŠ‰ÓÔÁŠ‰ÄÃÁ É ¨ÆÉÌÅÎÏ‰¯ÓÅÔ ÔÏ ­± ÉÆ ÆÉÒÓÔ ÉÎÃÌÕÄÅŠ‰ÃÉÆ ÃÄÆ ±°Š‰ÊÍÓ É ¨ÃÈÁÉÎÉ‰¯ÄÏ ÓÏÍÅ ÍÏÒÅ ÓÔÕÆÆ ÉÎ ÆÉÅÌÄ ±Š‰ÃÄÆ ±°‰‰¯ÃÌÅÁÎ ÕÐ ÉÎ ÆÉÅÌÄ ±Š‰ÔÁÄ ÄÖÎ²Š‰ÄÃÁ É ¨ÄÖÎÏ‰¯ÓÅÔ ÕÐ ÎÅ× ÄÅÖÉÃÅ ÎÕÍÂÅÒŠ‰ÔÁÄ ÄÖÎ³Š‰ÄÃÁ É ¨ÉÎÈÎÄÌÒ‰¯ÓÅÔ ÕÐ ÎÅ× ÉÎÐÕÔ ÈÁÎÄÌÅÒ ÅÎÔÒÙ ÐÏÉÎÔŠ‰ÔÁÄ ÄÖÎ²Š‰ÃÄÆ °Š‰ÃÉÆ ±°Š‰ÊÍÓ É ¨ÌÏÏËÕ‰¯ÌÏÏË ÕÐ ÆÉÌÅŠ‰ÃÄÆ ±°Š‰ÄÃÁ É ¨ÉÎÒÅÃ‰¯ÓÅÔ ÕÐ ÎÅ× ÉÎÐÕÔ ÒÅÃÏÒÄ ÎÕÍÂÅÒŠ‰ÔÁÄ É ¨ÌÏÏËÌÎŠ‰ÃÉÁŠ‰ÄÃÁ É ¨ÉÎÌÅÎ‰¯ÓÅÔ ÕÐ ÎÅ× ÉÎÐÕÔ ÆÉÌÅ ÌÅÎÇÔÈŠ‰ÃÄÆ °Š‰ÊÍÐ É ¨ÂÙÅÂŠŠÄÉÓË¬‰ÔÁÄ ¨´²³‰¯ÄÏ Á ÆÅÔÃÈ ÏÎ §ÄÉÓË§Š‰ÄÃÁ ÄÖÎ±Š‰ÔÁÄ ¨±³°°Š‰ÄÃÁ ÄÖÎ²Š‰ÊÍÓ ÆÅÔÃÈÍŠ‰ÊÍÐ ÆÉÌŠÎÏÎÁÍ¬‰ÄÃÁ ÎÁÍÅ±Š‰ÄÃÁ ÎÁÍÅ²Š‰ÊÍÐ ÆÉÌ‰‰¯ªªªª ÈÏÐÅ ÌÏÏËÕÐ ×ÏÒËÓ ÉÎ ÔÈÉÓ ÃÁÓÅ¬ ÃÈÅÃËŠŒÆÅÔÃÈÍ¬‰°Š‰ÔÁÄ ¨ÉÎÈÁÎÄ«±Š‰ÄÃÁ ÄÖÎ³‰¯ÆÅÔÃÈÅÓ ÈÁÎÄÌÅÒ ÂÙ ÎÁÍÅŠ‰ÃÉÆ ±°Š‰ÊÍÓ É ¨ÕÓÒŠ‰±‰‰¯ÄÏ Á ÆÅÔÃÈŠÄÖÎ±¬‰°‰‰¯ÄÅÖÉÃÅ ÎÁÍÅ ¨² ×ÏÒÄÓ©ŠÄÖÎ²¬‰°‰‰¯ÂÅÃÏÍÅÓ ÉÎÔÅÒÎÁÌ ÄÅÖÉÃÅ ÎÕÍÂÅÒŠÄÖÎ³¬‰ÉÎÈÁÎÄ«±‰¯ÈÁÎÄÌÅÒ ÂÕÆÆÅÒ ÁÄÄÒÅÓÓ¬ ÒÅÔÕÒÎÓ ÅÎÔÒÙ ÐÏÉÎÔŠ‰ÓËÐ‰‰¯ÄÅÖÉÃÅ ÄÏÅÓÎ§Ô ÅØÉÓÔŠ‰ÊÍÐ É ÆÅÔÃÈÍ‰¯ÒÅÔÕÒÎŠ‰ÔÁÄ ÄÖÎ±‰¯ÍÏÖÅ ÎÁÍÅ ÔÏ ÎÁÍÅ±­³ ÆÏÒ ÅÒÒÏÒ ÍÅÓÓÁÇÅ ÐÒÏÃÅÓÓÏÒŠ‰ÄÃÁ ÎÁÍÅ±Š‰ÔÁÄ ÄÖÎ²Š‰ÄÃÁ ÎÁÍÅ²Š‰ÄÃÁ ÎÁÍÅ³ŠÅÒ¹°¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÉÎÃÌÕÄÅ ÏÒ ÃÈÁÉÎ ÄÅÖÉÃÅ ÄÏÅÓÎ§Ô ÅØÉÓÔŠ‰ÊÍÐ É ¨ÂÙÅÂ‰¯ÁÂÏÒÔ ÄÉÒÅÃÔÉÖÅŠÅÒ¹±¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÔÒÙÉÎÇ ÔÏ ÄÏ ÉÎÃÌÕÄÅ ÆÒÏÍ ÎÏÎ­Æ­ÓŠ‰ÊÍÐ É ¨ÂÙÅÂŠŒ‰ÐÁÇÅŠŒ¤ÅÎÔÒÙ¬‰ÔÁÄ ¨ÅÎÔÒÙÙ­ÅØÔÒÎŠ¤ÅØÔÅÒÎÁÌ¬ÔÁÄ ¨ÅØÔÒÎ­ÚÔÒÎŠ¤ÚÔÅÒÎÁÌ¬ÔÁÄ ¨ÚÔÒÎ­ÇÌÏÂŠ¤ÇÌÏÂÁÌ¬ÔÁÄ ¨ÇÌÏÂŠ‰ÄÃÁ ÇÌÂÔÙÐŠÇÌÏÂ´¬‰ÄÃÁ ÓÅÃÒŠ‰ÓËÐŠÇÌÏÂ²¬‰ÊÍÓ É ÑÑÇÅÔÃÈÒŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÂÌÁÎËÓŠÇÌÏÂ³¬‰ÊÍÓ É ÑÑÌÅÔÔÅÒ‰¯ÉÓ ÉÔ Á ÌÅÔÔÅÒ¿Š‰ÊÍÐ ÅÒ·´‰¯ÎÏÔ Á ÌÅÔÔÅÒŠ‰ÊÍÓ É ÑÑÐÁÒÓÙÍ‰¯ÙÅÓ¬ ÇÅÔ ÉÄÅÎÔÉÆÉÅÒŠ‰ÊÍÓ É ÑÑÌÏÏËÕÐ‰¯ÌÏÏË ÈÉÍ ÕÐŠ‰ÊÍÓ É ¨ÅÎÔÅÒÒ‰¯ÅÎÔÅÒ ÈÉÍ ÉÆ ÎÅ×Š‰ÊÍÓ É ÑÑÇÅÔÓÙÍ‰¯ÇÅÔ ÉÎÆÏ ÏÎ ÈÉÍŠ‰ÊÍÓ É ÑÑÃÒÅÆ‰¯ÃÒÅÆ ÔÈÅ ÇÕÙŠ‰ÔÁÄ ÆÌÁÇŠ‰ÓÎÁŠ‰ÊÍÐ ÓÅÔÇÌÂŠ‰ÁÎÄ ÑÑ··Š‰ÃÉÁŠ‰ÔÁÄ ÇÌÂÔÙÐ‰¯ÃÈÅÃË ÉÆ ÐÒÅÖÉÏÕÓÌÙ ÄÅÆÉÎÅÄ ÁÓ ÇÌÏÂÁÌŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÒÅÄÅÆŠÓÅÔÇÌÂ¬‰ÔÁÄ ÆÌÁÇŠ‰ÁÎÄ ÑÑ···°‰¯ÐÒÅÓÅÒÖÅ ÏÔÈÅÒ ÆÌÁÇÓŠ‰ÔÁÄ ÇÌÂÔÙÐ‰¯ÓÅÔ ÎÅ× ÔÙÐÅŠ‰ÄÃÁ ÆÌÁÇŠ¯×ÈÁÔ ÁÂÏÕÔ ÄÅÆÉÎÅÄ ÂÉÔ¿Š‰ÔÁÄ ÓÅÃÒŠ‰ÓÚÁŠ‰ÄÃÁ ÓÙÍÖÁÌ‰¯ÓÅÃÒÅÆ ÉÓ ÓÁÍÅ ÁÓ ÅØÔÅÒÎÁÌ ÅØÃÅÐÔ ÓÙÍÖÁÌ ÉÓ ±Š‰ÊÍÓ É ÑÑÐÕÔÓÙÍ‰¯ÐÕÔ ÂÁÃË ÎÅ× ÔÙÐÅŠ‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÓÐÁÃÅÓŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÁÔ ÅÎÄ ÏÆ ÌÉÎÅ¿Š‰ÊÍÐ É ¨ÐÓÅÕÄÂ‰¯ÙÅÓŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶Š‰ÓÎÁ ÃÌÁŠ‰ÊÍÐ É ¨ÂÙÅÂŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­µ´‰¯ÃÈÅÃË ÆÏÒ ÃÏÍÍÁŠ‰ÓÎÁ ÃÌÁŠ‰ÊÍÐ ÇÌÏÂ²‰¯ÇÏÔ ÃÏÍÍÁ¬ ÃÈÅÃË ÆÏÒ ÎÅØÔ ÉÄÅÎÔÉÆÉÅÒŠÅÒ·´¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÎÏÔ ÃÏÍÍÁŠ‰ÊÍÓ É ¨ÉÇÎÏÒÅŠ‰ÊÍÐ ÇÌÏÂ³ŠŠÇÌÂÔÙÐ¬‰°ŠŠ¤ÓÅÃÒÅÆ¬ÔÁÄ ¨ÅØÔÒÎŠ‰ÄÃÁ ÇÌÂÔÙÐŠ‰ÃÌÁ ÉÁÃŠ‰ÊÍÐ ÇÌÏÂ´ŠŠÓÅÃÒ¬‰°‰‰¯± ÉÆ ®ÓÅÃÒÅÆŠŒÒÅÄÅÆ¬‰ÔÁÄ ÆÌÁÇ‰¯ÐÏÓÓÉÂÌÅ ÒÅÄÅÆÉÎÉÔÉÏÎŠ‰ÁÎÄ ÑÑ··Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÅÒ·³‰¯ÎÏÔ Á ÒÅÇÕÌÁÒ ÓÙÍÂÏÌŠ‰ÔÁÄ ÇÌÂÔÙÐ‰¯ÏËÁÙ ÔÏ ÒÅÄÅÆÉÎÅ Á ÒÅÇÕÌÁÒ ÓÙÍÂÏÌŠ‰ÔÁÄ ¨­´‰‰¯ÔÏ ÇÌÏÂÁÌ ÏÒ ÅÎÔÒÙ ¨ÔÙÐÅ ´ ÏÒ µ©Š‰ÃÌÌ ÒÁÒŠ‰ÓÚÁ ÃÌÁŠÅÒ·³¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÒÅÄÅÆÉÎÉÔÉÏÎ ÏÆ ÔÙÐÅÓŠ‰ÊÍÐ ÓÅÔÇÌÂ‰¯ÇÉÖÅ ÅÒÒÏÒ ÁÎÄ ÁÌÌÏ× ÒÅÄÅÆÉÎÉÔÉÏÎŠ‰ÐÁÇÅŠŒš€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+/12 INCLUDE OVERLAY 5 FOR MACREL	POST V0A
+/	7-MAR-78	INCLUDED PATCH TO CHECK FOR > AT END OF DECLARATION
+/	15-AUG-78	FIX BUG RE PRINTING BINARY ON .INCLUDE
+/	21-AUG-78	MOVED .PUSH AND .POP TO OVRE
+/			ADDED $SECREF
+	.INCLUDE MGLOB.MA
+	.ASECT OVRE,LEVEL=1,OVERLAY=4
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL DVNO,FILENO,FILSAV,CHAINI,INHANDL,LOOKU,INREC,LOOKLN
+	.EXTERNAL INLEN,INHNDL,ENTERR
+	.GLOBAL ER72,ER73,ER74,ER78,ER90,ER91
+	.GLOBAL $INCLUDE,$CHAIN
+	.GLOBAL $ENTRY,$EXTERNAL,$ZTERNAL,$GLOBAL,$SECREF
+
+	FIELD 3
+
+	*2000
+
+	5		/OVERLAY NUMBER
+
+/	INCLUDE AND CHAIN DIRECTIVES
+
+CHNFLG,	0		/1 IF 'CHAIN', 0 IF 'INCLUDE'
+$CHAIN,	CLA IAC
+$INCLUDE,DCA CHNFLG
+	JMS I QQSCAN	/SCAN PAST BLANKS IF ANY
+	CLA IAC
+	JMS I QQPARSYM	/GET FILENAME
+	TAD CHAR
+	TAD (-72	/:
+	SZA CLA
+	JMP DISK	/ASSUME DISK IF NO DEVICE SPECIFIED
+	TAD NAME3
+	TAD NAME4
+	SZA CLA
+ER72,	JMS I QQERROR	/DEVICE NAME GT 4 CHARS (TEST FOR . OR EXTENSION?)
+	TAD NAME1
+	DCA DVN1
+	TAD NAME2
+	DCA DVN2
+	JMS FETCHM	/FETCH DEVICE HANDLER BY NAME
+	JMS I QQGETCHR
+	JMS I QQLETTER	/IS THERE AN IDENTIFIER AFTER DEVICE?
+	JMP NONAM	/NO, ASSUME NON-FILE STRUCTURED
+	CLA IAC		/YES, GET FILENAME
+	JMS I QQPARSYM
+FIL,	INCR BNFLAG
+	INCR PCFLAG
+	JMS I QQOUT
+	JMS I QQSCAN
+	JMS I QQEOS	/CHECK FOR END-OF-STATEMENT
+	SKP		/TEMPORARY BUG IF ; OCCURS AFTER INCLUDE
+ER78,	JMS I QQERROR	/INCLUDE MUST BE ON LINE BY ITSELF
+	CDF 10
+	TAD I (DVNO	/GET CURRENT DEVICE FOR OS/8 FILE
+	TAD (7757
+	DCA TEMP
+	TAD I TEMP	/GET DEVICE CONTROL WORD
+	CDF 0
+	SMA CLA
+	JMP ER91	/DEVICE IS NON-FILE STRUCTURED
+/	CLA IAC		/SIMULATE 'NEWFIL'
+/	DCA NEWTIT	/WANT TO SET A NEW TITLE (?)
+/	CLA IAC
+/	DCA FORM	/WANT TO DO A FORM FEED
+	CDF 10
+	TAD I (FILENO
+	SPA
+	TAD (-1
+	SMA
+	DCA I (FILSAV	/SAVE FILE NUMBER IF FIRST INCLUDE
+	SMA
+	STA
+	DCA I (FILENO	/SET TO -1 IF FIRST INCLUDE
+	CIF CDF 10
+	JMS I (CHAINI	/DO SOME MORE STUFF IN FIELD 1
+	CDF 10		/CLEAN UP IN FIELD 1
+	TAD DVN2
+	DCA I (DVNO	/SET UP NEW DEVICE NUMBER
+	TAD DVN3
+	DCA I (INHNDLR	/SET UP NEW INPUT HANDLER ENTRY POINT
+	TAD DVN2
+	CDF 0
+	CIF 10
+	JMS I (LOOKU	/LOOK UP FILE
+	CDF 10
+	DCA I (INREC	/SET UP NEW INPUT RECORD NUMBER
+	TAD I (LOOKLN
+	CIA
+	DCA I (INLEN	/SET UP NEW INPUT FILE LENGTH
+	CDF 0
+	JMP I (BYEB
+
+DISK,	TAD (423	/DO A FETCH ON 'DISK'
+	DCA DVN1
+	TAD (1300
+	DCA DVN2
+	JMS FETCHM
+	JMP FIL
+NONAM,	DCA NAME1
+	DCA NAME2
+	JMP FIL		/**** HOPE LOOKUP WORKS IN THIS CASE, CHECK
+FETCHM,	0
+	TAD (INHAND+1
+	DCA DVN3	/FETCHES HANDLER BY NAME
+	CIF 10
+	JMS I (USR
+	1		/DO A FETCH
+DVN1,	0		/DEVICE NAME (2 WORDS)
+DVN2,	0		/BECOMES INTERNAL DEVICE NUMBER
+DVN3,	INHAND+1	/HANDLER BUFFER ADDRESS, RETURNS ENTRY POINT
+	SKP		/DEVICE DOESN'T EXIST
+	JMP I FETCHM	/RETURN
+	TAD DVN1	/MOVE NAME TO NAME1-3 FOR ERROR MESSAGE PROCESSOR
+	DCA NAME1
+	TAD DVN2
+	DCA NAME2
+	DCA NAME3
+ER90,	JMS I QQERROR	/INCLUDE OR CHAIN DEVICE DOESN'T EXIST
+	JMP I (BYEB	/ABORT DIRECTIVE
+ER91,	JMS I QQERROR	/TRYING TO DO INCLUDE FROM NON-F-S
+	JMP I (BYEB
+	PAGE
+$ENTRY,	TAD (ENTRYY-EXTRN
+$EXTERNAL,TAD (EXTRN-ZTRN
+$ZTERNAL,TAD (ZTRN-GLOB
+$GLOBAL,TAD (GLOB
+	DCA GLBTYP
+GLOB4,	DCA SECR
+	SKP
+GLOB2,	JMS I QQGETCHR
+	JMS I QQSCAN	/IGNORE BLANKS
+GLOB3,	JMS I QQLETTER	/IS IT A LETTER?
+	JMP ER74	/NOT A LETTER
+	JMS I QQPARSYM	/YES, GET IDENTIFIER
+	JMS I QQLOOKUP	/LOOK HIM UP
+	JMS I (ENTERR	/ENTER HIM IF NEW
+	JMS I QQGETSYM	/GET INFO ON HIM
+	JMS I QQCREF	/CREF THE GUY
+	TAD FLAG
+	SNA
+	JMP SETGLB
+	AND QQ77
+	CIA
+	TAD GLBTYP	/CHECK IF PREVIOUSLY DEFINED AS GLOBAL
+	SZA CLA
+	JMP REDEF
+SETGLB,	TAD FLAG
+	AND QQ7770	/PRESERVE OTHER FLAGS
+	TAD GLBTYP	/SET NEW TYPE
+	DCA FLAG
+/WHAT ABOUT DEFINED BIT?
+	TAD SECR
+	SZA
+	DCA SYMVAL	/SECREF IS SAME AS EXTERNAL EXCEPT SYMVAL IS 1
+	JMS I QQPUTSYM	/PUT BACK NEW TYPE
+	JMS I QQSCAN	/IGNORE SPACES
+	JMS I QQEOS	/AT END OF LINE?
+	JMP I (PSEUDB	/YES
+	TAD CHAR
+	TAD (-76
+	SNA CLA
+	JMP I (BYEB
+	TAD CHAR
+	TAD (-54	/CHECK FOR COMMA
+	SNA CLA
+	JMP GLOB2	/GOT COMMA, CHECK FOR NEXT IDENTIFIER
+ER74,	JMS I QQERROR	/NOT COMMA
+	JMS I (IGNORE
+	JMP GLOB3
+
+GLBTYP,	0
+
+$SECREF,TAD (EXTRN
+	DCA GLBTYP
+	CLA IAC
+	JMP GLOB4
+
+SECR,	0		/1 IF .SECREF
+REDEF,	TAD FLAG	/POSSIBLE REDEFINITION
+	AND QQ77
+	SZA CLA
+	JMP ER73	/NOT A REGULAR SYMBOL
+	TAD GLBTYP	/OKAY TO REDEFINE A REGULAR SYMBOL
+	TAD (-4		/TO GLOBAL OR ENTRY (TYPE 4 OR 5)
+	CLL RAR
+	SZA CLA
+ER73,	JMS I QQERROR	/REDEFINITION OF TYPES
+	JMP SETGLB	/GIVE ERROR AND ALLOW REDEFINITION
+	PAGE
+

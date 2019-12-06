@@ -1,1 +1,260 @@
-╞╣═пасс═Ё═роот═то═мацрел█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацЁр█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛лоокуп╛ориг╛парсым█┼┴╝еьтернал═поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═прлино╛принты╛сетт╛лист╛хеадинг╛субтл╛филено╛филмсг╛листор█┼┴╝глобал═оут╛видтх╛невпаг╛сбтптр╛листер█┼┴╝глобал═оутскп╛ожрлин╛пассЁ╛цолцнт█┼█┼┴╙╠╟╟╟█┼█┼┴ифдеф═плм══╪█┼╞┴оут█┼╞█┼╞┴тхис═роутине═оутпутс═а═лине═то═тхе═листинг═филе█┼╞┴тогетхер═витх═алл═тхе═бинары═стуфф═ин═тхе═лефт═маргин█┼╞┴анд═алсо═такес═царе═оф═суцх═стуфф═ас═паге═хеадингс╛█┼╞┴лине═анд═цолумн═цоунтс╛═паге═нумберинг╛═лине═нумберинг╛═етц╝█┼╞█┼╞╠╝┴иф═тхе═╖форм╖═флаг═ис═сет═╗╫╠╘╛═тхен═а═нев═паге═ис═стартед█┼╞┴бы═цаллинг═роутине═╖невпаг╖╝══тхат═хандлес═паге═нумберинг╛═етц╝█┼╞╡╝┴╖пад╖═ис═сет═то═а═спаце╝█┼╞Ё╝┴иф═тхере═ис═но═лине═то═принт═анд═тхе═бинары╜еьтенсион═флаг█┼╞┴╗бефлаг╘═ис═нот═сет╛═тхен═тхис═роутине═мерелы═ретурнс╛█┼╞┴доинг═нотхинг╝█┼╞╢╝┴иф═тхере═ис═но═лине═то═принт╛═бут═тхере═аре═бинары═еьтенсионс█┼╞┴то═принт╛═анд═соме═бинары═хас═беен═генератед═╗бнфлг╫╟╘█┼╞┴тхен═ве═процеед═то═степ═╦═афтер═цаллинг═╖ожрлин╖╝█┼╞╣╝┴тхе═цуррент═лине═нумбер═ис═инцрементед═бы═╠╝█┼╞┴╗тхис═ресулт═ис═сховн═ин═мя═фор═жисуал═еффецтиженесс╛═л╝о╝╘█┼╞╤╝┴иф═ит═ис═нот═пассЁ╛═ве═ретурн█┼╞╥╝┴╖пад╖═ис═сет═то═╟═иф═тхе═лине═нумбер═гетс═еяуал═то═╠╟╟╟═ор█┼╞┴ларгер╛═со═тхат═тхе═лов═ордер═парт═принтс═витх═леадинг═╟╖с╝█┼╞╦╝┴иф═ит═ис═нот═пасс═Ё╛═ве═ретурн█┼╞╧╝┴тхен═ве═таб═оут═то═тхе═пц═цолумн╝█┼╞╠╟╝┴иф═╖пцфлаг╖═ис═╟╛═тхен═ве═принт═тхе═лоцатион═цоунтер█┼╞┴жалуе╝══╗тхис═ис══╖пц╖╜╠═╘█┼╞╠╠╝┴тхен═ве═таб═оут═то═тхе═бинары═цолумн╝█┼╞╠╡╝┴иф═╖бнфлаг╖═ис═╟╛═ве═принт═тхе═генератед═бинары═╗тхис═ис═╖бинары╖╘█┼╞╠Ё╝┴тхен═ве═таб═оут═то═тхе═соурце═фиелд╝═ве═сет═╖бнфлаг╖█┼╞┴анд═╖пцфлаг╖═то═╟╝█┼╞╠╢╝┴ве═нов═принт═тхе═соурце═лине╝══ве═кееп═трацк═оф═вхат═цолумн█┼╞┴ве╖ре═принтинг═ин═╗еспециаллы═фор═табс╘═анд═бумп█┼╞┴╖цолцнт╖═аццординглы╝══вхенежер═╖цолцнт╖═гоес═то═╟╛═ве═кнов█┼╞┴ве═аре═ат═тхе═енд═оф═тхе═ригхт═маргин╛═со═ве═цалл█┼╞┴╖ожрлин╖╛═тхен═таб═оут═то═тхе═цоммент═фиелд═анд═цонтинуе█┼╞┴то═принт═тхе═ремаиндер═оф═тхе═соурце═лине╝█┼┴╬█┼▄╞иф═но═лине═то═принт═анд═но═бинары═генератед╛█┼╞дон╖т═принт═анытхинг╝═╙╙╙█┼╞вант═то═нумбер═алл═линес═инцлудинг═емпты═линес╝█┼█┼л╠╟╟╟╛┴╠╟╟╟█┼█┼оут╛┴╟█┼┴тад═форм█┼┴сза═цла┴┴╞старт═а═нев═паге█┼┴ймс═невпаг┴╞ыес█┼┴тад═и═╗листвд█┼оутскп╛┴спа═цла┴┴╞ис═лист═он©┴шцхангед═то═скп═цла═иф═еррор═оццурсщ█┼┴ймп═нолист┴╞но╛═но═лист█┼┴ймс═пассЁ█┼┴ймп═нолист┴╞дон╖т═оутпут═еьцепт═пасс═Ё█┼┴тад═линоут█┼┴сза═цла┴┴╞ис═тхере═а═лине═то═принт©█┼┴ймп═прли┴╞ыес█┼┴тад═и═╗листвд█┼┴анд═л╠╟╟╟┴╞гет═бинары═еьтенсион═флаг█┼┴тад═бнфлаг█┼┴сна═цла█┼┴ймп═линтаб█┼┴ймп═нолист┴╞скип═бинары═еьтенсионс█┼прли╛┴цла═иац┴┴╞вант═лине═нумбер█┼линтаб╛┴ймс═и═╗принты█┼нолист╛┴дца═бнфлаг█┼┴дца═пцфлаг█┼┴дца═линоут┴╞сигнал═лине═принтед█┼┴тад═спацла┴╞ресторе═жиргиниты═оф═тхис═роутине█┼┴дца═оутскп█┼┴ймп═и═оут┴╞ретурн█┼╞╙╙╙═буг═цонцернинг═бинары═еьтенсионс═анд═╖линоут╖═иф═█┼╞мултипле═цаллс═маде═то═╖оут╖═суцх═ас═фром═ьлист█┼█┼цолцнт╛┴╟█┼╞видтх╛┴╜╠╠╥┴┴╞негатиже═оф═видтх═оф═оутпут═листинг═дежице█┼┴┴┴╞обтаинед═еитхер═дирецтлы═фром═хандлер█┼┴┴┴╞ор═сет═бы═усер═жиа═╫═свитцх█┼┴┴┴╞муст═енд═ин═╥█┼▄┴ифдеф═плм══╪█┼╞┴невпаг█┼╞█┼╞┴тхис═роутине═гоес═то═а═нев═паге═ин═тхе═листинг═филе╝█┼╞┴ит═такес═ан═оптионал═аргумент═ин═тхе═ац╛═вхицх═репресентс█┼╞┴тхе═суб╜паге═нумбер╝══иф═тхе═ац═ис═╟╛═тхен═но═нев═суб╜паге█┼╞┴ис═десиред╛═анд═мацрел═гоес═он═то═тхе═неьт═ацтуал═паге╝█┼╞┴╗сеттинг═тхе═суб╜паге═нумбер═бацк═то═╟╝╘█┼╞┴тхе═суб╜паге═нумбер═ис═бумпед═вхенежер═а═усер╖с═паге█┼╞┴цроссес═а═пхысицал═паге═боундары╝█┼╞█┼╞╠╝┴иф═тхе═нев═суб╜паге═нумбер═ис═нот═╟╛═тхен═тхе═пагенумбер█┼╞┴ис═инцрементед═бы═╠╝█┼╞╡╝┴иф═тхис═ис═нот═пасс═Ё╛═ве═ретурн═иммедиателы╝█┼╞Ё╝┴а═форм═феед═ис═сент═то═тхе═листинг═филе╝█┼╞╢╝┴╖невтит╖═ис═цхецкед═то═сее═иф═ве═вант═а═нев═титле╝█┼╞┴иф═╖невтит╖═ис═нон╜╟╛═тхен═ве═вант═а═нев═титле╝█┼╞┴ве═обтаин═ит═бы═цаллинг═╖сеттит╖═вхицх═можес═а═нев═титле█┼╞┴инто═тхе═хеадинг═ареа═фром═тхе═бегиннинг═оф═тхе═цуррент█┼╞┴соурце═лине╝█┼╞╣╝┴тхен═ве═принт═тхе═хеадинг═╗титле╘█┼╞╤╝┴тхен═ве═принт═тхе═паге═нумбер═╗но═леадинг═зероес╘╝█┼╞╥╝┴иф═тхис═ис═нот═субпаге═╟╛═ве═принт═а═хыпхен═фолловед█┼╞┴бы═тхе═субпаге═нумбер╝█┼╞╦╝┴ве═нов═зеро═тхе═╖форм╖═флаг╛═анд═принт═а═╪цр╬╪лф╬█┼╞╧╝┴тхен═ве═принт═тхе═субтитле═анд═ан═еьтра═цр╛лф╝█┼╞╠╟╝┴финаллы╛═ве═ресет═тхе═лине═цоунт═то═╜╖пглинс╖═анд═ретурн╝█┼┴╬█┼▄╞┴темпорарилы═тхис═ис═алл═ин═роот█┼█┼╞ежерытхинг═афтер═тхе═цалл═то═пасс═Ё═цоулд═може═то═ожерлаы█┼╞иф═тхере═вас═роом█┼█┼╞┴до═паге═нумберс╛═лине═нумберс╛етц╝═ежен═иф═нот═листинг█┼╞хаже═оптион═то═цреф═унлистед═жариаблес█┼█┼невпаг╛┴╟█┼┴дца═субпаг┴╞нев═суб╜паге═нумбер═маы═бе═пассед═жиа═ац█┼┴дца═форм█┼┴тад═╗╜пглинс┴╞ресет═цоунт═оф═но╝═оф═линес█┼┴┴┴╞лефт═пер═паге█┼┴дца═линцнт█┼┴тад═свмтоь█┼┴анд═╗╢╟╟█┼┴сза═цла█┼┴дца═линено┴╞иф═╞п╛═тхен═ресет═лине═нумберс█┼┴ймс═пассЁ█┼┴ймп═и═невпаг█┼┴тад═невтит█┼┴сза═цла┴┴╞неед═нев═титле©█┼┴ймс═и═╗сетт┴╞ыес█┼┴тад═и═╗листвд┴╞╙╙╙═буг═вилл═принт═ожер═енд═оф═паге═он═еррорс═оф═нолистед═линес█┼спацла╛┴спа═цла█┼┴ймп═и═невпаг█┼┴ста┴┴╞но█┼┴ймс═и═╗лист┴╞принт═хеадинг█┼┴хеадинг╜╠┴╞витх═но═цр═лф█┼┴дца═пад█┼┴тад═пагено█┼┴цлл█┼┴ймс═и═яядпринт┴╞инсерт═паге═нумбер═инто═хеадинг█┼┴тад═субпаг█┼┴сна═цла┴┴╞ис═тхере═а═суб╜паге═специфицатион©█┼┴ймп═носуб┴╞но█┼┴тад═╗╣╣┴┴╞ыес█┼┴ймс═и═яялистер┴╞оутпут═а═хыпхен█┼┴тад═субпаг┴╞фолловед═бы═тхе═суб╜паге═ё█┼┴цлл█┼┴ймс═и═яядпринт┴╞цреате═суб╜паге═нумбер█┼носуб╛┴ймс═и═яяцрлф█┼┴ста█┼┴ймс═и═╗лист█┼сбтптр╛┴субтл┴┴╞принт═субтитле█┼к╠╠╛┴цдф═╠╟█┼┴тад═и═╗филено█┼┴цдф═╟█┼┴дца═ф█┼┴тад═ф█┼┴сна═цла█┼┴ймп═сет╡█┼┴ста█┼┴ймс═и═╗лист█┼┴филмсг█┼┴дца═пад█┼┴тад═ф█┼┴сма═цла█┼┴тад═╗╢Ё╜╣╣┴╞╖ё╖╜╖╜╖█┼┴тад═╗╣╣█┼┴ймс═и═яялистер█┼┴тад═яя╢╟█┼┴ймс═и═яялистер█┼┴тад═ф█┼┴спа█┼┴циа█┼┴цлл█┼┴ймс═и═яядпринт█┼сет╡╛┴ймс═и═яяцрлф█┼┴ймс═и═яяцрлф█┼┴ймп═и═невпаг█┼ф╛┴╟█┼█┼▄листер╛┴╟█┼┴циф═цдф═╠╟█┼┴ймс═и═╗листор█┼┴ймп═и═листер█┼█┼ожрлин╛┴╟█┼┴тад═видтх█┼┴циа█┼┴дца═цолцнт█┼┴исз═линцнт┴╞ат═боттом═оф═паге©█┼┴ймп═и═ожрлин┴╞но█┼┴цла═иац┴┴╞ыес█┼┴тад═субпаг┴╞бумп═суб╜паге═нумбер█┼┴ймс═невпаг┴╞анд═старт═а═нев═пхысицал═паге█┼┴инцр═линцнт█┼┴ймп═и═ожрлин█┼█┼субпаг╛┴╟┴┴╞суб╜паге═нумбер█┼█┼пассЁ╛┴╟█┼┴тад═пасс█┼┴тад═╗╜Ё█┼┴сна═цла█┼┴исз═пассЁ█┼┴ймп═и═пассЁ█┼┴паге█┼▄ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/5 PASS 3 ROOT TO MACREL
+	.INCLUDE MGLOB.MA
+	.ASECT MAC3R
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LOOKUP,ORIG,PARSYM
+	.EXTERNAL POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL PRLINO,PRINTY,SETT,LIST,HEADING,SUBTL,FILENO,FILMSG,LISTOR
+	.GLOBAL OUT,WIDTH,NEWPAG,SBTPTR,LISTER
+	.GLOBAL OUTSKP,OVRLIN,PASS3,COLCNT
+
+	*1000
+
+	IFDEF PLM  <
+/	OUT
+/
+/	THIS ROUTINE OUTPUTS A LINE TO THE LISTING FILE
+/	TOGETHER WITH ALL THE BINARY STUFF IN THE LEFT MARGIN
+/	AND ALSO TAKES CARE OF SUCH STUFF AS PAGE HEADINGS,
+/	LINE AND COLUMN COUNTS, PAGE NUMBERING, LINE NUMBERING, ETC.
+/
+/1.	IF THE 'FORM' FLAG IS SET (=1), THEN A NEW PAGE IS STARTED
+/	BY CALLING ROUTINE 'NEWPAG'.  THAT HANDLES PAGE NUMBERING, ETC.
+/2.	'PAD' IS SET TO A SPACE.
+/3.	IF THERE IS NO LINE TO PRINT AND THE BINARY-EXTENSION FLAG
+/	(BEFLAG) IS NOT SET, THEN THIS ROUTINE MERELY RETURNS,
+/	DOING NOTHING.
+/4.	IF THERE IS NO LINE TO PRINT, BUT THERE ARE BINARY EXTENSIONS
+/	TO PRINT, AND SOME BINARY HAS BEEN GENERATED (BNFLG=0)
+/	THEN WE PROCEED TO STEP 8 AFTER CALLING 'OVRLIN'.
+/5.	THE CURRENT LINE NUMBER IS INCREMENTED BY 1.
+/	(THIS RESULT IS SHOWN IN MQ FOR VISUAL EFFECTIVENESS, L.O.)
+/6.	IF IT IS NOT PASS3, WE RETURN
+/7.	'PAD' IS SET TO 0 IF THE LINE NUMBER GETS EQUAL TO 1000 OR
+/	LARGER, SO THAT THE LOW ORDER PART PRINTS WITH LEADING 0'S.
+/8.	IF IT IS NOT PASS 3, WE RETURN
+/9.	THEN WE TAB OUT TO THE PC COLUMN.
+/10.	IF 'PCFLAG' IS 0, THEN WE PRINT THE LOCATION COUNTER
+/	VALUE.  (THIS IS  'PC'-1 )
+/11.	THEN WE TAB OUT TO THE BINARY COLUMN.
+/12.	IF 'BNFLAG' IS 0, WE PRINT THE GENERATED BINARY (THIS IS 'BINARY')
+/13.	THEN WE TAB OUT TO THE SOURCE FIELD. WE SET 'BNFLAG'
+/	AND 'PCFLAG' TO 0.
+/14.	WE NOW PRINT THE SOURCE LINE.  WE KEEP TRACK OF WHAT COLUMN
+/	WE'RE PRINTING IN (ESPECIALLY FOR TABS) AND BUMP
+/	'COLCNT' ACCORDINGLY.  WHENEVER 'COLCNT' GOES TO 0, WE KNOW
+/	WE ARE AT THE END OF THE RIGHT MARGIN, SO WE CALL
+/	'OVRLIN', THEN TAB OUT TO THE COMMENT FIELD AND CONTINUE
+/	TO PRINT THE REMAINDER OF THE SOURCE LINE.
+	>
+/IF NO LINE TO PRINT AND NO BINARY GENERATED,
+/DON'T PRINT ANYTHING. ***
+/WANT TO NUMBER ALL LINES INCLUDING EMPTY LINES.
+
+L1000,	1000
+
+OUT,	0
+	TAD FORM
+	SZA CLA		/START A NEW PAGE
+	JMS NEWPAG	/YES
+	TAD I (LISTWD
+OUTSKP,	SPA CLA		/IS LIST ON?	[CHANGED TO SKP CLA IF ERROR OCCURS]
+	JMP NOLIST	/NO, NO LIST
+	JMS PASS3
+	JMP NOLIST	/DON'T OUTPUT EXCEPT PASS 3
+	TAD LINOUT
+	SZA CLA		/IS THERE A LINE TO PRINT?
+	JMP PRLI	/YES
+	TAD I (LISTWD
+	AND L1000	/GET BINARY EXTENSION FLAG
+	TAD BNFLAG
+	SNA CLA
+	JMP LINTAB
+	JMP NOLIST	/SKIP BINARY EXTENSIONS
+PRLI,	CLA IAC		/WANT LINE NUMBER
+LINTAB,	JMS I (PRINTY
+NOLIST,	DCA BNFLAG
+	DCA PCFLAG
+	DCA LINOUT	/SIGNAL LINE PRINTED
+	TAD SPACLA	/RESTORE VIRGINITY OF THIS ROUTINE
+	DCA OUTSKP
+	JMP I OUT	/RETURN
+/*** BUG CONCERNING BINARY EXTENSIONS AND 'LINOUT' IF 
+/MULTIPLE CALLS MADE TO 'OUT' SUCH AS FROM XLIST
+
+COLCNT,	0
+/WIDTH,	-117		/NEGATIVE OF WIDTH OF OUTPUT LISTING DEVICE
+			/OBTAINED EITHER DIRECTLY FROM HANDLER
+			/OR SET BY USER VIA = SWITCH
+			/MUST END IN 7
+	IFDEF PLM  <
+/	NEWPAG
+/
+/	THIS ROUTINE GOES TO A NEW PAGE IN THE LISTING FILE.
+/	IT TAKES AN OPTIONAL ARGUMENT IN THE AC, WHICH REPRESENTS
+/	THE SUB-PAGE NUMBER.  IF THE AC IS 0, THEN NO NEW SUB-PAGE
+/	IS DESIRED, AND MACREL GOES ON TO THE NEXT ACTUAL PAGE.
+/	(SETTING THE SUB-PAGE NUMBER BACK TO 0.)
+/	THE SUB-PAGE NUMBER IS BUMPED WHENEVER A USER'S PAGE
+/	CROSSES A PHYSICAL PAGE BOUNDARY.
+/
+/1.	IF THE NEW SUB-PAGE NUMBER IS NOT 0, THEN THE PAGENUMBER
+/	IS INCREMENTED BY 1.
+/2.	IF THIS IS NOT PASS 3, WE RETURN IMMEDIATELY.
+/3.	A FORM FEED IS SENT TO THE LISTING FILE.
+/4.	'NEWTIT' IS CHECKED TO SEE IF WE WANT A NEW TITLE.
+/	IF 'NEWTIT' IS NON-0, THEN WE WANT A NEW TITLE.
+/	WE OBTAIN IT BY CALLING 'SETTIT' WHICH MOVES A NEW TITLE
+/	INTO THE HEADING AREA FROM THE BEGINNING OF THE CURRENT
+/	SOURCE LINE.
+/5.	THEN WE PRINT THE HEADING (TITLE)
+/6.	THEN WE PRINT THE PAGE NUMBER (NO LEADING ZEROES).
+/7.	IF THIS IS NOT SUBPAGE 0, WE PRINT A HYPHEN FOLLOWED
+/	BY THE SUBPAGE NUMBER.
+/8.	WE NOW ZERO THE 'FORM' FLAG, AND PRINT A <CR><LF>
+/9.	THEN WE PRINT THE SUBTITLE AND AN EXTRA CR,LF.
+/10.	FINALLY, WE RESET THE LINE COUNT TO -'PGLINS' AND RETURN.
+	>
+/	TEMPORARILY THIS IS ALL IN ROOT
+
+/EVERYTHING AFTER THE CALL TO PASS 3 COULD MOVE TO OVERLAY
+/IF THERE WAS ROOM
+
+/	DO PAGE NUMBERS, LINE NUMBERS,ETC. EVEN IF NOT LISTING
+/HAVE OPTION TO CREF UNLISTED VARIABLES
+
+NEWPAG,	0
+	DCA SUBPAG	/NEW SUB-PAGE NUMBER MAY BE PASSED VIA AC
+	DCA FORM
+	TAD (-PGLINS	/RESET COUNT OF NO. OF LINES
+			/LEFT PER PAGE
+	DCA LINCNT
+	TAD SWMTOX
+	AND (400
+	SZA CLA
+	DCA LINENO	/IF /P, THEN RESET LINE NUMBERS
+	JMS PASS3
+	JMP I NEWPAG
+	TAD NEWTIT
+	SZA CLA		/NEED NEW TITLE?
+	JMS I (SETT	/YES
+	TAD I (LISTWD	/*** BUG WILL PRINT OVER END OF PAGE ON ERRORS OF NOLISTED LINES
+SPACLA,	SPA CLA
+	JMP I NEWPAG
+	STA		/NO
+	JMS I (LIST	/PRINT HEADING
+	HEADING-1	/WITH NO CR LF
+	DCA PAD
+	TAD PAGENO
+	CLL
+	JMS I QQDPRINT	/INSERT PAGE NUMBER INTO HEADING
+	TAD SUBPAG
+	SNA CLA		/IS THERE A SUB-PAGE SPECIFICATION?
+	JMP NOSUB	/NO
+	TAD (55		/YES
+	JMS I QQLISTER	/OUTPUT A HYPHEN
+	TAD SUBPAG	/FOLLOWED BY THE SUB-PAGE #
+	CLL
+	JMS I QQDPRINT	/CREATE SUB-PAGE NUMBER
+NOSUB,	JMS I QQCRLF
+	STA
+	JMS I (LIST
+SBTPTR,	SUBTL		/PRINT SUBTITLE
+K11,	CDF 10
+	TAD I (FILENO
+	CDF 0
+	DCA F
+	TAD F
+	SNA CLA
+	JMP SET2
+	STA
+	JMS I (LIST
+	FILMSG
+	DCA PAD
+	TAD F
+	SMA CLA
+	TAD (43-55	/'#'-'-'
+	TAD (55
+	JMS I QQLISTER
+	TAD QQ40
+	JMS I QQLISTER
+	TAD F
+	SPA
+	CIA
+	CLL
+	JMS I QQDPRINT
+SET2,	JMS I QQCRLF
+	JMS I QQCRLF
+	JMP I NEWPAG
+F,	0
+
+LISTER,	0
+	CIF CDF 10
+	JMS I (LISTOR
+	JMP I LISTER
+
+OVRLIN,	0
+	TAD WIDTH
+	CIA
+	DCA COLCNT
+	ISZ LINCNT	/AT BOTTOM OF PAGE?
+	JMP I OVRLIN	/NO
+	CLA IAC		/YES
+	TAD SUBPAG	/BUMP SUB-PAGE NUMBER
+	JMS NEWPAG	/AND START A NEW PHYSICAL PAGE
+	INCR LINCNT
+	JMP I OVRLIN
+
+SUBPAG,	0		/SUB-PAGE NUMBER
+
+PASS3,	0
+	TAD PASS
+	TAD (-3
+	SNA CLA
+	ISZ PASS3
+	JMP I PASS3
+	PAGE
+

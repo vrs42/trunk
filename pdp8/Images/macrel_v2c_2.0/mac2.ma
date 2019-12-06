@@ -1,1 +1,309 @@
-╞╠╡═пасс═╡═роот═то═мацрел┴пост═фт═╠█┼╞═╦╜мар╜╥╦┴аддед═клудгы═ауьилиары═сецт═цхунк═суппорт█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мац╡█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛путсым╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═лпатцх╛бпуть╛путбт╛путбн█┼┴╝глобал═пуьбин╛бпут╛пунбит╛путбит╛ориг╛путб╛пуны╛путлц█┼┴╝глобал═уннам█┼█┼┴╙╠╡╟╟█┼█┼╞путбин═ис═цаллед═то═пут═оут═а═бинары═ентры═инцлудинг═а═флаг═фиелд╝█┼╞╖флг╖═муст═алреады═хаже═беен═сет═уп╝══путбин═ис═цаллед═витх═тхе█┼╞дата═ворд═ин═тхе═ац╝█┼█┼пуьбин╛┴╟█┼┴дца═бинары█┼┴исз═пц█┼лЁ╛┴Ё█┼┴тад═и═╗еьтпц█┼┴сза═цла█┼┴дца═пц┴┴╞дон╖т═бумп═пц═иф═ит╖с═еьтернал█┼┴циф═╠╟█┼┴ймс═и═╗лпатцх█┼┴ймс═бпут█┼┴ймп═и═пуьбин█┼█┼тм╛█┼бпут╛┴╟█┼┴тад═пц█┼┴анд═яя╥╤╟╟█┼┴дца═литпаг┴╞мигхт═флов═инто═неьт═литерал═паге█┼┴ймс═пуны█┼┴ймп═и═бпут┴╞но═бинары═тхис═пасс█┼┴ймс═и═╗бпуть█┼┴ймп═и═бпут█┼▄пунбит╛┴╟█┼┴ймс═пуьбин█┼┴ймс═и═яяоут█┼┴ймп═и═пунбит█┼█┼╞пуьбин═ис═йуст═лике═путбин═бут═ит═доесн╖т═принт═лине█┼█┼путбит╛┴╟█┼┴дца═бинары┴╞саже═темпорарилы█┼┴тад═бинары█┼┴ймс═путб█┼┴ймп═и═путбит█┼█┼╞л╢╟╤╟╛┴╢╟╤╟█┼л╢╠╠╟╛┴╢╠╠╟█┼▄ориг╛┴╟█┼┴дца═пц┴┴╞нев═оригин█┼┴тад═лЁ█┼┴дца═флг█┼┴тад═цстыпе█┼┴тад═ям╠╟█┼┴сна═цла█┼┴тад═╗╠╣╜оргцод┴╞асецтс═таке═абсолуте═оригинс█┼┴иац┴┴╞тад═╗оргцод█┼┴дца═бинары█┼┴ймс═бпут█┼┴тад═пц█┼┴тад═релок┴╞адд═релоцатион═цонстант█┼┴ймс═путбит█┼┴дца═флг┴┴╞дон╖т═принт═╖╙╖═ин═листинг█┼┴ймп═и═ориг█┼▄┴ифдеф═плм══╪█┼╞┴флаг╫┴╟┴лоад═ентры═ас═ис█┼╞┴┴╠┴адд═басе═оф═цуррент═сецт═то═ентры█┼╞┴┴╡┴╥╜бит═цуррент═сецт═релоц═иф═мри█┼╞┴┴┴иф═╤╡ьь╛═адд═фиелд═оф═цуррент═сецт█┼╞┴┴Ё┴специал═лоадер═цоде█┼╞┴┴┴╟┴еьтендед═цоде█┼╞┴┴┴╠┴лсд╚дата█┼╞┴┴┴╡┴фиелд═лсд╚дата█┼╞┴┴┴Ё┴зблоцк╛═жалуе█┼╞┴┴┴╢┴нев═сецт█┼╞┴┴┴╣┴лсд╚дата═паге═╟█┼╞┴┴┴╤┴стацк═стуфф█┼█┼╞┴┴┴еьтендед═цодес╨█┼╞█┼╞┴┴┴┴╟┴енд═оф═теьт█┼╞┴┴┴┴╠┴оригин█┼╞┴┴┴┴╡┴стацк═стуфф█┼┴╬█┼▄путб╛┴╟█┼┴дца═тм█┼┴ймс═пуны█┼┴ймп═и═путб█┼┴тад═тм█┼┴ймс═и═╗путбт█┼┴ймп═и═путб█┼█┼█┼пуны╛┴╟┴┴╞скип═иф═пунцхинг═бинары█┼┴цлл═ста═рал┴╞╜╡█┼┴тад═пасс█┼┴сза═цла█┼┴ймп═и═пуны█┼┴тад═пунфлг█┼┴сна═цла█┼┴инцр═пуны█┼┴ймп═и═пуны█┼▄путлц╛┴╟┴┴╞пут═оут═лоадер═цоде═╗флг╫Ё╘█┼┴дца═бинары┴╞цоде═ис═ин═ац█┼┴ймс═пуны█┼┴ймп═и═путлц┴╞до═нотхинг═еьцепт═он═пасс═╡█┼┴тад═лЁ█┼┴дца═флг┴┴╞аджанцед═релоцатион█┼┴тад═бинары█┼┴ймс═и═╗путбн█┼┴ймп═и═путлц█┼█┼╞путелц╛┴╟┴┴╞оутпут═еьтендед═лоадер═цоде═╗ин═неьт═ворд╘█┼╞┴ймс═пуны█┼╞┴ймп═и═путелц┴╞онлы═до═ит═он═пасс═╡█┼╞┴тад═и═путелц┴╞гет═еьтендед═цоде█┼╞┴ймс═путлц┴╞фирст═телл═лсд═тхат═тхис═ис═ан═еьтендед═лоадер═цоде█┼╞┴исз═путелц█┼╞┴ймп═и═путелц█┼╞╙╙╙╙╙╙═тхис═ис═ридицулоус╝══ит═ис═саме═ас═путлц█┼▄уннам╛┴╟█┼┴циф═╡╟█┼┴ймс═и═╗клу╡█┼┴ймс═и═яялоокуп┴╞сее═иф═ит╖с═алреады═тхере█┼┴ймс═и═яяентер┴╞иф═нот╛═ентер═ит█┼┴ймс═и═яягетсым┴╞гет═итс═инфо█┼┴тад═флаг█┼┴спа═цла┴┴╞до═ве═кнов═тхис═гуы©█┼┴ймп═уп┴┴╞ыес╛═муст═хаже═а═хигх═оф═╡╟╟█┼┴тад═л╢╠╠╟┴╞но╛═сет═дефинед═а╜сецт═╚═уннамед═бит█┼┴дца═флаг█┼┴тад═фреептр█┼┴сна█┼┴хлт█┼┴дца═сымсцт┴╞аллоцате═а═нев═сецт█┼┴тад═сымсцт█┼┴ймс═и═╗цнжадр█┼┴дца═тмп█┼┴тад═и═тмп█┼┴дца═фреептр█┼┴дца═и═тмп█┼┴исз═тмп█┼┴тад═цурфлд█┼┴цлл═ртр█┼┴ртр█┼┴дца═и═тмп█┼┴тад═тмп█┼┴циф═╡╟█┼┴ймс═и═╗клуЁ█┼┴ймс═и═яяпутсым┴╞саже═тхис═греат═нев═информатион█┼уп╛┴дца═хисек┴╞фиддле█┼┴тад═сымнум█┼┴дца═цурсцт┴╞ноте═пресенце═оф═нев═сецт█┼┴ймс═пуны█┼┴ймп═нот╡█┼┴тад═лЁ█┼┴дца═флг█┼┴тад═яуал█┼╞┴анд═яяЁ╥╥█┼┴тад═╗невсцт█┼┴ймс═пунбит█┼нот╡╛┴тад═яя╡╟╟█┼┴ймс═ориг█┼┴тад═сымнум█┼┴дца═таглоц█┼┴ймп═и═уннам█┼█┼тмп╛┴╟█┼┴паге█┼▄┴╝глобал═клу╧╛прлино█┼┴╝еьтернал═ок╡а█┼┴╝еьтернал═цаллит█┼┴╝глобал═клу╤╛═ожл█┼█┼┴╝рсецт═клудг╡█┼┴фиелд═╡█┼клу╡╛┴╟█┼┴тад═╗╠╟┴┴╞цреате═ан═а╜сецт█┼┴дца═и═╗цстыпе█┼┴тад═╗╟╤╠╢┴╞сет═наме═то═флдн█┼┴дца═и═╗наме╠█┼┴тад═╗╟╢╥╡┴╞форце═нон╜стандард═наме█┼┴дца═и═╗наме╡┴╞усед═ас═специал═сигнал═то═╖фиелд╖█┼┴тад═и═╗цурфлд█┼┴тад═╗╢╟╤╟█┼┴дца═и═╗намеЁ█┼┴циф═цдф═╟█┼┴ймп═и═клу╡█┼█┼клуЁ╛┴╟█┼┴иац█┼┴дца═тнп█┼┴ста█┼┴дца═и═тнп█┼┴исз═тнп█┼┴дца═и═тнп█┼┴исз═тнп█┼┴дца═и═тнп█┼┴циф═цдф═╟█┼┴дца═и═╗сымжал█┼┴ймп═и═клуЁ█┼тнп╛┴╟█┼█┼клу╤╛┴╟█┼┴иац█┼┴дца═тнп█┼┴тад═и═тнп█┼┴дца═рт█┼┴исз═тнп█┼┴исз═тнп█┼┴тад═и═тнп█┼┴дца═ожл█┼┴тад═ожл█┼┴сза═цла█┼┴тад═╗╢╟█┼┴тад═рт█┼┴циф═цдф═╟█┼┴ймп═и═клу╤█┼█┼ожл╛┴╟█┼рт╛┴╟█┼▄клу╧╛┴╟█┼┴тад═╗╡█┼┴дца═теемп█┼┴тад═и═теемп█┼┴циф═цдф═╟█┼┴дца═и═╗сымжал█┼┴ймп═и═╗ок╡а█┼теемп╛┴╟█┼▄прлино╛┴╟┴┴╞принт═лине═нумбер█┼┴тад═╗╢╟█┼┴дца═и═╗пад█┼┴тад═и═╗линен╡█┼┴сза═цла█┼┴ймп═пл╡█┼┴тад═╗╢╟█┼┴цдф═╡╟█┼┴циф═╟█┼┴ймс═и═╗цаллит█┼┴листер█┼плЁ╛┴цдф═╟█┼┴ста═цлл█┼┴тад═и═╗линен╡█┼┴цла┴┴╞цлеар═линк═иф═╟╛═сет═иф═нон╜╟█┼┴тад═и═╗линено█┼┴цдф═╡╟█┼┴циф═╟█┼┴ймс═и═╗цаллит█┼┴дпринт█┼┴циф═цдф═╟█┼┴ймп═и═прлино█┼█┼пл╡╛┴дца═и═╗пад█┼┴тад═и═╗линен╡█┼┴цлл█┼┴цдф═╡╟█┼┴циф═╟█┼┴ймс═и═╗цаллит█┼┴дпринт█┼┴ймп═плЁ█┼▄ ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/12 PASS 2 ROOT TO MACREL	POST FT 1
+/ 8-MAR-78	ADDED KLUDGY AUXILIARY SECT CHUNK SUPPORT
+	.INCLUDE MGLOB.MA
+	.ASECT MAC2
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUTSYM,READLN,ROTL6,SCAN
+	.EXTERNAL LPATCH,BPUTX,PUTBT,PUTBN
+	.GLOBAL PUXBIN,BPUT,PUNBIT,PUTBIT,ORIG,PUTB,PUNY,PUTLC
+	.GLOBAL UNNAM
+
+	*1200
+
+/PUTBIN IS CALLED TO PUT OUT A BINARY ENTRY INCLUDING A FLAG FIELD.
+/'FLG' MUST ALREADY HAVE BEEN SET UP.  PUTBIN IS CALLED WITH THE
+/DATA WORD IN THE AC.
+
+PUXBIN,	0
+	DCA BINARY
+	ISZ PC
+L3,	3
+	TAD I (EXTPC
+	SZA CLA
+	DCA PC		/DON'T BUMP PC IF IT'S EXTERNAL
+	CIF 10
+	JMS I (LPATCH
+	JMS BPUT
+	JMP I PUXBIN
+
+TM,
+BPUT,	0
+	TAD PC
+	AND QQ7600
+	DCA LITPAG	/MIGHT FLOW INTO NEXT LITERAL PAGE
+	JMS PUNY
+	JMP I BPUT	/NO BINARY THIS PASS
+	JMS I (BPUTX
+	JMP I BPUT
+PUNBIT,	0
+	JMS PUXBIN
+	JMS I QQOUT
+	JMP I PUNBIT
+
+/PUXBIN IS JUST LIKE PUTBIN BUT IT DOESN'T PRINT LINE
+
+PUTBIT,	0
+	DCA BINARY	/SAVE TEMPORARILY
+	TAD BINARY
+	JMS PUTB
+	JMP I PUTBIT
+
+/L4060,	4060
+L4110,	4110
+ORIG,	0
+	DCA PC		/NEW ORIGIN
+	TAD L3
+	DCA FLG
+	TAD CSTYPE
+	TAD QM10
+	SNA CLA
+	TAD (15-ORGCOD	/ASECTS TAKE ABSOLUTE ORIGINS
+	IAC		/TAD (ORGCOD
+	DCA BINARY
+	JMS BPUT
+	TAD PC
+	TAD RELOK	/ADD RELOCATION CONSTANT
+	JMS PUTBIT
+	DCA FLG		/DON'T PRINT '*' IN LISTING
+	JMP I ORIG
+	IFDEF PLM  <
+/	FLAG=	0	LOAD ENTRY AS IS
+/		1	ADD BASE OF CURRENT SECT TO ENTRY
+/		2	7-BIT CURRENT SECT RELOC IF MRI
+/			IF 62XX, ADD FIELD OF CURRENT SECT
+/		3	SPECIAL LOADER CODE
+/			0	EXTENDED CODE
+/			1	LSD+DATA
+/			2	FIELD LSD+DATA
+/			3	ZBLOCK, VALUE
+/			4	NEW SECT
+/			5	LSD+DATA PAGE 0
+/			6	STACK STUFF
+
+/			EXTENDED CODES:
+/
+/				0	END OF TEXT
+/				1	ORIGIN
+/				2	STACK STUFF
+	>
+PUTB,	0
+	DCA TM
+	JMS PUNY
+	JMP I PUTB
+	TAD TM
+	JMS I (PUTBT
+	JMP I PUTB
+
+
+PUNY,	0		/SKIP IF PUNCHING BINARY
+	CLL STA RAL	/-2
+	TAD PASS
+	SZA CLA
+	JMP I PUNY
+	TAD PUNFLG
+	SNA CLA
+	INCR PUNY
+	JMP I PUNY
+PUTLC,	0		/PUT OUT LOADER CODE (FLG=3)
+	DCA BINARY	/CODE IS IN AC
+	JMS PUNY
+	JMP I PUTLC	/DO NOTHING EXCEPT ON PASS 2
+	TAD L3
+	DCA FLG		/ADVANCED RELOCATION
+	TAD BINARY
+	JMS I (PUTBN
+	JMP I PUTLC
+
+/PUTELC,	0		/OUTPUT EXTENDED LOADER CODE (IN NEXT WORD)
+/	JMS PUNY
+/	JMP I PUTELC	/ONLY DO IT ON PASS 2
+/	TAD I PUTELC	/GET EXTENDED CODE
+/	JMS PUTLC	/FIRST TELL LSD THAT THIS IS AN EXTENDED LOADER CODE
+/	ISZ PUTELC
+/	JMP I PUTELC
+/****** THIS IS RIDICULOUS.  IT IS SAME AS PUTLC
+UNNAM,	0
+	CIF 20
+	JMS I (KLU2
+	JMS I QQLOOKUP	/SEE IF IT'S ALREADY THERE
+	JMS I QQENTER	/IF NOT, ENTER IT
+	JMS I QQGETSYM	/GET ITS INFO
+	TAD FLAG
+	SPA CLA		/DO WE KNOW THIS GUY?
+	JMP UP		/YES, MUST HAVE A HIGH OF 200
+	TAD L4110	/NO, SET DEFINED A-SECT + UNNAMED BIT
+	DCA FLAG
+	TAD FREEPTR
+	SNA
+	HLT
+	DCA SYMSCT	/ALLOCATE A NEW SECT
+	TAD SYMSCT
+	JMS I (CNVADR
+	DCA TMP
+	TAD I TMP
+	DCA FREEPTR
+	DCA I TMP
+	ISZ TMP
+	TAD CURFLD
+	CLL RTR
+	RTR
+	DCA I TMP
+	TAD TMP
+	CIF 20
+	JMS I (KLU3
+	JMS I QQPUTSYM	/SAVE THIS GREAT NEW INFORMATION
+UP,	DCA HISEK	/FIDDLE
+	TAD SYMNUM
+	DCA CURSCT	/NOTE PRESENCE OF NEW SECT
+	JMS PUNY
+	JMP NOT2
+	TAD L3
+	DCA FLG
+	TAD QUAL
+/	AND QQ377
+	TAD (NEWSCT
+	JMS PUNBIT
+NOT2,	TAD QQ200
+	JMS ORIG
+	TAD SYMNUM
+	DCA TAGLOC
+	JMP I UNNAM
+
+TMP,	0
+	PAGE
+	.GLOBAL KLU9,PRLINO
+	.EXTERNAL OK2A
+	.EXTERNAL CALLIT
+	.GLOBAL KLU6, OVL
+
+	.RSECT KLUDG2
+	FIELD 2
+KLU2,	0
+	TAD (10		/CREATE AN A-SECT
+	DCA I (CSTYPE
+	TAD (0614	/SET NAME TO FLDN
+	DCA I (NAME1
+	TAD (0472	/FORCE NON-STANDARD NAME
+	DCA I (NAME2	/USED AS SPECIAL SIGNAL TO 'FIELD'
+	TAD I (CURFLD
+	TAD (4060
+	DCA I (NAME3
+	CIF CDF 0
+	JMP I KLU2
+
+KLU3,	0
+	IAC
+	DCA TNP
+	STA
+	DCA I TNP
+	ISZ TNP
+	DCA I TNP
+	ISZ TNP
+	DCA I TNP
+	CIF CDF 0
+	DCA I (SYMVAL
+	JMP I KLU3
+TNP,	0
+
+KLU6,	0
+	IAC
+	DCA TNP
+	TAD I TNP
+	DCA RT
+	ISZ TNP
+	ISZ TNP
+	TAD I TNP
+	DCA OVL
+	TAD OVL
+	SZA CLA
+	TAD (40
+	TAD RT
+	CIF CDF 0
+	JMP I KLU6
+
+OVL,	0
+RT,	0
+KLU9,	0
+	TAD (2
+	DCA TEEMP
+	TAD I TEEMP
+	CIF CDF 0
+	DCA I (SYMVAL
+	JMP I (OK2A
+TEEMP,	0
+PRLINO,	0		/PRINT LINE NUMBER
+	TAD (40
+	DCA I (PAD
+	TAD I (LINEN2
+	SZA CLA
+	JMP PL2
+	TAD (40
+	CDF 20
+	CIF 0
+	JMS I (CALLIT
+	LISTER
+PL3,	CDF 0
+	STA CLL
+	TAD I (LINEN2
+	CLA		/CLEAR LINK IF 0, SET IF NON-0
+	TAD I (LINENO
+	CDF 20
+	CIF 0
+	JMS I (CALLIT
+	DPRINT
+	CIF CDF 0
+	JMP I PRLINO
+
+PL2,	DCA I (PAD
+	TAD I (LINEN2
+	CLL
+	CDF 20
+	CIF 0
+	JMS I (CALLIT
+	DPRINT
+	JMP PL3
+

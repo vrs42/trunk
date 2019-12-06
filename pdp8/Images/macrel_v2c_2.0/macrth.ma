@@ -1,1 +1,340 @@
-╞╧┴мацрел═глобал═аритхметиц═ожерлаы█┼╞═╠╢╜мар╜╥╦┴фиьед═╝флд═дирецтиже═фор═еьтендед═меморы█┼╞═╠╥╜ауг╜╥╦┴аддед═╝лежел═псеудомацро█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацртх╛лежел╫╠╛ожерлаы╫╣█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═пусхл╛попл╛пеь╠╛пеь╡█┼┴╝глобал═ььедф╛лежьь█┼┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═пржопр╛путлц╛путбит╛мрисаж╛глбфлг╛╓дот█┼┴╝глобал═флдыь█┼┴фиелд═Ё█┼┴╝глобал═харды╛хрдтрм╛цмплье█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╡╢╟╟█┼█┼┴╤┴┴╞ожерлаы═ф█┼харды╛┴╟█┼┴тад═еьпцод█┼┴спа═цла█┼┴ймп═х╡┴┴╞прежиоус═еьпрессион═алреады═он═стацк█┼┴ймс═сткпут█┼┴═еьпабс█┼┴═еьпрел█┼┴═еьпцод█┼┴дца═еьпабс█┼┴дца═еьпрел█┼х╡╛┴тад═трмцод┴╞еьамине═нев═терм═╗ригхт═операнд╘█┼┴спа═цла┴┴╞вхат═тыпе═ис═ит©█┼┴ймп═хЁ┴┴╞терм═ис═алреады═он═стацк█┼┴ймс═сткпут┴╞пут═ит═он═стацк█┼┴═трмабс█┼┴═трмрел█┼┴═трмцод█┼┴ймп═х╢█┼хЁ╛┴тад═еьпцод┴╞вас═лефт═операнд═он═стацк═прежиоуслы©█┼┴спа═цла┴┴╞бецаусе═иф═нот╛═анд═терм═вас╛═тхен═операндс═аре═он█┼┴ймп═╝╚Ё┴┴╞стацк═ин═вронг═ордер█┼┴ймс═и═╗пут┴╞ыес╛═тхат═ис═тхе═цасе█┼┴свпцод┴┴╞свап═тхе═топ═тво═итемс═он═тхе═стацк█┼х╢╛┴ста█┼┴дца═еьпцод┴╞ресултинг═еьпрессион═ис═он═стацк█┼┴тад═и═╗пржопр┴╞таке═оператор█┼┴анд═╗╠╟┴┴╞ис═ит═дуплицате═╖ор╖©█┼┴сза═цла█┼┴цлл═ста═ртл┴╞ыес╛═субтрацт═тхрее═то═гет═регулар═╖ор╖█┼┴тад═и═╗пржопр┴╞цонжерт═то═аппроприате═еьтендед═лоадер═цоде█┼┴ймс═и═╗пут┴╞телл═линкер═то═перформ═тхис═оператион█┼┴╢┴┴╞он═тхе═топ═тво═елементс═оф═тхе═стацк█┼┴ймп═и═харды█┼█┼псхтып╛┴╟█┼▄╞пусх═а═жариабле═онто═тхе═стацк█┼╞тыпес═оф═пусхес╨█┼█┼╞абс┴рел┴цод┴ресултинг═пусх█┼█┼╞ь┴ь┴╜╠┴ноне█┼█┼╞╟┴р┴╟┴псхлсд═р█┼█┼╞а┴р┴╟┴псхжал═р█┼╞┴┴┴а█┼█┼╞а┴╟┴╟┴псхжал█┼╞┴┴┴а█┼█┼╞╟┴╟┴╟┴псхцон═╟█┼█┼╞а┴р┴╠┴псхлсд═р█┼╞┴┴┴псхцон═╠╥╥█┼╞┴┴┴анд█┼╞┴┴┴псхцод█┼╞┴┴┴а█┼╞┴┴┴адд█┼█┼╞╟┴р┴╠┴псхлсд═р█┼█┼╞а┴р┴╡┴псхфлд═р█┼╞┴┴┴псхцод█┼╞┴┴┴а█┼╞┴┴┴адд█┼█┼╞╟┴р┴╡┴псхфлд═р█┼▄сткпут╛┴╟┴┴╞пут═абс╛═рел╛═цод═онто═стацк═╗цод═нот═нег╘█┼┴тад═и═сткпут┴╞пицк═уп═аргументс█┼┴дца═сткабс█┼┴тад═и═сткабс█┼┴дца═сткабс█┼┴исз═сткпут█┼┴тад═и═сткпут█┼┴дца═сткрел█┼┴тад═и═сткрел█┼┴дца═сткрел█┼┴исз═сткпут█┼┴тад═и═сткпут█┼┴дца═сткцод█┼┴тад═и═сткцод█┼┴дца═сткцод█┼┴исз═сткпут█┼┴тад═сткцод█┼┴сза═цла█┼┴ймп═аджан┴╞аджанцед═релоцатион█┼стк╠╛┴тад═сткабс┴╞симпле═релоцатион█┼┴сза═цла█┼┴тад═╗псхжал╜псхлсд█┼┴тад═╗псхлсд█┼┴дца═псхтып█┼┴цлл█┼┴тад═сткабс█┼┴тад═сткрел█┼┴сза═цла█┼┴ймп═стк╡█┼┴сзл█┼┴ймп═стк╡█┼┴тад═╗псхцон┴╞иф═а╫р╫╟╛═пусх═цонстант═╟═он═стацк█┼┴дца═псхтып█┼стк╡╛┴тад═сткрел█┼┴сза█┼┴ймс═и═╗гетлсд█┼┴тад═псхтып█┼┴ймс═и═╗путлц█┼┴тад═сткабс█┼┴сза█┼стк╢╛┴ймс═и═╗путбит█┼┴ймп═и═сткпут█┼█┼аджан╛┴ста█┼┴тад═сткцод█┼┴сза═цла█┼┴ймп═цдфрел█┼┴тад═сткабс┴╞фсецт═релоцатион█┼┴сна═цла█┼┴ймп═стк╠┴╞он═╟═ис═унусуал█┼┴тад═сткрел█┼┴ймс═и═╗гетлсд█┼┴ймс═и═╗пут█┼┴псхлсд█┼┴ймс═и═╗пут█┼┴псхцон╚╠╥╥█┼┴ймс═и═╗пут█┼┴андцод█┼сткЁ╛┴ймс═и═╗пут█┼┴псхцод█┼┴тад═сткабс█┼┴ймс═и═╗путбит█┼┴ймс═и═╗пут█┼┴аддцод█┼┴ймп═и═сткпут█┼█┼цдфрел╛┴тад═сткрел┴╞цдф═релоцатион█┼┴сна█┼┴ймп═абсцдф█┼┴ймс═и═╗гетлсд█┼┴ймс═и═╗пут█┼┴псхфлд█┼┴тад═сткабс█┼┴сна═цла█┼┴ймп═и═сткпут█┼┴ймп═сткЁ█┼█┼абсцдф╛┴ймс═и═╗пут█┼┴псхцод█┼┴тад═сткабс█┼┴ймп═стк╢█┼█┼сткабс╛┴╟█┼сткрел╛┴╟█┼сткцод╛┴╟█┼┴паге█┼▄хрдтрм╛┴╟█┼┴тад═трмцод┴╞ыес╛═вант═то═негате═терм█┼┴сна┴┴╞лоок═ат═релоцатион═цоде█┼┴ймп═негтрм┴╞симпле═релоцатион╛═го═негате█┼┴спа═цла█┼┴ймп═негстк┴╞цомплеь═релоцатион╛═негате═топ═оф═стацк█┼┴тад═трмрел█┼┴сна═цла█┼┴ймп═цнжабс┴╞нег═оф═абсолуте═цдф█┼┴ймп═псхтрм┴╞аджанцед═релоцатион█┼негтрм╛┴тад═трмрел┴╞лоок═ат═релоцатабле═парт█┼┴сза═цла┴┴╞ис═терм═абсолуте©█┼┴ймп═псхтрм┴╞но╛═хаже═то═пусх═терм═онто═стацк█┼трмЁ╛┴тад═трмабс┴╞ыес╛═симплы═негате█┼┴циа┴┴╞цомплемент█┼┴дца═трмабс█┼┴ймп═и═хрдтрм┴╞ретурн█┼псхтрм╛┴ймс═и═╗сткпут█┼┴═трмабс█┼┴═трмрел█┼┴═трмцод█┼негстк╛┴ймс═пут┴┴╞негате═топ═оф═стацк█┼┴негцод█┼┴ймс═цм█┼┴ймп═и═хрдтрм█┼█┼цнжабс╛┴дца═трмцод█┼┴ймп═трмЁ█┼▄цмплье╛┴тад═и═╗мрисаж█┼┴сза═цла█┼┴ймп═ер█┼┴тад═и═╗глбфлг█┼┴сна═цла█┼┴ймп═глбок█┼┴тад═флаг█┼┴анд═яя╥╥█┼┴сна═цла█┼┴ймп═ер┴┴╞нон╜глобал═еяуате═ор═ин═фиьмри█┼глбок╛┴тад═╗╢╟╟Ё█┼┴дца═флг┴┴╞принт═старс█┼┴тад═сымнум█┼┴ймс═и═╗гетлсд┴╞поп═жалуе═офф═стацк═инто═лсд═ентры█┼┴ймс═пут█┼┴попжал█┼┴дца═сымжал█┼┴тад═сымнум█┼┴дца═сымсцт█┼┴тад═флаг█┼┴анд═╗Ё╥╟╟█┼┴тад═╗╢╟╟╟╚глоб┴╞маке═дефинед═анд═глобал█┼┴дца═флаг█┼╞╙╙╙═буг═витх═еьтерналс█┼┴ймс═и═яяпутсым┴╞врите═бацк═оут█┼┴скп█┼ер╛┴ймс═и═яяеррор┴╞╙╙╙█┼┴ймп═и═╗быеп┴╞го═аваы█┼▄тем╛█┼пут╛┴╟┴┴╞ац═маы═бе═нон╜╟█┼┴тад═и═пут┴╞адд═ин═аргумент█┼┴исз═пут█┼┴ймс═и═╗путлц█┼┴ймп═и═пут█┼█┼флдыь╛┴╟█┼┴ймс═и═╗╓дот█┼┴тад═цстыпе█┼┴тад═ям╠╟█┼┴сза═цла█┼┴ймп═цдфдот█┼┴тад═цурфлд█┼┴анд═╗╠╟█┼┴цлл═рар█┼┴дца═тем█┼┴тад═цурфлд█┼┴анд═яя╥█┼┴дца═т█┼┴тад═цурфлд█┼┴анд═╗╡╥█┼┴тад═т█┼┴цлл═ртл█┼┴тад═тем█┼┴дца═трмабс█┼┴ймп═и═флдыь█┼цдфдот╛┴стл═цла═ртл┴╞╡█┼┴дца═трмцод█┼┴дца═трмабс█┼┴ймп═и═флдыь█┼▄╞╙╙╙═буг═иф═еьпр═цаллс═ожерлаы█┼╞реаллы═вант═тхис═цалл═то═еьпр═ин═роот█┼ььедф╛┴╟█┼┴ймс═и═яясцан█┼┴ймс═и═яябацкуп█┼┴ймс═и═╗пусхл█┼┴пеь╠█┼┴ймс═и═яяеьпр█┼┴цла█┼┴тад═еьпцод█┼┴сза═цла█┼┴ймс═и═яяеррор█┼┴тад═еьпрел█┼┴сна█┼┴ймс═и═яяеррор█┼┴ймс═и═╗гетлсд█┼┴ймс═пут█┼┴ьдфлсд█┼┴ймс═и═╗попл█┼┴пеь╡█┼┴ймс═цм█┼┴ймп═и═ььедф█┼▄цм╛┴╟█┼┴дца═трмабс█┼┴дца═трмрел█┼┴ста█┼┴дца═трмцод█┼┴ймп═и═цм█┼█┼т╛█┼лежьь╛┴╟█┼┴ймс═пут█┼┴лежцод█┼┴ймс═цм█┼┴ймп═и═лежьь█┼┴паге█┼┴релоц█┼ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/9	MACREL GLOBAL ARITHMETIC OVERLAY
+/ 14-MAR-78	FIXED .FLD DIRECTIVE FOR EXTENDED MEMORY
+/ 17-AUG-78	ADDED .LEVEL PSEUDOMACRO
+	.INCLUDE MGLOB.MA
+	.ASECT MACRTH,LEVEL=1,OVERLAY=5
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL PUSHL,POPL,PEX1,PEX2
+	.GLOBAL XXEDF,LEVXX
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL PRVOPR,PUTLC,PUTBIT,MRISAV,GLBFLG,$DOT
+	.GLOBAL FLDYX
+	FIELD 3
+	.GLOBAL HARDY,HRDTRM,CMPLXE
+
+	*2000
+
+	RELOC 2400
+
+	6		/OVERLAY F
+HARDY,	0
+	TAD EXPCOD
+	SPA CLA
+	JMP H2		/PREVIOUS EXPRESSION ALREADY ON STACK
+	JMS STKPUT
+	 EXPABS
+	 EXPREL
+	 EXPCOD
+	DCA EXPABS
+	DCA EXPREL
+H2,	TAD TRMCOD	/EXAMINE NEW TERM (RIGHT OPERAND)
+	SPA CLA		/WHAT TYPE IS IT?
+	JMP H3		/TERM IS ALREADY ON STACK
+	JMS STKPUT	/PUT IT ON STACK
+	 TRMABS
+	 TRMREL
+	 TRMCOD
+	JMP H4
+H3,	TAD EXPCOD	/WAS LEFT OPERAND ON STACK PREVIOUSLY?
+	SPA CLA		/BECAUSE IF NOT, AND TERM WAS, THEN OPERANDS ARE ON
+	JMP .+3		/STACK IN WRONG ORDER
+	JMS I (PUT	/YES, THAT IS THE CASE
+	SWPCOD		/SWAP THE TOP TWO ITEMS ON THE STACK
+H4,	STA
+	DCA EXPCOD	/RESULTING EXPRESSION IS ON STACK
+	TAD I (PRVOPR	/TAKE OPERATOR
+	AND (10		/IS IT DUPLICATE 'OR'?
+	SZA CLA
+	CLL STA RTL	/YES, SUBTRACT THREE TO GET REGULAR 'OR'
+	TAD I (PRVOPR	/CONVERT TO APPROPRIATE EXTENDED LOADER CODE
+	JMS I (PUT	/TELL LINKER TO PERFORM THIS OPERATION
+	4		/ON THE TOP TWO ELEMENTS OF THE STACK
+	JMP I HARDY
+
+PSHTYP,	0
+/PUSH A VARIABLE ONTO THE STACK
+/TYPES OF PUSHES:
+
+/ABS	REL	COD	RESULTING PUSH
+
+/X	X	-1	NONE
+
+/0	R	0	PSHLSD R
+
+/A	R	0	PSHVAL R
+/			A
+
+/A	0	0	PSHVAL
+/			A
+
+/0	0	0	PSHCON 0
+
+/A	R	1	PSHLSD R
+/			PSHCON 177
+/			AND
+/			PSHCOD
+/			A
+/			ADD
+
+/0	R	1	PSHLSD R
+
+/A	R	2	PSHFLD R
+/			PSHCOD
+/			A
+/			ADD
+
+/0	R	2	PSHFLD R
+STKPUT,	0		/PUT ABS, REL, COD ONTO STACK (COD NOT NEG)
+	TAD I STKPUT	/PICK UP ARGUMENTS
+	DCA STKABS
+	TAD I STKABS
+	DCA STKABS
+	ISZ STKPUT
+	TAD I STKPUT
+	DCA STKREL
+	TAD I STKREL
+	DCA STKREL
+	ISZ STKPUT
+	TAD I STKPUT
+	DCA STKCOD
+	TAD I STKCOD
+	DCA STKCOD
+	ISZ STKPUT
+	TAD STKCOD
+	SZA CLA
+	JMP ADVAN	/ADVANCED RELOCATION
+STK1,	TAD STKABS	/SIMPLE RELOCATION
+	SZA CLA
+	TAD (PSHVAL-PSHLSD
+	TAD (PSHLSD
+	DCA PSHTYP
+	CLL
+	TAD STKABS
+	TAD STKREL
+	SZA CLA
+	JMP STK2
+	SZL
+	JMP STK2
+	TAD (PSHCON	/IF A=R=0, PUSH CONSTANT 0 ON STACK
+	DCA PSHTYP
+STK2,	TAD STKREL
+	SZA
+	JMS I (GETLSD
+	TAD PSHTYP
+	JMS I (PUTLC
+	TAD STKABS
+	SZA
+STK4,	JMS I (PUTBIT
+	JMP I STKPUT
+
+ADVAN,	STA
+	TAD STKCOD
+	SZA CLA
+	JMP CDFREL
+	TAD STKABS	/FSECT RELOCATION
+	SNA CLA
+	JMP STK1	/ON 0 IS UNUSUAL
+	TAD STKREL
+	JMS I (GETLSD
+	JMS I (PUT
+	PSHLSD
+	JMS I (PUT
+	PSHCON+177
+	JMS I (PUT
+	ANDCOD
+STK3,	JMS I (PUT
+	PSHCOD
+	TAD STKABS
+	JMS I (PUTBIT
+	JMS I (PUT
+	ADDCOD
+	JMP I STKPUT
+
+CDFREL,	TAD STKREL	/CDF RELOCATION
+	SNA
+	JMP ABSCDF
+	JMS I (GETLSD
+	JMS I (PUT
+	PSHFLD
+	TAD STKABS
+	SNA CLA
+	JMP I STKPUT
+	JMP STK3
+
+ABSCDF,	JMS I (PUT
+	PSHCOD
+	TAD STKABS
+	JMP STK4
+
+STKABS,	0
+STKREL,	0
+STKCOD,	0
+	PAGE
+HRDTRM,	0
+	TAD TRMCOD	/YES, WANT TO NEGATE TERM
+	SNA		/LOOK AT RELOCATION CODE
+	JMP NEGTRM	/SIMPLE RELOCATION, GO NEGATE
+	SPA CLA
+	JMP NEGSTK	/COMPLEX RELOCATION, NEGATE TOP OF STACK
+	TAD TRMREL
+	SNA CLA
+	JMP CNVABS	/NEG OF ABSOLUTE CDF
+	JMP PSHTRM	/ADVANCED RELOCATION
+NEGTRM,	TAD TRMREL	/LOOK AT RELOCATABLE PART
+	SZA CLA		/IS TERM ABSOLUTE?
+	JMP PSHTRM	/NO, HAVE TO PUSH TERM ONTO STACK
+TRM3,	TAD TRMABS	/YES, SIMPLY NEGATE
+	CIA		/COMPLEMENT
+	DCA TRMABS
+	JMP I HRDTRM	/RETURN
+PSHTRM,	JMS I (STKPUT
+	 TRMABS
+	 TRMREL
+	 TRMCOD
+NEGSTK,	JMS PUT		/NEGATE TOP OF STACK
+	NEGCOD
+	JMS CM
+	JMP I HRDTRM
+
+CNVABS,	DCA TRMCOD
+	JMP TRM3
+CMPLXE,	TAD I (MRISAV
+	SZA CLA
+	JMP ER
+	TAD I (GLBFLG
+	SNA CLA
+	JMP GLBOK
+	TAD FLAG
+	AND QQ77
+	SNA CLA
+	JMP ER		/NON-GLOBAL EQUATE OR IN FIXMRI
+GLBOK,	TAD (4003
+	DCA FLG		/PRINT STARS
+	TAD SYMNUM
+	JMS I (GETLSD	/POP VALUE OFF STACK INTO LSD ENTRY
+	JMS PUT
+	POPVAL
+	DCA SYMVAL
+	TAD SYMNUM
+	DCA SYMSCT
+	TAD FLAG
+	AND (3700
+	TAD (4000+GLOB	/MAKE DEFINED AND GLOBAL
+	DCA FLAG
+/*** BUG WITH EXTERNALS
+	JMS I QQPUTSYM	/WRITE BACK OUT
+	SKP
+ER,	JMS I QQERROR	/***
+	JMP I (BYEP	/GO AWAY
+TEM,
+PUT,	0		/AC MAY BE NON-0
+	TAD I PUT	/ADD IN ARGUMENT
+	ISZ PUT
+	JMS I (PUTLC
+	JMP I PUT
+
+FLDYX,	0
+	JMS I ($DOT
+	TAD CSTYPE
+	TAD QM10
+	SZA CLA
+	JMP CDFDOT
+	TAD CURFLD
+	AND (10
+	CLL RAR
+	DCA TEM
+	TAD CURFLD
+	AND QQ7
+	DCA T
+	TAD CURFLD
+	AND (27
+	TAD T
+	CLL RTL
+	TAD TEM
+	DCA TRMABS
+	JMP I FLDYX
+CDFDOT,	STL CLA RTL	/2
+	DCA TRMCOD
+	DCA TRMABS
+	JMP I FLDYX
+/*** BUG IF EXPR CALLS OVERLAY
+/REALLY WANT THIS CALL TO EXPR IN ROOT
+XXEDF,	0
+	JMS I QQSCAN
+	JMS I QQBACKUP
+	JMS I (PUSHL
+	PEX1
+	JMS I QQEXPR
+	CLA
+	TAD EXPCOD
+	SZA CLA
+	JMS I QQERROR
+	TAD EXPREL
+	SNA
+	JMS I QQERROR
+	JMS I (GETLSD
+	JMS PUT
+	XDFLSD
+	JMS I (POPL
+	PEX2
+	JMS CM
+	JMP I XXEDF
+CM,	0
+	DCA TRMABS
+	DCA TRMREL
+	STA
+	DCA TRMCOD
+	JMP I CM
+
+T,
+LEVXX,	0
+	JMS PUT
+	LEVCOD
+	JMS CM
+	JMP I LEVXX
+	PAGE
+	RELOC

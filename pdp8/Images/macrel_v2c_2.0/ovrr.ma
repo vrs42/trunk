@@ -1,1 +1,266 @@
-╞╠╥┴лист═дирецтижес═ожерлаы┴пост═ж╟а█┼╞┴╥╜мар╜╥╦┴инсталлед═патцх═то═аллов═╖лн╖═лист═оптион█┼╞┴╠╣╜ауг╜╥╦┴аддед═тоц═анд═ст═лист═дирецтижес█┼╞┴╠╥╜ауг╜╥╦┴гиже═еррор═иф═релок═он═ат═енд═оф═ассемблы█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═ожрр╛лежел╫╡╛ожерлаы╫╠█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═инханд╛прглит╛прзлит╛филено╛стмес╛сбтптр╛лоад█┼┴╝еьтернал═ер╣╟сб█┼┴╝глобал═префин█┼┴╝глобал═ер╡╟╦╛ер╡╟╧╛ер╡╠╟█┼┴╝глобал═╓лист╛╓нолист╛╓ьлист╛╓нопунцх╛╓енпунцх█┼┴╝глобал═╓йсв╛╓жерсион╛╓старт█┼█┼╞┴ожрр╝па┴ожерлаы═ё╡╡█┼█┼┴фиелд═╢█┼┴╙╡╟╟╟█┼█┼┴╡╡┴┴╞ожерлаы═нумбер█┼█┼╓ьлист╛┴инцр═пцфлаг┴╞цоулд═маке═суброутине█┼┴инцр═бнфлаг█┼┴тад═и═╗листвд█┼┴спа═цла█┼┴ймс═и═яяоут┴╞дон╖т═принт═лине═иф═листинг═ис═офф█┼┴ймс═и═яясцан┴╞пасс═уп═спацес█┼┴ймс═и═яяеос┴╞ат═енд═оф═лине©█┼┴ймп═флип┴╞ыес█┼┴ймс═и═яябацкуп┴╞препаре═то═парсе═еьпрессион█┼┴ймс═и═яяеьпр┴╞гет═еьпрессион═он═ьлист█┼┴цлл█┼┴сза═цла█┼┴стл█┼┴тад═и═╗листвд█┼┴анд═╗Ё╥╥╥█┼┴дца═и═╗листвд┴╞маск═оут═десиред═бит█┼┴сзл┴┴╞тхен═турн═бит═он═ор═офф═респецтижелы█┼флип╛┴стл═рар┴┴╞╢╟╟╟█┼┴тад═и═╗листвд█┼┴дца═и═╗листвд█┼┴ймп═и═╗быеб█┼▄префин╛┴дца═невтит┴╞леаже═олд═титле═алоне█┼┴дца═и═пинх┴╞марк═фин═ожерлаы═ареа═ас═фрее█┼┴тад═пц█┼┴ймс═и═яяхгхсцт┴╞рецомпуте═хигх═пц█┼╞випе═оут═ресиденцы═оф═аны═хандлерс═ин═инханд═ареа█┼┴тад═╗╜╠╣█┼┴дца═кнт┴┴╞еьамине═╠╣═хандлерс█┼┴тад═╗╥╤╢╥╜╠█┼┴дца═темп┴╞поинт═то═ресиденцы═табле█┼┴цдф═╠╟┴┴╞ин═фиелд═╠█┼флоп╛┴исз═темп┴╞поинт═то═неьт═хандлер═ентры═поинт█┼┴тад═и═темп┴╞гет═ентры═поинт█┼┴анд═яя╥╤╟╟┴╞исолате═паге═оф═хандлер█┼┴тад═минханд┴╞цомпаре═витх═инханд█┼┴сна═цла┴┴╞аре═тхеы═тхе═саме©█┼┴дца═и═темп┴╞ыес╛═випе═ит█┼┴исз═кнт┴┴╞но╛═аны═море═хандлерс█┼┴ймп═флоп┴╞ыес╛═го═лоок═ат═тхем█┼┴цдф═╟┴┴╞но╛═доне█┼┴ймс═и═╗прглит█┼┴ймс═и═╗прзлит█┼╞©©©┴дца═и═╗лсднум█┼┴дца═пунфлг┴╞аллов═пунцхинг═бинары█┼┴дца═линоут┴╞сигнал═нотхинг═то═принт█┼┴цдф═╠╟█┼┴дца═и═╗филено█┼┴цдф═╟█┼┴тад═╗стмес█┼┴дца═и═╗сбтптр┴╞нев═субтитле█┼╞┴тад═цонцнт█┼╞┴сза═цла█┼╞┴ймс═и═яяеррор┴╞унбаланцед═англе═брацкетс═ат═енд═оф═ассемблы█┼┴тад═релок█┼┴сза═цла█┼┴ймс═и═╗ер╣╟сб┴╞релоц═стилл═он█┼┴дца═релок█┼┴ймс═и═яяпассЁ┴╞пасс═Ё©█┼┴ста┴┴╞но╛═усе═ожерлаы═╠╡█┼┴тад═╗╠Ё┴┴╞ыес╛═усе═ожерлаы═╠Ё█┼┴ймс═и═╗лоад█┼пинх╛┴инханд┴┴╞ожер═инпут═хандлер█┼┴ймп═и═╝╜╠┴╞йумп═то═ит█┼▄╓нопунцх╛цла═иац█┼╓енпунцх╛дца═пунфлг█┼┴ймп═и═╗псеудб█┼╓йсв╛┴иац█┼╓жерсион╛иац█┼╓старт╛┴тад═╗старт█┼┴дца═лоц█┼┴тад═лоц█┼┴тад═╗╢█┼┴дца═темп┴╞поинт═то═╖кеы╖═лоц█┼┴дца═и═темп┴╞зероинг═ит═меанс═ит═вас═специфиед█┼┴ймс═и═яясцан┴╞скип═спацес█┼┴ймс═и═яябацкуп┴╞препаре═фор═еьпрессион█┼┴ймс═и═яяеьпр█┼┴дца═бинары┴╞принт═ин═лефт═маргин█┼┴тад═бинары█┼┴дца═и═лоц┴╞анд═алсо═сторе═аваы═ин═аппроприате═плаце█┼┴тад═еьпцод█┼┴сза═цла█┼┴ймп═ер╡╟╦█┼┴тад═лоц█┼┴тад═ям╡╟╟┴╞╜старт█┼┴сза═цла█┼┴ймп═ност┴╞нот═╝старт█┼┴тад═еьпрел┴╞╝старт═маы═хаже═а═релоцатабле═парт█┼┴дца═и═╗стартр┴╞сторе═ит═аваы█┼┴тад═цхар┴╞доес═а═цомма═фоллов═ин═╝старт©█┼┴тад═╗╜╣╢█┼┴сза═цла█┼┴ймп═и═╗псеудп┴╞но█┼┴тад═еьпрел█┼┴сза═цла█┼┴ймп═ер╡╟╦┴╞релоцатабле═╝старт═плус═цомма█┼┴ймс═и═яяеьпр┴╞гет═стартинг═фиелд█┼┴дца═и═╗стартр┴╞мултиплеь═усе═оф═╖стартр╖█┼┴тад═и═╗стартр┴╞лесс═тхан═╠╟═меанс═абсолуте═фиелд█┼┴анд═яя╥╥╥╟█┼┴сза═цла█┼ер╡╟╦╛┴ймс═и═яяеррор┴╞муст═бе═симплы═релоцатабле█┼┴ймп═и═╗псеудп█┼┴┴┴╞ор═стартинг═фиелд═╝гт╝═╥█┼▄ност╛┴тад═еьпрел┴╞╝йсв═анд═╝жерс█┼┴сза═цла┴┴╞маы═нот═бе═релоцатабле█┼┴ймп═ер╡╟╦█┼┴ймп═и═╗псеудп█┼█┼лоц╛┴╟█┼▄минханд╛╜инханд█┼┴паге█┼▄╓нолист╛стл═рар┴┴╞╢╟╟╟█┼╓лист╛┴дца═лстцод█┼┴инцр═пцфлаг█┼┴инцр═бнфлаг█┼┴тад═и═╗листвд█┼┴спа═цла█┼┴ймс═и═яяоут┴╞дон╖т═принт═лине═иф═листинг═офф█┼┴ймс═и═яяеос┴╞енд═оф═лине©█┼┴ймп═лслист┴╞ыес█┼┴скп┴┴╞но█┼лист╡╛┴ймс═и═яягетцхр█┼┴ймс═и═яясцан┴╞игноре═бланкс█┼листЁ╛┴ймс═и═яялеттер┴╞леттер©█┼┴ймп═ер╡╟╧┴╞но█┼┴ймс═и═яяпарсым┴╞ыес╛═гет═идентифиер█┼┴тад═наме╠█┼┴ймс═и═яябранцх█┼┴╜╖бе╩белист┴╞бе█┼┴╜╖цн╩цнлист┴╞цнд█┼┴╜╖мц╩мцлист┴╞мц█┼┴╜╖ме╩мемаыб┴╞ме═ор═меб█┼┴╜╖мд╩мдлист┴╞мд█┼┴╜╖лн╩лнлист┴╞лн█┼┴╜╖ст╩стлист┴╞ст█┼┴╜╖то╩толист┴╞тоц█┼┴зблоцк═╢┴╞усер═патцх═спаце█┼┴╟█┼ер╡╟╧╛┴ймс═и═яяеррор┴╞ункновн═лист═цондитион█┼┴ймп═лист╢█┼█┼мемаыб╛┴тад═наме╡┴╞лоок═фор═меб█┼┴анд═╗╥╥╟╟█┼┴тад═ям╡╟╟█┼┴сна═цла█┼┴тад═ям╡╟╟┴╞б╛═усе═╡╟╟═нот═╢╟╟█┼┴ймп═мелист┴╞б█┼█┼┴зблоцк═╡┴╞патцх═спаце█┼толист╛┴тад═╗╠╟╜╡╟█┼стлист╛┴тад═╗╡╟╜╢╟█┼мдлист╛┴тад═╗╢╟╜╢╟╟╟█┼лслист╛┴тад═╗╢╟╟╟╜╠╟╟╟█┼белист╛┴тад═╗╠╟╟╟╜╡╟╟╟█┼цнлист╛┴тад═╗╡╟╟╟╜╠╟╟█┼мцлист╛┴тад═╗╠╟╟╜╢╟╟█┼мелист╛┴тад═╗╢╟╟╜╠█┼лнлист╛┴иац█┼┴дца═влист█┼┴тад═лстцод█┼┴цлл═рал█┼┴тад═влист█┼┴цма█┼┴анд═и═╗листвд█┼┴сзл█┼┴тад═влист█┼┴дца═и═╗листвд█┼лист╢╛┴ймс═и═яясцан┴╞игноре═море═спацес█┼┴ймс═и═яяеос┴╞ат═енд═оф═лине©█┼┴ймп═и═╗псеудб┴╞ыес█┼┴тад═цхар┴╞но█┼┴тад═╗╜╣╢█┼┴сна═цла█┼┴ймп═лист╡┴╞фоунд═а═цомма█┼ер╡╠╟╛┴ймс═и═яяеррор┴╞но╛═иллегал═цхар█┼┴ймс═и═╗игноре█┼┴ймп═листЁ█┼█┼лстцод╛┴╟█┼влист╛┴╟█┼█┼╞╟═меанс═лист█┼╞╠═меанс═но═лист█┼█┼╞бит┴меанинг█┼╞╟┴лист█┼╞╠┴цнд█┼╞╡┴бе█┼╞Ё┴ме█┼╞╢┴меб█┼╞╣┴мц█┼╞╤┴мд█┼╞╥┴ст█┼╞╦┴тоц█┼╞╧┴ресержед═фор═футуре═усе█┼╞╠╟┴дитто█┼╞╠╠┴лн█┼┴паге█┼▄ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/17	LIST DIRECTIVES OVERLAY	POST V0A
+/	7-MAR-78	INSTALLED PATCH TO ALLOW 'LN' LIST OPTION
+/	15-AUG-78	ADDED TOC AND ST LIST DIRECTIVES
+/	17-AUG-78	GIVE ERROR IF RELOK ON AT END OF ASSEMBLY
+	.INCLUDE MGLOB.MA
+	.ASECT OVRR,LEVEL=2,OVERLAY=1
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL INHAND,PRGLIT,PRZLIT,FILENO,STMES,SBTPTR,LOAD
+	.EXTERNAL ER50SB
+	.GLOBAL PREFIN
+	.GLOBAL ER208,ER209,ER210
+	.GLOBAL $LIST,$NOLIST,$XLIST,$NOPUNCH,$ENPUNCH
+	.GLOBAL $JSW,$VERSION,$START
+
+/	OVRR.PA	OVERLAY #22
+
+	FIELD 4
+	*2000
+
+	22		/OVERLAY NUMBER
+
+$XLIST,	INCR PCFLAG	/COULD MAKE SUBROUTINE
+	INCR BNFLAG
+	TAD I (LISTWD
+	SPA CLA
+	JMS I QQOUT	/DON'T PRINT LINE IF LISTING IS OFF
+	JMS I QQSCAN	/PASS UP SPACES
+	JMS I QQEOS	/AT END OF LINE?
+	JMP FLIP	/YES
+	JMS I QQBACKUP	/PREPARE TO PARSE EXPRESSION
+	JMS I QQEXPR	/GET EXPRESSION ON XLIST
+	CLL
+	SZA CLA
+	STL
+	TAD I (LISTWD
+	AND (3777
+	DCA I (LISTWD	/MASK OUT DESIRED BIT
+	SZL		/THEN TURN BIT ON OR OFF RESPECTIVELY
+FLIP,	STL RAR		/4000
+	TAD I (LISTWD
+	DCA I (LISTWD
+	JMP I (BYEB
+PREFIN,	DCA NEWTIT	/LEAVE OLD TITLE ALONE
+	DCA I PINH	/MARK FIN OVERLAY AREA AS FREE
+	TAD PC
+	JMS I QQHGHSCT	/RECOMPUTE HIGH PC
+/WIPE OUT RESIDENCY OF ANY HANDLERS IN INHAND AREA
+	TAD (-15
+	DCA KNT		/EXAMINE 15 HANDLERS
+	TAD (7647-1
+	DCA TEMP	/POINT TO RESIDENCY TABLE
+	CDF 10		/IN FIELD 1
+FLOP,	ISZ TEMP	/POINT TO NEXT HANDLER ENTRY POINT
+	TAD I TEMP	/GET ENTRY POINT
+	AND QQ7600	/ISOLATE PAGE OF HANDLER
+	TAD MINHAND	/COMPARE WITH INHAND
+	SNA CLA		/ARE THEY THE SAME?
+	DCA I TEMP	/YES, WIPE IT
+	ISZ KNT		/NO, ANY MORE HANDLERS
+	JMP FLOP	/YES, GO LOOK AT THEM
+	CDF 0		/NO, DONE
+	JMS I (PRGLIT
+	JMS I (PRZLIT
+/???	DCA I (LSDNUM
+	DCA PUNFLG	/ALLOW PUNCHING BINARY
+	DCA LINOUT	/SIGNAL NOTHING TO PRINT
+	CDF 10
+	DCA I (FILENO
+	CDF 0
+	TAD (STMES
+	DCA I (SBTPTR	/NEW SUBTITLE
+/	TAD CONCNT
+/	SZA CLA
+/	JMS I QQERROR	/UNBALANCED ANGLE BRACKETS AT END OF ASSEMBLY
+	TAD RELOK
+	SZA CLA
+	JMS I (ER50SB	/RELOC STILL ON
+	DCA RELOK
+	JMS I QQPASS3	/PASS 3?
+	STA		/NO, USE OVERLAY 12
+	TAD (13		/YES, USE OVERLAY 13
+	JMS I (LOAD
+PINH,	INHAND		/OVER INPUT HANDLER
+	JMP I .-1	/JUMP TO IT
+$NOPUNCH,CLA IAC
+$ENPUNCH,DCA PUNFLG
+	JMP I (PSEUDB
+$JSW,	IAC
+$VERSION,IAC
+$START,	TAD (START
+	DCA LOC
+	TAD LOC
+	TAD (4
+	DCA TEMP	/POINT TO 'KEY' LOC
+	DCA I TEMP	/ZEROING IT MEANS IT WAS SPECIFIED
+	JMS I QQSCAN	/SKIP SPACES
+	JMS I QQBACKUP	/PREPARE FOR EXPRESSION
+	JMS I QQEXPR
+	DCA BINARY	/PRINT IN LEFT MARGIN
+	TAD BINARY
+	DCA I LOC	/AND ALSO STORE AWAY IN APPROPRIATE PLACE
+	TAD EXPCOD
+	SZA CLA
+	JMP ER208
+	TAD LOC
+	TAD QM200	/-START
+	SZA CLA
+	JMP NOST	/NOT .START
+	TAD EXPREL	/.START MAY HAVE A RELOCATABLE PART
+	DCA I (STARTR	/STORE IT AWAY
+	TAD CHAR	/DOES A COMMA FOLLOW IN .START?
+	TAD (-54
+	SZA CLA
+	JMP I (PSEUDP	/NO
+	TAD EXPREL
+	SZA CLA
+	JMP ER208	/RELOCATABLE .START PLUS COMMA
+	JMS I QQEXPR	/GET STARTING FIELD
+	DCA I (STARTR	/MULTIPLEX USE OF 'STARTR'
+	TAD I (STARTR	/LESS THAN 10 MEANS ABSOLUTE FIELD
+	AND QQ7770
+	SZA CLA
+ER208,	JMS I QQERROR	/MUST BE SIMPLY RELOCATABLE
+	JMP I (PSEUDP
+			/OR STARTING FIELD .GT. 7
+NOST,	TAD EXPREL	/.JSW AND .VERS
+	SZA CLA		/MAY NOT BE RELOCATABLE
+	JMP ER208
+	JMP I (PSEUDP
+
+LOC,	0
+MINHAND,-INHAND
+	PAGE
+$NOLIST,STL RAR		/4000
+$LIST,	DCA LSTCOD
+	INCR PCFLAG
+	INCR BNFLAG
+	TAD I (LISTWD
+	SPA CLA
+	JMS I QQOUT	/DON'T PRINT LINE IF LISTING OFF
+	JMS I QQEOS	/END OF LINE?
+	JMP LSLIST	/YES
+	SKP		/NO
+LIST2,	JMS I QQGETCHR
+	JMS I QQSCAN	/IGNORE BLANKS
+LIST3,	JMS I QQLETTER	/LETTER?
+	JMP ER209	/NO
+	JMS I QQPARSYM	/YES, GET IDENTIFIER
+	TAD NAME1
+	JMS I QQBRANCH
+	-'BE;BELIST	/BE
+	-'CN;CNLIST	/CND
+	-'MC;MCLIST	/MC
+	-'ME;MEMAYB	/ME OR MEB
+	-'MD;MDLIST	/MD
+	-'LN;LNLIST	/LN
+	-'ST;STLIST	/ST
+	-'TO;TOLIST	/TOC
+	ZBLOCK 4	/USER PATCH SPACE
+	0
+ER209,	JMS I QQERROR	/UNKNOWN LIST CONDITION
+	JMP LIST4
+
+MEMAYB,	TAD NAME2	/LOOK FOR MEB
+	AND (7700
+	TAD QM200
+	SNA CLA
+	TAD QM200	/B, USE 200 NOT 400
+	JMP MELIST	/B
+
+	ZBLOCK 2	/PATCH SPACE
+TOLIST,	TAD (10-20
+STLIST,	TAD (20-40
+MDLIST,	TAD (40-4000
+LSLIST,	TAD (4000-1000
+BELIST,	TAD (1000-2000
+CNLIST,	TAD (2000-100
+MCLIST,	TAD (100-400
+MELIST,	TAD (400-1
+LNLIST,	IAC
+	DCA WLIST
+	TAD LSTCOD
+	CLL RAL
+	TAD WLIST
+	CMA
+	AND I (LISTWD
+	SZL
+	TAD WLIST
+	DCA I (LISTWD
+LIST4,	JMS I QQSCAN	/IGNORE MORE SPACES
+	JMS I QQEOS	/AT END OF LINE?
+	JMP I (PSEUDB	/YES
+	TAD CHAR	/NO
+	TAD (-54
+	SNA CLA
+	JMP LIST2	/FOUND A COMMA
+ER210,	JMS I QQERROR	/NO, ILLEGAL CHAR
+	JMS I (IGNORE
+	JMP LIST3
+
+LSTCOD,	0
+WLIST,	0
+
+/0 MEANS LIST
+/1 MEANS NO LIST
+
+/BIT	MEANING
+/0	LIST
+/1	CND
+/2	BE
+/3	ME
+/4	MEB
+/5	MC
+/6	MD
+/7	ST
+/8	TOC
+/9	RESERVED FOR FUTURE USE
+/10	DITTO
+/11	LN
+	PAGE
+

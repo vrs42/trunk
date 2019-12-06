@@ -1,1 +1,239 @@
-╞╤┴ожерлаы═ёЁЁ══╗фин╟═еьтенсион╘┴пост═ж╟а█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацопн╛лежел╫╡╛ожерлаы╫╠╡█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═оутдеж╛цлнаме╛оутлоц╛лоцофф╛оутрец╛тьтблк╛холсиз╛оутлст╛лстрет█┼┴╝еьтернал═оптр╠╛оуткнт╛оутцнт╛оутсиз╛оутхнд╛оутбуф╛оутхан█┼┴фиелд═╢█┼┴╝глобал══ер╡╠╤╛ер╡╠╥█┼┴╝глобал═опен╛опентц█┼█┼┴╙╡╟╟╟█┼█┼┴ЁЁ█┼█┼╞┴ймс═опен█┼╞┴птр═то═оутпут═гроуп█┼╞┴дефаулт═еьтенсион█┼╞┴старт═оф═оутпут═буффер█┼╞┴негатиже═оф═ленгтх═оф═оутпут═буффер█┼╞┴┴ин═вордс═╗фор═бинары╘█┼╞┴┴ин═доубле╜вордс═╗фор═асции╘█┼╞┴╪но═оутпут╜дежице═ретурн╬══╗ац╫╟╘█┼╞┴╪нормал═ретурн╬█┼опен╛┴╟█┼┴тад═и═опен█┼┴инцр═опен█┼┴дца═оптр█┼┴тад═и═опен█┼┴инцр═опен█┼┴дца═оутеьт┴╞гет═дефаулт═оутпут═еьтенсион█┼┴тад═и═опен█┼┴инцр═опен█┼┴дца═оутб┴╞гет═оутпут═буффер═старт█┼┴тад═и═опен█┼┴инцр═опен█┼┴дца═оутл┴╞гет═буффер═ленгтх█┼┴цдф═╠╟█┼┴тад═и═оптр┴╞гет═дежице═нумбер█┼┴сна┴┴╞вас═тхере═оне©█┼┴ймп═нооут┴╞но╝══усер═вантс═но═оутпут█┼┴анд═╗╠╥┴┴╞ыес╝══исолате═интернал═дежице═ё█┼┴дца═и═╗оутдеж┴╞саже═оутпут═дежице█┼┴тад═и═оптр┴╞гет═ентры═агаин█┼┴анд═╗╥╥╤╟┴╞тхис═тиме═исолате═ленгтх█┼┴дца═оутлен┴╞саже█┼┴цдф═╟█┼┴ймс═и═╗офетцх█┼┴тад═оптр█┼┴дца═ьр╠┴┴╞сетуп═фор═ентер█┼┴цдф═╠╟█┼┴тад═и═ьр╠┴╞може═наме═довн█┼┴дца═наме╠█┼┴тад═и═ьр╠█┼┴дца═наме╡█┼┴тад═и═ьр╠█┼┴дца═намеЁ█┼┴исз═оптр█┼┴тад═╗наме╠█┼┴дца═блк█┼┴тад═оптр█┼┴цдф═╠╟█┼┴дца═и═╗цлнаме█┼┴тад═и═оптр┴╞лоок═ат═фирст═ворд═оф═наме█┼┴сна═цла┴┴╞вас═а═наме═специфиед©█┼┴ймп═нонаме┴╞но╛═пресуме═дежице═ис═нон╜филе█┼┴┴┴╞струцтуред█┼┴тад═оптр█┼┴тад═лЁ█┼┴дца═оптр┴╞поинт═то═еьтенсион█┼┴тад═и═оптр█┼┴сна┴┴╞вас═тхере═ан═еьтенсион©█┼┴тад═оутеьт┴╞но╛═форце═оне█┼┴дца═и═оптр┴╞ыес╛═кееп═ит█┼┴тад═и═оптр█┼┴дца═наме╢█┼┴тад═и═╗оутдеж█┼┴цдф═╟█┼┴тад═оутлен┴╞ыес█┼┴┴┴╞гет═дежице═ё═анд═ленгтх═ин═ац█┼┴циф═╠╟█┼┴ймс═и═╗уср┴╞цалл═усер═сержице═роутине█┼лЁ╛┴Ё┴┴╞то═до═ан═ентер█┼блк╛┴╟┴┴╞реплацед═бы═стартинг═блоцк═оф═филе█┼лен╛┴╟┴┴╞реплацед═бы═негатиже═оф═ацтуал█┼┴┴┴╞ленгтх█┼┴ймп═ентерь┴╞еррор═вхиле═трыинг═то═перформ═ан═ентер█┼л╛┴тад═блк█┼┴цдф═╠╟█┼┴дца═и═╗оутлоц┴╞саже═фирст═блоцк═оф═оутпут═филе█┼┴тад═и═╗оутлоц█┼┴тад═и═╗лоцофф┴╞адд═ин═оптионал═оффсет═шусед═бы═бинары═пассщ█┼┴дца═и═╗оутрец█┼┴тад═и═╗оутрец█┼┴дца═и═╗тьтблк┴╞ремембер═вхере═теьт═стартс█┼┴тад═лен█┼┴дца═и═╗холсиз█┼┴тад═╗оутлст█┼┴дца═и═╗лстрет█┼┴тад═оутб█┼┴дца═и═╗оптр╠█┼┴инцр═оутб█┼┴тад═оутл█┼┴дца═и═╗оуткнт█┼┴тад═оутл█┼┴дца═и═╗оутцнт█┼┴тад═и═╗лоцофф┴╞бинары═ис═инитиаллы═а═гижен═ленгтх█┼┴┴┴╞╙╙╙═буг╨═цхецк═то═сее═иф═холе═вас═биг█┼┴┴┴╞еноугх═то═аццомодате═лсд═╗лоцофф╘█┼┴дца═и═╗оутсиз█┼┴тад═оутб█┼┴дца═и═╗флглоц█┼┴цла═иац█┼┴дца═и═оутб█┼┴дца═и═╗лоцофф┴╞оффсет═усед═бут═онце█┼┴инцр═опен┴╞таке═нормал═ретурн█┼нооут╛┴цдф═╟█┼┴ймп═и═опен█┼▄ентерь╛█┼ер╡╠╤╛█┼ио╥╛┴ймс═и═яяеррор┴╞ентер═еррор█┼┴ймп═и═╗╥╤╟╣┴╞инцлудес═оутпуттинг═то═филе═струцтуред═дежице█┼┴┴┴╞бут═специфыинг═но═наме█┼█┼нонаме╛┴дца═блк┴┴╞дф╫╠╟█┼┴дца═лен█┼┴тад═и═╗оутдеж█┼┴тад═╗╥╥╣╥┴╞поинт═то═дцв█┼┴дца═темп┴╞гет═дежице═цонтрол═ворд█┼┴тад═и═темп█┼┴цдф═╟█┼┴спа═цла┴┴╞ис═дежице═филе╜струцтуред©█┼┴хлт┴┴╞ыес█┼┴ймп═л┴┴╞но█┼█┼оптр╛┴╟█┼оутеьт╛┴╟█┼оутб╛┴╟█┼оутл╛┴╟█┼оутлен╛┴╟█┼┴паге█┼▄опентц╛┴╟┴┴╞опен═табле═оф═цонтентс█┼┴цдф═╠╟█┼┴тад═╗╜оутпрс█┼┴дца═и═╗оуткнт┴╞ленгтх█┼┴тад═╗╜оутпрс█┼┴дца═и═╗оутцнт█┼┴цла═иац█┼┴дца═и═╗оутдеж┴╞дежице═сыс╨█┼┴тад═╗╥╤╟╥█┼┴дца═и═╗оутхндлр┴╞хандлер═лоцатион█┼┴тад═╗тоцблк█┼┴дца═и═╗оутрец█┼┴дца═и═╗оутсиз█┼┴тад═╗оутлст█┼┴дца═и═╗лстрет█┼┴тад═╗оутбуф█┼┴дца═и═╗оптр╠█┼┴тад═мтоцлен█┼┴дца═и═╗холсиз█┼┴цдф═╟█┼╞┴тад═╗╜тоцлен█┼╞┴дца═и═╗лен█┼┴ймп═и═опентц█┼▄офетцх╛┴╟┴┴╞тхере═ис═анотхер═цопы═оф═тхис═ин═мацио█┼┴цдф═╠╟█┼┴тад═и═╗оутдеж█┼┴тад═╗╥╤╢╤█┼┴дца═отем╡┴╞поинт═инто═дхрт█┼┴тад═и═отем╡┴╞гет═ентры═поинт█┼┴сза█┼┴ймп═оут╡┴╞оут╜дежице═хандлер═ис═ресидент█┼┴тад═╗оутхан╚╠█┼┴дца═оутент┴╞сетуп═фор═фетцх═оф═дежице═хандлер█┼┴тад═и═╗оутдеж┴╞ретриеже═оутпут═дежице═филе═нумбер█┼┴цдф═╟█┼┴циф═╠╟█┼┴ймс═и═╗уср█┼┴╠┴┴╞фетцх═дежице═хандлер█┼оутент╛┴оутхан╚╠┴╞лоцатион═оф═╡╜паге═ареа═фор═хандлер█┼┴┴┴╞реплацед═бы═хандлер═ентры═поинт█┼┴ймп═еррлод┴╞еррор═лоадинг═хандлер█┼┴цдф═╠╟█┼┴тад═оутент█┼оут╡╛┴дца═и═╗оутхндлр█┼┴цдф═╟█┼┴ймп═и═офетцх█┼█┼еррлод╛█┼ер╡╠╥╛█┼ио╠╟╛┴ймс═и═яяеррор┴╞еррор═лоадинг═хандлер█┼┴ймп═и═╗╥╤╟╣█┼отем╡╛┴╟█┼мтоцлен╛╜тоцлен█┼┴паге█┼ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/6	OVERLAY #33  (FIN0 EXTENSION)	POST V0A
+	.INCLUDE MGLOB.MA
+	.ASECT MACOPN,LEVEL=2,OVERLAY=12
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL OUTDEV,CLNAME,OUTLOC,LOCOFF,OUTREC,TXTBLK,HOLSIZ,OUTLST,LSTRET
+	.EXTERNAL OPTR1,OUTKNT,OUTCNT,OUTSIZ,OUTHND,OUTBUF,OUTHAN
+	FIELD 4
+	.GLOBAL  ER216,ER217
+	.GLOBAL OPEN,OPENTC
+
+	*2000
+
+	33
+
+/	JMS OPEN
+/	PTR TO OUTPUT GROUP
+/	DEFAULT EXTENSION
+/	START OF OUTPUT BUFFER
+/	NEGATIVE OF LENGTH OF OUTPUT BUFFER
+/		IN WORDS (FOR BINARY)
+/		IN DOUBLE-WORDS (FOR ASCII)
+/	<NO OUTPUT-DEVICE RETURN>  (AC=0)
+/	<NORMAL RETURN>
+OPEN,	0
+	TAD I OPEN
+	INCR OPEN
+	DCA OPTR
+	TAD I OPEN
+	INCR OPEN
+	DCA OUTEXT	/GET DEFAULT OUTPUT EXTENSION
+	TAD I OPEN
+	INCR OPEN
+	DCA OUTB	/GET OUTPUT BUFFER START
+	TAD I OPEN
+	INCR OPEN
+	DCA OUTL	/GET BUFFER LENGTH
+	CDF 10
+	TAD I OPTR	/GET DEVICE NUMBER
+	SNA		/WAS THERE ONE?
+	JMP NOOUT	/NO.  USER WANTS NO OUTPUT
+	AND (17		/YES.  ISOLATE INTERNAL DEVICE #
+	DCA I (OUTDEV	/SAVE OUTPUT DEVICE
+	TAD I OPTR	/GET ENTRY AGAIN
+	AND (7760	/THIS TIME ISOLATE LENGTH
+	DCA OUTLEN	/SAVE
+	CDF 0
+	JMS I (OFETCH
+	TAD OPTR
+	DCA XR1		/SETUP FOR ENTER
+	CDF 10
+	TAD I XR1	/MOVE NAME DOWN
+	DCA NAME1
+	TAD I XR1
+	DCA NAME2
+	TAD I XR1
+	DCA NAME3
+	ISZ OPTR
+	TAD (NAME1
+	DCA BLK
+	TAD OPTR
+	CDF 10
+	DCA I (CLNAME
+	TAD I OPTR	/LOOK AT FIRST WORD OF NAME
+	SNA CLA		/WAS A NAME SPECIFIED?
+	JMP NONAME	/NO, PRESUME DEVICE IS NON-FILE
+			/STRUCTURED
+	TAD OPTR
+	TAD L3
+	DCA OPTR	/POINT TO EXTENSION
+	TAD I OPTR
+	SNA		/WAS THERE AN EXTENSION?
+	TAD OUTEXT	/NO, FORCE ONE
+	DCA I OPTR	/YES, KEEP IT
+	TAD I OPTR
+	DCA NAME4
+	TAD I (OUTDEV
+	CDF 0
+	TAD OUTLEN	/YES
+			/GET DEVICE # AND LENGTH IN AC
+	CIF 10
+	JMS I (USR	/CALL USER SERVICE ROUTINE
+L3,	3		/TO DO AN ENTER
+BLK,	0		/REPLACED BY STARTING BLOCK OF FILE
+LEN,	0		/REPLACED BY NEGATIVE OF ACTUAL
+			/LENGTH
+	JMP ENTERX	/ERROR WHILE TRYING TO PERFORM AN ENTER
+L,	TAD BLK
+	CDF 10
+	DCA I (OUTLOC	/SAVE FIRST BLOCK OF OUTPUT FILE
+	TAD I (OUTLOC
+	TAD I (LOCOFF	/ADD IN OPTIONAL OFFSET [USED BY BINARY PASS]
+	DCA I (OUTREC
+	TAD I (OUTREC
+	DCA I (TXTBLK	/REMEMBER WHERE TEXT STARTS
+	TAD LEN
+	DCA I (HOLSIZ
+	TAD (OUTLST
+	DCA I (LSTRET
+	TAD OUTB
+	DCA I (OPTR1
+	INCR OUTB
+	TAD OUTL
+	DCA I (OUTKNT
+	TAD OUTL
+	DCA I (OUTCNT
+	TAD I (LOCOFF	/BINARY IS INITIALLY A GIVEN LENGTH
+			/*** BUG: CHECK TO SEE IF HOLE WAS BIG
+			/ENOUGH TO ACCOMODATE LSD (LOCOFF)
+	DCA I (OUTSIZ
+	TAD OUTB
+	DCA I (FLGLOC
+	CLA IAC
+	DCA I OUTB
+	DCA I (LOCOFF	/OFFSET USED BUT ONCE
+	INCR OPEN	/TAKE NORMAL RETURN
+NOOUT,	CDF 0
+	JMP I OPEN
+ENTERX,
+ER216,
+IO7,	JMS I QQERROR	/ENTER ERROR
+	JMP I (7605	/INCLUDES OUTPUTTING TO FILE STRUCTURED DEVICE
+			/BUT SPECIFYING NO NAME
+
+NONAME,	DCA BLK		/DF=10
+	DCA LEN
+	TAD I (OUTDEV
+	TAD (7757	/POINT TO DCW
+	DCA TEMP	/GET DEVICE CONTROL WORD
+	TAD I TEMP
+	CDF 0
+	SPA CLA		/IS DEVICE FILE-STRUCTURED?
+	HLT		/YES
+	JMP L		/NO
+
+OPTR,	0
+OUTEXT,	0
+OUTB,	0
+OUTL,	0
+OUTLEN,	0
+	PAGE
+OPENTC,	0		/OPEN TABLE OF CONTENTS
+	CDF 10
+	TAD (-OUTPRS
+	DCA I (OUTKNT	/LENGTH
+	TAD (-OUTPRS
+	DCA I (OUTCNT
+	CLA IAC
+	DCA I (OUTDEV	/DEVICE SYS:
+	TAD (7607
+	DCA I (OUTHNDLR	/HANDLER LOCATION
+	TAD (TOCBLK
+	DCA I (OUTREC
+	DCA I (OUTSIZ
+	TAD (OUTLST
+	DCA I (LSTRET
+	TAD (OUTBUF
+	DCA I (OPTR1
+	TAD MTOCLEN
+	DCA I (HOLSIZ
+	CDF 0
+/	TAD (-TOCLEN
+/	DCA I (LEN
+	JMP I OPENTC
+OFETCH,	0		/THERE IS ANOTHER COPY OF THIS IN MACIO
+	CDF 10
+	TAD I (OUTDEV
+	TAD (7646
+	DCA OTEM2	/POINT INTO DHRT
+	TAD I OTEM2	/GET ENTRY POINT
+	SZA
+	JMP OUT2	/OUT-DEVICE HANDLER IS RESIDENT
+	TAD (OUTHAN+1
+	DCA OUTENT	/SETUP FOR FETCH OF DEVICE HANDLER
+	TAD I (OUTDEV	/RETRIEVE OUTPUT DEVICE FILE NUMBER
+	CDF 0
+	CIF 10
+	JMS I (USR
+	1		/FETCH DEVICE HANDLER
+OUTENT,	OUTHAN+1	/LOCATION OF 2-PAGE AREA FOR HANDLER
+			/REPLACED BY HANDLER ENTRY POINT
+	JMP ERRLOD	/ERROR LOADING HANDLER
+	CDF 10
+	TAD OUTENT
+OUT2,	DCA I (OUTHNDLR
+	CDF 0
+	JMP I OFETCH
+
+ERRLOD,
+ER217,
+IO10,	JMS I QQERROR	/ERROR LOADING HANDLER
+	JMP I (7605
+OTEM2,	0
+MTOCLEN,-TOCLEN
+	PAGE

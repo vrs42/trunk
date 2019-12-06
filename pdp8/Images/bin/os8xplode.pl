@@ -87,8 +87,12 @@ sub ofile {
   $mask = 0177 if $f =~ /[.]FT$/i; # FORTRAN Source
   $mask = 0177 if $f =~ /[.]HL$/i; # HELP
   $mask = 0177 if $f =~ /[.]LS$/i; # Listing
+  $mask = 0177 if $f =~ /[.]MA$/i; # MACRO Source
   $mask = 0177 if $f =~ /[.]PA$/i; # PAL Source
   $mask = 0177 if $f =~ /[.]PS$/i; # Pascal Source?
+  $mask = 0177 if $f =~ /[.]RA$/i; # RALF Source
+  $mask = 0177 if $f =~ /[.]SB$/i; # SABR Source
+  $mask = 0177 if $f =~ /[.]TE$/i; # TECO File
   $mask = 0177 if $f =~ /[.]TX$/i; # Text File
   $mask = 0177 if $f =~ /[.]WU$/i; # Write Up
   $chr1 = "text" if $mask != 0377;
@@ -165,7 +169,7 @@ sub os8fs {
     $link = shift @blk;
     $tent = shift @blk;
     $aiw = shift @blk;
-    $aiw = 010000 - $aiw;
+    $aiw = 010000 - $aiw unless $aiw == 0;
     for (; $nent; $nent--) {
       # Examine a directory entry.
       $chr1 = shift @blk;

@@ -1,1 +1,238 @@
-¯¹‰ÏÖÅÒÌÁÙ Õ ¨ÔÉÔÌÅ ÓÔÕÆÆ©Š¯‰±µ­ÁÕÇ­·¸‰ÁÌÌÏ×ÅÄ ÃÈÅÃËÉÎÇ ÔÏÃ ÂÉÔ ÉÎ ÌÉÓÔ×Ä ÏÎ ®ÓÂÔÔÌŠ¯‰±¶­ÁÕÇ­·¸‰ÆÉØÅÄ ÒÅÌÏÃ ÔÏ ÂÅ ÌÉËÅ ÐÁÌ¸ ÁÎÄ ÄÕÍÐ ÌÉÔÅÒÁÌÓŠ¯‰±·­ÁÕÇ­·¸‰ÒÅÌÏÃ ÇÉÖÅÓ ÅÒÒÏÒ ÉÆ ÒÅÌÏÃ Î ÎÏÔ ÍÁÔÃÈÅÄ ÂÙ ÒÅÌÏÃŠ¯‰‰‰ÁÌÌÏ×ÅÄ ÒÅÌÏÃ¾Š‰®ÉÎÃÌÕÄÅ ÍÇÌÏÂ®ÍÁŠ‰®ÁÓÅÃÔ ÏÖÒÕ¬ÌÅÖÅÌ½²¬ÏÖÅÒÌÁÙ½´Š‰ÆÉÅÌÄ ´Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÃÏÐÙÒÉÇÈÔ  ¨Ã©  ±¹·· ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎŠ¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÔÈÅ ÉÎÆÏÒÍÁÔÉÏÎ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÓÕÂÊÅÃÔ ÔÏ ÃÈÁÎÇÅ ×ÉÔÈÏÕÔ ÎÏÔÉÃÅŠ¯ÁÎÄ ÓÈÏÕÌÄ ÎÏÔ ÂÅ ÃÏÎÓÔÒÕÅÄ ÁÓ Á ÃÏÍÍÉÔÍÅÎÔ ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔŠ¯ÃÏÒÐÏÒÁÔÉÏÎ®  ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙŠ¯ÆÏÒ ÁÎÙ ÅÒÒÏÒÓ ÔÈÁÔ ÍÁÙ ÁÐÐÅÁÒ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ®Š¯Š¯ÔÈÅ ÓÏÆÔ×ÁÒÅ ÄÅÓÃÒÉÂÅÄ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÆÕÒÎÉÓÈÅÄ ÔÏ ÔÈÅ ÐÕÒÃÈÁÓÅÒŠ¯ÕÎÄÅÒ Á ÌÉÃÅÎÓÅ ÆÏÒ ÕÓÅ ÏÎ Á ÓÉÎÇÌÅ ÃÏÍÐÕÔÅÒ ÓÙÓÔÅÍ ÁÎÄ ÃÁÎ ÂÅ ÃÏÐÉÅÄŠ¯¨×ÉÔÈ ÉÎÃÌÕÓÉÏÎ ÏÆ ÄÉÇÉÔÁÌ§Ó ÃÏÐÙÒÉÇÈÔ ÎÏÔÉÃÅ© ÏÎÌÙ ÆÏÒ ÕÓÅ ÉÎ ÓÕÃÈŠ¯ÓÙÓÔÅÍ¬ ÅØÃÅÐÔ ÁÓ ÍÁÙ ÏÔÈÅÒ×ÉÓÅ ÂÅ ÐÒÏÖÉÄÅÄ ÉÎ ×ÒÉÔÉÎÇ ÂÙ ÄÉÇÉÔÁÌ®Š¯Š¯ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙ ÆÏÒ ÔÈÅ ÕÓÅŠ¯ÏÒ ÒÅÌÉÁÂÉÌÉÔÙ ÏÆ ÉÔÓ ÓÏÆÔ×ÁÒÅ ÏÎ ÅÑÕÉÐÍÅÎÔ ÔÈÁÔ ÉÓ ÎÏÔ ÓÕÐÐÌÉÅÄ ÂÙŠ¯ÄÉÇÉÔÁÌ®Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ŠŒ‰®ÅØÔÅÒÎÁÌ ÁÓÅÍÌÖ¬ÂÁÃËÕÐ¬ÂÒÁÎÃÈ¬ÃÒÅÆ¬ÃÒÌÆ¬ÄÐÒÉÎÔ¬ÅÎÔÅÒ¬ÅÏÓ¬ÅÒÒÏÒ¬ÅØÐÒŠ‰®ÅØÔÅÒÎÁÌ ÆÓÃÈÅË¬ÇÅÔÃÈÒ¬ÇÅÔËÁÒ¬ÇÅÔÓÙÍ¬ÌÅÔÔÅÒ¬ÌÉÓÔÅÒ¬ÌÏÏËÕÐ¬ÏÒÉÇ¬ÏÕÔ¬ÐÁÒÓÙÍŠ‰®ÅØÔÅÒÎÁÌ ÐÁÓÓ³¬ÐÏÐ¬ÐÕÓÈ¬ÐÕÎÂÉÔ¬ÐÕÔÂÉÔ¬ÐÕÔÓÙÍ¬ÐÕØÂÉÎ¬ÒÅÁÄÌÎ¬ÒÏÔÌ¶¬ÓÃÁÎŠ‰®ÅØÔÅÒÎÁÌ ÓÅÔÉÔ¬ÓÕÂÔÌ¬ÔÁÂ¬ÐÒÌÉÎÏ¬ÌÉÓÔ¬ÈÅÁÄÉÎÇŠ‰®ÅØÔÅÒÎÁÌ ÐÒÇÌÉÔ¬ÅÒµ°ÓÂŠ‰®ÅØÔÅÒÎÁÌ ÓÐÕÓÈ¬ÓÐÏÐ¬ÕÓÒÓÔËŠ‰®ÇÌÏÂÁÌ ¤ÓÂÔÔÌ¬¤ÔÉÔÌÅ¬¤ÅÊÅÃÔ¬¤ÒÅÌÏÃŠ‰®ÇÌÏÂÁÌ ÅÒ²°·¬ÅÒ²±¸¬ÅÒ²±¹Š‰®ÇÌÏÂÁÌ ¤ÐÕÓÈ¬¤ÐÏÐŠ‰ª²°°°ŠŠ‰²µŠ¯‰ÓÅÔÉÔ ÍÏÖÅÄ ÔÏ ÒÏÏÔŠŠ¤ÓÂÔÔÌ¬‰ÊÍÓ É ÑÑÓÃÁÎŠ‰ÊÍÓ É ÑÑÂÁÃËÕÐŠ‰ÊÍÓ É ¨ÓÅÔÉÔ‰¯ÓÅÔ ÎÅ× ÔÉÔÌÅ ÆÒÏÍ ÒÅÓÔ ÏÆ ÌÉÎÅŠ‰­ÓÕÂÌÅÎŠ‰ÓÕÂÔÌ­±Š‰ÓÔÁŠ‰ÔÁÄ ÐÁÓÓŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ É ¨ÂÙÅÂ‰¯ÎÏÔ ÐÁÓÓ±Š‰ÔÁÄ É ¨ÌÉÓÔ×ÄŠ‰ÁÎÄ ¨±°Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ É ¨ÂÙÅÂŠ‰ÉÓÚ É ¨ÓÂÔËÎÔŠ‰ÉÓÚ ÔÃËÎÔŠ‰ÓËÐŠ‰ÊÍÓ ÓÂÔ²Š‰ÔÁÄ ÑÑ´°Š‰ÄÃÁ ÐÁÄŠ‰ÃÌÌŠ‰ÔÁÄ ÐÁÇÅÎÏŠ‰ÊÍÓ É ÑÑÄÐÒÉÎÔŠ‰ÊÍÓ É ¨ÔÁÂŠ‰ÃÉÆ ²°Š‰ÊÍÓ É ¨ÐÒÌÉÎÏŠ‰ÊÍÓ É ¨ÔÁÂŠ‰ÊÍÓ É ¨ÌÉÓÔŠ‰ÓÕÂÔÌŠ‰ÊÍÐ É ¨ÂÙÅÂŠŒ¤ÅÊÅÃÔ¬‰ÃÌÁ ÉÁÃŠ‰ÄÃÁ ÆÏÒÍ‰¯ÇÏ ÔÏ ÎÅ× ÐÁÇÅŠ¤ÔÉÔÌÅ¬‰ÊÍÓ É ÑÑÓÃÁÎŠ‰ÊÍÓ É ÑÑÂÁÃËÕÐŠ‰ÊÍÓ É ¨ÓÅÔÉÔŠ‰­ÈÅÁÄÌÎŠ‰ÈÅÁÄÉÎÇ­±Š‰ÊÍÐ É ¨ÂÙÅÂ‰¯ÔÅÍÐŠ¯ªªª ÓÈÏÕÌÄÎ§Ô ÔÉÔÌÅÓ ÁÐÐÅÁÒ ÉÎ Ô­ÏÆ­Ã¿ŠŠÓÂÔ²¬‰°Š‰ÔÁÄ ¨­¶¶‰¯ªªª ÍÁËÅ ÍÏÒÅ ÇÅÎÅÒÁÌŠ‰ÄÃÁ ÔÃËÎÔŠ¯‰ÔÁÄ ¨±´Š¯‰ÊÍÓ É ÑÑÌÉÓÔÅÒ‰¯ÆÏÒÍ ÆÅÅÄŠ¯‰ÊÍÓ É ¨ÌÉÓÔŠ¯‰ÓÂÈÅÁÄŠ¯‰ÊÍÓ É ÑÑÃÒÌÆŠ¯‰ÊÍÐ É ÓÂÔ²Š¯ªªª ×ÏÕÌÄ ÌÉËÅ ÔÏ ÕÓÅ ÁÂÏÖÅ ÂÕÔ ÄÏÎ§Ô ×ÁÎÔŠ¯ÔÏ ×ÁÓÔÅ ÓÐÁÃÅ ÉÎ ÒÏÏÔ ÉÎ ÆÉÅÌÄ ±®Š¯ÃÏÕÌÄ ÍÏÄÉÆÙ §ÌÉÓÔ§ ÔÏ ×ÏÒË ÆÒÏÍ ÇÉÖÅÎ ÆÉÅÌÄ®Š‰ÔÁÄ ¨ÓÂÈÅÁÄŠ‰ÄÃÁ ÐÔÒŠÓÂÌÐ¬‰ÔÁÄ É ÐÔÒŠ‰ÉÓÚ ÐÔÒŠ‰ÓÎÁŠ‰ÊÍÐ É ÓÂÔ²Š‰ÊÍÓ É ÑÑÌÉÓÔÅÒŠ‰ÊÍÐ ÓÂÌÐŠÐÔÒ¬‰°ŠŒ¤ÒÅÌÏÃ¬‰ÊÍÓ É ÑÑÓÃÁÎ‰¯ÉÇÎÏÒÅ ÓÐÁÃÅÓŠ‰ÔÁÄ ÐÃŠ‰ÄÃÁ ÏÌÄÐÃŠ‰ÊÍÓ É ¨ÐÒÇÌÉÔ‰¯ªªª ÆÏÒ ÓÏÍÅ ÒÅÁÓÏÎ É ×ÁÓ ÒÅÌÕÃÔÁÎÔ ÔÏ ÁÄÄ ÔÈÉÓŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­·¶Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÓ É ÑÑÅÏÓ‰¯ÁÔ ÅÎÄ ÏÆ ÓÔÁÔÅÍÅÎÔ¿Š‰ÊÍÐ ÅÎÄÒÌÃ‰¯ÙÅÓ¬ ÅÎÄ ÏÆ ÒÅÌÏÃŠ‰ÔÁÄ ÒÅÌÏËŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÓ É ¨ÅÒµ°ÓÂ‰¯ÌÁÓÔ ÒÅÌÏÃ ÎÏÔ ÔÅÒÍÉÎÁÔÅÄŠ‰ÊÍÓ É ÑÑÂÁÃËÕÐ‰¯ÎÏ¬ ÇÅÔ ÒÅÁÄÙ ÔÏ ÐÁÒÓÅ ÅØÐÒÅÓÓÉÏÎŠ‰ÊÍÓ É ÑÑÅØÐÒ‰¯ÇÅÔ ÅØÐÒÅÓÓÉÏÎŠ‰ÄÃÁ ÐÃŠ‰ÔÁÄ ÐÃŠ‰ÃÉÁŠ‰ÔÁÄ ÏÌÄÐÃŠ‰ÄÃÁ ÒÅÌÏËŠ‰ÔÁÄ ÅØÐÒÅÌŠ‰ÓÎÁŠ‰ÔÁÄ ÅØÐÃÏÄŠ‰ÓÚÁ ÃÌÁŠÅÒ²°·¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯ÁÒÇÕÍÅÎÔ ÔÏ §ÒÅÌÏÃ§ ×ÁÓ ÎÏÔ ÁÂÓÏÌÕÔÅŠ‰ÊÍÐ ÒÌÃ±ŠÅÎÄÒÌÃ¬‰ÔÁÄ ÐÃŠ‰ÔÁÄ ÒÅÌÏËŠ‰ÄÃÁ ÐÃŠ‰ÄÃÁ ÒÅÌÏËŠÒÌÃ±¬‰ÔÁÄ ÐÃŠ‰ÄÃÁ ÂÉÎÁÒÙŠ‰ÉÎÃÒ ÐÃÆÌÁÇŠ‰ÔÁÄ ÐÃŠ‰ÊÍÓ É ÑÑÏÒÉÇ‰¯ÓÉÎÃÅ ÌÉÔÅÒÁÌ ÄÕÍÐÉÎÇ ÍÏÖÅÄ ÕÓŠ‰ÊÍÐ É ¨ÐÓÅÕÄÏŠŠÏÌÄÐÃ¬‰°‰‰¯ÏÒÉÇÉÎÁÌ ÐÃ ÂÅÆÏÒÅ §ÒÅÌÏÃ§ ÄÉÒÅÃÔÉÖÅŠŒÓÂÈÅÁÄ¬‰±´»¢Ð»¢Á»¢Ç»¢ÅŠ‰±±»¢Ì»¢É»¢Î»¢ÅŠ‰±±»¢Ó»¢Õ»¢Â»¢Ô»¢É»¢Ô»¢Ì»¢ÅŠ‰±µ»±²»±µ»±²»°Š‰ÐÁÇÅŠŒ¤ÐÕÓÈ¬‰ÃÌÁ ÉÁÃŠ¤ÐÏÐ¬‰ÄÃÁ ÐÓÈÔÙÐŠ‰ÓËÐŠÐÕÓÈ²¬‰ÊÍÓ É ÑÑÇÅÔÃÈÒŠ‰ÊÍÓ É ÑÑÓÃÁÎŠÐÕÓÈ³¬‰ÊÍÓ É ÑÑÌÅÔÔÅÒŠ‰ÊÍÐ ÅÒ²±¹Š‰ÊÍÓ É ÑÑÐÁÒÓÙÍŠ‰ÊÍÓ É ÑÑÌÏÏËÕÐŠ‰ÊÍÓ É ÑÑÅÎÔÅÒŠ‰ÊÍÓ É ÑÑÇÅÔÓÙÍŠ‰ÊÍÓ É ÑÑÃÒÅÆŠ‰ÊÍÓ ÃÔÙÐÅ‰¯ÔÙÐÅÓ °¬´¬ ÁÎÄ µ ÁÒÅ ÏËŠÅÒ²±¸¬‰ÊÍÓ É ÑÑÅÒÒÏÒ‰¯×ÁÓ ÎÏÔ ÏÎÅ ÏÆ ÔÈÅÓÅŠ‰ÔÁÄ ÆÌÁÇŠ‰ÁÎÄ ÑÑ·°Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ÅÒ²±¸‰¯ÃÁÎ§Ô ÐÕÓÈ ÏÒ ÐÏÐ Á ÓÅÃÔ ÎÁÍÅŠ‰ÔÁÄ ÐÓÈÔÙÐŠ‰ÓÎÁ ÃÌÁ‰‰¯×ÈÉÃÈ ÉÓ ÉÔ¿Š‰ÊÍÐ ÐÏÐØ‰¯ÐÏÐŠ‰ÔÁÄ ÆÌÁÇ‰¯ÐÕÓÈŠ‰ÓÍÁ ÃÌÁŠ‰ÊÍÐ ÅÒ²±¸‰¯ÔÒÉÅÄ ÔÏ ÐÕÓÈ ÁÎ ÕÎÄÅÆÉÎÅÄ ÓÙÍÂÏÌŠ‰‰‰¯ªªª ÍÁÙÂÅ ÔÈÉÓ ÉÓ ÏË ÏÎ ÐÁÓÓ ±Š‰ÔÁÄ ÓÙÍÖÁÌŠ‰ÃÉÆ ±°Š‰ÊÍÓ É ¨ÓÐÕÓÈŠ‰ÕÓÒÓÔËŠ‰ÔÁÄ ÓÙÍÓÃÔŠ‰ÃÉÆ ±°Š‰ÊÍÓ É ¨ÓÐÕÓÈŠ‰ÕÓÒÓÔËŠÐÓÈÏÖÒ¬‰ÊÍÓ É ÑÑÓÃÁÎŠ‰ÊÍÓ É ÑÑÅÏÓŠ‰ÊÍÐ É ¨ÐÓÅÕÄÂŠ‰ÔÁÄ ÃÈÁÒŠ‰ÔÁÄ ¨­µ´Š‰ÓÎÁ ÃÌÁŠ‰ÊÍÐ ÐÕÓÈ²ŠÅÒ²±¹¬‰ÊÍÓ É ÑÑÅÒÒÏÒŠ‰ÊÍÓ É ¨ÉÇÎÏÒÅŠ‰ÊÍÐ ÐÕÓÈ³ŠŠÐÓÈÔÙÐ¬‰°ŠŒÐÏÐØ¬‰ÃÉÆ ±°Š‰ÊÍÓ É ¨ÓÐÏÐŠ‰ÕÓÒÓÔËŠ‰ÄÃÁ ÓÙÍÓÃÔŠ‰ÃÉÆ ±°Š‰ÊÍÓ É ¨ÓÐÏÐŠ‰ÕÓÒÓÔËŠ‰ÄÃÁ ÓÙÍÖÁÌŠ‰ÔÁÄ ÆÌÁÇŠ‰ÓÍÁŠ‰ÔÁÄ ¨´°°°Š‰ÄÃÁ ÆÌÁÇŠ‰ÊÍÓ É ÑÑÐÕÔÓÙÍ‰¯×ÒÉÔÅ ÉÔ ÂÁÃË ÏÕÔŠ‰ÊÍÐ ÐÓÈÏÖÒŠŒÃÔÙÐÅ¬‰°Š‰ÔÁÄ ÆÌÁÇŠ‰ÁÎÄ ÑÑ·Š‰ÓÎÁŠ‰ÊÍÐ ÏËÃŠ‰ÔÁÄ ¨­´Š‰ÃÌÌ ÒÁÒŠ‰ÓÎÁ ÃÌÁŠÏËÃ¬‰ÉÓÚ ÃÔÙÐÅŠ‰ÊÍÐ É ÃÔÙÐÅŠ‰ÐÁÇÅŠŒš€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+/9	OVERLAY U (TITLE STUFF)
+/	15-AUG-78	ALLOWED CHECKING TOC BIT IN LISTWD ON .SBTTL
+/	16-AUG-78	FIXED RELOC TO BE LIKE PAL8 AND DUMP LITERALS
+/	17-AUG-78	RELOC GIVES ERROR IF RELOC N NOT MATCHED BY RELOC
+/			ALLOWED RELOC>
+	.INCLUDE MGLOB.MA
+	.ASECT OVRU,LEVEL=2,OVERLAY=4
+	FIELD 4
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL SETIT,SUBTL,TAB,PRLINO,LIST,HEADING
+	.EXTERNAL PRGLIT,ER50SB
+	.EXTERNAL SPUSH,SPOP,USRSTK
+	.GLOBAL $SBTTL,$TITLE,$EJECT,$RELOC
+	.GLOBAL ER207,ER218,ER219
+	.GLOBAL $PUSH,$POP
+	*2000
+
+	25
+/	SETIT MOVED TO ROOT
+
+$SBTTL,	JMS I QQSCAN
+	JMS I QQBACKUP
+	JMS I (SETIT	/SET NEW TITLE FROM REST OF LINE
+	-SUBLEN
+	SUBTL-1
+	STA
+	TAD PASS
+	SZA CLA
+	JMP I (BYEB	/NOT PASS1
+	TAD I (LISTWD
+	AND (10
+	SZA CLA
+	JMP I (BYEB
+	ISZ I (SBTKNT
+	ISZ TCKNT
+	SKP
+	JMS SBT2
+	TAD QQ40
+	DCA PAD
+	CLL
+	TAD PAGENO
+	JMS I QQDPRINT
+	JMS I (TAB
+	CIF 20
+	JMS I (PRLINO
+	JMS I (TAB
+	JMS I (LIST
+	SUBTL
+	JMP I (BYEB
+$EJECT,	CLA IAC
+	DCA FORM	/GO TO NEW PAGE
+$TITLE,	JMS I QQSCAN
+	JMS I QQBACKUP
+	JMS I (SETIT
+	-HEADLN
+	HEADING-1
+	JMP I (BYEB	/TEMP
+/*** SHOULDN'T TITLES APPEAR IN T-OF-C?
+
+SBT2,	0
+	TAD (-66	/*** MAKE MORE GENERAL
+	DCA TCKNT
+/	TAD (14
+/	JMS I QQLISTER	/FORM FEED
+/	JMS I (LIST
+/	SBHEAD
+/	JMS I QQCRLF
+/	JMP I SBT2
+/*** WOULD LIKE TO USE ABOVE BUT DON'T WANT
+/TO WASTE SPACE IN ROOT IN FIELD 1.
+/COULD MODIFY 'LIST' TO WORK FROM GIVEN FIELD.
+	TAD (SBHEAD
+	DCA PTR
+SBLP,	TAD I PTR
+	ISZ PTR
+	SNA
+	JMP I SBT2
+	JMS I QQLISTER
+	JMP SBLP
+PTR,	0
+$RELOC,	JMS I QQSCAN	/IGNORE SPACES
+	TAD PC
+	DCA OLDPC
+	JMS I (PRGLIT	/*** FOR SOME REASON I WAS RELUCTANT TO ADD THIS
+	TAD CHAR
+	TAD (-76
+	SZA CLA
+	JMS I QQEOS	/AT END OF STATEMENT?
+	JMP ENDRLC	/YES, END OF RELOC
+	TAD RELOK
+	SZA CLA
+	JMS I (ER50SB	/LAST RELOC NOT TERMINATED
+	JMS I QQBACKUP	/NO, GET READY TO PARSE EXPRESSION
+	JMS I QQEXPR	/GET EXPRESSION
+	DCA PC
+	TAD PC
+	CIA
+	TAD OLDPC
+	DCA RELOK
+	TAD EXPREL
+	SNA
+	TAD EXPCOD
+	SZA CLA
+ER207,	JMS I QQERROR	/ARGUMENT TO 'RELOC' WAS NOT ABSOLUTE
+	JMP RLC1
+ENDRLC,	TAD PC
+	TAD RELOK
+	DCA PC
+	DCA RELOK
+RLC1,	TAD PC
+	DCA BINARY
+	INCR PCFLAG
+	TAD PC
+	JMS I QQORIG	/SINCE LITERAL DUMPING MOVED US
+	JMP I (PSEUDO
+
+OLDPC,	0		/ORIGINAL PC BEFORE 'RELOC' DIRECTIVE
+SBHEAD,	14;"P;"A;"G;"E
+	11;"L;"I;"N;"E
+	11;"S;"U;"B;"T;"I;"T;"L;"E
+	15;12;15;12;0
+	PAGE
+$PUSH,	CLA IAC
+$POP,	DCA PSHTYP
+	SKP
+PUSH2,	JMS I QQGETCHR
+	JMS I QQSCAN
+PUSH3,	JMS I QQLETTER
+	JMP ER219
+	JMS I QQPARSYM
+	JMS I QQLOOKUP
+	JMS I QQENTER
+	JMS I QQGETSYM
+	JMS I QQCREF
+	JMS CTYPE	/TYPES 0,4, AND 5 ARE OK
+ER218,	JMS I QQERROR	/WAS NOT ONE OF THESE
+	TAD FLAG
+	AND QQ70
+	SZA CLA
+	JMP ER218	/CAN'T PUSH OR POP A SECT NAME
+	TAD PSHTYP
+	SNA CLA		/WHICH IS IT?
+	JMP POPX	/POP
+	TAD FLAG	/PUSH
+	SMA CLA
+	JMP ER218	/TRIED TO PUSH AN UNDEFINED SYMBOL
+			/*** MAYBE THIS IS OK ON PASS 1
+	TAD SYMVAL
+	CIF 10
+	JMS I (SPUSH
+	USRSTK
+	TAD SYMSCT
+	CIF 10
+	JMS I (SPUSH
+	USRSTK
+PSHOVR,	JMS I QQSCAN
+	JMS I QQEOS
+	JMP I (PSEUDB
+	TAD CHAR
+	TAD (-54
+	SNA CLA
+	JMP PUSH2
+ER219,	JMS I QQERROR
+	JMS I (IGNORE
+	JMP PUSH3
+
+PSHTYP,	0
+POPX,	CIF 10
+	JMS I (SPOP
+	USRSTK
+	DCA SYMSCT
+	CIF 10
+	JMS I (SPOP
+	USRSTK
+	DCA SYMVAL
+	TAD FLAG
+	SMA
+	TAD (4000
+	DCA FLAG
+	JMS I QQPUTSYM	/WRITE IT BACK OUT
+	JMP PSHOVR
+CTYPE,	0
+	TAD FLAG
+	AND QQ7
+	SNA
+	JMP OKC
+	TAD (-4
+	CLL RAR
+	SNA CLA
+OKC,	ISZ CTYPE
+	JMP I CTYPE
+	PAGE
+

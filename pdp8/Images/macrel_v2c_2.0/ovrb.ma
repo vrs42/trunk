@@ -1,1 +1,330 @@
-╞╠Ё═литтле╜усед═дирецтижес═ожерлаы═╡═то═мацрел┴пост═фт═╠█┼╞┴╥╜мар╜╥╦┴инсталлед═патцхес█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═ожрб╛лежел╫╠╛ожерлаы╫╠█┼█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═фини╛бегин█┼┴╝глобал═ер╠╣╛ерЁЁ╛ер╢╥╛ер╢╦╛ер╡╠╣█┼┴╝глобал═╓иф█┼┴╝глобал═╓ифдеф╛╓ифнзро╛╓ифндеф╛╓ифзеро█┼█┼┴фиелд═Ё█┼┴╙╡╟╟╟█┼█┼╞╙╙╙═фор═уннамед═сецт╛═оригин═то═╡╟╟█┼█┼┴╡┴┴╞ожерлаы═нумбер█┼█┼ифцонд╛┴╟█┼┴тад═и═ифцонд┴╞гет═цондитион█┼┴дца═цонд┴╞сторе═ин╜лине█┼┴ймс═и═яябацкуп█┼┴ймс═и═яяеьпр█┼цонд╛┴хлт┴┴╞скип═иф═цондитион═ис═труе█┼┴ймп═и═╗скип┴╞фалсе╛═скип═то═цлосе═англе═брацкет█┼┴ймп═и═╗цондок┴╞труе╛═скип═цондитионал═цоде█┼█┼╓ифнзро╛┴ймс═ифцонд█┼┴сна═цла█┼╞┴╜╜╜╜╜╜╜█┼╓ифзеро╛┴ймс═ифцонд█┼┴сза═цла█┼╞┴╜╜╜╜╜╜╜█┼ифле╛┴ймс═ифцонд█┼┴сма═сза═цла█┼╞┴╜╜╜╜╜╜╜█┼ифге╛┴ймс═ифцонд█┼┴спа═цла█┼╞┴╜╜╜╜╜╜╜█┼ифпосы╛┴ймс═ифцонд█┼┴спа═сна═цла█┼╞┴╜╜╜╜╜╜╜█┼ифнегы╛┴ймс═ифцонд█┼┴сма═цла█┼╞┴╜╜╜╜╜╜╜█┼ифабсы╛┴ймс═ифцонд█┼┴ймс═абсцхк█┼╞┴╜╜╜╜╜╜█┼ифрелы╛┴ймс═ифцонд█┼┴ймс═релцхк█┼╞┴╜╜╜╜╜╜█┼▄абсцхк╛┴╟┴┴╞скип═иф═абсолуте█┼┴цла█┼┴тад═еьпрел█┼┴сна═цла█┼┴исз═абсцхк█┼┴ймп═и═абсцхк█┼█┼релцхк╛┴╟┴┴╞скип═иф═релоцатабле█┼┴цла█┼┴тад═еьпрел█┼┴сза═цла█┼┴исз═релцхк█┼┴ймп═и═релцхк█┼▄ифблнк╛┴ймс═и═яясцан█┼┴тад═цхар█┼┴тад═╗╜╥╢█┼┴сна═цла█┼┴ймп═и═╗цондок┴╞ок╛═но═аргумент█┼┴ймп═и═╗скоп┴╞сометхинг═тхере╛═скип═ранге═оф═иф█┼█┼ифнб╛┴ймс═и═яясцан█┼┴тад═цхар█┼┴тад═╗╜╥╢█┼┴сна═цла█┼┴ймп═и═╗скоп┴╞нотхинг═тхере╛═скип═иф═ранге█┼╡╓╨┴ймс═и═яяеос█┼┴ймп═и═╗ерЁЁ┴╞гот═то═енд═оф═стмнт═анд═но═опен═англе═брацкет█┼┴ймс═и═яягетцхр┴╞маыбе═ит╖с═неьт═цхар█┼┴тад═цхар█┼┴тад═╗╜╥╢█┼┴сза═цла█┼┴ймп═╡╓┴┴╞нопе╛═кееп═сцаннинг█┼┴ймп═и═╗цондок┴╞ах╛═хере═ит═ис═╝╝╝█┼▄ифдиф╛┴ймс═сцом┴╞цомпаре═тво═стрингс█┼┴ймп═и═╗цондок┴╞саме█┼┴ймп═и═╗скоп┴╞дифферент█┼█┼ифиден╛┴ймс═сцом┴╞цомпаре═тво═стрингс█┼┴ймп═и═╗скоп┴╞саме█┼┴ймп═и═╗цондок┴╞дифферент█┼█┼сцом╛┴╟┴┴╞стринг═цомпаре═╗примитиже╘█┼┴ймс═и═яясцан┴╞игноре═спацес█┼┴тад═линптр█┼┴дца═стр╠┴╞поинт═ат═стринг═╠█┼┴ймс═гото█┼мцома╛┴╜╣╢█┼┴ймс═и═яягетцхр┴╞пасс═ит█┼┴ймс═и═яясцан┴╞море═спацес═игноред█┼┴тад═линптр█┼┴дца═стр╡┴╞поинт═ат═стринг═╡█┼┴┴┴╞ассумес═но═╛═ор═╪═ин═еитхер═стринг█┼┴ймс═гото█┼мбр╛┴╜╥╢█┼л╓╨┴цдф═╠╟█┼┴тад═и═стр╡█┼┴сна█┼┴ймп═ер╡а█┼┴тад═мбр█┼┴сна█┼┴ймп═Ё╓█┼┴тад═╗╥╢█┼┴циа█┼┴тад═и═стр╠█┼┴цдф═╟█┼┴сза═цла█┼┴ймп═и═сцом┴╞мисматцх█┼┴исз═стр╡█┼┴исз═стр╠█┼┴ймп═л╓█┼Ё╓╨┴тад═и═стр╠█┼┴тад═мцома█┼┴цдф═╟█┼┴сна═цла█┼┴исз═сцом█┼┴ймп═и═сцом█┼█┼ер╡а╛┴цдф═╟█┼┴ймп═и═╗ерЁЁ┴╞╙╙╙█┼▄гото╛┴╟█┼┴ймс═и═яябацкуп█┼╠╓╨┴ймс═и═яягеткар█┼┴ймп═ер╡а█┼┴тад═и═гото┴╞цомпаре═агаинст═аргумент█┼┴сза═цла█┼┴ймп═╠╓┴┴╞кееп═лоокинг█┼┴исз═гото█┼┴ймп═и═гото█┼█┼стр╠╛┴╟█┼стр╡╛┴╟█┼▄ифре╛┴тад═наме╡┴╞цхецк═тхирд═цхарацтер█┼┴ймс═и═яябранцх█┼┴╜╖лю╩ифрелы┴╞л█┼┴╜╖фю╩ифрефы┴╞ф═а═уселесс═оптион█┼┴╟█┼┴ймп═и═╗ер╡╠╣█┼┴паге█┼▄╓ифдеф╛┴ймс═цмн┴┴╞скип═иф═сымбол═фоунд█┼┴ймп═скип┴╞нот═фоунд█┼┴ймс═и═яягетсым┴╞фоунд═╗бут═маыбе═нежер═дефинед╘█┼┴тад═флаг┴╞тхе═гранд═ол╖═флаг═вилл═кнов█┼┴спа═цла┴┴╞аск═ит█┼┴ймп═цондок┴╞салуте╝═нот═дефинед║█┼скип╛┴ймс═и═яясцан┴╞скип═тхе═ранге═оф═тхе═цондитионал█┼┴тад═цхар█┼┴тад═м╥╢█┼┴сза═цла█┼┴ймп═ерЁЁ█┼скоп╛┴дца═ангцнт█┼ифлуп╛┴тад═цхар█┼┴сна█┼┴ймп═гтлин█┼┴ймс═и═яябранцх█┼м╥╢╛┴╜╥╢╩лть█┼┴╜╥╤╩гть█┼┴╟█┼ифл╡╛┴ймс═и═яягетцхр█┼┴ймп═ифлуп█┼ангцнт╛┴╟█┼█┼гтлин╛┴цла═иац█┼┴дца═пцфлаг█┼┴цла═иац█┼┴дца═бнфлаг█┼┴тад═и═╗листвд█┼┴рал█┼┴спа═цла█┼┴ймп═гтл╧█┼┴тад═сватол█┼┴анд═╗╢█┼┴сна═цла┴┴╞дон╖т═принт═лине═иф═╞й█┼┴ймс═и═яяоут█┼гтл╧╛┴ймс═и═яяреадлн█┼┴скп█┼┴ймп═ифл╡█┼ер╠╣╛┴ймс═и═яяеррор┴╞пхасе═еррор═╙╙╙█┼┴ймп═и═╗фини█┼█┼лть╛┴цла═иац█┼┴скп█┼гть╛┴ста┴┴╞доесн╖т═цатцх═╢╟╧╤═опен═ангс█┼┴тад═ангцнт█┼┴сна█┼┴ймп═и═╗бегин█┼┴дца═ангцнт█┼┴ймп═ифл╡█┼▄цмн╛┴╟┴┴╞скип═иф═сымбол═фоунд═╗анд═цреф═ит╘█┼┴ймс═и═яясцан█┼┴ймс═и═яялеттер█┼┴ймп═ер╢╥█┼┴ймс═и═яяпарсым█┼┴ймс═и═яялоокуп█┼┴ймп═и═цмн█┼┴исз═цмн█┼┴ймс═и═яяцреф█┼┴ймп═и═цмн█┼▄┴ифдеф═плм═╪█┼╞┴иф═цондитионс█┼█┼╞┴поситиже┴цомплемент┴аргументс┴ассембле═блоцк═иф█┼█┼╞┴ея┴┴не┴┴еьпрессион┴еьпр╫╟═╗ор═нот╘█┼╞┴лт┴┴ге┴┴еьпрессион┴еьпр╪╟═╗ор═ге═╟╘█┼╞┴гт┴┴ле┴┴еьпрессион┴еьпр╬╟═╗ор═ле═╟╘█┼╞┴дф┴┴ндф┴┴сымбол┴┴сымбол═ис═дефинед═╗ундефинед╘█┼╞┴б┴┴нб┴┴стринг┴┴стринг═ис═бланк═╗нон╜нулл╘█┼╞┴идн┴┴диф┴┴стринг╛стринг┴стрингс═идентицал═╗дифферент╘█┼╞┴реф┴┴нреф┴┴сымбол┴┴сымбол═ис═референцед═╗ор═нот╘█┼╞┴абс┴┴рел┴┴еьпрессион┴еьпр═ис═абсолуте═╗ор═релоцатабле╘█┼┴╬█┼▄ер╢╥╛┴ймс═и═яяеррор█┼┴ймс═и═яягетцхр█┼┴ймп═и═╗быеь█┼█┼╓ифндеф╛ймс═цмн┴┴╞скип═иф═фоунд█┼┴ймп═цондок┴╞нот═фоунд█┼┴ймс═и═яягетсым┴╞гет═фуртхер═инфо█┼┴тад═флаг┴╞вас═ит═реаллы═дефинед©█┼┴спа═цла┴┴╞ор═маыбе═йуст═реферред═то©█┼┴ймп═скип┴╞дефинед█┼цондок╛┴ймс═и═яясцан┴╞цондитион═ис═труе█┼┴тад═цхар█┼┴тад═м╥╢█┼┴сза═цла█┼┴ймп═ерЁЁ█┼┴исз═цонцнт█┼┴ймп═и═╗бегин█┼ер╢╦╛╞┴ймс═и═яяеррор┴╞╢╟╧╤═нестед═цондитионалс█┼╞┴ймп═и═╗фини█┼ерЁЁ╛┴ймс═и═яяеррор┴╞темп█┼┴ймп═и═╗быеь█┼█┼╞╙╙╙═тест═╖цонцнт╖═ат═енд═оф═еацх═пасс█┼▄ифрефы╛┴ймс═цмн┴┴╞скип═иф═сымбол═фоунд█┼┴ймп═скип┴╞нот═референцед█┼┴ймп═цондок┴╞референцед█┼█┼ифнрефы╛ймс═цмн┴┴╞скип═иф═сымбол═фоунд█┼┴ймп═цондок┴╞нот═референцед█┼┴ймп═скип┴╞референцед█┼▄╓иф╛┴ймс═и═яясцан┴╞игноре═спацес█┼┴ймс═и═яяпарсым┴╞гет═╖иф╖═цондитион═╗ок═иф═стартс═витх═дигит╘█┼┴ймс═и═яясцан┴╞пасс═уп═море═спацес█┼┴тад═наме╠█┼┴ймс═и═яябранцх┴╞бранцх═то═аппроприате═плаце█┼┴╜╖ея╩╓ифзеро┴╞ея█┼┴╜╖не╩╓ифнзро┴╞не█┼┴╜╖дф╩╓ифдеф┴╞дф█┼┴╜╖нд╩╓ифндеф┴╞нд█┼┴╜╖гт╩ифпосы┴╞гт█┼┴╜╖ле╩ифле┴╞ле█┼┴╜╖лт╩ифнегы┴╞лт█┼┴╜╖ге╩ифге┴╞ге█┼┴╜╖бл╩ифблнк┴╞бл█┼┴╜╖нб╩ифнб┴╞нб█┼┴╜╖ид╩ифиден┴╞ид█┼┴╜╖ди╩ифдиф┴╞ди█┼┴╜╖ре╩ифре┴╞ре█┼┴╜╖нр╩ифнрефы┴╞нр█┼┴╜╖аб╩ифабсы┴╞аб█┼┴╜╖бю╩ифблнк┴╞б█┼┴╟█┼ер╡╠╣╛┴ймс═и═яяеррор┴╞ункновн═иф═цондитион█┼┴ймп═цондок┴╞претенд═ит═вас═сатисфиед█┼┴паге█┼█┼╞вант╨█┼█┼╞глобал┴┴╣┴флаг═битс═╧╜╠╠█┼╞еьтернал┴╤█┼╞зтернал┴╥█┼╞ентры┴┴╢█┼▄▄ ───────────────────────────────────────────────────────────
+/13 LITTLE-USED DIRECTIVES OVERLAY 2 TO MACREL	POST FT 1
+/	7-MAR-78	INSTALLED PATCHES
+	.INCLUDE MGLOB.MA
+	.ASECT OVRB,LEVEL=1,OVERLAY=1
+
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL FINI,BEGIN
+	.GLOBAL ER15,ER33,ER47,ER48,ER215
+	.GLOBAL $IF
+	.GLOBAL $IFDEF,$IFNZRO,$IFNDEF,$IFZERO
+
+	FIELD 3
+	*2000
+
+/*** FOR UNNAMED SECT, ORIGIN TO 200
+
+	2		/OVERLAY NUMBER
+
+IFCOND,	0
+	TAD I IFCOND	/GET CONDITION
+	DCA COND	/STORE IN-LINE
+	JMS I QQBACKUP
+	JMS I QQEXPR
+COND,	HLT		/SKIP IF CONDITION IS TRUE
+	JMP I (SKIP	/FALSE, SKIP TO CLOSE ANGLE BRACKET
+	JMP I (CONDOK	/TRUE, SKIP CONDITIONAL CODE
+
+$IFNZRO,	JMS IFCOND
+	SNA CLA
+/	-------
+$IFZERO,	JMS IFCOND
+	SZA CLA
+/	-------
+IFLE,	JMS IFCOND
+	SMA SZA CLA
+/	-------
+IFGE,	JMS IFCOND
+	SPA CLA
+/	-------
+IFPOSY,	JMS IFCOND
+	SPA SNA CLA
+/	-------
+IFNEGY,	JMS IFCOND
+	SMA CLA
+/	-------
+IFABSY,	JMS IFCOND
+	JMS ABSCHK
+/	------
+IFRELY,	JMS IFCOND
+	JMS RELCHK
+/	------
+ABSCHK,	0		/SKIP IF ABSOLUTE
+	CLA
+	TAD EXPREL
+	SNA CLA
+	ISZ ABSCHK
+	JMP I ABSCHK
+
+RELCHK,	0		/SKIP IF RELOCATABLE
+	CLA
+	TAD EXPREL
+	SZA CLA
+	ISZ RELCHK
+	JMP I RELCHK
+IFBLNK,	JMS I QQSCAN
+	TAD CHAR
+	TAD (-74
+	SNA CLA
+	JMP I (CONDOK	/OK, NO ARGUMENT
+	JMP I (SKOP	/SOMETHING THERE, SKIP RANGE OF IF
+
+IFNB,	JMS I QQSCAN
+	TAD CHAR
+	TAD (-74
+	SNA CLA
+	JMP I (SKOP	/NOTHING THERE, SKIP IF RANGE
+2$:	JMS I QQEOS
+	JMP I (ER33	/GOT TO END OF STMNT AND NO OPEN ANGLE BRACKET
+	JMS I QQGETCHR	/MAYBE IT'S NEXT CHAR
+	TAD CHAR
+	TAD (-74
+	SZA CLA
+	JMP 2$		/NOPE, KEEP SCANNING
+	JMP I (CONDOK	/AH, HERE IT IS ...
+IFDIF,	JMS SCOM	/COMPARE TWO STRINGS
+	JMP I (CONDOK	/SAME
+	JMP I (SKOP	/DIFFERENT
+
+IFIDEN,	JMS SCOM	/COMPARE TWO STRINGS
+	JMP I (SKOP	/SAME
+	JMP I (CONDOK	/DIFFERENT
+
+SCOM,	0		/STRING COMPARE (PRIMITIVE)
+	JMS I QQSCAN	/IGNORE SPACES
+	TAD LINPTR
+	DCA STR1	/POINT AT STRING 1
+	JMS GOTO
+MCOMA,	-54
+	JMS I QQGETCHR	/PASS IT
+	JMS I QQSCAN	/MORE SPACES IGNORED
+	TAD LINPTR
+	DCA STR2	/POINT AT STRING 2
+			/ASSUMES NO , OR < IN EITHER STRING
+	JMS GOTO
+MBR,	-74
+L$:	CDF 10
+	TAD I STR2
+	SNA
+	JMP ER2A
+	TAD MBR
+	SNA
+	JMP 3$
+	TAD (74
+	CIA
+	TAD I STR1
+	CDF 0
+	SZA CLA
+	JMP I SCOM	/MISMATCH
+	ISZ STR2
+	ISZ STR1
+	JMP L$
+3$:	TAD I STR1
+	TAD MCOMA
+	CDF 0
+	SNA CLA
+	ISZ SCOM
+	JMP I SCOM
+
+ER2A,	CDF 0
+	JMP I (ER33	/***
+GOTO,	0
+	JMS I QQBACKUP
+1$:	JMS I QQGETKAR
+	JMP ER2A
+	TAD I GOTO	/COMPARE AGAINST ARGUMENT
+	SZA CLA
+	JMP 1$		/KEEP LOOKING
+	ISZ GOTO
+	JMP I GOTO
+
+STR1,	0
+STR2,	0
+IFRE,	TAD NAME2	/CHECK THIRD CHARACTER
+	JMS I QQBRANCH
+	-'L@;IFRELY	/L
+	-'F@;IFREFY	/F A USELESS OPTION
+	0
+	JMP I (ER215
+	PAGE
+$IFDEF,	JMS CMN		/SKIP IF SYMBOL FOUND
+	JMP SKIP	/NOT FOUND
+	JMS I QQGETSYM	/FOUND (BUT MAYBE NEVER DEFINED)
+	TAD FLAG	/THE GRAND OL' FLAG WILL KNOW
+	SPA CLA		/ASK IT
+	JMP CONDOK	/SALUTE. NOT DEFINED!
+SKIP,	JMS I QQSCAN	/SKIP THE RANGE OF THE CONDITIONAL
+	TAD CHAR
+	TAD M74
+	SZA CLA
+	JMP ER33
+SKOP,	DCA ANGCNT
+IFLUP,	TAD CHAR
+	SNA
+	JMP GTLIN
+	JMS I QQBRANCH
+M74,	-74;LTX
+	-76;GTX
+	0
+IFL2,	JMS I QQGETCHR
+	JMP IFLUP
+ANGCNT,	0
+
+GTLIN,	CLA IAC
+	DCA PCFLAG
+	CLA IAC
+	DCA BNFLAG
+	TAD I (LISTWD
+	RAL
+	SPA CLA
+	JMP GTL9
+	TAD SWATOL
+	AND (4
+	SNA CLA		/DON'T PRINT LINE IF /J
+	JMS I QQOUT
+GTL9,	JMS I QQREADLN
+	SKP
+	JMP IFL2
+ER15,	JMS I QQERROR	/PHASE ERROR ***
+	JMP I (FINI
+
+LTX,	CLA IAC
+	SKP
+GTX,	STA		/DOESN'T CATCH 4096 OPEN ANGS
+	TAD ANGCNT
+	SNA
+	JMP I (BEGIN
+	DCA ANGCNT
+	JMP IFL2
+CMN,	0		/SKIP IF SYMBOL FOUND (AND CREF IT)
+	JMS I QQSCAN
+	JMS I QQLETTER
+	JMP ER47
+	JMS I QQPARSYM
+	JMS I QQLOOKUP
+	JMP I CMN
+	ISZ CMN
+	JMS I QQCREF
+	JMP I CMN
+	IFDEF PLM <
+/	IF CONDITIONS
+
+/	POSITIVE	COMPLEMENT	ARGUMENTS	ASSEMBLE BLOCK IF
+
+/	EQ		NE		EXPRESSION	EXPR=0 (OR NOT)
+/	LT		GE		EXPRESSION	EXPR<0 (OR GE 0)
+/	GT		LE		EXPRESSION	EXPR>0 (OR LE 0)
+/	DF		NDF		SYMBOL		SYMBOL IS DEFINED (UNDEFINED)
+/	B		NB		STRING		STRING IS BLANK (NON-NULL)
+/	IDN		DIF		STRING,STRING	STRINGS IDENTICAL (DIFFERENT)
+/	REF		NREF		SYMBOL		SYMBOL IS REFERENCED (OR NOT)
+/	ABS		REL		EXPRESSION	EXPR IS ABSOLUTE (OR RELOCATABLE)
+	>
+ER47,	JMS I QQERROR
+	JMS I QQGETCHR
+	JMP I (BYEX
+
+$IFNDEF,JMS CMN		/SKIP IF FOUND
+	JMP CONDOK	/NOT FOUND
+	JMS I QQGETSYM	/GET FURTHER INFO
+	TAD FLAG	/WAS IT REALLY DEFINED?
+	SPA CLA		/OR MAYBE JUST REFERRED TO?
+	JMP SKIP	/DEFINED
+CONDOK,	JMS I QQSCAN	/CONDITION IS TRUE
+	TAD CHAR
+	TAD M74
+	SZA CLA
+	JMP ER33
+	ISZ CONCNT
+	JMP I (BEGIN
+ER48,/	JMS I QQERROR	/4096 NESTED CONDITIONALS
+/	JMP I (FINI
+ER33,	JMS I QQERROR	/TEMP
+	JMP I (BYEX
+
+/*** TEST 'CONCNT' AT END OF EACH PASS
+IFREFY,	JMS CMN		/SKIP IF SYMBOL FOUND
+	JMP SKIP	/NOT REFERENCED
+	JMP CONDOK	/REFERENCED
+
+IFNREFY,JMS CMN		/SKIP IF SYMBOL FOUND
+	JMP CONDOK	/NOT REFERENCED
+	JMP SKIP	/REFERENCED
+$IF,	JMS I QQSCAN	/IGNORE SPACES
+	JMS I QQPARSYM	/GET 'IF' CONDITION (OK IF STARTS WITH DIGIT)
+	JMS I QQSCAN	/PASS UP MORE SPACES
+	TAD NAME1
+	JMS I QQBRANCH	/BRANCH TO APPROPRIATE PLACE
+	-'EQ;$IFZERO	/EQ
+	-'NE;$IFNZRO	/NE
+	-'DF;$IFDEF	/DF
+	-'ND;$IFNDEF	/ND
+	-'GT;IFPOSY	/GT
+	-'LE;IFLE	/LE
+	-'LT;IFNEGY	/LT
+	-'GE;IFGE	/GE
+	-'BL;IFBLNK	/BL
+	-'NB;IFNB	/NB
+	-'ID;IFIDEN	/ID
+	-'DI;IFDIF	/DI
+	-'RE;IFRE	/RE
+	-'NR;IFNREFY	/NR
+	-'AB;IFABSY	/AB
+	-'B@;IFBLNK	/B
+	0
+ER215,	JMS I QQERROR	/UNKNOWN IF CONDITION
+	JMP CONDOK	/PRETEND IT WAS SATISFIED
+	PAGE
+
+/WANT:
+
+/GLOBAL		5	FLAG BITS 9-11
+/EXTERNAL	6
+/ZTERNAL	7
+/ENTRY		4
+

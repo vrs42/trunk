@@ -1,1 +1,390 @@
-╞лнкбн╠═╜═линк═бинары═модуле═ё╠█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥╛╠╧╥╦═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄█┼╞линк═бинары═модуле═ё╠█┼█┼┴ьлист█┼┴нопунцх█┼┴╝инцлуде┴лнкман╝ма█┼┴енпунцх█┼┴ьлист█┼█┼█┼┴╝рсецт┴лнкбн╠█┼█┼█┼┴╝ентры┴цццб█┼█┼цццб╛┴тад┴оутфил┴┴╞старт═хере█┼┴цдф█┼┴сна┴┴┴╞аны═оутпут═специфиед©█┼┴ймп═и┴╗╥╤╟╟┴┴╞но╛═еьит█┼┴ймп┴цццб╠┴┴╞ыес╛═процеед█┼█┼▄╞█┼бытсвп╛┴╟█┼┴ртр█┼┴ртр█┼┴ртр█┼┴ймп═и┴бытсвп█┼╞█┼█┼буттнг╛┴цла═цма┴┴┴╞сет═ьр╠═бацк═то═ул╡█┼┴тад┴ьр╠█┼┴дца┴ьр╠█┼┴тад═и┴ьр╟┴┴╞сет═ул╡═то═ул╠╛═тхен═делете═ентры═ё╠█┼┴дца═и┴ьр╠█┼┴тад┴ьр╟█┼┴тад┴╗╜ццб╜╠╥╥█┼┴сза═цла┴┴┴╞енд═оф═буффер©█┼┴ймп┴╝╜╣┴┴╞но█┼┴исз═и┴╗ццб┴┴╞ыес╛═бумп╗децремент╘═ццб═цоунт█┼бутт╠╛┴цла═цлл═цма═ртл┴┴╞╜Ё█┼┴тад┴ьр╡┴┴╞пусх═бацк═стораге═поинтер█┼┴дца┴ьр╡█┼┴цла═цма█┼┴тад┴цоунтЁ█┼┴дца┴цоунтЁ█┼┴цма█┼┴тад┴цоунтЁ█┼┴сна═цла┴┴┴╞вортх═сортинг═агаин©█┼┴ймп┴плаьит┴┴╞но█┼┴ймп┴сортед┴┴╞маке═анотхер═пасс═он═триплетс█┼ноцмпр╛┴исз┴ьр╠┴┴╞но═цомпарисон═неедед█┼┴исз┴ьр╠┴┴╞бумп═ароунд═лл╖с═анд═ул╖с█┼┴исз┴ьр╟█┼ньтоне╛┴исз┴ьр╟█┼┴исз┴темп╠┴┴╞аны═море═то═до©█┼┴ймп┴мрглп┴┴╞ыес█┼мергед╛┴ймп┴плаьит┴┴╞но█┼█┼█┼█┼█┼цццб╡╛┴тад┴оптаб╚╠█┼┴рар█┼┴снл═цла┴┴┴╞доинг═ан═ртс╦═сыстем═╗╞ь╘═©█┼┴ймп┴╝╚Ё┴┴╞но█┼┴цма█┼┴тад┴цурблк┴┴╞ыес╛═доубле═ленгтх═оф═ожерлаы═ареа█┼┴тад┴цурблк█┼┴тад┴темпЁ┴┴╞цомбине═витх═ленгтх═оф═маин█┼┴ймп┴морццб┴┴╞цреате═бинары═филе█┼█┼┴╝еьтернал┴морццб█┼█┼▄╞абцде═то═ацдеб╟╟█┼флд╣╧╛┴╟█┼┴цлл═рал┴┴┴╞може═ац═лефт═╠█┼┴тад┴╗╥╥╢╟┴┴╞пут═╒а╒═ин═линк█┼┴анд┴╗Ё╥┴┴╞цлеар═унусед═битс█┼┴тад┴╗Ё╥╤╟┴┴╞пут═╒б╒═ин═ац╟█┼┴спа┴┴┴╞╒б╒©█┼┴иац┴┴┴╞ыес╛═пут═╒б╒═ин═ац╠╠█┼┴анд┴╗╠╥┴┴╞маск═офф═гарбаге█┼┴сзл┴┴┴╞╒а╒©█┼┴тад┴╗╡╟┴┴╞ыес╛═пут═╒а╒═ин═╥█┼┴цлл═ртл┴┴┴╞лефт═╡█┼┴ймп═и┴флд╣╧┴┴╞доне█┼█┼╞абцде═то═цдеба╟█┼флд╦╟╛┴╟█┼┴цлл═рал┴┴┴╞може═ац═лефт═╠█┼┴тад┴╗╥╥╢╟┴┴╞пут═╒а╒═ин═линк█┼┴анд┴╗Ё╥┴┴╞цлеар═унусед═битс█┼┴тад┴╗Ё╥╤╟┴┴╞пут═╒б╒═ин═ац╟█┼┴спа┴┴┴╞╒б╒©█┼┴иац┴┴┴╞ыес╛═пут═╒б╒═ин═ац╠╠█┼┴ртл┴┴┴╞пут═╒б╒═ин═╧╛═╒а╒═ин═╠╟█┼┴анд┴╗╥╤┴┴╞маск═офф═унванттед═битс█┼┴ймп═и┴флд╦╟┴┴╞доне█┼▄█┼█┼┴паге█┼█┼▄╞буилд═цоре═цонтрол═блоцк█┼цццб╠╛┴ймс═и┴циохан┴┴╞гет═хандлер═фор═саже═филе█┼┴тад┴╗ццб█┼┴дца┴ьр╡┴┴╞цреате═ццб█┼┴тад┴стртфд█┼┴ймс┴флд╣╧┴┴╞реарранге═фор═цдф╜циф█┼┴тад┴╗циф═цдф█┼┴дца═и┴ьр╡┴┴╞сторе═стартинг═фиелд═ин═ццб█┼┴тад┴стртад█┼┴дца═и┴ьр╡┴┴╞сторе═стартинг═аддресс═ин═ццб█┼┴тад┴йсврд█┼┴дца═и┴ьр╡┴┴╞сторе═йоб═статус═ворд═ин═ццб█┼┴тад┴сецтаб█┼┴дца┴поинт╠┴┴╞сет═уп═поинтер═фор═сецтабле═процессинг█┼┴дца┴цоунтЁ┴┴╞зеро═цоунтер═фор═триплетс█┼┴тад┴сеццнт█┼┴циа█┼┴дца┴цоунт╠┴┴╞сет═уп═цоунтер═фор═сецтабле═процессинг█┼лооп╛┴цдф═╠╟┴┴┴╞сет═дф╫╠█┼┴ац╢█┼┴тад┴поинт╠█┼┴дца┴поинт╡┴┴╞сет═поинт╡═то═поинт═то═ожерлаы═ё█┼┴тад═и┴поинт╡┴┴╞гет═ожерлаы═ё█┼┴анд┴╗╠╥╥█┼┴сза═цла┴┴┴╞╟©█┼┴ймп┴лооп╠┴┴╞но╛═дон╖т═ботхер█┼┴исз┴поинт╡┴┴╞ыес╛═бумп═то═сецт═сизе█┼┴тад═и┴поинт╡█┼┴сна█┼┴ймп┴лооп╠┴┴╞игноре═╟═ленгтх═сецтс█┼┴дца┴цсизе┴┴╞саже═сецт═сизе█┼┴тад═и┴поинт╠┴┴╞гет═индеь═инто═гст█┼┴анд┴╗Ё╥╥╥█┼┴ймс═и┴ццгста┴┴╞цомпуте═гст═аддресс█┼┴тад┴гстадр█┼┴тад┴╗╣█┼┴ймс═и┴цггст┴┴╞гет═сецт╖с═фиелд█┼┴дца┴цфлд┴┴╞саже█┼┴тад┴гстадр█┼┴иац█┼┴ймс═и┴цггст┴┴╞гет═сецт╖с═аддресс█┼┴дца┴цаддр┴┴╞саже█┼┴ймс┴плаце┴┴╞цреате═анд═процесс═триплет█┼лооп╠╛┴тад┴поинт╠┴┴╞бумп═поинтер█┼┴тад┴╗╤█┼┴дца┴поинт╠█┼┴цдф█┼┴исз┴цоунт╠┴┴╞доне═витх═алл═сецтс©█┼┴ймп┴лооп┴┴╞но█┼█┼▄цонжрт╛┴тад┴╗ццб╚Ё┴┴╞ыес╛═цонжерт═триплетс═то█┼┴дца┴ьр╟┴┴╞╡═ворд═паирс█┼┴тад┴╗ццб╚Ё█┼┴дца┴ьр╠█┼┴тад═и┴╗ццб█┼┴дца┴темп╠█┼мерглп╛┴тад═и┴ьр╟┴┴╞гет═фиелд█┼┴ймс┴флд╦╟┴┴╞реарранге█┼┴дца┴темп╡┴┴╞саже█┼┴тад═и┴ьр╟┴┴╞гет═лов═аддресс█┼┴дца┴темпЁ┴┴╞саже█┼┴тад┴темпЁ┴┴╞тхен═сторе█┼┴дца═и┴ьр╠┴┴╞ин═ццб█┼┴тад┴темпЁ┴┴╞гет═лов═аддресс█┼┴циа┴┴┴╞субтрацт═фром█┼┴тад═и┴ьр╟┴┴╞хигх═аддресс═то═гет═ленгтх█┼┴цлл═рар┴┴┴╞постион█┼┴тад┴темп╡┴┴╞адд═ин═фиелд█┼┴дца═и┴ьр╠┴┴╞сторе═ин═ццб█┼┴исз┴темп╠┴┴╞доне═алл═триплетс©█┼┴ймп┴мерглп┴┴╞но█┼┴тад═и┴╗ццб┴┴╞ыес╛═цхецк═сизе═оф═ццб█┼┴тад┴╗╢╟█┼┴спа═цла┴┴┴╞ок©█┼еЁ╡╫╫╝╩┴ймс═и┴цос╦ер┴┴╞но╛═тоо═маны═╡═ворд═паирс█┼█┼цаддр╫темп╡█┼цсизе╫темпЁ█┼█┼▄╞процесс═ццб═то═фигуре═оут═ленгтх═оф═маин█┼█┼процес╛┴тад┴╗ццб╚╢█┼┴дца┴ьр╟┴┴╞сет═уп═поинтер█┼┴дца┴темпЁ┴┴╞зеро═блоцк═цоунт█┼┴тад═и┴╗ццб█┼┴дца┴цоунт╠┴┴╞сет═уп═цоунтер█┼просс╠╛┴тад═и┴ьр╟┴┴╞гет═фирст═ворд═оф═паир█┼┴ймс┴бытсвп┴┴╞еьцханге═халжес═оф═ац█┼┴анд┴╗Ё╥┴┴╞маск═то═паге═битс█┼┴сна┴┴┴╞иф═╟╛═маке═Ё╥█┼┴тад┴╗Ё╥█┼┴иац┴┴┴╞цонжерт═то═блоцкс█┼┴рар═цлл█┼┴тад┴темпЁ┴┴╞адд═то═блоцк═цоунт█┼┴дца┴темпЁ█┼┴исз┴ьр╟┴┴╞бумп═поинтер═то═неьт═паир█┼┴исз┴цоунт╠┴┴╞доне©█┼┴ймп┴просс╠┴┴╞но█┼█┼╞нов═модифы═яусрлж═аппроприателы█┼█┼┴цдф═╠╟█┼┴тад┴темпЁ█┼┴рал═цлл█┼┴дца═и┴╗яусрлж╚Ё┴╞сет═ленгтх═то═блоцк═цоунт╙╡█┼┴тад┴╗╜╥█┼┴дца┴цоунт╠█┼┴тад┴╗яусрлж╚╤█┼┴дца┴темп╠█┼мод╠╛┴тад┴темпЁ┴┴╞гет═ленгтх═оф═маин█┼┴тад═и┴темп╠┴┴╞адд═ин═цуррент═релатиже═блоцк█┼┴дца═и┴темп╠┴┴╞сторе═бацк█┼┴ац╢█┼┴тад┴темп╠┴┴╞бумп═то═неьт═релатиже═блоцк═ворд█┼┴дца┴темп╠█┼┴исз┴цоунт╠█┼┴ймп┴мод╠┴┴╞процесс═неьт█┼┴ймп┴цццб╡┴┴╞нов═фиь═цуррент═блоцк═нумбер█┼█┼╞█┼┴паге█┼▄█┼плаце╛┴╟█┼┴цдф┴┴┴╞фирст═форм═триплет╗флд╛лов═аддресс╛хи╘█┼┴тад┴цфлд┴┴╞гет═цуррент═фиелд█┼┴дца═и┴ьр╡┴┴╞сторе═ин═буффер█┼┴тад┴цаддр┴┴╞гет═лов═аддресс█┼┴анд┴╗╥╢╟╟┴┴╞маск═то═ежен═паге█┼┴дца═и┴ьр╡┴┴╞сторе═ин═буффер█┼┴тад┴цсизе┴┴╞гет═сизе█┼┴тад┴╗╠╥╥┴┴╞маке═мултипле═оф═╡╟╟█┼┴тад┴цаддр┴┴╞адд═лов═аддресс═то═маке═хигх█┼┴анд┴╗╥╤╟╟█┼┴дца═и┴ьр╡┴┴╞пут═ин═буффер█┼┴исз┴цоунтЁ┴┴╞бумп═цоунтер█┼сортцб╛┴тад┴цоунтЁ█┼┴циа┴┴┴╞сет═уп═цоунт█┼┴дца═и┴╗ццб█┼┴тад┴╗ццб╚Ё█┼┴дца┴п╠┴┴╞сет═п╠═то═╠ст═ентры╜╠█┼┴иац█┼┴тад═и┴╗ццб█┼┴сна┴┴┴╞аны═то═сорт©█┼плаьит╛┴ймп═и┴плаце┴┴╞онлы═╠╛═дон╖т═ботхер█┼┴дца┴темп╠┴┴╞ыес╛═сет═уп═лооп═цоунт█┼оутрлп╛┴ацЁ┴┴┴╞сет═п╡═то═╡нд═ентры╜╠█┼┴тад┴п╠█┼┴дца┴п╡█┼┴тад┴темп╠┴┴╞сет═уп═иннер═лооп═цоунт█┼┴дца┴темп╡█┼инерлп╛┴тад┴п╠┴┴╞сет═уп═ьр╟█┼┴дца┴ьр╟█┼┴тад┴п╡█┼┴дца┴ьр╠┴┴╞сет═уп═ьр╠█┼┴тад═и┴ьр╟┴┴╞гет═фирст═ентры═╗фиелд╘█┼┴циа═цлл█┼┴тад═и┴ьр╠█┼┴сна═цла┴┴┴╞саме═ас═╡нд═ентры╖с═фиелд©█┼┴ймп┴тие┴┴╞ыес█┼┴сзл┴┴┴╞но╛═ис═╠ст═ентры═хигхер©█┼┴ймп┴свитцх┴┴╞но╛═свитцх═ентриес█┼тиенты╛┴ацЁ┴┴┴╞ыес╛═бумп═╡нд═ентры═поинтер═то═неьт█┼┴тад┴п╡█┼┴дца┴п╡█┼свнтры╛┴исз┴темп╡┴┴╞аны═море═ентриес═то═процесс©█┼┴ймп┴инерлп┴┴╞ыес█┼┴ацЁ┴┴┴╞но╛═бумп═╠ст═ентры═поинтер═то═неьт█┼┴тад┴п╠█┼┴дца┴п╠█┼┴исз┴темп╠┴┴╞аны═море═ентриес═то═процесс©█┼┴ймп┴оутрлп┴┴╞ыес█┼┴ймп┴сортед┴┴╞но╛═табле═ис═сортед█┼▄тие╛┴тад═и┴ьр╟┴┴╞фиелдс═аре═саме╛═цхецк═лов═аддрессес█┼┴циа═цлл█┼┴тад═и┴ьр╠█┼┴сзл═цла┴┴┴╞╠ст═ентры═ловер═тхан═╡нд©█┼┴ймп┴тиенты┴┴╞ыес█┼свитцх╛┴ймс┴свсубр┴┴╞но╛═свап═ентриес█┼┴ймс┴свсубр█┼┴ймс┴свсубр█┼┴цла═цлл═цма═ртл┴┴╞╜Ё╗бацк═уп═╠ст═ентры═поинтер╘█┼┴тад┴п╠█┼┴дца┴п╠█┼┴ймп┴свнтры┴┴╞цхецк═фор═море═ентриес═то═процесс█┼свсубр╛┴╟█┼┴исз┴п╠█┼┴исз┴п╡█┼┴тад═и┴п╠█┼┴дца┴темп╢█┼┴тад═и┴п╡█┼┴дца═и┴п╠█┼┴тад┴темп╢█┼┴дца═и┴п╡█┼┴ймп═и┴свсубр█┼п╠╫тьтврд█┼п╡╫тьтптр█┼▄сортед╛┴тад═и┴╗ццб┴┴╞хере═вхен═сортед╛═гет═реады═то═мерге█┼┴иац█┼┴дца┴темп╠█┼┴тад┴╗ццб╚Ё█┼┴дца┴ьр╠┴┴╞сет═уп═поинтер═то═ентры═╠█┼┴тад┴╗ццб╚╤█┼┴дца┴ьр╟┴┴╞сет═уп═поинтер═то═ентры═╡█┼мрглп╛┴тад═и┴ьр╟┴┴╞гет═фиелд═оф═ентры═╠█┼┴циа█┼┴тад═и┴ьр╠█┼┴сза═цла┴┴┴╞саме═ас═фиелд═оф═ентры═╡©█┼┴ймп┴ноцмпр┴┴╞но╛═быпасс═рест═оф═стуфф█┼┴исз┴ьр╠┴┴╞ыес╛═бумп═ожер═лов═лимит═оф═ентры═╡█┼┴тад═и┴ьр╠┴┴╞гет═хигх═лимит═оф═ентры═╡█┼┴сна┴┴┴╞нон╜зеро©█┼┴ймп┴бумпь╟┴┴╞но╛═хи═лимит═оф═╡═греатер═тхан═╠╖с█┼┴циа═цлл█┼┴тад═и┴ьр╟┴┴╞цомпаре═агаинст═лов═лимит═оф═ентры═╠█┼┴сна═цла┴┴┴╞ул╡╫лл╠═╜═абуттинг█┼┴ймп┴буттнг█┼┴сзл═цла█┼┴ймп┴ньтоне┴┴╞ул╡╪лл╠═╜═нормал█┼┴цла═цма┴┴┴╞ул╡╬лл╠═╜═инцлусиже█┼┴тад┴ьр╠█┼┴дца┴ьр╠┴┴╞сет═бацк═то═ул╡█┼┴цла═цлл═цмл┴┴╞сет═линк█┼┴тад═и┴ьр╠█┼┴сза┴┴┴╞иф═зеро═дон╖т═ботхер═цомплементинг█┼┴циа█┼┴дца┴ьрЁ┴┴╞саже█┼┴тад═и┴ьр╟┴┴╞ул╠█┼┴сна┴┴┴╞иф═╟╛═цомплемент═линк█┼┴цмл█┼┴тад┴ьрЁ┴┴╞цомбине═витх═прежиоус═жалуе█┼┴сна═сзл═цла█┼┴ймп┴буттнг╚Ё┴╞ул╡╫╬ул╠╛делете═ентры═╠█┼лесстх╛┴цла═цма┴┴┴╞ул╡╪ул╠╛сет═ул╡╫ул╠╛делете═ентры═╠█┼┴тад┴ьр╟█┼┴дца┴ьр╟█┼┴ймп┴буттнг█┼█┼бумпь╟╛┴исз┴ьр╟┴┴╞бумп═ьр╟═твице█┼┴исз┴ьр╟█┼┴ймп┴буттнг╚Ё█┼█┼┴паге█┼█┼▄                                                                                                                                                                            
+/LNKBN1 - LINK BINARY MODULE #1
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977,1978 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+
+/LINK BINARY MODULE #1
+
+	XLIST
+	NOPUNCH
+	.INCLUDE	LNKMAN.MA
+	ENPUNCH
+	XLIST
+
+
+	.RSECT	LNKBN1
+
+
+	.ENTRY	CCCB
+
+CCCB,	TAD	OUTFIL		/START HERE
+	CDF
+	SNA			/ANY OUTPUT SPECIFIED?
+	JMP I	(7600		/NO, EXIT
+	JMP	CCCB1		/YES, PROCEED
+
+/
+BYTSWP,	0
+	RTR
+	RTR
+	RTR
+	JMP I	BYTSWP
+/
+
+BUTTNG,	CLA CMA			/SET XR1 BACK TO UL2
+	TAD	XR1
+	DCA	XR1
+	TAD I	XR0		/SET UL2 TO UL1, THEN DELETE ENTRY #1
+	DCA I	XR1
+	TAD	XR0
+	TAD	(-CCB-177
+	SZA CLA			/END OF BUFFER?
+	JMP	.-5		/NO
+	ISZ I	(CCB		/YES, BUMP(DECREMENT) CCB COUNT
+BUTT1,	CLA CLL CMA RTL		/-3
+	TAD	XR2		/PUSH BACK STORAGE POINTER
+	DCA	XR2
+	CLA CMA
+	TAD	COUNT3
+	DCA	COUNT3
+	CMA
+	TAD	COUNT3
+	SNA CLA			/WORTH SORTING AGAIN?
+	JMP	PLAXIT		/NO
+	JMP	SORTED		/MAKE ANOTHER PASS ON TRIPLETS
+NOCMPR,	ISZ	XR1		/NO COMPARISON NEEDED
+	ISZ	XR1		/BUMP AROUND LL'S AND UL'S
+	ISZ	XR0
+NXTONE,	ISZ	XR0
+	ISZ	TEMP1		/ANY MORE TO DO?
+	JMP	MRGLP		/YES
+MERGED,	JMP	PLAXIT		/NO
+
+
+
+
+CCCB2,	TAD	OPTAB+1
+	RAR
+	SNL CLA			/DOING AN RTS8 SYSTEM (/X) ?
+	JMP	.+3		/NO
+	CMA
+	TAD	CURBLK		/YES, DOUBLE LENGTH OF OVERLAY AREA
+	TAD	CURBLK
+	TAD	TEMP3		/COMBINE WITH LENGTH OF MAIN
+	JMP	MORCCB		/CREATE BINARY FILE
+
+	.EXTERNAL	MORCCB
+
+/ABCDE TO ACDEB00
+FLD59,	0
+	CLL RAL			/MOVE AC LEFT 1
+	TAD	(7740		/PUT "A" IN LINK
+	AND	(37		/CLEAR UNUSED BITS
+	TAD	(3760		/PUT "B" IN AC0
+	SPA			/"B"?
+	IAC			/YES, PUT "B" IN AC11
+	AND	(17		/MASK OFF GARBAGE
+	SZL			/"A"?
+	TAD	(20		/YES, PUT "A" IN 7
+	CLL RTL			/LEFT 2
+	JMP I	FLD59		/DONE
+
+/ABCDE TO CDEBA0
+FLD80,	0
+	CLL RAL			/MOVE AC LEFT 1
+	TAD	(7740		/PUT "A" IN LINK
+	AND	(37		/CLEAR UNUSED BITS
+	TAD	(3760		/PUT "B" IN AC0
+	SPA			/"B"?
+	IAC			/YES, PUT "B" IN AC11
+	RTL			/PUT "B" IN 9, "A" IN 10
+	AND	(76		/MASK OFF UNWANTTED BITS
+	JMP I	FLD80		/DONE
+
+
+	PAGE
+
+/BUILD CORE CONTROL BLOCK
+CCCB1,	JMS I	CIOHAN		/GET HANDLER FOR SAVE FILE
+	TAD	(CCB
+	DCA	XR2		/CREATE CCB
+	TAD	STRTFD
+	JMS	FLD59		/REARRANGE FOR CDF-CIF
+	TAD	(CIF CDF
+	DCA I	XR2		/STORE STARTING FIELD IN CCB
+	TAD	STRTAD
+	DCA I	XR2		/STORE STARTING ADDRESS IN CCB
+	TAD	JSWRD
+	DCA I	XR2		/STORE JOB STATUS WORD IN CCB
+	TAD	SECTAB
+	DCA	POINT1		/SET UP POINTER FOR SECTABLE PROCESSING
+	DCA	COUNT3		/ZERO COUNTER FOR TRIPLETS
+	TAD	SECCNT
+	CIA
+	DCA	COUNT1		/SET UP COUNTER FOR SECTABLE PROCESSING
+LOOP,	CDF 10			/SET DF=1
+	AC4
+	TAD	POINT1
+	DCA	POINT2		/SET POINT2 TO POINT TO OVERLAY #
+	TAD I	POINT2		/GET OVERLAY #
+	AND	(177
+	SZA CLA			/0?
+	JMP	LOOP1		/NO, DON'T BOTHER
+	ISZ	POINT2		/YES, BUMP TO SECT SIZE
+	TAD I	POINT2
+	SNA
+	JMP	LOOP1		/IGNORE 0 LENGTH SECTS
+	DCA	CSIZE		/SAVE SECT SIZE
+	TAD I	POINT1		/GET INDEX INTO GST
+	AND	(3777
+	JMS I	CCGSTA		/COMPUTE GST ADDRESS
+	TAD	GSTADR
+	TAD	(5
+	JMS I	CGGST		/GET SECT'S FIELD
+	DCA	CFLD		/SAVE
+	TAD	GSTADR
+	IAC
+	JMS I	CGGST		/GET SECT'S ADDRESS
+	DCA	CADDR		/SAVE
+	JMS	PLACE		/CREATE AND PROCESS TRIPLET
+LOOP1,	TAD	POINT1		/BUMP POINTER
+	TAD	(6
+	DCA	POINT1
+	CDF
+	ISZ	COUNT1		/DONE WITH ALL SECTS?
+	JMP	LOOP		/NO
+
+CONVRT,	TAD	(CCB+3		/YES, CONVERT TRIPLETS TO
+	DCA	XR0		/2 WORD PAIRS
+	TAD	(CCB+3
+	DCA	XR1
+	TAD I	(CCB
+	DCA	TEMP1
+MERGLP,	TAD I	XR0		/GET FIELD
+	JMS	FLD80		/REARRANGE
+	DCA	TEMP2		/SAVE
+	TAD I	XR0		/GET LOW ADDRESS
+	DCA	TEMP3		/SAVE
+	TAD	TEMP3		/THEN STORE
+	DCA I	XR1		/IN CCB
+	TAD	TEMP3		/GET LOW ADDRESS
+	CIA			/SUBTRACT FROM
+	TAD I	XR0		/HIGH ADDRESS TO GET LENGTH
+	CLL RAR			/POSTION
+	TAD	TEMP2		/ADD IN FIELD
+	DCA I	XR1		/STORE IN CCB
+	ISZ	TEMP1		/DONE ALL TRIPLETS?
+	JMP	MERGLP		/NO
+	TAD I	(CCB		/YES, CHECK SIZE OF CCB
+	TAD	(40
+	SPA CLA			/OK?
+E32==.;	JMS I	COS8ER		/NO, TOO MANY 2 WORD PAIRS
+
+CADDR=TEMP2
+CSIZE=TEMP3
+
+/PROCESS CCB TO FIGURE OUT LENGTH OF MAIN
+
+PROCES,	TAD	(CCB+4
+	DCA	XR0		/SET UP POINTER
+	DCA	TEMP3		/ZERO BLOCK COUNT
+	TAD I	(CCB
+	DCA	COUNT1		/SET UP COUNTER
+PROSS1,	TAD I	XR0		/GET FIRST WORD OF PAIR
+	JMS	BYTSWP		/EXCHANGE HALVES OF AC
+	AND	(37		/MASK TO PAGE BITS
+	SNA			/IF 0, MAKE 37
+	TAD	(37
+	IAC			/CONVERT TO BLOCKS
+	RAR CLL
+	TAD	TEMP3		/ADD TO BLOCK COUNT
+	DCA	TEMP3
+	ISZ	XR0		/BUMP POINTER TO NEXT PAIR
+	ISZ	COUNT1		/DONE?
+	JMP	PROSS1		/NO
+
+/NOW MODIFY QUSRLV APPROPRIATELY
+
+	CDF 10
+	TAD	TEMP3
+	RAL CLL
+	DCA I	(QUSRLV+3	/SET LENGTH TO BLOCK COUNT*2
+	TAD	(-7
+	DCA	COUNT1
+	TAD	(QUSRLV+6
+	DCA	TEMP1
+MOD1,	TAD	TEMP3		/GET LENGTH OF MAIN
+	TAD I	TEMP1		/ADD IN CURRENT RELATIVE BLOCK
+	DCA I	TEMP1		/STORE BACK
+	AC4
+	TAD	TEMP1		/BUMP TO NEXT RELATIVE BLOCK WORD
+	DCA	TEMP1
+	ISZ	COUNT1
+	JMP	MOD1		/PROCESS NEXT
+	JMP	CCCB2		/NOW FIX CURRENT BLOCK NUMBER
+
+/
+	PAGE
+
+PLACE,	0
+	CDF			/FIRST FORM TRIPLET(FLD,LOW ADDRESS,HI)
+	TAD	CFLD		/GET CURRENT FIELD
+	DCA I	XR2		/STORE IN BUFFER
+	TAD	CADDR		/GET LOW ADDRESS
+	AND	(7400		/MASK TO EVEN PAGE
+	DCA I	XR2		/STORE IN BUFFER
+	TAD	CSIZE		/GET SIZE
+	TAD	(177		/MAKE MULTIPLE OF 200
+	TAD	CADDR		/ADD LOW ADDRESS TO MAKE HIGH
+	AND	(7600
+	DCA I	XR2		/PUT IN BUFFER
+	ISZ	COUNT3		/BUMP COUNTER
+SORTCB,	TAD	COUNT3
+	CIA			/SET UP COUNT
+	DCA I	(CCB
+	TAD	(CCB+3
+	DCA	P1		/SET P1 TO 1ST ENTRY-1
+	IAC
+	TAD I	(CCB
+	SNA			/ANY TO SORT?
+PLAXIT,	JMP I	PLACE		/ONLY 1, DON'T BOTHER
+	DCA	TEMP1		/YES, SET UP LOOP COUNT
+OUTRLP,	AC3			/SET P2 TO 2ND ENTRY-1
+	TAD	P1
+	DCA	P2
+	TAD	TEMP1		/SET UP INNER LOOP COUNT
+	DCA	TEMP2
+INERLP,	TAD	P1		/SET UP XR0
+	DCA	XR0
+	TAD	P2
+	DCA	XR1		/SET UP XR1
+	TAD I	XR0		/GET FIRST ENTRY (FIELD)
+	CIA CLL
+	TAD I	XR1
+	SNA CLA			/SAME AS 2ND ENTRY'S FIELD?
+	JMP	TIE		/YES
+	SZL			/NO, IS 1ST ENTRY HIGHER?
+	JMP	SWITCH		/NO, SWITCH ENTRIES
+TIENTY,	AC3			/YES, BUMP 2ND ENTRY POINTER TO NEXT
+	TAD	P2
+	DCA	P2
+SWNTRY,	ISZ	TEMP2		/ANY MORE ENTRIES TO PROCESS?
+	JMP	INERLP		/YES
+	AC3			/NO, BUMP 1ST ENTRY POINTER TO NEXT
+	TAD	P1
+	DCA	P1
+	ISZ	TEMP1		/ANY MORE ENTRIES TO PROCESS?
+	JMP	OUTRLP		/YES
+	JMP	SORTED		/NO, TABLE IS SORTED
+TIE,	TAD I	XR0		/FIELDS ARE SAME, CHECK LOW ADDRESSES
+	CIA CLL
+	TAD I	XR1
+	SZL CLA			/1ST ENTRY LOWER THAN 2ND?
+	JMP	TIENTY		/YES
+SWITCH,	JMS	SWSUBR		/NO, SWAP ENTRIES
+	JMS	SWSUBR
+	JMS	SWSUBR
+	CLA CLL CMA RTL		/-3(BACK UP 1ST ENTRY POINTER)
+	TAD	P1
+	DCA	P1
+	JMP	SWNTRY		/CHECK FOR MORE ENTRIES TO PROCESS
+SWSUBR,	0
+	ISZ	P1
+	ISZ	P2
+	TAD I	P1
+	DCA	TEMP4
+	TAD I	P2
+	DCA I	P1
+	TAD	TEMP4
+	DCA I	P2
+	JMP I	SWSUBR
+P1=TXTWRD
+P2=TXTPTR
+SORTED,	TAD I	(CCB		/HERE WHEN SORTED, GET READY TO MERGE
+	IAC
+	DCA	TEMP1
+	TAD	(CCB+3
+	DCA	XR1		/SET UP POINTER TO ENTRY 1
+	TAD	(CCB+6
+	DCA	XR0		/SET UP POINTER TO ENTRY 2
+MRGLP,	TAD I	XR0		/GET FIELD OF ENTRY 1
+	CIA
+	TAD I	XR1
+	SZA CLA			/SAME AS FIELD OF ENTRY 2?
+	JMP	NOCMPR		/NO, BYPASS REST OF STUFF
+	ISZ	XR1		/YES, BUMP OVER LOW LIMIT OF ENTRY 2
+	TAD I	XR1		/GET HIGH LIMIT OF ENTRY 2
+	SNA			/NON-ZERO?
+	JMP	BUMPX0		/NO, HI LIMIT OF 2 GREATER THAN 1'S
+	CIA CLL
+	TAD I	XR0		/COMPARE AGAINST LOW LIMIT OF ENTRY 1
+	SNA CLA			/UL2=LL1 - ABUTTING
+	JMP	BUTTNG
+	SZL CLA
+	JMP	NXTONE		/UL2<LL1 - NORMAL
+	CLA CMA			/UL2>LL1 - INCLUSIVE
+	TAD	XR1
+	DCA	XR1		/SET BACK TO UL2
+	CLA CLL CML		/SET LINK
+	TAD I	XR1
+	SZA			/IF ZERO DON'T BOTHER COMPLEMENTING
+	CIA
+	DCA	XR3		/SAVE
+	TAD I	XR0		/UL1
+	SNA			/IF 0, COMPLEMENT LINK
+	CML
+	TAD	XR3		/COMBINE WITH PREVIOUS VALUE
+	SNA SZL CLA
+	JMP	BUTTNG+3	/UL2=>UL1,DELETE ENTRY 1
+LESSTH,	CLA CMA			/UL2<UL1,SET UL2=UL1,DELETE ENTRY 1
+	TAD	XR0
+	DCA	XR0
+	JMP	BUTTNG
+
+BUMPX0,	ISZ	XR0		/BUMP XR0 TWICE
+	ISZ	XR0
+	JMP	BUTTNG+3
+
+	PAGE
+
+

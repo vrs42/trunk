@@ -1,1 +1,126 @@
-╞╣┴мацрел═оригин═цоде█┼╞┴╠╥╜ауг╜╥╦┴фиьед═ункновн═оригинс█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═мацорг╛лежел╫╠╛ожерлаы╫╤█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═путлц╛путбит█┼┴фиелд═Ё█┼┴╝глобал═ориги█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╡╢╟╟█┼█┼┴╥█┼█┼ориги╛┴тад═пц█┼┴анд═яя╥╤╟╟█┼┴дца═литпаг█┼┴дца═и═╗еьтпц┴╞темпорарилы═хаже═кновн═оригин█┼╞┴тад═цурсцт█┼╞┴дца═сымнум█┼╞┴ймс═и═яягетсым█┼╞┴тад═сымсцт█┼╞┴иац█┼╞┴сза═цла█┼╞┴ймп═норг█┼╞┴тад═сымжал█┼╞┴тад═ям╡╟╟█┼╞┴сна═цла█┼╞┴ймп═норг┴╞бут═онлы═иф═хигх═╝не╝═╡╟╟█┼╞┴тад═яя╡╟╟┴╞лов═оф═╜╠═меанс═лов═вас═ацтуаллы═╡╟╟█┼╞┴дца═сымсцт█┼╞┴ймс═и═яяпутсым┴╞буг═иф═фирст═дирецтиже═ин═асецт═ис═паге═╙╙╙╙█┼╞норг╛┴тад═сымсцт┴╞гет═олд═лов█┼╞┴цлл═циа█┼╞┴тад═пц█┼╞┴сзл═цла█┼╞┴ймп═╝╚╢█┼╞┴тад═пц┴┴╞нев═лов█┼╞┴дца═сымсцт█┼╞┴ймс═и═яяпутсым┴╞врите═ит═бацк═оут█┼┴тад═еьпцод█┼┴сза═цла█┼┴ймп═лнкорг█┼┴тад═еьпрел█┼┴сна█┼┴ймп═и═╗быеп┴╞оригин═маы═бе═абсолуте█┼┴циа█┼┴тад═цурсцт┴╞ор═релатиже═то═цуррент═сецт█┼┴сна═цла█┼┴ймп═и═╗быеп█┼╞ер╣╦╛┴ймс═и═яяеррор┴╞бут═нот═анытхинг═елсе█┼лнкорг╛┴тад═еьпцод█┼┴спа═цла█┼┴ймп═лнкстк█┼┴тад═еьпабс┴╞пусх═ит═онто═стацк█┼┴сза═цла█┼┴тад═╗псхжал╜псхлсд█┼┴тад═╗псхлсд█┼┴дца═псхт█┼┴тад═еьпрел█┼┴сза█┼┴ймс═и═╗гетлсд█┼┴тад═псхт█┼┴ймс═и═╗путлц█┼┴тад═еьпабс█┼┴сза█┼┴ймс═и═╗путбит█┼лнкстк╛┴тад═╗сткорг┴╞оригин═ис═он═топ═оф═стацк█┼┴ймс═и═╗путлц█┼┴исз═и═╗еьтпц┴╞ноте═пресенце═оф═еьтернал═оригин█┼┴ймп═и═╗быеб█┼█┼╞нев═хигх═пц═муст═бе═цомпутед═ат═одд═хоурс═ин═цасе═усер═оригинс█┼╞уп╛═тхен═довн╛═тхен═цхангес═сецт╝█┼╞и╝е╝═ласт═пц═аинт═нецессарилы═тхе═хигхест═пц█┼псхт╛┴╟█┼┴паге█┼┴╟█┼┴паге█┼┴релоц█┼ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/5	MACREL ORIGIN CODE
+/	17-AUG-78	FIXED UNKNOWN ORIGINS
+	.INCLUDE MGLOB.MA
+	.ASECT MACORG,LEVEL=1,OVERLAY=6
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL PUTLC,PUTBIT
+	FIELD 3
+	.GLOBAL ORIGI
+
+	*2000
+
+	RELOC 2400
+
+	7
+
+ORIGI,	TAD PC
+	AND QQ7600
+	DCA LITPAG
+	DCA I (EXTPC	/TEMPORARILY HAVE KNOWN ORIGIN
+/	TAD CURSCT
+/	DCA SYMNUM
+/	JMS I QQGETSYM
+/	TAD SYMSCT
+/	IAC
+/	SZA CLA
+/	JMP NORG
+/	TAD SYMVAL
+/	TAD QM200
+/	SNA CLA
+/	JMP NORG	/BUT ONLY IF HIGH .NE. 200
+/	TAD QQ200	/LOW OF -1 MEANS LOW WAS ACTUALLY 200
+/	DCA SYMSCT
+/	JMS I QQPUTSYM	/BUG IF FIRST DIRECTIVE IN ASECT IS PAGE ****
+/NORG,	TAD SYMSCT	/GET OLD LOW
+/	CLL CIA
+/	TAD PC
+/	SZL CLA
+/	JMP .+4
+/	TAD PC		/NEW LOW
+/	DCA SYMSCT
+/	JMS I QQPUTSYM	/WRITE IT BACK OUT
+	TAD EXPCOD
+	SZA CLA
+	JMP LNKORG
+	TAD EXPREL
+	SNA
+	JMP I (BYEP	/ORIGIN MAY BE ABSOLUTE
+	CIA
+	TAD CURSCT	/OR RELATIVE TO CURRENT SECT
+	SNA CLA
+	JMP I (BYEP
+/ER58,	JMS I QQERROR	/BUT NOT ANYTHING ELSE
+LNKORG,	TAD EXPCOD
+	SPA CLA
+	JMP LNKSTK
+	TAD EXPABS	/PUSH IT ONTO STACK
+	SZA CLA
+	TAD (PSHVAL-PSHLSD
+	TAD (PSHLSD
+	DCA PSHT
+	TAD EXPREL
+	SZA
+	JMS I (GETLSD
+	TAD PSHT
+	JMS I (PUTLC
+	TAD EXPABS
+	SZA
+	JMS I (PUTBIT
+LNKSTK,	TAD (STKORG	/ORIGIN IS ON TOP OF STACK
+	JMS I (PUTLC
+	ISZ I (EXTPC	/NOTE PRESENCE OF EXTERNAL ORIGIN
+	JMP I (BYEB
+
+/NEW HIGH PC MUST BE COMPUTED AT ODD HOURS IN CASE USER ORIGINS
+/UP, THEN DOWN, THEN CHANGES SECT.
+/I.E. LAST PC AINT NECESSARILY THE HIGHEST PC
+PSHT,	0
+	PAGE
+	0
+	PAGE
+	RELOC

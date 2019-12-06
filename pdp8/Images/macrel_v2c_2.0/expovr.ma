@@ -1,1 +1,255 @@
-╞╥┴еьпрессион═ожерлаы┴пост═ж╟а█┼╞┴╠╥╜ауг╜╥╦┴гуарантее═чд╛═етц╝═нумберс═аре═абсолуте█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═еьпожр╛лежел╫╡╛ожерлаы╫╠╠█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═филесв╛пдсвт╛идкнт╛долфлг╛намптр╛парсым╛унарым█┼┴╝еьтернал═терм╛хлдрад╛цнтцон╛дигит╛гетнум╛дфлг╛пусхл╛попл█┼┴фиелд═╢█┼┴╝глобал═ер╡╟╢╛ерЁ╟╛ер╡╦╛ерЁ╡╛ерЁ╠╛ер╤╤╛ер╡╟╣█┼┴╝глобал═снгляя╛имул╛идиж╛упароя╛бацкл█┼█┼╞┴линкер═аритхметиц═реяуиред█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╡╢╟╟█┼█┼┴Ё╡┴┴╞ожерлаы═з█┼┴╟█┼пт╠╛┴филесв█┼┴пдсвт█┼┴идкнт█┼┴долфлг█┼┴намптр█┼┴наме╠█┼┴наме╡█┼┴намеЁ█┼┴наме╢█┼┴парсым█┼┴унарым█┼пт╡╛┴терм█┼┴╟█┼▄цхар╠╛┴╟█┼█┼снгляя╛┴╟█┼┴ймс═и═яягеткар┴╞гет═фирст═цхар═оф═паир█┼┴ймп═и═╗ер╡╦█┼┴анд═яя╥╥█┼┴ймс═и═яяротл╤█┼┴дца═цхар╠█┼┴ймс═и═яягеткар┴╞гет═сецонд═цхар═оф═паир█┼┴ймп═и═╗ер╡╦█┼┴анд═яя╥╥█┼┴тад═цхар╠┴╞цомбине═тво═цхарацтерс█┼┴дца═трмабс█┼┴ймс═и═яягетцхр█┼┴ймп═и═снгляя█┼▄имул╛┴╟█┼┴дца═яуо█┼┴тад═и═имул█┼┴дца═идиж█┼┴тад═и═идиж█┼┴исз═имул█┼┴циа█┼┴дца═идиж█┼┴тад═яуо█┼┴исз═идиж█┼┴ймп═╝╜╡█┼┴ймп═и═имул█┼▄╞═ботх═идиж═анд═имул═хаже═тхе═саме═цаллинг═сеяуенце█┼█┼╞оне═аргумент═ис═пассед═ин═ац█┼╞тхе═отхер═ис═поинтед═то═бы═тхе═фирст═аргумент█┼╞ремаиндер═ис═лефт═ин═╖ремаин╖█┼╞ретурнс═╟═он═╟╜дижиде═╗витх═нумбер═ас═ремаиндер╘█┼█┼идиж╛┴╟█┼┴дца═ремаин█┼┴тад═и═идиж█┼┴дца═имул█┼┴тад═и═имул█┼┴сна█┼┴ймп═ер╡╟╢┴╞зеро═дижиде█┼┴исз═идиж█┼┴циа█┼┴дца═имул█┼┴дца═яуо█┼┴тад═ремаин█┼идлуп╛┴стл█┼┴тад═имул█┼┴сзл█┼┴ймп═иденд█┼┴исз═яуо█┼┴ймп═идлуп█┼иденд╛┴циа█┼┴тад═имул█┼┴циа█┼┴дца═ремаин┴╞саже═ремаиндер█┼┴тад═яуо█┼┴ймп═и═идиж█┼█┼яуо╛┴╟█┼ер╡╟╢╛┴ймс═и═яяеррор┴╞╟╜дижиде█┼┴ймп═и═идиж█┼┴паге█┼▄упароя╛┴╟█┼┴тад═и═╗радьвд┴╞саже═цуррент═радиь═ароунд═тхис═терм█┼┴дца═и═╗хлдрад█┼┴дца═тенфлг█┼уп╡╛┴ймс═и═яягеткар█┼┴ймп═ер╡╦█┼┴ймс═и═яябранцх█┼┴╜╠╟╡╩биножр┴╞б█┼┴╜╠╠╥╩оцтожр┴╞о█┼┴╜╠╟╢╩децожр┴╞д█┼┴╜╢╡╩цнтцон┴╞╒█┼┴╟█┼ерЁ╟╛┴ймс═и═яяеррор┴╞бад═цхар═афтер═ч█┼┴дца═трмабс█┼┴дца═трмрел█┼┴дца═трмцод█┼┴ймп═и═упароя┴╞ретурн═абсолуте═╟█┼█┼ер╡╦╛┴ймс═и═яяеррор┴╞енд═оф═лине═бефоре═╠ст═цхар═афтер═╖█┼┴ймп═и═╗быеь┴╞ор═╡нд═цхар═ор═цхар═афтер═ч═ор═ч╒═ор═╒█┼█┼█┼децожр╛┴стл═цла═рар┴╞╢╟╟╟█┼┴дца═тенфлг█┼┴тад═╗╡█┼оцтожр╛┴тад═╗╤┴┴╞радиь═╦█┼биножр╛┴тад═╗╡┴┴╞радиь═╡█┼┴дца═и═╗радьвд┴╞темпорарилы█┼ожр╡╛┴ймс═и═яягетцхр█┼┴ймс═и═яяеос█┼┴ймп═ер╤╤█┼┴ймс═и═╗дигит┴╞а═нумбер═муст═фоллов█┼┴ймп═ерЁ╠█┼┴ймс═и═╗гетнум┴╞процесс═тхе═нумбер█┼┴дца═трмабс┴╞интерпретинг═ит═жиа═нев═радиь█┼┴тад═и═╗хлдрад┴╞тхен═ресторе═оригинал═радиь█┼┴дца═и═╗радьвд█┼┴┴┴╞бут═сее═иф═радиь═ожерридес═цонфлицт█┼┴тад═и═╗дфлг┴╞фор═еьампле═а═дот═ат═енд═оф═а═чо═цонстант█┼┴тад═тенфлг█┼┴сна═цла█┼ерЁ╡╛┴ймс═и═яяеррор┴╞цонфлицтинг═радиь═ожерридес═╗е╝г╝═чб╠╟╠╝═╘█┼┴дца═трмрел┴╞нумбер═ис═абсолуте═╗упарров═зероес═трмцод╘█┼┴ймп═и═упароя█┼█┼ерЁ╠╛┴ймс═и═яяеррор┴╞но═дигит═афтер═а═чд╛═чо╛═ор═чб█┼┴ймп═ожр╡█┼ер╤╤╛┴ймс═и═яяеррор┴╞еос═афтер═чо╛═чд╛═ор═чб█┼┴ймп═и═╗быеь█┼▄бацкл╛┴╟┴┴╞хандле═бацксласх█┼┴тад═и═бацкл┴╞гет═аддресс═оф═роутине═то═сенд═цхарацтерс═то█┼┴дца═сндртн█┼┴исз═бацкл█┼╞╙╙╙═пусхинг═анд═поппинг═ис═инеффициент█┼╞онлы═хаже═то═до═тхис═иф═ве═цаме═фром═╖бацксл╖█┼┴ймс═и═╗пусхл█┼┴пт╠█┼┴ймс═и═╗терм┴╞парсе═а═терм█┼ер╡╟╣╛┴ймс═и═яяеррор┴╞но═терм═фолловинг═э╛═ассуме═╟█┼┴тад═трмцод█┼┴сна█┼┴тад═трмрел█┼┴сза═цла█┼┴ймп═ер╡╟╣┴╞терм═нот═абсолуте╛═таке═абсолуте═парт█┼┴ймс═и═╗попл█┼┴пт╡█┼┴тад═╗╜╣┴┴╞таке═онлы═ласт═╣═дигитс█┼┴дца═бцкнт█┼┴тад═╗радбуф╚╣█┼┴дца═радптр█┼┴тад═трмабс█┼┴сна█┼┴ймп═бацк╟┴╞терм═ис═╟█┼бцклуп╛┴ймс═и═╗идиж█┼┴радьвд┴┴╞дижиде═бы═радиь█┼┴дца═трмабс┴╞саже═яуотиент█┼┴тад═ремаин┴╞гет═ремаиндер█┼┴дца═и═радптр┴╞сторе═ат═енд═оф═лист█┼┴ста█┼┴тад═радптр█┼┴дца═радптр█┼┴тад═трмабс┴╞гет═реады═фор═неьт═итератион█┼┴исз═бцкнт┴╞доне©█┼┴ймп═бцклуп┴╞но█┼┴цла█┼┴дца═лд╟флг█┼сндлуп╛┴исз═радптр┴╞сенд═цхарацтерс═то═цаллер█┼┴тад═и═радптр█┼┴спа█┼┴ймп═сндоне█┼┴сна█┼┴ймп═снд╟█┼┴исз═лд╟флг█┼сндл╡╛┴тад═╗╒╟╕╥╥█┼┴ймс═и═сндртн█┼┴ймп═сндлуп█┼снд╟╛┴тад═лд╟флг█┼┴сза═цла█┼┴ймп═сндл╡┴╞сенд═╟█┼┴ймп═сндлуп┴╞игноре═леадинг═╟█┼█┼бацк╟╛┴тад═╗╒╟╕╥╥█┼┴ймс═и═сндртн█┼сндоне╛┴цла█┼┴ймп═и═бацкл█┼█┼лд╟флг╛┴╟┴┴╞нон╜╟═меанс═сав═нон╜╟═дигит█┼радптр╛┴╟█┼сндртн╛┴╟█┼бцкнт╛┴╟█┼▄радбуф╛┴зблоцк═╤┴╞усед═бы═╖бацкл╖█┼┴╢╟╟╟┴┴╞ендс═витх═негатиже═нумбер█┼тенфлг╛┴╟┴┴╞нон╜╟═иф═чь═ис═нот═чд█┼┴паге█┼┴релоц█┼ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/7	EXPRESSION OVERLAY	POST V0A
+/	17-AUG-78	GUARANTEE ^D, ETC. NUMBERS ARE ABSOLUTE
+	.INCLUDE MGLOB.MA
+	.ASECT EXPOVR,LEVEL=2,OVERLAY=11
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL FILESW,PDSWT,IDKNT,DOLFLG,NAMPTR,PARSYM,UNARYM
+	.EXTERNAL TERM,HLDRAD,CNTCON,DIGIT,GETNUM,DFLG,PUSHL,POPL
+	FIELD 4
+	.GLOBAL ER204,ER30,ER28,ER32,ER31,ER66,ER205
+	.GLOBAL SNGLQQ,IMUL,IDIV,UPAROQ,BACKL
+
+/	LINKER ARITHMETIC REQUIRED
+
+	*2000
+
+	RELOC 2400
+
+	32		/OVERLAY Z
+	0
+PT1,	FILESW
+	PDSWT
+	IDKNT
+	DOLFLG
+	NAMPTR
+	NAME1
+	NAME2
+	NAME3
+	NAME4
+	PARSYM
+	UNARYM
+PT2,	TERM
+	0
+CHAR1,	0
+
+SNGLQQ,	0
+	JMS I QQGETKAR	/GET FIRST CHAR OF PAIR
+	JMP I (ER28
+	AND QQ77
+	JMS I QQROTL6
+	DCA CHAR1
+	JMS I QQGETKAR	/GET SECOND CHAR OF PAIR
+	JMP I (ER28
+	AND QQ77
+	TAD CHAR1	/COMBINE TWO CHARACTERS
+	DCA TRMABS
+	JMS I QQGETCHR
+	JMP I SNGLQQ
+IMUL,	0
+	DCA QUO
+	TAD I IMUL
+	DCA IDIV
+	TAD I IDIV
+	ISZ IMUL
+	CIA
+	DCA IDIV
+	TAD QUO
+	ISZ IDIV
+	JMP .-2
+	JMP I IMUL
+/ BOTH IDIV AND IMUL HAVE THE SAME CALLING SEQUENCE
+
+/ONE ARGUMENT IS PASSED IN AC
+/THE OTHER IS POINTED TO BY THE FIRST ARGUMENT
+/REMAINDER IS LEFT IN 'REMAIN'
+/RETURNS 0 ON 0-DIVIDE (WITH NUMBER AS REMAINDER)
+
+IDIV,	0
+	DCA REMAIN
+	TAD I IDIV
+	DCA IMUL
+	TAD I IMUL
+	SNA
+	JMP ER204	/ZERO DIVIDE
+	ISZ IDIV
+	CIA
+	DCA IMUL
+	DCA QUO
+	TAD REMAIN
+IDLUP,	STL
+	TAD IMUL
+	SZL
+	JMP IDEND
+	ISZ QUO
+	JMP IDLUP
+IDEND,	CIA
+	TAD IMUL
+	CIA
+	DCA REMAIN	/SAVE REMAINDER
+	TAD QUO
+	JMP I IDIV
+
+QUO,	0
+ER204,	JMS I QQERROR	/0-DIVIDE
+	JMP I IDIV
+	PAGE
+UPAROQ,	0
+	TAD I (RADXWD	/SAVE CURRENT RADIX AROUND THIS TERM
+	DCA I (HLDRAD
+	DCA TENFLG
+UP2,	JMS I QQGETKAR
+	JMP ER28
+	JMS I QQBRANCH
+	-102;BINOVR	/B
+	-117;OCTOVR	/O
+	-104;DECOVR	/D
+	-42;CNTCON	/"
+	0
+ER30,	JMS I QQERROR	/BAD CHAR AFTER ^
+	DCA TRMABS
+	DCA TRMREL
+	DCA TRMCOD
+	JMP I UPAROQ	/RETURN ABSOLUTE 0
+
+ER28,	JMS I QQERROR	/END OF LINE BEFORE 1ST CHAR AFTER '
+	JMP I (BYEX	/OR 2ND CHAR OR CHAR AFTER ^ OR ^" OR "
+
+
+DECOVR,	STL CLA RAR	/4000
+	DCA TENFLG
+	TAD (2
+OCTOVR,	TAD (6		/RADIX 8
+BINOVR,	TAD (2		/RADIX 2
+	DCA I (RADXWD	/TEMPORARILY
+OVR2,	JMS I QQGETCHR
+	JMS I QQEOS
+	JMP ER66
+	JMS I (DIGIT	/A NUMBER MUST FOLLOW
+	JMP ER31
+	JMS I (GETNUM	/PROCESS THE NUMBER
+	DCA TRMABS	/INTERPRETING IT VIA NEW RADIX
+	TAD I (HLDRAD	/THEN RESTORE ORIGINAL RADIX
+	DCA I (RADXWD
+			/BUT SEE IF RADIX OVERRIDES CONFLICT
+	TAD I (DFLG	/FOR EXAMPLE A DOT AT END OF A ^O CONSTANT
+	TAD TENFLG
+	SNA CLA
+ER32,	JMS I QQERROR	/CONFLICTING RADIX OVERRIDES (E.G. ^B101. )
+	DCA TRMREL	/NUMBER IS ABSOLUTE (UPARROW ZEROES TRMCOD)
+	JMP I UPAROQ
+
+ER31,	JMS I QQERROR	/NO DIGIT AFTER A ^D, ^O, OR ^B
+	JMP OVR2
+ER66,	JMS I QQERROR	/EOS AFTER ^O, ^D, OR ^B
+	JMP I (BYEX
+BACKL,	0		/HANDLE BACKSLASH
+	TAD I BACKL	/GET ADDRESS OF ROUTINE TO SEND CHARACTERS TO
+	DCA SNDRTN
+	ISZ BACKL
+/*** PUSHING AND POPPING IS INEFFICIENT
+/ONLY HAVE TO DO THIS IF WE CAME FROM 'BACKSL'
+	JMS I (PUSHL
+	PT1
+	JMS I (TERM	/PARSE A TERM
+ER205,	JMS I QQERROR	/NO TERM FOLLOWING \, ASSUME 0
+	TAD TRMCOD
+	SNA
+	TAD TRMREL
+	SZA CLA
+	JMP ER205	/TERM NOT ABSOLUTE, TAKE ABSOLUTE PART
+	JMS I (POPL
+	PT2
+	TAD (-5		/TAKE ONLY LAST 5 DIGITS
+	DCA BCKNT
+	TAD (RADBUF+5
+	DCA RADPTR
+	TAD TRMABS
+	SNA
+	JMP BACK0	/TERM IS 0
+BCKLUP,	JMS I (IDIV
+	RADXWD		/DIVIDE BY RADIX
+	DCA TRMABS	/SAVE QUOTIENT
+	TAD REMAIN	/GET REMAINDER
+	DCA I RADPTR	/STORE AT END OF LIST
+	STA
+	TAD RADPTR
+	DCA RADPTR
+	TAD TRMABS	/GET READY FOR NEXT ITERATION
+	ISZ BCKNT	/DONE?
+	JMP BCKLUP	/NO
+	CLA
+	DCA LD0FLG
+SNDLUP,	ISZ RADPTR	/SEND CHARACTERS TO CALLER
+	TAD I RADPTR
+	SPA
+	JMP SNDONE
+	SNA
+	JMP SND0
+	ISZ LD0FLG
+SNDL2,	TAD ("0&77
+	JMS I SNDRTN
+	JMP SNDLUP
+SND0,	TAD LD0FLG
+	SZA CLA
+	JMP SNDL2	/SEND 0
+	JMP SNDLUP	/IGNORE LEADING 0
+
+BACK0,	TAD ("0&77
+	JMS I SNDRTN
+SNDONE,	CLA
+	JMP I BACKL
+
+LD0FLG,	0		/NON-0 MEANS SAW NON-0 DIGIT
+RADPTR,	0
+SNDRTN,	0
+BCKNT,	0
+RADBUF,	ZBLOCK 6	/USED BY 'BACKL'
+	4000		/ENDS WITH NEGATIVE NUMBER
+TENFLG,	0		/NON-0 IF ^X IS NOT ^D
+	PAGE
+	RELOC

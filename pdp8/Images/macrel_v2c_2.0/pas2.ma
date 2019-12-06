@@ -1,1 +1,309 @@
-╞╤┴пасс═╡═специфиц═ожерлаы█┼╞┴╡╠╜ауг╜╥╦┴реможед═╞д═свитцх█┼┴╝инцлуде═мглоб╝ма█┼┴╝асецт═пас╡╛лежел╫╠╛ожерлаы╫╠╣█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞цопыригхт══╗ц╘══╠╧╥╥═бы═дигитал═еяуипмент═цорпоратион█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞тхе═информатион═ин═тхис═доцумент═ис═субйецт═то═цханге═витхоут═нотице█┼╞анд═схоулд═нот═бе═цонструед═ас═а═цоммитмент═бы═дигитал═еяуипмент█┼╞цорпоратион╝══дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты█┼╞фор═аны═еррорс═тхат═маы═аппеар═ин═тхис═доцумент╝█┼╞█┼╞тхе═софтваре═десцрибед═ин═тхис═доцумент═ис═фурнисхед═то═тхе═пурцхасер█┼╞ундер═а═лиценсе═фор═усе═он═а═сингле═цомпутер═сыстем═анд═цан═бе═цопиед█┼╞╗витх═инцлусион═оф═дигитал╖с═цопыригхт═нотице╘═онлы═фор═усе═ин═суцх█┼╞сыстем╛═еьцепт═ас═маы═отхервисе═бе═прожидед═ин═вритинг═бы═дигитал╝█┼╞█┼╞дигитал═еяуипмент═цорпоратион═ассумес═но═респонсибилиты═фор═тхе═усе█┼╞ор═релиабилиты═оф═итс═софтваре═он═еяуипмент═тхат═ис═нот═супплиед═бы█┼╞дигитал╝█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼╞█┼▄┴╝еьтернал═асемлж╛бацкуп╛бранцх╛цреф╛црлф╛дпринт╛ентер╛еос╛еррор╛еьпр█┼┴╝еьтернал═фсцхек╛гетцхр╛геткар╛гетсым╛леттер╛листер╛лоокуп╛ориг╛оут╛парсым█┼┴╝еьтернал═пассЁ╛поп╛пусх╛пунбит╛путбит╛путсым╛пуьбин╛реадлн╛ротл╤╛сцан█┼┴╝еьтернал═оптр╠╛литабс╛литрел╛оутбуф╛япут█┼┴╝глобал═путбн╛путбт╛литкрф█┼┴╝глобал═црефь╛морцрф╛бпуть█┼┴╝глобал═крфсы╛цхкфул█┼┴╝еьтернал═крфтмп█┼█┼┴фиелд═Ё█┼█┼┴╙╡╟╟╟█┼█┼┴релоц═╠╢╟╟█┼█┼┴╠╤█┼█┼┴обуфлд╫╠╟█┼█┼путбн╛┴╟█┼┴дца═тем╓┴╞саже═нев═ентры═ворд█┼┴тад═флгфлг█┼┴сна═цла█┼┴ймс═гетфлг█┼┴цдф═обуфлд█┼┴тад═и═флглоц┴╞адд═ин═нев═флаг═ворд█┼┴цлл═ртл█┼┴тад═флг█┼┴дца═и═флглоц█┼┴сзл┴┴╞ис═флаг═ворд═фулл©█┼┴дца═флгфлг┴╞ыес╛═ноте═тхат═ве═неед═а═нев═флаг═ворд█┼┴цдф═╟█┼┴тад═тем╓█┼┴ймс═путбт█┼┴ймп═и═путбн█┼█┼тем╓╨┴╟█┼▄┴ифдеф═плм══╪█┼╞█┼╞┴тад═ентры█┼╞┴ймс═путбин█┼╞█┼╞┴флг═муст═алреады═хаже═беен═сет═уп█┼╞█┼╞┴флг╫╟╛╠╛╡╛ор═Ё█┼╞█┼╞оутпут═буффер═ис═╡═пагес═лонг═стартинг═ат═оутбуф╝█┼╞дата═ис═сторед═жиа═оптр╠═вхицх═алваыс█┼╞птс═то═тхе═неьт═фрее═ворд█┼╞█┼╞инитиализатион╨═муст═сет═оутцнт═то═╜╢╟╟█┼╞оптр╠═то═оутбуф█┼╞етц╝█┼╞сет═флглоц═то═оутбуф╚╠█┼╞█┼╞то═врите═оут═буффер╛═мерелы═цалл═путбуф█┼╞█┼╞флглоц═муст═инитиаллы═цонтаин═а═╠╝══кееп═схифтинг█┼╞ит═лефт═╡═унтил═линк═гоес═он╝█┼╞█┼╞┴тад═ентры█┼╞┴ймс═путбит█┼╞█┼╞путс═╠═ворд═ин═бинары═буффер═витхоут═упдатинг═флаг═ворд█┼┴╬█┼▄╞дф╫обуфлд█┼█┼цхкфул╛┴╟┴┴╞ис═оптр╠═поинтинг═беыонд═буффер═енд©█┼┴цдф═обуфлд█┼┴тад═и═╗оптр╠█┼┴цдф═╟█┼┴тад═моут█┼┴сза═цла█┼┴ймп═и═цхкфул┴╞но█┼╞инстеад═вант═то═йумп═сомевхере═дуринг═креф═пасс█┼┴тад═флгфлг█┼┴сна═цла█┼┴ймп═нофлгв┴╞но═флаг═ворд█┼┴┴┴╞ор═флаг═ворд═неедс═но═море═ротатинг█┼┴цдф═обуфлд█┼┴тад═и═флглоц┴╞ыес╛═буфер═ис═фулл█┼┴цлл═ртл┴┴╞лефт╜йустифы═флаг═ворд█┼┴снл█┼┴ймп═╝╜╡█┼┴дца═и═флглоц█┼нофлгв╛┴цдф═╟█┼┴тад═пасс┴╞вхат═пасс═ис═тхис©█┼┴дца═тем╓█┼┴цлл═ста═рал┴╞╜╡█┼┴тад═тем╓█┼┴сза═цла█┼┴ймп═а╓┴┴╞нот═пасс═╡█┼┴тад═хдрврд┴╞пасс═╡█┼┴цдф═обуфлд█┼┴дца═и═╗оутбуф┴╞пут═хеадер═ворд═инто═буффер█┼а╓╨┴циф═цдф═╠╟█┼┴ймс═и═╗япут┴╞оутпут═буффер█┼┴дца═флгфлг┴╞неед═а═нев═флаг═ворд═лоц█┼┴тад═тем╓┴╞скип═иф═креф═пасс█┼┴тад═╗╜╢█┼┴цдф═╠╟█┼┴сза═цла█┼┴исз═и═╗оптр╠┴╞поинт═то═оутбуф╚╠█┼┴ймп═и═цхкфул█┼█┼╞ин═цреф═цасе╛═╠ст═ворд═ин═еацх═буффер═ис═црап█┼█┼╞хеадер╨┴бит═╟╨┴╟═меанс═лсд═блоцк█┼╞┴┴┴╠═меанс═теьт═блоцк█┼█┼тем╓╨┴╟█┼▄╞пут═а═ворд═инто═бинары═буффер═витхоут═упдатинг═флаг═ворд█┼█┼путбт╛┴╟█┼┴дца═т╓┴┴╞саже═ит█┼┴ймс═цхкфул█┼┴цдф═обуфлд█┼┴тад═и═╗оптр╠█┼┴дца═тем╓█┼┴тад═т╓█┼┴дца═и═тем╓┴╞сторе═ентры═аваы█┼┴исз═и═╗оптр╠┴╞пт═то═неьт═фрее═лоцатион█┼┴цдф═╟█┼┴ймп═и═путбт█┼█┼т╓╨┴╟█┼тем╓╨┴╟█┼█┼гетфлг╛┴╟┴┴╞неед═а═нев═флаг═ворд═лоцатион█┼┴ймс═цхкфул█┼┴цдф═╠╟█┼┴тад═и═╗оптр╠█┼┴дца═флглоц┴╞гот═ит█┼┴исз═и═╗оптр╠┴╞пт═то═неьт═фрее═лоцатион█┼┴цла═иац█┼┴дца═флгфлг█┼┴цла═иац█┼┴дца═и═флглоц┴╞интииализе═флаг═ворд═то═╠█┼┴цдф═╟█┼┴ймп═и═гетфлг█┼█┼бпуть╛┴╟█┼┴тад═флг█┼┴анд═яя╥┴┴╞гет═рид═оф═бит═╟█┼┴дца═флг█┼┴тад═бинары█┼┴ймс═путбн█┼┴ймп═и═бпуть█┼█┼моут╛┴╜оутбуф╜╢╟╟█┼┴паге█┼▄црефь╛┴╟█┼┴стл═цла═рар█┼┴дца═дефцод█┼┴тад═темп█┼┴сна═цла█┼┴дца═дефцод┴╞сет═дефцод═то═╢╟╟╟═фор═дефинитионс█┼┴цдф═╟█┼┴тад═наме╠█┼┴ймс═и═╗путбт█┼┴тад═наме╡█┼┴ймс═и═╗путбт█┼┴тад═намеЁ█┼┴ймс═и═╗путбт█┼┴тад═свмтоь█┼┴анд═╗╢╟╟┴╞лоок═ат═╞п═свитцх█┼┴сза═цла█┼┴ймп═п╓┴┴╞п═вас═специфиед█┼┴тад═линен╡┴╞но═╞п╛═усе═хигх╜ордер═лине═нумбер█┼┴скп█┼п╓╨┴тад═пагено┴╞иф═╞п═вас═специфиед╛═усе═паге═нумбер█┼┴тад═дефцод┴╞мултиплеь═ин═дефинитион═бит█┼┴ймс═и═╗путбт█┼┴тад═линено█┼┴ймс═и═╗путбт█┼┴тад═линеьт█┼┴ймс═и═╗путбт█┼┴тад═дефцод█┼┴сна═цла┴┴╞ис═тхис═а═дефинитион©█┼┴ймп═и═црефь┴╞но╛═ретурн█┼┴тад═сымжал┴╞ыес█┼┴ймс═и═╗путбт┴╞оутпут═жалуе█┼┴тад═флаг█┼┴ймс═и═╗путбт┴╞анд═флагс█┼┴ймп═и═црефь█┼█┼дефцод╛┴╟█┼▄морцрф╛┴╟┴┴╞цреф═а═литерал═референце█┼┴тад═╗╥╤╡╤┴╞ж█┼┴дца═наме╠┴╞жалуе═цреф█┼┴тад═и═╗литабс█┼┴дца═наме╡█┼┴тад═и═╗литрел█┼┴сза═цла█┼┴тад═╗╒╚█┼┴дца═намеЁ█┼┴ймс═и═яяцреф█┼┴тад═╗╥╤╠╢┴╞л█┼┴дца═наме╠┴╞нов═цреф═бы═лоцатион█┼┴тад═трмабс█┼┴дца═наме╡█┼┴тад═трмрел█┼┴сза═цла█┼┴тад═╗╒╚█┼┴дца═намеЁ█┼┴ймс═и═яяцреф█┼┴ймп═и═морцрф█┼▄литкрф╛┴╟┴┴╞цаллед═фром═мацлит█┼┴дца═т╓┴┴╞витх═специал═цоде═ин═ац█┼┴тад═╗╥╤╡╤┴╞╥╤╜ж═магиц═нумбер═фор═креф█┼┴дца═наме╠┴╞цреате═еьтендед═наме█┼┴тад═еьпрел█┼┴сза═цла█┼┴тад═╗╒╚█┼┴дца═намеЁ┴╞сет═уп═фор═креф█┼┴тад═т╓█┼┴сза═цла█┼┴тад═╗╒╘╜╒щ█┼┴тад═╗╒щ█┼┴ймс═и═яяцреф┴╞цреф═бы═жалуе═витх═дефинитион═цоде═щ═ор═╘█┼┴ймп═и═литкрф█┼█┼т╓╨┴╟█┼▄крфсы╛┴╟█┼┴тад═флаг█┼┴анд═╗╠╡╟╟█┼┴сна═цла█┼┴ймп═крфд╓┴╞сымбол═ис═неитхер═перманент═нор═лоцал█┼┴тад═свмтоь█┼┴рал┴┴╞пут═╞м═свитцх═ин═линк█┼┴цла═цмл█┼┴тад═флаг█┼┴анд═╗╠╟╟╟┴╞перм═бит═ин═ац█┼┴сза═снл═цла█┼┴ймп═крфд╓┴╞креф═иф═╞м═ежен═тхоугх═перманент█┼┴тад═сватол█┼┴ртр█┼┴цла═цмл█┼┴тад═флаг█┼┴анд═╗╡╟╟█┼┴сна═сзл═цла█┼┴ймп═и═крфсы█┼крфд╓╨┴тад═и═╗крфтмп█┼┴ймс═и═яяцреф█┼┴ймп═и═крфсы█┼┴паге█┼┴релоц█┼▄┴╝асецт═дмы╠╛лежел╫╠╛ожерлаы╫╠╤█┼┴фиелд═Ё█┼┴╙╡╟╟╟█┼┴╟█┼┴паге█┼┴╟█┼┴паге█┼█┼┴╝асецт═дмы╡╛лежел╫╠╛ожерлаы╫╠╥█┼┴фиелд═Ё█┼┴╙╡╟╟╟█┼┴╟█┼┴паге█┼┴╟█┼┴паге█┼ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/6	PASS 2 SPECIFIC OVERLAY
+/	21-AUG-78	REMOVED /D SWITCH
+	.INCLUDE MGLOB.MA
+	.ASECT PAS2,LEVEL=1,OVERLAY=15
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+	.EXTERNAL ASEMLV,BACKUP,BRANCH,CREF,CRLF,DPRINT,ENTER,EOS,ERROR,EXPR
+	.EXTERNAL FSCHEK,GETCHR,GETKAR,GETSYM,LETTER,LISTER,LOOKUP,ORIG,OUT,PARSYM
+	.EXTERNAL PASS3,POP,PUSH,PUNBIT,PUTBIT,PUTSYM,PUXBIN,READLN,ROTL6,SCAN
+	.EXTERNAL OPTR1,LITABS,LITREL,OUTBUF,QPUT
+	.GLOBAL PUTBN,PUTBT,LITKRF
+	.GLOBAL CREFX,MORCRF,BPUTX
+	.GLOBAL KRFSY,CHKFUL
+	.EXTERNAL KRFTMP
+
+	FIELD 3
+
+	*2000
+
+	RELOC 1400
+
+	16
+
+	OBUFLD=10
+
+PUTBN,	0
+	DCA TEM$	/SAVE NEW ENTRY WORD
+	TAD FLGFLG
+	SNA CLA
+	JMS GETFLG
+	CDF OBUFLD
+	TAD I FLGLOC	/ADD IN NEW FLAG WORD
+	CLL RTL
+	TAD FLG
+	DCA I FLGLOC
+	SZL		/IS FLAG WORD FULL?
+	DCA FLGFLG	/YES, NOTE THAT WE NEED A NEW FLAG WORD
+	CDF 0
+	TAD TEM$
+	JMS PUTBT
+	JMP I PUTBN
+
+TEM$:	0
+	IFDEF PLM  <
+/
+/	TAD ENTRY
+/	JMS PUTBIN
+/
+/	FLG MUST ALREADY HAVE BEEN SET UP
+/
+/	FLG=0,1,2,OR 3
+/
+/OUTPUT BUFFER IS 2 PAGES LONG STARTING AT OUTBUF.
+/DATA IS STORED VIA OPTR1 WHICH ALWAYS
+/PTS TO THE NEXT FREE WORD
+/
+/INITIALIZATION: MUST SET OUTCNT TO -400
+/OPTR1 TO OUTBUF
+/ETC.
+/SET FLGLOC TO OUTBUF+1
+/
+/TO WRITE OUT BUFFER, MERELY CALL PUTBUF
+/
+/FLGLOC MUST INITIALLY CONTAIN A 1.  KEEP SHIFTING
+/IT LEFT 2 UNTIL LINK GOES ON.
+/
+/	TAD ENTRY
+/	JMS PUTBIT
+/
+/PUTS 1 WORD IN BINARY BUFFER WITHOUT UPDATING FLAG WORD
+	>
+/DF=OBUFLD
+
+CHKFUL,	0		/IS OPTR1 POINTING BEYOND BUFFER END?
+	CDF OBUFLD
+	TAD I (OPTR1
+	CDF 0
+	TAD MOUT
+	SZA CLA
+	JMP I CHKFUL	/NO
+/INSTEAD WANT TO JUMP SOMEWHERE DURING KREF PASS
+	TAD FLGFLG
+	SNA CLA
+	JMP NOFLGW	/NO FLAG WORD
+			/OR FLAG WORD NEEDS NO MORE ROTATING
+	CDF OBUFLD
+	TAD I FLGLOC	/YES, BUFER IS FULL
+	CLL RTL		/LEFT-JUSTIFY FLAG WORD
+	SNL
+	JMP .-2
+	DCA I FLGLOC
+NOFLGW,	CDF 0
+	TAD PASS	/WHAT PASS IS THIS?
+	DCA TEM$
+	CLL STA RAL	/-2
+	TAD TEM$
+	SZA CLA
+	JMP A$		/NOT PASS 2
+	TAD HDRWRD	/PASS 2
+	CDF OBUFLD
+	DCA I (OUTBUF	/PUT HEADER WORD INTO BUFFER
+A$:	CIF CDF 10
+	JMS I (QPUT	/OUTPUT BUFFER
+	DCA FLGFLG	/NEED A NEW FLAG WORD LOC
+	TAD TEM$	/SKIP IF KREF PASS
+	TAD (-4
+	CDF 10
+	SZA CLA
+	ISZ I (OPTR1	/POINT TO OUTBUF+1
+	JMP I CHKFUL
+
+/IN CREF CASE, 1ST WORD IN EACH BUFFER IS CRAP
+
+/HEADER:	BIT 0:	0 MEANS LSD BLOCK
+/			1 MEANS TEXT BLOCK
+
+TEM$:	0
+/PUT A WORD INTO BINARY BUFFER WITHOUT UPDATING FLAG WORD
+
+PUTBT,	0
+	DCA T$		/SAVE IT
+	JMS CHKFUL
+	CDF OBUFLD
+	TAD I (OPTR1
+	DCA TEM$
+	TAD T$
+	DCA I TEM$	/STORE ENTRY AWAY
+	ISZ I (OPTR1	/PT TO NEXT FREE LOCATION
+	CDF 0
+	JMP I PUTBT
+
+T$:	0
+TEM$:	0
+
+GETFLG,	0		/NEED A NEW FLAG WORD LOCATION
+	JMS CHKFUL
+	CDF 10
+	TAD I (OPTR1
+	DCA FLGLOC	/GOT IT
+	ISZ I (OPTR1	/PT TO NEXT FREE LOCATION
+	CLA IAC
+	DCA FLGFLG
+	CLA IAC
+	DCA I FLGLOC	/INTIIALIZE FLAG WORD TO 1
+	CDF 0
+	JMP I GETFLG
+
+BPUTX,	0
+	TAD FLG
+	AND QQ7		/GET RID OF BIT 0
+	DCA FLG
+	TAD BINARY
+	JMS PUTBN
+	JMP I BPUTX
+
+MOUT,	-OUTBUF-400
+	PAGE
+CREFX,	0
+	STL CLA RAR
+	DCA DEFCOD
+	TAD TEMP
+	SNA CLA
+	DCA DEFCOD	/SET DEFCOD TO 4000 FOR DEFINITIONS
+	CDF 0
+	TAD NAME1
+	JMS I (PUTBT
+	TAD NAME2
+	JMS I (PUTBT
+	TAD NAME3
+	JMS I (PUTBT
+	TAD SWMTOX
+	AND (400	/LOOK AT /P SWITCH
+	SZA CLA
+	JMP P$		/P WAS SPECIFIED
+	TAD LINEN2	/NO /P, USE HIGH-ORDER LINE NUMBER
+	SKP
+P$:	TAD PAGENO	/IF /P WAS SPECIFIED, USE PAGE NUMBER
+	TAD DEFCOD	/MULTIPLEX IN DEFINITION BIT
+	JMS I (PUTBT
+	TAD LINENO
+	JMS I (PUTBT
+	TAD LINEXT
+	JMS I (PUTBT
+	TAD DEFCOD
+	SNA CLA		/IS THIS A DEFINITION?
+	JMP I CREFX	/NO, RETURN
+	TAD SYMVAL	/YES
+	JMS I (PUTBT	/OUTPUT VALUE
+	TAD FLAG
+	JMS I (PUTBT	/AND FLAGS
+	JMP I CREFX
+
+DEFCOD,	0
+MORCRF,	0		/CREF A LITERAL REFERENCE
+	TAD (7626	/V
+	DCA NAME1	/VALUE CREF
+	TAD I (LITABS
+	DCA NAME2
+	TAD I (LITREL
+	SZA CLA
+	TAD ("+
+	DCA NAME3
+	JMS I QQCREF
+	TAD (7614	/L
+	DCA NAME1	/NOW CREF BY LOCATION
+	TAD TRMABS
+	DCA NAME2
+	TAD TRMREL
+	SZA CLA
+	TAD ("+
+	DCA NAME3
+	JMS I QQCREF
+	JMP I MORCRF
+LITKRF,	0		/CALLED FROM MACLIT
+	DCA T$		/WITH SPECIAL CODE IN AC
+	TAD (7626	/76-V MAGIC NUMBER FOR KREF
+	DCA NAME1	/CREATE EXTENDED NAME
+	TAD EXPREL
+	SZA CLA
+	TAD ("+
+	DCA NAME3	/SET UP FOR KREF
+	TAD T$
+	SZA CLA
+	TAD (")-"]
+	TAD ("]
+	JMS I QQCREF	/CREF BY VALUE WITH DEFINITION CODE ] OR )
+	JMP I LITKRF
+
+T$:	0
+KRFSY,	0
+	TAD FLAG
+	AND (1200
+	SNA CLA
+	JMP KRFD$	/SYMBOL IS NEITHER PERMANENT NOR LOCAL
+	TAD SWMTOX
+	RAL		/PUT /M SWITCH IN LINK
+	CLA CML
+	TAD FLAG
+	AND (1000	/PERM BIT IN AC
+	SZA SNL CLA
+	JMP KRFD$	/KREF IF /M EVEN THOUGH PERMANENT
+	TAD SWATOL
+	RTR
+	CLA CML
+	TAD FLAG
+	AND (200
+	SNA SZL CLA
+	JMP I KRFSY
+KRFD$:	TAD I (KRFTMP
+	JMS I QQCREF
+	JMP I KRFSY
+	PAGE
+	RELOC
+	.ASECT DMY1,LEVEL=1,OVERLAY=16
+	FIELD 3
+	*2000
+	0
+	PAGE
+	0
+	PAGE
+
+	.ASECT DMY2,LEVEL=1,OVERLAY=17
+	FIELD 3
+	*2000
+	0
+	PAGE
+	0
+	PAGE

@@ -1,1 +1,880 @@
-¯ÌÎËÃÄ ­ ÌÉÎË ÃÏÍÍÁÎÄ ÄÅÃÏÄÅÒ ÒÏÕÔÉÎÅÓŠ¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÃÏÐÙÒÉÇÈÔ  ¨Ã©  ±¹··¬±¹·¸ ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎŠ¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ÔÈÅ ÉÎÆÏÒÍÁÔÉÏÎ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÓÕÂÊÅÃÔ ÔÏ ÃÈÁÎÇÅ ×ÉÔÈÏÕÔ ÎÏÔÉÃÅŠ¯ÁÎÄ ÓÈÏÕÌÄ ÎÏÔ ÂÅ ÃÏÎÓÔÒÕÅÄ ÁÓ Á ÃÏÍÍÉÔÍÅÎÔ ÂÙ ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔŠ¯ÃÏÒÐÏÒÁÔÉÏÎ®  ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙŠ¯ÆÏÒ ÁÎÙ ÅÒÒÏÒÓ ÔÈÁÔ ÍÁÙ ÁÐÐÅÁÒ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ®Š¯Š¯ÔÈÅ ÓÏÆÔ×ÁÒÅ ÄÅÓÃÒÉÂÅÄ ÉÎ ÔÈÉÓ ÄÏÃÕÍÅÎÔ ÉÓ ÆÕÒÎÉÓÈÅÄ ÔÏ ÔÈÅ ÐÕÒÃÈÁÓÅÒŠ¯ÕÎÄÅÒ Á ÌÉÃÅÎÓÅ ÆÏÒ ÕÓÅ ÏÎ Á ÓÉÎÇÌÅ ÃÏÍÐÕÔÅÒ ÓÙÓÔÅÍ ÁÎÄ ÃÁÎ ÂÅ ÃÏÐÉÅÄŠ¯¨×ÉÔÈ ÉÎÃÌÕÓÉÏÎ ÏÆ ÄÉÇÉÔÁÌ§Ó ÃÏÐÙÒÉÇÈÔ ÎÏÔÉÃÅ© ÏÎÌÙ ÆÏÒ ÕÓÅ ÉÎ ÓÕÃÈŠ¯ÓÙÓÔÅÍ¬ ÅØÃÅÐÔ ÁÓ ÍÁÙ ÏÔÈÅÒ×ÉÓÅ ÂÅ ÐÒÏÖÉÄÅÄ ÉÎ ×ÒÉÔÉÎÇ ÂÙ ÄÉÇÉÔÁÌ®Š¯Š¯ÄÉÇÉÔÁÌ ÅÑÕÉÐÍÅÎÔ ÃÏÒÐÏÒÁÔÉÏÎ ÁÓÓÕÍÅÓ ÎÏ ÒÅÓÐÏÎÓÉÂÉÌÉÔÙ ÆÏÒ ÔÈÅ ÕÓÅŠ¯ÏÒ ÒÅÌÉÁÂÉÌÉÔÙ ÏÆ ÉÔÓ ÓÏÆÔ×ÁÒÅ ÏÎ ÅÑÕÉÐÍÅÎÔ ÔÈÁÔ ÉÓ ÎÏÔ ÓÕÐÐÌÉÅÄ ÂÙŠ¯ÄÉÇÉÔÁÌ®Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯Š¯ŠŒ¯ÌÉÎË ÃÄ ÒÏÕÔÉÎÅÓŠŠ‰ØÌÉÓÔŠ‰ÎÏÐÕÎÃÈŠ‰®ÉÎÃÌÕÄÅ‰ÌÎËÍÁÎ®ÍÁŠ‰ÅÎÐÕÎÃÈŠ‰ØÌÉÓÔŠŠ‰®ÒÓÅÃÔ‰ÌÎËÃÄŠŠ¯ÃÏÒÅ­­ÓÕÂÒÏÕÔÉÎÅ ÔÏ ÄÅÔÅÒÍÉÎÅ ÃÏÒÅ ÓÉÚÅŠ¯Š¯ÔÈÉÓ ÒÏÕÔÉÎÅ ÍÕÓÔ ÒÅÓÉÄÅ ÉÎ ÆÉÅÌÄ ÚÅÒÏŠ¯ÉÔ ÅØÅÃÕÔÅÓ ÏÎÌÙ ÏÎÃÅŠ¯Š¯ÔÈÉÓ ×ÏÒËÓ ÏÎ ÁÎÙ ÐÄÐ­¸ ÆÁÍÉÌÙ ÃÏÍÐÕÔÅÒŠ¯ÔÈÅ ÖÁÌÕÅ¬ ÆÒÏÍ ± ÔÏ ·¨ÏÃÔÁÌ© ÏÆ ÔÈÅ ÌÁÓÔ ÅØÉÓÔÅÎÔŠ¯ÍÅÍÏÒÙ ÆÉÅÌÄ ÉÓ ÒÅÔÕÒÎÅÄ ÉÎ ÔÈÅ ÁÃŠ¯ŠÃÏÒÅ¬‰°ŠÃÏÒÅÌÐ¬‰ÃÄÆ ‰°‰‰‰¯ÎÅÅÄÅÄ ÆÏÒ ÐÄÐ­¸ÌŠ‰ÔÁÄ ‰ÔÒÙÆÌÄ‰‰‰¯ÇÅÔ ÆÌÄ ÔÏ ÔÅÓÔŠ‰ÃÌÌ ÒÔÌŠ‰ÒÁÌŠ‰ÁÎÄ ‰ÃÏÒ·°Š‰ÔÁÄ ‰ÃÏÒÅÌÐ‰‰‰¯ÍÁÓË ÕÓÅÆÕÌ ÂÉÔÓŠ‰ÄÃÁ ‰®«±‰‰‰¯ÓÅÔ ÕÐ ÃÄÆ ÔÏ ÆÌÄŠ‰°Š‰ÔÁÄ É‰ÃÏÒÌÏÃ‰‰‰¯ÓÁÖÅ ÃÕÒÒÅÎÔ ÃÏÎÔÅÎÔÓŠ‰ÎÏÐ‰‰‰‰¯ÈÁÃË ‰ÆÏÒ ÐÄÐ­¸Š‰ÄÃÁ ‰®­³Š‰ÔÁÄ ‰®­²‰‰‰¯·°°° ÉÓ Á ÇÏÏÄ ÐÁÔÔÅÒÎŠ‰ÄÃÁ É‰ÃÏÒÌÏÃŠÃÏÒ·°¬‰·°‰‰‰‰¯ÈÁÃË ÆÏÒ ÐÄÐ­¸Š‰ÔÁÄ É‰ÃÏÒÌÏÃ‰‰‰¯ÔÒÙ ÔÏ ÒÅÁÄ ÂÁÃËŠ‰·´°°‰‰‰‰¯ÆÏÒ ÐÄÐ­¸Š‰ÔÁÄ ‰®­±‰‰‰¯ÓÁÆÅÇÕÁÒÄ ÁÇÁÉÎÓÔ ×ÒÁÐ ÁÒÏÕÎÄŠ‰ÔÁÄ ‰ÃÏÒÌÏÃ«±‰‰¯ÔÁÄ ±´°°Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ‰®«¶‰‰‰¯ÎÏÎ­ÅØÉÓÔÅÎÔ ÆÌÄ ÅØÉÔŠ‰ÔÁÄ ‰ÃÏÒ·°­¶Š‰ÄÃÁ É‰ÃÏÒÌÏÃ‰‰‰¯ÒÅÓÔÏÒÅ ÃÏÎÔÅÎÔÓŠ‰ÉÓÚ ‰ÔÒÙÆÌÄ‰‰‰¯ÔÒÙ ÎÅØÔ ÆÉÅÌÄŠ‰ÉÓÚ‰¨­·‰‰¯ÎÏ ÍÏÒÅ ÔÈÁÎ · ÔÉÍÅÓ ÔÈÒÏÕÇÈŠ‰ÊÍÐ ‰ÃÏÒÅÌÐŠ‰ÔÁÄ ‰ÔÒÙÆÌÄŠ‰ÔÁÄ ‰¨­±Š‰ÃÄÆ ±°Š‰ÊÍÐ É‰ÃÏÒÅŠÃÏÒÌÏÃ¬‰ÃÏÒ·°«²‰‰‰‰¯ÁÄÄÒ® ‰ÔÏ ÔÅÓÔ ÉÎ ÅÁÃÈ ÆÉÅÌÄŠ‰±´°°‰‰‰‰¯·°°°«·´°°«±´°°½°ŠÔÒÙÆÌÄ¬‰±‰‰‰‰¯ÃÕÒÒÅÎÔ ÔÅÓÔ ÆÉÅÌÄŠ¯ŠŠ‰ÐÁÇÅŠŠŒŠ‰®ÅÎÔÒÙ‰ÉÎÉÔ¬ÉÎÉÔ±ŠŠ¯ÍÏÒÅ ÉÎÉÔÉÁÌÉÚÁÔÉÏÎ ÃÏÄÅŠÉÎÉÔ¬‰ÓËÐ‰‰‰¯ÎÏÒÍÁÌ‰ÅÎÔÒÙŠÉÎÉÔ±¬‰ÄÃÁ ‰ÃÄÓ×‰‰¯ÃÈÁÉÎÅÄ ÔÏ ­ÎÏ ÃÄ ÔÈÉÓ ÔÉÍÅ ÒÏÕÎÄŠ‰ÃÄÆ ±°Š‰ÔÁÄ‰¨­±²‰‰¯ÃÌÅÁÒ ±´°°°­±´°±±Š‰ÄÃÁ‰ÌÖÌ‰‰¯ÂÅÆÏÒÅ ÃÏÍÍÁÎÄ ÄÅÃÏÄÅÒ ÉÓ ÃÁÌÌÅÄŠ‰ÔÁÄ‰¨´°°°Š‰ÄÃÁ‰ÏÖÒÌÁÙ‰‰¯ÖÉÁ ÕÓÒŠ‰ÄÃÁ É‰ÏÖÒÌÁÙŠ‰ÉÓÚ‰ÏÖÒÌÁÙŠ‰ÉÓÚ‰ÌÖÌŠ‰ÊÍÐ‰®­³Š‰ÄÃÁ ‰ÌÖÌ‰‰¯ÓÅÔ ÌÅÖÅÌ¦ÏÖÅÒÌÁÙ ÃÏÕÎÔÅÒÓŠ‰ÄÃÁ ‰ÏÖÒÌÁÙŠ‰ÔÁÄ ‰¨ÍÔÁÂ­±Š‰ÄÃÁ ‰ØÒ³‰‰¯ÉÎÄÅØ ÉÎÔÏ ÍÏÄÔÁÂŠ‰ÃÄÆ‰°Š‰ÔÁÄ É‰¨····‰‰¯ÇÅÔ ÏÓ¸ ÆÉÅÌÄ ÂÉÔÓŠ‰ÁÎÄ‰¨±°´Š‰ÓÚÁ ÃÌÁ‰‰‰¯ÇÒÅÁÔÅÒ ÔÈÁÎ ³²Ë¿Š‰ÊÍÐ‰ÉÎÉÔ²‰‰¯ÙÅÓ¬ ÃÁÌÌ ÃÏÒÅ ÓÕÂÒÏÕÔÉÎÅŠ‰ÔÁÄ É‰¨····Š‰ÃÄÆ‰±°Š‰ÒÔÒ ÃÌÌ‰‰‰¯ÐÏÓÉÔÉÏÎ ÂÉÔÓŠ‰ÒÁÒŠ‰ÁÎÄ‰¨·‰‰¯ÍÁÓË ÔÏ ÆÉÅÌÄ ÂÉÔÓŠ‰ÓÎÁ‰‰‰¯°¿ŠÉÎÉÔ²¬‰ÊÍÓ É‰¨ÃÏÒÅ‰‰¯ÙÅÓ¬ ÄÅÔÅÒÍÉÎÅ ÃÏÒÅ ÓÉÚÅŠ‰ÄÃÁ ‰ÍØÆÌÄ‰‰¯ÌÁÒÇÅÓÔ ÆÉÅÌÄ ÁÖÁÉÌÁÂÌÅŠ‰ÔÁÄ‰ÍØÆÌÄŠ‰ÄÃÁ‰ÖÃÏÒÅ‰‰¯ÖÉÒÔÕÁÌ ÃÏÒÅŠ‰ÔÁÄ‰¨ÎÌÔÁÂ‰‰¯ÓÅÔ ÕÐ ÎÕÌÌ ÔÁÂÌÅ ÐÏÉÎÔÅÒŠ‰ÄÃÁ‰ØÒµŠ‰ÄÃÁ‰ØÒ´‰‰¯ÃÌÅÁÒ ÃÏÕÎÔ ÏÆ ÎÕÌÌÓŠ‰ÄÃÁ‰ÔÁÓË‰‰¯ÃÌÅÁÒ ÔÁÓË ÆÌÁÇŠ‰ÃÄÆ ‰°Š‰ÔÁÄ É‰¨ÏÓÊÓ×Ä‰‰¯ÊÏÂ ÓÔÁÔÕÓ ×ÏÒÄŠ‰ÁÎÄ ‰¨³·´‰‰¯ÃÌÅÁÒ ÄÅÓÉÒÅÄ ÆÌÁÇÓ ¦ ÓÅÔŠ‰ÔÁÄ ‰¨±´°°‰‰¯ÎÏ ÒÅÓÔÁÒÔŠ‰ÄÃÁ É‰¨ÏÓÊÓ×Ä‰‰¯ÁÎÄ ÂÁÔÃÈ ÆÌÁÇŠ‰ÔÁÄ ‰¨­²°°Š‰ÄÃÁ ‰ÍÃÎÔ‰‰¯ÓÅÔ ÍÏÄÕÌÅ ÃÏÕÎÔÅÒŠ‰ÃÄÆ ‰±°ŠÃÄÓ×¬‰ÊÍÐ ‰ÄÅÃÏÄÅ‰‰¯ÃÁÌÌ ÃÏÍÍÁÎÄ ÄÅÃÏÄÅÒ ­ ÎÏÐ ÉÆ ÃÈÁÉÎÅÄ ÔÏŠ‰‰‰‰¯¨ÆÉÒÓÔ ÔÉÍÅ ÒÏÕÎÄ©Š‰ÊÍÐ ‰ÃÈÁÉÎŠ‰‰ŠŒŠÄÅÃÏÄÅ¬‰ÃÄÆŠ‰ÃÉÆ«±°Š‰ÊÍÓ É‰¨··°°‰‰¯ÃÁÌÌ ÃÄŠ‰µŠ‰²²°²‰‰‰¯ÄÅÆÁÕÌÔ ÅØÔÅÎÓÉÏÎ ÒÂŠ‰ÃÄÆ‰±°ŠÃÈÁÉÎ¬‰ÔÁÄ ‰¨ÊÍÐ ÄÅÃÏÄÅ‰¯ÒÅ­ÓÅÔ ÃÁÌÌ ÔÏ ÄÅÃÏÄÅÒŠ‰ÄÃÁ ‰ÃÄÓ×ŠÇÅÔÓÖ¬‰ÔÁÄ É‰¨·¶°°Š‰ÓÎÁ‰‰‰¯ÂÉÎÁÒÙ ÏÕÔÐÕÔ ÓÐÅÃÉÆÉÅÄ¿Š‰ÊÍÐ ‰ÇÅÔÍÁÐ‰‰¯ÎÏŠ‰ÁÎÄ‰¨±·‰‰¯ÙÅÓŠ‰ÔÁÄ‰¨ÄÃÂ­±‰‰¯ÇÅÔ ÄÅÖÉÃÅ ÔÙÐÅŠ‰ÄÃÁ‰ÐÏÉÎÔ±‰‰¯ÔÁÂÌÅ ÅÎÔÒÙŠ‰ÔÁÄ É‰ÐÏÉÎÔ±Š‰ÓÍÁ ÃÌÁ‰‰‰¯ÆÉÌÅ ÏÒÉÅÎÔÅÄ¿ŠÅ°¶½½®»‰ÊÍÓ É‰ÃÏÓ¸ÅÒ‰‰¯ÎÏ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰¨·¶°´‰‰¯ÅØÔÅÎÓÉÏÎ ÓÐÅÃÉÆÉÅÄ¿Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ‰®«³Š‰ÔÁÄ‰ÅØÓÖ‰‰¯ÎÏ ÉÎÓÅÒÔ ÏÎÅŠ‰ÄÃÁ É‰¨·¶°´Š‰ÊÍÓ ‰É ¨ÍÏÖÅ‰‰¯ÍÏÖÅ ÂÉÎÁÒÙ ÏÕÔÐÕÔ ÆÉÌÅ ÓÐÅÃŠ‰ÃÄÆ ‰±°Š‰·¶°°­±Š‰ÃÄÆ ‰±°Š‰ÏÆÉÌÅ­±‰‰‰¯ÔÏ ÓÔÏÒÁÇÅ ÁÒÅÁŠ‰­µŠÇÅÔÍÁÐ¬‰ÔÁÄ É‰¨·¶°µ‰‰¯ÌÏÁÄ ÍÁÐ ÓÐÅÃ¿Š‰ÓÎÁ ÃÌÁŠ‰ÊÍÐ‰ÔÒÙ³ÒÄ‰‰¯ÎÏ¬ ÔÒÙ ³ÒÄ ÆÉÌÅ ÓÐÅÃ®Š‰ÔÁÄ É‰¨·¶±±Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ‰®«³‰‰¯ÅØÔÅÎÓÉÏÎ ÆÏÕÎÄ¿Š‰ÔÁÄ‰ÅØÍÐ‰‰¯ÎÏ¬ ÉÎÓÅÒÔ ÅØÔÅÎÓÉÏÎŠ‰ÄÃÁ É‰¨·¶±±ŠŒÇÅÔÍÐ°¬‰ÃÄÆŠ‰ÔÁÄ É‰¨····Š‰ÒÁÌŠ‰ÓÍÁ ÃÌÁ‰‰‰¯ÂÁÔÃÈ ÒÕÎÎÉÎÇ¿Š‰ÊÍÐ‰ÇÅÔÍÐ±‰‰¯ÎÏŠ‰ÔÁÄ É‰¨····‰‰¯ÙÅÓŠ‰ÁÎÄ‰¨·°‰‰¯ÆÏÒÍ ÃÉÆŠ‰ÔÁÄ‰¨ÃÉÆŠ‰ÄÃÁ‰®«´‰‰¯ÔÏ ÂÁÔÃÈ ÆÉÅÌÄŠ‰ÃÄÆ‰±°Š‰ÔÁÄ É‰¨·¶±±‰‰¯ÇÅÔ ÍÁÐ ÆÉÌÅ ÅØÔÅÎÓÉÏÎŠ‰ÃÄÆŠ‰ÈÌÔ‰‰‰¯ÃÉÆ ÔÏ ÂÁÔÃÈ ÆÉÅÌÄŠ‰ÊÍÓ É‰¨·²°°‰‰¯ÔÒÙ ÔÏ ÓÐÏÏÌŠ‰ÊÍÐ‰ÇÅÔÍÐ±Š¯ŠÌÖÌ¬‰°ŠÏÖÒÌÁÙ¬‰°ŠÅØÓÖ¬‰²³²¶‰‰‰¯®ÓÖŠÅØÍÐ¬‰±µ²°‰‰‰¯®ÍÐŠ¯ŠÐÁÇÅŠŒÇÅÔÍÐ±¬‰ÊÍÓ É‰¨ÍÏÖÅ‰‰¯ÍÏÖÅ ÌÏÁÄ ÍÁÐ ÏÕÔÐÕÔ ÆÉÌÅ ÓÐÅÃŠ‰ÃÄÆ ‰±°Š‰·¶°µ­±Š‰ÃÄÆ ‰±°Š‰ÍÆÉÌÅ­±‰‰‰¯ÔÏ ÓÔÏÒÁÇÅ ÁÒÅÁŠ‰­µŠ‰ÊÍÐ ‰ÇÅÔÏÐÔ‰‰¯ÇÅÔ ÏÐÔÉÏÎÓŠÔÒÙ³ÒÄ¬‰ÔÁÄ É‰¨·¶±²‰‰¯ÔÒÙ ³ÒÄ ÏÐÔÉÏÎ ÆÉÌÅŠ‰ÓÎÁ ÃÌÁ‰‰‰¯ÅØÉÓÔ¿Š‰ÊÍÐ‰ÇÅÔÏÐÔ‰‰¯ÎÏŠ‰ÊÍÓ‰ÍÏÖÅ‰‰¯ÙÅÓ¬ ÍÏÖÅ ÉÎÔÏ ²ÎÄ ÆÉÌÅ ÁÒÅÁŠ‰ÃÄÆ‰±°Š‰·¶±²­±Š‰ÃÄÆ‰±°Š‰·¶°µ­±Š‰­µŠ‰ÃÄÆ‰±°Š‰ÄÃÁ É‰¨·¶±²‰‰¯ÃÌÅÁÒ ³ÒÄŠ‰ÊÍÐ‰ÇÅÔÍÁÐ«³‰¯ÐÒÏÃÅÓÓ ÉÔŠŒ¯ÈÅÒÅ ÔÏ ÇÅÔ ÏÐÔÉÏÎÓŠÇÅÔÏÐÔ¬‰ÔÁÄ ‰¨·¶´³‰‰¯ÓÅÔ ÕÐ ÔÏ ÁÃÃÅÓÓ ÃÄ Ó×ÉÔÃÈ ÁÒÅÁŠ‰ÄÃÁ ‰ÐÎÔ²Š‰ÔÁÄ ‰¨ÏÐ‰‰¯ÓÅÔ ÕÐ ÐÏÉÎÔÅÒ ÔÏ ÏÐÔÉÏÎ ÔÁÂÌÅ ÉÎ ÐÒÏÇÒÁÍŠ‰ÄÃÁ ‰ÐÎÔ±Š‰ÁÃÍ³‰‰‰¯ÓÁÖÅ ÏÐÔÉÏÎ ÓÐÅÃÓ ÏÎ ÔÈÉÓ ÌÉÎÅŠ‰ÄÃÁ ‰ÃÎÔ²ŠÏÒÏÐÔ¬‰ÃÄÆŠ‰ÔÁÄ É‰ÐÎÔ±Š‰ÃÄÆ‰±°Š‰ÁÎÄ É‰ÐÎÔ²‰‰¯¢ÏÒ¢ ÏÐÔÉÏÎÓ ×ÉÔÈŠ‰ÃÉÁ‰‰‰¯ÏÐÔÉÏÎÓ ÐÒÅÖÉÏÕÓÌÙŠ‰ÔÁÄ É‰ÐÎÔ²‰‰¯ÓÐÅÃÉÆÉÅÄŠ‰ÃÄÆŠ‰ÔÁÄ É‰ÐÎÔ±Š‰ÄÃÁ É‰ÐÎÔ±Š‰ÃÄÆ«±°Š‰ÉÓÚ ‰ÐÎÔ±‰‰¯ÂÕÍÐ ÐÏÉÎÔÅÒÓŠ‰ÉÓÚ ‰ÐÎÔ²Š‰ÉÓÚ ‰ÃÎÔ²‰‰¯ÄÏÎÅ¿Š‰ÊÍÐ ‰ÏÒÏÐÔ‰‰¯ÎÏ¬ ÄÏ ÎÅØÔ ÏÐÔÉÏÎ ×ÏÒÄŠ‰ÔÁÄ É‰¨·¶´³Š‰ÃÌÌ ‰ÒÔÒ‰‰¯¢Ë¢ ÏÐÔÉÏÎ¿ ¨ÖÉÒÔÕÁÌ  ÃÏÒÅ ÓÉÚÅ ­ ÕÓÅÓ½©Š‰ÓÎÌ ‰ÃÌÁŠ‰ÊÍÐ ‰ÔÓÔÎ‰‰¯ÎÏŠ‰ÔÁÄ É‰¨·¶´´‰‰¯ÔÅÓÔ ÆÏÒ ¢Î¢ ÏÒ ¢Ò¢­ ÃÁÎ§Ô ÈÁÖÅŠ‰ÁÎÄ‰¨²±°°‰‰¯ÂÏÔÈ ¢Ë¢ ¦ ¢Î¢ ÏÒ ¢Ò¢ ÏÎ ÓÁÍÅ ÌÉÎÅŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ‰ÉÎÅÒÒ‰‰¯¢Î¢ ÏÒ ¢Ò¢­ÔÏÏ ÂÁÄ¬ÉÎÐÕÔ ÉÓ ÎÏ ÇÏÏÄŠ‰ÔÁÄ É‰¨·¶´²‰‰¯ÏË­ ÃÏÎÔÉÎÕÅ ×ÉÔÈ ¢Ë¢Š‰ÁÎÄ ‰¨³···‰‰¯ÈÉ ÏÒÄÅÒ ÍÕÓÔ ÂÅ ÚÅÒÏŠ‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ‰ËÅÒÒ‰‰¯ÎÏÔ ­ ÔÏÏ ÂÁÄŠ‰ÔÁÄ É‰¨·¶´¶‰Š‰ÓÎÁ‰‰‰¯ÎÏÎ­ÚÅÒÏ¿Š‰ÊÍÐ‰ËÏÐÔ±‰‰¯ÎÏ¬ ÅÒÒÏÒ¬ ÓÅÔ ÔÏ ±Š‰ÁÎÄ‰¨··´°Š‰ÓÚÁ ÃÌÁ‰‰‰¯ÌÅÓÓ ÔÈÁÎ ´°¿Š‰ÊÍÐ‰ËÅÒÒ‰‰¯ÎÏ¬ ÅÒÒÏÒŠ‰ÃÍÁŠ‰ÔÁÄ É‰¨·¶´¶‰‰¯ÙÅÓŠËÏÐÔ±¬‰ÉÁÃŠ‰ÄÃÁ‰ÖÃÏÒÅ‰‰¯ÓÁÖÅ ÉÔ ÁÓ ÈÉ ÃÏÒÅ ¨ÖÉÒÔÕÁÌ©Š‰ÊÍÐ‰ÔÓÔÍ‰‰¯ÔÅÓÔ ÆÏÒ Í ÏÐÔÉÏÎŠŒÔÓÔÎ¬‰ÔÁÄ É‰¨·¶´´‰‰¯¢Î¢ ÏÐÔÉÏÎ¿ ¨ÎÕÌÌ ÍÏÄÕÌÅ ­ ² ÐÇÓ©Š‰ÃÌÌ ÒÁÌŠ‰ÓÍÁ ÃÌÁŠ‰ÊÍÐ‰ÔÓÔÒ‰‰¯ÎÏ ­ ÔÅÓÔ ÆÏÒ Ò ÏÐÔÉÏÎŠ‰ÔÁÄ É‰¨·¶´´Š‰ÁÎÄ‰¨±°°Š‰ÓÚÁ ÃÌÁ‰‰‰¯¢Ò¢ ÏÐÔÉÏÎ¿Š‰ÊÍÐ‰ÉÎÅÒÒ‰‰¯ÙÅÓ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰ ¨·¶´²‰‰¯ÖÁÌÉÄ ÆÉÅÌÄ¿Š‰ÁÎÄ ‰¨³···Š‰ÔÁÄ ‰¨­´°Š‰ÓÍÁŠ‰ÊÍÐ ‰ÎÅÒÒ‰‰¯ÎÏÔ ÖÁÌÉÄŠ‰ÔÁÄ ‰¨´°Š‰ÄÃÁ ‰ÐÎÔ±Š‰ÔÁÄ É‰¨·¶´¶‰‰¯ÐÁÇÅ ÉÎ ÂÉÔÓ °­´Š‰ÁÎÄ ‰¨·´°°Š‰ÔÁÄ ‰ÐÎÔ±‰‰¯ÆÌÄ ÉÎ ÂÉÔÓ ·­±±Š‰ÄÃÁ É ‰ØÒµ‰‰¯ÓÁÖÅ ÐÁÇÅ ÁÎÄ ÆÉÅÌÄ ÏÆ ÎÕÌÌŠ‰ÉÓÚ‰ØÒ´‰‰¯ÃÏÕÎÔ ÏÆ ÎÕÌÌÓŠ‰ÔÁÄ‰ØÒ´‰‰¯ÃÈÅÃË ÆÏÒ ÔÏÏ ÍÁÎÙ ÎÕÌÌÓŠ‰ÔÁÄ‰¨­±··Š‰ÓÍÁ ÃÌÁŠ‰ÊÍÐ‰ÎÕÆÅÒÒ‰‰¯ÙÅÐŠ‰ÊÍÐ‰ÔÓÔÍ‰‰¯ÎÏ¬ ÔÅÓÔ ÆÏÒ Í ÏÐÔÉÏÎŠ¯ŠÏÐ¬‰ÚÂÌÏÃË‰³ŠÐÎÔ±¬‰°ŠÐÎÔ²¬‰°ŠÃÎÔ²¬‰°ŠŠÐÁÇÅŠŒŠ¯Š¯ÓÅÔ ÕÐ ÍÏÄÕÌÅ ÔÁÂÌÅ ¨ÍÏÄÔÁÂ©ŠÓÅÔÍÏÄ¬‰ÔÁÄ ‰¨·¶±·­±Š‰ÄÃÁ ‰ØÒ²‰‰¯ÁÄÄÒ ÏÆ ÃÄ ÉÎÐÕÔ ÆÉÌÅÓŠ‰ÃÄÆŠ‰ÔÁÄ ‰ÌÖÌ‰‰¯ÐÕÔ ÏÖÅÒÌÁÙ ÁÎÄ ÌÅÖÅÌ ÉÎÔÏ ÆÏÒÍÁÔŠ‰ÃÌÌ ÒÔÌ‰‰‰¯ÏÆ ×ÏÒÄ ³ ÏÆ ÍÏÄÔÁÂ ÅÎÔÒÙŠ‰ÒÔÌŠ‰ÔÁÄ ‰ÏÖÒÌÁÙ‰‰¯ÌÖÌ ÉÓ ÉÎ ÂÉÔÓ µ­· ¦ÏÖÅÒÌÁÙ ÉÓ ÉÎ ÂÉÔÓŠ‰ÄÃÁ ‰×ÒÄ³‰‰¯¸­±±Š‰ÃÄÆ‰±°Š‰ÔÁÄ É‰¨·¶´³‰‰¯ÌÏÏË ÆÏÒ ¯Ì ¨ÌÉÂÒÁÒÙ ÆÉÌÅ©Š‰ÃÌÌ ÒÁÒŠ‰ÓÎÌ ÃÌÁŠ‰ÊÍÐ ‰ÓÔÏÒÅ‰‰¯ÎÏÔ ÔÈÅÒÅŠ‰ÃÌÌ ÃÌÁ ÃÍÌ ÒÁÒŠ‰ÄÃÁ ‰×ÒÄ³‰‰¯ÌÖÌ ÉÓ ÁÌ×ÁÙÓ ÚÅÒÏ ÆÏÒ ÌÉÂÒÁÒÉÅÓŠÓÔÏÒÅ¬‰ÔÁÄ ‰É ØÒ²‰‰¯ÇÅÔ ÌÅÎÇÔÈ ÁÎÄ ÄÅÖÉÃÅŠ‰ÓÎÁ‰‰‰¯ÅÎÔÒÙ½° ­ ÎÏ ÍÏÒÅ ÉÎÐÕÔ ÆÉÌÅÓŠ‰ÊÍÐ ‰ÍÏÄÏÎÅŠ‰ÉÓÚ‰ÍÃÎÔ‰‰¯ÔÏÏ ÍÁÎÙ ÉÎÐÕÔ ÍÏÄÕÌÅÓ¿ ¨½¾²°°©Š‰ÓËÐ‰‰‰¯ÎÏŠ‰ÊÍÐ‰ÍÅÒÒ‰‰¯ÙÅÓŠ‰ÄÃÁ É‰ØÒ³‰‰¯ÓÁÖÅ ÌÅÎÇÔÈ ÁÎÄ ÄÅÖÉÃÅŠ‰ÔÁÄ É‰ØÒ²‰‰¯ÇÅÔ ÓÔÁÒÔ ÂÌÏÃË ÎÕÍÂÅÒŠ‰ÄÃÁ É‰ØÒ³‰‰¯ÓÁÖÅŠ‰ÔÁÄ ‰×ÒÄ³‰‰¯ÇÅÔ ÌÉÂÒÁÒÙ ÆÌÁÇ ÏÒ ÌÅÖÅÌ ÁÎÄ ÏÖÅÒÌÁÙŠ‰ÄÃÁ É‰ØÒ³‰‰¯ÓÔÏÒÅŠ‰ÊÍÐ ‰ÓÔÏÒÅ‰‰¯ÓÅÅ ÉÆ ÔÈÅÒÅ ÉÓ ÍÏÒÅŠ¯Š¯ŠÍÃÎÔ¬‰°Š×ÒÄ³¬‰°ŠŒ¯ÅÎÄ ÏÆ ÔÈÉÓ ÌÉÎÅ ÏÆ ÉÎÐÕÔŠÍÏÄÏÎÅ¬‰ÔÁÄ É‰¨·¶´³‰‰¯¢Ã¢ ÏÐÔÉÏÎ¿ ¨ÃÌÏÓÅ ÃÕÒÒÅÎÔ ÏÖÅÒÌÁÙ¬ ÏÐÅÎ ÎÅØÔ©Š‰ÃÌÌ ÒÔÌŠ‰ÓÍÁ ÃÌÁŠ‰ÊÍÐ ‰ÔÓÔÏ‰‰¯ÎÏ ­ ÔÅÓÔ ÆÏÒ ¢Ï¢Š‰ÃÄÆŠ‰ÔÁÄ ‰ÌÖÌŠ‰ÓÎÁ ÃÌÁ‰‰‰¯ÉÓ ÌÅÖÅÌ¾°¿Š‰ÊÍÐ ‰ÔÓÔÏ‰‰¯ÎÏ¬ ÉÇÎÏÒÅŠ‰ÔÁÄ ‰ÏÖÒÌÁÙ‰‰¯ÙÅÓ­ ÏÖÒÌÁÙ¾±¶¿Š‰ÔÁÄ ‰¨­±·Š‰ÓÎÁ ‰ÃÌÁŠ‰ÊÍÐ ‰ÏÅÒÒ‰‰¯ÙÅÓ­ ÔÏÏ ÍÁÎÙ ÏÖÅÒÌÁÙÓŠ‰ÉÓÚ ‰ÏÖÒÌÁÙ‰‰¯ÎÏ ­ ÉÎÃÒ ÏÖÒÌÁÙŠÔÓÔÏ¬‰ÃÄÆ‰±°Š‰ÔÁÄ É‰¨·¶´´‰‰¯¢Ï¢ ÏÐÔÉÏÎ¿ ¨ÃÌÏÓÅ ÃÕÒÒÅÎÔ ÌÅÖÅÌ¬ ÏÐÅÎ ÎÅØÔ©Š‰ÃÌÌ ÒÔÌŠ‰ÓÍÁ ÃÌÁŠ‰ÊÍÐ ‰ÔÓÔÖ‰‰¯¢Ï¢ ÎÏÔ ÓÐÅÃÉÆÉÅÄŠ‰ÃÄÆŠ‰ÔÁÄ ‰ÌÖÌŠ‰ÔÁÄ ‰¨­·‰‰¯ÌÖÌ ¾ ·¿Š‰ÓÍÁ ÓÚÁ ÃÌÁŠ‰ÊÍÐ ‰ÌÅÒÒ‰‰¯ÙÅÓ­ ÔÏÏ ÍÁÎÙ ÌÅÖÅÌÓŠ‰ÄÃÁ ‰ÏÖÒÌÁÙ‰‰¯ÉÎÉÔ ÏÖÒÌÁÙŠ‰ÉÓÚ ‰ÌÖÌ‰‰¯¦ ÉÎÃÒ ÌÖÌŠ‰ÃÄÆ‰±°Š‰ÊÍÐ‰ÔÓÔÖŠ¯Š¯ŠÔÓÔÇ¬‰ÔÁÄ É‰¨·¶´³‰‰¯¢Ç¢ ÏÐÔÉÏÎ¿ ¨ÓÔÁÒÔ ×ÈÅÎ ÄÏÎÅ©Š‰ÁÎÄ ‰¨°°´°Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ ‰ÅÎÄÃÄ‰‰¯ÙÅÓ¬ ÅÎÄ ÏÆ ÉÎÐÕÔŠ‰ÔÁÄ É‰¨·¶´²‰‰¯ÎÏ ­ ÔÅÓÔ ÆÏÒ ÁÌÔÍÏÄÅŠ‰ÓÍÁ ÃÌÁ‰‰‰¯ÁÌÔÍÏÄÅ ÓÅÔ¿Š‰ÊÍÐ ‰ÄÅÃÏÄÅ‰‰¯ÎÏ¬ ÇÏ ÁÎÏÔÈÅÒ ÌÅÖÅÌŠ¯ŠŒ¯Š¯ÈÅÒÅ ×ÈÅÎ ÄÏÎÅ ×ÉÔÈ ÃÏÍÍÁÎÄ ÄÅÃÏÄÅÒŠÅÎÄÃÄ¬‰ÊÍÓ‰ÇÅÔÐÕÔ‰‰¯ÐÕÔ ÌÎËÌÉÂ ÏÎ ÍÏÄÔÁÂ ÉÆ ÁÖÁÉÌÁÂÌÅŠ‰ÌÎËÌÉÂ‰‰‰¯ÎÁÍÅ ÐÏÉÎÔÅÒŠ‰´°°°‰‰‰¯ÆÌÁÇ ÔÏ ÉÎÄÉÃÁÔÅ Á ÌÉÂÒÁÒÙŠ‰ÉÓÚ‰ÍÃÎÔŠ‰ÄÃÁ É‰ØÒ³‰‰¯ÐÕÔ ÔÅÒÍÉÎÁÔÅÒ ÉÎ ÍÏÄÔÁÂŠ‰ÄÃÁ É‰ØÒ³Š‰ÔÁÄ ‰ÍÃÎÔŠ‰ÔÁÄ ‰¨²°°Š‰ÃÉÁŠ‰ÄÃÁ‰ÍÏÄÃÎÔ‰‰¯²§Ó ÃÏÍÐ ÏÆ ÅÎÔÒÉÅÓ ÉÎ ÍÏÄÔÁÂŠ‰ÔÁÄ‰¨­²°°‰‰¯ÃÌÅÁÒ ÌÉÂÒÁÒÙ ÔÁÂÌÅ ÉÎ ÆÉÅÌÄ °Š‰ÄÃÁ‰ÍÃÎÔŠ‰ÔÁÄ‰¨ÌÉÂÔÂŠ‰ÄÃÁ‰×ÒÄ³Š‰ÃÄÆ‰°Š‰ÄÃÁ É‰×ÒÄ³Š‰ÉÓÚ‰×ÒÄ³Š‰ÉÓÚ‰ÍÃÎÔŠ‰ÊÍÐ‰®­³Š‰ÔÁÄ‰¨­²°°‰‰¯ÃÌÅÁÒ ÓÅÃÔ ÃÏÕÎÔ ÔÁÂÌÅŠ‰ÄÃÁ‰ÍÃÎÔŠ‰ÔÁÄ‰¨ÓÏÃÎÔÂŠ‰ÄÃÁ‰×ÒÄ³Š‰ÄÃÁ É‰×ÒÄ³Š‰ÉÓÚ‰×ÒÄ³Š‰ÉÓÚ‰ÍÃÎÔŠ‰ÊÍÐ‰®­³Š‰ÃÄÆ‰±°Š‰ÊÍÓ É‰¨ÍÏÖÅ‰‰¯ÍÏÖÅ ÔÈÅ ÏÐÔÉÏÎÓ ÔÏ ÆÉÅÌÄ °Š‰ÃÄÆŠ‰ÏÐ­±Š‰ÃÄÆ ‰°Š‰ÏÐÔÁÂ­±Š‰­³Š¯Š‰ÊÍÐ ‰ÉÎÉÂÆÓŠ¯ŠŒ¯ŠÐÁÇÅŠŒ¯Š¯ÂÉÎÁÒÙ ÂÕÆÆÅÒ ÔÁÂÌÅŠ¯ŠÂÕÆÔÁÂ¬‰ÚÂÌÏÃË‰´°ŠÂ¸ËÐÔ½ÂÕÆÔÁÂ«±ŠÂ±²ËÐÔ½ÂÕÆÔÁÂ«±°ŠÂ±¶ËÐÔ½ÂÕÆÔÁÂ«²°ŠÂ²°ËÐÔ½ÂÕÆÔÁÂ«³°Š¯Š¯ŠÓÔÇÓÔ¬‰ÓÔÁÂÌÅ«±Š‰´°°°«²Š‰°°°°«³Š‰´°°°«³Š‰°°°°«´Š‰°°°°«´Š‰°°°°«´Š¯ŠŒŠ¯ÉÎÉÔÉÁÌÉÚÅ ÂÕÆÆÅÒÓŠÉÎÉÂÆÓ¬‰ÔÁÄ‰ÍØÆÌÄŠ‰ÔÁÄ‰¨ÊÍÐ ÓÔÂÐÔÒ­±Š‰ÄÃÁ‰®«²Š‰ÃÍÁŠ‰ÈÌÔ‰‰‰¯ÄÉÓÐÁÔÃÈ ÏÎ ÎÕÍÂÅÒ ÏÆ ÆÉÅÌÄÓŠÓÔÂÐÔÒ¬‰ÄÃÁ‰Â¸ËÐÔŠ‰ÄÃÁ‰Â±²ËÐÔŠ‰ÄÃÁ‰Â±¶ËÐÔŠ‰ÄÃÁ‰Â²°ËÐÔŠ‰ÎÏÐŠ‰ÎÏÐŠ‰ÃÌÁŠ‰ÊÍÓ É‰¨ÍÏÖÅŠ‰ÃÄÆ‰°‰‰¯ÍÏÖÅ ÂÉÎÁÒÙ ÂÕÆÆÅÒŠ‰ÂÕÆÔÁÂ­±Š‰ÃÄÆ‰±°‰‰¯ÔÏ ÉÔÓ ÆÉÎÁÌ ÒÅÓÔÉÎÇ ÐÁÌÃÅŠ‰ÌÄÂÕÆÓ­±Š‰­µ°Š‰ÔÁÄ‰ÍØÆÌÄ‰‰¯ÓÅÔ ÆÉÅÌÄ ÁÎÄ ÁÄÄÒÅÓÓŠ‰ÔÁÄ‰¨ÓÔÇÓÔ­±Š‰ÄÃÁ‰ÔÍÐ‰‰¯ÏÆ ÇÓÔŠ‰ÃÄÆŠ‰ÔÁÄ É‰ÔÍÐ‰‰¯ÅÎÔÅÒ ÔÁÂÌÅ ÆÏÒ ÌÏÃÁÔÉÏÎ ÏÆ ÓÔÁÒÔ ÏÆ ÇÓÔŠ‰ÄÃÁ‰ÔÍÐŠ‰ÔÁÄ‰ÔÍÐ‰Š‰ÁÎÄ‰¨·Š‰ÃÌÌ ÒÔÌŠ‰ÒÁÌŠ‰ÔÁÄ‰¨ÃÄÆŠ‰ÄÃÁ‰ÇÓÔÃÄÆ‰‰¯ÓÅÔ ÕÐ ÓÔÁÒÔÉÎÇ ÆÉÅÌÄ ÏÆ ÇÓÔŠ‰ÔÁÄ‰ÔÍÐŠ‰ÁÎÄ‰¨···°Š‰ÄÃÁ‰ÇÓÔ‰‰¯ÓÅÔ ÕÐ ÓÔÁÒÔÉÎÇ ÁÄÄÒÅÓÓ ÏÆ ÇÓÔŠ‰ÃÍÁŠ‰ÔÁÄ‰ÍØÆÌÄŠ‰ÓÎÁ ÃÌÁ‰‰‰¯¸Ë ÏÆ ÍÅÍÏÒÙ¿Š‰ÊÍÐ‰ÍÏÖ¸Ë‰‰¯ÙÅÓ¬ ÓÅÔ ÕÐ ÆÏÒ ¸ËŠ‰ÔÁÄ‰¨ÓÔÁÂÌÅ‰‰¯ÎÏ¬ ÓÅÔ ÓÔÁÒÔ ÏÆ ÓÅÃÔ ÔÁÂÌÅŠ‰ÄÃÁ‰ÓÅÃÔÁÂ‰‰¯ÔÏ ÎÏÒÍÁÌ ÖÁÌÕÅŠ‰ÊÍÐ‰ÆÉÎÉÓÈ‰‰¯ÆÉÎÉÓÈ ÕÐ ÉÎÉÔÉÁÌÉÚÁÔÉÏÎŠ¯ŠÔÍÐ¬‰°‰‰‰¯ÔÅÍÐ ÆÏÒ ÇÓÔ ÓÔÁÒÔŠ¯Š¯ÍÏÄ§Ó ÆÏÒ ¸Ë ÏÆ ÍÅÍÏÒÙŠÍÏÖ¸Ë¬‰ÔÁÄ‰¨·´°°‰‰¯ÆÏÒ ¸Ë¬ ÓÅÃÔÁÂŠ‰ÄÃÁ‰ÓÅÃÔÁÂ‰‰¯ÓÔÁÒÔÓ ÁÔ ·´°°Š‰ÔÁÄ‰¨·°°°‰‰¯ÁÎÄ ÇÓÔ ÅÎÄÓŠ‰ÊÍÐ‰ÆÉÎÉÓ±‰‰¯ÁÔ ·°°°Š¯ŠŒ¯Š¯ÇÅÔ Á ÓÐÅÃÉÆÉÃ ÍÏÄÕÌÅ ÆÒÏÍ ÌÉÂÒÁÒÙ ¨ÉÆ ÁÖÁÉÌÁÂÌÅ© ÁÎÄ ÓÔÏÒÅ ÉÎ ÍÏÄÔÁÂŠÇÅÔÐÕÔ¬‰°Š‰ÃÄÆŠ‰ÔÁÄ É‰ÇÅÔÐÕÔ‰‰¯ÁÄÄÒ ÏÆ ÍÏÄÕÌÅ ÎÁÍÅŠ‰ÄÃÁ‰ÄÓÔÂŠ‰ÉÁÃŠ‰ÃÉÆ‰±°Š‰ÊÍÓ É‰¨··°°Š‰²‰‰‰¯ÌÏÏËÕÐŠÄÓÔÂ¬‰°ŠÄÌÅÎ¬‰°Š‰ÊÍÐ‰ÇÅÒÒ‰‰¯ÎÏÔ ÆÏÕÎÄŠ‰ÔÁÄ‰ÄÌÅÎ‰‰¯ÇÅÔ ÆÉÌÅ ÌÅÎŠ‰ÒÔÌŠ‰ÒÔÌŠ‰ÁÎÄ‰¨··¶°‰‰¯ÐÕÔ ÉÎ ÍÏÄÔÁÂ ÆÏÒÍÁÔŠ‰ÉÁÃ‰‰‰¯ÐÕÔ ÄÅÖÉÃÅ ÎÕÍ ÉÎ ÂÉÔÓ ¸­±± ¨ÓÙÓ©Š‰ÃÄÆ«±°Š‰ÄÃÁ É‰ØÒ³‰‰¯ÓÔÏÒÅ ÉÎ ÍÏÄÔÁÂŠ‰ÔÁÄ‰ÄÓÔÂ‰‰¯ÓÔÁÒÔÉÎÇ ÂÌÏÃËŠ‰ÄÃÁ É‰ØÒ³‰‰¯ÐÕÔ ÉÎ ÍÏÄÔÁÂŠ‰ÉÓÚ‰ÇÅÔÐÕÔŠ‰ÁÃ´°°°Š‰ÄÃÁ É‰ØÒ³‰‰¯ÓÔÏÒÅ ÏÖÒÌÁÙ ÁÎÄ ÌÉÂ ÆÌÁÇŠ‰ÊÍÐ‰ÇÅÒÒ«²‰‰¯ÅØÉÔŠÇÅÒÒ¬‰ÉÓÚ‰ÇÅÔÐÕÔ‰‰¯³ ÂÕÍÐÓ ÉÆ ÎÏÔ ÆÏÕÎÄŠ‰ÉÓÚ‰ÇÅÔÐÕÔŠ‰ÉÓÚ‰ÇÅÔÐÕÔŠ‰ÃÄÆ«±°Š‰ÊÍÐ É‰ÇÅÔÐÕÔ‰‰¯ÅØÉÔŠ¯ŠŠ¯ŠÐÁÇÅŠŒÔÓÔÖ¬‰ÔÁÄ É‰¨·¶´´‰‰¯ÓÅÅ ÉÆ ÖÅÒÓÉÏÎ ÎÕÍÂÅÒ ÒÅÑÕÅÓÔÅÄŠ‰ÁÎÄ‰¨´Š‰ÓÎÁ ÃÌÁ‰‰‰¯¢¯Ö¢¿Š‰ÊÍÐ‰ÔÓÔÇ‰‰¯ÎÏŠ‰ÃÄÆŠ‰ÔÁÄ‰ÖÅÒÎÕÍ‰‰¯ÙÅÓ¬ ÖÅÒÓÉÏÎ £ ÓÔÏÒÅÄ ÉÎ ÆÌÄ °Š‰ÄÃÁ‰ÖÅÒ‰‰¯ÇÅÔ ÉÔŠ‰ÔÁÄ‰ÖÅÒÎÕÍ«±Š‰ÄÃÁ‰ÖÅÒ«±Š‰ÊÍÓ‰ÔÔÙÈÁÎŠ‰ÃÄÆ‰°Š‰ÖÅÒÔØÔ‰‰‰¯ÐÒÉÎÔ ÉÔŠ‰ÃÄÆ ±°Š‰ÊÍÐ‰ÔÓÔÇŠŠŒ¯ÆÉÎÉÓÈ ÕÐ ÉÎÉÔÉÁÌÉÚÁÔÉÏÎŠÆÉÎÉÓÈ¬‰ÃÌÁŠ‰ÔÁÄ‰ÏÐÔÁÂ«²Š‰ÁÎÄ‰¨´°°°Š‰ÓÎÁ ÃÌÁ‰‰‰¯¢¯Ù¢¿Š‰ÊÍÐ‰ÆÉÎÉÓ°‰‰¯ÎÏŠ‰ÔÁÄ‰¨­±°°°‰‰¯ÙÅÓ¬ ÓÅÔ ÕÐ ÎÅ× ÐÁÒÁÍÅÔÅÒÓŠ‰ÄÃÁ‰ÔÏÐÌÃ²Š‰ÔÁÄ‰¨±°°°Š‰ÄÃÁ‰ÔÏÐÌÃ±Š‰ÄÃÁ‰ÔÏÐÌÏÃŠ‰ÔÁÄ‰¨···°Š‰ÄÃÁ‰ÇÓÔÈÉ‰‰¯ÓÅÔ ÇÓÔÈÉ ÆÏÒ ···°ŠÆÉÎÉÓ°¬‰ÔÁÄ É‰¨····Š‰ÒÁÌŠ‰ÓÍÁ ÃÌÁ‰‰‰¯ÂÁÔÃÈ ÒÕÎÎÉÎÇ¿Š‰ÊÍÐ ‰ÆÉÎÉÓ±«±‰¯ÎÏŠ‰ÔÁÄ‰ÏÐÔÁÂ«±Š‰ÁÎÄ‰¨²°Š‰ÓÚÁ ÃÌÁ‰‰‰¯ ¢¯Ô¢¿Š‰ÊÍÐ‰ÆÉÎÉÓ±­±‰¯ÙÅÓŠ‰ÔÁÄ‰ÆÉÎÉÓ²‰‰¯ÎÏ¬ ÓÅÔ ÕÐ ÆÏÒ ÂÁÔÃÈ ÌÏÇŠ‰ÄÃÁ‰ÂÁÔÌÏÇ‰‰¯ÓÔÏÒÅ ÃÄÆ °Š‰ÔÁÄ É‰¨····Š‰ÁÎÄ‰¨·°Š‰ÔÁÄ‰¨ÃÉÆŠ‰ÄÃÁ‰ÂÁÔÌÏÇ«±‰¯ÓÔÏÒÅ ÃÉÆ ÔÏ ÂÁÔÃÈ ÆÉÅÌÄŠ‰ÔÁÄ‰¨ÂÁÔÌÏÇ«³¦±··«´¶°°Š‰ÄÃÁ‰ÂÁÔÌÏÇ«²‰¯ÓÔÏÒÅ ¢ÊÍÓ É ÂÁÔÌÏÇ«³¢Š‰ÔÁÄ‰¨·´°°Š‰ÄÃÁ‰ÂÁÔÌÏÇ«³‰¯ÓÔÏÒÅ ·´°°Š‰ÔÁÄ‰¨µ°°°‰‰¯ÓÅÔ ÈÉÇÈ ÅÎÄ ÏÆ ÇÓÔ ÔÏ µ°°°ŠÆÉÎÉÓ±¬‰ÄÃÁ‰ÇÓÔÈÉŠ‰ÔÁÄ‰ÇÓÔÃÄÆŠ‰ÁÎÄ‰¨·°Š‰ÄÃÁ‰ÂÏÔÃÄÆ‰‰¯ÓÅÔ ÂÏÔÔÏÍ ÏÆ ÇÓÔ ÆÉÅÌÄŠ‰ÔÁÄ‰ÍØÆÌÄ‰‰¯ÓÅÔ ÕÐ ÍÁØÆÌÄ ÆÏÒ ÌÉÎËÅÒŠ‰ÃÌÌ ÒÔÌŠ‰ÒÁÌŠ‰ÄÃÁ‰ÍØÆÌÄŠ‰ÔÁÄ‰ÇÓÔŠ‰ÄÃÁ‰ÇÓÔÂÏÔ‰‰¯ÅÎÄ ÏÆ ÇÓÔŠ‰ÔÁÄ É‰¨ÏÓÊÓ×Ä‰‰¯ÒÅÍÏÖÅ ÂÁÔÃÈ ÐÒÏÔÅÃÔ ÆÌÁÇŠ‰ÁÎÄ ‰¨·³·´Š‰ÄÃÁ É‰¨ÏÓÊÓ×ÄŠ‰ÊÍÓ É‰¨ÍÏÖÅ‰‰¯ÍÏÖÅ ÍÁÐ ¦ ÏÕÔ ÆÉÌÅŠ‰ÃÄÆ ‰±°‰‰¯ÔÏ ÌÏ×ÅÒ ÐÁÒÔ ÏÆ ÆÉÅÌÄ °Š‰ÍÆÉÌÅ­±ŠÆÉÎÉÓ²¬‰ÃÄÆ ‰°Š‰ÍÁÐÆÉÌ­±Š‰­±²ŠŒ‰ÊÍÓ É‰¨ÍÏÖÅ‰‰¯ÓÅÔ ÕÐ ÍÏÄÕÌÅ ÔÁÂÌÅŠ‰ÃÄÆ‰±°Š‰ÍÔÁÂ­±Š‰ÃÄÆ‰±°Š‰ÍÏÄÔÁÂ­±Š‰­¶°¶Š‰ÔÁÄ‰ØÒ´‰‰¯ÃÏÕÎÔ ÏÆ ÎÕÌÌÓŠ‰ÃÉÁŠ‰ÄÃÁ É‰¨ÎÌÔÁÂŠ‰ÊÍÓ É‰¨ÍÏÖÅ‰‰¯ÍÏÖÅ ÎÕÌÌ ÔÁÂ ÉÎ ÐÌÁÃÅŠ‰ÃÄÆ‰±°Š‰ÎÌÔÁÂ­±Š‰ÃÄÆ‰°Š‰ÎÕÌÔÁÂ­±Š‰­²°°ŠÇÔÐ±¬‰ÃÄÆ ÃÉÆ °Š‰ÊÍÐ É ‰®«±Š‰ÒÅÔÃÄ‰‰‰¯ÓÔÁÒÔ ÐÁÓÓ ±Š‰®ÅØÔÅÒÎÁÌ‰ÒÅÔÃÄŠŠ¯ŠŠÖÅÒÔØÔ¬‰ÔÅØÔ‰¨ÏÓ¯¸ ÌÉÎËÅÒ  Ö¨Šª®­±ŠÖÅÒ¬‰°»°»°ŠŠÐÁÇÅŠŠŒ¯ÆÉÌÅÎÁÍÅ ÆÏÒ ÌÉÎËÅÒ ÌÉÂÒÁÒÙŠÌÎËÌÉÂ¬‰ÆÉÌÅÎÁÍÅ‰ÌÎËÌÉÂ®ÒÂŠŠ¯ÍÏÖÅ­ ‰ÍÏÖÅÓ Á ÃÈÕÎË ÏÆ ÃÏÒÅ ÉÎ ÁÎÙ ÆÉÅÌÄ ÔÏ ÁÎÙ ÆÌÄŠ¯Š¯Š¯ÃÁÌÌÉÎÇ ‰ÓÅÑÕÅÎÃÅº‰ÊÍÓ ÍÏÖÅŠ¯‰‰‰ÃÄÆ ‰ÆÆ‰‰¯ÆÆ½ÆÒÏÍ ÆÌÄŠ¯‰‰‰ÁÄÄÒ±­±‰‰¯ÆÒÏÍ ‰ÁÄÄÒ­±Š¯‰‰‰ÃÄÆ ‰ÔÆ‰‰¯ÔÆ½ÔÏ ÆÌÄŠ¯‰‰‰ÁÄÄÒ²­±‰‰¯ÔÏ ‰ÁÄÄÒ­±Š¯‰‰‰­Î‰‰¯­ÏÃÔ ‰ÎÕÍ ÏÆ ×ÒÄÓ ÔÏ ÍÏÖÅŠ¯Š¯Š¯ŠÍÏÖÅ¬‰°Š‰ÃÄÆŠ‰ÃÌÁ ÃÍÁŠ‰ÔÁÄ ‰ÍÏÖÅŠ‰ÄÃÁ ‰ØÒ°‰‰¯ÓÅÔ ÕÐ ÉÎÄÅØ ÒÅÇ ÔÏ ÐÉÃË ÕÐ ÐÁÒÁÍÅÔÅÒŠ‰ÔÁÄ É‰ØÒ°‰‰¯ÇÅÔ ¢ÆÒÏÍ¢ ÆÉÅÌÄŠ‰ÄÃÁ ‰ÔÏÃÄÆ­²‰‰¯ÓÁÖÅŠ‰ÔÁÄ É‰ØÒ°‰‰¯ÇÏÔ ¢ÆÒÏÍ¢ ÁÄÄÒÅÓÓŠ‰ÄÃÁ ‰ØÒ±‰‰¯ÓÁÖÅ ÉÎ ØÒ±Š‰ÔÁÄ É‰ØÒ°‰‰¯ÇÏÔ ¢ÔÏ¢ ÆÉÅÌÄŠ‰ÄÃÁ ‰ÔÏÃÄÆ‰‰¯ÓÁÖÅŠ‰ÔÁÄ É‰ØÒ°‰‰¯ÇÏÔ ¢ÔÏ¢ ÁÄÄÒÅÓÓŠ‰ÄÃÁ ‰ØÒ²‰‰¯ÓÁÖÅ ÉÎ ØÒ²Š‰ÔÁÄ É‰ØÒ°‰‰¯ÇÅÔ ÃÏÎÔŠ‰ÄÃÁ ‰ÔÅÍÐ‰‰¯ÓÁÖÅŠ‰°‰‰‰¯ÃÄÆ ¢ÆÒÏÍ¢Š‰ÔÁÄ É‰ØÒ±‰‰¯ÇÅÔ ¢ÆÒÏÍ¢ ÄÁÔÁŠÔÏÃÄÆ¬‰°‰‰‰¯ÃÄÆ ¢ÔÏ¢Š‰ÄÃÁ É‰ØÒ²‰‰¯ÓÔÏÒÅ ¢ÔÏ¢ ÄÁÔÁŠ‰ÉÓÚ ‰ÔÅÍÐ‰‰¯ÂÕÍÐ ÃÏÕÎÔŠ‰ÊÍÐ ‰ÔÏÃÄÆ­²‰‰¯ÎÏÔ ÄÏÎÅ¬ ÌÏÏÐŠ‰ÃÄÆ ‰±°‰‰¯ÄÏÎÅ¬ ÓÅÔ ÄÆ ÔÏ ±°Š‰ÊÍÐ É‰ØÒ°‰‰¯ÅØÉÔ ÖÉÁ ØÒ°Š¯ŠÔÅÍÐ¬‰°ŠŒ¯ÅÒÒÏÒ­ ‰ÐÒÉÎÔÓ ÏÕÔ ÅÒÒÏÒ ÍÅÓÓÁÇÅÓ ÆÏÒ Á ÂÕÆÆÅÒ ÌÏÃÁÔÅÄŠ¯‰ ‰ ÉÎ ÆÉÅÌÄ ±Š¯‰ ‰ ÅÎÔÅÒ ×ÉÔÈ ÁÄÄÒÅÓÓ ÏÆ ÂÕÆÆÅÒ ÉÎ ÁÃŠ¯Š¯ŠÅÒÒÏÒ¬‰°Š‰ÄÃÁ ‰ÂÆÁÄÒŠ‰ÃÄÆ ‰°Š‰ÃÉÆ ‰°Š‰ÊÍÓ ‰ÔÔÙÈÁÎŠ‰ÃÄÆ ‰°ŠÂÆÁÄÒ¬‰°Š‰ÊÍÐ É‰ÅÒÒÏÒŠ¯ŠŒŠ¯ÈÅÒÅ ÔÏ ÔÅÓÔ ÆÏÒ ¯Ó ÏÐÔÉÏÎŠŠÔÓÔÓ¬‰ÔÁÄ É‰¨·¶´´Š‰ÁÎÄ‰¨´°Š‰ÓÎÁ ÃÌÁ‰‰‰¯ Ó¿Š‰ÊÍÐ‰ÔÓÔ×‰‰¯ÎÏ¬ ÔÅÓÔ ÆÏÒ ×Š‰ÔÁÄ É‰¨·¶´³‰‰¯ÙÅÓŠ‰ÒÔÒ ÃÌÌŠ‰ÓÚÌ ÃÌÁ‰‰‰¯Ë ÁÌÓÏ¿Š‰ÊÍÐ‰ÔÓÔ×‰‰¯ÙÅÓ¬ ÉÇÎÏÒÅ Ó ÏÐÔÉÏÎŠ‰ÔÁÄ É‰¨·¶´´Š‰ÒÁÌ ÃÌÌŠ‰ÓÐÁ ÃÌÁ‰‰‰¯Î ÁÌÓÏ¿Š‰ÊÍÐ‰ÔÓÔ×‰‰¯ÙÅÓ¬ ÉÇÎÏÒÅ Ó ÏÐÔÉÏÎŠ‰ÔÁÄ É‰¨·¶´²Š‰ÁÎÄ‰¨³···Š‰ÓÎÁŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÓÎÁ ÃÌÁ‰‰‰¯ÁÎÙ ÎÕÍÂÅÒ ÔÙÐÅÄ¿Š‰ÊÍÐ‰ÔÓÔ×‰‰¯ÎÏŠ‰ÔÁÄ É‰¨·¶´´Š‰ÒÔÒ ÃÌÌŠ‰ÓÚÌ ÃÌÁ‰‰‰¯× ÁÌÓÏ¿Š‰ÊÍÐ‰ÉÎÅÒÒ‰‰¯ÙÅÓ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰¨·¶´²Š‰ÁÎÄ‰¨³···Š‰ÔÁÄ‰¨­´°Š‰ÓÍÁ‰‰‰¯ÆÉÅÌÄ ÖÁÌÕÅ ÏË¿Š‰ÊÍÐ‰ÎÅÒÒ‰‰¯ÎÏŠ‰ÔÁÄ‰¨´°‰‰¯ÙÅÓŠ‰ÄÃÁ‰ÓÔÒÔÆÄ‰‰¯ÓÔÏÒÅ ÉÎ ÓÔÁÒÔÉÎÇ ÆÉÅÌÄŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÄÃÁ‰ÓÔÒÔÁÄ‰‰¯ÓÔÏÒÅ ÓÔÁÒÔÉÎÇ ÁÄÄÒÅÓÓŠ‰ÃÄÆŠ‰ÔÁÄ‰ÏÐ«±Š‰ÁÎÄ‰¨··³·‰‰¯ÃÌÅÁÒ ¢Ó¢ ÂÉÔŠ‰ÄÃÁ‰ÏÐ«±Š‰ÃÄÆ‰±°Š‰ÊÍÐ‰ÓÅÔÍÏÄ‰‰¯ÓÅÔ ÕÐ ÍÏÄÕÌÅ ÔÁÂÌÅŠŒ¯ÈÅÒÅ ÔÏ ÔÅÓÔ × ÏÐÔÉÏÎŠÔÓÔ×¬‰ÔÁÄ É‰¨·¶´´Š‰ÒÔÒ ÃÌÌŠ‰ÓÎÌ ÃÌÁ‰‰‰¯×¿Š‰ÊÍÐ‰ÓÅÔÍÏÄ‰‰¯ÎÏŠ‰ÔÁÄ É‰¨·¶´³Š‰ÒÔÒ ÃÌÌŠ‰ÓÚÌ ÃÌÁ‰‰‰¯Ë ÁÌÓÏ¿Š‰ÊÍÐ‰ÓÅÔÍÏÄ‰‰¯ÙÅÓ¬ ÉÇÎÏÒÅ ×Š‰ÔÁÄ É‰¨·¶´´Š‰ÒÁÌ ÃÌÌŠ‰ÓÐÁ ÃÌÁ‰‰‰¯Î ÁÌÓÏ¿Š‰ÊÍÐ‰ÓÅÔÍÏÄ‰‰¯ÙÅÓ¬ ÉÇÎÏÒÅ ×Š‰ÔÁÄ É‰¨·¶´²Š‰ÁÎÄ‰¨³···Š‰ÓÎÁŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÓÎÁ ÃÌÁ‰‰‰¯ÁÎÙ ÎÕÍÂÅÒ ÔÙÐÅÄ¿Š‰ÊÍÐ‰ÓÅÔÍÏÄ‰‰¯ÎÏŠ‰ÔÁÄ É‰¨·¶´´‰‰¯ÙÅÓŠ‰ÁÎÄ‰¨´°Š‰ÓÚÁ ÃÌÁ‰‰‰¯Ó ÁÌÓÏ¿Š‰ÊÍÐ‰ÉÎÅÒÒ‰‰¯ÙÅÓ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰¨·¶´²Š‰ÁÎÄ‰¨³···Š‰ÓÚÁ ÃÌÁ‰‰‰¯ÈÉ ÏÒÄÅÒ °¿Š‰ÊÍÐ‰ÎÅÒÒ‰‰¯ÎÏ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÓÎÁ‰‰‰¯ÎÏÎ­ÚÅÒÏ¿Š‰ÊÍÐ‰ÎÅÒÒ‰‰¯ÎÏ¬ ÅÒÒÏÒŠ‰ÄÃÁ‰ÊÓ×ÒÄ‰‰¯ÙÅÓ¬ ÓÔÏÒÅŠ‰ÃÄÆŠ‰ÔÁÄ‰ÏÐ«±Š‰ÁÎÄ‰¨···µŠ‰ÄÃÁ‰ÏÐ«±‰‰¯ÃÌÅÁÒ × ÂÉÔŠ‰ÃÄÆ‰±°Š‰ÊÍÐ‰ÓÅÔÍÏÄŠ¯ŠÐÁÇÅŠŒŠ¯ÈÅÒÅ ÔÏ ÔÅÓÔ ¢Ò¢ ÏÐÔÉÏÎŠŠÔÓÔÒ¬‰ÔÁÄ É‰¨·¶´´Š‰ÁÎÄ‰¨±°°Š‰ÓÎÁ ÃÌÁ‰‰‰¯¢Ò¢ ÏÐÔÉÏÎ¿ ¨ÕÓÅÓ ½ ÏÐÔÉÏÎ©Š‰ÊÍÐ‰ÔÓÔÍ‰‰¯ÎÏ¬ ÔÅÓÔ ¢Í¢ ÏÐÔÉÏÎŠ‰ÔÁÄ É‰¨·¶´²Š‰ÁÎÄ‰¨³···Š‰ÓÚÁ ÃÌÁ‰‰‰¯ÈÉ­ÏÒÄÅÒ °¿Š‰ÊÍÐ‰ÎÅÒÒ‰‰¯ÎÏ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÔÁÄ‰¨­´°Š‰ÓÍÁ ÃÌÁ‰‰‰¯ÎÕÍÂÂÅÒ ÏË¿Š‰ÊÍÐ‰ÎÅÒÒ‰‰¯ÎÏ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÔÁÄ‰¨­·Š‰ÓÐÁ ÓÎÁ‰‰‰¯×ÈÉÃÈ ÂÁÎË¿Š‰ÊÍÐ‰ÌÏ×³²Ë‰‰¯ÂÁÎË °Š‰ÃÉÁ‰‰‰¯ÂÁÎË ± ÔÏ ³¬ ÍÁËÅ ÎÅÇÁÔÉÖÅŠ‰ÄÃÁ‰ÃÎÔ³Š‰ÔÁÄ‰¨ÒÆÌÄ°Š‰ÄÃÁ‰ÐÎÔ³‰‰¯ÓÅÔ ÕÐ ÐÏÉÎÔÅÒŠ‰ÃÌÌ ÃÍÌ‰‰‰¯ÐÏÓÉÔÉÏÎ ÂÉÔŠÔÓÔÒ±¬‰ÒÁÒŠ‰ÓÎÌŠ‰ÊÍÐ‰®«³Š‰ÉÓÚ‰ÐÎÔ³Š‰ÒÁÒŠ‰ÉÓÚ‰ÃÎÔ³Š‰ÊÍÐ‰®­¶Š‰ÄÃÁ‰ÃÎÔ³Š‰ÔÁÄ‰ÃÎÔ³‰‰¯ÏÒ ÉÎ ÒÅÓÔ ÏÆ ×ÏÒÄŠ‰ÃÍÁŠ‰ÃÄÆŠ‰ÁÎÄ É‰ÐÎÔ³Š‰ÔÁÄ‰ÃÎÔ³Š‰ÄÃÁ É‰ÐÎÔ³Š‰ÃÄÆ‰±°Š‰ÊÍÐ‰ÔÓÔÍ‰‰¯ÔÅÓÔ ÆÏÒ ¢Í¢ ÏÐÔÉÏÎŠÌÏ×³²Ë¬‰ÃÌÁŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÃÍÁŠ‰ÄÃÁ‰ÃÎÔ³‰‰¯ÍÁËÅ ÆÌÄ ÃÏÕÎÔ ÎÅÇÁÔÉÖÅŠ‰ÔÁÄ‰¨ÏÐ«²Š‰ÄÃÁ‰ÐÎÔ³‰‰¯ÓÅÔ ÕÐ ÐÏÉÎÔÅÒŠ‰ÃÌÌ ÃÍÌ ÒÔÒ‰‰¯ÓÅÔ ÁÃ ÔÏ ²°°°Š‰ÊÍÐ‰ÔÓÔÒ±‰‰¯ÐÏÓÉÔÉÏÎ ÂÉÔŠÐÎÔ³¬‰°ŠÃÎÔ³¬‰°ŠŠŒŠ¯ÈÅÒÅ ÔÏ ÔÅÓÔ ¢Í¢ ÏÐÔÉÏÎŠŠÔÓÔÍ¬‰ÔÁÄ É‰¨·¶´´Š‰ÓÍÁ ÃÌÁ‰‰‰¯¢Í¢ ÏÐÔÉÏÎ¿ ¨ÍÁÙ ÕÓÅ ½©Š‰ÊÍÐ‰ÔÓÔÓ‰‰¯ÎÏŠ‰ÔÁÄ É‰¨·¶´³Š‰ÒÔÒ‰‰‰¯ÐÕÔ ¢Ë¢ ÂÉÔ ÉÎ ÌÉÎËŠ‰ÃÌÁŠ‰ÔÁÄ É‰¨·¶´´Š‰ÁÎÄ‰¨²±°°‰‰¯ÐÕÔ ¢Î¢ ÁÎÄ ¢Ò¢ ÉÎÔÏ ÁÃŠ‰ÓÚÌ‰‰‰¯¢Ë¢¿Š‰ÊÍÐ‰ÔÓÔÍ²‰‰¯ÙÅÓ¬ ÉÇÎÏÒÅ ½Š‰ÓÚÁ ÃÌÁŠ‰ÊÍÐ‰ÔÓÔÍ²‰‰¯ÁÌÓÏ ÉÇÎÏÒÅ ½ ÉÆ ¢Î¢ ÏÒ ¢Ò¢Š‰ÔÁÄ É‰¨·¶´´Š‰ÁÎÄ‰¨´²Š‰ÓÎÁ ÃÌÁ‰‰‰¯¢Ó¢ ÏÒ ¢×¢¿Š‰ÊÍÐ‰ÔÓÔÍ±‰‰¯ÎÏ¬ ÏËŠ‰ÔÁÄ É‰¨·¶´²Š‰ÁÎÄ‰¨³···Š‰ÓÎÁŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÓÚÁ ÃÌÁ‰‰‰¯ÁÎÙ ÎÕÍÂÅÒ ÔÙÐÅÄ¿Š‰ÊÍÐ‰ÉÎÅÒÒ‰‰¯ÙÅÓ¬ ÅÒÒÏÒŠÔÓÔÍ±¬‰ÔÁÄ É‰¨·¶´²Š‰ÁÎÄ‰¨³···Š‰ÓÚÁ ÃÌÁ‰‰‰¯ÎÕÍÂÅÒ ÏË¿Š‰ÊÍÐ‰ÎÅÒÒ‰‰¯ÎÏ¬ ÅÒÒÏÒŠ‰ÔÁÄ É‰¨·¶´¶Š‰ÔÁÄ‰¨­´°Š‰ÓÍÁ ÃÌÁ‰‰‰¯ÎÕÍÂÅÒ ÏË¿Š‰ÊÍÐ‰ÎÅÒÒ‰‰¯ÎÏ¬ ÔÏÏ ÂÉÇ¬ ÅÒÒÏÒŠ‰ÁÃÍ²Š‰ÔÁÄ É‰¨·¶´¶Š‰ÓÍÁ ÓÚÁ ÃÌÁ‰‰¯² ÏÒ ÂÅÌÏ×¿Š‰ÊÍÐ‰®«³‰‰¯ÎÏŠÔÓÔÍ²¬‰ÁÃ²‰‰‰¯ÙÅÓ¬ ÓÅÔ ÔÏ ²Š‰ÓËÐŠ‰ÔÁÄ É‰¨·¶´¶‰‰¯ÏÔÈÅÒ×ÉÓÅ ÔÈÅ ÒÅÁÌ ÖÁÌÕÅŠ‰ÃÉÁŠ‰ÄÃÁ‰ÍÆÌÄ‰‰¯ÎÅÇÁÔÅ ÁÎÄ ÓÁÖÅŠ‰ÊÍÐ‰ÔÓÔÓ‰‰¯ÔÅÓÔ ¢Ó¢ŠŠŒ¯ŠËÅÒÒ¬‰ÃÌÁ‰‰‰¯ÂÁÄ ÃÏÒÅ ÓÐÅÃÉÆÉÃÁÔÉÏÎŠ‰ÔÁÄ ‰¨ÂÃÓÅÒÒŠ‰ÊÍÐ ‰ÉÎÅÒÒ«±Š¯ŠÎÅÒÒ¬‰ÃÌÁ‰‰‰¯ÎÕÌÌ ÏÕÔ ÏÆ ÃÏÒÅ ÒÁÎÇÅŠ‰ÔÁÄ ‰¨ÎÕÌÅÒÒŠ‰ÊÍÐ ‰ÉÎÅÒÒ«±Š¯ŠÎÕÆÅÒÒ¬‰ÔÁÄ‰¨ÎÆÕÅÒÒ‰‰¯ÎÕÌÌ ÔÁÂÌÅ ÆÕÌÌŠ‰ÊÍÐ‰ÉÎÅÒÒ«±Š¯ŠÌÅÒÒ¬‰ÔÁÄ ‰¨ÌÖÌÅÒÒ‰‰¯ÔÏÏ ÍÁÎÙ ÌÅÖÅÌÓŠ‰ÊÍÐ ‰ÉÎÅÒÒ«±Š¯ŠÍÅÒÒ¬‰ÔÁÄ ‰¨ÔÍÆÅÒÒ‰‰¯ÔÏÏ ÍÁÎÙ ÆÉÌÅÓ ÓÐÅÃÉÆÉÅÄŠ‰ÊÍÐ ‰ÉÎÅÒÒ«±Š¯ŠÏÅÒÒ¬‰ÔÁÄ ‰¨ÏÖÒÅÒÒ‰‰¯ÔÏÏ ÍÁÎÙ ÏÖÅÒÌÁÙÓŠ‰ÓËÐŠ¯ŠÉÎÅÒÒ¬‰ÔÁÄ ‰¨ÂÁÄÉÎ‰‰¯ÂÁÄ ÉÎÐÕÔ ÌÉÎÅŠ‰ÊÍÓ ‰ÅÒÒÏÒŠ‰ÊÍÐ ‰ÄÅÃÏÄÅŠ¯Š‰ÐÁÇÅŠŠŒ¯ŠÔÍÆÅÒÒ¬‰ÔÅØÔ‰¯ÔÏÏ ÍÁÎÙ ÉÎÐÕÔ ÆÉÌÅÓ¯ŠÏÖÒÅÒÒ¬ ÔÅØÔ ‰¯ÔÏÏ ÍÁÎÙ ÏÖÅÒÌÁÙÓ¯ŠÌÖÌÅÒÒ¬‰ÔÅØÔ‰¯ÔÏÏ ÍÁÎÙ ÌÅÖÅÌÓ¯ŠÎÕÌÅÒÒ¬‰ÔÅØÔ‰¯ÎÕÌÌ ÏÕÔ ÏÆ ÃÏÒÅ ÒÁÎÇÅ¯ŠÎÆÕÅÒÒ¬‰ÔÅØÔ‰¯ÎÕÌÌ ÔÁÂÌÅ ÆÕÌÌ¯ŠÂÃÓÅÒÒ¬‰ÔÅØÔ‰¯ÂÁÄ ÃÏÒÅ ÓÐÅÃÉÆÉÃÁÔÉÏÎ¯ŠÂÁÄÉÎ¬‰ÔÅØÔ‰¯ÂÁÄ ÉÎÐÕÔ ÌÉÎÅ¯Š¯ŠŒš                                                                                                                                                                                                                                                          
+/LNKCD - LINK COMMAND DECODER ROUTINES
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/COPYRIGHT  (C)  1977,1978 BY DIGITAL EQUIPMENT CORPORATION
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/THE INFORMATION IN THIS DOCUMENT IS SUBJECT TO CHANGE WITHOUT NOTICE
+/AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL EQUIPMENT
+/CORPORATION.  DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY
+/FOR ANY ERRORS THAT MAY APPEAR IN THIS DOCUMENT.
+/
+/THE SOFTWARE DESCRIBED IN THIS DOCUMENT IS FURNISHED TO THE PURCHASER
+/UNDER A LICENSE FOR USE ON A SINGLE COMPUTER SYSTEM AND CAN BE COPIED
+/(WITH INCLUSION OF DIGITAL'S COPYRIGHT NOTICE) ONLY FOR USE IN SUCH
+/SYSTEM, EXCEPT AS MAY OTHERWISE BE PROVIDED IN WRITING BY DIGITAL.
+/
+/DIGITAL EQUIPMENT CORPORATION ASSUMES NO RESPONSIBILITY FOR THE USE
+/OR RELIABILITY OF ITS SOFTWARE ON EQUIPMENT THAT IS NOT SUPPLIED BY
+/DIGITAL.
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/LINK CD ROUTINES
+
+	XLIST
+	NOPUNCH
+	.INCLUDE	LNKMAN.MA
+	ENPUNCH
+	XLIST
+
+	.RSECT	LNKCD
+
+/CORE--SUBROUTINE TO DETERMINE CORE SIZE
+/
+/THIS ROUTINE MUST RESIDE IN FIELD ZERO
+/IT EXECUTES ONLY ONCE
+/
+/THIS WORKS ON ANY PDP-8 FAMILY COMPUTER
+/THE VALUE, FROM 1 TO 7(OCTAL) OF THE LAST EXISTENT
+/MEMORY FIELD IS RETURNED IN THE AC
+/
+CORE,	0
+CORELP,	CDF 	0			/NEEDED FOR PDP-8L
+	TAD 	TRYFLD			/GET FLD TO TEST
+	CLL RTL
+	RAL
+	AND 	COR70
+	TAD 	CORELP			/MASK USEFUL BITS
+	DCA 	.+1			/SET UP CDF TO FLD
+	0
+	TAD I	CORLOC			/SAVE CURRENT CONTENTS
+	NOP				/HACK 	FOR PDP-8
+	DCA 	.-3
+	TAD 	.-2			/7000 IS A GOOD PATTERN
+	DCA I	CORLOC
+COR70,	70				/HACK FOR PDP-8
+	TAD I	CORLOC			/TRY TO READ BACK
+	7400				/FOR PDP-8
+	TAD 	.-1			/SAFEGUARD AGAINST WRAP AROUND
+	TAD 	CORLOC+1		/TAD 1400
+	SZA CLA
+	JMP 	.+6			/NON-EXISTENT FLD EXIT
+	TAD 	COR70-6
+	DCA I	CORLOC			/RESTORE CONTENTS
+	ISZ 	TRYFLD			/TRY NEXT FIELD
+	ISZ	(-7		/NO MORE THAN 7 TIMES THROUGH
+	JMP 	CORELP
+	TAD 	TRYFLD
+	TAD 	(-1
+	CDF 10
+	JMP I	CORE
+CORLOC,	COR70+2				/ADDR. 	TO TEST IN EACH FIELD
+	1400				/7000+7400+1400=0
+TRYFLD,	1				/CURRENT TEST FIELD
+/
+
+	PAGE
+
+
+	.ENTRY	INIT,INIT1
+
+/MORE INITIALIZATION CODE
+INIT,	SKP			/NORMAL	ENTRY
+INIT1,	DCA 	CDSW		/CHAINED TO -NO CD THIS TIME ROUND
+	CDF 10
+	TAD	(-12		/CLEAR 14000-14011
+	DCA	LVL		/BEFORE COMMAND DECODER IS CALLED
+	TAD	(4000
+	DCA	OVRLAY		/VIA USR
+	DCA I	OVRLAY
+	ISZ	OVRLAY
+	ISZ	LVL
+	JMP	.-3
+	DCA 	LVL		/SET LEVEL&OVERLAY COUNTERS
+	DCA 	OVRLAY
+	TAD 	(MTAB-1
+	DCA 	XR3		/INDEX INTO MODTAB
+	CDF	0
+	TAD I	(7777		/GET OS8 FIELD BITS
+	AND	(104
+	SZA CLA			/GREATER THAN 32K?
+	JMP	INIT2		/YES, CALL CORE SUBROUTINE
+	TAD I	(7777
+	CDF	10
+	RTR CLL			/POSITION BITS
+	RAR
+	AND	(7		/MASK TO FIELD BITS
+	SNA			/0?
+INIT2,	JMS I	(CORE		/YES, DETERMINE CORE SIZE
+	DCA 	MXFLD		/LARGEST FIELD AVAILABLE
+	TAD	MXFLD
+	DCA	VCORE		/VIRTUAL CORE
+	TAD	(NLTAB		/SET UP NULL TABLE POINTER
+	DCA	XR5
+	DCA	XR4		/CLEAR COUNT OF NULLS
+	DCA	TASK		/CLEAR TASK FLAG
+	CDF 	0
+	TAD I	(OSJSWD		/JOB STATUS WORD
+	AND 	(374		/CLEAR DESIRED FLAGS & SET
+	TAD 	(1400		/NO RESTART
+	DCA I	(OSJSWD		/AND BATCH FLAG
+	TAD 	(-200
+	DCA 	MCNT		/SET MODULE COUNTER
+	CDF 	10
+CDSW,	JMP 	DECODE		/CALL COMMAND DECODER - NOP IF CHAINED TO
+				/(FIRST TIME ROUND)
+	JMP 	CHAIN
+		
+
+DECODE,	CDF
+	CIF+10
+	JMS I	(7700		/CALL CD
+	5
+	2202			/DEFAULT EXTENSION RB
+	CDF	10
+CHAIN,	TAD 	(JMP DECODE	/RE-SET CALL TO DECODER
+	DCA 	CDSW
+GETSV,	TAD I	(7600
+	SNA			/BINARY OUTPUT SPECIFIED?
+	JMP 	GETMAP		/NO
+	AND	(17		/YES
+	TAD	(DCB-1		/GET DEVICE TYPE
+	DCA	POINT1		/TABLE ENTRY
+	TAD I	POINT1
+	SMA CLA			/FILE ORIENTED?
+E06==.;	JMS I	COS8ER		/NO, ERROR
+	TAD I	(7604		/EXTENSION SPECIFIED?
+	SZA CLA
+	JMP	.+3
+	TAD	EXSV		/NO INSERT ONE
+	DCA I	(7604
+	JMS 	I (MOVE		/MOVE BINARY OUTPUT FILE SPEC
+	CDF 	10
+	7600-1
+	CDF 	10
+	OFILE-1			/TO STORAGE AREA
+	-5
+GETMAP,	TAD I	(7605		/LOAD MAP SPEC?
+	SNA CLA
+	JMP	TRY3RD		/NO, TRY 3RD FILE SPEC.
+	TAD I	(7611
+	SZA CLA
+	JMP	.+3		/EXTENSION FOUND?
+	TAD	EXMP		/NO, INSERT EXTENSION
+	DCA I	(7611
+GETMP0,	CDF
+	TAD I	(7777
+	RAL
+	SMA CLA			/BATCH RUNNING?
+	JMP	GETMP1		/NO
+	TAD I	(7777		/YES
+	AND	(70		/FORM CIF
+	TAD	(CIF
+	DCA	.+4		/TO BATCH FIELD
+	CDF	10
+	TAD I	(7611		/GET MAP FILE EXTENSION
+	CDF
+	HLT			/CIF TO BATCH FIELD
+	JMS I	(7200		/TRY TO SPOOL
+	JMP	GETMP1
+/
+LVL,	0
+OVRLAY,	0
+EXSV,	2326			/.SV
+EXMP,	1520			/.MP
+/
+PAGE
+GETMP1,	JMS I	(MOVE		/MOVE LOAD MAP OUTPUT FILE SPEC
+	CDF 	10
+	7605-1
+	CDF 	10
+	MFILE-1			/TO STORAGE AREA
+	-5
+	JMP 	GETOPT		/GET OPTIONS
+TRY3RD,	TAD I	(7612		/TRY 3RD OPTION FILE
+	SNA CLA			/EXIST?
+	JMP	GETOPT		/NO
+	JMS	MOVE		/YES, MOVE INTO 2ND FILE AREA
+	CDF	10
+	7612-1
+	CDF	10
+	7605-1
+	-5
+	CDF	10
+	DCA I	(7612		/CLEAR 3RD
+	JMP	GETMAP+3	/PROCESS IT
+/HERE TO GET OPTIONS
+GETOPT,	TAD 	(7643		/SET UP TO ACCESS CD SWITCH AREA
+	DCA 	PNT2
+	TAD 	(OP		/SET UP POINTER TO OPTION TABLE IN PROGRAM
+	DCA 	PNT1
+	ACM3			/SAVE OPTION SPECS ON THIS LINE
+	DCA 	CNT2
+OROPT,	CDF
+	TAD I	PNT1
+	CDF	10
+	AND I	PNT2		/"OR" OPTIONS WITH
+	CIA			/OPTIONS PREVIOUSLY
+	TAD I	PNT2		/SPECIFIED
+	CDF
+	TAD I	PNT1
+	DCA I	PNT1
+	CDF+10
+	ISZ 	PNT1		/BUMP POINTERS
+	ISZ 	PNT2
+	ISZ 	CNT2		/DONE?
+	JMP 	OROPT		/NO, DO NEXT OPTION WORD
+	TAD I	(7643
+	CLL 	RTR		/"K" OPTION? (VIRTUAL  CORE SIZE - USES=)
+	SNL 	CLA
+	JMP 	TSTN		/NO
+	TAD I	(7644		/TEST FOR "N" OR "R"- CAN'T HAVE
+	AND	(2100		/BOTH "K" & "N" OR "R" ON SAME LINE
+	SZA CLA
+	JMP 	INERR		/"N" OR "R"-TOO BAD,INPUT IS NO GOOD
+	TAD I	(7642		/OK- CONTINUE WITH "K"
+	AND 	(3777		/HI ORDER MUST BE ZERO
+	SZA CLA
+	JMP 	KERR		/NOT - TOO BAD
+	TAD I	(7646	
+	SNA			/NON-ZERO?
+	JMP	KOPT1		/NO, ERROR, SET TO 1
+	AND	(7740
+	SZA CLA			/LESS THAN 40?
+	JMP	KERR		/NO, ERROR
+	CMA
+	TAD I	(7646		/YES
+KOPT1,	IAC
+	DCA	VCORE		/SAVE IT AS HI CORE (VIRTUAL)
+	JMP	TSTM		/TEST FOR M OPTION
+TSTN,	TAD I	(7644		/"N" OPTION? (NULL MODULE - 2 PGS)
+	CLL RAL
+	SMA CLA
+	JMP	TSTR		/NO - TEST FOR R OPTION
+	TAD I	(7644
+	AND	(100
+	SZA CLA			/"R" OPTION?
+	JMP	INERR		/YES, ERROR
+	TAD I	 (7642		/VALID FIELD?
+	AND 	(3777
+	TAD 	(-40
+	SMA
+	JMP 	NERR		/NOT VALID
+	TAD 	(40
+	DCA 	PNT1
+	TAD I	(7646		/PAGE IN BITS 0-4
+	AND 	(7400
+	TAD 	PNT1		/FLD IN BITS 7-11
+	DCA I 	XR5		/SAVE PAGE AND FIELD OF NULL
+	ISZ	XR4		/COUNT OF NULLS
+	TAD	XR4		/CHECK FOR TOO MANY NULLS
+	TAD	(-177
+	SMA CLA
+	JMP	NUFERR		/YEP
+	JMP	TSTM		/NO, TEST FOR M OPTION
+/
+OP,	ZBLOCK	3
+PNT1,	0
+PNT2,	0
+CNT2,	0
+
+PAGE
+
+/
+/SET UP MODULE TABLE (MODTAB)
+SETMOD,	TAD 	(7617-1
+	DCA 	XR2		/ADDR OF CD INPUT FILES
+	CDF
+	TAD 	LVL		/PUT OVERLAY AND LEVEL INTO FORMAT
+	CLL RTL			/OF WORD 3 OF MODTAB ENTRY
+	RTL
+	TAD 	OVRLAY		/LVL IS IN BITS 5-7 &OVERLAY IS IN BITS
+	DCA 	WRD3		/8-11
+	CDF	10
+	TAD I	(7643		/LOOK FOR /L (LIBRARY FILE)
+	CLL RAR
+	SNL CLA
+	JMP 	STORE		/NOT THERE
+	CLL CLA CML RAR
+	DCA 	WRD3		/LVL IS ALWAYS ZERO FOR LIBRARIES
+STORE,	TAD 	I XR2		/GET LENGTH AND DEVICE
+	SNA			/ENTRY=0 - NO MORE INPUT FILES
+	JMP 	MODONE
+	ISZ	MCNT		/TOO MANY INPUT MODULES? (=>200)
+	SKP			/NO
+	JMP	MERR		/YES
+	DCA I	XR3		/SAVE LENGTH AND DEVICE
+	TAD I	XR2		/GET START BLOCK NUMBER
+	DCA I	XR3		/SAVE
+	TAD 	WRD3		/GET LIBRARY FLAG OR LEVEL AND OVERLAY
+	DCA I	XR3		/STORE
+	JMP 	STORE		/SEE IF THERE IS MORE
+/
+/
+MCNT,	0
+WRD3,	0
+/END OF THIS LINE OF INPUT
+MODONE,	TAD I	(7643		/"C" OPTION? (CLOSE CURRENT OVERLAY, OPEN NEXT)
+	CLL RTL
+	SMA CLA
+	JMP 	TSTO		/NO - TEST FOR "O"
+	CDF
+	TAD 	LVL
+	SNA CLA			/IS LEVEL>0?
+	JMP 	TSTO		/NO, IGNORE
+	TAD 	OVRLAY		/YES- OVRLAY>16?
+	TAD 	(-17
+	SNA 	CLA
+	JMP 	OERR		/YES- TOO MANY OVERLAYS
+	ISZ 	OVRLAY		/NO - INCR OVRLAY
+TSTO,	CDF	10
+	TAD I	(7644		/"O" OPTION? (CLOSE CURRENT LEVEL, OPEN NEXT)
+	CLL RTL
+	SMA CLA
+	JMP 	TSTV		/"O" NOT SPECIFIED
+	CDF
+	TAD 	LVL
+	TAD 	(-7		/LVL > 7?
+	SMA SZA CLA
+	JMP 	LERR		/YES- TOO MANY LEVELS
+	DCA 	OVRLAY		/INIT OVRLAY
+	ISZ 	LVL		/& INCR LVL
+	CDF	10
+	JMP	TSTV
+/
+/
+TSTG,	TAD I	(7643		/"G" OPTION? (START WHEN DONE)
+	AND 	(0040
+	SZA CLA
+	JMP 	ENDCD		/YES, END OF INPUT
+	TAD I	(7642		/NO - TEST FOR ALTMODE
+	SMA CLA			/ALTMODE SET?
+	JMP 	DECODE		/NO, GO ANOTHER LEVEL
+/
+/
+/HERE WHEN DONE WITH COMMAND DECODER
+ENDCD,	JMS	GETPUT		/PUT LNKLIB ON MODTAB IF AVAILABLE
+	LNKLIB			/NAME POINTER
+	4000			/FLAG TO INDICATE A LIBRARY
+	ISZ	MCNT
+	DCA I	XR3		/PUT TERMINATER IN MODTAB
+	DCA I	XR3
+	TAD 	MCNT
+	TAD 	(200
+	CIA
+	DCA	MODCNT		/2'S COMP OF ENTRIES IN MODTAB
+	TAD	(-200		/CLEAR LIBRARY TABLE IN FIELD 0
+	DCA	MCNT
+	TAD	(LIBTB
+	DCA	WRD3
+	CDF	0
+	DCA I	WRD3
+	ISZ	WRD3
+	ISZ	MCNT
+	JMP	.-3
+	TAD	(-200		/CLEAR SECT COUNT TABLE
+	DCA	MCNT
+	TAD	(SOCNTB
+	DCA	WRD3
+	DCA I	WRD3
+	ISZ	WRD3
+	ISZ	MCNT
+	JMP	.-3
+	CDF	10
+	JMS I	(MOVE		/MOVE THE OPTIONS TO FIELD 0
+	CDF
+	OP-1
+	CDF 	0
+	OPTAB-1
+	-3
+/
+	JMP 	INIBFS
+/
+/
+PAGE
+/
+/BINARY BUFFER TABLE
+/
+BUFTAB,	ZBLOCK	40
+B8KPT=BUFTAB+1
+B12KPT=BUFTAB+10
+B16KPT=BUFTAB+20
+B20KPT=BUFTAB+30
+/
+/
+STGST,	STABLE+1
+	4000+2
+	0000+3
+	4000+3
+	0000+4
+	0000+4
+	0000+4
+/
+
+/INITIALIZE BUFFERS
+INIBFS,	TAD	MXFLD
+	TAD	(JMP STBPTR-1
+	DCA	.+2
+	CMA
+	HLT			/DISPATCH ON NUMBER OF FIELDS
+STBPTR,	DCA	B8KPT
+	DCA	B12KPT
+	DCA	B16KPT
+	DCA	B20KPT
+	NOP
+	NOP
+	CLA
+	JMS I	(MOVE
+	CDF	0		/MOVE BINARY BUFFER
+	BUFTAB-1
+	CDF	10		/TO ITS FINAL RESTING PALCE
+	LDBUFS-1
+	-50
+	TAD	MXFLD		/SET FIELD AND ADDRESS
+	TAD	(STGST-1
+	DCA	TMP		/OF GST
+	CDF
+	TAD I	TMP		/ENTER TABLE FOR LOCATION OF START OF GST
+	DCA	TMP
+	TAD	TMP	
+	AND	(7
+	CLL RTL
+	RAL
+	TAD	(CDF
+	DCA	GSTCDF		/SET UP STARTING FIELD OF GST
+	TAD	TMP
+	AND	(7770
+	DCA	GST		/SET UP STARTING ADDRESS OF GST
+	CMA
+	TAD	MXFLD
+	SNA CLA			/8K OF MEMORY?
+	JMP	MOV8K		/YES, SET UP FOR 8K
+	TAD	(STABLE		/NO, SET START OF SECT TABLE
+	DCA	SECTAB		/TO NORMAL VALUE
+	JMP	FINISH		/FINISH UP INITIALIZATION
+/
+TMP,	0			/TEMP FOR GST START
+/
+/MOD'S FOR 8K OF MEMORY
+MOV8K,	TAD	(7400		/FOR 8K, SECTAB
+	DCA	SECTAB		/STARTS AT 7400
+	TAD	(7000		/AND GST ENDS
+	JMP	FINIS1		/AT 7000
+/
+/
+/GET A SPECIFIC MODULE FROM LIBRARY (IF AVAILABLE) AND STORE IN MODTAB
+GETPUT,	0
+	CDF
+	TAD I	GETPUT		/ADDR OF MODULE NAME
+	DCA	DSTB
+	IAC
+	CIF	10
+	JMS I	(7700
+	2			/LOOKUP
+DSTB,	0
+DLEN,	0
+	JMP	GERR		/NOT FOUND
+	TAD	DLEN		/GET FILE LEN
+	RTL
+	RTL
+	AND	(7760		/PUT IN MODTAB FORMAT
+	IAC			/PUT DEVICE NUM IN BITS 8-11 (SYS)
+	CDF+10
+	DCA I	XR3		/STORE IN MODTAB
+	TAD	DSTB		/STARTING BLOCK
+	DCA I	XR3		/PUT IN MODTAB
+	ISZ	GETPUT
+	AC4000
+	DCA I	XR3		/STORE OVRLAY AND LIB FLAG
+	JMP	GERR+2		/EXIT
+GERR,	ISZ	GETPUT		/3 BUMPS IF NOT FOUND
+	ISZ	GETPUT
+	ISZ	GETPUT
+	CDF+10
+	JMP I	GETPUT		/EXIT
+/
+
+/
+PAGE
+TSTV,	TAD I	(7644		/SEE IF VERSION NUMBER REQUESTED
+	AND	(4
+	SNA CLA			/"/V"?
+	JMP	TSTG		/NO
+	CDF
+	TAD	VERNUM		/YES, VERSION # STORED IN FLD 0
+	DCA	VER		/GET IT
+	TAD	VERNUM+1
+	DCA	VER+1
+	JMS	TTYHAN
+	CDF	0
+	VERTXT			/PRINT IT
+	CDF 10
+	JMP	TSTG
+
+/FINISH UP INITIALIZATION
+FINISH,	CLA
+	TAD	OPTAB+2
+	AND	(4000
+	SNA CLA			/"/Y"?
+	JMP	FINIS0		/NO
+	TAD	(-1000		/YES, SET UP NEW PARAMETERS
+	DCA	TOPLC2
+	TAD	(1000
+	DCA	TOPLC1
+	DCA	TOPLOC
+	TAD	(7770
+	DCA	GSTHI		/SET GSTHI FOR 7770
+FINIS0,	TAD I	(7777
+	RAL
+	SMA CLA			/BATCH RUNNING?
+	JMP 	FINIS1+1	/NO
+	TAD	OPTAB+1
+	AND	(20
+	SZA CLA			/ "/T"?
+	JMP	FINIS1-1	/YES
+	TAD	FINIS2		/NO, SET UP FOR BATCH LOG
+	DCA	BATLOG		/STORE CDF 0
+	TAD I	(7777
+	AND	(70
+	TAD	(CIF
+	DCA	BATLOG+1	/STORE CIF TO BATCH FIELD
+	TAD	(BATLOG+3&177+4600
+	DCA	BATLOG+2	/STORE "JMS I BATLOG+3"
+	TAD	(7400
+	DCA	BATLOG+3	/STORE 7400
+	TAD	(5000		/SET HIGH END OF GST TO 5000
+FINIS1,	DCA	GSTHI
+	TAD	GSTCDF
+	AND	(70
+	DCA	BOTCDF		/SET BOTTOM OF GST FIELD
+	TAD	MXFLD		/SET UP MAXFLD FOR LINKER
+	CLL RTL
+	RAL
+	DCA	MXFLD
+	TAD	GST
+	DCA	GSTBOT		/END OF GST
+	TAD I	(OSJSWD		/REMOVE BATCH PROTECT FLAG
+	AND 	(7374
+	DCA I	(OSJSWD
+	JMS I	(MOVE		/MOVE MAP & OUT FILE
+	CDF 	10		/TO LOWER PART OF FIELD 0
+	MFILE-1
+FINIS2,	CDF 	0
+	MAPFIL-1
+	-12
+	JMS I	(MOVE		/SET UP MODULE TABLE
+	CDF	10
+	MTAB-1
+	CDF	10
+	MODTAB-1
+	-606
+	TAD	XR4		/COUNT OF NULLS
+	CIA
+	DCA I	(NLTAB
+	JMS I	(MOVE		/MOVE NULL TAB IN PLACE
+	CDF	10
+	NLTAB-1
+	CDF	0
+	NULTAB-1
+	-200
+GTP1,	CDF CIF 0
+	JMP I 	.+1
+	RETCD			/START PASS 1
+	.EXTERNAL	RETCD
+
+/
+
+VERTXT,	TEXT	(OS/8 LINKER  V(
+*.-1
+VER,	0;0;0
+
+PAGE
+
+/FILENAME FOR LINKER LIBRARY
+LNKLIB,	FILENAME	LNKLIB.RB
+
+/MOVE- 	MOVES A CHUNK OF CORE IN ANY FIELD TO ANY FLD
+/
+/
+/CALLING 	SEQUENCE:	JMS MOVE
+/			CDF 	FF		/FF=FROM FLD
+/			ADDR1-1		/FROM 	ADDR-1
+/			CDF 	TF		/TF=TO FLD
+/			ADDR2-1		/TO 	ADDR-1
+/			-N		/-OCT 	NUM OF WRDS TO MOVE
+/
+/
+/
+MOVE,	0
+	CDF
+	CLA CMA
+	TAD 	MOVE
+	DCA 	XR0		/SET UP INDEX REG TO PICK UP PARAMETER
+	TAD I	XR0		/GET "FROM" FIELD
+	DCA 	TOCDF-2		/SAVE
+	TAD I	XR0		/GOT "FROM" ADDRESS
+	DCA 	XR1		/SAVE IN XR1
+	TAD I	XR0		/GOT "TO" FIELD
+	DCA 	TOCDF		/SAVE
+	TAD I	XR0		/GOT "TO" ADDRESS
+	DCA 	XR2		/SAVE IN XR2
+	TAD I	XR0		/GET CONT
+	DCA 	TEMP		/SAVE
+	0			/CDF "FROM"
+	TAD I	XR1		/GET "FROM" DATA
+TOCDF,	0			/CDF "TO"
+	DCA I	XR2		/STORE "TO" DATA
+	ISZ 	TEMP		/BUMP COUNT
+	JMP 	TOCDF-2		/NOT DONE, LOOP
+	CDF 	10		/DONE, SET DF TO 10
+	JMP I	XR0		/EXIT VIA XR0
+/
+TEMP,	0
+/ERROR- 	PRINTS OUT ERROR MESSAGES FOR A BUFFER LOCATED
+/	 	 IN FIELD 1
+/	 	 ENTER WITH ADDRESS OF BUFFER IN AC
+/
+/
+ERROR,	0
+	DCA 	BFADR
+	CDF 	0
+	CIF 	0
+	JMS 	TTYHAN
+	CDF 	0
+BFADR,	0
+	JMP I	ERROR
+/
+
+/HERE TO TEST FOR /S OPTION
+
+TSTS,	TAD I	(7644
+	AND	(40
+	SNA CLA			/ S?
+	JMP	TSTW		/NO, TEST FOR W
+	TAD I	(7643		/YES
+	RTR CLL
+	SZL CLA			/K ALSO?
+	JMP	TSTW		/YES, IGNORE S OPTION
+	TAD I	(7644
+	RAL CLL
+	SPA CLA			/N ALSO?
+	JMP	TSTW		/YES, IGNORE S OPTION
+	TAD I	(7642
+	AND	(3777
+	SNA
+	TAD I	(7646
+	SNA CLA			/ANY NUMBER TYPED?
+	JMP	TSTW		/NO
+	TAD I	(7644
+	RTR CLL
+	SZL CLA			/W ALSO?
+	JMP	INERR		/YES, ERROR
+	TAD I	(7642
+	AND	(3777
+	TAD	(-40
+	SMA			/FIELD VALUE OK?
+	JMP	NERR		/NO
+	TAD	(40		/YES
+	DCA	STRTFD		/STORE IN STARTING FIELD
+	TAD I	(7646
+	DCA	STRTAD		/STORE STARTING ADDRESS
+	CDF
+	TAD	OP+1
+	AND	(7737		/CLEAR "S" BIT
+	DCA	OP+1
+	CDF	10
+	JMP	SETMOD		/SET UP MODULE TABLE
+/HERE TO TEST W OPTION
+TSTW,	TAD I	(7644
+	RTR CLL
+	SNL CLA			/W?
+	JMP	SETMOD		/NO
+	TAD I	(7643
+	RTR CLL
+	SZL CLA			/K ALSO?
+	JMP	SETMOD		/YES, IGNORE W
+	TAD I	(7644
+	RAL CLL
+	SPA CLA			/N ALSO?
+	JMP	SETMOD		/YES, IGNORE W
+	TAD I	(7642
+	AND	(3777
+	SNA
+	TAD I	(7646
+	SNA CLA			/ANY NUMBER TYPED?
+	JMP	SETMOD		/NO
+	TAD I	(7644		/YES
+	AND	(40
+	SZA CLA			/S ALSO?
+	JMP	INERR		/YES, ERROR
+	TAD I	(7642
+	AND	(3777
+	SZA CLA			/HI ORDER 0?
+	JMP	NERR		/NO, ERROR
+	TAD I	(7646
+	SNA			/NON-ZERO?
+	JMP	NERR		/NO, ERROR
+	DCA	JSWRD		/YES, STORE
+	CDF
+	TAD	OP+1
+	AND	(7775
+	DCA	OP+1		/CLEAR W BIT
+	CDF	10
+	JMP	SETMOD
+/
+PAGE
+
+/HERE TO TEST "R" OPTION
+
+TSTR,	TAD I	(7644
+	AND	(100
+	SNA CLA			/"R" OPTION? (USES = OPTION)
+	JMP	TSTM		/NO, TEST "M" OPTION
+	TAD I	(7642
+	AND	(3777
+	SZA CLA			/HI-ORDER 0?
+	JMP	NERR		/NO, ERROR
+	TAD I	(7646
+	TAD	(-40
+	SMA CLA			/NUMBBER OK?
+	JMP	NERR		/NO, ERROR
+	TAD I	(7646
+	TAD	(-7
+	SPA SNA			/WHICH BANK?
+	JMP	LOW32K		/BANK 0
+	CIA			/BANK 1 TO 3, MAKE NEGATIVE
+	DCA	CNT3
+	TAD	(RFLD0
+	DCA	PNT3		/SET UP POINTER
+	CLL CML			/POSITION BIT
+TSTR1,	RAR
+	SNL
+	JMP	.+3
+	ISZ	PNT3
+	RAR
+	ISZ	CNT3
+	JMP	.-6
+	DCA	CNT3
+	TAD	CNT3		/OR IN REST OF WORD
+	CMA
+	CDF
+	AND I	PNT3
+	TAD	CNT3
+	DCA I	PNT3
+	CDF	10
+	JMP	TSTM		/TEST FOR "M" OPTION
+LOW32K,	CLA
+	TAD I	(7646
+	CMA
+	DCA	CNT3		/MAKE FLD COUNT NEGATIVE
+	TAD	(OP+2
+	DCA	PNT3		/SET UP POINTER
+	CLL CML RTR		/SET AC TO 2000
+	JMP	TSTR1		/POSITION BIT
+PNT3,	0
+CNT3,	0
+
+
+/HERE TO TEST "M" OPTION
+
+TSTM,	TAD I	(7644
+	SMA CLA			/"M" OPTION? (MAY USE =)
+	JMP	TSTS		/NO
+	TAD I	(7643
+	RTR			/PUT "K" BIT IN LINK
+	CLA
+	TAD I	(7644
+	AND	(2100		/PUT "N" AND "R" INTO AC
+	SZL			/"K"?
+	JMP	TSTM2		/YES, IGNORE =
+	SZA CLA
+	JMP	TSTM2		/ALSO IGNORE = IF "N" OR "R"
+	TAD I	(7644
+	AND	(42
+	SNA CLA			/"S" OR "W"?
+	JMP	TSTM1		/NO, OK
+	TAD I	(7642
+	AND	(3777
+	SNA
+	TAD I	(7646
+	SZA CLA			/ANY NUMBER TYPED?
+	JMP	INERR		/YES, ERROR
+TSTM1,	TAD I	(7642
+	AND	(3777
+	SZA CLA			/NUMBER OK?
+	JMP	NERR		/NO, ERROR
+	TAD I	(7646
+	TAD	(-40
+	SMA CLA			/NUMBER OK?
+	JMP	NERR		/NO, TOO BIG, ERROR
+	ACM2
+	TAD I	(7646
+	SMA SZA CLA		/2 OR BELOW?
+	JMP	.+3		/NO
+TSTM2,	AC2			/YES, SET TO 2
+	SKP
+	TAD I	(7646		/OTHERWISE THE REAL VALUE
+	CIA
+	DCA	MFLD		/NEGATE AND SAVE
+	JMP	TSTS		/TEST "S"
+
+/
+KERR,	CLA			/BAD CORE SPECIFICATION
+	TAD 	(BCSERR
+	JMP 	INERR+1
+/
+NERR,	CLA			/NULL OUT OF CORE RANGE
+	TAD 	(NULERR
+	JMP 	INERR+1
+/
+NUFERR,	TAD	(NFUERR		/NULL TABLE FULL
+	JMP	INERR+1
+/
+LERR,	TAD 	(LVLERR		/TOO MANY LEVELS
+	JMP 	INERR+1
+/
+MERR,	TAD 	(TMFERR		/TOO MANY FILES SPECIFIED
+	JMP 	INERR+1
+/
+OERR,	TAD 	(OVRERR		/TOO MANY OVERLAYS
+	SKP
+/
+INERR,	TAD 	(BADIN		/BAD INPUT LINE
+	JMS 	ERROR
+	JMP 	DECODE
+/
+	PAGE
+
+/
+TMFERR,	TEXT	/TOO MANY INPUT FILES/
+OVRERR, TEXT 	/TOO MANY OVERLAYS/
+LVLERR,	TEXT	/TOO MANY LEVELS/
+NULERR,	TEXT	/NULL OUT OF CORE RANGE/
+NFUERR,	TEXT	/NULL TABLE FULL/
+BCSERR,	TEXT	/BAD CORE SPECIFICATION/
+BADIN,	TEXT	/BAD INPUT LINE/
+/
+
