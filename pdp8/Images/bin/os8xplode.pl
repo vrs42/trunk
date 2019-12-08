@@ -102,7 +102,7 @@ sub ofile {
   $eof = 0;
   for ($i = $first; $i <= $last; $i++) {
     # Read a block
-    read(INPUT, $buf, $bsize) || die "read($dsk): $!";
+    read(INPUT, $buf, $bsize) || die "read($dsk $f): $!";
     @buf = unpack("S512", $buf);
     # Repack the bits amd write the block.
     while (@buf && !$eof) {
@@ -155,7 +155,7 @@ sub os8fs {
   # Walk the directory, in blocks 1-6.  Note whether it
   # is a system # device image, or not.
   print XML "<directory>\n";
-  $sys = 1; # Have not ruled out a system device.
+  $sys = $cos = 1; # Have not ruled out a system device.
   for ($link = 1; $link; ) {
     # Read a directory segment
     seek(INPUT, $bsize*($fsbase+$link), 0) || die "seek($dsk): $!";
@@ -164,7 +164,8 @@ sub os8fs {
     $nent = shift @blk;
     $sblk = shift @blk;
     # If it has files in the system area, it's not a system device.
-    $sys = 0 if $sblk < 070;
+    $sys = 0 if $sblk < 070; # Not a system image
+    $cos = 0 if $sblk < 0140; # Not a COS image
     $nent = 010000 - $nent;
     $link = shift @blk;
     $tent = shift @blk;
@@ -225,40 +226,60 @@ sub os8fs {
   # Emit the boot loader.
   &ofile("$fs.boot", 0, 0, $ctime);
   # Emit the directory.
-  &ofile("$fs.dir", 1, 6, $ctime);
+  &ofile("$fs.dir", 1, 6+$cos, $ctime);
 
   # We are done unless it is the image of a system device.
   return unless $sys;
 
-  # Emit the Keyboard Monitor, blocks 07-012.
-  &ofile("$fs.kmon", 007, 012, $ctime);
-  # Emit the User Service Routine, blocks 013-015.
-  &ofile("$fs.usr", 013, 015, $ctime);
-  # Emit the Device Handlers, blocks 016-025.
-  &ofile("$fs.dhand", 016, 025, $ctime);
-  # Emit the Enter Processor, block 026.
-  &ofile("$fs.ent", 026, 026, $ctime);
-  # Emit the Scratch Blocks, blocks 027-050.
-  &ofile("$fs.sblks", 027, 050, $ctime);
-  # Emit the Command Decoder, blocks 051-053.
-  &ofile("$fs.cdec", 051, 053, $ctime);
-  # Emit the Save and Date Overlays, blocks 054-055.
-  &ofile("$fs.sdate", 054, 055, $ctime);
-  # Emit the Monitor Error Routine, block 056.
-  &ofile("$fs.merr", 056, 056, $ctime);
-  # Emit the USE CHAIN Processor, block 057.
-  &ofile("$fs.chain", 057, 057, $ctime);
-  # Emit the System ODT Routine, blocks 060-063.
-  &ofile("$fs.sodt", 060, 063, $ctime);
-  # Emit the reserved block, blocks 064.
-  &ofile("$fs.rsvd", 064, 064, $ctime);
-  # Emit the CCL Reminiscences, block 065.
-  &ofile("$fs.cclr", 065, 065, $ctime);
-  # Emit the 12K TD8E code, block 066.
-  &ofile("$fs.td8e", 066, 066, $ctime);
-  # Emit the CCL Overlay, block 067.
-  &ofile("$fs.cclo", 067, 067, $ctime);
+  # BUGBUG: It's a system device, either COS or OS/8.
 
+  if ($cos) {
+    # Emit the Keyboard Monitor, blocks 010-013.
+    &ofile("$fs.kmon", 010, 013, $ctime);
+    # Emit the Editor Overlay, blocks 010-013.
+    &ofile("$fs.eovr", 014, 017, $ctime);
+    # Emit the Editor, blocks 010-013.
+    &ofile("$fs.edit", 020, 033, $ctime);
+    # Emit the Run Time System Loader, blocks 010-013.
+    &ofile("$fs.rtsl", 034, 037, $ctime);
+    # Emit the Edit Buffer, blocks 010-013.
+    &ofile("$fs.ebuf", 040, 057, $ctime);
+    # Emit the Run Time System, blocks 010-013.
+    &ofile("$fs.rts", 060, 067, $ctime);
+    # Emit the Compiler Overlays, blocks 010-013.
+    &ofile("$fs.covr", 070, 077, $ctime);
+    # Emit the Binary Scratch area, blocks 010-013.
+    &ofile("$fs.bscr", 0100, 0137, $ctime);
+  } else {
+    # Emit the Keyboard Monitor, blocks 07-012.
+    &ofile("$fs.kmon", 007, 012, $ctime);
+    # Emit the User Service Routine, blocks 013-015.
+    &ofile("$fs.usr", 013, 015, $ctime);
+    # Emit the Device Handlers, blocks 016-025.
+    &ofile("$fs.dhand", 016, 025, $ctime);
+    # Emit the Enter Processor, block 026.
+    &ofile("$fs.ent", 026, 026, $ctime);
+    # Emit the Scratch Blocks, blocks 027-050.
+    &ofile("$fs.sblks", 027, 050, $ctime);
+    # Emit the Command Decoder, blocks 051-053.
+    &ofile("$fs.cdec", 051, 053, $ctime);
+    # Emit the Save and Date Overlays, blocks 054-055.
+    &ofile("$fs.sdate", 054, 055, $ctime);
+    # Emit the Monitor Error Routine, block 056.
+    &ofile("$fs.merr", 056, 056, $ctime);
+    # Emit the USE CHAIN Processor, block 057.
+    &ofile("$fs.chain", 057, 057, $ctime);
+    # Emit the System ODT Routine, blocks 060-063.
+    &ofile("$fs.sodt", 060, 063, $ctime);
+    # Emit the reserved block, blocks 064.
+    &ofile("$fs.rsvd", 064, 064, $ctime);
+    # Emit the CCL Reminiscences, block 065.
+    &ofile("$fs.cclr", 065, 065, $ctime);
+    # Emit the 12K TD8E code, block 066.
+    &ofile("$fs.td8e", 066, 066, $ctime);
+    # Emit the CCL Overlay, block 067.
+    &ofile("$fs.cclo", 067, 067, $ctime);
+  }
   # Check all the blocks were accounted for.
   for ($i = 0; $i < $fslen; $i++) {
     warn "$dsk: Block $i not accounted for!\n" unless defined $blocks[$i];

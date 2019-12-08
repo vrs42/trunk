@@ -7,12 +7,20 @@ TRPL = $(wildcard *.3p)
 OS8P = $(wildcard *.os8p)
 DSK  = $(wildcard *.dsk)
 TSS  = $(wildcard *.tss)
+COS  = $(wildcard *.cos)
+# "Made DSK": .dsk files made from other stuff.
 MDSK = $(RK05:.rk05=.dsk) $(RX01:.rx01=.dsk) $(RX02:.rx02=.dsk) \
-       $(OS8P:.os8p=.dsk) $(TRPL:.3p=.dsk) $(TU56:.tu56=.dsk)
+       $(OS8P:.os8p=.dsk) $(TRPL:.3p=.dsk) $(TU56:.tu56=.dsk) $(COS:.cos=.dsk)
 XML  = $(MDSK:.dsk=.xml) $(DSK:.dsk=.xml) $(TSS:.tss=.xml)
 DIR  = $(XML:.xml=.dir.txt)
+AS   = $(wildcard */*.as)
+DA   = $(wildcard */*.da)
+DB   = $(wildcard */*.db)
+# COS files, converted to ASCII.
+CTXT = $(AS:.as=.as.txt) $(DB:.db=.db.txt)
+DATX = $(DA:.da=.da.txt)
 
-all: $(MDSK) $(XML) $(DIR)
+all: $(MDSK) $(XML) $(DIR) $(CTXT) $(DATX)
 
 %.dsk: %.rk05
 	rm -f $@; ln $< $@
@@ -32,6 +40,9 @@ all: $(MDSK) $(XML) $(DIR)
 %.dsk: %.tu56
 	$(BIN)/dt2dk.pl $<
 
+%.dsk: %.cos
+	$(BIN)/cos2dk.pl $<
+
 %.dir.txt: %.dsk
 	$(BIN)/os8dir.pl $< >$@
 
@@ -45,6 +56,15 @@ all: $(MDSK) $(XML) $(DIR)
 %.xml: %.tss
 	@rm -f $@.bad
 	$(BIN)/tss8xplode.pl $< || (mv $@ $@.bad; exit 1)
+
+%.as.txt: %.as
+	$(BIN)/cos2txt.pl $<
+
+%.db.txt: %.db
+	$(BIN)/cos2txt.pl $<
+
+%.da.txt: %.da
+	$(BIN)/strings $< >$@
 
 clobber:
 	rm -fr $(XML) $(MDSK) *.0 *.1
