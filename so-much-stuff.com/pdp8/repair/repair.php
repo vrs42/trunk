@@ -8,6 +8,8 @@ There are currently only a few things here:
 <DL>
 <DT>The <A HREF=bulbs.php>bulb page,</A>
 <DD>provides information about the incandescent bulbs used in PDP-8 gear.<P>
+<DT>The <A HREF=fc-tester.php>flip chip tester page,</A>
+<DD>provides information about the Stearns tester and it's variants, used to test modules used in PDP-8 gear.<P>
 <DT>The <A HREF=subst.php>substitution page,</A>
 <DD>summarizes DEC's information about EIA substitutes for DEC parts.<P>
 <DT>The <A HREF=molds.php>molds page,</A>
