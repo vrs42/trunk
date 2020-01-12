@@ -2063,7 +2063,15 @@ LM837.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G848 target=_blank>./DEC/Gxxx/G848</a></b>: TU56 Motor Drive, Triple
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G848H</A>
+  <DD>needs a drawing.
+<DT>G848L</A>
+  <DD>needs a drawing.
+<DT>G848M</A>
+  <DD>is  a drawing of DEC's G848M.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G850 target=_blank>./DEC/Gxxx/G850</a></b>: SCR Motor Driver, TU55
 
