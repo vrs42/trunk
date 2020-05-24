@@ -579,6 +579,14 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/BM8L target=_blank>./DEC/BM8L</a></b>: Omnibus Memory adapter for PDP-8/L
+
+</LEGEND><DL>
+<DT>bm8l</A>
+  <DD>is a drawing of DEC's BM8/L.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/buscon target=_blank>./DEC/buscon</a></b>: Negibus/Posibus Connectors
 
 </LEGEND><DL>
@@ -1043,11 +1051,19 @@ chassis to see if it has the needed clearances.)
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/CES target=_blank>./DEC/CES</a></b>: Computer Extension Systems Memory Boards
+
+</LEGEND><DL>
+<DT>VM8E8K</A>
+  <DD>needs a drawing
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Charmille_Andrews target=_blank>./DEC/Charmille_Andrews</a></b>: Charmille Andrews Paper Tape Reader Controller
 
 </LEGEND><DL>
 <DT>005743-001</A>
-  <DD>is a drawing of CA's 005743-001 paper tape reader controller,
+  <DD>is a drawing of CA's 005743-001 paper tape reader controller.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
