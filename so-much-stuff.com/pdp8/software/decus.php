@@ -1201,6 +1201,7 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-135/decus-8-135-pb.lbl target=_blank>decus-8-135-pb.lbl</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-135/decus-8-135-pb.od target=_blank>decus-8-135-pb.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-135/decus-8-135.htm target=_blank>decus-8-135.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-135/decus-8-135.pdf target=_blank>decus-8-135.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-136 target=_blank>8-136
 </a><td><div>Fourier Transform Program in FORTRAN II </div>
@@ -1249,6 +1250,7 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-143 target=_blank>8-143
 </a><td><div>Fast Fourier Transform Subroutines </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-143/decus-8-143-lst.pdf target=_blank>decus-8-143-lst.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-143/decus-8-143-pb target=_blank>decus-8-143-pb</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-143/decus-8-143-pb.lbl target=_blank>decus-8-143-pb.lbl</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-143/decus-8-143-pb.od target=_blank>decus-8-143-pb.od</a></div>
@@ -1491,6 +1493,7 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-167/decus-8-167.pa target=_blank>decus-8-167.pa</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-167/decus-8-167.pa.od target=_blank>decus-8-167.pa.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-167/decus-8-167.pal target=_blank>decus-8-167.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-167/decus-8-167.pdf target=_blank>decus-8-167.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-168 target=_blank>8-168
 </a><td><div>CalComp Plotting Package </div>
@@ -1705,6 +1708,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>DUMP </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-206/decus-8-206.htm target=_blank>decus-8-206.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-206/decus-8-206.pdf target=_blank>decus-8-206.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-207 target=_blank>8-207
 </a><td><div>Cube Root Subroutine </div>
@@ -2020,6 +2024,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>PEEP - A Directory Search Program </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-252/decus-8-252.htm target=_blank>decus-8-252.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-252/decus-8-252.pdf target=_blank>decus-8-252.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-253 target=_blank>8-253
 </a><td><div>Disk Dump on Scope </div>
@@ -2148,6 +2153,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Core Editor </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-276/decus-8-276.htm target=_blank>decus-8-276.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-276/decus-8-276.pdf target=_blank>decus-8-276.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277 target=_blank>5-277
 </a><td><div>ICBM </div>
@@ -2318,6 +2324,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>PDP-8 Morse Code Sender </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-308/decus-8-308.htm target=_blank>decus-8-308.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-308/decus-8-308.pdf target=_blank>decus-8-308.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-309 target=_blank>8-309
 </a><td><div>Patches and a Utility Program for LAB-8 </div>
@@ -2437,6 +2444,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>The Civil War Game </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-332/decus-8-332.htm target=_blank>decus-8-332.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-332/decus-8-332.pdf target=_blank>decus-8-332.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-333 target=_blank>8-333
 </a><td><div>8K PAL-D Assembler for 4K Disk Monitor System </div>
@@ -2917,6 +2925,7 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-400 target=_blank>8-400
 </a><td><div>Execute Slow </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-400/decus-8-400-1970.pdf target=_blank>decus-8-400-1970.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-400/decus-8-400.bn target=_blank>decus-8-400.bn</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-400/decus-8-400.bn.od target=_blank>decus-8-400.bn.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-400/decus-8-400.htm target=_blank>decus-8-400.htm</a></div>
@@ -3053,6 +3062,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Morse Code </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-424/decus-8-424.htm target=_blank>decus-8-424.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-424/decus-8-424.pdf target=_blank>decus-8-424.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-425 target=_blank>8-425
 </a><td><div>Block-Modify for PS/8 </div>
@@ -3264,6 +3274,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Radio Teletype to ASCII </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-454/decus-8-454.htm target=_blank>decus-8-454.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-454/decus-8-454.pdf target=_blank>decus-8-454.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-455 target=_blank>8-455
 </a><td><div>CRTPAC </div>
@@ -4268,6 +4279,7 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-607/decus-8-607.pa target=_blank>decus-8-607.pa</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-607/decus-8-607.pa.od target=_blank>decus-8-607.pa.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-607/decus-8-607.pal target=_blank>decus-8-607.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-607/decus-8-607.pdf target=_blank>decus-8-607.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-608 target=_blank>8-608
 </a><td><div>FUTIL: OS/8 File Utility </div>
@@ -4355,6 +4367,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>V.A. PKS.-l and V.A. PKS.-2, Real Time G. C. Data</div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-617/decus-8-617.htm target=_blank>decus-8-617.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-617/decus-8-617.pdf target=_blank>decus-8-617.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-618 target=_blank>8-618
 </a><td><div>OS/8 Device Handlers for the 57A Magnetic </div>
@@ -5825,11 +5838,31 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847 target=_blank>8-847
 </a><td><div>VC8E-TV: HANDLER for a Storage Scope </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/Makefile target=_blank>Makefile</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/Reconstruction.txt target=_blank>Reconstruction.txt</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/decus-8-847.htm target=_blank>decus-8-847.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/decus-8-847.pdf target=_blank>decus-8-847.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8e.wu target=_blank>vc8e.wu</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ea.bin target=_blank>vc8ea.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ea.bn target=_blank>vc8ea.bn</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ea.lst target=_blank>vc8ea.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ea.ok target=_blank>vc8ea.ok</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ea.pal target=_blank>vc8ea.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8eb.bin target=_blank>vc8eb.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8eb.bn target=_blank>vc8eb.bn</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8eb.lst target=_blank>vc8eb.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8eb.ok target=_blank>vc8eb.ok</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8eb.pal target=_blank>vc8eb.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ec.bin target=_blank>vc8ec.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ec.bn target=_blank>vc8ec.bn</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ec.lst target=_blank>vc8ec.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ec.ok target=_blank>vc8ec.ok</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ec.pal target=_blank>vc8ec.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ed.bin target=_blank>vc8ed.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ed.bn target=_blank>vc8ed.bn</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ed.lst target=_blank>vc8ed.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ed.ok target=_blank>vc8ed.ok</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-847/vc8ed.pal target=_blank>vc8ed.pal</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-848 target=_blank>8-848
 </a><td><div>LPTSPL: A Lineprinter Spooler for the OS/8 </div>
@@ -6522,6 +6555,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>The Sumer Game </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-5/decus-focal8-5.htm target=_blank>decus-focal8-5.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-5/decus-focal8-5.pdf target=_blank>decus-focal8-5.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-5/f0005.fc target=_blank>f0005.fc</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-6 target=_blank>focal8-6
@@ -7831,7 +7865,10 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-189 target=_blank>focal8-189
 </a><td><div>8K Overlay Patch for FOCAL5/69 (DECUS NO. FOCAL8-52) </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-189/8-189.pdf target=_blank>8-189.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-189/ReadMe.txt target=_blank>ReadMe.txt</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-189/decus-focal8-189.htm target=_blank>decus-focal8-189.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-189/decus-focal8-189.pdf target=_blank>decus-focal8-189.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-190 target=_blank>focal8-190
 </a><td><div>Patch to Add LABEL Feature to FOCAL 5/69 (DECUS NO. </div>
@@ -7847,6 +7884,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Echo Change for FOCAL, 1969 </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-192/decus-focal8-192.htm target=_blank>decus-focal8-192.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-192/decus-focal8-192.pdf target=_blank>decus-focal8-192.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-193 target=_blank>focal8-193
 </a><td><div>Anova, 2-way, Unsymmetrical </div>
@@ -8293,6 +8331,7 @@ have taken the time to scan and archive this software and documentation.
 </a><td><div>Modification of FOCL/F for Data Acquisition and Control </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-271/decus-focal8-271.htm target=_blank>decus-focal8-271.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-271/decus-focal8-271.pdf target=_blank>decus-focal8-271.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-272 target=_blank>focal8-272
 </a><td><div>Punched Paper Tape Generator With FOCAL</div>
