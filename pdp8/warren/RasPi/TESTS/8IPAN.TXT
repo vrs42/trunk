@@ -1,0 +1,22 @@
+The 8/I panel tests are meant to cycle the lights of an 8/I panel in an easily
+verified way.
+
+There are two tests, since the panel has four M900 connections, and the tester 
+can accomodate two.  You will also need two tested M900 modules, and appropriate
+cabling.
+
+8IPAN1.TST tests the main block of registers in the middle.  Cable the M900 in
+slot "A" to the left side of the registers (middle two connectors), and the one
+in slot "B" to the right side.  Turn on comments, and single step the test.
+Each bit, from left to right, should light in turn, for PC, MA, MB, AC, and MQ.
+
+8IPAN1.TST tests the registers on the left, and then the status indicators on
+the right.  Cable the M900 in slot "A" to the leftmost connector, and "B" to
+the rightmost.  Each bit of DF, IF, LINK, and SC should be lit one at a time,
+followed by each status bit.  Status bits should light from top to bottom,
+then move to the next column.
+
+Like the M900 tests, there are no output pins, so the tests always appear to 
+pass.  You have to look at the actual display to determine if things are working.
+
+	Vince

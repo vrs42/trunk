@@ -1,0 +1,29 @@
+To create the M900X fixture, take the 7404 chips out of an assembled M900X.
+
+Create five LED inserts.  Each insert starts with an empty 14 pin machine socket.
+Into pins 2-7 insert three 3mm LEDs, with the cathode toward pin 7.  Leave pin 1
+blank.  Similarly, into pins 8-13, insert three LEDs, this time with the cathode 
+toward pin 13.  Leave pin 14 blank.
+
+On the flip (pin) side of the socket, solder one end of a 3.5" wire (wire wrap
+wire works fine) to the fat part of pin 7, with the free end pointing toward 
+pin 9.  Wrap the wire over fat part of pin 9, and then back and forth over 
+the fat parts of pins 5, 11, 3, and 13.  Solder each connection, then trim 
+the excess wire from pin 13.
+
+Insert all five of the LED inserts in place of the 7404 chips.
+
+Make a few inches of 34 pin IDE cable, and insert one end into the M900X test 
+fixture.  The other end of this cable goes into the M900X under test.
+
+Run the M900X test by turning comments on ("C"), then using spaces to step 
+through the test.  An LED should light for every other step, and the comment
+will identify which pin should be lit.  For the M900X, this lights gates A-F 
+in turn on each of E1 through E5.  (E1 is rightmost, E5 is leftmost.)
+
+The test always "passes", so don't use that as an indicator of anything.
+When run full speed, all LEDs should appear lit.  The printing of rows of 
+"p" will create a strange flashing effect, as it introduces a pause during 
+terminal output, making a random LED be on longer and appear brighter.
+
+    Vince
