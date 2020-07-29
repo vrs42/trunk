@@ -1,4 +1,4 @@
-BIN  = ./bin
+BIN  = ~/pdp8/8tools
 RK05 = $(wildcard *.rk05)
 RX01 = $(wildcard *.rx01)
 RX02 = $(wildcard *.rx02)
@@ -26,45 +26,45 @@ all: $(MDSK) $(XML) $(DIR) $(CTXT) $(DATX)
 	rm -f $@; ln $< $@
 
 %.dsk: %.3p
-	$(BIN)/3p2dk.pl $<
+	$(BIN)/3p2dk $<
 
 %.dsk: %.os8p
-	$(BIN)/os8p2dk.pl $<
+	$(BIN)/os8p2dk $<
 
 %.dsk: %.rx01
-	$(BIN)/rx2dk.pl $<
+	$(BIN)/rx2dk $<
 
 %.dsk: %.rx02
-	$(BIN)/rx2dk.pl $<
+	$(BIN)/rx2dk $<
 
 %.dsk: %.tu56
-	$(BIN)/dt2dk.pl $<
+	$(BIN)/dt2dk $<
 
 %.dsk: %.cos
-	$(BIN)/cos2dk.pl $<
+	$(BIN)/cos2dk $<
 
 %.dir.txt: %.dsk
-	$(BIN)/os8dir.pl $< >$@
+	$(BIN)/os8dir $< >$@
 
 %.xml: %.dsk
 	@rm -f $@.bad
-	$(BIN)/os8xplode.pl $< || (mv $@ $@.bad; exit 1)
+	$(BIN)/os8xplode $< || (mv $@ $@.bad; exit 1)
 
 %.dir.txt: %.tss
-	$(BIN)/tss8dir.pl $< >$@
+	$(BIN)/tss8dir $< >$@
 
 %.xml: %.tss
 	@rm -f $@.bad
-	$(BIN)/tss8xplode.pl $< || (mv $@ $@.bad; exit 1)
+	$(BIN)/tss8xplode $< || (mv $@ $@.bad; exit 1)
 
 %.as.txt: %.as
-	$(BIN)/cos2txt.pl $<
+	$(BIN)/cos2txt $<
 
 %.db.txt: %.db
-	$(BIN)/cos2txt.pl $<
+	$(BIN)/cos2txt $<
 
 %.da.txt: %.da
-	$(BIN)/strings $< >$@
+	$(BIN)/2asc $< >$@
 
 clobber:
 	rm -fr $(XML) $(MDSK) *.0 *.1
