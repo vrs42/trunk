@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+#
+# Report unpublished .stl files
+#
+
+foreach $stl (sort <*/*.stl>) {
+  next if $stl =~ /^mangled\//;
+  if ($stl =~ /-mm.stl$/) {
+    $stl =~ s/-mm//;
+    warn "$stl: missing non-mm $stl!\n" unless -f $stl;
+    next;
+  }
+  $warn = 0;
+  $jpg = $stl; $jpg =~ s/.stl$/.jpg/;
+  warn "$stl: missing $jpg\n" unless -f $jpg;
+  $warn++ unless -f $jpg;
+  $txt = $stl; $txt =~ s/.stl$/.txt/;
+  warn "$stl: missing $txt\n" unless -f $txt;
+  $warn++ unless -f $txt;
+  $skp = $stl; $skp =~ s/.stl$/.skp/;
+  warn "$stl: missing $skp\n" unless -f $skp;
+  $warn++ unless -f $skp;
+  $mm = $stl; $mm =~ s/.stl$/-mm.stl/;
+  warn "$stl: missing $mm\n" unless -f $mm;
+  $warn++ unless -f $mm;
+  print "$stl is OK\n" unless $warn;
+}
+exit 0;
