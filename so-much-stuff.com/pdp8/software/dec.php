@@ -334,6 +334,13 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbaa.pal>dec-08-lbaa.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
+<td>BASIC-8
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbasa-a-pb>dec-08-lbasa-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbasa-a-pb.lbl>dec-08-lbasa-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lbasa-a-pb.od>dec-08-lbasa-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
 <td>Focal-8 Family of 8 Overlay
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./08/lfoca-a-pb>dec-08-lfoca-a-pb</a><td>(BIN image)<tr>
@@ -582,11 +589,22 @@ that no license is required, and the CPU type, where "a" is the PDP-8.
 <col width=50%>
 <col width=50%>
 </tr><tr>
+<td>Focal 8 8K Overlay
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lf8ka-a-pb>dec-8e-lf8ka-a-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lf8ka-a-pb.lbl>dec-8e-lf8ka-a-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lf8ka-a-pb.od>dec-8e-lf8ka-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
 <td>Focal-8 and Init
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb>dec-8e-lfoca-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb.lbl>dec-8e-lfoca-a-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb.od>dec-8e-lfoca-a-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb1>dec-8e-lfoca-a-pb1</a><td>(BIN image #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb1.od>dec-8e-lfoca-a-pb1.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb2>dec-8e-lfoca-a-pb2</a><td>(BIN image #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/./8e/lfoca-a-pb2.od>dec-8e-lfoca-a-pb2.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>Focal-8 Quad

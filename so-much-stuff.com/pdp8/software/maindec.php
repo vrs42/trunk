@@ -664,6 +664,9 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkag-a-pb>maindec-08-dhkag-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkag-a-pb.lbl>maindec-08-dhkag-a-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkag-a-pb.od>maindec-08-dhkag-a-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkag-a.bin>maindec-08-dhkag-a.bin</a><td>(BIN format)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkag-a.lst>maindec-08-dhkag-a.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkag-a.pal>maindec-08-dhkag-a.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
 <td>KE8E EAE Extended Memory Exerciser
@@ -994,6 +997,12 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-d.pdf>maindec-08-dhtda-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb>maindec-08-dhtda-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb.od>maindec-08-dhtda-a-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb1>maindec-08-dhtda-a-pb1</a><td>(BIN image #1)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb1.lbl>maindec-08-dhtda-a-pb1.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb1.od>maindec-08-dhtda-a-pb1.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb2>maindec-08-dhtda-a-pb2</a><td>(BIN image #2)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb2.lbl>maindec-08-dhtda-a-pb2.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-pb2.od>maindec-08-dhtda-a-pb2.od</a><td>(BIN image in octal)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhtda-a-sv.htm>maindec-08-dhtda-a-sv.htm</a><td>(Saved web page)<tr>
 </table>
 </tr><tr>
@@ -1194,6 +1203,9 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-pb>maindec-08-dirxa-d-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-pb.od>maindec-08-dirxa-d-pb.od</a><td>(BIN image in octal)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-sv.htm>maindec-08-dirxa-d-sv.htm</a><td>(Saved web page)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d.bin>maindec-08-dirxa-d.bin</a><td>(BIN format)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d.lst>maindec-08-dirxa-d.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d.pal>maindec-08-dirxa-d.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
 <td>RX8/RX01 Data Reliability
@@ -1374,6 +1386,13 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-pb.od>maindec-08-djmsa-a-pb.od</a><td>(BIN image in octal)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-pm>maindec-08-djmsa-a-pm</a><td>(RIM image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djmsa-a-pm.od>maindec-08-djmsa-a-pm.od</a><td>(RIM image in octal)<tr>
+</table>
+</tr><tr>
+<td>VK8-A Internal Logic Display Diagnostic
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djvka-b-pb>maindec-08-djvka-b-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djvka-b-pb.lbl>maindec-08-djvka-b-pb.lbl</a><td>(Tape label)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/djvka-b-pb.od>maindec-08-djvka-b-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>VT78 MOS Memory Test
@@ -1756,6 +1775,9 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0bb-pb>maindec-8e-d0bb-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0bb-pb.lbl>maindec-8e-d0bb-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0bb-pb.od>maindec-8e-d0bb-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0bb.bin>maindec-8e-d0bb.bin</a><td>(BIN format)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0bb.lst>maindec-8e-d0bb.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0bb.pal>maindec-8e-d0bb.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
 <td>8E Adder Test
@@ -1878,6 +1900,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>KE8-E (EAE) Instruction Test 1
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0la-d.pdf>maindec-8e-d0la-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0la-pb>maindec-8e-d0la-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0la-pb.lbl>maindec-8e-d0la-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0la-pb.od>maindec-8e-d0la-pb.od</a><td>(BIN image in octal)<tr>
@@ -1885,6 +1908,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>KE8-E (EAE) Instruction Test 1
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0lb-d.pdf>maindec-8e-d0lb-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0lb-d.txt>maindec-8e-d0lb-d.txt</a><td>(Text write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0lb-pb>maindec-8e-d0lb-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0lb-pb.lbl>maindec-8e-d0lb-pb.lbl</a><td>(Tape label)<tr>
@@ -1900,6 +1924,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>KE8-E (EAE) Instruction Test 2 Multiply and Divide
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0mb-d.pdf>maindec-8e-d0mb-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0mb-d.txt>maindec-8e-d0mb-d.txt</a><td>(Text write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0mb-pb>maindec-8e-d0mb-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./8e/d0mb-pb.lbl>maindec-8e-d0mb-pb.lbl</a><td>(Tape label)<tr>
