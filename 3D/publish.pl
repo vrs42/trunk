@@ -15,8 +15,8 @@ print $head;
 
 print "Here are some 3D design files mostly relevant to the PDP-8.\n";
 print "These should mostly be printable with common 3D printing services\n";
-print "like Shapeways, etc.  Be advised that the STL files are in inches,\n";
-print "not mm.\n";
+print "like Shapeways, etc.  Be advised that some of the STL files are in\n";
+print "inches, not mm.\n";
 print "<P>Use the link in the page footer to let me know if there are issues\n";
 print "with these files.\n";
 print "<P>In no particular order:<P>\n";
