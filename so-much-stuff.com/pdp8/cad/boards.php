@@ -91,15 +91,6 @@ hook into a PDP-8/i or PDP-12.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./chipfudge target=_blank>./chipfudge</a></b>: Replacements for obsolete chips
-
-</LEGEND><DL>
-<DT>AM27S13</A>
-  <DD>is my board that uses a 27256 to replace the AM27S13
-(but has trouble meeting the speed specifications).
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ConsoleEmu target=_blank>./ConsoleEmu</a></b>: Project with Henk Gooijen.
 
 </LEGEND><DL>
@@ -587,15 +578,6 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/buscon target=_blank>./DEC/buscon</a></b>: Negibus/Posibus Connectors
-
-</LEGEND><DL>
-<DT>BusCon</A>
-  <DD>is a version of DEC's M90x and W0x1 connector paddles, 
-(based on the work from the BusCon project).
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx target=_blank>./DEC/Bxxx</a></b>: Bxxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
@@ -1059,14 +1041,6 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Charmille_Andrews target=_blank>./DEC/Charmille_Andrews</a></b>: Charmille Andrews Paper Tape Reader Controller
-
-</LEGEND><DL>
-<DT>005743-001</A>
-  <DD>is a drawing of CA's 005743-001 paper tape reader controller.
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/COI_LINCtape target=_blank>./DEC/COI_LINCtape</a></b>: COI LINC Tape Controller
 
 </LEGEND><DL>
@@ -1076,6 +1050,14 @@ LINC tape controller.
 <DT>C1316G</A>
   <DD>is a reverse engineered drawing of the board inside
 Doug Jones' COI LINC tape drive.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Charmille_Andrews target=_blank>./DEC/Charmille_Andrews</a></b>: Charmille Andrews Paper Tape Reader Controller
+
+</LEGEND><DL>
+<DT>005743-001</A>
+  <DD>is a drawing of CA's 005743-001 paper tape reader controller.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1096,32 +1078,6 @@ from scratch.
 <DT>DM04ttl</A>
   <DD>is my design for a DMA multiplexer similar to the DM04,
 based on DEC's DM01.
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DouglasElectronics target=_blank>./DEC/DouglasElectronics</a></b>: Various Eagle approximations of boards sold by Douglas Electronics.
-
-</LEGEND><DL>
-<DT>5-de-7</A>
-  <DD>is a drawing of the 5-de-7.
-<DT>10-de-77</A>
-  <DD>is a drawing of the 10-de-77.
-<DT>11-de-7</A>
-  <DD>is a drawing of the 11-de-7.
-<DT>18-de-77</A>
-  <DD>is a drawing of the 18-de-77.
-<DT>21-de-7</A>
-  <DD>is a drawing of the 21-de-7.
-<DT>21-de-77</A>
-  <DD>is a drawing of the 21-de-77.
-<DT>9-de-8</A>
-  <DD>is a drawing of the 9-de-8.
-<DT>26-de-8</A>
-  <DD>is a drawing of the 26-de-8.
-<DT>104-de-8</A>
-  <DD>is a drawing of the 104-de-8.
-<DT>26-de-8x</A>
-  <DD>is a drawing of the 26-de-8 done with more mordern components.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1163,9 +1119,31 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/flipchip target=_blank>./DEC/flipchip</a></b>: 6 pin flip-chip modules
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DouglasElectronics target=_blank>./DEC/DouglasElectronics</a></b>: Various Eagle approximations of boards sold by Douglas Electronics.
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>5-de-7</A>
+  <DD>is a drawing of the 5-de-7.
+<DT>10-de-77</A>
+  <DD>is a drawing of the 10-de-77.
+<DT>11-de-7</A>
+  <DD>is a drawing of the 11-de-7.
+<DT>18-de-77</A>
+  <DD>is a drawing of the 18-de-77.
+<DT>21-de-7</A>
+  <DD>is a drawing of the 21-de-7.
+<DT>21-de-77</A>
+  <DD>is a drawing of the 21-de-77.
+<DT>9-de-8</A>
+  <DD>is a drawing of the 9-de-8.
+<DT>26-de-8</A>
+  <DD>is a drawing of the 26-de-8.
+<DT>104-de-8</A>
+  <DD>is a drawing of the 104-de-8.
+<DT>26-de-8x</A>
+  <DD>is a drawing of the 26-de-8 done with more mordern components.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx target=_blank>./DEC/Gxxx</a></b>: Gxxx modules
 
@@ -7207,6 +7185,19 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/buscon target=_blank>./DEC/buscon</a></b>: Negibus/Posibus Connectors
+
+</LEGEND><DL>
+<DT>BusCon</A>
+  <DD>is a version of DEC's M90x and W0x1 connector paddles, 
+(based on the work from the BusCon project).
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/flipchip target=_blank>./DEC/flipchip</a></b>: 6 pin flip-chip modules
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/xR210 target=_blank>./DEC/xR210</a></b>: Straight-8 Accumulator
 
 </LEGEND><DL>
@@ -7399,15 +7390,6 @@ prototyping) board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452r target=_blank>./M452r</a></b>: M452 Replacement based on MC14411
-
-</LEGEND><DL>
-<DT>M452r</A>
-  <DD>is a replacement for DEC's M452 Baud Rate Generator, based on the 
-MC14411 baud rate generator chip.
-</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452S target=_blank>./M452S</a></b>: Simplified M452X that lays out.
 
 </LEGEND><DL>
@@ -7427,26 +7409,12 @@ layer.
 not finished.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./mmu6100 target=_blank>./mmu6100</a></b>: MMU for the 6100 PDP-8 on a chip
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452r target=_blank>./M452r</a></b>: M452 Replacement based on MC14411
 
 </LEGEND><DL>
-<DT>error</A>
-  <DD>is a schematic fragment of the error circuitry.
-<DT>mmu6100</A>
-  <DD>is an early incomplete attempt at a 6100 with an MMU.
-<DT>mmu6100x</A>
-  <DD>is another incomplete attempt at a 6100 with an MMU.
-<DT>mmu6100cp</A>
-  <DD>is a snapshot of a nearly complete 6100 with an MMU.
-<DT>ts6907</A>
-  <DD>is a timeshare enhancement for the EMC 6907 MMU for the
-6100.
-<DT>emc6907</A>
-  <DD>is a drawing of the EMC6907 MMU used with the Intersil
-Intercept (not the Junior).
-<DT>vrs6907</A>
-  <DD>is my design for an EMC6907 MMU board with the timeshare
-features added.
+<DT>M452r</A>
+  <DD>is a replacement for DEC's M452 Baud Rate Generator, based on the 
+MC14411 baud rate generator chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -7516,16 +7484,6 @@ in the as-shipped assembled boards.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PosiDMux target=_blank>./PosiDMux</a></b>: FPGA PDP-8 Demultiplexer to Posibus
-
-</LEGEND><DL>
-<DT>8j-merge</A>
-  <DD>is the paddle card used to interface to the Posibus device.
-<DT>posidmux</A>
-  <DD>is an attempt to design an interface between the XESS based 
-FPGA implementation of the PDP-8 and older Posibus gear.</DL>
-</FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PT08 target=_blank>./PT08</a></b>: PT08 TTY Interface
 
 </LEGEND><DL>
@@ -7540,6 +7498,16 @@ FPGA implementation of the PDP-8 and older Posibus gear.</DL>
 <DT>PT08ttl3</A>
   <DD>is a Posibus TTY TTY Interface implemented in TTL, designed for a ribbon cable bus.
 </DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PosiDMux target=_blank>./PosiDMux</a></b>: FPGA PDP-8 Demultiplexer to Posibus
+
+</LEGEND><DL>
+<DT>8j-merge</A>
+  <DD>is the paddle card used to interface to the Posibus device.
+<DT>posidmux</A>
+  <DD>is an attempt to design an interface between the XESS based 
+FPGA implementation of the PDP-8 and older Posibus gear.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RF08 target=_blank>./RF08</a></b>: RF08 Replacement
@@ -7628,20 +7596,6 @@ wire ribbons) with the DF32 project.
 indicators, all on an olimex sized panel, with 10mil design rules.
 </DL>
 </FIELDSET>
-</FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./rs-232-20ma target=_blank>./rs-232-20ma</a></b>: RS-232 converter to go in the Logic Lab
-
-</LEGEND><DL>
-<DT>loop-rs232o</A>
-  <DD>is an older version of the  current loop to RS-232 converter (CTS 
-flow control only).
-<DT>loop-rs232</A>
-  <DD>is a slightly newer version of the current loop to RS-232 converter, 
-with CTS or DTR flow control.
-<DT>sel-driver.sch</A>
-  <DD>is a schematic of the selector magnet driver card in the TTY.
-</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RX08 target=_blank>./RX08</a></b>: Posibus version of RX8E
@@ -7858,6 +7812,14 @@ for ordering from a prototype house.
 would attach to a DEC RF08 controller.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./XMM8i target=_blank>./XMM8i</a></b>: Memory extension for PDP-8/i.
+
+</LEGEND><DL>
+<DT>mm8i</A>
+  <DD>is a start on drawing the MM8/i memory extension.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Xeltec target=_blank>./Xeltec</a></b>: Replacement for Xeltec SuperPro interface card.
 
 </LEGEND><DL>
@@ -7874,11 +7836,49 @@ card to interface the Xeltec SuperPro to a PC.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./XMM8i target=_blank>./XMM8i</a></b>: Memory extension for PDP-8/i.
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./chipfudge target=_blank>./chipfudge</a></b>: Replacements for obsolete chips
 
 </LEGEND><DL>
-<DT>mm8i</A>
-  <DD>is a start on drawing the MM8/i memory extension.
+<DT>AM27S13</A>
+  <DD>is my board that uses a 27256 to replace the AM27S13
+(but has trouble meeting the speed specifications).
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./mmu6100 target=_blank>./mmu6100</a></b>: MMU for the 6100 PDP-8 on a chip
+
+</LEGEND><DL>
+<DT>error</A>
+  <DD>is a schematic fragment of the error circuitry.
+<DT>mmu6100</A>
+  <DD>is an early incomplete attempt at a 6100 with an MMU.
+<DT>mmu6100x</A>
+  <DD>is another incomplete attempt at a 6100 with an MMU.
+<DT>mmu6100cp</A>
+  <DD>is a snapshot of a nearly complete 6100 with an MMU.
+<DT>ts6907</A>
+  <DD>is a timeshare enhancement for the EMC 6907 MMU for the
+6100.
+<DT>emc6907</A>
+  <DD>is a drawing of the EMC6907 MMU used with the Intersil
+Intercept (not the Junior).
+<DT>vrs6907</A>
+  <DD>is my design for an EMC6907 MMU board with the timeshare
+features added.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./rs-232-20ma target=_blank>./rs-232-20ma</a></b>: RS-232 converter to go in the Logic Lab
+
+</LEGEND><DL>
+<DT>loop-rs232o</A>
+  <DD>is an older version of the  current loop to RS-232 converter (CTS 
+flow control only).
+<DT>loop-rs232</A>
+  <DD>is a slightly newer version of the current loop to RS-232 converter, 
+with CTS or DTR flow control.
+<DT>sel-driver.sch</A>
+  <DD>is a schematic of the selector magnet driver card in the TTY.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
