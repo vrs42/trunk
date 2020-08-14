@@ -42,7 +42,9 @@ foreach $stl (sort <*/*.stl>) {
     $dsc = "";
   }
   print "<A href=$url/$jpg><IMG src=$url/$jpg width=320></A><BR>\n";
-  print "<A href=$url/$stl>STL file</A><BR>\n";
+  print "<A href=$url/$stl>STL file (Imperial)</A><BR>\n";
+  $mm = $stl; $mm =~ s/.stl$/-mm.stl/;
+  print "<A href=$url/$mm>STL file (Metric)</A><BR>\n" if -f $mm;
   $skp = $stl; $skp =~ s/.stl$/.skp/;
   if (-f $skp) {
     print "<A href=$url/$skp>Sketchup file</A><BR>\n";

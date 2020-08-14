@@ -24,6 +24,6 @@ foreach $stl (sort <*/*.stl>) {
   $mm = $stl; $mm =~ s/.stl$/-mm.stl/;
   warn "$stl: missing $mm\n" unless -f $mm;
   $warn++ unless -f $mm;
-  print "$stl is OK\n" unless $warn;
+# print "$stl is OK\n" unless $warn;
 }
 exit 0;
