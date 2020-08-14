@@ -2,8 +2,9 @@ AK = `/bin/pwd`/../../../pdp8/src/ak
 DEC = `/bin/pwd`/../../../pdp8/src/dec
 DECUS = `/bin/pwd`/../../../pdp8/src/decus
 MAINDEC = `/bin/pwd`/../../../pdp8/src/maindec
+MISC = `/bin/pwd`/../../../pdp8/src/misc
 SI = `/bin/pwd`/../../../pdp8/src/si
-ALL = ak.php dec.php decus.php maindec.php si.php
+ALL = ak.php dec.php decus.php maindec.php misc.php si.php
 
 all:	update $(ALL)
 
@@ -24,6 +25,10 @@ decus.php: .
 maindec.php: .
 	cd $(MAINDEC); ./publish.pl
 	(cd $(MAINDEC); tar cf - $@) | tar xvf -
+
+misc.php: .
+	cd $(MISC); ./publish.pl
+	(cd $(MISC); tar cf - $@) | tar xvf -
 
 si.php: .
 	cd $(SI); ./publish.pl

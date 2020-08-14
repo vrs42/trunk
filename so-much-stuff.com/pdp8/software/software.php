@@ -14,6 +14,7 @@
     <LI> an index of the older <A href=dec.php>DEC-xx software</A>.
     <LI> an index of the <A href=maindec.php>MAINDEC diagnostic software</A>.
     <LI> an index of the <A href=decus.php>DECUS (contributed) software</A>.
+    <LI> an index of the <A href=misc.php>Miscellaneous software</A>.
     <LI> an index of the <A href=si.php>System Industries software</A>.
     </UL>
 <TABLE>
