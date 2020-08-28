@@ -1,0 +1,96 @@
+DM1112 - OS/278 Source code - diskette 2 of 5
+
+-------------------------------
+
+diskette label:
+
+PROGRAM:  DM0111JE
+DECmateII OS/278 Source Code
+(JE) 5 1/4" FLOPPY DISKETTES (RX50)
+FORMAT:  OS/278
+			       2 OF 5
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This is diskette 2 (of 5) containing the DECUS DM0111 release of the
+source code for OS/278.
+
+-------------------------------
+
+diskette directory:
+
+
+
+ 01-Jan-86
+
+NOTES .TX 0007   1 01-Dec-84
+CCLRUN.MA 0010   8 01-Dec-84
+CCLDRV.MA 0020  17 01-Dec-84
+CCLPS .MA 0041   4 01-Dec-84
+CCLSIZ.MA 0045   6 01-Dec-84
+CCLCDX.MA 0053   7 01-Dec-84
+CCLMSG.MA 0062   8 01-Dec-84
+CCLAT .MA 0072  10 01-Dec-84
+CCLDAT.MA 0104   8 01-Dec-84
+CCLCOR.MA 0114   9 01-Dec-84
+CCLREM.MA 0125  13 01-Dec-84
+CCLCD .MA 0142  47 01-Dec-84
+CCLTAB.MA 0221  16 01-Dec-84
+CCLSUB.MA 0241  20 01-Dec-84
+CCL   .MA 0265  45 01-Dec-84
+CCLTBL.MA 0342  23 01-Dec-84
+DATE  .PA 0371  11 01-Dec-84
+SET   .PA 0404 217 01-Dec-84
+SETUP .PA 0735   4 01-Dec-84
+PIP   .PA 0741 160 01-Dec-84
+DIRECT.PA 1201  56 01-Dec-84
+<Empty>   1271  70
+
+  21 Files in  690 Blocks -   70 Free blocks

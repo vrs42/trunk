@@ -1,0 +1,102 @@
+DM101B2 - OS/278 System files - diskette 2 of 3
+
+-------------------------------
+
+diskette label:
+
+PROGRAM:  DM0101JC
+DECMATE II OS/278
+
+(JC) 5 1/4" FLOPPY DISKETTES (RX50)
+FORMAT:  OS/278
+				2 of 3
+			
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This diskette is an update of the DECUS program DM0101. The only change 
+is to update the firmware to version 422, which lets this diskette boot 
+on DECmate II, III and III+. The original DECUS program would only boot 
+on the DECmate II.
+
+-------------------------------
+
+diskette directory:
+
+ 01-Jan-86
+
+ABSLDR.SV 0070   6 23-Jan-83
+CCL   .SV 0076  29 23-Jan-83
+DIRECT.SV 0133   7 23-Jan-83
+FOTP  .SV 0142   8 23-Jan-83
+PIP   .SV 0152  14 23-Jan-83
+SET   .SV 0170  28 23-Jan-83
+DATE  .SV 0224   3 23-Jan-83
+SETUP .SV 0227   2 23-Jan-83
+VERIFY.SV 0231   3 23-Jan-83
+BASIC .SV 0234  11 23-Jan-83
+BCOMP .SV 0247  26 23-Jan-83
+BLOAD .SV 0301  10 23-Jan-83
+BRTS  .SV 0313  25 23-Jan-83
+BASIC .OV 0344  19 23-Jan-83
+RENUM .BA 0367  50 23-Jan-83
+BASIC .TX 0451  50 23-Jan-83
+F4    .SV 0533  20 23-Jan-83
+LOAD  .SV 0557  16 23-Jan-83
+PASS2 .SV 0577  20 23-Jan-83
+PASS2O.SV 0623   5 23-Jan-83
+PASS3 .SV 0630   8 23-Jan-83
+FRTS  .SV 0640  26 23-Jan-83
+RALF  .SV 0672  19 23-Jan-83
+FORLIB.RL 0715  73 23-Jan-83
+LOG   .SV 1026   4 23-Jan-83
+NOTES .TX 1032  14 23-Jan-83
+<Empty>   1050 215
+
+  26 Files in  496 Blocks -  215 Free blocks

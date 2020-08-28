@@ -1,0 +1,69 @@
+WPSPELLZ
+
+  SPELLING COPR (c) HOUGHTON MIFFLIN
+  ENGLISH (IZE) V2.1
+
+-------------------------------
+
+diskette label:
+
+  BL-BL89C-BV                     075098
+  SPELLING COPR (c) HOUGHTON MIFFLIN
+  ENGLISH (IZE) V2.1
+      COPR (c) 1986 DIGITAL EQUIP. CORP.
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+-------------------------------
+
+diskette directory:
+
+This diskette is in Master Menu backup format and does not have a
+valid OS278 directory.

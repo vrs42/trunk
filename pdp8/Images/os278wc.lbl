@@ -1,0 +1,112 @@
+OS278WC - bootable OS278 working diskette 
+
+-------------------------------
+
+diskette label:
+
+  OS/278 Version 2.0 (DM-101)
+  Working Copy
+  (Includes Kermit-12)
+  Internal Data Level 422
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This diskette contains a bootable OS278 system including Charles Lasner's
+KERMIT. The slushware has been updated for the DECmate III and III+.
+
+-------------------------------
+
+diskette directory:
+
+
+ 19-Mar-97
+
+ABSLDR.SV 0070   6 23-Jan-92
+CCL   .SV 0076  29 23-Jan-92
+DIRECT.SV 0133   7 23-Jan-92
+FOTP  .SV 0142   8 23-Jan-92
+PIP   .SV 0152  14 23-Jan-92
+SET   .SV 0170  28 23-Jan-92
+DATE  .SV 0224   3 23-Jan-92
+LOG   .SV 0227   4 23-Jan-92
+SETUP .SV 0233   2 23-Jan-92
+EDIT  .SV 0235  18 23-Jan-92
+VERIFY.SV 0257   3 23-Jan-92
+FORMAT.SV 0262   8 23-Jan-92
+RTFLOP.SV 0272  17 23-Jan-92
+WPFLOP.SV 0313  14 23-Jan-92
+BATCH .SV 0331  10 23-Jan-92
+PAL8  .SV 0343  19 23-Jan-92
+CREF  .SV 0366  13 23-Jan-92
+FUTIL .SV 0403  27 23-Jan-92
+BITMAP.SV 0436   5 23-Jan-92
+SRCCOM.SV 0443   5 23-Jan-92
+HELP  .SV 0450   8 23-Jan-92
+HELP  .HL 0460  62 23-Jan-92
+MOUNT .SV 0556  25 23-Jan-92
+BOOT  .SV 0607  24 23-Jan-92
+FIXDIR.SV 0637  30 23-Jan-92
+MENU  .SV 0675   3 23-Jan-92
+EDTHLP.TX 0700  26 23-Jan-92
+NOTES .TX 0732  14 23-Jan-92
+REMEM .SV 0750   5 31-May-95
+DSKCPY.SV 0755  28 05-Oct-92
+TECO  .SV 1011  22 23-Sep-96
+CMPARE.SV 1037   6 06-Oct-90
+ENCODE.SV 1045   6 12-Jul-92
+DECODE.SV 1053   5 12-Jul-92
+ENBOO .SV 1060   4 12-Jul-92
+DEBOO .SV 1064   4 12-Jul-92
+K12MIT.SV 1070  33 06-Sep-90
+K24MIT.SV 1131  33 12-Jul-92
+K96MIT.SV 1172  33 12-Jul-92
+<Empty>   1233 100
+
+  39 Files in  611 Blocks -  100 Free blocks

@@ -1,0 +1,89 @@
+WPCBIHDA
+
+  CBI - INTRO TO WPS - A
+  HARD DISK SYSTEM    TRAINING
+
+-------------------------------
+
+diskette label:
+
+  BL-JJ27A-BV                 omrnos3020
+  CBI - INTRO TO WPS - A
+  HARD DISK SYSTEM    TRAINING
+      COPR (c) 1986 DIGITAL EQUIP. CORP.
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+-------------------------------
+
+diskette directory:
+
+
+ 31-Dec-86
+
+BASIC .OV 0070  19 04-Oct-82
+BRTS  .SV 0113  25 04-Oct-82
+CBI   .LO 0144   3 12-Aug-86
+CBI   .LI 0147   4 12-Aug-86
+INTRO .LO 0153   7 12-Aug-86
+INTRO .LI 0162  59 12-Aug-86
+MAIN  .LO 0255   3 12-Aug-86
+MAIN  .LI 0260  14 12-Aug-86
+MOD3  .LO 0276  60 12-Aug-86
+MOD3  .LI 0372 191 12-Aug-86
+MOD4  .LO 0671  22 12-Aug-86
+MOD4  .LI 0717 120 12-Aug-86
+GRL   .SV 1107  70 12-Aug-86
+CCL   .SV 1215  29 23-Jan-84
+MOUNT .SV 1252  25 23-Jan-84
+MENU  .SV 1303   3 23-Jan-84
+<Empty>   1306  57
+
+  16 Files in  654 Blocks -   57 Free blocks

@@ -1,0 +1,778 @@
+			 Text file used with HELP.SV
+&
+HELP			*** OS278 SYSTEM COMMANDS ***			HELP
+
+BASIC	Enter BASIC system editor	MENU	Boot Master Menu
+BOOT	Boot a volume			MOUNT	Mount a volume
+COMPARE	Compare ASCII files		ODT	Run octal debugger
+COMPILE Compile BASIC, F4, PAL files	PAL	Assemble files
+COPY	Copy files			R	Run program from SYS:
+CREATE	Create a new text file		READ	Check device for bad blocks
+CREF	Assemble with CREFed listing	RENAME	Rename files
+DATE	Enter, store or display date	RTFLOP	RT-11 <-> OS278 file transfer
+DELETE	Delete filespec			RUN	Run program from device
+DEVICE	Display handler information	SAVE	Save program image
+DIRECT	List directory information	SET	Alter device characteristics
+EDIT	Edit an existing file		SETUP	Loads the DECmate II SETUP menu
+EXECUTE Load/run BASIC, F4, PAL files	SQUISH	Remove empyt blocks on a device
+FIXDIR	Fix volume after squish/zero	SUBMIT	Initiate BATCH operation
+FORMAT	Format RL01/02 and RX02 disks	TYPE	Display files on terminal
+FUTIL	File utility program		UA	(UB, UC) User defined commands
+LIST	Print files on lineprinter	WPFLOP	WPS <-> OS278 document transfer
+LOAD	Load binary files		WRITE	Write your own help file
+MAP	Map binary files		ZERO	Zero directory of a device
+
+&BASIC
+Command: BASIC		Abbr: BAS		Utility: BASIC.SV
+
+}BASIC
+
+Internal Commands:
+BYE	Exit from BASIC
+DELETE	Delete one or more line of text
+EDIT	Edit a line
+LIST	List current program statements
+LISTNH	List current program without header
+NAME	Rename current program
+NEW	Prepare for a new program
+OLD	Retrieve an old program
+RUN	Run current program
+RUNNH	Run current program without header
+SAVE	Save current program
+SCRATCH	Delete current program
+SEQ	Begin auto sequence mode
+WEAVE	Merge two programs into current workspace
+
+For information on the Run Time System commands, list BASIC.TX.
+ 
+&BOOT
+Command: BOOT		Abbr: BO		Utility: BOOT.SV
+
+}BOOT vname
+
+	vname = The volume name of the system to be booted
+
+	Note:  The volume must be mounted before this command is executed.
+
+
+&COMPAR
+Command: COMPARE	Abbr: COMPAR		Utility: SRCCOM.SV
+ 
+}COMPARE outdev:file.LS<indev:file1.ex,indev:file2.ex
+}COMPARE outfile.LS<infile1.ex,infile2.ex - - - -(Files on SYS)
+ 
+Switches:
+/B	Compare blank lines
+/C	Don't compare (slashed) comments Basic, Fortran, and Pal8 files.
+
+}COMPILE dev:file.ex /options
+}COMPILE outdev:file.ex<indev:file.ex /options
+
+	Basic options
+
+	/B Compile program leaving top 4k free for batch
+	/G Compile and execute program
+
+	Fortran options
+
+	/L Chain to loader to create load-image file
+	/G Same as /L and runs program
+	/N Suppress internal statement subscripting
+	/Q Optimize cross-statement subscripting
+
+&COPY
+Command: COPY		Abbr: none		Utility: FOTP.SV
+
+}COPY outdev:file.ex<indev:file1.ex...file5.ex/options
+}COPY outdev:<indev:*.TX	Copies all files with a .TX extension
+}COPY outdev:<indev:FOO???.*	Copies all files with names starting with FOO
+
+	/C Transfer all files with current date
+	/F Fail safe
+	/N Transfer files with postdeletion
+	/O Transfer files with dates other than current date
+	/P Transfer files with predeletion (default)
+	/Q Query user on whether or not to transfer file
+	/R Rename input filename to output filename
+	/T Append current date on files being transfered
+	/U Transfer each file in order of command line
+	/V Transfer all files other than those specified in command line
+	/W Display version
+
+	(* = Wild name or extension)
+	(? = Wild character)
+
+&CREF
+Command: CREF		Abbr: none		Utility: CREF.SV
+
+}CREF outdev:binfile.BN,outdev:listfile.LS<indev:file.PA/options
+}CREF indev:file.PA - - (listing to LPT only)
+}CREF infile.PA - - - -	(listing to LPT, input file on DSK)
+
+	Options
+
+	/A	Don't delete temporary CREF file (CREFLS.TM)
+	/M	CREF files with many symbols in 2 
+/S	Don't compare tabs and spaces
+/T	Convert tabs to spaces on output
+/X	Don't compare or print comments
+ 
+ERRORS:
+?0	Insufficient memory
+?1	Input error file 1 (or less than 2 input files)
+?2	Input error file 2
+?3	Output file too large
+?4	Output error
+?5	Can't open output file
+
+&COMPILE
+Command: COMPILE	Abbr: COM	Utilities: BASIC.SV, F4.SV, PAL8.SV
+
+Used to compileATE 24-AUG-83
+
+	}DA
+	Wednesday AUGUST 24, 1983
+	Store current date? Y
+	Date stored.
+
+The next time the system is booted, it will set the system date
+to 24-AUG-83.
+
+&DELETE
+Command: DELETE		Abbr: DEL		Utility: FOTP.SV
+
+}DELETE dev:file1.ex...file5.ex/options		Deletes files specified
+
+	options
+
+	/C Delete files with current date
+	/N Display but do not delete files in command line
+	/O Delete files with dates other than current date
+	/Q Query user on whether or not do delete the file
+	/V Delete all files that are not specified in command line
+	/W Display version
+
+	(* = wild name or extension)
+	(? = wild character)
+
+&DEVICE
+FILE NAME LOGICAL DEVICE     COMMENTS
+
+TTY   .HN TTY		Console terminal handler
+BAT   .HN BAT		Batch handler
+LPTS  .HN LPT		Serial line printer handler
+COMM  .HN COMM		Communication handler for DECmate II
+COM0  .HN COM0		Communication handler for DECmate I port 0
+COM1  .HN COM1		Communication handler for DECmate I port 1
+RX02SY.HN SYS		RX02 system handler
+RX01SY.HN SYS		RX01 system handler
+RX2A  .HN RX20, RX21	RX02 non-system handler for drive pair A
+RX2B  .HN RX22, RX23	RX02 non-system handler for drive pair B
+RX50SY.HN SYS		RX50 system handler
+RX5A  .HN RX50, RX51	RX50 non-system handler for drive pair A
+RX5B  .HN RX52, RX53	RX50 non-system handler for drive pair B
+RD51SY.HN SYS		RD51 system handler
+RD5A  .HN RD50, RD51	RD51 non-system handler
+RD5B  .HN RD52, RD53	RD51 non-system handler
+RL01SY.HN SYS		RL01 system handler
+RL0   .HN RL0A, RL0B	RL01passes (twice as slow)
+	/P	Disable pass 1 listing (needs $ at end of source)
+	/U	Disable pass 1 listing and PAL symbol table
+	/X	Do not process literals
+
+&DATE
+Command: DATE		Abbr: DA		Utility: DATE.SV
+
+}DATE dd-mmm-yy	Sets system date   (Monitor command)
+
+}DA				   (CCL command, Calls DATE.SV)
+Displays date typed
+Store current date?		   (Press Y for yes.)
+
+	IE:
+	}Dames only)
+	/M	List empties only
+	/O	List only files with other than today's date
+	/R	List files starting with specified filename
+	/U	Treat each input specification separately
+	/V	List files not of form specified
+	/W	Print version number
+	=n	Use n columns
+
+	(* = wild name or extension)
+	(? = wild character)
+
+&EDIT
+&CREATE
+Command: EDIT		Abbr: ED		Utility: EDIT.SV
+Command: CREATE		Abbr: none		Utility: EDIT.SV
+
+Arrow keys perform arrow functions	 -------------------------------
+GOLD A	Append to CUT buffer		| GOLD	|ADV/BAK|DELETE	|DELETE	|
+GOLD B	Advance to bottom of file	| KEY	|  PAGE	| WORD	| CHAR	|
+GOLD C	Cancel current gold command	 -------------------------------
+GOLD E	File output buffer		|DELETE	|ADV/BAK|ADV TO	| CUT	|
+GOLD F	Close file and return to system	| LINE	|  TAB	|  EOL	| TEXT	|
+GOLD G	Global search and replace	 -------------------------------
+GOLD N	Insert a page marker		|ADV/BAK|ADV/BAK|DELETE	| PASTE	|
+GOLD O	Open a new line			| WORD	| PARA.	|TO EOL	| TEXT	|
+GOLD P	Advance 55 lines		 -------------------------------
+GOLD T	Goto to top of file		|BACKUP	|ADV/BAK|CHANGE	|	|
+GOLD V	Display versio non-system handler for drive 0
+RL1   .HN RL1A, RL1B	RL01 non-system handler for drive 1
+RLC   .HN RL0C, RL1C	RL01 non-system handler for drives 0 and 1
+RL02SY.HN SYS		RL02 system handler
+R0AB  .HN R20A, R20B	RL02 non-system handler for drive 0
+R0CD  .HN R20C, R20D	RL02 non-system handler for drive 0
+R1AB  .HN R21A, R21B	RL02 non-system handler for drive 1
+R1CD  .HN R21C, R21D	RL02 non-system handler for drive 1
+R01E  .HN R20E, R21E	RL02 non-system handler for drives 0 and 1
+
+&DIRECT
+Command: DIRECT		Abbr: DIR		Utility: DIRECT.SV
+
+}DIRECT dev:filespec/options
+
+}DIRECT		( Display all files on device SYS ) 
+
+	Options
+
+	/B	Include starting block numbers (octal)
+	/C	List only files with current date
+	/E	Include empties
+	/F	Fast mode (filenbe executed if the volume has been squished
+	or zeroed and contains less than 4095 blocks.
+
+
+&FORMAT
+Command: FORMAT		Abbr: none		Utility: FORMAT.SV
+
+}FORMAT Device/option
+
+Where device can equal RL01, RL02, RX02.
+
+	Options:
+
+	/0	Select drive 0
+	/1	Select drive 1 (default)
+	/S	Format to single density (RX02 only)
+	/D	Format to double density (RX02 only)
+
+		NOTES ON RL FORMATTING:
+
+	If additional bad blocks are found on existing packs,
+	some files may not be recoverable.  Formatting does
+	not alter the contents of files.
+
+&FUTIL
+Command: FUTIL		Abbr: FUT		Utility: FUTIL.SV
+
+Note: FUTIL is a versatile program, but is also quite sophisticated.
+Do not use this utility until you have read the manual and understand
+what you want to do. Always operate with a copy of your system files.
+
+Conditions are established with the command SET "function argument".
+Currently existing conditions are returned with the command SHOW
+"function". Additional commands allow file manipulation, and BATCH
+control.
+
+SET	DEVICE  device:		declare input device
+	DDEVIC  device:		declare output (dump) device
+	DMODE	ALL		output to n	of edit		| CHAR.	| LINE	| CASE	| CONT	|
+GOLD ,	Define search string		 -----------------------| SRCH	|
+GOLD '	Define replace string		|     ADVANCE	| TURN	|	|
+GOLD .	Continue search			|      CHAR	|CUT OFF|	|
+GOLD /	Continue search and replace	 -------------------------------
+
+}EDIT dev:file.ex		}CREATE dev:file.ex
+ 
+&EXECUTE
+Command: EXECUTE	Abbr: EX	Utilities: BASIC.SV, F4.SV, PAL8.SV
+
+(Compile, assemble, load, and run PAL, FORTRAN and BASIC programs)
+
+}EXECUTE dev:file.ex
+
+		NOTE
+   See BASIC, COMPILE, LOAD, and PAL
+   Commands for additional command
+   strings and options.
+
+
+&FIXDIR
+Command: FIXDIR		Abbr: FIX		Utility: FIXDIR.SV
+
+}FIXDIR vname
+
+	vname = The volume name containing the directory to be fixed
+
+	This command must  parameters
+WRITE	write out modification buffer
+SCAN    read check of DEV
+REWIND  initialize directory references
+OPEN 	open a file on DDEV
+CLOSE	close a file on DDEV
+EVALUATE <expression>
+
+BATCH operations:
+
+	IF <expression> evaluates to zero continue, else skip to END
+	END enable execution following a non-zero IF
+	COMMENT pass comment from TTY to BATCH log
+	EXIT  exit to BATCH (if running, else exit to OS278 monitor)
+
+Single character commands:  (n = optional numeric argument)
+
+  n/	open location in current mode (all locations are closed
+	before the next commands are executed)
+  n#	output location contents in BCD
+  n$	(dollar) output contents in ASCII
+  n%	output contents in OS278 BYTE mode
+  n&	output contents in XS240 ASCII 
+  n:	odeclared and default devices
+		PART		output only to declared devices
+		NONE		no output (default)
+	ERROR	LONG		long form of error messages (default)
+		SHORT		abbreviated error messages
+	FILLER  numeric		sets low bits of numeric arguments
+	FORMAT  one of: ASCII, BCD, BYTE, DIRECTORY, FPP, PDP, OCTAL, OS,
+ 			UNSIGNED, SIGNED, XS240
+	LOWER	numeric		lower limit for search
+	MASK	numeric		mask for WORD search
+	MODE	one of: LOAD, NORMAL, OFFSET, SAVE
+	OFFSET  numeric         sets low bits of location searched for
+	OUTPUT	one of: FPP, OCTAL, PDP
+	TEMP	numeric		set TEMP=n (24bit)
+	UPPER	numeric		Upper search limit
+
+SHOW	one or more of:
+
+		ABSOLUTE, BLOCK, CCB, DEVICE, DDEVICE, ERRORS, FILLER,
+		FORMAT, HEADER, LOWER, MASK, MODE, ODT, OFFSET, OUTPUT,
+		RELATIVE, SMASK, UPPER, VERSION
+
+DUMP [format] location string
+
+LIST [format] location string
+
+MODIFY (in some format,) location string	Formats: ASCII, PACKED
+						OS, XS240, NUMERIC
+
+WORD	one of:	ABSOLUTE, FROM, MEMREF, TO, UNEQUAL  [bit pattern to use]
+
+STRING	one of: ABSOLUTE, FROM, MASKED, TO [string to use]
+
+SMASK   [string mask to use]
+
+FILE	retrieve fileogram
+	/I	Memory image file
+	/R	Reset
+	/S	Multiple binaries/file
+	/ff	Force loading to field ff (ff is two octal digits)
+	=ffnnnn	Set starting address
+
+&MAP
+Command: MAP		Abbr: none		Utility: BITMAP.SV
+
+}MAP outdev:mapfile.MP<indev:file.BN,.../options
+
+	Options
+
+	/n	Force mapping of all files to field n (0-7)
+	/R	Reset internal map
+	/S	Allow multiple binaries per file
+
+
+&MENU
+Command: MENU		Abbr: ME		Utility: MENU.SV
+
+}MENU
+
+	Boots Master Menu.
+
+&MOUNT
+Command: MOUNT		Abbr: MO		Utility: MOUNT.SV
+
+}MOUNT n:vname
+
+	n = the volume number to be assigned
+	vname = the volume name to be mounted
+
+	Note: For OS278 n = the logical device to be mounted.
+
+	IE: n = 0 for RD50
+	    n = 1 for RD51
+	    n = 2 for RD52
+	    n = 3 forutput contents in SIGNED DECIMAL
+  n<	output contents in OCTAL
+  n=	output contents in UNSIGNED DECIMAL
+  n>	output contents in PDP (symbolic)
+  n?	output contents in DIRECTORY format
+  n@	output contents in OS278 DATE format
+  n[	output contents in ASCII
+  n\	output contents in FFP (symbolic)
+  n]	output contents in PACKED ASCII
+n<esc>	output contents in the current format
+n<ret>	close the location(s) with no output
+  n;	close the location(s), open the next; has no output
+
+&LIST
+Command: LIST		Abbr: LI		Utility: FOTP.SV
+
+}LIST dev:file1.ex..file5.ex/options
+
+	Options
+
+	/C List only those files having the current date
+	/O List only those files having a date other than the current date
+	/Q Query user on whether or not to list the file
+	/U Transfer each file in order of command line
+	/V List all the files not specified in the command line
+
+	(* = wild name or extension)
+	(? = wild character)
+
+&LOAD
+Command: LOAD		Abbr: LO		Utility: ABSLDR.SV
+
+For PAL8 generated binaries:
+
+}LOAD indev:binfile.BN,.../options
+
+	Options
+
+	/8	Prog doesn't use below 02000
+	/9	Prog doesn't use below 12000
+	/G	Execute prmmand: READ		Abbr: RE		Utility: VERIFY.SV
+
+}READ dev:
+
+	Read verifies a logical device for bad blocks.
+
+	Note: READ does not verify the firmware blocks.
+
+&RENAME
+Command: RENAME		Abbr: REN		Utility: FOTP.SV
+
+}RENAME outdev:file.ex<indev:file.ex/options
+
+	Options
+
+	/C Rename all files with current date
+	/O Rename all files with date other than current date
+	/T Appe rd53
+
+	MOUNT/L display all volumes
+
+&ODT
+Command: ODT		Abbr: none	Utility: none, internal to system
+  
+}ODT
+
+Internal Commands:
+ffnnnn/	  Open loc			nnnn+	Open current loc+nnnn
+/	  Reopen last opened loc	nnnn-	Open current loc-nnnn
+nnnn	  Deposit nnnn in open loc	nnnnG	Go from loc nnnn
+<cr>	  Close previously opened loc	nnnnB	Insert breakpoint at loc nnnn
+<lf>	  Close loc, open next loc	B	Remove breakpoint
+^	  Close,open loc addressed	A	Open AC
+_	  Close,open loc pointed to	L	Open link
+M	  Open search mask		C	Continue from breakpoint
+M<lf>	  Open lower search limit	nnnnC	Continue nnnn times
+M<lf><lf> Open upper search limit	D	Open data field
+nnnnW	  Search for nnnn in limits	F	Open field for ^,_, W and B
+CTRL/O	  Suppress printing			commands
+
+&PAL
+Command: PAL		Abbr: none		Utility: PAL8.SV
+
+}PAL outdev:binfile.BN,outdev:listfile.LS<indev:file.PA/options
+
+}PAL infile.PA
+
+Options:
+
+/B     Treat ! as byte shift		      /K     Use extra memory
+/C     Chain to CREF			      /L     Load
+/E     Enable error msg on link generated     /N     No listing
+/F     Disable zero-fill in TEXT pseudo-op    /O     Disable origin 200
+/G     Load and execute program		      /S     No symbol table
+/H     Non-paginated output		      /T     No form feeds
+/J     Don't list lines conditionalized out   /W     Don't remember literals
+
+&R
+Command: R		Abbr: none	Utitliy: none
+
+}R file.ex	(Defaults to .SV)
+
+The R command loads and executes a file that resides on the system device.
+
+
+&READ
+Coystem
+bit 6-9    Reserved
+bit 10 = 1 Do not save locations 00000-01777 when calling Command Decoder
+bit 11 = 1 Do not save locations 10000-11777 when calling the USR
+
+&SET
+Command: SET		Abbr: none		Utility: SET.SV
+ 
+}SET device [NO] parameter(s)
+
+devices:	terminal:TTY
+		line printer: LPT
+		system (SYS)
+		device handlers (e.g. RX2A)
+
+Terminal parameters:
+
+	BAUD nn	nd current date on files being renamed
+	/V Rename all files other than those specified in command line
+	/W Display version
+
+	(* = wild name or extension)
+	(? = wild character)
+
+&RTFLOP
+Command: RTFLOP		Abbr: RT		Utility: RTFLOP.SV
+
+}RTFLOP
+
+RTflop>output filespec<input file/options
+
+	Options:
+
+	/R	Read file from an RT-11 floppy
+	/W	Write file onto a floppy in RT-11 format
+	/L	List directory of an RT-11 floppy
+	/D	Delete a file from an RT-11 floppy
+	/Z	Zero an RT-11 floppy (initialize and delete all files)
+	/0	RT-11 floppy in drive 0 (default)
+	/1	RT-11 floppy in drive 1
+
+Example:
+
+RTflop>RTFILE.EXT<OSFILE.EX/W/1   copies OSFILE.EX on drive 0 to
+				  drive 1 as RTFILE.EXT
+
+&RUN
+Command: RUN		Abbr: none		Utility: none
+
+}RUN dev:file.ex	(Defaults to a .SV extension)
+
+The RUN command loads and executes a file from the device specified.
+
+
+&SAVE
+Command: SAVE		Abbr: SA	Utility: none, internal to system
+
+}SAVE dev:file.ex fnnnn-fmmmm,...;fssss=cccc
+
+fnnnn-fmmmm	Save a contigous protion of memory from fnnnn to fmmmm.
+
+fssss		Set the starting address where
+		f = the starting field
+		ssss = the starting memory address
+
+cccc		A 4 digit number specifing the job status word where:
+
+bit 0 = 1  File does not load into locations 00000-01777
+bit 1 = 1  File does not load into locations 10000-11777
+bit 2 = 1  Program must be reloaded before restarted
+bit 3 = 1  Program will not destroy BATCH
+bit 4 = 1  Memory image file generated by linker
+bit 5      Reserved for OS278 s  set baud rate of DECmate printer port
+	COL n	  Set number of columns used by DIRECT 
+	ECHO	  Restore terminal character echoing
+	ESC	  Echo ESC as a dollar sign
+	HEIGHT n  Set number of lines sent between PAUSE
+	PAGE	  enable the PAUSE function
+	PAUSE n	  Set pause between "pages" from 1-85 seconds.
+	SCOPE	  Erase character on terminal in response to DEL
+	WIDTH n	  Set width of terminal to n (multiple of 8)
+
+Line printer parameters:
+
+	WIDTH n   Set width of lineprinter to n
+
+Device handler parameters:
+
+}SET HANDLER old new	old     = Handler to be replaced 
+			new     = Handler to be inserted
+
+Example:   }SET HANDLER RX2B R0AB     Replaces RX02 drive pair B handler
+				      with RL02 handler devices A and B.
+
+NOTE: both old and new handlers must reside on SYS: as handler.HN
+
+}SET HANDLER /L			Display list of current handlers	
+
+System parameters:
+
+}SET SYS INIT file	Request execution of "file" when starting system.
+
+Examples:
+
+          }SET SYS INIT R LOG     will execute the file LOG.SV upon boot
+	  }SET SYS INIT HELP	  will execute the CCL command HELP
+	  }SET SYS INIT @NEW	  will execute the file NEW.CM
+
+}SET SYS DEVICE logdev handler.hn
+
+			Transfer current OS278 system to another logical
+			device "logdev:". System handler to use is
+			"handler.hn". Read the SET command chapter before
+			doing this!
+
+
+&SETUP
+Command: SETUP		Abbr: none		Utility: SETUP.SV
+
+}SETUP
+
+	SETUP loads and runs the DECmate II user selection menu.
+
+&SQUISH
+Command: SQUISH		Abbr: SQ		Utility: PIP.SV
+
+}SQUISH dev:
+
+The squish command eliminates any embedded empty files on the specified device.
+
+NOTES:
+	1) A device error during a squish operation leaves
+	the entire contents of the device corrupted in a
+	non-obvious way.  Therefore, do not use this command
+	unless you have a backup copy of the disk being squished.
+
+	2) Once you have executed a squish, do not interrupt the
+	process.  This WILL corrupt your disk!!
+
+&SUBMIT
+Command: SUBMIT		Abbr: SU		Utility: BATCH.SV
+ 
+}SUBMIT batchfile.BI/options		(batchfile must be on SYS:)	
+ 
+	Options:
+
+	/E	Treat all errors as non-fatal
+	/H	Suppress BATCH log
+	/Q	Send only $JOB
+	/T	Send output from processing to terminal only (default LPT)
+	/U	Ignore all terminal input except CRTL/C
+	/V	Version of Batch
+
+
+&TYPE
+Command: TYPE		Abbr: TY		Utility: FOTP.SV
+
+}TYPE dev:file.ex
+}TYPE dev:file1.ex,file5.ex/options
+
+Type displays the contents of a files on the console terminal.
+
+	Options
+
+	/C Type all files with the current date
+	/O Type all files with dates other than the current date
+	/Q Query user on whether or not to type the file
+	/U Type each file in order of command line
+	/V Type all files other than those specified in the command line
+	/W Display version
+
+	(* = wild name or extension)
+	(? = wild character)
+
+&UA
+Command: UA		Abbr: none		Utility: CCL.SV
+
+	To define UA-UC
+
+}UA any valid CCL command
+}UB any valid CCL command
+}UC any valid CCL command
+
+	To execute UA-UC
+
+}UA
+}UB
+}UC
+
+The UA, UB, and UC are three user defined commands.  Once these commands
+have been defined, their arguments can be recalled at any time by typing
+the two letter command that it was stored under.
+
+&WPFLOP
+Command: WPFLOP		Abbr: WP		Utility: WPFLOP.SV
+
+OS278 -> WPS8
+
+}WP [doc dev]:<[os dev]FILENAME.EX/O
+
+OS278 <- WPS8
+
+}WP [os dev]:FILENAME.EX<[doc dev]:doc #
+
+doc dev = device where WPS8 document disk resides.
+os dev  = device where OS278 file resides.
+doc #   = document number in WPS8 index.
+
+Switches
+
+	/C  Compatability mode WPS -> OS278 conversion
+	/O  Transfer a file from OS278 -> WPS
+	/V  Print version
+	/W  OS278 return become WPS word-wrap return
+
+&WRITE
+
+If you don't like the HELP files furnished with OS278, you can write
+your own. e for comparison by HELP.SV, and only the first 10 characters
+are printed by the HELP ? request to list all subjects.
+
+3.  The first keyword for a subject must be preceded by a linefeed
+character. The combination <CRLF>& indicates a file for a HELP sub-
+ject. Related keywords can be included under the first, provided
+they are preceded by only the ampersand. These keywords will also
+be found by HELP.
+
+4.  Keywords must be in uppercase, though the text of the HELP
+subject may be uppper and lowercase.
+
+5.  The HELP file may be as long as you like. Any entry in the file
+can be as long as you like, provided you don't exceed any OS278 file
+size limitations.
+
+6.  Entries in the file need not be in alphabetical order. However,
+the list of keywords that reference the file material must be in
+alphabetical order. The order of subject entries in HELP.HL
+determines the order of display when the HELP ? command is given. If
+the subjects are alphabetical, the display across the VDT will be in
+alphabetical order. RX02 system users should note that HELP.SV
+reads 8 blocks at a time when searching for a subject, so users of
+these systems can shuffle the most frequently referenced HELP
+commands toward the front of the file to minimize search time.
+
+7.  For detailed examples, LIST HELP.HL.
+
+
+&ZERO
+Command: ZERO		Abbr: ZE		Utility: PIP.SV
+
+}ZERO dev:
+
+This command initializes the device specified for file storage
+(non-system disk).
+
+}ZERO dev:/Y
+
+This command initializes the device specified asJust follow a few guidelines for changing the text file
+accessed from HELP.
+
+1.  The HELP processor uses standard OS278 handlers, so any ASCII
+file that is unpacked (one character/word) or packed in standard
+OS278 format can be read.
+
+2.  The matching key for entries in the HELP file is &WORD, where
+"WORD" can be any length. Only the first 6 characters are considered
+uniqu||    x     0                                                                                                                                0                                                                                                                                                                                                                                    

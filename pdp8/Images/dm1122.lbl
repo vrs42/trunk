@@ -1,0 +1,94 @@
+DM1122
+
+DECUS NO: DM-112     COS-310   
+
+diskette  2 OF 2
+
+-------------------------------
+
+diskette label:
+
+  DECUS NO: DM-112
+  COS-310
+  FORMAT:  COS-310
+  DENSITY: DOUBLE   2 OF 2
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This diskette contains V1.0 of OS278. COS-310 can run under OS278.
+
+-------------------------------
+
+diskette directory:
+
+
+ 01-Jan-86
+
+ABSLDR.SV 0070   6 29-Aug-83
+CCL   .SV 0076  31 29-Aug-83
+DIRECT.SV 0135   7 29-Aug-83
+FOTP  .SV 0144   8 29-Aug-83
+PIP   .SV 0154  14 29-Aug-83
+SET   .SV 0172  28 29-Aug-83
+DATE  .SV 0226   3 29-Aug-83
+SETUP .SV 0231   2 29-Aug-83
+FUTIL .SV 0233  27 29-Aug-83
+BATCH .SV 0266  10 29-Aug-83
+LOG   .SV 0300   3 29-Aug-83
+NOTES .TX 0303   7 29-Aug-83
+HD    .SV 0312  97 04-Oct-83
+MMSPEC.DT 0453  64 11-Jul-83
+MM    .SV 0553  36 29-Aug-83
+MBB   .SV 0617  23 06-Oct-83
+HDC   .SV 0646  96 06-Nov-83
+<Empty>   1006 249
+
+  17 Files in  462 Blocks -  249 Free blocks
+

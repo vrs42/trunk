@@ -1,0 +1,93 @@
+MMV120A
+
+MASTER MENU Version 1.2
+
+Diskette A
+
+-------------------------------
+
+diskette label:
+
+BL-BF72D-BV
+DM MASTER MENU INSTL A RX50
+
+
+(c) 1986 DIGITAL EQUIP. CORP.
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This version of Master Menu is an update for the DECmate III and III+, and
+uses only device A (0) of the RX50 diskette drive. With that limitation, 
+it also works correctly on the DECmate II.
+
+
+-------------------------------
+
+diskette directory:
+
+
+ 01-Jan-86
+
+MMSPEC.DT 0070  64 11-Jul-83
+<Empty>   0170  30
+DSKCPY.SV 0226  28 03-Mar-86
+SETUP .SV 0262   2 03-Mar-86
+<Empty>   0264  12
+MMI   .RB 0300  11 23-Jan-84
+<Empty>   0313   4
+SMPW  .SV 0317  26 03-Mar-86
+MBBSO .SV 0351  37 03-Mar-86
+LPSWD .SV 0416  37 03-Mar-86
+MMI   .SV 0463  32 23-Jan-84
+<Empty>   0523  48
+MMINST.SV 0603  63 23-Jan-84
+<Empty>   0702 317
+
+   9 Files in  300 Blocks -  411 Free blocks

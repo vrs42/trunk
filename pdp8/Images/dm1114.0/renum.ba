@@ -1,0 +1,680 @@
+NOT FULL THE LAST FEW WORDS LOOK LIKE THE FOLLOWING
+
+
+/	7777			/TERMINATE PR1 COMMAND
+/	JMP I	PILOOP		/GOTO BRTS AND GET NEXT INSTRUCTION
+
+EV GT 4 CHARS
+	SNA CLA
+	TAD	XNAME		/ANY DEV THERE
+	SNA CLA
+	JMP I	NAM		/NO, NO GOOD
+	JMP	GOTDVC		/STRIP OFF DEVICE AND GET FILE NAME
+DECPNT,	ISZ	DOTSW		/SEE IF . SEEN YET
+	JMP I	NAM		/YES, ERROR
+	ISZ	COLSW		/DISALLOW FURTHER : TO
+
+
+
+
+
+100 REM**100,2**
+
+	!***************************************************************
+	!
+	!			PROGRAM : RENUM.BA
+				VERSION$ = "B2"
+	!			DATE    : 16-JUN-83
+	!
+	!***************************************************************
+	!
+	!			C O P Y R I G H T
+	!
+	!			Copyright (C) 1983
+	!				by
+	!	   Digital Equipment Corporation, Maynard, Mass.
+	!
+	! This softwahe program specified to be renumbered at a
+	! pre-indicated line number and step count.
+	!
+
+600 REM**600,2**
+
+	!	       C O M M E N T S
+	!
+	!  RENUM.BA will support the following:
+	!       - multiline statements
+	!       - combined line statements
+	!       - lower case text
+	!       - input / output file specifications
+	!       - ability to assign multiple line and ste information in this software is subject to change  without
+	! notice  and should not be construed as a commitment by Digital
+	! Equipment Corporation.
+	!
+	! DIGITAL assumes no responsibility for the use  or  reliability
+	! of its software on equipment that is not supplied by DIGITAL.
+	!
+	!***************************************************************
+
+200 REM**200,2**
+
+	!
+	!       M O D I F I C A T I O N  H I S T O R Y
+	!
+	! VERSION       EDIT DATE       COMMENT
+	! -------	---------	---------------------------------
+	!    2.0	20-OCT-82       An enhanced version of 1.5 with
+	!				conditionals temporarily removed
+	!    2.1	21-OCT-82	Removed unnecesary line numbers
+	!    2.2	22-OCT-82	Added conditional ability
+	!    B0		10-DEC-82	Added quoted pair checking
+	!				Added exclamation point checking
+	!				Added ERL(0) line checking
+	!		13-DEC-82	Added line # indexing for speed
+	!		14-DEC-82	Added ERR 63 at line # find routine
+	!		15-DEC-82	Fixed OFFSET bug at line 4000
+	!    B1		16-DEC-82	Fixed conditional bug between quotes
+	!    B2		16-JUN-83	Added log file
+
+
+
+
+
+500 REM**500,2**
+
+	!	       R E N U M  .  B A
+	!
+	!	       SUMMARY OF PROGRAM
+	!
+	! This program is designed to renumber Basic programs.
+	! When the program is executed it will ask for an input file and
+	! a output file name specification.  This allows the user to
+	! renumber a program without destroying the original code.
+	!
+	! An added feature included is the ability to renumber a program
+	! with sections of tp count
+	!
+	!  Any changes must be made with a text editor.  The Basic
+	!  editor will not except multi line commands.  To use this
+	!  program type the following command at the monitor prompt:
+	!  EX RENUM.BA
+	!
+
+700 REM**700,2**
+
+	!	       R E S T R I C T I O N S
+	!
+	!  RENUM.BA will not support the following:
+	!       - not more than 1500 numbered lines
+	!       - keywords following an ! will be ignored
+	!       - only a space is permitted between the
+	!	  line number and REM** statement
+	!	- ERL(0) must be followed by an equal (=) sign,
+	!		followed by a line number!
+	!		(ie. ERL(0) = 2130)
+	!
+
+
+
+
+
+800 REM**800,10**
+
+	!
+	!       D E F A U L T S  &  C O N S T A N T S
+	!
+
+	LINE = 100 \ STEP = 10
+	EXC.PNT$ = CHR$(33)
+	BSLASH$ = CHR$(92)
+	V$=PMT$("")
+	QUOTE$ = CHR$(34)
+
+900 REM**900,10**
+
+	!
+	!       D I M E N S I O N    S T A T E M E N T S
+	!
+
+	DIM OLD(1500),NEW(1500),CREF(1500)
+	DIM TEMP$(90),LINE$(90),LINE1$(90)
+	DIM LINE2$(90),Q.ARRAY(30),INDEX(40)
+
+
+
+
+
+1000 REM**1000,10**
+
+	!
+	!       M A I N    C O D I N G    A R E A
+        !
+
+	PRINT CUR$(1,1);EID$(2);"RENUM Version ";VERSION$
+	PRINT
+
+        !
+        ! GET INPUT AND OUTPUT FILE SPECIFICATION
+        !
+
+1010	REM	Get input file name
+
+	INPUT "Name of input file. ";OLD.FILE$
+	OLD.FILE$ = CAP$(OLD.FILE$)
+	IF POS(OLD.FILE$,".",1)=0 THEN REM >CONTINUE<
+	  OLD.FILE$=OLD.FILE$&".BA"
+
+1020	REM	Get output file name
+
+	PRINT "Name of output file <";OLD.FILE$;"> ";
+	INPUT NEW.FILE$
+	NEW.FILE$ = CAP$(NEW.FILE$)
+	IF NEW.FILE$ = "" THEN REM >CONTINUE<
+	  NEW.FILE$ = OLD.FILE$
+
+1030	IF POS(NEW.FILE$,".",1)=0 THEN REM >CONTINUE<
+	  NEW.FILE$=NEW.FILE$&".BA"
+
+1040	REM	File names must always be upper case
+
+	OLD.FILE$ = CAP$(OLD.FILE$)
+	NEW.FILE$ = CAP$(NEW.FILE$)
+
+	! Does user want to check for repeated statement numbers
+	! Default is yes
+
+	PRINT
+	INPUT "Do you want overlap checking <Y>? ";OVERLAP$
+	OVERLAP$ = CAP$(OVERLAP$)
+	OVERLAP$ = OVERLAP$ & " "
+
+1050	IF SEG$(OVERLAP$,1,1) <> "N" THEN OVERLAP$ = "Y"
+
+1060	INPUT "Do you want a log file <N>? ";L.OG$
+	L.OG$ = CAP$(L.OG$)
+	L.OG$ = L.OG$ & " "
+
+	IF SEG$(L.OG$,1,1) <> "Y" THEN L.OG$ = "N"
+
+1070	ON ERROR GOTO 30000
+
+
+
+
+
+2000 REM**2000,10**
+
+	!
+	!		*** PASS ONE ***
+	! This section does the following:
+	! Retrieve a line of text from input file
+	! Look for REM**...if found update start & step counters
+	! Insert old and new line numbers in the array's
+	!
+
+2010	PRINT
+	PRINT "Loading input file.";
+	FILE#1:OLD.FILE$
+
+2020	INPUT #1:LINE$			!Get a line of text
+	LINE.COUNT = LINE.COUNT + 1	! Tally how many lines are in the file
+	IF END#1 THEN 4000		! Done. Now go load the index array
+
+2030	REM	Look for reassignment of start and step
+
+	IF POS(LINE$,"REM**",1) <> 0 THEN REM >CONTINUE<
+	  X = POS(LINE$," ",1)		!We found a match
+	  IF SEG$(LINE$,X+1,X+5) = "REM**" THEN REM >CONTINUE<
+	    X = POS(LINE$,",",1)	!Find the necessary delimators
+	    Y = POS(LINE$,"REM**",1)
+	    LINE = VAL(SEG$(LINE$,Y+5,X-1)) !Update counters
+	    STEP=VAL(SEG$(LINE$,X+1,POS(LINE$,"**",Y+5)))
+
+2040	GOSUB 10000			!Look for a line number
+	IF LINE.NUMBER = 0 THEN 2020	!If 0 then it must be a multi line
+					!statement..nothing to fix
+
+2050	OLD(COUNT)=LINE.NUMBER		!Store old line number
+	NEW(COUNT)=LINE			!Store new line number
+	COUNT = COUNT +1		!Update line number count
+
+2060	IF COUNT <= 1500 THEN REM >CONTINUE< !Did we over flow the array
+	  LINE = LINE + STEP		!No.  Update new line number
+	  GOTO 2020
+
+2070	REM The array size was exceeded. Inform user and stop program.
+	PRINT CUR$(22,1);"Program exceeded 1500 line numbers"
+	STOP
+
+
+
+
+
+4000 REM**4000,10**
+
+	! This routine loads the index array.  Every array
+	! element is loaded with the OLD array COUNT vari	Our program size is say 625 lines long.
+	!	SQR(625) = 25 so INDEX() will have 25
+	!	elements in it (0-24).  Each element will
+	!	have a line number in it corresponding to
+	!	a line number in our program.  Each element's
+	!	line number is exactly 25 line numbers away
+	!	from the previous line number.
+	! This is the fastest way of indexing program line numbers
+	! because it yeilds the smallest number of decisions to be
+	! made while checking thru the OLD() line number array.
+
+	I = 0				!Init INDEX counter
+	OFFSET = INT(SQR(COUNT))	!Believe me, it works!
+	COUNT1 = OFFSET
+		!OFFSET is the # of OLD() elements per page
+
+4010	INDEX(I) = OLD(COUNT1)		!Load INDEX with old line numbers
+	I = I + 1			!Bump INDEX counter
+	COUNT1 = COUNT1 + OFFSET	!Retreive the next page's line #
+	IF COUNT1 < COUNT THEN 4010
+
+4020	INDEX(I) = 100000		!Force last page to high line number
+
+
+
+
+
+5000 REM**5000,10**
+
+	! This routine checks for duplicate line numbers.
+	! This is very important when multiple REM**
+	! commands have been specified.
+
+	COUNT1 = 0			!Init NEW() outer counter
+	I = 1				!Init NEW() inner loop
+	IF OVERLAP$ = "N" THEN 6000
+
+5010	PRINT PNT(13);"Checking for line number overlap.";
+
+5020	IF I = COUNT THEN 5050		!Were done with inner loop...
+
+5030	IF NEW(COUNT1) <> NEW(I) THEN REM >CONTINUE<
+	  I = I + 1
+	  GOTO 5020
+
+5040	PRINT CUR$(22,1);"?ERROR! - OVERLAP AT LINE # ";NEW(I)	
+		!A duplicate line number found
+	STOP				!Nasty error.  Stop the program.
+
+5050	IF COUNT1 <> COUNT -1able
+	! at intervals of OFFSET.  This splits up the OLD array
+	! into separate pages which can be indexed to thru INDEX().
+	! The fastest renumbering time occurs when OFFSET is set to
+	! the square root of the # of lines in the program.  This
+	! results in the number of pages mapped in INDEX() being
+	! equal to the # of lines represented within each page.
+	! For example:
+	!1
+	FILEV#2:NEW.FILE$
+
+6020	INPUT#1:LINE$			!Get a line of text
+	LINE1$ = LINE$			!Make a copy for backslash routine
+	IF END#1 THEN REM >CONTINUE<	!If end of file found
+	  CLOSE#1			!Close out all the files
+	  CLOSE#2
+
+	GOTO 7000			!Goto pass 3
+
+6030	GOSUB 10000			!Get original line number
+	IF LINE.NUMBER <> 0 THEN REM >CONTINUE< !If line # = 0 then multi line
+	  PRINT CHR$(13);CHR$(27);"[16C";LINE.NUMBER;
+		!Move cursor up to original spot
+		!and print the line number again
+	  GOSUB 11000			!Get new line number
+	  PRINT#2:STR$(NEW(COUNT));LINE2$;!And save it
+	  LINE1$ = SEG$(LINE1$,CPOINT,90) !Remove old line number
+
+6040	LINE$ = LINE1$
+	BSLASH = POS(LINE1$,BSLASH$,1)		!Look for a backslash
+	IF BSLASH <> 0 THEN REM >CONTINUE<
+	  LINE$ = SEG$(LINE1$,1,BSLASH-1) !line$ gets text upto backslash
+	  LINE1$ = SEG$(LINE1$,BSLASH + 1,90) 	!line1$ gets the rest
+
+6050	QUOTE = 0				!Init quote position variable
+	QP.COUNT = 1				!Init our quote array pointer
+	IQ = 1					!Init the quote array counter
+	E.P = 0					!Exclamation point position
+	EXC.PNT = 90				!Active exclamation point pos
+
+6060	REM ------------------- This routine finds the quote pairs in the line
+	QUOTE =  POS(LINE$,QUOTE$,QUOTE + 1)	!Look for a quote
+	IF QUOTE = 0 THEN 6080			!Bail out if no more
+
+6070	Q.ARRAY(QP.COUNT) = QUOTE		!Save position in the array
+	QP.COUNT = QP.COUNT +1			!Bump the array pointer
+	GOTO 6060
+
+
+
+
+
+6080 	REM -------------------- Looks for an active exclamation point
+	E.PP = POS(LINE$,EXC.P THEN REM >CONTINUE<
+	  COUNT1 = COUNT1 + 1
+	  I = COUNT1 + 1
+	  GOTO 5020
+
+
+
+
+
+6000 REM**6000,10**
+
+	!		*** PASS TWO ***
+	! This section does the following:
+	! Retrieve a line text from the old file.
+	! Update GOTO, THEN, ect. for the new line numbers.
+	! Write the line of text out to the new file.
+	!
+
+
+6010	PRINT PNT(13);EIL$(2);"Renumbering line";
+	RESTORE #NT = E.P				!Active exc point found
+
+6140	REM ------------------------- Look for active conditional statements 
+					! ie:ON X GOTO, ON X GOSUB
+	CSP = 0				!Conditional statement position
+	IQ = 1				!Quote array counter
+	X = POS(LINE$,"ON",1)		!Look for keyword "ON"
+	IF X = 0 THEN 6200		!If not there skip conditional check
+
+6150	IF QP.COUNT = 1 THEN 6190	!Skip looking for quotes if none
+
+6160	CSP = POS(LINE$,"ON",CSP+1)	!Conditional statement position
+	IF CSP = 0 THEN 6200		!No need to look any more
+
+6170	IF Q.ARRAY(IQ) < CSP THEN REM >CONTINUE<
+	  IF Q.ARRAY(IQ+1) > CSP THEN REM >CONTINUE<
+	    IQ = 1			!Re-init quote array counter
+	    GOTO 6160
+
+6180	IQ = IQ+2			!Bump quote pair
+	IF IQ <> QP.COUNT THEN 6170
+		!Falls through to next line if active ON statement found
+
+6190	Y = POS(LINE$,"GO",CSP+1)
+	IF CSP < Y THEN REM >CONTINUE<	!ON must be before GO
+	  IF Y < EXC.PNT THEN REM >CONTINUE< !GO must be before !
+	    COMMAND$ = "," \ CMDLEN = 1 \ GOSUB 20000
+
+
+
+
+
+6200	REM -------------------------------------- Now check for keywords
+	COMMAND$ = "ERL(0)" 
+	CMDLEN = 1 
+	E.RL.FLAG = 1
+	GOSUB 20000
+
+		NT$,1)		!Exclamation point position
+	IF E.PP = 0 THEN GOTO 6140
+		!Skip exclamation crap if no exclamation point (logical huh?)
+
+6090	IF QP.COUNT = 1 THEN REM >CONTINUE<
+	  EXC.PNT = E.PP
+	  GOTO 6140
+		!Skip looking for a ! between quotes if no quotes
+
+6100	E.P = POS(LINE$,EXC.PNT$,E.P +1) 
+	IF E.P = 0 THEN 6140			!No need to look anymore
+
+6110	IF Q.ARRAY(IQ) < E.P THEN REM >CONTINUE<
+	  IF Q.ARRAY(IQ +1) > E.P THEN REM >CONTINUE<
+	    IQ = 1				!Re-init quote array counter
+	    GOTO 6100
+		!Passive exclamation point found 
+		!between quote pair - ignore it
+
+6120	IQ = IQ + 2				!Bump quote pair count
+	IF IQ <> QP.COUNT THEN 6110
+		!If quote pair count is not exceeded then 
+		!get another quote pair and check for a ! again
+
+6130	EXC.PBSLASH$;		!If yes, print line and a backslash
+	GOTO 6040			!out to the file
+
+6230	PRINT#2:LINE$			!Original line had no backslash
+	GOTO 6020			!just print line out to file
+
+
+
+
+					!Build the name of the log file
+7000 REM**7000,10**
+
+	!		*** PASS THREE ***
+	! This section creates a cross reference file with this
+	! following information:
+	! * - If an * is shown that means that the line is referenced
+	!     by a GOTO, GOSUB, THEN etc.
+	! OLD - the origional line number
+	! NEW - the new line number
+	! The format is as follows:
+	!	*  OLD   NEW
+
+
+7010	IF L.OG$ = "N" THEN 7090		!If no log requested, stop
+
+7020	REM
+					!Create the log file name
+	CREF.FILE$ = SEG$(NEW.FILE$,1,POS(NEW.FILE$,".",1)) & "RE"
+
+	PRINT PNT(13);EIL$(2);"Generating log file ";CREF.FILE$
+
+	FILEV#1:CREF.FILE$		!Create the log file
+	PRINT#1:"    OLD     NEW"	!Print out the heading
+
+7030	FOR I = 0 TO 1500		!Now scan through the arrays
+
+7040	IF OLD(I) = 0 THEN 7080		!If no line # then we are done
+
+7050	IF CREF(I) = 0 THEN PRINT#1:"  ";!Line not referenced, print a space
+
+7060	IF CREF(I) = 1 THEN REM >CONTINUE<
+	LINE1.COUNT = LINE!ERL is a special case of keyword and
+		!thus must be treated accordingly.
+		!Its uniqueness lies in the facts that
+		!TWO keywords may be present on one line.
+		!and that its real command length (CMDLEN)
+		!is actually 1 (length of the '=' sign).
+
+6210	REM
+
+	!
+	!	KEYWORD DEFINE TABLE
+	!
+
+	E.RL.FLAG = 0			!Kill ERL flag
+
+	COMMAND$ = "GOTO"  \ CMDLEN = 4 \ GOSUB 20000
+	COMMAND$ = "THEN"  \ CMDLEN = 4 \ GOSUB 20000
+	COMMAND$ = "GOSUB" \ CMDLEN = 5 \ GOSUB 20000
+	COMMAND$ = "EXIT"  \ CMDLEN = 4 \ GOSUB 20000
+	COMMAND$ = "RESUME"\ CMDLEN = 6 \ GOSUB 20000
+	COMMAND$ = "GO TO" \ CMDLEN = 5 \ GOSUB 20000
+	COMMAND$ = "GO SUB"\ CMDLEN = 6 \ GOSUB 20000
+
+6220 IF BSLASH <> 0 THEN REM >CONTINUE<	!Did original line have a backslash
+	PRINT#2:LINE$;	REM	Now parse out the line number
+	CHAR = ASC(SEG$(LINE$,CPOINT,CPOINT))
+	IF CHAR < 48 THEN 10090		!If character is below 0 we're done
+
+10070	IF CHAR > 57 THEN 10090		!If character is above 9 we're done
+
+10080	CHECK = 1			!At least we found one number
+	CPOINT = CPOINT + 1		!Update where we are in the line
+	IF CPOINT <= L THEN 10060	!Make sure we don't exceed line length
+
+10090	IF CHECK <> 0 THEN REM >CONTINUE< !If check=0 return 0 for line number
+	  LINE.NUMBER = VAL(SEG$(LINE$,1,CPOINT-1)) !Pass back the line number
+
+10100	RETURN				!Go back to caller
+
+
+
+
+
+11000 REM**11000,10**
+
+	!
+	!	FIND LINE NUMBER IN ARRAY
+	!
+
+	I = 0				!Init INDEX() counter
+
+11010	IF LINE.NUMBER >= INDEX(I) THEN REM >CONTINUE<
+	  I = I + 1			!Bump INDEX pa1.COUNT + 1	!Tally how many lines are referenced
+	PRINT#1:"* ";			!Indicate a referenced line
+
+7070	PRINT#1: USING "&&&&&&",STR$(OLD(I)); !Right justify the line numbers
+	PRINT#1: USING "&&&&&&&&",STR$(NEW(I))
+	NEXT I
+
+7080	PRINT#1:			! Include some misc. information
+	PRINT#1:" There are";LINE.COUNT-1;"lines of text."
+	PRINT#1:I;"lines are numbered."
+	PRINT#1:LINE1.COUNT;"lines are referenced."
+	CLOSE#1
+
+7090	PRINT PNT(13);EIL$(2);"Renumbering complete."!Let user know we're done
+	STOP				!----------PROGRAM ENDS HERE----------
+
+
+
+
+10000 REM**10000,10**
+
+	!
+	!	LINE NUMBER PARSER
+	!
+
+	CHECK = 0				!Init some variables
+	CPOINT = 1
+	LINE.NUMBER = 0
+	L = LEN(LINE$)
+
+10010	REM	Remove all tabs and spaces preceeding the line number
+
+	IF CPOINT > L THEN RETURN	!Make sure we don't exceed line length
+
+10020	CHAR = ASC(SEG$(LINE$,CPOINT,CPOINT)) !Get one character from the line
+
+10030	IF CHAR = 32 THEN CPOINT = CPOINT + 1	!Look for spaces
+	GOTO 10010
+
+10040	IF CHAR =  9 THEN CPOINT = CPOINT + 1	!Look for tabs
+	GOTO 10010
+
+10050	LINE2$ = SEG$(LINE$,1,CPOINT-1)	     !line2$ gets all that good stuff
+
+10060the keyword inside quotes
+	IF IQ = QP.COUNT THEN 20070		!No more quotes to check
+
+20050	IF Q.ARRAY(IQ) < POINTER THEN REM >CONTINUE<
+	  IF Q.ARRAY(IQ +1) > POINTER THEN RETURN
+		!Keyword happens to be between quoted pairs
+
+20060	IQ = IQ + 2				!Quote pairs are every 2
+	GOTO 20040
+
+		!If the keyword position is located between the first
+		!and second quoted pairs then dont bother reassigning
+		!a new line number to it - just leave.  NOTE: IF/THEN
+		!loops are about 15% - 20% faster than FOR/NEXT's - 
+		!that's why the above routine is done the way its done.
+
+20070	REM ------------------- OK to reassign line values
+	TEMP$ = SEG$(LINE$,1,POINTER + CMDLEN-1) !split line after keyword
+	LINE$ = SEG$(LINE$,POINTER + CMDLEN,90) !Line$ starts with oge counter
+	  GOTO 11010			!Go back & check next page
+
+11020	COUNT = I * OFFSET		!Init OLD() counter
+		!We found the page that LINE.NUMBER is on.
+		!Now start counting at the top of that page.
+
+
+11030	IF OLD(COUNT) <> LINE.NUMBER THEN REM >CONTINUE<
+	  COUNT = COUNT +1		!No match. try again
+	  GOTO 11030
+
+11040	RETURN				!A match was found.  The variable
+					!count points to the new line number
+					!found in array NEW()
+
+
+
+
+
+20000 REM**20000,10**                   !FIX LINE REFERENCES
+
+	!
+	!	RENUMBERING DONE HERE
+	! This is where the keyword is parsed from
+	! its old line number and assigned a new one.
+	!
+
+	POINTER = 0				!Init our Keyword pointer
+	IQ = 1					!Init the quote array counter
+
+20010 	POINTER = POS(CAP$(LINE$),COMMAND$,POINTER+1) !Look for keyword
+	IF POINTER = 0 THEN RETURN	!If keyword is not there, return
+
+20020 	IF EXC.PNT < POINTER THEN RETURN !Make sure an ! is not before keyword
+
+20030	IF E.RL.FLAG = 1 THEN REM >CONTINUE<
+	  POINTER = POS(LINE$,"=",POINTER +1)
+		!Must start at the = sign
+		!This is why CMDLEN = 1 for ERL(0)
+
+20040	REM ------------------- This guy looks for EN statement.  The THEN clause of an IF statement is
+	terminated by the next statement with a line statement.
+
+	Example:
+
+	100 IF TEST = 0 THEN J=2 \ K=3 \ PRINT "TEST IS ZERO"
+	110 PRINT "DONE TEST"
+
+	If TEST = 0 then every command on line 100 is executed.
+	If TEST <> 0 then program control goes to line 110
+
+
+INPUT
+
+	The INPUT statement allows prompting.  IE:
+
+	INPld line #
+	GOSUB 10000			!Get old line number
+
+20080	IF LINE.NUMBER = 0 THEN LINE$ = TEMP$ & LINE$ \ RETURN
+
+20090	GOSUB 11000			!Find new line number
+	CREF(COUNT) = 1			!Set line referenced flag
+					!Rebuild the line with the new number
+	LINE$ = TEMP$&LINE2$&STR$(NEW(COUNT))&SEG$(LINE$,CPOINT,90)
+	IF E.RL.FLAG = 1 THEN EXIT 6210
+		!Parse the same line for more keywords...
+		!Don't grab a new line if ERL(0) is there.
+
+20100	IF CMDLEN > 1 THEN EXIT 6220	!If not a conditional leave
+
+20110	GOTO 20010			!Conditional statement, go again
+
+
+
+
+
+30000 REM**30000,10**
+
+	!
+	!*********************   E R R O R S   **************************
+	!
+
+	IF ERR(0) = 59 THEN IF ERL(0) = 6060 THEN  RESUME 6080
+		!POS error if quote is at the end of a l

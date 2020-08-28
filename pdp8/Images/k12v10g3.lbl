@@ -1,0 +1,87 @@
+K12V10G3
+
+  PDP-8/DECmate OS/8 Kermit-12 Files   3 of 3
+
+-------------------------------
+
+diskette label:
+
+  PDP-8/DECmate OS/8 Kermit-12 Files
+  Release Date: 11-Jul-92
+  Format: OS/278 RX50
+                           3 of 3
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+-------------------------------
+
+diskette directory:
+
+ 11-Jul-92
+
+K12CRF.EN 0007  22 30-Aug-90
+K12GLB.EN 0035   7 05-Sep-90
+K12MIT.LS 0044  40 06-Sep-90
+K12MIT.DS 0114  69 11-Jul-92
+K12ENC.DO 0221  32 31-Aug-90
+K12MIT.BW 0261  98 01-May-92
+K12MIT.BO 0423  24 01-Oct-91
+K12PL8.BO 0453  24 01-Oct-91
+K12CRF.BO 0503  16 01-Oct-91
+K12GLB.BO 0523   5 01-Oct-91
+K12IPL.DO 0530  11 06-Oct-91
+K12FL0.IP 0543  23 08-Oct-91
+K12FL1.IP 0572  23 08-Oct-91
+K12IP0.OD 0621   5 06-Oct-91
+K12IP1.OD 0626   5 06-Oct-91
+<Empty>   0633 356
+
+  15 Files in  404 Blocks -  356 Free blocks
+

@@ -1,0 +1,136 @@
+STDV45 - SYSTEM TEST Version 4.5
+
+
+-------------------------------
+
+diskette label:
+
+
+BL-HV86A-MV
+DM SYSTEM TEST DISKETTE V4.5
+
+
+(c) 1986 DIGITAL EQUIP. CORP.
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This version of the DECmate System Test is updated for the DECmate III+ and
+the RD31 20 MB hard drive. Also on this diskette is version 422 of the 
+DECmate firmware.
+
+-------------------------------
+
+diskette directory:
+
+
+ 01-Jan-85
+
+UCGRAM.RM 0070   6 31-Aug-82
+MAINKB.SV 0076   3 31-Aug-82
+RD51  .ER 0101   1 09-Jun-83
+RX12  .SV 0102   5 02-May-83
+COLOR .MU 0107   1 12-Oct-83
+ALIGN .MU 0110   1 01-Nov-83
+STRTUP.SV 0111   2 16-Mar-83
+DMTERM.SV 0113   4 09-Jun-83
+EXRUPD.IN 0117   1 09-Jun-83
+MENU  .PM 0120   1 09-Jun-83
+PRINT .SV 0121   4 10-Jan-84
+SETUP .PA 0125   3 09-Jun-83
+WRITE2.IN 0130   1 09-Jun-83
+WRITE3.IN 0131   1 09-Jun-83
+WRITE5.IN 0132   1 09-Jun-83
+WRITE4.IN 0133   1 16-Oct-84
+EXER  .PM 0134   1 09-Jun-83
+PRINT .ER 0135   1 09-Jun-83
+SBC   .ER 0136   1 09-Jun-83
+SCREEN.IN 0137   1 09-Jun-83
+EXER  .IN 0140   1 09-Jun-83
+APLUPD.IN 0141   1 09-Jun-83
+WRITE0.IN 0142   1 09-Jun-83
+RX12  .ER 0143   1 09-Jun-83
+WRITE1.IN 0144   1 09-Jun-83
+RX50  .ER 0145   1 09-Jun-83
+MENU  .ER 0146   2 29-Jun-83
+SELECT.MU 0150   1 09-Jun-83
+WINUPD.ER 0151   1 12-Jun-84
+FSMENU.MU 0152   1 01-Nov-83
+WINUPD.MU 0153   1 12-Oct-83
+RD51  .SV 0154  10 08-Mar-78
+RDFRMT.IN 0166   1 05-May-84
+EXER  .CT 0167   1 12-Oct-83
+RX50  .SV 0170   8 27-Apr-84
+SCREEN.BN 0200   3 06-Jul-84
+HEADER.TX 0203   1 27-Mar-84
+MAINT .MU 0204   1 27-Mar-84
+CHRAM .DA 0205  44 23-Jan-84
+FMWARE.SV 0261  28 28-Dec-82
+WINUPD.IN 0315   1 05-May-84
+WINUPD.SV 0316   4 16-Oct-84
+CPM   .SV 0322   7 24-May-84
+GRAFIX.SV 0331  10 27-Jun-84
+CPM   .ER 0343   1 27-Jun-84
+GRAFIX.ER 0344   1 27-Jun-84
+HALT  .PA 0345   2 28-Dec-82
+SCREEN.PA 0347  24 06-Mar-84
+SCREEN.SV 0377  27 27-Jun-84
+MODEM .ER 0432   1 16-Oct-84
+MODEM .SV 0433  15 13-Mar-85
+WINI  .MU 0452   1 07-Jan-78
+SBC   .SV 0453   6 08-Mar-78
+<Empty>   0461   1
+EXR   .SV 0462  17 07-Jan-78
+RDFRMT.SV 0503  12 08-Mar-78
+RD51  .PA 0517  35 08-Mar-78
+MENU  .MU 0562   1 20-Nov-78
+<Empty>   0563 396
+
+  57 Files in  314 Blocks -  397 Free blocks
+

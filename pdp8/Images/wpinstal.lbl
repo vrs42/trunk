@@ -1,0 +1,80 @@
+WPINSTAL
+
+  DM/WPS INSTALL DISKETTE V2.3
+
+-------------------------------
+
+diskette label:
+
+  BL-GR04C-BV                 omrnos4156
+  DM/WPS INSTALL DISKETTE V2.3
+  COPY DISKETTE AND USE COPY
+      COPR (c) 1987 DIGITAL EQUIP. CORP.
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+-------------------------------
+
+diskette directory:
+
+ 31-Dec-86
+
+SETUP .SV 0070   2 06-Nov-83
+SEL   .SV 0072  53 23-Jan-84
+<Empty>   0157  14
+WPS004.DT 0175   1 10-Jul-84
+KHODT .SV 0176  18 27-Aug-84
+<Empty>   0220  23
+LNKLIB.RB 0247  75 25-Sep-84
+WPI   .SV 0362  96 23-Jan-84
+<Empty>   0522  49
+<Empty>   0603 380
+
+   6 Files in  245 Blocks -  466 Free blocks

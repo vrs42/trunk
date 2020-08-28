@@ -1,0 +1,117 @@
+DM1121
+
+DECUS NO: DM-112     COS-310    
+
+diskette  1 OF 2
+
+-------------------------------
+
+diskette label:
+
+  DECUS NO: DM-112
+  COS-310
+  FORMAT:  COS-310
+  DENSITY: DOUBLE   1 OF 2
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+-------------------------------
+
+diskette directory:
+
+
+ 01-Jan-86
+
+MENU  .SV 0162   5 09-Nov-83
+DFU   .SV 0167   7 09-Nov-83
+PIP   .SV 0176   8 09-Nov-83
+SORT  .SV 0206  15 09-Nov-83
+RDU   .SV 0225   9 09-Nov-83
+BOOT  .SV 0236   3 09-Nov-83
+FILEX .SV 0241  17 09-Nov-83
+DKFMT .SV 0262   2 09-Nov-83
+DLFMT .SV 0264   4 09-Nov-83
+DYFMT .SV 0270   2 09-Nov-83
+PATCH .SV 0272   6 09-Nov-83
+SYSGEN.SV 0300  26 09-Nov-83
+COMP  .SV 0332  19 09-Nov-83
+CREF  .SV 0355   7 09-Nov-83
+LINK  .SV 0364  54 09-Nov-83
+DICOMP.SV 0452  67 09-Nov-83
+LIBR  .SV 0555  13 09-Nov-83
+WPSPIP.SV 0572  19 09-Nov-83
+DDT   .SY 0615   4 09-Nov-83
+CLI   .SY 0621   6 09-Nov-83
+DDT11 .SY 0627   5 09-Nov-83
+DIBOL .RB 0634  92 09-Nov-83
+PRINT0.AS 0770  16 17-Sep-79
+PRINT1.AS 1010  15 17-Sep-79
+PRINT2.AS 1027   4 17-Sep-79
+PRINT3.AS 1033  12 17-Sep-79
+PRINT4.AS 1047   5 17-Sep-79
+PRINT5.AS 1054  15 17-Sep-79
+PRINT6.AS 1073   9 17-Sep-79
+PRINT7.AS 1104  13 17-Sep-79
+PRINT8.AS 1121   6 17-Sep-79
+PRINT9.AS 1127   9 17-Sep-79
+FLOW1 .AS 1140  11 17-Sep-79
+FLOW2 .AS 1153   6 09-Nov-83
+FLOW3 .AS 1161  10 17-Sep-79
+FLOW4 .AS 1173  11 17-Sep-79
+DAFTA .AS 1206  12 29-Jan-81
+DAFTB .AS 1222  15 09-Nov-83
+KRFSRT.AS 1241   1 04-Dec-80
+KREF  .AS 1242   6 17-Sep-79
+TRMTST.AS 1250   5 12-Oct-80
+LPTEST.AS 1255   6 12-Oct-80
+FLOPXX.AS 1263   7 12-Oct-80
+<Empty>   1272  70
+
+  43 Files in  584 Blocks -   70 Free blocks

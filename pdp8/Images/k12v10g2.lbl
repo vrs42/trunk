@@ -1,0 +1,85 @@
+K12V10G2
+
+  PDP-8/DECmate OS/8 Kermit-12 Files   2 of 3
+
+-------------------------------
+
+diskette label:
+
+  PDP-8/DECmate OS/8 Kermit-12 Files
+  Release Date: 11-Jul-92
+  Format: OS/278 RX50
+                           2 of 3
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+-------------------------------
+
+diskette directory:
+
+ 11-Jul-92
+
+K12ENC.PA 0007  94 08-Jul-92
+K12DEC.PA 0145  91 08-Jul-92
+K12PRM.PA 0300   4 06-Sep-90
+K12CLR.PA 0304   2 30-Aug-90
+K12ENB.PA 0306  62 01-Oct-91
+K12DEB.PA 0404  59 22-Oct-91
+K12IPL.PA 0477  25 06-Oct-91
+K12IPG.PA 0530  30 08-Oct-91
+K12MIT.AN 0566  64 11-Jul-92
+K12MIT.UP 0666   3 11-Jul-92
+K12MIT.DO 0671 179 06-Sep-90
+K12MIT.NO 1154  74 11-Jul-92
+K12MIT.EN 1266  31 06-Sep-90
+K12PL8.EN 1325  31 30-Aug-90
+<Empty>   1364  11
+
+  14 Files in  749 Blocks -   11 Free blocks

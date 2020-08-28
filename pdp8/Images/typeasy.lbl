@@ -1,0 +1,102 @@
+TYPEASY - DM Typeasy V1.0
+
+-------------------------------
+
+diskette label:
+
+  BL-EW27A-BV                      46614
+  DM TYPEASY DISKETTE V1.0
+
+      COPR (c) 1985 DIGITAL EQUIP. CORP.
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+-------------------------------
+
+diskette directory:
+
+ 31-Dec-85
+
+MAIN  .SV 0070  20 19-Jun-85
+ID    .SV 0114   4 19-Jun-85
+PRINT1.TX 0120  15 20-Feb-85
+PRINT2.TX 0137  18 20-Feb-85
+PRINTD.TX 0161  22 20-Feb-85
+PRINT2.SV 0207   9 19-Jun-85
+PRINTC.SV 0220   9 19-Jun-85
+PRINTD.SV 0231   9 23-Jan-84
+PRINT1.SV 0242   9 19-Jun-85
+PRINTC.TX 0253  25 20-Feb-85
+PRINTF.SV 0304  12 19-Jun-85
+INDEX .SV 0320  11 19-Jun-85
+TYPEL .SV 0333  16 19-Jun-85
+TYPED .SV 0353  16 19-Jun-85
+FORMS1.SV 0373  11 19-Jun-85
+FORMS .SV 0406  17 19-Jun-85
+RULER .1  0427   1 23-Jan-84
+RULER .2  0430   1 23-Jan-84
+RULER .3  0431   1 23-Jan-84
+RULER .4  0432   1 23-Jan-84
+RULER .0  0433   1 23-Jan-84
+RULER .5  0434   1 23-Jan-84
+RULER .6  0435   1 23-Jan-84
+RULER .7  0436   1 23-Jan-84
+RULER .8  0437   1 23-Jan-84
+RULER .9  0440   1 23-Jan-84
+BACKUP.SV 0441  26 29-May-85
+PIP   .SV 0473  14 23-Jan-84
+CCL   .SV 0511  29 23-Jan-84
+FOTP  .SV 0546   8 23-Jan-84
+EDIT  .SV 0556  33 26-Jun-85
+W4FORM.FO 0617   4 23-Jan-84
+LAYOUT.FO 0623  11 23-Jan-84
+<Empty>   0636 353
+
+  33 Files in  358 Blocks -  353 Free blocks

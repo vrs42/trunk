@@ -1,0 +1,82 @@
+DM101B1 - OS/278 System files - diskette 1 of 3
+
+-------------------------------
+
+diskette label:
+
+PROGRAM:  DM0101JC
+DECMATE II OS/278
+
+(JC) 5 1/4" FLOPPY DISKETTES (RX50)
+FORMAT:  OS/278
+				1 of 3
+			
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This diskette is an update of the DECUS program DM0101. The only change 
+is to update the firmware to version 422, which lets this diskette boot 
+on DECmate II, III and III+. The original DECUS program would only boot 
+on the DECmate II.
+
+-------------------------------
+
+diskette directory:
+
+ 01-Jan-86
+
+NOTES .TX 0007   1 01-Dec-84
+OS278 .PA 0010 245 01-Dec-84
+CD    .PA 0375  81 01-Dec-84
+BUILD .PA 0516 202 01-Dec-84
+BATCH .PA 1030  96 01-Dec-84
+FOTP  .PA 1170 112 01-Dec-84
+<Empty>   1350  23
+
+   6 Files in  737 Blocks -   23 Free blocks

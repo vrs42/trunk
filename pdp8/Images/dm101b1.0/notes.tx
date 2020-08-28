@@ -1,0 +1,153 @@
+NOTES:
+
+    This system has been built from the ground up, and NO DSN patches
+  are to be installed.  All patches have been installed at source code level.
+
+    All the files on this disk have been modified, and are no longer
+  compatable with other versions of OS78.  Mixing OS278 files with OS78
+  files can affect the operation of the system; destroy the system disk;
+  and or the data disk.  Use HELP to aid in the use of the OS278 system.
+
+    Documentation is never perfect or complete.  Trying to document a system
+  without writing a manual isn't easy.  However the documentation supplied
+  should help in using most of the enhancements.  If you do need a manual
+  refer to OS/78 User's Manual (order # AA-5748C-TA).  Remember that any
+  documentation on this disk supersedes the OS/78 manual.
+
+
+							Enjoy
+
+Some notes on OS278
+
+DISK 1 of 3 contains all system files, and development tools
+DISK 2 of 3 contains Basic, and Fortran 4
+DISK 3 of 3 is the OS278 winchester install disk.
+
+HARD DISK INSTALL installs OS278 on your hard disk by allocating a
+	volume called OS278.  This supports the devices RX50:, RX51:,
+	RD50;, RD51:, RD52:, RD53:
+
+	To install OS278 on the winchester simply boot the floppy
+	(disk 3 of 3) and follow the directions.
+
+MONITOR -
+
+	o Can accept lower case input
+
+DUPLICATE - 
+
+	o Not compatible with OS278.  (File RXCOPY.SV has been removed)
+	o All formatting is now done by FORMAT.SV.
+
+RX01/02 -
+
+	o Device names have changed from RXA0-3 to RX20-3.
+	o The new RX handlers not compatable with original RX handlers.
+
+CCL.SV, SET.SV, MONITOR -
+
+	o not compatable with previous versions of OS78/OS278.
+	o Any attempt to mix OS278 utilities with OS78 utilities
+	  will corrupt your disk.
+
+SETUP.SV -
+
+	o For DECmate II only.  This invokes the user selection menu.
+
+WPFLOP.SV -
+
+	o Has many fixes over version 3.0.
+
+	o When editing a file in WPS that has just been transfered
+	  from OS278 press GOLD ADVANCE.  This will align the text
+	  to the current ruler setting.  This only needs to be done
+	  once.
+
+LPTS.HN -
+
+	o This handler now accepts SET LPT WIDTH command.
+	o Modifications have been made to pass 7 bit characters,
+	  and all control codes.
+
+FUTIL.SV, BATCH.SV -
+
+	o Has been modified to allow patching under BATCH control.
+	o Batch, system commands must be in upper case.
+
+CREF.SV -
+
+	o The CREF literal table has been fixed.
+
+HELP.SV, HELP.HL -
+
+	o The help file reflects the changes made to this system.
+
+BASIC system -
+
+	o Refer to the BASIC.TX file for the enhancements.
+	o Note: The AND, OR instructions have been removed.
+
+RENUM.BA -
+
+	o Replaces RESEQ.BA, requires this system for operation.
+	  List the program for operation procedures.
+
+EDIT.SV -
+
+	o Virtual text editor.  Refer to EDTHLP.TX file.
+
+	o Note: On occasion when editing near the end of the file
+	  the editor will display one line twice.  This will occur
+	  at the bottom of the screen.  If this happens press GOLD R
+	  to refresh the screen.  This is a bug.  However we feel that
+	  the advantages of the editor outweigh this one problem, so
+	  we decided to leave it on the system.
+
+	  For those of you who prefer to use the old OS78 EDIT or TECO
+	  with VTEDIT for the VT100 this system will not restrict the
+	  operation.
+
+MOUNT.SV -
+
+	o Mounts a hard disk volume on designated RD50:, RD51:,
+	  RD52:, or RD53:.  Syntax:
+
+	Modates volumes of any 8kbyte multiple
+	  size up to the capacity of the disk.  Traditionally, OS278
+	  has regarded the hard disk to be of fixed 4096 block size.
+	  When the Hard Disk Utility under Master Menu allocates an
+	  OS278 volume, it creates a directory that has the proper
+	  empty space entry for the size of the volume - whatever the
+	  size may be.  When the OS278 SQUISH or ZERO commands are
+	  invoked, however, the last directory empty entry is set so
+	  that the total number of blocks on the disk is 4096.  FIXDIR
+	  sizes the disk by reading its hard disk volume directory
+	  entry and then adjusts the OS278 directory so that things
+	  add up.
+
+	  FIXDIR vname
+
+	       or
+
+	  R FIXDIR vname
+
+MENU.SV -
+
+	  This command will boot the master menu volume.	
+
+
+Disk 3 of 3  OS278 winchester install disk -
+
+	After OS278 has been installed on the winchester the startup
+	volume is set to the OS278 system.  If you wish to reset the
+	startup volume to Master Menu follow the below instructions.
+
+	Boot the winchester.
+	At the OS278 system prompt enter the CCL command MENU.
+	Master Menu is now active.  Enter date.
+	Select the HD (Hard Disk) services menu.
+	Press NEXT SCREEN.
+	Select the S option (Select startup volume).
+	Enter the volume name MENU as the startup volume. 
+	Master Menu is now marked at the startup volume.
+

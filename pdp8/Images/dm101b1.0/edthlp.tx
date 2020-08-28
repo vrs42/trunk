@@ -1,0 +1,311 @@
+CH	|	responsibility for the use or
+|     ADVANCE	| TURN	|	|	reliablility of this software on any
+|      CHAR	|CUT OFF|	|	equipment.
+ -------------------------------
+
+
+		A L T E R N A T E   K E Y P A D   C O M M A N D S
+		-----------------   -----------   ---------------
+
+ADVANCE
+
+	The advance key will move the cursor through the text in a forward
+	direction.  The advance key also sets a forward direction flag
+	for commands that are not direction dependent IE:the word key on
+	the alternate keypad.
+
+BACKUP
+
+	The backup key will move the cursor through the text in a backward
+	direction.  The backup key also sets a backward direction flag
+	for commands that are not direction dependent IE:the line key on
+	the alternate keypad.
+
+LINE
+
+	The line key will move the cursor through the text 1 line at a time
+	in either a forward or reverse direction.
+
+	To advance on a line by	line basis type the following:
+		ADVANCE, LINE, LINE, LINE etc.. 
+
+	To backup on a line by line basis type the following:
+		BACKUP, LINE, LINE, LINE, etc..
+
+CHANGE CASE
+
+	The change case command converts lower case characters to upper case     Alternate key pad layout		E D I T   V e r s i o n   3 . 0
+					-------   -------------   -----
+ -------------------------------
+| GOLD	|ADV/BAK|DELETE	|DELETE	|	Virtual text editor for DECmates
+| KEY	|  PAGE	| WORD	| CHAR	|	using OS/78 V4.0 or later.
+ -------------------------------
+|DELETE	|ADV/BAK|ADV TO	| CUT	|	    A note from the author.
+| LINE	|  TAB	|  EOL	| TEXT	|
+ -------------------------------	The information in this text file
+|ADV/BAK|ADV/BAK|DELETE	| PASTE	|	is subject to change without notice
+| WORD	| PARA.	|TO EOL	| TEXT	|	and should not be construed as a
+ -------------------------------	commitment by the author.
+|BACKUP	|ADV/BAK|CHANGE	|	|
+| CHAR.	| LINE	| CASE	| CONT	|	The author also assumes no
+ -----------------------| SR	ADVANCE, TAB, TAB, TAB etc..
+
+	To backup on a tab by tab basis type the following:
+		BACKUP, TAB, TAB, TAB etc..
+
+ADVANCE TO END OF LINE
+
+	This command will move the cursor to the end of the current line.
+
+GOLD KEY
+
+	The gold key commands are listed further in this document.
+
+
+PAGE
+
+	The page key will advance or backup through the text on a page
+	by page basis.  A page is defined as a FF character.
+
+	To advance on a page by page basis type the following:
+		ADVANCE, PAGE, PAGE, PAGE, etc..
+
+	To backup on a page by page basis type the following:
+		BACKUP, PAGE, PAGE, PAGE, etc..
+
+DELETE WORD
+
+	The delete word key will remove all the characters in a word
+	from the cursor to the right of the current word.
+
+DELETE CHARACTER
+
+	The,
+	and upper case characters to lower case.  This command sets the forward
+	direction flag therefore operates only in a forward direction.
+
+
+WORD
+
+	The word key will advance or backup through the text one word at a
+	time.
+
+	To advance on a word by word basis type the following:
+		ADVANCE, WORD, WORD, WORD etc..
+
+	To backup on a word by word basis type the following:
+		BACKUP, WORD, WORD, WORD etc..
+
+PARAGRAPH
+
+	The paragraph key will advance or backup through the text one
+	paragraph at a time.  A paragraph is defined as CR,CR.
+
+	To advance on a paragraph by paragraph basis type the following:
+		ADVANCE, PARA, PARA, PARA etc..
+
+	To backup on a paragraph by paragraph basis type the following:
+		BACKUP, PARA, PARA, PARA etc..
+
+DELETE TO END OF LINE
+
+	This command will delete all the characters from the cursor position
+	up to but not including the CR.
+
+DELETE LINE
+
+	This command will delete all the characters from the cursor position
+	up to and including the CR.
+
+TAB
+
+	The tab key will advance or backup through the text one tab at
+	a time.
+
+	To advance on a tab by tab basis type the following:
+	e cut buffer
+	before picking up the new line.
+
+CONTINUE SEARCH
+
+	Continue looking for the text defined in the search buffer.
+	If the search buffer contains nothing, no search is performed.
+
+
+
+			G O L D   K E Y   C O M M A N D S
+			-------   -----   ---------------
+
+GOLD A	Append
+
+	This command will allow more text to be appended to the cut
+	buffer after a PASTE has been executed.  This assumes that the
+	cut buffer is not full.
+
+GOLD B	Go to bottom of file
+
+	This command set the backward direction flag.
+
+GOLD C	Cancel GOLD command
+
+	Use to deactivate GOLD key when accidently pressed.
+
+GOLD E	Exit file and return to monitor
+
+	Save the text in the output buffer (what you can't see off
+	the top of the screen) and return to the mon delete character key will remove the character at the
+	cursor position.
+
+CUT
+
+	The cut key picks up the text from the current cursor position
+	to the end of the line including the CR and stores it in the cut
+	buffer.  You may pickup more text by pressing CUT again.
+
+	When the cut buffer is full, or you have reached the end of the file
+	the editor will beep, at which time you	must press the TURN CUT OFF
+	key to clear the error contition.  If you press the cut key again
+	the cut buffer is purged and the new text is stored.
+
+	You may advance or backup over text and continue cutting additional
+	text. If the PASTE, TURN CUT OFF, keys are pressed the next cut
+	operation will purge the cut buffer then pick up the new text.
+
+	You may cut a maximum of 4000 characters.
+
+PASTE
+
+	The paste key copies the contents of the cut buffer into the file
+	starting at the current cursor position.  Additional copies of the
+	cut buffer can be inserted into the file by pressing the paste key
+	again.
+
+	The paste key also activates the TURN CUT OFF key (see below).
+
+TURN CUT OFF
+
+	This key causes the next CUT operation to purge th
+GOLD '	Define replace string ( input terminated by ESC key )
+
+	To define the text to replace type "GOLD '".
+	The bottom line on your screen will display "Replace: ".
+	Type in the text you wish to replace (maximum number of characters
+	is 64) this includes CR, TAB, and FF characters.  When you are done
+	press the next command key you wish to execute, or ESC ESC 
+	to enter titor.  That means
+	any text on the screen to the end of the original file will be
+	discarded.
+
+GOLD F	Close file and return to monitor
+
+	Copy the remaining portion of the file to the output buffer,
+	close the file and return to the system.
+
+GOLD G	Global search and replace
+
+	The search and replace buffer must be defined before
+	executing this command.  If the replace buffer contains a null
+	This command becomes a global search and delete.
+
+GOLD N	Insert page marker ( FF CR LF )
+
+GOLD O	Open line
+
+GOLD P	Advance 55 lines
+
+GOLD R	Refresh screen
+
+	If for some reason the text on the screen becomes corrupt, this
+	command will refresh the screen with the current contents of the
+	edit buffer.
+
+GOLD T	Go to top of file
+
+	This command sets the forward direction flag.
+
+GOLD V	Display version
+
+	The version is shown on line 24 of the screen.  The program will
+	pause, clear the line, and return to the editor.
+
+
+GOLD ,	Define search string  ( input terminated by ESC key )
+
+	To define the text to search for type "GOLD ,".
+	The bottom line on your screen will display "Search for: ".
+	Type in the text you wish to search for (maximum number of characters
+	is 64) including CR, TAB, and FF characters.  When you are done
+	press the next command key you wish to execute, or ESC ESC 
+	to enter the search string and return to the editor.
+
+GOLD .	Continue search
+
+	Continue looking for the text defined in the search buffer.
+	If the search buffer contains nothing, no search is performed.
+l display an error message and terminate the
+edit session.  This includes the overflowing of the temporary file.  It
+is wise to verify that you have enough room on your disk before editing
+or creating a file.  However the editor will verify that there is at least
+enough room to edit a file.  That means if the file being edited is 25 blocks
+the editor will require at least 25 bhe search string and return to the editor.
+
+GOLD /	Search and replace
+
+	This command will advance through the file looking for the text
+	defined in the search buffer.  When a match is found this text is
+	removed and the text in the replace buffer is inserted in its place.
+
+
+			M O R E   C O M M A N D S
+			-------   ---------------
+ARROW KEYS
+
+	Arrow keys perform arrow functions
+	This command also sets the direction flag.
+
+	Down and Right arrow keys set the forward direction flag.
+	Up and Left arrow keys set the backward direction flag.
+
+BACKSPACE Backup to beginning of line
+
+	Place the cursor at the beginning of the line.
+
+DELETE	Rub character out
+
+	Remove one character to the left of the cursor.
+
+LF	Rub word out
+
+	Remove one word at a time to the left of the cursor.
+
+^A
+
+	Terminate the current operation and return to the editor.
+	The I/O handlers will steal the ^A character so it may be
+	necessary to type ^A more than once.
+
+^C
+
+	Terminate edit session and return to the monitor.
+	The file is left in its original state.
+
+CREATE dev:file.ex  Creates a new file.
+
+	If the file exists, create will call up that file as if
+	the EDIT command was executed.
+
+EDIT dev:file.tx Edits an existing file.
+
+R EDIT
+
+*dev:newfil.ex<dev:oldfil.ex    Allows input output file specification
+
+	Notes:
+	  No backup file is created for an edit session.
+	  Only one device can be specified.  Input and output device
+	  specs are not supported.
+
+NOTES:
+
+  Any errors encountered willocks before starting up.
+

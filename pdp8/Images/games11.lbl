@@ -1,0 +1,103 @@
+GAMES11 - DECmate Games Volume 1.1
+
+-------------------------------
+
+diskette label:
+
+  DECmate Games Volume 1.1
+  Internal Data Level 422
+
+  COPY DISKETTE AND USE COPY
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This bootable diskette contains some of the PDP8 games. The slushware has
+been updated for the DECmate III and III+.
+
+-------------------------------
+
+diskette directory:
+
+ 19-Mar-90
+
+<Empty>   0070  25
+BASIC .OV 0121  19 12-Sep-84
+SETUP .OV 0144   2 24-May-83
+GMU   .SV 0146  21 27-Jul-85
+CURSOR.OV 0173   2 24-May-83
+BOOT  .OV 0175   3 24-May-83
+DUP50 .OV 0200   3 11-Feb-83
+PRINT .OV 0203   3 09-Jul-84
+WHORUN.OV 0206   4 28-Jul-83
+TERID2.OV 0212   4 23-Jan-84
+BELL  .OV 0216   2 28-Jul-83
+BLINK .OV 0220   2 28-Jul-83
+REBOOT.OV 0222   4 28-Jul-83
+<Empty>   0226   2
+HANGMN.SV 0230  81 27-Jul-85
+SLTMCH.SV 0351  24 27-Jul-85
+<Empty>   0401  23
+SOBER .SV 0430  14 27-Jul-85
+DEFUSE.SV 0446  13 27-Jul-85
+BLACK3.SV 0463  27 27-Jul-85
+OTHELO.SV 0516  19 27-Jul-85
+HMRAB2.SV 0541  19 27-Jul-85
+BANER2.SV 0564  23 27-Jul-85
+WORDS .DA 0613  25 14-Dec-90
+RANGE .SI 0644   7 07-Jul-83
+TEXT2 .TX 0653  22 18-Oct-90
+LOG   .SV 0701  10 27-Jul-85
+BALON2.SV 0713  11 27-Jul-85
+BRTS  .SV 0726  25 12-Sep-84
+SPACE1.SV 0757  81 20-Jul-85
+RACE4 .SV 1100  23 27-Jul-85
+<Empty>   1127 168
+
+  28 Files in  493 Blocks -  218 Free blocks

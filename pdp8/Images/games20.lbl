@@ -1,0 +1,106 @@
+GAMES20 - OS8 Games volume 2.0
+
+-------------------------------
+
+diskette label:
+
+  DECmate Games Volume 2.0
+  Internal Data Level 422
+
+  COPY DISKETTE AND USE COPY
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This bootable diskette contains OS/8 games volume 2.0. The slushware has
+been updated for the DECmate III and III+
+
+-------------------------------
+
+diskette directory:
+
+
+ 19-Mar-90
+
+GMU   .SV 0070  28 01-May-85
+BRTS  .SV 0124  25 12-Sep-84
+BASIC .OV 0155  19 12-Sep-84
+VOLCNO.SV 0200  16 01-May-85
+LUNAR .SV 0220  16 01-May-85
+LOG   .SV 0240  13 01-May-85
+QBERT .SV 0255  29 01-May-85
+SCRMBL.SV 0312  48 01-May-85
+HANGMN.SV 0372  83 01-May-85
+BIORHY.SV 0515  20 06-Apr-85
+SETUP .OV 0541   2 24-May-83
+DUP50 .OV 0543   3 11-Feb-83
+ADVENT.OV 0546   2 23-Jan-84
+PRINT .OV 0550   3 09-Jul-84
+WHORUN.OV 0553   4 28-Jul-83
+TERID2.OV 0557   4 23-Jan-84
+WORDS .DA 0563  21 06-Apr-85
+VOLCNO.SI 0610   6 18-Nov-84
+MAZ   .SV 0616  21 23-Jan-84
+SCREEN.TX 0643  88 12-Oct-83
+Z     .SV 0773  14 13-Apr-85
+A     .SV 1011  20 13-Apr-85
+B     .SV 1035  20 13-Apr-85
+REBOOT.OV 1061   4 28-Jul-83
+BLINK .OV 1065   2 28-Jul-83
+BELL  .OV 1067   2 28-Jul-83
+FLY100.SV 1071  31 01-May-85
+WDSRCH.SV 1130  60 01-May-85
+SCREEN.SI 1224  20 24-May-83
+PUZZLE.DA 1250  14 24-May-83
+<Empty>   1266  10
+SPCINV.SC 1300   2 24-May-83
+<Empty>   1302  61
+
+  31 Files in  640 Blocks -   71 Free blocks
+

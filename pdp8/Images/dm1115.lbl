@@ -1,0 +1,100 @@
+DM1115 - OS/278 Source code - diskette 5 of 5
+
+-------------------------------
+
+diskette label:
+
+PROGRAM:  DM0111JE
+DECmateII OS/278 Source Code
+(JE) 5 1/4" FLOPPY DISKETTES (RX50)
+FORMAT:  OS/278
+			       5 OF 5
+
+-------------------------------
+
+To create an OS278 format RX50 diskette from the disk image file:
+
+
+The RX50 disk image file (name.BIN) was created with the PUTR utility 
+program which is available on FTP.DBIT.COM in the /pub/putr directory. 
+PUTR has the ability to format, initialize, read and write RX50 format 
+diskettes for use with OS278 and RT-11 operating systems.
+
+To copy this RX50 image file to a diskette put the diskette in the drive
+and use the commands shown below. The following assumes that b: is the 
+5 1/4" drive, otherwise substitute your drive letter. For more details 
+read the PUTR document file. 
+
+You can skip the formatting step if you already have a formatted RX50 
+diskette.
+
+
+************************************************************************
+*   NOTE:  the /BINARY option is required in the copy command below.   *
+************************************************************************
+
+
+
+C:\>putr					DOS prompt
+PUTR....					PUTR's banner
+
+(C:\)>format b: /os8 /rx50			or use drive a:
+Press ENTER when ready...
+Format complete
+Number of info words per dir entry [1]:		press ENTER
+Allocate space for system [N]?			press n and ENTER
+Format more disks (Y/N)? n			press n and ENTER
+...
+(C:\)>mount b: /os8 /rx50			mount the diskette
+(C:\)>copy /device/files/binary  name.BIN b:	/BINARY option is required !
+(C:\)>								  **********
+...
+(C:\)>quit
+C:\>						back to DOS
+
+
+All done, the diskette is now ready to use with OS278.
+
+-------------------------------
+
+notes:
+
+This is diskette 5 (of 5) containing the DECUS DM0111 release of the
+source code for OS/278.
+
+-------------------------------
+
+diskette directory:
+
+
+ 01-Jan-86
+
+NOTES .TX 0007   3 01-Dec-84
+TTY   .PA 0012  28 01-Dec-84
+BAT   .PA 0046  12 01-Dec-84
+LPTS  .PA 0062  17 01-Dec-84
+COM0  .PA 0103  23 01-Dec-84
+COM1  .PA 0132  23 01-Dec-84
+COMM  .PA 0161  26 01-Dec-84
+RX02SY.PA 0213  41 01-Dec-84
+RX2A  .PA 0264  32 01-Dec-84
+RX2B  .PA 0324  32 01-Dec-84
+RX50SY.PA 0364  34 01-Dec-84
+RX5A  .PA 0426  28 01-Dec-84
+RX5B  .PA 0462  29 01-Dec-84
+RL01SY.PA 0517  31 01-Dec-84
+RL0   .PA 0556  29 01-Dec-84
+RL1   .PA 0613  29 01-Dec-84
+RLC   .PA 0650  28 01-Dec-84
+RL02SY.PA 0704  32 01-Dec-84
+R0AB  .PA 0744  33 01-Dec-84
+R0CD  .PA 1005  33 01-Dec-84
+R1AB  .PA 1046  33 01-Dec-84
+R1CD  .PA 1107  33 01-Dec-84
+R01E  .PA 1150  28 01-Dec-84
+RD51SY.PA 1204  24 01-Dec-84
+RD5A  .PA 1234  32 01-Dec-84
+RD5B  .PA 1274  33 01-Dec-84
+<Empty>   1335  34
+
+  26 Files in  726 Blocks -   34 Free blocks
