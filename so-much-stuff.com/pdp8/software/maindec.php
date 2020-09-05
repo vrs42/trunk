@@ -360,6 +360,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>DECTREX 1 TC01 Random Exerciser
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-d.pdf>maindec-08-d3ra-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb>maindec-08-d3ra-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb.lbl>maindec-08-d3ra-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb.od>maindec-08-d3ra-pb.od</a><td>(BIN image in octal)<tr>
