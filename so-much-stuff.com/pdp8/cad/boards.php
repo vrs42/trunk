@@ -249,6 +249,8 @@ schematics work. (Has a consistency problem to highlight changes.)
 <DT>board2eco</A>
   <DD>is board2 with the first and second set of corrections applied to make it work.
 (Has a consistency problem which highlights the ECOs.)
+<DT>5411507</A>
+  <DD>is a drawing of the board inside the limited function panel.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5265,6 +5267,15 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M90x,W0x1 target=_blank>./DEC/Mxxx/M90x,W0x1</a></b>: Negibus/Posibus Connectors
+
+</LEGEND><DL>
+<DT>BusCon</A>
+  <DD>is a version of DEC's M90x and W0x1 connector paddles, 
+(based on the work from the BusCon project).
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M910 target=_blank>./DEC/Mxxx/M910</a></b>: CP Terminator Card
 
 </LEGEND><DL>
@@ -5319,7 +5330,11 @@ the more common 74174.
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M920 target=_blank>./DEC/Mxxx/M920</a></b>: Unibus Jumper Module
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>M920B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M921 target=_blank>./DEC/Mxxx/M921</a></b>: DEVICE CODE SELECT JUMPER MODULE, FOR 3 IOT'S
 
@@ -5558,6 +5573,14 @@ This one uses an open collector bus to reduce the number of drivers.
 subsystem replaced with level converters and a ramboard.
 <DT>5403833B</A>
   <DD>is a drawing of the front panel lights board for the 8/S.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PowerMon target=_blank>./DEC/PowerMon</a></b>: Voltage monitor for DEC backplanes
+
+</LEGEND><DL>
+<DT>Vprobe</A>
+  <DD>is a single height board suitable for monitoring voltages and 5V supply ripple.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6206,6 +6229,14 @@ subsystem replaced with level converters and a ramboard.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sykes target=_blank>./DEC/Sykes</a></b>: Sykes Omnibus Floppy Controller
+
+</LEGEND><DL>
+<DT>1005A0151D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TC08 target=_blank>./DEC/TC08</a></b>: TC08 Backplane
 
 </LEGEND><DL>
@@ -6540,6 +6571,8 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W101 target=_blank>./DEC/Wxxx/W101</a></b>: I/O Bus Driver, similar to 4657
 
 </LEGEND><DL>
+<DT>W101A</A>
+  <DD>is a drawing of DEC's W101A.
 <DT>W101B</A>
   <DD>is a drawing of DEC's W101B.
 <DT>W101X</A>
@@ -6569,7 +6602,9 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 
 </LEGEND><DL>
 <DT>W104C</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's W104C.
+<DT>W104X</A>
+  <DD>is a 'modernized' version of W104C.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -6840,6 +6875,8 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W681 target=_blank>./DEC/Wxxx/W681</a></b>: Scope Intensifier for 34 Display
 
 </LEGEND><DL>
+<DT>W681A</A>
+  <DD>is a drawing of DEC's W681A.
 <DT>W681X</A>
   <DD>is a 'modernized' W681.
 </DL>
@@ -6870,8 +6907,12 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W700 target=_blank>./DEC/Wxxx/W700</a></b>: Switch Filter, 6 circuits, similar to 1703, used on W710
 
 </LEGEND><DL>
+<DT>W700A</A>
+  <DD>is a drawing of DEC's M700A.
 <DT>W700B</A>
-  <DD>needs a drawing.
+  <DD>is a drawing of DEC's M700B.
+<DT>W700X</A>
+  <DD>is a 'modernized' M700B.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -7239,6 +7280,9 @@ attaches to the parallel port of a PC.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FP6120 target=_blank>./FP6120</a></b>: Attempt to replicate Bob Armstrong's FP6120.
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FlipChip target=_blank>./FlipChip</a></b>: Flip Chip Edge Connector
 
 </LEGEND><DL>
@@ -7464,6 +7508,8 @@ board fab.
 <DT>w076oAsBuilt</A>
   <DD>is a version that matches the blue-wire changes
 in the as-shipped assembled boards.
+<DT>W076-3-20</A>
+  <DD>is a version that matches the 3/2020 board run.
 </DL>
 </FIELDSET>
 </FIELDSET>
@@ -7643,11 +7689,16 @@ used to debug the prototype.
   <DD>is a schematic for Ulrich Fierz's modifications to
 an 8/i and a TC08 to interface the RX8E.
 <DT>pbusRX8E</A>
-  <DD>is an attempt to modify Ulrich's design to remove the 
+  <DD>is an attempt to modify Ulrich's design to remove the
 8/i dependency.
 <DT>rx08-vrs</A>
-  <DD>is another attempt to modify Ulrich's design to remove 
+  <DD>is another attempt to modify Ulrich's design to remove
 the 8/i dependency, and makes the Omnibus connections more explicit.
+<DT>rx08+ulrich</A>
+  <DD>is an merge of Ulrich's design with the RX8E drawings.
+<DT>rx8i</A>
+  <DD>is an attempt to modify rx08+ulrich to be suitable for
+implementation in a CPLD.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -7760,7 +7811,7 @@ Generator based on the M8655 (doesn't route).
 
 </LEGEND><DL>
 <DT>1switch</A>
-  <DD>is an exploration of ideas about using reed switches to 
+  <DD>is an exploration of ideas about using reed switches to
 construct switch substitutes that fit in the original footprints.
 <DT>M900dec</A>
   <DD>is a drawing of DEC's M900 paddle card, which contains
@@ -7787,12 +7838,13 @@ the use of LEDs instead of indicator lamps.
 <DT>LEDPanelmpsl</A>
   <DD>is a version of 8iPanel with current limiting resistors suitable for
 the use of LEDs instead of indicator lamps.
+<DT>LEDPanelECOl</A>
+  <DD>documents workarounds for issues in LEDpalenmpsl.
+<DT>LEDPanel7-20l</A>
+  <DD>fixes the known issues in LEDpalenmpsl (as of July 2020).
 <DT>LEDproto</A>
   <DD>is a version of my indicator panel, broken in two, so it
 could be ordered from a protoype shop.
-<DT>proto2.brd</A>
-  <DD>is a panelized set of six M900 boards, suitable
-for ordering from a prototype house.
 <DT>8iSwitches</A>
   <DD>is a drawing of a replacement for the switches PCB.
 <DT>8iSwitchesOK</A>
@@ -7801,6 +7853,12 @@ for ordering from a prototype house.
   <DD>is an exploration of interfacing a Raspberry Pi to the switches and lights.
 <DT>G793</A>
   <DD>is a pull-up and clamping module for the switch register of the PDP-8/i.
+<DT>Perspex</A>
+  <DD>is a drawing of the artwork that mounts in the front of the PDP-8/i panel.
+<DT>Guide</A>
+  <DD>is a drawing showing placement measurements for the PDP-8/i panel.
+<DT>TactileSw</A>
+  <DD>is a drawing of an attempt to use two tactile switches with a slide to replace a slide switch.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
