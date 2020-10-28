@@ -1,0 +1,519 @@
+#!/usr/bin/perl
+
+#
+# Extract Color information for the DEC color standard 092.
+#
+
+#
+# First, the relevant color standard (semicolon separator):
+# This bit is straight out of DEC STD 092, Table 5-1.
+# s/Brite/Bright/
+# s/Defuser/Diffuser/
+# s/Grayscale/Gray Scale/
+# s/Cabs/Cabinets/
+# Color punctuation is normalized.
+@colors = (
+# "###;First Used On;Name;Reference",
+  "065;Old DEC Cabinets;Silver",
+  "067;Old DEC Cabinets;Blue-Gray",
+  "068;General;Light Gray",
+  "094;Cabinets;Lamp Black;CHM Gray Scale P",
+  "095;General;Chinese Red;MUN (10YR4/12),CHM 6PC",
+  "101;End Panels;Gray;CHM Gray Scale D",
+  "102;Packaging;Blue;IPI 66C 950",
+  "104;Module;Bright Gold;CHM 2 PC",
+  "105;LAB-COM;Gray;CHM Gray Scale G",
+  "111;PDP10;Deep Peacock Blue;CHM 16 PC",
+  "113;PDP8/I;Dark Luggage Tan;MUN (5YR4/8),CHM 4",
+  "114;PDP10;Wedgewood Green;CHM 24.125 EC",
+  "115;PDP10;Chalk Blue;CHM 16 EC",
+  "116;Peripherals;Bright Olive Green;CHM 24.5 PC",
+  "123;General;White;MUN (N9.5)",
+  "126;PDP8/L;Russet Orange;CHM 4 NC",
+  "129;PDP12;Lime Peel;CHM 24 PG",
+  "130;PDP12;Bright Chartreuse;CHM 24.5 LA",
+  "131;PDP15;Bright Open Blue;MUN (2.5PB5/10)",
+  "135;PDP15;Bright Navy;CHM 13.5 PG",
+  "136;PDP14;Amber;MUN (10YR6/10),CHM 3",
+  "137;General;Vermillion;MUN (10YR5/14),CHM 6",
+  "138;Peripheral Switch;Dark Olive Gray;CHM 1 ML",
+  "139;PDP11;Bright Rose;CHM 8 NA",
+  "140;PDP11;Magenta;CHM 9 PA",
+  "141;PDP8/E;Amber;MUN (10YR6/12),CHM 3",
+  "142;PDP8/E;Terra Cotta;CHM 5 PE",
+  "144;KI10;Turquoise Green;MUN (7.5BG4/6)",
+  "145;KI10;Deep Peacock Blue;CHM 16 PE",
+  "146;Logic Lab;Deep Purple;CHM 11 PE",
+  "147;General;Dark Gray;CHM Gray Scale L",
+  "148;10 Systems;Blasi Blue;CHM 16 NC",
+  "149;IDAC 11/07;Topaz;MUN (10YR5/10)",
+  "150;IDAC 11/07;Clove Brown;MUN (10YR3/4)",
+  "151;KI10;Light Aqua;CHM 17 LA",
+  "152;PDP11/45 & 25;Alexander Grape;CHM 9 PL",
+  "153;NEMA Cabinets;Gray Primer;",
+  "154;DECDATA Systems;Murphy Maroon;MUN (7.5R3/8)",
+  "155;PDP11;Morris Maroon;MUN (7.5R2/8)",
+  "156;GT40;Crabbe Yellow;MUN (5Y7/10)",
+  "157;GT40;Lenny Lime;MUN (5Y4/6)",
+  "158;PDP8;Dave Brown;MUN (2.5YR3/8)",
+  "159;Corporate Identity;Digital Blue;PMS Process Blue",
+  "160;Medical Systems;Blue Janice;MUN (7.5PB3/12)",
+  "161;ANT'S (OEM);ANT'S Orange;Customer Chip",
+  "162;ANT'S (OEM);ANT'S Blue;Customer Chip",
+  "163;Philips (OEM);Philibs Blue;Customer Chip",
+  "164;Industrial;D.C. Blue;MUN (5PB3/10)",
+  "166;W.U. (OEM);Western Union Blue;Customer Chip",
+  "167;Industrial;Can-Red;I.H.C.",
+  "169;General;Red Diffuser;I.H.C.",
+  "170;General;Colorless Diffuser;I.H.C.",
+  "171;Key Controls;Button Red;G.E. MVCL",
+  "172;Dust Covers;Smokey Lexan;G.E. MVCL",
+  "173;PDP8/A;Fog Diffuser;I.H.C.",
+  "174;Bell Sys (OEM);Bell Gold;Customer Chip",
+  "175;Bell Sys (OEM);Bell Blue;Customer Chip",
+  "176;Foxboro (OEM);Light Fox Green;Customer Chip",
+  "177;Foxboro (OEM);Dark Fox Green;Customer Chip",
+  "178;PDP15;Blue Devlin Diffuser;I.H.C.",
+  "179;General;OSHA Yellow;I.H.C.",
+  "180;General;OSHA Blue;I.H.C.",
+  "181;General;OSHA Green;I.H.C.",
+  "182;General;OSHA Orange;I.H.C.",
+  "183;General;OSHA Red;I.H.C.",
+  "184;General;OSHA Magenta;CHM 9 DA",
+  "185;General;Corn Gold;I.H.C.",
+  "186;Data Systems;Mullen Blue;I.H.C.",
+  "187;OEM;Bell Canada Gray;Customer Chip",
+  "188;General;Ocular Red Diffuser;I.H.C.",
+  "189;General;DEC Clear Hardcoat;I.H.C.",
+  "190;PDP11/60 CAB;PREFER - RED;I.H.C.",
+  "191;OEM;Bell Canada Gold;Customer Chip",
+  "192;OEM;Canada Post Red;S/S Ink I.H.C.",
+  "193;VT100;Digital Brown;I.H.C.",
+  "195;General;Charcoal;I.H.C.",
+  "196;Labels;Label Code Blue;Inks PMS 306",
+  "197;Labels;Label Code Green;Inks PMS 375",
+  "198;Labels;Label Code Pink;Inks PMS 191",
+  "199;Labels;Label Code Purple;Inks PMS 528",
+  "200;Labels;Label Code Orange;Inks PMS 151",
+  "201;Labels;Label Code Yellow;Inks PMS 109",
+  "202;Labels;Label Code Tan;Inks PMS 472",
+  "203;Labels;Label Code Dark Orange;Inks PMS 166",
+  "204;Labels;Label Code Yellow Ochre;Inks PMS 117",
+  "205;Labels;Label Code Brown;Inks PMS 347",
+  "206;Labels;Label Code Olive;Inks PMS 391",
+  "207;;D.F. Gray Diffuser;I.H.C. Silk Screen Ink",
+  "208;;Gray Lexan;G.E. 9030-713",
+  "209;;Trans Bronze;Flex-Vu M-100 BN",
+  "210;;Yellow Diffuser;I.H.C. Silk Screen Ink",
+  "211;;Green Diffuser;I.H.C. Silk Screen Ink",
+  "212;;Bold Blue;Cycolac T-5500 (Keycaps)",
+  "213;;Mellow White;Cycolac T-2502 (Keycaps)",
+  "214;;Old Gray Diffuser;Cycolac T-3502 (Keycaps)",
+  "215;;A.J. Brown;G.E. Noryl N-190-50188",
+  "216;;A.J. Beige;G.E. Noryl N-190-50192",
+);
+
+# Here is some text extracted from CHD's page:
+# http://www.chdickman.com/pdp8/DECcolors/
+# CHM and MUN designations returned to original spelling.
+# Probable errors for #114, #148, #149, #154 corrected.
+@chd1 = (
+  "065;Silver;Old DEC Cabinets;;",
+  "067;Blue-Gray;Old DEC Cabinets;;",
+  "068;Light Gray;General;;",
+  "094;Lamp Black;Cabinets;CHM Gray Scale P;0,0,0",
+  "095;Chinese Red;General;MUN (10YR4/12);170,56,30",
+  "101;Gray;End Panels;CHM Gray Scale D;164,164,164",
+  "102;Blue;Packaging;IPI 66C 950;Unknown",
+  "104;Bright Gold;Module;CHM 2 PC;198,165,10",
+  "105;Gray;LAB-COM;CHM Gray Scale G;101,101,101",
+  "111;Deep Peacock Blue;PDP10;CHM 16 PC;18,61,95",
+  "113;Dark Luggage Tan;PDP8/I;MUN (5YR4/8);147,79,31",
+# "114;Wedgewood Green;PDP10;CHM 25-1/8 EC;172,188,151",
+  "114;Wedgewood Green;PDP10;CHM 24.125 EC;172,188,151",
+  "115;Chalk Blue;PDP10;CHM 16 EC;149,175,176",
+  "116;Bright Olive Green;Peripherals;CHM 24.5 PC;143,159,24",
+  "123;White;General;MUN (N9.5);247,247,247",
+  "126;Russet Orange;PDP8/L;CHM 4 NC;202,97,16",
+  "129;Lime Peel;PDP12;CHM 24 PG;76,106,18",
+  "130;Bright Chartreuse;PDP12;CHM 24.5 LA;212,219,53",
+  "131;Bright Open Blue;PDP15;MUN (2.5PB5/10);39,127,196",
+  "135;Bright Navy;PDP15;CHM 13.5 PG;10,20,61",
+  "136;Amber;PDP14;MUN (10YR6/10);200,136,26",
+  "137;Vermillion;General;MUN (10YR5/14);outside sRGB gamut",
+  "138;Dark Olive Gray;Peripheral Switch;CHM 1 ML;54,49,19",
+  "139;Bright Rose;PDP11;CHM 8 NA;156,43,61",
+  "140;Magenta;PDP11;CHM 9 PA;110,35,76",
+  "141;Amber;PDP8/E;MUN (10YR6/12);outside sRGB gamut",
+  "142;Terra Cotta;PDP8/E;CHM 5 PE;156,55,11",
+  "144;Turquoise Green;KI10;MUN (7.5BG4/6);outside sRGB gamut",
+  "145;Deep Peacock Blue;KI10;CHM 16 PE;16,50,78",
+  "146;Deep Purple;Logic Lab;CHM 11 PE;45,19,58",
+  "147;Dark Gray;General;CHM Gray Scale L;56,56,56",
+# "148;Blasi Blue;10 Systems;CHM 18 NC;26,68,106",
+  "148;Blasi Blue;10 Systems;CHM 16 NC;26,68,106",
+# "149;Topaz;IDAC 11/07;MUN (18YR5/10);outside sRGB gamut",
+  "149;Topaz;IDAC 11/07;MUN (10YR5/10);outside sRGB gamut",
+  "150;Clove Brown;IDAC 11/07;MUN (10YR3/4);95,66,37",
+  "151;Light Aqua;KI10;CHM 17 LA;48,115,144",
+  "152;Alexander Grape;PDP11/45 & 25;CHM 9 PL;20,8,22",
+  "153;Gray Primer;NEMA Cabinets;;125,125,125",
+# "154;Murphy Maroon;DECDATA Systems;MUN (7.5R3/6);118,51,50",
+  "154;Murphy Maroon;DECDATA Systems;MUN (7.5R3/8);118,51,50",
+  "155;Morris Maroon;PDP11;MUN (7.5R2/8);99,15,30",
+  "156;Crabbe Yellow;GT40;MUN (5Y7/10);209,171,28",
+  "157;Lenny Lime;GT40;MUN (5Y4/6);118,94,25",
+  "158;Dave Brown;PDP8;MUN (2.5YR3/8);123,49,18",
+  "159;Digital Blue;Corporate Identity;PMS Process Blue;0,140,204",
+  "160;Blue Janice;Medical Systems;MUN (7.5PB3/12);52,61,156",
+  "164;D.C. Blue;Industrial;MUN (5PB3/10);outside sRGB gamut",
+  "184;OSHA Magenta;General;CHM 9 DA;217,146,176",
+);
+
+# Here are the colors extracted from the CHD page:
+# (Note that they don't match perfectly.)
+@chd2 = (
+  "094;0,0,0",
+  "095;175,33,13",
+  "101;164,164,164",
+  "102;0,0,255",
+  "104;198,165,10",
+  "105;101,101,101",
+  "111;18,61,95",
+  "113;147,79,31",
+  "114;172,188,151",
+  "115;149,175,176",
+  "116;143,159,24",
+  "123;247,247,247",
+  "126;202,97,16",
+  "129;76,106,18",
+  "130;212,219,53",
+  "131;39,127,198",
+  "135;10,20,61",
+  "136;200,136,26",
+  "137;178,107,0",
+  "138;54,49,19",
+  "139;156,43,61",
+  "140;110,35,76",
+  "141;205,135,0",
+  "142;156,55,11",
+  "144;0,109,118",
+  "145;16,50,78",
+  "146;45,19,58",
+  "147;56,56,56",
+  "148;26,68,106",
+  "149;170,110,0",
+  "150;95,66,37",
+  "151;48,115,144",
+  "152;20,8,22",
+  "153;125,125,125",
+  "154;118,51,50",
+  "155;99,15,30",
+  "156;209,171,28",
+  "157;118,94,25",
+  "158;123,49,18",
+  "159;0,140,204",
+  "160;52,61,156",
+  "164;0,72,146",
+  "184;217,146,176",
+);
+
+%wRatio = (
+  "A", 15/16,
+  "B", 14/16,
+  "C", 13/16,
+  "D", 12/16,
+  "E", 11/16,
+  "F", 10/16,
+  "G",  9/16,
+  "H",  8/16,
+  "I",  7/16,
+  "J",  6/16,
+  "K",  5/16,
+  "L",  4/16,
+  "M",  3/16,
+  "N",  2/16,
+  "O",  1/16,
+  "P",  0/16,
+);
+
+foreach $chd1 (@chd1) {
+  # Parse the table entry
+  ($dec, $name, $use, $cname, $rgb) = split(/;/, $chd1);
+  # Should have gotten at least these:
+  die unless $dec;
+  die unless $name;
+  die unless $use;
+  # Remember stuff
+  $name{$dec} = $name;
+  $use{$dec} = $use;
+  $cname{$dec} = $cname if $cname;
+  &addrgb($dec, $rgb);
+}
+
+foreach $chd2 (@chd2) {
+  # Parse the table entry
+  ($dec, $rgb) = split(/;/, $chd2);
+  # Should have gotten both:
+  die unless $dec;
+  die unless $rgb;
+  if ($rgb{$dec} =~ /^[0-9]/) {
+    warn "$dec $name{$dec}: CHD has $rgb but prints $rgb{$dec}\n"
+      unless $rgb eq $rgb{$dec};
+  }
+  &addrgb($dec, $rgb);
+}
+
+#
+# Now walk the DEC chart.
+foreach $color (@colors) {
+  # Parse the table entry
+  ($dec, $use, $name, $ref) = split(/;/, $color);
+  # Should have gotten these:
+  die "No color number: $color\n" unless $dec;
+# die "No first use: $color\n" unless $use;
+  die "No color name: $color\n" unless $name;
+  # Check these against CHD values, define anything new.
+  if (defined $use{$dec}) {
+    warn "$dec $name{$dec}: use: CHD has $use{$dec}, not $use\n"
+      unless $use eq $use{$dec};
+  }
+  if (defined $name{$dec}) {
+    warn "$dec $name{$dec}: name: CHD has $name{$dec}, not $name\n"
+      unless $name eq $name{$dec};
+  }
+  if (defined $cname{$dec}) {
+#   warn "$dec $name{$dec}: cname: CHD has $cname{$dec}, not $ref\n"
+#     unless $ref eq $cname{$dec};
+  }
+  $use{$dec} = $use;
+  $cname{$dec} = $ref;
+  # Now, walk the color specs and see if we recognize them.
+  # (Only CHM and MUN color specs are currently recoginzed.)
+  foreach $color (split(/,/, $ref)) {
+    if ($color =~ /^CHM\s+(.*)/) {
+      # Convert CHM color to HSL.
+      @rgb = &chm2rgb($1);
+#warn "chm2rgb $1: got @rgb\n";
+    } elsif ($color =~ /^MUN\s+\((.*)\)/) {
+      # Convert MUN color to HSL.
+      @hsl = &mun2hsl($1);
+#warn "$name\n";
+#warn "mun2hsl $1: got @hsl\n";
+      # Convert HSL value to RGB.
+      @rgb = &hsl2rgb(@hsl);
+#warn "hsl2rgb @hsl: got @rgb\n";
+    } else {
+      # No useful color choice to add.
+      next;
+    }
+    $rgb = join(",", @rgb);
+    # Got an RGB value, add it to $rgb{$dec}.
+    &addrgb($dec, $rgb)
+  }
+}
+#warn "\n";
+# Compute $rgb where possible.
+# Report stuff for which CHD rgb is "off".
+
+#
+# Take a stab at approximating MUN colors.
+sub mun2hsl {
+   local($mun) = @_;
+   local($hue, $seg, $l, $s) = ($1, $2, $3, $4) if $mun =~ /([\d.]+)\s*([YRGBP]+)\s*([\d.]+)\s*\/\s*([\d.]+)/;
+   ($hue, $seg, $l, $s) = (5, "R", $1, 0) if $mun =~ /N\s*([\d.]+)/;
+
+   die "$mun: $hue $seg $l $s Can't parse MUN color\n" unless defined $s;
+   die "$mun: Invalid hue number $hue\n" if $hue > 10; # between 2.5 and 7.5
+   die "$mun: Invalid hue number $hue\n" if 2.5*int($hue/2.5) != $hue; # Must be a multiple of 2.5
+   # 0 = 360 degrees == red
+   # 360 / 5 = 72
+   $hue = 0 if $hue == 10;
+   $hue = 9*($hue-5) / 2.5;
+   $hue += 330 if $seg =~ s/^RP//;
+   $hue += 0 if $seg =~ s/^R//;
+   $hue += 30 if $seg =~ s/^YR//;
+   $hue += 60 if $seg =~ s/^Y//;
+   $hue += 90 if $seg =~ s/^GY//;
+   $hue += 120 if $seg =~ s/^G//;
+   $hue += 180 if $seg =~ s/^BG//;
+   $hue += 240 if $seg =~ s/^B//;
+   $hue += 270 if $seg =~ s/^PB//;
+   $hue += 300 if $seg =~ s/^P//;
+   $s /= 10;
+   $l /= 10;
+   $hue -= 360 if $hue >= 360;
+   return($hue, $s, $l);
+}
+
+#
+# Let's attempt a conversion of an arbitrary CHM color.
+sub chm2rgb {
+  local($c) = @_;
+  local($q, $w, $b, $h, $s, $l);
+  local($r, $g);
+#warn "chm2rgb $c\n";
+  if ($c =~ /Gr[ae]y\s*Scale\s*([A-P])/) {
+    $w = $1;
+    $w = $wRatio{$w};
+    return hsl2rgb(0, 0, $w);
+  }
+  ($q, $w, $b) = ($1, $2, $3) if $c =~ /([\d.]+)\s*([A-P])([A-P])/;
+  ($q, $w, $b) = ($1, "P", "A") if $c =~ /([\d.]+)$/;
+  die "$c: color not recognised\n" unless $b =~ /[A-P]/;
+  # Convert $q to a hue.
+  $h = 75;
+  $h -= $q * 15;
+  $h += 360 if $h < 0;
+  # Look up $w and $b.
+#warn "w is $w, b is $b\n";
+  $w = $wRatio{$w};
+  $b = 15/16-$wRatio{$b};
+#warn "w is $w, b is $b\n";
+  # toHSL($h, 1, 0.5) is the fully saturated version.
+  # This is called either "PA", or just "".
+  # Anyway, this suggests that lightness is an offset
+  # from L=0.5:
+  $l = 0.5*(1+$w);
+  # This suggests that saturation is 1-something.
+  # From the discussion color+white+black = 1.0.
+  # So, if blackness "A" is zero:
+  $s = 1.0-($b+$w);
+#warn "hsl2rgb($h, $s, $l) $w $b\n";
+  return hsl2rgb($h, $s, $l);
+}
+
+# Convert RGB to HSL.
+sub rgb2hsl {
+  local($r, $g, $b) = @_;
+  local($max, $cmin, $h, $s, $l);
+  $r /= 255;
+  $g /= 255;
+  $b /= 255;
+  $cmax = ($r > $g)? $r : $g;
+  $cmax = ($cmax > $b)? $cmax : $b;
+  $cmin = ($r < $g)? $r : $g;
+  $cmin = ($cmin < $b)? $cmin : $b;
+  # Calculate L.
+  $l = ($cmax + $cmin) / 2;
+  if ($cmax > $cmin) {
+    # Now calculate S.
+    if ($l < 0.5) {
+      $s = ($cmax-$cmin) / ($cmax+$cmin);
+    } else {
+      $s = ($cmax-$cmin) / (2.0-$cmax-$cmin);
+    }
+    # Finally, calculate H.
+    $h = (60 * (($r - $g) / ($cmax-$cmin)) + 240) if $cmax == $b;
+    $h = (60 * (($b - $r) / ($cmax-$cmin)) + 120) if $cmax == $g;
+    $h = (60 * (($g - $b) / ($cmax-$cmin)) +   0) if $cmax == $r;
+    $h += 360 if $h < 0;
+  } else {
+    # Shade of grey
+    $h = $s = 0;
+  }
+  return ($h, $s, $l);
+}
+
+#
+# Convert HSL to RGB.
+# Algorithm is from stackoverflow.com:
+# https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
+sub hue2rgb {
+    local($p, $q, $t) = @_;
+#warn "hue2: $p $q $t\n";
+    $t += 1 if $t < 0;
+    $t -= 1 if $t > 1;
+die if $t < 0;
+die if $t > 1;
+    if ($t < 1/6) {
+        $p =  $p + ($q - $p) * 6 * $t;
+    } elsif ($t < 1/2) {
+        $p =  $q;
+    } elsif ($t < 2/3) {
+        $p =  $p + ($q - $p) * (2/3 - $t) * 6;
+    }
+#warn "hue2: $p\n";
+    return int($p*255 + 0.5);
+}
+sub hsl2rgb {
+    local($h, $s, $l) = @_;
+    local($r, $g, $b);
+#warn "hsl2rgb $h, $s, $l\n";
+    $h /= 360;
+# BUGBUG: Do something better with oversaturated colors.
+    $s = 1 if $s > 1;
+    if ($s == 0) {
+        $r = $g = $b = int($l*255+0.5); # achromatic
+    } else {
+        local($q) = $l < 0.5 ? $l * (1 + $s) : $l + $s - $l * $s;
+        local($p) = 2 * $l - $q;
+#warn "p = $p, q = $q\n";
+        $r = &hue2rgb($p, $q, $h + 1/3);
+#warn "p = $p, q = $q\n";
+        $g = &hue2rgb($p, $q, $h);
+#warn "p = $p, q = $q\n";
+        $b = &hue2rgb($p, $q, $h - 1/3);
+#warn "p = $p, q = $q\n";
+    }
+#warn "return $r,$g,$b\n";
+    return($r, $g, $b);
+}
+
+sub addrgb {
+  local($dec, $rgb) = @_;
+  if (defined $rgb{$dec}) {
+    $rgb{$dec} .= ":$rgb"; # Add the new color
+  } else {
+    $rgb{$dec} = $rgb;   # Create a color
+  }
+}
+
+#
+# Output results.
+print "<TABLE>\n";
+foreach $dec (sort keys %rgb) {
+  print "<TR>\n";
+  print "<TD>$dec\n";
+  print "<TD>$use{$dec}\n";
+  print "<TD>$name{$dec}\n";
+  print "<TD>$cname{$dec}\n";
+  $ocolor = "";
+  foreach $color (split(/:/, $rgb{$dec})) {
+    next if $color eq $ocolor;
+    $ocolor = $color;
+    next unless $color =~ /^[0-9]/;
+    # $color is an r,g,b triple.
+    ($r, $g, $b) = split(/,/, $color);
+    $v = 255 - int(($r + $g + $b) / 3);
+    $v = 255 unless $v < 64; # For most values of $v, just use white.
+    print "<TD style='color:rgb($v,$v,$v); background-color:rgb($color)'>$color\n";
+  }
+  print "</TR>\n";
+}
+print "</TABLE>\n";
+
+$debug = 0;
+exit 0 unless $debug;
+
+#
+# Print basic color charts to verify the conversion routines.
+
+#
+# Check each basic color angle for Munsell.
+# Don't check saturation algorithm here.
+# (Known bug: ignores super-saturation.)
+foreach $hue ("R", "YR", "Y", "GY", "G", "BG", "B", "PB", "P", "RP") {
+  $color = "5$hue" . "5/10";
+  ($h, $s, $l) = &mun2hsl($color);
+  ($r, $g, $b) = &hsl2rgb($h, $s, $l);
+  warn "$hue: $r,$g,$b\n";
+}
+
+#
+#  Check each color angle for CHM/Ostwald colors.
+# Don't check saturation algorithm here.
+for ($hue = 1; $hue < 25; $hue++) {
+  ($r, $g, $b) = &chm2rgb($hue);
+  warn "$hue: $r,$g,$b\n";
+}

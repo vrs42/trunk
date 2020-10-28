@@ -12,7 +12,7 @@
 # Do NOT edit the .csv using Excel -- it severely mangles stuff that it
 # mistakes for dates.
 #
-all: DECSubst.html DECParts.zip
+all: DECSubst.html DECParts.zip dec-std.html
 
 DECSubst.html: sorttab.pl DECSubst.csv
 	./sorttab.pl >DECSubst.html
@@ -22,3 +22,6 @@ DECParts.zip: DECParts.xls
 
 DECSubst.csv: DECParts.xls
 	./mkcsv.pl -2 $< >$@
+
+dec-std.html: dec-std
+	./dec-std >$@
