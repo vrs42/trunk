@@ -1736,46 +1736,7 @@ sub mun2rgb {
 }
 
 #
-# Take a stab at approximating MUN colors.
-# This was interesting, but the math doesn't seem to approximate
-# what folks are doing.
-sub mun2hsvo {
-   local($mun) = @_;
-# BUGBUG: Kludge some colors that "can't be right"
-$mun = "10RP4/12" if $mun eq "10YR4/12"; # Chinese Red
-$mun = "10RP5/14" if $mun eq "10YR5/14"; # Vermillion
-# BUGBUG: Currently requires the color to be upper case.
-   local($hue, $seg, $v, $s) = ($1, $2, $3, $4) if $mun =~ /([\d.]+)\s*([YRGBP]+)\s*([\d.]+)\s*\/\s*([\d.]+)/;
-   ($hue, $seg, $v, $s) = (5, "R", $1, 0) if $mun =~ /N\s*([\d.]+)/;
-
-   die "$mun: $hue $seg $l $s Can't parse MUN color\n" unless defined $s;
-   die "$mun: Invalid hue number $hue\n" if $hue > 10; # between 2.5 and 7.5
-   die "$mun: Invalid hue number $hue\n" if 2.5*int($hue/2.5) != $hue; # Must be a multiple of 2.5
-   # Chopping the circle into 100 hues gives 3.6 degrees each.
-   $hue -= 5; # 5 is the center of a named color.
-   $hue *= 3.6; # The number is relative to 100 steps of 3.6 degrees.
-   # Chopping the circle into 10 named hues gives 36 degrees each.
-   $slice = 360 / 10;
-   # 0 = 360 degrees == red
-   $hue += 9*$slice if $seg =~ s/^RP//;
-   $hue += 0*$slice if $seg =~ s/^R//;
-   $hue += 1*$slice if $seg =~ s/^YR//;
-   $hue += 2*$slice if $seg =~ s/^Y//;
-   $hue += 3*$slice if $seg =~ s/^GY//;
-   $hue += 4*$slice if $seg =~ s/^G//;
-   $hue += 5*$slice if $seg =~ s/^BG//;
-   $hue += 6*$slice if $seg =~ s/^B//;
-   $hue += 7*$slice if $seg =~ s/^PB//;
-   $hue += 8*$slice if $seg =~ s/^P//;
-$hue -= 14; # Kludge -- step back
-   $s /= 10;
-   $v /= 10;
-   $hue -= 360 if $hue >= 360;
-   return($hue, $s, $v);
-}
-
-#
-# Print relevant MUNsell color charts, as a proof that the mun2hsv
+# Print relevant MUNsell color charts, as a proof that the mun2rgb
 # routine is working.
 if (1) {
   #
@@ -2126,14 +2087,7 @@ foreach $color (@colors) {
     } elsif ($color =~ /^MUN\s+\((.*)\)/) {
       # Convert MUN color to HSL.
       @rgb = &mun2rgb($1);
-#     @hsl = &mun2hsv($1);
-#warn "$name\n";
-#warn "mun2hsv $1: got @hsl\n";
-#     @hsl = &hsv2hsl(@hsl);
-#warn "mun2hsl $1: got @hsl\n";
-#     # Convert HSL value to RGB.
-#     @rgb = &hsl2rgb(@hsl);
-#warn "hsl2rgb @hsl: got @rgb\n";
+#warn "mun2rgb $1: got @rgb\n";
     } else {
       # No useful color choice to add.
       next;
@@ -2324,17 +2278,6 @@ exit 0 unless $debug;
 # Print basic color charts to verify the conversion routines.
 
 #
-# Check each basic color angle for Munsell.
-# Don't check saturation algorithm here.
-# (Known bug: ignores super-saturation.)
-foreach $hue ("R", "YR", "Y", "GY", "G", "BG", "B", "PB", "P", "RP") {
-  $color = "5$hue" . "5/10";
-  ($h, $s, $l) = &mun2hsv($color);
-  ($r, $g, $b) = &hsl2rgb($h, $s, $l);
-  warn "$hue: $r,$g,$b\n";
-}
-
-#
 #  Check each color angle for CHM/Ostwald colors.
 # Don't check saturation algorithm here.
 for ($hue = 1; $hue < 25; $hue++) {
@@ -2345,26 +2288,3 @@ for ($hue = 1; $hue < 25; $hue++) {
 #
 # Work on saturation and value.
 #
-# According to https://www.easyrgb.com/en/match.php, the
-# correct result for "Dark Luggage Tan" "MUN (5YR4/8)" is
-# 148,79,31.  (This also CHD's result!)  Then they proceed
-# to provide #965324 as the hex, which is 150,83,36.  (That's
-# in the same space, but with a larger error bar.)
-($h, $s, $l) = mun2hsv("5YR4/8");
-warn "5YR4/8: $h $s $l (should be 25 .8 .4)\n";
-# According to http://colormine.org/convert/rgb-to-hsl,
-# 148,79,31 should convert to 25 65% 35%.
-# Apparently, colormine.org is wrong about this, and
-# the correct value is 25 65% 24%!
-($h, $s, $l) = rgb2hsl(148, 79, 31);
-warn "rgb2hsv: got $h $s $l\n\t(should be 25 .67 .24)?\n";
-($h, $s, $l) = mun2hsv("7.5YR5/10"); # 45 degrees
-warn "5YR4/8: $h $s $l\n"; # 25 degrees?
-
-($h, $s, $v) = &mun2hsv("5YR4/8");
-warn "5YR4/8: $h $s $v (should be 25 .8 .4)\n";
-($h, $s, $l) = &hsv2hsl($h, $s, $v);
-warn "5YR4/8: $h $s $l (should be 25 .67 .24)\n";
-$l = .349;
-($r, $g, $b) = &hsl2rgb($h, $s, $l);
-warn "5YR4/8: $r $g $b (should be 148 79 31)\n";
