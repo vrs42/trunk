@@ -35,7 +35,7 @@ sub hsv2rgb {
     local($r, $g, $b);
 
     $s = ($v-$l) / (($l < 1-$l)? $l: 1-$l) if $l*($l-1);
-#warn "hsl2rgb $h, $s, $l\n";
+#warn "hsv2rgb $h, $s, $l\n";
     $h /= 360;
 # BUGBUG: Do something better with oversaturated colors.
     $s = 1 if $s > 1;
@@ -44,15 +44,10 @@ sub hsv2rgb {
     } else {
         local($q) = $l < 0.5 ? $l * (1 + $s) : $l + $s - $l * $s;
         local($p) = 2 * $l - $q;
-#warn "p = $p, q = $q\n";
         $r = &hue2rgb($p, $q, $h + 1/3);
-#warn "p = $p, q = $q\n";
         $g = &hue2rgb($p, $q, $h);
-#warn "p = $p, q = $q\n";
         $b = &hue2rgb($p, $q, $h - 1/3);
-#warn "p = $p, q = $q\n";
     }
-#warn "return $r,$g,$b\n";
     return($r, $g, $b);
 }
 
@@ -1720,19 +1715,6 @@ sub mun2rgb {
   $mun = $munsell{$mun};
   # Now go for it.
   return ($mun>>16, 0xFF&($mun>>8), 0xFF&$mun);
-# local($r, $g, $b) = ($mun>>16, 0xFF&($mun>>8), 0xFF&$mun);
-#warn "$mun: $r,$g,$b\n";
-# local($h, $s, $l) = rgb2hsl($r, $g, $b);
-#warn "$mun: hsl($h,$s,$l)\n";
-# local($v) = $l + $s*(($l<1-$l)? $l: 1-$l);
-#warn "$mun: v = $v\n";
-# return($h, 0, 0) unless $v;
-# $s = 2 * (1 - $l/$v);
-# # Round the results
-# $h = int($h+0.5);
-# $s = int($s*100+0.5)/100;
-# $v = int($v*100+0.5)/100;
-# return($h, $s, $v);
 }
 
 #
@@ -1743,10 +1725,9 @@ if (1) {
   # First, the gray scale.
   #
   print "<TABLE><CAPTION>Munsell Gray Scale<BR>\n";
-  print "<TABLE>(These should step by 25.5)</CAPTION><TR>\n";
+  print "(These should step by about 26)</CAPTION><TR>\n";
   for ($l = 0; $l <= 10; $l++) {
     ($r, $g, $b) = mun2rgb("N$l");
-#   ($r, $g, $b) = hsv2rgb($h, $s, $v);
     $t = 255 - int(($r + $g + $b) / 3);
     $t = 255 unless $t < 64; # For most values of $v, just use white.
     print "<TD style='color:rgb($t,$t,$t); background-color:rgb($r, $g, $b)'>N$l: $r,$g,$b\n";
@@ -1773,13 +1754,12 @@ if (1) {
   # That, in turn is hsv(40, .92, .78).
   #
   print "<TABLE><CAPTION>Munsell 10YR Scale<BR>\n";
-  print "<TABLE>(Beware unless 10YR6/10 is 198,138,16)</CAPTION><TR>\n";
+  print "(Beware unless 10YR6/10 is 198,138,16)</CAPTION><TR>\n";
   for ($ww = 10; $ww > 0; $ww--) {
     print "<TR>\n";
     for ($cc = 1; $cc <= 20; $cc++) {
       next unless defined $munsell{"10YR$ww/$cc"};
       ($r, $g, $b) = mun2rgb("10YR$ww/$cc");
-#     ($r, $g, $b) = hsv2rgb($h, $s, $v);
       $t = 255 - int(($r + $g + $b) / 3);
       $t = 255 unless $t < 64; # For most values of $v, just use white.
       print "<TD style='color:rgb($t,$t,$t); background-color:rgb($r, $g, $b)'>10YR$ww/$cc: $r,$g,$b\n";
@@ -1789,7 +1769,101 @@ if (1) {
   }
   print "</TR></TABLE>\n";
 }
-# foreach $ww ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P") { }
+
+#
+# Attempt a conversion of an arbitrary CHM color.
+%wRatio = (
+  "A", 15/16,
+  "B", 14/16,
+  "C", 13/16,
+  "D", 12/16,
+  "E", 11/16,
+  "F", 10/16,
+  "G",  9/16,
+  "H",  8/16,
+  "I",  7/16,
+  "J",  6/16,
+  "K",  5/16,
+  "L",  4/16,
+  "M",  3/16,
+  "N",  2/16,
+  "O",  1/16,
+  "P",  0/16,
+);
+sub chm2rgb {
+  local($c) = @_;
+  local($q, $w, $b, $h, $s, $l);
+  local($r, $g);
+#warn "chm2rgb $c\n";
+# BUGBUG: Kludge some colors that "can't be right"
+#$c = "24 PM" if $c eq "1 ML";
+#$c = "9 HA" if $c eq "9 DA";
+  if ($c =~ /Gr[ae]y\s*Scale\s*([A-P])/) {
+    $w = $1;
+    $w = $wRatio{$w};
+    $w = int(255*$w);
+    return ($w, $w, $w);
+  }
+  ($q, $w, $b) = ($1, $2, $3) if $c =~ /([\d.]+)\s*([A-P])([A-P])/;
+  ($q, $w, $b) = ($1, "P", "A") if $c =~ /([\d.]+)$/;
+  die "$c: color not recognised\n" unless $b =~ /[A-P]/;
+  # Convert $q to a hue.
+  # $q should be from 1 to 24.875.
+  $q--; # Now 0 to 23.875
+  # Tweak so that 1->0->yellow.
+  $h = 75; # 0 => 75 degrees?
+$h -= 5;
+  $h -= $q * 15;
+  $h += 360 if $h < 0;
+  # Look up $w and $b.
+#warn "w is $w, b is $b\n";
+  $w = $wRatio{$w};
+  $b = 15/16-$wRatio{$b};
+#warn "w is $w, b is $b\n";
+  $scale = 1-$w-$b;
+  ($r, $g, $b) = &hsv2rgb($h, 1, 1);
+  $r = $r*$scale + 255*$w;
+  $g = $g*$scale + 255*$w;
+  $b = $b*$scale + 255*$w;
+  $r = int($r+0.5);
+  $g = int($g+0.5);
+  $b = int($b+0.5);
+  return ($r, $g, $b);
+}
+
+#
+# Print relevant CHM color charts, as a proof that the chm2rgb
+# routine is working.
+if (1) {
+  #
+  # First, the gray scale.
+  #
+  print "<TABLE><CAPTION>CHM Gray Scale<BR>\n";
+  print "(These should step by 16)</CAPTION><TR>\n";
+  foreach $l ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P") {
+    ($r, $g, $b) = chm2rgb("Gray Scale $l");
+    $t = 255 - int(($r + $g + $b) / 3);
+    $t = 255 unless $t < 64; # For most values of $v, just use white.
+    print "<TD style='color:rgb($t,$t,$t); background-color:rgb($r, $g, $b)'>$l: $r,$g,$b\n";
+  }
+  print "</TR></TABLE>\n";
+  #
+  # Now, a color chart for CHM 4.
+  #
+  print "<TABLE><CAPTION>CHM 4 Color Chart</CAPTION>\n";
+  foreach $ww ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P") {
+    print "<TR>\n";
+    foreach $bb ("P", "O", "N", "M", "L", "K", "J", "I", "H", "G", "F", "E", "D", "C", "B", "A") {
+      next if $wRatio{$ww} + (1-$wRatio{$bb}) >= 1;
+      ($r, $g, $b) = chm2rgb("4 $ww$bb");
+      $t = 255 - int(($r + $g + $b) / 3);
+      $t = 255 unless $t < 64; # For most values of $v, just use white.
+      print "<TD style='color:rgb($t,$t,$t); background-color:rgb($r, $g, $b)'>$4 $ww$bb: $r,$g,$b\n";
+    }
+    print "</TR>\n";
+  }
+}
+#exit 1;
 
 #
 # The relevant color standard (semicolon separator):
@@ -1799,6 +1873,7 @@ if (1) {
 # s/Grayscale/Gray Scale/
 # s/Cabs/Cabinets/
 # Color punctuation is normalized.
+# "Chinese Red" and "Vermillion" moved to 10RP.
 @colors = (
 # "###;First Used On;Name;Reference",
   "065;Old DEC Cabinets;Silver",
@@ -2007,24 +2082,14 @@ if (1) {
   "184;217,146,176",
 );
 
-%wRatio = (
-  "A", 15/16,
-  "B", 14/16,
-  "C", 13/16,
-  "D", 12/16,
-  "E", 11/16,
-  "F", 10/16,
-  "G",  9/16,
-  "H",  8/16,
-  "I",  7/16,
-  "J",  6/16,
-  "K",  5/16,
-  "L",  4/16,
-  "M",  3/16,
-  "N",  2/16,
-  "O",  1/16,
-  "P",  0/16,
-);
+sub addrgb {
+  local($dec, $rgb) = @_;
+  if (defined $rgb{$dec}) {
+    $rgb{$dec} .= ":$rgb"; # Add the new color
+  } else {
+    $rgb{$dec} = $rgb;   # Create a color
+  }
+}
 
 foreach $chd1 (@chd1) {
   # Parse the table entry
@@ -2098,158 +2163,12 @@ foreach $color (@colors) {
   }
 }
 #warn "\n";
-# Compute $rgb where possible.
-# Report stuff for which CHD rgb is "off".
-
-#
-# Let's attempt a conversion of an arbitrary CHM color.
-sub chm2rgb {
-  local($c) = @_;
-  local($q, $w, $b, $h, $s, $l);
-  local($r, $g);
-warn "chm2rgb $c\n";
-# BUGBUG: Kludge some colors that "can't be right"
-#$c = "24 PM" if $c eq "1 ML";
-#$c = "9 HA" if $c eq "9 DA";
-  if ($c =~ /Gr[ae]y\s*Scale\s*([A-P])/) {
-    $w = $1;
-    $w = $wRatio{$w};
-    ($_, $_, $w) = hsv2hsl(0, 0, $w);
-    return hsl2rgb(0, 0, $w);
-  }
-  ($q, $w, $b) = ($1, $2, $3) if $c =~ /([\d.]+)\s*([A-P])([A-P])/;
-  ($q, $w, $b) = ($1, "P", "A") if $c =~ /([\d.]+)$/;
-  die "$c: color not recognised\n" unless $b =~ /[A-P]/;
-  # Convert $q to a hue.
-  # $q should be from 1 to 24.875.
-  $q--; # Now 0 to 23.875
-  $h = 75; # 0 => 75 degrees?
-  $h -= $q * 15;
-$h -= 5;
-  $h += 360 if $h < 0;
-  # Look up $w and $b.
-warn "w is $w, b is $b\n";
-  $w = $wRatio{$w};
-  $b = 15/16-$wRatio{$b};
-warn "w is $w, b is $b\n";
-  # toHSL($h, 1, 0.5) is the fully saturated version.
-  # This is called either "PA", or just "".
-  # Anyway, this suggests that lightness is an offset
-  # from L=0.5:
-  $l = 0.5*(1+$w);
-  # This suggests that saturation is 1-something.
-  # From the discussion color+white+black = 1.0.
-  # So, if blackness "A" is zero:
-  $s = 1.0-($b+$w);
-#$s = 1-$w; # Kludge -- try for HSV?
-#$l = 1-$b;
-#warn "calling hsv2hsl($h, $s, $l) $w $b\n";
-#  ($h, $s, $l) = hsv2hsl($h, $s, $l);
-warn "calling hsl2rgb($h, $s, $l) $w $b\n";
-  return hsl2rgb($h, $s, $l);
-}
-
-# Convert RGB to HSL.
-# BUGBUG: Check this is HSL vs HSV.
-sub rgb2hsl {
-  local($r, $g, $b) = @_;
-  local($max, $cmin, $h, $s, $l);
-  $r /= 255;
-  $g /= 255;
-  $b /= 255;
-  $cmax = ($r > $g)? $r : $g;
-  $cmax = ($cmax > $b)? $cmax : $b;
-  $cmin = ($r < $g)? $r : $g;
-  $cmin = ($cmin < $b)? $cmin : $b;
-  # Calculate L.
-  $l = ($cmax + $cmin) / 2;
-  if ($cmax > $cmin) {
-    # Now calculate S.
-    if ($l < 0.5) {
-      $s = ($cmax-$cmin) / ($cmax+$cmin);
-    } else {
-      $s = ($cmax-$cmin) / (2.0-$cmax-$cmin);
-    }
-    # Finally, calculate H.
-    $h = (60 * (($r - $g) / ($cmax-$cmin)) + 240) if $cmax == $b;
-    $h = (60 * (($b - $r) / ($cmax-$cmin)) + 120) if $cmax == $g;
-    $h = (60 * (($g - $b) / ($cmax-$cmin)) +   0) if $cmax == $r;
-    $h += 360 if $h < 0;
-  } else {
-    # Shade of grey
-    $h = $s = 0;
-  }
-  return ($h, $s, $l);
-}
-
-#
-# According to Wikipedia, converting from HSV to HSL:
-sub hsv2hsl {
-  local($h, $sv, $v) = @_;
-  local($l) = $v * (1 - $sv/2);
-#warn "Got l = $l\n";
-  local($sl) = 0;
-  $sl = ($v-$l) / (($l < 1-$l)? $l: 1-$l) if $l*($l-1);
-  return ($h, $sl, $l);
-}
-
-#
-# Convert HSL to RGB.
-# Algorithm is from stackoverflow.com:
-# https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
-sub hue2rgb {
-    local($p, $q, $t) = @_;
-#warn "hue2: $p $q $t\n";
-    $t += 1 if $t < 0;
-    $t -= 1 if $t > 1;
-die if $t < 0;
-die if $t > 1;
-    if ($t < 1/6) {
-        $p =  $p + ($q - $p) * 6 * $t;
-    } elsif ($t < 1/2) {
-        $p =  $q;
-    } elsif ($t < 2/3) {
-        $p =  $p + ($q - $p) * (2/3 - $t) * 6;
-    }
-#warn "hue2: $p\n";
-    return int($p*255 + 0.5);
-}
-sub hsl2rgb {
-    local($h, $s, $l) = @_;
-    local($r, $g, $b);
-#warn "hsl2rgb $h, $s, $l\n";
-    $h /= 360;
-# BUGBUG: Do something better with oversaturated colors.
-    $s = 1 if $s > 1;
-    if ($s == 0) {
-        $r = $g = $b = int($l*255+0.5); # achromatic
-    } else {
-        local($q) = $l < 0.5 ? $l * (1 + $s) : $l + $s - $l * $s;
-        local($p) = 2 * $l - $q;
-#warn "p = $p, q = $q\n";
-        $r = &hue2rgb($p, $q, $h + 1/3);
-#warn "p = $p, q = $q\n";
-        $g = &hue2rgb($p, $q, $h);
-#warn "p = $p, q = $q\n";
-        $b = &hue2rgb($p, $q, $h - 1/3);
-#warn "p = $p, q = $q\n";
-    }
-#warn "return $r,$g,$b\n";
-    return($r, $g, $b);
-}
-
-sub addrgb {
-  local($dec, $rgb) = @_;
-  if (defined $rgb{$dec}) {
-    $rgb{$dec} .= ":$rgb"; # Add the new color
-  } else {
-    $rgb{$dec} = $rgb;   # Create a color
-  }
-}
 
 #
 # Output results.
 print "<TABLE>\n";
+  print "<BR>\n";
+  print "<TABLE><CAPTION>DEC Colors</CAPTION><TR>\n";
 foreach $dec (sort keys %rgb) {
   print "<TR>\n";
   print "<TD>$dec\n";
@@ -2271,20 +2190,17 @@ foreach $dec (sort keys %rgb) {
 }
 print "</TABLE>\n";
 
-$debug = 0;
-exit 0 unless $debug;
-
 #
 # Print basic color charts to verify the conversion routines.
 
 #
 #  Check each color angle for CHM/Ostwald colors.
 # Don't check saturation algorithm here.
-for ($hue = 1; $hue < 25; $hue++) {
-  ($r, $g, $b) = &chm2rgb($hue);
-  warn "$hue: $r,$g,$b\n";
+if (0) {
+  for ($hue = 1; $hue < 25; $hue++) {
+    ($r, $g, $b) = &chm2rgb($hue);
+    warn "$hue: $r,$g,$b\n";
+  }
 }
 
-#
-# Work on saturation and value.
-#
+exit 0;
