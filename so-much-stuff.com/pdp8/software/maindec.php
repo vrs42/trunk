@@ -364,6 +364,9 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb>maindec-08-d3ra-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb.lbl>maindec-08-d3ra-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb.od>maindec-08-d3ra-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra.bin>maindec-08-d3ra.bin</a><td>(BIN format)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra.lst>maindec-08-d3ra.lst</a><td>(PAL listing)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra.pal>maindec-08-d3ra.pal</a><td>(PAL source)<tr>
 </table>
 </tr><tr>
 <td>PDP-8, 8/I Memory Parity Checkerboard
