@@ -53,6 +53,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./801-1-pm.od>maindec-801-1-pm.od</a><td>(RIM image in octal)<tr>
 </table>
 </tr><tr>
+<td>Instruction Test, part 3A (EAE Type 182)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./801-3a-d.pdf>maindec-801-3a-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>TTY Punch Test
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./812-pm>maindec-812-pm</a><td>(RIM image)<tr>
@@ -100,6 +105,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./839-pb>maindec-839-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./839-pb.lbl>maindec-839-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./839-pb.od>maindec-839-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>PPD-8 A/D Converter
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./845-d.pdf>maindec-845-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>KL8-J/K Loop Back Test
@@ -237,6 +247,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>PDP-8, 8/I Extended Memory Checkerboard
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1eb-d.pdf>maindec-08-d1eb-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1eb-pb>maindec-08-d1eb-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1eb-pb.lbl>maindec-08-d1eb-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1eb-pb.od>maindec-08-d1eb-pb.od</a><td>(BIN image in octal)<tr>
@@ -263,6 +274,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>PDP-8, 8/I, 8/S Extended Memory Control Test
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1gd-1.pdf>maindec-08-d1gd-1.pdf</a><td>(PDF ECO write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1gd-d.pdf>maindec-08-d1gd-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1gd-pb>maindec-08-d1gd-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1gd-pb.od>maindec-08-d1gd-pb.od</a><td>(BIN image in octal)<tr>
@@ -308,6 +320,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>Memory Address Test
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1ma-d.pdf>maindec-08-d1ma-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1ma-pb1>maindec-08-d1ma-pb1</a><td>(BIN image #1)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1ma-pb1.od>maindec-08-d1ma-pb1.od</a><td>(BIN image in octal)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d1ma-pb2>maindec-08-d1ma-pb2</a><td>(BIN image #2)<tr>
@@ -343,6 +356,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d2qd-pb.od>maindec-08-d2qd-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
+<td>TC01 Basic Exerciser (Maindec 850)
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3bb-d.pdf>maindec-08-d3bb-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
 <td>TC01 Basic Exerciser
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3bc-pb>maindec-08-d3bc-pb</a><td>(BIN image)<tr>
@@ -364,6 +382,7 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb>maindec-08-d3ra-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb.lbl>maindec-08-d3ra-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb.od>maindec-08-d3ra-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra-pb.sym>maindec-08-d3ra-pb.sym</a><td>(Symbol Table)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra.bin>maindec-08-d3ra.bin</a><td>(BIN format)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra.lst>maindec-08-d3ra.lst</a><td>(PAL listing)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d3ra.pal>maindec-08-d3ra.pal</a><td>(PAL source)<tr>
@@ -473,6 +492,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>A/D Calibration Check
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d6gc-d.pdf>maindec-08-d6gc-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d6gc-pb>maindec-08-d6gc-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d6gc-pb.od>maindec-08-d6gc-pb.od</a><td>(BIN image in octal)<tr>
 </table>
@@ -488,6 +508,11 @@ when referring to the older part numbers.
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d6ta-pb>maindec-08-d6ta-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d6ta-pb.od>maindec-08-d6ta-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>AD01-A Diagnostic
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/d6ub-d.pdf>maindec-08-d6ub-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>AA50 D/A Converter Diagnostic
@@ -630,6 +655,11 @@ when referring to the older part numbers.
 </tr><tr>
 <td>PDP-8/E Adder Tests
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkaa-a-d.pdf>maindec-08-dhkaa-a-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
+<td>PDP-8/E Adder Tests
+<td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkaa-b-pb>maindec-08-dhkaa-b-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkaa-b-pb.lbl>maindec-08-dhkaa-b-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkaa-b-pb.od>maindec-08-dhkaa-b-pb.od</a><td>(BIN image in octal)<tr>
@@ -637,6 +667,7 @@ when referring to the older part numbers.
 </tr><tr>
 <td>Random AND Test
 <td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkab-a-d.pdf>maindec-08-dhkab-a-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkab-a-pb>maindec-08-dhkab-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkab-a-pb.lbl>maindec-08-dhkab-a-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhkab-a-pb.od>maindec-08-dhkab-a-pb.od</a><td>(BIN image in octal)<tr>
@@ -898,6 +929,11 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhrkb-c-pb>maindec-08-dhrkb-c-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhrkb-c-pb.lbl>maindec-08-dhrkb-c-pb.lbl</a><td>(Tape label)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhrkb-c-pb.od>maindec-08-dhrkb-c-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</tr><tr>
+<td>RK8E Drive Control Test
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dhrkb-d-d.pdf>maindec-08-dhrkb-d-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>RK8E Drive Control Test
@@ -1206,6 +1242,7 @@ when referring to the older part numbers.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-d.pdf>maindec-08-dirxa-d-d.pdf</a><td>(PDF write-up)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-pb>maindec-08-dirxa-d-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-pb.od>maindec-08-dirxa-d-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-pb.sym>maindec-08-dirxa-d-pb.sym</a><td>(Symbol Table)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d-sv.htm>maindec-08-dirxa-d-sv.htm</a><td>(Saved web page)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d.bin>maindec-08-dirxa-d.bin</a><td>(BIN format)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./08/dirxa-d.lst>maindec-08-dirxa-d.lst</a><td>(PAL listing)<tr>
@@ -1633,13 +1670,14 @@ when referring to the older part numbers.
 </tr><tr>
 <td>VR14/VR20 Display Test
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-pb>maindec-12-d6bc-pb</a><td>(BIN image)<tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-pb.od>maindec-12-d6bc-pb.od</a><td>(BIN image in octal)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bb-d.pdf>maindec-12-d6bb-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>VR14/VR20 Display Test
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-d-d.pdf>maindec-12-d6bc-d-d.pdf</a><td>(PDF write-up)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-d.pdf>maindec-12-d6bc-d.pdf</a><td>(PDF write-up)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-pb>maindec-12-d6bc-pb</a><td>(BIN image)<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/d6bc-pb.od>maindec-12-d6bc-pb.od</a><td>(BIN image in octal)<tr>
 </table>
 </tr><tr>
 <td>A to D Test
@@ -1741,6 +1779,34 @@ when referring to the older part numbers.
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/damca-a-pb>maindec-12-damca-a-pb</a><td>(BIN image)<tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./12/damca-a-pb.od>maindec-12-damca-a-pb.od</a><td>(BIN image in octal)<tr>
+</table>
+</table>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b>maindec-14</b>: Diagnostics unique to the PDP-14.
+
+</LEGEND><table width=100% border=1>
+<col width=50%>
+<col width=50%>
+</tr><tr>
+<td>VER-14
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./14/d1ab-d.pdf>maindec-14-d1ab-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
+<td>TEST-14
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./14/d7ab-d.pdf>maindec-14-d7ab-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
+<td>TEST-14L
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./14/d7la-d-d.pdf>maindec-14-d7la-d-d.pdf</a><td>(PDF write-up)<tr>
+</table>
+</tr><tr>
+<td>ABE-14
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/maindec/./14/d8ab-d.pdf>maindec-14-d8ab-d.pdf</a><td>(PDF write-up)<tr>
 </table>
 </table>
 </FIELDSET>
