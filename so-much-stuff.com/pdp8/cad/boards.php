@@ -4908,15 +4908,17 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8300 target=_blank>./DEC/Mxxx/M8300</a></b>: KK8E Major Registers
 
 </LEGEND><DL>
-<DT>M8300E</A>
-  <DD>needs a drawing.</DL>
+<DT>M8300B</A>
+  <DD>is a drawing of the DEC M300B (schematic revision E).
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8310 target=_blank>./DEC/Mxxx/M8310</a></b>: KK8E Major Register Control
 
 </LEGEND><DL>
-<DT>M8310H</A>
-  <DD>needs a drawing.</DL>
+<DT>M8310F</A>
+  <DD>needs a drawing.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8317 target=_blank>./DEC/Mxxx/M8317</a></b>: KM8A 8/A Option Board 2<UL>
@@ -5013,6 +5015,16 @@ which uses a lot of hard to find chips.
 M837bb is a version of M837 with the signals renamed to match their function.
 M837cc is a variant without the the TP_CB1 input.
 
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M840 target=_blank>./DEC/Mxxx/M840</a></b>: PC8E High Speed Reader/Punch Control (Omnibus)
+
+</LEGEND><DL>
+<DT>M840K</A>
+  <DD>is a drawing of DEC's M840K (PC8E).
+<DT>M840X</A>
+  <DD>is a drawing of a 'modernized' M840 (PC8E).
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -5591,6 +5603,8 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a quad prototype board suitable for DIP/through hole designs.
 <DT>omniproto</A>
   <DD>is a quad prototype board suitable for Omnibus DIP/through hole designs.
+<DT>eBay1</A>
+  <DD>is a quad prototype board inspired by one seen on eBay.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
