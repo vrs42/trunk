@@ -4,12 +4,13 @@ DECUS = `/bin/pwd`/../../../pdp8/src/decus
 MAINDEC = `/bin/pwd`/../../../pdp8/src/maindec
 MISC = `/bin/pwd`/../../../pdp8/src/misc
 SI = `/bin/pwd`/../../../pdp8/src/si
-ALL = ak.php dec.php decus.php maindec.php misc.php si.php
+#ALL = ak.php dec.php decus.php maindec.php misc.php si.php
+ALL = dec.php decus.php misc.php si.php
 
 all:	update $(ALL)
 
 update:
-	cd $(AK)/..; svn update .
+	cd $(DEC)/..; svn update .
 
 ak.php: .
 	cd $(AK); ./publish.pl
