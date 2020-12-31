@@ -23,11 +23,14 @@
   $irow = 0;
 }
 
-# Each album has a .txt at the top level.
-foreach (<*.txt>) {
-  $dir = $_; $dir =~ s/\.txt$//;
+# Each album has directories which enforce an order on the caption.txt files.
+foreach (<*/.>) {
+  $dir = $_; $dir =~ s/\r//g; $dir =~ s/..$//;
   die "$dir: $!" unless -d $dir;
-  open(ALBUM, "$dir.txt") || die "$dir.txt: $!";
+# open(ALBUM, "$dir.txt") || die "$dir.txt: $!";
+  open(ALBUM, "ls $dir/*/caption.txt $dir/*/*/caption.txt 2>/dev/null |")
+    || die "ls $dir: $!";
+# @album = (<$dir/*/caption.txt $dir/*/*/caption.txt>);
   open(AHTML, ">$dir.html") || die "$dir.html: $!";
   # Emit album prolog.
   print AHTML "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n";
@@ -58,8 +61,9 @@ foreach (<*.txt>) {
     open(TXT, $txt) || die "$txt: $!";
     $desc = <TXT>;
     $desc =~ s/\(<a .*<\/a>\)//;
-    $pic = $_; $pic =~ s/\.txt/.jpg/;
-    $pic =~ s:(/[^/]*)$:/thumbs\1:;
+#   $pic = $_; $pic =~ s/\.txt/.jpg/;
+#   $pic =~ s:(/[^/]*)$:/thumbs\1:;
+    $pic = $_; $pic =~ s/caption.txt$/thumb.jpg/;
     $pic =~ s/\.jpg/.gif/ unless -f $pic;
     $pic =~ s/\.gif/.jpg/ unless -f $pic;
     die "$pic: $!" unless -f $pic;
@@ -69,7 +73,7 @@ foreach (<*.txt>) {
       print AHTML "<TR>\n"; # Start a fresh row if needed.
       $arow = 1;
     }
-    $html = $txt; $html =~ s/\.txt$/.html/;
+    $html = $txt; $html =~ s/caption.txt$/page.html/;
     print AHTML "<TD><A href=$html><IMG class=thumbnail src=$pic></A>\n<br>$desc\n";
     if (!$idone) {
       # We have text and a picture. Emit them for the album index.
@@ -82,8 +86,11 @@ foreach (<*.txt>) {
     }
     #
     # Emit the individual page, as well.
-    $pic =~ s:/thumbs/:/:;
-    $phtml = $txt; $phtml =~ s/\.txt/.html/;
+#   $pic =~ s:/thumbs/:/:;
+    $pic =~ s:/thumb:/photo:;
+    $pic =~ s:.*/::;
+    $phtml = $txt; $phtml =~ s/caption.txt/page.html/;
+    $up = $txt; $up =~ s/caption.txt$//; $up =~ s:[^/]*/:../:g;
     open(PHTML, ">$phtml") || die "$phtml: $!";
     print PHTML "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n";
     print PHTML "  \"http://www.w3.org/TR/html4/loose.dtd\">\n";
@@ -95,7 +102,7 @@ foreach (<*.txt>) {
     print PHTML "</STYLE>\n";
     print PHTML "<HTML>\n<HEAD>\n<TITLE>$desc</TITLE></HEAD>\n<BODY>\n";
     print PHTML "<P class=header>$desc<P>\n";
-    print PHTML "<A href=../$dir.html><IMG class=scaled src=../$pic></A>\n<P>";
+    print PHTML "<A href=$up$dir.html><IMG class=scaled src=$pic></A>\n<P>";
     while (<TXT>) {
       print PHTML $_;
     }

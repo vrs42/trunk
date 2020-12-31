@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+
+#
+# Read the .txt files, and generate HTML for the 
+# photo and caption.
+die "argument required" unless $ARGV[0];
+$dirname = $ARGV[0];
+$dirname =~ s:/[^/]+$::;
+
+# Obtain the caption.
+open(INPUT, "$dirname/caption.txt") || die "$dirname/caption.txt: $!";
+$caption = <INPUT>;
+$caption =~ s/\r//g;
+chop $caption;
+
+# Output the stock HTML.
+open(OUTPUT, ">$ARGV[0]") || die "$ARGV[0]: $!";
+print OUTPUT <<"EOM";
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<STYLE type="text/css">
+.header { font-size:3em };
+</STYLE>
+<STYLE type="text/css">
+.scaled {
+ max-width: 100%;
+ max-height: 80%;
+};
+</STYLE>
+<HTML>
+<HEAD>
+<TITLE>$caption
+</TITLE></HEAD>
+<BODY>
+<P class=header>$caption
+<P>
+<A href=../../../La-Boutique-POTM-database.html><IMG class=scaled src=photo.jpg></A>
+<P>
+EOM
+
+exit 0;
