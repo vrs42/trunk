@@ -6802,7 +6802,9 @@ are some navigation shortcuts as well:
 <tr>
 <td>Self Start Binary Loader<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-xbina>maindec-8e-xbina</a></td>
 <td><table>
-<tr><td>maindec-8e-xbina-a-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-xbina/maindec-8e-xbina-a-d.pdf>maindec-8e-xbina-a-d</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-xbina/maindec-8e-xbina-a-pb>maindec-8e-xbina-a-pb</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-xbina/maindec-8e-xbina-b-pb>maindec-8e-xbina-b-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Instruction Test 1<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8i-d01>maindec-8i-d01</a></td>
@@ -7823,6 +7825,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1226 of 2718 files linked (45.1%), in 1211 directories
+<P>1229 of 2720 files linked (45.2%), in 1211 directories
 </div>
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
