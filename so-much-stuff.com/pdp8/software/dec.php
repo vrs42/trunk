@@ -834,10 +834,12 @@ are some navigation shortcuts as well:
 <tr>
 <td>BIN LOADER<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba>dec-08-lba</a></td>
 <td><table>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba/dec-08-lbab-pa>ak-0616b / dec-08-lbab-pa</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba/dec-08-lbab-pm>ak-0617b / dec-08-lbab-pm</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba/dec-08-lbab-d.pdf>aa-0618b / dec-08-lbab-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba/dec-08-lbaa-pa>ak-0616a / dec-08-lbaa-pa</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba/dec-08-lbaa-pm>ak-0617a / dec-08-lbaa-pm</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba/dec-08-lbaa-d.pdf>aa-0618a / dec-08-lbaa-d</td><td></a></td></tr>
-<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lba/dec-08-lbab-d.pdf>aa-0618b / dec-08-lbab-d</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>8K BASIC<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lbasa>dec-08-lbasa</a></td>
@@ -2280,9 +2282,10 @@ are some navigation shortcuts as well:
 <td>Self Starting BIN Loader (8/E/F/M)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-xbina>dec-8e-xbina</a></td>
 <td><table>
 <tr><td>aa-4302b / dec-8e-xbina-b-d</td><td></td></tr>
-<tr><td>ak-4303b / dec-8e-xbina-b-pa</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-xbina/dec-8e-xbina-b-pa>ak-4303b / dec-8e-xbina-b-pa</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-xbina/dec-8e-xbina-b-pb>ak-4304b / dec-8e-xbina-b-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-xbina/dec-8e-xbina-a-d.pdf>aa-4302a / dec-8e-xbina-a-d</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-xbina/dec-8e-xbina-a-pa>ak-4303a / dec-8e-xbina-a-pa</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-xbina/dec-8e-xbina-a-pb>ak-4304a / dec-8e-xbina-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -7825,6 +7828,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1229 of 2720 files linked (45.2%), in 1211 directories
+<P>1233 of 2723 files linked (45.3%), in 1211 directories
 </div>
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>

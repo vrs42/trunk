@@ -6,7 +6,7 @@
 <P>
 Here is my collection of things both DECUS and PDP-8.  The intent here is 
 to provide a home for the known surviving bits of the PDP-8 portions of 
-DECUS.  However, I haven't yet done anything with the BASIC8, LINC, or 
+DECUS.  However, I haven't yet done much with the BASIC8, LINC, or 
 PDP-12 DECUS stuff.
 <P>
 Part numbers have been altered slightly.  "5/8-1.1" becomes "5,8-1.1"
@@ -36,13 +36,17 @@ have taken the time to scan and archive this software and documentation.
 <a href=#decus-8-800>8-800</a>
 <a href=#decus-8-900>8-900</a><br>
 <a href=#decus-basic8-1>basic8</a>
+<a href=#decus-basic8-100>basic8-100</a>
 <a href=#decus-focal8-1>focal8-1</a>
 <a href=#decus-focal8-100>focal8-100</a>
 <a href=#decus-focal8-200>focal8-200</a>
 <a href=#decus-focal8-300>focal8-300</a>
+<a href=#decus-12-1>12-1</a>
+<a href=#decus-12-100>12-100</a>
+<a href=#decus-L-1>L-1</a>
 </div>
 <div>You can also scroll around, or you could try searching (i.e., 'disassembler').</div><p>
-<div style='overflow-y: auto; height:35%; border:thick green ridge'>
+<div style='overflow-y: auto; height:50%; border:thick green ridge'>
 <table width=100% border=1>
 <col width=15%><col width=50%><col width=35%>
 <a name=decus-8-1></a>
@@ -3948,9 +3952,11 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-530/decus-8-530.htm target=_blank>decus-8-530.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-531 target=_blank>8-531</a><td>No abstract found<td>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-531/decus-8-531.pdf target=_blank>decus-8-531.pdf</a></div>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-531/decus-8-531a.htm target=_blank>decus-8-531a.htm</a></div>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-531a,b target=_blank>8-531a,b
+</a><td><div>'TRIPLE' - 36 Bit PDP-8/E Simulator and 'TRIPLE' 8BAL Macros </div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-531a,b/decus-8-531a,b.htm target=_blank>decus-8-531a,b.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-531a,b/decus-8-531a,b.pdf target=_blank>decus-8-531a,b.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-532 target=_blank>8-532
 </a><td><div>OPDDT (One Page DDT) </div>
@@ -4235,11 +4241,11 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-576/decus-8-576.htm target=_blank>decus-8-576.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-576/decus-8-576.pdf target=_blank>decus-8-576.pdf</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-577 target=_blank>8-577
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-577a target=_blank>8-577a
 </a><td><div>Tape Duplicator (P.D.T.) </div>
 <td>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-577/decus-8-577.htm target=_blank>decus-8-577.htm</a></div>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-577/decus-8-577.pdf target=_blank>decus-8-577.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-577a/decus-8-577a.htm target=_blank>decus-8-577a.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-577a/decus-8-577a.pdf target=_blank>decus-8-577a.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-578 target=_blank>8-578
 </a><td><div>Chromaticity Diagram </div>
@@ -4301,11 +4307,11 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-588/decus-8-588.htm target=_blank>decus-8-588.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-588/decus-8-588.pdf target=_blank>decus-8-588.pdf</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-589 target=_blank>8-589
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-589a target=_blank>8-589a
 </a><td><div>BOOTST, Universal OS/8 (PS/8) Bootstrap </div>
 <td>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-589/decus-8-589.htm target=_blank>decus-8-589.htm</a></div>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-589/decus-8-589.pdf target=_blank>decus-8-589.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-589a/decus-8-589a.htm target=_blank>decus-8-589a.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-589a/decus-8-589a.pdf target=_blank>decus-8-589a.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-590 target=_blank>8-590
 </a><td><div>Matrix Inversion </div>
@@ -5258,9 +5264,15 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-710/decus-8-710.htm target=_blank>decus-8-710.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-711 target=_blank>8-711</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-711 target=_blank>8-711
+</a><td><div>Microprocessor Cross Reference Program for OS/8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-711/decus-8-711.htm target=_blank>decus-8-711.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-712 target=_blank>8-712</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-712 target=_blank>8-712
+</a><td><div>IRSPEC: Calculation "On Line" of Far Infrared Spectra by Fourier Transform</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-712/decus-8-712.htm target=_blank>decus-8-712.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-713 target=_blank>8-713
 </a><td><div>Plotting Subroutines for OS/8 FORTRAN II </div>
@@ -5268,7 +5280,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-713/decus-8-713.htm target=_blank>decus-8-713.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-714 target=_blank>8-714</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-714 target=_blank>8-714
+</a><td><div>PDPLST: PDP-8 - IBM 360/370 Cross Listing Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-714/decus-8-714.htm target=_blank>decus-8-714.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-715 target=_blank>8-715
 </a><td><div>FORTRAN IV Graphics Subroutines </div>
@@ -5307,7 +5322,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-721/decus-8-721.htm target=_blank>decus-8-721.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-722 target=_blank>8-722</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-722 target=_blank>8-722
+</a><td><div>Mini-Copy</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-722/decus-8-722.htm target=_blank>decus-8-722.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-723 target=_blank>8-723
 </a><td><div>COMP.FT: Function Compare </div>
@@ -5341,7 +5359,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-728/decus-8-728.htm target=_blank>decus-8-728.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-729 target=_blank>8-729</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-729 target=_blank>8-729
+</a><td><div>DS340 DEMO Package</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-729/decus-8-729.htm target=_blank>decus-8-729.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-730 target=_blank>8-730
 </a><td><div>CORVU: A Display and Teletype Input/Output </div>
@@ -5670,18 +5691,32 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-786/decus-8-786.htm target=_blank>decus-8-786.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-787 target=_blank>8-787</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-787 target=_blank>8-787
+</a><td><div>LISZ - An Extended ISZ Instruction for the PDP-8/L</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-787/decus-8-787.htm target=_blank>decus-8-787.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-788 target=_blank>8-788</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-788 target=_blank>8-788
+</a><td><div>Using the RAR RAL Micro-Instruction as an Auxiliary
+Command</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-788/decus-8-788.htm target=_blank>decus-8-788.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-789 target=_blank>8-789
 </a><td><div>RKCOPY </div>
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-789/decus-8-789.htm target=_blank>decus-8-789.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-790 target=_blank>8-790</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-790 target=_blank>8-790
+</a><td><div>CHRDIS - Display Alphanumeric Characters on ND-50/50
+System</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-790/decus-8-790.htm target=_blank>decus-8-790.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-791 target=_blank>8-791</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-791 target=_blank>8-791
+</a><td><div>DELAY</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-791/decus-8-791.htm target=_blank>decus-8-791.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-791/decus-8-791.pdf target=_blank>decus-8-791.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-792 target=_blank>8-792
@@ -5903,8 +5938,12 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-806/decus-8-806.htm target=_blank>decus-8-806.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-807 target=_blank>8-807</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-807 target=_blank>8-807
+</a><td><div>UTILITY Routine and Patches for the FORTRAN Compiler
+Dr. IR. L. Boullart</div>
+<td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-807/d807.sb target=_blank>d807.sb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-807/decus-8-807.htm target=_blank>decus-8-807.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-808 target=_blank>8-808
 </a><td><div>Probability Density Functions of Analogue </div>
@@ -5919,7 +5958,10 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-809/d809.bn target=_blank>d809.bn</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-809/decus-8-809.htm target=_blank>decus-8-809.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-810 target=_blank>8-810</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-810 target=_blank>8-810
+</a><td><div>PING: Ping-Pong Game on Display</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-810/decus-8-810.htm target=_blank>decus-8-810.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-811 target=_blank>8-811
 </a><td><div>DYNOD: DYNAMIC OCTAL DEBUGGER </div>
@@ -5956,7 +5998,10 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-816/d816.sb target=_blank>d816.sb</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-816/decus-8-816.htm target=_blank>decus-8-816.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-817 target=_blank>8-817</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-817 target=_blank>8-817
+</a><td><div>LABCOL I: Laboratory Control and Automation Language</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-817/decus-8-817.htm target=_blank>decus-8-817.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-818 target=_blank>8-818
 </a><td><div>SYKBOOT </div>
@@ -6399,7 +6444,9 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-883/decus-8-883.htm target=_blank>decus-8-883.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-884 target=_blank>8-884</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-884 target=_blank>8-884
+</a><td>CHISQR: Chi-Square Test with Yate's Continuity Correction, Version: July 1978<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-884/decus-8-884.htm target=_blank>decus-8-884.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-885 target=_blank>8-885
 </a><td><div>LAB55, VT55 and Printer/Plotter Functions for </div>
@@ -6426,6 +6473,7 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-889 target=_blank>8-889
 </a><td><div>Adventure, <I>Version</I>: February 1979 </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-889/2.0 target=_blank>2.0</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-889/a5toa1.ra target=_blank>a5toa1.ra</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-889/advent.dc target=_blank>advent.dc</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-889/advent.ft target=_blank>advent.ft</a></div>
@@ -6846,9 +6894,229 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-941/decus-8-941.htm target=_blank>decus-8-941.htm</a></div>
 <a name=decus-basic8-1></a>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56 target=_blank>basic8-56
-</a><td><div>Laboratory and Display Instructions for OS/8 BASIC </div>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-1 target=_blank>basic8-1
+</a><td>MATHEMATICS-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-1/decus-basic8-1.htm target=_blank>decus-basic8-1.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-2 target=_blank>basic8-2
+</a><td>MATHEMATICS-SET 2<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-2/decus-basic8-2.htm target=_blank>decus-basic8-2.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-3 target=_blank>basic8-3
+</a><td>MATHEMATICS-SET 3<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-3/decus-basic8-3.htm target=_blank>decus-basic8-3.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-4 target=_blank>basic8-4
+</a><td>PLOTTING-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-4/decus-basic8-4.htm target=_blank>decus-basic8-4.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-5 target=_blank>basic8-5
+</a><td><div>PLOTTING - SET 2</div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-5/decus-basic8-5.htm target=_blank>decus-basic8-5.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-6 target=_blank>basic8-6
+</a><td>PHYSICS-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-6/decus-basic8-6.htm target=_blank>decus-basic8-6.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-7 target=_blank>basic8-7
+</a><td>PHYSICS-SET 2<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-7/decus-basic8-7.htm target=_blank>decus-basic8-7.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-8 target=_blank>basic8-8
+</a><td>CHEMISTRY-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-8/decus-basic8-8.htm target=_blank>decus-basic8-8.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-9 target=_blank>basic8-9
+</a><td>CHEMISTRY-SET 2<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-9/decus-basic8-9.htm target=_blank>decus-basic8-9.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-10 target=_blank>basic8-10
+</a><td>BIOLOGY-SET I<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-10/decus-basic8-10.htm target=_blank>decus-basic8-10.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-11 target=_blank>basic8-11
+</a><td>EARTH SCIENCE-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-11/decus-basic8-11.htm target=_blank>decus-basic8-11.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-12 target=_blank>basic8-12
+</a><td>BUSINESS AND SOCIAL STUDIES-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-12/decus-basic8-12.htm target=_blank>decus-basic8-12.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-13 target=_blank>basic8-13
+</a><td>ADMINISTRATIVE-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-13/decus-basic8-13.htm target=_blank>decus-basic8-13.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-14 target=_blank>basic8-14
+</a><td>COMPUTER WORKSHOP<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-14/decus-basic8-14.htm target=_blank>decus-basic8-14.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-15 target=_blank>basic8-15
+</a><td>Business and Social Studies-SET 2<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-15/decus-basic8-15.htm target=_blank>decus-basic8-15.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-16 target=_blank>basic8-16
+</a><td>Games-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-16/decus-basic8-16.htm target=_blank>decus-basic8-16.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-17 target=_blank>basic8-17
+</a><td>KRIEGSPIEL<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-17/decus-basic8-17.htm target=_blank>decus-basic8-17.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-18 target=_blank>basic8-18
+</a><td>POKER<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-18/decus-basic8-18.htm target=_blank>decus-basic8-18.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-19 target=_blank>basic8-19
+</a><td>Miscellaneous-SET 1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-19/decus-basic8-19.htm target=_blank>decus-basic8-19.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-20 target=_blank>basic8-20
+</a><td>Games-SET 2<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-20/decus-basic8-20.htm target=_blank>decus-basic8-20.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-21 target=_blank>basic8-21
+</a><td>The Monopoly Game<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-21/decus-basic8-21.htm target=_blank>decus-basic8-21.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-22 target=_blank>basic8-22
+</a><td>Baseball<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-22/decus-basic8-22.htm target=_blank>decus-basic8-22.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-23 target=_blank>basic8-23
+</a><td>SIMCOM<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-23/decus-basic8-23.htm target=_blank>decus-basic8-23.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-24 target=_blank>basic8-24
+</a><td>TRAN<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-24/decus-basic8-24.htm target=_blank>decus-basic8-24.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-25 target=_blank>basic8-25
+</a><td>LABEL<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-25/decus-basic8-25.htm target=_blank>decus-basic8-25.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-26 target=_blank>basic8-26
+</a><td>LIB17: Package of Mathematical Routines<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-26/decus-basic8-26.htm target=_blank>decus-basic8-26.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-27 target=_blank>basic8-27
+</a><td>Multiple Choice Quiz<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-27/decus-basic8-27.htm target=_blank>decus-basic8-27.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-28 target=_blank>basic8-28
+</a><td>Mathematics-SET 4<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-28/decus-basic8-28.htm target=_blank>decus-basic8-28.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-29 target=_blank>basic8-29
+</a><td>Games-SET3<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-29/decus-basic8-29.htm target=_blank>decus-basic8-29.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-30 target=_blank>basic8-30
+</a><td>LIB12-Mathematical and Graphing Routines<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-30/decus-basic8-30.htm target=_blank>decus-basic8-30.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-31 target=_blank>basic8-31
+</a><td>Mathematics-Set 5<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-31/decus-basic8-31.htm target=_blank>decus-basic8-31.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-32 target=_blank>basic8-32
+</a><td>Mathematics-Set 6<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-32/decus-basic8-32.htm target=_blank>decus-basic8-32.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-33 target=_blank>basic8-33
+</a><td>SEQ; SAME; STAT1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-33/decus-basic8-33.htm target=_blank>decus-basic8-33.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-34 target=_blank>basic8-34
+</a><td>Football Scouting Report Systems<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-34/decus-basic8-34.htm target=_blank>decus-basic8-34.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-35 target=_blank>basic8-35
+</a><td>XYPLOT; 3DGRAPH; PLOT-1<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-35/decus-basic8-35.htm target=_blank>decus-basic8-35.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-36 target=_blank>basic8-36
+</a><td>LODICE<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-36/decus-basic8-36.htm target=_blank>decus-basic8-36.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-37 target=_blank>basic8-37
+</a><td>Business and Social Studies-Set 3<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-37/decus-basic8-37.htm target=_blank>decus-basic8-37.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-38 target=_blank>basic8-38
+</a><td>USAGE<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-38/decus-basic8-38.htm target=_blank>decus-basic8-38.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-39 target=_blank>basic8-39
+</a><td>LILAC: Laband's Ingeneous Little Automatic Computer<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-39/decus-basic8-39.htm target=_blank>decus-basic8-39.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-40 target=_blank>basic8-40
+</a><td>Tutorial Exercises in Chemistry<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-40/decus-basic8-40.htm target=_blank>decus-basic8-40.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-41 target=_blank>basic8-41
+</a><td>OMSI30 BASIC<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-41/decus-basic8-41.htm target=_blank>decus-basic8-41.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-42 target=_blank>basic8-42
+</a><td>RECOVE: BASIC RECOVERY FROM CRASH<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-42/decus-basic8-42.htm target=_blank>decus-basic8-42.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-43 target=_blank>basic8-43
+</a><td>NEOPAL: PAL-D SIMULATOR<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-43/decus-basic8-43.htm target=_blank>decus-basic8-43.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-44 target=_blank>basic8-44
+</a><td>MATHEMATICS, SET 7<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-44/decus-basic8-44.htm target=_blank>decus-basic8-44.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-45 target=_blank>basic8-45
+</a><td>LIB9: Extended Precision Routines for BASIC<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-45/decus-basic8-45.htm target=_blank>decus-basic8-45.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-46 target=_blank>basic8-46
+</a><td>HORSE: TSS/8 HORSERACING PROGRAM<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-46/decus-basic8-46.htm target=_blank>decus-basic8-46.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-47 target=_blank>basic8-47
+</a><td>FILE: Text Data File Program for TSS/8 BASIC-4<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-47/decus-basic8-47.htm target=_blank>decus-basic8-47.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-48 target=_blank>basic8-48
+</a><td>STF and STM: Stellar Formation and Stellar Model<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-48/decus-basic8-48.htm target=_blank>decus-basic8-48.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-49 target=_blank>basic8-49
+</a><td>GASSER<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-49/decus-basic8-49.htm target=_blank>decus-basic8-49.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-50 target=_blank>basic8-50
+</a><td>CSHHS BASIC-73<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-50/decus-basic8-50.htm target=_blank>decus-basic8-50.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-51 target=_blank>basic8-51
+</a><td>DISEDU: Loading EDUsystem-20 on the 4K Disk Monitor System<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-51/decus-basic8-51.htm target=_blank>decus-basic8-51.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-52 target=_blank>basic8-52
+</a><td>POSTER, SIGNS<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-52/decus-basic8-52.htm target=_blank>decus-basic8-52.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-53 target=_blank>basic8-53
+</a><td>ACEDUC, TICTACTOE, CHECK6C, ONEARM<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-53/decus-basic8-53.htm target=_blank>decus-basic8-53.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-54 target=_blank>basic8-54
+</a><td>NLYSIS, POSTER2, CLNDRS, PIDART<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-54/decus-basic8-54.htm target=_blank>decus-basic8-54.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55 target=_blank>basic8-55
+</a><td>BASIC COMPUTER GAMES<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/decus-basic8-55.htm target=_blank>decus-basic8-55.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56 target=_blank>basic8-56
+</a><td>Laboratory and Display Instructions for OS/8 BASIC<td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56/basic8-56-lst.pdf target=_blank>basic8-56-lst.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56/decus-basic8-56.htm target=_blank>decus-basic8-56.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56/decus-basic8-56.pdf target=_blank>decus-basic8-56.pdf</a></div>
@@ -6856,6 +7124,207 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56/over.co target=_blank>over.co</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56/over.ls target=_blank>over.ls</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-56/over.pa target=_blank>over.pa</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-57 target=_blank>basic8-57
+</a><td>NEEDIT, Symbolic Editor Program for NEOPAL<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-57/decus-basic8-57.htm target=_blank>decus-basic8-57.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-58 target=_blank>basic8-58
+</a><td>RESEQUENCE<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-58/decus-basic8-58.htm target=_blank>decus-basic8-58.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-59 target=_blank>basic8-59
+</a><td>STORM3<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-59/decus-basic8-59.htm target=_blank>decus-basic8-59.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-60 target=_blank>basic8-60
+</a><td>WORDSEK, WRDGES, LIFE, UFESI, TICTAC<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-60/decus-basic8-60.htm target=_blank>decus-basic8-60.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-61 target=_blank>basic8-61
+</a><td>Bowling League Tabulator<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-61/decus-basic8-61.htm target=_blank>decus-basic8-61.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-62 target=_blank>basic8-62
+</a><td>NANCY.BA<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-62/decus-basic8-62.htm target=_blank>decus-basic8-62.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-63 target=_blank>basic8-63
+</a><td>MAMII and MAMID<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-63/decus-basic8-63.htm target=_blank>decus-basic8-63.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-64 target=_blank>basic8-64
+</a><td>NAMES<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-64/decus-basic8-64.htm target=_blank>decus-basic8-64.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-65 target=_blank>basic8-65
+</a><td>Butler Area School District Computer Mathematics Series<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-65/decus-basic8-65.htm target=_blank>decus-basic8-65.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-66 target=_blank>basic8-66
+</a><td>CLILAC, LILAC Conversion<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-66/decus-basic8-66.htm target=_blank>decus-basic8-66.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-67 target=_blank>basic8-67
+</a><td>TSSTLK: BASIC Language Communications Package for the TSS/8<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-67/decus-basic8-67.htm target=_blank>decus-basic8-67.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-68 target=_blank>basic8-68
+</a><td>BASIC Storage<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-68/decus-basic8-68.htm target=_blank>decus-basic8-68.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-69 target=_blank>basic8-69
+</a><td>CHESS<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-69/decus-basic8-69.htm target=_blank>decus-basic8-69.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-70 target=_blank>basic8-70
+</a><td>PISTOL: Practically Imtantaneous Scheduling Typed On-Line<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-70/decus-basic8-70.htm target=_blank>decus-basic8-70.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-71 target=_blank>basic8-71
+</a><td>CALC<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-71/decus-basic8-71.htm target=_blank>decus-basic8-71.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-72 target=_blank>basic8-72
+</a><td>Great Circle Course and Distance<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-72/decus-basic8-72.htm target=_blank>decus-basic8-72.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-73 target=_blank>basic8-73
+</a><td>POSTER<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-73/decus-basic8-73.htm target=_blank>decus-basic8-73.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-74 target=_blank>basic8-74
+</a><td>PING-PONG<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-74/decus-basic8-74.htm target=_blank>decus-basic8-74.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-75 target=_blank>basic8-75
+</a><td>SINCOS: SIN and COS Functions Graphing Program<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-75/decus-basic8-75.htm target=_blank>decus-basic8-75.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-76 target=_blank>basic8-76
+</a><td>GAMES, Set 4<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-76/decus-basic8-76.htm target=_blank>decus-basic8-76.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-77 target=_blank>basic8-77
+</a><td>STREK-STAR TREK<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-77/decus-basic8-77.htm target=_blank>decus-basic8-77.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-78 target=_blank>basic8-78
+</a><td>INDY SOO Survival Tests<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-78/decus-basic8-78.htm target=_blank>decus-basic8-78.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-79 target=_blank>basic8-79
+</a><td>MIS1, MIS2<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-79/decus-basic8-79.htm target=_blank>decus-basic8-79.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-80 target=_blank>basic8-80
+</a><td>Geometry Routines, Prime Numbers, Bullon's Needle Theorem, Markov<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-80/decus-basic8-80.htm target=_blank>decus-basic8-80.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-81 target=_blank>basic8-81
+</a><td>JUMBLE; ONETWO<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-81/decus-basic8-81.htm target=_blank>decus-basic8-81.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-82 target=_blank>basic8-82
+</a><td>SADSAC<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-82/decus-basic8-82.htm target=_blank>decus-basic8-82.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-83 target=_blank>basic8-83
+</a><td>PLTPKG: Mathematical TTY Plotting Package<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-83/decus-basic8-83.htm target=_blank>decus-basic8-83.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-84 target=_blank>basic8-84
+</a><td>PLOTTY: A Program to Plot a Function On a Teletype<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-84/decus-basic8-84.htm target=_blank>decus-basic8-84.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-85 target=_blank>basic8-85
+</a><td>FOOTBALL<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-85/decus-basic8-85.htm target=_blank>decus-basic8-85.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-86 target=_blank>basic8-86
+</a><td>GAMES-SET 5<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-86/decus-basic8-86.htm target=_blank>decus-basic8-86.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-87 target=_blank>basic8-87
+</a><td>BSC12K: A Modification to 8K BASIC Extending the Number of Variables<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-87/decus-basic8-87.htm target=_blank>decus-basic8-87.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-88 target=_blank>basic8-88
+</a><td>BASIC8 Switch Register Function<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-88/decus-basic8-88.htm target=_blank>decus-basic8-88.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-89 target=_blank>basic8-89
+</a><td>Rational Roots of a Polynomial Equation<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-89/decus-basic8-89.htm target=_blank>decus-basic8-89.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-90 target=_blank>basic8-90
+</a><td>Math and Simulation Programs for Educational Use<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-90/decus-basic8-90.htm target=_blank>decus-basic8-90.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-91 target=_blank>basic8-91
+</a><td>BASIC8 Single Key Reader<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-91/decus-basic8-91.htm target=_blank>decus-basic8-91.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-92 target=_blank>basic8-92
+</a><td>Symbolic Editor Program<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-92/decus-basic8-92.htm target=_blank>decus-basic8-92.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-93 target=_blank>basic8-93</a><td>No abstract found<td>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-94 target=_blank>basic8-94
+</a><td>Scrambled Word Generator<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-94/decus-basic8-94.htm target=_blank>decus-basic8-94.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-95 target=_blank>basic8-95
+</a><td>MADMAZ Maze Generator<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-95/decus-basic8-95.htm target=_blank>decus-basic8-95.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-96 target=_blank>basic8-96
+</a><td>Paper Tape Message Generator<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-96/decus-basic8-96.htm target=_blank>decus-basic8-96.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-97 target=_blank>basic8-97
+</a><td>HOCKEY<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-97/decus-basic8-97.htm target=_blank>decus-basic8-97.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-98 target=_blank>basic8-98
+</a><td>Compass Deviation<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-98/decus-basic8-98.htm target=_blank>decus-basic8-98.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-99 target=_blank>basic8-99</a><td>No abstract found<td>
+<a name=decus-basic8-100></a>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-100 target=_blank>basic8-100
+</a><td>Bowling Record Tabulator<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-100/decus-basic8-100.htm target=_blank>decus-basic8-100.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-101 target=_blank>basic8-101
+</a><td>Battle of Numbers<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-101/decus-basic8-101.htm target=_blank>decus-basic8-101.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-102 target=_blank>basic8-102
+</a><td>Collection of Math and Demonstration Programs<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-102/decus-basic8-102.htm target=_blank>decus-basic8-102.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-103 target=_blank>basic8-103
+</a><td>CARD: Simplified Machine Language Simulator<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-103/decus-basic8-103.htm target=_blank>decus-basic8-103.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-104 target=_blank>basic8-104
+</a><td>QCHESS: Quigley's Algebraic Chess Program<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-104/decus-basic8-104.htm target=_blank>decus-basic8-104.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-105 target=_blank>basic8-105
+</a><td>YORK1.BA: Two Error Unear Regression with Correlated Errors, Version: December 1977<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-105/decus-basic8-105.htm target=_blank>decus-basic8-105.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-106 target=_blank>basic8-106
+</a><td>LAB 8 Evoked Potential Analysis Programs, Version: February 1978<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-106/decus-basic8-106.htm target=_blank>decus-basic8-106.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-107 target=_blank>basic8-107
+</a><td>Age Difference Probability Calculation, Version: February 1978<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-107/decus-basic8-107.htm target=_blank>decus-basic8-107.htm</a></div>
 <a name=decus-focal8-1></a>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-1 target=_blank>focal8-1
@@ -7170,9 +7639,11 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52/part2.bin target=_blank>part2.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52/part2.bin.od target=_blank>part2.bin.od</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a target=_blank>focal8-52a</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a target=_blank>focal8-52a
+</a><td><div>FOCAL, 5/69 </div>
+<td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a/Reconstruction.txt target=_blank>Reconstruction.txt</a></div>
-<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a/decus-focal8-52.htm target=_blank>decus-focal8-52.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a/decus-focal8-52a.htm target=_blank>decus-focal8-52a.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a/focal8-52a-8-72.pdf target=_blank>focal8-52a-8-72.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a/focal8-52a-lst.pdf target=_blank>focal8-52a-lst.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-52a/focal8-52a.pdf target=_blank>focal8-52a.pdf</a></div>
@@ -8877,7 +9348,10 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-310/decus-focal8-310.htm target=_blank>decus-focal8-310.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-311 target=_blank>focal8-311</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-311 target=_blank>focal8-311
+</a><td><div>SIXPAC</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-311/decus-focal8-311.htm target=_blank>decus-focal8-311.htm</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-312 target=_blank>focal8-312
 </a><td><div>CVFCPfG (Centronics Vertical Format Control FOCAL</div>
@@ -9030,6 +9504,1433 @@ have taken the time to scan and archive this software and documentation.
 <td>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-339/decus-focal8-339.htm target=_blank>decus-focal8-339.htm</a></div>
 <tr>
-<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-342 target=_blank>focal8-342</a><td>No abstract found<td>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-340 target=_blank>focal8-340
+</a><td><div>MICFCC: Microsphere Flow Correction and Calculation Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-340/decus-focal8-340.htm target=_blank>decus-focal8-340.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-341 target=_blank>focal8-341
+</a><td><div>ASCII TO E.I.A. Conversions, September 1978 </div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-341/decus-focal8-341.htm target=_blank>decus-focal8-341.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-342 target=_blank>focal8-342
+</a><td><div>HYFOC.P: A Process Control Language based on FOCL.S, November 1977</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-342/decus-focal8-342.htm target=_blank>decus-focal8-342.htm</a></div>
+<a name=decus-12-1></a>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-1 target=_blank>12-1
+</a><td><div>EEG Data Collection (BNI Series)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-1/decus-12-1.htm target=_blank>decus-12-1.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-1/decus-12-1.pdf target=_blank>decus-12-1.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-2 target=_blank>12-2
+</a><td><div>PDP-12 Utility and Data Reduction Programs</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-2/decus-12-2.htm target=_blank>decus-12-2.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-2/decus-12-2.pdf target=_blank>decus-12-2.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-3 target=_blank>12-3
+</a><td><div>Obsolete</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-3/decus-12-3.htm target=_blank>decus-12-3.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-4 target=_blank>12-4
+</a><td><div>IRDA</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-4/decus-12-4.htm target=_blank>decus-12-4.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-4/decus-12-4.pdf target=_blank>decus-12-4.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-5 target=_blank>12-5
+</a><td><div>SERCHPRO</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-5/decus-12-5.htm target=_blank>decus-12-5.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-5/decus-12-5.pdf target=_blank>decus-12-5.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-6 target=_blank>12-6
+</a><td><div>ANDIP - Analog Digital Interchange Pragram</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-6/decus-12-6.htm target=_blank>decus-12-6.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-6/decus-12-6.pdf target=_blank>decus-12-6.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-7 target=_blank>12-7
+</a><td><div>DBLFLT - Double Float Mathematical Routines</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-7/decus-12-7.htm target=_blank>decus-12-7.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-7/decus-12-7.pdf target=_blank>decus-12-7.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-8 target=_blank>12-8
+</a><td><div>Teletype Conversion Routines</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-8/decus-12-8.htm target=_blank>decus-12-8.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-8/decus-12-8.pdf target=_blank>decus-12-8.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-9 target=_blank>12-9
+</a><td><div>SLOWCREF</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-9/decus-12-9.htm target=_blank>decus-12-9.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-9/decus-12-9.pdf target=_blank>decus-12-9.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-10 target=_blank>12-10
+</a><td><div>FOCAL Library (LINCtape FOCAL for the PDP-12)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-10/decus-12-10.htm target=_blank>decus-12-10.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-10/decus-12-10.pdf target=_blank>decus-12-10.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-11 target=_blank>12-11
+</a><td><div>ODTAPE (Octal Debugging for the PDP-12 LINCtape)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-11/decus-12-11.htm target=_blank>decus-12-11.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-11/decus-12-11.pdf target=_blank>decus-12-11.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-12 target=_blank>12-12
+</a><td><div>8TO12 File Converter</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-12/decus-12-12.htm target=_blank>decus-12-12.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-12/decus-12-12.pdf target=_blank>decus-12-12.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-13 target=_blank>12-13
+</a><td><div>RDPEC: PEC Synchronous Tape Read Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-13/decus-12-13.htm target=_blank>decus-12-13.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-13/decus-12-13.pdf target=_blank>decus-12-13.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-14 target=_blank>12-14
+</a><td><div>MUL-2REG</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-14/decus-12-14.htm target=_blank>decus-12-14.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-14/decus-12-14.pdf target=_blank>decus-12-14.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-15 target=_blank>12-15
+</a><td><div>HISTO12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-15/decus-12-15.htm target=_blank>decus-12-15.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-15/decus-12-15.pdf target=_blank>decus-12-15.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-16 target=_blank>12-16
+</a><td><div>MODCLK</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-16/decus-12-16.htm target=_blank>decus-12-16.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-16/decus-12-16.pdf target=_blank>decus-12-16.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-17 target=_blank>12-17
+</a><td><div>DIALRF08</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-17/decus-12-17.htm target=_blank>decus-12-17.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-17/decus-12-17.pdf target=_blank>decus-12-17.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-18 target=_blank>12-18
+</a><td><div>"FAILSAFE"</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-18/decus-12-18.htm target=_blank>decus-12-18.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-18/decus-12-18.pdf target=_blank>decus-12-18.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-19 target=_blank>12-19
+</a><td><div>DIBOL-12 (PDP-12 Addendum for DIBOL II System User's</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-19/decus-12-19.htm target=_blank>decus-12-19.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-20 target=_blank>12-20
+</a><td><div>FORMATXT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-20/decus-12-20.htm target=_blank>decus-12-20.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-20/decus-12-20.pdf target=_blank>decus-12-20.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-21 target=_blank>12-21
+</a><td><div>Modified MAGSPY</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-21/decus-12-21.htm target=_blank>decus-12-21.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-21/decus-12-21.pdf target=_blank>decus-12-21.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-22 target=_blank>12-22
+</a><td><div>PLOTFFT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-22/decus-12-22.htm target=_blank>decus-12-22.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-22/decus-12-22.pdf target=_blank>decus-12-22.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-23 target=_blank>12-23
+</a><td><div>CFFT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-23/decus-12-23.htm target=_blank>decus-12-23.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-23/decus-12-23.pdf target=_blank>decus-12-23.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-24 target=_blank>12-24
+</a><td><div>Overlays to FOCAL-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-24/decus-12-24.htm target=_blank>decus-12-24.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-24/decus-12-24.pdf target=_blank>decus-12-24.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-25 target=_blank>12-25
+</a><td><div>Three Subroutines for QANDA - FRACUS, SCRMBL, QANDA-C</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-25/decus-12-25.htm target=_blank>decus-12-25.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-25/decus-12-25.pdf target=_blank>decus-12-25.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-26 target=_blank>12-26
+</a><td><div>DATAFILE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-26/decus-12-26.htm target=_blank>decus-12-26.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-27 target=_blank>12-27
+</a><td><div>LOADBIN</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-27/decus-12-27.htm target=_blank>decus-12-27.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-28 target=_blank>12-28
+</a><td><div>DXCREATE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-28/decus-12-28.htm target=_blank>decus-12-28.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-29 target=_blank>12-29
+</a><td><div>LINC-10</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-29/decus-12-29.htm target=_blank>decus-12-29.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-30 target=_blank>12-30
+</a><td><div>TDUMP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-30/decus-12-30.htm target=_blank>decus-12-30.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-30/decus-12-30.pdf target=_blank>decus-12-30.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-31 target=_blank>12-31
+</a><td><div>DCON-10</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-31/decus-12-31.htm target=_blank>decus-12-31.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-31/decus-12-31.pdf target=_blank>decus-12-31.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-32 target=_blank>12-32
+</a><td><div>COMPAR12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-32/decus-12-32.htm target=_blank>decus-12-32.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-32/decus-12-32.pdf target=_blank>decus-12-32.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-33 target=_blank>12-33
+</a><td><div>KWANDA</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-33/decus-12-33.htm target=_blank>decus-12-33.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-33/decus-12-33.pdf target=_blank>decus-12-33.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-34 target=_blank>12-34
+</a><td><div>STAP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-34/decus-12-34.htm target=_blank>decus-12-34.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-35 target=_blank>12-35
+</a><td><div>Bioelectric Signal Sorter (JULIA)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-35/decus-12-35.htm target=_blank>decus-12-35.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-35/decus-12-35.pdf target=_blank>decus-12-35.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-36 target=_blank>12-36
+</a><td><div>Hangman for PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-36/decus-12-36.htm target=_blank>decus-12-36.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-36/decus-12-36.pdf target=_blank>decus-12-36.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-37 target=_blank>12-37
+</a><td><div>ODCAD (Octal to Decimal Conversion and Display)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-37/decus-12-37.htm target=_blank>decus-12-37.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-37/decus-12-37.pdf target=_blank>decus-12-37.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-38a target=_blank>12-38a
+</a><td><div>Histogram and One-Factor Analysis of Variance</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-38a/decus-12-38a.htm target=_blank>decus-12-38a.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-38a/decus-12-38a.pdf target=_blank>decus-12-38a.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-38b target=_blank>12-38b
+</a><td><div>Histogram and Two-Factor Analysis of Variance</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-38b/decus-12-38b.htm target=_blank>decus-12-38b.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-38b/decus-12-38b.pdf target=_blank>decus-12-38b.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-39 target=_blank>12-39
+</a><td><div>QUANAT 1</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-39/decus-12-39.htm target=_blank>decus-12-39.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-39/decus-12-39.pdf target=_blank>decus-12-39.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-40 target=_blank>12-40
+</a><td><div>PDP-8 Disk Monitor - LAP6-DIAL Interface</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-40/decus-12-40.htm target=_blank>decus-12-40.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-40/decus-12-40.pdf target=_blank>decus-12-40.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-41 target=_blank>12-41
+</a><td><div>BLOOPD - Blood Pressure Display Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-41/decus-12-41.htm target=_blank>decus-12-41.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-41/decus-12-41.pdf target=_blank>decus-12-41.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-42 target=_blank>12-42
+</a><td><div>CALCO 12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-42/decus-12-42.htm target=_blank>decus-12-42.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-42/decus-12-42.pdf target=_blank>decus-12-42.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-43 target=_blank>12-43
+</a><td><div>PLOT3D</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-43/decus-12-43.htm target=_blank>decus-12-43.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-43/decus-12-43.pdf target=_blank>decus-12-43.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-44 target=_blank>12-44
+</a><td><div>AVERDT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-44/decus-12-44.htm target=_blank>decus-12-44.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-44/decus-12-44.pdf target=_blank>decus-12-44.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-45 target=_blank>12-45
+</a><td><div>FOCALP - FOCALPE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-45/decus-12-45.htm target=_blank>decus-12-45.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-45/decus-12-45.pdf target=_blank>decus-12-45.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-46 target=_blank>12-46
+</a><td><div>STRINGS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-46/decus-12-46.htm target=_blank>decus-12-46.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-46/decus-12-46.pdf target=_blank>decus-12-46.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-47 target=_blank>12-47
+</a><td><div>PIP-1600</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-47/decus-12-47.htm target=_blank>decus-12-47.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-47/decus-12-47.pdf target=_blank>decus-12-47.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-48 target=_blank>12-48
+</a><td><div>PS/8 FORTRAN Library Routines</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-48/decus-12-48.htm target=_blank>decus-12-48.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-48/decus-12-48.pdf target=_blank>decus-12-48.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-49 target=_blank>12-49
+</a><td><div>Cold Start DF32 Disk Formatter for PS/8 on a PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-49/decus-12-49.htm target=_blank>decus-12-49.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-49/decus-12-49.pdf target=_blank>decus-12-49.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-50 target=_blank>12-50
+</a><td><div>EDIT-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-50/decus-12-50.htm target=_blank>decus-12-50.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-51 target=_blank>12-51
+</a><td><div>MAGSPYD</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-51/decus-12-51.htm target=_blank>decus-12-51.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-51/decus-12-51.pdf target=_blank>decus-12-51.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-52 target=_blank>12-52
+</a><td><div>Student Test Analysis</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-52/decus-12-52.htm target=_blank>decus-12-52.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-52/decus-12-52.pdf target=_blank>decus-12-52.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-53 target=_blank>12-53
+</a><td><div>Liquid Scintillation Counting: Conversion of CPM to DPM in</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-53/decus-12-53.htm target=_blank>decus-12-53.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-54 target=_blank>12-54
+</a><td><div>QUIP - Quick Assembler for the PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-54/decus-12-54.htm target=_blank>decus-12-54.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-54/decus-12-54.pdf target=_blank>decus-12-54.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-55 target=_blank>12-55
+</a><td><div>FFAESIM</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-55/decus-12-55.htm target=_blank>decus-12-55.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-55/decus-12-55.pdf target=_blank>decus-12-55.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-56 target=_blank>12-56
+</a><td><div>QANDA+ - Modified QANDA Subroutine</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-56/decus-12-56.htm target=_blank>decus-12-56.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-56/decus-12-56.pdf target=_blank>decus-12-56.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-57 target=_blank>12-57
+</a><td><div>SPY+ - Modified MAGSPY</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-57/decus-12-57.htm target=_blank>decus-12-57.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-57/decus-12-57.pdf target=_blank>decus-12-57.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-58 target=_blank>12-58
+</a><td><div>FIFOCON</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-58/decus-12-58.htm target=_blank>decus-12-58.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-58/decus-12-58.pdf target=_blank>decus-12-58.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-59 target=_blank>12-59
+</a><td><div>FOCPLOT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-59/decus-12-59.htm target=_blank>decus-12-59.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-59/decus-12-59.pdf target=_blank>decus-12-59.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-60 target=_blank>12-60
+</a><td><div>SUMER (French)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-60/decus-12-60.htm target=_blank>decus-12-60.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-61 target=_blank>12-61
+</a><td><div>Generating Random Numbers with FOCAL</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-61/decus-12-61.htm target=_blank>decus-12-61.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-62 target=_blank>12-62
+</a><td><div>RUFUS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-62/decus-12-62.htm target=_blank>decus-12-62.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-62/decus-12-62.pdf target=_blank>decus-12-62.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-63 target=_blank>12-63
+</a><td><div>OLFFT1 and FETCHFFT (See also DECUS NO. 12-144)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-63/decus-12-63.htm target=_blank>decus-12-63.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-63/decus-12-63.pdf target=_blank>decus-12-63.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-64 target=_blank>12-64
+</a><td><div>Walsh Transform Subroutines, PWALSH and LWALSH</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-64/decus-12-64.htm target=_blank>decus-12-64.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-65 target=_blank>12-65
+</a><td><div>PISH- Poststimulus Time and Interspike - Interval Histogram</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-65/decus-12-65.htm target=_blank>decus-12-65.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-66 target=_blank>12-66
+</a><td><div>ADDINDX (LAP6-DIAL-MS Index Manipulator)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-66/decus-12-66.htm target=_blank>decus-12-66.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-66/decus-12-66.pdf target=_blank>decus-12-66.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-67 target=_blank>12-67
+</a><td><div>PPG FOCAL</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-67/decus-12-67.htm target=_blank>decus-12-67.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-67/decus-12-67.pdf target=_blank>decus-12-67.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-68 target=_blank>12-68
+</a><td><div>A PDP-8 Floating Point Software Package Simulator Using a</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-68/decus-12-68.htm target=_blank>decus-12-68.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-68/decus-12-68.pdf target=_blank>decus-12-68.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-69 target=_blank>12-69
+</a><td><div>An On-Line FOCAL-12 Program for Auto-Analyzers</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-69/decus-12-69.htm target=_blank>decus-12-69.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-69/decus-12-69.pdf target=_blank>decus-12-69.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-70 target=_blank>12-70
+</a><td><div>COMPLT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-70/decus-12-70.htm target=_blank>decus-12-70.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-71 target=_blank>12-71
+</a><td><div>Snoopy Display Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-71/decus-12-71.htm target=_blank>decus-12-71.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-72 target=_blank>12-72
+</a><td><div>Four-Point Smoothing With FPP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-72/decus-12-72.htm target=_blank>decus-12-72.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-72/decus-12-72.pdf target=_blank>decus-12-72.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-73 target=_blank>12-73
+</a><td><div>8-Point Quadratic Smooth With FPP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-73/decus-12-73.htm target=_blank>decus-12-73.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-73/decus-12-73.pdf target=_blank>decus-12-73.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-74 target=_blank>12-74
+</a><td><div>*REGRES - Multiple Linear Regression</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-74/decus-12-74.htm target=_blank>decus-12-74.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-74/decus-12-74.pdf target=_blank>decus-12-74.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-75 target=_blank>12-75
+</a><td><div>FORTRAN Subroutines for the PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-75/decus-12-75.htm target=_blank>decus-12-75.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-75/decus-12-75.pdf target=_blank>decus-12-75.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-76 target=_blank>12-76
+</a><td><div>TAPELOOK; CORELOOK; SEARCH</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-76/decus-12-76.htm target=_blank>decus-12-76.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-76/decus-12-76.pdf target=_blank>decus-12-76.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-77 target=_blank>12-77
+</a><td><div>PAL12A Assembler</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-77/decus-12-77.htm target=_blank>decus-12-77.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-77/decus-12-77.pdf target=_blank>decus-12-77.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-78 target=_blank>12-78
+</a><td><div>PUBPLOT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-78/decus-12-78.htm target=_blank>decus-12-78.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-78/decus-12-78.pdf target=_blank>decus-12-78.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-79 target=_blank>12-79
+</a><td><div>Modified ADTAPE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-79/decus-12-79.htm target=_blank>decus-12-79.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-79/decus-12-79.pdf target=_blank>decus-12-79.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-80 target=_blank>12-80
+</a><td><div>FOCAL-RT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-80/decus-12-80.htm target=_blank>decus-12-80.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-80/decus-12-80.pdf target=_blank>decus-12-80.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-81 target=_blank>12-81
+</a><td><div>VR12 SCOPE HANDLER FOR OS/8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-81/decus-12-81.htm target=_blank>decus-12-81.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-81/decus-12-81.pdf target=_blank>decus-12-81.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-82 target=_blank>12-82
+</a><td><div>LAP6-DIAL TO PS/8 SOURCE FILE CONVERTER</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-82/decus-12-82.htm target=_blank>decus-12-82.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-82/decus-12-82.pdf target=_blank>decus-12-82.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-83 target=_blank>12-83
+</a><td><div>$ANOVARM - ONE WAY ANALYSIS OF VARIANCE FOR</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-83/decus-12-83.htm target=_blank>decus-12-83.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-84 target=_blank>12-84
+</a><td><div>AVERAGER</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-84/decus-12-84.htm target=_blank>decus-12-84.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-84/decus-12-84.pdf target=_blank>decus-12-84.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-85 target=_blank>12-85
+</a><td><div>APOLLO 12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-85/decus-12-85.htm target=_blank>decus-12-85.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-85/decus-12-85.pdf target=_blank>decus-12-85.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-86 target=_blank>12-86
+</a><td><div>ORGAN-AA and ORGAN+BA</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-86/decus-12-86.htm target=_blank>decus-12-86.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-86/decus-12-86.pdf target=_blank>decus-12-86.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-87 target=_blank>12-87
+</a><td><div>ONDISK-OFFDISK</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-87/decus-12-87.htm target=_blank>decus-12-87.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-87/decus-12-87.pdf target=_blank>decus-12-87.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-88 target=_blank>12-88
+</a><td><div>OCTALFPP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-88/decus-12-88.htm target=_blank>decus-12-88.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-88/decus-12-88.pdf target=_blank>decus-12-88.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-89 target=_blank>12-89
+</a><td><div>BUTFLTR</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-89/decus-12-89.htm target=_blank>decus-12-89.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-90 target=_blank>12-90
+</a><td><div>REPRSNT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-90/decus-12-90.htm target=_blank>decus-12-90.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-91 target=_blank>12-91
+</a><td><div>OCTPUNCH</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-91/decus-12-91.htm target=_blank>decus-12-91.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-92 target=_blank>12-92
+</a><td><div>PDP8TO12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-92/decus-12-92.htm target=_blank>decus-12-92.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-92/decus-12-92.pdf target=_blank>decus-12-92.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-93 target=_blank>12-93
+</a><td><div>TRANS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-93/decus-12-93.htm target=_blank>decus-12-93.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-94 target=_blank>12-94
+</a><td><div>DATAN</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-94/decus-12-94.htm target=_blank>decus-12-94.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-95 target=_blank>12-95
+</a><td><div>PDP-12 PS/8 Utility Programs</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-95/decus-12-95.htm target=_blank>decus-12-95.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-95/decus-12-95.pdf target=_blank>decus-12-95.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-96a,b target=_blank>12-96a,b
+</a><td><div>SCOPE and CNGMWA</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-96a,b/decus-12-96a,b.htm target=_blank>decus-12-96a,b.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-96a,b/decus-12-96a,b.pdf target=_blank>decus-12-96a,b.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-97 target=_blank>12-97
+</a><td><div>An Off-Line FOCAL-12 Program for Auto-Analyzer by TWX</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-97/decus-12-97.htm target=_blank>decus-12-97.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-98 target=_blank>12-98
+</a><td><div>HERALD - Analog-Digital Average and Standard Error Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-98/decus-12-98.htm target=_blank>decus-12-98.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-99 target=_blank>12-99
+</a><td><div>A Set of Spectral ngrams</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-99/decus-12-99.htm target=_blank>decus-12-99.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-99/decus-12-99.pdf target=_blank>decus-12-99.pdf</a></div>
+<a name=decus-12-100></a>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-100 target=_blank>12-100
+</a><td><div>MEMO III - A Text Formatting Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-100/decus-12-100.htm target=_blank>decus-12-100.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-101 target=_blank>12-101
+</a><td><div>OS/8 SKED</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-101/decus-12-101.htm target=_blank>decus-12-101.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-102 target=_blank>12-102
+</a><td><div>A Manual for the PDP-12 Operator</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-102/decus-12-102.htm target=_blank>decus-12-102.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-102/decus-12-102.pdf target=_blank>decus-12-102.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-103 target=_blank>12-103
+</a><td><div>$HAPPY</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-103/decus-12-103.htm target=_blank>decus-12-103.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-104 target=_blank>12-104
+</a><td><div>CORDATFP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-104/decus-12-104.htm target=_blank>decus-12-104.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-105 target=_blank>12-105
+</a><td><div>DATAFILE and DFUPDATE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-105/decus-12-105.htm target=_blank>decus-12-105.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-106 target=_blank>12-106
+</a><td><div>$PLOT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-106/decus-12-106.htm target=_blank>decus-12-106.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-106/decus-12-106.pdf target=_blank>decus-12-106.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-107 target=_blank>12-107
+</a><td><div>AVUPTOB, AVUPTOBS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-107/decus-12-107.htm target=_blank>decus-12-107.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-108 target=_blank>12-108
+</a><td><div>FPPNEW - Replacing the DIAL-MS-Assembler by an improved
+Version of the FPP Assembler</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-108/decus-12-108.htm target=_blank>decus-12-108.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-109a,b,c target=_blank>12-109a,b,c
+</a><td><div>QNANSWER, QANDATTY, SUPRSHUF</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-109a,b,c/decus-12-109a,b,c.htm target=_blank>decus-12-109a,b,c.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-109a,b,c/decus-12-109a,b,c.pdf target=_blank>decus-12-109a,b,c.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-110 target=_blank>12-110
+</a><td><div>DIAL-MS for 1600 Blocks</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-110/decus-12-110.htm target=_blank>decus-12-110.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-110/decus-12-110.pdf target=_blank>decus-12-110.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-111a target=_blank>12-111a
+</a><td><div>Harry Bryant, Moss Rehabilitation Hospital,</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-111a/decus-12-111a.htm target=_blank>decus-12-111a.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-112 target=_blank>12-112
+</a><td><div>IDXRDD</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-112/decus-12-112.htm target=_blank>decus-12-112.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-113 target=_blank>12-113
+</a><td><div>IDXWT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-113/decus-12-113.htm target=_blank>decus-12-113.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-114 target=_blank>12-114
+</a><td><div>FOCAL-PL</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-114/decus-12-114.htm target=_blank>decus-12-114.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-115 target=_blank>12-115
+</a><td><div>PLOT3D, Pseudo 3-Dimensional Perspective Display for the
+PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-115/decus-12-115.htm target=_blank>decus-12-115.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-116 target=_blank>12-116
+</a><td><div>FPP-12/FOCAL-12 Reduction of Auto Analyzer Data for
+Pharmaceuticals</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-116/decus-12-116.htm target=_blank>decus-12-116.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-117 target=_blank>12-117
+</a><td><div>TAPEDIT; A PDP-12 LINCTAPE EDITOR</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-117/decus-12-117.htm target=_blank>decus-12-117.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-118 target=_blank>12-118
+</a><td><div>Average Transient Advanced Programs</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-118/decus-12-118.htm target=_blank>decus-12-118.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-119 target=_blank>12-119
+</a><td><div>Neuron Spike Train Analysis Programs</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-119/decus-12-119.htm target=_blank>decus-12-119.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-120 target=_blank>12-120
+</a><td><div>DUAL Assembler</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-120/decus-12-120.htm target=_blank>decus-12-120.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-121 target=_blank>12-121
+</a><td><div>Arrhythmia Detection and Categorization</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-121/decus-12-121.htm target=_blank>decus-12-121.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-122 target=_blank>12-122
+</a><td><div>PDP-12 User's Monitor Command</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-122/decus-12-122.htm target=_blank>decus-12-122.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-123a target=_blank>12-123a
+</a><td><div>OS/8 VR12 Handler</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-123a/decus-12-123a-pb target=_blank>decus-12-123a-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-123a/decus-12-123a-pb.od target=_blank>decus-12-123a-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-123a/decus-12-123a.htm target=_blank>decus-12-123a.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-124 target=_blank>12-124
+</a><td><div>FR, FDIS and FADC for PDP-12 Input/Output</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-124/decus-12-124.htm target=_blank>decus-12-124.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-124/decus-12-124.pdf target=_blank>decus-12-124.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-125 target=_blank>12-125
+</a><td><div>Waveform Analysis</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-125/decus-12-125.htm target=_blank>decus-12-125.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-126 target=_blank>12-126
+</a><td><div>WAVEFORM: Evoked Potential Analysis</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-126/decus-12-126.htm target=_blank>decus-12-126.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-127 target=_blank>12-127
+</a><td><div>Withdrawn</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-127/decus-12-127.htm target=_blank>decus-12-127.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-128 target=_blank>12-128
+</a><td><div>GEP: A Generalized Experimental Package</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-128/decus-12-128.htm target=_blank>decus-12-128.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-129 target=_blank>12-129
+</a><td><div>OS/12S Scope Monitor Operating System</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-129/decus-12-129.htm target=_blank>decus-12-129.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-130 target=_blank>12-130
+</a><td><div>COMPARE - Fast LINCtape Compare</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-130/decus-12-130.htm target=_blank>decus-12-130.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-131 target=_blank>12-131
+</a><td><div>OS/8 DIBILD - Revised</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-131/decus-12-131.htm target=_blank>decus-12-131.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-132 target=_blank>12-132
+</a><td><div>LISP 1.5 Interpreter for PDP-8 with OS/8 (PS/8), OS/12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-132/decus-12-132.htm target=_blank>decus-12-132.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-133 target=_blank>12-133
+</a><td><div>MINT - Multiple Precision Integer Arithmetic Subroutine</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-133/decus-12-133.htm target=_blank>decus-12-133.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-133/decus-12-133.pdf target=_blank>decus-12-133.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-134 target=_blank>12-134
+</a><td><div>RWDF32</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-134/decus-12-134.htm target=_blank>decus-12-134.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-134/decus-12-134.pdf target=_blank>decus-12-134.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-135 target=_blank>12-135
+</a><td><div>MAC8, 8K MACRO ASSEMBLER</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-135/decus-12-135.htm target=_blank>decus-12-135.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-135/decus-12-135.pdf target=_blank>decus-12-135.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-136 target=_blank>12-136
+</a><td><div>MOVE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-136/decus-12-136.htm target=_blank>decus-12-136.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-136/decus-12-136.pdf target=_blank>decus-12-136.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-137 target=_blank>12-137
+</a><td><div>PAL12D</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-137/decus-12-137.htm target=_blank>decus-12-137.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-138 target=_blank>12-138
+</a><td><div>ISEL</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-138/decus-12-138.htm target=_blank>decus-12-138.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-138/decus-12-138.pdf target=_blank>decus-12-138.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-139 target=_blank>12-139
+</a><td><div>BURST Analysis Package</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-139/decus-12-139.htm target=_blank>decus-12-139.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-140 target=_blank>12-140
+</a><td><div>NAEP - Nerve Action and Evoked Potentials</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-140/decus-12-140.htm target=_blank>decus-12-140.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-141 target=_blank>12-141
+</a><td><div>$CORREL - Intercorrelation Program for 50 Variables</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-141/decus-12-141.htm target=_blank>decus-12-141.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-142 target=_blank>12-142
+</a><td><div>FOCALSD</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-142/decus-12-142.htm target=_blank>decus-12-142.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-143 target=_blank>12-143
+</a><td><div>DSLIS - Dead Start Loader and Index Statistics</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-143/decus-12-143.htm target=_blank>decus-12-143.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-144 target=_blank>12-144
+</a><td><div>ANECDOTE- Advanced NeuroElectric Computer Data
+Operational Tape (Export)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-144/decus-12-144.htm target=_blank>decus-12-144.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-145a target=_blank>12-145a
+</a><td><div>CREFNMAP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-145a/decus-12-145a.htm target=_blank>decus-12-145a.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-146 target=_blank>12-146
+</a><td><div>$CORR. (FOCAL Version)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-146/decus-12-146.htm target=_blank>decus-12-146.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-147 target=_blank>12-147
+</a><td><div>*BLIPFUN - Computation of Bandlimited Periodic Functions
+and their Hilbert Transforms from Samples</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-147/decus-12-147.htm target=_blank>decus-12-147.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-148 target=_blank>12-148
+</a><td><div>STATIS12, A Statistical Package for the PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-148/decus-12-148.htm target=_blank>decus-12-148.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-149 target=_blank>12-149
+</a><td><div>XPIP8: PDP-12 DECtape PIP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-149/decus-12-149-pb target=_blank>decus-12-149-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-149/decus-12-149-pb.od target=_blank>decus-12-149-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-149/decus-12-149.htm target=_blank>decus-12-149.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-150 target=_blank>12-150
+</a><td><div>XPIP10: PDP-10 DECtape to LINCtape Converter</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-150/decus-12-150-pb target=_blank>decus-12-150-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-150/decus-12-150-pb.od target=_blank>decus-12-150-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-150/decus-12-150.htm target=_blank>decus-12-150.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-151 target=_blank>12-151
+</a><td><div>"PSYCHO", A PDP-12 Programming System for Control of</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-151/decus-12-151.htm target=_blank>decus-12-151.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-152 target=_blank>12-152
+</a><td><div>LOAD31K, A Loader for DIAL-MS and 32K of Core</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-152/decus-12-152.htm target=_blank>decus-12-152.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-153a target=_blank>12-153a
+</a><td><div>DUAL32, DUAL-28K Assembler</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-153a/decus-12-153a.htm target=_blank>decus-12-153a.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-154a target=_blank>12-154a
+</a><td><div>CREF32</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-154a/decus-12-154a.htm target=_blank>decus-12-154a.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-155 target=_blank>12-155
+</a><td><div>MARK12X0</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-155/decus-12-155.htm target=_blank>decus-12-155.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-156 target=_blank>12-156
+</a><td><div>MUSIC12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-156/decus-12-156.htm target=_blank>decus-12-156.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-157 target=_blank>12-157
+</a><td><div>PLOTVS, Device Independent Graphics</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-157/decus-12-157.htm target=_blank>decus-12-157.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-158 target=_blank>12-158
+</a><td><div>FASTCOPY, A Fast LINCtape Copier for 4K PDP-12's</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-158/decus-12-158.htm target=_blank>decus-12-158.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-159 target=_blank>12-159
+</a><td><div>PLAYBOY</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-159/decus-12-159.htm target=_blank>decus-12-159.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-160 target=_blank>12-160
+</a><td><div>CCTGEN - Carriage Control Tape Generator</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-160/decus-12-160.htm target=_blank>decus-12-160.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-161 target=_blank>12-161
+</a><td><div>BIGCHARS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-161/decus-12-161.htm target=_blank>decus-12-161.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-162 target=_blank>12-162
+</a><td><div>COREDIT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-162/decus-12-162.htm target=_blank>decus-12-162.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-163 target=_blank>12-163
+</a><td><div>AD74 - High Speed Analog to Digital Conversion Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-163/decus-12-163.htm target=_blank>decus-12-163.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-164 target=_blank>12-164
+</a><td><div>DIAL. EXT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-164/decus-12-164.htm target=_blank>decus-12-164.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-165 target=_blank>12-165
+</a><td><div>NAP SYS: Program to Analyze Neuronal Spike Data</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-165/decus-12-165.htm target=_blank>decus-12-165.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-166 target=_blank>12-166
+</a><td><div>OS8-VC12 Display Device Handler for the PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-166/decus-12-166.htm target=_blank>decus-12-166.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-167 target=_blank>12-167
+</a><td><div>FOCAL Patches</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-167/decus-12-167.htm target=_blank>decus-12-167.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-168 target=_blank>12-168
+</a><td><div>Spectral Analysis System</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-168/decus-12-168.htm target=_blank>decus-12-168.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-169 target=_blank>12-169
+</a><td><div>HIST PLOT: A Versatile Program for Cross Correlation of Point Process Data on a PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-169/decus-12-169.htm target=_blank>decus-12-169.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-170 target=_blank>12-170
+</a><td><div>INPUT, STAT, DIST: A Statistical Analysis Package for the PDP-8 or PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-170/decus-12-170.htm target=_blank>decus-12-170.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-171 target=_blank>12-171
+</a><td><div>Three Patches to the Clinical Lab-12 System</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-171/decus-12-171.htm target=_blank>decus-12-171.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-172 target=_blank>12-172
+</a><td><div>WVU Utility Package</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-172/decus-12-172.htm target=_blank>decus-12-172.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-173 target=_blank>12-173
+</a><td><div>SCOPEFOCAL</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-173/decus-12-173.htm target=_blank>decus-12-173.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-174 target=_blank>12-174
+</a><td><div>CLOCK: Digital Clock with Westminster Chimes</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-174/decus-12-174.htm target=_blank>decus-12-174.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-175 target=_blank>12-175
+</a><td><div>PLOTZER</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-175/decus-12-175.htm target=_blank>decus-12-175.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-176 target=_blank>12-176
+</a><td><div>FOCAL-12 Overlay to Access the DF 32 Disk</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-176/decus-12-176.htm target=_blank>decus-12-176.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-177 target=_blank>12-177
+</a><td><div>TENNIS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-177/decus-12-177.htm target=_blank>decus-12-177.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-178 target=_blank>12-178
+</a><td><div>NUFOCAL, Modified FOCAL-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-178/decus-12-178.htm target=_blank>decus-12-178.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-179 target=_blank>12-179
+</a><td><div>The Mann-Whitney U Test</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-179/decus-12-179.htm target=_blank>decus-12-179.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-180 target=_blank>12-180
+</a><td><div>CARDDIAL - Input to the DIAL Editor Via Cards</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-180/decus-12-180.htm target=_blank>decus-12-180.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-181 target=_blank>12-181
+</a><td><div>ATSXL - Text Display and Timing Routine for FOCAL-RT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-181/decus-12-181.htm target=_blank>decus-12-181.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-182 target=_blank>12-182
+</a><td><div>KLK - A Simple Clock Overlay for PDP-12 FOCAL</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-182/decus-12-182.htm target=_blank>decus-12-182.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-183 target=_blank>12-183
+</a><td><div>DECIO - FOCAL-12 Whole Word Digital I/O Overlay</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-183/decus-12-183.htm target=_blank>decus-12-183.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-184 target=_blank>12-184
+</a><td><div>PPSH - Neuronal Autocorrelation and Crosscorrelation
+Analysis Programs (Pre-Post Stimulus Histogram)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-184/decus-12-184.htm target=_blank>decus-12-184.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-185 target=_blank>12-185
+</a><td><div>Horoscope Casting Routines - Astrodynamical Subroutines</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-185/decus-12-185.htm target=_blank>decus-12-185.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-186 target=_blank>12-186
+</a><td><div>COBRA Assembler for the PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-186/decus-12-186.htm target=_blank>decus-12-186.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-187 target=_blank>12-187
+</a><td><div>OS/8 Device Handlers for PDP-12 Core</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-187/decus-12-187.htm target=_blank>decus-12-187.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-187/decus-12-187.pdf target=_blank>decus-12-187.pdf</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-188 target=_blank>12-188
+</a><td><div>4K DISK/LINCTAPE MONITOR</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-188/decus-12-188.htm target=_blank>decus-12-188.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-189 target=_blank>12-189
+</a><td><div>DECtape Reader Handler for PDP-12</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-189/decus-12-189.htm target=_blank>decus-12-189.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-190 target=_blank>12-190
+</a><td><div>PDP-12 Functions for OS/8 BASIC</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/12-190/decus-12-190.htm target=_blank>decus-12-190.htm</a></div>
+<a name=decus-L-1></a>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-1.1 target=_blank>L-1.1
+</a><td><div>MSCPNT: Manuscript Compressed Print</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-1.1/decus-L-1.1.htm target=_blank>decus-L-1.1.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-2.1 target=_blank>L-2.1
+</a><td><div>"Clock 1" for LINC and "Clock 8" for LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-2.1/decus-L-2.1.htm target=_blank>decus-L-2.1.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-3 target=_blank>L-3
+</a><td><div>Off-Line LABCOM (Laboratory Aided By COMputer) System</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-3/decus-L-3.htm target=_blank>decus-L-3.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-4.1 target=_blank>L-4.1
+</a><td><div>IN HISTO</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-4.1/decus-L-4.1.htm target=_blank>decus-L-4.1.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-5 target=_blank>L-5
+</a><td><div>Tape Subroutine</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-5/decus-L-5.htm target=_blank>decus-L-5.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-6 target=_blank>L-6
+</a><td><div>TRIGGR</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-6/decus-L-6.htm target=_blank>decus-L-6.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-7 target=_blank>L-7
+</a><td><div>Modifications to PROGOFOP, Version 2</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-7/decus-L-7.htm target=_blank>decus-L-7.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-8 target=_blank>L-8
+</a><td><div>DECtape Interface for LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-8/decus-L-8.htm target=_blank>decus-L-8.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-9a target=_blank>L-9a
+</a><td><div>LINC-CalComp Plot Subroutine Package (LAP5)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-9a/decus-L-9a.htm target=_blank>decus-L-9a.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-10 target=_blank>L-10
+</a><td><div>LINC-8 Multianalyzer
+(Adapted to the LINC-8 from the Pulse Height Analysis
+Program - J-5260)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-10/decus-L-10.htm target=_blank>decus-L-10.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-11 target=_blank>L-11
+</a><td><div>DATUM8
+Richard W. Young</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-11/decus-L-11.htm target=_blank>decus-L-11.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-12 target=_blank>L-12
+</a><td><div>READIT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-12/decus-L-12.htm target=_blank>decus-L-12.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-13 target=_blank>L-13
+</a><td><div>AVPROG</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-13/decus-L-13.htm target=_blank>decus-L-13.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-14 target=_blank>L-14
+</a><td><div>MEAN</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-14/decus-L-14.htm target=_blank>decus-L-14.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-15.1 target=_blank>L-15.1
+</a><td><div>LEAP-1</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-15.1/decus-L-15.1.htm target=_blank>decus-L-15.1.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-16 target=_blank>L-16
+</a><td><div>RWTAPE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-16/decus-L-16.htm target=_blank>decus-L-16.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-17 target=_blank>L-17
+</a><td><div>LOAD - Extended Load Sequence for LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-17/decus-L-17.htm target=_blank>decus-L-17.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-18 target=_blank>L-18
+</a><td><div>BUFFER - Fully Buffered Teletype I/O</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-18/decus-L-18.htm target=_blank>decus-L-18.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-19 target=_blank>L-19
+</a><td><div>LABELS for LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-19/decus-L-19.htm target=_blank>decus-L-19.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-20 target=_blank>L-20
+</a><td><div>MONTOR - A Monitor for Automatic Sequential Operation
+of Programs on the LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-20/decus-L-20.htm target=_blank>decus-L-20.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-21 target=_blank>L-21
+</a><td><div>LINC-TRAN: FORTRAN Macros for the LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-21/decus-L-21.htm target=_blank>decus-L-21.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-22 target=_blank>L-22
+</a><td><div>A New PDP-8 Display Instruction for LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-22/decus-L-22.htm target=_blank>decus-L-22.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-23 target=_blank>L-23
+</a><td><div>Control to Designate Left or Right LINC-8 Tape Transport as Unit Zero</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-23/decus-L-23.htm target=_blank>decus-L-23.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-24 target=_blank>L-24
+</a><td><div>PLTKBD: Plot Keyboard</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-24/decus-L-24.htm target=_blank>decus-L-24.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-25 target=_blank>L-25
+</a><td><div>LINC Spectrum Program</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-25/decus-L-25.htm target=_blank>decus-L-25.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-26 target=_blank>L-26
+</a><td><div>RELTS8-1C (LINC-8 Only)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-26/decus-L-26.htm target=_blank>decus-L-26.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-27 target=_blank>L-27
+</a><td><div>Q & A Subroutine (Modification for LAP6 Characters)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-27/decus-L-27.htm target=_blank>decus-L-27.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-28 target=_blank>L-28
+</a><td><div>TEXT TTY Subroutines</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-28/decus-L-28.htm target=_blank>decus-L-28.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-29 target=_blank>L-29
+</a><td><div>DEC-BI</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-29/decus-L-29.htm target=_blank>decus-L-29.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-30 target=_blank>L-30
+</a><td><div>LAP6-1C (Modification to LAP6)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-30/decus-L-30.htm target=_blank>decus-L-30.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-31 target=_blank>L-31
+</a><td><div>SNAP: Simplified Numerical Analysis Program for the
+LINC -8 (with and without EAE)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-31/decus-L-31.htm target=_blank>decus-L-31.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-32 target=_blank>L-32
+</a><td><div>XMARK</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-32/decus-L-32.htm target=_blank>decus-L-32.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-33 target=_blank>L-33
+</a><td><div>On-line LABCOM System {Version IV)</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-33/decus-L-33.htm target=_blank>decus-L-33.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-34 target=_blank>L-34
+</a><td><div>LINC-DDT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-34/decus-L-34.htm target=_blank>decus-L-34.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-35a target=_blank>L-35a
+</a><td><div>DF.INOUT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-35a/decus-L-35a.htm target=_blank>decus-L-35a.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-35b target=_blank>L-35b
+</a><td><div>I-O TAGS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-35b/decus-L-35b.htm target=_blank>decus-L-35b.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-36 target=_blank>L-36
+</a><td><div>PRINTMSS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-36/decus-L-36.htm target=_blank>decus-L-36.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-37 target=_blank>L-37
+</a><td><div>BINLAP6</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-37/decus-L-37.htm target=_blank>decus-L-37.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-38 target=_blank>L-38
+</a><td><div>TAPEDUMP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-38/decus-L-38.htm target=_blank>decus-L-38.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-39 target=_blank>L-39
+</a><td><div>SPCWAR
+Anonymous</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-39/decus-L-39.htm target=_blank>decus-L-39.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-40 target=_blank>L-40
+</a><td><div>AVERAGER</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-40/decus-L-40.htm target=_blank>decus-L-40.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-41 target=_blank>L-41
+</a><td><div>COMPARE LINCtape Blocks</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-41/decus-L-41.htm target=_blank>decus-L-41.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-42 target=_blank>L-42
+</a><td><div>Using the Teletype with the LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-42/decus-L-42.htm target=_blank>decus-L-42.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-43 target=_blank>L-43
+</a><td><div>LAP6-1H Using High-Speed Punch for LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-43/decus-L-43.htm target=_blank>decus-L-43.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-44 target=_blank>L-44
+</a><td><div>LINCDUMP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-44/decus-L-44.htm target=_blank>decus-L-44.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-45 target=_blank>L-45
+</a><td><div>PLOT and PLOTTEST</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-45/decus-L-45.htm target=_blank>decus-L-45.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-46 target=_blank>L-46
+</a><td><div>SERINDEX: Search LAP6 Index</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-46/decus-L-46.htm target=_blank>decus-L-46.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-47 target=_blank>L-47
+</a><td><div>OCTBIN: Octal-to-Binary Conversion</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-47/decus-L-47.htm target=_blank>decus-L-47.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-48 target=_blank>L-48
+</a><td><div>DECBIN: Decimal-to-Binary Conversion</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-48/decus-L-48.htm target=_blank>decus-L-48.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-49 target=_blank>L-49
+</a><td><div>BINOCT: Binary-to-Octal Conversion</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-49/decus-L-49.htm target=_blank>decus-L-49.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-50 target=_blank>L-50
+</a><td><div>BINDEC: Binary-to-Decimal Conversion</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-50/decus-L-50.htm target=_blank>decus-L-50.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-51 target=_blank>L-51
+</a><td><div>TAGSWAP: Change Manuscript Tags</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-51/decus-L-51.htm target=_blank>decus-L-51.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-52 target=_blank>L-52
+</a><td><div>LINC-TAPE FORTRAN</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-52/decus-L-52.htm target=_blank>decus-L-52.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-53 target=_blank>L-53
+</a><td><div>FIND 1</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-53/decus-L-53.htm target=_blank>decus-L-53.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-54 target=_blank>L-54
+</a><td><div>LES</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-54/decus-L-54.htm target=_blank>decus-L-54.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-55 target=_blank>L-55
+</a><td><div>COMPAREM</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-55/decus-L-55.htm target=_blank>decus-L-55.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-56 target=_blank>L-56
+</a><td><div>FIDDLEX</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-56/decus-L-56.htm target=_blank>decus-L-56.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-57 target=_blank>L-57
+</a><td><div>Obsolete</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-57/decus-L-57.htm target=_blank>decus-L-57.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-58 target=_blank>L-58
+</a><td><div>LOGS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-58/decus-L-58.htm target=_blank>decus-L-58.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-59 target=_blank>L-59
+</a><td><div>INDEX L4</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-59/decus-L-59.htm target=_blank>decus-L-59.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-60 target=_blank>L-60
+</a><td><div>FORTRAN with LINCtape</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-60/decus-L-60.htm target=_blank>decus-L-60.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-61 target=_blank>L-61
+</a><td><div>Alternative Binary Loader for LINC-8 Library</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-61/decus-L-61.htm target=_blank>decus-L-61.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-62 target=_blank>L-62
+</a><td><div>RTAPE/WTAPE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-62/decus-L-62.htm target=_blank>decus-L-62.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-63 target=_blank>L-63
+</a><td><div>L6DISASS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-63/decus-L-63.htm target=_blank>decus-L-63.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-64 target=_blank>L-64
+</a><td><div>A Pseudo Random Number Generator for the LINC-8</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-64/decus-L-64.htm target=_blank>decus-L-64.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-65 target=_blank>L-65
+</a><td><div>LAP6TYPE</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-65/decus-L-65.htm target=_blank>decus-L-65.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-66 target=_blank>L-66
+</a><td><div>LAP6DlSP</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-66/decus-L-66.htm target=_blank>decus-L-66.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-67 target=_blank>L-67
+</a><td><div>TAPEIN</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-67/decus-L-67.htm target=_blank>decus-L-67.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-68 target=_blank>L-68
+</a><td><div>DBLFLT 2: A Multibank Configuration of DBLFLT</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-68/decus-L-68.htm target=_blank>decus-L-68.htm</a></div>
+<tr>
+<td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-69 target=_blank>L-69
+</a><td><div>GRAPHAS</div>
+<td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-69/decus-L-69.htm target=_blank>decus-L-69.htm</a></div>
 </table>
 </div><?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
