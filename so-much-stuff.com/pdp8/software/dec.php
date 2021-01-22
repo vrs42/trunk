@@ -384,6 +384,7 @@ are some navigation shortcuts as well:
 <td>8K-32K Linking Loader (Disk Version)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2c7>dec-08-a2c7</a></td>
 <td><table>
 <tr><td>dec-08-a2c7-ua</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2c7/dec-08-a2c7-pb>dec-08-a2c7-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>8k SABR Assembler (V16)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2d2>dec-08-a2d2</a></td>
@@ -455,6 +456,7 @@ are some navigation shortcuts as well:
 <tr><td>dec-08-ajae-la</td><td></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajae-pb>dec-08-ajae-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-d.pdf>dec-08-ajad-d</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-pb>dec-08-ajad-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-d.pdf>dec-08-ajab-d</td><td> (1968)</a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-pb>dec-08-ajab-pb</td><td> (1968)</a></td></tr>
 </table></td></tr>
@@ -473,6 +475,21 @@ are some navigation shortcuts as well:
 <td>PAL III Assembler<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asb1>dec-08-asb1</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asb1/dec-08-asb1-pb>dec-08-asb1-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>Extended Symbols for PAL III<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asb2>dec-08-asb2</a></td>
+<td><table>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asb2/dec-08-asb2-pa>dec-08-asb2-pa</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PAL III<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asc1>dec-08-asc1</a></td>
+<td><table>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asc1/dec-08-asc1-pb>dec-08-asc1-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PAL III Extended Symbols<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asc2>dec-08-asc2</a></td>
+<td><table>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-asc2/dec-08-asc2-pa>dec-08-asc2-pa</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>PDP-8, 8S, 8I, 8L System Programs Index<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ba1>dec-08-ba1</a></td>
@@ -495,6 +512,8 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-cma/dec-08-cmab-d.pdf>dec-08-cmab-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-cma/dec-08-cmaa-d.pdf>dec-08-cmaa-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-cma/dec-08-cmaa-pb>dec-08-cmaa-pb</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-cma/dec-08-cma1-pb>dec-08-cma1-pb</td><td> Low Speed</a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-cma/dec-08-cma2-pb>dec-08-cma2-pb</td><td> High Speed</a></td></tr>
 </table></td></tr>
 <tr>
 <td>ODT-8<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-coc>dec-08-coc</a></td>
@@ -652,6 +671,7 @@ are some navigation shortcuts as well:
 <td>EDITOR<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-esa>dec-08-esa</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-esa/dec-08-esab-d.pdf>aa-0590b / dec-08-esab-d</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-esa/dec-08-esab-pb>aa-0590b / dec-08-esab-pb</td><td></a></td></tr>
 <tr><td>ab-0588c / dec-08-esac-la</td><td></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-esa/dec-08-esac-pa>ak-0590c / dec-08-esac-pa</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-esa/dec-08-esac-pb>ak-0589c / dec-08-esac-pb</td><td></a></td></tr>
@@ -715,6 +735,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>Double Precision Sine Routine<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-fmf>dec-08-fmf</a></td>
 <td><table>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-fmf/dec-08-fmfa-pa>dec-08-fmfa-pa</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-fmf/dec-08-fmfb-pa>dec-08-fmfb-pa</td><td></a></td></tr>
 <tr><td>dec-08-fmfc-pa</td><td></td></tr>
 </table></td></tr>
@@ -4777,7 +4798,7 @@ are some navigation shortcuts as well:
 <td>AHDKAB0 DK8E Clocks Diagnostic<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhdka>maindec-08-dhdka</a></td>
 <td><table>
 <tr><td>ac-6220b / maindec-08-dhdka-b-d</td><td></td></tr>
-<tr><td>ak-6222b / maindec-08-dhdka-b-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhdka/maindec-08-dhdka-b-pb>ak-6222b / maindec-08-dhdka-b-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhdka/maindec-08-dhdka-a-d.pdf>ac-6220a / maindec-08-dhdka-a-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhdka/maindec-08-dhdka-a-pb>ak-6222a / maindec-08-dhdka-a-pb</td><td></a></td></tr>
 </table></td></tr>
@@ -7828,6 +7849,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1233 of 2723 files linked (45.3%), in 1211 directories
+<P>1243 of 2732 files linked (45.5%), in 1214 directories
 </div>
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
