@@ -7250,6 +7250,7 @@ Dr. IR. L. Boullart</div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/missing target=_blank>missing</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/mnoply.ba target=_blank>mnoply.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/monply.b1 target=_blank>monply.b1</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/monply.ba target=_blank>monply.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/mugwmp.ba target=_blank>mugwmp.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/nicoma.ba target=_blank>nicoma.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/nim.ba target=_blank>nim.ba</a></div>
@@ -7263,10 +7264,12 @@ Dr. IR. L. Boullart</div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/queen.ba target=_blank>queen.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/revrse.ba target=_blank>revrse.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/rocket.ba target=_blank>rocket.ba</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/rockt1.ba target=_blank>rockt1.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/roulet.ba target=_blank>roulet.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/rusrou.ba target=_blank>rusrou.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/salvo.ba target=_blank>salvo.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/salvo1.ba target=_blank>salvo1.ba</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/signs.ba target=_blank>signs.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/slots.ba target=_blank>slots.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/snoopy.ba target=_blank>snoopy.ba</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/spacwr.ba target=_blank>spacwr.ba</a></div>
