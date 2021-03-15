@@ -429,36 +429,69 @@ are some navigation shortcuts as well:
 <tr><td>dec-08-afdo-d</td><td></td></tr>
 </table></td></tr>
 <tr>
-<td>Utility Overlays for Focal 1969 (4 word, 8K)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj1>dec-08-aj1</a></td>
+<td>Figure Eight PLot, a FOCAL Tape<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj0>dec-08-aj0</a></td>
+<td><table>
+<tr><td>dec-08-aj0e-pa</td><td></td></tr>
+</table></td></tr>
+<tr>
+<td>Utility Overlays for Focal 1969 (4WORD, 8K)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj1>dec-08-aj1</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pb>dec-08-aj1e-pb</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pb1>dec-08-aj1e-pb1</td><td>Utility Overlays for Focal 1969 (4WORD)</a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pb2>dec-08-aj1e-pb2</td><td>Utility Overlays for Focal 1969 (8K)</a></td></tr>
 </table></td></tr>
 <tr>
-<td>CLINE Overlay for Focal 1969<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj3>dec-08-aj3</a></td>
+<td>Graphic Overlays for Focal 1969<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj3>dec-08-aj3</a></td>
 <td><table>
-<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj3/dec-08-aj3e-pb>dec-08-aj3e-pb</td><td></a></td></tr>
+<tr><td>dec-08-aj3e-pb</td><td></td></tr>
+<tr><td>dec-08-aj3e-pa</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj3/dec-08-aj3e-pb1>dec-08-aj3e-pb1</td><td>CLINE Overlay for Focal 1969</a></td></tr>
 </table></td></tr>
 <tr>
-<td>DF32 LIBRA Overlay for Focal 1969<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj5>dec-08-aj5</a></td>
+<td>Extended Functions for Focal 1969 (REPLACE, REMOVE)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj4>dec-08-aj4</a></td>
+<td><table>
+<tr><td>dec-08-aj4e-pb</td><td></td></tr>
+<tr><td>dec-08-aj4e-pb1</td><td>Extended Functions for Focal 1969 (REPLACE)</td></tr>
+<tr><td>dec-08-aj4e-pb2</td><td>Extended Functions for Focal 1969 (REMOVE)</td></tr>
+</table></td></tr>
+<tr>
+<td>DF32 LIBRA, DISKIN Overlays for Focal 1969<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj5>dec-08-aj5</a></td>
 <td><table>
 <tr><td>dec-08-aj5e-la</td><td></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj5/dec-08-aj5e-pb>dec-08-aj5e-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
-<td>RF08 LIBRA Overlay for Focal 1969<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj6>dec-08-aj6</a></td>
+<td>RF08 LIBRA, DISKIN Overlays for Focal 1969<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj6>dec-08-aj6</a></td>
 <td><table>
 <tr><td>dec-08-aj6e-la</td><td></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj6/dec-08-aj6e-pb>dec-08-aj6e-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
+<td>Four User Overlay for Focal 1969 (QUAD, PT08)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj7>dec-08-aj7</a></td>
+<td><table>
+<tr><td>dec-08-aj7e-pb</td><td></td></tr>
+<tr><td>dec-08-aj7e-la</td><td></td></tr>
+</table></td></tr>
+<tr>
+<td>Four User Overlay for Focal 1969 (QUAD, DC02)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj8>dec-08-aj8</a></td>
+<td><table>
+<tr><td>dec-08-aj8e-pb</td><td></td></tr>
+<tr><td>dec-08-aj8e-la</td><td></td></tr>
+</table></td></tr>
+<tr>
+<td>King of Sumeria, a FOCAL Tape<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj9>dec-08-aj9</a></td>
+<td><table>
+<tr><td>dec-08-aj9e-pa</td><td></td></tr>
+</table></td></tr>
+<tr>
 <td>Focal 8<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja>dec-08-aja</a></td>
 <td><table>
-<tr><td>dec-08-ajae-la</td><td></td></tr>
-<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajae-pb>dec-08-ajae-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-d.pdf>dec-08-ajad-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-pb>dec-08-ajad-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-d.pdf>dec-08-ajab-d</td><td> (1968)</a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-pb>dec-08-ajab-pb</td><td> (1968)</a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajae-pb>dec-08-ajae-pb</td><td> (1969)</a></td></tr>
+<tr><td>dec-08-ajae-la</td><td> (1969)</td></tr>
 </table></td></tr>
 <tr>
 <td>Advanced FOCAL Technical Specifications<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ajb>dec-08-ajb</a></td>
@@ -495,6 +528,16 @@ are some navigation shortcuts as well:
 <td>PDP-8, 8S, 8I, 8L System Programs Index<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ba1>dec-08-ba1</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ba1/dec-08-ba1c-d.pdf>dec-08-ba1c-d</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>ODT (LOW)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-c0b1>dec-08-c0b1</a></td>
+<td><table>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-c0b1/dec-08-c0b1-pb>dec-08-c0b1-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>ODT (HIGH)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-c0b2>dec-08-c0b2</a></td>
+<td><table>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-c0b2/dec-08-c0b2-pb>dec-08-c0b2-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>DDT-8<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-cdd>dec-08-cdd</a></td>
@@ -698,6 +741,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-euf/dec-08-eufb-d.pdf>dec-08-eufb-d</td><td></a></td></tr>
 <tr><td>dec-08-eufb-pa</td><td></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-euf/dec-08-eufb-pb>dec-08-eufb-pb</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-euf/dec-08-eufa-pb>dec-08-eufa-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Program Library Math Routines<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ffa>dec-08-ffa</a></td>
@@ -4188,7 +4232,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d02/maindec-08-d02b-d.pdf>ac-5810b / maindec-08-d02b-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d02/maindec-08-d02b-pb>ak-5812b / maindec-08-d02b-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d02/maindec-08-d02a-d.pdf>ac-5810a / maindec-08-d02a-d</td><td></a></td></tr>
-<tr><td>ak-5812a / maindec-08-d02a-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d02/maindec-08-d02a-pb>ak-5812a / maindec-08-d02a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Basic JMP-JMS Test<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d03>maindec-08-d03</a></td>
@@ -4211,6 +4255,7 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d05/maindec-08-d05b-d.pdf>ac-5816b / maindec-08-d05b-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d05/maindec-08-d05b-pb>ak-5818b / maindec-08-d05b-pb</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d05/maindec-08-d05a-pb>ak-5818a / maindec-08-d05a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>RANDOM ISZ TEST<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d07>maindec-08-d07</a></td>
@@ -4218,7 +4263,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d07/maindec-08-d07b-d.pdf>ac-5819b / maindec-08-d07b-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d07/maindec-08-d07b-pb>ak-5821b / maindec-08-d07b-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d07/maindec-08-d07a-d.pdf>ac-5819a / maindec-08-d07a-d</td><td></a></td></tr>
-<tr><td>ak-5821a / maindec-08-d07a-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d07/maindec-08-d07a-pb>ak-5821a / maindec-08-d07a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>PDP-8 Instruction Test, part 3A (EAE)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d0a>maindec-08-d0a</a></td>
@@ -4229,7 +4274,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>Instruction Test (EAE) Part 3B<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d0b>maindec-08-d0b</a></td>
 <td><table>
-<tr><td>maindec-08-d0ba-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d0b/maindec-08-d0ba-pb>maindec-08-d0ba-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Memory Address Test (renamed to 08-D1B0)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d11>maindec-08-d11</a></td>
@@ -4237,6 +4282,8 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d11/maindec-08-d11a-d.pdf>maindec-08-d11a-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d11/maindec-08-d11a-pb1>maindec-08-d11a-pb1</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d11/maindec-08-d11a-pb2>maindec-08-d11a-pb2</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d11/maindec-08-d11a-pm1>maindec-08-d11a-pm1</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d11/maindec-08-d11a-pm2>maindec-08-d11a-pm2</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Memory Power On/Off Test (replaces maindec-829)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1a>maindec-08-d1a</a></td>
@@ -4244,7 +4291,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1a/maindec-08-d1ac-d.pdf>ac-5822c / maindec-08-d1ac-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1a/maindec-08-d1ac-pb>ak-5824c / maindec-08-d1ac-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1a/maindec-08-d1aa-d.pdf>ac-5822a / maindec-08-d1aa-d</td><td></a></td></tr>
-<tr><td>ak-5824a / maindec-08-d1aa-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1a/maindec-08-d1aa-pb>ak-5824a / maindec-08-d1aa-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Memory Address Test (replaces 08-D11A)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1b0>maindec-08-d1b0</a></td>
@@ -4266,7 +4313,7 @@ are some navigation shortcuts as well:
 <td>Extended Memory Control, Part 1<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1c>maindec-08-d1c</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1c/maindec-08-d1ca-d.pdf>maindec-08-d1ca-d</td><td></a></td></tr>
-<tr><td>maindec-08-d1ca-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1c/maindec-08-d1ca-pb>maindec-08-d1ca-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Extended Memory Checkerboard, Part 2<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d1d>maindec-08-d1d</a></td>
@@ -4337,13 +4384,15 @@ are some navigation shortcuts as well:
 <td>Teletype Reader Exerciser<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2b>maindec-08-d2b</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2b/maindec-08-d2ba-d.pdf>maindec-08-d2ba-d</td><td></a></td></tr>
-<tr><td>maindec-08-d2ba-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2b/maindec-08-d2ba-pb>maindec-08-d2ba-pb</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2b/maindec-08-d2ba-pm>maindec-08-d2ba-pm</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Teletype Punch Test<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2c>maindec-08-d2c</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2c/maindec-08-d2ca-d.pdf>maindec-08-d2ca-d</td><td></a></td></tr>
 <tr><td>maindec-08-d2ca-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2c/maindec-08-d2ca-pm>maindec-08-d2ca-pm</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>High Speed Reader Test<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d2f>maindec-08-d2f</a></td>
@@ -4400,6 +4449,7 @@ are some navigation shortcuts as well:
 <td>TC01 Basic Exerciser (Maindec 850)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3b>maindec-08-d3b</a></td>
 <td><table>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3b/maindec-08-d3bb-d.pdf>maindec-08-d3bb-d</td><td></a></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3b/maindec-08-d3bb-pb>maindec-08-d3bb-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3b/maindec-08-d3bc-pb>maindec-08-d3bc-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -4408,7 +4458,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3e/maindec-08-d3eb-d.pdf>ac-5902b / maindec-08-d3eb-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3e/maindec-08-d3eb-pb>ak-5905b / maindec-08-d3eb-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3e/maindec-08-d3ea-d.pdf>ac-5902a / maindec-08-d3ea-d</td><td></a></td></tr>
-<tr><td>ak-5905a / maindec-08-d3ea-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3e/maindec-08-d3ea-pb>ak-5905a / maindec-08-d3ea-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>INCREMENTAL TAPE DELAY TEST<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d3f>maindec-08-d3f</a></td>
@@ -4536,7 +4586,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d6g/maindec-08-d6gc-d.pdf>ac-5989c / maindec-08-d6gc-d</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d6g/maindec-08-d6gc-pb>ak-5991c / maindec-08-d6gc-pb</td><td></a></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d6g/maindec-08-d6gb-d.pdf>ac-5989b / maindec-08-d6gb-d</td><td></a></td></tr>
-<tr><td>ak-5991b / maindec-08-d6gb-pb</td><td></td></tr>
+<tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d6g/maindec-08-d6gb-pb>ak-5991b / maindec-08-d6gb-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>AF04 DIAGNOSTIC & DEMO<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d6h>maindec-08-d6h</a></td>
@@ -7898,6 +7948,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1262 of 2761 files linked (45.7%), in 1219 directories
+<P>1281 of 2783 files linked (46.0%), in 1226 directories
 </div>
 <?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
