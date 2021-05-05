@@ -1,24 +1,27 @@
 #
 # 358360.pal is the source for the DECmate II ROM set
 # consisting of 358E2, 359E2, and 360E2. 
-PAL	= 358360.pal 390392.pal
+PAL	= 358360.pal 390392.pal 330E4.pal
 BIN	= $(PAL:.pal=.bin)
 LST	= $(PAL:.pal=.lst)
-ROMS	= 358E2 359E2 360E2 390E2 391E2 392E2
+ROMS	= 358E2 359E2 360E2 390E2 391E2 392E2 330E4
 
-all:	$(ROMS)
+all:	$(BIN) $(ROMS)
 
 %.bin:	%.pal .force
 	pal -d -e $<
 
 %.lst:	%.pal
-	pal -e $<
+	pal -d -e $<
 
 358E2 359E2 360E2: 358360.bin
 	./DECmateII $< 358E2 359E2 360E2
 
 390E2 391E2 392E2: 390392.bin
 	./DECmateII $< 390E2 391E2 392E2
+
+330E4: 330E4.bin
+	./DECmateIII $<
 
 force:
 	touch .force
