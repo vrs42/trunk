@@ -1,0 +1,6000 @@
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+
+				  20 July 1984
+
+		     DECmate SLUSHWARE Implementation Notes
+
+
+	 Written by:	.......................	Kenny House
+						ML03-2/E41
+						DMATE:: HOUSE
+						DTN 223-6652
+
+	 Reviewed by:	....................... Don Rice - MLO3-2/E41
+
+
+
+
+	COPYRIGHT (C) 1982, 1983, 1984 - DIGITAL EQUIPMENT CORPORATION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 1
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+				PREFACE
+
+	This is a Component Software Product  Specification.  It  is  the
+	definitive  description  of the goals, capabilities, and external
+	characteristics of the DECmate SLUSHWARE.
+
+	Associated Documents:
+
+		DECmate II SPECIFICATION, REV 4, John Kirk, 8-AUG-82
+
+		DECMATE III SPECIFICATION, Larry Narhi.
+
+		LK200 FUNCTIONAL SPECIFICATIONS, JAN-82
+
+		LK201 KEYBOARD DESIGN SPECIFICATION, 8-0CT-81
+
+		CRT 9007 VIDEO PROCESSOR AND CONTROLLER (VPAC)
+		  PRELIMINARY PRODUCT DESCRIPTION,SMC,SEPTEMBER-81
+
+		6120 CMOS 12-BIT PARALLEL MICROPROCESSOR, PURCHASE
+		  SPECIFICATION, 31-MAY-78
+
+		DEC STANDARD #169, STANDARD CODED GRAPHIC CHARACTER
+		  SETS FOR HARDWARE AND SOFTWARE, L. FRAMPTON, 29-MAY-82
+
+		DEC STANDARD #138, DRAFT, REGISTRY OF CONTROL FUNCTIONS
+		  FOR CHARACTER IMAGING DEVICES, J. T. HSU, ll-MAY-82
+
+		DEC STANDARD #70, TIA VIDEO STANDARD REFERENCE MANUAL,
+		  R. SUDAMA, 15-MAY-83
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 2
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+				 Change History:
+
+	DATE		ISSUE #	 	DESCRIPTION/SUMMARY OF CHANGES
+	----		-------		------------------------------
+
+	09-FEB-82	  1		Version 1.0 (draft).
+	18-FEB-82 	  2 		Added detail as per input from
+					reviewers.
+	02-MAR-82 	  3 		More detail as per input.
+	05-MAR-82 	  4 		clarification per review meeting.
+	l9-JUL-82  	  5 		clarification and expansion.
+	29-JUL-82 	  6 		clarification and expansion.
+	26-NOV-82 	  7 		clarification and expansion
+	20-JUN-83 	  8 		clarification and expansion
+	l9-JUL-84 	  9 		clarification and expansion,
+					added appendices A, B, C, D, F, G.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 3
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+    1.0  PRODUCT SUMMARY
+
+	The DECmate  SLUSHWARE  is  a  program  which  contains  loaders,
+	keyboard   and  display  interfaces,  and  basic  keyboard/screen
+	terminal emulation capability.
+
+	With addition of application software, the  DECmate  can  perform
+	as  a  special-purpose  computer  (e.g.,  a  word  processor or a
+	terminal emulator) or as a general-purpose computer.
+
+	The product is designed to be extensible, just as  the  SLUSHWARE
+	itself evolved from that of the DECmate I.  Optional capabilities
+	for the DECmate include both  hardware  and  software  additions.
+	The  cross-loader feature of the SLUSHWARE allows this additional
+	software (drivers and diagnostics) to be effectively brought into
+	the SLUSHWARE: thus product functionality may be enhanced without
+	any change to the basic SLUSHWARE.
+
+	The expected lifetime of the SLUSHWARE is that of the  6120-based
+	DECmate product line.
+
+	The SLUSHWARE is written for, and is constrained to, the hardware
+	of  the  DECmate  II  and  III base systems.  Any changes to this
+	hardware may necessitate a change to the SLUSHWARE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 4
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+    2.0  ENVIRONMENT
+
+    2.1  USER ENVIRONMENT
+
+	The SLUSHWARE is transparent to the user.
+
+    2.2  HARDWARE ENVIRONMENT
+
+	The basic DECmate  hardware  as  described  in  the  "DECmate  II
+	SPECIFICATION"  and  "DECmate  III SPECIFICATION" is the complete
+	hardware  environment  for  the  SLUSHWARE.  Optional   hardware,
+	whether  or  not mentioned in the specification, has no impact on
+	the SLUSHWARE, since applications software provides  drivers  and
+	diagnostics for all options.
+
+    2.2 1  HARDWARE SUPPORTED
+
+	As  a   reference,   the   SLUSHWARE   supports   this   hardware
+	configuration.
+
+		6120 CPU
+		32 Kwords of main memory
+		32 Kwords of control panel memory
+		SMC VPAC 9007 CRT controller
+		LK201 keyboard
+		1 (or 2) RX50 floppy disks
+		Printer port interface (FDX serial asynch line)
+		Real time clock (100Hz)
+
+	The SLUSHWARE is loaded to control panel RAM during the  power-up
+	sequence  by  ROM  firmware.   SLUSHWARE  executes from panel RAM
+	thereafter.
+
+    2.2.2  HARDWARE EXCLUDED
+
+	Options are excluded from this specification, including, but  not
+	limited  to,  auxiliary  processor options, mass storage options,
+	and graphics options.
+
+
+    2.3  SOFTWARE ENVIRONMENT
+
+	SLUSHWARE resides in panel RAM fields zero through  three.  Field
+	seven is used by ROM firmware.  Executable code is in fields zero
+	and one.  Tables (dynamic and static) are in fields zero  through
+	three and field seven.  Screen RAM is in fields two and three.
+
+	Fields four through six in panel RAM are  available  for  use  by
+	application  software.   It  is not recommended to use this space
+	for  executable  code,  since  interrupts  are   disabled   while
+	executing  panel  code.  Field seven in panel RAM may be used for
+	temporary buffers;  The user must be aware that this area may  be
+
+
+
+
+				      page 5
+	DECmate Slushware Implementation Notes	______________________________________
+
+	obliterated by firmware (for Set-Up,  Halt,  crossboot  requests)
+	and that the high addresses in this field are expected to be used
+	for compose tables.
+
+	Application  software  interfaces  with  the  terminal   emulator
+	function  of  the  SLUSHWARE  for  standard character display and
+	keyboard handling (see section 3.7).  Panel request  instructions
+	allow  non-standard  control  of  the  slushware environment (see
+	section 3.11).
+
+	The SLUSHWARE is upward-compatible from the  DECmate  I  firmware
+	except  as  noted.   Most  standard applications software for the
+	DECmate I will run unmodified on the DECmate II and  the  DECmate
+	III.
+
+	The PR2 instruction is not supported; it is correctly ignored.
+
+	The PR3 instruction (panel request for execution of control panel
+	subroutine)  is  not  compatible  with the DECmate I (see section
+	3.11); previously documented PR3s are correctly ignored.
+
+	The LEDs on the keyboard are not  accessible  to  user  programs;
+	they  are  treated  differently from the DECmate I since all LEDs
+	are pre-assigned.
+
+	Clock IOTs are different from the DECmate I.
+
+	Any software which  relied  on  specific  knowledge  of  internal
+	firmware  (such  as  buffer or subroutine addressing) is excluded
+	from the above compatibility statement.
+
+	Features  are  provided  to  support  a  TIA-compatible  terminal
+	emulation  program  at  the  user  level.  TIA levels l and 2 are
+	supported.
+
+    
+2.4  SERVICE ENVIRONMENT
+
+	SLUSHWARE: Not applicable.
+
+	SELF-TEST: None.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 6
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+    3.0  SOFTWARE CAPABILITIES
+
+	The   SLUSHWARE   provides  interfaces,   functionalities,    and
+	diagnostics as described in this section.
+
+    3.1  KEYBOARD INTERFACE
+
+	The SLUSHWARE interfaces to a  LK201  keyboard  via  a  Universal
+	Asynchronous Receiver-Transmitter (UART) contained in the DECmate
+	hardware configuration.   The UART  is  hardware  programmed  for
+	4800 BAUD, one stop bit, eight data bits, and no parity.  See the
+	LK201 Functional Specification for more detail.
+
+	These instructions are available to the  SLUSHWARE  for  keyboard
+	interface.
+
+		KBRSF (6111) -  skip if KB receiver flag set, then clear
+				KB receiver flag
+
+		KBIE (6115) -	set/clear KB interrupt enable
+				AC<ll> : 0 = clear
+					 1 = set
+
+		KBRD (6116) - 	Read from keyboard
+				AC<4:11> <-- KB buffer
+				AC<0:3> unchanged
+
+		KBLS (6056) - 	Write to keyboard
+				KB buffer <--AC<4:11>
+
+		KBTSF (6051) - 	Skip if KB transmitter set, clear KB
+				transmitter flag.
+
+	Note that SLUSHWARE must be the  only  program  that  clears  the			    ____
+	keyboard  receiver or transmitter flags by executing the KBRSF or
+	KBTSF or the CAF instructions.  If an application program  clears
+	either  or both of these flags, the SLUSHWARE will not be able to
+	control the LK201 keyboard correctly.  A panel request  has  been
+	provided  to  issue the CAF instruction without losing control of
+	these flags;  use of this panel request may cause a keystroke  to
+	be lost.
+
+	Note that there are only four LEDs on  the  LK201  Keyboard,  and
+	they  are  pre-assigned  to 'Hold Screen', 'Lock', 'Compose', and
+	'Wait'.  The DECmate I had five user-programmable LEDs which  are
+	no longer available.
+
+    3 1.1  KEYBOARD INPUT INTERFACE
+
+	Keycodes are read from the UART as they are  sent  by  the  LK201
+	keyboard.  (See appendix D for a list of LK201 keycodes.)
+
+	Keycodes are interpreted as error sequence,  identification  (ID)
+
+
+
+				      page 7
+	DECmate Slushware Implementation Notes	______________________________________
+
+	sequence, and normal characters.  SHIFT, CONTROL,  CAPSLOCK,  and
+	ALLUP  codes  are  used  to set translation states for subsequent
+	keycodes.  METRONOME  is  used  for  auto-repeat  of  the  latest
+	character.  KBDLOCKED  is  used  to  acknowledge  a HOLD command.
+
+	Incoming  keycodes  are  translated  via  table-driven  code   in
+	SLUSHWARE  for  ease  of  switching character sets.  The table is
+	loaded from track 00 of  the  system  disk  at  power-on  by  ROM
+	firmware.  The  keyboard translation table for the main key array
+	may be cross-loaded by  application  software  to  handle  non-US
+	keyboard layouts.
+
+	These modes affect the keyboard input handling.
+
+		Auto-repeat mode
+		Keyboard action mode
+		Keypad numeric/application mode
+		Cursor key mode
+		ANSI/VT52 mode
+		Level l/Level 2 terminal emulation mode
+		Keyclick enable/disable mode
+		Host Port Environment
+		C1 Transmission mode
+		Caps_Lock/Shift_Lock mode
+
+		Compatibility mode
+		Compose enable/disable mode
+		IDIN mode	
+		Local function key mode
+		Single-character function key mode
+
+	Translated keycodes are passed to applications software in the AC
+	when  the  keyboard  is  read  by  the  user  with the KCC or KRB
+	instructions (see Section 3.7.2).
+
+	No keyboard error detection or  error  handling  is  provided  in
+	SLUSHWARE.
+
+	Refer to the keyboard section  of  the  DEC  Terminals  Interface
+	Architecture  Video SRM (DEC STD 70) for codes generated from the
+	keyboard and applicable modes.
+
+
+    3.1.1.1  Compatibility mode
+
+	At power-on, and when the compatibility mode has been reset,  the
+	top-row  function keys and the editing keys act incompatibly with
+	the TIA SRM.  The ESC, BS and LF keys  send  the  appropriate  C0
+	character.  Other  non-local  function keys and editing keys send
+	a control sequence ESC [ Pn ~, where  the  numeric  parameter  is
+	that of the TIA SRM Level 2.
+
+	If the compatibility mode has been selected, these  keys  act  in
+	accordance with the TIA SRM.
+
+
+
+				      page 8
+	DECmate Slushware Implementation Notes	______________________________________
+
+	The compatibility mode may be set or  reset  using  PR3/0010/7777
+	(see section 3.11).
+
+    3.1.1.2  Compose Enable/Disable Mode
+
+	At power-on, and when  the  compose  mode  has  been  reset,  the
+	'compose  character'  key  is disabled.  No code is generated for
+	this key, no keyclick is sounded, and the compose  LED  is  never
+	turned on.
+
+	If the compose mode has been set,  the  'compose  character'  key
+	acts  in  accordance  with  the  TIA  SRM.  Note that the compose
+	tables must be cross-loaded by the user (see appendix ??).
+
+	The compose mode may be set or  reset  using  PR3/0016/7777  (see
+	section 3.11).
+
+    3.1.1.3 IDIN mode
+
+	At power-on, and when the IDIN mode has been reset, the  keyboard
+	acts normally (consistent with other keyboard modes).
+
+	If the IDIN mode has been set, no translation is performed on any
+	received keycode.  Each keycode is sent to the user directly.  No
+	output (keyclick, bell, LEDs) will be made to the keyboard.  This
+	mode  is  intended  for  use  with a device other than a standard
+	LK201 keyboard (such as the IDIN).  Note that  if  this  mode  is
+	selected  when  an  LK201  keyboard  is  in  the system, the user
+	assumes responsibility for handling all keyboard functions.
+
+	The IDIN mode may  be  set  or  reset  using  PR3/0020/7777  (see
+	section 3.11).
+
+    3.1.1.4  Local Function Key Mode
+
+	At power-on, and when the local function key mode is  reset,  the
+	local  function  keys 'Print_screen', 'Set_Up', 'F4', and 'Break'
+	are transmitted to the user via control  sequences  as  described
+	in the TIA SRM.  The 'Hold' key is handled by slushware.
+
+	If the local function key mode is set, the local function keys do
+	not transmit any codes to the user.  The history of these keys is
+	available to the user via a panel request (see section 3.11).
+
+	The  local  function  key  mode  may  be  set  or   reset   using
+	PR3/0012/7777 (see section 3.11).
+
+    3.1.1.5  Single-character Function Key Mode
+
+	At power-on, and when the single-character function key  mode  is
+	reset,  the top row function keys, editing keys, cursor keys, and
+	the application keypad keys act as described under  Compatibility
+
+
+
+
+
+				      page 9
+	DECmate Slushware Implementation Notes	______________________________________
+
+	mode (see section 3.1.1.1).
+
+	If the single-character function key mode is  set,  each  of  the
+	above  keys is sent to the user as a single twelve-bit word.  The
+	main key array is unaffected.  The format of the word follows.
+
+	bits <04-11>	LK201 keycode
+	bit <03>	1 = single-character function key,
+			0 = normal key
+	bit <02>	1 = shifted, 0 = unshifted
+	bit <01>	1 = controlled, 0 = uncontrolled
+	bit <00>	1 = locked, 0 = unlocked
+
+	The 'Compose Character' key is affected by this mode only if  the
+	compose  mode is disabled;  when the compose mode is enabled, the
+	'Compose Character' key is used to initiate a compose sequence.
+
+	The single-character function key mode may be set or reset  using
+	PR3/0027/7777  (see  section 3.11).  See appendix D for a list of
+	the LK201 keycodes that may be transmitted when this mode is set.
+
+    3.1.2  KEYBOARD OUTPUT INTERFACE
+
+	Commands are sent to the LK201 keyboard via the UART as the  need
+	arises  (i.e.,  not  restricted  to end-of-frame or end-of-line).
+	Valid commands to the keyboard are these.
+
+		Set auto-repeat rates and timeouts for buffer
+		Select mode for functional group
+		Select auto-repeat buffer for functional group
+		Resume keyboard transmission
+		Inhibit keyboard transmission
+		Light LEDs
+		Turn off LEDs
+		Disable keyclick
+		Enable keyclick, set keyclick volume
+		Disable CNTL keyclick
+		Enable CNTL keyclick
+		Sound keyclick
+		Disable bell
+		Enable bell, set bell volume
+		Sound bell
+		Temporary auto-repeat inhibit
+		Request keyboard ID
+		Reinitiate keyboard
+		Jump to test mode
+
+	User escape sequences are defined to select keyboard  auto-repeat
+	and  to  select  keyboard transmission enable (see Section 3.10).
+	A panel request allows direct transmission to the  keyboard  (see
+	section  3.11).   Panel  requests  allow  application  control of
+	keyboard case (upper/lower), bell volume, keyclick  volume,  Lock
+	mode  (Caps/shift),  Compose  mode  (enable/disable),  IDIN  mode
+
+
+
+
+				      page 10
+	DECmate Slushware Implementation Notes	______________________________________
+
+	(enable/disable), and single-character function key mode (enable/
+	disable) (see section 3.11).
+
+	A control code is defined to sound the bell (see section 3.7.1).
+
+	During normal operation of SLUSHWARE, these command sequences may
+	be issued to the LK201 keyboard.
+
+		LED on - used to turn on each of the LEDs on the
+		  keyboard as appropriate.
+
+		LED off - used to turn off each of the LEDs on the
+		  keyboard as appropriate.
+
+		enable keyclick, sound keyclick, disable keyclick - used
+		  to sound a click to signify to the user that a key has
+		  been pressed and that the key is not muted.  This
+		  sequence is not issued when the keyclick is disabled.
+
+		enable bell, sound bell - used to sound a beep when the
+		  C0 control code for BEL has been received from
+		  application software.
+
+	 	enable bell, temporary autorepeat inhibit, sound bell -
+		  used to sound a bell to signify to the operator that
+		  an illegal compose sequence has been entered.  This
+		  beep is about half the volume of the normal beep.
+
+		temporary autorepeat inhibit - used to prevent keys from
+		  autorepeating.  This sequence is issued whenever a key
+		  is pressed as part of a compose sequence, whenever a
+		  muted key is pressed, whenever the 'Return' key is
+		  pressed, and whenever a METRONOME keycode is received
+		  from the LK201 without a valid precedent.
+
+    3.1.3  KEYBOARD POWER-UP
+
+	The keyboard interface is tested and set as part of  the  DECmate
+	ROM firmware power-up sequence (see section 3.8).
+
+	When control is passed to SLUSHWARE, the following  commands  are
+	sent to the keyboard.
+
+		Disable keyclick
+		Return and Tab keys - autorepeat buffer 1
+		Application Function keys - autorepeat buffer 0
+		Editing keys - autorepeat buffer 0
+		Enable autorepeat
+
+	This default is selectable via the ROM firmware setup menu.
+
+		auto-repeat enabled/disabled
+
+
+
+
+
+				      page 11
+	DECmate Slushware Implementation Notes	______________________________________
+
+	The keyboard  LEDs  are  also  set  or  reset  according  to  the
+	corresponding state of the software flags; they will all be off.
+
+	At the completion of the power-up, the keyboard is  unlocked  and
+	is in lower-case mode.
+
+
+     3.2  VIDEO DISPLAY INTERFACE
+
+	The SLUSHWARE interfaces to a  SMC  VPAC  9007  video  controller
+	(Cathode  Ray  Tube  Controller,  CRTC),  and  to special-purpose
+	hardware of the DECmate.
+
+	These instructions are available to the SLUSHWARE for controlling
+	the CRTC.
+
+		ESSF 	6121 	Skip on End-of-Frame interrupt,
+				clear End-of-Frame.
+
+		LSCREG 	6122 	Load CRTC register number from AC<6:11>,
+				load cursor visibility enable from AC<01>,
+				load cursor visibility disable from AC<00>.
+
+		??	6123 	If Data Field is odd: load user character
+				RAM character number from AC<1:7>, raster
+				line number from AC<8:11>;
+				If Data Field is even: load user character
+				RAM data from AC<4:11>.
+				(Only available on DECmate II.)
+
+		LDCTRC 	6124	Write selected CRTC register from AC<4:11>.
+
+		DPAR 	6126 	Load control register from AC:
+				00 - erase bit 0
+				01 - erase bit 1
+				04 - 80/132 column mode (0 -> 80)
+				05 - video enable (0 -> disable)
+				08 - extended character set mode (0 -> 
+				     clear)
+				09 - user character set mode (0 -> clear)
+				10 - cursor mode (0 -> block, 1 ->
+				     underscore)
+				11 - screen mode (0 -> white on black).
+
+		RDCRTC 6127	Read selected CRTC register to AC<4:11>.
+
+
+    3.2.1  VIDEO DISPLAY INPUT INTERFACE
+
+	The SLUSHWARE is interrupted at the end of each video frame.  The
+	state  of  the End-Of-Frame (EOF) flag may be tested by software.
+	There is no way to determine the state of  the  CRTC  other  than
+	waiting for an EOF.
+
+
+
+
+				      page 12
+	DECmate Slushware Implementation Notes	______________________________________
+
+	N. B.: the light pen interrupt is not supported in SLUSHWARE.
+
+	Note that SLUSHWARE must be the  only  program  that  clears  the			    ____
+	end-of-frame  flag by executing the ESSF or CAF instruction.  The
+	CRTC hardware vertical interrupt line must be reset by  SLUSHWARE
+	before  the  CRTC  will cause another end-of-frame interrupt;  if
+	an  application  program  clears  the  end-of-frame   flag,   the
+	SLUSHWARE  will  not  be  able to  control  the   video   display
+	correctly.   A  panel  request has been provided to issue the CAF
+	instruction without losing control of the end-of-frame flag.
+
+
+    3.2.2  VIDEO DISPLAY OUTPUT INTERFACE
+
+	The CRTC operates in a single row buffer, contiguous row  address
+	table  mode.  The  SLUSHWARE maintains the contiguous row address
+	table and the row data in control panel RAM.
+
+	At each display line, the CRTC  performs  a  Direct-Memory-Access
+	(DMA)  of  the  data for the next display line.  The DMA lasts 64
+	micro-seconds and occurs each  640  micro-seconds  (see  hardware
+	specifications);   both  SLUSHWARE  and  application programs are
+	locked out during DMA.
+
+	Refresh for dynamic memory is ensured by appropriate handling  of
+	the  row address table (see hardware specifications).  Two extra,
+	invisible  rows  are  included  for  memory  refresh  during  the
+	vertical retrace interval.
+
+	Row attributes are encoded as the  two  high  bytes  of  the  row
+	address.
+
+		00 - single height, single width
+		01 - single height, double width
+		10 - double height, double width, top half
+		11 - double height, double width, bottom half
+
+	Character attributes are encoded as the four  high  bits  of  the
+	character data.
+
+		lxxx - blink
+		xlxx - underscore
+		xxlx - bold
+		xxxl - reverse video
+
+	The most significant bit of the character data is  used  for  the
+	blink  attribute  (as  above)  or  as  a  flag  for  the extended
+	character set, depending on the state of the  extended  character
+	set mode flag.
+
+	Characters to be displayed and cursor  control  escape  sequences
+	are passed to SLUSHWARE from applications software in the AC with
+	the TLS instruction or in the argument  string  of  a  PR1  panel
+	request.
+
+
+
+				      page 13
+	DECmate Slushware Implementation Notes	______________________________________
+
+	Both 7-bit and 8-bit environments are supported.  A panel request
+	has been defined to select the host port environment (see section
+	3.11).
+
+	Graphic character sets G0, G1, G2 and G3  are  supported.  Escape
+	sequences  have  been  defined for designating the character sets
+	for these (see section 3.10).
+
+	Graphic character sets GL and GR are  supported.   These  may  be
+	invoked   to  the G0, G1, G2 and G3 sets via escape sequences and
+	control codes (see sections 3.10 and 3.11).
+
+	Control codes from both the C0 and the C1 control character  sets
+	are supported (see section 3.7.1).
+
+	Applications software may directly read to and write from display
+	memory  using  the  PR0  and  PR1 panel request instructions (see
+	section 3.11).  The block move panel request may also be used  to
+	move data from user memory to display memory.
+
+	Screen  and line  erase  functions  are  performed  by  the  CRTC
+	according  to the erase bits in the CRT control word (accessed by
+	the DPAR instruction) and the current cursor position.
+
+		ERASE BIT 0	ERASE BIT 1 	FUNCTION
+		-----------	-----------	--------
+		1		0		Erase line from current
+						cursor to end.
+		1		1		Erase screen from current
+						cursor to end.
+		0		0		Erase off.
+
+	Note that the erase-in-line feature of the hardware is  not  used
+	by   SLUSHWARE   versions   220  and  later.   All  erase-in-line
+	operations are performed entirely by software.
+
+	N. B.: horizontal scroll is not supported by firmware.
+
+	N. B.: multi-paging is not supported by firmware.
+
+
+    3.3  DISK INTERFACE
+
+	The disk  interface  supports  RX50-compatible  floppy  disk  and
+	RD51-compatible Winchester disk controllers.
+
+	The ROM firmware resets the disk interface  at  power-up  of  the
+	DECmate.
+
+	The disk bootstrap routine is loaded from control  panel  ROM  to
+	main memory and executed upon power-up of the DECmate.
+
+	Note that the power-up sequence differs from that of the  DECmate
+	I in that the bootstrap is automatic in the current DECmate.
+
+
+
+				      page 14
+	DECmate Slushware Implementation Notes	______________________________________
+
+	The DECmate I used a SETUP sequence to request the bootstrap.
+
+	The SLUSHWARE resides on tracks 78 and 79  of  the  system  disk.
+	Early  versions  were  formatted as 12-bit words;  later versions
+	are formatted as 8-bit words.  The first sector is always written
+	in  12-bit  mode.   The  SLUSHWARE performs a selfload if old ROM
+	code loads it in 12-bit mode.
+
+	The keyboard language map (to support foreign keyboards)  resides
+	on track 00 of the system disk.
+
+	The text messages used for the SETUP menu reside on track  00  of
+	the system disk.
+
+	The text messages for the HALT display  reside  on  track  00  of
+	the system disk.
+
+	Note that slushware does not access track 00 for any  data;  this
+	is done only by ROM firmware.
+
+
+    3.4  LOADERS
+
+    3.4.1  CONTROL PANEL MEMORY TO MAIN MEMORY CROSS-LOADER
+
+	Data in the control panel memory may be moved to main memory  RAM
+	via the PR3/50XY instruction (see section 3.11).
+
+    3.4.2  MAIN MEMORY TO CONTROL PANEL MEMORY CROSS-LOADER
+
+	Data in the main memory may be moved to control panel RAM via the
+	PR3/40XY instruction (see section 3.11) .
+
+    3.4.3  FLOPPY DISK TO MAIN MEMORY BOOTSTRAP LOADER
+
+	Data in the 'boot block' of the floppy is moved  to  main  memory
+	RAM during SLUSHWARE initialization.
+
+    3.4.4  FLOPPY DISK TO CONTROL PANEL MEMORY SLUSHWARE LOADER
+
+	At power-up, SLUSHWARE is loaded from the system disk to  control
+	panel  memory  by ROM firmware.  The first block is always in 12-
+	bit mode.  Subsequent blocks are either in 12-bit mode or  in  8-
+	bit  mode  (older  versions  are  in 12-bit).  Early ROM firmware
+	loads all blocks in 12-bit mode,  then  transfers  control  to  a
+	routine  in  the first block.  This routine reloads the remaining
+	blocks in 8-bit mode if necessary.
+
+    3.4.5  COMMUNICATION LINK TO MAIN MEMORY DOWNLOADER
+
+	Main memory RAM may be loaded with data from another computer via
+	a  serial  communications  link  with  the DECmate.  This must be
+	controlled by an applications program, not by SLUSHWARE.
+
+
+
+
+				      page 15
+	DECmate Slushware Implementation Notes	______________________________________
+
+    3.5  PRINTER PORT INTERFACE
+
+	The ROM firmware resets the printer port interface at power-up of
+	the DECmate.  The printer port baud rate is a SETUP parameter.
+
+	The PR3/0000/7777 function to print a character is  provided  for
+	backward  compatibility  with  the  DECmate I (see section 3.11).
+	Use of this function is not recommended.
+
+	Media Copy, Printer-Extent  Mode,  Printer-Controller  Mode,  DEC
+	Hard Copy, and Print-Form-Feed Mode (the printer extension to TIA
+	SRM) are not supported in SLUSHWARE.
+
+	The response to the ANSI control  sequence  request  for  printer
+	status is always 'not there' (see section 3.10).
+
+
+    3.6  REAL TIME CLOCK INTERFACE
+
+	The real time clock is tested at power-up by  ROM  firmware.  Its
+	interrupt is disabled following the test.
+
+	SLUSHWARE does not handle the real time clock.
+
+	Note that the clock IOTs differ from those of the DECmate I.
+
+
+    3.7  TERMINAL EMULATION
+
+	The  SLUSHWARE  emulates   a  DEC  Level  2  terminal   for   the
+	applications  software  running in main memory (see the Video SRM
+	for a complete description of Level 2 emulation mode).
+
+	An application program, which  is  not  provided  as  a  part  of
+	SLUSHWARE,  is required to emulate a terminal for a host computer
+	attached to the communications port.  This  program  must  handle
+	communications with the host and printer;  any ANSI controls that
+	would affect these operations must be trapped and handled by  the
+	emulation program.
+
+    3.7.1  TERMINAL OUTPUT (DISPLAY) EMULATION
+
+	These instructions are emulated by the SLUSHWARE.
+
+		TCF  6042 - clear AC
+
+		TLS  6046 - 'display' character in AC, AC unchanged
+
+	SLUSHWARE  receives  data  and  commands  from  the  applications
+	software in the AC with the TLS instruction.
+
+	TLS data  are  either  graphic  characters,  control  characters,
+	escape  sequences,  control  sequences,  or control strings.  The
+
+
+
+
+				      page 16
+	DECmate Slushware Implementation Notes	______________________________________
+
+	data are treated as seven or eight bit  characters  depending  on
+	the   state  of  the  Host  Port  Environment  and  the  terminal
+	emulation level.
+
+	Displayable characters are stored  in  display  memory.   Current
+	character  attributes  are  merged  and  stored  with the display
+	characters.  The cursor position is modified as  appropriate  for
+	the  line  characteristics  and the condition of the new-line and
+	autowrap characteristics. Both the left and  right  hand  control
+	and  character sets (C0, GL, C1 and GR) may be used in the eight-
+	bit environment; the right hand sets map to the left hand set  in
+	the seven-bit environment (see DEC Standard 169).
+
+	These modes and states affect the received character handling.
+
+		ANSI/VT52 mode
+		Level_l/Level_2 terminal emulation mode
+		7-bit/8-bit Host Port Environment
+		80/132 Column mode
+		Line Rendition
+		Character Rendition
+		New_Line/Line_Feed mode
+		Autowrap mode
+		Tab stops
+		Single_Shift
+		Locking shifts
+		Designated character sets
+		Control string in progress
+		Scroll mode
+		Scroll region
+		Origin mode
+		Insertion/replacement mode
+
+	Escape sequences are processed as appropriate for  the  ANSI/VT52
+	and  terminal  emulation  level modes selected.  Power-up mode is
+	determined by the SETUP parameters stored on the disk.
+
+	Specific escape sequences are listed  in  section  3.10  of  this
+	specification.
+
+	Control characters that are handled by the SLUSHWARE  are  listed
+	below.
+
+	C0 control characters:
+
+		NUL  000  Null character
+		SEL  007  Sound bell on keyboard
+		BS   010  Backspace
+		HT   011  Horizontal tab
+		LF   012  Line feed
+		VT   013  Vertical tab (treated as line feed)
+		FF   014  Form feed (treated as line feed)
+		CR   015  Carriage return
+		SO   016  Shift out, maps GL to G1 character set
+
+
+
+				      page 17
+	DECmate Slushware Implementation Notes	______________________________________
+
+		SI   017  Shift in, maps GL to G0 character set
+		CAN  030  Cancel
+		SUB  032  Substitute, displays an error character
+		ESC  033  Escape
+		DEL  177  Delete (ignored)
+
+	C1 control characters (only available in Level_2, 8-bit host port
+	environment),  note that these are identical to the two character
+	expansion escape sequences identified below:
+
+		IND  204  Index (esc D)
+		NEL  205  New line (esc E)
+		HTS  210  Horizontal tab set (esc H)
+		RI   215  Reverse index (esc M)
+		SS2  216  Single shift 2, maps next GL character to
+			  G2 set (esc N)
+		SS3  217  Single shift 3, maps next GL character to
+			  G3 set (esc O)
+		DCS  220  Device control string introducer (esc P)
+	 	CSI  233  Control string introducer (esc [)
+		ST   234  String terminator (esc backslash)
+		OSC  235  Operating system command introducer (esc ])
+		PM   236  Privacy message introducer (esc uparrow)
+		APC  237  Application program command introducer (esc
+			  underscore)
+
+
+    3.7.2  TERMINAL INPUT (KEYBOARD) EMULATION
+
+	These instructions are emulated by SLUSHWARE.
+
+		KCC  6032 - get next character ready, clear AC
+
+		KRS  6034 - logical or AC with ready character
+
+		KRB  6036 - AC <- ready character, get next ready
+			    character
+
+	SLUSHWARE sends data to the applications software in the AC  when
+	the KRB or KRS instructions are emulated.
+	
+	Data are either ASCII codes and escape sequences translated  from
+	the  LK201  keycode  inputs,  or  escape  sequence  responses  to
+	applications software requests.
+
+	Incoming keycodes from the LK201  are  translated  to  characters
+	according  to  the  keyboard translation map (see section 3.1.1).
+	It is possible  to  type  an  escape  sequence  directly  on  the
+	keyboard:   this  will  be  transmitted to applications software,
+	which can test character timing to determine the  source  (manual
+	or automatic) of the escape sequence.
+
+	The SLUSHWARE responds  to  requests  for  status  (e.g.,  cursor
+	position,  device attributes, identification, printer status, UDK
+
+
+
+				      page 18
+	DECmate Slushware Implementation Notes	______________________________________
+
+	lock status) with escape sequences (see  section  3.10).   
+	
+	Escape sequences  generated  by  the  SLUSHWARE may be introduced 
+	by two seven-bit characters or by a single eight-bit C1 character
+	depending  on  the  environment and the C1 Transmission mode (see
+	DEC STD 169).
+
+
+    3.8  POWER-ON INITIALIZATION
+
+	At power-on of the DECmate, the firmware ROM contents  are  moved
+	to  RAM,  the  RAM DATA flag is set and all further firmware code
+	executes from RAM.  The ROM firmware performs a rudimentary self-
+	test.  Upon  successful  completion  of  the  self-test,  the ROM
+	firmware loads the SLUSHWARE (functional firmware) from disk into
+	panel  RAM.  The  SLUSHWARE  initializes  the base hardware, sets
+	modes based on setup  parameters,  and  then  executes  the  disk
+	bootstrap.
+
+	The default programming of the  hardware  is  discussed  in  each
+	section.
+
+	These modes are set during slushware initialization.
+
+		Top/bottom margins to 1;24
+		Origin mode reset (absolute)
+		Cursor position home (1;1)
+		Screen cleared
+		Character rendition normal
+		Line rendition single width (all lines)
+		Insert/replace mode reset (replace)
+		G0, G1, G2, G3 designated according to TIA spec
+		GL invoked to G0
+		GR invoked to G2
+		Newline off
+		Autowrap disabled
+		Tab stops set every eight columns (9, 17, 25....)
+		Screen blank enabled
+
+		Keyboard action mode reset (keyboard enabled)
+		Cursor key mode reset
+		Keypad mode reset (numeric)
+		Caps_lock/Shift_lock mode reset (Caps_lock)
+		Compose mode disabled
+		Keyboard lock mode reset (lower case)
+		IDIN mode disabled
+		Local function key mode reset
+		Single-character function key mode reset
+		Compatibility mode reset (incompatible)
+
+
+    3.9  SETUP FUNCTIONS
+
+	These parameters may be changed by SETUP.
+
+
+
+				      page 19
+	DECmate Slushware Implementation Notes	______________________________________
+
+		Column mode (80 or 132 columns)
+		Cursor style (block or underline)
+		Cursor visibility (enabled or disabled)
+		Scroll mode (jump or smooth)
+		Screen mode (white-on-black or black-on-white)
+		Keyclick mode (enabled or disabled)
+		ANSI mode (ANSI or VT52)
+		Terminal emulation mode (level 1 or level 2)
+		Host Port Environment (7-bit or 8-bit)
+		Autorepeat mode (enabled or disabled)
+		bell Enable and Volume
+		Keyclick Enable and Volume
+		Printer port baud rate
+		Communications port baud rate
+
+	Several addresses have been  assigned  in  control  panel  memory
+	field zero for setup parameters.
+
+	      0024   -  bit mask for these parameters
+		<11> 	Column mode (0=80 1=132)
+		<10> 	Cursor style (0=block, 1=underscore)
+		<09> 	Cursor visibility (0=on 1=off)
+		<08> 	Scroll mode (0=jump, 1=slow)
+		<07> 	screen mode (0=light on dark, 1=reverse)
+		<06>	Keyclick mode (0=on, 1=off)
+		<05> 	Terminal emulation mode (0=ANSI, 1=vt52)
+		<04> 	Terminal emulation mode (0=level 1, 1=level 2)
+		<03> 	C1 transmission mode (0=7-bit, 1=8-bit)
+		<02> 	Host port environment (0=7-bit, 1=8-bit)
+		<01> 	Bell enable mode (0=enabled, 1=disabled)
+		<00> 	Autorepeat mode (0=enabled, 1=disabled)
+
+	      0025  - 	Printer port baud rate
+		00  -	50 baud
+		01  -	75 baud
+		02  - 	110 baud
+		03  -	134.5 baud
+		04  - 	150 baud
+		05  -	300 baud *
+		06  -	600 baud *
+		07  - 	1200 baud *
+		10  - 	1800 baud
+		11  - 	2000 baud
+		12  - 	2400 baud *
+		13  - 	3600 baud
+		14  - 	4800 baud */**
+		15  -	7200 baud
+		16  - 	9600 baud *
+		17  - 	19200 baud
+		(* implies available in DECmate II ROM firmware SETUP,
+		 ** implies available in DECmate III ROM firmware
+	 	 SETUP.)
+
+
+
+
+
+				      page 20
+	DECmate Slushware Implementation Notes	______________________________________
+
+	      0026  -	Communication port baud rate
+		00  -	50 baud
+		01  - 	75 baud		
+		02  -	110 baud
+		03  - 	134.5 baud
+		04  - 	150 baud
+		05  - 	300 baud */**
+		06  - 	600 baud *
+		07  - 	1200 baud */**
+		10  - 	1800 baud
+		11  - 	2000 baud
+		12  - 	2400 baud */**
+		13  - 	3600 baud
+		14  - 	4800 baud */**
+		15  - 	7200 baud
+		16  - 	9600 baud */**
+		17  - 	19200 baud
+		(* implies available in DECmate II ROM firmware SETUP,
+		 ** implies available in DECmate III ROM firmware
+		 SETUP. )
+
+	      0027 - bit mask for these parameters
+		<09-11> Keyclick volume (7=minimum, ...0=maximum)
+		<06-08> Bell volume (7=minimum, ...0=maximum)
+		<05> 	reserved for graphics cursor visibility
+		<03-04> reserved for graphics monitor configuration
+		<01-02> reserved
+		<00> 	must be 0 for keyclick volume to work
+
+	The setup parameters are changed in panel  memory  to  match  the
+	current  state of the corresponding mode.  This is performed when
+	the RIS escape sequence is received and when the PR3  request  to
+	move  data  from  panel  memory  to  user memory is issued.  This
+	feature is intended to allow  system  programs  running  in  user
+	memory to obtain the state of these modes.
+
+	These selected  SETUP  parameters  are  used  at  power-on,  upon
+ 	receipt  of  a  reset-to-initial-state  escape sequence, and upon
+	return from  the  setup  menu.   Note  that  all  parameters  are
+	set/reset  according  to  their condition at exit from SETUP, not
+	just those parameters most recently  changed.  The  ROM  firmware
+	SETUP  menu can be invoked by a panel request (see section 3.11).
+	Native language text for  the  menu  resides  on  the  disk.   An
+	application  program  could  be  written to emulate a SETUP menu;
+	SLUSHWARE supports escape sequences and panel requests to  select
+	each of the modes in the setup (see sections 3.10 and 3.11).
+
+	Users of the DECmate should  be  aware  that  saving  the  Set-Up
+	parameters on the system disk will save all the above parameters.
+	The DECmate II ROM firmware Set-Up screen does  not  display  all
+	these  parameters,  so  parameters  that have been changed by the
+	application program may get saved without the operator's explicit
+	knowledge.
+
+
+
+
+				      page 21
+	DECmate Slushware Implementation Notes	______________________________________
+
+    3.10  ESCAPE SEQUENCES
+
+	These escape and control sequences are interpreted by the DECmate
+	SLUSHWARE.
+
+	ANSI mode:
+	----------
+
+	ESC D	 - IND, INDEX
+
+	ESC E	 - NEL, NEXT LINE
+
+	ESC H	 - HTS, HORIZONTAL TAB SET
+
+	ESC M	 - RI, REVERSE INDEX
+
+	ESC N	 - SS2, SINGLE SHIFT 2
+
+	ESC O	 - SS3, SINGLE SHIFT 3
+
+	ESC P	 - DCS, DEVICE CONTROL STRING INTRODUCER
+
+	ESC Z	 - DECID, REQUEST TERMINAL ID
+
+	ESC [	 - CSI, CONTROL STRING INTRODUCER
+
+	ESC \	 - ST, STRING TERMINATOR
+
+	ESC _	 - APC, APPLICATION PROGRAM CONTROL INTRODUCER
+
+	ESC ]	 - OSC, OPERATING SYSTEM CONTROL INTRODUCER
+
+	ESC ^	 - PM, PRIVACY MODE INTRODUCER
+
+	ESC SP F  - S7ClT, SEND C1 CONTROL CHARACTER AS TWO SEVEN-BIT
+		   CHARACTERS
+
+	ESC SP G  - S8C1T, SEND C1 CONTROL CHARACTER AS SINGLE SEVEN-BIT
+		   CHARACTER
+
+	ESC # 3  - DECDHLT, SELECT DOUBLE-HEIGHT LINE, TOP
+	
+	ESC # 4  - DECDHLB, SELECT DOUBLE HEIGHT LINE, BOTTOM
+
+	ESC # 5  - DECSWL, SELECT SINGLE-WIDTH LINE
+
+	ESC # 6  - DECDWL, SELECT DOUBLE-WIDTH LINE
+
+	ESC # 8  - DECALN, SCREEN ALIGNMENT PATTERN
+
+	ESC ( F  - SCS, DESIGNATE G0 SET (SEE BELOW FOR VALUES OF F)
+
+	ESC ) F  - SCS, DESIGNATE G1 SET (SEE BELOW)
+
+
+
+
+				      page 22
+	DECmate Slushware Implementation Notes	______________________________________
+
+	ESC * F  - SCS, DESIGNATE G2 SET (SEE BELOW) **
+
+	ESC + F  - SCS, DESIGNATE G3 SET (SEE BELOW) **
+
+		AVAILABLE CHARACTER SETS ARE
+		A  - UK ASCII *
+		B  - US ASCII
+		I  - JIS KATAKANA */***
+		J  - JIS ROMAN GRAPHIC SET *
+		K  - GERMAN *
+		R  - FRENCH *
+		Y  - ITALIAN *
+		Z  - SPANISH *
+		0  - SPECIAL GRAPHICS (LINE DRAWING SET)
+		1  - ALTERNATE CHARACTER ROM *
+		2  - ALTERNATE ROM SPECIAL GRAPHICS *
+		3  - FRENCH-CANADIAN *
+		4  - DUTCH *
+		5  - FINNISH *
+		6  - NORWEGIAN-DANISH *
+		7  - SWEDISH *
+		<  - DEC EIGHT-BIT MULTINATIONAL SUPPLEMENTAL CHARACTER
+		     SET **
+		>  - DEC TECHNICAL CHARACTER SET *
+		SP @  - USER-DEFINED BASE CHARACTER SET */***
+		SP A  - USER-DEFINED SPECIAL CHARACTER SET */***
+	
+		(* Implies character attribute blink lost at  designation
+		of this character set.)
+
+		(*** Implies not available on the DECmate III. These sets
+		are  available on the DECmate II, but are not recommended
+		due to cross-product compatibility.)
+
+	ESC 7  - SC, SAVE CURSOR
+
+	ESC 8  - RC, RESTORE CURSOR
+
+	ESC =  - DECKPAM, KEYPAD APPLICATION MODE
+
+	ESC >  - DECKPNM, KEYPAD NUMERIC MODE
+
+	ESC c  - RIS, RESET TO INITIAL STATE
+
+	ESC n  - LS2, MAP GL TO THE G2 CHARACTER SET **
+
+	ESC o  - LS3, MAP GL TO THE G3 CHARACTER SET **
+
+	ESC ~  - LS1R, MAP GR TO THE G1 CHARACTER SET **
+
+	ESC }  - LS2R, MAP GR TO THE G2 CHARACTER SET **
+
+	ESC |  - LS3R, MAP GR TO THE G3 CHARACTER SET **
+
+
+
+
+				      page 23
+	DECmate Slushware Implementation Notes	______________________________________
+
+	CSI Pn @  - ICH, INSERT Pn CHARACTERS **
+
+	CSI Pn A  - CUP, CURSOR UP Pn LINES
+
+	CSI Pn B  - CUD, CURSOR DOWN Pn LINES
+
+	CSI Pn C  - CUD, CURSOR FORWARD Pn COLUMNS
+
+	CSI Pn D  - CUB, CURSOR BACKWARD Pn COLUMNS
+	
+	CSI Pn ; Pm H  - DCA, DIRECT CURSOR POSITIONING
+
+	CSI Ps J  - ED, ERASE IN DISPLAY
+		(Ps: 0-TO END,
+		     1-FROM START,
+		     2-ENTIRE)
+
+	CSI Ps X  - EL, ERASE IN LINE
+		(Ps: 0-TO END,
+		     1-FROM START,
+		     2-ENTIRE)
+
+	CSI Pn L  - IL, INSERT Pn LINES
+
+	CSI Pn M  - DL, DELETE Pn LINES
+
+	CSI Pn P  - DCH, DELETE Pn CHARACTERS
+
+	CSI Pn X  - ECH, ERASE Pn CHARACTERS
+
+	CSI Pn c  - DA1, PRIMARY DEVICE ATTRIBUTES
+		  (Pn: 0-REQUEST ATTRIBUTES, RESPONSE CSI 6 1; 1 c)
+
+	CSI > Pn c  - DA2, SECONDARY DEVICE ATTRIBUTES REQUEST
+		  (Pn: 0-REQUEST ATTRIBUTES,
+			RESPONSE CSI > 3; SLUSHrev; ROMrev c)
+
+	CSI Pn; Pm f  - HVP, HORIZONTAL AND VERTICAL POSITION
+
+	CSI Ps g  - TBC, TABULATION CLEAR
+		(Ps: 0-CLEAR THIS,
+		     3-CLEAR ALL)
+
+	CSI Ps h  - SM, SET MODE (SEE BELOW FOR PARAMETERS)
+
+	CSI Ps l  - RM, RESET MODE
+		(Ps: 2 - KAM, KEYBOARD ACTION MODE
+		     4 - IRM, INSERTION-REPLACEMENT MODE
+		     20 - LNM, LINE FEED/NEW LINE MODE)
+
+	CSI Ps m  - SGR, SELECT GRAPHIC RENDITION
+		(Ps: 0 - DEFAULT, ALL ATTRIBUTES OFF
+		     1 - BOLD
+		     4 - UNDERLINED
+
+
+
+				      page 24
+	DECmate Slushware Implementation Notes	______________________________________
+
+	  	     5 - BLINKING
+		     7 - REVERSE VIDEO
+		     22 - UN-BOLD
+		     24 - UN-UNDERLINE
+		     25 - UN-BLINK
+		     27 - UN-REVERSE)
+
+	CSI Ps n  - DSR, DEVICE STATUS REPORT
+		(Ps: 5-REQUEST STATUS,
+		       RESPONSE CSI 0 n,
+		     6-REQUEST POSITION REPORT,
+		       RESPONSE CSI Pr ; Pc R)
+
+	CSI ? Ps n  - DECDSR, DEVICE STATUS REPORT
+		(Ps: 15-REQUEST PRINTER STATUS,
+		        RESPONSE CSI ? 1 3 n,
+		     25-REQUEST UDK LOCK STATUS,
+			RESPONSE CS: ? 2 3 n)
+
+	CSI ! p  - DECSTR, SOFT TERMINAL RESET
+
+	CSI Pn ; Pm " p  - DECSCL, SELECT COMPATIBILITY LEVEL
+		(Pn: 61-SELECT LEVEL 1,
+		     62-SELECT LEVEL 2, Pm: 1-SELECT 7-BIT C1,
+					    0 OR 2-SELECT 8-BIT C1)
+
+	CSI Pn; Pm r  - STBM, SET TOP AND BOTTOM MARGINS
+
+	CSI ? Pn h  - DECSM, SET MODE (SEE BELOW FOR PARAMETERS)
+
+	CSI ? Pn l  - DECRM, RESET MODE (SEE BELOW)
+		(Pn: 1 - DECCKM, CURSOR KEY MODE
+		     2 - DECSNM, ANSI MODE (IGNORED BY SET MODE)
+		     3 - DECCOL, COLUMN MODE
+		     4 - DECSCLM, SCROLLING MODE
+		     5 - DECSCNM, SCREEN MODE
+		     6 - DECOM, ORIGIN MODE
+		     7 - DECAWM, AUTO-WRAP MODE
+		     8 - DECARM, AUTO-REPEAT MODE
+		     25 - DECCEM, CURSOR VISIBILITY MODE)
+
+	(** implies only available in Level 2 terminal emulation mode.)
+
+
+	VT52 mode:
+	----------
+
+	ESC A  - CURSOR UP
+
+	ESC B  - CURSOR DOWN
+
+	ESC C  - CURSOR FORWARD
+
+	ESC D  - CURSOR BACKWARD
+
+
+
+				      page 25
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+	ESC F  - SELECT GRAPHICS CHARACTER SET
+
+	ESC G  - SELECT USASCII CHARACTER SET
+
+	ESC H  - CURSOR HOME
+
+	ESC I  - REVERSE LINE FEED
+
+	ESC J  - ERASE TO END OF DISPLAY
+
+	ESC K  - ERASE TO END OF LINE
+
+	ESC Y G1 Gc  - DIRECT CURSOR ADDRESS
+
+	ESC Z  - TERMINAL IDENTIFY TYPE
+
+	ESC <  - ENTER ANSI COMPATIBILITY MODE
+
+	ESC "  - KEYPAD APPLICATION MODE
+
+	ESC >  - KEYPAD NUMERIC MODE
+
+
+
+	There are some functions and controls that are not to be used  by
+	new  software.   Conforming  software will be ensured wider cross
+	product compatibility by avoiding these features.
+
+	VT52 emulation mode - This will not be implemented by future
+	     terminals.
+
+	NEL - CR LF has the same effect and should be used for wider
+	     compatibility.
+
+	DECID - This sequence may be redefined.  Use DA1 instead.
+
+	DECALN - This has been provided for use by manufacturing and
+	     diagnostics.  Different terminals will implement this
+	     function differently.
+
+	SCS - These character sets are not recommended because the
+	     characters in these sets can be displayed from the DEC
+	     Multinational character sets (US ASCII and DEC
+	     Supplemental Graphics) and the character attribute blink
+	     is lost when these sets are selected:
+		UK ASCII
+		German
+		French
+		French-Canadian
+		Italian
+		Spanish
+		Dutch
+		JIS Roman
+		Finnish
+
+
+				      page 26
+	DECmate Slushware Implementation Notes	______________________________________
+
+		Swedish
+		Norwegian-Danish
+
+	     These character sets are not recommended because the
+	     character attribute 'blink' is lost when they are
+	     designated.
+		Katakana
+		Alternate ROM
+		Alternate ROM special graphics
+
+	     These character sets are not recommended because of
+	     non-standard designation sequence and because the
+	     character attribute 'blink' is lost when they are
+	     designated.
+		User-defined base character set
+		User-defined special character set
+
+	RIS - This function is implemented differently on different
+	     terminals, the communications link may be broken.  Use
+	     DECSTR instead.
+
+	LS2, LS3, LS1R - Conforming software will only invoke GL to G0
+	     or G1, and will only invoke GR to G2 or G3.
+
+	HVP - This function may be redefined in the future.  Use DCA
+	     instead for the same functionality.
+
+	DECAWM - The autowrap function is implemented differently on
+	     different terminals.  Conforming software will handle line
+	     formatting by itself.
+
+	These user-preference features should not be modified.
+	     DECCOL - column mode
+	     DECSCLM - scrolling mode
+	     DECSCNM - screen mode
+	     DECARM - auto-repeat mode
+
+    3.11  PANEL TRAPS AND INTERRUPTS
+
+	These traps are handled in the SLUSHWARE.
+
+	Power-on
+	Bootstrap
+	  End-of-frame	
+	  user IOT emulation
+	  Keyboard
+	Panel request
+	Halt
+	Real time clock (only at power-up)
+
+	Note that the PR2 (execute setup) and the  PR3  (execute  control
+	panel subroutine) instructions are different from the DECMATE I.
+
+	These  panel  requests  executed  in  application  software   are
+
+
+
+				      page 27
+	DECmate Slushware Implementation Notes	______________________________________
+
+	interpreted by SLUSHWARE.
+
+	PR0 - Read display data, location to be accessed is specified  in
+	the  two  locations  following  the  instruction.  Home  is  0,0.
+	Return is made to CALL+3 with the display character  in  the  AC.
+	Note  that  the  returned  value is an address into the character
+	generator ROM and thus may not be a recognizable character  code.
+	The layout of the character generator ROM is TBS.
+
+	CALL, 	PR0 	/panel request
+		ROW 	/physical row number
+		COL 	/physical column number
+
+	PR1 - write display data,  each  location  and  the  data  to  be
+	written   are   specified  in  three-word  blocks  following  the
+	instruction.  Home is 0,0.  The request is terminated by a  7777.
+	Return is made to the location following the 7777 terminator.
+
+	CALL, 	PRl	/panel request
+		ROW	/physical row number
+		COL	/physical column number
+		DATA	/character to display (map address)
+		.
+		.
+		.
+		7777	/terminator
+
+	PR2 - not implemented.   This  is,  however,  correctly  ignored:
+	Return is made to CALL+2 for DECmate I compatibility.
+
+	PR3 -  Request  panel  memory   functions,   the   function   and
+	function-specific   arguments  are  specified  in  the  locations
+	following the instruction.  Return is  made  following  the  7777
+	terminator.
+
+	CALL, 	PR3	/panel request
+		FUNCT	/function
+		ARG1	/first argument (optional)
+		ARG2	/second argument (optional)
+		.
+		.
+		.
+		7777	/terminator (mandatory)
+	
+	function 0000 - print character in the accumulator.
+			No arguments.
+			This is implemented solely for backward
+			compatibility with the DECmate I, and is not
+			recommended for use.  If the printer sends an
+			XOFF to the SLUSHWARE, the system will hang in
+			panel memory until an XON is received.
+
+	function 0001 - select video enable/disable from AC<11>,
+			0 = enable, 1 = disable.
+
+
+
+				      page 28
+	DECmate Slushware Implementation Notes	______________________________________
+
+			No arguments.
+			This allows user control over screen
+			visibility.  Disabling the screen will not
+			cause display memory contents to be erased.
+
+	function 0002 - select extended character enable/disable from
+			AC<11>.
+			0 = disable, 1 = enable.
+			No arguments.
+			This allows use of the high two quadrants of
+			the character generator ROM (and the user-
+			defined character RAM on the DECmate II).  When
+			enabled, the character attribute bit 'blink' is
+			preempted for use as a ninth address bit.
+
+	function 0003 - select user character enable/disable from
+			AC<11>.
+			0 = disable, 1 = enable.
+			No arguments.
+			This allows use of the user-defined character
+			generator RAM.  When this flag and the extended
+			character flag are set, the 'blink' bit is used
+			as a ninth address bit.
+
+	function 0004 - select cursor style from AC<11>.
+			0 = block, 1 = underline.
+			No arguments.
+
+	function 0005 - execute power-on clear.
+			No arguments, no return is made due to forced
+			restart.
+			This function causes execution of the ROM
+			firmware power-on routine.
+
+	function 0006 - execute ROM firmware functions.
+			AC at entry selects the ROM function to
+			perform,
+			0000 - Execute SETUP menu,
+			7777 - Execute HALT screen,
+			7776 - Execute floppy bootstrap,
+			7775 - Execute Winchester bootstrap.
+			No arguments, return, if any, follows the 7777
+			terminator.
+
+	function 0007 - request display status.
+			No arguments, on return AC = 0 implies the
+			display is stable, AC = 7777 implies the
+			display is busy.
+			This allows the user program to synchronize
+			panel requests with the character-oriented
+			control stream, especially when the display
+			screen is involved.
+
+
+
+
+
+				      page 29
+	DECmate Slushware Implementation Notes	______________________________________
+
+	function 0010 - select compatibility mode from AC<11>.
+			0 = send ESC/BS/LF for those keys, send escape
+			sequences from all other function keys.
+			1 = handle function keys according to DEC STD
+			70.
+			No arguments.
+			This function allows local application
+			functions to access all function keys in level
+			1 and relieves the application of having to
+			translate an escape sequence to identify the
+			ESC, BS and LF keys.  When compatibility mode
+			is set, a terminal emulation program can easily
+			mimic a standard DEC terminal.
+
+	function 0011 - select keyboard case from AC<11>.
+			0 = lower-case, 1 = upper-case
+			No arguments.
+			This function allows an operating system to
+			select the keyboard 'lock' function when it
+			first boots up.  Systems that do not handle
+			lower-case keyboard entry should force the
+			keyboard to upper-case.
+
+	function 0012 - select local function key mode from AC<11>.
+			0 = send escape sequences for the local
+			function keys.
+			1 = maintain a history of the local function
+			keys (for access by PR3/13).
+			No arguments.
+			This function provides the application program
+			with a mechanism of identifying the local
+			function keys without the application's having
+			to parse escape sequences.
+
+	function 0013 - read local function key history into AC.
+			Bits <09-11> = Print/Shift/Ctrl,
+			bits <06-08> = Set-Up/Shift/Ctrl,
+			bits <03-05> = F4/Shift/Ctrl,
+			bits <00-02> = Break/Shift/Ctrl.
+			No arguments.
+			The local function key history is cleared
+			immediately following execution of this
+			function.  The AC equals zero if this function
+			is executed when the local function key mode is
+			reset.
+
+	function 0014 - select Host Part Environment from AC<11>.
+			0 = 7-bit, 1 = 8-bit
+			No arguments.
+			This function allows selection of the data path
+			width between the user and the SLUSHWARE.  When
+			set to 7-bits, the SLUSHWARE will strip the
+			eighth bit of data received from the user and
+			slushware will not send any data to the user
+
+
+
+				      page 30
+	DECmate Slushware Implementation Notes	______________________________________
+
+			with the eighth bit set;  C1 control characters
+			will be sent as the corresponding expansion
+			escape sequence.
+
+	function 0015 - select CAPS/SHIFT_LOCK mode from AC<11>.
+			0 = CAPS_LOCK, 1 = SHIFT_LOCK.
+			No arguments.
+			This function allows the slushware to interpret
+			the keyboard map according to local customs of
+			the country (notably, France and Italy use a
+			Shift-lock keyboard mode).  When this mode is
+			set for Shift_lock, the lock state is reset
+			whenever the 'shift' key is pressed.  When in
+			Caps_lock, the lock state is toggled by
+			pressing the 'lock' key and is unaffected by
+			the 'shift' key.
+
+	function 0016 - select COMPOSE mode enable/disable from AC<11>.
+			0 = disable compose mode,
+			1 = enable compose mode.
+			No arguments.
+			The compose character function requires the
+			user to have cross-loaded a set of compose
+			tables into panel memory (see appendix ??).
+
+	function 0017 - select screen blank enable from AC<11>.
+			0 = enable auto-blanking of the screen after
+			half an hour,
+			1 = disable auto-blank feature.
+			No arguments.
+			When this function is executed, the screen is
+			enabled and the screen blank counters are
+			reset.
+
+	function 0020 - select IDIN mode from AC<11>.
+			0 = disable IDIN mode,
+			1 = enable IDIN mode.
+			No arguments.
+			This function allows an application program to
+			communicate directly with a device connected to
+			the keyboard port.  When this mode is enabled,
+			the SLUSHWARE does not translate any data nor
+			does SLUSHWARE automatically transmit any
+			commands to the keyboard port.
+
+	function 0021 - select keyclick volume or disable from AC.
+			7777 implies disable keyclick,
+			0007 turns on keyclick at lowest volume,
+			volume increases from 0007 through 0000,
+			0000 turns on keyclick at maximum volume.
+			No arguments.
+
+	function 0022 - select bell volume or disable from AC.
+			7777 implies disable bell,
+
+
+
+				      page 31
+	DECmate Slushware Implementation Notes	______________________________________
+
+			0007 turns on bell at lowest volume,
+			volume increases from 0007 through 0000,
+			0000 turns on bell at maximum volume.
+			No arguments.
+
+	function 0023 - select 132 column enable/disable from AC<11>.
+			0 = 132 column mode allowed,
+			1 = 132 column mode disabled (request for 132
+			column mode will be treated as a request for 80
+			column mode).
+			No arguments.
+
+	function 0024 - select soft_terminal_reset enable from AC<11>.
+			0 = enable soft_terminal_reset,
+			1 = disable soft_terminal_reset (to prevent
+			side effects of selecting conformance level).
+			No arguments.
+
+	function 0025 - select cursor disable from AC<11>.
+			0 = enable cursor,
+			1 = disable cursor.
+			This function allows temporary disabling of the
+			cursor without affecting the user selection of
+			cursor visibility.
+			No arguments.
+
+	function 0026 - select screen display width without clearing
+			screen from AC<11>.
+			0 = select 80 columns,
+			1 = select 132 columns.
+			Execution of this function does not affect the
+			row address table.
+			No arguments.
+
+	function 0027 - select single character function key mode from
+			AC<11>.
+			0 = reset single_character_function_key mode,
+			1 = set single_character_function_key mode.
+			No arguments.
+
+	function 0030 - execute a CAF instruction.
+			This function executes a CAF (clear all flags)
+			instruction without killing SLUSHWARE flags.
+			Use of the CAF instruction by the user can
+			cause SLUSHWARE to hang forever, and is not
+			recommended.  It is possible to lose a
+			keystroke upon execution of this function.
+			No arguments .
+
+	function 40NM - load data from user memory field M to control
+			panel memory field N.  Arguments are
+			1) user memory start address,
+			2) panel memory start address,
+			3) two's complement of number of words to
+
+
+
+				      page 32
+	DECmate Slushware Implementation Notes	______________________________________
+
+			transfer,
+			4) 7777 as terminator.
+			The size of the buffer to be moved must be
+			limited if the application software is to
+			handle interrupts.  Note that interrupts are
+			suppressed during panel execution.
+
+	function 50NM - load data from control panel memory field M to
+			user memory field N.  Arguments are
+			1) panel memory start address,
+			2) user memory start address,
+			3) two's complement of number of words to
+			transfer,
+			4) 7777 as terminator.
+			The size of the buffer to be moved must be
+			limited if the application software is
+			to handle interrupts.  Note that interrupts
+			are suppressed during panel execution.
+
+	function 60N0 - transfer control to panel memory field N,
+			arguments are
+			1) address to which the transfer is made,
+			2) 7777 as terminator.
+			If return is made, it should follow the 7777
+			terminator.
+
+	function 7000 - send data directly to keyboard, each 8-bit
+			datum following the function number is passed
+			to the keyboard (high nibble must be 0000),
+			terminates with a 7777.  No attempt is made
+			to check for reasonableness of data sent.
+
+	function 71N0 - pass screen control data to user buffer in
+			field N.  Arguments are
+			1) user buffer start address, and
+			2) 7777 as terminator.
+			The return buffer is 29 decimal words long
+			its format is
+			1 - column mode (0=80, -1=132),
+			2 - origin mode (0=absolute, -1=relative)
+			3 - top row of scroll region
+			4 - bottom row of scroll region
+			5 - crt controller (DPAR) word
+			6-29 - high words of row address table.
+			This function allows an application program to
+			get the information required for printing a
+			copy of the video display.
+
+	function 72N0 - display character string from buffer in field N
+			(block TLS).  Arguments are
+			1) address of character string, and
+			2) 7777 as terminator.
+			This function is equivalent to issuing a number
+			of TLSs.  The contents of the string must be
+
+
+
+				      page 33
+	DECmate Slushware Implementation Notes	______________________________________
+
+			graphic characters from GL and GR;  the string
+			is terminated by the first C0 or C1 control
+			character (including NUL).  This function must
+			not be used if the screen display is actively
+			scrolling or if autowrap or character insertion
+			modes are enabled.
+
+	function 7300 - position cursor to the specified row and
+			column.  Arguments are
+			1) row number (1 - 24), and
+			2) column number (1 - 131).
+			This function is equivalent to a direct cursor
+			address escape sequence (CUP) and the row and
+			column addressing is subject to the same
+			interpretation.  This function must not be used
+			if the screen display is actively scrolling or
+			if autowrap or character insertion modes are
+			enabled
+
+
+    3.12  COMMUNICATION INTERFACE
+
+	The ROM firmware resets the communication interface  at  power-up
+	of  the  DECmate.  The  initial state will be set to asynchronous
+	operation with one stop bit, eight data bits and no  parity.  The
+	SLUSHWARE  sets the communication port baud rate according to the
+	latest setup parameters (see section 3.9).
+
+	When the power-up sequence is complete, and thereafter, SLUSHWARE
+	does not handle the communication interface.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 34
+	DECmate Slushware Implementation Notes	______________________________________
+
+    4.0  PUBLICATIONS
+
+	TBS.
+
+    5.0	 PACKAGING
+
+	SLUSHWARE is delivered  on  tracks  78  and  79  of  each  system
+	diskette.
+
+    6.0  INSTALLABILITY
+
+	Installation of the SLUSHWARE is  transparent  to  the  user.   A
+	patch utility allows easy update of SLUSHWARE on the disk.
+
+    7.0  EASE OF USE
+
+	DECMATE  SLUSHWARE  is  upward  compatible  from  the  DECMATE  I
+	firmware,  and it is transparent to current applications software
+	with specified exceptions.
+
+	The additional features available with the DECMATE are  designed
+	as  extensions  to the DECMATE I.  Use of these features will be
+	familiar to current users.
+
+    8.0  PERFORMANCE
+
+	SLUSHWARE is constrained to return to user  memory  within  three
+	milliseconds   for   normal   functions,   since  interrupts  are
+	suppressed during panel code execution.  User memory must  handle
+	all  pending  interrupts whenever they occur and further must run
+	down any UART activity.
+
+	Host port baud rates of 9600 maximum  can  be  handled  (if  line
+	pacing   is   controlled   properly   by   XON/XOFF  protocol  in 	
+	application software).
+
+	Some panel requests can cause SLUSHWARE  execution  to  take  too
+	long (see section 3.11).
+
+    9.0	 RELIABILITY
+
+	The tests by which the SLUSHWARE reliability is measured are TBS.
+
+    10.0  MAINTAINABILITY
+
+	All new SLUSHWARE is written in 6120 assembly language.  Comments
+	in  the  code  provide  a  functional description of the code and
+	point out specific interface  details  with  the  hardware.   The
+	SLUSHWARE   is   loaded   from  disk  at  power-on.   Performance
+	enhancement can be done with a release of a diskette (no hardware
+	changes required).
+
+
+
+
+
+
+				      page 35
+	DECmate Slushware Implementation Notes	______________________________________
+
+	Versions  of  SLUSHWARE  are  identified  with  a   monotonically
+	increasing  identification  number.   This number is in the first
+	location of the first sector of  SLUSHWARE  on  the  system  disk.
+	This  value  is  also stored in address (1)0020 of panel RAM (for
+	versions 232 and later).  This value is also available  in  octal
+	ASCII  as the second parameter of the response to the DA2 request
+	(for versions 243 and later).
+
+	It is a goal of the SLUSHWARE  developers  to  maintain  backward
+	compatibility so that applications that run with earlier versions
+	of SLUSHWARE will work unmodified with later versions.
+
+    11.0  MAINTENANCE SERVICE
+
+	TBS.
+
+    12.0  COMPATIBILITY
+
+    12.1  PRODUCT COMPATIBILITY
+
+	The DECmate SLUSHWARE is backward compatible with the  DECmate  I
+	firmware except as noted.
+
+	There are no user-programmable LEDs.
+	
+	There is no short/long buffer (not required).
+
+	The PR2 and PR3 instruction have been changed.
+
+	The clock IOTs have been changed.
+
+	All video and cursor control features  are  compatible  with  the
+	Video SRM (DEC STD 70).
+
+	The DEC 8-bit DEC multinational  supplemental  character  set  is
+	supported.   Note  that the DECmate II character generator ROM is
+	missing the copyright sign,  the  capital  OE  ligature  and  the
+	lower-case oe ligature; these will image as a space.
+
+    12.2  STANDARDS CONFORMANCE
+
+	TBS.
+
+    12.3  INTERNATIONALIZATION
+
+	The SLUSHWARE supports USASCII keyboard as a  standard.  Optional
+	applications  software  allow expansion to french, german, dutch,
+	french-canadian, and other keyboards as required.
+
+	The SLUSHWARE supports character display for these languages.
+
+	USASCII
+
+
+
+
+
+				      page 36
+	DECmate Slushware Implementation Notes	______________________________________
+
+	UKASCII
+	French
+	German
+	Dutch
+	French-Canadian
+	Spanish
+	Italian
+	Norwegian/Danish
+	Swedish
+	Finnish
+	JIS Katakana *
+	JIS Roman
+	DEC multinational supplemental set
+
+	(* implies not available on the DECmate III.)
+
+	A compose function to create display characters  is  provided  in
+	SLUSHWARE.  The compose tables must be crossloaded by application
+	software.
+
+	It is recommended that all applications run  in  Level  2,  8-bit
+	mode  using  the  DEC  Supplemental  character  set  for  maximum
+	transportability.  It is the intent of DEC to migrate  away  from
+	national    replacement   character   sets   toward   the   8-bit
+	multinational character set.
+
+	ROM  firmware  uses  diskette  track  00   for   country-specific
+	information  (halt  screen  text, setup screen text, and keyboard
+	translation map).
+
+    13.0  EVOLVABILITY
+
+	Foreign language support is table driven.
+
+	Escape sequence parsing is table driven.
+
+	Keycode  translation  is  table  driven;   the  tables   may   be
+	crossloaded by application software.
+
+	Compose  sequences  are  table  driven;   the  tables   must   be
+	crossloaded by application software.
+
+    14.0  COSTS
+
+	TBS
+
+    15.0  TIMELINESS
+
+	A working version of at least a subset of the firmware is  to  be
+	available  by  7-JUN-82  for product introduction at the National
+	Computer Conference (NCC).  Done.
+
+	The product will be  announced  10-MAY-82.   Some  parts  of  the
+	firmware  will  be  demonstrable at that time.  Done, DECmate was
+
+
+
+				      page 37
+	DECmate Slushware Implementation Notes	______________________________________
+
+	able to demonstrate WPS-8 at that time.
+
+    16.0  CONSTRAINTS AND TRADE-OFF
+
+	SLUSHWARE may not use panel RAM fields four through  six.   These
+	fields are reserved for use by application software.
+
+	SLUSHWARE loadable image (code and  tables)  is  limited  to  two
+	tracks on the diskette.
+
+    17.0  GLOSSARY
+
+    17.1  GLOSSARY - ACRONYMS
+
+	CPU	Central Processing Unit
+	DMA	Direct Memory Access
+	ROM	Read Only Memory
+	RAM	Random Access Memory (read/write)
+	CRT	Cathode Ray Tube (video display)
+	CRTC	CRT controller
+	RTC	Real Time Clock
+	UART	Universal Asynchronous Receiver-Transmitter
+	TBS	To Be Specified
+	LED	Light Emitting Diode (display light)
+	ASCII	American Standard Code for Information Interchange
+	USASCII United States ASCII
+	UKASCII United Kingdom ASCII
+	JMS 	Jump to subroutine
+	PDL 	Program Design Language
+	TIA 	Terminals Interface Architecture
+	SRM 	Systems Reference Manual
+
+
+    17.2  GLOSSARY - NUMBERS
+
+	6120 	Harris' PDP-8 microcomputer
+	6121	Programmable I/O controller
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 38
+	DECmate Slushware Implementation Notes	______________________________________
+
+	APPENDIX A - KEYBOARD MAP LAYOUT
+
+
+	This appendix defines the translation table format to be used for
+	the  main  key  array  of  the  LK201 keyboard.  This area of the
+	keyboard contains alphabetic, punctuation and control characters.
+	Function  keys,  cursor  keys,  editing  keys and keypad keys are
+	separate areas of the keyboard are handled differently.
+
+	The following keys are excluded from the main  key  array  table,
+	even though they are physically contiguous.
+
+		Ctrl
+		Lock
+		Shift (right and left)
+		Compose Character
+
+	The table is in increasing order of keycodes, with  each  keycode
+	entry  containing  four  values.   Each  value  is  the resulting
+	character code to be sent to the user depending  on  the  current
+	state  of  'Shift',  'Lock', 'Ctrl', and the Caps_lock/Shift_lock
+	mode.  The first of the four entries is transmitted when the  key
+	is  pressed  and  the  'shift',  'lock' and 'ctrl' states are all
+	reset.  The second entry is sent if the 'shift' state is set  and
+	the  'ctrl' state is reset.  The second value is sent also in the
+	condition of 'lock' mode and shift_lock mode set and 'shift'  and
+	'ctrl'  reset.   The  third entry is sent if the 'lock' and Caps_
+	lock modes are set and the 'ctrl' and 'shift'  modes  are  reset.
+	The  fourth  entry  is  sent  if  the  'ctrl'  mode  is set.  The
+	following chart summarizes the above discussion.
+
+		shift	lock	ctrl	caps/shift	column
+		-----	----	----	----------	------
+
+		off	off	off 	caps 		normal
+		on 	off 	off 	caps 		shift
+		off 	on 	off 	caps 		caps
+		on 	on 	off 	caps 		shift
+		off 	off 	on 	caps 		ctrl
+		on 	off 	on 	caps 		ctrl
+		off 	on 	on 	caps 		ctrl
+		on 	on 	on 	caps 		ctrl
+		off 	off 	off 	shift 		normal
+		on 	off 	off 	shift 		shift
+		off 	on 	off 	shift 		shift
+		on 	on 	off 	shift 		shift
+		off 	off 	on 	shift 		ctrl
+		on 	off 	on 	shift 		ctrl
+		off 	on 	on 	shift 		ctrl
+		on 	on 	on 	shift 		ctrl
+
+	The keyboard map table below matches that of the standard DECmate
+	american  keyboard.  This differs from the TIA specification only
+	in that the DECmate keyboard generates a 030 octal character from
+	the key combination Ctrl-Delete;  DEC  STD  70  states  that  the
+
+
+				      page 39
+	DECmate Slushware Implementation Notes	______________________________________
+
+	Delete key is unmodified by the Ctrl key.
+
+	The character values are given in octal.  Note that a zero  value
+	does not transmit a character code to the user;  the zero is used
+	to signify a muted key.   Note  that  a  4000  octal  value  does
+	transmit a NUL character to the user (this value is stored on the
+	diskette as a 377 octal).  The key codes are in decimal.	
+
+		normal  shift   caps	ctrl	key	key	legend
+						pstn	code
+		------  -----   ----	----	----	----	------
+
+		177	177	177	030	E13	188	Delete
+		015	015	015	015	C13	189	Return
+		011	011	0ll	011	D00	190	Tab
+		140	176	140	036	E00	191	' ~
+		061	041	061	000	E01	192	1 !
+		161	121	121	021	D01	193	Q
+		141	101	l0l	001	C01	194	A
+		172	132	132	032	B01	195	Z
+		000	000	000	000	-	196	unused
+		062	100	062	4000	E02	197	2 @
+		167	127	127	027	D02	198	W
+		163	123	123	023	C02	199	S
+		170	130	130	030	B02	200	X
+		074	076	074	000	B00	20l	< >
+		000	000	000	000	-	202	unused
+		063	043	063	033	E03	203	3 #
+		145	105	105 	005	D03	204	E
+		144	104	104	004	C03	205	D
+		143	103	103	003	B03	206	C
+		000	000	000	000	-	207	unused
+		064	044	064	034	E04	208	4 $
+		162	122	122	022	D04	209	R
+		146	106	106	006	C04	210	F
+		166	126	126	026	B04	211	V
+		040	040	040	4000	A01 to	212	<space>
+		040	040	040	4000	A09	213	<space>
+		065	045	065	035	E05	214	5 %
+		164	124	124	024	D05	215	T
+		147	107	107	007	C05	216	G
+		142	102	102	002	B05	217	B
+		000	000	000	000	-	218	unused
+		066	136	066	036	E06	219	6 ^
+		171	131	131	031	D06	220	Y
+		150	110	110	010	C06	221	H
+		156	116	116	016	B06	222	N
+		000	000	000	000	-	223	unused
+		067	046	067	037	E07	224	7 &
+		165	125	125	025	D07	225	U
+		152	112	112	012	C07	226	J
+		155	115	115	015	B07	227	M
+		000	000	000	000	-	228	unused
+
+
+
+
+				      page 40
+	DECmate Slushware Implementation Notes	______________________________________
+
+		normal  shift   caps	ctrl	key	key	legend
+						pstn	code
+		------  -----   ----	----	----	----	------
+		070	052	070	177	E08	229	8 *
+		151	111	111	0ll	D08	230	I
+		153	113	113	013	D08	231	K
+		054	054	054	000	B08	232	, ,
+		000	000	000	000	-	233	unused
+		071	050	071	000	E09	234	9 (
+		157	117	117	017	D09	235	O
+		154	114	114	014	C09	236	L
+		056	956	956	999	B09	237	. .
+		000	000	000	000	-	238	unused
+		060	051	060	000	E10	239	0 )
+		160	120	120	020	D10	240	P
+		000	000	000	000	-	241	unused
+		073	072	073	000	C10	242	; :
+		057	077	057	037	B10	243	/ ?
+		000	000	000	000	-	244	unused
+		075	053	075	000	E12	245	= +
+		135	175	135	035	D12	246	] }
+		134	174	134	034	C12	247	\ |
+		000	000	000	000	-	248	unused
+		055	137	055	000	Ell	249	- _
+		133	173	133	033	Dll	250	[ {
+		047	042	047	000	Cll	251	' "
+		000	000	000	000	-	252	unused
+		000	000	000	000	-	253	unused
+		000	000	000	000	-	254	unused
+		000	000	000	000	-	255	unused
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 41
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+	APPENDIX B - ODT TABLE LAYOUT
+
+	The ODT table provides a mechanism for user programs to determine
+	absolute locations in panel RAM without constraining SLUSHWARE to
+	fix these addresses for all time.  The initial entries in the ODT
+	table are used by the CPODT debugger.
+
+	The ODT table itself is allowed to change location  in  different
+	versions  of  SLUSHWARE,  since  a  table pointer exists in fixed
+	locations of panel RAM.  The table  field  (times  eight)  is  in
+	location (0)0005;  the table address is in location (0)0004.
+
+	Each entry in the ODT table consists of  two  words.   The  first
+	word  is  an  address;  the second word is a field (times eight).
+	Offsets are in octal.
+
+		offset  value
+ 		------  -----
+
+		0	saved status at panel entry
+		2	saved AC at panel entry
+		4	saved MQ at panel entry
+		6	saved panel status at panel entry
+		10	saved PC at panel entry
+		12	saved character rendition at panel entry
+			bit <00> is blink,
+			bit <01> is underline,
+			bit <02> is bold,
+			bit <03> is reverse video
+		14	saved GL character set at panel entry (this is an
+			address to a code map in field one)
+		16	saved GR character set at panel entry (this is an
+			address to a code map in field one)
+		20	saved keyboard lock state at panel entry
+			0000=Off, 7777=on
+		22	saved keyboard hold state at panel entry
+			0000=off, 7777=on
+		24	power-on routine entry point
+		26	SLUSHWARE exit routine entry point
+		30	keyboard receive routine entry point
+		32	keyboard transmit routine entry point
+		34	video end-of-frame processor routine entry point
+		36	character receive routine entry point
+		40	character transmit routine entry point
+		42	halt processor routine entry point
+		44	enqueue character to user routine entry point
+		46	end of SLUSHWARE exit routine
+		50	patch area in field zero (for CPODT)
+		52	patch area in field one (for CPODT)
+		54	CRTC row address table
+		56	keyboard main array translation map
+		60	enqueue string to user routine entry point
+		62	country-specific patch area
+		64	compose tables
+		66	date and time block, the first two words form a
+
+				      page 42
+	DECmate Slushware Implementation Notes	______________________________________
+
+			24-bit binary counter (low address is lsw) which
+			is incremented by SLUSHWARE at each end-of-frame,
+			the next two words are reserved for a date stamp
+			(format ??)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 43
+	DECmate Slushware Implementation Notes	______________________________________
+
+	APPENDIX C - COMPOSE CHARACTER TABLES
+
+	The SLUSHWARE supports the 'Compose Character' key to introduce a
+	compose sequence.  Non-spacing diacriticals, found on many non-US
+	keyboards, are also supported.  Because of space limitations, the
+	compose  tables  are not included as part of the SLUSHWARE on the
+	system diskette;  these tables must  be  crossloaded  into  panel
+	memory by an operating system or application.
+
+	Each operating system should set up its  environment  at  initial
+	boot time:  this initialization includes crossloading the compose
+	tables and enabling the compose function.   An  operating  system
+	could  choose  to  disable  compose;  it may not be sufficient to
+	assume that the power-on state of SLUSHWARE will be  the  current
+	state  since utilities like MASTER MENU allow booting of a system
+	at times other than power-on.
+
+	The following 6120  source  code  contains  executable  code  and
+	tables  for crossloading the American compose tables.  The coding
+	set used is DEC multinational, which includes US  ASCII  and  DEC
+	multinational supplemental.  Operating systems that will only run
+	in 7-bit mode may choose to crossload only the 7-bit  portion  of
+	these  tables.   Operating  systems  that  use a different coding
+	scheme (e.g., national replacement sets) must modify these tables
+	for that code set.
+
+	/ THIS 6120 CODE LOADS A COMPOSE TABLE AND SELECTS COMPOSE MODE.
+	/
+	AC0001= CLA CLL IAC
+  	AC4000= CLA CLL CML RAR
+	PR3=	6236
+	/
+	/
+		FIELD 0
+		*200
+	/
+	START,	CLA CLL
+	/
+	LBL0,	PR3		/READ ODT TABLE FROM PANEL RAM
+	LBL1,	5000
+		0004		/FROM PANEL (0)0004 AND (0)0005
+		ODTPTR		/INTO LOCAL STORAGE
+		-2
+		7777
+	/
+		CLA CLL		/BUILD PRQ TO READ ODT TABLE
+		TAD	ODTPTR
+		DCA	LBL3
+		TAD	ODTPTR+1
+		CLL RTR
+		CLL RAR
+		TAD	LBL1
+		DCA	LBL2
+	/
+		PR3		/READ ODT TABLE
+
+
+				      page 44
+	DECmate Slushware Implementation Notes	______________________________________
+
+	LBL2,	0		/(MODIFIED IN CODE)
+	LBL3,	0		/(MODIFIED IN CODE)
+		ODTTAB		
+		-70
+		7777
+	/
+		TAD I 	XODT64	/BUILD PRQ TO READ COMPOSE TABLE LOCATION
+		SNA
+		JMP	LBL8	/NO ROOM IN PANEL RAM, SKIP CROSS LOAD
+		DCA 	LBL7
+		AC4000
+		TAD I 	XODT65
+		DCA	LBL6
+	/
+		PR3		/PANEL REQUEST TO CROSSLOAD COMPOSE TABLES
+	LBL6,	0		/(MODIFIED IN CODE)
+		CMPTAB		/FROM USER ADDRESS 'CMPTAB'
+	LBL7, 	0		/(MODIFIED IN CODE)
+		CMPTAB-CMPTEN	/MOVE ENTIRE TABLE
+		7777		/TERMINATOR
+	LBL8,	AC0001		/SELECT COMPOSE MODE ON
+		PR3		/WITH PR3
+		0016
+		7777
+	/
+		CLA CLL		/THAT'S ALL, RETURN TO OS8
+		JMP I 	K7600
+	/
+	/
+	K7600,	7600		/OS8 ENTRY POINT
+	/
+	ODTPTR, ZBLOCK 2	/POINTER TO ODT TABLE IN PANEL RAM
+	/
+	XODT56, ODTTAB+56
+	XODT57, ODTTAB+57
+	XODT64, ODTTAB+64
+	XODT65,	ODTTAB+65
+	/
+	/
+	/ COMPOSE TABLES
+	/
+	/ THE FIRST TABLE LISTS POSSIBLE DEAD DIACRITICALS (FROM NAPLPS
+	/ NON-SPACING DIACRITICAL COLUMN) AND THEIR CORRESPONDING IMAGING
+	/ CHARACTERS.  THIS ALLOWS FOR SMALLER SECONDARY TABLES (SINCE,
+	/ FOR EXAMPLE, A SINGLE ENTRY SUFFICES FOR ACUTE AND APOSTROPHE).
+	/ THIS TABLE IS ALWAYS 0020 OCTAL WORDS LONG.
+	/
+	/ 	IMAGE		DEAD	NAME
+	/ 	CODE		CODE
+	/
+	CMPTAB, 200		/200	VECTOR
+		140		/201	GRAVE --> GRAVE
+		047		/202	ACUTE --> APOSTROPHE
+		136		/203	CIRCUMFLEX --> CIRCUMFLEX	
+
+
+
+				      page 45
+	DECmate Slushware Implementation Notes	______________________________________
+
+		176		/204	TILDE --> TILDE
+		205		/205	MACRON
+		206		/206	BREVE
+		207		/207	DOT
+		042		/210	UMLAUT --> DOUBLE QUOTE
+		057		/211	SLANT --> SLASH
+		212		/212	RING
+		054		/213	CEDILLA --> COMMA
+		137		/214	UNDERLINE --> UNDERLINE
+		215		/215	DOUBLE ACUTE
+		216		/216	OGONEK
+		217		/217	CARON
+	/
+	/ THE NEXT TABLE LISTS EACH IMAGING CHARACTER (040-176) AND EACH
+	/ DEAD DIACRITICAL (200-217), POINTING EACH 'FIRST KEY' TO A
+	/ TABLE OF POSSIBLE 'SECOND KEYS'.  TABLE ADDRESSES ARE RELATIVE
+	/ TO THE START OF COMPOSE TABLE AREA 'CMPTAB'.  INVALID 'FIRST
+	/ KEYS' POINT TO A DUMMY SECONDARY TABLE.  DELETE IS INCLUDED
+	/ FOR EASE OF PROGRAMMING, BUT MUST POINT TO DUMMY.
+	/
+	/	ROUTINE		CHAR	CHAR
+	/	ADDRESS		CODE	IMAGE
+	/
+		SPACE-CMPTAB	/040	' '
+		BANG-CMPTAB	/041	'!'
+		DBLQT-CMPTAB	/042	'"'
+		DUMMY-CMPTAB	/043	'#'
+		DUMMY-CMPTAB	/044	'$'
+		DUMMY-CMPTAB	/045	'%'
+		DUMMY-CMPTAB 	/046	'&'
+		ACUTE-CMPTAB	/047	'''
+		LPAREN-CMPTAB 	/050 	'('
+		RPAREN-CMPTAB 	/051 	')'
+		STAR-CMPTAB 	/052 	'*'
+		PLUS-CMPTAB 	/053 	'+'
+		COMMA-CMPTAB 	/054 	','
+		MINUS-CMPTAB 	/055 	'-'
+		PERIOD-CMPTAB 	/056 	'.'
+		SLASH-CMPTAB	/057	'/'
+		ZERO-CMPTAB	/060	'0'
+		ONE-CMPTAB	/061	'1'
+		TWO-CMPTAB	/062	'2'
+		THREE-CMPTAB	/063	'3'
+		DUMMY-CMPTAB	/064	'4'
+		DUMMY-CMPTAB	/065	'5'
+		DUMMY-CMPTAB	/066	'6'
+		DUMMY-CMPTAB	/067	'7'
+		DUMMY-CMPTAB	/070	'8'
+		DUMMY-CMPTAB	/071	'9'
+		DUMMY-CMPTAB	/072	':'
+		DUMMY-CMPTAB	/073	';'
+		LANGLE-CMPTAB 	/074 	'<'
+		EQUAL-CMPTAB 	/075 	'='
+		RANGLE-CMPTAB 	/076 	'>'
+
+
+
+				      page 46
+	DECmate Slushware Implementation Notes	______________________________________
+
+		QUERY-CMPTAB	/077	'?'
+		DUMMY-CMPTAB 	/100	'@'
+		UPPERA-CMPTAB 	/101	'A' - START OF UPPER CASE
+		DUMMY-CMPTAB 	/102	'B'   ALPHABETICS
+		UPPERC-CMPTAB 	/103	'C'
+		DUMMY-CMPTAB 	/104	'D'
+		UPPERE-CMPTAB 	/105	'E'
+		DUMMY-CMPTAB 	/106	'F'
+		DUMMY-CMPTAB 	/107	'G'
+		DUMMY-CMPTAB 	/110	'H'
+		UPPERI-CMPTAB 	/111	'I'
+		DUMMY-CMPTAB 	/112	'J'
+		DUMMY-CMPTAB 	/113	'K'
+		UPPERL-CMPTAB 	/114	'L'
+		DUMMY-CMPTAB 	/115	'M'
+		UPPERN-CMPTAB 	/116	'N'
+		UPPERO-CMPTAB 	/117	'O'
+		UPPERP-CMPTAB 	/120	'P'
+		DUMMY-CMPTAB 	/121	'Q'
+		DUMMY-CMPTAB 	/122	'R'
+		UPPERS-CMPTAB 	/123	'S'
+		DUMMY-CMPTAB 	/124	'T'
+		UPPERU-CMPTAB 	/125	'U'
+		DUMMY-CMPTAB 	/126	'V'
+		DUMMY-CMPTAB 	/127	'W'
+		UPPERX-CMPTAB 	/130	'X'
+		UPPERY-CMPTAB 	/131	'Y'		
+		DUMMY-CMPTAB 	/132	'Z'
+		DUMMY-CMPTAB 	/133	'['
+		DUMMY-CMPTAB 	/134	'\'
+		DUMMY-CMPTAB 	/135	']'
+		CIRCUM-CMPTAB 	/136	'^'
+		ULINE-CMPTAB 	/137	'_'
+		GRAVE-CMPTAB 	/140	'GRAVE'
+		LOWERA-CMPTAB 	/141 	'A' - LOWER CASE ALPHABETICS
+		DUMMY-CMPTAB 	/142	'B'
+		LOWERC-CMPTAB 	/143	'C'
+		DUMMY-CMPTAB 	/144	'D'
+		LOWERE-CMPTAB	/145	'E'
+		DUMMY-CMPTAB 	/146	'F'
+		DUMMY-CMPTAB 	/147	'G'
+		DUMMY-CMPTAB 	/150	'H'
+		LOWERI-CMPTAB 	/151	'I'
+		DUMMY-CMPTAB 	/152	'J'
+		DUMMY-CMPTAB 	/153	'K'
+		LOWERL-CMPTAB 	/154	'L'
+		DUMMY-CMPTAB 	/155	'M'
+		LOWERN-CMPTAB 	/156	'N'
+		LOWERO-CMPTAB 	/157	'O'
+		LOWERP-CMPTAB 	/160	'P'
+		DUMMY-CMPTAB 	/161	'Q'
+		DUMMY-CMPTAB 	/162 	'R'
+		LOWERS-CMPTAB 	/163	'S'
+		DUMMY-CMPTAB 	/164	'T'
+
+
+
+				      page 47
+	DECmate Slushware Implementation Notes	______________________________________
+
+		LOWERU-CMPTAB 	/165	'U'
+		DUMMY-CMPTAB 	/166 	'V'
+		DUMMY-CMPTAB 	/167 	'W'
+		LOWERX-CMPTAB 	/170 	'X'
+		LOWERY-CMPTAB 	/171 	'Y'
+		DUMMY-CMPTAB 	/172 	'Z'
+		DUMMY-CMPTAB 	/173 	'{'
+		VRTBAR-CMPTAB 	/174 	'|'
+		DUMMY-CMPTAB 	/175 	'}'
+		TILDE-CMPTAB 	/176 	'~'
+		DUMMY-CMPTAB 	/177 	DELETE  (DELETE ALWAYS INVALID)
+	/
+		DUMMY-CMPTAB 	/200 	VECTOR - DEAD DIACRITICALS
+		GRAVE-CMPTAB 	/201 	GRAVE
+		ACUTE-CMPTAB 	/202 	ACUTE
+		CIRCUM-CMPTAB 	/203 	CIRCUMFLEX
+		TILDE-CMPTAB 	/204 	TILDE
+		DUMMY-CMPTAB 	/205 	MACRON
+		DUMMY-CMPTAB 	/206 	BREVE
+		DUMMY-CMPTAB 	/207 	DOT
+		DBLQT-CMPTAB 	/210 	UMLAUT
+		DUMMY-CMPTAB 	/211 	SLANT
+		STAR-CMPTAB	/212	RING
+		COMMA-CMPTAB	/213	CEDILLA
+		DUMMY-CMPTAB	/214	UNDERLINE
+		DUMMY-CMPTAB	/215	DOUBLE ACUTE
+		DUMMY-CMPTAB	/216	OGONEK
+		DUMMY-CMPTAB	/217	CARON
+	/
+	/ THE SECONDARY TABLES ARE EACH TERMINATED WITH A 0000.  EACH
+	/ ENTRY IS TWO WORDS:  THE FIRST IS THE 2'S COMPLEMENT OF A
+	/ CHARACTER THAT FORMS A VALID COMPOSE SEQUENCE WITH THE FIRST
+	/ CHARACTER (THAT POINTED TO THIS TABLE), THE SECOND WORD IS THE
+	/ RESULTING COMPOSED CHARACTER.
+	/
+	DUMMY, 	0000 		/DUMMY TABLE, JUST A TERMINATOR
+	/
+	SPACE, 	-042; 	042 	/DOUBLE QUOTE
+		-047; 	047 	/APOSTROPHE
+		-136; 	136 	/CIRCUMFLEX
+		-140; 	140 	/GRAVE
+		-176; 	176 	/TILDE
+		-052; 	260 	/DEGREE <-- <SPACE> *
+		0000
+	/
+	DBLQT,	-040; 	042 	/DOUBLE QUOTE
+		-141; 	344 	/LITTLE A-UMLAUT
+		-145; 	353 	/LITTLE E-UMLAUT
+		-151; 	357 	/LITTLE I-UMLAUT
+		-157; 	366 	/LITTLE 0-UMLAUT
+		-165; 	374 	/LITTLE U-UMLAUT
+		-171; 	375 	/LITTLE Y-UMLAUT
+		-101; 	304 	/BIG A-UMLAUT
+		-105; 	313 	/BIG E-UMLAUT
+
+
+
+				      page 48
+	DECmate Slushware Implementation Notes	______________________________________
+
+		-111; 	317	/BIG I-UMLAVT
+		-117; 	326	/BIG 0-UMLAUT	
+		-125; 	334	/BIG U-UMLAUT
+		-131; 	335	/BIG Y-UMLAUT
+		0000
+	/
+	ACUTE,	-040; 	047	/APOSTROPHE <-- ACUTE+SPACE
+		-101; 	301	/CAPITAL 'A' WITH ACUTE
+		-105; 	311	/CAPITAL 'E' WITH ACUTE
+		-111; 	315	/CAPITAL 'I' WITH ACUTE
+		-117; 	323	/CAPITAL 'O' WITH ACUTE
+		-125; 	332	/CAPITAL 'U' WITH ACUTE
+		-141; 	341	/LOWERCASE 'A' WITH ACUTE
+		-145; 	351	/LOWERCASE 'E' WITH ACUTE
+		-151; 	355	/LOWERCASE 'I' WITH ACUTE
+		-157; 	363	/LOWERCASE 'O' WITH ACUTE
+		-165; 	372	/LOWERCASE 'U' WITH ACUTE
+		0000
+	/
+	CIRCUM, -040; 	136 	/CIRCUMFLEX <--CIRCUMFLEX+SPACE
+		-101; 	302 	/CAPITAL 'A' WITH CIRCUMFLEX
+		-105; 	312 	/CAPITAL 'E' WITH CIRCUMFLEX
+		-111; 	316 	/CAPITAL 'I' WITH CIRCUMFLEX
+		-117; 	324 	/CAPITAL 'O' WITH CIRCUMFLEX
+		-125; 	333 	/CAPITAL 'U' WITH CIRCUMFLEX
+		-141; 	342 	/LOWERCASE 'A' WITH CIRCUMFLEX
+		-145; 	352 	/LOWERCASE 'E' WITH CIRCUMFLEX
+		-151; 	356 	/LOWERCASE 'I' WITH CIRCUMFLEX
+		-157; 	364 	/LOWERCASE 'O' WITH CIRCUMFLEX
+		-165; 	373 	/LOWERCASE 'U' WITH CIRCUMFLEX
+		-060; 	260 	/DEGREE <-- ZERO+CIRCUMFLEX
+		-062; 	262 	/SUPERSCRIPT TWO <-- TWO+CIRCUMFLEX
+		-063; 	263 	/SUPERSCRIPT THREE <-- THREE+CIRCUMFLEX
+		-056; 	267 	/MIDDLE DOT <-- PERIOD+CIRCUMFLEX
+		-061; 	271 	/SUPERSCRIPT ONE <-- ONE+CIRCUMFLEX
+		-057; 	174 	/VERTICAL BAR <-- SLASH+CIRCUMFLEX
+		0000
+	/
+	GRAVE,	-040; 	140 	/GRAVE <--GRAVE+SPACE
+		-101; 	300 	/CAPITAL 'A' WITH GRAVE
+		-105; 	310 	/CAPITAL 'E' WITH GRAVE
+		-111; 	314 	/CAPITAL 'I' WITH GRAVE
+		-117; 	322 	/CAPITAL 'O' WITH GRAVE
+		-125; 	331 	/CAPITAL 'U' WITH GRAVE
+		-141; 	340 	/LOWERCASE 'A' WITH GRAVE
+		-145; 	350 	/LOWERCASE 'E' WITH GRAVE
+		-151; 	354 	/LOWERCASE 'I' WITH GRAVE
+		-157; 	362 	/LOWERCASE 'O' WITH GRAVE
+		-165;	371	/LOWERCASE 'U' WITH GRAVE
+		0000
+	/
+	TILDE, 	-040; 	176 	/TILDE <-- TILDE+SPACE
+		-101; 	303 	/CAPITAL 'A' WITH TILDE
+		-116;	321 	/CAPITAL 'N' WITH TILDE
+
+
+
+				      page 49
+	DECmate Slushware Implementation Notes	______________________________________
+
+		-117; 	325	/CAPITAL 'O' WITH TILDE
+		-141; 	343	/LOWERCASE 'A' WITH TILDE
+		-156; 	361	/LOWERCASE 'N' WITH TILDE
+		-157; 	365	/LOWERCASE 'O' WITH TILDE
+		0000
+	/
+	BANG,	-041; 	241	/INVERTED BANG <-- BANG+BANG
+		-120; 	266	/PARAGRAPH <-- BANG+P(UPPERCASE)
+		-160; 	266	/PARAGRAPH <-- BANG+P(LOWERCASE)
+		-123; 	247	/SECTION <-- BANG+S(UPPERCASE)
+		-163; 	247	/SECTION <-- BANG+S(LOWERCASE)
+		0000
+	/
+	LPAREN, -055; 	173	/LEFT BRACE <-- LEFT PAREN+MINUS
+		-050; 	133	/LEFT BRACKET <-- LEFT PAREN+LEFT PAREN
+		0000
+	/
+	RPAREN, -055; 	175	/RIGHT BRACE <-- RIGHT PAREN+MINUS
+		-051; 	135	/RIGHT BRACKET <-- RIGHT PAREN+RIGHT PAREN
+		0000
+	/
+	STAR, 	-040; 	260	/DEGREE <-- ASTERISK+SPACE
+		-101; 	305	/CAPITAL 'A' WITH RING <-- 'A'+ASTERISK
+		-141; 	345	/LITTLE 'A' WITH RING <-- 'A'+ASTERISK
+		0000
+	/
+	PLUS,	-053; 	043	/NUMBER SIGN <-- PLUS+PLUS
+		-055; 	261	/PLUS/MINUS <-- PLUS+MINUS
+		0000
+
+	/
+	COMMA, 	-040; 	054	/COMMA <-- COMMA+SPACE
+		-103; 	307	/CAPITAL 'C' WITH CEDILLA <-- 'C'+COMMA
+		-143; 	347	/LITTLE 'C' WITH CEDILLA <-- 'C'+COMMA
+		0000
+	/
+	MINUS, 	-050; 	173	/LEFT BRACE <-- LEFT PAREN+MINUS
+		-051; 	175	/RIGHT BRACE <-- RIGHT PAREN+MINUS
+		-114; 	243	/POUND STERLING <-- MINUS+'L'(UPPERCASE)
+		-154;	243	/POUND STERLING <-- MINUS+'L'(LOWERCASE)
+		-131; 	245	/YEN <-- MINUS+'Y'(UPPERCASE)
+		-171; 	245	/YEN <-- MINUS+'Y'(LOWERCASE)
+		-053; 	261	/PLUS/MINUS <-- MINUS+PLUS
+		0000
+	/
+	PERIOD, -136; 	267	/MIDDLE DOT <-- PERIOD+CIRCUMFLEX
+		0000
+	/
+	SLASH, 	-057; 	134	/BACKSLASH <-- SLASH+SLASH
+		-074; 	134	/BACKSLASH <-- SLASH+LEFTANGLE
+		-136; 	174	/VERTICAL BAR <-- SLASH+CIRCUMFLEX
+		-103; 	242	/CENT <-- SLASH+'C'(UPPERCASE)
+		-143; 	242	/CENT <-- SLASH+'C'(LOWERCASE)
+		-125; 	265	/MICRON <-- SLASH+'U'(UPPERCASE)
+		-165; 	265	/MICRON <-- SLASH+'U'(LOWERCASE)
+
+
+				      page 50
+	DECmate Slushware Implementation Notes	______________________________________
+
+		-117; 	330	/UPPEROSLASH <-- SLASH+UPPERO
+		-157; 	370	/LOWEROSLASH <-- SLASH+LOWERO
+		0000
+	/
+	ZERO,	-123; 	247	/SECTION <-- ZERO+'S'(UPPERCASE)
+		-163; 	247	/SECTION <-- ZERO+'S'(LOWERCASE)
+		-130; 	250	/CURRENCY <-- ZERO+'X'(UPPERCASE)
+		-170; 	250	/CURRENCY <-- ZERO+'X'(LOWERCASE)
+		-103; 	251	/COPYRIGHT <-- ZERO+'C'(UPPERCASE)
+		-143; 	251	/COPYRIGHT <-- ZERO+'C'(LOWERCASE)
+		-136; 	260	/DEGREE <-- ZERO+CIRCUMFLEX
+		0000
+	/
+	ONE, 	-136;	271	/SUPERSCRIPT '1' <-- '1'+CIRCUMFLEX
+		-062;	275	/ONE-HALF <- '1 '+'2' (IN ORDER)
+		-064;	274	/ONE-QUARTER <-- '1'+'4' (IN ORDER)
+		0000
+	/
+	TWO, 	-136;	262	/SUPERSCRIPT '2' <-- '2'+CIRCUMFLEX
+		0000
+	/
+	THREE,	-136;	263	/SUPERSCRIPT '3' <-- '3'+CIRCUMFLEX
+		0000
+	/
+	LANGLE, -074; 	253	/LEFT ANGLE QUOTE <-- LEFT ANGLE+LEFT ANGLE
+		-057; 	134	/BACKSLASH <-- LANGLE+SLASH
+		0000
+	/
+	EQUAL, 	-114; 	243	/POUND STERLING <-- EQUAL+'L'(UPPERCASE)
+		-154; 	243	/POUND STERLING <-' EQUAL+'L'(LOWERCASE)
+		-131; 	245	/YEN <- EQUAL+'Y'(UPPERCASE)
+		-171; 	245	/YEN <-- EQUAL+'Y'(LOWERCASE)
+		0000
+	/
+	RANGLE, -076; 	273	 /RIGHT ANGLE QUOTE <-- RIGHT ANGLE+RIGHT ANGLE
+		0000
+	/
+	QUERY, 	-077; 	277	/INVERTED QUERY <-- QUERY+QUERY
+		0000
+	/
+	UPPERA, -101; 	100	/COMMERCIAL AT (@) <-- 'A'+'A'(UPPERCASE)
+		-141; 	100	/COMMERCIAL AT (@) <-- A+A (MIXED CASE)
+		-137; 	252	/FEMININE ORDINAL <-- UNDERSCORE+'A'(UPPERCASE)
+		-140; 	300	/'A' WITH GRAVE <-- 'A'+GRAVE
+		-047; 	301	/'A' WITH ACUTE <-- 'A'+APOSTROPHE
+		-136; 	302	/'A' WITH CIRCUMFLEX <-- 'A'+CIRCUMFLEX
+		-176; 	303	/'A' WITH TILDE <-- 'A'+TILDE
+		-042; 	304	/'A' WITH UMLAUT <-- 'A'+DOUBLEQUOTE
+		-052; 	305	/'A' WITH RING <-- 'A'+ASTERISK
+		-105; 	306	/AE DIPHTHONG <-- 'A'+'E'(UPPERCASE)
+		 0000
+	/
+	LOWERA, -141; 	100	/COMMERCIAL AT (@) <-- 'A'+'A'(LOWERCASE)
+		-101; 	100	/COMMERCIAL AT (@) <-- A+A (MIXED CASE)
+
+
+
+				      page 51
+	DECmate Slushware Implementation Notes	______________________________________
+
+		-137; 	252	/FEMININE ORDINAL <-- UNDERSCORE+'A'(LOWERCASE)
+		-140; 	340	/'A' WITH GRAVE <-- 'A'+GRAVE
+		-047; 	341	/'A' WITH ACUTE <-- 'A'+APOSTROPHE
+		-136; 	342	/'A' WITH CIRCUMFLEX <-- 'A'+CIRCUMFLEX
+		-176; 	343	/'A' WITH TILDE <-- 'A'+TILDE
+		-042; 	344	/'A' WITH UMLAUT <-- 'A'+DOUBLEQUOTE
+		-052; 	345	/'A' WITH RING <-- 'A'+ASTERISK
+		-145; 	346	/AE DIPHTHONG <-- 'A'+'E'(LOWERCASE)
+		0000
+	/
+	UPPERE, -140; 	310	/'E' WITH GRAVE <-- 'E'+GRAVE
+		-047; 	311	/'E' WITH ACUTE <-- 'E'+APOSTROPHE
+		-136; 	312	/'E' WITH CIRCUMFLEX <-- 'E'+CIRCUMFLEX
+		-042; 	313	/'E' WITH UMLAUT <-- 'E'+DOUBLEQUOTE
+		0000
+	/
+	LOWERE, -140; 	350	/'E' WITH GRAVE <-- 'E'+GRAVE
+		-047; 	351	/'E' WITH ACUTE <-- 'E'+APOSTROPHE
+		-136; 	352	/'E' WITH CIRCUMFLEX <-- 'E'+CIRCUMFLEX
+		-042; 	353	/'E' WITH UMLAUT <-- 'E'+DOUBLEQUOTE
+		0000
+	/
+	UPPERI, -140; 	314	/'I' WITH GRAVE <-- 'I'+GRAVE
+		-047; 	315	/'I' WITH ACUTE <-- 'I'+APOSTROPHE
+		-136; 	316	/'I' WITH CIRCUMFLEX <-- 'I'+CIRCUMFLEX
+		-042; 	317	/'I' WITH UMLAUT <-- 'I'+DOUBLEQUOTE
+		0000
+	/
+	LOWERI, -140; 	354	/'I' WITH GRAVE <-- 'I'+GRAVE
+		-047; 	355	/'I' WITH ACUTE <-- 'I'+APOSTROPHE
+		-136; 	356	/'I' WITH CIRCUMFLEX <-- 'I'+CIRCUMFLEX
+		-042; 	357	/'I' WITH UMLAUT <-- 'I'+DOUBLEQUOTE
+		0000
+	/
+	UPPERC, -054; 	307	/'C' WITH CEDILLA <-- COMMA+'C'(UPPERCASE)
+		-057; 	242	/CENT <-- SLASH+'C'(UPPERCASE)
+		-174, 	242	/CENT <-- VERTICAL BAR+'C'(UPPERCASE)
+		-060; 	251	/COPYRIGHT <-- ZERO+'C'(UPPERCASE)
+		-117; 	251	/COPYRIGHT <-- 'O'+'C'(UPPERCASE)
+		-157; 	251	/COPYRIGHT <-- O+C (MIXED CASE)
+		0000
+	/
+	LOWERC, -054; 	347	/'C' WITH CEDILLA <-- COMMA+'C'(LOWERCASE)
+		-057; 	242	/CENT <-- SLASH+'C'(LOWERCASE)
+		-174; 	242	/CENT <-- VERTICAL BAR+'S'(LOWERCASE)
+		-060; 	251	/COPYRIGHT <-- ZERO+'C'(LOWERCASE)
+		-157; 	251	/COPYRIGHT <-- 'O'+'C'(LOWERCASE)
+		-117; 	251	/COPYRIGHT <-- O+C (MIXED CASE)
+		0000
+	/
+	UPPERO, -140; 	322	/'O' WITH GRAVE <-- 'O'+GRAVE
+		-047; 	323	/'O' WITH ACUTE <-- 'O'+APOSTROPHE
+		-136; 	324	/'O' WITH CIRCUMFLEX <-- 'O'+CIRCUMFLEX
+		-176; 	325	/'O' WITH TILDE <-- 'O'+TILDE
+
+
+
+				      page 52
+	DECmate Slushware Implementation Notes	______________________________________
+
+		-042; 	326	/'O' WITH UMLAUT <-- 'O'+DOUBLEQUOTE
+		-105; 	327	/OE DIPHTHONG <-- 'O'+'E'(UPPERCASE)
+		-057; 	330	/'O' WITH SLASH <-- SLASH+'O' (UPPERCASE)
+		-123; 	247	/SECTION <-- 'O'+'S' (UPPERCASE)
+		-163; 	247	/SECTION <-- O+S (MIXED CASE)
+		-130; 	250	/CURRENCY <-- 'O'+'X' (UPPERCASE)
+		-170; 	250	/CURRENCY <-- O+X (MIXED CASE)
+		-103; 	251	/COPYRIGHT <-- 'O'+'C' (UPPERCASE)
+		-143; 	251	/COPYRIGHT <-- O+C (MIXED CASE)
+		-137; 	272	/MASCULINE ORDINAL <--
+				/  UNDERSCORE+'O'(UPPERCASE)
+		0000
+	/
+	LOWERO, -140; 	362	/'O' WITH GRAVE <-- 'O'+GRAVE
+		-047; 	363	/'O' WITH ACUTE <-- 'O'+APOSTROPHE
+		-136; 	364	/'O' WITH CIRCUMFLEX <-- 'O'+CIRCUMFLEX
+		-176; 	365	/'O' WITH TILDE <-- 'O'+TILDE
+		-042; 	366	/'O' WITH UMLAUT <-- 'O'+DOUBLEQUOTE
+		-145; 	367	/OE DIPHTHONG <-- 'O'+'E'(LOWERCASE)
+		-057; 	370	/'O' WITH SLASH <-- SLASH+'O'(LOWERCASE)
+		-163; 	247	/SECTION <-- 'O'+'S' (LOWERCASE)
+		-123; 	247	/SECTION <+- O+S (MIXED CASE)
+		-170; 	250	/CURRENCY <-- 'O'+'X' (LOWERCASE)
+		-130; 	250	/CURRENCY <-- O+X (MIXED CASE)
+		-143; 	251	/COPYRIGHT <-- 'O'+'C' (LOWERCASE)
+		-103; 	251	/COPYRIGHT <-- O+C (MIXED CASE)
+		-137; 	272	/MASCULINE ORDINAL <--
+				/  UNDERSCORE+'O'(LOWERCASE)
+		0000
+	/	
+	UPPERU, -140; 	331	/'U' WITH GRAVE <-- 'U'+GRAVE
+		-047; 	332	/'U' WITH ACUTE <-- 'U'+APOSTROPHE
+		-136; 	333	/'U' WITH CIRCUMFLEX <-- 'U'+CIRCUMFLEX
+		-042; 	334	/'U' WITH UMLAUT <-- 'U'+DOUBLEQUOTE
+		0000
+	/
+	LOWERU, -140; 	371	/'U' WITH GRAVE <-- 'U'+GRAVE
+		-047; 	372	/'U' WITH ACUTE <-- 'U'+APOSTROPHE
+		-136;	373	/'U' WITH CIRCUMFLEX <-- 'U'+CIRCUMFLEX
+		-042; 	374	/'U' WITH UMLAUT <-- 'U'+DOUBLEQUOTE
+		0000
+	/
+	UPPERL, -055; 	243	/POUND STERLING <-- MINUS+'L'(UPPERCASE)
+		-075; 	243	/POUND STERLING <-- EQUAL+'L'(UPPERCASE)
+		0000
+	/
+	LOWERL, -055; 	243	/POUND STERLING <-- MINUS+'L'(LOWERCASE)
+		-075; 	243	/POUND STERLING <-- EQUAL+'L'(LOWERCASE)
+		0000
+	/
+	UPPERN, -176; 	321	/'N' WITH TILDE <-- TILDE+'N' (UPPERCASE)
+		0000
+	/
+	LOWERN, -176; 	361	/'N' WITH TILDE <-- TILDE+'N' (LOWERCASE)
+
+
+
+				      page 53
+	DECmate Slushware Implementation Notes	______________________________________
+
+		0000
+	/
+	UPPERP, -041; 	266	/PARAGRAPH <-- BANG+'P' (UPPERCASE)
+		0000
+	/
+	LOWERP, -041; 	266	/PARAGRAPH <-- BANG+'P' (LOWERCASE)
+		0000
+	/
+	UPPERS, -060; 	247	/SECTION <-- ZERO+'S' (UPPERCASE)
+		-117; 	247	/SECTION <-- 'O'+'S' (UPPERCASE)
+		-157; 	247	/SECTION <-- S+LOWERO
+		-041; 	247	/SECTION <-- S+!
+		0000
+	/
+	LOWERS, -060; 	247	/SECTION <-- ZERO+'S' (LOWERCASE)
+		-157; 	247	/SECTION <-- 'O'+'S' (LOWERCASE)
+		-117; 	247	/SECTION <-- S+O (MIXED CASE)
+		-041; 	247	/SECTION <-- S+!
+		-163; 	337	/SHARP S <-- 'S'+'S' (LOWERCASE)
+		0000
+	/
+	UPPERX, -060; 	250	/CURRENCY <-- ZERO+'X' (UPPERCASE)
+		-117; 	250	/CURRENCY <-- 'O'+'X' (UPPERCASE)
+		-157; 	250	/CURRENCY <-- X+O (MIXED CASE)
+		0000
+	/
+	LOWERX, -060; 	250	/CURRENCY <-- ZERO+'X' (LOWERCASE)
+		-157; 	250	/CURRENCY <-- 'O'+'X' (LOWERCASE)
+		-117; 	250	/CURRENCY <-- X+O (MIXED CASE)
+		0000
+	/
+	UPPERY, -055; 	245	/YEN <-- MINUS+'Y' (UPPERCASE)
+		-075; 	245	/YEN <-- EQUAL+'Y' (UPPERCASE)
+		-042; 	335	/'Y' WITH UMLAUT <--
+				/ DOUBLEQUOTE+'Y' (UPPERCASE)
+		0000
+	/
+	LOWERY, -055; 	245	/YEN <-- MINUS+'Y' (LOWERCASE)
+		-075; 	245	/YEN <-- EQUAL+'Y' (LOWERCASE)
+		-042; 	375	/'Y' WITH UMLAUT <--
+				/ DOUBLEQUOTE+'Y' (LOWERCASE)
+		0000
+	/
+	ULINE,	-101; 	252	/FEMININE ORDINAL <--
+				/ UNDERSCORE+'A' (UPPERCASE)
+		-141; 	252	/FEMININE ORDINAL <--
+				/ UNDERSCORE+'A' (LOWERCASE)
+		-117; 	272	/MASCULINE ORDINAL <-- UNDERSCORE+'O' (UPPER)
+		-157; 	272	/MASCULINE ORDINAL <-- UNDERSCORE+'O' (LOWER)
+		0000
+	/
+	VRTBAR, -103; 	242	/CENT <-- VERTICAL BAR+'C' (UPPERCASE)
+		-143; 	242	/CENT <-- VERTICAL BAR+'C' (LOWERCASE)
+		0000
+
+
+
+				      page 54
+	DECmate Slushware Implementation Notes	______________________________________
+
+	/
+	DEGREE, -040;	260	/DEGREE <-- DEGREE+SPACE
+		-101;	305	/'A' WITH RING <-- DEGREE+'A' ( UPPERCASE )
+		-141,	345	/'A' WITH RING <-- DEGREE+'A' (LOWERCASE)
+		0000
+	/
+	CMPTEN=	.			/END OF COMPOSE TABLES
+	/
+	/
+	$S$$$$$S
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 55
+	DECmate Slushware Implementation Notes	______________________________________
+
+	APPENDIX D - LK201 KEYCODE TABLE
+
+	The 8-bit keycodes transmitted  by  the  LK201  keyboard  to  the
+	keyboard  input  port  of  the  DECmate  are  associated with key
+	location according to the following table.  Keycodes are in octal.
+
+		key 	    key     	description
+		position    code
+		--------    ----    	-----------
+
+					local function keys
+
+		G99	    126		Hold_Screen
+		G00	    127		Print_Screen
+		G01	    130		Set-Up
+		G02	    131		F4  Local_Function
+		G03	    132		Break
+
+					Top-row function keys
+
+		G05	    144		F6    Interrupt
+		G06	    145		F7    Resume
+		G07	    146		F8    Cancel
+		G08	    147		F9    Main Screen
+		G09	    150		F10   Exit	
+
+		Gll	    161		Fll   (ESC)
+		G12	    162 	F12   (BS)
+		G13	    163 	F13   (LF)
+		G14	    164 	F14   Additional_Options
+
+		G15	    174 	F15   Help
+		G16	    175 	F16   Do
+
+		G20	    200 	F17
+		G21	    201 	F18
+		G22	    202 	Fl9
+		G23	    203		F20    Hyph_Push/Hyph_Pull
+
+					Editing keys
+
+		E16	    212		Find
+		E17	    213		Insert_Here
+		E18  	    214		Remove
+		D16	    215		Select
+		D17	    216		Prev_Screen
+		D18	    217		Next_Screen
+
+					Application keys
+
+		A20	    222		0   Advance
+		A22	    224		.   Sel
+		A23	    225		Enter  <>  Swap
+
+
+
+
+				      page 56
+	DECmate Slushware Implementation Notes	______________________________________
+
+		B20	    226		1   Back_Up
+		B21	    227		2   Line		
+		B22	    230		3   Upper_Case
+		C20	    231		4   Word
+		C21	    232		5   Para
+		C22	    233		6   Bold
+		C23	    234		,   Paste
+		D20	    235		7   Sent
+		D21	    236		8   Tab_Pos
+		D22	    237		9   Under_Line
+		D23	    240		-   Cut
+		E20	    241		PF1   <gold>
+		E21	    242		PF2   Page
+		E22	    243		PF3   Del_Word
+		E23	    244		PF4   Del_Char
+
+					Cursor keys
+
+		B16	    247		<left_arrow>
+		B18	    250		<right_arrow>
+		B17	    251		<down_arrow)
+		A17	    252		<up_arrow>
+
+					Special control keys
+
+		B99,B11     256		Shift (left and right)
+		C99	    257		Ctrl
+		C00	    260		Lock
+		A99	    261		Compose_Character
+		E13	    274		<x|  Word/Char (delete)
+		C13	    275		Return
+		D00	    276		Tab
+
+					Main array of qraphic keys
+					(legends shown are for the
+					American keyboard)
+
+		E00	    277		' ~
+		E01	    300		1 !
+		D01	    301		Q
+		C01	    302		A
+		B01	    303		Z
+		E02	    305		2 @
+		D02	    306		W
+		C02	    307		S
+		B02	    310		X
+		B00	    311		< >
+		E03	    313		3 #
+		D03	    314		E
+		C03	    315		D
+		B03	    316		C
+		E04	    320		4 $
+		D04	    321		R
+		C04	    322		F
+		B04	    323		V
+
+
+				      page 57
+	DECmate Slushware Implementation Notes	______________________________________
+
+		A01-	    324		<space>
+		 -A09	    325		<space>
+		E05	    326		5 %
+		D05	    327		T
+		C05	    330		G
+		B05 	    331		B
+		E06	    333		6 ^
+		D06	    334		Y
+		C06	    335		H
+		B06	    336		N
+		E07  	    340		7 &
+		D07	    341		U
+		C07	    342		J
+		B07	    343		M
+		E08	    345		8 *
+		D08	    346		I
+		C08	    347		K
+		B08	    350		, ,
+		E09	    352		9 (
+		D09	    353		O
+		C09	    354		L
+		B09	    355		. .
+		E10	    357		0 )
+		D10	    360		P
+		C10	    362		; :
+		B10	    363		/ ?
+		E12	    365		= +
+		D12	    366		] }
+		C12	    367		\ |
+		Ell	    371		- _
+		Dll	    372		[ {
+		Cll	    373		' "
+
+					Special keycodes
+
+		-	    000		keyboard hardware ID
+		-	    001		keyboard firmware ID
+		-	    075		key down on power up error code
+		-	    076		power up self-test error code
+		-	    177		reserved for LK201 internal use
+		-	    263		all ups
+		-	    264		metronome
+		-	    265		output error
+		-	    266		input error
+		- 	    267		KBD LOCKED acknowledge
+		-	    270		TEST MODE acknowledge
+		-	    271		PREFIX to keys down
+		-	    272		MODE CHANGE acknowledge
+
+
+
+
+
+
+
+
+
+				      page 58
+	DECmate Slushware Implementation Notes	______________________________________
+
+	APPENDIX E - CHARACTER GENERATOR ROM LAYOUT
+
+	Most display characters on the DECmate II, and all characters  on
+	the  DECmate  III,  are generated by the video display controller
+	from the character generator ROM.  The  mapping  of  display  RAM
+	contents  to  a  visible  character  is given in the table below.
+	Addresses are in octal.
+
+		address 	character
+		-------		---------
+
+		Note that the following character addresses (range 000
+		- 037) map directly to the DEC line drawing set
+		character codes 137 - 176 (by adding 137 to the ROM
+		address)
+
+		000		blank
+		001		filled diamond
+		002		half-tone, blotch
+		003		HT
+		004		FF
+		005		CR
+		006		LF
+		007		degree
+		010		plus-minus
+		011		NL
+		012		VT
+		013		lower-right corner
+		014		upper-right corner
+		015		upper-left corner
+		016		lower-left corner
+		017		cross
+		020		horizontal line at top of cell
+		021		horizontal line at mid-top of cell
+		022		horizontal line at middle of cell
+		023		horizontal line at mid-bottom of cell
+		024		horizontal line at bottom of cell
+		025		vertical line with horizontal line to right
+		026 		vertical line with horizontal line to left
+		027		horizontal line with vertical line up
+		030		horizontal line with vertical line down
+		031		vertical line
+		032		less than or equal
+		033		greater than or equal
+		034		lower-case pi
+		035		not equal
+		036		pound sterling
+		037		middle dot
+
+		Note that the following character addresses (in the
+		range 040 to 176) map directly to the US ASCII coding.
+
+		040		space
+		041		! exclamation point, bang
+
+
+
+				      page 59
+	DECmate Slushware Implementation Notes	______________________________________
+
+		042		" double quote
+		043		# number sign, cross hatch, octothorpe
+		044		$ dollar sign
+		045		% percent
+		046		& ampersand
+		047		' apostrophe, acute
+		050		( left parenthesis
+		051		) right parenthesis
+		052		* asterisk
+		053		+ plus
+		054		, comma
+		055		- minus, hyphen
+		056		. period
+		057		/ slash
+		060		0 zero
+		061		1 one
+		062		2 two
+		063		3 three
+		064		4 four
+		065		5 five
+		066		6 six
+		067		7 seven
+		070		8 eight
+		071		9 nine
+		072		: colon
+		073		; semicolon
+		074		< left angle, left caret
+		075		= equal
+		076		> right angle, right caret
+		077		? question mark, query
+		100		@ commercial at
+		101		A
+		102		B
+		103		C
+		104		D
+		105		E
+		106 		F
+		107		G
+		110		H
+		111		I
+		112		J
+		113		K
+		114		L
+		115		M
+		116		N
+		117		O
+		120		P
+		121		Q
+		122		R
+		123		S
+		124		T
+		125		U
+		126		V
+		127		W
+
+
+
+				      page 60
+	DECmate Slushware Implementation Notes	______________________________________
+
+		130		X
+		131		Y
+		132		Z
+		133		[ left bracket
+		134		\ back slash
+		135		] right bracket
+		136		^ caret, circumflex, up arrow
+		137		_ underscore
+		140		grave
+		141		a
+		142		b
+		143		c
+		144		d
+		145		e
+		146		f
+		147		g
+		150		h
+		151		i
+		152		j
+		153		k	
+		154		l
+		155		m
+		156		n
+		157		o
+		160		p
+		161		q
+		162		r
+		163		s
+		164		t
+		165		u
+		166		v
+		167		w
+		170		x
+		171		y
+		172		z
+		173		{ left brace, left curly bracket
+		174		| vertical bar (broken on DECmate II,
+				  solid on DECmate III)
+		175		} right brace, right curly bracket
+		176		~ tilde
+
+		177		error character, backwards query
+
+		200		Y-acute (DECmate III only)
+		201		y-acute (DECmate III only)
+		202		florin (DECmate III only)
+		203		dutch ij (DECmate III only)
+		204		3/4 (DECmate III only)
+		205		blank
+		.
+		.
+		.
+		240		blank
+
+
+
+
+				      page 61
+	DECmate Slushware Implementation Notes	______________________________________
+
+		Note that the following character addresses (range 241
+		through 376) map directly to the DEC multinational
+		supplemental character set, where those characters are
+		defined.  Additional characters have been added to the
+		DECmate III character generator ROM for support of the
+		emerging ANSI multinational character set.
+
+		241		upside down exclamation point
+		242		cent
+		243		pound sterling
+		244		umlaut, diaresis (DECmate III only,
+				not DEC supplemental)
+		245		yen
+		246		broken vertical bar (DECmate III only,
+				not DEC supplemental)
+		247		section
+		250		universal currency
+		251		copyright (DECmate III only)
+		252		feminine ordinal
+		253		left angle quotation mark	
+		254		logical not (DECmate III only,
+				not DEC supplemental)
+		255		blank
+		256		registered sign (DECmate III only, not DEC
+				supplemental)
+		257		overline (DECmate III only, not DEC
+    				supplemental)
+		260		degree
+		261		plus/minus
+		262		superscript 2
+		263		superscript 3
+		264		blank
+		265		micro, mu
+		266		paragraph, pilcrow
+		267		middle dot
+		270		blank
+		271		superscript 1
+		272		masculine ordinal
+		273		right angle quotation mark
+		274		1/4
+		275		1/2
+		276		blank
+		277		inverted question mark
+		300		A-grave
+		301		A-acute
+		302		A-circumflex
+		303		A-tilde
+		304		A-umlaut
+		305		A-ring
+		306		AE dipthong
+		307		C cedilla
+		310		E-grave
+		311		E-acute
+		312		E-circumflex
+		313		E-umlaut
+		314		I-grave
+
+				      page 62
+	DECmate Slushware Implementation Notes	______________________________________
+
+		315		I-acute
+		316		I-circumflex
+		317		I-umlaut
+		320		capital icelandic eth (DECmate III only,
+				not DEC supplemental)
+		321		N-tilde
+		322		O-grave
+		323		O-acute
+		324		O-circumflex
+		325		O-tilde
+		326		O-umlaut
+		327		OE ligature (DECmate III only)
+		330		O-slash
+		331		U-grave
+		332		U-acute
+		333		U-circumflex
+		334		U-umlaut
+		335		Y-umlaut
+		336		capital icelandic thorn (DECmate III only,
+				not DEC supplemental)
+		337		german small sharp s
+		340		a-grave
+		341		a-acute
+		342		a-circumflex
+		343		a-tilde
+		344		a-umlaut
+		345		a-ring
+		346		ae dipthong
+		347		c cedilla
+		350		e-grave
+		351		e-acute
+		352		e-circumflex
+		353		e-umlaut
+		354		i-grave
+		355		i-acute
+		356		i-circumflex
+		357		i-umlaut
+		360		small icelandic eth (DECmate III only,
+				not DEC supplemental)
+		361		n-tilde
+		362		o-grave
+		363		o-acute
+		364		o-circumflex
+		365		o-tilde
+		366		o-umlaut
+		367		oe ligature (DECmate III only)
+		370		o-slash
+		371		u-grave
+		372		u-acute
+		373		u-circumflex
+		374		u-umlaut
+		375		y-umlaut
+		376		small icelandic thorn (DECmate III only,
+				not DEC supplemental)
+
+
+
+				      page 63
+	DECmate Slushware Implementation Notes	______________________________________
+
+		377		blank
+
+		Note that the following character addresses (in the
+		range 400 - 437) map directly to the DECmate I
+		alternate ROM special graphic characters 137 - 176 by
+		subtracting 241 octal from the ROM address.
+
+		400		upper left quarter block
+		401		upper right quarter block
+		402		lower right quarter block
+		403		lower left quarter block
+		404		left half block
+		405		right half block
+		406		upper half black
+		407		lower half block
+		410		lower right 3/4 block
+		411		lower left 3/4 block
+		412		upper right 3/4 block
+		413		upper left 3/4 block
+		414		upper left plus lower right quarter blocks
+		415		upper right plus lower left quarter blocks
+		416		middle dot
+		417		right middle dot
+		420		grave
+		421		tilde
+		422		circumflex
+		423		OE ligature
+		424		oe ligature
+		425		lower dot
+		426		lower middle dot
+		427		middle dot
+		430		upper middle dot
+		431		upper dot
+		432		bottom 1/5 block
+		433		bottom 2/5 block
+		434		bottom 3/5 block
+		435 		bottom 4/5 block
+		436		solid block
+		437		upper right dot plus lower left dot
+
+		440		blank
+
+		Note that the following addresses (in the range	441 - 476)
+		map directly to the DECmate I alternate character set
+		codes 041 - 176 by subtracting 400 octal.
+
+	 	441		cent
+		442		yen
+		443		pound sterling
+		444		dollar
+		445		pesetas
+		446		florin
+		447		section
+		450		paragraph, pilcrow
+
+
+
+				      page 64
+	DECmate Slushware Implementation Notes	______________________________________
+
+		451		left angle quotation mark
+		452		right angle quotation mark
+		453		inverted exclamation mark
+		454		inverted question mark
+		455		plus/minus
+		456		equal
+		457		registered mark
+		460		1/4
+		461		1/2
+		462		3/4
+		463		superscript 2
+		464		superscript 3
+		465		universal currency symbol
+		466		upper middle dot plus lower right dot
+		467		7 with slash
+		470		logical or, solid vertical bar
+		471		small dutch ij
+		472		upper middle dot plus lower middle dot
+		473		acute
+		474		degree
+		475		umlaut
+		476		micro, mu
+		477		german small sharp s
+		500		A-acute
+		501		A-grave
+		502		A-circumflex
+		503		A-umlaut
+		504 		A-ring
+		505 		A-tilde
+		506 		AE ligature
+		507 		C-cedilla
+		510 		capital icelandic eth
+		511 		E-acute
+		512 		E-grave
+		513 		E-circumflex
+		514 		E-umlaut
+		515 		I-acute
+		516 		I-grave
+		517 		I-circumflex
+		520 		I-umlaut
+		521 		N-tilde
+		522 		O-acute
+		523 		O-grave
+		524 		O-circumflex
+		525 		O-umlaut
+		526 		O-tilde
+		527 		O-slash
+		530 		U-acute
+		531 		U-grave
+		532 		U-circumflex
+		533 		U-umlaut
+		534 		Y-acute
+		535 		capital icelandic thorn
+		536 		masculine ordinal
+
+
+
+				      page 65
+	DECmate Slushware Implementation Notes	______________________________________
+
+		537		Y-umlaut
+		540		a-acute
+		541		a-grave
+		542		a-circumflex
+		543		a-umlaut
+		544		a-ring
+		545		a-tilde
+		546		ae ligature
+		547		c-cedilla
+		550		small icelandic eth
+		551		e-acute
+		552		e-grave
+		553		e-circumflex
+		554		e-umlaut
+		555		i-acute
+		556		i-grave
+		557		i-circumflex
+		560		i-umlaut
+		561		n-tilde
+		562		o-acute
+		563		o-grave
+		564		o-circumflex
+		565		o-umlaut
+		566		o-tilde
+		567		o-slash
+		570		u-acute
+		571		u-grave
+		572		u-circumflex
+		573		u-umlaut
+		574		y-acute
+		575		small icelandic thorn
+		576		feminine ordinal
+
+		577		blank
+		.
+		.
+		.
+		640		blank
+
+		Note that the following ROM addresses (in the range 641
+		- 776) map directly to the DEC technical character set
+		codes 041 - 176 by subtracting 600 octal.  This is true
+		only for the DECmate III ROM;  the DECmate II ROM has
+		katakana in this area.
+
+		641		left radical
+		642		top left radical
+		643		horizontal connector
+		644		top integral
+		645		bottom integral
+		646		vertical connector
+		647		top left square bracket
+		650		bottom left square bracket
+		651		top right square bracket
+
+
+
+				      page 66
+	DECmate Slushware Implementation Notes	______________________________________
+
+		652		bottom right square bracket
+		653		top left parenthesis
+		654		bottom left parenthesis		
+		655		top right parenthesis	
+		656		bottom right parenthesis
+		657		left middle curly brace
+		660		right middle curly brace
+		661		top left summation
+		662		bottom left summation
+		663		top vertical summation connector
+		664		bottom vertical summation connector
+		665		top right summation
+		666		bottom right summation
+		667		right middle summation
+		670		blank
+		671		blank
+		672		blank
+		673		blank
+		674		less than or equal
+		675		not equal
+		676		greater than or equal
+		677		integral
+		700		therefore
+		701		proportional to
+		702		infinity
+		703		divided by
+		704		delta
+		705		del, nabla
+		706		capital phi
+		707		capital gamma
+		710		approximate to
+		711		similar or equal to
+		712		capital theta
+		713		times, cross product
+		714		capital lambda
+		715		if and only if, iff
+		716		implies
+		717		identical to
+		720		capital pi
+		721		capital psi
+		722		blank
+		723		capital sigma, summation
+		724		blank
+		725		blank
+		726		radical
+		727		capital omega
+		730		capital xi
+		731		capital upsilon
+		732		included in
+		733		includes
+		734		intersection
+		735		union
+		736		logical and
+		737		logical or (boolean)
+
+
+
+				      page 67
+	DECmate Slushware Implementation Notes	______________________________________
+
+		740		logical not
+		741		small alpha
+		742		small beta
+		743		small chi
+		744		small delta
+		745		small epsilon
+		746		small phi
+		747		small gamma
+		750		small eta
+		751		small iota
+		752		small theta
+		753		small kappa
+		754		small lambda
+		755		blank
+		756		small nu
+		757		partial derivitive
+		760		small pi
+		761		small psi
+		762		small rho
+		763		small sigma
+		764		small tau
+		765		blank
+		766		function
+		767		small omega
+		770		small xi
+		771		small upsilon
+		772		small zeta
+		773		left arrow
+		774		upward arrow
+		775		right arrow
+		776		downward arrow
+
+		777		blank
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 68
+	DECmate Slushware Implementation Notes	______________________________________
+
+	APPENDIX F - FIXED ADDRESSES IN PANEL RAM
+
+	The following addresses have been fixed by the SLUSHWARE
+	developers.  Consideration has been given to application programs,
+	ROM firmware, debugging utilities (CPODT), and operating systems.
+
+	Addresses are in octal, preceded by the field in parentheses.
+
+	Address	  Description
+
+	(0)0000   program counter (PC) at panel entry, initially loaded
+		  with the SLUSHWARE ID with the high bit used to
+		  indicate the disk format.
+
+	(0)0001   6201, ROM firmware checks this value to verify that
+		  there is slushware on the disk.
+
+	(0)0002   0033, ROM firmware checks this value to verify that
+		  there is slushware on the disk.
+
+	(0)0003   0077, ROM firmware checks this value to verify that
+		  there is slushware on the disk.
+
+	(0)0004   ODT table address pointer.
+
+	(0)0005   ODT table field pointer.
+
+	(0)0020   accumulator (AC) at panel entry.
+
+	(0)0021   status at panel entry.
+
+	(0)0022   panel status at panel entry.
+
+	(0)0023   multiplier quotient (MQ) at panel entry.
+
+	(0)0024-(0)0027   Set-Up words, see section 3.9.
+
+	(0)7777   entry point to panel code.
+
+	(1)0000-(1)0007   handshake area between SLUSHWARE and ROM
+		  firmware, TBD ??
+
+	(1)0020   SLUSHWARE identification.
+
+	(1)0021   ROM firmware identification, from location (7)0100 at
+		  power-on.
+
+	(1)3660-(1)3737   row address table used by ROM firmware for
+		  Set-Up and Halt screens.
+
+	(1)5125-(1)5177   operating system information area. Registered
+		   users of this area are:
+		  (1)5125-(1)5126  WPS
+
+
+
+
+				      page 69
+	DECmate Slushware Implementation Notes	______________________________________
+
+		  (1)5127-(1)5130  CP/M-80	
+		  (1)5131-(1)5132  COS-310
+		  (1)5133-(1)5132  OS278
+		  (1)5135-(1)5136  Master Menu
+		  Operating systems developers must register with the
+		  SLUSHWARE developers before using this area.
+
+	(1)5360-(1)5777 keyboard map, see appendix D.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 70
+	DECmate Slushware Implementation Notes	______________________________________
+
+	APPENDIX G - REVIEW OF MODIFICATIONS PER VERSION OF SLUSHWARE
+
+	The SLUSHWARE program has been modified over the course  of  many
+	months  to  provide  additional features, to improve performance,
+	and of course to fix bugs.  The following  list  documents  these
+	modifications.
+
+	VERSION    	DESCRIPTION
+
+	411	29 JUN 84 - K. A. House
+	     1) fix graphics initialization to use a more reliable test for
+		presence of a 'new' graphics board (see if 6150 instruction
+		skips, old board or no board will not skip);
+	     2) default setup to graphics cursor enable and text to color
+		monitor.
+
+	410	27 JUN 84 - K. A. House
+	     1) fix 'CAF' PRQ (PR3/30/7777) to clear AC, LINK, GT and IEFF;
+	     2) add graphics board initialization to  force  text  to  both
+		monochrome and color monitors.
+
+	407	25 JUN 84 - K. A. House
+	     1) clear    queue     to     user     when     set/resetting
+		single-character-function mode to avoid mixed data;
+  	     2) don't reset local-function-key mode when doing RIS;
+	     3) ensure character addressing set up properly when  erasing
+		entire line with ED1 and had been in double width (hadn't
+		been able to get past column 40);
+	     4) change norwegian/danish display set:
+		100 is @ (was A-umlaut),
+		136 is ^ (was U-umlaut),
+		140 is grave (was a-umlaut),
+		176 is umlaut (was u-umlaut);
+	     note: handling of restore cursor when scroll region limited
+		and  origin  mode  set and saved cursor is out of bounds
+		still not correct.
+
+	406	31 MAY 84 - K. A. House
+	     1) modify 'soft-terminal-reset' to leave newline mode alone,
+		and to initialize cursor save buffer to defaults;
+	     2) respond to request for UDK lock status with esc [ ? 2 3 n
+		(no UDK support);
+	     3) determine compose table location from ROM data at power-on,
+		mark invalid space as 0000 in the ODT table (allows an
+		application to enter its own compose table location);
+	     4) don't allow compose mode to be set if there isn't a valid
+		table location;
+	     5) parameterize compose table handling to allow user-defined
+		table (address and field);
+	     6) adjust top and bottom when restoring cursor to handle case
+		of  cursor outside scroll region when origin mode restored
+		'set'.
+
+	405	21 MAY 84 - K. A. House
+	     1) send a NUL to user as 0000 (not 4000).
+
+
+				      page 71
+	DECmate Slushware Implementation Notes	______________________________________
+
+	404	18 MAY 84 - K. A. House
+	     1) wait at least two EOFs in 'crtini' to ensure screen erased;
+	     2) don't clear DPAR erase bits when screen is to be erased as
+		a side-effect;
+	     3) turn off wait LED when KAMMOD reset in DECSTR;
+	     4) enable screen video whenever   PR3/17/7777   is   issued,
+		regardless of state requested;
+	     5) don't ignore C1 controls received when scrolling.
+
+	403	10 MAY 84 - K. A. House
+	     1) fix local function keys in compatibility mode  (had  been
+		mute in level 1);
+	     2) save code in power-on  routine by initializing parameters
+		in load rather than in code;
+	     3) fix  initialization  of  DEC  multinational  supplemental
+		character  set  (hadn't  mapped unused codes to the error
+		character);
+	     4) add PR3/0030/7777 to issue the CAF IOT and  handle  LK201
+		and  EOF  flags  (may  drop  a keystroke, may be in panel
+		memory for up to 20 milliseconds), a CAF  issued  by  the
+		user can kill SLUSHWARE by eating its flags;
+	     5) attempt to minimize screen jitter during IL, DL, and STBM
+		by adjusting RAT before moving line data;
+	     6) attempt to alleviate slow scroll granularity by  handling
+		EOF  during  panel  execution  except  when  certain long
+		duration events take place.
+
+	402 	07 MAY 84 - K. A. House
+	     1) add PR3/0026/7777 to select column mode without  clearing
+		screen;
+	     2) add PR3/0027/7777 to select single-char function key mode;
+	     3) remove mask to eight bits for characters sent to user (via
+		KRB, etc).
+
+	401 	04 MAY 84 - K. A. House
+	     1) ensure hardware erase  bits  are  cleared  at  the  first
+		available EOF (had caused ED0 to act as ED2 sometimes).
+
+	400 	01 MAY 84 - K. A. House
+	     1) bump revision to indicate that we run on DECmate III  and
+		IV as well as DECmate II.
+
+	311	01 MAY 84 - K. A. House
+	     1) fix cursor style Set-Up bug.
+
+	310	01 MAY 84 - K. A. House
+	     1) ensure cursor style maintained in Set-Up bits;
+	     2) make C1-xmit-introducer mode independent of level 2  mode
+		and host-port-environment (must test all three when ready
+		to xmit a C1 control character);
+	     3) lock the keyboard when queue to user is within 16 decimal
+		characters of full (was 8, didn't allow for DA2 response).
+
+
+
+
+
+				      page 72
+	DECmate Slushware Implementation Notes	______________________________________
+
+	307	24 APR 84 - K. A. House
+	     1) return to user during processing of DECALN cause  we  had
+		been dropping comm characters;
+	     2) expand EOFCTR data block, adding two words at the end for
+		operating systems to store a date, initialized to zeroes;
+	     3) add PR3/0024/7777 to enable/disable DECSTR, to avoid side
+		affects of selecting terminal mode during setup;
+	     4) add PR3/0025/7777 to  enable/disable  cursor  visibility,
+		allows  Set-Up to supress cursor without affecting user's
+		cursor selection.
+
+	306	19 APR 84 - K. A. House
+	     1) add   a  two-word  counter  of  end-of-frame  interrupts,
+		pointed to by the ODT table;
+	     2) change   operation   of   'wpsmod'  (PR3/10/7777)  to  be
+		'compatibility' mode, reset always passes esc-bs-lf as C0
+		controls and other function keys as sequences, set  obeys
+		TIA spec;
+	     3) change autorepeat rate of non-local keys to match rest of
+		keyboard (30 hz).
+
+	 305	10 APR 84 - K. A. House
+	     1) fix  handling  of  temporary   variables   when   sending
+		characters to user, had hung up keyboard if function keys
+		not KRBed by user fast enough;
+	     2) disable  katakana  and  user-defined  character  sets  if
+		DECmate III or IV;
+	     3) add routine for accessing DEC technical character set for
+		DECmate  III  or  IV,  won't  be  in user-RAM, will be in
+		quadrant 4 of ROM.
+
+	304	03 APR 84 - K. A. House
+	     1) fix autorepeat (i hope);
+	     2) fix compose (i hope);
+	     3) fix keyboard error bell.
+
+	303	02 APR 84 - K. A. House
+	     1) add autorepeat to Set-Up parameters;
+	     2) allocate  fixed  addresses  (1)0020   and   (1)0021   for
+		SLUSHWARE and ROM IDs;
+	     3) allocate space in  field  7  for  compose  tables  to  be
+		cross-loaded by user;
+	     4) ensure VT and FF handled as LF for pending character stuff;
+	     5) add some compose code (not complete).
+
+	302	02 MAR 84 - K. A. House
+	     1) add ROM ID as third parameter of DA2 response;
+	     2) load Set-Up parameter word  with  current  states  before
+		starting setup or PRQing panel data to user;
+	     3) avoid redundent keyboard LED code at power-on;
+	     4) add PR3/0023/7777  to  disable  132  column  mode  escape
+		sequence requests;
+	     5) change CRTC programming if ROM ID says we are  a  DECmate
+		IIe OR III.
+
+
+
+				      page 73
+	DECmate Slushware Implementation Notes	______________________________________
+
+	301	21 DEC 83 - K. A. House
+	     1) fix cursor save/restore to clean up variable  usage  (had
+		gotten corrupted by unsynchronized prqs).
+
+	300	19 DEC 83 - K. A. House
+	     1) take out extra EOFs  from  erase-in-display  (wasn't  the
+		right fix);
+	     2) fix erase-in-display from right column by  faking  cursor
+		to  left of next row and by clearing current character in
+		software.
+
+	277	16 DEC 83 - K. A. House
+	     1) fix set single width line in 132-column mode (had cleared
+		a field of display memory);
+	     2) add pointer to keyboard map in the  ODT  table  to  allow
+		applications  to cross-load maps for non-US or scientific
+		keyboards;
+	     3) wait two more EOFs when erasing display (had   failed  to
+		erase-to-end if on top row).
+
+	276	07 NOV 83 - K. A. House
+	     1) bug fix: turn off 'Wait' LED when keyboard reenabled;
+	     2) bug fix: fix PRQ block moves;
+	     3) bug fix: fix bell ringing code;
+	     4) expand setup parameters to include keyclick volume,  bell
+		disable,  bell  volume,  VT200 mode, introducer mode, and
+		host port environment;
+	     5) clear queue to user  upon  selection  or  deselection  of
+		'idin' mode (to avoid mixed data types);
+	     6) don't  send  automatic  commands   (bell,   click,   LED,
+		autorepeat inhibit) to keyboard when in 'idin' mode;
+	     7) allow '>'  as  a  designating  final  character  for  the
+		user-defined  character  set  (since we load the user RAM
+		with the technical character set).
+
+	275 	04 NOV 83 - K. A. House
+	     1) bug fix: turn off  'Wait'  LED  when  keyboard  reenabled
+		after queue to user emptied;
+	     2) bug fix: hold off keyboard if not enough room in queue to
+		user (had gotten partial escape sequences);
+	     3) bug fix: ensure autorepeating key ignored after  keyboard
+		reenabled (hadn't kept track of last valid keystroke);
+	     4) tighten PRQ loops  used  for  transferring  data  to/from
+		panel RAM;
+	     5) add pointer to row address table in the ODTTAB (to  clean
+		up use of fast block moves to display memory);
+	     6) add PR3/0020/7777 to select an 'idin' mode, in which  all
+		keycodes  are  passed  directly to the user (for handling
+		idin hardware);
+	     7) add PR3/0021/7777 to select  keyclick  volume  (had  lost
+		capability  of  disabling  keyclick  when we started soft
+		keyboard disable);
+	     8) add PR3/0022/7777 to select bell volume.
+
+
+
+
+				      page 74
+	DECmate Slushware Implementation Notes	______________________________________
+
+	274	13 OCT 83 - K. A. House
+	     1) change spanish display set from section to acute  accent,
+		and from tilde to umlaut accent;
+	     2) add finnish (5), norwegian/danish (6),  and  swedish  (7)
+		national  display  sets  with the given final designating
+		character;
+	     3) add PR3/0017/7777 to allow selection of screen auto-blank
+		enable/disable (AC<11> = 0 implies ok to blank, = 1
+		implies never blank) .
+
+	273	07 OCT 83 - K. A. House
+	     1) remove top and bottom margins from save cursor buffer;
+	     2) allow 'Tab' key to auto-repeat.
+
+	272	08 AUG 83 - K. A. House
+	     1) allow 'Hold Screen' to work even if keyboard disabled;
+	     2) allow local function keys when keyboard disabled if local
+		function key mode is set, sound keyclick;
+	     3) change 'kbybrd' routine to put the keycode  into  the  MQ
+		before  testing  for  keyboard locked; 4) handle 'shift',
+		'control', 'caps'  and  'allups'  when  the  keyboard  is
+		disabled.
+
+	271	05 AUG 83 - K. A. House
+	     1) all non-US national character display sets lose blink  to
+		get extended address;
+	     2) change  italian  display  to  lower-case   i-grave,   was
+		upper-case;
+	     3) change french display to umlaut, was tilde;
+	     4) change dutch display to 3/4 (was  @),  to  lower-case  ij
+		(was  left  bracket),  to umlaut (was left brace), and to
+		florin (was vertical bar);
+	     5) move  initialization  of  C1  xmit  mode  and  WPS   mode
+		(esc-bs-lf)  to  reset-to-initial-state  (was  in  return
+		from Set-Up, causing programmed esc-bs-lf  keys  to  turn
+		into escape sequences after setup);
+	     6) handle multiple selective parameters for tab clear;
+	     7) change response to DA1 to 'level 2', was 'level 1';
+	     8) change panel request handling to use a lookup table  (was
+		hard-coded);
+	     9) added  Master  Menu  to   list   of   operating   systems
+    		registered;
+	    10) added PRQs 12 and 13 for handling local function keys.
+
+	270	01 JUL 83 - K. A. House
+	     1) fix 'ED' and 'EL' (bug from previous version);
+	     2) fix shift-lock mode (bug from previous version).
+
+	267	01 JUL 83 - R. A. House ;
+	     1) added  note  for  reserved  space  in   field   one   for
+		operating system dependent information;
+	     2) received 240(8) character displays as the error character,
+		was ignored;
+	     3) handle multiple selective parameters in 'ED' and 'EL';
+	     4) perform soft reset if VT52 mode  selected  from  level  2
+		(not level 1 though);
+
+				      page 75
+	DECmate Slushware Implementation Notes	______________________________________
+
+	     5) VT52 mode only returns to level 1 (never level 2);
+	     6) 'decsc' and 'decrc' save the scrolling  regions  in  both 
+		levels, was just level 2;
+	     7) 'sgr' can selectively  disable  character  attributes  in 
+		both levels, was just level 2;
+	     8) 'ich' allowed only in level 2, was in both levels;
+	     9) 'decstr'  turns  on  cursor,  regardless  of  the  Set-Up 
+		selection;
+	    10) in shift-lock mode, typing the 'Shift' key will turn  off 
+		the lock state if set, was just like caps-lock mode;
+	    11) reset 'shift' and 'control' flags when invoking ROM  code 
+		for Set-Up, etc.
+
+	266	15 JUN 83 - K. A. House
+	     1) remove Set-Up bits that are not supported by  ROM  Set-Up 
+		code   (conformance   level,   host   port   environment,  
+		caps/shift lock mode, compose enable mode).
+
+	265	13 JUN 83 - K. A. House
+	     1) swap entry points for C1 xmission  mode  selection  (were 
+		backwards).
+
+	264	10 JUN 83 - K. A. House
+	     1) change range check in PR3 dispatcher to allow new commands;
+	     2) change number of Set-Up bits  used  to  allow  for  newly
+		assigned bits.
+
+
+	263	10 JUN 83 - K. A. House
+	     1) add caps/shift lock mode to Set-Up bits and make a PRQ to 
+		select it;
+	     2) add compose enable to Set-Up  bits  and  make  a  PRQ  to
+		enable/disable it;
+	     3) remove extra copies of printer and comm baud rates;
+	     4) move 'exit' to follow 'mod10' (saves code, easier to read);
+	     5) remove extraneous CLAs from 'mod10'  and  'exit'  (speeds
+		processing);
+	     6) speed up 'sluin5' by adding returns from  the  middle  of 
+		the routine;
+	     7) add soft terminal reset escape sequence (esc [ ! p);
+	     8) allow selection of VT52 mode from level 1;
+	     9) don't change C1 xmit mode when selecting VT52 mode (never 
+		used);
+	    10) reset character mask when exiting VT52 mode;
+	    11) ensure no autowrap pending  when  restoring  cursor  with
+		resulting cursor not at the end of the line;
+	    12) ensure tab clear  default  is  to  clear  tab  stop  (had 
+		ignored it);
+	    13) move clear single shift and autowrap pending from  sftrst 
+		to risrt;
+	    14) ensure keyboard activity keeps screen from blanking, even 
+		if keyboard disabled;
+	    15) handle caps/shift lock in keyboard code;
+
+
+
+
+				      page 76
+	DECmate Slushware Implementation Notes	______________________________________
+
+	    16) remove keyboard reset code (shft-cntl-cr);
+	    17) modify local function key sequences  for  shift  (?)  and
+		control (>); 
+	    18) translate dead  diacriticals  to  USASCII  equivalent  if
+		compose disabled (may conflict with some national display 
+		sets);
+	    19) fix bug in spanish display set (capital N tilde was wrong);
+	    20) move VT52 character set selection to front of lookup table  
+		to  speed  processing  (hope to minimize need for xoffs in 
+		'monsta' and 'hpsalc'.
+
+	262	26 MAY 83 - K. A. House
+	     1) move 'rqdsps' from 7600 page, had been  losing  the  tail 
+		end of 'prqdsp'.
+
+	261	26 MAY 83 - K. A. House 
+	     1) ensure reset_to_initial_state calls the soft_terminal_reset  
+		routine (common code had been moved in previous version);
+	     2) ensure entire save_cursor_buffer saved  at  power_on,  so 
+		that  level  2  restore  cursor  has something to use for 
+		scroll margins;
+	     3) add  keyboard  power_on_reset  via  the  key  combination
+		'shift-control-return';
+	     4) don't allow the select_environment PRQ to select an 8-bit  
+		mask  in  level 1 (still sets 8-bit environment for later 
+		use in level 2);
+	     5) mask characters to 7 or  8  bits  from  user  PRQ  before
+		calling 'displa', take mask out of 'dochar';
+	     6) only allow selective disablings of  character  renditions 
+		in level 2.
+
+	260	25 MAY 83 - K. A. House
+	     1) ensure modified instructions in self-load are initialized 
+		dynamically;
+	     2) expand cursor save buffer for scroll margins;
+	     3) set G2 and G3 to DEC_supplemental if in level 2 (at  soft 
+		terminal reset);
+	     4) don't change host_port_environment except via PRQ or Set-Up;
+	     5) only allow 8-bits in level 2;
+	     6) fix setting wps_mode at return from Set-Up;
+	     7) make a soft_terminal_reset subroutine;
+	     8) only allow S7C1T and S8C1T in level 2.
+
+	257	24 MAY 83 - K. A. House
+	     1) fix self-load so initial constants are not modified  (had   
+		wiped out system disks when saving setup parameters using 
+		old ROMS);
+	     2) change save/restore cursor so level 2 buffer contains  GR 
+		and the scroll margins;
+	     3) add  parameters to select graphic rendition to selectively 
+		disable character display attributes;
+	     4) change crossfield dispatchers so only data field  set  up  
+		only  at entry (had set up data and instruction fields at 
+		entry and exit).
+
+
+
+				      page 77
+	DECmate Slushware Implementation Notes	______________________________________
+
+	256	12 MAY 83 - K. A. House 
+	     1) wait an extra EOF in 'crtini' before  erasing  screen  to 
+		sync with the CRTC;
+	     2) add a 'prqact' flag (PRQ active)  so  that  the  'wtfram'
+		routine won't return to the user during PRQ processing.
+
+	255	12 MAY 83 - K. A. House
+	     1) ensure data field  reset  in  'blnkln'  (had  overwritten 
+		display field during erase-from-start-of-display);
+	     2) move wait for EOFs from 'dosetu' to 'dsetup' to fix error  
+		in erasing top line when using Set-Up menu to switch from 
+		132 to 80 column mode;
+	     3) move 'tdata' and increase its size (may have  overwritten
+		start of 'eofpro' so no escape sequence was ever parsed.
+
+	254	09 MAY 83 - K. A. House
+	     1) move 'rat', 'tdata', and 'partb' out  of  page  1  (can't
+	 	overwrite  locations  200-377 cause old ROMs rewrite this 
+		area when saving Set-Up parameters);
+	     2) wait a couple of EOFs upon return from  ROM  Set-Up  menu
+		(should  allow  subsequent  erases  to sync properly, had 
+		been improperly erasing the screen);
+	     3) ensure keyboard LEDs properly set/reset at RIS (in kbxqin);
+	     4) disable keyclick twice at kbxqin (RIS) in case the  first 
+		is  interpreted by the keyboard as the final parameter of 
+		an interrupted  keyboard  command  string (ensures it  is 
+		seen as a command).
+
+	253	05 MAY 83 - K. A. House
+	     1) clear the 'CRTC' word at entry to  the  reset-to-initial-
+		state  routine  so  that subsequent setting of individual 
+		bits doesn't get out of synch (had seen  a  problem  with 
+		reverse video).
+
+	252	05 MAY 83 - K. A. House
+	     1) allow 'ich' in level 1 (TIA spec changed);
+	     2) when resetting to Set-Up parameters, set  up  the  screen 
+		type  (normal  or  reverse video) before initializing the 
+		CRTC (hope to fix bug seen when booting CP/M  in  gerstle 
+		mode);
+	     3) at start of reset-to-initial-state code, wait two end-of-
+		frames  to  allow  the  keyboard transmitter queue to run 
+		down (hope to fix bug of  'Hold Screen'  LED  turning  on 
+		when booting CP/M);
+	     4) ensure in 8-bit  environment  before  allowing  8-bit  C1 
+		introducers when selecting conformance level;
+	     5) don't ring the keyboard error bell  when  an  inoperative 
+		key  is  typed (compose or invalid control key) (TIA spec 
+		changed);
+	     6) terminate processing of an unimplemented  control  string 
+		upon  receipt  of  esc,  can,  sub,  or  any  C1  control 
+		character (TIA spec changed, may  terminate  on  most  C0 
+		control characters eventually??).
+
+
+
+
+				      page 78
+	DECmate Slushware Implementation Notes	______________________________________
+
+	251	04 APR 83 - K. A. House
+	     1) try forcing data and instruction fields at entry and exit 
+		of  cross-field  dispatch  routines (shouldn't need this, 
+		but may help catch a bug).
+
+	250	04 APR 83 - K. A. House
+	     1) handle 'Wait' LED on  return  from  calling  pushsl  from 
+		field 0 (ensures correct state of the LED);
+	     2) remove  'Hold Screen'  key  escape  sequence  from  table 
+		(never used).
+
+	247	01 APR 83 - K. A. House
+	     1) handle 'Wait' LED on return from  calling  'pushsl'  from
+		field  one,  rather  than  calling  back from field zero. 
+		(had been  corrupting  the  crossfield  dispatch  routine 
+		return addresses).
+
+	246	01 APR 83 - K. A. House
+	     1) change pointers to strings for keyboard control to  point 
+		to one address prior to the string;
+	     2) enable autorepeat when initializing keyboard;
+	     3) fix bug in keyclick (had sense of flag inverted);
+	     4) fix bug in handling  editing  keys  (had  crashed  if  an
+		editing key was typed); 
+	     5) cleanup user queue routines (silset, popsil, pushsl);
+	     6) make a separate routine to handle the 'Hold Screen' LED.
+
+	245	31 MAR 83 - K. A. House
+	     1) do double skips for keyboard transmit and  receive  flags 
+		to avoid hardware bug;
+	     2) ensure 'sndkbq' returns with AC = 0000;
+	     3) send a string to keyboard  for  received  BEL  character,
+		rings bell at maximum volume;
+	     4) use half-volume bell for keyboard errors;
+	     5) don't allow auto-repeat of keyboard errors.
+
+	244	30 MAR 83 - K. A. House
+	     1) terminate escape sequence on  receipt  of  a  C1  control
+		character;
+	     2) put error characters in the DEC multinational supplemental
+		set in place of any undefined characters;
+	     3) ensure cursor homed for screen alignment display;
+	     4) handle esc-bs-lf keys appropriately for conformance at ris;
+	     5) do soft keyboard disable, handle  keyclick  in  firmware,
+		ring bell for keyboard errors;
+	     6) add 'sndkbq' routine to send commands strings to keyboard;
+ 	     7) initialize keyboard to autorepeat non-local function keys
+		and editing keys;
+	     8) add a routine to handle the keyboard 'Wait' LED, call  it
+		whenever 'kammod' or 'locked' flags are changed.
+
+	243	29 MAR 83 - K. A. House
+	     1) move 'crtc' to page zero;
+	     2) ensure CRTC syncs properly after call to ROM  for  Set-Up 
+		or  Halt  screens  (fake history of column width to 80 to 
+		mimic those screens;
+
+				      page 79
+	DECmate Slushware Implementation Notes	______________________________________
+
+	     3) ensure VT52 mode only accessible from level 1;
+	     4) don't  handle  end_of_frame  stuff  at  panel  exit  (see 
+		version 242), just clear the EOF flag;
+	     5) add erase character function (ech);
+	     6) add  slushware  version  number   to   secondary   device
+		attributes response.
+
+	242	29 MAR 83 - K. A. House
+	     1) fix bug in field zero to field  one  crossfield  dispatch
+		receiver routine;
+	     2) handle end_of_frame interrupt if  ESSF  flag  is  set  at  
+		panel  exit (this makes slow scroll look smooth but could 
+		cause  problems  with  the  display  if  lots  of   stuff 
+		happening around the vertical blanking interval, try this 
+		for a while);
+	     3) wait one-half second before  reenabling  the  CRTC  video
+		whenever  the  CRTC  has  been stopped for a column width
+		change, this should allow the  CRTC  to  resync  and  not
+		bounce so much.
+
+	241	28 MAR 83 - K. A. House
+	     1) fix  bugs  from  previous  edit  related  to   crossfield
+		references and changed labels;
+	     2) reenable PRQ code that was disabled  in  version  234  to
+		make room for self-load and other junk.
+
+	240	25 MAR 83 - K. A. House
+	     1) add crossfield dispatch routines;
+	     2) move keyboard processing code to field one to  make  more 
+		room in field zero;
+	     3) change subroutine calls to standard format 'JMS I XYYYYY';
+	     4) initialize screen blank counters at power-on;
+	     5) move sgrtab to field zero to save some CDF commands.
+
+	237	23 MAR 83 - K. A. House
+	     1) move row address table to field 0, address 0200;
+	     2) move csi parameter storage to field 0, address 0314;
+	     3) don't attempt to clean up the RAT for RAM refresh  if  in
+		132-column mode (don't need);
+	     4) speed up line swap for RAT cleanup by doing twice as much
+		per loop;
+	     5) change character_code_to_generator_ROM_address routine to
+		use 140(8) word tables, had used 200(8) word tables;
+	     6) move field one dynamic tables to high part  of  field  to 
+		make  room  for  code  loaded in as SLUSHWARE (loads from 
+		(0)0000 to (1)5123).
+
+	236	22 MAR 83 - K. A. House
+	     1) fix self-load bug, had tried to read an extra sector from
+		track 79.;
+	     2) clear control_string_in_progress flag (dcsflg) when doing 
+		a RIS;
+	     3) increment blank screen counter whenever the  end_of_frame
+		flag is cleared (try to handle blank screen function even
+		when doing lots of other stuff).
+
+
+				      page 80
+	DECmate Slushware Implementation Notes	______________________________________
+
+	235	21 MAR 83 - K. A. House
+	     1) ensure cannot tab past the right margin (fixes an old bug
+		that hadn't surfaced);
+	     2) ensure dangling labels from commented-out PR3 code return
+		properly;
+	     3) change rest  of  auto-incrementing  registers  references 
+		from '1x' to 'REG1X';
+	     4) change self-load code to use  the  RX50  convention  that
+		first sector is 01, not 00;
+	     5) fix self-load error reporting so it does JMS to ROM code,
+		not JMP;
+	     6) add a CLA before accessing (1)0000  for  test  of  system
+		device (floppy or winnie);
+	     7) ensure keyboard queue initialized before first attempt to
+		enqueue in 'risrt'.
+
+	234	18 MAR 83 - K. A. House
+	     1) comment out a page of PRQ  code  to  make  room  for  the
+		self-load code;
+	     2) add code to power-on startup to perform  SLUSHWARE  self-
+		load if old ROMs (pre-winnie) and new SLUSHWARE (8-bit);
+	     3) change auto-incrementing register references from 'lx' to
+		'REGlx' for ease of tracking usage;
+	     4) add a subroutine, 'adtbhc', that  homes  the  cursor  and
+		adjusts the top and bottom margins;
+	     5) don't clear control-string-in-progress flag  for  CAN  or
+		SUB, only supposed to clear for ST or ESC \;
+	     6) ensure  no  pending  single  shift  (SS2  or  SS3)   when
+		selecting VT52 emulation mode;
+	     7) ensure autowrap-pending flag  is  cleared  when  entering
+		autowrap mode;
+	     8) move tab stops to field three, (3)7000;
+	     9) absorb 'crsre' routine into 'crsres', never called alone;
+	    10) change 'sgr' to save space;
+	    11) ensure no 8-bit C1 introducers sent in 7-bit environment;
+	    12) wait a few more frames when  switching  column  modes  to
+		alleviate screen bounce;
+	    13) remove 'EL0' code, never used;
+	    14) ensure CRTC  initialized  earlier  in  the  RIS  code  to
+		alleviate screen bounce;
+	    15) ensure undefined characters in the DEC  supplemental  set 
+		are displayed as errors.
+
+	233	17 MAR 83 - K. A. House
+	     1) ensure startup code executed before boot from winchester;
+	     2) fix bug in 'proman', had caused 'Delete' key to look like 
+		a 'Return' key.
+
+	232	15 MAR 83 - K. A. House
+	     1) ensure screen erased when column mode set or reset;
+	     2) ensure column width restored on return from Set-Up menu;
+	     3) boot  winchester  system  on  startup  if   loaded   from 
+		winchester;
+
+
+
+
+				      page 81
+	DECmate Slushware Implementation Notes	______________________________________
+
+	     4) handle select_conformance_level_2 second parameter  as  a 
+		select_C1_transmission_mode,
+	     5) limit  insert/delete  line  count  to  scroll  only   the 
+		available lines;
+	     6) change PR3/0006 to execute ROM code with a select word in 
+		the   AC  (0=Set-Up,  -l=Halt,  -2=boot  floppy,  -3=boot 
+		winchester), was just execute Set-Up menu;
+	     7) save  SLUSHWARE  version  number  in  field  one  address 
+		'frmver' so we can access it later if necessary.
+
+	 231	14 MAR 83 - K. A. House
+	     1) add spanish and italian character sets;
+	     2) avoid stopping CRTC when setting column mode if no change
+		implied (prevents screen bounce);
+	     3) ensure control-m doesn't expand to cr-lf in newline mode;
+	     4) re-enable ich code (now required);
+	     5) add level l/level 2 selection to the Set-Up bit pattern;
+	     6) add 7/8 bit environment selection to the Set-Up bit pattern;
+	     7) reserve first  eight  decimal  words  in  field  one  for
+		firmware/SLUSHWARE handshaking;
+	     8) change selection of 7/8 bit  environment  from  set/reset
+		escape sequence to a panel request;
+	     9)	ensure firmware row address table (used for Set-Up, Halt,
+		and  startup)  is not wiped out when loading SLUSHWARE in
+		8-bit (3:2) mode.
+
+	230	15 FEB 83 - K. A. House
+	     1) fix bug in insert/delete line that put errors in  RAT  if 
+		limited scrolling region and origin mode set;
+	     2) change crtst routine to not  use  MQ  (had  caused  first 
+		keycode after screen blank to get corrupted);
+	     3) re-enable select_conformance_level_2 for ease of debugging;
+	     4) make 'sluin5'  a  subroutine  to  ensure  modularity  and 
+		remove pathological connection;
+	     5) change level 2 default to 7-bit C1 introducers;
+	     6) change end-of-frame handling to  save  code  (in  wtfram, 
+		scrlup, scrldn, EL0, ED1, ERSWT);
+	     7) delay reverting to single width on erased lines until the 
+		lines are erased;
+	     8) eliminate  'ich'  escape  sequence  and  code  cause  the 
+		function has been eliminated from the TIA spec;
+	     9) eliminate send-receive mode cause the function  has  been 
+		removed from the TIA spec.
+
+	227	28 JAN 83 - K. A. House
+	     1) change PR3 14 to  PR3  7300  (can't  use  arguments  with 
+		direct dispatch PR3).
+
+	226	28 JAN 83 - K. A. House
+	     1) allow control characters to autorepeat;
+	     2) blank screen if no keyboard activity for about 30 minutes,
+		reenable on any keystroke;
+	     3) add PR3 14 to do cursor positioning;
+	     4) add PR3 72X0 to write character strings.
+
+
+
+				      page 82
+	DECmate Slushware Implementation Notes	______________________________________
+
+	225	10 JAN 83 - K. A. House
+	     1) ensure delete doesn't abort escape sequence (in sluin),
+	     2) change  printer  status  request  from   esc [ 1 5 n   to 
+		esc [ ? 1 5 n,
+	     3) change  printer  status  report   from   esc [ 1 3 n   to 
+		esc [ ? 1 3 n;
+	     4) remove unreferenced labels and constants.
+
+	224	13 DEC 82 - K. A. House 
+	     1) change insert character code to shuffle  four  characters 
+		per loop (in chins),
+	     2) change delete character code to erase two characters  per
+		loop (in dch),
+	     3) break up reset-to-initial-state code in attempt  to  make 
+		9600 baud (in risrt),
+	     note that hardware will support 8  mhz  panel  code  because 
+		John Kirk is a genius.
+
+	223	09 DEC 82 - K. A. House
+	     attempt to speed up processing (to support 9600  baud)  with 
+	     	these changes:
+	     1) optimize table lookup internal loop (xlook);
+	     2) optimize loop in designate special graphics set (spcsgr;
+	     3) only use 136 positions  (was  256)  in  tab  stops  table 
+		(tabint, tabclr);
+	     4) optimize clear_all_tabs inner loop (tabacl);
+	     5) optimize save/restore cursor inner loop and use an  extra
+		frame (mapmov, crssr);
+	     6) move display enable to very end of CRT initialization, add
+		a few more frames to further reduce screen bounce (crtini);
+	     7) optimize inner loop of character set designation  (usasc,
+		bldmap);
+	     8) clear only up to column 132 (was 256) when changing  line
+		attributes (dhlb, dhlt, dwl, swl);
+	     9) move save and restore cursor to top of their lookup table
+		(fltab)
+
+	222	08 DEC 82 - K. A. House
+	     1) wait for EOF flag on return from halt processor,
+	     2) don't allow selection of C1  announcer  modes  except  in 
+		level ii ,
+	     3) don't allow designation of  supplemental  set  except  in 
+		level ii ,
+	     4) initialize G2 set to USASCII (was supplemental set),
+	     5) don't allow selection  of  8-bit  environment  except  in 
+		level ii,
+	     6) don't allow selection of level ii compatibility mode,
+	     7) remove 'doset' code (was entry to setup via esc [ 1 3 tilde
+		- unused),
+	     8) change DA2 response  to  csi > 3 little-c  (released  for
+		DECmate II internal interface by TIA),
+	     9) don't load  prelude  to  the  RAT  (no  longer  used  for
+		erase-from-start-of-display),
+
+
+
+
+				      page 83
+	DECmate Slushware Implementation Notes	______________________________________
+
+	    10) wait several more  frames  following  CRT  initialization 
+		(try to avoid screen bounce).
+
+ 	221	02 DEC 82 - K. A. House
+	     1) fix bugs (typos) from version 220,
+	     2) move call to clear EOF flag to end of EOF routine,
+	     3) fix return from sluin for pending characters,
+	     4) do  erase-from-start-of-screen  in  software  instead  of
+		hardware,
+	     5) optimize erase function dispatch processing,
+	     6) combine cursor visibility control with EOF flag clear  in
+		clreof.
+
+	220	02 DEC 82 - K. A. House
+	     1) do erase-in-line in software instead of hardware (problem
+		with 4 Mhz clock).
+
+	217	24 NOV 82 - K. A. House
+	     1) make  cursor  application  mode  independent  of   keypad
+		application mode (in 'procur'),
+	     2) move power-on-clear code to high page in field 0 so the jump
+		to rom works correctly (bug didn't allow 16d roms to work),
+	     3) reset autowrap-pending flag (lstcol) in ich and dch,
+	     4) change device attributes report and  select  conformation
+		level to use 61/62 instead of 51/52 (in sclvl and da),
+	     5) don't allow ich unless in level ii (vt200 mode),
+	     6) change cursor line attribute  to  single  width  if  line 
+		fully erased with erase-in-display (ed),
+	     7) change decaln to use cross  from  the  line  drawing  set 
+		instead of 'e',
+	     8) don't treat gr's 240(8) as a space - ignore it instead,
+	     9) move row address table up by two addresses in field 1 for
+		erase-from-start-of-display.
+
+	 216	05 NOV 82 - K. A. House
+	     1) ensure auto-repeat doesn't conflict with CPODT patch area 
+		at kbybrd+1,
+	     2) ensure correct  return  from  sluin  after  dealing  with 
+		pending character from EOF,
+	     3) fix cursor visibility code at EOF.
+
+	215	03 OCT 82 - K. A. House
+	     1) fix scroll region cursor addressing bungle,
+	     2) stop and start CRT controller at  CRTC  init  and  column 
+		mode change.
+
+	214	08 OCT 82 - K. A. House
+	     1) fix 'getpar' so it doesn't loop forever on zero parameters
+		(if they're to be ignored).
+
+	213	08 OCT 82 - K. A. House
+	     1) ensure keyboard  LED  matches  logical  caps  lock  state
+		(currently  off)  in  the  power-on sequence (reboot from 
+		setup goes through that code).
+
+
+
+				      page 84
+	DECmate Slushware Implementation Notes	______________________________________
+
+	212	08 OCT 82 - K. A. House
+	     1) fix panel request 0011 to  properly  return  the  display
+		status (logical or of crtbsy and scrbsy).
+
+	211	08 OCT 82 - K. A. House
+	     1) add panel requests for select-keyboard-case  (AC<11>=0 ->
+		lower,  =1 -> upper)  and request-display-status (returns 
+		AC=0000 -> stable, =7777 -> unstable).
+
+	210	07 OCT 82 - K. A. House
+	     1) disallow use of esc [ 1 3 tilde to invoke the setup  menu 
+		by  patching  the  tilde  out  of the csi final character 
+		lookup table (can still do setup menu using PR3;6;-1).
+
+	207	07 OCT 82 - K. A. House
+	     1) change local function key order (was: hold, print, break, 
+		setup,  fn4;  is:  hold,  print, setup, fn4 (reserved for 
+		data/talk), break),
+	     2) change   setup   invocation   to   esc [ 1 3 tilde   (was 
+		esc [ 1 4 tilde).
+
+	206	07 OCT 82 - K. A. House
+	     1) fix RAT cleanup so line attributes  don't  cause  display 
+		jumbling.
+
+	205	06 OCT 82 - K. A. House
+	     1) fix RAT cleanup for RAM refresh so that  line  attributes 
+		stay at the proper lines.
+
+	204	06 OCT 82 - K. A. House
+	     1) change error character to reverse query (will be  in  the 
+		character generator ROM at position 177),
+	     2) ensure autowrap looks like cursor movement for the cursor 
+		visibility control,
+	     3) fix so screen doesn't erase after 'setup'.
+
+	203	06 OCT 82 - K. A. House
+	     1) use cursor history over two frames  to  determine  cursor 
+		visibility  (turn off cursor if only graphics now but had 
+		cursor movement previously).
+
+	202	06 OCT 82 - K. A. House
+	     1) go to  8-bit  mode  and  generate  function  key  control
+		sequences when selecting VT200 mode,
+	     2) do all CRTC cursor positioning at  end-of-frame  to  make
+		the cursor do-the-right-thing,
+	     3) change CRTC vertical synch width (from 13 to 3).
+
+	201 	01 OCT 82 - K. A. House
+	     1) ensure a NUL from the keyboard gets enqueued to the user.
+
+	200	01 OCT 82 - K. A. House
+	     1) ensure a received  space  character  appears  in  display
+		memory as a 040 so PR0 requests can differentiate between 
+		erased  and  over-written  screen  data  (for  DECmate  I
+		compatibility).
+
+				      page 85
+	DECmate Slushware Implementation Notes	______________________________________
+
+	177	29 SEP 82 - K. A. House
+	     1) change panel entry to  process  each  bit  in  the  panel 
+		status  word  (was  doing one-per-entry causing incorrect 
+		emulation of certain instructions),
+	     2) change mod30/mod40/mod50 to subroutines,
+	     3) remove mod60 (unknown panel trap) cause we just exit anyway.
+
+	176	28 SEP 82 - K. A. House
+	     1) ignore csi sequences with colons in them,
+	     2) fix  final  character  dispatching  for  non-private  csi
+		sequences,
+	     3) fix csi intermediate parsing.
+
+	175	27 SEP 82 - K. A. House
+	     1) add secondary device attributes request (esc [ > little-c)
+		and response,
+	     2) change ansi parser to accept additional private parameters 
+		(?>=<),
+	     3) add  select  compatibility  mode   (esc [ ps " little-p),
+	     change sndstr to get strings from field 1,
+	     4) don't do these unless in VT200 (level 2) mode:
+		LS2/LS3/LS1R/LS2R/LS3R,
+	     5) change selection of  7/8-bit  environment  to  an  escape
+		sequence (was a PRQ),
+	     6) add code to setup return to deselect VT200 mode and select
+		7-bit mask/environment/introducers and send esc/bs/lf from
+		function keys.
+
+	174 	25 SEP 82 - K. A. House
+	     1) fix PR3 move functions so they never wrap around in a field.
+
+	173 	24 SEP 82 - K. A. House
+	     1) change initial RAT to avoid erase-from-start-of-display's
+		clearing the tab stops table,
+	     2) change tab initialization routine to do 256 columns.
+
+	172 	24 SEP 82 - K. A. House
+	     1) remove fix from PR3 moves.
+
+	171 	23 SEP 82 - K. A. House
+	     1) fix PR3 move data instructions (were moving too much data).
+
+	170 	23 SEP 82 - K. A. House
+	     1) fix   momentary   visibility   of   26th   line    during
+		erase-in-display for reverse video.
+
+	167 	23 SEP 82 - K. A. House
+	     1) clear EOF flag at panel  exit  in  attempt  to  alleviate 
+		smooth 	scroll synch problems.
+
+	166 	22 SEP 82 - K. A. House
+	     1) attempt to alleviate smooth  scroll  granularity  for  lf
+		(scrlup),
+	     2) attempt to fix smooth scroll synch problem (sspost).
+
+
+
+				      page 86
+	DECmate Slushware Implementation Notes	______________________________________
+
+	165	22 SEP 82 - K. A. House
+	     1) fix  cursor  addressing  following  set  top  and  bottom 
+		margins function,
+	     2) attempt to fix smooth scroll synch problem (sspost),
+	     3) pick up device attributes response from a text string,
+	     4) respond as a level one display terminal  with  132-column
+		extension.
+
+	164	22 SEP 82 - K. A. House
+	     1) synchronize RAT cleaning with EOF  to  support  comm  for
+		IL/DL/STBM,
+	     2) don't enable keyboard if user wants it disabled.
+
+	163	21 SEP 82 - K. A. House
+	     1) limit PR3 moves to one field (no wrap),
+	     2) turn off cursor during active scroll,
+	     3) fix equates for KRB2 and KSF2.
+
+	162	20 SEP 82 - K. A. House
+	     1) invoke code to rearrange RAT for IL, D1 and STBM.
+
+	161	20 SEP 82 - K. A. House
+	     1) change 'mode' to colmod ',
+	     2) invoke ROM-based code for halt processing,
+	     3) expand CPODT patch areas to seven words,
+	     4) change ODTTAB (delete 'kbybrd+l',  change  'pushsl+l'  to
+		'pushsl'),
+	     5) add code to rearrange RAT for RAM refresh (not yet called).
+
+	160	16 SEP 82 - K. A. House
+	     1) attempt to fix smooth scroll EOF synchronization,
+	     2) add PR3 71X0 for passing 'print screen' data to user,
+	     3) ensure RAT set up at power-on.
+
+	157	15 SEP 82 - K. A. House
+	     1) move CRTC tables to field one,
+	     2) build RAT initialization table in field one,
+	     3) don't clear display on return from 'setup' unless  column
+		mode has changed.
+
+	156	15 SEP 82 - K. A. House
+	     1) change default communications baud rate to 1200,
+	     2) don't do GR shifts (LS1R, LS2R, LS3R) in 7-bit environment,
+	     3) don't reset lstcol for DCH or ICH,
+	     4) set cursor to left margin for IL and DL.
+
+	155	13 SEP 82 - K. A. House
+	     1) move floppy bootstrap and keyboard maps to field 1,
+	     2) add PR3 7000 to send user data to keyboard,
+	     3) ignore SS2 and SS3 in VT52 mode,
+	     4) expand C0 dispatch table to avoid individual tests,
+	     5) change C1 lookup table to a dispatch table for speed.
+
+
+
+
+
+				      page 87
+	DECmate Slushware Implementation Notes	______________________________________
+
+	154	10 SEP 82 - K. A. House
+	     1) add PR3 0010 for selecting special  function  key  output
+		(e .g ., esc or esc 1 2 3 tilda),
+	     2) add distinct character sets for VT52 mode,
+	     3) ensure GR characters masked to 7 bits for use  in  escape
+		sequences,
+	     4) force 7-bit  environment  when  selecting  VT52  or  ANSI 
+		(VT100) modes (also use 7-bit introducers),
+	     5) ensure introducer mode reset when selecting 7-bit mode,
+	     6) expand 'risrt' to reset  more  modes  to  their  defaults 
+		(kam, curkey, srm, arm, irm, altkpd),
+	     7) turn cursor on for direct cursor positioning,
+	     8) ignore SI, SO, LS2, and LS3 in VT52 mode.
+
+	153	08 SEP 82 - K. A. House
+	     1) fix 'decid' entry to avoid parameter check.
+
+	152	08 SEP 82 - K. A. House
+	     1) change 'EOF' to correctly disable cursor,
+	     2) use hardware erase at column mode change.
+
+	151	07 SEP 82 - K. A. House
+	     1) fix autowrap,
+	     2) move dispatch and lookup tables to field 1,
+	     3) change 'wtfram' so it doesn't hang in panel memory,
+	     4) move foreign character tables to field 1,
+	     5) move 'ODTTAB' to field 1,
+	     6) break cursor save/restore code up to allow return to user
+		memory,
+	     7) don't fill first 32. characters of maps,
+	     8) ensure character 040 is always a space.
+
+	150	01 SEP 82 - K. A. House
+	     1) fix VT52 cursor positioning to bottom line,
+	     2) this version was frozen  as  version  3147  and  released 
+		30-aug-82.
+
+	147	30 AUG 82 - K. A. House
+	     1)	change sense of  the  set/reset  ANSI  mode  ANSI  escape
+		sequence.
+
+	146	30 AUG 82 - K. A. House
+	     1) fix character set designation,
+	     2) ensure location 177 of every map is the error character.
+
+	145	30 AUG 82 - K. A. House
+	     1) add 2nd user-defined character set,
+	     2) fix designating sequences for user-defined chars,
+	     3) fix CPODT tables.
+
+	144	28 AUG 82 - K. A. House
+	     1) fix ICH/DCH,
+
+
+
+
+
+				      page 88
+	DECmate Slushware Implementation Notes	______________________________________
+
+	     2) ensure multi-line scroll downs aren't jumpy in smooth mode,
+	     3) add CPODT table,
+	     4) reset autowrap pending flag for SCOLM/HT/IL/DL,
+	     5) don't reset character attributes for DECALN,
+	     6) complete RIS for TIA compatibility.
+
+	143	28 AUG 82 - K. A. House
+	     1) fix autowrap,
+	     2) ensure multi-line smooth scroll ups aren't jumpy.
+
+	142	27 AUG 82 - K. A. House
+	     1) make autowrap compatible with TIA spec,
+	     2) don't hold off CR during scroll,
+	     3) ensure  26th  line  doesn't  become  visible   after   an 
+		erase-in-display,
+	     4) fix vertical jitter during smooth scroll,
+	     5) remove  attempted  fix  of  horizontal   jitter   problem 
+		(hardware bug).
+
+	141	27 AUG 82 - K. A. House
+	     1) move field one parameters around,
+	     2) parameterize constants,
+	     3) add last column flag for autowrap,
+	     4) make RIS/SC/RC compatible with TIA specs,
+	     5) try to fix CLREOF screen jitter,
+	     6) send character to user if compose key struck.
+
+	140	25 AUG 82 - K. A. House
+	     1) use keyboard map loaded by ROM firmware  (can  no  longer 
+		use NCC 2-rom set),
+	     2) attempt to fix VT52 cursor positioning,
+	     3) abort control sequences on receipt of CAN or SUB,
+	     4) ensure RIS clears the CRTC ext char addr and user flags.
+
+	137	24 AUG 82 - K. A. House
+	     1) default baud rates to 4800,
+	     2) modify layout for CPODT,
+	     3) constrain ICH/DCH to visible data,
+	     4) get rid of visible 26th line in reverse  video  (make  it
+		reverse spaces).
+
+	136	23 AUG 82 - K. A. House
+	     1) recover from lost source file!!
+	     2) fix upper half of jis katakana character set,
+	     3) fix alternate ROM special graphics character set,
+	     4) allow set/reset to handle several parameters.
+
+	135	18 AUG 82 - K. A. House
+	     1) fix erase from start of display.
+
+	134	18 AUG 82 - K. A. House
+	     1) fix erase in display.
+
+	133	18 AUG 82 - K. A. House
+	     1) fix erase in display functions.
+
+
+				      page 89
+	DECmate Slushware Implementation Notes	______________________________________
+
+
+	132	18 AUG 82  K. A. House
+	     1) set- erased lines to single width,
+	     2) add field 3 statement to ensure correct loading.
+
+	131	17 AUG 82 - K. A. House
+	     1) invert sense of send-receive mode,
+	     2) delete references to left column,
+	     3) fix display address routine to handle data  above  scroll
+		region in relative origin mode.
+
+	130	16 AUG 82 - K. A. House
+	     1) fix to hold off user input during scroll after escape,
+	     2) turn cursor on for graphic characters,
+	     3) don't send 8-bit characters to user when in 7-bit mode,
+	     4) fix ED2 to erase from physical top of screen,
+	     5) ensure error character available in each quadrant of  the
+		character generator ROM .
+
+	127	12 AUG 82 - K. A. House
+	     1) fix problems with smooth scroll,
+	     2) add PR3 function 50XY to move data from panel memory  to 
+		user memory.
+
+	126	11 AUG 82 - K. A. House
+	     1) process EOF after user flag at panel entry,
+	     2) clear EOF flag at entry to EOF processor,
+	     3) absorb common code into movutw,
+	     4) change scrldn to match fixes in scrlup,
+	     5) move selection of 26 line  RAT  to  end  of  post  smooth 
+		scroll stuff.
+
+	125 	10 AUG 82 - K. A. House
+	     1) changes to help firmware beat the  CRTC  to  the  RAT  at 
+		start of frame,
+	     2) use some common code for cursor movements,
+	     3) fix partial screen smooth scroll.
+
+	124	09 AUG 82 - K. A. House
+	     1) change shuffle for scrldn  and  ssprep to  get  to  first 
+		RAT line be fore CRTC does,
+	     2) change some of the keyboard control codes.
+
+	123	05 AUG 82 - K. A. House
+	     1) attempt to fix smooth scroll jumpiness,
+	     2) wait a couple of extra frames on column mode change  (any 
+		CRT initialization).
+
+	122	04 AUG 82 - K. A. House
+	     1) fix range check for set/reset,
+	     2) fix alt ROM special graphics.
+
+
+
+
+
+
+				      page 90
+	DECmate Slushware Implementation Notes	______________________________________
+
+	121 	04 AUG 82 - K. A. House
+	     1) fix smooth scroll by making 26th line visible  (but  full 
+		of blanks),
+	     2) add parameter 25 for set/reset cursor visibility.
+
+	120	03 AUG 82 - K. A. House
+	     1) add PR3 for power-on clear,
+	     2) restore PR3 for executing setup menu,
+	     3) ensure extra display line is single width,
+	     4) select 25-line RAT during smooth scroll.
+
+	117	28 JUL 82 - K. A. House
+	     1) add constants at addresses 1-3,
+	     2) use common dispatch code,
+	     3) clean up power-up code a little,
+	     4) fix french character set,
+	     5) abort escape sequence with C1 character,
+	     6) change user set designation,
+	     7) remove PR3 functions for cursor enable and execute  setup
+		menu.
+
+	116	22 JUL 82 - K. A. House
+	     1) limit CUU and CUD to scrolling region,
+	     2) home cursor on STBM.
+
+	115	22 JUL 82 - K. A. House
+	     1) add DCS, API, OSC, PM, and ST handling.
+
+	114	21 JUL 82 - K. A. House
+	     1) fix baud rate setup.
+
+	113	20 JUL 82 - K. A. House
+	     1) blank cursor for displayed characters,
+	     2) fix output from function keys,
+	     3) fix ANSI sequences for locking shifts,
+	     4) set baud rates in setup function.
+ 
+	112	16 JUL 82 - K. A. House
+	     1) fix CR to CRLF conversion.
+
+	111	16 JUL 82 - K. A. House
+	     1) expand keyboard CR to CR-LF if in newline mode,
+	     2) add jis roman graphic character set,
+	     3) change selection of 7 or 8 bit environment to a PR3.
+
+	110	15 JUL 82 - K. A. House
+	     1) fix extra half line in smooth scroll.
+
+	107	15 JUL 82 - K. A. House
+	     1) fix function key code generation,
+	     2) fix control code range check.
+
+	106	15 JUL 82 - K. A. House
+	     1) add high range check for control characters.
+
+
+
+				      page 91
+	DECmate Slushware Implementation Notes	______________________________________
+
+	105	15 JUL 82 - K. A. House
+	     1) add escape sequence entry to setup menu,
+	     2) disable  blink  attribute  when  in  extended   character
+		addressing mode.
+
+	104	13-JUL-82 - DTR
+	     1) fixed PRQ3 to properly check for a -1 terminator,
+	     2) fixed move from ROM to RAM in dsetup
+
+	103	13 JUL 82 - K. A. House
+	     1) fix keyboard transmission,
+	     2) add PR3/6/7777 for setup function.
+
+	102	12 JUL 82 - K. A. House
+	     1) attempt to fix scroll up.
+
+	l0l	12 JUL 82 - K. A. House
+	     1) change order of setup parameters.
+
+	100	09 JUL 82 - K. A. House
+	     1) add screen mode to setup parameters,
+	     2) fix smooth scroll (i hope).
+
+	77	09 JUL 82 - K. A. House
+	     1) set CRTC to 25 lines at first inkling of smooth scroll,
+	     2) add keyclick to RIS.
+
+ 	76	09 JUL 82 - K. A. House
+	     1) attempt to set up for smooth scroll soon enough to handle 
+		the first line,
+	     2) add reset from 'setup' block code,
+	     3) attempt to fix cursor disable at EOF.
+
+	75	08 JUL 82 - K. A. House
+	     1) establish 'setup' block,
+	     2) change column mode parameter to 0000 and 7777,
+	     3) fix blinking bottom line in smooth scroll.
+
+	74	07 JUL 82 - K. A. House
+	     1) start user characters from 041 (was 040),
+	     2) attempt to fix smooth scroll.
+
+	73	07 JUL 82 - K. A. House
+	     1) fix sspost,
+	     2) use 'blotch' for error character,
+	     3) fix smooth scroll,
+	     4) build complete character map.
+
+	72	06 JUL 82 - K. A. House
+	     1) attempt to fix HT and BS and RI.
+
+	71	06 JUL 82 - K. A. House
+	     1) fix smooth scroll,
+	     2) change HT and BS to affect only horizontal cursor.
+
+
+
+				      page 92
+	DECmate Slushware Implementation Notes	______________________________________
+
+	70 	06 JUL 82 - K. A. House
+	     1) attempt to fix 26-line RAT/24-line display.	
+
+	67	06 JUL 82 - K. A. House
+	     1) clean up page zero,
+	     2) fix 26-line RAT handling.
+
+	66	01 JUL 82 - K. A. House
+	     1) use 26-line RAT for RAM refresh.
+
+	65	24 JUN 82 - K. A. House
+	     1) fix PR3 handling,
+	     2) add foreign character sets.
+
+	64	23 JUN 82 - K. A. House
+	     1) fix  alt  ROM  and  alt  ROM  special  sets  (they   were
+		interchanged).
+
+	63	23 JUN 82 - K. A. House
+	     1) use 4000 bit for extended characters.
+
+	62	23 JUN 82 - K. A. House
+	     1) fix 61's bugs (some of them),
+	     2) add auto-select of extended character and user modes  for 
+		those character sets,
+	     3) re-enable 132. col.
+
+	61	22 JUN 82 - K. A. House
+	     1) add cursor off mode,
+	     2) add 7 or 8 bit introducer mode,
+	     3) add more locking shifts,
+	     4) add more character sets,
+	     5) add PRQs for cursor style,  cursor  visibility,  extended 
+		character mode, user character mode.
+
+	60	17 JUN 82 - K. A. House
+	     1) now fixing the run-time errors.
+
+	57	17 JUN 82 - K. A. House
+	     1) fix 38 errors from version 56.
+
+	56	16 JUN 82 - K. A. House
+	     1) change  character  translation  to  meet  new   standards 
+		(G0 - G3, GL & GR),
+	     2) add eight bit translation,
+	     3) add eight bit control characters,
+	     4) allow choice of 'esc [' or 'csi' on output,
+	     5) add LS2R & LS3R.
+
+	55	14 JUN 82 - K. A. House
+	     1) fix decaln again,
+	     2) fix line attribute selection again.
+
+	54	14 JUN 82 - K. A. House
+
+
+
+				      page 93
+	DECmate Slushware Implementation Notes	______________________________________
+
+	     1) fix decaln cursor bungle, 
+	     2) fix single width line erase bungle.
+
+	53	14 JUN 82 - K. A. House
+	     1) fix double width stuff,
+	     2) clear line attributes when scrolled off screen,
+	     3) reinitialize CRTC for decaln.
+
+	52	14 JUN 82  K. A. House
+	     1) fix 'ind',
+	     2) add double width selection code.
+
+	51	10 JUN 82 - K. A. House
+	     1) fix IL and DL with origin mode and partial scroll region;
+	     2) add DA and DECID.
+
+	50	10 JUN 82 - K. A. House
+	     1) move CRTC  data  row  initialization  to  precede  smooth 
+		scroll activity (for IL, DL),
+	     2) change scroll to match VT100 performance (on LF, FF,  VT,
+		IND, RI, NEL, autowrap) with limited scroll regions.
+
+	47	09 JUN 82 - K. A. House
+	      1) fix smooth scroll down,
+	      2) fix scroll up for limited scrolling regions.
+	
+	46	08 JUN 82 - K. A. House
+	      1) fix scroll,
+	      2) fix screen alignment,
+	      3) add IL and DL to the parsing tables.
+
+	45	07 JUN 82 - K. A. House
+	      1) clean up page zero,	
+	      2) fix EOF processor,
+	      3) compress keyboard IOT processing,
+	      4) add local mode,
+	      5) add insert/delete line(s),
+	      6) add screen alignment display,
+	      7) fix cursor position report,
+	      8) add PR3 print character and select video enable.
+
+	44	03 JUN 82 - K. A. House
+	      1) don't reset/start CRT chip,
+	      2) swap order of test for user request and EOF.
+
+	43	28 MAY 82 - K. A. House
+	      1) fix KRS handling,
+ 	      2) disable clock interrupts at power-on.
+
+	42	28 MAY 82 - K. A. House
+	      1) fix control character decoding,
+	      2) fix scroll,
+	      3) speed up character display, etc.
+
+
+
+
+				      page 94
+	DECmate Slushware Implementation Notes	______________________________________
+
+	41	27 MAY 82 - K. A. House
+	     1) add look-ahead character buffering during scroll operations.
+
+	40	27 MAY 82 - K. A. House
+	     1) fix smooth scroll down,
+	     2) set smooth scroll rate to two rasters per frame,
+	     3) fix reset to initial state.
+
+	37	26 MAY 82 - K. A. House
+	     1) fix smooth scroll,
+	     2) add smooth scroll down.
+
+	36	25 MAY 82 - K. A. House
+	     1) fix smooth scroll.
+
+	35	25 MAY 82 - K. A. House
+	     1) fix smooth scroll.
+
+	34	25 MAY 82 - K. A. House
+	     1) fix smooth scroll,
+	     2) add smooth scroll down.
+
+	33	24 MAY 82 - K. A. House
+	     1) add some more smooth scroll stuff.
+
+	32	24 MAY 82 - K. A. House
+	     1) add some smooth scroll stuff for checkout.
+
+	31	21 MAY 82 - K. A. House
+	     1) fix erase from start of display (i hope).
+
+	30	20 MAY 82 - K. A. House
+	     1) add delete character (dch),
+	     2) supress leading zeroes for cursor position report (cpr).
+
+	27	20 MAY 82 - K. A. House
+	     1) fix erase from start of display (?).
+
+	26	19 MAY 82 - K. A. House
+	     1) fix erase from start of display again.
+
+	25	19 MAY 82 - K. A. House
+	     1) fix erase from start of display (ED1).
+
+	24	19 MAY 82 - K. A. House
+	     1) add erase from start to cursor (EL1, ED1)
+
+	23	19 MAY 82 - K. A. House
+	     1) speed up and fix character insertion.
+
+	22	18 MAY 82 - K. A. House
+	     1) add insert character (ICH),
+	     2) change dspad to build a CDF instruction in 'xdispl'.
+
+
+
+
+				      page 95
+	DECmate Slushware Implementation Notes	______________________________________
+
+	21	18 MAY 82 - K. A. House
+	     1) add single shifts,
+	     2) reset to initial.
+
+	20	13 MAY 82 - K. A. House
+	     1) add PR3 handling,
+	     2) fix character set selection,
+	     3) fix PRQ 'getdat' routine.
+
+	17	13 MAY 82 - K. A. House
+	     1) add panel request handling.
+
+	16	12 MAY 82 - K. A. House
+	     1) send capital R with cursor position report.
+
+	15	12 MAY 82 - K. A. House
+	     1) wait for first end-of-frame at power-on.
+
+	14	12 MAY 82 - K. A. House
+	     1) fix scroll bug,
+	     2) add origin mode to save cursor code .
+
+	13	12 MAY 82 - K. A. House
+	     1) fix set/reset returns.
+
+	12	12 MAY 82 - K. A. House
+	     1) reset halt flag,
+	     2) fix ttitto dispatching,
+	     3) reduce code size of set/reset.
+
+	11	12 MAY 82 - K. A. House
+	     1) add keyboard lock/unlock per silo status.
+
+	10	12 MAY 82 - K. A. House
+	     1) change ttitto dispatching to go faster,
+	     2) delete check for power-on flag.
+
+	7	12 MAY 82 - K. A. House
+	     1) change character conversion to go faster.
+
+	XX	11 MAY 82 - K. A. House
+	     1) avoid multiple KCFs.
+
+	XX	11 MAY 82 - K. A. House
+	     1) fix set/reset auto-repeat (keyboard commands wrong).
+
+	XX	08 MAY 82 - K. A. House
+	     1) add set/reset auto-repeat.
+
+	XX	08 MAY 82 - K. A. House
+	     1) don't check erase done bit.
+
+	XX	08 MAY 82 - K. A. House
+	     1) fix keyboard xmit enqueueing,
+	     2) fix KRS handling.
+
+
+				      page 96
+	DECmate Slushware Implementation Notes	______________________________________
+
+	XX	07 MAY 82 - K. A. House
+	     1) fix hold LED polarity,
+	     2) dummy out the 132 character mode select table entry.
+
+	XX	06 MAY 82 - K. A. House
+	     1) fix scroll once more,
+	     2) ensure  characters  generated   by   SLUSHWARE   announce 
+		themselves to the user.
+
+	XX	06 MAY 82 - K. A. House
+	     1) fix scroll,
+	     2) VT52 cursor handling,
+	     3) hold screen return,
+	     4) backslash caps value.
+
+	XX	06 MAY 82 - R. A. House
+	     1) fix keyboard function key determination
+
+	XX	05 MAY 82 - R. A. House
+	     1) add ANSI set/reset primitives,
+	     2) add VT52 escape sequence parsing and keycode translation.
+
+	XX	04 MAY 82 - K. A. House
+	     1) add LEDs,
+	     2) general clean-up.
+
+	XX	04 MAY 82 - K. A. House
+	     1) add hold screen,
+	     2) fix scroll,
+	     3) etc.
+
+	XX	03 MAY 82 - K. A. House
+	     1) add device status report.
+
+	XX	03 MAY 82 - K. A. House
+	     1) fix scroll within screen.
+
+	XX	02 MAY 82 - K. A. House
+	     1) fix keyboard transmit routines,
+	     2) fix set top and bottom margins,
+	     3) add home cursor to origin mode changes,
+	     4) add ANSI set and reset modes to parse tables.
+
+	XX	01 MAY 82 - K. A. House
+	     1) fix erase functions,
+	     2) speed up display.
+
+	XX	01 MAY 82 - K. A. House
+	     1) add erase functions,
+	     2) break out write cursor as a separate routine.
+
+	XX	30 APR 82 - K. A. House
+	     1) removed disk loader.
+
+
+
+
+				      page 97
+	DECmate Slushware Implementation Notes	______________________________________
+
+	XX	29 APR 82 - K. A. House
+	     1) added keyboard transmit routines,
+	     2) cursor save-restore,
+	     3) newline mode,
+	     4) fixed initial tab positions,
+	     5) etc.
+
+	XX	29 APR 82 - D. Rice
+	     1) added handling of ESC, BS and LF keys
+
+	XX	28 APR 82 - K. A. House
+	     1) fix cursor update,
+	     2) other fixes.
+
+	XX	27 APR 82 - K. A. House
+	     1) add synchronization to EOF.
+
+	XX	27 APR 82 - K. A. House
+	     1) corrected problems to get characters to the screen properly
+
+	XX	27 APR 82 - K. A. House
+	     1) more bug fixing (RAT setup, ESC flag).
+
+	XX	26 APR 82 - K. A. House
+	     1) fix bugs from ROM testing,
+	     2) add tabs.
+
+	XX	26 APR 82 - K. A. House
+	     1) add rudimentary main memory code.
+
+	XX	25 APR 82 - K. A. House
+	     1) fix bugs
+
+	XX	24 APR 82 - K. A. House
+	     1) clean up top level,
+	     2) comments,
+	     3) etc.
+
+	XX	23 APR 82 - K. A. House
+	     1) add D. Rice's top level code
+
+	XX	22 APR 82 - K. A. House
+	     1) add J. Kirk's boot code,
+	     2) clean up
+
+	XX	21 APR 82 - K. A. House
+	     1) cleaned up links,
+	     2) added initialization
+
+	XX	20 APR 82 - K. A. House
+	     1) added primitives, constants, definitions
+
+
+
+
+
+
+				      page 98
+	DECmate Slushware Implementation Notes	______________________________________
+
+	APPENDIX H - MODIFICATIONS SINCE ISSUE 9 OF THIS DOCUMENT
+
+	The SLUSHWARE program has been modified over the course  of  many
+	months  to  provide  additional features, to improve performance,
+	and of course to fix bugs.  The following  list  documents  the
+	modifications made since issue 9 of this document.
+
+	VERSION    	DESCRIPTION
+
+	422	23 DEC 85 - K. A. House
+	     1) fix handling of autorepeat at RIS (had failed to  get  it 
+		from setup params, always turned it on).
+
+	421	22 NOV 85 - K. A. House
+	     1) reset eofok flag on every  panel  exit  (had  stayed  set 
+		until  we  got  an eof while in panel RAM), this seems to 
+		make slow scroll look smoother;
+	     2) move label tabcl8 to correct place (had been in the wrong 
+		routine!);
+	     3) additional test for cursor visibility: if cursor movement 
+		and  have  been  in  panel RAM for a long time, then make 
+		cursor invisible for just this frame (crt timing  changes 
+		in  420 caused a phantom cursor to appear on the top line 
+		sometimes);
+	     4) in clreof routine, change  skp  to  jmp  to  next  useful 
+		instruction to save time;
+	     5) at  restore  cursor,  force  cursor  visibility  off   by 
+		pretending  to  have  graphic chars after cursor movement 
+		(looked bad when cursor was forced on);
+	     6) in mapmov routine, avoid calling adjtbd (unnecessary here, 
+		had forced cursor on when doing save/restore cursor).
+
+	420	23 SEP 85 - K. A. House
+	     1) use 25 (decimal) lines for CRTC programming  for both the 
+		DECmate  II  and  III.  this  saves room in slushware and 
+		gives us more time at the end-of-frame.  RAM  refresh  is 
+		handled by an extra (26th) line given to us gratis by the 
+		CRTC controller chip.
+
+	417	14 AUG 85 - K. A. House
+	     1) try to fix DECmate III problem with double-wide lines set 
+		immediately  after  a  change  in  column  width.  by  a) 
+		waiting  a  couple  of  frames  to   synchronize   before 
+		programming  CRTC and external logic, and b) changing the 
+		number of vertical lines in the CRTC programming from  26 
+		(decimal) to 25 (decimal) only for the DECmate III.
+
+	416	03 JUL 85 - K. A. House 
+	     1) add swiss nrc, designated by '=';
+	     2) fix unimplemented intermediates, had  caused  early  exit 
+		from  parser  and printed what should have been the final 
+		character;
+	     3) save blink character rendition in  these  nrcs:  germany, 
+		italy,  swedish,  jis  roman,  swiss, and finland - still 
+		lose blink for france, spain, dutch, and norway/denmark;
+
+
+				      page 99
+	DECmate Slushware Implementation Notes	______________________________________
+
+	     4) fix compose error bell volume, had sometimes been  louder 
+		than normal, should be softer.
+ 
+	415	29 MAR 85 - K. A. House 
+	     1) fix graphics option initialization  on  DECmate  II,  had 
+		failed to force text to display on the color monitor (was 
+		a bad equate for one of the graphics IOTs).
+
+	414	08 MAR 85 - K. A. House 
+	     1) fix graphics option initialization  on  DECmate  II,  had 
+		failed  to clear the screen when 19H ROMS were installed, 
+		worked fine with 19N ROMs; DECmate III has been ok;
+	     2) fix smooth scroll bug that caused bottom line  to  revert 
+		to single width;
+	     3) add another setup word in page zero;
+	     4) reserve two bits in setup word for storing terminal id;
+	     5) fix the following addresses so applications can determine 
+		terminal  state:  (0)0044 altkpd, (0)0045 nlmmod, (0)0112 
+		top, (0)113 bottom, (3)7000 tabs;
+	     6) add the following entries to  ODT  table:  irmmod,  wrap, 
+		curkey, kammod.
+
+	413	12 SEP 84 - K. A. House 
+	     1) append shift/lock/control bits  to  main  array  keys  in 
+		single-character-function_key  mode  (these high bits had 
+		been  cleared),  this  change  is  necessary  for  MS-DOS 
+		extended calls used by Lotus 1-2-3.
+
+	412	06 AUG 84 - K. A. House 
+	     1) fix graphics  initialization  to  ensure  display  memory 
+		cleared  by  waiting  until  screen memory cleared before 
+		synching videos and writing all four registers  two  with 
+		7777 (DECmate II failed at times to fully clear screen);
+	     2) fix graphics initialization to ensure text forced to both 
+		monitors for a new board (DECmate III had failed to reset 
+		register one at a software reboot).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				      page 100

@@ -1,0 +1,59 @@
+#!/usr/bin/perl
+
+#
+# Extract the code from the 2764 used in the DECmate III.
+#
+# Working theory:
+#   Bytes in the first 4K are simply the high nibble of the PDP-8 word,
+#   duplicated to form an 8 bit byte.
+#   Bytes in the second 4K are the low 8 bits of the 12 bit word.
+#   
+
+# Read in the file and assemble the words.
+open(INPUT, "$ARGV[0]") || die "$ARGV[0]: $!";
+while (<INPUT>) {
+#               S113 0000  88000000000000000000000000000011 53
+  next unless /^S113(....)(................................)..$/;
+  ($addr, $data) = ($1, $2); 
+#warn "$addr $data";
+  $high = $addr =~ /^0/; # First 4K are high nibbles.
+  @data = ();
+  while ($data =~ s/^(..)//) {
+    push(@data, hex($1));
+  }
+  $addr = hex($addr) & 07777; # Get 4K offset
+  for ($b = 0; $b < 16; $b++) {
+    if ($high) {
+      $core[$addr+$b] = $data[$b] << 8;
+    } else {
+      $core[$addr+$b] += $data[$b];
+      $core[$addr+$b] &= 07777; # Keep 12 bits
+    }
+  }
+}
+
+# TODO: Dump a BINary tape image of the reconstructed words.
+$f = $ARGV[0]; $f =~ s/[.]mot$//;
+$f .= ".bin";
+open(OUTPUT, ">$f") || die "$f: $!"; binmode(OUTPUT);
+for ($addr = 0; $addr < 100; $addr++) {
+  printf OUTPUT "%c", 0200;
+}
+printf OUTPUT "%c%c%c", 0370, 0100, 000;
+$sum = 0100; # Checksum, so far.
+for ($addr = 0; $addr <= 07777; $addr++) {
+  # Each word is two byetes, each added to the checksum.
+  $n1 = $core[$addr] >> 6;
+  $n2 = $core[$addr] & 077;
+  printf OUTPUT "%c%c", $n1, $n2;
+  $sum += $n1 + $n2;
+}
+# Output the checksum.
+$sum &= 07777; # Lose all the carry-outs.
+$n1 = $sum >> 6;
+$n2 = $sum & 077;
+printf OUTPUT "%c%c", $n1, $n2;
+for ($addr = 0; $addr < 100; $addr++) {
+  printf OUTPUT "%c", 0200;
+}
+exit 0;

@@ -1,0 +1,138 @@
+#!/usr/bin/perl
+# 
+# Copyright © 2015-2020 by Vincent Slyngstad
+# 
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+# 
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS LISTED ABOVE BE LIABLE
+# FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+# CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+# 
+# Except as contained in this notice, the names of the authors above
+# shall not be used in advertising or otherwise to promote the sale, use
+# or other dealings in this Software without prior written authorization
+# from those authors.
+
+#
+# Given a BIN format image, expand it to the three ROM images
+# needed by the DECmate II.
+#
+
+#
+# First, read in the BINary.
+#
+# Issue: Many of the DEC tapes have the location bit set in
+# their checksums, so we allow that.
+open(INPUT, $ARGV[0]) || die "$ARGV[0]: $!";
+binmode(INPUT);
+@core1 = (); $loc = $store = undef;
+$sum = $add = $field = 0;
+while (read(INPUT, $top, 1)) {
+  $top = unpack("C", $top);
+  next if $top == 0200;	# Leader or Trailer
+  last if $top == 0232; # End of file
+  # It isn't trailer.  That implies time to store the previous word
+  # if any.
+  if (defined($store)) {
+    $core1[$field*4096+$loc] = $store;
+    $max = $field*4096+$loc unless $max > $field*4096+$loc;
+    $store = undef;
+    $loc = ($loc + 1) & 07777;
+    $sum += $add;
+    $fortran = 0;
+  }
+  if ($top & 0200) { # Better be field setting!
+    die "$ARGV[0]: Invalid field setting" unless $top >= 0300;
+    die "$ARGV[0]: Invalid field setting" if $top & 0007;
+    $fortran = 1 if $top == 0340;
+    $field = ($top & 070) >> 3;
+    next;
+  }
+  # Read and verify the format of the bottom half.
+  read(INPUT, $bot, 1) || die "$ARGV[0] read: $!";
+  $bot = unpack("c", $bot);
+  die "$ARGV[0]: ".$bot." not in bin format ". tell(INPUT) unless $bot <= 077;
+  # Assemble the word, and figure out the checksum update.
+  $word = ($top << 6) + $bot;
+  $add = $top + $bot; # Update checksum
+  # If the word has the 010000 bit set, it's a location setting.
+  if ($word > 07777) {
+    #
+    # Change location counter
+    $loc = $word & 07777;
+#printf "Loc == %04o\n", $loc;
+    $sum += $add;
+  } else {
+    die "$ARGV[0]: no location counter" unless defined($loc);
+    $store = $word;
+  }
+}
+close(INPUT);
+if ($fortran) {
+  die "$ARGV[0]: 4K Fortran Binary\n" if $fortran;
+  $sum += 0640; # 4K Fortran loader counts 0300 and 0340
+}
+if (!defined($store)) {
+  # This is that weird case where the checksum has location bit set!
+  $store = $loc;
+  $sum -= $add;
+}
+$sum &= 07777;
+printf "$ARGV[0]: Checksum is %04o, not %04o\n", $sum, $store if $sum != $store;
+#printf STDERR "$ARGV[0]: Checksum is %04o, not %04o\n", $sum, $store if $sum != $store;
+
+#
+# Check for loading outside the ROMs!
+#
+for ($loc = 000000; $loc < 070000; $loc++) {
+  next unless defined $core1[$loc];
+  printf "%05o)%04o is outside ROM\n", $loc, $core[$loc];
+  $status = 1;
+}
+
+#
+# At this point @core1 contains the program.
+# Dump the ROMs in an appropriate format..
+#
+$status = 0;
+open(ROM1, ">$ARGV[1]") || die "$ARGV[1]: $!"; binmode(ROM1);
+open(ROM2, ">$ARGV[2]") || die "$ARGV[2]: $!"; binmode(ROM2);
+open(ROM3, ">$ARGV[3]") || die "$ARGV[3]: $!"; binmode(ROM3);
+
+for ($loc = 070000; $loc < 074000; $loc++) {
+  # First ROM has high 0000-3777.
+  $core1[$loc+00000] = 0377 unless defined $core1[$loc+00000];
+  printf ROM1 "%c", $core1[$loc+00000] >> 4;
+  # Second ROM has high 04000-07777.
+  $core1[$loc+04000] = 0377 unless defined $core1[$loc+04000];
+  printf ROM2 "%c", $core1[$loc+00000] >> 4;
+  # Third ROM alternates low nibble bits.
+  $n1 = $core1[$loc+00000] & 017;
+  $n2 = $core1[$loc+04000] & 017;
+  $byte = (($n1 & 010) << 4)
+        + (($n1 & 004) << 3)
+        + (($n1 & 002) << 2)
+        + (($n1 & 001) << 1)
+        + (($n2 & 010) << 3)
+        + (($n2 & 004) << 2)
+        + (($n2 & 002) << 1)
+        +  ($n2 & 001);
+  printf ROM3 "%c", $byte;
+}
+exit $status;
+
+__END__
+:endofperl

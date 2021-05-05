@@ -1,0 +1,34 @@
+#!/usr/bin/perl
+
+#
+# Open and render the characters in the character generator.
+#
+# The working theory was that characters are mapped one per 16 byte row
+# in the Motorola ROM dump, with seven bits of each byte forming a row
+# of pixels, and 9 bytes (rows) of the 16 forming a character.
+#
+# Exceptions were found with bits set in column 8 and in row 10.
+# These occur often in graphics glyphs, it's not likely bit rot.
+#
+open(INPUT, "331E4.mot") || die "331E4.mot: $!";
+while (<INPUT>) {
+   next unless /^S113(....)(................................)..$/;
+   ($a, $h) = ($1, $2);
+   # Don't render blanks.
+   next if $h eq "00000000000000000000000000000000";
+#warn "$a $h\n";
+   for ($r = 0; $r < 16; $r++) {
+     if ($r > 9) {
+       next if $h =~ s/^00//; # Expect leading 00
+       die "unexpected in row $r: $h\n";
+     }
+     printf "Code %03o:\n", hex($a)/16 if $r == 0;
+     $h =~ s/(..)//;
+     $b = hex($1); # Got a byte.
+#    die "lsb $b: $h\n" if $b & 1; # Expect 7 bits!
+     $b = sprintf("%8b", $b);
+     $b =~ s/0/ /g; $b =~ s/1/X/g;
+     print "$b\n";
+  }
+}
+exit 0;

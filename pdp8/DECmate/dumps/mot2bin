@@ -1,0 +1,84 @@
+#!/usr/bin/perl
+
+#
+# Read a set of 3 2716 ROM dumps in Motorola format.
+# Reassemble the 12 bit words, then dump them in a suitable format
+# for bin2pal or the like.
+#
+# S00B00004441544120492F4FF3
+# S11300004C000000000103040808090C0F10557F80
+# ...
+# S11307F000FF003B4B6E2303FAAD2EFCAB6EF8EC0E
+# S9030000FC
+
+@roms = (*rom1, *rom2, *rom3);
+*rom = shift @roms;
+open(INPUT, "390392.mot") || die "390392.mot: $!";
+while (<INPUT>) {
+  if (/^\S0(..)(....)/) {
+     # ($count, $addr) = (hex($1), hex($2));
+     next;
+  }
+  if (/^S903(....)/) {
+    # Set up for the next ROM.
+    *rom = shift @roms;
+    next;
+  }
+  next unless s/^S1(..)(....)//;
+  ($count, $addr) = (hex($1), hex($2));
+  $count -= 3; # Remove address, checksum from count.
+  while ($count--) {
+    s/^(..)//;
+    push(@rom, hex($1));
+  }
+}
+
+# BUGBUG: Don't have 4KB of ROM contents!
+warn "rom1: ", $#rom1, "\n";
+warn "rom2: ", $#rom2, "\n";
+warn "rom3: ", $#rom3, "\n";
+
+#
+# At this point we have the three rom's contents.
+# Assemble the core image.
+#
+@core = ();
+for ($addr = 00000; $addr < 04000; $addr++) {
+  $n1 = shift @rom3;
+  $n2 = (($n1 & 0100) >> 3)
+      + (($n1 & 0020) >> 2)
+      + (($n1 & 0004) >> 1)
+      + (($n1 & 0001));
+  $n1 = (($n1 & 0200) >> 4)
+      + (($n1 & 0040) >> 3)
+      + (($n1 & 0010) >> 2)
+      + (($n1 & 0002) >> 1);
+  $core[$addr+00000] = ((shift @rom1)<<4) + $n1;
+  $core[$addr+04000] = ((shift @rom2)<<4) + $n2;
+}
+printf "core[00000] == %04o\n", $core[0];
+printf "core[04000] == %04o\n", $core[04000];
+printf "core[07777] == %04o\n", $core[07777];
+
+open(OUTPUT, ">390392.bin") || die "390392.bin: $!"; binmode(OUTPUT);
+for ($addr = 0; $addr < 100; $addr++) {
+  printf OUTPUT "%c", 0200;
+}
+printf OUTPUT "%c%c%c", 0370, 0100, 000;
+$sum = 0100; # Checksum, so far.
+for ($addr = 0; $addr <= 07777; $addr++) {
+  # Each word is two byetes, each added to the checksum.
+  $n1 = $core[$addr] >> 6;
+  $n2 = $core[$addr] & 077;
+  printf OUTPUT "%c%c", $n1, $n2;
+  $sum += $n1 + $n2;
+}
+# Output the checksum.
+$sum &= 07777; # Lose all the carry-outs.
+$n1 = $sum >> 6;
+$n2 = $sum & 077;
+printf OUTPUT "%c%c", $n1, $n2;
+for ($addr = 0; $addr < 100; $addr++) {
+  printf OUTPUT "%c", 0200;
+}
+exit 0;
