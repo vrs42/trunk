@@ -3,7 +3,7 @@
    3               INT1=0001
    4               INT2=0002
    5               TIMEOU=0003
-   6               TTY=0004
+   6               CLKTIC=0004
    7               KBOCON=0005
    8               VIDINT=0006
    9               TTYCON=0007
@@ -15,21 +15,21 @@
   15               XR5=0015
   16               XR6=0016
   17               XR7=0017
-  18               LOADIT=0020
+  18               CTMP1=0020
   19               CTMP2=0021
-  20               LOADLP=0022
+  20               CNTLO=0022
   21               CNTHI=0023
   22               TEMP1=0024
   23               TEMP2=0025
   24               TEMP3=0026
   25               D00027=0027
-  26               TM0=0030
+  26               PORTIN=0030
   27               PORTOU=0031
   28               PRICON=0032
   29               PROCON=0033
   30               SP1SAV=0034
   31               SP2SAV=0035
-  32               PORTCO=0036
+  32               MTM5=0036
   33               MTM6=0037
   34               MTM7=0040
   35               TINC=0041
@@ -79,7 +79,7 @@
   79               Z7400=0131
   80               DTIMOU=0132
   81               Z7775=0133
-  82               Z7776=0134
+  82               CPIADD=0134
   83               PROMST=0135
   84               LBLADR=0136
   85               LBMCNT=0137
@@ -112,7 +112,7 @@
  112               JMPI2=0245
  113               L377=0246
  114               LB20=0247
- 115               L72=0250
+ 115               INTHND=0250
  116               MEMTES=0251
  117               MLODLP=0254
  118               FILLIT=0263
@@ -130,7 +130,7 @@
  130               COUNTU=0334
  131               BACKEN=0342
  132               CDWNTS=0344
- 133               LBTEND=0347
+ 133               CPMTST=0347
  134               NEGTST=0366
  135               PASSEN=0377
  136               DTIME=0400
@@ -606,7 +606,7 @@
  606               DIGLUP=5334
  607               D05340=5340
  608               L4=5347
- 609               T0S3BU=5350
+ 609               M4=5350
  610               L7772=5351
  611               L60=5352
  612               PADR=5353
@@ -4948,21 +4948,21 @@
 4948 077745  0015  P77745, XR5
 4949 077746  0016  P77746, XR6
 4950 077747  0017  P77747, XR7
-4951 077750  0020  P77750, LOADIT
+4951 077750  0020  P77750, CTMP1
 4952 077751  0021  P77751, CTMP2
-4953 077752  0022  P77752, LOADLP
+4953 077752  0022  P77752, CNTLO
 4954 077753  0023  P77753, CNTHI
 4955 077754  0024  P77754, TEMP1
 4956 077755  0025  P77755, TEMP2
 4957 077756  0026  P77756, TEMP3
 4958 077757  0027  P77757, D00027
-4959 077760  0030  P77760, TM0
+4959 077760  0030  P77760, PORTIN
 4960 077761  0031  P77761, PORTOU
 4961 077762  0032  P77762, PRICON
 4962 077763  0033  P77763, PROCON
 4963 077764  0034  P77764, SP1SAV
 4964 077765  0035  P77765, SP2SAV
-4965 077766  0036  P77766, PORTCO
+4965 077766  0036  P77766, MTM5
 4966 077767  0037  P77767, MTM6
 4967 077770  0040  P77770, MTM7
 4968 077771  0000          AND P70000
@@ -5024,6 +5024,7 @@ CINTCL  4744 unreferenced
 CLFL    6130 unreferenced
 CLIE    6135 unreferenced
 CLIST   3365 unreferenced
+CLKTIC  0004 unreferenced
 CLNOP1  6132 unreferenced
 CLNOP2  6133 unreferenced
 CLNOP3  6134 unreferenced
@@ -5040,6 +5041,7 @@ CMDOK   1104 unreferenced
 CMNDOK  1045 unreferenced
 CMSW    0755 unreferenced
 CNTHI   0023
+CNTLO   0022
 CODEXC  0100 unreferenced
 COLUMN  0057 unreferenced
 COMBAD  4711 unreferenced
@@ -5057,13 +5059,16 @@ COUNTD  0320 unreferenced
 COUNTU  0334 unreferenced
 CPD     6266 unreferenced
 CPEND   4111 unreferenced
+CPIADD  0134 unreferenced
 CPIHND  2536 unreferenced
 CPINT   4000 unreferenced
 CPLADR  0140 unreferenced
 CPLOAD  3000 unreferenced
 CPMCNT  0141 unreferenced
+CPMTST  0347 unreferenced
 CPMVLP  0444 unreferenced
 CREADO  4737 unreferenced
+CTMP1   0020
 CTMP2   0021
 CUPDAT  4353 unreferenced
 D00027  0027
@@ -5579,6 +5584,7 @@ INOP1   6303 unreferenced
 INOP2   6307 unreferenced
 INT1    0001
 INT2    0002 unreferenced
+INTHND  0250 unreferenced
 INTR    6756 unreferenced
 INTXIT  0275 unreferenced
 IRB     6306 unreferenced
@@ -5753,7 +5759,6 @@ L71712  1712
 L71724  1724 unreferenced
 L71734  1734
 L71740  1740 unreferenced
-L72     0250 unreferenced
 L72021  2021
 L72030  2030
 L72053  2053
@@ -5941,7 +5946,6 @@ LBLADR  0136 unreferenced
 LBLOAD  2600 unreferenced
 LBMCNT  0137 unreferenced
 LBMVLP  0426 unreferenced
-LBTEND  0347 unreferenced
 LBTEST  0200
 LCD     6751
 LCHAR   0055 unreferenced
@@ -5950,8 +5954,6 @@ LDTRAN  4546 unreferenced
 LFREAD  4572 unreferenced
 LISTLU  3126 unreferenced
 LISTOK  3137 unreferenced
-LOADIT  0020
-LOADLP  0022
 LOC36   4321 unreferenced
 LODLUP  4542 unreferenced
 LOOKLP  4414 unreferenced
@@ -5975,6 +5977,7 @@ M2260   5373 unreferenced
 M30     5054 unreferenced
 M31     4203 unreferenced
 M377    4650 unreferenced
+M4      5350 unreferenced
 M40     4256 unreferenced
 M5      1003 unreferenced
 M52     0546 unreferenced
@@ -6000,6 +6003,7 @@ MPSCC   6366 unreferenced
 MRS     6364 unreferenced
 MSB     6363 unreferenced
 MSF     6361 unreferenced
+MTM5    0036
 MTM6    0037
 MTM7    0040
 MTSTLP  0323 unreferenced
@@ -6348,7 +6352,7 @@ PMEMCO  0150 unreferenced
 PMTSTL  0464 unreferenced
 PNEXT   4500 unreferenced
 PNODAT  3151 unreferenced
-PORTCO  0036
+PORTIN  0030
 PORTOU  0031
 PPARMO  4575 unreferenced
 PPPTAB  0102 unreferenced
@@ -6519,7 +6523,6 @@ SUBLUP  2457 unreferenced
 SUBR    3412 unreferenced
 T0      0042 unreferenced
 T0S1DA  3755 unreferenced
-T0S3BU  5350 unreferenced
 T0S3DA  3775 unreferenced
 T0S3RD  3111 unreferenced
 T0S4DA  0760 unreferenced
@@ -6543,7 +6546,6 @@ TIMEOU  0003 unreferenced
 TIMLUP  1170 unreferenced
 TIMOUT  1164 unreferenced
 TINC    0041 unreferenced
-TM0     0030
 TPATTR  0771 unreferenced
 TRNCDF  1361
 TRNSUP  1052 unreferenced
@@ -6561,7 +6563,6 @@ TTNOP1  6073 unreferenced
 TTNOP2  6074 unreferenced
 TTNOP3  6076 unreferenced
 TTNOP4  6077 unreferenced
-TTY     0004 unreferenced
 TTYCLR  6072 unreferenced
 TTYCON  0007
 TTYFL   6070 unreferenced
@@ -6629,7 +6630,6 @@ Z7741   0130 unreferenced
 Z7760   0127 unreferenced
 Z7766   0126 unreferenced
 Z7775   0133 unreferenced
-Z7776   0134 unreferenced
 ZCDF    0122 unreferenced
 ZERLUP  1525 unreferenced
 ZERNXT  1516 unreferenced

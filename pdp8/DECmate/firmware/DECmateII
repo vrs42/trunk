@@ -118,7 +118,7 @@ for ($loc = 070000; $loc < 074000; $loc++) {
   printf ROM1 "%c", $core1[$loc+00000] >> 4;
   # Second ROM has high 04000-07777.
   $core1[$loc+04000] = 0377 unless defined $core1[$loc+04000];
-  printf ROM2 "%c", $core1[$loc+00000] >> 4;
+  printf ROM2 "%c", $core1[$loc+04000] >> 4;
   # Third ROM alternates low nibble bits.
   $n1 = $core1[$loc+00000] & 017;
   $n2 = $core1[$loc+04000] & 017;

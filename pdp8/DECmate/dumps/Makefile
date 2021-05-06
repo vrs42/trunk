@@ -7,11 +7,11 @@ PAL	= $(BIN:.bin=.pal)
 
 all:	$(PAL)
 
-330E4.bin: 330E4.mot
+330E4.bin: 330E4.mot ./DECmateIII
 	./DECmateIII $<
 
-%.bin:	%.mot
-	./.mot2bin $<
+390392.bin: 390E2.mot 391E2.mot 392E2.mot ./DECmateII
+	./DECmateII $@ $^
 
 %.pal:	%.bin %.bin.syms
 	bin2pal $<
