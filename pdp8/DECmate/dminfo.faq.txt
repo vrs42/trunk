@@ -1,0 +1,779 @@
+DECmate Information and Frequently Asked Questions File
+
+Last edit:  20-JUL-1994		Charles J. Lasner (cjl)
+
+This file will attempt to answer most of the questions people, especially
+new users, have about DECmates, and guide them towards a first cut at
+getting good performance out of these popular machines. 
+
+I.	What is a DECmate?
+
+The DECmate is actually a family name for four products produced by 
+Digital Equipment Corporation between the years 1981 and 1990.  Each 
+model has unique characteristics, although a few features span as many as 
+all models and even some predecessor machines.
+
+DECmates are an outgrowth of the PDP-8 family of computers and share some 
+measure of compatibility with the PDP-8 series.  This allows certain 
+software packages to be run on DECmates even though designed for the 
+PDP-8.  Not all packages fair so well, and certain specific systems 
+cannot be run on DECmates for galling reasons.  The hardware is just 
+enough incompatible that only certain programming techniques are allowed, 
+generally those found in unsophisticated packages that don't fully 
+exploit keyboard and screen handling as is often practised on DEC systems 
+in general, etc.
+
+Towards the end of bridging this gap, certain people are developing 
+replacement software that either runs exclusively on the DECmate series, 
+or perhaps runs generically on all PDP-8's and DECmates.  This will be 
+pointed out where relevant.  Note that certain aspects of this file may 
+be obsolete as certain packages are updated; the information is accurate 
+as of the time of writing (July 1994).
+
+II.	Acquiring a DECmate
+
+DECmates are available seemingly everywhere.  Part of this phenomena is
+their perceived worthlessness, no doubt caused by some frustration on the
+part of the (former) owner.  Digital caused this problem in large measure
+by promoting the machine as virtually a dedicated word processor. 
+Additionally, since word processing is largely a matter of preference,
+DECmate word processing tends to turn off a large percentage of users, who
+are more likely to prefer packages that run on IBM-PC compatibles.  On
+such machines, word processing variations are available to suit a
+multitude of tastes from the simple-minded to the most sophisticated.  DEC
+just didn't learn the lesson that in word processing "one size does NOT
+fit all" etc. 
+
+An additional factor is likely the lock-in effect in that only DEC's
+printers are supported, and only then-current models.  (Older hardware
+wasn't supported in newer versions forcing the purchase of newer
+printers.) DEC's prices on printers have never been competitive with the
+rest of the industry.  For example, a mediocre printer such as an LA-210
+could cost as much as an entire IBM-PC compatible computer, yet it had
+only modest performance when compared to PC-oriented printers such as
+Epson FX/286 etc. 
+
+Thus, DECmates as typically sold by DEC quickly became unpopular, 
+overpriced, underperforming, mediocre word processors that were largely 
+replaced by PC's running something like WordPerfect, Microsoft Word, or 
+even Wordstar, or one or more of hundreds of other packages, etc.  The 
+fact that they are general-purpose computers was totally ignored.
+
+Today, DECmates can often be obtained for free, certainly for a small fee
+plus the cost of shipping.  Often pieces of the machine will be lacking,
+such as the WPS or other software disks, keyboards, monitors, cables,
+RX01/RX02/RX50 diskette drives, power supplies, boards, etc.  Since there
+are a lot of DECmate owners/hobbyists/enthusiasts, it is always possible
+to salvage a DECmate into at least a minimal working machine.  Many
+individuals stock DEC spare parts just to help out someone who is missing
+a vital part.  Prices vary from free to paying for their time, etc.  In
+any case, the ability to support the machines virtually indefinitely seems
+assured. 
+
+Thus, the first order of business is identifying what hardware (and 
+software) is present on a DECmate.
+
+III.	DECmate model descriptions
+
+Each model will be given a complete description, including options where 
+applicable.  Also, the relative scarcity of the components will be indicated.
+
+a)	DECmate I
+
+The DECmate I, aka VT-278, was originally just known as DECmate.  The "I" 
+was added retroactively when the DECmate II was introduced.  A standard
+DECmate I consists of a VT-100 style box with a DECmate-specific
+motherboard and card cage to house certain options.  All of the basic
+interfaces are built into the motherboard, but there are option boards,
+some of which are common.  A DECmate-specific VT-100 keyboard variant is
+used that supports more than the the standard four LED's, but is otherwise
+just a VT-100 keyboard with a DECmate-specific legend.  Power supply and
+monitor considerations are identical to any of the other systems DEC
+adapted from the original VT-100 design such as the VT-180 (Robin) and
+various small PDP-11 models. 
+
+With absolutely no options, the DECmate I is useless as it attempts to 
+work with either a boot device, or at the least act as a terminal with 
+one of the optional serial port boards.
+
+DECmate I systems have been located that are as minimal as the basic box,
+keyboard, and the DP278A dual serial port option.  This enables this
+minimal configuration to act as a quirky variant of a VT-100.  A true
+VT-100 without AVO would have 12 lines in 132 column mode, while adding
+AVO gives 24 lines.  But the DECmate I only has a fixed value of 14 lines. 
+All 80 column modes of the VT-100 are supported to within picky variants
+which are sometimes lacking even in various other VT-100 systems. 
+
+Assuming the DP278A (or DP278B) is present, terminal mode is a built-in
+option.  There are two variant modes, one for a fixed terminal, the other
+for use with a DEC-specific "scholar" family modem.  However, the terminal
+mode can generally be used with other modems (Hayes, etc.). 
+
+The DP278B is the same as the DP278A, i.e., both are dual serial port 
+option boards, except that the B version adds additional plug-in chips to 
+perform bit-stuff protocols.  Apparently DEC was envisioning using the 
+DECmate I as an IBM mainframe terminal and thus wanted to support SDLC 
+protocols, etc.  Since this is enormously unpopular, it is extremely rare 
+to ever find the presence of the B option chips, although the DP278A is a 
+common option, and highly desirable.
+
+If the DP278 is present, the DECmate is able to communicate with other
+systems using a variety of protocols ranging from DEC's DX protocol for
+WPS to Kermit as implemented under OS/78 V4 or newer OS/8 family systems. 
+It is conceivable that certain software packages could fail to function
+correctly on the B variant.  The option is so rare that many programs have
+never even been tested!  For example, Kermit-12 contains initialization
+code that ought to work on the B version, but it is totally untested.  The
+program works fine on the A version, and tests for the B version changes
+using the documentation of the DECmate I programming manual only.  Whether
+this is accurate or not is still unknown. 
+
+Whether the DP278 is present or not, the usefulness of the DECmate beyond
+being a simple terminal depends on the existence of a disk subsystem. 
+Like the VT78 before it, the DECmate I is compatible with one or two pairs
+of RX01 or RX02.  With regard to RX programming, the DECmate I and VT78
+program identically.  (In turn, both are slight variants of the PDP-8
+version of the RX interface; the only difference is in the ability to
+support two pairs of drives by a pair select interface not found in the
+PDP-8 systems.  Better software tends to assume the selection hardware is
+present so that the software runs on all models, but not all software is
+that well implemented!  As an aside, PDP-8 systems with two drive pairs
+must handle RX systems as two independent devices.  DSD-210 systems can
+handle up to four drives, but address the second pair in ways incompatible
+with DEC's select mechanism.  Yet, some software, such as the P?S/8 RX01
+handler, is capable of addressing the second pair of drives whether
+configured on DSD-210 controllers, VT78 or DECmate I, or even DECmate II,
+which is is even more incompatible with the original PDP-8 method.)
+
+The RX interface is built-in on DECmate I systems, and requires only a
+specific cable and the drive pair(s).  RX drives have been produced in a
+variety of physical arrays, some of which are to accomodate the specific
+nature of DECmate I systems, or VT78 systems, etc.  Popular variants
+include rack mount or table-top standard RX01 or RX02, "teacart" style
+designs where the drive(s) roll around on a caster-based frame, and a
+specific pedestal design which includes the drives, an integral power
+controller for all hardware, and a flat workspace on the top designed to
+hold the DECmate I box. 
+
+Some variants include a cantilevered keyboard holder and a smaller flat
+box space.  There is a specific large pedestal design that holds two pairs
+of a special variant RX02 that is not quite mechanically compatible with
+the rack or table-top RX02.  A common variety is the one pair version of
+the pedestal containing this variant drive.  The easiest way to identify
+the variant drives is the presence of a red stripe across the disk access
+doors not found on the standard models.  These drives are also found in
+other DEC systems such as PDT-1150, etc.  In spite of the mechanical
+differences, these drives are 100% software compatible with the standard
+RX drives. 
+
+When a DECmate I system includes at least a single pair of RX01/02, it 
+becomes a useful system capable of running RX-based software.  Of course 
+the limitations of the limited RX hardware apply, but this a lot better 
+than a diskless system!  RX02 drives are more versatile due to the larger 
+capacity, but even a single RX01 pair can make for a useful machine, etc.
+
+While DECmate RX cables are relatively rare, the pinouts are documented in
+the available DECmate Programming Manual, and replacement cables can be
+constructed if necessary.  DEC used several variations of round and flat
+cables and various between-series adaptors on the RX hardware, thus
+connectors are found that use 40-pin flat cable connectors, DB-25
+connectors, and DB-37 connectors.
+
+The DECmate I box outputs the DB-37 dual interface connector; it is
+necessary to obtain the appropriate additional cabling to support the
+intended drive(s).  For example, the single-pair pedestal drives use
+40-pin flat ribbon cable internally with Berg connectors.  As the cable
+leaves the pedestal, it plugs into a bulkhead mount adaptor that changes
+the connections to a DB-25.  DECmate I systems then use a DB-37 -> DB-25
+cable to make the external connection.  A standard option of a table-top
+RX drive is a DB-25 connector compatible with the same drive cable to the
+DECmate I box, etc. 
+
+An obscure option of the DECmate I is the RL278 board which allows the
+machine to be compatible with RL02 drives.  The RL02 drives must be
+externally mounted either as table-top drives or within one of several
+large DEC racks.  One variant rack requires an RL drive or similar shape
+device to form the top portion of the cabinet, while other cabinets allow
+the RL drive to mount more conventionally, etc. 
+
+The RL278 is designated to be used with RL02 only.  It is not known if the
+RL278 supports a special hardware jumper found on the RL8A controller for
+Omnibus PDP-8's.  This jumper is used with RL01 systems to prevent
+software from improperly setting a bit reserved for the RL02 system. 
+Also, it is not currently known how to correctly write new software for a
+system with mixed drives, i.e., how to set this bit correctly to avoid the
+need for the jumper to be set.  Assuming this restriction can be overcome,
+the DECmate I with RL278 would be as capable as a PDP-8 system to run a
+mixed RL01/02 system.  Until such a time, PDP-8's must strictly run RL01
+only or RL02 only with the jumper set accordingly, and presumably DECmate
+I must run RL02 only, etc. 
+
+All PDP-8 family machines from the VT78 forward including all DECmates 
+always include a serial printer port.  On some models, the baud rate is 
+fixed at 4800 baud.  On the DECmate I, the rate is programmable to any 
+one of the DEC standard 16 baud rates up to 19200 baud.
+
+The programming of all of the ports is identical except that all DECmate
+peripheral flag handling is incompatible with the PDP-8 equivalents.  (But
+the differences in the printer port are analogous to the differences in
+the keyboard handling, not any worse!) Thus the programming of the VT78's
+printer port is identical to a PDP-8 with the properly configured option
+board, except that there is a new instruction to set the baud rate to one
+of the 16 possible values.  All of the DECmate printer ports program the
+same as the VT78 except that the flag handling is different and
+characteristic of all DECmate interfaces, and additionally, the DECmate
+III and III+ interfaces have a fixed baud rate of 4800 thus ignoring the
+rate set instruction. 
+
+Certain software depends on the programming of the serial port to be as 
+similar as it is across all models.  For example, there is a serial port 
+download utility to acquire Kermit-12 for the OS/8 family assuming that 
+Kermit-12 is not yet present, but can be sent to the PDP-8 or DECmate via 
+a serial link to another machine.  The utility runs on the printer port 
+of a suitably configured PDP-8, or any VT78 or DECmate without change.
+
+Other than WPS and little other software, most of the useful software for
+the DECmates supports any reasonable serial printer capable of supporting
+the DC1/DC3 (alternately known as XON/XOFF or ^S/^Q) protocol, not just
+DEC brand printers.  This is merely the hardware restriction of the serial
+printer port.  Most software is otherwise quite flexible in this regard. 
+This makes it much easier to find a printer useful to a DECmate (or to
+allow another system to act as a printer in the DECmate's behalf!). 
+
+b)	DECmate II
+
+The DECmate II is usually considered the best DECmate model due to the 
+large collection of popular options.  The screen handling of the DECmate 
+II and up is far superior to the DECmate I which tends to have a 
+"packeting" effect at high update rates, etc.
+
+All models from DECmate II up use the same keyboard, a VR-201 proscribed 
+to have WPS keycaps and a blue trim.  The DECmate II requires a VR-201 
+monochrome monitor, while it is the usual option for the III series.  The 
+keyboard always plugs into the monochrome monitor.  As a terminal device, 
+the DECmate II and up resemble VT-220 terminals.  To within limits, the 
+software attempts to conform to this where possible.
+
+All DECmate II versions come standard with one RX50 drive pair.  An
+optional RX50 pair may be plugged into the basic chassis requiring only
+the drive itself and a standard 34-pin cable.  (DEC tends to use extremely
+shielded and molded/formed flat cables, but they are made from standard
+parts.)
+
+5.25" drives are mounted in the DECmate II using DEC special "skid" 
+plates, but an acceptable variant can be made from a piece of 1/4" thick 
+plastic.  The DECmate II uses the most common 4-hole variant of skid, 
+which is in turn a subset of the newer 8-hole version, etc.
+
+There is a hard disk option board for the DECmate II which is fairly 
+available, although not common.  It is probably one of the few parts of 
+the machine that demands a premium price.  A standard cable with a 40-pin 
+Berg connector on one end and two edge connectors on the other (one 34 
+pin, the other 20 pin) is used to connect a standard MFM disk such as ST-506.
+
+The original sizes sold were all Seagate models: ST-506 5 Meg (aka RD50)
+and ST-412 10 Meg (aka RD51), but eventually the ST-225 (aka RD31) was
+added, which was actually a 20 Meg disk being claimed as a 10 meg disk. 
+Eventually, standard software supported it properly as a 20 meg disk. 
+Software exists to support up to 64 formatted megs of a larger disk in
+spite of not being "standard".  Thus, Micropolis 1325 (aka RD53) can be
+used for the maximum size.  Stated capacities are somewhat smaller than
+usual because DEC formats for 16 sectors/track, not the more usual 17 as
+used in PC-type machines, etc.  The Seagate ST-4096 can also be used,
+wasting the 9th head.  There are reports of slightly larger disks being
+viable (Microscience, etc.) but these are rather obscure drives, etc. 
+
+Unless the hard disk is cabled out the back of the machine in a
+non-standard manner, it is expected that the MFM hard disk is to be
+mounted within the DECmate II chassis.  Since this is a full-height
+opening with a DEC skid plate, the opening can remain blocked, or
+optionally can be opened to reveal the disk front bezel.  If a half-height
+disk such as the ST-251 is used, then the appropriate full-height bezel
+adaptor should be used to allow proper air flow, etc.  Some of the disks
+sold by DEC lack a grounding lug.  According to documentation, it can be
+left off.  Most disks provide the ground lug, and the DECmate II hard disk
+cable supports using it as intended.  (It appears to be an excuse for an
+ordering mistake, i.e., DEC mis-specified the ST-225 to be lacking a
+ground lug; the documentation then claims it really doesn't matter!)
+
+Assuming the hard disk is mounted in the chassis, the power supply must be
+capable of supporting the increased current draw of a stalled hard disk
+when starting up.  A power supply ECO which raises the revision level of
+the supply was made to the DECmate II and Rainbow to support large disks; 
+this should be used if required. 
+
+The new-type supply can be recognized by the presence of a stainless steel
+strap on the left rear of the chassis that is not necessary to mount the
+original model.  Newer chassis assemblies don't support the older type of
+clasp-lock power supply mounting, but the newer supply can always be added
+to the older chassis.  To prevent rattling, it is recommended that the
+then unneeded clasp-lock mechanism be glued down, etc. 
+
+Alternatively, the hard disk can be mounted in an external PC-type 
+powered box, with the cable passed through the rear apron of the machine 
+into the external case.  In this case, the supply need not be upgraded.  
+Additionally, this allows the upgrade to a second RX50 pair while the 
+RD51D hard disk option board is also present.
+
+If the hard disk is *not* installed, an alternate option is the 
+relatively obscure RX78 option.  This board allows the use of one or two 
+pairs of RX01 or RX02 on the DECmate II, possibly in conjunction with the 
+second pair of RX50, thus up to 8 floppy drives can be simultaneously 
+present!  Programming the RX78 is slightly incompatible with all previous 
+machines, and most user-written software for RX01/02 won't run here.  
+However, OS/278 does provide handlers for this RX78 versions of the RX 
+hardware, that also run on previous models.  It should eventually become 
+possible to support many user-written device handlers for RX01/02 
+upgraded to support the optional needs of the RX78 interface as well as 
+the subset needs of the VT78 and DECmate I, etc.
+
+DECmate II also supports one of two co-processor options:  The APU board
+provides a Z80 with 64K.  CP/M-80 and its applications can run from this
+option.  Support includes RX50, hard disk, and possibly RX01 disks
+depending on configuration.  While CP/M-80 is fairly generic, DEC has
+written or obtained some DECmate-specific applications.  (Some are
+actually only specific to the DEC-type terminal environment, and as such
+also run on some other machines, such as Rainbow, etc.) WPS software also
+uses the Z80 option for specific features, such as footnote formatting and
+DECspell, etc. 
+
+The other option is the XPU board, which consists of a Z80 and an 8086 
+with either 256K or 512K depending on which daughterboard option is 
+chosen.  It appears that the 512K board is capable of being expanded to 1 
+MByte but was never sold populated.  The Z80 can only address 64K as in 
+the APU version.  Apparently due to initialization variations, the 
+generic CP/M install diskette bothers to produce bootable diskettes or 
+bootable hard disk volumes that actually are *not* interchangeable, i.e., 
+must be booted on the hardware type they were created on!  (Yet, the 
+install diskette itself runs on either variant!)
+
+The APU boards are fairly common, partially due to the usage by WPS.  The
+XPU boards are rather rare, especially the 512K version.  Note: WPS
+doesn't take advantage of any additional hardware not also found on the
+APU board! 
+
+While CPM/86 was never released for the DECmate, MS-DOS 2.11 was.  Many 
+of the programs are identical to the Rainbow, and indeed some packages 
+geared to the Rainbow do run on the DECmate XPU MS-DOS, most notably SEDT 
+for PC-100 (Rainbow).  A few packages require minor patches, etc.
+
+An obscure option for the DECmate II is the graphics board.  This allows 
+DMA bitmap and other graphics functions to be displayed on either the 
+mandatory VR-201 monochrome monitor, or on the optional VR-241 color 
+monitor, or both.  (There are no official color-only DECmate II 
+configurations, although there are rumored cable variations that allow a 
+color-only configuration that is not fully supported by all software.  
+The lack of support could merely be that the color of text could be 
+somewhat at random under some circumstances, but it doesn't appear likely 
+that there could be any other consequence.  The only exception is that 
+some software enabled a screen-saver option of the hardware, and it's not 
+clear how this would be affected in such a situation, etc.)
+
+The graphics board is capable of outputting the so-called 16 colors as 
+usually defined on IBM-PC color adaptors, meaning 7 colors in two 
+brightnesses, white, and black.  On the DECmate III series, the output is 
+only capable of being to up to four colors taken from a palette of 64.  
+There is little software for the graphics board, and apparently none take 
+much advantage of these differences.
+
+Additionally, there are "old" and "new" variants of the DECmate II 
+graphics board, but the few software packages apparently mostly support 
+both variations correctly.  Occasionally, an older program will be found 
+that only supports the older variant card.  There doesn't appear to be a 
+feature difference between the cards, merely a programming 
+incompatibility detail involving status checking, etc.
+
+Each DECmate II option demands a dedicated slot (the hard disk and RX78 
+use the same slot each to the exclusion of the other; the APU and XPU 
+board set plug into the same slot thus preventing the use of both; the 
+graphics card uses a separate dedicated slot and a small two-wire 
+interconnect cable between the board and the motherboard.)
+
+DECmate II systems are extremely similar to Rainbow and PRO-325 systems, 
+and share all of the obvious components such as case, chassis, power 
+supply, keyboard, monitor, cables, RX50, hard disk (but NOT hard disk 
+controller!), etc.  Thus, defunct systems can often be a good source of 
+spare parts even if not a DECmate!
+
+c)	DECmate III
+
+The DECmate III is the "baby" of the line.  It is the smallest 
+physically, and supports only a single pair of RX50 as a disk subsystem.  
+The same keyboard and monitor is used as in the DECmate II.  Using an 
+obscure graphics board which is slightly incompatible (described above), 
+it is possible to produce a color one-monitor DECmate III using the same 
+cable as the Rainbow under analougous circumstances.  (There are rumors 
+of a cable that allows a dual monitor configuration as in the standard 
+DECmate II with graphics and a color monitor.)  Since the graphics board 
+is so scarce, virtually all DECmate III systems will be monochrome.
+
+There is also an APU board for the DECmate III which is occasionally 
+seen.  (There is rumor of an XPU board that never left the prototype stage.)
+
+An obscure option for the DECmate III is a plug-in version of a DEC 
+"Scholar" modem capable of only 300/1200 baud.  As in the DECmate II, the 
+comm port is capable of speeds up to 19200 as a standard feature.  
+However, the printer port baud rate is fixed at 4800.
+
+The machine is housed in a small metal case that is surprisingly heavy,
+which is also used in some VAX systems.  Power supplies are used that vary
+from as little as 78W to as much as 150W or more.  A basic DECmate III can
+run with the 78W supply.  A strange quirk is that all of the supplies are
+single-voltage, thus there are 110V and 220V variations of all of them! 
+(DECmate II has a voltage-change switch.)
+
+Most software considerations for the DECmate III are such that it is a
+proper subset of a DECmate II.  However, slushware versions on bootable
+diskettes must be of a higher revision to support DECmate III and III+
+systems.  Version 422 is generally available to handle all models and is
+always recommended.  (The system test diskette can always upgrade any
+bootable diskette to the same level as is present on itself.  Version 4.5
+supports version 422 slushware as distributed, etc.)
+
+d)	DECmate III+
+
+The DECmate III+ superficially resembles the DECmate III, but contains 
+almost completely different components:
+
+There is a new motherboard which is apparently meant to replace the
+DECmate III board, but never does.  There is always present a
+daughterboard that is a HD controller compatible with the DECmate II HD
+controller.  (There is a rumor that the III+ controller cannot support
+disks with more than 1024 cylinders, while the II controller can support
+disks with up to 4096 cylinders.  In any case, there are only a few MFM
+disks with more than 1024 cylinders ever manufactured, etc.  Either
+controller, just as in the Rainbow, can only support up to 8 heads.)
+
+The new motherboard clearly has a demised area reserved for the 
+now-obsolete Scholar modem option.  The two option slots are precisely 
+the same part as in the DECmate III.  Apparently, either slot can house 
+the APU or graphics board in either system; both support both options.  
+All monitor considerations apply as in the DECmate III.
+
+The drives are quite different.  There is always a half-height 20 MB
+ST-225 (aka RD31) disk, although using non-standard software, a larger
+disk can be accomodated.  (Half-height disks with at least 40 MB are
+readily available such as ST-251.)
+
+The RX50 drive pair is not used, and is replaced with an alternate 
+hardware controller based on the 8751 (an EPROM chip as opposed to the 
+8051 masked version.  This seems to indicate a very low production run).  
+This version supports one or two TEAC FD55GFV/GFR drives with the jumper 
+set to slow the drive speed to 300 RPM.  Thus, RX50 format is still used; 
+the double-sided drive capability and HD capability are ignored.
+
+Due to the small size of the case, only one drive may be installed, but 
+with external cabling, the hardware supports two drives using normal 
+drive select of 0 and 1.  In fact, certain software such as CP/M-80 
+actually largely depends on the availability of a second drive.  Without 
+this drive, it's impossible to install CP/M-80 on the machine; you must 
+install the software on a hard disk volume on a DECmate II then move the 
+volume from using Master Menu backup, etc.
+
+The drives are mounted on an 8-hole skid using the holes behind those 
+compatible with the 4-hole skid of the DECmate II and III.  The diskette 
+drive is attached to the hard disk using metal brackets so that both 
+drives attach as a pair.  The reason for using the rear holes in the skid 
+is that the diskette drive has the usual TEAC bezel as well as a DEC 
+bezel proclaiming "PLUS" on it.  (In fact, this is the only part of the 
+chassis that indicates the machine isn't merely a DECmate III!)  The hard 
+disk is not provided with any form of bezel.  By removing the DEC bezel 
+and adding a standard Seagate half-height bezel, it is possible to use 
+the 4-hole type skid (or forward holes of an 8-hole skid) while changing 
+the cosmetic look of the drive area.  This is required if any form of 
+drive modification is attempted, such as using a 3.5" diskette drive in a 
+5.25" -> 3.5" adaptor.
+
+The power supply of the DECmate III+ is slightly different from the 
+DECmate III supply.  Essentially, the only difference is that two 4-prong 
+power connectors are provided instead of the one in the DECmate III 
+version.  The supply is rated at 160W while the equivalent DECmate III 
+supply is rated at 150W or less.  Presumably the supplies are nearly 
+equivalent, thus a 150W supply equipped with a standard "Y" cable can be 
+used to run a DECmate III+ system board, etc.  And of course, each supply 
+is a single voltage source supply (110V, 220V) unlike the dual-voltage 
+DECmate II supply.  (Were it not for the revised DECmate II power supply, 
+there would be only one version, not two.  However, there are at least 6 
+DECmate III and DECmate III+ variant supplies!)
+
+Master Menu and WPS have been modified in their most recent versions to 
+preclude the requirement of a second diskette drive, but other programs 
+besides CP/M-80 may require a second drive.  Work is being done on 
+providing the machine with a second drive or even a pseudo-drive, such as 
+using the second head of the drive as a logical second drive with a 
+special cable, etc.
+
+Additionally, the DECmate III+ hardware requires drives that use DEVICE 
+CHANGE, an option normally associated with PC's, while the RX50 uses 
+DEVICE READY.  DD 3.5" diskettes use DEVICE CHANGE, thus the possibility 
+of using 3.5" diskettes that appear as RX50!  Perhaps someone will even 
+determine a way to install two 3.5" drives in the DECmate III+ chassis!
+
+(Also, there are smaller MFM hard disks that are 3.5" half/height.  
+Perhaps the use of a specific set of drives to replace the standard ones 
+will appear, etc.)
+
+As in the DECmate III, the printer port is fixed at 4800 baud.  For many 
+purposes, the DECmate III+ is essentially equivalent to a reasonably 
+"loaded" DECmate II due to the presence of hard disk, etc.
+
+IV.	DECmate ROM sets
+
+Each DECmate system comes with a characteristic ROM set.  The DECmate I 
+has a soldered chip set and is apparently only one revision in all viable 
+machines.  Since the ROM is quite small, and additionally there is no 
+slushware add-on capability, there is little built-in support routines 
+for much beyond the built-in terminal emulator, etc.
+
+DECmate II systems come with various ROM versions.  The version will be 
+reported by running certain software systems, including WPS, etc.  Known 
+versions include:
+
+i.	31Z (3732)  This is the prerelease version found only in very old 
+motherboards.  Unless the boards themselves are severely upgraded, the 
+graphics option is not possible to be added.  The tell-tale sign of 
+graphics compatibility is a two-prong connector under the board where the 
+graphics board would mount.  (It's used to connect to a similar connector 
+on the graphics board itself.)
+
+Assuming the board is old, upgrading the ROM set will allow all other 
+options to work.  31Z specifically cannot support the hard disk 
+hardware!  Supposedly, DEC promised to provide a free upgrade to any 
+system containing a board this old, yet many have shown up recently, etc.
+
+ii.	18K (2213)  This is a prototype version used to develop hard disk 
+capable machines that were likely never sold while machines equipped with 
+31Z were being sold.  It is barely capable of supporting all options, 
+although the board it may be placed in could be inadequate hardware!
+
+iii.	19H (2310)  This version is quite common, but has self-test bugs 
+that fail to find certain known hardware conditions that should be 
+caught, such as pressing a key during self-test, etc.
+
+iv.	19N (2316)  This is the final ROM version and has no known bugs.
+
+DECmate III systems apparently come in one of two ROM versions:
+
+i.	32H (4010)  This is the usual DECmate III ROM and has no known problems.
+
+ii.	32I (4011)  This is an obscure version recently discovered.  It 
+is not currently known what the difference (if any) there is between this 
+and the previous version.
+
+DECmate III+ systems generally have only one version of ROM: 48E (6005).  
+Presumably there are no known bugs, etc.
+
+All of the ROM's can be obtained to allow upgrade of any DECmate system 
+except DECmate I.  They are all socketed chips.  DECmate II systems use 
+three 2716 chips while DECmate III series systems use a single 2764 
+chip.  Additionally, both systems use a single 2764 as a character 
+generator ROM.  DECmate III systems use a slightly different character 
+set which at least causes the vertical bar character to appear unbroken 
+while DECmate II systems break the bar as in most IBM-PC systems, etc.  
+While there may be other differences, the two chips have been 
+successfully interchanged with no ill effects, etc.
+
+V.	DECmate software
+
+Software for the DECmates also varies by model.
+
+a)	DECmate I
+
+DECmate I software generally follows PDP-8 guidelines.  Due to the 
+DECmate I being the first model of DECmate past the compatible VT78, 
+there wasn't much committment to making software that works on the 
+incompatible hardware.  Thus, a lot of then-current software is quite 
+buggy.  There are apparently versions of COS-310 that were released 
+allegedly functional on the DECmate I.  Undoubtedly some of these 
+releases also claim to be functional on PDP-8 and VT78 systems, assuming 
+all have RX01/02 drives, etc.
+
+Since there are no other processors, only PDP-8 software is applicable.  
+The usual software was a version of WPS that could be as high as version 
+2.0 on 8" floppies.  This is quite confusing considering that versions 
+started again at 1.0 on the DECmate II RX50 series!  Additionally, there 
+is a clandestine in-house version of *actual* version 2.1 WPS for the 
+RX02 on DECmate I produced at the request of a DEC employee.  (This is 
+the same version 2.1 as would be released normally for DECmate II on RX50.)
+
+The applicable version of an OS/8 family system for this hardware is 
+OS/78 Version 4.  There are many bugs in this system, and largely it is 
+replaced by configuring OS/278 V2 for an RX01 or RX02 boot device.  (A 
+small few programs from OS/78 V4 should be retained, etc.)
+
+Note: Kermit-12 and its utilities runs on ALL OS/8 family systems by 
+avoiding any hardware-specific dependencies of console handling.  (Note: 
+Kermit-12 doesn't support ^C as an exit feature, thus skirting much of 
+the issue!)
+
+OS/78 V4 must be used if any attempt is made to use any of the several
+user-written RX handlers for non-standard format, since this is the last
+OS/8 system that uses the standard done flag convention for idle/busy
+detection, etc.  OS/278 V2 provides its own handlers that conform to its
+own quirky flag convention.  In the future, OS/8 Version 5 will restore
+this convention making it possible for existing handlers to again work
+where possible.  (Note: DECmate II hardware is incompatible requiring a
+rewrite regardless!)
+
+Assuming the user has a bootable copy of an OS/8 family system that can
+run on the DECmate I, it is possible to run the ENCODE/DECODE utilities
+associated with Kermit-12.  This allows obtaining an entire RX01 or RX02
+image file as well as individual files.  Since often the only device
+available is a pair of RX01 or RX02, the ENCODE utility can break the
+device logically into two roughly equal parts to allow even a minimal
+system the ability to restore an entire disk image, etc.
+
+(Note: the ENCODE utility is dependent on the OS/8 handler's ability to
+read/write the raw image of the relevant data.  Thus, the transmitted
+system image need not be OS/8.  However, it may not be possible for the
+current system to accomplish the transfer depending on the specifics.  For
+example, a P?S/8 RX01 system can be moved using the standard OS/8 RX01/02
+non-system handler because both systems use the same internal format for
+data, each physical sector on tracks 1-77 only is used, and only the first
+3/4 of each sector.  A WPS8 document disk cannot be moved using this
+method because it requires that each full sector of the tracks 1-77 be
+used.  If a user-written RX02 handler is available at both ends that does
+use the entire disk, then this transfer can be accomplished.  There are
+several that support this transfer, one that even accesses track 0, but
+only for RX01.  Additionally, both ends must be using the same
+user-written handler.  As of this writing, there is no equivalent handler
+for RX02, but there may be a way of working around this, etc.)
+
+b)	DECmate II
+
+The DECmate II can read any of the disks geared to VT78 and DECmate I, 
+but not as boot devices, and only if the RX78 option and RX01/02 are 
+present.  Otherwise, files need to be communicated between the DECmate II 
+and another system.
+
+The usual medium of software exchange for the DECmate II and up is the 
+RX50 diskette.  Many utilities exist that run on IBM-PC compatibles to 
+support RX50 format.  Read the separate file "rx50faq.doc" for details, etc.
+
+Copies of most of the major software packages for the DECmate II are 
+available in the prevailing archives (sunsite, etc.).  At present, a 
+PC-based method is required to access the disk images.  Eventually, a 
+more universal handler will be available to allow DECmate II (and up) 
+OS/8 family systems the ability to directly access disk image files with 
+ENCODE/DECODE.  At present, only an entire non-bootable OS/278 diskette 
+image can be transferred using this method.  (The slushware information 
+will not be copied!)
+
+Many of the available utilities are geared to the hard disk subsystem,
+where Master Menu is recommended.  The hard disk itself must be formatted
+using the System Test Diskette, possibly in conjunction with the
+"Clandestine Disk Formatter" which is also available.  The slushware must
+be transferred with the Test disk regardless of method; it is
+automatically transferred to a standard size disk when the Test disk is
+used to accomplish the format. 
+
+Note: non-standard formatting causes the Master Menu "X" (compress) option
+to be non-functional at this time!  To accomplish disk data compaction, 
+it is necessary to carry out the laborious diskette-based backup/restore 
+through Master Menu deleting volumes after backing them up.  This takes 
+advantage of the fact that restored volumes are created without gaps, etc.
+
+Note: CP/M-80 hard disk install has a bug in it.  It is not possible to 
+install CP/M-80 on any portion of a hard disk that is located higher than 
+about 10 MBytes into the drive.  The best way to avoid this is to either 
+create it on a smaller drive and then use backup/restore to move the 
+entire volume, or alternatively to allocate dummy volumes past the first 
+10 MBytes to force CP/M-80 to use a lower disk address volume located 
+entirely within the first 10 MBytes of the hard disk, etc.
+
+Note: MS-DOS hard disk install has a bug in it.  While drive volumes can be 
+specified up to 32 MBytes each, attempts to create bootable volumes 
+larger than 10.7 MBytes cause a crash.  Non-system volumes can be as 
+large as the 32 MByte limit.
+
+Note: Setting the date and time within MS-DOS actually updates the system 
+clock accessible through Master Menu.  When WPS is run from Master Menu, 
+the stupid questions regarding the date and time are faked out by Master 
+Menu rigging canned responses to the queries based on the system clock.  
+However, any attempt to set the date and time from within WPS does not 
+change the system clock.  OS/8 ignores the system clock, but it does run 
+correctly and presumably a program can be written to access the system 
+clock to set OS/278's date to it, etc.
+
+Note: Master Menu can give initial commands to bootable subsystems.  Not 
+all of the systems support this, but WPS and CP/M-80 do.  OS/278 does not 
+directly support it, but it's possible to write a program under OS/278 to 
+access the command from Master Menu.
+
+Note: Master Menu can allocate up to 8 volumes where the lowest volume is 
+the boot volume.  OS/278 V2 provides capabilities to access only the 
+first four volumes.  If the MOUNT.SV and RD5x handlers are rewritten, 
+then it will be possible to access the additional four volumes.
+
+Note: conversion programs such as WPFLOP can access hard disk volumes.  
+Thus, it is possible to convert OS/278 <-> WPS files without using 
+diskettes by MOUNTing the appropriate volume and accessing it in the 
+WPFLOP command, etc.
+
+Note: MS-DOS CONVERT can be given command line options to perform a 
+pre-arranged conversion while the CP/M-80 WPSCONV cannot.  This can be 
+useful to allow MS-DOS editing with SEDT followed by conversion to a WPS 
+document followed by booting to OS/278 followed by WPFLOP conversion to 
+an OS/278 text file to allow editing in one system while developing in 
+another!
+
+c)	DECmate III
+
+The DECmate III can use all of the DECmate II software unless it is 
+geared to either the XPU board or a hard disk.  (And could require either 
+the graphics board or APU board.)
+
+It is necessary to confirm that a bootable diskette has the proper 
+slushware level for DECmate III usage, as many older disks can only boot 
+on DECmate II systems, etc.  The System Test Diskette can always be used 
+to correct this situation, etc.
+
+DECmate III series comm port is slightly incompatible with DECmate II.  
+Some early code such as the standard OS/278 V2 comm port printer handler 
+cannot run on the DECmate III as distributed.  Hopefully this will be 
+corrected.
+
+Software that attempts to change the printer port baud rate will be 
+ignored as the rate is fixed at 4800.
+
+d)	DECmate III+
+
+Generally all of the software for the DECmate II can be used on the 
+DECmate III+ unless it requires the XPU board.  APU software is identical 
+for both machines.
+
+Note: Most newer packages have been rewritten to allow for the standard 
+DECmate III+ restriction of only one diskette drive.  However, CP/M-80 is 
+not updated as such.  Thus, to install CP/M-80 requires a modified 
+DECmate III+ that does support a second drive somehow, or a Master Menu 
+backup/restore copy of a CP/M-80 bootable volume from an APU DECmate II 
+may be restored onto the DECmate III+ etc.
+
+CP/M-80 requires the second drive in one particular function: the HD 
+utility is essentially a CP/M-80 rewrite of the Master Menu HD 
+utilities.  The backup/restore function uses drive B: while the actual 
+Master Menu routine now uses drive 0 (A:).  Thus, the backup and restore 
+functions must be avoided in a (normally) one-drive DECmate III+ etc.
+
+Disk copying on a DECmate III+ depends on the availability of an 
+RX50-sized non-allocated area on the hard disk, as the source disk is 
+copied onto the hard disk as an intermediary to allow writing onto a 
+target diskette, etc.
+
+Note: it has been reported that due to diskette controller chip hardware
+differences, the DECmate III+ lacks the feature found in DECmate II and
+DECmate III systems where 48 TPI one-sided disks such as IBM-PC one-sided
+160K and 180K diskettes can be read.  This feature is actually supported
+directly on DECmate II MS-DOS, but in theory, a utility could be written
+for other systems including DECmate III, but not DECmate III+ This is
+likely attributable to the 8751/8051 chip used in each system to control
+the diskette drives.  It is conceivable that the chips could be switched
+allowing the drives of the intended system to be used in unintended
+chassis!  (Note: This could mean that DECmate II could then support two
+drives with DEVICE CHANGE, but loses the ability for MS-DOS to read IBM-PC
+one-sided disks, and possibly the ability to have two drive pairs!  And
+the DECmate III+ could then support an RX50 drive pair and the ability to
+read IBM-PC one-sided diskettes!)
+
+[end of file]
+

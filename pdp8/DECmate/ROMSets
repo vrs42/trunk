@@ -1,0 +1,61 @@
+IV.	DECmate ROM sets
+
+Modified from section IV of dminfo.faq.txt vy VRS.
+
+Each DECmate system comes with a characteristic ROM set.  The DECmate I 
+has a soldered chip set and is apparently only one revision in all viable 
+machines.  Since the ROM is quite small, and additionally there is no 
+slushware add-on capability, there is little built-in support routines 
+for much beyond the built-in terminal emulator, etc.
+
+DECmate II systems come with various ROM versions.  The version will be 
+reported by running certain software systems, including WPS, etc.  Known 
+versions include:
+
+i.	31Z (3732)  This is the prerelease version found only in very old 
+motherboards.  Unless the boards themselves are severely upgraded, the 
+graphics option is not possible to be added.  The tell-tale sign of 
+graphics compatibility is a two-prong connector under the board where the 
+graphics board would mount.  (It's used to connect to a similar connector 
+on the graphics board itself.)  The ROM set should be stamped with 358E2,
+259E2, and 360E2.
+
+Assuming the board is old, upgrading the ROM set will allow all other 
+options to work.  31Z specifically cannot support the hard disk 
+hardware!  Supposedly, DEC promised to provide a free upgrade to any 
+system containing a board this old, yet many have shown up recently, etc.
+
+ii.	18K (2213)  This is a prototype version used to develop hard disk 
+capable machines that were likely never sold while machines equipped with 
+31Z were being sold.  It is barely capable of supporting all options, 
+although the board it may be placed in could be inadequate hardware!
+
+iii.	19H (2310)  This version is quite common, but has self-test bugs 
+that fail to find certain known hardware conditions that should be 
+caught, such as pressing a key during self-test, etc.  The ROM set should
+be stamped with 390E2, 391E2, and 392E2.
+
+iv.	19N (2316)  This is the final ROM version and has no known bugs.
+
+DECmate III systems apparently come in one of two ROM versions:
+
+i.	32H (4010)  This is the usual DECmate III ROM and has no known
+problems.  It should be stamped with 330H4.
+
+ii.	32I (4011)  This is an obscure version recently discovered.  It 
+is not currently known what the difference (if any) there is between this 
+and the previous version.
+
+DECmate III+ systems generally have only one version of ROM: 48E (6005).  
+Presumably there are no known bugs, etc.
+
+All of the ROM's can be obtained to allow upgrade of any DECmate system 
+except DECmate I.  They are all socketed chips.  DECmate II systems use 
+three 2716 chips while DECmate III series systems use a single 2764 
+chip.  Additionally, both systems use a single 2764 as a character 
+generator ROM.  DECmate III systems use a slightly different character 
+set which at least causes the vertical bar character to appear unbroken 
+while DECmate II systems break the bar as in most IBM-PC systems, etc.  
+While there may be other differences, the two chips have been 
+successfully interchanged with no ill effects, etc.
+
