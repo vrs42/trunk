@@ -14,13 +14,13 @@ all:	$(BIN) $(ROMS)
 %.lst:	%.pal
 	pal -d -e $<
 
-358E2 359E2 360E2: 358360.bin
+358E2 359E2 360E2: 358360.bin DECmateII
 	./DECmateII $< 358E2 359E2 360E2
 
-390E2 391E2 392E2: 390392.bin
+390E2 391E2 392E2: 390392.bin DECmateII
 	./DECmateII $< 390E2 391E2 392E2
 
-330E4: 330E4.bin
+330E4: 330E4.bin DECmateIII
 	./DECmateIII $<
 
 force:
