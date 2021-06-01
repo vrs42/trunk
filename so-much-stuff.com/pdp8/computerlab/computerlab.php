@@ -37,7 +37,7 @@ wires (I think these were taken by Ashley of his wires):
   </A></TD>
 </TABLE>
     <P>I can't source those funky taper pins.  I believe they were
-DEC 12-03498 (AMP #41675).  The closes pins I can find data sheets
+DEC 12-03498 (AMP #41675).  The closest pins I can find data sheets
 for are #42107 "88" series, and #42279.  All obsolete, of course.
  
     <P>There's an intermittent that is cured by flexing the box a 
