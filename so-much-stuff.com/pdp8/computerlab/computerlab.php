@@ -46,7 +46,7 @@ that, it works great.
     <P>In case you were wondering, it does indeed use the same switches 
 as the PDP-8/I :-).
     <P>Jack Rubin sent some photos of his patch cables, a style I've never
-seen seen before:
+seen before:
 <TABLE>
 <TR>
   <TD>
@@ -57,7 +57,7 @@ seen seen before:
   <TD>
     <A href="/pdp8/computerlab/decpatch2.jpg">
     <IMG src="/pdp8/computerlab/decpatch2.jpg" width=320>
-    <BR>A closeup of the stackable DEC branded mini-banana plugs.
+    <BR>Cool stackable DEC branded mini-banana plugs!
   </A></TD>
 </TABLE>
     <P>Jack also says the Pomona 1081-24-9 patch cords work well:
