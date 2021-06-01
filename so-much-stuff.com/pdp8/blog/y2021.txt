@@ -1,4 +1,602 @@
 ------------------------------------------------------------------------
+r5129 | vrs | 2021-05-31 15:52:52 -0700 (Mon, 31 May 2021) | 5 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+   M /trunk/pdp8/8tools/paltst/Makefile
+   A /trunk/pdp8/8tools/paltst/bad
+   A /trunk/pdp8/8tools/paltst/bad/Makefile
+   A /trunk/pdp8/8tools/paltst/bad/README.txt
+   A /trunk/pdp8/8tools/paltst/bad/indirect_test.bin
+   A /trunk/pdp8/8tools/paltst/bad/indirect_test.bn
+   A /trunk/pdp8/8tools/paltst/bad/indirect_test.ls
+   A /trunk/pdp8/8tools/paltst/bad/indirect_test.lst
+   A /trunk/pdp8/8tools/paltst/bad/indirect_test.pa
+   M /trunk/pdp8/8tools/paltst/fort.lst
+   M /trunk/pdp8/8tools/paltst/fort.pa
+   A /trunk/pdp8/8tools/paltst/mark12.bin
+   A /trunk/pdp8/8tools/paltst/mark12.bn
+   A /trunk/pdp8/8tools/paltst/mark12.lst
+   A /trunk/pdp8/8tools/paltst/mark12.pa
+   A /trunk/pdp8/8tools/paltst/tc12f.bin
+   A /trunk/pdp8/8tools/paltst/tc12f.bn
+   A /trunk/pdp8/8tools/paltst/tc12f.lst
+   A /trunk/pdp8/8tools/paltst/tc12f.pa
+
+This version of 8tools/pal.c assembles regression tests correctly, as well
+as the PDP-12 code from PQS8.
+Added a paltst/bad directory to highlight the treatment of literals
+in the indirect_test.pa test case, and to contain future failing tests.
+
+------------------------------------------------------------------------
+r5128 | vrs | 2021-05-31 04:40:28 -0700 (Mon, 31 May 2021) | 3 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+   A /trunk/pdp8/8tools/paltst
+   A /trunk/pdp8/8tools/paltst/Makefile
+   A /trunk/pdp8/8tools/paltst/README.txt
+   A /trunk/pdp8/8tools/paltst/algrun.bin
+   A /trunk/pdp8/8tools/paltst/algrun.bn
+   A /trunk/pdp8/8tools/paltst/algrun.ls
+   A /trunk/pdp8/8tools/paltst/algrun.lst
+   A /trunk/pdp8/8tools/paltst/algrun.pa
+   A /trunk/pdp8/8tools/paltst/cd.bin
+   A /trunk/pdp8/8tools/paltst/cd.bn
+   A /trunk/pdp8/8tools/paltst/cd.ls
+   A /trunk/pdp8/8tools/paltst/cd.lst
+   A /trunk/pdp8/8tools/paltst/cd.pa
+   A /trunk/pdp8/8tools/paltst/edu25r.bin
+   A /trunk/pdp8/8tools/paltst/edu25r.bn
+   A /trunk/pdp8/8tools/paltst/edu25r.ls
+   A /trunk/pdp8/8tools/paltst/edu25r.lst
+   A /trunk/pdp8/8tools/paltst/edu25r.pa
+   A /trunk/pdp8/8tools/paltst/edu30-pass3.bin
+   A /trunk/pdp8/8tools/paltst/edu30-pass3.bn
+   A /trunk/pdp8/8tools/paltst/edu30-pass3.ls
+   A /trunk/pdp8/8tools/paltst/edu30-pass3.lst
+   A /trunk/pdp8/8tools/paltst/edu30-pass3.pa
+   A /trunk/pdp8/8tools/paltst/focal.bin
+   A /trunk/pdp8/8tools/paltst/focal.bn
+   A /trunk/pdp8/8tools/paltst/focal.ls
+   A /trunk/pdp8/8tools/paltst/focal.lst
+   A /trunk/pdp8/8tools/paltst/focal.pa
+   A /trunk/pdp8/8tools/paltst/fort.bin
+   A /trunk/pdp8/8tools/paltst/fort.bn
+   A /trunk/pdp8/8tools/paltst/fort.ls
+   A /trunk/pdp8/8tools/paltst/fort.lst
+   A /trunk/pdp8/8tools/paltst/fort.pa
+   A /trunk/pdp8/8tools/paltst/fotp.bin
+   A /trunk/pdp8/8tools/paltst/fotp.bn
+   A /trunk/pdp8/8tools/paltst/fotp.ls
+   A /trunk/pdp8/8tools/paltst/fotp.lst
+   A /trunk/pdp8/8tools/paltst/fotp.pa
+   A /trunk/pdp8/8tools/paltst/indirect_test.bin
+   A /trunk/pdp8/8tools/paltst/indirect_test.bn
+   A /trunk/pdp8/8tools/paltst/indirect_test.ls
+   A /trunk/pdp8/8tools/paltst/indirect_test.lst
+   A /trunk/pdp8/8tools/paltst/indirect_test.pa
+   A /trunk/pdp8/8tools/paltst/mritest.bn
+   A /trunk/pdp8/8tools/paltst/mritest.ls
+   A /trunk/pdp8/8tools/paltst/music.bin
+   A /trunk/pdp8/8tools/paltst/music.bn
+   A /trunk/pdp8/8tools/paltst/music.ls
+   A /trunk/pdp8/8tools/paltst/music.lst
+   A /trunk/pdp8/8tools/paltst/music.pa
+   A /trunk/pdp8/8tools/paltst/os278.bin
+   A /trunk/pdp8/8tools/paltst/os278.bn
+   A /trunk/pdp8/8tools/paltst/os278.ls
+   A /trunk/pdp8/8tools/paltst/os278.lst
+   A /trunk/pdp8/8tools/paltst/os278.pa
+   A /trunk/pdp8/8tools/paltst/pal8-os8.bin
+   A /trunk/pdp8/8tools/paltst/pal8-os8.bn
+   A /trunk/pdp8/8tools/paltst/pal8-os8.ls
+   A /trunk/pdp8/8tools/paltst/pal8-os8.lst
+   A /trunk/pdp8/8tools/paltst/pal8-os8.pa
+   A /trunk/pdp8/8tools/paltst/paltst.bin
+   A /trunk/pdp8/8tools/paltst/paltst.bn
+   A /trunk/pdp8/8tools/paltst/paltst.ls
+   A /trunk/pdp8/8tools/paltst/paltst.lst
+   A /trunk/pdp8/8tools/paltst/paltst.pa
+   A /trunk/pdp8/8tools/paltst/sabr.bin
+   A /trunk/pdp8/8tools/paltst/sabr.bn
+   A /trunk/pdp8/8tools/paltst/sabr.ls
+   A /trunk/pdp8/8tools/paltst/sabr.lst
+   A /trunk/pdp8/8tools/paltst/sabr.pa
+   A /trunk/pdp8/8tools/paltst/sno94.bin
+   A /trunk/pdp8/8tools/paltst/sno94.bn
+   A /trunk/pdp8/8tools/paltst/sno94.ls
+   A /trunk/pdp8/8tools/paltst/sno94.lst
+   A /trunk/pdp8/8tools/paltst/sno94.pa
+   A /trunk/pdp8/8tools/paltst/spacewar.bin
+   A /trunk/pdp8/8tools/paltst/spacewar.bn
+   A /trunk/pdp8/8tools/paltst/spacewar.ls
+   A /trunk/pdp8/8tools/paltst/spacewar.lst
+   A /trunk/pdp8/8tools/paltst/spacewar.pa
+   A /trunk/pdp8/8tools/paltst/tk4013.bin
+   A /trunk/pdp8/8tools/paltst/tk4013.bn
+   A /trunk/pdp8/8tools/paltst/tk4013.ls
+   A /trunk/pdp8/8tools/paltst/tk4013.lst
+   A /trunk/pdp8/8tools/paltst/tk4013.pa
+   A /trunk/pdp8/8tools/paltst/ts8_combined.bn
+   A /trunk/pdp8/8tools/paltst/ts8_combined.ls
+   A /trunk/pdp8/8tools/paltst/ts8_combined.pal
+   D /trunk/pdp8/8tools/paltst.bin
+   D /trunk/pdp8/8tools/paltst.lst
+   D /trunk/pdp8/8tools/paltst.pal
+
+Add regression tests for pal.c in 8tools/paltst.
+Also check in a version of 8tools/pal.c that passes the regression tests.
+
+------------------------------------------------------------------------
+r5127 | vrs | 2021-05-31 00:03:44 -0700 (Mon, 31 May 2021) | 3 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+
+Fix an issue in 8tools/pal.c where pre-defined symbols were overriding the
+user's definitions.
+
+------------------------------------------------------------------------
+r5126 | vrs | 2021-05-30 23:30:17 -0700 (Sun, 30 May 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+
+Fixed botched statement ordering in ZBLOCK, trying again for PDP-12 support.
+
+------------------------------------------------------------------------
+r5125 | vrs | 2021-05-30 23:14:46 -0700 (Sun, 30 May 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+
+Recover the previous pal.c, as the new one had regressions.
+
+------------------------------------------------------------------------
+r5124 | vrs | 2021-05-30 22:58:11 -0700 (Sun, 30 May 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+
+Commit preliminary PDP-12 support in 8tools/pal.c.
+
+------------------------------------------------------------------------
+r5123 | vrs | 2021-05-30 09:14:55 -0700 (Sun, 30 May 2021) | 2 lines
+Changed paths:
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/M8652Bback.jpg
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/M8652Bfront.jpg
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/THunter
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/THunter/IMG_20210530_171925965.jpg
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/THunter/IMG_20210530_172033772.jpg
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/THunter/M8652.zip
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/THunter/M8652.zip:Zone.Identifier
+
+Add M8652B board images from Tom Hunter.
+
+------------------------------------------------------------------------
+r5122 | vrs | 2021-05-29 06:35:10 -0700 (Sat, 29 May 2021) | 2 lines
+Changed paths:
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/DESCRIPTION
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/M8652B.pdf
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/Mattis
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/Mattis/IMG_8804.jpg
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/Mattis/IMG_8806.jpg
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/Mattis/M8652-20210529T130552Z-001.zip
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/Mattis/M8652-20210529T130552Z-001.zip:Zone.Identifier
+   A /trunk/Eagle/projects/DEC/Mxxx/M8652/eagle.epf
+
+Start an M8652 Eagle project.  Check in schematic photographed by Mattis Lind.
+
+------------------------------------------------------------------------
+r5121 | vrs | 2021-05-27 10:43:07 -0700 (Thu, 27 May 2021) | 3 lines
+Changed paths:
+   M /trunk/pdp8/8tools/binview
+   M /trunk/pdp8/8tools/mmap
+
+Fix a problem in 8tools/binview where addresses did not wrap at 4K.
+Modify 8tools/mmap to dump from the lowest loaded address, rather than 00000.
+
+------------------------------------------------------------------------
+r5120 | vrs | 2021-05-21 14:36:41 -0700 (Fri, 21 May 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/DECmate/firmware/390392.bin
+   M /trunk/pdp8/DECmate/firmware/390392.lst
+   M /trunk/pdp8/DECmate/firmware/390392.pal
+
+Check in draft of firmware/390392.pal with better dissasembly.
+
+------------------------------------------------------------------------
+r5119 | vrs | 2021-05-09 23:40:45 -0700 (Sun, 09 May 2021) | 6 lines
+Changed paths:
+   M /trunk/pdp8/DECmate/firmware/359E2
+   M /trunk/pdp8/DECmate/firmware/Makefile
+
+Update DECmate/firmware/359E2, and the Makefile rules which didn't rebuild it.
+-This line, and those below, will be ignored--
+
+M    firmware/359E2
+M    firmware/Makefile
+
+------------------------------------------------------------------------
+r5118 | vrs | 2021-05-07 15:01:41 -0700 (Fri, 07 May 2021) | 2 lines
+Changed paths:
+   A /trunk/pdp8/DECmate/MP00900_VT278_may81.pdf
+
+Add a VT78 document to pdp8/DECmate.
+
+------------------------------------------------------------------------
+r5117 | vrs | 2021-05-07 14:58:10 -0700 (Fri, 07 May 2021) | 2 lines
+Changed paths:
+   A /trunk/pdp8/DECmate/ED-VT278-HR-001_DECmate_System_Architecture_Manual_Jun81.pdf
+   A /trunk/pdp8/DECmate/EK-VT278-TD-001_DECmate_Technical_Description_Mar81.pdf
+   A /trunk/pdp8/DECmate/README.md
+   A /trunk/pdp8/DECmate/ROMSets
+   A /trunk/pdp8/DECmate/dminfo.faq.txt
+   A /trunk/pdp8/DECmate/ek-vt278-hr-001.pdf
+
+Add some more DECmate documentation to pdp8/DECmate.
+
+------------------------------------------------------------------------
+r5116 | vrs | 2021-05-05 22:37:28 -0700 (Wed, 05 May 2021) | 3 lines
+Changed paths:
+   D /trunk/pdp8/DECmate/dumps/331foo
+   D /trunk/pdp8/DECmate/dumps/390392.mot
+   A /trunk/pdp8/DECmate/dumps/390E2.mot
+   A /trunk/pdp8/DECmate/dumps/391E2.mot
+   A /trunk/pdp8/DECmate/dumps/392E2.mot
+   A /trunk/pdp8/DECmate/dumps/DECmateII
+   M /trunk/pdp8/DECmate/dumps/Makefile
+   D /trunk/pdp8/DECmate/dumps/mot2bin
+   A /trunk/pdp8/DECmate/firmware/331E4
+   M /trunk/pdp8/DECmate/firmware/390392.lst
+   M /trunk/pdp8/DECmate/firmware/390392.pal
+   M /trunk/pdp8/DECmate/firmware/391E2
+   M /trunk/pdp8/DECmate/firmware/DECmateII
+   A /trunk/pdp8/DECmate/roms/330E4
+   A /trunk/pdp8/DECmate/roms/331E4
+   D /trunk/pdp8/DECmate/roms/358E2
+   D /trunk/pdp8/DECmate/roms/359E2
+   D /trunk/pdp8/DECmate/roms/360E2
+   A /trunk/pdp8/DECmate/roms/390E2
+   A /trunk/pdp8/DECmate/roms/391E2
+   A /trunk/pdp8/DECmate/roms/392E2
+   A /trunk/pdp8/DECmate/roms/Makefile
+   A /trunk/pdp8/DECmate/roms/motorola
+   M /trunk/pdp8/DECmate/roms/sums.txt
+
+Various fixes to the DECmate ROM stuff, addition of "roms" directory,
+and associated automatic verification.
+
+------------------------------------------------------------------------
+r5115 | vrs | 2021-05-05 16:04:46 -0700 (Wed, 05 May 2021) | 2 lines
+Changed paths:
+   A /trunk/pdp8/DECmate/firmware/330E4
+   A /trunk/pdp8/DECmate/firmware/330E4.bin
+   A /trunk/pdp8/DECmate/firmware/330E4.lst
+   A /trunk/pdp8/DECmate/firmware/330E4.pal
+   A /trunk/pdp8/DECmate/firmware/DECmateIII
+   M /trunk/pdp8/DECmate/firmware/Makefile
+
+Add 330E4 ROM rules and DECmate III script to DECmate/firmware.
+
+------------------------------------------------------------------------
+r5114 | vrs | 2021-05-05 14:09:19 -0700 (Wed, 05 May 2021) | 2 lines
+Changed paths:
+   A /trunk/pdp8/DECmate
+   A /trunk/pdp8/DECmate/DECmates.txt
+   A /trunk/pdp8/DECmate/DECmates.zip
+   A /trunk/pdp8/DECmate/MP01492-00 PC278 DECmate II Field Maintenance Print Set.pdf
+   A /trunk/pdp8/DECmate/MP01968-01 PC238 DECmate III Field Maintenance Print Set.pdf
+   A /trunk/pdp8/DECmate/dmslim9.doc
+   A /trunk/pdp8/DECmate/dmslim9.txt
+   A /trunk/pdp8/DECmate/dumps
+   A /trunk/pdp8/DECmate/dumps/330E4.bin
+   A /trunk/pdp8/DECmate/dumps/330E4.bin.syms
+   A /trunk/pdp8/DECmate/dumps/330E4.lst
+   A /trunk/pdp8/DECmate/dumps/330E4.mot
+   A /trunk/pdp8/DECmate/dumps/330E4.pal
+   A /trunk/pdp8/DECmate/dumps/331E4.mot
+   A /trunk/pdp8/DECmate/dumps/331foo
+   A /trunk/pdp8/DECmate/dumps/358360.bin
+   A /trunk/pdp8/DECmate/dumps/358360.bin.syms
+   A /trunk/pdp8/DECmate/dumps/358360.lst
+   A /trunk/pdp8/DECmate/dumps/358360.pal
+   A /trunk/pdp8/DECmate/dumps/390392.bin
+   A /trunk/pdp8/DECmate/dumps/390392.bin.syms
+   A /trunk/pdp8/DECmate/dumps/390392.lst
+   A /trunk/pdp8/DECmate/dumps/390392.mot
+   A /trunk/pdp8/DECmate/dumps/390392.pal
+   A /trunk/pdp8/DECmate/dumps/DECmateIII
+   A /trunk/pdp8/DECmate/dumps/Makefile
+   A /trunk/pdp8/DECmate/dumps/mot2bin
+   A /trunk/pdp8/DECmate/dumps/render
+   A /trunk/pdp8/DECmate/dumps/syms
+   A /trunk/pdp8/DECmate/firmware
+   A /trunk/pdp8/DECmate/firmware/.force
+   A /trunk/pdp8/DECmate/firmware/23-020e5-00.bin
+   A /trunk/pdp8/DECmate/firmware/23-022e5-00.bin
+   A /trunk/pdp8/DECmate/firmware/358360.bin
+   A /trunk/pdp8/DECmate/firmware/358360.lst
+   A /trunk/pdp8/DECmate/firmware/358360.pal
+   A /trunk/pdp8/DECmate/firmware/358E2
+   A /trunk/pdp8/DECmate/firmware/359E2
+   A /trunk/pdp8/DECmate/firmware/360E2
+   A /trunk/pdp8/DECmate/firmware/390392.bin
+   A /trunk/pdp8/DECmate/firmware/390392.lst
+   A /trunk/pdp8/DECmate/firmware/390392.pal
+   A /trunk/pdp8/DECmate/firmware/390E2
+   A /trunk/pdp8/DECmate/firmware/391E2
+   A /trunk/pdp8/DECmate/firmware/392E2
+   A /trunk/pdp8/DECmate/firmware/DECmateII
+   A /trunk/pdp8/DECmate/firmware/Makefile
+   A /trunk/pdp8/DECmate/firmware/orig
+   A /trunk/pdp8/DECmate/firmware/orig/358360.pal
+   A /trunk/pdp8/DECmate/firmware/orig/358360.pdf
+   A /trunk/pdp8/DECmate/firmware.zip
+   A /trunk/pdp8/DECmate/pc238
+   A /trunk/pdp8/DECmate/pc238/ROMNumbers
+   A /trunk/pdp8/DECmate/pc24p
+   A /trunk/pdp8/DECmate/pc278
+   A /trunk/pdp8/DECmate/pc278/ROMNumbers
+   A /trunk/pdp8/DECmate/roms
+   A /trunk/pdp8/DECmate/roms/358E2
+   A /trunk/pdp8/DECmate/roms/359E2
+   A /trunk/pdp8/DECmate/roms/360E2
+   A /trunk/pdp8/DECmate/roms/sums.txt
+   A /trunk/pdp8/DECmate/vt278
+   A /trunk/pdp8/DECmate/vt278/ROMNumbers
+   A /trunk/pdp8/DECmate/vt78
+   A /trunk/pdp8/DECmate/vt78/ROMNumbers
+
+Add a pdp8/DECmate directory to hold various DECmate information.
+
+------------------------------------------------------------------------
+r5113 | vrs | 2021-05-02 16:49:02 -0700 (Sun, 02 May 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+
+Fix a problem where pal.c failed to wrap RELOC directives.
+
+------------------------------------------------------------------------
+r5112 | vrs | 2021-05-02 15:40:40 -0700 (Sun, 02 May 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal
+   M /trunk/pdp8/8tools/pal.c
+
+Add "RTF" to the list of symbols enabled by -e option in pal.c.
+
+------------------------------------------------------------------------
+r5111 | vrs | 2021-05-02 15:38:07 -0700 (Sun, 02 May 2021) | 6 lines
+Changed paths:
+   M /trunk/pdp8/8tools/dups
+
+Skip Android system directories when looking for duplicate in 8tools/dups.
+Also handle an issue with regexp if the file name contains a square bracket.
+-This line, and those below, will be ignored--
+
+M    dups
+
+------------------------------------------------------------------------
+r5110 | vrs | 2021-04-28 17:42:47 -0700 (Wed, 28 Apr 2021) | 3 lines
+Changed paths:
+   M /trunk/pdp8/8tools/dups
+
+Modify issues with file names in 8tools/dups to favor Linux.  Attempt also
+to handle blanks in file names.
+
+------------------------------------------------------------------------
+r5109 | vrs | 2021-04-28 17:36:33 -0700 (Wed, 28 Apr 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/8tools/os8xplode
+
+Treat .ba files as text in 8tools/os8xplode.
+
+------------------------------------------------------------------------
+r5108 | vrs | 2021-04-28 17:35:35 -0700 (Wed, 28 Apr 2021) | 2 lines
+Changed paths:
+   M /trunk/pdp8/8tools/pal.c
+
+Upgrade comments describing unimplemented pseudo-ops in 8tools/pal.c.
+
+------------------------------------------------------------------------
+r5107 | vrs | 2021-04-20 07:44:57 -0700 (Tue, 20 Apr 2021) | 4 lines
+Changed paths:
+   M /trunk/pdp8/src/dec/dec-08-xspsc/Files.txt
+   M /trunk/pdp8/src/dec/dec-8e-almsa/Files.txt
+   M /trunk/pdp8/src/dec/dec-8e-ucasa/Files.txt
+   M /trunk/pdp8/src/dec/dec-s8-ortda/Files.txt
+   M /trunk/pdp8/src/dec/dec-s8-otbsa/Files.txt
+   M /trunk/pdp8/src/dec/dec-s8-otdia/Files.txt
+   M /trunk/pdp8/src/dec/dec-s8-otina/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dgdra/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhafa/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhdra/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhdrh/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhkaf/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhkag/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhkeb/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhkec/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhkga/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhmra/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhmrb/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtaa/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtab/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtma/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtmb/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtmc/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtmd/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtme/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtmf/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtsa/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtsb/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtsd/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtse/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhtsf/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhvca/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhvta/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-dhvtb/Files.txt
+   M /trunk/pdp8/src/dec/maindec-08-didba/Files.txt
+   A /trunk/pdp8/src/dec/maindec-08-dirxa/maindec-08-dirxa-d.bin
+   A /trunk/pdp8/src/dec/maindec-08-dirxa/maindec-08-dirxa-d.lst
+   A /trunk/pdp8/src/dec/maindec-08-dirxa/maindec-08-dirxa-d.pal
+   M /trunk/pdp8/src/dec/maindec-8e-d0l/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d0m/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d0n/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d0q/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d0r/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d0s/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d1i/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d1j/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d2b/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d3a/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d6a/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d6c/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-d9l/Files.txt
+   M /trunk/pdp8/src/dec/maindec-8e-dhmp/Files.txt
+   M /trunk/pdp8/src/dec/maindec-x8-dhtaa/Files.txt
+   M /trunk/pdp8/src/dec/maindec-x8-dhtma/Files.txt
+   M /trunk/pdp8/src/dec/maindec-x8-dhvca/Files.txt
+
+Remove extra dashes (VC-8E, VC8-E, etc.) from the "big list" of DEC software.
+Copy the reconstructed DIRXA-D sources to dec/maindec-08-dirxa/.
+
+
+------------------------------------------------------------------------
+r5106 | vrs | 2021-04-14 17:34:07 -0700 (Wed, 14 Apr 2021) | 2 lines
+Changed paths:
+   A /trunk/Eagle/projects/Posibus
+   A /trunk/Eagle/projects/Posibus/Backplane.png
+   A /trunk/Eagle/projects/Posibus/DESCRIPTION
+   A /trunk/Eagle/projects/Posibus/Negibus.brd
+   A /trunk/Eagle/projects/Posibus/Negibus.sch
+   A /trunk/Eagle/projects/Posibus/Posibus.brd
+   A /trunk/Eagle/projects/Posibus/Posibus.csv
+   A /trunk/Eagle/projects/Posibus/Posibus.md
+   A /trunk/Eagle/projects/Posibus/Posibus.sch
+   A /trunk/Eagle/projects/Posibus/Posibus.xls
+   A /trunk/Eagle/projects/Posibus/Posibus_proto.brd
+   A /trunk/Eagle/projects/Posibus/Posibus_proto.sch
+   A /trunk/Eagle/projects/Posibus/Serial.png
+   A /trunk/Eagle/projects/Posibus/bac-bmb-t.brd
+   A /trunk/Eagle/projects/Posibus/bac-bmb-t.sch
+   A /trunk/Eagle/projects/Posibus/bac-bmb.brd
+   A /trunk/Eagle/projects/Posibus/bac-bmb.sch
+   A /trunk/Eagle/projects/Posibus/eagle.epf
+   A /trunk/Eagle/projects/Posibus/omnibus_proto.brd
+   A /trunk/Eagle/projects/Posibus/omnibus_proto.sch
+
+Commit early thoughts on Posibus/Negibus boards.
+
+------------------------------------------------------------------------
+r5105 | vrs | 2021-03-29 17:56:57 -0700 (Mon, 29 Mar 2021) | 3 lines
+Changed paths:
+   M /trunk/Eagle/projects/DEC/PDP8I/eagle.epf
+   D /trunk/Eagle/projects/DEC/PDP8I/pdp8i-dec.txt
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i-fpga.sch
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8i.PLD
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8iX.PLD
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8ipins.txt
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/vlog.pl
+   M /trunk/Eagle/projects/DEC/TC08/eagle.epf
+   A /trunk/Eagle/projects/DEC/TC08/tc08-3-21.brd
+   A /trunk/Eagle/projects/DEC/TC08/tc08-3-21.sch
+   A /trunk/Eagle/projects/DEC/TC08/tc08pins.txt
+   A /trunk/Eagle/projects/DEC/TC08/tc08prts.txt
+
+Update PDP8I/pdp8i-fpga.sch to reflect that M617 outputs are not open collector.
+Commit updated TC08 drawings.
+
+------------------------------------------------------------------------
+r5104 | vrs | 2021-03-27 18:34:55 -0700 (Sat, 27 Mar 2021) | 2 lines
+Changed paths:
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/Makefile
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/kyle.v
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/vwrap.pl
+
+Add a vwrap.pl script to automate pretty-printing of Verilog instantiation bindings.
+
+------------------------------------------------------------------------
+r5103 | vrs | 2021-03-27 09:37:55 -0700 (Sat, 27 Mar 2021) | 2 lines
+Changed paths:
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/kyle.v
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8i.txt
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/vlog.pl
+
+Turn off $oldway in vlog.pl, update files to match.
+
+------------------------------------------------------------------------
+r5102 | vrs | 2021-03-27 09:20:54 -0700 (Sat, 27 Mar 2021) | 3 lines
+Changed paths:
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/kyle.v
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8i.txt
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/vlog.pl
+
+Use the vlog.pl command line to set the module name.
+Update the vlog pdp8i files to reflect the current Eagle and vlog.pl.
+
+------------------------------------------------------------------------
+r5101 | vrs | 2021-03-26 13:10:20 -0700 (Fri, 26 Mar 2021) | 2 lines
+Changed paths:
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/vlog.pl
+
+Modify vlog.pl to output a proper Verilog module declaration.
+
+------------------------------------------------------------------------
+r5100 | vrs | 2021-03-26 13:08:14 -0700 (Fri, 26 Mar 2021) | 2 lines
+Changed paths:
+   M /trunk/Eagle/projects/DEC/PDP8I/pld/vlog.pl
+
+Add exclusion lists, clocks, and renames to vlog.pl, converging toward more workable output.
+
+------------------------------------------------------------------------
+r5099 | vrs | 2021-03-26 13:06:08 -0700 (Fri, 26 Mar 2021) | 2 lines
+Changed paths:
+   A /trunk/Eagle/projects/DEC/PDP8I/pld
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/Makefile
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/cupl2v.pl
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/kyle.v
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8i.PLD
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8iX.PLD
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8ipins.txt
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/pdp8iprts.txt
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/rom2cupl.pl
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/rom2pld.pl
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/smaller.pl
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/topld.pl
+   A /trunk/Eagle/projects/DEC/PDP8I/pld/vlog.pl
+
+Begin commits of Verilog stuff related to 8/I simulation.
+
+------------------------------------------------------------------------
+r5098 | vrs | 2021-03-23 23:50:40 -0700 (Tue, 23 Mar 2021) | 2 lines
+Changed paths:
+   M /trunk/Eagle/projects/DEC/PDP8I/eagle.epf
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i-cpu.brd
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i-cpu.sch
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i-dec.brd
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i-dec.sch
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i-fpga.brd
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i-fpga.sch
+   A /trunk/Eagle/projects/DEC/PDP8I/pdp8i-io.brd
+   A /trunk/Eagle/projects/DEC/PDP8I/pdp8i-io.sch
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i.brd
+   M /trunk/Eagle/projects/DEC/PDP8I/pdp8i.sch
+
+Fix 8/I schematic issues found during Kyle's simulations.
+
+------------------------------------------------------------------------
+r5097 | vrs | 2021-03-14 19:09:01 -0700 (Sun, 14 Mar 2021) | 2 lines
+Changed paths:
+   M /trunk/so-much-stuff.com/pdp8/blog/rss.xml
+   M /trunk/so-much-stuff.com/pdp8/blog/y2021.txt
+   M /trunk/so-much-stuff.com/pdp8/software/dec.php
+
+Publish additions from Doug Ingraham's paper tape images.
+
+------------------------------------------------------------------------
 r5096 | vrs | 2021-03-14 18:36:13 -0700 (Sun, 14 Mar 2021) | 2 lines
 Changed paths:
    A /trunk/pdp8/src/dec/dec-08-aj0

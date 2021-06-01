@@ -5107,6 +5107,14 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8652 target=_blank>./DEC/Mxxx/M8652</a></b>: KL8F Terminal Control
+
+</LEGEND><DL>
+<DT>M8652B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8655 target=_blank>./DEC/Mxxx/M8655</a></b>: KL8J Terminal Control
 
 </LEGEND><DL>
@@ -7569,6 +7577,9 @@ in the as-shipped assembled boards.
   <DD>is an attempt to design an interface between the XESS based 
 FPGA implementation of the PDP-8 and older Posibus gear.</DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Posibus target=_blank>./Posibus</a></b>: Posibus Backplane and Boards
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RF08 target=_blank>./RF08</a></b>: RF08 Replacement
 

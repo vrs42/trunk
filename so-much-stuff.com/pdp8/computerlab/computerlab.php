@@ -36,11 +36,39 @@ wires (I think these were taken by Ashley of his wires):
     <BR>A closeup of the funky tapered brass ends on the wires.
   </A></TD>
 </TABLE>
+    <P>I can't source those funky taper pins.  I believe they were
+DEC 12-03498 (AMP #41675).  The closes pins I can find data sheets
+for are #42107 "88" series, and #42279.  All obsolete, of course.
+ 
     <P>There's an intermittent that is cured by flexing the box a 
 little -- perhaps a bad solder joint or the like.  But other than 
 that, it works great.
     <P>In case you were wondering, it does indeed use the same switches 
 as the PDP-8/I :-).
+    <P>Jack Rubin sent some photos of his patch cables, a style I've never
+seen seen before:
+<TABLE>
+<TR>
+  <TD>
+    <A href="/pdp8/computerlab/decpatch1.jpg">
+    <IMG src="/pdp8/computerlab/decpatch1.jpg" width=320>
+    <BR>A few of Jack's patch cables.
+  </A></TD>
+  <TD>
+    <A href="/pdp8/computerlab/decpatch2.jpg">
+    <IMG src="/pdp8/computerlab/decpatch2.jpg" width=320>
+    <BR>A closeup of the stackable DEC branded mini-banana plugs.
+  </A></TD>
+</TABLE>
+    <P>Jack also says the Pomona 1081-24-9 patch cords work well:
+<TABLE>
+<TR>
+  <TD>
+    <A href="/pdp8/computerlab/pomona.jpg">
+    <IMG src="/pdp8/computerlab/pomona.jpg" width=320>
+    <BR>A bag of Pomona patch cables.
+  </A></TD>
+</TABLE>
 </TD>
 </TR>
 </TABLE>
