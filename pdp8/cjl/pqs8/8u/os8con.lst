@@ -1,0 +1,1818 @@
+   1               /       OS/8 <- -> P?S/8 CONVERT PROGRAM
+   2               
+   3               /       OS/8 TO P?S/8 OR P?S/8 TO OS/8 ASCII FILE CONVERSION PROGRAM.
+   4               
+   5               /       LAST EDIT:      15-APR-1986     11:00:00        CJL
+   6               
+   7               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   8               
+   9               /       P?S/8 UTILITY TO CONVERT ASCII FILES BETWEEN OS/8 MEDIA AND P?S/8 MEDIA.
+  10               
+  11               /       ANY FILE REPRESENTABLE IN P?S/8 SIX-BIT ASCII SUBSET WITH OR WITHOUT LINE
+  12               /       NUMBERS CAN BE CONVERTED TO THE CORRESPONDING SEVEN-BIT ASCII FILE IN OS/8
+  13               /       FORMAT IN A MANNER COMPATIBLE WITH OS/8 DIRECTORY CONVENTIONS. THE PROGRAM
+  14               /       CAN ALSO BE USED TO REGROUP P?S/8 FILES OR REMOVE/RESTORE P?S/8 LINE NUMBERS
+  15               /       FROM A GROUP OF FILES FOR EDITING OR REFERENCE PURPOSES.
+  16               
+  17               /       PROGRAM OPERATION AND OPTIONS.
+  18               
+  19               /       CONVERSION OF OS/8 INPUT TO P?S/8 OUTPUT FILES:
+  20               
+  21               /       .R OS8CON [LIST OF P?S/8 OUTPUT FILES] < (OPTION SWITCHES)
+  22               
+  23               /       OR
+  24               
+  25               /       .R OS8CON > [LIST OF P?S/8 OUTPUT FILES] (OPTION SWITCHES)
+  26               
+  27               /       CONVERSION OF P?S/8 INPUT FILES TO A SINGLE OS/8 OUTPUT FILE:
+  28               
+  29               /       .R OS8CON [LIST OF P?S/8 INPUT FILES] (OPTION SWITCHES)
+  30               
+  31               /       THE DIRECTION OF CONVERSION IS DETERMINED BY PASSED P?S/8 FILES BEING EITHER
+  32               /       INPUT OR OUTPUT. OS8CON CANNOT BE USED WITHOUT PASSED P?S/8 FILES.
+  33               /      PROGRAM OPTIONS.
+  34               
+  35               /                       /C      ATTEMPT TO USE MORE MEMORY THAN CURRENT LOGICAL
+  36               /                               CORE SIZE INDICATES. OS/8 FILE BUFFERS WILL BE
+  37               /                               ENLARGED IN BOTH CONVERSION DIRECTIONS. THIS SWITCH
+  38               /                               IS ONLY NEEDED IF THE LOGICAL CORE SIZE IS SET TO
+  39               /                               4K EVEN THOUGH MORE IS ACTUALLY AVAILABLE. GENERALLY
+  40               /                               CAUSES FASTER CONVERSION TO OCCUR. DEFAULT IF THE
+  41               /                               LOGICAL CORE SIZE IS GREATER THAN 4K (I. E. CORE
+  42               /                               1-7).
+  43               
+  44               /                       /E      USE EXTENDED LENGTH P?S/8 OUTPUT FILE PROCESSING
+  45               /                               WITHOUT P?S/8 LINE NUMBERS. THE PASSED OUTPUT FILE
+  46               /                               SPECIFICATION IS ASSUMED TO BE THE STARTING POINT
+  47               /                               FOR OUTPUT FILE CONVERSION LIMITED BY THE DEVICE
+  48               /                               LENGTH WORD CONTAINED IN THE EXTENDED USER DIRECTORY.
+  49               /                               THE USER IS WARNED TO INVOKE THIS OPTION CAREFULLY!
+  50               
+  51               /                       /F      DELETE SPECIAL FORM-FEED PROCESSING. THIS CAUSES
+  52               /                               OS/8 <FF> CHARACTERS TO BECOME P?S/8 <EOL> SEQUENCES.
+  53               /                               P?S/8 <HT> EJECT <EOL> SEQUENCES ARE PASSED LITERALLY
+  54               /                               INSTEAD OF CONVERSION TO OS/8 <FF> CHARACTERS.
+  55               
+  56               /                       /L      OUTPUT <LF> TO OS/8 FILES WHEN PROCESSING P?S/8
+  57               /                               <EOL> PRECEDED BY <EOL>. DEFAULT IS TO OUTPUT <CR>
+  58               /                               AND <LF>.
+  59               
+  60               /                       /P      PACK P?S/8 LINE NUMBER FILES. OS/8 <FF> CHARACTER
+  61               /                               HANDLING WILL NOT CHECK FOR EXTRA ROOM IN THE FILE.
+  62               /                               THIS OPTION IS IGNORED IF /E OR /F IS INVOKED AS
+  63               /                               /E USES EXTENDED FILES AND /F DELETES SPECIAL <FF>
+  64               /                               PROCESSING.
+  65               
+  66               /                       /0-/7   LOGICAL UNIT FOR OS/8 INPUT/OUTPUT (DEFAULT IS /7).
+  67               
+  68               /                       =NNNN   STARTING OS/8 RECORD (DEFAULT IS 0007).
+  69               /      DEFAULT OPTIONS.
+  70               
+  71               /       OS/8 INPUT/OUTPUT ASSUMES OS/8 RECORD 0007 (P?S/8 BLOCK 0016) ON THE OS/8
+  72               /       DEVICE DEFINED BY THE PREVAILING LOGICAL P?S/8 UNIT TO BE USED FOR OS/8
+  73               /       INPUT/OUTPUT. THE DEFAULT LOGICAL UNIT IS SEVEN. EITHER OS/8 RECORD OR UNIT
+  74               /       CAN BE MODIFIED WITH THE APPROPRIATE EQUALS PARAMETER (FOR RECORD) OR /0 
+  75               /       THROUGH /7 (FOR LOGICAL UNIT).
+  76               
+  77               /       THE OS/8 DEVICE MUST BE LAID OUT IN A MANNER COMPATIBLE WITH P?S/8 BLOCK
+  78               /       CONVENTIONS. ALTHOUGH THIS IS USUALLY THE CASE, CONSULT DEVICE HANDLER
+  79               /       DOCUMENTATION TO BE SURE.
+  80               
+  81               /       OS/8 OUTPUT FILE CONSIDERATIONS.
+  82               
+  83               /       IT IS RECOMMENDED THAT THE OS/8 OUTPUT FILE BE APPLIED TO AN EMPTY DEVICE
+  84               /       (IN THE OS/8 SENSE, THE DEVICE CAN BE ZEROED OUT AND THEN A SINGLE FILE CAN
+  85               /       BE TRANSFERRED TO IT VIA THIS UTILITY) TO MAKE THE PROCESS OF CONVERSION
+  86               /       EASIER.
+  87               
+  88               /       **** NOTE **** THIS PROGRAM DOES NOT RECOGNIZE OS/8 DIRECTORY CONSIDERATIONS,
+  89               /       IT CAN ONLY WRITE THE ACTUAL FILE AS OS/8 WOULD REQUIRE IT ASSUMING THE
+  90               /       BLOCK LAYOUT SCHEME IS COMPATIBLE WITH P?S/8 ON THE LOGICAL OUTPUT UNIT.
+  91               
+  92               /       THIS UTILITY IS IGNORANT OF OS/8 LENGTH RESTRICTIONS AND COULD ATTEMPT TO
+  93               /       ACCESS NON-EXISTANT RECORDS OR OVERWRITE RECORDS HIGHER UP ON THE OS/8 DEVICE
+  94               /       ORDINARILY BELONGING TO OTHER OS/8 FILES.
+  95               
+  96               /       BY USING THE DEFAULT OPTIONS, AN OS/8 FILE WILL BE PLACED WHERE IT WOULD
+  97               /       BE PLACED BY OS/8 ITSELF JUST AFTER ZEROING THE DIRECTORY. THIS ALLOWS THE
+  98               /       FOLLOWING METHOD TO WORK:
+  99               
+ 100               /       (FROM P?S/8)
+ 101               
+ 102               /       .R OS8CON,PQSFIL/1=7            CONVERT PQSFIL TO OS/8 FORMAT ON UNIT 0001
+ 103               /                                       AT RECORD 0007.
+ 104               
+ 105               /       (BOOTSTRAPPING TO OS/8)
+ 106               
+ 107               /       ASSUMING AN OS/8 SYSTEM WITH NON-SYSTEM DECTAPE:
+ 108               
+ 109               /       .R PIP                          INVOKE OS/8 PERIPHERAL UTILITY.
+ 110               /       *DTA1:</Z                       ZERO THE OS/8 DEVICE ALREADY CONTAINING
+ 111               /                                       THE CONVERTED ASCII FILE.
+ 112               /       *DTA1:PQSFIL</I=1000            USE AN EXCESSIVELY LARGE LENGTH VALUE IN
+ 113               /                                       THE EQUALS PARAMETER, BUT NOT ONE LARGER
+ 114               /                                       THAN THE DEVICE. THIS WILL ENSURE THE PROPER
+ 115               /                                       COVERING OF THE CONVERTED FILE.
+ 116               /       *DTA1:PQSFIL<DTA1:PQSFIL/D/A    THIS WILL REWRITE THE FILE TO THE CORRECT
+ 117               /                                       LENGTH IN THE OS/8 DIRECTORY ON DTA1:.
+ 118               /      CHARACTER CONSIDERATIONS.
+ 119               
+ 120               /       ASSUMING /F IS NOT INVOKED, THE FOLLOWING CONVERSIONS APPLY:
+ 121               
+ 122               /       OS/8 TO P?S/8 CONVERSION.
+ 123               
+ 124               /       OS/8                                    P?S/8
+ 125               
+ 126               /       <FF> PRECEDED BY <CR> OR <LF> OR AT
+ 127               /       BEGINNING OF P?S/8 OUTPUT FILE          <EOL> <HT> EJECT <EOL>
+ 128               /       <FF> NOT PRECEDED BY <CR> OR <LF>       <HT> EJECT <EOL>
+ 129               /       <CR> NOT FOLLOWED BY <LF>               <EOL>
+ 130               /       <CR>, <LF>                              <EOL>
+ 131               /       <LF> NOT PRECEDED BY <CR>               <EOL>
+ 132               
+ 133               /       P?S/8 TO OS/8 CONVERSION (ASSUMING /L IS INVOKED).
+ 134               
+ 135               /       P?S/8                                   OS/8
+ 136               
+ 137               /       <EOL> NOT PRECEDED BY <EOL>             <CR>, <LF>
+ 138               /       <EOL> IMMEDIATELY FOLLOWING <EOL>       <LF>
+ 139               /       <HT> EJECT <EOL>                        <FF>
+ 140               
+ 141               /       ALL LOWER-CASE OS/8 INPUT CHARACTERS WILL BE FOLDED TO THE CORRESPONDING
+ 142               /       UPPER-CASE P?S/8 OUTPUT CHARACTERS.
+ 143               
+ 144               /       ALL CONTROL CHARACTERS OTHER THAN <CR>, <LF>, <HT>, <FF> ARE IGNORED.
+ 145               
+ 146               /       ALL <RO> CHARACTERS WILL BE IGNORED.
+ 147               /      CONSOLE MESSAGES.
+ 148               
+ 149               /       CANNOT PROCESS MIXED INPUT AND OUTPUT FILES!
+ 150               
+ 151               /               P?S/8 FILES MUST BE ALL INPUT OR ALL OUTPUT, NOT BOTH. THE PROGRAM
+ 152               /               EXITS TO THE MONITOR.
+ 153               
+ 154               /       INSUFFICIENT OUTPUT FILES, OS/8 INPUT TRUNCATED!
+ 155               
+ 156               /               THE P?S/8 OUTPUT FILES' CAPABILITY WAS EXHAUSTED WITH FURTHER OS/8
+ 157               /               INPUT PRESENT. THE LAST P?S/8 FILE IS PROPERLY CLOSED AND THE
+ 158               /               PROGRAM EXITS TO THE MONITOR.
+ 159               
+ 160               /       NO P?S/8 FILES GIVEN!
+ 161               
+ 162               /               NO P?S/8 FILES (EITHER INPUT OR OUTPUT) WERE GIVEN. THE PROGRAM
+ 163               /               EXITS TO THE MONITOR.
+ 164               
+ 165               /       OS/8 => P?S/8
+ 166               
+ 167               /               CONVERSION IS FROM OS/8 TO P?S/8 LINE NUMBER FILES. P?S/8 OUTPUT
+ 168               /               FILES WERE PASSED WITHOUT /E AND ARE CREATED FROM OS/8 INPUT.
+ 169               
+ 170               /       OS/8 => P?S/8 [EXTENDED FILES]
+ 171               
+ 172               /               CONVERSION IS FROM OS/8 TO P?S/8 EXTENDED FILES. P?S/8 OUTPUT FILES
+ 173               /               WERE PASSED WITH /E INVOKED AND ARE CREATED FROM OS/8 INPUT.
+ 174               
+ 175               /       P?S/8 => OS/8
+ 176               
+ 177               /               CONVERSION IS FROM P?S/8 INPUT FILES TO A SINGLE OS/8 OUTPUT FILE.
+ 178               /               P?S/8 INPUT FILES NEED NOT CONTAIN LINE NUMBERS AS THEY ARE IGNORED.
+ 179               
+ 180               /       XX FILES CREATED
+ 181               
+ 182               /               COUNT OF OUTPUT FILES CREATED BY CONVERSION. CAN BE "NO" (IF NO
+ 183               /               FILES WERE CONVERTED) OR 1 THROUGH 17, THE P?S/8 UPPER LIMIT. THIS
+ 184               /               QUANTITY WILL ALWAYS BE 1 IF CONVERTING P?S/8 FILES TO OS/8. THIS
+ 185               /               MESSAGE IS PRINTED BEFORE EXITING TO THE MONITOR.
+ 186               /      P?S/8 DEFINITIONS.
+ 187               
+ 188                       DOLBLK= 0040            /DEFAULT ASCII SCRATCH AREA ($)
+ 189                       EXTCAT= 0067            /EXTENDED CATALOG BLOCK
+ 190                       INCON=  0031            /EQUATED FROM CONSOLE!
+ 191                       OUTCON= 0033            /EQUATED FROM CONSOLE!
+ 192                       TTY=    0003            /CONSOLE DEVICE CODE
+ 193                       SBOOT=  7600            /SYSTEM EXIT HERE
+ 194                       SBTFUN= 7602            /SYSTEM BOOTSTRAP UNIT WORD
+ 195                       SCRSIZE=7611            /SOFTWARE CORE SIZE WORD
+ 196                       SFILES= 7757            /PASSED FILES HERE
+ 197                       SOUTFLS=7607            /OUTPUT FILE COUNT
+ 198                       SPARM=  7756            /EQUALS PARAMETER
+ 199                       SWAL=   7604            /A-/L SWITCHES
+ 200                       SWMX=   7605            /M-/X SWITCHES
+ 201                       SWY9=   7606            /Y-/9 SWITCHES
+ 202                       SYSIO=  7640            /ENTER I/O ROUTINES HERE
+ 203                       WRITE=  4000            /SYSIO WRITE BIT
+ 204               
+ 205               /       OTHER DEFINITIONS.
+ 206               
+ 207                       FILBUFF=3000            /FILE CREATED IN 003000
+ 208                       JMPC=   JMP     .       /CURRENT PAGE JMP INSTRUCTION
+ 209                       JMSC=   JMS     .       /CURRENT PAGE JMS INSTRUCTION
+ 210                       JMSSYSI=SYSIO&177+JMSC  /CALL TO SYSIO ON ITS PAGE
+ 211                       KCCIOT= TTY^10+6002     /CLEAR KEYBOARD FLAG
+ 212                       KRSIOT= TTY^10+6004     /READ KEYBOARD BUFFER
+ 213                       KSFIOT= TTY^10+6001     /SKIP ON KEYBOARD FLAG
+ 214                       NL0001= CLA IAC         /LOAD AC WITH 0001
+ 215                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+ 216                       NL2000= CLA CLL CML RTR /LOAD AC WITH 2000
+ 217                       NL4000= CLA CLL CML RAR /LOAD AC WITH 4000
+ 218                       NL7775= CLA CLL CMA RTL /LOAD AC WITH 7775
+ 219                       NL7776= CLA CLL CMA RAL /LOAD AC WITH 7776
+ 220                       NL7777= CLA CMA         /LOAD AC WITH 7777
+ 221                       REVISIO="B&77           /REVISION OF OS8CON
+ 222                       TLSIOT= TTY+1^10+6006   /OUTPUT TO TELEPRINTER
+ 223                       TSFIOT= TTY+1^10+6001   /SKIP ON TELEPRINTER FLAG
+ 224                       VERSION=12              /VERSION OF OS8CON
+ 225                      *0                      /START AT THE BEGINNING
+ 226               
+ 227 000000  0000  CHAR,   .-.                     /LATEST P?S/8 CHARACTER FOR OS/8 OUTPUT
+ 228 000001  7757  FILPTR, SFILES                  /FILE POINTER
+ 229 000002  0000  OS8UNIT,.-.                     /OS/8 I/O UNIT
+ 230 000003  0000  PEXEOFS,.-.                     /EXTENDED FILES <EOF> SWITCH
+ 231 000004  0000  PEXLIMI,.-.                     /EXTENDED FILES OUTPUT BUFFER LIMIT
+ 232 000005  0000  PEXPTR, .-.                     /EXTENDED FILES STORAGE POINTER
+ 233 000006  1274  PINIT,  PFFINITIALIZE           /**** /E **** PEXINITIALIZE
+ 234 000007  1200  POUT,   PFFOUT                  /**** /E **** PEXOUT
+ 235               
+ 236                       *10                     /DEFINE AUTO-INDEX AREA
+ 237               
+ 238 000010  0000  XR1,    .-.                     /FIRST AUTO-INDEX REGISTER
+ 239 000011  0000  XRIN,   .-.                     /P?S/8 INPUT AUTO-INDEX REGISTER
+ 240 000012  2177  XROUT,  LIST8K-1                /P?S/8 INPUT AUTO-INDEX REGISTER; PRELOADED FOR STARTUP
+ 241 000013  0250  EOLPROT,250                     /<EOL> PROTECTION VALUE FOR FIXED FILES
+ 242 000014  0000  FILCNT, 0                       /P?S/8 FILE CREATION COUNT
+ 243 000015  0000  OS8FIEL,OS8FLD                  /**** 8K **** 0010
+ 244 000016  0000  PFFLATE,.-.                     /LATEST CHARACTER INSERTED INTO FIXED FILE
+ 245 000017  0000  PFFPREV,.-.                     /PREVIOUS CHARACTER INSERTED INTO FIXED FILE
+ 246               
+ 247                       *20                     /GET PAST AUTO-INDEX AREA
+ 248               
+ 249 000020  0700  FFPROTE,700                     /<FF> PROTECTION COUNT
+ 250 000021  3600  GCPTR,  INBUFFER                /P?S/8 INPUT BUFFER POINTER
+ 251 000022  0000  INCHAR, .-.                     /LATEST KEYBOARD INPUT CHARACTER
+ 252 000023  5000  OS8WFUN,OUTLENGTH^100+WRITE     /**** 8K **** O8KLENGTH^100+WRITE
+ 253 000024  5000  OUTBCNT,OUTLENGTH^300^7777      /**** 8K **** O8KLENGTH^300^7777
+ 254 000025  0010  OUTBLEN,OUTLENGTH               /**** 8K **** O8KLENGTH
+ 255 000026  5000  OUTCNT, OUTLENGTH^300^7777      /**** 8K **** O8KLENGTH^300^7777
+ 256 000027  1600  OUTPTR, OUTBUFFER               /OS/8 OUTPUT BUFFER POINTER
+ 257 000030  0212  PREVCHA,"J&77!200               /PREVIOUS OS/8 OUTPUT CHARACTER PASSED
+ 258 000031  0000  P7TEMP, .-.                     /TERMINAL OUTPUT TEMPORARY
+ 259 000032  0000  TEMPTR, .-.                     /TEMPORARY OUTPUT POINTER
+ 260 000033  0000  TESTCT, .-.                     /STRING TEST COUNTER
+ 261               
+ 262               /       P?S/8 INPUT <FF> WINDOW AREA.
+ 263               
+ 264 000034  0000  WINDOW, ZBLOCK  10              /SEARCH WINDOW HERE
+     000035  0000  
+     000036  0000  
+     000037  0000  
+     000040  0000  
+     000041  0000  
+     000042  0000  
+     000043  0000  
+ 265 000044  0000  ELEMENT,.-.                     /LATEST CHARACTER TO SHIFT INTO THE WINDOW
+ 266               
+ 267               /       TEST STRING.
+ 268               
+ 269 000045  0011  TSTRING,11                      /<HT>
+ 270 000046  0105          "E&177                  /E
+ 271 000047  0112          "J&177                  /J
+ 272 000050  0105          "E&177                  /E
+ 273 000051  0103          "C&177                  /C
+ 274 000052  0124          "T&177                  /T
+ 275 000053  0015  L15,    "M&77                   /<CR>
+ 276 000054  0012  L12,    "J&77                   /<LF>
+ 277 000055  0000  CHKUP, .-.                     /CHECK FOR <^C>, ETC. ROUTINE
+ 278 000056  4074          JMS     CTLCTST         /CHECK FOR <^C>
+ 279 000057  7440          SZA                     /SKIP IF NOTHING CAME IN
+ 280 000060  1177          TAD     [-"Q!300]       /ELSE COMPARE TO <^Q>
+ 281 000061  7450          SNA                     /SKIP IF NEITHER CASE
+ 282 000062  5072          JMP     CHKCLR          /ELSE FORGET IT
+ 283 000063  1176          TAD     [-"S+"Q]        /COMPARE TO <^S>
+ 284 000064  7640  PSYSIO, SZA CLA                 /SKIP IF IT MATCHES
+ 285 000065  5455          JMP I   CHKUP           /ELSE RETURN
+ 286 000066  4074          JMS     CTLCTST         /GET ANOTHER CHARACTER
+ 287 000067  1177          TAD     [-"Q!300]       /COMPARE TO <^Q>
+ 288 000070  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 289 000071  5066          JMP     .-3             /ELSE KEEP GOING
+ 290 000072  3022  CHKCLR, DCA     INCHAR          /OBLITERATE <^Q>, ETC.
+ 291 000073  5455          JMP I   CHKUP           /RETURN
+ 292               
+ 293 000074  0000  CTLCTST,.-.                     /CHECK FOR <^C> ROUTINE
+ 294 000075  7200          CLA                     /CLEAN UP
+ 295 000076  6031  CHKKSF, KSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 296 000077  5474  CHKJMP, JMP I   CTLCTST         /**** CONSOLE **** JMS INCON
+ 297 000100  6034  CHKKRS, KRSIOT/OR KRBIOT        /**** CONSOLE **** JMP I CTLCTST
+ 298 000101  0175          AND     [177]           /JUST SEVEN BITS
+ 299 000102  3022          DCA     INCHAR          /STASH THE CHARACTER
+ 300 000103  7346          NL7775                  /-3
+ 301 000104  1022          TAD     INCHAR          /COMPARE INPUT TO <^C>
+ 302 000105  7450          SNA                     /SKIP IF OTHER
+ 303 000106  2574          ISZ I   [SCRSIZE]       /ELSE SET SOFT INDICATOR
+ 304 000107  7750          SPA SNA CLA             /SKIP IF <^D> OR GREATER
+ 305 000110  5573          JMP I   [SBOOT]         /ELSE GOODBYE
+ 306 000111  6032  CHKKCC, KCCIOT/OR 0000          /**** CONSOLE **** 0000
+ 307 000112  1022          TAD     INCHAR          /GET THE CHARACTER
+ 308 000113  5474          JMP I   CTLCTST         /RETURN
+ 309               
+ 310 000114  0000  P7CH,   .-.                     /SEVEN-BIT PRINT ROUTINE
+ 311 000115  3031          DCA     P7TEMP          /STASH PASSED VALUE
+ 312 000116  4055  P7AGN,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 313 000117  1031          TAD     P7TEMP          /GET THE VALUE
+ 314 000120  6041  P7TSF,  TSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 315 000121  5116  P7JMP,  JMP     P7AGN           /**** CONSOLE **** JMS OUTCON
+ 316 000122  6046  P7TLS,  TLSIOT                  /**** CONSOLE **** JMP P7AGN
+ 317 000123  4055          JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 318 000124  5514          JMP I   P7CH            /RETURN
+ 319                      PAGE
+ 320               
+ 321               /       OS/8 <- -> P?S/8 CONVERSION UTILITY STARTS HERE.
+ 322               
+ 323                       OS8CON= .               /PROGRAM STARTS HERE
+ 324               
+ 325                       IFNZRO  .&177   <ERROR  .>
+ 326               
+ 327 000200  7000  OS8CON, NOP                     /IN CASE WE'RE CHAINED TO
+ 328 000201  5602  SCRCASE,JMP I   SCRIBE/(INITIAL)/CONTINUE THERE
+ 329               
+ 330               /       MESSAGE PRINTING ROUTINE.
+ 331               
+ 332 000202  1600  SCRIBE, INITIALIZE              /MESSAGE PRINT ROUTINE; PRELOADED FOR STARTUP
+ 333 000203  7200          CLA                     /JUST IN CASE
+ 334 000204  1602          TAD I   SCRIBE          /GET MESSAGE POINTER
+ 335 000205  3200          DCA     OS8CON          /STASH IT
+ 336 000206  2202          ISZ     SCRIBE          /BUMP PAST ARGUMENT
+ 337 000207  1377          TAD     (140)           /INITIALIZE TO
+ 338 000210  3201          DCA     SCRCASE         /LOWER-CASE OUTPUT
+ 339 000211  1600  SCRLUP, TAD I   OS8CON          /GET LEFT HALF-WORD
+ 340 000212  7012          RTR;RTR;RTR             /MOVE OVER
+     000213  7012  
+     000214  7012  
+ 341 000215  4222          JMS     SCRPRNT         /PRINT IT
+ 342 000216  1600          TAD I   OS8CON          /GET RIGHT HALF-WORD
+ 343 000217  4222          JMS     SCRPRNT         /PRINT IT
+ 344 000220  2200          ISZ     OS8CON          /BUMP TO NEXT PAIR
+ 345 000221  5211          JMP     SCRLUP          /KEEP GOING
+ 346               
+ 347 000222  0000  SCRPRNT,.-.                     /CHARACTER PRINT ROUTINE
+ 348 000223  0172          AND     [77]            /JUST SIX-BIT
+ 349 000224  7450          SNA                     /END OF MESSAGE?
+ 350 000225  5602          JMP I   SCRIBE          /YES, RETURN TO ORIGINAL CALLER
+ 351 000226  3256          DCA     SCRCHAR         /NO, SAVE FOR NOW
+ 352 000227  1256          TAD     SCRCHAR         /GET IT BACK
+ 353 000230  1376          TAD     (-"%!200)       /IS IT "%"?
+ 354 000231  7450          SNA                     /SKIP IF NOT
+ 355 000232  5245          JMP     SCRCRLF         /JUMP IF IT MATCHES
+ 356 000233  1171          TAD     [-"^+100+"%]    /IS IT "^"
+ 357 000234  7650          SNA CLA                 /SKIP IF NOT
+ 358 000235  5251          JMP     SCRFLIP         /JUMP IF IT MATCHES
+ 359 000236  1256          TAD     SCRCHAR         /GET THE CHARACTER
+ 360 000237  0170          AND     [40]            /DOES CASE MATTER?
+ 361 000240  7650          SNA CLA                 /SKIP IF NOT
+ 362 000241  1201          TAD     SCRCASE         /ELSE GET PREVAILING CASE
+ 363 000242  1256          TAD     SCRCHAR         /GET THE CHARACTER
+ 364 000243  4114  LFENTRY,JMS     P7CH            /PRINT THE CHARACTER
+ 365 000244  5622          JMP I   SCRPRNT         /RETURN
+ 366               
+ 367 000245  1053  SCRCRLF,TAD     L15/["M&77]     /GET A <CR>
+ 368 000246  4114          JMS     P7CH            /PRINT IT
+ 369 000247  1054          TAD     L12/["J&77]     /GET A <LF>
+ 370 000250  5243          JMP     LFENTRY         /CONTINUE THERE
+ 371 000251  1201  SCRFLIP,TAD    SCRCASE         /GET CURRENT CASE
+ 372 000252  7041          CIA                     /INVERT IT
+ 373 000253  1375          TAD     (140+100)       /ADD SUM OF POSSIBLE VALUES
+ 374 000254  3201          DCA     SCRCASE         /SAVE NEW CASE
+ 375 000255  5622          JMP I   SCRPRNT         /RETURN
+ 376               
+ 377 000256  0000  SCRCHAR,.-.                     /LATEST OUTPUT CHARACTER
+ 378               /      P?S/8 SIX-BIT OUTPUT ROUTINE.
+ 379               
+ 380               /       CALL WITH:
+ 381               
+ 382               /       TAD     CHAR            /AC CONTAINS LATEST CHARACTER TO OUTPUT
+ 383               /       JMS I   (P6CH)          /CALL ROUTINE
+ 384               /       ALWAYS RETURNS HERE WITH CLEAR AC
+ 385               /       FILES ARE AUTOMATICALLY CREATED AS NECESSARY.
+ 386               
+ 387               /       CALL APPROPRIATE ROUTINE TO CLOSE THE FILE (NL4000;JMS I POUT).
+ 388               
+ 389               /       THE CONVERSION PROCESS STARTS AT "OS8IN" WHICH OPENS THE FIRST FILE.
+ 390               
+ 391 000257  0400  P6CH,   NEWBUFFER               /SIX-BIT OUTPUT ROUTINE; PRELOADED FOR STARTUP
+ 392 000260  4407          JMS I   POUT            /CALL CURRENT P?S/8 OUTPUT ROUTINE
+ 393 000261  7410          SKP                     /SKIP IF FILE JUST CLOSED
+ 394 000262  5274          JMP     P6END           /JUMP IF NOT
+ 395 000263  2001          ISZ     FILPTR          /BUMP TO NEXT FILE ARGUMENT
+ 396 000264  1401  OS8IN,  TAD I   FILPTR          /GET THE NEXT FILE ARGUMENT
+ 397 000265  7450          SNA                     /END OF ALL FILES?
+ 398 000266  5276          JMP     TRUNCATE        /YES, WE LOSE
+ 399 000267  3271          DCA     POFBLK          /NO, STORE IN-LINE
+ 400 000270  4406          JMS I   PINIT           /CALL CURRENT INITIALIZE ROUTINE
+ 401 000271  0000  POFBLK, .-.                     /WILL BE FILE ARGUMENT ([BLOCK&7770] + [UNIT&7])
+ 402 000272  0144          144                     /INITIAL LINE NUMBER; AND INSTRUCTION IF EXTENDED FILES
+ 403 000273  0012          12                      /LINE INCREMENT; AND INSTRUCTION IF EXTENDED FILES
+ 404 000274  4055  P6END,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 405 000275  5657          JMP I   P6CH            /RETURN TO CALLER
+ 406               
+ 407 000276  4567  TRUNCAT,JMS I   [SCRIBE]        /TELL THEM
+ 408 000277  0330          TRUMSG                  /WE DIDN'T MAKE IT
+ 409 000300  1014  CREPORT,TAD     FILCNT          /GET FILE COUNT
+ 410 000301  7450          SNA                     /SKIP IF ANY
+ 411 000302  5316          JMP     FILNO           /ELSE LEAVE IT SAYING "NO"
+ 412 000303  1374          TAD     (-12)           /IS IT LESS THAN TEN?
+ 413 000304  7500          SMA                     /SKIP IF SO
+ 414 000305  1373          TAD     ("1^100-3612)   /ELSE CORRECT FOR 10-17
+ 415 000306  1372          TAD     ("0-200+3612)   /GET NUMERIC CORRECTION
+ 416 000307  3326          DCA     FCTMSG+1        /STORE IN MESSAGE
+ 417 000310  7240          NL7777                  /-1
+ 418 000311  1014          TAD     FILCNT          /EXACTLY ONE FILE?
+ 419 000312  7640          SZA CLA                 /SKIP IF SO
+ 420 000313  5316          JMP     FILNO           /JUMP IF OTHERWISE
+ 421 000314  1371          TAD     ("E^100+"^-300) /ELSE MAKE IT DROP THE "S"
+ 422 000315  3770          DCA I   (FLSMSG+3)      /STORE INTO THE MESSAGE
+ 423 000316  4567  FILNO,  JMS I   [SCRIBE]        /TELL THEM
+ 424 000317  0325          FCTMSG                  /THE FILE COUNT
+ 425 000320  4567          JMS I   [SCRIBE]        /TELL THEM
+ 426 000321  1366          FLSMSG                  /FILES (OR FILE)
+ 427 000322  4567          JMS I   [SCRIBE]        /TELL THEM
+ 428 000323  1557          CREMSG                  /CREATION MESSAGE
+ 429 000324  5573          JMP I   [SBOOT]         /GOODBYE
+ 430 000325  4536  FCTMSG,        TEXT    "%^NO^"
+     000326  1617  
+     000327  3600  
+ 431 000330  4536  TRUMSG, TEXT    "%^I^NSUFFICIENT ^O^UTPUT ^F^ILES, ^OS/8 I^NPUT ^T^RUNCATED!%^"
+     000331  1136  
+     000332  1623  
+     000333  2506  
+     000334  0611  
+     000335  0311  
+     000336  0516  
+     000337  2440  
+     000340  3617  
+     000341  3625  
+     000342  2420  
+     000343  2524  
+     000344  4036  
+     000345  0636  
+     000346  1114  
+     000347  0523  
+     000350  5440  
+     000351  3617  
+     000352  2357  
+     000353  7040  
+     000354  1136  
+     000355  1620  
+     000356  2524  
+     000357  4036  
+     000360  2436  
+     000361  2225  
+     000362  1603  
+     000363  0124  
+     000364  0504  
+     000365  4145  
+     000366  3600  
+ 432               
+ 433 000370  1371          PAGE
+     000371  0536  
+     000372  3672  
+     000373  2266  
+     000374  7766  
+     000375  0240  
+     000376  7733  
+     000377  0140  
+ 434               /      OS/8 SEVEN-BIT INPUT ROUTINE.
+ 435               
+ 436 000400  4055  NEWBUFF,JMS     CHKUP                   /CHECK FOR <^C>, ETC.
+ 437 000401  1364          TAD     OS8RFUN                 /GET READ FUNCTION
+ 438 000402  1015          TAD     OS8FIELD                /ADD ON FIELD BITS
+ 439 000403  1002          TAD     OS8UNIT                 /ADD ON UNIT BITS
+ 440 000404  3207          DCA     OS8FUN                  /STORE IN-LINE
+ 441 000405  4464          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+ 442 000406  1600  OS8CORE,OS8BUFFER                       /BUFFER ADDRESS
+ 443 000407  0500  OS8FUN, OS8LEN^100+OS8FLD+.-.           /UNIT BITS WILL BE FILLED IN
+ 444 000410  0000  OS8RECO,.-.                             /BLOCK NUMBER WILL BE FILLED IN
+ 445 000411  1360          TAD     OS8BCNT                 /SETUP THE DOUBLE-WORD
+ 446 000412  3355          DCA     BUFCNT                  /(TRIPLE-BYTE) COUNT
+ 447 000413  1206          TAD     OS8CORE/(OS8BUFFER)     /SETUP THE
+ 448 000414  3356          DCA     BUFPTR                  /BUFFER POINTER
+ 449 000415  3000  PUTUM,  DCA     CHAR                    /CLEAR THIRD BYTE NOW
+ 450 000416  4230          JMS     PUT1                    /GET AND OUTPUT FIRST BYTE
+ 451 000417  4230          JMS     PUT1                    /GET AND OUTPUT SECOND BYTE
+ 452 000420  1000          TAD     CHAR                    /GET THIRD BYTE
+ 453 000421  4245          JMS     PUTC                    /OUTPUT IT
+ 454 000422  2355          ISZ     BUFCNT                  /DONE ALL WORD PAIRS?
+ 455 000423  5215          JMP     PUTUM                   /NO, KEEP GOING
+ 456 000424  1210          TAD     OS8RECORD               /GET CURRENT RECORD
+ 457 000425  1361          TAD     OS8BLENGTH              /UPDATE TO NEXT BUFFER
+ 458 000426  3210          DCA     OS8RECORD               /STORE BACK
+ 459 000427  5200          JMP     NEWBUFFER               /KEEP GOING
+ 460               
+ 461 000430  0000  PUT1,   .-.                             /ONE BYTE OUTPUT ROUTINE
+ 462 000431  7000  PUTCDF, NOP                             /**** 8K **** CDF 10
+ 463 000432  1756          TAD I   BUFPTR                  /GET FIRST WORD
+ 464 000433  0166          AND     [7400]                  /JUST THIRD-BYTE NYBBLE
+ 465 000434  7104          CLL RAL                         /MOVE UP
+ 466 000435  1000          TAD     CHAR                    /GET OLD NYBBLE (IF ANY)
+ 467 000436  7006          RTL;RTL                         /MOVE UP NYBBLE BITS
+     000437  7006  
+ 468 000440  3000          DCA     CHAR                    /SAVE FOR NEXT TIME
+ 469 000441  1756          TAD I   BUFPTR                  /GET IT AGAIN
+ 470 000442  4245          JMS     PUTC                    /OUTPUT CURRENT BYTE
+ 471 000443  2356          ISZ     BUFPTR                  /BUMP TO NEXT WORD
+ 472 000444  5630          JMP I   PUT1                    /RETURN
+ 473               /      OS/8 TO P?S/8 CHARACTER OUTPUT ROUTINE.
+ 474               
+ 475 000445  0000  PUTC,   .-.                     /OS/8 => P?S/8 ROUTINE
+ 476 000446  6201          CDF     00              /BACK TO FIELD ZERO
+ 477 000447  0175          AND     [177]           /JUST SEVEN-BIT
+ 478 000450  3362          DCA     OS8LATEST       /SAVE AS LATEST CHARACTER
+ 479 000451  1362          TAD     OS8LATEST       /GET IT BACK
+ 480 000452  1377          TAD     (-177)          /COMPARE TO <RO>
+ 481 000453  7450          SNA                     /SKIP IF OTHER
+ 482 000454  5314          JMP     IGNORE          /IGNORE <RO> TOTALLY
+ 483 000455  1165          TAD     [-140+177]      /COMPARE TO LOWER-CASE LIMIT
+ 484 000456  7510          SPA                     /SKIP IF LOWER-CASE
+ 485 000457  1170          TAD     [40]            /ELSE RESTORE UPPER-CASE
+ 486 000460  7450          SNA                     /<AT-SIGN> OR <ACCENT>?
+ 487 000461  5312          JMP     PUTOSS          /YES, DON'T PUT IN OUTPUT FILE
+ 488 000462  1376          TAD     (-"Z!300+100)   /COMPARE TO <^Z>
+ 489 000463  7450          SNA                     /SKIP IF OTHER
+ 490 000464  5323          JMP     OS8EOF          /JUMP IF <EOF> CHARACTER
+ 491 000465  1375          TAD     (-"I+"Z)        /COMPARE TO <HT>
+ 492 000466  7450          SNA                     /SKIP IF OTHER
+ 493 000467  1374          TAD     (37-"I+2400)    /ADD ON <HT> KLUDGE
+ 494 000470  1373          TAD     (-"M+"I)        /COMPARE TO <CR>
+ 495 000471  7450          SNA                     /SKIP IF OTHER
+ 496 000472  5311          JMP     DOCR            /JUMP IF <CR>
+ 497 000473  7001          IAC     /TAD    (-"L+"M)/COMPARE TO <FF>
+ 498 000474  7450          SNA                     /SKIP IF OTHER
+ 499 000475  5326          JMP     DOFF            /JUMP IF <FF>
+ 500 000476  1164          TAD     [-"J+"L]        /COMPARE TO <LF>
+ 501 000477  7450          SNA                     /SKIP IF OTHER
+ 502 000500  5316          JMP     DOLF            /JUMP IF <LF>
+ 503 000501  1372          TAD     (-137+"J-300)   /COMPARE TO <BACK-ARROW>
+ 504 000502  7450          SNA                     /SKIP IF OTHER
+ 505 000503  5312          JMP     PUTOSS          /DON'T PUT <BACK-ARROW> IN OUTPUT FILE
+ 506 000504  1172          TAD     [-40+137]       /COMPARE TO REMAINING CONTROL CHARACTERS
+ 507 000505  7510          SPA                     /SKIP IF OTHERWISE
+ 508 000506  5314          JMP     IGNORE          /TOTALLY IGNORE OTHER CONTROL CHARACTERS
+ 509 000507  1170          TAD     [40]            /RESTORE THE CHARACTER
+ 510 000510  0172          AND     [77]            /JUST SIX-BIT
+ 511 000511  4771  DOCR,   JMS I   (P6CH)          /OUTPUT THE CHARACTER
+ 512 000512  1362  PUTOSS, TAD     OS8LATEST       /GET LATEST CHARACTER
+ 513 000513  3363          DCA     OS8PREVIOUS     /SAVE AS PREVIOUS CHARACTER FOR NEXT TIME
+ 514 000514  7200  IGNORE, CLA                     /CLEAN UP
+ 515 000515  5645          JMP I   PUTC            /RETURN
+ 516               
+ 517               /       IF <LF> AFTER <CR>, IGNORE IT; ELSE OUTPUT <EOL>.
+ 518               
+ 519 000516  1363  DOLF,   TAD     OS8PREVIOUS     /GET PREVIOUS CHARACTER
+ 520 000517  1370          TAD     (-"M!300)       /COMPARE TO <CR>
+ 521 000520  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 522 000521  4771          JMS I   (P6CH)          /ELSE OUTPUT <EOL>
+ 523 000522  5312          JMP     PUTOSS          /CONTINUE THERE
+ 524               /      <^Z> (<EOF>) COMES HERE.
+ 525               
+ 526 000523  7330  OS8EOF, NL4000                  /SET <EOF> VALUE
+ 527 000524  4407          JMS I   POUT            /CLOSE THE LAST FILE
+ 528 000525  5563          JMP I   [CREPORT]       /FINISH IT THERE
+ 529               
+ 530               /       <FF> COMES HERE.
+ 531               
+ 532 000526  1562  DOFF,   TAD I   [SWAL]          /GET /A-/L SWITCHES
+ 533 000527  0161          AND     [100]           /JUST /F BIT
+ 534 000530  7640          SZA CLA                 /SKIP IF OFF
+ 535 000531  5311          JMP     DOCR            /JUMP IF ON
+ 536 000532  1363          TAD     OS8PREVIOUS     /GET PREVIOUS CHARACTER
+ 537 000533  1370          TAD     (-"M!300)       /WAS IT <CR>?
+ 538 000534  7440          SZA                     /SKIP IF SO
+ 539 000535  1367          TAD     (-"J+"M)        /ELSE WAS IT <LF>?
+ 540 000536  7640          SZA CLA                 /SKIP IF EITHER
+ 541 000537  4771          JMS I   (P6CH)          /ELSE OUTPUT <EOL> FIRST
+ 542 000540  1366          TAD     (EJECTMSG-1)    /SETUP THE
+ 543 000541  3010          DCA     XR1             /MESSAGE POINTER
+ 544 000542  1410  EMSGLUP,TAD I   XR1             /GET A CHARACTER
+ 545 000543  7510          SPA                     /END OF MESSAGE?
+ 546 000544  5347          JMP     EMSGEND         /YES
+ 547 000545  4771          JMS I   (P6CH)          /NO, OUTPUT IT
+ 548 000546  5342          JMP     EMSGLUP         /KEEP GOING
+ 549               
+ 550 000547  4757  EMSGEND,JMS I   EFFCHK          /CHECK IF <EOF> NEEDED NOW
+ 551 000550  5353          JMP     .+3             /FORGET IT, JUST KEEP GOING
+ 552 000551  7330          NL4000                  /SET <EOF> VALUE
+ 553 000552  4771          JMS I   (P6CH)          /CLOSE THIS FILE, OPEN ANOTHER ONE
+ 554 000553  7344          NL7776  /TAD    ("J-"L) /GET <LF> VALUE
+ 555 000554  5312          JMP     PUTOSS          /CONTINUE THERE
+ 556               
+ 557 000555  0000  BUFCNT, .-.                     /BUFFER DOUBLE-WORD COUNTER
+ 558 000556  0000  BUFPTR, .-.                     /BUFFER POINTER
+ 559 000557  0676  EFFCHK, FFCHK                   /**** /E **** PEXFFCHECK
+ 560 000560  7300  OS8BCNT,OS8LENGTH^100^7777      /**** 8K **** O8KLENGTH^100^7777
+ 561 000561  0005  OS8BLEN,OS8LENGTH               /**** 8K **** O8KLENGTH
+ 562 000562  0000  OS8LATE,.-.                     /LATEST OS/8 OUTPUT CHARACTER
+ 563 000563  0012  OS8PREV,"J&77                   /PREVIOUS OS/8 OUTPUT CHARACTER
+ 564 000564  0500  OS8RFUN,OS8LENGTH^100           /**** 8K **** O8KLENGTH^100
+ 565               
+ 566 000566  1564          PAGE
+     000567  0003  
+     000570  7763  
+     000571  0257  
+     000572  7653  
+     000573  7774  
+     000574  2126  
+     000575  0021  
+     000576  0046  
+     000577  7601  
+ 567               /      P?S/8 TO OS/8 CHARACTER OUTPUT ROUTINE.
+ 568               
+ 569 000600  4777  OS8OUT, JMS I   (GETCHR)                /GET A P?S/8 CHARACTER
+ 570 000601  7000  OUTCDF, NOP                             /**** 8K **** CDF 10
+ 571 000602  5603          JMP I   PUTNEXT                 /GO WHERE YOU SHOULD
+ 572               
+ 573 000603  0651  PUTNEXT,PUTONE                          /EXIT ROUTINE; INITIALIZED FOR STARTUP
+ 574 000604  6201          CDF     00                      /BACK TO FIELD ZERO
+ 575 000605  1000          TAD     CHAR                    /GET LATEST CHARACTER
+ 576 000606  1376          TAD     (-"Z!100)               /IS IT <^Z>?
+ 577 000607  7640          SZA CLA                         /SKIP IF SO
+ 578 000610  5223          JMP     PUTRETURN               /JUMP IF NOT
+ 579 000611  3245          DCA     OUTZAP                  /CAUSE FILE TO CLOSE
+ 580 000612  7100          CLL                             /CLEAR LINK FOR TEST
+ 581 000613  1027          TAD     OUTPTR                  /GET OUTPUT POINTER
+ 582 000614  1375          TAD     (-OUTBUFFER-1)          /MAKE IT ABSOLUTE
+ 583 000615  7420          SNL                             /SKIP IF NOT AT BEGINNING
+ 584 000616  7200          CLA                             /ELSE REMOVE NEGATIVE OFFSET
+ 585 000617  0173          AND     [7600]                  /JUST PAGE BITS
+ 586 000620  7130          STL RAR                         /MOVE DOWN AND SET WRITE BIT
+ 587 000621  1161          TAD     [100]                   /ADD ONE PAGE TO CALL
+ 588 000622  5232          JMP     OS8CLOSE                /CONTINUE THERE
+ 589               
+ 590 000623  2026  PUTRETU,ISZ     OUTCNT                  /DONE WITH THIS BUFFER?
+ 591 000624  5200          JMP     OS8OUT                  /NO, KEEP GOING
+ 592 000625  1024          TAD     OUTBCNT                 /YES, RESET THE
+ 593 000626  3026          DCA     OUTCNT                  /CHARACTER COUNT
+ 594 000627  1237          TAD     OUTADR/(OUTBUFFER)      /RESET THE
+ 595 000630  3027          DCA     OUTPTR                  /OUTPUT POINTER
+ 596 000631  1023          TAD     OS8WFUN                 /GET WRITE FUNCTION
+ 597 000632  1015  OS8CLOS,TAD     OS8FIELD                /ADD ON FIELD BITS
+ 598 000633  1002          TAD     OS8UNIT                 /ADD ON UNIT BITS
+ 599 000634  3240          DCA     OUTFUN                  /STORE IN-LINE
+ 600 000635  4055          JMS     CHKUP                   /CHECK FOR <^C>, ETC.
+ 601 000636  4464          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+ 602 000637  1600  OUTADR, OUTBUFFER                       /BUFFER ADDRESS
+ 603 000640  5000  OUTFUN, OUTLENGTH^100+WRITE+OS8FLD+.-.  /UNIT BITS WILL BE FILLED IN
+ 604 000641  0000  OUTBLK, .-.                             /BLOCK NUMBER
+ 605 000642  1241          TAD     OUTBLK                  /GET OUTPUT BLOCK
+ 606 000643  1025          TAD     OUTBLENGTH              /UPDATE IT
+ 607 000644  3241          DCA     OUTBLK                  /STORE BACK
+ 608 000645  5200  OUTZAP, JMP     OS8OUT                  /**** <^Z> **** 0000
+ 609 000646  2014          ISZ     FILCNT                  /BUMP OUTPUT FILE COUNT
+ 610 000647  5563          JMP I   [CREPORT]               /FINISH IT THERE
+ 611 000650  4203  PUTLOOP,JMS    PUTNEXT         /GET NEXT CHARACTER
+ 612 000651  3427  PUTONE, DCA I   OUTPTR          /STORE THE FIRST CHARACTER
+ 613 000652  1027          TAD     OUTPTR          /GET THE POINTER
+ 614 000653  3032          DCA     TEMPTR          /SAVE IT
+ 615 000654  2027          ISZ     OUTPTR          /BUMP TO NEXT
+ 616 000655  4203          JMS     PUTNEXT         /GET NEXT CHARACTER
+ 617 000656  3427          DCA I   OUTPTR          /STORE THE SECOND ONE
+ 618 000657  4203          JMS     PUTNEXT         /GET NEXT CHARACTER
+ 619 000660  7006          RTL;RTL                 /MOVE UP
+     000661  7006  
+ 620 000662  0166          AND     [7400]          /JUST FIRST NYBBLE
+ 621 000663  1432          TAD I   TEMPTR          /ADD ON FIRST CHARACTER
+ 622 000664  3432          DCA I   TEMPTR          /STORE BACK
+ 623 000665  1000          TAD     CHAR            /GET LATEST
+ 624 000666  7012          RTR;RTR;RAR             /MOVE UP
+     000667  7012  
+     000670  7010  
+ 625 000671  0166          AND     [7400]          /JUST SECOND NYBBLE
+ 626 000672  1427          TAD I   OUTPTR          /ADD ON SECOND CHARACTER
+ 627 000673  3427          DCA I   OUTPTR          /STORE BACK
+ 628 000674  2027          ISZ     OUTPTR          /BUMP TO NEXT PAIR
+ 629 000675  5250          JMP     PUTLOOP         /KEEP GOING
+ 630               
+ 631               /       P?S/8 FIXED FILE <EOF> ON <FF> CHECK ROUTINE.
+ 632               
+ 633 000676  0000  FFCHK,  .-.                     /CHECK IF <EOF> NEEDED ROUTINE
+ 634 000677  7200          CLA                     /CLEAN UP
+ 635 000700  1774          TAD I   (SWMX)          /GET /M-/X SWITCHES
+ 636 000701  0373          AND     (400)           /JUST /P BIT
+ 637 000702  7640          SZA CLA                 /SKIP IF OFF
+ 638 000703  5676          JMP I   FFCHK           /ELSE TAKE IMMEDIATE RETURN
+ 639 000704  1560          TAD I   [FILBUFFER+3776]/GET TEXT POINTER
+ 640 000705  1020          TAD     FFPROTECTION    /ADD ON PROTECTION VALUE
+ 641 000706  7041          CIA                     /INVERT FOR TESTING
+ 642 000707  1557          TAD I   [FILBUFFER+3777]/COMPARE TO LINE NUMBER LIMIT
+ 643 000710  7710          SPA CLA                 /SKIP IF NOT ALMOST FULL
+ 644 000711  2276          ISZ     FFCHK           /TAKE SKIP RETURN IF ALMOST FULL
+ 645 000712  5676          JMP I   FFCHK           /RETURN EITHER WAY
+ 646               /      P?S/8 EXTENDED FILE INITIALIZE ROUTINE.
+ 647               
+ 648               /       CALL WITH:
+ 649               
+ 650               /       JMS I   (PEXINITIALIZE)         /CALL ROUTINE
+ 651               /       BLOCK+UNIT                      /FILE ARGUMENT ([BLOCK&7770] + [UNIT&7])
+ 652               /       RETURN                          /ALWAYS RETURN HERE
+ 653               
+ 654 000713  0000  PEXINIT,.-.                             /EXTENDED FILES INITIALIZE ROUTINE
+ 655 000714  1713          TAD I   PEXINIT                 /GET FILE ARGUMENT
+ 656 000715  0156          AND     [7770]                  /JUST BLOCK BITS
+ 657 000716  3772          DCA I   (PEXBLK)                /STORE IN-LINE
+ 658 000717  1713          TAD I   PEXINIT                 /GET ARGUMENT AGAIN
+ 659 000720  0171          AND     [7]                     /JUST UNIT BITS
+ 660 000721  3771          DCA I   (PEXUNIT)               /STASH IT
+ 661 000722  1370          TAD     (PEXLEN^100)            /SETUP THE
+ 662 000723  3767          DCA I   (PEXCNT)                /USUAL PAGE COUNT
+ 663 000724  1161          TAD     [1^100+00]              /GET READ FUNCTION
+ 664 000725  1771          TAD I   (PEXUNIT)               /ADD ON UNIT BITS
+ 665 000726  3331          DCA     PEXCFUN                 /STORE IN-LINE
+ 666 000727  4464          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+ 667 000730  3000  PEXCBUF,FILBUFFER                       /BUFFER ADDRESS
+ 668 000731  0100  PEXCFUN,1^100+00+.-.                    /UNIT BITS WILL BE FILLED IN
+ 669 000732  0071          EXTCAT+2                        /DIRECTORY BLOCK
+ 670 000733  1766          TAD I   (FILBUFFER+176)         /GET HIGHEST DEVICE BLOCK
+ 671 000734  3765          DCA I   (PEXHIGHBLOCK)          /STASH IT
+ 672 000735  1155          TAD     [-SBOOT]                /SETUP THE USUAL
+ 673 000736  3004          DCA     PEXLIMIT                /BUFFER LIMIT
+ 674 000737  3017          DCA     PFFPREVIOUS             /INITIALIZE PREVIOUS CHARACTER TO <EOL>
+ 675 000740  1330          TAD     PEXCBUFFER/(FILBUFFER)  /SETUP THE
+ 676 000741  3005          DCA     PEXPTR                  /FILE POINTER
+ 677 000742  1364          TAD     (PEXLEFT)               /SETUP THE
+ 678 000743  3763          DCA I   (PEXPUT)                /CO-ROUTINE
+ 679 000744  3003          DCA     PEXEOFSW                /CLEAR <EOF> SWITCH
+ 680 000745  2313          ISZ     PEXINIT                 /BUMP PAST ARGUMENT
+ 681 000746  5713          JMP I   PEXINIT                 /RETURN TO CALLER
+ 682               
+ 683               /       P?S/8 EXTENDED FILE <EOF> ON <FF> CHECK ROUTINE.
+ 684               
+ 685 000747  0000  PEXFFCH,.-.                             /CHECK IF <EOF> NEEDED ROUTINE
+ 686 000750  7200          CLA                             /CLEAN UP
+ 687 000751  1003          TAD     PEXEOFSW                /GET <EOF> SWITCH
+ 688 000752  7650          SNA CLA                         /SKIP IF SET
+ 689 000753  5747          JMP I   PEXFFCHECK              /ELSE JUST TAKE IMMEDIATE RETURN
+ 690 000754  1005          TAD     PEXPTR                  /GET THE STORAGE POINTER
+ 691 000755  1020          TAD     FFPROTECTION            /ADD ON PROTECTION VALUE
+ 692 000756  7100          CLL                             /CLEAR LINK FOR TEST
+ 693 000757  1004          TAD     PEXLIMIT                /ADD ON CURRENT POINTER LIMIT VALUE
+ 694 000760  7630          SZL CLA                         /SKIP IF STILL OK
+ 695 000761  2347          ISZ     PEXFFCHECK              /BUMP RETURN IS ALMOST FULL
+ 696 000762  5747          JMP I   PEXFFCHECK              /RETURN EITHER WAY
+ 697 000763  1532         PAGE
+     000764  1544  
+     000765  1554  
+     000766  3176  
+     000767  1553  
+     000770  2300  
+     000771  1556  
+     000772  1436  
+     000773  0400  
+     000774  7605  
+     000775  6177  
+     000776  7546  
+     000777  1000  
+ 698               /      P?S/8 CHARACTER INPUT ROUTINE.
+ 699               
+ 700 001000  0000  GETCHR, .-.                     /GET A CHARACTER ROUTINE
+ 701 001001  5602          JMP I   GCTRIM          /GO WHERE YOU SHOULD
+ 702               
+ 703 001002  1073  GCTRIM, GCINITIALIZE            /EXIT ROUTINE; PRELOADED FOR STARTUP
+ 704 001003  0172          AND     [77]            /JUST SIX-BIT
+ 705 001004  7450          SNA                     /<EOL>?
+ 706 001005  5262          JMP     GCEOL           /YES
+ 707 001006  1377          TAD     (-37)           /IS IT <HT>?
+ 708 001007  7450          SNA                     /SKIP IF NOT
+ 709 001010  1376          TAD     ("I&77-37-100)  /ELSE MAKE IT <^I>
+ 710 001011  7510          SPA                     /IS IT ALPHA?
+ 711 001012  1161          TAD     [100]           /YES, MAKE IT SEVEN-BIT
+ 712 001013  1165          TAD     [37]            /RESTORE THE CHARACTER
+ 713 001014  3044  GCTEST, DCA     ELEMENT         /**** /F **** JMP SETPARITY
+ 714 001015  7100          CLL                     /INDICATE SHIFT IN, NOT PURGE
+ 715 001016  4342          JMS     SHIFT           /SHIFT LATEST CHARACTER INTO THE WINDOW
+ 716 001017  1375          TAD     (TSTRING-1)     /POINT TO
+ 717 001020  3011          DCA     XRIN            /TEST STRING
+ 718 001021  4354          JMS     TSETUP          /SETUP WINDOW STRING POINTER AND COUNTER
+ 719 001022  1411  TSTLUP, TAD I   XRIN            /GET A TEST CHARACTER
+ 720 001023  7041          CIA                     /INVERT FOR TESTING
+ 721 001024  1412          TAD I   XROUT           /COMPARE TO WINDOW CHARACTER
+ 722 001025  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 723 001026  5235          JMP     NOTFF           /JUMP IF NOT
+ 724 001027  2033          ISZ     TESTCT          /TESTED ALL YET?
+ 725 001030  5222          JMP     TSTLUP          /NO, KEEP GOING
+ 726 001031  7120          STL                     /INDICATE WINDOW PURGE
+ 727 001032  4342          JMS     SHIFT           /CLEAR THE WINDOW
+ 728 001033  1374          TAD     ("L&77)         /GET A <FF>
+ 729 001034  5240          JMP     SETPARITY       /CONTINUE THERE
+ 730               
+ 731 001035  1034  NOTFF,  TAD     WINDOW          /GET HEAD OF WINDOW
+ 732 001036  7450          SNA                     /SKIP IF SOMETHING THERE
+ 733 001037  5602          JMP I   GCTRIM          /ELSE GO GET ANOTHER ONE
+ 734 001040  1155  SETPARI,TAD     [200]           /ADD ON MARK STATE PARITY BIT FOR OS/8
+ 735 001041  3000          DCA     CHAR            /SAVE IT
+ 736 001042  1000          TAD     CHAR            /GET THE CHARACTER
+ 737 001043  1373          TAD     (-"M!100)       /COMPARE TO <CR>
+ 738 001044  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 739 001045  5256          JMP     NRMCHARACTER    /JUMP IF NOT
+ 740 001046  7201          NL0001                  /SET /L MASK
+ 741 001047  0562          AND I   [SWAL]          /GET /L BIT
+ 742 001050  7650          SNA CLA                 /SKIP IF SET
+ 743 001051  5256          JMP     NRMCHARACTER    /JUMP IF NOT
+ 744 001052  1030          TAD     PREVCHARACTER   /GET THE PREVIOUS CHARACTER
+ 745 001053  1372          TAD     (-"J!100)       /WAS IT <LF>?
+ 746 001054  7650          SNA CLA                 /SKIP IF NOT
+ 747 001055  5602          JMP I   GCTRIM          /THROW <CR> AWAY
+ 748 001056  1000  NRMCHAR,TAD     CHAR            /GET LATEST CHARACTER
+ 749 001057  3030          DCA     PREVCHARACTER   /SAVE AS PREVIOUS CHARACTER FOR NEXT TIME
+ 750 001060  1000          TAD     CHAR            /GET THE CHARACTER AGAIN
+ 751 001061  5600          JMP I   GETCHR          /RETURN TO CALLER
+ 752 001062  1371  GCEOL, TAD     (GCLF)          /MAKE IT COME BACK
+ 753 001063  3202          DCA     GCTRIM          /FOR <LF> NEXT TIME
+ 754 001064  1053          TAD     L15/["M&77]     /GET A <CR>
+ 755 001065  5214          JMP     GCTEST          /CONTINUE THERE
+ 756               
+ 757 001066  1370  GCLF,   TAD     (GETLEFT)       /SETUP THE CO-ROUTINE
+ 758 001067  3202          DCA     GCTRIM          /FOR NEXT CALLER
+ 759 001070  1054          TAD     L12/["J&77]     /GET A <LF>
+ 760 001071  5214          JMP     GCTEST          /CONTINUE THERE
+ 761               
+ 762 001072  2001  GCEOF,  ISZ     FILPTR          /BUMP TO NEXT FILE ARGUMENT
+ 763 001073  1401  GCINITI,TAD I   FILPTR          /GET LATEST FILE ARGUMENT
+ 764 001074  7450          SNA                     /SKIP IF NOT AT END OF LIST
+ 765 001075  5335          JMP     GCEOT           /JUMP IF SO
+ 766 001076  0156          AND     [7770]          /JUST BLOCK BITS
+ 767 001077  3310          DCA     GCBLOCK         /STORE IN-LINE
+ 768 001100  1401          TAD I   FILPTR          /GET FILE ARGUMENT AGAIN
+ 769 001101  0171          AND     [7]             /JUST UNIT BITS
+ 770 001102  1367          TAD     (INLEN^100+00)  /ADD ON READ BITS
+ 771 001103  3307          DCA     GCFUNCT         /STORE IN-LINE
+ 772 001104  4055  GCEOB,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 773 001105  4464          JMS I   PSYSIO/[SYSIO]  /CALL I/O ROUTINES
+ 774 001106  3600  GCADR,  INBUFFER                /BUFFER ADDRESS
+ 775 001107  2000  GCFUNCT,INLEN^100+00+.-.        /UNIT BITS WILL BE FILLED IN
+ 776 001110  0000  GCBLOCK,.-.                     /BLOCK NUMBER WILL BE FILLED IN
+ 777 001111  1310          TAD     GCBLOCK         /GET CURRENT BLOCK
+ 778 001112  1366          TAD     (INLEN)         /UPDATE TO NEXT BUFFER
+ 779 001113  3310          DCA     GCBLOCK         /SAVE FOR NEXT TIME
+ 780 001114  1306          TAD     GCADR/(INBUFFER)/SETUP THE
+ 781 001115  3021          DCA     GCPTR           /UNPACKING POINTER
+ 782 001116  1421  GETNEXT,TAD I   GCPTR           /GET NEXT PAIR
+ 783 001117  7450          SNA                     /<EOF>?
+ 784 001120  5272          JMP     GCEOF           /YES
+ 785 001121  7012          RTR;RTR;RTR             /NO, MOVE DOWN
+     001122  7012  
+     001123  7012  
+ 786 001124  4202          JMS     GCTRIM          /TRIM LEFT-HAND CHARACTER AND EXIT
+ 787 001125  1421          TAD I   GCPTR           /GET IT AGAIN
+ 788 001126  4202          JMS     GCTRIM          /TRIM RIGHT-HAND CHARACTER AND EXIT
+ 789 001127  2021  GETLEFT,ISZ     GCPTR           /BUMP TO NEXT PAIR
+ 790 001130  1021          TAD     GCPTR           /GET THE POINTER
+ 791 001131  1155          TAD     [-SBOOT]        /COMPARE TO LIMIT
+ 792 001132  7650          SNA CLA                 /SKIP IF NOT AT END OF BUFFER
+ 793 001133  5304          JMP     GCEOB           /GO READ IN ANOTHER BUFFER
+ 794               
+ 795               /       WE'RE STILL OK, KEEP GOING.
+ 796               
+ 797 001134  5316          JMP     GETNEXT         /GO GET ANOTHER WORD
+ 798               /      COMES HERE WHEN LAST FILE IS EXHAUSTED.
+ 799               
+ 800 001135  7240  GCEOT,  NL7777                  /BACKUP THE FILE POINTER
+ 801 001136  1001          TAD     FILPTR          /SO FURTHER ATTEMPTS
+ 802 001137  3001          DCA     FILPTR          /YIELD <EOF> AGAIN
+ 803 001140  1365          TAD     ("Z&77)         /GET <^Z>
+ 804 001141  5214          JMP     GCTEST          /CONTINUE THERE
+ 805               
+ 806 001142  0000  SHIFT,  .-.                     /CHARACTER SHIFT ROUTINE
+ 807 001143  1364          TAD     (WINDOW+1-1)    /POINT TO FIRST
+ 808 001144  3011          DCA     XRIN            /CHARACTER TO MOVE
+ 809 001145  4354          JMS     TSETUP          /SETUP TEST STRING POINTER AND COUNT
+ 810 001146  7420  SHFTLUP,SNL                     /IF LINK SET THEN WE CLEAR THE STRING, NOT MOVE IT
+ 811 001147  1411          TAD I   XRIN            /GET A CHARACTER
+ 812 001150  3412          DCA I   XROUT           /STORE ONE UP IN STRING
+ 813 001151  2033          ISZ     TESTCT          /DONE ALL YET?
+ 814 001152  5346          JMP     SHFTLUP         /NO, KEEP GOING
+ 815 001153  5742          JMP I   SHIFT           /YES, RETURN TO CALLER
+ 816               
+ 817 001154  0000  TSETUP, .-.                     /TEST STRING SETUP ROUTINE
+ 818 001155  1156          TAD     [-10]           /SETUP THE
+ 819 001156  3033          DCA     TESTCT          /STRING COUNTER
+ 820 001157  1363          TAD     (WINDOW-1)      /SETUP THE
+ 821 001160  3012          DCA     XROUT           /WINDOW POINTER
+ 822 001161  5754          JMP I   TSETUP          /RETURN
+ 823               
+ 824 001163  0033          PAGE
+     001164  0034  
+     001165  0032  
+     001166  0020  
+     001167  2000  
+     001170  1127  
+     001171  1066  
+     001172  7566  
+     001173  7563  
+     001174  0014  
+     001175  0044  
+     001176  7652  
+     001177  7741  
+ 825               /      P?S/8 FIXED FILE OUTPUT ROUTINE.
+ 826               
+ 827               /       CALL WITH:
+ 828               
+ 829               /       TAD     CHAR                    /AC CONTAINS LATEST CHARACTER TO OUTPUT
+ 830               /       JMS I   (PFFOUT)                /CALL ROUTINE
+ 831               /       JMP     FILEFULL                /THE FILE BECAME FULL AND WAS CLOSED OUT
+ 832               /       JMP     FILEOK                  /FILE IS STILL ACTIVE
+ 833               
+ 834               /       FILES WILL BE CLOSED OUT IF:
+ 835               
+ 836               /       A)      A NON-<EOL> IS PASSED AND THERE IS ONLY ROOM ENOUGH FOR THE
+ 837               /               NON-<EOL> CHARACTER AND AN ADDITIONAL <EOL> CHARACTER AND <EOF>.
+ 838               /               AN <EOL> WILL BE AUTOMATICALLY INSERTED TO PRESERVE THE INTEGRITY
+ 839               /               OF THE FILE ALONG WITH AN <EOF> TO CLOSE IT. THE FILE WILL ALSO
+ 840               /               BE WRITTEN OUT TO THE SYSTEM DEVICE ACCORDING TO THE PRIOR
+ 841               /               INITIALIZATION (SEE "PFFINIT").
+ 842               
+ 843               /       B)      AN <EOL> CHARACTER (0000) IS PASSED AND THERE IS LESS ROOM THAN
+ 844               /               "EOLPROT" LEFT IN THE FILE. AN <EOF> WILL BE INSERTED INTO THE FILE
+ 845               /               AND IT WILL BE CLOSED AND WRITTEN OUT TO THE SYSTEM DEVICE ACCORDING
+ 846               /               TO THE PRIOR INITIALIZATION (SEE "PFFINIT").
+ 847               
+ 848               /       C)      AN <EOF> CHARACTER (4000) IS PASSED. IF THE PREVIOUS CHARACTER WAS
+ 849               /               NOT AN <EOL> CHARACTER, ONE WILL BE INSERTED BEFORE AN <EOF> IS
+ 850               /               INSERTED. THE FILE WILL BE CLOSED AND WRITTEN OUT TO THE SYSTEM
+ 851               /               DEVICE ACCORDING TO THE PRIOR INITIALIZATION (SEE "PFFINIT").
+ 852               
+ 853 001200  0000  PFFOUT, .-.                             /FIXED FILE OUTPUT ROUTINE
+ 854 001201  3016          DCA     PFFLATEST               /SAVE LATEST CHARACTER
+ 855 001202  1016          TAD     PFFLATEST               /GET IT BACK
+ 856 001203  7450          SNA                             /IS IT <EOL>?
+ 857 001204  5222          JMP     PFFEOL                  /YES
+ 858 001205  7710          SPA CLA                         /IS IT <EOF>?
+ 859 001206  5237          JMP     PFFCLOSE                /YES
+ 860 001207  1016          TAD     PFFLATEST               /NO, GET THE CHARACTER
+ 861 001210  0172          AND     [77]                    /JUST IN CASE
+ 862 001211  4342          JMS     PFFSTORE                /STORE IN FILE BUFFER
+ 863 001212  1365          TAD     PFFPTR                  /GET THE INSERTION POINTER VALUE
+ 864 001213  1377          TAD     (5)                     /ADD ON ULTIMATE PROTECTION VALUE
+ 865 001214  7041          CIA                             /INVERT FOR TESTING
+ 866 001215  1557          TAD I   [FILBUFFER+3777]        /COMPARE TO FILE POINTER LIMIT VALUE
+ 867 001216  7740          SMA SZA CLA                     /SKIP IF FILE IS ABSOLUTELY FULL
+ 868 001217  5260          JMP     PFFOK                   /JUMP IF STILL SOME EXTRA ROOM
+ 869 001220  4264          JMS     PFFOEOL                 /STORE <EOL> CHARACTER TO PRESERVE FILE INTEGRITY
+ 870 001221  5242          JMP     PFFWRITE                /CONTINUE THERE
+ 871 001222  4264  PFFEOL,        JMS     PFFOEOL                 /OUTPUT <EOL> CHARACTER
+ 872 001223  1364          TAD     PFFNUMBER               /GET LATEST LINE NUMBER
+ 873 001224  1362          TAD     PFFINCREMENT            /BUMP TO NEXT VALUE
+ 874 001225  3364          DCA     PFFNUMBER               /STORE BACK FOR NEXT TIME
+ 875 001226  1376          TAD     (PFFLEFT)               /RESET THE
+ 876 001227  3344          DCA     PFFPUT                  /CO-ROUTINE
+ 877 001230  1560          TAD I   [FILBUFFER+3776]        /GET TEXT POINTER
+ 878 001231  1013          TAD     EOLPROTECTION           /ADD ON PROTECTION VALUE
+ 879 001232  7041          CIA                             /INVERT FOR TESTING
+ 880 001233  1557          TAD I   [FILBUFFER+3777]        /COMPARE TO POINTER LIMIT
+ 881 001234  7700  PF7700, SMA CLA                         /SKIP IF TOO FULL
+ 882 001235  5260          JMP     PFFOK                   /JUMP IF STILL ENOUGH ROOM
+ 883 001236  7410          SKP                             /FALL INTO <EOF> ROUTINE
+ 884 001237  1017  PFFCLOS,TAD     PFFPREVIOUS             /GET PREVIOUS CHARACTER
+ 885 001240  7640          SZA CLA                         /SKIP IF IT WAS <EOL>
+ 886 001241  4264          JMS     PFFOEOL                 /STORE <EOL> CHARACTER PRESERVING FILE INTEGRITY
+ 887 001242  1560  PFFWRIT,TAD I   [FILBUFFER+3776]        /GET FREE TEXT POINTER
+ 888 001243  1375          TAD     (-FILBUFFER)            /COMPARE TO EMPTY VALUE
+ 889 001244  7650          SNA CLA                         /SKIP IF OTHERWISE
+ 890 001245  5253          JMP     PFFEMPTY                /JUMP IF FILE IS EMPTY
+ 891 001246  4464          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+ 892 001247  3000  PFFBUFF,FILBUFFER                       /FILE ADDRESS
+ 893 001250  6000  PFFFUN, 20^100+WRITE+00+.-.             /UNIT BITS WILL BE FILLED IN
+ 894 001251  0000  PFFBLK, .-.                             /BLOCK NUMBER WILL BE FILLED IN
+ 895 001252  2014          ISZ     FILCNT                  /BUMP UP CREATION COUNT
+ 896 001253  4274  PFFEMPT,JMS     PFFINITIALIZE           /RE-INITIALIZE THE FILE POINTERS
+ 897 001254  0040  PFFDOLL,DOLBLK+.-.                      /UNIT BITS FROM "SBTFUN" WILL BE FILLED IN
+ 898 001255  0144          144                             /INITIAL LINE NUMBER
+ 899 001256  0012          12                              /LINE NUMBER INCREMENT
+ 900 001257  7410          SKP                             /DO NOT TAKE SKIP RETURN
+ 901 001260  2200  PFFOK,  ISZ     PFFOUT                  /BUMP TO OK RETURN
+ 902 001261  1016          TAD     PFFLATEST               /GET LATEST CHARACTER
+ 903 001262  3017          DCA     PFFPREVIOUS             /SAVE AS PREVIOUS CHARACTER FOR NEXT TIME
+ 904 001263  5600          JMP I   PFFOUT                  /RETURN TO CALLER
+ 905               
+ 906 001264  0000  PFFOEOL,.-.                             /<EOL> OUTPUT ROUTINE
+ 907 001265  4342          JMS     PFFSTORE                /OUTPUT <EOL> CHARACTER
+ 908 001266  2365          ISZ     PFFPTR                  /BUMP PAST LAST <EOL> WORD
+ 909 001267  3765          DCA I   PFFPTR                  /STORE TENTATIVE <EOF>
+ 910 001270  1364          TAD     PFFNUMBER               /GET LATEST LINE NUMBER
+ 911 001271  3763          DCA I   PFFLPTR                 /STORE OVER (FORMER) DUMMY LINE VALUE
+ 912 001272  4324          JMS     PFFLINE                 /UPDATE FILE POINTERS AND CREATE NEW DUMMY PAIR
+ 913 001273  5664          JMP I   PFFOEOL                 /RETURN
+ 914               /      P?S/8 FIXED FILE INITIALIZE ROUTINE.
+ 915               
+ 916               /       CALL WITH:
+ 917               
+ 918               /       JMS I   (PFFINITIALIZE)         /CALL ROUTINE
+ 919               /       BLOCK+UNIT                      /FILE ARGUMENT ([BLOCK&7770] + [UNIT&7])
+ 920               /       NUMBER                          /INITIAL LINE NUMBER
+ 921               /       INCREMENT                       /LINE NUMBER INCREMENT
+ 922               /       RETURN                          /ALWAYS RETURNS HERE
+ 923               
+ 924 001274  0000  PFFINIT,.-.                             /FIXED FILE INITIALIZE ROUTINE
+ 925 001275  1674          TAD I   PFFINITIALIZE           /GET FILE ARGUMENT
+ 926 001276  0156          AND     [7770]                  /JUST BLOCK BITS
+ 927 001277  3251          DCA     PFFBLK                  /STORE IN-LINE
+ 928 001300  1674          TAD I   PFFINITIALIZE           /GET IT AGAIN
+ 929 001301  0171          AND     [7]                     /JUST UNIT BITS
+ 930 001302  1374          TAD     (20^100+WRITE)          /FORM WRITE FUNCTION
+ 931 001303  3250          DCA     PFFFUN                  /STORE IN-LINE
+ 932 001304  2274          ISZ     PFFINITIALIZE           /BUMP TO NEXT ARGUMENT
+ 933 001305  1674          TAD I   PFFINITIALIZE           /GET INTIAL LINE NUMBER
+ 934 001306  3364          DCA     PFFNUMBER               /STASH IT
+ 935 001307  2274          ISZ     PFFINITIALIZE           /BUMP TO NEXT ARGUMENT
+ 936 001310  1674          TAD I   PFFINITIALIZE           /GET LINE NUMBER INCREMENT
+ 937 001311  3362          DCA     PFFINCREMENT            /STASH IT
+ 938 001312  2274          ISZ     PFFINITIALIZE           /BUMP PAST ARGUMENT
+ 939 001313  1247          TAD     PFFBUFFER/(FILBUFFER)   /SETUP THE
+ 940 001314  3365          DCA     PFFPTR                  /TEXT POINTER
+ 941 001315  1376          TAD     (PFFLEFT)               /INITIALIZE
+ 942 001316  3344          DCA     PFFPUT                  /CO-ROUTINE
+ 943 001317  1157          TAD     [FILBUFFER+3777]        /INITIALIZE
+ 944 001320  3363          DCA     PFFLPTR                 /LINE POINTER
+ 945 001321  4324          JMS     PFFLINE                 /CREATE INITIAL FILE POINTERS
+ 946 001322  3017          DCA     PFFPREVIOUS             /INITIALIZE PREVIOUS CHARACTER TO <EOL>
+ 947 001323  5674          JMP I   PFFINITIALIZE           /RETURN
+ 948               
+ 949 001324  0000  PFFLINE,.-.                             /LINE POINTERS UPDATE ROUTINE
+ 950 001325  7346          NL7775                          /BACKUP TO
+ 951 001326  1363          TAD     PFFLPTR                 /PREVIOUS PAIR
+ 952 001327  3363          DCA     PFFLPTR                 /STORE BACK
+ 953 001330  1363          TAD     PFFLPTR                 /GET THE POINTER
+ 954 001331  3557          DCA I   [FILBUFFER+3777]        /STORE LATEST PAIR POINTER
+ 955 001332  1365          TAD     PFFPTR                  /GET LATEST TEXT POINTER
+ 956 001333  3560          DCA I   [FILBUFFER+3776]        /STORE IN FREE TEXT POINTER
+ 957 001334  1365          TAD     PFFPTR                  /GET TEXT POINTER
+ 958 001335  3763          DCA I   PFFLPTR                 /STORE AS FREE TEXT POINTER IN DUMMY PAIR
+ 959 001336  2363          ISZ     PFFLPTR                 /BUMP TO DUMMY LINE ADDRESS
+ 960 001337  7240          NL7777                          /GET DUMMY LINE VALUE
+ 961 001340  3763          DCA I   PFFLPTR                 /STORE IN DUMMY LINE HOLDER
+ 962 001341  5724          JMP I   PFFLINE                 /RETURN
+ 963 001342  0000  PFFSTOR,.-.                            /CHARACTER INSERTION ROUTINE
+ 964 001343  5744          JMP I   PFFPUT                  /GO WHERE YOU SHOULD
+ 965               
+ 966 001344  1347  PFFPUT, PFFLEFT                         /EXIT ROUTINE; INITIALIZED FOR FIRST CHARACTER
+ 967 001345  3765          DCA I   PFFPTR                  /STORE LATEST WORD
+ 968 001346  5742          JMP I   PFFSTORE                /RETURN TO THEIR CALLER
+ 969               
+ 970 001347  7126  PFFLEFT,STL RTL;STL RTL;STL RTL         /SHIFT LEFT WITH GARBAGE
+     001350  7126  
+     001351  7126  
+ 971 001352  4344          JMS     PFFPUT                  /STORE IT AND GET ANOTHER CHARACTER
+ 972 001353  3274          DCA     PFFINITIALIZE           /SAVE LATEST CHARACTER
+ 973 001354  1765          TAD I   PFFPTR                  /GET PREVIOUS AND GARBAGE
+ 974 001355  0234          AND     PF7700/(7700)           /REMOVE GARBAGE
+ 975 001356  1274          TAD     PFFINITIALIZE           /ADD ON LATEST
+ 976 001357  4344          JMS     PFFPUT                  /STORE BOTH AND GET ANOTHER
+ 977 001360  2365          ISZ     PFFPTR                  /BUMP TO NEXT PAIR
+ 978 001361  5347          JMP     PFFLEFT                 /KEEP GOING
+ 979               
+ 980 001362  0000  PFFINCR,.-.                             /LINE NUMBER INCREMENT FOR FIXED FILES
+ 981 001363  0000  PFFLPTR,.-.                             /FIXED FILE INFORMATION PAIR POINTER
+ 982 001364  0000  PFFNUMB,.-.                             /LATEST LINE NUMBER FOR FIXED FILES
+ 983 001365  0000  PFFPTR, .-.                             /FIXED FILE INSERTION POINTER
+ 984 001366  4036  FLSMSG, TEXT    " ^F^ILES^"
+     001367  0636  
+     001370  1114  
+     001371  0523  
+     001372  3600  
+ 985               
+ 986 001374  6000          PAGE
+     001375  5000  
+     001376  1347  
+     001377  0005  
+ 987               /      P?S/8 EXTENDED FILE OUTPUT ROUTINE.
+ 988               
+ 989               /       CALL WITH:
+ 990               
+ 991               /       TAD     CHAR            /AC CONTAINS LATEST CHARACTER TO OUTPUT
+ 992               /       JMS I   (PEXOUT)        /CALL THE ROUTINE
+ 993               /       JMP     FILEFULL        /THE FILE BECAME FULL AND WAS CLOSED OUT
+ 994               /       JMP     FILEOK          /FILE IS STILL ACTIVE
+ 995               
+ 996               /       FILES WILL BE CLOSED IF:
+ 997               
+ 998               /       A)      A NON-<EOL> IS PASSED AND THERE IS ONLY ROOM FOR THE NON-<EOF>
+ 999               /               CHARACTER AND AN ADDITIONAL <EOL> CHARACTER AND <EOF>. AN <EOL>
+1000               /               WILL BE AUTOMATICALLY INSERTED TO PRESERVE THE FILE INTEGRITY
+1001               /               ALONG WITH AN <EOF> CHARACTER TO CLOSE IT. THE FILE WILL BE
+1002               /               WRITTEN OUT PERIODICALLY IN BUFFERS; THE CIRCUMSTANCE ABOVE WILL
+1003               /               CAUSE THE LAST BUFFER TO BE WRITTEN OUT TO THE SYSTEM DEVICE
+1004               /               ACCORDING TO THE PRIOR INITIALIZATION (SEE "PEXINIT").
+1005               
+1006               /       B)      AN <EOL> CHARACTER (0000) IS PASSED AND THERE IS LESS THAN
+1007               /               "EOLPROT" LEFT IN THE FILE. AN <EOF> WILL BE INSERTED INTO THE
+1008               /               FILE AND THE LAST BUFFER WRITTEN OUT TO THE SYSTEM DEVICE THUS
+1009               /               CLOSING THE FILE. THIS WILL BE DONE ACCORDING TO THE PRIOR
+1010               /               INITIALIZATION (SEE "PEXINIT").
+1011               
+1012               /       C)      AN <EOF> CHARACTER (4000) IS PASSED. IF THE PREVIOUS CHARACTER
+1013               /               WAS NOT AN <EOL> CHARACTER, ONE WILL BE INSERTED BEFORE AN <EOF>
+1014               /               CHARACTER IS INSERTED. THE FILE WILL THEN BE CLOSED AND THE
+1015               /               LAST BUFFER WRITTEN OUT TO THE SYSTEM DEVICE ACCORDING TO THE
+1016               /               PRIOR INITIALIZATION (SEE "PEXINIT").
+1017               
+1018 001400  0000  PEXOUT, .-.                     /EXTENDED FILE OUTPUT ROUTINE
+1019 001401  3016          DCA     PFFLATEST       /SAVE LATEST CHARACTER
+1020 001402  1016          TAD     PFFLATEST       /GET IT BACK
+1021 001403  7450          SNA                     /IS IT <EOL>?
+1022 001404  5253          JMP     PEXEOL          /YES
+1023 001405  7710          SPA CLA                 /IS IT <EOF>?
+1024 001406  5266          JMP     PEXCLOSE        /YES
+1025 001407  1016          TAD     PFFLATEST       /NO, GET THE CHARACTER
+1026 001410  0172          AND     [77]            /JUST IN CASE
+1027 001411  4301          JMS     PEXSTORE        /OUTPUT INTO FILE
+1028 001412  1005  PEXEOK, TAD     PEXPTR          /GET THE OUTPUT POINTER
+1029 001413  1004          TAD     PEXLIMIT        /COMPARE TO CURRENT LIMIT
+1030 001414  7640          SZA CLA                 /SKIP IF AT THE LIMIT
+1031 001415  5247          JMP     PEXOK           /JUMP IF NOT THERE YET
+1032 001416  1003          TAD     PEXEOFSW        /GET <EOF> SWITCH
+1033 001417  7650          SNA CLA                 /SKIP IF NOW IN LAST BUFFER
+1034 001420  5226          JMP     PEXWRITE        /JUMP IF NOT
+1035 001421  7410          SKP                     /JUST DO <EOL> NOW
+1036 001422  7640  PEXCL2, SZA CLA                 /SKIP IF AT <EOF> AND <EOL> IS NOT NEEDED
+1037 001423  4271          JMS     PEXOEOL         /OUTPUT <EOL> CHARACTER
+1038 001424  3405          DCA I   PEXPTR          /STORE <EOF> WORD
+1039 001425  2014          ISZ     FILCNT          /BUMP FILE CREATION COUNT
+1040 001426  1235  PEXWRIT,TAD    PEXFUN                  /GET WRITE FUNCTION
+1041 001427  0377          AND     (4070)                  /REMOVE PAGE COUNT AND UNIT
+1042 001430  1353          TAD     PEXCNT                  /ADD ON CURRENT PAGE COUNT
+1043 001431  1356          TAD     PEXUNIT                 /ADD ON LOGICAL UNIT
+1044 001432  3235          DCA     PEXFUN                  /STORE IN-LINE
+1045 001433  4464          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+1046 001434  3000  PEXBUFF,FILBUFFER                       /BUFFER ADDRESS
+1047 001435  6300  PEXFUN, PEXLEN^100+WRITE+00+.-.         /LENGTH AND UNIT BITS WILL BE FILLED IN
+1048 001436  0000  PEXBLK, .-.                             /BLOCK NUMBER WILL BE FILLED IN
+1049 001437  1003          TAD     PEXEOFSW                /GET <EOF> SWITCH
+1050 001440  7640          SZA CLA                         /SKIP IF NOT AT <EOF>
+1051 001441  5600          JMP I   PEXOUT                  /TAKE IMMEDIATE RETURN SINCE FILE IS CLOSED
+1052 001442  1234          TAD     PEXBUFF/(FILBUFFER)     /RESET THE
+1053 001443  3005          DCA     PEXPTR                  /FILE POINTER
+1054 001444  1236          TAD     PEXBLK                  /GET THE BLOCK
+1055 001445  1376          TAD     (PEXLEN)                /UPDATE TO NEXT BLOCK GROUP
+1056 001446  3236          DCA     PEXBLK                  /STORE BACK
+1057 001447  2200  PEXOK,  ISZ     PEXOUT                  /TAKE SKIP RETURN SINCE FILE IS STILL OPEN
+1058 001450  1016          TAD     PFFLATEST               /GET LATEST CHARACTER
+1059 001451  3017          DCA     PFFPREVIOUS             /SAVE AS PREVIOUS CHARACTER FOR NEXT TIME
+1060 001452  5600          JMP I   PEXOUT                  /RETURN TO CALLER
+1061               
+1062 001453  4271  PEXEOL, JMS     PEXOEOL                 /OUTPUT <EOL>
+1063 001454  1003          TAD     PEXEOFSW                /IN LAST BUFFER?
+1064 001455  7650          SNA CLA                         /SKIP IF SO
+1065 001456  5212          JMP     PEXEOK                  /JUMP IF NOT
+1066 001457  1005          TAD     PEXPTR                  /GET THE POINTER
+1067 001460  1013          TAD     EOLPROTECTION           /ADD ON <EOL> PROTECTION VALUE
+1068 001461  7100          CLL                             /CLEAR LINK FOR TEST
+1069 001462  1004          TAD     PEXLIMIT                /ADD ON FINAL LIMIT
+1070 001463  7620          SNL CLA                         /SKIP IF TOO CLOSE TO FULL
+1071 001464  5212          JMP     PEXEOK                  /JUMP IF NOT TOO FULL
+1072               
+1073               /       THE FILE IS NEARLY FULL; LET'S QUIT NOW AS THE NEXT LINE PROBABLY WON'T FIT!
+1074               
+1075 001465  7410          SKP                             /DON'T OUTPUT <EOL> AGAIN!
+1076 001466  1017  PEXCLOS,TAD     PFFPREVIOUS             /GET PREVIOUS CHARACTER
+1077 001467  2003          ISZ     PEXEOFSW                /INDICATE <EOF> NOW
+1078 001470  5222          JMP     PEXCL2                  /CONTINUE THERE
+1079               
+1080               /       <EOL> ROUTINE.
+1081               
+1082 001471  0000  PEXOEOL,.-.                             /OUTPUT <EOL> ROUTINE
+1083 001472  4301  PEXOAGN,JMS     PEXSTORE                /OUTPUT <EOL>
+1084 001473  1332          TAD     PEXPUT                  /GET ADDRESS HOLDER
+1085 001474  1375          TAD     (-PEXLEFT)              /COMPARE TO EXPECTED VALUE
+1086 001475  7650          SNA CLA                         /SKIP IF OTHER
+1087 001476  5671          JMP I   PEXOEOL                 /RETURN IF CORRECT
+1088 001477  1172          TAD     [77]                    /GET RIGHT-HAND JUNK VALUE
+1089 001500  5272          JMP     PEXOAGN                 /GO DO IT AGAIN
+1090 001501  0000  PEXSTOR,.-.                            /OUTPUT A CHARACTER ROUTINE
+1091 001502  3355          DCA     PEXTEMP                 /SAVE PASSED VALUE
+1092 001503  1236          TAD     PEXBLK                  /GET CURRENT BLOCK
+1093 001504  1376          TAD     (PEXLEN)                /ADD ON EXPECTED UPDATE
+1094 001505  7141          CLL CIA                         /INVERT FOR TESTING
+1095 001506  1354          TAD     PEXHIGHBLOCK            /COMPARE TO FINAL LIMIT
+1096 001507  7430          SZL                             /SKIP IF TOO MUCH
+1097 001510  5327          JMP     PEXSOK                  /JUMP IF NOT
+1098 001511  7001          IAC                             /CORRECT VALUE
+1099 001512  1376          TAD     (PEXLEN)                /NOW HAVE NEW LENGTH
+1100 001513  7106          CLL RTL;RTL;RTL                 /MOVE UP
+     001514  7006  
+     001515  7006  
+1101 001516  3353          DCA     PEXCNT                  /SAVE AS PAGE COUNT FOR I/O CALL
+1102 001517  1353          TAD     PEXCNT                  /GET IT BACK
+1103 001520  7004          RAL                             /MOVE UP TO WORD COUNT
+1104 001521  1234          TAD     PEXBUFF/(FILBUFFER)     /MAKE IT ABSOLUTE
+1105 001522  7041          CIA                             /INVERT IT
+1106 001523  1164          TAD     [2]                     /LEAVE ROOM FOR <EOL> AND <EOF>
+1107 001524  3004          DCA     PEXLIMIT                /SAVE AS NEW LIMIT
+1108 001525  7201          NL0001                          /SET THE
+1109 001526  3003          DCA     PEXEOFSW                /<EOF> SWITCH
+1110 001527  7200  PEXSOK, CLA                             /CLEAN UP
+1111 001530  1355          TAD     PEXTEMP                 /RESTORE THE CHARACTER
+1112 001531  5732          JMP I   PEXPUT                  /GO WHERE YOU SHOULD
+1113               
+1114 001532  1544  PEXPUT, PEXLEFT                         /EXIT ROUTINE; INITIALIZED FOR FIRST CHARACTER
+1115 001533  3405          DCA I   PEXPTR                  /STORE THE PASSED WORD
+1116 001534  7004          RAL                             /GET POSSIBLE INCREMENT
+1117 001535  1005          TAD     PEXPTR                  /UPDATE POINTER
+1118 001536  3005          DCA     PEXPTR                  /STORE BACK
+1119 001537  5701          JMP I   PEXSTORE                /RETURN TO ORIGINAL CALLER
+1120               
+1121 001540  1405  PEXLOOP,TAD I   PEXPTR                  /GET THE OLD WORD
+1122 001541  1355          TAD     PEXTEMP                 /ADD ON LATEST RIGHT-HAND CHARACTER
+1123 001542  7120          STL                             /INDICATE POINTER BUMP
+1124 001543  4332          JMS     PEXPUT                  /OUTPUT THE PAIR
+1125 001544  0172  PEXLEFT,AND     [77]                    /JUST LATEST CHARACTER
+1126 001545  7106          CLL RTL;RTL;RTL                 /MOVE UP
+     001546  7006  
+     001547  7006  
+1127 001550  4332          JMS     PEXPUT                  /STORE THIS ONE; LINK IS CLEAR
+1128 001551  3355          DCA     PEXTEMP                 /SAVE LATEST CHARACTER
+1129 001552  5340          JMP     PEXLOOP                 /KEEP GOING
+1130               
+1131 001553  0000  PEXCNT, .-.                             /BUFFER PAGE COUNT
+1132 001554  0000  PEXHIGH,.-.                             /HIGHEST BLOCK ON LATEST OUTPUT DEVICE
+1133 001555  0000  PEXTEMP,.-.                             /TEMPORARY
+1134 001556  0000  PEXUNIT,.-.                             /OUTPUT UNIT
+1135 001557  4036  CREMSG,        TEXT    " ^C^REATED%"
+     001560  0336  
+     001561  2205  
+     001562  0124  
+     001563  0504  
+     001564  4500  
+1136 001565  0037  EJECTMS,37;"E&77;"J&77;"E&77;"C&77;"T&77;0;-1   /EJECT MESSAGE
+     001566  0005  
+     001567  0012  
+     001570  0005  
+     001571  0003  
+     001572  0024  
+     001573  0000  
+     001574  7777  
+1137               
+1138 001575  6234          PAGE
+     001576  0023  
+     001577  4070  
+1139                      END8K=  6000                    /END OF FIELD ONE IN CASE HANDLER IS PRESENT
+1140               
+1141                       INBUFFE=3600                    /P?S/8 INPUT BUFFER
+1142               
+1143                       INLEN=  SBOOT-INBUFFER%200      /P?S/8 INPUT BUFFER PAGE SIZE
+1144               
+1145                       OS8BUFF=.                       /OS/8 INPUT BUFFER
+1146               
+1147                       OS8END= FILBUFFER               /END OF OS/8 INPUT BUFFER
+1148               
+1149                       OS8FLD= 00                      /BUFFER FIELD IN 4K
+1150               
+1151                       OS8LENG=OS8END-OS8BUFFER%200    /OS/8 INPUT BUFFER SIZE IN PAGES
+1152               
+1153                       OUTBUFF=OS8BUFFER               /OS/8 OUTPUT BUFFER
+1154               
+1155                       OUTEND= INBUFFER                /END OF OS/8 OUTPUT BUFFER
+1156               
+1157                       OUTLENG=OUTEND-OUTBUFFER%200    /OS/8 OUTPUT BUFFER SIZE IN PAGES
+1158               
+1159                       O8KLENG=END8K-OS8BUFFER%200     /OS/8 8K BUFFER SIZE IN PAGES
+1160               
+1161                       PEXLENG=SBOOT-FILBUFFER%200     /P?S/8 EXTENDED FILES BUFFER PAGE SIZE
+1162               /      INITIALIZATION STARTS HERE.
+1163               
+1164 001600  1777  INITIAL,TAD I   (SBTFUN)        /GET BOOTSTRAP FUNCTION WORD
+1165 001601  0171          AND     [7]             /JUST UNIT BITS
+1166 001602  1170          TAD     [DOLBLK]        /ADD ON "$" BLOCK NUMBER
+1167 001603  3776          DCA I   (PFFDOLLAR)     /STORE IN INITIALIZE CODE
+1168 001604  1573          TAD I   [SBOOT]         /GET BOOTSTRAP INSTRUCTION
+1169 001605  1375          TAD     (-JMSSYSIO)     /COMPARE TO POSSIBLE VALUE
+1170 001606  7650          SNA CLA                 /SKIP IF DIFFERENT
+1171 001607  5213          JMP     CHKCOVERLAY     /JUMP IF IT MATCHES
+1172 001610  2100          ISZ     CHKKRS          /TURN "KRSIOT"
+1173 001611  2100          ISZ     CHKKRS          /INTO "KRBIOT"
+1174 001612  3111          DCA     CHKKCC          /DESTROY "KCCIOT"
+1175 001613  7326  CHKCOVR,NL0002                  /SETUP "C" BIT MASK
+1176 001614  0574          AND I   [SCRSIZE]       /GET THE "C" BIT
+1177 001615  7650          SNA CLA                 /SKIP IF CONSOLE OVERLAY PRESENT
+1178 001616  5240          JMP     ANNOUNCE        /JUMP IF NOT
+1179 001617  1574          TAD I   [SCRSIZE]       /GET THE CORE SIZE WORD
+1180 001620  7012          RTR;RAR                 /MOVE OVER AND
+     001621  7010  
+1181 001622  0374          AND     (70)            /ISOLATE MCS BITS
+1182 001623  1373          TAD     (CIF    10)     /TURN INTO CIF MCS+10
+1183 001624  3120          DCA     P7TSF           /STORE OVER "TSFIOT"
+1184 001625  1121          TAD     P7JMP           /GET "JMP P7AGN"
+1185 001626  3122          DCA     P7TLS           /STORE OVER "TLSIOT"
+1186 001627  1372          TAD     (JMS    OUTCON) /GET OUTPUT CALL INSTRUCTION
+1187 001630  3121          DCA     P7JMP           /STORE OVER "JMP P7AGN"
+1188 001631  1120          TAD     P7TSF           /GET "CIF MCS+10" AGAIN
+1189 001632  3076          DCA     CHKKSF          /STORE OVER "KSFIOT"
+1190 001633  1077          TAD     CHKJMP          /GET "JMP I CTLCTST"
+1191 001634  3100          DCA     CHKKRS          /STORE OVER "KRSIOT" (OR "KRBIOT")
+1192 001635  1371          TAD     (JMS    INCON)  /GET INPUT CALL INSTRUCTION
+1193 001636  3077          DCA     CHKJMP          /STORE OVER "JMP I CTLCTST"
+1194 001637  3111          DCA     CHKKCC          /DESTROY "KCCIOT"
+1195 001640  4567  ANNOUNC,JMS I   [SCRIBE]        /TELL THEM
+1196 001641  2040          ANNMSG                  /WE HAVE ARRIVED
+1197 001642  1401          TAD I   FILPTR          /GET FIRST FILE ARGUMENT
+1198 001643  7650          SNA CLA                 /SKIP IF SOMETHING THERE
+1199 001644  5770          JMP I   (NOFILES)       /ELSE COMPLAIN
+1200 001645  1767          TAD I   (SPARM)         /GET EQUALS PARAMETER
+1201 001646  7040          CMA                     /INVERT IT
+1202 001647  7450          SNA                     /SKIP IF SOMETHING WAS PASSED
+1203 001650  1156          TAD     [-7-1]          /ELSE MAKE IT DEFAULT TO SEVEN
+1204 001651  7144          CLL CMA RAL             /INVERT AND DOUBLE TO OUR BLOCK (THEIR RECORD)
+1205 001652  3766          DCA I   (OS8RECORD)     /STASH IT
+1206 001653  1766          TAD I   (OS8RECORD)     /GET IT BACK
+1207 001654  3765          DCA I   (OUTBLK)        /STORE IN OUTPUT ROUTINE ALSO
+1208 001655  1764          TAD I   (SWY9)          /GET /Y-/9 SWITCHES
+1209 001656  7004          RAL                     /DO INITIAL SHIFT
+1210 001657  7004  CHKLUP, RAL                     /MOVE UP
+1211 001660  7510          SPA                     /THIS SWITCH SET?
+1212 001661  5264          JMP     CHKEND          /YES
+1213 001662  2350          ISZ     UNITCNT         /NO, TOO MANY TIMES?
+1214 001663  5257          JMP     CHKLUP          /KEEP GOING
+1215 001664  7200  CHKEND,        CLA                             /CLEAN UP
+1216 001665  1350          TAD     UNITCNT                 /GET COUNTER
+1217 001666  7450          SNA                             /SKIP IF SOME LEFT
+1218 001667  7240          NL7777                          /ELSE SET SEVEN VALUE
+1219 001670  1363          TAD     (10)                    /ADJUST TO UNIT
+1220 001671  3002          DCA     OS8UNIT                 /STASH IT
+1221 001672  1562          TAD I   [SWAL]                  /GET /A-/L SWITCHES
+1222 001673  0161          AND     [100]                   /JUST /F BIT
+1223 001674  7650          SNA CLA                         /SKIP IF SET
+1224 001675  5300          JMP     .+3                     /JUMP IF NOT
+1225 001676  1362          TAD     (SETPARITY&177+JMPC)    /GET "JMP SETPARITY" INSTRUCTION
+1226 001677  3761          DCA I   (GCTEST)                /PREVENT <FF> HANDLING THERE
+1227 001700  1574          TAD I   [SCRSIZE]               /GET SOFTWARE CORE SIZE WORD
+1228 001701  0374          AND     (70)                    /JUST LCS BITS
+1229 001702  7650          SNA CLA                         /SKIP IF SOMETHING THERE
+1230 001703  5313          JMP     FOURCHK                 /JUMP IF APPARENTLY ONLY 4K
+1231 001704  1412  GOT8K,  TAD I   XROUT                   /GET A REPLACEMENT ADDRESS
+1232 001705  7450          SNA                             /END OF LIST?
+1233 001706  5333          JMP     OUTCHK                  /YES, WE'RE DONE
+1234 001707  3350          DCA     UNITCNT                 /NO, STASH THE POINTER
+1235 001710  1412          TAD I   XROUT                   /GET ZAP VALUE
+1236 001711  3750          DCA I   UNITCNT                 /ZAP IT IN
+1237 001712  5304          JMP     GOT8K                   /KEEP GOING
+1238               
+1239 001713  1562  FOURCHK,TAD I   [SWAL]                  /GET /A-/L SWITCHES
+1240 001714  0360          AND     (1000)                  /JUST /C BIT
+1241 001715  7650          SNA CLA                         /SKIP IF SET
+1242 001716  5333          JMP     OUTCHK                  /ELSE FORGET IT
+1243 001717  1574          TAD I   [SCRSIZE]               /GET CORE SIZE WORD
+1244 001720  0357          AND     (700)                   /JUST MCS BITS
+1245 001721  7640          SZA CLA                         /SKIP IF NOT SET
+1246 001722  5304          JMP     GOT8K                   /THEY HAD IT ALL ALONG
+1247 001723  7326          NL0002                          /SET "C" BIT MASK
+1248 001724  0574          AND I   [SCRSIZE]               /GET THE BIT
+1249 001725  7640          SZA CLA                         /SKIP IF OFF
+1250 001726  5333          JMP     OUTCHK                  /FORGET IT, THE OVERLAY IS THERE
+1251 001727  1574          TAD I   [SCRSIZE]               /GET THE CORE SIZE WORD AGAIN
+1252 001730  0356          AND     (7000)                  /JUST PCS BITS
+1253 001731  7640          SZA CLA                         /SKIP IF NO EXTRA MEMORY
+1254 001732  5304          JMP     GOT8K                   /ELSE LET THEM USE SOME OF FIELD ONE
+1255 001733  1755  OUTCHK, TAD I   (SOUTFLS)               /GET OUTPUT FILE COUNT
+1256 001734  7450          SNA                             /SKIP IF ANY OUTPUT FILES
+1257 001735  5754          JMP I   (OUTOS8)                /JUMP IF NONE
+1258 001736  1001          TAD     FILPTR                  /POINT TO FILE LIST DELIMITER
+1259 001737  7450          SNA                             /SKIP IF NOT ALL OUTPUT FILES
+1260 001740  5753          JMP I   (OUTPQS8)               /JUMP IF ALL OUTPUT FILES
+1261 001741  3350          DCA     UNITCNT                 /STASH THE POINTER
+1262 001742  1750          TAD I   UNITCNT                 /GET SUPPOSED DELIMITER
+1263 001743  7650          SNA CLA                         /SKIP IF NOT SO
+1264 001744  5753          JMP I   (OUTPQS8)               /JUMP IF NO INPUT FILES
+1265 001745  4567          JMS I   [SCRIBE]                /TELL THEM
+1266 001746  2065          MFLMSG                          /OF MIXED FILES
+1267 001747  5563          JMP I   [CREPORT]               /GOODBYE!
+1268               
+1269 001750  7770  UNITCNT,-10                             /UNIT SWITCH COUNTER
+1270 001753  2006         PAGE
+     001754  2003  
+     001755  7607  
+     001756  7000  
+     001757  0700  
+     001760  1000  
+     001761  1014  
+     001762  5240  
+     001763  0010  
+     001764  7606  
+     001765  0641  
+     001766  0410  
+     001767  7756  
+     001770  2000  
+     001771  4031  
+     001772  4033  
+     001773  6212  
+     001774  0070  
+     001775  3540  
+     001776  1254  
+     001777  7602  
+1271 002000  4567  NOFILES,JMS I  [SCRIBE]                /TELL THEM
+1272 002001  2123          NFLMSG                          /THEY GOOFED
+1273 002002  5563          JMP I   [CREPORT]               /GOODBYE!
+1274               
+1275 002003  4567  OUTOS8, JMS I   [SCRIBE]                /TELL THEM
+1276 002004  2152          P2OMSG                          /OUR DIRECTION
+1277 002005  5777          JMP I   (OS8OUT)                /CONTINUE THERE
+1278               
+1279 002006  4567  OUTPQS8,JMS I   [SCRIBE]                /TELL THEM
+1280 002007  2142          O2PMSG                          /OUR DIRECTION
+1281 002010  1562          TAD I   [SWAL]                  /GET /A-/L SWITCHES
+1282 002011  0155          AND     [200]                   /JUST /E BIT
+1283 002012  7650          SNA CLA                         /SKIP IF SET
+1284 002013  5235          JMP     FFLOUT                  /JUMP IF NOT
+1285 002014  4567          JMS I   [SCRIBE]                /TELL THEM ABOUT
+1286 002015  2051          EFLMSG                          /EXTENDED FILES
+1287 002016  7240          NL7777                          /-1
+1288 002017  1776          TAD I   (SOUTFLS)               /ONE OUTPUT FILE?
+1289 002020  7650          SNA CLA                         /SKIP IF MORE
+1290 002021  5224          JMP     .+3                     /JUMP IF EXACTLY ONE
+1291 002022  1375          TAD     ("S&177+40)             /GET LOWER-CASE "S"
+1292 002023  4114          JMS     P7CH                    /PRINT IT
+1293 002024  4567          JMS I   [SCRIBE]                /PRINT OUT
+1294 002025  2063          FNIMSG                          /FINISHING MESSAGE
+1295 002026  1374          TAD     (PEXINITIALIZE)         /CHANGE THE
+1296 002027  3006          DCA     PINIT                   /INITIALIZE POINTER
+1297 002030  1373          TAD     (PEXOUT)                /CHANGE THE
+1298 002031  3007          DCA     POUT                    /OUTPUT POINTER
+1299 002032  1372          TAD     (PEXFFCHECK)            /CHANGE THE
+1300 002033  3771          DCA I   (EFFCHK)                /<FF> CHECK FOR <EOF> POINTER
+1301 002034  5770          JMP I   (OS8IN)                 /CONTINUE THERE
+1302               
+1303 002035  4567  FFLOUT, JMS I   [SCRIBE]                /JUST DO
+1304 002036  2050          CRLF                            /<CR>, <LF>
+1305 002037  5770          JMP I   (OS8IN)                 /CONTINUE THERE
+1306               /      ONCE-ONLY TEXT MESSAGES.
+1307               
+1308 002040  4045  ANNMSG, TEXT    " %^OS8CON "                    /ANNOUNCEMENT MESSAGE
+     002041  3617  
+     002042  2370  
+     002043  0317  
+     002044  1640  
+1309 002045  2661          VERSION%12+2660                         /V <HIGH VERSION DIGIT>
+1310 002046  6036          VERSION%12^66+VERSION+"0^100+"^-300     /<LOW VERSION DIGIT> <CASE SHIFT>
+1311 002047  0236          REVISION^100+"^-300                     /<REVISION> <CASE SHIFT>
+1312 002050  4500  CRLF,   TEXT    "%"
+1313 002051  4036  EFLMSG, TEXT    " ^[E^XTENDED ^F^ILE"
+     002052  3305  
+     002053  3630  
+     002054  2405  
+     002055  1604  
+     002056  0504  
+     002057  4036  
+     002060  0636  
+     002061  1114  
+     002062  0500  
+1314 002063  3635  FNIMSG, TEXT    "^]%"
+     002064  4500  
+1315 002065  4536  MFLMSG, TEXT    "%^C^ANNOT ^P^ROCESS ^M^IXED ^I^NPUT AND ^O^UTPUT ^F^ILES!%^"
+     002066  0336  
+     002067  0116  
+     002070  1617  
+     002071  2440  
+     002072  3620  
+     002073  3622  
+     002074  1703  
+     002075  0523  
+     002076  2340  
+     002077  3615  
+     002100  3611  
+     002101  3005  
+     002102  0440  
+     002103  3611  
+     002104  3616  
+     002105  2025  
+     002106  2440  
+     002107  0116  
+     002110  0440  
+     002111  3617  
+     002112  3625  
+     002113  2420  
+     002114  2524  
+     002115  4036  
+     002116  0636  
+     002117  1114  
+     002120  0523  
+     002121  4145  
+     002122  3600  
+1316 002123  4536  NFLMSG,        TEXT    "%^N^O ^P?S/8 F^ILES ^G^IVEN!%"
+     002124  1636  
+     002125  1740  
+     002126  3620  
+     002127  7723  
+     002130  5770  
+     002131  4006  
+     002132  3611  
+     002133  1405  
+     002134  2340  
+     002135  3607  
+     002136  3611  
+     002137  2605  
+     002140  1641  
+     002141  4500  
+1317 002142  4536  O2PMSG, TEXT    "%^OS/8 => P?S/8"
+     002143  1723  
+     002144  5770  
+     002145  4075  
+     002146  7640  
+     002147  2077  
+     002150  2357  
+     002151  7000  
+1318 002152  4536  P2OMSG, TEXT    "%^P?S/8 => OS/8%^"
+     002153  2077  
+     002154  2357  
+     002155  7040  
+     002156  7576  
+     002157  4017  
+     002160  2357  
+     002161  7045  
+     002162  3600  
+1319               
+1320 002170  0264          PAGE
+     002171  0557  
+     002172  0747  
+     002173  1400  
+     002174  0713  
+     002175  0163  
+     002176  7607  
+     002177  0600  
+1321               /      8K REPLACEMENT LIST.
+1322               
+1323 002200  0560  LIST8K, OS8BCNT;        O8KLENGTH^100^7777      /ENLARGE DOUBLE-WORD COUNT
+     002201  5700  
+1324 002202  0561          OS8BLENGTH;     O8KLENGTH               /ENLARGE BLOCK UPDATE
+     002203  0021  
+1325 002204  0015          OS8FIELD;       10                      /OS/8 BUFFER IS IN FIELD ONE
+     002205  0010  
+1326 002206  0564          OS8RFUNCTION;   O8KLENGTH^100           /READ FUNCTION ENLARGED
+     002207  2100  
+1327 002210  0023          OS8WFUNCTION;   O8KLENGTH^100+WRITE     /WRITE FUNCTION ENLARGED
+     002211  6100  
+1328 002212  0024          OUTBCNT;        O8KLENGTH^300^7777      /ENLARGE CHARACTER COUNT
+     002213  1500  
+1329 002214  0025          OUTBLENGTH;     O8KLENGTH               /ENLARGE BLOCK UPDATE
+     002215  0021  
+1330 002216  0601          OUTCDF;         CDF     10              /OS/8 OUTPUT INTO FIELD ONE
+     002217  6211  
+1331 002220  0026          OUTCNT;         O8KLENGTH^300^7777      /ENLARGE CHARACTER COUNTER
+     002221  1500  
+1332 002222  0431          PUTCDF;         CDF     10              /EACH BYTE TAKEN FROM FIELD ONE
+     002223  6211  
+1333 002224  0000          0                                       /THIS ENDS THE LIST
+1334               
+1335 000155  0200          FIELD   0                               /HERE COME THE LITERALS!
+     000156  7770  
+     000157  6777  
+     000160  6776  
+     000161  0100  
+     000162  7604  
+     000163  0300  
+     000164  0002  
+     000165  0037  
+     000166  7400  
+     000167  0202  
+     000170  0040  
+     000171  0007  
+     000172  0077  
+     000173  7600  
+     000174  7611  
+     000175  0177  
+     000176  7776  
+     000177  7757  
+1336               
+1337                       $                                       /THAT'S ALL FOLK!
+
+ANNMSG  2040
+ANNOUN  1640
+BUFCNT  0555
+BUFPTR  0556
+CHAR    0000
+CHKCLR  0072
+CHKCOV  1613
+CHKEND  1664
+CHKJMP  0077
+CHKKCC  0111
+CHKKRS  0100
+CHKKSF  0076
+CHKLUP  1657
+CHKUP   0055
+CREMSG  1557
+CREPOR  0300
+CRLF    2050
+CTLCTS  0074
+DOCR    0511
+DOFF    0526
+DOLBLK  0040
+DOLF    0516
+EFFCHK  0557
+EFLMSG  2051
+EJECTM  1565
+ELEMEN  0044
+EMSGEN  0547
+EMSGLU  0542
+END8K   6000
+EOLPRO  0013
+EXTCAT  0067
+FCTMSG  0325
+FFCHK   0676
+FFLOUT  2035
+FFPROT  0020
+FILBUF  3000
+FILCNT  0014
+FILNO   0316
+FILPTR  0001
+FLSMSG  1366
+FNIMSG  2063
+FOURCH  1713
+GCADR   1106
+GCBLOC  1110
+GCEOB   1104
+GCEOF   1072
+GCEOL   1062
+GCEOT   1135
+GCFUNC  1107
+GCINIT  1073
+GCLF    1066
+GCPTR   0021
+GCTEST  1014
+GCTRIM  1002
+GETCHR  1000
+GETLEF  1127
+GETNEX  1116
+GOT8K   1704
+IGNORE  0514
+INBUFF  3600
+INCHAR  0022
+INCON   0031
+INITIA  1600
+INLEN   0020
+JMPC    5200
+JMSC    4200
+JMSSYS  4240
+KCCIOT  6032
+KRSIOT  6034
+KSFIOT  6031
+L12     0054
+L15     0053
+LFENTR  0243
+LIST8K  2200
+MFLMSG  2065
+NEWBUF  0400
+NFLMSG  2123
+NL0001  7201
+NL0002  7326
+NL2000  7332 unreferenced
+NL4000  7330
+NL7775  7346
+NL7776  7344
+NL7777  7240
+NOFILE  2000
+NOTFF   1035
+NRMCHA  1056
+O2PMSG  2142
+O8KLEN  0021
+OS8BCN  0560
+OS8BLE  0561
+OS8BUF  1600
+OS8CLO  0632
+OS8CON  0200
+OS8COR  0406
+OS8END  3000
+OS8EOF  0523
+OS8FIE  0015
+OS8FLD  0000
+OS8FUN  0407
+OS8IN   0264
+OS8LAT  0562
+OS8LEN  0005
+OS8OUT  0600
+OS8PRE  0563
+OS8REC  0410
+OS8RFU  0564
+OS8UNI  0002
+OS8WFU  0023
+OUTADR  0637
+OUTBCN  0024
+OUTBLE  0025
+OUTBLK  0641
+OUTBUF  1600
+OUTCDF  0601
+OUTCHK  1733
+OUTCNT  0026
+OUTCON  0033
+OUTEND  3600
+OUTFUN  0640
+OUTLEN  0010
+OUTOS8  2003
+OUTPQS  2006
+OUTPTR  0027
+OUTZAP  0645
+P2OMSG  2152
+P6CH    0257
+P6END   0274
+P7AGN   0116
+P7CH    0114
+P7JMP   0121
+P7TEMP  0031
+P7TLS   0122
+P7TSF   0120
+PEXBLK  1436
+PEXBUF  1434
+PEXCBU  0730
+PEXCFU  0731
+PEXCL2  1422
+PEXCLO  1466
+PEXCNT  1553
+PEXEOF  0003
+PEXEOK  1412
+PEXEOL  1453
+PEXFFC  0747
+PEXFUN  1435
+PEXHIG  1554
+PEXINI  0713
+PEXLEF  1544
+PEXLEN  0023
+PEXLIM  0004
+PEXLOO  1540
+PEXOAG  1472
+PEXOEO  1471
+PEXOK   1447
+PEXOUT  1400
+PEXPTR  0005
+PEXPUT  1532
+PEXSOK  1527
+PEXSTO  1501
+PEXTEM  1555
+PEXUNI  1556
+PEXWRI  1426
+PF7700  1234
+PFFBLK  1251
+PFFBUF  1247
+PFFCLO  1237
+PFFDOL  1254
+PFFEMP  1253
+PFFEOL  1222
+PFFFUN  1250
+PFFINC  1362
+PFFINI  1274
+PFFLAT  0016
+PFFLEF  1347
+PFFLIN  1324
+PFFLPT  1363
+PFFNUM  1364
+PFFOEO  1264
+PFFOK   1260
+PFFOUT  1200
+PFFPRE  0017
+PFFPTR  1365
+PFFPUT  1344
+PFFSTO  1342
+PFFWRI  1242
+PINIT   0006
+POFBLK  0271
+POUT    0007
+PREVCH  0030
+PSYSIO  0064
+PUT1    0430
+PUTC    0445
+PUTCDF  0431
+PUTLOO  0650
+PUTNEX  0603
+PUTONE  0651
+PUTOSS  0512
+PUTRET  0623
+PUTUM   0415
+REVISI  0002
+SBOOT   7600
+SBTFUN  7602
+SCRCAS  0201
+SCRCHA  0256
+SCRCRL  0245
+SCRFLI  0251
+SCRIBE  0202
+SCRLUP  0211
+SCRPRN  0222
+SCRSIZ  7611
+SETPAR  1040
+SFILES  7757
+SHFTLU  1146
+SHIFT   1142
+SOUTFL  7607
+SPARM   7756
+SWAL    7604
+SWMX    7605
+SWY9    7606
+SYSIO   7640
+TEMPTR  0032
+TESTCT  0033
+TLSIOT  6046
+TRUMSG  0330
+TRUNCA  0276
+TSETUP  1154
+TSFIOT  6041
+TSTLUP  1022
+TSTRIN  0045
+TTY     0003
+UNITCN  1750
+VERSIO  0012
+WINDOW  0034
+WRITE   4000
+XR1     0010
+XRIN    0011
+XROUT   0012

@@ -1,0 +1,42 @@
+   1               /       P?S/8 PATCH TO DTCOPY
+   2               
+   3               /       PATCH TO DEC'S DTCOPY TO MAKE IT WORK ON P?S/8 SYSTEMS.
+   4               
+   5               /       LAST EDIT:      23-APR-1986     18:00:00        CJL
+   6               
+   7               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   8               
+   9               /       DEFINITIONS:
+  10               
+  11                       BEGIN=  0200            /START OF DTCOPY PROGRAM
+  12                       DTLB=   6774            /LOAD DECTAPE "B" REGISTER
+  13                       MESS0=  1200            /ANNOUNCEMENT MESSAGE
+  14               
+  15                       *0                      /START AT THE BEGINNING
+  16               
+  17                       IFNZRO  .&177   <ERROR  .>
+  18               
+  19                       DTCOPY= .               /DTCOPY SYSTEM STARTS HERE
+  20               
+  21 000000  7000  DTCOPY, NOP                     /HERE IN CASE CHAINED TO
+  22 000001  6040          TFL                     /SET TTY: FLAG SILENTLY
+  23 000002  5403          JMP I   .+1/(BEGIN)     /GO START IT UP
+  24 000003  0200          BEGIN                   /THROUGH HERE
+  25               
+  26                       PAGE                    /OVER ORIGINAL STARTING ADDRESS
+  27               
+  28 000200  6774  IBEGIN, DTLB                    /ENSURE FIELD ZERO TRANSFERS
+  29 000201  6041          TSF                     /ONLY OUTPUT IF NECESSARY
+  30               
+  31                       *MESS0+7                /OVER VERSION, REVISION
+  32               
+  33 001207  6160          "1^100+"0-200           /VERSION 10
+  34 001210  0240          "B^100+" -200           /REVISION B <BLANK>
+  35               
+  36                       $                       /THAT'S ALL FOLK!
+
+BEGIN   0200
+DTCOPY  0000 unreferenced
+DTLB    6774
+IBEGIN  0200 unreferenced
+MESS0   1200

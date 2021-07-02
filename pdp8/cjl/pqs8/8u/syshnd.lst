@@ -1,0 +1,121 @@
+   1               /       P?S/8 SYSTEM NON-SYSTEM HANDLER
+   2               
+   3               /       P?S/8 PSEUDO-HANDLER FOR NON-SYSTEM USAGE OF REAL SYSTEM HANDLER.
+   4               
+   5               /       ALSO CONTAINS NULL HANDLER FOR READ-ONLY CHECKING.
+   6               
+   7               /       LAST EDIT:      21-APR-1986     20:00:00        CJL
+   8               
+   9               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+  10               
+  11                       PAGE                    /START ON A GOOD PAGE
+  12               
+  13                       HERE=   .               /WHERE WE ARE NOW
+  14               
+  15               /       DEFINITIONS.
+  16               
+  25                       XLIST   ON
+  26                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+  27                       REVISIO="B&77           /REVISION OF HANDLER
+  28                       SYSIO=  7640            /SYSTEM I/O ENTRY POINT
+  29               
+  30               /       DEVICE HANDLER HEADER BLOCK.
+  31               
+  32                       *"S&177;*"Y&177;*"S&177 /GROUP NAME
+  33                       *-2                     /GROUP COUNT
+  34                       *"S&177;*"Y&177;*"S&177 /DEVICE NAME
+  35                       *SYSENT&177             /RELATIVE ENTRY POINT
+  36                       *0                      /LENGTH WORD; 0=UNKNOWN OR MAXIMUM
+  37                       *REVISION               /REVISION OF HANDLER
+  38                       *"N&177;*"U&177;*"L&177 /DEVICE NAME
+  39                       *NULENT&177             /RELATIVE ENTRY POINT
+  40                       *7777                   /LENGTH WORD
+  41                       *REVISION               /REVISION OF HANDLER
+  42               
+  43                       *HERE                   /RESET ORIGIN
+  44 000200  0000  SYSENTR,.-.                    /SYSTEM HANDLER ENTERS HERE
+  45 000201  7326          NL0002                  /SET CIF BIT
+  46 000202  6214          RDF                     /GET CALLING FIELD
+  47 000203  1377          TAD     (CDF)           /MAKE IT CIF CDF RETURN FIELD
+  48 000204  3232          DCA     SYSEXIT         /STORE IN-LINE FOR LATER
+  49 000205  1600          TAD I   SYSENTRY        /GET THE ARGUMENT POINTER
+  50 000206  3223          DCA     SYSPTR          /STASH THE POINTER
+  51 000207  2200          ISZ     SYSENTRY        /BUMP PAST ARGUMENT
+  52 000210  1623          TAD I   SYSPTR          /GET TRANSFER ADDRESS
+  53 000211  3226          DCA     SYSADR          /STORE IN-LINE
+  54 000212  2223          ISZ     SYSPTR          /BUMP TO NEXT
+  55 000213  1623          TAD I   SYSPTR          /GET FUNCTION WORD
+  56 000214  3227          DCA     SYSFUN          /STORE IN-LINE
+  57 000215  2223          ISZ     SYSPTR          /BUMP TO NEXT
+  58 000216  1623          TAD I   SYSPTR          /GET BLOCK NUMBER
+  59 000217  3230          DCA     SYSBLK          /STORE IN-LINE
+  60 000220  6224          RIF                     /GET OUR FIELD
+  61 000221  1377          TAD     (CDF)           /MAKE IT CDF OUR FIELD
+  62 000222  3223          DCA     SYSPTR          /STORE IN-LINE
+  63 000223  0000  SYSPTR, .-.                     /WILL BE CDF OUR FIELD
+  64 000224  6202          CIF     00              /GOTO MONITOR'S FIELD
+  65 000225  4776          JMS I   (SYSIO)         /CALL REAL I/O ROUTINES
+  66 000226  0000  SYSADR, .-.                     /TRANSFER ADDRESS
+  67 000227  0000  SYSFUN, .-.                     /FUNCTION WORD
+  68 000230  0000  SYSBLK, .-.                     /BLOCK NUMBER
+  69 000231  2200          ISZ     SYSENTRY        /BUMP TO GOOD RETURN
+  70 000232  0000  SYSEXIT,.-.                     /WILL BE CIF CDF RETURN FIELD
+  71 000233  5600          JMP I   SYSENTRY        /RETURN TO ORIGINAL CALLER
+  72 000234  0000  NULENTR,.-.                    /NULL HANDLER ENTERS HERE
+  73 000235  7326          NL0002                  /SET CIF BIT
+  74 000236  6214          RDF                     /GET CALLING FIELD
+  75 000237  1377          TAD     (CDF)           /MAKE IT CIF CDF RETURN FIELD
+  76 000240  3267          DCA     NULEXIT         /STORE IN-LINE
+  77 000241  1634          TAD I   NULENTRY        /GET ARGUMENT POINTER
+  78 000242  3260          DCA     NULCDF          /STASH IT
+  79 000243  2234          ISZ     NULENTRY        /BUMP TO ERROR RETURN
+  80 000244  1660          TAD I   NULCDF          /GET BUFFER ADDRESS
+  81 000245  3271          DCA     NULADR          /STASH IT
+  82 000246  2260          ISZ     NULCDF          /BUMP TO FUNCTION WORD
+  83 000247  1660          TAD I   NULCDF          /GET FUNCTION WORD
+  84 000250  7004          RAL                     /MOVE UP
+  85 000251  0375          AND     (7600)          /JUST PAGE BITS
+  86 000252  7041          CIA                     /INVERT FOR COUNTING
+  87 000253  3272          DCA     NULCNT          /STASH THE COUNTER
+  88 000254  1660          TAD I   NULCDF          /GET THE FUNCTION WORD AGAIN
+  89 000255  0374          AND     (70)            /JUST TRANSFER FIELD BITS
+  90 000256  1377          TAD     (CDF)           /FORM CDF TRANSFER FIELD
+  91 000257  3260          DCA     NULCDF          /STORE IN-LINE
+  92 000260  0000  NULCDF, .-.                     /WILL BE CDF TRANSFER FIELD
+  93 000261  3671  NULOOP, DCA I   NULADR          /CLEAR A WORD
+  94 000262  2271          ISZ     NULADR          /BUMP TO NEXT
+  95 000263  7000          NOP                     /JUST IN CASE
+  96 000264  2272          ISZ     NULCNT          /DONE ENOUGH?
+  97 000265  5261          JMP     NULOOP          /NO, GO BACK
+  98 000266  2234          ISZ     NULENTRY        /BUMP TO GOOD RETURN
+  99 000267  0000  NULEXIT,.-.                     /WILL BE CIF CDF RETURN FIELD
+ 100 000270  5634          JMP I   NULENTRY        /RETURN
+ 101               
+ 102 000271  0000  NULADR, .-.                     /BUFFER ADDRESS
+ 103 000272  0000  NULCNT, .-.                     /WORD COUNTER
+ 104               
+ 105 000374  0070          PAGE
+     000375  7600  
+     000376  7640  
+     000377  6201  
+ 106               $
+end of file     ^
+
+HERE    0200
+NL0002  7326
+NULADR  0271
+NULCDF  0260
+NULCNT  0272
+NULENT  0234
+NULEXI  0267
+NULOOP  0261
+OFF     0001
+ON      0000
+REVISI  0002
+SYSADR  0226
+SYSBLK  0230
+SYSENT  0200
+SYSEXI  0232
+SYSFUN  0227
+SYSIO   7640
+SYSPTR  0223

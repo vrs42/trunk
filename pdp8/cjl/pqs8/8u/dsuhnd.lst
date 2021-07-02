@@ -1,0 +1,263 @@
+   1               /    P?S/8 NON-SYSTEM DSD-240-8 HANDLERS
+   2               
+   3               /       LAST EDIT:      22-APR-1986     09:00:00        CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   9                       XLIST   ON
+  10               
+  11               /       P?S/8 NON-SYSTEM HANDLERS FOR DSD-240-8 CONTROLLER WITH WESTERN DYNEX
+  12               /       FIXED/REMOVABLE DRIVE.
+  13               
+  14               /       THESE ARE CO-RESIDENT HANDLERS FOR THE UPPER (REMOVABLE) AND LOWER (REMOVABLE)
+  15               /       UNITS OF ANY ONE DRIVE. EACH ENTRY POINT ADDRESSES EIGHT LOGICAL UNITS.
+  16               
+  17               /CALLING SEQUENCE:
+  18               
+  19               /       CDF     MYFLD           /SET CALLER'S DATA FIELD
+  20               /       CIF     HNDFLD          /SET HANDLER'S INSTRUCTION FIELD
+  21               /       JMS I   (HANDLER)       /DSDUP FOR UPPER UNITS, DSDOWN FOR LOWER UNITS
+  22               /       PARAM                   /PARAMETER POINTER
+  23               /       ERRORRETURN             /RETURNS HERE WITH DISK STATUS IN AC IF ERROR
+  24               /       GOODRETURN              /RETURNS HERE WITH CLEAR AC IF I/O OK
+  25               
+  26               /       ON ERROR RETURN, AC CONTAINS RETURNED DISK STATUS.
+  27               
+  28               /       SUCCESSFUL RETURN CLEARS THE AC.
+  29                      PAGE                            /START ON A GOOD BOUNDARY
+  30               
+  31                       HERE=   .                       /REMEMBER ASSEMBLY ADDRESS
+  32               
+  33               /       DSD-240-8 DEFINITIONS.
+  34               
+  35                       DCLF=   6622                    /CLEAR DONE FLAG
+  36                       DCON=   6627                    /LOAD DRIVE CONTROL
+  37                       DEXC=   6624                    /EXECUTE DISK COMMAND
+  38                       DLBP=   6625                    /LOAD COMMAND BUFFER POINTER
+  39                       DRDS=   6626                    /READ STATUS
+  40                       IFNDEF  DRIVE   <DRIVE= 0>      /DEFAULT IS TO DRIVE ZERO
+  41                       DSBY=   6623                    /SKIP ON BUSY FLAG
+  42                       DSKF=   6621                    /SKIP ON DONE FLAG
+  43                       DTST=   6620                    /LOAD AC WITH TEST STATUS BITS
+  44               
+  45               /       MISCELLANEOUS DEFINITIONS.
+  46               
+  47                       DLENGTH=6260                    /LENGTH OF ONE LOGICAL UNIT
+  51                       XLIST   ON
+  52                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+  53                       NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000
+  54                       NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+  55                       NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+  56                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+  57                       REVISIO="A&77                   /REVISION OF HANDLER(S)
+  58               
+  59               /       DEVICE HANDLER HEADER BLOCK.
+  60               
+  61                       *"D&177;*"S&177;*"U&177+DRIVE   /GROUP NAME
+  62                       *-2                             /GROUP COUNT
+  63                       *"D&177;*"S&177;*"U&177+DRIVE   /DEVICE NAME
+  64                       *DSDUP&177                      /RELATIVE ENTRY POINT
+  65                       *DLENGTH-1                      /LENGTH (HIGHEST BLOCK)
+  66                       *REVISION                       /REVISION OF HANDLER
+  67                       *"D&177;*"S&177;*"L&177+DRIVE   /DEVICE NAME
+  68                       *DSDOWN&177                     /RELATIVE ENTRY POINT
+  69                       *DLENGTH-1                      /LENGTH (HIGHEST BLOCK)
+  70                       *REVISION                       /REVISION OF HANDLER
+  71                      *HERE                           /RESET ORIGIN
+  72               
+  73 000200  0000  DSWAP,  .-.                             /COMMAND SWAP ROUTINE
+  74 000201  1366          TAD     TADCB0/(TAD     CBUF0)  /GET "TAD CBUF0" INSTRUCTION
+  75 000202  3205          DCA     SWPLUP                  /RESET INSTRUCTION
+  76 000203  1305  DS300,  TAD     DS7760/(7760)           /SETUP
+  77 000204  3226          DCA     DSDOWN                  /POINTING COUNTER
+  78 000205  1263  SWPLUP, TAD     CBUF0                   /WILL BE "TAD CBUF<N>"
+  79 000206  3225          DCA     SWPTMP                  /SAVE WORD
+  80 000207  7332          NL2000  /TAD    (DCA-TAD)       /GET "DCA"-"TAD"
+  81 000210  1205          TAD     SWPLUP                  /NOW HAVE "DCA CBUF<N>"
+  82 000211  3213          DCA     SWPSTR                  /PUT IN-LINE
+  83 000212  1626          TAD I   DSDOWN                  /GET A WORD
+  84 000213  3263  SWPSTR, DCA     CBUF0                   /WILL BE "DCA CBUF<N>"
+  85 000214  1225          TAD     SWPTMP                  /GET COMMAND WORD
+  86 000215  3626          DCA I   DSDOWN                  /PUT INTO BOOTSTRAP
+  87 000216  2205          ISZ     SWPLUP                  /BUMP INSTRUCTION
+  88 000217  2226          ISZ     DSDOWN                  /ALL DONE?
+  89 000220  5205          JMP     SWPLUP                  /NO, GO BACK
+  90 000221  5600          JMP I   DSWAP                   /RETURN
+  91               
+  92 000222  0000  CB1TMP, .-.                             /COMMAND TEMPORARY
+  93 000223  0000  DSERCT, .-.                             /DISK ERROR RETRY COUNTER
+  94 000224  6203  DS6203, CIF CDF 00                      /CIF CDF CONSTANT
+  95 000225  0000  SWPTMP, .-.                             /SWAP TEMPORARY
+  96               
+  97                       IFNZRO  .&177-26        <ERROR  .>
+  98 000226  0000  DSDOWN, .-.                             /LOWER DISK ENTRY POINT
+  99 000227  7600  DS7600, CLA!400                         /CLEAN UP
+ 100 000230  1226          TAD     DSDOWN                  /GET CALLER
+ 101 000231  3275          DCA     DSDUP                   /MOVE TO OTHER ENTRY
+ 102 000232  5277  DS4077, JMP     DSCOMN                  /CONTINUE THERE
+ 103               
+ 104 000233  0000  DSWAIT, .-.                             /WAIT ROUTINE
+ 105 000234  3264          DCA     CBUF1                   /SETUP PASSED FUNCTION
+ 106 000235  6201          CDF     00                      /SWAPPING WITH FIELD ZERO
+ 107 000236  7346          NL7775                          /SETUP THE DISK
+ 108 000237  3223          DCA     DSERCT                  /ERROR RETRY COUNT
+ 109               
+ 110                       IFNZRO  .&177-40        <ERROR  .>
+ 111 000240  0007  DS7,    7                               /CONSTANT 0007
+ 112               
+ 113 000241  4200  DSAGN,  JMS     DSWAP                   /SWAP COMMAND
+ 114 000242  6624          DEXC                            /EXECUTE COMMAND
+ 115 000243  6623          DSBY                            /DONE YET?
+ 116 000244  5243          JMP     .-1                     /NO, WAIT FOR IT
+ 117 000245  4200          JMS     DSWAP                   /SWAP IT BACK
+ 118 000246  1272          TAD     CBUF7                   /GET STATUS
+ 119 000247  0232          AND     DS4077/(4077)           /JUST ERROR BITS
+ 120 000250  7450          SNA                             /SKIP IF ANY ERRORS
+ 121 000251  5633          JMP I   DSWAIT                  /RETURN IF OK
+ 122 000252  2223          ISZ     DSERCT                  /TOO MANY ERRORS?
+ 123 000253  5255          JMP     CALTST                  /NO, CHECK FURTHER
+ 124 000254  5373          JMP     DSKERR                  /GO COMPLAIN
+ 125 000255  0336  CALTST,        AND     DS40/(40)       /RECALIBRATE NEEDED?
+ 126 000256  7650          SNA CLA                 /SKIP IF SO
+ 127 000257  5241          JMP     DSAGN           /TRY, TRY AGAIN
+ 128 000260  1203          TAD     DS300/(300)     /GET RECALIBRATE FUNCTION
+ 129 000261  4233          JMS     DSWAIT          /RESET DRIVE
+ 130 000262  5370          JMP     RETRY           /TRY, TRY AGAIN
+ 131               
+ 132               /       IMAGE OF COMMAND STORED HERE; SWAPPED INTO 07760 WHEN NEEDED.
+ 133               
+ 134 000263  0000  CBUF0,  .-.                     /CYLINDER ADDRESS
+ 135 000264  0000  CBUF1,  .-.                     /FUNCTION
+ 136 000265  0000  CBUF2,  .-.                     /WORD COUNT
+ 137 000266  0000  CBUF3,  .-.                     /CURRENT ADDRESS
+ 138 000267  1454  DS1454, 1454                    /CONSTANT 1454; UNCHANGED EVEN AFTER SWAPPING!
+ 139 000270  0000  DSTMP1, .-.                     /TEMPORARY
+ 140 000271  0000  DSTMP2, .-.                     /TEMPORARY
+ 141 000272  0000  CBUF7,  .-.                     /RETURNED STATUS
+ 142               
+ 143 000273  4070  DS4070, 4070                    /CONSTANT 4070
+ 144 000274  6000  DS6000, 6000                    /CONSTANT 6000
+ 145               
+ 146 000275  0000  DSDUP,  .-.                     /UPPER DISK ENTRY POINT
+ 147 000276  7330          NL4000                  /INDICATE UPPER
+ 148               
+ 149                       IFNZRO  .&177-77        <ERROR  .>
+ 150 000277  3263  DSCOMN, DCA     CBUF0           /OR LOWER
+ 151 000300  1306          TAD     DRIVNO          /INCLUDE DRIVE NUMBER
+ 152 000301  6627          DCON                    /SETUP DRIVE
+ 153 000302  7326          NL0002                  /SET FILE MODE BITS
+ 154 000303  1305          TAD     DS7760/(7760)   /ADD ON BUFFER POINTER
+ 155 000304  6625          DLBP                    /SETUP COMMAND POINTER
+ 156 000305  7760  DS7760, SMA SZA SNL CLA         /ALWAYS SKIPS
+ 157 000306  0000  DRIVNO, DRIVE                   /DRIVE NUMBER
+ 158 000307  6214          RDF                     /GET CALLING FIELD
+ 159 000310  1224          TAD     DS6203/(CIF CDF)/NOW HAVE RETURN INSTRUCTION
+ 160 000311  3374          DCA     DSEXIT          /SAVE FOR LATER
+ 161 000312  1675          TAD I   DSDUP           /GET PARAMETER ADDRESS
+ 162 000313  3226          DCA     DSDOWN          /SAVE IT
+ 163 000314  7240         NL7777                  /BACKUP
+ 164 000315  1626          TAD I   DSDOWN          /GET CORE ADDRESS-1
+ 165 000316  3266          DCA     CBUF3           /SAVE AS CURRENT ADDRESS
+ 166 000317  2226          ISZ     DSDOWN          /BUMP TO FUNCTION WORD
+ 167 000320  1626          TAD I   DSDOWN          /GET FUNCTION WORD
+ 168 000321  3200          DCA     DSWAP           /SAVE IT FOR LATER
+ 169 000322  2226          ISZ     DSDOWN          /BUMP TO BLOCK
+ 170 000323  1200          TAD     DSWAP           /GET FUNCTION WORD
+ 171 000324  7004          RAL                     /MOVE UP
+ 172 000325  0227          AND     DS7600/(7600)   /ISOLATE PAGE BITS
+ 173 000326  7041          CIA                     /INVERT
+ 174 000327  3265          DCA     CBUF2           /SAVE AS WORD COUNT
+ 175 000330  1626          TAD I   DSDOWN          /GET BLOCK NUMBER
+ 176 000331  7110          CLL RAR;CLL RAR;CLL RAR /%8
+     000332  7110  
+     000333  7110  
+ 177 000334  1263          TAD     CBUF0           /ADD ON UPPER/LOWER BIT
+ 178 000335  3263          DCA     CBUF0           /SAVE IT BACK
+ 179 000336  1240  DS40,   TAD     DS7/(7)         /SETUP LOW-ORDER MASK
+ 180 000337  0626  DS626,  AND I   DSDOWN          /GET CBUF1-ONLY SECTOR BITS
+ 181 000340  3270          DCA     DSTMP1          /SAVE THEM
+ 182 000341  1200          TAD     DSWAP           /GET FUNCTION WORD AGAIN
+ 183 000342  7010          RAR;CLA RAR             /MOVE LOW-ORDER UNIT BIT TO AC[0]
+     000343  7210  
+ 184 000344  3271          DCA     DSTMP2          /SAVE IT FOR LATER
+ 185 000345  1200          TAD     DSWAP           /L  WPP PPP FFF UUU
+ 186 000346  0273          AND     DS4070/(4070)   /L  W00 000 FFF 000
+ 187 000347  7510          SPA                     /MOVE WRITE BIT OVER
+ 188 000350  1274          TAD     DS6000/(6000)   /L  0W0 000 FFF 000
+ 189 000351  1271          TAD     DSTMP2          /L  UW0 000 FFF 000
+ 190 000352  7104          CLL RAL                 /U  W00 00F FF0 000
+ 191 000353  1270          TAD     DSTMP1          /U  W00 00F FF0 SSS
+ 192 000354  7012          RTR;RTR                 /0  SSS UW0 000 FFF
+     000355  7012  
+ 193 000356  3222          DCA     CB1TMP          /SAVE IN CASE OF RECALIBRATION
+ 194 000357  1200          TAD     DSWAP           /GET FUNCTION WORD AGAIN
+ 195 000360  7012          RTR;RAR                 /MOVE HIGH-ORDER UNIT BITS TO LINK, AC[0]
+     000361  7010  
+ 196 000362  7710          SPA CLA                 /LOW ORDER UNIT?
+ 197 000363  1337          TAD     DS626/(626)     /YES
+ 198 000364  7430          SZL                     /HIGH ORDER UNIT?
+ 199 000365  1267          TAD     DS1454/(1454)   /YES
+ 200 000366  1263  TADCB0, TAD     CBUF0           /ADD ON OTHER BITS
+ 201 000367  3263          DCA     CBUF0           /SAVE COMPLETED CYLINDER WORD
+ 202 000370  1222  RETRY,  TAD     CB1TMP          /GET DISK FUNCTION
+ 203 000371  4233          JMS     DSWAIT          /GO DO IT
+ 204 000372  2275          ISZ     DSDUP           /BUMP EXTRA TIME
+ 205 000373  2275  DSKERR, ISZ     DSDUP           /BUMP PAST ERROR RETURN (MAYBE)
+ 206 000374  6203  DSEXIT, CIF CDF 00              /TO CALLING FIELD
+ 207 000375  5675          JMP I   DSDUP           /RETURN
+ 208               
+ 209                       $                       /THAT'S ALL FOLK!
+
+CALTST  0255
+CB1TMP  0222
+CBUF0   0263
+CBUF1   0264
+CBUF2   0265
+CBUF3   0266
+CBUF7   0272
+DCLF    6622 unreferenced
+DCON    6627
+DEXC    6624
+DLBP    6625
+DLENGT  6260
+DRDS    6626 unreferenced
+DRIVE   0000
+DRIVNO  0306
+DS1454  0267
+DS300   0203
+DS40    0336
+DS4070  0273
+DS4077  0232
+DS6000  0274
+DS6203  0224
+DS626   0337
+DS7     0240
+DS7600  0227
+DS7760  0305
+DSAGN   0241
+DSBY    6623
+DSCOMN  0277
+DSDOWN  0226
+DSDUP   0275
+DSERCT  0223
+DSEXIT  0374
+DSKERR  0373
+DSKF    6621 unreferenced
+DSTMP1  0270
+DSTMP2  0271
+DSWAIT  0233
+DSWAP   0200
+DTST    6620 unreferenced
+HERE    0200
+NL0002  7326
+NL2000  7332
+NL4000  7330
+NL7775  7346
+NL7777  7240
+OFF     0001
+ON      0000
+RETRY   0370
+REVISI  0001
+SWPLUP  0205
+SWPSTR  0213
+SWPTMP  0225
+TADCB0  0366

@@ -1,0 +1,359 @@
+   1               /       NICOLET 1070 P?S/8 FOCAL PATCHES
+   2               
+   3               /       (C)     1984, 1985      CHARLES LASNER ASSOCIATES.
+   4               
+   5               /       LAST EDIT:      03-NOV-1985     10:00:00        CJL
+   6               
+   7               /       PATCHES TO P?S/8 FOCAL TO CONTROL THE NICOLET 1070 AVERAGER, ETC.
+   8               
+   9               /       ASSEMBLY INSTRUCTIONS:
+  10               
+  11               /       SET "BUFFLD" TO PROPER FIELD FOR FBLK (DEFAULT IS 20).
+  12               
+  13               /       SET "N" TO AMOUNT OF P?S/8 BLOCKS PER READ/WRITE FOR FBLK (DEFAULT IS 2).
+  14               /       MUST BE A POWER OF TWO FOR PROPER OPERATION.
+  15               
+  16               /       SET "NICODE" TO PROPER BASE DEVICE CODE (DEFAULT IS 30).
+  17               
+  18               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+  19               
+  20               /       THESE ARE PATCHES TO P?S/8 FOCAL FOR THE IMPLEMENTATION OF THREE FUNCTIONS:
+  21               
+  22               /       1):     FBLK(BLOCKNUMBER[,WRITEINDICATOR])
+  23               /       2):     FWRD(ADDRESS[,NEWVALUE])
+  24               /       3):     FNIC(ADDRESS[,NEWVALUE])
+  25               
+  26               /       FUNCTION FBLK READS IN N DISK BLOCKS INTO FIELD BUFFLD STARTING FROM THE
+  27               /       BLOCK NUMBER PASSED. IF A SECOND ARGUMENT IS PASSED, THE BLOCKS ARE WRITTEN
+  28               /       INSTEAD OF READ. THE UNIT USED FOR ALL I/O IS <BOOTSTRAP-UNIT .XOR. 1>.
+  29               
+  30               /       FUNCTION FWRD RETURNS THE CONTENTS OF THE SPECIFIED LOCATION WHOSE ADDRESS
+  31               /       IS THE FIRST ARGUMENT. IF A SECOND ARGUMENT IS PASSED, IT BECOMES THE NEW
+  32               /       STORED VALUE.
+  33               
+  34               /       FUNCTION FNIC RETURNS THE CONTENTS OF THE SPECIFIED LOCATION IN THE AVERAGER
+  35               /       WHOSE ADDRESS IS THE FIRST ARGUMENT. IF A SECOND ARGUMENT IS PASSED, IT
+  36               /       BECOMES THE NEW STORED VALUE. THE FUNCTION RETURNS ZERO IF TWO ARGUMENTS ARE
+  37               /       USED.
+  38               /      DEFINITIONS FROM FOCAL, 1969 (ORIGINAL PAPER-TAPE VERSION).
+  39               
+  40                       BOTTOM= 0035                    /FOCAL PUSHDOWN LIMIT
+  41                       CHAR=   0066                    /FOCAL'S INPUT BUFFER
+  42                       EFUN3I= 0136                    /FUNCTION RETURN POINTER
+  43                       EVAL=   1613                    /EVALUATOR ENTRY POINT
+  44                       FLAC=   0044                    /FLOATING ACCUMULATOR HERE
+  45                       FNTABF= 0374                    /FUNCTION ADDRESS TABLE
+  46                       FNTABL= 2165                    /HASHED FUNCTION NAME TABLE
+  47                       INTEGER=0053                    /FLOATING TO FIXED CONVERSION POINTER
+  48                       POPA=   TAD I   13              /REMOVE WORD FROM STACK
+  49                       POPJ=   JMP I   141             /REMOVE AND RETURN FROM STACK
+  50                       PUSHA=  JMS I   142             /PUSH WORD ONTO STACK
+  51                       PUSHJ=  JMS I   140             /CALL WITH RETURN ON STACK
+  52                       P7600=  0104                    /CONSTANT 7600
+  53                       P7700=  0101                    /CONSTANT 7700
+  54                       RETURN= JMP I   EFUN3I          /FUNCTION RETURN INSTRUCTION
+  55               
+  56               /       DEFINITIONS FROM P?S/8 FOCAL OVERLAY.
+  57               
+  58                       BEOFZAP=7505                    /BINARY LOADER ZAP WORD
+  59                       BONCE=  3600                    /OVERLAY ONCE-ONLY ADDRESS
+  60                       SBTFUN= 7602                    /P?S/8 MONITOR BOOTSTRAP FUNCTION
+  61                       SYSIO=  7640                    /SYSTEM I/O ENTRY POINT
+  62               
+  63               /       MISCELLANEOUS DEFINITIONS.
+  64               
+  65                       IFNDEF  BUFFLD  <BUFFLD=20>     /BUFFER FIELD FOR FBLK AND FWRD
+  66                       IOT=    6000                    /IOT BASE
+  67                       IFNDEF  N       <N=     2>      /NUMBER OF P?S/8 BLOCKS IN READ/WRITE
+  68                       IFNDEF  NICODE  <NICODE=30>     /BASE DEVICE CODE OF AVERAGER
+  69                       NL4000= CLA CLL CML RAR         /SET AC TO 4000
+  70                       NL7777= CLA CMA                 /SET AC TO 7777
+  71                       NSTART= 4035                    /PATCH ASSEMBLY ADDRESS
+  72               /      AVERAGER IOT INSTRUCTIONS.
+  73               
+  74                       TSWEEP= NICODE^10+IOT   1       /SKIP IF SWEEP IN PROGRESS
+  75                       TSTOP=  NICODE^10+IOT   2       /SKIP IF AVERAGER IS STOPPED
+  76                       PULSE=  NICODE^10+IOT   4       /PULSE EXT ADDRESS ADVANCE TERMINAL
+  77                       TREADY= NICODE+1^10+IOT 1       /SKIP IF AVERAGER IS IN P0 STATE
+  78                       TCCF=   NICODE+1^10+IOT 2       /SKIP IF COMPUTER CONTROL IS SET
+  79                       TADCL=  NICODE+1^10+IOT 4       /TRANSFER ADC CONTENTS TO L REGISTER
+  80                       STARTM= NICODE+2^10+IOT 1       /START MEASURE PROGRAM
+  81                       STARTR= NICODE+2^10+IOT 2       /START READOUT PROGRAM
+  82                       STOP=   NICODE+2^10+IOT 4       /STOP HARDWIRE PROGRAMS
+  83                       LANDM=  NICODE+3^10+IOT 1       /M+L=>M
+  84                       WRITE=  NICODE+3^10+IOT 2       /C(M)=>MEM(ADDRESS)
+  85               /            =  NICODE+3^10+IOT 4       /NOT USED
+  86                       TACAS=  NICODE+4^10+IOT 1       /C(AC)=>ADDRESS
+  87                       READ=   NICODE+4^10+IOT 2       /C(MEM(ADDRESS))=>M
+  88               /            =  NICODE+4^10+IOT 4       /NOT USED
+  89                       RMRL=   NICODE+5^10+IOT 1       /RESET M AND L REGISTERS
+  90                       TMUAC=  NICODE+5^10+IOT 2       /M<0:5>=>AC<6:11>
+  91                       TACLU=  NICODE+5^10+IOT 4       /AC<6:11>=>L<0:5>
+  92                       TMLAC=  NICODE+6^10+IOT 1       /M<6:17>=>AC
+  93                       TACLL=  NICODE+6^10+IOT 2       /AC=>L<6:17>
+  94                       TDISP=  NICODE+6^10+IOT 4       /LOAD X, Y FROM ADDRESS AND ADDER
+  95                       CCCF=   NICODE+7^10+IOT 1       /CLEAR COMPUTER CONTROL
+  96                       SCCF=   NICODE+7^10+IOT 2       /SET COMPUTER CONTROL
+  97               /           =   NICODE+7^10+IOT 4       /NOT USED
+  98               
+  99                       FIELD   0                       /ENSURE FIELD ZERO
+ 100               
+ 101                       *FNTABL+14                      /PUT IN HASHED NAMES
+ 102               
+ 103 002201  2553          "B^2+"L^2+"K                    /BLK
+ 104 002202  2704          "W^2+"R^2+"D                    /WRD
+ 105 002203  2615          "N^2+"I^2+"C                    /NIC
+ 106                      *NSTART                 /START PATCH HERE FOR DIRECT LOADING
+ 107               
+ 108               /       DISK I/O FUNCTION:      FBLK(BLOCKNUMBER[,WRITEINDICATOR]).
+ 109               
+ 110 004035  4453  XBLK,   JMS I   INTEGER         /GET BLOCK ARGUMENT
+ 111 004036  4542          PUSHA                   /SAVE IT
+ 112 004037  4540          PUSHJ                   /FIND OUT IF WE WRITE
+ 113 004040  4163  LARG1,  ARG                     /**** RELOCATE ****
+ 114 004041  7330          NL4000                  /MAKE IT A READ
+ 115 004042  1373          TAD     IOWORD          /MAKE IT A WRITE
+ 116 004043  3250          DCA     FUN             /PUT IN-LINE EITHER WAY
+ 117 004044  1413          POPA                    /RESTORE BLOCK ARGUMENT
+ 118 004045  3251          DCA     TBLK            /PUT IN-LINE ALSO
+ 119 004046  4765          JMS I   PSYSIO/(SYSIO)  /CALL FOR READ OR WRITE
+ 120 004047  0000          0000                    /CORE
+ 121 004050  0000  FUN,    .-.                     /FILLED IN
+ 122 004051  0000  TBLK,   .-.                     /FILLED IN
+ 123 004052  6001          ION                     /MAKE SURE INTERRUPTS ARE STILL ON
+ 124 004053  5536          RETURN                  /BACK TO FOCAL
+ 125               
+ 126               /       MEMORY REFERENCE FUNCTION:      FWRD(ADDRESS[,NEWVALUE]).
+ 127               
+ 128 004054  4453  XWRD,   JMS I   INTEGER         /GET ADDRESS ARGUMENT
+ 129 004055  4542          PUSHA                   /SAVE IT
+ 130 004056  4540          PUSHJ                   /EVALUATE SECOND IF ANY
+ 131 004057  4163  LARG2,  ARG                     /**** RELOCATE ****
+ 132 004060  5270          JMP     GET             /NONE, JUST GET VALUE
+ 133 004061  1413          POPA                    /RESTORE ADDRESS
+ 134 004062  0377          AND     (N^200-1)       /MASK OFF BAD BITS
+ 135 004063  3251          DCA     TBLK            /SAVE AS POINTER
+ 136 004064  4453          JMS I   INTEGER         /GET REPLACEMENT VALUE
+ 137 004065  6221          CDF     BUFFLD          /GOTO BUFFER FIELD
+ 138 004066  3651          DCA I   TBLK            /STORE IT
+ 139 004067  5274          JMP     GET2            /FINISH UP
+ 140               
+ 141 004070  1413  GET,    POPA                    /GET BACK ADDRESS
+ 142 004071  0377          AND     (N^200-1)       /MASK OFF BAD BITS
+ 143 004072  3251          DCA     TBLK            /SAVE IT
+ 144 004073  6221          CDF     BUFFLD          /GOTO BUFFER FIELD
+ 145 004074  1651  GET2,   TAD I   TBLK            /GET VALUE
+ 146 004075  7710          SPA CLA                 /IS IT POSITIVE?
+ 147 004076  7240          NL7777                  /NO, EXTEND NEGATIVE SIGN
+ 148 004077  3045          DCA     FLAC+1          /SAVE HIGH-ORDER EITHER WAY
+ 149 004100  1651          TAD I   TBLK            /GET IT AGAIN
+ 150 004101  6201          CDF     00              /BACK TO US
+ 151 004102  3046  NWEXIT, DCA     FLAC+2          /STORE LOW-ORDER
+ 152 004103  1376  NREXIT, TAD     (27)            /GET EXPONENT VALUE
+ 153 004104  3044          DCA     FLAC            /STORE EXPONENT
+ 154 004105  5536          RETURN                  /RETURN TO FOCAL
+ 155               /      AVERAGER FUNCTION:      FNIC(ADDRESS[,NEWVALUE]).
+ 156               
+ 157 004106  4453  XNIC,   JMS I   INTEGER         /GET ADDRESS ARGUMENT
+ 158 004107  4542          PUSHA                   /SAVE IT
+ 159 004110  6372          SCCF                    /SET COMPUTER CONTROL
+ 160 004111  6324          STOP                    /STOP HARDWIRE PROGRAM
+ 161 004112  6302          TSTOP                   /IS IT STOPPED?
+ 162 004113  5312          JMP     .-1             /NO, WAIT FOR IT
+ 163 004114  4540          PUSHJ                   /FIND OUT IF WE WRITE
+ 164 004115  4163  LARG3,  ARG                     /**** RELOCATE ****
+ 165 004116  5335          JMP     GETVALUE        /NO, WE READ
+ 166 004117  4355          JMS     SETADRESS       /SETUP ADDRESS
+ 167 004120  4453          JMS I   INTEGER         /GET SECOND ARGUMENT
+ 168 004121  6351          RMRL                    /RESET M, L REGISTERS
+ 169 004122  6366          TACLL!TDISP             /TRANSFER AC, LOAD X, Y
+ 170 004123  7200          CLA                     /CLEAN UP
+ 171 004124  1045          TAD     FLAC+1          /GET MOST SIGNIFICENT BITS
+ 172 004125  6354          TACLU                   /LOAD UPPER L BITS
+ 173 004126  6333          LANDM!WRITE             /M<=M+L, MEM(ADDRESS)<=C(M)
+ 174 004127  7200          CLA                     /CLEAN UP
+ 175 004130  6371          CCCF                    /CLEAR COMPUTER CONTROL
+ 176 004131  6351          RMRL                    /RESET M, L
+ 177 004132  6322          STARTR                  /START READOUT PROGRAM
+ 178 004133  3045          DCA     FLAC+1          /CLEAR HIGH-ORDER
+ 179 004134  5302          JMP     NWEXIT          /EXIT WITH CLEAR FLAC
+ 180               
+ 181 004135  4355  GETVALU,JMS     SETADRESS       /SETUP ADDRESS
+ 182 004136  6332          WRITE                   /C(M)=>MEM(ADDRESS)
+ 183 004137  6365          TMLAC!TDISP             /READ M, LOAD X, Y
+ 184 004140  3046          DCA     FLAC+2          /SAVE LOW-ORDER BITS
+ 185 004141  6352          TMUAC                   /GET HIGH-ORDER BITS
+ 186 004142  3045          DCA     FLAC+1          /SAVE HIGH-ORDER BITS
+ 187 004143  1045          TAD     FLAC+1          /GET IT BACK
+ 188 004144  0375          AND     (40)            /JUST SIGN BIT
+ 189 004145  7640          SZA CLA                 /SKIP IF POSITIVE
+ 190 004146  1101          TAD     P7700/[-100]    /ELSE SET SIGN EXTENSION BITS
+ 191 004147  1045          TAD     FLAC+1          /ADD ON OTHER BITS
+ 192 004150  3045          DCA     FLAC+1          /STORE BACK COMPOSITE
+ 193 004151  6371          CCCF                    /CLEAR COMPUTER CONTROL
+ 194 004152  6351          RMRL                    /RESET M, L
+ 195 004153  6322          STARTR                  /START READOUT PROGRAM
+ 196 004154  5303          JMP     NREXIT          /FINISH THERE
+ 197               
+ 198 004155  0000  SETADRE,.-.                     /SETUP ADDRESS ROUTINE
+ 199 004156  1413          POPA                    /GET ADDRESS VALUE
+ 200 004157  6351          RMRL                    /RESET M, L
+ 201 004160  6343          TACAS!READ              /AC=>ADDRESS, MEM(ADDRESS)=>M
+ 202 004161  7200          CLA                     /CLEAN UP
+ 203 004162  5755          JMP I   SETADRESS       /RETURN
+ 204 004163  1066  ARG,   TAD     CHAR            /ARGUMENT EVALUATOR
+ 205 004164  1374          TAD     (-",)           /GOOD TERMINATOR?
+ 206 004165  7640  PSYSIO, SZA CLA                 /SKIP IF SO
+ 207 004166  5541          POPJ                    /RETURN IF NOT
+ 208 004167  4540          PUSHJ;  EVAL-1          /EVALUATE SECOND ARGUMENT
+     004170  1612  
+ 209 004171  7001          IAC                     /INDICATE SKIP RETURN
+ 210 004172  5541          POPJ                    /RETURN
+ 211               
+ 212 004173  0000  IOWORD, .-.                     /I/O WORD FOR FBLK
+ 213               
+ 214 004174  7524          PAGE
+     004175  0040  
+     004176  0027  
+     004177  0377  
+ 215               
+ 216                       NEND=   .               /END OF RELOCATABLE PATCH CODE
+ 217               /      ONCE-ONLY CODE STARTS HERE.
+ 218               
+ 219                       *BONCE                          /OVER DEFAULT ONCE-ONLY AREA
+ 220               
+ 221 003600  1035  PBASE,  TAD     BOTTOM                  /\
+ 222 003601  1377          TAD     (-200+1)                / \ESTABLISH
+ 223 003602  0104          AND     P7600/[7600]            / /BASE ADDRESS
+ 224 003603  3200          DCA     PBASE                   //
+ 225 003604  1200          TAD     PBASE                   /\
+ 226 003605  1376          TAD     (NSTART&177-1)          / >ESTABLISH NEW LIMIT
+ 227 003606  3035          DCA     BOTTOM                  //
+ 228 003607  1200          TAD     PBASE                   /\
+ 229 003610  1375          TAD     (XBLK&177)              / >INSERT FBLK
+ 230 003611  3774          DCA I   (FNTABF+14)             //
+ 231 003612  1200          TAD     PBASE                   /\
+ 232 003613  1373          TAD     (XWRD&177)              / >INSERT FWRD
+ 233 003614  3772          DCA I   (FNTABF+15)             //
+ 234 003615  1200          TAD     PBASE                   /\
+ 235 003616  1371          TAD     (XNIC&177)              / >INSERT FNIC
+ 236 003617  3770          DCA I   (FNTABF+16)             //
+ 237 003620  1200          TAD     PBASE                   /\
+ 238 003621  1367          TAD     (ARG&177)               / \
+ 239 003622  3766          DCA I   (LARG1)                 /  \
+ 240 003623  1766          TAD I   (LARG1)                 /   >FIXUP ADDRESS CONSTANTS
+ 241 003624  3765          DCA I   (LARG2)                 /  /
+ 242 003625  1765          TAD I   (LARG2)                 / /
+ 243 003626  3764          DCA I   (LARG3)                 //
+ 244 003627  1763          TAD I   (SBTFUN)                /GET MONITOR UNIT
+ 245 003630  7010          RAR                             /MOVE LOW-ORDER TO LINK
+ 246 003631  7024          CML RAL                         /INVERT AND MOVE BACK
+ 247 003632  0362          AND     (7)                     /JUST UNIT BITS
+ 248 003633  1361          TAD     (N^100+BUFFLD+4000)     /ADD ON FUNCTION BITS
+ 249 003634  3760          DCA I   (IOWORD)                /STORE IN I/O WORD
+ 250 003635  1035          TAD     BOTTOM                  /\
+ 251 003636  7001          IAC                             / >SETUP MOVE BASE
+ 252 003637  3200          DCA     PBASE                   //
+ 253 003640  1650          TAD I   LNSTART                 /\
+ 254 003641  3600          DCA I   PBASE                   / \
+ 255 003642  2250          ISZ     LNSTART                 /  \MOVE DOWN PATCH TO
+ 256 003643  2200          ISZ     PBASE                   /  /WHERE IT BELONGS
+ 257 003644  2251          ISZ     MOVCNT                  / /
+ 258 003645  5240          JMP     .-5                     //
+ 259 003646  3757          DCA I   (BEOFZAP)               /REPAIR LOADER
+ 260 003647  5757          JMP I   (BEOFZAP)               /RESUME LOADING
+ 261 003650  4035  LNSTART,NSTART                 /POINTER TO NSTART
+ 262 003651  7635  MOVCNT, NSTART-NEND             /CODE MOVE COUNTER
+ 263               
+ 264 003757  7505          PAGE
+     003760  4173  
+     003761  4220  
+     003762  0007  
+     003763  7602  
+     003764  4115  
+     003765  4057  
+     003766  4040  
+     003767  0163  
+     003770  0412  
+     003771  0106  
+     003772  0411  
+     003773  0054  
+     003774  0410  
+     003775  0035  
+     003776  0034  
+     003777  7601  
+ 265               
+ 266                       *BEOFZAP                /OVER LOADER
+ 267               
+ 268 007505  7410          SKP                     /MAKE IT COME TO US
+ 269               
+ 270                       $                       /THAT'S ALL FOLK!
+
+ARG     4163
+BEOFZA  7505
+BONCE   3600
+BOTTOM  0035
+BUFFLD  0020
+CCCF    6371
+CHAR    0066
+EFUN3I  0136
+EVAL    1613
+FLAC    0044
+FNTABF  0374
+FNTABL  2165
+FUN     4050
+GET     4070
+GET2    4074
+GETVAL  4135
+INTEGE  0053
+IOT     6000
+IOWORD  4173
+LANDM   6331
+LARG1   4040
+LARG2   4057
+LARG3   4115
+LNSTAR  3650
+MOVCNT  3651
+N       0002
+NEND    4200
+NICODE  0030
+NL4000  7330
+NL7777  7240
+NREXIT  4103
+NSTART  4035
+NWEXIT  4102
+P7600   0104
+P7700   0101
+PBASE   3600
+POPA    1413
+POPJ    5541
+PSYSIO  4165
+PULSE   6304 unreferenced
+PUSHA   4542
+PUSHJ   4540
+READ    6342
+RETURN  5536
+RMRL    6351
+SBTFUN  7602
+SCCF    6372
+SETADR  4155
+STARTM  6321 unreferenced
+STARTR  6322
+STOP    6324
+SYSIO   7640 unreferenced
+TACAS   6341
+TACLL   6362
+TACLU   6354
+TADCL   6314 unreferenced
+TBLK    4051
+TCCF    6312 unreferenced
+TDISP   6364
+TMLAC   6361
+TMUAC   6352
+TREADY  6311 unreferenced
+TSTOP   6302
+TSWEEP  6301 unreferenced
+WRITE   6332
+XBLK    4035
+XNIC    4106
+XWRD    4054

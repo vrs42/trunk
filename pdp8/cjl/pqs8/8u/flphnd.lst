@@ -1,0 +1,209 @@
+   1               /       P?S/8 FLOPPY DISK HANDLER
+   2               
+   3               /       LAST EDIT:      23-FEB-1988     15:00:00        CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       P?S/8 NON-SYSTEM HANDLER FOR HIGH-DENSITY FLOPPY DISKS.
+   8               
+   9               /       SUPPORTED HARDWARE:
+  10               
+  11               /       CESI MDC8 HOST ADAPTER (MINIMUM FIRMWARE REVISION 02).
+  12               /       OMTI 20-D OR 5000 SERIES DISK CONTROLLER (5200, 5400).
+  13               /       TEAC FD55G 80 TRACK HIGH-DENSITY FLOPPY DRIVES (2, 3).
+  14               
+  15               /       REQUIRES PDP-8/I PROCESSOR (OR BETTER).
+  16               
+  17               /       EACH HANDLER UNIT (0 AND 1) ADDRESSES UP TO 4096 BLOCKS (0000-7777).
+  18               
+  19               /       UNITS 2 AND 3 ARE TYPICALLY ONLY 64 BLOCKS LONG (0000-0077), AND ARE PROVIDED
+  20               /       FOR TOTAL COMPATIBILITY WITH OS/8 USAGE ONLY.
+  21               
+  22               /       CALLING SEQUENCE:
+  23               
+  24               /       CDF     MYFLD           /SET CALLER'S DATA FIELD
+  25               /       CIF     HNDFLD          /SET HANDLER'S INSTRUCTION FIELD
+  26               /       JMS I   (FLPHND)        /CALL THE HANDLER
+  27               /       PARAM                   /PARAMETER POINTER
+  28               /       ERRORRETURN             /RETURNS HERE WITH STATUS IN AC
+  29               /       GOODRETURN              /RETURNS HERE WITH CLEAR AC IF I/O OK
+  30               
+  31               /       PARAMETER LIST BREAKDOWN:
+  32               
+  33               /       BIT[0]:                 READ IF 0, WRITE IF 1
+  34               /       BITS[1-5]:              PAGE COUNT, 40 IF 0
+  35               /       BITS[6-8]:              TRANSFER FIELD
+  36               /       BITS[9-11]:             LOGICAL UNIT
+  37               
+  38               /       BIT[9] IS IGNORED.
+  39                      PAGE                            /START ON A NEW PAGE
+  40               
+  41                       HERE=   .                       /WHERE WE ARE NOW
+  42               
+  43               /       DEFINITIONS.
+  44               
+  45                       DMA=    4000                    /DMA INDICATOR
+  53                       XLIST   ON
+  54                       NL0001= CLA IAC                 /LOAD AC WITH 0001
+  55                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+  56                       NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+  57                       REVISIO="A&77                   /REVISION OF HANDLER
+  58               
+  59               /       MDC8 IOT DEFINITIONS.
+  60               
+  61                       IFNDEF  DEVCODE <DEVCODE=70>    /USES 670X BY DEFAULT
+  62               
+  63                       DSEI=   DEVCODE^10+6000         /INTERRUPT ENABLE/DISABLE PER AC[11]
+  64                       DSSF=   DEVCODE^10+6001         /SKIP ON DONE FLAG
+  65                       DSCF=   DEVCODE^10+6002         /CLEAR DONE FLAG
+  66                       DSHI=   DEVCODE^10+6003         /LOAD HIGH-ORDER COMMAND ADDRESS
+  67                       DSGO=   DEVCODE^10+6004         /LOAD LOW-ORDER COMMAND AND GO
+  68               /           =   DEVCODE^10+6005         /UNUSED
+  69                       DSRS=   DEVCODE^10+6006         /READ STATUS
+  70                       DSIM=   DEVCODE^10+6007         /INTERFACE MAINTENANCE INSTRUCTION
+  71               
+  72               /       DEVICE HANDLER HEADER BLOCK.
+  73               
+  74                       *"F&177;*"L&177;*"P&177         /GROUP NAME
+  75                       *-1                             /GROUP COUNT
+  76                       *"F&177;*"L&177;*"P&177         /DEVICE NAME
+  77                       *FLPHND&177                     /ENTRY POINT
+  78                       *0000-1                         /HIGHEST BLOCK
+  79                       *REVISION                       /REVISION OF HANDLER
+  80                      *HERE                   /RESTORE ORIGIN
+  81               
+  82               /       ENTRY POINT FOR HANDLER.
+  83               
+  84 000200  0000  FLPHND, .-.                     /ACTUAL HANDLER ENTRY POINT
+  85 000201  7200          CLA                     /CLEAN UP NOW
+  86 000202  1600          TAD I   FLPHND          /GET ARGUMENT POINTER
+  87 000203  3306          DCA     FLPEXIT         /STASH IT
+  88 000204  1706          TAD I   FLPEXIT         /GET THE TRANSFER ADDRESS
+  89 000205  3332          DCA     TRADDR          /STASH IT
+  90 000206  2306          ISZ     FLPEXIT         /BUMP TO FUNCTION WORD
+  91 000207  1706          TAD I   FLPEXIT         /GET FUNCTION WORD
+  92 000210  0377          AND     (70)            /JUST FIELD BITS
+  93 000211  7112          CLL RTR;RAR             /MOVE DOWN
+     000212  7010  
+  94 000213  3331          DCA     TRFLD           /STORE (BANK AND) FIELD
+  95 000214  7330          NL4000                  /SET READ/WRITE MASK
+  96 000215  0706          AND I   FLPEXIT         /GET READ/WRITE BIT
+  97 000216  7107          CLL IAC RTL;RAL         /10 IF READING, 12 IF WRITING
+     000217  7004  
+  98 000220  3323          DCA     RWCOM           /STASH COMMAND
+  99 000221  1706          TAD I   FLPEXIT         /GET FUNCTION AGAIN
+ 100 000222  7012          RTR;RTR;RTR             /MOVE DOWN PAGE COUNT
+     000223  7012  
+     000224  7012  
+ 101 000225  0376          AND     (37)            /JUST PAGE BITS
+ 102 000226  7450          SNA                     /SKIP IF ANY
+ 103 000227  1375          TAD     (40)            /ELSE USE MAXIMUM
+ 104 000230  3327          DCA     SCTCNT          /STASH SECTOR COUNT
+ 105 000231  7201          NL0001                  /SET LOWER UNIT BIT MASK
+ 106 000232  0706          AND I   FLPEXIT         /GET THE BIT
+ 107 000233  7640          SZA CLA                 /SKIP IF OFF
+ 108 000234  1375          TAD     (40)            /ELSE SET ODD UNIT BIT
+ 109 000235  1374          TAD     (100)           /GET PAIR BIT
+ 110 000236  3324          DCA     SECTHI          /STORE HIGH-ORDER ADDRESS AND UNIT
+ 111 000237  7326          NL0002                  /SET MIDDLE UNIT MASK
+ 112 000240  0706          AND I   FLPEXIT         /GET THE BIT
+ 113 000241  7106          CLL RTL;RAL             /MOVE UP
+     000242  7004  
+ 114 000243  3325          DCA     SECTMD          /STORE FOR NOW
+ 115 000244  2306          ISZ     FLPEXIT         /BUMP TO BLOCK
+ 116 000245  1706          TAD I   FLPEXIT         /GET THE BLOCK NUMBER
+ 117 000246  3326          DCA     SECTLO          /STORE AS LOW-ORDER ADDRESS
+ 118 000247  1706          TAD I   FLPEXIT         /GET IT AGAIN
+ 119 000250  0373          AND     (7400)          /JUST HIGH-ORDER BITS
+ 120 000251  7106          CLL RTL;RTL;RAL         /MOVE DOWN
+     000252  7006  
+     000253  7004  
+ 121 000254  1325          TAD     SECTMD          /ADD ON UNIT OFFSET BIT
+ 122 000255  3325          DCA     SECTMD          /STORE AS MIDDLE ADDRESS
+ 123 000256  6214          RDF                     /GET CALLING FIELD
+ 124 000257  1372          TAD     (CIF)           /MAKE IT CIF RETURN FIELD
+ 125 000260  3306          DCA     FLPEXIT         /STORE IN-LINE
+ 126 000261  2200         ISZ     FLPHND          /BUMP PAST ARGUMENT POINTER
+ 127 000262  4263          JMS     LOC8            /FIND OUT WHERE WE ARE LOADED
+ 128 000263  0000  LOC8,   .-.                     /WILL BE OUR OWN PC
+ 129 000264  6706          DSRS                    /GET STATUS
+ 130 000265  7710          SPA CLA                 /SKIP IF CONTROLLER IS IDLE
+ 131 000266  5264          JMP     .-2             /ELSE WE MIGHT AS WELL WAIT
+ 132 000267  6224          RIF                     /GET OUR FIELD
+ 133 000270  7112          CLL RTR;RAR             /MOVE DOWN (BANK AND) FIELD
+     000271  7010  
+ 134 000272  6703          DSHI                    /SEND HIGH-ORDER COMMAND ADDRESS
+ 135 000273  6706          DSRS                    /GET STATUS
+ 136 000274  7700          SMA CLA                 /SKIP IF BUSY
+ 137 000275  5273          JMP     .-2             /ELSE KEEP WAITING
+ 138 000276  6702          DSCF                    /CLEAR DONE FLAG NOW
+ 139 000277  1263          TAD     LOC8            /GET OUR PC
+ 140 000300  1376          TAD     (TABLE-LOC8)    /ADJUST TO COMMAND TABLE
+ 141 000301  6704          DSGO                    /GO START IT UP
+ 142 000302  4310          JMS     WAIT            /WAIT FOR COMMAND TO TAKE
+ 143 000303  6707          DSIM                    /FINISH THE COMMAND
+ 144 000304  4310          JMS     WAIT            /WAIT FOR COMMAND TO COMPLETE
+ 145 000305  2200          ISZ     FLPHND          /BUMP TO GOOD RETURN
+ 146 000306  0000  FLPEXIT,.-.                     /WILL BE CIF RETURN FIELD
+ 147 000307  5600          JMP I   FLPHND          /RETURN TO CALLER
+ 148               
+ 149 000310  0000  WAIT,   .-.                     /WAIT ROUTINE
+ 150 000311  6701          DSSF                    /FLAG UP?
+ 151 000312  5311          JMP     .-1             /NO, WAIT FOR IT
+ 152 000313  6702          DSCF                    /YES, CLEAR IT
+ 153 000314  6706          DSRS                    /GET STATUS NOW
+ 154 000315  7104          CLL RAL                 /REMOVE BUSY BIT
+ 155 000316  7650          SNA CLA                 /SKIP IF ANY ERRORS
+ 156 000317  5710          JMP I   WAIT            /ELSE RETURN
+ 157 000320  6706          DSRS                    /GET STATUS AGAIN
+ 158 000321  5306          JMP     FLPEXIT         /TAKE ERROR RETURN THERE
+ 159               
+ 160               /       COMMAND TABLE.
+ 161               
+ 162 000322  4006  TABLE,  6!DMA                   /TABLE LENGTH PLUS DMA INDICATOR
+ 163 000323  0000  RWCOM,  .-.&377                 /0010 IF READING, 0012 IF WRITING
+ 164 000324  0000  SECTHI, .-.&377                 /UNIT BITS AND HIGH-ORDER SECTOR ADDRESS
+ 165 000325  0000  SECTMD, .-.&377                 /MIDDLE SECTOR ADDRESS
+ 166 000326  0000  SECTLO, .-.&377                 /LOW-ORDER SECTOR ADDRESS
+ 167 000327  0000  SCTCNT, .-.&377                 /SECTOR COUNTER (1-40)
+ 168 000330  0000  CONTRL, 0&377                   /CONTROL WORD
+ 169 000331  0000  TRFLD,  .-.&377                 /BANK (0000) AND TRANSFER FIELD (0-7)
+ 170 000332  0000  TRADDR, .-.                     /TRANSFER ADDRESS
+ 171               
+ 172 000372  6202          PAGE
+     000373  7400  
+     000374  0100  
+     000375  0040  
+     000376  0037  
+     000377  0070  
+ 173                      $                       /THAT'S ALL FOLK!
+
+CONTRL  0330 unreferenced
+DEVCOD  0070
+DMA     4000
+DSCF    6702
+DSEI    6700 unreferenced
+DSGO    6704
+DSHI    6703
+DSIM    6707
+DSRS    6706
+DSSF    6701
+FLPEXI  0306
+FLPHND  0200
+HERE    0200
+LOC8    0263
+NL0001  7201
+NL0002  7326
+NL4000  7330
+OFF     0001
+ON      0000
+REVISI  0001
+RWCOM   0323
+SCTCNT  0327
+SECTHI  0324
+SECTLO  0326
+SECTMD  0325
+TABLE   0322
+TRADDR  0332
+TRFLD   0331
+WAIT    0310

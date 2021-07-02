@@ -1,0 +1,820 @@
+   1               /       DISPLAY OVERLAY FOR P?S/8 FOCAL
+   2               
+   3               /       LAST EDIT:      01-APR-1987     18:00:00        CJL
+   4               
+   5               /       P?S/8 FOCAL OVERLAY FOR BUFFERED DISPLAY OF X-Y POINTS ON A SCOPE INTERFACE.
+   6               
+   7               /       THIS OVERLAY PROVIDES A DISPLAY FUNCTION TO P?S/8 FOCAL SIMILAR TO FOCAL-12
+   8               /       OR BASIC-RT. IT CAN BE ASSEMBLED FOR SEVERAL HARDWARE CONFIGURATIONS:
+   9               
+  10               /       SETTING AA01A=1 CREATES A VERSION FOR THE AA01A (A. S. D-A).
+  11               /       SETTING AX08=1 CREATES A VERSION FOR THE AX08 WITH RM-503 SCOPE.
+  12               /       SETTING S34D=1 CREATES A VERSION FOR THE 34D SCOPE.
+  13               /       SETTING VC12=1 CREATES A VERSION FOR THE PDP-12 SCOPE.
+  14               /       SETTING VC8E=1 CREATES A VERSION FOR THE LAB-8/E SCOPE.
+  15               
+  16               /       SETTING CSW=1 CAUSES THE CONSOLE SWITCHES TO CONTROL AN ADDITIONAL DELAY.
+  17               /                     THIS IS BEYOND THE NORMAL HARDWARE FLAGS, ETC.
+  18               
+  19               /       FUNCTIONS AVAILABLE:
+  20               
+  21               /       FDIS(X,Y)       INSERT POINT AT (X,Y) INTO DISPLAY BUFFER.
+  22               /       FDIS(0)         CLEAR ALL POINTS FROM DISPLAY BUFFER.
+  23               /       FDIS(NON-ZERO)  FORCE ALL POINTS TO DISPLAY ONCE.
+  24               /       FIO(NEGATIVE)   RETURNS NUMERICAL VALUE (MODULO 128) OF NEXT ASCII CHARACTER
+  25               /                       TYPED; P?S/8 FOCAL WILL WAIT FOR INPUT IF NECESSARY (WHILE
+  26               /                       BUFFERING THE DISPLAY). SINCE INTEGER CONVERSION IS USED
+  27               /                       FOR EVALUATION, THE ARGUMENT MUST BE NEGATIVE OR WITHIN
+  28               /                       THE RANGE 2048-4095 MOD 4096.
+  29               /       FIO(CHAR<2048)  OUTPUT ASCII CHARACTER; P?S/8 FOCAL WILL BUFFER THE DISPLAY
+  30               /                       IF IT MUST WAIT TO OUTPUT THE CHARACTER. SINCE INTEGER
+  31               /                       CONVERSION IS USED FOR EVALUATION, THE ARGUMENT MUST BE
+  32               /                       POSITIVE AND BETWEEN 0000-2047 MOD 4096. NORMAL OUTPUT
+  33               /                       DEVICES GENERALLY REDUCE THE CHARACTER VALUE RANGE TO
+  34               /                       0000-0255 MOD 256 ALLOWING ANY COMBINATION OF ASCII
+  35               /                       CHARACTER OUTPUT WITH OR WITHOUT PARITY SET.
+  36               
+  37               /       ALL CURRENT POINTS WILL BE DISPLAYED WHILE P?S/8 FOCAL WAITS FOR EITHER
+  38               /       KEYBOARD INPUT OR TERMINAL OUTPUT.
+  39               
+  40               /       THIS OVERLAY CAN BE USED WITH THE "OPATCH" AND "VT8PCH" OVERLAYS, BUT MUST
+  41               /       BE LOADED LAST TO PREVENT PATCH CONFLICT.
+  42               
+  43               /       USE OF THIS OVERLAY WITH INCOMPATIBLE VERSIONS OF FOCAL/OVERLAYS WILL YIELD
+  44               /       THE ERROR MESSAGE: 'FOCAL/OVERLAY CONFLICT!' FOLLOWED BY EXIT TO P?S/8.
+  45               
+  46               /       DOMAIN AND RANGE CONSIDERATIONS:
+  47               
+  48               /       AA01A VERSIONS RANGE FROM -2048 THROUGH 2047.
+  49               /       VC-8/E, 34D VERSIONS RANGE FROM -512 THROUGH 511.
+  50               /       AX08, VC-12 VERSIONS RANGE FROM -256 THROUGH 255.
+  51               
+  52               /       UP TO 1984 POINTS CAN BE BUFFERED IN THE NORMAL VERSION.
+  53               
+  54               /       INVOKING '/2' USES AN ADDITIONAL MEMORY FIELD WHICH THEN ALLOWS UP TO
+  55               /       3968 BUFFERED POINTS.
+  56               /      ASSEMBLY PARAMETERS.
+  57               
+  58               /       SET ONE OF THE FOLLOWING HARDWARE PARAMETERS BY REMOVING THE "/":
+  59               
+  60               /       AA01A=  1                       /CREATE AA01A (A. S.) VERSION
+  61               /       AX08=   1                       /CREATE AX08 VERSION
+  62               /       S34D=   1                       /CREATE 34D VERSION
+  63               /       VC12=   1                       /CREATE VC-12 VERSION
+  64               /       VC8E=   1                       /CREATE VC-8/E VERSION
+  65               
+  66               /       SET ONE OF THE FOLLOWING PARAMETERS GOVERNING CONSOLE-CONTROLLED DELAY BY
+  67               /       REMOVING THE "/":
+  68               
+  69               /       CSW=    0                       /NO ADDITIONAL CONSOLE-CONTROLLED DELAY
+  70               /       CSW=    1                       /USE CONSOLE SWITCHES FOR ADDITIONAL DELAY
+  71               
+  72               /       SET THE DISPLAY FIELD(S):
+  73               
+  74               /       DFIELD= 20                      /(FIRST OF TWO) DISPLAY FIELD(S)
+  75               
+  76               /       CONDITIONAL ASSEMBLY PARAMETERS.
+  77               
+  78                       IFNDEF  AA01A   <AA01A= 0>      /DON'T CREATE AA01A (A. S.) VERSION
+  79                       IFNDEF  AX08    <AX08=  0>      /DON'T CREATE AX08 VERSION
+  80                       IFNDEF  CSW     <CSW=   0>      /DON'T CAUSE CONSOLE DELAY
+  81                       IFNDEF  DFIELD  <DFIELD=20>     /USE FIELD(S) TWO (AND THREE) FOR DISPLAY
+  82                       IFNDEF  S34D    <S34D=  0>      /DON'T CREATE 34D VERSION
+  83                       IFNDEF  TTY     <TTY=   03>     /BASE DEVICE CODE OF TTY:
+  84                       IFNDEF  VC12    <VC12=  0>      /DON'T CREATE VC-12 VERSION
+  85                       IFNDEF  VC8E    <VC8E=  0>      /DON'T CREATE VC-8/E VERSION
+  86               
+  87               /       DEFAULT PARAMETERS.
+  88               
+  89                       H=      AA01A!AX08!S34D!VC12    /ACCUMULATE PARAMETERS
+  90                       H=      H!VC8E                  /ACCUMULATE PARAMETERS
+  91               
+  92                       IFZERO  H       <VC8E=  1>      /DEFAULT TO VC-8/E VERSION
+  97                       XLIST   ON
+  98               /      I/O AND PERIPHERAL DEFINITIONS.
+  99               
+ 100                       ALPHA=  0000            /DISPLAY ALPHA REGISTER FOR VC-12
+ 101                       DAL1=   6551            /LOAD X ON AA01A (A. S.)
+ 102                       DAL2=   6552            /LOAD Y ON AA01A (A. S.)
+ 103                       DILX=   6053            /LOAD X ON VC-8/E
+ 104                       DILY=   6054            /LOAD Y ON VC-8/E
+ 105                       DINT=   6554            /INTENSIFY ON AA01A (A. S.)
+ 106                       DIS=    0140            /DISPLAY POINT ON VC-12
+ 107                       DISA=   6304            /INTENSIFY ON AX08
+ 108                       DISD=   6052            /SKIP ON DISPLAY DONE
+ 109                       DIXY=   6055            /INTENSIFY ON VC-8/E
+ 110                       DXC=    6301            /CLEAR X ON AX08
+ 111                       DXL=    6302            /LOAD X ON AX08
+ 112                       DIXL=   6053            /LOAD X ON 34D
+ 113                       DYC=    6311            /CLEAR Y ON AX08
+ 114                       DYL=    6312            /LOAD Y ON AX08
+ 115                       DYS=    6067            /LOAD Y AND INTENSIFY ON 34D
+ 116                       LINC=   6141            /GOTO LINC MODE FOR VC-12
+ 117                       PDP=    0002            /GOTO PDP-8 MODE FOR VC-12
+ 118               
+ 119                       KCCIOT= TTY^10+6002     /CLEAR KEYBOARD FLAG
+ 120                       KRSIOT= TTY^10+6004     /READ KEYBOARD BUFFER
+ 121                       KSFIOT= TTY^10+6001     /SKIP ON KEYBOARD FLAG
+ 122                       TLSIOT= TTY+1^10+6006   /OUTPUT TO TELEPRINTER
+ 123                       TSFIOT= TTY+1^10+6001   /SKIP ON TELEPRINTER FLAG
+ 124               
+ 125               /       DEFINITIONS FROM FOCAL, 1969 (ORIGINAL PAPER-TAPE VERSION).
+ 126               
+ 127                       CHAR=   0066            /FOCAL'S CHARACTER BUFFER
+ 128                       COMGO=  1163            /COMMAND DISPATCH TABLE ADDRESS
+ 129                       C200=   0123            /CONSTANT 0200
+ 130                       EFUN3I= 0136            /FUNCTION RETURN POINTER
+ 131                       ERROR5= 2725            /ERROR FUNCTION
+ 132                       EVAL=   1613            /EVALUATOR ROUTINE
+ 133                       FLAC=   0044            /FLOATING AC
+ 134                       FNTABF= 0374            /FUNCTION ADDRESS TABLE
+ 135                       FNTABL= 2165            /HASHED FUNCTION NAME TABLE
+ 136                       INDEV=  0064            /INPUT ROUTINE POINTER
+ 137                       INTEGER=0053            /FLOATING TO FIXED CONVERSION POINTER
+ 138                       OUTDEV= 0063            /OUTPUT ROUTINE POINTER
+ 139                       PDLXR=  0013            /PUSHDOWN LIST AUTO-INDEX REGISTER
+ 140                       PUSHA=  JMS I   142     /PUSH WORD ONTO STACK
+ 141                       P177=   0106            /CONSTANT 0177
+ 142                       P7600=  0104            /CONSTANT 7600
+ 143                       RETURN= JMP I   EFUN3I  /FUNCTION RETURN INSTRUCTION
+ 144                       XDYS=   1142            /FDIS FUNCTION ADDRESS
+ 145                       XINT=   1160            /INTEGER PART ROUTINE
+ 146               /      DEFINITIONS FROM P?S/8 AND THE P?S/8 FOCAL OVERLAY.
+ 147               
+ 148                       BEOFZAP=7505            /BINARY LOADER ZAP WORD
+ 149                       BONCE=  3600            /OVERLAY ONCE-ONLY ADDRESS
+ 150                       CINPUT= 2600            /CONSOLE INPUT ROUTINE
+ 151                       CINWAIT=2601            /INPUT ROUTINE WAIT LOCATION
+ 152                       COUTPUT=2630            /OUTPUT ROUTINE ADDRESS
+ 153                       INCON=  0031            /EQUATED FROM CONSOLE!
+ 154                       OUTCON= 0033            /EQUATED FROM CONSOLE!
+ 155                       SBOOT=  7600            /BOOTSTRAP TO HERE
+ 156                       SCRSIZE=7611            /SOFTWARE CORE SIZE WORD
+ 157                       SWAPBLK=2417            /SWAP BLOCK
+ 158                       SWY9=   7606            /PASSED SWITCHES: Y, Z, 0-9
+ 159                       SYSIO=  7640            /SYSTEM I/O ENTRY
+ 160               
+ 161               /       NUMERIC LOAD DEFINITIONS.
+ 162               
+ 163                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+ 164                       NL7775= CLA CLL CMA RTL /LOAD AC WITH 7775
+ 165               
+ 166               /       INSTRUCTION DEFINITIONS.
+ 167               
+ 168                       JMPC=   JMP     .       /CURRENT PAGE JUMP INSTRUCTION
+ 169                       JMSC=   JMS     .       /CURRENT PAGE JMS INSTRUCTION
+ 170                       JMSSYSI=SYSIO&177+JMSC  /CALL TO SYSIO ON ITS PAGE
+ 171                      FIELD   0               /ENSURE FIELD ZERO
+ 172               
+ 173                       *175                    /OVER AVAILABLE LOCATION
+ 174               
+ 175 000175  2422  PDSPLAY,DSPLAY                  /DISPLAY BUFFER ROUTINE POINTER
+ 176               
+ 177                       *FNTABF+3               /OVER FUNCTION ADDRESS TABLE
+ 178               
+ 179 000377  1146          XDIS                    /POINT TO DISPLAY FUNCTION
+ 180               
+ 181                       *FNTABF+14              /OVER FNEW ADDRESS
+ 182               
+ 183 000410  1142          XIO                     /POINT TO INPUT/OUTPUT FUNCTION
+ 184               
+ 185                       *XDYS                   /OVER EXISTING XDIS CODE
+ 186               
+ 187               /       FIO FUNCTION.
+ 188               
+ 189 001142  4453  XIO,    JMS I   INTEGER         /GET LOW-ORDER FROM FIXED FLAC
+ 190 001143  7700          SMA CLA                 /SKIP IF INPUT
+ 191 001144  5350          JMP     XOUT            /JUMP IF OUTPUT
+ 192 001145  4464          JMS I   INDEV           /GET A CHARACTER
+ 193               
+ 194               /       AC WILL BE NON-ZERO IF FIO(NEGATIVE), ZERO IF FDIS(XX).
+ 195               
+ 196               /       FDIS FUNCTION ENTERS HERE WITH CLEAR AC.
+ 197               
+ 198 001146  6222  XDIS,   CIF     DFIELD          /GOTO CODE FIELD
+ 199 001147  5065          JMP     XIOMORE         /CINTINUE THERE
+ 200               
+ 201               /       COMES HERE IF FIN(POSITIVE).
+ 202               
+ 203 001150  1046  XOUT,   TAD     FLAC+2          /GET LOW-ORDER AGAIN
+ 204 001151  4463          JMS I   OUTDEV          /PRINT THE CHARACTER
+ 205 001152  5536  XRET,   RETURN                  /RETURN TO FOCAL
+ 206               
+ 207               /       FIELD ZERO FLOATING TO FIX CALL.
+ 208               
+ 209 001153  7450  INTPUSH,SNA                     /ANY PASSED VALUE?
+ 210 001154  4453          JMS I   INTEGER         /NO, GET LOW-ORDER FROM FIXED FLAC
+ 211 001155  4542          PUSHA                   /PUSH EITHER WAY
+ 212 001156  6222  EVALRET,CIF     DFIELD          /GOTO CODE FIELD
+ 213 001157  5007          JMP     PUSHMORE        /CONTINUE THERE
+ 214               
+ 215                       ZBLOCK  XINT-.          /EMPTY SPACE
+ 216               
+ 217                       XINT=   .               /UPPER LIMIT FOR DISPLAY CODE
+ 218                      *FNTABL+3               /OVER HASHED NAME TABLE
+ 219               
+ 220 002170  2565          "D^2+"I^2+"S            /MAKE SURE FDIS FUNCTION IS PRESENT
+ 221               
+ 222                       *FNTABL+14              /OVER FNEW
+ 223               
+ 224 002201  1141          "I^2+"O                 /ENTER FIO FUNCTION HASHED NAME
+ 225               
+ 226                       *SWAPBLK+3              /OVER EMPTY SPACE PAST SWAPPER
+ 227               
+ 228               /       FIELD ZERO DISPLAY BUFFER ENTRY POINT.
+ 229               
+ 230 002422  0000  DSPLAY, .-.                     /DISPLAY BUFFER ROUTINE
+ 231 002423  6222          CIF     DFIELD          /GOTO CODE FIELD
+ 232 002424  5057          JMP     DSPMORE         /CONTINUE THERE
+ 233               
+ 234                       *CINPUT-1               /OVER AVAILABLE SPACE
+ 235               
+ 236 002577  7410          SKP                     /ALLOW EFFECTIVE "JMP .-4" AS WELL AS "JMP .-2"
+ 237                                               /FOR "CINWAIT" ROUTINE
+ 238               
+ 239                       *CINWAIT+2              /OVER JMP CINWAIT
+ 240               
+ 241 002603  4575          JMS I   PDSPLAY/[DSPLAY]/DISPLAY BUFFER WHILE WAITING FOR INPUT
+ 242                      FIELD   DFIELD%10       /IN (FIRST) BUFFER FIELD
+ 243               
+ 244                       *ALPHA                  /START AT THE BEGINNING
+ 245               
+ 246 020000  0000  ALPHA,  .-.                     /ALPHA REGISTER FOR PDP-12 VERSION
+ 247 020001  7773  DSPBACK,-4-1                    /**** OPATCH OR VT8PCH **** -2-1
+ 248 020002  0000  DSPRETU,.-.                     /BUFFERED DISPLAY CALLER RETURN ADDRESS
+ 249 020003  0000  STKTMP, .-.                     /TEMPORARY FOR STACK OPERATIONS
+ 250               
+ 251               /       FIX THE FLAC AND PUSH ROUTINE.
+ 252               
+ 253 020004  0000  FIXPUSH,.-.                     /FIX AND PUSH ROUTINE
+ 254 020005  6203          CIF CDF 00              /GOING TO FIELD ZERO
+ 255 020006  5577          JMP I   [INTPUSH]       /CONTINUE THERE
+ 256               
+ 257               /       COMES BACK HERE WHEN THROUGH.
+ 258               
+ 259 020007  5404  PUSHMOR,JMP I   FIXPUSH         /RETURN
+ 260               
+ 261                       *10                     /GET TO AUTO-INDEX AREA
+ 262               
+ 263 020010  0000  XR1,    .-.                     /AUTO-INDEX FOR DISPLAY
+ 264 020011  0000  XR2,    .-.                     /SECOND AUTO-INDEX FOR DISPLAY
+ 265 020012  0177  XR3,    OUTBUFFER-1             /AUTO-INDEX FOR FDIS, ETC.
+ 266 020013  0177  XR4,    OUTBUFFER-1             /SECOND AUTO-INDEX FOR FDIS, ETC.
+ 267 020014  0000  DISCNT, 0                       /CURRENT DISPLAY COUNT
+ 268 020015  0000  DSPCNT, .-.                     /DISPLAY BUFFER COUNTER
+ 269 020016  0000  X,      .-.                     /"X" COORDINATE
+ 270 020017  0000  Y,      .-.                     /"Y" COORDINATE
+ 271               
+ 272                       *20                     /GET PAST AUTO-INDEX AREA
+ 273               
+ 274               /       POP ELEMENT OFF OF STACK ROUTINE.
+ 275               
+ 276 020020  0000  POPAC,  .-.                     /POP INTO AC ROUTINE
+ 277 020021  2576          ISZ I   [PDLXR]         /BUMP STACK POINTER
+ 278 020022  1576          TAD I   [PDLXR]         /GET THE NEW VALUE
+ 279 020023  3003          DCA     STKTMP          /STASH IT
+ 280 020024  1403          TAD I   STKTMP          /GET THE VALUE
+ 281 020025  5420          JMP I   POPAC           /RETURN
+ 282               /      DISPLAY BUFFER SUBROUTINE.
+ 283               
+ 284 020026  0000  DISPLAY,.-.                     /DISPLAY ROUTINE
+ 285 020027  1014          TAD     DISCNT          /GET CURRENT DISPLAY COUNT
+ 286 020030  7040          CMA                     /INVERT FOR COUNTING
+ 287 020031  3015          DCA     DSPCNT          /STASH THE COUNTER
+ 288 020032  1175          TAD     [OUTBUFFER-1]   /POINT TO
+ 289 020033  3010          DCA     XR1             /DISPLAY BUFFER
+ 290 020034  1175          TAD     [OUTBUFFER-1]   /POINT TO
+ 291 020035  3011          DCA     XR2             /DISPLAY BUFFER
+ 292 020036  6002          IOF                     /PREVENT PROBLEMS!
+ 293 020037  5053          JMP     DISPIN          /CONTINUE THERE
+ 294               
+ 295 020040  6221  DISPLP, CDF     DFIELD          /GOTO OUR (FIRST) FIELD
+ 296 020041  1410          TAD I   XR1             /GET X VALUE
+ 297               
+ 298                       IFNZRO  AA01A   <
+ 299               
+ 300                       DAL1                    /LOAD X
+ 301                       CLA                     /CLEAN UP
+ 302               
+ 303                                       >
+ 304               
+ 305                       IFNZRO  AX08    <
+ 306               
+ 307                       DXC DXL                 /LOAD X
+ 308                       CLA                     /CLEAN UP
+ 309               
+ 310                                       >
+ 311               
+ 312                       IFNZRO  S34D    <
+ 313               
+ 314                       DIXL                    /LOAD X
+ 315                       CLA                     /CLEAN UP
+ 316               
+ 317                                       >
+ 318               
+ 319                       IFNZRO  VC12    <
+ 320               
+ 321                       DCA     ALPHA           /STORE X
+ 322               
+ 323                                       >
+ 324               
+ 325                       IFNZRO  VC8E    <
+ 326               
+ 327 020042  6053          DILX                    /LOAD X ON VC-8/E
+ 328 020043  7200          CLA                     /CLEAN UP
+ 329               
+ 330                                       >
+ 331 020044  6221  ZAP8K1,        CDF     DFIELD          /**** /2 **** CDF DFIELD+10
+ 332 020045  1410  ZAP8K2, TAD I   XR1             /**** /2 **** TAD I XR2
+ 333               
+ 334                       IFNZRO  AA01A   <
+ 335               
+ 336                       DAL2 DINT               /LOAD Y AND INTENSIFY
+ 337                       CLA                     /CLEAN UP
+ 338                       AND I   0               /WASTE
+ 339                       AND I   0               /SOME TIME
+ 340               
+ 341                                       >
+ 342               
+ 343                       IFNZRO  AX08    <
+ 344               
+ 345                       DYC DYL DISA            /LOAD Y AND INTENSIFY
+ 346                       CLA                     /CLEAN UP
+ 347               
+ 348                                       >
+ 349               
+ 350                       IFNZRO  S34D    <
+ 351               
+ 352                       DYS                     /LOAD Y AND INTENSIFY
+ 353                       CLA                     /CLEAN UP
+ 354               
+ 355                                       >
+ 356               
+ 357                       IFNZRO  VC12    <
+ 358               
+ 359                       LINC                    /GOTO L...MODE
+ 360                       DIS     ALPHA           /DISPLAY THE POINT
+ 361                       PDP                     /BACK TO P...MODE
+ 362                       CLA                     /CLEAN UP
+ 363               
+ 364                                       >
+ 365               
+ 366                       IFNZRO  VC8E    <
+ 367               
+ 368 020046  6054          DILY                    /LOAD Y ON VC-8/E
+ 369 020047  7200          CLA                     /CLEAN UP
+ 370 020050  6052          DISD                    /WAIT FOR DONE
+ 371 020051  5050          JMP     .-1             /ON VC-8/E
+ 372 020052  6055          DIXY                    /INTENSIFY POINT NOW
+ 373               
+ 374                                       >
+ 375               
+ 376                       IFNZRO  CSW     <
+ 377               
+ 378                       LAS                     /GET CONSOLE SWITCHES
+ 379                       DCA     STKTMP          /STASH AS COUNTER
+ 380                       ISZ     STKTMP          /WAITED LONG ENOUGH?
+ 381                       JMP     .-1             /NO, KEEP GOING
+ 382               
+ 383                                       >
+ 384               /      COMES HERE AT THE END OF ONE DISPLAY CYCLE.
+ 385               
+ 386 020053  2015  DISPIN, ISZ     DSPCNT          /DONE ALL YET?
+ 387 020054  5040          JMP     DISPLP          /NO, KEEP GOING
+ 388 020055  6001          ION                     /SAFE TO COME OUT NOW
+ 389 020056  5426          JMP I   DISPLAY         /YES, RETURN
+ 390               
+ 391               /       COMES HERE TO FINISH THE BUFFERED DISPLAY CALL.
+ 392               
+ 393 020057  1574  DSPMORE,TAD I   [DSPLAY]        /GET THE CALLER
+ 394 020060  1001          TAD     DSPBACKUP       /GET BACKUP FACTOR OF TWO OR FOUR AS NECESSARY
+ 395               
+ 396               /       NOW HAVE EFFECTIVE "JMP .-4" IF "OPATCH" OR "VT8PCH" IS NOT PRESENT,
+ 397               /       NOW HAVE EFFECTIVE "JMP .-2" IF "OPATCH" OR "VT8PCH" IS PRESENT.
+ 398               
+ 399 020061  3002          DCA     DSPRETURN       /STORE EFFECTIVE RETURN ADDRESS AS ABOVE
+ 400 020062  4026          JMS     DISPLAY         /CALL BUFFER DISPLAY ROUTINE
+ 401 020063  6203          CIF CDF 00              /GOTO CALLING FIELD
+ 402 020064  5402          JMP I   DSPRETURN       /RETURN TO CALLER
+ 403               
+ 404               /       COMES HERE TO FINISH THE "FIO", "FDIS" FUNCTIONS.
+ 405               
+ 406 020065  7450  XIOMORE,SNA                     /INPUT/OUTPUT FUNCTION?
+ 407 020066  5076          JMP     DODISP          /NO, MUST BE DISPLAY
+ 408 020067  0175          AND     [177]           /JUST SEVEN-BIT
+ 409 020070  3573          DCA I   [FLAC+1]        /STORE IN HIGH-ORDER
+ 410 020071  3572          DCA I   [FLAC+2]        /CLEAR LOW-ORDER
+ 411 020072  1176          TAD     [13]            /GET SHIFT FACTOR
+ 412 020073  3571          DCA I   [FLAC]          /SET EXPONENT
+ 413 020074  6203  DISPRET,CIF CDF 00              /GOING TO FIELD ZERO
+ 414 020075  5570          JMP I   [XRET]          /FINISH IT THERE
+ 415               
+ 416               /       COMES HERE TO FINISH "FDIS" FUNCTION.
+ 417               
+ 418 020076  4004  DODISP, JMS     FIXPUSH         /FIX AND PUSH FIRST ARGUMENT
+ 419 020077  1567          TAD I   [CHAR]          /GET THE LATEST CHARACTER
+ 420 020100  1166          TAD     [-",]           /COMPARE TO ","
+ 421 020101  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 422 020102  5135          JMP     DISP1           /JUMP IF ONLY ONE ARGUMENT
+ 423 020103  1165          TAD     [EVALRETURN]    /GET OUR RETURN
+ 424 020104  4004          JMS     FIXPUSH         /PUSH IT ON STACK
+ 425 020105  1164          TAD     [EVALMORE]      /SETUP THE PROPER
+ 426 020106  3004          DCA     FIXPUSH         /RETURN ADDRESS
+ 427 020107  6203          CIF CDF 00              /GOING TO FIELD ZERO
+ 428 020110  5563          JMP I   [EVAL-1]        /EFFECTIVELY PUSHJ;EVAL-1 AND RETURN TO "EVALMORE"
+ 429               /      COMES BACK HERE AFTER EVALUATING THE SECOND "FDIS" ARGUMENT.
+ 430               
+ 431 020111  4004  EVALMOR,JMS     FIXPUSH         /FIX THE SECOND ARGUMENT AND PUSH IT
+ 432 020112  4020          JMS     POPAC           /GET IT BACK
+ 433 020113  3017          DCA     Y               /SAVE AS "Y" COORDINATE
+ 434 020114  4020          JMS     POPAC           /GET PREVIOUS ARGUMENT
+ 435               
+ 436                       IFNZRO  AX08!VC12       <
+ 437               
+ 438                       TAD     [400]           /MAKE IT SYMMETRICAL
+ 439               
+ 440                                               >
+ 441               
+ 442 020115  3016          DCA     X               /SAVE AS "X" COORDINATE
+ 443 020116  1012          TAD     XR3             /GET OUTPUT POINTER
+ 444 020117  7001          IAC                     /SEE IF AT END
+ 445 020120  7640          SZA CLA                 /SKIP IF TOO FAR
+ 446 020121  5125          JMP     DISPOK          /JUMP IF NOT
+ 447 020122  1162          TAD     [XDYS+6]        /GET ERROR ADDRESS
+ 448 020123  6202          CIF     00              /GOING TO FIELD ZERO
+ 449 020124  5561          JMP I   [ERROR5]        /GO COMPLAIN THERE
+ 450               
+ 451               /       INSERT THE LATEST PAIR INTO THE DISPLAY BUFFER.
+ 452               
+ 453 020125  2014  DISPOK, ISZ     DISCNT          /BUMP UP DISPLAY COUNT
+ 454 020126  6221          CDF     DFIELD          /GOTO BUFFER FIELD
+ 455 020127  1016          TAD     X               /GET X VALUE
+ 456 020130  3412          DCA I   XR3             /PUT IT IN
+ 457 020131  6221  ZAP8K3, CDF     DFIELD          /**** /2 **** CDF DFIELD+10
+ 458 020132  1017          TAD     Y               /GET Y VALUE
+ 459 020133  3412  ZAP8K4, DCA I   XR3             /**** /2 **** DCA I XR4
+ 460 020134  5074          JMP     DISPRETURN      /FINISH IT THERE
+ 461               
+ 462               /       COMES HERE IF "FDIS(ONE ARGUMENT)".
+ 463               
+ 464 020135  4020  DISP1,  JMS     POPAC           /RETRIEVE THE ARGUMENT
+ 465 020136  7650          SNA CLA                 /SKIP IF NON-ZERO
+ 466 020137  5142          JMP     WIPEOUT         /ELSE WIPE OUT THE BUFFER
+ 467 020140  4026          JMS     DISPLAY         /DISPLAY THE BUFFER ONCE NOW
+ 468 020141  5074          JMP     DISPRETURN      /FINISH IT THERE
+ 469               
+ 470 020142  3014  WIPEOUT,DCA     DISCNT          /CLEAR DISPLAY COUNT
+ 471 020143  1175          TAD     [OUTBUFFER-1]   /RESET THE
+ 472 020144  3012          DCA     XR3             /BUFFER POINTER
+ 473 020145  1175          TAD     [OUTBUFFER-1]   /RESET THE
+ 474 020146  3013          DCA     XR4             /SECOND BUFFER POINTER
+ 475 020147  5074          JMP     DISPRETURN      /FINISH IT THERE
+ 476                      PAGE
+ 477               
+ 478                       OUTBUFF=.               /DISPLAY BUFFER HERE
+ 479               
+ 480 020161  2725          FIELD   0               /BACK TO FIELD ZERO
+     020162  1150  
+     020163  1612  
+     020164  0111  
+     020165  1156  
+     020166  7524  
+     020167  0066  
+     020170  1152  
+     020171  0044  
+     020172  0046  
+     020173  0045  
+     020174  2422  
+     020175  0177  
+     020176  0013  
+     020177  1153  
+ 481               /      ONCE-ONLY CODE STARTS HERE.
+ 482               
+ 483                       *BONCE                          /OVER DEFAULT ONCE-ONLY AREA
+ 484               
+ 485 003600  1777  BONCE,  TAD I   (SWY9)                  /GET /Y-/9 SWITCHES
+ 486 003601  0123          AND     C200/[200]              /JUST /2 BIT
+ 487 003602  7650          SNA CLA                         /SKIP IF SET
+ 488 003603  5215          JMP     LTEST                   /JUMP IF NOT
+ 489 003604  6221          CDF     DFIELD                  /GOTO OUR CODE FIELD
+ 490 003605  1776          TAD I   (ZAP8K1)                /GET CDF DFIELD
+ 491 003606  1375          TAD     (10)                    /MAKE IT CDF DFIELD+10
+ 492 003607  3776          DCA I   (ZAP8K1)                /STORE BACK
+ 493 003610  2774          ISZ I   (ZAP8K2)                /MAKE IT TAD I XR2
+ 494 003611  1776          TAD I   (ZAP8K1)                /GET CDF DFIELD+10
+ 495 003612  3773          DCA I   (ZAP8K3)                /STORE OVER CDF DFIELD
+ 496 003613  2772          ISZ I   (ZAP8K4)                /MAKE IT DCA I XR4
+ 497 003614  6201          CDF     00                      /BACK TO OUR FIELD
+ 498 003615  1771  LTEST,  TAD I   (COMGO+10)              /GET CURRENT "L" COMMAND ADDRESS
+ 499 003616  1370          TAD     (-XINT)                 /ADD ON UPPER LIMIT
+ 500 003617  7100          CLL                             /CLEAR LINK FOR TEST
+ 501 003620  1367          TAD     (XINT-XDYS)             /ADD ON RANGE
+ 502 003621  7620          SNL CLA                         /SKIP IF IN DANGER RANGE
+ 503 003622  5225          JMP     DSPFIX                  /JUMP IF NOT
+ 504 003623  1104          TAD     P7600/[SBOOT]           /REVERT THE "L" COMMAND
+ 505 003624  3771          DCA I   (COMGO+10)              /TO ONLY SAFE VALUE
+ 506 003625  1766  DSPFIX, TAD I   (COUTPUT+5)             /GET POSSIBLE LOCATION
+ 507 003626  1365          TAD     (-TESTVALUE)            /COMPARE TO TEST VALUE
+ 508 003627  7650          SNA CLA                         /SKIP IF NOT "OPATCH" OR "VT8PCH" VALUE
+ 509 003630  5240          JMP     OPRESENT                /JUMP IF ABOVE-MENTIONED OVERLAY PRESENT
+ 510 003631  1764          TAD I   (COUTPUT+6)             /GET NORMAL LOCATION
+ 511 003632  1365          TAD     (-TESTVALUE)            /COMPARE TO TEST VALUE
+ 512 003633  7640          SZA CLA                         /SKIP IF IT MATCHES
+ 513 003634  5250          JMP     BADFOCAL                /JUMP IF UNKNOWN VERSION
+ 514 003635  1363          TAD     (JMS I  PDSPLA/[DSPLAY])/GET ZAPPING INSTRUCTION
+ 515 003636  3764          DCA I   (COUTPUT+6)             /STORE OVER OUTPUT ROUTINE
+ 516 003637  5246          JMP     LODFIX                  /CONTINUE THERE
+ 517               
+ 518               /       COMES HERE IF "OPATCH" OR "VT8PCH" HAVE CHANGED THE OUTPUT ROUTINE.
+ 519               
+ 520 003640  1363  OPRESEN,TAD     (JMS I  PDSPLA/[DSPLAY])/GET ZAPPING INSTRUCTION
+ 521 003641  3766          DCA I   (COUTPUT+5)             /STORE OVER MODIFIED OUTPUT ROUTINE
+ 522 003642  6221          CDF     DFIELD                  /GOTO CODE FIELD
+ 523 003643  7346          NL7775  /TAD    (-2-1)          /SETUP NEW
+ 524 003644  3762          DCA I   (DSPBACKUP)             /BACKUP FACTOR FOR MODIFIED CODE
+ 525 003645  6201          CDF     00                      /BACK TO FIELD ZERO
+ 526 003646  3761  LODFIX, DCA I   (BEOFZAP)               /REPAIR LOADER
+ 527 003647  5761          JMP I   (BEOFZAP)               /RESUME LOADING
+ 528               /      COMES HERE IF UNKNOWN COMBINATION OF FOCAL AND OVERLAYS IS PRESENT.
+ 529               
+ 530 003650  4760  BADFOCA,JMS I   (OUTINITIALIZE) /INITIALIZE OUTPUT ROUTINES
+ 531 003651  1257  BADTALK,TAD     BMESSAGE        /GET A MESSAGE CHARACTER
+ 532 003652  7450          SNA                     /END OF LIST?
+ 533 003653  5504          JMP I   P7600/[SBOOT]   /YES, GOODBYE
+ 534 003654  4757          JMS I   (P7CH)          /NO, SEND IT
+ 535 003655  2251          ISZ     BADTALK         /BUMP TO NEXT
+ 536 003656  5251          JMP     BADTALK         /KEEP GOING
+ 537               
+ 538               /       COMPLAIN MESSAGE.
+ 539               
+ 540 003657  0007  BMESSAG,"G&37                   /<BEL>
+ 541 003660  0015          "M&37                   /<CR>
+ 542 003661  0012          "J&37                   /<LF>
+ 543 003662  0106          "F&177
+ 544 003663  0117          "O&177
+ 545 003664  0103          "C&177
+ 546 003665  0101          "A&177
+ 547 003666  0114          "L&177
+ 548 003667  0057          "/&177
+ 549 003670  0117          "O&177
+ 550 003671  0166          "V&177+40
+ 551 003672  0145          "E&177+40
+ 552 003673  0162          "R&177+40
+ 553 003674  0154          "L&177+40
+ 554 003675  0141          "A&177+40
+ 555 003676  0171          "Y&177+40
+ 556 003677  0040          " &177
+ 557 003700  0103          "C&177
+ 558 003701  0157          "O&177+40
+ 559 003702  0156          "N&177+40
+ 560 003703  0146          "F&177+40
+ 561 003704  0154          "L&177+40
+ 562 003705  0151          "I&177+40
+ 563 003706  0143          "C&177+40
+ 564 003707  0164          "T&177+40
+ 565 003710  0041          "!&177
+ 566 003711  0000          0                       /THIS ENDS THE LIST
+ 567 003757  4000         PAGE
+     003760  4050  
+     003761  7505  
+     003762  0001  
+     003763  4575  
+     003764  2636  
+     003765  2545  
+     003766  2635  
+     003767  0016  
+     003770  6620  
+     003771  1173  
+     003772  0133  
+     003773  0131  
+     003774  0045  
+     003775  0010  
+     003776  0044  
+     003777  7606  
+ 568               
+ 569                       TESTVAL=COUTPUT+3&177+JMPC      /JMP COUTPUT+3 ON ITS PAGE
+ 570               /      OUTPUT ROUTINE FOR COMPLAINT MESSAGES.
+ 571               
+ 572 004000  0000  P7CH,   .-.                     /SEVEN-BIT PRINT ROUTINE
+ 573 004001  3307          DCA     P7TEMP          /STASH PASSED VALUE
+ 574 004002  4211  P7AGN,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 575 004003  1307          TAD     P7TEMP          /GET THE VALUE
+ 576 004004  6041  P7TSF,  TSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 577 004005  5202  P7JMP,  JMP     P7AGN           /**** CONSOLE **** JMS OUTCON
+ 578 004006  6046  P7TLS,  TLSIOT                  /**** CONSOLE **** JMP P7AGN
+ 579 004007  4211          JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 580 004010  5600          JMP I   P7CH            /RETURN
+ 581               
+ 582 004011  0000  CHKUP,  .-.                     /CHECK FOR <^C>, ETC. ROUTINE
+ 583 004012  4230          JMS     CTLCTST         /CHECK FOR <^C>
+ 584 004013  7440          SZA                     /SKIP IF NOTHING CAME IN
+ 585 004014  1377          TAD     (-"Q!300)       /ELSE COMPARE TO <^Q>
+ 586 004015  7450          SNA                     /SKIP IF NEITHER CASE
+ 587 004016  5226          JMP     CHKCLR          /ELSE FORGET IT
+ 588 004017  1376          TAD     (-"S+"Q)        /COMPARE TO <^S>
+ 589 004020  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 590 004021  5611          JMP I   CHKUP           /ELSE RETURN
+ 591 004022  4230          JMS     CTLCTST         /GET ANOTHER CHARACTER
+ 592 004023  1377          TAD     (-"Q!300)       /COMPARE TO <^Q>
+ 593 004024  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 594 004025  5222          JMP     .-3             /ELSE KEEP GOING
+ 595 004026  3306  CHKCLR, DCA     INCHAR          /OBLITERATE <^Q>, ETC.
+ 596 004027  5611          JMP I   CHKUP           /RETURN
+ 597               
+ 598 004030  0000  CTLCTST,.-.                     /CHECK FOR <^C> ROUTINE
+ 599 004031  7200          CLA                     /CLEAN UP
+ 600 004032  6031  CHKKSF, KSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 601 004033  5630  CHKJMP, JMP I   CTLCTST         /**** CONSOLE **** JMS INCON
+ 602 004034  6034  CHKKRS, KRSIOT/OR KRBIOT        /**** CONSOLE **** JMP I CTLCTST
+ 603 004035  0106          AND     P177/[177]      /JUST SEVEN BITS
+ 604 004036  3306          DCA     INCHAR          /STASH THE CHARACTER
+ 605 004037  7346          NL7775                  /-3
+ 606 004040  1306          TAD     INCHAR          /COMPARE INPUT TO <^C>
+ 607 004041  7450          SNA                     /SKIP IF OTHER
+ 608 004042  2775          ISZ I   (SCRSIZE)       /ELSE SET SOFT INDICATOR
+ 609 004043  7750          SPA SNA CLA             /SKIP IF <^D> OR GREATER
+ 610 004044  5504          JMP I   P7600/[SBOOT]   /ELSE GOODBYE
+ 611 004045  6032  CHKKCC, KCCIOT/OR 0000          /**** CONSOLE **** 0000
+ 612 004046  1306          TAD     INCHAR          /GET THE CHARACTER
+ 613 004047  5630          JMP I   CTLCTST         /RETURN
+ 614 004050  0000  OUTINIT,.-.                    /OUTPUT INITIALIZE ROUTINE
+ 615 004051  1504          TAD I   P7600/[SBOOT]   /GET BOOTSTRAP INSTRUCTION
+ 616 004052  1374          TAD     (-JMSSYSIO)     /COMPARE TO POSSIBLE VALUE
+ 617 004053  7650          SNA CLA                 /SKIP IF DIFFERENT
+ 618 004054  5260          JMP     CHKCOVERLAY     /JUMP IF IT MATCHES
+ 619 004055  2234          ISZ     CHKKRS          /TURN "KRSIOT"
+ 620 004056  2234          ISZ     CHKKRS          /INTO "KRBIOT"
+ 621 004057  3245          DCA     CHKKCC          /DESTROY "KCCIOT"
+ 622 004060  7326  CHKCOVR,NL0002                  /SETUP "C" BIT MASK
+ 623 004061  0775          AND I   (SCRSIZE)       /GET THE "C" BIT
+ 624 004062  7650          SNA CLA                 /SKIP IF CONSOLE OVERLAY PRESENT
+ 625 004063  5650          JMP I   OUTINITIALIZE   /RETURN IF NOT
+ 626 004064  1775          TAD I   (SCRSIZE)       /GET THE CORE SIZE WORD
+ 627 004065  7012          RTR;RAR                 /MOVE OVER AND
+     004066  7010  
+ 628 004067  0373          AND     (70)            /ISOLATE MCS BITS
+ 629 004070  1372          TAD     (CIF    10)     /TURN INTO CIF MCS+10
+ 630 004071  3204          DCA     P7TSF           /STORE OVER "TSFIOT"
+ 631 004072  1205          TAD     P7JMP           /GET "JMP P7AGN"
+ 632 004073  3206          DCA     P7TLS           /STORE OVER "TLSIOT"
+ 633 004074  1371          TAD     (JMS    OUTCON) /GET OUTPUT CALL INSTRUCTION
+ 634 004075  3205          DCA     P7JMP           /STORE OVER "JMP P7AGN"
+ 635 004076  1204          TAD     P7TSF           /GET "CIF MCS+10" AGAIN
+ 636 004077  3232          DCA     CHKKSF          /STORE OVER "KSFIOT"
+ 637 004100  1233          TAD     CHKJMP          /GET "JMP I CTLCTST"
+ 638 004101  3234          DCA     CHKKRS          /STORE OVER "KRSIOT" (OR "KRBIOT")
+ 639 004102  1370          TAD     (JMS    INCON)  /GET INPUT CALL INSTRUCTION
+ 640 004103  3233          DCA     CHKJMP          /STORE OVER "JMP I CTLCTST"
+ 641 004104  3245          DCA     CHKKCC          /DESTROY "KCCIOT"
+ 642 004105  5650          JMP I   OUTINITIALIZE   /RETURN
+ 643               
+ 644 004106  0000  INCHAR, .-.                     /INPUT TEMPORARY
+ 645 004107  0000  P7TEMP, .-.                     /OUTPUT TEMPORARY
+ 646               
+ 647 004170  4031          PAGE
+     004171  4033  
+     004172  6212  
+     004173  0070  
+     004174  3540  
+     004175  7611  
+     004176  7776  
+     004177  7757  
+ 648               
+ 649                       *BEOFZAP                /OVER LOADER
+ 650               
+ 651 007505  7410          SKP                     /MAKE IT COME TO US
+ 652               
+ 653                       $                       /THAT'S ALL FOLK!
+
+AA01A   0000
+ALPHA   0000
+AX08    0000
+BADFOC  3650
+BADTAL  3651
+BEOFZA  7505
+BMESSA  3657
+BONCE   3600
+C200    0123
+CHAR    0066
+CHKCLR  4026
+CHKCOV  4060
+CHKJMP  4033
+CHKKCC  4045
+CHKKRS  4034
+CHKKSF  4032
+CHKUP   4011
+CINPUT  2600
+CINWAI  2601
+COMGO   1163
+COUTPU  2630
+CSW     0000
+CTLCTS  4030
+DAL1    6551 unreferenced
+DAL2    6552 unreferenced
+DFIELD  0020
+DILX    6053
+DILY    6054
+DINT    6554 unreferenced
+DIS     0140 unreferenced
+DISA    6304 unreferenced
+DISCNT  0014
+DISD    6052
+DISP1   0135
+DISPIN  0053
+DISPLA  0026
+DISPLP  0040
+DISPOK  0125
+DISPRE  0074
+DIXL    6053 unreferenced
+DIXY    6055
+DODISP  0076
+DSPBAC  0001
+DSPCNT  0015
+DSPFIX  3625
+DSPLAY  2422
+DSPMOR  0057
+DSPRET  0002
+DXC     6301 unreferenced
+DXL     6302 unreferenced
+DYC     6311 unreferenced
+DYL     6312 unreferenced
+DYS     6067 unreferenced
+EFUN3I  0136
+ERROR5  2725
+EVAL    1613
+EVALMO  0111
+EVALRE  1156
+FIXPUS  0004
+FLAC    0044
+FNTABF  0374
+FNTABL  2165
+H       0001
+INCHAR  4106
+INCON   0031
+INDEV   0064
+INTEGE  0053
+INTPUS  1153
+JMPC    5200
+JMSC    4200
+JMSSYS  4240
+KCCIOT  6032
+KRSIOT  6034
+KSFIOT  6031
+LINC    6141 unreferenced
+LODFIX  3646
+LTEST   3615
+NL0002  7326
+NL7775  7346
+OFF     0001
+ON      0000
+OPRESE  3640
+OUTBUF  0200
+OUTCON  0033
+OUTDEV  0063
+OUTINI  4050
+P177    0106
+P7600   0104
+P7AGN   4002
+P7CH    4000
+P7JMP   4005
+P7TEMP  4107
+P7TLS   4006
+P7TSF   4004
+PDLXR   0013
+PDP     0002 unreferenced
+PDSPLA  0175
+POPAC   0020
+PUSHA   4542
+PUSHMO  0007
+RETURN  5536
+S34D    0000
+SBOOT   7600 unreferenced
+SCRSIZ  7611
+STKTMP  0003
+SWAPBL  2417
+SWY9    7606
+SYSIO   7640
+TESTVA  5233
+TLSIOT  6046
+TSFIOT  6041
+TTY     0003
+VC12    0000
+VC8E    0001
+WIPEOU  0142
+X       0016
+XDIS    1146
+XDYS    1142
+XINT    1160
+XIO     1142
+XIOMOR  0065
+XOUT    1150
+XR1     0010
+XR2     0011
+XR3     0012
+XR4     0013
+XRET    1152
+Y       0017
+ZAP8K1  0044
+ZAP8K2  0045
+ZAP8K3  0131
+ZAP8K4  0133

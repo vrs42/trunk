@@ -1,0 +1,244 @@
+   1               /       REGULAR LINC-8 LINCTAPE HANDLER
+   2               
+   6                       XLIST   ON
+   7               /       P?S/8 NON-SYSTEM LINCTAPE HANDLER FOR THE REGULAR (UN-MODIFIED) LINC-8.
+   8               
+   9               /       LAST EDIT:      17-APR-1986     10:00:00        CJL
+  10               
+  11               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+  12               
+  13               /       FEATURES:
+  14               
+  15               /               1)      SUPPORT OF EIGHT UNITS (0-7).
+  16               
+  17               /               2)      STORAGE OF LATEST BLOCK SEARCHED.
+  18               
+  19               /               3)      CUSTOM OVERSHOOT FACTOR.
+  20               
+  21               /               4)      CORRECT INITIAL SEARCH DIRECTION BY COMPARING THE DESIRED
+  22               /                       BLOCK TO THE LATEST BLOCK SEARCHED, OFFSET BY THE CUSTOM
+  23               /                       OVERSHOOT FACTOR.
+  24               
+  25               /               5)      PARITY ERROR DETECTION.
+  26               
+  30                       XLIST   ON
+  31               /               6)      SUPPORTS 128 WORDS/BLOCK LINCTAPES.
+  38                       XLIST   ON
+  39               
+  40               /       RESTRICTIONS:
+  41               
+  42               /               1)      NO RETRIES ON ERROR.
+  43               
+  44               /               2)      LATEST BLOCK SEARCHED IS IGNORANT OF CHANGE OF LOGICAL UNIT.
+  45                      PAGE                    /START ON A GOOD BOUNDARY
+  46               
+  47                       HERE=   .               /WHERE WE ARE
+  48               
+  49               /       DEFINITIONS.
+  50               
+  53                       XLIST   ON
+  54                       BLKSIZE=0200            /128 WORDS/BLOCK
+  60                       XLIST   ON
+  61                       IAAC=   6171            /READ LINC "A" REGISTER
+  62                       IACA=   6167            /LOAD LINC "A" REGISTER
+  63                       IACF=   6175            /LOAD LINC INDICATOR FLIP-FLOPS
+  64                       ICON=   6141            /LOAD INTERFACE CONTROL
+  65                       INTS=   6147            /READ INTERFACE STATUS
+  66                       IZSA=   6173            /LOAD LINC "Z" REGISTER INTO LINC "A" REGISTER
+  67                       LTLENGT=4000            /LINCTAPE BLOCK COUNT
+  70                       XLIST   ON
+  71                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+  72                       NL7777= CLA CMA         /LOAD AC WITH 7777
+  73                       REVISIO="A&77           /REVISION OF HANDLER
+  74               
+  75               /       DEVICE HANDLER HEADER BLOCK.
+  76               
+  79                       XLIST   ON
+  80                       *"L&177;*"I&177;*"N&177 /GROUP NAME
+  81                       *-1                     /GROUP COUNT
+  82                       *"L&177;*"I&177;*"N&177 /DEVICE NAME
+  90                       XLIST   ON
+  91                       *L8TAPE&177             /ENTRY POINT
+  92                       *LTLENGTH-1             /LENGTH EXPRESSED AS HIGHEST BLOCK
+  93                       *REVISION               /REVISION OF HANDLER
+  94                      *HERE                           /RESET ORIGIN
+  95               
+  96 000200  0000  L8TAPE, .-.                             /ENTRY POINT
+  97 000201  7326          NL0002                          /SET INSTRUCTION FIELD BIT
+  98 000202  6214          RDF                             /GET CALLING FIELD
+  99 000203  1377          TAD     (CDF)                   /NOW HAVE CIF CDF RETURN FIELD INSTRUCTION
+ 100 000204  3344          DCA     L8OUT                   /STORE IN-LINE
+ 101 000205  1600          TAD I   L8TAPE                  /GET PARAMETER POINTER
+ 102 000206  3346          DCA     L8WAIT                  /STASH IT
+ 103 000207  1746          TAD I   L8WAIT                  /GET TRANSFER ADDRESS
+ 104 000210  3366          DCA     L8BUFF                  /SAVE IT
+ 105 000211  2346          ISZ     L8WAIT                  /BUMP TO NEXT
+ 106 000212  1746          TAD I   L8WAIT                  /GET FUNCTION WORD
+ 107 000213  7004          RAL                             /MOVE UP
+ 114                       XLIST   ON
+ 115 000214  0255          AND     L87600/(-BLKSIZE)       /JUST PAGE BITS
+ 117                       XLIST   ON
+ 118 000215  3374          DCA     L8PCNT                  /SAVE AS PAGE COUNT
+ 119 000216  7010          RAR                             /RECOVER READ/WRITE BIT
+ 120 000217  1247          TAD     L83/(3)                 /ADD ON BLOCK MODE BITS
+ 121 000220  3372          DCA     L8FUNCT                 /SAVE AS TAPE FUNCTION
+ 122 000221  1746          TAD I   L8WAIT                  /GET FUNCTION WORD AGAIN
+ 123 000222  0321          AND     L870/(70)               /JUST FIELD BITS
+ 124 000223  1377          TAD     (CDF)                   /TURN INTO TRANSFER CDF
+ 125 000224  3311          DCA     L8TRFLD                 /SAVE IN-LINE
+ 126 000225  1746          TAD I   L8WAIT                  /L   RW P  P  P  P  P  F  F  F  U  U  U
+ 127 000226  7010          RAR                             /U   L  RW P  P  P  P  P  F  F  F  U  U
+ 128 000227  0247          AND     L83/(3)                 /U   0  0  0  0  0  0  0  0  0  0  U  U
+ 129 000230  6175          IACF                            /LOAD UNIT FLIP-FLOPS ONLY!
+ 130 000231  7270          NL7777 CML RAR                  /1   UC 1  1  1  1  1  1  1  1  1  1  1
+ 131 000232  1247          TAD     L83/(3)                 /L   U  0  0  0  0  0  0  0  0  0  1  0
+ 132 000233  3375          DCA     L8UNIT                  /SAVE UNIT AND SEARCH BITS
+ 133 000234  2346          ISZ     L8WAIT                  /BUMP TO BLOCK ARGUMENT
+ 134 000235  1365          TAD     L8BLOCK                 /GET CURRENT BLOCK
+ 135 000236  7041          CIA                             /INVERT
+ 136 000237  1746          TAD I   L8WAIT                  /FORM DIFFERENCE WITH DESIRED
+ 137 000240  1373          TAD     L8OVSHT                 /ADD ON OVERSHOOT FACTOR
+ 138 000241  3371          DCA     L8DIR                   /SAVE AS INITIAL DIRECTION
+ 139 000242  1746          TAD I   L8WAIT                  /GET BLOCK ARGUMENT
+ 140 000243  3365          DCA     L8BLOCK                 /SET IT UP
+ 141 000244  2200          ISZ     L8TAPE                  /BUMP TO ERROR RETURN
+ 142 000245  6002  L84002, IOF                             /PREVENT PROBLEMS!
+ 143 000246  2365  L8NEXT, ISZ     L8BLOCK                 /BUMP UP FOR ONE'S COMPLEMENT
+ 144 000247  0003  L83,    3                               /BLOCK 7777 WOULD SKIP!
+ 151                       XLIST   ON
+ 152 000250  1255          TAD     L87600/(-BLKSIZE)       /SETUP
+ 154                       XLIST   ON
+ 155 000251  3370          DCA     L8COUNT                 /PAGE WORD COUNT
+ 156 000252  3367          DCA     L8CHKSM                 /CLEAR CHECKSUM
+ 157 000253  1371          TAD     L8DIR                   /GET INITIAL DIRECTION
+ 158 000254  7004          RAL                             /INTO LINK
+ 159 000255  7600  L87600, CLA!400                         /CLEAN UP
+ 160 000256  3371          DCA     L8DIR                   /ALL OTHERS FORWARD
+ 161 000257  1375          TAD     L8UNIT                  /D   U  0  0  0  0  0  0  0  0  0  1  0
+ 162 000260  6141          ICON                            /LOAD UNIT AND SEARCH
+ 163 000261  7030          CML RAR                         /0   DC U  0  0  0  0  0  0  0  0  0  1
+ 164 000262  6141  L8SER1,        ICON                            /LOAD NEW DIRECTION
+ 165 000263  4346  L8SER2, JMS     L8WAIT                  /WAIT FOR A BLOCK MARK
+ 166 000264  7500          SMA                             /NEGATIVE BLOCK NUMBERS?
+ 167 000265  7020          CML                             /YES, REVERSE OUR INTENT
+ 168 000266  1365          TAD     L8BLOCK                 /COMPARE TO DESIRED BLOCK
+ 169 000267  7450          SNA                             /SKIP IF NOT FOUND
+ 170 000270  5300          JMP     L8COULD                 /JUMP IF POSSIBLE
+ 171 000271  7430          SZL                             /RIGHT DIRECTION ANYWAY?
+ 172 000272  5263          JMP     L8SER2                  /YES, JUST KEEP GOING
+ 173 000273  7700          SMA CLA                         /REVERSE?
+ 174 000274  7130          STL RAR                         /NO, FORWARD
+ 175 000275  6141          ICON                            /STOP THE TAPE
+ 176 000276  7001          IAC                             /NOW SET TO CHANGE DIRECTION
+ 177 000277  5262          JMP     L8SER1                  /TURN AROUND THERE
+ 178                
+ 179 000300  7620  L8COULD,SNL CLA                         /GOING FORWARD?
+ 180 000301  5263          JMP     L8SER2                  /NO, UNDERSHOOT AND TRY AGAIN
+ 181 000302  1372          TAD     L8FUNCT                 /GET A 3
+ 182 000303  6141          ICON                            /GOTO BLOCK MODE
+ 183 000304  7510          SPA                             /WRITING?
+ 184 000305  1245          TAD     L84002/(4002)           /YES
+ 185 000306  6141          ICON                            /REDUNDANT OR TURN WRITERS ON
+ 186 000307  7630          SZL CLA                         /READING?
+ 187 000310  4346          JMS     L8WAIT                  /YES, WAIT FOR GUARD WORD
+ 188 000311  0000  L8TRFLD,.-.                             /WILL BE CDF TRANSFER FIELD
+ 189 000312  1766  L8TRLUP,TAD I   L8BUFF                  /GET A WORD
+ 190 000313  4346          JMS     L8WAIT                  /WAIT FOR IT
+ 191 000314  3766          DCA I   L8BUFF                  /PUT A WORD
+ 192 000315  1766          TAD I   L8BUFF                  /RETRIEVE WORD
+ 193 000316  1367          TAD     L8CHKSM                 /UPDATE CHECKSUM
+ 194 000317  3367          DCA     L8CHKSM                 /STORE IT BACK
+ 195 000320  2366          ISZ     L8BUFF                  /BUMP TO NEXT WORD
+ 196 000321  0070  L870,   70                              /JUST IN CASE
+ 197 000322  2370          ISZ     L8COUNT                 /DONE WITH THIS BLOCK?
+ 198 000323  5312          JMP     L8TRLUP                 /NO, KEEP GOING
+ 199 000324  1367          TAD     L8CHKSM                 /GET CHECKSUM IN CASE WRITING
+ 200 000325  7041          CIA                             /INVERT IT
+ 201 000326  4346          JMS     L8WAIT                  /WRITE IT OR READ IN NEW ONE
+ 202 000327  1367          TAD     L8CHKSM                 /WRITE ERROR IMPOSSIBLE
+ 203 000330  7640          SZA CLA                         /SKIP IF NO READ PARITY ERROR
+ 204 000331  5343          JMP     L8ERROR                 /BARF
+ 205 000332  4346          JMS     L8WAIT                  /WAIT FOR LAST TO BE WRITTEN
+ 206 000333  7320          STL CLA                         /CLEAN UP
+ 207 000334  1374          TAD     L8PCNT                  /GET PAGE COUNT
+ 214                       XLIST   ON
+ 215 000335  1255          TAD     L87600/(-BLKSIZE)       /DECREMENT IT
+ 217                       XLIST   ON
+ 218 000336  7450          SNA                             /DONE?
+ 219 000337  5342          JMP     L8DONE                  /YES, FINISH UP THERE
+ 220 000340  3374          DCA     L8PCNT                  /NO, SAVE FOR NEXT TIME
+ 221 000341  5246          JMP     L8NEXT                  /GO DO ANOTHER BLOCK
+ 222 000342  2200  L8DONE,        ISZ     L8TAPE          /BUMP TO GOOD RETURN
+ 223 000343  6141  L8ERROR,ICON                    /STOP THE TAPE
+ 224 000344  0000  L8OUT,  .-.                     /WILL BE CIF CDF RETURN FIELD
+ 225 000345  5600          JMP I   L8TAPE          /RETURN
+ 226                
+ 227 000346  0000  L8WAIT, .-.                     /WAIT ROUTINE
+ 228 000347  6167          IACA                    /LOAD A IN CASE WRITING
+ 229 000350  7200          CLA                     /CLEAN UP
+ 230 000351  1354          TAD     L87/(7)         /GET CLEAR BITS
+ 231 000352  6141          ICON                    /CLEAR TAPE FLAG
+ 232 000353  7200          CLA                     /CLEAN UP
+ 233 000354  6147  L87,    INTS                    /GET STATUS
+ 234 000355  7500          SMA                     /SKIP IF TAPE FLAG UP
+ 235 000356  5354          JMP     L87             /JUMP IF NOT
+ 236 000357  7130          STL RAR                 /SAVE DIRECTION, FORM FUNCTION MASK
+ 237 000360  0372          AND     L8FUNCT         /NOW HAVE READ/WRITE FUNCTION
+ 238 000361  7710          SPA CLA                 /READING?
+ 239 000362  6173          IZSA                    /NO, RESTORE A
+ 240 000363  6171          IAAC                    /GET A EITHER WAY
+ 241 000364  5746          JMP I   L8WAIT          /RETURN
+ 242               
+ 243 000365  0000  L8BLOCK,.-.                     /BLOCK TEMPORARY
+ 244 000366  0000  L8BUFF, .-.                     /BUFFER POINTER
+ 245 000367  0000  L8CHKSM,.-.                     /CHECKSUM TEMPORARY
+ 246 000370  0000  L8COUNT,.-.                     /PAGE WORD COUNT
+ 247 000371  0000  L8DIR,  .-.                     /CURRENT DIRECTION
+ 248 000372  0000  L8FUNCT,.-.                     /FUNCTION TEMPORARY
+ 249 000373  7771  L8OVSHT,7771                    /OVERSHOOT FACTOR
+ 250 000374  0000  L8PCNT, .-.                     /PAGE COUNT
+ 251 000375  0000  L8UNIT, .-.                     /UNIT AND SEARCH TEMPORARY
+ 252               
+ 253 000377  6201          PAGE
+ 254               
+ 255                       $                       /THAT'S ALL FOLK!
+
+BLKSIZ  0200
+HERE    0200
+IAAC    6171
+IACA    6167
+IACF    6175
+ICON    6141
+INTS    6147
+IZSA    6173
+L83     0247
+L84002  0245
+L87     0354
+L870    0321
+L87600  0255
+L8BLOC  0365
+L8BUFF  0366
+L8CHKS  0367
+L8COUL  0300
+L8COUN  0370
+L8DIR   0371
+L8DONE  0342
+L8ERRO  0343
+L8FUNC  0372
+L8NEXT  0246
+L8OUT   0344
+L8OVSH  0373
+L8PCNT  0374
+L8SER1  0262
+L8SER2  0263
+L8TAPE  0200
+L8TRFL  0311
+L8TRLU  0312
+L8UNIT  0375
+L8WAIT  0346
+LTLENG  4000
+NL0002  7326
+NL7777  7240
+OFF     0001
+ON      0000
+REVISI  0001

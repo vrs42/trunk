@@ -1,0 +1,246 @@
+   1               /       P?S/8 PATCH TO DTFRMT
+   2               
+   3               /       PATCH TO DEC'S DTFRMT TO MAKE IT WORK ON P?S/8 SYSTEMS.
+   4               
+   5               /       LAST EDIT:      17-DEC-1986     23:00:00        CJL
+   6               
+   7               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   8               
+   9               /       DEFINITIONS:
+  10               
+  11                       C1101=  1574            /CONSTANT 1101 LOCATION
+  12                       DTLB=   6774            /LOAD DECTAPE "B" REGISTER
+  13                       M617=   1573            /CONSTANT 7161 LOCATION
+  14                       NL0100= CLA IAC BSW     /LOAD AC WITH 0100
+  15                       NTYRTN= 0263            /NORMAL TTY: RETURN ADDRESS
+  16                       SPARM=  7756            /EQUALS PARAMETER OF MONITOR
+  17                       START0= 1000            /NORMAL STARTING ADDRESS
+  18                       SWAL=   7604            /SWITCHES /A-/L OF MONITOR
+  19                      *NTYRTN+3               /WAS KRB
+  20               
+  21 000266  6034          KRS                     /DON'T CLEAR THE FLAG
+  22               
+  23                       *NTYRTN+14              /OVER <^C> HANDLER
+  24               
+  25               /       SKIPS NEXT IF <^C> HIT.
+  26               
+  27 000277  5304          JMP     FLGCLR          /CLEAR FLAG THERE IF NOT <^C>
+  28 000300  7600  L7600,  7600                    /CLEAN UP; ALSO BOOTSTRAP POINTER
+  29 000301  5700          JMP I   L7600/(SBOOT)   /BOOTSTRAP
+  30               
+  31                       *NTYRTN+21              /GET PAST OBSOLETE CODE
+  32               
+  33 000304  6032  FLGCLR, KCC                     /CLEAR FLAG NOW ON NON-<^C>
+  34               
+  35                       *START0+4               /OVER ANNOUNCEMENT BLURB
+  36               
+  37 001004  0424          TEXT    "DT4MAT V4D";0  /NEW BLURB
+     001005  6415  
+     001006  0124  
+     001007  4026  
+     001010  6404  
+     001011  0000  
+  38                      *2500                   /OVER EMPTY SPACE
+  39               
+  40               /       INTERRUPT DISABLE TEST LIST.
+  41               
+  42 002500  7777  TESTLST,7777                    /DEVICE 00
+  43 002501  6011          RSF                     /DEVICE 01 - HIGH-SPEED READER
+  44 002502  6021          PSF                     /DEVICE 02 - HIGH-SPEED PUNCH
+  45 002503  7777          7777/KSFIOT             /DEVICE 03 - CONSOLE KEYBOARD
+  46 002504  7777          7777/TSFIOT             /DEVICE 04 - CONSOLE PRINTER
+  47 002505  7777          7777                    /DEVICE 05
+  48 002506  7777          7777                    /DEVICE 06
+  49 002507  7777          7777                    /DEVICE 07
+  50 002510  7777          7777                    /DEVICE 10
+  51 002511  6111          11^10+6001              /DEVICE 11 - DC02, PT08
+  52 002512  6121          12^10+6001              /DEVICE 12 - DC02, PT08
+  53 002513  7777          7777                    /DEVICE 13
+  54 002514  7777          7777                    /DEVICE 14
+  55 002515  7777          7777                    /DEVICE 15
+  56 002516  7777          7777                    /DEVICE 16
+  57 002517  7777          7777                    /DEVICE 17
+  58 002520  7777          7777                    /DEVICE 20 - EXTENDED MEMORY
+  59 002521  7777          7777                    /DEVICE 21 - EXTENDED MEMORY
+  60 002522  7777          7777                    /DEVICE 22 - EXTENDED MEMORY
+  61 002523  7777          7777                    /DEVICE 23 - EXTENDED MEMORY
+  62 002524  7777          7777                    /DEVICE 24 - EXTENDED MEMORY
+  63 002525  7777          7777                    /DEVICE 25 - EXTENDED MEMORY
+  64 002526  7777          7777                    /DEVICE 26 - EXTENDED MEMORY
+  65 002527  7777          7777                    /DEVICE 27 - EXTENDED MEMORY
+  66 002530  6301          30^10+6001              /DEVICE 30
+  67 002531  6311          31^10+6001              /DEVICE 31
+  68 002532  6321          32^10+6001              /DEVICE 32
+  69 002533  6331          33^10+6001              /DEVICE 33
+  70 002534  6341          34^10+6001              /DEVICE 34
+  71 002535  6351          35^10+6001              /DEVICE 35
+  72 002536  6361          36^10+6001              /DEVICE 36
+  73 002537  6371          37^10+6001              /DEVICE 37
+  74 002540  6401         40^10+6001              /DEVICE 40 - PT08, KL-8/E
+  75 002541  6411          41^10+6001              /DEVICE 41 - PT08, KL-8/E
+  76 002542  6421          42^10+6001              /DEVICE 42 - KL-8/E
+  77 002543  6431          43^10+6001              /DEVICE 43 - KL-8/E, VT-8/E
+  78 002544  6441          44^10+6001              /DEVICE 44 - KL-8/E
+  79 002545  6456          45^10+6006              /DEVICE 45 - VT-8/E, KL-8/E
+  80 002546  6466          46^10+6006              /DEVICE 46 - KL-8/E
+  81 002547  6476          47^10+6006              /DEVICE 47 - KL-8/E
+  82 002550  7777          7777                    /DEVICE 50
+  83 002551  7777          7777                    /DEVICE 51
+  84 002552  7777          7777                    /DEVICE 52
+  85 002553  7777          7777                    /DEVICE 53
+  86 002554  7777          7777                    /DEVICE 54
+  87 002555  7777          7777                    /DEVICE 55
+  88 002556  7777          7777                    /DEVICE 56
+  89 002557  7777          7777                    /DEVICE 57
+  90 002560  7777          7777                    /DEVICE 60
+  91 002561  7777          7777                    /DEVICE 61
+  92 002562  7777          7777                    /DEVICE 62
+  93 002563  7777          7777                    /DEVICE 63
+  94 002564  7777          7777                    /DEVICE 64
+  95 002565  6651          65^10+6001              /DEVICE 65 - LPT:
+  96 002566  6661          66^10+6001              /DEVICE 66 - LPT:
+  97 002567  7777          7777                    /DEVICE 67
+  98 002570  7777          7777                    /DEVICE 70
+  99 002571  7777          7777                    /DEVICE 71
+ 100 002572  7777          7777                    /DEVICE 72
+ 101 002573  7777          7777                    /DEVICE 73
+ 102 002574  7777          7777                    /DEVICE 74
+ 103 002575  7777          7777                    /DEVICE 75
+ 104 002576  7777          7777                    /DEVICE 76
+ 105 002577  7777          7777                    /DEVICE 77
+ 106               /      DT4MAT SYSTEM STARTS HERE.
+ 107               
+ 108                       IFNZRO  .&177   <ERROR  .>
+ 109               
+ 110                       DT4MAT= .               /DT4MAT SYSTEM STARTS HERE
+ 111               
+ 112 002600  0000  DT4MAT, 0000                    /HERE IN CASE CHAINED TO
+ 113                                               /ALSO ENDS THE INTERRUPT KILL LIST
+ 114 002601  1777          TAD I   (SWAL)          /GET SWITCHES /A-/L
+ 115 002602  7700  L7700,  SMA CLA                 /SKIP IF SET
+ 116 002603  5215          JMP     NOTA            /JUMP IF NOT
+ 117 002604  1376          TAD     (-220)          /SETUP PDP-8 SIZE BLOCK
+ 118 002605  3775          DCA I   (M617)          /AS DEFAULT VALUE
+ 119 002606  1774          TAD I   (SPARM)         /GET EQUALS PARAMETER
+ 120 002607  7040          CMA                     /INVERT IT
+ 121 002610  7450          SNA                     /SKIP IF ANYTHING GIVEN
+ 122 002611  1373          TAD     (-3300-1)       /ELSE USE DEFAULT LARGE VALUE
+ 123 002612  7040          CMA                     /INVERT BACK TO ORIGINAL FORM
+ 124 002613  1372          TAD     (-1)            /BACKUP
+ 125 002614  3771  USEDEF, DCA I   (C1101)         /STORE AS DEFAULT VALUE
+ 126 002615  6774  NOTA,   DTLB                    /CLEAR "B" REGISTER
+ 127 002616  7203          NL0100                  /TEST FOR PDP-8/E
+ 128 002617  1202          TAD     L7700/(-100)    /COMPARE TO EXPECTED VALUE
+ 129 002620  7650          SNA CLA                 /SKIP IF OTHER
+ 130 002621  6007          CAF                     /ELSE CLEAR THE BUS
+ 131               /      COMES HERE TO ATTEMPT TO CLEAR OR DISABLE ALL ACTIVE (NON-REFERENCED)
+ 132               /       INTERRUPTS BY EXECUTIVE SEVERAL IOT'S TO THE DEVICE. THE LIST MAY BE
+ 133               /       PATCHED FOR INSTALLATION ANOMALIES.
+ 134               
+ 135 002622  1370  INTKILL,TAD     (TESTLST)       /POINT TO
+ 136 002623  3320          DCA     LSTPTR          /MASTER LIST
+ 137 002624  1720  INTKLUP,TAD I   LSTPTR          /GET AN ENTRY
+ 138 002625  7450          SNA                     /END OF LIST?
+ 139 002626  5265          JMP     INTDONE         /YES
+ 140 002627  7040          CMA                     /CHECK FOR 7777 ENTRY
+ 141 002630  7450          SNA                     /SKIP IF NOT 7777
+ 142 002631  5263          JMP     NOKILL          /JUMP IF 7777
+ 143 002632  7040          CMA                     /INVERT BACK
+ 144 002633  0367          AND     (7770)          /REMOVE IOP BITS
+ 145 002634  3307          DCA     IOTINLINE       /STORE IN TEST INSTRUCTION
+ 146 002635  4306          JMS     IOTEXC          /EXECUTE IOT0
+ 147 002636  2307          ISZ     IOTINLINE       /BUMP UP AND
+ 148 002637  4306          JMS     IOTEXC          /EXECUTE IOT1
+ 149 002640  2307          ISZ     IOTINLINE       /BUMP UP AND
+ 150 002641  4306          JMS     IOTEXC          /EXECUTE IOT2
+ 151 002642  2307          ISZ     IOTINLINE       /BUMP
+ 152 002643  2307          ISZ     IOTINLINE       /UP
+ 153 002644  2307          ISZ     IOTINLINE       /AND
+ 154 002645  4306          JMS     IOTEXC          /EXECUTE IOT5
+ 155 002646  2307          ISZ     IOTINLINE       /BUMP
+ 156 002647  2307          ISZ     IOTINLINE       /UP AND
+ 157 002650  4306          JMS     IOTEXC          /EXECUTE IOT7
+ 158 002651  1307          TAD     IOTINLINE       /GET IOT7
+ 159 002652  1366          TAD     (2-7)           /MAKE IT IOT2
+ 160 002653  3307          DCA     IOTINLINE       /STORE IN-LINE
+ 161 002654  1365          TAD     (-7)            /GET TIME-OUT COUNTER
+ 162 002655  3306          DCA     IOTEXC          /STASH IT
+ 163 002656  2200          ISZ     DT4MAT          /WASTE
+ 164 002657  5256          JMP     .-1             /SOME TIME
+ 165 002660  2306          ISZ     IOTEXC          /WAITED ENOUGH?
+ 166 002661  5256          JMP     .-3             /NO, KEEP GOING
+ 167 002662  4306          JMS     IOTEXC          /EXECUTE IOT2
+ 168 002663  2320  NOKILL, ISZ     LSTPTR          /BUMP TO NEXT ELEMENT
+ 169 002664  5224          JMP     INTKLUP         /KEEP GOING
+ 170               
+ 171               /       COMES HERE AFTER KILLING INTERRUPTS FROM THE LIST. ADDITIONAL PATCH SPACE
+ 172               /       CAN BE USED HERE FOR KILLING WEIRD DEVICES THAT WERE REMOVED FROM THE
+ 173               /       MASTER LIST.
+ 174               
+ 175 002665  0000  INTDONE,ZBLOCK  20              /FOR ADDITIONAL IOT PATCHING
+     002666  0000  
+     002667  0000  
+     002670  0000  
+     002671  0000  
+     002672  0000  
+     002673  0000  
+     002674  0000  
+     002675  0000  
+     002676  0000  
+     002677  0000  
+     002700  0000  
+     002701  0000  
+     002702  0000  
+     002703  0000  
+     002704  0000  
+ 176 002705  5764          JMP I   (START0)        /GO START IT UP
+ 177 002706  0000  IOTEXC,        .-.                     /TEST IOT EXECUTION ROUTINE
+ 178 002707  0000  IOTINLI,.-.                     /WILL BE PROBLEMATIC IOT
+ 179 002710  6202          CIF     00              /PREVENT PROBLEMS!
+ 180 002711  6202          CIF     00              /PREVENT PROBLEMS!
+ 181 002712  6202          CIF     00              /PREVENT PROBLEMS!
+ 182 002713  6202          CIF     00              /PREVENT PROBLEMS!
+ 183 002714  6002          IOF                     /PREVENT PROBLEMS!
+ 184 002715  6201          CDF     00              /PREVENT PROBLEMS!
+ 185 002716  7300          CLA CLL                 /CLEAN UP
+ 186 002717  5706          JMP I   IOTEXC          /RETURN
+ 187               
+ 188 002720  0000  LSTPTR, .-.                     /INTERRUPT DISABLE LIST POINTER
+ 189               
+ 190 002764  1000          PAGE
+     002765  7771  
+     002766  7773  
+     002767  7770  
+     002770  2500  
+     002771  1574  
+     002772  7777  
+     002773  4477  
+     002774  7756  
+     002775  1573  
+     002776  7560  
+     002777  7604  
+ 191               
+ 192                       $                       /THAT'S ALL FOLK!
+
+C1101   1574
+DT4MAT  2600
+DTLB    6774
+FLGCLR  0304
+INTDON  2665
+INTKIL  2622 unreferenced
+INTKLU  2624
+IOTEXC  2706
+IOTINL  2707
+L7600   0300
+L7700   2602
+LSTPTR  2720
+M617    1573
+NL0100  7203
+NOKILL  2663
+NOTA    2615
+NTYRTN  0263
+SPARM   7756
+START0  1000
+SWAL    7604
+TESTLS  2500
+USEDEF  2614 unreferenced

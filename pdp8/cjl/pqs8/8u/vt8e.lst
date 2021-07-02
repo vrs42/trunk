@@ -1,0 +1,3796 @@
+   1               /       VT-8/E CONSOLE OVERLAY FILE
+   2               
+   3               /       LAST EDIT:      17-DEC-1986     23:00:00        CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       THIS IS THE CONSOLE OVERLAY FILE FOR VT-8/E TYPE CONSOLE SUPPORT WITH
+   8               /       STANDARD BUFFERED LPT: AND I/O ERROR HANDLING CAPABILITIES.
+   9               
+  10               /       ASSEMBLY PARAMETERS.
+  11               
+  12               /       SETTING OVTYPE=40 GENERATES A STANDARD OVERLAY (DEVICE 43, 45 CONSOLE AND
+  13               /       DEVICE 65, 66 LPT:).
+  14               
+  15               /       SETTING OVTYPE=41 GENERATES A NON-STANDARD OVERLAY (DEVICE 43, 45 CONSOLE
+  16               /       AND DEVICE 40, 41 LPT:).
+  17               
+  18               /       ADDITIONAL TYPES CAN BE DEFINED FOR OTHER DEVICE CODES.
+  19               
+  20               /       SETTING LPBUFF=1 GENERATES AN OVERLAY WITH LPT: BUFFERING ENABLED.
+  21               
+  22               /       SETTING LPBUFF=0 GENERATES AN OVERLAY WITH LPT: BUFFERING DISABLED.
+  23               
+  24               /       SETTING VT8LPT=1 GENERATES INTERRUPT ENABLE FOR DEVICE 66. THIS IS TO BE
+  25               /       SET WHEN THE LPT: IS NOT DEVICE 66, BUT DEVICE 66 SHARES INTERRUPT CONTROL
+  26               /       WITH THE VT-8/E KEYBOARD (DEVICE 43).
+  27               
+  28               /       SETTING VT8LPT=0 DISREGARDS DEVICE 66 INTERRUPTS AND IS THE DEFAULT SETTING
+  29               /       WHEN THE LPT: IS DEVICE 66 (THERE IS NO "EXTRA" DEVICE 66).
+  30               
+  31               /       SETTING ONEWAY=1 ASSUMES A HARDWARE HANDSHAKING (CENTRONICS, ETC.) TYPE
+  32               /       INTERFACE TO THE LPT: WHICH HAS NO INPUT HANDLING.
+  33               
+  34               /       SETTING ONEWAY=0 ASSUMES A SOFTWARE HANDSHAKING (<^S>/<^Q>) TYPE INTERFACE
+  35               /       WITH SUITABLE INPUT HANDLING.
+  36               
+  37               /       SET PARAMETERS HERE.
+  38               
+  39               /       KEY=    43              /KEYBOARD CODE
+  40               /       LIN=    65              /LPT: INPUT CODE
+  41               /       LPBUFF= 1               /ENABLE LPT: BUFFERING
+  42               /       LPT=    66              /LPT: OUTPUT CODE
+  43               /       NMCH1=  "V^100+"T-300   /FIRST NAME PAIR
+  44               /       NMCH2=  "8^100+"E-300   /SECOND NAME PAIR
+  45               /       NMCH3=  0000            /THIRD NAME PAIR
+  46               /       ONEWAY= 1               /LPT: OUTPUT ONLY
+  47               /       OUT=    45              /VT-8/E VIDEO CODE
+  48               /       OVTYPE= 40              /GENERATE STANDARD OVERLAY
+  49               /       VT8LPT= 0               /DON'T ENABLE SEPARATE INTERRUPT HANDLER FOR
+  50                                               /DORMANT DEVICE 66 (DEVICE 66 IS THE LPT:)
+  51               /      CONDITIONAL ASSEMBLY PARAMETERS.
+  52               
+  53                       IFNDEF  OVTYPE  <OVTYPE=40>             /DEFAULT TO STANDARD OVERLAY TYPE
+  54               
+  55                       IFZERO  OVTYPE-40       <
+  56               
+  57                       IFNDEF  KEY     <KEY=   43>             /DEFAULT KEYBOARD CODE
+  58                       IFNDEF  LIN     <LIN=   65>             /DEFAULT LPT: INPUT CODE
+  59                       IFNDEF  LPT     <LPT=   66>             /DEFAULT LPT: OUTPUT CODE
+  60                       IFNDEF  NMCH1   <NMCH1= "V^100+"T-300>  /DEFAULT FIRST NAME PAIR
+  61                       IFNDEF  NMCH2   <NMCH2= "8^100+"E-300>  /DEFAULT SECOND NAME PAIR
+  62                       IFNDEF  NMCH3   <NMCH3= 0000>           /DEFAULT THIRD NAME PAIR
+  63                       IFNDEF  ONEWAY  <ONEWAY=1>              /DEFAULT IS ONE-WAY LPT: HANDLING
+  64                       IFNDEF  OUT     <OUT=   45>             /DEFAULT VT-8/E VIDEO CODE
+  65                       IFNDEF  VT8LPT  <VT8LPT=0>              /DEFAULT IS NO SHARED INTERRUPTS
+  66               
+  67                                               >
+  68               
+  69                       IFZERO  OVTYPE-41       <
+  70               
+  71                       IFNDEF  KEY     <KEY=   43>             /KEYBOARD CODE
+  72                       IFNDEF  LIN     <LIN=   40>             /LPT: INPUT CODE
+  73                       IFNDEF  LPT     <LPT=   41>             /LPT: OUTPUT CODE
+  74                       IFNDEF  NMCH1   <NMCH1= "V^100+"T-300>  /DEFAULT FIRST NAME PAIR
+  75                       IFNDEF  NMCH2   <NMCH2= "8^100+"E-300>  /DEFAULT SECOND NAME PAIR
+  76                       IFNDEF  NMCH3   <NMCH3= "S^100+"P-300>  /DEFAULT THIRD NAME PAIR
+  77                       IFNDEF  ONEWAY  <ONEWAY=0>              /DEFAULT IS TWO-WAY LPT: HANDLING
+  78                       IFNDEF  OUT     <OUT=   45>             /VT-8/E VIDEO CODE
+  79                       IFNDEF  VT8LPT  <VT8LPT=1>              /GENERATE SHARED INTERRUPTS
+  80               
+  81                                               >
+  82               
+  83                       IFNDEF  KEY     <KEY=   43>             /DEFAULT KEYBOARD CODE
+  84                       IFNDEF  LIN     <LIN=   65>             /DEFAULT LPT: INPUT CODE
+  85                       IFNDEF  LPBUFF  <LPBUFF=1>              /DEFAULTS TO LPT: BUFFERING
+  86                       IFNDEF  LPT     <LPT=   66>             /DEFAULT LPT: OUTPUT CODE
+  87                       IFNDEF  NMCH1   <NMCH1="V^100+"T-300>   /DEFAULT FIRST NAME PAIR
+  88                       IFNDEF  NMCH2   <NMCH2="8^100+"E-300>   /DEFAULT SECOND NAME PAIR
+  89                       IFNDEF  NMCH3   <NMCH3=0000>            /DEFAULT THIRD NAME PAIR
+  90                       IFNDEF  ONEWAY  <ONEWAY=0>              /DEFAULT IS TWO-WAY LPT: HANDLING
+  91                       IFNDEF  OUT     <OUT=   45>             /DEFAULT VT-8/E VIDEO CODE
+  92               
+  93                       IFZERO  LPT-66  <
+  94               
+  95                       IFNDEF  VT8LPT  <VT8LPT=0>              /NO SHARED INTERRUPT HANDLING
+  96               
+  97                                       >
+  98               
+  99                       IFNDEF  VT8LPT  <VT8LPT=1>              /HANDLE SHARED INTERRUPTS
+ 100               
+ 101               //      P?S/8 DEFINITIONS.
+ 102               
+ 103                       ADRLST= 7603            /ZAP ADDRESS LIST
+ 104                       CALADR= 0020            /CALLING ADDRESS
+ 105                       CALFLD= 0021            /CALLING FIELD
+ 106                       CCHECK= 2343            /<^C> CHECK ROUTINE
+ 107                       CHKCNT= 0043            /CHECKSUM COUNT
+ 108                       CHKPTR= 0044            /CHECKSUM POINTER
+ 109                       CNTLST= 7615            /ZAP CONTENTS LIST
+ 110                       CONINT= 0000            /CONSOLE INTERRUPT LOCATION
+ 111                       CONOFF= 0100            /CONSOLE OFF
+ 112                       DEVWRD= 0104            /DEVICE WORD
+ 113                       DSPBLB= 0024            /BLURB DISPLAY
+ 114                       ERRTRP= 0046            /ERROR TRAP
+ 115                       ESTATUS=0077            /ERROR STATUS
+ 116                       FILBLB= 0023            /BLURB FILL
+ 117                       FUDWRD= 0105            /FUDGE WORD
+ 118                       INCON=  0031            /CONSOLE INPUT
+ 119                       INFLAG= 0025            /CONSOLE INPUT EVENT FLAG
+ 120                       INTFLGS=0002            /INTERRUPT FLAGS
+ 121                       INTLST= 0003            /INTERRUPT LIST POINTER
+ 122                       IOTRAP= 0045            /I/O TRAP
+ 123                       IOWAIT= 0047            /I/O WAIT
+ 124                       LCMODE= 0006            /LPT: CASE
+ 125                       LINFLAG=0030            /LPT: INPUT EVENT FLAG
+ 126                       LPMODE= 0004            /LPT: BUFFERING MODE
+ 127                       LPTFLAG=0027            /LPT: OUTPUT EVENT FLAG
+ 128                       MOVBLB= 0022            /MOVE BLURB POINTER
+ 129                       OUTCON= 0033            /CONSOLE OUTPUT
+ 130                       OUTFLAG=0026            /CONSOLE OUTPUT EVENT FLAG
+ 131                       OUTLPT= 0035            /LOGICAL LPT:
+ 132                       OVID=   0106            /OVERLAY ID AREA
+ 133                       OVRCOMM=2511            /MONITOR ONCE-ONLY REJOIN ADDRESS
+ 134                       OVRWRD= 0111            /OVERLAY TYPE WORD
+ 135                       P7JMP=  2337            /OUTPUT JUMP INSTRUCTION
+ 136                       P7OUT=  2335            /OUTPUT WAITING ADDRESS
+ 137                       P7TLS=  2340            /OUTPUT INSTRUCTION HERE
+ 138                       P7TSF=  2336            /OUTPUT SKIP INSTRUCTION HERE
+ 139                       SBOOT=  7600            /MONITOR RESTARTS HERE
+ 140                       SBTFUN= 7602            /BOOTSTRAP FUNCTION WORD
+ 141                       SCRSIZE=7611            /SYSTEM CORE SIZE WORD
+ 142                       SYSIO=  7640            /SYSTEM I/O ADDRESS
+ 143                       TRAPIO= 1041            /I/O TRAP
+ 144                       TRPBLK= 0113            /TRAP BLOCKS ARE HERE
+ 145                       TRPERR= 1200            /ERROR TRAP
+ 146                       TTY=    0003            /TTY: BASE DEVICE CODE
+ 147                       TTYTST= 2506            /TTY: TIME-OUT ROUTINE IN KEYBOARD MONITOR
+ 148                       VTMODE= 0005            /VT-8/E MODE WORD
+ 149                       WAITIO= 1110            /I/O WAIT TRAP
+ 150                       XIOMON= 0102            /MONITOR STARTUP ADDRESS WITHIN OVERLAY
+ 151                       ZAPLST= 7627            /I/O ZAP CONTENTS LIST
+ 152               
+ 153               //      END OF P?S/8 DEFINITIONS.
+ 154               /      OTHER DEFINITIONS.
+ 155               
+ 156                       BLINK=  200-200                 /BLINK MODE BITS
+ 157                       BOLD=   400-200                 /BOLD MODE BITS
+ 158                       BUFSIZE=0400                    /SIZE OF LPT: BUFFER
+ 159                       CIF10=  CIF     10              /CIF CONSTANT
+ 160                       CURSOR= 600-200                 /CURSOR MODE BITS
+ 161                       EOS=    3000                    /END OF SCREEN CODE
+ 162                       JMPIC=  JMP I   .               /CURRENT PAGE JMP INDIRECT INSTRUCTION
+ 163                       JMSC=   JMS     .               /CURRENT PAGE JMS INSTRUCTION
+ 164                       NL0001= CLA IAC                 /LOAD AC WITH 0001
+ 165                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+ 166                       NL0004= CLA CLL IAC RTL         /LOAC AC WITH 0004
+ 167                       NL0006= CLA STL IAC RTL         /LOAD AC WITH 0006
+ 168                       NL0100= CLA IAC BSW             /LOAD AC WITH 0100
+ 169                       NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000
+ 170                       NL3777= CLA CLL CMA RAR         /LOAD AC WITH 3777
+ 171                       NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+ 172                       NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+ 173                       NL7776= CLA CLL CMA RAL         /LOAD AC WITH 7776
+ 174                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+ 175                       NORMAL= 000-200                 /NORMAL MODE BITS
+ 176                       SYSINST=SYSIO&177+JMSC          /I/O CALL INSTRUCTION DEFINITION
+ 177                       VTOFFSE=0200                    /BUFFER OFFSET
+ 178               /      IOT DEFINITIONS.
+ 179               
+ 180                       DKIEIOT=KEY^10+6005             /KEYBOARD INTERRUPT ENABLE PER AC[11]
+ 181                       DKRBIOT=KEY^10+6006             /READ KEYBOARD BUFFER, CLEAR KEYBOARD FLAG
+ 182                       DKSFIOT=KEY^10+6001             /SKIP ON KEYBOARD FLAG
+ 183                       DPBLIOT=OUT^10+6007             /GENERATE BELL TONE
+ 184                       DPCLIOT=OUT^10+6006             /SKIP ON, CLEAR VIDEO RETRACE FLAG
+ 185                       DPGOIOT=OUT^10+6001             /LOAD INTERRUPT ENABLE, VIDEO MODE, GO
+ 186                       DPLAIOT=OUT^10+6000             /LOAD VIDEO DISPLAY ADDRESS
+ 187                       DPMSIOT=OUT^10+6005             /READ SENSE REGISTER
+ 188                       DPSMIOT=OUT^10+6002             /STOP DISPLAY
+ 189                       LCFIOT= LPT^10+6002             /CLEAR LPT: FLAG
+ 190                       LIEIOT= LIN^10+6005             /LPT: INPUT INTERRUPT ENABLE PER AC[11]
+ 191                       LIRBIOT=LIN^10+6006             /READ LPT: INPUT, CLEAR FLAG
+ 192                       LISFIOT=LIN^10+6001             /SKIP ON (CLEAR IF 6120) LPT: INPUT FLAG
+ 193                       LLEIOT= LPT^10+6005             /LPT: INTERRUPT ENABLE PER AC[11]
+ 194                       LLSIOT= LPT^10+6006             /OUTPUT LPT: CHARACTER, CLEAR FLAG
+ 195                       LSFIOT= LPT^10+6001             /SKIP ON (CLEAR IF 6120) LPT: FLAG
+ 196                       MONKCC= TTY^10+6002             /CLEAR KEYBOARD FLAG IN KEYBOARD MONITOR
+ 197                       MONKRB= TTY^10+6006             /READ KEYBOARD BUFFER, CLEAR IN MONITOR
+ 198                       MONKRS= TTY^10+6004             /READ KEYBOARD BUFFER IN KEYBOARD MONITOR
+ 199                       MONKSF= TTY^10+6001             /SKIP ON KEYBOARD FLAG IN KEYBOARD MONITOR
+ 200                       MONTLS= TTY+1^10+6006           /KEYBOARD MONITOR OUTPUT CHARACTER, CLEAR FLAG
+ 201                       MONTSF= TTY+1^10+6001           /SKIP ON OUTPUT FLAG IN KEYBOARD MONITOR
+ 202               
+ 203                       IFNZRO  VT8LPT  <
+ 204               
+ 205                       IFNDEF  PRT     <PRT=   66>     /DORMANT PRINTER CODE
+ 206               
+ 207                       PRCFIOT=PRT^10+6002             /CLEAR DORMANT PRINTER FLAG
+ 208                       PRIEIOT=PRT^10+6005             /INTERRUPT ENABLE PER AC[11] IN CASE
+ 209                                                       /DORMANT PRINTER ISN'T REALLY SHARED!
+ 210                       PRSFIOT=PRT^10+6001             /SKIP ON DORMANT PRINTER FLAG
+ 211               
+ 212                                       >
+ 213               
+ 214               /       FILE HEADER FOR CONSOLE UTILITY VALIDATION.
+ 215               
+ 216                       *NMCH1                          /FIRST TWO DEVICE NAME CHARACTERS
+ 217               
+ 218                       *NMCH2                          /SECOND TWO DEVICE NAME CHARACTERS
+ 219               
+ 220                       *NMCH3                          /THIRD TWO DEVICE NAME CHARACTERS
+ 221               /      THE CONSOLE OVERLAY IMAGE STARTS HERE. IT EXTENDS FROM 0000-5777 ON
+ 222               /       THE SYSTEM DEVICE, BUT IS VIRTUALLY LOADED IN THREE PARTS: 0000-1777,
+ 223               /       2000-3777, 4000-5777. THE PORTION FROM 0000-1777 WILL BE INITIALLY
+ 224               /       BROUGHT IN WITH THE CONSOLE UTILITY ITSELF FOR USE WITH /U LOADING OF
+ 225               /       BINARY FILES. WHEN CALCULATING THE CHECKSUM, THE PORTION FROM 0000-2577
+ 226               /       WILL BE LOADED.
+ 227               
+ 228                       *0                      /START AT THE BEGINNING
+ 229               
+ 230               /       THE CONSOLE INTERRUPT ROUTINE IS ENTERED HERE. EVENT FLAGS WILL BE SET
+ 231               /       FOR THE BENEFIT OF THE NORMAL NON-INTERRUPT CONSOLE ROUTINES. THE SOLE
+ 232               /       PURPOSE IS TO CLEAR THE INTERRUPT FOR THE BENEFIT OF THE USER. IT IS STILL
+ 233               /       NECESSARY TO CALL THE I/O ROUTINES IN THE NORMAL MANNER TO DO THE ACTUAL
+ 234               /       I/O. THOUGH IT NORMALLY CAUSES THE RESPECTIVE FLAGS TO CLEAR, THE
+ 235               /       CONSOLE INTERRUPT HANDLER COULD CONCEIVABLY MISS AN INTERRUPT FLAG
+ 236               /       BELONGING TO THE OVERLAY. THEREFORE THE USER PROGRAM SHOULD ATTEMPT TO
+ 237               /       NOT DUPLICATE INTERRUPT HANDLING FOR THE DEVICES SUPPORTED BY THE OVERLAY,
+ 238               /       AS THIS COULD LEAD TO ANOMALOUS RESULTS. IT IS SUGGESTED THAT THE USER'S
+ 239               /       PROGRAM BE TAILORED TO THE SYSTEM AT HAND AND SHOULD "TIME-OUT" ANY
+ 240               /       STRAY INTERRUPTS FROM OTHER DEVICES SUSPECTED OF POSSIBLY BEING SUPPORTED
+ 241               /       BY THE OVERLAY. THE OVERLAY INTERRUPT HANDLER SHOULD ALWAYS BE CALLED
+ 242               /       BEFORE TESTING ANY FLAG POSSIBLY ASSOCIATED WITH THE OVERLAY. THE OVERLAY
+ 243               /       INTERRUPT ROUTINES WILL CHECK ALL OVERLAY ASSOCIATED FLAGS EACH TIME THE
+ 244               /       OVERLAY INTERRUPT HANDLER IS CALLED, AND SET STATUS BITS IN THE AC UPON
+ 245               /       INTERRUPT EXIT.
+ 246               
+ 247 000000  0000  CONINT, .-.                     /CONSOLE INTERRUPT ENTRY POINT
+ 248 000001  5577          JMP I   [INTCON]        /GO HANDLE IT THERE
+ 249               
+ 250               /       THE FOLLOWING LOCATIONS ARE PROVIDED TO ALLOW INTERRUPT-DRIVEN PROGRAMS
+ 251               /       THE ABILITY TO INTERACT WITH THE OVERLAY BETTER.
+ 252               
+ 253 000002  0000  INTFLGS,.-.                     /INTERRUPT FLAGS
+ 254 000003  1000  INTLST, INTDEV                  /INTERRUPT DEVICE LIST POINTER
+ 255               
+ 256               /       THE FOLLOWING LOCATION CONTROLS WHETHER OR NOT LPT: BUFFERING OCCURS.
+ 257               /       SETTING LPMODE=1 PREVENTS BUFFERING, SETTING LPMODE=0 ALLOWS BUFFERING TO
+ 258               /       A <FF> CHARACTER. IF BUFFERING IS ALLOWED, LPMODE WILL BE NEGATIVE
+ 259               /       IMMEDIATELY AFTER SENDING A 7777 TO THE LPT: ROUTINE. THIS WILL STILL
+ 260               /       ALLOW BUFFERING, BUT WILL TEMPORARILY SUSPEND IT WHEN STARTING UP A NEW
+ 261               /       PROGRAM, SO THAT THE PROGRAM CAN TIME OUT THE EXISTENCE OF THE LPT:
+ 262               /       HARDWARE. THE LPMODE VALUE WILL BE THE TWO'S COMPLEMENT OF THE CURRENT
+ 263               /       COUNT OF CHARACTERS STILL LEFT TO BE SENT UNTIL FULL BUFFERING TO A <FF>
+ 264               /       IS TO BE REENABLED. IF LPMODE=1, THEN THIS WILL NOT OCCUR.
+ 265               
+ 266 000004  0000  LPMODE, 1-LPBUFF                /LPT: BUFFERING MODE; 1=NO BUFFERING ALLOWED
+ 267               /      THE FOLLOWING WORD IS RESERVED FOR VT-8/E, ETC. OVERLAY STRUCTURES WHICH
+ 268               /       REQUIRE MODE SWITCHING ON INTERRUPT, ETC. IF THE USER PROGRAM DISCOVERS
+ 269               /       THAT THE VT-8/E VIDEO INTERRUPT IS BEING HANDLED BY SEARCHING THE INTERRUPT
+ 270               /       DEVICE LIST FOR AN EXTRA DEVICE, AND THAT DEVICE HAPPENS TO BE THE VT-8/E
+ 271               /       VIDEO INTERFACE, THEN THIS WORD CAN BE MODIFIED TO ALLOW USER GRAPHICS
+ 272               /       MODE, ETC. TO BE APPENDED TO THE INTERRUPT HANDLER.
+ 273               
+ 274 000005  0000  VTMODE, .-.                     /VT-8/E MODE WORD
+ 275               
+ 276               /       THE FOLLOWING WORD CONTROLS THE DISPOSITION OF LOWER-CASE CHARACTERS TO
+ 277               /       BE OUTPUT TO THE LOGICAL LPT: HANDLER. IF LCMODE=0 THEN THESE CHARACTERS
+ 278               /       WILL BE OUTPUT AS IS; IF LCMODE=7740 THEN THEY WILL BE "FOLDED" TO THEIR
+ 279               /       UPPER-CASE EQUIVALENTS.
+ 280               
+ 281 000006  0000  LCMODE, 0                       /LOWER-CASE MODE; 7740=FOLD TO UPPER
+ 282 000007  0000  LINCHAR,.-.                     /LPT: INPUT CHARACTER
+ 283               
+ 284                       *10                     /GET TO AUTO-INDEX AREA
+ 285               
+ 286 000010  0000  CXR1,   .-.                     /AUTO-INDEX NUMBER ONE
+ 287 000011  0000  CXR2,   .-.                     /AUTO-INDEX NUMBER TWO
+ 288 000012  0000  INCHAR, .-.                     /LATEST INPUT CHARACTER
+ 289 000013  0000  KEYTMP, .-.                     /KEYBOARD INTERRUPT TEMPORARY
+ 290 000014  0000  LPTAC,  .-.                     /LPT: AC TEMPORARY
+ 291 000015  0000  LPTCHAR,.-.                     /LPT: CHARACTER TEMPORARY
+ 292 000016  0000  OUTAC,  .-.                     /OUTPUT ROUTINE AC TEMPORARY
+ 293 000017  0000  OUTCHR, .-.                     /OUTPUT CHARACTER TEMPORARY
+ 294               
+ 295                       *20                     /GET PAST AUTO-INDEX AREA
+ 296               
+ 297               /       THE FOLLOW LOCATIONS ARE USED TO HOLD THE CALLER'S ADDRESS AND FIELD. THEY
+ 298               /       ARE USED BOTH BY THE TRAP BLOCK ROUTINES AND THE ERROR BLURB HANDLING
+ 299               /       ROUTINES OF THE OVERLAY.
+ 300               
+ 301 000020  0000  CALADR, .-.                     /CALLING ADDRESS
+ 302 000021  0000  CALFLD, .-.                     /CALLING FIELD
+ 303               
+ 304               /       THE FOLLOWING ARE ROUTINE POINTERS FOR THE TRAP BLOCK ROUTINES.
+ 305               /       THEY ARE EXPECTED TO HANDLE THEIR RESPECTIVE TASKS BY THE
+ 306               /       ERROR RECOVERY ROUTINES CONTAINED IN THE PARTICULAR TRAP BLOCKS OF
+ 307               /       THE CURRENTLY CONFIGURED SYSTEM.
+ 308               
+ 309 000022  2064  MOVBLB, BLBMOVE                 /POINTER TO ERROR BLURB MOVE ROUTINE
+ 310 000023  2000  FILBLB, BLBFILL                 /POINTER TO ERROR BLURB FILL ROUTINE
+ 311 000024  2112  DSPBLB, BLBDISPLAY              /POINTER TO ERROR BLURB DISPLAY ROUTINE
+ 312               /      THE FOLLOWING ARE EVENT FLAGS FOR THE INTERRUPT HANDLERS OF THE DEVICES
+ 313               /       SUPPORTED BY THE OVERLAY. IT IS POSSIBLE TO REFERENCE THEM DIRECTLY FROM
+ 314               /       A REAL-TIME PROGRAM, BUT IT IS RECOMMENDED THAT THEY BE CLEARED BY CALLING
+ 315               /       THE APPROPRIATE OVERLAY ROUTINE ESPECIALLY THE LPT: INPUT FLAG. THIS FLAG
+ 316               /       IS USED TO ARBITRATE OUTPUT FLOW WITHIN THE LPT: ROUTINE ITSELF. UNLESS
+ 317               /       THE USER IS THOROUGHLY FAMILIAR WITH THE INNER STRUCTURE OF THE LPT:
+ 318               /       ROUTINE, IT IS BEST LEFT TO ITSELF!
+ 319               
+ 320 000025  0000  INFLAG, 0                               /CONSOLE INPUT INTERRUPT FLAG
+ 321 000026  0000  OUTFLAG,0                               /CONSOLE OUTPUT INTERRUPT FLAG
+ 322 000027  0000  LPTFLAG,0                               /LPT: OUTPUT INTERRUPT FLAG
+ 323 000030  0000  LINFLAG,0                               /LPT: INPUT INTERRUPT FLAG
+ 324               
+ 325               /       THE FOLLOWING ARE THE MAIN ENTRY POINTS FOR THE CONSOLE AND LPT: ROUTINES.
+ 326               
+ 327 000031  0000  INCON,  .-.                             /CONSOLE INPUT ROUTINE
+ 328 000032  5576          JMP I   [CONIN]                 /GO HANDLE IT THERE
+ 329               
+ 330 000033  0000  OUTCON, .-.                             /CONSOLE OUTPUT ROUTINE
+ 331 000034  5575          JMP I   [CONOUT]                /GO HANDLE IT THERE
+ 332               
+ 333 000035  0000  OUTLPT, .-.                             /LPT: OUTPUT ROUTINE
+ 334 000036  5574          JMP I   [LPTOUT]                /GO HANDLER IT THERE
+ 335               
+ 336 000037  0000  EMPTPTR,.-.                             /BUFFER EMPTYING POINTER
+ 337 000040  0000  EMPTR,  .-.                             /TEMPORARY EMPTYING POINTER
+ 338 000041  0000  FILLPTR,.-.                             /BUFFER FILLING POINTER
+ 339 000042  0000  LSTATUS,0                               /LPT: STATUS
+ 340               
+ 341               /       THE FOLLOWING WORDS ARE USED BY THE CONSOLE UTILITY CODE TO DETERMINE THE
+ 342               /       CHECKSUMMED REGION OF THE OVERLAY. DUE TO RESTRICTIONS OF THE UTILITY,
+ 343               /       THIS REGION MUST BE LOCATED BETWEEN 0000 AND 2577.
+ 344               
+ 345 000043  6501  CHKCNT, CONOFF+1-ENDROM                 /CHECKSUM COUNT
+ 346 000044  0101  CHKPTR, CONOFF+1                        /CHECKSUM POINTER
+ 347               
+ 348               /       THE PREVIOUS LOCATIONS ARE AVAILABLE AS TEMPORARIES FOR THE OVERLAY CODE.
+ 349               
+ 350                       VTEMP1= CHKCNT                  /TEMPORARY
+ 351                       VTEMP2= CHKPTR                  /TEMPORARY
+ 352               
+ 353               /       THE FOLLOWING ARE LINKAGE POINTERS PROVIDED FOR THE TRAP BLOCK ROUTINES.
+ 354               
+ 355 000045  5573  IOTRAP, JMP I   [OURTRAP]               /GO HANDLE I/O CALLS THERE
+ 356 000046  5572  ERRTRP, JMP I   [TRPERR&177+TRPAG2]     /GO HANDLE I/O ERRORS THERE
+ 357 000047  5571  IOWAIT, JMP I   [WAITIO&177+TRPAGE]     /GO WAIT FOR I/O TO COMPLETE THERE
+ 358 000050  0000          0                               /RESERVED FOR ADDITIONAL HANDLER INTERCEPT
+ 359               
+ 360               /       THE FOLLOWING WORD IS USED TO INDICATE INITIAL RELOADING OF THE OVERLAY.
+ 361               /       ANY CLEANUP CAUSED BY RELOADING OF THE OVERLAY IS GOVERNED BY THE
+ 362               /       VALUE OF THIS WORD. THE TRAP BLOCKS WILL BE RELOADED IF THIS WORD IS -1.
+ 363               
+ 364 000051  7777  INITSW, -1                              /FIRST TIME SINCE RELOAD SWITCH
+ 365               /      THE FOLLOWING LOCATIONS CONTROL THE FLOW OF CURSOR ADDRESSING AND
+ 366               /       <ESC> SEQUENCE COMMANDS.
+ 367               
+ 368 000052  0317  CADDRES,CADNORMAL               /CURSOR ADDRESSING <^N> ROUTINE ADDRESS
+ 369 000053  0316  SCAPADD,SCAPNORMAL              /<ESC> SEQUENCE ROUTINE ADDRESS
+ 370               
+ 371               /       THE FOLLOWING LOCATION CONTROLS THE TAB-IN FOR A CONTINUED LINE AFTER
+ 372               /       A BLINKING "+" CHARACTER IS INSERTED AT THE BEGINNING OF THE LINE.
+ 373               
+ 374 000054  7730  TABCNT, -50                     /TAB-IN COUNT
+ 375               
+ 376               /       THE INTERRUPT ROUTINE EXITS HERE.
+ 377               
+ 378 000055  0000  INTRET, .-.                     /WILL BE CIF CDF RETURN FIELD
+ 379 000056  5400          JMP I   CONINT          /RETURN TO CALLER
+ 380               
+ 381               /       THE CONSOLE TURNOFF ROUTINE EXITS HERE.
+ 382               
+ 383 000057  0000  OFFRET, .-.                     /WILL BE CIF CDF RETURN FIELD
+ 384 000060  5500          JMP I   CONOFF          /RETURN TO CALLER
+ 385               
+ 386               /       THE LPT: ROUTINE EXITS HERE.
+ 387               
+ 388 000061  0000  LPTRET, .-.                     /WILL BE CIF CDF RETURN FIELD
+ 389 000062  5435          JMP I   OUTLPT          /RETURN TO CALLER
+ 390               
+ 391               /       THE INPUT ROUTINE RETURNS HERE.
+ 392               
+ 393 000063  0000  INRET,  .-.                     /WILL BE CIF CDF RETURN FIELD
+ 394 000064  5431          JMP I   INCON           /RETURN TO CALLER
+ 395               
+ 396               /       THE OUTPUT ROUTINE RETURNS HERE.
+ 397               
+ 398 000065  0000  OUTRET, .-.                     /WILL BE CIF CDF RETURN FIELD
+ 399 000066  5433          JMP I   OUTCON          /RETURN TO CALLER
+ 400               
+ 401 000067  0000  GOFLAG, .-.                     /HARDWARE "GO" FLAG (NO INTERRUPTS ONLY)
+ 402 000070  0000  OLDCHR, .-.                     /PREVIOUS CONTENTS OF LOCATION WHERE CURSOR IS
+ 403 000071  0071  OLDPTR, OLDPTR                  /ADDRESS OF CURSED LOCATION
+ 404 000072  0000  VTLNPTR,.-.                     /POINTER TO BEGINNING OF CURRENT LINE IN DISPLAY BUFFER
+ 405 000073  0000  VTPTR,  .-.                     /POINTER TO CURRENT CHARACTER IN DISPLAY BUFFER
+ 406 000074  0000  VMODE,  .-.                     /AUGMENTATION MODE BITS
+ 407 000075  0000  CURSW,  .-.                     /CURSOR ON SWITCH
+ 408 000076  0000  IOERSW, 0                       /I/O ERROR RECOVRY SWITCH
+ 409               
+ 410                       ZBLOCK  77-.            /EMPTY SPACE
+ 411               
+ 412 000077  0000  ESTATUS,.-.                     /ERROR STATUS STORED HERE DURING ERROR RECOVERY
+ 413               /      THE FOLLOWING ENTRY IS USED FOR ANY HOUSEKEEPING NEEDED BY
+ 414               /       THE OVERLAY ROUTINES WHEN THE OVERLAY IS REQUESTED TO SHUT DOWN
+ 415               /       BY VARIOUS PROGRAMS SUCH AS "BIN" ETC., WHICH CAN'T FUNCTION DURING
+ 416               /       DMA, ETC. CAUSED BY VARIOUS VERSIONS OF THE OVERLAY.
+ 417               
+ 418 000100  0000  CONOFF, .-.                     /CONSOLE OFF ROUTINE
+ 419 000101  5570          JMP I   [OFFCON]        /HANDLE IT THERE
+ 420               
+ 421               /       THE FOLLOWING IS THE SPECIAL ENTRY POINT FOR THE KEYBOARD MONITOR. IT IS
+ 422               /       DELIBERATELY PLACED WITHIN THE "ROM" AREA (WHICH STARTED ONE WORD AGO)
+ 423               /       AS A DELIBERATE MEASURE TO CAUSE RELOAD IN CASE THE OVERLAY IS PARTIALLY
+ 424               /       CLOBBERED, BUT NOT WITHIN THE "ROM" AREA. SHOULD THE MONITOR INITIALIZATION
+ 425               /       FAIL TO COMPLETE, THIS LOCATION WILL BE NON-ZERO, THUS FURTHER ATTEMPTS
+ 426               /       TO REBOOT THE SYSTEM WILL RELOAD THE OVERLAY. THIS ENTRY WILL INITIALIZE
+ 427               /       THE MONITOR'S CONSOLE ROUTINES TO CALL THE OVERLAY, AND WILL INTERCEPT
+ 428               /       ALL SYSTEM READ/WRITE I/O ACCORDING TO THE DICTATES OF THE TRAP BLOCKS.
+ 429               
+ 430 000102  0000  XIOMON, 0                       /KEYBOARD MONITOR INITIALIZATION ENTRY POINT
+ 431 000103  5567          JMP I   [MONINIT]       /GO HANDLE IT THERE
+ 432               
+ 433               /       THE FOLLOWING WORD WILL EVENTUALLY CONTAIN THE ID VALUE FOR THE
+ 434               /       PARTICULAR READ/WRITE I/O SYSTEM. THIS VALUE IS INCLUDED IN THE CHECKSUM
+ 435               /       FOR THE "ROM" AREA AND SHOULD BE SET TO ZERO INITIALLY.
+ 436               
+ 437 000104  0000  DEVWRD, 0                       /WILL BE HARDWARE ID NUMBER
+ 438               
+ 439                       NOPUNCH                 /FOOL THE ASSEMBLER
+ 440               
+ 441               /       THE FOLLOWING WORD IS PROVIDED TO "KLUDGE" THE CHECKSUM TO A UNIQUE VALUE
+ 442               /       TO PREVENT INCORRECT MONITOR/OVERLAY LINKAGE WHEN BOOTING TO A NEW
+ 443               /       SYSTEM DEVICE/OVERLAY COMBINATION. THE OVERLAY TYPE*100+HARDWARE ID#
+ 444               /       SHOULD BE THE TOTAL CHECKSUM VALUE (INVERTED).
+ 445               
+ 446 000105  0000  FUDWRD, .-.                     /WILL BE CHANGED AS NECESSARY
+ 447               
+ 448               /       OVERLAY ID NAME FIELD.
+ 449               
+ 450               /       THE FOLLOWING WORDS WILL BE UPDATED FROM THE BINARY OVERLAY FILES'
+ 451               /       SPECIAL ORIGIN SETTINGS IN THEIR HEADERS.
+ 452               
+ 453 000106  2624  OVID,   NMCH1                   /FIRST PAIR OF DEVICE NAME CHARACTERS
+ 454 000107  7005          NMCH2                   /SECOND PAIR OF DEVICE NAME CHARACTERS
+ 455 000110  0000          NMCH3                   /THIRD PAIR OF DEVICE NAME CHARACTERS
+ 456               
+ 457                       ENPUNCH                 /UN-FOOL THE ASSEMBLER
+ 458               
+ 459                       *.                      /ESTABLISH CURRENT ORIGIN AGAIN
+ 460               
+ 461               /       THE FOLLOWING WORD WILL BE USED TO CALCULATE THE CHECKSUM FOR THE
+ 462               /       OVERLAY AND WILL BE ITS FINAL CHECKSUM VALUE. IT SHOULD CONTAIN THE
+ 463               /       UNIQUE OVERLAY TYPE NUMBER*100.
+ 464               
+ 465 000111  4000  OVRWRD, OVTYPE^100              /OVERLAY TYPE WORD
+ 466                      PAGE
+ 467               
+ 468               /       MONITOR INITIALIZATION STARTS HERE.
+ 469               
+ 470 000200  1051  MONINIT,TAD     INITSW                  /GET FIRST TIME SWITCH
+ 471 000201  7640          SZA CLA                         /SKIP IF NOT FIRST TIME
+ 472 000202  4777          JMS I   (TRPINIT)               /ELSE RELOAD THE TRAP BLOCKS
+ 473 000203  4566          JMS I   [SETFLD]                /SET OUR DATA FIELD
+ 474 000204  1376          TAD     (ADRLST&177+TRPAGE-1)   /SETUP
+ 475 000205  3010          DCA     CXR1                    /ADDRESS POINTER
+ 476 000206  1375          TAD     (ZAPLST&177+TRPAGE-1)   /SETUP
+ 477 000207  3011          DCA     CXR2                    /REPLACEMENT POINTER
+ 478 000210  7344          NL7776                          /SETUP THE
+ 479 000211  3074          DCA     VMODE                   /ZAPPING COUNT
+ 480 000212  1410  IOZAPLP,TAD I   CXR1                    /GET AN ADDRESS TO ZAP
+ 481 000213  7450          SNA                             /END OF A LIST?
+ 482 000214  5235          JMP     IOZAPEND                /YES
+ 483 000215  3035          DCA     OUTLPT                  /NO, STASH THE POINTER
+ 484 000216  1411          TAD I   CXR2                    /GET A REPLACEMENT VALUE
+ 485 000217  3033          DCA     OUTCON                  /STASH IT
+ 486 000220  1033          TAD     OUTCON                  /GET IT BACK
+ 487 000221  1374          TAD     (-CIF10)                /COMPARE TO MAGIC VALUE
+ 488 000222  7640          SZA CLA                         /SKIP IF IT MATCHES
+ 489 000223  5230          JMP     IOZAPOK                 /JUMP IF NOT
+ 490 000224  6224          RIF                             /GET OUR FIELD
+ 491 000225  1165          TAD     [CDF]                   /FORM CDF OUR FIELD
+ 492 000226  7001          IAC                             /MAKE IT CIF OUR FIELD
+ 493 000227  3033          DCA     OUTCON                  /SAVE AS NEW REPLACEMENT VALUE
+ 494 000230  6201  IOZAPOK,CDF     00                      /GO TO FIELD ZERO
+ 495 000231  1033          TAD     OUTCON                  /GET REPLACEMENT VALUE
+ 496 000232  3435          DCA I   OUTLPT                  /ZAP IT IN
+ 497 000233  4566          JMS I   [SETFLD]                /BACK TO OUR FIELD
+ 498 000234  5212          JMP     IOZAPLP                 /KEEP GOING
+ 499               
+ 500 000235  1373  IOZAPEN,TAD     (MONADR-1)              /SETUP THE
+ 501 000236  3010          DCA     CXR1                    /MONITOR ZAP LIST
+ 502 000237  1372          TAD     (MONZAP-1)              /SETUP THE
+ 503 000240  3011          DCA     CXR2                    /MONITOR CONTENTS LIST
+ 504 000241  2074          ISZ     VMODE                   /DONE BOTH LISTS?
+ 505 000242  5212          JMP     IOZAPLP                 /NO, GO DO MONITOR ZAPS
+ 506 000243  1164          TAD     [CADNORMAL]             /SETUP THE
+ 507 000244  3052          DCA     CADDRESS                /DEFAULT CURSOR ADDRESSING ROUTINE
+ 508 000245  1163          TAD     [SCAPNORMAL]            /SETUP THE
+ 509 000246  3053          DCA     SCAPADDRESS             /DEFAULT <ESC> ADDRESS
+ 510 000247  2051          ISZ     INITSW                  /FIRST TIME?
+ 511 000250  5253          JMP     INITNORM                /NO, JUST KEEP GOING
+ 512 000251  4562          JMS I   [INITEST]               /GO PROVE THE CONSOLE HARDWARE EXISTS
+ 513               
+ 514               /       CLEAR EVERYTHING UPON OVERLAY RELOAD HERE.
+ 515               
+ 516 000252  4561          JMS I   [CLEAR]                 /DO CLEAR OPERATIONS NOW
+ 517 000253  3051  INITNOR,DCA    INITSW          /CLEAR THE SWITCH
+ 518 000254  7326          NL0002                  /SET 2000 BIT
+ 519 000255  6224          RIF                     /GET OUR FIELD BITS
+ 520 000256  3005          DCA     VTMODE          /SAVE FOR NOW
+ 521 000257  1005          TAD     VTMODE          /GET IT BACK
+ 522 000260  7002          BSW                     /SET OTHER HALF
+ 523 000261  1005          TAD     VTMODE          /NOW HAVE BOTH HALVES
+ 524 000262  3005          DCA     VTMODE          /STORE BACK
+ 525 000263  3075          DCA     CURSW           /ENABLE CURSOR
+ 526 000264  4771          JMS I   (INTSET)        /ENABLE DEVICE INTERRUPTS
+ 527 000265  3102          DCA     XIOMON          /RESET "ROM" LOCATION
+ 528 000266  7346          NL7775                  /-3
+ 529 000267  1012          TAD     INCHAR          /COMPARE TO LATEST INPUT
+ 530 000270  0160          AND     [177]           /JUST SEVEN BITS
+ 531 000271  7650          SNA CLA                 /SKIP IF NOT <^C>
+ 532 000272  7240          NL7777                  /ELSE SET <^C> INDICATOR
+ 533 000273  6203          CIF CDF 00              /GOING TO FIELD 0
+ 534 000274  5770          JMP I   (OVRCOMMON)     /RETURN TO THE MONITOR ONCE-ONLY CODE
+ 535               
+ 536               /       CONSOLE OUTPUT ROUTINE.
+ 537               
+ 538 000275  3016  CONOUT, DCA     OUTAC           /SAVE PASSED VALUE
+ 539 000276  1005          TAD     VTMODE          /GET MODE WORD
+ 540 000277  7002          BSW                     /REVERSE HALVES
+ 541 000300  7041          CIA                     /INVERT FOR TESTING
+ 542 000301  1005          TAD     VTMODE          /COMPARE TO ORIGINAL
+ 543 000302  7650          SNA CLA                 /SKIP IF THE HALVES DON'T MATCH
+ 544 000303  7240          NL7777                  /ELSE ALLOW HARDWARE SETUP LATER
+ 545 000304  3067          DCA     GOFLAG          /SAVE FLAG EITHER WAY
+ 546 000305  1016          TAD     OUTAC           /GET IT AGAIN
+ 547 000306  0160          AND     [177]           /JUST SEVEN-BIT
+ 548 000307  3017          DCA     OUTCHR          /STASH THE CHARACTER
+ 549 000310  7326          NL0002                  /SET CIF BIT
+ 550 000311  6214          RDF                     /GET CALLING FIELD
+ 551 000312  1165          TAD     [CDF]           /MAKE IT CIF CDF RETURN FIELD
+ 552 000313  4767          JMS I   (OUTEXC)        /GOTO OUR FIELD
+ 553 000314  3065          DCA     OUTRET          /STORE FOR EXIT LATER
+ 554 000315  5453          JMP I   SCAPADDRESS     /GO TO <ESC> HANDLING ROUTINE
+ 555               
+ 556               /       WHEN <ESC> HANDLING IS DISABLED, IT COMES HERE.
+ 557               
+ 558 000316  5452  SCAPNOR,JMP I   CADDRESS        /GO TO CURSOR ADDRESSING ROUTINE
+ 559               /      WHEN CURSOR ADDRESSING IS DISABLED, IT COMES HERE.
+ 560               
+ 561 000317  1017  CADNORM,TAD     OUTCHR                  /GET THE LATEST CHARACTER
+ 562 000320  1157          TAD     [-" !200]               /COMPARE TO <SPACE>
+ 563 000321  7510          SPA                             /SKIP IF NOT CONTROL CHARACTER
+ 564 000322  5766          JMP I   (CONTROL)               /JUMP IF CONTROL CHARACTER
+ 565 000323  1156          TAD     [-100]                  /COMPARE TO LOWER-CASE
+ 566 000324  7510          SPA                             /SKIP IF LOWER-CASE
+ 567 000325  1365          TAD     (BOLD+200+" -200)       /MAKE IT UPPER-CASE
+ 568 000326  1155          TAD     [NORMAL+200+100]        /ADD ON RESTORATION BITS
+ 569 000327  1074          TAD     VMODE                   /ADD ON AUGMENTATION BITS
+ 570 000330  3043          DCA     VTEMP1                  /SAVE FOR NOW
+ 571 000331  4554          JMS I   [PUTBACK]               /RESTORE OLD CURSOR POSITION
+ 572 000332  1043          TAD     VTEMP1                  /GET THE CHARACTER
+ 573 000333  4553          JMS I   [PRTCHR]                /OUTPUT IT
+ 574 000334  4764  VTEXIT, JMS I   (ROLCHK)                /CHECK IF IT FITS
+ 575 000335  1073          TAD     VTPTR                   /GET CURRENT POINTER
+ 576 000336  3071          DCA     OLDPTR                  /SAVE IT
+ 577 000337  1471          TAD I   OLDPTR                  /GET CURRENT CHARACTER
+ 578 000340  3070          DCA     OLDCHR                  /SAVE IT
+ 579 000341  1075          TAD     CURSW                   /GET CURSOR SWITCH
+ 580 000342  7640          SZA CLA                         /SKIP IF CLEAR
+ 581 000343  5763          JMP I   (VSNSTST)               /JUMP IF SET
+ 582 000344  1070          TAD     OLDCHR                  /GET CURRENT CHARACTER
+ 583 000345  0362          AND     (7177)                  /REMOVE MODE BITS
+ 584 000346  1176          TAD     [CURSOR+200]            /MAKE IT CURSOR INSTEAD
+ 585 000347  3471          DCA I   OLDPTR                  /STORE IT BACK
+ 586 000350  5763          JMP I   (VSNSTST)               /CONTINUE THERE
+ 587               
+ 588 000362  7177          PAGE
+     000363  0400  
+     000364  4721  
+     000365  0440  
+     000366  1037  
+     000367  1755  
+     000370  2511  
+     000371  1733  
+     000372  0716  
+     000373  0707  
+     000374  1566  
+     000375  5426  
+     000376  5402  
+     000377  4600  
+ 589 000400  6455  VSNSTST,DPMSIOT                        /GET THE SENSE SWITCH
+ 590 000401  7710          SPA CLA                 /SKIP IF NOT SET
+ 591 000402  5213          JMP     VEXIT           /EXIT NOW IF SET
+ 592 000403  7604          LAS                     /GET SWITCH REGISTER
+ 593 000404  3777          DCA I   (WASTE)         /SETUP WASTE COUNTER
+ 594 000405  1152          TAD     [-4]            /GET INNER WASTE VALUE
+ 595 000406  3043          DCA     VTEMP1          /SETUP COUNTER
+ 596 000407  2043          ISZ     VTEMP1          /WASTE
+ 597 000410  5207          JMP     .-1             /SOME TIME
+ 598 000411  2777          ISZ I   (WASTE)         /WASTED ENOUGH TIME?
+ 599 000412  5205          JMP     .-5             /NO, KEEP WASTING AWAY
+ 600 000413  3026  VEXIT,  DCA     OUTFLAG         /CLEAR EVENT FLAG
+ 601 000414  2067          ISZ     GOFLAG          /ARE INTERRUPTS HANDLING THE HARDWARE?
+ 602 000415  5223          JMP     VEXIT2          /YES, SO DON'T CHANGE ANYTHING
+ 603 000416  1151          TAD     [VTBUFFER]      /GET DISPLAY ADDRESS
+ 604 000417  6450          DPLAIOT                 /LOAD IT
+ 605 000420  7201          NL0001                  /SET INTERRUPT ENABLE BIT
+ 606 000421  6224          RIF                     /GET CURRENT FIELD BITS
+ 607 000422  6451          DPGOIOT                 /START IT UP
+ 608 000423  2033  VEXIT2, ISZ     OUTCON          /BUMP TO GOOD RETURN
+ 609 000424  1016          TAD     OUTAC           /GET ORIGINAL AC VALUE
+ 610 000425  5065          JMP     OUTRET          /FINISH IT THERE
+ 611               /      CONTROL CHARACTER TABLE.
+ 612               
+ 613 000426  1076  CTABLE, COMMON/PRCONT           /000    <^<AT-SIGN>>    <NUL>
+ 614 000427  1224          PRCONT                  /001    <^A>            <SOH>
+ 615 000430  1224          PRCONT                  /002    <^B>            <STX>
+ 616 000431  1224          PRCONT                  /003    <^C>            <ETX>
+ 617 000432  1224          PRCONT                  /004    <^D>            <EOT>
+ 618 000433  1224          PRCONT                  /005    <^E>            <ENQ>
+ 619 000434  1224          PRCONT                  /006    <^F>            <ACK>
+ 620 000435  1077          VTBELL                  /007    <^G>            <BEL>
+ 621 000436  1122          CLEFT                   /010    <^H>            <BS>
+ 622 000437  1104          VTTAB                   /011    <^I>            <HT>
+ 623 000440  1147          VTLF                    /012    <^J>            <LF>
+ 624 000441  1144          CDOWN                   /013    <^K>            <VT>
+ 625 000442  1267          VTFF                    /014    <^L>            <FF>
+ 626 000443  1200          VTCR                    /015    <^M>            <CR>
+ 627 000444  1006          VTCAD                   /016    <^N>            <SO>
+ 628 000445  1224          PRCONT                  /017    <^O>            <SI>
+ 629 000446  1224          PRCONT                  /020    <^P>            <DLE>
+ 630 000447  1224          PRCONT                  /021    <^Q>            <DC1>
+ 631 000450  1224          PRCONT                  /022    <^R>            <DC2>
+ 632 000451  1224          PRCONT                  /023    <^S>            <DC3>
+ 633 000452  1224          PRCONT                  /024    <^T>            <DC4>
+ 634 000453  1224          PRCONT                  /025    <^U>            <NAK>
+ 635 000454  1224          PRCONT                  /026    <^V>            <SYN>
+ 636 000455  1224          PRCONT                  /027    <^W>            <ETB>
+ 637 000456  1131          CRIGHT                  /030    <^X>            <CURSOR RIGHT>
+ 638 000457  1224          PRCONT                  /031    <^Y>            <EOM>
+ 639 000460  1137          CUP                     /032    <^Z>            <CURSOR UP>
+ 640 000461  1272          ESCAPE                  /033    <^[>            <ESC>
+ 641 000462  1232          VTRUB                   /034    <^\>            <MONITOR'S <RO>>
+ 642 000463  1270          VTHOME                  /035    <^]>            <HOM>
+ 643 000464  1253          VTEOL                   /036    <^^>            <EOL>
+ 644 000465  1250          VTEOS                   /037    <^<BACK-ARROW>  <EOS>
+ 645               /      LOGICAL LPT: HANDLER.
+ 646               
+ 647               /       SETTING LPMODE TO 0000 ALLOWS BUFFERING TO A <FF> CHARACTER.
+ 648               
+ 649               /       SETTING LPMODE TO 0001 DISABLES ALL BUFFERING.
+ 650               
+ 651               /       DURING BUFFERING OPERATIONS, LPMODE WILL CHANGE FROM 0000 TO A
+ 652               /       NEGATIVE COUNT FOR INITIALIZATION PURPOSES.
+ 653               
+ 654 000466  3014  LPTOUT, DCA     LPTAC           /SAVE PASSED AC
+ 655 000467  7326          NL0002                  /SET CIF BIT
+ 656 000470  6214          RDF                     /GET CALLING FIELD
+ 657 000471  1165          TAD     [CDF]           /TURN INTO CIF CDF RETURN FIELD
+ 658 000472  3061          DCA     LPTRET          /STORE FOR EXIT LATER
+ 659 000473  1014          TAD     LPTAC           /GET PASSED AC VALUE
+ 660 000474  7040          CMA                     /INVERT FOR TEST
+ 661 000475  7650          SNA CLA                 /SKIP IF 7777 WAS NOT PASSED
+ 662 000476  5347          JMP     LPINIT          /JUMP IF 7777 WAS PASSED
+ 663 000477  1014          TAD     LPTAC           /GET ORIGINAL VALUE
+ 664 000500  0160          AND     [177]           /JUST SEVEN-BIT
+ 665 000501  3015          DCA     LPTCHAR         /SAVE THE CHARACTER TO BE OUTPUT
+ 666 000502  1004          TAD     LPMODE          /GET BUFFERING MODE
+ 667 000503  7640          SZA CLA                 /SKIP IF BUFFERING CURRENTLY ALLOWED
+ 668 000504  5337          JMP     BUFOFF          /JUMP IF NOT
+ 669 000505  4776          JMS I   (BUFCHK)        /CHECK CURRENT BUFFER STATUS
+ 670 000506  5333          JMP     BUFULL          /BUFFER CURRENTLY FULL
+ 671 000507  5322          JMP     BUFACTIVE       /BUFFER CURRENTLY PARTIALLY FULL
+ 672 000510  1015  BUFEMPT,TAD     LPTCHAR         /GET THE CHARACTER
+ 673 000511  4775          JMS I   (LPOUT)         /TRY TO OUTPUT IT
+ 674 000512  7410          SKP                     /SKIP IF UNSUCCESSFUL
+ 675 000513  5365          JMP     LPEXIT          /JUMP IF IT WORKED
+ 676 000514  1015  LPFFTST,TAD     LPTCHAR         /GET THE CHARACTER
+ 677 000515  1374          TAD     (-14)           /COMPARE TO <FF>
+ 678 000516  7650          SNA CLA                 /SKIP IF DIFFERENT
+ 679 000517  5366          JMP     LPFXIT          /ELSE TAKE NON-SKIP RETURN
+ 680 000520  4773          JMS I   (LPFILL)        /BUFFER THE CHARACTER
+ 681 000521  5365          JMP     LPEXIT          /TAKE SKIP RETURN
+ 682               
+ 683 000522  4772  BUFACTI,JMS I   (LPEMPTY)       /GET A CHARACTER FROM BUFFER
+ 684 000523  4775          JMS I   (LPOUT)         /TRY TO OUTPUT IT
+ 685 000524  5314          JMP     LPFFTST         /COULDN'T, TRY TO BUFFER LATEST CHARACTER
+ 686 000525  1040  BUFULEN,TAD     EMPTR           /GET TEMPORARY POINTER
+ 687 000526  3037          DCA     EMPTPTR         /PERMANENTLY EMPTY THE BUFFER POSITION
+ 688 000527  4776          JMS I   (BUFCHK)        /CHECK THE BUFFER AGAIN
+ 689 000530  7402          HLT                     /**** IMPOSSIBLE TO BE FULL WHEN JUST EMPTIED ONE ****
+ 690 000531  5322          JMP     BUFACTIVE       /BUFFER STILL ACTIVE, TRY AGAIN TO EMPTY IT
+ 691 000532  5310          JMP     BUFEMPTY        /BUFFER NOW EMPTY, GO DEAL WITH LATEST CHARACTER
+ 692               
+ 693 000533  4772  BUFULL, JMS I   (LPEMPTY)       /GET A CHARACTER FROM BUFFER
+ 694 000534  4775          JMS I   (LPOUT)         /TRY TO OUTPUT IT
+ 695 000535  5366          JMP     LPFXIT          /COULDN'T, FORGET IT
+ 696 000536  5325          JMP     BUFULENTRY      /DID, SO DOWNGRADE THE BUFFER TO ACTIVE AND KEEP GOING
+ 697 000537  1015  BUFOFF,        TAD     LPTCHAR         /GET LATEST CHARACTER
+ 698 000540  4775          JMS I   (LPOUT)         /TRY TO OUTPUT IT
+ 699 000541  5366          JMP     LPFXIT          /FORGET IT
+ 700 000542  1004          TAD     LPMODE          /GET LATEST MODE
+ 701 000543  7510          SPA                     /SKIP IF BUFFERING NOT ALLOWED
+ 702 000544  7001          IAC                     /ELSE TRY TO END TEMPORARY PAUSE
+ 703 000545  3004          DCA     LPMODE          /STORE BACK
+ 704 000546  5365          JMP     LPEXIT          /TAKE SKIP RETURN FOR NOW
+ 705               
+ 706 000547  1162  LPINIT, TAD     [LPTBUFFER]     /SETUP THE
+ 707 000550  3041          DCA     FILLPTR         /FILL POINTER
+ 708 000551  1162          TAD     [LPTBUFFER]     /SETUP THE
+ 709 000552  3037          DCA     EMPTPTR         /EMPTYING POINTER
+ 710 000553  1004          TAD     LPMODE          /GET BUFFERING MODE
+ 711 000554  7750          SPA SNA CLA             /SKIP IF BUFFERING NOT ALLOWED
+ 712 000555  1150          TAD     [7600]          /ELSE SETUP TEMPORARY PAUSE VALUE
+ 713 000556  7001          IAC                     /RESET NON-BUFFERING VALUE AT LEAST
+ 714 000557  3004          DCA     LPMODE          /STORE NEW MODE
+ 715 000560  7240          NL7777                  /SET THE
+ 716 000561  3027          DCA     LPTFLAG         /OUTPUT FLAG
+ 717 000562  7240          NL7777                  /GET A <RO>
+ 718 000563  4775          JMS I   (LPOUT)         /TRY TO OUTPUT IT
+ 719 000564  7410          SKP                     /SKIP IF UNSUCCESSFUL
+ 720 000565  2035  LPEXIT, ISZ     OUTLPT          /BUMP TO SKIP RETURN
+ 721 000566  1014  LPFXIT, TAD     LPTAC           /RESTORE ORIGINAL AC
+ 722 000567  5061          JMP     LPTRET          /FINISH IT THERE
+ 723               
+ 724 000572  1672          PAGE
+     000573  1660  
+     000574  7764  
+     000575  1603  
+     000576  1642  
+     000577  1760  
+ 725               /      CONSOLE INPUT ROUTINE.
+ 726               
+ 727 000600  7326  CONIN,  NL0002                  /SET CIF BIT
+ 728 000601  6214          RDF                     /GET CALLING FIELD
+ 729 000602  1165          TAD     [CDF]           /TURN INTO CIF CDF CALLING FIELD
+ 730 000603  3063          DCA     INRET           /STORE IN-LINE FOR EXIT LATER
+ 731 000604  4777          JMS I   (INTEST)        /TEST FOR KEYBOARD INPUT
+ 732 000605  2031          ISZ     INCON           /BUMP RETURN ADDRESS BECAUSE THERE WAS INPUT
+ 733 000606  1012          TAD     INCHAR          /GET THE CHARACTER
+ 734 000607  5063          JMP     INRET           /FINISH IT THERE
+ 735               
+ 736               /       INTERRUPT HANDLER.
+ 737               
+ 738 000610  7326  INTCON, NL0002                  /SET CIF BIT
+ 739 000611  6214          RDF                     /GET CALLING FIELD
+ 740 000612  1165          TAD     [CDF]           /TURN INTO CIF CDF CALLING FIELD
+ 741 000613  3055          DCA     INTRET          /STORE IN-LINE FOR EXIT LATER
+ 742 000614  3002          DCA     INTFLGS         /CLEAR INTERRUPT FLAGS
+ 743 000615  6431          DKSFIOT                 /INPUT FLAG UP?
+ 744 000616  5235          JMP     LPRINT          /NO, TRY OUTPUT
+ 745 000617  1025          TAD     INFLAG          /GET CURRENT FLAG
+ 746 000620  7640          SZA CLA                 /SKIP IF CLEAR
+ 747 000621  1376          TAD     (4400)          /ELSE SET ERROR, OVERRUN ERROR BITS
+ 748 000622  3025          DCA     INFLAG          /STORE FOR NOW
+ 749 000623  6436          DKRBIOT                 /GET THE CHARACTER, CLEARING THE FLAG
+ 750 000624  3013          DCA     KEYTMP          /SAVE IT
+ 751 000625  1025          TAD     INFLAG          /GET THE FLAG
+ 752 000626  7040          CMA                     /INVERT IT
+ 753 000627  0013          AND     KEYTMP          /AND OFF NON-CONFLICTING BITS
+ 754 000630  1025          TAD     INFLAG          /OR IN THE FLAG
+ 755 000631  7450          SNA                     /SKIP IF SOMETHING SET
+ 756 000632  1375          TAD     (5000)          /ELSE SET ERROR, FRAMING ERROR BITS
+ 757 000633  3025          DCA     INFLAG          /STORE FINAL CHARACTER FLAG VALUE
+ 758 000634  2002          ISZ     INTFLGS         /SET KEYBOARD INTERRUPT FLAG BIT
+ 759               
+ 760               LPRINT, IFZERO  ONEWAY  <
+ 761               
+ 762                       LISFIOT                 /INPUT FLAG UP?
+ 763                       JMP     OUTINT          /NO, FORGET IT
+ 764                       LIRBIOT                 /YES, READ IT IN
+ 765                       SNA                     /SKIP IF SOMETHING THERE
+ 766                       TAD     (5000)          /ELSE SET ERROR, FRAMING ERROR BITS
+ 767                       DCA     LINFLAG         /STORE THE INPUT FLAG
+ 768                       NL0004                  /SET LPT: INPUT INTERRUPT BIT
+ 769                       TAD     INTFLGS         /GET INTERRUPT FLAGS
+ 770                       DCA     INTFLGS         /STORE BACK
+ 771               
+ 772                                       >
+ 773 000635  7240  OUTINT,        NL7777                  /SET THE
+ 774 000636  3026          DCA     OUTFLAG         /EVENT FLAG
+ 775 000637  2002          ISZ     INTFLGS         /SET ON THE
+ 776 000640  2002          ISZ     INTFLGS         /OUTPUT INTERRUPT BIT
+ 777 000641  6661  LPTINT, LSFIOT                  /LPT: FLAG UP?
+ 778 000642  5251          JMP     VTINT           /NO, TRY VT-8/E KEYBOARD
+ 779 000643  6662          LCFIOT                  /CLEAR THE FLAG
+ 780 000644  7240          NL7777                  /SET THE
+ 781 000645  3027          DCA     LPTFLAG         /EVENT FLAG
+ 782 000646  1002          TAD     INTFLGS         /GET INTERRUPT FLAGS
+ 783 000647  1374          TAD     (10)            /SET LPT: INTERRUPT BIT
+ 784 000650  3002          DCA     INTFLGS         /STORE BACK
+ 785 000651  6456  VTINT,  DPCLIOT                 /VIDEO RETRACE FLAG UP?
+ 786 000652  5277          JMP     VTLINT          /NO, TRY DORMANT LPT: FLAG
+ 787 000653  1005          TAD     VTMODE          /YES, GET CURRENT MODE
+ 788 000654  7002          BSW                     /FLIP IT
+ 789 000655  3005          DCA     VTMODE          /STORE BACK
+ 790 000656  1005          TAD     VTMODE          /GET IT AGAIN
+ 791 000657  0373          AND     (70)            /JUST FIELD BITS
+ 792 000660  3013          DCA     KEYTMP          /STORE FOR NOW
+ 793 000661  7327          NL0006                  /SETUP QUARTER MASK
+ 794 000662  0005          AND     VTMODE          /GET THE MEMORY QUARTER
+ 795 000663  7112          CLL RTR;RTR             /MOVE UP
+     000664  7012  
+ 796 000665  1167          TAD     [VTOFFSET]      /ADD ON IMPLIED OFFSET
+ 797 000666  6450          DPLAIOT                 /LOAD DISPLAY ADDRESS
+ 798 000667  7201          NL0001                  /SET MODE MASK
+ 799 000670  0005          AND     VTMODE          /GET THE MODE BIT
+ 800 000671  7124          STL RAL                 /MOVE UP AND SET INTERRUPT ENABLE
+ 801 000672  1013          TAD     KEYTMP          /ADD ON FIELD BITS
+ 802 000673  6451          DPGOIOT                 /START IT UP
+ 803 000674  1002          TAD     INTFLGS         /GET INTERRUPT FLAGS
+ 804 000675  1372          TAD     (20)            /SET EXTRA FLAG BIT
+ 805 000676  3002          DCA     INTFLGS         /STORE BACK
+ 806               
+ 807               VTLINT, IFNZRO  VT8LPT  <
+ 808               
+ 809                       PRSFIOT                 /DORMANT LPT: FLAG UP?
+ 810                       JMP     INTXIT          /NO, FORGET IT
+ 811                       PRCFIOT                 /YES, CLEAR THE FLAG
+ 812                       TAD     INTFLGS         /GET INTERRUPT FLAGS
+ 813                       TAD     [40]            /SET EXTRA FLAG BIT
+ 814                       DCA     INTFLGS         /STORE BACK
+ 815               
+ 816                                       >
+ 817               
+ 818 000677  1002  INTXIT, TAD     INTFLGS         /GET INTERRUPT FLAGS
+ 819 000700  5055          JMP     INTRET          /FINISH IT THERE
+ 820               /      CONSOLE TURNOFF ROUTINE.
+ 821               
+ 822 000701  6002  OFFCON, IOF                     /PREVENT PROBLEMS
+ 823 000702  6452          DPSMIOT                 /STOP THE DISPLAY
+ 824 000703  7326          NL0002                  /SET CIF BIT
+ 825 000704  6214          RDF                     /GET CALLING FIELD
+ 826 000705  1165          TAD     [CDF]           /TURN INTO CIF CDF CALLING FIELD
+ 827 000706  3057          DCA     OFFRET          /STORE IN-LINE
+ 828 000707  5057          JMP     OFFRET          /FINISH IT THERE
+ 829               
+ 830               /       KEYBOARD MONITOR REPLACEMENT ADDRESSES.
+ 831               
+ 832 000710  2336  MONADR, P7TSF                   /WAS TSFIOT
+ 833 000711  2337          P7JMP                   /WAS JMP I P7OUT
+ 834 000712  2340          P7TLS                   /WAS TLSIOT
+ 835 000713  2345          CCHECK+2                /WAS KSFIOT
+ 836 000714  2346          CCHECK+3                /WAS JMP I CCHECK
+ 837 000715  2347          CCHECK+4                /WAS KRBIOT
+ 838 000716  0000          0                       /THIS ENDS THE LIST
+ 839               
+ 840               /       KEYBOARD MONITOR REPLACEMENT VALUES.
+ 841               
+ 842 000717  6212  MONZAP, CIF     10              /WILL BECOME CIF OUR FIELD
+ 843 000720  4033          JMS     OUTCON          /CALL OUTPUT ROUTINE
+ 844 000721  5735          P7OUT&177+JMPIC         /JMP I P7OUT
+ 845 000722  6212          CIF     10              /WILL BECOME CIF OUR FIELD
+ 846 000723  4031          JMS     INCON           /CALL INPUT ROUTINE
+ 847 000724  5743          CCHECK&177+JMPIC        /JMP I CCHECK
+ 848               
+ 849               /       ERROR BLURBS.
+ 850               
+ 851 000725  0522  REDBLB, "R+BOLD                 /READ BLURB
+ 852 000726  0105          "E+NORMAL
+ 853 000727  0101          "A+NORMAL
+ 854 000730  0104          "D+NORMAL
+ 855               
+ 856 000731  0527  WRIBLB, "W+BOLD                 /WRITE BLURB
+ 857 000732  0122          "R+NORMAL
+ 858 000733  0111          "I+NORMAL
+ 859 000734  0124          "T+NORMAL
+ 860               
+ 861 000735  0106  FRMBLB, "F+NORMAL               /FROM BLURB
+ 862 000736  0122          "R+NORMAL
+ 863 000737  0117          "O+NORMAL
+ 864 000740  0115          "M+NORMAL
+ 865               
+ 866 000741  0111  TOBLB,  "I+NORMAL               /TO BLURB
+ 867 000742  0116          "N+NORMAL
+ 868 000743  0124          "T+NORMAL
+ 869 000744  0117          "O+NORMAL
+ 870 000772  0020         PAGE
+     000773  0070  
+     000774  0010  
+     000775  5000  
+     000776  4400  
+     000777  4617  
+ 871               /      INTERRUPT DEVICE LIST.
+ 872               
+ 873               /       FLAG SKIP INSTRUCTIONS FOR ALL DEVICES HANDLED BY THE OVERLAY.
+ 874               
+ 875               /       POSITIONAL DESCRIPTION.
+ 876               
+ 877               /       ENTRY 0:        KEYBOARD SKIP
+ 878               /       ENTRY 1:        CONSOLE OUTPUT SKIP
+ 879               /       ENTRY 2:        LPT: INPUT SKIP
+ 880               /       ENTRY 3:        LPT: OUTPUT SKIP
+ 881               /       ENTRY 4-N:      EXTRA DEVICE SKIPS (VT-8/E, ETC.)
+ 882               /       0000            END OF LIST
+ 883               
+ 884               /       ENTRIES 0-3 MUST BE PRESENT; 7777 MEANS DEVICE DOES NOT INTERRUPT FOR
+ 885               /       THIS FUNCTION. ENTRIES 4-N ARE OPTIONAL.
+ 886               
+ 887 001000  6431  INTDEV, DKSFIOT                 /KEYBOARD SKIP
+ 888 001001  7777          7777                    /NO OUTPUT SKIP
+ 889 001002  7777          -ONEWAY!LISFIOT         /LPT: INPUT SKIP
+ 890 001003  6661          LSFIOT                  /LPT: OUTPUT SKIP
+ 891 001004  6456          DPCLIOT                 /VIDEO RETRACE SKIP
+ 892               
+ 893                       IFNZRO  VT8LPT  <
+ 894               
+ 895                       PRSFIOT                 /DORMANT LPT: SKIP
+ 896               
+ 897                                       >
+ 898               
+ 899 001005  0000          0000                    /THIS ENDS THE LIST
+ 900               /      CURSOR ADDRESSING INITIALLY COMES HERE.
+ 901               
+ 902 001006  1377  VTCAD,  TAD     (CADY)          /GET NEXT ADDRESS
+ 903 001007  3052          DCA     CADDRESS        /SET IT UP
+ 904 001010  5276          JMP     COMMON          /CONTINUE THERE
+ 905               
+ 906               /       COMES HERE UPON FIRST CHARACTER AFTER <^N>.
+ 907               
+ 908 001011  1017  CADY,   TAD     OUTCHR          /GET LATEST CHARACTER
+ 909 001012  7650          SNA CLA                 /SKIP IF NOT <NUL>
+ 910 001013  5276          JMP     COMMON          /IGNORE <NUL> IN <^N> SEQUENCE
+ 911 001014  1376          TAD     (CADX)          /GET NEXT ADDRESS
+ 912 001015  3052          DCA     CADDRESS        /SET IT UP
+ 913 001016  4554          JMS I   [PUTBACK]       /RESTORE THE CHARACTER
+ 914 001017  1017          TAD     OUTCHR          /GET THE CHARACTER
+ 915 001020  1375          TAD     (-40-24)        /ADD ON UPPER LIMIT
+ 916 001021  7100          CLL                     /CLEAR LINK FOR TEST
+ 917 001022  1374          TAD     (24)            /ADD ON RANGE
+ 918 001023  7420          SNL                     /SKIP IF IN RANGE
+ 919 001024  7200          CLA                     /ELSE USE 0000
+ 920 001025  1373          TAD     (VTBUFFER%100)  /ADD ON SHIFTED BUFFER BASE
+ 921 001026  7002          BSW                     /MOVE UP
+ 922 001027  3073          DCA     VTPTR           /SAVE AS NEW POINTER
+ 923 001030  1017          TAD     OUTCHR          /GET THE CHARACTER AGAIN
+ 924 001031  1372          TAD     (-16)           /COMPARE TO <^N>
+ 925 001032  7450          SNA                     /SKIP IF OTHER
+ 926 001033  5276          JMP     COMMON          /DON'T DO IT AGAIN IN MIDDLE!
+ 927 001034  1371          TAD     (-40+16)        /COMPARE TO OTHER CONTROL CHARACTERS
+ 928 001035  7500          SMA                     /SKIP IF CONTROL CHARACTER
+ 929 001036  5276          JMP     COMMON          /ELSE NO FURTHER ACTION
+ 930 001037  1370  CONTROL,TAD     (CTABLE+40)     /POINT AT TABLE ELEMENT
+ 931 001040  3043          DCA     VTEMP1          /STASH THE POINTER
+ 932 001041  4554          JMS I   [PUTBACK]       /PUT THE CHARACTER BACK NOW
+ 933 001042  1443          TAD I   VTEMP1          /GET THE ADDRESS
+ 934 001043  3043          DCA     VTEMP1          /STASH IT
+ 935 001044  5443          JMP I   VTEMP1          /GO TO ROUTINE ADDRESS
+ 936               /      COMES HERE UPON SECOND CHARACTER AFTER <^N>.
+ 937               
+ 938 001045  1017  CADX,   TAD     OUTCHR          /GET LATEST CHARACTER
+ 939 001046  7650          SNA CLA                 /SKIP IF NOT <NUL>
+ 940 001047  5276          JMP     COMMON          /IGNORE <NUL> IN <^N> SEQUENCE
+ 941 001050  1164          TAD     [CADNORMAL]     /RESET THE
+ 942 001051  3052          DCA     CADDRESS        /NORMAL ADDRESS
+ 943 001052  4554          JMS I   [PUTBACK]       /PUT THE CHARACTER BACK NOW
+ 944 001053  1017          TAD     OUTCHR          /GET THE CHARACTER
+ 945 001054  1367          TAD     (-40-110)       /ADD ON UPPER LIMIT
+ 946 001055  7100          CLL                     /CLEAR LINK FOR TEST
+ 947 001056  1366          TAD     (110)           /ADD ON RANGE
+ 948 001057  7420          SNL                     /SKIP IF LEGAL
+ 949 001060  7200          CLA                     /ELSE USE 0000
+ 950 001061  1156          TAD     [-100]          /COMPARE TO OUR LIMIT
+ 951 001062  7500          SMA                     /SKIP IF OK
+ 952 001063  7240          NL7777                  /ELSE TRUNCATE ON RIGHT
+ 953 001064  1365          TAD     (100)           /RESTORE THE VALUE
+ 954 001065  1073          TAD     VTPTR           /ADD ON CURRENT POINTER
+ 955 001066  3073          DCA     VTPTR           /STORE NEW VALUE
+ 956 001067  1017          TAD     OUTCHR          /GET THE CHARACTER AGAIN
+ 957 001070  1372          TAD     (-16)           /COMPARE TO <^N>
+ 958 001071  7450          SNA                     /SKIP IF OTHER
+ 959 001072  5276          JMP     COMMON          /JUMP IF <^N>
+ 960 001073  1371          TAD     (-40+16)        /COMPARE TO CONTROL CHARACTER
+ 961 001074  7510          SPA                     /SKIP IF NOT CONTROL CHARACTER
+ 962 001075  5237          JMP     CONTROL         /ELSE ALSO DO ITS FUNCTION
+ 963 001076  7610  COMMON, SKP CLA                 /CLEAN UP AND DON'T RING THE <BEL>
+ 964 001077  6457  VTBELL, DPBLIOT                 /BANG A GONG AND GET IT ON
+ 965 001100  1073          TAD     VTPTR           /GET THE POINTER
+ 966 001101  0156          AND     [7700]          /JUST LINE BITS
+ 967 001102  3072          DCA     VTLNPTR         /STORE BEGINNING POINTER
+ 968 001103  5764          JMP I   (VTEXIT)        /CONTINUE THERE
+ 969               /      <HT> COMES HERE.
+ 970               
+ 971 001104  7350  VTTAB,  NL3777                  /SETUP MASK
+ 972 001105  0473          AND I   VTPTR           /GET THE WORD
+ 973 001106  4553          JMS I   [PRTCHR]        /PUT IT BACK WITHOUT WASTE BIT
+ 974 001107  1073          TAD     VTPTR           /GET THE POINTER
+ 975 001110  0147          AND     [7]             /JUST <TAB> BITS
+ 976 001111  7450          SNA                     /SKIP IF NOT AT A <TAB> STOP
+ 977 001112  5276          JMP     COMMON          /JUMP IF IT IS
+ 978 001113  1363          TAD     (7770)          /FORM CHARACTER COUNT
+ 979 001114  3044          DCA     VTEMP2          /STASH THE COUNTER
+ 980 001115  1473          TAD I   VTPTR           /GET THE CHARACTER
+ 981 001116  4553          JMS I   [PRTCHR]        /PUT IT RIGHT BACK
+ 982 001117  2044          ISZ     VTEMP2          /DONE YET?
+ 983 001120  5315          JMP     .-3             /NO, KEEP GOING
+ 984 001121  5276          JMP     COMMON          /YES, FINISH IT THERE
+ 985               
+ 986               /       <CURSOR LEFT> COMES HERE.
+ 987               
+ 988 001122  1073  CLEFT,  TAD     VTPTR           /GET THE CURRENT POINTER
+ 989 001123  0146          AND     [77]            /JUST ON-LINE BITS
+ 990 001124  7640          SZA CLA                 /SKIP IF AT BEGINNING
+ 991 001125  7240          NL7777                  /ELSE GENERATE BACKUP FACTOR
+ 992 001126  1073  CRITENT,TAD     VTPTR           /UPDATE POINTER
+ 993 001127  3073          DCA     VTPTR           /STORE BACK
+ 994 001130  5276          JMP     COMMON          /CONTINUE THERE
+ 995               
+ 996               /       <CURSOR RIGHT> COMES HERE.
+ 997               
+ 998 001131  1073  CRIGHT, TAD     VTPTR           /GET THE POINTER
+ 999 001132  7001          IAC                     /ADD ONE
+1000 001133  0146          AND     [77]            /WILL BE AT BEGINNING OF LINE?
+1001 001134  7640          SZA CLA                 /SKIP IF SO
+1002 001135  7201          NL0001                  /ELSE ALLOW UPDATE
+1003 001136  5326          JMP     CRITENTRY       /CONTINUE THERE
+1004               
+1005               /       <CURSOR UP> COMES HERE.
+1006               
+1007 001137  1073  CUP,    TAD     VTPTR           /GET THE POINTER
+1008 001140  1145          TAD     [-VTBUFFER-100] /COMPARE TO BEGINNING LIMIT
+1009 001141  7700          SMA CLA                 /SKIP IF AT TOP ALREADY
+1010 001142  1156          TAD     [-100]          /ELSE ALLOW BACKUP FACTOR
+1011 001143  5326          JMP     CRITENTRY       /CONTINUE THERE
+1012               
+1013               /       <CURSOR DOWN> COMES HERE.
+1014               
+1015 001144  1073  CDOWN,  TAD     VTPTR           /GET THE POINTER
+1016 001145  1362          TAD     (100-VTBFEND)   /COMPARE TO UPPER LIMIT
+1017 001146  7710          SPA CLA                 /SKIP IF TOO FAR
+1018 001147  7203  VTLF,   NL0100                  /ELSE ALLOW UPDATE
+1019 001150  5326          JMP     CRITENTRY       /CONTINUE THERE
+1020 001162  3300         PAGE
+     001163  7770  
+     001164  0334  
+     001165  0100  
+     001166  0110  
+     001167  7630  
+     001170  0466  
+     001171  7756  
+     001172  7762  
+     001173  0022  
+     001174  0024  
+     001175  7714  
+     001176  1045  
+     001177  1011  
+1021               /      <CR> COMES HERE.
+1022               
+1023 001200  1072  VTCR,   TAD     VTLNPTR         /GET LINE POINTER
+1024 001201  7041          CIA                     /INVERT
+1025 001202  1073          TAD     VTPTR           /ADD ON CURRENT POINTER
+1026 001203  1054          TAD     TABCNT          /NOW HAVE LINE DIFFERENCE
+1027 001204  7450          SNA                     /SKIP IF NOT ON FIRST LINE
+1028 001205  5211          JMP     BACKIN          /JUMP IF JUST THE TRIVIAL CASE
+1029 001206  0146          AND     [77]            /CHECK FOR JUST-CONTINUED LINE
+1030 001207  7650          SNA CLA                 /SKIP IF OTHER
+1031 001210  5215          JMP     BACKUP          /JUST BACKUP A WHOLE LINE
+1032 001211  1073  BACKIN, TAD     VTPTR           /GET CURRENT POINTER
+1033 001212  0156          AND     [7700]          /JUST LINE BITS
+1034 001213  3073  CUPIN,  DCA     VTPTR           /NOW AT BEGINNING OF LINE
+1035 001214  5777          JMP I   (COMMON)        /CONTINUE THERE
+1036               
+1037 001215  1073  BACKUP, TAD     VTPTR           /GET THE POINTER
+1038 001216  0156          AND     [7700]          /JUST LINE BITS
+1039 001217  3073          DCA     VTPTR           /STORE BACK
+1040 001220  1144          TAD     [" &177+4000]   /GET A <SPACE>
+1041 001221  3473          DCA I   VTPTR           /PUT IT IN BUFFER
+1042 001222  1156          TAD     [-100]          /GET BACKUP FACTOR
+1043 001223  5211          JMP     BACKIN          /CONTINUE THERE
+1044               
+1045               /       ARROW MODE (^) CONTROL CHARACTERS COME HERE.
+1046               
+1047 001224  1376  PRCONT, TAD     ("^+BOLD)       /GET AN "^"
+1048 001225  4553          JMS I   [PRTCHR]        /INSERT IT
+1049 001226  1017          TAD     OUTCHR          /GET THE CHARACTER
+1050 001227  1375          TAD     (BOLD+300+4000) /MAKE IT BOLD
+1051 001230  4553          JMS I   [PRTCHR]        /INSERT IT
+1052 001231  5777          JMP I   (COMMON)        /CONTINUE THERE
+1053               /      SPECIAL <RO> HANDLING CHARACTER COMES HERE.
+1054               
+1055 001232  1073  VTRUB,  TAD     VTPTR           /GET CURRENT POINTER
+1056 001233  1374          TAD     (-VTBUFFER)     /COMPARE TO LOWER LIMIT
+1057 001234  7750          SPA SNA CLA             /SKIP IF NOT AT BEGINNING
+1058 001235  5270          JMP     VTHOME          /ELSE FORGET IT
+1059 001236  7240          NL7777                  /\
+1060 001237  1073          TAD     VTPTR           / >BACKUP THE POINTER
+1061 001240  3073          DCA     VTPTR           //
+1062 001241  1473          TAD I   VTPTR           /GET THE PREVIOUS CHARACTER
+1063 001242  7004          RAL                     /EXPENDABLE BIT TO LINK
+1064 001243  7200          CLA                     /CLEAN UP
+1065 001244  1144          TAD     [" &177+4000]   /GET A <SPACE>
+1066 001245  3473          DCA I   VTPTR           /PUT IT IN BUFFER
+1067 001246  7430          SZL                     /SKIP IF IT WAS A REGULAR CHARACTER
+1068 001247  5232          JMP     VTRUB           /ELSE RUBOUT PREVIOUS ALSO
+1069               
+1070               /       <EOS> COMES HERE.
+1071               
+1072 001250  1073  VTEOS,  TAD     VTPTR           /GET CURRENT POINTER
+1073 001251  1373          TAD     (-VTBFEND)      /ESTABLISH CLEAR COUNT
+1074 001252  5256          JMP     EOSENTRY        /CONTINUE THERE
+1075               
+1076               /       <EOL> COMES HERE.
+1077               
+1078 001253  1073  VTEOL,  TAD     VTPTR           /GET THE POINTER
+1079 001254  0146          AND     [77]            /JUST ON-LINE BITS
+1080 001255  1156          TAD     [-100]          /FORM ON-LINE CLEAR COUNT
+1081 001256  3043  EOSENTR,DCA     VTEMP1          /STORE CLEAR COUNT
+1082 001257  7240          NL7777                  /BACKUP
+1083 001260  1073          TAD     VTPTR           /GET THE POINTER
+1084 001261  3010          DCA     CXR1            /STORE FOR CLEARING
+1085 001262  1144          TAD     [" &177+4000]   /GET A <SPACE>
+1086 001263  3410          DCA I   CXR1            /CLEAR THE CHARACTER
+1087 001264  2043          ISZ     VTEMP1          /DONE YET?
+1088 001265  5262          JMP     .-3             /NO, KEEP GOING
+1089 001266  5777          JMP I   (COMMON)        /CONTINUE THERE
+1090               
+1091               /       <FF> COMES HERE.
+1092               
+1093 001267  4561  VTFF,   JMS I   [CLEAR]         /CLEAR THE BUFFER
+1094               /      <HOM> COMES HERE.
+1095               
+1096 001270  1151  VTHOME, TAD     [VTBUFFER]              /POINT TO BEGINNING OF BUFFER
+1097 001271  5213          JMP     CUPIN                   /CONTINUE THERE
+1098               
+1099               /       <ESC> HANDLING COMES HERE.
+1100               
+1101 001272  1372  ESCAPE, TAD     (ESCAP2)                /SETUP NEXT <ESCAPE> ADDRESS POINTER
+1102 001273  3053          DCA     SCAPADDRESS             /STASH THE NEW POINTER
+1103 001274  5777          JMP I   (COMMON)                /CONTINUE THERE
+1104               
+1105               /       <ESC> HANDLING CONTINUES HERE.
+1106               
+1107 001275  1163  ESCAP2, TAD     [SCAPNORMAL]            /RESET THE
+1108 001276  3053          DCA     SCAPADDRESS             /<ESC> ADDRESS
+1109 001277  4554          JMS I   [PUTBACK]               /RESTORE THE PREVIOUS CHARACTER
+1110 001300  1016          TAD     OUTAC                   /GET THE VALUE
+1111               
+1112               /       DO SOMETHING HERE.
+1113               
+1114 001301  7200          CLA                             /CLEAN UP
+1115 001302  5777          JMP I   (COMMON)                /CONTINUE THERE
+1116               
+1117               /       I/O TRAPS COME HERE BEFORE GOING TO TRAP BLOCKS.
+1118               
+1119 001303  7200  OURTRAP,CLA                             /CLEAN UP
+1120 001304  1076          TAD     IOERSW                  /RECOVERY IN PROGRESS?
+1121 001305  7650          SNA CLA                         /SKIP IF SO
+1122 001306  5771          JMP I   (TRAPIO&177+TRPAGE)     /JUMP IF NOT
+1123 001307  1370          TAD     (-30)                   /SETUP THE
+1124 001310  3076          DCA     IOERSW                  /TIME-OUT COUNTER
+1125 001311  2020          ISZ     CALADR                  /WASTE
+1126 001312  5311          JMP     .-1                     /SOME TIME
+1127 001313  2076          ISZ     IOERSW                  /WASTED ENOUGH TIME?
+1128 001314  5311          JMP     .-3                     /NO, KEEP GOING
+1129 001315  1151          TAD     [VTBUFFER]              /YES, POINT TO DISPLAY BUFFER
+1130 001316  6450          DPLAIOT                         /RELOAD DISPLAY ADDRESS
+1131 001317  7201          NL0001                          /SET INTERRUPT ENABLE BIT
+1132 001320  6224          RIF                             /GET OUR FIELD
+1133 001321  6451          DPGOIOT                         /START UP THE DISPLAY
+1134 001322  5771          JMP I   (TRAPIO&177+TRPAGE)     /CONTINUE IN NORMAL TRAP CODE
+1135               
+1136 001370  7750          PAGE
+     001371  5441  
+     001372  1275  
+     001373  3200  
+     001374  5600  
+     001375  4500  
+     001376  0536  
+     001377  1076  
+1137               
+1138                       ENDROM= .               /END OF "ROM" AREA
+1139 001400  0000  OCTMOVE,.-.                            /FOUR DIGIT MOVE ROUTINE
+1140 001401  3223          DCA     BLBCHAR                 /SAVE PASSED VALUE
+1141 001402  1152          TAD     [-4]                    /SETUP THE
+1142 001403  3422          DCA I   MOVBLB                  /MOVE COUNT
+1143 001404  1600          TAD I   OCTMOVE                 /GET THE MESSAGE ADDRESS
+1144 001405  3010          DCA     CXR1                    /SET IT UP
+1145 001406  2200          ISZ     OCTMOVE                 /BUMP PAST ARGUMENT
+1146 001407  1223  OCTLUP, TAD     BLBCHAR                 /GET THE VALUE
+1147 001410  7106          CLL RTL;RAL                     /MOVE UP
+     001411  7004  
+1148 001412  3223          DCA     BLBCHAR                 /STORE BACK
+1149 001413  1223          TAD     BLBCHAR                 /GET IT AGAIN
+1150 001414  7004          RAL                             /MOVE UP
+1151 001415  0147          AND     [7]                     /JUST LATEST DIGIT
+1152 001416  1143          TAD     ["0+BOLD]               /MAKE IT ASCII
+1153 001417  3410          DCA I   CXR1                    /STORE IN MESSAGE
+1154 001420  2422          ISZ I   MOVBLB                  /DONE YET?
+1155 001421  5207          JMP     OCTLUP                  /NO, KEEP GOING
+1156 001422  5600          JMP I   OCTMOVE                 /YES, RETURN
+1157               
+1158 001423  0000  BLBCHAR,.-.                             /BLURB CHARACTER FILLING ROUTINE
+1159 001424  0146          AND     [77]                    /JUST SIX-BIT
+1160 001425  7450          SNA                             /<NUL>?
+1161 001426  1142          TAD     [" &77]                 /MAKE IT A <SPACE>
+1162 001427  1142          TAD     [40]                    /INVERT QUADRANT BIT
+1163 001430  0146          AND     [77]                    /REMOVE EXCESS
+1164 001431  1142          TAD     [40]                    /INVERT AGAIN
+1165 001432  3200          DCA     OCTMOVE                 /SAVE IT FOR NOW
+1166 001433  1200          TAD     OCTMOVE                 /GET IT BACK
+1167 001434  1157          TAD     [-" !200]               /COMPARE TO <SPACE>
+1168 001435  7640          SZA CLA                         /SKIP IF IT MATCHES
+1169 001436  5243          JMP     BLBCHOK                 /JUMP IF NOT
+1170 001437  1011          TAD     CXR2                    /GET <NUL> FLAG
+1171 001440  7650          SNA CLA                         /SKIP IF NON-<NUL> SEEN
+1172 001441  1141          TAD     [12-40-BOLD-200]        /ELSE MAKE IT <LF>
+1173 001442  7410          SKP                             /DON'T CHANGE FLAG
+1174 001443  2011  BLBCHOK,ISZ     CXR2                    /BUMP FLAG
+1175 001444  1200          TAD     OCTMOVE                 /GET THE CHARACTER
+1176 001445  1140          TAD     [BOLD+200]              /MAKE IT BOLD
+1177 001446  3410          DCA I   CXR1                    /STORE IN MESSAGE
+1178 001447  5623          JMP I   BLBCHAR                 /RETURN
+1179               /      MAIN ERROR MESSAGE.
+1180               
+1181 001450  0012  BLURB,  "J&37                   /<LF>
+1182 001451  0012          "J&37                   /<LF>
+1183 001452  0440          " +BOLD                 /ERROR GOES HERE
+1184 001453  0440          " +BOLD                 /ERROR GOES HERE
+1185 001454  0440          " +BOLD                 /ERROR GOES HERE
+1186 001455  0440          " +BOLD                 /ERROR GOES HERE
+1187 001456  0440          " +BOLD                 /ERROR GOES HERE
+1188 001457  0440          " +BOLD                 /ERROR GOES HERE
+1189 001460  0440          " +BOLD                 /ERROR GOES HERE
+1190 001461  0440          " +BOLD                 /ERROR GOES HERE
+1191 001462  0440          " +BOLD                 /ERROR GOES HERE
+1192 001463  0440          " +BOLD                 /ERROR GOES HERE
+1193 001464  0440          " +BOLD                 /ERROR GOES HERE
+1194 001465  0440          " +BOLD                 /ERROR GOES HERE
+1195 001466  0440          " +BOLD                 /ERROR GOES HERE
+1196 001467  0440          " +BOLD                 /ERROR GOES HERE
+1197 001470  0440          " +BOLD                 /ERROR GOES HERE
+1198 001471  0440          " +BOLD                 /ERROR GOES HERE
+1199 001472  0440          " +BOLD                 /ERROR GOES HERE
+1200 001473  0440          " +BOLD                 /ERROR GOES HERE
+1201 001474  0440  ERRBLB, " +BOLD                 /ERROR BLURB STARTS HERE
+1202 001475  0305          "E+BLINK
+1203 001476  0322          "R+BLINK
+1204 001477  0322          "R+BLINK
+1205 001500  0317          "O+BLINK
+1206 001501  0322          "R+BLINK
+1207 001502  0440          " +BOLD
+1208 001503  0127          "W+NORMAL
+1209 001504  0110          "H+NORMAL
+1210 001505  0111          "I+NORMAL
+1211 001506  0114          "L+NORMAL
+1212 001507  0105          "E+NORMAL
+1213 001510  0440          " +BOLD
+1214 001511  0000  FUNBLB, ZBLOCK  4               /WILL BE "READ" OR "WRIT"
+     001512  0000  
+     001513  0000  
+     001514  0000  
+1215 001515  0111          "I+NORMAL
+1216 001516  0116          "N+NORMAL
+1217 001517  0107          "G+NORMAL
+1218 001520  0440          " +BOLD
+1219 001521  0523          "S+BOLD
+1220 001522  0531          "Y+BOLD
+1221 001523  0523          "S+BOLD
+1222 001524  0000  UNTBLB, .-.                     /UNIT DIGIT WILL GO HERE
+1223 001525  0072          ":+NORMAL
+1224 001526  0000  BLKBLB, ZBLOCK  4               /BLOCK NUMBER WILL GO HERE
+     001527  0000  
+     001530  0000  
+     001531  0000  
+1225 001532  0440          " +BOLD
+1226 001533  0000  FTBLB,  ZBLOCK  4               /"FROM" OR "INTO" WILL GO HERE
+     001534  0000  
+     001535  0000  
+     001536  0000  
+1227 001537  0440          " +BOLD
+1228 001540  0000  FLDBLB, .-.                     /FIELD DIGIT WILL GO HERE
+1229 001541  0000  ADDBLB, ZBLOCK  4               /TRANSFER ADDRESS DIGITS WILL GO HERE
+     001542  0000  
+     001543  0000  
+     001544  0000  
+1230 001545  0012         "J&37                   /<LF>
+1231 001546  0012          "J&37                   /<LF>
+1232 001547  0523          "S+BOLD
+1233 001550  0124          "T+NORMAL
+1234 001551  0101          "A+NORMAL
+1235 001552  0124          "T+NORMAL
+1236 001553  0125          "U+NORMAL
+1237 001554  0123          "S+NORMAL
+1238 001555  0072          ":+NORMAL
+1239 001556  0440          " +BOLD
+1240 001557  0000  STATBLB,ZBLOCK  4               /STATUS DIGITS WILL GO HERE
+     001560  0000  
+     001561  0000  
+     001562  0000  
+1241 001563  3000  BLBSTP, EOS                     /WILL BE <SPACE> TO EXPAND MESSAGE
+1242 001564  0440          " +BOLD
+1243 001565  0440          " +BOLD
+1244 001566  0440          " +BOLD
+1245 001567  0440          " +BOLD
+1246 001570  0652          "*+CURSOR
+1247 001571  0322          "R+BLINK
+1248 001572  0305          "E+BLINK
+1249 001573  0324          "T+BLINK
+1250 001574  0322          "R+BLINK
+1251 001575  0331          "Y+BLINK
+1252 001576  0311          "I+BLINK
+1253 001577  0316          "N+BLINK
+1254 001600  0307          "G+BLINK
+1255 001601  0652          "*+CURSOR
+1256 001602  3000          EOS
+1257               /      LPT: SUPPORT ROUTINES.
+1258               
+1259 001603  0000  LPOUT,  .-.                     /LPT: OUTPUT ROUTINE
+1260 001604  3242          DCA     BUFCHK          /SAVE PASSED VALUE
+1261 001605  1242          TAD     BUFCHK          /GET IT BACK
+1262 001606  1377          TAD     (-177)          /ADD ON UPPER LIMIT
+1263 001607  7100          CLL                     /CLEAR LINK FOR TEST
+1264 001610  1376          TAD     (37)            /ADD ON RANGE
+1265 001611  7630          SZL CLA                 /SKIP IF OUT OF RANGE
+1266 001612  1006          TAD     LCMODE          /ELSE ADD ON FOLD VALUE
+1267 001613  1242          TAD     BUFCHK          /GET ORIGINAL EITHER WAY
+1268 001614  3242          DCA     BUFCHK          /STORE BACK
+1269 001615  1042          TAD     LSTATUS         /GET CURRENT STATUS
+1270 001616  7700          SMA CLA                 /SKIP IF IN <^S>/<^Q> WAIT
+1271 001617  5223          JMP     LOUTRY          /JUMP IF NOT
+1272 001620  4303          JMS     LINPUT          /TRY TO CHANGE STATUS
+1273 001621  7750          SPA SNA CLA             /SKIP IF <^Q> RECEIVED
+1274 001622  5603          JMP I   LPOUT           /ELSE TAKE FAILURE RETURN
+1275 001623  0000  LOUTRY,.-.                      /WILL BE CIF CDF OUR FIELD
+1276 001624  1027          TAD     LPTFLAG         /GET OUTPUT FLAG
+1277 001625  6661          LSFIOT                  /FLAG UP NOW?
+1278 001626  7410          SKP                     /SKIP IF NOT
+1279 001627  7240          NL7777                  /ELSE SET FLAG VALUE
+1280 001630  7450          SNA                     /SKIP IF EITHER FLAG IS OR WAS SET
+1281 001631  5237          JMP     LPSTRD          /JUMP IF NEITHER
+1282 001632  0242          AND     BUFCHK          /GET THE CHARACTER
+1283 001633  6666          LLSIOT                  /OUTPUT IT NOW
+1284 001634  7200          CLA                     /CLEAN UP
+1285 001635  3027          DCA     LPTFLAG         /CLEAR EVENT FLAG
+1286 001636  2203          ISZ     LPOUT           /BUMP TO SKIP RETURN
+1287 001637  4303  LPSTRD, JMS     LINPUT          /GET NEW INPUT STATUS
+1288 001640  3042          DCA     LSTATUS         /STORE IT
+1289 001641  5603          JMP I   LPOUT           /RETURN
+1290               
+1291 001642  0000  BUFCHK, .-.                     /BUFFER STATUS ROUTINE
+1292 001643  7201          NL0001                  /SETUP INCREMENT
+1293 001644  1041          TAD     FILLPTR         /GET FILL POINTER+1
+1294 001645  7041          CIA                     /INVERT FOR TESTING
+1295 001646  1037          TAD     EMPTPTR         /COMPARE TO EMPTYING POINTER
+1296 001647  0375          AND     (BUFSIZE-1)     /JUST RELATIVE BITS
+1297 001650  7450          SNA                     /SKIP IF BUFFER IS NOT FULL
+1298 001651  5642          JMP I   BUFCHK          /TAKE FIRST RETURN
+1299 001652  2242          ISZ     BUFCHK          /BUMP TO SKIP RETURN
+1300 001653  7001          IAC                     /CHECK IF EMPTY
+1301 001654  0375          AND     (BUFSIZE-1)     /JUST RELATIVE BITS
+1302 001655  7650          SNA CLA                 /SKIP IF PARTIALLY USED
+1303 001656  2242          ISZ     BUFCHK          /ELSE TAKE DOUBLE-SKIP EMPTY RETURN
+1304 001657  5642          JMP I   BUFCHK          /RETURN EITHER WAY
+1305 001660  0000  LPFILL,        .-.                     /BUFFER FILL ROUTINE
+1306 001661  7201          NL0001                  /SET INCREMENT
+1307 001662  1041          TAD     FILLPTR         /GET THE POINTER
+1308 001663  0375          AND     (BUFSIZE-1)     /JUST RELATIVE BITS
+1309 001664  1162          TAD     [LPTBUFFER]     /ADD ON BUFFER BASE
+1310 001665  3041          DCA     FILLPTR         /STORE UPDATED POINTER
+1311 001666  0000  LPFCDF, .-.                     /WILL BE CDF OUR FIELD
+1312 001667  1015          TAD     LPTCHAR         /GET THE CHARACTER
+1313 001670  3441          DCA I   FILLPTR         /STORE IN THE BUFFER
+1314 001671  5660          JMP I   LPFILL          /RETURN
+1315               
+1316 001672  0000  LPEMPTY,.-.                     /BUFFER EMPTY ROUTINE
+1317 001673  7201          NL0001                  /SET INCREMENT
+1318 001674  1037          TAD     EMPTPTR         /GET THE POINTER
+1319 001675  0375          AND     (BUFSIZE-1)     /JUST RELATIVE BITS
+1320 001676  1162          TAD     [LPTBUFFER]     /ADD ON BUFFER BASE
+1321 001677  3040          DCA     EMPTR           /STORE IN TEMPORARY POINTER
+1322 001700  0000  LPECDF, .-.                     /WILL BE CDF OUR FIELD
+1323 001701  1440          TAD I   EMPTR           /GET THE CHARACTER
+1324 001702  5672          JMP I   LPEMPTY         /RETURN
+1325               
+1326 001703  0000  LINPUT, .-.                     /LPT: INPUT ROUTINE
+1327 001704  0000  LPCIDF, .-.                     /WILL BE CIF CDF OUR FIELD
+1328 001705  1030          TAD     LINFLAG         /GET INPUT FLAG
+1329 001706  7450          SNA                     /SKIP IF SET
+1330 001707  5314          JMP     LINETST         /JUMP IF NOT
+1331 001710  3007          DCA     LINCHAR         /STORE FOR NOW
+1332 001711  3030          DCA     LINFLAG         /CLEAR THE EVENT FLAG
+1333 001712  1007          TAD     LINCHAR         /GET THE CHARACTER
+1334 001713  5320          JMP     GOTLINPUT       /CONTINUE THERE
+1335               
+1336 001714  0000  LINETST,.-.                     /WILL BE CIF CDF OUR FIELD
+1337 001715  0000          ONEWAY-1&LISFIOT        /FLAG UP NOW?
+1338 001716  5703          JMP I   LINPUT          /NO, JUST RETURN
+1339 001717  6656          LIRBIOT                 /YES, GET THE CHARACTER
+1340 001720  0160  GOTLINP,AND     [177]           /JUST SEVEN-BIT
+1341 001721  1374          TAD     (-"S!300)       /IS IT <^S>?
+1342 001722  7450          SNA                     /SKIP IF NOT
+1343 001723  5331          JMP     LPSETS          /JUMP IF SO
+1344 001724  1373          TAD     (-"Q+"S)        /IS IT <^Q>?
+1345 001725  7640          SZA CLA                 /SKIP IF SO
+1346 001726  5703          JMP I   LINPUT          /RETURN WITH CLEAR AC IF NOT
+1347 001727  7332          NL2000                  /SET <^Q> VALUE
+1348 001730  7410          SKP                     /NOT <^S> VALUE
+1349 001731  7330  LPSETS, NL4000                  /SET <^S> VAUE
+1350 001732  5703          JMP I   LINPUT          /RETURN
+1351               /      INTERRUPT SETUP ROUTINE.
+1352               
+1353 001733  0000  INTSET, .-.                     /INTERRUPT SETUP
+1354 001734  7240          NL7777                  /SET ALL BITS
+1355 001735  6435          DKIEIOT                 /ENABLE INTERRUPTS ON KEYBOARD, LPT:
+1356 001736  7000          NOP                     /JUST IN CASE
+1357 001737  7200          CLA                     /CLEAN UP
+1358 001740  1151          TAD     [VTBUFFER]      /POINT AT DISPLAY BUFFER
+1359 001741  6450          DPLAIOT                 /LOAD DISPLAY ADDRESS
+1360 001742  7201          NL0001                  /SET INTERRUPT BIT
+1361 001743  6224          RIF                     /OR IN FIELD BITS
+1362 001744  6451          DPGOIOT                 /START IT UP
+1363 001745  7240          NL7777                  /SET ALL BITS
+1364 001746  0000          ONEWAY-1&LIEIOT         /ENABLE INTERRUPTS, ERRORS ON KL-8JA
+1365 001747  7000          NOP                     /JUST IN CASE
+1366 001750  7240          NL7777                  /SET ALL BITS
+1367 001751  6665          LLEIOT                  /ENABLE INTERRUPTS ON INDEPENDENT INTERFACE
+1368 001752  7000          NOP                     /JUST IN CASE
+1369               
+1370                       IFNZRO  VT8LPT  <
+1371               
+1372                       NL7777                  /SET ALL BITS
+1373                       PRIEIOT                 /ENABLE DORMANT LPT: INTERRUPTS JUST IN CASE
+1374                       NOP                     /JUST IN CASE
+1375               
+1376                                       >
+1377               
+1378 001753  7200          CLA                     /CLEAN UP
+1379 001754  5733          JMP I   INTSET          /RETURN
+1380               
+1381               /       THE OUTPUT ROUTINE COMES HERE TO SET THE CURRENT DATA FIELD.
+1382               
+1383 001755  0000  OUTEXC, .-.                     /OUTPUT DATA FIELD SET ROUTINE
+1384 001756  0000  OUTCDF, .-.                     /WILL BE CDF OUR FIELD
+1385 001757  5755          JMP I   OUTEXC          /RETURN
+1386               
+1387 001760  0000  WASTE,  .-.                     /TIME WASTE LOCATION
+1388               
+1389 001773  0002          PAGE
+     001774  7755  
+     001775  0377  
+     001776  0037  
+     001777  7601  
+1390               /      ERROR BLURB HANDLING ROUTINES.
+1391               
+1392 002000  0000  BLBFILL,.-.                     /FORMAT ERROR BLURB ROUTINE
+1393 002001  7200          CLA                     /CLEAN UP
+1394 002002  1021          TAD     CALFLD          /GET CDF CALLING FIELD
+1395 002003  3204          DCA     EBLOCK          /STORE IN-LINE
+1396 002004  0000  EBLOCK, .-.                     /WILL BE CDF CALLING FIELD
+1397 002005  1020          TAD     CALADR          /GET CALLING ADDRESS
+1398 002006  3204          DCA     EBLOCK          /STASH IT
+1399 002007  1604          TAD I   EBLOCK          /GET TRANSFER ADDRESS
+1400 002010  3355          DCA     EADDR           /STASH IT
+1401 002011  2204          ISZ     EBLOCK          /BUMP TO FUNCTION WORD
+1402 002012  1604          TAD I   EBLOCK          /GET FUNCTION WORD
+1403 002013  3356          DCA     EFUN            /STASH IT
+1404 002014  2204          ISZ     EBLOCK          /BUMP TO BLOCK NUMBER
+1405 002015  1604          TAD I   EBLOCK          /GET BLOCK NUMBER
+1406 002016  3204          DCA     EBLOCK          /STASH IT
+1407 002017  4566          JMS I   [SETFLD]        /SET OUR FIELD
+1408 002020  1356          TAD     EFUN            /GET FUNCTION WORD
+1409 002021  7710          SPA CLA                 /SKIP IF READING
+1410 002022  5232          JMP     EWRITE          /JUMP IF WRITING
+1411 002023  4777          JMS I   (MOV4)          /MOVE IN
+1412 002024  0724          REDBLB-1                /THE READ
+1413 002025  1510          FUNBLB-1                /BLURB
+1414 002026  4777          JMS I   (MOV4)          /MOVE IN
+1415 002027  0740          TOBLB-1                 /THE "TO"
+1416 002030  1532          FTBLB-1                 /BLURB
+1417 002031  5240          JMP     ECOMMON         /CONTINUE THERE
+1418               
+1419 002032  4777  EWRITE, JMS I   (MOV4)          /MOVE IN
+1420 002033  0730          WRIBLB-1                /THE WRITE
+1421 002034  1510          FUNBLB-1                /BLURB
+1422 002035  4777          JMS I   (MOV4)          /MOVE IN
+1423 002036  0734          FRMBLB-1                /THE "FROM"
+1424 002037  1532          FTBLB-1                 /BLURB
+1425 002040  1356  ECOMMON,TAD     EFUN            /GET THE FUNCTION WORD
+1426 002041  0147          AND     [7]             /JUST UNIT BITS
+1427 002042  1143          TAD     ["0+BOLD]       /MAKE IT ASCII
+1428 002043  3776          DCA I   (UNTBLB)        /STORE IN MESSAGE
+1429 002044  1356          TAD     EFUN            /GET FUNCTION WORD AGAIN
+1430 002045  7012          RTR;RAR                 /MOVE OVER
+     002046  7010  
+1431 002047  0147          AND     [7]             /ISOLATE FIELD BITS
+1432 002050  1143          TAD     ["0+BOLD]       /MAKE IT ASCII
+1433 002051  3775          DCA I   (FLDBLB)        /STORE IN MESSAGE
+1434 002052  1204          TAD     EBLOCK          /GET BLOCK NUMBER
+1435 002053  4774          JMS I   (OCTMOVE)       /PRINT IT
+1436 002054  1525          BLKBLB-1                /IN MESSAGE
+1437 002055  1355          TAD     EADDR           /GET TRANSFER ADDRESS
+1438 002056  4774          JMS I   (OCTMOVE)       /PRINT IT
+1439 002057  1540          ADDBLB-1                /IN MESSAGE
+1440 002060  1077          TAD     ESTATUS         /GET ERROR STATUS
+1441 002061  4774          JMS I   (OCTMOVE)       /PRINT IT
+1442 002062  1556          STATBLB-1               /IN MESSAGE
+1443 002063  5600          JMP I   BLBFILL         /RETURN
+1444 002064  0000  BLBMOVE,.-.                    /BLURB MOVE ROUTINE
+1445 002065  3356          DCA     EFUN            /SAVE BLURB ADDRESS
+1446 002066  6002          IOF                     /PREVENT PROBLEMS!
+1447 002067  4566          JMS I   [SETFLD]        /SETUP OUR FIELD
+1448 002070  1664          TAD I   BLBMOVE         /GET MOVE LENGTH
+1449 002071  3355          DCA     EADDR           /SAVE IT
+1450 002072  2264          ISZ     BLBMOVE         /BUMP PAST ARGUMENT
+1451 002073  1355          TAD     EADDR           /GET THE LENGTH
+1452 002074  7104          CLL RAL                 /*2
+1453 002075  1373          TAD     (ERRBLB-1-1)    /POINT TO BEGINNING OF BLURB REGION
+1454 002076  3010          DCA     CXR1            /STASH THE POINTER
+1455 002077  3011          DCA     CXR2            /CLEAR <NUL> FLAG
+1456 002100  4772          JMS I   (BLBCHAR)       /OUTPUT INITIAL <LF>
+1457 002101  1756  BLMVLUP,TAD I   EFUN            /GET A PAIR
+1458 002102  7002          BSW                     /LEFT ONE FIRST
+1459 002103  4772          JMS I   (BLBCHAR)       /PUT IT IN MESSAGE
+1460 002104  1756          TAD I   EFUN            /GET PAIR AGAIN
+1461 002105  4772          JMS I   (BLBCHAR)       /PUT IT IN MESSAGE
+1462 002106  2356          ISZ     EFUN            /BUMP TO NEXT PAIR
+1463 002107  2355          ISZ     EADDR           /DONE ALL PAIRS YET?
+1464 002110  5301          JMP     BLMVLUP         /NO, KEEP GOING
+1465 002111  5664          JMP I   BLBMOVE         /YES, RETURN
+1466               
+1467 002112  0000  BLBDISP,.-.                     /BLURB DISPLAY AND REPLY ROUTINE
+1468 002113  7200          CLA                     /CLEAN UP
+1469 002114  1012          TAD     INCHAR          /GET FORMER INPUT CHARACTER
+1470 002115  3355          DCA     EADDR           /SAVE IT
+1471 002116  4566          JMS I   [SETFLD]        /SETUP OUR FIELD
+1472 002117  1371          TAD     (EOS)           /GET <EOS> CHARACTER
+1473 002120  3770          DCA I   (BLBSTP)        /SHORTEN BLURB FOR NOW
+1474 002121  1367          TAD     (BLURB)         /POINT AT BLURB
+1475 002122  6450          DPLAIOT                 /LOAD ADDRESS
+1476 002123  6224          RIF                     /GET OUR FIELD
+1477 002124  7001          IAC                     /ADD INTERRUPT ENABLE BIT
+1478 002125  6451          DPGOIOT                 /START IT UP
+1479 002126  4031          JMS     INCON           /GET A CHARACTER
+1480 002127  5326          JMP     .-1             /WAIT FOR IT
+1481 002130  0160          AND     [177]           /JUST SEVEN-BIT
+1482 002131  3356          DCA     EFUN            /SAVE IT
+1483 002132  7346          NL7775                  /-3
+1484 002133  1356          TAD     EFUN            /COMPARE TO LATEST
+1485 002134  7540          SMA SZA                 /SKIP IF <^C> OR LESS
+1486 002135  5345          JMP     NOTUPC          /JUMP IF <^D> OR GREATER
+1487 002136  7700          SMA CLA                 /SKIP IF LESS THAN <^C>
+1488 002137  5342          JMP     GOTUPC          /JUMP IF <^C>
+1489 002140  1355          TAD     EADDR           /GET PREVIOUS CHARACTER
+1490 002141  3012          DCA     INCHAR          /RESTORE IT
+1491 002142  6452  GOTUPC, DPSMIOT                 /STOP THE DISPLAY
+1492 002143  6203          CIF CDF 00              /GOING TO FIELD 0
+1493 002144  5550          JMP I   [SBOOT]         /GOODBYE!
+1494 002145  7200  NOTUPC,        CLA                     /CLEAN UP
+1495 002146  1355          TAD     EADDR           /GET PREVIOUS CHARACTER
+1496 002147  3012          DCA     INCHAR          /RESTORE IT
+1497 002150  1366          TAD     (" +BOLD)       /GET A <SPACE>
+1498 002151  3770          DCA I   (BLBSTP)        /RESTORE EXTENDED BLURB
+1499 002152  2076          ISZ     IOERSW          /INDICATE RECOVERY IN PROGRESS
+1500 002153  6201          CDF     00              /SOME I/O ROUTINES MIGHT WANT THIS
+1501 002154  5712          JMP I   BLBDISPLAY      /RETURN
+1502               
+1503 002155  0000  EADDR,  .-.                     /ADDRESS TEMPORARY
+1504 002156  0000  EFUN,   .-.                     /FUNCTION TEMPORARY
+1505               
+1506 002166  0440          PAGE
+     002167  1450  
+     002170  1563  
+     002171  3000  
+     002172  1423  
+     002173  1472  
+     002174  1400  
+     002175  1540  
+     002176  1524  
+     002177  4662  
+1507                      NOPUNCH                 /FOOL THE ASSEMBLER
+1508               
+1509                       IFNZRO  2200-.  <ERROR  .>
+1510               
+1511                       VTBUFFE=.               /VT-8/E DISPLAY BUFFER
+1512               
+1513 002200  0000          ZBLOCK  2600-.          /END OF REGION AVAILABLE FOR CHECKSUM CALCULATION
+     002201  0000  
+     002202  0000  
+     002203  0000  
+     002204  0000  
+     002205  0000  
+     002206  0000  
+     002207  0000  
+     002210  0000  
+     002211  0000  
+     002212  0000  
+     002213  0000  
+     002214  0000  
+     002215  0000  
+     002216  0000  
+     002217  0000  
+     002220  0000  
+     002221  0000  
+     002222  0000  
+     002223  0000  
+     002224  0000  
+     002225  0000  
+     002226  0000  
+     002227  0000  
+     002230  0000  
+     002231  0000  
+     002232  0000  
+     002233  0000  
+     002234  0000  
+     002235  0000  
+     002236  0000  
+     002237  0000  
+     002240  0000  
+     002241  0000  
+     002242  0000  
+     002243  0000  
+     002244  0000  
+     002245  0000  
+     002246  0000  
+     002247  0000  
+     002250  0000  
+     002251  0000  
+     002252  0000  
+     002253  0000  
+     002254  0000  
+     002255  0000  
+     002256  0000  
+     002257  0000  
+     002260  0000  
+     002261  0000  
+     002262  0000  
+     002263  0000  
+     002264  0000  
+     002265  0000  
+     002266  0000  
+     002267  0000  
+     002270  0000  
+     002271  0000  
+     002272  0000  
+     002273  0000  
+     002274  0000  
+     002275  0000  
+     002276  0000  
+     002277  0000  
+     002300  0000  
+     002301  0000  
+     002302  0000  
+     002303  0000  
+     002304  0000  
+     002305  0000  
+     002306  0000  
+     002307  0000  
+     002310  0000  
+     002311  0000  
+     002312  0000  
+     002313  0000  
+     002314  0000  
+     002315  0000  
+     002316  0000  
+     002317  0000  
+     002320  0000  
+     002321  0000  
+     002322  0000  
+     002323  0000  
+     002324  0000  
+     002325  0000  
+     002326  0000  
+     002327  0000  
+     002330  0000  
+     002331  0000  
+     002332  0000  
+     002333  0000  
+     002334  0000  
+     002335  0000  
+     002336  0000  
+     002337  0000  
+     002340  0000  
+     002341  0000  
+     002342  0000  
+     002343  0000  
+     002344  0000  
+     002345  0000  
+     002346  0000  
+     002347  0000  
+     002350  0000  
+     002351  0000  
+     002352  0000  
+     002353  0000  
+     002354  0000  
+     002355  0000  
+     002356  0000  
+     002357  0000  
+     002360  0000  
+     002361  0000  
+     002362  0000  
+     002363  0000  
+     002364  0000  
+     002365  0000  
+     002366  0000  
+     002367  0000  
+     002370  0000  
+     002371  0000  
+     002372  0000  
+     002373  0000  
+     002374  0000  
+     002375  0000  
+     002376  0000  
+     002377  0000  
+     002400  0000  
+     002401  0000  
+     002402  0000  
+     002403  0000  
+     002404  0000  
+     002405  0000  
+     002406  0000  
+     002407  0000  
+     002410  0000  
+     002411  0000  
+     002412  0000  
+     002413  0000  
+     002414  0000  
+     002415  0000  
+     002416  0000  
+     002417  0000  
+     002420  0000  
+     002421  0000  
+     002422  0000  
+     002423  0000  
+     002424  0000  
+     002425  0000  
+     002426  0000  
+     002427  0000  
+     002430  0000  
+     002431  0000  
+     002432  0000  
+     002433  0000  
+     002434  0000  
+     002435  0000  
+     002436  0000  
+     002437  0000  
+     002440  0000  
+     002441  0000  
+     002442  0000  
+     002443  0000  
+     002444  0000  
+     002445  0000  
+     002446  0000  
+     002447  0000  
+     002450  0000  
+     002451  0000  
+     002452  0000  
+     002453  0000  
+     002454  0000  
+     002455  0000  
+     002456  0000  
+     002457  0000  
+     002460  0000  
+     002461  0000  
+     002462  0000  
+     002463  0000  
+     002464  0000  
+     002465  0000  
+     002466  0000  
+     002467  0000  
+     002470  0000  
+     002471  0000  
+     002472  0000  
+     002473  0000  
+     002474  0000  
+     002475  0000  
+     002476  0000  
+     002477  0000  
+     002500  0000  
+     002501  0000  
+     002502  0000  
+     002503  0000  
+     002504  0000  
+     002505  0000  
+     002506  0000  
+     002507  0000  
+     002510  0000  
+     002511  0000  
+     002512  0000  
+     002513  0000  
+     002514  0000  
+     002515  0000  
+     002516  0000  
+     002517  0000  
+     002520  0000  
+     002521  0000  
+     002522  0000  
+     002523  0000  
+     002524  0000  
+     002525  0000  
+     002526  0000  
+     002527  0000  
+     002530  0000  
+     002531  0000  
+     002532  0000  
+     002533  0000  
+     002534  0000  
+     002535  0000  
+     002536  0000  
+     002537  0000  
+     002540  0000  
+     002541  0000  
+     002542  0000  
+     002543  0000  
+     002544  0000  
+     002545  0000  
+     002546  0000  
+     002547  0000  
+     002550  0000  
+     002551  0000  
+     002552  0000  
+     002553  0000  
+     002554  0000  
+     002555  0000  
+     002556  0000  
+     002557  0000  
+     002560  0000  
+     002561  0000  
+     002562  0000  
+     002563  0000  
+     002564  0000  
+     002565  0000  
+     002566  0000  
+     002567  0000  
+     002570  0000  
+     002571  0000  
+     002572  0000  
+     002573  0000  
+     002574  0000  
+     002575  0000  
+     002576  0000  
+     002577  0000  
+1514               
+1515 002600  0000          ZBLOCK  VTBUFFER+2400-. /GET TO END OF VT-8/E BUFFER
+     002601  0000  
+     002602  0000  
+     002603  0000  
+     002604  0000  
+     002605  0000  
+     002606  0000  
+     002607  0000  
+     002610  0000  
+     002611  0000  
+     002612  0000  
+     002613  0000  
+     002614  0000  
+     002615  0000  
+     002616  0000  
+     002617  0000  
+     002620  0000  
+     002621  0000  
+     002622  0000  
+     002623  0000  
+     002624  0000  
+     002625  0000  
+     002626  0000  
+     002627  0000  
+     002630  0000  
+     002631  0000  
+     002632  0000  
+     002633  0000  
+     002634  0000  
+     002635  0000  
+     002636  0000  
+     002637  0000  
+     002640  0000  
+     002641  0000  
+     002642  0000  
+     002643  0000  
+     002644  0000  
+     002645  0000  
+     002646  0000  
+     002647  0000  
+     002650  0000  
+     002651  0000  
+     002652  0000  
+     002653  0000  
+     002654  0000  
+     002655  0000  
+     002656  0000  
+     002657  0000  
+     002660  0000  
+     002661  0000  
+     002662  0000  
+     002663  0000  
+     002664  0000  
+     002665  0000  
+     002666  0000  
+     002667  0000  
+     002670  0000  
+     002671  0000  
+     002672  0000  
+     002673  0000  
+     002674  0000  
+     002675  0000  
+     002676  0000  
+     002677  0000  
+     002700  0000  
+     002701  0000  
+     002702  0000  
+     002703  0000  
+     002704  0000  
+     002705  0000  
+     002706  0000  
+     002707  0000  
+     002710  0000  
+     002711  0000  
+     002712  0000  
+     002713  0000  
+     002714  0000  
+     002715  0000  
+     002716  0000  
+     002717  0000  
+     002720  0000  
+     002721  0000  
+     002722  0000  
+     002723  0000  
+     002724  0000  
+     002725  0000  
+     002726  0000  
+     002727  0000  
+     002730  0000  
+     002731  0000  
+     002732  0000  
+     002733  0000  
+     002734  0000  
+     002735  0000  
+     002736  0000  
+     002737  0000  
+     002740  0000  
+     002741  0000  
+     002742  0000  
+     002743  0000  
+     002744  0000  
+     002745  0000  
+     002746  0000  
+     002747  0000  
+     002750  0000  
+     002751  0000  
+     002752  0000  
+     002753  0000  
+     002754  0000  
+     002755  0000  
+     002756  0000  
+     002757  0000  
+     002760  0000  
+     002761  0000  
+     002762  0000  
+     002763  0000  
+     002764  0000  
+     002765  0000  
+     002766  0000  
+     002767  0000  
+     002770  0000  
+     002771  0000  
+     002772  0000  
+     002773  0000  
+     002774  0000  
+     002775  0000  
+     002776  0000  
+     002777  0000  
+     003000  0000  
+     003001  0000  
+     003002  0000  
+     003003  0000  
+     003004  0000  
+     003005  0000  
+     003006  0000  
+     003007  0000  
+     003010  0000  
+     003011  0000  
+     003012  0000  
+     003013  0000  
+     003014  0000  
+     003015  0000  
+     003016  0000  
+     003017  0000  
+     003020  0000  
+     003021  0000  
+     003022  0000  
+     003023  0000  
+     003024  0000  
+     003025  0000  
+     003026  0000  
+     003027  0000  
+     003030  0000  
+     003031  0000  
+     003032  0000  
+     003033  0000  
+     003034  0000  
+     003035  0000  
+     003036  0000  
+     003037  0000  
+     003040  0000  
+     003041  0000  
+     003042  0000  
+     003043  0000  
+     003044  0000  
+     003045  0000  
+     003046  0000  
+     003047  0000  
+     003050  0000  
+     003051  0000  
+     003052  0000  
+     003053  0000  
+     003054  0000  
+     003055  0000  
+     003056  0000  
+     003057  0000  
+     003060  0000  
+     003061  0000  
+     003062  0000  
+     003063  0000  
+     003064  0000  
+     003065  0000  
+     003066  0000  
+     003067  0000  
+     003070  0000  
+     003071  0000  
+     003072  0000  
+     003073  0000  
+     003074  0000  
+     003075  0000  
+     003076  0000  
+     003077  0000  
+     003100  0000  
+     003101  0000  
+     003102  0000  
+     003103  0000  
+     003104  0000  
+     003105  0000  
+     003106  0000  
+     003107  0000  
+     003110  0000  
+     003111  0000  
+     003112  0000  
+     003113  0000  
+     003114  0000  
+     003115  0000  
+     003116  0000  
+     003117  0000  
+     003120  0000  
+     003121  0000  
+     003122  0000  
+     003123  0000  
+     003124  0000  
+     003125  0000  
+     003126  0000  
+     003127  0000  
+     003130  0000  
+     003131  0000  
+     003132  0000  
+     003133  0000  
+     003134  0000  
+     003135  0000  
+     003136  0000  
+     003137  0000  
+     003140  0000  
+     003141  0000  
+     003142  0000  
+     003143  0000  
+     003144  0000  
+     003145  0000  
+     003146  0000  
+     003147  0000  
+     003150  0000  
+     003151  0000  
+     003152  0000  
+     003153  0000  
+     003154  0000  
+     003155  0000  
+     003156  0000  
+     003157  0000  
+     003160  0000  
+     003161  0000  
+     003162  0000  
+     003163  0000  
+     003164  0000  
+     003165  0000  
+     003166  0000  
+     003167  0000  
+     003170  0000  
+     003171  0000  
+     003172  0000  
+     003173  0000  
+     003174  0000  
+     003175  0000  
+     003176  0000  
+     003177  0000  
+     003200  0000  
+     003201  0000  
+     003202  0000  
+     003203  0000  
+     003204  0000  
+     003205  0000  
+     003206  0000  
+     003207  0000  
+     003210  0000  
+     003211  0000  
+     003212  0000  
+     003213  0000  
+     003214  0000  
+     003215  0000  
+     003216  0000  
+     003217  0000  
+     003220  0000  
+     003221  0000  
+     003222  0000  
+     003223  0000  
+     003224  0000  
+     003225  0000  
+     003226  0000  
+     003227  0000  
+     003230  0000  
+     003231  0000  
+     003232  0000  
+     003233  0000  
+     003234  0000  
+     003235  0000  
+     003236  0000  
+     003237  0000  
+     003240  0000  
+     003241  0000  
+     003242  0000  
+     003243  0000  
+     003244  0000  
+     003245  0000  
+     003246  0000  
+     003247  0000  
+     003250  0000  
+     003251  0000  
+     003252  0000  
+     003253  0000  
+     003254  0000  
+     003255  0000  
+     003256  0000  
+     003257  0000  
+     003260  0000  
+     003261  0000  
+     003262  0000  
+     003263  0000  
+     003264  0000  
+     003265  0000  
+     003266  0000  
+     003267  0000  
+     003270  0000  
+     003271  0000  
+     003272  0000  
+     003273  0000  
+     003274  0000  
+     003275  0000  
+     003276  0000  
+     003277  0000  
+     003300  0000  
+     003301  0000  
+     003302  0000  
+     003303  0000  
+     003304  0000  
+     003305  0000  
+     003306  0000  
+     003307  0000  
+     003310  0000  
+     003311  0000  
+     003312  0000  
+     003313  0000  
+     003314  0000  
+     003315  0000  
+     003316  0000  
+     003317  0000  
+     003320  0000  
+     003321  0000  
+     003322  0000  
+     003323  0000  
+     003324  0000  
+     003325  0000  
+     003326  0000  
+     003327  0000  
+     003330  0000  
+     003331  0000  
+     003332  0000  
+     003333  0000  
+     003334  0000  
+     003335  0000  
+     003336  0000  
+     003337  0000  
+     003340  0000  
+     003341  0000  
+     003342  0000  
+     003343  0000  
+     003344  0000  
+     003345  0000  
+     003346  0000  
+     003347  0000  
+     003350  0000  
+     003351  0000  
+     003352  0000  
+     003353  0000  
+     003354  0000  
+     003355  0000  
+     003356  0000  
+     003357  0000  
+     003360  0000  
+     003361  0000  
+     003362  0000  
+     003363  0000  
+     003364  0000  
+     003365  0000  
+     003366  0000  
+     003367  0000  
+     003370  0000  
+     003371  0000  
+     003372  0000  
+     003373  0000  
+     003374  0000  
+     003375  0000  
+     003376  0000  
+     003377  0000  
+     003400  0000  
+     003401  0000  
+     003402  0000  
+     003403  0000  
+     003404  0000  
+     003405  0000  
+     003406  0000  
+     003407  0000  
+     003410  0000  
+     003411  0000  
+     003412  0000  
+     003413  0000  
+     003414  0000  
+     003415  0000  
+     003416  0000  
+     003417  0000  
+     003420  0000  
+     003421  0000  
+     003422  0000  
+     003423  0000  
+     003424  0000  
+     003425  0000  
+     003426  0000  
+     003427  0000  
+     003430  0000  
+     003431  0000  
+     003432  0000  
+     003433  0000  
+     003434  0000  
+     003435  0000  
+     003436  0000  
+     003437  0000  
+     003440  0000  
+     003441  0000  
+     003442  0000  
+     003443  0000  
+     003444  0000  
+     003445  0000  
+     003446  0000  
+     003447  0000  
+     003450  0000  
+     003451  0000  
+     003452  0000  
+     003453  0000  
+     003454  0000  
+     003455  0000  
+     003456  0000  
+     003457  0000  
+     003460  0000  
+     003461  0000  
+     003462  0000  
+     003463  0000  
+     003464  0000  
+     003465  0000  
+     003466  0000  
+     003467  0000  
+     003470  0000  
+     003471  0000  
+     003472  0000  
+     003473  0000  
+     003474  0000  
+     003475  0000  
+     003476  0000  
+     003477  0000  
+     003500  0000  
+     003501  0000  
+     003502  0000  
+     003503  0000  
+     003504  0000  
+     003505  0000  
+     003506  0000  
+     003507  0000  
+     003510  0000  
+     003511  0000  
+     003512  0000  
+     003513  0000  
+     003514  0000  
+     003515  0000  
+     003516  0000  
+     003517  0000  
+     003520  0000  
+     003521  0000  
+     003522  0000  
+     003523  0000  
+     003524  0000  
+     003525  0000  
+     003526  0000  
+     003527  0000  
+     003530  0000  
+     003531  0000  
+     003532  0000  
+     003533  0000  
+     003534  0000  
+     003535  0000  
+     003536  0000  
+     003537  0000  
+     003540  0000  
+     003541  0000  
+     003542  0000  
+     003543  0000  
+     003544  0000  
+     003545  0000  
+     003546  0000  
+     003547  0000  
+     003550  0000  
+     003551  0000  
+     003552  0000  
+     003553  0000  
+     003554  0000  
+     003555  0000  
+     003556  0000  
+     003557  0000  
+     003560  0000  
+     003561  0000  
+     003562  0000  
+     003563  0000  
+     003564  0000  
+     003565  0000  
+     003566  0000  
+     003567  0000  
+     003570  0000  
+     003571  0000  
+     003572  0000  
+     003573  0000  
+     003574  0000  
+     003575  0000  
+     003576  0000  
+     003577  0000  
+     003600  0000  
+     003601  0000  
+     003602  0000  
+     003603  0000  
+     003604  0000  
+     003605  0000  
+     003606  0000  
+     003607  0000  
+     003610  0000  
+     003611  0000  
+     003612  0000  
+     003613  0000  
+     003614  0000  
+     003615  0000  
+     003616  0000  
+     003617  0000  
+     003620  0000  
+     003621  0000  
+     003622  0000  
+     003623  0000  
+     003624  0000  
+     003625  0000  
+     003626  0000  
+     003627  0000  
+     003630  0000  
+     003631  0000  
+     003632  0000  
+     003633  0000  
+     003634  0000  
+     003635  0000  
+     003636  0000  
+     003637  0000  
+     003640  0000  
+     003641  0000  
+     003642  0000  
+     003643  0000  
+     003644  0000  
+     003645  0000  
+     003646  0000  
+     003647  0000  
+     003650  0000  
+     003651  0000  
+     003652  0000  
+     003653  0000  
+     003654  0000  
+     003655  0000  
+     003656  0000  
+     003657  0000  
+     003660  0000  
+     003661  0000  
+     003662  0000  
+     003663  0000  
+     003664  0000  
+     003665  0000  
+     003666  0000  
+     003667  0000  
+     003670  0000  
+     003671  0000  
+     003672  0000  
+     003673  0000  
+     003674  0000  
+     003675  0000  
+     003676  0000  
+     003677  0000  
+     003700  0000  
+     003701  0000  
+     003702  0000  
+     003703  0000  
+     003704  0000  
+     003705  0000  
+     003706  0000  
+     003707  0000  
+     003710  0000  
+     003711  0000  
+     003712  0000  
+     003713  0000  
+     003714  0000  
+     003715  0000  
+     003716  0000  
+     003717  0000  
+     003720  0000  
+     003721  0000  
+     003722  0000  
+     003723  0000  
+     003724  0000  
+     003725  0000  
+     003726  0000  
+     003727  0000  
+     003730  0000  
+     003731  0000  
+     003732  0000  
+     003733  0000  
+     003734  0000  
+     003735  0000  
+     003736  0000  
+     003737  0000  
+     003740  0000  
+     003741  0000  
+     003742  0000  
+     003743  0000  
+     003744  0000  
+     003745  0000  
+     003746  0000  
+     003747  0000  
+     003750  0000  
+     003751  0000  
+     003752  0000  
+     003753  0000  
+     003754  0000  
+     003755  0000  
+     003756  0000  
+     003757  0000  
+     003760  0000  
+     003761  0000  
+     003762  0000  
+     003763  0000  
+     003764  0000  
+     003765  0000  
+     003766  0000  
+     003767  0000  
+     003770  0000  
+     003771  0000  
+     003772  0000  
+     003773  0000  
+     003774  0000  
+     003775  0000  
+     003776  0000  
+     003777  0000  
+     004000  0000  
+     004001  0000  
+     004002  0000  
+     004003  0000  
+     004004  0000  
+     004005  0000  
+     004006  0000  
+     004007  0000  
+     004010  0000  
+     004011  0000  
+     004012  0000  
+     004013  0000  
+     004014  0000  
+     004015  0000  
+     004016  0000  
+     004017  0000  
+     004020  0000  
+     004021  0000  
+     004022  0000  
+     004023  0000  
+     004024  0000  
+     004025  0000  
+     004026  0000  
+     004027  0000  
+     004030  0000  
+     004031  0000  
+     004032  0000  
+     004033  0000  
+     004034  0000  
+     004035  0000  
+     004036  0000  
+     004037  0000  
+     004040  0000  
+     004041  0000  
+     004042  0000  
+     004043  0000  
+     004044  0000  
+     004045  0000  
+     004046  0000  
+     004047  0000  
+     004050  0000  
+     004051  0000  
+     004052  0000  
+     004053  0000  
+     004054  0000  
+     004055  0000  
+     004056  0000  
+     004057  0000  
+     004060  0000  
+     004061  0000  
+     004062  0000  
+     004063  0000  
+     004064  0000  
+     004065  0000  
+     004066  0000  
+     004067  0000  
+     004070  0000  
+     004071  0000  
+     004072  0000  
+     004073  0000  
+     004074  0000  
+     004075  0000  
+     004076  0000  
+     004077  0000  
+     004100  0000  
+     004101  0000  
+     004102  0000  
+     004103  0000  
+     004104  0000  
+     004105  0000  
+     004106  0000  
+     004107  0000  
+     004110  0000  
+     004111  0000  
+     004112  0000  
+     004113  0000  
+     004114  0000  
+     004115  0000  
+     004116  0000  
+     004117  0000  
+     004120  0000  
+     004121  0000  
+     004122  0000  
+     004123  0000  
+     004124  0000  
+     004125  0000  
+     004126  0000  
+     004127  0000  
+     004130  0000  
+     004131  0000  
+     004132  0000  
+     004133  0000  
+     004134  0000  
+     004135  0000  
+     004136  0000  
+     004137  0000  
+     004140  0000  
+     004141  0000  
+     004142  0000  
+     004143  0000  
+     004144  0000  
+     004145  0000  
+     004146  0000  
+     004147  0000  
+     004150  0000  
+     004151  0000  
+     004152  0000  
+     004153  0000  
+     004154  0000  
+     004155  0000  
+     004156  0000  
+     004157  0000  
+     004160  0000  
+     004161  0000  
+     004162  0000  
+     004163  0000  
+     004164  0000  
+     004165  0000  
+     004166  0000  
+     004167  0000  
+     004170  0000  
+     004171  0000  
+     004172  0000  
+     004173  0000  
+     004174  0000  
+     004175  0000  
+     004176  0000  
+     004177  0000  
+     004200  0000  
+     004201  0000  
+     004202  0000  
+     004203  0000  
+     004204  0000  
+     004205  0000  
+     004206  0000  
+     004207  0000  
+     004210  0000  
+     004211  0000  
+     004212  0000  
+     004213  0000  
+     004214  0000  
+     004215  0000  
+     004216  0000  
+     004217  0000  
+     004220  0000  
+     004221  0000  
+     004222  0000  
+     004223  0000  
+     004224  0000  
+     004225  0000  
+     004226  0000  
+     004227  0000  
+     004230  0000  
+     004231  0000  
+     004232  0000  
+     004233  0000  
+     004234  0000  
+     004235  0000  
+     004236  0000  
+     004237  0000  
+     004240  0000  
+     004241  0000  
+     004242  0000  
+     004243  0000  
+     004244  0000  
+     004245  0000  
+     004246  0000  
+     004247  0000  
+     004250  0000  
+     004251  0000  
+     004252  0000  
+     004253  0000  
+     004254  0000  
+     004255  0000  
+     004256  0000  
+     004257  0000  
+     004260  0000  
+     004261  0000  
+     004262  0000  
+     004263  0000  
+     004264  0000  
+     004265  0000  
+     004266  0000  
+     004267  0000  
+     004270  0000  
+     004271  0000  
+     004272  0000  
+     004273  0000  
+     004274  0000  
+     004275  0000  
+     004276  0000  
+     004277  0000  
+     004300  0000  
+     004301  0000  
+     004302  0000  
+     004303  0000  
+     004304  0000  
+     004305  0000  
+     004306  0000  
+     004307  0000  
+     004310  0000  
+     004311  0000  
+     004312  0000  
+     004313  0000  
+     004314  0000  
+     004315  0000  
+     004316  0000  
+     004317  0000  
+     004320  0000  
+     004321  0000  
+     004322  0000  
+     004323  0000  
+     004324  0000  
+     004325  0000  
+     004326  0000  
+     004327  0000  
+     004330  0000  
+     004331  0000  
+     004332  0000  
+     004333  0000  
+     004334  0000  
+     004335  0000  
+     004336  0000  
+     004337  0000  
+     004340  0000  
+     004341  0000  
+     004342  0000  
+     004343  0000  
+     004344  0000  
+     004345  0000  
+     004346  0000  
+     004347  0000  
+     004350  0000  
+     004351  0000  
+     004352  0000  
+     004353  0000  
+     004354  0000  
+     004355  0000  
+     004356  0000  
+     004357  0000  
+     004360  0000  
+     004361  0000  
+     004362  0000  
+     004363  0000  
+     004364  0000  
+     004365  0000  
+     004366  0000  
+     004367  0000  
+     004370  0000  
+     004371  0000  
+     004372  0000  
+     004373  0000  
+     004374  0000  
+     004375  0000  
+     004376  0000  
+     004377  0000  
+     004400  0000  
+     004401  0000  
+     004402  0000  
+     004403  0000  
+     004404  0000  
+     004405  0000  
+     004406  0000  
+     004407  0000  
+     004410  0000  
+     004411  0000  
+     004412  0000  
+     004413  0000  
+     004414  0000  
+     004415  0000  
+     004416  0000  
+     004417  0000  
+     004420  0000  
+     004421  0000  
+     004422  0000  
+     004423  0000  
+     004424  0000  
+     004425  0000  
+     004426  0000  
+     004427  0000  
+     004430  0000  
+     004431  0000  
+     004432  0000  
+     004433  0000  
+     004434  0000  
+     004435  0000  
+     004436  0000  
+     004437  0000  
+     004440  0000  
+     004441  0000  
+     004442  0000  
+     004443  0000  
+     004444  0000  
+     004445  0000  
+     004446  0000  
+     004447  0000  
+     004450  0000  
+     004451  0000  
+     004452  0000  
+     004453  0000  
+     004454  0000  
+     004455  0000  
+     004456  0000  
+     004457  0000  
+     004460  0000  
+     004461  0000  
+     004462  0000  
+     004463  0000  
+     004464  0000  
+     004465  0000  
+     004466  0000  
+     004467  0000  
+     004470  0000  
+     004471  0000  
+     004472  0000  
+     004473  0000  
+     004474  0000  
+     004475  0000  
+     004476  0000  
+     004477  0000  
+     004500  0000  
+     004501  0000  
+     004502  0000  
+     004503  0000  
+     004504  0000  
+     004505  0000  
+     004506  0000  
+     004507  0000  
+     004510  0000  
+     004511  0000  
+     004512  0000  
+     004513  0000  
+     004514  0000  
+     004515  0000  
+     004516  0000  
+     004517  0000  
+     004520  0000  
+     004521  0000  
+     004522  0000  
+     004523  0000  
+     004524  0000  
+     004525  0000  
+     004526  0000  
+     004527  0000  
+     004530  0000  
+     004531  0000  
+     004532  0000  
+     004533  0000  
+     004534  0000  
+     004535  0000  
+     004536  0000  
+     004537  0000  
+     004540  0000  
+     004541  0000  
+     004542  0000  
+     004543  0000  
+     004544  0000  
+     004545  0000  
+     004546  0000  
+     004547  0000  
+     004550  0000  
+     004551  0000  
+     004552  0000  
+     004553  0000  
+     004554  0000  
+     004555  0000  
+     004556  0000  
+     004557  0000  
+     004560  0000  
+     004561  0000  
+     004562  0000  
+     004563  0000  
+     004564  0000  
+     004565  0000  
+     004566  0000  
+     004567  0000  
+     004570  0000  
+     004571  0000  
+     004572  0000  
+     004573  0000  
+     004574  0000  
+     004575  0000  
+     004576  0000  
+     004577  0000  
+1516               
+1517                       VTBFEND=.               /END OF VT-8/E BUFFER HERE
+1518               
+1519                       ENPUNCH                 /UN-FOOL THE ASSEMBLER
+1520               
+1521                       *.                      /RESET OUTPUT ORIGIN
+1522               /      SUPPORT ROUTINES.
+1523               
+1524 004600  0000  TRPINIT,.-.                             /TRAP BLOCK INITIAL READIN ROUTINE
+1525 004601  1777          TAD I   (SBTFUN)                /GET MONITOR'S UNIT
+1526 004602  0147          AND     [7]                     /JUST UNIT BITS
+1527 004603  1167          TAD     [2^100]                 /ADD ON READ BITS
+1528 004604  6224          RIF                             /ADD ON FIELD BITS
+1529 004605  3212          DCA     TRDFUN                  /STORE IN-LINE
+1530 004606  4566          JMS I   [SETFLD]                /SETUP OUR FIELD
+1531 004607  6202          CIF     00                      /GOTO MONITOR FIELD
+1532 004610  4704          JMS I   PSYSIO/(SYSIO)          /CALL I/O ROUTINES
+1533 004611  5400  TRP,    TRPAGE                          /TRANSFER ADDRESS
+1534 004612  0200  TRDFUN, 2^100+.-.+.-.                   /FIELD, UNIT BITS WILL BE FILLED IN
+1535 004613  0113          TRPBLK                          /TRAP BLOCK NUMBER
+1536 004614  1611          TAD I   TRP/(HIDWRD&7600+TRPAGE)/GET ID NUMBER
+1537 004615  3104          DCA     DEVWRD                  /STORE IT
+1538 004616  5600          JMP I   TRPINIT                 /RETURN
+1539               
+1540               /       INPUT FLAG TEST ROUTINE.
+1541               
+1542 004617  0000  INTEST, .-.                             /INPUT TEST ROUTINE
+1543 004620  0000  INCIDF, .-.                             /WILL BE CIF CDF OUR FIELD
+1544 004621  1025          TAD     INFLAG                  /GET INPUT FLAG
+1545 004622  7450          SNA                             /SKIP IF SET
+1546 004623  5227          JMP     INTST2                  /JUMP IF NOT
+1547 004624  3012          DCA     INCHAR                  /SAVE IN INPUT BUFFER
+1548 004625  3025          DCA     INFLAG                  /CLEAR EVENT FLAG
+1549 004626  5617          JMP I   INTEST                  /RETURN TO INPUT ROUTINE
+1550               
+1551 004627  0000  INTST2, .-.                             /WILL BE CIF CDF OUR FIELD
+1552 004630  6431          DKSFIOT                         /FLAG UP?
+1553 004631  5063          JMP     INRET                   /NO, RETURN TO ORIGINAL CALLER
+1554 004632  6436          DKRBIOT                         /YES, GET THE CHARACTER AND CLEAR HARDWARE FLAG
+1555 004633  3012          DCA     INCHAR                  /SAVE IN INPUT BUFFER
+1556 004634  5617          JMP I   INTEST                  /RETURN TO INPUT ROUTINE
+1557               
+1558 004635  0000  SETFLD, .-.                             /DATA FIELD SETUP ROUTINE
+1559 004636  7200          CLA                             /CLEAN UP
+1560 004637  6224          RIF                             /GET OUR FIELD
+1561 004640  1165          TAD     [CDF]                   /TURN INTO CDF INSTRUCTION
+1562 004641  3242          DCA     SETCDF                  /STORE IN-LINE
+1563 004642  0000  SETCDF, .-.                             /WILL BE CDF OUR FIELD
+1564 004643  5635          JMP I   SETFLD                  /RETURN
+1565               /      RELOAD CLEAR ROUTINE.
+1566               
+1567 004644  0000  CLEAR,  .-.                             /CLEAR ROUTINE
+1568 004645  1151          TAD     [VTBUFFER]              /SETUP
+1569 004646  3073          DCA     VTPTR                   /BUFFER POINTER
+1570 004647  1151          TAD     [VTBUFFER]              /SETUP
+1571 004650  3072          DCA     VTLNPTR                 /LINE POINTER
+1572 004651  1137          TAD     [VTBUFFER-VTBFEND]      /SETUP THE
+1573 004652  3200          DCA     TRPINIT                 /CLEAR COUNT
+1574 004653  1376          TAD     (VTBUFFER-1)            /SETUP THE
+1575 004654  3010          DCA     CXR1                    /CLEAR POINTER
+1576 004655  1144          TAD     [" &177+4000]           /GET CLEAR <SPACE> CHARACTER
+1577 004656  3410          DCA I   CXR1                    /CLEAR A WORD
+1578 004657  2200          ISZ     TRPINIT                 /DONE ALL YET?
+1579 004660  5255          JMP     .-3                     /NO, GO BACK
+1580 004661  5644          JMP I   CLEAR                   /RETURN
+1581               
+1582 004662  0000  MOV4,   .-.                             /MOVE FOUR CHARACTERS ROUTINE
+1583 004663  1152          TAD     [-4]                    /SETUP THE
+1584 004664  3244          DCA     CLEAR                   /MOVE COUNT
+1585 004665  1662          TAD I   MOV4                    /GET THE "FROM" LOCATION
+1586 004666  3010          DCA     CXR1                    /SET IT UP
+1587 004667  2262          ISZ     MOV4                    /BUMP TO NEXT
+1588 004670  1662          TAD I   MOV4                    /GET THE "TO" LOCATION
+1589 004671  3011          DCA     CXR2                    /SET IT UP
+1590 004672  2262          ISZ     MOV4                    /BUMP PAST ARGUMENT
+1591 004673  1410          TAD I   CXR1                    /GET A WORD
+1592 004674  3411          DCA I   CXR2                    /PUT A WORD
+1593 004675  2244          ISZ     CLEAR                   /DONE YET?
+1594 004676  5273          JMP     .-3                     /NO, KEEP GOING
+1595 004677  5662          JMP I   MOV4                    /YES, RETURN
+1596               
+1597 004700  0000  PRTCHR, .-.                             /INSERT PRINTABLE CHARACTER ROUTINE
+1598 004701  4360          JMS     INSERT                  /INSERT IT AT FIRST
+1599 004702  1073          TAD     VTPTR                   /GET THE NEW POINTER VALUE
+1600 004703  0146          AND     [77]                    /JUST LINE BITS
+1601 004704  7640  PSYSIO, SZA CLA                         /SKIP IF AT BEGINNING OF LINE
+1602 004705  5700          JMP I   PRTCHR                  /ELSE JUST RETURN
+1603 004706  4321          JMS     ROLCHK                  /CHECK IF WE STILL FIT
+1604 004707  1375          TAD     ("++BLINK+4000)         /GET A BLINKING "+"
+1605 004710  4360          JMS     INSERT                  /PUT AT BEGINNING OF LINE
+1606 004711  1054          TAD     TABCNT                  /GET <TAB> COUNT
+1607 004712  3043          DCA     VTEMP1                  /SETUP THE COUNTER
+1608 004713  2043  VTABLP, ISZ     VTEMP1                  /DONE YET?
+1609 004714  7410          SKP                             /SKIP IF NOT
+1610 004715  5700          JMP I   PRTCHR                  /RETURN IF SO
+1611 004716  1144          TAD     [" &177+4000]           /GET A <SPACE>
+1612 004717  4360          JMS     INSERT                  /PUT IN THE BUFFER
+1613 004720  5313          JMP     VTABLP                  /TRY AGAIN
+1614 004721  0000  ROLCHK,        .-.                             /CHECK IF BUFFER ROLL NEEDED ROUTINE
+1615 004722  7200          CLA                             /JUST IN CASE
+1616 004723  1073          TAD     VTPTR                   /GET CURRENT POINTER
+1617 004724  1374          TAD     (-VTBFEND)              /COMPARE TO UPPER LIMIT
+1618 004725  7710          SPA CLA                         /SKIP IF TOO FAR
+1619 004726  5721          JMP I   ROLCHK                  /RETURN IF NOT
+1620 004727  1073          TAD     VTPTR                   /GET THE POINTER
+1621 004730  3262          DCA     MOV4                    /SAVE IT FOR NOW
+1622 004731  1373          TAD     (VTBUFFER+100-1)        /SETUP
+1623 004732  3010          DCA     CXR1                    /THE
+1624 004733  1376          TAD     (VTBUFFER-1)            /ROLLING
+1625 004734  3011          DCA     CXR2                    /POINTERS
+1626 004735  1145          TAD     [VTBUFFER-VTBFEND+100]  /SETUP THE
+1627 004736  3043          DCA     VTEMP1                  /ROLL COUNT
+1628 004737  1410          TAD I   CXR1                    /GET A WORD
+1629 004740  3411          DCA I   CXR2                    /PUT A WORD
+1630 004741  2043          ISZ     VTEMP1                  /DONE YET?
+1631 004742  5337          JMP     .-3                     /NO, KEEP GOING
+1632 004743  1156          TAD     [-100]                  /SETUP THE
+1633 004744  3043          DCA     VTEMP1                  /EXTRA LINE COUNT
+1634 004745  1144          TAD     [" &177+4000]           /GET A <SPACE>
+1635 004746  3411          DCA I   CXR2                    /PUT IN BUFFER
+1636 004747  2043          ISZ     VTEMP1                  /DONE YET?
+1637 004750  5345          JMP     .-3                     /NO, KEEP GOING
+1638 004751  1262          TAD     MOV4                    /GET SAVED BUFFER POINTER
+1639 004752  1156          TAD     [-100]                  /BACKUP ONE LINE
+1640 004753  3073          DCA     VTPTR                   /POINT TO CORRECTED ADDRESS
+1641 004754  1072          TAD     VTLNPTR                 /GET LINE POINTER
+1642 004755  1156          TAD     [-100]                  /BACK IT UP ALSO
+1643 004756  3072          DCA     VTLNPTR                 /STORE BACK
+1644 004757  5721          JMP I   ROLCHK                  /RETURN
+1645               
+1646 004760  0000  INSERT, .-.                             /INSERT A CHARACTER ROUTINE
+1647 004761  3473          DCA I   VTPTR                   /STORE THE PASSED CHARACTER
+1648 004762  2073          ISZ     VTPTR                   /BUMP TO NEXT
+1649 004763  5760          JMP I   INSERT                  /RETURN
+1650               
+1651 004764  0000  PUTBACK,.-.                             /PREVIOUS CHARACTER UNDER CURSOR RESTORE ROUTINE
+1652 004765  1070          TAD     OLDCHR                  /GET PREVIOUS CHARACTER
+1653 004766  3471          DCA I   OLDPTR                  /PUT IT BACK
+1654 004767  5764          JMP I   PUTBACK                 /RETURN
+1655               
+1656 004773  2277          PAGE
+     004774  3200  
+     004775  4253  
+     004776  2177  
+     004777  7602  
+1657                      LPTBUFF=.               /LPT: BUFFER STARTS HERE
+1658               
+1659                       NOPUNCH                 /FOOL THE ASSEMBLER
+1660               
+1661                       *LPTBUFF+BUFSIZE        /GET TO END OF LPT: BUFFER
+1662               
+1663 005400  0000  TRPAGE, ZBLOCK  200             /FIRST TRAP BLOCK PAGE
+     005401  0000  
+     005402  0000  
+     005403  0000  
+     005404  0000  
+     005405  0000  
+     005406  0000  
+     005407  0000  
+     005410  0000  
+     005411  0000  
+     005412  0000  
+     005413  0000  
+     005414  0000  
+     005415  0000  
+     005416  0000  
+     005417  0000  
+     005420  0000  
+     005421  0000  
+     005422  0000  
+     005423  0000  
+     005424  0000  
+     005425  0000  
+     005426  0000  
+     005427  0000  
+     005430  0000  
+     005431  0000  
+     005432  0000  
+     005433  0000  
+     005434  0000  
+     005435  0000  
+     005436  0000  
+     005437  0000  
+     005440  0000  
+     005441  0000  
+     005442  0000  
+     005443  0000  
+     005444  0000  
+     005445  0000  
+     005446  0000  
+     005447  0000  
+     005450  0000  
+     005451  0000  
+     005452  0000  
+     005453  0000  
+     005454  0000  
+     005455  0000  
+     005456  0000  
+     005457  0000  
+     005460  0000  
+     005461  0000  
+     005462  0000  
+     005463  0000  
+     005464  0000  
+     005465  0000  
+     005466  0000  
+     005467  0000  
+     005470  0000  
+     005471  0000  
+     005472  0000  
+     005473  0000  
+     005474  0000  
+     005475  0000  
+     005476  0000  
+     005477  0000  
+     005500  0000  
+     005501  0000  
+     005502  0000  
+     005503  0000  
+     005504  0000  
+     005505  0000  
+     005506  0000  
+     005507  0000  
+     005510  0000  
+     005511  0000  
+     005512  0000  
+     005513  0000  
+     005514  0000  
+     005515  0000  
+     005516  0000  
+     005517  0000  
+     005520  0000  
+     005521  0000  
+     005522  0000  
+     005523  0000  
+     005524  0000  
+     005525  0000  
+     005526  0000  
+     005527  0000  
+     005530  0000  
+     005531  0000  
+     005532  0000  
+     005533  0000  
+     005534  0000  
+     005535  0000  
+     005536  0000  
+     005537  0000  
+     005540  0000  
+     005541  0000  
+     005542  0000  
+     005543  0000  
+     005544  0000  
+     005545  0000  
+     005546  0000  
+     005547  0000  
+     005550  0000  
+     005551  0000  
+     005552  0000  
+     005553  0000  
+     005554  0000  
+     005555  0000  
+     005556  0000  
+     005557  0000  
+     005560  0000  
+     005561  0000  
+     005562  0000  
+     005563  0000  
+     005564  0000  
+     005565  0000  
+     005566  0000  
+     005567  0000  
+     005570  0000  
+     005571  0000  
+     005572  0000  
+     005573  0000  
+     005574  0000  
+     005575  0000  
+     005576  0000  
+     005577  0000  
+1664               
+1665 005600  0000  TRPAG2, ZBLOCK  200             /SECOND TRAP BLOCK PAGE
+     005601  0000  
+     005602  0000  
+     005603  0000  
+     005604  0000  
+     005605  0000  
+     005606  0000  
+     005607  0000  
+     005610  0000  
+     005611  0000  
+     005612  0000  
+     005613  0000  
+     005614  0000  
+     005615  0000  
+     005616  0000  
+     005617  0000  
+     005620  0000  
+     005621  0000  
+     005622  0000  
+     005623  0000  
+     005624  0000  
+     005625  0000  
+     005626  0000  
+     005627  0000  
+     005630  0000  
+     005631  0000  
+     005632  0000  
+     005633  0000  
+     005634  0000  
+     005635  0000  
+     005636  0000  
+     005637  0000  
+     005640  0000  
+     005641  0000  
+     005642  0000  
+     005643  0000  
+     005644  0000  
+     005645  0000  
+     005646  0000  
+     005647  0000  
+     005650  0000  
+     005651  0000  
+     005652  0000  
+     005653  0000  
+     005654  0000  
+     005655  0000  
+     005656  0000  
+     005657  0000  
+     005660  0000  
+     005661  0000  
+     005662  0000  
+     005663  0000  
+     005664  0000  
+     005665  0000  
+     005666  0000  
+     005667  0000  
+     005670  0000  
+     005671  0000  
+     005672  0000  
+     005673  0000  
+     005674  0000  
+     005675  0000  
+     005676  0000  
+     005677  0000  
+     005700  0000  
+     005701  0000  
+     005702  0000  
+     005703  0000  
+     005704  0000  
+     005705  0000  
+     005706  0000  
+     005707  0000  
+     005710  0000  
+     005711  0000  
+     005712  0000  
+     005713  0000  
+     005714  0000  
+     005715  0000  
+     005716  0000  
+     005717  0000  
+     005720  0000  
+     005721  0000  
+     005722  0000  
+     005723  0000  
+     005724  0000  
+     005725  0000  
+     005726  0000  
+     005727  0000  
+     005730  0000  
+     005731  0000  
+     005732  0000  
+     005733  0000  
+     005734  0000  
+     005735  0000  
+     005736  0000  
+     005737  0000  
+     005740  0000  
+     005741  0000  
+     005742  0000  
+     005743  0000  
+     005744  0000  
+     005745  0000  
+     005746  0000  
+     005747  0000  
+     005750  0000  
+     005751  0000  
+     005752  0000  
+     005753  0000  
+     005754  0000  
+     005755  0000  
+     005756  0000  
+     005757  0000  
+     005760  0000  
+     005761  0000  
+     005762  0000  
+     005763  0000  
+     005764  0000  
+     005765  0000  
+     005766  0000  
+     005767  0000  
+     005770  0000  
+     005771  0000  
+     005772  0000  
+     005773  0000  
+     005774  0000  
+     005775  0000  
+     005776  0000  
+     005777  0000  
+1666               
+1667                       ENPUNCH                 /UN-FOOL THE ASSEMBLER
+1668               
+1669                       *LPTBUFF                /ESTABLIST CURRENT ORIGIN
+1670               /      ONCE-ONLY TEST FOR EXISTENCE CODE. THIS CAN BE LOCATED WITHIN A BUFFER
+1671               /       ETC., SINCE IT IS ONLY USED WHEN THE OVERLAY IS RELOADED.
+1672               
+1673 005000  0000  INITEST,.-.                             /EXISTENCE TEST ROUTINE
+1674 005001  7346          NL7775                          /SETUP THE
+1675 005002  3031          DCA     INCON                   /TIME-OUT COUNTER
+1676 005003  4566          JMS I   [SETFLD]                /SETUP OUR DATA FIELD
+1677 005004  7326          NL0002                          /SETUP CIF BIT
+1678 005005  1777          TAD I   (SETCDF)                /FORM CIF CDF OUR FIELD
+1679 005006  3776          DCA I   (INCIDF)                /STORE IN-LINE
+1680 005007  1776          TAD I   (INCIDF)                /GET IT BACK
+1681 005010  3775          DCA I   (INTST2)                /STORE IN-LINE
+1682 005011  1776          TAD I   (INCIDF)                /GET IT BACK
+1683 005012  3774          DCA I   (LPCIDF)                /STORE IN-LINE
+1684 005013  1776          TAD I   (INCIDF)                /GET IT BACK
+1685 005014  3773          DCA I   (LOUTRY)                /STORE IN-LINE
+1686 005015  1776          TAD I   (INCIDF)                /GET IT BACK
+1687 005016  3772          DCA I   (LINETST)               /STORE IN-LINE
+1688 005017  1777          TAD I   (SETCDF)                /GET CDF OUR FIELD
+1689 005020  3771          DCA I   (LPECDF)                /STORE IN-LINE
+1690 005021  1777          TAD I   (SETCDF)                /GET CDF OUR FIELD
+1691 005022  3770          DCA I   (LPFCDF)                /STORE IN-LINE
+1692 005023  1777          TAD I   (SETCDF)                /GET CDF OUR FIELD
+1693 005024  3767          DCA I   (OUTCDF)                /STORE IN-LINE
+1694 005025  6456  TIMTST, DPCLIOT                         /VIDEO FLAG UP?
+1695 005026  5231          JMP     TIMOUT                  /NO, GO TEST IT
+1696 005027  7300          CLA CLL                         /YES, CLEAN UP
+1697 005030  5600          JMP I   INITEST                 /RETURN
+1698               
+1699 005031  2035  TIMOUT, ISZ     OUTLPT                  /WASTE
+1700 005032  5225          JMP     TIMTST                  /SOME TIME
+1701 005033  2031          ISZ     INCON                   /WAITED TOO LONG?
+1702 005034  5225          JMP     TIMTST                  /NO, TRY AGAIN
+1703               
+1704               /       SINCE THE VT-8/E HARDWARE IS NOT AVAILABLE, WE RESTORE THE ORIGINAL
+1705               /       KEYBOARD MONITOR AND LET IT FEND FOR ITSELF.
+1706               
+1707 005035  7344          NL7776                          /SETUP THE
+1708 005036  3031          DCA     INCON                   /ZAP COUNT
+1709 005037  1366          TAD     (ADRLST&177+TRPAGE-1)   /POINT AT
+1710 005040  3010          DCA     CXR1                    /ADDRESS LIST
+1711 005041  1365          TAD     (CNTLST&177+TRPAGE-1)   /POINT AT
+1712 005042  3011          DCA     CXR2                    /NORMAL CONTENTS LIST
+1713 005043  1410  PTBKLP, TAD I   CXR1                    /GET AN ADDRESS
+1714 005044  7450          SNA                             /END OF LIST?
+1715 005045  5254          JMP     PTBKDONE                /YES
+1716 005046  3033          DCA     OUTCON                  /NO, STASH IT
+1717 005047  1411          TAD I   CXR2                    /GET A VALUE
+1718 005050  6201          CDF     00                      /GOTO MONITOR'S FIELD
+1719 005051  3433          DCA I   OUTCON                  /ZAP IT BACK
+1720 005052  4566          JMS I   [SETFLD]                /BACK TO OUR FIELD
+1721 005053  5243          JMP     PTBKLP                  /KEEP GOING
+1722 005054  1364  PTBKDON,TAD    (MONADR-1)      /POINT AT MONITOR'S
+1723 005055  3010          DCA     CXR1            /ADDRESS LIST
+1724 005056  1363          TAD     (MONCON-1)      /POINT AT MONITOR'S
+1725 005057  3011          DCA     CXR2            /CONTENTS LIST
+1726 005060  2031          ISZ     INCON           /DONE WITH BOTH YET?
+1727 005061  5243          JMP     PTBKLP          /NO, KEEP GOING
+1728               
+1729               /       NOW DETERMINE HOW WE SHOULD READ THE MONITOR'S KEYBOARD FOR <^S>/<^Q>
+1730               /       ETC. PURPOSES.
+1731               
+1732 005062  6201          CDF     00              /GOTO MONITOR'S FIELD
+1733 005063  1762          TAD I   (SBOOT)         /GET THE BOOTSTRAP INSTRUCTION
+1734 005064  1361          TAD     (-SYSINST)      /COMPARE TO POSSIBLE VALUE
+1735 005065  7640          SZA CLA                 /SKIP IF IT MATCHES
+1736 005066  5272          JMP     EROK            /JUMP IF OTHER
+1737 005067  2327          ISZ     CTZAP1          /CHANGE "MONKRS"
+1738 005070  2327          ISZ     CTZAP1          /TO "MONKRB"
+1739 005071  3332          DCA     CTZAP2          /ELIMINATE "MONKCC"
+1740 005072  4566  EROK,   JMS I   [SETFLD]        /RESTORE OUR FIELD
+1741 005073  6046          MONTLS                  /SET THE OUTPUT FLAG NOW
+1742 005074  1360          TAD     (ERBLURB-1)     /POINT TO
+1743 005075  3010          DCA     CXR1            /ERROR MESSAGE
+1744 005076  1410  ERBLUP, TAD I   CXR1            /GET A CHARACTER
+1745 005077  3011          DCA     CXR2            /SAVE IT
+1746 005100  4323  PAGN,   JMS     CTLCTST         /CHECK FOR INPUT
+1747 005101  1357          TAD     (-"S!300)       /IS IT <^S>?
+1748 005102  7640          SZA CLA                 /SKIP IF SO
+1749 005103  5310          JMP     PTRY            /JUMP IF NOT
+1750 005104  4323          JMS     CTLCTST         /CHECK AGAIN
+1751 005105  1356          TAD     (-"Q!300)       /IS IT <^Q>?
+1752 005106  7640          SZA CLA                 /SKIP IF SO
+1753 005107  5304          JMP     .-3             /ELSE WAIT FOR IT
+1754 005110  1011  PTRY,   TAD     CXR2            /GET THE CHARACTER
+1755 005111  6041          MONTSF                  /FLAG UP?
+1756 005112  5300          JMP     PAGN            /NO, TRY INPUT WHILE WAITING
+1757 005113  6046          MONTLS                  /YES, SEND IT NOW
+1758 005114  7700          SMA CLA                 /END OF LIST?
+1759 005115  5276          JMP     ERBLUP          /NO, KEEP GOING
+1760 005116  6203          CIF CDF 00              /GOING TO FIELD 0
+1761 005117  7346          NL7775                  /SETUP MASK
+1762 005120  0755          AND I   (SCRSIZE)       /GET OTHER BITS
+1763 005121  3755          DCA I   (SCRSIZE)       /STORE CORE WORD WITHOUT "C" BIT
+1764 005122  5754          JMP I   (TTYTST)        /CONTINUE THERE
+1765               
+1766 005123  0000  CTLCTST,.-.                     /CONTROL CHARACTER INPUT ROUTINE
+1767 005124  7200          CLA                     /CLEAN UP
+1768 005125  6031          MONKSF                  /FLAG UP?
+1769 005126  5723          JMP I   CTLCTST         /NO, FORGET IT
+1770 005127  6034  CTZAP1, MONKRS/OR MONKRB        /GET THE CHARACTER
+1771 005130  0160          AND     [177]           /JUST SEVEN-BIT
+1772 005131  3012          DCA     INCHAR          /SAVE IT
+1773 005132  6032  CTZAP2, MONKCC/OR 0000          /CLEAR THE FLAG
+1774 005133  1012          TAD     INCHAR          /GET THE CHARACTER
+1775 005134  5723          JMP I   CTLCTST         /RETURN
+1776               /      MONITOR LOCATIONS' NORMAL CONTENTS LIST.
+1777               
+1778 005135  6041  MONCON, MONTSF                  /FOR P7TSF
+1779 005136  5735          P7OUT&177+JMPIC         /FOR P7JMP
+1780 005137  6046          MONTLS                  /FOR P7TLS
+1781 005140  6031          MONKSF                  /FOR CCHECK+2
+1782 005141  5743          CCHECK&177+JMPIC        /FOR CCHECK+3
+1783 005142  6036          MONKRB                  /FOR CCHECK+4
+1784               
+1785 005154  2506          PAGE
+     005155  7611  
+     005156  7757  
+     005157  7755  
+     005160  5177  
+     005161  3540  
+     005162  7600  
+     005163  5134  
+     005164  0707  
+     005165  5414  
+     005166  5402  
+     005167  1756  
+     005170  1666  
+     005171  1700  
+     005172  1714  
+     005173  1623  
+     005174  1704  
+     005175  4627  
+     005176  4620  
+     005177  4642  
+1786               /      ERROR BLURB.
+1787               
+1788 005200  0007  ERBLURB,"G&37                   /<BEL>
+1789 005201  0007          "G&37                   /<BEL>
+1790 005202  0007          "G&37                   /<BEL>
+1791 005203  0007          "G&37                   /<BEL>
+1792 005204  0015          "M&37                   /<CR>
+1793 005205  0012          "J&37                   /<LF>
+1794 005206  0012          "J&37                   /<LF
+1795 005207  0117          "O&177
+1796 005210  0166          "V&177+40
+1797 005211  0145          "E&177+40
+1798 005212  0162          "R&177+40
+1799 005213  0154          "L&177+40
+1800 005214  0141          "A&177+40
+1801 005215  0171          "Y&177+40
+1802 005216  0040          " &177
+1803 005217  0123          "S&177
+1804 005220  0165          "U&177+40
+1805 005221  0163          "S&177+40
+1806 005222  0160          "P&177+40
+1807 005223  0145          "E&177+40
+1808 005224  0156          "N&177+40
+1809 005225  0144          "D&177+40
+1810 005226  0145          "E&177+40
+1811 005227  0144          "D&177+40
+1812 005230  0054          ",&177
+1813 005231  0040          " &177
+1814 005232  0122          "R&177
+1815 005233  0145          "E&177+40
+1816 005234  0161          "Q&177+40
+1817 005235  0165          "U&177+40
+1818 005236  0151          "I&177+40
+1819 005237  0162          "R&177+40
+1820 005240  0145          "E&177+40
+1821 005241  0144          "D&177+40
+1822 005242  0040          " &177
+1823 005243  0110          "H&177
+1824 005244  0141          "A&177+40
+1825 005245  0162          "R&177+40
+1826 005246  0144          "D&177+40
+1827 005247  0167          "W&177+40
+1828 005250  0141          "A&177+40
+1829 005251  0162          "R&177+40
+1830 005252  0145          "E&177+40
+1831 005253  0040          " &177
+1832 005254  0116          "N&177
+1833 005255  0117          "O&177
+1834 005256  0124          "T&177
+1835 005257  0040          " &177
+1836 005260  0120         "P&177
+1837 005261  0162          "R&177+40
+1838 005262  0145          "E&177+40
+1839 005263  0163          "S&177+40
+1840 005264  0145          "E&177+40
+1841 005265  0156          "N&177+40
+1842 005266  0164          "T&177+40
+1843 005267  0041          "!&177
+1844 005270  0007          "G&37                   /<BEL>
+1845 005271  0007          "G&37                   /<BEL>
+1846 005272  0007          "G&37                   /<BEL>
+1847 005273  0007          "G&37                   /<BEL>
+1848 005274  0015          "M&37                   /<CR>
+1849 005275  0012          "J&37                   /<LF>
+1850 005276  4012          "J&37!4000              /<LF> WHICH ENDS THE LIST
+1851               
+1852 000137  5400          FIELD   0               /HERE COME THE LITERALS!
+     000140  0400  
+     000141  7352  
+     000142  0040  
+     000143  0460  
+     000144  4040  
+     000145  5500  
+     000146  0077  
+     000147  0007  
+     000150  7600  
+     000151  2200  
+     000152  7774  
+     000153  4700  
+     000154  4764  
+     000155  0100  
+     000156  7700  
+     000157  7740  
+     000160  0177  
+     000161  4644  
+     000162  5000  
+     000163  0316  
+     000164  0317  
+     000165  6201  
+     000166  4635  
+     000167  0200  
+     000170  0701  
+     000171  5510  
+     000172  5600  
+     000173  1303  
+     000174  0466  
+     000175  0275  
+     000176  0600  
+     000177  0610  
+1853               
+1854                       $                       /THAT'S ALL FOLK!
+
+ADDBLB  1541
+ADRLST  7603
+BACKIN  1211
+BACKUP  1215
+BLBCHA  1423
+BLBCHO  1443
+BLBDIS  2112
+BLBFIL  2000
+BLBMOV  2064
+BLBSTP  1563
+BLINK   0000
+BLKBLB  1526
+BLMVLU  2101
+BLURB   1450
+BOLD    0200
+BUFACT  0522
+BUFCHK  1642
+BUFEMP  0510
+BUFOFF  0537
+BUFSIZ  0400
+BUFULE  0525
+BUFULL  0533
+CADDRE  0052
+CADNOR  0317
+CADX    1045
+CADY    1011
+CALADR  0020
+CALFLD  0021
+CCHECK  2343
+CDOWN   1144
+CHKCNT  0043
+CHKPTR  0044
+CIF10   6212
+CLEAR   4644
+CLEFT   1122
+CNTLST  7615
+COMMON  1076
+CONIN   0600
+CONINT  0000
+CONOFF  0100
+CONOUT  0275
+CONTRO  1037
+CRIGHT  1131
+CRITEN  1126
+CTABLE  0426
+CTLCTS  5123
+CTZAP1  5127
+CTZAP2  5132
+CUP     1137
+CUPIN   1213
+CURSOR  0400
+CURSW   0075
+CXR1    0010
+CXR2    0011
+DEVWRD  0104
+DKIEIO  6435
+DKRBIO  6436
+DKSFIO  6431
+DPBLIO  6457
+DPCLIO  6456
+DPGOIO  6451
+DPLAIO  6450
+DPMSIO  6455
+DPSMIO  6452
+DSPBLB  0024 unreferenced
+EADDR   2155
+EBLOCK  2004
+ECOMMO  2040
+EFUN    2156
+EMPTPT  0037
+EMPTR   0040
+ENDROM  1400
+EOS     3000
+EOSENT  1256
+ERBLUP  5076
+ERBLUR  5200
+EROK    5072
+ERRBLB  1474
+ERRTRP  0046 unreferenced
+ESCAP2  1275
+ESCAPE  1272
+ESTATU  0077
+EWRITE  2032
+FILBLB  0023 unreferenced
+FILLPT  0041
+FLDBLB  1540
+FRMBLB  0735
+FTBLB   1533
+FUDWRD  0105 unreferenced
+FUNBLB  1511
+GOFLAG  0067
+GOTLIN  1720
+GOTUPC  2142
+INCHAR  0012
+INCIDF  4620
+INCON   0031
+INFLAG  0025
+INITES  5000
+INITNO  0253
+INITSW  0051
+INRET   0063
+INSERT  4760
+INTCON  0610
+INTDEV  1000
+INTEST  4617
+INTFLG  0002
+INTLST  0003 unreferenced
+INTRET  0055
+INTSET  1733
+INTST2  4627
+INTXIT  0677 unreferenced
+IOERSW  0076
+IOTRAP  0045 unreferenced
+IOWAIT  0047 unreferenced
+IOZAPE  0235
+IOZAPL  0212
+IOZAPO  0230
+JMPIC   5600
+JMSC    4200
+KEY     0043
+KEYTMP  0013
+LCFIOT  6662
+LCMODE  0006
+LIEIOT  6655
+LIN     0065
+LINCHA  0007
+LINETS  1714
+LINFLA  0030
+LINPUT  1703
+LIRBIO  6656
+LISFIO  6651
+LLEIOT  6665
+LLSIOT  6666
+LOUTRY  1623
+LPBUFF  0001
+LPCIDF  1704
+LPECDF  1700
+LPEMPT  1672
+LPEXIT  0565
+LPFCDF  1666
+LPFFTS  0514
+LPFILL  1660
+LPFXIT  0566
+LPINIT  0547
+LPMODE  0004
+LPOUT   1603
+LPRINT  0635
+LPSETS  1731
+LPSTRD  1637
+LPT     0066
+LPTAC   0014
+LPTBUF  5000
+LPTCHA  0015
+LPTFLA  0027
+LPTINT  0641 unreferenced
+LPTOUT  0466
+LPTRET  0061
+LSFIOT  6661
+LSTATU  0042
+MONADR  0710
+MONCON  5135
+MONINI  0200
+MONKCC  6032
+MONKRB  6036
+MONKRS  6034
+MONKSF  6031
+MONTLS  6046
+MONTSF  6041
+MONZAP  0717
+MOV4    4662
+MOVBLB  0022
+NL0001  7201
+NL0002  7326
+NL0004  7307 unreferenced
+NL0006  7327
+NL0100  7203
+NL2000  7332
+NL3777  7350
+NL4000  7330
+NL7775  7346
+NL7776  7344
+NL7777  7240
+NMCH1   2624
+NMCH2   7005
+NMCH3   0000
+NORMAL  7600
+NOTUPC  2145
+OCTLUP  1407
+OCTMOV  1400
+OFFCON  0701
+OFFRET  0057
+OLDCHR  0070
+OLDPTR  0071
+ONEWAY  0001
+OURTRA  1303
+OUT     0045
+OUTAC   0016
+OUTCDF  1756
+OUTCHR  0017
+OUTCON  0033
+OUTEXC  1755
+OUTFLA  0026
+OUTINT  0635 unreferenced
+OUTLPT  0035
+OUTRET  0065
+OVID    0106 unreferenced
+OVRCOM  2511
+OVRWRD  0111 unreferenced
+OVTYPE  0040
+P7JMP   2337
+P7OUT   2335
+P7TLS   2340
+P7TSF   2336
+PAGN    5100
+PRCONT  1224
+PRTCHR  4700
+PSYSIO  4704
+PTBKDO  5054
+PTBKLP  5043
+PTRY    5110
+PUTBAC  4764
+REDBLB  0725
+ROLCHK  4721
+SBOOT   7600
+SBTFUN  7602
+SCAPAD  0053
+SCAPNO  0316
+SCRSIZ  7611
+SETCDF  4642
+SETFLD  4635
+STATBL  1557
+SYSINS  4240
+SYSIO   7640
+TABCNT  0054
+TIMOUT  5031
+TIMTST  5025
+TOBLB   0741
+TRAPIO  1041
+TRDFUN  4612
+TRP     4611
+TRPAG2  5600
+TRPAGE  5400
+TRPBLK  0113
+TRPERR  1200
+TRPINI  4600
+TTY     0003
+TTYTST  2506
+UNTBLB  1524
+VEXIT   0413
+VEXIT2  0423
+VMODE   0074
+VSNSTS  0400
+VT8LPT  0000
+VTABLP  4713
+VTBELL  1077
+VTBFEN  4600
+VTBUFF  2200
+VTCAD   1006
+VTCR    1200
+VTEMP1  0043
+VTEMP2  0044
+VTEOL   1253
+VTEOS   1250
+VTEXIT  0334
+VTFF    1267
+VTHOME  1270
+VTINT   0651
+VTLF    1147
+VTLINT  0677
+VTLNPT  0072
+VTMODE  0005
+VTOFFS  0200
+VTPTR   0073
+VTRUB   1232
+VTTAB   1104
+WAITIO  1110
+WASTE   1760
+WRIBLB  0731
+XIOMON  0102
+ZAPLST  7627

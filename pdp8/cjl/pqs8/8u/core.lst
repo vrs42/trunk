@@ -1,0 +1,469 @@
+   1               /       P?S/8 CORE COMMAND
+   2               
+   3               /       LAST EDIT:      25-SEP-1985     15:00:00        CJL
+   4               
+   5               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       DEFINITION OF MONITOR CORE SIZE WORD CONVENTIONS:
+   8               
+   9               /       LOCATION 007611 CONTAINS THE CURRENT MEMORY CONFIGURATION OF THE SYSTEM
+  10               /       FORMATTED AS FOLLOWS:
+  11               
+  12               /       0  1  2  -  3  4  5  -  6  7  8  -  9 10 11
+  13               /        <PCS>       <MCS>       <LCS>      J  C  I
+  14               
+  15               /       PCS BITS:       PHYSICAL CORE SIZE. THESE THREE BITS ARE SET TO THE HIGHEST
+  16               /                       FIELD AVAILABLE IN THE PHYSICAL MEMORY SPACE OF FIELD 0-7
+  17               /                       BY THE MONITOR'S ONCE-ONLY CODE AT BOOTSTRAP TIME.
+  18               
+  19               /       MCS BITS:       MAXIMUM CORE SIZE. THESE THREE BITS ARE SET TO THE CURRENT
+  20               /                       MAXIMUM CORE SIZE. THIS REPRESENTS ALL FIELDS FROM 0 THROUGH
+  21               /                       MCS WHICH ARE AVAILABLE WITH NO RESTRICTIONS (07600-07777
+  22               /                       ARE NEVER AVAILABLE!). IF THE CONSOLE OVERLAY IS NOT PRESENT,
+  23               /                       THIS WILL BE IDENTICAL TO THE PHYSICAL CORE SIZE, UNLESS THE
+  24               /                       SYSTEM IS OF THE "ADJUSTABLE" TYPE, IN WHICH CASE THE VALUE
+  25               /                       WILL BE (PCS)-1. INSTALLATION OF THE CONSOLE OVERLAY WILL
+  26               /                       LOWER THIS VALUE BY ONE OR MORE FIELDS.
+  27               
+  28               /       LCS BITS:       LOGICAL CORE SIZE. THIS DEFINES THE CURRENT LOGICAL CORE
+  29               /                       SIZE LIMITATION IMPOSED BY THE USER ON SYSTEM AND OTHER
+  30               /                       PROGRAMS BY INVOKING THE "CORE" COMMAND (OR EQUIVALENT).
+  31               /                       THE LCS VALUE CAN VARY BETWEEN 0 AND MCS. THIS VALUE CAN BE
+  32               /                       OVERRIDDEN IN CERTAIN CASES (SEE BELOW).
+  33               
+  34               /       J BIT:          SYSTEM ADJUSTABILITY BIT. THIS BIT INDICATES THE PRESENCE
+  35               /                       OF A SYSTEM HANDLER WHICH REQUIRES EXTENDED MEMORY TO FUNCTION.
+  36               /                       THE SYSTEM HANDLER WILL NOT ONLY OCCUPY 07600-07777 AS USUAL,
+  37               /                       BUT ALSO 6000-7777 IN THE HIGHEST FIELD AVAILABLE (1-7). THE
+  38               /                       MCS VALUE WILL BE PCS-1 AT BEST IN THIS SITUATION. IF A 
+  39               /                       CONSOLE OVERLAY IS PRESENT, IT CAN OCCUPY 0000-5777 OF THIS
+  40               /                       SAME FIELD IF NECESSARY; ALL CONSOLE OVERLAYS ARE DESIGNED
+  41               /                       TO HANDLE THIS SITUATION.
+  42               
+  43               /       C BIT:          CONSOLE OVERLAY BIT. THIS BIT INDICATES THE PRESENCE OF A
+  44               /                       CONSOLE OVERLAY IN FIELD MCS+1 (AND POSSIBLY HIGHER). ALL
+  45               /                       SYSTEM (AND OTHER) PROGRAMS WILL USE LOGICAL UNIT RECORD
+  46               /                       HANDLING (TTY:, LPT:) INSTEAD OF PHYSICAL (DEVICE 03, 04, 66)
+  47               /                       HANDLING IF THIS BIT IS SET. THIS BIT WILL ALSO INHIBIT
+  48               /                       ATTEMPTS TO OVERRIDE THE MCS BITS TO OBTAIN MORE MEMORY.
+  49               /      I BIT:          CONSOLE INTERRUPT (<^C>) BIT. THIS BIT IS SET BY SYSTEM
+  50               /                       (AND OTHER) PROGRAMS TO INDICATE THE DETECTION OF <^C> BY
+  51               /                       MEANS OTHER THAN PHYSICAL DEVICE 03 OR LOGICAL CONSOLE
+  52               /                       HANDLING FOR THE BENEFIT OF "NON-OVERLAYING" BOOTSTRAP-TYPE
+  53               /                       SYSTEM HANDLERS. THIS ALLOWS MONITOR CONFIGURATIONS WITH
+  54               /                       INCOMPATIBLE CONSOLE HARDWARE (DECMATE) AS LONG AS THE
+  55               /                       ASSOCIATED SYSTEM HANDLER IS OF THE "NON-OVERLAYING" TYPE
+  56               /                       (SUCH AS PQSRXX). THIS BIT IS SET BY ANY PROGRAM RUNNING
+  57               /                       UNDER THE MONITOR SYSTEM AND LOOKED AT AND CLEARED BY THE
+  58               /                       KEYBOARD MONITOR WHEN IT IS RELOADED. THIS BIT SHOULD NOT
+  59               /                       BE USED FOR ANY OTHER PURPOSE AS IT COULD CAUSE UNPREDICTABLE
+  60               /                       RESULTS IF FALSELY SET. N. B. THIS BIT WAS DELIBERATELY
+  61               /                       CHOSEN AS BIT[11] TO FACILITATE SETTING IT WITH "ISZ I (7611)"
+  62               /                       AS THIS WORD CAN NEVER BE 7777 AND THUS CAN'T SKIP.
+  63               
+  64               /       OVERRIDING THE CORE SIZE.
+  65               
+  66               /       IN SITUATIONS SUCH AS "PAL/C", THE SYSTEM PROGRAM ATTEMPTS TO OBTAIN MORE
+  67               /       MEMORY THAN IS INDICATED BY THE LCS BITS. THE FOLLOWING RULES APPLY:
+  68               
+  69               /       1)              IF MCS>LCS THEN RAISE THE EFFECTIVE VALUE OF LCS BY OBTAINING
+  70               /                       AN EXTRA FIELD(S) UP TO THE LIMIT OF MCS.
+  71               
+  72               /       2)              IF MCS=LCS, THEN CHECK THE "C" BIT. IF THIS IS SET, NO
+  73               /                       ADDITIONAL MEMORY IS AVAILABLE. IF IT IS OFF THEN ADDITIONAL
+  74               /                       MEMORY (0000-5777 ONLY) IS AVAILABLE IN FIELD MCS+1.
+  75               
+  76               /       INSTALLING AN OVERLAY.
+  77               
+  78               /       THE CORE SIZE WORD SHOULD BE MANIPULATED AS FOLLOWS:
+  79               
+  80               /       1)              IF PCS=MCS=LCS=0 THEN NO EXTRA MEMORY IS AVAILABLE.
+  81               
+  82               /       2)              IF THE "C" BIT IS SET, THE OVERLAY CAN'T BE INSTALLED AS
+  83               /                       ANOTHER OVERLAY IS ALREADY INSTALLED!
+  84               
+  85               /       3)              IF PCS>MCS, THEN N FIELDS (N=PCS-MCS) ARE AVAILABLE FROM
+  86               /                       MCS+1 THROUGH PCS.
+  87               
+  88               /       4)              TO RESERVE N FIELDS, SET MCS TO MCS-N. ENSURE THAT LCS IS
+  89               /                       SET TO LESS OR EQUAL TO THE NEW VALUE OF MCS.
+  90               
+  91               /       5)              SET THE "C" BIT TO INDICATE INSTALLATION OF THE OVERLAY.
+  92               /      MONITOR INTERACTION WITH THE CORE SIZE WORD.
+  93               
+  94               /       THE MONITOR'S INITIALIZATION ROUTINE ALWAYS SETS THE PCS BITS OF THE CORE
+  95               /       SIZE WORD. IF THE "C" BIT IS SET, ALL OTHER BITS ARE HELD CONSTANT. IF THE
+  96               /       "J" BIT IS CLEAR, THE MCS BITS WILL BE SET TO THE PCS BITS. IF THE "J" BIT
+  97               /       IS SET, THE MCS BITS WILL BE SET TO PCS-1. WHEN THE MONITOR CHECKS FOR <^C>
+  98               /       FOR VARIOUS PURPOSES, THE "I" BIT WILL BE LOOKED AT AND THEN CLEARED AS ONE
+  99               /       OF SEVERAL POSSIBLE <^C> INDICATORS.
+ 100               
+ 101               /       OPERATION OF THE "CORE" COMMAND:
+ 102               
+ 103               /       OPTION                  FUNCTION
+ 104               /       ------                  --------
+ 105               
+ 106               /       <NONE>                  PRINT CURRENT CONFIGURATION.
+ 107               
+ 108               /       "A[LL]"                 THE LCS IS SET TO THE MCS. PRINT NEW CONFIGURATION.
+ 109               
+ 110               /       N (0<N<7)               IF MCS>=N THEN LCS IS SET TO N. PRINT THE NEW
+ 111               /                               CONFIGURATION. IF MCS<N THEN COMPLAIN.
+ 112               
+ 113               /       CONFIGURATION PRINTOUT.
+ 114               
+ 115               /       THE MEMORY CONFIGURATION IS PRINTED OUT AS FOLLOWS:
+ 116               
+ 117               /       PHYSICAL: <PCS>
+ 118               /       LOGICAL:  <LCS>
+ 119               /       MAXIMUM:  <MCS>
+ 120               /       SYSTEM LIMIT: <PCS-1> (IF "J" BIT SET).
+ 121               /       FIELD <MCS+1> RESERVED BY OVERLAY (IF "C" BIT SET AND PCS=MCS+1).
+ 122               /       FIELDS <MCS+1> - <PCS> RESERVED BY OVERLAY (IF "C" BIT SET AND PCS>MCS+1).
+ 123               
+ 124               /       ANY VALUE OF 4K IS PRECEEDED BY "ONLY." ANY VALUE OF 32K HAS "!" AFTER IT.
+ 125               
+ 126               /       "CORE" COMMAND ACTION TAKEN REGARDING THE CORE SIZE WORD.
+ 127               
+ 128               /       THE PCS BITS ON THE SYSTEM DEVICE ARE CLEARED WHEN UPDATING THE CORE SIZE
+ 129               /       WORD. THE MEMORY-RESIDENT COPY IS COMPLETELY UPDATED TO ACCOMODATE
+ 130               /       NON-OVERLAYING BOOTSTRAP SYSTEMS.
+ 131               
+ 132               //      P?S/8 MONITOR CROSS-EQUATES.
+ 133               
+ 134                       CATCORE=0150                    /USED AS CONSTANT 7000
+ 135                       CTCPZAP=2363                    /<^C> PRINT ZAP
+ 136                       CTCZAP= 2365                    /<^C> ZAP
+ 137                       GETHAF= 0104                    /GET A HALF-WORD ROUTINE
+ 138                       LINENO= 0062                    /NUMERICAL INPUT POINTER
+ 139                       LNOPRT= 0105                    /NUMERICAL OUTPUT POINTER
+ 140                       L15=    0041                    /CONSTANT 0015
+ 141                       L40=    0046                    /CONSTANT 0040
+ 142                       L7=     0177                    /CONSTANT 0007
+ 143                       L7600=  0113                    /CONSTANT 7600
+ 144                       L7740=  0136                    /CONSTANT 7740
+ 145                       L7766=  0012                    /CONSTANT 7766
+ 146                       L7770=  0040                    /CONSTANT 7770
+ 147                       NAMPRT= 0066                    /NAME PRINT POINTER
+ 148                       PBEGIN= 0071                    /POINTER TO BEGIN
+ 149                       PBUTIO= 0161                    /POINTER TO BOOTSTRAP UNIT I/O ROUTINES
+ 150                       PRINT=  0107                    /PRINT ROUTINE POINTER
+ 151                       PR6BIT= 0047                    /POINTER TO PRINT 6 BIT ROUTINE
+ 152                       PSCRSIZ=0170                    /POINTER TO CORE SIZE WORD
+ 153                       RADXSW= 0015                    /RADIX SWITCH
+ 154                       SBOOT=  7600                    /BOOTSTRAP LOCATION
+ 155                       SCRIBE= 0171                    /POINTER TO SCRIBE ROUTINE
+ 156                       SCRSIZE=7611                    /CORE SIZE WORD
+ 157                       SWAPIT= 0423                    /SWAP ROUTINE
+ 158                       WRITE=  4000                    /SYSIO WRITE BIT
+ 159                       XGETHAF=0444                    /GET HALF ROUTINE
+ 160                       XPRTNAM=1102                    /PRINT NAME ROUTINE
+ 161                       ZROFIL= 0241                    /ZERO SUPPRESSION LOCATION
+ 162               
+ 163               //      ADDITIONAL DEFINITIONS.
+ 164               
+ 165                       CORBUFF=6000                    /CORE BUFFER
+ 166                       JMPIC=  JMP I   .               /JUMP INDIRECT INSTRUCTION DEFINITION
+ 167                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+ 168                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+ 169                       SRINST= JMP I   PBEGIN/[BEGIN]  /INSTRUCTION DEFINITION
+ 170                      PAGE    14                              /OVER FILE AREA
+ 171               
+ 172                       IFNZRO  .&177   <ERROR  .>
+ 173               
+ 174                       CORE=   .                               /CORE SYSTEM STARTS HERE
+ 175               
+ 176 003000  0707  CORE,   0707/NOP                                /HERE IN CASE WE ARE CHAINED TO
+ 177 003001  1777          TAD I   (CTCZAP)                        /GET <^C> INSTRUCTION
+ 178 003002  1376          TAD     (-SRINST)                       /COMPARE TO POTENTIAL VALUE
+ 179 003003  7640          SZA CLA                                 /SKIP IF IT MATCHES
+ 180 003004  5213          JMP     COROK                           /JUMP IF NOT
+ 181 003005  1312          TAD     JMPIL7600/(JMP I  L7600/[SBOOT])/GET BOOTSTRAPPING INSTRUCTION
+ 182 003006  3777          DCA I   (CTCZAP)                        /ZAP IT IN
+ 183 003007  7326          NL0002                                  /SET "C" BIT MASK
+ 184 003010  0570          AND I   PSCRSIZE/[SCRSIZE]              /GET THE "C" BIT
+ 185 003011  7640          SZA CLA                                 /SKIP IF OFF
+ 186 003012  3775          DCA I   (CTCPZAP)                       /ELSE PREVENT EXTRA <^C>
+ 187 003013  1374  COROK,  TAD     (XGETHAF&177+JMPIC)             /GET JUMP INSTRUCTION
+ 188 003014  3773          DCA I   (SWAPIT+11)                     /STORE OVER MONITOR
+ 189 003015  1372          TAD     (NEXT)                          /SETUP OUR NEXT ADDRESS
+ 190 003016  3504          DCA I   GETHAF/[XGETHAF]                /SO IT WILL COME BACK TO US
+ 191 003017  5771          JMP I   (SWAPIT)                        /GO SWAP IT BACK IN AND THEN COME BACK TO US
+ 192               
+ 193 003020  1012  NEXT,   TAD     L7766/[-12]                     /SET RADIX TO
+ 194 003021  3015  MCS,    DCA     RADXSW                          /DECIMAL
+ 195 003022  1570  REQSIZE,TAD I   PSCRSIZE/[SCRSIZE]              /GET THE CORE SIZE WORD
+ 196 003023  7106          CLL RTL;RTL                             /MOVE PCS BITS TO AC[9-11]
+     003024  7006  
+ 197 003025  0177          AND     L7/[7]                          /ISOLATE PCS BITS
+ 198 003026  3770          DCA I   (PCS)                           /SAVE THEM FOR OTHERS
+ 199 003027  1570          TAD I   PSCRSIZE/[SCRSIZE]              /GET THE CORE SIZE WORD AGAIN
+ 200 003030  7012          RTR;RTR;RTR                             /MOVE MCS BITS TO AC[9-11]
+     003031  7012  
+     003032  7012  
+ 201 003033  0177          AND     L7/[7]                          /ISOLATE MCS BITS
+ 202 003034  3221          DCA     MCS                             /SAVE THEM FOR OTHERS
+ 203 003035  4504          JMS I   GETHAF/[XGETHAF]                /GET DELIMITER
+ 204 003036  7450          SNA                                     /<EOL>?
+ 205 003037  5767          JMP I   (PRTMEMORY)                     /YES, JUST AN INQUIRY
+ 206 003040  7041          CIA                                     /NEGATE THE CHARACTER
+ 207 003041  7040          CMA                                     /WAS IT AN "A"?
+ 208 003042  7650          SNA CLA                                 /SKIP IF NOT
+ 209 003043  5254          JMP     GETALL                          /YES, GET AS MUCH AS POSSIBLE
+ 210 003044  4462          JMS I   LINENO/[XLINENO]                /GET NUMERIC ARGUMENT
+ 211 003045  5310          JMP     MEMERR                          /NON-DIGIT: ABORT
+ 212 003046  3222          DCA     REQSIZE                         /SAVE VALUE
+ 213 003047  1222          TAD     REQSIZE                         /GET REQUESTED SIZE
+ 214 003050  0040          AND     L7770/[7770]                    /JUST BAD BITS
+ 215 003051  7640          SZA CLA                                 /SKIP IF LESS THAN 10
+ 216 003052  5310          JMP     MEMERR                          /JUMP IF NOT
+ 217 003053  5256          JMP     SETMEM                          /IT'S OK, PERFORM IT
+ 218 003054  1221  GETALL,        TAD     MCS                     /SET REQUEST
+ 219 003055  3222          DCA     REQSIZE                 /SIZE TO MCS
+ 220 003056  1221  SETMEM, TAD     MCS                     /DETERMINE IF
+ 221 003057  7041          CIA                             /REQUESTED AMOUNT
+ 222 003060  1222          TAD     REQSIZE                 /IS IN RANGE
+ 223 003061  7740          SMA SZA CLA                     /SKIP IF SO
+ 224 003062  5310          JMP     MEMERR                  /NO, ABORT
+ 225 003063  1222          TAD     REQSIZE                 /GET REQUEST SIZE
+ 226 003064  7106          CLL RTL;RAL                     /MOVE TO AC[6-8]
+     003065  7004  
+ 227 003066  3222          DCA     REQSIZE                 /SAVE BACK
+ 228 003067  4561          JMS I   PBUTIO/[BUTIO]          /\
+ 229 003070  6000          CORBUFFER                       / \READ IN A COPY OF
+ 230 003071  0100          1^100                           / /BLOCK 0 OF SYSTEM DEVICE
+ 231 003072  0000          0000                            //
+ 232 003073  1570          TAD I   PSCRSIZE/[SCRSIZE]      /GET CURRENT CONFIGURATION
+ 233 003074  0200          AND     CORE/(0707)             /MASK OUT OLD LCS AND PCS
+ 234 003075  1222          TAD     REQSIZE                 /GET REQUEST
+ 235 003076  3766          DCA I   (SCRSIZE-SBOOT+CORBUFF) /STORE INTO COPY OF BLOCK 0
+ 236 003077  4561          JMS I   PBUTIO/[BUTIO]          /\
+ 237 003100  6000          CORBUFFER                       / \REWRITE UPDATED
+ 238 003101  4100          1^100+WRITE                     / /BLOCK 0 BACK
+ 239 003102  0000          0000                            //
+ 240 003103  1570          TAD I   PSCRSIZE/[SCRSIZE]      /GET CORE SIZE WORD BACK
+ 241 003104  0150          AND     CATCORE/[7000]          /JUST PCS BITS
+ 242 003105  1766          TAD I   (SCRSIZE-SBOOT+CORBUFF) /ADD ON COMPOSITE
+ 243 003106  3570          DCA I   PSCRSIZE/[SCRSIZE]      /SAVE IN SYSTEM I/O WORD
+ 244 003107  5767          JMP I   (PRTMEMORY)             /AND PRINT THE CONFIGURATION
+ 245               
+ 246 003110  4571  MEMERR, JMS I   SCRIBE/[XSCRIBE]        /COMPLAIN FIRST
+ 247 003111  3151          BDCMSG                          /BEFORE ABORTING
+ 248 003112  5513  JMPIL76,JMP I   L7600/[SBOOT]           /BOOTSTRAP
+ 249 003113  2010  PHYMSG,        TEXT    "PHYSICAL: ";0
+     003114  3123  
+     003115  1103  
+     003116  0114  
+     003117  7240  
+     003120  0000  
+ 250 003121  1417  LOGMSG, TEXT    "LOGICAL: "
+     003122  0711  
+     003123  0301  
+     003124  1472  
+     003125  4000  
+ 251 003126  2331  SYLMSG, TEXT    "SYSTEM LIMIT: ";0
+     003127  2324  
+     003130  0515  
+     003131  4014  
+     003132  1115  
+     003133  1124  
+     003134  7240  
+     003135  0000  
+ 252 003136  4022  STLMSG, TEXT    " RESERVED BY OVERLAY."
+     003137  0523  
+     003140  0522  
+     003141  2605  
+     003142  0440  
+     003143  0231  
+     003144  4017  
+     003145  2605  
+     003146  2214  
+     003147  0131  
+     003150  5600  
+ 253 003151  1114  BDCMSG, TEXT    "ILLEGAL MEMORY REQUEST!"
+     003152  1405  
+     003153  0701  
+     003154  1440  
+     003155  1505  
+     003156  1517  
+     003157  2231  
+     003160  4022  
+     003161  0521  
+     003162  2505  
+     003163  2324  
+     003164  4100  
+ 254               
+ 255 003166  6011          PAGE
+     003167  3200  
+     003170  3317  
+     003171  0423  
+     003172  3020  
+     003173  0434  
+     003174  5644  
+     003175  2363  
+     003176  2307  
+     003177  2365  
+ 256 003200  1377  PRTMEM,        TAD     (SKP)                   /\
+ 257 003201  3776  CTEMP,  DCA I   (ZROFIL)                / \ELIMINATE LEADING ZEROES
+ 258 003202  1377          TAD     (SKP)                   / /AND TRAILING <TAB>
+ 259 003203  3775          DCA I   (ZROFIL+13)             //
+ 260 003204  3774          DCA I   (XPRTNAM+5)             /DESTROY LENGTH CHECK
+ 261 003205  4447          JMS I   PR6BIT/[XPR6BIT]        /DO A <CR>, <LF>
+ 262 003206  1317          TAD     PCS                     /GET PHYSICAL SIZE
+ 263 003207  4256          JMS     CPRINT                  /PRINT IT (CPRINT CLEANS UP)
+ 264 003210  1570          TAD I   PSCRSIZE/[SCRSIZE]      /GET CONFIGURATION WORD
+ 265 003211  7112          CLL RTR;RAR                     /MOVE LCS BITS TO LOW-ORDER
+     003212  7010  
+ 266 003213  4256          JMS     CPRINT                  /PRINT IT
+ 267 003214  1773          TAD I   (MCS)                   /GET CURRENT MAXIMUM
+ 268 003215  4256          JMS     CPRINT                  /PRINT IT
+ 269 003216  1570          TAD I   PSCRSIZE/[SCRSIZE]      /GET CORE SIZE WORD AGAIN
+ 270 003217  0372          AND     (4)                     /JUST "J" BIT
+ 271 003220  7650          SNA CLA                         /SKIP IF ADJUSTABLE SYSTEM
+ 272 003221  5225          JMP     NOMAX                   /JUMP IF NOT
+ 273 003222  7240          NL7777                          /BACKUP
+ 274 003223  1317          TAD     PCS                     /USE PCS-1
+ 275 003224  4256          JMS     CPRINT                  /PRINT THE SYSTEM LIMIT
+ 276 003225  7326  NOMAX,  NL0002                          /SETUP "C" BIT MASK
+ 277 003226  0570          AND I   PSCRSIZE/[SCRSIZE]      /GET THE BIT
+ 278 003227  7650          SNA CLA                         /CONSOLE OVERLAY ACTIVE?
+ 279 003230  5513          JMP I   L7600/[SBOOT]           /NO, EXIT
+ 280 003231  4466          JMS I   NAMPRT/[XPRTNAM]        /PRINT INTRODUCTORY
+ 281 003232  3330          FLDMSG                          /MESSAGE
+ 282 003233  1317          TAD     PCS                     /\
+ 283 003234  7041          CIA                             / \DETERMINE NUMBER
+ 284 003235  1773          TAD I   (MCS)                   / /OF RESERVED FIELDS
+ 285 003236  7001          IAC                             //
+ 286 003237  7650          SNA CLA                         /SKIP IF MORE THAN ONE RESERVED
+ 287 003240  5247          JMP     CP1FLD                  /JUST ONE
+ 288 003241  4466          JMS I   NAMPRT/[XPRTNAM]        /MAKE THE MESSAGE
+ 289 003242  3333          ESSMSG                          /PLURAL
+ 290 003243  1773          TAD I   (MCS)                   /REGAIN MCS
+ 291 003244  7001          IAC                             /BUMP TO FIRST RESERVED FIELD
+ 292 003245  4505          JMS I   LNOPRT/[XLNOPRT]        /PRINT IT
+ 293 003246  1041          TAD     L15/["--" ]             /GET <DASH>-<SPACE>
+ 294 003247  1046  CP1FLD, TAD     L40/[" &177]            /ONE FIELD ENTRY POINT
+ 295 003250  4507          JMS I   PRINT/[XPRINT]          /PRINT A <SPACE>
+ 296 003251  1317          TAD     PCS                     /GET UPPER LIMIT
+ 297 003252  4505          JMS I   LNOPRT/[XLNOPRT]        /PRINT IT
+ 298 003253  4571          JMS I   SCRIBE/[XSCRIBE]        /PRINT TRAILER PART
+ 299 003254  3136          STLMSG                          /OF MESSAGE
+ 300 003255  5513          JMP I   L7600/[SBOOT]           /AND BOOTSTRAP
+ 301 003256  0000  CPRINT,        .-.                     /PRINT A CORE STATISTIC ROUTINE
+ 302 003257  0177          AND     L7/[7]          /CLEAN UP IRRELEVANT BITS
+ 303 003260  3201          DCA     CTEMP           /SAVE FOR 32K TEST
+ 304 003261  1712          TAD I   CMSGPTR         /GET POINTER TO NEXT MESSAGE
+ 305 003262  3264          DCA     .+2             /SAVE IN CALL
+ 306 003263  4466          JMS I   NAMPRT/[XPRTNAM]/CALL NAME PRINTER
+ 307 003264  0000          .-.                     /MESSAGE POINTER FILLED IN
+ 308 003265  2312          ISZ     CMSGPTR         /BUMP FOR NEXT TIME
+ 309 003266  1201          TAD     CTEMP           /GET VALUE BACK
+ 310 003267  7440          SZA                     /4K?
+ 311 003270  5273          JMP     CPR2            /NO, JUST PRINT VALUE
+ 312 003271  4466          JMS I   NAMPRT/[XPRTNAM]/ELSE CONSOLE HIM
+ 313 003272  3325          ONLYMSG                 /"ONLY "
+ 314 003273  7101  CPR2,   CLL IAC                 /MAKE ORIGIN ONE
+ 315 003274  7006          RTL                     /*4 (FOR "K"'S)
+ 316 003275  3201          DCA     CTEMP           /SAVE BACK
+ 317 003276  1201          TAD     CTEMP           /GET THE VALUE IN KILOWORDS
+ 318 003277  4505          JMS I   LNOPRT/[XLNOPRT]/PRINT IT
+ 319 003300  1371          TAD     ("K&177)        /GET AN ASCII "K"
+ 320 003301  4507          JMS I   PRINT/[XPRINT]  /PRINT TO INDICATE UNITS
+ 321 003302  1201          TAD     CTEMP           /GET VALUE AGAIN
+ 322 003303  1136          TAD     L7740/[-40]     /-32(10)
+ 323 003304  7640          SZA CLA                 /SKIP IF 32K
+ 324 003305  5310          JMP     .+3             /OMIT THE "!"
+ 325 003306  1370          TAD     ("!&177)        /GET A "!"
+ 326 003307  4507          JMS I   PRINT/[XPRINT]  /INDICATE AMAZEMENT
+ 327 003310  4447          JMS I   PR6BIT/[XPR6BIT]/<CR>, <LF> SEQUENCE
+ 328 003311  5656          JMP I   CPRINT          /EXIT TO CALLER
+ 329               
+ 330 003312  3313  CMSGPTR,.+1                     /POINTER FOR SEQUENTIAL MESSAGES
+ 331 003313  3113          PHYMSG                  /PHYSICAL AMOUNT
+ 332 003314  3121          LOGMSG                  /LOGICAL AMOUNT
+ 333 003315  3320          MAXMSG                  /SYSTEM MAXIMUM
+ 334 003316  3126          SYLMSG                  /SYSTEM LIMIT
+ 335               
+ 336 003317  0000  PCS,    .-.                     /WORKING COPY OF PCS
+ 337 003320  1501  MAXMSG,        TEXT    "MAXIMUM: "
+     003321  3011  
+     003322  1525  
+     003323  1572  
+     003324  4000  
+ 338 003325  1716  ONLYMSG,TEXT    "ONLY "
+     003326  1431  
+     003327  4000  
+ 339 003330  0611  FLDMSG, TEXT    "FIELD"
+     003331  0514  
+     003332  0400  
+ 340 003333  2340  ESSMSG, TEXT    "S ";0
+     003334  0000  
+ 341               
+ 342 003370  0041          $                       /THAT'S ALL FOLK!
+     003371  0113  
+     003372  0004  
+     003373  3021  
+     003374  1107  
+     003375  0254  
+     003376  0241  
+     003377  7410  
+
+BDCMSG  3151
+CATCOR  0150
+CMSGPT  3312
+CORBUF  6000
+CORE    3000
+COROK   3013
+CP1FLD  3247
+CPR2    3273
+CPRINT  3256
+CTCPZA  2363
+CTCZAP  2365
+CTEMP   3201
+ESSMSG  3333
+FLDMSG  3330
+GETALL  3054
+GETHAF  0104
+JMPIC   5600
+JMPIL7  3112
+L15     0041
+L40     0046
+L7      0177
+L7600   0113
+L7740   0136
+L7766   0012
+L7770   0040
+LINENO  0062
+LNOPRT  0105
+LOGMSG  3121
+MAXMSG  3320
+MCS     3021
+MEMERR  3110
+NAMPRT  0066
+NEXT    3020
+NL0002  7326
+NL7777  7240
+NOMAX   3225
+ONLYMS  3325
+PBEGIN  0071
+PBUTIO  0161
+PCS     3317
+PHYMSG  3113
+PR6BIT  0047
+PRINT   0107
+PRTMEM  3200
+PSCRSI  0170
+RADXSW  0015
+REQSIZ  3022
+SBOOT   7600
+SCRIBE  0171
+SCRSIZ  7611
+SETMEM  3056
+SRINST  5471
+STLMSG  3136
+SWAPIT  0423
+SYLMSG  3126
+WRITE   4000
+XGETHA  0444
+XPRTNA  1102
+ZROFIL  0241

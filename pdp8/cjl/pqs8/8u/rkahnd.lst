@@ -1,0 +1,610 @@
+   1               / P?S/8 RK8E 4-DRIVE NON-SYSTEM HANDLERS
+   2               
+   3               /       P?S/8 RK-8/E NON-SYSTEM HANDLERS FOR ADDRESSING FOUR FULL DRIVES.
+   4               
+   5               /       LAST EDIT:      01-APR-1986     05:00:00        CJL
+   6               
+   7               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   8               
+   9               /       THESE ARE CO-RESIDENT HANDLERS FOR THE RK-8/E AND UP TO FOUR DRIVES. FUTURE
+  10               /       VERSIONS MAY SUPPORT THE RKS8E/RK8L 8 DRIVE HARDWARE. EACH ENTRY ADDRESSES
+  11               /       TWO COMPLETE DISKS: RK8E01 TREATS DISK 0 AS LOGICAL UNITS 0-3 AND DISK 1
+  12               /       AS LOGICAL UNITS 4-7; RK8E23 TREATS DISK 2 AS LOGICAL UNITS 0-3 AND DISK 3
+  13               /       AS LOGICAL UNITS 4-7.
+  14               
+  15               /CALLING SEQUENCE:
+  16               
+  17               /       CDF     MYFLD           /SET CALLER'S DATA FIELD
+  18               /       CIF     HNDFLD          /SET HANDLER'S INSTRUCTION FIELD
+  19               /       JMS I   (HANDLER)       /RK8E01 FOR DISK 0-1, RK8E23 FOR DISK 2-3
+  20               /       PARAM                   /PARAMETER POINTER
+  21               /       ERRORRETURN             /RETURNS HERE WITH DISK STATUS IN AC IF ERROR
+  22               /       GOODRETURN              /RETURNS HERE WITH CLEAR AC IF I/O OK
+  23                      PAGE                    /START ON A GOOD BOUNDARY
+  24               
+  25                       HERE=   .               /REMEMBER ASSEMBLY ADDRESS
+  26               
+  27               /       RK-8/E DEFINITIONS.
+  28               
+  29                       RKCODE= 74^10+6000      /DEVICE CODE OF RK-8/E
+  30                
+  31                       DSKP=   RKCODE+1        /SKIP ON DONE
+  32                       DCLR=   RKCODE+2        /CLEAR STATUS
+  33                       DLAG=   RKCODE+3        /LOAD AND GO
+  34                       DLCA=   RKCODE+4        /LOAD CURRENT ADDRESS
+  35                       DRST=   RKCODE+5        /READ STATUS
+  36                       DLDC=   RKCODE+6        /LOAD COMMAND
+  37                       DMAN=   RKCODE+7        /MAINTAINENCE
+  38               
+  39               /       MISCELLANEOUS DEFINITIONS.
+  40               
+  41                       NL0001= CLA IAC         /LOAD AC WITH 0001
+  42                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+  43                       NL4000= CLA CLL CML RAR /LOAD AC WITH 4000
+  44                       NL7775= CLA CLL CMA RTL /LOAD AC WITH 7775
+  45                       REVISIO="A&77           /REVISION OF HANDLER(S)
+  46                       RKLENGT=6260            /LENGTH OF LOGICAL UNIT ON RK-8/E
+  52                       XLIST   ON
+  53               
+  54               /       DEVICE HANDLER HEADER BLOCK.
+  55               
+  56                       *"R&177;*"K&177;*"8&177 /GROUP NAME
+  57                       *-2                     /GROUP COUNT
+  58                       *"R&177;*"K&177;*"A&177 /DEVICE NAME
+  59                       *RK8E01&177             /RELATIVE ENTRY POINT
+  60                       *RKLENGTH-1             /LENGTH (HIGHEST BLOCK)
+  61                       *REVISION               /REVISION OF HANDLER
+  62                       *"R&177;*"K&177;*"B&177 /DEVICE NAME
+  63                       *RK8E23&177             /RELATIVE ENTRY POINT
+  64                       *RKLENGTH-1             /LENGTH (HIGHEST BLOCK)
+  65                       *REVISION               /REVISION OF HANDLER
+  66                      *HERE                   /RESET ORIGIN
+  67               
+  68               /       THE FOLLOWING LITERALS ARE BEING GENERATED NOW SO THAT THE LAST TWO
+  69               /       LOCATIONS ON THIS PAGE LOOK LIKE THIS:
+  70               
+  71               /       *.!177-1                /GET NEAR END OF PAGE
+  72               
+  73               /RKINIT,.-.                     /WILL CONTAIN OUR ACTUAL LOAD ADDRESS
+  74               /       TAD     RKINIT          /GET LOAD ADDRESS AND FALL THROUGH TO NEXT PAGE
+  75               
+  76                       RKINIT= .!177-1         /INITIALIZE HEADER
+  77                       FOO=    (TAD    RKINIT) /GENERATE ADD INSTRUCTION
+  78                       FOO=    (.-.)           /GENERATE HEADER
+  79               
+  80               /       ENTRY POINT FOR DISK[0-1] HANDLER.
+  81               
+  82 000200  0000  RK8E01, .-.                     /DISK 0, 1 ENTRY POINT
+  83 000201  7200          CLA                     /CLEAN UP
+  84 000202  1200          TAD     RK8E01          /GET OUR CALLER
+  85 000203  3205          DCA     RK8E23          /MAKE IT LOOK LIKE THEIRS
+  86 000204  5207          JMP     RKCOMMON        /CONTINUE THERE
+  87               
+  88               /       ENTRY POINT FOR DISK[2-3] HANDLER.
+  89               
+  90 000205  0000  RK8E23, .-.                     /DISK 2, 3 ENTRY POINT
+  91 000206  7326          NL0002                  /SET DRIVE PAIR BIT
+  92 000207  7104  RKCOMMO,CLL RAL                 /MOVE TO BIT[9]
+  93 000210  3335          DCA     RKPAIR          /SAVE DRIVE PAIR BIT
+  94 000211  7346          NL7775                  /SETUP THE
+  95 000212  3340          DCA     RKTRYCOUNTER    /RETRY COUNTER
+  96 000213  6214          RDF                     /GET CALLING FIELD
+  97 000214  1375          TAD     (CDF)           /FORM CDF CALLING FIELD
+  98 000215  3320          DCA     RKERCDF         /STORE IN-LINE IN ERROR HANDLER
+  99 000216  1605  RKTRY,  TAD I   RK8E23          /GET CALLER'S PARAMETER ADDRESS
+ 100 000217  3326          DCA     RKEXIT          /STASH THE POINTER
+ 101 000220  1726          TAD I   RKEXIT          /GET THE TRANSFER ADDRESS
+ 102 000221  3331          DCA     RKBUFFER        /STASH IT
+ 103 000222  2326          ISZ     RKEXIT          /BUMP TO NEXT
+ 104 000223  1726          TAD I   RKEXIT          /GET THE FUNCTION WORD
+ 105 000224  3333          DCA     RKFUNCTION      /STASH IT
+ 106 000225  2326          ISZ     RKEXIT          /BUMP TO NEXT
+ 107 000226  1726          TAD I   RKEXIT          /GET THE BLOCK NUMBER
+ 108 000227  7110          CLL RAR                 /%2
+ 109 000230  3336          DCA     RKSECTOR        /SAVE AS LOGICAL SECTOR
+ 110 000231  1333          TAD     RKFUNCTION      /GET FUNCTION WORD
+ 111 000232  0374          AND     (3700)          /JUST PAGE BITS
+ 112 000233  7450          SNA                     /SKIP IF ANY
+ 113 000234  7330          NL4000                  /ELSE MAKE 40 PAGE CALL VALUE
+ 114 000235  3334          DCA     RKPAGCT         /STORE PAGE COUNT
+ 115 000236  1333          TAD     RKFUNCTION      /GET THE FUNCTION WORD AGAIN
+ 116 000237  0373          AND     (4)             /JUST HIGHEST UNIT BIT
+ 117 000240  7110          CLL RAR                 /BECOMES LOWER PHYSICAL DRIVE BIT
+ 118 000241  3332          DCA     RKDISK          /STASH THE LOWER DRIVE BIT
+ 119 000242  1333         TAD     RKFUNCTION      /GET THE FUNCTION WORD AGAIN
+ 120 000243  7012          RTR                     /LOWEST UNIT BIT TO AC[0], MIDDLE UNIT BIT TO LINK
+ 121 000244  7710          SPA CLA                 /SKIP IF EVEN UNIT
+ 122 000245  1372          TAD     (1454)          /ELSE ADD ON A UNIT LENGTH (%2 AT PRESENT)
+ 123 000246  7430          SZL                     /SKIP IF NOT A DOUBLE UNIT
+ 124 000247  1371          TAD     (3130)          /ELSE ADD ON DOUBLE UNIT LENGTH (%2 AT PRESENT)
+ 125 000250  7104          CLL RAL                 /ADJUST TO PROPER THIRTEEN BIT SIZE
+ 126 000251  1336          TAD     RKSECTOR        /ADD ON BASIC SECTOR FROM BLOCK NUMBER
+ 127 000252  3336          DCA     RKSECTOR        /SAVE FINAL DESIRED SECTOR
+ 128 000253  1333          TAD     RKFUNCTION      /GET THE FUNCTION AGAIN
+ 129 000254  0370          AND     (4070)          /REMOVE ALL BUT READ/WRITE AND FIELD BITS
+ 130 000255  7430          SZL                     /HIGHEST SECTOR BIT SET?
+ 131 000256  7001          IAC                     /YES, SET LOW-ORDER COMMAND BIT
+ 132 000257  3333          DCA     RKFUNCTION      /SAVE COMMAND VALUE
+ 133 000260  7201          NL0001                  /SETUP ODDNESS MASK
+ 134 000261  0726          AND I   RKEXIT          /GET THE BIT
+ 135 000262  1373          TAD     (CIF CDF-CDF^2) /GET (CIF CDF)-CDF*2
+ 136 000263  7110          CLL RAR                 /PUT ODDNESS BIT INTO LINK; SET AC TO PROPER OFFSET
+ 137 000264  1320          TAD     RKERCDF         /NOW HAVE CIF CDF RETURN FIELD
+ 138 000265  3326          DCA     RKEXIT          /STORE FOR EXIT LATER
+ 139 000266  4376  RKOCDF, JMS     RKINIT          /WILL BE CDF OUR FIELD
+ 140 000267  5767  RKLOC,  JMP I   (RKODDCHK-RKLOC)/CONTINUE THERE
+ 141               
+ 142               /       WAIT ROUTINE.
+ 143               
+ 144 000270  0000  RKWAIT, .-.                     /I/O WAIT ROUTINE
+ 145 000271  6746          DLDC                    /LOAD PASSED COMMAMD
+ 146 000272  1336          TAD     RKSECTOR        /GET LATEST SECTOR
+ 147 000273  6743          DLAG                    /LOAD IT AND START COMMAND
+ 148 000274  6741          DSKP                    /FLAG UP?
+ 149 000275  5274          JMP     .-1             /NO, WAIT FOR IT
+ 150 000276  6745          DRST                    /YES, GET RETURNED STATUS
+ 151 000277  7104          CLL RAL                 /GET RID OF DONE BIT
+ 152 000300  7650          SNA CLA                 /SKIP IF ANY ERRORS
+ 153 000301  5670          JMP I   RKWAIT          /ELSE RETURN
+ 154 000302  6745          DRST                    /GET THE STATUS AGAIN
+ 155 000303  3337          DCA     RKSTATUS        /SAVE IT
+ 156 000304  1337          TAD     RKSTATUS        /GET IT BACK
+ 157 000305  0366          AND     (401)           /JUST RECALIBRATE BITS
+ 158 000306  7640          SZA CLA                 /SKIP IF OTHER PROBLEM
+ 159 000307  7001          IAC                     /ELSE MAKE IT RECALIBRATE
+ 160 000310  7001          IAC                     /SET CLEAR BIT AT LEAST
+ 161 000311  6742          DCLR                    /CLEAR CONTROLLER OR RECALIBRATE
+ 162 000312  6745          DRST                    /GET STATUS NOW
+ 163 000313  7106          CLL RTL                 /MOVE "IN MOTION" BIT TO LINK
+ 164 000314  7640          SZA CLA                 /SKIP IF ALL ELSE OK
+ 165 000315  5320          JMP     RKERCDF         /ELSE BARF!
+ 166 000316  7430          SZL                     /DONE YET?
+ 167 000317  5311          JMP     .-6             /NO, KEEP WAITING
+ 168 000320  0000  RKERCDF,.-.                     /WILL BE CDF CALLING FIELD
+ 169 000321  2340          ISZ     RKTRYCOUNTER    /TOO MANY ERRORS?
+ 170 000322  5216          JMP     RKTRY           /NO, TRY AGAIN
+ 171 000323  1337          TAD     RKSTATUS        /YES, GET STATUS AGAIN
+ 172 000324  7410          SKP                     /DON'T BUMP RETURN ADDRESS
+ 173               /      COMES HERE IF NO ERRORS.
+ 174               
+ 175 000325  2205  RKDONE, ISZ     RK8E23          /BUMP TO GOOD RETURN
+ 176 000326  0000  RKEXIT, .-.                     /WILL BE CIF CDF RETURN FIELD
+ 177 000327  2205          ISZ     RK8E23          /BUMP RETURN ADDRESS
+ 178 000330  5605          JMP I   RK8E23          /RETURN TO CALLER
+ 179               
+ 180 000331  0000  RKBUFFE,.-.                     /TRANSFER ADDRESS
+ 181 000332  0000  RKDISK, .-.                     /HIGH-ORDER-UNIT-BIT-DERIVED DRIVE BIT
+ 182 000333  0000  RKFUNCT,.-.                     /FUNCTION WORD
+ 183 000334  0000  RKPAGCT,.-.                     /PAGE COUNTER
+ 184 000335  0000  RKPAIR, .-.                     /PHYSICAL DRIVE PAIR BIT
+ 185 000336  0000  RKSECTO,.-.                     /SECTOR NUMBER
+ 186 000337  0000  RKSTATU,.-.                     /DRIVE STATUS DURING ERROR SAVED HERE
+ 187 000340  0000  RKTRYCO,.-.                     /RETRY COUNTER
+ 188               
+ 189               /       RELOCATION ADDRESS(ES) FOR THIS PAGE.
+ 190               
+ 191                       RKREL0= (RKODDCHK-RKLOC)/POINTER TO RKODDCHK
+ 192               
+ 193 000366  0401          PAGE
+     000367  0511  
+     000370  4070  
+     000371  3130  
+     000372  1454  
+     000373  0004  
+     000374  3700  
+     000375  6201  
+     000376  0000  
+     000377  1376  
+ 194               /      ONCE-ONLY INITIALIZATION CODE.
+ 195               
+ 196               /       THE AC CONTAINS THE ACTUAL VALUE OF "RKLOC" RELOCATED TO THE BASE PAGE WE
+ 197               /       WERE LOADED INTO. ALL ADDRESS CONSTANTS MUST BE UPDATED TO REFLECT THIS.
+ 198               
+ 199               /       THIS PAGE AND THE FOLLOWING PAGE WILL BECOME THE WORK BUFFER FOR
+ 200               /       ALL HALF-SECTOR OPERATIONS.
+ 201               
+ 202                       RKHBUFF=.               /HALF-SECTOR WORK BUFFER HERE
+ 203               
+ 204 000400  3200  RKHBUFF,DCA     RKHBUFFER       /SAVE RELOCATION VALUE
+ 205 000401  7430  RKTEMP, SZL                     /LINK ON?
+ 206 000402  2225          ISZ     RKXZAP          /YES, MAKE IT SET THE LINK LATER
+ 207 000403  6224          RIF                     /GET OUR FIELD
+ 208 000404  1377          TAD     (CDF)           /MAKE IT CDF OUR FIELD
+ 209 000405  3206          DCA     RKTFLD          /STORE IN-LINE
+ 210 000406  0000  RKTFLD, .-.                     /WILL BE CDF OUR FIELD
+ 211 000407  1230  RKRLINS,TAD     RKRLST          /GET A RELOCATABLE ADDRESS
+ 212 000410  7450          SNA                     /END OF LIST?
+ 213 000411  5221          JMP     RKDOIT          /YES, CONTINUE THERE
+ 214 000412  1200          TAD     RKHBUFFER       /NO, ADD ON RELOCATION FACTOR
+ 215 000413  3201          DCA     RKTEMP          /STASH THE CORRECTED POINTER
+ 216 000414  1601          TAD I   RKTEMP          /GET THE RELOCATABLE ADDRESS
+ 217 000415  1200          TAD     RKHBUFFER       /RELOCATE IT
+ 218 000416  3601          DCA I   RKTEMP          /STORE BACK CORRECTED VALUE
+ 219 000417  2207          ISZ     RKRLINSTRUCTION /BUMP TO NEXT ELEMENT
+ 220 000420  5207          JMP     RKRLINSTRUCTION /CONTINUE THERE
+ 221               
+ 222 000421  1206  RKDOIT, TAD     RKTFLD          /GET CDF OUR FIELD
+ 223 000422  3776          DCA I   (RKOCDF-RKLOC)  /STORE IT THERE
+ 224 000423  1206          TAD     RKTFLD          /GET IT AGAIN
+ 225 000424  3775          DCA I   (RKPCDF-RKLOC)  /STORE WHERE NEEDED
+ 226 000425  7200  RKXZAP, CLA                     /**** ZAPPED **** CLA IAC
+ 227 000426  7110          CLL RAR                 /LOAD ORIGINAL LINK VALUE
+ 228 000427  5776          JMP I   (RKOCDF-RKLOC)  /REJOIN ORIGINAL CODE
+ 229               
+ 230               /       RELOCATION LIST.
+ 231               
+ 232                       RKRLST= .               /RELOCATABLE ADDRESSES START HERE
+ 233               
+ 234 000430  0100          RKREL0-RKLOC            /POINTER TO RKODDCHK
+ 235 000431  0307          (RKOCDF-RKLOC)-RKLOC    /POINTER TO RKOCDF
+ 236 000432  0306          (RKPCDF-RKLOC)-RKLOC    /POINTER TO RKPCDF
+ 237 000433  0710          RKRL0-RKLOC             /POINTER TO RKBUFF
+ 238 000434  0704          RKRL1-RKLOC             /POINTER TO RKDISK
+ 239 000435  0675          RKRL2-RKLOC             /POINTER TO RKDONE
+ 240 000436  0706          RKRL3-RKLOC             /POINTER TO RKFUNCTION
+ 241 000437  0673          RKRL4-RKLOC             /POINTER TO RKHBUFFER
+ 242 000440  0707          RKRL5-RKLOC             /POINTER TO RKPAGCT
+ 243 000441  0705          RKRL6-RKLOC             /POINTER TO RKPAIR
+ 244 000442  0702          RKRL7-RKLOC             /POINTER TO RKSECTOR
+ 245 000443  0703          RKRL10-RKLOC            /POINTER TO RKWAIT
+ 246 000444  0000          0                       /THIS ENDS THE LIST
+ 247 000575  0662         PAGE
+     000576  7777  
+     000577  6201  
+ 248               
+ 249 000600  0000          ZBLOCK  200             /REST OF HALF-SECTOR OPERATIONS BUFFER
+     000601  0000  
+     000602  0000  
+     000603  0000  
+     000604  0000  
+     000605  0000  
+     000606  0000  
+     000607  0000  
+     000610  0000  
+     000611  0000  
+     000612  0000  
+     000613  0000  
+     000614  0000  
+     000615  0000  
+     000616  0000  
+     000617  0000  
+     000620  0000  
+     000621  0000  
+     000622  0000  
+     000623  0000  
+     000624  0000  
+     000625  0000  
+     000626  0000  
+     000627  0000  
+     000630  0000  
+     000631  0000  
+     000632  0000  
+     000633  0000  
+     000634  0000  
+     000635  0000  
+     000636  0000  
+     000637  0000  
+     000640  0000  
+     000641  0000  
+     000642  0000  
+     000643  0000  
+     000644  0000  
+     000645  0000  
+     000646  0000  
+     000647  0000  
+     000650  0000  
+     000651  0000  
+     000652  0000  
+     000653  0000  
+     000654  0000  
+     000655  0000  
+     000656  0000  
+     000657  0000  
+     000660  0000  
+     000661  0000  
+     000662  0000  
+     000663  0000  
+     000664  0000  
+     000665  0000  
+     000666  0000  
+     000667  0000  
+     000670  0000  
+     000671  0000  
+     000672  0000  
+     000673  0000  
+     000674  0000  
+     000675  0000  
+     000676  0000  
+     000677  0000  
+     000700  0000  
+     000701  0000  
+     000702  0000  
+     000703  0000  
+     000704  0000  
+     000705  0000  
+     000706  0000  
+     000707  0000  
+     000710  0000  
+     000711  0000  
+     000712  0000  
+     000713  0000  
+     000714  0000  
+     000715  0000  
+     000716  0000  
+     000717  0000  
+     000720  0000  
+     000721  0000  
+     000722  0000  
+     000723  0000  
+     000724  0000  
+     000725  0000  
+     000726  0000  
+     000727  0000  
+     000730  0000  
+     000731  0000  
+     000732  0000  
+     000733  0000  
+     000734  0000  
+     000735  0000  
+     000736  0000  
+     000737  0000  
+     000740  0000  
+     000741  0000  
+     000742  0000  
+     000743  0000  
+     000744  0000  
+     000745  0000  
+     000746  0000  
+     000747  0000  
+     000750  0000  
+     000751  0000  
+     000752  0000  
+     000753  0000  
+     000754  0000  
+     000755  0000  
+     000756  0000  
+     000757  0000  
+     000760  0000  
+     000761  0000  
+     000762  0000  
+     000763  0000  
+     000764  0000  
+     000765  0000  
+     000766  0000  
+     000767  0000  
+     000770  0000  
+     000771  0000  
+     000772  0000  
+     000773  0000  
+     000774  0000  
+     000775  0000  
+     000776  0000  
+     000777  0000  
+ 250               /      SECOND CODE PAGE OF HANDLER.
+ 251               
+ 252 001000  3354  RKODDCH,DCA     RKCHKBIT                /ALWAYS CHECK THE FIRST TIME!
+ 253 001001  3353          DCA     RKBAKUP                 /CLEAR INITIAL BACKUP FACTOR
+ 254 001002  7430          SZL                             /IS IT AN ODD HALF?
+ 255 001003  5251          JMP     RKSODD                  /YES, DO ODD HALF THERE
+ 256 001004  1777  RKSLUP, TAD I   (RKBUFFER-RKLOC)        /GET THE TRANSFER ADDRESS
+ 257 001005  6744          DLCA                            /LOAD IT
+ 258 001006  1776          TAD I   (RKPAGCT-RKLOC)         /GET THE CURRENT PAGE COUNT
+ 259 001007  1346          TAD     RK7700/(-100)           /COMPARE TO ONE PAGE TRANSFER
+ 260 001010  7650          SNA CLA                         /SKIP IF LARGER
+ 261 001011  5242          JMP     RK1PAGE                 /JUMP IF SINGLE PAGE
+ 262 001012  1354  RK1READ,TAD     RKCHKBIT                /GET CHECK BIT IN CASE SECONDARY TRANSFER
+ 263 001013  1775          TAD I   (RKFUNCTION-RKLOC)      /GET BASIC COMMAND
+ 264 001014  1774          TAD I   (RKPAIR-RKLOC)          /ADD ON PHYSICAL DISK EXTENSION BIT
+ 265 001015  1773          TAD I   (RKDISK-RKLOC)          /ADD ON DRIVE BIT DUE TO HIGH-ORDER UNIT BIT
+ 266 001016  4772  RKWRENT,JMS I   (RKWAIT-RKLOC)          /START IT UP AND WAIT FOR COMPLETION
+ 267 001017  2771  RKODREN,ISZ I   (RKSECTOR-RKLOC)        /BUMP UP DISK SECTOR
+ 268 001020  7410          SKP                             /DIDN'T OVERFLOW
+ 269 001021  2775          ISZ I   (RKFUNCTION-RKLOC)      /ELSE BUMP COMMAND HIGH-SECTOR BIT
+ 270 001022  1777          TAD I   (RKBUFFER-RKLOC)        /GET TRANSFER ADDRESS
+ 271 001023  1370          TAD     (400)                   /GET NORMAL TWO PAGE INCREMENT
+ 272 001024  1353          TAD     RKBAKUP                 /GET BACKUP FACTOR
+ 273 001025  3777          DCA I   (RKBUFFER-RKLOC)        /SAVE UPDATED VALUE
+ 274 001026  3353          DCA     RKBAKUP                 /CLEAR POSSIBLE HALF-SECTOR BACKUP
+ 275 001027  1776          TAD I   (RKPAGCT-RKLOC)         /GET PAGE COUNTER
+ 276 001030  1344          TAD     RK7600/(-200)           /SUBTRACT TWO PAGES
+ 277 001031  7550          SPA SNA                         /SKIP IF NOT DONE
+ 278 001032  5247          JMP     RKOVER                  /JUMP IF DONE
+ 279 001033  3776          DCA I   (RKPAGCT-RKLOC)         /ELSE STORE UPDATED VALUE BACK
+ 280 001034  1771          TAD I   (RKSECTOR-RKLOC)        /GET NEXT SECTOR
+ 281 001035  0367          AND     (37)                    /JUST ON-TRACK BITS
+ 282 001036  7640          SZA CLA                         /SKIP IF NEW TRACK NEEDED
+ 283 001037  1366          TAD     (1000)                  /ELSE ALLOW NON-CHECK FOR SPEED'S SAKE
+ 284 001040  3354          DCA     RKCHKBIT                /STORE NEW CHECK BIT VALUE
+ 285 001041  5204          JMP     RKSLUP                  /GO DO NEXT
+ 286               
+ 287 001042  1775  RK1PAGE,TAD I   (RKFUNCTION-RKLOC)      /GET READ/WRITE FUNCTION
+ 288 001043  7710          SPA CLA                         /SKIP IF ONE PAGE READ
+ 289 001044  5262          JMP     RK1WRITE                /JUMP IF ONE PAGE WRITE
+ 290 001045  1365          TAD     (100)                   /GET "HALF-SECTOR" BIT
+ 291 001046  5212          JMP     RK1READ                 /CONTINUE THERE
+ 292               
+ 293 001047  7300  RKOVER, CLA CLL                         /CLEAN UP
+ 294 001050  5764          JMP I   (RKDONE-RKLOC)          /FINISH IT THERE
+ 295 001051  1776  RKSODD,        TAD I   (RKPAGCT-RKLOC)         /GET CURRENT PAGE COUNT
+ 296 001052  1365          TAD     (100)                   /ADD ONE PAGE TO COUNTER DECREMENT LATER
+ 297 001053  3776          DCA I   (RKPAGCT-RKLOC)         /STORE IT BACK
+ 298 001054  1344          TAD     RK7600/(-200)           /SETUP THE
+ 299 001055  3353          DCA     RKBAKUP                 /BACKUP FACTOR
+ 300 001056  1775          TAD I   (RKFUNCTION-RKLOC)      /GET READ/WRITE FUNCTION WORD
+ 301 001057  7700          SMA CLA                         /SKIP IF WRITING
+ 302 001060  5301          JMP     RKODDRD                 /JUMP IF READING
+ 303 001061  1363  RKODDWR,TAD     (200)                   /ODD WRITING AFFECTS SECOND HALF
+ 304 001062  1362  RK1WRIT,TAD     (RKHBUFFER-RKLOC)       /GET WORK BUFFER POINTER
+ 305 001063  3356          DCA     RKTOPTR                 /SAVE DESTINATION POINTER
+ 306 001064  4315          JMS     RKWRKREAD               /READ CURRENT SECTOR INTO WORK BUFFER
+ 307 001065  3337          DCA     RKFRCDF                 /SAVE SOURCE CDF INSTRUCTION
+ 308 001066  1777          TAD I   (RKBUFFER-RKLOC)        /GET TRANSFER ADDRESS
+ 309 001067  3355          DCA     RKFRPTR                 /SAVE SOURCE POINTER
+ 310 001070  6224          RIF                             /GET OUR FIELD
+ 311 001071  1361          TAD     (CDF)                   /MAKE INTO CDF INSTRUCTION
+ 312 001072  3341          DCA     RKTOCDF                 /SAVE DESTINATION CDF INSTRUCTION
+ 313 001073  4334          JMS     RKMOVE                  /MOVE USER PAGE INTO WORK BUFFER
+ 314 001074  1362          TAD     (RKHBUFFER-RKLOC)       /GET WORK BUFFER ADDRESS
+ 315 001075  6744          DLCA                            /LOAD IT
+ 316 001076  7330          NL4000                          /SET WRITE BIT
+ 317 001077  1357          TAD     RKWCMD                  /TURN FORMER READ INTO WRITE
+ 318 001100  5216          JMP     RKWRENT                 /GO WRITE IT THERE
+ 319               
+ 320 001101  4315  RKODDRD,JMS     RKWRKREAD               /READ CURRENT SECTOR INTO WORK BUFFER
+ 321 001102  3341          DCA     RKTOCDF                 /SAVE DESTINATION CDF INSTRUCTION
+ 322 001103  1777          TAD I   (RKBUFFER-RKLOC)        /GET THE TRANSFER ADDRESS
+ 323 001104  3356          DCA     RKTOPTR                 /SAVE DESTINATION POINTER
+ 324 001105  1362          TAD     (RKHBUFFER-RKLOC)       /GET WORK BUFFER ADDRESS
+ 325 001106  1363          TAD     (200)                   /WANT SECOND HALF FOR ODD READ
+ 326 001107  3355          DCA     RKFRPTR                 /SAVE SOURCE POINTER
+ 327 001110  6224          RIF                             /GET OUR FIELD
+ 328 001111  1361          TAD     (CDF)                   /TURN INTO CDF INSTRUCTION
+ 329 001112  3337          DCA     RKFRCDF                 /SAVE SOURCE CDF INSTRUCTION
+ 330 001113  4334          JMS     RKMOVE                  /MOVE SECOND WORK PAGE TO USER BUFFER
+ 331 001114  5217          JMP     RKODRENT                /CONTINUE THERE
+ 332               
+ 333 001115  0000  RKWRKRE,.-.                             /WORK BUFFER READ ROUTINE
+ 334 001116  1362          TAD     (RKHBUFFER-RKLOC)       /GET WORK BUFFER ADDRESS
+ 335 001117  6744          DLCA                            /LOAD IT
+ 336 001120  7201          NL0001                          /SETUP HIGH-ORDER SECTOR BIT MASK
+ 337 001121  0775          AND I   (RKFUNCTION-RKLOC)      /GET HIGH-ORDER SECTOR BIT
+ 338 001122  1774          TAD I   (RKPAIR-RKLOC)          /GET PHYSICAL DISK EXTENSION BIT
+ 339 001123  1773          TAD I   (RKDISK-RKLOC)          /GET DRIVE BIT DUE TO HIGH-ORDER UNIT BIT
+ 340 001124  6224          RIF                             /GET OUR TRANSFER FIELD BITS
+ 341 001125  3357          DCA     RKWCMD                  /SAVE FOR WRITING LATER
+ 342 001126  1357          TAD     RKWCMD                  /GET IT BACK
+ 343 001127  4772          JMS I   (RKWAIT-RKLOC)          /GO READ LATEST SECTOR INTO WORK BUFFER
+ 344 001130  1775          TAD I   (RKFUNCTION-RKLOC)      /GET FUNCTION WORD
+ 345 001131  0360          AND     (70)                    /JUST TRANSFER FIELD BITS
+ 346 001132  1361          TAD     (CDF)                   /MAKE INTO CDF INSTRUCTION
+ 347 001133  5715          JMP I   RKWRKREAD               /RETURN
+ 348 001134  0000  RKMOVE,        .-.                             /WORK BUFFER MOVE ROUTINE
+ 349 001135  1344          TAD     RK7600/(-200)           /SETUP THE
+ 350 001136  3315          DCA     RKWRKREAD               /MOVE COUNT
+ 351 001137  0000  RKFRCDF,.-.                             /WILL BE SOURCE CDF INSTRUCTION
+ 352 001140  1755          TAD I   RKFRPTR                 /GET A WORD
+ 353 001141  0000  RKTOCDF,.-.                             /WILL BE DESTINATION CDF INSTRUCTION
+ 354 001142  3756          DCA I   RKTOPTR                 /PUT A WORD
+ 355 001143  2355          ISZ     RKFRPTR                 /BUMP SOURCE POINTER
+ 356 001144  7600  RK7600, CLA!400                         /JUST IN CASE; THIS CAN'T SKIP!
+ 357 001145  2356          ISZ     RKTOPTR                 /BUMP DESTINATION POINTER
+ 358 001146  7700  RK7700, SMA CLA                         /JUST IN CASE; THIS CAN'T SKIP!
+ 359 001147  2315          ISZ     RKWRKREAD               /DONE ALL YET?
+ 360 001150  5337          JMP     RKFRCDF                 /NO, KEEP GOING
+ 361 001151  0000  RKPCDF, .-.                             /WILL BE CDF OUR FIELD
+ 362 001152  5734          JMP I   RKMOVE                  /RETURN
+ 363               
+ 364 001153  0000  RKBAKUP,.-.                             /BACKUP FACTOR FOR ODD SINGLE TRANSFERS
+ 365 001154  0000  RKCHKBI,.-.                             /HEADER CHECK BIT
+ 366 001155  0000  RKFRPTR,.-.                             /SOURCE POINTER FOR MOVE ROUTINE
+ 367 001156  0000  RKTOPTR,.-.                             /DESTINATION POINTER FOR MOVE ROUTINE
+ 368 001157  0000  RKWCMD, .-.                             /COMMAND TO REFERENCE WORK BUFFER
+ 369               
+ 370               /       RELOCATION ADDRESSES FOR THIS PAGE.
+ 371               
+ 372                       RKRL0=  (RKBUFFER-RKLOC)        /POINTER TO RKBUFFER
+ 373                       RKRL1=  (RKDISK-RKLOC)          /POINTER TO RKDISK
+ 374                       RKRL2=  (RKDONE-RKLOC)          /POINTER TO RKDONE
+ 375                       RKRL3=  (RKFUNCTION-RKLOC)      /POINTER TO RKFUNCTION
+ 376                       RKRL4=  (RKHBUFFER-RKLOC)       /POINTER TO RKHBUFFER
+ 377                       RKRL5=  (RKPAGCT-RKLOC)         /POINTER TO RKPAGCT
+ 378                       RKRL6=  (RKPAIR-RKLOC)          /POINTER TO RKPAIR
+ 379                       RKRL7=  (RKSECTOR-RKLOC)        /POINTER TO RKSECTOR
+ 380                       RKRL10= (RKWAIT-RKLOC)          /POINTER TO RKWAIT
+ 381               
+ 382 001160  0070          PAGE
+     001161  6201  
+     001162  0111  
+     001163  0200  
+     001164  0036  
+     001165  0100  
+     001166  1000  
+     001167  0037  
+     001170  0400  
+     001171  0047  
+     001172  0001  
+     001173  0043  
+     001174  0046  
+     001175  0044  
+     001176  0045  
+     001177  0042  
+ 383               
+ 384                       $                               /THAT'S ALL FOLK!
+
+DCLR    6742
+DLAG    6743
+DLCA    6744
+DLDC    6746
+DMAN    6747 unreferenced
+DRST    6745
+DSKP    6741
+FOO     0376 unreferenced
+HERE    0200
+NL0001  7201
+NL0002  7326
+NL4000  7330
+NL7775  7346
+OFF     0001
+ON      0000
+REVISI  0001
+RK1PAG  1042
+RK1REA  1012
+RK1WRI  1062
+RK7600  1144
+RK7700  1146
+RK8E01  0200
+RK8E23  0205
+RKBAKU  1153
+RKBUFF  0331
+RKCHKB  1154
+RKCODE  6740
+RKCOMM  0207
+RKDISK  0332
+RKDOIT  0421
+RKDONE  0325
+RKERCD  0320
+RKEXIT  0326
+RKFRCD  1137
+RKFRPT  1155
+RKFUNC  0333
+RKHBUF  0400
+RKINIT  0376
+RKLENG  6260
+RKLOC   0267
+RKMOVE  1134
+RKOCDF  0266
+RKODDC  1000
+RKODDR  1101
+RKODDW  1061 unreferenced
+RKODRE  1017
+RKOVER  1047
+RKPAGC  0334
+RKPAIR  0335
+RKPCDF  1151
+RKREL0  0367
+RKRL0   1177
+RKRL1   1173
+RKRL10  1172
+RKRL2   1164
+RKRL3   1175
+RKRL4   1162
+RKRL5   1176
+RKRL6   1174
+RKRL7   1171
+RKRLIN  0407
+RKRLST  0430
+RKSECT  0336
+RKSLUP  1004
+RKSODD  1051
+RKSTAT  0337
+RKTEMP  0401
+RKTFLD  0406
+RKTOCD  1141
+RKTOPT  1156
+RKTRY   0216
+RKTRYC  0340
+RKWAIT  0270
+RKWCMD  1157
+RKWREN  1016
+RKWRKR  1115
+RKXZAP  0425

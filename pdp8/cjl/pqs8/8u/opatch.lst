@@ -1,0 +1,1263 @@
+   1               /       P?S/8 FOCAL I/O REDIRECTION
+   2               
+   3               /       LAST EDIT:      08-APR-1987     23:00:00        CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       P?S/8 FOCAL OVERLAY FOR REDIRECTION OF FOCAL INPUT AND OUTPUT OPERATIONS.
+   8               
+   9               /       THIS OVERLAY PROVIDES VARIOUS "O" COMMANDS TO ALLOW FOCAL TO COMMUNICATE
+  10               /       WITH VARIOUS STANDARD DEVICES. THE CONSOLE OVERLAY IS SUPPORTED AS THREE
+  11               /       ADDITIONAL DEVICES (LOGICAL KEYBOARD INPUT, LOGICAL TERMINAL OUTPUT, AND
+  12               /       LOGICAL LINEPRINTER OUTPUT) AS WELL AS THE STANDARD HARDWARE PHYSICAL DEVICES
+  13               /       (03 KEYBOARD, 04 TERMINAL OUTPUT, AND 66 LINEPRINTER OUTPUT).
+  14               
+  15               /       ALL COMMANDS REPRESENT A PROPER SUBSET OF THOSE FOUND IN "VT8PCH" WITH ALL
+  16               /       VT-8/E DEPENDENT FEATURES REMOVED (VT-8/E CONSOLE OVERLAY SUPPORT IS, OF
+  17               /       COURSE, IMPLICITLY AVAILABLE IF THE VT-8/E CONSOLE OVERLAY IS PRESENT; THE
+  18               /       COMMANDS MUST REFER TO THE OVERLAY, NOT TO THE VT-8/E HARDWARE-SPECIFIC
+  19               /       OPTIONS).
+  20               
+  21               /       OPTION COMMANDS.
+  22               
+  23               /       O(PTION) G(ENERIC)      GENERIC CONSOLE INPUT DEVICE; DEVICE 03 IF NO OVERLAY
+  24               /       O(PTION) K(EYBOARD)     DEVICE 03 (CONSOLE TERMINAL) KEYBOARD INPUT
+  25               /       O(UTPUT) L(PT)          DEVICE 66 (LINEPRINTER) OUTPUT
+  26               /       O(PTION) M(ONITOR)      RETURN TO P?S/8 KEYBOARD MONITOR.
+  27               /       O(UTPUT) P(RINTER)      LOGICAL PRINTER OUTPUT (DEVICE 66 IF NO OVERLAY)
+  28               /       O(UTPUT) T(ERMINAL)     DEVICE 04 (CONSOLE TERMINAL) TERMINAL OUTPUT
+  29               /       O(UTPUT) U(NIVERSAL)    OUTPUT TO CONSOLE (DEVICE 04 IF NO OVERLAY)
+  30               
+  31               /       ALL "O" COMMAND ERRORS REPORT ?30.00.
+  32               
+  33               /       ALL FOCAL "?" REPORTS (INCLUDING <^P>-CAUSED ?01.00) REVERT INPUT TO O(PTION)
+  34               /       G(ENERIC) AND OUTPUT TO O(UTPUT) U(NIVERSAL).
+  35               
+  36               /       FUNCTIONS AVAILABLE:
+  37               
+  38               /       FIO(NEGATIVE)           RETURNS NUMERICAL VALUE (MODULO 128) OF NEXT ASCII
+  39               /                               CHARACTER TYPED; P?S/8 FOCAL WILL WAIT FOR INPUT
+  40               /                               IF NECESSARY. SINCE INTEGER CONVERSION IS USED FOR
+  41               /                               EVALUATION, THE ARGUMENT MUST BE NEGATIVE OR WITHIN
+  42               /                               THE RANGE 2048-4095 MOD 4096.
+  43               
+  44               /       FIO(CHAR<2048)          OUTPUT ASCII CHARACTER. SINCE INTEGER CONVERSION
+  45               /                               IS USED FOR EVALUATION, THE ARGUMENT MUST BE POSITIVE
+  46               /                               AND BETWEEN 0000-2047 MOD 2048. NORMAL OUTPUT DEVICES
+  47               /                               GENERALLY REDUCE THE CHARACTER VALUE RANGE TO 000-255
+  48               /                               MOD 256 ALLOWING ANY COMBINATION OF ASCII CHARACTER
+  49               /                               OUTPUT WITH OR WITHOUT PARITY SET.
+  50               
+  51               /       THE UNBUFFERED FDIS FUNCTION IS DELETED BY USING THIS OVERLAY; A BUFFERED
+  52               /       FDIS FUNCTION MAY BE RESTORED ONLY BY USE OF A COMPATIBLE DISPLAY OVERLAY
+  53               /       (SUCH AS "DPATCH").
+  54               /      ASSEMBLY PARAMETERS.
+  55               
+  56               /       SET THE OPTION FIELD.
+  57               
+  58               /       OFIELD= 40                      /OPTION CODE FIELD
+  59               
+  60               /       CONDITIONAL ASSEMBLY PARAMETERS.
+  61               
+  62                       IFNDEF  CI      <CI=    03>     /CONSOLE KEYBOARD IS DEVICE 03
+  63                       IFNDEF  CO      <CO=    04>     /CONSOLE PRINTER IS DEVICE 04
+  64                       IFNDEF  LP      <LP=    66>     /LINE PRINTER IS DEVICE 66
+  65                       IFNDEF  OFIELD  <OFIELD=40>     /USE FIELD FOUR FOR OPTION CODE
+  66               
+  67               /       IOT DEFINITIONS.
+  68               
+  69                       KIEIOT= CI^10+6005              /KEYBOARD INTERRUPT ENABLE PER AC[11]
+  70                       KRBIOT= CI^10+6006              /READ KEYBOARD BUFFER, CLEAR FLAG
+  71                       KSFIOT= CI^10+6001              /SKIP ON KEYBOARD FLAG
+  72                       KTIIOT= CI^10+6003              /KEYBOARD TEST INSTRUCTION
+  73                       LLSIOT= LP^10+6006              /OUTPUT LPT: CHARACTER, CLEAR FLAG
+  74                       LSFIOT= LP^10+6001              /SKIP ON (CLEAR IF 6120) LPT: FLAG
+  75                       TCFIOT= CO^10+6002              /CLEAR TTY: FLAG
+  76                       TIEIOT= CO^10+6005              /OUTPUT INTERRUPT ENABLE PER AC[11] FOR 6120
+  77                       TLSIOT= CO^10+6006              /OUTPUT CHARACTER, CLEAR FLAG
+  78                       TSFIOT= CO^10+6001              /SKIP ON (CLEAR IF 6120) OUTPUT FLAG
+  79               
+  80               /       DEFINITIONS FROM FOCAL, 1969 (ORIGINAL PAPER-TAPE VERSION).
+  81               
+  82                       BOTTOM= 0035                    /END OF PUSHDOWN AREA
+  83                       CHAR=   0066                    /FOCAL'S CHARACTER BUFFER
+  84                       COMGO=  1163                    /COMMAND DISPATCH TABLE ADDRESS
+  85                       COMLST= 0774                    /COMMAND DECODING LIST
+  86                       EFUN3I= 0136                    /FUNCTION RETURN
+  87                       ERROR5= 2725                    /ERROR FUNCTION
+  88                       FLAC=   0044                    /FLOATING AC
+  89                       FNTABF= 0374                    /FUNCTION ADDRESS TABLE
+  90                       FNTABL= 2165                    /FUNCTION NAME TABLE
+  91                       GETC=   JMS I   145             /UNPACK A CHARACTER
+  92                       INDEV=  0064                    /INPUT ROUTINE POINTER
+  93                       INTEGER=0053                    /FIXING ROUTINE FOR FLAC
+  94                       OUTDEV= 0063                    /OUTPUT ROUTINE POINTER
+  95                       POPA=   TAD I   13              /REMOVE WORD FROM STACK
+  96                       PROC=   0611                    /FOCAL PROCESSING ADDRESS
+  97                       PUSHA=  JMS I   142             /PUSH WORD ONTO STACK
+  98                       P7600=  0104                    /CONSTANT 7600
+  99                       RECOVR= 2740                    /RECOVERY ADDRESS
+ 100                       RECOVX= 2761                    /RECOVERY ADDRESS
+ 101                       RETURN= JMP I   EFUN3I          /RETURN FROM A FUNCTION
+ 102                       SORTC=  JMS I   150             /SORT CHAR AGAINST LIST
+ 103                       SORTCN= 0054                    /SORTC INDEX NUMBER
+ 104                       SPNOR=  JMS I   160             /IGNORE LEADING ZEROES AND SPACES
+ 105                       TELSW=  0016                    /TERMINAL I/O IN PROGRESS SWITCH
+ 106                       TERMS=  1770                    /TERMINATOR TABLE
+ 107                       XDYS=   1142                    /FDIS FUNCTION ADDRESS
+ 108                       XINT=   1160                    /INTEGER PART ROUTINE
+ 109               /      DEFINITIONS FROM P?S/8 AND THE P?S/8 FOCAL AND CONSOLE OVERLAYS.
+ 110               
+ 111                       BEOFZAP=7505                    /BINARY LOADER ZAP WORD
+ 112                       BONCE=  3600                    /OVERLAY ONCE-ONLY ADDRESS
+ 113                       BUMPIT= 2613                    /INTERRUPT LOCATION
+ 114                       CHKKCC= 3207                    /KEYBOARD INTERRUPT LOCATION
+ 115                       CHKKSF= 2657                    /KEYBOARD INTERRUPT LOCATION
+ 116                       CINPUT= 2600                    /FOCAL INPUT ROUTINE
+ 117                       CONPAT= 2742                    /RESTART PATCH LOCATION
+ 118                       COUTPUT=2630                    /FOCAL OUTPUT ROUTINE
+ 119                       CSCQSW= 0037                    /<^S>/<^Q> SWITCH
+ 120                       DFINT=  2641                    /DF32 INTERRUPT POINTER
+ 121                       INCHAR= 0126                    /INPUT BUFFER
+ 122                       INCON=  0031                    /CONSOLE INPUT ROUTINE
+ 123                       INTLST= 0003                    /INTERRUPT LIST POINTER IN CONSOLE OVERLAY
+ 124                       INTXIT= 2711                    /INTERRUPT EXIT ROUTINE IN P?S/8 FOCAL
+ 125                       LINFLAG=0030                    /LPT: INPUT EVENT FLAG IN CONSOLE OVERLAY
+ 126                       MONSTRT=0353                    /KEYBOARD MONITOR STARTUP ADDRESS
+ 127                       OUTCON= 0033                    /CONSOLE OUTPUT ROUTINE
+ 128                       OUTLPT= 0035                    /LOGICAL LPT:
+ 129                       SBOOT=  7600                    /SYSTEM BOOTSTRAP ADDRESS
+ 130                       SBTFUN= 7602                    /SYSTEM BOOTSTRAP FUNCTION
+ 131                       SCRSIZE=7611                    /SYSTEM CORE SIZE WORD
+ 132                       SYSIO=  7640                    /SYSTEM I/O ENTRY POINT
+ 133                       TRYOUT= 2673                    /OUTPUT INTERRUPT LOCATION
+ 134               
+ 135               /       MISCELLANEOUS DEFINITIONS.
+ 136               
+ 137                       BCLI=   1560                    /BIT CLEAR IMMEDIATE
+ 138                       COM=    0017                    /COMPLEMENT AC
+ 139                       ESF=    0004                    /LOAD SPECIAL FUNCTIONS REGISTER
+ 140                       JMPC=   JMP     .               /CURRENT PAGE JUMP INSTRUCTION
+ 141                       JMPIC=  JMP I   .               /CURRENT PAGE JUMP INDIRECT INSTRUCTION
+ 142                       LINC=   6141                    /GOTO LINC MODE
+ 143                       NL0001= CLA IAC                 /LOAD AC WITH 0001
+ 144                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+ 145                       NL0010= CLA IAC RAL RAR         /LOAD AC WITH 0010 **** ON 6120 ONLY ****
+ 146                       NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+ 147                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+ 148                       OSTART= 4124                    /"O" COMMAND PATCH STARTING ADDRESS
+ 149                       PDP=    0002                    /GOTO PDP-8 MODE
+ 150                       SFA=    0024                    /READ SPECIAL FUNCTIONS REGISTER
+ 151                      FIELD   0               /ENSURE FIELD ZERO
+ 152               
+ 153                       *FNTABF+3               /OVER FDIS ADDRESS
+ 154               
+ 155 000377  2725          ERROR5                  /DELETE FDIS FUNCTION
+ 156               
+ 157                       *FNTABF+14              /OVER FNEW ADDRESS
+ 158               
+ 159 000410  1142          XIO                     /POINT TO INPUT/OUTPUT FUNCTION
+ 160               
+ 161                       *XDYS                   /OVER EXISTING FDIS CODE
+ 162               
+ 163               /       FIO FUNCTION.
+ 164               
+ 165 001142  4453  XIO,    JMS I   INTEGER         /GET LOW-ORDER FROM FIXED FLAC
+ 166 001143  7700          SMA CLA                 /SKIP IF INPUT REQUESTED
+ 167 001144  5350          JMP     XOUT            /JUMP IF OUTPUT REQUESTED
+ 168 001145  4464          JMS I   INDEV           /GET A CHARACTER
+ 169 001146  6242          CIF     OFIELD          /GOTO CODE FIELD
+ 170 001147  5024          JMP     XIOMORE         /CONTINUE THERE
+ 171               
+ 172               /       COMES HERE IF FIO(POSITIVE).
+ 173               
+ 174 001150  1046  XOUT,   TAD     FLAC+2          /GET LOW-ORDER AGAIN
+ 175 001151  4463          JMS I   OUTDEV          /OUTPUT IT
+ 176 001152  5536  XRET,   RETURN
+ 177               
+ 178 001153  0000          ZBLOCK  XINT-.          /EMPTY SPACE
+     001154  0000  
+     001155  0000  
+     001156  0000  
+     001157  0000  
+ 179               
+ 180                       XINT=   .               /UPPER LIMIT FOR SUPPORT CODE
+ 181               
+ 182                       *FNTABL+3               /OVER HASHED NAME TABLE ENTRY FOR FDIS
+ 183               
+ 184 002170  2565          "D^2+"I^2+"S            /MAKE SURE FDIS FUNCTION IS PRESENT
+ 185               
+ 186                       *FNTABL+14              /OVER HASHED NAME TABLE ENTRY FOR FNEW
+ 187               
+ 188 002201  1141          "I^2+"O                 /ENTER FIO FUNCTION HASHED NAME VALUE
+ 189                      FIELD   OFIELD%10       /OPTION CODE FIELD
+ 190               
+ 191                       *0                      /START AT THE BEGINNING
+ 192               
+ 193               /       EXTENDED INTERRUPT HANDLER.
+ 194               
+ 195 040000  5577  OURINT, JMP I   [MORINT]        /CONTINUE THERE
+ 196               
+ 197 040001  5063  ODEV,   TTY                     /**** CONSOLE **** CON
+ 198 040002  0012  OGENABL,KFLAG                   /**** CONSOLE **** OVFLAG
+ 199 040003  0012  OKENABL,KFLAG                   /**** DEVICE 03 CONSOLE **** OVFLAG
+ 200 040004  5017  OLPT,   LPT                     /**** DEVICE 66 LPT: OVERLAY **** LLPT OR CON
+ 201 040005  5017  OPRINT, LPT                     /**** CONSOLE **** LLPT
+ 202 040006  5063  OTTY,   TTY                     /**** DEVICE 04 OVERLAY **** CON OR LLPT
+ 203 040007  5063  OUNPTR, TTY                     /**** CONSOLE **** CON
+ 204               
+ 205                       *10                     /GET TO AUTO-INDEX AREA
+ 206               
+ 207 040010  0000  ISTAT,  0                       /INTERRUPT STATUS WORD
+ 208 040011  0000  KCHAR,  .-.                     /DEVICE 03 KEYBOARD CHARACTER BUFFER
+ 209 040012  0000  KFLAG,  0                       /DEVICE 03 KEYBOARD INTERRUPT WAKEUP FLAG
+ 210 040013  0000  OCHAR,  .-.                     /LATEST "O" COMMAND CHARACTER
+ 211 040014  0000  OVCHAR, .-.                     /OVERLAY KEYBOARD CHARACTER BUFFER
+ 212 040015  0000  OVFLAG, 0                       /OVERLAY INPUT INTERRUPT WAKEUP FLAG
+ 213 040016  0000  O66MSK, 0                       /DEVICE 66 INTERRUPT MASK FOR OVERLAY
+ 214 040017  0000  TFLAG,  0                       /DEVICE 04 DONE FLAG
+ 215               
+ 216                       *20                     /GET PAST AUTO-INDEX AREA
+ 217               
+ 218 040020  4000  I03MSK, 4000                    /DEVICE 03'S INTERRUPT STATUS BIT MASK
+ 219 040021  4000  O04MSK, 4000                    /DEVICE 04 INTERRUPT MASK FOR OVERLAY
+ 220 040022  0000  TMP1,   .-.                     /TEMPORARY (FOR ONCE-ONLY)
+ 221 040023  0000  TMP2,   .-.                     /TEMPORARY (FOR ONCE-ONLY)
+ 222               
+ 223               /       COMES HERE TO FINISH THE "FIO" FUNCTION.
+ 224               
+ 225 040024  0176  XIOMORE,AND     [177]           /JUST SEVEN-BIT
+ 226 040025  3575          DCA I   [FLAC+1]        /STORE IN HIGH-ORDER
+ 227 040026  3574          DCA I   [FLAC+2]        /CLEAR LOW-ORDER
+ 228 040027  1173          TAD     [13]            /GET SHIFT FACTOR
+ 229 040030  3572          DCA I   [FLAC]          /SET EXPONENT
+ 230 040031  6203          CIF CDF 00              /GOING TO FIELD ZERO
+ 231 040032  5571          JMP I   [XRET]          /FINISH IT THERE
+ 232                      *4000                   /MAKE ALL FURTHER ADDRESSES NEGATIVE!
+ 233               
+ 234               /       ONCE-ONLY CODE (FROM BONCE) CONTINUES HERE.
+ 235               
+ 236               /       AC CONTAINS POTENTIAL "C" BIT FROM SOFTWARE CORE-SIZE WORD.
+ 237               
+ 238 044000  7650  BONCE2, SNA CLA                 /SKIP IF "C" BIT SET
+ 239 044001  5223  ILPTR1, JMP     NOCONSOLE       /JUMP IF NOT SET
+ 240 044002  1777          TAD I   (SCRSIZE)       /GET THE CORE SIZE WORD
+ 241 044003  7012          RTR;RAR                 /MOVE OVER AND
+     044004  7010  
+ 242 044005  0376          AND     (70)            /ISOLATE MCS BITS
+ 243 044006  1375          TAD     (CDF    10)     /FORM CDF MCS+10
+ 244 044007  3022          DCA     TMP1            /STASH IT
+ 245 044010  6241          CDF     OFIELD          /GOTO OUR FIELD
+ 246 044011  1022          TAD     TMP1            /GET CDF MCS+10
+ 247 044012  7001          IAC/TAD (CIF-CDF)       /MAKE IT CIF MCS+10
+ 248 044013  3774          DCA I   (CON)           /STORE IN VT-8/E CONSOLE OUTPUT ROUTINE
+ 249 044014  1774          TAD I   (CON)           /GET IT BACK
+ 250 044015  3773          DCA I   (LPTCIF)        /STORE IN LOGICAL LPT: ROUTINE
+ 251 044016  1773          TAD I   (LPTCIF)        /GET IT BACK
+ 252 044017  3772          DCA I   (OVICIF)        /STORE IN CONSOLE OVERLAY INPUT INTERRUPT HANDLER
+ 253 044020  1022          TAD     TMP1            /GET CDF MCS+10
+ 254 044021  3771          DCA I   (KEYCDF)        /STORE IN INTERRUPT HANDLER FOR LPT: INPUT
+ 255 044022  7240          NL7777                  /INDICATE CONSOLE OVERLAY PRESENT
+ 256 044023  3023  NOCONSO,DCA     TMP2            /STORE CONSOLE INDICATOR AS NECESSARY
+ 257 044024  6241  CZAPLUP,CDF     OFIELD          /GOTO OUR FIELD
+ 258 044025  1730          TAD I   CZTPTR          /GET AN OUTPUT ROUTINE ZAP WORD
+ 259 044026  7450          SNA                     /END OF LIST?
+ 260 044027  5235          JMP     CZAPEND         /YES
+ 261 044030  6201          CDF     00              /GOTO FIELD ZERO
+ 262 044031  3727          DCA I   CZAPTR          /ZAP IT IN
+ 263 044032  2330          ISZ     CZTPTR          /BUMP TO NEXT ELEMENT
+ 264 044033  2327          ISZ     CZAPTR          /BUMP TO NEXT ADDRESS
+ 265 044034  5224          JMP     CZAPLUP         /KEEP GOING
+ 266               
+ 267 044035  1023  CZAPEND,TAD     TMP2            /GET CONSOLE INDICATOR
+ 268 044036  7650          SNA CLA                 /SKIP IF CONSOLE PRESENT
+ 269 044037  5273          JMP     NOCONENTRY      /JUMP IF NO CONSOLE PRESENT
+ 270 044040  1374          TAD     (CON)           /POINT O(UTPUT U(NIVERSAL AT
+ 271 044041  3007          DCA     OUNPTR          /CONSOLE ROUTINE
+ 272 044042  1022          TAD     TMP1            /GET CDF MCS+10
+ 273 044043  3246          DCA     INLIN1          /STORE IN-LINE
+ 274 044044  1022          TAD     TMP1            /GET IT AGAIN
+ 275 044045  3251          DCA     DEVLUP          /STORE IN-LINE
+ 276 044046  0000  INLIN1, .-.                     /WILL BE CDF MCS+10
+ 277 044047  1770          TAD I   (INTLST)        /GET INTERRUPT ELEMENT LIST POINTER
+ 278 044050  3201          DCA     ILPTR1          /STASH THE POINTER
+ 279 044051  0000  DEVLUP,        .-.                     /WILL BE CDF MCS+10
+ 280 044052  1601          TAD I   ILPTR1          /GET AN ELEMENT
+ 281 044053  6241          CDF     OFIELD          /BACK TO OUR FIELD
+ 282 044054  7450          SNA                     /END OF LIST?
+ 283 044055  5270          JMP     DEVEND          /YES
+ 284 044056  1367          TAD     (-KSFIOT)       /COMPARE TO POSSIBLE VALUE
+ 285 044057  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 286 044060  5263          JMP     NXTEST          /JUMP IF NOT
+ 287 044061  1331          TAD     IMASK           /GET CURRENT INTERRUPT MASK
+ 288 044062  3274          DCA     ALLOW03         /STORE OVER CODE
+ 289 044063  2201  NXTEST, ISZ     ILPTR1          /BUMP TO NEXT ELEMENT
+ 290 044064  1331          TAD     IMASK           /GET CURRENT MASK
+ 291 044065  7104          CLL RAL                 /MOVE LEFT ONE BIT
+ 292 044066  3331          DCA     IMASK           /STORE BACK
+ 293 044067  5251          JMP     DEVLUP          /KEEP GOING
+ 294               
+ 295 044070  1366  DEVEND, TAD     (OVFLAG)        /POINT THE O(PTION) G(ENERIC) COMMAND
+ 296 044071  3002          DCA     OGENABLE        /AT THE CONSOLE OVERLAY
+ 297 044072  3765          DCA I   (OVINT)         /ENABLE OVERLAY INPUT INTERRUPT HANDLER
+ 298 044073  2402  NOCONEN,ISZ I   OGENABLE        /ENABLE OVERLAY INPUT BY DEFAULT (KEYBOARD IF NONE)
+ 299 044074  4764  ALLOW03,JMS I   (ENAB03)        /**** ZAPPED **** C(IMASK)
+ 300 044075  1274          TAD     ALLOW03         /GET INSTRUCTION
+ 301 044076  7510          SPA                     /SKIP IF ZAPPED
+ 302 044077  5325          JMP     NORM03          /JUMP IF NOT
+ 303 044100  3020          DCA     I03MSK          /SAVE AS INTERRUPT MASK (IF NEEDED)
+ 304 044101  7240          NL7777                  /SET PRIMARY COMPARE VALUE
+ 305 044102  1020          TAD     I03MSK          /COMPARE TO ACTUAL VALUE
+ 306 044103  7640          SZA CLA                 /SKIP IF PRIMARY INTERRUPT
+ 307 044104  5310          JMP     SEC03           /GO HANDLE AS SECONDARY DEVICE
+ 308 044105  1366          TAD     (OVFLAG)        /POINT THE O(PTION) K(EYBOARD) COMMAND
+ 309 044106  3003          DCA     OKENABLE        /AT OUR ROUTINE
+ 310 044107  5325          JMP     NORM03          /CONTINUE THERE
+ 311               
+ 312 044110  1363  SEC03,  TAD     (TAD    I03MSK) /GET MASK INSTRUCTION
+ 313 044111  3762          DCA I   (INT03)         /ZAP DEVICE 03 INTERRUPT HANDLER
+ 314 044112  1361          TAD     (AND    ISTAT)  /GET "AND ISTAT" INSTRUCTION
+ 315 044113  3760          DCA I   (INT03+1)       /STORE OVER INTERRUPT HANDLER
+ 316 044114  1357          TAD     (SNA CLA)       /GET "SNA CLA" INSTRUCTION
+ 317 044115  3756          DCA I   (INT03+2)       /STORE OVER INTERRUPT HANDLER
+ 318 044116  3755          DCA I   (KEYINT)        /ENABLE DEVICE 03 INTERRUPT HANDLER
+ 319 044117  1020          TAD     I03MSK          /GET MASK VALUE
+ 320 044120  1354          TAD     (-4)            /COMPARE TO LPT: INPUT VALUE
+ 321 044121  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 322 044122  5325          JMP     NORM03          /JUMP IF NOT
+ 323 044123  1353          TAD     (SKP)           /SETUP THE SPECIAL LPT: INPUT
+ 324 044124  3752          DCA I   (KLIENABLE)     /CHARACTER INTERRUPT HANDLER
+ 325 044125  7200  NORM03, CLA                     /CLEAN UP
+ 326 044126  5751          JMP I   (NXT)           /CONTINUE THERE
+ 327               
+ 328 044127  2633  CZAPTR, COUTPUT+3               /WHERE OUTPUT CODE GOES
+ 329 044130  4426  CZTPTR, CZTABLE                 /POINTER TO OUTPUT REPLACEMENT CODE
+ 330 044131  0001  IMASK,  1                       /INTERRUPT LIST ELEMENT MASK VALUE
+ 331 044151  4200         PAGE
+     044152  4454  
+     044153  7410  
+     044154  7774  
+     044155  4447  
+     044156  4452  
+     044157  7650  
+     044160  4451  
+     044161  0010  
+     044162  4450  
+     044163  1020  
+     044164  4400  
+     044165  4470  
+     044166  0015  
+     044167  1747  
+     044170  0003  
+     044171  4456  
+     044172  4476  
+     044173  5056  
+     044174  5011  
+     044175  6211  
+     044176  0070  
+     044177  7611  
+ 332 044200  1023  NXT,   TAD     TMP2            /GET CONSOLE INDICATOR
+ 333 044201  7650  ILPTR2, SNA CLA                 /SKIP IF OVERLAY PRESENT
+ 334 044202  5274          JMP     NOLOVER         /JUMP IF NOT
+ 335 044203  1377          TAD     (LLPT)          /SETUP FOR LOGICAL PRINTER
+ 336 044204  3005          DCA     OPRINT          /IN O(UTPUT) P(RINTER) COMMAND
+ 337 044205  1022          TAD     TMP1            /GET CDF MCS+10
+ 338 044206  3207          DCA     INLIN2          /STORE IN-LINE
+ 339 044207  0000  INLIN2, .-.                     /WILL BE CDF MCS+10
+ 340 044210  1776          TAD I   (INTLST)        /GET INTERRUPT LIST POINTER
+ 341 044211  3201          DCA     ILPTR2          /STASH IT
+ 342 044212  1601  OUTLUP, TAD I   ILPTR2          /GET AN ELEMENT
+ 343 044213  7450          SNA                     /END OF LIST?
+ 344 044214  5234          JMP     OUTEND          /YES
+ 345 044215  1375          TAD     (-TSFIOT)       /COMPARE TO DEVICE 04 VALUE
+ 346 044216  7440          SZA                     /SKIP IF IT MATCHES
+ 347 044217  5222          JMP     TEST66          /ELSE TRY LPT:
+ 348 044220  1334          TAD     OMASK           /GET CURRENT MASK
+ 349 044221  3021          DCA     O04MSK          /USE FOR DEVICE 04
+ 350 044222  1374  TEST66, TAD     (-LSFIOT+TSFIOT)/COMPARE TO DEVICE 66 VALUE
+ 351 044223  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 352 044224  5227          JMP     NXTTEST         /JUMP IF NOT
+ 353 044225  1334          TAD     OMASK           /GET CURRENT MASK
+ 354 044226  3016          DCA     O66MSK          /USE FOR DEVICE 66
+ 355 044227  2201  NXTTEST,ISZ     ILPTR2          /BUMP TO NEXT ELEMENT
+ 356 044230  1334          TAD     OMASK           /GET THE MASK
+ 357 044231  7104          CLL RAL                 /MOVE UP
+ 358 044232  3334          DCA     OMASK           /STORE BACK
+ 359 044233  5212          JMP     OUTLUP          /KEEP GOING
+ 360               
+ 361 044234  6241  OUTEND, CDF     OFIELD          /BACK TO OUR FIELD
+ 362 044235  1016          TAD     O66MSK          /GET THE DEVICE 66 MASK VALUE
+ 363 044236  7450          SNA                     /SKIP IF FOUND
+ 364 044237  5254          JMP     TEST04          /JUMP IF NOT
+ 365 044240  1373          TAD     (-2)            /COMPARE TO CONSOLE OUTPUT VALUE
+ 366 044241  7450          SNA                     /SKIP IF OTHER
+ 367 044242  5251          JMP     USECON          /JUMP IF CONSOLE VALUE
+ 368 044243  1372          TAD     (-10+2)         /COMPARE TO LOGICAL PRINTER VALUE
+ 369 044244  7650          SNA CLA                 /SKIP IF OTHER
+ 370 044245  5252          JMP     USELLPT         /JUMP IF LOGICAL PRINTER VALUE
+ 371 044246  1371          TAD     (SECLPT)        /SETUP FOR
+ 372 044247  3770          DCA I   (LPTR)          /SECONDARY HANDLING
+ 373 044250  5254          JMP     TEST04          /CONTINUE THERE
+ 374               
+ 375 044251  1367  USECON, TAD     (CON-LLPT)      /USE CON VALUE
+ 376 044252  1377  USELLPT,TAD     (LLPT)          /USE LOGICAL LPT: VALUE
+ 377 044253  3004          DCA     OLPT            /STASH THE ROUTINE POINTER
+ 378 044254  1021  TEST04,        TAD     O04MSK          /GET DEVICE 04 MASK VALUE
+ 379 044255  7510          SPA                     /SKIP IF FOUND
+ 380 044256  5274          JMP     NOLOVER         /JUMP IF NOT
+ 381 044257  1373          TAD     (-2)            /COMPARE TO CONSOLE VALUE
+ 382 044260  7450          SNA                     /SKIP IF OTHER
+ 383 044261  5270          JMP     USETCON         /JUMP IF CONSOLE VALUE
+ 384 044262  1372          TAD     (-10+2)         /COMPARE TO LOGICAL PRINTER VALUE
+ 385 044263  7650          SNA CLA                 /SKIP IF OTHER
+ 386 044264  5271          JMP     USETLPT         /JUMP IF LOGICAL PRINTER VALUE
+ 387 044265  1366          TAD     (SECTTY)        /GET SECONDARY HANDLER VALUE
+ 388 044266  3765          DCA I   (TPTR)          /STASH THE POINTER
+ 389 044267  5312          JMP     NOLCOM          /CONTINUE THERE
+ 390               
+ 391 044270  1367  USETCON,TAD     (CON-LLPT)      /USE CON VALUE
+ 392 044271  1377  USETLPT,TAD     (LLPT)          /USE LPT VALUE
+ 393 044272  3006          DCA     OTTY            /STASH THE POINTER
+ 394 044273  5312          JMP     NOLCOM          /CONTINUE THERE
+ 395               
+ 396 044274  7240  NOLOVER,NL7777                  /SETUP TEST VALUE
+ 397 044275  6033          KTIIOT                  /DO TEST INSTRUCTION
+ 398 044276  7650          SNA CLA                 /SKIP IF PDP-8/E INTERFACE OR BETTER
+ 399 044277  5315          JMP     PREOMNIBUS      /JUMP IF OLDER INTERFACE METHOD
+ 400 044300  4764  PREOCOM,JMS I   (ENAB03)        /ENABLE DEVICE 03 INTERRUPTS
+ 401 044301  4763          JMS I   (ENABLE)        /ENABLE THE DEVICE 04 INTERRUPTS
+ 402 044302  6045          TIEIOT                  /DECMATE IOT ONLY
+ 403 044303  4511          TTYTST                  /ENABLE ADDRESS
+ 404               /       TAD     (SKP)           /RESET THE ENABLE ROUTINE
+ 405               /       DCA I   (ENABSW)        /FOR POSSIBLE OTHER DEVICES
+ 406 044304  7215          NL0010                  /SETUP MAGIC DECMATE INSTRUCTION
+ 407 044305  1362          TAD     (-10)           /CHECK IF IT WORKED
+ 408 044306  7650          SNA CLA                 /SKIP IF NOT 6120
+ 409 044307  5312          JMP     NOLCOM          /JUMP IF 6120
+ 410 044310  3761          DCA I   (INCTEST)       /PREVENT CIF IN FLAG CLEAR ROUTINE
+ 411 044311  3760          DCA I   (INTEST)        /PREVENT CIF IN STATUS CLEAR ROUTINE
+ 412 044312  4757  NOLCOM, JMS I   (OSUB)          /SETUP DEFAULT INPUT AND OUTPUT
+ 413 044313  6203          CIF CDF 00              /GOING TO FIELD ZERO
+ 414 044314  5756          JMP I   (BONCE3)        /REJOIN FIELD ZERO ONCE-ONLY CODE
+ 415               /      PRE-OMNIBUS INTERFACES TREAT 6XX3 AS 6XX1 THEN 6XX2; SINCE 6XX2 CLEARED
+ 416               /       THE AC, WE KNOW THERE IS NO EXPLICIT INTERRUPT ENABLE INSTRUCTION AS THERE
+ 417               /       EXISTS ON PDP-8/E, ETC.
+ 418               
+ 419               /       IF THIS IS A PDP-12, THE INTERRUPT ENABLE FOR DEVICES 03, 04, 40, 41 MAY
+ 420               /       BE AFFECTED BY THE SPECIAL FUNCTIONS REGISTER.
+ 421               
+ 422 044315  7200  PREOMNI,CLA                     /CLEAN UP (JUST IN CASE)
+ 423 044316  3755          DCA I   (ENABSW)        /PREVENT 6XX5 INTERRUPT ENABLE OPERATIONS
+ 424 044317  6141          LINC                    /BECOME A LINC
+ 425 044320  0017          COM                     /COMPLEMENT AC
+ 426 044321  0002          PDP                     /BECOME A PDP-8
+ 427 044322  7650          SNA CLA                 /SKIP IF AC DID CHANGE
+ 428 044323  5300          JMP     PREOCOMMON      /JUST KEEP GOING
+ 429 044324  6141          LINC                    /BACK TO LINC MODE
+ 430 044325  0024          SFA                     /GET CURRENT SPECIAL FUNCTIONS
+ 431 044326  1560          BCLI;   40              /TURN OFF INTERRUPT INHIBIT BIT
+     044327  0040  
+ 432 044330  0004          ESF                     /WRITE NEW VALUE
+ 433 044331  0002          PDP                     /BACK TO PDP-8 MODE
+ 434 044332  7200          CLA                     /CLEAN UP
+ 435 044333  5300          JMP     PREOCOMMON      /CONTINUE THERE
+ 436               
+ 437 044334  0001  OMASK,  1                       /OUTPUT INTERRUPT MASK VARIABLE
+ 438               
+ 439 044355  4416          PAGE
+     044356  3604  
+     044357  4637  
+     044360  4545  
+     044361  5113  
+     044362  7770  
+     044363  4405  
+     044364  4400  
+     044365  5072  
+     044366  5101  
+     044367  7745  
+     044370  5027  
+     044371  5033  
+     044372  7772  
+     044373  7776  
+     044374  7160  
+     044375  1737  
+     044376  0003  
+     044377  5044  
+ 440 044400  0000  ENAB03,        .-.                     /DEVICE 03 ENABLE ROUTINE
+ 441 044401  4205          JMS     ENABLE          /CALL ENABLE ROUTINE
+ 442 044402  6035          KIEIOT                  /OUR INTERRUPT ENABLE IOT
+ 443 044403  4447          KEYINT                  /WHERE TO ZAP THE ROUTINE
+ 444 044404  5600          JMP I   ENAB03          /RETURN
+ 445               
+ 446 044405  0000  ENABLE, .-.                     /DEVICE ENABLE ROUTINE
+ 447 044406  6241          CDF     OFIELD          /ENSURE OUR FIELD
+ 448 044407  1605          TAD I   ENABLE          /GET ENABLE IOT
+ 449 044410  3221          DCA     ENABIOT         /STORE IN-LINE
+ 450 044411  2205          ISZ     ENABLE          /BUMP TO NEXT
+ 451 044412  1605          TAD I   ENABLE          /GET ROUTINE ADDRESS
+ 452 044413  3225          DCA     ENAPTR          /STASH THE POINTER
+ 453 044414  2205          ISZ     ENABLE          /BUMP PAST ARGUMENT
+ 454 044415  3625          DCA I   ENAPTR          /ENABLE INTERRUPT ROUTINE
+ 455 044416  7410  ENABSW, SKP                     /**** PRE-OMNIBUS INTERFACE **** 0000
+ 456 044417  5605          JMP I   ENABLE          /RETURN NOW
+ 457 044420  7240          NL7777                  /SET INTERRUPT ENABLE BITS
+ 458 044421  0000  ENABIOT,.-.                     /WILL BE PASSED IOT
+ 459 044422  7000          NOP                     /JUST IN CASE
+ 460 044423  7200          CLA                     /CLEAN UP
+ 461 044424  5605          JMP I   ENABLE          /RETURN
+ 462               
+ 463 044425  0000  ENAPTR, .-.                     /ENABLE POINTER
+ 464               
+ 465               CZTABLE,RELOC   COUTPUT+3       /WHERE NEW OUTPUT CODE GOES
+ 466               
+ 467 042633* 1037          TAD     CSCQSW          /GET <^S>/<^Q> SWITCH
+ 468 042634* 7640          SZA CLA                 /SKIP IF CLEAR
+ 469 042635* 5233          JMP     .-2             /ELSE WAIT FOR IT
+ 470 042636* 1200          TAD     CINPUT          /GET THE VALUE
+ 471 042637* 6242          CIF     OFIELD          /GOTO CODE FIELD
+ 472 042640* 4645          JMS I   POUT/(OUT)      /CALL CURRENT OUTPUT ROUTINE
+ 473 042641* 7650  DFINT,  SNA CLA                 /THIS WILL NEVER SKIP
+ 474 042642* 3016          DCA     TELSW           /CLEAR IN-PROGRESS SWITCH
+ 475 042643* 6001          ION                     /MAKE SURE INTERRUPT IS ON
+ 476 042644* 5630          JMP I   COUTPUT         /RETURN
+ 477               
+ 478 042645* 5000  POUT,   OUT                     /POINTER TO OUTPUT ROUTINE
+ 479 042646* 0000          0                       /THIS ENDS THE LIST
+ 480               
+ 481                       RELOC                   /BACK TO NORMAL
+ 482               /      INTERRUPT HANDLER CONTINUES HERE.
+ 483               
+ 484 044442  1777  MORINT, TAD I   (BUMPIT)        /GET CONSOLE INTERRUPT STATUS
+ 485 044443  7040          CMA                     /INVERT IT
+ 486 044444  0010          AND     ISTAT           /KEEP NON-CONFLICTING BITS
+ 487 044445  1777          TAD I   (BUMPIT)        /ADD ON NEW ONES
+ 488 044446  3010          DCA     ISTAT           /STORE COMPOSITE
+ 489 044447  7410  KEYINT, SKP                     /**** DEVICE 03 NOT HANDLED ELSEWHERE **** 0000
+ 490 044450  6031  INT03,  KSFIOT                  /**** CONSOLE SECONDARY **** TAD I03MSK
+ 491 044451  5270          JMP     OVINT           /**** CONSOLE SECONDARY **** AND ISTAT
+ 492 044452  7410          SKP                     /**** CONSOLE SECONDARY **** SNA CLA
+ 493 044453  5270          JMP     OVINT           /FORGET IT
+ 494 044454  6036  KLIENAB,KRBIOT                  /**** CONSOLE AND LPT: INPUT HANDLER **** SKP
+ 495 044455  5260          JMP     KEYCONT         /CONTINUE THERE
+ 496               
+ 497               /       IF CHARACTER IS LPT: INPUT, IT WILL BE AVAILABLE HERE.
+ 498               
+ 499 044456  0000  KEYCDF, .-.                     /WILL BE CDF MCS+10
+ 500 044457  1776          TAD I   (LINFLAG)       /GET LPT: INPUT CHARACTER
+ 501 044460  0176  KEYCONT,AND     [177]           /JUST SEVEN BITS
+ 502 044461  3011          DCA     KCHAR           /SAVE IT
+ 503 044462  1020          TAD     I03MSK          /GET INTERRUPT BIT
+ 504 044463  4341          JMS     INTCLR          /CLEAR IT
+ 505 044464  1011          TAD     KCHAR           /GET IT BACK
+ 506 044465  4775          JMS I   (CSCQ)          /CHECK FOR <^S>/<^Q>
+ 507 044466  5321          JMP     KCHECK          /WAS SOMETHING ELSE
+ 508 044467  3011  KIGNORE,DCA     KCHAR           /OBLITERATE THE CHARACTER
+ 509 044470  7410  OVINT,  SKP                     /**** CONSOLE **** 0000
+ 510 044471  7201          NL0001                  /SET INPUT FLAG MASK
+ 511 044472  0010          AND     ISTAT           /GET THE STATUS BIT
+ 512 044473  7650          SNA CLA                 /SKIP IF SET
+ 513 044474  5311          JMP     TTYTST          /ELSE FORGET IT
+ 514 044475  6241          CDF     OFIELD          /INDICATE OUR FIELD
+ 515 044476  0000  OVICIF, .-.                     /WILL BE CIF MCS+10
+ 516 044477  4031          JMS     INCON           /GET THE INPUT
+ 517 044500  5311          JMP     TTYTST          /WASN'T ANY!
+ 518 044501  0176          AND     [177]           /JUST SEVEN BITS
+ 519 044502  3014          DCA     OVCHAR          /SAVE IT
+ 520 044503  7201          NL0001                  /GET INTERRUPT BIT
+ 521 044504  4341          JMS     INTCLR          /CLEAR IT
+ 522 044505  1014          TAD     OVCHAR          /GET IT BACK
+ 523 044506  4775          JMS I   (CSCQ)          /CHECK FOR <^S>/<^Q>
+ 524 044507  5332          JMP     OCHECK          /WAS SOMETHING ELSE
+ 525 044510  3014  OVIGNOR,DCA     OVCHAR          /OBLITERATE THE CHARACTER
+ 526 044511  7410  TTYTST, SKP                     /**** DEVICE 04 NOT HANDLED ELSEWHERE **** 0000
+ 527 044512  6041          TSFIOT                  /FLAG UP?
+ 528 044513  5317          JMP     MOREXIT         /NO
+ 529 044514  6042          TCFIOT                  /YES, CLEAR IT
+ 530 044515  7240          NL7777                  /SET THE
+ 531 044516  3017          DCA     TFLAG           /DONE FLAG
+ 532 044517  6203  MOREXIT,CIF CDF 00              /GOING TO FIELD ZERO
+ 533 044520  5774          JMP I   (INTXIT+4)      /REJOIN MAIN INTERRUPT HANDLER
+ 534 044521  1012  KCHECK,        TAD     KFLAG           /GET ENABLE FLAG
+ 535 044522  7650          SNA CLA                 /SKIP IF CURRENT KEYBOARD
+ 536 044523  5267          JMP     KIGNORE         /ELSE IGNORE FURTHER INPUT
+ 537 044524  1011          TAD     KCHAR           /GET THE CHARACTER
+ 538 044525  4773          JMS I   (CHKC)          /CHECK FOR <^C>, ETC.
+ 539 044526  1011          TAD     KCHAR           /GET THE CHARACTER
+ 540 044527  3772  OENTRY, DCA I   (INCHAR)        /STORE IN INPUT BUFFER
+ 541 044530  6202          CIF     00              /GOING TO FIELD ZERO
+ 542 044531  5771          JMP I   (CHKKCC+1)      /CONTINUE THERE
+ 543               
+ 544 044532  1015  OCHECK, TAD     OVFLAG          /GET ENABLE FLAG
+ 545 044533  7650          SNA CLA                 /SKIP IF CURRENT KEYBOARD
+ 546 044534  5310          JMP     OVIGNORE        /ELSE IGNORE FURTHER INPUT
+ 547 044535  1014          TAD     OVCHAR          /GET THE CHARACTER
+ 548 044536  4773          JMS I   (CHKC)          /CHECK FOR <^C>, ETC.
+ 549 044537  1014          TAD     OVCHAR          /GET THE CHARACTER
+ 550 044540  5327          JMP     OENTRY          /CONTINUE THERE
+ 551               
+ 552               /       INTERRUPT CLEAR ROUTINE.
+ 553               
+ 554 044541  0000  INTCLR, .-.                     /CLEAR INTERRUPT ROUTINE
+ 555 044542  6201          CDF     00              /ENSURE FIELD ZERO
+ 556 044543  7040          CMA                     /INVERT TO FORM MASK
+ 557 044544  3362          DCA     INTEMP          /SAVE FOR NOW
+ 558 044545  7410  INTEST, SKP                     /**** NOT 6120 **** 0000
+ 559 044546  5354          JMP     INTCIF          /CONTINUE THERE IF NOT 6120
+ 560 044547  6000          SKON                    /TURN INTERRUPTS OFF AND MAYBE SKIP
+ 561 044550  7001          IAC/TAD (IOF-ION)       /SET INCREMENT IF IOF
+ 562 044551  1170          TAD     [ION]           /NOW HAVE ION OR IOF
+ 563 044552  3360          DCA     INTBARE         /STORE IN-LINE
+ 564 044553  7410          SKP                     /DON'T DO CIF!
+ 565 044554  6242  INTCIF, CIF     OFIELD          /SET OUR FIELD TO INHIBIT INTERRUPTS
+ 566 044555  1362          TAD     INTEMP          /GET PASSED VALUE
+ 567 044556  0010          AND     ISTAT           /SAVE OTHER BITS
+ 568 044557  3010          DCA     ISTAT           /STORE BACK
+ 569 044560  7000  INTBARE,NOP                     /**** 6120 **** ION OR IOF
+ 570 044561  5741          JMP I   INTCLR          /RETURN
+ 571               
+ 572 044562  0000  INTEMP, .-.                     /TEMPORARY
+ 573               
+ 574 044571  3210          PAGE
+     044572  0126  
+     044573  5200  
+     044574  2715  
+     044575  5224  
+     044576  0030  
+     044577  2613  
+ 575               /      O(PTION) G(ENERIC).
+ 576               
+ 577                       IFZERO  .&4000  <ERROR  .>
+ 578 044600  4777  OG,     JMS I   (INCLEAR)       /CLEAR ALL INPUT FLAGS
+ 579 044601  2402          ISZ I   OGENABLE        /ENABLE GENERIC INPUT FLAG
+ 580 044602  5222          JMP     OEXIT           /CONTINUE THERE
+ 581               
+ 582               /       O(PTION) K(EYBOARD).
+ 583               
+ 584 044603  4777  OK,     JMS I   (INCLEAR)       /CLEAR ALL INPUT FLAGS
+ 585 044604  2403          ISZ I   OKENABLE        /SET KEYBOARD INPUT FLAG
+ 586 044605  5222          JMP     OEXIT           /CONTINUE THERE
+ 587               
+ 588               /       O(UTPUT) L(PT).
+ 589               
+ 590 044606  1004  OL,     TAD     OLPT            /GET OUR ROUTINE POINTER
+ 591 044607  5214          JMP     OLENTRY         /CONTINUE THERE
+ 592               
+ 593               /       O(PTION) M(ONITOR).
+ 594               
+ 595 044610  6002  OM,     IOF                     /PREVENT PROBLEMS
+ 596 044611  6203          CIF CDF 00              /GOING TO FIELD ZERO
+ 597 044612  5776          JMP I   (SBOOT)         /GOODBYE!
+ 598               
+ 599               /       O(UTPUT) P(RINTER).
+ 600               
+ 601 044613  1005  OP,     TAD     OPRINT          /GET OUR ROUTINE POINTER
+ 602 044614  3001  OLENTRY,DCA     ODEV            /STASH THE POINTER
+ 603 044615  5222          JMP     OEXIT           /CONTINUE THERE
+ 604               
+ 605               /       O(UTPUT) T(ERMINAL).
+ 606               
+ 607 044616  1006  OT,     TAD     OTTY            /GET OUR OUTPUT POINTER
+ 608 044617  5214          JMP     OLENTRY         /CONTINUE THERE
+ 609               
+ 610               /       O(UTPUT) U(NIVERSAL.
+ 611               
+ 612 044620  1007  OU,     TAD     OUNPTR          /GET OUR POINTER
+ 613 044621  5214          JMP     OLENTRY         /CONTINUE THERE
+ 614               
+ 615               /       COMMON EXIT ROUTINE.
+ 616               
+ 617 044622  6203  OEXIT,  CIF CDF 00              /GOING TO FIELD ZERO
+ 618 044623  1013          TAD     OCHAR           /GET THE DELIMITER
+ 619 044624  3775          DCA I   (CHAR)          /RESTORE IT
+ 620 044625  1013          TAD     OCHAR           /GET IT AGAIN
+ 621 044626  1374          TAD     (-" )           /COMPARE TO <SPACE>
+ 622 044627  7440          SZA                     /SKIP IF IT MATCHES
+ 623 044630  1373          TAD     (-",+" )        /ELSE COMPARE TO ","
+ 624 044631  7640          SZA CLA                 /SKIP IF EITHER
+ 625 044632  5772          JMP I   (PROC)          /ELSE CONTINUE PROCESSING THERE
+ 626 044633  5646          JMP I   POCOMAGN        /PROCESS ADDITIONAL "O" SUB-COMMANDS THERE
+ 627               /      RECOVERY FIXUP ROUTINE.
+ 628               
+ 629 044634  4237  RECFIX, JMS     OSUB            /RESET INPUT AND OUTPUT
+ 630 044635  6203          CIF CDF 00              /GOING TO FIELD ZERO
+ 631 044636  5771          JMP I   (RECOVR+20)     /CONTINUE THERE
+ 632               
+ 633               /       I/O RESET ROUTINE.
+ 634               
+ 635 044637  0000  OSUB,   .-.                     /I/O RESET SUBROUTINE
+ 636 044640  4777          JMS I   (INCLEAR)       /CLEAR ALL INPUT FLAGS
+ 637 044641  6241          CDF     OFIELD          /ENSURE OUR FIELD
+ 638 044642  2402          ISZ I   OGENABLE        /ENABLE GENERIC INPUT FLAG
+ 639 044643  1007          TAD     OUNPTR          /GET O(UTPUT) U(NIVERSAL) POINTER
+ 640 044644  3001          DCA     ODEV            /SETUP DEFAULT DEVICE
+ 641 044645  5637          JMP I   OSUB            /RETURN
+ 642               
+ 643 044646  0124  POCOMAG,OCOMAGN&177             /**** RELOCATE ****
+ 644               
+ 645 044771  2760          PAGE
+     044772  0611  
+     044773  7764  
+     044774  7540  
+     044775  0066  
+     044776  7600  
+     044777  5112  
+ 646               /      GENERALIZED OUTPUT ROUTINE.
+ 647               
+ 648 045000  0000  OUT,    .-.                     /OUTPUT ROUTINE
+ 649 045001  3327          DCA     OUTEMP          /SAVE PASSED VALUE
+ 650 045002  7326          NL0002                  /SET CIF BIT
+ 651 045003  6214          RDF                     /GET CALLING FIELD
+ 652 045004  1377          TAD     (CDF)           /MAKE IT CIF CDF RETURN FIELD
+ 653 045005  3215          DCA     OUTCIDF         /STORE IN-LINE
+ 654 045006  1327          TAD     OUTEMP          /GET PASSED VALUE
+ 655 045007  6241          CDF     OFIELD          /INDICATE OUR FIELD AS NEEDED FOR SOME ROUTINES
+ 656 045010  5401          JMP I   ODEV            /GOTO CURRENT ROUTINE
+ 657               
+ 658               /       CONSOLE OUTPUT ROUTINE.
+ 659               
+ 660 045011  0000  CON,    .-.                     /WILL BE CIF MCS+10
+ 661 045012  4033          JMS     OUTCON          /CALL OVERLAY ROUTINE
+ 662 045013  5211          JMP     CON             /TRY AGAIN IF NECESSARY
+ 663               
+ 664               /       RETURNS HERE AFTER OUTPUTTING.
+ 665               
+ 666 045014  7200  OUTEXIT,CLA                     /CLEAN UP
+ 667 045015  0000  OUTCIDF,.-.                     /WILL BE CIF CDF RETURN FIELD
+ 668 045016  5600          JMP I   OUT             /RETURN TO CALLER
+ 669               
+ 670               /       DEVICE 66 LPT: OUTPUT ROUTINE.
+ 671               
+ 672 045017  3327  LPT,    DCA     OUTEMP          /SAVE THE CHARACTER
+ 673 045020  1226          TAD     LINIT           /GET INITIALIZE VARIABLE
+ 674 045021  7440          SZA                     /SKIP IF ALREADY INITIALIZED
+ 675 045022  6666          LLSIOT                  /ELSE OUTPUT NOW
+ 676 045023  7200          CLA                     /CLEAN UP
+ 677 045024  3226          DCA     LINIT           /PREVENT FURTHER INITIALIZATION
+ 678 045025  5627          JMP I   LPTR            /GO TO PROPER ROUTINE
+ 679               
+ 680 045026  7777  LINIT,  -1                      /LPT: INITIALIZE SWITCH
+ 681 045027  5030  LPTR,   LPTNORMAL               /**** SECONDARY DEVICE 66 OVERLAY HANDLING **** SECLPT
+ 682               
+ 683               /       COMES HERE FOR NORMAL DEVICE 66 LPT: HANDLING.
+ 684               
+ 685 045030  6661  LPTNORM,LSFIOT                  /FLAG UP?
+ 686 045031  5230          JMP     LPTNORMAL       /NO, WAIT FOR IT
+ 687 045032  5241          JMP     LNORMENTRY      /YES, CONTINUE THERE
+ 688               /      COMES HERE IF DEVICE 66 IS HANDLED BY CONSOLE OVERLAY.
+ 689               
+ 690 045033  1016  SECLPT, TAD     O66MSK          /GET INTERRUPT BIT
+ 691 045034  0010          AND     ISTAT           /GET THE FLAG BIT
+ 692 045035  7650          SNA CLA                 /FLAG UP?
+ 693 045036  5233          JMP     SECLPT          /NO, WAIT FOR IT
+ 694 045037  1016          TAD     O66MSK          /GET THE FLAG BIT
+ 695 045040  4776          JMS I   (INTCLR)        /CLEAR IT
+ 696 045041  1327  LNORMEN,TAD     OUTEMP          /GET THE CHARACTER
+ 697 045042  6666          LLSIOT                  /OUTPUT IT
+ 698 045043  5214          JMP     OUTEXIT         /FINISH THERE
+ 699               
+ 700               /       LOGICAL LPT: OUTPUT ROUTINE.
+ 701               
+ 702 045044  3327  LLPT,   DCA     OUTEMP          /SAVE THE CHARACTER
+ 703 045045  1254          TAD     LLINIT          /GET INITIALIZE SWITCH
+ 704 045046  7440          SZA                     /SKIP IF ALREADY INITIALIZED
+ 705 045047  4255          JMS     LLPTOUT         /ELSE OUTPUT IT
+ 706 045050  3254          DCA     LLINIT          /CLEAR INITIALIZE SWITCH
+ 707 045051  1327          TAD     OUTEMP          /GET THE CHARACTER
+ 708 045052  4255          JMS     LLPTOUT         /OUTPUT IT
+ 709 045053  5214          JMP     OUTEXIT         /FINISH THERE
+ 710               
+ 711 045054  7777  LLINIT, -1                      /LOGICAL LPT: INITIALIZE SWITCH
+ 712               
+ 713               /       LOGICAL LPT: OUTPUT SUBROUTINE.
+ 714               
+ 715 045055  0000  LLPTOUT,.-.                     /LLPT: OUTPUT
+ 716 045056  0000  LPTCIF, .-.                     /WILL BE CIF MCS+10
+ 717 045057  4035          JMS     OUTLPT          /OUTPUT THE CHARACTER
+ 718 045060  5256          JMP     LPTCIF          /WAIT FOR IT
+ 719 045061  7200          CLA                     /CLEAN UP
+ 720 045062  5655          JMP I   LLPTOUT         /RETURN
+ 721               
+ 722               /       DEVICE 04 OUTPUT ROUTINE.
+ 723               
+ 724 045063  3327  TTY,    DCA     OUTEMP          /SAVE THE CHARACTER
+ 725 045064  1273          TAD     TTINIT          /GET INITIALIZE SWITCH
+ 726 045065  7440          SZA                     /SKIP IF CLEAR
+ 727 045066  6046          TLSIOT                  /ELSE OUTPUT NOW
+ 728 045067  7200          CLA                     /CLEAN UP
+ 729 045070  3273          DCA     TTINIT          /CLEAR INITIALIZE SWITCH
+ 730 045071  5672          JMP I   TPTR            /GOTO PROPER ROUTINE
+ 731               
+ 732 045072  5074  TPTR,   TTYNORMAL               /**** SECONDARY CONSOLE HANDLING **** SECTTY
+ 733 045073  7777  TTINIT, -1                      /TTY: INITIALIZE SWITCH
+ 734               
+ 735 045074  1017  TTYNORM,TAD     TFLAG           /DONE YET?
+ 736 045075  7650          SNA CLA                 /SKIP IF SO
+ 737 045076  5274          JMP     TTYNORMAL       /NO, WAIT FOR IT
+ 738 045077  3017          DCA     TFLAG           /YES, CLEAR THE FLAG
+ 739 045100  5307          JMP     TNORMENTRY      /CONTINUE THERE
+ 740               /      COMES HERE IF CONSOLE OVERLAY HANDLES DEVICE 04 INTERRUPTS ONLY AS SECONDARY
+ 741               /       DEVICE.
+ 742               
+ 743 045101  1021  SECTTY, TAD     O04MSK          /GET INTERRUPT MASK VALUE
+ 744 045102  0010          AND     ISTAT           /GET THE FLAG BIT
+ 745 045103  7650          SNA CLA                 /SKIP IF SET
+ 746 045104  5301          JMP     SECTTY          /JUMP IF NOT
+ 747 045105  1021          TAD     O04MSK          /GET THE BIT AGAIN
+ 748 045106  4776          JMS I   (INTCLR)        /CLEAR IT
+ 749 045107  1327  TNORMEN,TAD     OUTEMP          /GET THE CHARACTER
+ 750 045110  6046          TLSIOT                  /OUTPUT IT
+ 751 045111  5214          JMP     OUTEXIT         /CONTINUE THERE
+ 752               
+ 753               /       INPUT ENABLE FLAG CLEAR ROUTINE.
+ 754               
+ 755 045112  0000  INCLEAR,.-.                     /INPUT FLAG CLEAR ROUTINE
+ 756 045113  7410  INCTEST,SKP                     /**** NOT 6120 **** 0000
+ 757 045114  5322          JMP     INCIF           /CONTINUE THERE IF NOT 6120
+ 758 045115  6000          SKON                    /TURN INTERRUPTS OFF AND SKIP IF SO
+ 759 045116  7001          IAC/TAD (IOF-ION)       /NOW HAVE IOF INCREMENT
+ 760 045117  1170          TAD     [ION]           /NOW HAVE ION OR IOF
+ 761 045120  3325          DCA     INCBARE         /STORE IN-LINE
+ 762 045121  7410          SKP                     /DON'T EXECUTE CIF!
+ 763 045122  6242  INCIF,  CIF     OFIELD          /INHIBIT INTERRUPTS
+ 764 045123  3012          DCA     KFLAG           /DISABLE 03 KEYBOARD
+ 765 045124  3015          DCA     OVFLAG          /DISABLE OVERLAY KEYBOARD
+ 766 045125  7000  INCBARE,NOP                     /**** 6120 **** ION OR IOF
+ 767 045126  5712          JMP I   INCLEAR         /RETURN
+ 768               
+ 769 045127  0000  OUTEMP, .-.                     /OUTPUT TEMPORARY
+ 770               
+ 771 045176  4541          PAGE
+     045177  6201  
+ 772               /      <^C> CHECK ROUTINE.
+ 773               
+ 774 045200  0000  CHKC,   .-.                     /<^C> CHECK ROUTINE
+ 775 045201  7450          SNA                     /<NUL> PASSED?
+ 776 045202  5600          JMP I   CHKC            /YES, FORGET IT
+ 777 045203  1377          TAD     (-3)            /COMPARE TO <^C>
+ 778 045204  7450          SNA                     /SKIP IF DIFFERENT
+ 779 045205  2776          ISZ I   (SCRSIZE)       /ELSE SET <^C> INDICATOR
+ 780 045206  7740          SMA SZA CLA             /SKIP IF <^C> OR LESS
+ 781 045207  5600          JMP I   CHKC            /RETURN IF NOT
+ 782 045210  1775          TAD I   (SBTFUN)        /GET BOOTSTRAP UNIT
+ 783 045211  0374          AND     (7)             /JUST UNIT BITS
+ 784 045212  1220          TAD     BTFUN/(17^100)  /ADD ON FUNCTION BITS
+ 785 045213  3220          DCA     BTFUN           /STORE IN-LINE
+ 786 045214  6241          CDF     OFIELD          /INDICATE OUR FIELD
+ 787 045215  6202          CIF     00              /GOING TO FIELD ZERO
+ 788 045216  4773          JMS I   (SYSIO)         /CALL I/O ROUTINES
+ 789 045217  0000          0000                    /TRANSFER ADDRESS
+ 790 045220  1700  BTFUN,  17^100+.-.              /UNIT BITS WILL BE FILLED IN
+ 791 045221  0001          1                       /BLOCK NUMBER
+ 792 045222  6203          CIF CDF 00              /GOING TO FIELD ZERO
+ 793 045223  5772          JMP I   (MONSTRT)       /GO START IT UP
+ 794               
+ 795               /       <^S>/<^Q> CHECK ROUTINE.
+ 796               
+ 797 045224  0000  CSCQ,   .-.                     /<^S>/<^Q> CHECK ROUTINE
+ 798 045225  1371          TAD     (-"S!300)       /COMPARE PASSED TO <^S>
+ 799 045226  7450          SNA                     /SKIP IF DIFFERENT
+ 800 045227  5234          JMP     GOTCS           /JUMP IF IT MATCHES
+ 801 045230  1370          TAD     (-"Q+"S)        /COMPARE TO <^Q>
+ 802 045231  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 803 045232  5624          JMP I   CSCQ            /RETURN IF NEITHER
+ 804 045233  7410          SKP                     /DON'T SET IF <^Q>
+ 805 045234  7330  GOTCS,  NL4000                  /SET <^S> VALUE
+ 806 045235  3767          DCA I   (CSCQSW)        /STORE IN SWITCH
+ 807 045236  2224          ISZ     CSCQ            /BUMP RETURN ADDRESS
+ 808 045237  5624          JMP I   CSCQ            /TAKE SKIP RETURN
+ 809               
+ 810 045367  0037          PAGE
+     045370  0002  
+     045371  7755  
+     045372  0353  
+     045373  7640  
+     045374  0007  
+     045375  7602  
+     045376  7611  
+     045377  7775  
+ 811 040170  6001         FIELD   0               /BACK TO FIELD ZERO
+     040171  1152  
+     040172  0044  
+     040173  0013  
+     040174  0046  
+     040175  0045  
+     040176  0177  
+     040177  4442  
+ 812               /      ONCE-ONLY CODE STARTS HERE.
+ 813               
+ 814                       *BONCE                          /OVER DEFAULT ONCE-ONLY AREA
+ 815               
+ 816 003600  7326  BONCE,  NL0002                          /SETUP "C" BIT MASK
+ 817 003601  0777  PBASE,  AND I   (SCRSIZE)               /GET THE "C" BIT
+ 818 003602  6242          CIF     OFIELD                  /GOTO CODE FIELD
+ 819 003603  5776          JMP I   (BONCE2)                /CONTINUE ONCE-ONLY CODE THERE
+ 820               
+ 821               /       COMES BACK HERE AFTER ONCE-ONLY CODE IN FIELD OFIELD IS FINISHED.
+ 822               
+ 823 003604  1375  BONCE3, TAD     (INTXIT&177+JMPC)       /GET INTERRUPT BYPASS INSTRUCTION
+ 824 003605  3774          DCA I   (CHKKSF)                /PREVENT NORMAL HANDLING
+ 825 003606  1373          TAD     (INTXIT+4&177+JMPC)     /GET INTERRUPT BYPASS INSTRUCTION
+ 826 003607  3772          DCA I   (TRYOUT)                /PREVENT NORMAL HANDLING
+ 827 003610  1371          TAD     (CLA!400)               /GET CLEARING INSTRUCTION
+ 828 003611  3770          DCA I   (CONPAT)                /PREVENT IN-PROGRESS SWITCH SET
+ 829 003612  3016          DCA     TELSW                   /CANCEL ANY I/O IN PROGRESS
+ 830 003613  1367          TAD     (CIF    OFIELD)         /GET FIELD INSTRUCTION
+ 831 003614  3766          DCA I   (INTXIT+2)              /ZAP IT IN
+ 832 003615  1365          TAD     (JMP    OURINT)         /GET INTERRUPT JUMP INSTRUCTION
+ 833 003616  3764          DCA I   (INTXIT+3)              /ZAP IT IN
+ 834 003617  1367          TAD     (CIF    OFIELD)         /GET FIELD INSTRUCTION
+ 835 003620  3763          DCA I   (RECOVR+15)             /ZAP IT IN
+ 836 003621  1362          TAD     (RECOVR+17&177+JMPIC)   /GET JUMP INSTRUCTION
+ 837 003622  3761          DCA I   (RECOVR+16)             /ZAP IT IN
+ 838 003623  1360          TAD     (RECFIX)                /GET POINTER
+ 839 003624  3757          DCA I   (RECOVR+17)             /ZAP IT IN
+ 840 003625  3756          DCA I   (RECOVR+20)             /PREVENT POINTER UPDATE
+ 841 003626  3755          DCA I   (RECOVX+1)              /PREVENT RECOVERY PROBLEMS
+ 842 003627  1354          TAD     ("O)                    /GET "O"
+ 843 003630  3753          DCA I   (COMLST+16)             /STORE IN COMMAND CHARACTER TABLE
+ 844 003631  1035          TAD     BOTTOM                  /\
+ 845 003632  1352          TAD     (-200+1)                / \ESTABLISH
+ 846 003633  0104          AND     P7600/[7600]            / /BASE ADDRESS
+ 847 003634  3201          DCA     PBASE                   //
+ 848 003635  1201          TAD     PBASE                   /\
+ 849 003636  1351          TAD     (OSTART&177-1)          / >ESTABLISH NEW LIMIT
+ 850 003637  3035          DCA     BOTTOM                  //
+ 851 003640  1201          TAD     PBASE                   /GET BASE
+ 852 003641  1750          TAD I   (OLISTP)                /RELOCATE "O" LIST POINTER
+ 853 003642  3750          DCA I   (OLISTP)                /STORE ADJUSTED POINTER
+ 854 003643  1201          TAD     PBASE                   /GET BASE
+ 855 003644  1347          TAD     (OCOM&177)              /POINT TO RELOCATED "O" COMMAND
+ 856 003645  3746          DCA I   (COMGO+16)              /STORE IN COMMAND DISPATCH TABLE
+ 857 003646  6241          CDF     OFIELD                  /GOTO CODE FIELD
+ 858 003647  1201          TAD     PBASE                   /GET BASE
+ 859 003650  1745          TAD I   (POCOMAGN)              /POINT TO RELOCATED "O" COMMAND REENTRY
+ 860 003651  3745          DCA I   (POCOMAGN)              /STORE ADJUSTED POINTER
+ 861 003652  6201          CDF     00                      /BACK TO FIELD ZERO
+ 862 003653  1035          TAD     BOTTOM                  /\
+ 863 003654  7001          IAC                             / >SETUP MOVE BASE
+ 864 003655  3201          DCA     PBASE                   //
+ 865 003656  1666  OMVLUP,        TAD I   LOSTART         /\
+ 866 003657  3601          DCA I   PBASE           / \
+ 867 003660  2266          ISZ     LOSTART         /  \MOVE DOWN THE "O"
+ 868 003661  2201          ISZ     PBASE           /  /COMMAND CODE
+ 869 003662  2267          ISZ     MOVCNT          / /
+ 870 003663  5256          JMP     OMVLUP          //
+ 871 003664  3744          DCA I   (BEOFZAP)       /REPAIR LOADER
+ 872 003665  5744          JMP I   (BEOFZAP)       /RESUME LOADING
+ 873               
+ 874 003666  4124  LOSTART,OSTART                  /"O" COMMAND CURRENTLY HERE
+ 875 003667  7724  MOVCNT, OSTART-OEND             /LENGTH OF "O" COMMAND CODE TO MOVE
+ 876               
+ 877 003744  7505          PAGE
+     003745  4646  
+     003746  1201  
+     003747  0125  
+     003750  4145  
+     003751  0123  
+     003752  7601  
+     003753  1012  
+     003754  0317  
+     003755  2762  
+     003756  2760  
+     003757  2757  
+     003760  4634  
+     003761  2756  
+     003762  5757  
+     003763  2755  
+     003764  2714  
+     003765  5000  
+     003766  2713  
+     003767  6242  
+     003770  2742  
+     003771  7600  
+     003772  2673  
+     003773  5315  
+     003774  2657  
+     003775  5311  
+     003776  4000  
+     003777  7611  
+ 878                      *OSTART                 /"O" COMMAND CODE STARTS HERE
+ 879               
+ 880               /       "O" COMMAND REENTERS HERE.
+ 881               
+ 882 004124  4545  OCOMAGN,GETC                    /GET PAST DELIMITER
+ 883               
+ 884               /       "O" COMMAND ENTRY.
+ 885               
+ 886 004125  4560  OCOM,   SPNOR                   /IGNORE ANY SPACES
+ 887 004126  1066          TAD     CHAR            /GET COMMAND CHARACTER
+ 888 004127  4542          PUSHA                   /SAVE IT ON STACK
+ 889 004130  7410          SKP                     /MAY ALREADY BE A TERMINATIOR
+ 890 004131  4545  OCOMLP, GETC                    /GET NEXT CHARACTER
+ 891 004132  4550          SORTC                   /COMPARE TO
+ 892 004133  1767          TERMS-1                 /TERMINATORS IN LIST
+ 893 004134  7410          SKP                     /SKIP IF IT MATCHES
+ 894 004135  5331          JMP     OCOMLP          /ELSE THROW AWAY AND TRY AGAIN
+ 895 004136  1066          TAD     CHAR            /GET THE TERMINATOR
+ 896 004137  6241          CDF     OFIELD          /GOTO CODE FIELD
+ 897 004140  3777          DCA I   (OCHAR)         /SAVE IT
+ 898 004141  6201          CDF     00              /BACK TO FIELD ZERO
+ 899 004142  1413          POPA                    /GET COMMAND CHARACTER BACK
+ 900 004143  3066          DCA     CHAR            /RESTORE IT
+ 901 004144  4550          SORTC                   /COMPARE TO OUR LIST
+ 902 004145  0155  OLISTP, OLIST-1&177             /**** RELOCATE ****
+ 903 004146  5351          JMP     NOERROR         /JUMP IF FOUND
+ 904 004147  1376          TAD     (7401)          /GET ERROR ADDRESS
+ 905 004150  5775          JMP I   (ERROR5)        /FINISH IT THERE
+ 906               
+ 907 004151  1054  NOERROR,TAD     SORTCN          /GET INDEX
+ 908 004152  1374          TAD     (JMP I  ODISP)  /MAKE INTO INSTRUCTION
+ 909 004153  3355          DCA     .+2             /STORE IN-LINE
+ 910 004154  6243          CIF CDF OFIELD          /GOTO CODE FIELD
+ 911 004155  5765          JMP I   ODISP+.-.       /GOTO PROPER ROUTINE
+ 912               /      "O" COMMAND CHARACTER LIST.
+ 913               
+ 914 004156  0307  OLIST,  "G                      /O(PTION) G(ENERIC) (INPUT)
+ 915 004157  0313          "K                      /O(PTION) K(EYBOARD) (INPUT)
+ 916 004160  0314          "L                      /O(UTPUT) L(PT)
+ 917 004161  0315          "M                      /O(PTION) M(ONITOR): RETURN (TO P?S/8)
+ 918 004162  0320          "P                      /O(UTPUT) P(RINTER)
+ 919 004163  0324          "T                      /O(UTPUT) T(ERMINAL) DEVICE 04
+ 920 004164  0325          "U                      /O(UTPUT) U(NIVERSAL) TO CONSOLE OVERLAY
+ 921               
+ 922               /       NEGATIVE ADDRESS IN ODISP TERMINATES THE LIST.
+ 923               
+ 924               /       "O" COMMAND DISPATCH ADDRESS LIST.
+ 925               
+ 926 004165  4600  ODISP,  OG                      /CONSOLE OVERLAY INPUT
+ 927 004166  4603          OK                      /KEYBOARD INPUT
+ 928 004167  4606          OL                      /LPT: OUTPUT
+ 929 004170  4610          OM                      /RETURN TO MONITOR
+ 930 004171  4613          OP                      /LOGICAL LPT: OUTPUT
+ 931 004172  4616          OT                      /TERMINAL OUTPUT
+ 932 004173  4620          OU                      /CONSOLE OVERLAY OUTPUT
+ 933               
+ 934 004174  5765          PAGE
+     004175  2725  
+     004176  7401  
+     004177  0013  
+ 935               
+ 936                       OEND=   .               /END OF RELOCATABLE CODE
+ 937               
+ 938                       *BEOFZAP                /OVER LOADER
+ 939               
+ 940 007505  7410          SKP                     /MAKE IT COME TO US
+ 941               
+ 942                       $                       /THAT'S ALL FOLK!
+
+ALLOW0  4074
+BCLI    1560
+BEOFZA  7505
+BONCE   3600
+BONCE2  4000
+BONCE3  3604
+BOTTOM  0035
+BTFUN   5220
+BUMPIT  2613
+CHAR    0066
+CHKC    5200
+CHKKCC  3207
+CHKKSF  2657
+CI      0003
+CINPUT  2600
+CO      0004
+COM     0017
+COMGO   1163
+COMLST  0774
+CON     5011
+CONPAT  2742
+COUTPU  2630
+CSCQ    5224
+CSCQSW  0037
+CZAPEN  4035
+CZAPLU  4024
+CZAPTR  4127
+CZTABL  4426
+CZTPTR  4130
+DEVEND  4070
+DEVLUP  4051
+DFINT   2641 unreferenced
+EFUN3I  0136
+ENAB03  4400
+ENABIO  4421
+ENABLE  4405
+ENABSW  4416
+ENAPTR  4425
+ERROR5  2725
+ESF     0004
+FLAC    0044
+FNTABF  0374
+FNTABL  2165
+GETC    4545
+GOTCS   5234
+I03MSK  0020
+ILPTR1  4001
+ILPTR2  4201
+IMASK   4131
+INCBAR  5125
+INCHAR  0126
+INCIF   5122
+INCLEA  5112
+INCON   0031
+INCTES  5113
+INDEV   0064
+INLIN1  4046
+INLIN2  4207
+INT03   4450
+INTBAR  4560
+INTCIF  4554
+INTCLR  4541
+INTEGE  0053
+INTEMP  4562
+INTEST  4545
+INTLST  0003
+INTXIT  2711
+ISTAT   0010
+JMPC    5200
+JMPIC   5600
+KCHAR   0011
+KCHECK  4521
+KEYCDF  4456
+KEYCON  4460
+KEYINT  4447
+KFLAG   0012
+KIEIOT  6035
+KIGNOR  4467
+KLIENA  4454
+KRBIOT  6036
+KSFIOT  6031
+KTIIOT  6033
+LINC    6141
+LINFLA  0030
+LINIT   5026
+LLINIT  5054
+LLPT    5044
+LLPTOU  5055
+LLSIOT  6666
+LNORME  5041
+LOSTAR  3666
+LP      0066
+LPT     5017
+LPTCIF  5056
+LPTNOR  5030
+LPTR    5027
+LSFIOT  6661
+MONSTR  0353
+MOREXI  4517
+MORINT  4442
+MOVCNT  3667
+NL0001  7201
+NL0002  7326
+NL0010  7215
+NL4000  7330
+NL7777  7240
+NOCONE  4073
+NOCONS  4023
+NOERRO  4151
+NOLCOM  4312
+NOLOVE  4274
+NORM03  4125
+NXT     4200
+NXTEST  4063
+NXTTES  4227
+O04MSK  0021
+O66MSK  0016
+OCHAR   0013
+OCHECK  4532
+OCOM    4125
+OCOMAG  4124
+OCOMLP  4131
+ODEV    0001
+ODISP   4165
+OEND    4200
+OENTRY  4527
+OEXIT   4622
+OFIELD  0040
+OG      4600
+OGENAB  0002
+OK      4603
+OKENAB  0003
+OL      4606
+OLENTR  4614
+OLIST   4156
+OLISTP  4145
+OLPT    0004
+OM      4610
+OMASK   4334
+OMVLUP  3656
+OP      4613
+OPRINT  0005
+OSTART  4124
+OSUB    4637
+OT      4616
+OTTY    0006
+OU      4620
+OUNPTR  0007
+OURINT  0000
+OUT     5000
+OUTCID  5015
+OUTCON  0033
+OUTDEV  0063
+OUTEMP  5127
+OUTEND  4234
+OUTEXI  5014
+OUTLPT  0035
+OUTLUP  4212
+OVCHAR  0014
+OVFLAG  0015
+OVICIF  4476
+OVIGNO  4510
+OVINT   4470
+P7600   0104
+PBASE   3601
+PDP     0002
+POCOMA  4646
+POPA    1413
+POUT    2645
+PREOCO  4300
+PREOMN  4315
+PROC    0611
+PUSHA   4542
+RECFIX  4634
+RECOVR  2740
+RECOVX  2761
+RETURN  5536
+SBOOT   7600
+SBTFUN  7602
+SCRSIZ  7611
+SEC03   4110
+SECLPT  5033
+SECTTY  5101
+SFA     0024
+SORTC   4550
+SORTCN  0054
+SPNOR   4560
+SYSIO   7640
+TCFIOT  6042
+TELSW   0016
+TERMS   1770
+TEST04  4254
+TEST66  4222
+TFLAG   0017
+TIEIOT  6045
+TLSIOT  6046
+TMP1    0022
+TMP2    0023
+TNORME  5107
+TPTR    5072
+TRYOUT  2673
+TSFIOT  6041
+TTINIT  5073
+TTY     5063
+TTYNOR  5074
+TTYTST  4511
+USECON  4251
+USELLP  4252
+USETCO  4270
+USETLP  4271
+XDYS    1142
+XINT    1160
+XIO     1142
+XIOMOR  0024
+XOUT    1150
+XRET    1152

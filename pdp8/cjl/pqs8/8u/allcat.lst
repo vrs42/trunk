@@ -1,0 +1,490 @@
+   1               /P?S/8 ALL CATALOGS MONITOR OVERLAY
+   2               
+   3               /       LAST EDIT:      07-OCT-1985     08:00:00        CJL
+   4               
+   5               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       UTILITY PROGRAM FOR IMPROVED TRANSFER RATE ON 8K (OR MORE) SYSTEMS.
+   8               
+   9               //      P?S/8 MONITOR DEFINITIONS.
+  10               
+  11                       CATADR= 7000                    /CATALOG ADDRESS
+  12                       CATCORE=0150                    /CATALOG ADDRESS POINTER
+  13                       CHLOOP= 1221                    /CHARACTER INPUT ROUTINE
+  14                       CMNDS=  2420                    /COMMAND TABLE
+  15                       CTCPZAP=2363                    /<^C> PRINT ZAP ADDRESS
+  16                       CTCZAP= 2365                    /<^C> ZAP ADDRESS
+  17                       DIR=    0015                    /DIRECTORY STARTS HERE
+  18                       FUDGE=  2156                    /FUDGE ROUTINE
+  19                       GETHAF= 0104                    /GET HALF WORD ROUTINE POINTER
+  20                       LODCAT= 0461                    /LOAD CATALOG ROUTINE
+  21                       L7600=  0113                    /CONSTANT 7600
+  22                       L7757=  0034                    /CONSTANT 7757
+  23                       L7772=  0013                    /CONSTANT 7772
+  24                       NEWBUF= 0400                    /SCRATCH ROUTINE
+  25                       PBEGIN= 0071                    /POINTER TO BEGIN ROUTINE
+  26                       PMOVE=  0127                    /POINTER TO MOVE ROUTINE
+  27                       PR6BIT= 0047                    /POINTER TO SIX-BIT PRINT ROUTINE
+  28                       PSCRSIZ=0170                    /POINTER TO SOFTWARE CORE SIZE WORD
+  29                       REWIND= 1335                    /REWIND ROUTINE
+  30                       RST=    0073                    /POINTER TO "EXTENDED COMMAND" STARTUP
+  31                       SAVCAT= 0661                    /SAVE CATALOG ROUTINE
+  32                       SCMORE=1414                     /EXTENDED COMMAND ADDRESS
+  33                       SCRIBE= 0171                    /POINTER TO PRINT TEXT ROUTINE
+  34                       SWAL=   7604                    /SWITCHES /A-/L
+  35                       SWAPIT= 0423                    /SWAP IT ROUTINE
+  36                       UNIT=   0000                    /MONITOR'S CURRENT UNIT NUMBER
+  37                       UNITIO= 0037                    /UNIT-ORIENTED I/O ROUTINES
+  38                       WHAT=   0111                    /POINTER TO WHAT ROUTINE
+  39                       WHATMOR=0057                    /WHATMORE ROUTINE
+  40                       WRITE=  4000                    /SYSIO WRITE BIT
+  41                       XGETHAF=0444                    /GET HALF WORD ROUTINE
+  42               
+  43               //      ADDITIONAL DEFINITIONS.
+  44               
+  45                       FIELD1= 4000                    /FIELD ONE CODE ADDRESS
+  46                       JMPIC=  JMP I   .               /CURRENT PAGE INDIRECT JUMP
+  47                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+  48                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+  49                       SRINST= JMP I   PBEGIN/[BEGIN]  /INSTRUCTION CONSTANT
+  50                      PAGE    14                      /WHERE IT LOADS
+  51               
+  52                       IFNZRO  .&177   <ERROR  .>
+  53               
+  54                       ALLCAT= .                       /ALLCAT SYSTEM STARTS HERE
+  55               
+  56 003000  0070  ALLCAT, 70/NOP                          /HERE IN CASE WE'RE CHAINED TO
+  57 003001  1377  CTCTM1, TAD     (XGETHAF&177+JMPIC)     /MAKE IT
+  58 003002  3776  CTCTM2, DCA I   (SWAPIT+11)             /COME BACK TO US
+  59 003003  1375          TAD     (NEXT)                  /SETUP OUR
+  60 003004  3504          DCA I   GETHAF/[XGETHAF]        /NEXT ADDRESS
+  61 003005  5774          JMP I   (SWAPIT)                /GO SWAP MONITOR BACK IN
+  62               
+  63 003006  1373  NEXT,   TAD     (SKP)                   /RESTORE THE
+  64 003007  3776          DCA I   (SWAPIT+11)             /ZAPPED INSTRUCTION
+  65 003010  1772          TAD I   (CTCZAP)                /GET CURRENT VALUE
+  66 003011  3201          DCA     CTCTM1                  /SAVE IT
+  67 003012  1771          TAD I   (CTCPZAP)               /GET CURRENT VALUE
+  68 003013  3202          DCA     CTCTM2                  /SAVE IT
+  69 003014  1772          TAD I   (CTCZAP)                /GET <^C> INSTRUCTION
+  70 003015  1370          TAD     (-SRINST)               /COMPARE TO POSSIBLE VALUE
+  71 003016  7640          SZA CLA                         /SKIP IF IT MATCHES
+  72 003017  5226          JMP     RTEST                   /JUMP IF IT DOESN'T
+  73 003020  1367          TAD     (JMP I  L7600/[SBOOT])  /GET REPLACEMENT VALUE
+  74 003021  3772          DCA I   (CTCZAP)                /ZAP IT IN
+  75 003022  7326          NL0002                          /SETUP "C" BIT MASK
+  76 003023  0570          AND I   PSCRSIZE/[SCRSIZE]      /GET THE "C" BIT
+  77 003024  7640          SZA CLA                         /SKIP IF OFF
+  78 003025  3771          DCA I   (CTCPZAP)               /ELSE PREVENT EXTRA <^C>
+  79 003026  1073  RTEST,  TAD     RST                     /GET EXECUTION WORD
+  80 003027  1366          TAD     (-SCMORE)               /COMPARE TO NORMAL VALUE
+  81 003030  7650          SNA CLA                         /SKIP IF OTHER
+  82 003031  5236          JMP     CTEST                   /JUMP IF IT MATCHES
+  83 003032  4447          JMS I   PR6BIT/[XPR6BIT]        /DO A <CR>, <LF>
+  84 003033  4571          JMS I   SCRIBE/[XSCRIBE]        /TELL THEM
+  85 003034  3235          BCHMSG                          /THEY CAN'T DO THAT
+  86 003035  5513          JMP I   L7600/[SBOOT]           /GOODBYE!
+  87 003036  1570  CTEST, TAD I   PSCRSIZE/[SCRSIZE]      /GET SOFTWARE CORE SIZE WORD
+  88 003037  0200          AND     ALLCAT/(70)             /JUST LCS BITS
+  89 003040  7640          SZA CLA                         /4K?
+  90 003041  5266          JMP     COROK                   /NO, KEEP GOING
+  91 003042  1765          TAD I   (SWAL)                  /GET SWITCHES /A-/L
+  92 003043  0364          AND     (1000)                  /JUST /C BIT
+  93 003044  7650          SNA CLA                         /SKIP IF SET
+  94 003045  5262          JMP     NOCORE                  /JUMP IF /C NOT SET
+  95 003046  1570          TAD I   PSCRSIZE/[SCRSIZE]      /GET SOFTWARE CORE SIZE WORD AGAIN
+  96 003047  0363          AND     (700)                   /JUST MCS BITS
+  97 003050  7640          SZA CLA                         /SKIP IF NO ADDITIONAL MEMORY AVAILABLE
+  98 003051  5266          JMP     COROK                   /ELSE OK TO USE 6K
+  99 003052  7326          NL0002                          /SETUP "C" BIT MASK
+ 100 003053  0570          AND I   PSCRSIZE/[SCRSIZE]      /GET THE "C" BIT
+ 101 003054  7640          SZA CLA                         /SKIP IF NO OVERLAY
+ 102 003055  5262          JMP     NOCORE                  /JUMP IF OVERLAY INSTALLED
+ 103 003056  1570          TAD I   PSCRSIZE/[SCRSIZE]      /GET SOFTWARE CORE SIZE WORD AGAIN
+ 104 003057  0150          AND     CATCORE/[7000]          /JUST PCS BITS
+ 105 003060  7640          SZA CLA                         /SKIP IF ONLY 4K
+ 106 003061  5266          JMP     COROK                   /JUMP IF MEMORY AVAILABLE
+ 107 003062  4447  NOCORE, JMS I   PR6BIT/[XPR6BIT]        /DO A <CR>, <LF>
+ 108 003063  4571          JMS I   SCRIBE/[XSCRIBE]        /\
+ 109 003064  3316          NOXMSG                          / >COMPLAIN OF NO EXTRA MEMORY
+ 110 003065  5513          JMP I   L7600/[SBOOT]           //
+ 111               
+ 112 003066  1034  COROK,  TAD     L7757/[REWBEG-REWEND]   /\
+ 113 003067  4527          JMS I   PMOVE/[MOVE]            / \MOVE DOWN CODE OVER
+ 114 003070  3200          REWZAP                          / /THE REWIND ROUTINE
+ 115 003071  1334          REWBEG                          //
+ 116 003072  1013          TAD     L7772/[LODCAT-LODEND]   /\
+ 117 003073  4527          JMS I   PMOVE/[MOVE]            / \MOVE DOWN THE MODIFIED
+ 118 003074  3227          LODZAP                          / /LOAD CATALOG ROUTINE
+ 119 003075  0461          LODCAT                          //
+ 120 003076  1013          TAD     L7772/[SAVCAT-SAVEND]   /\
+ 121 003077  4527          JMS I   PMOVE/[MOVE]            / \MOVE DOWN THE MODIFIED
+ 122 003100  3221          SAVZAP                          / /SAVE CATALOG ROUTINE
+ 123 003101  0661          SAVCAT                          //
+ 124 003102  1111          TAD     WHAT/[XWHAT]            /PREVENT
+ 125 003103  3762          DCA I   (CMNDS+45)              /"RU" COMMAND
+ 126 003104  1111          TAD     WHAT/[XWHAT]            /PREVENT
+ 127 003105  3761          DCA I   (CMNDS+47)              /"R" COMMAND
+ 128 003106  1111          TAD     WHAT/[XWHAT]            /PREVENT
+ 129 003107  3760          DCA I   (FUDGE)                 /EXTENDED COMMANDS
+ 130 003110  1357          TAD     (JMP I  PBEGIN/[BEGIN]) /RESET ALL ERRORS
+ 131 003111  3457          DCA I   WHATMORE/[XWHATMORE]    /AS HARMLESS
+ 132 003112  1741          TAD I   ADDR1                   /\
+ 133 003113  6211          CDF     10                      / \
+ 134 003114  3742          DCA I   ADDR2                   /  \
+ 135 003115  6201          CDF     00                      /   \MOVE DOWN THE
+ 136 003116  2341          ISZ     ADDR1                   /   /FIELD 1 ROUTINES
+ 137 003117  2342          ISZ     ADDR2                   /  /
+ 138 003120  2343          ISZ     ADRCNT                  / /
+ 139 003121  5312          JMP     .-7                     //
+ 140 003122  6212          CIF     10                      /GOTO FIELD 1
+ 141 003123  5756          JMP I   (DOSAVE)                /GO SAVE CURRENT CATALOG
+ 142               /      COMES HERE AFTER SAVING CURRENT CATALOG.
+ 143               
+ 144 003124  1355  AHERE,  TAD     (SAVCAT+5)              /GET ZAP INSTRUCTION
+ 145 003125  6211          CDF     10                      /GOTO CORRECT DATA FIELD
+ 146 003126  3754          DCA I   (RTRN)                  /ZAP IT IN FOR NORMAL OPERATION
+ 147 003127  6201          CDF     00                      /BACK TO FIELD 0
+ 148 003130  4447          JMS I   PR6BIT/[XPR6BIT]        /DO A <CR>, <LF>
+ 149 003131  4571          JMS I   SCRIBE/[XSCRIBE]        /TELL THEM
+ 150 003132  3276          INSMSG                          /WE ARE HERE
+ 151 003133  4447          JMS I   PR6BIT/[XPR6BIT]        /DO A <CR>, <LF>
+ 152 003134  1201          TAD     CTCTM1                  /GET SAVED VALUE
+ 153 003135  3772          DCA I   (CTCZAP)                /RESTORE IT
+ 154 003136  1202          TAD     CTCTM2                  /GET SAVED VALUE
+ 155 003137  3771          DCA I   (CTCPZAP)               /RESTORE IT
+ 156 003140  5753          JMP I   (NEWBUF)                /NOW START IT UP
+ 157               
+ 158 003141  3400  ADDR1,  LOADST                          /WHERE CODE TO BE MOVED IS
+ 159 003142  4000  ADDR2,  FIELD1                          /THIS IS IN FIELD 1
+ 160 003143  7600  ADRCNT, -200                            /MOVE THE WHOLE PAGE
+ 161               
+ 162 003153  0400          PAGE
+     003154  4013  
+     003155  0666  
+     003156  4005  
+     003157  5471  
+     003160  2156  
+     003161  2467  
+     003162  2465  
+     003163  0700  
+     003164  1000  
+     003165  7604  
+     003166  6364  
+     003167  5513  
+     003170  2307  
+     003171  2363  
+     003172  2365  
+     003173  7410  
+     003174  0423  
+     003175  3006  
+     003176  0434  
+     003177  5644  
+ 163               REWZAP,        RELOC   REWIND-1        /WHERE IT GOES
+ 164               
+ 165 001334* 4030  REWBEG, CLOSE                   /WHERE TO GO TO
+ 166               
+ 167 001335* 6212  REWIND, CIF     10              /CLOSE OUT AN ENTRY
+ 168 001336* 5734          JMP I   .-2/(CLOSE)     /IN THE SAVED CATALOG
+ 169               
+ 170 001337* 0000  ASVCAT, .-.                     /\
+ 171 001340* 4037          JMS     UNITIO          / \
+ 172 001341* 7000          CATADR                  /  \
+ 173 001342* 4200          2^100+WRITE+.-.         /   >WRITE OUT CATALOG AND RETURN TO FIELD 1
+ 174 001343* 0015          DIR                     /  /
+ 175 001344* 6212          CIF     10              / /
+ 176 001345* 5737          JMP I   ASVCAT          //
+ 177                
+ 178 001346* 0000  ALDCAT, .-.                     /\
+ 179 001347* 4037          JMS     UNITIO          / \
+ 180 001350* 7000          CATADR                  /  \
+ 181 001351* 0200          2^100+.-.               /   >READ IN CATALOG AND RETURN TO FIELD 1
+ 182 001352* 0015          DIR                     /  /
+ 183 001353* 6212          CIF     10              / /
+ 184 001354* 5746          JMP I   ALDCAT          //
+ 185                
+ 186               REWEND, RELOC                   /END OF REWIND ZAP
+ 187               
+ 188                       IFNZRO  REWEND-REWBEG+7757      <ERROR  .>
+ 189               
+ 190               SAVZAP, RELOC   SAVCAT          /WHERE IT GOES
+ 191                
+ 192 000661* 0000  SAVCAT, .-.                     /\
+ 193 000662* 7300          CLA CLL                 / \
+ 194 000663* 6212          CIF     10              /  \ZAP SAVCAT
+ 195 000664* 5665          JMP I   .+1/(DOSAVE)    /  /ROUTINE
+ 196 000665* 4005          DOSAVE                  / /
+ 197 000666* 5661          JMP I   SAVCAT          //
+ 198                
+ 199               SAVEND, RELOC                   /END OF SAVCAT ZAP
+ 200               
+ 201                       IFNZRO  SAVEND-SAVCAT+7772      <ERROR  .>
+ 202               
+ 203               LODZAP, RELOC   LODCAT          /WHERE THIS GOES
+ 204               
+ 205 000461* 0000  LODCAT, .-.                     /\
+ 206 000462* 7300          CLA CLL                 / \
+ 207 000463* 6212          CIF     10              /  \ZAP LODCAT
+ 208 000464* 5665          JMP I   .+1/(DOLOAD)    /  /ROUTINE
+ 209 000465* 4000          DOLOAD                  / /
+ 210 000466* 5661          JMP I   LODCAT          //
+ 211                
+ 212               LODEND, RELOC                   /END OF LODCAT ZAP
+ 213               
+ 214                       IFNZRO  LODEND-LODCAT+7772      <ERROR  .>
+ 215 003235  0114  BCHMSG,        TEXT    "ALL CATALOGS UTILITY NOT ALLOWED FROM BATCH UNLESS /E SWITCH SET!"
+     003236  1440  
+     003237  0301  
+     003240  2401  
+     003241  1417  
+     003242  0723  
+     003243  4025  
+     003244  2411  
+     003245  1411  
+     003246  2431  
+     003247  4016  
+     003250  1724  
+     003251  4001  
+     003252  1414  
+     003253  1727  
+     003254  0504  
+     003255  4006  
+     003256  2217  
+     003257  1540  
+     003260  0201  
+     003261  2403  
+     003262  1040  
+     003263  2516  
+     003264  1405  
+     003265  2323  
+     003266  4057  
+     003267  0540  
+     003270  2327  
+     003271  1124  
+     003272  0310  
+     003273  4023  
+     003274  0524  
+     003275  4100  
+ 216 003276  3301  INSMSG, TEXT    "[ALL CATALOGS OVERLAY ENABLED]";0
+     003277  1414  
+     003300  4003  
+     003301  0124  
+     003302  0114  
+     003303  1707  
+     003304  2340  
+     003305  1726  
+     003306  0522  
+     003307  1401  
+     003310  3140  
+     003311  0516  
+     003312  0102  
+     003313  1405  
+     003314  0435  
+     003315  0000  
+ 217 003316  0104  NOXMSG,        TEXT    "ADDITIONAL MEMORY IS REQUIRED FOR ALL CATALOGS OVERLAY!"
+     003317  0411  
+     003320  2411  
+     003321  1716  
+     003322  0114  
+     003323  4015  
+     003324  0515  
+     003325  1722  
+     003326  3140  
+     003327  1123  
+     003330  4022  
+     003331  0521  
+     003332  2511  
+     003333  2205  
+     003334  0440  
+     003335  0617  
+     003336  2240  
+     003337  0114  
+     003340  1440  
+     003341  0301  
+     003342  2401  
+     003343  1417  
+     003344  0723  
+     003345  4017  
+     003346  2605  
+     003347  2214  
+     003350  0131  
+     003351  4100  
+ 218                      PAGE                    /GET TO NEXT PAGE
+ 219               
+ 220               LOADST, NOPUNCH                 /STOP BINARY OUTPUT
+ 221               
+ 222                       FIELD   1               /WHERE IT GOES
+ 223               
+ 224                       *LOADST                 /RESTORE ORIGIN
+ 225               
+ 226                       ENPUNCH                 /RESTORE BINARY OUTPUT
+ 227               
+ 228                       RELOC   FIELD1          /WHERE IT GOES
+ 229               
+ 230 014000* 4214  DOLOAD, JMS     ACHECK          /CHECK FOR EXISTENCE
+ 231 014001* 7120          STL                     /IF RETURN IS TO HERE,MOVE THE OTHER WAY
+ 232 014002* 4241          JMS     AMVCAT          /MOVE A CATALOG (MAYBE A NEW ONE)
+ 233 014003* 6202          CIF     00              /BACK TO FIELD 0
+ 234 014004* 5777          JMP I   (LODCAT+5)      /RETURN TO THE MONITOR
+ 235               
+ 236 014005* 4214  DOSAVE, JMS     ACHECK          /FORCE ON EXISTENCE
+ 237 014006* 7000  A7000,  NOP                     /DON'T CARE
+ 238 014007* 7240          NL7777                  /INDICATE SAVE CATALOG OPERATION
+ 239 014010* 4241          JMS     AMVCAT          /MOVE CATALOG
+ 240 014011* 6202          CIF     00              /\
+ 241 014012* 5613          JMP I   .+1             / >RETURN TO EDITOR
+ 242 014013* 3124  RTRN,   AHERE                   //
+ 243               
+ 244 014014* 0000  ACHECK, .-.                     /EXISTENCE CHECK ROUTINE
+ 245 014015* 1376          TAD     (ISZ    AINTBL) /GET BASE INSTRUCTION
+ 246 014016* 1775          TAD I   (UNIT)          /ADD ON UNIT OFFSET
+ 247 014017* 3220          DCA     .+1             /STORE IN-LINE
+ 248 014020* 0000          .-.                     /WILL BE ISZ AINTBL+0-7
+ 249 014021* 2214          ISZ     ACHECK          /SKIP RETURN IF OLD CATALOG
+ 250 014022* 1775          TAD I   (UNIT)          /GET UNIT
+ 251 014023* 7112          CLL RTR;RTR;RAR         /*400
+     014024* 7012  
+     014025* 7010  
+ 252 014026* 3277          DCA     AF1             /STORE CATALOG STORAGE ADDRESS
+ 253 014027* 5614          JMP I   ACHECK          /RETURN WITH CLEAR LINK
+ 254               
+ 255 014030* 6202  CLOSE,  CIF     00              /BACK TO FIELD 0
+ 256 014031* 4774          JMS I   (ASVCAT)        /SAVE THE CATALOG
+ 257 014032* 1373          TAD     (DCA    AINTBL) /GET BASE STORING INSTRUCTION
+ 258 014033* 1775          TAD I   (UNIT)          /ADD ON UNIT OFFSET
+ 259 014034* 3236          DCA     .+2             /STORE IN-LINE
+ 260 014035* 7240          NL7777                  /GET RESET VALUE
+ 261 014036* 0000          .-.                     /WILL BE DCA AINTBL+0-7
+ 262 014037* 6202          CIF     00              /BACK TO FIELD 0
+ 263 014040* 5772          JMP I   (CHLOOP)        /GO GET MORE INPUT
+ 264 014041* 0000  AMVCAT,        .-.                     /CATALOG MOVING ROUTINE
+ 265 014042* 7640          SZA CLA                 /SKIP IF LOADING
+ 266 014043* 5250          JMP     SAVIT           /SAVE A CATALOG
+ 267 014044* 7420          SNL                     /SKIP IF NOT IN BUFFER YET
+ 268 014045* 5251          JMP     ALOOP           /OK TO MOVE IT
+ 269 014046* 6202          CIF     00              /BACK TO FIELD 0
+ 270 014047* 4771          JMS I   (ALDCAT)        /LOAD NEW CATALOG INTO FIELD 0
+ 271 014050* 7120  SAVIT,  STL                     /INDICATE MOVE TO FIELD 1 BUFFER
+ 272 014051* 7420  ALOOP,  SNL                     /SKIP IF NOT IN BUFFER YET
+ 273 014052* 5257          JMP     ABACK           /JUMP IF WE HAVE IT
+ 274 014053* 1676          TAD I   AF0             /\
+ 275 014054* 6211          CDF     10              / \MOVE CATALOG FROM
+ 276 014055* 3677          DCA I   AF1             / /07000 TO 1XXXX
+ 277 014056* 5263          JMP     ACOM            //
+ 278               
+ 279 014057* 6211  ABACK,  CDF     10              /\
+ 280 014060* 1677          TAD I   AF1             / \MOVE CATALOG FROM
+ 281 014061* 6201          CDF     00              / /1XXXX TO 07000
+ 282 014062* 3676          DCA I   AF0             //
+ 283 014063* 6201  ACOM,   CDF     00              /MAKE SURE FIELD 0
+ 284 014064* 2276          ISZ     AF0             /BUMP FIELD 0 POINTER
+ 285 014065* 2277          ISZ     AF1             /BUMP FIELD 1 POINTER
+ 286 014066* 2275          ISZ     AMVCNT          /DONE YET?
+ 287 014067* 5251          JMP     ALOOP           /NO
+ 288 014070* 1206          TAD     A7000/(CATADR)  /YES,
+ 289 014071* 3276          DCA     AF0             /RESET POINTERS
+ 290 014072* 1370          TAD     (-400)          /FOR
+ 291 014073* 3275          DCA     AMVCNT          /NEXT TIME
+ 292 014074* 5641          JMP I   AMVCAT          /RETURN
+ 293               
+ 294 014075* 7400  AMVCNT, 7400                    /PRESET TO 7400
+ 295 014076* 7000  AF0,    CATADR                  /PRESET TO 7000
+ 296 014077* 0000  AF1,    0000                    /0000-3400 ACCORDING TO UNIT
+ 297               
+ 298 014100* 7777  AINTBL, -1                      /\
+ 299 014101* 7777          -1                      / \
+ 300 014102* 7777          -1                      /  \
+ 301 014103* 7777          -1                      /   \EMPTY
+ 302 014104* 7777          -1                      /   /CATALOGS
+ 303 014105* 7777          -1                      /  /
+ 304 014106* 7777          -1                      / /
+ 305 014107* 7777          -1                      //
+ 306 014170* 7400         PAGE
+     014171* 1346  
+     014172* 1221  
+     014173* 3300  
+     014174* 1337  
+     014175* 0000  
+     014176* 2300  
+     014177* 0466  
+ 307               
+ 308                       RELOC                   /RESTORE ORIGIN
+ 309               
+ 310                       $                       /THAT'S ALL FOLK!
+
+A7000   4006
+ABACK   4057
+ACHECK  4014
+ACOM    4063
+ADDR1   3141
+ADDR2   3142
+ADRCNT  3143
+AF0     4076
+AF1     4077
+AHERE   3124
+AINTBL  4100
+ALDCAT  1346
+ALLCAT  3000
+ALOOP   4051
+AMVCAT  4041
+AMVCNT  4075
+ASVCAT  1337
+BCHMSG  3235
+CATADR  7000
+CATCOR  0150
+CHLOOP  1221
+CLOSE   4030
+CMNDS   2420
+COROK   3066
+CTCPZA  2363
+CTCTM1  3001
+CTCTM2  3002
+CTCZAP  2365
+CTEST   3036
+DIR     0015
+DOLOAD  4000
+DOSAVE  4005
+FIELD1  4000
+FUDGE   2156
+GETHAF  0104
+INSMSG  3276
+JMPIC   5600
+L7600   0113
+L7757   0034
+L7772   0013
+LOADST  3400
+LODCAT  0461
+LODEND  0467
+LODZAP  3227
+NEWBUF  0400
+NEXT    3006
+NL0002  7326
+NL7777  7240
+NOCORE  3062
+NOXMSG  3316
+PBEGIN  0071
+PMOVE   0127
+PR6BIT  0047
+PSCRSI  0170
+REWBEG  1334
+REWEND  1355
+REWIND  1335
+REWZAP  3200
+RST     0073
+RTEST   3026
+RTRN    4013
+SAVCAT  0661
+SAVEND  0667
+SAVIT   4050
+SAVZAP  3221
+SCMORE  1414
+SCRIBE  0171
+SRINST  5471
+SWAL    7604
+SWAPIT  0423
+UNIT    0000
+UNITIO  0037
+WHAT    0111
+WHATMO  0057
+WRITE   4000
+XGETHA  0444

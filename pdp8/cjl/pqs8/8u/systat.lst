@@ -1,0 +1,1758 @@
+   1               /       P?S/8 SYSTEM STATUS COMMAND
+   2               
+   3               /       LAST EDIT:      28-DEC-1986     03:00:00        CJL
+   4               
+   5               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       THIS PROGRAM PRINTS OUT SUNDRY INFORMATION ABOUT P?S/8 AND THE MACHINE
+   8               /       IT IS RUNNING ON.
+   9               
+  10               /       PROGRAM OPTIONS.
+  11               
+  12               /       /F      OUTPUT <FF> CHARACTER AS PAGE DELIMITER. DEFAULT IF OUTPUT IS TO
+  13               /               THE SYSTEM LINE-PRINTER. IF NOT INVOKED AND OUTPUT IS TO THE
+  14               /               CONSOLE TERMINAL, USE HASH LINE AS PAGE DELIMITER.
+  15               
+  16               /       /N      NO PAGE DELIMITERS.
+  17               
+  18               /       /T      OUTPUT TO CONSOLE TERMINAL. DEFAULT IS TO USE THE LINE-PRINTER
+  19               /               IF AVAILABLE ELSE THE CONSOLE TERMINAL.
+  20               
+  21               /       /U      OUTPUT IN UPPER CASE ONLY. DEFAULT IS UPPER/LOWER CASE OUTPUT.
+  22               
+  23               /       PROGRAM MESSAGES.
+  24               
+  25               /       RUNNING SYSTAT PRODUCES THE FOLLOWING OUTPUT:
+  26               
+  27               /       P?S/8 SYSTEM STATUS  SYSTAT V10C  MONDAY 17-NOV-86  VERSION.REVISION,DAY,DATE
+  28               
+  29               /       SYSTEM:          TC08:7 (01)                        DEVICE.UNIT,SYSTEM NUMBER
+  30               
+  31               /       VERSION:         8.1                                P?S/8 VERSION.REVISION
+  32               
+  33               /       CONSOLE:         KL8ESP:0 (41) (DISABLED)           OVERLAY.UNIT,NUMBER,ACTIVITY
+  34               
+  35               /       CPU TYPE:        PDP-8/E                            BASIC MACHINE TYPE
+  36               
+  37               /       PHYSICAL MEMORY: 32K                                PHYSICAL CORE SIZE
+  38               
+  39               /       MAXIMUM MEMORY:  28K (LIMITED BY SYSTEM)            MAXIMUM CORE SIZE,LIMITATION
+  40               
+  41               /       LOGICAL MEMORY:  4K                                 LOGICAL CORE SIZE
+  42               
+  43               /       EAE:             NOT INSTALLED                      (OR AVAILABILITY)
+  44               
+  45               /       HANDLER INFORMATION:
+  46               
+  47               /       NAME    BLOCK  LENGTH  ENTRY  BLOCK SIZE            HEADER
+  48               
+  49               /       [SPECIFIC HANDLER INFORMATION HERE AS NECESSARY]
+  50               /       <FREE>  BBBB     NN                                 FIRST FREE HANDLER BLOCK,SIZE
+  51               
+  52               /       FREE SLOTS:      NN                                 FREE HANDLER SLOTS
+  53               /      DEFINITIONS.
+  54               
+  55                       BSGRP=  0003                    /CURRENT BASE YEAR GROUP VALUE
+  56                       CHAR=   0020                    /MONITOR'S INPUT BUFFER (WHERE VERSION IS)
+  57                       COM=    0017                    /COMPLEMENT AC
+  58                       HANDBLK=0122                    /HANDLER INFORMATION BLOCK
+  59                       HANDMAX=0040                    /NUMBER OF BLOCKS TO HOLD HANDLERS (MAXIMUM)
+  60                       HIDWRD= 7600                    /SYSTEM HANDLER ID NUMBER WORD
+  61                       IAAC=   6171                    /"A" REGISTER TO AC
+  62                       IACA=   6167                    /AC TO "A" REGISTER
+  63                       INCON=  0031                    /EQUATED FROM CONSOLE!
+  64                       JMSC=   JMS     .               /CURRENT PAGE JMS INSTRUCTION
+  65                       LINC=   6141                    /GOTO LINC MODE
+  66                       LPT=    0066                    /SYSTEM LPT: DEVICE CODE
+  67                       MUY=    7405                    /MULTIPLY
+  68                       NL0001= CLA IAC                 /LOAD AC WITH 0001
+  69                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+  70                       NL0010= CLA IAC RAL RAR         /LOAD AC WITH 0010
+  71                       NL0100= CLA IAC BSW             /LOAD AC WITH 0100
+  72                       NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000
+  73                       NL3776= CLA CLL CMA RAR RAL     /LOAD AC WITH 3776
+  74                       NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+  75                       NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+  76                       NL7776= CLA CLL CMA RAL         /LOAD AC WITH 7776
+  77                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+  78                       OUTCON= 0033                    /EQUATED FROM CONSOLE!
+  79                       OUTLPT= 0035                    /EQUATED FROM CONSOLE!
+  80                       OVID=   0106                    /OVERLAY ID
+  81                       OVRBLK= 2571                    /OVERLAY BLOCK
+  82                       OVRFUN= 2570                    /OVERLAY RELOAD FUNCTION
+  83                       OVRWRD= 0111                    /OVERLAY ID WORD
+  84                       PDP=    0002                    /GOTO PDP-8 MODE
+  85                       REVISIO="D&77                   /REVISION OF SYSTAT
+  86                       SBTFUN= 7602                    /SYSTEM BOOTSTRAP UNIT WORD
+  87                       SCRSIZE=7611                    /SYSTEM CORE SIZE WORD
+  88                       SDATE=  7610                    /SYSTEM DATE WORD
+  89                       SWAL=   7604                    /SWITCHES /A-/L
+  90                       SWBA=   7447                    /SWITCH TO MODE "A" EAE
+  91                       SWMX=   7605                    /SWITCHES /M-/X
+  92                       SYSIO=  7640                    /SYSTEM I/O ROUTINES ENTRY POINT
+  93                       TRPBLK= 0113                    /I/O TRAP BLOCKS
+  94                       TTY=    0003                    /SYSTEM CONSOLE DEVICE CODE
+  95                       VERSION=12                      /VERSION OF SYSTAT
+  96               /      DEPENDENT DEFINITIONS.
+  97               
+  98                       JMSSYSI=SYSIO&177+JMSC  /CALL TO SYSIO FROM ITS PAGE
+  99                       KCCIOT= TTY^10+6002     /CLEAR KEYBOARD FLAG
+ 100                       KRBIOT= TTY^10+6006     /READ KEYBOARD BUFFER, CLEAR FLAG
+ 101                       KRSIOT= TTY^10+6004     /READ KEYBOARD BUFFER
+ 102                       KSFIOT= TTY^10+6001     /SKIP ON KEYBOARD FLAG
+ 103                       LLSIOT= LPT^10+6006     /LOAD LPT: SEQUENCE
+ 104                       LPTCALL=JMS     OUTLPT  /LOGICAL LPT: CALL
+ 105                       LSFIOT= LPT^10+6001     /SKIP ON LPT: FLAG
+ 106                       TLSIOT= TTY+1^10+6006   /LOAD TELEPRINTER SEQUENCE
+ 107                       TSFIOT= TTY+1^10+6001   /SKIP ON TELEPRINTER FLAG
+ 108                      *0                      /START AT THE BEGINNING
+ 109               
+ 110 000000  0000  BLK,    .-.                     /LATEST HANDLER BLOCK
+ 111 000001  0000  OCTEMP, .-.                     /OCTAL PRINTOUT TEMPORARY
+ 112 000002  0000  PTR,    .-.                     /HANDLER INFORMATION POINTER
+ 113 000003  0000  QUO,    .-.                     /DIVIDE QUOTIENT
+ 114 000004  0000  REM,    .-.                     /DIVIDE REMAINDER
+ 115 000005  0000  TEMP,   .-.                     /TEMPORARY
+ 116               
+ 117                       *10                     /DEFINE AUTO-INDEX AREA
+ 118               
+ 119 000010  0000  XR1,    .-.                     /AUTO-INDEX NUMBER ONE
+ 120 000011  0000  XR2,    .-.                     /AUTO-INDEX NUMBER TWO
+ 121 000012  0000  CTLTMP, .-.                     /TEMPORARY
+ 122 000013  0000  DAYPTR, .-.                     /DAY OF THE WEEK MESSAGE POINTER
+ 123 000014  0000  ECHOSW, 0                       /ECHO SWITCH
+ 124 000015  7776  LINCNT, -2                      /LINE COUNTER
+ 125 000016  0055  LSEP,   "-&77                   /*** LPT: **** <FF>
+ 126 000017  0000  P7TEMP, .-.                     /PRINTING TEMPORARY
+ 127               
+ 128                       *20                     /GET PAST AUTO-INDEX AREA
+ 129               
+ 130 000020  0000  CHKUP,  .-.                     /CHECK FOR <^C>, ETC. ROUTINE
+ 131 000021  4075          JMS     CTLCTST         /CHECK FOR <^C>, ETC.
+ 132 000022  1177          TAD     [-"O!300]       /COMPARE TO <^O>
+ 133 000023  7450          SNA                     /SKIP IF DIFFERENT
+ 134 000024  5035          JMP     DOUO            /JUMP IF IT MATCHES
+ 135 000025  1176          TAD     [-"S+"O]        /COMPARE TO <^S>
+ 136 000026  7640  PSYSIO, SZA CLA                 /SKIP IF IT MATCHES
+ 137 000027  5420          JMP I   CHKUP           /RETURN IF NOT
+ 138 000030  4075          JMS     CTLCTST         /CHECK FOR <^C>, ETC.
+ 139 000031  1175          TAD     [-"Q!300]       /COMPARE TO <^Q>
+ 140 000032  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 141 000033  5030          JMP     .-3             /JUMP IF NOT
+ 142 000034  5420          JMP I   CHKUP           /RETURN IF SO
+ 143               
+ 144 000035  1174  DOUO,   TAD     ["^&177]        /GET AN "^"
+ 145 000036  4067          JMS     P7OUT           /PRINT IT
+ 146 000037  1173          TAD     ["O&177]        /GET AN "O"
+ 147 000040  4067          JMS     P7OUT           /PRINT IT
+ 148 000041  7330          NL4000                  /SET INVERSION BIT
+ 149 000042  1014          TAD     ECHOSW          /INVERT ECHO STATUS
+ 150 000043  3014          DCA     ECHOSW          /STORE IT BACK
+ 151 000044  5420          JMP I   CHKUP           /RETURN
+ 152               
+ 153 000045  0000  IOREAD, .-.                     /I/O SUBROUTINE
+ 154 000046  4426          JMS I   PSYSIO/[SYSIO]  /CALL I/O ROUTINES
+ 155 000047  3000          IOBUFFER                /TRANSFER ADDRESS
+ 156 000050  0000  IOFUN,  .-.                     /FUNCTION WILL BE FILLED IN
+ 157 000051  0000  IOBLK,  .-.                     /BLOCK WILL BE FILLED IN
+ 158 000052  5445          JMP I   IOREAD          /RETURN
+ 159 000053  0000  P7CH,  .-.                     /SEVEN-BIT PRINT ROUTINE
+ 160 000054  3017          DCA     P7TEMP          /SAVE PASSED VALUE
+ 161 000055  4020  P7AGN,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 162 000056  1014          TAD     ECHOSW          /GET ECHO SWITCH
+ 163 000057  7710          SPA CLA                 /SKIP IF ECHO ON
+ 164 000060  5065          JMP     P7OFF           /ELSE FORGET IT
+ 165 000061  1017          TAD     P7TEMP          /GET THE VALUE
+ 166 000062  6041  P7TSF,  TSFIOT                  /**** LPT: **** LSFIOT
+ 167                                               /**** CONSOLE **** CIF MCS+10
+ 168                                               /**** LOGLPT: **** CIF MCS+10
+ 169 000063  5055  P7JMP,  JMP     P7AGN           /**** LPT: **** JMP P7AGN
+ 170                                               /**** CONSOLE **** JMS OUTCON
+ 171                                               /**** LOGLPT: **** JMS OUTLPT
+ 172 000064  6046  P7TLS,  TLSIOT                  /**** LPT: **** LLSIOT
+ 173                                               /**** CONSOLE **** JMP P7AGN
+ 174                                               /**** LOGLPT: **** JMP P7AGN
+ 175 000065  4020  P7OFF,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 176 000066  5453          JMP I   P7CH            /RETURN
+ 177               
+ 178 000067  0000  P7OUT,  .-.                     /DEDICATED OUTPUT ROUTINE
+ 179 000070  6041  P7OTSF, TSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 180 000071  5070  P7OJMP, JMP     P7OTSF          /**** CONSOLE **** JMS OUTCON
+ 181 000072  6046  P7OTLS, TLSIOT                  /**** CONSOLE **** JMP P7OTSF
+ 182 000073  7600  L7600,  CLA!400                 /CLEAN UP
+ 183 000074  5467          JMP I   P7OUT           /RETURN
+ 184               
+ 185 000075  0000  CTLCTST,.-.                     /TEST FOR <^C>, ETC.
+ 186 000076  7200          CLA                     /CLEAN UP
+ 187 000077  6031  CHKKSF, KSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 188 000100  5475  CHKJMP, JMP I   CTLCTST         /**** CONSOLE **** JMS INCON
+ 189 000101  6034  CHKKRS, KRSIOT/OR KRBIOT        /**** CONSOLE **** JMP I CTLCTST
+ 190 000102  0172          AND     [177]           /JUST SEVEN-BIT
+ 191 000103  3012          DCA     CTLTMP          /SAVE IT
+ 192 000104  7346          NL7775                  /-3
+ 193 000105  1012          TAD     CTLTMP          /COMPARE TO CHARACTER
+ 194 000106  7450          SNA                     /SKIP IF NOT <^C>
+ 195 000107  2571          ISZ I   [SCRSIZE]       /ELSE SET SOFT INDICATOR
+ 196 000110  7750          SPA SNA CLA             /SKIP IF GREATER THAN <^C>
+ 197 000111  5473          JMP I   L7600/[SBOOT]   /ELSE GET OUT OF HERE
+ 198 000112  6032  CHKKCC, KCCIOT/OR 0000          /**** CONSOLE **** 0000
+ 199 000113  1012          TAD     CTLTMP          /GET THE CHARACER
+ 200 000114  5475          JMP I   CTLCTST         /RETURN
+ 201                      PAGE
+ 202               
+ 203                       SYSTAT= .                       /SYSTAT PROGRAM STARTS HERE
+ 204               
+ 205                       IFNZRO  .&177   <ERROR  .>
+ 206 000200  7000  SYSTAT, NOP                             /HERE IN CASE CHAINED TO
+ 207 000201  4777          JMS I   (INITIALIZE)            /DO ONCE-ONLY CODE, ETC.
+ 208 000202  7332          NL2000                          /SET /N MASK
+ 209 000203  0570          AND I   [SWMX]                  /GET THE /N BIT
+ 210 000204  7650          SNA CLA                         /SKIP IF SET
+ 211 000205  4776          JMS I   (NEWPAGE)               /ELSE DO NEW PAGE EJECT
+ 212 000206  4567          JMS I   [SCRIBE]                /TELL THEM
+ 213 000207  2006          BLURB                           /OUR OPENING BLURB
+ 214 000210  1013          TAD     DAYPTR                  /GET DAY OF THE WEEK
+ 215 000211  3213          DCA     .+2                     /STORE IN-LINE
+ 216 000212  4567          JMS I   [SCRIBE]                /TELL THEM
+ 217 000213  0000          .-.                             /WHAT DAY TODAY IS
+ 218 000214  4567          JMS I   [SCRIBE]                /TELL THEM
+ 219 000215  2152          DATMSG                          /TODAY'S DATE
+ 220 000216  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 221 000217  2561          SYSMSG                          /SYSTEM MESSAGE
+ 222 000220  1775          TAD I   (SBTFUN)                /GET BOOTSTRAP FUNCTION
+ 223 000221  0166          AND     [7]                     /JUST UNIT BITS
+ 224 000222  1165          TAD     [1^100]                 /TURN INTO READ
+ 225 000223  3050          DCA     IOFUN                   /STORE THE FUNCTION
+ 226 000224  1374          TAD     (TRPBLK)                /POINT TO TRAP BLOCKS
+ 227 000225  3051          DCA     IOBLK                   /STORE IN I/O CALL
+ 228 000226  4045          JMS     IOREAD                  /CALL I/O ROUTINES TO READ IN FIRST TRAP BLOCK
+ 229 000227  1773          TAD I   (HIDWRD+1&177+IOBUFFER) /GET FIRST DEVICE NAME PAIR
+ 230 000230  3772          DCA I   (DVNMSG+1)              /STORE IN MESSAGE
+ 231 000231  1771          TAD I   (HIDWRD+2&177+IOBUFFER) /GET SECOND DEVICE NAME PAIR
+ 232 000232  3770          DCA I   (DVNMSG+2)              /STORE IN MESSAGE
+ 233 000233  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 234 000234  2250          DVNMSG                          /DEVICE NAME MESSAGE
+ 235 000235  1367          TAD     (":&177)                /GET A ":"
+ 236 000236  4053          JMS     P7CH                    /PRINT IT
+ 237 000237  1775          TAD I   (SBTFUN)                /GET BOOTSTRAP FUNCTION
+ 238 000240  4564          JMS I   [PRDIGIT]               /PRINT BOOTSTRAP UNIT
+ 239 000241  4567          JMS I   [SCRIBE]                /PRINT THE
+ 240 000242  2543          SEPMSG                          /SEPARATION MESSAGE
+ 241 000243  1766          TAD I   (HIDWRD&177+IOBUFFER)   /GET SYSTEM NUMBER
+ 242 000244  4563          JMS I   [P2OCT]                 /PRINT IT
+ 243 000245  4567          JMS I   [SCRIBE]                /PRINT THE
+ 244 000246  2267          ENDMSG                          /ENDING MESSAGE
+ 245 000247  4567         JMS I   [SCRIBE]                /PRINT THE
+ 246 000250  2573          VERMSG                          /VERSION MESSAGE
+ 247 000251  1365          TAD     (CHAR%200+1)            /SETUP FOR
+ 248 000252  3051          DCA     IOBLK                   /I/O READ
+ 249 000253  4045          JMS     IOREAD                  /READ IN BLOCK CONTAINING VERSION
+ 250 000254  1764          TAD I   (CHAR&177+IOBUFFER)     /GET THE VERSION
+ 251 000255  7012          RTR;RTR;RTR                     /MOVE DOWN HIGH-ORDER
+     000256  7012  
+     000257  7012  
+ 252 000260  0162          AND     [77]                    /JUST CHARACTER BITS
+ 253 000261  4561          JMS I   [P6CH]                  /PRINT IT
+ 254 000262  1764          TAD I   (CHAR&177+IOBUFFER)     /GET IT AGAIN
+ 255 000263  0162          AND     [77]                    /JUST REVISION BITS
+ 256 000264  1363          TAD     (-":!200)               /ADD ON UPPER LIMIT
+ 257 000265  7100          CLL                             /CLEAR LINK FOR TEST
+ 258 000266  1362          TAD     (":-"0)                 /ADD ON RANGE
+ 259 000267  7620          SNL CLA                         /SKIP IF A DIGIT
+ 260 000270  5273          JMP     .+3                     /ELSE DON'T PRINT A "."
+ 261 000271  1361          TAD     (".&177)                /GET A "."
+ 262 000272  4053          JMS     P7CH                    /PRINT IT
+ 263 000273  1764          TAD I   (CHAR&177+IOBUFFER)     /GET THE REVISION
+ 264 000274  4561          JMS I   [P6CH]                  /PRINT IT
+ 265 000275  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 266 000276  2032          CONMSG                          /CONSOLE MESSAGE
+ 267 000277  1360          TAD     (OVRBLK%200+1)          /SETUP FOR
+ 268 000300  3051          DCA     IOBLK                   /OVERLAY-AFFECTED BLOCK READ
+ 269 000301  4045          JMS     IOREAD                  /READ IN THE BLOCK
+ 270 000302  1757          TAD I   (OVRFUN&177+IOBUFFER)   /GET THE READ FUNCTION
+ 271 000303  0166          AND     [7]                     /JUST UNIT BITS
+ 272 000304  1165          TAD     [1^100]                 /MAKE IT A ONE PAGE READ
+ 273 000305  3050          DCA     IOFUN                   /STORE IN I/O CALL
+ 274 000306  1756          TAD I   (OVRBLK&177+IOBUFFER)   /GET THE BLOCK NUMBER OF OVERLAY
+ 275 000307  7450          SNA                             /SKIP IF VALID
+ 276 000310  5326          JMP     CONDEFAULT              /JUMP IF NOT
+ 277 000311  3051          DCA     IOBLK                   /STORE FOR OVERLAY READ
+ 278 000312  4045          JMS     IOREAD                  /READ IN OVERLAY HEADER
+ 279 000313  1755          TAD I   (OVID&177+IOBUFFER)     /GET FIRST OVERLAY NAME PAIR
+ 280 000314  7450          SNA                             /SKIP IF VALID
+ 281 000315  5326          JMP     CONDEFAULT              /JUMP IF NOT
+ 282 000316  3754          DCA I   (OVIDMSG+1)             /STORE IN MESSAGE
+ 283 000317  1753          TAD I   (OVID+1&177+IOBUFFER)   /GET SECOND OVERLAY NAME PAIR
+ 284 000320  3752          DCA I   (OVIDMSG+2)             /STORE IN MESSAGE
+ 285 000321  1751          TAD I   (OVID+2&177+IOBUFFER)   /GET THIRD OVERLAY NAME PAIR
+ 286 000322  3750          DCA I   (OVIDMSG+3)             /STORE IN MESSAGE
+ 287 000323  4567          JMS I   [SCRIBE]                /GIVE THEM
+ 288 000324  2536          OVIDMSG                         /THE OVERLAY NAME
+ 289 000325  5747          JMP I   (OVCOMMON)              /CONTINUE THERE
+ 290               
+ 291 000326  4567  CONDEFA,JMS I   [SCRIBE]                /GIVE THEM THE
+ 292 000327  2234          DEFMSG                          /DEFAULT MESSAGE
+ 293 000330  3746          DCA I   (OVRWRD&177+IOBUFFER)   /PREVENT PROBLEMS
+ 294 000331  5747          JMP I   (OVCOMMON)              /CONTINUE THERE
+ 295 000346  3111         PAGE
+     000347  0400  
+     000350  2541  
+     000351  3110  
+     000352  2540  
+     000353  3107  
+     000354  2537  
+     000355  3106  
+     000356  3171  
+     000357  3170  
+     000360  0013  
+     000361  0056  
+     000362  0012  
+     000363  7706  
+     000364  3020  
+     000365  0001  
+     000366  3000  
+     000367  0072  
+     000370  2252  
+     000371  3002  
+     000372  2251  
+     000373  3001  
+     000374  0113  
+     000375  7602  
+     000376  1102  
+     000377  1400  
+ 296 000400  1377  OVCOMMO,TAD    (":&177)                /GET A ":"
+ 297 000401  4053          JMS     P7CH                    /PRINT IT
+ 298 000402  1050          TAD     IOFUN                   /GET OVERLAY UNIT
+ 299 000403  4564          JMS I   [PRDIGIT]               /PRINT IT
+ 300 000404  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 301 000405  2543          SEPMSG                          /SEPARATION MESSAGE
+ 302 000406  1776          TAD I   (OVRWRD&177+IOBUFFER)   /GET THE OVERLAY TYPE WORD
+ 303 000407  7012          RTR;RTR;RTR                     /MOVE DOWN
+     000410  7012  
+     000411  7012  
+ 304 000412  4563          JMS I   [P2OCT]                 /PRINT IT
+ 305 000413  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 306 000414  2267          ENDMSG                          /ENDING MESSAGE
+ 307 000415  7326          NL0002                          /SETUP THE "C" BIT MASK
+ 308 000416  0571          AND I   [SCRSIZE]               /GET THE BIT
+ 309 000417  7640          SZA CLA                         /SKIP IF CONSOLE CURRENTLY OFF
+ 310 000420  5223          JMP     CONON                   /JUMP IF CURRENTLY ENABLED
+ 311 000421  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 312 000422  2241          DISMSG                          /DISABLED MESSAGE
+ 313 000423  4567  CONON,  JMS I   [SCRIBE]                /GIVE THEM THE
+ 314 000424  2137          CPUMSG                          /CPU TYPE MESSAGE
+ 315 000425  4775          JMS I   (MACHINE)               /IDENTIFY CPU TYPE
+ 316 000426  3342          DCA     CPUTEMP                 /SAVE IT
+ 317 000427  1342          TAD     CPUTEMP                 /GET IT BACK
+ 318 000430  7106          CLL RTL                         /*4
+ 319 000431  1342          TAD     CPUTEMP                 /*5
+ 320 000432  1374          TAD     (CPULIST)               /POINT TO PROPER MESSAGE
+ 321 000433  3235          DCA     .+2                     /STORE IN-LINE
+ 322 000434  4567          JMS I   [SCRIBE]                /TELL THEM
+ 323 000435  0000          .-.                             /CPU NAME
+ 324 000436  4567          JMS I   [SCRIBE]                /TELL THEM
+ 325 000437  2450          MEMMSG                          /MEMORY MESSAGE
+ 326 000440  1571          TAD I   [SCRSIZE]               /GET THE CORE SIZE WORD
+ 327 000441  7006          RTL;RTL                         /MOVE DOWN AND
+     000442  7006  
+ 328 000443  4773          JMS I   (MEMPRT)                /PRINT OUT PHYSICAL SIZE
+ 329 000444  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 330 000445  2434          MAXMSG                          /MAXIMUM MEMORY MESSAGE
+ 331 000446  1571          TAD I   [SCRSIZE]               /GET THE CORE SIZE WORD AGAIN
+ 332 000447  7012          RTR;RTR;RTR                     /MOVE DOWN AND
+     000450  7012  
+     000451  7012  
+ 333 000452  4773          JMS I   (MEMPRT)                /PRINT OUT MAXIMUM SIZE
+ 334 000453  1571          TAD I   [SCRSIZE]               /GET THE CORE SIZE WORD AGAIN
+ 335 000454  0372          AND     (4)                     /JUST THE ADJUSTABLE BIT
+ 336 000455  7650          SNA CLA                         /SKIP IF SET
+ 337 000456  5261          JMP     .+3                     /JUMP IF NOT
+ 338 000457  4567          JMS I   [SCRIBE]                /TELL THEM
+ 339 000460  2417          LSYSMSG                         /OF SYSTEM LIMITATION
+ 340 000461  7326         NL0002                  /SET THE "C" BIT MASK
+ 341 000462  0571          AND I   [SCRSIZE]       /GET THE BIT
+ 342 000463  7650          SNA CLA                 /SKIP IF SET
+ 343 000464  5267          JMP     .+3             /JUMP IF NOT
+ 344 000465  4567          JMS I   [SCRIBE]        /TELL THEM
+ 345 000466  2376          LOVLMSG                 /OF CONSOLE LIMITATION
+ 346 000467  4567          JMS I   [SCRIBE]        /TELL THEM THE
+ 347 000470  2362          LOGMSG                  /LOGICAL MEMORY MESSAGE
+ 348 000471  1571          TAD I   [SCRSIZE]       /GET THE CORE SIZE WORD AGAIN
+ 349 000472  7012          RTR;RAR                 /MOVE DOWN AND
+     000473  7010  
+ 350 000474  4773          JMS I   (MEMPRT)        /PRINT OUT LOGICAL SIZE
+ 351 000475  4567          JMS I   [SCRIBE]        /TELL THEM OF
+ 352 000476  2254          EAEMSG                  /EAE MESSAGE
+ 353 000477  1342          TAD     CPUTEMP         /GET CPU TYPE
+ 354 000500  1371          TAD     (EAETEST)       /POINT AT LIST ELEMENT
+ 355 000501  3342          DCA     CPUTEMP         /STASH THE POINTER
+ 356 000502  1742          TAD I   CPUTEMP         /GET THE ADDRESS
+ 357 000503  3342          DCA     CPUTEMP         /STASH IT
+ 358 000504  5742          JMP I   CPUTEMP         /GO THERE
+ 359               
+ 360               /       COMES HERE IF TESTING FOR PDP-8/E EAE.
+ 361               
+ 362 000505  7447  SETA,   SWBA                    /SET MODE "A"
+ 363 000506  7000          NOP                     /JUST IN CASE
+ 364               
+ 365               /       COMES HERE TO TEST FOR EAE.
+ 366               
+ 367 000507  7240  TESTEAE,NL7777                  /SET SOME BITS
+ 368 000510  7421          MQL                     /LOAD THEM
+ 369 000511  7200          CLA                     /JUST IN CASE
+ 370 000512  7405          MUY;    CLA             /ATTEMPT TO GET A NUMBER
+     000513  7200  
+ 371 000514  7650          SNA CLA                 /SKIP IF WE GOT A VALUE
+ 372 000515  5321          JMP     NOEAE           /JUMP IF WE DIDN'T
+ 373 000516  4567          JMS I   [SCRIBE]        /TELL THEM
+ 374 000517  2000          AVLMSG                  /EAE IS AVAILABLE
+ 375 000520  5326          JMP     EAECOMMON       /CONTINUE THERE
+ 376               
+ 377 000521  4567  NOEAE,  JMS I   [SCRIBE]        /TELL THEM
+ 378 000522  2525          NIMPMSG                 /THEY DIDN'T GET EAE
+ 379 000523  5326          JMP     EAECOMMON       /CONTINUE THERE
+ 380 000524  4567  NOTEAE,        JMS I   [SCRIBE]        /TELL THEM
+ 381 000525  2514          NAVLMSG                 /THEY CAN'T HAVE EAE
+ 382 000526  4567  EAECOMM,JMS I   [SCRIBE]        /GIVE THEM THE
+ 383 000527  2275          HINMSG                  /HANDLER INFORMATION MESSAGE
+ 384 000530  1770          TAD I   (SBTFUN)        /GET BOOTSTRAP FUNCTION
+ 385 000531  0166          AND     [7]             /JUST UNIT BITS
+ 386 000532  1165          TAD     [1^100]         /TURN INTO READ
+ 387 000533  3050          DCA     IOFUN           /STORE THE FUNCTION
+ 388 000534  1367          TAD     (HANDBLK)       /SETUP THE
+ 389 000535  3051          DCA     IOBLK           /I/O BLOCK
+ 390 000536  4045          JMS     IOREAD          /READ IN HANDLER INFORMATION BLOCK
+ 391 000537  1366          TAD     (IOBUFFER)      /SETUP THE
+ 392 000540  3002          DCA     PTR             /READ POINTER
+ 393 000541  5765          JMP I   (HANDLUP)       /CONTINUE THERE
+ 394               
+ 395 000542  0000  CPUTEMP,.-.                     /TEMPORARY
+ 396               
+ 397 000565  0600          PAGE
+     000566  3000  
+     000567  0122  
+     000570  7602  
+     000571  1333  
+     000572  0004  
+     000573  1216  
+     000574  2045  
+     000575  1000  
+     000576  3111  
+     000577  0072  
+ 398 000600  1402  HANDLUP,TAD I  PTR             /GET FIRST HANDLER NAME CHARACTER
+ 399 000601  7450          SNA                     /SKIP IF VALID
+ 400 000602  5302          JMP     EOHAND          /JUMP IF DELIMITER CHARACTER
+ 401 000603  4053          JMS     P7CH            /PRINT FIRST CHARACTER
+ 402 000604  2002          ISZ     PTR             /BUMP TO NEXT
+ 403 000605  1402          TAD I   PTR             /GET SECOND CHARACTER
+ 404 000606  4053          JMS     P7CH            /PRINT IT
+ 405 000607  2002          ISZ     PTR             /BUMP TO NEXT
+ 406 000610  1402          TAD I   PTR             /GET THIRD CHARACTER
+ 407 000611  4053          JMS     P7CH            /PRINT IT
+ 408 000612  2002          ISZ     PTR             /BUMP TO NEXT
+ 409 000613  4561          JMS I   [P6CH]          /PRINT
+ 410 000614  4561          JMS I   [P6CH]          /SOME
+ 411 000615  4561          JMS I   [P6CH]          /BLANKS
+ 412 000616  1402          TAD I   PTR             /GET BLOCK NUMBER
+ 413 000617  3000          DCA     BLK             /SAVE IN CASE LAST ENTRY
+ 414 000620  1000          TAD     BLK             /GET IT BACK
+ 415 000621  4777          JMS I   (PRTOCT)        /PRINT IT
+ 416 000622  4561          JMS I   [P6CH]          /\
+ 417 000623  4561          JMS I   [P6CH]          / \
+ 418 000624  4561          JMS I   [P6CH]          /  >PRINT SOME BLANKS
+ 419 000625  4561          JMS I   [P6CH]          / /
+ 420 000626  4561          JMS I   [P6CH]          //
+ 421 000627  2002          ISZ     PTR             /BUMP TO NEXT
+ 422 000630  1402          TAD I   PTR             /GET LENGTH WORD
+ 423 000631  0376          AND     (37)            /JUST LENGTH BITS
+ 424 000632  7450          SNA                     /SKIP IF SIGNIFICANT
+ 425 000633  1160          TAD     [40]            /ELSE SET MAXIMUM VALUE
+ 426 000634  3005          DCA     TEMP            /SAVE FOR NOW
+ 427 000635  1000          TAD     BLK             /GET LATEST BLOCK
+ 428 000636  1005          TAD     TEMP            /ADD ON LENGTH
+ 429 000637  3000          DCA     BLK             /SAVE IN CASE LAST ENTRY
+ 430 000640  1005          TAD     TEMP            /GET LENGTH
+ 431 000641  4563          JMS I   [P2OCT]         /PRINT IT
+ 432 000642  4561          JMS I   [P6CH]          /\
+ 433 000643  4561          JMS I   [P6CH]          / \
+ 434 000644  4561          JMS I   [P6CH]          /  >PRINT SOME BLANKS
+ 435 000645  4561          JMS I   [P6CH]          / /
+ 436 000646  4561          JMS I   [P6CH]          //
+ 437 000647  2002          ISZ     PTR             /BUMP TO NEXT
+ 438 000650  1402          TAD I   PTR             /GET ENTRY WORD
+ 439 000651  0172          AND     [177]           /JUST ENTRY BITS
+ 440 000652  4775          JMS I   (P3OCT)         /PRINT ENTRY POINT
+ 441 000653  4561          JMS I   [P6CH]          /\
+ 442 000654  4561          JMS I   [P6CH]          / \
+ 443 000655  4561          JMS I   [P6CH]          /  >PRINT SOME BLANKS
+ 444 000656  4561          JMS I   [P6CH]          / /
+ 445 000657  4561          JMS I   [P6CH]          //
+ 446 000660  1402         TAD I   PTR                     /GET ENTRY WORD AGAIN
+ 447 000661  0073          AND     L7600/[7600]            /JUST BLOCK-SIZE BITS
+ 448 000662  7106          CLL RTL;RTL;RTL                 /MOVE DOWN
+     000663  7006  
+     000664  7006  
+ 449 000665  7040          CMA                             /FORM NEGATIVE
+ 450 000666  3003          DCA     QUO                     /SAVE COUNTER
+ 451 000667  1374          TAD     (2)                     /GET A BLOCK-SIZE VALUE
+ 452 000670  2003          ISZ     QUO                     /DONE ENOUGH?
+ 453 000671  5267          JMP     .-2                     /NO, GO BACK
+ 454 000672  4775          JMS I   (P3OCT)                 /PRINT HIGHEST SIZE DIGITS
+ 455 000673  4564          JMS I   [PRDIGIT]               /PRINT TWO
+ 456 000674  4564          JMS I   [PRDIGIT]               /TRAILING ZEROES
+ 457 000675  2002          ISZ     PTR                     /BUMP TO NEXT
+ 458 000676  4557          JMS I   [CRLF]                  /DO A <CR>, <LF>
+ 459 000677  2002          ISZ     PTR                     /BUMP PAST
+ 460 000700  2002          ISZ     PTR                     /DUMMY WORDS
+ 461 000701  5200          JMP     HANDLUP                 /KEEP GOING
+ 462               
+ 463 000702  4567  EOHAND, JMS I   [SCRIBE]                /GIVE THEM THE
+ 464 000703  2271          FREEMSG                         /FREE MESSAGE
+ 465 000704  1000          TAD     BLK                     /GET FIRST FREE BLOCK
+ 466 000705  4777          JMS I   (PRTOCT)                /PRINT IT
+ 467 000706  4561          JMS I   [P6CH]                  /\
+ 468 000707  4561          JMS I   [P6CH]                  / \
+ 469 000710  4561          JMS I   [P6CH]                  /  >PRINT SOME BLANKS
+ 470 000711  4561          JMS I   [P6CH]                  / /
+ 471 000712  4561          JMS I   [P6CH]                  //
+ 472 000713  1000          TAD     BLK                     /GET HIGHEST BLOCK
+ 473 000714  7041          CIA                             /INVERT IT
+ 474 000715  1373          TAD     (HANDBLK+1+HANDMAX)     /SUBTRACT FROM HIGHEST AVAILABLE BLOCK
+ 475 000716  4563          JMS I   [P2OCT]                 /PRINT DIFFERENCE
+ 476 000717  4567          JMS I   [SCRIBE]                /GIVE THEM THE
+ 477 000720  2545          SLOTMSG                         /FREE SLOTS MESSAGE
+ 478 000721  1002          TAD     PTR                     /GET THE POINTER
+ 479 000722  7041          CIA                             /INVERT IT
+ 480 000723  1372          TAD     (IOBUFFER+200-10)       /SUBTRACT FROM LAST ENTRY
+ 481 000724  7112          CLL RTR;RAR                     /%10 FOR SLOT COUNT
+     000725  7010  
+ 482 000726  4563          JMS I   [P2OCT]                 /PRINT IT
+ 483 000727  4557          JMS I   [CRLF]                  /DO A <CR>, <LF>
+ 484 000730  7326          NL0002                          /SET "C" MASK BIT
+ 485 000731  0571          AND I   [SCRSIZE]               /GET THE BIT
+ 486 000732  7650          SNA CLA                         /SKIP IF SET
+ 487 000733  5337          JMP     TESTEN                  /JUMP IF NOT
+ 488 000734  1063          TAD     P7JMP                   /GET OUTPUT INSTRUCTION
+ 489 000735  1371          TAD     (-LPTCALL)              /COMPARE TO POSSIBLE VALUE
+ 490 000736  7640          SZA CLA                         /SKIP IF IT MATCHES
+ 491 000737  7332  TESTEN, NL2000                          /SET /N MASK
+ 492 000740  0570          AND I   [SWMX]                  /GET THE /N BIT
+ 493 000741  7650          SNA CLA                         /SKIP IF SET
+ 494 000742  4770          JMS I   (NEWPAGE)               /ELSE FINISH THE PAGE
+ 495 000743  5473          JMP I   L7600/[SBOOT]           /GOODBYE!
+ 496 000770  1102         PAGE
+     000771  3743  
+     000772  3170  
+     000773  0163  
+     000774  0002  
+     000775  1360  
+     000776  0037  
+     000777  1140  
+ 497               /      CPU IDENTIFYING ROUTINE.
+ 498               
+ 499               /       RETURNS VALUE IN AC ACCORDING TO THE FOLLOWING RULE:
+ 500               
+ 501               /       AC      CPU TYPE
+ 502               
+ 503               /       0       UNKNOWN (DCC112, MP-12?)
+ 504               /       1       PDP-5 (THE INCOMPATIBLE ONE!)
+ 505               /       2       PDP-8 (THE REAL ONE!)
+ 506               /       3       PDP-8/S (THE SLOW ONE!)
+ 507               /       4       LINC-8 (THE STRANGE ONE!)
+ 508               /       5       PDP-8/I (THE ORANGE ONE!)
+ 509               /       6       PDP-8/L (THE STRIPPED-DOWN ONE!)
+ 510               /       7       PDP-12 (THE GREEN ONE! (BLUE?))
+ 511               /       10      PDP-8/E (THE FAST ONE!)
+ 512               /       11      PDP-8/A (THE WIDE ONE!)
+ 513               /       12      6100 (THE MICRO ONE!)
+ 514               /       13      6120 (THE HARRIS ONE!)
+ 515               
+ 516 001000  0000  MACHINE,.-.                     /MACHINE IDENTIFYING ROUTINE
+ 517 001001  7300          CLA CLL                 /THIS WORKS ON EVERYBODY!
+ 518 001002  1000          TAD     0               /GET PDP-5 PC
+ 519 001003  3302          DCA     NEWPAGE         /SAVE IT
+ 520 001004  1377          TAD     (IMA5-1)        /GET PDP-5 NEW PC
+ 521 001005  3000          DCA     0               /STORE IT
+ 522               
+ 523               /       IF WE GET HERE, WE'RE NOT A PDP-5.
+ 524               
+ 525 001006  1302          TAD     NEWPAGE         /GET OLD LOCATION ZERO
+ 526 001007  3000          DCA     0               /RESTORE IT
+ 527 001010  7354          NL3776                  /PDP-8/I, L WEIRDNESS
+ 528 001011  1376          TAD     (-3776)         /COMPARE TO POSSIBLE VALUE
+ 529 001012  7650          SNA CLA                 /SKIP IF NOT THOSE TWO
+ 530 001013  5234          JMP     IMA8IL          /JUMP IF ONE OF THEM
+ 531               
+ 532               /       IF WE GET HERE, WE'RE NOT A PDP-8/I OR PDP-8/L.
+ 533               
+ 534 001014  7344          NL7776                  /SETUP -2
+ 535 001015  1375          TAD     (-7776)         /COMPARE TO EXPECTED VALUE
+ 536 001016  7640          SZA CLA                 /SKIP IF OK
+ 537 001017  5276          JMP     IMA8S           /JUMP IF RETARDED BROTHER
+ 538               
+ 539               /       IF WE GET HERE, WE'RE NOT A PDP-8/S.
+ 540               
+ 541 001020  7203          NL0100                  /SETUP 0100
+ 542 001021  1374          TAD     (-100)          /COMPARE TO EXPECTED VALUE
+ 543 001022  7650          SNA CLA                 /SKIP IF STRAIGHT PDP-8
+ 544 001023  5247          JMP     IMAOMNIBUS      /JUMP IF NEWER CPU
+ 545               /      IF WE GET HERE, WE ARE A PDP-8, BUT ARE WE A LINC-8?
+ 546               
+ 547 001024  7240          NL7777                          /SETUP LINC TEST VALUE
+ 548 001025  6167          IACA                            /LOAD LINC "A" REGISTER
+ 549 001026  7200          CLA                             /CLEAN UP
+ 550 001027  6171          IAAC                            /GET IT BACK
+ 551 001030  7001          IAC                             /ADD ONE
+ 552 001031  7650          SNA CLA                         /SKIP IF NO LINC HARDWARE
+ 553 001032  5275          JMP     IMAL8                   /JUMP IF LINC-8
+ 554               
+ 555               /       SINCE WE DON'T CARE ABOUT PERIPHERALS, WE ARE A PDP-8.
+ 556               
+ 557 001033  5277          JMP     IMA8                    /GO TELL THEM WE ARE A PDP-8
+ 558               
+ 559               /       COMES HERE IF PDP-8/I OR PDP-8/L.
+ 560               
+ 561 001034  7240  IMA8IL, NL7777                          /SETUP TEST VALUE
+ 562 001035  7601          CLA!401                         /DO PDP-8/I GROUP THREE EAE CLA
+ 563 001036  7640          SZA CLA                         /SKIP IF PDP-8/I
+ 564 001037  5273          JMP     IMA8L                   /JUMP IF NOT
+ 565               
+ 566               /       IF WE GET HERE, WE ARE A PDP-8/I, BUT ARE WE A PDP-12?
+ 567               
+ 568 001040  6141          LINC                            /GOTO LINC MODE
+ 569 001041  0017          COM                             /COMPLEMENT AC IF PDP-12, ELSE A HARMLESS AND
+ 570 001042  0002          PDP                             /GOTO PDP8 MODE IF PDP-12, ELSE HARMLESS AND
+ 571 001043  7001          IAC                             /ADD ONE FOR TEST
+ 572 001044  7650          SNA CLA                         /SKIP IF JUST PDP-8/I
+ 573 001045  5272          JMP     IMA12                   /JUMP IF ACTUALLY A LINC-8/I
+ 574               
+ 575               /       SINCE WE DON'T CARE ABOUT PERIPHERALS, WE ARE JUST A PDP-8/I.
+ 576               
+ 577 001046  5274          JMP     IMA8I                   /TELL THEM WE ARE A PDP-8/I
+ 578               
+ 579 001047  7016  IMAOMNI,RTL RTR                         /DO STRANGE OMNIBUS INSTRUCTION
+ 580 001050  7450          SNA                             /SKIP IF NOT A MICRO CHIP
+ 581 001051  5261          JMP     IMA61                   /JUMP IF ONE OF THOSE THINGS
+ 582 001052  1373          TAD     (.&7600+16^7777)        /CHECK FOR PDP-8/E VALUE
+ 583 001053  7450          SNA                             /SKIP IF NOT HIM
+ 584 001054  5271          JMP     IMA8E                   /JUMP IF IT IS A PDP-8/E (/F OR /M OR 8A-6XX)
+ 585 001055  1372          TAD     (.&7600+16-IMAOMNIBUS)  /COMPARE TO PDP-8/A VALUE
+ 586 001056  7650          SNA CLA                         /SKIP IF SOMEBODY ELSE
+ 587 001057  5270          JMP     IMA8A                   /JUMP IF IT MATCHES
+ 588               
+ 589               /       IF WE GET HERE, SOME STRANGE PROCESSOR IS RUNNING US.
+ 590               
+ 591 001060  5301          JMP     IMAUNKNOWN              /YOU FIGURE IT OUT!
+ 592               /      IF WE GET HERE, WE ARE A 6100 OR 6120.
+ 593               
+ 594 001061  7215  IMA61,  NL0010                  /DO 6120 SPECIAL INSTRUCTION
+ 595 001062  1371          TAD     (-10)           /COMPARE TO EXPECTED VALUE
+ 596 001063  7650          SNA CLA                 /SKIP IF OTHER
+ 597 001064  5266          JMP     IMA6120         /JUMP IF IT MATCHES
+ 598               
+ 599               /       WE APPARENTLY ARE ON A 6100, SO TELL THEM SO.
+ 600               
+ 601 001065  5267          JMP     IMA6100         /TELL THEM WE ARE A 6100 MACHINE (VT-78, ETC.)
+ 602               
+ 603               /       RETURN GAUNTLET.
+ 604               
+ 605 001066  7001  IMA6120,IAC                     /SET 6120 VALUE
+ 606 001067  7001  IMA6100,IAC                     /SET 6100 VALUE
+ 607 001070  7001  IMA8A,  IAC                     /SET PDP-8/A VALUE
+ 608 001071  7001  IMA8E,  IAC                     /SET PDP-8/E VALUE
+ 609 001072  7001  IMA12,  IAC                     /SET PDP-12 VALUE
+ 610 001073  7001  IMA8L,  IAC                     /SET PDP-8/L VALUE
+ 611 001074  7001  IMA8I,  IAC                     /SET PDP-8/I VALUE
+ 612 001075  7001  IMAL8,  IAC                     /SET LINC-8 VALUE
+ 613 001076  7001  IMA8S,  IAC                     /SET PDP-8/S VALUE
+ 614 001077  7001  IMA8,   IAC                     /SET PDP-8 VALUE
+ 615 001100  7001  IMA5,   IAC                     /SET PDP-5 VALUE
+ 616 001101  5600  IMAUNKN,JMP I   MACHINE         /RETURN
+ 617               
+ 618 001102  0000  NEWPAGE,.-.                     /PRINT <FF> ROUTINE
+ 619 001103  4332  DOFF,   JMS     PRNLFS          /**** LPT: **** 0000
+ 620 001104  1370  LPZAP1, TAD     (-6)            /**** LPT: **** NL7777
+ 621 001105  3015          DCA     LINCNT          /STASH THE COUNT
+ 622 001106  1016          TAD     LSEP            /GET "-" OR <FF>
+ 623 001107  4053          JMS     P7CH            /PRINT IT
+ 624 001110  2015          ISZ     LINCNT          /DONE ENOUGH?
+ 625 001111  5306          JMP     .-3             /NO, GO DO ANOTHER ONE
+ 626 001112  4557          JMS I   [CRLF]          /YES, DO A <CR>, <LF>
+ 627 001113  7346          NL7775                  /SETUP FOR
+ 628 001114  3015          DCA     LINCNT          /3 <LF>'S
+ 629 001115  4332  LPZAP2, JMS     PRNLFS          /**** LPT: **** 0000
+ 630 001116  1367          TAD     (-76)           /SETUP FOR
+ 631 001117  3015          DCA     LINCNT          /REST OF PAGE
+ 632 001120  5702          JMP I   NEWPAGE         /RETURN
+ 633               
+ 634 001121  0000  CRLF,   .-.                     /<CR>, <LF> ROUTINE
+ 635 001122  7200          CLA                     /JUST IN CASE
+ 636 001123  1156          TAD     [15]            /GET A <CR>
+ 637 001124  4053          JMS     P7CH            /PRINT IT
+ 638 001125  1155          TAD     [12]            /GET A <LF>
+ 639 001126  4053          JMS     P7CH            /PRINT IT
+ 640 001127  2015          ISZ     LINCNT          /ACCOUNT FOR IT
+ 641 001130  7000          NOP                     /JUST IN CASE
+ 642 001131  5721          JMP I   CRLF            /RETURN
+ 643 001132  0000  PRNLFS,        .-.                     /PRINT <LF>'S ROUTINE
+ 644 001133  4557          JMS I   [CRLF]          /DO A <CR> (MAYBE), <LF>
+ 645 001134  1015          TAD     LINCNT          /GET LINE COUNTER
+ 646 001135  7640          SZA CLA                 /SKIP IF IT OVERFLOWED
+ 647 001136  5333          JMP     .-3             /JUMP IF NOT
+ 648 001137  5732          JMP I   PRNLFS          /RETURN
+ 649               
+ 650 001140  0000  PRTOCT, .-.                     /PRINT OCTAL VALUE ROUTINE
+ 651 001141  3001          DCA     OCTEMP          /SAVE PASSED VALUE
+ 652 001142  4561          JMS I   [P6CH]          /PRINT TWO
+ 653 001143  4561          JMS I   [P6CH]          /<SPACE> CHARACTERS
+ 654 001144  1176          TAD     [-4]            /SETUP THE
+ 655 001145  3005          DCA     TEMP            /DIGIT COUNT
+ 656 001146  1001  DIGLUP, TAD     OCTEMP          /GET THE VALUE
+ 657 001147  7006          RTL;RAL                 /MOVE UP
+     001150  7004  
+ 658 001151  3001          DCA     OCTEMP          /SAVE IT BACK
+ 659 001152  1001          TAD     OCTEMP          /GET IT AGAIN
+ 660 001153  7004          RAL                     /ADJUST IT
+ 661 001154  4564          JMS I   [PRDIGIT]       /PRINT IT
+ 662 001155  2005          ISZ     TEMP            /DONE YET?
+ 663 001156  5346          JMP     DIGLUP          /NO, KEEP GOING
+ 664 001157  5740          JMP I   PRTOCT          /YES, RETURN
+ 665               
+ 666 001167  7702          PAGE
+     001170  7772  
+     001171  7770  
+     001172  7747  
+     001173  6762  
+     001174  7700  
+     001175  0002  
+     001176  4002  
+     001177  1077  
+ 667               /      OCTAL DIGIT PRINT ROUTINE.
+ 668               
+ 669 001200  0000  PRDIGIT,.-.                     /PRINT SINGLE OCTAL DIGIT ROUTINE
+ 670 001201  0166          AND     [7]             /JUST ONE DIGIT
+ 671 001202  1154          TAD     ["0&77]         /MAKE IT ASCII
+ 672 001203  4561          JMS I   [P6CH]          /PRINT IT
+ 673 001204  5600          JMP I   PRDIGIT         /RETURN
+ 674               
+ 675 001205  0000  P6CH,   .-.                     /SIX-BIT PRINT ROUTINE
+ 676 001206  0162          AND     [77]            /JUST IN CASE
+ 677 001207  7450          SNA                     /SKIP IF SOMETHING THERE
+ 678 001210  1160          TAD     [" &77]         /ELSE USE <SPACE>
+ 679 001211  1160          TAD     [" &77]         /INVERT IT
+ 680 001212  0162          AND     [77]            /MASK IT OFF
+ 681 001213  1160          TAD     [" &77]         /INVERT IT AGAIN
+ 682 001214  4053          JMS     P7CH            /PRINT IT
+ 683 001215  5605          JMP I   P6CH            /RETURN
+ 684               
+ 685               /       MEMORY PRINT ROUTINE.
+ 686               
+ 687 001216  0000  MEMPRT, .-.                     /MEMORY PRINT ROUTINE
+ 688 001217  0166          AND     [7]             /JUST SIZE BITS
+ 689 001220  7001          IAC                     /ADD ONE
+ 690 001221  7106          CLL RTL                 /*4 FOR K'S
+ 691 001222  4553          JMS I   [DIVIDE]        /DIVIDE
+ 692 001223  0012          12                      /BY TEN
+ 693 001224  7450          SNA                     /TWO DIGITS?
+ 694 001225  5230          JMP     ONEDIGIT        /NO, FORGET IT
+ 695 001226  1154          TAD     ["0&77]         /MAKE IT ASCII
+ 696 001227  4561          JMS I   [P6CH]          /PRINT IT
+ 697 001230  1004  ONEDIGI,TAD     REM             /GET REMAINDER
+ 698 001231  1154          TAD     ["0&77]         /MAKE IT ASCII
+ 699 001232  4561          JMS I   [P6CH]          /PRINT LOW-ORDER DIGIT
+ 700 001233  1377          TAD     ("K&77)         /GET "K"
+ 701 001234  4561          JMS I   [P6CH]          /PRINT IT
+ 702 001235  5616          JMP I   MEMPRT          /RETURN
+ 703               
+ 704               /       DIVIDE ROUTINE.
+ 705               
+ 706 001236  0000  DIVIDE, .-.                     /DIVIDE ROUTINE
+ 707 001237  3004          DCA     REM             /SAVE IN REMAINDER
+ 708 001240  3003          DCA     QUO             /CLEAR QUOTIENT
+ 709 001241  1004          TAD     REM             /GET IT BACK
+ 710 001242  7161          STL CIA                 /INVERT
+ 711 001243  7410          SKP                     /DON'T FIRST TIME
+ 712 001244  2003  DVLOOP, ISZ     QUO             /BUMP UP QUOTIENT
+ 713 001245  1636          TAD I   DIVIDE          /ADD ON ARGUMENT
+ 714 001246  7470          SNA SZL                 /UNDERFLOW?
+ 715 001247  5244          JMP     DVLOOP          /NO, KEEP GOING
+ 716 001250  7041          CIA                     /YES, INVERT IT BACK
+ 717 001251  1636          TAD I   DIVIDE          /RESTORE LOST VALUE
+ 718 001252  3004          DCA     REM             /SAVE AS REMAINDER
+ 719 001253  1003          TAD     QUO             /GET THE QUOTIENT
+ 720 001254  2236          ISZ     DIVIDE          /BUMP PAST ARGUMENT
+ 721 001255  5636          JMP I   DIVIDE          /RETURN
+ 722               /      MESSAGE PRINTING ROUTINE.
+ 723               
+ 724 001256  0000  SCRIBE, .-.                     /MESSAGE PRINT ROUTINE
+ 725 001257  7200          CLA                     /JUST IN CASE
+ 726 001260  1656          TAD I   SCRIBE          /GET MESSAGE POINTER
+ 727 001261  3332          DCA     SCRPTR          /STASH IT
+ 728 001262  2256          ISZ     SCRIBE          /BUMP PAST ARGUMENT
+ 729 001263  1376          TAD     (140)           /INITIALIZE TO LOWER-CASE
+ 730 001264  3330  CASZP1, DCA     SCRCASE         /**** /U **** CLA!400
+ 731 001265  1732  SCRLUP, TAD I   SCRPTR          /GET LEFT HALF-WORD
+ 732 001266  7012          RTR;RTR;RTR             /MOVE OVER
+     001267  7012  
+     001270  7012  
+ 733 001271  4276          JMS     SCRPRNT         /PRINT IT
+ 734 001272  1732          TAD I   SCRPTR          /GET RIGHT HALF-WORD
+ 735 001273  4276          JMS     SCRPRNT         /PRINT IT
+ 736 001274  2332          ISZ     SCRPTR          /BUMP TO NEXT PAIR
+ 737 001275  5265          JMP     SCRLUP          /KEEP GOING
+ 738               
+ 739 001276  0000  SCRPRNT,.-.                     /CHARACTER PRINT ROUTINE
+ 740 001277  0162          AND     [77]            /JUST SIX-BIT
+ 741 001300  7450          SNA                     /END OF MESSAGE?
+ 742 001301  5656          JMP I   SCRIBE          /YES, RETURN TO ORIGINAL CALLER
+ 743 001302  3331          DCA     SCRCHAR         /NO, SAVE FOR NOW
+ 744 001303  1331          TAD     SCRCHAR         /GET IT BACK
+ 745 001304  1375          TAD     (-"%!200)       /IS IT "%"?
+ 746 001305  7450          SNA                     /SKIP IF NOT
+ 747 001306  5321          JMP     SCRCRLF         /JUMP IF IT MATCHES
+ 748 001307  1166          TAD     [-"^+100+"%]    /IS IT "^"
+ 749 001310  7650          SNA CLA                 /SKIP IF NOT
+ 750 001311  5323          JMP     SCRFLIP         /JUMP IF IT MATCHES
+ 751 001312  1331          TAD     SCRCHAR         /GET THE CHARACTER
+ 752 001313  0160          AND     [40]            /DOES CASE MATTER?
+ 753 001314  7650          SNA CLA                 /SKIP IF NOT
+ 754 001315  1330          TAD     SCRCASE         /ELSE GET PREVAILING CASE
+ 755 001316  1331          TAD     SCRCHAR         /GET THE CHARACTER
+ 756 001317  4053          JMS     P7CH            /PRINT THE CHARACTER
+ 757 001320  5676          JMP I   SCRPRNT         /RETURN
+ 758               
+ 759 001321  4557  SCRCRLF,JMS I   [CRLF]          /DO A <CR>, <LF>
+ 760 001322  5676          JMP I   SCRPRNT         /RETURN
+ 761               
+ 762 001323  1330  SCRFLIP,TAD     SCRCASE         /GET CURRENT CASE
+ 763 001324  7041          CIA                     /INVERT IT
+ 764 001325  1374          TAD     (140+100)       /ADD SUM OF POSSIBLE VALUES
+ 765 001326  3330  CASZP2, DCA     SCRCASE         /**** /U **** CLA!400
+ 766 001327  5676          JMP I   SCRPRNT         /RETURN
+ 767               
+ 768 001330  0100  SCRCASE,100                     /ALPHABETIC CASE
+ 769 001331  0000  SCRCHAR,.-.                     /LATEST OUTPUT CHARACTER
+ 770 001332  0000  SCRPTR, .-.                     /MESSAGE POINTER
+ 771               /      EAE TEST DISPATCH TABLE.
+ 772               
+ 773 001333  0507  EAETEST,TESTEAE                 /00=UNKNOWN
+ 774 001334  0507          TESTEAE                 /01=PDP-5
+ 775 001335  0507          TESTEAE                 /02=PDP-8
+ 776 001336  0524          NOTEAE                  /03=PDP-8/S
+ 777 001337  0507          TESTEAE                 /04=LINC-8
+ 778 001340  0507          TESTEAE                 /05=PDP-8/I
+ 779 001341  0524          NOTEAE                  /06=PDP-8/L
+ 780 001342  0507          TESTEAE                 /07=PDP-12
+ 781 001343  0505          SETA                    /10=PDP-8/E
+ 782 001344  0524          NOTEAE                  /11=PDP-8/A
+ 783 001345  0524          NOTEAE                  /12=6100
+ 784 001346  0524          NOTEAE                  /13=6120
+ 785               
+ 786 001347  0000  P2OCT,  .-.                     /PRINT TWO DIGITS ROUTINE
+ 787 001350  3001          DCA     OCTEMP          /SAVE PASSED VALUE
+ 788 001351  1001          TAD     OCTEMP          /GET PASSED VALUE BACK
+ 789 001352  7012          RTR;RAR                 /MOVE DOWN
+     001353  7010  
+ 790 001354  4564          JMS I   [PRDIGIT]       /PRINT IT
+ 791 001355  1001          TAD     OCTEMP          /GET IT AGAIN
+ 792 001356  4564          JMS I   [PRDIGIT]       /PRINT LOWER DIGIT
+ 793 001357  5747          JMP I   P2OCT           /RETURN
+ 794               
+ 795 001360  0000  P3OCT,  .-.                     /PRINT THREE DIGITS ROUTINE
+ 796 001361  3001          DCA     OCTEMP          /SAVE PASSED VALUE
+ 797 001362  1001          TAD     OCTEMP          /GET IT BACK
+ 798 001363  7012          RTR;RTR;RTR             /MOVE OVER
+     001364  7012  
+     001365  7012  
+ 799 001366  4564          JMS I   [PRDIGIT]       /PRINT HIGHEST DIGIT OF THREE
+ 800 001367  1001          TAD     OCTEMP          /GET IT AGAIN
+ 801 001370  4563          JMS I   [P2OCT]         /PRINT LOWER TWO DIGITS
+ 802 001371  5760          JMP I   P3OCT           /RETURN
+ 803               
+ 804 001374  0240          PAGE
+     001375  7733  
+     001376  0140  
+     001377  0013  
+ 805 001400  0000  INITIAL,.-.                    /INITIALIZATION ROUTINE
+ 806 001401  1473          TAD I   L7600/[SBOOT]   /GET BOOTSTRAP INSTRUCTION
+ 807 001402  1377          TAD     (-JMSSYSIO)     /COMPARE TO POSSIBLE VALUE
+ 808 001403  7650          SNA CLA                 /SKIP IF DIFFERENT
+ 809 001404  5210          JMP     CHKCOVRLAY      /JUMP IF IT MATCHES
+ 810 001405  2101          ISZ     CHKKRS          /TURN "KRSIOT"
+ 811 001406  2101          ISZ     CHKKRS          /INTO "KRBIOT"
+ 812 001407  3112          DCA     CHKKCC          /DESTROY "KCCIOT"
+ 813 001410  7326  CHKCOVR,NL0002                  /SET "C" BIT MASK
+ 814 001411  0571          AND I   [SCRSIZE]       /GET THE BIT
+ 815 001412  7650          SNA CLA                 /SKIP IF SET
+ 816 001413  5254          JMP     NOOVERLAY       /JUMP IF NOT
+ 817 001414  1571          TAD I   [SCRSIZE]       /GET THE CORE SIZE WORD
+ 818 001415  7012          RTR;RAR                 /MOVE DOWN THE MCS BITS
+     001416  7010  
+ 819 001417  0376          AND     (70)            /JUST MCS BITS
+ 820 001420  1375          TAD     (CIF    10)     /MAKE INTO "CIF MCS+10"
+ 821 001421  3077          DCA     CHKKSF          /STORE OVER THE "KSFIOT"
+ 822 001422  1100          TAD     CHKJMP          /GET THE "JMP I CTLCTST"
+ 823 001423  3101          DCA     CHKKRS          /STORE OVER THE "KRSIOT" OR "KRBIOT"
+ 824 001424  1374          TAD     (JMS    INCON)  /GET INPUT CALL
+ 825 001425  3100          DCA     CHKJMP          /STORE OVER THE "JMP I CTLCTST"
+ 826 001426  3112          DCA     CHKKCC          /DESTROY THE "KCCIOT"
+ 827 001427  1077          TAD     CHKKSF          /GET THE "CIF MCS+10"
+ 828 001430  3062          DCA     P7TSF           /STORE OVER "TSFIOT"
+ 829 001431  1063          TAD     P7JMP           /GET "JMP P7AGN"
+ 830 001432  3064          DCA     P7TLS           /STORE OVER "TLSIOT"
+ 831 001433  1373          TAD     (JMS    OUTCON) /GET OUTPUT CALL
+ 832 001434  3063          DCA     P7JMP           /STORE OVER "JMP P7AGN"
+ 833 001435  1062          TAD     P7TSF           /GET "CIF MCS+10"
+ 834 001436  3070          DCA     P7OTSF          /STORE OVER "TSFIOT"
+ 835 001437  1071          TAD     P7OJMP          /GET "JMP P7OTSF"
+ 836 001440  3072          DCA     P7OTLS          /STORE OVER "TLSIOT"
+ 837 001441  1063          TAD     P7JMP           /GET "JMS OUTCON"
+ 838 001442  3071          DCA     P7OJMP          /STORE OVER "JMP P7OTSF"
+ 839 001443  1077          TAD     CHKKSF          /GET THE "CIF MCS+10"
+ 840 001444  3331          DCA     LPCHK           /STORE OVER THE "LSFIOT"
+ 841 001445  1332          TAD     LPJMP           /GET THE "JMP LPTIME"
+ 842 001446  3333          DCA     LPRNT           /STORE OVER THE "LLSIOT"
+ 843 001447  1372          TAD     (JMS    OUTLPT) /GET LPT: OUTPUT CALL
+ 844 001450  3332          DCA     LPJMP           /STORE OVER THE "JMP LPTIME"
+ 845 001451  1264          TAD     LPJMS           /GET "JMS LPWAIT"
+ 846 001452  3261          DCA     OUTINIT         /STORE OVER "LLSIOT"
+ 847 001453  3300          DCA     LLZAP1          /INDICATE LOGICAL LPT: ZAPS
+ 848 001454  1570  NOOVERL,TAD I   [SWMX]          /GET SWITCHES /M-/X
+ 849 001455  0371          AND     (20)            /JUST /T
+ 850 001456  7640          SZA CLA                 /SKIP IF OFF
+ 851 001457  5312          JMP     LPFAIL          /JUMP IF SET
+ 852 001460  7240  LNL7777,NL7777                 /SETUP AN EXTENDED <RO>
+ 853 001461  6666  OUTINIT,LLSIOT                  /**** CONSOLE **** JMS LPWAIT
+ 854 001462  7200          CLA                     /CLEAN UP
+ 855 001463  1160          TAD     [" &177]        /GET A <BLANK>
+ 856 001464  4326  LPJMS,  JMS     LPWAIT          /TRY TO OUTPUT IT AFTER <RO>
+ 857 001465  1160          TAD     [" &177]        /GET ANOTHER <BLANK>
+ 858 001466  4326          JMS     LPWAIT          /TRY TO OUTPUT IT AFTER <BLANK>
+ 859 001467  1156          TAD     [15]            /GET A <CR>
+ 860 001470  4326          JMS     LPWAIT          /TRY TO OUTPUT IT AFTER <BLANK>
+ 861 001471  3342          DCA     LPTMZAP         /NOW IT WILL WAIT FOR ALL CHARACTERS
+ 862 001472  1160          TAD     [" &177]        /GET A <BLANK>
+ 863 001473  4326          JMS     LPWAIT          /OUTPUT IT
+ 864 001474  1156          TAD     [15]            /GET A <CR>
+ 865 001475  4326          JMS     LPWAIT          /OUTPUT IT
+ 866 001476  1155          TAD     [12]            /GET A <LF>
+ 867 001477  4326          JMS     LPWAIT          /OUTPUT IT
+ 868 001500  7410  LLZAP1, SKP                     /**** CONSOLE **** 0000
+ 869 001501  5307          JMP     LLZAPS          /USE LOGICAL LPT: ZAPS INSTEAD
+ 870 001502  1331          TAD     LPCHK           /GET THE "LSFIOT"
+ 871 001503  3062          DCA     P7TSF           /STORE OVER THE "TSFIOT"
+ 872 001504  1333          TAD     LPRNT           /GET THE "LLSIOT"
+ 873 001505  3064          DCA     P7TLS           /STORE OVER THE "TLSIOT"
+ 874 001506  5316          JMP     LPTFF           /CONTINUE THERE
+ 875               
+ 876 001507  1372  LLZAPS, TAD     (JMS    OUTLPT) /GET LOGICAL LPT: OUTPUT CALL
+ 877 001510  3063          DCA     P7JMP           /STORE OVER THE "JMS OUTCON"
+ 878 001511  5316          JMP     LPTFF           /CONTINUE THERE
+ 879               
+ 880 001512  1770  LPFAIL, TAD I   (SWAL)          /GET /A-/L SWITCHES
+ 881 001513  0165          AND     [100]           /JUST /F
+ 882 001514  7650          SNA CLA                 /SKIP IF ON
+ 883 001515  5324          JMP     NOFF            /JUMP IF OFF
+ 884 001516  3767  LPTFF,  DCA I   (DOFF)          /NO EXTRA <LF>'S
+ 885 001517  1260          TAD     LNL7777/(NL7777)/MAKE IT DO
+ 886 001520  3766          DCA I   (LPZAP1)        /ONLY ONE <FF>
+ 887 001521  3765          DCA I   (LPZAP2)        /PREVENT TRAILING <LF>'S
+ 888 001522  1364          TAD     (14)            /GET A <FF>
+ 889 001523  3016          DCA     LSEP            /USE INSTEAD OF "-"
+ 890 001524  4763  NOFF,   JMS I   (GETDATE)       /GET THE DATE, ETC.
+ 891 001525  5600          JMP I   INITIALIZE      /RETURN
+ 892 001526  0000  LPWAIT,        .-.                     /LPT: TIME-OUT ROUTINE
+ 893 001527  3345          DCA     LPTEMP          /SAVE PASSED VALUE
+ 894 001530  1345  LPAGN,  TAD     LPTEMP          /GET IT BACK
+ 895 001531  6661  LPCHK,  LSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 896 001532  5337  LPJMP,  JMP     LPTIME          /**** CONSOLE **** JMS OUTLPT
+ 897 001533  6666  LPRNT,  LLSIOT                  /**** CONSOLE **** JMP LPTIME
+ 898 001534  1362          TAD     (7700)          /RESET THE
+ 899 001535  3346          DCA     LPTMOUT         /TIME-OUT COUNTER
+ 900 001536  5726          JMP I   LPWAIT          /RETURN
+ 901               
+ 902 001537  2763  LPTIME, ISZ I   (GETDATE)       /WASTE
+ 903 001540  5337          JMP     LPTIME          /SOME TIME
+ 904 001541  7200          CLA                     /CLEAN UP
+ 905 001542  2346  LPTMZAP,ISZ     LPTMOUT         /**** ZAPPED **** 0000
+ 906 001543  5330          JMP     LPAGN           /TRY AGAIN
+ 907 001544  5312          JMP     LPFAIL          /GIVE UP AND JUST USE CONSOLE
+ 908               
+ 909 001545  0000  LPTEMP, .-.                     /TEMPORARY
+ 910 001546  7700  LPTMOUT,-100                    /LPT: TIME-OUT FACTOR
+ 911               
+ 912 001562  7700          PAGE
+     001563  1600  
+     001564  0014  
+     001565  1115  
+     001566  1104  
+     001567  1103  
+     001570  7604  
+     001571  0020  
+     001572  4035  
+     001573  4033  
+     001574  4031  
+     001575  6212  
+     001576  0070  
+     001577  3540  
+ 913 001600  0000  GETDATE,.-.                    /GET THE DATE ROUTINE
+ 914 001601  1570          TAD I   [SWMX]          /GET /M-/X SWITCHES
+ 915 001602  0377          AND     (10)            /JUST /U BIT
+ 916 001603  7650          SNA CLA                 /SKIP IF SET
+ 917 001604  5211          JMP     GTDATE          /JUMP IF NOT
+ 918 001605  1073          TAD     L7600/[CLA!400] /GET A "CLA" INSTRUCTION
+ 919 001606  3776          DCA I   (CASZP1)        /PREVENT CASE CHANGE
+ 920 001607  1073          TAD     L7600/[CLA!400] /GET A "CLA" INSTRUCTION
+ 921 001610  3775          DCA I   (CASZP2)        /PREVENT CASE CHANGE
+ 922 001611  1374  GTDATE, TAD     (34)            /RESET THE
+ 923 001612  3773          DCA I   (FEBENT)        /FEBRUARY LENGTH
+ 924 001613  1372          TAD     (JANENT)        /POINT TO
+ 925 001614  3342          DCA     ENTPTR          /FIRST MONTH
+ 926 001615  1771          TAD I   (SDATE)         /GET THE SYSTEM DATE WORD
+ 927 001616  4553          JMS I   [DIVIDE]        /DIVIDE BY 372
+ 928 001617  0564          564                     /TO GET YEAR
+ 929 001620  3346          DCA     YEAR            /SAVE IT
+ 930 001621  1004          TAD     REM             /GET DAYS LEFT IN YEAR
+ 931 001622  4553          JMS I   [DIVIDE]        /DIVIDE BY 31 TO GET
+ 932 001623  0037          37                      /MONTH (ORIGIN ZERO)
+ 933 001624  3345          DCA     MONTH           /SAVE IT
+ 934 001625  7201          NL0001                  /MAKE ORIGIN ONE
+ 935 001626  1004          TAD     REM             /GET DAY OF THE MONTH
+ 936 001627  3341          DCA     DAY             /SAVE IT
+ 937 001630  1346          TAD     YEAR            /GET THE YEAR
+ 938 001631  1370          TAD     (3)             /ROUND UP FOR LEAP YEARS
+ 939 001632  7110          CLL RAR                 /DIVIDE
+ 940 001633  7110          CLL RAR                 /BY FOUR
+ 941 001634  3343          DCA     LPYRCT          /SAVE AS EXTRA LEAP DAYS COUNT
+ 942 001635  1346          TAD     YEAR            /GET THE YEAR AGAIN
+ 943 001636  0370          AND     (3)             /JUST LEAP BITS
+ 944 001637  7650          SNA CLA                 /SKIP IF NOT A LEAP YEAR
+ 945 001640  2773          ISZ I   (FEBENT)        /BUMP FEBRUARY IF IT IS
+ 946 001641  1345          TAD     MONTH           /GET THE MONTH
+ 947 001642  7040          CMA                     /INVERT FOR COUNTING
+ 948 001643  3344          DCA     MONCNT          /SAVE IT
+ 949 001644  5247          JMP     .+3             /JUMP INTO IT
+ 950               
+ 951 001645  1742          TAD I   ENTPTR          /GET A PREVIOUS MONTH'S COUNT
+ 952 001646  2342          ISZ     ENTPTR          /BUMP TO NEXT
+ 953 001647  2344          ISZ     MONCNT          /DONE ENOUGH MONTHS?
+ 954 001650  5245          JMP     .-3             /NO, GO DO ANOTHER ONE
+ 955 001651  1341          TAD     DAY             /ADD ON DAY
+ 956 001652  1346          TAD     YEAR            /ADD ON YEAR
+ 957 001653  1343          TAD     LPYRCT          /ADD ON EXTRA LEAP DAYS
+ 958 001654  1340          TAD     BSGROUP         /\
+ 959 001655  1340          TAD     BSGROUP         / >ADD ON BASE INFLUENCE
+ 960 001656  1340          TAD     BSGROUP         //
+ 961 001657  4553          JMS I   [DIVIDE]        /DIVIDE BY 7 TO GET
+ 962 001660  0007          7                       /DAY OF THE WEEK
+ 963 001661  7200          CLA                     /THROW QUOTIENT AWAY
+ 964 001662  1004         TAD     REM             /GET THE REMAINDER
+ 965 001663  7104          CLL RAL                 /*2
+ 966 001664  1004          TAD     REM             /*3
+ 967 001665  7004          RAL                     /*6
+ 968 001666  1367          TAD     (DAYS)          /POINT TO PROPER DAY
+ 969 001667  3013          DCA     DAYPTR          /STASH THE POINTER
+ 970 001670  1366          TAD     (DATMSG+1-1)    /POINT TO
+ 971 001671  3011          DCA     XR2             /DATE MESSAGE
+ 972 001672  1341          TAD     DAY             /GET DAY OF THE MONTH
+ 973 001673  4553          JMS I   [DIVIDE]        /DIVIDE BY 10 TO
+ 974 001674  0012          12                      /GET TEN'S DIGIT
+ 975 001675  1154          TAD     ["0&77]         /MAKE IT ASCII
+ 976 001676  7106          CLL RTL;RTL;RTL         /MOVE UP
+     001677  7006  
+     001700  7006  
+ 977 001701  1004          TAD     REM             /ADD ON UNIT'S DIGIT
+ 978 001702  1154          TAD     ["0&77]         /MAKE IT ASCII ALSO
+ 979 001703  3411          DCA I   XR2             /STORE INTO THE MESSAGE
+ 980 001704  1345          TAD     MONTH           /GET THE MONTH
+ 981 001705  7104          CLL RAL                 /*2 FOR DOUBLE-WORDS
+ 982 001706  1365          TAD     (MONLST-1)      /ADD ON LIST POINTER
+ 983 001707  3010          DCA     XR1             /STASH IT
+ 984 001710  1410          TAD I   XR1             /GET A MONTH PAIR
+ 985 001711  3411          DCA I   XR2             /STORE INTO MESSAGE
+ 986 001712  1410          TAD I   XR1             /GET THE OTHER PAIR
+ 987 001713  3411          DCA I   XR2             /STORE INTO MESSAGE
+ 988 001714  1340          TAD     BSGROUP         /GET GROUP
+ 989 001715  7106          CLL RTL;RAL             /*8
+     001716  7004  
+ 990 001717  1346          TAD     YEAR            /ADD ON RELATIVE YEAR
+ 991 001720  1364          TAD     (74)            /ADD ON (19)60
+ 992 001721  4553          JMS I   [DIVIDE]        /DIVIDE
+ 993 001722  0144          144                     /BY 100
+ 994 001723  7200          CLA                     /THROW AWAY QUOTIENT
+ 995 001724  1004          TAD     REM             /GET THE REMAINDER 60-99 OR 00-59
+ 996 001725  4553          JMS I   [DIVIDE]        /DIVIDE BY 10 TO GET
+ 997 001726  0012          12                      /THE TEN'S DIGIT
+ 998 001727  1363          TAD     ("-^100+"0-200) /GET "-" AND MAKE IT ASCII
+ 999 001730  3411          DCA I   XR2             /STORE INTO MESSAGE
+1000 001731  1004          TAD     REM             /GET THE UNIT'S DIGIT
+1001 001732  7106          CLL RTL;RTL;RTL         /MOVE UP
+     001733  7006  
+     001734  7006  
+1002 001735  1362          TAD     ("0^100+"%-200) /MAKE IT ASCII AND ADD ON A "%"
+1003 001736  3411          DCA I   XR2             /STORE INTO MESSAGE
+1004 001737  5600          JMP I   GETDATE         /RETURN
+1005               
+1006 001740  0003  BSGROUP,BSGRP                   /CURRENT BASE YEAR GROUP VALUE
+1007 001741  0000  DAY,    .-.                     /DAY
+1008 001742  0000  ENTPTR, .-.                     /MONTH LENGTH TABLE POINTER
+1009 001743  0000  LPYRCT, .-.                     /LEAP YEAR DAYS' COUNT
+1010 001744  0000  MONCNT, .-.                     /MONTH COUNTER
+1011 001745  0000  MONTH,  .-.                     /MONTH
+1012 001746  0000  YEAR,   .-.                     /YEAR
+1013 001762  6045         PAGE
+     001763  5560  
+     001764  0074  
+     001765  2463  
+     001766  2152  
+     001767  2161  
+     001770  0003  
+     001771  7610  
+     001772  2347  
+     001773  2350  
+     001774  0034  
+     001775  1326  
+     001776  1264  
+     001777  0010  
+1014 002000  3601  AVLMSG,        TEXT    "^A^VAILABLE"                           /EAE AVAILABLE MESSAGE
+     002001  3626  
+     002002  0111  
+     002003  1401  
+     002004  0214  
+     002005  0500  
+1015               
+1016               /       ANNOUNCEMENT MESSAGE.
+1017               
+1018 002006  3620  BLURB,  TEXT    "^P?S/8 S^YSTEM ^S^TATUS  ^SYSTAT V"    /MAIN BLURB
+     002007  7723  
+     002010  5770  
+     002011  4023  
+     002012  3631  
+     002013  2324  
+     002014  0515  
+     002015  4036  
+     002016  2336  
+     002017  2401  
+     002020  2425  
+     002021  2340  
+     002022  4036  
+     002023  2331  
+     002024  2324  
+     002025  0124  
+     002026  4026  
+1019 002027  6160          VERSION%12^66+VERSION+6060                      /<HIGH VERSION DIGIT>
+1020                                                                       /<LOW VERSION DIGIT>
+1021 002030  3604          "^^100+REVISION                                 /REVISION
+1022 002031  4000          TEXT    " "                                     /SPACING
+1023               
+1024 002032  4545  CONMSG, TEXT    "%%^C^ONSOLE:        ^"                 /CONSOLE MESSAGE
+     002033  3603  
+     002034  3617  
+     002035  1623  
+     002036  1714  
+     002037  0572  
+     002040  4040  
+     002041  4040  
+     002042  4040  
+     002043  4040  
+     002044  3600  
+1025               /      CPU IDENTIFICATION LIST.
+1026               
+1027 002045  3625  CPULIST,TEXT    "^UNKNOWN^"                     /00=UNKNOWN
+     002046  1613  
+     002047  1617  
+     002050  2716  
+     002051  3600  
+1028 002052  3620          TEXT    "^PDP-5^^^"                     /01=PDP-5
+     002053  0420  
+     002054  5565  
+     002055  3636  
+     002056  3600  
+1029 002057  3620          TEXT    "^PDP-8^^^"                     /02=PDP-8
+     002060  0420  
+     002061  5570  
+     002062  3636  
+     002063  3600  
+1030 002064  3620          TEXT    "^PDP-8/S^"                     /03=PDP-8/S
+     002065  0420  
+     002066  5570  
+     002067  5723  
+     002070  3600  
+1031 002071  3614          TEXT    "^LINC-8^^"                     /04=LINC-8
+     002072  1116  
+     002073  0355  
+     002074  7036  
+     002075  3600  
+1032 002076  3620          TEXT    "^PDP-8/I^"                     /05=PDP-8/I
+     002077  0420  
+     002100  5570  
+     002101  5711  
+     002102  3600  
+1033 002103  3620          TEXT    "^PDP-8/L^"                     /06=PDP-8/L
+     002104  0420  
+     002105  5570  
+     002106  5714  
+     002107  3600  
+1034 002110  3620          TEXT    "^PDP-12^^"                     /07=PDP-12
+     002111  0420  
+     002112  5561  
+     002113  6236  
+     002114  3600  
+1035 002115  3620          TEXT    "^PDP-8/E^"                     /10=PDP-8/E
+     002116  0420  
+     002117  5570  
+     002120  5705  
+     002121  3600  
+1036 002122  3620          TEXT    "^PDP-8/A^"                     /11=PDP-8/A
+     002123  0420  
+     002124  5570  
+     002125  5701  
+     002126  3600  
+1037 002127  6661         TEXT    "6100^^^^^"                     /12=6100
+     002130  6060  
+     002131  3636  
+     002132  3636  
+     002133  3600  
+1038 002134  6661          TEXT    "6120^"                         /13=6120
+     002135  6260  
+     002136  3600  
+1039               
+1040 002137  4545  CPUMSG, TEXT    "%%^CPU T^YPE:        "         /CPU TYPE MESSAGE
+     002140  3603  
+     002141  2025  
+     002142  4024  
+     002143  3631  
+     002144  2005  
+     002145  7240  
+     002146  4040  
+     002147  4040  
+     002150  4040  
+     002151  4000  
+1041 002152  4036  DATMSG, TEXT    " ^UN-DAT-ED%^"                 /DATE WILL BE FILLED IN
+     002153  2516  
+     002154  5504  
+     002155  0124  
+     002156  5505  
+     002157  0445  
+     002160  3600  
+1042               /      DAYS OF THE WEEK MESSAGE LIST.
+1043               
+1044 002161  4036  DAYS,   TEXT    " ^T^HURSDAY"   /THURSDAY
+     002162  2436  
+     002163  1025  
+     002164  2223  
+     002165  0401  
+     002166  3100  
+1045 002167  4036          TEXT    " ^F^RIDAY^^"   /FRIDAY
+     002170  0636  
+     002171  2211  
+     002172  0401  
+     002173  3136  
+     002174  3600  
+1046 002175  4036          TEXT    " ^S^ATURDAY"   /SATURDAY
+     002176  2336  
+     002177  0124  
+     002200  2522  
+     002201  0401  
+     002202  3100  
+1047 002203  4036          TEXT    " ^S^UNDAY^^"   /SUNDAY
+     002204  2336  
+     002205  2516  
+     002206  0401  
+     002207  3136  
+     002210  3600  
+1048 002211  4036          TEXT    " ^M^ONDAY^^"   /MONDAY
+     002212  1536  
+     002213  1716  
+     002214  0401  
+     002215  3136  
+     002216  3600  
+1049 002217  4036          TEXT    " ^T^UESDAY^"   /TUESDAY
+     002220  2436  
+     002221  2505  
+     002222  2304  
+     002223  0131  
+     002224  3600  
+1050 002225  4036          TEXT    " ^W^EDNESDAY^" /WEDNESDAY
+     002226  2736  
+     002227  0504  
+     002230  1605  
+     002231  2304  
+     002232  0131  
+     002233  3600  
+1051               
+1052 002234  4036  DEFMSG, TEXT    " ^DEFAULT"     /DEFAULT CONSOLE MESSAGE
+     002235  0405  
+     002236  0601  
+     002237  2514  
+     002240  2400  
+1053 002241  5036  DISMSG,        TEXT    "(^D^ISABLED)^"         /DISABLED CONSOLE MESSAGE
+     002242  0436  
+     002243  1123  
+     002244  0102  
+     002245  1405  
+     002246  0451  
+     002247  3600  
+1054 002250  4036  DVNMSG, TEXT    " ^XXXX^"               /DEVICE NAME MESSAGE
+     002251  3030  
+     002252  3030  
+     002253  3600  
+1055 002254  4545  EAEMSG, TEXT    "%%^EAE:             ^" /EAE MESSAGE
+     002255  3605  
+     002256  0105  
+     002257  7240  
+     002260  4040  
+     002261  4040  
+     002262  4040  
+     002263  4040  
+     002264  4040  
+     002265  4040  
+     002266  3600  
+1056 002267  5140  ENDMSG, TEXT    ") ^"                   /ENDING MESSAGE
+     002270  3600  
+1057 002271  3674  FREEMSG,TEXT    "^<FREE>"               /FREE BLOCK MESSAGE
+     002272  0622  
+     002273  0505  
+     002274  7600  
+1058 002275  4545  HINMSG,        TEXT    "%%^H^ANDLER ^I^NFORMATION:%%"  /HANDLER
+     002276  3610  
+     002277  3601  
+     002300  1604  
+     002301  1405  
+     002302  2240  
+     002303  3611  
+     002304  3616  
+     002305  0617  
+     002306  2215  
+     002307  0124  
+     002310  1117  
+     002311  1672  
+     002312  4545  
+1059 002313  3616          TEXT    "^N^AME    ^B^LOCK  ^L^ENGTH "  /INFORMATION
+     002314  3601  
+     002315  1505  
+     002316  4040  
+     002317  4040  
+     002320  3602  
+     002321  3614  
+     002322  1703  
+     002323  1340  
+     002324  4036  
+     002325  1436  
+     002326  0516  
+     002327  0724  
+     002330  1040  
+1060 002331  4036          TEXT    " ^E^NTRY  ^B^LOCK ^S^IZE%%^"   /MESSAGE
+     002332  0536  
+     002333  1624  
+     002334  2231  
+     002335  4040  
+     002336  3602  
+     002337  3614  
+     002340  1703  
+     002341  1340  
+     002342  3623  
+     002343  3611  
+     002344  3205  
+     002345  4545  
+     002346  3600  
+1061                      DECIMAL                                         /MAKE IT EASIER
+1062               
+1063               /       MONTH LENGTH TABLE.
+1064               
+1065 002347  0037  JANENT, 31                                              /31 DAYS IN JANUARY
+1066 002350  0034  FEBENT, 28                                              /29 IN LEAP YEAR!
+1067 002351  0037          31                                              /31 DAYS IN MARCH
+1068 002352  0036          30                                              /30 DAYS IN APRIL
+1069 002353  0037          31                                              /31 DAYS IN MAY
+1070 002354  0036          30                                              /30 DAYS IN JUNE
+1071 002355  0037          31                                              /31 DAYS IN JULY
+1072 002356  0037          31                                              /31 DAYS IN AUGUST
+1073 002357  0036          30                                              /30 DAYS IN SEPTEMBER
+1074 002360  0037          31                                              /31 DAYS IN OCTOBER
+1075 002361  0036          30                                              /30 DAYS IN NOVEMBER
+1076               /       31                                              /31 DAYS IN DECEMBER
+1077               
+1078                       OCTAL                                           /BACK TO NORMAL
+1079               
+1080 002362  4545  LOGMSG, TEXT    "%%^L^OGICAL ^M^EMORY:  "               /LOGICAL MEMORY MESSAGE
+     002363  3614  
+     002364  3617  
+     002365  0711  
+     002366  0301  
+     002367  1440  
+     002370  3615  
+     002371  3605  
+     002372  1517  
+     002373  2231  
+     002374  7240  
+     002375  4000  
+1081 002376  4050  LOVLMSG,TEXT    " (^C^ONSOLE ^O^VERLAY ^E^NABLED)^"     /CONSOLE LIMITATION MESSAGE
+     002377  3603  
+     002400  3617  
+     002401  1623  
+     002402  1714  
+     002403  0540  
+     002404  3617  
+     002405  3626  
+     002406  0522  
+     002407  1401  
+     002410  3140  
+     002411  3605  
+     002412  3616  
+     002413  0102  
+     002414  1405  
+     002415  0451  
+     002416  3600  
+1082 002417  4050  LSYSMSG,TEXT   " (^L^IMITED BY ^S^YSTEM)^"     /SYSTEM LIMITATION MESSAGE
+     002420  3614  
+     002421  3611  
+     002422  1511  
+     002423  2405  
+     002424  0440  
+     002425  0231  
+     002426  4036  
+     002427  2336  
+     002430  3123  
+     002431  2405  
+     002432  1551  
+     002433  3600  
+1083 002434  4545  MAXMSG, TEXT    "%%^M^AXIMUM ^M^EMORY:  "       /MAXIMUM MEMORY MESSAGE
+     002435  3615  
+     002436  3601  
+     002437  3011  
+     002440  1525  
+     002441  1540  
+     002442  3615  
+     002443  3605  
+     002444  1517  
+     002445  2231  
+     002446  7240  
+     002447  4000  
+1084 002450  4545  MEMMSG, TEXT    "%%^P^HYSICAL ^M^EMORY: "       /MEMORY MESSAGE
+     002451  3620  
+     002452  3610  
+     002453  3123  
+     002454  1103  
+     002455  0114  
+     002456  4036  
+     002457  1536  
+     002460  0515  
+     002461  1722  
+     002462  3172  
+     002463  4000  
+1085               /      MONTHS MESSAGE LIST.
+1086               
+1087 002464  5512  MONLST, TEXT    "-JAN"                  /JANUARY
+     002465  0116  
+1088 002466  5506          TEXT    "-FEB"                  /FEBRUARY
+     002467  0502  
+1089 002470  5515          TEXT    "-MAR"                  /MARCH
+     002471  0122  
+1090 002472  5501          TEXT    "-APR"                  /APRIL
+     002473  2022  
+1091 002474  5515          TEXT    "-MAY"                  /MAY
+     002475  0131  
+1092 002476  5512          TEXT    "-JUN"                  /JUNE
+     002477  2516  
+1093 002500  5512          TEXT    "-JUL"                  /JULY
+     002501  2514  
+1094 002502  5501          TEXT    "-AUG"                  /AUGUST
+     002503  2507  
+1095 002504  5523          TEXT    "-SEP"                  /SEPTEMBER
+     002505  0520  
+1096 002506  5517          TEXT    "-OCT"                  /OCTOBER
+     002507  0324  
+1097 002510  5516          TEXT    "-NOV"                  /NOVEMBER
+     002511  1726  
+1098 002512  5504          TEXT    "-DEC"                  /DECEMBER
+     002513  0503  
+1099               
+1100 002514  3616  NAVLMSG,TEXT    "^N^OT ^A^VAILABLE"     /NOT AVAILABLE MESSAGE
+     002515  3617  
+     002516  2440  
+     002517  3601  
+     002520  3626  
+     002521  0111  
+     002522  1401  
+     002523  0214  
+     002524  0500  
+1101 002525  3616  NIMPMSG,TEXT    "^N^OT ^I^NSTALLED"     /NOT IMPLEMENTED MESSAGE
+     002526  3617  
+     002527  2440  
+     002530  3611  
+     002531  3616  
+     002532  2324  
+     002533  0114  
+     002534  1405  
+     002535  0400  
+1102 002536  4036  OVIDMSG,TEXT    " ^XXXXXX^"             /OVERLAY ID MESSAGE
+     002537  3030  
+     002540  3030  
+     002541  3030  
+     002542  3600  
+1103 002543  4050  SEPMSG, TEXT    " (^"                   /SEPARATION MESSAGE
+     002544  3600  
+1104 002545  4545  SLOTMSG,TEXT   "%%^F^REE ^S^LOTS:      "       /FREE SLOTS MESSAGE
+     002546  3606  
+     002547  3622  
+     002550  0505  
+     002551  4036  
+     002552  2336  
+     002553  1417  
+     002554  2423  
+     002555  7240  
+     002556  4040  
+     002557  4040  
+     002560  4000  
+1105 002561  4536  SYSMSG, TEXT    "%^S^YSTEM:         "           /SYSTEM MESSAGE
+     002562  2336  
+     002563  3123  
+     002564  2405  
+     002565  1572  
+     002566  4040  
+     002567  4040  
+     002570  4040  
+     002571  4040  
+     002572  4000  
+1106 002573  4545  VERMSG, TEXT    "%%^V^ERSION:         "         /VERSION MESSAGE
+     002574  3626  
+     002575  3605  
+     002576  2223  
+     002577  1117  
+     002600  1672  
+     002601  4040  
+     002602  4040  
+     002603  4040  
+     002604  4040  
+     002605  4000  
+1107                      PAGE
+1108               
+1109                       IOBUFFE=.               /I/O BUFFER HERE
+1110               
+1111               /       HERE COME THE LITERALS!
+1112               
+1113 000153  1236          $                       /THAT'S ALL FOLK!
+     000154  0060  
+     000155  0012  
+     000156  0015  
+     000157  1121  
+     000160  0040  
+     000161  1205  
+     000162  0077  
+     000163  1347  
+     000164  1200  
+     000165  0100  
+     000166  0007  
+     000167  1256  
+     000170  7605  
+     000171  7611  
+     000172  0177  
+     000173  0117  
+     000174  0136  
+     000175  7757  
+     000176  7774  
+     000177  7761  
+
+AVLMSG  2000
+BLK     0000
+BLURB   2006
+BSGROU  1740
+BSGRP   0003
+CASZP1  1264
+CASZP2  1326
+CHAR    0020
+CHKCOV  1410
+CHKJMP  0100
+CHKKCC  0112
+CHKKRS  0101
+CHKKSF  0077
+CHKUP   0020
+COM     0017
+CONDEF  0326
+CONMSG  2032
+CONON   0423
+CPULIS  2045
+CPUMSG  2137
+CPUTEM  0542
+CRLF    1121
+CTLCTS  0075
+CTLTMP  0012
+DATMSG  2152
+DAY     1741
+DAYPTR  0013
+DAYS    2161
+DEFMSG  2234
+DIGLUP  1146
+DISMSG  2241
+DIVIDE  1236
+DOFF    1103
+DOUO    0035
+DVLOOP  1244
+DVNMSG  2250
+EAECOM  0526
+EAEMSG  2254
+EAETES  1333
+ECHOSW  0014
+ENDMSG  2267
+ENTPTR  1742
+EOHAND  0702
+FEBENT  2350
+FREEMS  2271
+GETDAT  1600
+GTDATE  1611
+HANDBL  0122
+HANDLU  0600
+HANDMA  0040
+HIDWRD  7600
+HINMSG  2275
+IAAC    6171
+IACA    6167
+IMA12   1072
+IMA5    1100
+IMA61   1061
+IMA610  1067
+IMA612  1066
+IMA8    1077
+IMA8A   1070
+IMA8E   1071
+IMA8I   1074
+IMA8IL  1034
+IMA8L   1073
+IMA8S   1076
+IMAL8   1075
+IMAOMN  1047
+IMAUNK  1101
+INCON   0031
+INITIA  1400
+IOBLK   0051
+IOBUFF  3000
+IOFUN   0050
+IOREAD  0045
+JANENT  2347
+JMSC    4200
+JMSSYS  4240
+KCCIOT  6032
+KRBIOT  6036 unreferenced
+KRSIOT  6034
+KSFIOT  6031
+L7600   0073
+LINC    6141
+LINCNT  0015
+LLSIOT  6666
+LLZAP1  1500
+LLZAPS  1507
+LNL777  1460
+LOGMSG  2362
+LOVLMS  2376
+LPAGN   1530
+LPCHK   1531
+LPFAIL  1512
+LPJMP   1532
+LPJMS   1464
+LPRNT   1533
+LPT     0066
+LPTCAL  4035
+LPTEMP  1545
+LPTFF   1516
+LPTIME  1537
+LPTMOU  1546
+LPTMZA  1542
+LPWAIT  1526
+LPYRCT  1743
+LPZAP1  1104
+LPZAP2  1115
+LSEP    0016
+LSFIOT  6661
+LSYSMS  2417
+MACHIN  1000
+MAXMSG  2434
+MEMMSG  2450
+MEMPRT  1216
+MONCNT  1744
+MONLST  2464
+MONTH   1745
+MUY     7405
+NAVLMS  2514
+NEWPAG  1102
+NIMPMS  2525
+NL0001  7201
+NL0002  7326
+NL0010  7215
+NL0100  7203
+NL2000  7332
+NL3776  7354
+NL4000  7330
+NL7775  7346
+NL7776  7344
+NL7777  7240
+NOEAE   0521
+NOFF    1524
+NOOVER  1454
+NOTEAE  0524
+OCTEMP  0001
+ONEDIG  1230
+OUTCON  0033
+OUTINI  1461
+OUTLPT  0035
+OVCOMM  0400
+OVID    0106
+OVIDMS  2536
+OVRBLK  2571
+OVRFUN  2570
+OVRWRD  0111
+P2OCT   1347
+P3OCT   1360
+P6CH    1205
+P7AGN   0055
+P7CH    0053
+P7JMP   0063
+P7OFF   0065
+P7OJMP  0071
+P7OTLS  0072
+P7OTSF  0070
+P7OUT   0067
+P7TEMP  0017
+P7TLS   0064
+P7TSF   0062
+PDP     0002
+PRDIGI  1200
+PRNLFS  1132
+PRTOCT  1140
+PSYSIO  0026
+PTR     0002
+QUO     0003
+REM     0004
+REVISI  0004
+SBTFUN  7602
+SCRCAS  1330
+SCRCHA  1331
+SCRCRL  1321
+SCRFLI  1323
+SCRIBE  1256
+SCRLUP  1265
+SCRPRN  1276
+SCRPTR  1332
+SCRSIZ  7611
+SDATE   7610
+SEPMSG  2543
+SETA    0505
+SLOTMS  2545
+SWAL    7604
+SWBA    7447
+SWMX    7605
+SYSIO   7640
+SYSMSG  2561
+SYSTAT  0200 unreferenced
+TEMP    0005
+TESTEA  0507
+TESTEN  0737
+TLSIOT  6046
+TRPBLK  0113
+TSFIOT  6041
+TTY     0003
+VERMSG  2573
+VERSIO  0012
+XR1     0010
+XR2     0011
+YEAR    1746

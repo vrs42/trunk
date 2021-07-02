@@ -1,0 +1,1526 @@
+   1               /       P?S/8 MONITOR DATE COMMAND
+   2               
+   3               /       LAST EDIT:      08-APR-1987     01:00:00        CJL
+   4               
+   5               /       ASSEMBLE WITH '/J' SWITCH SET.
+   6               
+   7               //      EQUATED SYMBOLS FROM THE P?S/8 KEYBOARD MONITOR.
+   8               
+   9                       BSGRP=  0003            /YEAR BASE GROUP
+  10                       CTCPZAP=2363            /<^C> PRINT ZAP
+  11                       CTCZAP= 2365            /<^C> ZAP
+  12                       GETHAF= 0104            /GET HALF-WORD ROUTINE
+  13                       GETNDX= 0026            /GET HALF-WORD INDEX
+  14                       LINENO= 0062            /NUMERICAL INPUT
+  15                       LNOPRT= 0105            /NUMERICAL PRINT
+  16                       LOOKUP= 0154            /LOOKUP ROUTINE
+  17                       L100=   0006            /CONSTANT 0100
+  18                       L3=     0005            /CONSTANT 0003
+  19                       L40=    0046            /CONSTANT 0040
+  20                       L7=     0177            /CONSTANT 0007
+  21                       L7600=  0113            /CONSTANT 7600
+  22                       L7766=  0012            /CONSTANT 7766
+  23                       MESSAGE=0112            /MESSAGE PRINTING ROUTINE
+  24                       NAME=   0054            /FIND A NAME ROUTINE
+  25                       NAMPRT= 0066            /PRINT SHORT FIELD (NAME)
+  26                       NOTFND= 0722            /LOOKUP FAILURE ROUTINE
+  27                       PBEGIN= 0071            /POINTER TO BEGIN
+  28                       PBUTIO= 0161            /BOOTSTRAP UNIT I/O ROUTINES
+  29                       PRINT=  0107            /7-BIT PRINT
+  30                       PR6BIT= 0047            /6-BIT PRINT
+  31                       PSCRSIZ=0170            /POINTER TO SCRSIZE
+  32                       PUTBASE=0131            /PUT HALF-WORD BASE
+  33                       PUTHAF= 0132            /PUT HALF-WORD ROUTINE
+  34                       PUTNDX= 0060            /PUT HALF-WORD INDEX
+  35                       RADXSW= 0015            /OCTAL/DECIMAL SWITCH
+  36                       SBLOCK= 7635            /SYSTEM LOADER BLOCK ARGUMENT
+  37                       SCRIBR= 1117            /WHERE SCRIBE FLAG IS
+  38                       SDATE=  7610            /SYSTEM DATE WORD
+  39                       SFUN=   7634            /SYSTEM LOADER FUNCTION WORD
+  40                       SWAPIT= 0423            /SWAPPING ROUTINE
+  41                       SWMX=   7605            /SWITCHES /M-/X
+  42                       TABSW=  0074            /TAB SWITCH
+  43                       TAPREC= 0075            /LOOKUP RECORD
+  44                       TCNT1=  0122            /TEMPORARY
+  45                       UNIT=   0000            /UNIT LOCATION
+  46                       UNITIO= 0037            /UNIT-ORIENTED I/O CALL
+  47                       WRITE=  4000            /SYSIO WRITE BIT
+  48                       XGETHAF=0444            /GET HALF-WORD ROUTINE
+  49               
+  50               //      ADDITIONAL DEFINITIONS.
+  51               
+  52                       BUFF=   7000                    /BUFFER FOR SYSIO MODIFICATION
+  53                       JMPIC=  JMP I   .               /CURRENT PAGE INDIRECT JUMP
+  54                       NL0001= CLA IAC                 /LOAD AC WITH 0001
+  55                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+  56                       NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000
+  57                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+  58                       SRINST= JMP I   PBEGIN/[BEGIN]  /INSTRUCTION DEFINITION
+  59                      PAGE    14                      /OVERLAY FILE AREA
+  60               
+  61                       IFNZRO  .&177   <ERROR  .>
+  62               
+  63                       DATE=   .                       /DATE SYSTEM STARTS HERE
+  64               
+  65 003000  0003  BSGROUP,BSGRP                           /YEAR GROUP BASE; HERE IN CASE WE'RE CHAINED TO
+  66 003001  1377  DATBASE,TAD     (XGETHAF&177+JMPIC)     /MAKE IT
+  67 003002  3776  DATEMP, DCA I   (SWAPIT+11)             /COME BACK TO US
+  68 003003  1375  DATLIMI,TAD     (NEXT)                  /GET OUR ADDRESS
+  69 003004  3504  DAY,    DCA I   GETHAF/[XGETHAF]        /SET IT UP
+  70 003005  5774  MONTH,  JMP I   (SWAPIT)                /NOW RELOAD THE MONITOR
+  71               
+  72 003006  1012  NEXT,   TAD     L7766/[-12]             /SETUP FOR
+  73 003007  3015  UDELIM, DCA     RADXSW                  /DECIMAL INPUT
+  74 003010  7332  YEAR,   NL2000                          /PRINT OUT IN
+  75 003011  3074          DCA     TABSW                   /"TAB 0" MODE
+  76 003012  1373          TAD     (NOTFND+1&177+JMPIC)    /MAKE IT COME BACK
+  77 003013  3772          DCA I   (NOTFND)                /TO US ON BAD MONTH NAMES
+  78 003014  1371          TAD     (BADATE)                /GET ERROR ADDRESS
+  79 003015  3770          DCA I   (NOTFND+1)              /STASH IT
+  80 003016  1767          TAD I   (CTCZAP)                /GET <^C> INSTRUCTION
+  81 003017  1366          TAD     (-SRINST)               /COMPARE TO POSSIBLE VALUE
+  82 003020  7640          SZA CLA                         /SKIP IF IT MATCHES
+  83 003021  5230          JMP     DATOK                   /JUMP IF NOT
+  84 003022  1365          TAD     (JMP I  L7600/[SBOOT])  /GET BOOTSTRAPPING INSTRUCTION
+  85 003023  3767          DCA I   (CTCZAP)                /MAKE IT BOOTSTRAP ON <^C>
+  86 003024  7326          NL0002                          /SET THE "C" BIT MASK
+  87 003025  0570          AND I   PSCRSIZE/[SCRSIZE]      /GET THE BIT
+  88 003026  7640          SZA CLA                         /SKIP IF OFF
+  89 003027  3764          DCA I   (CTCPZAP)               /ELSE PREVENT DOUBLE <^C>
+  90 003030  4504  DATOK,  JMS I   GETHAF/[XGETHAF]        /GET COMMAND DELIMITER
+  91 003031  7650          SNA CLA                         /SKIP IF NOT <EOL>
+  92 003032  5763          JMP I   (DATE3)                 /FORGET IT, JUST PRINT THE DATE OUT
+  93 003033  4462          JMS I   LINENO/[XLINENO]        /GET FIRST ARGUMENT
+  94 003034  5771          JMP I   (BADATE)                /WASN'T VALID
+  95 003035  3112          DCA     MESSAGE                 /SAVE IT UNTIL WE FIGURE OUT WHAT IT IS!
+  96 003036  4504          JMS I   GETHAF/[XGETHAF]        /GET THE DELIMITER
+  97 003037  7041          CIA                             /INVERT FOR LATER
+  98 003040  3207          DCA     UDELIM                  /SAVE USER'S DELIMITER
+  99 003041  4504          JMS I   GETHAF/[XGETHAF]        /GET IT BACK
+ 100 003042  1362          TAD     (-"/!200)               /COMPARE TO "/"
+ 101 003043  7440          SZA                             /SKIP IF EQUAL
+ 102 003044  7001          IAC     /TAD    (-".+"/)        /COMPARE TO "."
+ 103 003045  7440          SZA                             /SKIP IF EITHER
+ 104 003046  7001          IAC     /TAD    (-"-+".)        /COMPARE TO "-"
+ 105 003047  7640          SZA CLA                         /SKIP IF ANY OF THEM
+ 106 003050  5771          JMP I   (BADATE)                /BARF IF NOT
+ 107 003051  2026          ISZ     GETNDX                  /BUMP PAST DELIMITER
+ 108 003052  4462          JMS I   LINENO/[XLINENO]        /TRY TO FIND A NUMBER
+ 109 003053  5761          JMP I   (TRYLET)                /NOT THERE, TRY ALPHABETIC MONTH
+ 110 003054  3204          DCA     DAY                     /SAVE AS THE DAY
+ 111                      DECIMAL                 /MAKE CALCULATIONS EASIER
+ 112               
+ 113 003055  1112          TAD     MESSAGE         /GET APPARENT MONTH
+ 114 003056  1360          TAD     (-12-1)         /ADD ON LIMIT
+ 115 003057  7100          CLL                     /CLEAR LINK FOR TEST
+ 116 003060  1357          TAD     (12)            /ADD ON RANGE
+ 117 003061  7420          SNL                     /SKIP IF VALID
+ 118 003062  5771          JMP I   (BADATE)        /ELSE BARF
+ 119 003063  3205  LETCOM, DCA     MONTH           /SAVE MONTH VALUE
+ 120 003064  4504          JMS I   GETHAF/[XGETHAF]/GET THE DELIMITER
+ 121 003065  1207          TAD     UDELIM          /COMPARE TO FIRST DELIMITER
+ 122 003066  7640          SZA CLA                 /SKIP IF SAME
+ 123 003067  5771          JMP I   (BADATE)        /ELSE BARF
+ 124 003070  2026          ISZ     GETNDX          /BUMP PAST DELIMITER
+ 125 003071  1200          TAD     BSGROUP         /GET CURRENT GROUP VALUE
+ 126 003072  7106          CLL RTL;RAL             /*8
+     003073  7004  
+ 127 003074  1356          TAD     (1960)          /FORM CURRENT BASE YEAR
+ 128 003075  3201          DCA     DATBASE         /SAVE IT
+ 129 003076  1201          TAD     DATBASE         /GET IT BACK
+ 130 003077  1355          TAD     (11)            /ADD ON RANGE
+ 131 003100  7041          CIA                     /INVERT AND
+ 132 003101  3203          DCA     DATLIMIT        /SAVE AS LIMIT VALUE
+ 133 003102  4462          JMS I   LINENO/[XLINENO]/TRY TO FIND YEAR
+ 134 003103  5771          JMP I   (BADATE)        /BARF IF BAD
+ 135 003104  3202          DCA     DATEMP          /SAVE IT FOR NOW
+ 136 003105  1202          TAD     DATEMP          /GET IT BACK
+ 137 003106  1354          TAD     (-100)          /COMPARE TO TWO-DIGIT LIMIT
+ 138 003107  7700          SMA CLA                 /SKIP IF SMALL FORM OF DATE YEAR
+ 139 003110  5320          JMP     BGDATE          /JUMP IF LONG FORM
+ 140 003111  1201          TAD     DATBASE         /GET BASE YEAR
+ 141 003112  7041          CIA                     /INVERT
+ 142 003113  1353          TAD     (1900)          /FORM NEGATIVE OFFSET
+ 143 003114  1202          TAD     DATEMP          /ADD ON TWO-DIGIT FORM
+ 144 003115  7710          SPA CLA                 /SKIP IF GOOD OFFSET
+ 145 003116  1352          TAD     (2000-1900)     /ELSE BRING INTO GOOD RANGE
+ 146 003117  1353          TAD     (1900)          /NOW HAVE LONG FORM BASE OF IMPLIED DATE
+ 147 003120  1202  BGDATE, TAD     DATEMP          /NOW HAVE FULL DATE VALUE
+ 148 003121  1203          TAD     DATLIMIT        /COMPARE TO LIMIT
+ 149 003122  7100          CLL                     /CLEAR LINK FOR TEST
+ 150 003123  1355          TAD     (11)            /ADD ON RANGE
+ 151 003124  7420          SNL                     /SKIP IF VALID
+ 152 003125  5771          JMP I   (BADATE)        /JUMP IF BAD
+ 153 003126  3210          DCA     YEAR            /SAVE AS YEAR
+ 154 003127  1210          TAD     YEAR            /GET THE YEAR BACK
+ 155 003130  0005          AND     L3/[3]          /JUST LEAP YEAR BITS
+ 156 003131  7650          SNA CLA                 /SKIP IF NOT A LEAP YEAR
+ 157 003132  2751          ISZ I   (FEBENT)        /ALLOW ONE MORE DAY
+ 158 003133  1205          TAD     MONTH           /GET THE MONTH
+ 159 003134  1350          TAD     (JANENT)        /ADD ON MONTH LENGTH TABLE ADDRESS
+ 160 003135  3112          DCA     MESSAGE         /STASH IT
+ 161 003136  1204          TAD     DAY             /GET THE DAY
+ 162 003137  7650          SNA CLA                 /SKIP IF NOT ZERO
+ 163 003140  5771          JMP I   (BADATE)        /ELSE COMPLAIN
+ 164 003141  5747          JMP I   (DATE2)         /CONTINUE THERE
+ 165 003142  7741  MONCT, -31                     /DAYS IN A MAXIMAL MONTH
+ 166 003143  7214  YEARCT, -372                    /DAYS IN A YEAR OF MAXIMUM MONTHS
+ 167               
+ 168                       K1960=  1960            /CONSTANT NEEDED ELSEWHERE
+ 169                       K372=   372             /CONSTANT NEEDED ELSEWHERE
+ 170               
+ 171                       OCTAL                   /RESTORE OCTAL RADIX
+ 172               
+ 173 003147  3217          PAGE
+     003150  3600  
+     003151  3601  
+     003152  0144  
+     003153  3554  
+     003154  7634  
+     003155  0013  
+     003156  3650  
+     003157  0014  
+     003160  7763  
+     003161  3200  
+     003162  7721  
+     003163  3251  
+     003164  2363  
+     003165  5513  
+     003166  2307  
+     003167  2365  
+     003170  0723  
+     003171  3214  
+     003172  0722  
+     003173  5723  
+     003174  0423  
+     003175  3006  
+     003176  0434  
+     003177  5644  
+ 174 003200  1112  TRYLET,        TAD     MESSAGE         /GET FIRST ARGUMENT
+ 175 003201  3777          DCA I   (DAY)           /ASSUME IT'S THE DAY
+ 176 003202  4454          JMS I   NAME/[XNAME]    /TRY TO FIND MONTH NAME
+ 177 003203  5214          JMP     BADATE          /BARF
+ 178 003204  1005          TAD     L3/[3]          /SETUP THE
+ 179 003205  3122          DCA     TCNT1           /BUMP FACTOR
+ 180 003206  3075          DCA     TAPREC          /CLEAR OFFSET
+ 181 003207  1376          TAD     (TXTMON)        /GET MONTH TEXT POINTER
+ 182 003210  4554          JMS I   LOOKUP/[XLOOKUP]/TRY TO FIND A VALID MONTH
+ 183 003211  7112          CLL RTR;RTR             /%16
+     003212  7012  
+ 184 003213  5775          JMP I   (LETCOM)        /CONTINUE THERE
+ 185               
+ 186 003214  4112  BADATE, JMS     MESSAGE         /COMPLAIN OF
+ 187 003215  3637          BDTMSG                  /BAD DATE!
+ 188 003216  5513          JMP I   L7600/[SBOOT]   /BYE, BYE!
+ 189               
+ 190 003217  1512  DATE2,  TAD I   MESSAGE         /GET LEGAL LENGTH
+ 191 003220  7040          CMA                     /INVERT FOR TEST
+ 192 003221  1777          TAD I   (DAY)           /COMPARE TO DAY GIVEN
+ 193 003222  7500          SMA                     /SKIP IF OK
+ 194 003223  5214          JMP     BADATE          /BARF IF NOT
+ 195 003224  1512          TAD I   MESSAGE         /MAKE IT ORIGIN 0
+ 196 003225  3777          DCA I   (DAY)           /SAVE IT BACK
+ 197               
+ 198               /       COMPUTE DATEWORD= (YEAR*372)+(MONTH*31)+DAY (ORIGIN 0).
+ 199               
+ 200 003226  1774          TAD I   (YEAR)          /\
+ 201 003227  2773          ISZ I   (YEARCT)        / >CREATE YEAR*372
+ 202 003230  5226          JMP     .-2             //
+ 203 003231  1772          TAD I   (MONTH)         /\
+ 204 003232  2771          ISZ I   (MONCT)         / >ADD ON MONTH*31
+ 205 003233  5231          JMP     .-2             //
+ 206 003234  1777          TAD I   (DAY)           /ADD ON DAY
+ 207 003235  3770          DCA I   (SDATE)         /SAVE IT IN SYSIO AREA
+ 208 003236  4561          JMS I   PBUTIO/[BUTIO]  /READ IN
+ 209 003237  7000          BUFF                    /I/O IMAGE
+ 210 003240  0100          1^100                   /FOR
+ 211 003241  0000          0                       /ZAPPING
+ 212 003242  1770          TAD I   (SDATE)         /GET DATE WORD
+ 213 003243  3767          DCA I   (SDATE&177+BUFF)/ZAP IT IN
+ 214 003244  4561          JMS I   PBUTIO/[BUTIO]  /WRITE I/O ROUTINES
+ 215 003245  7000          BUFF                    /BACK WITH
+ 216 003246  4100          1^100+WRITE             /UPDATED
+ 217 003247  0000          0                       /DATE WORD
+ 218 003250  3271          DCA     FEBZAP          /PREVENT DOUBLE LEAP YEAR!
+ 219 003251  1770  DATE3, TAD I   (SDATE)         /GET SYSTEM DATE WORD
+ 220 003252  4766          JMS I   (DIVIDE)        /DIVIDE
+ 221 003253  0564  CNTMON, 564                     /BY 372
+ 222 003254  3774          DCA I   (YEAR)          /SAVE AS YEAR OFFSET
+ 223 003255  1765          TAD I   (REM)           /GET REMAINDER
+ 224 003256  1364          TAD     (ANNUNC)        /POINT AT TODAYS MESSAGE POINTER
+ 225 003257  3075          DCA     TAPREC          /SAVE FOR LATER
+ 226 003260  1765          TAD I   (REM)           /GET REMAINDER
+ 227 003261  4766          JMS I   (DIVIDE)        /DIVIDE
+ 228 003262  0037          37                      /BY 31
+ 229 003263  3772          DCA I   (MONTH)         /SAVE AS MONTH
+ 230 003264  1765          TAD I   (REM)           /GET REMAINDER
+ 231 003265  3777          DCA I   (DAY)           /SAVE AS DAY
+ 232 003266  1774          TAD I   (YEAR)          /GET YEAR BACK
+ 233 003267  0005          AND     L3/[3]          /JUST LEAP BITS
+ 234 003270  7650          SNA CLA                 /SKIP IF NOT LEAP YEAR
+ 235 003271  2763  FEBZAP, ISZ I   (FEBENT)        /**** SETTING DATE **** 0000
+ 236 003272  1772          TAD I   (MONTH)         /GET THE MONTH
+ 237 003273  7040          CMA                     /INVERT FOR COUNTING
+ 238 003274  3253          DCA     CNTMON          /STASH IT
+ 239 003275  5300          JMP     DATLUP          /JUMP INTO IT
+ 240               
+ 241 003276  1744  DATBAK, TAD I   ENTPTR          /GET A PRIOR MONTH'S DAY COUNT
+ 242 003277  2344          ISZ     ENTPTR          /BUMP TO NEXT
+ 243 003300  2253  DATLUP, ISZ     CNTMON          /DONE ALL PRIOR MONTHS?
+ 244 003301  5276          JMP     DATBAK          /NO, KEEP GOING
+ 245 003302  1777          TAD I   (DAY)           /ADD ON THIS MONTH'S DAY COUNT
+ 246 003303  3554          DCA I   LOOKUP/[XLOOKUP]/SAVE IT
+ 247 003304  4504          JMS I   GETHAF/[XGETHAF]/GET THE DELIMITER
+ 248 003305  2026          ISZ     GETNDX          /BUMP PAST
+ 249 003306  1362          TAD     (-"+!200)       /COMPARE TO "+"
+ 250 003307  7640          SZA CLA                 /SKIP IF CORRECT
+ 251 003310  5761          JMP I   (DATE5)         /JUMP IF WRONG
+ 252 003311  3060          DCA     PUTNDX          /ZERO OUTPUT INDEX
+ 253 003312  1475          TAD I   TAPREC          /GET OLD MESSAGE ADDRESS
+ 254 003313  7700          SMA CLA                 /PROTECTED?
+ 255 003314  5761          JMP I   (DATE5)         /YES
+ 256 003315  1760          TAD I   (MFREE)         /GET POINTER TO FIRST FREE LOCATION
+ 257 003316  3131          DCA     PUTBASE         /SAVE WHERE TO GO INTO
+ 258 003317  1131          TAD     PUTBASE         /SAVE A CYCLE
+ 259 003320  3475          DCA I   TAPREC          /ZAP TODAY'S ENTRY IN TABLE
+ 260 003321  4504          JMS I   GETHAF/[XGETHAF]/\
+ 261 003322  4532          JMS I   PUTHAF/[XPUTHAF]/ \
+ 262 003323  4504          JMS I   GETHAF/[XGETHAF]/  \
+ 263 003324  2026          ISZ     GETNDX          /   >MOVE THE MESSAGE
+ 264 003325  2060          ISZ     PUTNDX          /  /
+ 265 003326  7640          SZA CLA                 / /
+ 266 003327  5321          JMP     .-6             //
+ 267 003330  1060          TAD     PUTNDX          /\
+ 268 003331  7001          IAC                     / \
+ 269 003332  7110          CLL RAR                 /  >FIND NEXT AVAILABLE SLOT
+ 270 003333  1131          TAD     PUTBASE         / /
+ 271 003334  3760  DUDAT2, DCA I   (MFREE)         //
+ 272 003335  1757         TAD I   (SFUN)                  /\
+ 273 003336  0177          AND     L7/[7]                  / >GET UNIT NUMBER
+ 274 003337  3000          DCA     UNIT                    //
+ 275 003340  1756          TAD I   (SBLOCK)                /GET OUR LOAD BLOCK
+ 276 003341  1355          TAD     (MFREE&7600-DATE%200)   /ADD ON OFFSET
+ 277 003342  3754          DCA I   (DTBLOK)                /STORE AS BLOCK ARGUMENT
+ 278 003343  5753          JMP I   (DUDMORE)               /CONTINUE THERE
+ 279               
+ 280 003344  3600  ENTPTR, JANENT                          /POINTER TO MONTH LENGTH TABLE
+ 281               
+ 282 003353  3400          PAGE
+     003354  3412  
+     003355  0004  
+     003356  7635  
+     003357  7634  
+     003360  4031  
+     003361  3414  
+     003362  7725  
+     003363  3601  
+     003364  4032  
+     003365  3553  
+     003366  3522  
+     003367  7010  
+     003370  7610  
+     003371  3142  
+     003372  3005  
+     003373  3143  
+     003374  3010  
+     003375  3063  
+     003376  3764  
+     003377  3004  
+ 283 003400  1777  DUDMORE,TAD I  (MFREE)                 /\
+ 284 003401  1376          TAD     (-LIMITD)               / \
+ 285 003402  7750          SPA SNA CLA                     /  \IF WE GOT TOO
+ 286 003403  5207          JMP     DUDATE                  /  /BIG COMPLAIN
+ 287 003404  4112          JMS     MESSAGE                 / /
+ 288 003405  3672          DTNORM                          //
+ 289 003406  5214          JMP     DATE5                   /PRINT IT OUT ANYWAY
+ 290               
+ 291 003407  4037  DUDATE, JMS     UNITIO                  /\
+ 292 003410  4000          MFREE&7600                      / \WRITE IT OUT ONTO
+ 293 003411  4600          LIMITD-MFREE-1&7600%2+100+WRITE / /IT'S ORIGINATOR
+ 294 003412  0000  DTBLOK, .-.                             //
+ 295 003413  5513          JMP I   L7600/[SBOOT]           /BOOTSTRAP
+ 296               
+ 297 003414  1775  DATE5,  TAD I   (YEAR)                  /GET YEAR
+ 298 003415  1005          TAD     L3/[3]                  /ROUND UP
+ 299 003416  7110          CLL RAR;CLL RAR                 /%4
+     003417  7110  
+ 300 003420  1554          TAD I   LOOKUP/[XLOOKUP]        /ADD DAY TO LEAP DAY COUNT
+ 301 003421  1775          TAD I   (YEAR)                  /ADD ON YEAR
+ 302 003422  1774          TAD I   (BSGROUP)               /ADD ON
+ 303 003423  1774          TAD I   (BSGROUP)               /THREE TIMES
+ 304 003424  1774          TAD I   (BSGROUP)               /GROUP NUMBER
+ 305 003425  4322          JMS     DIVIDE                  /DIVIDE
+ 306 003426  0007          7                               /BY 7
+ 307 003427  7200          CLA                             /CLEAN UP
+ 308 003430  1353          TAD     REM                     /GET REMAINDER
+ 309 003431  1373          TAD     (DWK)                   /FORM DAY STRING POINTER
+ 310 003432  4342          JMS     PRTFLD                  /PRINT DAY OF THE WEEK
+ 311 003433  4466          JMS I   NAMPRT/[XPRTNAM]        /PRINT
+ 312 003434  3644          DAYBLB                          /"DAY"
+ 313 003435  1772          TAD I   (MONTH)                 /GET MONTH
+ 314 003436  1371          TAD     (JAN)                   /ADD ON MONTH TABLE POINTER
+ 315 003437  4342          JMS     PRTFLD                  /PRINT MONTH
+ 316 003440  1046          TAD     L40/[" 6177]            /GO PRINT
+ 317 003441  4507          JMS I   PRINT/[XPRINT]          /A BLANK
+ 318 003442  7201          NL0001                          /MAKE IT ORIGIN ONE
+ 319 003443  1770          TAD I   (DAY)                   /GET THE DAY
+ 320 003444  4322          JMS     DIVIDE                  /DIVIDE
+ 321 003445  0012          12                              /BY TEN
+ 322 003446  7450          SNA                             /ZERO?
+ 323 003447  5252          JMP     .+3                     /YES, DON'T PRINT IT
+ 324 003450  1367          TAD     ("0&177)                /MAKE IT A PRINTABLE NUMBER
+ 325 003451  4507          JMS I   PRINT/[XPRINT]          /PRINT IT
+ 326 003452  1353          TAD     REM                     /GET REMAINDER
+ 327 003453  1367          TAD     ("0&177)                /MAKE IT PRINTABLE
+ 328 003454  4507          JMS I   PRINT/[XPRINT]          /PRINT IT
+ 329 003455  1366          TAD     (",&177)                /GET A COMMA
+ 330 003456  4507          JMS I   PRINT/[XPRINT]          /PRINT IT TOO
+ 331 003457  1046          TAD     L40/[" &177]            /GET A BLANK
+ 332 003460  4507          JMS I   PRINT/[XPRINT]          /PRINT IT
+ 333 003461  1774         TAD I   (BSGROUP)       /GET THE GROUP NUMBER
+ 334 003462  7106          CLL RTL;RAL             /*8
+     003463  7004  
+ 335 003464  1365          TAD     (K1960)         /MAKE INTO BASE YEAR
+ 336 003465  1775          TAD I   (YEAR)          /ADD ON YEAR
+ 337 003466  4505          JMS I   LNOPRT/[XLNOPRT]/PRINT IT
+ 338 003467  4447          JMS I   PR6BIT/[XPR6BIT]/PRINT A <CR>
+ 339 003470  1475          TAD I   TAPREC          /GET ANNOUNCEMENT ADDRESS
+ 340 003471  7040          CMA                     /INVERT FOR TEST
+ 341 003472  7450          SNA                     /ANY MESSAGES TODAY?
+ 342 003473  5513          JMP I   L7600/[SBOOT]   /NO, BOOTSTRAP
+ 343 003474  7144          CLL CMA RAL             /RE-INVERT AND
+ 344 003475  7130          STL RAR                 /SET AC[0] TO MAKE SURE
+ 345 003476  3300          DCA     BLBARG          /SAVE IT INLINE
+ 346 003477  4112          JMS     MESSAGE         /PRINT THE BLURB
+ 347 003500  0000  BLBARG, .-.                     /OF THE DAY
+ 348 003501  1764          TAD I   (SWMX)          /GET /M-/X
+ 349 003502  0006          AND     L100/[100]      /JUST /R
+ 350 003503  7650          SNA CLA                 /SKIP IF SET
+ 351 003504  5513          JMP I   L7600/[SBOOT]   /BOOTSTRAP
+ 352 003505  1363          TAD     (ANNUNCE)       /SETUP
+ 353 003506  3075          DCA     TAPREC          /POINTER
+ 354 003507  1362          TAD     (-K372)         /SETUP
+ 355 003510  3300          DCA     BLBARG          /COUNT
+ 356 003511  1475  ANLOOP, TAD I   TAPREC          /GET AN ENTRY
+ 357 003512  7510          SPA                     /PROTECTED?
+ 358 003513  7240          NL7777                  /NO
+ 359 003514  3475          DCA I   TAPREC          /PUT IT BACK
+ 360 003515  2075          ISZ     TAPREC          /BUMP TO NEXT
+ 361 003516  2300          ISZ     BLBARG          /DONE YET?
+ 362 003517  5311          JMP     ANLOOP          /NO, GO BACK
+ 363 003520  1361          TAD     (AVAILX)        /GET RESET VALUE
+ 364 003521  5760          JMP I   (DUDAT2)        /GO FINISH IT
+ 365               
+ 366 003522  0000  DIVIDE, .-.                     /DIVIDING ROUTINE
+ 367 003523  3353          DCA     REM             /SAVE IN REMAINDER
+ 368 003524  3354          DCA     QUO             /CLEAR QUOTIENT
+ 369 003525  1353          TAD     REM             /GET DIVIDEND
+ 370 003526  7161          STL CIA                 /INVERT FOR TEST
+ 371 003527  7410          SKP                     /DON'T BUMP FIRST TIME THROUGH
+ 372 003530  2354  DVLOOP, ISZ     QUO             /BUMP UP QUOTIENT
+ 373 003531  1722          TAD I   DIVIDE          /ADD ON DIVISOR
+ 374 003532  7470          SNA SZL                 /OVERFLOW?
+ 375 003533  5330          JMP     DVLOOP          /NO, GO BACK
+ 376 003534  7041          CIA                     /INVERT
+ 377 003535  1722          TAD I   DIVIDE          /FORM REMAINDER
+ 378 003536  3353          DCA     REM             /SAVE REMAINDER FOR LATER
+ 379 003537  1354          TAD     QUO             /GET QUOTIENT
+ 380 003540  2322          ISZ     DIVIDE          /SKIP AROUND ARGUMENT
+ 381 003541  5722          JMP I   DIVIDE          /RETURN
+ 382 003542  0000  PRTFLD,        .-.                     /PRINT A BLURB FIELD
+ 383 003543  3351          DCA     PRTEMP          /SAVE BLURB ADDRESS
+ 384 003544  1357          TAD     (SZA)           /MAKE SCRIBE NOT
+ 385 003545  3756          DCA I   (SCRIBR+1)      /PRINT CARRIAGE RETURNS
+ 386 003546  1751          TAD I   PRTEMP          /GET BLURB ADDRESS
+ 387 003547  3351          DCA     PRTEMP          /SAVE IN LINE
+ 388 003550  4112          JMS     MESSAGE         /GO PRINT
+ 389 003551  0000  PRTEMP, .-.                     /THE BLURB
+ 390 003552  5742          JMP I   PRTFLD          /RETURN
+ 391               
+ 392 003553  0000  REM,    .-.                     /REMAINDER
+ 393 003554  0000  QUO,    .-.                     /QUOTIENT
+ 394               
+ 395 003556  1120          PAGE
+     003557  7440  
+     003560  3334  
+     003561  5021  
+     003562  7214  
+     003563  4032  
+     003564  7605  
+     003565  3650  
+     003566  0054  
+     003567  0060  
+     003570  3004  
+     003571  3623  
+     003572  3005  
+     003573  3614  
+     003574  3000  
+     003575  3010  
+     003576  2400  
+     003577  4031  
+ 396                      DECIMAL
+ 397               
+ 398 003600  0037  JANENT, 31                      /MONTH LENGTH TABLE
+ 399 003601  0034  FEBENT, 28                      /THIS IS 29 IN LEAPING YEARS
+ 400 003602  0037          31                      /MARCH
+ 401 003603  0036          30                      /APRIL
+ 402 003604  0037          31                      /MAY
+ 403 003605  0036          30                      /JUNE
+ 404 003606  0037          31                      /JULY
+ 405 003607  0037          31                      /AUGUST
+ 406 003610  0036          30                      /SEPTEMBER
+ 407 003611  0037          31                      /OCTOBER
+ 408 003612  0036          30                      /NOVEMBER
+ 409 003613  0037          31                      /DECEMBER
+ 410               
+ 411                       OCTAL
+ 412               
+ 413 003614  3663  DWK,    FRITXT                  /FRIDAY
+ 414 003615  3665          SATTXT                  /SATURDAY
+ 415 003616  3670          SUNTXT                  /SUNDAY
+ 416 003617  3647          MONTXT                  /MONDAY
+ 417 003620  3651          TUETXT                  /TUESDAY
+ 418 003621  3654          WEDTXT                  /WEDNESDAY
+ 419 003622  3660          THUTXT                  /THURSDAY
+ 420               
+ 421 003623  3706  JAN,    JANTXT                  /MONTH NAME MESSAGES
+ 422 003624  3712          FEBTXT                  /FEBRUARY
+ 423 003625  3717          MARTXT                  /MARCH
+ 424 003626  3722          APRTXT                  /APRIL
+ 425 003627  3725          MAYTXT                  /MAY
+ 426 003630  3727          JUNTXT                  /JUNE
+ 427 003631  3732          JULTXT                  /JULY
+ 428 003632  3735          AUGTXT                  /AUGUST
+ 429 003633  3741          SEPTXT                  /SEPTEMBER
+ 430 003634  3746          OCTTXT                  /OCTOBER
+ 431 003635  3752          NOVTXT                  /NOVEMBER
+ 432 003636  3757          DECTXT                  /DECEMBER
+ 433               
+ 434 003637  0201  BDTMSG, TEXT    "BAD DATE!"     /BLURB FOR BAD DATES
+     003640  0440  
+     003641  0401  
+     003642  2405  
+     003643  4100  
+ 435 003644  0401  DAYBLB,        TEXT    "DAY ";0
+     003645  3140  
+     003646  0000  
+ 436 003647  1517  MONTXT, TEXT    "MON"
+     003650  1600  
+ 437 003651  2425  TUETXT, TEXT    "TUES";0
+     003652  0523  
+     003653  0000  
+ 438 003654  2705  WEDTXT, TEXT    "WEDNES";0
+     003655  0416  
+     003656  0523  
+     003657  0000  
+ 439 003660  2410  THUTXT, TEXT    "THURS"
+     003661  2522  
+     003662  2300  
+ 440 003663  0622  FRITXT, TEXT    "FRI"
+     003664  1100  
+ 441 003665  2301  SATTXT, TEXT    "SATUR"
+     003666  2425  
+     003667  2200  
+ 442 003670  2325  SUNTXT, TEXT    "SUN"
+     003671  1600  
+ 443 003672  1617  DTNORM, TEXT    "NO ROOM FOR NEW MESSAGE"
+     003673  4022  
+     003674  1717  
+     003675  1540  
+     003676  0617  
+     003677  2240  
+     003700  1605  
+     003701  2740  
+     003702  1505  
+     003703  2323  
+     003704  0107  
+     003705  0500  
+ 444 003706  1201  JANTXT,        TEXT    "JANUARY"       /COMPLETE NAMES OF THE MONTH
+     003707  1625  
+     003710  0122  
+     003711  3100  
+ 445 003712  0605  FEBTXT, TEXT    "FEBRUARY";0    /FEBRUARY
+     003713  0222  
+     003714  2501  
+     003715  2231  
+     003716  0000  
+ 446 003717  1501  MARTXT, TEXT    "MARCH"         /MARCH
+     003720  2203  
+     003721  1000  
+ 447 003722  0120  APRTXT, TEXT    "APRIL"         /APRIL
+     003723  2211  
+     003724  1400  
+ 448 003725  1501  MAYTXT, TEXT    "MAY"           /MAY
+     003726  3100  
+ 449 003727  1225  JUNTXT, TEXT    "JUNE";0        /JUNE
+     003730  1605  
+     003731  0000  
+ 450 003732  1225  JULTXT, TEXT    "JULY";0        /JULY
+     003733  1431  
+     003734  0000  
+ 451 003735  0125  AUGTXT, TEXT    "AUGUST";0      /AUGUST
+     003736  0725  
+     003737  2324  
+     003740  0000  
+ 452 003741  2305  SEPTXT, TEXT    "SEPTEMBER"     /SEPTEMBER
+     003742  2024  
+     003743  0515  
+     003744  0205  
+     003745  2200  
+ 453 003746  1703  OCTTXT, TEXT    "OCTOBER"       /OCTOBER
+     003747  2417  
+     003750  0205  
+     003751  2200  
+ 454 003752  1617  NOVTXT, TEXT    "NOVEMBER";0    /NOVEMBER
+     003753  2605  
+     003754  1502  
+     003755  0522  
+     003756  0000  
+ 455 003757  0405  DECTXT, TEXT    "DECEMBER";0    /DECEMBER
+     003760  0305  
+     003761  1502  
+     003762  0522  
+     003763  0000  
+ 456 003764  1201  TXTMON,        TEXT    "JAN";0         /SHORT-FORM NAMES OF THE MONTHS
+     003765  1600  
+     003766  0000  
+ 457 003767  0605          TEXT    "FEB";0         /FEBRUARY
+     003770  0200  
+     003771  0000  
+ 458 003772  1501          TEXT    "MAR";0         /MARCH
+     003773  2200  
+     003774  0000  
+ 459 003775  0120          TEXT    "APR";0         /APRIL
+     003776  2200  
+     003777  0000  
+ 460 004000  1501          TEXT    "MAY";0         /MAY
+     004001  3100  
+     004002  0000  
+ 461 004003  1225          TEXT    "JUN";0         /JUNE
+     004004  1600  
+     004005  0000  
+ 462 004006  1225          TEXT    "JUL";0         /JULY
+     004007  1400  
+     004010  0000  
+ 463 004011  0125          TEXT    "AUG";0         /AUGUST
+     004012  0700  
+     004013  0000  
+ 464 004014  2305          TEXT    "SEP";0         /SEPTEMBER
+     004015  2000  
+     004016  0000  
+ 465 004017  1703          TEXT    "OCT";0         /OCTOBER
+     004020  2400  
+     004021  0000  
+ 466 004022  1617          TEXT    "NOV";0         /NOVEMBER
+     004023  2600  
+     004024  0000  
+ 467 004025  0405          TEXT    "DEC";0         /DECEMBER
+     004026  0300  
+     004027  0000  
+ 468 004030  0000          0                       /THIS ENDS THE LIST
+ 469 004031  5021  MFREE, AVAILX                  /AVAILABLE MESSAGE 
+ 470               
+ 471               /       TABLE OF ANNOUNCEMENT MESSAGES FOR JANUARY. 
+ 472               
+ 473 004032  0616  ANNUNC, NEWYEAR&3777            /JANUARY 1
+ 474 004033  7777          -1                      /JANUARY 2
+ 475 004034  7777          -1                      /JANUARY 3
+ 476 004035  7777          -1                      /JANUARY 4
+ 477 004036  7777          -1                      /JANUARY 5
+ 478 004037  7777          -1                      /JANUARY 6
+ 479 004040  7777          -1                      /JANUARY 7
+ 480 004041  7777          -1                      /JANUARY 8
+ 481 004042  7777          -1                      /JANUARY 9
+ 482 004043  7777          -1                      /JANUARY 10
+ 483 004044  7777          -1                      /JANUARY 11
+ 484 004045  7777          -1                      /JANUARY 12
+ 485 004046  7777          -1                      /JANUARY 13
+ 486 004047  7777          -1                      /JANUARY 14
+ 487 004050  7777          -1                      /JANUARY 15
+ 488 004051  7777          -1                      /JANUARY 16
+ 489 004052  7777          -1                      /JANUARY 17
+ 490 004053  7777          -1                      /JANUARY 18
+ 491 004054  0626          LASNER&3777             /JANUARY 19
+ 492 004055  7777          -1                      /JANUARY 20
+ 493 004056  7777          -1                      /JANUARY 21
+ 494 004057  7777          -1                      /JANUARY 22
+ 495 004060  7777          -1                      /JANUARY 23
+ 496 004061  7777          -1                      /JANUARY 24
+ 497 004062  7777          -1                      /JANUARY 25
+ 498 004063  7777          -1                      /JANUARY 26
+ 499 004064  7777          -1                      /JANUARY 27
+ 500 004065  7777          -1                      /JANUARY 28
+ 501 004066  7777          -1                      /JANUARY 29
+ 502 004067  7777          -1                      /JANUARY 30
+ 503 004070  7777          -1                      /JANUARY 31
+ 504               /      TABLE OF ANNOUNCEMENT MESSAGES FOR FEBRUARY. 
+ 505               
+ 506 004071  7777          -1                      /FEBRUARY 1
+ 507 004072  7777          -1                      /FEBRUARY 2
+ 508 004073  7777          -1                      /FEBRUARY 3
+ 509 004074  7777          -1                      /FEBRUARY 4
+ 510 004075  7777          -1                      /FEBRUARY 5
+ 511 004076  7777          -1                      /FEBRUARY 6
+ 512 004077  7777          -1                      /FEBRUARY 7
+ 513 004100  7777          -1                      /FEBRUARY 8
+ 514 004101  7777          -1                      /FEBRUARY 9
+ 515 004102  7777          -1                      /FEBRUARY 10
+ 516 004103  7777          -1                      /FEBRUARY 11
+ 517 004104  0642          LINCON&3777             /FEBRUARY 12
+ 518 004105  7777          -1                      /FEBRUARY 13
+ 519 004106  7777          -1                      /FEBRUARY 14
+ 520 004107  7777          -1                      /FEBRUARY 15
+ 521 004110  7777          -1                      /FEBRUARY 16
+ 522 004111  7777          -1                      /FEBRUARY 17
+ 523 004112  0656          WASHIN&3777             /FEBRUARY 18
+ 524 004113  7777          -1                      /FEBRUARY 19
+ 525 004114  7777          -1                      /FEBRUARY 20
+ 526 004115  7777          -1                      /FEBRUARY 21
+ 527 004116  7777          -1                      /FEBRUARY 22
+ 528 004117  7777          -1                      /FEBRUARY 23
+ 529 004120  7777          -1                      /FEBRUARY 24
+ 530 004121  7777          -1                      /FEBRUARY 25
+ 531 004122  7777          -1                      /FEBRUARY 26
+ 532 004123  7777          -1                      /FEBRUARY 27
+ 533 004124  7777          -1                      /FEBRUARY 28
+ 534 004125  0674          LEPER&3777              /FEBRUARY 29
+ 535 004126  7777          -1                      /FEBRUARY 30
+ 536 004127  7777          -1                      /FEBRUARY 31
+ 537               /      TABLE OF ANNOUNCEMENT MESSAGES FOR MARCH. 
+ 538               
+ 539 004130  7777          -1                      /MARCH 1
+ 540 004131  7777          -1                      /MARCH 2
+ 541 004132  7777          -1                      /MARCH 3
+ 542 004133  7777          -1                      /MARCH 4
+ 543 004134  7777          -1                      /MARCH 5
+ 544 004135  7777          -1                      /MARCH 6
+ 545 004136  7777          -1                      /MARCH 7
+ 546 004137  7777          -1                      /MARCH 8
+ 547 004140  7777          -1                      /MARCH 9
+ 548 004141  7777          -1                      /MARCH 10
+ 549 004142  7777          -1                      /MARCH 11
+ 550 004143  7777          -1                      /MARCH 12
+ 551 004144  7777          -1                      /MARCH 13
+ 552 004145  7777          -1                      /MARCH 14
+ 553 004146  7777          -1                      /MARCH 15
+ 554 004147  7777          -1                      /MARCH 16
+ 555 004150  7777          -1                      /MARCH 17
+ 556 004151  7777          -1                      /MARCH 18
+ 557 004152  7777          -1                      /MARCH 19
+ 558 004153  7777          -1                      /MARCH 20
+ 559 004154  7777          -1                      /MARCH 21
+ 560 004155  7777          -1                      /MARCH 22
+ 561 004156  7777          -1                      /MARCH 23
+ 562 004157  7777          -1                      /MARCH 24
+ 563 004160  7777          -1                      /MARCH 25
+ 564 004161  7777          -1                      /MARCH 26
+ 565 004162  7777          -1                      /MARCH 27
+ 566 004163  7777          -1                      /MARCH 28
+ 567 004164  7777          -1                      /MARCH 29
+ 568 004165  7777          -1                      /MARCH 30
+ 569 004166  7777          -1                      /MARCH 31
+ 570               /      TABLE OF ANNOUNCEMENT MESSAGES FOR APRIL. 
+ 571               
+ 572 004167  0704          FOOL&3777               /APRIL 1
+ 573 004170  7777          -1                      /APRIL 2
+ 574 004171  7777          -1                      /APRIL 3
+ 575 004172  7777          -1                      /APRIL 4
+ 576 004173  7777          -1                      /APRIL 5
+ 577 004174  7777          -1                      /APRIL 6
+ 578 004175  7777          -1                      /APRIL 7
+ 579 004176  7777          -1                      /APRIL 8
+ 580 004177  7777          -1                      /APRIL 9
+ 581 004200  7777          -1                      /APRIL 10
+ 582 004201  7777          -1                      /APRIL 11
+ 583 004202  7777          -1                      /APRIL 12
+ 584 004203  7777          -1                      /APRIL 13
+ 585 004204  7777          -1                      /APRIL 14
+ 586 004205  7777          -1                      /APRIL 15
+ 587 004206  7777          -1                      /APRIL 16
+ 588 004207  7777          -1                      /APRIL 17
+ 589 004210  7777          -1                      /APRIL 18
+ 590 004211  7777          -1                      /APRIL 19
+ 591 004212  7777          -1                      /APRIL 20
+ 592 004213  7777          -1                      /APRIL 21
+ 593 004214  7777          -1                      /APRIL 22
+ 594 004215  7777          -1                      /APRIL 23
+ 595 004216  7777          -1                      /APRIL 24
+ 596 004217  7777          -1                      /APRIL 25
+ 597 004220  7777          -1                      /APRIL 26
+ 598 004221  7777          -1                      /APRIL 27
+ 599 004222  7777          -1                      /APRIL 28
+ 600 004223  7777          -1                      /APRIL 29
+ 601 004224  7777          -1                      /APRIL 30
+ 602 004225  7777          -1                      /APRIL 31
+ 603               /      TABLE OF ANNOUNCEMENT MESSAGES FOR MAY. 
+ 604               
+ 605 004226  7777          -1                      /MAY 1
+ 606 004227  7777          -1                      /MAY 2
+ 607 004230  7777          -1                      /MAY 3
+ 608 004231  7777          -1                      /MAY 4
+ 609 004232  7777          -1                      /MAY 5
+ 610 004233  7777          -1                      /MAY 6
+ 611 004234  7777          -1                      /MAY 7
+ 612 004235  7777          -1                      /MAY 8
+ 613 004236  7777          -1                      /MAY 9
+ 614 004237  7777          -1                      /MAY 10
+ 615 004240  7777          -1                      /MAY 11
+ 616 004241  7777          -1                      /MAY 12
+ 617 004242  7777          -1                      /MAY 13
+ 618 004243  7777          -1                      /MAY 14
+ 619 004244  7777          -1                      /MAY 15
+ 620 004245  7777          -1                      /MAY 16
+ 621 004246  7777          -1                      /MAY 17
+ 622 004247  7777          -1                      /MAY 18
+ 623 004250  7777          -1                      /MAY 19
+ 624 004251  7777          -1                      /MAY 20
+ 625 004252  7777          -1                      /MAY 21
+ 626 004253  7777          -1                      /MAY 22
+ 627 004254  7777          -1                      /MAY 23
+ 628 004255  7777          -1                      /MAY 24
+ 629 004256  7777          -1                      /MAY 25
+ 630 004257  7777          -1                      /MAY 26
+ 631 004260  7777          -1                      /MAY 27
+ 632 004261  7777          -1                      /MAY 28
+ 633 004262  7777          -1                      /MAY 29
+ 634 004263  0715          MEMORY&3777             /MAY 30
+ 635 004264  7777          -1                      /MAY 31
+ 636               /      TABLE OF ANNOUNCEMENT MESSAGES FOR JUNE. 
+ 637               
+ 638 004265  7777          -1                      /JUNE 1
+ 639 004266  7777          -1                      /JUNE 2
+ 640 004267  7777          -1                      /JUNE 3
+ 641 004270  7777          -1                      /JUNE 4
+ 642 004271  7777          -1                      /JUNE 5
+ 643 004272  7777          -1                      /JUNE 6
+ 644 004273  7777          -1                      /JUNE 7
+ 645 004274  7777          -1                      /JUNE 8
+ 646 004275  7777          -1                      /JUNE 9
+ 647 004276  7777          -1                      /JUNE 10
+ 648 004277  7777          -1                      /JUNE 11
+ 649 004300  7777          -1                      /JUNE 12
+ 650 004301  7777          -1                      /JUNE 13
+ 651 004302  0724          FLGDAY&3777             /JUNE 14
+ 652 004303  7777          -1                      /JUNE 15
+ 653 004304  7777          -1                      /JUNE 16
+ 654 004305  7777          -1                      /JUNE 17
+ 655 004306  7777          -1                      /JUNE 18
+ 656 004307  7777          -1                      /JUNE 19
+ 657 004310  7777          -1                      /JUNE 20
+ 658 004311  7777          -1                      /JUNE 21
+ 659 004312  7777          -1                      /JUNE 22
+ 660 004313  7777          -1                      /JUNE 23
+ 661 004314  7777          -1                      /JUNE 24
+ 662 004315  7777          -1                      /JUNE 25
+ 663 004316  7777          -1                      /JUNE 26
+ 664 004317  7777          -1                      /JUNE 27
+ 665 004320  7777          -1                      /JUNE 28
+ 666 004321  7777          -1                      /JUNE 29
+ 667 004322  7777          -1                      /JUNE 30
+ 668 004323  7777          -1                      /JUNE 31
+ 669               /      TABLE OF ANNOUNCEMENT MESSAGES FOR JULY. 
+ 670               
+ 671 004324  7777          -1                      /JULY 1
+ 672 004325  7777          -1                      /JULY 2
+ 673 004326  7777          -1                      /JULY 3
+ 674 004327  0731          FOURTH&3777             /JULY 4
+ 675 004330  7777          -1                      /JULY 5
+ 676 004331  7777          -1                      /JULY 6
+ 677 004332  7777          -1                      /JULY 7
+ 678 004333  7777          -1                      /JULY 8
+ 679 004334  7777          -1                      /JULY 9
+ 680 004335  7777          -1                      /JULY 10
+ 681 004336  7777          -1                      /JULY 11
+ 682 004337  7777          -1                      /JULY 12
+ 683 004340  7777          -1                      /JULY 13
+ 684 004341  0742          BASTIL&3777             /JULY 14
+ 685 004342  7777          -1                      /JULY 15
+ 686 004343  7777          -1                      /JULY 16
+ 687 004344  7777          -1                      /JULY 17
+ 688 004345  7777          -1                      /JULY 18
+ 689 004346  7777          -1                      /JULY 19
+ 690 004347  7777          -1                      /JULY 20
+ 691 004350  7777          -1                      /JULY 21
+ 692 004351  7777          -1                      /JULY 22
+ 693 004352  7777          -1                      /JULY 23
+ 694 004353  7777          -1                      /JULY 24
+ 695 004354  7777          -1                      /JULY 25
+ 696 004355  7777          -1                      /JULY 26
+ 697 004356  7777          -1                      /JULY 27
+ 698 004357  7777          -1                      /JULY 28
+ 699 004360  7777          -1                      /JULY 29
+ 700 004361  7777          -1                      /JULY 30
+ 701 004362  7777          -1                      /JULY 31
+ 702               /      TABLE OF ANNOUNCEMENT MESSAGES FOR AUGUST. 
+ 703               
+ 704 004363  7777          -1                      /AUGUST 1
+ 705 004364  7777          -1                      /AUGUST 2
+ 706 004365  7777          -1                      /AUGUST 3
+ 707 004366  7777          -1                      /AUGUST 4
+ 708 004367  7777          -1                      /AUGUST 5
+ 709 004370  7777          -1                      /AUGUST 6
+ 710 004371  7777          -1                      /AUGUST 7
+ 711 004372  7777          -1                      /AUGUST 8
+ 712 004373  7777          -1                      /AUGUST 9
+ 713 004374  7777          -1                      /AUGUST 10
+ 714 004375  7777          -1                      /AUGUST 11
+ 715 004376  7777          -1                      /AUGUST 12
+ 716 004377  7777          -1                      /AUGUST 13
+ 717 004400  7777          -1                      /AUGUST 14
+ 718 004401  7777          -1                      /AUGUST 15
+ 719 004402  7777          -1                      /AUGUST 16
+ 720 004403  7777          -1                      /AUGUST 17
+ 721 004404  7777          -1                      /AUGUST 18
+ 722 004405  7777          -1                      /AUGUST 19
+ 723 004406  7777          -1                      /AUGUST 20
+ 724 004407  7777          -1                      /AUGUST 21
+ 725 004410  7777          -1                      /AUGUST 22
+ 726 004411  7777          -1                      /AUGUST 23
+ 727 004412  7777          -1                      /AUGUST 24
+ 728 004413  7777          -1                      /AUGUST 25
+ 729 004414  7777          -1                      /AUGUST 26
+ 730 004415  7777          -1                      /AUGUST 27
+ 731 004416  7777          -1                      /AUGUST 28
+ 732 004417  7777          -1                      /AUGUST 29
+ 733 004420  7777          -1                      /AUGUST 30
+ 734 004421  7777          -1                      /AUGUST 31
+ 735               /      TABLE OF ANNOUNCEMENT MESSAGES FOR SEPTEMBER. 
+ 736               
+ 737 004422  7777          -1                      /SEPTEMBER 1
+ 738 004423  7777          -1                      /SEPTEMBER 2
+ 739 004424  7777          -1                      /SEPTEMBER 3
+ 740 004425  7777          -1                      /SEPTEMBER 4
+ 741 004426  7777          -1                      /SEPTEMBER 5
+ 742 004427  7777          -1                      /SEPTEMBER 6
+ 743 004430  7777          -1                      /SEPTEMBER 7
+ 744 004431  7777          -1                      /SEPTEMBER 8
+ 745 004432  7777          -1                      /SEPTEMBER 9
+ 746 004433  7777          -1                      /SEPTEMBER 10
+ 747 004434  7777          -1                      /SEPTEMBER 11
+ 748 004435  7777          -1                      /SEPTEMBER 12
+ 749 004436  7777          -1                      /SEPTEMBER 13
+ 750 004437  7777          -1                      /SEPTEMBER 14
+ 751 004440  7777          -1                      /SEPTEMBER 15
+ 752 004441  7777          -1                      /SEPTEMBER 16
+ 753 004442  7777          -1                      /SEPTEMBER 17
+ 754 004443  7777          -1                      /SEPTEMBER 18
+ 755 004444  7777          -1                      /SEPTEMBER 19
+ 756 004445  7777          -1                      /SEPTEMBER 20
+ 757 004446  7777          -1                      /SEPTEMBER 21
+ 758 004447  7777          -1                      /SEPTEMBER 22
+ 759 004450  7777          -1                      /SEPTEMBER 23
+ 760 004451  7777          -1                      /SEPTEMBER 24
+ 761 004452  7777          -1                      /SEPTEMBER 25
+ 762 004453  7777          -1                      /SEPTEMBER 26
+ 763 004454  7777          -1                      /SEPTEMBER 27
+ 764 004455  7777          -1                      /SEPTEMBER 28
+ 765 004456  7777          -1                      /SEPTEMBER 29
+ 766 004457  7777          -1                      /SEPTEMBER 30
+ 767 004460  7777          -1                      /SEPTEMBER 31
+ 768               /      TABLE OF ANNOUNCEMENT MESSAGES FOR OCTOBER. 
+ 769               
+ 770 004461  7777          -1                      /OCTOBER 1
+ 771 004462  7777          -1                      /OCTOBER 2
+ 772 004463  7777          -1                      /OCTOBER 3
+ 773 004464  7777          -1                      /OCTOBER 4
+ 774 004465  7777          -1                      /OCTOBER 5
+ 775 004466  7777          -1                      /OCTOBER 6
+ 776 004467  7777          -1                      /OCTOBER 7
+ 777 004470  7777          -1                      /OCTOBER 8
+ 778 004471  7777          -1                      /OCTOBER 9
+ 779 004472  7777          -1                      /OCTOBER 10
+ 780 004473  7777          -1                      /OCTOBER 11
+ 781 004474  0751          COLMBS&3777             /OCTOBER 12
+ 782 004475  7777          -1                      /OCTOBER 13
+ 783 004476  7777          -1                      /OCTOBER 14
+ 784 004477  7777          -1                      /OCTOBER 15
+ 785 004500  7777          -1                      /OCTOBER 16
+ 786 004501  7777          -1                      /OCTOBER 17
+ 787 004502  7777          -1                      /OCTOBER 18
+ 788 004503  7777          -1                      /OCTOBER 19
+ 789 004504  7777          -1                      /OCTOBER 20
+ 790 004505  7777          -1                      /OCTOBER 21
+ 791 004506  7777          -1                      /OCTOBER 22
+ 792 004507  7777          -1                      /OCTOBER 23
+ 793 004510  7777          -1                      /OCTOBER 24
+ 794 004511  7777          -1                      /OCTOBER 25
+ 795 004512  7777          -1                      /OCTOBER 26
+ 796 004513  7777          -1                      /OCTOBER 27
+ 797 004514  7777          -1                      /OCTOBER 28
+ 798 004515  7777          -1                      /OCTOBER 29
+ 799 004516  7777          -1                      /OCTOBER 30
+ 800 004517  0760          HALOWN&3777             /OCTOBER 31
+ 801               /      TABLE OF ANNOUNCEMENT MESSAGES FOR NOVEMBER. 
+ 802               
+ 803 004520  7777          -1                      /NOVEMBER 1
+ 804 004521  7777          -1                      /NOVEMBER 2
+ 805 004522  7777          -1                      /NOVEMBER 3
+ 806 004523  7777          -1                      /NOVEMBER 4
+ 807 004524  7777          -1                      /NOVEMBER 5
+ 808 004525  7777          -1                      /NOVEMBER 6
+ 809 004526  7777          -1                      /NOVEMBER 7
+ 810 004527  7777          -1                      /NOVEMBER 8
+ 811 004530  7777          -1                      /NOVEMBER 9
+ 812 004531  7777          -1                      /NOVEMBER 10
+ 813 004532  7777          -1                      /NOVEMBER 11
+ 814 004533  7777          -1                      /NOVEMBER 12
+ 815 004534  7777          -1                      /NOVEMBER 13
+ 816 004535  7777          -1                      /NOVEMBER 14
+ 817 004536  7777          -1                      /NOVEMBER 15
+ 818 004537  7777          -1                      /NOVEMBER 16
+ 819 004540  7777          -1                      /NOVEMBER 17
+ 820 004541  7777          -1                      /NOVEMBER 18
+ 821 004542  7777          -1                      /NOVEMBER 19
+ 822 004543  7777          -1                      /NOVEMBER 20
+ 823 004544  7777          -1                      /NOVEMBER 21
+ 824 004545  7777          -1                      /NOVEMBER 22
+ 825 004546  7777          -1                      /NOVEMBER 23
+ 826 004547  7777          -1                      /NOVEMBER 24
+ 827 004550  7777          -1                      /NOVEMBER 25
+ 828 004551  7777          -1                      /NOVEMBER 26
+ 829 004552  7777          -1                      /NOVEMBER 27
+ 830 004553  7777          -1                      /NOVEMBER 28
+ 831 004554  7777          -1                      /NOVEMBER 29
+ 832 004555  7777          -1                      /NOVEMBER 30
+ 833 004556  7777          -1                      /NOVEMBER 31
+ 834               /      TABLE OF ANNOUNCEMENT MESSAGES FOR DECEMBER. 
+ 835               
+ 836 004557  7777          -1                      /DECEMBER 1
+ 837 004560  7777          -1                      /DECEMBER 2
+ 838 004561  7777          -1                      /DECEMBER 3
+ 839 004562  7777          -1                      /DECEMBER 4
+ 840 004563  7777          -1                      /DECEMBER 5
+ 841 004564  7777          -1                      /DECEMBER 6
+ 842 004565  7777          -1                      /DECEMBER 7
+ 843 004566  7777          -1                      /DECEMBER 8
+ 844 004567  7777          -1                      /DECEMBER 9
+ 845 004570  7777          -1                      /DECEMBER 10
+ 846 004571  0774          SIDNEY&3777             /DECEMBER 11
+ 847 004572  7777          -1                      /DECEMBER 12
+ 848 004573  7777          -1                      /DECEMBER 13
+ 849 004574  7777          -1                      /DECEMBER 14
+ 850 004575  7777          -1                      /DECEMBER 15
+ 851 004576  7777          -1                      /DECEMBER 16
+ 852 004577  7777          -1                      /DECEMBER 17
+ 853 004600  7777          -1                      /DECEMBER 18
+ 854 004601  7777          -1                      /DECEMBER 19
+ 855 004602  7777          -1                      /DECEMBER 20
+ 856 004603  7777          -1                      /DECEMBER 21
+ 857 004604  7777          -1                      /DECEMBER 22
+ 858 004605  7777          -1                      /DECEMBER 23
+ 859 004606  7777          -1                      /DECEMBER 24
+ 860 004607  1010          XMAS&3777               /DECEMBER 25
+ 861 004610  7777          -1                      /DECEMBER 26
+ 862 004611  7777          -1                      /DECEMBER 27
+ 863 004612  7777          -1                      /DECEMBER 28
+ 864 004613  7777          -1                      /DECEMBER 29
+ 865 004614  7777          -1                      /DECEMBER 30
+ 866 004615  7777          -1                      /DECEMBER 31
+ 867 004616  1001  NEWYEAR,TEXT   "HAPPY NEW YEAR!"
+     004617  2020  
+     004620  3140  
+     004621  1605  
+     004622  2740  
+     004623  3105  
+     004624  0122  
+     004625  4100  
+ 868 004626  1001  LASNER, TEXT    "HAPPY BIRTHDAY CHARLIE!"
+     004627  2020  
+     004630  3140  
+     004631  0211  
+     004632  2224  
+     004633  1004  
+     004634  0131  
+     004635  4003  
+     004636  1001  
+     004637  2214  
+     004640  1105  
+     004641  4100  
+ 869 004642  1001  LINCON, TEXT    "HAPPY BIRTHDAY LINCOLN!"
+     004643  2020  
+     004644  3140  
+     004645  0211  
+     004646  2224  
+     004647  1004  
+     004650  0131  
+     004651  4014  
+     004652  1116  
+     004653  0317  
+     004654  1416  
+     004655  4100  
+ 870 004656  1001  WASHIN, TEXT    "HAPPY BIRTHDAY WASHINGTON! "
+     004657  2020  
+     004660  3140  
+     004661  0211  
+     004662  2224  
+     004663  1004  
+     004664  0131  
+     004665  4027  
+     004666  0123  
+     004667  1011  
+     004670  1607  
+     004671  2417  
+     004672  1641  
+     004673  4000  
+ 871 004674  1405  LEPER,  TEXT    "LEAP YEAR DAY! "
+     004675  0120  
+     004676  4031  
+     004677  0501  
+     004700  2240  
+     004701  0401  
+     004702  3141  
+     004703  4000  
+ 872 004704  0120  FOOL,  TEXT    "APRIL FOOL'S DAY!"
+     004705  2211  
+     004706  1440  
+     004707  0617  
+     004710  1714  
+     004711  4723  
+     004712  4004  
+     004713  0131  
+     004714  4100  
+ 873 004715  1505  MEMORY, TEXT    "MEMORIAL DAY!"
+     004716  1517  
+     004717  2211  
+     004720  0114  
+     004721  4004  
+     004722  0131  
+     004723  4100  
+ 874 004724  0614  FLGDAY, TEXT    "FLAG DAY!"
+     004725  0107  
+     004726  4004  
+     004727  0131  
+     004730  4100  
+ 875 004731  1116  FOURTH, TEXT    "INDEPENDENCE DAY!"
+     004732  0405  
+     004733  2005  
+     004734  1604  
+     004735  0516  
+     004736  0305  
+     004737  4004  
+     004740  0131  
+     004741  4100  
+ 876 004742  0201  BASTIL, TEXT    "BASTILLE DAY!"
+     004743  2324  
+     004744  1114  
+     004745  1405  
+     004746  4004  
+     004747  0131  
+     004750  4100  
+ 877 004751  0317  COLMBS, TEXT    "COLUMBUS DAY!"
+     004752  1425  
+     004753  1502  
+     004754  2523  
+     004755  4004  
+     004756  0131  
+     004757  4100  
+ 878 004760  1001  HALOWN,        TEXT    "HAVE A HAPPY HALLOWEEN!"
+     004761  2605  
+     004762  4001  
+     004763  4010  
+     004764  0120  
+     004765  2031  
+     004766  4010  
+     004767  0114  
+     004770  1417  
+     004771  2705  
+     004772  0516  
+     004773  4100  
+ 879 004774  1001  SIDNEY, TEXT    "HAPPY BIRTHDAY, SIDNEY!"
+     004775  2020  
+     004776  3140  
+     004777  0211  
+     005000  2224  
+     005001  1004  
+     005002  0131  
+     005003  5440  
+     005004  2311  
+     005005  0416  
+     005006  0531  
+     005007  4100  
+ 880 005010  1505  XMAS,   TEXT    "MERRY CHRISTMAS! "
+     005011  2222  
+     005012  3140  
+     005013  0310  
+     005014  2211  
+     005015  2324  
+     005016  1501  
+     005017  2341  
+     005020  4000  
+ 881                       AVAILX= .               /AVAILABLE FOR NEW MESSAGES
+ 882               
+ 883 005021  0000          ZBLOCK  5400-.          /EMPTY SPACE
+     005022  0000  
+     005023  0000  
+     005024  0000  
+     005025  0000  
+     005026  0000  
+     005027  0000  
+     005030  0000  
+     005031  0000  
+     005032  0000  
+     005033  0000  
+     005034  0000  
+     005035  0000  
+     005036  0000  
+     005037  0000  
+     005040  0000  
+     005041  0000  
+     005042  0000  
+     005043  0000  
+     005044  0000  
+     005045  0000  
+     005046  0000  
+     005047  0000  
+     005050  0000  
+     005051  0000  
+     005052  0000  
+     005053  0000  
+     005054  0000  
+     005055  0000  
+     005056  0000  
+     005057  0000  
+     005060  0000  
+     005061  0000  
+     005062  0000  
+     005063  0000  
+     005064  0000  
+     005065  0000  
+     005066  0000  
+     005067  0000  
+     005070  0000  
+     005071  0000  
+     005072  0000  
+     005073  0000  
+     005074  0000  
+     005075  0000  
+     005076  0000  
+     005077  0000  
+     005100  0000  
+     005101  0000  
+     005102  0000  
+     005103  0000  
+     005104  0000  
+     005105  0000  
+     005106  0000  
+     005107  0000  
+     005110  0000  
+     005111  0000  
+     005112  0000  
+     005113  0000  
+     005114  0000  
+     005115  0000  
+     005116  0000  
+     005117  0000  
+     005120  0000  
+     005121  0000  
+     005122  0000  
+     005123  0000  
+     005124  0000  
+     005125  0000  
+     005126  0000  
+     005127  0000  
+     005130  0000  
+     005131  0000  
+     005132  0000  
+     005133  0000  
+     005134  0000  
+     005135  0000  
+     005136  0000  
+     005137  0000  
+     005140  0000  
+     005141  0000  
+     005142  0000  
+     005143  0000  
+     005144  0000  
+     005145  0000  
+     005146  0000  
+     005147  0000  
+     005150  0000  
+     005151  0000  
+     005152  0000  
+     005153  0000  
+     005154  0000  
+     005155  0000  
+     005156  0000  
+     005157  0000  
+     005160  0000  
+     005161  0000  
+     005162  0000  
+     005163  0000  
+     005164  0000  
+     005165  0000  
+     005166  0000  
+     005167  0000  
+     005170  0000  
+     005171  0000  
+     005172  0000  
+     005173  0000  
+     005174  0000  
+     005175  0000  
+     005176  0000  
+     005177  0000  
+     005200  0000  
+     005201  0000  
+     005202  0000  
+     005203  0000  
+     005204  0000  
+     005205  0000  
+     005206  0000  
+     005207  0000  
+     005210  0000  
+     005211  0000  
+     005212  0000  
+     005213  0000  
+     005214  0000  
+     005215  0000  
+     005216  0000  
+     005217  0000  
+     005220  0000  
+     005221  0000  
+     005222  0000  
+     005223  0000  
+     005224  0000  
+     005225  0000  
+     005226  0000  
+     005227  0000  
+     005230  0000  
+     005231  0000  
+     005232  0000  
+     005233  0000  
+     005234  0000  
+     005235  0000  
+     005236  0000  
+     005237  0000  
+     005240  0000  
+     005241  0000  
+     005242  0000  
+     005243  0000  
+     005244  0000  
+     005245  0000  
+     005246  0000  
+     005247  0000  
+     005250  0000  
+     005251  0000  
+     005252  0000  
+     005253  0000  
+     005254  0000  
+     005255  0000  
+     005256  0000  
+     005257  0000  
+     005260  0000  
+     005261  0000  
+     005262  0000  
+     005263  0000  
+     005264  0000  
+     005265  0000  
+     005266  0000  
+     005267  0000  
+     005270  0000  
+     005271  0000  
+     005272  0000  
+     005273  0000  
+     005274  0000  
+     005275  0000  
+     005276  0000  
+     005277  0000  
+     005300  0000  
+     005301  0000  
+     005302  0000  
+     005303  0000  
+     005304  0000  
+     005305  0000  
+     005306  0000  
+     005307  0000  
+     005310  0000  
+     005311  0000  
+     005312  0000  
+     005313  0000  
+     005314  0000  
+     005315  0000  
+     005316  0000  
+     005317  0000  
+     005320  0000  
+     005321  0000  
+     005322  0000  
+     005323  0000  
+     005324  0000  
+     005325  0000  
+     005326  0000  
+     005327  0000  
+     005330  0000  
+     005331  0000  
+     005332  0000  
+     005333  0000  
+     005334  0000  
+     005335  0000  
+     005336  0000  
+     005337  0000  
+     005340  0000  
+     005341  0000  
+     005342  0000  
+     005343  0000  
+     005344  0000  
+     005345  0000  
+     005346  0000  
+     005347  0000  
+     005350  0000  
+     005351  0000  
+     005352  0000  
+     005353  0000  
+     005354  0000  
+     005355  0000  
+     005356  0000  
+     005357  0000  
+     005360  0000  
+     005361  0000  
+     005362  0000  
+     005363  0000  
+     005364  0000  
+     005365  0000  
+     005366  0000  
+     005367  0000  
+     005370  0000  
+     005371  0000  
+     005372  0000  
+     005373  0000  
+     005374  0000  
+     005375  0000  
+     005376  0000  
+     005377  0000  
+ 884               
+ 885                       LIMITD= .               /LAST WORD TO USE
+ 886               
+ 887                       $                       /THAT'S ALL FOLK!
+
+ANLOOP  3511
+ANNUNC  4032
+APRTXT  3722
+AUGTXT  3735
+AVAILX  5021
+BADATE  3214
+BASTIL  4742
+BDTMSG  3637
+BGDATE  3120
+BLBARG  3500
+BSGROU  3000
+BSGRP   0003
+BUFF    7000
+CNTMON  3253
+COLMBS  4751
+CTCPZA  2363
+CTCZAP  2365
+DATBAK  3276
+DATBAS  3001
+DATE    3000
+DATE2   3217
+DATE3   3251
+DATE5   3414
+DATEMP  3002
+DATLIM  3003
+DATLUP  3300
+DATOK   3030
+DAY     3004
+DAYBLB  3644
+DECTXT  3757
+DIVIDE  3522
+DTBLOK  3412
+DTNORM  3672
+DUDAT2  3334
+DUDATE  3407
+DUDMOR  3400
+DVLOOP  3530
+DWK     3614
+ENTPTR  3344
+FEBENT  3601
+FEBTXT  3712
+FEBZAP  3271
+FLGDAY  4724
+FOOL    4704
+FOURTH  4731
+FRITXT  3663
+GETHAF  0104
+GETNDX  0026
+HALOWN  4760
+JAN     3623
+JANENT  3600
+JANTXT  3706
+JMPIC   5600
+JULTXT  3732
+JUNTXT  3727
+K1960   3650
+K372    0564
+L100    0006
+L3      0005
+L40     0046
+L7      0177
+L7600   0113
+L7766   0012
+LASNER  4626
+LEPER   4674
+LETCOM  3063
+LIMITD  5400
+LINCON  4642
+LINENO  0062
+LNOPRT  0105
+LOOKUP  0154
+MARTXT  3717
+MAYTXT  3725
+MEMORY  4715
+MESSAG  0112
+MFREE   4031
+MONCT   3142
+MONTH   3005
+MONTXT  3647
+NAME    0054
+NAMPRT  0066
+NEWYEA  4616
+NEXT    3006
+NL0001  7201
+NL0002  7326
+NL2000  7332
+NL7777  7240
+NOTFND  0722
+NOVTXT  3752
+OCTTXT  3746
+PBEGIN  0071
+PBUTIO  0161
+PR6BIT  0047
+PRINT   0107
+PRTEMP  3551
+PRTFLD  3542
+PSCRSI  0170
+PUTBAS  0131
+PUTHAF  0132
+PUTNDX  0060
+QUO     3554
+RADXSW  0015
+REM     3553
+SATTXT  3665
+SBLOCK  7635
+SCRIBR  1117
+SDATE   7610
+SEPTXT  3741
+SFUN    7634
+SIDNEY  4774
+SRINST  5471
+SUNTXT  3670
+SWAPIT  0423
+SWMX    7605
+TABSW   0074
+TAPREC  0075
+TCNT1   0122
+THUTXT  3660
+TRYLET  3200
+TUETXT  3651
+TXTMON  3764
+UDELIM  3007
+UNIT    0000
+UNITIO  0037
+WASHIN  4656
+WEDTXT  3654
+WRITE   4000
+XGETHA  0444
+XMAS    5010
+YEAR    3010
+YEARCT  3143

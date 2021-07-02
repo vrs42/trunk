@@ -1,0 +1,38 @@
+#!/usr/bin/expect -f
+
+spawn pdp8
+set timeout -1
+expect {
+	{..$} { exp_continue }
+        {.$} { send "DATE 17-JUN-99\r" }
+}
+expect -re {\n\.$}
+send "ASSIGN RKA1 A\r"
+expect -re {\n\.$}
+send "ASSIGN RKB1 B\r"
+expect -re {\n\.$}
+send "ASSIGN RKA2 SCR\r"
+expect -re {\n\.$}
+send "ASSIGN RKB2 TMP\r"
+expect -re {\n\.$}
+send "ZERO TMP:\r"
+expect -re {\n\.$}
+send "SUBMIT PQSASM/T\r"
+expect -re {END BATCH\r\n\r\n\.$}
+send "DIR TMP:\r"
+expect -re {\n\.$}
+send "SUBMIT COMGEN/T\r"
+expect -re {END BATCH\r\n\r\n\.$}
+#expect -re {\n\.$}
+send "DIR SCR:\r"
+expect -re {\n\.$}
+send "EX RKB2:Z12K,RKB2:PQSMON,RKB2:PQSDTA,RKB2:BIN,RKB2:ODT,RKB2:DUMP\r"
+expect -re {\nsim> }
+send "D SR 0\r"
+expect -re {\nsim> }
+send "C\r"
+expect -re {\nsim> }
+send "B DT\r"
+expect -re {\n\.$}
+close
+exit 0

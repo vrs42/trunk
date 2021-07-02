@@ -1,0 +1,3480 @@
+   1               /       DIRECTORY UTILITY FOR P?S/8
+   2               
+   3               /       LAST EDIT:      03-SEP-1987     16:00:00        CJL
+   4               
+   5               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       DIRECTORY LISTING UTILITY FOR P?S/8 FIXED FILES CATALOG, EXTENDED FILES
+   8               /       DIRECTORY, AND SYSTEM PROGRAMS DIRECTORY.
+   9               
+  10               /       USAGE:
+  11               
+  12               /       .[R ]DIRECT (SWITCH OPTIONS) (OPTIONAL SEARCH STRING)
+  13               
+  14               /       SWITCH OPTIONS:
+  15               
+  16               /       /A      REPORT ONLY ASCII TYPE FILES. DEFAULT IS ALL FILE TYPES AND EMPTY
+  17               /               SLOTS. SEE /B, /E, /I, /Q. THESE FILES WILL PRINT <ASCI> IF /I IS
+  18               /               NOT INVOKED.
+  19               
+  20               /       /B      REPORT ONLY BINARY TYPE FILES. DEFAULT IS ALL FILE TYPES AND EMPTY
+  21               /               SLOTS. SEE /A, /E, /I, /Q. THESE FILES WILL PRINT <BNRY> IF /I IS
+  22               /               NOT INVOKED.
+  23               
+  24               /       /D      REPORT FILE (OR EMPTY SLOT) STARTING BLOCK IN DECIMAL. DEFAULT
+  25               /               IS NO BLOCK INFORMATION.
+  26               
+  27               /       /E      REPORT ONLY EMPTY SLOTS. DEFAULT IS ALL FILE TYPES AND EMPTY SLOTS.
+  28               /               SEE /A, /B, /D, /I, /O, /Q.
+  29               
+  30               /       /F      OUTPUT <FF> CHARACTER AS PAGE DELIMITER. DEFAULT IF OUTPUT IS TO
+  31               /               THE SYSTEM LINE-PRINTER. IF NOT INVOKED AND OUTPUT IS TO THE CONSOLE
+  32               /               TERMINAL, USE HASH LINE AS PAGE DELIMITER.
+  33               
+  34               /       /H      NO HEADERS ON OUTPUT. ONLY THE CURRENT DATE WILL BE OUTPUT BEFORE
+  35               /               THE FILE LINES, ETC. DEFAULT IS A DESCRIPTIVE HEADER ON EACH PAGE.
+  36               
+  37               /       /I      DON'T IDENTIFY FILE TYPE. DEFAULT IS TO INDICATE WHETHER FILE (OR
+  38               /               EMPTY SLOT) IS ASCII <ASCI>, BINARY <BNRY>, OR UNKNOWN <UNKN>. SEE
+  39               /               /A, /B, /E, /Q.
+  40               
+  41               /       /L      FILE NAMES (AND EMPTY SLOTS) ARE REPORTED IN LINEAR ORDER (ACCORDING
+  42               /               TO ASCENDING STARTING BLOCK NUMBER). DEFAULT IS AN ASCENDING SORT
+  43               /               BY FILE NAME (EMPTY SLOTS REPORTED LAST SORTED BY BLOCK NUMBER).
+  44               
+  45               /       /N      NO PAGINATION ON OUTPUT.
+  46               
+  47               /       /O      REPORT FILE (OR EMPTY SLOT) STARTING BLOCK IN OCTAL. DEFAULT IS
+  48               /               NO BLOCK INFORMATION.
+  49               
+  50               /       /P      PAUSE BETWEEN OUTPUT PAGES. THREE <BEL> CHARACTERS WILL BE SENT
+  51               /               TO THE CONSOLE TERMINAL TO INDICATE THE PAUSE. HITTING <CR> ON THE
+  52               /               CONSOLE KEYBOARD WILL RESUME THE OUTPUT.
+  53               /      /Q      REPORT ONLY FILE TYPES OTHER THAN ASCII, BINARY. DEFAULT IS ALL
+  54               /               FILE TYPES AND EMPTY SLOTS. SEE /A, /B, /E, /I. THESE FILES WILL
+  55               /               PRINT <UNKN> IF /I IS NOT INVOKED.
+  56               
+  57               /       /R      DON'T REPORT AVAILABLE AND TOTAL SLOT RESOURCES. DEFAULT IS TO
+  58               /               REPORT AVAILABLE AND TOTAL SLOT INFORMATION.
+  59               
+  60               /       /S      OUTPUT SYSTEM DIRECTORY INFORMATION. DEFAULT IS FILES DIRECTORY
+  61               /               INFORMATION. IF /S IS INVOKED, THE FOLLOWING SWITCHES WILL BE IGNORED:
+  62               /               /A, /B, /D, /E, /H, /I, /L, /O, /Q, /R, /V, /X. THE =NNNN PARAMETER
+  63               /               WILL BE VALIDATED BUT NOT USED. THE SEARCH STRING WILL BE VALIDATED
+  64               /               BUT NOT USED. SEE SYSTEM DIRECTORY DESCRIPTION FOR MORE INFORMATION.
+  65               
+  66               /       /T      OUTPUT TO CONSOLE TERMINAL. DEFAULT IS TO USE THE LINE-PRINTER IF
+  67               /               AVAILABLE ELSE ALL OUTPUT IS ROUTED TO THE CONSOLE TERMINAL. ERROR
+  68               /               MESSAGE PRINTOUT IS ALWAYS SENT TO THE CONSOLE TERMINAL.
+  69               
+  70               /       /U      OUTPUT IN UPPER CASE ONLY. DEFAULT IS UPPER/LOWER CASE OUTPUT.
+  71               
+  72               /       /V      DON'T OUTPUT FILE NAMES WITH VERTICAL ORIENTATION. IF /V IS INVOKED
+  73               /               WITH /L, THE FILE NAMES WILL APPEAR HORIZONTALLY IN THE ORDER OF
+  74               /               OCCURRENCE ON THE SPECIFIED DEVICE. IF /V IS NOT INVOKED, ALL OUTPUT
+  75               /               CHANGES TO BALANCED-LENGTH VERTICAL COLUMNS.
+  76               
+  77               /       /X      OUTPUT EXTENDED DIRECTORY INSTEAD OF CATALOG. THE FOLLOWING SWITCHES
+  78               /               WILL BE IGNORED: /A, /B, /I, /Q, /R. OTHER SWITCHES MAY HAVE ALTERNATE
+  79               /               MEANING. NOT IMPLEMENTED AT THIS TIME.
+  80               
+  81               /       /0-/7   LOGICAL UNIT FOR DIRECTORY LISTING. DEFAULT VALUE IS THE SYSTEM
+  82               /               BOOTSTRAP UNIT.
+  83               
+  84               /       =NNNN   USE NNNN COLUMNS PER PAGE. DEFAULT IS 3. MAXIMUM IS 74 (112 OCTAL).
+  85               
+  86               /       FILE EXCLUSION SWITCHES (ASSUMING /S, /X ARE NOT INVOKED).
+  87               
+  88               /       THE DEFAULT ACTION IS TO ALLOW ALL FILE TYPES AND EMPTY SLOTS TO BE ELEGIBLE
+  89               /       FOR PRINTOUT. USE OF ANY OF THESE SWITCHES:
+  90               
+  91               /               /A      FOR ASCII FILES
+  92               /               /B      FOR BINARY FILES
+  93               /               /E      FOR EMPTY SLOTS
+  94               /               /Q      FOR FILES OTHER THAN ASCII OR BINARY (UNKNOWN)
+  95               
+  96               /       WILL EXCLUDE ALL FILE TYPES (OR EMPTY SLOTS) WHOSE OPTION SWITCHES ARE NOT
+  97               /       EXPLICITLY GIVEN.
+  98               
+  99               /       INVOKING /A/B/E/Q IS EQUIVALENT TO INVOKING NONE OF THESE OPTION SWITCHES.
+ 100               /      OPTIONAL SEARCH STRING.
+ 101               
+ 102               /       AN OPTIONAL SEARCH STRING CAN BE GIVEN (IF PRESENT, IT MUST BE LAST ON THE
+ 103               /       COMMAND LINE PAST ALL OPTION SWITCHES) TO LIMIT PRINTOUT TO THOSE FILES
+ 104               /       "MATCHING" THE SEARCH STRING. THE STRING CAN CONSIST OF ANY COMBINATION
+ 105               /       OF VALID P?S/8 FILE NAME CHARACTERS ("A", "B", "C", "D", "E", "F", "G",
+ 106               /        "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+ 107               /       "V", "W", "X", "Y", "Z", "[", "\", "]", "^", "0", "1", "2", "3", "4", "5",
+ 108               /       "6", "7", "8", "9"), AND THE SPECIAL CHARACTERS: "*", "?", AND AT MOST A
+ 109               /       SINGLE OCCURRENCE OF THE SPECIAL CHARACTER: ".". ALL IMBEDDED SPACE CHARACTERS
+ 110               /       AND HORIZONTAL TABS ARE IGNORED.
+ 111               
+ 112               /       TO QUALIFY FOR PRINTOUT, A FILE NAME MUST MATCH THE SEARCH STRING EXACTLY.
+ 113               /       TO ALLOW FOR "WILD CARD" CAPABILITY, THE SPECIAL CHARACTERS "?" AND "*"
+ 114               /       CAN BE USED. THE "?" CHARACTER MATCHES ANY ONE CHARACTER IN A FILE NAME.
+ 115               /       THE CHARACTER MUST BE PRESENT, UNLESS THE "?" IS PART OF A SERIES OF "?"
+ 116               /       CHARACTERS RIGHT-MOST IN THE SEARCH STRING. FOR EXAMPLE:
+ 117               
+ 118               /       .DIRECT FOO???
+ 119               
+ 120               /       THIS WOULD MATCH FILE NAMES: "FOO", "FOOD", "FOOLS", AND "FOOBAR".
+ 121               
+ 122               /       THE "*" CHARACTER IS USED TO MATCH AN ARBITRARY NUMBER OF FILE NAME CHARACTERS
+ 123               /       FROM NONE THROUGH THE ENTIRE NAME IF NECESSARY. FOR EXAMPLE:
+ 124               
+ 125               /       .DIRECT *
+ 126               
+ 127               /       THIS WOULD MATCH ANY FILE NAME (AS IF THE SEARCH STRING WERE NOT INVOKED
+ 128               /       AT ALL!).
+ 129               
+ 130               /       .DIRECT F*
+ 131               
+ 132               /       THIS WOULD MATCH FILE NAMES: "F", "FOO", AND "FOOBAR".
+ 133               
+ 134               /       .DIRECT F*R
+ 135               
+ 136               /       THIS WOULD MATCH FILE NAMES: "FR", "FAR", AND "FOOBAR".
+ 137               
+ 138               /       THE SPECIAL CHARACTER "." MAY BE GIVEN AT THE END OF THE SEARCH STRING
+ 139               /       OPTIONALLY FOLLOWED BY AN ADDITIONAL STRING USING ALL OTHER VALID SEARCH
+ 140               /       CHARACTERS; THE "." CHARACTER ITSELF MUST NOT BE REPEATED. THE "." CHARACTER
+ 141               /       IS USED TO INDICATE AN "EXTENSION" (ALSO KNOWN AS A "QUALIFIED NAME"),
+ 142               /       WHICH IS NOT IMPLEMENTED AT THIS TIME. DUE TO CURRENT IMPLEMENTATION
+ 143               /       RESTRICTIONS, THE P?S/8 FILE NAME STRUCTURE IS LIMITED TO AT MOST SIX
+ 144               /       CHARACTERS WITHOUT EXTENSION, SO THE SCOPE OF USEFUL COMMANDS MUST BE
+ 145               /       LIMITED TO THIS AMOUNT. THE EXTENSION STRING (IF GIVEN) WILL BE IGNORED,
+ 146               /       OTHER THAN VALIDATION OF ITS SYNTAX. FUTURE IMPLEMENTATION PLANS FOR P?S/8
+ 147               /       INCLUDE UPGRADING THE FILE NAMES TO A FORM:
+ 148               
+ 149               /       LONGASSEMBLYFILE.MAC8   16 CHARACTER FILE NAMES WITH 4 CHARACTER EXTENSIONS
+ 150               /      PROGRAM OUTPUT.
+ 151               
+ 152               /       CATALOG-ORIENTED PRINTOUT.
+ 153               
+ 154               /       RUNNING DIRECT (WITHOUT /S, /X) PRODUCES THE FOLLOWING OUTPUT:
+ 155               
+ 156               /       DIRECTORY OF SYSN:  DIRECT V10B  FRIDAY 03-JUL-87  PAGE 1       REQUESTED UNIT
+ 157               /                                                                       [0-7], VERSION,
+ 158               /                                                                       REVISION,
+ 159               /                                                                       DAY, DATE,
+ 160               /                                                                       PAGE NUMBER
+ 161               
+ 162               /       FOOBAR <BNRY>  1000                                             FILE NAME, ID,
+ 163               /                                                                       STARTING BLOCK
+ 164               /       <FREE> <UNKN>  1020                                             FREE SLOT, ID,
+ 165               /                                                                       STARTING BLOCK
+ 166               /       <FREE> <UNKN>  1040                                             FREE SLOT, ID,
+ 167               /                                                                       STARTING BLOCK
+ 168               /       BARFOO <ASCI>  1060                                             FILE NAME, ID,
+ 169               /                                                                       STARTING BLOCK
+ 170               
+ 171               /        2 FILES                                                        FILE COUNT
+ 172               
+ 173               /        2 FREE FILE SLOTS                                              IMBEDDED FREE
+ 174               /                                                                       SLOT COUNT
+ 175               
+ 176               /       80 AVAILABLE FILE SLOTS                                         TOTAL FREE
+ 177               /                                                                       SLOT COUNT
+ 178               
+ 179               /       84 TOTAL FILE SLOTS                                             TOTAL SLOTS
+ 180               /      SYSTEM DIRECTORY-ORIENTED OUTPUT.
+ 181               
+ 182               /       RUNNING DIRECT WITH /S PRODUCES THE FOLLOWING OUTPUT:
+ 183               
+ 184               /       P?S/8 SYSTEM DIRECTORY  DIRECT V10B  FRIDAY 03-JUL-87  PAGE 1   VERSION,
+ 185               /                                                                       REVISION,
+ 186               /                                                                       DAY, DATE,
+ 187               /                                                                       PAGE NUMBER
+ 188               
+ 189               /       SYSTEM: TC08:0                                                  DEVICE, UNIT
+ 190               
+ 191               /       IMAGE INFORMATION:                                              HEADER
+ 192               
+ 193               /        NAME   BLOCK  SIZE  LOAD  LENGTH  OUT   IN   R  S  O  START    HEADER
+ 194               
+ 195               /       ODT     0163   016   0000    16   GENO  GENI  0  0  0  03000    ODT ENTRY
+ 196               /       BATCH   0201   002   7400    01         BAT   0  0  0  07400    BATCH ENTRY
+ 197               /       BIN     0203   027   0000    13   BIN   BIN   0  0  0  00200    BIN ENTRY
+ 198               /       [OTHER SPECIFIC SYSTEMS INFORMATION AS NECESSARY]
+ 199               /       <FREE>  BBBB   NNN                                              FIRST FREE
+ 200               /                                                                       BLOCK, SIZE
+ 201               
+ 202               /       FREE SLOTS:    NNN                                              FREE
+ 203               /                                                                       DIRECTORY
+ 204               /                                                                       SLOTS
+ 205               /      EXPLANATION OF SYSTEM DIRECTORY PARTICULARS.
+ 206               
+ 207               /       NAME    SYSTEM PROGRAM NAME
+ 208               
+ 209               /       BLOCK   FIRST LOADING BLOCK OF SYSTEM PROGRAM
+ 210               
+ 211               /       SIZE    OVERALL SIZE OF SYSTEM PROGRAM INCLUDING OVERLAYS, ETC.
+ 212               
+ 213               /       LOAD    SIZE OF INITIALLY LOADED PROGRAM SEGMENT
+ 214               
+ 215               /       OUT     DEFAULT OUTPUT EXTENSION FOR EXTENDED DIRECTORY FILES
+ 216               
+ 217               /       IN      DEFAULT INPUT EXTENSION FOR EXTENDED DIRECTORY FILES
+ 218               
+ 219               /       R       EQUALS PARAMETER RADIX DISPOSITION: 0=USE OCTAL, 1=USE CURRENT RADIX
+ 220               
+ 221               /       S       SCAN FILES DISPOSITION: 0=ALLOW FILE SCAN, 1=PREVENT FILE SCAN
+ 222               
+ 223               /       O       SCAN OUTPUT FILES DISPOSITION: 0=NORMAL, 1=ALLOW OUTPUT FILES ONLY
+ 224               
+ 225               /       IF SIZE AND LOAD DIFFER, THE SYSTEM PROGRAM CONTAINS OVERLAYS OR IMBEDDED
+ 226               /       BUFFER AREAS. SEE SPECIFIC SYSTEM PROGRAM DOCUMENTATION FOR MORE DETAILS.
+ 227               
+ 228               /       DEFAULT EXTENSIONS ARE PROVIDED WHERE APPLICABLE ONLY. NULL ENTRIES GENERALLY
+ 229               /       IMPLY THE LACK OF (INPUT OR OUTPUT) FILES WHEN NORMALLY INVOKING THE SPECIFIED
+ 230               /       SYSTEM PROGRAM.
+ 231               
+ 232               /       THE "O" ENTRY IS IGNORED IF THE "S" ENTRY IS SET.
+ 233               
+ 234               /       AVAILABLE DEFAULT FILE EXTENSION TYPES.
+ 235               
+ 236               /       THE CURRENTLY IMPLEMENTED DEFAULT FILE EXTENSION TYPES ARE:
+ 237               
+ 238               /       (NULL)  (00)    NO DEFAULT FILE TYPE
+ 239               /       ASC     (01)    ASCII FILE
+ 240               /       BAT     (02)    BATCH FILE
+ 241               /       BIN     (03)    BINARY FILE
+ 242               /       DUMP    (04)    DUMP FILE
+ 243               /       FOC     (05)    FOCAL FILE
+ 244               /       GENI    (06)    GENERAL INPUT FILE
+ 245               /       GENO    (07)    GENERAL OUTPUT FILE
+ 246               /       PAL     (10)    PAL FILE
+ 247               
+ 248               /       ONE FILE TYPE FOR INPUT MAY BE COMBINED WITH ONE FILE TYPE FOR OUTPUT.
+ 249               /       INPUT AND OUTPUT FILE TYPES MAY BE DIFFERENT; CERTAIN COMBINATIONS ARE
+ 250               /       NOT IMPLEMENTED.
+ 251               
+ 252               /       **** GENERAL IMPLEMENTATION NOTE ****
+ 253               
+ 254               /       SINCE EXTENDED FILES ARE NOT IMPLEMENTED AT THIS TIME, ALL EXTENSIONS, BOTH
+ 255               /       DEFAULT AND EXPLICIT ARE NOT AVAILABLE. SYSTEM PROGRAM COMMANDS DO NOT
+ 256               /       ACCEPT FILE EXTENSIONS AT THIS TIME.
+ 257               /      EXTENDED DIRECTORY-ORIENTED OUTPUT.
+ 258               
+ 259               /       **** GENERAL IMPLEMENTATION NOTE ****
+ 260               
+ 261               /       SINCE EXTENDED FILES ARE NOT IMPLEMENTED AT THIS TIME, THE /X OPTION WILL
+ 262               /       BE IGNORED. FUTURE IMPLEMENTATIONS WILL HONOR THE /X SWITCH TO PRODUCE
+ 263               /       EXTENDED DIRECTORY FILE PRINTOUT.
+ 264               
+ 265               /       ERROR MESSAGES.
+ 266               
+ 267               /       THERE ARE SEVERAL FATAL ERRORS. ALL ERRORS EXIT TO THE MONITOR AFTER PRINTING
+ 268               /       ONE OF THE FOLLOWING MESSAGES:
+ 269               
+ 270               /       MULTIPLE PERIOD CHARACTERS IN SEARCH STRING!
+ 271               
+ 272               /               MORE THAN ONE PERIOD CHARACTER WAS PASSED IN THE SEARCH STRING.
+ 273               /               ONLY ONE PERIOD CHARACTER IS ALLOWED IN THE SEARCH STRING TO
+ 274               /               SEPARATE THE FILE NAME STRING FROM THE EXTENSION STRING.
+ 275               
+ 276               /       SEARCH STRING TOO LONG!
+ 277               
+ 278               /               THE SEARCH STRING EXCEEDED THE BUFFER PROVIDED FOR IT. THE MAXIMUM
+ 279               /               SEARCH STRING LENGTH IS 36 CHARACTERS. THIS MESSAGE INDICATES THE
+ 280               /               EXCESSIVE USE OF SEARCH STRING CHARACTERS WHICH ARE EXTRANEOUS TO
+ 281               /               EFFECTIVE SEARCH FUNCTION. DUE TO THE LIMITED LENGTH OF FILE NAMES,
+ 282               /               ALL EFFECTIVE SEARCH STRING COMBINATIONS CAN BE ACHIEVED WITHIN
+ 283               /               THE CONFINES OF THIS MINOR LIMITATION.
+ 284               
+ 285               /       TOO MANY COLUMNS!
+ 286               
+ 287               /               THE COLUMN COUNT REQUESTED IS BEYOND THE MAXIMUM ALLOWED. USE SMALLER
+ 288               /               COLUMN COUNT (VIA THE EQUALS PARAMETER, DEFAULT IS 4). THE MAXIMUM
+ 289               /               COLUMN COUNT ALLOWED IS 74 (112 OCTAL).
+ 290               /      IMPLEMENTATION NOTES AND CUSTOMIZATION.
+ 291               
+ 292               /       IT MAY BE DESIRABLE TO CUSTOMIZE ANY PARTICULAR COPY OF DIRECT TO THE USER'S
+ 293               /       OWN PREFERENCE REGARDING CERTAIN SWITCHES. FOR EXAMPLE, A USER MAY PREFER
+ 294               /       A HORIZONTAL DIRECTORY PRINTOUT, RATHER THAN THE DEFAULT VERTICAL PRINTOUT.
+ 295               /       OPTION SWITCHES CONTROLLING THIS AND OTHER ASPECTS OF DIRECT ARE AVAILABLE
+ 296               /       TO CUSTOMIZE THE OPERATIONS OF THE PROGRAM, BUT THESE REQUIRE THE USER TO
+ 297               /       INVOKE FAVORED OPTIONS REPEATEDLY.
+ 298               
+ 299               /       SEVERAL KNOWN OPERATING SYSTEMS SUPPORT "PATCHED" VERSIONS OF SYSTEM PROGRAMS
+ 300               /       WHICH EFFECTIVELY FORCE THE EFFECT OF OPTION SWITCHES WHETHER EXPLICITLY
+ 301               /       GIVEN OR NOT. THIS PREVENTS THE POSSIBILITY OF USING THE PROGRAM IN THE
+ 302               /       ORIGINAL WAY AS THERE IS NO METHOD TO REVERT THE ENFORCED OPTION.
+ 303               
+ 304               /       TO OVERCOME THIS LIMITATION, THE USER CAN PATCH THE FIRST THREE WORDS OF
+ 305               /       THE CORE IMAGE OF DIRECT ITSELF WITH A "MASK" (EACH BIT CORRESPONDS TO AN
+ 306               /       OPTION SWITCH SERIALLY FROM /A-/Z FOLLOWED BY /0-/9). (IMPLEMENTATION NOTE:
+ 307               /       THE CORE IMAGE OF DIRECT ACTUALLY STARTS WITH SEVERAL PAGES OF ONCE-ONLY
+ 308               /       CODE. THE FIRST PAGE OF THE RUNNING DIRECT PROGRAM CAN BE OBTAINED BY
+ 309               /       CALCULATING THE VALUE OF THE SYMBOL "PZ" (WHICH STANDS FOR PAGE ZERO) AND
+ 310               /       SUBTRACTING 2600 (THE ACTUAL LOADING ADDRESS OF DIRECT) FROM IT, THEN
+ 311               /       DIVIDING BY 200 TO OBTAIN THE NUMBER OF PAGES. THIS PAGE COUNT SHOULD BE
+ 312               /       ADDED TO THE BLOCK, INDICATED BY DIRECT (USING /S) AS THE STARTING BLOCK
+ 313               /       OF DIRECT, TO OBTAIN THE ACTUAL BLOCK TO PATCH.) THIS MASKING VALUE WILL
+ 314               /       BE USED TO "REVERSE" THE EFFECT OF THE SPECIFIED SWITCH. FOR EXAMPLE: SETTING
+ 315               /       RELATIVE WORD ONE OF THE CORE IMAGE OF DIRECT TO 0004 WILL REVERSE THE /V
+ 316               /       OPTION. THIS WOULD REQUIRE THE USER TO INVOKE /V IF THE VERTICAL PRINTOUT
+ 317               /       WERE DESIRED, OPPOSITE TO NORMAL CONVENTION. ALL SWITCHES CAN BE "REVERSED"
+ 318               /       ACCORDINGLY (INCLUDING OPTION SWITCHES IGNORED BY DIRECT!). THE RESULTANT
+ 319               /       CUSTOMIZED COPY OF DIRECT OPERATES IN A TOTALLY CONVENTIONAL MANNER; ONLY
+ 320               /       THE METHOD OF PASSING SWITCH OPTIONS CHANGES.
+ 321               /      EQUATED SYMBOLS.
+ 322               
+ 323               //      DEFINITIONS FROM P?S/8.
+ 324               
+ 325                       BSGRP=  0003            /BASE GROUP NUMBER FOR SYSTEM DATE WORD
+ 326                       CATADR= 7000            /CATALOG ADDRESS
+ 327                       DIR=    0015            /USER DIRECTORY BLOCK
+ 328                       FILBEG= 3000            /FILE BUFFER
+ 329                       GETHAF= 0104            /GET A HALF-WORD
+ 330                       GETNDX= 0026            /GET HALF-WORD INDEX
+ 331                       HIDWRD= 7600            /SYSTEM HANDLER ID NUMBER WORD
+ 332                       INCON=  0031            /EQUATED FROM CONSOLE!
+ 333                       KEPRADX=0040            /KEEP CURRENT RADIX BIT VALUE
+ 334                       LPMODE= 0004            /LPT: BUFFERING MODE
+ 335                       NOSCAN= 0100            /DON'T SCAN FILES BIT VALUE
+ 336                       OUTCON= 0033            /EQUATED FROM CONSOLE!
+ 337                       OUTLPT= 0035            /EQUATED FROM CONSOLE!
+ 338                       PUTBASE=0131            /PUT HALF-WORD BASE
+ 339                       PUTHAF= 0132            /PUT HALF-WORD ROUTINE
+ 340                       PUTNDX= 0060            /PUT HALF-WORD INDEX
+ 341                       SBOOT=  7600            /SYSTEM BOOTSTRAP ADDRESS
+ 342                       SBTFUN= 7602            /SYSTEM BOOTSTRAP FUNCTION
+ 343                       SCRSIZE=7611            /MONITOR CORE SIZE WORD
+ 344                       SDATE=  7610            /SYSTEM DATE WORD
+ 345                       SPARM=  7756            /SYSTEM EQUALS PARAMETER
+ 346                       SWAL=   7604            /SWITCHES /A-/L HERE
+ 347                       SWMX=   7605            /SWITCHES /M-/X HERE
+ 348                       SWY9=   7606            /SWITCHES /Y-/9 HERE
+ 349                       SYSCAT= 0063            /SYSTEM CATALOG BLOCK
+ 350                       SYSLEN= 0004            /SYSTEM CATALOG LENGTH
+ 351                       SYSIO=  7640            /SYSTEM I/O ENTRY
+ 352                       TRPBLK= 0113            /I/O TRAP BLOCKS
+ 353                       TTY=    0003            /CONSOLE DEVICE CODE
+ 354               
+ 355               //      OTHER DEFINITIONS.
+ 356               
+ 357                       DEFCOLS=3               /DEFAULT NUMBER OF COLUMNS
+ 358                       DEFSIZE=40              /DIRECTORY EXTENSION TABLE SIZE
+ 359                       JMSC=   JMS     .       /CURRENT PAGE JMS INSTRUCTION
+ 360                       LPT=    66              /LPT: DEVICE CODE
+ 361                       MAXCOLS=112             /MAXIMUM WIDTH IN COLUMNS
+ 362                       MAXEN=  124             /MAXIMUM CATALOG ENTRIES
+ 363                       NL0001= CLA IAC         /LOAD AC WITH 0001
+ 364                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+ 365                       NL2000= CLA CLL CML RTR /LOAD AC WITH 2000
+ 366                       NL4000= CLA CLL CML RAR /LOAD AC WITH 4000
+ 367                       NL7775= CLA CLL CMA RTL /LOAD AC WITH 7775
+ 368                       NL7776= CLA CLL CMA RAL /LOAD AC WITH 7776
+ 369                       NL7777= CLA CMA         /LOAD AC WITH 7777
+ 370                       REVISIO="B&77           /REVISION LETTER
+ 371                       STRLEN= 44              /36 CHARACTERS MAXIMUM IN SEARCH STRING
+ 372                       VERSION=12              /VERSION NUMBER
+ 373               /      DEPENDENT DEFINITIONS.
+ 374               
+ 375                       FILBUFF=FILBEG          /FILE I/O BUFFER
+ 376                       FILCORE=FILBUFFER       /FILE I/O BUFFER
+ 377                       JMSSYSI=SYSIO&177+JMSC  /CALL TO SYSIO FROM ITS PAGE
+ 378                       KEYCODE=TTY^10+6000     /SKELETON KEYBOARD CODE
+ 379                       LPTCODE=LPT^10+6000     /SKELETON LINEPRINTER CODE
+ 380                       PRTCODE=TTY+1^10+6000   /SKELETON TELEPRINTER CODE
+ 381               
+ 382                       KCCIOT= KEYCODE+2       /CLEAR KEYBOARD FLAG, AC, SET READER RUN
+ 383                       KRBIOT= KEYCODE+6       /CLEAR KEYBOARD FLAG, LOAD CHARACTER INTO AC,
+ 384                                               /SET READER RUN
+ 385                       KRSIOT= KEYCODE+4       /OR CHARACTER INTO AC, DON'T CLEAR KEYBOARD FLAG
+ 386                       KSFIOT= KEYCODE+1       /SKIP ON KEYBOARD FLAG
+ 387                       LLSIOT= LPTCODE+6       /LOAD PRINTER FROM AC, CLEAR FLAG
+ 388                       LSFIOT= LPTCODE+1       /SKIP ON PRINTER FLAG
+ 389                       TLSIOT= PRTCODE+6       /LOAD OUTPUT BUFFER, CLEAR FLAG
+ 390                       TSFIOT= PRTCODE+1       /SKIP ON OUTPUT FLAG
+ 391               
+ 392               /       EXTENSION DEFINITIONS.
+ 393               
+ 394                       NUL=    0               /NO FILE TYPE PRESENT
+ 395                       ASC=    1               /ASCII FILE TYPE
+ 396                       BAT=    2               /BATCH FILE TYPE
+ 397                       BIN=    3               /BINARY FILE TYPE
+ 398                       DUMP=   4               /DUMP FILE TYPE
+ 399                       FOC=    5               /FOCAL FILE TYPE
+ 400                       GENI=   6               /GENERAL INPUT FILE TYPE
+ 401                       GENO=   7               /GENERAL OUTPUT FILE TYPE
+ 402                       PAL=    10              /PAL FILE TYPE
+ 403                      PAGE    13              /OVER MONITOR AND FILE AREA
+ 404               
+ 405               /       COMES HERE TO CONTINUE THE ONCE-ONLY CODE INITIATED AT DIRECT.
+ 406               
+ 407                       DIRLOAD=.               /DIRECT STARTS LOADING HERE
+ 408               
+ 409 002600  1471  NOCONSO,TAD I   PSWMX/[SWMX]    /GET SWITCHES /M-/X
+ 410 002601  0037          AND     L10/[10]        /JUST /U BIT
+ 411 002602  7650  LPTMOUT,SNA CLA                 /SKIP IF SET
+ 412 002603  5210          JMP     TESTN           /JUMP IF NOT
+ 413 002604  1117          TAD     L7600/[CLA!400] /GET CLA INSTRUCTION
+ 414 002605  3777          DCA I   (CASZP1)        /PREVENT LOWER-CASE
+ 415 002606  1117          TAD     L7600/[CLA!400] /GET CLA INSTRUCTION
+ 416 002607  3776          DCA I   (CASZP2)        /PREVENT LOWER-CASE
+ 417 002610  7332  TESTN,  NL2000                  /SETUP /N MASK
+ 418 002611  0471          AND I   PSWMX/[SWMX]    /GET /N BIT
+ 419 002612  7650          SNA CLA                 /SKIP IF SET
+ 420 002613  5222          JMP     TESTMPERIODS    /JUMP IF NOT
+ 421 002614  3775          DCA I   (NPZAP1)        /PREVENT LAST PAGINATION
+ 422 002615  3774          DCA I   (NPZAP2)        /PREVENT EVERY OTHER PAGINATION
+ 423 002616  1117          TAD     L7600/[CLA!400] /PREVENT OPENING
+ 424 002617  3262          DCA     NPZAP3          /<FF> ON LPT:
+ 425 002620  7410  BUFZP1, SKP                     /**** CONSOLE: AND LOG-LPT: BUFFERING **** 0000
+ 426 002621  3304          DCA     BUFZP2          /ENABLE LOG-LPT: ZAP
+ 427 002622  1012  TESTMPE,TAD     XR3             /GET PERIOD SWITCH
+ 428 002623  7700          SMA CLA                 /SKIP IF TOO MANY PERIODS
+ 429 002624  5227          JMP     TESTDANGER      /JUMP IF NOT
+ 430 002625  4307          JMS     CSCRIBE         /COMPLAIN OF
+ 431 002626  1651          DPERR                   /MULTIPLE PERIODS
+ 432               
+ 433 002627  1102  TESTDAN,TAD     TOTSLTS         /GET DANGER SWITCH
+ 434 002630  7710          SPA CLA                 /SKIP IF BAD
+ 435 002631  5234          JMP     TSTPARM         /JUMP IF NOT
+ 436 002632  4307          JMS     CSCRIBE         /COMPLAIN OF
+ 437 002633  1706          SLERR                   /STRING LENGTH ERROR
+ 438               
+ 439 002634  4773  TSTPARM,JMS I   (EQUACHK)       /CHECK EQUALS PARAMETER
+ 440 002635  1471          TAD I   PSWMX/[SWMX]    /GET SWITCHES /M-/X
+ 441 002636  0044          AND     L20/[20]        /JUST /T
+ 442 002637  7640          SZA CLA                 /SKIP IF NOT SET
+ 443 002640  5272          JMP     LPFAIL          /DON'T TEST FOR LPT:
+ 444 002641  7240  LNL7777,NL7777                 /SET SPECIAL <RO> VALUE
+ 445 002642  6666  OUTINIT,LLSIOT                  /**** CONSOLE: **** JMS LPWAIT
+ 446 002643  7200          CLA                     /CLEAN UP
+ 447 002644  1046          TAD     L40/[" &177]    /GET A <SPACE>
+ 448 002645  4317  LPTJMSL,JMS     LPWAIT          /TRY TO PRINT IT
+ 449 002646  1046          TAD     L40/[" &177]    /GET A <SPACE>
+ 450 002647  4317          JMS     LPWAIT          /TRY TO PRINT IT
+ 451 002650  1043          TAD     L15/["M&37]     /GET A <CR>
+ 452 002651  4317          JMS     LPWAIT          /TRY TO PRINT IT
+ 453 002652  3333          DCA     LPTMZAP         /WAIT FROM NOW ON
+ 454 002653  1046          TAD     L40/[" &177]    /GET A <SPACE>
+ 455 002654  4317          JMS     LPWAIT          /PRINT IT
+ 456 002655  1043          TAD     L15/["M&37]     /GET A <CR>
+ 457 002656  4317          JMS     LPWAIT          /PRINT IT
+ 458 002657  1041          TAD     L12/["J&37]     /GET A <LF>
+ 459 002660  4317          JMS     LPWAIT          /PRINT IT
+ 460 002661  1042          TAD     L14/["L&37]     /GET A <FF>
+ 461 002662  4317  NPZAP3, JMS     LPWAIT          /**** /N **** CLA!400
+ 462 002663  4336          JMS     ZAPFF           /DO <FF> ZAPS
+ 463 002664  7410  LOGZAP, SKP                     /**** CONSOLE: **** 0000
+ 464 002665  5302          JMP     LLZAPS          /DO LOGICAL LPT: ZAPS
+ 465 002666  1322          TAD     LPCHK/(LSFIOT)  /GET "LSFIOT"
+ 466 002667  3137          DCA     P7TSF           /STORE OVER "TSFIOT"
+ 467 002670  1324          TAD     LPRNT/(LLSIOT)  /GET "LLSIOT"
+ 468 002671  3141          DCA     P7TLS           /STORE OVER "TLSIOT"
+ 469 002672  1470  LPFAIL, TAD I   PSWAL/[SWAL]    /GET SWITCHES /A-/L
+ 470 002673  0040          AND     L100/[100]      /JUST /F BIT
+ 471 002674  7640          SZA CLA                 /SKIP IF OFF
+ 472 002675  4336          JMS     ZAPFF           /DO <FF> ZAPS EVEN IF CONSOLE OUTPUT
+ 473 002676  1772  GETDATE,TAD I   (SDATE)         /GET SYSTEM DATE WORD
+ 474 002677  4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE
+ 475 002700  0564          564                     /BY 372
+ 476 002701  5771          JMP I   (YEAR)          /CONTINUE THERE
+ 477               
+ 478 002702  1370  LLZAPS, TAD     (JMS    OUTLPT) /GET LPT: OUTPUT CALL
+ 479 002703  3140          DCA     P7JMP           /STORE OVER "JMS OUTCON"
+ 480 002704  7410  BUFZP2, SKP                     /**** LOG-LPT: AND BUFFERING AND /N **** 0000
+ 481 002705  3767          DCA I   (BUFZP3)        /ENABLE <NUL> OUTPUT AT END OF PRINTOUT
+ 482 002706  5272          JMP     LPFAIL          /CONTINUE THERE
+ 483 002707  0000  CSCRIBE,.-.                    /CONSOLE-ORIENTED PRINT ROUTINE
+ 484 002710  1366          TAD     (CPRINT)        /POINT TO THE
+ 485 002711  3056          DCA     OUTPUT          /CONSOLE OUTPUT ROUTINE
+ 486 002712  1707          TAD I   CSCRIBE         /GET OUR PASSED ARGUMENT
+ 487 002713  3765          DCA I   (SBOOT-1)       /STORE IN CURIOUS PLACE
+ 488 002714  1365          TAD     (SBOOT-1)       /POINT TO CURIOUS PLACE
+ 489 002715  3466          DCA I   PSCRIBE/[SCRIBE]/SO IT WILL USE IT
+ 490 002716  5764          JMP I   (SCRIBE+1)      /CONTINUE THERE
+ 491               
+ 492 002717  0000  LPWAIT, .-.                     /LPT: TIME-OUT ROUTINE
+ 493 002720  3336          DCA     ZAPFF           /SAVE PASSED VALUE
+ 494 002721  1336  LPAGN,  TAD     ZAPFF           /GET IT BACK
+ 495 002722  6661  LPCHK,  LSFIOT                  /**** CONSOLE: **** CIF MCS+10
+ 496 002723  5330  LPJMP,  JMP     LPTIME          /**** CONSOLE: **** JMS OUTLPT
+ 497 002724  6666  LPRNT,  LLSIOT                  /**** CONSOLE: **** JMP LPTIME
+ 498 002725  1142          TAD     L7700/[7700]    /RESET THE
+ 499 002726  3202          DCA     LPTMOUT         /TIME-OUT COUNTER
+ 500 002727  5717          JMP I   LPWAIT          /RETURN
+ 501               
+ 502 002730  2462  LPTIME, ISZ I   PDIVIDE/[DIVIDE]/WASTE
+ 503 002731  5330          JMP     LPTIME          /SOME TIME
+ 504 002732  7200          CLA                     /CLEAN UP
+ 505 002733  2202  LPTMZAP,ISZ     LPTMOUT         /**** ZAPPED **** 0000
+ 506 002734  5321          JMP     LPAGN           /TRY AGAIN
+ 507 002735  5272          JMP     LPFAIL          /GIVE UP AND USE CONSOLE
+ 508               
+ 509 002736  0000  ZAPFF,  .-.                     /<FF>-ORIENTED ZAP ROUTINE
+ 510 002737  3763          DCA I   (DOFF)          /PREVENT <LF>'S AT TRAILING END OF PAGE
+ 511 002740  1241          TAD     LNL7777/(NL7777)/SETUP FOR
+ 512 002741  3762          DCA I   (LPZAP1)        /ONE SEPARATOR
+ 513 002742  3761          DCA I   (LPZAP2)        /NO EXTRA CHARACTERS AFTER LAST <FF>
+ 514 002743  3760          DCA I   (LPZAP4)        /PREVENT EXTRA <LF>'S AFTER <FF>
+ 515 002744  3757          DCA I   (FFWAT1)        /ENABLE PAGE WAIT
+ 516 002745  3756          DCA I   (FFWAT2)        /PREVENT NORMAL PAGE WAIT
+ 517 002746  1042          TAD     L14/["L&37]     /GET A <FF>
+ 518 002747  3016          DCA     LSEP            /USE INSTEAD OF "-" AS PAGE SEPARATOR
+ 519 002750  5736          JMP I   ZAPFF           /RETURN
+ 520 002756  0472         PAGE
+     002757  0467  
+     002760  0475  
+     002761  0304  
+     002762  0457  
+     002763  0456  
+     002764  0401  
+     002765  7577  
+     002766  1600  
+     002767  0307  
+     002770  4035  
+     002771  3000  
+     002772  7610  
+     002773  1610  
+     002774  1260  
+     002775  0306  
+     002776  0450  
+     002777  0406  
+ 521               /GETDAT,TAD I  (SDATE)         /GET SYSTEM DATE WORD
+ 522               /       JMS I   PDIVIDE/[DIVIDE]/DIVIDE
+ 523               /       564                     /BY 372
+ 524 003000  3200  YEAR,   DCA     YEAR            /SAVE QUOTIENT AS YEAR
+ 525 003001  1004          TAD     REM             /GET DAYS LEFT IN YEAR
+ 526 003002  4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE
+ 527 003003  0037          37                      /BY 31
+ 528 003004  3204  MONTH,  DCA     MONTH           /SAVE MONTH (ORIGIN ZERO)
+ 529 003005  7201          NL0001                  /MAKE ORIGIN ONE
+ 530 003006  1004          TAD     REM             /GET DAY OF THE MONTH
+ 531 003007  3207  DAY,    DCA     DAY             /SAVE IT
+ 532 003010  1200          TAD     YEAR            /GET THE YEAR
+ 533 003011  1113          TAD     L3/[3]          /ROUND UP FOR LEAP YEARS
+ 534 003012  7110          CLL RAR                 /DIVIDE
+ 535 003013  7110          CLL RAR                 /BY FOUR
+ 536 003014  3214  LPYRCT, DCA     LPYRCT          /SAVE AS EXTRA LEAP DAYS COUNT
+ 537 003015  1200          TAD     YEAR            /GET THE YEAR AGAIN
+ 538 003016  0113          AND     L3/[3]          /JUST LEAP BITS
+ 539 003017  7650          SNA CLA                 /SKIP IF NOT A LEAP YEAR
+ 540 003020  2353          ISZ     FEBENT          /BUMP FEBRUARY IF IT IS
+ 541 003021  1204          TAD     MONTH           /GET THE MONTH
+ 542 003022  7040          CMA                     /INVERT FOR COUNTING
+ 543 003023  3223  MONCNT, DCA     MONCNT          /SAVE IT
+ 544 003024  5227          JMP     .+3             /JUMP INTO IT
+ 545               
+ 546 003025  1751          TAD I   ENTPTR          /GET A PREVIOUS MONTH'S COUNT
+ 547 003026  2351          ISZ     ENTPTR          /BUMP TO NEXT
+ 548 003027  2223          ISZ     MONCNT          /DONE ENOUGH MONTHS?
+ 549 003030  5225          JMP     .-3             /NO, GO DO ANOTHER ONE
+ 550 003031  1207          TAD     DAY             /ADD ON DAY
+ 551 003032  1200          TAD     YEAR            /ADD ON YEAR
+ 552 003033  1214          TAD     LPYRCT          /ADD ON EXTRA LEAP DAYS
+ 553 003034  1021          TAD     BSGROUP         /\
+ 554 003035  1021          TAD     BSGROUP         / >ADD ON BASE INFLUENCE
+ 555 003036  1021          TAD     BSGROUP         //
+ 556 003037  4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE BY 7 TO GET
+ 557 003040  0007          7                       /THE DAY OF THE WEEK
+ 558 003041  7200          CLA                     /THROW QUOTIENT AWAY
+ 559 003042  1004          TAD     REM             /GET THE REMAINDER
+ 560 003043  7104          CLL RAL                 /*2
+ 561 003044  1004          TAD     REM             /*3
+ 562 003045  7004          RAL                     /*6
+ 563 003046  1377          TAD     (DAYS-1)        /POINT TO PROPER DAY BLURB
+ 564 003047  3010          DCA     XR1             /STASH THE POINTER
+ 565 003050  1376          TAD     (DBLURB-1)      /POINT TO
+ 566 003051  3011          DCA     XR2             /DAY STORAGE
+ 567 003052  1053          TAD     L7772/[-6]      /SETUP THE
+ 568 003053  3253  CNT,    DCA     CNT             /MOVE COUNTER
+ 569 003054  1410          TAD I   XR1             /GET A WORD
+ 570 003055  3411          DCA I   XR2             /PUT A WORD
+ 571 003056  2253          ISZ     CNT             /DONE YET?
+ 572 003057  5254          JMP     .-3             /NO, GO BACK
+ 573 003060  1375         TAD     (DATMSG-1)      /POINT TO
+ 574 003061  3011          DCA     XR2             /DAY NUMBER STORAGE
+ 575 003062  1207          TAD     DAY             /GET DAY OF THE MONTH
+ 576 003063  4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE BY TEN TO
+ 577 003064  0012          12                      /GET TEN'S DIGIT
+ 578 003065  1050          TAD     L60/["0&77]     /MAKE IT ASCII
+ 579 003066  7106          CLL RTL;RTL;RTL         /MOVE UP
+     003067  7006  
+     003070  7006  
+ 580 003071  1004          TAD     REM             /ADD ON UNIT'S DIGIT
+ 581 003072  1050          TAD     L60/["0&77]     /MAKE IT ASCII ALSO
+ 582 003073  3411          DCA I   XR2             /STORE INTO THE MESSAGE
+ 583 003074  2011          ISZ     XR2             /BUMP PAST FIXED PORTION
+ 584 003075  1204          TAD     MONTH           /GET THE MONTH
+ 585 003076  7104          CLL RAL                 /*2 FOR DOUBLE-WORDS
+ 586 003077  1374          TAD     (MONLST-1)      /ADD ON LIST POINTER
+ 587 003100  3010          DCA     XR1             /STASH IT
+ 588 003101  1410          TAD I   XR1             /GET A MONTH PAIR
+ 589 003102  3411          DCA I   XR2             /STORE INTO MESSAGE
+ 590 003103  1410          TAD I   XR1             /GET THE OTHER PAIR
+ 591 003104  3411          DCA I   XR2             /STORE INTO MESSAGE
+ 592 003105  1021          TAD     BSGROUP         /GET GROUP
+ 593 003106  7106          CLL RTL;RAL             /*8
+     003107  7004  
+ 594 003110  1200          TAD     YEAR            /ADD ON RELATIVE YEAR
+ 595 003111  1373          TAD     (74)            /ADD ON (19)60
+ 596 003112  4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE
+ 597 003113  0144          144                     /BY 100
+ 598 003114  7200          CLA                     /THROW AWAY QUOTIENT
+ 599 003115  1004          TAD     REM             /GET THE REMAINDER 60-99 OR 00-59
+ 600 003116  4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE BY 10 TO
+ 601 003117  0012          12                      /GET TEN'S DIGIT
+ 602 003120  1372          TAD     ("-^100+"0-200) /GET "-" AND MAKE IT ASCII
+ 603 003121  3411          DCA I   XR2             /STORE INTO MESSAGE
+ 604 003122  1004          TAD     REM             /GET THE UNIT'S DIGIT
+ 605 003123  1050          TAD     L60/["0&77]     /MAKE IT ASCII
+ 606 003124  7106          CLL RTL;RTL;RTL         /MOVE UP
+     003125  7006  
+     003126  7006  
+ 607 003127  3411          DCA I   XR2             /STORE INTO MESSAGE
+ 608 003130  1470          TAD I   PSWAL/[SWAL]    /GET SWITCHES /A-/L
+ 609 003131  0044          AND     L20/[20]        /JUST /H BIT
+ 610 003132  7650          SNA CLA                 /SKIP IF SET
+ 611 003133  5336          JMP     TESTI           /JUMP IF NOT
+ 612 003134  3771          DCA I   (NHDZP1)        /PREVENT MAIN BLURB
+ 613 003135  3770          DCA I   (NHDZP2)        /PREVENT PAGE BLURB
+ 614 003136  1470  TESTI, TAD I   PSWAL/[SWAL]    /GET SWITCHES /A-/L
+ 615 003137  0037          AND     L10/[10]        /JUST /I BIT
+ 616 003140  7650          SNA CLA                 /SKIP IF SET
+ 617 003141  5344          JMP     TESTP           /JUMP IF NOT
+ 618 003142  3767          DCA I   (IZAP)          /PREVENT FILE TYPE ID PRINTOUT
+ 619 003143  3105          DCA     VALSW           /PREVENT FILE VALIDATION
+ 620 003144  1471  TESTP,  TAD I   PSWMX/[SWMX]    /GET SWITCHES /A-/L
+ 621 003145  0047          AND     L400/[400]      /JUST /P BIT
+ 622 003146  7650          SNA CLA                 /SKIP IF SET
+ 623 003147  3766          DCA I   (PZAP)          /PREVENT PAUSES IF NOT SET
+ 624 003150  5765          JMP I   (TESTA)         /CONTINUE THERE
+ 625               
+ 626 003151  3152  ENTPTR, JANENT                  /POINTER TO MONTH LENGTH TABLES
+ 627               
+ 628                       DECIMAL                 /MAKE IT EASIER
+ 629               
+ 630 003152  0037  JANENT, 31                      /31 DAYS IN JANUARY
+ 631 003153  0034  FEBENT, 28                      /29 IN LEAP YEAR!
+ 632 003154  0037          31                      /31 DAYS IN MARCH
+ 633 003155  0036          30                      /30 DAYS IN APRIL
+ 634 003156  0037          31                      /31 DAYS IN MAY
+ 635 003157  0036          30                      /30 DAYS IN JUNE
+ 636 003160  0037          31                      /31 DAYS IN JULY
+ 637 003161  0037          31                      /31 DAYS IN AUGUST
+ 638 003162  0036          30                      /30 DAYS IN SEPTEMBER
+ 639 003163  0037          31                      /31 DAYS IN OCTOBER
+ 640 003164  0036          30                      /30 DAYS IN NOVEMBER
+ 641               /       31                      /31 DAYS IN DECEMBER
+ 642               
+ 643                       OCTAL                   /BACK TO NORMAL
+ 644               
+ 645 003165  3200          PAGE
+     003166  0500  
+     003167  0613  
+     003170  1271  
+     003171  1261  
+     003172  5560  
+     003173  0074  
+     003174  3472  
+     003175  2442  
+     003176  2433  
+     003177  3577  
+ 646 003200  1470  TESTA, TAD I   PSWAL/[SWAL]    /GET SWITCHES /A-/L
+ 647 003201  7710          SPA CLA                 /SKIP IF /A NOT SET
+ 648 003202  7201          NL0001                  /ELSE SET ASCII TYPE BIT
+ 649 003203  3026          DCA     FMASK           /STORE IN FILE MASK
+ 650 003204  7332          NL2000                  /SET /B MASK
+ 651 003205  0470          AND I   PSWAL/[SWAL]    /GET /B BIT
+ 652 003206  7640          SZA CLA                 /SKIP IF /B NOT SET
+ 653 003207  7326          NL0002                  /ELSE SET BINARY TYPE BIT
+ 654 003210  1026          TAD     FMASK           /ADD ON TO OTHER BIT
+ 655 003211  3026          DCA     FMASK           /STORE COMPOSITE
+ 656 003212  1470          TAD I   PSWAL/[SWAL]    /GET SWITCHES /A-/L
+ 657 003213  0262          AND     CATFUN/(200)    /JUST /E BIT
+ 658 003214  7640          SZA CLA                 /SKIP IF /E NOT SET
+ 659 003215  7330          NL4000                  /ELSE SET EMPTY TYPE BIT
+ 660 003216  1026          TAD     FMASK           /ADD ON TO OTHER BITS
+ 661 003217  3026          DCA     FMASK           /STORE COMPOSITE
+ 662 003220  1471          TAD I   PSWMX/[SWMX]    /GET SWITCHES /M-/X
+ 663 003221  0262          AND     CATFUN/(200)    /JUST /Q BIT
+ 664 003222  7640          SZA CLA                 /SKIP IF /Q NOT SET
+ 665 003223  7332          NL2000                  /ELSE SET OTHER TYPE BIT
+ 666 003224  1026          TAD     FMASK           /ADD ON TO OTHER BITS
+ 667 003225  7440          SZA                     /SKIP IF NO EXPLICIT BITS SET
+ 668 003226  2105          ISZ     VALSW           /ELSE FORCE FILE VALIDATION
+ 669 003227  7450          SNA                     /SKIP IF ANY WERE EXPLICITLY ASKED FOR
+ 670 003230  1377          TAD     (6003)          /ELSE FORCE ALL BITS
+ 671 003231  3026          DCA     FMASK           /STORE FILE MASK
+ 672 003232  1026          TAD     FMASK           /GET THE MASK VALUE BACK
+ 673 003233  7700          SMA CLA                 /SKIP IF EMPTY SLOTS ALLOWED
+ 674 003234  3776          DCA I   (EZAP)          /PREVENT EMPTY PRINTOUT
+ 675 003235  1775  TSTUNIT,TAD I   (SWY9)          /GET SWITCHES /Y-/9
+ 676 003236  7004          RAL                     /DO INITIAL ADJUST
+ 677 003237  7004  UNITLP, RAL                     /MOVE UP TO NEXT BIT
+ 678 003240  0052          AND     L7760/[7760]    /REMOVE UNWANTED BITS
+ 679 003241  7510          SPA                     /SKIP IF LATEST NOT SET
+ 680 003242  5247          JMP     GOTUNIT         /JUMP IF IT IS SET
+ 681 003243  2075          ISZ     SYMNUM          /DONE ALL UNIT BITS?
+ 682 003244  5237          JMP     UNITLP          /NO, GO BACK
+ 683 003245  7200          CLA                     /YES, CLEAN UP
+ 684 003246  1774          TAD I   (SBTFUN)        /USE BOOTSTRAP UNIT INSTEAD
+ 685 003247  1075  GOTUNIT,TAD     SYMNUM          /GET DISCOVERED UNIT (0 IF NOT FOUND)
+ 686 003250  0143          AND     L7/[7]          /JUST UNIT BITS
+ 687 003251  3104          DCA     UNIT            /STORE AS DESIRED UNIT
+ 688 003252  1104          TAD     UNIT            /GET IT BACK
+ 689 003253  1373          TAD     ("S^100+"0-200) /ADD ON "S" AND MAKE IT PRINTABLE
+ 690 003254  3772          DCA I   (UBLURB)        /STORE IN UNIT BLURB
+ 691 003255  1104         TAD     UNIT                    /GET UNIT BITS
+ 692 003256  1262          TAD     CATFUN/(2^100)          /ADD ON PAGE BITS
+ 693 003257  3262          DCA     CATFUN                  /STORE IN-LINE
+ 694 003260  4512          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+ 695 003261  2600          DIRLOAD                         /BUFFER
+ 696 003262  0200  CATFUN, 2^100+.-.                       /UNIT BITS WILL BE FILLED IN
+ 697 003263  0015          DIR                             /BLOCK
+ 698 003264  1371          TAD     (DIRLOAD-1)             /POINT TO CURRENT
+ 699 003265  3010          DCA     XR1                     /DIRECTORY BUFFER
+ 700 003266  1057          TAD     PCATADR/[CATADR-1]      /POINT TO FINAL
+ 701 003267  3011          DCA     XR2                     /DIRECTORY BUFFER
+ 702 003270  1410  CMVLUP, TAD I   XR1                     /\
+ 703 003271  3411          DCA I   XR2                     / \
+ 704 003272  1410          TAD I   XR1                     /  \MOVE DOWN
+ 705 003273  3411          DCA I   XR2                     /  /FILE NAME
+ 706 003274  1410          TAD I   XR1                     / /
+ 707 003275  3411          DCA I   XR2                     //
+ 708 003276  3411          DCA I   XR2                     /CLEAR FILE TYPE WORD
+ 709 003277  2356          ISZ     ENTCNT                  /DONE ALL ENTRIES?
+ 710 003300  5270          JMP     CMVLUP                  /NO, KEEP GOING
+ 711 003301  3411          DCA I   XR2                     /STORE END OF DIRECTORY
+ 712 003302  2010          ISZ     XR1                     /BUMP PAST END OF DIRECTORY
+ 713 003303  2010          ISZ     XR1                     /BUMP PAST LIMIT WORD
+ 714 003304  1410          TAD I   XR1                     /GET HIGHEST BLOCK WORD
+ 715 003305  3356          DCA     ENTCNT                  /SAVE FOR NOW
+ 716 003306  1410          TAD I   XR1                     /GET STARTING BLOCK WORD
+ 717 003307  3020          DCA     BBLOCK                  /SAVE AS BASE BLOCK OF DIRECTORY
+ 718 003310  1020          TAD     BBLOCK                  /GET IT BACK
+ 719 003311  7041          CIA                             /INVERT
+ 720 003312  1356          TAD     ENTCNT                  /NOW HAVE DIRECTORY LENGTH IN BLOCKS
+ 721 003313  7112          CLL RTR;RTR                     /REDUCE TO ENTRY COUNT
+     003314  7012  
+ 722 003315  3102          DCA     TOTSLTS                 /SAVE AS TOTAL SLOT COUNT
+ 723 003316  1057          TAD     PCATADR/[CATADR-1]      /SETUP THE
+ 724 003317  3010          DCA     XR1                     /CATALOG POINTER
+ 725 003320  1020          TAD     BBLOCK                  /GET CATALOG BASE BLOCK
+ 726 003321  3155          DCA     FBLOCK                  /STORE IN FIRST READ BLOCK
+ 727 003322  1471          TAD I   PSWMX/[SWMX]            /GET SWITCHES /M-/X
+ 728 003323  0370          AND     (1000)                  /JUST /O BIT
+ 729 003324  7640          SZA CLA                         /SKIP IF NOT SET
+ 730 003325  3767          DCA I   (ODZAP)                 /CAUSE OCTAL BLOCK PRINTOUT
+ 731 003326  1470          TAD I   PSWAL/[SWAL]            /GET SWITCHES /A-/L
+ 732 003327  0047          AND     L400/[400]              /JUST /D BIT
+ 733 003330  7650          SNA CLA                         /SKIP IF SET
+ 734 003331  5334          JMP     TESTR                   /JUMP IF NOT
+ 735 003332  3767          DCA I   (ODZAP)                 /CAUSE BLOCK PRINTOUT
+ 736 003333  3766          DCA I   (DZAP)                  /USE DECIMAL RADIX
+ 737 003334  1471  TESTR, TAD I   PSWMX/[SWMX]    /GET SWITCHES /M-/X
+ 738 003335  0040          AND     L100/[100]      /JUST /R BIT
+ 739 003336  7640          SZA CLA                 /SKIP IF OFF
+ 740 003337  3765          DCA I   (NOEMPTY)       /PREVENT RESOURCE PRINTOUT
+ 741 003340  1776          TAD I   (EZAP)          /GET POSSIBLY ZAPPED WORD
+ 742 003341  7640          SZA CLA                 /SKIP IF EMPTY SLOTS NOT ALLOWED
+ 743 003342  7326          NL0002                  /ELSE ACCOUNT FOR THEM IN LAST PAGE
+ 744 003343  1007          TAD     SCRPTR          /GET CURRENT EXTRA COUNT (2)
+ 745 003344  3007          DCA     SCRPTR          /UPDATE IT
+ 746 003345  1765          TAD I   (NOEMPTY)       /GET POSSIBLY ZAPPED WORD
+ 747 003346  7640          SZA CLA                 /SKIP IF RESOURCES NOT ALLOWED
+ 748 003347  1045          TAD     L4/[4]          /ELSE ACCOUNT FOR THEM IN LAST PAGE
+ 749 003350  1007          TAD     SCRPTR          /GET CURRENT EXTRA COUNT (2 OR 4)
+ 750 003351  3007          DCA     SCRPTR          /UPDATE IT
+ 751 003352  1054          TAD     NCOLS           /GET DESIRED NUMBER OF PRINTOUT COLUMNS
+ 752 003353  7041          CIA                     /INVERT FOR COUNTING
+ 753 003354  3076          DCA     TEMP            /STORE THE COUNTER
+ 754 003355  5764          JMP I   (MLOOP)         /CONTINUE THERE
+ 755               
+ 756 003356  7654  ENTCNT, -MAXEN                  /MAXIMUM ENTRY COUNT IN CATALOG
+ 757               
+ 758 003364  3400          PAGE
+     003365  0665  
+     003366  0632  
+     003367  0623  
+     003370  1000  
+     003371  2577  
+     003372  2415  
+     003373  2360  
+     003374  7602  
+     003375  7606  
+     003376  0660  
+     003377  6003  
+ 759               /      CALCULATE SYMBOLS ON A FULL (TYPICAL AND LAST) PAGE.
+ 760               
+ 761 003400  1377  MLOOP,  TAD     (67)            /GET MAXIMUM ROWS/PAGE (55)
+ 762 003401  1034          TAD     FULSYMS         /UPDATE COUNT
+ 763 003402  3034          DCA     FULSYMS         /STORE BACK
+ 764 003403  1007          TAD     SCRPTR          /GET EXTRA COUNT
+ 765 003404  7041          CIA                     /INVERT IT
+ 766 003405  1377          TAD     (67)            /NOW HAVE MAXIMUM ROWS ON LAST PAGE
+ 767 003406  1036          TAD     LSTSYMS         /UPDATE COUNT
+ 768 003407  3036          DCA     LSTSYMS         /STORE BACK
+ 769 003410  2076          ISZ     TEMP            /DONE YET?
+ 770 003411  5200          JMP     MLOOP           /NO, KEEP GOING
+ 771 003412  1471          TAD I   PSWMX/[SWMX]    /GET SWITCHES /M-/X
+ 772 003413  0045          AND     L4/[4]          /JUST /V BIT
+ 773 003414  7650          SNA CLA                 /SKIP IF SET
+ 774 003415  5221          JMP     NOTV            /JUMP IF NOT SET
+ 775 003416  1117          TAD     L7600/[CLA!400] /GET CLA INSTRUCTION
+ 776 003417  3776          DCA I   (VZAP)          /PREVENT WASTE BEING NON-ZERO
+ 777 003420  7410          SKP                     /PREVENT ZAP TO IWASTE UPDATE
+ 778 003421  3775  NOTV,   DCA I   (DONEXT)        /DON'T COUNT EVERY SYMBOL, JUST EVERY LINE
+ 779 003422  1470          TAD I   PSWAL/[SWAL]    /GET SWITCHES /A-/L
+ 780 003423  7010          RAR                     /L BIT TO LINK
+ 781 003424  7620          SNL CLA                 /SKIP IF /L BIT SET
+ 782 003425  5230          JMP     TESTS           /JUMP IF NOT SET
+ 783 003426  1374          TAD     (LINEXT)        /SETUP THE
+ 784 003427  3773          DCA I   (NXTONE)        /LINEAR SEARCH
+ 785 003430  1471  TESTS, TAD I   PSWMX/[SWMX]            /GET SWITCHES /M-/X
+ 786 003431  0046          AND     L40/[40]                /JUST /S BIT
+ 787 003432  7650          SNA CLA                         /SKIP IF SET
+ 788 003433  5772          JMP I   (DIRSTART)              /JUMP IF NOT
+ 789 003434  1371          TAD     (SBLURB)                /POINT TO THE
+ 790 003435  3770          DCA I   (SZAP)                  /SYSTEM-ORIENTED BLURB
+ 791 003436  4461          JMS I   PDEJECT/[DEJECT]        /DO AN EJECT
+ 792 003437  4466          JMS I   PSCRIBE/[SCRIBE]        /GIVE THEM THE
+ 793 003440  3523          SYSMSG                          /SYSTEM MESSAGE
+ 794 003441  1104          TAD     UNIT                    /GET THE UNIT
+ 795 003442  1040          TAD     L100/[1^100]            /ADD ON PAGE BITS
+ 796 003443  3246          DCA     RFUN                    /STORE IN-LINE
+ 797 003444  4512          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+ 798 003445  2600          DIRLOAD                         /BUFFER
+ 799 003446  0100  RFUN,   1^100+.-.                       /UNIT BITS WILL BE FILLED IN
+ 800 003447  0113          TRPBLK                          /FIRST TRAP BLOCK
+ 801 003450  1767          TAD I   (HIDWRD+1&177+DIRLOAD)  /GET FIRST PAIR
+ 802 003451  3270          DCA     DVNMSG+1                /STORE IN MESSAGE
+ 803 003452  1766          TAD I   (HIDWRD+2&177+DIRLOAD)  /GET SECOND PAIR
+ 804 003453  3271          DCA     DVNMSG+2                /STORE IN MESSAGE
+ 805 003454  4466          JMS I   PSCRIBE/[SCRIBE]        /GIVE THEM THE
+ 806 003455  3467          DVNMSG                          /AUGMENTED MESSAGE
+ 807 003456  1365          TAD     (":&177)                /GET A ":"
+ 808 003457  4456          JMS I   OUTPUT                  /PRINT IT
+ 809 003460  1104          TAD     UNIT                    /GET THE UNIT
+ 810 003461  4764          JMS I   (P1OCT)                 /PRINT IT
+ 811 003462  4466          JMS I   PSCRIBE/[SCRIBE]        /GIVE THEM THE
+ 812 003463  3652          HEDMSG                          /HEADER MESSAGE
+ 813 003464  1104          TAD     UNIT                    /GET THE UNIT
+ 814 003465  1047          TAD     L400/[SYSLEN^100]       /ADD ON PAGE BITS
+ 815 003466  5763          JMP I   (SYSMORE)               /CONTINUE THERE
+ 816               /      DEVICE NAME MESSAGE; NAME WILL BE FILLED IN BEFORE PRINTING.
+ 817               
+ 818 003467  4036  DVNMSG, TEXT    " ^XXXX^"       /DEVICE NAME MESSAGE
+     003470  3030  
+     003471  3030  
+     003472  3600  
+ 819               
+ 820               /       MONTHS TEXT LIST.
+ 821               
+ 822 003473  1236  MONLST, TEXT    "J^AN"          /JANUARY
+     003474  0116  
+ 823 003475  0636          TEXT    "F^EB"          /FEBRUARY
+     003476  0502  
+ 824 003477  1536          TEXT    "M^AR"          /MARCH
+     003500  0122  
+ 825 003501  0136          TEXT    "A^PR"          /APRIL
+     003502  2022  
+ 826 003503  1536          TEXT    "M^AY"          /MAY
+     003504  0131  
+ 827 003505  1236          TEXT    "J^UN"          /JUNE
+     003506  2516  
+ 828 003507  1236          TEXT    "J^UL"          /JULY
+     003510  2514  
+ 829 003511  0136          TEXT    "A^UG"          /AUGUST
+     003512  2507  
+ 830 003513  2336          TEXT    "S^EP"          /SEPTEMBER
+     003514  0520  
+ 831 003515  1736          TEXT    "O^CT"          /OCTOBER
+     003516  0324  
+ 832 003517  1636          TEXT    "N^OV"          /NOVEMBER
+     003520  1726  
+ 833 003521  0436          TEXT    "D^EC"          /DECEMBER
+     003522  0503  
+ 834               
+ 835               /       SYSTEM TYPE MESSAGE.
+ 836               
+ 837 003523  3623  SYSMSG, TEXT    "^S^YSTEM:"     /SYSTEM TYPE MESSAGE
+     003524  3631  
+     003525  2324  
+     003526  0515  
+     003527  7200  
+ 838 003563  4000         PAGE
+     003564  4214  
+     003565  0072  
+     003566  2602  
+     003567  2601  
+     003570  1264  
+     003571  4337  
+     003572  0200  
+     003573  2171  
+     003574  1326  
+     003575  2037  
+     003576  2050  
+     003577  0067  
+ 839               /      DAYS TEXT LIST.
+ 840               
+ 841 003600  3624  DAYS,   TEXT    "^T^HURSDAY "   /THURSDAY
+     003601  3610  
+     003602  2522  
+     003603  2304  
+     003604  0131  
+     003605  4000  
+ 842 003606  3606          TEXT    "^F^RIDAY ";0   /FRIDAY
+     003607  3622  
+     003610  1104  
+     003611  0131  
+     003612  4000  
+     003613  0000  
+ 843 003614  3623          TEXT    "^S^ATURDAY "   /SATURDAY
+     003615  3601  
+     003616  2425  
+     003617  2204  
+     003620  0131  
+     003621  4000  
+ 844 003622  3623          TEXT    "^S^UNDAY ";0   /SUNDAY
+     003623  3625  
+     003624  1604  
+     003625  0131  
+     003626  4000  
+     003627  0000  
+ 845 003630  3615          TEXT    "^M^ONDAY ";0   /MONDAY
+     003631  3617  
+     003632  1604  
+     003633  0131  
+     003634  4000  
+     003635  0000  
+ 846 003636  3624          TEXT    "^T^UESDAY ";0  /TUESDAY
+     003637  3625  
+     003640  0523  
+     003641  0401  
+     003642  3140  
+     003643  0000  
+ 847 003644  3627          TEXT    "^W^EDNESDAY "  /WEDNESDAY
+     003645  3605  
+     003646  0416  
+     003647  0523  
+     003650  0401  
+     003651  3140  
+ 848               /      SYSTEM DIRECTORY HEADER MESSAGE.
+ 849               
+ 850 003652  4545  HEDMSG, TEXT    "%%^I^MAGE ^I^NFORMATION:%%"                    /SYSTEM DIRECTORY
+     003653  3611  
+     003654  3615  
+     003655  0107  
+     003656  0540  
+     003657  3611  
+     003660  3616  
+     003661  0617  
+     003662  2215  
+     003663  0124  
+     003664  1117  
+     003665  1672  
+     003666  4545  
+ 851 003667  4036          TEXT    " ^N^AME   ^B^LOCK  ^S^IZE  ^L^OAD "            /HEADER
+     003670  1636  
+     003671  0115  
+     003672  0540  
+     003673  4040  
+     003674  3602  
+     003675  3614  
+     003676  1703  
+     003677  1340  
+     003700  4036  
+     003701  2336  
+     003702  1132  
+     003703  0540  
+     003704  4036  
+     003705  1436  
+     003706  1701  
+     003707  0440  
+ 852 003710  4036          TEXT    " ^L^ENGTH  ^O^UT   ^I^N   ^R  S  O  S^TART%%^" /MESSAGE
+     003711  1436  
+     003712  0516  
+     003713  0724  
+     003714  1040  
+     003715  4036  
+     003716  1736  
+     003717  2524  
+     003720  4040  
+     003721  4036  
+     003722  1136  
+     003723  1640  
+     003724  4040  
+     003725  3622  
+     003726  4040  
+     003727  2340  
+     003730  4017  
+     003731  4040  
+     003732  2336  
+     003733  2401  
+     003734  2224  
+     003735  4545  
+     003736  3600  
+ 853                      PAGE
+ 854               
+ 855               /       COMES HERE TO CONTINUE THE SYSTEM DIRECTORY CODE. THE SYSLEN (4) PAGES USED
+ 856               /       FOR ONCE-ONLY CODE STARTING FROM DIRLOAD (02600-03577) ARE USED AS A BUFFER
+ 857               /       FOR THE SYSTEM DIRECTORY.
+ 858               
+ 859                       SYSEND= SYSLEN^200+DIRLOAD      /END OF SYSTEM DIRECTORY BUFFER
+ 860               
+ 861                       IFNZRO  .-SYSEND&4000   <ERROR  .>
+ 862               
+ 863               SYSMORE,/TAD    UNIT                    /GET UNIT BITS
+ 864               /       TAD     L400/[SYSLEN^100]       /ADD ON PAGE BITS
+ 865 004000  3203          DCA     RFUN2                   /STORE IN-LINE
+ 866 004001  4512          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+ 867 004002  2600          DIRLOAD                         /BUFFER
+ 868 004003  0400  RFUN2,  SYSLEN^100+.-.                  /UNIT BITS WILL BE FILLED IN
+ 869 004004  0063          SYSCAT                          /SYSTEM DIRECTORY BLOCK
+ 870 004005  7346  SYSLUP, NL7775                          /SETUP THE
+ 871 004006  3076          DCA     TEMP                    /NAME WORD COUNTER
+ 872 004007  1472          TAD I   PTR                     /GET A WORD
+ 873 004010  7650          SNA CLA                         /SKIP IF NOT END OF SYSTEM CATALOG
+ 874 004011  5323          JMP     EOSYS                   /JUMP IF END OF SYSTEM CATALOG
+ 875 004012  1472  PNMLUP, TAD I   PTR                     /GET FIRST NAME PAIR
+ 876 004013  4463          JMS I   PP2CH/[P2CH]            /PRINT THEM
+ 877 004014  2072          ISZ     PTR                     /BUMP TO NEXT
+ 878 004015  2076          ISZ     TEMP                    /DONE ALL THREE PAIRS?
+ 879 004016  5212          JMP     PNMLUP                  /NO, KEEP GOING
+ 880 004017  1072          TAD     PTR                     /GET CURRENT VALUE
+ 881 004020  7410          SKP                             /DON'T USE OLD ONE
+ 882 004021  1076  USAGN,  TAD     TEMP                    /USE PREVIOUS VALUE
+ 883 004022  1113          TAD     L3/[3]                  /POINT TO NEXT NAME ENTRY
+ 884 004023  3076          DCA     TEMP                    /STASH THE POINTER
+ 885 004024  1476          TAD I   TEMP                    /GET THE FIRST NAME PAIR
+ 886 004025  7650          SNA CLA                         /SKIP IF NOT END OF DIRECTORY
+ 887 004026  5232          JMP     USEND                   /JUMP IF END OF DIRECTORY
+ 888 004027  1076          TAD     TEMP                    /GET THE POINTER
+ 889 004030  1113          TAD     L3/[3]                  /BUMP TO BLOCK ENTRY OF NEXT ITEM
+ 890 004031  7410          SKP                             /DON'T USE END
+ 891 004032  1377  USEND,  TAD     (SYSEND-1)              /USE THE END BLOCK
+ 892 004033  3076          DCA     TEMP                    /STASH THE POINTER
+ 893 004034  1472          TAD I   PTR                     /GET OUR BLOCK
+ 894 004035  7041          CIA                             /INVERT IT
+ 895 004036  1476          TAD I   TEMP                    /COMPARE TO THEIR BLOCK
+ 896 004037  7450          SNA                             /SKIP IF NON-REDUNDANT ENTRY
+ 897 004040  5221          JMP     USAGN                   /JUMP IF MULTIPLE ENTRY
+ 898 004041  3077          DCA     TEMP2                   /SAVE CURRENT ENTRY SIZE
+ 899 004042  4463          JMS I   PP2CH/[P2CH]            /PRINT TWO <SPACE> CHARACTERS
+ 900 004043  1472          TAD I   PTR                     /GET THE BLOCK NUMBER
+ 901 004044  4776          JMS I   (PRTOCT)                /PRINT IT
+ 902 004045  4357          JMS     P3BLNKS                 /PRINT THREE <SPACE> CHARACTERS
+ 903 004046  1077          TAD     TEMP2                   /GET THE SIZE
+ 904 004047  4775          JMS I   (P3OCT)                 /PRINT IT
+ 905 004050  4357          JMS     P3BLNKS                 /PRINT THREE <SPACE> CHARACTERS
+ 906 004051  2072         ISZ     PTR                     /BUMP TO LOAD/LENGTH WORD
+ 907 004052  1472          TAD I   PTR                     /GET THE LOAD/LENGTH WORD
+ 908 004053  0117          AND     L7600/[7600]            /JUST LOADING ADDRESS BITS
+ 909 004054  4776          JMS I   (PRTOCT)                /PRINT IT
+ 910 004055  4774          JMS I   (P4BLNKS)               /PRINT FOUR <SPACE> CHARACTERS
+ 911 004056  1472          TAD I   PTR                     /GET THE LOAD/LENGTH WORD AGAIN
+ 912 004057  0373          AND     (37)                    /JUST LENGTH BITS
+ 913 004060  4772          JMS I   (P2OCT)                 /PRINT TWO DIGIT LENGTH
+ 914 004061  4357          JMS     P3BLNKS                 /PRINT FOUR <SPACE> CHARACTERS
+ 915 004062  1472          TAD I   PTR                     /GET THE LOAD/LENGTH WORD AGAIN
+ 916 004063  3077          DCA     TEMP2                   /STASH IT
+ 917 004064  2072          ISZ     PTR                     /BUMP TO START WORD
+ 918 004065  1472          TAD I   PTR                     /GET THE START WORD
+ 919 004066  0373          AND     (37)                    /JUST EXTENSION BITS
+ 920 004067  1371          TAD     (DEFTABLE)              /POINT AT TABLE ENTRY
+ 921 004070  3076          DCA     TEMP                    /STASH THE POINTER
+ 922 004071  1476          TAD I   TEMP                    /GET THE ENTRY
+ 923 004072  7012          RTR;RTR;RTR                     /MOVE DOWN
+     004073  7012  
+     004074  7012  
+ 924 004075  4770          JMS I   (PRTYPE)                /PRINT OUTPUT TYPE
+ 925 004076  1476          TAD I   TEMP                    /GET THE ENTRY AGAIN
+ 926 004077  4770          JMS I   (PRTYPE)                /PRINT INPUT TYPE
+ 927 004100  4347          JMS     DOBIT                   /PRINT OUT THE
+ 928 004101  0040          KEPRADX                         /RADIX BIT INFORMATION
+ 929 004102  4347          JMS     DOBIT                   /PRINT OUT THE
+ 930 004103  0100          NOSCAN                          /SCAN BIT INFORMATION
+ 931 004104  1472          TAD I   PTR                     /GET THE START WORD
+ 932 004105  3077          DCA     TEMP2                   /STASH IT
+ 933 004106  4347          JMS     DOBIT                   /PRINT OUT THE
+ 934 004107  0100          NOSCAN                          /OUTPUT SCAN ONLY BIT INFORMATION
+ 935 004110  4767          JMS I   (P1OCT)                 /PRINT A LEADING ZERO
+ 936 004111  1472          TAD I   PTR                     /GET THE START WORD
+ 937 004112  0117          AND     L7600/[7600]            /STARTING PAGE BITS ONLY
+ 938 004113  4776          JMS I   (PRTOCT)                /PRINT IT
+ 939 004114  4460          JMS I   PCRLF/[CRLF]            /DO A <CR>, <LF>
+ 940 004115  2072          ISZ     PTR                     /BUMP TO NEXT ENTRY
+ 941 004116  1072          TAD     PTR                     /GET CURRENT POINTER
+ 942 004117  1366          TAD     (-57^6-DIRLOAD)         /COMPARE TO FIRST PAGE LIMIT
+ 943 004120  7650          SNA CLA                         /SKIP IF OTHER
+ 944 004121  4461          JMS I   PDEJECT/[DEJECT]        /ELSE DO AN EJECT
+ 945 004122  5205          JMP     SYSLUP                  /GO BACK FOR MORE
+ 946               /      COMES HERE AT END OF DIRECTORY.
+ 947               
+ 948 004123  4466  EOSYS,  JMS I   PSCRIBE/[SCRIBE]/GIVE THEM THE
+ 949 004124  2470          FREMSG                  /FREE MESSAGE
+ 950 004125  4463          JMS I   PP2CH/[P2CH]    /PRINT TWO <SPACE> CHARACTERS
+ 951 004126  1777          TAD I   (SYSEND-1)      /GET FIRST FREE BLOCK
+ 952 004127  4776          JMS I   (PRTOCT)        /PRINT IT
+ 953 004130  4357          JMS     P3BLNKS         /PRINT THREE <SPACE> CHARACTERS
+ 954 004131  1777          TAD I   (SYSEND-1)      /GET FIRST FREE BLOCK
+ 955 004132  7041          CIA                     /INVERT IT
+ 956 004133  1020          TAD     BBLOCK          /ADD ON BASE CATALOG BLOCK
+ 957 004134  4775          JMS I   (P3OCT)         /PRINT FREE SPACE
+ 958 004135  4466          JMS I   PSCRIBE/[SCRIBE]/GIVE THEM THE
+ 959 004136  4355          SLOTMSG                 /FREE SLOTS MESSAGE
+ 960 004137  1072          TAD     PTR             /GET THE POINTER
+ 961 004140  7040          CMA                     /INVERT IT
+ 962 004141  1377          TAD     (SYSEND-1)      /SUBTRACT FROM UPPER LIMIT
+ 963 004142  4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE
+ 964 004143  0006          6                       /BY SIX
+ 965 004144  4775          JMS I   (P3OCT)         /PRINT NUMBER OF ENTRIES LEFT
+ 966 004145  4460          JMS I   PCRLF/[CRLF]    /DO A <CR>, <LF>
+ 967 004146  5765          JMP I   (LPZAP2)        /CONTINUE THERE
+ 968               
+ 969 004147  0000  DOBIT,  .-.                     /DO A BIT-ORIENTED PRINTOUT ROUTINE
+ 970 004150  1077          TAD     TEMP2           /GET THE WORD
+ 971 004151  0747          AND I   DOBIT           /ISOLATE THE BIT
+ 972 004152  7640          SZA CLA                 /SKIP IF OFF
+ 973 004153  7001          IAC                     /ELSE SET IT
+ 974 004154  4767          JMS I   (P1OCT)         /PRINT THE DIGIT
+ 975 004155  4463          JMS I   PP2CH/[P2CH]    /PRINT TWO <SPACE> CHARACTERS
+ 976 004156  5747          JMP I   DOBIT           /RETURN
+ 977               
+ 978 004157  0000  P3BLNKS,.-.                     /PRINT THREE <SPACE> CHARACTERS
+ 979 004160  4463          JMS I   PP2CH/[P2CH]    /PRINT TWO <SPACE> CHARACTERS
+ 980 004161  4464          JMS I   PP6CH/[P6CH]    /PRINT ONE <SPACE> CHARACTER
+ 981 004162  5757          JMP I   P3BLNKS         /RETURN
+ 982               
+ 983 004165  0304          PAGE
+     004166  4546  
+     004167  4214  
+     004170  4200  
+     004171  4244  
+     004172  4221  
+     004173  0037  
+     004174  2127  
+     004175  4232  
+     004176  1535  
+     004177  3577  
+ 984 004200  0000  PRTYPE,        .-.                     /PRINT EXTENSION TYPE ROUTINE
+ 985 004201  0051          AND     L77/[77]        /JUST SIX BITS
+ 986 004202  3211          DCA     P2TEMP          /SAVE PASSED VALUE
+ 987 004203  1211          TAD     P2TEMP          /GET IT BACK
+ 988 004204  7104          CLL RAL                 /*2
+ 989 004205  1211          TAD     P2TEMP          /*3
+ 990 004206  1377          TAD     (NAMTBLE)       /POINT TO TABLE ENTRY
+ 991 004207  3211          DCA     P2TEMP          /STORE IN-LINE
+ 992 004210  4466          JMS I   PSCRIBE/[SCRIBE]/CALL MESSAGE PRINT ROUTINE
+ 993 004211  0000  P2TEMP, .-.                     /WILL BE MESSAGE ADDRESS
+ 994 004212  4463          JMS I   PP2CH/[P2CH]    /PRINT TWO <SPACE> CHARACTERS
+ 995 004213  5600          JMP I   PRTYPE          /RETURN
+ 996               
+ 997 004214  0000  P1OCT,  .-.                     /PRINT ONE OCTAL DIGIT
+ 998 004215  0143          AND     L7/[7]          /JUST ONE DIGIT
+ 999 004216  1050          TAD     L60/["0&177]    /MAKE IT ASCII
+1000 004217  4456          JMS I   OUTPUT          /PRINT IT
+1001 004220  5614          JMP I   P1OCT           /RETURN
+1002               
+1003 004221  0000  P2OCT,  .-.                     /PRINT TWO OCTAL DIGITS
+1004 004222  3211          DCA     P2TEMP          /SAVE PASSED VALUE
+1005 004223  1211          TAD     P2TEMP          /GET IT BACK
+1006 004224  7012          RTR;RAR                 /MOVE DOWN
+     004225  7010  
+1007 004226  4214          JMS     P1OCT           /PRINT HIGH-ORDER
+1008 004227  1211          TAD     P2TEMP          /GET IT AGAIN
+1009 004230  4214          JMS     P1OCT           /PRINT LOW-ORDER
+1010 004231  5621          JMP I   P2OCT           /RETURN
+1011               
+1012 004232  0000  P3OCT,  .-.                     /PRINT THREE OCTAL DIGITS
+1013 004233  3211          DCA     P2TEMP          /SAVE PASSED VALUE
+1014 004234  1211          TAD     P2TEMP          /GET IT BACK
+1015 004235  7012          RTR;RTR;RTR             /MOVE DOWN
+     004236  7012  
+     004237  7012  
+1016 004240  4214          JMS     P1OCT           /PRINT FIRST DIGIT
+1017 004241  1211          TAD     P2TEMP          /GET IT BACK
+1018 004242  4221          JMS     P2OCT           /PRINT LAST TWO
+1019 004243  5632          JMP I   P3OCT           /RETURN
+1020               /      DEFAULT EXTENSION TYPE TABLE.
+1021               
+1022 004244  0000  DEFTABL,NUL^100+NUL                     /0=NO OUTPUT, NO INPUT
+1023 004245  0706          GENO^100+GENI                   /1=GENERAL OUTPUT, GENERAL INPUT
+1024 004246  0003          NUL^100+BIN                     /2=NO OUTPUT, BINARY INPUT
+1025 004247  0303          BIN^100+BIN                     /3=BINARY OUTPUT, BINARY INPUT
+1026 004250  0300          BIN^100+NUL                     /4=BINARY OUTPUT, NO INPUT
+1027 004251  0101          ASC^100+ASC                     /5=ASCII OUTPUT, ASCII INPUT
+1028 004252  0100          ASC^100+NUL                     /6=ASCII OUTPUT, NO INPUT
+1029 004253  0310          BIN^100+PAL                     /7=BINARY OUTPUT, PAL INPUT
+1030 004254  1010          PAL^100+PAL                     /10=PAL OUTPUT, PAL INPUT
+1031 004255  0002          NUL^100+BAT                     /11=NO OUTPUT, BATCH INPUT
+1032 004256  0004          NUL^100+DUMP                    /12=NO OUTPUT, DUMP INPUT
+1033 004257  0005          NUL^100+FOC                     /13=NO OUTPUT, FOCAL INPUT
+1034 004260  1000          PAL^100+NUL                     /14=PAL OUTPUT, NO INPUT
+1035 004261  0010          NUL^100+PAL                     /15=NO OUTPUT, PAL INPUT
+1036               
+1037 004262  0000          ZBLOCK  DEFSIZE+DEFTABLE-.      /DEFINE REST OF TABLE
+     004263  0000  
+     004264  0000  
+     004265  0000  
+     004266  0000  
+     004267  0000  
+     004270  0000  
+     004271  0000  
+     004272  0000  
+     004273  0000  
+     004274  0000  
+     004275  0000  
+     004276  0000  
+     004277  0000  
+     004300  0000  
+     004301  0000  
+     004302  0000  
+     004303  0000  
+1038               
+1039               /       DEFAULT FILE EXTENSION TYPE NAME TABLE.
+1040               
+1041 004304  3640  NAMTBL, TEXT    "^    "                 /0=NULL ENTRY
+     004305  4040  
+     004306  4000  
+1042 004307  3601          TEXT    "^ASC "                 /1=ASCII
+     004310  2303  
+     004311  4000  
+1043 004312  3602          TEXT    "^BAT "                 /2=BATCH
+     004313  0124  
+     004314  4000  
+1044 004315  3602          TEXT    "^BIN "                 /3=BIN
+     004316  1116  
+     004317  4000  
+1045 004320  3604          TEXT    "^DUMP"                 /4=DUMP
+     004321  2515  
+     004322  2000  
+1046 004323  3606          TEXT    "^FOC "                 /5=FOCAL
+     004324  1703  
+     004325  4000  
+1047 004326  3607          TEXT    "^GENI"                 /6=GENERAL INPUT
+     004327  0516  
+     004330  1100  
+1048 004331  3607          TEXT    "^GENO"                 /7=GENERAL OUTPUT
+     004332  0516  
+     004333  1700  
+1049 004334  3620          TEXT    "^PAL "                 /10=PAL
+     004335  0114  
+     004336  4000  
+1050               /      SYSTEM HEADER TEXT.
+1051               
+1052 004337  3620  SBLURB, TEXT    "^P?S/8 S^YSTEM ^D^IRECTORY "   /SYSTEM HEADER TEXT
+     004340  7723  
+     004341  5770  
+     004342  4023  
+     004343  3631  
+     004344  2324  
+     004345  0515  
+     004346  4036  
+     004347  0436  
+     004350  1122  
+     004351  0503  
+     004352  2417  
+     004353  2231  
+     004354  4000  
+1053               
+1054               /       FREE SLOTS MESSAGE.
+1055               
+1056 004355  4545  SLOTMSG,TEXT    "%%^F^REE ^S^LOTS:    "         /FREE SLOTS MESSAGE
+     004356  3606  
+     004357  3622  
+     004360  0505  
+     004361  4036  
+     004362  2336  
+     004363  1417  
+     004364  2423  
+     004365  7240  
+     004366  4040  
+     004367  4000  
+1057               
+1058 004377  4304          PAGE
+1059               PZ,    RELOC   0               /WHERE THIS LOADS EVENTUALLY
+1060               
+1061                       *0                      /START AT THE BEGINNING
+1062               
+1063                       XORSWS= .               /XOR VALUES FOR OPTION SWITCHES HERE
+1064               
+1065 000000* 0000  GTBASE, 0/.-.                   /GET HALF-WORD BASE
+1066 000001* 0000  GTINDX, 0/.-.                   /GET HALF-WORD INDEX
+1067 000002* 0000  INCHAR, 0/.-.                   /INPUT BUFFER
+1068 000003* 0000  QUO,    .-.                     /QUOTIENT FROM DIVIDE ROUTINE
+1069 000004* 0000  REM,    .-.                     /REMAINDER FOR DIVIDE ROUTINE
+1070 000005* 0100  SCRCASE,100                     /ALPHABETIC CASE
+1071 000006* 0000  SCRCHAR,.-.                     /LATEST OUTPUT CHARACTER
+1072 000007* 0002  SCRPTR, 2/.-.                   /MESSAGE POINTER; INITIALIZED FOR ONCE-ONLY CODE
+1073               
+1074                       *10                     /DEFINE AUTO-INDEX AREA
+1075               
+1076 000010* 0000  XR1,    .-.                     /AUTO-INDEX NUMBER ONE
+1077 000011* 0000  XR2,    .-.                     /AUTO-INDEX NUMBER TWO
+1078 000012* 3776  XR3,    3776                    /AUTO-INDEX NUMBER THREE; INITIALIZED AS "." COUNTER
+1079 000013* 0010  COLUMN, 10                      /COLUMN COUNTER
+1080 000014* 0000  ECHOSW, 0                       /ECHO SWITCH
+1081 000015* 0001  LINCNT, -4+5                    /LINE COUNTER; INITIALIZED FOR OPENING FORM FEED
+1082 000016* 0055  LSEP,   "-&77                   /**** <FF> **** <FF>
+1083 000017* 0000  PAGNUMB,0                       /PRINTED PAGE NUMBER
+1084               
+1085                       *20                     /GET PAST AUTO-INDEX AREA
+1086               
+1087 000020* 0000  BBLOCK, .-.                     /BASE BLOCK OF DIRECTORY
+1088               
+1089                       REMSYMS=        .       /SYMBOLS REMAINING TO BE PRINTED COUNTER
+1090               
+1091 000021* 0003  BSGROUP,BSGRP                   /BASE GROUP VALUE FOR DATE WORD
+1092 000022* 0000  DECCONV,0                       /LEADING ZERO CONVERTER
+1093 000023* 0000  DECOFFS,0                       /DECIMAL-OCTAL OFFSET
+1094 000024* 0000  DECPTR, .-.                     /POINTER TO CURRENTLY USED POWER OF TEN
+1095 000025* 0000  DECQUO, .-.                     /DIGIT QUOTIENT
+1096 000026* 0000  FMASK,  .-.                     /VALID FILE-TYPE MASK; BIT[0]=EMPTY, BIT[1]=[??],
+1097                                               /BIT[10]=[BN], BIT[11]=[AS]
+1098 000027* 0000  FNAME,  ZBLOCK  4               /LATEST FILE NAME, BLOCK
+     000030* 0000  
+     000031* 0000  
+     000032* 0000  
+1099 000033* 6003  FTYPE,  6003                    /LATEST FILE TYPE
+1100 000034* 0000  FULSYMS,0                       /MAXIMUM PRINTABLE SYMBOLS ON ONE PAGE (55*NCOLS)
+1101 000035* 0000  LPSW,  0                       /LAST PAGE SWITCH
+1102 000036* 0000  LSTSYMS,0                       /MAXIMUM PRINTABLE SYMBOLS ON LAST PAGE
+1103 000037* 0010  L10,    10                      /CONSTANT 0010
+1104 000040* 0100  L100,   100                     /CONSTANT 0100
+1105 000041* 0012  L12,    "J&37                   /CONSTANT 0012
+1106 000042* 0014  L14,    "L&37                   /CONSTANT 0014
+1107 000043* 0015  L15,    "M&37                   /CONSTANT 0015
+1108 000044* 0020  L20,    20                      /CONSTANT 0020
+1109 000045* 0004  L4,     4                       /CONSTANT 0004
+1110 000046* 0040  L40,    " &177                  /CONSTANT 0040
+1111 000047* 0400  L400,   400                     /CONSTANT 0400
+1112 000050* 0060  L60,    "0&177                  /CONSTANT 0060
+1113 000051* 0077  L77,    77                      /CONSTANT 0077
+1114 000052* 7760  L7760,  -20                     /CONSTANT 7760
+1115 000053* 7772  L7772,  -6                      /CONSTANT 7772
+1116 000054* 0003  NCOLS,  DEFCOLS                 /NUMBER OF PRINTED COLUMNS (VIA EQUALS)
+1117 000055* 0000  NSYMS,  .-.                     /NUMBER OF SYMBOLS TO PRINT ON LATEST PAGE
+1118 000056* 2137  OUTPUT, P7CH                    /OUTPUT ROUTINE POINTER
+1119 000057* 6777  PCATADR,CATADR-1                /POINTER TO CATALOG BUFFER (AUTO-INDEX)
+1120 000060* 0741  PCRLF,  CRLF                    /POINTER TO <CR>, <LF> ROUTINE
+1121 000061* 1257  PDEJECT,DEJECT                  /POINTER TO DO AN EJECT ROUTINE
+1122 000062* 2325  PDIVIDE,DIVIDE                  /POINTER TO DIVIDE ROUTINE
+1123 000063* 1546  PP2CH,  P2CH                    /POINTER TO P2CH ROUTINE
+1124 000064* 1315  PP6CH,  P6CH                    /POINTER TO P6CH ROUTINE
+1125 000065* 0000  PRTFILS,0                       /TOTAL FILES TO BE PRINTED
+1126 000066* 0400  PSCRIBE,SCRIBE                  /POINTER TO MESSAGE PRINTING ROUTINE
+1127 000067* 7611  PSCRSIZ,SCRSIZE                 /POINTER TO SYSTEM CORE SIZE WORD
+1128 000070* 7604  PSWAL,  SWAL                    /POINTER TO SWITCHES /A-/L
+1129 000071* 7605  PSWMX,  SWMX                    /POINTER TO SWITCHES /M-/X
+1130 000072* 2600  PTR,    DIRLOAD                 /SYSTEM DIRECTORY POINTER
+1131 000073* 0000  P7TEMP, .-.                     /OUTPUT ROUTINE TEMPORARY
+1132 000074* 0000  SYMCNT, 0                       /SYMBOLS PRINTED ALREADY COUNTER
+1133 000075* 7770  SYMNUM, -10                     /LASTEST SYMBOL NUMBER FOR SYMBOL PROBE ROUTINE;
+1134                                               /PRELOADED FOR UNIT SWITCH TEST ROUTINE
+1135 000076* 0000  TEMP,   .-.                     /TEMPORARY
+1136 000077* 0000  TEMP2,  .-.                     /TEMPORARY
+1137 000100* 0000  TOTEMPS,0                       /TOTAL EMPTY COUNT
+1138 000101* 0000  TOTFILS,0                       /TOTAL FILE COUNT
+1139 000102* 7733  TOTSLTS,-STRLENGTH-1            /TOTAL SLOT COUNT IN CATALOG;
+1140                                               /INITIALIZED AS STRING BUFFER LIMIT COUNT
+1141 000103* 0000  TOTSYMS,0                       /TOTAL SYMBOLS TO PRINT COUNTER
+1142 000104* 0000  UNIT,   0                       /FILE UNIT
+1143 000105* 0001  VALSW,  1                       /FILE-TYPE VALIDATION SWITCH
+1144 000106* 0000  CONOUT,        .-.                     /CONSOLE-ONLY OUTPUT ROUTINE
+1145 000107* 6041  CONTSF, TSFIOT                  /**** CONSOLE: **** CIF MCS+10
+1146 000110* 5506  CONJMP, JMP I CONOUT            /**** CONSOLE: **** JMS OUTCON
+1147 000111* 6046  CONTLS, TLSIOT                  /**** CONSOLE: **** JMP I CONOUT
+1148 000112* 7640  PSYSIO, SZA CLA                 /CLEAN UP (MIGHT SKIP)
+1149 000113* 0003  L3,     3                       /CONSTANT 0003; THIS CAN BE SKIPPED
+1150 000114* 2106          ISZ     CONOUT          /BUMP RETURN ADDRESS
+1151 000115* 5506          JMP I   CONOUT          /TAKE SKIP RETURN TO CALLER
+1152               
+1153 000116* 0000  CTLCTST,.-.                     /<^C> TEST, ETC. ROUTINE
+1154 000117* 7600  L7600,  CLA!400                 /CLEAN UP
+1155 000120* 6031  CHKKSF, KSFIOT                  /**** CONSOLE: **** CIF MCS+10
+1156 000121* 5516  CHKJMP, JMP I   CTLCTST         /**** CONSOLE: **** JMS INCON
+1157 000122* 6034  CHKKRS, KRSIOT/OR KRBIOT        /**** CONSOLE: **** JMP I CTLCTST
+1158 000123* 0177          AND     [177]           /JUST SEVEN BITS
+1159 000124* 3002          DCA     INCHAR          /SAVE IT
+1160 000125* 7346          NL7775                  /-3
+1161 000126* 1002          TAD     INCHAR          /COMPARE TO LATEST CHARACTER
+1162 000127* 7450          SNA                     /SKIP IF NOT <^C>
+1163 000130* 2467          ISZ I   PSCRSIZ/[SCRSIZ]/ELSE SET SOFT INDICATOR
+1164 000131* 7750          SPA SNA CLA             /SKIP IF <^D> OR GREATER
+1165 000132* 5517          JMP I   L7600/[SBOOT]   /ELSE GO BACK TO THE MONITOR
+1166 000133* 6032  CHKKCC, KCCIOT/OR 0000          /**** CONSOLE: **** 0000
+1167 000134* 1002          TAD     INCHAR          /GET THE INPUT CHARACTER
+1168 000135* 5516          JMP I   CTLCTST         /RETURN TO CALLER
+1169               
+1170 000136* 0000  P7OUT,  .-.                     /BEST DEVICE AVAILABLE OUTPUT ROUTINE
+1171 000137* 6041  P7TSF,  TSFIOT                  /**** LPT:     **** LSFIOT
+1172                                               /**** CONSOLE: **** CIF MCS+10
+1173                                               /**** LOG-LPT: **** CIF MCS+10
+1174 000140* 5536  P7JMP,  JMP I   P7OUT           /**** LPT:     **** JMP I P7OUT
+1175                                               /**** CONSOLE: **** JMS OUTCON
+1176                                               /**** LOG-LPT: **** JMS OUTLPT
+1177 000141* 6046  P7TLS,  TLSIOT                  /**** LPT:     **** LLSIOT
+1178                                               /**** CONSOLE: **** JMP I P7OUT
+1179                                               /**** LOG-LPT: **** JMP I P7OUT
+1180 000142* 7700  L7700,  SMA CLA                 /CLEAN UP (MIGHT SKIP)
+1181 000143* 0007  L7,     7                       /CONSTANT 0007; THIS CAN BE SKIPPED
+1182 000144* 2136          ISZ     P7OUT           /BUMP RETURN ADDRESS
+1183 000145* 5536          JMP I   P7OUT           /TAKE SKIP RETURN TO CALLER
+1184               
+1185 000146* 0000  READ,   .-.                     /FILE READ ROUTINE
+1186 000147* 7332          NL2000  /TAD    (20^100)/GET READ FUNCTION BITS
+1187 000150* 1104          TAD     UNIT            /ADD ON UNIT BITS
+1188 000151* 3154          DCA     READFUN         /STORE IN I/O CALL
+1189 000152* 4512          JMS I   PSYSIO/[SYSIO]  /CALL I/O ROUTINES
+1190 000153* 3000          FILBUFFER               /FILE BUFFER
+1191 000154* 2000  READFUN,20^100+.-.              /UNIT BITS WILL BE FILLED IN
+1192 000155* 0000  FBLOCK, .-.                     /FILE BLOCK NUMBER WILL BE STORED HERE
+1193 000156* 5546          JMP I   READ            /RETURN
+1194                      PAGE
+1195               
+1196               /       DIRECTORY PROGRAM ULTIMATELY STARTS HERE.
+1197               
+1198 000200* 4461  DIRSTAR,JMS I   PDEJECT/[DEJECT]        /DO AN OPENING EJECT
+1199               /       TAD     PCATADR/[CATADR-1]      /POINT TO
+1200               /       DCA     XR1                     /CATALOG BUFFER
+1201               /       TAD     BBLOCK                  /GET CATALOG BASE BLOCK
+1202               /       DCA     FBLOCK                  /USE AS FIRST READ BLOCK
+1203 000201* 1410  CALCLP, TAD I   XR1                     /GET FIRST NAME WORD
+1204 000202* 7450          SNA                             /END OF DIRECTORY?
+1205 000203* 5242          JMP     DIRLOOP                 /YES, GO START THE PRINTOUT
+1206 000204* 3027          DCA     FNAME                   /STORE AS FIRST NAME PAIR
+1207 000205* 1410          TAD I   XR1                     /GET SECOND NAME WORD
+1208 000206* 3030          DCA     FNAME+1                 /STORE AS SECOND NAME PAIR
+1209 000207* 1410          TAD I   XR1                     /GET THIRD NAME WORD
+1210 000210* 3031          DCA     FNAME+2                 /STORE AS THIRD NAME PAIR
+1211 000211* 1027          TAD     FNAME                   /GET FIRST NAME WORD
+1212 000212* 7040          CMA                             /INVERT IT
+1213 000213* 7650          SNA CLA                         /SKIP IF NOT EMPTY
+1214 000214* 5234          JMP     CALCEMPTY               /JUMP IF AN EMPTY ENTRY
+1215 000215* 2101          ISZ     TOTFILS                 /COUNT THIS FILE
+1216 000216* 4351          JMS     VALID8                  /VALIDATE FILE TYPE
+1217 000217* 4576          JMS I   [FILTER]                /FIND OUT IF WE WANT IT
+1218 000220* 1033          TAD     FTYPE                   /GET THE FILE TYPE
+1219 000221* 0026          AND     FMASK                   /CHECK IF WANTED
+1220 000222* 7650          SNA CLA                         /SKIP IF A WANTED TYPE
+1221 000223* 5226          JMP     NOTOURS                 /JUMP IF NOT
+1222 000224* 2065          ISZ     PRTFILS                 /INDICATE ANOTHER FILE TO PRINT
+1223 000225* 2103          ISZ     TOTSYMS                 /INDICATE ANOTHER SYMBOL TO PRINT
+1224 000226* 1033  NOTOURS,TAD     FTYPE                   /GET THE FILE TYPE
+1225 000227* 3410          DCA I   XR1                     /STORE FILE TYPE
+1226 000230* 1155          TAD     FBLOCK                  /GET FILE BLOCK
+1227 000231* 1044          TAD     L20/[20]                /UPDATE TO NEXT FILE
+1228 000232* 3155          DCA     FBLOCK                  /STORE BACK
+1229 000233* 5201          JMP     CALCLP                  /KEEP GOING
+1230               
+1231               /       COMES HERE IF ENTRY IS AN EMPTY SLOT.
+1232               
+1233 000234* 2100  CALCEMP,ISZ     TOTEMPS                 /INDICATE ANOTHER EMPTY
+1234 000235* 1026          TAD     FMASK                   /GET FILE TYPE MASK
+1235 000236* 7710          SPA CLA                         /SKIP IF EMPTIES NOT WANTED
+1236 000237* 2103          ISZ     TOTSYMS                 /INDICATE ANOTHER SYMBOL TO PRINT
+1237 000240* 4351          JMS     VALID8                  /VALIDATE THE EMPTY'S FILE TYPE
+1238 000241* 5226          JMP     NOTOURS                 /CONTINUE THERE
+1239 000242* 1074  DIRLOOP,TAD    SYMCNT          /GET SYMBOLS PRINTED SO FAR
+1240 000243* 7161          STL CIA                 /NEGATE IT
+1241 000244* 1103          TAD     TOTSYMS         /SUBTRACT FROM TOTAL SYMBOL COUNT
+1242 000245* 7470          SNA SZL                 /SKIP IF ANY LEFT TO DO
+1243 000246* 5300          JMP     DIRDONE         /JUMP IF NOT
+1244 000247* 3021          DCA     REMSYMS         /SAVE REMAINING UNPRINTED SYMBOL COUNT
+1245 000250* 2370          ISZ     FIRST           /FIRST PAGE?
+1246 000251* 4461          JMS I   PDEJECT/[DEJECT]/NO, DO AN EJECT
+1247 000252* 1034          TAD     FULSYMS         /GET FULL PAGE PRINTED SYMBOL COUNT (55*NCOLS)
+1248 000253* 7161          STL CIA                 /NEGATE IT
+1249 000254* 1021          TAD     REMSYMS         /COMPARE TO REMAINING SYMBOL COUNT
+1250 000255* 7620          SNL CLA                 /SKIP IF LESS REMAINING THAN FULL PAGE
+1251 000256* 5266          JMP     FULPAGE         /JUMP IF FULL PAGE PRINT WANTED
+1252 000257* 1021          TAD     REMSYMS         /GET REMAINING SYMBOL COUNT
+1253 000260* 7161          STL CIA                 /NEGATE IT
+1254 000261* 1036          TAD     LSTSYMS         /COMPARE TO MAXIMUM LAST PAGE SYMBOL COUNT
+1255 000262* 7620          SNL CLA                 /SKIP IF REMAINING, EXTRA CAN'T COEXIST ON LAST PAGE
+1256 000263* 2035          ISZ     LPSW            /INDICATE THIS WILL BE THE LAST PAGE PRINTED
+1257 000264* 1021          TAD     REMSYMS         /GET REMAINING SYMBOL COUNT
+1258 000265* 7410          SKP                     /DON'T
+1259 000266* 1034  FULPAGE,TAD     FULSYMS         /USE FULL PAGE PRINTED SYMBOL COUNT
+1260 000267* 3055          DCA     NSYMS           /STORE LATEST PAGE SYMBOL COUNT
+1261 000270* 4777          JMS I   (PDPAGE)        /PRINT LATEST PAGE OF DIRECTORY
+1262 000271* 1035          TAD     LPSW            /GET LAST PAGE SWITCH
+1263 000272* 7640          SZA CLA                 /SKIP IF OFF
+1264 000273* 4776          JMS I   (PRTINFO)       /PRINT EXTRA INFORMATION AT BOTTOM OF THIS PAGE
+1265 000274* 1074          TAD     SYMCNT          /GET PRINTED SYMBOL COUNT
+1266 000275* 1055          TAD     NSYMS           /ACCOUNT FOR THOSE WE PRINTED NOW
+1267 000276* 3074          DCA     SYMCNT          /STORE BACK
+1268 000277* 5242          JMP     DIRLOOP         /KEEP GOING
+1269               
+1270               /       COMES HERE WHEN DONE.
+1271               
+1272 000300* 7200  DIRDONE,CLA                     /CLEAN UP
+1273 000301* 1035          TAD     LPSW            /GET LAST PAGE SWITCH
+1274 000302* 7650          SNA CLA                 /SKIP IF INFORMATION WAS PRINTED ON PREVIOUS PAGE
+1275 000303* 4776          JMS I   (PRTINFO)       /PRINT THE INFORMATION ALONE ON THIS LAST PAGE
+1276 000304* 7410  LPZAP2, SKP                     /**** <FF> **** 0000
+1277 000305* 3775          DCA I   (LPZAP3)        /PREVENT ADDITIONAL CHARACTERS AFTER LAST <FF>
+1278 000306* 4575  NPZAP1, JMS I   [NEWPAGE]       /**** /N **** 0000
+1279 000307* 7410  BUFZP3, SKP                     /**** LOG-LPT: AND BUFFERING AND /N **** 0000
+1280 000310* 4456          JMS I   OUTPUT          /OUTPUT A <NUL>
+1281 000311* 2371          ISZ     NULCNT          /DONE YET?
+1282 000312* 5307          JMP     BUFZP3          /NO, KEEP GOING
+1283 000313* 5517          JMP I   L7600/[SBOOT]   /GOODBYE!
+1284 000314* 0000  DECPRT,        .-.                     /DECIMAL PRINTOUT ROUTINE
+1285 000315* 3076          DCA     TEMP            /SAVE THE NON-ZERO NUMBER
+1286 000316* 1023          TAD     DECOFFSET       /GET POSSIBLE OFFSET
+1287 000317* 1374          TAD     (TENS)          /POINT AT POWER TABLE
+1288 000320* 3024          DCA     DECPTR          /STASH THE POINTER
+1289 000321* 3025  DECLUP, DCA     DECQUO          /CLEAR THE QUOTIENT
+1290 000322* 5325          JMP     .+3             /START THE DIVIDE OPERATION NOW
+1291               
+1292 000323* 3076  DECLOP, DCA     TEMP            /RESTORE UPDATED QUOTIENT
+1293 000324* 2025          ISZ     DECQUO          /BUMP DIGIT QUOTIENT
+1294 000325* 1424          TAD I   DECPTR          /GET NEXT POWER OF TEN
+1295 000326* 7450          SNA                     /END OF LIST?
+1296 000327* 5714          JMP I   DECPRT          /YES, WE'RE DONE
+1297 000330* 7100          CLL                     /CLEAR LINK NEEDED FOR TESTING
+1298 000331* 1076          TAD     TEMP            /GET QUOTIENT
+1299 000332* 7430          SZL                     /SKIP IF WE DIDN'T UNDERFLOW
+1300 000333* 5323          JMP     DECLOP          /BUMP UP QUOTIENT
+1301 000334* 7200          CLA                     /ALL DONE WITH THIS ONE
+1302 000335* 2024          ISZ     DECPTR          /BUMP POINTER TO NEXT POWER OF TEN
+1303 000336* 1025          TAD     DECQUO          /GET DIGIT
+1304 000337* 7450          SNA                     /IS IT ZERO?
+1305 000340* 1022          TAD     DECCONVERT      /YES, MIGHT CONVERT IT TO <SPACE>
+1306 000341* 7450          SNA                     /IS IT ZERO?
+1307 000342* 5321          JMP     DECLUP          /YES, DON'T PRINT IT
+1308 000343* 1050          TAD     L60/["0&77]     /MAKE INTO ASCII DIGIT
+1309 000344* 4456          JMS I   OUTPUT          /PRINT IT
+1310 000345* 1025          TAD     DECQUO          /GET DIGIT AGAIN
+1311 000346* 7640          SZA CLA                 /SKIP IF ZERO
+1312 000347* 7330          NL4000                  /FORCE SIGNIFICENCE OF REMAINING DIGITS
+1313 000350* 5321          JMP     DECLUP          /DO IT AGAIN
+1314               
+1315 000351* 0000  VALID8, .-.                     /FILE TYPE VALIDATION ROUTINE
+1316 000352* 1105          TAD     VALSW           /SHOULD WE VALIDATE THIS FILE?
+1317 000353* 7650          SNA CLA                 /SKIP IF SO
+1318 000354* 5751          JMP I   VALID8          /RETURN IF NOT
+1319 000355* 4146          JMS     READ            /GO READ IN THE FILE
+1320 000356* 4773          JMS I   (VALASC)        /CHECK IF FILE IS ASCII
+1321 000357* 5363          JMP     NOTASC          /WASN'T
+1322 000360* 7201          NL0001                  /INDICATE ASCII FILE TYPE
+1323 000361* 3033  BNENTRY,DCA     FTYPE           /STORE FILE TYPE
+1324 000362* 5751          JMP I   VALID8          /RETURN
+1325               
+1326               /       COMES HERE IF FILE IS NOT ASCII TYPE.
+1327               
+1328 000363* 4772  NOTASC, JMS I   (VALBIN)        /CHECK IF FILE IS BINARY TYPE
+1329 000364* 7332          NL2000                  /NOT BINARY
+1330 000365* 7450          SNA                     /SKIP IF NOT BINARY
+1331 000366* 7326          NL0002                  /ELSE INDICATE SO
+1332 000367* 5361          JMP     BNENTRY         /CONTINUE THERE
+1333               
+1334 000370* 7777  FIRST,  -1                      /FIRST PAGE SWITCH
+1335 000371* 0000  NULCNT, 0                       /<NUL> OUTPUT COUNTER
+1336 000372* 1200         PAGE
+     000373* 1000  
+     000374* 2546  
+     000375* 0465  
+     000376* 0654  
+     000377* 2000  
+1337               /      MESSAGE PRINTING ROUTINE.
+1338               
+1339 000400* 0000  SCRIBE, .-.                     /MESSAGE PRINT ROUTINE
+1340 000401* 7200          CLA                     /JUST IN CASE
+1341 000402* 1600          TAD I   SCRIBE          /GET MESSAGE POINTER
+1342 000403* 3007          DCA     SCRPTR          /STASH IT
+1343 000404* 2200          ISZ     SCRIBE          /BUMP PAST ARGUMENT
+1344 000405* 1377          TAD     (140)           /INITIALIZE TO LOWER-CASE
+1345 000406* 3005  CASZP1, DCA     SCRCASE         /**** /U **** CLA!400
+1346 000407* 1407  SCRLUP, TAD I   SCRPTR          /GET LEFT HALF-WORD
+1347 000410* 7012          RTR;RTR;RTR             /MOVE OVER
+     000411* 7012  
+     000412* 7012  
+1348 000413* 4220          JMS     SCRPRNT         /PRINT IT
+1349 000414* 1407          TAD I   SCRPTR          /GET RIGHT HALF-WORD
+1350 000415* 4220          JMS     SCRPRNT         /PRINT IT
+1351 000416* 2007          ISZ     SCRPTR          /BUMP TO NEXT PAIR
+1352 000417* 5207          JMP     SCRLUP          /KEEP GOING
+1353               
+1354 000420* 0000  SCRPRNT,.-.                     /CHARACTER PRINT ROUTINE
+1355 000421* 0051          AND     L77/[77]        /JUST SIX-BIT
+1356 000422* 7450          SNA                     /END OF MESSAGE?
+1357 000423* 5600          JMP I   SCRIBE          /YES, RETURN TO ORIGINAL CALLER
+1358 000424* 3006          DCA     SCRCHAR         /NO, SAVE FOR NOW
+1359 000425* 1006          TAD     SCRCHAR         /GET IT BACK
+1360 000426* 1376          TAD     (-"%!200)       /IS IT "%"?
+1361 000427* 7450          SNA                     /SKIP IF NOT
+1362 000430* 5243          JMP     SCRCRLF         /JUMP IF IT MATCHES
+1363 000431* 1143          TAD     L7/[-"^+100+"%] /IS IT "^"
+1364 000432* 7650          SNA CLA                 /SKIP IF NOT
+1365 000433* 5245          JMP     SCRFLIP         /JUMP IF IT MATCHES
+1366 000434* 1006          TAD     SCRCHAR         /GET THE CHARACTER
+1367 000435* 0046          AND     L40/[40]        /DOES CASE MATTER?
+1368 000436* 7650          SNA CLA                 /SKIP IF NOT
+1369 000437* 1005          TAD     SCRCASE         /ELSE GET PREVAILING CASE
+1370 000440* 1006          TAD     SCRCHAR         /GET THE CHARACTER
+1371 000441* 4456          JMS I   OUTPUT          /PRINT THE CHARACTER
+1372 000442* 5620          JMP I   SCRPRNT         /RETURN
+1373               
+1374 000443* 4460  SCRCRLF,JMS I   PCRLF/[CRLF]    /DO A <CR>, <LF>
+1375 000444* 5620          JMP I   SCRPRNT         /RETURN
+1376               
+1377 000445* 1005  SCRFLIP,TAD     SCRCASE         /GET CURRENT CASE
+1378 000446* 7041          CIA                     /INVERT IT
+1379 000447* 1375          TAD     (140+100)       /ADD SUM OF POSSIBLE VALUES
+1380 000450* 3005  CASZP2, DCA     SCRCASE         /**** /U **** CLA!400
+1381 000451* 5620          JMP I   SCRPRNT         /RETURN
+1382 000452* 0000  NEWPAGE,.-.                    /PRINT <FF> ROUTINE
+1383 000453* 1015          TAD     LINCNT          /GET CURRENT COUNT
+1384 000454* 1374          TAD     (-5)            /ADD ON EXTRA COUNT
+1385 000455* 3015          DCA     LINCNT          /STORE BACK
+1386 000456* 4773  DOFF,   JMS I   (PRNLFS)        /**** <FF> **** 0000
+1387 000457* 1053  LPZAP1, TAD     L7772/[-6]      /**** <FF> **** NL7777
+1388 000460* 3015          DCA     LINCNT          /STASH THE COUNT
+1389 000461* 1016          TAD     LSEP            /GET "-" OR <FF>
+1390 000462* 4456          JMS I   OUTPUT          /PRINT IT
+1391 000463* 2015          ISZ     LINCNT          /DONE ENOUGH?
+1392 000464* 5261          JMP     .-3             /NO, GO DO ANOTHER ONE
+1393 000465* 7410  LPZAP3, SKP                     /**** LAST <FF> **** 0000
+1394 000466* 5652          JMP I   NEWPAGE         /RETURN NOW IF LAST <FF>
+1395 000467* 7410  FFWAT1, SKP                     /**** <FF> 0000
+1396 000470* 4277          JMS     PWAIT           /WAIT FOR NEXT PAGE NOW IF USING <FF>
+1397 000471* 4460          JMS I   PCRLF/[CRLF]    /DO A <CR>, <LF>
+1398 000472* 4277  FFWAT2, JMS     PWAIT           /**** <FF> **** 0000
+1399 000473* 7346          NL7775                  /SETUP FOR
+1400 000474* 3015          DCA     LINCNT          /3 <LF>'S
+1401 000475* 4773  LPZAP4, JMS I   (PRNLFS)        /**** <FF> **** 0000
+1402 000476* 5652          JMP I   NEWPAGE         /RETURN
+1403               
+1404 000477* 0000  PWAIT,  .-.                     /PAGE WAIT SUBROUTINE
+1405 000500* 7410  PZAP,   SKP                     /**** NOT /P **** 0000
+1406 000501* 5677          JMP I   PWAIT           /RETURN IF NOT /P
+1407 000502* 7346          NL7775                  /SETUP THE
+1408 000503* 3003          DCA     QUO             /BEEP COUNT
+1409 000504* 1372  PWATLUP,TAD     (-42)           /SETUP THE
+1410 000505* 3077          DCA     TEMP2           /WASTE COUNTER
+1411 000506* 2076          ISZ     TEMP            /WASTE
+1412 000507* 5306          JMP     .-1             /SOME TIME
+1413 000510* 2077          ISZ     TEMP2           /DONE ENOUGH?
+1414 000511* 5306          JMP     .-3             /NO, GO BACK
+1415 000512* 1143          TAD     L7/["G&37]      /GET A <BEL>
+1416 000513* 4106          JMS     CONOUT          /RING IT
+1417 000514* 5313          JMP     .-1             /'TIL IT CHIMES
+1418 000515* 2003          ISZ     QUO             /DONE ENOUGH?
+1419 000516* 5304          JMP     PWATLUP         /NO, GO BACK AND DO IT ALL AGAIN
+1420 000517* 4116  INWAIT, JMS     CTLCTST         /GET A CHARACTER
+1421 000520* 7450          SNA                     /SKIP IF WE GOT SOMETHING
+1422 000521* 5317          JMP     INWAIT          /ELSE KEEP WAITING
+1423 000522* 1371          TAD     (-"M!300)       /COMPARE TO <CR>
+1424 000523* 7650          SNA CLA                 /SKIP IF DIFFERENT
+1425 000524* 5677          JMP I   PWAIT           /RETURN IF IT MATCHES
+1426 000525* 1143          TAD     L7/["G&37]      /GET A <BEL>
+1427 000526* 4106          JMS     CONOUT          /RING IT
+1428 000527* 5326          JMP     .-1             /'TIL IT CHIMES
+1429 000530* 5317          JMP     INWAIT          /TRY AGAIN
+1430 000531* 0000  CHKUP, .-.                     /CHECK FOR <^C>, ETC. ROUTINE
+1431 000532* 4116          JMS     CTLCTST         /CHECK FOR <^C>
+1432 000533* 1370          TAD     (-"O!300)       /IS IT <^O>?
+1433 000534* 7450          SNA                     /SKIP IF NOT
+1434 000535* 5346          JMP     DOUO            /JUMP IF IT MATCHES
+1435 000536* 1174          TAD     [-"S+"O]        /COMPARE TO <^S>
+1436 000537* 7640          SZA CLA                 /SKIP IF IT MATCHES
+1437 000540* 5731          JMP I   CHKUP           /ELSE JUST RETURN
+1438 000541* 4116          JMS     CTLCTST         /CHECK FOR <^C>
+1439 000542* 1173          TAD     [-"Q!300]       /IS IT <^Q>?
+1440 000543* 7640          SZA CLA                 /SKIP IF IT MATCHES
+1441 000544* 5341          JMP     .-3             /JUMP BACK IF NOT
+1442 000545* 5731          JMP I   CHKUP           /RETURN
+1443               
+1444 000546* 1367  DOUO,   TAD     ("^&177)        /GET AN "^"
+1445 000547* 4106          JMS     CONOUT          /PRINT IT
+1446 000550* 5347          JMP     .-1             /WAIT FOR IT
+1447 000551* 1366          TAD     ("O&177)        /GET AN "O"
+1448 000552* 4106          JMS     CONOUT          /PRINT IT
+1449 000553* 5352          JMP     .-1             /WAIT FOR IT
+1450 000554* 7330          NL4000                  /SET INVERSION BIT
+1451 000555* 1014          TAD     ECHOSW          /INVERT ECHO STATUS
+1452 000556* 3014          DCA     ECHOSW          /STORE BACK
+1453 000557* 5731          JMP I   CHKUP           /RETURN
+1454               
+1455 000566* 0117          PAGE
+     000567* 0136  
+     000570* 7761  
+     000571* 7763  
+     000572* 7736  
+     000573* 1307  
+     000574* 7773  
+     000575* 0240  
+     000576* 7733  
+     000577* 0140  
+1456 000600* 0000  FPRINT,        .-.                     /FILE NAME PRINT ROUTINE
+1457 000601* 1027          TAD     FNAME           /GET FIRST NAME PAIR
+1458 000602* 7040          CMA                     /INVERT FOR TESTING
+1459 000603* 7650          SNA CLA                 /SKIP IF NOT AN EMPTY
+1460 000604* 5237          JMP     FREPRNT         /JUMP IF AN EMPTY
+1461 000605* 1027          TAD     FNAME           /GET FIRST NAME PAIR
+1462 000606* 4463          JMS I   PP2CH/[P2CH]    /PRINT THEM
+1463 000607* 1030          TAD     FNAME+1         /GET SECOND NAME PAIR
+1464 000610* 4463          JMS I   PP2CH/[P2CH]    /PRINT THEM
+1465 000611* 1031          TAD     FNAME+2         /GET THIRD NAME PAIR
+1466 000612* 4463          JMS I   PP2CH/[P2CH]    /PRINT THEM
+1467 000613* 7410  IZAP,   SKP                     /**** /I **** 0000
+1468 000614* 5223          JMP     ODZAP           /DON'T PRINT FILE TYPE INFORMATION
+1469 000615* 7332          NL2000                  /SET SHIFTING BIT
+1470 000616* 1033          TAD     FTYPE           /GET FILE TYPE
+1471 000617* 7540          SMA SZA                 /SKIP IF OTHER TYPE
+1472 000620* 5242          JMP     PRNTAB          /JUMP IF ASCII OR BINARY
+1473 000621* 4466          JMS I   PSCRIBE/[SCRIBE]/GIVE THEM THE
+1474 000622* 2535          UNKNMSG                 /<UNKN> MESSAGE
+1475 000623* 5600  ODZAP,  JMP I   FPRINT          /**** /D OR /O **** 0000
+1476 000624* 1046          TAD     L40/[" &177]    /GET A <SPACE>
+1477 000625* 4456          JMS I   OUTPUT          /PRINT IT
+1478 000626* 1046          TAD     L40/[" &177]    /GET A <SPACE>
+1479 000627* 4456          JMS I   OUTPUT          /PRINT IT
+1480 000630* 7332          NL2000                  /ENFORCE
+1481 000631* 3022          DCA     DECCONVERT      /LEADING ZEROES
+1482 000632* 1172  DZAP,   TAD     [EIGHTS-TENS]   /**** /D **** 0000
+1483 000633* 3023          DCA     DECOFFSET       /STORE INTER-TABLE OFFSET
+1484 000634* 1155          TAD     FBLOCK          /GET THE BLOCK NUMBER
+1485 000635* 4571          JMS I   [DECPRT]        /PRINT IT
+1486 000636* 5600          JMP I   FPRINT          /RETURN
+1487               
+1488               /       COMES HERE IF ENTRY IS AN EMPTY SLOT.
+1489               
+1490 000637* 4466  FREPRNT,JMS I   PSCRIBE/[SCRIBE]/CALL MESSAGE PRINT ROUTINE
+1491 000640* 2470          FREMSG                  /WITH <FREE> MESSAGE
+1492 000641* 5213          JMP     IZAP            /CONTINUE THERE
+1493               
+1494               /       COMES HERE IF FILE TYPE IS ASCII OR BINARY.
+1495               
+1496 000642* 7201  PRNTAB, NL0001                  /SET ASCII TYPE MASK
+1497 000643* 0033          AND     FTYPE           /CHECK FILE TYPE
+1498 000644* 7650          SNA CLA                 /SKIP IF ASCII
+1499 000645* 5251          JMP     PRNTBN          /JUMP IF BINARY
+1500 000646* 4466          JMS I   PSCRIBE/[SCRIBE]/GIVE THEM THE
+1501 000647* 2400          ASCIMSG                 /<ASCI> MESSAGE
+1502 000650* 5223          JMP     ODZAP           /CONTINUE THERE
+1503               
+1504 000651* 4466  PRNTBN, JMS I   PSCRIBE/[SCRIBE]/GIVE THEM THE
+1505 000652* 2420          BNRYMSG                 /<BNRY> MESSAGE
+1506 000653* 5223          JMP     ODZAP           /CONTINUE THERE
+1507 000654* 0000  PRTINFO,.-.                    /ENDING INFORMATION PRINT ROUTINE
+1508 000655* 1065          TAD     PRTFILS         /GET TOTAL FILES PRINTED
+1509 000656* 4300          JMS     IPRINT          /PRINT IT
+1510 000657* 2464          FILMSG                  /ALONG WITH THIS MESSAGE
+1511 000660* 7410  EZAP,   SKP                     /**** NOT /E **** 0000
+1512 000661* 5265          JMP     NOEMPTY         /DON'T PRINT EMPTY SLOT INFORMATION
+1513 000662* 1100          TAD     TOTEMPS         /GET TOTAL EMPTY SLOTS ENCOUNTERRED
+1514 000663* 4300          JMS     IPRINT          /PRINT IT
+1515 000664* 2451          EMPMSG                  /ALONG WITH THIS MESSAGE
+1516 000665* 7410  NOEMPTY,SKP                     /**** /R **** 0000
+1517 000666* 5654          JMP I   PRTINFO         /RETURN WITHOUT PRINTING RESOURCES
+1518 000667* 1101          TAD     TOTFILS         /GET TOTAL FILE COUNT
+1519 000670* 7041          CIA                     /INVERT IT
+1520 000671* 1102          TAD     TOTSLTS         /NOW HAVE TOTAL FREE COUNT
+1521 000672* 4300          JMS     IPRINT          /PRINT IT
+1522 000673* 2474          FSMSG                   /ALONG WITH THIS MESSAGE
+1523 000674* 1102          TAD     TOTSLTS         /GET TOTAL SLOT COUNT
+1524 000675* 4300          JMS     IPRINT          /PRINT IT
+1525 000676* 2522          TSMSG                   /ALONG WITH THIS MESSAGE
+1526 000677* 5654          JMP I   PRTINFO         /RETURN
+1527               
+1528 000700* 0000  IPRINT, .-.                     /INFORMATION PRINT ROUTINE
+1529 000701* 3355          DCA     ITEMP           /SAVE PASSED VALUE
+1530 000702* 4460          JMS I   PCRLF/[CRLF]    /DO A <CR>, <LF>
+1531 000703* 1355          TAD     ITEMP           /GET PASSED VALUE
+1532 000704* 7450          SNA                     /SKIP IF SOME
+1533 000705* 5336          JMP     PRTNO           /JUMP IF NONE
+1534 000706* 4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE
+1535 000707* 0012          12                      /BY TEN
+1536 000710* 7450          SNA                     /HIGH DIGIT SIGNIFICANT?
+1537 000711* 1052          TAD     L7760/[" -"0]   /NO, MAKE IT A <SPACE>
+1538 000712* 1050          TAD     L60/["0&177]    /MAKE IT ASCII
+1539 000713* 4456          JMS I   OUTPUT          /PRINT IT
+1540 000714* 1004          TAD     REM             /GET LOW DIGIT
+1541 000715* 1050          TAD     L60/["0&177]    /MAKE IT ASCII
+1542 000716* 4456          JMS I   OUTPUT          /PRINT IT
+1543 000717* 1046          TAD     L40/[" &177]    /GET A <SPACE>
+1544 000720* 4456          JMS I   OUTPUT          /PRINT IT
+1545 000721* 1700  IPRTCOM,TAD I   IPRINT          /GET PASSED ARGUMENT
+1546 000722* 3325          DCA     INLINE          /STORE IN-LINE
+1547 000723* 2300          ISZ     IPRINT          /BUMP PAST ARGUMENT
+1548 000724* 4466          JMS I   PSCRIBE/[SCRIBE]/CALL MESSAGE PRINT
+1549 000725* 0000  INLINE, .-.                     /WILL BE PASSED ARGUMENT
+1550 000726* 7240          NL7777                  /-1
+1551 000727* 1355          TAD     ITEMP           /COMPARE TO PASSED VALUE
+1552 000730* 7650          SNA CLA                 /SKIP IF NOT ONE
+1553 000731* 5334          JMP     IPRTONE         /JUMP IF ONE
+1554 000732* 4466          JMS I   PSCRIBE/[SCRIBE]/CALL MESSAGE PRINT ROUTINE
+1555 000733* 2521          SMSG                    /"S" MESSAGE
+1556 000734* 4460  IPRTONE,JMS I   PCRLF/[CRLF]    /DO A <CR>, <LF>
+1557 000735* 5700          JMP I   IPRINT          /RETURN
+1558               
+1559 000736* 4466  PRTNO,  JMS I   PSCRIBE/[SCRIBE]/PRINT THE
+1560 000737* 2511          NOMSG                   /"NO " MESSAGE
+1561 000740* 5321          JMP     IPRTCOMMON      /CONTINUE THERE
+1562 000741* 0000  CRLF,  .-.                     /<CR>, <LF> ROUTINE
+1563 000742* 1013          TAD     COLUMN          /GET CURRENT COLUMN
+1564 000743* 7650          SNA CLA                 /SKIP IF <CR> NEEDED
+1565 000744* 5347          JMP     NOCR            /ELSE FORGET IT
+1566 000745* 1043          TAD     L15/["M&37]     /GET A <CR>
+1567 000746* 4456          JMS I   OUTPUT          /GO PRINT IT
+1568 000747* 1041  NOCR,   TAD     L12/["J&37]     /GET A <LF>
+1569 000750* 4456          JMS I   OUTPUT          /GO PRINT IT
+1570 000751* 2015          ISZ     LINCNT          /BUMP LINE COUNTER
+1571 000752* 7000          NOP                     /IN CASE IT SKIPS
+1572 000753* 3013          DCA     COLUMN          /CLEAR COLUMN COUNT
+1573 000754* 5741          JMP I   CRLF            /RETURN
+1574               
+1575 000755* 0000  ITEMP,  .-.                     /TEMPORARY
+1576               
+1577                       PAGE
+1578               /      P?S/8 ASCII FILE VALIDATOR.
+1579               
+1580               /       CHECKS FOR VALID POINTERS.
+1581               /       CHECKS FOR VALID LINE NUMBERS.
+1582               /       CHECKS FOR <EOF> AND DUMMY POINTERS.
+1583               /       CHECKS FOR VALID <EOL> SEQUENCES.
+1584               
+1585               /       TAKES SKIP RETURN IF AND ONLY IF FILE IS VALID SIX-BIT ASCII.
+1586               
+1587 001000* 0000  VALASC, .-.                     /VALIDATE ASCII
+1588 001001* 1777          TAD I   (FILBUFFER+3776)/GET FREE TEXT POINTER
+1589 001002* 4355          JMS     RNGCHK          /VALIDATE VALUE
+1590 001003* 1776          TAD I   (FILBUFFER+3777)/GET FREE LINE NUMBER PAIR POINTER
+1591 001004* 4355          JMS     RNGCHK          /VALIDATE ITS VALUE ALSO
+1592 001005* 1777          TAD I   (FILBUFFER+3776)/GET TEXT POINTER
+1593 001006* 7041          CIA                     /INVERT FOR TEST
+1594 001007* 1776          TAD I   (FILBUFFER+3777)/COMPARE TO LINE NUMBER VALUE
+1595 001010* 7710          SPA CLA                 /SKIP IF POSSIBLE
+1596 001011* 5600          JMP I   VALASC          /BARF
+1597 001012* 1777          TAD I   (FILBUFFER+3776)/GET TEXT POINTER AGAIN
+1598               /       TAD     (FILBUF-FILCORE)/ADJUST FOR LOADING OFFSET
+1599 001013* 3076          DCA     TEMP            /STASH IT
+1600 001014* 1476          TAD I   TEMP            /GET <EOF> WORD
+1601 001015* 7640          SZA CLA                 /SKIP IF ACTUALLY <EOF>
+1602 001016* 5600          JMP I   VALASC          /BARF
+1603 001017* 1776          TAD I   (FILBUFFER+3777)/GET PAIR POINTER
+1604               /       TAD     (FILBUF-FILCORE)/ADJUST FOR LOADING OFFSET
+1605 001020* 3076          DCA     TEMP            /STASH IT
+1606 001021* 1476          TAD I   TEMP            /GET PAIR'S FREE TEXT POINTER
+1607 001022* 7041          CIA                     /INVERT FOR TEST
+1608 001023* 1777          TAD I   (FILBUFFER+3776)/COMPARE TO ALREADY VERIFIED VALUE
+1609 001024* 7640          SZA CLA                 /SKIP IF THEY MATCH
+1610 001025* 5600          JMP I   VALASC          /BARF IF THEY DON'T
+1611 001026* 2076          ISZ     TEMP            /BUMP TO LINE NUMBER
+1612 001027* 1476          TAD I   TEMP            /GET THE DUMMY LINE NUMBER
+1613 001030* 7101          CLL IAC                 /SEE IF 7777
+1614 001031* 7620          SNL CLA                 /SKIP IF SO
+1615 001032* 5600          JMP I   VALASC          /BARF IF NOT
+1616 001033* 1776          TAD I   (FILBUFFER+3777)/GET DUMMY PAIR POINTER ADDRESS
+1617 001034* 7041          CIA                     /INVERT NOW, SAVE TIME LATER
+1618 001035* 3367          DCA     PARLMT          /SAVE FOR TESTING
+1619 001036* 1377          TAD     (FILCORE+3774+2)/SETUP THE
+1620 001037* 3366          DCA     NUMPTR          /INITIAL REVERSE POINTER
+1621 001040* 7344  NUMLUP,        NL7776                          /\
+1622 001041* 1366          TAD     NUMPTR                  / >BACKUP TO PREVIOUS PAIR
+1623 001042* 3366          DCA     NUMPTR                  //
+1624 001043* 1366          TAD     NUMPTR                  /GET THE POINTER VALUE
+1625 001044* 4355          JMS     RNGCHK                  /PREVENT DEVIOUS PROBLEMS!
+1626 001045* 1366          TAD     NUMPTR                  /GET IT AGAIN
+1627 001046* 1367          TAD     PARLMT                  /COMPARE TO LIMIT
+1628 001047* 7450          SNA                             /SKIP IF NOT AT END OF FILE
+1629 001050* 5336          JMP     FILOK                   /JUMP IF SO
+1630 001051* 7710          SPA CLA                         /SKIP IF POSSIBLE VALUE
+1631 001052* 5600          JMP I   VALASC                  /IMPOSSIBLE VALUE OF POINTER IN THIS FILE
+1632 001053* 1366          TAD     NUMPTR                  /GET LATEST PAIR POINTER
+1633               /       TAD     (FILBUFFER-FILCORE)     /ADJUST FOR LOADING OFFSET
+1634 001054* 3076          DCA     TEMP                    /SAVE ADJUSTED POINTER
+1635 001055* 1476          TAD I   TEMP                    /GET THE TEXT POINTER
+1636 001056* 4355          JMS     RNGCHK                  /VALIDATE IT
+1637 001057* 1076          TAD     TEMP                    /GET THE POINTER TO TEXT POINTER
+1638 001060* 7001          IAC                             /BUMP TO LINE NUMBER POINTER
+1639 001061* 3077          DCA     TEMP2                   /SAVE FOR LATER
+1640 001062* 1366          TAD     NUMPTR                  /GET THE POINTER AGAIN
+1641 001063* 1375          TAD     (-FILCORE-3774)         /IS IT THE FIRST PAIR?
+1642 001064* 7650          SNA CLA                         /SKIP IF NOT
+1643 001065* 5327          JMP     SPCCHK                  /JUMP IF SO
+1644 001066* 1476          TAD I   TEMP                    /GET THE TEXT POINTER
+1645 001067* 7141          CLL CIA                         /INVERT FOR TEST
+1646 001070* 1364          TAD     LATLINE                 /COMPARE TO PREVIOUS TEXT POINTER
+1647 001071* 7630          SZL CLA                         /SKIP IF HIGHER
+1648 001072* 5600          JMP I   VALASC                  /COMPLAIN OF NON-SEQUENCED TEXT
+1649 001073* 1477          TAD I   TEMP2                   /GET OUR LINE NUMBER
+1650 001074* 7141          CLL CIA                         /INVERT FOR TEST
+1651 001075* 1365          TAD     LATNUMB                 /COMPARE TO PREVIOUS LINE NUMBER
+1652 001076* 7630          SZL CLA                         /SKIP IF OURS IS LARGER
+1653 001077* 5600          JMP I   VALASC                  /BARF ON OUT OF SEQUENCE NUMBERS
+1654 001100* 1476  SPECIN, TAD I   TEMP                    /GET OUR TEXT POINTER
+1655 001101* 7041          CIA                             /INVERT IT FOR TEST
+1656 001102* 1370          TAD     TXTPTR                  /COMPARE TO UNPACKING POINTER
+1657               /       TAD     L7600/[FILCORE-FILBUFF] /ADJUST FOR LOADING OFFSET
+1658 001103* 7640          SZA CLA                         /SKIP IF THEY MATCH
+1659 001104* 5600          JMP I   VALASC                  /BARF IF EXTRA LINES IN FILE!
+1660 001105* 1770  SRCHZER,TAD I   TXTPTR                  /GET A PAIR FROM OUR TEXT LINE
+1661 001106* 7450          SNA                             /<EOF>?
+1662 001107* 5600          JMP I   VALASC                  /YES, BUT IN THE WRONG PLACE!
+1663 001110* 0142          AND     L7700/[7700]            /JUST LEFT HALF
+1664 001111* 7650          SNA CLA                         /<EOL>?
+1665 001112* 5321          JMP     FNDZERO                 /YES
+1666 001113* 1770          TAD I   TXTPTR                  /NO, GET IT AGAIN
+1667 001114* 0051          AND     L77/[77]                /JUST RIGHT HALF
+1668 001115* 7650          SNA CLA                         /<EOL>?
+1669 001116* 5321          JMP     FNDZERO                 /YES
+1670 001117* 2370          ISZ     TXTPTR                  /NO, BUMP TO NEXT PAIR
+1671 001120* 5305          JMP     SRCHZERO                /TRY AGAIN
+1672 001121* 2370  FNDZERO,ISZ    TXTPTR          /BUMP TO BEGINNING OF NEXT LINE
+1673 001122* 1476          TAD I   TEMP            /GET OUR TEXT POINTER
+1674 001123* 3364          DCA     LATLINE         /SAVE FOR NEXT ROUND OF TESTS
+1675 001124* 1477          TAD I   TEMP2           /GET OUR LINE NUMBER
+1676 001125* 3365          DCA     LATNUMB         /SAVE IT FOR NEXT TIME ALSO
+1677 001126* 5240          JMP     NUMLUP          /GO CHECK ANOTHER LINE
+1678               
+1679 001127* 1476  SPCCHK, TAD I   TEMP            /GET THE TEXT POINTER
+1680 001130* 1374          TAD     (-FILCORE)      /IS IT AT THE BEGINNING?
+1681 001131* 7640          SZA CLA                 /SKIP IF SO
+1682 001132* 5600          JMP I   VALASC          /BARF
+1683 001133* 1170          TAD     [FILBUFFER]     /SETUP THE
+1684 001134* 3370          DCA     TXTPTR          /UNPACKING POINTER
+1685 001135* 5300          JMP     SPECIN          /CONTINUE THERE
+1686               
+1687 001136* 2200  FILOK,  ISZ     VALASC          /BUMP TO GOOD RETURN
+1688 001137* 5600          JMP I   VALASC          /AND CELEBRATE
+1689               
+1690 001140* 0000  GETHALF,.-.                     /GET A HALF-WORD ROUTINE
+1691 001141* 1001          TAD     GTINDX          /GET HALF-WORD INDEX
+1692 001142* 7110          CLL RAR                 /SHIFT WHICH HALF BIT INTO LINK
+1693 001143* 1000          TAD     GTBASE          /ADD BASE TO INDEX/2
+1694 001144* 3076          DCA     TEMP            /SAVE POINTER
+1695 001145* 1476          TAD I   TEMP            /GET BOTH HALVES
+1696 001146* 7430          SZL                     /SKIP IF EVEN HALF WANTED
+1697 001147* 5353          JMP     .+4             /ELSE LEAVE IT ALONE
+1698 001150* 7012          RTR;RTR;RTR             /GET EVEN HALF
+     001151* 7012  
+     001152* 7012  
+1699 001153* 0051          AND     L77/[77]        /JUST SIX BITS
+1700 001154* 5740          JMP I   GETHALF         /RETURN
+1701               
+1702 001155* 0000  RNGCHK, .-.                     /VALID RANGE CHECK ROUTINE
+1703 001156* 1373          TAD     (-FILCORE-3775) /SUBTRACT BASE
+1704 001157* 7100          CLL                     /CLEAR LINK FOR TEST
+1705 001160* 1372          TAD     (3775)          /ADD ON VALID RANGE
+1706 001161* 7620          SNL CLA                 /SKIP IF IN RANGE
+1707 001162* 5600          JMP I   VALASC          /COMPLAIN IF NOT
+1708 001163* 5755          JMP I   RNGCHK          /OK TO GO ON
+1709               
+1710 001164* 0000  LATLINE,.-.                     /LATEST LINE POINTER
+1711 001165* 0000  LATNUM, .-.                     /LATEST LINE NUMBER
+1712 001166* 0000  NUMPTR, .-.                     /TEMPORARY FOR ASCII VALIDATION
+1713 001167* 0000  PARLMT, .-.                     /PAIR LIMIT
+1714 001170* 0000  TXTPTR, .-.                     /TEXT UNPACKING POINTER
+1715               
+1716 001172* 3775          PAGE
+     001173* 1003  
+     001174* 5000  
+     001175* 1004  
+     001176* 6777  
+     001177* 6776  
+1717               /      BINARY FILE VALIDATOR.
+1718               
+1719               /       CHECKS FOR *200 AND ITS FLAG BITS.
+1720               /       CHECKS FOR <EOF> WITHIN 20 BLOCKS.
+1721               /       CHECKS ANY FIELD SETTINGS FOR 6201 FORM.
+1722               
+1723               /       TAKES SKIP RETURN ONLY IF FILE IN CORE IS VALID P?S/8 BINARY.
+1724               
+1725 001200* 0000  VALBIN, .-.                     /VALIDATE BINARY
+1726 001201* 7330          NL4000                  /GET GOOD BITS VALUE
+1727 001202* 1570          TAD I   [FILBUFFER]     /COMPARE TO FIRST WORD OF FILE
+1728 001203* 0167          AND     [6000]          /JUST GOOD BITS
+1729 001204* 7640          SZA CLA                 /SKIP IF OK
+1730 001205* 5600          JMP I   VALBIN          /BARF
+1731 001206* 1777          TAD I   (FILBUFFER+1)   /GET FIRST ORIGIN
+1732 001207* 1117          TAD     L7600/[-200]    /COMPARE TO STANDARD VALUE
+1733 001210* 7640          SZA CLA                 /SKIP IF VALID
+1734 001211* 5600          JMP I   VALBIN          /BARF
+1735 001212* 1376          TAD     (FILBUFFER-1)   /SETUP THE
+1736 001213* 3011          DCA     XR2             /BUFFER POINTER
+1737 001214* 1052          TAD     L7760/[-20]     /SETUP THE
+1738 001215* 3357          DCA     BLKCNT          /BLOCK COUNT
+1739 001216* 1375  NEWREC, TAD     (-22)           /SETUP THE
+1740 001217* 3361          DCA     GRPCNT          /GROUP COINT
+1741 001220* 1053  NEWGRP, TAD     L7772/(-6)      /SETUP THE
+1742 001221* 3362          DCA     WRDCNT          /WORD COUNT
+1743 001222* 1411          TAD I   XR2             /GET A FLAG WORD
+1744 001223* 7110          CLL RAR                 /DO INITIAL ADJUSTMENT
+1745 001224* 7410          SKP                     /NOT THIS TIME!
+1746 001225* 1360  GRPLUP, TAD     FLAGS           /GET FLAG WORD
+1747 001226* 7006          RTL                     /SHIFT IT
+1748 001227* 3360          DCA     FLAGS           /SAVE IT BACK
+1749 001230* 1360          TAD     FLAGS           /GET IT BACK AGAIN
+1750 001231* 7710          SPA CLA                 /LOAD WORD OR ORIGIN?
+1751 001232* 5245          JMP     EOFCHK          /NO, TRY FOR <EOF> AND FIELD
+1752 001233* 2011          ISZ     XR2             /YES, THROW IT AWAY
+1753 001234* 2362  NXTWRD, ISZ     WRDCNT          /DONE WITH THIS GROUP?
+1754 001235* 5225          JMP     GRPLUP          /NO, GO BACK FOR MORE
+1755 001236* 2361          ISZ     GRPCNT          /DONE WITH THIS BLOCK?
+1756 001237* 5220          JMP     NEWGRP          /NO, KEEP GOING
+1757 001240* 2011          ISZ     XR2             /YES, THROW AWAY
+1758 001241* 2011          ISZ     XR2             /THE DUMMY WORDS
+1759 001242* 2357          ISZ     BLKCNT          /DONE WITH THE FILE?
+1760 001243* 5216          JMP     NEWREC          /NO, GO DO ANOTHER BLOCK
+1761 001244* 5600          JMP I   VALBIN          /YES, FILE HAS NO <EOF>!
+1762               
+1763 001245* 7630  EOFCHK, SZL CLA                 /<EOF>?
+1764 001246* 5251          JMP     FLDCHK          /NO, CHECK OUT FIELD SETTING
+1765 001247* 2200          ISZ     VALBIN          /YES, BUMP TO GOOD RETURN
+1766 001250* 5600          JMP I   VALBIN          /TELL THEM THE GOOD NEWS
+1767 001251* 1411  FLDCHK,        TAD I   XR2             /GET THE FIELD SETTING
+1768 001252* 0374          AND     (7603)          /REMOVE FIELD AND BANK BITS
+1769 001253* 1373          TAD     (-CDF)          /COMPARE TO CDF BASE VALUE
+1770 001254* 7650          SNA CLA                 /SKIP IF DIFFERENT
+1771 001255* 5234          JMP     NXTWRD          /JUMP IF OK
+1772 001256* 5600          JMP I   VALBIN          /TAKE BAD RETURN
+1773               
+1774 001257* 0000  DEJECT, .-.                     /DO AN EJECT ROUTINE
+1775 001260* 4575  NPZAP2, JMS I   [NEWPAGE]       /**** /N **** 0000
+1776 001261* 7410  NHDZP1, SKP                     /**** /H **** 0000
+1777 001262* 5267          JMP     NOHED1          /DON'T PRINT HEADER
+1778 001263* 4466          JMS I   PSCRIBE/[SCRIBE]/GIVE THE MAIN BLURB
+1779 001264* 2404  SZAP,   BLURB                   /**** /S **** SBLURB
+1780 001265* 4466          JMS I   PSCRIBE/[SCRIBE]/GIVE THE
+1781 001266* 2424          CBLURB                  /COMMON BLURB
+1782 001267* 4466  NOHED1, JMS I   PSCRIBE/[SCRIBE]/GIVE THE
+1783 001270* 2443          DATMSG                  /DATE BLURB
+1784 001271* 7410  NHDZP2, SKP                     /**** /H **** 0000
+1785 001272* 5302          JMP     NOHED2          /DON'T PRINT HEADER
+1786 001273* 4466          JMS I   PSCRIBE/[SCRIBE]/GET THE
+1787 001274* 2514          PAGMSG                  /PAGE MESSAGE
+1788 001275* 3023          DCA     DECOFFSET       /PREVENT OCTAL MESSAGES
+1789 001276* 3022          DCA     DECCONVERT      /PREVENT LEADING <SPACE> CHARACTERS
+1790 001277* 2017          ISZ     PAGNUMBER       /BUMP TO NEXT PAGE
+1791 001300* 1017          TAD     PAGNUMBER       /GET THE PAGE NUMBER
+1792 001301* 4571          JMS I   [DECPRT]        /PRINT IT
+1793 001302* 4460  NOHED2, JMS I   PCRLF/[CRLF]    /DO A <CR>, <LF>
+1794 001303* 4460          JMS I   PCRLF/[CRLF]    /DO EXTRA <CR>, <LF>
+1795 001304* 1372          TAD     (-67)           /RESET THE
+1796 001305* 3015          DCA     LINCNT          /LINES PER PAGE COUNTER
+1797 001306* 5657          JMP I   DEJECT          /RETURN
+1798               
+1799 001307* 0000  PRNLFS, .-.                     /PRINT <LF>'S ROUTINE
+1800 001310* 4460          JMS I   PCRLF/[CRLF]    /DO A (POSSIBLE) <CR>, <LF>
+1801 001311* 1015          TAD     LINCNT          /GET LINE COUNTER
+1802 001312* 7640          SZA CLA                 /SKIP IF IT OVERFLOWED
+1803 001313* 5310          JMP     .-3             /JUMP IF NOT
+1804 001314* 5707          JMP I   PRNLFS          /RETURN
+1805               
+1806 001315* 0000  P6CH,   .-.                     /SIX-BIT PRINT ROUTINE
+1807 001316* 0051          AND     L77/[77]        /JUST SIX-BIT
+1808 001317* 7450          SNA                     /ANYTHING PASSED?
+1809 001320* 1046          TAD     L40/[" &77]     /NO, USE A <SPACE> INSTEAD
+1810 001321* 1046          TAD     L40/[" &77]     /INVERT IT
+1811 001322* 0051          AND     L77/[77]        /REMOVE EXCESS
+1812 001323* 1046          TAD     L40/[" &77]     /INVERT IT AGAIN
+1813 001324* 4456          JMS I   OUTPUT          /PRINT IT
+1814 001325* 5715          JMP I   P6CH            /RETURN
+1815               /      LINEAR SYMBOL ACCESS ROUTINE.
+1816               
+1817 001326* 0000  LINEXT, .-.                             /GET NEXT LINEAR SYMBOL
+1818 001327* 1075          TAD     SYMNUM                  /GET LATEST SYMBOL NUMBER
+1819 001330* 7106          CLL RTL                         /*4
+1820 001331* 1057          TAD     PCATADR/[CATADR-1]      /POINT AT SYMBOL
+1821 001332* 3011          DCA     XR2                     /STASH THE POINTER
+1822 001333* 1411          TAD I   XR2                     /GET FIRST PAIR
+1823 001334* 7450          SNA                             /END OF CATALOG?
+1824 001335* 5354          JMP     SETHIGHNAME             /YES
+1825 001336* 3027          DCA     FNAME                   /NO, STORE AS FIRST NAME PAIR
+1826 001337* 1411          TAD I   XR2                     /GET SECOND PAIR
+1827 001340* 3030          DCA     FNAME+1                 /STORE AS SECOND NAME PAIR
+1828 001341* 1411          TAD I   XR2                     /GET THIRD PAIR
+1829 001342* 3031          DCA     FNAME+2                 /STORE AS THIRD NAME PAIR
+1830 001343* 1411          TAD I   XR2                     /GET FILE TYPE WORD
+1831 001344* 3033          DCA     FTYPE                   /STASH IT
+1832 001345* 1075          TAD     SYMNUM                  /GET SYMBOL NUMBER
+1833 001346* 7106          CLL RTL;RTL                     /*20 FOR BLOCKS
+     001347* 7006  
+1834 001350* 1020          TAD     BBLOCK                  /ADD ON BASE BLOCK OF CATALOG
+1835 001351* 3155          DCA     FBLOCK                  /STASH THE FILE (OR EMPTY) BLOCK
+1836 001352* 1155          TAD     FBLOCK                  /GET IT BACK
+1837 001353* 7410          SKP                             /DON'T SET IT HIGH
+1838 001354* 7240  SETHIGH,NL7777                          /SET HIGH VALUE
+1839 001355* 3032          DCA     FNAME+3                 /STORE BLOCK WORD
+1840 001356* 5726          JMP I   LINEXT                  /RETURN
+1841               
+1842 001357* 0000  BLKCNT, .-.                             /BLOCK COUNTER
+1843 001360* 0000  FLAGS,  .-.                             /LOADING FLAGS
+1844 001361* 0000  GRPCNT, .-.                             /GROUP COUNTER
+1845 001362* 0000  WRDCNT, .-.                             /WORD COUNTER
+1846               
+1847 001372* 7711          PAGE
+     001373* 1577  
+     001374* 7603  
+     001375* 7756  
+     001376* 2777  
+     001377* 3001  
+1848               /      STRING MATCHING ROUTINE.
+1849               
+1850               /       TAKES IMMEDIATE RETURN IF FNAME MATCHES SEARCH STRING, ELSE TAKES SKIP RETURN.
+1851               
+1852 001400* 0000  FILTER, .-.                     /NAME MATCHING ROUTINE
+1853 001401* 1377          TAD     (STACK)         /SETUP THE
+1854 001402* 3364          DCA     STKPTR          /STACK POINTER
+1855 001403* 3360          DCA     FINDEX          /CLEAR NAME INDEX
+1856 001404* 3363          DCA     SINDEX          /CLEAR SEARCH STRING INDEX
+1857 001405* 4211          JMS     SEARCH          /SEARCH THE STRING FOR A MATCH
+1858 001406* 7410          SKP                     /IT DID MATCH, DON'T
+1859 001407* 2200          ISZ     FILTER          /BUMP TO UNMATCHING RETURN
+1860 001410* 5600          JMP I   FILTER          /RETURN EITHER WAY
+1861               
+1862 001411* 0000  SEARCH, .-.                     /SEARCH STRING ROUTINE
+1863 001412* 1376  SRCHNXT,TAD     (STRBUFFER)     /POINT TO
+1864 001413* 3000          DCA     GTBASE          /SEARCH STRING
+1865 001414* 1363          TAD     SINDEX          /GET LATEST SEARCH STRING INDEX
+1866 001415* 3001          DCA     GTINDX          /SET IT UP
+1867 001416* 4566          JMS I   [GETHALF]       /GET A SEARCH STRING CHARACTER
+1868 001417* 7440          SZA                     /SKIP IF <EOL>
+1869 001420* 1375          TAD     (-".!200)       /ELSE TEST IF EXTENSION DELIMITER
+1870 001421* 7450          SNA                     /SKIP IF NEITHER
+1871 001422* 5247          JMP     CHKNAME         /JUMP IF EITHER
+1872 001423* 1374          TAD     (-"?+".)        /COMPARE TO "?"
+1873 001424* 7450          SNA                     /SKIP IF OTHER
+1874 001425* 5255          JMP     QMATCH          /JUMP IF IT MATCHES
+1875 001426* 1373          TAD     (-"*+"?)        /COMPARE TO "*"
+1876 001427* 7450          SNA                     /SKIP IF OTHER
+1877 001430* 5262          JMP     DOSTAR          /JUMP IF IT MATCHES
+1878 001431* 1372          TAD     ("*&77)         /GET RESTORING VALUE
+1879 001432* 3362          DCA     SCHAR           /SAVE FOR NOW
+1880               
+1881               /       CHECK IF CURRENTLY AT END OF NAME STRING. IF THERE ARE NO MORE NAME CHARACTERS
+1882               /       TO MATCH THIS LATEST SEARCH STRING CHARACTER, THEN A MATCH IS IMPOSSIBLE.
+1883               
+1884 001433* 1360          TAD     FINDEX          /GET CURRENT NAME INDEX
+1885 001434* 1053          TAD     L7772/[-6]      /COMPARE TO UPPER LIMIT
+1886 001435* 7700          SMA CLA                 /SKIP IF LESS
+1887 001436* 5312          JMP     NOMATCH         /JUMP IF TOO FAR
+1888 001437* 4314          JMS     GETNMCH         /GET LATEST FILE NAME CHARACTER
+1889 001440* 7041          CIA                     /INVERT FOR TESTING
+1890 001441* 1362          TAD     SCHAR           /COMPARE TO SEARCH STRING CHARACTER
+1891 001442* 7640          SZA CLA                 /SKIP IF IT MATCHES
+1892 001443* 5312          JMP     NOMATCH         /JUMP IF IT DIDN'T
+1893 001444* 2360          ISZ     FINDEX          /BUMP TO NEXT NAME CHARACTER
+1894 001445* 2363  MATQENT,ISZ     SINDEX          /BUMP TO NEXT SEARCH STRING CHARACTER
+1895 001446* 5212          JMP     SRCHNXT         /KEEP GOING
+1896               /      COMES HERE IF AT END OF SEARCH STRING. THERE MUST NOT BE ANY FILE NAME
+1897               /       CHARACTERS LEFT (UNLESS THERE WAS NO STRING AT ALL!).
+1898               
+1899 001447* 1363  CHKNAME,TAD     SINDEX          /GET SEARCH STRING INDEX
+1900 001450* 7640          SZA CLA                 /SKIP IF NO SEARCH STRING
+1901 001451* 4314          JMS     GETNMCH         /ELSE GET LATEST FILE NAME CHARACTER
+1902 001452* 7650          SNA CLA                 /SKIP IF STILL MORE NAME CHARACTERS
+1903 001453* 5611          JMP I   SEARCH          /RETURN IF AT FILE NAME END
+1904               
+1905               /       SINCE THERE ARE MORE CHARACTERS IN THE FILE NAME, IT DIDN'T MATCH.
+1906               
+1907 001454* 5312          JMP     NOMATCH         /CONTINUE THERE
+1908               
+1909               /       COMES HERE IF LATEST SEARCH STRING CHARACTER IS "?"; THE CHARACTER
+1910               /       AUTOMATICALLY MATCHES. HOWEVER, SINCE WE ALLOW EXTRA "?" CHARACTERS ON THE
+1911               /       RIGHT, WE MUST NOT ADVANCE THE SEARCH PAST ACTUAL CHARACTERS IN THE FILE
+1912               /       NAME STRING.
+1913               
+1914 001455* 1360  QMATCH, TAD     FINDEX          /GET CURRENT INDEX
+1915 001456* 1053          TAD     L7772/[-6]      /COMPARE TO UPPER LIMIT
+1916 001457* 7710          SPA CLA                 /SKIP IF TOO FAR
+1917 001460* 2360          ISZ     FINDEX          /BUMP PAST THIS NOW MATCHED CHARACTER
+1918 001461* 5245          JMP     MATQENTRY       /CONTINUE THERE
+1919               /      COMES HERE IF LATEST SEARCH STRING CHARACTER IS "*". AN INDEFINITE NUMBER
+1920               /       OF CHARACTERS (INCLUDING ZERO) MATCHES THIS POSITION. WE ASSUME A NULL LENGTH
+1921               /       AT FIRST. SHOULD THIS FAIL TO MATCH, WE BUMP PAST A SINGLE CHARACTER AT
+1922               /       A TIME UNTIL A MATCH OCCURS. SHOULD THE FILE NAME STRING RUN OUT OF CHARACTERS
+1923               /       BEFORE THE REST OF THE SEARCH STRING IS SATISFIED, THE FILE NAME DOESN'T
+1924               /       MATCH. IF FURTHER (POSSIBLY RECURSIVE) CHARACTER MATCHES OCCUR TO THE END
+1925               /       OF THE SEARCH STRING, THE FILE NAME MATCHES.
+1926               
+1927 001462* 2363  DOSTAR, ISZ     SINDEX          /BUMP PAST "*"
+1928 001463* 1363  STARAGN,TAD     SINDEX          /GET SEARCH STRING INDEX
+1929 001464* 4323          PUSH                    /SAVE ON STACK
+1930 001465* 1360          TAD     FINDEX          /GET FILE NAME INDEX
+1931 001466* 4323          PUSH                    /SAVE ON STACK
+1932 001467* 1211          TAD     SEARCH          /GET CALLING ADDRESS
+1933 001470* 4323          PUSH                    /SAVE ON STACK
+1934 001471* 4211          JMS     SEARCH          /TRY TO MATCH THE REST OF THE NAME STRING
+1935 001472* 7240          NL7777                  /DID MATCH, SET OR
+1936 001473* 3361          DCA     MATSW           /CLEAR MATCH FLAG
+1937 001474* 4327          POP                     /GET OUR CALLER
+1938 001475* 3211          DCA     SEARCH          /RESTORE IT
+1939 001476* 4327          POP                     /GET FORMER NAME INDEX
+1940 001477* 3360          DCA     FINDEX          /RESTORE IT
+1941 001500* 4327          POP                     /GET FORMER STRING INDEX
+1942 001501* 3363          DCA     SINDEX          /RESTORE IT
+1943 001502* 2361          ISZ     MATSW           /DID WE MATCH?
+1944 001503* 7410          SKP                     /SKIP IF NOT
+1945 001504* 5611          JMP I   SEARCH          /RETURN IF SO
+1946 001505* 2360          ISZ     FINDEX          /BUMP TO NEXT CHARACTER
+1947 001506* 1360          TAD     FINDEX          /GET NEW INDEX VALUE
+1948 001507* 1053          TAD     L7772/[-6]      /COMPARE TO UPPER LIMIT
+1949 001510* 7750          SPA SNA CLA             /SKIP IF TOO FAR
+1950 001511* 5263          JMP     STARAGN         /TRY TO MATCH IT AGAIN
+1951 001512* 2211  NOMATCH,ISZ     SEARCH          /BUMP TO BAD RETURN
+1952 001513* 5611          JMP I   SEARCH          /TAKE FAILURE RETURN TO CURRENT CALLER
+1953               
+1954 001514* 0000  GETNMCH,.-.                     /GET LATEST FILE NAME CHARACTER
+1955 001515* 1371          TAD     (FNAME)         /POINT TO
+1956 001516* 3000          DCA     GTBASE          /FILE NAME
+1957 001517* 1360          TAD     FINDEX          /GET CURRENT NAME INDEX
+1958 001520* 3001          DCA     GTINDX          /SET IT UP
+1959 001521* 4566          JMS I   [GETHALF]       /GET LATEST NAME CHARACTER
+1960 001522* 5714          JMP I   GETNMCH         /RETURN
+1961               
+1962 001523* 0000  PUSHA,  .-.                     /STACK PUSH ROUTINE
+1963 001524* 3764          DCA I   STKPTR          /STORE ON STACK
+1964 001525* 2364          ISZ     STKPTR          /BUMP FOR NEXT TIME
+1965 001526* 5723          JMP I   PUSHA           /RETURN
+1966               
+1967 001527* 0000  POPA,   .-.                     /STACK POP ROUTINE
+1968 001530* 7240          NL7777                  /\
+1969 001531* 1364          TAD     STKPTR          / >BACKUP THE STACK POINTER
+1970 001532* 3364          DCA     STKPTR          //
+1971 001533* 1764          TAD I   STKPTR          /GET THE VALUE OFF THE STACK
+1972 001534* 5727          JMP I   POPA            /RETURN
+1973 001535* 0000  PRTOCT,        .-.                     /OCTAL PRINT ROUTINE
+1974 001536* 3362          DCA     SCHAR           /SAVE PASSED VALUE
+1975 001537* 7332          NL2000                  /ENFORCE
+1976 001540* 3022          DCA     DECCONVERT      /LEADING ZEROES
+1977 001541* 1172          TAD     [EIGHTS-TENS]   /SETUP THE
+1978 001542* 3023          DCA     DECOFFSET       /INTER-TABLE OFFSET
+1979 001543* 1362          TAD     SCHAR           /GET PASSED VALUE
+1980 001544* 4571          JMS I   [DECPRT]        /GO PRINT IT
+1981 001545* 5735          JMP I   PRTOCT          /RETURN
+1982               
+1983 001546* 0000  P2CH,   .-.                     /PRINT TWO CHARACTERS ROUTINE
+1984 001547* 3362          DCA     SCHAR           /SAVE PASSED PAIR
+1985 001550* 1362          TAD     SCHAR           /GET IT BACK
+1986 001551* 7012          RTR;RTR;RTR             /HIGH-ORDER FIRST
+     001552* 7012  
+     001553* 7012  
+1987 001554* 4464          JMS I   PP6CH/[P6CH]    /PRINT IT
+1988 001555* 1362          TAD     SCHAR           /GET LOW-ORDER
+1989 001556* 4464          JMS I   PP6CH/[P6CH]    /PRINT IT
+1990 001557* 5746          JMP I   P2CH            /RETURN
+1991               
+1992 001560* 0000  FINDEX, .-.                     /FILE NAME INDEX
+1993 001561* 0000  MATSW,  .-.                     /LATEST TERM MATCHED SWITCH
+1994 001562* 0000  SCHAR,  .-.                     /LATEST SEARCH STRING CHARACTER FOR EXACT MATCH
+1995 001563* 0000  SINDEX, .-.                     /SEARCH STRING INDEX
+1996 001564* 0000  STKPTR, .-.                     /STACK POINTER
+1997               
+1998               /       NEW INSTRUCTION DEFINITIONS.
+1999               
+2000                       POP=    JMS     POPA    /POP VALUE FROM STACK
+2001                       PUSH=   JMS     PUSHA   /PUSH VALUE ONTO STACK
+2002               
+2003 001571* 0027          PAGE
+     001572* 0052  
+     001573* 0025  
+     001574* 7757  
+     001575* 7722  
+     001576* 1754  
+     001577* 1600  
+2004               
+2005               STACK,  *STRLENGTH^3+.          /PUSHDOWN STACK
+2006               
+2007               STRBUFF,*STRLENGTH%2+1+.        /SEARCH STRING BUFFER
+2008               
+2009                       STREND= .               /END OF SEARCH STRING BUFFER
+2010                      *STACK                  /OVER STACK AREA AND STRING BUFFER, ETC.
+2011               
+2012 001600* 0000  CPRINT, .-.                     /CONSOLE-ORIENTED OUTPUT ROUTINE
+2013 001601* 3210          DCA     EQUACHK         /SAVE PASSED VALUE
+2014 001602* 4565  CPRAGN, JMS I   [CHKUP]         /CHECK FOR <^C>, ETC.
+2015 001603* 1210          TAD     EQUACHK         /GET THE VALUE
+2016 001604* 4106          JMS     CONOUT          /TRY TO OUTPUT IT
+2017 001605* 5202          JMP     CPRAGN          /DIDN'T, GO CHECK INPUT WHILE WAITING
+2018 001606* 4565          JMS I   [CHKUP]         /CHECK FOR <^C> AND CLEAN UP
+2019 001607* 5600          JMP I   CPRINT          /RETURN
+2020               
+2021 001610* 0000  EQUACHK,.-.                     /CHECK EQUALS PARAMETER ROUTINE
+2022 001611* 1777          TAD I   (SPARM)         /GET EQUALS PARAMETER
+2023 001612* 7450          SNA                     /SKIP IF =0 NOT PASSED
+2024 001613* 7001          IAC                     /ELSE MAKE IT =1
+2025 001614* 3777          DCA I   (SPARM)         /STORE BACK FOR OTHERS
+2026 001615* 1777          TAD I   (SPARM)         /GET IT BACK
+2027 001616* 7040          CMA                     /INVERT FOR TEST
+2028 001617* 7450          SNA                     /SKIP IF NOT =7777 (NOT PASSED AT ALL)
+2029 001620* 5610          JMP I   EQUACHK         /RETURN IF NONE PASSED
+2030 001621* 7101          CLL IAC                 /NOW HAVE -EQUALS PARAMETER
+2031 001622* 1376          TAD     (MAXCOLS)       /COMPARE TO MAXIMUM ALLOWED
+2032 001623* 7620          SNL CLA                 /SKIP IF OK
+2033 001624* 5232          JMP     BADEQUALS       /JUMP IF TOO LARGE
+2034 001625* 1777          TAD I   (SPARM)         /GET OK VALUE
+2035 001626* 3054          DCA     NCOLS           /STASH IT
+2036 001627* 1777          TAD I   (SPARM)         /GET IT AGAIN
+2037 001630* 3775          DCA I   (DIVARG)        /STORE WHERE NEEDED
+2038 001631* 5610          JMP I   EQUACHK         /RETURN
+2039               
+2040 001632* 4774  BADEQUA,JMS I   (CSCRIBE)       /GO COMPLAIN OF
+2041 001633* 1634          BDERR                   /BAD EQUALS PARAMETER
+2042               /      EXCESSIVE COLUMNS ERROR MESSAGE.
+2043               
+2044 001634* 4536  BDERR,  TEXT    "%^T^OO ^M^ANY ^C^OLUMNS!%"     /EXCESSIVE COLUMNS MESSAGE
+     001635* 2436  
+     001636* 1717  
+     001637* 4036  
+     001640* 1536  
+     001641* 0116  
+     001642* 3140  
+     001643* 3603  
+     001644* 3617  
+     001645* 1425  
+     001646* 1516  
+     001647* 2341  
+     001650* 4500  
+2045               
+2046               /       MULTIPLE PERIODS ERROR MESSAGE.
+2047               
+2048 001651* 4536  DPERR,  TEXT    "%^M^ULTIPLE ^P^ERIOD ^C^HARACTERS IN ^S^EARCH ^S^TRING!%^"
+     001652* 1536  
+     001653* 2514  
+     001654* 2411  
+     001655* 2014  
+     001656* 0540  
+     001657* 3620  
+     001660* 3605  
+     001661* 2211  
+     001662* 1704  
+     001663* 4036  
+     001664* 0336  
+     001665* 1001  
+     001666* 2201  
+     001667* 0324  
+     001670* 0522  
+     001671* 2340  
+     001672* 1116  
+     001673* 4036  
+     001674* 2336  
+     001675* 0501  
+     001676* 2203  
+     001677* 1040  
+     001700* 3623  
+     001701* 3624  
+     001702* 2211  
+     001703* 1607  
+     001704* 4145  
+     001705* 3600  
+2049               /      STRING LENGTH ERROR MESSAGE.
+2050               
+2051 001706* 4536  SLERR,  TEXT    "%^S^EARCH ^S^TRING ^T^OO ^L^ONG!%"     /STRING TOO LONG MESSAGE
+     001707* 2336  
+     001710* 0501  
+     001711* 2203  
+     001712* 1040  
+     001713* 3623  
+     001714* 3624  
+     001715* 2211  
+     001716* 1607  
+     001717* 4036  
+     001720* 2436  
+     001721* 1717  
+     001722* 4036  
+     001723* 1436  
+     001724* 1716  
+     001725* 0741  
+     001726* 4500  
+2052               
+2053 001774* 2707          PAGE
+     001775* 2003  
+     001776* 0112  
+     001777* 7756  
+2054               /      DIRECTORY PRINT ROUTINE.
+2055               
+2056               /       PRINTS HORIZONTAL OR VERTICAL LATEST PAGE OF DIRECTORY IN BALANCED SIZE
+2057               /       COLUMNS. DEFAULT IS VERTICAL PRINTOUT; /V PATCHES CAUSE HORIZONTAL OUTPUT.
+2058               
+2059               /       NCOLS=  NUMBER OF DESIRED COLUMNS IN PRINTOUT
+2060               /       NSYMS=  TOTAL NUMBER OF SYMBOLS TO BE PRINTED ON THIS PAGE
+2061               
+2062               /       TO MAXIMIZE WIDTH AND TO SPEED PRINTING, RIGHT-MOST SEPARATIONS ARE PREVENTED.
+2063               
+2064               /       THE SYMBOL TABLE IS PROBED BETWEEN PRINTED SYMBOLS TO ARRIVE AT THE NEXT
+2065               /       PRINTABLE SYMBOL (IF ANY). IF THERE IS ANOTHER PRINTABLE SYMBOL ON THE SAME
+2066               /       LINE, THEN AN INTER-SYMBOL SEPARATION IS PRINTED FOLLOWED BY THE NEXT SYMBOL.
+2067               /       IF THERE IS NO NEXT SYMBOL ON THE LINE, <CR>, <LF> IS PRINTED AND THE TABLE
+2068               /       IS PROBED AGAIN FROM THE BEGINNING ADJUSTED FOR THE LATEST LINE. IF NO MORE
+2069               /       INITIAL SYMBOLS EXIST, THE ENTIRE TABLE HAS BEEN PRINTED.
+2070               
+2071               /       THE NUMBER OF ROWS PRINTED (HEIGHT OF AT LEAST THE LEFT-MOST COLUMN) IS
+2072               /       CALCULATED THUS:
+2073               
+2074               /       ROWCNT= INT(NSYMS/NCOLS)+U(REM(NSYMS/NCOLS)-[COLUMN NUMBER])
+2075               
+2076               /       WHERE U(X)=0 IF X IS NEGATIVE OR ZERO, U(X)=1 IF X IS POSITIVE.
+2077               
+2078               /       THIS FACTOR IS USED TO LIMIT THE PRINTOUT TO ONE PAGE AT A TIME WITHIN LARGER
+2079               /       PRINTOUTS. THIS VALUE WILL BE FORCED TO 55 BY SETTING NSYMS= 55*NCOLS
+2080               /       BEFORE ENTRY INTO THIS ROUTINE. IF THIS IS A SPECIAL LAST PRINTED PAGE,
+2081               /       THIS VALUE WILL BE FORCED TO A VALUE FROM 47-53 BY SETTING NSYMS=
+2082               /       (55-EXTRA)*NCOLS WHERE EXTRA IS EITHER 2, 4, 6, OR 8 DEPENDING ON THE
+2083               /       VARIOUS PRINTING OPTIONS IN EFFECT (/E, /R, ETC.). IF THIS A SPECIAL
+2084               /       NEXT-TO-LAST PAGE (WHERE THE STATISTICS ARE ON A SEPARATE PAGE), THE VALUE
+2085               /       WILL BE SET TO 48-55 AS NECESSARY (THE STATISTICS AND ALL SYMBOLS WOULD NOT
+2086               /       FIT ON A SINGLE PAGE).
+2087               
+2088               /       THE WASTE FACTOR TO ARRIVE AT THE NEXT SYMBOL TO PRINT HORIZONTALLY ON THE
+2089               /       SAME LINE WHEN PRINTING VERTICALLY IS CALCULATED THUS:
+2090               
+2091               /       WASTE=  INT(NSYMS/NCOLS)+U(REM(NSYMS/NCOLS)-[COLUMN NUMBER])-1
+2092               
+2093               /       FOR EACH ADDITIONAL LINE OF VERTICAL PRINTOUT, AN INCREMENTAL WASTE FACTOR:
+2094               /       IWASTE IS ADDED ON TO THE MASTER POSITION (CONTENTS OF SYMNUM, THE NUMBER
+2095               /       OF SYMBOLS ALREADY PRINTED BEFORE THIS PAGE).
+2096               
+2097               /       HORIZONTAL PRINTOUT MODIFICATIONS.
+2098               
+2099               /       TO PRINT HORIZONTALLY, THE WASTE FACTOR IS SET TO ZERO, AS THE NEXT SYMBOL
+2100               /       TO BE PRINTED FOLLOWS THE PREVIOUS SYMBOL PRINTED. TO ARRIVE AT THE NEXT
+2101               /       SYMBOL EACH TIME, THE IWASTE FACTOR WILL BE INCREMENTED ON EVERY SYMBOL,
+2102               /       INSTEAD OF EVERY LINE.
+2103 002000* 0000  PDPAGE,        .-.                     /PRINT DIRECTORY PAGE ROUTINE
+2104 002001* 1055          TAD     NSYMS           /GET NUMBER OF SYMBOLS TO PRINT
+2105 002002* 4462          JMS I   PDIVIDE/[DIVIDE]/DIVIDE IT
+2106 002003* 0003  DIVARG, DEFCOLS                 /WILL BE NUMBER OF COLUMNS
+2107 002004* 7200          CLA                     /CLEAN UP
+2108 002005* 7240          NL7777                  /-1
+2109 002006* 1003          TAD     QUO             /GET NUMBER OF ROWS
+2110 002007* 3374          DCA     WASTE           /STORE WASTE FACTOR
+2111 002010* 3370          DCA     IWASTE          /CLEAR INITIAL PROBE WASTE FOR FIRST SYMBOL
+2112 002011* 1004          TAD     REM             /GET REMAINDER
+2113 002012* 3367          DCA     EXTRCNT         /SAVE FOR CALCULATING EXTRA INCREMENTS
+2114 002013* 1003          TAD     QUO             /GET ROW COUNT
+2115 002014* 7041          CIA                     /INVERT IT
+2116 002015* 3372          DCA     ROWCNT          /STORE COUNTER
+2117 002016* 1367  PRLOOP, TAD     EXTRCNT         /GET EXTRA COUNT
+2118 002017* 7040          CMA                     /INVERT IT FOR COUNTING
+2119 002020* 3366          DCA     EXTCNT          /SET UP EXTRA COUNTER
+2120 002021* 1372          TAD     ROWCNT          /GET ROW COUNTER
+2121 002022* 7650          SNA CLA                 /SKIP IF NOT ZERO
+2122 002023* 3367          DCA     EXTRCNT         /PREVENT EXTRAS IF ZERO
+2123 002024* 1054          TAD     NCOLS           /GET NUMBER OF COLUMNS
+2124 002025* 7041  PEXTRA, CIA                     /INVERT FOR COUNTING
+2125 002026* 3365          DCA     COLCNT          /STORE AS COLUMN COUNTER
+2126 002027* 3075          DCA     SYMNUM          /RESET SYMBOL PROBE ROUTINE
+2127 002030* 1370          TAD     IWASTE          /GET INITIAL WASTE VALUE
+2128 002031* 1074          TAD     SYMCNT          /ADD ON MASTER POSITION FACTOR
+2129 002032* 4353          JMS     WASTESYMBOLS    /ADJUST TO FIRST PRINTED SYMBOL ON THIS LINE
+2130 002033* 4301          JMS     NXTSYMBOL       /GET FIRST SYMBOL ON THIS LINE
+2131 002034* 5257          JMP     EOLINE          /WASN'T ANY
+2132 002035* 4777          JMS I   (FPRINT)        /PRINT FILE NAME (OR EMPTY)
+2133 002036* 5255          JMP     SEPCHK          /CONTINUE THERE
+2134               
+2135 002037* 2370  DONEXT, ISZ     IWASTE          /**** NOT /V **** 0000
+2136 002040* 7000          NOP                     /JUST IN CASE
+2137 002041* 1366          TAD     EXTCNT          /GET EXTRA COUNT
+2138 002042* 7640          SZA CLA                 /SKIP IF ALREADY GONE
+2139 002043* 2366          ISZ     EXTCNT          /ELSE BUMP IT
+2140 002044* 1366          TAD     EXTCNT          /GET EXTRA COUNT
+2141 002045* 7640          SZA CLA                 /SKIP IF TOO FAR
+2142 002046* 7001          IAC                     /THIS COLUMN IS TALLER BY ONE
+2143 002047* 1374          TAD     WASTE           /GET WASTE FACTOR
+2144 002050* 4353  VZAP,   JMS     WASTESYMBOLS    /**** /V **** CLA!400
+2145 002051* 4301          JMS     NXTSYMBOL       /GET LATEST SYMBOL ON THIS LINE
+2146 002052* 5257          JMP     EOLINE          /WASN'T ANY, WE'RE DONE WITH THIS LINE
+2147 002053* 4327          JMS     P4BLNKS         /PRINT SEPARATOR
+2148 002054* 4777          JMS I   (FPRINT)        /PRINT FILE NAME (OR EMPTY)
+2149 002055* 2365  SEPCHK,        ISZ     COLCNT          /MORE SYMBOLS ON THIS LINE?
+2150 002056* 5237          JMP     DONEXT          /YES, KEEP GOING
+2151 002057* 4460  EOLINE, JMS I   PCRLF/[CRLF]    /NO, DO A <CR>, <LF>
+2152 002060* 2370          ISZ     IWASTE          /INCREMENT ADJUSTMENT FACTOR FOR NEXT TIME
+2153 002061* 7000          NOP                     /JUST IN CASE
+2154 002062* 1372          TAD     ROWCNT          /GET CURRENT ROW COUNTER
+2155 002063* 7640          SZA CLA                 /SKIP IF ALREADY ZERO
+2156 002064* 2372          ISZ     ROWCNT          /ELSE BUMP IT
+2157 002065* 1372          TAD     ROWCNT          /GET NEW ROW COUNT
+2158 002066* 7640          SZA CLA                 /DONE ALL ROWS?
+2159 002067* 5216          JMP     PRLOOP          /NO, KEEP GOING
+2160 002070* 1367          TAD     EXTRCNT         /GET EXTRA COUNT
+2161 002071* 7450          SNA                     /SKIP IF ANY TO DO
+2162 002072* 5600          JMP I   PDPAGE          /RETURN NOW IF NONE EXTRA
+2163 002073* 7040          CMA                     /INVERT IT FOR COUNTING
+2164 002074* 3366          DCA     EXTCNT          /SETUP COUNTER FOR THE LAST TIME
+2165 002075* 3367          DCA     EXTRCNT         /CLEAR EXTRA COUNT FOR EXIT NEXT TIME
+2166 002076* 1366          TAD     EXTCNT          /GET EXTRA COUNT
+2167 002077* 7040          CMA                     /NEED POSITIVE FORM
+2168 002100* 5225          JMP     PEXTRA          /CONTINUE THERE
+2169               
+2170               /       GET NEXT SYMBOL ROUTINE.
+2171               
+2172 002101* 0000  NXTSYMB,.-.                     /GET NEXT SYMBOL ROUTINE
+2173 002102* 4771  NXTAGN, JMS I   NXTONE          /GET NEXT SYMBOL VIA CURRENT METHOD
+2174 002103* 1032          TAD     FNAME+3         /GET BLOCK WORD
+2175 002104* 7040          CMA                     /INVERT FOR TESTING
+2176 002105* 7650          SNA CLA                 /SKIP IF OTHER THAN HIGH VALUE
+2177 002106* 5701          JMP I   NXTSYMBOL       /TAKE IMMEDIATE RETURN IF NO SYMBOL
+2178 002107* 3032          DCA     FNAME+3         /CLEAR BLOCK WORD TO FORM FILE NAME DELIMITER
+2179 002110* 2075          ISZ     SYMNUM          /BUMP TO NEXT SYMBOL
+2180 002111* 7000          NOP                     /JUST IN CASE
+2181 002112* 1027          TAD     FNAME           /GET FIRST NAME PAIR
+2182 002113* 7040          CMA                     /INVERT FOR TESTING
+2183 002114* 7650          SNA CLA                 /SKIP IF NOT AN EMPTY SLOT
+2184 002115* 5321          JMP     CHKEMPTY        /JUMP IF EMPTY SLOT
+2185 002116* 4576          JMS I   [FILTER]        /CHECK IF WE WANT THIS ONE
+2186 002117* 1033          TAD     FTYPE           /GET FILE TYPE VALUE
+2187 002120* 7410          SKP                     /DON'T CHECK WITH EMPTY VALUE
+2188 002121* 7330  CHKEMPT,NL4000                  /SET EMPTY VALUE
+2189 002122* 0026          AND     FMASK           /CHECK IF DESIRED
+2190 002123* 7650          SNA CLA                 /SKIP IF WE WANT IT
+2191 002124* 5302          JMP     NXTAGN          /JUMP IF NOT
+2192 002125* 2301          ISZ     NXTSYMBOL       /BUMP TO GOOD RETURN
+2193 002126* 5701          JMP I   NXTSYMBOL       /RETURN TO CALLER
+2194               
+2195 002127* 0000  P4BLNKS,.-.                     /PRINT FOUR <SPACE> CHARACTERS ROUTINE
+2196 002130* 1174          TAD     [-4]            /-4
+2197 002131* 3077          DCA     TEMP2           /TO COUNTER
+2198 002132* 1046          TAD     L40/[" &177]    /GET A <SPACE>
+2199 002133* 4456          JMS I   OUTPUT          /PRINT IT
+2200 002134* 2077          ISZ     TEMP2           /DONE YET?
+2201 002135* 5332          JMP     .-3             /NO, KEEP GOING
+2202 002136* 5727          JMP I   P4BLNKS         /YES, RETURN
+2203 002137* 0000  P7CH,  .-.                     /BEST DEVICE OUTPUT ROUTINE
+2204 002140* 3073          DCA     P7TEMP          /SAVE PASSED VALUE
+2205 002141* 2013          ISZ     COLUMN          /BUMP TO NEXT COLUMN
+2206 002142* 4565  P7AGN,  JMS I   [CHKUP]         /CHECK FOR <^C>, ETC.
+2207 002143* 1014          TAD     ECHOSW          /GET ECHO SWITCH
+2208 002144* 7710          SPA CLA                 /SKIP IF ECHO ON
+2209 002145* 5351          JMP     P7OFF           /JUMP IF ECHO OFF
+2210 002146* 1073          TAD     P7TEMP          /GET THE PASSED VALUE
+2211 002147* 4136          JMS     P7OUT           /TRY TO OUTPUT IT
+2212 002150* 5342          JMP     P7AGN           /TRY INPUT WHILE WAITING
+2213 002151* 4565  P7OFF,  JMS I   [CHKUP]         /CHECK FOR <^C>, ETC.
+2214 002152* 5737          JMP I   P7CH            /RETURN
+2215               
+2216 002153* 0000  WASTESY,.-.                     /WASTE SYMBOL POSITIONS ROUTINE
+2217 002154* 7450          SNA                     /ANY TO DO
+2218 002155* 5753          JMP I   WASTESYMBOLS    /NO, JUST RETURN
+2219 002156* 7041          CIA                     /YES, INVERT IT
+2220 002157* 3373          DCA     WASTCNT         /STORE AS WASTE COUNTER
+2221 002160* 4301  WASTLUP,JMS     NXTSYMBOL       /GET NEXT SYMBOL
+2222 002161* 5753          JMP I   WASTESYMBOLS    /WASN'T ANY, SO RETURN
+2223 002162* 2373          ISZ     WASTCNT         /DONE ENOUGH?
+2224 002163* 5360          JMP     WASTLUP         /NO, KEEP GOING
+2225 002164* 5753          JMP I   WASTESYMBOLS    /YES, RETURN
+2226               
+2227 002165* 0000  COLCNT, .-.                     /COLUMN COUNTER
+2228 002166* 0000  EXTCNT, .-.                     /EXTRA ROW COUNTER
+2229 002167* 0000  EXTRCNT,.-.                     /EXTRA ROW COUNT
+2230 002170* 0000  IWASTE, .-.                     /INCREMENTAL WASTE COUNTER
+2231 002171* 2230  NXTONE, SRTNEXT                 /**** /L **** LINEXT
+2232 002172* 0000  ROWCNT, .-.                     /ROW COUNTER
+2233 002173* 0000  WASTCNT,.-.                     /WASTE ROUTINE COUNTER
+2234 002174* 0000  WASTE,  .-.                     /WASTE COUNTER
+2235               
+2236 002177* 0600          PAGE
+2237               /      COMPARE TWO SYMBOLS ROUTINE.
+2238               
+2239 002200* 0000  CMPARE, .-.                             /COMPARE ROUTINE
+2240 002201* 7240          NL7777                          /BACKUP
+2241 002202* 1600          TAD I   CMPARE                  /GET FIRST ARGUMENT
+2242 002203* 3010          DCA     XR1                     /STASH IT
+2243 002204* 2200          ISZ     CMPARE                  /BUMP TO NEXT
+2244 002205* 7240          NL7777                          /BACKUP
+2245 002206* 1600          TAD I   CMPARE                  /GET SECOND ARGUMENT
+2246 002207* 3011          DCA     XR2                     /STASH IT
+2247 002210* 2200          ISZ     CMPARE                  /BUMP PAST ARGUMENT
+2248 002211* 1174          TAD     [-4]                    /SETUP THE
+2249 002212* 3076          DCA     TEMP                    /COMPARE COUNTER
+2250 002213* 1411  CMPLUP, TAD I   XR2                     /GET A WORD
+2251 002214* 7161          STL CIA                         /NEGATE FOR TEST
+2252 002215* 1410          TAD I   XR1                     /COMPARE TO OTHER WORD
+2253 002216* 7450          SNA                             /SKIP IF UNEQUAL
+2254 002217* 5223          JMP     EQUCHK                  /JUMP IF EQUAL
+2255 002220* 7630          SZL CLA                         /SKIP IF FIRST GREATER THAN SECOND
+2256 002221* 5600          JMP I   CMPARE                  /TAKE FIRST RETURN IF FIRST LESS THAN SECOND
+2257 002222* 5226          JMP     FGTS                    /FIRST IS GREATER THAN SECOND
+2258               
+2259 002223* 2076  EQUCHK, ISZ     TEMP                    /CHECKED ALL?
+2260 002224* 5213          JMP     CMPLUP                  /NO, KEEP GOING
+2261 002225* 2200          ISZ     CMPARE                  /YES, BUMP TWICE FOR EQUAL RETURN
+2262 002226* 2200  FGTS,   ISZ     CMPARE                  /TAKE SKIP RETURN FOR FIRST GREATER THAN SECOND
+2263 002227* 5600          JMP I   CMPARE                  /RETURN AS NECESSARY
+2264               
+2265               /       SORTED SYMBOL ACCESS ROUTINE.
+2266               
+2267 002230* 0000  SRTNEXT,.-.                             /SORTED SYMBOL ACCESS ROUTINE
+2268 002231* 1075          TAD     SYMNUM                  /GET SYMBOL NUMBER
+2269 002232* 7640          SZA CLA                         /SKIP IF FIRST SYMBOL WANTED
+2270 002233* 5237          JMP     SRTSETUP                /JUMP IF OTHER
+2271 002234* 4345          MOVE;   ZERO;   LOWLIMIT        /ZERO LOWER LIMIT
+     002235* 2557  
+     002236* 2371  
+2272 002237* 4345  SRTSETU,MOVE;   HIGH;   FNAME           /SET FILE NAME TO UPPER LIMIT
+     002240* 2553  
+     002241* 0027  
+2273 002242* 1057          TAD     PCATADR/[CATADR-1]      /POINT TO
+2274 002243* 3012          DCA     XR3                     /CATALOG BUFFER
+2275 002244* 1412  FNDLOOP,TAD I  XR3             /GET AN ENTRY
+2276 002245* 7450          SNA                     /END OF CATALOG?
+2277 002246* 5321          JMP     SRTEOT          /YES
+2278 002247* 3365          DCA     LATEST          /NO, STASH IT AS LATEST FIRST NAME PAIR
+2279 002250* 1365          TAD     LATEST          /GET IT BACK
+2280 002251* 7040          CMA                     /INVERT FOR TESTING
+2281 002252* 7650          SNA CLA                 /SKIP IF NOT EMPTY
+2282 002253* 5303          JMP     LATEMPTY        /JUMP IF AN EMPTY ENTRY
+2283 002254* 1412          TAD I   XR3             /GET SECOND WORD
+2284 002255* 3366          DCA     LATEST+1        /STORE AS LATEST SECOND NAME PAIR
+2285 002256* 1412          TAD I   XR3             /GET THIRD WORD
+2286 002257* 3367  EMPTCOM,DCA     LATEST+2        /STORE AS LATEST THIRD NAME PAIR
+2287 002260* 1412          TAD I   XR3             /GET FILE TYPE WORD
+2288 002261* 3375          DCA     LTYPE           /STORE AS LATEST FILE TYPE WORD
+2289 002262* 1012          TAD     XR3             /GET THE POINTER
+2290 002263* 1377          TAD     (-CATADR-3)     /MAKE RELATIVE
+2291 002264* 7106          CLL RTL                 /*4 FOR BLOCKS
+2292 002265* 1020          TAD     BBLOCK          /ADD ON BASE BLOCK
+2293 002266* 3370          DCA     LATEST+3        /STORE AS LATEST BLOCK
+2294 002267* 4200          COMPARE;LATEST; LOWLIMIT/COMPARE LATEST TO LOWER LIMIT
+     002270* 2365  
+     002271* 2371  
+2295 002272* 7410          SKP                     /LATEST < LOWLIMIT
+2296 002273* 7410          SKP                     /LATEST > LOWLIMIT
+2297 002274* 5244          JMP     FNDLOOP         /LATEST = LOWLIMIT
+2298 002275* 4200          COMPARE;LATEST; FNAME   /COMPARE LATEST TO CURRENT BEST
+     002276* 2365  
+     002277* 0027  
+2299 002300* 5311          JMP     SRTMINIMUM      /LATEST < FNAME
+2300 002301* 7000          NOP                     /LATEST > FNAME
+2301 002302* 5244          JMP     FNDLOOP         /LATEST = FNAME
+2302               
+2303               /       COMES HERE IF LATEST ENTRY IS AN EMPTY SLOT.
+2304               
+2305 002303* 2012  LATEMPT,ISZ     XR3             /BUMP PAST
+2306 002304* 2012          ISZ     XR3             /REST OF ENTRY
+2307 002305* 7240          NL7777                  /SETUP EMPTY VALUE
+2308 002306* 3366          DCA     LATEST+1        /STORE IN SECOND NAME PAIR
+2309 002307* 7240          NL7777                  /SETUP EMPTY VALUE
+2310 002310* 5257          JMP     EMPTCOMMON      /CONTINUE THERE
+2311               
+2312               /       COMES HERE TO STORE LATEST BEST SYMBOL.
+2313               
+2314 002311* 4345  SRTMINI,MOVE;   LATEST; FNAME   /USE LATEST AS BEST
+     002312* 2365  
+     002313* 0027  
+2315 002314* 1370          TAD     LATEST+3        /GET LATEST BLOCK
+2316 002315* 3155          DCA     FBLOCK          /SETUP READ BLOCK
+2317 002316* 1375          TAD     LTYPE           /GET LATEST FILE TYPE
+2318 002317* 3033          DCA     FTYPE           /SETUP BEST FILE TYPE
+2319 002320* 5244          JMP     FNDLOOP         /KEEP GOING
+2320               /      COMES HERE AT END OF CATALOG.
+2321               
+2322 002321* 4345  SRTEOT, MOVE;   FNAME;  LOWLIMIT/SETUP LOWER LIMIT FOR NEXT TIME
+     002322* 0027  
+     002323* 2371  
+2323 002324* 5630          JMP I   SRTNEXT         /RETURN
+2324               
+2325 002325* 0000  DIVIDE, .-.                     /DIVIDE ROUTINE
+2326 002326* 3004          DCA     REM             /SAVE IN REMAINDER
+2327 002327* 3003          DCA     QUO             /CLEAR QUOTIENT
+2328 002330* 1004          TAD     REM             /GET IT BACK
+2329 002331* 7161          STL CIA                 /INVERT
+2330 002332* 7410          SKP                     /DON'T FIRST TIME
+2331 002333* 2003  DVLOOP, ISZ     QUO             /BUMP UP QUOTIENT
+2332 002334* 1725          TAD I   DIVIDE          /ADD ON ARGUMENT
+2333 002335* 7470          SNA SZL                 /UNDERFLOW?
+2334 002336* 5333          JMP     DVLOOP          /NO, KEEP GOING
+2335 002337* 7041          CIA                     /YES, INVERT IT BACK
+2336 002340* 1725          TAD I   DIVIDE          /RESTORE LOST VALUE
+2337 002341* 3004          DCA     REM             /SAVE AS REMAINDER
+2338 002342* 1003          TAD     QUO             /GET THE QUOTIENT
+2339 002343* 2325          ISZ     DIVIDE          /BUMP PAST ARGUMENT
+2340 002344* 5725          JMP I   DIVIDE          /RETURN
+2341               
+2342               /       MOVE SYMBOL ROUTINE.
+2343               
+2344 002345* 0000  XMOVE,  .-.                     /MOVE ROUTINE
+2345 002346* 7240          NL7777                  /BACKUP
+2346 002347* 1745          TAD I   XMOVE           /GET FIRST ARGUMENT
+2347 002350* 3010          DCA     XR1             /STASH IT
+2348 002351* 2345          ISZ     XMOVE           /BUMP TO NEXT
+2349 002352* 7240          NL7777                  /BACKUP
+2350 002353* 1745          TAD I   XMOVE           /GET SECOND ARGUMENT
+2351 002354* 3011          DCA     XR2             /STASH IT
+2352 002355* 1174          TAD     [-4]            /SETUP THE
+2353 002356* 3076          DCA     TEMP            /MOVE COUNT
+2354 002357* 1410  MOVLUP, TAD I   XR1             /GET A WORD
+2355 002360* 3411          DCA I   XR2             /PUT A WORD
+2356 002361* 2076          ISZ     TEMP            /DONE YET?
+2357 002362* 5357          JMP     MOVLUP          /NO, KEEP GOING
+2358 002363* 2345          ISZ     XMOVE           /YES, BUMP PAST ARGUMENT
+2359 002364* 5745          JMP I   XMOVE           /RETURN TO CALLER
+2360               
+2361 002365* 0000  LATEST, ZBLOCK  4               /LATEST SYMBOL
+     002366* 0000  
+     002367* 0000  
+     002370* 0000  
+2362 002371* 0000  LOWLIMI,ZBLOCK  4               /LOWER SYMBOL LIMIT
+     002372* 0000  
+     002373* 0000  
+     002374* 0000  
+2363 002375* 0000  LTYPE,  .-.                     /LATEST FILE TYPE
+2364               
+2365               /       NEW INSTRUCTION DEFINITIONS.
+2366               
+2367                       COMPARE=JMS     CMPARE  /COMPARE TWO SYMBOLS
+2368                       MOVE=   JMS     XMOVE   /MOVE ONE SYMBOL TO ANOTHER SYMBOL
+2369               
+2370 002377* 0775          PAGE
+2371               /      TEXT MESSAGES.
+2372               
+2373               /       <ASCI> FILE TYPE MESSAGE.
+2374               
+2375 002400* 4074  ASCIMSG,TEXT    " <ASCI>"                       /ASCII TYPE MESSAGE
+     002401* 0123  
+     002402* 0311  
+     002403* 7600  
+2376               
+2377               /       MAIN HEADER TEXT.
+2378               
+2379 002404* 3604  BLURB,  TEXT    "^D^IRECTORY OF ^SYSU: ^"       /START OF HEADER TEXT
+     002405* 3611  
+     002406* 2205  
+     002407* 0324  
+     002410* 1722  
+     002411* 3140  
+     002412* 1706  
+     002413* 4036  
+     002414* 2331  
+     002415* 2325  
+     002416* 7240  
+     002417* 3600  
+2380               
+2381                       UBLURB= .-3                             /UNIT GOES HERE
+2382               
+2383               /       <BNRY> FILE TYPE MESSAGE.
+2384               
+2385 002420* 4074  BNRYMSG,TEXT    " <BNRY>"                       /BINARY TYPE MESSAGE
+     002421* 0216  
+     002422* 2231  
+     002423* 7600  
+2386               
+2387               /       COMMON HEADER TEXT.
+2388               
+2389 002424* 4036  CBLURB, TEXT    " ^DIRECT V"                    /REST OF HEADER TEXT
+     002425* 0411  
+     002426* 2205  
+     002427* 0324  
+     002430* 4026  
+2390 002431* 6160          VERSION%12^66+VERSION+6060              /VERSION NUMBER
+2391 002432* 3602          "^^100+REVISION                         /REVISION
+2392 002433* 4040          TEXT    "  "                            /FILLER
+2393 002434* 3627  DBLURB, TEXT    "^W^HATDAY? "                   /DAY TEXT GOES HERE
+     002435* 3610  
+     002436* 0124  
+     002437* 0401  
+     002440* 3177  
+     002441* 4000  
+2394 002442* 0000          0                                       /THIS DEFINITELY ENDS THE TEXT
+2395               /      DATE TEXT.
+2396               
+2397 002443* 0404  DATMSG, TEXT    "DD-^M^MM-YY"                   /DATE GOES HERE
+     002444* 5536  
+     002445* 1536  
+     002446* 1515  
+     002447* 5531  
+     002450* 3100  
+2398               
+2399               /       EMPTY MESSAGE.
+2400               
+2401 002451* 3606  EMPMSG, TEXT    "^F^REE ^F^ILE ^S^LOT^"         /FREE FILE SLOT(S) MESSAGE
+     002452* 3622  
+     002453* 0505  
+     002454* 4036  
+     002455* 0636  
+     002456* 1114  
+     002457* 0540  
+     002460* 3623  
+     002461* 3614  
+     002462* 1724  
+     002463* 3600  
+2402               
+2403               /       FILE MESSAGE.
+2404               
+2405 002464* 3606  FILMSG, TEXT    "^F^ILE^"                       /FILE(S) MESSAGE
+     002465* 3611  
+     002466* 1405  
+     002467* 3600  
+2406               
+2407               /       FREE SLOT MESSAGE.
+2408               
+2409 002470* 7406  FREMSG, TEXT    "<FREE>^"                       /FREE MESSAGE
+     002471* 2205  
+     002472* 0576  
+     002473* 3600  
+2410               
+2411               /       AVAILABLE FILE SLOTS MESSAGE.
+2412               
+2413 002474* 3601  FSMSG,  TEXT    "^A^VAILABLE ^F^ILE ^S^LOT"     /AVAILABLE FILE SLOT(S) MESSAGE
+     002475* 3626  
+     002476* 0111  
+     002477* 1401  
+     002500* 0214  
+     002501* 0540  
+     002502* 3606  
+     002503* 3611  
+     002504* 1405  
+     002505* 4036  
+     002506* 2336  
+     002507* 1417  
+     002510* 2400  
+2414               /      NO MESSAGE.
+2415               
+2416 002511* 3616  NOMSG,  TEXT    "^N^O "                 /NO (WHATEVER) MESSAGE
+     002512* 3617  
+     002513* 4000  
+2417               
+2418               /       PAGE TEXT.
+2419               
+2420 002514* 4040  PAGMSG, TEXT    "  ^P^AGE "             /PAGE TEXT
+     002515* 3620  
+     002516* 3601  
+     002517* 0705  
+     002520* 4000  
+2421               
+2422               /       "S" MESSAGE.
+2423               
+2424 002521* 2300  SMSG,   TEXT    "S"                     /"S" MESSAGE
+2425               
+2426               /       TOTAL SLOTS MESSAGE.
+2427               
+2428 002522* 3624  TSMSG,  TEXT    "^T^OTAL ^F^ILE ^S^LOT" /TOTAL FILE SLOT(S) MESSAGE
+     002523* 3617  
+     002524* 2401  
+     002525* 1440  
+     002526* 3606  
+     002527* 3611  
+     002530* 1405  
+     002531* 4036  
+     002532* 2336  
+     002533* 1417  
+     002534* 2400  
+2429               
+2430               /       <UNKN> FILE TYPE MESSAGE.
+2431               
+2432 002535* 4074  UNKNMSG,TEXT    " <UNKN>"               /UNKNOWN TYPE MESSAGE
+     002536* 2516  
+     002537* 1316  
+     002540* 7600  
+2433               /      POWERS OF EIGHT FOR OCTAL PRINT.
+2434               
+2435 002541* 7000  EIGHTS, -1000                           /-1000
+2436 002542* 7700          -100                            /-100
+2437 002543* 7770          -10                             /-10
+2438 002544* 7777          -1                              /-1
+2439 002545* 0000          0                               /THIS ENDS THE LIST
+2440               
+2441                       DECIMAL                         /FOR POWERS OF TEN
+2442               
+2443               /       POWERS OF TEN FOR DECIMAL PRINT
+2444               
+2445 002546* 6030  TENS,   -1000                           /-1750
+2446 002547* 7634          -100                            /-144
+2447 002550* 7766          -10                             /-12
+2448 002551* 7777          -1                              /-1
+2449 002552* 0000          0                               /THIS ENDS THE LIST
+2450               
+2451                       OCTAL                           /BACK TO NORMAL
+2452               
+2453               /       MULTIPLE WORD DATA.
+2454               
+2455 002553* 7777  HIGH,   7777;   7777;   7777;   7777    /HIGHEST SYMBOL VALUE
+     002554* 7777  
+     002555* 7777  
+     002556* 7777  
+2456 002557* 0000  ZERO,   ZBLOCK  4                       /ZEROED OUT AREA
+     002560* 0000  
+     002561* 0000  
+     002562* 0000  
+2457               
+2458                       PAGE
+2459               
+2460                       DIREND= .                       /END OF CODE TO BE MOVED
+2461               
+2462 000165* 0531          FIELD   0                       /THIS WILL DUMP THE LITERALS
+     000166* 1140  
+     000167* 6000  
+     000170* 3000  
+     000171* 0314  
+     000172* 7773  
+     000173* 7757  
+     000174* 7774  
+     000175* 0452  
+     000176* 1400  
+     000177* 0177  
+2463               
+2464                       *DIREND                         /RESET ORIGIN
+2465               
+2466                       RELOC                           /TURN OFF RELOCATION
+2467                      IFNZRO  .&177   <ERROR  .>
+2468               
+2469                       DIRECT= .                       /DIRECT SYSTEM STARTS HERE
+2470               
+2471 007200  0070  DIRECT, 70/NOP                          /HERE IN CASE WE'RE CHAINED TO
+2472               
+2473               /       THE COMMAND BUFFER CONTAINS THE TENTATIVE STRING ARGUMENT STARTING AT THE
+2474               /       CHARACTER POINTED TO BY GETNDX OF THE KEYBOARD MONITOR. MOVE THE ENTIRE
+2475               /       STRING ARGUMENT TO STRBUFFER BEFORE MOVING THE DIRECT CODE OVER 0000-2577.
+2476               /       ONLY THE FIRST 36 CHARACTERS OF THE STRING ARE ALLOWED DUE TO PUSHDOWN
+2477               /       CONSIDERATIONS LATER.
+2478               
+2479 007201  1377          TAD     (STRBUFFER+PZ)          /POINT TO
+2480 007202  3131          DCA     PUTBASE                 /STRING BUFFER
+2481 007203  3060          DCA     PUTNDX                  /CLEAR OUTPUT INDEX
+2482 007204  7410          SKP                             /DON'T BUMP YET!
+2483 007205  2026  SMVLUP, ISZ     GETNDX                  /BUMP TO NEXT
+2484 007206  4504          JMS I   GETHAF/[XGETHAF]        /GET A CHARACTER FROM COMMAND BUFFER
+2485 007207  1376          TAD     (-" !200)               /COMPARE TO <SPACE>
+2486 007210  7440          SZA                             /SKIP IF IT MATCHES
+2487 007211  7001          IAC     /TAD    (-237+" )       /COMPARE TO <HT>
+2488 007212  7650          SNA CLA                         /SKIP IF NOT <SPACE> OR <HT>
+2489 007213  5205          JMP     SMVLUP                  /JUMP IF EITHER <SPACE> OR <HT>
+2490 007214  4504          JMS I   GETHAF/[XGETHAF]        /GET THE CHARACTER AGAIN
+2491 007215  4532          JMS I   PUTHAF/[XPUTHAF]        /STORE IN OUR BUFFER
+2492 007216  2060          ISZ     PUTNDX                  /BUMP TO NEXT
+2493 007217  4504          JMS I   GETHAF                  /GET THE CHARACTER AGAIN
+2494 007220  7450          SNA                             /SKIP IF NOT <EOL>
+2495 007221  5227          JMP     MVLOOP                  /JUMP IF <EOL>
+2496 007222  1375          TAD     (-".!200)               /COMPARE TO "."
+2497 007223  7650          SNA CLA                         /SKIP IF OTHER
+2498 007224  2774          ISZ I   (XR3+PZ)                /ELSE COUNT THIS ONE
+2499 007225  2773          ISZ I   (TOTSLTS+PZ)            /TOO MANY CHARACTERS?
+2500 007226  5205          JMP     SMVLUP                  /NO, KEEP GOING
+2501               
+2502               /       THE (TRUNCATED) SEARCH STRING IS NOW IN THE SEARCH STRING BUFFER, SO MOVE
+2503               /       OUR CODE TO PAGE ZERO, ETC.
+2504               
+2505 007227  1734  MVLOOP, TAD I   FROPTR                  /GET A WORD
+2506 007230  3715          DCA I   TOPTR                   /PUT A WORD
+2507 007231  2334          ISZ     FROPTR                  /BUMP THE
+2508 007232  2315          ISZ     TOPTR                   /POINTERS
+2509 007233  2335          ISZ     MOVCNT                  /DONE YET?
+2510 007234  5227          JMP     MVLOOP                  /NO, KEEP GOING
+2511 007235  1737  XORLUP,        TAD I   SWPTR                   /GET A SWITCH WORD
+2512 007236  0736          AND I   OPTPTR                  /AND AGAINST OPTION WORD
+2513 007237  7041          CIA                             /INVERT
+2514 007240  7104          CLL RAL                         /*2
+2515 007241  1737          TAD I   SWPTR                   /ADD ON SWITCH WORD
+2516 007242  1736          TAD I   OPTPTR                  /ADD ON OPTION WORD
+2517 007243  3737          DCA I   SWPTR                   /STORE XOR-ED VALUE
+2518 007244  2337          ISZ     SWPTR                   /BUMP TO NEXT
+2519 007245  2336          ISZ     OPTPTR                  /BUMP TO NEXT
+2520 007246  2340          ISZ     XORCNT                  /DONE ALL YET?
+2521 007247  5235          JMP     XORLUP                  /NO, KEEP GOING
+2522               
+2523               /       CHECK FOR CONSOLE OVERLAY.
+2524               
+2525 007250  1517          TAD I   L7600/[SBOOT]           /GET BOOTSTRAP INSTRUCTION
+2526 007251  1372          TAD     (-JMSSYSIO)             /COMPARE TO POSSIBLE VALUE
+2527 007252  7650          SNA CLA                         /SKIP IF DIFFERENT
+2528 007253  5257          JMP     CHKCOVRLAY              /JUMP IF IT MATCHES
+2529 007254  2122          ISZ     CHKKRS                  /TURN "KRSIOT"
+2530 007255  2122          ISZ     CHKKRS                  /INTO "KRBIOT"
+2531 007256  3133          DCA     CHKKCC                  /DESTROY "KCCIOT"
+2532 007257  7326  CHKCOVR,NL0002                          /SET "C" BIT MASK
+2533 007260  0467          AND I   PSCRSIZE/[SCRSIZE]      /GET THE "C" BIT
+2534 007261  7650          SNA CLA                         /SKIP IF SET
+2535 007262  5771          JMP I   (NOCONSOLE)             /JUMP IF NOT
+2536 007263  1467          TAD I   PSCRSIZE/[SCRSIZE]      /GET CORE SIZE WORD AGAIN
+2537 007264  7012          RTR;RAR                         /MOVE OVER AND
+     007265  7010  
+2538 007266  0200          AND     DIRECT/(70)             /ISOLATE MCS BITS
+2539 007267  1370          TAD     (CDF    10)             /FORM "CDF MCS+10"
+2540 007270  3315          DCA     TOPTR                   /STORE IN-LINE
+2541 007271  1315          TAD     TOPTR                   /GET IT BACK
+2542 007272  7001          IAC     /TAD    (CIF-CDF)       /FORM "CIF MCS+10"
+2543 007273  3137          DCA     P7TSF                   /STORE OVER "TSFIOT"
+2544 007274  1140          TAD     P7JMP                   /GET "JMP I P7OUT"
+2545 007275  3141          DCA     P7TLS                   /STORE OVER "TLSIOT"
+2546 007276  1367          TAD     (JMS    OUTCON)         /GET OUTPUT CALL
+2547 007277  3140          DCA     P7JMP                   /STORE OVER "JMP I P7OUT"
+2548 007300  1137          TAD     P7TSF                   /GET "CIF MCS+10"
+2549 007301  3107          DCA     CONTSF                  /STORE OVER "TSFIOT"
+2550 007302  1110          TAD     CONJMP                  /GET "JMP I CONOUT"
+2551 007303  3111          DCA     CONTLS                  /STORE OVER "TLSIOT"
+2552 007304  1367          TAD     (JMS    OUTCON)         /GET OUTPUT CALL
+2553 007305  3110          DCA     CONJMP                  /STORE OVER "JMP I CONOUT"
+2554 007306  1137          TAD     P7TSF                   /GET "CIF MCS+10"
+2555 007307  3120          DCA     CHKKSF                  /STORE OVER "KSFIOT"
+2556 007310  1121          TAD     CHKJMP                  /GET "JMP I CTLCTST"
+2557 007311  3122          DCA     CHKKRS                  /STORE OVER "KRSIOT" OR "KRBIOT"
+2558 007312  1366          TAD     (JMS    INCON)          /GET INPUT CALL
+2559 007313  3121          DCA     CHKJMP                  /STORE OVER "JMP I CTLCTST"
+2560 007314  3133          DCA     CHKKCC                  /DESTROY "KCCIOT"
+2561 007315  0000  TOPTR, 0000                    /WILL BE CDF MCS+10
+2562 007316  1445          TAD I   L4/[LPMODE]     /GET BUFFERING MODE
+2563 007317  6201          CDF     00              /BACK TO OUR FIELD
+2564 007320  7750          SPA SNA CLA             /SKIP IF NO BUFFERING
+2565 007321  3765          DCA I   (BUFZP1)        /ENABLE BUFFERING CHECK IN /N CODE
+2566 007322  1137          TAD     P7TSF           /GET "CIF MCS+10"
+2567 007323  3764          DCA I   (LPCHK)         /STORE OVER "LSFIOT"
+2568 007324  1763          TAD I   (LPJMP)         /GET "JMP LPTIME"
+2569 007325  3762          DCA I   (LPRNT)         /STORE OVER "LLSIOT"
+2570 007326  1361          TAD     (JMS    OUTLPT) /GET LPT: OUTPUT CALL
+2571 007327  3763          DCA I   (LPJMP)         /STORE OVER "JMP LPTIME"
+2572 007330  1760          TAD I   (LPTJMSLPWAIT)  /GET LPT: TEST CALL
+2573 007331  3757          DCA I   (OUTINIT)       /MAKE IT TEST FOR LOGICAL LPT: CORRECTLY
+2574 007332  3756          DCA I   (LOGZAP)        /ENABLE LOGICAL LPT: ZAPS
+2575 007333  5771          JMP I   (NOCONSOLE)     /CONTINUE THERE
+2576               
+2577 007334  4400  FROPTR, PZ                      /WHERE DIRECT CODE IS NOW
+2578 007335  5200  MOVCNT, -DIREND                 /DIRECT CODE MOVE COUNTER
+2579 007336  0000  OPTPTR, XORSWS                  /OPTION WORD POINTER
+2580 007337  7604  SWPTR,  SWAL                    /PASSED SWITCHES POINTER
+2581 007340  7775  XORCNT, -3                      /OPTION WORD COUNTER
+2582               
+2583 007356  2664          PAGE
+     007357  2642  
+     007360  2645  
+     007361  4035  
+     007362  2724  
+     007363  2723  
+     007364  2722  
+     007365  2620  
+     007366  4031  
+     007367  4033  
+     007370  6211  
+     007371  2600  
+     007372  3540  
+     007373  4502  
+     007374  4412  
+     007375  7722  
+     007376  7740  
+     007377  6354  
+2584               
+2585                       $                       /THAT'S ALL FOLK!
+
+ASC     0001
+ASCIMS  2400
+BADEQU  1632
+BAT     0002
+BBLOCK  0020
+BDERR   1634
+BIN     0003
+BLKCNT  1357
+BLURB   2404
+BNENTR  0361
+BNRYMS  2420
+BSGROU  0021
+BSGRP   0003
+BUFZP1  2620
+BUFZP2  2704
+BUFZP3  0307
+CALCEM  0234
+CALCLP  0201
+CASZP1  0406
+CASZP2  0450
+CATADR  7000
+CATFUN  3262
+CBLURB  2424
+CHKCOV  7257
+CHKEMP  2121
+CHKJMP  0121
+CHKKCC  0133
+CHKKRS  0122
+CHKKSF  0120
+CHKNAM  1447
+CHKUP   0531
+CMPARE  2200
+CMPLUP  2213
+CMVLUP  3270
+CNT     3053
+COLCNT  2165
+COLUMN  0013
+COMPAR  4200
+CONJMP  0110
+CONOUT  0106
+CONTLS  0111
+CONTSF  0107
+CPRAGN  1602
+CPRINT  1600
+CRLF    0741
+CSCRIB  2707
+CTLCTS  0116
+DATMSG  2443
+DAY     3007
+DAYS    3600
+DBLURB  2434
+DECCON  0022
+DECLOP  0323
+DECLUP  0321
+DECOFF  0023
+DECPRT  0314
+DECPTR  0024
+DECQUO  0025
+DEFCOL  0003
+DEFSIZ  0040
+DEFTAB  4244
+DEJECT  1257
+DIR     0015
+DIRDON  0300
+DIRECT  7200
+DIREND  2600
+DIRLOA  2600
+DIRLOO  0242
+DIRSTA  0200
+DIVARG  2003
+DIVIDE  2325
+DOBIT   4147
+DOFF    0456
+DONEXT  2037
+DOSTAR  1462
+DOUO    0546
+DPERR   1651
+DUMP    0004
+DVLOOP  2333
+DVNMSG  3467
+DZAP    0632
+ECHOSW  0014
+EIGHTS  2541
+EMPMSG  2451
+EMPTCO  2257
+ENTCNT  3356
+ENTPTR  3151
+EOFCHK  1245
+EOLINE  2057
+EOSYS   4123
+EQUACH  1610
+EQUCHK  2223
+EXTCNT  2166
+EXTRCN  2167
+EZAP    0660
+FBLOCK  0155
+FEBENT  3153
+FFWAT1  0467
+FFWAT2  0472
+FGTS    2226
+FILBEG  3000
+FILBUF  3000
+FILCOR  3000
+FILMSG  2464
+FILOK   1136
+FILTER  1400
+FINDEX  1560
+FIRST   0370
+FLAGS   1360
+FLDCHK  1251
+FMASK   0026
+FNAME   0027
+FNDLOO  2244
+FNDZER  1121
+FOC     0005
+FPRINT  0600
+FREMSG  2470
+FREPRN  0637
+FROPTR  7334
+FSMSG   2474
+FTYPE   0033
+FULPAG  0266
+FULSYM  0034
+GENI    0006
+GENO    0007
+GETDAT  2676 unreferenced
+GETHAF  0104
+GETHAL  1140
+GETNDX  0026
+GETNMC  1514
+GOTUNI  3247
+GRPCNT  1361
+GRPLUP  1225
+GTBASE  0000
+GTINDX  0001
+HEDMSG  3652
+HIDWRD  7600
+HIGH    2553
+INCHAR  0002
+INCON   0031
+INLINE  0725
+INWAIT  0517
+IPRINT  0700
+IPRTCO  0721
+IPRTON  0734
+ITEMP   0755
+IWASTE  2170
+IZAP    0613
+JANENT  3152
+JMSC    4200
+JMSSYS  4240
+KCCIOT  6032
+KEPRAD  0040
+KEYCOD  6030
+KRBIOT  6036 unreferenced
+KRSIOT  6034
+KSFIOT  6031
+L10     0037
+L100    0040
+L12     0041
+L14     0042
+L15     0043
+L20     0044
+L3      0113
+L4      0045
+L40     0046
+L400    0047
+L60     0050
+L7      0143
+L7600   0117
+L77     0051
+L7700   0142
+L7760   0052
+L7772   0053
+LATEMP  2303
+LATEST  2365
+LATLIN  1164
+LATNUM  1165
+LINCNT  0015
+LINEXT  1326
+LLSIOT  6666
+LLZAPS  2702
+LNL777  2641
+LOGZAP  2664
+LOWLIM  2371
+LPAGN   2721
+LPCHK   2722
+LPFAIL  2672
+LPJMP   2723
+LPMODE  0004 unreferenced
+LPRNT   2724
+LPSW    0035
+LPT     0066
+LPTCOD  6660
+LPTIME  2730
+LPTJMS  2645
+LPTMOU  2602
+LPTMZA  2733
+LPWAIT  2717
+LPYRCT  3014
+LPZAP1  0457
+LPZAP2  0304
+LPZAP3  0465
+LPZAP4  0475
+LSEP    0016
+LSFIOT  6661
+LSTSYM  0036
+LTYPE   2375
+MATQEN  1445
+MATSW   1561
+MAXCOL  0112
+MAXEN   0124
+MLOOP   3400
+MONCNT  3023
+MONLST  3473
+MONTH   3004
+MOVCNT  7335
+MOVE    4345
+MOVLUP  2357
+MVLOOP  7227
+NAMTBL  4304
+NCOLS   0054
+NEWGRP  1220
+NEWPAG  0452
+NEWREC  1216
+NHDZP1  1261
+NHDZP2  1271
+NL0001  7201
+NL0002  7326
+NL2000  7332
+NL4000  7330
+NL7775  7346
+NL7776  7344
+NL7777  7240
+NOCONS  2600
+NOCR    0747
+NOEMPT  0665
+NOHED1  1267
+NOHED2  1302
+NOMATC  1512
+NOMSG   2511
+NOSCAN  0100
+NOTASC  0363
+NOTOUR  0226
+NOTV    3421
+NPZAP1  0306
+NPZAP2  1260
+NPZAP3  2662
+NSYMS   0055
+NUL     0000
+NULCNT  0371
+NUMLUP  1040
+NUMPTR  1166
+NXTAGN  2102
+NXTONE  2171
+NXTSYM  2101
+NXTWRD  1234
+ODZAP   0623
+OPTPTR  7336
+OUTCON  0033
+OUTINI  2642
+OUTLPT  0035
+OUTPUT  0056
+P1OCT   4214
+P2CH    1546
+P2OCT   4221
+P2TEMP  4211
+P3BLNK  4157
+P3OCT   4232
+P4BLNK  2127
+P6CH    1315
+P7AGN   2142
+P7CH    2137
+P7JMP   0140
+P7OFF   2151
+P7OUT   0136
+P7TEMP  0073
+P7TLS   0141
+P7TSF   0137
+PAGMSG  2514
+PAGNUM  0017
+PAL     0010
+PARLMT  1167
+PCATAD  0057
+PCRLF   0060
+PDEJEC  0061
+PDIVID  0062
+PDPAGE  2000
+PEXTRA  2025
+PNMLUP  4012
+POP     4327
+POPA    1527
+PP2CH   0063
+PP6CH   0064
+PRLOOP  2016
+PRNLFS  1307
+PRNTAB  0642
+PRNTBN  0651
+PRTCOD  6040
+PRTFIL  0065
+PRTINF  0654
+PRTNO   0736
+PRTOCT  1535
+PRTYPE  4200
+PSCRIB  0066
+PSCRSI  0067
+PSWAL   0070
+PSWMX   0071
+PSYSIO  0112
+PTR     0072
+PUSH    4323
+PUSHA   1523
+PUTBAS  0131
+PUTHAF  0132
+PUTNDX  0060
+PWAIT   0477
+PWATLU  0504
+PZ      4400
+PZAP    0500
+QMATCH  1455
+QUO     0003
+READ    0146
+READFU  0154
+REM     0004
+REMSYM  0021
+REVISI  0002
+RFUN    3446
+RFUN2   4003
+RNGCHK  1155
+ROWCNT  2172
+SBLURB  4337
+SBOOT   7600
+SBTFUN  7602
+SCHAR   1562
+SCRCAS  0005
+SCRCHA  0006
+SCRCRL  0443
+SCRFLI  0445
+SCRIBE  0400
+SCRLUP  0407
+SCRPRN  0420
+SCRPTR  0007
+SCRSIZ  7611
+SDATE   7610
+SEARCH  1411
+SEPCHK  2055
+SETHIG  1354
+SINDEX  1563
+SLERR   1706
+SLOTMS  4355
+SMSG    2521
+SMVLUP  7205
+SPARM   7756
+SPCCHK  1127
+SPECIN  1100
+SRCHNX  1412
+SRCHZE  1105
+SRTEOT  2321
+SRTMIN  2311
+SRTNEX  2230
+SRTSET  2237
+STACK   1600
+STARAG  1463
+STKPTR  1564
+STRBUF  1754
+STREND  1777 unreferenced
+STRLEN  0044
+SWAL    7604
+SWMX    7605
+SWPTR   7337
+SWY9    7606
+SYMCNT  0074
+SYMNUM  0075
+SYSCAT  0063
+SYSEND  3600
+SYSIO   7640
+SYSLEN  0004
+SYSLUP  4005
+SYSMOR  4000
+SYSMSG  3523
+SZAP    1264
+TEMP    0076
+TEMP2   0077
+TENS    2546
+TESTA   3200
+TESTDA  2627
+TESTI   3136
+TESTMP  2622
+TESTN   2610
+TESTP   3144
+TESTR   3334
+TESTS   3430
+TLSIOT  6046
+TOPTR   7315
+TOTEMP  0100
+TOTFIL  0101
+TOTSLT  0102
+TOTSYM  0103
+TRPBLK  0113
+TSFIOT  6041
+TSMSG   2522
+TSTPAR  2634
+TSTUNI  3235 unreferenced
+TTY     0003
+TXTPTR  1170
+UBLURB  2415
+UNIT    0104
+UNITLP  3237
+UNKNMS  2535
+USAGN   4021
+USEND   4032
+VALASC  1000
+VALBIN  1200
+VALID8  0351
+VALSW   0105
+VERSIO  0012
+VZAP    2050
+WASTCN  2173
+WASTE   2174
+WASTES  2153
+WASTLU  2160
+WRDCNT  1362
+XMOVE   2345
+XORCNT  7340
+XORLUP  7235
+XORSWS  0000
+XR1     0010
+XR2     0011
+XR3     0012
+YEAR    3000
+ZAPFF   2736
+ZERO    2557

@@ -1,0 +1,966 @@
+   1               /       BSAVE EXTENDED COMMAND FOR P?S/8
+   2                
+   3               /       LAST EDIT:      05-JAN-1986     10:00:00        CJL
+   4               
+   5               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       THIS PROGRAM IMPLEMENTS THE ABILITY TO SAVE CORE IMAGE ELEMENTS FROM
+   8               /       THE P?S/8 CORE IMAGE AREA (AND ANY RELATED EXTENDED MEMORY AREAS) AS
+   9               /       P?S/8 BINARY FILES.
+  10                
+  11               /       TYPICAL USAGE:
+  12                
+  13               /       A)      .BSAVE BNFILE<0-1777
+  14               
+  15               /       B)      .BSAVE 0-1777>BNFILE
+  16               
+  17               /       RESTRICTIONS:
+  18               
+  19               /       IF USING FORM A), ALL SWITCH OPTIONS (/A) MUST BE PASSED BEFORE THE "<".
+  20               
+  21               /       IF USING FORM B), ALL SWITCH OPTIONS MUST BE PASSED TO THE RIGHT OF THE ">".
+  22               
+  23               /       SINCE BSAVE REQUIRES THE LACK OF INPUT FILES, THE MONITOR COULD PASS A
+  24               /       COMMAND LINE UNSUITABLE FOR USE WITH BSAVE. IN FACT, SINCE THE DEFAULT MODE
+  25               /       OF MONITOR SCANNING IS TO LOOK FOR INPUT FILES (UNTIL A FILE SEPARATOR
+  26               /       CHANGES THE RULES), IT IS EVEN POSSIBLE FOR THE MONITOR TO ISSUE AN ERROR
+  27               /       MESSAGE FOR AN INPUT FILE "NOT FOUND." THIS SITUATION WILL THEREFORE EITHER
+  28               /       BE REJECTED BY THE MONITOR IF THE FILE DID NOT EXIST, OR BY BSAVE ITSELF
+  29               /       MERELY BECAUSE THE COMMAND LINE LACKS OUTPUT FILES.
+  30                
+  31               //      P?S MONITOR DEFINITIONS.
+  32                
+  33                       BINADR= 0020                    /CORE IMAGE STARTS HERE
+  34                       CTCPZAP=2363                    /<^C> PRINTING ZAP ADDRESS
+  35                       CTCZAP= 2365                    /<^C> ZAP ADDRESS
+  36                       DOLBLK= 0040                    /"$" FILE BLOCK
+  37                       FILBEG= 3000                    /FILE CORE ADDRESS
+  38                       GETHAF= 0104                    /GET HALF-WORD
+  39                       GETNDX= 0026                    /GET HALF-WORD INDEX
+  40                       INPBUF= 2477                    /INPUT BUFFER IS HERE
+  41                       INCON=  0031                    /EQUATED FROM CONSOLE!
+  42                       L7=     0177                    /CONSTANT 0007
+  43                       L7600=  0113                    /CONSTANT 7600
+  44                       L7757=  0034                    /CONSTANT 7757
+  45                       L7770=  0040                    /CONSTANT 7770
+  46                       L7772=  0013                    /CONSTANT 7772
+  47                       OUTCON= 0033                    /EQUATED FROM CONSOLE!
+  48                       PBEGIN= 0071                    /POINTER TO MONITOR RESTART
+  49                       PBUTIO= 0161                    /BOOTSTRAP UNIT-ORIENTED I/O ROUTINES
+  50                       PR6BIT= 0047                    /PRINT SIX-BIT ROUTINE
+  51                       PSBTFUN=0167                    /POINTER TO SBTFUN
+  52                       PSCRSIZ=0170                    /POINTER TO SOFTWARE CORE SIZE WORD
+  53                       SBLOCK= 7635                    /SYSTEM LOADER BLOCK ARGUMENT
+  54                       SBOOT=  7600                    /BOOTSTRAP TO HERE
+  55                       SBTFUN= 7602                    /BOOTSTRAP UNIT FUNCTION WORD
+  56                       SCORE=  7633                    /SYSTEM LOADER CORE ARGUMENT
+  57                       SCRIBE= 0171                    /POINTER TO SCRIBE ROUTINE
+  58                       SCRSIZE=7611                    /SOFTWARE CORE SIZE WORD
+  59                       SFILES= 7757                    /PASSED FILES HERE
+  60                       SFUN=   7634                    /SYSTEM LOADER FUNCTION WORD
+  61                       SLOAD=  7632                    /SYSTEM LOADER
+  62                       SOUTFLS=7607                    /NUMBER OF OUTPUT FILES
+  63                       SWAL=   7604                    /A-/L SWITCHES
+  64                       SYSIO=  7640                    /SYSTEM I/O ENTRY
+  65                       SYSTART=7637                    /SYSTEM LOADER STARTUP ADDRESS
+  66                       TTY=    0003                    /CONSOLE DEVICE CODE
+  67                       WRITE=  4000                    /SYSIO WRITE BIT
+  68               
+  69               //      ADDITIONAL DEFINITIONS.
+  70               
+  71                       JMSC=   JMS     .               /CURRENT PAGE JMS INSTRUCTION
+  72                       JMSSYSI=SYSIO&177+JMSC          /CALL TO SYSIO ON ITS PAGE
+  73                       KCCIOT= TTY^10+IOF              /CLEAR KEYBOARD FLAG
+  74                       KRSIOT= TTY^10+GTF              /READ KEYBOARD BUFFER
+  75                       KSFIOT= TTY^10+ION              /SKIP ON KEYBOARD FLAG
+  76                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+  77                       NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+  78                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+  79                       NUBUFFE=7000                    /BUFFER FOR COMMAND
+  80                       SRINST= JMP I   PBEGIN/[BEGIN]  /INSTRUCTION CONSTANT
+  81                       TLRCORE=7200                    /TRAILER BLOCK BUFFER
+  82                       TLSIOT= TTY+1^10+SGT            /OUTPUT TO TELEPRINTER
+  83                       TSFIOT= TTY+1^10+ION            /SKIP ON TELEPRINTER FLAG
+  84                      PAGE    14                      /INITIALLY OVER FILE AREA
+  85                
+  86                       IFNZRO  .&177   <ERROR  .>
+  87               
+  88                       BSAVE=  .                       /BSAVE SYSTEM STARTS HERE
+  89               
+  90 003000  7000  BSAVE,  NOP                             /HERE IN CASE WE'RE CHAINED TO
+  91 003001  1777  BSAVTMP,TAD I   (CTCZAP)                /GET POSSIBLY ZAPPED INSTRUCTION
+  92 003002  1376          TAD     (-SRINST)               /COMPARE TO POSSIBLE VALUE
+  93 003003  7640          SZA CLA                         /SKIP IF IT MATCHES
+  94 003004  5213          JMP     BSAVOK                  /JUMP IF NOT
+  95 003005  1375          TAD     (JMP I  L7600/[SBOOT])  /GET REPLACEMENT VALUE
+  96 003006  3777          DCA I   (CTCZAP)                /ZAP IT IN
+  97 003007  7326          NL0002                          /SETUP "C" BIT MASK
+  98 003010  0570          AND I   PSCRSIZE/[SCRSIZE]      /GET THE BIT
+  99 003011  7640          SZA CLA                         /SKIP IF OFF
+ 100 003012  3774          DCA I   (CTCPZAP)               /ELSE PREVENT EXTRA <^C>
+ 101 003013  4504  BSAVOK, JMS I   GETHAF/[XGETHAF]        /GET DELIMITER
+ 102 003014  7440          SZA                             /SKIP IF <EOL>
+ 103 003015  1373          TAD     (-">!200)               /COMPARE TO OTHER POSSIBLE DELIMITER
+ 104 003016  7650          SNA CLA                         /SKIP IF NEITHER
+ 105 003017  5772          JMP I   (NOSPECS)               /ELSE COMPLAIN
+ 106 003020  1771          TAD I   (SOUTFLS)               /GET OUTPUT FILE COUNT
+ 107 003021  7450          SNA                             /SKIP IF SOME
+ 108 003022  5770          JMP I   (NOFILES)               /ELSE COMPLAIN
+ 109 003023  1034          TAD     L7757/[7757]            /UPDATE FILE POINTER
+ 110 003024  3201          DCA     BSAVTMP                 /SAVE POINTER TO FIRST INPUT FILE
+ 111 003025  3601          DCA I   BSAVTMP                 /DESTROY INPUT FILES
+ 112 003026  1725  BDFLCHK,TAD I   BFLPTR                  /GET A FILE ARGUMENT
+ 113 003027  7450          SNA                             /END OF LIST?
+ 114 003030  5250          JMP     NONEBAD                 /YES, WE'RE DONE
+ 115 003031  7041          CIA                             /NO, INVERT FOR TESTING
+ 116 003032  1567          TAD I   PSBTFUN/[SBTFUN]        /COMPARE TO BOOTSTRAP UNIT
+ 117 003033  0177          AND     L7/[7]                  /JUST UNIT BITS
+ 118 003034  7640          SZA CLA                         /SKIP IF IT MATCHES
+ 119 003035  5246          JMP     FILGOOD                 /JUMP IF NOT
+ 120 003036  1725          TAD I   BFLPTR                  /GET THE FILE ARGUMENT AGAIN
+ 121 003037  0040          AND     L7770/[7770]            /JUST BLOCK BITS
+ 122 003040  1367          TAD     (-BINADR)               /COMPARE TO % FILE
+ 123 003041  7450          SNA                             /SKIP IF OTHER
+ 124 003042  5766          JMP I   (BADPERCENT)            /JUMP IF IT MATCHES
+ 125 003043  1367          TAD     (-DOLBLK+BINADR)        /COMPARE TO $ FILE
+ 126 003044  7650          SNA CLA                         /SKIP IF OTHER
+ 127 003045  5765          JMP I   (BADOLR)                /JUMP IF IT MATCHES
+ 128 003046  2325  FILGOOD,ISZ     BFLPTR                  /BUMP TO NEXT FILE
+ 129 003047  5226          JMP     BDFLCHK                 /GO CHECK NEXT ONE
+ 130 003050  4561  NONEBAD,JMS I  PBUTIO/[BUTIO]  /CALL I/O ROUTINES
+ 131 003051  6600          TLRCORE-400             /TO READ IN TAIL END OF SAVED FIELD ZERO
+ 132 003052  0300          3^100                   /WANT 7200-7577 AND IMAGE OF 7600-7777
+ 133 003053  0055          BINADR+35               /BLOCK NUMBER
+ 134 003054  1764          TAD I   (SWAL)          /GET SWITCHES /A-/L
+ 135 003055  7710          SPA CLA                 /SKIP IF /A NOT SET
+ 136 003056  5274          JMP     MOVBSAVE        /JUMP IF /A SET
+ 137 003057  1567          TAD I   PSBTFUN/[SBTFUN]/GET BOOTSTRAP UNIT WORD
+ 138 003060  0177          AND     L7/[7]          /JUST UNIT BITS
+ 139 003061  1763          TAD I   (SFUN+SCOFF)    /ADD ON WRITE FUNCTION
+ 140 003062  3763          DCA I   (SFUN+SCOFF)    /STORE BACK
+ 141 003063  1762  TESTCI, TAD I   (SLOAD+SCOFF)   /GET EXPECTED WORD
+ 142 003064  7041          CIA                     /INVERT FOR TESTING
+ 143 003065  1726          TAD I   DATAPTR         /GET ACTUAL VALUE
+ 144 003066  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 145 003067  5761          JMP I   (BADCORE)       /JUMP IF NOT
+ 146 003070  2362          ISZ     (SLOAD+SCOFF)   /BUMP TO NEXT EXPECTED WORD
+ 147 003071  2326          ISZ     DATAPTR         /BUMP TO NEXT ACTUAL WORD
+ 148 003072  2013          ISZ     L7772/[-6]      /DONE ALL YET?
+ 149 003073  5263          JMP     TESTCI          /NO, KEEP GOING
+ 150 003074  4760  MOVBSAV,JMS I   (BSMOVE)        /CALL MOVE ROUTINE
+ 151 003075  6600          TLRCORE-400             /MOVE IMAGE OF 7200-7577
+ 152 003076  7200          TLRCORE                 /TO 7200-7577
+ 153 003077  7400          -400                    /MOVE LENGTH
+ 154 003100  1026          TAD     GETNDX          /GET CURRENT SCAN INDEX
+ 155 003101  3757          DCA I   (BGETNDX+LW)    /STORE IN MAIN BSAVE CODE
+ 156 003102  4760          JMS I   (BSMOVE)        /CALL MOVE ROUTINE
+ 157 003103  3400          LW                      /MOVE BSAVE CODE FROM HERE
+ 158 003104  0000          0000                    /TO WHERE IT BELONGS
+ 159 003105  7000          -4^200                  /MOVE LENGTH
+ 160 003106  4760          JMS I   (BSMOVE)        /CALL MOVE ROUTINE
+ 161 003107  2477          INPBUF                  /MOVE ENTIRE COMMAND BUFFER
+ 162 003110  7000          NUBUFFER                /TO SAVE BUFFER AFTER FILE IMAGE
+ 163 003111  7677          -INPBUF&7600+INPBUF     /MOVE LENGTH
+ 164 003112  1763          TAD I   (SFUN+SCOFF)    /GET BOOTSTRAP UNIT WITH WRITE BIT SET
+ 165 003113  1043          TAD     BSFUN           /ADD ON FUNCTION WITH WRITE BIT SET WHICH CANCELS
+ 166 003114  3043          DCA     BSFUN           /STORE BACK READ FUNCTION WITH BOOTSTRAP UNIT BITS SET
+ 167 003115  1513          TAD I   L7600/[SBOOT]   /GET BOOTSTRAP INSTRUCTION
+ 168 003116  1356          TAD     (-JMSSYSIO)     /COMPARE TO POSSIBLE VALUE
+ 169 003117  7650          SNA CLA                 /SKIP IF DIFFERENT
+ 170 003120  5755          JMP I   (CHKCOVERLAY)   /JUMP IF IT MATCHES
+ 171 003121  2072          ISZ     CHKKRS          /TURN "KRSIOT"
+ 172 003122  2072          ISZ     CHKKRS          /INTO "KRBIOT"
+ 173 003123  3103          DCA     CHKKCC          /DESTROY "KCCIOT"
+ 174 003124  5755          JMP I   (CHKCOVERLAY)   /CONTINUE THERE
+ 175               
+ 176 003125  7757  BFLPTR, SFILES                  /FILE POINTER
+ 177 003126  7232  DATAPTR,SLOAD&177+TLRCORE       /WHERE TEST VALUES ARE
+ 178 003155  3206         PAGE
+     003156  3540  
+     003157  3766  
+     003160  3260  
+     003161  3234  
+     003162  3200  
+     003163  3202  
+     003164  7604  
+     003165  3240  
+     003166  3244  
+     003167  7760  
+     003170  3250  
+     003171  7607  
+     003172  3254  
+     003173  7702  
+     003174  2363  
+     003175  5513  
+     003176  2307  
+     003177  2365  
+ 179               /      EXPECTED IMAGE OF SYSTEM LOADER IN SAVED CORE IMAGE FILE.
+ 180               
+ 181               SCODE,  RELOC   SLOAD           /WHERE THIS APPEARS TO BE
+ 182               
+ 183                       SCOFF=  SCODE-SLOAD     /RELOCATION DEFINITION
+ 184                
+ 185 007632* 4240  SLOAD,  JMS     SYSIO           /\
+ 186 007633* 0000  SCORE,  0                       / \SAVE ALL
+ 187 007634* 4000  SFUN,   WRITE+.-.               / /OF CORE
+ 188 007635* 0020  SBLOCK, BINADR                  //
+ 189 007636* 5637          JMP I   SYSTART         /THEN
+ 190 007637* 7600  SYSTART,SBOOT                   /BOOTSTRAP
+ 191                
+ 192                       RELOC                   /BACK TO WHERE WE WERE
+ 193               
+ 194 003206  7326  CHKCOVR,NL0002                  /SETUP "C" BIT MASK
+ 195 003207  0570          AND I   PSCRSIZ/[SCRSIZ]/GET THE "C" BIT
+ 196 003210  7650          SNA CLA                 /SKIP IF CONSOLE OVERLAY PRESENT
+ 197 003211  5777          JMP I   (BSAVESTART)    /GO START IT UP NOW IF NOT
+ 198 003212  1570          TAD I   PSCRSIZ/[SCRSIZ]/GET THE CORE SIZE WORD
+ 199 003213  7012          RTR;RAR                 /MOVE OVER AND
+     003214  7010  
+ 200 003215  0376          AND     (70)            /ISOLATE MCS BITS
+ 201 003216  1375          TAD     (CIF    10)     /TURN INTO CIF MCS+10
+ 202 003217  3061          DCA     P7TSF           /STORE OVER "TSFIOT"
+ 203 003220  1062          TAD     P7JMP           /GET "JMP P7AGN"
+ 204 003221  3063          DCA     P7TLS           /STORE OVER "TLSIOT"
+ 205 003222  1374          TAD     (JMS    OUTCON) /GET OUTPUT CALL INSTRUCTION
+ 206 003223  3062          DCA     P7JMP           /STORE OVER "JMP P7AGN"
+ 207 003224  1061          TAD     P7TSF           /GET "CIF MCS+10" AGAIN
+ 208 003225  3070          DCA     CHKKSF          /STORE OVER "KSFIOT"
+ 209 003226  1071          TAD     CHKJMP          /GET "JMP I CTLCTST"
+ 210 003227  3072          DCA     CHKKRS          /STORE OVER "KRSIOT" (OR "KRBIOT")
+ 211 003230  1373          TAD     (JMS    INCON)  /GET INPUT CALL INSTRUCTION
+ 212 003231  3071          DCA     CHKJMP          /STORE OVER "JMP I CTLCTST"
+ 213 003232  3103          DCA     CHKKCC          /DESTROY "KCCIOT"
+ 214 003233  5777          JMP I   (BSAVESTART)    /GO START IT UP
+ 215               
+ 216               /       COMES HERE IF CORE IMAGE VALIDATES INCORRECTLY.
+ 217                
+ 218 003234  4447  BADCORE,JMS I   PR6BIT/[XPR6BIT]/DO A <CR>, <LF>
+ 219 003235  4571          JMS I   SCRIBE/[XSCRIBE]/TELL THEM
+ 220 003236  3276          BDCRMSG                 /THEY SHOULD USE /A
+ 221 003237  5513          JMP I   L7600/[SBOOT]   /GOODBYE
+ 222               
+ 223               /       COMES HERE IF $:[BOOTSTRAP UNIT] WAS PASSED AS A FILE.
+ 224               
+ 225 003240  4447  BADOLR, JMS I   PR6BIT/[XPR6BIT]/DO A <CR>, <LF>
+ 226 003241  4571          JMS I   SCRIBE/[XSCRIBE]/TELL THEM
+ 227 003242  3311          BDLRMSG                 /YOU CAN'T DO THAT!
+ 228 003243  5513          JMP I   L7600/[SBOOT]   /GOODBYE
+ 229               /      COMES HERE IF %:[BOOTSTRAP UNIT] WAS PASSED AS A FILE.
+ 230               
+ 231 003244  4447  BADPERC,JMS I   PR6BIT/[XPR6BIT]/DO A <CR>, <LF>
+ 232 003245  4571          JMS I   SCRIBE/[XSCRIBE]/TELL THEM
+ 233 003246  3326          BDPRMSG                 /YOU CAN'T DO THAT EITHER!
+ 234 003247  5513          JMP I   L7600/[SBOOT]   /GOODBYE
+ 235                
+ 236 003250  4447  NOFILES,JMS I   PR6BIT/[XPR6BIT]/DO A <CR>, <LF>
+ 237 003251  4571          JMS I   SCRIBE/[XSCRIBE]/TELL THEM
+ 238 003252  3343          NFLSMSG                 /WE NEED FILES TOO!
+ 239 003253  5513          JMP I   L7600/[SBOOT]   /GOODBYE
+ 240               
+ 241 003254  4447  NOSPECS,JMS I   PR6BIT/[XPR6BIT]/DO A <CR>, <LF>
+ 242 003255  4571          JMS I   SCRIBE/[XSCRIBE]/TELL THEM
+ 243 003256  3353          NSPCMSG                 /THEY FORGOT
+ 244 003257  5513          JMP I   L7600/[SBOOT]   /GOODBYE!
+ 245               
+ 246 003260  0000  BSMOVE, .-.                     /MOVE ROUTINE
+ 247 003261  1660          TAD I   BSMOVE          /GET "FROM" ARGUMENT
+ 248 003262  3367          DCA     BSMTM1          /SAVE IT
+ 249 003263  2260          ISZ     BSMOVE          /BUMP TO NEXT
+ 250 003264  1660          TAD I   BSMOVE          /GET "TO" ARGUMENT
+ 251 003265  3370          DCA     BSMTM2          /SAVE IT
+ 252 003266  2260          ISZ     BSMOVE          /BUMP TO NEXT
+ 253 003267  1767  BSMVLP, TAD I   BSMTM1          /GET A WORD
+ 254 003270  3770          DCA I   BSMTM2          /PUT A WORD
+ 255 003271  2367          ISZ     BSMTM1          /BUMP
+ 256 003272  2370          ISZ     BSMTM2          /POINTERS
+ 257 003273  2660          ISZ I   BSMOVE          /DONE YET?
+ 258 003274  5267          JMP     BSMVLP          /NO, GO BACK
+ 259 003275  5660          JMP I   BSMOVE          /RETURN
+ 260               /      ERROR MESSAGES.
+ 261               
+ 262 003276  1116  BDCRMSG,TEXT    "INVALID MEMORY IMAGE!"
+     003277  2601  
+     003300  1411  
+     003301  0440  
+     003302  1505  
+     003303  1517  
+     003304  2231  
+     003305  4011  
+     003306  1501  
+     003307  0705  
+     003310  4100  
+ 263 003311  4440  BDLRMSG,TEXT    "$ ILLEGAL AS OUTPUT FILE!"
+     003312  1114  
+     003313  1405  
+     003314  0701  
+     003315  1440  
+     003316  0123  
+     003317  4017  
+     003320  2524  
+     003321  2025  
+     003322  2440  
+     003323  0611  
+     003324  1405  
+     003325  4100  
+ 264 003326  4540  BDPRMSG,TEXT    "% ILLEGAL AS OUTPUT FILE!"
+     003327  1114  
+     003330  1405  
+     003331  0701  
+     003332  1440  
+     003333  0123  
+     003334  4017  
+     003335  2524  
+     003336  2025  
+     003337  2440  
+     003340  0611  
+     003341  1405  
+     003342  4100  
+ 265 003343  1617  NFLSMSG,TEXT    "NO OUTPUT FILES"
+     003344  4017  
+     003345  2524  
+     003346  2025  
+     003347  2440  
+     003350  0611  
+     003351  1405  
+     003352  2300  
+ 266 003353  1617  NSPCMSG,TEXT   "NO SPECIFICATIONS GIVEN"
+     003354  4023  
+     003355  2005  
+     003356  0311  
+     003357  0611  
+     003360  0301  
+     003361  2411  
+     003362  1716  
+     003363  2340  
+     003364  0711  
+     003365  2605  
+     003366  1600  
+ 267               
+ 268 003367  0000  BSMTM1, .-.                     /TEMPORARY
+ 269 003370  0000  BSMTM2, .-.                     /TEMPORARY
+ 270               
+ 271 003373  4031          PAGE
+     003374  4033  
+     003375  6212  
+     003376  0070  
+     003377  0600  
+ 272               LW,    RELOC   0               /WHERE THIS WILL BE MOVED TO
+ 273               
+ 274                       *0                      /START AT THE BEGINNING
+ 275               
+ 276 000000* 0000  ADDRESS,.-.                     /WORD ADDRESS
+ 277 000001* 6201  CURFLD, CDF     00              /CURRENT FIELD
+ 278 000002* 0000  EOFBIT, .-.                     /<EOF> OR FIELD BIT
+ 279 000003* 0000  INCHAR, .-.                     /INPUT BUFFER
+ 280 000004* 0000  OLDBLK, .-.                     /PREVIOUS VIRTUAL BLOCK
+ 281 000005* 0000  P7TEMP, .-.                     /PRINTING TEMPORARY
+ 282 000006* 0000  TEMP,   .-.                     /TEMPORARY
+ 283 000007* 0000  TOTAL,  .-.                     /DIGIT COUNTER
+ 284               
+ 285                       *10                     /GET TO AUTO-INDEX AREA
+ 286               
+ 287 000010* 0000  XR1,    .-.                     /AUTO-INDEX NUMBER 1
+ 288               
+ 289                       *20                     /GET PAST AUTO-INDEX AREA
+ 290               
+ 291 000020* 0000  VLOAD,  .-.                     /VIRTUAL LOAD ROUTINE
+ 292 000021* 1000          TAD     ADDRESS         /GET ADDRESS
+ 293 000022* 7100          CLL                     /CLEAR LINK FOR TEST
+ 294 000023* 1177          TAD     [-TLRCORE]      /ADD ON VIRTUAL LIMIT
+ 295 000024* 7630          SZL CLA                 /SKIP IF VIRTUAL NEEDED
+ 296 000025* 5420          JMP I   VLOAD           /RETURN IF REALLY THERE
+ 297 000026* 1000          TAD     ADDRESS         /\
+ 298 000027* 7106          CLL RTL                 / \
+ 299 000030* 7006          RTL                     /  \TRANSLATE PAGE
+ 300 000031* 0176          AND     [6]             /  /TO BLOCK OFFSET
+ 301 000032* 7106          CLL RTL                 / /
+ 302 000033* 1175          TAD     [BINADR]        //
+ 303 000034* 3044          DCA     CURBLK          /SAVE AS CURRENT
+ 304 000035* 1044          TAD     CURBLK          /\
+ 305 000036* 1004          TAD     OLDBLK          / \CHECK IF SAME AS PREVIOUS
+ 306 000037* 7650          SNA CLA                 / /SET OF BLOCKS NOW IN CORE
+ 307 000040* 5050          JMP     FINADR          //
+ 308 000041* 4574          JMS I   [SYSIO]         /READ IN NEW BLOCKS
+ 309 000042* 1000  CORBUFF,1000                    /FROM THIS ADDRESS
+ 310 000043* 5000  BSFUN,  10^100+.-.+WRITE        /READ QUARTER OF MEMORY; UNIT BITS WILL BE FILLED IN
+ 311 000044* 0000  CURBLK, .-.                     /THIS BLOCK
+ 312 000045* 1044          TAD     CURBLK          /\
+ 313 000046* 7041          CIA                     / >SETUP CURRENT FOR COMPARISONS TO OTHERS
+ 314 000047* 3004          DCA     OLDBLK          //
+ 315 000050* 1000  FINADR, TAD     ADDRESS         /\
+ 316 000051* 0173          AND     [1777]          / \SETUP THE ACTUAL
+ 317 000052* 1042          TAD     CORBUFFER       / /LOADED ADDRESS
+ 318 000053* 3000          DCA     ADDRESS         //
+ 319 000054* 5420          JMP I   VLOAD           /RETURN
+ 320 000055* 0000  P7CH,  .-.                     /SEVEN-BIT PRINT ROUTINE
+ 321 000056* 3005          DCA     P7TEMP          /STASH PASSED VALUE
+ 322 000057* 4572  P7AGN,  JMS I   [CHKUP]         /CHECK FOR <^C>, ETC.
+ 323 000060* 1005          TAD     P7TEMP          /GET THE VALUE
+ 324 000061* 6041  P7TSF,  TSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 325 000062* 5057  P7JMP,  JMP     P7AGN           /**** CONSOLE **** JMS OUTCON
+ 326 000063* 6046  P7TLS,  TLSIOT                  /**** CONSOLE **** JMP P7AGN
+ 327 000064* 4572          JMS I   [CHKUP]         /CHECK FOR <^C>, ETC.
+ 328 000065* 5455          JMP I   P7CH            /RETURN
+ 329               
+ 330 000066* 0000  CTLCTST,.-.                     /CHECK FOR <^C> ROUTINE
+ 331 000067* 7200          CLA                     /CLEAN UP
+ 332 000070* 6031  CHKKSF, KSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 333 000071* 5466  CHKJMP, JMP I   CTLCTST         /**** CONSOLE **** JMS INCON
+ 334 000072* 6034  CHKKRS, KRSIOT/OR KRBIOT        /**** CONSOLE **** JMP I CTLCTST
+ 335 000073* 0171          AND     [177]           /JUST SEVEN BITS
+ 336 000074* 3003          DCA     INCHAR          /STASH THE CHARACTER
+ 337 000075* 7346          NL7775                  /-3
+ 338 000076* 1003          TAD     INCHAR          /COMPARE INPUT TO <^C>
+ 339 000077* 7450          SNA                     /SKIP IF OTHER
+ 340 000100* 2570          ISZ I   [SCRSIZE]       /ELSE SET SOFT INDICATOR
+ 341 000101* 7750          SPA SNA CLA             /SKIP IF <^D> OR GREATER
+ 342 000102* 5567          JMP I   [SBOOT]         /ELSE GOODBYE
+ 343 000103* 6032  CHKKCC, KCCIOT/OR 0000          /**** CONSOLE **** 0000
+ 344 000104* 1003          TAD     INCHAR          /GET THE CHARACTER
+ 345 000105* 5466          JMP I   CTLCTST         /RETURN
+ 346                      PAGE
+ 347                
+ 348 000200* 1373  MUCHO,  TAD     OLDHIGH         /\
+ 349 000201* 7041          CIA                     / >COMPARE FIELDS
+ 350 000202* 1370          TAD     HIGH            //
+ 351 000203* 7640          SZA CLA                 /SKIP IF SAME FIELD
+ 352 000204* 5777          JMP I   (SYNERR)        /JUMP IF DIFFERENT
+ 353 000205* 1371          TAD     LOW             /\
+ 354 000206* 7040          CMA                     / >SETUP WORD COUNT
+ 355 000207* 1374          TAD     OLDLOW          //
+ 356 000210* 5235          JMP     MUCHIN          /FINISH UP THERE
+ 357                
+ 358 000211* 1375  DBLSPEC,TAD     PAIRSW          /MULTIPLE SPECIFICATION?
+ 359 000212* 7650          SNA CLA                 /SKIP IF YES
+ 360 000213* 4566          JMS I   [CHKDIGITS]     /NO, CHECK IF ANY DIGITS
+ 361 000214* 5777          JMP I   (SYNERR)        /BARF
+ 362 000215* 1371          TAD     LOW             /\
+ 363 000216* 3374          DCA     OLDLOW          / \SAVE THE
+ 364 000217* 1370          TAD     HIGH            / /PREVIOUS
+ 365 000220* 3373          DCA     OLDHIGH         //
+ 366 000221* 2375          ISZ     PAIRSW          /INDICATE DUAL LIMITS
+ 367 000222* 5300          JMP     SPECIN          /GET SECOND VALUES
+ 368                
+ 369 000223* 2367  SCLOSE, ISZ     CLOSEW          /DONE YET?
+ 370 000224* 5565          JMP I   [BCLOSE]        /YES, CLOSE FILE
+ 371 000225* 4566  EOSPEC, JMS I   [CHKDIGITS]     /ANY DIGITS?
+ 372 000226* 5275          JMP     GETSPEC         /NO, IGNORE COMMAS AND SPACES
+ 373 000227* 1375          TAD     PAIRSW          /DUAL SPECIFICATION?
+ 374 000230* 7640          SZA CLA                 /SKIP IF NOT
+ 375 000231* 5200          JMP     MUCHO           /JUMP IF SO
+ 376 000232* 1371          TAD     LOW             /USE CURRENT
+ 377 000233* 3374          DCA     OLDLOW          /AS ONLY SPECIFICATION
+ 378 000234* 7240          NL7777                  /USE 1 WORD
+ 379 000235* 3376  MUCHIN, DCA     WCOUNT          /AS COUNT
+ 380 000236* 1370          TAD     HIGH            /GET FIELD
+ 381 000237* 3373          DCA     OLDHIGH         /SAVE FOR ADDRESS CHECK
+ 382 000240* 1373          TAD     OLDHIGH         /GET AGAIN
+ 383 000241* 1164          TAD     [CDF]           /MAKE INTO CDF INSTRUCTION
+ 384 000242* 3001          DCA     CURFLD          /USE AS CURRENT FIELD
+ 385 000243* 4563          JMS I   [DANGIT]        /CHECK IF FULL
+ 386 000244* 7321          CLA STL IAC             /SETUP FOR
+ 387 000245* 3002          DCA     EOFBIT          /FIELD SETTING
+ 388 000246* 1001          TAD     CURFLD          /GET CURRENT FIELD
+ 389 000247* 4562          JMS I   [BINOUT]        /PUNCH IT OUT
+ 390 000250* 3002          DCA     EOFBIT          /CLEAR IT
+ 391 000251* 4563          JMS I   [DANGIT]        /FULL?
+ 392 000252* 7120          STL                     /INDICATE ORIGIN
+ 393 000253* 1374          TAD     OLDLOW          /GET LOWER LIMIT
+ 394 000254* 4562          JMS I   [BINOUT]        /PUNCH IT
+ 395 000255* 4563  PUNLUP,        JMS I   [DANGIT]        /CHECK IF FULL
+ 396 000256* 1374          TAD     OLDLOW          /SETUP
+ 397 000257* 3000          DCA     ADDRESS         /ADDRESS WORD
+ 398 000260* 1373          TAD     OLDHIGH         /EXTENDED MEMORY?
+ 399 000261* 7450          SNA                     /SKIP IF SO
+ 400 000262* 4020          JMS     VLOAD           /NO, DO A VIRTUAL LOAD
+ 401 000263* 1164          TAD     [CDF]           /ADD ON CDF INSTRUCTION
+ 402 000264* 3265          DCA     FLDCHNG         /PUT IN-LINE
+ 403 000265* 0000  FLDCHNG,.-.                     /EXECUTE CDF INSTRUCTION
+ 404 000266* 1400          TAD I   ADDRESS         /GET LOW WORD
+ 405 000267* 7100          CLL                     /INDICATE DATA
+ 406 000270* 4562          JMS I   [BINOUT]        /PUNCH IT
+ 407 000271* 2374          ISZ     OLDLOW          /BUMP ADDRESS
+ 408 000272* 4572          JMS I   [CHKUP]         /CHECK FOR <^C>, ETC.
+ 409 000273* 2376          ISZ     WCOUNT          /DONE YET?
+ 410 000274* 5255          JMP     PUNLUP          /NO, GO BACK
+ 411                
+ 412               /       STARTS UP HERE AFTER CLEARING THE BUFFER.
+ 413               
+ 414 000275* 3374  GETSPEC,DCA     OLDLOW          /CLEAR LOWER
+ 415 000276* 3373          DCA     OLDHIGH         /CLEAR FIELD
+ 416 000277* 3375          DCA     PAIRSW          /CLEAR DUAL SWITCH
+ 417 000300* 3371  SPECIN, DCA     LOW             /CLEAR VALUE
+ 418 000301* 3370          DCA     HIGH            /TEMPORARIES
+ 419 000302* 1161          TAD     [-6]            /RESET
+ 420 000303* 3007          DCA     TOTAL           /DIGIT COUNT
+ 421 000304* 1366  NXTCHAR,TAD    BGETNDX                 /GET INDEX
+ 422 000305* 7110          CLL RAR                         /SHIFT OVER
+ 423 000306* 1160          TAD     [NUBUFFER]              /ADD ON BASE
+ 424 000307* 3006          DCA     TEMP                    /SAVE IT
+ 425 000310* 1406          TAD I   TEMP                    /GET PAIR
+ 426 000311* 7430          SZL                             /RIGHT HALF?
+ 427 000312* 5316          JMP     .+4                     /YES
+ 428 000313* 7012          RTR;RTR;RTR                     /MOVE OVER
+     000314* 7012  
+     000315* 7012  
+ 429 000316* 0157          AND     [77]                    /JUST SIX-BIT
+ 430 000317* 7440          SZA                             /SKIP IF <EOL>
+ 431 000320* 1156          TAD     [-">!200]               /ELSE COMPARE TO ">"
+ 432 000321* 7450          SNA                             /SKIP IF NEITHER
+ 433 000322* 5223          JMP     SCLOSE                  /JUMP IF IT MATCHES ONE OF THE TWO CASES
+ 434 000323* 2366          ISZ     BGETNDX                 /BUMP TO NEXT
+ 435 000324* 1155          TAD     [-",+">]                /COMPARE TO ","
+ 436 000325* 7440          SZA                             /SKIP IF IT MATCHES
+ 437 000326* 1154          TAD     [-" +",]                /ELSE COMPARE TO <SPACE>
+ 438 000327* 7440          SZA                             /SKIP IF IT MATCHES
+ 439 000330* 7001          IAC     /TAD    (-37+" -200)    /ELSE COMPARE TO <HT>
+ 440 000331* 7450          SNA                             /SKIP IF OTHERWISE
+ 441 000332* 5225          JMP     EOSPEC                  /JUMP IF SPACING CHARACTER
+ 442 000333* 1153          TAD     [-"-+237]               /COMPARE TO "-"
+ 443 000334* 7450          SNA                             /SKIP IF OTHER
+ 444 000335* 5211          JMP     DBLSPEC                 /JUMP IF IT MATCHES
+ 445 000336* 1152          TAD     [-"8+"-]                /ADD ON DIGIT LIMIT
+ 446 000337* 7100          CLL                             /CLEAR LINK FOR TEST
+ 447 000340* 1151          TAD     ["8-"0]                 /ADD DIGIT RANGE
+ 448 000341* 7420          SNL                             /SKIP IF DIGIT
+ 449 000342* 5777          JMP I   (SYNERR)                /BARF
+ 450 000343* 3006          DCA     TEMP                    /SAVE STRIPPED DIGIT
+ 451 000344* 7346          NL7775                          /-3
+ 452 000345* 3372          DCA     NUMTEMP                 /TO SHIFT COUNT
+ 453 000346* 1371  DBLROT, TAD     LOW                     /GET LOW ORDER
+ 454 000347* 7104          CLL RAL                         /SHIFT ONE BIT OVER
+ 455 000350* 3371          DCA     LOW                     /SAVE IT BACK
+ 456 000351* 7006          RTL;RAL                         /ROTATE OVERFLOW BIT TO AC[9]
+     000352* 7004  
+ 457 000353* 1370          TAD     HIGH                    /GET HIGH ORDER
+ 458 000354* 7004          RAL                             /ROTATE TOGETHER
+ 459 000355* 3370          DCA     HIGH                    /SAVE IT BACK
+ 460 000356* 2372          ISZ     NUMTEMP                 /DONE THREE YET?
+ 461 000357* 5346          JMP     DBLROT                  /NO, GO BACK
+ 462 000360* 1371          TAD     LOW                     /GET LOW ORDER
+ 463 000361* 1006          TAD     TEMP                    /SHOVE LATEST DIGIT IN
+ 464 000362* 3371          DCA     LOW                     /SAVE IT BACK
+ 465 000363* 2007          ISZ     TOTAL                   /TOO MANY DIGITS?
+ 466 000364* 5304          JMP     NXTCHAR                 /NO, KEEP GOING
+ 467 000365* 5777          JMP I   (SYNERR)                /YES, COMPLAIN THERE
+ 468 000366* 0000  BGETNDX,.-.                    /GET HALF-WORD INDEX
+ 469 000367* 7777  CLOSEW, -1                      /CLOSE SWITCH
+ 470 000370* 0000  HIGH,   .-.                     /FIELD SPECIFICATION
+ 471 000371* 0000  LOW,    .-.                     /LOWER ADDRESS SPECIFICATION
+ 472 000372* 0000  NUMTEMP,.-.                     /TEMPORARY
+ 473 000373* 0000  OLDHIGH,.-.                     /PREVIOUS FIELD SPECIFICATION
+ 474 000374* 0000  OLDLOW, .-.                     /PREVIOUS LOWER SPECIFICATION
+ 475 000375* 0000  PAIRSW, .-.                     /DUAL SPECIFICATION SWITCH
+ 476 000376* 0000  WCOUNT, .-.                     /WORD COUNTER
+ 477               
+ 478 000377* 0602          PAGE
+ 479 000400* 0000  BINOUT,        .-.                     /BINARY FILE OUTPUT
+ 480 000401* 6201          CDF     00              /MAKE SURE FIELD 0
+ 481 000402* 3006          DCA     TEMP            /SAVE IT
+ 482 000403* 1002          TAD     EOFBIT          /GET FLAG BITS
+ 483 000404* 7640          SZA CLA                 /SKIP IF NORMAL
+ 484 000405* 5214          JMP     BNCOMMON        /FIELD SETTING
+ 485 000406* 1006          TAD     TEMP            /RESTORE VALUE
+ 486 000407* 7430          SZL                     /DATA?
+ 487 000410* 3355          DCA     CURORG          /NO, ORIGIN
+ 488 000411* 7620          SNL CLA                 /SKIP IF ORIGIN
+ 489 000412* 2355          ISZ     CURORG          /BUMP TO NEXT IF DATA
+ 490 000413* 0540  BCC1,   TEXT    "E "            /HERE JUST IN CASE IT SKIPS
+ 491 000414* 1006  BNCOMMO,TAD     TEMP            /GET BACK VALUE
+ 492 000415* 3410          DCA I   XR1             /PUT INTO BUFFER
+ 493 000416* 1357          TAD     FLAGS           /\
+ 494 000417* 7006          RTL                     / \UPDATE FLAGS
+ 495 000420* 1002          TAD     EOFBIT          / /ACCORDINGLY
+ 496 000421* 3357          DCA     FLAGS           //
+ 497 000422* 7420          SNL                     /DONE A GROUP YET?
+ 498 000423* 5600          JMP I   BINOUT          /NO, JUST RETURN
+ 499 000424* 1010          TAD     XR1             /\
+ 500 000425* 1161          TAD     [-6]            / \
+ 501 000426* 3006          DCA     TEMP            /  >PUT AWAY COMPLETED FLAG WORD
+ 502 000427* 1357          TAD     FLAGS           / /
+ 503 000430* 3406          DCA I   TEMP            //
+ 504 000431* 2010          ISZ     XR1             /BUMP PAST FLAG WORD FOR NEXT
+ 505 000432* 2360          ISZ     GRPCNT          /DONE 22 GROUPS YET?
+ 506 000433* 5274          JMP     NEWFLAG         /NO
+ 507 000434* 2010          ISZ     XR1             /BUMP PAST
+ 508 000435* 2010          ISZ     XR1             /DUMMY WORDS
+ 509 000436* 1377          TAD     (-22)           /RESET
+ 510 000437* 3360          DCA     GRPCNT          /GROUP COUNT
+ 511 000440* 2352          ISZ     BLKCNT          /FILE DONE?
+ 512 000441* 5274          JMP     NEWFLAG         /NO
+ 513 000442* 2354          ISZ     BSFLPTR         /BUMP TO NEXT FILE
+ 514 000443* 1754          TAD I   BSFLPTR         /GET NEXT FILE
+ 515 000444* 0376          AND     (7770)          /JUST BLOCK BITS
+ 516 000445* 7450          SNA                     /EOF?
+ 517 000446* 5775          JMP I   (TOMANY)        /YES, COMPLAIN
+ 518 000447* 3257          DCA     BLOCK           /SAVE IN-LINE
+ 519 000450* 1754          TAD I   BSFLPTR         /GET FILE AGAIN
+ 520 000451* 0374          AND     (7)             /JUST UNIT BITS
+ 521 000452* 1373          TAD     (20^100+WRITE)  /ADD ON WRITE FUNCTION
+ 522 000453* 3256          DCA     BWFUN           /SAVE IN-LINE
+ 523 000454* 4574          JMS I   [SYSIO]         /\
+ 524 000455* 3000  FILCORE,FILBEG                  / \WRITE OUT
+ 525 000456* 6000  BWFUN,  20^100+WRITE+.-.        / /THE FILE
+ 526 000457* 7777  BLOCK,  -1                      //
+ 527 000460* 2353         ISZ     BNMFLS          /SKIP IF FIRST FILE
+ 528 000461* 1372          TAD     (-" +"S-100)    /ELSE ADD ON "S"
+ 529 000462* 1213          TAD     BCC1/('E )      /TO BLURB
+ 530 000463* 3343          DCA     BFLNUM+3        /PUT IN NICE MESSAGE
+ 531 000464* 2340          ISZ     BFLNUM          /\
+ 532 000465* 1340          TAD     BFLNUM          / \
+ 533 000466* 0150          AND     [12]            /  \
+ 534 000467* 1371          TAD     (-12)           /   \UPDATE NUMBER OF
+ 535 000470* 7650          SNA CLA                 /   /OUTPUTTED FILES
+ 536 000471* 1370          TAD     (6160-4072)     /  /
+ 537 000472* 1340          TAD     BFLNUM          / /
+ 538 000473* 3340          DCA     BFLNUM          //
+ 539 000474* 7301  NEWFLAG,CLA CLL IAC             /RESET FLAGS
+ 540 000475* 3357          DCA     FLAGS           /TO FRESH VALUE
+ 541 000476* 5600          JMP I   BINOUT          /RETURN
+ 542               
+ 543 000477* 0000  BCLEAR, .-.                     /FILE INITIALIZE
+ 544 000500* 3002          DCA     EOFBIT          /ZERO EOF FLAG
+ 545 000501* 1255          TAD     FILCORE/(FILBEG)/RESET INDEX
+ 546 000502* 3010          DCA     XR1             /TO BEGINNING
+ 547 000503* 1367          TAD     (200)           /*200
+ 548 000504* 3410          DCA I   XR1             /IN FIRST
+ 549 000505* 1001          TAD     CURFLD          /GET CURRENT FIELD
+ 550 000506* 3410          DCA I   XR1             /PUT IT IN ALSO
+ 551 000507* 1355          TAD     CURORG          /PUT OUT THE
+ 552 000510* 3410          DCA I   XR1             /CURRENT ORIGIN
+ 553 000511* 1366          TAD     (-20)           /RESET
+ 554 000512* 3352          DCA     BLKCNT          /BLOCK COUNT
+ 555 000513* 1377          TAD     (-22)           /RESET
+ 556 000514* 3360          DCA     GRPCNT          /GROUP COUNT
+ 557 000515* 1365          TAD     (4503)          /SETUP
+ 558 000516* 3356          DCA     DANGER          /DANGER LIMIT
+ 559 000517* 1364          TAD     (156)           /SETUP
+ 560 000520* 3357          DCA     FLAGS           /INITIAL FLAGS
+ 561 000521* 5677          JMP I   BCLEAR          /RETURN
+ 562                
+ 563 000522* 0000  DANGIT, .-.                     /DANGER CHECK ROUTINE
+ 564 000523* 2356          ISZ     DANGER          /STILL ROOM?
+ 565 000524* 5722          JMP I   DANGIT          /YES, JUST RETURN
+ 566 000525* 7301          CLA CLL IAC             /PREPARE
+ 567 000526* 3002          DCA     EOFBIT          /END OF FILE
+ 568 000527* 4562          JMS I   [BINOUT]        /THIS WILL CLOSE NOW
+ 569 000530* 4277          JMS     BCLEAR          /OPEN NEXT FILE
+ 570 000531* 5323          JMP     DANGIT+1        /TRY AGAIN
+ 571 000532* 7301  BCLOSE,        CLA CLL IAC             /CLOSE ROUTINE
+ 572 000533* 3002          DCA     EOFBIT          /SETUP <EOF>
+ 573 000534* 4562          JMS I   [BINOUT]        /OUTPUT A WORD
+ 574 000535* 2356          ISZ     DANGER          /FILE DONE?
+ 575 000536* 5332          JMP     BCLOSE          /NO, FILL IT UP
+ 576 000537* 4547          JMS I   [BSCRIBE]       /TELL THEM HOW MANY FILES WERE CREATED
+ 577 000540* 4060  BFLNUM, TEXT    " 0 FILES CREATED."
+     000541* 4006  
+     000542* 1114  
+     000543* 0523  
+     000544* 4003  
+     000545* 2205  
+     000546* 0124  
+     000547* 0504  
+     000550* 5600  
+ 578 000551* 5567          JMP I   [SBOOT]         /GOODBYE!
+ 579                
+ 580 000552* 0000  BLKCNT, .-.                     /BLOCK COUNT
+ 581 000553* 7777  BNMFLS, -1                      /FILE COUNT
+ 582 000554* 7756  BSFLPTR,SFILES-1                /FILE POINTER
+ 583 000555* 0200  CURORG, 0200                    /CURRENT OUTPUT ORIGIN
+ 584 000556* 0000  DANGER, .-.                     /DANGER LIMIT
+ 585 000557* 0000  FLAGS,  .-.                     /BINARY FLAGS
+ 586 000560* 0000  GRPCNT, .-.                     /GROUP COUNT
+ 587               
+ 588 000564* 0156          PAGE
+     000565* 4503  
+     000566* 7760  
+     000567* 0200  
+     000570* 2066  
+     000571* 7766  
+     000572* 7763  
+     000573* 6000  
+     000574* 0007  
+     000575* 0617  
+     000576* 7770  
+     000577* 7756  
+ 589               /      COMES HERE TO START IT UP.
+ 590               
+ 591 000600* 4777  BSAVEST,JMS I   (BCLEAR)        /INITIALIZE OUTPUT FILE
+ 592 000601* 5776          JMP I   (GETSPEC)       /KEEP GOING THERE
+ 593               
+ 594               /       COMES HERE ON ANY ARGUMENT ERRORS.
+ 595               
+ 596 000602* 4547  SYNERR, JMS I   [BSCRIBE]       /COMPLAIN OF ...
+ 597 000603* 0201          TEXT    "BAD ARGUMENTS PASSED!"
+     000604* 0440  
+     000605* 0122  
+     000606* 0725  
+     000607* 1505  
+     000610* 1624  
+     000611* 2340  
+     000612* 2001  
+     000613* 2323  
+     000614* 0504  
+     000615* 4100  
+ 598 000616* 5567          JMP I   [SBOOT]         /GOODBYE!
+ 599               
+ 600               /       COMES HERE IF INSUFFICIENT OUTPUT FILES
+ 601               
+ 602 000617* 4547  TOMANY, JMS I   [BSCRIBE]       /COMPLAIN OF ...
+ 603 000620* 1116          TEXT    "INSUFFICIENT OUTPUT FILES! "
+     000621* 2325  
+     000622* 0606  
+     000623* 1103  
+     000624* 1105  
+     000625* 1624  
+     000626* 4017  
+     000627* 2524  
+     000630* 2025  
+     000631* 2440  
+     000632* 0611  
+     000633* 1405  
+     000634* 2341  
+     000635* 4000  
+ 604 000636* 5567          JMP I   [SBOOT]         /GOODBYE
+ 605               
+ 606 000637* 0000  CHKUP,  .-.                     /CHECK FOR <^C>, ETC. ROUTINE
+ 607 000640* 4066          JMS     CTLCTST         /CHECK FOR <^C>
+ 608 000641* 7440          SZA                     /SKIP IF NOTHING CAME IN
+ 609 000642* 1375          TAD     (-"Q!300)       /ELSE COMPARE TO <^Q>
+ 610 000643* 7450          SNA                     /SKIP IF NEITHER CASE
+ 611 000644* 5254          JMP     CHKCLR          /ELSE FORGET IT
+ 612 000645* 1374          TAD     (-"S+"Q)        /COMPARE TO <^S>
+ 613 000646* 7640          SZA CLA                 /SKIP IF IT MATCHES
+ 614 000647* 5637          JMP I   CHKUP           /ELSE RETURN
+ 615 000650* 4066          JMS     CTLCTST         /GET ANOTHER CHARACTER
+ 616 000651* 1375          TAD     (-"Q!300)       /COMPARE TO <^Q>
+ 617 000652* 7640          SZA CLA                 /SKIP IF IT MATCHES
+ 618 000653* 5250          JMP     .-3             /ELSE KEEP GOING
+ 619 000654* 3003  CHKCLR, DCA     INCHAR          /OBLITERATE <^Q>, ETC.
+ 620 000655* 5637          JMP I   CHKUP           /RETURN
+ 621 000656* 0000  CHKDIGI,.-.                    /CHECK FOR DIGITS ROUTINE
+ 622 000657* 1007          TAD     TOTAL           /GET CURRENT COUNT
+ 623 000660* 1176          TAD     [6]             /ADD LIMIT
+ 624 000661* 7640          SZA CLA                 /SKIP IF NONE
+ 625 000662* 2256          ISZ     CHKDIGITS       /BUMP RETURN
+ 626 000663* 5656          JMP I   CHKDIGITS       /RETURN EITHER WAY
+ 627               
+ 628 000664* 0000  BSCRIBE,.-.                     /MESSAGE PRINT ROUTINE
+ 629 000665* 4313          JMS     CRLF            /DO A <CR>, <LF>
+ 630 000666* 1664  CHRLUP, TAD I   BSCRIBE         /GET MESSAGE PAIR
+ 631 000667* 7012          RTR;RTR;RTR             /MOVE OVER LEFT HALF
+     000670* 7012  
+     000671* 7012  
+ 632 000672* 4277          JMS     BSCOUT          /TRIM AND PRINT IT
+ 633 000673* 1664          TAD I   BSCRIBE         /GET AGAIN
+ 634 000674* 4277          JMS     BSCOUT          /TRIM AND PRINT RIGHT HALF
+ 635 000675* 2264          ISZ     BSCRIBE         /BUMP TO NEXT
+ 636 000676* 5266          JMP     CHRLUP          /GO GET ANOTHER PAIR
+ 637               
+ 638 000677* 0000  BSCOUT, .-.                     /TRIM AND PRINT ROUTINE
+ 639 000700* 0157          AND     [77]            /JUST SIX-BIT
+ 640 000701* 7450          SNA                     /END OF TEXT?
+ 641 000702* 5310          JMP     BSCROUT         /YES, FINISH IT THERE
+ 642 000703* 1373          TAD     (40)            /INVERT QUADRANT BIT
+ 643 000704* 0157          AND     [77]            /JUST SIX-BIT
+ 644 000705* 1373          TAD     (40)            /MAKE IT SEVEN-BIT
+ 645 000706* 4055          JMS     P7CH            /PRINT IT
+ 646 000707* 5677          JMP I   BSCOUT          /RETURN
+ 647               
+ 648 000710* 4313  BSCROUT,JMS     CRLF            /DO A <CR>, <LF>
+ 649 000711* 2264          ISZ     BSCRIBE         /BUMP PAST ARGUMENT WORD
+ 650 000712* 5664          JMP I   BSCRIBE         /RETURN TO HIS CALLER
+ 651               
+ 652 000713* 0000  CRLF,   .-.                     /<CR>, <LF> ROUTINE
+ 653 000714* 7200          CLA                     /CLEAN UP
+ 654 000715* 1372          TAD     (15)            /GET A <CR>
+ 655 000716* 4055          JMS     P7CH            /PRINT IT
+ 656 000717* 1150          TAD     [12]            /GET A <LF>
+ 657 000720* 4055          JMS     P7CH            /PRINT IT
+ 658 000721* 5713          JMP I   CRLF            /RETURN
+ 659               
+ 660 000772* 0015          PAGE
+     000773* 0040  
+     000774* 7776  
+     000775* 7757  
+     000776* 0275  
+     000777* 0477  
+ 661 000147* 0664         FIELD   0               /DUMP THE LITERALS NOW
+     000150* 0012  
+     000151* 0010  
+     000152* 7765  
+     000153* 7762  
+     000154* 0014  
+     000155* 0022  
+     000156* 7702  
+     000157* 0077  
+     000160* 7000  
+     000161* 7772  
+     000162* 0400  
+     000163* 0522  
+     000164* 6201  
+     000165* 0532  
+     000166* 0656  
+     000167* 7600  
+     000170* 7611  
+     000171* 0177  
+     000172* 0637  
+     000173* 1777  
+     000174* 7640  
+     000175* 0020  
+     000176* 0006  
+     000177* 0600  
+ 662               
+ 663                       RELOC                   /TURN OFF RELOCATION NOW
+ 664               $
+end of file     ^
+
+ADDRES  0000
+BADCOR  3234
+BADOLR  3240
+BADPER  3244
+BCC1    0413
+BCLEAR  0477
+BCLOSE  0532
+BDCRMS  3276
+BDFLCH  3026
+BDLRMS  3311
+BDPRMS  3326
+BFLNUM  0540
+BFLPTR  3125
+BGETND  0366
+BINADR  0020
+BINOUT  0400
+BLKCNT  0552
+BLOCK   0457
+BNCOMM  0414
+BNMFLS  0553
+BSAVE   3000 unreferenced
+BSAVES  0600
+BSAVOK  3013
+BSAVTM  3001
+BSCOUT  0677
+BSCRIB  0664
+BSCROU  0710
+BSFLPT  0554
+BSFUN   0043
+BSMOVE  3260
+BSMTM1  3367
+BSMTM2  3370
+BSMVLP  3267
+BWFUN   0456
+CHKCLR  0654
+CHKCOV  3206
+CHKDIG  0656
+CHKJMP  0071
+CHKKCC  0103
+CHKKRS  0072
+CHKKSF  0070
+CHKUP   0637
+CHRLUP  0666
+CLOSEW  0367
+CORBUF  0042
+CRLF    0713
+CTCPZA  2363
+CTCZAP  2365
+CTLCTS  0066
+CURBLK  0044
+CURFLD  0001
+CURORG  0555
+DANGER  0556
+DANGIT  0522
+DATAPT  3126
+DBLROT  0346
+DBLSPE  0211
+DOLBLK  0040
+EOFBIT  0002
+EOSPEC  0225
+FILBEG  3000
+FILCOR  0455
+FILGOO  3046
+FINADR  0050
+FLAGS   0557
+FLDCHN  0265
+GETHAF  0104
+GETNDX  0026
+GETSPE  0275
+GRPCNT  0560
+HIGH    0370
+INCHAR  0003
+INCON   0031
+INPBUF  2477
+JMSC    4200
+JMSSYS  4240
+KCCIOT  6032
+KRSIOT  6034
+KSFIOT  6031
+L7      0177
+L7600   0113
+L7757   0034
+L7770   0040
+L7772   0013
+LOW     0371
+LW      3400
+MOVBSA  3074
+MUCHIN  0235
+MUCHO   0200
+NEWFLA  0474
+NFLSMS  3343
+NL0002  7326
+NL7775  7346
+NL7777  7240
+NOFILE  3250
+NONEBA  3050
+NOSPEC  3254
+NSPCMS  3353
+NUBUFF  7000
+NUMTEM  0372
+NXTCHA  0304
+OLDBLK  0004
+OLDHIG  0373
+OLDLOW  0374
+OUTCON  0033
+P7AGN   0057
+P7CH    0055
+P7JMP   0062
+P7TEMP  0005
+P7TLS   0063
+P7TSF   0061
+PAIRSW  0375
+PBEGIN  0071
+PBUTIO  0161
+PR6BIT  0047
+PSBTFU  0167
+PSCRSI  0170
+PUNLUP  0255
+SBLOCK  7635 unreferenced
+SBOOT   7600
+SBTFUN  7602 unreferenced
+SCLOSE  0223
+SCODE   3200
+SCOFF   3346
+SCORE   7633 unreferenced
+SCRIBE  0171
+SCRSIZ  7611
+SFILES  7757
+SFUN    7634
+SLOAD   7632
+SOUTFL  7607
+SPECIN  0300
+SRINST  5471
+SWAL    7604
+SYNERR  0602
+SYSIO   7640
+SYSTAR  7637
+TEMP    0006
+TESTCI  3063
+TLRCOR  7200
+TLSIOT  6046
+TOMANY  0617
+TOTAL   0007
+TSFIOT  6041
+TTY     0003
+VLOAD   0020
+WCOUNT  0376
+WRITE   4000
+XR1     0010

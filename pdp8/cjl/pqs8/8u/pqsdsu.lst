@@ -1,0 +1,805 @@
+   1               /P?S/8 DSD-240-8/DYNEX SYSTEM HANDLER
+   2               
+   3               /       LAST EDIT:      21-NOV-1986     06:00:00        CJL
+   7                       XLIST   ON
+   8               
+   9               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+  10               
+  11               /       P?S/8 HANDLER FOR DSD-240-8 DISK CONTROLLER AND WESTERN DYNEX CONTROLLER.
+  12               
+  13               /       CAN BE ASSEMBLED FOR UPPER (REMOVABLE) OR LOWER (FIXED) DISK.
+  14               
+  15               /       CAN BE BOOTSTRAPPED TO ANY UNIT.
+  16               
+  17               /       ASSEMBLY INSTRUCTIONS.
+  18               
+  19               /       SETTING UPPER=4000 GENERATES A HANDLER FOR THE UPPER DISK.
+  20               /       SETTING UPPER=0000 GENERATES A HANDLER FOR THE LOWER DISK.
+  21               
+  22               /       SETTING BTUNIT=0000-0007 GENERATES THE HANDLER FOR THE RESPECTIVE UNIT.
+  23               /       P?S/8 MONITOR GENERATION RESTRICTIONS REQUIRE BTUNIT=0 FOR THE INITIAL
+  24               /       MONITOR, HOWEVER THE OTHER UNITS SHOULD BE PATCHED TO REFLECT THE
+  25               /       CHANGES INTRODUCED BY SETTING BTUNIT TO 0001-0007.
+  26               
+  27               /       SETTING DRIVE=0000 GENERATES A HANDLER FOR DRIVE ZERO.
+  28               
+  29               /       SETTING DEVCODE=0062 GENERATES DEVICE 62 IOT'S.
+  30               
+  31               /       CONDITIONAL ASSEMBLY DEFINITIONS.
+  32               
+  33                       IFNDEF  BTUNIT  <BTUNIT=0000>   /GENERATE A UNIT ZERO SYSTEM
+  34               
+  35                       IFNDEF  DEVCODE <DEVCODE=0062>  /GENERATE DEVICE 62 IOT'S.
+  36               
+  37                       IFNDEF  DRIVE   <DRIVE= 0000>   /GENERATE A DRIVE ZERO SYSTEM
+  38               
+  39                       IFNDEF  UPPER   <UPPER= 4000>   /GENERATE AN UPPER DISK SYSTEM
+  40               
+  41               //      P?S/8 EQUATED SYMBOLS.
+  42               
+  43                       ADRLST= 7603            /ZAP ADDRESS LIST
+  44                       BBLEN=  0043            /SLURP LOADER BOOTSTRAP LENGTH
+  45                       BINADR= 0020            /"%" BLOCK
+  46                       BINIT=  0020            /SLURP INITIALIZE ROUTINE
+  47                       BINITLN=0020            /LENGTH OF SLURP INITIALIZE CODE
+  48                       BINIT2= 0031            /SECONDARY SLURP INITIALIZE ADDRESS
+  49                       CALADR= 0020            /CALLING ADDRESS
+  50                       CALFLD= 0021            /CALLING FIELD
+  51                       CNTLST= 7615            /CONTENTS LIST FOR ZAPPED ADDRESSES
+  52                       DEVSIZE=6760            /DEVICE SIZE WORD IN SYSGEN ROUTINE
+  53                       DSPBLB= 0024            /BLURB DISPLAY ROUTINE
+  54                       ERRTRP= 0046            /ERROR TRAP POINTER
+  55                       ESTATUS=0077            /ERROR STATUS
+  56                       FILBLB= 0023            /BLURB FILL ROUTINE
+  57                       GENAD1= 7400            /SYSIO GENERATION ADDRESS
+  58                       HIDWRD= 7600            /SYSTEM HANDLER ID WORD
+  59                       IOTRAP= 0045            /I/O TRAP POINTER
+  60                       MONSTRT=0353            /KEYBOARD MONITOR STARTUP ADDRESS
+  61                       MOVBLB= 0022            /ERROR BLURB MOVE ROUTINE
+  62                       PCHLOOP=0162            /POINTER TO CHARACTER INPUT ROUTINE
+  63                       REWIND= 1335            /REWIND ROUTINE ADDRESS
+  64                       SBLOCK= 7635            /SYSTEM LOADER BLOCK ARGUMENT
+  65                       SBOOT=  7600            /MONITOR RESTART ADDRESS
+  66                       SBTFUN= 7602            /SYSTEM BOOTSTRAP FUNCTION
+  67                       SCORE=  7633            /SYSTEM LOADER TRANSFER ADDRESS
+  68                       SCRSIZE=7611            /SYSTEM MEMORY SIZE, ETC. WORD
+  69                       SDATE=  7610            /SYSTEM LOW-ORDER DATE WORD
+  70                       SFILES= 7757            /FILE LIST PASSED HERE
+  71                       SFUN=   7634            /SYSTEM LOADER FUNCTION WORD
+  72                       SLOAD=  7632            /SYSTEM LOADER ADDRESS
+  73                       SLPGEN= 4420            /SLURP LOADER GENERATION FIELD AND ADDRESS
+  74                       SLPSA=  7777            /SLURP LOADER STARTING ADDRESS WORD
+  75                       SLUPAGE=2600            /SLURP LOADING PAGE
+  76                       SOUTFLS=7607            /OUTPUT FILE COUNT PASSED HERE
+  77                       SPARM=  7756            /EQUALS PARAMETER PASSED HERE
+  78                       SWAL=   7604            /SWITCHES /A-/L
+  79                       SWMX=   7605            /SWITCHES /M-/X
+  80                       SWY9=   7606            /SWITCHES /Y-/9
+  81                       SYSIO=  7640            /SYSTEM I/O ENTRY POINT
+  82                       SYSTART=7637            /SYSTEM LOADER STARTUP ADDRESS
+  83                       TRAPIO= 1041            /ENTRY POINT FOR I/O TRAPS
+  84                       TRPERR= 1200            /ENTRY POINT FOR I/O ERROR TRAPS
+  85                       TRPGEN= 1020            /TRAP ROUTINE GENERATION FIELD AND ADDRESS
+  86                       WRITE=  4000            /SYSIO WRITE BIT
+  87                       ZAPLST= 7627            /REPLACEMENT LIST FOR ZAPPED ADDRESSES
+  88               
+  89               //      END OF P?S/8 EQUATED SYMBOLS.
+  90               
+  91               /      DSD-240-8 EQUATED SYMBOLS.
+  92               
+  93                       DTST=   DEVCODE^10+6000 /READ TEST STATUS
+  94                       DSKF=   DEVCODE^10+6001 /SKIP ON DONE FLAG
+  95                       DCLF=   DEVCODE^10+6002 /CLEAR DONE FLAG
+  96                       DSBY=   DEVCODE^10+6003 /SKIP IF CONTROLLER NOT BUSY
+  97                       DEXC=   DEVCODE^10+6004 /EXECUTE COMMAND BUFFER
+  98                       DLBP=   DEVCODE^10+6005 /LOAD BUFFER POINTER REGISTER
+  99                       DRDS=   DEVCODE^10+6006 /READ STATUS
+ 100                       DCON=   DEVCODE^10+6007 /LOAD DRIVE CONTROL REGISTER
+ 101               
+ 102               /       MISCELLANEOUS EQUATED SYMBOLS.
+ 103               
+ 104                       DYNSIZE=6260            /LOGICAL UNIT SIZE
+ 105                       NL0000= CLA             /LOAD AC WITH 0000
+ 106                       NL0001= CLA IAC         /LOAD AC WITH 0001
+ 107                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+ 108                       NL0003= CLA STL IAC RAL /LOAD AC WITH 0003
+ 109                       NL4000= CLA CLL CML RAR /LOAD AC WITH 4000
+ 110                       NL7777= CLA CMA         /LOAD AC WITH 7777
+ 111                       SBOFF=  SLUPAGE-SBOOT   /OFFSET VALUE
+ 112                       SYSNUM= 0003            /SYSTEM ID NUMBER **** MUST BE UNIQUE ****
+ 113               /      ANY DRIVE BOOTSTRAP.
+ 114               
+ 115                       NOPUNCH                 /TURN OFF BINARY OUTPUT
+ 116               
+ 117                       *0000                   /BOOTSTRAP ADDRESS
+ 118               
+ 119 000000  4000          BTUNIT%2^626+UPPER      /CYLINDER WORD
+ 120 000001  0000          BTUNIT&1^400            /SECTOR WORD
+ 121 000002  0000          0000                    /WORD COUNT
+ 122 000003  0000          0000                    /CURRENT ADDRESS
+ 123 000004  0000          0000                    /RESERVED WORD
+ 124 000005  6624          DEXC                    /RETURNED CYLINDER WORD
+ 125 000006  5006          JMP     .               /ZEROED WORD
+ 126                                               /STATUS RETURNED HERE
+ 127               
+ 128               /       ENABLE DISK AND START AT 00001-00005 (OR 00000 IF UPPER=0000).
+ 129               
+ 130                       ENPUNCH                 /RESTORE BINARY OUTPUT
+ 131               /      P?S/8 MONITOR COMPONENTS.
+ 132               
+ 133               /       REWIND/UNLOAD ROUTINE.
+ 134               
+ 135                       *REWIND-1               /DEFINE REWIND/UNLOAD ROUTINE
+ 136               
+ 137 001334  0000          ZBLOCK  1377-.          /EMPTY SPACE
+     001335  0000  
+     001336  0000  
+     001337  0000  
+     001340  0000  
+     001341  0000  
+     001342  0000  
+     001343  0000  
+     001344  0000  
+     001345  0000  
+     001346  0000  
+     001347  0000  
+     001350  0000  
+     001351  0000  
+     001352  0000  
+     001353  0000  
+     001354  0000  
+     001355  0000  
+     001356  0000  
+     001357  0000  
+     001360  0000  
+     001361  0000  
+     001362  0000  
+     001363  0000  
+     001364  0000  
+     001365  0000  
+     001366  0000  
+     001367  0000  
+     001370  0000  
+     001371  0000  
+     001372  0000  
+     001373  0000  
+     001374  0000  
+     001375  0000  
+     001376  0000  
+ 138               
+ 139 001377  5562          JMP I   PCHLOOP/[CHLOOP]/CONTINUE THERE
+ 140               
+ 141               /       DEVICE SIZE.
+ 142               
+ 143                       *DEVSIZE                /OVER SYSGEN ROUTINES
+ 144               
+ 145 006760  6260          DYNSIZE                 /DEFINE OUR DEVICE SIZE
+ 146               /      P?S/8 BINARY SLURP LOADER.
+ 147               
+ 148                       FIELD   SLPGEN&70%10    /GENERATION FIELD
+ 149               
+ 150                       *SLPGEN&7600            /GENERATION ADDRESS
+ 151               
+ 152               SLPCORE,NOPUNCH                 /FOOL THE ASSEMBLER
+ 153               
+ 154                       FIELD   0               /WHERE IT LOADS
+ 155               
+ 156                       *SLPCORE                /RESET ORIGIN
+ 157               
+ 158                       ENPUNCH                 /UN-FOOL THE ASSEMBLER
+ 159               
+ 160                       RELOC   SBOOT           /WHERE IT EXECUTES
+ 161               
+ 162 007600* 7200  SBOOT,  CLA                     /CLEAN UP
+ 163 007601* 6625          DLBP                    /LOAD BUFFER POINTER
+ 164 007602* 1211  BUTLUP, TAD     BUTCYL          /GET A WORD
+ 165 007603* 3000  BUTSTR, DCA     0000            /PUT A WORD
+ 166 007604* 2202          ISZ     BUTLUP          /BUMP TO NEXT
+ 167 007605* 2203          ISZ     BUTSTR          /LIKEWISE
+ 168 007606* 2215          ISZ     BUTCNT          /DONE ENOUGH YET?
+ 169 007607* 5202          JMP     BUTLUP          /NO, GO BACK
+ 170 007610* 5005          JMP     0005            /YES, GO START IT UP
+ 171               
+ 172 007611* 0000  BUTCYL, .-.                     /WILL BE BTUNIT%2^626+UPPER
+ 173 007612* 0000  BUTSCT, .-.                     /WILL BE BTUNIT&1^400
+ 174 007613* 0000          0                       /WORD COUNT
+ 175 007614* 0000          0                       /CURRENT ADDRESS
+ 176 007615* 7771  BUTCNT, -7                      /RESERVED WORD
+ 177 007616* 6624          DEXC                    /RETURNED CYLINDER WORD
+ 178 007617* 5006          JMP     0006            /ZEROED WORD
+ 179               
+ 180               /       ALL BOOTSTRAP CODE MUST BE WITHIN 7600-7642.
+ 181               
+ 182               /       ENSURE THIS SIZE CONVENTION IS MET.
+ 183               
+ 184                       IFNZRO  SBOOT+BBLEN-.&4000      <ERROR  .>
+ 185               /      BOOTSTRAP UNIT SETUP ROUTINE.
+ 186               
+ 187               /       THIS CODE WILL BE AVAILABLE TO THE BINARY LOADER (AND SYSGEN ROUTINES) WHEN
+ 188               /       IT IS LOADED INTO "SLUPAGE". IT INITIALIZES THE SLURP LOADER BOOTSTRAP AND
+ 189               /       THEN RETURNS TO THE BINARY LOADER INITIALIZE ROUTINE.
+ 190               
+ 191 007620* 0000  BUTSETU,.-.                             /BOOTSTRAP UNIT SETUP ROUTINE
+ 192 007621* 1646          TAD I   BNUNIT/[SBTFUN]         /GET BOOTSTRAP UNIT
+ 193 007622* 7012          RTR;RAR                         /MOVE TWO HIGHEST UNIT BITS TO LINK, AC[0]
+     007623* 7010  
+ 194 007624* 7710          SPA CLA                         /HALF UNIT?
+ 195 007625* 1252          TAD     BN626/[626]             /YES
+ 196 007626* 7430          SZL                             /UPPER UNIT?
+ 197 007627* 1250          TAD     BN1454/[1454]           /YES
+ 198 007630* 3211          DCA     BUTCYL                  /STORE FOR NOW
+ 199 007631* 1647          TAD I   BNUPPER/[SUPPER]        /GET UPPER INDICATOR WORD
+ 200 007632* 0251          AND     BN20/[20]               /JUST INDICATOR BIT
+ 201 007633* 7440          SZA                             /SKIP IF OFF
+ 202 007634* 7330          NL4000                          /ELSE SET UPPER DRIVE BIT
+ 203 007635* 1211          TAD     BUTCYL                  /NOW HAVE COMPOSITE
+ 204 007636* 3211          DCA     BUTCYL                  /SAVE FINAL CYLINDER WORD VALUE
+ 205 007637* 7201          NL0001                          /SET LOW-ORDER MASK
+ 206 007640* 0646          AND I   BNUNIT/[SBTFUN]         /GET LOW-ORDER BOOTSTRAP UNIT BIT
+ 207 007641* 7110          CLL RAR;RTR;RTR                 /MOVE TO AC[3]
+     007642* 7012  
+     007643* 7012  
+ 208 007644* 3212          DCA     BUTSCT                  /STORE SECTOR WORD
+ 209 007645* 5620          JMP I   BUTSETUP                /RETURN
+ 210               
+ 211 007646* 7602  BNUNIT, SBTFUN                          /SYSTEM BOOTSTRAP UNIT POINTER
+ 212 007647* 7674  BNUPPER,SUPPER                          /WHERE UPPER/LOWER INDICATOR WORD IS
+ 213 007650* 1454  BN1454, 1454                            /CONSTANT 1454
+ 214 007651* 0020  BN20,   20                              /CONSTANT 0020
+ 215 007652* 0626  BN626,  626                             /CONSTANT 0626
+ 216               
+ 217               /       SLURP INITIALIZE CODE.
+ 218               
+ 219 007653* 0000          ZBLOCK  SFILES-.                /EMPTY SPACE
+     007654* 0000  
+     007655* 0000  
+     007656* 0000  
+     007657* 0000  
+     007660* 0000  
+     007661* 0000  
+     007662* 0000  
+     007663* 0000  
+     007664* 0000  
+     007665* 0000  
+     007666* 0000  
+     007667* 0000  
+     007670* 0000  
+     007671* 0000  
+     007672* 0000  
+     007673* 0000  
+     007674* 0000  
+     007675* 0000  
+     007676* 0000  
+     007677* 0000  
+     007700* 0000  
+     007701* 0000  
+     007702* 0000  
+     007703* 0000  
+     007704* 0000  
+     007705* 0000  
+     007706* 0000  
+     007707* 0000  
+     007710* 0000  
+     007711* 0000  
+     007712* 0000  
+     007713* 0000  
+     007714* 0000  
+     007715* 0000  
+     007716* 0000  
+     007717* 0000  
+     007720* 0000  
+     007721* 0000  
+     007722* 0000  
+     007723* 0000  
+     007724* 0000  
+     007725* 0000  
+     007726* 0000  
+     007727* 0000  
+     007730* 0000  
+     007731* 0000  
+     007732* 0000  
+     007733* 0000  
+     007734* 0000  
+     007735* 0000  
+     007736* 0000  
+     007737* 0000  
+     007740* 0000  
+     007741* 0000  
+     007742* 0000  
+     007743* 0000  
+     007744* 0000  
+     007745* 0000  
+     007746* 0000  
+     007747* 0000  
+     007750* 0000  
+     007751* 0000  
+     007752* 0000  
+     007753* 0000  
+     007754* 0000  
+     007755* 0000  
+     007756* 0000  
+ 220               
+ 221               SFILES, RELOC   BINIT2                  /WHERE THIS EXECUTES
+ 222               
+ 223 000031* 4433  BINIT2, JMS I   BNSETUP/[BUTSETUP+SBOFF]/SETUP THE BOOTSTRAP UNIT STUFF
+ 224 000032* 5420          JMP I   BINIT                   /RETURN
+ 225               
+ 226 000033* 2620  BNSETUP,BUTSETUP+SBOFF                  /BOOTSTRAP UNIT SETUP ROUTINE POINTER
+ 227               
+ 228 000034* 0000          ZBLOCK  BINIT2+BINITLN-.        /EMPTY SPACE
+     000035* 0000  
+     000036* 0000  
+     000037* 0000  
+     000040* 0000  
+     000041* 0000  
+     000042* 0000  
+     000043* 0000  
+     000044* 0000  
+     000045* 0000  
+     000046* 0000  
+     000047* 0000  
+     000050* 0000  
+ 229               
+ 230                       RELOC   SFILES+BINITLN          /RESET ORIGIN
+ 231               
+ 232 007777* 0000  SLPSA,  0000                            /NO SLURP LOADER HENCE NO STARTING ADDRESS
+ 233               
+ 234                       RELOC                           /TURN OFF RELOCATION
+ 235               /      MONITOR I/O INTERCEPT BLOCKS FOR DSD-240-8.
+ 236               
+ 237               /       PAGE AND FIELD RELOCATABLE CODE TO BE LOADED BY CONSOLE OVERLAY, ETC. FOR
+ 238               /       I/O AND ERROR TRAP PURPOSES.
+ 239               
+ 240                       FIELD   TRPGEN&70%10    /GENERATES HERE
+ 241               
+ 242                       *TRPGEN&7600            /SYSGEN WANTS IT HERE
+ 243               
+ 244                       NOPUNCH                 /FOOL THE ASSEMBLER
+ 245               
+ 246                       FIELD   1               /WHERE IT MIGHT LOAD
+ 247               
+ 248                       *TRPGEN&7600            /RESET ORIGIN
+ 249               
+ 250                       ENPUNCH                 /UN-FOOL THE ASSEMBLER
+ 251               
+ 252                       RELOC   SBOOT           /FOOL THE ASSEMBLER
+ 253               
+ 254 017600* 0003  HIDWRD, SYSNUM                  /SYSTEM DEVICE HANDLER ID NUMBER
+ 257                       XLIST   ON
+ 258 017601* 0423          DEVICE  DSDU            /SYSTEM DEVICE NAME
+     017602* 0425  
+ 264                       XLIST   ON
+ 265               
+ 266               /       I/O ADDRESSES.
+ 267               
+ 268 017603* 7625  ADRLST, SERR                    /NORMALLY HLT OR 7401
+ 269 017604* 7626          SERR+1                  /NORMALLY AND S40/(40)
+ 270 017605* 7644          SYSIO+4                 /NORMALLY RDF
+ 271 017606* 7645          SYSIO+5                 /NORMALLY TAD SCIF/(CIF)
+ 272 017607* 0000          0                       /THIS ENDS THE SHORT LIST
+ 273               
+ 274 017610* 0000          ZBLOCK  ADRLST+12-.     /EMPTY SPACE
+     017611* 0000  
+     017612* 0000  
+     017613* 0000  
+     017614* 0000  
+ 275               
+ 276               /       I/O NORMAL CONTENTS.
+ 277               
+ 278 017615* 7402  CNTLST, HLT/OR 7401             /SERR
+ 279 017616* 0334          AND     S40/(40)        /SERR+1
+ 280 017617* 6214          RDF                     /SYSIO+4
+ 281 017620* 1276          TAD     SCIF/(CIF)      /SYSIO+5
+ 282 017621* 0000          0                       /THIS ENDS THE SHORT LIST
+ 283               
+ 284 017622* 0000          ZBLOCK  CNTLST+12-.     /EMPTY SPACE
+     017623* 0000  
+     017624* 0000  
+     017625* 0000  
+     017626* 0000  
+ 285               
+ 286               /       I/O REPLACEMENT CONTENTS.
+ 287               
+ 288 017627* 6212  ZAPLST, CIF     10              /WILL BE TO CORRECT FIELD
+ 289 017630* 5046          JMP     ERRTRP          /JMP THERE ON ANY ERROR
+ 290 017631* 6212          CIF     10              /WILL BE TO CORRECT FIELD
+ 291 017632* 5045          JMP     IOTRAP          /JMP THERE ON ANY CALL
+ 292 017633* 0000          0                       /THIS ENDS THE SHORT LIST
+ 293               
+ 294 017634* 0000          ZBLOCK  ZAPLST+12-.     /EMPTY SPACE
+     017635* 0000  
+     017636* 0000  
+     017637* 0000  
+     017640* 0000  
+ 295                      RELOC                   /UN-FOOL THE ASSEMBLER
+ 296               
+ 297               /       I/O TRAPS COME HERE.
+ 298               
+ 299 011041  6214  TRAPIO, RDF                     /GET CALLING FIELD
+ 300 011042  1244          TAD     TRPCDF/(CDF)    /MAKE INTO CDF CALLING FIELD
+ 301 011043  3247          DCA     TRPINST         /STORE IN-LINE
+ 302 011044  6201  TRPCDF, CDF     00              /GOTO MONITOR FIELD
+ 303 011045  1777          TAD I   (SYSIO)         /GET CALLING ADDRESS
+ 304 011046  3020          DCA     CALADR          /SAVE FOR ERROR HANDLER
+ 305 011047  0000  TRPINST,.-.                     /GOTO CALLING FIELD
+ 306 011050  1247          TAD     TRPINST         /GET CDF CALLING FIELD
+ 307 011051  3021          DCA     CALFLD          /SAVE FOR ERROR HANDLER
+ 308 011052  7201          NL0001                  /SET CIF BIT
+ 309 011053  1247          TAD     TRPINST         /NOW HAVE CIF CALLING FIELD
+ 310 011054  6202          CIF     00              /GOTO MONITOR FIELD
+ 311 011055  5776          JMP I   (SYSIO+6)       /CONTINUE THERE
+ 312               
+ 313               /       ERROR BLURBS.
+ 314               
+ 315 011056  4024  DLERR,  TEXT    " TRANSFER LATE"/DATA LATE ERROR BLURB
+     011057  2201  
+     011060  1623  
+     011061  0605  
+     011062  2240  
+     011063  1401  
+     011064  2405  
+ 316 011065  4003  SEEK,   TEXT    " CYLINDER SEEK"/SEEK ERROR BLURB
+     011066  3114  
+     011067  1116  
+     011070  0405  
+     011071  2240  
+     011072  2305  
+     011073  0513  
+ 317 011074  4040  PARITY, TEXT    "   READ PARITY"/PARITY ERROR BLURB
+     011075  4022  
+     011076  0501  
+     011077  0440  
+     011100  2001  
+     011101  2211  
+     011102  2431  
+ 318 011103  4004  NONEXIS,TEXT    " DISK EXCEEDED"/NON-EXISTANT TRACK ERROR BLURB
+     011104  1123  
+     011105  1340  
+     011106  0530  
+     011107  0305  
+     011110  0504  
+     011111  0504  
+ 319 011112  4011  DRVERR,        TEXT    " INTERNAL DISK"/INTERNAL DRIVE ERROR BLURB
+     011113  1624  
+     011114  0522  
+     011115  1601  
+     011116  1440  
+     011117  0411  
+     011120  2313  
+ 320 011121  4027  WRILOCK,TEXT    " WRITE PROTECT"/WRITE-LOCK ERROR BLURB
+     011122  2211  
+     011123  2405  
+     011124  4020  
+     011125  2217  
+     011126  2405  
+     011127  0324  
+ 321 011130  4040  DRVBSY, TEXT    "    DRIVE BUSY"/DRIVE BUSY ERROR BLURB
+     011131  4040  
+     011132  0422  
+     011133  1126  
+     011134  0540  
+     011135  0225  
+     011136  2331  
+ 322               
+ 323                       BLBLEN= .-DRVBSY        /LENGTH OF ERROR BLURBS
+ 324               
+ 325 011176  7646          PAGE
+     011177  7640  
+ 326               /      ERRORS COME HERE.
+ 327               
+ 328 011200  3077  TRPERR, DCA     ESTATUS                 /SAVE ERROR STATUS
+ 329 011201  3243          DCA     ERRADR                  /CLEAR RELATIVE ERROR ADDRESS
+ 330 011202  1077          TAD     ESTATUS                 /GET ERROR STATUS
+ 331 011203  7510          SPA                             /FIFO ERROR?
+ 332 011204  1377          TAD     (4100)                  /YES, MAKE IT LOOK LIKE OTHERS
+ 333 011205  7106          CLL RTL;RTL                     /MOVE OVER TO INITIAL POSITION
+     011206  7006  
+ 334 011207  5213          JMP     ERRENT                  /CONTINUE THERE
+ 335               
+ 336 011210  1240  ERRLUP, TAD     ETEMP                   /GET LATEST
+ 337 011211  7510          SPA                             /FOUND ERROR?
+ 338 011212  5221          JMP     ERRFND                  /YES
+ 339 011213  7104  ERRENT, CLL RAL                         /MOVE ON TO NEXT POTENTIAL ERROR
+ 340 011214  3240          DCA     ETEMP                   /SAVE LATEST
+ 341 011215  1243          TAD     ERRADR                  /GET ERROR ADDRESS
+ 342 011216  1376          TAD     (BLBLEN)                /UPDATE TO NEXT ERROR
+ 343 011217  3243          DCA     ERRADR                  /STORE IT BACK
+ 344 011220  5210          JMP     ERRLUP                  /KEEP GOING
+ 345               
+ 346 011221  7200  ERRFND, CLA                             /CLEAN UP
+ 347 011222  6201          CDF     00                      /GOTO MONITOR FIELD
+ 348 011223  4224          JMS     ERLOC8                  /FIND OURSELVES
+ 349 011224  0000  ERLOC8, .-.                             /OUR ADDRESS STORED HERE
+ 350 011225  1224          TAD     ERLOC8                  /GET OUR ADDRESS
+ 351 011226  1375          TAD     (DLERR-ERLOC8-BLBLEN)   /ADJUST TO BLURB ADDRESS
+ 352 011227  1243          TAD     ERRADR                  /NOW HAVE PROPER BLURB ADDRESS
+ 353 011230  4422          JMS I   MOVBLB                  /MOVE IT INTO ERROR MESSAGE
+ 354 011231  7771          -BLBLEN                         /PASSED BLURB LENGTH IN WORDS
+ 355 011232  4423          JMS I   FILBLB                  /FILL IN I/O PARTICULARS
+ 356 011233  4424          JMS I   DSPBLB                  /DISPLAY BLURB AND POSSIBLY COME BACK
+ 357 011234  1021          TAD     CALFLD                  /GET CALLING FIELD
+ 358 011235  3240          DCA     ETEMP                   /STORE IN-LINE
+ 359 011236  1077          TAD     ESTATUS                 /GET STATUS BACK
+ 360 011237  0374          AND     (40)                    /ISOLATE SEEK ERROR BIT
+ 361 011240  0000  ETEMP,  .-.                             /GOTO CALLING FIELD
+ 362 011241  6202          CIF     00                      /GOTO MONITOR FIELD
+ 363 011242  5773          JMP I   (SERR+2)                /TRY, TRY AGAIN
+ 364               
+ 365 011243  0000  ERRADR, .-.                             /ERROR ADDRESS CREATED HERE
+ 366               
+ 367 011373  7627          PAGE
+     011374  0040  
+     011375  7623  
+     011376  0007  
+     011377  4100  
+ 368               /      DSD-240-8/DYNEX DISK SYSTEM HANDLER.
+ 369               
+ 370                       FIELD   0               /WHERE IT GENERATES
+ 371               
+ 372                       *GENAD1                 /WHERE SYSGEN WANTS IT
+ 373               
+ 374                       RELOC   SBOOT           /WHERE IT EXECUTES
+ 375               
+ 376 007600* 4240  SBOOT,  JMS     SYSIO           /CALL I/O ROUTINES TO BOOTSTRAP
+ 377 007601* 7600  S7600,  7600                    /READ INTO 007600
+ 378 007602* 2000  SBTFUN, 20^100+BTUNIT           /READ 20 BLOCKS PLUS BOOTSTRAP UNIT BITS
+ 379 007603* 0000  SBRET,  0000                    /FROM BLOCK 0000
+ 380 007604* 0000  SWAL,   .-.                     /SWITCHES /A-/L
+ 381 007605* 5006  SWMX,   JMP     SWMX&177+1      /SWITCHES /M-/X; INITIALIZED FOR COLD BOOTSTRAP
+ 382 007606* 0000  SWY9,   .-.                     /SWITCHES /Y-/9
+ 383 007607* 5157  SOUTFLS,JMP     SPARM&177+1     /OUTPUT FILE COUNT; INITIALIZED FOR COLD BOOTSTRAP
+ 384 007610* 0000  SDATE,  .-.                     /SYSTEM DATE WORD
+ 385 007611* 0000  SCRSIZE,.-.                     /SOFTWARE CORE SIZE
+ 386               
+ 387 007612* 1454  S1454,  1454                    /CONSTANT 1454
+ 388 007613* 7742  SBFPTR, SBUF+2                  /COMMAND POINTER AND FILE MODE BIT
+ 389               
+ 390 007614* 0353  SWAIT,  MONSTRT                 /DISK WAIT ROUTINE; INITIALIZED FOR BOOTSTRAP
+ 391 007615* 6624  SWTAGN, DEXC                    /EXECUTE THE COMMAND
+ 392 007616* 6623          DSBY                    /SKIP IF CONTROLLER NOT BUSY
+ 393 007617* 5216          JMP     .-1             /ELSE WAIT FOR IT
+ 394 007620* 1344          TAD     S4070/(4070)    /GET PARTIAL STATUS MASK
+ 395 007621* 1300          TAD     S7/(7)          /COMPLETE THE MASK
+ 396 007622* 0347          AND     STATUS          /GET RETURNED STATUS
+ 397 007623* 7450          SNA                     /SKIP ON ANY ERROR SET
+ 398 007624* 5614          JMP I   SWAIT           /RETURN IF ALL IS OK
+ 399 007625* 7402  SERR,   HLT                     /HALT WITH BAD BITS IN AC
+ 400 007626* 0334          AND     S40/(40)        /ISOLATE SEEK ERROR BIT
+ 401 007627* 7450          SNA                     /RECALIBRATE NEEDED?
+ 402 007630* 5215          JMP     SWTAGN          /NO, JUST RETRY THE CURRENT COMMAND
+ 403 007631* 5253          JMP     SRETRY          /YES, RECALIBRATE AND TRY AGAIN
+ 404               
+ 405 007632* 4240  SLOAD,  JMS     SYSIO           /SYSTEM LOADER HAS DEFAULTS TO SAVE CORE
+ 406 007633* 0000  SCORE,  0000                    /CORE ARGUMENT
+ 407 007634* 4000  SFUN,   WRITE                   /NUMBER OF BLOCKS TO READ OR WRITE, FIELD, UNIT
+ 408 007635* 0020  SBLOCK, BINADR                  /STARTING BLOCK NUMBER
+ 409 007636* 5637          JMP I   .+1/(SYSTART)   /START AT
+ 410 007637* 7600  SYSTART,SBOOT                   /THIS STARTING ADDRESS
+ 411               /      I/O ROUTINES ENTER HERE.
+ 412               
+ 413 007640* 7603  SYSIO,  SBRET                   /I/O ENTRY POINT; INITIALIZED FOR BOOTSTRAP RETRY
+ 414 007641* 7240          NL7777                  /BACKUP
+ 415 007642* 1640          TAD I   SYSIO           /ADD ON CURRENT ADDRESS VALUE
+ 416 007643* 3343          DCA     SCAA            /SAVE AS TRANSFER ADDRESS FOR LATER
+ 417 007644* 6214          RDF                     /GET CALLING FIELD
+ 418 007645* 1276          TAD     SCIF/(CIF)      /MAKE INTO CIF CALLING FIELD INSTRUCTION
+ 419 007646* 3335          DCA     SEXIT           /STORE IN EXIT ROUTINE
+ 420 007647* 2240          ISZ     SYSIO           /BUMP TO FUNCTION WORD
+ 421 007650* 1640          TAD I   SYSIO           /GET THE FUNCTION WORD
+ 422 007651* 3350          DCA     SFUNCT          /SAVE IT FOR LATER
+ 423 007652* 2240          ISZ     SYSIO           /BUMP TO BLOCK NUMBER
+ 424 007653* 7650  SRETRY, SNA CLA                 /RECALIBRATE NEEDED?
+ 425 007654* 5260          JMP     SNORMAL         /NO, JUST NORMAL CALL
+ 426 007655* 1302          TAD     S300/(300)      /GET RECALIBRATE FUNCTION
+ 427 007656* 3341          DCA     SBUF2           /SET IT UP
+ 428 007657* 4214          JMS     SWAIT           /ATTEMPT TO RECALIBRATE
+ 429 007660* 1350  SNORMAL,TAD     SFUNCT          /GET THE FUNCTION WORD
+ 430 007661* 7004          RAL                     /MOVE UP
+ 431 007662* 0201          AND     S7600/(7600)    /ISOLATE PAGE BITS
+ 432 007663* 7041          CIA                     /INVERT
+ 433 007664* 3342          DCA     SWC             /SAVE AS WORD COUNT FOR LATER
+ 436                       XLIST   ON
+ 437 007665* 7200          NL0000                  /GET DRIVE NUMBER
+ 451                       XLIST   ON
+ 452 007666* 6627          DCON                    /SETUP DRIVE CONTROL
+ 453 007667* 1213          TAD     SBFPTR/(SBUF+2) /GET COMMAND POINTER
+ 454 007670* 6625          DLBP                    /LOAD REGISTER
+ 455 007671* 1640          TAD I   SYSIO           /GET THE BLOCK NUMBER
+ 456 007672* 7110          CLL RAR;CLL RAR         /%4
+     007673* 7110  
+ 457 007674* 7130  SUPPER, UPPER%4000^CML CLL RAR  /%8
+ 458 007675* 3340          DCA     SBUF            /SAVE FOR NOW
+ 459 007676* 6202  SCIF,   CIF                     /CIF CONSTANT
+ 460 007677* 0626  S626,   626                     /CONSTANT 0626
+ 461               
+ 462                       IFNZRO  7700-.  <ERROR  .>
+ 463 007700* 0007  S7,     7                       /CONSTANT 0007
+ 464 007701* 1640          TAD I   SYSIO           /GET BLOCK NUMBER AGAIN
+ 465 007702* 0300  S300,   AND     S7/(7)          /JUST THREE LOW-ORDER BLOCK BITS
+ 466 007703* 3345          DCA     STEMP1          /SAVE FOR NOW
+ 467 007704* 1350          TAD     SFUNCT          /GET FUNCTION AGAIN
+ 468 007705* 7010          RAR;CLA RAR             /LOW-ORDER UNIT BIT TO AC[0]
+     007706* 7210  
+ 469 007707* 3346          DCA     STEMP2          /SAVE IT
+ 470 007710* 1350          TAD     SFUNCT          /GET FUNCTION WORD AGAIN
+ 471 007711* 0344          AND     S4070/(4070)    /L  W 0 0  0 0 0  F F F  0 0 0
+ 472 007712* 7510          SPA                     /SKIP IF READ
+ 473 007713* 1337          TAD     S6000/(6000)    /MOVE OVER WRITE BIT
+ 474 007714* 1346          TAD     STEMP2          /L  U W 0  0 0 0  F F F  0 0 0
+ 475 007715* 7104          CLL RAL                 /U  W 0 0  0 0 F  F F 0  0 0 0
+ 476 007716* 1345          TAD     STEMP1          /U  W 0 0  0 0 F  F F 0  S S S
+ 477 007717* 7012          RTR;RTR                 /0  S S S  U W 0  0 0 0  F F F
+     007720* 7012  
+ 478 007721* 3341          DCA     SBUF2           /SETUP THE COMMAND WORD
+ 479 007722* 1350         TAD     SFUNCT                  /GET FUNCTION AGAIN
+ 480 007723* 7012          RTR;RAR                         /MOVE HIGH-ORDER UNIT BITS TO LINK, AC[0]
+     007724* 7010  
+ 481 007725* 7710          SPA CLA                         /HALF UNIT?
+ 482 007726* 1277          TAD     S626/(626)              /YES
+ 483 007727* 7430          SZL                             /UPPER UNIT?
+ 484 007730* 1212          TAD     S1454/(1454)            /YES
+ 485 007731* 1340          TAD     SBUF                    /ADD ON TRUNCATED BLOCK NUMBER
+ 486 007732* 3340          DCA     SBUF                    /SAVE COMPOSITE CYLINDER WORD
+ 487 007733* 4214          JMS     SWAIT                   /GO EXECUTE THE COMMAND
+ 488 007734* 2240  S40,    ISZ     SYSIO                   /BUMP PAST BLOCK NUMBER
+ 489 007735* 6202  SEXIT,  CIF     00                      /WILL BE CIF RETURN FIELD
+ 490 007736* 5640          JMP I   SYSIO                   /RETURN TO CALLER
+ 491               
+ 492 007737* 6000  S6000,  6000                            /CONSTANT 6000
+ 493               
+ 494               /       DISK COMMAND TABLE.
+ 495               
+ 496                       IFNZRO  .&17    <ERROR  .>
+ 497               
+ 498 007740* 0000  SBUF,   .-.                             /DISK, CYLINDER, HEAD, HIGH SECTOR
+ 499 007741* 0000  SBUF2,  .-.                             /LOW SECTOR, OPCODE, CHAIN, INTERRUPT, FIELD
+ 500 007742* 0000  SWC,    .-.                             /WORD COUNT
+ 501 007743* 7577  SCAA,   SBOOT-1                         /CURRENT ADDRESS; INITIALIZED FOR BOOTSTRAP
+ 502 007744* 4070  S4070,  4070                            /CONSTANT 4070; NOT MODIFIED BY COMMAND
+ 503 007745* 0000  STEMP1, .-.                             /RETURNED CYLINDER ADDRESS AFTER TRANSFER
+ 504 007746* 0000  STEMP2, .-.                             /ZEROED BY HARDWARE DURING A TRANSFER
+ 505 007747* 0000  STATUS, .-.                             /RETURNED STATUS AFTER TRANSFER
+ 506               
+ 507 007750* 2000  SFUNCT, 20^100                          /FUNCTION WORD
+ 508               
+ 509 007751* 0000          ZBLOCK  SPARM-.                 /EMPTY SPACE
+     007752* 0000  
+     007753* 0000  
+     007754* 0000  
+     007755* 0000  
+ 510               
+ 511 007756* 7600  SPARM,  CLA!400                         /EQUALS PARAMETER; CLEAN UP
+ 512 007757* 1001  SFILES, TAD     SBOOT&177+1             /FILE LIST STARTS HERE; GET A WORD
+ 513 007760* 3557          DCA I   SPARM&177+1             /PUT A WORD
+ 514 007761* 2160          ISZ     SFILES&177+1            /BUMP TO NEXT
+ 515 007762* 2157          ISZ     SPARM&177+1             /ANY MORE TO MOVE?
+ 516 007763* 5160          JMP     SFILES&177+1            /NO, GO BACK
+ 517 007764* 5402          JMP I   S7600&177+1/[SBOOT]     /YES, NO GO DO A WARM BOOTSTRAP
+ 518               
+ 519                       RELOC                           /TURN OFF RELOCATION
+ 520               
+ 521                       $                               /THAT'S ALL FOLK!
+
+ADRLST  7603
+BBLEN   0043
+BINADR  0020
+BINIT   0020
+BINIT2  0031
+BINITL  0020
+BLBLEN  0007
+BN1454  7650
+BN20    7651
+BN626   7652
+BNSETU  0033
+BNUNIT  7646
+BNUPPE  7647
+BTUNIT  0000
+BUTCNT  7615
+BUTCYL  7611
+BUTLUP  7602
+BUTSCT  7612
+BUTSET  7620
+BUTSTR  7603
+CALADR  0020
+CALFLD  0021
+CNTLST  7615
+DCLF    6622 unreferenced
+DCON    6627
+DEVCOD  0062
+DEVSIZ  6760
+DEXC    6624
+DLBP    6625
+DLERR   1056
+DRDS    6626 unreferenced
+DRIVE   0000
+DRVBSY  1130
+DRVERR  1112 unreferenced
+DSBY    6623
+DSKF    6621 unreferenced
+DSPBLB  0024
+DTST    6620 unreferenced
+DYNSIZ  6260
+ERLOC8  1224
+ERRADR  1243
+ERRENT  1213
+ERRFND  1221
+ERRLUP  1210
+ERRTRP  0046
+ESTATU  0077
+ETEMP   1240
+FILBLB  0023
+GENAD1  7400
+HIDWRD  7600 unreferenced
+IOTRAP  0045
+MONSTR  0353
+MOVBLB  0022
+NL0000  7200
+NL0001  7201
+NL0002  7326 unreferenced
+NL0003  7325 unreferenced
+NL4000  7330
+NL7777  7240
+NONEXI  1103 unreferenced
+OFF     0001
+ON      0000
+PARITY  1074 unreferenced
+PCHLOO  0162
+REWIND  1335
+S1454   7612
+S300    7702
+S40     7734
+S4070   7744
+S6000   7737
+S626    7677
+S7      7700
+S7600   7601
+SBFPTR  7613
+SBLOCK  7635 unreferenced
+SBOFF   3000
+SBOOT   7600
+SBRET   7603
+SBTFUN  7602
+SBUF    7740
+SBUF2   7741
+SCAA    7743
+SCIF    7676
+SCORE   7633 unreferenced
+SCRSIZ  7611 unreferenced
+SDATE   7610 unreferenced
+SEEK    1065 unreferenced
+SERR    7625
+SEXIT   7735
+SFILES  7757
+SFUN    7634 unreferenced
+SFUNCT  7750
+SLOAD   7632 unreferenced
+SLPCOR  4400
+SLPGEN  4420
+SLPSA   7777 unreferenced
+SLUPAG  2600
+SNORMA  7660
+SOUTFL  7607 unreferenced
+SPARM   7756
+SRETRY  7653
+STATUS  7747
+STEMP1  7745
+STEMP2  7746
+SUPPER  7674
+SWAIT   7614
+SWAL    7604 unreferenced
+SWC     7742
+SWMX    7605
+SWTAGN  7615
+SWY9    7606 unreferenced
+SYSIO   7640
+SYSNUM  0003
+SYSTAR  7637 unreferenced
+TRAPIO  1041 unreferenced
+TRPCDF  1044
+TRPERR  1200 unreferenced
+TRPGEN  1020
+TRPINS  1047
+UPPER   4000
+WRILOC  1121 unreferenced
+WRITE   4000
+ZAPLST  7627
