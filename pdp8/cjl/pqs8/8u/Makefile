@@ -1,5 +1,5 @@
 #2345678901234567890123456789012345678901234567890123456789012345678901234567890
-BIN	= ../bin
+BIN	= $(HOME)/pdp8/8tools
 # From pqsasm.bi:
 afiles	= 00Readme-A.txt cmpara.bi dtfrmt.pa l6dcon.pa map.pa phocal.pa \
 	pqslta.pa rt11.pa ascode.pa cmparb.bi floatz.zm lap6w.pa \
@@ -41,25 +41,25 @@ all::	$(afiles) $(bfiles) $(PABIN) $(PDP12) $(PQS8)
 
 %.bn:	%.pa
 	$(BIN)/pal -d -e -j $<
-	($(BIN)/bin2bn.pl $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
+	($(BIN)/bin2bn $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
 
 focl69.bn: focalz.zm floatz.zm
 	cat focalz.zm floatz.zm >focl69.pal
 	$(BIN)/pal -d -j focl69.pal
-	($(BIN)/bin2bn.pl focl69.bin >$@ || rm $@) && rm focl69.bin
+	($(BIN)/bin2bn focl69.bin >$@ || rm $@) && rm focl69.bin
 
 # These want TEXT padded.
 dtcopy.bn: dtcopy.pa
 	$(BIN)/pal -d -l -e $<
-	($(BIN)/bin2bn.pl $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
+	($(BIN)/bin2bn $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
 
 dtfrmt.bn: dtfrmt.pa
 	$(BIN)/pal -d -l -e $<
-	($(BIN)/bin2bn.pl $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
+	($(BIN)/bin2bn $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
 
 rklfmt.bn: rklfmt.pa
 	$(BIN)/pal -d -l -e $<
-	($(BIN)/bin2bn.pl $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
+	($(BIN)/bin2bn $(@:.bn=.bin) >$@ || rm $@) && rm $(@:.bn=.bin)
 
 # These need blk400 prepended.
 ltdhnd.pa: blk400.pa ltahnd.pa
