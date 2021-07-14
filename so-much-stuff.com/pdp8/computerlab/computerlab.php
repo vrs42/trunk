@@ -1,5 +1,5 @@
 <?php
-  $title = 'DEC "Computer Lab"';
+  $title = 'DEC H500 "Computer Lab"';
   include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
 ?>
 
@@ -69,6 +69,9 @@ seen before:
     <BR>A bag of Pomona patch cables.
   </A></TD>
 </TABLE>
+    <P>Glenn Axelrod also sent me a very nice
+<A href="/pdp8/computerlab/H500_Computer_Lab.pdf">PDF schematic</A>
+of the thing.
 </TD>
 </TR>
 </TABLE>
