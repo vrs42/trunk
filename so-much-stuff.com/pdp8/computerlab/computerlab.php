@@ -8,13 +8,13 @@
 <TD vAlign=top>
     <P><FONT size=3>
     <P>I have this cool DEC "Computer Lab".  It's a box with a power supply, 
-some switches and lights, some logic, and a variable clock.  Here's a picture of 
-the thing:
+some switches and lights, some logic, and a variable clock.  Here's a picture
+of the thing:
 <TODO: Take a picture of the "Computer Lab">
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/computerlab/clab.jpg">
+    <A href="/pdp8/computerlab/clab.jpg" target=_blank>
     <IMG src="/pdp8/computerlab/clab.jpg" width=320>
     <BR>My Computer Lab, from eBay.
   </A></TD>
@@ -26,12 +26,12 @@ wires (I think these were taken by Ashley of his wires):
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/computerlab/digitallab1.jpg">
+    <A href="/pdp8/computerlab/digitallab1.jpg" target=_blank>
     <IMG src="/pdp8/computerlab/digitallab1.jpg" width=320>
     <BR>The wires (color coded by length).
   </A></TD>
   <TD>
-    <A href="/pdp8/computerlab/digitallab.jpg">
+    <A href="/pdp8/computerlab/digitallab.jpg" target=_blank>
     <IMG src="/pdp8/computerlab/digitallab.jpg" width=320>
     <BR>A closeup of the funky tapered brass ends on the wires.
   </A></TD>
@@ -50,12 +50,12 @@ seen before:
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/computerlab/decpatch1.jpg">
+    <A href="/pdp8/computerlab/decpatch1.jpg" target=_blank>
     <IMG src="/pdp8/computerlab/decpatch1.jpg" width=320>
     <BR>A few of Jack's patch cables.
   </A></TD>
   <TD>
-    <A href="/pdp8/computerlab/decpatch2.jpg">
+    <A href="/pdp8/computerlab/decpatch2.jpg" target=_blank>
     <IMG src="/pdp8/computerlab/decpatch2.jpg" width=320>
     <BR>Cool stackable DEC branded mini-banana plugs!
   </A></TD>
@@ -64,13 +64,13 @@ seen before:
 <TABLE>
 <TR>
   <TD>
-    <A href="/pdp8/computerlab/pomona.jpg">
+    <A href="/pdp8/computerlab/pomona.jpg" target=_blank>
     <IMG src="/pdp8/computerlab/pomona.jpg" width=320>
     <BR>A bag of Pomona patch cables.
   </A></TD>
 </TABLE>
     <P>Glenn Axelrod also sent me a very nice
-<A href="/pdp8/computerlab/H500_Computer_Lab.pdf">PDF schematic</A>
+<A href="/pdp8/computerlab/H500_Computer_Lab.pdf" target=_blank>PDF schematic</A>
 of the thing.
 </TD>
 </TR>
