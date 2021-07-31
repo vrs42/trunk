@@ -1,19 +1,26 @@
 #!/usr/bin/expect -f
 
+# Remove the old PQS8, for a clean start.
+spawn rm -f dt.out
+wait
+
+# Fire up a PDP-8, then walk it through the build steps.
 spawn pdp8
 set timeout -1
 expect {
 	{..$} { exp_continue }
-        {.$} { send "DATE 17-JUN-99\r" }
+        {.$} { send "DATE 30-JUL-99\r" }
 }
+expect -re {\n\.$}
+send "ASSIGN RKB0 TMP\r"
 expect -re {\n\.$}
 send "ASSIGN RKA1 A\r"
 expect -re {\n\.$}
 send "ASSIGN RKB1 B\r"
 expect -re {\n\.$}
-send "ASSIGN RKA2 SCR\r"
+send "ASSIGN DTA1 SCR\r"
 expect -re {\n\.$}
-send "ASSIGN RKB2 TMP\r"
+send "ZERO SCR:\r"
 expect -re {\n\.$}
 send "ZERO TMP:\r"
 expect -re {\n\.$}
@@ -26,13 +33,19 @@ expect -re {END BATCH\r\n\r\n\.$}
 #expect -re {\n\.$}
 send "DIR SCR:\r"
 expect -re {\n\.$}
-send "EX RKB2:Z12K,RKB2:PQSMON,RKB2:PQSDTA,RKB2:BIN,RKB2:ODT,RKB2:DUMP\r"
+send "EX TMP:Z12K,TMP:PQSMON,TMP:PQSDTA,TMP:BIN,TMP:ODT,TMP:DUMP\r"
 expect -re {\nsim> }
 send "D SR 0\r"
 expect -re {\nsim> }
 send "C\r"
 expect -re {\nsim> }
+send "ASSIGN PTR comgen.du\r"
+expect -re {\nsim> }
 send "B DT\r"
-expect -re {\n\.$}
+expect -re {\n\a\.$}
+#send "DIR\r"
+#expect -re {\n\a\.$}
+#send "DDUUMMPP  PPTTRR::\r"
+#expect -re {\n\a\.$}
 close
 exit 0
