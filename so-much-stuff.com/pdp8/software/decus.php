@@ -1458,7 +1458,13 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158 target=_blank>8-158
 </a><td><div>AX08 Symbol Generator </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158/decus-8-158-pa target=_blank>decus-8-158-pa</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158/decus-8-158-pa.od target=_blank>decus-8-158-pa.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158/decus-8-158.bin target=_blank>decus-8-158.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158/decus-8-158.htm target=_blank>decus-8-158.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158/decus-8-158.lbl target=_blank>decus-8-158.lbl</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158/decus-8-158.lst target=_blank>decus-8-158.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-158/decus-8-158.pal target=_blank>decus-8-158.pal</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-159 target=_blank>8-159
 </a><td><div>CINET-BASIC </div>
@@ -2140,7 +2146,17 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255 target=_blank>8-255
 </a><td><div>SCED: Scope Editor for the AX08 </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/Notes.txt target=_blank>Notes.txt</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255-pa target=_blank>decus-8-255-pa</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255-pa.lbl target=_blank>decus-8-255-pa.lbl</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255-pa.od target=_blank>decus-8-255-pa.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255-pb target=_blank>decus-8-255-pb</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255-pb.lbl target=_blank>decus-8-255-pb.lbl</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255-pb.od target=_blank>decus-8-255-pb.od</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255.bin target=_blank>decus-8-255.bin</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255.htm target=_blank>decus-8-255.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255.lst target=_blank>decus-8-255.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255.pal target=_blank>decus-8-255.pal</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-255/decus-8-255.pdf target=_blank>decus-8-255.pdf</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-256 target=_blank>8-256
@@ -7925,13 +7941,24 @@ Dr. IR. L. Boullart</div>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68 target=_blank>focal8-68
 </a><td><div>Determination of Roots of a Polynomial </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/Notes.txt target=_blank>Notes.txt</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/decus-focal8-68.htm target=_blank>decus-focal8-68.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/decus-focal8-68.pdf target=_blank>decus-focal8-68.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/decus-focal8-68b.fc target=_blank>decus-focal8-68b.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/decus-focal8-68b.lbl target=_blank>decus-focal8-68b.lbl</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/decus-focal8-68c.fc target=_blank>decus-focal8-68c.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/decus-focal8-68d.fc target=_blank>decus-focal8-68d.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/decus-focal8-68d.lbl target=_blank>decus-focal8-68d.lbl</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068a.fc target=_blank>f0068a.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068a.fc.od target=_blank>f0068a.fc.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068b.fc target=_blank>f0068b.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068b.fc.od target=_blank>f0068b.fc.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068c.fc target=_blank>f0068c.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068c.fc.od target=_blank>f0068c.fc.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068d.fc target=_blank>f0068d.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068d.fc.od target=_blank>f0068d.fc.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068e.fc target=_blank>f0068e.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-68/f0068e.fc.od target=_blank>f0068e.fc.od</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-69 target=_blank>focal8-69
 </a><td><div>Analysis of Variance </div>
@@ -7944,7 +7971,10 @@ Dr. IR. L. Boullart</div>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-70 target=_blank>focal8-70
 </a><td><div>Analysis of Variance Randomized Block "F" Test </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-70/decus-focal8-70.fc target=_blank>decus-focal8-70.fc</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-70/decus-focal8-70.fc.od target=_blank>decus-focal8-70.fc.od</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-70/decus-focal8-70.htm target=_blank>decus-focal8-70.htm</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-70/decus-focal8-70.lbl target=_blank>decus-focal8-70.lbl</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-70/decus-focal8-70.pdf target=_blank>decus-focal8-70.pdf</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-70/f0070.fc target=_blank>f0070.fc</a></div>
 <tr>
