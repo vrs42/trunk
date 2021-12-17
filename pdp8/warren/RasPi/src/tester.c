@@ -7,7 +7,8 @@
 /*                                                                      */
 /************************************************************************/
 
-#define VERSION_STRING  "version 0.91 November 27, 2015"
+#define VERSION_STRINGO "version 0.91 November 27, 2015"
+#define VERSION_STRING  "$Header$"
 
 #define _CRT_SECURE_NO_WARNINGS	1	/* disable Microsoft 'old library' warnings	*/
 
