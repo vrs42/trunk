@@ -26,14 +26,17 @@ smaller second run, so I took the money from the group buy for their 48, and
 chipped in the extra money to buy some extras.
     <P>Long story short, that group buy fell apart, in a spectacular way, that 
 <em>still</em> hasn't really resolved itself.  At least Jack and I had done our 
-parts.  As far as I know, Dave McGuire now has those boards, and still needs to 
-assemble and deliver them.
+parts.  Dave McGuire now had those boards, and was still working
+to assemble and deliver them.
     <P>That led to an odd situation -- the only "available" IOB boards were the 
 ones I had ordered for "round two".  In early 2010, I had acquired components for 
 these boards, expecting the group buy to proceed, and eventually demand to appear 
 for "round two".  That left me with a lot of money expended on IOB boards, and 
 without an obvious way to recoup.  Finally, in 2011, I decided to give up on 
 "round one" and to assemble and sell "round two".
+    <P>Note: Dave did assemble and deliver the original set of boards,
+delivering the last of them around 2014 or so.  He did this at considerable
+personal expense, in time as well as money, and I appreciate his efforts!
     <P>
 <TABLE>
 <TR>
