@@ -25,7 +25,7 @@ a small charge per board.  I anticipated that there might be later interest in a
 smaller second run, so I took the money from the group buy for their 48, and 
 chipped in the extra money to buy some extras.
     <P>Long story short, that group buy fell apart, in a spectacular way, that 
-<em>still</em> hasn't really resolved itself.  At least Jack and I had done our 
+<em>still</em> hadn't really resolved itself.  At least Jack and I had done our 
 parts.  Dave McGuire now had those boards, and was still working
 to assemble and deliver them.
     <P>That led to an odd situation -- the only "available" IOB boards were the 
