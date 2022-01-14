@@ -57,6 +57,7 @@ foreach $f (@ARGV) {
   }
   $previous = undef;
   %edge = ();
+  $bad = 0;
   while (<INPUT>) {
     s/\r$//; chop;
     last if /^\s*endsolid /;
@@ -67,6 +68,7 @@ foreach $f (@ARGV) {
 #     $ny = int($nx+0.4);
 #     $nz = int($nx+0.4);
       warn "$f: bad normal: $_\n";
+      $bad++;
       next;
     }
     next if /^\s*endloop/;
@@ -92,7 +94,6 @@ foreach $f (@ARGV) {
     $previous = $this;
   }
 
-  $bad = 0;
   foreach $edge (keys %edge) {
     if ($edge{$edge} != 2) {
       print "$edge occurs $edge{$edge} times\n";
