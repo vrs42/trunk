@@ -29,7 +29,7 @@ foreach $stl (sort <*/*.stl>) {
   $txt = $stl; $txt =~ s/.stl$/.txt/;
   warn "$stl: no descriptive .txt\n" unless -f $txt;
   next unless -f $txt;
-  warn "./nonsolid $stl";
+# warn "./nonsolid $stl";
   $status += system("./nonsolid $stl") / 256;
   print "<TD>";
   if (-f $txt) {

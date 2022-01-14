@@ -62,11 +62,7 @@ foreach $f (@ARGV) {
     s/\r$//; chop;
     last if /^\s*endsolid /;
     if (/^\s*facet /) {
-      next unless /-0.0 /;
-#     ($_, $_, $nx, $ny, $nz) = split(/\s+/, $p);
-#     next if $nx =~ /-0/;
-#     $ny = int($nx+0.4);
-#     $nz = int($nx+0.4);
+      next unless /-0[.]0 /;
       warn "$f: bad normal: $_\n";
       $bad++;
       next;
