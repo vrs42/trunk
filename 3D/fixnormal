@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+
+# Scan files for -0.0 in normals.
+# Replace the -0.0 with 0.0.
+
+foreach $stl (<*/*.stl>) {
+  open(INPUT, $stl) || die "$stl: $!";
+  $hdr = <INPUT>;
+  die "$stl: STL not ASCII" unless $hdr =~ /^solid /;
+
+  $new = "$stl.new";
+# if (-f $new) {
+#   warn "$stl.new exists\n";
+#   next;
+# }
+  open(OUTPUT, ">$new") || die "$new: $!";
+  print OUTPUT $hdr;
+
+  while (<INPUT>) {
+    s/-0[.]0 /0.0 /g;
+    s/-0[.]0$/0.0/g;
+    print OUTPUT $_;
+  }
+
+  # Now, if $new is identical to $stl, delete it.
+  close(OUTPUT);
+  $s1 = -s $stl;
+  $s2 = -s $new;
+  next unless $s1 == $s2;
+  warn "$stl is the same as $new\n" if $s1 == $s2;
+  system("rm $new");
+}
