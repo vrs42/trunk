@@ -1,6 +1,8 @@
 #!/usr/bin/perl
 
 # Read an ASCII format STL file
+# Report if it is not a solid.
+# Report issues with the facet normals.
 
 # solid 1170Handle
 # facet normal -0.000148266570749099 -0.00460401291523558 0.999989390484769
@@ -11,6 +13,9 @@
 #   endloop
 # endfacet
 # endsolid 1170Handle
+
+# That normal isn't a proper unit normal.  Should be:
+# facet normal 0.0 0.0 1.0
 
 #
 # Sort two points into an appropriately ordered edge with 
@@ -55,7 +60,15 @@ foreach $f (@ARGV) {
   while (<INPUT>) {
     s/\r$//; chop;
     last if /^\s*endsolid /;
-    next if /^\s*facet /;
+    if (/^\s*facet /) {
+      next unless /-0.0 /;
+#     ($_, $_, $nx, $ny, $nz) = split(/\s+/, $p);
+#     next if $nx =~ /-0/;
+#     $ny = int($nx+0.4);
+#     $nz = int($nx+0.4);
+      warn "$f: bad normal: $_\n";
+      next;
+    }
     next if /^\s*endloop/;
     next if /^\s*outer loop/;
     if (/^\s*endfacet/) {

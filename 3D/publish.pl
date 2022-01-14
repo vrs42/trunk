@@ -12,6 +12,7 @@ $head = <<'EOM';
 <BODY><FONT size=4>
 EOM
 print $head;
+$status = 0;
 
 print "Here are some 3D design files mostly relevant to the PDP-8.\n";
 print "These should mostly be printable with common 3D printing services\n";
@@ -28,6 +29,7 @@ foreach $stl (sort <*/*.stl>) {
   $txt = $stl; $txt =~ s/.stl$/.txt/;
   warn "$stl: no descriptive .txt\n" unless -f $txt;
   next unless -f $txt;
+  $status += system("./nonsolid $stl");
   print "<TD>";
   if (-f $txt) {
     open(INPUT, $txt) || die "$txt: $!";
@@ -66,4 +68,4 @@ $tail = <<'EOM';
 EOM
 print $tail;
 
-exit 0;
+exit $status;

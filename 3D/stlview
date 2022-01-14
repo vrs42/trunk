@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+
+# Convert binary STL files to ASCII STL for inspection.
+
+foreach $arg (@ARGV) {
+  open(INPUT, $arg) || die "$arg: $!";
+  binmode(INPUT);
+  $name = $arg;
+  $name = $1 if $name =~ /^(\w+)/;
+  print "solid $name\n";
+
+  # The input file starts witn an 80 character header.
+  read(INPUT, $buf, 80) || die "header $arg: $!";
+# print "$arg: $buf\n" if $buf ne "";
+
+  # Next is the count of triangles.
+  read(INPUT, $count, 4) || die "count $arg: $!";
+  $count = unpack("L", $count);
+# print "$count triangles\n";
+
+  for ($i = 0; $i < $count; $i++) {
+    read(INPUT, $buf, 50) || die "$arg: triangle $i: $!";
+    ($nx, $ny, $nz, $x1, $y1, $z1, $x2, $y2, $z2, $x3, $y3, $z3, $attr)
+      = unpack("ffffffffffffS", $buf);
+    printf "facet normal %f %f %f\n", $nx, $ny, $nz;
+    printf "    outer loop\n";
+    printf "        vertex %f %f %f\n", $x1, $y1, $z1;
+    printf "        vertex %f %f %f\n", $x2, $y2, $z2;
+    printf "        vertex %f %f %f\n", $x3, $y3, $z3;
+    printf "    endloop\n";
+    printf "endfacet\n";
+    warn "$arg: triangle $i: attr == ", $attr unless $attr == 0;
+  }
+  print "endsolid $name\n";
+}
