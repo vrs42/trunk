@@ -1,9 +1,13 @@
 #!/bin/sh
 
 LOGPATH=http://svn.so-much-stuff.com/svn/trunk
+YEAR=`date +%Y`
+year=`expr $YEAR - 1`
 
-svn log -v -r "{2021-12-31}:{2021-1-1}" >y2021.txt $LOGPATH
+svn log -v -r "{$YEAR-12-31}:{$YEAR-1-1}" >y$YEAR.txt $LOGPATH
+svn log -v -r "{$year-12-31}:{$year-1-1}" >y$year.txt $LOGPATH
 
+# svn log -v -r "{2021-12-31}:{2021-1-1}" >y2021.txt $LOGPATH
 # svn log -v -r "{2020-12-31}:{2020-1-1}" >y2020.txt $LOGPATH
 # svn log -v -r "{2019-12-31}:{2019-1-1}" >y2019.txt $LOGPATH
 # svn log -v -r "{2018-12-31}:{2018-1-1}" >y2018.txt $LOGPATH

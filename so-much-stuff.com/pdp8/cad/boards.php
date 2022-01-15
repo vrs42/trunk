@@ -545,7 +545,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A801 target=_blank>./DEC/Axxx/A801</a></b>: !0-bit A/D Converter
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A801 target=_blank>./DEC/Axxx/A801</a></b>: 10-bit A/D Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
