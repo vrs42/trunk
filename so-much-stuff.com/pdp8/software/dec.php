@@ -5001,7 +5001,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkaf/maindec-08-dhkaf-a-pb>ak-6259a / maindec-08-dhkaf-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
-<td>PDP8E Instruction Test Part 2 (obsoletes 8e-d08b)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkag>maindec-08-dhkag</a></td>
+<td>PDP8E Instruction Test Part 2 (obsoletes 8e-d0bb)<br><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkag>maindec-08-dhkag</a></td>
 <td><table>
 <tr><td>ac-6261a / maindec-08-dhkag-a-d</td><td></td></tr>
 <tr><td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkag/maindec-08-dhkag-a-pb>ak-6263a / maindec-08-dhkag-a-pb</td><td></a></td></tr>

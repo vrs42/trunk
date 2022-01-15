@@ -379,6 +379,14 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A312 target=_blank>./DEC/Axxx/A312</a></b>: KV8/L Analog Function Generator, Double
+
+</LEGEND><DL>
+<DT>A312E</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A3170 target=_blank>./DEC/Axxx/A3170</a></b>: Arbitrary Vector Generator (double, long)
 
 </LEGEND><DL>
@@ -465,9 +473,13 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A612 target=_blank>./DEC/Axxx/A612</a></b>: D/A Converter, Double
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A612 target=_blank>./DEC/Axxx/A612</a></b>: D/A Converter for KV8/L, Double
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>A612B</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A614 target=_blank>./DEC/Axxx/A614</a></b>: 12 Bit bipolar D/A Converter, Double Long
 
@@ -524,6 +536,14 @@ schematics work. (Has a consistency problem to highlight changes.)
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A708 target=_blank>./DEC/Axxx/A708</a></b>: Dual Voltage Regulator
 
 </LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A712 target=_blank>./DEC/Axxx/A712</a></b>: Voltage Regulator for KV8/L
+
+</LEGEND><DL>
+<DT>A712A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A801 target=_blank>./DEC/Axxx/A801</a></b>: !0-bit A/D Converter
 
@@ -4237,6 +4257,10 @@ by Dave Brockman.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M712 target=_blank>./DEC/Mxxx/M712</a></b>: Control Logic I, CR8-I, CR8-L
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M714 target=_blank>./DEC/Mxxx/M714</a></b>: Control Logic I, CR8-I, CR8-L
 
 </LEGEND></FIELDSET>
@@ -5102,6 +5126,8 @@ with input flow control implemented.
   <DD>needs a drawing.
 <DT>M8650D+eco</A>
   <DD>is a drawing of DEC's M8650 schematic rev. E on D etch.
+<DT>M8650D+vrs</A>
+  <DD>is a drawing of DEC's M8650 schematic rev. E with EIA RTS.
 <DT>M8650D-ka</A>
   <DD>needs a drawing.
 </DL>

@@ -6502,8 +6502,16 @@ Dr. IR. L. Boullart</div>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880 target=_blank>8-880
 </a><td><div>RUNOFF V.6 </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/Makefile target=_blank>Makefile</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/decus-8-880.htm target=_blank>decus-8-880.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/decus-8-880.pdf target=_blank>decus-8-880.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/runoff.bi target=_blank>runoff.bi</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/runoff.bin target=_blank>runoff.bin</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/runoff.lst target=_blank>runoff.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/runoff.pa target=_blank>runoff.pa</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/runoff.pa.orig target=_blank>runoff.pa.orig</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/runoff.ro target=_blank>runoff.ro</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-880/runoff.sv target=_blank>runoff.sv</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-881 target=_blank>8-881
 </a><td><div>COS 310 Compatible Floppy Disk Handler for </div>
