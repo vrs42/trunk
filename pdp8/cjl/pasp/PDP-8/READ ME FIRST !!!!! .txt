@@ -1,0 +1,466 @@
+READ ME FIRST !!!!! .txt
+
+Very important initial setup information for the P?S Advanced SIMH package.
+
+Last edit: 29-Aug-2015	cjl
+
+Sections:
+
+I)	System requirements.
+
+II)	PASP logistics and installation.
+
+III)	Environment Variable Considerations.
+
+IV)	Package Customization.
+
+V)	Creating and using project file shortcuts.
+
+VI)	Permanent Package Components.
+
+VII)	Extra-long DECtape considerations.
+
+VIII)	SIMH Limitations and workarounds.
+
+I.	System Requirements.
+
+The P?S Advanced SIMH Package [PASP] is for Microsoft Windows systems only.
+While the SIMH PDP-8 simulator has been implemented on many computer
+architectures, the extensions provided in the PASP can only be used with
+Windows [XP and newer] systems.
+
+Note:	The PASP has not been tested on Windows 8 or Windows 10 yet.
+	Please provide feedback on your experiences with these newer systems.
+
+The system must include support for Adobe Reader or other .PDF reader program
+as most of the documentation is provided in this format.
+
+II.	PASP logistics and installation.
+
+The PASP is distributed to a very limited audience; we ask that you not
+proliferate it at this point in time as many of the components are undergoing
+modification.  Nearly everything is subject to change and we welcome your
+feedback.  Contact Charles Lasner at CLASystems@gmail.com for any contributions
+to the project.
+
+The PASP is available as a self-extracting archive to be placed in the root
+directory of a particular logical drive [such as D:].  It is important the
+intended drive letter for PASP usage be chosen carefully as the package must be
+initialized accordingly.  While any available hard disk partition can be used,
+the highest available FAT32 or NTFS drive is recommended.  For backup purposes,
+the best choice is to create a small data partition for the exclusive use of
+the PASP.  Consult documentation of the drive partitioning software of your
+choice for more information.
+
+Note: As stated above, the archive file *MUST* be located in the root directory
+of a logical drive; the installation will fail if this is ignored!
+
+III.	Environment Variable Considerations.
+
+The package creates a tree of subdirectories; the highest level is named
+\PDP-8.  All references within the package are performed with relative path
+names that depend on a master environment variable referenced as %PDP8_DRIVE%
+in all components of the package.  This would be the equivalent of
+
+SET PDP-8_DRIVE=D:
+
+or other drive letter [C: through Z: as required] if this were expressed within
+a BATCH file; however, it must be set as an environment variable within your
+own logon profile.  If you are comfortable with changing the profile-specific
+environment variables to the equivalent value appropriate for your system, this
+will be easy for you.
+
+For the rest of us, a BATCH file is available to permanently setup the
+environment variable based on the drive letter of the logical device the
+package has been extracted to.  Assuming the drive is D:, the BATCH file will
+be located in the following directory:
+
+D:\PDP-8\SIMH\Links and Support Files\PDP-8_SETUP\.
+
+Navigate to this directory and run
+
+PDP-8_DRIVE_SET.BAT.
+
+Follow the on-screen directions; a Notepad-based help screen window is provided
+as part of the program, which must be closed to continue the setup process.
+Once the setup has completed, the BATCH window remains open for 30 seconds to
+allow reading what transpired [and then automatically closes].
+
+Note: At this point the PASP is *NOT* ready for use!  The system must be shut
+down and restarted at least once before proceeding; this is a known quirk of
+Windows where a formal logout is required before environment variable
+modifications take effect.
+
+IV.	Package Customization.
+
+A desktop shortcut is available for the PASP in the directory
+
+\PDP-8\SIMH\Links and Support Files\Desktop Shortcuts and Icons
+
+named
+
+PDP-8 SIMH Development.lnk.
+
+This .lnk/shortcut file is write-protected to prevent modification by Windows
+should the environment variable be improperly set.  [Windows has a bad "habit"
+of "guessing" alternate paths contrary to your intentions and perhaps not even
+informing you of its "wisdom".  By write-protecting all shortcuts, expected
+usage may fail until the underlying problem is repaired; however, the file will
+not be "corrected" into an undesirable alternative chosen by Windows.]
+
+The shortcut can be modified [to change icons, etc.] if desired by changing its
+properties to remove the read-only attribute; once a new customized shortcut is
+complete, the read-only bit should be restored.  [Note: It is recommended that
+customization be performed on a copy of the provided shortcut to prevent
+unexpected negative results; even experts screw up occasionally!]
+
+All package icon [.ico] files are also stored in this directory.  New or
+custom modified icons can be added if desired; all shortcuts used throughout
+the PASP depend on a uniform icon file path [including the desktop shortcuts].
+
+Opening the package through the designated desktop shortcut will open the most
+used configuration window containing the active components of the SIMH package
+and related directories, most notably the Commands directory.
+
+Most users will opt for the additional desktop shortcut named
+
+SIMH Commands.lnk
+
+located in the same directory.  This will directly open the
+
+\PDP-8\SIMH\PDP-8\Commands
+
+directory which serves as the "command center" for most operations of the PASP.
+
+All working shortcuts are stored in this directory.  A description of all
+permanent shortcuts is available below in Section VI.
+
+V.	Creating and using project file shortcuts.
+
+Some users will opt to develop one or more project files using SIMH simulator
+sessions completely relying on the simulated operating system's file structure
+such as the OS/8 directory or the P?S/8 TFS directory.  However, there are
+tradeoffs to maintaining source files in these environments; as an alternative,
+the PASP embraces host file development using the SIMH simulator in short
+sessions using the high-speed reader and punch support files [PTRFILE.TXT for
+high-speed reader input and PTPFILE.TXT for high-speed punch output] as the
+bridge between the host and simulated environments.  Any host-based text editing
+program can be used as long as command-line execution passing the project
+file name in a BATCH file is supported by the editor.
+
+Developing a file in the host environment is accomplished using a pair of
+shortcuts tailored to the particular project file and editor choice.  This
+release includes representative shortcuts for the purpose of developing a file
+known as COROUTINE.PAL.  [Note: COROUTINE.PAL is an abstract of the source code
+of Kermit-12, also written by Charles Lasner with help from several others.  It
+was used in an academic setting as a good example of PDP-8 implementation of
+coroutines.  Definitions have been added so it can be independently assembled
+with either OS/8 PAL8 or P?S/8 PAL.]
+
+1)	Edit COROUTINE.PAL - This shortcut brings up a linked BATCH file named
+	\PDP-8\SIMH\PDP-8\SIMH Batch Files\Edit and Copy COROUTINE.PAL.BAT
+	which links to Windows Notepad as the designated editor for the project
+	file COROUTINE.PAL in its own editing window.  Exiting the editing
+	window [which is optional during file development] copies the project
+	file to PTRFILE.TXT.  One way of proceeding is to run the simulator
+	configuration of choice manually; however this requires exit of the
+	editor environment.  [See 2) below.]
+
+	Note: While there are many alternatives to Windows Notepad, many are
+	unsuitable because of poor handling of <FF> and perhaps other
+	unprintable characters.  Notepad will print all such characters as a
+	clear rectangle with no way to distinguish which specific character
+	is present; however, once a file is stripped [see Section VI below] the
+	only such character will be <FF> [which may be copied and pasted into
+	source code freely].  Notepad fully supports DEC-style <HT> handling
+	unlike many newer editors that tend to embrace 4-character and other
+	variably tabbing conventions.
+
+	An acceptable choice is Anker Berge-Sonne's SEDT which was written for
+	the Rainbow and DECmate II and other DEC [and non-DEC machines].  The
+	PC/MS-DOS version can be found in various archives on the Internet.
+	SEDT is not Windows-oriented and runs in an MS-DOS window; all commands
+	are keyboard-driven.
+
+	Because if the way SEDT handles <FF> as a reverse-video "L" character,
+	certain source code lines that might have been mis-aligned visually are
+	handled correctly.  The widely used seven-character tag on a PAL
+	statement [with trailing ","] is difficult to display correctly when
+ 	used on the first line after a <FF>; temporarily insert <CR>/<LF> to
+	confirm the statement is as intended, then remove the <CR>/<LF>.
+	[Note: The seventh character is ignored by PAL, but is used to enhance
+	the source code symbolically.  If the symbol is presented as six
+	characters or less, <HT> should be placed after the"," to maintain the
+	alignment.]
+
+	No editor choice is perfect for development purposes, but these two
+	seem to be the best choices so far.  Please contact Charles Lasner if
+	you have any further suggestions.
+
+	Regardless of editor choice, the complete path must be provided to the
+	program selected; in the example batch files, notepad.exe can be used
+	directly as it is always in the Windows default path.  A program that
+	cannot support multiple sessions might be acceptable if you only edit
+	one file at a time.
+
+2)	Copy and Go COROUTINE.PAL - This shortcut brings up a linked BATCH file
+	named \PDP-8\SIMH\PDP-8\SIMH Batch Files\Copy and Go COROUTINE.PAL.BAT
+	which copies the project file COROUTINE.PAL to PTRFILE.TXT and runs the
+	SIMH simulator using the configuration file chosen within the BATCH
+	file.  [Note: Changing one line in the BATCH file allows any of the
+	five configuration choices as required.  In this example file, OS/8 on
+	RK8E/RK05 is the default internal configuration choice; by editing the
+	configuration choice commenting out the OS/8 choice, P?S/8 will become
+	the default internal configuration; other P?S/8-oriented choices can
+	be used if desired.]
+
+	Since the project file is copied for further use in the SIMH session,
+	it is not necessary to exit the editor window defined in 1) above.
+	Experienced users will leave the editor open indefinitely and use the
+	associated Copy and Go shortcut repeatedly after performing file edits
+	and saving the project file.
+
+	Generally, the SIMH session is used to create listing files after
+	processing the source file in the PDP-8 environment.  The SIMH session
+	is terminated internally [using the SIMH control-E command and the
+	exit command which closes out all open device image files].  Listing
+	files can then be stripped and viewed in the host environment, which
+	can then lead to further editing cycles using this shortcut after the
+	project file is saved in the edit window [which does not have to be
+	terminated].
+
+	Note: This mechanism can be applied to simultaneous development of
+	several project files, as long as the designated editor allows multiple
+	open editing windows.
+
+While a complete understanding of the shortcut particulars and the inner
+workings of the underlying BATCH files is of interest to those developing the
+PASP itself, the user can gain a rudimentary understanding of how to create
+custom shortcut file pairs by examining the example files and the underlying
+BATCH files.  The organization is such that only a few lines need to be changed
+defining the file name and the full path to its directory [and perhaps the
+choice of SIMH bootup environment as discussed above] in appropriately named
+descendant BATCH files for the new project files.  Information on creating
+additional shortcut file pairs from the example shortcuts is available in the
+
+Development Notes for Advanced SIMH Users.pdf
+ 
+file available in the
+
+\PDP-8\SIMH\PDP-8\SIMH Documents
+
+directory.
+
+The
+
+\PDP-8\SIMH\PDP-8\Inactive Commands
+
+directory is provided for storage of the shortcuts to projects not currently
+under development; this should be used to avoid clutter in the Commands
+directory.  As required, shortcuts can be transferred between these directories
+as the current status of a project changes.  [Note: This directory contains
+existing shortcuts for projects that are infrequently used by the author; they
+are provided as further examples of how to form functional shortcut pairs for
+multiple projects.]
+
+VI.	Permanent Package Components.
+
+Within the Commands directory are permanent shortcuts to various utilities:
+
+ 1)	Boot to OS8 - This runs the SIMH simulator booting to OS/8 running on
+	RK8E/RK05.  OS/8 is also configured for TC01/TC08 DECtape drives to
+	facilitate file conversions between OS/8 and P?S/8 [configured for
+	TC01/TC08 as provided in this package].
+
+ 2)	Boot to PQS8 - This runs the SIMH simulator booting to the latest
+	release of P?S/8 [Version 8Z] configured for TC01/TC08.
+
+ 3)	Boot to PQS8 (LPT Disabled) - This is the same as 2) above except the
+	device 66 line printer is disabled.  [Certain P?S/8 programs
+	automatically check for the printer and self-configure accordingly; on
+	physical hardware this would merely require placing the printer online
+	or offline as required.]
+
+ 4)	Boot to PQS8 Version 8P - This is the same as 2) above except a very
+	old version of P?S/8 is booted.  [Note: This is not generally
+	recommended for use other than for system comparison purposes only.]
+
+ 5)	Boot to PQS8 Version 8P (LPT Disabled) - This is the same as 3) above
+	with regard to the device 66 line printer; otherwise this is the same
+	as 4) above.
+
+ 6)	Clear Line Printer Output - The file used to store device 66 line
+	printer output [LPTOUT.TXT] is cleared.  In certain cases, the file
+	contents from a prior SIMH session are not completely cleared which can
+	lead to garbled content.  This function clears the file for printing
+	purposes in the next SIMH session.
+
+ 7)	Clear Paper Tape Output - The file used to store device 02 paper-tape
+	output [PTPOUT.TXT] is cleared.  As in the case of line printer output,
+	old data from a prior SIMH session may be present which can lead to
+	garbled content.  This function clears the file for printing/punching
+	purposes in the next SIMH session.
+
+ 8)	Strip Line Printer Output - All artifacts that prevent proper printing
+	of line printer output are removed from LPTOUT.TXT using an extremely
+	comprehensive TECO macro [STRIP.TEC].  The resulting file will now
+	generally contain what was expected; however, the contents prior to
+	stripping may be alarmingly contaminated with a whole host of junk
+	characters.  To experience this first-hand, open the line printer
+	output before and after stripping [you won't bother looking before
+	stripping a second time!].
+
+ 9)	Strip Paper Tape Output - All artifacts that prevent proper printing
+	of ASCII text paper-tape output are removed from PTPOUT.TXT as in 8)
+	above.  Due to the general presence of the mark parity bit on every
+	frame, it is virtually impossible to make any sense out of ASCII text
+	data prior to stripping.  [Note: Do not strip binary data which
+	requires 8-bit paper-tape frames.]
+
+10)	Open Line Printer Output - The line printer output from the last closed
+	SIMH session is displayed.  The file may be saved elsewhere for
+	potential post-processing and eventual printing to paper [or PDF
+	document].  [Note: Do not use while a SIMH session is in progress.]
+
+11)	Open Paper Tape Output - The paper-tape output from the last closed
+	SIMH session is displayed.  The file may be saved elsewhere for
+	potential post-processing and eventual printing to paper [or PDF
+	document].  [Note: Do not use while a SIMH session is in progress.]
+	[Note: Binary files should be copied directly from the PTPOUT.TXT file
+	as described in 13) below.  The recommended extension is .BIN or .RIM
+	depending on the specific binary format used.  For certain OS/8
+	core-image files, the .SAV extension can be applied.]
+
+12)	Help Documents - This opens the SIMH documents directory.  All SIMH
+	documents on a variety of related subjects are stored here.  Most files
+	are in .PDF format; thus, Adobe Reader or a similar utility must also
+	be installed.
+
+13)	SIMH Working Files - This opens the working files directory; from this
+	directory, the PTRFILE.TXT paper-tape input file, the PTPOUT.TXT
+	paper-tape output file and the LPTOUT.TXT line printer output file can
+	be accessed directly if required.
+
+	Any new device image files to be added to the SIMH configuration should
+	be copied to this directory.
+
+	Note: When changing the specific configuration of mounted device image
+	files, the appropriate configuration file[s] in the
+
+	\PDP-8\SIMH\PDP-8\SIMH Configuration Files
+
+ 	directory must be updated accordingly to reflect the configuration
+ 	modifications.  Consult standard SIMH documentation on how to
+	accomplish this.  The only difference between the standard
+	documentation examples and PASP conventions is the use of multiple
+	custom configuration files; references to a standard file known as
+	config.ini do not apply.]
+
+VII.	Extra-long DECtape considerations.
+
+As much as 40% of production DECtape media from 3M qualified for custom
+formatting to a secondary standard length of 3300 octal blocks [instead of the
+PDP-8 standard of 2702 blocks].
+
+To handle 3300 block extra-long DECtapes in OS/8, a one-word patch to OS/8
+PIP.SV can be made; it is recommended that an alternate patched file be maintained
+independently to allow support for both formats.  [Note: OS/8 reckons the size
+of DECtapes in OS/8 256-word records, not 128-word logical blocks; part of the
+confusion is the inconsistent notation within certain OS/8 programs such as the
+DIR command as used in the examples below.]
+
+.ZERO DTA1:
+
+.DIR DTA1:
+
+ 730 FREE BLOCKS
+
+.GET SYS PIP
+
+.ODT
+
+13616/6437 6240
+^C
+
+.SAVE SYS PIP33
+
+.R PIP33
+*DTA1:</Z$
+.DIR DTA1:
+
+ 857 FREE BLOCKS
+
+The SIMH PDP-8 simulator released in the PASP was modified by Dave Gesswein to
+support longer DECtapes such as the secondary standard of 3300 octal blocks.
+However, "fantasy" DECtapes as long as 7776 blocks are allowed.
+
+The same patching process can handle "fantasy" DECtapes as well.
+
+.GET SYS PIP
+
+.ODT
+
+13616/6437 4001
+^C
+
+.SAVE SYS PIPBIG
+
+.R PIPBIG
+*DTA1:</Z$
+.DIR DTA1:
+
+2040 FREE BLOCKS
+
+P?S/8 also can handle DECtapes with 3300 octal blocks or "fantasy" size.  The
+released copy of P?S/8 Version 8Z includes a README file that explains how to
+increase the capacity of the TFS directory to take advantage of the extra
+blocks.
+
+Note: When converting a .tu56 image file to a physical DECtape, make sure the
+physical and directory sizes match.
+
+VIII.	SIMH Limitations and workarounds.
+
+P?S/8 supports PDP-10 style rewind and unload routines in the keyboard monitor
+initiated by the Control-R and Control-T keys respectively.  Unfortunately,
+while these routines work perfectly on physical DECtape hardware, the SIMH
+simulator hangs up in some internal conflict that can only be remedied by
+aborting the simulator.
+
+To prevent these problems, the P?S/8 system image files pqs8_tc08.tu56 and
+pqs8v8p_tc08.tu56 have been modified to prevent the Control-R and Control-T
+keys from functioning.  One of the following patches has been applied to each
+image file:
+
+P?S/8 Version 8P patch to prevent rewind and unload operations.  [Note: For
+configurations based on the pqs8v8p_tc08.tu56 file.]
+
+.DUMP				[Run P?S/8 DUMP to implement the patch.]
+
+MODE? ZAP			[ZAP mode is used to edit the tape.]
+BLOCK = 6			[block 0006 will be modified.]
+
+				[The contents of block 0006 are displayed.
+				Relative location 153 is 7650.]
+
+NUMBER= 153 7600		[Change relative location 153 to 7600.]
+NUMBER= 7777			[7777 closes the block.]
+MODE? ^C			[Control-C pressed causing DUMP to exit.]
+
+Setting relative location 153 on block 0006 to 7650 [on a physical DECtape
+derived from pqs8v8p_tc08.tu56] will restore functional rewind and unload
+commands [Control-R and Control-T respectively].
+
+P?S/8 Version 8Z patch to prevent rewind and unload operations.  [Note: For
+configurations based on the pqs8_tc08.tu56 file.]
+
+.BLKODT				[Run P?S/8 BLKODT to implement the patch.]
+
+ 0:0006.145 /7650 7600		[Change block 0006 location 145 to 7600.]
+S				[Save the change and exit.]
+
+Setting relative location 145 on block 0006 to 7650 [on a physical DECtape
+derived from pqs8_tc08.tu56] will restore functional rewind and unload
+commands [Control-R and Control-T respectively].
+
+[end-of-file]
