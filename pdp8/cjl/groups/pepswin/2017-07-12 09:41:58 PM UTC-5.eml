@@ -1,0 +1,1382 @@
+From: clasy...@gmail.com 
+Date: Wednesday, July 12, 2017 at 9:41:58 PM UTC-5
+Received: vrs; Wednesday, July 12, 2017 at 9:41:58 PM UTC-5
+Subject: Re: Package file naming conventions and related issues
+Message-Id: <60d16463-74e3-4eda-9614-8ace345c5eebn@googlegroups.com>
+In-Reply-To: <689f1d32-dcd7-40a8-b94c-31bd39a7cc86@googlegroups.com>
+References: <868a2718-5ddf-4d33-995c-ae519d267677@googlegroups.com>
+ <73ccdeda-f53c-4baa-9f7d-1611c80bc9be@googlegroups.com>
+ <8ba8ffb9-5ffc-4c90-9be1-6ac20d212a4d@googlegroups.com>
+ <689f1d32-dcd7-40a8-b94c-31bd39a7cc86@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2535_1820221413.1642792376761"
+Content-Length: 68971
+
+------=_Part_2535_1820221413.1642792376761
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2536_1984424120.1642792376761"
+
+------=_Part_2536_1984424120.1642792376761
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Wednesday, July 12, 2017 at 9:41:58 PM UTC-5
+Subject: Re: Package file naming conventions and related issues
+To: pepswin <Unknown>
+Cc: clasy...@gmail.com <Unknown>, bobvi...@gmail.com <Unknown>
+
+
+A few typos and omissions.
+
+
+
+On Wednesday, July 12, 2017 at 7:02:19 PM UTC-4, clasystems wrote:
+
+>
+>
+> On Sunday, May 28, 2017 at 12:52:39 PM UTC-4, Michael Thompson wrote:
+>>
+>> Can P?S/8 read an OS/8 DEC tape or disk and transfer files to/from the=
+=20
+>> tape or disk?
+>>
+>
+> There are two answers at the present time, actually 2,5 if the SIMH is in=
+=20
+> the picture.
+>
+> 1) Core image files.
+>
+> Since P?S/8 is 4K-oriented, there is not a cross-system direct way to=20
+> transfer extended memory [but it can be done indirectly].  The easy way=
+=20
+> that works easy is this:
+>
+> P?S/8 binary loading supports saving all of field 0 on the P?S/8 scratch=
+=20
+> area which is meaningful to a few groups of features and commands [but=20
+> these groups are incompatible with each other, so you have to chose which=
+=20
+> purpose.  The one that applies is this:
+>
+> The P?S/8 BIN program is used to load slurp-format binary files.  These=
+=20
+> are in turn created either by assembling source files using P?S/8 PAL
+>
+> or
+>
+> The BIN system program has alternate utility modes to punch or read=20
+> paper-tapes in either RIM or BIN format into either memory [in which case=
+=20
+> it is essentially analogous to the DEC paper-tape BIN and/or RIM loader] =
+or=20
+> to become the contents of slurp format binary files.
+>
+> Thus, BFL1 BFL2 BFL3 < /P /F /R  OOPS!  Start that command with BIN [or R=
+=20
+> BIN].  Those are the passed files and option switches, [but you have to=
+=20
+> have a program to pass them to!]
+>
+
+>
+> This writes the paper-tape input to at most the three passed output files=
+.=20
+>  When the tape reaches the EOF, the last file is written out.  A file cou=
+nt=20
+> is always reported of what was used, in case too many were supplied to th=
+e=20
+> command processor.  If too few, an error message will indicate that the=
+=20
+> operation did not complete.  A good rule of thumb is that three files are=
+=20
+> needed to save the equivalent of a bit more than an entire field because=
+=20
+> slurp format approaches 6/7 of the efficiency of core-image yet it is not=
+=20
+> block-oriented.  Contrast this with OS/8 that is at least 1/3 LESS=20
+> efficient because the format is essentially a 3-2 image of the paper-tape=
+=20
+> frames from the original.  Paper-tape format is rather inefficient and al=
+so=20
+> takes longer to load.  The decision to even use paper-tape image format i=
+n=20
+> OS/8 is quite flawed and was done to serve a defective agenda of the=20
+> Typeset-8 group that could have been accomplished in alternate ways, yet=
+=20
+> this poor decision forever affects ALL OS/8 users!
+>
+> The /F [fast] means use the high-speed reader [defaults to the ASR reader=
+=20
+> on the console teletype].
+>
+> /R means the tape format is RIM; defaults to BIN format paper-tape].
+>
+
+> If /W is specified, then binary INPUT files should be passed because they=
+=20
+> will be PUNCHED to paper-tape.  /F means the high-speed punch and /R mean=
+s=20
+> punch in RIM format with a checksum that is also BIN-compatible.
+>
+> When BIN is used to load the slurp format binary files and either the /V=
+=20
+> or /I [if available; some systems do not support it and force /V] then th=
+e=20
+> program can be started at 07632.  Note:  P?S/8 supports an alias program=
+=20
+> called GET which just sets all of the above options.  GET /V =3D7632 is=
+=20
+> essentially redundant.
+>
+> The start at 07632 writes out the entirety of field 0 to blocks 0020-0057=
+=20
+> which is also known independently as the contents of the % file [blocks=
+=20
+> 0020-0037] and $ file [blocks 0040-0057].
+>
+
+NOTE: /! through /7 is used to specify the field of an extended memory=20
+starting address; the default is field 0.  The =3Dxxxx is the 12-bit starti=
+ng=20
+address in the selected field.=20
+
+>
+> In theory, the core image can be transferred with commands such as:
+>
+> .FE{tch} %:0
+> .WR{ite} %:1
+>
+> and
+>
+> .FE{tch} $:0
+> .WR{ite} $:1
+>
+> Note:  This is actually slightly excessive typing as when the file name i=
+s=20
+> left out, it is the default for all subsequent file-related commands unti=
+l=20
+> an explicit command is given, so actually:
+>
+> .FE %:0
+> .WR:1
+>
+> etc. works identically.
+>
+> Note: When uses as files, % and $ are not actually in the TFS files=20
+> directory, they are positional at the stated blocks in the beginning of t=
+he=20
+> tape and can save loading time when used creatively.
+>
+> Since the notion of the virtualized image of field 0 in these blocks [or=
+=20
+> files if you will] is also compatible with debugging, P?S/8 ODT can work=
+=20
+> with the image.  If necessary, the image work can be deferred by saving t=
+he=20
+> two files to any other two files respectively, to be restored later for=
+=20
+> further debugging, etc.
+>
+> Also, there is a BSAVE command to save the core image [and also extended=
+=20
+> memory] to a series of slurp binary output files, which can also be setup=
+=20
+> later.  All of these usages are compatible with each other.
+>
+> But % and $ can be used for short source file assembly by placing it in t=
+o=20
+> $ and the binary written to %.  In fact, there are option switches in P?S=
+/8=20
+> PAL that are a shorthand for the above.  But these usages are incompatibl=
+e=20
+> with the above ones, so let's not discuss these any further.
+>
+> From OS/8, it is possible to save all of field 0 onto a zeroed DECtape.=
+=20
+>  It is important that the file is places    placeD
+>
+=20
+
+> where the very first file on the device is normally found.  By an amazing=
+=20
+> fortuitous coincidence, the above commands can be used to transfer the co=
+re=20
+> image between the two systems!  From the P?S/8 standpoint, the actual dat=
+a=20
+> in the OS/8 file for a core image of all of field 0 [but no extended=20
+> memory] corresponds to %:1 and $:1 given the correct pre-existing .SV fil=
+e=20
+> at the beginning of the DTA1: device.  Thus, core images of field 0 can b=
+e=20
+> interchanged in both directions.
+>
+> In SIMH, it is of course possible to interchange paper-tape binary files.=
+=20
+>  In fact, the P?S Extended PDP-8 Simulator [PEPS] for WINDOWS based on=20
+> SIMH, there is a command to swap the files for the PTR: and PTP: devices.=
+=20
+>  Thus, output from one system, exit to the host, swap the files and load=
+=20
+> SIMH starting the other O/S.  [I would recommend this method using actual=
+=20
+> paper-tapes!]
+>
+> For source files, the following is the one most used:
+>
+> Assuming the DTA1: DECtape has a zeroed directory, the P?S/8 system=20
+> program OS8CON defaults to exactly where the very first file would be=20
+> stored.  This converts ASCII text files between the systems in both=20
+> directions.
+>
+> The switches /0 - /7 select the P?S/8 logical unit, and the =3Dxxxx sets =
+the=20
+> OS/8 RECORD which can be obtained from an OS/8 DIR command.  [Note, the =
+=3D=20
+> uses OS/8 RECORDS not P?S/8 BLOCKS to make it easy to just plug in the=20
+> number from the DIR command output.  Thus, the defaults are equivalent to=
+=20
+> /! and =3D0007.  [Leading zeroes are optional.]
+>
+> Because of the nature of the intersystem relationship, the largest file=
+=20
+> that can be transferred must be totally contained in the first half of th=
+e=20
+> maximum sized OS/8 device.  DECtapes of course are far smaller than this=
+=20
+> limit, and few source files are really that long.  [But some are!].
+>
+
+For an RK05 OS/8 drive if using the P?S/8 handler that corresponds, limits=
+=20
+the conversion to record 2047 or block 7777, but in terms of P?S/8 blocks,=
+=20
+this is about 2/3 of the device which is 6160 octal OS/8 records, which is=
+=20
+somewhat larger than 4000 records.  On some other devices, OS/8 can access=
+=20
+as much as 4096 records; in such a case, exactly the first half is all that=
+=20
+can be transferred from/to.=20
+
+>
+> The command format is:
+>
+> .R OS8CON, INFIL1 INFIL2 INFIL3 INFIL4 etc. > /1=3D7
+>
+> This transfers the concatenated contents of the P?S/8 input files and the=
+n=20
+> writes in OS/8 text format onto logical unit one [which in OS/8 would be=
+=20
+> DTA1:] starting at OS/8 record 7.  The OS/8 device should be zeroed [more=
+=20
+> later].
+>
+> To transfer the other way, use P?S/8 output files
+>
+> .R OS8CON, OUTFL1 OUTFL2 OUTFL3 < /1=3D7
+>
+> When creating output fiiles, OS8CON gives a report of how many were=20
+> actually used in case too many were specified.  Error messages result if=
+=20
+> not enough files were used.  Up to 17 at a time are possible in a single=
+=20
+> command.  [There is a more complicated mechanism to use called the=20
+> extended-length file, but it's a bit complicated to explain until this is=
+=20
+> fully understood first].
+>
+> The conversion "direction" is determined by whether there are P/S/8 input=
+=20
+> files or output files.  The syntax in turn is flexible and is a superset =
+of=20
+> OS/8.
+>
+> In OS/8 and P?S/8, the "flow" of commands can be
+>
+> .PROG OUT<IN
+>
+> But P?S/8 uniquely also allows
+>
+> ,PROG IN > OUT.  [Note:  The spaces can also be horizontal tabs, and are=
+=20
+> optional as long as the parsing makes sense, but for clarity I have used=
+=20
+> spaces].
+>
+> Thus, use either form of command that makes more sense to you.  "Hardcore=
+"=20
+> OS/8 users depend on the former, but newer users exposed to newer DEC=20
+> systems or newer still systems from other vendors approach the command in=
+=20
+> the latter method.  P?S/8 is neutral on the subject and all command=20
+> circumstances work either way, the user's choice.
+>
+> Directory fixup for OS/8.
+>
+> If you use OS8CON to write to OS/8 on a zeroes device, the file data is=
+=20
+> actually there [but cannot be accessed - yet].
+>
+> I personally asked for the options to fix this be added to OS/8 PIP back=
+=20
+> in the day [it really doesn't have much utility outside of this usage].
+>
+> .R PIP
+>
+> *DTA1:</Z   In theory, this was done already.  The data supplied by OS8CO=
+N=20
+> is not affected by this operation.
+> *DTA1:FOO.PA</I=3D600  This creates an arbitrarily large size of a file.=
+=20
+>  Use a value that is plausible for the device, but error on the high side=
+=20
+> deliberately!
+> *DTA1:FOO.PA<DTA1:FOO.PA/D  The file is looked up, and its contents=20
+> becomes the input to the operation.  But the file entry is also deleted=
+=20
+> after that!  Thus, the read works essentially in-place.  When the interna=
+l
+> OS/8 Control-Z EOF is notices, the file closes at the proper length.
+>
+> The only requirement is that the OS/8 device is underlying=20
+> storage-compatible with the relevant P?S/8 logical unit.  This is always=
+=20
+> true for DECtapes and LINCtapes and RX01 devices among others.
+>
+> P?S/8 can be configured for use with RK devices in one of four different=
+=20
+> configurations.
+>
+> 1) Entire RK packs are a logical unit.  This would allow conversions=20
+> between such as RKA1: or RKA2: or RKA3: and P?S/8 unit 1 or 2 or 3.
+>
+> 2) Each P?S/8 logical unit is one-half of an RK pack.  This is essentiall=
+y=20
+> what OS/8 normally does, thus assuming P?S/8 is booted to drive 0, RKA1: =
+is=20
+> logical unit 2, RKA2: is logical unit 4 and RKA3: is logical unit 6.
+>
+> 3: Each P?S/8 logical unit is 1/4 of an RK pack.  Thus, assuming P?S/8 is=
+=20
+> booted to unit 0, RKA2: is unit 4 and RKB2 is unit 6.
+>
+> 4) Each 1/8 of an RK pack is a logical unit roughly the size of a DECtape=
+.=20
+>  OS/8 RKB0: is P?S/8 logical unit 4.
+>
+> Note that both OS/8 and P?S/8 can be booted to non-zero bootup drives=20
+> using the standard RK8E EXTENDED bootstrap that is a bit longer than the=
+=20
+> unit-zero-onlly boot code [of two instructions].  Any configuration and=
+=20
+> boot drive can be derived in terms of OS8CON and core-image file=20
+> compatibility.
+>
+> Followups welcome if anyone is still confused.
+>
+> cjl
+>
+>
+> =20
+>
+cjl
+=20
+
+>
+>> Sent from my iPhone
+>>
+>> On May 28, 2017, at 11:53 AM, CLASystems <clasy...@gmail.com> wrote:
+>>
+>>
+>>
+>> On Sun, May 28, 2017 at 9:05 AM, Bob Vines <bobvi...@gmail.com> wrote:
+>>
+>>> The Wikipedia RT-11 article at <https://en.wikipedia.org/wiki/RT-11>=20
+>>> says that the first RT-11 release was in 1970, so I have to assume that=
+ was=20
+>>> where its calendar starts.  It also says that RT-11 is a 6.3 filesystem=
+.
+>>>
+>>
+>> =E2=80=8BThanks,  I wasn't entirely sure.  Thus, it was easy to provide=
+=20
+>> TOPS-10-conforming file names in the Kermit-12 package.  I was under an=
+=20
+>> obligation to make the files concorm to CUCCA conventions which were=20
+>> developed on TOPS10.  Since I had just gotten an RX02, I used the=20
+>> prevailing OS/8 <-> RT11 format on RX media program [At the time this wa=
+s=20
+>> named RTFLOP, and I believe Dick Murphy can provided more precise detail=
+s=20
+>> as to just how well this program was supported at DEC.  I can tell you i=
+t=20
+>> suffered from a common problem, namely that if you used a write-protecte=
+d=20
+>> drive by either having an RX01 with the user-modification to =E2=80=8B
+>> =20
+>> =E2=80=8Bsupport foil-based write protect OR you used a DSD-210 which su=
+pported=20
+>> not only the foil, but also had drive-unit mounted protect switches], if=
+=20
+>> protect was in effect, RTFLOP screwed up and hung. The underlying proble=
+m=20
+>> was bad communication between hardware groups and thus clueless software=
+=20
+>> groups.  On the RX01 drives, a certain bit means "this drive is either=
+=20
+>> write-protected OR there is no media in the drive.  With no media, the=
+=20
+>> light passes through thus no media.  But it's the same bit, thus you hav=
+e=20
+>> to check in other ways to be sure.  But some clod decided on the RX02=20
+>> prokect the bit is a "status bit that means "I am an RX02" and worse, th=
+ere=20
+>> was an RX01 compatibility switch added te the drive so the RX01 bootstra=
+p=20
+>> could boot the single-density media, in effect hoping the software would=
+ be=20
+>> fooled into believing the drive was an EX02.  The problem is that the "I=
+ am=20
+>> an RX02" bit srays set!  So much for bad implementation of good=20
+>> intentions.  Fortunately, with a series of tests, you actually can figur=
+e=20
+>> out what you are working with.  OS/8 handlers cannot do this all correct=
+ly=20
+>> and have to make rash assumptions, but a standalone utility like RTFLOP =
+can=20
+>> be corrected by some smarter once-only initialization code.  The P?S/8 R=
+X01=20
+>> handlers handle all cases because they are allowed to be much longer tha=
+n=20
+>> OS/8 handlers, and that includes handling as an error the case of=20
+>> double-density media in an RX02 which is not supported.  Future releases=
+ of=20
+>> P?S/8 will handle this not as an error but embrace it dynamically as lar=
+ger=20
+>> media.  However, this depends on features that will only be available in=
+=20
+>> P?S/8 Version 9A which is under development, etc.  In that system, there=
+=20
+>> will hopefully be at least a universal non-system RX handler that can=20
+>> handle up to four units [either DSD-210 style, VT78/DECmate I style or=
+=20
+>> DECmate II with RX278 option style] and likely a system handler that muc=
+h=20
+>> be RX01 and another that has to be RX02.  I'm not sure a system handler =
+in=20
+>> the process of booting up can be an "RX chameleon" so to speak.  However=
+,=20
+>> P?S/8 currently handles the  RX03 mode where the media could have a=20
+>> "backside".  The logic was copied from the OS/8 non-system RX handler th=
+at=20
+>> came out just after the PDP-8 development group was given working RX03=
+=20
+>> in-house prototype drives briefly.  The software is there, but DEC never=
+=20
+>> marketed it.  However, DSD actually produced the drives for the PDP-11 i=
+n a=20
+>> complete Q-bus package that cannot be parted out to connect to an RX8E-l=
+ike=20
+>> board [the DSD controller for the Omibus is an RX8E-compatible with=20
+>> different cable pinouts that can be used with an actual RX8E through som=
+e=20
+>> form of wire-based adaptor.]  One could hope that if someone wants to=20
+>> imitate the RX03, at least there is a spec for one, and that is just an=
+=20
+>> RX02 with the other-side head implemented and a status bit that says so=
+=20
+>> [this one can be trusted because no one ever used it for anything else=
+=20
+>> before!].
+>>
+>> It would be helpful if we can get SIMH to be modified to support this=20
+>> format, etc.  That way faux RX media files of decent size could be=20
+>> interchanged based on the format.
+>>
+>> In any case, I did create a pair of RT-11 directories back in the day=20
+>> using RTFLOP on the RX02.  The entire collection fit on two such diskett=
+es,=20
+>> and the directory listing was useful as the basis of a roadmap file whic=
+h=20
+>> Columbia encouraged [with the file convention following TOPS-10 naming=
+=20
+>> conventions.  It was either that or use PDP-10 DECtapes which I think ar=
+e=20
+>> actually slightly smaller.
+>> =E2=80=8B
+>>
+>>>
+>>> On Monday, May 1, 2017 at 12:11:40 PM UTC-4, clasystems wrote:
+>>>>
+>>>> Recommendations for file names in the host Windows environment for the=
+=20
+>>>> PEPS package.
+>>>>
+>>>> The overall recommendation is to use the P?S/8 SHELL format as defined=
+=20
+>>>> below.  This will allow proper date support for all files created duri=
+ng=20
+>>>> the 20th century and following up to 512 years.
+>>>>
+>>>>
+>>>> To contrast and compare some common file formats:
+>>>>
+>>>> As an example, MS-DOS files are known as 8.3 [eight characters in name=
+=20
+>>>> portion, three character extensions, case-;names are essentially all=
+=20
+>>>> upper-case]
+>>>>
+>>>> MS-DOS: 8.3 [Upper-case only] Note: No file dates before 1980
+>>>>
+>>>> TOPS10: 6.3 [Upper-case only] Note: File dates start in 1964
+>>>>
+>>>> RT-11 8.3 [Upper-case only]. [Can someone flesh this out?]
+>>>>
+>>>> unix has no concept of extension and the "." character is part of the=
+=20
+>>>> file name.  Some unix lovers pretend it supports extensions; however y=
+ou=20
+>>>> cannot tell anything by a file name other than guessing or some utilit=
+y to=20
+>>>> determine the file contents by "magic".  No file dates prior to 1970 a=
+nd=20
+>>>> expected to have date expiration problems in 2039
+>>>>
+>>>> OS/8 6.2 [Upper-case only] Note: File dates are only accurate from=20
+>>>> 1970-1977.  Kludges can APPEAR to extend this to 2001, but more recent=
+=20
+>>>> releases OS/8 merely cheat and ASSUME file dates are in the present ye=
+ar=20
+>>>> [up to 2001] or in the previous 7 years].  Various untrustworthy and=
+=20
+>>>> ridiculous anomalies exist with this kludge.  On Jan 1 of a certain ye=
+ar,=20
+>>>> files actually eight years old are claimed to be IN THE FUTURE!  Files=
+=20
+>>>> stored within the confines of this package may need to provide file no=
+tes=20
+>>>> to explain which one of four possible OS/8 file dates actually applies=
+. =20
+>>>> Sometimes these notes take the form of hand-modified directory listing=
+s to=20
+>>>> add apparent file date years based on certain knowledge of the actual =
+year=20
+>>>> of creation.  In no case, could OS/8 actually create these "fantasy"=
+=20
+>>>> directory listings.  Note: Since the Windows Host environment has the =
+same=20
+>>>> restriction as MS-DOS, file date conventions are that all files known =
+to=20
+>>>> have originated prior to 1980 be set to two seconds after 01-Jan-1980 =
+so=20
+>>>> Windows utilities provide a date placeholder.
+>>>>
+>>>> P?S/8 basic Tiny File System [TFS] files 6.0 [Upper-case only with no=
+=20
+>>>> date support].  The P?S/8 operating system supports system dates from=
+=20
+>>>> 01-Jan-1900 through 31-Dec-2411.
+>>>>
+>>>> P?S/8 SHELL directory files 12.4 [Case-Rententive file names.  Full=20
+>>>> support of the P?S/8 system date.  [Note: The P?S/8 SHELL is under=20
+>>>> development; actual support is expected some time after the initial re=
+lease=20
+>>>> of P?S/8 Version 9A which is the next release [currently under develop=
+ment].
+>>>>
+>>>> Within the P?S/8 SHELL environment, file names will include case=20
+>>>> retention at initial creation.  However, in usage, the case is then=20
+>>>> ignored.  Certain directory options will be provided to handle common=
+=20
+>>>> variations in usage.
+>>>>
+>>>
+>> =E2=80=8BFor all of the PDP-8 files encountered either in file/media rec=
+overy or=20
+>> new files within the PEPS package, few files will actually violate an 8.=
+3=20
+>> subset of the 12.4 file convention available.  [And of course this is be=
+ing=20
+>> maintained currently on Windows where we could needlessly go much "wider=
+". =20
+>> However, certain P?S/8 files [which are 6.0 and thus provide no direct w=
+ay=20
+>> to understand the category type of any file and often had to be put into=
+=20
+>> another filesystem to obtain any reckoning of purpose] instead when=20
+>> archiving these files, up to 4-character extensions will be used.
+>>
+>> For example, P?S/8 DUMP supports an a text-character-based primitive=20
+>> command language which is useful to create unattended DUMP sessions to=
+=20
+>> carry out block copying and patching.  The present method of P?S/8 syste=
+m=20
+>> creation is operable under the PEPS environment using these files writte=
+n=20
+>> out as 6.0 on P?S/8 media using the TFS file system, etc.  The fires sto=
+red=20
+>> in the directories of SIMH thus, use the .DUMP extension to make clear t=
+he=20
+>> purpose of these files.  However, the majority of files will only requir=
+e=20
+>> three character extensions such as .PAL and .BIN, etc.  On this issue, O=
+S/8=20
+>> is the "weak sister" because all of the other systems [including only th=
+e=20
+>> P?S/8 SHELL] support 3 character extensions, and OS/8 was truncated down=
+=20
+>> due to short-sighted design which needed to do that as part of dozens of=
+=20
+>> interlocking compromises that eventually blew up anyway, etc.  Thus, fil=
+es=20
+>> to be sent to the OS/8 environment have to use two-lever subsets ONLY IN=
+=20
+>> OS/8 itself.  This is commonly done by every user of either RTFLOP or PI=
+P10=20
+>> as it is, etc.
+>>
+>> By nature PEPS transfer of files involves the use of paper-tape reader=
+=20
+>> support.  As such, the data transfers without any actual file names duri=
+ng=20
+>> the process.  If the files are saved in OS/8 in SIMH, OS/8 PIP must be=
+=20
+>> used, and that is where the two-letter extensions appliy.  Output of the=
+=20
+>> LPT: or PTP handler become LPTOUT.TXT or PTPOUT.TXT as necessary.  [Note=
+:=20
+>> PEPS conventions always use .TXT extensions even if the content is not=
+=20
+>> ASCII text.  This is so that ASCII-oriented protrams such as Notepad can=
+ be=20
+>> called up simply by clicking on the filenames where this does apply.  An=
+d=20
+>> if not, you just see gibberish harmlessly.  However, BIN-compatible or R=
+IM=20
+>> compatible output should be copied to descendant files =E2=80=8B
+>> =20
+>> =E2=80=8Bwith the extension .BIN or .RIM as required [which is the long-=
+term=20
+>> standard for SIMH already].=E2=80=8B  Even when converting P?S/8 TFS fil=
+es, these=20
+>> conventions should be maintained.
+>>
+>> If for some reason, P?S/8 core-images of field 0 [created for the use of=
+=20
+>> P?S/8 ODT, etc.] are saved by copying the % and $ files into two logical=
+ly=20
+>> paired TFS files. [This would only make sense in P?S/8 to defer debuggin=
+g=20
+>> of an active program to instead use P?S/8 for alternate purposes, and it=
+=20
+>> would perhaps make more sense to instead use the BSAVE command to create=
+=20
+>> slurp binary files instead, which does require more files but could also=
+=20
+>> save extended memory as well] and were somehow transferred into the Wind=
+ows=20
+>> host environment, perhaps these could be saved as either .SAV or perhaps=
+=20
+>> .SAVE.
+>>
+>> Since the P?S/8 SHELL design is not 100% pinned down, executable files i=
+n=20
+>> that environment could be called either .SAV [or .SAVE] or .EXE [or .EXE=
+C].=20
+>> It is conceivable both could apply, to distinguish simple executables fr=
+om=20
+>> more complex files that include their own internal overlay structure, a=
+=20
+>> capability of the basic P?S/8 system already implemented and heavily use=
+d=20
+>> by a few P?S/8 system programs.  [Note:  OS/8 does not support this conc=
+ept=20
+>> directly, but a user came up with a kludge that works, as long as you ar=
+e=20
+>> careful. In essence, a program is loaded into multiple fields and then e=
+ach=20
+>> "module" is saved safekeeping, and then a composite is created that=20
+>> pretends that loading one big file into all of that memory exists.  But =
+you=20
+>> have to actually store the files in contiguous order on the system devic=
+e=20
+>> as a major restriction  Of course you have to have the faked requirement=
+=20
+>> memory to create this, and it will miserably fail if the files are not=
+=20
+>> stored in perfect contiguous order and on the system device, but it is a=
+=20
+>> way to get OS/8 to support what P?S/8 already has.
+>>
+>> This trick was invented by Richard Lary himself trying desperately to ge=
+t=20
+>> around the limitations of the crappy demo system that the suits convince=
+d=20
+>> him to use [against his better judgement].
+>>
+>> I had already used this available feature in the R-L Monitor System to=
+=20
+>> implement R-L FOCAL, which was later upgraded to P?S/8 FOCAL eventually=
+=20
+>> [which took advantage of the device-independent environmwnt  of P?S/8=20
+>> nearly provided by OS/8 later, but with restrictions] and Richie was now=
+=20
+>> stuck with a turkey that was problematic.  [The idea is that some progra=
+ms=20
+>> have no ability to run with all of the overhead of dealing with loading=
+=20
+>> OS/8 non-system handlers, and as such can use the OS/8 system handler. =
+=20
+>> This is a complete analogy of what R-L did because ironically  both OS/8=
+=20
+>> and R-L have the restriction that only the system device can be accessed=
+ by=20
+>> the program, and the point was trying to make R-L-style core-image syste=
+m=20
+>> programs work on what was to become the pathetic OS/8 environment that t=
+he=20
+>> far better deign of the R-L environment allowed.  P?S/8 made this even=
+=20
+>> better because logical units actually were implemented.  If you look at =
+the=20
+>> system calls for OS/8, it is clear this was INTENDED, but never to be=20
+>> implemented because of the structural feebility of the pathetic demo.  H=
+ad=20
+>> RIchie stuck to his guns, I would have gladly become the sixth memory of=
+=20
+>> the team, but his four immediate friends and comrades at arms rejected t=
+he=20
+>> demo brought on by idiotic management edict, and then I was asked and al=
+so=20
+>> rejected it, to instead develop R-L and here were are over 40 years late=
+r=20
+>> and I am doing just that!]  In any case, the P?S/8 SHELL will also suppo=
+rt=20
+>> this important feature that is a great structure for practical P?S/8 sys=
+tem=20
+>> programs, etc.]
+>>
+>> In essence, the P?S/8 SHELL executable format will share with OS/8 [and=
+=20
+>> DIAL-MS] the notion of a static load map with regards to the initial loa=
+d,=20
+>> but will also embrace the R-L/P?S/8 notion of an overlay structure to be=
+=20
+>> the best of all worlds, etc.  This is more easily done in the SHELL=20
+>> environment because unlike OS/8,non-system device handlers are always us=
+ed=20
+>> and are allowed to be loaded into ANY available memory in 32K and are no=
+t=20
+>> limited to field 0 loading.  Thus, an executable must have the relevant=
+=20
+>> non-system handler loaded ahead of time by the SHELL keyboard monitor=20
+>> outside of the load amp description, but this can be anywhere in the 32K=
+=20
+>> space that is appropriate.  The P?S/8 system handler is NEVER used by=20
+>> executable programs. The system handler is only used by SHELL components=
+ to=20
+>> implement the non-system handler loading, etc. such as accessing the=20
+>> non-system device handler table which is always stored in the system=20
+>> device, and thus, the actual code blocks of all non-system handlers is=
+=20
+>> stored on the system device.  When the execution process starts, the sys=
+tem=20
+>> device handler is used to load the relevant non-system handler into=20
+>> non-conflicting memory, and then that is called to load in the initial=
+=20
+>> static program image.  The file and communications area will contain all=
+ of=20
+>> the particulars of the execution, including the actual filename of the=
+=20
+>> program, a feature some other systems use to advantage,  That way, the=
+=20
+>> executable can start with immediate knowledge of how to access the=20
+>> non-system handler to LATER load in overlay data, etc.  [Note:  Despite =
+all=20
+>> of the locations in field 1 the OS/8 USR routine gloms onto, it cannot b=
+e=20
+>> used to even attempt any of this, thus what Rickie was trying to get to=
+=20
+>> work, even if with restrictions.  In short, never let ignorant managers=
+=20
+>> with an attitude design software!
+>>
+>> cjl
+>>
+>>
+>>>> cjl
+>>>>
+>>>> --=20
+>>> You received this message because you are subscribed to the Google=20
+>>> Groups "pepswin" group.
+>>> To unsubscribe from this group and stop receiving emails from it, send=
+=20
+>>> an email to pepswin+unsubscribe@googlegroups.com.
+>>> To post to this group, send email to pep...@googlegroups.com.
+>>> To view this discussion on the web visit=20
+>>> https://groups.google.com/d/msgid/pepswin/73ccdeda-f53c-4baa-9f7d-1611c=
+80bc9be%40googlegroups.com=20
+>>> <https://groups.google.com/d/msgid/pepswin/73ccdeda-f53c-4baa-9f7d-1611=
+c80bc9be%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
+>>> .
+>>>
+>>> For more options, visit https://groups.google.com/d/optout.
+>>>
+>>
+>>
+>>
+>> --=20
+>> "In the future, OS/2 will be on everyone's desktop"
+>>
+>> Bill Gates, 1992
+>>
+>> --=20
+>> You received this message because you are subscribed to the Google Group=
+s=20
+>> "pepswin" group.
+>> To unsubscribe from this group and stop receiving emails from it, send a=
+n=20
+>> email to pepswin+unsubscribe@googlegroups.com.
+>> To post to this group, send email to pep...@googlegroups.com.
+>> To view this discussion on the web visit=20
+>> https://groups.google.com/d/msgid/pepswin/CAN0HTE7ih1or2V_Tj7%3DZ-rwtx5s=
+bfA_vO_N5jt21aL4zhhgSwg%40mail.gmail.com=20
+>> <https://groups.google.com/d/msgid/pepswin/CAN0HTE7ih1or2V_Tj7%3DZ-rwtx5=
+sbfA_vO_N5jt21aL4zhhgSwg%40mail.gmail.com?utm_medium=3Demail&utm_source=3Df=
+ooter>
+>> .
+>> For more options, visit https://groups.google.com/d/optout.
+>>
+>>
+------=_Part_2536_1984424120.1642792376761
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Wednesday, July 12, 2017 at 9:41:=
+58 PM UTC-5<br>Subject: Re: Package file naming conventions and related iss=
+ues<br>To: <span dir=3D"auto">pepswin &lt;Unknown&gt;</span><br>Cc: <span d=
+ir=3D"auto">clasy...@gmail.com &lt;Unknown&gt;</span>, <span dir=3D"auto">b=
+obvi...@gmail.com &lt;Unknown&gt;</span><br></div><br><br><html-blob><div d=
+ir=3D"ltr">A few typos and omissions.</div></html-blob><html-blob><div dir=
+=3D"ltr"><br><br><br>On Wednesday, July 12, 2017 at 7:02:19 PM UTC-4, clasy=
+stems wrote:</div></html-blob><html-blob><div dir=3D"ltr"><blockquote class=
+=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc s=
+olid;padding-left:1ex"><div dir=3D"ltr"><br><br>On Sunday, May 28, 2017 at =
+12:52:39 PM UTC-4, Michael Thompson wrote:<blockquote class=3D"gmail_quote"=
+ style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid;padding-lef=
+t:1ex"><div dir=3D"auto"><div>Can P?S/8 read an OS/8 DEC tape or disk and t=
+ransfer files to/from the tape or disk?<br></div></div></blockquote><div><b=
+r></div><div>There are two answers at the present time, actually 2,5 if the=
+ SIMH is in the picture.<br><br>1) Core image files.<br><br>Since P?S/8 is =
+4K-oriented, there is not a cross-system direct way to transfer extended me=
+mory [but it can be done indirectly]. &nbsp;The easy way that works easy is=
+ this:<br><br>P?S/8 binary loading supports saving all of field 0 on the P?=
+S/8 scratch area which is meaningful to a few groups of features and comman=
+ds [but these groups are incompatible with each other, so you have to chose=
+ which purpose. &nbsp;The one that applies is this:<br><br>The P?S/8 BIN pr=
+ogram is used to load slurp-format binary files. &nbsp;These are in turn cr=
+eated either by assembling source files using P?S/8 PAL<br></div><div><br><=
+/div><div>or</div><div><br></div></div></blockquote></div></html-blob><html=
+-blob><div dir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:0;=
+margin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"=
+ltr"><div>The BIN system program has alternate utility modes to punch or re=
+ad paper-tapes in either RIM or BIN format into either memory [in which cas=
+e it is essentially analogous to the DEC paper-tape BIN and/or RIM loader] =
+or to become the contents of slurp format binary files.<br><br></div></div>=
+</blockquote></div></html-blob><html-blob><div dir=3D"ltr"><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc =
+solid;padding-left:1ex"><div dir=3D"ltr"><div>Thus, BFL1 BFL2 BFL3 &lt; /P =
+/F /R &nbsp;OOPS! &nbsp;Start that command with BIN [or R BIN]. &nbsp;Those=
+ are the passed files and option switches, [but you have to have a program =
+to pass them to!]</div></div></blockquote></div></html-blob><html-blob><div=
+ dir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-lef=
+t:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>=
+<br><br>This writes the paper-tape input to at most the three passed output=
+ files. &nbsp;When the tape reaches the EOF, the last file is written out. =
+&nbsp;A file count is always reported of what was used, in case too many we=
+re supplied to the command processor. &nbsp;If too few, an error message wi=
+ll indicate that the operation did not complete. &nbsp;A good rule of thumb=
+ is that three files are needed to save the equivalent of a bit more than a=
+n entire field because slurp format approaches 6/7 of the efficiency of cor=
+e-image yet it is not block-oriented. &nbsp;Contrast this with OS/8 that is=
+ at least 1/3 LESS efficient because the format is essentially a 3-2 image =
+of the paper-tape frames from the original. &nbsp;Paper-tape format is rath=
+er inefficient and also takes longer to load. &nbsp;The decision to even us=
+e paper-tape image format in OS/8 is quite flawed and was done to serve a d=
+efective agenda of the Typeset-8 group that could have been accomplished in=
+ alternate ways, yet this poor decision forever affects ALL OS/8 users!<br>=
+<br>The /F [fast] means use the high-speed reader [defaults to the ASR read=
+er on the console teletype].<br><br>/R means the tape format is RIM; defaul=
+ts to BIN format paper-tape].</div></div></blockquote></div></html-blob><ht=
+ml-blob><div dir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:=
+0;margin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=
+=3D"ltr"><div><br></div><div>If /W is specified, then binary INPUT files sh=
+ould be passed because they will be PUNCHED to paper-tape. &nbsp;/F means t=
+he high-speed punch and /R means punch in RIM format with a checksum that i=
+s also BIN-compatible.<br><br>When BIN is used to load the slurp format bin=
+ary files and either the /V or /I [if available; some systems do not suppor=
+t it and force /V] then the program can be started at 07632. &nbsp;Note: &n=
+bsp;P?S/8 supports an alias program called GET which just sets all of the a=
+bove options. &nbsp;GET /V =3D7632 is essentially redundant.<br><br>The sta=
+rt at 07632 writes out the entirety of field 0 to blocks 0020-0057 which is=
+ also known independently as the contents of the % file [blocks 0020-0037] =
+and $ file [blocks 0040-0057].<br></div></div></blockquote></div></html-blo=
+b><html-blob><div dir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0;margin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div =
+dir=3D"ltr"></div></blockquote><div><br></div><div>NOTE: /! through /7 is u=
+sed to specify the field of an extended memory starting address; the defaul=
+t is field 0. &nbsp;The =3Dxxxx is the 12-bit starting address in the selec=
+ted field.&nbsp;</div><blockquote class=3D"gmail_quote" style=3D"margin:0;m=
+argin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"l=
+tr"></div></blockquote></div></html-blob><html-blob><div dir=3D"ltr"><block=
+quote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left=
+:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>In theory, the =
+core image can be transferred with commands such as:<br><br>.FE{tch} %:0<br=
+></div><div>.WR{ite} %:1</div><div><br></div><div>and</div><div><br></div><=
+div>.FE{tch} $:0<br>.WR{ite} $:1</div><div><br></div><div>Note: &nbsp;This =
+is actually slightly excessive typing as when the file name is left out, it=
+ is the default for all subsequent file-related commands until an explicit =
+command is given, so actually:</div><div><br></div></div></blockquote></div=
+></html-blob><html-blob><div dir=3D"ltr"><blockquote class=3D"gmail_quote" =
+style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid;padding-left=
+:1ex"><div dir=3D"ltr"><div>.FE %:0<br>.WR:1<br><br>etc. works identically.=
+<br><br>Note: When uses as files, % and $ are not actually in the TFS files=
+ directory, they are positional at the stated blocks in the beginning of th=
+e tape and can save loading time when used creatively.<br><br>Since the not=
+ion of the virtualized image of field 0 in these blocks [or files if you wi=
+ll] is also compatible with debugging, P?S/8 ODT can work with the image. &=
+nbsp;If necessary, the image work can be deferred by saving the two files t=
+o any other two files respectively, to be restored later for further debugg=
+ing, etc.<br><br>Also, there is a BSAVE command to save the core image [and=
+ also extended memory] to a series of slurp binary output files, which can =
+also be setup later. &nbsp;All of these usages are compatible with each oth=
+er.<br><br>But % and $ can be used for short source file assembly by placin=
+g it in to $ and the binary written to %. &nbsp;In fact, there are option s=
+witches in P?S/8 PAL that are a shorthand for the above. &nbsp;But these us=
+ages are incompatible with the above ones, so let's not discuss these any f=
+urther.<br><br></div></div></blockquote></div></html-blob><html-blob><div d=
+ir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:=
+0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>Fr=
+om OS/8, it is possible to save all of field 0 onto a zeroed DECtape. &nbsp=
+;It is important that the file is places &nbsp; &nbsp;placeD</div></div></b=
+lockquote></div></html-blob><html-blob><div dir=3D"ltr"><div>&nbsp;</div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-=
+left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>where the very =
+first file on the device is normally found. &nbsp;By an amazing fortuitous =
+coincidence, the above commands can be used to transfer the core image betw=
+een the two systems! &nbsp;From the P?S/8 standpoint, the actual data in th=
+e OS/8 file for a core image of all of field 0 [but no extended memory] cor=
+responds to %:1 and $:1 given the correct pre-existing .SV file at the begi=
+nning of the DTA1: device. &nbsp;Thus, core images of field 0 can be interc=
+hanged in both directions.<br><br>In SIMH, it is of course possible to inte=
+rchange paper-tape binary files. &nbsp;In fact, the P?S Extended PDP-8 Simu=
+lator [PEPS] for WINDOWS based on SIMH, there is a command to swap the file=
+s for the PTR: and PTP: devices. &nbsp;Thus, output from one system, exit t=
+o the host, swap the files and load SIMH starting the other O/S. &nbsp;[I w=
+ould recommend this method using actual paper-tapes!]<br><br>For source fil=
+es, the following is the one most used:<br><br>Assuming the DTA1: DECtape h=
+as a zeroed directory, the P?S/8 system program OS8CON defaults to exactly =
+where the very first file would be stored. &nbsp;This converts ASCII text f=
+iles between the systems in both directions.<br><br>The switches /0 - /7 se=
+lect the P?S/8 logical unit, and the =3Dxxxx sets the OS/8 RECORD which can=
+ be obtained from an OS/8 DIR command. &nbsp;[Note, the =3D uses OS/8 RECOR=
+DS not P?S/8 BLOCKS to make it easy to just plug in the number from the DIR=
+ command output. &nbsp;Thus, the defaults are equivalent to /! and =3D0007.=
+ &nbsp;[Leading zeroes are optional.]<br><br>Because of the nature of the i=
+ntersystem relationship, the largest file that can be transferred must be t=
+otally contained in the first half of the maximum sized OS/8 device. &nbsp;=
+DECtapes of course are far smaller than this limit, and few source files ar=
+e really that long. &nbsp;[But some are!].<br></div></div></blockquote><div=
+><br></div></div></html-blob><html-blob><div dir=3D"ltr"><div>For an RK05 O=
+S/8 drive if using the P?S/8 handler that corresponds, limits the conversio=
+n to record 2047 or block 7777, but in terms of P?S/8 blocks, this is about=
+ 2/3 of the device which is 6160 octal OS/8 records, which is somewhat larg=
+er than 4000 records. &nbsp;On some other devices, OS/8 can access as much =
+as 4096 records; in such a case, exactly the first half is all that can be =
+transferred from/to.&nbsp;</div></div></html-blob><html-blob><div dir=3D"lt=
+r"><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>The co=
+mmand format is:<br><br>.R OS8CON, INFIL1 INFIL2 INFIL3 INFIL4 etc. &gt; /1=
+=3D7<br><br>This transfers the concatenated contents of the P?S/8 input fil=
+es and then writes in OS/8 text format onto logical unit one [which in OS/8=
+ would be DTA1:] starting at OS/8 record 7. &nbsp;The OS/8 device should be=
+ zeroed [more later].<br><br>To transfer the other way, use P?S/8 output fi=
+les<br><br>.R OS8CON, OUTFL1 OUTFL2 OUTFL3 &lt; /1=3D7<br><br>When creating=
+ output fiiles, OS8CON gives a report of how many were actually used in cas=
+e too many were specified. &nbsp;Error messages result if not enough files =
+were used. &nbsp;Up to 17 at a time are possible in a single command. &nbsp=
+;[There is a more complicated mechanism to use called the extended-length f=
+ile, but it's a bit complicated to explain until this is fully understood f=
+irst].<br><br>The conversion "direction" is determined by whether there are=
+ P/S/8 input files or output files. &nbsp;The syntax in turn is flexible an=
+d is a superset of OS/8.<br><br>In OS/8 and P?S/8, the "flow" of commands c=
+an be<br><br>.PROG OUT&lt;IN<br><br>But P?S/8 uniquely also allows<br><br>,=
+PROG IN &gt; OUT. &nbsp;[Note: &nbsp;The spaces can also be horizontal tabs=
+, and are optional as long as the parsing makes sense, but for clarity I ha=
+ve used spaces].<br><br>Thus, use either form of command that makes more se=
+nse to you. &nbsp;"Hardcore" OS/8 users depend on the former, but newer use=
+rs exposed to newer DEC systems or newer still systems from other vendors a=
+pproach the command in the latter method. &nbsp;P?S/8 is neutral on the sub=
+ject and all command circumstances work either way, the user's choice.<br><=
+br>Directory fixup for OS/8.<br><br>If you use OS8CON to write to OS/8 on a=
+ zeroes device, the file data is actually there [but cannot be accessed - y=
+et].<br><br>I personally asked for the options to fix this be added to OS/8=
+ PIP back in the day [it really doesn't have much utility outside of this u=
+sage].<br><br>.R PIP</div><div><br></div><div>*DTA1:&lt;/Z &nbsp; In theory=
+, this was done already. &nbsp;The data supplied by OS8CON is not affected =
+by this operation.<br>*DTA1:<a href=3D"http://FOO.PA" target=3D"_blank" rel=
+=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&am=
+p;q=3Dhttp://FOO.PA&amp;source=3Dgmail&amp;ust=3D1642878762532000&amp;usg=
+=3DAFQjCNEYjS5JRZf0PUFXmYiY732fcD6pOw">FOO.PA</a>&lt;/I=3D600 &nbsp;This cr=
+eates an arbitrarily large size of a file. &nbsp;Use a value that is plausi=
+ble for the device, but error on the high side deliberately!<br>*DTA1:<a hr=
+ef=3D"http://FOO.PA" target=3D"_blank" rel=3D"nofollow" data-saferedirectur=
+l=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://FOO.PA&amp;source=3D=
+gmail&amp;ust=3D1642878762532000&amp;usg=3DAFQjCNEYjS5JRZf0PUFXmYiY732fcD6p=
+Ow">FOO.PA</a>&lt;DTA1:<a href=3D"http://FOO.PA/D" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=
+=3Dhttp://FOO.PA/D&amp;source=3Dgmail&amp;ust=3D1642878762532000&amp;usg=3D=
+AFQjCNHwEp0aAS3XMsVTcWRaL9GaBV99iw">FOO.PA/D</a> &nbsp;The file is looked u=
+p, and its contents becomes the input to the operation. &nbsp;But the file =
+entry is also deleted after that! &nbsp;Thus, the read works essentially in=
+-place. &nbsp;When the internal</div><div>OS/8 Control-Z EOF is notices, th=
+e file closes at the proper length.<br><br>The only requirement is that the=
+ OS/8 device is underlying storage-compatible with the relevant P?S/8 logic=
+al unit. &nbsp;This is always true for DECtapes and LINCtapes and RX01 devi=
+ces among others.<br><br>P?S/8 can be configured for use with RK devices in=
+ one of four different configurations.<br><br>1) Entire RK packs are a logi=
+cal unit. &nbsp;This would allow conversions between such as RKA1: or RKA2:=
+ or RKA3: and P?S/8 unit 1 or 2 or 3.<br><br>2) Each P?S/8 logical unit is =
+one-half of an RK pack. &nbsp;This is essentially what OS/8 normally does, =
+thus assuming P?S/8 is booted to drive 0, RKA1: is logical unit 2, RKA2: is=
+ logical unit 4 and RKA3: is logical unit 6.<br><br>3: Each P?S/8 logical u=
+nit is 1/4 of an RK pack. &nbsp;Thus, assuming P?S/8 is booted to unit 0, R=
+KA2: is unit 4 and RKB2 is unit 6.<br><br>4) Each 1/8 of an RK pack is a lo=
+gical unit roughly the size of a DECtape. &nbsp;OS/8 RKB0: is P?S/8 logical=
+ unit 4.<br><br>Note that both OS/8 and P?S/8 can be booted to non-zero boo=
+tup drives using the standard RK8E EXTENDED bootstrap that is a bit longer =
+than the unit-zero-onlly boot code [of two instructions]. &nbsp;Any configu=
+ration and boot drive can be derived in terms of OS8CON and core-image file=
+ compatibility.</div><div><br></div><div>Followups welcome if anyone is sti=
+ll confused.</div><div><br></div><div>cjl</div><div><br></div><div><br></di=
+v><div>&nbsp;</div></div></blockquote><div>cjl</div><div>&nbsp;</div><block=
+quote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left=
+:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><blockquote class=3D"gma=
+il_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid;pa=
+dding-left:1ex"><div dir=3D"auto"><div><br>Sent from my iPhone</div><div><b=
+r>On May 28, 2017, at 11:53 AM, CLASystems &lt;<a href=3D"" data-email-mask=
+ed=3D"" rel=3D"nofollow">clasy...@gmail.com</a>&gt; wrote:<br><br></div><bl=
+ockquote type=3D"cite"><div><div dir=3D"ltr"><div style=3D"font-size:small"=
+><br></div><div><br><div class=3D"gmail_quote">On Sun, May 28, 2017 at 9:05=
+ AM, Bob Vines <span dir=3D"ltr">&lt;<a href=3D"" data-email-masked=3D"" re=
+l=3D"nofollow">bobvi...@gmail.com</a>&gt;</span> wrote:<br><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
+ding-left:1ex"><div dir=3D"ltr">The Wikipedia RT-11 article at &lt;<a href=
+=3D"https://en.wikipedia.org/wiki/RT-11" target=3D"_blank" rel=3D"nofollow"=
+ data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps:/=
+/en.wikipedia.org/wiki/RT-11&amp;source=3Dgmail&amp;ust=3D1642878762532000&=
+amp;usg=3DAFQjCNG5sDJrfsRoFk6f8Irlb-Ev8GmlYw">https://en.wikipedia.org/wiki=
+/RT-11</a>&gt; says that the first RT-11 release was in 1970, so I have to =
+assume that was where its calendar starts.&nbsp; It also says that RT-11 is=
+ a 6.3 filesystem.<span><br></span></div></blockquote><div><br><div style=
+=3D"font-size:small;display:inline">=E2=80=8BThanks,&nbsp; I wasn't entirel=
+y sure.&nbsp; Thus, it was easy to provide TOPS-10-conforming file names in=
+ the Kermit-12 package.&nbsp; I was under an obligation to make the files c=
+oncorm to CUCCA conventions which were developed on TOPS10.&nbsp; Since I h=
+ad just gotten an RX02, I used the prevailing OS/8 &lt;-&gt; RT11 format on=
+ RX media program [At the time this was named RTFLOP, and I believe Dick Mu=
+rphy can provided more precise details as to just how well this program was=
+ supported at DEC.&nbsp; I can tell you it suffered from a common problem, =
+namely that if you used a write-protected drive by either having an RX01 wi=
+th the user-modification to =E2=80=8B</div>&nbsp;<div style=3D"font-size:sm=
+all;display:inline">=E2=80=8Bsupport foil-based write protect OR you used a=
+ DSD-210 which supported not only the foil, but also had drive-unit mounted=
+ protect switches], if protect was in effect, RTFLOP screwed up and hung. T=
+he underlying problem was bad communication between hardware groups and thu=
+s clueless software groups.&nbsp; On the RX01 drives, a certain bit means "=
+this drive is either write-protected OR there is no media in the drive.&nbs=
+p; With no media, the light passes through thus no media.&nbsp; But it's th=
+e same bit, thus you have to check in other ways to be sure.&nbsp; But some=
+ clod decided on the RX02 prokect the bit is a "status bit that means "I am=
+ an RX02" and worse, there was an RX01 compatibility switch added te the dr=
+ive so the RX01 bootstrap could boot the single-density media, in effect ho=
+ping the software would be fooled into believing the drive was an EX02.&nbs=
+p; The problem is that the "I am an RX02" bit srays set!&nbsp; So much for =
+bad implementation of good intentions.&nbsp; Fortunately, with a series of =
+tests, you actually can figure out what you are working with.&nbsp; OS/8 ha=
+ndlers cannot do this all correctly and have to make rash assumptions, but =
+a standalone utility like RTFLOP can be corrected by some smarter once-only=
+ initialization code.&nbsp; The P?S/8 RX01 handlers handle all cases becaus=
+e they are allowed to be much longer than OS/8 handlers, and that includes =
+handling as an error the case of double-density media in an RX02 which is n=
+ot supported.&nbsp; Future releases of P?S/8 will handle this not as an err=
+or but embrace it dynamically as larger media.&nbsp; However, this depends =
+on features that will only be available in P?S/8 Version 9A which is under =
+development, etc.&nbsp; In that system, there will hopefully be at least a =
+universal non-system RX handler that can handle up to four units [either DS=
+D-210 style, VT78/DECmate I style or DECmate II with RX278 option style] an=
+d likely a system handler that much be RX01 and another that has to be RX02=
+.&nbsp; I'm not sure a system handler in the process of booting up can be a=
+n "RX chameleon" so to speak.&nbsp; However, P?S/8 currently handles the&nb=
+sp; RX03 mode where the media could have a "backside".&nbsp; The logic was =
+copied from the OS/8 non-system RX handler that came out just after the PDP=
+-8 development group was given working RX03 in-house prototype drives brief=
+ly.&nbsp; The software is there, but DEC never marketed it.&nbsp; However, =
+DSD actually produced the drives for the PDP-11 in a complete Q-bus package=
+ that cannot be parted out to connect to an RX8E-like board [the DSD contro=
+ller for the Omibus is an RX8E-compatible with different cable pinouts that=
+ can be used with an actual RX8E through some form of wire-based adaptor.]&=
+nbsp; One could hope that if someone wants to imitate the RX03, at least th=
+ere is a spec for one, and that is just an RX02 with the other-side head im=
+plemented and a status bit that says so [this one can be trusted because no=
+ one ever used it for anything else before!].<br><br></div><div style=3D"fo=
+nt-size:small;display:inline">It would be helpful if we can get SIMH to be =
+modified to support this format, etc.&nbsp; That way faux RX media files of=
+ decent size could be interchanged based on the format.<br><br></div><div s=
+tyle=3D"font-size:small;display:inline">In any case, I did create a pair of=
+ RT-11 directories back in the day using RTFLOP on the RX02.&nbsp; The enti=
+re collection fit on two such diskettes, and the directory listing was usef=
+ul as the basis of a roadmap file which Columbia encouraged [with the file =
+convention following TOPS-10 naming conventions.&nbsp; It was either that o=
+r use PDP-10 DECtapes which I think are actually slightly smaller.<br>=E2=
+=80=8B</div></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><span><br=
+>On Monday, May 1, 2017 at 12:11:40 PM UTC-4, clasystems wrote:<blockquote =
+class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #=
+ccc solid;padding-left:1ex"><div dir=3D"ltr">Recommendations for file names=
+ in the host Windows environment for the PEPS package.<br><br>The overall r=
+ecommendation is to use the P?S/8 SHELL format as defined below.&nbsp; This=
+ will allow proper date support for all files created during the 20th centu=
+ry and following up to 512 years.<br><br><br>To contrast and compare some c=
+ommon file formats:<br><br>As an example,=20
+MS-DOS files are known as 8.3 [eight characters in name portion, three=20
+character extensions, case-;names are essentially all upper-case]<br><br>MS=
+-DOS: 8.3 [Upper-case only] Note: No file dates before 1980<br><br>TOPS10: =
+6.3 [Upper-case only] Note: File dates start in 1964<br><br>RT-11 8.3 [Uppe=
+r-case only]. [Can someone flesh this out?]<br><br>unix
+ has no concept of extension and the "." character is part of the file=20
+name.&nbsp; Some unix lovers pretend it supports extensions; however you=20
+cannot tell anything by a file name other than guessing or some utility=20
+to determine the file contents by "magic".&nbsp; No file dates prior to 197=
+0=20
+and expected to have date expiration problems in 2039<br><br>OS/8 6.2=20
+[Upper-case only] Note: File dates are only accurate from 1970-1977.&nbsp;=
+=20
+Kludges can APPEAR to extend this to 2001, but more recent releases OS/8
+ merely cheat and ASSUME file dates are in the present year [up to 2001]
+ or in the previous 7 years].&nbsp; Various untrustworthy and ridiculous=20
+anomalies exist with this kludge.&nbsp; On Jan 1 of a certain year, files=
+=20
+actually eight years old are claimed to be IN THE FUTURE!&nbsp; Files store=
+d=20
+within the confines of this package may need to provide file notes to=20
+explain which one of four possible OS/8 file dates actually applies.&nbsp;=
+=20
+Sometimes these notes take the form of hand-modified directory listings=20
+to add apparent file date years based on certain knowledge of the actual
+ year of creation.&nbsp; In no case, could OS/8 actually create these=20
+"fantasy" directory listings.&nbsp; Note: Since the Windows Host environmen=
+t=20
+has the same restriction as MS-DOS, file date conventions are that all=20
+files known to have originated prior to 1980 be set to two seconds after
+ 01-Jan-1980 so Windows utilities provide a date placeholder.<br><br>P?S/8
+ basic Tiny File System [TFS] files 6.0 [Upper-case only with no date=20
+support].&nbsp; The P?S/8 operating system supports system dates from=20
+01-Jan-1900 through 31-Dec-2411.<br><br>P?S/8 SHELL directory files 12.4
+ [Case-Rententive file names.&nbsp; Full support of the P?S/8 system date.&=
+nbsp;=20
+[Note: The P?S/8 SHELL is under development; actual support is expected=20
+some time after the initial release of P?S/8 Version 9A which is the=20
+next release [currently under development].<br><br>Within the P?S/8 SHELL e=
+nvironment, file names will include case retention at initial creation.&nbs=
+p; However, in usage, the case is then ignored.&nbsp; Certain directory opt=
+ions will be provided to handle common variations in usage.<br></div></bloc=
+kquote></span></div></blockquote><div><br><div style=3D"font-size:small;dis=
+play:inline">=E2=80=8BFor all of the PDP-8 files encountered either in file=
+/media recovery or new files within the PEPS package, few files will actual=
+ly violate an 8.3 subset of the 12.4 file convention available.&nbsp; [And =
+of course this is being maintained currently on Windows where we could need=
+lessly go much "wider".&nbsp; However, certain P?S/8 files [which are 6.0 a=
+nd thus provide no direct way to understand the category type of any file a=
+nd often had to be put into another filesystem to obtain any reckoning of p=
+urpose] instead when archiving these files, up to 4-character extensions wi=
+ll be used.<br><br></div><div style=3D"font-size:small;display:inline">For =
+example, P?S/8 DUMP supports an a text-character-based primitive command la=
+nguage which is useful to create unattended DUMP sessions to carry out bloc=
+k copying and patching.&nbsp; The present method of P?S/8 system creation i=
+s operable under the PEPS environment using these files written out as 6.0 =
+on P?S/8 media using the TFS file system, etc.&nbsp; The fires stored in th=
+e directories of SIMH thus, use the .DUMP extension to make clear the purpo=
+se of these files.&nbsp; However, the majority of files will only require t=
+hree character extensions such as .PAL and .BIN, etc.&nbsp; On this issue, =
+OS/8 is the "weak sister" because all of the other systems [including only =
+the P?S/8 SHELL] support 3 character extensions, and OS/8 was truncated dow=
+n due to short-sighted design which needed to do that as part of dozens of =
+interlocking compromises that eventually blew up anyway, etc.&nbsp; Thus, f=
+iles to be sent to the OS/8 environment have to use two-lever subsets ONLY =
+IN OS/8 itself.&nbsp; This is commonly done by every user of either RTFLOP =
+or PIP10 as it is, etc.<br><br></div><div style=3D"font-size:small;display:=
+inline">By nature PEPS transfer of files involves the use of paper-tape rea=
+der support.&nbsp; As such, the data transfers without any actual file name=
+s during the process.&nbsp; If the files are saved in OS/8 in SIMH, OS/8 PI=
+P must be used, and that is where the two-letter extensions appliy.&nbsp; O=
+utput of the LPT: or PTP handler become LPTOUT.TXT or PTPOUT.TXT as necessa=
+ry.&nbsp; [Note: PEPS conventions always use .TXT extensions even if the co=
+ntent is not ASCII text.&nbsp; This is so that ASCII-oriented protrams such=
+ as Notepad can be called up simply by clicking on the filenames where this=
+ does apply.&nbsp; And if not, you just see gibberish harmlessly.&nbsp; How=
+ever, BIN-compatible or RIM compatible output should be copied to descendan=
+t files =E2=80=8B</div>&nbsp;<div style=3D"font-size:small;display:inline">=
+=E2=80=8Bwith the extension .BIN or .RIM as required [which is the long-ter=
+m standard for SIMH already].=E2=80=8B&nbsp; Even when converting P?S/8 TFS=
+ files, these conventions should be maintained.<br><br></div><div style=3D"=
+font-size:small;display:inline">If for some reason, P?S/8 core-images of fi=
+eld 0 [created for the use of P?S/8 ODT, etc.] are saved by copying the % a=
+nd $ files into two logically paired TFS files. [This would only make sense=
+ in P?S/8 to defer debugging of an active program to instead use P?S/8 for =
+alternate purposes, and it would perhaps make more sense to instead use the=
+ BSAVE command to create slurp binary files instead, which does require mor=
+e files but could also save extended memory as well] and were somehow trans=
+ferred into the Windows host environment, perhaps these could be saved as e=
+ither .SAV or perhaps .SAVE.<br><br></div><div style=3D"font-size:small;dis=
+play:inline">Since the P?S/8 SHELL design is not 100% pinned down, executab=
+le files in that environment could be called either .SAV [or .SAVE] or .EXE=
+ [or .EXEC]. It is conceivable both could apply, to distinguish simple exec=
+utables from more complex files that include their own internal overlay str=
+ucture, a capability of the basic P?S/8 system already implemented and heav=
+ily used by a few P?S/8 system programs.&nbsp; [Note:&nbsp; OS/8 does not s=
+upport this concept directly, but a user came up with a kludge that works, =
+as long as you are careful. In essence, a program is loaded into multiple f=
+ields and then each "module" is saved safekeeping, and then a composite is =
+created that pretends that loading one big file into all of that memory exi=
+sts.&nbsp; But you have to actually store the files in contiguous order on =
+the system device as a major restriction&nbsp; Of course you have to have t=
+he faked requirement memory to create this, and it will miserably fail if t=
+he files are not stored in perfect contiguous order and on the system devic=
+e, but it is a way to get OS/8 to support what P?S/8 already has.<br><br></=
+div><div style=3D"font-size:small;display:inline">This trick was invented b=
+y Richard Lary himself trying desperately to get around the limitations of =
+the crappy demo system that the suits convinced him to use [against his bet=
+ter judgement].<br><br></div><div style=3D"font-size:small;display:inline">=
+I had already used this available feature in the R-L Monitor System to impl=
+ement R-L FOCAL, which was later upgraded to P?S/8 FOCAL eventually [which =
+took advantage of the device-independent environmwnt&nbsp; of P?S/8 nearly =
+provided by OS/8 later, but with restrictions] and Richie was now stuck wit=
+h a turkey that was problematic.&nbsp; [The idea is that some programs have=
+ no ability to run with all of the overhead of dealing with loading OS/8 no=
+n-system handlers, and as such can use the OS/8 system handler.&nbsp; This =
+is a complete analogy of what R-L did because ironically&nbsp; both OS/8 an=
+d R-L have the restriction that only the system device can be accessed by t=
+he program, and the point was trying to make R-L-style core-image system pr=
+ograms work on what was to become the pathetic OS/8 environment that the fa=
+r better deign of the R-L environment allowed.&nbsp; P?S/8 made this even b=
+etter because logical units actually were implemented.&nbsp; If you look at=
+ the system calls for OS/8, it is clear this was INTENDED, but never to be =
+implemented because of the structural feebility of the pathetic demo.&nbsp;=
+ Had RIchie stuck to his guns, I would have gladly become the sixth memory =
+of the team, but his four immediate friends and comrades at arms rejected t=
+he demo brought on by idiotic management edict, and then I was asked and al=
+so rejected it, to instead develop R-L and here were are over 40 years late=
+r and I am doing just that!]&nbsp; In any case, the P?S/8 SHELL will also s=
+upport this important feature that is a great structure for practical P?S/8=
+ system programs, etc.]<br><br></div><div style=3D"font-size:small;display:=
+inline">In essence, the P?S/8 SHELL executable format will share with OS/8 =
+[and DIAL-MS] the notion of a static load map with regards to the initial l=
+oad, but will also embrace the R-L/P?S/8 notion of an overlay structure to =
+be the best of all worlds, etc.&nbsp; This is more easily done in the SHELL=
+ environment because unlike OS/8,non-system device handlers are always used=
+ and are allowed to be loaded into ANY available memory in 32K and are not =
+limited to field 0 loading.&nbsp; Thus, an executable must have the relevan=
+t non-system handler loaded ahead of time by the SHELL keyboard monitor out=
+side of the load amp description, but this can be anywhere in the 32K space=
+ that is appropriate.&nbsp; The P?S/8 system handler is NEVER used by execu=
+table programs. The system handler is only used by SHELL components to impl=
+ement the non-system handler loading, etc. such as accessing the non-system=
+ device handler table which is always stored in the system device, and thus=
+, the actual code blocks of all non-system handlers is stored on the system=
+ device.&nbsp; When the execution process starts, the system device handler=
+ is used to load the relevant non-system handler into non-conflicting memor=
+y, and then that is called to load in the initial static program image.&nbs=
+p; The file and communications area will contain all of the particulars of =
+the execution, including the actual filename of the program, a feature some=
+ other systems use to advantage,&nbsp; That way, the executable can start w=
+ith immediate knowledge of how to access the non-system handler to LATER lo=
+ad in overlay data, etc.&nbsp; [Note:&nbsp; Despite all of the locations in=
+ field 1 the OS/8 USR routine gloms onto, it cannot be used to even attempt=
+ any of this, thus what Rickie was trying to get to work, even if with rest=
+rictions.&nbsp; In short, never let ignorant managers with an attitude desi=
+gn software!<br><br></div><div style=3D"font-size:small;display:inline">cjl=
+<br><br></div></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
+ .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><span><=
+blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border=
+-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><br>cjl<br><br></di=
+v></blockquote></span></div><span>
+
+<p></p>
+
+-- <br>
+You received this message because you are subscribed to the Google Groups "=
+pepswin" group.<br>
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">pepswin+unsubs=
+cribe@googlegroups.com</a>.<br>
+To post to this group, send email to <a href=3D"" data-email-masked=3D"" re=
+l=3D"nofollow">pep...@googlegroups.com</a>.<br></span>
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/pepswin/73ccdeda-f53c-4baa-9f7d-1611c80bc9be%40googlegroups.com?=
+utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofoll=
+ow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp=
+s://groups.google.com/d/msgid/pepswin/73ccdeda-f53c-4baa-9f7d-1611c80bc9be%=
+2540googlegroups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3D=
+gmail&amp;ust=3D1642878762534000&amp;usg=3DAFQjCNHnQy_amrdXQXVdVEo8w47mNj-Y=
+8A">https://groups.google.com/d/msgid/pepswin/73ccdeda-f53c-4baa-9f7d-1611c=
+80bc9be%40googlegroups.com</a>.<div><div><br>
+For more options, visit <a href=3D"https://groups.google.com/d/optout" targ=
+et=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.c=
+om/url?hl=3Den&amp;q=3Dhttps://groups.google.com/d/optout&amp;source=3Dgmai=
+l&amp;ust=3D1642878762534000&amp;usg=3DAFQjCNEqEflUgVJVyot12VtmFWmzHycAhg">=
+https://groups.google.com/d/optout</a>.<br>
+</div></div></blockquote></div><br><br clear=3D"all"><br>-- <br><div>"In th=
+e future, OS/2 will be on everyone's desktop"<br><br>Bill Gates, 1992</div>
+</div></div>
+
+<p></p>
+
+-- <br>
+You received this message because you are subscribed to the Google Groups "=
+pepswin" group.<br>
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">pepswin+unsubs=
+cribe@googlegroups.com</a>.<br>
+To post to this group, send email to <a href=3D"" data-email-masked=3D"" re=
+l=3D"nofollow">pep...@googlegroups.com</a>.<br>
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/pepswin/CAN0HTE7ih1or2V_Tj7%3DZ-rwtx5sbfA_vO_N5jt21aL4zhhgSwg%40=
+mail.gmail.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank=
+" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3D=
+en&amp;q=3Dhttps://groups.google.com/d/msgid/pepswin/CAN0HTE7ih1or2V_Tj7%25=
+3DZ-rwtx5sbfA_vO_N5jt21aL4zhhgSwg%2540mail.gmail.com?utm_medium%3Demail%26u=
+tm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1642878762534000&amp;usg=3D=
+AFQjCNGP-deJfTcDLjQSOt05ctvPQ6mgUQ">https://groups.google.com/d/msgid/pepsw=
+in/CAN0HTE7ih1or2V_Tj7%3DZ-rwtx5sbfA_vO_N5jt21aL4zhhgSwg%40mail.gmail.com</=
+a>.<br>
+For more options, visit <a href=3D"https://groups.google.com/d/optout" targ=
+et=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.c=
+om/url?hl=3Den&amp;q=3Dhttps://groups.google.com/d/optout&amp;source=3Dgmai=
+l&amp;ust=3D1642878762534000&amp;usg=3DAFQjCNEqEflUgVJVyot12VtmFWmzHycAhg">=
+https://groups.google.com/d/optout</a>.<br>
+</div></blockquote></div></blockquote></div></blockquote></div></html-blob>=
+</div>
+------=_Part_2536_1984424120.1642792376761--
+
+------=_Part_2535_1820221413.1642792376761--

@@ -1,0 +1,1188 @@
+From: cjl 
+Date: Friday, December 14, 2018 at 12:23:13 PM UTC-6
+Received: vrs; Friday, December 14, 2018 at 12:23:13 PM UTC-6
+Subject: Re: P?S/8 Version 9A - some early development issues.
+Message-Id: <a38fb80c-5d49-4cd9-bca5-223cf52bb59cn@googlegroups.com>
+In-Reply-To: <88da1a98-9ab5-4753-b984-5c6ba43d182c@googlegroups.com>
+References: <18c7a415-7f2b-4fae-85cf-07b27251438f@googlegroups.com>
+ <88da1a98-9ab5-4753-b984-5c6ba43d182c@googlegroups.com>
+To: pqs8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2176_1461511245.1642789905534"
+Content-Length: 72272
+
+------=_Part_2176_1461511245.1642789905534
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2177_1890845505.1642789905534"
+
+------=_Part_2177_1890845505.1642789905534
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+From the P?S8 Google group
+
+---------- Forwarded message ---------
+From: cjl <Unknown>
+Date: Friday, December 14, 2018 at 12:23:13 PM UTC-6
+Subject: Re: P?S/8 Version 9A - some early development issues.
+To: P?S/8 <Unknown>
+
+
+Here's an update on release issues:
+
+Releasing P?S/8 is fairly difficult without a lot of personal attention.  
+The logistics are quite extensive, especially if you really don't have a 
+pre-exisiting medium or mechanism.
+
+My original intention was that the P?S Enhanced PDP-8 Simulator (PEPS) for 
+Windows (XP through 10) would be completely released and within it 
+currently is P?S/8 Version 8Z (with recent patches) along with OS/8 V3D 
+(3Q).  [For more information, you should already be in the pepswin grouip 
+or ask for an add directly here and now, etc.  That will give some of the 
+details in the way.
+
+Without going into great detail, that package is nearly completed, and 
+completely useful to within nitpicks.  That said, here is what the 
+"nitpicks" are:
+
+1) The package works 100% as-is on Windows XP and Windows Vista.  For 
+Windows 7, 8 and 10 you need to apply a registry patch and procedure that 
+to date I do by hand.  It works completely fine on Windows 7.
+
+That said, it needs testing on Windows 8 and then separately on Windows 
+10.  there is a possibility that what has to be done on the other two 
+systems will somewhat differ from what is done on Windows 7.  Time will 
+tell.  Some of this work was performed as recently as this last September.
+
+Once the two additional systems are tested and confirmed working (which may 
+require independent documentation of anything specifically is different 
+from Windows 7) this all has to be documented for all five systems 
+separately (the documentation requires at the least a figure in the Guide 
+document for each of them regarding the recommended starting configuration] 
+Then I also have to finish writing the underlying BATCH file that makes it 
+all happen.
+
+At this point, that part is written to the point of knowing that your 
+system is XP or it is Vista and able to issue a message that you don't need 
+the actual registry changes.  I have to (at least) translate the manual 
+procedure into BATCH-oriented sub-commands including translating registry 
+patches done manually and/or with REGEDIT into the somewhat more obscure 
+[and operationally quite different, albeit automatic] REG program that 
+takes iinline command-line arguments.
+
+At this point it could be complicated by having as many as three sets of 
+these changes assuming 7 is different from 8 is different from 10, etc. [Or 
+to be optimistic, proving it is not XP or Vista is sufficient, but this has 
+to be tested].
+
+But once all these details are worked out, there is already a placeholder 
+for setting up for removal of automatic auto-arrange coupled with align to 
+grid.  Align to grid is modestly useful, but the point is to be able to 
+turn off auto-arrange; for myself i prefer the align to grid, but this is 
+personal preference; the main issue is that the feature to prevent the 
+auto-arrange ]when the view involves icons of any size; the entire issue is 
+moot if you prefer list or details or even tiles view, but it is arguably 
+much harder to use these by nature on the main control 
+window/command-center] thus, the recommendation is start with the "serving 
+suggestion" and use the package and then make your own informed changes, 
+etc.  Once this sticky little problem is solved, that will be the case.  I 
+can tell you from using the Package extensively now, I would find it quite 
+cumbersome any other way. [The main reason is that icons are LOGICALLY 
+grouped by function, but Windows does it strctly in alphanumeric order.]
+
+2) Here is the big problem:
+
+This package is 100% done in the total spirit and substance of freeware.  I 
+have no monetary expectations whatsoever.  that said, I expect to have no 
+NEGATIVE monetary problems as in the potential of a lawsuit from some 
+greedy lawyer hired by freeware and shareware authors because I might 
+include some of the binary of their packages, etc.
+
+The consensus at this time is I have to provide the package [incomplete] 
+and not have ANY code I didn't write in it.  Then a lot of documentation on 
+what EXACTLY must be done by the END USER to wake up the features as they 
+exist now.  this also means I have to provide proper cosmetics and messages 
+for when you haven't included their offerings, so as to make it clear what 
+and why, etc.
+
+And of course, these sections then have to be added to the guide document 
+as well.  [Obviously I have some notions of what will go in there, but that 
+in and of itself is a lot of work].
+
+3) The Guide document has to be functionally complete as in how to use all 
+of the features; some require some manual editing of .BAT files due to the 
+need to customize.  The package relies heavily on the availability of a 
+.PDF file reader.  I'll have to document how you set which is the one you 
+are reading.  Perhaps this can be accomplished by setting a global 
+environment variable.  I already have other setup procedures that are 
+literally just managers of one of those.  For example, the package must set 
+an environment variable initially just to get installed.  This is called 
+%PDP-8_DRIVE$ and is typically set to "C:" or "D:" or whatever.  On my 
+system that is the basis for the Guide example figures, it is P: [The 
+environment variable is just the two characters: uppper or lower case 
+letter from C: through Z: followed by the : character; no more and no less  
+That package is 100% done.
+
+Similarly, there is a package to set an environment variable to your choice 
+of three different compatible text editors: Windows notepad, notepade++ or 
+EditPad.  You have to use at least one, and notepad is part of Windows 
+itself.  The other two have to be separately installed and come in 32-bit 
+and 64-bit versions, etc. and you have to install them in designated places 
+on the %PDP-8_DRIVE% drive so all parts of the package can quick-change the 
+choice merely by using the pertinent setup icon.  This is also completely 
+done.
+
+But perhaps there needs to be analogous support for a PDF package, I have 
+been using Adobe Reader, but at least in theory, this should be possible to 
+become another global variable.  I then have to try a candidate alternative 
+and crank out all the hard-coded references to Adobe and change then to 
+%PDF_Reader% or somesuch, etc.  An afternoon's work [when I get a free 
+afternoon].
+
+There may be a couple others that are similar.  I want it to be as flexible 
+and configurable as possible.
+
+The biggest job is actually the documentation which takes my time, quite a 
+lot actually, and I get into mini-burnouts and then turn to doing something 
+else productive, such as actually writing PDP-8 code with the Package as it 
+is, or actually cranking out P?S/8 improvements.
+
+The problem is that I am a "one man band" and have three different things 
+going on, the dual problem of documentation of the other two each are 1/2 
+of the third item beyond the obvious.
+
+I have made some decent progress on nearing release of P?S/8 documents for 
+specific aspects of P?S/8.  One of the goals is to spare everyone from the 
+hard learning curve of OS/8, which all of us went through.  Yet, some 
+children and random scientific researchers were able to use it usefully in 
+about 10 minutes of introduction by me personally.  Perhaps this needs a 
+Youtube video!
+
+In any case, here are the list of important documents for which there is 
+light at the end of the tunnel:
+
+1) The P?S/8 keyboard monitor command guide.  If you don't know what to 
+type and when and where to typie it, you can't use it.
+
+2) The Patch Log file for P?S/8 Version 8Z, the latest complete release.  
+This also points out various OS/8 analogous issues, limitations and 
+work-arounds, and most importantly a jumbo sized Glossary of Terms since 
+many will not be familiar with most of them. [A few are amusing add-ons 
+which make fun reading, but must really are needed.]
+
+3) The P?S/8 PAL reference guide.  this also includes a lot of valid 
+programming techniques most will learn at least something from, and if you 
+are a newbie, help you avoid a lot of programming pitfalls.
+
+There are a few smaller-scale documents in various stages of being written, 
+many are technical discussions of P?S/8 structures, especially directory 
+structures.   When configuring P?S/8, you need to understand these to be 
+capable of making the simple patches that might be needed to effect small 
+changes, etc.
+
+A valid criticism of P?S/8 is that, while with a little expertise these 
+small patches are easy to make [some of them can even be automated with 
+existing P?S/8 utilities] there are not a lot of P?S/8 utilities devoted 
+only to making the changes mindless by a truly ignorant user.  Sorry, but 
+this is always the lowest priority in any system that ever was or ever will 
+be.  No pain no gain, and in this case, each is hardly any pain [but more 
+than literally nothing.]
+
+The configurations of P?S/8 supported in the SIMH environment [that is 
+underlying to PEPS for Windows] is a "fantasy" version of TC01/TC08 
+DECtape.  Real-world DECtapes come in the standard size of 2702 octal 
+blocks of 129 words [where the 129th word is ignored, same as in OS/8 or 
+any other system for the PDP-8 with the lone exception of the Disk Monitor 
+System, which uses that word, and why the Disk Monitor System can only run 
+on TC01/08 DECtame, DF32 and RF08 and nothing else whatsoever.  For those 
+of us who bothered to look for the more-than-occasional DECtapes that are 
+actually longer enough, there is a secondary standard of 3300 octal 
+blocks.  There is both P?S/8 and OS/8 support for these tapes, and also 
+some have recently been recovered and read on TD8E-based PDP-8/E systems.  
+[The contents are important in the overall scheme of things and in some 
+cases are the sole known source files of some important stuff].
+
+But in the SIMh environment, ANY 12-bit length is possible, either TD8E or 
+TC08 and you have to choose which length you want to use;   In OS/8, you 
+have to patch PIP and then do the equivalent of the ZERO command [but in 
+the CD mode].  In P?S/8, you have to patch [at most] three locations at the 
+end of the TFS directory [actually only two typically].  The directory 
+itself can hold no more than 84 files assuming the underlying storage is 
+available; generally a good fit for a DECtape.
+
+Each logical unit in P?S/8 can also have one extended-length file [no line 
+numbers and no way to edit] that can be anywhere from the first block not 
+covered by the TFS directory through the physical end of the device [or 
+block 7777 which ever comes first].  By using the full "fantasy" mode, this 
+essentially means that one file can be as large as about 2/3 of what can 
+fit into an RK05 half-drive in OS/8 terms, etc.  Existing utilities can 
+convert up to 17 files at a time into one extended-length file [and then 
+that is completely reversible].  If you use existing extended files as part 
+of the input, you can make an even llonger one on a different unit [if the 
+space exists]  Most people haven't written anything long enoiugh to even 
+get close to caring.
+
+This requires a similar patch to another directory to effect a change.  [In 
+the next release, this will be part of a new set of SET command sub-options 
+as the structure itself is being rewirten; this is explained in the nearly 
+complete patch log file.]
+
+In any case, it is useful to use slightly different configurations to 
+essentially have what in OS/8 terms would be termed "system" and 
+"non-system" configurations.  In P?S/8, it is better described as 
+"complete" and "demised" as all compatible logical units are generally able 
+to do everything or anything, it's just a matter of how much since the 
+space is finite, etc.  "Intermediate" users will understand what to do 
+after reading some of what is available, etc.
+
+For those with actual compatible machines, at this point you have to 
+contact me; physical releases have been done for TC01/08 and recently RX01 
+family.  Some others are quite close to being tried out on SIMH such as 
+RK8E/RK05 and the TD8E [These are all supported in SIMH in fairly good 
+ways].  Due to some unknown limitation of SIMH, the TC01/TC08 release 
+requires a one-word patch, fully documented in the eco patch log file.
+
+Certain people have programs to transfer SIMH-conmpatible images that can 
+be emailed to the actual hardware.  some of the methods are OS/8-centric 
+but can be part of the solution in conjuncrion with my Kermit-12 utilities 
+for OS/8.  As long as the underlying media is compatible between P/S/8 and 
+OS/8, this will work fine [this is the situation in about 90 percent of all 
+possible configurations.]
+
+
+On Thursday, September 27, 2018 at 8:01:28 AM UTC-4, cjl wrote:
+>
+> As I do more work for the next release, I will note some of the changes as 
+> they come about.
+>
+> Sometimes the unexpected changes cause minor snags.  Here is a tiny one I 
+> just worked out a fix for.  [Note:  I could retrofit these two in Version 
+> 8Z, but they are extremely minor in terms of consequence to systems prior 
+> to 9A]
+>
+> Some of you are familiar with the unique P?S/8 feature of binary loading 
+> invented by Richard Lary caled [by him, I'm not changing it!] "Slurp" to 
+> describe how it works.
+>
+> The first incarnation was done in the R-L Monitor System [and was the ONLY 
+> choice back then].  The idea is this:
+>
+> You can load binary files without a handler in memory and without a net 
+> buffer [other than inside of the loader itself].  The contents of 
+> 07600-07777 are thus changed over to the following:
+>
+> 1) A reboot of at least this particular hardware-dependent version of the 
+> operating system.  In this case, the bootstrap used works with R-L, P?S/8, 
+> Dibol-9, POLY BASIC, EDU-System 30, COS 300/310, OS/8, the DECtape Library 
+> System etc.  Just about all EXCEPT the Disk Monitor System [because it is 
+> incompatible on the key issue, where to be waiting for DMA overlay.  Just 
+> failure to actually know what to do;  The Library System started the 
+> convention, and it is fine and clearly works for all of those systems, and 
+> since it came first, there is no excuse, yet the DMS being incompatible 
+> causes the more general bootstrap to include it to be more complicated 
+> BECAUSE it is incompatible and has to be read in non-overlayed and then 
+> started up, etc.
+>
+> This of course starts at 07600 so that programs can exit universally.  
+> This bootstrap code then reboots R-L.
+>
+> P?S/8 updates this on the TC01/08 with a frill feature.  You can boot 
+> P/S/8 for the TC01/08 on ANY logical unit.  The extended bootstrap follows 
+> the general scheme of other devices.  The short versions are based on 
+> zeroed out bits in the AC, the extended versions have drive-specific bits 
+> in the AC that are used to continue the bootup process,etc.
+>
+> In the case of the DECtape hardware, the logical unit is places in 
+> bits[0-2] because the hardware wants them there, etc.
+>
+> Thus, in P?S/8, the boot is particularized to the drive the original 
+> bootup was perfornmed to, and that dooesn't change ever [unless you want to 
+> run another boot program].
+>
+> Some of the code in the bootup is also shared with the Slurp loader, the 
+> main occupant of the rest of the page.
+>
+> For definition purposes, the bootstrap is defined as at most 07600-07641 
+> [formerly up to 07642], but shortened by one to add am improvement that is 
+> paper-tape oriented, the subject of another post].
+>
+> That means that if you move these words into locations 07600-07641, you 
+> can do a reboot by starting at 07600. [Note: The purpose is NOT to be the 
+> shortest, but rather to be a reasonable length and start at 07600.  In the 
+> case, part of the design is compromised for the benefit of the slurp 
+> loader, which uses portions of the boot code as subroutines and even 
+> contrived constants, etc.
+>
+> The slurp loader complete definition includes the subset that is the 
+> reboot code; it can use any of the reboot code words as necessary, etc.  
+> [Actually, a stand-alone version of the reboot code can be quite a bit 
+> shorter, but then a needed word for slurp loader purposes would be gone 
+> because the optimization depends on it being where it is.  Actually, the 
+> highest word is in 07640, thus there is actually one word to spare in the 
+> new definition, and to my knowledge this is the longest such code in all 
+> the supported systems].
+>
+> The TC08 slurp loader has its own starting address further up the page.  
+> It does the usual block searching with one exception: it forces an initial 
+> search FORWARD because this is generally the case given the layout of the 
+> system.
+>
+> The P?S/8 version supports extended-memory loading while R-L is strictly 
+> 4K [but the extension for extended memory was always defined.]  once the 
+> starting block of the latest file to load is located, the read data mode is 
+> selected.  So far, this sounds like the system device handler [but what 
+> follows is totally different].
+>
+> The current address is set to point to a temporary inside of the slurp 
+> loader area, and the word count is zeroed.  DMA will start in a few 
+> microseconds by the nature of DECtape DMA transfers.
+>
+> The slurp loader continuously reads the word count checking if it has 
+> changed from 0 -> 1.  That means that in a couple more cycles, the latest 
+> word is now transferred into the word the Current Address pointed to.
+>
+> This latest word is then processed.  Then the whole process repeats.  The 
+> Word Count is again zeroes, and the current address is backed up again to 
+> point to the same location, etc.  Wait for it to go from 0  to one, etc.
+>
+> This happens nominally every 133 microseconds.  The four operations are as 
+> follows:
+>
+> If the latest data word is actually 12-bits intended to be loaded, store 
+> it into the intended memory location and bump up the current loading 
+> location counter.
+>
+> If the latest data is an origin setting, load that into the current 
+> loading location counter.
+>
+> If the word is a field setting, it is in the form of CDF x0 where x is the 
+> field setting.  Stick that in-line in an instruction just before the DCA I 
+> COUNTER instruction so that all data is loaded as intended starting with 
+> any data words that follow, etc.
+>
+> If the word is an end-of-file indicator, go on to the next file, and 
+> repeat everything; process all passed files until the very last one in a 
+> passed list of input files [located in 07757-07777 or less].  After that, 
+> JMP to a startup routine which consists of a CIF CDF xx instruction 
+> followed by a JMP I 7756.
+>
+> While only P?S/8 has the extended memory stuff, R-L started all of this.  
+> 07756 is the location where the =xxxx parameter is stored from the original 
+> RUn command thus where the program starts up.  If the =xxxx is not given, 
+> it is the address of a safe halting piece of code; the user has to work the 
+> front panel to do anything else [but this is by design. If you were using 
+> the BIN loader, you are in the same position.]
+>
+> P?S/8 adds a minor feature.  You cannot pass =7777 to any program, but 
+> that is passed by default.  thus, now programs can do whatever they wish if 
+> the value is 7777,  in this case, the default is the address of that CIF 
+> CDF instruction.  07756 points to a word just before which halts.  [It is 
+> actually a compound OPR instruction that cannot skip and does halt, 7772, a 
+> needed constant elsewhere.  Pressing CONTINUE just then executes the same 
+> words so it is a safe repeating situation, etc  That is unless the user 
+> passes explicit starting information to the BIN utility program that places 
+> this code, etc.
+>
+> The default field is 0, but you can set /1 through /7 to specify extended 
+> memory start along with the =xxxx to any starting address xxxx, etc.
+>
+> A minor detail of the next system BIN program:  It will check to make sure 
+> that at most only one of /1=/7 is set and disallow it if the =xxxx is not 
+> passed. [Upgrading releases is a matter of things tiny, small and in some 
+> cases large.]
+>
+> But P?S/8 adds another thing over all of the above.  [note:  This is 
+> counter-intuitive, but correct, so send your intuition to where the sun 
+> don't shine if need be].
+>
+> Assuming all of the above happened already, what if there was another file 
+> passed at the end of the list that is "friendly malware" that perverts the 
+> slurp loader in "useful ways"?  Well, there is, and this is what it does:
+>
+> Block 0 is the image of the system device handler, but it is not necessary 
+> to load any location past 7745.  [7747 is a one-word empty, and the rest 
+> are temporaries or the data-break stuff, etc this is inside of the system 
+> device handler, etc.[.]
+>
+> Thus, selective overlay of the slurp loader makes it turn into a reload 
+> MOST of bock 0 into 07600-07745  Now you have the system device handler 
+> capability restored, yet you have not written on the tape for any loading 
+> operation!  [This is in part why the slurp loader is so fast.  The TC01/08 
+> slurp loader is FASTER than OS/8 using ABSLDR on RK8E/RK05. [Confirmed with 
+> a stop-watch to the horrified eyes of DEC PDP-8 programming group members 
+> who fell into cognitive dissonance; they literally couldn't believe a 
+> DECtape could be faster than an RK05!].
+>
+> Normallly up to seventeen files can be passed to the Slurp loader, but 
+> this magic "file" has to be passed last, thus the effective upper limit is 
+> "only": 16 files.  Note: Slurp format approaches 6/7 of the efficiency of 
+> core-image yet is not block-image oiriented, it allows random access 
+> loading without restriction.  thus, even sixteen files can load nearly 24K 
+> of memory in one command, and of course rarely is that much done in one 
+> command. [and you could do more with a another command, but these are 
+> contrivances for special circumstances assuming running on 32K. It's not a 
+> great "sacrific" to have to split the equivalent of 18-19 files into two 
+> groups.  Also, Version 9A should have the BINCON utility that can combine 
+> up to 17 files into one extended-length file.  Then all of 32K can be 
+> loaded in 3 files or less].  Typical usage is one or two files, and three 
+> is more than enough to fill all of field 0, etc.]
+>
+> this last "file" is an image on the O/S in a reserved block.  Each 
+> configuration has its own.  The recently re-released RX01 P?S/8 has its own 
+> analogous one stored in the same corresponding logical block [but the 
+> contents does the same to the RX slurp loader, etc.]
+>
+> The command to accomplish this includes the /I command-line option switch
+>
+> Thus, you get the seemingly impossible:  You started with the system 
+> device handler in 07600, and you loaded memory, and in the end you still 
+> have the system device handler.  [Dark grey magic revealed!]
+>
+> Now a design comparison with OS/8:
+>
+> OS/8 exits to 07600 as well, but it ALWAYS starts with writing out part of 
+> memory and then swaps in a (compromised) keyboard monitor that can only 
+> accomplish very little, so feeble that CCL had to be added on [and is NOT 
+> RECOMMENDED FOR USE on tape-based systems, official DEC published in 
+> manuals!].
+>
+> This is ALWAYS done, yet rarely do you take advantage of WHY it was 
+> written out [for the SAVE command, hardly ever actually used compared to 
+> ALWAYS writing on every exit by every program to 07600.  Also, 07605 is an 
+> OS/89 ism, not the standard which is ALWAYS 07600.
+>
+> P?S/8 has another thing in the equation I haven't mentioned:  Unlike OS.8, 
+> you do not need extended memory to run anything.  This is because OS/8 was 
+> not able to get an embedded call to the system device handler into field 0 
+> alongside of the handler, so they kludged it into field 1, thus creating 
+> the cheap excuse of also reserving field 1 7600-7777 [and in turn forcing 
+> the need for extended memory even though perhaps your only usage is to load 
+> programs that completely fit in 4K\
+>
+> In P?S/8, there is an embedded call to the system handler entered at 
+> 07632.  When the operation above is completed, the contents of these 
+> locations are those that are on the tape by default.
+>
+> What is actually there is a call to write out ALL of field 0 and THEN JMP 
+> 7600 for the usual non-writing bootstrap that is the usual case.
+>
+> As such, if you use the BIN loader and specify /I =7632, your program is 
+> saved [that requires writing of course] and then the rest is the normal 
+> bootup read-only.
+>
+> As a user convenience, there is an alias system program entry for BIN 
+> called GET.  It forces /1-/7 off, forces /I on, and forces =7632 and 
+> otherwise is the BIN utility to pass specified binary input files to be 
+> loaded by the slurp loader.
+>
+> Thus, in P?S/8 if you WANT to write, you use the GET command.
+>
+> After that, your program is in the virtual scratch area for all of field 0 
+> which is in blocks 0020-0057 [aka sometimes as the % and $ files, 
+> respectively for each half of that space; all files are 2K long].
+>
+> You can use P?S/8 ODT on the program, and the virtual image is always 
+> updated.  There is a BSAVE facility to save programs back into slurp 
+> files.  The arguments resemble the OS/8 SAVE command arguments, the 
+> difference is these are not groupedout, but are actual save definitions,, 
+> even down to one single word if you wish.
+>
+> [Note: In general, extended memory is ignored by P?S/8.  However, system 
+> programs such as P?S/8 PAL use as much extended memory as they can access, 
+> thus, if any extended memory areas were changes and need saving, use the 
+> appropriate command elements to the BSAVE command which is 32K oriented.  
+> ODT is a proper superset of OS/8 ODT, etc.
+>
+> Thus, you write on the system device ONLY when necessary, NOT mindlessly 
+> every single time. [And on DECtape that means running write-locked if you 
+> wish; can't screw up and destroy the system tape that way!].  Also, errors 
+> in the system handler, such as write-lock error, can be retried by pressing 
+> CONTINUE.
+>
+> Those familiar with the PDP-9 ADSS/9 system may be aware of IOPS4! this is 
+> a built-in kernel function to allow a retry.  [And later, after P?S/8 
+> copied it, MS-DOS did.]  In P?S/8, there is the OPTIONAL Logical Console 
+> Overlay.  When enabled, it is loaded into the HIGHEST field of memory [and 
+> not field 1 unless it's an 8K machine].  All system device errors are 
+> intercepted and you get all the call particulars when it failed to 
+> complete, etc.  You can retry or abort to 07600.  OS/8 totally lacks this 
+> conceptually, yet requires 8K. P?S/8 requires 8K or more only if you enable 
+> the Overlay, etc.
+>
+>
+> Now, back to the growing pain for the next release:
+>
+> Without going into the gyrations of how the logical unit used to boot is 
+> preserved unconditionally, the problem boils down to this:
+>
+> After the image of (most of) the contents of block 0 are reloaded [into 
+> most of 07600-07777] there is a problem:  The default contents of the 
+> embedded system device handler call are lacking the proper current 
+> definition of the bootup unit. [this is NOT written to the block ever; it 
+> just has to be dealt with at the moment what it happens to be].
+>
+> In P?S/8, there are some reserved words in the kernel, namely:
+>
+> 07604-6 - All 36 command-line switches are stored here when a system 
+> program is loaded.  [Same notions as OS/8, just specifically different 
+> locations, etc.
+>
+> 07607 - This is the output file count.
+>
+> In P/S/8, all files are pre-allocated and all are 2K long.  The 
+> execution-class commands are prepared to pre-create them if necessary, 
+> etc.  By the time the program executes, this is what is passed:
+>
+> A list starts in 07757 ending in as much as 07777.  the last one is 
+> followed by 0000 as a sentinel [unless the list is full max, in which case 
+> it self-terminates because of clever use of the ISZ instruction].
+>
+> In R-L, they are all input files.  [PAL II only wrote to IMPLIED areas of 
+> the system tape, and then after the fact and only if possible, a command 
+> was used to save that to a named file in the directory.  And if not 
+> possible, you always had to assemble the relevant program to run it, etc.
+>
+> In P?S.8, there might be output files.  All output files [if any] are 
+> passed before all input files [if any].  the contents of 07607 is the 
+> output file count (which could be anywhere from 0 through 17 depending]/
+>
+> The key point is that all four of these locations are only meaingful 
+> during normal program execution, thus are merely placeholders on the tape 
+> image of block 0, etc.
+>
+> But because of this last problem, these locations are loaded with the 
+> following:
+>
+> TAD 7634 /GET THE CURRENT WRITE-OUT FUNCTION
+> TAD SBTFUN  /ADD ON THE ACTUAL UNIT BITS THAT APPLY
+> DCA 7634 /UPDATE THE EMBEDDED CALL
+> JMP elsewhere.
+>
+> The jump in this case is to the DIF CDF instruction that starts the 
+> startup process of the slurp loader /I operation. [because that is why 
+> these are here!].
+>
+> The new problem is this:
+>
+> As of Version 9A, the P?S/8 DATE is being upgraded.
+>
+> The present [somewhat embarrasing, read kludge here] situation [that 
+> applies to version 8Z[ is as follows:
+>
+> Programs that require the full date carry the high-order bits 
+> INTRINSICALLY within the program's images in a format any way they want to.
+>
+> This is the present formula:
+>
+> Each such program stores a local version of the base year group as a 
+> constant.
+>
+> For example, 0 means that the date starts in 1960, 1=1968, 2-1976, etc.
+>
+> The present P?S/8 Version 8Z is patched so all of them start in 2016.
+>
+> The rest of the date is stored to the nearest day in 07610.  It uses a 
+> quirky method that can store from say 2016 through 2026 [and a little more, 
+> but the P?S/8 DATE command rounds it back to the highest complete year 
+> possible].
+>
+> Thus, you have to patch this every eight years nearly indefinitely., etc.
+>
+> The value in 07607 is being upgraded.  In version 9A, it will instead be 
+> this:
+>
+> bits[7-11] still mean the output file count.  But you have to do an AND 
+> (37) or equivalent in all programs that work with this [a VERY minor issue].
+>
+> Bit[0] is a parameter for the forthcoming P?S/8 SHELL optional overlay.  
+> This is one of its fundamental parameters:
+>
+> P?S/8 SHELL needs a far larger area to communicate file and related stuff 
+> than OS/8.  There are many reasons such as:
+>
+> 1) The program name will be stored there. As is practiced in other 
+> systems, a program can change what it does by examining the name it was 
+> created as, and actually change what it does accordingly.
+>
+> 2) OS/8 names are 6.2, P?S/8 names are 12.4.
+>
+> 3) OS/8 names are upper-case only, P?S/8 names are case-RETENTIVE [like 
+> OS/2, not case sensitive, when a file is created, the case of each 
+> character is retained, but searches are caseless, etc.]
+>
+> 4) File lists will be shorter than P?S/8, typically two or three at most.  
+> There is the notion of the positional default for the first and second and 
+> third file.  All of this has to be stored somewhere, etc.
+>
+> 5) 128K startup information [for KT8A].
+>
+> 6) Operational info for the User File Operator (UFO) which is essentially 
+> what the OS/8 USR never was - on steroids.  Also, it will all be page and 
+> field relocatable, so no silly "rules" about exactly where things must be, 
+> etc.
+>
+> 7) Ample room for future expansion [no corners painted into like OS/8 was 
+> doomed by 1977]
+>
+> 8) Much larger directory capability on far larger devices.  [The entire 
+> RK8E in 4 logical units, not 8 "half-drives" etc.]
+>
+> That's really more than enough reasons, etc.
+>
+> Bit[0] if 1 means That the information area [dubbed FCA for File 
+> Communications Area] is located in field x 5400-5777. x is the physical 
+> highest field of memory.  The reasons for this are:
+>
+> 1) Field x 6000-7777 are reserved for system devices that cannot be 
+> supported in 4K.  Unlike OS/8, this is a lot more than just giving 124 more 
+> words i 27600-27773, with that much more memory, elegant device handling 
+> including error recovery is possible.  The DECmate RX50 handler may 
+> actually be trouble fitting into "only" 8 more pages!
+>
+> 2) Field x 0000-5377 is where the optional Logical Console Overlay is 
+> loaded.
+>
+> Thus, this is the sensible two-page menmory area IF it is actually in 
+> memory!
+>
+> If Bit[0] is set to 0, it means that the FCA resides in two low system 
+> blocks TBD, but something like say 9972-0073..  That puts them near the UFO 
+> storage blocks.  As such, the perceived degradation is far less than 
+> actual.  [And it will be tested to make sure] but if you don't have the 
+> memory, you do what you must.  Of course if you have 32K,, this hardly ever 
+> happens :-).  But on 4K machines, it is mandatory, and perhaps recommended 
+> for some 8K or so system configurations, etc.  If you can, try it both 
+> ways, or even switch periodically, etc.
+>
+> The date is being totally revamped:
+>
+> Location 07610 will be reformatted as the low-order 12 bits of the date 
+> [much like OS/8, except the bits are weighted in a useful order instead of 
+> an arbitrary one.  The older the date, the older the file, etc.]/
+>
+> Bits [1-6] of 07607 are the full date extension of 8-year base groups, 
+> unconditionally.
+>
+> You will be able to play with the date for ANY day in the range of 
+> 01-Jan-1900 through 31-Dec-2311.
+>
+> [Note: This means that the every 4 century rule has to be added.  the 
+> present scheme is wrong after 2099.]
+>
+> 01-Jan-1900 is a Monday.  Keep going except for leap years except that 
+> each leap century there isn't a leap year except that there is anyway every 
+> 400 years.
+>
+>
+> As such,, the tape has to retain bits[0-6] permanently.  This word is no 
+> longer available for that /I last-instant fixup code described above.  
+> [Well, it is one word shorter now.]
+>
+> I was able to bum out as many as three words from the overall situation 
+> involving Slurp loader, /I code and the actual TC08 system device handler.  
+> As such, I will no longer need to store permanently into any of them.
+>
+> Note: The CORE command sets some values in 07611 currently.  Some cleanup 
+> is needed in the command to not accidentally store permanently that which 
+> could change if you bring the tape to another machine.  Fortunately, the 
+> CORE ALL command always resets everything, but in 9A it will be slightly 
+> cleaner, etc.
+>
+> All of this explanation over the need to not use 7 bits as practiced on 
+> the TC01/TC08.  [Lots if little battles before it can be released as the 
+> next whole version].
+>
+> cjl
+>
+>
+>
+>
+>
+------=_Part_2177_1890845505.1642789905534
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+From the P?S8 Google group<br><br><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">---------- Forwarded message ---------<br>From: <s=
+pan dir=3D"auto">cjl &lt;Unknown&gt;</span><br>Date: Friday, December 14, 2=
+018 at 12:23:13 PM UTC-6<br>Subject: Re: P?S/8 Version 9A - some early deve=
+lopment issues.<br>To: <span dir=3D"auto">P?S/8 &lt;Unknown&gt;</span><br><=
+/div><br><br><html-blob><div dir=3D"ltr">Here's an update on release issues=
+:<br><br>Releasing P?S/8 is fairly difficult without a lot of personal atte=
+ntion.&nbsp; The logistics are quite extensive, especially if you really do=
+n't have a pre-exisiting medium or mechanism.<br><br>My original intention =
+was that the P?S Enhanced PDP-8 Simulator (PEPS) for Windows (XP through 10=
+) would be completely released and within it currently is P?S/8 Version 8Z =
+(with recent patches) along with OS/8 V3D (3Q).&nbsp; [For more information=
+, you should already be in the pepswin grouip or ask for an add directly he=
+re and now, etc.&nbsp; That will give some of the details in the way.<br><b=
+r>Without going into great detail, that package is nearly completed, and co=
+mpletely useful to within nitpicks.&nbsp; That said, here is what the "nitp=
+icks" are:<br><br>1) The package works 100% as-is on Windows XP and Windows=
+ Vista.&nbsp; For Windows 7, 8 and 10 you need to apply a registry patch an=
+d procedure that to date I do by hand.&nbsp; It works completely fine on Wi=
+ndows 7.<br><br>That said, it needs testing on Windows 8 and then separatel=
+y on Windows 10.&nbsp; there is a possibility that what has to be done on t=
+he other two systems will somewhat differ from what is done on Windows 7.&n=
+bsp; Time will tell.&nbsp; Some of this work was performed as recently as t=
+his last September.<br><br>Once the two additional systems are tested and c=
+onfirmed working (which may require independent documentation of anything s=
+pecifically is different from Windows 7) this all has to be documented for =
+all five systems separately (the documentation requires at the least a figu=
+re in the Guide document for each of them regarding the recommended startin=
+g configuration] Then I also have to finish writing the underlying BATCH fi=
+le that makes it all happen.<br><br>At this point, that part is written to =
+the point of knowing that your system is XP or it is Vista and able to issu=
+e a message that you don't need the actual registry changes.&nbsp; I have t=
+o (at least) translate the manual procedure into BATCH-oriented sub-command=
+s including translating registry patches done manually and/or with REGEDIT =
+into the somewhat more obscure [and operationally quite different, albeit a=
+utomatic] REG program that takes iinline command-line arguments.<br><br>At =
+this point it could be complicated by having as many as three sets of these=
+ changes assuming 7 is different from 8 is different from 10, etc. [Or to b=
+e optimistic, proving it is not XP or Vista is sufficient, but this has to =
+be tested].<br><br>But once all these details are worked out, there is alre=
+ady a placeholder for setting up for removal of automatic auto-arrange coup=
+led with align to grid.&nbsp; Align to grid is modestly useful, but the poi=
+nt is to be able to turn off auto-arrange; for myself i prefer the align to=
+ grid, but this is personal preference; the main issue is that the feature =
+to prevent the auto-arrange ]when the view involves icons of any size; the =
+entire issue is moot if you prefer list or details or even tiles view, but =
+it is arguably much harder to use these by nature on the main control windo=
+w/command-center] thus, the recommendation is start with the "serving sugge=
+stion" and use the package and then make your own informed changes, etc.&nb=
+sp; Once this sticky little problem is solved, that will be the case.&nbsp;=
+ I can tell you from using the Package extensively now, I would find it qui=
+te cumbersome any other way. [The main reason is that icons are LOGICALLY g=
+rouped by function, but Windows does it strctly in alphanumeric order.]<br>=
+<br>2) Here is the big problem:<br><br>This package is 100% done in the tot=
+al spirit and substance of freeware.&nbsp; I have no monetary expectations =
+whatsoever.&nbsp; that said, I expect to have no NEGATIVE monetary problems=
+ as in the potential of a lawsuit from some greedy lawyer hired by freeware=
+ and shareware authors because I might include some of the binary of their =
+packages, etc.<br><br>The consensus at this time is I have to provide the p=
+ackage [incomplete] and not have ANY code I didn't write in it.&nbsp; Then =
+a lot of documentation on what EXACTLY must be done by the END USER to wake=
+ up the features as they exist now.&nbsp; this also means I have to provide=
+ proper cosmetics and messages for when you haven't included their offering=
+s, so as to make it clear what and why, etc.<br><br>And of course, these se=
+ctions then have to be added to the guide document as well.&nbsp; [Obviousl=
+y I have some notions of what will go in there, but that in and of itself i=
+s a lot of work].<br><br>3) The Guide document has to be functionally compl=
+ete as in how to use all of the features; some require some manual editing =
+of .BAT files due to the need to customize.&nbsp; The package relies heavil=
+y on the availability of a .PDF file reader.&nbsp; I'll have to document ho=
+w you set which is the one you are reading.&nbsp; Perhaps this can be accom=
+plished by setting a global environment variable.&nbsp; I already have othe=
+r setup procedures that are literally just managers of one of those.&nbsp; =
+For example, the package must set an environment variable initially just to=
+ get installed.&nbsp; This is called %PDP-8_DRIVE$ and is typically set to =
+"C:" or "D:" or whatever.&nbsp; On my system that is the basis for the Guid=
+e example figures, it is P: [The environment variable is just the two chara=
+cters: uppper or lower case letter from C: through Z: followed by the : cha=
+racter; no more and no less&nbsp; That package is 100% done.<br><br>Similar=
+ly, there is a package to set an environment variable to your choice of thr=
+ee different compatible text editors: Windows notepad, notepade++ or EditPa=
+d.&nbsp; You have to use at least one, and notepad is part of Windows itsel=
+f.&nbsp; The other two have to be separately installed and come in 32-bit a=
+nd 64-bit versions, etc. and you have to install them in designated places =
+on the %PDP-8_DRIVE% drive so all parts of the package can quick-change the=
+ choice merely by using the pertinent setup icon.&nbsp; This is also comple=
+tely done.<br><br>But perhaps there needs to be analogous support for a PDF=
+ package, I have been using Adobe Reader, but at least in theory, this shou=
+ld be possible to become another global variable.&nbsp; I then have to try =
+a candidate alternative and crank out all the hard-coded references to Adob=
+e and change then to %PDF_Reader% or somesuch, etc.&nbsp; An afternoon's wo=
+rk [when I get a free afternoon].<div><br></div><div>There may be a couple =
+others that are similar.&nbsp; I want it to be as flexible and configurable=
+ as possible.<br><br>The biggest job is actually the documentation which ta=
+kes my time, quite a lot actually, and I get into mini-burnouts and then tu=
+rn to doing something else productive, such as actually writing PDP-8 code =
+with the Package as it is, or actually cranking out P?S/8 improvements.<br>=
+<br>The problem is that I am a "one man band" and have three different thin=
+gs going on, the dual problem of documentation of the other two each are 1/=
+2 of the third item beyond the obvious.<br><br>I have made some decent prog=
+ress on nearing release of P?S/8 documents for specific aspects of P?S/8.&n=
+bsp; One of the goals is to spare everyone from the hard learning curve of =
+OS/8, which all of us went through.&nbsp; Yet, some children and random sci=
+entific researchers were able to use it usefully in about 10 minutes of int=
+roduction by me personally.&nbsp; Perhaps this needs a Youtube video!<br><b=
+r>In any case, here are the list of important documents for which there is =
+light at the end of the tunnel:<br><br>1) The P?S/8 keyboard monitor comman=
+d guide.&nbsp; If you don't know what to type and when and where to typie i=
+t, you can't use it.<br><br>2) The Patch Log file for P?S/8 Version 8Z, the=
+ latest complete release.&nbsp; This also points out various OS/8 analogous=
+ issues, limitations and work-arounds, and most importantly a jumbo sized G=
+lossary of Terms since many will not be familiar with most of them. [A few =
+are amusing add-ons which make fun reading, but must really are needed.]<br=
+><br>3) The P?S/8 PAL reference guide.&nbsp; this also includes a lot of va=
+lid programming techniques most will learn at least something from, and if =
+you are a newbie, help you avoid a lot of programming pitfalls.<br><br>Ther=
+e are a few smaller-scale documents in various stages of being written, man=
+y are technical discussions of P?S/8 structures, especially directory struc=
+tures.&nbsp; &nbsp;When configuring P?S/8, you need to understand these to =
+be capable of making the simple patches that might be needed to effect smal=
+l changes, etc.<br><br>A valid criticism of P?S/8 is that, while with a lit=
+tle expertise these small patches are easy to make [some of them can even b=
+e automated with existing P?S/8 utilities] there are not a lot of P?S/8 uti=
+lities devoted only to making the changes mindless by a truly ignorant user=
+.&nbsp; Sorry, but this is always the lowest priority in any system that ev=
+er was or ever will be.&nbsp; No pain no gain, and in this case, each is ha=
+rdly any pain [but more than literally nothing.]<br><br>The configurations =
+of P?S/8 supported in the SIMH environment [that is underlying to PEPS for =
+Windows] is a "fantasy" version of TC01/TC08 DECtape.&nbsp; Real-world DECt=
+apes come in the standard size of 2702 octal blocks of 129 words [where the=
+ 129th word is ignored, same as in OS/8 or any other system for the PDP-8 w=
+ith the lone exception of the Disk Monitor System, which uses that word, an=
+d why the Disk Monitor System can only run on TC01/08 DECtame, DF32 and RF0=
+8 and nothing else whatsoever.&nbsp; For those of us who bothered to look f=
+or the more-than-occasional DECtapes that are actually longer enough, there=
+ is a secondary standard of 3300 octal blocks.&nbsp; There is both P?S/8 an=
+d OS/8 support for these tapes, and also some have recently been recovered =
+and read on TD8E-based PDP-8/E systems.&nbsp; [The contents are important i=
+n the overall scheme of things and in some cases are the sole known source =
+files of some important stuff].<br><br>But in the SIMh environment, ANY 12-=
+bit length is possible, either TD8E or TC08 and you have to choose which le=
+ngth you want to use;&nbsp; &nbsp;In OS/8, you have to patch PIP and then d=
+o the equivalent of the ZERO command [but in the CD mode].&nbsp; In P?S/8, =
+you have to patch [at most] three locations at the end of the TFS directory=
+ [actually only two typically].&nbsp; The directory itself can hold no more=
+ than 84 files assuming the underlying storage is available; generally a go=
+od fit for a DECtape.<br><br>Each logical unit in P?S/8 can also have one e=
+xtended-length file [no line numbers and no way to edit] that can be anywhe=
+re from the first block not covered by the TFS directory through the physic=
+al end of the device [or block 7777 which ever comes first].&nbsp; By using=
+ the full "fantasy" mode, this essentially means that one file can be as la=
+rge as about 2/3 of what can fit into an RK05 half-drive in OS/8 terms, etc=
+.&nbsp; Existing utilities can convert up to 17 files at a time into one ex=
+tended-length file [and then that is completely reversible].&nbsp; If you u=
+se existing extended files as part of the input, you can make an even llong=
+er one on a different unit [if the space exists]&nbsp; Most people haven't =
+written anything long enoiugh to even get close to caring.<br><br>This requ=
+ires a similar patch to another directory to effect a change.&nbsp; [In the=
+ next release, this will be part of a new set of SET command sub-options as=
+ the structure itself is being rewirten; this is explained in the nearly co=
+mplete patch log file.]</div><div><br></div><div>In any case, it is useful =
+to use slightly different configurations to essentially have what in OS/8 t=
+erms would be termed "system" and "non-system" configurations.&nbsp; In P?S=
+/8, it is better described as "complete" and "demised" as all compatible lo=
+gical units are generally able to do everything or anything, it's just a ma=
+tter of how much since the space is finite, etc.&nbsp; "Intermediate" users=
+ will understand what to do after reading some of what is available, etc.<b=
+r><br>For those with actual compatible machines, at this point you have to =
+contact me; physical releases have been done for TC01/08 and recently RX01 =
+family.&nbsp; Some others are quite close to being tried out on SIMH such a=
+s RK8E/RK05 and the TD8E [These are all supported in SIMH in fairly good wa=
+ys].&nbsp; Due to some unknown limitation of SIMH, the TC01/TC08 release re=
+quires a one-word patch, fully documented in the eco patch log file.<br><br=
+>Certain people have programs to transfer SIMH-conmpatible images that can =
+be emailed to the actual hardware.&nbsp; some of the methods are OS/8-centr=
+ic but can be part of the solution in conjuncrion with my Kermit-12 utiliti=
+es for OS/8.&nbsp; As long as the underlying media is compatible between P/=
+S/8 and OS/8, this will work fine [this is the situation in about 90 percen=
+t of all possible configurations.]</div></div></html-blob><html-blob><div d=
+ir=3D"ltr"><div><br><br>On Thursday, September 27, 2018 at 8:01:28 AM UTC-4=
+, cjl wrote:<blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left=
+:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr">As I d=
+o more work for the next release, I will note some of the changes as they c=
+ome about.<br><br>Sometimes the unexpected changes cause minor snags.&nbsp;=
+ Here is a tiny one I just worked out a fix for.&nbsp; [Note:&nbsp; I could=
+ retrofit these two in Version 8Z, but they are extremely minor in terms of=
+ consequence to systems prior to 9A]<br><br>Some of you are familiar with t=
+he unique P?S/8 feature of binary loading invented by Richard Lary caled [b=
+y him, I'm not changing it!] "Slurp" to describe how it works.<br><br>The f=
+irst incarnation was done in the R-L Monitor System [and was the ONLY choic=
+e back then].&nbsp; The idea is this:<br><br>You can load binary files with=
+out a handler in memory and without a net buffer [other than inside of the =
+loader itself].&nbsp; The contents of 07600-07777 are thus changed over to =
+the following:<br><br>1) A reboot of at least this particular hardware-depe=
+ndent version of the operating system.&nbsp; In this case, the bootstrap us=
+ed works with R-L, P?S/8, Dibol-9, POLY BASIC, EDU-System 30, COS 300/310, =
+OS/8, the DECtape Library System etc.&nbsp; Just about all EXCEPT the Disk =
+Monitor System [because it is incompatible on the key issue, where to be wa=
+iting for DMA overlay.&nbsp; Just failure to actually know what to do;&nbsp=
+; The Library System started the convention, and it is fine and clearly wor=
+ks for all of those systems, and since it came first, there is no excuse, y=
+et the DMS being incompatible causes the more general bootstrap to include =
+it to be more complicated BECAUSE it is incompatible and has to be read in =
+non-overlayed and then started up, etc.<br><br>This of course starts at 076=
+00 so that programs can exit universally.&nbsp; This bootstrap code then re=
+boots R-L.<br><br>P?S/8 updates this on the TC01/08 with a frill feature.&n=
+bsp; You can boot P/S/8 for the TC01/08 on ANY logical unit.&nbsp; The exte=
+nded bootstrap follows the general scheme of other devices.&nbsp; The short=
+ versions are based on zeroed out bits in the AC, the extended versions hav=
+e drive-specific bits in the AC that are used to continue the bootup proces=
+s,etc.<br><br>In the case of the DECtape hardware, the logical unit is plac=
+es in bits[0-2] because the hardware wants them there, etc.<br><br>Thus, in=
+ P?S/8, the boot is particularized to the drive the original bootup was per=
+fornmed to, and that dooesn't change ever [unless you want to run another b=
+oot program].<br><br>Some of the code in the bootup is also shared with the=
+ Slurp loader, the main occupant of the rest of the page.<br><br>For defini=
+tion purposes, the bootstrap is defined as at most 07600-07641 [formerly up=
+ to 07642], but shortened by one to add am improvement that is paper-tape o=
+riented, the subject of another post].<br><br>That means that if you move t=
+hese words into locations 07600-07641, you can do a reboot by starting at 0=
+7600. [Note: The purpose is NOT to be the shortest, but rather to be a reas=
+onable length and start at 07600.&nbsp; In the case, part of the design is =
+compromised for the benefit of the slurp loader, which uses portions of the=
+ boot code as subroutines and even contrived constants, etc.<br><br>The slu=
+rp loader complete definition includes the subset that is the reboot code; =
+it can use any of the reboot code words as necessary, etc.&nbsp; [Actually,=
+ a stand-alone version of the reboot code can be quite a bit shorter, but t=
+hen a needed word for slurp loader purposes would be gone because the optim=
+ization depends on it being where it is.&nbsp; Actually, the highest word i=
+s in 07640, thus there is actually one word to spare in the new definition,=
+ and to my knowledge this is the longest such code in all the supported sys=
+tems].<br><br>The TC08 slurp loader has its own starting address further up=
+ the page.&nbsp; It does the usual block searching with one exception: it f=
+orces an initial search FORWARD because this is generally the case given th=
+e layout of the system.<br><br>The P?S/8 version supports extended-memory l=
+oading while R-L is strictly 4K [but the extension for extended memory was =
+always defined.]&nbsp; once the starting block of the latest file to load i=
+s located, the read data mode is selected.&nbsp; So far, this sounds like t=
+he system device handler [but what follows is totally different].<br><br>Th=
+e current address is set to point to a temporary inside of the slurp loader=
+ area, and the word count is zeroed.&nbsp; DMA will start in a few microsec=
+onds by the nature of DECtape DMA transfers.<br><br>The slurp loader contin=
+uously reads the word count checking if it has changed from 0 -&gt; 1.&nbsp=
+; That means that in a couple more cycles, the latest word is now transferr=
+ed into the word the Current Address pointed to.<br><br>This latest word is=
+ then processed.&nbsp; Then the whole process repeats.&nbsp; The Word Count=
+ is again zeroes, and the current address is backed up again to point to th=
+e same location, etc.&nbsp; Wait for it to go from 0&nbsp; to one, etc.<br>=
+<br>This happens nominally every 133 microseconds.&nbsp; The four operation=
+s are as follows:<br><br>If the latest data word is actually 12-bits intend=
+ed to be loaded, store it into the intended memory location and bump up the=
+ current loading location counter.<br><br>If the latest data is an origin s=
+etting, load that into the current loading location counter.<br><br>If the =
+word is a field setting, it is in the form of CDF x0 where x is the field s=
+etting.&nbsp; Stick that in-line in an instruction just before the DCA I CO=
+UNTER instruction so that all data is loaded as intended starting with any =
+data words that follow, etc.<br><br>If the word is an end-of-file indicator=
+, go on to the next file, and repeat everything; process all passed files u=
+ntil the very last one in a passed list of input files [located in 07757-07=
+777 or less].&nbsp; After that, JMP to a startup routine which consists of =
+a CIF CDF xx instruction followed by a JMP I 7756.<br><br>While only P?S/8 =
+has the extended memory stuff, R-L started all of this.&nbsp; 07756 is the =
+location where the =3Dxxxx parameter is stored from the original RUn comman=
+d thus where the program starts up.&nbsp; If the =3Dxxxx is not given, it i=
+s the address of a safe halting piece of code; the user has to work the fro=
+nt panel to do anything else [but this is by design. If you were using the =
+BIN loader, you are in the same position.]<br><br>P?S/8 adds a minor featur=
+e.&nbsp; You cannot pass =3D7777 to any program, but that is passed by defa=
+ult.&nbsp; thus, now programs can do whatever they wish if the value is 777=
+7,&nbsp; in this case, the default is the address of that CIF CDF instructi=
+on.&nbsp; 07756 points to a word just before which halts.&nbsp; [It is actu=
+ally a compound OPR instruction that cannot skip and does halt, 7772, a nee=
+ded constant elsewhere.&nbsp; Pressing CONTINUE just then executes the same=
+ words so it is a safe repeating situation, etc&nbsp; That is unless the us=
+er passes explicit starting information to the BIN utility program that pla=
+ces this code, etc.<br><br>The default field is 0, but you can set /1 throu=
+gh /7 to specify extended memory start along with the =3Dxxxx to any starti=
+ng address xxxx, etc.<br><br>A minor detail of the next system BIN program:=
+&nbsp; It will check to make sure that at most only one of /1=3D/7 is set a=
+nd disallow it if the =3Dxxxx is not passed. [Upgrading releases is a matte=
+r of things tiny, small and in some cases large.]<div><br></div><div>But P?=
+S/8 adds another thing over all of the above.&nbsp; [note:&nbsp; This is co=
+unter-intuitive, but correct, so send your intuition to where the sun don't=
+ shine if need be].<br><br>Assuming all of the above happened already, what=
+ if there was another file passed at the end of the list that is "friendly =
+malware" that perverts the slurp loader in "useful ways"?&nbsp; Well, there=
+ is, and this is what it does:<br><br>Block 0 is the image of the system de=
+vice handler, but it is not necessary to load any location past 7745.&nbsp;=
+ [7747 is a one-word empty, and the rest are temporaries or the data-break =
+stuff, etc this is inside of the system device handler, etc.[.]<br><br>Thus=
+, selective overlay of the slurp loader makes it turn into a reload MOST of=
+ bock 0 into 07600-07745&nbsp; Now you have the system device handler capab=
+ility restored, yet you have not written on the tape for any loading operat=
+ion!&nbsp; [This is in part why the slurp loader is so fast.&nbsp; The TC01=
+/08 slurp loader is FASTER than OS/8 using ABSLDR on RK8E/RK05. [Confirmed =
+with a stop-watch to the horrified eyes of DEC PDP-8 programming group memb=
+ers who fell into cognitive dissonance; they literally couldn't believe a D=
+ECtape could be faster than an RK05!].<br><br>Normallly up to seventeen fil=
+es can be passed to the Slurp loader, but this magic "file" has to be passe=
+d last, thus the effective upper limit is "only": 16 files.&nbsp; Note: Slu=
+rp format approaches 6/7 of the efficiency of core-image yet is not block-i=
+mage oiriented, it allows random access loading without restriction.&nbsp; =
+thus, even sixteen files can load nearly 24K of memory in one command, and =
+of course rarely is that much done in one command. [and you could do more w=
+ith a another command, but these are contrivances for special circumstances=
+ assuming running on 32K. It's not a great "sacrific" to have to split the =
+equivalent of 18-19 files into two groups.&nbsp; Also, Version 9A should ha=
+ve the BINCON utility that can combine up to 17 files into one extended-len=
+gth file.&nbsp; Then all of 32K can be loaded in 3 files or less].&nbsp; Ty=
+pical usage is one or two files, and three is more than enough to fill all =
+of field 0, etc.]<br><br>this last "file" is an image on the O/S in a reser=
+ved block.&nbsp; Each configuration has its own.&nbsp; The recently re-rele=
+ased RX01 P?S/8 has its own analogous one stored in the same corresponding =
+logical block [but the contents does the same to the RX slurp loader, etc.]=
+<br></div><div><br></div><div>The command to accomplish this includes the /=
+I command-line option switch<br><br>Thus, you get the seemingly impossible:=
+&nbsp; You started with the system device handler in 07600, and you loaded =
+memory, and in the end you still have the system device handler.&nbsp; [Dar=
+k grey magic revealed!]<br><br>Now a design comparison with OS/8:<br><br>OS=
+/8 exits to 07600 as well, but it ALWAYS starts with writing out part of me=
+mory and then swaps in a (compromised) keyboard monitor that can only accom=
+plish very little, so feeble that CCL had to be added on [and is NOT RECOMM=
+ENDED FOR USE on tape-based systems, official DEC published in manuals!].<b=
+r><br>This is ALWAYS done, yet rarely do you take advantage of WHY it was w=
+ritten out [for the SAVE command, hardly ever actually used compared to ALW=
+AYS writing on every exit by every program to 07600.&nbsp; Also, 07605 is a=
+n OS/89 ism, not the standard which is ALWAYS 07600.<br><br>P?S/8 has anoth=
+er thing in the equation I haven't mentioned:&nbsp; Unlike OS.8, you do not=
+ need extended memory to run anything.&nbsp; This is because OS/8 was not a=
+ble to get an embedded call to the system device handler into field 0 along=
+side of the handler, so they kludged it into field 1, thus creating the che=
+ap excuse of also reserving field 1 7600-7777 [and in turn forcing the need=
+ for extended memory even though perhaps your only usage is to load program=
+s that completely fit in 4K\<br><br>In P?S/8, there is an embedded call to =
+the system handler entered at 07632.&nbsp; When the operation above is comp=
+leted, the contents of these locations are those that are on the tape by de=
+fault.<br><br>What is actually there is a call to write out ALL of field 0 =
+and THEN JMP 7600 for the usual non-writing bootstrap that is the usual cas=
+e.<br><br>As such, if you use the BIN loader and specify /I =3D7632, your p=
+rogram is saved [that requires writing of course] and then the rest is the =
+normal bootup read-only.<br><br>As a user convenience, there is an alias sy=
+stem program entry for BIN called GET.&nbsp; It forces /1-/7 off, forces /I=
+ on, and forces =3D7632 and otherwise is the BIN utility to pass specified =
+binary input files to be loaded by the slurp loader.<br><br>Thus, in P?S/8 =
+if you WANT to write, you use the GET command.<br><br>After that, your prog=
+ram is in the virtual scratch area for all of field 0 which is in blocks 00=
+20-0057 [aka sometimes as the % and $ files, respectively for each half of =
+that space; all files are 2K long].<br><br>You can use P?S/8 ODT on the pro=
+gram, and the virtual image is always updated.&nbsp; There is a BSAVE facil=
+ity to save programs back into slurp files.&nbsp; The arguments resemble th=
+e OS/8 SAVE command arguments, the difference is these are not groupedout, =
+but are actual save definitions,, even down to one single word if you wish.=
+<br><br>[Note: In general, extended memory is ignored by P?S/8.&nbsp; Howev=
+er, system programs such as P?S/8 PAL use as much extended memory as they c=
+an access, thus, if any extended memory areas were changes and need saving,=
+ use the appropriate command elements to the BSAVE command which is 32K ori=
+ented.&nbsp; ODT is a proper superset of OS/8 ODT, etc.<br><br>Thus, you wr=
+ite on the system device ONLY when necessary, NOT mindlessly every single t=
+ime. [And on DECtape that means running write-locked if you wish; can't scr=
+ew up and destroy the system tape that way!].&nbsp; Also, errors in the sys=
+tem handler, such as write-lock error, can be retried by pressing CONTINUE.=
+<br><br>Those familiar with the PDP-9 ADSS/9 system may be aware of IOPS4! =
+this is a built-in kernel function to allow a retry.&nbsp; [And later, afte=
+r P?S/8 copied it, MS-DOS did.]&nbsp; In P?S/8, there is the OPTIONAL Logic=
+al Console Overlay.&nbsp; When enabled, it is loaded into the HIGHEST field=
+ of memory [and not field 1 unless it's an 8K machine].&nbsp; All system de=
+vice errors are intercepted and you get all the call particulars when it fa=
+iled to complete, etc.&nbsp; You can retry or abort to 07600.&nbsp; OS/8 to=
+tally lacks this conceptually, yet requires 8K. P?S/8 requires 8K or more o=
+nly if you enable the Overlay, etc.<br><br><br>Now, back to the growing pai=
+n for the next release:<br><br>Without going into the gyrations of how the =
+logical unit used to boot is preserved unconditionally, the problem boils d=
+own to this:<br><br>After the image of (most of) the contents of block 0 ar=
+e reloaded [into most of 07600-07777] there is a problem:&nbsp; The default=
+ contents of the embedded system device handler call are lacking the proper=
+ current definition of the bootup unit. [this is NOT written to the block e=
+ver; it just has to be dealt with at the moment what it happens to be].<br>=
+<br>In P?S/8, there are some reserved words in the kernel, namely:<br><br>0=
+7604-6 - All 36 command-line switches are stored here when a system program=
+ is loaded.&nbsp; [Same notions as OS/8, just specifically different locati=
+ons, etc.<br><br>07607 - This is the output file count.<br><br>In P/S/8, al=
+l files are pre-allocated and all are 2K long.&nbsp; The execution-class co=
+mmands are prepared to pre-create them if necessary, etc.&nbsp; By the time=
+ the program executes, this is what is passed:<br><br>A list starts in 0775=
+7 ending in as much as 07777.&nbsp; the last one is followed by 0000 as a s=
+entinel [unless the list is full max, in which case it self-terminates beca=
+use of clever use of the ISZ instruction].<br><br>In R-L, they are all inpu=
+t files.&nbsp; [PAL II only wrote to IMPLIED areas of the system tape, and =
+then after the fact and only if possible, a command was used to save that t=
+o a named file in the directory.&nbsp; And if not possible, you always had =
+to assemble the relevant program to run it, etc.<br><br>In P?S.8, there mig=
+ht be output files.&nbsp; All output files [if any] are passed before all i=
+nput files [if any].&nbsp; the contents of 07607 is the output file count (=
+which could be anywhere from 0 through 17 depending]/<br><br>The key point =
+is that all four of these locations are only meaingful during normal progra=
+m execution, thus are merely placeholders on the tape image of block 0, etc=
+.<br><br>But because of this last problem, these locations are loaded with =
+the following:<br><br>TAD 7634 /GET THE CURRENT WRITE-OUT FUNCTION<br>TAD S=
+BTFUN&nbsp; /ADD ON THE ACTUAL UNIT BITS THAT APPLY<br>DCA 7634 /UPDATE THE=
+ EMBEDDED CALL<br>JMP elsewhere.<br><br>The jump in this case is to the DIF=
+ CDF instruction that starts the startup process of the slurp loader /I ope=
+ration. [because that is why these are here!].<br><br>The new problem is th=
+is:<br><br>As of Version 9A, the P?S/8 DATE is being upgraded.<br><br>The p=
+resent [somewhat embarrasing, read kludge here] situation [that applies to =
+version 8Z[ is as follows:<br><br>Programs that require the full date carry=
+ the high-order bits INTRINSICALLY within the program's images in a format =
+any way they want to.<br><br>This is the present formula:<br><br>Each such =
+program stores a local version of the base year group as a constant.<br><br=
+>For example, 0 means that the date starts in 1960, 1=3D1968, 2-1976, etc.<=
+br><br>The present P?S/8 Version 8Z is patched so all of them start in 2016=
+.<br><br>The rest of the date is stored to the nearest day in 07610.&nbsp; =
+It uses a quirky method that can store from say 2016 through 2026 [and a li=
+ttle more, but the P?S/8 DATE command rounds it back to the highest complet=
+e year possible].<br><br>Thus, you have to patch this every eight years nea=
+rly indefinitely., etc.<br><br>The value in 07607 is being upgraded.&nbsp; =
+In version 9A, it will instead be this:<br><br>bits[7-11] still mean the ou=
+tput file count.&nbsp; But you have to do an AND (37) or equivalent in all =
+programs that work with this [a VERY minor issue].<br><br>Bit[0] is a param=
+eter for the forthcoming P?S/8 SHELL optional overlay.&nbsp; This is one of=
+ its fundamental parameters:<br><br>P?S/8 SHELL needs a far larger area to =
+communicate file and related stuff than OS/8.&nbsp; There are many reasons =
+such as:<br><br>1) The program name will be stored there. As is practiced i=
+n other systems, a program can change what it does by examining the name it=
+ was created as, and actually change what it does accordingly.<br><br>2) OS=
+/8 names are 6.2, P?S/8 names are 12.4.<br><br>3) OS/8 names are upper-case=
+ only, P?S/8 names are case-RETENTIVE [like OS/2, not case sensitive, when =
+a file is created, the case of each character is retained, but searches are=
+ caseless, etc.]<br><br>4) File lists will be shorter than P?S/8, typically=
+ two or three at most.&nbsp; There is the notion of the positional default =
+for the first and second and third file.&nbsp; All of this has to be stored=
+ somewhere, etc.<br><br>5) 128K startup information [for KT8A].<br><br>6) O=
+perational info for the User File Operator (UFO) which is essentially what =
+the OS/8 USR never was - on steroids.&nbsp; Also, it will all be page and f=
+ield relocatable, so no silly "rules" about exactly where things must be, e=
+tc.<br><br>7) Ample room for future expansion [no corners painted into like=
+ OS/8 was doomed by 1977]<br><br>8) Much larger directory capability on far=
+ larger devices.&nbsp; [The entire RK8E in 4 logical units, not 8 "half-dri=
+ves" etc.]<br><br>That's really more than enough reasons, etc.<br><br>Bit[0=
+] if 1 means That the information area [dubbed FCA for File Communications =
+Area] is located in field x 5400-5777. x is the physical highest field of m=
+emory.&nbsp; The reasons for this are:<br><br>1) Field x 6000-7777 are rese=
+rved for system devices that cannot be supported in 4K.&nbsp; Unlike OS/8, =
+this is a lot more than just giving 124 more words i 27600-27773, with that=
+ much more memory, elegant device handling including error recovery is poss=
+ible.&nbsp; The DECmate RX50 handler may actually be trouble fitting into "=
+only" 8 more pages!<br><br>2) Field x 0000-5377 is where the optional Logic=
+al Console Overlay is loaded.<br><br>Thus, this is the sensible two-page me=
+nmory area IF it is actually in memory!<br><br>If Bit[0] is set to 0, it me=
+ans that the FCA resides in two low system blocks TBD, but something like s=
+ay 9972-0073..&nbsp; That puts them near the UFO storage blocks.&nbsp; As s=
+uch, the perceived degradation is far less than actual.&nbsp; [And it will =
+be tested to make sure] but if you don't have the memory, you do what you m=
+ust.&nbsp; Of course if you have 32K,, this hardly ever happens :-).&nbsp; =
+But on 4K machines, it is mandatory, and perhaps recommended for some 8K or=
+ so system configurations, etc.&nbsp; If you can, try it both ways, or even=
+ switch periodically, etc.</div><div><br></div><div>The date is being total=
+ly revamped:<br><br>Location 07610 will be reformatted as the low-order 12 =
+bits of the date [much like OS/8, except the bits are weighted in a useful =
+order instead of an arbitrary one.&nbsp; The older the date, the older the =
+file, etc.]/<br><br>Bits [1-6] of 07607 are the full date extension of 8-ye=
+ar base groups, unconditionally.<br><br>You will be able to play with the d=
+ate for ANY day in the range of 01-Jan-1900 through 31-Dec-2311.<br><br>[No=
+te: This means that the every 4 century rule has to be added.&nbsp; the pre=
+sent scheme is wrong after 2099.]<br><br>01-Jan-1900 is a Monday.&nbsp; Kee=
+p going except for leap years except that each leap century there isn't a l=
+eap year except that there is anyway every 400 years.<br><br><br>As such,, =
+the tape has to retain bits[0-6] permanently.&nbsp; This word is no longer =
+available for that /I last-instant fixup code described above.&nbsp; [Well,=
+ it is one word shorter now.]<br><br>I was able to bum out as many as three=
+ words from the overall situation involving Slurp loader, /I code and the a=
+ctual TC08 system device handler.&nbsp; As such, I will no longer need to s=
+tore permanently into any of them.<br><br>Note: The CORE command sets some =
+values in 07611 currently.&nbsp; Some cleanup is needed in the command to n=
+ot accidentally store permanently that which could change if you bring the =
+tape to another machine.&nbsp; Fortunately, the CORE ALL command always res=
+ets everything, but in 9A it will be slightly cleaner, etc.<br><br>All of t=
+his explanation over the need to not use 7 bits as practiced on the TC01/TC=
+08.&nbsp; [Lots if little battles before it can be released as the next who=
+le version].<br><br>cjl<br><br><br><br><br></div></div></blockquote></div><=
+/div></html-blob></div>
+------=_Part_2177_1890845505.1642789905534--
+
+------=_Part_2176_1461511245.1642789905534--

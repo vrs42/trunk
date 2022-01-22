@@ -1,0 +1,199 @@
+From: clasy...@gmail.com 
+Date: Monday, June 4, 2018 at 11:26:50 PM UTC-5
+Received: vrs; Monday, June 4, 2018 at 11:26:50 PM UTC-5
+Subject: Package-wide fixes to PEPS under way.
+Message-Id: <d88e60eb-f563-4737-b3cb-5f87f2aa7dfcn@googlegroups.com>
+In-Reply-To: <54dac4f3-22cf-4548-8b2e-0708664e76b1@googlegroups.com>
+References: <54dac4f3-22cf-4548-8b2e-0708664e76b1@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1212_1661788599.1642792038834"
+Content-Length: 10610
+
+------=_Part_1212_1661788599.1642792038834
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1213_1595191977.1642792038834"
+
+------=_Part_1213_1595191977.1642792038834
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Monday, June 4, 2018 at 11:26:50 PM UTC-5
+Subject: Package-wide fixes to PEPS under way.
+To: pepswin <Unknown>
+
+
+Much of the PEPS package are BATCH script files that in some cases, are 
+rather sophisticated [or as some might call them, chock full of kludges 
+know to work].  I am neutral on that rating, but there is a lot of things 
+you have to know to get certain things to work and often what you want 
+seems impossible [yet it is possible, but perhaps obfuscated].  Anyone who 
+wants to study this arcane subject will benefit from studying these dozens 
+of packages just to know how you get Windows to do what you want [as 
+opposed to what it wants, which is often quite different].  And of course, 
+I try to document as well as I can, because no one can keep track of all 
+the members of bags of tricks [or even which bag the trick came from].
+
+Some of the scripts create transient screen messages that want to 
+self-timeout because I will not make it routine to have to ask silly 
+questions when time-out  just makes the issue disappear.
+
+I might like some feedback on just this issue.  You could be a beginner an 
+really need to stare at an unfamiliar question.  Yet, when you have seen it 
+the umpteenth time, you want it gone much more quickly;  Perhaps in a 
+future release I can revisit this, but the general rule is this:
+
+1) If you really ought to READ the message [or some situational part of the 
+message] there will tend to be a timeout somewhere more than 5 seconds and 
+likely less than 10 seconds.  On one semi-complex specific situation, I 
+settled on 8 seconds because you probably must read part, even if you 
+determine you don't want to see it much more, thus, there are compromises.
+
+2) There are other messages whose purpose is to just keep the user "in the 
+loop" that something is happening, but it's gonna take some time.  If they 
+happen in rapid succession before a big wait, the timeout may be more like 
+3 seconds.
+
+3) If it's your fault that something unexpectedly screws up, you must 
+respond to a BATCH pause statement to dismiss and move on.  These are very 
+rare and are only on some form of error.
+
+Specific implementation is subject to revision and feedback the takeaway 
+for this moment is this is hopeless but not serious, and I appreciate 
+anyone moved to respond.  Some will simply not give a damn.  But I MUST 
+because I am writing all of this code, etc.
+
+No on to the problem.
+
+There are several ways to implement this conceptually.  Unfortunately, many 
+of them are implementation-specific, as in may not work on one of the 
+supported configurations, which at this point is for 5 different Windows 
+versions, and all could be either 32-bit or 64-bit.
+
+Thus, many nice ideas that were added later are useless when you also have 
+to support systems lacking the frill.
+
+There are several homemade "sleep" programs, but some have some copyright 
+issues or comppatibility issues and/or it is difficult to use them from a 
+seemingly central directory to avoid redundant copies, only to find out 
+there is some other gatcha in effect, etc.
+
+As such, I have been working with some IP-based timeouts that apparently 
+work in all systems, but are not necessarily documents as being so.
+
+I thought I had this solved, and it was done by using the obscure IP 
+address 1.1.1.1 and PINGing it.
+
+Turns out some of the systems are too "smart" and know to NOT wait for the 
+stated timeout even thoughi it is stated correctly.
+
+I am trying to change to a more obscure one, using the loopback address of 
+127.0.0.1 which enjoys the ability to be used with incompatible syntax not 
+generally documented, yet apparently will work.  [Certain systems can 
+provide help on the subject, and it only had another mode that won;t work 
+with this stated, but the unstated one actually does work.]
+
+Thus, hopefully I have gotten past Obfuscation 'R Us and will hopefully 
+have a fully coherent replacement that passes multiple muster.  At least I 
+now have the files organized to use less occurrences of that which needs 
+thus, so if I have make yet another change, it will be less annoying if 
+that is even needed [which would be very annoying.
+
+As such, I am testing as I go, also dealing with some registry-related 
+issues that affect Windows 7 and up only [but not necessarily share the 
+same exact fix!].
+
+There is an end in site, but it is an unexpected minor setback that has a 
+finite lifetime of time-wasting, etc.
+
+If anyone is interested, I can post a generic example of what is being used 
+now; it may be of use in your own work [or someone you know, besides me]..
+
+cjl [your not-so-tireless leader]
+
+ps:  I am doing the unthinkable:  My wife and I are taking off an entire 
+week in a few days!
+
+
+------=_Part_1213_1595191977.1642792038834
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Monday, June 4, 2018 at 11:26:50 =
+PM UTC-5<br>Subject: Package-wide fixes to PEPS under way.<br>To: <span dir=
+=3D"auto">pepswin &lt;Unknown&gt;</span><br></div><br><br><html-blob><div d=
+ir=3D"ltr">Much of the PEPS package are BATCH script files that in some cas=
+es, are rather sophisticated [or as some might call them, chock full of klu=
+dges know to work].&nbsp; I am neutral on that rating, but there is a lot o=
+f things you have to know to get certain things to work and often what you =
+want seems impossible [yet it is possible, but perhaps obfuscated].&nbsp; A=
+nyone who wants to study this arcane subject will benefit from studying the=
+se dozens of packages just to know how you get Windows to do what you want =
+[as opposed to what it wants, which is often quite different].&nbsp; And of=
+ course, I try to document as well as I can, because no one can keep track =
+of all the members of bags of tricks [or even which bag the trick came from=
+].<br><br>Some of the scripts create transient screen messages that want to=
+ self-timeout because I will not make it routine to have to ask silly quest=
+ions when time-out&nbsp; just makes the issue disappear.<br><br>I might lik=
+e some feedback on just this issue.&nbsp; You could be a beginner an really=
+ need to stare at an unfamiliar question.&nbsp; Yet, when you have seen it =
+the umpteenth time, you want it gone much more quickly;&nbsp; Perhaps in a =
+future release I can revisit this, but the general rule is this:<br><br>1) =
+If you really ought to READ the message [or some situational part of the me=
+ssage] there will tend to be a timeout somewhere more than 5 seconds and li=
+kely less than 10 seconds.&nbsp; On one semi-complex specific situation, I =
+settled on 8 seconds because you probably must read part, even if you deter=
+mine you don't want to see it much more, thus, there are compromises.<br><b=
+r>2) There are other messages whose purpose is to just keep the user "in th=
+e loop" that something is happening, but it's gonna take some time.&nbsp; I=
+f they happen in rapid succession before a big wait, the timeout may be mor=
+e like 3 seconds.<br><br>3) If it's your fault that something unexpectedly =
+screws up, you must respond to a BATCH pause statement to dismiss and move =
+on.&nbsp; These are very rare and are only on some form of error.<br><br>Sp=
+ecific implementation is subject to revision and feedback the takeaway for =
+this moment is this is hopeless but not serious, and I appreciate anyone mo=
+ved to respond.&nbsp; Some will simply not give a damn.&nbsp; But I MUST be=
+cause I am writing all of this code, etc.<br><br>No on to the problem.<br><=
+br>There are several ways to implement this conceptually.&nbsp; Unfortunate=
+ly, many of them are implementation-specific, as in may not work on one of =
+the supported configurations, which at this point is for 5 different Window=
+s versions, and all could be either 32-bit or 64-bit.<br><br>Thus, many nic=
+e ideas that were added later are useless when you also have to support sys=
+tems lacking the frill.<br><br>There are several homemade "sleep" programs,=
+ but some have some copyright issues or comppatibility issues and/or it is =
+difficult to use them from a seemingly central directory to avoid redundant=
+ copies, only to find out there is some other gatcha in effect, etc.<br><br=
+>As such, I have been working with some IP-based timeouts that apparently w=
+ork in all systems, but are not necessarily documents as being so.<br><br>I=
+ thought I had this solved, and it was done by using the obscure IP address=
+ 1.1.1.1 and PINGing it.<br><br>Turns out some of the systems are too "smar=
+t" and know to NOT wait for the stated timeout even thoughi it is stated co=
+rrectly.<br><br>I am trying to change to a more obscure one, using the loop=
+back address of 127.0.0.1 which enjoys the ability to be used with incompat=
+ible syntax not generally documented, yet apparently will work.&nbsp; [Cert=
+ain systems can provide help on the subject, and it only had another mode t=
+hat won;t work with this stated, but the unstated one actually does work.]<=
+br><br>Thus, hopefully I have gotten past Obfuscation 'R Us and will hopefu=
+lly have a fully coherent replacement that passes multiple muster.&nbsp; At=
+ least I now have the files organized to use less occurrences of that which=
+ needs thus, so if I have make yet another change, it will be less annoying=
+ if that is even needed [which would be very annoying.<br><br>As such, I am=
+ testing as I go, also dealing with some registry-related issues that affec=
+t Windows 7 and up only [but not necessarily share the same exact fix!].<br=
+><br>There is an end in site, but it is an unexpected minor setback that ha=
+s a finite lifetime of time-wasting, etc.<br><br>If anyone is interested, I=
+ can post a generic example of what is being used now; it may be of use in =
+your own work [or someone you know, besides me]..<br><br>cjl [your not-so-t=
+ireless leader]<div><br>ps:&nbsp; I am doing the unthinkable:&nbsp; My wife=
+ and I are taking off an entire week in a few days!</div><div><br></div></d=
+iv></html-blob></div>
+------=_Part_1213_1595191977.1642792038834--
+
+------=_Part_1212_1661788599.1642792038834--

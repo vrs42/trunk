@@ -1,0 +1,204 @@
+From: cjl 
+Date: Wednesday, February 7, 2018 at 9:17:22 AM UTC-6
+Received: vrs; Wednesday, February 7, 2018 at 9:17:22 AM UTC-6
+Subject: P?S/8 manuals being updated.
+Message-Id: <d56ae157-29d2-4702-b649-b2872d4eb61dn@googlegroups.com>
+In-Reply-To: <61118bc1-7d48-408a-b228-f44f89406f85@googlegroups.com>
+References: <61118bc1-7d48-408a-b228-f44f89406f85@googlegroups.com>
+To: pqs8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_3306_421089970.1642790427257"
+Content-Length: 11117
+
+------=_Part_3306_421089970.1642790427257
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_3307_1844662674.1642790427258"
+
+------=_Part_3307_1844662674.1642790427258
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+From the P?S8 Google group
+
+---------- Forwarded message ---------
+From: cjl <Unknown>
+Date: Wednesday, February 7, 2018 at 9:17:22 AM UTC-6
+Subject: P?S/8 manuals being updated.
+To: P?S/8 <Unknown>
+
+
+Certain individuals asked for this, just before this awful cold weather in 
+the northeast, etc. which is greatly affecting me.
+
+This is the current status of writing:
+
+The P?S/8 PAL Technical reference is essentially complete; it is in final 
+pre-release awaiting some typo etc. checking from some others.  This is 
+important if you use PAL8 as well; a lot of basic assembler how-to and what 
+not to do is generic to several PDP-8 assemblers and in some cases there 
+are direct feature comparisons between P?S/8 PAL, OS/8 PAL8 and TOPS-10 
+PAL10.  There isn't anything else quite like it I've ever come across 
+[which is why it is not merely a feature by feature manual.  Of course it 
+has all the descriptions of all the directives, including some future ones, 
+and a complete listing of all the error messages.
+
+I will be making a more formal announcement after they finish "beating it 
+up" for mistakes, etc.
+
+P?S/8 lacks a program to process ASCII text paper-tape into P?S/8 files and 
+vice-versa.  The work-around is to use OS/8 and its high -speed paper-tape 
+reader/punch handlers and use the existing OS8CON to interchange files 
+between the two systems.  Once this is done, there is no user-level 
+dependence on OS/8 for any normal reason, etc.
+
+This is especially critical in the SIMH world because passing files from 
+the Windows host environment depends on the simulated paper-tape reading 
+and writing, thus using P?S/8 with host editing is similarly affected, etc.
+
+I have been testing key components of the PTUTIL program that solves this 
+entirely and includes many options.  Although the code is not finished, I 
+quickly realized this is one of those programs where a lot of time will be 
+wasted unless the proper spec for the program is complete.  [Many 
+[programmers can relate to "floating" project requirements causing them to 
+never get done.]
+
+As such, even though a goodly percentage of the code is done, I am not 
+working on it at all. Instead, I have [hopefully] finished the PTUTIL 
+manual.  Once it is in the same shape as the PAL manual, I will release it 
+also, which will help to explain the problem and how it completely solves 
+all issues [and in a much more comprehensive way than OS/8 does].
+
+Note: P?S/8 includes sufficient support for BINARY paper-tapes currently.  
+Any conceivable operation regarding binary paper-tapes in either BIN or RIM 
+format is supported by the P?S/8 binary file loading program *BIN* with 
+various additional option switches set.
+
+You can do such as:
+
+1) Punch the binary output of an assembly to either BIN or RIM on the 
+low-speed or high-speed punch.  [In fact you can CHAIN to BIN and do it 
+from PAL all in one step.]
+
+2) BIN or RIM files can be loaded and written to P?S/8 output files using 
+either the low or high-speed reader.
+
+3) A special version of BIN and RIM and a bootstrap back to P?S/8 can be 
+loaded into 07600-07777.  Using option switches, both BIN and RIM are set 
+to either the high-speed version or the low-speed version.  [The only 
+missing "feature" is the ability to use the front panel from BIN to change 
+devices in memory, something that no one ever uses.  The original BIN is 
+designed to be stand-alone, but this is ALWAYS loaded from P?S/8 so there 
+is no point.  Moreover, there are machines that do not have front panels, 
+so this eliminated the entire problem.]  The bootstrap is P?S/8 
+configuration-specific, but starting at 07600 will bring back up what you 
+were running without writing on the device.
+
+Of special note:  This is not "regular" RIM format but enhanced RIM 
+format.  The difference is it also supports a checksum so it can ALSO be 
+loaded by the BIN loader.  [Note: Some people create such files in source 
+form by using *. instructions before every word of the code.]
+
+
+BIN has many other options as well not related to paper-tape, but to memory 
+loading [its main purpose].
+
+I hope to get to another manual that explains all options of everything as 
+a stop-gap manual for everything else.
+
+Consider this a heads-up, but it's out of my hands for the moment.  Once we 
+have hashed out any last-second things, it will be released and I will make 
+an announcement here.
+
+My current project is documenting the PEPS package which includes a release 
+of P/S/8 within it.  It's coming along fine, but this is a rather elaborate 
+manual due to circumstances, some originally unintended.  Unfortunately, 
+there is the specter of greedy lawyers in the picture because I use several 
+third-party Windows applications.  As such, I cannot distribute their 
+products, [but I can document how an end user can integrate them into PEPS; 
+if they want to go after all of my users, they cannot expect me to police 
+their mediocre shareware/freeware.  When I started programming, I would 
+never have thought you need to CYA, but welcome to 2018!
+
+cjl
+
+------=_Part_3307_1844662674.1642790427258
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+From the P?S8 Google group<br><br><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">---------- Forwarded message ---------<br>From: <s=
+pan dir=3D"auto">cjl &lt;Unknown&gt;</span><br>Date: Wednesday, February 7,=
+ 2018 at 9:17:22 AM UTC-6<br>Subject: P?S/8 manuals being updated.<br>To: <=
+span dir=3D"auto">P?S/8 &lt;Unknown&gt;</span><br></div><br><br><html-blob>=
+<div dir=3D"ltr">Certain individuals asked for this, just before this awful=
+ cold weather in the northeast, etc. which is greatly affecting me.<br><br>=
+This is the current status of writing:<br><br>The P?S/8 PAL Technical refer=
+ence is essentially complete; it is in final pre-release awaiting some typo=
+ etc. checking from some others.&nbsp; This is important if you use PAL8 as=
+ well; a lot of basic assembler how-to and what not to do is generic to sev=
+eral PDP-8 assemblers and in some cases there are direct feature comparison=
+s between P?S/8 PAL, OS/8 PAL8 and TOPS-10 PAL10.&nbsp; There isn't anythin=
+g else quite like it I've ever come across [which is why it is not merely a=
+ feature by feature manual.&nbsp; Of course it has all the descriptions of =
+all the directives, including some future ones, and a complete listing of a=
+ll the error messages.<br><br>I will be making a more formal announcement a=
+fter they finish "beating it up" for mistakes, etc.<br><br>P?S/8 lacks a pr=
+ogram to process ASCII text paper-tape into P?S/8 files and vice-versa.&nbs=
+p; The work-around is to use OS/8 and its high -speed paper-tape reader/pun=
+ch handlers and use the existing OS8CON to interchange files between the tw=
+o systems.&nbsp; Once this is done, there is no user-level dependence on OS=
+/8 for any normal reason, etc.<br><br>This is especially critical in the SI=
+MH world because passing files from the Windows host environment depends on=
+ the simulated paper-tape reading and writing, thus using P?S/8 with host e=
+diting is similarly affected, etc.<br><br>I have been testing key component=
+s of the PTUTIL program that solves this entirely and includes many options=
+.&nbsp; Although the code is not finished, I quickly realized this is one o=
+f those programs where a lot of time will be wasted unless the proper spec =
+for the program is complete.&nbsp; [Many [programmers can relate to "floati=
+ng" project requirements causing them to never get done.]<br><br>As such, e=
+ven though a goodly percentage of the code is done, I am not working on it =
+at all. Instead, I have [hopefully] finished the PTUTIL manual.&nbsp; Once =
+it is in the same shape as the PAL manual, I will release it also, which wi=
+ll help to explain the problem and how it completely solves all issues [and=
+ in a much more comprehensive way than OS/8 does].<br><br>Note: P?S/8 inclu=
+des sufficient support for BINARY paper-tapes currently.&nbsp; Any conceiva=
+ble operation regarding binary paper-tapes in either BIN or RIM format is s=
+upported by the P?S/8 binary file loading program <i>BIN</i>&nbsp;with vari=
+ous additional option switches set.<br><br>You can do such as:<br><br>1) Pu=
+nch the binary output of an assembly to either BIN or RIM on the low-speed =
+or high-speed punch.&nbsp; [In fact you can CHAIN to BIN and do it from PAL=
+ all in one step.]<br><br>2) BIN or RIM files can be loaded and written to =
+P?S/8 output files using either the low or high-speed reader.<br><br>3) A s=
+pecial version of BIN and RIM and a bootstrap back to P?S/8 can be loaded i=
+nto 07600-07777.&nbsp; Using option switches, both BIN and RIM are set to e=
+ither the high-speed version or the low-speed version.&nbsp; [The only miss=
+ing "feature" is the ability to use the front panel from BIN to change devi=
+ces in memory, something that no one ever uses.&nbsp; The original BIN is d=
+esigned to be stand-alone, but this is ALWAYS loaded from P?S/8 so there is=
+ no point.&nbsp; Moreover, there are machines that do not have front panels=
+, so this eliminated the entire problem.]&nbsp; The bootstrap is P?S/8 conf=
+iguration-specific, but starting at 07600 will bring back up what you were =
+running without writing on the device.<br><br>Of special note:&nbsp; This i=
+s not "regular" RIM format but enhanced RIM format.&nbsp; The difference is=
+ it also supports a checksum so it can ALSO be loaded by the BIN loader.&nb=
+sp; [Note: Some people create such files in source form by using *. instruc=
+tions before every word of the code.]<div><br><br>BIN has many other option=
+s as well not related to paper-tape, but to memory loading [its main purpos=
+e].<br><br>I hope to get to another manual that explains all options of eve=
+rything as a stop-gap manual for everything else.<br><br>Consider this a he=
+ads-up, but it's out of my hands for the moment.&nbsp; Once we have hashed =
+out any last-second things, it will be released and I will make an announce=
+ment here.<br><br>My current project is documenting the PEPS package which =
+includes a release of P/S/8 within it.&nbsp; It's coming along fine, but th=
+is is a rather elaborate manual due to circumstances, some originally unint=
+ended.&nbsp; Unfortunately, there is the specter of greedy lawyers in the p=
+icture because I use several third-party Windows applications.&nbsp; As suc=
+h, I cannot distribute their products, [but I can document how an end user =
+can integrate them into PEPS; if they want to go after all of my users, the=
+y cannot expect me to police their mediocre shareware/freeware.&nbsp; When =
+I started programming, I would never have thought you need to CYA, but welc=
+ome to 2018!<br><br>cjl</div></div></html-blob></div>
+------=_Part_3307_1844662674.1642790427258--
+
+------=_Part_3306_421089970.1642790427257--

@@ -1,0 +1,267 @@
+From: clasy...@gmail.com 
+Date: Monday, September 17, 2018 at 6:39:53 PM UTC-5
+Received: vrs; Monday, September 17, 2018 at 6:39:53 PM UTC-5
+Subject: Description of the icons/shortcuts in the Commands Window - Part 2
+Message-Id: <83556565-57a8-48b7-b876-2d91761317f2n@googlegroups.com>
+In-Reply-To: <72f6c799-0e8f-4a6c-8262-37839c34088d@googlegroups.com>
+References: <72f6c799-0e8f-4a6c-8262-37839c34088d@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2048_1696412649.1642791804047"
+Content-Length: 13561
+
+------=_Part_2048_1696412649.1642791804047
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2049_1798103579.1642791804047"
+
+------=_Part_2049_1798103579.1642791804047
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Monday, September 17, 2018 at 6:39:53 PM UTC-5
+Subject: Description of the icons/shortcuts in the Commands Window - Part 2
+To: pepswin <Unknown>
+
+
+Continuing with Row 3.
+
+Edit Program.PAL
+
+Note: Since this is source level file maintenance, lower-case is allowed 
+[or even welcomed].  The forthcoming P?S/8 SHELL [for P?S/8 version 9 
+series] will support case RETENTION not case-sensitivity. [Those familiar 
+with OS/8 will understand this directly].  When a file is created, the case 
+of each character will be preserved.  When accessing the file, the case is 
+ignored.  Directory printout routines can include appropriate options, such 
+as:
+
+1) output as is.
+
+2) Force all upper-case.
+
+3) Auto-capitalize the file name [otherwise presented in lower-case].
+
+This example is used for two reasons:
+
+a) To point out the aboce
+
+b) Windows icon labeling uses proportional spacing.  If it was all 
+upper-case, it wouldn't fit properly on the caption.  In some cases, 
+deliberate space characters have been inserted into the text for cosmetic 
+purposes only to force line breaks in multiple line captions.  It is not 
+possible in the default Windows screen font to express PROGRAM.PAL on one 
+line.
+
+Program.PAL is a dummy file already in the Current_Program_Files 
+directory.  This is a customized icons file.  As such, editing from these 
+two icons works identically, but need not be related to the CHOSEN current 
+file name as described earlier.  Thus, you can have open two editing 
+windows [or tabs in tabbed editors] at the same time.There is no practical 
+upper limit on open windows, but there can be only ONE designated as the 
+Current File Name.  Thus, a user can use this file name and still not have 
+to do "icon surgery" which is not for beginners. [I will document one in 
+the manual, but it is a bit tricky; I will try to document the potential 
+pitfalls, etc.]
+
+As with all edit commands, you can close the file if you wish [and then run 
+one of the operating systems].
+
+Send Program.PAL
+
+Edit WHATAMI.PAL
+Send WHATAMI.PAL
+
+These are analogous to the Program.PAL situation except the file name is 
+WHATAMI.PAL  Additionally, the designated O/S is the latest P?S/8 [with the 
+LPT: enabled\.  As such, the icons are medium blue by convention.  Note: 
+WHATAMI.PAL is located in the Generic_Source_Files directory within the 
+Source_Files section of the PEPS folders.  This is the main development 
+area all users are encouraged to use.  [This makes it easier to transport a 
+complete package with one backup operation.]
+
+Edit FOCAL Program
+Send FOCAL Program.
+
+This is quite similar to the Program.PAL situation; the only change is the 
+extension on the file [Program.FOC in the Current_Program_Files directory]  
+As provided, this is an authentic copy of the original DEC HAMURABI King of 
+Sumeria game completely un-modified.  The designated operating system is 
+P?S/8 [with the LPT: enabled].  P?S/8 FOCAL can be passed a P?S/8 text file 
+containing the entire program with such as:
+
+.FOCAL HMRABI /G /E
+
+By default, FOCAL lines are not echoed when the text file is the source 
+[there are command-line switches to override this and more].
+
+/G is used to automatically start after the input has ended.  /E is used to 
+re-enable the = printout in the numerical calculations.  [Note:  This makes 
+the output exactly match what is in an Introduction to Programming manual; 
+however, many users consider it "ugly" so it is disabled by default using a 
+patch created by the FOCAL, 1969 user community at large.  Since P?S/8 
+FOCAL is binary-compatible with FOCAL, 1969, generally any of the original 
+patches will work as expected; this is in contrast with the usual OS/8 
+variants which lost all vestiges of compatibility, which is not only 
+insulting to the user community [I remember some of them complaining in 
+person!] but it shortchanges everyone because there are really good patches 
+that just work. Actually, there are two of them built-in and a command-line 
+option to turn them back to the default, etc.  It is strongly recommended 
+for more info to read FOCAL-17, which is completely compatible and has a 
+lot of good ideas; I have major binary add-ons that follow that good 
+information, and builds upon the additional advantages gained from P?S/8, 
+etc.
+
+By PEPS convention, FOCAL-oriented project icons are a light blue.
+
+Note: Additional customized icon pairs exist as was discussed earlier in 
+the More Custom Programs separate directory window.  It is conceivable that 
+icon will be moved here for
+consistency. etc.
+
+Open Log File
+
+SIMH sessions can optionally  be logged [and the log file is cumulative].  
+The log file can be opened in your choice of text editor [even if logging 
+is currently disabled].
+
+Note: It is recommended the log file be emptied periodically to not 
+overflow the capabilities of the text editor chosen.
+
+Setup
+
+This opens a separate directory window of certain things that can be 
+adjusted as needed. Among other things is your choice of one of three 
+different text editors associated with the Edit commands, and a logging 
+file management icon.  [You can disable or enable logging, and either 
+preserve or clear the log file itself.]
+
+Note: This might be swapped with the More Custom Programs icon as indicated 
+above.
+
+I'll close now to start a separate part 3 post.
+
+cjl
+
+
+
+
+
+As is the case with all Send operations, the current designated file 
+Program.PAL [in the Current_Program_Files directory] is sent to SIMH as the 
+PTR: file input stream.  The designated O/S is started up.  By convention, 
+since the icon is black background, this means it is send to the OS/8 
+booting SIMH. [Note: It is trivial to change which system' all of them are 
+present in the corresponding batch file; just un-REM a different one and 
+REM the present one to change it, etc.]
+
+
+
+
+
+
+------=_Part_2049_1798103579.1642791804047
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Monday, September 17, 2018 at 6:3=
+9:53 PM UTC-5<br>Subject: Description of the icons/shortcuts in the Command=
+s Window - Part 2<br>To: <span dir=3D"auto">pepswin &lt;Unknown&gt;</span><=
+br></div><br><br><html-blob><div dir=3D"ltr"><font size=3D"4">Continuing wi=
+th Row 3.</font><div><font size=3D"4"><br></font></div><div><font size=3D"4=
+">Edit Program.PAL</font></div><div><font size=3D"4"><br></font></div><div>=
+<font size=3D"4">Note: Since this is source level file maintenance, lower-c=
+ase is allowed [or even welcomed].&nbsp; The forthcoming P?S/8 SHELL [for P=
+?S/8 version 9 series] will support case RETENTION not case-sensitivity. [T=
+hose familiar with OS/8 will understand this directly].&nbsp; When a file i=
+s created, the case of each character will be preserved.&nbsp; When accessi=
+ng the file, the case is ignored.&nbsp; Directory printout routines can inc=
+lude appropriate options, such as:<br><br>1) output as is.<br><br>2) Force =
+all upper-case.<br><br>3) Auto-capitalize the file name [otherwise presente=
+d in lower-case].<br><br>This example is used for two reasons:<br><br>a) To=
+ point out the aboce<br><br>b) Windows icon labeling uses proportional&nbsp=
+;spacing.&nbsp; If it was all upper-case, it wouldn't fit properly on the c=
+aption.&nbsp; In some cases, deliberate space characters have been inserted=
+ into the text for cosmetic purposes only to force line breaks in multiple =
+line captions.&nbsp; It is not possible in the default Windows screen font =
+to express PROGRAM.PAL on one line.</font></div><div><font size=3D"4"><br><=
+/font></div><div><font size=3D"4">Program.PAL is a dummy file already in th=
+e Current_Program_Files directory.&nbsp; This is a customized icons file.&n=
+bsp; As such, editing from these two icons works identically, but need not =
+be related to the CHOSEN current file name as described earlier.&nbsp; Thus=
+, you can have open two editing windows [or tabs in tabbed editors] at the =
+same time.There is no practical upper limit on open windows, but there can =
+be only ONE designated as the Current File Name.&nbsp; Thus, a user can use=
+ this file name and still not have to do "icon surgery" which is not for be=
+ginners. [I will document one in the manual, but it is a bit tricky; I will=
+ try to document the potential pitfalls, etc.]<br><br>As with all edit comm=
+ands, you can close the file if you wish [and then run one of the operating=
+ systems].</font></div><div><br></div><div><span style=3D"font-size:large">=
+Send Program.PAL</span></div><div><span style=3D"font-size:large"><br></spa=
+n></div><div><span style=3D"font-size:large">Edit WHATAMI.PAL</span></div><=
+div><font size=3D"4">Send WHATAMI.PAL</font><br><br><font size=3D"4">These =
+are analogous to the Program.PAL situation except the file name is WHATAMI.=
+PAL&nbsp; Additionally, the designated O/S is the latest P?S/8 [with the LP=
+T: enabled\.&nbsp; As such, the icons are medium blue by convention.&nbsp; =
+Note: WHATAMI.PAL is located in the Generic_Source_Files directory within t=
+he Source_Files section of the PEPS folders.&nbsp; This is the main develop=
+ment area all users are encouraged to use.&nbsp; [This makes it easier to t=
+ransport a complete package with one backup operation.]</font><br><br><font=
+ size=3D"4">Edit FOCAL Program</font></div><div><span style=3D"font-size:la=
+rge">Send FOCAL Program.<br><br>This is quite similar to the Program.PAL si=
+tuation; the only change is the extension on the file [Program.FOC in the C=
+urrent_Program_Files directory]&nbsp; As provided, this is an authentic cop=
+y of the original DEC HAMURABI King of Sumeria game completely un-modified.=
+&nbsp; The designated operating system is P?S/8 [with the LPT: enabled].&nb=
+sp; P?S/8 FOCAL can be passed a P?S/8 text file containing the entire progr=
+am with such as:<br><br>.FOCAL HMRABI /G /E<br><br>By default, FOCAL lines =
+are not echoed when the text file is the source [there are command-line swi=
+tches to override this and more].<br><br>/G is used to automatically start =
+after the input has ended.&nbsp; /E is used to re-enable the =3D printout i=
+n the numerical calculations.&nbsp; [Note:&nbsp; This makes the output exac=
+tly match what is in an Introduction to Programming manual; however, many u=
+sers consider it "ugly" so it is disabled by default using a patch created =
+by the FOCAL, 1969 user community at large.&nbsp; Since P?S/8 FOCAL is bina=
+ry-compatible with FOCAL, 1969, generally any of the original patches will =
+work as expected; this is in contrast with the usual OS/8 variants which lo=
+st all vestiges of compatibility, which is not only insulting to the user c=
+ommunity [I remember some of them complaining in person!] but it shortchang=
+es everyone because there are really good patches that just work. Actually,=
+ there are two of them built-in and a command-line option to turn them back=
+ to the default, etc.&nbsp; It is strongly recommended for more info to rea=
+d FOCAL-17, which is completely compatible and has a lot of good ideas; I h=
+ave major binary add-ons that follow that good information, and builds upon=
+ the additional advantages gained from P?S/8, etc.<br><br>By PEPS conventio=
+n, FOCAL-oriented project icons are a light blue.<br><br>Note: Additional c=
+ustomized icon pairs exist as was discussed earlier in the More Custom Prog=
+rams separate directory window.&nbsp; It is conceivable that icon will be m=
+oved here for</span></div><div><span style=3D"font-size:large">consistency.=
+ etc.<br><br>Open Log File<br><br>SIMH sessions can optionally&nbsp; be log=
+ged [and the log file is cumulative].&nbsp; The log file can be opened in y=
+our choice of text editor [even if logging is currently disabled].<br><br>N=
+ote: It is recommended the log file be emptied periodically to not overflow=
+ the capabilities of the text editor chosen.<br><br>Setup<br><br>This opens=
+ a separate directory window of certain things that can be adjusted as need=
+ed. Among other things is your choice of one of three different text editor=
+s associated with the Edit commands, and a logging file management icon.&nb=
+sp; [You can disable or enable logging, and either preserve or clear the lo=
+g file itself.]<br><br>Note: This might be swapped with the More Custom Pro=
+grams icon as indicated above.<br><br>I'll close now to start a separate pa=
+rt 3 post.<br><br>cjl<br><br><br><br><br><br>As is the case with all Send o=
+perations, the current designated file Program.PAL [in the Current_Program_=
+Files directory] is sent to SIMH as the PTR: file input stream.&nbsp; The d=
+esignated O/S is started up.&nbsp; By convention, since the icon is black b=
+ackground, this means it is send to the OS/8 booting SIMH. [Note: It is tri=
+vial to change which system' all of them are present in the corresponding b=
+atch file; just un-REM a different one and REM the present one to change it=
+, etc.]<br><br><br></span></div><div><font size=3D"4"><br><br><br></font></=
+div></div></html-blob></div>
+------=_Part_2049_1798103579.1642791804047--
+
+------=_Part_2048_1696412649.1642791804047--

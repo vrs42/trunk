@@ -1,0 +1,226 @@
+From: cjl 
+Date: Friday, September 8, 2017 at 7:40:01 PM UTC-5
+Received: vrs; Friday, September 8, 2017 at 7:40:01 PM UTC-5
+Subject: Re: OS/8 components
+Message-Id: <04188e61-1ffc-4e69-a164-4bc76033ae52n@googlegroups.com>
+In-Reply-To: <173b5ce9-452d-4a5f-a223-9f4b5be622ac@googlegroups.com>
+References: <af5cc518-8043-4a33-93d4-6890b6137e0a@googlegroups.com>
+ <173b5ce9-452d-4a5f-a223-9f4b5be622ac@googlegroups.com>
+To: pqs8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2238_7199649.1642790467303"
+Content-Length: 12200
+
+------=_Part_2238_7199649.1642790467303
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2239_1386589530.1642790467303"
+
+------=_Part_2239_1386589530.1642790467303
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+From the P?S8 Google group
+
+---------- Forwarded message ---------
+From: cjl <Unknown>
+Date: Friday, September 8, 2017 at 7:40:01 PM UTC-5
+Subject: Re: OS/8 components
+To: P?S/8 <Unknown>
+
+
+
+
+On Saturday, August 5, 2017 at 3:26:38 PM UTC-4, Bob Adamson wrote:
+>
+> In an email CJL wrote:
+> "Part of why I am interested [as are others] in getting all the components 
+> of OS/8 accurate and up to date is so eventually when they are "lifted" we 
+> don't have to unnecessarily fix them."
+>
+> Following the initial 3D release DEC released quite a number of patches 
+> via the software newsletter for the 8. I maintained my company's test 
+> department pdp8s at the time and scrupulously updated them and I think I 
+> have a couple of RK05 platters from around 1980 which had all the fixes 
+> (though some were optional) installed.
+>
+> More recently I built a system from the original (?) tapes (Van Mark's 
+> site) and installed the various patches from the software news from 
+> Bitsavers. I found that from time to time my images didn't have the 
+> expected content of various words though I updated them anyway. It's quite 
+> possible that I made the occasional mistake of course as patching with ODT 
+> can be error prone. Nothing bad seemed to happen though it's difficult to 
+> check some of the results. So it seems to me that it's not so easy to 
+> define exactly what an "up to date" version of OS/8 (3D) actually is.
+>
+
+This is also a foolhardly situation in OS/8 that has other problems besides 
+the fact you have to CAREFULLY use ODT to effect a patch:
+
+In P?S/8, memory is NEVER saved on an exit to 07600.  And there is only the 
+one exit point, etc.
+
+The way around this is there is the GET command which asks for memory to be 
+saved FIRST and then does the read-only normal startup.  Think of just how 
+many times is the constant saving of memory because you *MIGHT* want to use 
+it with ODT, etc. when in fact overwhemingly typically it is NOT going to 
+be productive.  [Not to mention the loss of safety of write-protecting the 
+device where applicable!]
+
+In P?S/8, there is NO memory segmentation.  It's a 4K system and there is a 
+virtual image of all of field 0.  Extended memory is unchanged, however 
+there are ways to save it if you want.
+
+In any case, to update a P?S/8 [basic, not the SHELL] system program you 
+have to perform an absolute block reference and use BLKODT which is 
+essentially ODT with all of the breakpoint functions removed, and extended 
+to support logical unit number and block and the relative address in the 
+range 0000-0177.  It even supports all of the superset features of P?S/8 
+ODT such as formatted memory dumps [in several "flavors" such as six-bit 
+ASCII text, ASCII text and 3-for-2 packed ASCII text.]
+
+Thus, you do have to figure out where relatively speaking the block is to 
+have to patch, but that;s all that need be done.
+
+The SHELL concept is that each system program of course has a map of the 
+core-image within because like OS/8, the SHELL has a unified directory.  
+But in P?S/8 SHELL, the debugger will essentially be DDT as an extension of 
+ODT, thus, we will reinvent the TOPS-10 program FILEDDT.  P?S/8 core-images 
+already support the concept of overlays.  When P?S/8 PAL's primary segment 
+loads into field 0, the symbol table is in the first overlay.  It's read in 
+linearly in the input buffer later used to read source file sections, and 
+then the symbols are processed by hashing them into the 
+dynamically-allocated memory space which is up to an additional 16K of 
+memory or less, etc.  That way, even the very first symbol is optimally 
+hashed in place, etc.  After the binary/listing pass [there are 
+command-line switches to enable/disable both separately] another overlay 
+comes in to continue the assembly, etc.  Each system program knows where it 
+was loaded from, thus the overlays are predictable offsets and logical 
+units obtained from the system device handler arguments that loaded the 
+primary segment, etc.
+
+Thus, in the SHELL execution model, the same concept can be applied with 
+regards to overlays.  The map will allow FILEDDT the ability to locate 
+where a patch goes, etc.
+
+A few related topics:
+
+There is only the one universal exit point at 07600.  The image program can 
+specify if it wants the exit to save memory!  The way the P?S/8 system 
+handler works, there is a requirement that if you change 07600 [to a JMP, 
+etc.] it stil has to work as a handler.  That is trivially achieved].  
+Thus, IF directed to do so by the image program, it will cause a JMP to 
+7757 where there will be a call to the handler to save all of field 0, put 
+the original instruction back in 07600 and then JMP back, etc.
+
+In general, the only programs that would want this would be images under 
+debugging, clearly.  However, it is a separate concept.  thus, having only 
+one universal exit address 07600 does everything OS/8 does without the 
+unnecessary savings.
+
+I already worked out all of the exit strategy code.  As a limitation, if 
+there is only 4K, the data field cannot be saved on a breakpoint [but it 
+will be set to CDF 00 within DDT.  Just means you cannot screw around with 
+the likes of playing with the DF pointlessly on a 4K PDP-12 [which does 
+have the extended memory controller] and also put a breakpoint on it.  If 
+you have 8K or more, no problems whatsoever.
+
+I love OS/8!  What a great inspiration to find what to NOT do wrong!
+
+cjl
+
+
+ 
+
+> Bob
+>
+>
+------=_Part_2239_1386589530.1642790467303
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+From the P?S8 Google group<br><br><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">---------- Forwarded message ---------<br>From: <s=
+pan dir=3D"auto">cjl &lt;Unknown&gt;</span><br>Date: Friday, September 8, 2=
+017 at 7:40:01 PM UTC-5<br>Subject: Re: OS/8 components<br>To: <span dir=3D=
+"auto">P?S/8 &lt;Unknown&gt;</span><br></div><br><br><html-blob><div dir=3D=
+"ltr"><br><br>On Saturday, August 5, 2017 at 3:26:38 PM UTC-4, Bob Adamson =
+wrote:<blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex=
+;border-left:1px #ccc solid;padding-left:1ex">In an email CJL wrote:<br>"Pa=
+rt of why I am interested [as are others] in getting all the components of =
+OS/8 accurate and up to date is so eventually when they are "lifted" we don=
+'t have to unnecessarily fix them."<p>Following the initial 3D release DEC =
+released quite a number of patches via the software newsletter for the 8. I=
+ maintained my company's test department pdp8s at the time and scrupulously=
+ updated them and I think I have a couple of RK05 platters from around 1980=
+ which had all the fixes (though some were optional) installed.</p><p>More =
+recently I built a system from the original (?) tapes (Van Mark's site) and=
+ installed the various patches from the software news from Bitsavers. I fou=
+nd that from time to time my images didn't have the expected content of var=
+ious words though I updated them anyway. It's quite possible that I made th=
+e occasional mistake of course as patching with ODT can be error prone. Not=
+hing bad seemed to happen though it's difficult to check some of the result=
+s. So it seems to me that it's not so easy to define exactly what an "up to=
+ date" version of OS/8 (3D) actually is.</p></blockquote></div></html-blob>=
+<html-blob><div dir=3D"ltr"><div><br>This is also a foolhardly situation in=
+ OS/8 that has other problems besides the fact you have to CAREFULLY use OD=
+T to effect a patch:<br><br>In P?S/8, memory is NEVER saved on an exit to 0=
+7600.&nbsp; And there is only the one exit point, etc.<br><br>The way aroun=
+d this is there is the GET command which asks for memory to be saved FIRST =
+and then does the read-only normal startup.&nbsp; Think of just how many ti=
+mes is the constant saving of memory because you *MIGHT* want to use it wit=
+h ODT, etc. when in fact overwhemingly typically it is NOT going to be prod=
+uctive.&nbsp; [Not to mention the loss of safety of write-protecting the de=
+vice where applicable!]<br><br>In P?S/8, there is NO memory segmentation.&n=
+bsp; It's a 4K system and there is a virtual image of all of field 0.&nbsp;=
+ Extended memory is unchanged, however there are ways to save it if you wan=
+t.<br><br>In any case, to update a P?S/8 [basic, not the SHELL] system prog=
+ram you have to perform an absolute block reference and use BLKODT which is=
+ essentially ODT with all of the breakpoint functions removed, and extended=
+ to support logical unit number and block and the relative address in the r=
+ange 0000-0177.&nbsp; It even supports all of the superset features of P?S/=
+8 ODT such as formatted memory dumps [in several "flavors" such as six-bit =
+ASCII text, ASCII text and 3-for-2 packed ASCII text.]<br><br>Thus, you do =
+have to figure out where relatively speaking the block is to have to patch,=
+ but that;s all that need be done.<br><br>The SHELL concept is that each sy=
+stem program of course has a map of the core-image within because like OS/8=
+, the SHELL has a unified directory.&nbsp; But in P?S/8 SHELL, the debugger=
+ will essentially be DDT as an extension of ODT, thus, we will reinvent the=
+ TOPS-10 program FILEDDT.&nbsp; P?S/8 core-images already support the conce=
+pt of overlays.&nbsp; When P?S/8 PAL's primary segment loads into field 0, =
+the symbol table is in the first overlay.&nbsp; It's read in linearly in th=
+e input buffer later used to read source file sections, and then the symbol=
+s are processed by hashing them into the dynamically-allocated memory space=
+ which is up to an additional 16K of memory or less, etc.&nbsp; That way, e=
+ven the very first symbol is optimally hashed in place, etc.&nbsp; After th=
+e binary/listing pass [there are command-line switches to enable/disable bo=
+th separately] another overlay comes in to continue the assembly, etc.&nbsp=
+; Each system program knows where it was loaded from, thus the overlays are=
+ predictable offsets and logical units obtained from the system device hand=
+ler arguments that loaded the primary segment, etc.<br><br>Thus, in the SHE=
+LL execution model, the same concept can be applied with regards to overlay=
+s.&nbsp; The map will allow FILEDDT the ability to locate where a patch goe=
+s, etc.<br><br>A few related topics:<br><br>There is only the one universal=
+ exit point at 07600.&nbsp; The image program can specify if it wants the e=
+xit to save memory!&nbsp; The way the P?S/8 system handler works, there is =
+a requirement that if you change 07600 [to a JMP, etc.] it stil has to work=
+ as a handler.&nbsp; That is trivially achieved].&nbsp; Thus, IF directed t=
+o do so by the image program, it will cause a JMP to 7757 where there will =
+be a call to the handler to save all of field 0, put the original instructi=
+on back in 07600 and then JMP back, etc.<br><br>In general, the only progra=
+ms that would want this would be images under debugging, clearly.&nbsp; How=
+ever, it is a separate concept.&nbsp; thus, having only one universal exit =
+address 07600 does everything OS/8 does without the unnecessary savings.<br=
+><br>I already worked out all of the exit strategy code.&nbsp; As a limitat=
+ion, if there is only 4K, the data field cannot be saved on a breakpoint [b=
+ut it will be set to CDF 00 within DDT.&nbsp; Just means you cannot screw a=
+round with the likes of playing with the DF pointlessly on a 4K PDP-12 [whi=
+ch does have the extended memory controller] and also put a breakpoint on i=
+t.&nbsp; If you have 8K or more, no problems whatsoever.<br><br>I love OS/8=
+!&nbsp; What a great inspiration to find what to NOT do wrong!<br><br>cjl<b=
+r><br><br>&nbsp;</div><blockquote class=3D"gmail_quote" style=3D"margin:0;m=
+argin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><p>Bob</p><p>=
+</p><p></p></blockquote></div></html-blob></div>
+------=_Part_2239_1386589530.1642790467303--
+
+------=_Part_2238_7199649.1642790467303--

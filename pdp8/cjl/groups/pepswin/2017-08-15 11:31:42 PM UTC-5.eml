@@ -1,0 +1,311 @@
+From: clasy...@gmail.com 
+Date: Tuesday, August 15, 2017 at 11:31:42 PM UTC-5
+Received: vrs; Tuesday, August 15, 2017 at 11:31:42 PM UTC-5
+Subject: Re: Problems with one of the PDF creators.
+Message-Id: <46fda24e-34f2-430d-9841-70d743310d0an@googlegroups.com>
+References: <9f7ccbac-070b-44ac-ac6f-7d2c9f9da49b@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1570_1699365724.1642792299623"
+Content-Length: 15290
+
+------=_Part_1570_1699365724.1642792299623
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1571_1649802833.1642792299623"
+
+------=_Part_1571_1649802833.1642792299623
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Tuesday, August 15, 2017 at 11:31:42 PM UTC-5
+Subject: Re: Problems with one of the PDF creators.
+To: pepswin <Unknown>
+
+
+On Tue, Aug 15, 2017 at 8:14 PM, clasystems <clasy...@gmail.com> wrote:
+
+> The PEPS package uses two different third-party add-ons.
+>
+> 1)  The Da Vince package creates green-bar [the exact colors are=20
+> adjustable down to nuances] and then over that the listing as intended. =
+=20
+> Due to limitations of the Da Vince package, it does this function the "ol=
+d"=20
+> way that was limited to a few select fonts as originally determined  by=
+=20
+> Adobe, and then to make matters worse only one [Courier] actually=20
+> completely functions.  There hasn't been any work on this package for wel=
+l=20
+> over a decade and it is shareware and not freeware.  Due to the nature of=
+=20
+> color backgraounds, it is not effective to use normal font quality thus t=
+he=20
+> equally functional BOLD is used.  I can demonstrate both to anyone; I thi=
+nk=20
+> virtually all will agree on this point.  Regardless, I can document how t=
+o=20
+> change that as well as the green-bar parameters [which includes various=
+=20
+> sub-areas with slightly different colors.  I set these colors by=20
+> calibrating against good photos of actual green-bar 11 x 17 lineprinter=
+=20
+> paper, etc.  All of these settings are set by minor changes within a .ini=
+=20
+> file taken from their package.  I will document what I did and any user c=
+an=20
+> make appropriate modifications as they wish.  [And since this is sharewar=
+e,=20
+> I cannot police what users do regarding that.  However, I get the=20
+> impression few if any actually do purchase this package these days; there=
+=20
+> are MANY bugs in the overall package and this is just a module I use in=
+=20
+> PEPS to bypass all the buggy and clumsy code that comes into play when yo=
+u=20
+> use it as intended by the author[s].  By integrating just this key file=
+=20
+> [and customized .imi file] we get what we need; The user can decide how=
+=20
+> much a nearly $100 package is worth to them given the poor overall qualit=
+y=20
+> [and there are many other components, many of them just very broken.  I g=
+et=20
+> the impression they just gave up on it these days, etc.]
+>
+> 2)  The second has to now be on hold until I can investigate this=20
+> further.  It apparently uses a more flexible method that involves not onl=
+y=20
+> a variant of whee the first comes from regarding fonts, but more usefully=
+,=20
+> it can work with any font installed into the windows system overall and y=
+ou=20
+> specify the exact one you want.  Not every font works, but I have been=20
+> getting good results with the Consolas font which is pretty good for the=
+=20
+> purpose. That is, until I found a problem:
+>
+> The lineprinter output on PDP-8 devices is defined to be exactly 132=20
+> columns as would be created on 11 x 17 lineprinter paper and 66 lines=20
+> high.  The PDP-8 software completely manages the output within these=20
+> requirements.  However, this add-on has a limitation within it.  If a pag=
+e=20
+> happens to have lines wider than 120 columns, an extraneous CR/LF is=20
+> performed which is just plain wrong [and throws off the rest of the page]=
+.
+>
+> A good example of a very real PDP-8 program that does depend on this is=
+=20
+> the P?S/8 PAL assemble
+>
+=E2=80=8Br
+>
+  When the "/P" command-line switch is set, the norrow output of the=20
+> console is increased to the presumed printer width..  In most assembler,=
+=20
+> the symbol table is sorted, but presented in columns; the order runs from=
+=20
+> the top of the left-most column down 55 symbols then the next symbol in=
+=20
+> order is the the right of the first symbol etc.  This was designed to mak=
+e=20
+> the symbol table more reasonable.  [Most of the number-crunching effort i=
+s=20
+> the actual table soft.  The trick of sampling the table in multiple place=
+s=20
+> is a neat minor routine, etc.  When the table is sufficiently wide, the=
+=20
+> right-hand-most column will extend to approx. column 123, well lower than=
+=20
+> the 132 column limit.  But this program and font choice does not support =
+it.
+>
+> It is not clear if this is merely a specific interaction and perhaps can=
+=20
+> be overcome with an alternate font choice, or a bug of just the freeware=
+=20
+> program [that will always fail regardless of font].  As such, consider th=
+is=20
+> part of the PEPS package on hold.  [There is no point in documenting how =
+to=20
+> add a broken component.[
+>
+
+=E2=80=8BI'm glad to announce the VeryPDF freeware package has been made to=
+ work=20
+properly by variation of two of the more obscure parameters passed to the=
+=20
+program.  The problem is the defaults were inappropriate for =E2=80=8B
+=20
+=E2=80=8Bthe form size chosen [11 x 17].  Changing to rational non-default =
+values=20
+has now been confirmed to support the full 132 column width intended, and=
+=20
+is quite comparable to the support level in the Da Vince packaage.
+
+[Solution took some thinking; the implementation of the fix is more than=20
+obvious once you know]=E2=80=8B
+
+>
+> cjl
+>
+> --=20
+> You received this message because you are subscribed to the Google Groups=
+=20
+> "pepswin" group.
+> To unsubscribe from this group and stop receiving emails from it, send an=
+=20
+> email to pepswin+unsubscribe@googlegroups.com.
+> To post to this group, send email to pep...@googlegroups.com.
+> To view this discussion on the web visit=20
+> https://groups.google.com/d/msgid/pepswin/9f7ccbac-070b-44ac-ac6f-7d2c9f9=
+da49b%40googlegroups.com=20
+> <https://groups.google.com/d/msgid/pepswin/9f7ccbac-070b-44ac-ac6f-7d2c9f=
+9da49b%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
+> .
+> For more options, visit https://groups.google.com/d/optout.
+>
+
+
+
+--=20
+"In the future, OS/2 will be on everyone's desktop"
+
+Bill Gates, 1992
+
+------=_Part_1571_1649802833.1642792299623
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Tuesday, August 15, 2017 at 11:31=
+:42 PM UTC-5<br>Subject: Re: Problems with one of the PDF creators.<br>To: =
+<span dir=3D"auto">pepswin &lt;Unknown&gt;</span><br></div><br><br><html-bl=
+ob><div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">O=
+n Tue, Aug 15, 2017 at 8:14 PM, clasystems <span dir=3D"ltr">&lt;<a href=3D=
+"" data-email-masked=3D"" rel=3D"nofollow">clasy...@gmail.com</a>&gt;</span=
+> wrote:<br></div></div></div></html-blob><html-blob><div dir=3D"ltr"><div =
+class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left=
+-style:solid;border-left-color:rgb(204,204,204);padding-left:1ex"><div dir=
+=3D"ltr">The PEPS package uses two different third-party add-ons.<br><br>1)=
+ &nbsp;The Da Vince package creates green-bar [the exact colors are adjusta=
+ble down to nuances] and then over that the listing as intended.&nbsp; Due =
+to limitations of the Da Vince package, it does this function the "old" way=
+ that was limited to a few select fonts as originally determined &nbsp;by A=
+dobe, and then to make matters worse only one [Courier] actually completely=
+ functions.&nbsp; There hasn't been any work on this package for well over =
+a decade and it is shareware and not freeware.&nbsp; Due to the nature of c=
+olor backgraounds, it is not effective to use normal font quality thus the =
+equally functional BOLD is used.&nbsp; I can demonstrate both to anyone; I =
+think virtually all will agree on this point.&nbsp; Regardless, I can docum=
+ent how to change that as well as the green-bar parameters [which includes =
+various sub-areas with slightly different colors.&nbsp; I set these colors =
+by calibrating against good photos of actual green-bar 11 x 17 lineprinter =
+paper, etc.&nbsp; All of these settings are set by minor changes within a .=
+ini file taken from their package.&nbsp; I will document what I did and any=
+ user can make appropriate modifications as they wish. &nbsp;[And since thi=
+s is shareware, I cannot police what users do regarding that.&nbsp; However=
+, I get the impression few if any actually do purchase this package these d=
+ays; there are MANY bugs in the overall package and this is just a module I=
+ use in PEPS to bypass all the buggy and clumsy code that comes into play w=
+hen you use it as intended by the author[s].&nbsp; By integrating just this=
+ key file [and customized .imi file] we get what we need; The user can deci=
+de how much a nearly $100 package is worth to them given the poor overall q=
+uality [and there are many other components, many of them just very broken.=
+&nbsp; I get the impression they just gave up on it these days, etc.]<br><b=
+r>2) &nbsp;The second has to now be on hold until I can investigate this fu=
+rther.&nbsp; It apparently uses a more flexible method that involves not on=
+ly a variant of whee the first comes from regarding fonts, but more usefull=
+y, it can work with any font installed into the windows system overall and =
+you specify the exact one you want.&nbsp; Not every font works, but I have =
+been getting good results with the Consolas font which is pretty good for t=
+he purpose. That is, until I found a problem:<br><br>The lineprinter output=
+ on PDP-8 devices is defined to be exactly 132 columns as would be created =
+on 11 x 17 lineprinter paper and 66 lines high.&nbsp; The PDP-8 software co=
+mpletely manages the output within these requirements.&nbsp; However, this =
+add-on has a limitation within it.&nbsp; If a page happens to have lines wi=
+der than 120 columns, an extraneous CR/LF is performed which is just plain =
+wrong [and throws off the rest of the page].<br><br>A good example of a ver=
+y real PDP-8 program that does depend on this is the P?S/8 PAL assemble</di=
+v></blockquote></div></div></div></html-blob><html-blob><div dir=3D"ltr"><d=
+iv class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-l=
+eft-style:solid;border-left-color:rgb(204,204,204);padding-left:1ex"><div d=
+ir=3D"ltr"><div class=3D"gmail_default" style=3D"font-size:small;display:in=
+line">=E2=80=8Br</div></div></blockquote></div></div></div></html-blob><htm=
+l-blob><div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quot=
+e"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
+er-left-width:1px;border-left-style:solid;border-left-color:rgb(204,204,204=
+);padding-left:1ex"><div dir=3D"ltr">&nbsp; When the "/P" command-line swit=
+ch is set, the norrow output of the console is increased to the presumed pr=
+inter width..&nbsp; In most assembler, the symbol table is sorted, but pres=
+ented in columns; the order runs from the top of the left-most column down =
+55 symbols then the next symbol in order is the the right of the first symb=
+ol etc.&nbsp; This was designed to make the symbol table more reasonable. &=
+nbsp;[Most of the number-crunching effort is the actual table soft.&nbsp; T=
+he trick of sampling the table in multiple places is a neat minor routine, =
+etc.&nbsp; When the table is sufficiently wide, the right-hand-most column =
+will extend to approx. column 123, well lower than the 132 column limit.&nb=
+sp; But this program and font choice does not support it.<br><br>It is not =
+clear if this is merely a specific interaction and perhaps can be overcome =
+with an alternate font choice, or a bug of just the freeware program [that =
+will always fail regardless of font].&nbsp; As such, consider this part of =
+the PEPS package on hold. &nbsp;[There is no point in documenting how to ad=
+d a broken component.[</div></blockquote></div></div></div></html-blob><htm=
+l-blob><div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quot=
+e"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
+er-left-width:1px;border-left-style:solid;border-left-color:rgb(204,204,204=
+);padding-left:1ex"><div dir=3D"ltr"></div></blockquote><div><br></div><div=
+><div class=3D"gmail_default" style=3D"font-size:small;display:inline">=E2=
+=80=8BI'm glad to announce the VeryPDF freeware package has been made to wo=
+rk properly by variation of two of the more obscure parameters passed to th=
+e program.&nbsp; The problem is the defaults were inappropriate for =E2=80=
+=8B</div>&nbsp;<div class=3D"gmail_default" style=3D"font-size:small;displa=
+y:inline">=E2=80=8Bthe form size chosen [11 x 17].&nbsp; Changing to ration=
+al non-default values has now been confirmed to support the full 132 column=
+ width intended, and is quite comparable to the support level in the Da Vin=
+ce packaage.<br><br>[Solution took some thinking; the implementation of the=
+ fix is more than obvious once you know]=E2=80=8B</div></div><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px=
+;border-left-style:solid;border-left-color:rgb(204,204,204);padding-left:1e=
+x"><div dir=3D"ltr"><div><br></div><div>cjl</div></div><span><font color=3D=
+"#888888">
+
+<p></p>
+
+-- <br>
+You received this message because you are subscribed to the Google Groups "=
+pepswin" group.<br>
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">pepswin+unsubs=
+cribe@googlegroups.com</a>.<br>
+To post to this group, send email to <a href=3D"" data-email-masked=3D"" re=
+l=3D"nofollow">pep...@googlegroups.com</a>.<br>
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/pepswin/9f7ccbac-070b-44ac-ac6f-7d2c9f9da49b%40googlegroups.com?=
+utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofoll=
+ow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp=
+s://groups.google.com/d/msgid/pepswin/9f7ccbac-070b-44ac-ac6f-7d2c9f9da49b%=
+2540googlegroups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3D=
+gmail&amp;ust=3D1642878673803000&amp;usg=3DAFQjCNFNfK30f3sjwd90LRCMqww4H5yy=
+3g">https://groups.google.com/d/msgid/pepswin/9f7ccbac-070b-44ac-ac6f-7d2c9=
+f9da49b%40googlegroups.com</a>.<br>
+For more options, visit <a href=3D"https://groups.google.com/d/optout" targ=
+et=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.c=
+om/url?hl=3Den&amp;q=3Dhttps://groups.google.com/d/optout&amp;source=3Dgmai=
+l&amp;ust=3D1642878673803000&amp;usg=3DAFQjCNHXxLNx1UcH-0iOEDu6sy2SGmUYug">=
+https://groups.google.com/d/optout</a>.<br>
+</font></span></blockquote></div><br><br clear=3D"all"><div><br></div>-- <b=
+r><div data-smartmail=3D"gmail_signature">"In the future, OS/2 will be on e=
+veryone's desktop"<br><br>Bill Gates, 1992</div>
+</div></div>
+</html-blob></div>
+------=_Part_1571_1649802833.1642792299623--
+
+------=_Part_1570_1699365724.1642792299623--

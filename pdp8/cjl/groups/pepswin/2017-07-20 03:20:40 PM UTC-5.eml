@@ -1,0 +1,575 @@
+From: clasy...@gmail.com 
+Date: Thursday, July 20, 2017 at 3:20:40 PM UTC-5
+Received: vrs; Thursday, July 20, 2017 at 3:20:40 PM UTC-5
+Subject: Re: Some release issues in detail.
+Message-Id: <98583102-35ab-4acf-9d60-05d72804da4bn@googlegroups.com>
+In-Reply-To: <ec4e3227-7ab5-4351-bc6f-57b25017e73d@googlegroups.com>
+References: <e6e938b2-ed7b-41f7-94ac-0865100986ec@googlegroups.com>
+ <bcf57e98-a095-4e17-bcb7-9adfd759f349@googlegroups.com>
+ <ec4e3227-7ab5-4351-bc6f-57b25017e73d@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4834_1623933568.1642792331730"
+Content-Length: 33076
+
+------=_Part_4834_1623933568.1642792331730
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4835_1888610160.1642792331730"
+
+------=_Part_4835_1888610160.1642792331730
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Thursday, July 20, 2017 at 3:20:40 PM UTC-5
+Subject: Re: Some release issues in detail.
+To: pepswin <Unknown>
+
+
+
+
+On Sunday, May 28, 2017 at 10:01:20 AM UTC-4, Bob Vines wrote:
+>
+>
+>
+> On Friday, May 26, 2017 at 5:07:49 AM UTC-4, clasystems wrote:
+>>
+>> There are some issues that must be resolved before the PEPS for Windows 
+>> package can be released fully PD.  I would like to give details and get 
+>> some feedback as to best solve them without undue holding up of the release.
+>>
+>>
+>> One of the capabilities of PEPS is to create PDF files out of such as the 
+>> output of PDP-8 assemblers such as P?S/8 PAL or OS/8 PAL8.  Towards that 
+>> end, there is a neat package known as the Da Vince [yeah, he has a pun in 
+>> there] Tools.
+>>
+>> There are a whole class of programs that evolved over the years to a 
+>> divergent set of third-party applications that are used in quite 
+>> incompatible ways for this purpose.
+>>
+>> Within the PEPS package, the usual output file is called LPTOUT.TXT.  
+>> This is created whenever device 66 LPT output is created within a running 
+>> SIMH session.
+>>
+>>
+>> In general, there is a surprising amount of problems with these files due 
+>> to various artifacts and other unexpected collections of junk, some of 
+>> which is unfathomable, yet it is definitely present.  [For example, the 
+>> particulars of junk change in PAL8 as a function of exact command-;line 
+>> options that just doesn't make any sense, yet can be easily demonstrated.]
+>>
+>> This collection of problems is totally solved by a component of the 
+>> Package that applies a "hairy" TECO macro I wrote that requires Pete 
+>> Siemsen's TECOC for Windows; there are unique features in this version of 
+>> TECO that are vital when dealing with the incompatible conventions of PDP-8 
+>> programs versus the byte counts of DOS and Windows, etc.  To within a minor 
+>> bug, STRIP.TEC handles all cases of known junk to clean up.  [Note: I have 
+>> documentation on how the macro works that will be part of the package.  It 
+>> helped me find some former bugs, but this one eludes me.  The issue is that 
+>> if you use the macro to clean up output from the PTP: which adds in 
+>> additional junk which I can explain exactly what and the bad decisions as 
+>> to why.  The file will be left with an extraneous <FF> character at the end 
+>> occasionally.  However, if you run the file through the macro a second 
+>> time, it will be removed.  This never happens with the LPT: output stream.  
+>> While this is not completely understood, the circumstances as to why this 
+>> is even present are far more complicated than you might expect.]  
+>> Regardless, any output file can be made ready for the next step.
+>>
+>> To use the Da Vince tools is a for less cumbersome way, the command-line 
+>> tool for converting text files to .PDF is used, as is the tradition for 
+>> this class of utilities.  In this particular case, you have to have a 
+>> specific .ini file in the same directory, which separates this one from 
+>> most of the others, which take purely command-line augmentations, etc.
+>>
+>> The file is a bunch of scenarios that cover a lot of irrelevant modes of 
+>> Da Vince's package, and I have made some custom changes to the relevant 
+>> section so it suits our needs, which is not quite what it is using the 
+>> default values.
+>>
+>> However, the changes are fairly trivial.
+>>
+>> So, the first issue:
+>>
+>> Am I legally allowed to distribute this ASCII text file which is 99.9 % a 
+>> small part of their package and .1 % my own minor work?  And if that is not 
+>> the case, I then have to document what to change, perhaps in some form such 
+>> as the output of the typical DOS FC command [perhaps embellished with stuff 
+>> like reference some unique line and then say the changes come x lines or so 
+>> after that?  To my knowledge, no copyright is expressly specific to the 
+>> file itself, but the more I have to do, the more it means users have to 
+>> tweak PEPS and the more I have to write up in PEPS documentation, etc.
+>>
+>>
+> Perhaps you could provide your modified .ini file with a different name 
+> for users to use to replace the "official" .ini file?
+>
+
+I am not sure just how much of this file can be bodily removed.  Most of it 
+seems to address specific sub-modes, and I only use one of sub-modes. 
+ Thus, there are two general methods of attack:
+
+1) Create an editing script of what to add/remove, then save the entire 
+file.
+
+I can also provide the output of the MS-DOS FC program because it is that 
+trivial.
+
+It is also conceivable I can work up a BATCH file that invokes the SED 
+editor;  From what I gather, it was created for stuff just like this. 
+ Worst case, I can come up with a TECOC macro to do it also.  [I sorta like 
+the latter more than the former, and it is probably better for me to do 
+some familiar work than to also learn how to do some unfamiliar work, no 
+matter how trivial.  The effort to create STRIP.TEC to work with TECOC is 
+much more than is necessary to accomplish this relatively small change.]
+
+2) Attempt to write my own .ini file that is the bare-bones minimum that 
+works.  I think I can then claim copyright on that .ini file as long as I 
+reference it is for use with Da Vince which I make clear I have no 
+connection with but recommend it.
+
+Clearly the former is just providing instructions to end users.  The latter 
+might not legally pass muster as easily.
+
+In any case, you have to "lift" the binary out of the installation and 
+place it into a special directory within the PEPS package, so I cannot 
+escape that aspect of things.  BTW, this applies whether you register the 
+program or not.  I have no idea what personal information winds up in the 
+registered copy; draw your own conclusion about what might constitute usage 
+in violation of the rights bestowed upon anyone by purchase.  Also, the 
+cost of this package is $99 which is pretty steep considering that only a 
+fraction of the capability is being used.  If I were the owner and wanted 
+$99 for everything, I would accept $10 for just this part of it, but I'm 
+not Da Vince.
+
+In any case, this is likely a factor on why despite the quite obvious bugs 
+it has overall, no actual changes have apparently been made since around 
+2005.
+
+ 
+
+>
+>  
+>
+>> I think I am on pretty clear ground with the related issue:
+>>
+>> You have to install Da Vince Tools the default way and you will find 
+>> within it the executable [and the .ini file as mentioned above] in a 
+>> subdirectory I can document.  You have to copy that binary file into a 
+>> specific directory within the PEPS package.
+>>
+>> The .ini file too?
+>
+
+Answered that above, assuming you edit it instead of I write another one 
+which as stated above might still be a problem. 
+
+>
+>  
+>
+>> I see no legal way to include this file, so I am going to have to 
+>> document how to do this at least.
+>>
+>> There is a third issue which gets to more serious consequences.  The 
+>> specifics discussed here are not going to be documented in the package, but 
+>> I do have to raise them to get a proper determination on what should be 
+>> documented within PEPS documents.
+>>
+>> When you use the Da Vince-provided utility, you get a listing file 
+>> complete with green-bar as if this was printed on classic 11x17 lineprinter 
+>> paper, except that it is reduced and is actually on 11x8.5 paper output.  
+>> Adobe reader works quite well with this format and the output of several 
+>> utilities combined is auto-adjusted to make sense when you read the file.
+>>
+>> However, there is a nagware artifact on page one of the output that can 
+>> only be removed by purchasing the package [before copying the file into 
+>> PEPS!].
+>>
+>
+> "Urge" readers/users to purchase the DaVince shareware as a CYA? 
+>
+
+Indeed.  I can only lead end users to him and in essence that is a "plug" 
+for him from me.  And of course, there will be no "official" documentation 
+on the nagware work-around.  I guess "somehow" some PEPS users will 
+amazingly figure out just how to accomplish this (wink-wink).
+ 
+
+>
+>> That said, while that is the OFFICIAL way [and PEPS documentation can 
+>> document this and even recommend users purchase the Da Vince package which 
+>> gets a nagware removal tool or somesuch], there is an unofficial 
+>> work-around "while you are waiting for your paid-for copy":
+>>
+>> Another part of the package is the excellent third-party freeware package 
+>> PDFSAM.  [PDF Split and Merge].  This only requires installation in Windows 
+>> in the usual sense.  As a minor embellishment, I don't think there is a 
+>> problem with providing icons that assume one of the two releases are 
+>> present for the purpose of inclusion into the main command window of PEPS 
+>> [its "control center"].  The reason there are two is there is a 32-bit and 
+>> a 64-bit variant.  Thus an issue here:  Must I document how to create the 
+>> icon or can I just supply them both and the user deletes the one not used?  
+>> Or have both of them in another directory and you move the correct one into 
+>> the command center?  Does any of this even matter?  Or do I have to do none 
+>> of the above and instead document tne entire process.  [Actually, I think 
+>> it's not even that hard; I believe there is a check-off box to add a 
+>> desktop icon, so just copy or move that into the PEPS command-center 
+>> window.  This is a much smaller point, but it does have to be resolved.]
+>>
+>> I just re-installed PDFsam and it does have checkboxes to select whether 
+> or not to create desktop icons -- it's under PDFsam BASIC's "Settings."  
+> Since I just re-installed it, I probably have the PDFsam BASIC version that 
+> works in both the 32-bit & 64-bit environments.
+>
+
+Yes, the newer PDFSAM is a slightly different GUI with the same overall 
+results and it works fine.  I can document how I use it in a generic way; 
+let users figure it out; it ain't hard to.  But it is a great tool for a 
+bunch of things, such as merging a cover PDF with a body PDF into a 
+combined document such as how we packaged listings of FOCAL, 1969 etc.  But 
+since it can extract, it can be used to get around the Da Vince "problem" 
+etc.
+ 
+
+>
+>  
+>
+>> PDFSAM is a part of the package because one thing that is done is to 
+>> create PDF files out of several PDF files to be composited together having 
+>> been created from different projects.
+>>
+>> For example, I have created a DEC-style cover page for FOCAL, 1969 that 
+>> is faithful to the usual pumpkin orange rectangle and black letters you 
+>> find on many DEC documents [followed by a P?S index page in standard P?S 
+>> format] that is prepended to the listing file obtained likely from the Da 
+>> Vince Tools, etc.  This uses the Merge capability of PDFSAM and in some 
+>> cases, I actually have several document subsets knitted together.  Thus, 
+>> this is a welcome tool for the PEPS package all by itself.
+>>
+>> Now back to the "unofficial" way to remove the nagware:
+>>
+>> The properly prepped LPTOUT.TXT file starts without a <FF> and ends 
+>> without a <FF> but all pages within have <FF> separators.  [Again, this is 
+>> handled by the STRIP.TEC macro as part of another member icon of the 
+>> command center; it is actually two such icons as one is for the PTP: 
+>> output.]
+>>
+>> Just add in a couple of lines of sacrificial junk followed by a <FF>.
+>>
+>> The net result is a nagwared junk page and the intended output is totally 
+>> clean!
+>>
+>> Then use PDFSAM to split the output past page 1.  The net result is one 
+>> file of the nagwared junk file, and the other is the intended output!  It's 
+>> that simple.
+>>
+>> When you use the entire Da Vince package, there is a much larger nagware 
+>> that can be ignored.  The cumbersome package is not being used, but not for 
+>> the nagware reason, it is just VERY cumbersome and really not a 
+>> well-thought out interface to the little command-line programs it supports 
+>> [and we only need this one; there are several others].
+>>
+>> Moreover, there are bugs in the package that have to be worked around 
+>> [which is what my customized .ini file does, no thanks to the shareware 
+>> author.  It appears the package is somewhat decrepit and apparently the 
+>> author gave up on updating it entirely, even though aspects of it are in 
+>> varying states of dysfunctionality.  If I am correct, no changes have been 
+>> made since circa 2003 or so.
+>>
+>
+On second glance, 2005.
+ 
+
+>
+>> By using just the specific binary, the nagware artifact is the only way 
+>> you know you are not using the registered copy. There is no add-on nagware 
+>> based on using past the trial period; that is irrelevant to this usage, 
+>> which is documented in the Da Vince package as to how to use it this way 
+>> [which is what I did].
+>>
+>> If the Author has truly abandoned it, I suppose you could just add the 
+> small pieces of DaVince that you are already using.  (You could still 
+> recommend that DaVince be purchased as a CYA....)
+>
+
+Well, a lawyer could "urge" him to prove it is not abandoned!
+
+There will be a list of third-party programs that are helpful in the 
+poackage documentation.  this will include recommending Adobe Reader. 
+ Especially Version 11 and not the newer DC crap.  Moreover I have a 
+registry patch for it that gets rid of the annoying splash spleen. 
+ Ironically, the same batch files for LPT2PDF have to identify where the 
+ACRORDR32 program is so it can display the results afterwards.
+ 
+
+>
+>  
+>
+>> Thus, can I assume this is "just between us" and not to be brought up in 
+>> the PEPS documentation even if in a euphemistic way?
+>>
+>> That's quite a bit of the release issues.  There are some more to be 
+>> discussed in another post.
+>>
+>> cjl
+>>
+>
+> Bob 
+>
+
+------=_Part_4835_1888610160.1642792331730
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Thursday, July 20, 2017 at 3:20:4=
+0 PM UTC-5<br>Subject: Re: Some release issues in detail.<br>To: <span dir=
+=3D"auto">pepswin &lt;Unknown&gt;</span><br></div><br><br><html-blob><div d=
+ir=3D"ltr"><br><br>On Sunday, May 28, 2017 at 10:01:20 AM UTC-4, Bob Vines =
+wrote:<blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex=
+;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><br><br>On F=
+riday, May 26, 2017 at 5:07:49 AM UTC-4, clasystems wrote:<blockquote class=
+=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc s=
+olid;padding-left:1ex"><div dir=3D"ltr"><font size=3D"4">There are some iss=
+ues that must be resolved before the PEPS for Windows package can be releas=
+ed fully PD.&nbsp; I would like to give details and get some feedback as to=
+ best solve them without undue holding up of the release.<br><br><br>One of=
+ the capabilities of PEPS is to create PDF files out of such as the output =
+of PDP-8 assemblers such as P?S/8 PAL or OS/8 PAL8.&nbsp; Towards that end,=
+ there is a neat package known as the Da Vince [yeah, he has a pun in there=
+] Tools.<br><br>There are a whole class of programs that evolved over the y=
+ears to a divergent set of third-party applications that are used in quite =
+incompatible ways for this purpose.<br><br>Within the PEPS package, the usu=
+al output file is called LPTOUT.TXT.&nbsp; This is created whenever device =
+66 LPT output is created within a running SIMH session.<br><br><br>In gener=
+al, there is a surprising amount of problems with these files due to variou=
+s artifacts and other unexpected collections of junk, some of which is unfa=
+thomable, yet it is definitely present.&nbsp; [For example, the particulars=
+ of junk change in PAL8 as a function of exact command-;line options that j=
+ust doesn't make any sense, yet can be easily demonstrated.]<br><br>This co=
+llection of problems is totally solved by a component of the Package that a=
+pplies a "hairy" TECO macro I wrote that requires Pete Siemsen's TECOC for =
+Windows; there are unique features in this version of TECO that are vital w=
+hen dealing with the incompatible conventions of PDP-8 programs versus the =
+byte counts of DOS and Windows, etc.&nbsp; To within a minor bug, STRIP.TEC=
+ handles all cases of known junk to clean up.&nbsp; [Note: I have documenta=
+tion on how the macro works that will be part of the package.&nbsp; It help=
+ed me find some former bugs, but this one eludes me.&nbsp; The issue is tha=
+t if you use the macro to clean up output from the PTP: which adds in addit=
+ional junk which I can explain exactly what and the bad decisions as to why=
+.&nbsp; The file will be left with an extraneous &lt;FF&gt; character at th=
+e end occasionally.&nbsp; However, if you run the file through the macro a =
+second time, it will be removed.&nbsp; This never happens with the LPT: out=
+put stream.&nbsp; While this is not completely understood, the circumstance=
+s as to why this is even present are far more complicated than you might ex=
+pect.]&nbsp; Regardless, any output file can be made ready for the next ste=
+p.<br><br>To use the Da Vince tools is a for less cumbersome way, the comma=
+nd-line tool for converting text files to .PDF is used, as is the tradition=
+ for this class of utilities.&nbsp; In this particular case, you have to ha=
+ve a specific .ini file in the same directory, which separates this one fro=
+m most of the others, which take purely command-line augmentations, etc.<br=
+><br>The file is a bunch of scenarios that cover a lot of irrelevant modes =
+of Da Vince's package, and I have made some custom changes to the relevant =
+section so it suits our needs, which is not quite what it is using the defa=
+ult values.<br><br>However, the changes are fairly trivial.<br><br>So, the =
+first issue:<br><br>Am I legally allowed to distribute this ASCII text file=
+ which is 99.9 % a small part of their package and .1 % my own minor work?&=
+nbsp; And if that is not the case, I then have to document what to change, =
+perhaps in some form such as the output of the typical DOS FC command [perh=
+aps embellished with stuff like reference some unique line and then say the=
+ changes come x lines or so after that?&nbsp; To my knowledge, no copyright=
+ is expressly specific to the file itself, but the more I have to do, the m=
+ore it means users have to tweak PEPS and the more I have to write up in PE=
+PS documentation, etc.<br><br></font></div></blockquote><div><br><span styl=
+e=3D"font-family:courier new,monospace"><font size=3D"4">Perhaps you could =
+provide your modified .ini file with a different name for users to use to r=
+eplace the "official" .ini file?</font></span></div></div></blockquote><div=
+><br></div></div></html-blob><html-blob><div dir=3D"ltr"><div>I am not sure=
+ just how much of this file can be bodily removed. &nbsp;Most of it seems t=
+o address specific sub-modes, and I only use one of sub-modes. &nbsp;Thus, =
+there are two general methods of attack:<br><br>1) Create an editing script=
+ of what to add/remove, then save the entire file.<br><br>I can also provid=
+e the output of the MS-DOS FC program because it is that trivial.<br><br>It=
+ is also conceivable I can work up a BATCH file that invokes the SED editor=
+; &nbsp;From what I gather, it was created for stuff just like this. &nbsp;=
+Worst case, I can come up with a TECOC macro to do it also. &nbsp;[I sorta =
+like the latter more than the former, and it is probably better for me to d=
+o some familiar work than to also learn how to do some unfamiliar work, no =
+matter how trivial. &nbsp;The effort to create STRIP.TEC to work with TECOC=
+ is much more than is necessary to accomplish this relatively small change.=
+]<br><br>2) Attempt to write my own .ini file that is the bare-bones minimu=
+m that works. &nbsp;I think I can then claim copyright on that .ini file as=
+ long as I reference it is for use with Da Vince which I make clear I have =
+no connection with but recommend it.<br><br>Clearly the former is just prov=
+iding instructions to end users. &nbsp;The latter might not legally pass mu=
+ster as easily.<br><br>In any case, you have to "lift" the binary out of th=
+e installation and place it into a special directory within the PEPS packag=
+e, so I cannot escape that aspect of things. &nbsp;BTW, this applies whethe=
+r you register the program or not. &nbsp;I have no idea what personal infor=
+mation winds up in the registered copy; draw your own conclusion about what=
+ might constitute usage in violation of the rights bestowed upon anyone by =
+purchase. &nbsp;Also, the cost of this package is $99 which is pretty steep=
+ considering that only a fraction of the capability is being used. &nbsp;If=
+ I were the owner and wanted $99 for everything, I would accept $10 for jus=
+t this part of it, but I'm not Da Vince.</div><div><br></div><div>In any ca=
+se, this is likely a factor on why despite the quite obvious bugs it has ov=
+erall, no actual changes have apparently been made since around 2005.</div>=
+</div></html-blob><html-blob><div dir=3D"ltr"><div><br></div><div>&nbsp;</d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>&nbsp;=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex=
+;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><font size=
+=3D"4">I think I am on pretty clear ground with the related issue:<br><br>Y=
+ou have to install Da Vince Tools the default way and you will find within =
+it the executable [and the .ini file as mentioned above] in a subdirectory =
+I can document.&nbsp; You have to copy that binary file into a specific dir=
+ectory within the PEPS package.<br><br></font></div></blockquote><div><font=
+ face=3D"courier new,monospace"><font size=3D"4">The .ini file too?</font><=
+/font></div></div></blockquote><div><br></div></div></html-blob><html-blob>=
+<div dir=3D"ltr"><div>Answered that above, assuming you edit it instead of =
+I write another one which as stated above might still be a problem.&nbsp;</=
+div></div></html-blob><html-blob><div dir=3D"ltr"><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid;pad=
+ding-left:1ex"><div dir=3D"ltr"><div><br>&nbsp;<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc s=
+olid;padding-left:1ex"><div dir=3D"ltr"><font size=3D"4">I see no legal way=
+ to include this file, so I am going to have to document how to do this at =
+least.<br><br>There is a third issue which gets to more serious consequence=
+s.&nbsp; The specifics discussed here are not going to be documented in the=
+ package, but I do have to raise them to get a proper determination on what=
+ should be documented within PEPS documents.<br><br>When you use the Da Vin=
+ce-provided utility, you get a listing file complete with green-bar as if t=
+his was printed on classic 11x17 lineprinter paper, except that it is reduc=
+ed and is actually on 11x8.5 paper output.&nbsp; Adobe reader works quite w=
+ell with this format and the output of several utilities combined is auto-a=
+djusted to make sense when you read the file.<br><br>However, there is a na=
+gware artifact on page one of the output that can only be removed by purcha=
+sing the package [before copying the file into PEPS!].<br></font></div></bl=
+ockquote><div><br><font size=3D"4"><font face=3D"courier new,monospace">"Ur=
+ge" readers/users to purchase the DaVince shareware as a CYA?</font></font>=
+ <br></div></div></blockquote><div><br></div></div></html-blob><html-blob><=
+div dir=3D"ltr"><div>Indeed. &nbsp;I can only lead end users to him and in =
+essence that is a "plug" for him from me. &nbsp;And of course, there will b=
+e no "official" documentation on the nagware work-around. &nbsp;I guess "so=
+mehow" some PEPS users will amazingly figure out just how to accomplish thi=
+s (wink-wink).</div></div></html-blob><html-blob><div dir=3D"ltr"><div>&nbs=
+p;</div><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8=
+ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><font size=3D"4">=
+<br>That said, while that is the OFFICIAL way [and PEPS documentation can d=
+ocument this and even recommend users purchase the Da Vince package which g=
+ets a nagware removal tool or somesuch], there is an unofficial work-around=
+ "while you are waiting for your paid-for copy":<br><br>Another part of the=
+ package is the excellent third-party freeware package PDFSAM.&nbsp; [PDF S=
+plit and Merge].&nbsp; This only requires installation in Windows in the us=
+ual sense.&nbsp; As a minor embellishment, I don't think there is a problem=
+ with providing icons that assume one of the two releases are present for t=
+he purpose of inclusion into the main command window of PEPS [its "control =
+center"].&nbsp; The reason there are two is there is a 32-bit and a 64-bit =
+variant.&nbsp; Thus an issue here:&nbsp; Must I document how to create the =
+icon or can I just supply them both and the user deletes the one not used?&=
+nbsp; Or have both of them in another directory and you move the correct on=
+e into the command center?&nbsp; Does any of this even matter?&nbsp; Or do =
+I have to do none of the above and instead document tne entire process.&nbs=
+p; [Actually, I think it's not even that hard; I believe there is a check-o=
+ff box to add a desktop icon, so just copy or move that into the PEPS comma=
+nd-center window.&nbsp; This is a much smaller point, but it does have to b=
+e resolved.]<br><br></font></div></blockquote><div><font size=3D"4"><font f=
+ace=3D"courier new,monospace">I just re-installed PDFsam and it does have c=
+heckboxes to select whether or not to create desktop icons -- it's under PD=
+Fsam BASIC's "Settings."&nbsp; Since I just re-installed it, I probably hav=
+e the PDFsam BASIC version that works in both the 32-bit &amp; 64-bit envir=
+onments.</font></font></div></div></blockquote><div><br></div></div></html-=
+blob><html-blob><div dir=3D"ltr"><div>Yes, the newer PDFSAM is a slightly d=
+ifferent GUI with the same overall results and it works fine. &nbsp;I can d=
+ocument how I use it in a generic way; let users figure it out; it ain't ha=
+rd to. &nbsp;But it is a great tool for a bunch of things, such as merging =
+a cover PDF with a body PDF into a combined document such as how we package=
+d listings of FOCAL, 1969 etc. &nbsp;But since it can extract, it can be us=
+ed to get around the Da Vince "problem" etc.</div><div>&nbsp;</div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1=
+px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>&nbsp;</div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-lef=
+t:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><font size=3D"4"></font=
+></div></blockquote></div></blockquote></div></html-blob><html-blob><div di=
+r=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0=
+.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1=
+px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><font size=3D"4">PDFSAM is=
+ a part of the package because one thing that is done is to create PDF file=
+s out of several PDF files to be composited together having been created fr=
+om different projects.<br><br>For example, I have created a DEC-style cover=
+ page for FOCAL, 1969 that is faithful to the usual pumpkin orange rectangl=
+e and black letters you find on many DEC documents [followed by a P?S index=
+ page in standard P?S format] that is prepended to the listing file obtaine=
+d likely from the Da Vince Tools, etc.&nbsp; This uses the Merge capability=
+ of PDFSAM and in some cases, I actually have several document subsets knit=
+ted together.&nbsp; Thus, this is a welcome tool for the PEPS package all b=
+y itself.<br><br>Now back to the "unofficial" way to remove the nagware:<br=
+><br>The properly prepped LPTOUT.TXT file starts without a &lt;FF&gt; and e=
+nds without a &lt;FF&gt; but all pages within have &lt;FF&gt; separators.&n=
+bsp; [Again, this is handled by the STRIP.TEC macro as part of another memb=
+er icon of the command center; it is actually two such icons as one is for =
+the PTP: output.]<br><br>Just add in a couple of lines of sacrificial junk =
+followed by a &lt;FF&gt;.<br><br>The net result is a nagwared junk page and=
+ the intended output is totally clean!<br><br>Then use PDFSAM to split the =
+output past page 1.&nbsp; The net result is one file of the nagwared junk f=
+ile, and the other is the intended output!&nbsp; It's that simple.<br><br>W=
+hen you use the entire Da Vince package, there is a much larger nagware tha=
+t can be ignored.&nbsp; The cumbersome package is not being used, but not f=
+or the nagware reason, it is just VERY cumbersome and really not a well-tho=
+ught out interface to the little command-line programs it supports [and we =
+only need this one; there are several others].<br><br></font></div></blockq=
+uote></div></blockquote></div></html-blob><html-blob><div dir=3D"ltr"><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-lef=
+t:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid;p=
+adding-left:1ex"><div dir=3D"ltr"><font size=3D"4">Moreover, there are bugs=
+ in the package that have to be worked around [which is what my customized =
+.ini file does, no thanks to the shareware author.&nbsp; It appears the pac=
+kage is somewhat decrepit and apparently the author gave up on updating it =
+entirely, even though aspects of it are in varying states of dysfunctionali=
+ty.&nbsp; If I am correct, no changes have been made since circa 2003 or so=
+.<br></font></div></blockquote></div></blockquote><div><br></div><div>On se=
+cond glance, 2005.</div></div></html-blob><html-blob><div dir=3D"ltr"><div>=
+&nbsp;</div><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left=
+:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><block=
+quote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left=
+:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><font size=3D"4"><br>By =
+using just the specific binary, the nagware artifact is the only way you kn=
+ow you are not using the registered copy. There is no add-on nagware based =
+on using past the trial period; that is irrelevant to this usage, which is =
+documented in the Da Vince package as to how to use it this way [which is w=
+hat I did].<br><br></font></div></blockquote><div><font size=3D"4"><font fa=
+ce=3D"courier new,monospace">If the Author has truly abandoned it, I suppos=
+e you could just add the small pieces of DaVince that you are already using=
+.</font><span style=3D"font-family:courier new,monospace">&nbsp; (You could=
+ still recommend that DaVince be purchased as a CYA....)</span></font></div=
+></div></blockquote><div><br></div></div></html-blob><html-blob><div dir=3D=
+"ltr"><div>Well, a lawyer could "urge" him to prove it is not abandoned!<br=
+><br>There will be a list of third-party programs that are helpful in the p=
+oackage documentation. &nbsp;this will include recommending Adobe Reader. &=
+nbsp;Especially Version 11 and not the newer DC crap. &nbsp;Moreover I have=
+ a registry patch for it that gets rid of the annoying splash spleen. &nbsp=
+;Ironically, the same batch files for LPT2PDF have to identify where the AC=
+RORDR32 program is so it can display the results afterwards.</div></div></h=
+tml-blob><html-blob><div dir=3D"ltr"><div>&nbsp;</div><blockquote class=3D"=
+gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid=
+;padding-left:1ex"><div dir=3D"ltr"><div><br>&nbsp;</div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc s=
+olid;padding-left:1ex"><div dir=3D"ltr"><font size=3D"4">Thus, can I assume=
+ this is "just between us" and not to be brought up in the PEPS documentati=
+on even if in a euphemistic way?<br><br>That's quite a bit of the release i=
+ssues.&nbsp; There are some more to be discussed in another post.<br><br>cj=
+l<br></font></div></blockquote><div><br><font size=3D"4"><font face=3D"cour=
+ier new,monospace">Bob</font></font> <br></div></div></blockquote></div></h=
+tml-blob></div>
+------=_Part_4835_1888610160.1642792331730--
+
+------=_Part_4834_1623933568.1642792331730--

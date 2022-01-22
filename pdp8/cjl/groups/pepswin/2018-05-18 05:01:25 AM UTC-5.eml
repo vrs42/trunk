@@ -1,0 +1,344 @@
+From: clasy...@gmail.com 
+Date: Friday, May 18, 2018 at 5:01:25 AM UTC-5
+Received: vrs; Friday, May 18, 2018 at 5:01:25 AM UTC-5
+Subject: Alternate release of the SIMH component of PEPS for Windows
+Message-Id: <0d01eb77-44a8-42df-b3e0-4aec7429fd0en@googlegroups.com>
+In-Reply-To: <ca8be811-bdb6-4761-8b1a-89efb63b0395@googlegroups.com>
+References: <ca8be811-bdb6-4761-8b1a-89efb63b0395@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_870_1165231337.1642792056589"
+Content-Length: 20855
+
+------=_Part_870_1165231337.1642792056589
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_871_2034866798.1642792056589"
+
+------=_Part_871_2034866798.1642792056589
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Friday, May 18, 2018 at 5:01:25 AM UTC-5
+Subject: Alternate release of the SIMH component of PEPS for Windows
+To: pepswin <Unknown>
+
+
+I'm not an expert on the inner machinations of the SIMH engine; my 
+expertise is dealing with the vagaries of the various Windows releases and 
+all things 12-bits.
+
+It has come to my attention that there is an alternate method of compiling 
+the SIMH source code into a complete .exe file that does NOT require the 
+cygwin1.dll file at all.
+
+Moreover, The Cygwin project is dropping support for Windows XP and Windows 
+Vista in the latest releases.  The last known compatible release is 
+available for download from their website, etc.
+
+Thus, the newer method is welcome here, so we don't have to deal with this 
+project as a bastard step-child of the unix-oriented release.
+
+Apparently, the necessary tools are all Microsoft all the time eliminating 
+any mention of GCC from the instructions.
+
+I would appreciate any follow-up posts on this, as there best release 
+should be used in the next [hopefully stable] release of PEPS for Windows.
+
+There are a couple of non-standard parameters to be used in the source 
+code, which has a lot of maintenance problems of late, so I am asking for 
+volunteers for this:
+
+1) The release presently is an old enough compilation that requires 
+cygwin1.dll that runs from Windows XP and Windows Vista.   As such, this is 
+not a crisis per se.
+
+2) Dave Gesswein made some form of temporary patch to this version to allow 
+the behavior of TC08 DECtape support to have a "magical" property that is 
+of benefit in both OS/8 and P?S/8, but it is of more useful purpose in 
+P?S/8 [more below].
+
+3) I have received a newer copy in binary from Dave that is supposed to 
+extend analogous support to the TD8E, but it has not been thoroughly tested 
+at this point.  Fortunately, the only current benefit would be the 
+equivalent one in OS/8 to the small benefit explained below for the TC08 
+support; There is no current P?S/8 support for the TD8E; that said, there 
+WILL be once a lot of now-possible recovery is completed.  I consider 
+getting the TC08 version more up to speed more important, especially since 
+in the SIMH environment, the TD8E support is slower and not as complete and 
+more unwieldy if you want more than two drives.  This will be explained 
+later in a separate document that will also be cross-posted into the P?S/8 
+group.  Some other limitations of the SIMH program are required to even 
+consider this as a practical matter; reasonable configurations of OS/8 have 
+liittle concern for this, thus primarily this ;limitation is a result of 
+disuse; when P/S/8 is more activelly developed with regard to the TD8E, 
+hopefully someone can revisit the TD9E support in SIMH to do it up properly.
+
+Now to the aforementioned feature:
+
+Those of you who used real DECtapes back in the day may be familiar with 
+the use of "extra-long" DECtapes.  For years, while sold tape media was 
+NOMINALLY 260 feet long, the tape was OFTEN just enough longer to justify 
+creation of longer tapes.
+
+Using the P?S/8 self-patching version of the TOG-8 DECtape formatting 
+program for the TC01 and TC08, you can specify additional blocks; a 
+practical semi-standard arose where they are a noticeable number of tapes 
+not limited to the standard 2702 octal blocks, but actually 3300 octal 
+blocks.  This exact number was chosen because it represented a nice "round" 
+number in P?S/8 terms that has influence on the TFS directory capacity; 
+OS/8 of course only cares about even numbers of blocks.  Thus, this number 
+is a good value for both systems and a serious number of actual real-world 
+DECtapes exist and the question was how to support them in SIMH.
+
+All of that said, Dave and I worked out an additional feature in SIMH to 
+take additional advantage of, allowing up to 10000 octal [4096] DECtape 
+blocks.
+
+When set that high, it is impossible for any block value attempted to 
+return a a forward END error, and as a practical matter, SIMH thus allows 
+as many blocks as you wish [up to 4096].
+
+As a practical matter, in the realm of OS/8 this is merely interesting; 
+Still longer devices are often one of the half-pack devices of the OS/8 
+RK8E support.  However, a  4096 block long DECtape is one half the maximum 
+theoretical size of any one OS/8 logical device; the RK8E devices are only 
+around 2/3 of this value, thus they are actually fairly close in capacity.  
+thus, if you want to configure OS/8 to support DECtape anyway, you get the 
+added benefit of a sizable "fantasy" DECtape which means that the meager 
+overall count of maximum number of OS/8 devices at any one time gets a 
+slight boost in overall storage capacity should you need it; this is 
+admittedly by itself not a major point, but it is a valid one [and more of 
+use to those of us who use both OS/8 and P?S/8; the TC08 support allows one 
+overall configuration to support both systems reasonable without one system 
+compromising the other, despite the present support for only TC08 
+presently. [Note:  P?S/s is NOT limited to only TC08 support, but due to 
+circumstances gradually changing, this will appear later;  Running on 
+fantasy DECtapes is perfectly fine for the present; future releases of 
+P?S/8 will more depend on still larger structures, but for the present, an 
+ideal configuration is for OS/8 to boot on drive 0 of the RK8E and P?S/8 to 
+boot from drive 0 of the TC08 DECtape.  That said, there wil more sooner be 
+P?S8 also capable of booting on the RK8E, and that will be solved by using 
+the more general RK8E bootstrap to any of the four drives known in SIMH as 
+RK0, RK1, RK2, and RK3.
+
+In P?S/8 for the TC08, there is only one caveat:
+
+Real-world DECtapes are never as long as block 3777.  As such, it is 
+perfectly fine to use 11-bit arithmetic in the tape search algorithm.  the 
+P?S/8 system device handler and companion non-system device handler both 
+use 12-bit search [as does OS/8] so for all of this software, there is no 
+problem.
+
+However, P?S/8 OFTEN [but not always] supports a concept beyond OS/8's 
+basic design, the device-dependent binary loader.  [Note: This loader was 
+named the "slurp" loader by Richard Lary who also started OS/8.  it first 
+appeared in the R-L Monitor System, the logical "grandfather" of P?S/8; 
+that system only ran on a single drive 0 of th eTC01 or TC08 while P?S/8 
+supports all 8 logical units from the system device handler; thus much of 
+P?S/8 only requires the system handler and thus no overhead of handler 
+loading, etc.  You are limited to the 8 logical devices, but the 
+performance is palpably better in P?S/8.  [doubters have come away 
+believers when trying it for themselves].
+
+The TC08 supports the slurp loader, but the code is very tight within this 
+code, which is NOT a device handler, rather a much more efficient binary 
+file loader explicitly.  When it is running, the P?S/9 system device 
+handler is kicked out of memory and the slurp loader replaces it.  for full 
+compatibility, restart at 07600 does reload P?S/8, thus the design requires 
+that as well.  This allows unrestricted binary file loading into any 
+location in the range of 00000-07577, the same as OS/8 in that regard, and 
+any existent extended memory location as well.  [Unlike OS/8, there is no 
+general reservation of x7600-x7777 for any extended memory field x.]
+
+Also, there is a neat trick:  By passing a special "file" to the slurp 
+loader, after all of the intended user files are loaded, it is possible to 
+reload the system handler!  All of this is done with all drives 
+write-protected.  This sounds counter-intuitive, but to those intimately 
+familiar with the design of the slurp loader and the P?S/8 TFS file 
+structure and other arcane deals, suddenly the impossible becomes reality.  
+Anyone actually interested be prepared to have many of the notions you have 
+about PDP-8 operating systems to be severely shattered.  [And that's likely 
+a good thing!].
+
+Due to the 11-bit coding of the search algorithim, it is not possible to 
+access past block 3777; the code will crash.
+
+Fortunately, there is a remedy:  ALL P?S/8 systems support a VIRTUAL slurp 
+loader which is analogous to OS/8's ABSLDR program.  While the P?S/8 
+virtual loader is much slower than the non-virtual slurp loader, it always 
+works as long as the system device handler does [since it uses it].  thus, 
+the only practical change is that commands to the P?S/8 BIN utility program 
+must use the /V command-line switch should the referenced files be block 
+4000 or higher.  Even in P?S/8 this is not a likely aspect of the 
+configuration, but it is theoretically possible.
+
+thus, the theoreticals aside, P?S/8 effectively supports 8 DECtapes that 
+are each about three times the size as the normal real-world limit, 
+assuming the configuration is jiggered accordingly.  As in OS/8, small 
+changes have to be made to the directory structures; the specific changes 
+are system dependent and P?S/8 considerations are a bit more than OS/8.
+
+However, when configured as such, P?S/8 becomes much more capable as a 
+practical matter, in most ways, the provided P?S/8 configuration thus 
+exceed even the RK8E configuration in certain ways!  This all stems from 
+the fact that the system device handler includes support for up to 8 
+logical units while the OS/8 system device handler can only handle the boot 
+device; non-system handlers must be used to access additional devices.
+
+When P?S/8 is released supporting the TD8E, it will be time to ensure the 
+TD8E parallel support also works.  But for the moment, the only practical 
+improvement will be the speed of SIMH as long as the TC08 length parameter 
+is set the same way in the recompiled source release of SIMH.
+
+cjl
+
+------=_Part_871_2034866798.1642792056589
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Friday, May 18, 2018 at 5:01:25 A=
+M UTC-5<br>Subject: Alternate release of the SIMH component of PEPS for Win=
+dows<br>To: <span dir=3D"auto">pepswin &lt;Unknown&gt;</span><br></div><br>=
+<br><html-blob><div dir=3D"ltr">I'm not an expert on the inner machinations=
+ of the SIMH engine; my expertise is dealing with the vagaries of the vario=
+us Windows releases and all things 12-bits.<br><br>It has come to my attent=
+ion that there is an alternate method of compiling the SIMH source code int=
+o a complete .exe file that does NOT require the cygwin1.dll file at all.<b=
+r><br>Moreover, The Cygwin project is dropping support for Windows XP and W=
+indows Vista in the latest releases.&nbsp; The last known compatible releas=
+e is available for download from their website, etc.<br><br>Thus, the newer=
+ method is welcome here, so we don't have to deal with this project as a ba=
+stard step-child of the unix-oriented release.<br><br><div>Apparently, the =
+necessary tools are all Microsoft all the time eliminating any mention of G=
+CC from the instructions.<br><br>I would appreciate any follow-up posts on =
+this, as there best release should be used in the next [hopefully stable] r=
+elease of PEPS for Windows.<br><br>There are a couple of non-standard param=
+eters to be used in the source code, which has a lot of maintenance problem=
+s of late, so I am asking for volunteers for this:<br><br>1) The release pr=
+esently is an old enough compilation that requires cygwin1.dll that runs fr=
+om Windows XP and Windows Vista.&nbsp; &nbsp;As such, this is not a crisis =
+per se.<br><br>2) Dave Gesswein made some form of temporary patch to this v=
+ersion to allow the behavior of TC08 DECtape support to have a "magical" pr=
+operty that is of benefit in both OS/8 and P?S/8, but it is of more useful =
+purpose in P?S/8 [more below].<br><br>3) I have received a newer copy in bi=
+nary from Dave that is supposed to extend analogous support to the TD8E, bu=
+t it has not been thoroughly tested at this point.&nbsp; Fortunately, the o=
+nly current benefit would be the equivalent one in OS/8 to the small benefi=
+t explained below for the TC08 support; There is no current P?S/8 support f=
+or the TD8E; that said, there WILL be once a lot of now-possible recovery i=
+s completed.&nbsp; I consider getting the TC08 version more up to speed mor=
+e important, especially since in the SIMH environment, the TD8E support is =
+slower and not as complete and more unwieldy if you want more than two driv=
+es.&nbsp; This will be explained later in a separate document that will als=
+o be cross-posted into the P?S/8 group.&nbsp; Some other limitations of the=
+ SIMH program are required to even consider this as a practical matter; rea=
+sonable configurations of OS/8 have liittle concern for this, thus primaril=
+y this ;limitation is a result of disuse; when P/S/8 is more activelly deve=
+loped with regard to the TD8E, hopefully someone can revisit the TD9E suppo=
+rt in SIMH to do it up properly.<br><br>Now to the aforementioned feature:<=
+br><br>Those of you who used real DECtapes back in the day may be familiar =
+with the use of "extra-long" DECtapes.&nbsp; For years, while sold tape med=
+ia was NOMINALLY 260 feet long, the tape was OFTEN just enough longer to ju=
+stify creation of longer tapes.<br><br>Using the P?S/8 self-patching versio=
+n of the TOG-8 DECtape formatting program for the TC01 and TC08, you can sp=
+ecify additional blocks; a practical semi-standard arose where they are a n=
+oticeable number of tapes not limited to the standard 2702 octal blocks, bu=
+t actually 3300 octal blocks.&nbsp; This exact number was chosen because it=
+ represented a nice "round" number in P?S/8 terms that has influence on the=
+ TFS directory capacity; OS/8 of course only cares about even numbers of bl=
+ocks.&nbsp; Thus, this number is a good value for both systems and a seriou=
+s number of actual real-world DECtapes exist and the question was how to su=
+pport them in SIMH.<br><br>All of that said, Dave and I worked out an addit=
+ional feature in SIMH to take additional advantage of, allowing up to 10000=
+ octal [4096] DECtape blocks.<br><br>When set that high, it is impossible f=
+or any block value attempted to return a a forward END error, and as a prac=
+tical matter, SIMH thus allows as many blocks as you wish [up to 4096].<br>=
+<br>As a practical matter, in the realm of OS/8 this is merely interesting;=
+ Still longer devices are often one of the half-pack devices of the OS/8 RK=
+8E support.&nbsp; However, a&nbsp; 4096 block long DECtape is one half the =
+maximum theoretical size of any one OS/8 logical device; the RK8E devices a=
+re only around 2/3 of this value, thus they are actually fairly close in ca=
+pacity.&nbsp; thus, if you want to configure OS/8 to support DECtape anyway=
+, you get the added benefit of a sizable "fantasy" DECtape which means that=
+ the meager overall count of maximum number of OS/8 devices at any one time=
+ gets a slight boost in overall storage capacity should you need it; this i=
+s admittedly by itself not a major point, but it is a valid one [and more o=
+f use to those of us who use both OS/8 and P?S/8; the TC08 support allows o=
+ne overall configuration to support both systems reasonable without one sys=
+tem compromising the other, despite the present support for only TC08 prese=
+ntly. [Note:&nbsp; P?S/s is NOT limited to only TC08 support, but due to ci=
+rcumstances gradually changing, this will appear later;&nbsp; Running on fa=
+ntasy DECtapes is perfectly fine for the present; future releases of P?S/8 =
+will more depend on still larger structures, but for the present, an ideal =
+configuration is for OS/8 to boot on drive 0 of the RK8E and P?S/8 to boot =
+from drive 0 of the TC08 DECtape.&nbsp; That said, there wil more sooner be=
+ P?S8 also capable of booting on the RK8E, and that will be solved by using=
+ the more general RK8E bootstrap to any of the four drives known in SIMH as=
+ RK0, RK1, RK2, and RK3.<br><br>In P?S/8 for the TC08, there is only one ca=
+veat:<br><br>Real-world DECtapes are never as long as block 3777.&nbsp; As =
+such, it is perfectly fine to use 11-bit arithmetic in the tape search algo=
+rithm.&nbsp; the P?S/8 system device handler and companion non-system devic=
+e handler both use 12-bit search [as does OS/8] so for all of this software=
+, there is no problem.<br><br>However, P?S/8 OFTEN [but not always] support=
+s a concept beyond OS/8's basic design, the device-dependent binary loader.=
+&nbsp; [Note: This loader was named the "slurp" loader by Richard Lary who =
+also started OS/8.&nbsp; it first appeared in the R-L Monitor System, the l=
+ogical "grandfather" of P?S/8; that system only ran on a single drive 0 of =
+th eTC01 or TC08 while P?S/8 supports all 8 logical units from the system d=
+evice handler; thus much of P?S/8 only requires the system handler and thus=
+ no overhead of handler loading, etc.&nbsp; You are limited to the 8 logica=
+l devices, but the performance is palpably better in P?S/8.&nbsp; [doubters=
+ have come away believers when trying it for themselves].<br><br>The TC08 s=
+upports the slurp loader, but the code is very tight within this code, whic=
+h is NOT a device handler, rather a much more efficient binary file loader =
+explicitly.&nbsp; When it is running, the P?S/9 system device handler is ki=
+cked out of memory and the slurp loader replaces it.&nbsp; for full compati=
+bility, restart at 07600 does reload P?S/8, thus the design requires that a=
+s well.&nbsp; This allows unrestricted binary file loading into any locatio=
+n in the range of 00000-07577, the same as OS/8 in that regard, and any exi=
+stent extended memory location as well.&nbsp; [Unlike OS/8, there is no gen=
+eral reservation of x7600-x7777 for any extended memory field x.]<br><br>Al=
+so, there is a neat trick:&nbsp; By passing a special "file" to the slurp l=
+oader, after all of the intended user files are loaded, it is possible to r=
+eload the system handler!&nbsp; All of this is done with all drives write-p=
+rotected.&nbsp; This sounds counter-intuitive, but to those intimately fami=
+liar with the design of the slurp loader and the P?S/8 TFS file structure a=
+nd other arcane deals, suddenly the impossible becomes reality.&nbsp; Anyon=
+e actually interested be prepared to have many of the notions you have abou=
+t PDP-8 operating systems to be severely shattered.&nbsp; [And that's likel=
+y a good thing!].<br><br>Due to the 11-bit coding of the search algorithim,=
+ it is not possible to access past block 3777; the code will crash.<br><br>=
+Fortunately, there is a remedy:&nbsp; ALL P?S/8 systems support a VIRTUAL s=
+lurp loader which is analogous to OS/8's ABSLDR program.&nbsp; While the P?=
+S/8 virtual loader is much slower than the non-virtual slurp loader, it alw=
+ays works as long as the system device handler does [since it uses it].&nbs=
+p; thus, the only practical change is that commands to the P?S/8 BIN utilit=
+y program must use the /V command-line switch should the referenced files b=
+e block 4000 or higher.&nbsp; Even in P?S/8 this is not a likely aspect of =
+the configuration, but it is theoretically possible.<br><br>thus, the theor=
+eticals aside, P?S/8 effectively supports 8 DECtapes that are each about th=
+ree times the size as the normal real-world limit, assuming the configurati=
+on is jiggered accordingly.&nbsp; As in OS/8, small changes have to be made=
+ to the directory structures; the specific changes are system dependent and=
+ P?S/8 considerations are a bit more than OS/8.<br><br>However, when config=
+ured as such, P?S/8 becomes much more capable as a practical matter, in mos=
+t ways, the provided P?S/8 configuration thus exceed even the RK8E configur=
+ation in certain ways!&nbsp; This all stems from the fact that the system d=
+evice handler includes support for up to 8 logical units while the OS/8 sys=
+tem device handler can only handle the boot device; non-system handlers mus=
+t be used to access additional devices.<br><br>When P?S/8 is released suppo=
+rting the TD8E, it will be time to ensure the TD8E parallel support also wo=
+rks.&nbsp; But for the moment, the only practical improvement will be the s=
+peed of SIMH as long as the TC08 length parameter is set the same way in th=
+e recompiled source release of SIMH.</div><div><br></div><div>cjl</div></di=
+v></html-blob></div>
+------=_Part_871_2034866798.1642792056589--
+
+------=_Part_870_1165231337.1642792056589--

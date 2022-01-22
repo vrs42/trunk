@@ -1,0 +1,202 @@
+From: clasy...@gmail.com 
+Date: Thursday, May 11, 2017 at 1:01:19 PM UTC-5
+Received: vrs; Thursday, May 11, 2017 at 1:01:19 PM UTC-5
+Subject: Re: Release announcement
+Message-Id: <75198986-17d7-4257-a572-72dcbca4f0fan@googlegroups.com>
+In-Reply-To: <75a55e9c-e866-4cb5-91db-33389fc82efb@googlegroups.com>
+References: <6af4e228-0057-403c-9260-b15136dec934@googlegroups.com>
+ <75a55e9c-e866-4cb5-91db-33389fc82efb@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2060_740276919.1642792440498"
+Content-Length: 11331
+
+------=_Part_2060_740276919.1642792440498
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2061_617563807.1642792440498"
+
+------=_Part_2061_617563807.1642792440498
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Thursday, May 11, 2017 at 1:01:19 PM UTC-5
+Subject: Re: Release announcement
+To: pepswin <Unknown>
+
+
+
+A related problem is the choice of editor for each scenario.  Due to the 
+> nature of Windows, you can have different editors for different purposes. 
+>  For example, whether Notepad is generally for you or not, there is a 
+> function where you probably wouldn't change from Notepad.
+>
+
+In any scenario BATCH file [run by a designated ICON in the command window, 
+you have to specify the program and its path.  However, Windows System 
+programs enjoy special treatment; just use them by name.  Thus, to add on 
+another editor, you need to know a little bit more information.  Using 
+environment variable tricks, these parameters have been separated out as 
+well as possible, but you still have to know a moderate amount of how 
+Windows works at this level.
+
+There is the concept of the official current directory; this is quite 
+useful for quick programs or for those without ornate directory needs. 
+ [There are some other features to move back and forth to?from complex 
+directory structures with an official recommendation.  Perhaps that's for 
+some, something for when there is more familiarity with the package, but 
+for some it won't apply.  Regardless it is recommended to use the current 
+directory when getting started.
+
+The current directory has some special maintenance functions such as 
+setting the current filename.  There is also an icon to obtain a complete 
+listing of the files in the current directory.  This is created by Notepad 
+for several reasons:
+
+Some editors use a tabbed structure.  It could become unweildy to have a 
+brief usage for a listing of the directory, because that can allow the user 
+to set a particular current file that already exists, or is somewhat 
+similar to an existing filename.  Since the Notepad window can use the copy 
+and paste options directly, the name as displayed can help to define a new 
+current directory filename when the function Set Current Directory Filename 
+is used.  Unless and until changed, this name becomes permanent and is 
+stored within an internal parameter file.  If the package is repackaged for 
+transport to another system, the current filename particulars will apply. 
+ As released, the value of the current directory filename is HELLOWORLD.PAL 
+and the corresponding file is in the current directory.  [The name explains 
+what it is, the assembly language source file for something that prints out 
+HELLO WORLD on the PDP-8 device 04 system console.]
+
+Often names are created with an implied sequence such as PRG1 then PRG2 
+etc.  Using the Notepad output of the List Current Directory icon, copying 
+and pasting can same a bit of typing into the new filename diagloue box 
+which pops up when the Set Current Program Filename function is chosen and 
+the question asked to change the name after displaying the current value, 
+etc.  Thus, the entire filename PRG1.PAL could be copied, pasted and then 
+backspaced over to change the 1 to the 2.  All of the standard name change 
+functions apply as this little window is a graphical window and not a 
+typical DOS-like batch window, etc.
+
+There is also an Explorer Current Directory function which is of course 
+Windows Explorer, and there are other icons to open various other 
+directories.  This would allow typical two-explorer window cross copying, 
+etc. where the windows are opened to the likely choices without any major 
+navigation, etc.
+
+Ultimate, the chosen current directory filename can be designed to be 
+editied with a designated editor, and then with yet another icon, it can be 
+sent to SIMH via the PTR: mechanism, which copies the filo being edited 
+into the designated internal file of SIMH which will be used for the 
+paper-tape reader input when and if.
+
+In OS/8 this must be handled with PIP writing an output file from the PTR: 
+input.
+
+In P?S/8, the new PTUTIL program serves the P/S/8 equivalent function.
+
+Each SEND icon can choose the operating system on SIMH of choice; this 
+requires a little Windows training to understand how to make minor edits to 
+designated batch files, but there is documentation on how to modify a 
+typical send-type batch file.  The changes to be made are minimal and 
+should be obvious from the internal comments in the batch files, etc.
+
+Much of PEPS can and should be customized for personal preference, but the 
+process has been organized for minimal effort to change.
+
+For editing any file, either Notepad is recommended for independent 
+windows, or editpadlite7 for a tabbed editor.  Not every editing program is 
+compatible with PEPS.  Documentation will be available as to how to 
+determine the ones that work.  The basic requirement is to be able to 
+handle ASCII text 7-bit characters including the <FF> character directlly, 
+and to be able to be run from a commmand-line with the passed ASCII 
+filename as an inline argument.  Perhaps as many as 40% of editors are 
+compatible, and a surprising number are not so.
+
+cjl
+
+------=_Part_2061_617563807.1642792440498
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Thursday, May 11, 2017 at 1:01:19=
+ PM UTC-5<br>Subject: Re: Release announcement<br>To: <span dir=3D"auto">pe=
+pswin &lt;Unknown&gt;</span><br></div><br><br><html-blob><div dir=3D"ltr"><=
+br><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr">A related probl=
+em is the choice of editor for each scenario. &nbsp;Due to the nature of Wi=
+ndows, you can have different editors for different purposes. &nbsp;For exa=
+mple, whether Notepad is generally for you or not, there is a function wher=
+e you probably wouldn't change from Notepad.<br></div></blockquote><div><br=
+></div><div>In any scenario BATCH file [run by a designated ICON in the com=
+mand window, you have to specify the program and its path. &nbsp;However, W=
+indows System programs enjoy special treatment; just use them by name. &nbs=
+p;Thus, to add on another editor, you need to know a little bit more inform=
+ation. &nbsp;Using environment variable tricks, these parameters have been =
+separated out as well as possible, but you still have to know a moderate am=
+ount of how Windows works at this level.<br><br>There is the concept of the=
+ official current directory; this is quite useful for quick programs or for=
+ those without ornate directory needs. &nbsp;[There are some other features=
+ to move back and forth to?from complex directory structures with an offici=
+al recommendation. &nbsp;Perhaps that's for some, something for when there =
+is more familiarity with the package, but for some it won't apply. &nbsp;Re=
+gardless it is recommended to use the current directory when getting starte=
+d.<br><br>The current directory has some special maintenance functions such=
+ as setting the current filename. &nbsp;There is also an icon to obtain a c=
+omplete listing of the files in the current directory. &nbsp;This is create=
+d by Notepad for several reasons:<br><br>Some editors use a tabbed structur=
+e. &nbsp;It could become unweildy to have a brief usage for a listing of th=
+e directory, because that can allow the user to set a particular current fi=
+le that already exists, or is somewhat similar to an existing filename. &nb=
+sp;Since the Notepad window can use the copy and paste options directly, th=
+e name as displayed can help to define a new current directory filename whe=
+n the function Set Current Directory Filename is used. &nbsp;Unless and unt=
+il changed, this name becomes permanent and is stored within an internal pa=
+rameter file. &nbsp;If the package is repackaged for transport to another s=
+ystem, the current filename particulars will apply. &nbsp;As released, the =
+value of the current directory filename is HELLOWORLD.PAL and the correspon=
+ding file is in the current directory. &nbsp;[The name explains what it is,=
+ the assembly language source file for something that prints out HELLO WORL=
+D on the PDP-8 device 04 system console.]<br><br>Often names are created wi=
+th an implied sequence such as PRG1 then PRG2 etc. &nbsp;Using the Notepad =
+output of the List Current Directory icon, copying and pasting can same a b=
+it of typing into the new filename diagloue box which pops up when the Set =
+Current Program Filename function is chosen and the question asked to chang=
+e the name after displaying the current value, etc. &nbsp;Thus, the entire =
+filename PRG1.PAL could be copied, pasted and then backspaced over to chang=
+e the 1 to the 2. &nbsp;All of the standard name change functions apply as =
+this little window is a graphical window and not a typical DOS-like batch w=
+indow, etc.<br><br>There is also an Explorer Current Directory function whi=
+ch is of course Windows Explorer, and there are other icons to open various=
+ other directories. &nbsp;This would allow typical two-explorer window cros=
+s copying, etc. where the windows are opened to the likely choices without =
+any major navigation, etc.<br><br>Ultimate, the chosen current directory fi=
+lename can be designed to be editied with a designated editor, and then wit=
+h yet another icon, it can be sent to SIMH via the PTR: mechanism, which co=
+pies the filo being edited into the designated internal file of SIMH which =
+will be used for the paper-tape reader input when and if.<br><br>In OS/8 th=
+is must be handled with PIP writing an output file from the PTR: input.<br>=
+<br>In P?S/8, the new PTUTIL program serves the P/S/8 equivalent function.<=
+br><br>Each SEND icon can choose the operating system on SIMH of choice; th=
+is requires a little Windows training to understand how to make minor edits=
+ to designated batch files, but there is documentation on how to modify a t=
+ypical send-type batch file. &nbsp;The changes to be made are minimal and s=
+hould be obvious from the internal comments in the batch files, etc.<br><br=
+>Much of PEPS can and should be customized for personal preference, but the=
+ process has been organized for minimal effort to change.<br><br>For editin=
+g any file, either Notepad is recommended for independent windows, or editp=
+adlite7 for a tabbed editor. &nbsp;Not every editing program is compatible =
+with PEPS. &nbsp;Documentation will be available as to how to determine the=
+ ones that work. &nbsp;The basic requirement is to be able to handle ASCII =
+text 7-bit characters including the &lt;FF&gt; character directlly, and to =
+be able to be run from a commmand-line with the passed ASCII filename as an=
+ inline argument. &nbsp;Perhaps as many as 40% of editors are compatible, a=
+nd a surprising number are not so.<br><br>cjl</div></div></html-blob></div>
+------=_Part_2061_617563807.1642792440498--
+
+------=_Part_2060_740276919.1642792440498--

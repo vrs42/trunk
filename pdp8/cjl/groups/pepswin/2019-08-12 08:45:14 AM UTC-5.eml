@@ -1,0 +1,231 @@
+From: clasy...@gmail.com 
+Date: Monday, August 12, 2019 at 8:45:14 AM UTC-5
+Received: vrs; Monday, August 12, 2019 at 8:45:14 AM UTC-5
+Subject: Problems resolving Windows Icon position in more recent releases 
+Message-Id: <3cfb04c7-9cd3-4f73-97c1-108b83141401n@googlegroups.com>
+In-Reply-To: <8b8221d7-5212-4c84-b915-fa625459bd86@googlegroups.com>
+References: <8b8221d7-5212-4c84-b915-fa625459bd86@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2428_2019303488.1642791186504"
+Content-Length: 13040
+
+------=_Part_2428_2019303488.1642791186504
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2429_2011545822.1642791186504"
+
+------=_Part_2429_2011545822.1642791186504
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Monday, August 12, 2019 at 8:45:14 AM UTC-5
+Subject: Problems resolving Windows Icon position in more recent releases 
+of Windows (part 2)
+To: pepswin <Unknown>
+
+
+In part one, we discussed part of why there are so many icons in the PEPS 
+main COMMAND window, including the need for at least five different 
+operating system launchers, the need to launchan auxiliary SETUP commands 
+window, and the beginning of an explanation for why there are many pairs of 
+icons concerning nearly every individual user project file.
+
+When you use an Edit *<objectfilename> *command, one way is to perform the command 
+is to edit the file and then exit.  A copy of the file is then copied to 
+the input stream file to SIMH for reading paper-tape.
+
+When SIMH is run from whatever choice of operating system, it is expected 
+that the system user chose the appropriate utility.
+
+In OS/8, that would generally be PIP to read from PTR: into a text file 
+such as FOOBAR.PA.
+
+Note: The OS/8 PTR: handler has a serious bug.  The very last character is 
+never transferred.  This can be dealt with in several ways:
+
+a) Perhaps ignore the trailing <LF> character after the last <CR> which 
+prematurely ends the file.  If the only point in running this OS/8 session 
+in SIMH is to assemble the program [which is recommended; the example uses 
+host editing in Windows] then fortunately there is not  a problem.  OS/8 
+ends lines on <CR> and ignores <LF>.  Other OS/8 programs may do the 
+opposite and might complain.
+
+b) Expecting this behavior, use OS/8 TECO which will properly end the file 
+even if both the <CR> as well as the <LF> are missing.  Any additional work 
+is now being done on the intended file.
+
+The bug is unfixable without a serious redesign of the PTR: handler that 
+would then break the handler on real-world PTR: hardware.
+
+c) If P?S/8 is booted to using the OS/8 BOOT/DT command, there are means to 
+convert the file between the two systems in both directions of conversion.
+
+The P?S/8 conversion program OS8CON ignores <CR> and uses <LF> unless the 
+<CR> is missing [or both at the end-of-file.  After the file is converted, 
+it can be converted back in place to where it is on an OS/8 DECtape and the 
+problem is solved.  A trivial P?S/8 BATCH command file exists to perform 
+this very function; I use it all the time.
+
+The P?S/8 PTUTIL paper-tape text conversion program [there are separate 
+utilities for RIM and BIN format binary tapes] supports an option to allow 
+operation both on the real hardware and the SIMH simulated hardware which 
+behaves slightly differently.
+
+The reason for the problem is that when OS/8 was in its heyday. paper-tape 
+was already backward and hardly used; it always expected that all actual 
+paper-tapes have leader and trailer frames.  While OS/8's PTP: output can 
+add paper-tape leader and trailer frames, this simply does not exist in the 
+SIMH/PEPS environment and was simply overlooked.  Note: If this were 
+changes, some binary paper tapes would become corrupted!  Paper-tape as a 
+means of "injecting" files into the simulated environment was co-opted not 
+really concerned with this then unknown issue.  P?S/8 is more flexible and 
+can embrace all options required, etc.
+
+The second and preferable way to use the edit process is to SAVE the 
+project file but leave the editor open with the file intact.  In that case 
+use the associated SEND *<objectfilename>* command which copies the 
+previously saved file to the PTR: stream file and then also runs the chosen 
+operating system variant from all five of the choices.  Every underlying 
+batch file has all choices roughly analogous to how the EDIT function's 
+underlying batch command file has ultimate overriding choice of editing 
+program over all other settings, etc.
+
+If the file is processed by a language utility such as PAL or FOCAL, the 
+results can be sent back to Windows for examination of for example a PAL 
+listing file, and then appropriate additional edits are made in the still 
+opened editor program
+
+This by far the most effective way to use a simulated environment.  
+However, the user chooses what is most comfortable, etc.
+
+Thus, this is why the Commands window will tend to have pairs of icons for 
+each project and it quickly can easily fill up and require user-preferenced 
+icon positioning.
+
+Note: There is an alternate way to approach editing in a more generic way, 
+however, the object of the edit must be a one-off choice; it is easily 
+changed but adds FIVE more icons, two as per each other file project, one 
+to set the default file to work with, one to list the generic file 
+directory,and another to setup to navigate that directory.  There is also 
+other icons concerned with package overall issues and access to the SIMH 
+log file, which can be very useful.  One of the setup options is to 
+enable/disable the log file and whether or not to clear it,etc.  There are 
+two more icons for a choice of PDF conversion of the LPT output with or 
+without greenbar, and two sets of three icons to maintain the output of the 
+LPT and three more for the PTP high-speed punch output.
+
+I'm sure I've forgotten to mention  a few more icons, but the main point is 
+you need a LOT of icons, a means to custom position them that is personal 
+preference and differs from the clumsy Windows default of both auto-arrange 
+and align/snap to an imaginary grid you cannot disable.
+
+This capability also exists in Windows Vista, but was removed from Windows 
+7 and following!
+
+In part 3 we will discuss the release-dependent problems of Windows 7, 8 
+and 10, which unfortunately aren't either cooperative or even the same!
+
+
+
+------=_Part_2429_2011545822.1642791186504
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Monday, August 12, 2019 at 8:45:1=
+4 AM UTC-5<br>Subject: Problems resolving Windows Icon position in more rec=
+ent releases of Windows (part 2)<br>To: <span dir=3D"auto">pepswin &lt;Unkn=
+own&gt;</span><br></div><br><br><html-blob><div dir=3D"ltr">In part one, we=
+ discussed part of why there are so many icons in the PEPS main COMMAND win=
+dow, including the need for at least five different operating system launch=
+ers, the need to launchan auxiliary SETUP commands window, and the beginnin=
+g of an explanation for why there are many pairs of icons concerning nearly=
+ every individual user project file.<br><br>When you use an Edit <i>&lt;obj=
+ectfilename&gt; </i>command, one way is to perform the<i>&nbsp;</i>command =
+is to edit the file and then exit.&nbsp; A copy of the file is then copied =
+to the input stream file to SIMH for reading paper-tape.<div><br></div><div=
+>When SIMH is run from whatever choice of operating system, it is expected =
+that the system user chose the appropriate utility.</div><div><br></div><di=
+v>In OS/8, that would generally be PIP to read from PTR: into a text file s=
+uch as <a href=3D"http://FOOBAR.PA" target=3D"_blank" rel=3D"nofollow" data=
+-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://FOOBA=
+R.PA&amp;source=3Dgmail&amp;ust=3D1642877556953000&amp;usg=3DAFQjCNFiMT1DEV=
+tPF_KO7MZH0R2oaOTsYQ">FOOBAR.PA</a>.</div><div><br></div><div>Note: The OS/=
+8 PTR: handler has a serious bug.&nbsp; The very last character is never tr=
+ansferred.&nbsp; This can be dealt with in several ways:</div><div><br></di=
+v><div>a) Perhaps ignore the trailing &lt;LF&gt; character after the last &=
+lt;CR&gt; which prematurely ends the file.&nbsp; If the only point in runni=
+ng this OS/8 session in SIMH is to assemble the program [which is recommend=
+ed; the example uses host editing in Windows] then fortunately there is not=
+&nbsp; a problem.&nbsp; OS/8 ends lines on &lt;CR&gt; and ignores &lt;LF&gt=
+;.&nbsp; Other OS/8 programs may do the opposite and might complain.</div><=
+div><br></div><div>b) Expecting this behavior, use OS/8 TECO which will pro=
+perly end the file even if both the &lt;CR&gt; as well as the &lt;LF&gt; ar=
+e missing.&nbsp; Any additional work is now being done on the intended file=
+.</div><div><br></div><div>The bug is unfixable without a serious redesign =
+of the PTR: handler that would then break the handler on real-world PTR: ha=
+rdware.<br><br>c) If P?S/8 is booted to using the OS/8 BOOT/DT command, the=
+re are means to convert the file between the two systems in both directions=
+ of conversion.</div><div><br></div><div>The P?S/8 conversion program OS8CO=
+N ignores &lt;CR&gt; and uses &lt;LF&gt; unless the &lt;CR&gt; is missing [=
+or both at the end-of-file.&nbsp; After the file is converted, it can be co=
+nverted back in place to where it is on an OS/8 DECtape and the problem is =
+solved.&nbsp; A trivial P?S/8 BATCH command file exists to perform this ver=
+y function; I use it all the time.</div><div><br></div><div>The P?S/8 PTUTI=
+L paper-tape text conversion program [there are separate utilities for RIM =
+and BIN format binary tapes] supports an option to allow operation both on =
+the real hardware and the SIMH simulated hardware which behaves slightly di=
+fferently.<br><br>The reason for the problem is that when OS/8 was in its h=
+eyday. paper-tape was already backward and hardly used; it always expected =
+that all actual paper-tapes have leader and trailer frames.&nbsp; While OS/=
+8's PTP: output can add paper-tape leader and trailer frames, this simply d=
+oes not exist in the SIMH/PEPS environment and was simply overlooked.&nbsp;=
+ Note: If this were changes, some binary paper tapes would become corrupted=
+!&nbsp; Paper-tape as a means of "injecting" files into the simulated envir=
+onment was co-opted not really concerned with this then unknown issue.&nbsp=
+; P?S/8 is more flexible and can embrace all options required, etc.<br><br>=
+The second and preferable way to use the edit process is to SAVE the projec=
+t file but leave the editor open with the file intact.&nbsp; In that case u=
+se the associated SEND&nbsp;<i>&lt;objectfilename&gt;</i>&nbsp;command whic=
+h copies the previously saved file to the PTR: stream file and then also ru=
+ns the chosen operating system variant from all five of the choices.&nbsp; =
+Every underlying batch file has all choices roughly analogous to how the ED=
+IT function's underlying batch command file has ultimate overriding choice =
+of editing program over all other settings, etc.</div><div><br></div><div>I=
+f the file is processed by a language utility such as PAL or FOCAL, the res=
+ults can be sent back to Windows for examination of for example a PAL listi=
+ng file, and then appropriate additional edits are made in the still opened=
+ editor program</div><div><br></div><div>This by far the most effective way=
+ to use a simulated environment.&nbsp; However, the user chooses what is mo=
+st comfortable, etc.<br><br>Thus, this is why the Commands window will tend=
+ to have pairs of icons for each project and it quickly can easily fill up =
+and require user-preferenced icon positioning.</div><div><br></div><div>Not=
+e: There is an alternate way to approach editing in a more generic way, how=
+ever, the object of the edit must be a one-off choice; it is easily changed=
+ but adds FIVE more icons, two as per each other file project, one to set t=
+he default file to work with, one to list the generic file directory,and an=
+other to setup to navigate that directory.&nbsp; There is also other icons =
+concerned with package overall issues and access to the SIMH log file, whic=
+h can be very useful.&nbsp; One of the setup options is to enable/disable t=
+he log file and whether or not to clear it,etc.&nbsp; There are two more ic=
+ons for a choice of PDF conversion of the LPT output with or without greenb=
+ar, and two sets of three icons to maintain the output of the LPT and three=
+ more for the PTP high-speed punch output.<br><br>I'm sure I've forgotten t=
+o mention&nbsp; a few more icons, but the main point is you need a LOT of i=
+cons, a means to custom position them that is personal preference and diffe=
+rs from the clumsy Windows default of both auto-arrange and align/snap to a=
+n imaginary grid you cannot disable.</div><div><br></div><div>This capabili=
+ty also exists in Windows Vista, but was removed from Windows 7 and followi=
+ng!</div><div><br></div><div>In part 3 we will discuss the release-dependen=
+t problems of Windows 7, 8 and 10, which unfortunately aren't either cooper=
+ative or even the same!</div><div><br></div><div><br></div></div></html-blo=
+b></div>
+------=_Part_2429_2011545822.1642791186504--
+
+------=_Part_2428_2019303488.1642791186504--

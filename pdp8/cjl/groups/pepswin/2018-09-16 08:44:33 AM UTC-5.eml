@@ -1,0 +1,163 @@
+From: clasy...@gmail.com 
+Date: Sunday, September 16, 2018 at 8:44:33 AM UTC-5
+Received: vrs; Sunday, September 16, 2018 at 8:44:33 AM UTC-5
+Subject: Internal reorganization of the entire PEPS package directory 
+Message-Id: <fb4fabcb-53f9-43e3-929e-56eeca6b0004n@googlegroups.com>
+In-Reply-To: <ce1312ca-46bf-4446-844d-56012311eb00@googlegroups.com>
+References: <ce1312ca-46bf-4446-844d-56012311eb00@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_968_744391448.1642791964483"
+Content-Length: 8307
+
+------=_Part_968_744391448.1642791964483
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_969_284017072.1642791964483"
+
+------=_Part_969_284017072.1642791964483
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Sunday, September 16, 2018 at 8:44:33 AM UTC-5
+Subject: Internal reorganization of the entire PEPS package directory 
+structure and some features added.
+To: pepswin <Unknown>
+
+
+While at the RICM Learning Lab, I was showing P?S/8 running on a real 8/I 
+on DECtape on TU55 and TC01, RX01 on a real PDP-12 and on PEPS on the same 
+DECtape system.  PEPS is finally nearly at the "I'm done for now" stage and 
+not expecting to add any more nifty features for now.
+
+The directories essentially hatched and were getting to be pesky in many 
+ways, now are organized in a much more rational way, and consistent with 
+some new features implemented in SIMH itself.  Some of this stuff I used 
+had to be discovered because the documentation of SIMH is rather dreadful 
+in spots.  [This ranges from undocumented features that do work to 
+documented features that don't work].  I exploited some to allow some new 
+features, such as your choice of editor for all source-level host-provided 
+file editing using your choice of Notepad, EditPad Lite 7 or Notepad++ 
+available either by slightly modifying each relevant command file or more 
+elegantly relying on an optional environment variable.  If the enrinment 
+variable exists and is properly formatted, the designated editor will be 
+used.  You can always change using three new proveded setup options in an 
+auxiliary window called Setup.
+
+It's a lot of little things, and they all work except for one that has to 
+be tested.  It sets up the optional auto-arrange disable and user-settible 
+enable it as well as separately align to grid.  This is standard in Windows 
+XP and Vista, and was removed in Windows 7 [but only the "outer" layer; a 
+registry patch wakes it up.  It works fine in Windows 7, and where I lifted 
+it from suggests it should also work in Windows 8/8.1 as well.  It is not 
+clear what happens in Windows 10, so I have to test this out in those two 
+systems as well.  [I do have done the code to know it is running on XP or 
+Vista and just exit working now.]
+
+The default serving suggestion of the Commands windows uses medium-sized 
+icons and a suggested layout that needs this.  There are so many icons you 
+need order and some gaps for it to make sense, etc. [Of course you are free 
+to change it into details mode, but you lose the ability for it to be 
+sorted the way you wish, however, that said there is a trick:
+
+You can rename each of them as in the following:
+
+Edit Current Program can be changed to
+
+01 Edit Current Program
+
+and
+
+Send Current Program
+
+can become
+
+02 Send Current Program
+
+etc.
+
+Then sort by name forces the issue [if you use either List view or Details 
+view.  It is not suitable to provide this change if medium icon view is 
+used as it throws off the readability of the icons for no purpose, but a 
+lot in Windows is personal preference.  My STRONG RECOMMENDATION for the 
+key command center of the package stay in the provided form; I've tried all 
+of these variations, and this mode is clearly the easiest to use this 
+package; ymmv, but Windows allows every window to be different, etc.
+
+Thus, soon to get back to the documentation, which is now a bit more 
+obsolete because of all of the new features.  Part of the change is taking 
+out of the equation some icons only seldom needed.  They are now instead 
+revealed by clicking on one of the main commands icons to reveal another 
+smaller window for the rest.  The goal is to avoid clutter, etc.
+
+Look for an announcement of at least the working copy once I test out the 
+auto-arrange code on 8 and 10.
+
+cjl
+
+------=_Part_969_284017072.1642791964483
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Sunday, September 16, 2018 at 8:4=
+4:33 AM UTC-5<br>Subject: Internal reorganization of the entire PEPS packag=
+e directory structure and some features added.<br>To: <span dir=3D"auto">pe=
+pswin &lt;Unknown&gt;</span><br></div><br><br><html-blob><div dir=3D"ltr">W=
+hile at the RICM Learning Lab, I was showing P?S/8 running on a real 8/I on=
+ DECtape on TU55 and TC01, RX01 on a real PDP-12 and on PEPS on the same DE=
+Ctape system.&nbsp; PEPS is finally nearly at the "I'm done for now" stage =
+and not expecting to add any more nifty features for now.<br><br>The direct=
+ories essentially hatched and were getting to be pesky in many ways, now ar=
+e organized in a much more rational way, and consistent with some new featu=
+res implemented in SIMH itself.&nbsp; Some of this stuff I used had to be d=
+iscovered because the documentation of SIMH is rather dreadful in spots.&nb=
+sp; [This ranges from undocumented features that do work to documented feat=
+ures that don't work].&nbsp; I exploited some to allow some new features, s=
+uch as your choice of editor for all source-level host-provided file editin=
+g using your choice of Notepad, EditPad Lite 7 or Notepad++ available eithe=
+r by slightly modifying each relevant command file or more elegantly relyin=
+g on an optional environment variable.&nbsp; If the enrinment variable exis=
+ts and is properly formatted, the designated editor will be used.&nbsp; You=
+ can always change using three new proveded setup options in an auxiliary w=
+indow called Setup.<br><br>It's a lot of little things, and they all work e=
+xcept for one that has to be tested.&nbsp; It sets up the optional auto-arr=
+ange disable and user-settible enable it as well as separately align to gri=
+d.&nbsp; This is standard in Windows XP and Vista, and was removed in Windo=
+ws 7 [but only the "outer" layer; a registry patch wakes it up.&nbsp; It wo=
+rks fine in Windows 7, and where I lifted it from suggests it should also w=
+ork in Windows 8/8.1 as well.&nbsp; It is not clear what happens in Windows=
+ 10, so I have to test this out in those two systems as well.&nbsp; [I do h=
+ave done the code to know it is running on XP or Vista and just exit workin=
+g now.]<br><br>The default serving suggestion of the Commands windows uses =
+medium-sized icons and a suggested layout that needs this.&nbsp; There are =
+so many icons you need order and some gaps for it to make sense, etc. [Of c=
+ourse you are free to change it into details mode, but you lose the ability=
+ for it to be sorted the way you wish, however, that said there is a trick:=
+<br><br>You can rename each of them as in the following:<br><br>Edit Curren=
+t Program can be changed to<br><br>01 Edit Current Program<div><br></div><d=
+iv>and</div><div><br></div><div>Send Current Program</div><div><br></div><d=
+iv>can become</div><div><br></div><div>02 Send Current Program</div><div><b=
+r></div><div>etc.<br><br>Then sort by name forces the issue [if you use eit=
+her List view or Details view.&nbsp; It is not suitable to provide this cha=
+nge if medium icon view is used as it throws off the readability of the ico=
+ns for no purpose, but a lot in Windows is personal preference.&nbsp; My ST=
+RONG RECOMMENDATION for the key command center of the package stay in the p=
+rovided form; I've tried all of these variations, and this mode is clearly =
+the easiest to use this package; ymmv, but Windows allows every window to b=
+e different, etc.</div><div><br></div><div>Thus, soon to get back to the do=
+cumentation, which is now a bit more obsolete because of all of the new fea=
+tures.&nbsp; Part of the change is taking out of the equation some icons on=
+ly seldom needed.&nbsp; They are now instead revealed by clicking on one of=
+ the main commands icons to reveal another smaller window for the rest.&nbs=
+p; The goal is to avoid clutter, etc.<br><br>Look for an announcement of at=
+ least the working copy once I test out the auto-arrange code on 8 and 10.<=
+/div><div><br></div><div>cjl</div></div></html-blob></div>
+------=_Part_969_284017072.1642791964483--
+
+------=_Part_968_744391448.1642791964483--

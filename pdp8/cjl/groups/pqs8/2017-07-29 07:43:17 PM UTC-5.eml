@@ -1,0 +1,681 @@
+From: cjl 
+Date: Saturday, July 29, 2017 at 7:43:17 PM UTC-5
+Received: vrs; Saturday, July 29, 2017 at 7:43:17 PM UTC-5
+Subject: Re: Current P?S/8 support level specifics.
+Message-Id: <d18eeac9-6ad7-43ed-b9c6-a92e634ed5den@googlegroups.com>
+In-Reply-To: <68f14170-299a-41f1-bac1-d110de33a81b@googlegroups.com>
+References: <c7e29bd8-da59-4add-8b3c-d896774bd3c5@googlegroups.com>
+ <68f14170-299a-41f1-bac1-d110de33a81b@googlegroups.com>
+To: pqs8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2568_624948772.1642790745916"
+Content-Length: 42194
+
+------=_Part_2568_624948772.1642790745916
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2569_8888732.1642790745916"
+
+------=_Part_2569_8888732.1642790745916
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+From Google P?S8 group
+
+---------- Forwarded message ---------
+From: cjl <Unknown>
+Date: Saturday, July 29, 2017 at 7:43:17 PM UTC-5
+Subject: Re: Current P?S/8 support level specifics.
+To: P?S/8 <Unknown>
+
+
+This will be a clearer explanation of the source file status of P?S/8 as of 
+this writing.
+
+It is unfortunate that not all of the P/S/8 source files are currently 
+available [even to me!].  There are no valid excuses, but 20/20 hindsight 
+cannot be applied.  It is hoped that all are either replaced or recovered 
+without undue effort.
+
+1) The main source files of P?S/8 as of 23-Feb-1988 have been fully 
+recovered.  This was the typical "portable" collection of source files as 
+used by P?S/8 developers on an ongoing basis.  The primary reason this 
+collection is not a wider set of source files is simply due to expediency.
+
+To create P/S/8 from the source files, you need a working OS/8 system with 
+a decent enough version of PAL8.  This generally means PAL8 V10D, which is 
+a few minor patches past the standard release from OS/8 V3D [3Q].
+Eventually this would become PAL8 Version B0 [and the companion CREF 
+Version B0 from OS/278 V2.  These two programs are the best [and final] DEC 
+releases of these two programs and are known to work on all models to 
+within a nitpick quirk.  Due to some internal minor changes to keyboard 
+handling, they can be an extremely obscure problem with timing of buffered 
+Control-Z characters when using one of the TTY: handlers.  Consider an 
+assembly where a few lines are needed to me entered hy hand followed by a 
+series of files that are dependent on conditional assembly parameters.  In 
+general, this could be as little as a single line of input such as
+
+FOO=1
+^Z
+
+Due to the nature of OS/8, one of the input "files? can be to take input 
+from the TTY: [or KL8E] handler needed only during the first pass.  [Note: 
+If the input during the listing phase of assembly is limited to ONLY a 
+Control-Z, the output will not be affected; this is generally desirable to 
+obtain a listing, etc.  All of this works correctly in PAL8 Version B0.
+
+That said, only in the earlier releases is it possible to type multiple 
+Control-Z characters all at once.  The purpose would be for the assembly to 
+automatically continue into the subsequent pass[s].  Due to some changes in 
+Version B0, it will be necessary to enter the Contril-Z character at the 
+start of each pass.  Thus, it is not possible to buffer the characters; you 
+have to be present to enter the subsequent Control-Z characters when they 
+are needed.  [No attempt has been made to correct this obscure behavior; 
+clearly the problem is that something was added that clears the keyboard 
+flag not used in prior versions].
+
+for all other purposes, these two programs appear to be 100% compatible, 
+fix all prior bugs [and perhaps some still in prior versions!] and appear 
+to be fully compatible with the "straignt" -8 and all newer models.
+
+The above incidents were notices during the development of Kermit-12 where 
+there are numerous conditionals that can easily be over-ridden in various 
+ways.  To avoid this problem, the Kermit-12 package includes a small file 
+PARAM.PAL which can be used to implement all such options as well as a few 
+that would be quite unwieldy and error-prone by the problematic method.  By 
+the use of certain conditional assembly tricks, the file does not change 
+any unintended aspects of the listing file created for a custom version.
+
+Clearly, few people ever have contact with this obscurity, and it was more 
+important to know that where the P?S/8 sources were taken to, it could be 
+expected that a viable PAL8 be available to assemble the P?S/8 source code 
+on the target system.
+
+In general, the "portable" collection of the P/S/8 source files became the 
+so-called "A" collection.and the "B" collection.  This is an arbitrary 
+split of "all" of the files so that the entire collection could reside on 
+an RK05 pack [such as RKA1: and RKB1:] to allow certain OS/8 BATCH programs 
+to be run that depended on the relevant specifics.  Thus, there are copying 
+BATCH files to essentially transfer the two collection "halves" from say a 
+collection of three specific DECtapes to RKA1: and another collection of 
+three DECtapes to RKB1:.  [Note: Much of the actual development in those 
+days was done by hand-carrying the six DECTapes and some additional 
+DECtapes for sundry other purposes to an installation based on either a 
+pair of RK05 drives, or the DSD-240-8 drive where the lower disk is exactly 
+the same size as a pair of RK05 drives, and P?S/8 is configured to occupy 
+the upper pair of drives to allow P?S/8 logical units 0 through 7 in a like 
+manner.
+
+While there are a few different RK05 configurations for P?S/8 [not all of 
+which were ever actually needed at the time[ the DSD-240-8 configuration 
+was essentially identical to OS/8's allocation for RK05 disks as the clear 
+"natural" configuration due to the disk geometry, etc.
+
+This allows P?S/8 to support eight logical drives each exactly 3130 blocks 
+long; the system device handler is used to access the entire drive complex.
+
+Note: The other possibilities for the actual RK8E/RK8F support consist of a 
+few possibilities, some of which require some additional research to 
+implement:
+
+1) All eight logical units on one drive.  Each logical unit is about the 
+size of a single DECtape.  This is only useful on a single RK05 drive 
+system.  [Note: Due to temporary restrictions of P?S/8 PAL, the /X 
+cross-reference option cannot be used unless logical unit 7 is available; 
+additionally it is not totally implemented, but enough of the option exists 
+to obtain the actual statement numbers that will exist when this assembler 
+section is completed; this depends on changes being made to P?S/8 itself 
+that will be available in Version 9A.]
+
+While this is a nice fast system, it is limited for working with such as 
+extended-length files, and certain difficulties in converting files between 
+OS/8 and P?S/8.
+
+Using the standard EXTENDED RK8E bootstrap, this system can be booted to 
+any drive 0, 1, 2 or 3.
+
+2) Four units are on one drive.  Each logical unit is half the storage of 
+an OS/8 equivalent.  Since by nature, inter-system file conversion can only 
+be done to the first "half" of an OS/8 device, this configuration is quite 
+useful for development purposes.  Note: It is quite rare to find a single 
+PDP-8 source file larger than 1/2 of one RKAx: or RKBx: area on an RK05 
+cartridge.  Thus, to date this has not been a problem.]  OS8CON and future 
+BINCON conversions are easily carried out to the even logical units.
+
+Using the standard EXTENDED RK8E bootstrap, this system can be booted to 
+drives 0 or 4.  The scope of this system can be either RK05 drives 0 and 1 
+OR 2 and 3.  P?S/8 can be booted to drive 4.directly.  Definitions exist to 
+boot to other logical units by the use of extensions to the extended 
+standard bootstrap, but this is rarely actually done.  [Note: Using 
+equivalent design logic the above system with all logical units on the same 
+RK05 cartridge, it is possible to boot to ANY logical unit.]
+
+3) Two logical units are on one drive.  this is the configuration that 
+completely matches OS/8.  This is the typical configuration that was used 
+when developing P?S/8 for RK8E/RK8F..  Extensions to the standard extended 
+RK bootstrap allows booting to any logical unit.  The 8 logical units of 
+P?S/8 are addressed by the P?S/8 system handler, and each corresponds to an 
+OS/8 RKAx: or RKBx: device.  [Note: This is the default configuration for 
+the present.]
+
+4) This is a tentative specification for support of up to EIGHT RK05 
+drives.  Each RK05 cartridge is a logical unit that extends to block 
+031277.  Logical units are larger than what OS/8 can address in a single 
+device.
+This configuration has not been developed [but is easy to program for] 
+simply because there was no reason to require it until know.  The P?S/8 
+SHELL will define an optional system overlay where all file access is by 
+non-system handlers that support double-precision block numbers; as such, 
+the P?S/8 SHELL file structure can acces as much as 2048 times as much 
+storage as OS/8, yet only requiring a since 128-word input or output 
+buffer.  The system device handler is still limited to the first 4096 
+blocks; the only requirement is that all of the actual SHELL components 
+reside in this area including the SHELL directory.  To protect all of the 
+basic P?S/8 system components, the SHELL directory includes protected area 
+support via attribute bits including system and unmovable.  The SHELL 
+intercommunicates internally using the system device handler.  All SHELL 
+file structures are accessed by non-system handlers loaded using the system 
+device handler to accomplish this.
+
+Note: P?S/8 already supports non-system device handlers; however, the only 
+program that can make use of them is the stop-gap program P?S/8 BLKCPY. 
+ This is a copy or compare anything to anything program specifying absolute 
+blocks and will be an invaluable tool to develop the SHELL.  P?S/8 Version 
+9A will be the minimum requirement to develop the SHELL as certain system 
+kernel bits are being defined requiring slight changes to all existing 
+basic P?S/8 programs.  [Short answer:  I found SEVEN free bits!  They were 
+overlooked until recently.  The change is minor and always in once-only 
+initialization code.  The low-order five bits must be isolated; in Version 
+8Z, it is assumed the other bits are all zero, etc.]  These new bits will 
+be used to finally implement the replacement system date algorithm as well 
+as an important system definition that only pertains to the SHELL 
+configuration.
+
+The notion of an additional four RK05 drives depends on the hardware being 
+the somewhat obscure RKS8E [I have one in need of some repair.]  The RK05 
+drives are no longer hardware-accessed using the RK11-C protocol, and 
+replaced using the RK11-D protocol.
+
+The P?S/8 RK handles have a lot of free space within the handler due to the 
+expansion of the definition of the system device handler to as much as 
+eight pages in the system device handler extended memory extension.  When 
+the RK system was first developed, only four pages were required.  Newer 
+system device challenged have caused this specification to be doubled up to 
+an entire 1K of the highest existent memory field location x6000-x7777 
+where x is the highest memory field [at least 1] Unlike OS/8, P?S/8 uses 
+the HIGHEST extended memory field; OS/8 uses the LOWEST field 1 thus 
+forever preventing a wider range of 15-bit addressable memory without 
+restrictions [and many ugly kludges in such as the FORTRAN IV run-time 
+system.  These essentially try to do poorly what P?S/8 does as designed.  I 
+broached this with my friends at DEC, and they agreed the P?S/8 method was 
+superior, but don't expect ANYTHING about OS/8 to ever be changed!  [And 
+here we are addressing this issue decades later!]
+
+What is needed is some bullet-proof code to determine if the device is 
+actually an RKS8E and not an ordinary RK8E/RK8F.  [Note: The RK8F is a 
+modified RK8E for use in the DW8E.  this is NOT a programming 
+consideration.]  The RKS8E defines an additional bit of disk drive 
+addressing, but it must be clear how to determine if the hardware actually 
+exists, lest there be anomaly between such as drive 0 and drive 4, etc. 
+ [Note: There are apparently obscure OS/8 RKS8E handlers for the additional 
+drives.  They are a total copout that depends on the user NOT using the 
+handlers where the hardware doesn't exist!  Attempts to do so will likely 
+corrupt the corresponding LOWER drive!]
+
+Eventually for a brief period, little of this "sneeakernet" operations were 
+performed, as there was available MDC8 in my home system.  In this system, 
+OS/8 devices are the maximum of 4096 records.
+
+At some point, most of the lost files were relegated to a "seventh" 
+DECtape, but in fact this was not quite viable, even when 3300 block 
+DECtapes were being used.  No copies of this seventh [or eighth] tape have 
+been recovered to date] and it was theorized that all of the problematic 
+devices were lost.  Below is the status on a device by device basis.
+
+Prior to 1983, a vane attempt was made to have all devices supported in a 
+monstrous single file.  [Again, 20/20 hindsight need not apply; this was 
+corrected, but not completely.]
+
+A key problem with having the giant file PQSMON.PAL was the confusion of 
+many conditionals coupled with the quirky source length restrictions of 
+PAL8 [part of your code can be ignored and you may not know it!].
+
+Additionally, the hit-and-miss support for the Logical Console Overlay had 
+to be firmed up.  The problem is this:
+
+Each system device handler has to provide a pair of patch lists for the 
+handler to be carried out when the Logical Console Overlay is coming up OR 
+being disabled [to restore the handler to the normal code].
+
+These patch definition implement such as intercepting the standard system 
+HALT to instead be trapped in the Overlay to allow user interaction [retry, 
+abort] and display of all of the latest system call parameters, etc.
+
+In systems such as the PDP-12 LINCtape, a 4K system handler cannot 
+over-ride the automatic initial search direction guess of always in reverse 
+[which is admittedly usually correct, but as much as 40 percent of the time 
+this is not true.  Performance can be materially speeded up, etc.]
+
+When the Logical Console Overlay is enabled on a PDP-12 LINCtape system, 
+other parts of the handler intercept to instead access a last-transferred 
+block on the corresponding logical unit.  If appropriate, the initial 
+search direction can be forced to forward using MTB instructions in 
+extended operatons mode.  There isn't enough room in the basic 4K handler 
+to accomplish this, but if extended memory is available and the Overlay is 
+enabled, the handler performce can be palpably improved.
+
+Thus, the full definition of what compromises all of the code for any 
+particular device [what OS/8 would dub a "system device handler" has to 
+include these short patch lists defined in the system device handler 
+address space, and some field relocatable interception routines defined in 
+the Overlay address space.
+
+I really do not recall, but I suspect at some point, the source code of the 
+Overlay also had conditionals within it for this purpose, but the newer 
+source code does not.  This function has been added to the source code of 
+all of the fully supported devices, notable ones listed below.  Feel free 
+to inquire regarding other devices not mentioned.
+
+A recently recovered file from 1983 appears to be the last gasp of an 
+attempt to have all of the major components of P?S/8 not only in memory at 
+the same time, but also from the output of a single assembly.
+
+Note:  The creation of a P?S/8 starter system is to assemble these same 
+components [and a few additional ones] into individual binary modules where 
+a system generation routine [essentially a string of calls to the system 
+device handler] is used to write out all of the components from memory to 
+the designated target system blocks.  Programs are assembled such that they 
+appear to be in the address space they execute in, but are binary loaded in 
+buffers determined by the assembly process as defined for system 
+generation.  However, in the original oversized version, the only thing 
+gained was local definitions followed through the assembly process being a 
+single unit.
+
+This was later corrected in a far more globally acceptable way:
+
+All global definitions must originate in the keyboard monitor assembly, 
+which today is devoid of actual handler-related code [just templates and 
+some ZBLOCK sections].  In a few places, some definitions actually 
+originate in the Logical Console Overlay, and if they change there, they 
+must be updated in the main PQSMON source file even if not actually used 
+there.
+
+A TECO macro has been written [called GLOBAL.TEC] [which was also used in 
+the creation of the PR Newswire project development] that creates a symbol 
+table from the listing file of the assembly in memory, but only for 
+specific symbols that may be defined within a source file within special 
+delimters:
+
+//  SPECIAL SYSTEMS SYMBOLS
+
+equates here
+
+//  END OF SPECIAL SYSTEMS SYMBOLS
+
+The macro actually only checks for the existence of the first section of 
+comments starting with // followed by equate states [such as SBOOT= 7600] 
+ended with a second occurrence of the // comment.
+
+The only restriction is that all lines within the area have to be either 
+blank or equate statements.
+
+The macro is passed an assembler listing file [only the symbols are needed] 
+and the target source file to be updated..
+
+Thus, it is imperative the symbol table of PQSMON define all symbols [which 
+means a few kludges are used, such as definitions that actually arise from 
+the Logical Console Overlay and perhaps the P/S/8 BIN utility, now that 
+these are all separate assemblies.  Fortunately, these external definitions 
+are not likely to change by nature.
+
+Once all compatible components have been processed, the files can be 
+assembled individually and then each can take its proper binary place in 
+the system generation process.  12K or perhaps 16K is required; future 
+changes will limit this to requiring 12K or perhaps less [depending upon 
+the availability of a proper implementation of the DTORG directive].
+
+The only problem with what was accomplished is that certain system devices 
+were "left behind" and in a few cases, never defined for an overlay.
+
+It was feared some were entirely lost such as the TD8E system that uses 
+extended memory for which I only had some vague odd recollections of some 
+optimizations over the code as used in most of the OS/8 handlers [which is 
+actually pretty poor].
+
+Eventually a long-forgotten existent TD8E w/MR8E-C ROM system was 
+recovered, and actually booted.  It is now theorized that a serious but was 
+never addressed, as there was little further contact with actual TD8E 
+hardware.
+
+The bug in this system is that there is an attempt to overlay the code with 
+a copy of itself take off the DECtape from the corresponding blocks.  this 
+technique works entirely well IF the TC01/08 DECtape controller is in 
+effect because of the use of DMA.
+
+In the TD8E ROM system, unfortunately a checksum temporary is designated by 
+the ROM; it cannot be moved to a "safe place".  As such, any attempt to 
+modify the actual block contents renders the system unbootable.  [I needed 
+this tape for an expedient piurpose, plus I have a "negative association" 
+with this tape because of the personnel involved, but this is beyond any 
+technical discussion.
+
+I have disassembled other P?S/8 system components before [as well as code I 
+never wrote; the cosmetic quality and commentary generally exceed that of 
+the original author's.].  this is part of a large document with a lot of 
+good documentation that should be split-off and word-processed, however, 
+the code is confirmed as 100% correct for an old release of P?S/8 circa 
+1976 for TC01/08.
+
+As such, I was confident I could recover all of the code on this TD8E w/ROM 
+system and eventually did reproduce the source code [including the ROM 
+itself].  It will be interesting to see the "quality" of this disassembly 
+compared to the original code [now recently possible!].
+
+I have located the bug and made a partial start on solving the problem, 
+tabling this for time's sake; the SIMH simulator allows debugging the 
+results, etc.
+
+With regard to TD8E-related issues, it is apprarently now nearly a complete 
+recovery, except that it is known the code did work with the then-current 
+VT program, which was the non-configurable forerunner of the Logical 
+Console Overlay.
+
+Thus, I have to disassemble that code to determine what are the appropriate 
+interactive intercepts to apply and the appropriate error messages for the 
+generic benefit of the Overlay.
+
+For brevity I will close at this time, next time a few more "lost boy" 
+stories and a final summary.
+
+cjl
+
+
+
+------=_Part_2569_8888732.1642790745916
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+From Google P?S8 group<br><br><div class=3D"gmail_quote"><div dir=3D"auto" =
+class=3D"gmail_attr">---------- Forwarded message ---------<br>From: <span =
+dir=3D"auto">cjl &lt;Unknown&gt;</span><br>Date: Saturday, July 29, 2017 at=
+ 7:43:17 PM UTC-5<br>Subject: Re: Current P?S/8 support level specifics.<br=
+>To: <span dir=3D"auto">P?S/8 &lt;Unknown&gt;</span><br></div><br><br><html=
+-blob><div dir=3D"ltr">This will be a clearer explanation of the source fil=
+e status of P?S/8 as of this writing.<br><br>It is unfortunate that not all=
+ of the P/S/8 source files are currently available [even to me!]. &nbsp;The=
+re are no valid excuses, but 20/20 hindsight cannot be applied. &nbsp;It is=
+ hoped that all are either replaced or recovered without undue effort.<br><=
+br>1) The main source files of P?S/8 as of 23-Feb-1988 have been fully reco=
+vered. &nbsp;This was the typical "portable" collection of source files as =
+used by P?S/8 developers on an ongoing basis. &nbsp;The primary reason this=
+ collection is not a wider set of source files is simply due to expediency.=
+<br><br>To create P/S/8 from the source files, you need a working OS/8 syst=
+em with a decent enough version of PAL8. &nbsp;This generally means PAL8 V1=
+0D, which is a few minor patches past the standard release from OS/8 V3D [3=
+Q].<br>Eventually this would become PAL8 Version B0 [and the companion CREF=
+ Version B0 from OS/278 V2. &nbsp;These two programs are the best [and fina=
+l] DEC releases of these two programs and are known to work on all models t=
+o within a nitpick quirk. &nbsp;Due to some internal minor changes to keybo=
+ard handling, they can be an extremely obscure problem with timing of buffe=
+red Control-Z characters when using one of the TTY: handlers. &nbsp;Conside=
+r an assembly where a few lines are needed to me entered hy hand followed b=
+y a series of files that are dependent on conditional assembly parameters. =
+&nbsp;In general, this could be as little as a single line of input such as=
+<div><br></div><div>FOO=3D1</div><div>^Z</div><div><br></div><div>Due to th=
+e nature of OS/8, one of the input "files? can be to take input from the TT=
+Y: [or KL8E] handler needed only during the first pass. &nbsp;[Note: If the=
+ input during the listing phase of assembly is limited to ONLY a Control-Z,=
+ the output will not be affected; this is generally desirable to obtain a l=
+isting, etc. &nbsp;All of this works correctly in PAL8 Version B0.<br><br>T=
+hat said, only in the earlier releases is it possible to type multiple Cont=
+rol-Z characters all at once. &nbsp;The purpose would be for the assembly t=
+o automatically continue into the subsequent pass[s]. &nbsp;Due to some cha=
+nges in Version B0, it will be necessary to enter the Contril-Z character a=
+t the start of each pass. &nbsp;Thus, it is not possible to buffer the char=
+acters; you have to be present to enter the subsequent Control-Z characters=
+ when they are needed. &nbsp;[No attempt has been made to correct this obsc=
+ure behavior; clearly the problem is that something was added that clears t=
+he keyboard flag not used in prior versions].<br><br>for all other purposes=
+, these two programs appear to be 100% compatible, fix all prior bugs [and =
+perhaps some still in prior versions!] and appear to be fully compatible wi=
+th the "straignt" -8 and all newer models.<br><br>The above incidents were =
+notices during the development of Kermit-12 where there are numerous condit=
+ionals that can easily be over-ridden in various ways. &nbsp;To avoid this =
+problem, the Kermit-12 package includes a small file PARAM.PAL which can be=
+ used to implement all such options as well as a few that would be quite un=
+wieldy and error-prone by the problematic method. &nbsp;By the use of certa=
+in conditional assembly tricks, the file does not change any unintended asp=
+ects of the listing file created for a custom version.<br><br>Clearly, few =
+people ever have contact with this obscurity, and it was more important to =
+know that where the P?S/8 sources were taken to, it could be expected that =
+a viable PAL8 be available to assemble the P?S/8 source code on the target =
+system.<br><br>In general, the "portable" collection of the P/S/8 source fi=
+les became the so-called "A" collection.and the "B" collection. &nbsp;This =
+is an arbitrary split of "all" of the files so that the entire collection c=
+ould reside on an RK05 pack [such as RKA1: and RKB1:] to allow certain OS/8=
+ BATCH programs to be run that depended on the relevant specifics. &nbsp;Th=
+us, there are copying BATCH files to essentially transfer the two collectio=
+n "halves" from say a&nbsp;</div><div>collection of three specific DECtapes=
+ to RKA1: and another collection of three DECtapes to RKB1:. &nbsp;[Note: M=
+uch of the actual development in those days was done by hand-carrying the s=
+ix DECTapes and some additional DECtapes for sundry other purposes to an in=
+stallation based on either a pair of RK05 drives, or the DSD-240-8 drive wh=
+ere the lower disk is exactly the same size as a pair of RK05 drives, and P=
+?S/8 is configured to occupy the upper pair of drives to allow P?S/8 logica=
+l units 0 through 7 in a like manner.<br><br>While there are a few differen=
+t RK05 configurations for P?S/8 [not all of which were ever actually needed=
+ at the time[ the DSD-240-8 configuration was essentially identical to OS/8=
+'s allocation for RK05 disks as the clear "natural" configuration due to th=
+e disk geometry, etc.<br><br>This allows P?S/8 to support eight logical dri=
+ves each exactly 3130 blocks long; the system device handler is used to acc=
+ess the entire drive complex.<br><br>Note: The other possibilities for the =
+actual RK8E/RK8F support consist of a few possibilities, some of which requ=
+ire some additional research to implement:<br><br>1) All eight logical unit=
+s on one drive. &nbsp;Each logical unit is about the size of a single DECta=
+pe. &nbsp;This is only useful on a single RK05 drive system. &nbsp;[Note: D=
+ue to temporary restrictions of P?S/8 PAL, the /X cross-reference option ca=
+nnot be used unless logical unit 7 is available; additionally it is not tot=
+ally implemented, but enough of the option exists to obtain the actual stat=
+ement numbers that will exist when this assembler section is completed; thi=
+s depends on changes being made to P?S/8 itself that will be available in V=
+ersion 9A.]</div><div><br></div><div>While this is a nice fast system, it i=
+s limited for working with such as extended-length files, and certain diffi=
+culties in converting files between OS/8 and P?S/8.<br><br>Using the standa=
+rd EXTENDED RK8E bootstrap, this system can be booted to any drive 0, 1, 2 =
+or 3.<br><br>2) Four units are on one drive. &nbsp;Each logical unit is hal=
+f the storage of an OS/8 equivalent. &nbsp;Since by nature, inter-system fi=
+le conversion can only be done to the first "half" of an OS/8 device, this =
+configuration is quite useful for development purposes. &nbsp;Note: It is q=
+uite rare to find a single PDP-8 source file larger than 1/2 of one RKAx: o=
+r RKBx: area on an RK05 cartridge. &nbsp;Thus, to date this has not been a =
+problem.] &nbsp;OS8CON and future BINCON conversions are easily carried out=
+ to the even logical units.<br><br>Using the standard EXTENDED RK8E bootstr=
+ap, this system can be booted to drives 0 or 4. &nbsp;The scope of this sys=
+tem can be either RK05 drives 0 and 1 OR 2 and 3. &nbsp;P?S/8 can be booted=
+ to drive 4.directly. &nbsp;Definitions exist to boot to other logical unit=
+s by the use of extensions to the extended standard bootstrap, but this is =
+rarely actually done. &nbsp;[Note: Using equivalent design logic the above =
+system with all logical units on the same RK05 cartridge, it is possible to=
+ boot to ANY logical unit.]<br><br>3) Two logical units are on one drive. &=
+nbsp;this is the configuration that completely matches OS/8. &nbsp;This is =
+the typical configuration that was used when developing P?S/8 for RK8E/RK8F=
+.. &nbsp;Extensions to the standard extended RK bootstrap allows booting to=
+ any logical unit. &nbsp;The 8 logical units of P?S/8 are addressed by the =
+P?S/8 system handler, and each corresponds to an OS/8 RKAx: or RKBx: device=
+. &nbsp;[Note: This is the default configuration for the present.]<br><br>4=
+) This is a tentative specification for support of up to EIGHT RK05 drives.=
+ &nbsp;Each RK05 cartridge is a logical unit that extends to block 031277. =
+&nbsp;Logical units are larger than what OS/8 can address in a single devic=
+e.<br>This configuration has not been developed [but is easy to program for=
+] simply because there was no reason to require it until know. &nbsp;The P?=
+S/8 SHELL will define an optional system overlay where all file access is b=
+y non-system handlers that support double-precision block numbers; as such,=
+ the P?S/8 SHELL file structure can acces as much as 2048 times as much sto=
+rage as OS/8, yet only requiring a since 128-word input or output buffer. &=
+nbsp;The system device handler is still limited to the first 4096 blocks; t=
+he only requirement is that all of the actual SHELL components reside in th=
+is area including the SHELL directory. &nbsp;To protect all of the basic P?=
+S/8 system components, the SHELL directory includes protected area support =
+via attribute bits including system and unmovable. &nbsp;The SHELL intercom=
+municates internally using the system device handler. &nbsp;All SHELL file =
+structures are accessed by non-system handlers loaded using the system devi=
+ce handler to accomplish this.<br><br>Note: P?S/8 already supports non-syst=
+em device handlers; however, the only program that can make use of them is =
+the stop-gap program P?S/8 BLKCPY. &nbsp;This is a copy or compare anything=
+ to anything program specifying absolute blocks and will be an invaluable t=
+ool to develop the SHELL. &nbsp;P?S/8 Version 9A will be the minimum requir=
+ement to develop the SHELL as certain system kernel bits are being defined =
+requiring slight changes to all existing basic P?S/8 programs. &nbsp;[Short=
+ answer: &nbsp;I found SEVEN free bits! &nbsp;They were overlooked until re=
+cently. &nbsp;The change is minor and always in once-only initialization co=
+de. &nbsp;The low-order five bits must be isolated; in Version 8Z, it is as=
+sumed the other bits are all zero, etc.] &nbsp;These new bits will be used =
+to finally implement the replacement system date algorithm as well as an im=
+portant system definition that only pertains to the SHELL configuration.<br=
+><br>The notion of an additional four RK05 drives depends on the hardware b=
+eing the somewhat obscure RKS8E [I have one in need of some repair.] &nbsp;=
+The RK05 drives are no longer hardware-accessed using the RK11-C protocol, =
+and replaced using the RK11-D protocol.<br><br>The P?S/8 RK handles have a =
+lot of free space within the handler due to the expansion of the definition=
+ of the system device handler to as much as eight pages in the system devic=
+e handler extended memory extension. &nbsp;When the RK system was first dev=
+eloped, only four pages were required. &nbsp;Newer system device challenged=
+ have caused this specification to be doubled up to an entire 1K of the hig=
+hest existent memory field location x6000-x7777 where x is the highest memo=
+ry field [at least 1] Unlike OS/8, P?S/8 uses the HIGHEST extended memory f=
+ield; OS/8 uses the LOWEST field 1 thus forever preventing a wider range of=
+ 15-bit addressable memory without restrictions [and many ugly kludges in s=
+uch as the FORTRAN IV run-time system. &nbsp;These essentially try to do po=
+orly what P?S/8 does as designed. &nbsp;I broached this with my friends at =
+DEC, and they agreed the P?S/8 method was superior, but don't expect ANYTHI=
+NG about OS/8 to ever be changed! &nbsp;[And here we are addressing this is=
+sue decades later!]<br><br>What is needed is some bullet-proof code to dete=
+rmine if the device is actually an RKS8E and not an ordinary RK8E/RK8F. &nb=
+sp;[Note: The RK8F is a modified RK8E for use in the DW8E. &nbsp;this is NO=
+T a programming consideration.] &nbsp;The RKS8E defines an additional bit o=
+f disk drive addressing, but it must be clear how to determine if the hardw=
+are actually exists, lest there be anomaly between such as drive 0 and driv=
+e 4, etc. &nbsp;[Note: There are apparently obscure OS/8 RKS8E handlers for=
+ the additional drives. &nbsp;They are a total copout that depends on the u=
+ser NOT using the handlers where the hardware doesn't exist! &nbsp;Attempts=
+ to do so will likely corrupt the corresponding LOWER drive!]<br><br>Eventu=
+ally for a brief period, little of this "sneeakernet" operations were perfo=
+rmed, as there was available MDC8 in my home system. &nbsp;In this system, =
+OS/8 devices are the maximum of 4096 records.<br><br>At some point, most of=
+ the lost files were relegated to a "seventh" DECtape, but in fact this was=
+ not quite viable, even when 3300 block DECtapes were being used. &nbsp;No =
+copies of this seventh [or eighth] tape have been recovered to date] and it=
+ was theorized that all of the problematic devices were lost. &nbsp;Below i=
+s the status on a device by device basis.<br><br>Prior to 1983, a vane atte=
+mpt was made to have all devices supported in a monstrous single file. &nbs=
+p;[Again, 20/20 hindsight need not apply; this was corrected, but not compl=
+etely.]<br><br>A key problem with having the giant file PQSMON.PAL was the =
+confusion of many conditionals coupled with the quirky source length restri=
+ctions of PAL8 [part of your code can be ignored and you may not know it!].=
+<br><br>Additionally, the hit-and-miss support for the Logical Console Over=
+lay had to be firmed up. &nbsp;The problem is this:<br><br>Each system devi=
+ce handler has to provide a pair of patch lists for the handler to be carri=
+ed out when the Logical Console Overlay is coming up OR being disabled [to =
+restore the handler to the normal code].<br><br>These patch definition impl=
+ement such as intercepting the standard system HALT to instead be trapped i=
+n the Overlay to allow user interaction [retry, abort] and display of all o=
+f the latest system call parameters, etc.<br><br>In systems such as the PDP=
+-12 LINCtape, a 4K system handler cannot over-ride the automatic initial se=
+arch direction guess of always in reverse [which is admittedly usually corr=
+ect, but as much as 40 percent of the time this is not true. &nbsp;Performa=
+nce can be materially speeded up, etc.]<br><br>When the Logical Console Ove=
+rlay is enabled on a PDP-12 LINCtape system, other parts of the handler int=
+ercept to instead access a last-transferred block on the corresponding logi=
+cal unit. &nbsp;If appropriate, the initial search direction can be forced =
+to forward using MTB instructions in extended operatons mode. &nbsp;There i=
+sn't enough room in the basic 4K handler to accomplish this, but if extende=
+d memory is available and the Overlay is enabled, the handler performce can=
+ be palpably improved.<br><br>Thus, the full definition of what compromises=
+ all of the code for any particular device [what OS/8 would dub a "system d=
+evice handler" has to include these short patch lists defined in the system=
+ device handler address space, and some field relocatable interception rout=
+ines defined in the Overlay address space.<br><br>I really do not recall, b=
+ut I suspect at some point, the source code of the Overlay also had conditi=
+onals within it for this purpose, but the newer source code does not. &nbsp=
+;This function has been added to the source code of all of the fully suppor=
+ted devices, notable ones listed below. &nbsp;Feel free to inquire regardin=
+g other devices not mentioned.<br><br>A recently recovered file from 1983 a=
+ppears to be the last gasp of an attempt to have all of the major component=
+s of P?S/8 not only in memory at the same time, but also from the output of=
+ a single assembly.<br><br>Note: &nbsp;The creation of a P?S/8 starter syst=
+em is to assemble these same components [and a few additional ones] into in=
+dividual binary modules where a system generation routine [essentially a st=
+ring of calls to the system device handler] is used to write out all of the=
+ components from memory to the designated target system blocks. &nbsp;Progr=
+ams are assembled such that they appear to be in the address space they exe=
+cute in, but are binary loaded in buffers determined by the assembly proces=
+s as defined for system generation. &nbsp;However, in the original oversize=
+d version, the only thing gained was local definitions followed through the=
+ assembly process being a single unit.<br><br>This was later corrected in a=
+ far more globally acceptable way:<br><br>All global definitions must origi=
+nate in the keyboard monitor assembly, which today is devoid of actual hand=
+ler-related code [just templates and some ZBLOCK sections]. &nbsp;In a few =
+places, some definitions actually originate in the Logical Console Overlay,=
+ and if they change there, they must be updated in the main PQSMON source f=
+ile even if not actually used there.<br><br>A TECO macro has been written [=
+called GLOBAL.TEC] [which was also used in the creation of the PR Newswire =
+project development] that creates a symbol table from the listing file of t=
+he assembly in memory, but only for specific symbols that may be defined wi=
+thin a source file within special delimters:<br><br>// &nbsp;SPECIAL SYSTEM=
+S SYMBOLS<br><br>equates here<br><br></div><div>// &nbsp;END OF SPECIAL SYS=
+TEMS SYMBOLS<br><br>The macro actually only checks for the existence of the=
+ first section of comments starting with // followed by equate states [such=
+ as SBOOT=3D 7600] ended with a second occurrence of the // comment.<br><br=
+>The only restriction is that all lines within the area have to be either b=
+lank or equate statements.<br><br>The macro is passed an assembler listing =
+file [only the symbols are needed] and the target source file to be updated=
+..<br><br>Thus, it is imperative the symbol table of PQSMON define all symb=
+ols [which means a few kludges are used, such as definitions that actually =
+arise from the Logical Console Overlay and perhaps the P/S/8 BIN utility, n=
+ow that these are all separate assemblies. &nbsp;Fortunately, these externa=
+l definitions are not likely to change by nature.<br><br>Once all compatibl=
+e components have been processed, the files can be assembled individually a=
+nd then each can take its proper binary place in the system generation proc=
+ess. &nbsp;12K or perhaps 16K is required; future changes will limit this t=
+o requiring 12K or perhaps less [depending upon the availability of a prope=
+r implementation of the DTORG directive].<br><br>The only problem with what=
+ was accomplished is that certain system devices were "left behind" and in =
+a few cases, never defined for an overlay.<br><br>It was feared some were e=
+ntirely lost such as the TD8E system that uses extended memory for which I =
+only had some vague odd recollections of some optimizations over the code a=
+s used in most of the OS/8 handlers [which is actually pretty poor].<br><br=
+>Eventually a long-forgotten existent TD8E w/MR8E-C ROM system was recovere=
+d, and actually booted. &nbsp;It is now theorized that a serious but was ne=
+ver addressed, as there was little further contact with actual TD8E hardwar=
+e.<br><br>The bug in this system is that there is an attempt to overlay the=
+ code with a copy of itself take off the DECtape from the corresponding blo=
+cks. &nbsp;this technique works entirely well IF the TC01/08 DECtape contro=
+ller is in effect because of the use of DMA.<br><br>In the TD8E ROM system,=
+ unfortunately a checksum temporary is designated by the ROM; it cannot be =
+moved to a "safe place". &nbsp;As such, any attempt to modify the actual bl=
+ock contents renders the system unbootable. &nbsp;[I needed this tape for a=
+n expedient piurpose, plus I have a "negative association" with this tape b=
+ecause of the personnel involved, but this is beyond any technical discussi=
+on.<br><br>I have disassembled other P?S/8 system components before [as wel=
+l as code I never wrote; the cosmetic quality and commentary generally exce=
+ed that of the original author's.]. &nbsp;this is part of a large document =
+with a lot of good documentation that should be split-off and word-processe=
+d, however, the code is confirmed as 100% correct for an old release of P?S=
+/8 circa 1976 for TC01/08.<br><br>As such, I was confident I could recover =
+all of the code on this TD8E w/ROM system and eventually did reproduce the =
+source code [including the ROM itself]. &nbsp;It will be interesting to see=
+ the "quality" of this disassembly compared to the original code [now recen=
+tly possible!].<br><br>I have located the bug and made a partial start on s=
+olving the problem, tabling this for time's sake; the SIMH simulator allows=
+ debugging the results, etc.<br><br>With regard to TD8E-related issues, it =
+is apprarently now nearly a complete recovery, except that it is known the =
+code did work with the then-current VT program, which was the non-configura=
+ble forerunner of the Logical Console Overlay.<br><br>Thus, I have to disas=
+semble that code to determine what are the appropriate interactive intercep=
+ts to apply and the appropriate error messages for the generic benefit of t=
+he Overlay.<br><br>For brevity I will close at this time, next time a few m=
+ore "lost boy" stories and a final summary.</div><div><br></div><div>cjl</d=
+iv><div><br><br></div></div></html-blob></div>
+------=_Part_2569_8888732.1642790745916--
+
+------=_Part_2568_624948772.1642790745916--

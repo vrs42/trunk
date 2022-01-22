@@ -1,0 +1,248 @@
+From: clasy...@gmail.com 
+Date: Monday, September 17, 2018 at 10:43:31 PM UTC-5
+Received: vrs; Monday, September 17, 2018 at 10:43:31 PM UTC-5
+Subject: Description of the icons/shortcuts in the Commands Window - Part 3
+Message-Id: <cf1a992c-acc9-4edf-8ca2-d56009f9c7e0n@googlegroups.com>
+In-Reply-To: <68595ab8-f5a8-4fd8-8865-f093fc85142c@googlegroups.com>
+References: <68595ab8-f5a8-4fd8-8865-f093fc85142c@googlegroups.com>
+To: pepswin
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1940_729939933.1642791775421"
+Content-Length: 12384
+
+------=_Part_1940_729939933.1642791775421
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1941_237574838.1642791775421"
+
+------=_Part_1941_237574838.1642791775421
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+---------- Forwarded message ---------
+From: clasy...@gmail.com <Unknown>
+Date: Monday, September 17, 2018 at 10:43:31 PM UTC-5
+Subject: Description of the icons/shortcuts in the Commands Window - Part 3
+To: pepswin <Unknown>
+
+
+On to row 4.
+
+Clear LPT Output.
+
+Before using the LPT in any O/S, you likely want to clear out the previous 
+output [if any].  Use this to clear it in anticipation of the next usage, 
+etc.
+
+Strip LPT Output.
+
+All operating systems create junk in the LPT: stream for a variety of 
+reasons.  This gets rid of all such problems, and prepares the file for 
+potential post-processing [such as creation of a .PDF file].
+
+This includes leading and trailing <FF> characters as most post processing 
+requires it that way; it could always be edited back in and save if need 
+be.  Note: this is a VERY thorough program and it takes some time depending 
+on file size.  Elapsed time will be indicated afterwards; this can be 
+useful for future cleanups during active development, etc.
+
+Open LPT Output.
+
+the current LPTOUT.TXT file is displayed in your choice of editing 
+program.. It can be modified and saved if desired. [Note: Some people just 
+want a subset of the file or other editing operation is desired, etc.]
+
+By opening the LPT file before and after the STRIP operation, it can be 
+seen first hand what was accomplished.  [In some cases, there is truly 
+unbelievable junk in the file, especially if it was processed by the OS/8 
+PTP: output handler.  After stripping it is often "day and night" 
+differences, etc.
+
+Convert LPT to PDF.
+
+This creates LPTOUT.PDF from the LPTOUT.TXT file [strongly recommended you 
+first use the STRIP function!].  Afterwards, the PDF file is opened in the 
+current PDF reader program.  [Note: This assumes Adobe Reader 11.x; small 
+changes are needed to use an alternative program installed on the Windows 
+System.  We do not recommend the newer DC version, but it can be 
+accommodated with a small change.  I will document this in the manual, and 
+there are other qualifying programs as well [not from Adobe].
+
+Convert LPT to PDF [Greenbar]  Similar to the above, except the print 
+includes a background with a very credible simulation of greenbar 
+lineprinter paper.  The entire output page is scaled down to fit on 11x8.5 
+paper.
+
+Clear PTP Output.
+Strip PTP Output.
+Open PTP Output.
+
+These are identical to their counterparts targeting the LPT: output stream 
+except the targeted file is PTPOUT.TXT, the stream file for the simulated 
+paper-tape punch data.  Note: The extensions on the paper-tape-oriented 
+files does not necessarily imply text format; however, this makes it easier 
+to view when this does apply.  Either or both could be binary data under 
+the correct circumstances.
+
+Row 5.
+
+Working Files.
+
+The working files [LPTOUT.TXT, PTPOUT.TXT, PTRIN.TXT etc.] directory is 
+opened in its own window.  This allows direct access as required.  [Note: 
+PDF descendant files created from LPTOUT.TXT will also be created here.
+
+Configuration Files
+
+The SIMH configuration files are stored in this directory.  By opening this 
+directory in its own window, the .ini files can be accessed [and perhaps 
+modified].
+
+Active Device Images.
+
+All device image files considered active [and thus mentioned in .ini files 
+will be displayed in this directory window.  Depending on instant 
+requirements, some of these files may be added from other sources [such as 
+e-mail, etc.]
+
+All PEPS Directories.  The directory one level up, PEPS\Folders is opened 
+in its own window.  This is needed to allow quicker access to the other 
+component directories of PEPS that tend to be only seldom needed [and as 
+such do not warrant their own shortcut/icon.
+
+Inactive Device Images.  This is the "mirror image" directory for all of 
+the [potentially] useful device image files not currently needed.  By 
+having both an active and an inactive directory, the potential for clutter 
+is greatly reduced.  Very active users may be moving files from one window 
+to another, etc.
+
+Help Documents.  PEPS will include its own documentation, generally in PDF 
+format; all files will be accessible by opening this folder.  This will 
+allow quick access when necessary, etc.
+
+Swap PTP and LPT files.  Occasionally this is necessary for a variety of 
+reasons.  For example, a listing file can be stored in each allowing two 
+listings to be compared side by side, etc.
+
+Swap PTR and PTP files.  Occasionally this swap is necessary.  For example, 
+P?S/8 PAL may be used to assemble a file that is actually needed in OS/8 
+[but cannot be assembled there because P/S/8 PAL is a superior assembler to 
+PAL8 in many ways.  [Note: P?S/8 PAL even includes the DEVICE and FILENAME 
+directives for OS/8 compatibility despite not much use for them in P?S/8 
+Future versions of P?S/8 XPAL [eXtended PAL for the P/S/8 SHELL, perhaps to 
+be named PALX] will include features to allow SHELL filename compatibility 
+which requires support for 12 character and 4 extension file names.  Means 
+will still be provided for OS/8 retrocompatibility, etc.]
+
+P?S/8 BIN can punch the binary output of such an assembly to the PTPOUT.TXT 
+file [in DEC paper-tape BIN or RIM format].  Booting to OS/8 after swapping 
+these files, The binary is available in OS/8 to be read in from the PTR: 
+device and then passed to ABSLDR for loading, etc.
+
+This is the end of the Commands window.  Next some of the other subordinate 
+windows that might be called up.
+
+cjl
+
+
+
+
+
+
+
+
+
+
+------=_Part_1941_237574838.1642791775421
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>From: <span dir=3D"auto">clasy...@=
+gmail.com &lt;Unknown&gt;</span><br>Date: Monday, September 17, 2018 at 10:=
+43:31 PM UTC-5<br>Subject: Description of the icons/shortcuts in the Comman=
+ds Window - Part 3<br>To: <span dir=3D"auto">pepswin &lt;Unknown&gt;</span>=
+<br></div><br><br><html-blob><div dir=3D"ltr"><font size=3D"4">On to row 4.=
+<br><br>Clear LPT Output.<br><br>Before using the LPT in any O/S, you likel=
+y want to clear out the previous output [if any].&nbsp; Use this to clear i=
+t in anticipation of the next usage, etc.<br><br>Strip LPT Output.<br><br>A=
+ll operating systems create junk in the LPT: stream for a variety of reason=
+s.&nbsp; This gets rid of all such problems, and prepares the file for pote=
+ntial post-processing [such as creation of a .PDF file].<br><br>This includ=
+es leading and trailing &lt;FF&gt; characters as most post processing requi=
+res it that way; it could always be edited back in and save if need be.&nbs=
+p; Note: this is a VERY thorough program and it takes some time depending o=
+n file size.&nbsp; Elapsed time will be indicated afterwards; this can be u=
+seful for future cleanups during active development, etc.<br><br>Open LPT O=
+utput.<br><br>the current LPTOUT.TXT file is displayed in your choice of ed=
+iting program.. It can be modified and saved if desired. [Note: Some people=
+ just want a subset of the file or other editing operation is desired, etc.=
+]<br><br>By opening the LPT file before and after the STRIP operation, it c=
+an be seen first hand what was accomplished.&nbsp; [In some cases, there is=
+ truly unbelievable junk in the file, especially if it was processed by the=
+ OS/8 PTP: output handler.&nbsp; After stripping it is often "day and night=
+" differences, etc.<br><br>Convert LPT to PDF.<br><br>This creates LPTOUT.P=
+DF from the LPTOUT.TXT file [strongly recommended you first use the STRIP f=
+unction!].&nbsp; Afterwards, the PDF file is opened in the current PDF read=
+er program.&nbsp; [Note: This assumes Adobe Reader 11.x; small changes are =
+needed to use an alternative program installed on the Windows System.&nbsp;=
+ We do not recommend the newer DC version, but it can be accommodated with =
+a small change.&nbsp; I will document this in the manual, and there are oth=
+er qualifying programs as well [not from Adobe].<br><br>Convert LPT to PDF =
+[Greenbar]&nbsp; Similar to the above, except the print includes a backgrou=
+nd with a very credible simulation of greenbar lineprinter paper.&nbsp; The=
+ entire output page is scaled down to fit on 11x8.5 paper.<br><br></font><s=
+pan style=3D"font-size:large">Clear PTP Output.</span><font size=3D"4"><br>=
+</font><span style=3D"font-size:large">Strip PTP Output.</span><font size=
+=3D"4"><br></font><span style=3D"font-size:large">Open PTP Output.<br></spa=
+n><font size=3D"4"><br>These are identical to their counterparts targeting =
+the LPT: output stream except the targeted file is PTPOUT.TXT, the stream f=
+ile for the simulated paper-tape punch data.&nbsp; Note: The extensions on =
+the paper-tape-oriented files does not necessarily imply text format; howev=
+er, this makes it easier to view when this does apply.&nbsp; Either or both=
+ could be binary data under the correct circumstances.<br><br>Row 5.<br><br=
+>Working Files.<br><br>The working files [LPTOUT.TXT, PTPOUT.TXT, PTRIN.TXT=
+ etc.] directory is opened in its own window.&nbsp; This allows direct acce=
+ss as required.&nbsp; [Note: PDF descendant files created from LPTOUT.TXT w=
+ill also be created here.<br><br>Configuration Files<br><br>The SIMH config=
+uration files are stored in this directory.&nbsp; By opening this directory=
+ in its own window, the .ini files can be accessed [and perhaps modified].<=
+br><br>Active Device Images.<br><br>All device image files considered activ=
+e [and thus mentioned in .ini files will be displayed in this directory win=
+dow.&nbsp; Depending on instant requirements, some of these files may be ad=
+ded from other sources [such as e-mail, etc.]<br><br>All PEPS Directories.&=
+nbsp; The directory one level up, PEPS\Folders is opened in its own window.=
+&nbsp; This is needed to allow quicker access to the other component direct=
+ories of PEPS that tend to be only seldom needed [and as such do not warran=
+t their own shortcut/icon.<br><br>Inactive Device Images.&nbsp; This is the=
+ "mirror image" directory for all of the [potentially] useful device image =
+files not currently needed.&nbsp; By having both an active and an inactive =
+directory, the potential for clutter is greatly reduced.&nbsp; Very active =
+users may be moving files from one window to another, etc.<br><br>Help Docu=
+ments.&nbsp; PEPS will include its own documentation, generally in PDF form=
+at; all files will be accessible by opening this folder.&nbsp; This will al=
+low quick access when necessary, etc.</font><div><font size=3D"4"><br></fon=
+t></div><div><font size=3D"4">Swap PTP and LPT files.&nbsp; Occasionally th=
+is is necessary for a variety of reasons.&nbsp; For example, a listing file=
+ can be stored in each allowing two listings to be compared side by side, e=
+tc.<br><br>Swap PTR and PTP files.&nbsp; Occasionally this swap is necessar=
+y.&nbsp; For example, P?S/8 PAL may be used to assemble a file that is actu=
+ally needed in OS/8 [but cannot be assembled there because P/S/8 PAL is a s=
+uperior assembler to PAL8 in many ways.&nbsp; [Note: P?S/8 PAL even include=
+s the DEVICE and FILENAME directives for OS/8 compatibility despite not muc=
+h use for them in P?S/8 Future versions of P?S/8 XPAL [eXtended PAL for the=
+ P/S/8 SHELL, perhaps to be named PALX] will include features to allow SHEL=
+L filename compatibility which requires support for 12 character and 4 exte=
+nsion file names.&nbsp; Means will still be provided for OS/8 retrocompatib=
+ility, etc.]<br><br>P?S/8 BIN can punch the binary output of such an assemb=
+ly to the PTPOUT.TXT file [in DEC paper-tape BIN or RIM format].&nbsp; Boot=
+ing to OS/8 after swapping these files, The binary is available in OS/8 to =
+be read in from the PTR: device and then passed to ABSLDR for loading, etc.=
+<br><br>This is the end of the Commands window.&nbsp; Next some of the othe=
+r subordinate windows that might be called up.<br><br>cjl<br><br><br><br><b=
+r><br><br><br><br><br></font></div></div></html-blob></div>
+------=_Part_1941_237574838.1642791775421--
+
+------=_Part_1940_729939933.1642791775421--

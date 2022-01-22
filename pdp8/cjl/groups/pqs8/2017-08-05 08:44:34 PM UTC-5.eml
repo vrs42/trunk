@@ -1,0 +1,588 @@
+From: cjl 
+Date: Saturday, August 5, 2017 at 8:44:34 PM UTC-5
+Received: vrs; Saturday, August 5, 2017 at 8:44:34 PM UTC-5
+Subject: P?S/8 SHELL device identification and related matters.
+Message-Id: <b376a074-b701-4258-9252-0b437da42ff2n@googlegroups.com>
+In-Reply-To: <38cc9023-d5b1-44d1-8719-6ac4162903a5@googlegroups.com>
+References: <38cc9023-d5b1-44d1-8719-6ac4162903a5@googlegroups.com>
+To: pqs8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1392_1837522807.1642790493357"
+Content-Length: 34813
+
+------=_Part_1392_1837522807.1642790493357
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1393_1740590333.1642790493357"
+
+------=_Part_1393_1740590333.1642790493357
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+From the P?S8 Google group
+
+---------- Forwarded message ---------
+From: cjl <Unknown>
+Date: Saturday, August 5, 2017 at 8:44:34 PM UTC-5
+Subject: P?S/8 SHELL device identification and related matters.
+To: P?S/8 <Unknown>
+
+
+With the discussion of some of the OS/8 device identification shortcomings, 
+and as is per usual, OS/8 points the way to NOT go, so here is some points 
+about the future of the P?S/8 SHELL's CORRECT direction.
+
+P?S/8 as it currently exists we are calling the "basic" system.  Every 
+system program uses the P?S/8 system device handler for all functions.
+
+This is not as limited as it sounds at first glance:
+
+A comparison of the two systems' device handler calls will reveal some 
+interesting things:
+
+OS/8.
+
+    JMS I    (7607)
+    FUNCTION
+    BUFFER
+    RECORD
+    error-return
+    good-return
+
+P?S/8
+
+    JMS I    (7640)
+    BUFFER
+    FUNCTION
+    BLOCK
+    good-return
+
+The call to the P?S/8 system device handler is at the address that is the 
+same code as the SZA CLA instruction.  For many code-squeezing situations, 
+it is trivial to make it true that a nearby instruction can be used as the 
+pointer thus saving a page zero literal.  [The P?S/8 keyboard monitor 
+literally does that; it really isn't hard in the scheme of code-bumming 
+techniques].  OS/8 uses 7607 which has no particular utility; as an 
+instruction it is a group III EAE instruction.
+
+The BUFFER argument is identical in both systems - the 12-bit read or write 
+buffer for the operation.
+
+P?S/8 addresses to the nearest logical 128-word block.  OS/8 to the nearest 
+256 word record with a kludge:  The send-half of records can be destroyed 
+with impunity.  In P?S/8 you must preserve things.  In the case of the 
+P?S/8 RK8E handlers, the handler uses an internal buffer to make that 
+viable, but only if the case comes up.  In all cases of "double-even" 
+blocks, the throughput is identical in both systems.  [Note: Some OS/8 RK8E 
+handlers have a bug:  The "check" bit is set on every HEAD change instead 
+of every TRACK change.]
+
+P?S/8 conversion programs such as OS8CON depend on the 2:1 relationship.  
+The OS/8 DECtape handlers just double up the past record number to become 
+the block number..  As such, these programs have to use compatible 
+devices such as in OS/8 DTA1: is logical unit 1 on a P?S/8 DECape-based 
+system.
+
+The more important part is the difference in the FUNCTION word.
+
+All of the bits are identical except that in OS/8 bits [9-11] were INTENDED 
+to mean what they do in P?S/8, but because of management interference, this 
+was never to happen.  As in the PDP-10 TOPS-10 support, there is a DTA 
+handler with logical units 0-7; OS/8 just has a DTA0: handler and a DTA1: 
+handler, etc. up to a DTA7: handler.  And there are only 14 handlers 
+maximum [DSK is a dummy to be assigned to one of the others and in some 
+systems, the co-resient handlers are problematic.  A rationally configured 
+OS/8 system for RK8E had better NOT use the SYS: handler and the RKA0: [and 
+similarly the RKB0: handler] because if you boot to one of the other 
+drives, they become RKAx and RKBx where x is the boot drive and NOT RKA0 
+and RKA1.  Many find this out too late!
+
+Later, OS/8 assed the feeble notion of bit[11] is a "recommendation" from 
+the caller regarding the initial search direction bit for tape-based 
+systems.  There are multiple problems with this nonsense:
+
+a) It is a static guess, and as such there are only 3-4 of them throughout 
+OS/8.  This missed at least 20 times as many DYNAMIC situations.
+
+b) It should be possible to write a better handler that just knows what to 
+do.  Someone once wrote a TC01/TC08 handler that self-guesses and just 
+ignores the bit.
+
+P?S/8 tape handlers all guess themselves, and that means ALL possibilities 
+are exploited dynamically.
+
+Had OS/8 actually implemented the logical unit bits, there would be a lot 
+less need for device slots to be filled.  P?S/8 will ALWAYS support the 
+logical device unit concept, thus inherently it is trivial to out-class 
+OS/8 when even only two such devices are supported in any configuration [as 
+two handlers are doing the job OS/8 needs SIXTEEN to accomplish which is 
+beyond the OS/8 capability.  Moreover, you can prove that using 
+non-structured handlers is largely a kludge.  Better to write utility 
+programs for the few cases that work, such as to have support for .5 inch 
+magtape.    You can define a far better result totally within the purview 
+of a utility program, etc.  This is why IOMEC didn't bother with this level 
+of support.  I worked for 1.5 years for a company that was heavily 
+dependent on various IOMEC drives; utility programs were written quite 
+successfully; the TM8E could not compete and came out later, etc.
+
+The console handling of OS/8 is really program-rolls-its-own.  The handlers 
+do exist, but most programs' output doesn't use them!  Instead, rigorously 
+ALL conforming programs use the correct console support, which includes:
+
+a) Full support for Control-S/Control-Q reverse protocol.
+
+b) Full support for DECmates.  If a program is not running on a PDP-8, it 
+is impossible to have program abort work as on the PDP-8.  P?S/8 supports a 
+logical abort bit.  A program that is ACTUALLY running on a PDP-8 can use 
+the usual method of noticing the latest character is Control-C AND have the 
+keyboard flag be preserved [using KRS] but if running on a DECmate, instead 
+you MUST use KRB, and then upon an abort exist, perform the instruction ISZ 
+I (7611).  The P?S/8 keyboard monitor works both ways, etc.  Thus, there is 
+no point in having those two handlers.
+
+c) P?S/8 supports the unique concept of the Logical Console Overlay where 
+all conforming programs call resident routines optionally loaded into the 
+highest field of memory.  JMS to page zero locations is used for all 
+functions.  This way, the hardware for the console can be totally different 
+and no programs are ever changed.  This has allowed such as remote device 
+40/41 terminals to be used, or terminal emulator devices such as the VT8E 
+or the PDP-12 VR12/14 screen.  Complete error messages can come out 
+elegantly on the console screen to allow retries or aborts, etc.  The 
+console overlay configuration is an independent concept of generically 
+calling the console at all.  the default console configuration is identical 
+to the normal 03/04 standard handling, so only if an error occurs would you 
+even know it was present [other than by checking the obvious memory usage]. 
+A configuration was created to allow a researcher to abort the 
+data-acquisition program from the analog equipment by hooking a push-button 
+to a DR8E input bit in a LAB-8/E configuration.  The PDP-12 can do an 
+analogous function.  Either way, the logical equivalent of a Control-C 
+being pressed was passed back to P?S/8 when the program aborted, etc.
+
+The Overlay also supports LPT redirection from the default standard of 
+device.  [Note: OS/8 BATCH is NOT device-independent.  It MUST use the 
+device 66 LPT:  On the newer releases for DECmates, this was changed to 
+device 32/33]
+
+Calling programs can just output to the logical LPT and the JMS calls do 
+all of the work, including print-buffering and reverse-channel protocol if 
+this is actually a serial printer.  An Interrupt-driven program MUST use 
+the provided reverse-channel call [otherwise optional] to field the 
+protocol, but this is because interrupt handling must ALWAYS first use the 
+logical console overlay interrupt [done via a JMS 0 in imitation of the 
+hardware] and then the
+logical "flags" have to be checked, etc.
+
+The only additional problem in P?S/8 is the need to support paper-tape 
+input and output.  towards that end, P?S/8 BIN handles all of the 
+variations for binary paper-tapes.  The PTUTIL program currently under 
+development will handle all of the source file analogous situations.  P/S/8 
+historically has been written by individuals who HATE paper-tape and the 
+original configuration was a PDP-8 with 4K, EAE, TC01 and one TU55 and the 
+console was a KSR-35.  [We could only read paper-tapes by "borrowing" the 
+console from the PDP-8/I mentioned elsewhere as a "midnight" operation.
+
+The only reason for the renewed interest in paper-tape is so the SIMH 
+simulator can work without resorting to using OS/8 and THEN OS8CON to move 
+source files around.  When PTUTIL is done, the process can literally be 
+automated to create P?S/8 PAL listing files without any manual input.  [The 
+SIMH simulator supports a feature to cause auto-exit by executing such as 
+6050, and the rest can be deal with using P?S/8 BATCH to create an infinite 
+loop of the BATCH file calling itself.  P?S/8 BATCH has two modes, one just 
+is lost if something reboots, and the other breakpoints the batch so it 
+continues after the next reboot, which could be on another machine!
+
+Once this is done, it would be quite contrived to claim there is need for a 
+"handler" in any sense.  paper-tapes should be relegated to utility 
+programs; wasting handler slots is not a good design.
+
+Thus, the only conceptual limitation of the basic system is when you have 
+configurations such as DECtapes and disks; the P?S/8 SHELL will use 
+non-system handlers to get around this, etc.
+
+Since there will be by definition far less handlers needed, each handler 
+can have more information associated with it.  No need for kludges such as 
+the device lengthi is stored inside of PIP.SV on the system device, and 
+RESORC.SV has to have kludges to figure out the rest.
+
+The handlers will have entries with such as device size if knowable, OR you 
+interrogate the non-system handler to find out what applies CURRENTLY.  
+This would apply to an RX01/02/03 non-system handler analogous to OS/8 
+currently, and also to DECtapes where at least two sizes of DECtapes are in 
+common use [2702 blocks and 3300 blocks.  Since the handlers have so much 
+more room to implement the functions, a return current length function can 
+be defined:  Just perform a search; when it successes record the latest 
+block, increment until an END error occurs.  On the PDP-12, in extended 
+operations mode, you can wait until a read completes without error and 
+judiciously use good starsting points to make the process take minimum time 
+[other than winding the tape up].  Patch the system to a fixed size if you 
+never use these tapes, but OS/9 does not support the concept of more than 
+one at a time.  Anything RESORC ought to know belongs in the same area, 
+etc. Logical unit info can be limited to the EXCEPTIONS to the assumptions 
+of 0 through 7 instead of listing out all of the similar yet different 
+DTAx: entries of OS/8, etc.
+
+The P?S/8 handler does not have an error return.  This is a fallacy of OS/8 
+because of the basic concept being flawed from day one:
+
+The call to load a system program final memory segment is in field 1 at 
+7666.  There is every possibility this attempt can fail.  [Note: On actual 
+DECtape systems, some bad experiences have occurred of late.  The OS/8 
+corresponding handlers IGNORE errors while searching!  This is an accident 
+waiting to happen.]  The P?S/8 handler stops on ALL errors.  That way, you 
+can know your tape system is failing and have time to recover the data, not 
+find out too late that it is no non-recoverable.
+
+Thus, compare to the P?S/8 equivalent, which is an embedded call to the 
+handler at 07632.  If there is an error, it is NOT going to return.  The 
+only recourse is to RETY.  But it CAN succeed, in which case it is the 
+proper thing to do to continue.
+
+But in OS/8, you get a FATAL HLT that if you press CONTINUE, you are 
+playing Russian Roulette with your system.  You are going to execute code 
+known to have not loaded correctly!
+
+In P?S/8 without the Logical Console Overlay, you have to press CONTINUE.  
+If the Overlay is enabled, an elegant retry or abort operation is used to 
+confront the user/operator.
+
+Thus, by definition, the OS/8 system device handler concept is frawed and 
+unfixable.  There simply isn't enough space in that call to recover, etc.
+
+The P?S/8 SHELL will use the system device handler just for inter-component 
+usage, such as to load non-system handlers, etc.
+
+The non-system handler DOES have an error return:
+
+
+    JMS I    (HANDLER)
+    PTR
+    error-return
+    good-return
+
+PTR points to a separate arg grouping [and it can be on page zero which can 
+be useful]
+
+PTR,    BUFFER
+    FUNCTION
+    BLOCK-LOW
+    BLOCK-HIGH
+
+Because the block argument is double-precision, handler support extends in 
+theory to devices 2048 times as large as OS/8.  As a practical matter, an 
+entire RK05 pack is one device, etc.  A contrived confituration could treat 
+the hardware as an RK05F.  That means that there are blocks 000000-625777 
+on one logical device.
+
+The reason for this design is because it is reasonable that ALL programs 
+calling a non-system handler have the inherent situation to properly handle 
+errors, at least minimally.  No handlers are involved in calling handlers, 
+etc.
+
+A nice side effect of P?S/8 design is all input or output buffers are 
+multiples of pages, not double-pages.  Programs such as BATCH only need a 
+single page input buffer because the actual data is hardly used; a BATCH 
+file is seldom even a complete one-page block, etc.
+
+OS/8 cannot take advantage of any ODD number of pages in a buffer.  Due to 
+the general stupidity regarding x7600-x7777, the value of an entire field 
+32 pages is not possible.  [Note: Unlike OS/8, P?S/8 non-system handlers 
+are FIELD and page relocatable.]
+
+The P?S/8 memory model is all programs get 00000-07577, same as OS/8, but 
+then 10000-onward up to the last field of memory inclusive. In many systems 
+that is literally the case and could be as much as tne entirety of field 7.
+
+Depending on optional configuration considerations, at worst all of the 
+highest field is reserved, but might only be portions.
+
+For example, if a system device handler has the requirement of an 
+extended-memory section it always occupies x6000-x7777, where x is the 
+highest actual field.  If you reboot on a different machine it will be 
+dynamically determined there, etc.
+
+If the Logical Console Overlay is not enabled, the end of memory would be 
+x5777.  For programs such as P?S/8 PAL, that extra 3K for more symbols can 
+be quite important.  15-bit addressing programs such as Fortran IV can take 
+advantage of this as well.  There are no sore points such as OS/8 requiring 
+12K for a device.  The 15-bit linear addressing space starts at 10000, not 
+20000 [and no kludges to make even that work!].
+
+
+Non-system handler calls will be developed for custom functions.  the 
+current known one is return device size, say ask for block 7777,7777.  
+Always takes the error return and the address within the handler where the 
+length is in double-precision is in the AC.  Virtually any number of 
+functions can be defined in the future as things such as this are easily 
+open-ended, etc.
+
+Good for all DECtapes, LINCtapes, and RX devices, etc.  If not ready, 
+returns 0000;0000's address because it is still unknown, etc.
+
+Loading the last segment is to write to the P?S/8 standard scratch area for 
+all of field 0 [blocks 20-37 and 40-57] which is defined even in the basic 
+P?S/8 system for analogous purposes.  However, if a program does not 
+indicate the preservation of memory [the norm] then if there is memory over 
+and above the highest field of the program load, instead load the field 0 
+image into y0000-y7577 where y is the highest available field [which might 
+be X-1 where x is the highest field assuming the worst-case scenario of 
+needing an extended-length handler] and then just moving the contents of 
+field 0 to field 0 from field Y, etc.  Only if the memory is either truly 
+small, or the program specifies to not do this, would it be done by the 
+brute-force method.  In general if you actually have more than 4K, expect 
+all programs to load more rapidly. [P?S/8 basic is 4K-oriented.  P?S/8 
+SHELL is give me as much memory as you have and do the best job possible 
+oriented].
+
+cjl
+
+
+
+
+
+
+
+------=_Part_1393_1740590333.1642790493357
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+From the P?S8 Google group<br><br><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">---------- Forwarded message ---------<br>From: <s=
+pan dir=3D"auto">cjl &lt;Unknown&gt;</span><br>Date: Saturday, August 5, 20=
+17 at 8:44:34 PM UTC-5<br>Subject: P?S/8 SHELL device identification and re=
+lated matters.<br>To: <span dir=3D"auto">P?S/8 &lt;Unknown&gt;</span><br></=
+div><br><br><html-blob><div dir=3D"ltr">With the discussion of some of the =
+OS/8 device identification shortcomings, and as is per usual, OS/8 points t=
+he way to NOT go, so here is some points about the future of the P?S/8 SHEL=
+L's CORRECT direction.<br><br>P?S/8 as it currently exists we are calling t=
+he "basic" system.&nbsp; Every system program uses the P?S/8 system device =
+handler for all functions.<br><br>This is not as limited as it sounds at fi=
+rst glance:<br><br>A comparison of the two systems' device handler calls wi=
+ll reveal some interesting things:<br><br>OS/8.<br><br>&nbsp;&nbsp;&nbsp; J=
+MS I&nbsp;&nbsp;&nbsp; (7607)<br>&nbsp;&nbsp;&nbsp; FUNCTION<br>&nbsp;&nbsp=
+;&nbsp; BUFFER<br>&nbsp;&nbsp;&nbsp; RECORD<br>&nbsp;&nbsp;&nbsp; error-ret=
+urn<br>&nbsp;&nbsp;&nbsp; good-return<br><br>P?S/8<br><br>&nbsp;&nbsp;&nbsp=
+; JMS I&nbsp;&nbsp;&nbsp; (7640)<br>&nbsp;&nbsp;&nbsp; BUFFER<br>&nbsp;&nbs=
+p;&nbsp; FUNCTION<br>&nbsp;&nbsp;&nbsp; BLOCK<br>&nbsp;&nbsp;&nbsp; good-re=
+turn<br><br>The call to the P?S/8 system device handler is at the address t=
+hat is the same code as the SZA CLA instruction.&nbsp; For many code-squeez=
+ing situations, it is trivial to make it true that a nearby instruction can=
+ be used as the pointer thus saving a page zero literal.&nbsp; [The P?S/8 k=
+eyboard monitor literally does that; it really isn't hard in the scheme of =
+code-bumming techniques].&nbsp; OS/8 uses 7607 which has no particular util=
+ity; as an instruction it is a group III EAE instruction.<br><br>The BUFFER=
+ argument is identical in both systems - the 12-bit read or write buffer fo=
+r the operation.<br><br>P?S/8 addresses to the nearest logical 128-word blo=
+ck.&nbsp; OS/8 to the nearest 256 word record with a kludge:&nbsp; The send=
+-half of records can be destroyed with impunity.&nbsp; In P?S/8 you must pr=
+eserve things.&nbsp; In the case of the P?S/8 RK8E handlers, the handler us=
+es an internal buffer to make that viable, but only if the case comes up.&n=
+bsp; In all cases of "double-even" blocks, the throughput is identical in b=
+oth systems.&nbsp; [Note: Some OS/8 RK8E handlers have a bug:&nbsp; The "ch=
+eck" bit is set on every HEAD change instead of every TRACK change.]<br><br=
+>P?S/8 conversion programs such as OS8CON depend on the 2:1 relationship.&n=
+bsp; The OS/8 DECtape handlers just double up the past record number to bec=
+ome the block number..&nbsp; As such, these programs have to use compatible=
+ <br>devices such as in OS/8 DTA1: is logical unit 1 on a P?S/8 DECape-base=
+d system.<br><br>The more important part is the difference in the FUNCTION =
+word.<br><br>All of the bits are identical except that in OS/8 bits [9-11] =
+were INTENDED to mean what they do in P?S/8, but because of management inte=
+rference, this was never to happen.&nbsp; As in the PDP-10 TOPS-10 support,=
+ there is a DTA handler with logical units 0-7; OS/8 just has a DTA0: handl=
+er and a DTA1: handler, etc. up to a DTA7: handler.&nbsp; And there are onl=
+y 14 handlers maximum [DSK is a dummy to be assigned to one of the others a=
+nd in some systems, the co-resient handlers are problematic.&nbsp; A ration=
+ally configured OS/8 system for RK8E had better NOT use the SYS: handler an=
+d the RKA0: [and similarly the RKB0: handler] because if you boot to one of=
+ the other drives, they become RKAx and RKBx where x is the boot drive and =
+NOT RKA0 and RKA1.&nbsp; Many find this out too late!<br><br>Later, OS/8 as=
+sed the feeble notion of bit[11] is a "recommendation" from the caller rega=
+rding the initial search direction bit for tape-based systems.&nbsp; There =
+are multiple problems with this nonsense:<br><br>a) It is a static guess, a=
+nd as such there are only 3-4 of them throughout OS/8.&nbsp; This missed at=
+ least 20 times as many DYNAMIC situations.<br><br>b) It should be possible=
+ to write a better handler that just knows what to do.&nbsp; Someone once w=
+rote a TC01/TC08 handler that self-guesses and just ignores the bit.<br><br=
+>P?S/8 tape handlers all guess themselves, and that means ALL possibilities=
+ are exploited dynamically.<br><br>Had OS/8 actually implemented the logica=
+l unit bits, there would be a lot less need for device slots to be filled.&=
+nbsp; P?S/8 will ALWAYS support the logical device unit concept, thus inher=
+ently it is trivial to out-class OS/8 when even only two such devices are s=
+upported in any configuration [as two handlers are doing the job OS/8 needs=
+ SIXTEEN to accomplish which is beyond the OS/8 capability.&nbsp; Moreover,=
+ you can prove that using non-structured handlers is largely a kludge.&nbsp=
+; Better to write utility programs for the few cases that work, such as to =
+have support for .5 inch magtape.&nbsp;&nbsp;&nbsp; You can define a far be=
+tter result totally within the purview of a utility program, etc.&nbsp; Thi=
+s is why IOMEC didn't bother with this level of support.&nbsp; I worked for=
+ 1.5 years for a company that was heavily dependent on various IOMEC drives=
+; utility programs were written quite successfully; the TM8E could not comp=
+ete and came out later, etc.<br><br>The console handling of OS/8 is really =
+program-rolls-its-own.&nbsp; The handlers do exist, but most programs' outp=
+ut doesn't use them!&nbsp; Instead, rigorously ALL conforming programs use =
+the correct console support, which includes:<br><br>a) Full support for Con=
+trol-S/Control-Q reverse protocol.<br><br>b) Full support for DECmates.&nbs=
+p; If a program is not running on a PDP-8, it is impossible to have program=
+ abort work as on the PDP-8.&nbsp; P?S/8 supports a logical abort bit.&nbsp=
+; A program that is ACTUALLY running on a PDP-8 can use the usual method of=
+ noticing the latest character is Control-C AND have the keyboard flag be p=
+reserved [using KRS] but if running on a DECmate, instead you MUST use KRB,=
+ and then upon an abort exist, perform the instruction ISZ I (7611).&nbsp; =
+The P?S/8 keyboard monitor works both ways, etc.&nbsp; Thus, there is no po=
+int in having those two handlers.<br><br>c) P?S/8 supports the unique conce=
+pt of the Logical Console Overlay where all conforming programs call reside=
+nt routines optionally loaded into the highest field of memory.&nbsp; JMS t=
+o page zero locations is used for all functions.&nbsp; This way, the hardwa=
+re for the console can be totally different and no programs are ever change=
+d.&nbsp; This has allowed such as remote device 40/41 terminals to be used,=
+ or terminal emulator devices such as the VT8E or the PDP-12 VR12/14 screen=
+.&nbsp; Complete error messages can come out elegantly on the console scree=
+n to allow retries or aborts, etc.&nbsp; The console overlay configuration =
+is an independent concept of generically calling the console at all.&nbsp; =
+the default console configuration is identical to the normal 03/04 standard=
+ handling, so only if an error occurs would you even know it was present [o=
+ther than by checking the obvious memory usage]. A configuration was create=
+d to allow a researcher to abort the data-acquisition program from the anal=
+og equipment by hooking a push-button to a DR8E input bit in a LAB-8/E conf=
+iguration.&nbsp; The PDP-12 can do an analogous function.&nbsp; Either way,=
+ the logical equivalent of a Control-C being pressed was passed back to P?S=
+/8 when the program aborted, etc.<br><br>The Overlay also supports LPT redi=
+rection from the default standard of device.&nbsp; [Note: OS/8 BATCH is NOT=
+ device-independent.&nbsp; It MUST use the device 66 LPT:&nbsp; On the newe=
+r releases for DECmates, this was changed to device 32/33]<br><br>Calling p=
+rograms can just output to the logical LPT and the JMS calls do all of the =
+work, including print-buffering and reverse-channel protocol if this is act=
+ually a serial printer.&nbsp; An Interrupt-driven program MUST use the prov=
+ided reverse-channel call [otherwise optional] to field the protocol, but t=
+his is because interrupt handling must ALWAYS first use the logical console=
+ overlay interrupt [done via a JMS 0 in imitation of the hardware] and then=
+ the<br>logical "flags" have to be checked, etc.<br><br>The only additional=
+ problem in P?S/8 is the need to support paper-tape input and output.&nbsp;=
+ towards that end, P?S/8 BIN handles all of the variations for binary paper=
+-tapes.&nbsp; The PTUTIL program currently under development will handle al=
+l of the source file analogous situations.&nbsp; P/S/8 historically has bee=
+n written by individuals who HATE paper-tape and the original configuration=
+ was a PDP-8 with 4K, EAE, TC01 and one TU55 and the console was a KSR-35.&=
+nbsp; [We could only read paper-tapes by "borrowing" the console from the P=
+DP-8/I mentioned elsewhere as a "midnight" operation.<br><br>The only reaso=
+n for the renewed interest in paper-tape is so the SIMH simulator can work =
+without resorting to using OS/8 and THEN OS8CON to move source files around=
+.&nbsp; When PTUTIL is done, the process can literally be automated to crea=
+te P?S/8 PAL listing files without any manual input.&nbsp; [The SIMH simula=
+tor supports a feature to cause auto-exit by executing such as 6050, and th=
+e rest can be deal with using P?S/8 BATCH to create an infinite loop of the=
+ BATCH file calling itself.&nbsp; P?S/8 BATCH has two modes, one just is lo=
+st if something reboots, and the other breakpoints the batch so it continue=
+s after the next reboot, which could be on another machine!<br><br>Once thi=
+s is done, it would be quite contrived to claim there is need for a "handle=
+r" in any sense.&nbsp; paper-tapes should be relegated to utility programs;=
+ wasting handler slots is not a good design.<br><br>Thus, the only conceptu=
+al limitation of the basic system is when you have configurations such as D=
+ECtapes and disks; the P?S/8 SHELL will use non-system handlers to get arou=
+nd this, etc.<br><br>Since there will be by definition far less handlers ne=
+eded, each handler can have more information associated with it.&nbsp; No n=
+eed for kludges such as the device lengthi is stored inside of <a href=3D"h=
+ttp://PIP.SV" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"ht=
+tps://www.google.com/url?hl=3Den&amp;q=3Dhttp://PIP.SV&amp;source=3Dgmail&a=
+mp;ust=3D1642876872806000&amp;usg=3DAFQjCNFMf75ygrKIfuVhLZ4fhOY8ETK6EQ">PIP=
+.SV</a> on the system device, and <a href=3D"http://RESORC.SV" target=3D"_b=
+lank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?h=
+l=3Den&amp;q=3Dhttp://RESORC.SV&amp;source=3Dgmail&amp;ust=3D16428768728060=
+00&amp;usg=3DAFQjCNEL77Qu6P9-XShCuzMg8fYXXFM2vQ">RESORC.SV</a> has to have =
+kludges to figure out the rest.<br><br>The handlers will have entries with =
+such as device size if knowable, OR you interrogate the non-system handler =
+to find out what applies CURRENTLY.&nbsp; This would apply to an RX01/02/03=
+ non-system handler analogous to OS/8 currently, and also to DECtapes where=
+ at least two sizes of DECtapes are in common use [2702 blocks and 3300 blo=
+cks.&nbsp; Since the handlers have so much more room to implement the funct=
+ions, a return current length function can be defined:&nbsp; Just perform a=
+ search; when it successes record the latest block, increment until an END =
+error occurs.&nbsp; On the PDP-12, in extended operations mode, you can wai=
+t until a read completes without error and judiciously use good starsting p=
+oints to make the process take minimum time [other than winding the tape up=
+].&nbsp; Patch the system to a fixed size if you never use these tapes, but=
+ OS/9 does not support the concept of more than one at a time.&nbsp; Anythi=
+ng RESORC ought to know belongs in the same area, etc. Logical unit info ca=
+n be limited to the EXCEPTIONS to the assumptions of 0 through 7 instead of=
+ listing out all of the similar yet different DTAx: entries of OS/8, etc.<b=
+r><br>The P?S/8 handler does not have an error return.&nbsp; This is a fall=
+acy of OS/8 because of the basic concept being flawed from day one:<br><br>=
+The call to load a system program final memory segment is in field 1 at 766=
+6.&nbsp; There is every possibility this attempt can fail.&nbsp; [Note: On =
+actual DECtape systems, some bad experiences have occurred of late.&nbsp; T=
+he OS/8 corresponding handlers IGNORE errors while searching!&nbsp; This is=
+ an accident waiting to happen.]&nbsp; The P?S/8 handler stops on ALL error=
+s.&nbsp; That way, you can know your tape system is failing and have time t=
+o recover the data, not find out too late that it is no non-recoverable.<br=
+><br>Thus, compare to the P?S/8 equivalent, which is an embedded call to th=
+e handler at 07632.&nbsp; If there is an error, it is NOT going to return.&=
+nbsp; The only recourse is to RETY.&nbsp; But it CAN succeed, in which case=
+ it is the proper thing to do to continue.<br><br>But in OS/8, you get a FA=
+TAL HLT that if you press CONTINUE, you are playing Russian Roulette with y=
+our system.&nbsp; You are going to execute code known to have not loaded co=
+rrectly!<br><br>In P?S/8 without the Logical Console Overlay, you have to p=
+ress CONTINUE.&nbsp; If the Overlay is enabled, an elegant retry or abort o=
+peration is used to confront the user/operator.<br><br>Thus, by definition,=
+ the OS/8 system device handler concept is frawed and unfixable.&nbsp; Ther=
+e simply isn't enough space in that call to recover, etc.<br><br>The P?S/8 =
+SHELL will use the system device handler just for inter-component usage, su=
+ch as to load non-system handlers, etc.<br><br>The non-system handler DOES =
+have an error return:<br><br><br>&nbsp;&nbsp;&nbsp; JMS I&nbsp;&nbsp;&nbsp;=
+ (HANDLER)<br>&nbsp;&nbsp;&nbsp; PTR<br>&nbsp;&nbsp;&nbsp; error-return<br>=
+&nbsp;&nbsp;&nbsp; good-return<br><br>PTR points to a separate arg grouping=
+ [and it can be on page zero which can be useful]<br><br>PTR,&nbsp;&nbsp;&n=
+bsp; BUFFER<br>&nbsp;&nbsp;&nbsp; FUNCTION<br>&nbsp;&nbsp;&nbsp; BLOCK-LOW<=
+br>&nbsp;&nbsp;&nbsp; BLOCK-HIGH<br><br>Because the block argument is doubl=
+e-precision, handler support extends in theory to devices 2048 times as lar=
+ge as OS/8.&nbsp; As a practical matter, an entire RK05 pack is one device,=
+ etc.&nbsp; A contrived confituration could treat the hardware as an RK05F.=
+&nbsp; That means that there are blocks 000000-625777 on one logical device=
+.<br><br>The reason for this design is because it is reasonable that ALL pr=
+ograms calling a non-system handler have the inherent situation to properly=
+ handle errors, at least minimally.&nbsp; No handlers are involved in calli=
+ng handlers, etc.<br><br>A nice side effect of P?S/8 design is all input or=
+ output buffers are multiples of pages, not double-pages.&nbsp; Programs su=
+ch as BATCH only need a single page input buffer because the actual data is=
+ hardly used; a BATCH file is seldom even a complete one-page block, etc.<b=
+r><br>OS/8 cannot take advantage of any ODD number of pages in a buffer.&nb=
+sp; Due to the general stupidity regarding x7600-x7777, the value of an ent=
+ire field 32 pages is not possible.&nbsp; [Note: Unlike OS/8, P?S/8 non-sys=
+tem handlers are FIELD and page relocatable.]<br><br>The P?S/8 memory model=
+ is all programs get 00000-07577, same as OS/8, but then 10000-onward up to=
+ the last field of memory inclusive. In many systems that is literally the =
+case and could be as much as tne entirety of field 7.<br><br>Depending on o=
+ptional configuration considerations, at worst all of the highest field is =
+reserved, but might only be portions.<br><br>For example, if a system devic=
+e handler has the requirement of an extended-memory section it always occup=
+ies x6000-x7777, where x is the highest actual field.&nbsp; If you reboot o=
+n a different machine it will be dynamically determined there, etc.<br><br>=
+If the Logical Console Overlay is not enabled, the end of memory would be x=
+5777.&nbsp; For programs such as P?S/8 PAL, that extra 3K for more symbols =
+can be quite important.&nbsp; 15-bit addressing programs such as Fortran IV=
+ can take advantage of this as well.&nbsp; There are no sore points such as=
+ OS/8 requiring 12K for a device.&nbsp; The 15-bit linear addressing space =
+starts at 10000, not 20000 [and no kludges to make even that work!].<br><br=
+><br>Non-system handler calls will be developed for custom functions.&nbsp;=
+ the current known one is return device size, say ask for block 7777,7777.&=
+nbsp; Always takes the error return and the address within the handler wher=
+e the length is in double-precision is in the AC.&nbsp; Virtually any numbe=
+r of functions can be defined in the future as things such as this are easi=
+ly open-ended, etc.<br><br>Good for all DECtapes, LINCtapes, and RX devices=
+, etc.&nbsp; If not ready, returns 0000;0000's address because it is still =
+unknown, etc.<br><br>Loading the last segment is to write to the P?S/8 stan=
+dard scratch area for all of field 0 [blocks 20-37 and 40-57] which is defi=
+ned even in the basic P?S/8 system for analogous purposes.&nbsp; However, i=
+f a program does not indicate the preservation of memory [the norm] then if=
+ there is memory over and above the highest field of the program load, inst=
+ead load the field 0 image into y0000-y7577 where y is the highest availabl=
+e field [which might be X-1 where x is the highest field assuming the worst=
+-case scenario of needing an extended-length handler] and then just moving =
+the contents of field 0 to field 0 from field Y, etc.&nbsp; Only if the mem=
+ory is either truly small, or the program specifies to not do this, would i=
+t be done by the brute-force method.&nbsp; In general if you actually have =
+more than 4K, expect all programs to load more rapidly. [P?S/8 basic is 4K-=
+oriented.&nbsp; P?S/8 SHELL is give me as much memory as you have and do th=
+e best job possible oriented].<br><br>cjl<br><br><br><br><br><br><br></div>=
+</html-blob></div>
+------=_Part_1393_1740590333.1642790493357--
+
+------=_Part_1392_1837522807.1642790493357--

@@ -1,0 +1,874 @@
+From: cjl 
+Date: Friday, October 18, 2019 at 10:03:48 AM UTC-5
+Received: vrs; Friday, October 18, 2019 at 10:03:48 AM UTC-5
+Subject: Re: Is the P?S/8 release imminent?
+Message-Id: <71f3c0c9-43bc-4061-a0a2-b6bc85d5ab40n@googlegroups.com>
+In-Reply-To: <65093af6-3fbf-470c-a7e8-4780c9a8a610@googlegroups.com>
+References: <5456e96c-8026-43e4-a1da-670753ed4ea3@googlegroups.com>
+ <cefc6886-cd2d-4ea2-84aa-ac73da3d20fd@googlegroups.com>
+ <cc44bc0d-72e2-44d7-bff6-6d3e41c37c16@googlegroups.com>
+ <183e03e3-ea2b-49c2-adab-50158c7351c0@googlegroups.com>
+ <65093af6-3fbf-470c-a7e8-4780c9a8a610@googlegroups.com>
+To: pqs8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_346_1673319291.1642789783583"
+Content-Length: 54422
+
+------=_Part_346_1673319291.1642789783583
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_347_2018941632.1642789783583"
+
+------=_Part_347_2018941632.1642789783583
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+From the P?S8 Google group
+
+---------- Forwarded message ---------
+From: cjl <Unknown>
+Date: Friday, October 18, 2019 at 10:03:48 AM UTC-5
+Subject: Re: Is the P?S/8 release imminent?
+To: P?S/8 <Unknown>
+
+
+Since this is really an issue of the PEPS package (and where it might run), 
+I am taking this topic to where it belongs, to the  pepswin group.   Most 
+of you are already members of both groups.  If necessary, post or e-mail me 
+for add to that group,  etc.  I am posting about some new things there, 
+perhaps later today.
+
+cjl
+
+The only specific interaction between PEPS and P?S/8 (and also OS/8) is the 
+specifics of support for DECtape.  Thanks to a couple of minor patches to 
+pdp8.exe (the SIMH executable) DECtapes can be any length up to 4K blocks.  
+Originally this was intended to have support of real-world extra-long 
+DECtapes of 3300 blocks, but there are also useful features to be gained 
+supporting the "fantasy" size as well.  Also, specifically for the benefit 
+of prior releases of P?S/8 (primarily, there is perhaps a modicum of this 
+pertinent to the latest release) SIMH can permanently place the device 66 
+LPT off-line.  As such, there are two different ways to launch P?S/8 for 
+any particular version, etc.  Like PDP-12 DIAL-MS, P?S/8 LPT: support is by 
+device discovery; failing to locate the hardware and the software reverts 
+to the system console.  In Version 8Z (nearly) all utilities support the /T 
+command-line switch to prevent the detection.  Future releases may reverse 
+the polarity of the switch to instead enable printer output, but 
+regardless, the newer releases exert some control over the issue whereas 
+the older releases did not (PEPS has provisional support for an old Version 
+8T system which has no program support to disable the LPT: As such, it is 
+mandatory for that older system, but needed less and less with newer 
+releases.  Future releases will reduce this to near zero; however, for the 
+present, PEPS will have the duality regarding the printer, etc.
+
+
+On Wednesday, October 9, 2019 at 3:23:25 AM UTC-4, cjl wrote:
+>
+> Some new points, more of an annoyance, but it has to be stated.
+>
+> Due to the infinite stupidity of Microsoft, Windows 10 has become 
+> incompatible with itself, and pisses off some really helpful people in the 
+> various Win7, 8 and 10 forums.  The ability to make the recommended GUI 
+> changes disappear once you log off!  Way to go, guys! many others are 
+> affected, not just anything 12-bit, etc.
+>
+> Thus, there are only a few options:
+>
+> a) Get a VM and simulate a former system such as Windows XP.  Microsoft 
+> had that for Windows 7, but Win7 doesn't have the problem.  But if you can 
+> run anything from XP through Win7 in emulation, put up PEPS on that virtual 
+> system.  This probably means you have to purchase something, but it evades 
+> all of my issues (and theirs).
+>
+> b) There are several less-than-satisfying band-aids to apply to get a 
+> passable but wasteful solution.  In essence, all icon positions have to be 
+> filled with dummies where you want nothing, as placeholders.  And all icons 
+> have to be tiles and not medium icons.  The labels will be contrived to 
+> start with sequence numbers so it defies the current behavior. It's better 
+> than nothing.
+>
+> c) If you wish to dedicate some portion of the Windows 10 desktop to PEPS 
+> instead of a window you can call up when you wish [and remove when you 
+> wish!] you can get the primary Command Window equivalent/  Depending on 
+> screen dimensions, this could be well over 40% of the screen, and requires 
+> some otherwise overall discipline to make sure other uses of the system do 
+> not interfere.  But if you are careful, at least the primary window will 
+> have a look and work-alike cosmetic alternative.
+>
+> That said, there is still no solution for the few secondary windows 
+> brought up from the main window.  A compromise solution I am considering is 
+> to do the method of b) above for the secondary windows.  All of them have 
+> less total items, so this may be vaguely acceptable for its part.  This has 
+> to be tested in Windows XP which doesn't quite have the same level of tile 
+> support, but then again,it totally lacks the main problem and would allow 
+> the current solution to just work.
+>
+> When you have to have a screen full of tiles, it can be quite "busy" which 
+> was the whole idea of placed icons to avoid.  But Win10 must have dummies 
+> to support any form of ordered icons, and all have to start with sequence 
+> numbers.  I will obviously try all of the possibilities, but my point is 
+> this just wastes more time because the MS jackasses don't know what they 
+> want out of Windows 10. Many are griping about each new release breaks so 
+> much, yet other than for paid support, they are dropping support for 
+> Windows 7 in January.  I am hoping that The Hotfix.net or some 
+> equivalent,document how to get all the updates to keep it going for some 
+> more years, but it may become an "underground" kind of thing if MS kills 
+> off the update download links unless you can get paid support, which will 
+> be difficult as well as likely a serious expense.  This won't be just pay 
+> is ten bucks and it otherwise works as before. It is a concerted effort to 
+> get everyone to use Windows 10 even if it is broken, etc.
+>
+> If anyone know of a good enough freeware emulator that runs on Windows 10 
+> and supports XP please post the info here, etc.
+>
+> cjl
+>
+> On Friday, August 9, 2019 at 6:41:13 AM UTC-4, cjl wrote:
+>>
+>>
+>>
+>> On Saturday, December 2, 2017 at 8:27:51 PM UTC-5, cjl wrote:
+>>
+>> Note: A limitation of the Google forum post mechanism is the inability to 
+>> make edits once posted; as such, small edits to existing portions of this 
+>> post are being made merely for increased clarity without changing the 
+>> meaning, etc.
+>>
+>>>
+>>>
+>>> On Tuesday, October 31, 2017 at 1:10:47 PM UTC-4, Dylan McNamee wrote:
+>>>>
+>>>> I took the creation of the P?S/8 group as an indication of an eventual 
+>>>> release. As someone who really enjoys working with his PiDP-8, and 
+>>>> appreciating the amazing feats of engineering of the OS and application 
+>>>> developers, this seems like yet another opportunity to be amazed and 
+>>>> informed. 
+>>>>
+>>>> I gather from the discussion here and elsewhere that "it's 
+>>>> complicated," and we've all been patient, but I (at least) am curious about 
+>>>> any kind of predicted release date, or at least description of the hurdles 
+>>>> between now and a release.
+>>>>
+>>>
+>>> A reasonable question from the vantage point of on the outside looking 
+>>> in,
+>>>
+>>> P?S/8 is not a "finished product" in the sense that a decades-long 
+>>> process of closing off problem areas has been ongoing.
+>>>
+>>
+>> Certain additional fixes have been applied since this was posted.  A 
+>> change-log file is in the process of being created that requires a lot of 
+>> word-processing.  There will be an announcement of this document when it is 
+>> stable, however, there are many such documentation short-falls in my work; 
+>> I do the best I can to deal with them as time permits and the mood suits.
+>>  
+>>
+>>>
+>>> Prior to the viability of the PEPS package, the few remaining sore spots 
+>>> made it a virtual necessity to have both OS/8 and P?S/8 available at the 
+>>> same time because it is patently obvious where the problems make it too 
+>>> hard to use for most users.
+>>>
+>>
+>> Please note that the PEPS package improves using either P?S/8 or OS/8.  
+>> Most of the improvements are unique to PEPS, and in particular, the vaguely 
+>> similar PiDP-8 environment, despite being based on a variant SIMH, is just 
+>> not even close for the use of someone interested in PDP-8 issues.  It is 
+>> too much of a "unix toy" which gets in the way of the main event, although 
+>> it appears that many who dabble in that environment just don't notice 
+>> because frankly, they only have passing interest in the product which is 
+>> admittedly a very shiny toy.  I have one myself and it just doesn't cut 
+>> it.  Worse still, the powers that be there need a severe attitude 
+>> adjustment before it would even approach what is required in the reality of 
+>> the PDP-8 world and especially P?S/8's current needs. 
+>>
+>>>
+>>> That said, with the availability of PEPS clearly in the "very soon" 
+>>> stage, there is little that OS/8 is needed for any more to work with PAL 
+>>> assembler and FOCAL in any sense of the word.  Down to nitpicks means lack 
+>>> of perfection as opposed to total lack of functionality.
+>>>
+>>
+>> The main issues are that PEPS helps both P?S/8 and OS/8 thrive for 
+>> serious PDP-8 usage.  Some of the facility provided means that OS/8 is less 
+>> so needed for serious PDP-8 development.  To be perfectly fair, I still use 
+>> OS/8 SLIGHTLY myself, because of a few remaining minor sore points, but 
+>> also I am using P?S/8 to help OS/8 out for its sore points.
+>>
+>> The main reason something other than stand-alone P?S/8 is needed is if 
+>> you are more than a beginner to intermediate user.  For that category of 
+>> user, P?S/8 is clearly superior, and easily learned quickly, so the notion 
+>> of learning enough to get by is far harder for OS/8 beginners.
+>>
+>> That said, the "dividing line" is essentially where the scope of the 
+>> project make use of the P?S/8 editor tedious because it is oriented around 
+>> small source files.   A package can become too large for it, and in former 
+>> times I used OS/8 to bridge that gap.  However, PEPS is able to do that far 
+>> better, and thus is recommended even if you use OS/8. but especially so if 
+>> you are developing large files in either system.  Thus, this issue is no 
+>> longer important to me given the use of the PEPS package to be able to run 
+>> both systems.  Thus, the scope of the remaining points is a much smaller 
+>> list.
+>>
+>> Future work on P?S/8 will level the playing field tipping in the favor of 
+>> P?S/8 because it will do all that OS/8 does and more, literally.  [This 
+>> will include the ability to "lift" all standard OS/8 programs available in 
+>> source form and perform a relatively minor source code change; this is not 
+>> any form of "emulation" etc.]  As such, at that future time, the editing 
+>> environment will be equal to or better as compared to OS/8.  But for the 
+>> present, large file developers  need something other than the P?S/8 
+>> editor.  OS/8 is a second-rate solution to that problem as compared to 
+>> PEPS, which also includes at least 4-5 editors potentially; standard 
+>> editors for the present in PEPS are either Notepad, Edit Pad, or Notepad++ 
+>> .  This was not the case less than a year ago until enhanced compatibility 
+>> with many packages was added to some of these.  These are all 
+>> Windows-related issues, but a surprising number of Windows editing packages 
+>> are not fully compatible with Windows in the ways most are perfectly so, 
+>> and PEPS demands, etc.
+>>  
+>>
+>>>
+>>> So, here are the issues:
+>>>
+>>> To be useful, P?S/8 needs a string of logical units setup differently 
+>>> from each other to serve different purposes.  It is in fact trivial to set 
+>>> these different units up, but it is not documented to my satisfaction ]but 
+>>> I am slowly writing adequate documentation so that a knowledgeable user can 
+>>> know what to do.. Because of other issues, making such utilities automated 
+>>> in the general sense is a low priority,, however, there are stopgap 
+>>> measures to write.
+>>>
+>>> I will explain the above with an example.
+>>>
+>>> Unlike OS/8, P?S/8 actually has "2.x" directories currently [and in 
+>>> future versions that will become 3.x]..  Here is the purpose of the 
+>>> directories [and I have written schematic level documents to explain the 
+>>> details].
+>>>
+>>> 1) The System Programs Directory.
+>>>
+>>> This is where conforming system programs are stored.  There are several 
+>>> parameters that each program has to have specified to be totally practical, 
+>>> due to the nature of P?S/8, [A rough comparison here is that the innards of 
+>>> OS/8 CCL needs to set certain things for each program. In the P?S/8 
+>>> alliterative, they are set in the entry within the System Programs 
+>>> Directory.
+>>>
+>>> Again,, there is no utility to just trivially make a system program.  
+>>> You cannot make an analogy to OS/8 because a P?S/8 system program has 
+>>> powerful features that can be availed of where there is no OS/8 analog. In 
+>>> general, they cause efficient execution or other features.
+>>>
+>>> Here are a few of the parameters.
+>>>
+>>> 1) This program demands the parsing of any optional =*xxxx* parameter 
+>>> be be done in the current radix [which the user can set to decimal by 
+>>> default or possibly octal, but generally not the case].  This invariably 
+>>> means decimal, but it more properly works as I described here.  The reason 
+>>> for this is for commands such as FIND "STRING" or CHANGE 
+>>> "STRING"REPLACEMENT STRING which are used as transient overlays to the 
+>>> keyboard monitor and integrated editor for obvious reasons as the user 
+>>> edits files.
+>>>
+>>> 2) Inhibit parsing of parameters entirely.  P?S/8 does not use a 
+>>> command-decoder; the commands essentially resemble a subset of OS/8 CCL 
+>>> without the overhead which is profound on tape-based systems such as TC08 
+>>> and TD8E and TC12.  The commands are powerful yet lack the overhead.
+>>>
+>>> In essence, you get all of what OS/8 asks to get a program going and 
+>>> also pass files to it, but all in one line always.
+>>>
+>>> The OS/8 PAL command is essentially identical [except the command-line 
+>>> switch options of P?S/8 PAL are a) particularly different and b) there are 
+>>> more of them; in fact there are 37 of the 36 switches implemented; one of 
+>>> them has two distinct meanings that are not conflicting].  A contrived 
+>>> example could use the identical commands for both systems, but the options 
+>>> quickly diverge.
+>>>
+>>> The "flow" of commands in OS/8 is always output < input.  Some people 
+>>> prefer input > output.  P?S/8 actually works both ways.
+>>>
+>>> For the benefit of programs such as SET that takes parameters and 
+>>> sub-parameters [some partial overlap with OS/8] it is necessary to prevent 
+>>> all potential file parsing.
+>>>
+>>> 3) Inhibit only input file parsing but allow output file parsing.  This 
+>>> is a one-off at present for the BSAVE command.  BSAVE can save arbitrary 
+>>> groupings of memory in 32K, even down to individual memory locations.  This 
+>>> is because the output is to P?S/8 "slurp" binary files, not core images.  
+>>> These can later be loaded with the "slurp" loader as any other binary file, 
+>>> usually created by P?S/8 PAL or perhaps converted binary paper-tapes in BIN 
+>>> [or RIM] format.  Note: The P?S/8 MAP command is a proper super-set of OS/8 
+>>> BITMAP and is called using the program name thus the PROGRAM is NAMED MAP.  
+>>> [Note: This convention was born nearly simultaneously in both P?S/8 and 
+>>> COS-300.  Both are partially based [but quickly diverge] from the original 
+>>> R-L Monitor.  COS-300 is a redo of the original DIBOL-8, which is literally 
+>>> the R-L Monitor with the two-letter commands hacked up to match what would 
+>>> be in COS-300. [but nothing else; R-L only had the RU command and the 
+>>> program names were only the first two characters].  But these changes were 
+>>> made in both systems so that it would become possible to have the SET 
+>>> command, the PAL command, and the MAP command, etc. and there is no general 
+>>> concept of a "base" layer for which you need a command-decoder and then a 
+>>> facade of software talking to software to make it look the way it does, and 
+>>> this applies identically to P?S/8.  Also:  DEC officially recommended to 
+>>> NOT enable CCL on tape-based systems due to the overhead.  Some members of 
+>>> this group can personally attest to this overhead on real-world hardware.
+>>>
+>>> The most important feature over OS/8 is that the System Programs 
+>>> Directory allows any program to include internal overlays, a feature taken 
+>>> available by such as P?S/8 PAL and P?S/8 FOCAL, each of which actually have 
+>>> several each.
+>>>
+>>> P?S/8 does not have BASIC [it can be written] but the point is that OS/8 
+>>> has to have a string of independent core-mage programs that must chain to 
+>>> each other to create a coherent environment and it is quite stilted and 
+>>> restrictive, and requires creation of intermediate files as a restriction.  
+>>> A P?S/8 version would just use overlays.
+>>>
+>>
+>> Presently, work is being done to restore the last known version of EDU25 
+>> BASIC for OS/8; there are problems with lost portions of the source files;  
+>> I am doing some of the restoration recently, but it is quite broken!
+>>
+>> The goal is to then excise out enough of the product to be useful with 
+>> the current "basic" P?S/8.  This is the first of two candidates.
+>>
+>> The second is to modify the source code of 8K BASIC which is a very 
+>> different implementation.  It has NEVER been interfaced to any 
+>> storage-based operating system and there are problems even running it from 
+>> OS/8.  It is postulated that it will likely require 12K-16K to work with 
+>> P?S/8 but will not lose any functionality over the paper-tape version.  
+>> Even theoretically, this is not possible with OS/8; however, OS/8 has more 
+>> choices for BASIC, but none of them suggest suitability for the present 
+>> basic P?S/8 implementation; of course the future SHELL-extended P?S/8 will 
+>> embrace them all.
+>>  
+>>
+>>>
+>>> Since most programs are simpler, especially user-written ones, there 
+>>> exists a mechanism to just create a temporary system program by loading 
+>>> binary files and then starting the temporary core-image.  [Note: Temporary 
+>>> does not necessarily mean creation each and every time; all of field 0 is 
+>>> saved in a virtual image; if not disturbed, it is thus semi-permanent.  If 
+>>> the program is created in part because of debugging with P?S/8 ODT, a 
+>>> proper super-set of OS/8 ODT, it can then be BSAVEd into a string of output 
+>>> files for use later, etc.
+>>>
+>>
+>> This feature is useful to create the equivalent of a P?S/8 system program 
+>> without having to know the details to actually implement it,  Many programs 
+>> fall into this category but not all;  some needs the additional features 
+>> discussed elsewhere in this post; none of them are available in the 
+>> so-called temporary variant. 
+>>
+>>>
+>>> 2) The Tiny File System [TFS].  This is where all user files are saved 
+>>> [mostly, see below].  Editing takes a little getting used to unless you are 
+>>> a user of BASIC in which case the learning curve is measured in seconds.  
+>>> Because a program tends to stretch across a few files, the typical overhead 
+>>> of conventional editing is avoided.  The classic editing paradigm is to 
+>>> have at least 100% of the size of the file empty space available [and also 
+>>> a safety factor.  Any edit, even if only changing one line demands the 
+>>> processing of the entire source file.  With fixed-length TFS files, you can 
+>>> access just the portion that needs to be edited, load it into the editing 
+>>> buffer, make the change, save it back.  Small changes are made in literally 
+>>> a couple seconds.  [Note: There is a price to be paid for this of course.  
+>>> You are inherently running without a  backup, but for the more nervous 
+>>> users, make a copy of everything periodically.  And for nitpickers, yes, 
+>>> one file can overflow.  to fix that, you have to split the file into two 
+>>> parts.  The editing commands handle this.  For the more nitpickier of you, 
+>>> this process can eventually get in trouble after many edits.  There is an 
+>>> answer for that as well, using extended-length files as intermediates.
+>>>
+>>> 3) There actually is an Extended-Length File System, but it is not 
+>>> actually used [other than to set the maximum block allowed by the device.  
+>>> For example, since TFS files are bounded, the last file on a DECtape must 
+>>> occupy 2660-2667; blocks 2700 and 2701 are wasted. Note:  OS/8 does not use 
+>>> blocks, it uses RECORDS of two blocks each and then sloppily uses the terms 
+>>> interchangeably.  These are logical DECtape blocks regardless of the actual 
+>>> device used.  [Note:  P?S/8 exists for RK8E, RX01, TC12 LINCtape, TD8E 
+>>> DECtape, etc.  AT this time, release is just for TC08 DECtape; however, 
+>>> extended-length DECtapes really exist that go out to block 3277, thus more 
+>>> files and no waste.]
+>>>
+>>> The INTENTION is to support an extended-length file that could occupy 
+>>> the entire space normally under the purview of the TFS directory, but 
+>>> instead is a single file.  Due to a temporary restriction which is 
+>>> documented, an extended-length file EQUIVALENT is obtained by using the TFS 
+>>> file that is the highest one on the TFS director as printed out by the 
+>>> CA{talog} command.  Thus, there is a danger of screwing up and accidentally 
+>>> specifying a TFS file where there is really another file still higher on 
+>>> the device which will likely be destroyed.  By pre-allocating files and 
+>>> using proper naming convention, this can be mindless.
+>>>
+>>
+>> This is perhaps overstated, but the temporary restriction is easily 
+>> learned, and all of this becomes moot in the next release where the new 
+>> structure implements an even better overall outcome.  This was not 
+>> anticipated until relatively recently; the temporary nature unfortunately 
+>> was largely forgotten until recently, but now it is an easy part of the 
+>> implementation of the next release, which is largely otherwise a lot of 
+>> cleanup of minor issues and handler improvements, all preliminary steps to 
+>> then support the all-new SHELL feature. However, other than the elimination 
+>> of the temporary restriction, little else will be noticed by most users; 
+>> the changes are all otherwise "behind the scenes' for the express purpose 
+>> of the SHELL support later.  Every attempt will be made to retrofit the 
+>> SHELL into the next release if at all possible, but this could fail, 
+>> necessitating yet another revision, but it is projected the need for such a 
+>> release is slim to none, but it isn't easy to predict two steps in advance 
+>> at the same time, etc.
+>>
+>>
+>>> This is where the notion of dissimilar logical units comes in.  the PEPS 
+>>> release of P?S/8 will already have rational setup of all 8 logical units, 
+>>> so only curious advanced users need care.  Thus, for the present, the 
+>>> release of P?S/8 will coincide with the release of PEPS, which in turn has 
+>>> an end in sight for a release of a complete-enough manual so the average 
+>>> user will not get lost, etc.
+>>>
+>>
+>> There is an update on the release status.
+>>
+>> While only haphazard updates exist on all of the associated documents 
+>> [many are NEARLY done awaiting proof-reading, and anyone interested in 
+>> participating, please contact me!], P?S/8 with all patches through the end 
+>> of 2018/early 2019 is available on an "as is" basis.  That said, many will 
+>> be frustrated without manuals.  Reasonable questions not available in 
+>> present documents can be posted on this forum which will be answered on a 
+>> time-available basis.  The ultimate purpose of the manuals is to virtually 
+>> eliminate any such need!
+>>
+>> Contact me for specific releases; as of this writing, both the RX01 and 
+>> TC01/TC08 versions are available; the DECtape version includes a small 
+>> document on how to make it support 3300 block extra-long DECtapes as well 
+>> as "fantasy" DECtapes that are even longer, but can only exist in the PEPS 
+>> environment which has a custom-patched SIMH "engine" etc.
+>>
+>>
+>>  
+>>
+>>>
+>>> So, for the present, we have a "virtual" extended-length file on each of 
+>>> up to 8 logical devices.
+>>>
+>>> The OS8CON system program can convert OS/8 text files and P?S/8 text 
+>>> files in both conversion directions.  There is also support for 
+>>> extended-length output files cognizant of the restriction as shown above.  
+>>> The notion of extended-length files is undergoing revision for the next 
+>>> release; at that point, the restrictions will cease to exist and be 
+>>> bullet-proof.
+>>>
+>>> If a string of TFS files gets too "bunched up" because of many editing 
+>>> sessions, use OS8CON to output to a scratch file [the default is to what 
+>>> OS/8 would use as the first file on an otherwise zeroed-out DTA1:, then use 
+>>> OS8CON to bring the files back with the sizes restandardized..Please note 
+>>> that the more into the description, the more far-fetched the problem is, 
+>>> but there is always an ultimate answer.
+>>>
+>>> Lastly, if you use PEPS, edit the files in the host environment with 
+>>> your choice of editor.  Thus, there is no longer a dependency on OS/8.  But 
+>>> in the package, you get both and you can use both systems "the best of both 
+>>> worlds" etc.
+>>>
+>>  
+>>
+>>>
+>>> For more info on release delays, this is a separate discussion in the 
+>>> pepswin group.
+>>>
+>>
+>> Now partially rectified; I've been too busy to inform the members of this 
+>> group about this for about 8 months now due to medical issues now resolved.
+>>
+>> cjl
+>>  
+>>
+>>>
+>>> cjl
+>>>
+>>>
+>>>
+>>>> best,
+>>>> dylan
+>>>>
+>>>
+------=_Part_347_2018941632.1642789783583
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+From the P?S8 Google group<br><br><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">---------- Forwarded message ---------<br>From: <s=
+pan dir=3D"auto">cjl &lt;Unknown&gt;</span><br>Date: Friday, October 18, 20=
+19 at 10:03:48 AM UTC-5<br>Subject: Re: Is the P?S/8 release imminent?<br>T=
+o: <span dir=3D"auto">P?S/8 &lt;Unknown&gt;</span><br></div><br><br><html-b=
+lob><div dir=3D"ltr">Since this is really an issue of the PEPS package (and=
+ where it might run), I am taking this topic to where it belongs, to the&nb=
+sp; pepswin group.&nbsp; &nbsp;Most of you are already members of both grou=
+ps.&nbsp; If necessary, post or e-mail me for add to that group,&nbsp; etc.=
+&nbsp; I am posting about some new things there, perhaps later today.<div><=
+br></div><div>cjl</div><div><br></div><div>The only specific interaction be=
+tween PEPS and P?S/8 (and also OS/8) is the specifics of support for DECtap=
+e.&nbsp; Thanks to a couple of minor patches to pdp8.exe (the SIMH executab=
+le) DECtapes can be any length up to 4K blocks.&nbsp; Originally this was i=
+ntended to have support of real-world extra-long DECtapes of 3300 blocks, b=
+ut there are also useful features to be gained supporting the "fantasy" siz=
+e as well.&nbsp; Also, specifically for the benefit of prior releases of P?=
+S/8 (primarily, there is perhaps a modicum of this pertinent to the latest =
+release) SIMH can permanently place the device 66 LPT off-line.&nbsp; As su=
+ch, there are two different ways to launch P?S/8 for any particular version=
+, etc.&nbsp; Like PDP-12 DIAL-MS, P?S/8 LPT: support is by device discovery=
+; failing to locate the hardware and the software reverts to the system con=
+sole.&nbsp; In Version 8Z (nearly) all utilities support the /T command-lin=
+e switch to prevent the detection.&nbsp; Future releases may reverse the po=
+larity of the switch to instead enable printer output, but regardless, the =
+newer releases exert some control over the issue whereas the older releases=
+ did not (PEPS has provisional support for an old Version 8T system which h=
+as no program support to disable the LPT: As such, it is mandatory for that=
+ older system, but needed less and less with newer releases.&nbsp; Future r=
+eleases will reduce this to near zero; however, for the present, PEPS will =
+have the duality regarding the printer, etc.</div></div></html-blob><html-b=
+lob><div dir=3D"ltr"><div><br><br>On Wednesday, October 9, 2019 at 3:23:25 =
+AM UTC-4, cjl wrote:<blockquote class=3D"gmail_quote" style=3D"margin:0;mar=
+gin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr=
+">Some new points, more of an annoyance, but it has to be stated.<div><br><=
+/div><div>Due to the infinite stupidity of Microsoft, Windows 10 has become=
+ incompatible with itself, and pisses off some really helpful people in the=
+ various Win7, 8 and 10 forums.&nbsp; The ability to make the recommended G=
+UI changes disappear once you log off!&nbsp; Way to go, guys! many others a=
+re affected, not just anything 12-bit, etc.</div><div><br></div><div>Thus, =
+there are only a few options:</div><div><br></div><div>a) Get a VM and simu=
+late a former system such as Windows XP.&nbsp; Microsoft had that for Windo=
+ws 7, but Win7 doesn't have the problem.&nbsp; But if you can run anything =
+from XP through Win7 in emulation, put up PEPS on that virtual system.&nbsp=
+; This probably means you have to purchase something, but it evades all of =
+my issues (and theirs).</div><div><br></div><div>b) There are several less-=
+than-satisfying band-aids to apply to get a passable but wasteful solution.=
+&nbsp; In essence, all icon positions have to be filled with dummies where =
+you want nothing, as placeholders.&nbsp; And all icons have to be tiles and=
+ not medium icons.&nbsp; The labels will be contrived to start with sequenc=
+e numbers so it defies the current behavior. It's better than nothing.</div=
+><div><br></div><div>c) If you wish to dedicate some portion of the Windows=
+ 10 desktop to PEPS instead of a window you can call up when you wish [and =
+remove when you wish!] you can get the primary Command Window equivalent/&n=
+bsp; Depending on screen dimensions, this could be well over 40% of the scr=
+een, and requires some otherwise overall discipline to make sure other uses=
+ of the system do not interfere.&nbsp; But if you are careful, at least the=
+ primary window will have a look and work-alike cosmetic alternative.</div>=
+<div><br></div><div>That said, there is still no solution for the few secon=
+dary windows brought up from the main window.&nbsp; A compromise solution I=
+ am considering is to do the method of b) above for the secondary windows.&=
+nbsp; All of them have less total items, so this may be vaguely acceptable =
+for its part.&nbsp; This has to be tested in Windows XP which doesn't quite=
+ have the same level of tile support, but then again,it totally lacks the m=
+ain problem and would allow the current solution to just work.</div><div><b=
+r></div><div>When you have to have a screen full of tiles, it can be quite =
+"busy" which was the whole idea of placed icons to avoid.&nbsp; But Win10 m=
+ust have dummies to support any form of ordered icons, and all have to star=
+t with sequence numbers.&nbsp; I will obviously try all of the possibilitie=
+s, but my point is this just wastes more time because the MS jackasses don'=
+t know what they want out of Windows 10. Many are griping about each new re=
+lease breaks so much, yet other than for paid support, they are dropping su=
+pport for Windows 7 in January.&nbsp; I am hoping that The Hotfix.net or so=
+me equivalent,document how to get all the updates to keep it going for some=
+ more years, but it may become an "underground" kind of thing if MS kills o=
+ff the update download links unless you can get paid support, which will be=
+ difficult as well as likely a serious expense.&nbsp; This won't be just pa=
+y is ten bucks and it otherwise works as before. It is a concerted effort t=
+o get everyone to use Windows 10 even if it is broken, etc.</div><div><br><=
+/div><div>If anyone know of a good enough freeware emulator that runs on Wi=
+ndows 10 and supports XP please post the info here, etc.</div><div><br></di=
+v><div>cjl<br><br>On Friday, August 9, 2019 at 6:41:13 AM UTC-4, cjl wrote:=
+<blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;borde=
+r-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><br><br>On Saturda=
+y, December 2, 2017 at 8:27:51 PM UTC-5, cjl wrote:<div><br></div><div>Note=
+: A limitation of the Google forum post mechanism is the inability to make =
+edits once posted; as such, small edits to existing portions of this post a=
+re being made merely for increased clarity without changing the meaning, et=
+c.<br><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex=
+;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><br><br>On T=
+uesday, October 31, 2017 at 1:10:47 PM UTC-4, Dylan McNamee wrote:<blockquo=
+te class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1p=
+x #ccc solid;padding-left:1ex"><div dir=3D"ltr">I took the creation of the =
+P?S/8 group as an indication of an eventual release. As someone who really =
+enjoys working with his PiDP-8, and appreciating the amazing feats of engin=
+eering of the OS and application developers, this seems like yet another op=
+portunity to be amazed and informed.&nbsp;<div><br></div><div>I gather from=
+ the discussion here and elsewhere that "it's complicated," and we've all b=
+een patient, but I (at least) am curious about any kind of predicted releas=
+e date, or at least description of the hurdles between now and a release.</=
+div></div></blockquote><div><br>A reasonable question from the vantage poin=
+t of on the outside looking in,<br><br>P?S/8 is not a "finished product" in=
+ the sense that a decades-long process of closing off problem areas has bee=
+n ongoing.<br></div></div></blockquote><div><br></div><div>Certain addition=
+al fixes have been applied since this was posted.&nbsp; A change-log file i=
+s in the process of being created that requires a lot of word-processing.&n=
+bsp; There will be an announcement of this document when it is stable, howe=
+ver, there are many such documentation short-falls in my work; I do the bes=
+t I can to deal with them as time permits and the mood suits.</div><div>&nb=
+sp;</div><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.=
+8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>=
+Prior to the viability of the PEPS package, the few remaining sore spots ma=
+de it a virtual necessity to have both OS/8 and P?S/8 available at the same=
+ time because it is patently obvious where the problems make it too hard to=
+ use for most users.<br></div></div></blockquote><div><br></div><div>Please=
+ note that the PEPS package improves using either P?S/8 or OS/8.&nbsp; Most=
+ of the improvements are unique to PEPS, and in particular, the vaguely sim=
+ilar PiDP-8 environment, despite being based on a variant SIMH, is just not=
+ even close for the use of someone interested in PDP-8 issues.&nbsp; It is =
+too much of a "unix toy" which gets in the way of the main event, although =
+it appears that many who dabble in that environment just don't notice becau=
+se frankly, they only have passing interest in the product which is admitte=
+dly a very shiny toy.&nbsp; I have one myself and it just doesn't cut it.&n=
+bsp; Worse still, the powers that be there need a severe attitude adjustmen=
+t before it would even approach what is required in the reality of the PDP-=
+8 world and especially P?S/8's current needs.&nbsp;</div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc s=
+olid;padding-left:1ex"><div dir=3D"ltr"><div><br>That said, with the availa=
+bility of PEPS clearly in the "very soon" stage, there is little that OS/8 =
+is needed for any more to work with PAL assembler and FOCAL in any sense of=
+ the word.&nbsp; Down to nitpicks means lack of perfection as opposed to to=
+tal lack of functionality.<br></div></div></blockquote><div><br>The main is=
+sues are that PEPS helps both P?S/8 and OS/8 thrive for serious PDP-8 usage=
+.&nbsp; Some of the facility provided means that OS/8 is less so needed for=
+ serious PDP-8 development.&nbsp; To be perfectly fair, I still use OS/8 SL=
+IGHTLY myself, because of a few remaining minor sore points, but also I am =
+using P?S/8 to help OS/8 out for its sore points.</div><div><br></div><div>=
+The main reason something other than stand-alone P?S/8 is needed is if you =
+are more than a beginner to intermediate user.&nbsp; For that category of u=
+ser, P?S/8 is clearly superior, and easily learned quickly, so the notion o=
+f learning enough to get by is far harder for OS/8 beginners.</div><div><br=
+></div><div>That said, the "dividing line" is essentially where the scope o=
+f the project make use of the P?S/8 editor tedious because it is oriented a=
+round small source files.&nbsp; &nbsp;A package can become too large for it=
+, and in former times I used OS/8 to bridge that gap.&nbsp; However, PEPS i=
+s able to do that far better, and thus is recommended even if you use OS/8.=
+ but especially so if you are developing large files in either system.&nbsp=
+; Thus, this issue is no longer important to me given the use of the PEPS p=
+ackage to be able to run both systems.&nbsp; Thus, the scope of the remaini=
+ng points is a much smaller list.</div><div><br></div><div>Future work on P=
+?S/8 will level the playing field tipping in the favor of P?S/8 because it =
+will do all that OS/8 does and more, literally.&nbsp; [This will include th=
+e ability to "lift" all standard OS/8 programs available in source form and=
+ perform a relatively minor source code change; this is not any form of "em=
+ulation" etc.]&nbsp; As such, at that future time, the editing environment =
+will be equal to or better as compared to OS/8.&nbsp; But for the present, =
+large file developers&nbsp; need something other than the P?S/8 editor.&nbs=
+p; OS/8 is a second-rate solution to that problem as compared to PEPS, whic=
+h also includes at least 4-5 editors potentially; standard editors for the =
+present in PEPS are either Notepad, Edit Pad, or Notepad++ .&nbsp; This was=
+ not the case less than a year ago until enhanced compatibility with many p=
+ackages was added to some of these.&nbsp; These are all Windows-related iss=
+ues, but a surprising number of Windows editing packages are not fully comp=
+atible with Windows in the ways most are perfectly so, and PEPS demands, et=
+c.</div><div>&nbsp;<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0;margin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div d=
+ir=3D"ltr"><div><br>So, here are the issues:<br><br>To be useful, P?S/8 nee=
+ds a string of logical units setup differently from each other to serve dif=
+ferent purposes.&nbsp; It is in fact trivial to set these different units u=
+p, but it is not documented to my satisfaction ]but I am slowly writing ade=
+quate documentation so that a knowledgeable user can know what to do.. Beca=
+use of other issues, making such utilities automated in the general sense i=
+s a low priority,, however, there are stopgap measures to write.<br><br>I w=
+ill explain the above with an example.<br><br>Unlike OS/8, P?S/8 actually h=
+as "2.x" directories currently [and in future versions that will become 3.x=
+]..&nbsp; Here is the purpose of the directories [and I have written schema=
+tic level documents to explain the details].<br><br>1) The System Programs =
+Directory.<br><br>This is where conforming system programs are stored.&nbsp=
+; There are several parameters that each program has to have specified to b=
+e totally practical, due to the nature of P?S/8, [A rough comparison here i=
+s that the innards of OS/8 CCL needs to set certain things for each program=
+. In the P?S/8 alliterative, they are set in the entry within the System Pr=
+ograms Directory.<br><br>Again,, there is no utility to just trivially make=
+ a system program.&nbsp; You cannot make an analogy to OS/8 because a P?S/8=
+ system program has powerful features that can be availed of where there is=
+ no OS/8 analog. In general, they cause efficient execution or other featur=
+es.<br><br>Here are a few of the parameters.<br><br>1) This program demands=
+ the parsing of any optional =3D<i>xxxx</i> parameter be be done in the cur=
+rent radix [which the user can set to decimal by default or possibly octal,=
+ but generally not the case].&nbsp; This invariably means decimal, but it m=
+ore properly works as I described here.&nbsp; The reason for this is for co=
+mmands such as FIND "STRING" or CHANGE "STRING"REPLACEMENT STRING which are=
+ used as transient overlays to the keyboard monitor and integrated editor f=
+or obvious reasons as the user edits files.<br><br>2) Inhibit parsing of pa=
+rameters entirely.&nbsp; P?S/8 does not use a command-decoder; the commands=
+ essentially resemble a subset of OS/8 CCL without the overhead which is pr=
+ofound on tape-based systems such as TC08 and TD8E and TC12.&nbsp; The comm=
+ands are powerful yet lack the overhead.<br><br>In essence, you get all of =
+what OS/8 asks to get a program going and also pass files to it, but all in=
+ one line always.<br><br>The OS/8 PAL command is essentially identical [exc=
+ept the command-line switch options of P?S/8 PAL are a) particularly differ=
+ent and b) there are more of them; in fact there are 37 of the 36 switches =
+implemented; one of them has two distinct meanings that are not conflicting=
+].&nbsp; A contrived example could use the identical commands for both syst=
+ems, but the options quickly diverge.<br><br>The "flow" of commands in OS/8=
+ is always output &lt; input.&nbsp; Some people prefer input &gt; output.&n=
+bsp; P?S/8 actually works both ways.<br><br>For the benefit of programs suc=
+h as SET that takes parameters and sub-parameters [some partial overlap wit=
+h OS/8] it is necessary to prevent all potential file parsing.<br><br>3) In=
+hibit only input file parsing but allow output file parsing.&nbsp; This is =
+a one-off at present for the BSAVE command.&nbsp; BSAVE can save arbitrary =
+groupings of memory in 32K, even down to individual memory locations.&nbsp;=
+ This is because the output is to P?S/8 "slurp" binary files, not core imag=
+es.&nbsp; These can later be loaded with the "slurp" loader as any other bi=
+nary file, usually created by P?S/8 PAL or perhaps converted binary paper-t=
+apes in BIN [or RIM] format.&nbsp; Note: The P?S/8 MAP command is a proper =
+super-set of OS/8 BITMAP and is called using the program name thus the PROG=
+RAM is NAMED MAP.&nbsp; [Note: This convention was born nearly simultaneous=
+ly in both P?S/8 and COS-300.&nbsp; Both are partially based [but quickly d=
+iverge] from the original R-L Monitor.&nbsp; COS-300 is a redo of the origi=
+nal DIBOL-8, which is literally the R-L Monitor with the two-letter command=
+s hacked up to match what would be in COS-300. [but nothing else; R-L only =
+had the RU command and the program names were only the first two characters=
+].&nbsp; But these changes were made in both systems so that it would becom=
+e possible to have the SET command, the PAL command, and the MAP command, e=
+tc. and there is no general concept of a "base" layer for which you need a =
+command-decoder and then a facade of software talking to software to make i=
+t look the way it does, and this applies identically to P?S/8.&nbsp; Also:&=
+nbsp; DEC officially recommended to NOT enable CCL on tape-based systems du=
+e to the overhead.&nbsp; Some members of this group can personally attest t=
+o this overhead on real-world hardware.<br><br>The most important feature o=
+ver OS/8 is that the System Programs Directory allows any program to includ=
+e internal overlays, a feature taken available by such as P?S/8 PAL and P?S=
+/8 FOCAL, each of which actually have several each.<br><br>P?S/8 does not h=
+ave BASIC [it can be written] but the point is that OS/8 has to have a stri=
+ng of independent core-mage programs that must chain to each other to creat=
+e a coherent environment and it is quite stilted and restrictive, and requi=
+res creation of intermediate files as a restriction.&nbsp; A P?S/8 version =
+would just use overlays.<br></div></div></blockquote><div><br>Presently, wo=
+rk is being done to restore the last known version of EDU25 BASIC for OS/8;=
+ there are problems with lost portions of the source files;&nbsp; I am doin=
+g some of the restoration recently, but it is quite broken!<br><br>The goal=
+ is to then excise out enough of the product to be useful with the current =
+"basic" P?S/8.&nbsp; This is the first of two candidates.</div><div><br></d=
+iv><div>The second is to modify the source code of 8K BASIC which is a very=
+ different implementation.&nbsp; It has NEVER been interfaced to any storag=
+e-based operating system and there are problems even running it from OS/8.&=
+nbsp; It is postulated that it will likely require 12K-16K to work with P?S=
+/8 but will not lose any functionality over the paper-tape version.&nbsp; E=
+ven theoretically, this is not possible with OS/8; however, OS/8 has more c=
+hoices for BASIC, but none of them suggest suitability for the present basi=
+c P?S/8 implementation; of course the future SHELL-extended P?S/8 will embr=
+ace them all.</div><div>&nbsp;</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"=
+><div dir=3D"ltr"><div><br>Since most programs are simpler, especially user=
+-written ones, there exists a mechanism to just create a temporary system p=
+rogram by loading binary files and then starting the temporary core-image.&=
+nbsp; [Note: Temporary does not necessarily mean creation each and every ti=
+me; all of field 0 is saved in a virtual image; if not disturbed, it is thu=
+s semi-permanent.&nbsp; If the program is created in part because of debugg=
+ing with P?S/8 ODT, a proper super-set of OS/8 ODT, it can then be BSAVEd i=
+nto a string of output files for use later, etc.<br></div></div></blockquot=
+e><div><br></div><div>This feature is useful to create the equivalent of a =
+P?S/8 system program without having to know the details to actually impleme=
+nt it,&nbsp; Many programs fall into this category but not all;&nbsp; some =
+needs the additional features discussed elsewhere in this post; none of the=
+m are available in the so-called temporary variant.&nbsp;</div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #=
+ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>2) The Tiny File Syst=
+em [TFS].&nbsp; This is where all user files are saved [mostly, see below].=
+&nbsp; Editing takes a little getting used to unless you are a user of BASI=
+C in which case the learning curve is measured in seconds.&nbsp; Because a =
+program tends to stretch across a few files, the typical overhead of conven=
+tional editing is avoided.&nbsp; The classic editing paradigm is to have at=
+ least 100% of the size of the file empty space available [and also a safet=
+y factor.&nbsp; Any edit, even if only changing one line demands the proces=
+sing of the entire source file.&nbsp; With fixed-length TFS files, you can =
+access just the portion that needs to be edited, load it into the editing b=
+uffer, make the change, save it back.&nbsp; Small changes are made in liter=
+ally a couple seconds.&nbsp; [Note: There is a price to be paid for this of=
+ course.&nbsp; You are inherently running without a&nbsp; backup, but for t=
+he more nervous users, make a copy of everything periodically.&nbsp; And fo=
+r nitpickers, yes, one file can overflow.&nbsp; to fix that, you have to sp=
+lit the file into two parts.&nbsp; The editing commands handle this.&nbsp; =
+For the more nitpickier of you, this process can eventually get in trouble =
+after many edits.&nbsp; There is an answer for that as well, using extended=
+-length files as intermediates.<br><br>3) There actually is an Extended-Len=
+gth File System, but it is not actually used [other than to set the maximum=
+ block allowed by the device.&nbsp; For example, since TFS files are bounde=
+d, the last file on a DECtape must occupy 2660-2667; blocks 2700 and 2701 a=
+re wasted. Note:&nbsp; OS/8 does not use blocks, it uses RECORDS of two blo=
+cks each and then sloppily uses the terms interchangeably.&nbsp; These are =
+logical DECtape blocks regardless of the actual device used.&nbsp; [Note:&n=
+bsp; P?S/8 exists for RK8E, RX01, TC12 LINCtape, TD8E DECtape, etc.&nbsp; A=
+T this time, release is just for TC08 DECtape; however, extended-length DEC=
+tapes really exist that go out to block 3277, thus more files and no waste.=
+]<br><br>The INTENTION is to support an extended-length file that could occ=
+upy the entire space normally under the purview of the TFS directory, but i=
+nstead is a single file.&nbsp; Due to a temporary restriction which is docu=
+mented, an extended-length file EQUIVALENT is obtained by using the TFS fil=
+e that is the highest one on the TFS director as printed out by the CA{talo=
+g} command.&nbsp; Thus, there is a danger of screwing up and accidentally s=
+pecifying a TFS file where there is really another file still higher on the=
+ device which will likely be destroyed.&nbsp; By pre-allocating files and u=
+sing proper naming convention, this can be mindless.<br></div></div></block=
+quote><div><br></div><div>This is perhaps overstated, but the temporary res=
+triction is easily learned, and all of this becomes moot in the next releas=
+e where the new structure implements an even better overall outcome.&nbsp; =
+This was not anticipated until relatively recently; the temporary nature un=
+fortunately was largely forgotten until recently, but now it is an easy par=
+t of the implementation of the next release, which is largely otherwise a l=
+ot of cleanup of minor issues and handler improvements, all preliminary ste=
+ps to then support the all-new SHELL feature. However, other than the elimi=
+nation of the temporary restriction, little else will be noticed by most us=
+ers; the changes are all otherwise "behind the scenes' for the express purp=
+ose of the SHELL support later.&nbsp; Every attempt will be made to retrofi=
+t the SHELL into the next release if at all possible, but this could fail, =
+necessitating yet another revision, but it is projected the need for such a=
+ release is slim to none, but it isn't easy to predict two steps in advance=
+ at the same time, etc.</div><div><br></div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc solid;padding-l=
+eft:1ex"><div dir=3D"ltr"><div><br>This is where the notion of dissimilar l=
+ogical units comes in.&nbsp; the PEPS release of P?S/8 will already have ra=
+tional setup of all 8 logical units, so only curious advanced users need ca=
+re.&nbsp; Thus, for the present, the release of P?S/8 will coincide with th=
+e release of PEPS, which in turn has an end in sight for a release of a com=
+plete-enough manual so the average user will not get lost, etc.<br></div></=
+div></blockquote><div><br>There is an update on the release status.</div><d=
+iv><br></div><div>While only haphazard updates exist on all of the associat=
+ed documents [many are NEARLY done awaiting proof-reading, and anyone inter=
+ested in participating, please contact me!], P?S/8 with all patches through=
+ the end of 2018/early 2019 is available on an "as is" basis.&nbsp; That sa=
+id, many will be frustrated without manuals.&nbsp; Reasonable questions not=
+ available in present documents can be posted on this forum which will be a=
+nswered on a time-available basis.&nbsp; The ultimate purpose of the manual=
+s is to virtually eliminate any such need!<br><br>Contact me for specific r=
+eleases; as of this writing, both the RX01 and TC01/TC08 versions are avail=
+able; the DECtape version includes a small document on how to make it suppo=
+rt 3300 block extra-long DECtapes as well as "fantasy" DECtapes that are ev=
+en longer, but can only exist in the PEPS environment which has a custom-pa=
+tched SIMH "engine" etc.</div><div><br></div><div><br></div><div>&nbsp;</di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>So, for=
+ the present, we have a "virtual" extended-length file on each of up to 8 l=
+ogical devices.<br><br>The OS8CON system program can convert OS/8 text file=
+s and P?S/8 text files in both conversion directions.&nbsp; There is also s=
+upport for extended-length output files cognizant of the restriction as sho=
+wn above.&nbsp; The notion of extended-length files is undergoing revision =
+for the next release; at that point, the restrictions will cease to exist a=
+nd be bullet-proof.<br><br>If a string of TFS files gets too "bunched up" b=
+ecause of many editing sessions, use OS8CON to output to a scratch file [th=
+e default is to what OS/8 would use as the first file on an otherwise zeroe=
+d-out DTA1:, then use OS8CON to bring the files back with the sizes restand=
+ardized..Please note that the more into the description, the more far-fetch=
+ed the problem is, but there is always an ultimate answer.<br><br>Lastly, i=
+f you use PEPS, edit the files in the host environment with your choice of =
+editor.&nbsp; Thus, there is no longer a dependency on OS/8.&nbsp; But in t=
+he package, you get both and you can use both systems "the best of both wor=
+lds" etc.<br></div></div></blockquote><div>&nbsp;</div><blockquote class=3D=
+"gmail_quote" style=3D"margin:0;margin-left:0.8ex;border-left:1px #ccc soli=
+d;padding-left:1ex"><div dir=3D"ltr"><div><br>For more info on release dela=
+ys, this is a separate discussion in the pepswin group.<br></div></div></bl=
+ockquote><div><br></div><div>Now partially rectified; I've been too busy to=
+ inform the members of this group about this for about 8 months now due to =
+medical issues now resolved.</div><div><br></div><div>cjl</div><div>&nbsp;<=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0;margin-left:0.8ex;=
+border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br>cjl<=
+br><br><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0;margin=
+-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><=
+div><br></div><div>best,</div><div>dylan</div></div></blockquote></div></bl=
+ockquote></div></div></blockquote></div></div></blockquote></div></div></ht=
+ml-blob></div>
+------=_Part_347_2018941632.1642789783583--
+
+------=_Part_346_1673319291.1642789783583--

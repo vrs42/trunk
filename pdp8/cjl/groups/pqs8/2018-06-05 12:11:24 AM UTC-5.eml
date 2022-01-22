@@ -1,0 +1,222 @@
+From: cjl 
+Date: Tuesday, June 5, 2018 at 12:11:24 AM UTC-5
+Received: vrs; Tuesday, June 5, 2018 at 12:11:24 AM UTC-5
+Subject: Documenting/fleshing out some obscure weaknesses of the basic 
+Message-Id: <5e0c8739-8fdf-4a94-8b33-8d7ab411914an@googlegroups.com>
+In-Reply-To: <a19e975f-7639-4c36-af31-7ecc66a5c419@googlegroups.com>
+References: <a19e975f-7639-4c36-af31-7ecc66a5c419@googlegroups.com>
+To: pqs8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4756_86992403.1642790201086"
+Content-Length: 12610
+
+------=_Part_4756_86992403.1642790201086
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4757_322466651.1642790201086"
+
+------=_Part_4757_322466651.1642790201086
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+From the P?S8 Google group
+
+---------- Forwarded message ---------
+From: cjl <Unknown>
+Date: Tuesday, June 5, 2018 at 12:11:24 AM UTC-5
+Subject: Documenting/fleshing out some obscure weaknesses of the basic 
+P?S/8 system [and prep for the SHELL]
+To: P?S/8 <Unknown>
+
+
+There are a lot of loose ends to be dealt with before it is viable to 
+release the next clean release.  Most are so it is possible for a clean 
+usage of the SHELL to eliminate some device-specific kludges, and some old 
+minor issues for which it is time to unify things as intended.
+
+I am also adding the unterpinnings so the SHELL will be able to execute 
+certain programs from the present [known as "basic" P?S/8 system.  Some 
+programs do not serve to be made available more than once, and each system 
+is perfectly adequate for these specifics.  As such, I have to implement 
+the rational way to have these available to the SHELL sooner rather than 
+later.  It's a good time also because of the need to get rid of some more 
+serious kludges which involve some complex interactions, and all affected 
+will be fixed at once.  [I know, no details, but it's more important that 
+everyone know I am dealing with them, and they take time, and little is 
+gained me taking about the details as opposed to implementing the improved 
+version.  On a longer-term lower-priority basis, I may show how the before 
+became the after, but it's more important it be done than talking about it
+
+Additionally, for those who are not seasoned users, it is suffice to just 
+learn the current method, and not the "bad old days" etc.
+
+So, if you want something gory, I can provide some details, otherwise, best 
+I make them happen first, etc.
+
+Some of these changes are a "set" in that you have to remove all of them so 
+that they all can start being changed to a new compatibility level, as well 
+as fixing the problem.  Thus, I will have the dilemma of testing components 
+without "partners" by whatever means seems fit in the short-term, until all 
+relevant changes are done.
+
+This is more a matter of a lot of little annoyances, as opposed to a 
+perceived rewrite.  however, many system commands will be used in the same 
+manner,yet the "innards" will be changed, "invisible" to the user for the 
+most part.
+
+Some will make it easier to create the system itself [mostly my problem] 
+and will be some preliminary steps towards making others be able to do it 
+with my guidance, but without personally me, etc.
+
+Also, this wull be the last nail in the coffin if requiring any part of 
+OS.8 to finish the process, although in some cases, new utilities will 
+appear that have a side benefit to OS/8 itself, helping to fix bugs in that 
+system [only to a limite extent; the mission is not to merely fix OS8, but 
+to eventually obsolete it].
+
+
+As the pieces start falling into place, I will from time to time announce 
+them here; be advised that the improvement may be temporarily incompatible 
+with the eventual overall improvement due to the nagging dependencies.
+
+Also, part of the development is being done by maintaining the source files 
+in Windows and not OS/8 which has so many limitations already overcome in 
+P?S/8.
+
+I will give some details on only one issue:
+
+OS/8 date handling basically died in 1977, but through some extremely ugly 
+kludges, appears to some to be viable until 2001, now itself in the past.  
+Unfortunately, this conventional wisdom is just plain untrue, but the 
+original game plan was to bamboozle some users, so don't blame yourself if 
+you also got fooled.  Many thousands went that route before you.  [I can 
+definitely prove it's bogus; but this is just an inconvenience, and not 
+really important].
+
+In contrast with this, P?S/8 implemented a totally different form of kludge 
+to better support the date.  It involves having to make a few patches to 
+the system [and keeping records of where to apply the few patches] and this 
+must be done every 8 years ;but there is a 3+year grace period!].
+
+Also, besides the nuisance, the year range for which this applies starts in 
+1960 and ends in 2099  But the patches must be done every 8 years. The 
+current P?S.8 has been patches so the oldest expressible date is 
+01-Jan-2016, and it can be used without patching until around 2027.  A new 
+release will be forthcoming before that time; just wait for the new 
+reelease.  the kludge and responsibility will be lifted and the date range 
+settable by ordinary means will increase to 91-Jan-1900 through 
+31-Dec-2411.  [Note: This may sound excessive, but the history of many DEC 
+and other computers is that once motivated, and effort expended, no one 
+wants to hear about the problem ever again.  Unfortunately, for OS/8 that 
+was 1978.  But OS/8 is a mediocre system that more hatched than was 
+planned.  Thus, no one around now is gonna have and misgivings about the 
+replacement code, etc.
+
+Unfortunately, some system device handlers used locations that must now 
+remain reserved; thus some code has to be rewritten until all existing 
+handlers are fully updated.  this even slightly affects the TC01/TC08 
+version [but it not expected to be hard to fix].  All of this set of 
+changes will allow the now fully 18-bit date words to be properly saved 
+onto the system device.  [Note: OS/8 does not know how to do this, and 
+there are some serious consequences to having an unset date, easily 
+forgotten. It causes erroneous dates on files, etc.  This was actually 
+fixed in OS/278 V2, but that is only used on DECmate II, III and III+ 
+models and is extremely broken in other ways, etc.]
+
+P?S/8 retains the date the last time you set it, so it can't be all that 
+far off in general, etc.  But P?S/8 had this feature in 1972 while OS/278 
+V2 was released in 1983 [and not retrofit able to earlier OS/8-type 
+releases].
+
+cjl
+
+------=_Part_4757_322466651.1642790201086
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+From the P?S8 Google group<br><br><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">---------- Forwarded message ---------<br>From: <s=
+pan dir=3D"auto">cjl &lt;Unknown&gt;</span><br>Date: Tuesday, June 5, 2018 =
+at 12:11:24 AM UTC-5<br>Subject: Documenting/fleshing out some obscure weak=
+nesses of the basic P?S/8 system [and  prep for the SHELL]<br>To: <span dir=
+=3D"auto">P?S/8 &lt;Unknown&gt;</span><br></div><br><br><html-blob><div dir=
+=3D"ltr">There are a lot of loose ends to be dealt with before it is viable=
+ to release the next clean release.&nbsp; Most are so it is possible for a =
+clean usage of the SHELL to eliminate some device-specific kludges, and som=
+e old minor issues for which it is time to unify things as intended.<br><br=
+>I am also adding the unterpinnings so the SHELL will be able to execute ce=
+rtain programs from the present [known as "basic" P?S/8 system.&nbsp; Some =
+programs do not serve to be made available more than once, and each system =
+is perfectly adequate for these specifics.&nbsp; As such, I have to impleme=
+nt the rational way to have these available to the SHELL sooner rather than=
+ later.&nbsp; It's a good time also because of the need to get rid of some =
+more serious kludges which involve some complex interactions, and all affec=
+ted will be fixed at once.&nbsp; [I know, no details, but it's more importa=
+nt that everyone know I am dealing with them, and they take time, and littl=
+e is gained me taking about the details as opposed to implementing the impr=
+oved version.&nbsp; On a longer-term lower-priority basis, I may show how t=
+he before became the after, but it's more important it be done than talking=
+ about it<br><br>Additionally, for those who are not seasoned users, it is =
+suffice to just learn the current method, and not the "bad old days" etc.<b=
+r><br>So, if you want something gory, I can provide some details, otherwise=
+, best I make them happen first, etc.<br><br>Some of these changes are a "s=
+et" in that you have to remove all of them so that they all can start being=
+ changed to a new compatibility level, as well as fixing the problem.&nbsp;=
+ Thus, I will have the dilemma of testing components without "partners" by =
+whatever means seems fit in the short-term, until all relevant changes are =
+done.<br><br>This is more a matter of a lot of little annoyances, as oppose=
+d to a perceived rewrite.&nbsp; however, many system commands will be used =
+in the same manner,yet the "innards" will be changed, "invisible" to the us=
+er for the most part.<br><br>Some will make it easier to create the system =
+itself [mostly my problem] and will be some preliminary steps towards makin=
+g others be able to do it with my guidance, but without personally me, etc.=
+<br><br>Also, this wull be the last nail in the coffin if requiring any par=
+t of OS.8 to finish the process, although in some cases, new utilities will=
+ appear that have a side benefit to OS/8 itself, helping to fix bugs in tha=
+t system [only to a limite extent; the mission is not to merely fix OS8, bu=
+t to eventually obsolete it].<br><br><br>As the pieces start falling into p=
+lace, I will from time to time announce them here; be advised that the impr=
+ovement may be temporarily incompatible with the eventual overall improveme=
+nt due to the nagging dependencies.<br><br>Also, part of the development is=
+ being done by maintaining the source files in Windows and not OS/8 which h=
+as so many limitations already overcome in P?S/8.<br><br>I will give some d=
+etails on only one issue:<br><br>OS/8 date handling basically died in 1977,=
+ but through some extremely ugly kludges, appears to some to be viable unti=
+l 2001, now itself in the past.&nbsp; Unfortunately, this conventional wisd=
+om is just plain untrue, but the original game plan was to bamboozle some u=
+sers, so don't blame yourself if you also got fooled.&nbsp; Many thousands =
+went that route before you.&nbsp; [I can definitely prove it's bogus; but t=
+his is just an inconvenience, and not really important].<br><br>In contrast=
+ with this, P?S/8 implemented a totally different form of kludge to better =
+support the date.&nbsp; It involves having to make a few patches to the sys=
+tem [and keeping records of where to apply the few patches] and this must b=
+e done every 8 years ;but there is a 3+year grace period!].<br><br>Also, be=
+sides the nuisance, the year range for which this applies starts in 1960 an=
+d ends in 2099&nbsp; But the patches must be done every 8 years. The curren=
+t P?S.8 has been patches so the oldest expressible date is 01-Jan-2016, and=
+ it can be used without patching until around 2027.&nbsp; A new release wil=
+l be forthcoming before that time; just wait for the new reelease.&nbsp; th=
+e kludge and responsibility will be lifted and the date range settable by o=
+rdinary means will increase to 91-Jan-1900 through 31-Dec-2411.&nbsp; [Note=
+: This may sound excessive, but the history of many DEC and other computers=
+ is that once motivated, and effort expended, no one wants to hear about th=
+e problem ever again.&nbsp; Unfortunately, for OS/8 that was 1978.&nbsp; Bu=
+t OS/8 is a mediocre system that more hatched than was planned.&nbsp; Thus,=
+ no one around now is gonna have and misgivings about the replacement code,=
+ etc.<br><br>Unfortunately, some system device handlers used locations that=
+ must now remain reserved; thus some code has to be rewritten until all exi=
+sting handlers are fully updated.&nbsp; this even slightly affects the TC01=
+/TC08 version [but it not expected to be hard to fix].&nbsp; All of this se=
+t of changes will allow the now fully 18-bit date words to be properly save=
+d onto the system device.&nbsp; [Note: OS/8 does not know how to do this, a=
+nd there are some serious consequences to having an unset date, easily forg=
+otten. It causes erroneous dates on files, etc.&nbsp; This was actually fix=
+ed in OS/278 V2, but that is only used on DECmate II, III and III+ models a=
+nd is extremely broken in other ways, etc.]<br><br>P?S/8 retains the date t=
+he last time you set it, so it can't be all that far off in general, etc.&n=
+bsp; But P?S/8 had this feature in 1972 while OS/278 V2 was released in 198=
+3 [and not retrofit able to earlier OS/8-type releases].<div><br></div><div=
+>cjl</div></div></html-blob></div>
+------=_Part_4757_322466651.1642790201086--
+
+------=_Part_4756_86992403.1642790201086--
