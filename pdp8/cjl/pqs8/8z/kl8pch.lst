@@ -1,0 +1,590 @@
+   1               /       KL8 CONSOLE OVERLAY CUSTOMIZER
+   2               
+   3               /       LAST EDIT:      08-APR-1987     23:00:00        CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       THIS IS A SECONDARY CONSOLE OVERLAY FILE FOR CUSTOMIZING SEVERAL
+   8               /       PARAMETERS OF THE KL8 PRIMARY CONSOLE OVERLAY FILE. IT IS INTENDED TO BE
+   9               /       USED AS FOLLOWS:
+  10               
+  11               /       .CONSOLE KL8,KL8PCH     UPDATE CONSOLE IMAGE
+  12               
+  13               /       SEVERAL OVERALL VERSIONS ARE AVAILABLE:
+  14               
+  15               /       OVTYPE= 1               /GENERATES A STANDARD OVERLAY (DEVICE 03, 04 AND
+  16                                               /DEVICE 65, 66 LPT:
+  17               /       OVTYPE= 2               /GENERATES A NON-STANDARD OVERLAY (DEVICE 03, 04
+  18                                               /AND DEVICE 40, 41 LPT:
+  19               /       OVTYPE= 10              /GENERATES A DECMATE OVERLAY (DEVICE 03, 04 AND
+  20                                               /DEVICE 32, 33 LPT:
+  21               /       OVTYPE= 60              /GENERATES A NON-STANDARD OVERLAY (DEVICE 40, 41
+  22                                               /AND DEVICE 65, 66 LPT:
+  23               /       OVTYPE= 61              /GENERATES A NON-STANDARD OVERLAY (DEVICE 40, 41
+  24                                               /AND DEVICE 03, 04 LPT:
+  25               
+  26               /       OTHER TYPES ARE USER-DEFINABLE BY SPECIFYING EXPLICIT PARAMETERS.
+  27               
+  28               /       SOME PARAMETERS ARE NECESSARY TO CUSTOMIZE HARDWARE-SPECIFIC FEATURES OF
+  29               /       THE STANDARD CONFIGURATIONS:
+  30               
+  31               /       KEY=    XX              /KEYBOARD DEVICE CODE (NORMALLY 03)
+  32               
+  33               /       OUT=    XX              /CONSOLE OUTPUT DEVICE CODE (NORMALLY 04)
+  34               
+  35               /       LIN=    XX              /IF NEEDED: LINE-PRINTER INPUT DEVICE CODE (NORMALLY 65)
+  36               
+  37               /       LPT=    XX              /LINE-PRINTER OUTPUT DEVICE CODE (NORMALLY 66)
+  38               
+  39               /       DKEY=   XX              /IF NEEDED: VT-8/E KEYBOARD DEVICE CODE (NORMALLY 43)
+  40               
+  41               /       IRATE=  XX              /IF NEEDED: DECMATE LPT: BAUD RATE (NORMALLY 14)
+  42               
+  43               /       NAMCH1= XXYY            /FIRST OVERLAY ID NAME PAIR
+  44               
+  45               /       NAMCH2= XXYY            /SECOND OVERLAY ID NAME PAIR
+  46               
+  47               /       NAMCH3= XXYY            /THIRD OVERLAY ID NAME PAIR
+  48               
+  49               /       NMCH1=  XXYY            /FIRST FILE ID NAME PAIR
+  50               
+  51               /       NMCH2=  XXYY            /SECOND FILE ID NAME PAIR
+  52               
+  53               /       NMCH3=  XXYY            /THIRD FILE ID NAME PAIR
+  54               /      LCASE=  1               /LOWER-CASE CHARACTERS PASSED THROUGH
+  55               
+  56               /       LCASE=  0               /LOWER-CASE CHARACTERS FOLDED TO UPPER-CASE
+  57               
+  58               /       LPBUFF= 1               /GENERATES AN OVERLAY WITH LPT: BUFFERING
+  59               
+  60               /       LPBUFF= 0               /GENERATES AN OVERLAY WITH NO LPT: BUFFERING
+  61               
+  62               /       VT8LPT= 1               /GENERATES INTERRUPT ENABLE FOR LPT: WITH SHARED
+  63                                               /INTERRUPT CONTROL FOR THE VT-8/E KEYBOARD
+  64               /       VT8LPT= 0               /GENERATES INTERRUPT ENABLE FOR LPT: ALONE
+  65               
+  66               /       ONEWAY= 1               /LPT: HAS HARDWARE-ONLY HANDSHAKING
+  67                                               /DEVICE CODE LIN INPUT IGNORED
+  68               /       ONEWAY= 0               /LPT: HAS <^S>/<^Q> INPUT FLOW CONTROL
+  69                                               /ON DEVICE CODE LIN INPUT
+  70               /       NOLIE=  0               /LPT: INPUT INTERRUPT ENABLE EXISTS
+  71               
+  72               /       NOLIE=  1               /LPT: INPUT INTERRUPT ENABLE DOES NOT EXIST
+  73               
+  74               /       NOLOE=  0               /LPT: OUTPUT INTERRUPT ENABLE EXISTS
+  75               
+  76               /       NOLOE=  1               /LPT: OUTPUT INTERRUPT ENABLE DOES NOT EXIST
+  77               /      SET CUSTOM PARAMETERS HERE.
+  78               
+  79               /       DKEY=   43              /VT-8/E KEYBOARD IOT CODE
+  80               
+  81               /       IRATE=  14              /4800 BAUD SERIAL PRINTER ON DECMATE, ETC.
+  82               
+  83               /       KEY=    03              /CONSOLE INPUT IOT CODE
+  84               
+  85               /       LCASE=  1               /ALLOW LOWER-CASE WITHOUT FOLDING
+  86               
+  87               /       LIN=    65              /LPT: INPUT IOT CODE
+  88               
+  89               /       LPBUFF= 1               /ENABLE LPT: BUFFERING
+  90               
+  91               /       LPT=    66              /LPT: OUTPUT IOT CODE
+  92               
+  93               /       NAMCH1= "K^100+"L-300   /FIRST FILE ID NAME PAIR ("KL8E")
+  94               
+  95               /       NAMCH2= "8^100+"E-300   /SECOND FILE ID NAME PAIR ("KL8E")
+  96               
+  97               /       NAMCH3= 0000            /THIRD FILE ID NAME PAIR ("KL8E")
+  98               
+  99               /       NMCH1=  "K^100+"L-300   /FIRST FILE NAME PAIR ("KL8")
+ 100               
+ 101               /       NMCH2=  "8^100          /SECOND FILE NAME PAIR ("KL8")
+ 102               
+ 103               /       NMCH3=  0000            /THIRD FILE NAME PAIR ("KL8")
+ 104               
+ 105               /       NOLIE=  1               /LIEIOT DOES NOT EXIST (USUALLY LPT: IS OUTPUT ONLY)
+ 106               
+ 107               /       NOLOE=  1               /LPEIOT DOES NOT EXIST (INTERRUPTS ENABLED WITH
+ 108                                               /DKIEIOT SHARED WITH VT-8/E KEYBOARD)
+ 109               /       ONEWAY= 1               /LPT: OUTPUT ONLY
+ 110               
+ 111               /       OUT=    04              /CONSOLE OUTPUT IOT CODE
+ 112               
+ 113               /       OVTYPE= 01              /GENERATE STANDARD TYPE 01 OVERLAY
+ 114               
+ 115               /       VT8LPT= 1               /LPT: OUTPUT AND VT-8/E INPUT SHARE INTERRUPT ENABLE
+ 116               /      CONDITIONAL ASSEMBLY PARAMETERS.
+ 117               
+ 118               /       THESE CONDITIONALS GENERATE THE STANDARD VALUES FOR EACH OF THE DEFINED
+ 119               /       OVERLAY TYPES. IF THE USER CHOOSES AN ALTERNATE OVERLAY TYPE, ALL SUCH
+ 120               /       PARAMETERS MUST BE SPECIFIED (OR WILL BE DEFAULTED TO "CATCH-ALL" VALUES).
+ 121               
+ 122               /       N. B., SOME PARAMETERS ARE DEFAULTED IN THE "CATCH-ALL" SECTION BELOW EVEN
+ 123               /       IF A STANDARD OVERLAY TYPE IS CHOSEN, AS THEY ARE STILL CUSTOM PARAMETERS
+ 124               /       WITHIN A STANDARD OVERLAY TYPE.
+ 125               
+ 126                       IFNDEF  OVTYPE  <OVTYPE=01>                     /GENERATE TYPE 01 OVERLAY
+ 127               
+ 128               /       "KL8E" OVERLAY CONDITIONALS.
+ 129               
+ 130                       IFZERO  OVTYPE-01                               <
+ 131               
+ 132                       IFNDEF  DKEY    <DKEY=  43>                     /VT-8/E KEYBOARD IOT CODE
+ 133                       IFNDEF  KEY     <KEY=   03>                     /CONSOLE INPUT IOT CODE
+ 134                       IFNDEF  LIN     <LIN=   65>                     /LPT: INPUT IOT CODE
+ 135                       IFNDEF  LPT     <LPT=   66>                     /LPT: OUTPUT IOT CODE
+ 136                       IFNDEF  NAMCH1  <NAMCH1="K^100+"L-300>          /FIRST OVERLAY ID NAME PAIR
+ 137                       IFNDEF  NAMCH2  <NAMCH2="8^100+"E-300>          /SECOND OVERLAY ID NAME PAIR
+ 138                       IFNDEF  NAMCH3  <NAMCH3=0000>                   /THIRD OVERLAY ID NAME PAIR
+ 139                       IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST FILE NAME PAIR
+ 140                       IFNDEF  NMCH2   <NMCH2= "8^100>                 /SECOND FILE NAME PAIR
+ 141                       IFNDEF  NMCH3   <NMCH3= 0000>                   /THIRD FILE NAME PAIR
+ 142                       IFNDEF  ONEWAY  <ONEWAY=1>                      /LPT: OUTPUT ONLY
+ 143                       IFNDEF  OUT     <OUT=   04>                     /CONSOLE OUTPUT IOT CODE
+ 144                       IFNDEF  VT8LPT  <VT8LPT=1>                      /SHARED VT-8/E, LPT INTERRUPTS
+ 145               
+ 146               /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 147               
+ 148                       IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 149                       IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1!VT8LPT>      /LPEIOT DOES/DOES NOT EXIST
+ 150               
+ 151                                                                       >
+ 152               /      "KL8ESP" OVERLAY CONDITIONALS.
+ 153               
+ 154                       IFZERO  OVTYPE-02                               <
+ 155               
+ 156                       IFNDEF  KEY     <KEY=   03>                     /CONSOLE INPUT IOT CODE
+ 157                       IFNDEF  LIN     <LIN=   40>                     /LPT: INPUT IOT CODE
+ 158                       IFNDEF  LPT     <LPT=   41>                     /LPT: OUTPUT IOT CODE
+ 159                       IFNDEF  NAMCH1  <NAMCH1="K^100+"L-300>          /FIRST OVERLAY ID NAME PAIR
+ 160                       IFNDEF  NAMCH2  <NAMCH2="8^100+"E-300>          /SECOND OVERLAY ID NAME PAIR
+ 161                       IFNDEF  NAMCH3  <NAMCH3="S^100+"P-300>          /THIRD OVERLAY ID NAME PAIR
+ 162                       IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST FILE NAME PAIR
+ 163                       IFNDEF  NMCH2   <NMCH2= "8^100>                 /SECOND FILE NAME PAIR
+ 164                       IFNDEF  NMCH3   <NMCH3= 0000>                   /THIRD FILE NAME PAIR
+ 165                       IFNDEF  ONEWAY  <ONEWAY=0>                      /LPT: WITH INPUT FLOW CONTROL
+ 166                       IFNDEF  OUT     <OUT=   04>                     /CONSOLE OUTPUT IOT CODE
+ 167                       IFNDEF  VT8LPT  <VT8LPT=0>                      /NO VT-8/E, LPT: SHARED ENABLE
+ 168               
+ 169               /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 170               
+ 171                       IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 172                       IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1>             /LPEIOT DOES/DOES NOT EXIST
+ 173               
+ 174                                                                       >
+ 175               
+ 176               /       DECMATE "KLMATE" OVERLAY CONDITIONALS.
+ 177               
+ 178                       IFZERO  OVTYPE-10                               <
+ 179               
+ 180                       IFNDEF  IRATE   <IRATE= 14>                     /4800 BAUD SERIAL LPT: RATE
+ 181                       IFNDEF  KEY     <KEY=   03>                     /CONSOLE INPUT IOT CODE
+ 182                       IFNDEF  LIN     <LIN=   32>                     /LPT: INPUT IOT CODE
+ 183                       IFNDEF  LPT     <LPT=   33>                     /LPT: OUTPUT IOT CODE
+ 184                       IFNDEF  LSBIOT  <LSBIOT=LPT^10+6003>            /SET BAUD RATE IOT
+ 185                       IFNDEF  NAMCH1  <NAMCH1="K^100+"L-300>          /FIRST OVERLAY ID NAME PAIR
+ 186                       IFNDEF  NAMCH2  <NAMCH2="M^100+"A-300>          /SECOND OVERLAY ID NAME PAIR
+ 187                       IFNDEF  NAMCH3  <NAMCH3="T^100+"E-300>          /THIRD OVERLAY ID NAME PAIR
+ 188                       IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST FILE NAME PAIR
+ 189                       IFNDEF  NMCH2   <NMCH2= "8^100>                 /SECOND FILE NAME PAIR
+ 190                       IFNDEF  NMCH3   <NMCH3= 0000>                   /THIRD FILE NAME PAIR
+ 191                       IFNDEF  ONEWAY  <ONEWAY=0>                      /LPT: WITH INPUT FLOW CONTROL
+ 192                       IFNDEF  OUT     <OUT=   04>                     /CONSOLE OUTPUT IOT CODE
+ 193                       IFNDEF  VT8LPT  <VT8LPT=0>                      /NO VT-8/E, LPT: SHARED ENABLE
+ 194               
+ 195               /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 196               
+ 197                       IFNDEF  NOLIE   <NOLIE= 0>                      /LIEIOT EXISTS
+ 198                       IFNDEF  NOLOE   <NOLOE= 0>                      /LPEIOT EXISTS
+ 199               
+ 200                                                                       >
+ 201               /      "KL40" OVERLAY CONDITIONALS.
+ 202               
+ 203                       IFZERO  OVTYPE-60                               <
+ 204               
+ 205                       IFNDEF  DKEY    <DKEY=  43>                     /VT-8/E KEYBOARD IOT CODE
+ 206                       IFNDEF  KEY     <KEY=   40>                     /CONSOLE INPUT IOT CODE
+ 207                       IFNDEF  LIN     <LIN=   65>                     /LPT: INPUT IOT CODE
+ 208                       IFNDEF  LPT     <LPT=   66>                     /LPT: OUTPUT IOT CODE
+ 209                       IFNDEF  NAMCH1  <NAMCH1="K^100+"L-300>          /FIRST OVERLAY ID NAME PAIR
+ 210                       IFNDEF  NAMCH2  <NAMCH2="4^100+"0-200>          /SECOND OVERLAY ID NAME PAIR
+ 211                       IFNDEF  NAMCH3  <NAMCH3=0000>                   /THIRD OVERLAY ID NAME PAIR
+ 212                       IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST FILE NAME PAIR
+ 213                       IFNDEF  NMCH2   <NMCH2= "8^100>                 /SECOND FILE NAME PAIR
+ 214                       IFNDEF  NMCH3   <NMCH3= 0000>                   /THIRD FILE NAME PAIR
+ 215                       IFNDEF  ONEWAY  <ONEWAY=1>                      /LPT: OUTPUT ONLY
+ 216                       IFNDEF  OUT     <OUT=   41>                     /CONSOLE OUTPUT IOT CODE
+ 217                       IFNDEF  VT8LPT  <VT8LPT=1>                      /VT-8/E LPT: INTERRUPTS
+ 218               
+ 219               /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 220               
+ 221                       IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 222                       IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1!VT8LPT>      /LPEIOT DOES/DOES NOT EXIST
+ 223               
+ 224                                                                       >
+ 225               
+ 226               /       "KL40SP" OVERLAY CONDITIONALS.
+ 227               
+ 228                       IFZERO  OVTYPE-61                               <
+ 229               
+ 230                       IFNDEF  KEY     <KEY=   40>                     /CONSOLE INPUT IOT CODE
+ 231                       IFNDEF  LIN     <LIN=   03>                     /LPT: INPUT IOT CODE
+ 232                       IFNDEF  LPT     <LPT=   04>                     /LPT: OUTPUT IOT CODE
+ 233                       IFNDEF  NAMCH1  <NAMCH1="K^100+"L-300>          /FIRST OVERLAY ID NAME PAIR
+ 234                       IFNDEF  NAMCH2  <NAMCH2="4^100+"0-200>          /SECOND OVERLAY ID NAME PAIR
+ 235                       IFNDEF  NAMCH3  <NAMCH3="S^100+"P-300>          /THIRD OVERLAY ID NAME PAIR
+ 236                       IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST FILE NAME PAIR
+ 237                       IFNDEF  NMCH2   <NMCH2= "8^100>                 /SECOND FILE NAME PAIR
+ 238                       IFNDEF  NMCH3   <NMCH3= 0000>                   /THIRD FILE NAME PAIR
+ 239                       IFNDEF  ONEWAY  <ONEWAY=0>                      /LPT: WITH INPUT FLOW CONTROL
+ 240                       IFNDEF  OUT     <OUT=   41>                     /CONSOLE OUTPUT IOT CODE
+ 241                       IFNDEF  VT8LPT  <VT8LPT=0>                      /NO VT-8/E, LPT: SHARED ENABLE
+ 242               
+ 243               /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 244               
+ 245                       IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 246                       IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1>             /LPEIOT DOES/DOES NOT EXIST
+ 247               
+ 248                                                                       >
+ 249               /      DEFAULT ("CATCH-ALL") PARAMETERS.
+ 250               
+ 251                       IFNDEF  DKEY    <DKEY=  43>             /VT-8/E KEYBOARD IOT CODE
+ 252                       IFNDEF  IRATE   <IRATE= 14>             /4800 BAUD LPT: ON DECMATE, ETC.
+ 253                       IFNDEF  KEY     <KEY=   03>             /CONSOLE INPUT IOT CODE
+ 254                       IFNDEF  LCASE   <LCASE= 1>              /LOWER-CASE WITHOUT FOLDING
+ 255                       IFNDEF  LIN     <LIN=   65>             /LPT: INPUT IOT CODE
+ 256                       IFNDEF  LPBUFF  <LPBUFF=1>              /LPT: BUFFERING ENABLED
+ 257                       IFNDEF  LPT     <LPT=   66>             /LPT: OUTPUT IOT CODE
+ 258                       IFNDEF  LSBIOT  <LSBIOT=NOP>            /NO BAUD RATE SETTING
+ 259                       IFNDEF  NAMCH1  <NAMCH1="K^100+"L-300>  /FIRST OVERLAY ID NAME PAIR
+ 260                       IFNDEF  NAMCH2  <NAMCH2="8^100>         /SECOND OVERLAY ID NAME PAIR
+ 261                       IFNDEF  NAMCH3  <NAMCH3=0000>           /THIRD OVERLAY ID NAME PAIR
+ 262                       IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>  /FIRST FILE NAME PAIR
+ 263                       IFNDEF  NMCH2   <NMCH2= "8^100>         /SECOND FILE NAME PAIR
+ 264                       IFNDEF  NMCH3   <NMCH3= 0000>           /THIRD FILE NAME PAIR
+ 265                       IFNDEF  NOLIE   <NOLIE= 0>              /LIEIOT ENABLES LPT: INPUT INTERRUPTS
+ 266                       IFNDEF  NOLOE   <NOLOE= 0>              /LPEIOT ENABLES LPT: OUTPUT INTERRUPTS
+ 267                       IFNDEF  ONEWAY  <ONEWAY=0>              /LPT: WITH INPUT FLOW CONTROL
+ 268                       IFNDEF  OUT     <OUT=   04>             /CONSOLE OUTPUT IOT CODE
+ 269                       IFNDEF  VT8LPT  <VT8LPT=1>              /VT-8/E IN, LPT: OUT INTERRUPT ENABLE
+ 270               
+ 271               //      DEFINITIONS FROM KL8.
+ 272               
+ 273                       BAUDRAT=0064            /DECMATE, ETC. PRINTER BAUD RATE
+ 274                       DKILOCA=1567            /VT-8/E KEYBOARD INTERRUPT ENABLE LOCATION
+ 275                       INCIF2= 1637            /KEYBOARD INPUT INTERRUPT PROTECTION
+ 276                       INITNOR=0247            /INITIALIZING LOCATION
+ 277                       INTCON= 0600            /INTERRUPT HANDLER
+ 278                       INTDEV= 0665            /INTERRUPT DEVICE LIST
+ 279                       KINLOCA=1553            /KEYBOARD INTERRUPT ENABLE LOCATION
+ 280                       KTILOCA=4026            /KEYBOARD TEST INSTRUCTION LOCATION
+ 281                       LCMODE= 0006            /LOWER-CASE MODE
+ 282                       LICIF2= 1531            /LPT: INPUT INTERRUPT PROTECTION
+ 283                       LINLOCA=1561            /LPT: INPUT INTERRUPT ENABLE LOCATION
+ 284                       LOTLOCA=1564            /LPT: OUTPUT INTERRUPT ENABLE LOCATION
+ 285                       LPMODE= 0004            /LPT: BUFFERING MODE SWITCH
+ 286                       LPOCIF= 1427            /LPT: OUTPUT INTERRUPT PROTECTION
+ 287                       LPRINT= 0625            /LPT: INPUT INTERRUPT HANDLER
+ 288                       LPTINT= 0645            /LPT: OUTPUT INTERRUPT HANDLER
+ 289                       OUTCIF= 1657            /CONSOLE OUTPUT INTERRUPT PROTECTION
+ 290                       OUTIME= 0264            /CONSOLE OUTPUT TIME-OUT TEST
+ 291                       OUTINT= 0636            /CONSOLE OUTPUT INTERRUPT HANDLER
+ 292                       OUTTST= 0260            /CONSOLE OUTPUT FLAG TEST
+ 293                       OVID=   0106            /OVERLAY ID NAME FIELD
+ 294                       OVRWRD= 0111            /OVERLAY TYPE WORD
+ 295                       TIMOUT= 4056            /HARDWARE FLAG TIME-OUT
+ 296                       TIMTST= 4045            /HARDWARE TIME-OUT TEST
+ 297                       TINLOCA=1556            /TERMINAL OUTPUT INTERRUPT ENABLE LOCATION
+ 298                       VTINT=  0655            /VT-8/E KEYBOARD INTERRUPT HANDLER
+ 299               
+ 300               //      END OF KL8 DEFINITIONS.
+ 301               /      IOT DEFINITIONS.
+ 302               
+ 303               /       CONSOLE KEYBOARD DEFINITIONS.
+ 304               
+ 305                       KIEIOT= KEY^10+6005             /KEYBOARD INTERRUPT ENABLE PER AC[11]
+ 306                       KRBIOT= KEY^10+6006             /READ KEYBOARD BUFFER, CLEAR THE FLAG
+ 307                       KSFIOT= KEY^10+6001             /SKIP ON (AND CLEAR IF 6120) KEYBOARD FLAG
+ 308                       KTIIOT= KEY^10+6003             /KEYBOARD TEST INSTRUCTION
+ 309               
+ 310               /       CONSOLE OUTPUT DEFINITIONS.
+ 311               
+ 312                       TCFIOT= OUT^10+6002             /CLEAR TTY: FLAG
+ 313                       TFLIOT= OUT^10+6000             /SET TTY: FLAG
+ 314                       TIEIOT= OUT^10+6005             /OUTPUT INTERRUPT ENABLE PER AC[11] (FOR 6120)
+ 315                       TLSIOT= OUT^10+6006             /OUTPUT CHARACTER, CLEAR FLAG
+ 316                       TSFIOT= OUT^10+6001             /SKIP ON (CLEAR IF 6120) OUTPUT FLAG
+ 317               
+ 318               /       LPT: INPUT DEFINITIONS.
+ 319               
+ 320                       ISLI=   ONEWAY-1                /7777 IF LPT: INPUT, ELSE 0000
+ 321                       ISLIE=  NOLIE-1&ISLI            /7777 IF LIEIOT EXISTS, ELSE 0000
+ 322                       LINNOP= ONEWAY^NOP              /0000 IF LPT: INPUT, ELSE 7000
+ 323               
+ 324                       LIEIOT= LIN^10+6005&ISLIE       /LPT: INPUT INTERRUPT ENALE PER AC[11]
+ 325                       LIRBIOT=LIN^10+6006&ISLI        /READ LPT: INPUT, CLEAR FLAG (IF NOT 6120)
+ 326                       LISFIOT=LIN^10+6001&ISLI!LINNOP /SKIP ON (CLEAR FLAG IF 6120) LPT: INPUT FLAG
+ 327               
+ 328               /       LPT: OUTPUT DEFINITIONS.
+ 329               
+ 330                       ISLOE=  NOLOE-1                 /7777 IF LPEIOT EXISTS, ELSE 0000
+ 331               
+ 332                       LCFIOT= LPT^10+6002             /CLEAR LPT: OUTPUT FLAG
+ 333                       LLSIOT= LPT^10+6006             /OUTPUT LPT: CHARACTER, CLEAR FLAG (IF NOT 6120)
+ 334                       LPEIOT= LPT^10+6005&ISLOE       /LPT: OUTPUT INTERRUPT ENABLE PER AC[11]
+ 335                       LSFIOT= LPT^10+6001             /SKIP ON (CLEAR FLAG IF 6120) LPT: OUTPUT FLAG
+ 336               
+ 337               /       VT-8/E KEYBOARD DEFINITIONS.
+ 338               
+ 339                       DKCFIOT=DKEY^10+6000            /CLEAR VT-8/E KEYBOARD FLAG
+ 340                       DKIEIOT=DKEY^10+6005            /INTERRUPT ENABLE PER AC[11] ON VT-8/E, LPT:
+ 341                       DKSFIOT=DKEY^10+6001            /SKIP ON VT-8/E KEYBOARD FLAG
+ 342               /      OVERLAY TO PRIMARY FILE CODE.
+ 343               
+ 344               /       THIS SECONDARY OVERLAY FILE MUST START WITH THE THREE ORIGIN SETTINGS
+ 345               /       MATCHING THE PRIMARY FILE.
+ 346               
+ 347                       *NMCH1                  /FIRST FILE NAME PAIR ORIGIN
+ 348               
+ 349                       *NMCH2                  /SECOND FILE NAME PAIR ORIGIN
+ 350               
+ 351                       *NMCH3                  /THIRD FILE NAME PAIR ORIGIN
+ 352               
+ 353               /       THE NEXT ORIGIN MUST BE BETWEEN 0000-0077. SINCE THIS IS A SECONDARY FILE,
+ 354               /       IT MAY NOT BE ZERO.
+ 355               
+ 356                       *LPMODE                 /LPT: BUFFERING MODE
+ 357               
+ 358 000004  0000          1-LPBUFF                /LPT: BUFFERING MODE; 1=NO BUFFERING
+ 359               
+ 360                       *LCMODE                 /LOWER-CASE MODE
+ 361               
+ 362 000006  0000          1-LCASE^7740            /7740=FOLD LOWER-CASE TO UPPER-CASE
+ 363               
+ 364                       *BAUDRATE               /DECMATE, ETC. PRINTER BAUD RATE
+ 365               
+ 366 000064  0014          IRATE                   /14=4800 ON DECMATE, ETC.
+ 367               
+ 368               /       THE FOLLOWING THREE WORDS OVERLAY THE OVERLAY ID NAME FIELD DIRECTLY. IF
+ 369               /       NO DIRECT LOADING OCCURS HERE, THE ACTUAL NAME WILL BE TAKEN FROM THE THREE
+ 370               /       ORIGIN SETTINGS THAT START THIS FILE (THEY MUST MATCH THE PRIMARY FILE,
+ 371               /       THUS LIMITING THE NAME TO THE PRIMARY FILE'S NAME SUCH AS "KL8"). THE SIX
+ 372               /       CHARACTERS LOADED HERE ARE UNRELATED TO THE PRIMARY FILE, THUS MORE
+ 373               /       INFORMATIVE OVERLAY NAMES ARE POSSIBLE.
+ 374               
+ 375                       *OVID                   /OVERLAY ID NAME FIELD
+ 376               
+ 377 000106  1314          NAMCH1                  /FIRST OVERLAY ID NAME PAIR
+ 378 000107  7005          NAMCH2                  /SECOND OVERLAY ID NAME PAIR
+ 379 000110  0000          NAMCH3                  /THIRD OVERLAY ID NAME PAIR
+ 380               
+ 381                       *OVRWRD                 /OVERLAY TYPE WORD
+ 382               
+ 383 000111  0100          OVTYPE^100              /INDICATE OUR OVERLAY TYPE
+ 384               
+ 385                       *INITNOR+4              /OVER BAUD RATE SETUP
+ 386               
+ 387 000253  7000          LSBIOT                  /SET BAUD RATE ON DECMATE, ETC.
+ 388                      *OUTTST                 /OVER OUTPUT TEST
+ 389               
+ 390 000260  6041          TSFIOT                  /SKIP ON OUTPUT READY
+ 391               
+ 392                       *OUTTST+2               /OVER FLAG SET
+ 393               
+ 394 000262  6040          TFLIOT                  /RESET FLAG FOR DECMATE
+ 395               
+ 396                       *OUTIME+4               /OVER OUTPUT FLAG SET
+ 397               
+ 398 000270  6046          TLSIOT                  /SET THE FLAG NOW
+ 399               
+ 400                       *INTCON+5               /OVER KEYBOARD INTERRUPT HANDLER
+ 401               
+ 402 000605  6031          KSFIOT                  /KEYBOARD FLAG UP?
+ 403               
+ 404                       *INTCON+13              /OVER KEYBOARD READ
+ 405               
+ 406 000613  6036          KRBIOT                  /GET THE CHARACTER, CLEARING THE FLAG
+ 407               
+ 408                       *LPRINT                 /OVER LPT: INPUT INTERRUPT HANDLER
+ 409               
+ 410 000625  7000          LISFIOT                 /LPT: INPUT FLAG UP?
+ 411               
+ 412                       *LPRINT+2               /OVER LPT: INPUT READ
+ 413               
+ 414 000627  0000          LIRBIOT                 /READ THE LPT: INPUT CHARACTER, CLEARING THE FLAG
+ 415               
+ 416                       *OUTINT                 /OVER CONSOLE OUTPUT INTERRUPT HANDLER
+ 417               
+ 418 000636  6041          TSFIOT                  /CONSOLE OUTPUT FLAG UP?
+ 419               
+ 420                       *OUTINT+2               /OVER CONSOLE OUTPUT FLAG CLEAR
+ 421               
+ 422 000640  6042          TCFIOT                  /CLEAR CONSOLE OUTPUT FLAG
+ 423               
+ 424                       *LPTINT                 /OVER LPT: OUTPUT INTERRUPT HANDLER
+ 425               
+ 426 000645  6661          LSFIOT                  /LPT: OUTPUT FLAG UP?
+ 427               
+ 428                       *LPTINT+2               /OVER LPT: OUTPUT FLAG CLEAR
+ 429               
+ 430 000647  6662          LCFIOT                  /CLEAR LPT: OUTPUT FLAG
+ 431               
+ 432                       *VTINT                  /OVER VT-8/E KEYBOARD INTERRUPT HANDLER
+ 433               
+ 434 000655  6431          DKSFIOT                 /VT-8/E KEYBOARD FLAG UP?
+ 435               
+ 436                       *VTINT+2                /OVER VT-8/E KEYBOARD FLAG CLEAR
+ 437               
+ 438 000657  6430          DKCFIOT                 /CLEAR VT-8/E KEYBOARD FLAG
+ 439                      *INTDEV                 /OVER INTERRUPT DEVICE LIST
+ 440               
+ 441 000665  6031          KSFIOT                  /KEYBOARD SKIP
+ 442 000666  6041          TSFIOT                  /CONSOLE OUTPUT SKIP
+ 443 000667  7777          -ONEWAY!LISFIOT         /LPT: INPUT SKIP
+ 444 000670  6661          LSFIOT                  /LPT: OUTPUT SKIP
+ 445 000671  6431          -VT8LPT&DKSFIOT         /VT-8/E KEYBOARD SKIP
+ 446               
+ 447 000672  0000          ZBLOCK  7               /ROOM FOR ADDITIONAL FLAG SKIPS
+     000673  0000  
+     000674  0000  
+     000675  0000  
+     000676  0000  
+     000677  0000  
+     000700  0000  
+ 448               
+ 449 000701  0000          0                       /THIS ENDS THE LIST
+ 450               
+ 451                       *LPOCIF+2               /OVER LPT: OUTPUT ROUTINE
+ 452               
+ 453 001431  6661          LSFIOT                  /LPT: OUTPUT FLAG UP?
+ 454               
+ 455                       *LPOCIF+10              /OVER LPT: OUTPUT ROUTINE
+ 456               
+ 457 001437  6666          LLSIOT                  /OUTPUT CHARACTER TO LPT: NOW
+ 458               
+ 459                       *LICIF2+1               /OVER LPT: INPUT ROUTINE
+ 460               
+ 461 001532  7000          LISFIOT                 /LPT: INPUT FLAG UP?
+ 462               
+ 463                       *LICIF2+3               /OVER LPT: INPUT ROUTINE
+ 464               
+ 465 001534  0000          LIRBIOT                 /READ THE CHARACTER IN, CLEARING THE FLAG
+ 466               
+ 467                       *KINLOCATION            /OVER KEYBOARD INTERRUPT ENABLE
+ 468               
+ 469 001553  6035          KIEIOT                  /KEYBOARD INTERRUPT ENABLE
+ 470               
+ 471                       *TINLOCATION            /OVER OUTPUT INTERRUPT ENABLE
+ 472               
+ 473 001556  6045          TIEIOT                  /OUTPUT INTERRUPT ENABLE
+ 474               
+ 475                       *LINLOCATION            /OVER LPT: INPUT INTERRUPT ENABLE
+ 476               
+ 477 001561  0000          LIEIOT                  /LPT: INPUT INTERRUPT ENABLE
+ 478               
+ 479                       *LOTLOCATION            /OVER LPT: OUTPUT INTERRUPT ENABLE
+ 480               
+ 481 001564  0000          LPEIOT                  /LPT: OUTPUT INTERRUPT ENABLE
+ 482               
+ 483                       *DKILOCATION            /OVER VT-8/E KEYBOARD INTERRUPT ENABLE
+ 484               
+ 485 001567  6435          DKIEIOT                 /VT-8/E KEYBOARD INTERRUPT ENABLE
+ 486                      *INCIF2+1               /OVER KEYBOARD INPUT ROUTINE
+ 487               
+ 488 001640  6031          KSFIOT                  /KEYBOARD FLAG UP?
+ 489               
+ 490                       *INCIF2+3               /OVER KEYBOARD INPUT ROUTINE
+ 491               
+ 492 001642  6036          KRBIOT                  /READ THE CHARACTER AND CLEAR THE FLAG
+ 493               
+ 494                       *OUTCIF+2               /OVER CONSOLE OUTPUT ROUTINE
+ 495               
+ 496 001661  6041          TSFIOT                  /CONSOLE OUTPUT FLAG UP?
+ 497               
+ 498                       *OUTCIF+10              /OVER CONSOLE OUTPUT ROUTINE
+ 499               
+ 500 001667  6046          TLSIOT                  /OUTPUT THE CHARACTER NOW
+ 501               
+ 502                       *KTILOCATION            /OVER TEST IOT
+ 503               
+ 504 004026  6033          KTIIOT                  /TEST FOR PRE-OMNIBUS CONSOLE
+ 505               
+ 506                       *TIMTST                 /OVER HARDWARE TIME-OUT TEST
+ 507               
+ 508 004045  6041          TSFIOT                  /FLAG UP?
+ 509               
+ 510                       *TIMOUT+4               /OVER FLAG TIME-OUT ROUTINE
+ 511               
+ 512 004062  6046          TLSIOT                  /SET THE FLAG NOW
+ 513               
+ 514                       $                       /THAT'S ALL FOLK!
+
+BAUDRA  0064
+DKCFIO  6430
+DKEY    0043
+DKIEIO  6435
+DKILOC  1567
+DKSFIO  6431
+INCIF2  1637
+INITNO  0247
+INTCON  0600
+INTDEV  0665
+IRATE   0014
+ISLI    0000
+ISLIE   0000
+ISLOE   0000
+KEY     0003
+KIEIOT  6035
+KINLOC  1553
+KRBIOT  6036
+KSFIOT  6031
+KTIIOT  6033
+KTILOC  4026
+LCASE   0001
+LCFIOT  6662
+LCMODE  0006
+LICIF2  1531
+LIEIOT  0000
+LIN     0065
+LINLOC  1561
+LINNOP  7000
+LIRBIO  0000
+LISFIO  7000
+LLSIOT  6666
+LOTLOC  1564
+LPBUFF  0001
+LPEIOT  0000
+LPMODE  0004
+LPOCIF  1427
+LPRINT  0625
+LPT     0066
+LPTINT  0645
+LSBIOT  7000
+LSFIOT  6661
+NAMCH1  1314
+NAMCH2  7005
+NAMCH3  0000
+NMCH1   1314
+NMCH2   7000
+NMCH3   0000
+NOLIE   0001
+NOLOE   0001
+ONEWAY  0001
+OUT     0004
+OUTCIF  1657
+OUTIME  0264
+OUTINT  0636
+OUTTST  0260
+OVID    0106
+OVRWRD  0111
+OVTYPE  0001
+TCFIOT  6042
+TFLIOT  6040
+TIEIOT  6045
+TIMOUT  4056
+TIMTST  4045
+TINLOC  1556
+TLSIOT  6046
+TSFIOT  6041
+VT8LPT  0001
+VTINT   0655

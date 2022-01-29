@@ -1,0 +1,152 @@
+# This is a description of a generic PQS8 bootable volume.
+# This isn't really generic, it's basically the DECTape 
+# volume, which will be customized later for other devices.
+blocksize 0200
+#devsize 2702
+0000-0000 pqsmon.sv 07400-07577 # Bootstrap, system handler
+0001-0014 pqsmon.sv 00000-02777 # Kmon, Editor
+# Create an empty CATalog
+0015-0016 zero
+# Lowest user block is 0300
+# Lowest user block cannot be < 0124
+# Set 2702-0300 = 2402 blocks available
+# 2402/20 = 0120 as max file count
+# 0120*3+7000 = 7360 is CATalog end address
+# 0120*020+0300 = 2700 last user block
+# Poke these values
+0016:175/ 7360 2700 0300
+0017-0017 pqsmon.sv 03000-03177 # TTY editing
+# 0020-0037  "%"; uninitialized
+# 0040-0057  "$"; uninitialized
+0060-0060 pqsmon.sv 24000-24177 #/I
+0061-0062 pqsmon.sv 21400-21777 # Extended command processor
+# Write the initial DIRECTory content
+0063-0066 pqsmon.sv 25000-25777
+# Zero the extended CATalog
+0067-0071 zero
+# Poke the first and last block numbers
+0071:176/ 2701 2700
+0072-0075 pqsmon.sv 20000-20777 # "R", "RU"
+# 0076-0077  Reserved; uninitialized
+0100-0100 pqsmon.sv 24400-24577 # SLURP
+0101-0102 pqsmon.sv 13400-13777 # Ext. Handler Initialization
+0103-0112 pqsmon.sv 14000-16377 # Ext. Handler code
+0113-0114 pqsmon.sv 21000-21377 # Handler trap blocks
+0115-0115 pqsmon.sv 24200-24577 # BATCH recovery
+# 0116-0116  Active BATCH; uninitialized
+# 0117-0117  BATCH buffer; uninitialized
+# 0120-0120  System I/O, switches, files; uninitialized
+# 0121-0121  Page zero user settings; uninitialized
+# Write the handler directory on block 0122
+0122:000/ "S "Y "S 0123 0001 0000 0000 0000
+0122:010/ "N "U "L 0123 0001 0034 0000 0000
+0122:020/ "D "T "A 0124 0001 0011 0000 0000
+0122:030/ "R "X "A 0125 0003 0000 0000 0000
+0122:040/ "R "K "A 0130 0004 0000 0000 0000
+0122:050/ "R "K "B 0130 0004 0005 0000 0000
+0122:060/ "L "T "A 0134 0001 0000 0000 0000
+0122:070/ "D "S "U 0135 0001 0075 0000 0000
+0122:100/ "D "S "L 0135 0001 0026 0000 0000
+0122:110/ "L "I "N 0136 0001 0000 0000 0000
+0122:120/ "L "T "D 0137 0001 0200 0000 0000
+0122:130/ "L "I "D 0140 0001 0200 0000 0000
+0122:140/ "F "L "P 0141 0001 0000 0000 0000
+0122:150/ 0000 7777 7777 7777 7777 7777 7777 7777
+0122:160/ 0000 0000 0000 0000 0000 0000 0000 0000
+0122:170/ 0000 0000 0000 0000 0000 0000 0000 0000
+# Now the handlers themselves
+0123-0123 syshnd.sv 0000-0177
+0124-0124 dtahnd.sv 0000-0177
+0125-0127 rxahnd.sv 0000-0577
+0130-0133 rkahnd.sv 0000-0777
+0134-0134 ltahnd.sv 0000-0177
+0135-0135 dsuhnd.sv 0000-0177
+0136-0136 linhnd.sv 0000-0177
+0137-0137 ltdhnd.sv 0000-0177
+0140-0140 lidhnd.sv 0000-0177
+0141-0141 flphnd.sv 0000-0177
+# 0142-0162 are reserved for more handlers.
+# These are the system programs listed in the DIRECTory.
+0163-0200 pqsmon.sv 10000-13377 # ODT
+0201-0201 pqsmon.sv 03400-03577 # BATCH
+0203-0216 pqsmon.sv 04000-06577 # BIN, GET, START
+# 0217-0231 Used by BIN, GET, START; uninitialized
+# TODO: Find the extent for DUMP
+0232-0240 pqsmon.sv xxxxx-xxxxx # DUMP
+0241-0243 pqsmon.sv 22000-22577 # CHANGE, FIND
+# 244-777  Stuff to be indexed in the DIRECTory.
+#TODO: Confirm/fix these address ranges
+0244-0251 bsave.sv  03000-04377
+0252-0310 asmblr.sv 00000-07777
+0311-0353 asmblr.sv 10000-17777
+0354-0365 map.sv    00000-02377
+# TODO: Look up extents for these!
+0366-0376 blkodt.sv 0xxxx-0xxxx
+0377-0411 set.sv    0xxxx-0xxxx
+0412-0413 core.sv   412 2         core   s  3000 /3102 3000
+0414-0425 date.sv   414 12        date   s  3000 /3112 3000
+0426-0441 print.sv  426 14        print  r  0200 /0054 0215
+0442-0465 filman.sv 442 24        filman s  7000 /2724 7000
+0466-0470 allcat.sv 466  3        allcat s  3000 /3103 3000
+0471-0567 consol.sv 471 24        consol    3000 /3020 3002
+# TODO: Isn't FOCAL 8K?
+0570-0571 focpqs.sv 570 24        focal     3400 /0037 3413
+0572-0603 os8con.sv 572 24        os8con    0200 /0012 0205
+0604-0617 systat.sv 604 24        systat    0200 /0014 0200
+0620-0642 direct.sv 620 24        direct rs 7200 /2763 7200
+0643-0670 blkcpy.sv 643 24        blkcpy    0200 /0026 0200
+# Poke new DIRECTory entries for the above
+0063:060/ 0223 0126 0500 0244 3006 3104 # BSAVE
+0063:066/ 2001 1400 0000 0252 0037 0207 # PAL
+0063:072/ 1501 2000 0000 0354 0012 1202 # MAP
+0063:100/ 0214 1317 0424 0366 0011 2000 # BLKODT
+0063:106/ 2305 2400 0000 0377 3153 3000 # SET
+0063:112/ 0317 2205 0000 0412 3102 3000 # CORE
+0063:120/ 0401 2405 0000 0414 3112 3000 # DATE
+0063:126/ 2022 1116 2400 0426 0054 0215 # PRINT
+0063:132/ 0611 1415 0116 0442 2724 7000 # FILMAN
+0063:140/ 0114 1403 0124 0466 3103 3000 # ALLCAT
+0063:146/ 0317 1623 1714 0471 3020 3002 # CONSOL
+0063:152/ 0617 0301 1400 0531 0037 3413 # FOCAL
+0063:160/ 1723 7003 1716 0572 0012 0205 # OS8CON
+0063:166/ 2331 2324
+0064:000/ 0124 0604 0014 0200 # SYSTAT
+0064:004/ 0411 2205 0324 0620 2763 7200 # DIRECT
+0064:012/ 0214 1303 2031 0643 0026 0200 # BLKCPY
+0066:167/ 0671 # First free block
+
+# DIRECTory extras, depending on media (DSL, DTA)
+0671-0711 rk4mat.sv 671 21        rk4mat    2200 /0021 2200
+0712-0725 dt4mat.sv 712 14        dt4mat    2600 /0014 2600
+0726-0735 dtcopy.sv 726  7        dtcopy    0000 /0007 0000
+0064:020/ 2213 6415 0124 0671 0021 2200 # RK4MAT
+0064:026/ 0424 6415 0124 0712 0014 2600 # DT4MAT
+0064:032/ 0424 0317 2031 0726 0007 0000 # DTCOPY
+0016:175/ 0514 2700 1000 # DTA CATalog
+0066:177/ 0735 # First free block
+0071:177/ 2700 # Extended CATalog
+exit # That is all
+
+# DIRECTory extras, depending on media (RKA, LTA)
+0671-0711 rk4mat.sv 671 21        rk4mat    2200 /0021 2200
+0712-0724 mark12.sv 712 13        mark12    4000 /4013 4000
+0725-0746 tc12f.sv  725 22        tc12f     4000 /3222 4000
+0747-0762 l6dcon.sv 747 14        l6dcon    0200 /0014 0200
+0763-0775 ltbodt.sv 763 13        ltbodt    2400 /0013 2400
+0776-1007 ltdump.sv 776 12        ltdump    2000 /0012 2000
+0016:175/ 0404 3600 1100 # RKA, LTA
+0071:177/ 3600 # RKA, LTA
+0066:177/ 1010 # RKA, LTA
+exit # That is all
+
+# DIRECTory extras, depending on media (RXA)
+0671-0677 rxutil.sv 671  7        rxutil    0200 /0007 0200
+0016:175/ 0635 1720 0700 # RXA
+0066:177/ 0700 # RXA
+0071:177/ 1720 # RXA
+exit # That is all
+
+0016:175/ 0404 3500 1000 # DSL
+0066:177/ 0735 # DSL
+0071:177/ 3500 # DSL
+exit # That is all

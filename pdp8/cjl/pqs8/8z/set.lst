@@ -1,0 +1,2143 @@
+   1               /       SET COMMAND FOR P?S/8
+   2                
+   3               /       LAST EDIT:      05-JAN-1986     10:00:00        CJL
+   4               
+   5               /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       THE SET COMMAND ALLOWS VARIOUS KEYBOARD MONITOR, ETC. PARAMETERS TO BE
+   8               /       CUSTOMIZED BY THE USER.
+   9               
+  10               /       VARIOUS FUNCTIONS CAN BE VARIED TO SUIT INDIVIDUAL PREFERENCE OR HARDWARE
+  11               /       CONFIGURATION AS NECESSARY.
+  12               
+  13               /       USAGE:
+  14               
+  15               /       SET OPTION [NO] CONDITION       SET THE SPECIFIED OPTION TO THE
+  16               /                                       STATED CONDITION. VARIOUS OPTIONS
+  17               /                                       ALLOW "NO" MODIFIERS.
+  18               
+  19               /       SET OPTION PARAMETER=XXXX       SET THE SPECIFIED OPTION PARAMETER
+  20               /                                       TO THE STATED NUMERICAL VALUE.
+  21               
+  22               /       SET OPTION STRING=XXXXXXXXXX    SET THE SPECIFIED OPTION STRING
+  23               /                                       TO THE STATED STRING ARGUMENT.
+  24               
+  25               /       SET/A                           OBTAIN A LIST OF ALL AVAILABLE OPTIONS.
+  26               
+  27               /       WHEN INVOKING ANY OPTION (/A NOT PRESENT), THE FOLLOWING SYNTACTIC RULES APPLY:
+  28               
+  29               /       SET OPTION PARAMETER [,PARAMETER] [;OPTION PARAMETER] [,PARAMETER]
+  30               
+  31               /       THIS ALLOWS MIXED MULTIPLE OPTION AND SUB-OPTION COMMANDS.
+  32               
+  33               /       N. B. SOME OPTIONS MAY BE IN CONFLICT WITH EACH OTHER OR DEFAULT TO
+  34               /       OVERRIDING EACH OTHER!
+  35               /      COMPLETE OPTION LISTING.
+  36               
+  37               /       INVOKING "SET/A" WILL LIST ALL SET OPTIONS AS FOLLOWS:
+  38               
+  39               /       DOLLAR          FETCH*  WRITE*
+  40               /       ECHO            FLIP*   OFF     ON
+  41               /       ESCAPE          CHAR    CODE    RETURN  TOPS10
+  42               /       FLNAME          ENTRY*
+  43               /       LNFEED          ECHO    IGNORE  RETURN  VIEW
+  44               /       NULL            ERASE*
+  45               /       PASS            WORD
+  46               /       PROMPT          CHAR    UNIT*
+  47               /       RADIX           EIGHT   TEN
+  48               /       RUBOUT          BACKUP  CHAR    ECHO    LIMIT   NORMAL
+  49               /                       TOPS10  TOSS*   VT05    VT100   VT52
+  50               /       SYSTEM          HALT    RETRY   UNITS*
+  51               /       TAB             CODE    EXPAND  FILL*   SINGLE
+  52               /       ^U              STRING
+  53               /       ^Z              STRING
+  54               
+  55               /       ITEMS MARKED WITH ASTERISK ALLOW A "NO" MODIFIER.
+  56               
+  57               /       SOME ITEMS ARE PASS WORD PROTECTED DUE TO THE SERIOUS CONSEQUENCES OF
+  58               /       THEIR INVOCATION.
+  59               /      INDIVIDUAL SET OPTION DESCRIPTIONS.
+  60               
+  61               /       SET DOLLAR [NO] FETCH
+  62               
+  63               /       THIS FETCHS $:[BOOTSTRAP UNIT] INTO THE EDITOR EVERY TIME THE KEYBOARD
+  64               /       MONITOR IS RELOADED MAKING IT THE ACTIVE FILE.
+  65               
+  66               /       SET DOLLAR [NO] WRITE
+  67               
+  68               /       THIS WRITES THE ACTIVE FILE INTO $:[BOOTSTRAP UNIT] EVERY TIME THE
+  69               /       EXTENDED COMMAND PROCESSOR OR "R" OR "RU" COMMANDS ARE INVOKED. THESE TWO
+  70               /       COMMANDS USED TOGETHER ALLOW AN ENVIRONMENT SIMILAR TO "BASIC" TO EXIST.
+  71               
+  72               /       SET ECHO [NO] FLIP:PASSWORD
+  73               
+  74               /       THIS OPTION CONTROLS THE DISPOSITION OF <^O> CHARACTERS SENT BY THE USER
+  75               /       TO TOGGLE PRINTING WITHIN THE KEYBOARD MONITOR ENVIRONMENT. SETTING
+  76               /       NO FLIP CAUSES <^O> TO BE IGNORED. THE ONLY WAY TO CHANGE THE STATE OF
+  77               /       INPUT ECHO IS THEN THE "ECHO" COMMAND.
+  78               
+  79               /       SET ECHO OFF:PASSWORD
+  80               
+  81               /       THIS OPTION CAUSES THE KEYBOARD MONITOR TO BE RELOADED WITH ECHO TURNED
+  82               /       OFF INITIALLY.
+  83               
+  84               /       SET ECHO ON:PASSWORD
+  85               
+  86               /       THIS OPTION CAUSES THE KEYBOARD MONITOR TO BE RELOADED WITH ECHO TURNED
+  87               /       ON INITIALLY.
+  88               
+  89               /       SET ESCAPE CHAR=XXXX
+  90               
+  91               /       THIS OPTION CAUSES THE CHARACTER ECHOED BY PRESSING THE <ESC> KEY TO
+  92               /       BE THE ASCII CODE XXXX. THIS OPTION IS DORMANT UNLESS SET ESCAPE TOPS10
+  93               /       IS ALSO IN EFFECT.
+  94               
+  95               /       SET ESCAPE CODE=XXXX
+  96               
+  97               /       THIS OPTION CAUSES THE CHARACTER OF ASCII CODE XXXX TO BE THE LOGICAL
+  98               /       CHARACTER CODE FOR THE <ESC> FUNCTION. VARIOUS CODES HAVE BEEN USED
+  99               /       ON VARIOUS TERMINALS; THE MOST POPULAR ARE 27 (<ESC>) AND 125 (<ALT>)
+ 100               /       HOWEVER THE USER CAN INVOKE ANY NON-CONFLICTING VALUE. IF THE VALUE DOES
+ 101               /       CONFLICT WITH ANOTHER FUNCTION CODE, EITHER THE <ESC> FUNCTION OR THE
+ 102               /       INTENDED FUNCTION WILL PREVAIL DEPENDING ON TABLE ORDER.
+ 103               
+ 104               /       SET ESCAPE RETURN
+ 105               
+ 106               /       THIS OPTION CAUSES THE DESIGNATED <ESC> KEY TO FUNCTION IDENTICALLY TO
+ 107               /       <CR>. THE <ESC> FUNCTION WILL NOT BE AVAILABLE TO THOSE PROGRAMS DESIGNED
+ 108               /       TO LOOK FOR <ESC> AS OPPOSED TO <CR> TERMINATION.
+ 109               
+ 110               /       SET ESCAPE TOPS10
+ 111               
+ 112               /       THIS OPTION CAUSES THE DESIGNATED <ESC> CHARACTER TO BE PRINTED WITHOUT
+ 113               /       <CR>, <LF> AND TERMINATE THE INPUT LINE.
+ 114               /      SET FLNAME [NO] ENTRY:PASSWORD
+ 115               
+ 116               /       THIS OPTION CONTROLS THE "ENTRY" OF THE CURRENT FILE NAME WHEN USING ANY OF
+ 117               /       THE COMMANDS: "FETCH", "WRITE", "KILL", "ENTER." SHOULD ANY OF THESE COMMANDS
+ 118               /       SUBSEQUENTLY BE USED WITHOUT A FILE NAME THOUGH POSSIBLY WITH A UNIT
+ 119               /       SPECIFICATION (EX: "FETCH:7"), THE CURRENT FILE NAME WILL BE USED IMPLICITLY.
+ 120               /       THIS ALLOWS SEQUENCES SUCH AS:
+ 121               
+ 122               /       FETCH FOO               THIS FETCHS THE FILE "FOO" FOR EDITING.
+ 123               /       WRITE                   THIS WRITES THE FILE "FOO" BACK AS IF IT WERE
+ 124               /                               "WRITE FOO".
+ 125               
+ 126               /       SET LNFEED ECHO
+ 127               
+ 128               /       THIS OPTION CAUSES THE LINEFEED KEY TO ECHO THE <LF> CHARACTER ONLY. THERE
+ 129               /       IS NO OTHER <LF> FUNCTION IF THIS OPTION IS INVOKED.
+ 130               
+ 131               /       SET LNFEED IGNORE
+ 132               
+ 133               /       THIS OPTION CAUSES THE LINEFEED KEY TO BE TOTALLY IGNORED. THIS IS
+ 134               /       USEFUL WHEN READING IN PAPER TAPES WITH EXTRANEOUS <LF> CHARACTERS.
+ 135               
+ 136               /       SET LNFEED RETURN
+ 137               
+ 138               /       THIS OPTION CAUSES THE LINEFEED KEY TO BE TOTALLY EQUIVALENT TO THE
+ 139               /       RETURN <CR> KEY.
+ 140               
+ 141               /       SET LNFEED VIEW
+ 142               
+ 143               /       THIS OPTION CAUSES THE LINEFEED KEY TO CONTROL THE ABILITY TO
+ 144               /       VIEW THE ENTIRE INPUT LINE AS IT CURRENTLY IS BEFORE COMMITTING TO
+ 145               /       IT WITH <CR> OR <ESC>. THIS IS ESPECIALLY USEFUL WITH HARD-COPY TERMINALS
+ 146               /       AFTER MULTIPLE RUBOUTS HAVE OCCURRED.
+ 147               
+ 148               /       SET NULL [NO] ERASE
+ 149               
+ 150               /       THIS OPTIONS CONTROLS THE ABILITY TO ENTER NULL LINES INTO THE LINE EDITOR
+ 151               /       MERELY BY SUPPLYING A LINE NUMBER WITHOUT TEXT. IF THE OPTION IS SET TO
+ 152               /       ERASE NULL LINES, THEN SUPPLYING THE LINE NUMBER ALONE WILL ERASE THE LINE
+ 153               /       FROM THE ACTIVE FILE; THE MONITOR WILL RING THE <BEL> CHARACTER TO INDICATE
+ 154               /       POSSIBLE ERASURE OF PART OF THE FILE. NULL LINES HAVE ONLY A LINE
+ 155               /       TERMINATOR AND LINE NUMBER AND WILL BE PROCESSED AS A <CR>, <LF> BY
+ 156               /       VARIOUS SYSTEM PROGRAMS.
+ 157               
+ 158               /       SET PASS WORD:<CURRENT PASSWORD>:<NEW PASSWORD>
+ 159               
+ 160               /       THIS OPTION CONTROLS THE STRING USED AS THE PASSWORD ON THE VARIOUS
+ 161               /       PASSWORD-PROTECTED OPTIONS. IT IS ITSELF PASSWORD PROTECTED FOR SAFETY.
+ 162               /       THE NEW PASSWORD MUST BE PRESENT; ALL PASSWORDS ARE FROM ONE TO SIX
+ 163               /       PRINTING UPPER-CASE CHARACTERS LONG. THERE EXISTS A SPECIAL INTERNAL
+ 164               /       IMPLEMENTOR'S PASSWORD WHICH IS NOT ACCESSIBLE BY THIS COMMAND. THIS
+ 165               /       ALLOWS THE RESETTING OF THE PASSWORD ON MISMANAGED SYSTEMS!
+ 166               /      SET PROMPT CHAR=XXXX
+ 167               
+ 168               /       THIS OPTION ALLOWS THE USER TO SET ANY ASCII CHARACTER AS THE PROMPT
+ 169               /       CHARACTER TO CUSTOMIZE THE KEYBOARD MONITOR TO ANY REQUIREMENT. ON
+ 170               /       LARGE SHARED DISK SYSTEMS, EACH USER COULD HAVE THEIR OWN PROMPT CHARACTER
+ 171               /       TO CONFIRM THEIR BOOTSTRAP UNIT. THIS OPTION CAN ALSO BE USED WITH THE
+ 172               /       "SET PROMPT UNIT" OPTION (SEE BELOW).
+ 173               
+ 174               /       WARNING:
+ 175               
+ 176               /       VARIOUS "RUBOUT" OPTIONS DEMAND THAT THE PROMPT CHARACTER BE
+ 177               /       PRINTABLE FOR THEIR PROPER OPERATION!
+ 178               
+ 179               /       SET PROMPT [NO] UNIT
+ 180               
+ 181               /       THIS OPTION ALLOWS THE INCLUSION OF A LEADING DIGIT INTO THE PROMPT WHICH
+ 182               /       IS THE CURRENT LOGICAL UNIT OF THE KEYBOARD MONITOR.
+ 183               
+ 184               /       SET RADIX EIGHT
+ 185               
+ 186               /       THIS OPTION SELECTS OCTAL NUMERICAL VALUES BY DEFAULT WITHIN THE KEYBOARD
+ 187               /       MONITOR. THE "RADIX" COMMAND CAN OVERRIDE THIS AT ANY TIME.
+ 188               
+ 189               /       SET RADIX TEN
+ 190               
+ 191               /       THIS OPTION SELECTS DECIMAL NUMERICAL VALUES BY DEFAULT WITHIN THE
+ 192               /       KEYBOARD MONITOR. THE "RADIX" COMMAND CAN OVERRIDE THIS AT ANY TIME.
+ 193               
+ 194               /       SET RUBOUT BACKUP
+ 195               
+ 196               /       THIS OPTION INVOKES A VISUAL BACKUP ALGORITHM FOR RUBOUT HANDLING
+ 197               /       WITHIN THE KEYBOARD MONITOR. THIS IS THE METHOD WHICH GENERALLY WORKS
+ 198               /       BEST ON VIDEO TERMINALS FROM THE LEFT MARGIN UP TO SOME POSITION ON THE
+ 199               /       RIGHT SIDE OF THE LINE, WHERE THE METHOD BREAKS DOWN DUE TO SOME
+ 200               /       HARDWARE ANOMALY OF THE PARTICULAR TERMINAL, USUALLY REGARDING THE
+ 201               /       DISPOSITION OF <HT> CHARACTERS OR REACHING THE RIGHT-MOST POSITION.
+ 202               /       THERE EXISTS A PARTIAL REMEDY FOR THESE PROBLEMS INVOLVING A "LIMIT"
+ 203               /       COLUMN. REACHING OR PASSING THIS "LIMIT" COLUMN CAUSES THE RUBOUT
+ 204               /       HANDLING TO CHANGE TO INCLUDE "REPAINTING" THE ENTIRE LINE TO ALLOW FOR
+ 205               /       MORE ACCURATE REPRESENTATION OF THE ACTUAL CONTENTS OF THE LINE AFTER
+ 206               /       A RUBOUT OPERATION. THE DEFAULT VALUE OF THE "LIMIT" IS SET TO A
+ 207               /       NUMBER BEYOND THE SCOPE OF THE KEYBOARD MONITOR. SEE "SET RUBOUT
+ 208               /       LIMIT=XXXX" BELOW. FOR SEVERAL POPULAR TERMINALS, THERE ARE MORE
+ 209               /       COMPREHENSIVE RUBOUT SCHEMES. SEE "SET RUBOUT VT05", ETC.
+ 210               /      SET RUBOUT CHAR=XXXX
+ 211               
+ 212               /       THIS OPTIONS SETS THE ASCII VALUE OF THE CHARACTER USED TO FLAG
+ 213               /       RUBBED-OUT CHARACTERS IN EITHER THE "NORMAL" OR "TOPS10" MODE. THE DEFAULT
+ 214               /       VALUE IS 92 ("\"). WHEN CHANGING THE CHARACTER, THIS OPTION MUST BE USED
+ 215               /       AFTER INVOKING THE "NORMAL" OR "TOPS10" RUBOUT MODE AS THEY BOTH DEFAULT
+ 216               /       THE CHARACTER TO "\".
+ 217               
+ 218               /       SET RUBOUT ECHO
+ 219               
+ 220               /       THIS OPTION CAUSES THE DISPOSITION OF RUBBED-OUT CHARACTERS TO BE THE
+ 221               /       ECHOING OF THE CHARACTERS IN REVERSE ORDER, I. E. AS THEY ARE RUBBED-OUT.
+ 222               /       THIS IS THE SAME METHOD AS IS USED IN VARIOUS IMPLEMENTATIONS OF "TECO".
+ 223               
+ 224               /       SET RUBOUT LIMIT=XXXX
+ 225               
+ 226               /       THIS OPTION SETS THE "LIMIT" COLUMN USED BY THE VARIOUS VISUALLY-ORIENTED
+ 227               /       RUBOUT HANDLING METHODS. THIS OPTION MUST BE USED AFTER INVOKING ANY NEW
+ 228               /       RUBOUT HANDLING OPTION, AS ALL RUBOUT HANDLING OPTIONS DEFAULT THIS
+ 229               /       PARAMETER TO A PARTICULAR VALUE. THIS COMMAND CAN BE USEFUL TO DISABLE
+ 230               /       OR MODIFY ANY DEFAULT SETTING WHEN A PARTICULAR TERMINAL DOES NOT QUITE
+ 231               /       MATCH THE DEFAULT REQUIREMENTS OF ANY RUBOUT HANDLING. (EX: "SET RUBOUT
+ 232               /       VT100" ASSUMES AN EIGHTY COLUMN WIDE VT100 WITH A "LIMIT" OF 72. IF THE
+ 233               /       VT100 IS IN 132-COLUMN MODE, THE "LIMIT" CAN BE EXTENDED TO A MORE USEFUL
+ 234               /       VALUE WITH: "SET RUBOUT LIMIT=128")
+ 235               
+ 236               /       SET RUBOUT NORMAL
+ 237               
+ 238               /       THIS OPTION CAUSES THE PRINTING OF THE SPECIAL RUBOUT CHARACTER EACH TIME
+ 239               /       THE RUBOUT KEY IS PRESSED AND A CHARACTER IS ACTUALLY DELETED FROM THE
+ 240               /       INPUT LINE. THE "SET RUBOUT CHAR=XXXX" OPTION CAN BE USED TO CHANGE THE
+ 241               /       CHARACTER FROM ITS DEFAULT OF "\".
+ 242               
+ 243               /       SET RUBOUT TOPS10
+ 244               
+ 245               /       THIS OPTION CAUSES THE SURROUNDING OF ALL RUBBED-OUT CHARACTERS WITH
+ 246               /       THE SPECIAL RUBOUT CHARACTER EACH TIME THE RUBOUT KEY IS PRESSED AND A
+ 247               /       CHARACTER IS ACTUALLY DELETED FROM THE INPUT LINE. IF A CHARACTER
+ 248               /       OTHER THAN A RUBOUT IS PRESSED, A TRAILING SPECIAL CHARACTER IS PRINTED
+ 249               /       AFTER THE LAST RUBBED-OUT CHARACTER LEAVING THE STRING OF RUBBED-OUT
+ 250               /       CHARACTERS PRINTED IN BACKWARDS ORDER AND FRAMED BY THE SPECIAL
+ 251               /       CHARACTERS. THE "SET RUBOUT CHAR=XXXX" OPTION CAN BE USED TO CHANGE
+ 252               /       THE CHARACTER FROM ITS DEFAULT OF "\".
+ 253               
+ 254               /       SET RUBOUT [NO] TOSS
+ 255               
+ 256               /       THIS OPTION CAUSES THE <RO> CHARACTER TO BE TOTALLY IGNORED ON INPUT,
+ 257               /       OR DO THE CURRENT RUBOUT FUNCTION. IGNORING RUBOUTS IS NECESSARY WHEN
+ 258               /       READING IN PAPER TAPES ON A TELETYPE READER WHICH WERE PUNCHED WITH
+ 259               /       RUBOUT CHARACTERS IMBEDDED WITHIN THEM TO EDIT OUT BAD CHARACTERS ON THE
+ 260               /       TAPE, OR TO "PAD" THE OUTPUT FOR SOME REASON, ETC. EVEN IF THIS OPTION IS
+ 261               /       INVOKED TO IGNORE <RO> CHARACTERS, THE OTHER RUBOUT CHARACTERS WILL STILL
+ 262               /       FUNCTION: UNDERSCORE AND BACKSPACE ALSO ACCOMPLISH THE RUBOUT FUNCTION AT
+ 263               /       ALL TIMES.
+ 264               /      SET RUBOUT VT05
+ 265               
+ 266               /       THIS OPTION INVOKES CUSTOM RUBOUT HANDLING FOR A VT05 TERMINAL. THE "LIMIT"
+ 267               /       COLUMN IS DEFAULTED TO 64. THIS OPTION SOLVES ALL KNOWN RUBOUT ANOMALIES
+ 268               /       ON AN ACTUAL VT05 BY USING THE <EOL> FEATURE OF THE VT05 AND THEN
+ 269               /       "REPAINTING" THE LINE.
+ 270               
+ 271               /       SET RUBOUT VT100
+ 272               
+ 273               /       THIS OPTION INVOKES CUSTOM RUBOUT HANDLING FOR THE VT100 FAMILY OF
+ 274               /       TERMINALS. THE "LIMIT" COLUMN VALUE IS DEFAULTED TO 72, BUT CAN BE CHANGED
+ 275               /       AS REQUIRED FOR THE BENEFIT OF VARIOUS "COMPATIBLE" TERMINALS WHICH ACTUALLY
+ 276               /       OUT-PERFORM THE REAL VT100. IF THE TERMINAL IS PUT INTO 132 COLUMN MODE,
+ 277               /       THE "LIMIT" COLUMN SHOULD BE INCREASED TO APPROXIMATELY 128. THIS OPTION
+ 278               /       USES THE <ESC> [ K SEQUENCE TO ERASE THE CURRENT LINE.
+ 279               
+ 280               /       SET RUBOUT VT52
+ 281               
+ 282               /       THIS OPTION INVOKES CUSTOM RUBOUT HANDLING FOR THE VT5X FAMILY OF
+ 283               /       TERMINALS. THE "LIMIT" COLUMN IS DEFAULTED TO 72. VARIOUS VT52
+ 284               /       "COMPATIBLE" TERMINALS EXIST WHICH DON'T REQUIRE THIS LIMIT COLUMN
+ 285               /       VALUE, OR CAN BE CHANGED TO 79 TO JUST HANDLE THE RIGHT-HAND MARGIN
+ 286               /       PROBLEM. ABOVE THE LIMIT COLUMN, THIS OPTION USES THE <ESC> K SEQUENCE
+ 287               /       OF THE VT5X TERMINAL TO ERASE THE LINE AND THEN "REPAINT" IT.
+ 288               
+ 289               /       SET SYSTEM HALT
+ 290               
+ 291               /       THIS OPTION CAUSES THE SYSTEM HANDLER TO HALT ON ALL ERROR CONDITIONS.
+ 292               /       THE SYSTEM CAN ONLY BE RESTARTED BY PRESSING "CONTINUE" ON THE FRONT PANEL.
+ 293               /       IF THE COMPUTER LACKS A FRONT PANEL, THIS OPTION MUST NOT BE USED. IF A
+ 294               /       CONSOLE OVERLAY IS PRESENT, THIS OPTION WILL BE DORMANT.
+ 295               
+ 296               /       SET SYSTEM RETRY
+ 297               
+ 298               /       THIS OPTION CAUSES THE SYSTEM HANDLER TO INFINITELY RETRY ALL ERROR CONDITIONS
+ 299               /       UNTIL THE ERROR CLEARS. THIS IS THE ONLY VIABLE OPTION FOR MACHINES WITHOUT
+ 300               /       FRONT PANELS UNLESS A CONSOLE OVERLAY IS USED, IN WHICH CASE THIS OPTION
+ 301               /       WILL BE DORMANT.
+ 302               
+ 303               /       SET SYSTEM [NO] UNITS:PASSWORD
+ 304               
+ 305               /       THIS OPTION ENABLES/DISABLES THE ABILITY TO ACCESS FILES OR SYSTEM PROGRAMS
+ 306               /       ON (OTHER) LOGICAL UNITS BEYOND THE CURRENT UNIT. THIS OPTION IS USEFUL
+ 307               /       WHEN RESTRICTING ACCESS TO A SHARED DISK FOR FILE PROTECTION PURPOSES. EX:
+ 308               /       A NOVICE USER COULD BE GIVEN HIS OWN BOOTSTRAP UNIT ON A LARGE SHARED DISK
+ 309               /       IN A COOPERATIVE ENVIRONMENT AND THIS FEATURE COULD BE DISABLED TO PROTECT
+ 310               /       (EVERYONE ELSE) FROM (ACCIDENTAL) FILE DESTRUCTION.
+ 311               /      SET TAB CODE=XXXX
+ 312               
+ 313               /       THIS OPTION SETS THE CHARACTER CODE USED TO ACCEPT AN INPUT CHARACTER
+ 314               /       AS A <HT>. THIS ALLOWS OTHER CHARACTERS TO BE USED TO ENTER TABS INTO A
+ 315               /       FILE BESIDES <^I> IF MORE CONVENIENT. EX: A TELETYPE LACKS A <HT> KEY,
+ 316               /       BUT OFTEN HAS A KEY LABLED "ALT MODE" WITH THE CODE 125. IF THE COMMAND:
+ 317               /       "SET TAB CODE=125" IS INVOKED, THEN THE "ALT MODE" KEY IS MAPPED TO A
+ 318               /       LOGICAL <HT> KEY.
+ 319               
+ 320               /       SET TAB EXPAND
+ 321               
+ 322               /       THIS OPTION CAUSES THE DEFAULT MODE OF TAB HANDLING TO BE EXPANSION WITH
+ 323               /       SPACE CHARACTERS TO SIMULATE TABS ON TERMINALS LACKING COMPATIBLE HARDWARE
+ 324               /       TAB STOPS. THIS IS EQUIVALENT TO THE KEYBOARD MONITOR COMMAND "TAB 3".
+ 325               
+ 326               /       SET TAB [NO] FILL
+ 327               
+ 328               /       THIS OPTION CAUSES THE DEFAULT MODE OF TAB HANDLING TO BE SENDING OF
+ 329               /       <HT> CHARACTERS WITH/WITHOUT <NUL> CHARACTERS AS FILL CHARACTERS AS IS
+ 330               /       REQUIRED BY VARIOUS TERMINALS. "SET TAB NO FILL" IS EQUIVALENT TO THE
+ 331               /       KEYBOARD MONITOR COMMAND "TAB". "SET TAB FILL" IS EQUIVALENT TO THE
+ 332               /       KEYBOARD MONITOR COMMAND "TAB 5".
+ 333               
+ 334               /       SET TAB SINGLE
+ 335               
+ 336               /       THIS OPTION CAUSES THE DEFAULT MODE OF TAB HANDLING TO BE SENDING OF
+ 337               /       A SINGLE SPACE CHARACTER IN LIEU OF A TAB. THIS HAS THE EFFECT OF
+ 338               /       SIGNIFICENTLY SPEEDING UP HARD-COPY LISTING OF FILES, BUT AT THE EXPENSE OF
+ 339               /       REMOVING THE ORDERLINESS OF THE TAB SPACING. THIS OPTION IS EQUIVALENT TO
+ 340               /       THE KEYBOARD MONITOR COMMAND "TAB 0".
+ 341               
+ 342               /       SET ^U STRING=XXXXXXXXXX
+ 343               
+ 344               /       THIS OPTION ALLOWS THE CUSTOMIZING OF THE MESSAGE ASSOCIATED WITH THE
+ 345               /       DELETE CHARACTER <^U> AND CAN BE NULL OR UP TO TEN CHARACTERS LONG. IF A
+ 346               /       SPACE IS DESIRED IN THE MESSAGE, THEN USE THE " CHARACTER WHICH WILL BE
+ 347               /       SUBSTITUTED FOR A SPACE IN THE MESSAGE. THE CHARACTERS: " , ; CANNOT BE
+ 348               /       INSERTED INTO THE MESSAGE.
+ 349               
+ 350               /       SET ^Z STRING=XXXXXXXX
+ 351               
+ 352               /       THIS OPTION ALLOWS THE CUSTOMIZING OF THE MESSAGE ASSOCIATED WITH THE
+ 353               /       END-FILE CHARACTER <^Z> AND CAN BE NULL OR UP TO EIGHT CHARACTERS LONG. IF
+ 354               /       A SPACE IS DESIRED IN THE MESSAGE, THEN USE THE " CHARACTER WHICH WILL BE
+ 355               /       SUBSTITUTED FOR A SPACE IN THE MESSAGE. THE CHARACTERS " , ; CANNOT BE
+ 356               /       INSERTED INTO THE MESSAGE.
+ 357               /      DEFAULT SETTINGS.
+ 358               
+ 359               /       THE MONITOR IS GENERALLY SUPPLIED WITH THE EQUIVALENT OF THE FOLLOWING
+ 360               /       SET COMMANDS HAVING BEEN INVOKED:
+ 361               
+ 362               /       SET PASS WORD:MARIO:MARIO               DEFAULT PASS WORD IS MARIO
+ 363               /       SET DOLLAR NO FETCH,NO WRITE            NO $ ACTIONS
+ 364               /       SET ECHO FLIP:MARIO,ON:MARIO            <^O> ACTIVE, ECHO ON
+ 365               /       SET ESCAPE TOPS10,CHAR=36,CODE=27       $ <ESC>
+ 366               /       SET FLNAME ENTRY:MARIO                  ENTER FILE NAMES IMPLICITLY
+ 367               /       SET LNFEED VIEW                         VIEW LINE WITH <LF>
+ 368               /       SET NULL ERASE                          ERASE LINES WHEN JUST NUMBERS
+ 369               /       SET PROMPT NO UNIT,CHAR=46              PROMPT IS .
+ 370               /       SET RADIX TEN                           DECIMAL NUMBERS
+ 371               /       SET RUBOUT TOPS10,NO TOSS               FRAMED RUBOUTS
+ 372               /       SET SYSTEM HALT,UNITS:MARIO             I/O ERROR HALT, :UNITS
+ 373               /       SET TAB CODE=9,EXPAND                   ^I, SPACES
+ 374               /       SET ^U STRING ZAP!                      ZAP!
+ 375               /       SET ^Z STRING ZAP!                      ZAP!
+ 376               
+ 377               //      P?S/8 MONITOR CROSS-EQUATES.
+ 378               
+ 379                       BACKSP= 7421            /<RO>
+ 380                       BEGLIN= 0052            /LINE START
+ 381                       CHAR=   0020            /INPUT
+ 382                       CHLOOP= 1221            /STUFF
+ 383                       CHTBL=  1246            /SPECIALS
+ 384                       COLUMN= 0123            /COLUMN COUNT
+ 385                       CTCPZAP=2363            /<^C> PRINT ZAP
+ 386                       CTCZAP= 2365            /<^C> ZAP
+ 387                       DOLLSW= 0151            /"$" SWITCH
+ 388                       ECHOSW= 0024            /ECHO SWITCH
+ 389                       EDLIN=  0053            /EDIT
+ 390                       EEXIT=  2715            /EDIT EXIT
+ 391                       GETBAS= 0031            /\
+ 392                       GETHAF= 0104            / >GET HALF-WORD
+ 393                       GETNDX= 0026            //
+ 394                       GOTCR=  1241            /<EOL> ROUTINE
+ 395                       GOTESC= 7407            /<ESC>
+ 396                       INPUT=  0033            /INPUT
+ 397                       LFVIEW= 2674            /<LF> ADDRESS
+ 398                       LINENO= 0062            /GET NUMERIC
+ 399                       LNFEED= 2153            /<LF>
+ 400                       LOAD=   1634            /LOAD
+ 401                       LOOKUP= 0154            /LOOKUP
+ 402                       L10=    0174            /0010
+ 403                       L15=    0041            /0015
+ 404                       L3=     0005            /0003
+ 405                       L37=    0064            /0037
+ 406                       L40=    0046            /0040
+ 407                       L7=     0177            /0007
+ 408                       L7600=  0113            /7600
+ 409                       L7741=  0011            /7741
+ 410                       L7770=  0040            /7770
+ 411                       MESSAGE=0112            /MESSAGE
+ 412                       NAME=   0054            /NAME CODE
+ 413                       NAMPRT= 0066            /PRINT NAME
+ 414                       NEWBUF= 0400            /SCRATCH
+ 415                       NEWLINE=2017            /NEW LINE
+ 416                       NOEPUNI=2702            /EDIT UNIT PROMPT
+ 417                       NOUNPRM=1211            /GLINE UNIT PROMPT
+ 418                       NXTADR= 2574            /NEXT ADDRESS
+ 419                       OFLIP=  2332            /^O ROUTINE
+ 420                      PBEGIN= 0071            /BEGIN
+ 421                       PBUTIO= 0161            /BOOT I/O
+ 422                       PCTRLPR=0163            /^O PRINT ROUTINE
+ 423                       PMOVE=  0127            /MOVE POINTER
+ 424                       PRELIO= 0130            /I/O POINTER
+ 425                       PRINT=  0107            /PRINT
+ 426                       PRMPCNT=7444            /PROMPT COUNT
+ 427                       PROMPT= 0166            /PROMPT
+ 428                       PR6BIT= 0047            /6-BIT PRINT
+ 429                       PSCRSIZ=0170            /SCRSIZE
+ 430                       PUTBAS= 0131            /\
+ 431                       PUTHAF= 0132            / >PUT-HALF
+ 432                       PUTNDX= 0060            //
+ 433                       R=      1446            /"R" COMMAND
+ 434                       RADXSW= 0015            /SWITCH
+ 435                       RAGN=   7437            /<RO> ADDRESS
+ 436                       RALTCH= 7417            /<ALT> ECHO
+ 437                       RCHLP2= 7457            /<RO> POINTER
+ 438                       RDELIM= 7420            /<RO> END
+ 439                       ROVFLO= 7404            /<RO> OVERFLOW
+ 440                       RTEMP1= 7401            /\
+ 441                       RTEMP2= 7402            / ><RO>
+ 442                       RTEMP3= 7403            //
+ 443                       RUBFLG= 7400            /<RO> FLAG
+ 444                       SBLOCK= 7635            /BLOCK ARGUMENT
+ 445                       SBOOT=  7600            /MONITOR
+ 446                       SEQSW=  0120            /SWITCH
+ 447                       SFUN=   7634            /SYSTEM FUNCTION
+ 448                       SWAL=   7604            /A-/L
+ 449                       TABSW=  0074            /<TAB> MODE
+ 450                       TAPREC= 0075            /OFFSET
+ 451                       TCNT1=  0122            /BUMP FACTOR
+ 452                       TEMP1=  0100            /TEMPORARY
+ 453                       TEMP2=  0101            /TEMPORARY
+ 454                       TRYOLD= 0642            /OLD NAME
+ 455                       UPU2MSG=2164            /<^U> MESSAGE
+ 456                       WHATMOR=0057            /WHAT? END
+ 457                       XR1=    0016            /AVAILABLE
+ 458                       XR2=    0017            /AUTO-INDICES
+ 459                       XTUNIT= 1056            /UNIT TEST
+ 460                       ZP2MSG= 2173            /<^Z> MESSAGE
+ 461               
+ 462               //      ADDITIONAL DEFINITIONS.
+ 463               
+ 464                       JMPC=   JMP     .               /CURRENT PAGE JUMP INSTRUCTION
+ 465                       NL0001= CLA IAC                 /LOAD AC WITH 0001
+ 466                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+ 467                       NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000
+ 468                       NL3777= CLA CLL CMA RAR         /LOAD AC WITH 3777
+ 469                       NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+ 470                       NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+ 471                       NL7776= CLA CLL CMA RAL         /LOAD AC WITH 7776
+ 472                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+ 473                       SRINST= JMP I   PBEGIN/[BEGIN]  /INSTRUCTION DEFINITION
+ 474                       WRITE=  4000                    /SYSIO WRITE BIT
+ 475                      PAGE    14                              /OVER FILE AREA
+ 476               
+ 477                       SET=    .                               /"SET" SYSTEM STARTS HERE
+ 478               
+ 479                       IFNZRO  .&177   <ERROR  .>
+ 480 003000  0005  SET,    5/NOP                                   /IN CASE WE ARE CHAINED TO
+ 481 003001  1777  ANYSW,  TAD I   (CTCZAP)                        /GET <^C> INSTRUCTION
+ 482 003002  1376  SETEM1, TAD     (-SRINST)                       /COMPARE TO POSSIBLE VALUE
+ 483 003003  7640  SETEM2, SZA CLA                                 /SKIP IF IT MATCHES
+ 484 003004  5213  SUBOSW, JMP     SETOK                           /JUMP IF NOT
+ 485 003005  1311          TAD     JMPIL7600/(JMP I  L7600/[SBOOT])/GET BOOTSTRAPPING INSTRUCTION
+ 486 003006  3777          DCA I   (CTCZAP)                        /ZAP IT IN
+ 487 003007  7326          NL0002                                  /SET "C" BIT MASK
+ 488 003010  0570          AND I   PSCRSIZE/[SCRSIZE]              /GET THE "C" BIT
+ 489 003011  7640          SZA CLA                                 /SKIP IF NOT SET
+ 490 003012  3775          DCA I   (CTCPZAP)                       /ELSE PREVENT EXTRA <^C>
+ 491 003013  3457  SETOK,  DCA I   WHATMORE/[XWHATMORE]            /BOOTSTRAP ON ALL PROBLEMS
+ 492 003014  1774          TAD I   (SWAL)                          /GET SWITCHES /A-/L
+ 493 003015  7710          SPA CLA                                 /SKIP IF /A OFF
+ 494 003016  5773          JMP I   (PRTOPT)                        /ELSE GO PRINT THE OPTIONS
+ 495 003017  3204  SETAGN, DCA     SUBOSW                          /HAVEN'T SEEN ANY SUB-OPTIONS YET
+ 496 003020  4454          JMS I   NAME/[XNAME]                    /TRY TO SCAN OFF AN OPTION
+ 497 003021  5312          JMP     BADTST                          /COULDN'T DO IT
+ 498 003022  1200          TAD     SET/(5)                         /SETUP THE
+ 499 003023  3122          DCA     TCNT1                           /LOOKUP FACTOR
+ 500 003024  3075          DCA     TAPREC                          /CLEAR INITIAL "RECORD"
+ 501 003025  1372          TAD     (TABLE)                         /POINT AT OUR MAIN TABLE
+ 502 003026  4554          JMS I   LOOKUP/[XLOOKUP]                /TRY TO LOCATE THE ITEM
+ 503 003027  7112          CLL RTR                                 /MAKE IT *4 INSTEAD OF *20
+ 504 003030  3202          DCA     SETEM1                          /SAVE THE RELATIVE VALUE
+ 505 003031  1202          TAD     SETEM1                          /GET IT BACK
+ 506 003032  7012          RTR                                     /MAKE IT *1
+ 507 003033  1202          TAD     SETEM1                          /*5
+ 508 003034  1371          TAD     (TABLE+3)                       /MAKE IT POINT TO PARTICULAR TABLE
+ 509 003035  3202          DCA     SETEM1                          /STASH THE POINTER
+ 510 003036  1602          TAD I   SETEM1                          /GET THE TABLE ADDRESS
+ 511 003037  3203          DCA     SETEM2                          /SAVE IT
+ 512 003040  2202          ISZ     SETEM1                          /POINT TO DISPATCH TABLE
+ 513 003041  3112  SETNXT,        DCA     MESSAGE                 /CLEAR "NO" INDICATOR NOW
+ 514 003042  4454  SETNX2, JMS I   NAME/[XNAME]            /GET SUB-ITEM
+ 515 003043  5312          JMP     BADTST                  /WASN'T ANY
+ 516 003044  2204          ISZ     SUBOSW                  /NOW WE HAVE AT LEAST ONE SUB-OPTION
+ 517 003045  1112          TAD     MESSAGE                 /GET "NO" INDICATOR
+ 518 003046  7710          SPA CLA                         /SKIP IF OFF
+ 519 003047  5263          JMP     GOTNO                   /JUMP IF WE SCANNED A "NO" BEFORE
+ 520 003050  1101          TAD     TEMP2                   /GET SECOND NAME WORD
+ 521 003051  7640          SZA CLA                         /SKIP IF SHORT NAME
+ 522 003052  5257          JMP     NOTNO                   /LONGER NAMES CAN'T BE "NO"
+ 523 003053  1100          TAD     TEMP1                   /GET FIRST NAME WORD
+ 524 003054  1370          TAD     (-"N^100-"O+300)        /COMPARE TO 'NO
+ 525 003055  7650          SNA CLA                         /SKIP IF NOT "NO"
+ 526 003056  7330          NL4000                          /ELSE SET "NO" INDICATOR VALUE
+ 527 003057  3112  NOTNO,  DCA     MESSAGE                 /SAVE THE NEW "NO" INDICATOR VALUE
+ 528 003060  1112          TAD     MESSAGE                 /GET THE "NO" INDICATOR
+ 529 003061  7710          SPA CLA                         /SKIP IF NOT "NO"
+ 530 003062  5242          JMP     SETNX2                  /GO BACK TO GET THE REST OF THE OPTION
+ 531 003063  3201  GOTNO,  DCA     ANYSW                   /INDICATE WE GOT SOMETHING
+ 532 003064  1005          TAD     L3/(3)                  /SETUP THE
+ 533 003065  3122          DCA     TCNT1                   /LOOKUP FACTOR
+ 534 003066  3075          DCA     TAPREC                  /CLEAR "RECORD"
+ 535 003067  1203          TAD     SETEM2                  /GET SUB-OPTION TABLE POINTER
+ 536 003070  4554          JMS I   LOOKUP/[XLOOKUP]        /LOOKUP THE SUB-OPTION
+ 537 003071  7112          CLL RTR;RTR                     /MAKE IT *1
+     003072  7012  
+ 538 003073  1602          TAD I   SETEM1                  /POINT TO DISPATCH ADDRESS
+ 539 003074  3100          DCA     TEMP1                   /STASH THE POINTER
+ 540 003075  1500          TAD I   TEMP1                   /GET THE BRANCH ADDRESS
+ 541                                                       /(&3777 IF "NO" ALLOWED)
+ 542 003076  1112          TAD     MESSAGE                 /ADD ON "NO" INDICATOR
+ 543 003077  7500          SMA                             /SKIP IF "NO" WAS NOT USED OR
+ 544                                                       /IT WAS AND IT IS ALLOWED
+ 545 003100  5303          JMP     BADNO                   /JUMP IF NOT QUITE RIGHT
+ 546 003101  3100  NOOK,   DCA     TEMP1                   /STASH CORRECTED ADDRESS
+ 547 003102  5500          JMP I   TEMP1                   /GO TO THE ROUTINE TO DO IT
+ 548               
+ 549 003103  7330  BADNO,  NL4000                          /SET "NO" VALUE
+ 550 003104  1500          TAD I   TEMP1                   /ADD ON (TRUNCATED) BRANCH ADDRESS
+ 551 003105  7510          SPA                             /SKIP IF "NO" WAS NOT ALLOWED
+ 552 003106  5301          JMP     NOOK                    /JUMP IF "NO" WAS NOT USED (BUT ALLOWED)
+ 553 003107  4112          JMS     MESSAGE                 /TELL THEM
+ 554 003110  3145          NONOMSG                         /THEY CAN'T SAY NO
+ 555 003111  5513  JMPIL76,JMP I   L7600/[SBOOT]           /GOODBYE!
+ 556               
+ 557 003112  1201  BADTST, TAD     ANYSW                   /DID WE GET ANYTHING?
+ 558 003113  7640          SZA CLA                         /SKIP IF SO
+ 559 003114  5342          JMP     BADCOMMAND              /ELSE FORGET IT
+ 560 003115  1204          TAD     SUBOSW                  /GET SUB-OPTION SWITCH
+ 561 003116  7450          SNA                             /SKIP IF ANY SUB-OPTIONS RECENTLY
+ 562 003117  4504          JMS I   GETHAF/[XGETHAF]        /ELSE GET THE LATEST CHARACTER
+ 563 003120  7650          SNA CLA                         /SKIP IF NOT <EOL> OR SUB-OPTIONS SEEN
+ 564 003121  5513          JMP I   L7600/[SBOOT]           /ELSE JUST EXIT
+ 565 003122  5342          JMP     BADCOMMAND              /COMPLAIN THERE
+ 566               /      COMES HERE TO POTENTIALLY SCAN OFF ANOTHER OPTION OR SUB-OPTION.
+ 567               
+ 568 003123  4504  SETMORE,JMS I   GETHAF/[XGETHAF]        /GET THE CURRENT CHARACTER
+ 569 003124  7450          SNA                             /<EOL>?
+ 570 003125  5513          JMP I   L7600/[SBOOT]           /YES, EXIT
+ 571 003126  2026          ISZ     GETNDX                  /NO, BUMP TO NEXT
+ 572 003127  1367          TAD     (-";!200)               /COMPARE TO ";"
+ 573 003130  7450          SNA                             /SKIP IF OTHER
+ 574 003131  5217          JMP     SETAGN                  /ELSE GO SCAN OFF ANOTHER OPTION
+ 575 003132  1366          TAD     (-",+";)                /COMPARE TO ","
+ 576 003133  7450          SNA                             /SKIP IF OTHER
+ 577 003134  5241          JMP     SETNXT                  /GO SCAN OFF ANOTHER SUB-OPTION
+ 578 003135  1365          TAD     (-" +";)                /COMPARE TO <SPACE>
+ 579 003136  7440          SZA                             /SKIP IF IT MATCHES
+ 580 003137  7001          IAC     /TAD    (-37+" -200)    /ELSE COMPARE TO <HT>
+ 581 003140  7650          SNA CLA                         /SKIP IF NEITHER
+ 582 003141  5323          JMP     SETMORE                 /ELSE IGNORE AND KEEP GOING
+ 583 003142  4112  BADCOMM,JMS     MESSAGE                 /TELL THEM
+ 584 003143  3535          BADMSG                          /THEY GOOFED
+ 585 003144  5513          JMP I   L7600/[SBOOT]           /GOODBYE!
+ 586               
+ 587 003145  4216  NONOMSG,TEXT    '"NO" INVALID HERE!';0
+     003146  1742  
+     003147  4011  
+     003150  1626  
+     003151  0114  
+     003152  1104  
+     003153  4010  
+     003154  0522  
+     003155  0541  
+     003156  0000  
+ 588               
+ 589 003165  0033          PAGE
+     003166  0017  
+     003167  7705  
+     003170  6161  
+     003171  3603  
+     003172  3600  
+     003173  3200  
+     003174  7604  
+     003175  2363  
+     003176  2307  
+     003177  2365  
+ 590               /      OPTION PRINT ROUTINE; COMES HERE IF /A SWITCH SET.
+ 591               
+ 592 003200  4447  PRTOPT, JMS I   PR6BIT/[XPR6BIT]/START ON A NEW LINE
+ 593 003201  1605          TAD I   PRTPTR          /GET A PAIR
+ 594 003202  7650          SNA CLA                 /END OF OPTIONS?
+ 595 003203  5513          JMP I   L7600/[SBOOT]   /YES, WE'RE DONE
+ 596 003204  4466          JMS I   NAMPRT/[XPRTNAM]/NO, PRINT OUT
+ 597 003205  3600  PRTPTR, TABLE                   /THIS OPTION
+ 598 003206  2205          ISZ     PRTPTR          /BUMP TO
+ 599 003207  2205          ISZ     PRTPTR          /SUB-OPTION
+ 600 003210  2205          ISZ     PRTPTR          /POINTER
+ 601 003211  1605          TAD I   PRTPTR          /GET SUB-OPTION POINTER
+ 602 003212  3221          DCA     PRNPTR          /SAVE IT
+ 603 003213  2205          ISZ     PRTPTR          /BUMP POINTER
+ 604 003214  1605          TAD I   PRTPTR          /GET THE DISPATCH ADDRESS
+ 605 003215  3227          DCA     DSPCHPTR        /STASH IT
+ 606 003216  2205          ISZ     PRTPTR          /BUMP TO NEXT ENTRY
+ 607 003217  5242          JMP     PRNSET          /CONTINUE THERE
+ 608               
+ 609 003220  4466  PRLOOP, JMS I   NAMPRT/[XPRTNAM]/PRINT OUT
+ 610 003221  0000  PRNPTR, .-.                     /THIS SUB-OPTION
+ 611 003222  1627          TAD I   DSPCHPTR        /GET DISPATCH ADDRESS
+ 612 003223  7710          SPA CLA                 /SKIP IF NO ALLOWED
+ 613 003224  5230          JMP     PRNOSTAR        /JUMP IF NOT
+ 614 003225  1377          TAD     ("*&77)         /GET AN "*"
+ 615 003226  4447          JMS I   PR6BIT/[XPR6BIT]/PRINT IT
+ 616 003227  0000  DSPCHPT,.-.                     /THIS NEVER EXECUTES!
+ 617 003230  2221  PRNOSTA,ISZ     PRNPTR          /BUMP POINTER
+ 618 003231  2221          ISZ     PRNPTR          /TO NEXT
+ 619 003232  2221          ISZ     PRNPTR          /SUB-OPTION
+ 620 003233  2227          ISZ     DSPCHPTR        /BUMP DISPATCH ADDRESS POINTER
+ 621 003234  1621          TAD I   PRNPTR          /GET NEXT PAIR
+ 622 003235  7650          SNA CLA                 /END OF SUB-OPTION LIST?
+ 623 003236  5200          JMP     PRTOPT          /YES, GO ON TO NEXT OPTION
+ 624 003237  2252          ISZ     PRTMP           /DONE ENOUGH?
+ 625 003240  5245          JMP     PRNTOK          /JUMP IF NOT
+ 626 003241  4447          JMS I   PR6BIT/[XPR6BIT]/DO <EOL>
+ 627 003242  1376  PRNSET, TAD     (-5)            /RESET
+ 628 003243  3252          DCA     PRTMP           /COUNT
+ 629 003244  4247          JMS     PRTAB           /PRINT A <TAB>
+ 630 003245  4247  PRNTOK, JMS     PRTAB           /THIS MAY INDENT
+ 631 003246  5220          JMP     PRLOOP          /CONTINUE
+ 632                
+ 633 003247  0000  PRTAB,  .-.                     /PRINT A <TAB> ROUTINE
+ 634 003250  1064          TAD     L37/[37]        /GET A <TAB>
+ 635 003251  4447          JMS I   PR6BIT/[XPR6BIT]/PRINT IT
+ 636 003252  7772  PRTMP,  -6                      /SUB-OPTION COUNTER; THIS IS ALWAYS SKIPPED
+ 637 003253  5647          JMP I   PRTAB           /RETURN
+ 638 003254  0000  BLKZAP,        .-.                     /ZAP A BLOCK ROUTINE
+ 639 003255  1654          TAD I   BLKZAP          /GET COUNT FOR THIS BLOCK
+ 640 003256  7450          SNA                     /DONE?
+ 641 003257  5775          JMP I   (SETMORE)       /YEP, THEN ON WITH IT
+ 642 003260  3337          DCA     ZAPCNT          /ELSE SAVE FOR COUNTING
+ 643 003261  2254          ISZ     BLKZAP          /BUMP ARGUMENT POINTER
+ 644 003262  1654          TAD I   BLKZAP          /GET STARTING ADDRESS
+ 645 003263  4330          JMS     ADJUST          /ADJUST TO BLOCK NUMBER
+ 646 003264  3270          DCA     INBLK           /AND STORE INTO CALL
+ 647 003265  4561          JMS I   PBUTIO/[BUTIO]  /\
+ 648 003266  5600          ZAPBUFFER               / \READ IN BLOCK
+ 649 003267  0100          1^100                   / /TO BE ZAPPED
+ 650 003270  0000  INBLK,  .-.                     //
+ 651 003271  1654          TAD I   BLKZAP          /GET THE LOCATION
+ 652 003272  2254          ISZ     BLKZAP          /BUMP TO REPLACEMENT POINTER
+ 653 003273  0374          AND     (177)           /MASK TO RELATIVE LOCATION
+ 654 003274  1373          TAD     (ZAPBUFFER-1)   /ADD ON BASE POINTER
+ 655 003275  3017          DCA     XR2             /STORE INTO AUTO-INDEX
+ 656 003276  7240          NL7777                  /BACKUP
+ 657 003277  1654          TAD I   BLKZAP          /NOW HAVE AUTO-INDEXED REPLACEMENT POINTER
+ 658 003300  3016          DCA     XR1             /STORE INTO AUTO-INDEX
+ 659 003301  1416  ZAPMORE,TAD I   XR1             /GET A REPLACEMENT VALUE
+ 660 003302  3417          DCA I   XR2             /ZAP IT IN
+ 661 003303  2337          ISZ     ZAPCNT          /DONE ALL YET?
+ 662 003304  5301          JMP     ZAPMORE         /NO, KEEP GOING
+ 663 003305  1270          TAD     INBLK           /GET THE BLOCK WE READ FROM
+ 664 003306  3312          DCA     OUTBLK          /AND WRITE ONTO IT
+ 665 003307  4561  JMSIPBU,JMS I   PBUTIO/[BUTIO]  /CALL I/O ROUTINES
+ 666 003310  5600          ZAPBUFFER               /SAME BUFFER
+ 667 003311  4100          1^100+WRITE             /ONE AT A TIME
+ 668 003312  0000  OUTBLK, .-.                     /FILLED IN
+ 669 003313  2254          ISZ     BLKZAP          /POINT TO NEXT GROUP
+ 670 003314  5255          JMP     BLKZAP+1        /AND RESUME PROCESSING
+ 671               
+ 672 003315  0000  ZAPONE, .-.                     /ZAP A SINGLE LOCATION ROUTINE
+ 673 003316  1715          TAD I   ZAPONE          /GET THE LOCATION
+ 674 003317  3325          DCA     ZAPLOC          /AND SAVE IN CALL
+ 675 003320  2315          ISZ     ZAPONE          /BUMP POINTER
+ 676 003321  1715          TAD I   ZAPONE          /GET THE VALUE
+ 677 003322  3340          DCA     GETOCT          /AND STORE INTO CALL
+ 678 003323  4254          JMS     BLKZAP          /ZAP THE BLOCK
+ 679 003324  7777          -1                      /ONE LOCATION
+ 680 003325  0000  ZAPLOC, .-.                     /HERE
+ 681 003326  3340          GETOCT                  /POINTS TO REPLACEMENT
+ 682 003327  0000          0                       /TERMINATOR
+ 683               
+ 684 003330  0000  ADJUST, .-.                     /ADDRESS ADJUST TO BLOCK NUMBER
+ 685 003331  7106          CLL RTL;RTL;RTL         /DIVIDE BY 200
+     003332  7006  
+     003333  7006  
+ 686 003334  7001          IAC                     /+1 FOR BLOCK NUMBER
+ 687 003335  0372          AND     (17)            /REDUCE TO BLOCK NUMBER
+ 688 003336  5730          JMP I   ADJUST          /RETURN
+ 689               
+ 690 003337  0000  ZAPCNT, .-.                     /COUNT OF ZAPS IN THIS BLOCK
+ 691 003340  0000  GETOCT,        .-.                     /SCAN OCTAL ARGUMENT ROUTINE
+ 692 003341  4504          JMS I   GETHAF/[XGETHAF]/GET DELIMITER
+ 693 003342  1371          TAD     (-"=!200)       /IS IT EQUALS?
+ 694 003343  7640          SZA CLA                 /SKIP IF YES
+ 695 003344  5770          JMP I   (BADCOMMAND)    /BARF IF NOT
+ 696 003345  2026          ISZ     GETNDX          /BUMP TO NEXT
+ 697 003346  4462          JMS I   LINENO/[XLINENO]/GET ARGUMENT
+ 698 003347  5770          JMP I   (BADCOMMAND)    /BARF IF BAD
+ 699 003350  5740          JMP I   GETOCT          /RETURN
+ 700               
+ 701 003351  1116  BDPSMSG,TEXT    "INVALID PASS WORD!";0
+     003352  2601  
+     003353  1411  
+     003354  0440  
+     003355  2001  
+     003356  2323  
+     003357  4027  
+     003360  1722  
+     003361  0441  
+     003362  0000  
+ 702               
+ 703 003370  3142          PAGE
+     003371  7703  
+     003372  0017  
+     003373  5577  
+     003374  0177  
+     003375  3123  
+     003376  7773  
+     003377  0052  
+ 704 003400  0000  STRNZAP,.-.                            /STRING ZAP ROUTINE
+ 705 003401  1600          TAD I   STRNZAP                 /GET STRING LENGTH
+ 706 003402  3246          DCA     STRNCNT                 /STASH IT
+ 707 003403  2200          ISZ     STRNZAP                 /BUMP TO POINTER
+ 708 003404  1600          TAD I   STRNZAP                 /GET THE STRING POINTER
+ 709 003405  3243          DCA     SBZPTR                  /STASH IT
+ 710 003406  1244          TAD     PNEWSTR/(NEWSTRING)     /GET REPLACEMENT STRING POINTER
+ 711 003407  3131          DCA     PUTBASE                 /SETUP OUTPUT BASE
+ 712 003410  3060          DCA     PUTNDX                  /CLEAR INDEX
+ 713 003411  7240          NL7777                          /ADD ONE EXTRA
+ 714 003412  1246          TAD     STRNCNT                 /NO HAVE CORRECTED COUNT
+ 715 003413  7130          STL RAR                         /TURN INTO WORD COUNT
+ 716 003414  3242          DCA     SBZCNT                  /STORE IN ZAP CALL
+ 717 003415  1046          TAD     L40/[" &77]             /GET AN INITIAL <SPACE>
+ 718 003416  4532  STRLUP, JMS I   PUTHAF/[XPUTHAF]        /OUTPUT THE CHARACTER INTO THE STRING
+ 719 003417  2060          ISZ     PUTNDX                  /BUMP TO NEXT
+ 720 003420  4504          JMS I   GETHAF/[XGETHAF]        /GET NEXT CHARACTER
+ 721 003421  7440          SZA                             /SKIP IF <EOL>
+ 722 003422  1377          TAD     (-";!200)               /ELSE COMPARE TO ";"
+ 723 003423  7440          SZA                             /SKIP IF EITHER
+ 724 003424  1376          TAD     (-",+";)                /ELSE COMPARE TO ","
+ 725 003425  7650          SNA CLA                         /SKIP IF NONE OF THEM
+ 726 003426  5240          JMP     STREND                  /JUMP IF ANY DELIMITER
+ 727 003427  4504          JMS I   GETHAF/[XGETHAF]        /GET THE CHARACTER
+ 728 003430  2026          ISZ     GETNDX                  /BUMP TO NEXT
+ 729 003431  1375          TAD     (-""!200)               /COMPARE TO '"'
+ 730 003432  7450          SNA                             /SKIP IF OTHER
+ 731 003433  7344          NL7776/TAD      (" -"")         /CONVERT TO <SPACE>
+ 732 003434  1374          TAD     (""&77)                 /RESTORE THE CHARACTER
+ 733 003435  2246          ISZ     STRNCNT                 /TOO MANY?
+ 734 003436  5216          JMP     STRLUP                  /NO, KEEP GOING
+ 735 003437  5773          JMP I   (BADCOMMAND)            /COMPLAIN IF TOO MANY CHARACTERS
+ 736               
+ 737 003440  4532  STREND, JMS I   PUTHAF/[XPUTHAF]        /DELIMIT THE STRING
+ 738 003441  4772          JMS I   (BLKZAP)                /CALL MULTIPLE ZAP ROUTINE
+ 739 003442  0000  SBZCNT, .-.                             /WILL BE -(STRING COUNT IN WORDS)
+ 740 003443  0000  SBZPTR, .-.                             /WILL POINT TO STRING IN THE MONITOR
+ 741 003444  3447  PNEWSTR,NEWSTRING                       /WHERE REPLACEMENT STRING IS
+ 742 003445  0000          0                               /THIS ENDS THE LIST
+ 743               
+ 744 003446  0000  STRNCNT,.-.                             /STRING COUNTER
+ 745 003447  0000  NEWSTRI,ZBLOCK  6                       /REPLACEMENT STRING STORAGE
+     003450  0000  
+     003451  0000  
+     003452  0000  
+     003453  0000  
+     003454  0000  
+ 746 003455  0000  PASONE,        .-.                             /PASS WORD-ORIENTED SINGLE ZAP ROUTINE
+ 747 003456  4262          JMS     PASCHK                  /CHECK FOR VALID PASS WORD
+ 748 003457  1255          TAD     PASONE                  /GET OUR CALLER
+ 749 003460  3771          DCA I   (ZAPONE)                /MAKE IT THEIRS
+ 750 003461  5770          JMP I   (ZAPONE+1)              /CONTINUE THERE
+ 751               
+ 752 003462  0000  PASCHK, .-.                             /PASS WORD CHECK ROUTINE
+ 753 003463  4504          JMS I   GETHAF/[XGETHAF]        /GET LATEST CHARACTER
+ 754 003464  1367          TAD     (-":!200)               /COMPARE TO ":"
+ 755 003465  7640          SZA CLA                         /SKIP IF IT MATCHES
+ 756 003466  5300          JMP     PASSBAD                 /ELSE FORGET IT
+ 757 003467  2026          ISZ     GETNDX                  /BUMP TO NEXT
+ 758 003470  4454          JMS I   NAME/[XNAME]            /TRY TO FIND A NAME
+ 759 003471  5300          JMP     PASSBAD                 /FORGET IT
+ 760 003472  1005          TAD     L3/[3]                  /GET SUITABLE BUMP FACTOR
+ 761 003473  3122          DCA     TCNT1                   /STASH IT
+ 762 003474  1366          TAD     (PASSWD)                /POINT TO MASTER PASS WORD
+ 763 003475  4554          JMS I   LOOKUP/[XLOOKUP]        /TRY TO LOOKUP THE PASS WORD
+ 764 003476  7200          CLA                             /THROW OFFSET AWAY
+ 765 003477  5662          JMP I   PASCHK                  /RETURN SINCE IT'S OK
+ 766               
+ 767 003500  4112  PASSBAD,JMS     MESSAGE                 /TELL THEM
+ 768 003501  3351          BDPSMSG                         /THEY BLEW IT
+ 769 003502  5513          JMP I   L7600/[SBOOT]           /GOODBYE!
+ 770               
+ 771 003503  0000  RUBTCHK,.-.                             /RUBOUT TOSS CHECK ROUTINE
+ 772 003504  1703          TAD I   RUBTCHK                 /GET REPLACEMENT POINTER
+ 773 003505  3016          DCA     XR1                     /STASH IT
+ 774 003506  2303          ISZ     RUBTCHK                 /BUMP PAST ARGUMENT
+ 775 003507  1365          TAD     (RCHLP2+10&177+ZAPBUF-1)/POINT AT
+ 776 003510  3017          DCA     XR2                     /REPLACEMENT ADDRESS
+ 777 003511  4561          JMS I   PBUTIO/[BUTIO]          /CALL I/O ROUTINES
+ 778 003512  5600          ZAPBUF                          /READ IN RUBOUT BLOCK
+ 779 003513  0100          1^100                           /INTO BUFFER
+ 780 003514  0017          BACKSP%200&17+1                 /FOR EXAMINATION
+ 781 003515  1764          TAD I   (RCHLP2+4&177+ZAPBUF)   /GET SPECIFIC LOCATION
+ 782 003516  7041          CIA                             /INVERT FOR TEST
+ 783 003517  1363          TAD     (JMS I  INPUT)          /COMPARE TO POSSIBLE VALUE
+ 784 003520  7640          SZA CLA                         /SKIP IF IT MATCHES
+ 785 003521  5703          JMP I   RUBTCHK                 /ELSE JUST RETURN
+ 786 003522  1362          TAD     (-4)                    /SETUP THE
+ 787 003523  3262          DCA     PASCHK                  /REPLACEMENT COUNTER
+ 788 003524  1416          TAD I   XR1                     /GET A REPLACEMENT VALUE
+ 789 003525  3417          DCA I   XR2                     /ZAP IT IN
+ 790 003526  2262          ISZ     PASCHK                  /DONE ALL YET?
+ 791 003527  5324          JMP     .-3                     /NO, KEEP GOING
+ 792 003530  4561          JMS I   PBUTIO/[BUTIO]          /CALL I/O ROUTINES
+ 793 003531  5600          ZAPBUF                          /WRITE THE UPDATED BLOCK BACK
+ 794 003532  4100          1^100+WRITE                     /TO EFFECT <RO> CHANGE
+ 795 003533  0017          BACKSP%200&17+1                 /BLOCK NUMBER
+ 796 003534  5703          JMP I   RUBTCHK                 /RETURN
+ 797 003535  1116  BADMSG,        TEXT    "INVALID COMMAND!";0
+     003536  2601  
+     003537  1411  
+     003540  0440  
+     003541  0317  
+     003542  1515  
+     003543  0116  
+     003544  0441  
+     003545  0000  
+ 798 003546  0301  NOHMSG, TEXT    "CAN'T ALTER SYSTEM!"
+     003547  1647  
+     003550  2440  
+     003551  0114  
+     003552  2405  
+     003553  2240  
+     003554  2331  
+     003555  2324  
+     003556  0515  
+     003557  4100  
+ 799               
+ 800 003562  7774          PAGE
+     003563  4433  
+     003564  5663  
+     003565  5666  
+     003566  3707  
+     003567  7706  
+     003570  3316  
+     003571  3315  
+     003572  3254  
+     003573  3142  
+     003574  0042  
+     003575  7736  
+     003576  0017  
+     003577  7705  
+ 801               /      MASTER "SET" TABLE.
+ 802               
+ 803 003600  0417  TABLE,  TEXT    "DOLLAR";DOLLST;DOLSET  /SET DOLLAR LIST
+     003601  1414  
+     003602  0122  
+     003603  3716  
+     003604  4121  
+ 804 003605  0503          TEXT    "ECHO";0;ECHLST;ECHSET  /SET ECHO LIST
+     003606  1017  
+     003607  0000  
+     003610  3725  
+     003611  4123  
+ 805 003612  0523          TEXT    "ESCAPE";ESCLST;ESCSET  /SET ESCAPE LIST
+     003613  0301  
+     003614  2005  
+     003615  3737  
+     003616  4126  
+ 806 003617  0614          TEXT    "FLNAME";FLNLST;FLNSET  /SET FLNAME LIST
+     003620  1601  
+     003621  1505  
+     003622  3754  
+     003623  4132  
+ 807 003624  1416          TEXT    "LNFEED";LNFLST;LNFSET  /SET LNFEED LIST
+     003625  0605  
+     003626  0504  
+     003627  3760  
+     003630  4133  
+ 808 003631  1625          TEXT    "NULL";0;NULLST;NULSET  /SET NULL LIST
+     003632  1414  
+     003633  0000  
+     003634  3775  
+     003635  4137  
+ 809 003636  2001          TEXT    "PASS";0;PASLST;PASSET  /SET PASS LIST
+     003637  2323  
+     003640  0000  
+     003641  4001  
+     003642  4140  
+ 810 003643  2022          TEXT    "PROMPT";PROLST;PROSET  /SET PROMPT LIST
+     003644  1715  
+     003645  2024  
+     003646  4005  
+     003647  4141  
+ 811 003650  2201          TEXT    "RADIX"; RADLST;RADSET  /SET RADIX LIST
+     003651  0411  
+     003652  3000  
+     003653  4014  
+     003654  4143  
+ 812 003655  2225          TEXT    "RUBOUT";RUBLST;RUBSET  /SET RUBOUT LIST
+     003656  0217  
+     003657  2524  
+     003660  4023  
+     003661  4145  
+ 813 003662  2331         TEXT    "SYSTEM";SYSLST;SYSSET  /SET SYSTEM LIST
+     003663  2324  
+     003664  0515  
+     003665  4062  
+     003666  4157  
+ 814 003667  2401          TEXT    "TAB";0; TABLST;TABSET  /SET TAB LIST
+     003670  0200  
+     003671  0000  
+     003672  4074  
+     003673  4162  
+ 815 003674  3625          TEXT    "^U";0;0;CTULST;CTUSET  /SET ^U LIST
+     003675  0000  
+     003676  0000  
+     003677  4111  
+     003700  4166  
+ 816 003701  3632          TEXT    "^Z";0;0;CTZLST;CTZSET  /SET ^Z LIST
+     003702  0000  
+     003703  0000  
+     003704  4115  
+     003705  4167  
+ 817 003706  0000          0                               /THIS ENDS THE LIST
+ 818               
+ 819               /       PASS WORD.
+ 820               
+ 821 003707  1501  PASSWD, TEXT    "MARIO"                 /PASS WORD STORED HERE
+     003710  2211  
+     003711  1700  
+ 822 003712  0312          TEXT    "CJL";0                 /AUTHOR'S RESERVED PASS WORD
+     003713  1400  
+     003714  0000  
+ 823 003715  0000          0                               /THIS ENDS THE LIST
+ 824               /      SET DOLLAR LIST.
+ 825               
+ 826 003716  0605  DOLLST, TEXT    "FETCH"         /SET DOLLAR [NO] FETCH
+     003717  2403  
+     003720  1000  
+ 827 003721  2722          TEXT    "WRITE"         /SET DOLLAR [NO] WRITE
+     003722  1124  
+     003723  0500  
+ 828 003724  0000          0                       /THIS ENDS THE LIST
+ 829               
+ 830               /       SET ECHO LIST.
+ 831               
+ 832 003725  0614  ECHLST, TEXT    "FLIP";0        /SET ECHO [NO] FLIP
+     003726  1120  
+     003727  0000  
+ 833 003730  1706          TEXT    "OFF";0         /SET ECHO OFF
+     003731  0600  
+     003732  0000  
+ 834 003733  1716          TEXT    "ON";0;0        /SET ECHO ON
+     003734  0000  
+     003735  0000  
+ 835 003736  0000          0                       /THIS ENDS THE LIST
+ 836               
+ 837               /       SET ESCAPE LIST.
+ 838               
+ 839 003737  0310  ESCLST, TEXT    "CHAR";0        /SET ESCAPE CHAR=XXXX
+     003740  0122  
+     003741  0000  
+ 840 003742  0317          TEXT    "CODE";0        /SET ESCAPE CODE=XXXX
+     003743  0405  
+     003744  0000  
+ 841 003745  2205          TEXT    "RETURN"        /SET ESCAPE RETURN
+     003746  2425  
+     003747  2216  
+ 842 003750  2417          TEXT    "TOPS10"        /SET ESCAPE TOPS10
+     003751  2023  
+     003752  6160  
+ 843 003753  0000          0                       /THIS ENDS THE LIST
+ 844               
+ 845               /       SET FLNAME LIST.
+ 846               
+ 847 003754  0516  FLNLST, TEXT    "ENTRY"         /SET FLNAME [NO] ENTRY
+     003755  2422  
+     003756  3100  
+ 848 003757  0000          0                       /THIS ENDS THE LIST
+ 849               /      SET LNFEED LIST.
+ 850               
+ 851 003760  0503  LNFLST, TEXT    "ECHO";0        /SET LNFEED ECHO
+     003761  1017  
+     003762  0000  
+ 852 003763  1107          TEXT    "IGNORE"        /SET LNFEED IGNORE
+     003764  1617  
+     003765  2205  
+ 853 003766  2205          TEXT    "RETURN"        /SET LNFEED RETURN
+     003767  2425  
+     003770  2216  
+ 854 003771  2611          TEXT    "VIEW";0        /SET LNFEED VIEW
+     003772  0527  
+     003773  0000  
+ 855 003774  0000          0                       /THIS ENDS THE LIST
+ 856               
+ 857               /       SET NULL LIST.
+ 858               
+ 859 003775  0522  NULLST, TEXT    "ERASE"         /SET NULL [NO] ERASE
+     003776  0123  
+     003777  0500  
+ 860 004000  0000          0                       /THIS ENDS THE LIST
+ 861               
+ 862               /       SET PASS LIST.
+ 863               
+ 864 004001  2717  PASLST, TEXT    "WORD";0        /SET PASS WORD:XXXXXX:YYYYYY
+     004002  2204  
+     004003  0000  
+ 865 004004  0000          0                       /THIS ENDS THE LIST
+ 866               
+ 867               /       SET PROMPT LIST.
+ 868               
+ 869 004005  0310  PROLST, TEXT    "CHAR";0        /SET PROMPT CHAR=XXXX
+     004006  0122  
+     004007  0000  
+ 870 004010  2516          TEXT    "UNIT";0        /SET PROMPT [NO] UNIT
+     004011  1124  
+     004012  0000  
+ 871 004013  0000          0                       /THIS ENDS THE LIST
+ 872               
+ 873               /       SET RADIX LIST.
+ 874               
+ 875 004014  0511  RADLST, TEXT    "EIGHT"         /SET RADIX EIGHT
+     004015  0710  
+     004016  2400  
+ 876 004017  2405          TEXT    "TEN";0         /SET RADIX TEN
+     004020  1600  
+     004021  0000  
+ 877 004022  0000          0                       /THIS ENDS THE LIST
+ 878               /      SET RUBOUT LIST.
+ 879               
+ 880 004023  0201  RUBLST, TEXT    "BACKUP"        /SET RUBOUT BACKUP
+     004024  0313  
+     004025  2520  
+ 881 004026  0310          TEXT    "CHAR";0        /SET RUBOUT CHAR=XXXX
+     004027  0122  
+     004030  0000  
+ 882 004031  0503          TEXT    "ECHO";0        /SET RUBOUT ECHO
+     004032  1017  
+     004033  0000  
+ 883 004034  1411          TEXT    "LIMIT"         /SET RUBOUT LIMIT=XXXX
+     004035  1511  
+     004036  2400  
+ 884 004037  1617          TEXT    "NORMAL"        /SET RUBOUT NORMAL
+     004040  2215  
+     004041  0114  
+ 885 004042  2417          TEXT    "TOPS10"        /SET RUBOUT TOPS10
+     004043  2023  
+     004044  6160  
+ 886 004045  2417          TEXT    "TOSS";0        /SET RUBOUT [NO] TOSS
+     004046  2323  
+     004047  0000  
+ 887 004050  2624          TEXT    "VT05";0        /SET RUBOUT VT05
+     004051  6065  
+     004052  0000  
+ 888 004053  2624          TEXT    "VT100"         /SET RUBOUT VT100
+     004054  6160  
+     004055  6000  
+ 889 004056  2624          TEXT    "VT52";0        /SET RUBOUT VT52
+     004057  6562  
+     004060  0000  
+ 890 004061  0000          0                       /THIS ENDS THE LIST
+ 891               
+ 892               /       SET SYSTEM LIST.
+ 893               
+ 894 004062  1001  SYSLST, TEXT    "HALT";0        /SET SYSTEM HALT
+     004063  1424  
+     004064  0000  
+ 895 004065  2205          TEXT    "RETRY"         /SET SYSTEM RETRY
+     004066  2422  
+     004067  3100  
+ 896 004070  2516          TEXT    "UNITS"         /SET SYSTEM [NO] UNITS
+     004071  1124  
+     004072  2300  
+ 897 004073  0000          0                       /THIS ENDS THE LIST
+ 898               /      SET TAB LIST.
+ 899               
+ 900 004074  0317  TABLST, TEXT    "CODE";0        /SET TAB CODE=XXXX
+     004075  0405  
+     004076  0000  
+ 901 004077  0530          TEXT    "EXPAND"        /SET TAB EXPAND
+     004100  2001  
+     004101  1604  
+ 902 004102  0611          TEXT    "FILL";0        /SET TAB [NO] FILL
+     004103  1414  
+     004104  0000  
+ 903 004105  2311          TEXT    "SINGLE"        /SET TAB SINGLE
+     004106  1607  
+     004107  1405  
+ 904 004110  0000          0                       /THIS ENDS THE LIST
+ 905               
+ 906               /       SET ^U LIST.
+ 907               
+ 908 004111  2324  CTULST, TEXT    "STRING"        /SET ^U STRING XXXXXXXXXX
+     004112  2211  
+     004113  1607  
+ 909 004114  0000          0                       /THIS ENDS THE LIST
+ 910               
+ 911               /       SET ^Z LIST.
+ 912               
+ 913 004115  2324  CTZLST, TEXT    "STRING"        /SET ^Z STRING XXXXXXXX
+     004116  2211  
+     004117  1607  
+ 914 004120  0000          0                       /THIS ENDS THE LIST
+ 915               /      DISPATCH LISTS.
+ 916               
+ 917               /       SET DOLLAR LIST.
+ 918               
+ 919 004121  0200  DOLSET, RALFETCH&3777           /SET DOLLAR [NO] FETCH
+ 920 004122  0211          RALWRT&3777             /SET DOLLAR [NO] WRITE
+ 921               
+ 922               /       SET ECHO LIST.
+ 923               
+ 924 004123  0234  ECHSET, ECHFLP&3777             /SET ECHO [NO] FLIP
+ 925 004124  4245          ECHOFF                  /SET ECHO OFF
+ 926 004125  4246          ECHON                   /SET ECHO ON
+ 927               
+ 928               /       SET ESCAPE LIST.
+ 929               
+ 930 004126  4252  ESCSET, ESCHAR                  /SET ESCAPE CHAR=XXXX
+ 931 004127  4260          ESCODE                  /SET ESCAPE CODE=XXXX
+ 932 004130  4266          ESCRETURN               /SET ESCAPE RETURN
+ 933 004131  4271          ESCTOPS10               /SET ESCAPE TOPS10
+ 934               
+ 935               /       SET FLNAME LIST.
+ 936               
+ 937 004132  0274  FLNSET, FLNENTRY&3777           /SET FLNAME [NO] ENTRY
+ 938               
+ 939               /       SET LNFEED LIST.
+ 940               
+ 941 004133  4304  LNFSET, LNFECHO                 /SET LNFEED ECHO
+ 942 004134  4307          LNFIGNORE               /SET LNFEED IGNORE
+ 943 004135  4312          LNFRETURN               /SET LNFEED RETURN
+ 944 004136  4315          LNFVIEW                 /SET LNFEED VIEW
+ 945               
+ 946               /       SET NULL LIST.
+ 947               
+ 948 004137  0320  NULSET, NULERASE&3777           /SET NULL [NO] ERASE
+ 949               
+ 950               /       SET PASS LIST.
+ 951               
+ 952 004140  4330  PASSET, PASWRD                  /SET PASS WORD:XXXXXX:YYYYYY
+ 953               
+ 954               /       SET PROMPT LIST.
+ 955               
+ 956 004141  4400  PROSET, PROCHAR                 /SET PROMPT CHAR=XXXX
+ 957 004142  0414          PROUNIT&3777            /SET PROMPT [NO] UNIT
+ 958               
+ 959               /       SET RADIX LIST.
+ 960               
+ 961 004143  4463  RADSET, RADST8                  /SET RADIX EIGHT
+ 962 004144  4462          RADST10                 /SET RADIX TEN
+ 963               /      SET RUBOUT LIST.
+ 964               
+ 965 004145  4470  RUBSET, RUBBACKUP               /SET RUBOUT BACKUP
+ 966 004146  4515          RUBCHAR                 /SET RUBOUT CHAR=XXXX
+ 967 004147  4523          RUBECHO                 /SET RUBOUT ECHO
+ 968 004150  4527          RUBLIMIT                /SET RUBOUT LIMIT=XXXX
+ 969 004151  4537          RUBNORMAL               /SET RUBOUT NORMAL
+ 970 004152  4600          RUBTOPS10               /SET RUBOUT TOPS10
+ 971 004153  0614          RUBTOSS&3777            /SET RUBOUT [NO] TOSS
+ 972 004154  4631          RBVT05                  /SET RUBOUT VT05
+ 973 004155  4643          RBVT100                 /SET RUBOUT VT100
+ 974 004156  4661          RBVT52                  /SET RUBOUT VT52
+ 975               
+ 976               /       SET SYSTEM LIST.
+ 977               
+ 978 004157  4676  SYSSET, SYSHLT                  /SET SYSTEM HALT
+ 979 004160  4675          SYSRETRY                /SET SYSTEM RETRY
+ 980 004161  0734          SYSUNITS&3777           /SET SYSTEM [NO] UNITS
+ 981               
+ 982               /       SET TAB LIST.
+ 983               
+ 984 004162  5000  TABSET, TABCODE                 /SET TAB CODE=XXXX
+ 985 004163  5013          TABEXPAND               /SET TAB EXPAND
+ 986 004164  1006          TABFILL&3777            /SET TAB [NO] FILL
+ 987 004165  5012          TABSINGLE               /SET TAB SINGLE
+ 988               
+ 989               /       SET ^U LIST.
+ 990               
+ 991 004166  5017  CTUSET, CTUSTRING               /SET ^U STRING XXXXXXXXXX
+ 992               
+ 993               /       SET ^Z LIST.
+ 994               
+ 995 004167  5022  CTZSET, CTZSTRING               /SET ^Z STRING XXXXXXXX
+ 996                      PAGE
+ 997               
+ 998               /       SET DOLLAR CONTROLLERS.
+ 999               
+1000 004200  1112  RALFET, TAD     MESSAGE         /GET "NO" INDICATOR
+1001 004201  7710          SPA CLA                 /SKIP IF OFF
+1002 004202  5206          JMP     DNOFETCH        /JUMP IF ON
+1003 004203  4777          JMS I   (ZAPONE)        /CALL SINGLE ZAP ROUTINE
+1004 004204  2574          NXTADR                  /CHANGE THIS
+1005 004205  1636          LOAD+2                  /TO THIS
+1006               
+1007 004206  4777  DNOFETC,JMS I   (ZAPONE)        /CALL SINGLE ZAP ROUTINE
+1008 004207  2574          NXTADR                  /CHANGE THIS
+1009 004210  0400          NEWBUF                  /TO THIS
+1010               
+1011 004211  1112  RALWRT, TAD     MESSAGE         /GET "NO" INDICATOR
+1012 004212  7710          SPA CLA                 /SKIP IF OFF
+1013 004213  5224          JMP     DNOWRITE        /JUMP IF ON
+1014 004214  4776          JMS I   (BLKZAP)        /CALL ZAP ROUTINE
+1015 004215  7777          -1                      /FIRST COUNT
+1016 004216  1446          R                       /MAKE IT
+1017 004217  3307          JMSIPBUTIO              /WRITE FIRST
+1018 004220  7777          -1                      /SECOND COUNT
+1019 004221  0151          DOLLSW                  /SET THIS
+1020 004222  5025          L1/(1)                  /WITH THIS
+1021 004223  0000          0                       /THIS ENDS THE LISTS
+1022               
+1023 004224  4776  DNOWRIT,JMS I   (BLKZAP)        /CALL ZAP ROUTINE
+1024 004225  7777          -1                      /FIRST COUNT
+1025 004226  1446          R                       /MAKE IT
+1026 004227  4375          (R+4&177+JMPC)          /JUMP AROUND CALL
+1027 004230  7777          -1                      /SECOND COUNT
+1028 004231  0151          DOLLSW                  /CLEAR THIS
+1029 004232  4233          L0/(0)                  /WITH THIS
+1030 004233  0000  L0,     0                       /THIS ENDS THE LISTS
+1031               
+1032               /       SET ECHO CONTROLLERS.
+1033               
+1034 004234  1112  ECHFLP, TAD     MESSAGE         /GET "NO" INDICATOR
+1035 004235  7710          SPA CLA                 /SKIP IF OFF
+1036 004236  5242          JMP     DNOFLIP         /JUMP IF ON
+1037 004237  4774          JMS I   (PASONE)        /CALL PASS WORD PROTECTED ZAP ROUTINE
+1038 004240  2332          OFLIP                   /CHANGE THIS
+1039 004241  4563          JMS I   PCTRLPR/[CTRLPR]/TO THIS
+1040               
+1041 004242  4774  DNOFLIP,JMS I   (PASONE)        /CALL PASS WORD PROTECTED ZAP ROUTINE
+1042 004243  2332          OFLIP                   /CHANGE THIS
+1043 004244  7410          SKP                     /TO THIS
+1044               
+1045 004245  7330  ECHOFF, NL4000                  /SET OFF VALUE
+1046 004246  3251  ECHON,  DCA     ECHTMP          /STORE EITHER WAY
+1047 004247  4774          JMS I   (PASONE)        /CALL PASS WORD PROTECTED ZAP ROUTINE
+1048 004250  0024          ECHOSW                  /CHANGE THIS
+1049 004251  0000  ECHTMP, .-.                     /TO PASSED VALUE
+1050               /      SET ESCAPE CONTROLLERS.
+1051               
+1052 004252  4773  ESCHAR, JMS I   (GETOCT)                /GET OCTAL VALUE
+1053 004253  0372          AND     (177)                   /JUST ASCII BITS
+1054 004254  3257          DCA     .+3                     /STORE IN-LINE
+1055 004255  4777          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1056 004256  7417          RALTCH                          /CHANGE ESCAPE CHARACTER
+1057 004257  0000          .-.                             /TO PASSED VALUE
+1058               
+1059 004260  4773  ESCODE, JMS I   (GETOCT)                /GET THE CHARACTER CODE
+1060 004261  7041          CIA                             /INVERT IT FOR TABLE
+1061 004262  3265          DCA     .+3                     /STORE IN-LINE
+1062 004263  4777          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1063 004264  1252          CHTBL+4                         /SET <ESC> ENTRY
+1064 004265  0000          .-.                             /TO PASSED VALUE
+1065               
+1066 004266  4777  ESCRET, JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1067 004267  1253          CHTBL+5                         /CHANGE <ESC> DISPATCH ADDRESS
+1068 004270  1241          GOTCR                           /TO <CR> DISPATCH ADDRESS
+1069               
+1070 004271  4777  ESCTOPS,JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1071 004272  1253          CHTBL+5                         /CHANGE <ESC> DISPATCH ADDRESS
+1072 004273  7407          GOTESC                          /TO TOPS10, ETC. <ESC> ROUTINE ADDRESS
+1073               
+1074               /       SET FLNAME CONTROLLER.
+1075               
+1076 004274  1112  FLNENTR,TAD     MESSAGE                 /GET "NO" INDICATOR
+1077 004275  7700          SMA CLA                         /SKIP IF "NO"
+1078 004276  1046          TAD     L40/[SZA-NOP-400]       /ELSE MAKE IT SZA CLA
+1079 004277  1113          TAD     L7600/[CLA!400]         /GET "CLA" PART EITHER WAY
+1080 004300  3303          DCA     .+3                     /STORE IN-LINE
+1081 004301  4774          JMS I   (PASONE)                /CALL PASS WORD PROTECTED ZAP ROUTINE
+1082 004302  0645          TRYOLD+3                        /CHANGE THIS
+1083 004303  0000          .-.                             /TO PASSED VALUE
+1084               
+1085               /       SET LNFEED CONTROLLERS.
+1086               
+1087 004304  4777  LNFECHO,JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1088 004305  1271          CHTBL+23                        /CHANGE <LF> ENTRY
+1089 004306  2153          LNFEED                          /TO ECHO AN <LF> CHARACTER
+1090               
+1091 004307  4777  LNFIGNO,JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1092 004310  1271          CHTBL+23                        /CHANGE <LF> ENTRY
+1093 004311  1221          CHLOOP                          /TO JUST THROW IT AWAY
+1094               
+1095 004312  4777  LNFRETU,JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1096 004313  1271          CHTBL+23                        /CHANGE <LF> ENTRY
+1097 004314  1241          GOTCR                           /TO <CR> ENTRY
+1098               
+1099 004315  4777  LNFVIEW,JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1100 004316  1271          CHTBL+23                        /CHANGE <LF> ENTRY
+1101 004317  2674          LFVIEW                          /TO NORMAL <LF> ADDRESS
+1102               /      SET NULL CONTROLLER.
+1103               
+1104 004320  1112  NULERAS,TAD     MESSAGE         /GET "NO" INDICATOR
+1105 004321  7700          SMA CLA                 /SKIP IF SET
+1106 004322  1046          TAD     L40/[SNA-SKP]   /ELSE ADD OFFSET FOR "SN" INSTRUCTION
+1107 004323  1371          TAD     (SKP)           /GET BASIC SKIP VALUE
+1108 004324  3327          DCA     .+3             /STORE IN-LINE
+1109 004325  4777          JMS I   (ZAPONE)        /CALL SINGLE ZAP ROUTINE
+1110 004326  2023          NEWLINE+4               /CHANGE THIS
+1111 004327  0000          .-.                     /TO PASSED VALUE
+1112               
+1113               /       SET PASS CONTROLLER.
+1114               
+1115 004330  4770  PASWRD, JMS I   (PASCHK)        /CHECK FOR CURRENT PASS WORD
+1116 004331  4504          JMS I   GETHAF/[XGETHAF]/GET DELIMITER
+1117 004332  1367          TAD     (-":!200)       /COMPARE TO ":"
+1118 004333  7640  PSYSIO, SZA CLA                 /BETTER MATCH
+1119 004334  5766          JMP I   (PASSBAD)       /ELSE COMPLAIN
+1120 004335  2026          ISZ     GETNDX          /BUMP PAST ":"
+1121 004336  4454          JMS I   NAME/[XNAME]    /TRY TO FIND NEW PASS WORD
+1122 004337  5765          JMP I   (BADCOMMAND)    /FORGET IT
+1123 004340  1764          TAD I   (SFUN)          /GET OUR LOAD FUNCTION
+1124 004341  0177          AND     L7/[7]          /JUST UNIT BITS
+1125 004342  1363          TAD     (1^100+WRITE)   /FORM WRITE FUNCTION
+1126 004343  3355          DCA     PASFUN          /STORE IN-LINE
+1127 004344  1762          TAD I   (SBLOCK)        /GET OUR LOAD BLOCK
+1128 004345  1361          TAD     (PASSWD-SET%200)/ADD ON PAGE OFFSET TO PASS WORD STORAGE
+1129 004346  3356          DCA     PASBLK          /STORE IN-LINE
+1130 004347  7346          NL7775                  /FORM MOVE COUNT
+1131 004350  4527          JMS I   PMOVE/[MOVE]    /CALL MOVE ROUTINE
+1132 004351  0100          TEMP1                   /MOVE NEW NAME
+1133 004352  3707          PASSWD                  /TO PASS WORD AREA
+1134 004353  4733          JMS I   PSYSIO/(SYSIO)  /CALL I/O ROUTINES
+1135 004354  3600          PASSWD&7600             /WRITE OUT PAGE WHERE PASS WORD IS
+1136 004355  4100  PASFUN, 1^100+WRITE+.-.         /UNIT BITS WILL BE FILLED IN
+1137 004356  0000  PASBLK, .-.                     /BLOCK NUMBER WILL BE FILLED IN
+1138 004357  5760          JMP I   (SETMORE)       /KEEP GOING
+1139               
+1140 004360  3123          PAGE
+     004361  0003  
+     004362  7635  
+     004363  4100  
+     004364  7634  
+     004365  3142  
+     004366  3500  
+     004367  7706  
+     004370  3462  
+     004371  7410  
+     004372  0177  
+     004373  3340  
+     004374  3455  
+     004375  5252  
+     004376  3254  
+     004377  3315  
+1141               /      SET PROMPT CONTROLLERS.
+1142               
+1143 004400  4777  PROCHAR,JMS I   (GETOCT)        /GET THE VALUE
+1144 004401  0376          AND     (177)           /JUST ASCII BITS
+1145 004402  3213          DCA     PROCARG         /SAVE IT
+1146 004403  7330          NL4000                  /SET MASK
+1147 004404  0166          AND     PROMPT          /GET CURRENT PROMPT FLAG
+1148 004405  1213          TAD     PROCARG         /ADD ON NEW PROMPT VALUE
+1149 004406  3166          DCA     PROMPT          /STORE IN MEMORY
+1150 004407  1166          TAD     PROMPT          /GET IT BACK
+1151 004410  3213          DCA     PROCARG         /STORE IN-LINE
+1152 004411  4775          JMS I   (ZAPONE)        /CALL SINGLE ZAP ROUTINE
+1153 004412  0166          PROMPT                  /CHANGE THIS
+1154 004413  0000  PROCARG,.-.                     /TO PASSED VALUE
+1155               
+1156 004414  1112  PROUNIT,TAD     MESSAGE         /GET "NO" INDICATOR
+1157 004415  7710          SPA CLA                 /SKIP IF OFF
+1158 004416  5241          JMP     DNOPRUNIT       /JUMP IF ON
+1159 004417  1166          TAD     PROMPT          /GET PROMPT CHARACTER
+1160 004420  7104          CLL RAL                 /MOVE UP
+1161 004421  7130          STL RAR                 /MOVE DOWN WITH FLAG SET
+1162 004422  3166          DCA     PROMPT          /STORE BACK
+1163 004423  4774          JMS I   (BLKZAP)        /CALL MULTIPLE ZAP ROUTINE
+1164 004424  7777          -1                      /FIRST COUNT
+1165 004425  1211          NOUNPRM                 /CHANGE THIS
+1166 004426  4573          (JMS I  PRINT/[XPRINT]) /TO THIS
+1167 004427  7777          -1                      /SECOND COUNT
+1168 004430  2702          NOEPUNIT                /CHANGE THIS
+1169 004431  4573          (JMS I  PRINT/[XPRINT]) /TO THIS
+1170 004432  7777          -1                      /THIRD COUNT
+1171 004433  0166          PROMPT                  /CHANGE THIS
+1172 004434  0166          PROMPT                  /TO THIS
+1173 004435  7777          -1                      /FOURTH COUNT
+1174 004436  7444          PRMPCNT                 /CHANGE THIS
+1175 004437  4572          (NL0002)                /TO THIS
+1176 004440  0000          0                       /THIS ENDS THE LIST
+1177               
+1178 004441  7350  DNOPRUN,NL3777                  /SET MASK
+1179 004442  0166          AND     PROMPT          /REMOVE FLAG BIT
+1180 004443  3166          DCA     PROMPT          /STORE BACK
+1181 004444  4774          JMS I   (BLKZAP)        /CALL MULTIPLE ZAP ROUTINE
+1182 004445  7777          -1                      /FIRST COUNT
+1183 004446  1211          NOUNPRM                 /CHANGE THIS
+1184 004447  4571          (CLA)                   /TO THIS
+1185 004450  7777          -1                      /SECOND COUNT
+1186 004451  2702          NOEPUNIT                /CHANGE THIS
+1187 004452  4571          (CLA)                   /TO THIS
+1188 004453  7777          -1                      /THIRD COUNT
+1189 004454  0166          PROMPT                  /CHANGE THIS
+1190 004455  0166          PROMPT                  /TO THIS
+1191 004456  7777          -1                      /FOURTH COUNT
+1192 004457  7444          PRMPCNT                 /CHANGE THIS
+1193 004460  4570          (NL0001)                /TO THIS
+1194 004461  0000          0                       /THIS ENDS THE LIST
+1195               /      SET RADIX CONTROLLERS.
+1196               
+1197 004462  7344  RADST10,NL7776                          /SETUP DECIMAL OFFSET
+1198 004463  1040  RADST8, TAD     L7770/[-10]             /NOW HAVE -RADIX
+1199 004464  3267          DCA     .+3                     /STORE IN-LINE
+1200 004465  4775          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1201 004466  0015          RADXSW                          /ZAP THIS
+1202 004467  0000          .-.                             /TO PASSED VALUE
+1203               
+1204               /       SET RUBOUT CONTROLLERS.
+1205               
+1206 004470  1113  RUBBACK,TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1207 004471  3767          DCA I   (PZAP1+RBAK-BACKSP)     /PREVENT PRINTING THE FIRST CHARACTER
+1208 004472  1113          TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1209 004473  3766          DCA I   (PZAP2+RBAK-BACKSP)     /PREVENT PRINTING THE SECOND CHARACTER
+1210 004474  1113          TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1211 004475  3765          DCA I   (PZAP3+RBAK-BACKSP)     /PREVENT PRINTING THE THIRD CHARACTER
+1212 004476  7330          NL4000                          /SETUP LARGE LIMIT
+1213 004477  3764  RUBCOMM,DCA I   (CLIMIT+RBAK-BACKSP)    /PREVENT SPECIAL LIMIT HANDLING
+1214 004500  1166          TAD     PROMPT                  /GET CURRENT PROMPT CHARACTER VALUE
+1215 004501  7710          SPA CLA                         /SKIP IF SINGLE PROMPT
+1216 004502  1363          TAD     (NL0002-NL0001)         /ELSE USE TWO
+1217 004503  1370          TAD     (NL0001)                /USE AT LEAST ONE
+1218 004504  3762          DCA I   (PRMPCNT+RBAK-BACKSP)   /STORE CURRENT VALUE
+1219 004505  4774          JMS I   (BLKZAP)                /CALL MULTIPLE ZAP ROUTINE
+1220 004506  7663          BACKSP-RBAKEND                  /FIRST COUNT
+1221 004507  7421          BACKSP                          /ZAP INTO HERE
+1222 004510  5322          RBAK                            /FROM HERE
+1223 004511  7777          -1                              /SECOND COUNT
+1224 004512  1247          CHTBL+1                         /ZAP INTO HERE
+1225 004513  4561          (BACKSP)                        /THIS VALUE
+1226 004514  0000          0                               /THIS ENDS THE LIST
+1227               
+1228 004515  4777  RUBCHAR,JMS I   (GETOCT)                /GET THE VALUE
+1229 004516  0376          AND     (177)                   /MAKE IT ASCII
+1230 004517  3322          DCA     .+3                     /STORE IN-LINE
+1231 004520  4775          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1232 004521  7420          RDELIM                          /CHANGE DELIMITER
+1233 004522  0000          .-.                             /TO THIS
+1234               
+1235 004523  1113  RUBECHO,TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1236 004524  3760          DCA I   (RZP1+RTPS-RDELIM)      /STORE IN THE CODE
+1237 004525  1113          TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1238 004526  5757          JMP I   (RUBECENTRY)            /CONTINUE THERE
+1239               
+1240 004527  4777  RUBLIMI,JMS I   (GETOCT)                /GET THE VALUE
+1241 004530  7041          CIA                             /INVERT IT
+1242 004531  3764          DCA I   (CLIMIT+RBAK-BACKSP)    /STORE IN <RO> CODE
+1243 004532  1764          TAD I   (CLIMIT+RBAK-BACKSP)    /GET IT BACK
+1244 004533  3336          DCA     .+3                     /STORE IN-LINE
+1245 004534  4775          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1246 004535  7535          CLIMIT                          /SET THIS
+1247 004536  0000          .-.                             /TO THIS
+1248 004537  4774  RUBNORM,JMS I  (BLKZAP)                /CALL MULTIPLE ZAP ROUTINE
+1249 004540  7753          RDELIM-RNRMEND                  /FIRST COUNT
+1250 004541  7420          RDELIM                          /ZAP INTO HERE
+1251 004542  5275          RNRM                            /FROM HERE
+1252 004543  7777          -1                              /SECOND COUNT
+1253 004544  1247          CHTBL+1                         /ZAP INTO HERE
+1254 004545  4561          (BACKSP)                        /THIS VALUE
+1255 004546  0000          0                               /THIS ENDS THE LIST
+1256               
+1257 004557  4603          PAGE
+     004560  5216  
+     004561  7421  
+     004562  5345  
+     004563  0125  
+     004564  5436  
+     004565  5414  
+     004566  5412  
+     004567  5410  
+     004570  7201  
+     004571  7200  
+     004572  7326  
+     004573  4507  
+     004574  3254  
+     004575  3315  
+     004576  0177  
+     004577  3340  
+1258               /      ADDITIONAL SET RUBOUT CONTROLLERS.
+1259               
+1260 004600  1377  RUBTOPS,TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1261 004601  3776          DCA I   (RZP1+RTPS-RDELIM)      /STORE IN THE CODE
+1262 004602  1377          TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1263 004603  3775  RUBECEN,DCA I   (RZP2+RTPS-RDELIM)      /STORE IN THE CODE
+1264 004604  4774          JMS I   (BLKZAP)                /CALL MULTIPLE ZAP ROUTINE
+1265 004605  7707          RDELIM-RTPSEND                  /FIRST COUNT
+1266 004606  7420          RDELIM                          /ZAP INTO HERE
+1267 004607  5200          RTPS                            /FROM HERE
+1268 004610  7777          -1                              /SECOND COUNT
+1269 004611  1247          CHTBL+1                         /ZAP INTO HERE
+1270 004612  4773          (BACKSP)                        /THIS VALUE
+1271 004613  0000          0                               /THIS ENDS THE LIST
+1272               
+1273 004614  1112  RUBTOSS,TAD     MESSAGE                 /GET "NO" INDICATOR
+1274 004615  7710          SPA CLA                         /SKIP IF OFF
+1275 004616  5224          JMP     DRNIGNORE               /JUMP IF ON
+1276 004617  4772          JMS I   (RUBTCHK)               /CHECK IF SPECIAL HANDLING
+1277 004620  5270          RIGCODE-1                       /POINTER TO REPLACEMENT CODE
+1278 004621  4771          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1279 004622  1247          CHTBL+1                         /CHANGE ENTRY FOR <RO> CHARACTER
+1280 004623  1221          CHLOOP                          /TO THIS
+1281               
+1282 004624  4772  DRNIGNO,JMS I   (RUBTCHK)               /CHECK IF SPECIAL HANDLING
+1283 004625  5246          RNIGCODE+RTPS-RDELIM-1          /POINTER TO REPLACEMENT CODE
+1284 004626  4771          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1285 004627  1247          CHTBL+1                         /CHANGE ENTRY FOR <RO> CHARACTER
+1286 004630  7421          BACKSP                          /TO THIS
+1287               
+1288 004631  1370  RBVT05, TAD     (36)                    /GET <EOL> CHARACTER
+1289 004632  3767          DCA I   (RCHAR1+RBAK-BACKSP)    /USE AS FIRST PRINTING CHARACTER
+1290 004633  1377          TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1291 004634  3766          DCA I   (PZAP1+RBAK-BACKSP)     /ENABLE FIRST CHARACTER PRINTING
+1292 004635  1113          TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1293 004636  3765          DCA I   (PZAP2+RBAK-BACKSP)     /PREVENT PRINTING SECOND CHARACTER
+1294 004637  1113          TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1295 004640  3764          DCA I   (PZAP3+RBAK-BACKSP)     /PREVENT PRINTING THIRD CHARACTER
+1296 004641  1363          TAD     (-100)                  /GET VT05 COLUMN LIMIT
+1297 004642  5762          JMP I   (RUBCOMMON)             /CONTINUE THERE
+1298               
+1299 004643  1361  RBVT100,TAD     (33)                    /GET <ESC> CODE
+1300 004644  3767          DCA I   (RCHAR1+RBAK-BACKSP)    /USE AS FIRST CHARACTER
+1301 004645  1360          TAD     ("[&177)                /GET "["
+1302 004646  3757          DCA I   (RCHAR2+RBAK-BACKSP)    /USE AS SECOND CHARACTER
+1303 004647  1356          TAD     ("K&177)                /GET "K"
+1304 004650  3755          DCA I   (RCHAR3+RBAK-BACKSP)    /USE AS THIRD CHARACTER
+1305 004651  1377          TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1306 004652  3766          DCA I   (PZAP1+RBAK-BACKSP)     /ENABLE PRINTING OF FIRST CHARACTER
+1307 004653  1377          TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1308 004654  3765          DCA I   (PZAP2+RBAK-BACKSP)     /ENABLE PRINTING OF SECOND CHARACTER
+1309 004655  1377          TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1310 004656  3764          DCA I   (PZAP3+RBAK-BACKSP)     /ENABLE PRINTING OF THIRD CHARACTER
+1311 004657  1354          TAD     (-110)                  /GET COLUMN LIMIT
+1312 004660  5762          JMP I   (RUBCOMMON)             /CONTINUE THERE
+1313 004661  1361  RBVT52,        TAD     (33)                    /GET <ESC> CODE
+1314 004662  3767          DCA I   (RCHAR1+RBAK-BACKSP)    /USE AS FIRST CHARACTER
+1315 004663  1356          TAD     ("K&177)                /GET "K"
+1316 004664  3757          DCA I   (RCHAR2+RBAK-BACKSP)    /USE AS SECOND CHARACTER
+1317 004665  1377          TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1318 004666  3766          DCA I   (PZAP1+RBAK-BACKSP)     /ENABLE PRINTING OF FIRST CHARACTER
+1319 004667  1377          TAD     (JMS I  PRINT/[XPRINT]) /GET PRINTING INSTRUCTION
+1320 004670  3765          DCA I   (PZAP2+RBAK-BACKSP)     /ENABLE PRINTING OF SECOND INSTRUCTION
+1321 004671  1113          TAD     L7600/[CLA!400]         /GET CLEARING INSTRUCTION
+1322 004672  3764          DCA I   (PZAP3+RBAK-BACKSP)     /PREVENT PRINTING THIRD CHARACTER
+1323 004673  1354          TAD     (-110)                  /GET COLUMN LIMIT
+1324 004674  5762          JMP I   (RUBCOMMON)             /CONTINUE THERE
+1325               
+1326               /       SET SYSTEM CONTROLLERS.
+1327               
+1328 004675  7240  SYSRET, NL7777                          /INDICATE RETRY
+1329 004676  1353  SYSHLT, TAD     (HLT)                   /NOW HAVE ZAP VALUE
+1330 004677  3333          DCA     SZAPVALUE               /SAVE IT
+1331 004700  1352          TAD     (7612-7747)             /SETUP THE
+1332 004701  3345          DCA     SRCHCNT                 /SEARCH COUNT
+1333 004702  1351          TAD     (7746-SBOOT+ZAPBUFFER)  /SETUP THE
+1334 004703  3332          DCA     SYSPTR                  /SEARCH POINTER
+1335 004704  4561          JMS I   PBUTIO/[BUTIO]          /CALL I/O ROUTINES
+1336 004705  5600          ZAPBUFFER                       /READ IN BLOCK 0000
+1337 004706  0100          1^100                           /INTO THE BUFFER
+1338 004707  0000          0000                            /TO SEARCH FOR ADDRESS
+1339 004710  1732  SRCHLUP,TAD I   SYSPTR                  /GET A TEST WORD
+1340 004711  1350          TAD     (-HLT)                  /COMPARE TO HALT INSTRUCTION
+1341 004712  7440          SZA                             /SKIP IF IT MATCHES ALREADY
+1342 004713  7001          IAC     /TAD    (-7401+HLT)     /ELSE COMPARE TO OTHER POSSIBLE VALUE
+1343 004714  7650          SNA CLA                         /SKIP IF NEITHER VALUE
+1344 004715  5326          JMP     SYSFND                  /JUMP IF IT MATCHES
+1345 004716  7240          NL7777                          /BACKUP
+1346 004717  1332          TAD     SYSPTR                  /SEARCH
+1347 004720  3332          DCA     SYSPTR                  /POINTER
+1348 004721  2345          ISZ     SRCHCNT                 /LOOKED AT ALL?
+1349 004722  5310          JMP     SRCHLUP                 /NO, KEEP GOING
+1350 004723  4112          JMS     MESSAGE                 /YES, TELL THEM
+1351 004724  3546          NOHMSG                          /SOMETHING IS STRANGE
+1352 004725  5513          JMP I   L7600/[SBOOT]           /EXIT QUICKLY
+1353               
+1354 004726  1332  SYSFND, TAD     SYSPTR                  /GET THE POINTER
+1355 004727  1347          TAD     (SBOOT-ZAPBUFFER)       /CHANGE TO ABSOLUTE ADDRESS
+1356 004730  3332          DCA     SYSPTR                  /STORE IN-LINE
+1357 004731  4771          JMS I   (ZAPONE)                /CALL SINGLE ZAP ROUTINE
+1358 004732  0000  SYSPTR, .-.                             /CHANGE THIS
+1359 004733  0000  SZAPVAL,.-.                             /TO THIS
+1360 004734  1112  SYSUNIT,TAD    MESSAGE                 /GET "NO" INDICATOR
+1361 004735  7710          SPA CLA                         /SKIP IF OFF
+1362 004736  5342          JMP     DSUNIOFF                /JUMP IF SET
+1363 004737  4746          JMS I   (PASONE)                /CALL PASS WORD PROTECTED ZAP ROUTINE
+1364 004740  1066          XTUNIT+10                       /CHANGE THIS
+1365 004741  7120          STL                             /TO THIS
+1366               
+1367 004742  4746  DSUNIOF,JMS I   (PASONE)                /CALL PASS WORD PROTECTED ZAP ROUTINE
+1368 004743  1066          XTUNIT+10                       /CHANGE THIS
+1369 004744  7300          CLA CLL                         /TO THIS
+1370               
+1371 004745  0000  SRCHCNT,.-.                             /SEARCH COUNTER
+1372               
+1373 004746  3455          PAGE
+     004747  2000  
+     004750  0376  
+     004751  5746  
+     004752  7643  
+     004753  7402  
+     004754  7670  
+     004755  5434  
+     004756  0113  
+     004757  5433  
+     004760  0133  
+     004761  0033  
+     004762  4477  
+     004763  7700  
+     004764  5414  
+     004765  5412  
+     004766  5410  
+     004767  5432  
+     004770  0036  
+     004771  3315  
+     004772  3503  
+     004773  7421  
+     004774  3254  
+     004775  5256  
+     004776  5216  
+     004777  4507  
+1374               /      SET TAB CONTROLLERS.
+1375               
+1376 005000  4777  TABCODE,JMS I   (GETOCT)        /GET THE VALUE
+1377 005001  7041          CIA                     /INVERT FOR TABLE
+1378 005002  3205          DCA     .+3             /STORE IN-LINE
+1379 005003  4776          JMS I   (ZAPONE)        /CALL SINGLE ZAP ROUTINE
+1380 005004  1272          CHTBL+24                /CHANGE <HT> ENTRY
+1381 005005  0000          .-.                     /TO PASSED VALUE
+1382               
+1383 005006  7330  TABFILL,NL4000                  /SET MASK
+1384 005007  0112          AND     MESSAGE         /NOW HAVE ESSENCE OF "NO" INDICATOR
+1385 005010  7130          STL RAR                 /MOVE OVER WITH HIGH-ORDER BIT SET
+1386 005011  7410          SKP                     /DON'T USE SINGLE SPACE VALUE
+1387 005012  7332  TABSING,NL2000                  /SET SINGLE SPACE VALUE
+1388 005013  3216  TABEXPA,DCA     .+3             /STORE IN-LINE
+1389 005014  4776          JMS I   (ZAPONE)        /CALL SINGLE ZAP ROUTINE
+1390 005015  0074          TABSW                   /CHANGE THIS
+1391 005016  0000          .-.                     /TO PASSED VALUE
+1392               
+1393               /       SET ^U CONTROLLER.
+1394               
+1395 005017  4775  CTUSTRI,JMS I   (STRNZAP)       /CALL STRING ZAP ROUTINE
+1396 005020  7765          -12-1                   /LENGTH
+1397 005021  2164          UPU2MSG                 /POINTER
+1398               
+1399               /       SET ^Z CONTROLLER.
+1400               
+1401 005022  4775  CTZSTRI,JMS I   (STRNZAP)       /CALL STRING ZAP ROUTINE
+1402 005023  7767          -10-1                   /LENGTH
+1403 005024  2173          ZP2MSG                  /POINTER
+1404               
+1405 005025  0001  L1,     1                       /CONSTANT 0001
+1406               
+1407 005175  3400          PAGE
+     005176  3315  
+     005177  3340  
+1408               /      IMAGE OF RUBOUT HANDLING CODE FOR SET RUBOUT TOPS10, SET RUBOUT ECHO.
+1409               
+1410               RTPS,   RELOC   RDELIM          /WHERE THIS LOADS
+1411 007420* 0134  RDELIM, "\&177                  /DEFAULT <RO> DELIMITER
+1412               
+1413                       IFNZRO  .-RDELIM-1      <ERROR  .>
+1414 007421* 1026  BACKSP, TAD     GETNDX          /\
+1415 007422* 3202          DCA     RTEMP2          / \SAVE GETHAF POINTERS
+1416 007423* 1031          TAD     GETBASE         / /FOR EDIT COMMAND
+1417 007424* 3203          DCA     RTEMP3          //
+1418 007425* 7240          NL7777                  /GET A MINUS 1
+1419 007426* 1060          TAD     PUTNDX          /ADD PUT OFFSET VALUE
+1420 007427* 7510          SPA                     /AT <BOL>?
+1421 007430* 5204          JMP     ROVFLO          /YES, JUST RESTART LINE
+1422 007431* 3026          DCA     GETNDX          /ELSE SAVE COPY
+1423 007432* 1052          TAD     BEGLINE/[INPBUF]/SET GETHAF BASE POINTER
+1424 007433* 3031          DCA     GETBASE         /TO BEGINNING OF LINE
+1425 007434* 3200          DCA     RUBFLG          /INDICATE NO LINE OVERFLOW YET
+1426 007435* 1220          TAD     RDELIM          /GET DELIMITER
+1427 007436* 4507  RZP1,   JMS I   PRINT/[XPRINT]  /AND PRINT IT
+1428 007437* 7240  RAGN,   NL7777                  /GET A -1
+1429 007440* 1060          TAD     PUTNDX          /OFF OF PUT OFFSET
+1430 007441* 7510          SPA                     /OVERFLOW?
+1431 007442* 5306          JMP     RNOMOR          /YES, CLOSE LINE AND START NEW ONE
+1432 007443* 3060          DCA     PUTNDX          /ELSE SAVE THE NEW VALUE
+1433 007444* 7201  PRMPCNT,NL0001/OR NL0002        /PROMPT COUNT INSTRUCTION FOR BACKUP MODES
+1434 007445* 7200          CLA                     /CLEAN UP
+1435 007446* 1053          TAD     EDLIN           /\
+1436 007447* 7041          CIA                     / \
+1437 007450* 1060          TAD     PUTNDX          /  \
+1438 007451* 7700          SMA CLA                 /   >IF EDLIN>PUTNDX, EDLIN=PUTNDX
+1439 007452* 5255          JMP     .+3             /  /
+1440 007453* 1060          TAD     PUTNDX          / /
+1441 007454* 3053          DCA     EDLIN           //
+1442 007455* 4504          JMS I   GETHAF/[XGETHAF]/GET RUBBED-OUT CHARACTER
+1443 007456* 4447          JMS I   PR6BIT/[XPR6BIT]/ECHO IT ON TTY:
+1444 007457* 1223  RCHLP2, CHLOOP+2                /POINTER TO REJOINED CODE; THIS WILL BE SKIPPED
+1445 007460* 7240         NL7777                          /LOAD AC WITH -1
+1446 007461* 1060          TAD     PUTNDX                  /ADD ON PUT OFFSET
+1447 007462* 3026          DCA     GETNDX                  /AND SAVE IT FOR NEXT TIME
+1448 007463* 4433          JMS I   INPUT                   /CAPTIVATE INPUT
+1449 007464* 3100          DCA     TEMP1                   /SAVE IT IN GOOD LOCATION
+1450 007465* 1100          TAD     TEMP1                   /GET WHAT HE TYPED
+1451 007466* 1040          TAD     L7770/[-"H!300]         /IS IT <BS>?
+1452 007467* 7440  RNIGCOD,SZA                             /SKIP IF SO
+1453 007470* 1170          TAD     PSCRSIZE/[-177+"H-300]  /OR IS IT <RO>?
+1454 007471* 7440          SZA                             /SKIP IF EITHER
+1455 007472* 1046          TAD     L40/[-137+177]          /OR IS IT UNDERSCORE?
+1456 007473* 7650          SNA CLA                         /SKIP IF NONE OF THEM
+1457 007474* 5237          JMP     RAGN                    /JUMP IF ANY OF THEM
+1458 007475* 1220  REXIT,  TAD     RDELIM                  /GET DELIMITER
+1459 007476* 4507  RZP2,   JMS I   PRINT/[XPRINT]          /AND PRINT IT TO ENCLOSE
+1460 007477* 1202          TAD     RTEMP2                  /\
+1461 007500* 3026          DCA     GETNDX                  / \RESTORE POINTERS
+1462 007501* 1203          TAD     RTEMP3                  / /FOR EDIT COMMAND
+1463 007502* 3031          DCA     GETBASE                 //
+1464 007503* 2200          ISZ     RUBFLG                  /ARE WE HERE DUE TO OVERFLOW?
+1465 007504* 5657          JMP I   RCHLP2/(CHLOOP+2)       /NO, RESUME CLEANLY
+1466 007505* 5204          JMP     ROVFLO                  /YES, RESTART LINE
+1467               
+1468 007506* 7240  RNOMOR, NL7777                          /SET LINE OVERFLOW
+1469 007507* 3200          DCA     RUBFLG                  /FOR ALL TO SEE
+1470 007510* 5275          JMP     REXIT                   /AND LEAVE
+1471               
+1472               RTPSEND,RELOC                           /RESTORE ORIGIN
+1473               
+1474               /       REPLACEMENT CODE FOR RUBOUT [NO] TOSS.
+1475               
+1476               RIGCODE,RELOC   RCHLP2+10               /WHERE THIS EXECUTES
+1477               
+1478 007467* 7650          SNA CLA                         /SKIP IF NOT <BS>
+1479 007470* 5237          JMP     RAGN                    /JUMP IF <BS>
+1480 007471* 1100          TAD     TEMP1                   /GET THE CHARACTER AGAIN
+1481 007472* 1130          TAD     PRELIO/[-137]           /COMPARE TO UNDERSCORE
+1482               
+1483                       RELOC                           /RESTORE ORIGIN
+1484               /      RUBOUT CODE FOR SET RUBOUT NORMAL.
+1485               
+1486               RNRM,   RELOC   RDELIM          /WHERE THIS EXECUTES
+1487               
+1488 007420* 0134  RDELIM, "\&177                  /DEFAULT <RO> DELIMITER
+1489               
+1490                       IFNZRO  .-RDELIM-1      <ERROR  .>
+1491 007421* 7240  BACKSP, NL7777                  /GET A MINUS 1
+1492 007422* 1060          TAD     PUTNDX          /ADD PUT OFFSET VALUE
+1493 007423* 7510          SPA                     /AT <BOL>?
+1494 007424* 5204          JMP     ROVFLO          /YES, JUST RESTART LINE
+1495 007425* 3060          DCA     PUTNDX          /ELSE SAVE THE NEW VALUE
+1496 007426* 1053          TAD     EDLIN           /\
+1497 007427* 7041          CIA                     / \
+1498 007430* 1060          TAD     PUTNDX          /  \
+1499 007431* 7700          SMA CLA                 /   >IF EDLIN>PUTNDX, EDLIN=PUTNDX
+1500 007432* 5235          JMP     .+3             /  /
+1501 007433* 1060          TAD     PUTNDX          / /
+1502 007434* 3053          DCA     EDLIN           //
+1503 007435* 1220          TAD     RDELIM          /GET THE FLAGGING CHARACTER
+1504 007436* 4507          JMS I   PRINT           /PRINT IT
+1505 007437* 5640          JMP I   .+1/(CHLOOP)    /GO BACK FOR MORE
+1506 007440* 1221          CHLOOP                  /THROUGH HERE
+1507               
+1508 007441* 0000          ZBLOCK  PRMPCNT-.       /EMPTY SPACE
+     007442* 0000  
+     007443* 0000  
+1509               
+1510 007444* 7201  PRMPCNT,NL0001/OR NL0002        /PROMPT COUNT INSTRUCTION FOR BACKUP MODES
+1511               
+1512               RNRMEND,RELOC                   /RESTORE ORIGIN
+1513               /      IMAGE OF CODE FOR SET RUBOUT BACKUP.
+1514               
+1515               RBAK,   RELOC   BACKSP          /WHERE IT LOADS
+1516               
+1517                       IFNZRO  .-RDELIM-1      <ERROR  .>
+1518 007421* 1026  BACKSP, TAD     GETNDX          /GET INPUT INDEX
+1519 007422* 3020          DCA     CHAR            /SAVE FOR EDIT COMMAND
+1520 007423* 1052          TAD     BEGLINE/[INPBUF]/SETUP POINTER
+1521 007424* 3031          DCA     GETBASE         /TO INPUT BUFFER
+1522 007425* 7240          NL7777                  /BACKUP
+1523 007426* 1060          TAD     PUTNDX          /DO WE HAVE ANY TO TAKE BACK?
+1524 007427* 7510          SPA                     /SKIP IF SO
+1525 007430* 5204          JMP     ROVFLO          /ELSE FORGET IT
+1526 007431* 3060          DCA     PUTNDX          /STORE UPDATED VALUE
+1527 007432* 1053          TAD     EDLIN           /\
+1528 007433* 7041          CIA                     / \
+1529 007434* 1060          TAD     PUTNDX          /  \
+1530 007435* 7700          SMA CLA                 /   >IF EDLIN>PUTNDX, EDLIN=PUTNDX
+1531 007436* 5241          JMP     .+3             /  /
+1532 007437* 1060          TAD     PUTNDX          / /
+1533 007440* 3053          DCA     EDLIN           //
+1534 007441* 3026          DCA     GETNDX          /CLEAR READ INDEX
+1535 007442* 1120          TAD     SEQSW           /GET SEQUENCE MODE SWITCH
+1536 007443* 7650          SNA CLA                 /SKIP IF SET
+1537 007444* 7201  PRMPCNT,NL0001/OR NL0002        /SET PROMPT COUNT
+1538 007445* 3201          DCA     RTEMP1          /STORE INITIAL COLUMN COUNT
+1539 007446* 1060          TAD     PUTNDX          /GET NEW INDEX
+1540 007447* 7040          CMA                     /INVERT FOR COUNTING
+1541 007450* 3202          DCA     RTEMP2          /STORE THE COUNTER
+1542 007451* 5260          JMP     RBTEST          /TEST FIRST IN CASE NONE TO DO
+1543               
+1544 007452* 4504  RBTSTLP,JMS I   GETHAF/[XGETHAF]/GET A CHARACTER
+1545 007453* 1011          TAD     L7741/[-37]     /COMPARE TO <HT>
+1546 007454* 7650          SNA CLA                 /SKIP IF OTHER
+1547 007455* 5317          JMP     RUBTAB          /JUMP IF <HT>
+1548 007456* 2201  RTABACK,ISZ     RTEMP1          /COUNT THIS CHARACTER
+1549 007457* 2026  RBTST2, ISZ     GETNDX          /BUMP TO NEXT
+1550 007460* 2202  RBTEST, ISZ     RTEMP2          /DONE YET?
+1551 007461* 5252          JMP     RBTSTLP         /NO, KEEP GOING
+1552 007462* 1123          TAD     COLUMN          /GET MONITOR'S COLUMN COUNT
+1553 007463* 7041          CIA                     /INVERT IT
+1554 007464* 1201          TAD     RTEMP1          /ADD ON OURS
+1555 007465* 3202          DCA     RTEMP2          /STORE DIFFERENCE FOR COUNTING
+1556 007466* 1174  RBAKLP,        TAD     L10/[10]        /GET A <BS>
+1557 007467* 4507          JMS I   PRINT/[XPRINT]  /PRINT IT
+1558 007470* 1046          TAD     L40/[" &177]    /GET A <SPACE>
+1559 007471* 4507          JMS I   PRINT/[XPRINT]  /PRINT IT
+1560 007472* 1174          TAD     L10/[10]        /GET A <BS>
+1561 007473* 4507          JMS I   PRINT/[XPRINT]  /PRINT IT
+1562 007474* 2202          ISZ     RTEMP2          /DONE?
+1563 007475* 5266          JMP     RBAKLP          /NO, KEEP GOING
+1564 007476* 1201          TAD     RTEMP1          /GET CORRECTED COLUMN
+1565 007477* 3123          DCA     COLUMN          /RESTORE IT
+1566 007500* 1123          TAD     COLUMN          /GET CURRENT COLUMN
+1567 007501* 1335          TAD     CLIMIT          /COMPARE TO LIMIT
+1568 007502* 7710          SPA CLA                 /SKIP IF ABOVE LIMIT
+1569 007503* 5734          JMP I   REEXIT/(EEXIT)  /GO FIXUP AND RESTART
+1570 007504* 1041          TAD     L15/[15]        /GET A <CR>
+1571 007505* 4507          JMS I   PRINT/[XPRINT]  /PRINT IT
+1572 007506* 1331          TAD     RCHAR1          /GET SECOND CHARACTER
+1573 007507* 4507  PZAP1,  JMS I   PRINT/[XPRINT]  /PRINT IT
+1574 007510* 1332          TAD     RCHAR2          /GET THIRD CHARACTER
+1575 007511* 4507  PZAP2,  JMS I   PRINT/[XPRINT]  /PRINT IT
+1576 007512* 1333          TAD     RCHAR3          /GET FOURTH CHARACTER
+1577 007513* 4507  PZAP3,  JMS I   PRINT/[XPRINT]  /PRINT IT
+1578 007514* 3123          DCA     COLUMN          /CLEAR COLUMN
+1579 007515* 5716          JMP I   .+1/(LFVIEW+1)  /GO REPAINT IT THERE
+1580 007516* 2675          LFVIEW+1                /THROUGH HERE
+1581               
+1582 007517* 1074  RUBTAB, TAD     TABSW           /GET <HT> SWITCH
+1583 007520* 1330          TAD     RB6000/(-2000)  /COMPARE TO SINGLE SPACE VALUE
+1584 007521* 7650          SNA CLA                 /SKIP IF IT IS DIFFERENT
+1585 007522* 5256          JMP     RTABACK         /JUMP IF SINGLE SPACE VALUE
+1586 007523* 1201          TAD     RTEMP1          /GET THE COUNT
+1587 007524* 1174          TAD     L10/[10]        /GOTO NEXT <HT> STOP
+1588 007525* 0040          AND     L7770/[7770]    /JUST STOP BITS
+1589 007526* 3201          DCA     RTEMP1          /STORE BACK
+1590 007527* 5257          JMP     RBTST2          /KEEP GOING
+1591               
+1592 007530* 6000  RB6000, 6000                    /CONSTANT 6000
+1593 007531* 0033  RCHAR1, 33                      /THIS CHARACTER MAY BE PRINTED
+1594 007532* 0133  RCHAR2, "[&177                  /THIS CHARACTER MAY BE PRINTED
+1595 007533* 0113  RCHAR3, "K&177                  /THIS CHARACTER MAY BE PRINTED
+1596 007534* 2715  REEXIT, EEXIT                   /POINTER TO EEXIT
+1597               
+1598               /       THE FOLLOWING LOCATIONS MUST BE PLACED AFTER ALL OTHER <RO> CODE.
+1599               
+1600                       IFZERO  RNOMOR+3-.&4000 <ERROR  .>
+1601 007535* 4000  CLIMIT, 4000                    /COLUMN LIMIT
+1602               
+1603               RBAKEND,RELOC                   /RESTORE ORIGIN
+1604                      PAGE
+1605               
+1606                       ZAPBUF= .               /READ STUFF INTO HERE TO ZAP IT
+1607               
+1608                       $                       /THAT'S ALL FOLK!
+
+ADJUST  3330
+ANYSW   3001
+BACKSP  7421
+BADCOM  3142
+BADMSG  3535
+BADNO   3103
+BADTST  3112
+BDPSMS  3351
+BEGLIN  0052
+BLKZAP  3254
+CHAR    0020
+CHLOOP  1221
+CHTBL   1246
+CLIMIT  7535
+COLUMN  0123
+CTCPZA  2363
+CTCZAP  2365
+CTULST  4111
+CTUSET  4166
+CTUSTR  5017
+CTZLST  4115
+CTZSET  4167
+CTZSTR  5022
+DNOFET  4206
+DNOFLI  4242
+DNOPRU  4441
+DNOWRI  4224
+DOLLST  3716
+DOLLSW  0151
+DOLSET  4121
+DRNIGN  4624
+DSPCHP  3227
+DSUNIO  4742
+ECHFLP  4234
+ECHLST  3725
+ECHOFF  4245
+ECHON   4246
+ECHOSW  0024
+ECHSET  4123
+ECHTMP  4251
+EDLIN   0053
+EEXIT   2715
+ESCHAR  4252
+ESCLST  3737
+ESCODE  4260
+ESCRET  4266
+ESCSET  4126
+ESCTOP  4271
+FLNENT  4274
+FLNLST  3754
+FLNSET  4132
+GETBAS  0031
+GETHAF  0104
+GETNDX  0026
+GETOCT  3340
+GOTCR   1241
+GOTESC  7407
+GOTNO   3063
+INBLK   3270
+INPUT   0033
+JMPC    5200
+JMPIL7  3111
+JMSIPB  3307
+L0      4233
+L1      5025
+L10     0174
+L15     0041
+L3      0005
+L37     0064
+L40     0046
+L7      0177
+L7600   0113
+L7741   0011
+L7770   0040
+LFVIEW  2674
+LINENO  0062
+LNFECH  4304
+LNFEED  2153
+LNFIGN  4307
+LNFLST  3760
+LNFRET  4312
+LNFSET  4133
+LNFVIE  4315
+LOAD    1634
+LOOKUP  0154
+MESSAG  0112
+NAME    0054
+NAMPRT  0066
+NEWBUF  0400
+NEWLIN  2017
+NEWSTR  3447
+NL0001  7201
+NL0002  7326
+NL2000  7332
+NL3777  7350
+NL4000  7330
+NL7775  7346
+NL7776  7344
+NL7777  7240
+NOEPUN  2702
+NOHMSG  3546
+NONOMS  3145
+NOOK    3101
+NOTNO   3057
+NOUNPR  1211
+NULERA  4320
+NULLST  3775
+NULSET  4137
+NXTADR  2574
+OFLIP   2332
+OUTBLK  3312
+PASBLK  4356
+PASCHK  3462
+PASFUN  4355
+PASLST  4001
+PASONE  3455
+PASSBA  3500
+PASSET  4140
+PASSWD  3707
+PASWRD  4330
+PBEGIN  0071
+PBUTIO  0161
+PCTRLP  0163
+PMOVE   0127
+PNEWST  3444
+PR6BIT  0047
+PRELIO  0130
+PRINT   0107
+PRLOOP  3220
+PRMPCN  7444
+PRNOST  3230
+PRNPTR  3221
+PRNSET  3242
+PRNTOK  3245
+PROCAR  4413
+PROCHA  4400
+PROLST  4005
+PROMPT  0166
+PROSET  4141
+PROUNI  4414
+PRTAB   3247
+PRTMP   3252
+PRTOPT  3200
+PRTPTR  3205
+PSCRSI  0170
+PSYSIO  4333
+PUTBAS  0131
+PUTHAF  0132
+PUTNDX  0060
+PZAP1   7507
+PZAP2   7511
+PZAP3   7513
+R       1446
+RADLST  4014
+RADSET  4143
+RADST1  4462
+RADST8  4463
+RADXSW  0015
+RAGN    7437
+RALFET  4200
+RALTCH  7417
+RALWRT  4211
+RB6000  7530
+RBAK    5322
+RBAKEN  7536
+RBAKLP  7466
+RBTEST  7460
+RBTST2  7457
+RBTSTL  7452
+RBVT05  4631
+RBVT10  4643
+RBVT52  4661
+RCHAR1  7531
+RCHAR2  7532
+RCHAR3  7533
+RCHLP2  7457
+RDELIM  7420
+REEXIT  7534
+REXIT   7475
+RIGCOD  5271
+RNIGCO  7467
+RNOMOR  7506
+RNRM    5275
+RNRMEN  7445
+ROVFLO  7404
+RTABAC  7456
+RTEMP1  7401
+RTEMP2  7402
+RTEMP3  7403
+RTPS    5200
+RTPSEN  7511
+RUBBAC  4470
+RUBCHA  4515
+RUBCOM  4477
+RUBECE  4603
+RUBECH  4523
+RUBFLG  7400
+RUBLIM  4527
+RUBLST  4023
+RUBNOR  4537
+RUBSET  4145
+RUBTAB  7517
+RUBTCH  3503
+RUBTOP  4600
+RUBTOS  4614
+RZP1    7436
+RZP2    7476
+SBLOCK  7635
+SBOOT   7600
+SBZCNT  3442
+SBZPTR  3443
+SEQSW   0120
+SET     3000
+SETAGN  3017
+SETEM1  3002
+SETEM2  3003
+SETMOR  3123
+SETNX2  3042
+SETNXT  3041
+SETOK   3013
+SFUN    7634
+SRCHCN  4745
+SRCHLU  4710
+SRINST  5471
+STREND  3440
+STRLUP  3416
+STRNCN  3446
+STRNZA  3400
+SUBOSW  3004
+SWAL    7604
+SYSFND  4726
+SYSHLT  4676
+SYSLST  4062
+SYSPTR  4732
+SYSRET  4675
+SYSSET  4157
+SYSUNI  4734
+SZAPVA  4733
+TABCOD  5000
+TABEXP  5013
+TABFIL  5006
+TABLE   3600
+TABLST  4074
+TABSET  4162
+TABSIN  5012
+TABSW   0074
+TAPREC  0075
+TCNT1   0122
+TEMP1   0100
+TEMP2   0101
+TRYOLD  0642
+UPU2MS  2164
+WHATMO  0057
+WRITE   4000
+XR1     0016
+XR2     0017
+XTUNIT  1056
+ZAPBUF  5600
+ZAPCNT  3337
+ZAPLOC  3325
+ZAPMOR  3301
+ZAPONE  3315
+ZP2MSG  2173

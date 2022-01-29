@@ -1,0 +1,300 @@
+   1               /       4-WORD P?S/8 FOCAL OVERLAY
+   2               
+   3               /       LAST EDIT:      28-DEC-1986     03:00:00        CJL
+   4               
+   5               /       MUST BE ASSEMBLED WITH '/J' SET.
+   6               
+   7               /       MODIFICATIONS TO P?S/8 FOCAL TO USE 4-WORD ACCURATE FLOATING POINT.
+   8               
+   9               /       MUST BE LOADED BEFORE OTHER BINARY PATCHES (OTHER THAN 8K) TO FOCAL.
+  10               
+  11               /       IT IS RECOMMENDED THAT THE 8K OVERLAY (IF USED) BE LOADED FIRST.
+  12               /      DEFINITIONS FROM FOCAL, 1969 (ORIGINAL PAPER-TAPE VERSION).
+  13               
+  14                       AC1H=   0041            /HIGH-ORDER OPERAND
+  15                       AC1L=   0042            /LOW-ORDER OPERAND
+  16                       CFRS=   0133            /POINTER TO DUMMY LINE
+  17                       DATUM=  7102            /DATA AREA IN FPP
+  18                       DCOUNT= 6143            /OUTPUT DIGIT COUNTER
+  19                       DMDONE= 7063            /MULTIPLE PRECISION MULTIPLY ADDRESS
+  20                       DMULT4= 7036            /MULTIPLE PRECISION MULTIPLY ADDRESS
+  21                       DNORM=  7335            /NORMALIZE ROUTINE
+  22                       DV3=    7267            /DIVIDE ROUTINE ADDRESS
+  23                       FISW=   0052            /FLOATING POINT FORMAT SWITCH
+  24                       FPNT=   6400            /FLOATING POINT INTERPRETER
+  25                       GINC=   0070            /VARIABLE UPDATE FACTOR
+  26                       HORD=   0045            /HIGH-ORDER FLAC
+  27                       LORD=   0046            /LOW-ORDER FLAC
+  28                       MD=     5526            /-(DIGITS) STORED HERE
+  29                       MFLT=   0117            /FLOATING LENGTH FACTOR
+  30                       MIF=    7260            /DIVIDE SHIFT COUNTER
+  31                       MP1=    7254            /QUOTIENT WORD
+  32                       MP2=    7256            /MULTIPLICAND WORD
+  33                       MP4=    7200            /MULTIPLY ROUTINE
+  34                       MP5=    7253            /QUOTIENT WORD
+  35                       MULDIV= 7101            /COMMON MULTIPLY/DIVIDE ROUTINE
+  36                       OVER1=  0043            /EXTRA OPERAND WORD
+  37                       OVER2=  0047            /EXTRA FLAC WORD
+  38                       PI=     5312            /PI CONSTANT FOR SINE ROUTINE
+  39                       PIOT=   5316            /PI/2 CONSTANT FOR SINE ROUTINE
+  40                       PTEN=   6275            /CONSTANT .1000000000
+  41                       P7600=  0104            /CONSTANT 7600
+  42                       RND2=   5527            /(DIGITS+1) STORED HERE
+  43                       TEST2=  6736            /ALIGNMENT CONSTANT HERE
+  44                       TWOPI=  5306            /PI*2 CONSTANT FOR SINE ROUTINE
+  45                       XDELETE=2062            /DELETE ROUTINE ADDRESS
+  46                       ZERO=   6520            /INTERPRETIVE POWER ADDRESS
+  47               
+  48               /       DEFINITIONS FROM P?S/8 FOCAL OVERLAY.
+  49               
+  50                       BEOFZAP=7505            /BINARY LOADER ZAP WORD
+  51                       BONCE=  3600            /OVERLAY ONCE-ONLY ADDRESS
+  52                       NFRST=  3305            /NEW DUMMY LINE ADDRESS
+  53                       NPI2=   5173            /NEW PI/2 CONSTANT FOR ARCTANGENT
+  54                       REVISIO="D&77           /REVISION OF FOCPQS
+  55                       SWAL=   7604            /PASSED SWITCHES: A-L
+  56                       VERSION=12              /VERSION OF FOCPQS
+  57               
+  58               /       MISCELLANEOUS DEFINITIONS.
+  59               
+  60                       DIGITS= 12              /10 DIGIT VERSION
+  61                       WORDS=  4               /FOUR WORD VERSION
+  62               /      DIRECT PATCHES TO THE RUNNING P?S/8 (4K OR 8K) FOCAL.
+  63               
+  64                       FIELD   0                               /ENSURE FIELD ZERO
+  65               
+  66                       *FISW                                   /OVER FORMAT SWITCH
+  67               
+  68 000052  0000  FISW,   0                                       /USE FLOATING OUTPUT FORMAT BY DEFAULT
+  69               
+  70                       *GINC                                   /OVER VARIABLE INCREMENT
+  71               
+  72 000070  0006  GINC,   WORDS+2                                 /WE USE LONGER VARIABLES
+  73               
+  74                       *MFLT                                   /OVER FLOATING LENGTH FACTOR
+  75               
+  76 000117  7774  MFLT,   -WORDS                                  /INDICATE -(FOUR) WORDS
+  77               
+  78               /       NEW FOUR-WORD (4K) DUMMY LINE.
+  79               
+  80                       *NFRST                                  /OVER EXISTING DUMMY LINE
+  81               
+  82 003305  0000  NFRST,  0000                                    /POINTER TO END OF LIST
+  83 003306  0000          0000                                    /00.00 LINE NUMBER
+  84 003307  0340          TEXT    "C "                            /C<SPACE>
+  85 003310  2037          "P^100+"?-240                           /P?
+  86 003311  2357          TEXT    "S/8 4WORD "                    /MORE TEXT
+     003312  7040  
+     003313  6427  
+     003314  1722  
+     003315  0440  
+  87 003316  2661          VERSION%12+2660                         /V<HIGH VERSION DIGIT>
+  88 003317  6004          VERSION%12^66+VERSION^100+REVISION+6000 /<LOW VERSION DIGIT><REVISION>
+  89 003320  7715          7715                                    /<CR>
+  90               
+  91               /       CHANGE DIGITS-ORIENTED CONSTANTS.
+  92               
+  93                       *MD                                     /OVER -(DIGITS)
+  94               
+  95 005526  7766  MD,     -DIGITS                                 /SET NEW AMOUNT
+  96 005527  0013  RND2,   DIGITS+1                                /SET NEW ROUNDING CONSTANT
+  97               
+  98                       *DCOUNT                                 /OVER OUTPUT DIGIT COUNT
+  99               
+ 100 006143  7765          -DIGITS-1                               /USE 10 DIGIT VALUE
+ 101               
+ 102               /       CORRECT FLOATING CONSTANT.
+ 103               
+ 104                       *PTEN+2                                 /OVER CONSTANT .100000000
+ 105               
+ 106 006277  3146          3146                                    /USE FOUR WORD VALUE
+ 107               /      CHANGES TO THE FLOATING POINT PACKAGE (FPP).
+ 108               
+ 109                       *FPNT+2                 /OVER DCA OVER2
+ 110               
+ 111 006402  7410          SKP                     /DON'T CLEAR OVERFLOW WORDS
+ 112               
+ 113                       *ZERO+20                /OVER DCA OVER1
+ 114               
+ 115 006540  7000          NOP                     /DON'T CLEAR OVERFLOW WORD
+ 116               
+ 117                       *TEST2                  /OVER 0027
+ 118               
+ 119 006736  0043  TEST2,  0043                    /USE FOUR WORD CONSTANT INSTEAD
+ 120               
+ 121                       *DMULT4                 /OVER JMP DMDONE
+ 122               
+ 123 007036  3275  DMULT4, DCA     DATUM-5         /STORE RESULT WORD
+ 124               
+ 125                       *DMDONE+7               /OVER DCA OVER2
+ 126               
+ 127 007072  7000          NOP                     /DON'T CLEAR OVERFLOW WORD
+ 128               
+ 129                       *MULDIV+4               /OVER ISZ OVER2
+ 130               
+ 131 007105  7000          NOP                     /DON'T ROUND IN FOUR-WORD VERSION
+ 132               
+ 133                       *MIF                    /OVER DIVIDE SHIFT COUNTER
+ 134               
+ 135 007260  7735  MIF,    -43                     /USE FOUR WORD SHIFT VALUE
+ 136                      *DV3+2                  /OVER DIVIDE ROUTINE
+ 137               
+ 138 007271  1043          TAD     OVER1           /GET THE
+ 139 007272  1047          TAD     OVER2           /OVERFLOW WORDS
+ 140 007273  3253          DCA     MP5             /SAVE RESULT
+ 141 007274  7004          RAL                     /GET CARRY
+ 142 007275  1042          TAD     AC1L            /ADD ON LOW-ORDER
+ 143 007276  1046          TAD     LORD            /WORDS
+ 144 007277  3256          DCA     MP2             /SAVE RESULT
+ 145 007300  7004          RAL                     /GET CARRY
+ 146 007301  1045          TAD     HORD            /ADD ON HIGH-ORDER
+ 147 007302  1041          TAD     AC1H            /WORDS
+ 148 007303  7420          SNL                     /CARRY?
+ 149 007304  5312          JMP     .+6             /NO
+ 150 007305  3045          DCA     HORD            /YES, UPDATE THE FLAC
+ 151 007306  1253          TAD     MP5             /GET OVERFLOW
+ 152 007307  3047          DCA     OVER2           /UPDATE IT
+ 153 007310  1256          TAD     MP2             /GET LOW-ORDER
+ 154 007311  3046          DCA     LORD            /UPDATE IT
+ 155 007312  7200          CLA                     /CLEAN UP
+ 156 007313  1254          TAD     MP1             /GET QUOTIENT
+ 157 007314  7004          RAL                     /MOVE UP
+ 158 007315  3254          DCA     MP1             /STORE BACK
+ 159 007316  1200          TAD     MP4             /GET NEXT
+ 160 007317  7004          RAL                     /MOVE UP
+ 161 007320  3200          DCA     MP4             /STORE BACK
+ 162 007321  1335          TAD     DNORM           /GET LOWEST
+ 163               /      THE FOUR-WORD OVERLAY GAINS CONTROL AND STARTS HERE.
+ 164               
+ 165                       *BONCE                  /OVER ONCE-ONLY AREA
+ 166               
+ 167 003600  1777  WORD4,  TAD I   (SWAL)          /GET /A-/L SWITCHES
+ 168 003601  0376          AND     (1000)          /JUST /C SWITCH
+ 169 003602  7650          SNA CLA                 /SKIP IF SET
+ 170 003603  5212          JMP     TESTA           /JUMP IF NOT
+ 171 003604  1375          TAD     (3755)          /GET CORRECTIVE VALUE
+ 172 003605  3774          DCA I   (TWOPI+2)       /STORE OVER CONSTANT
+ 173 003606  1375          TAD     (3755)          /GET CORRECTIVE VALUE
+ 174 003607  3773          DCA I   (PI+2)          /STORE OVER CONSTANT
+ 175 003610  1375          TAD     (3755)          /GET CORRECTIVE VALUE
+ 176 003611  3772          DCA I   (PIOT+2)        /STORE OVER CONSTANT
+ 177 003612  1777  TESTA,  TAD I   (SWAL)          /GET /A-/L SWITCHES
+ 178 003613  7700          SMA CLA                 /SKIP IF /A SET
+ 179 003614  5225          JMP     TEST8K          /JUMP IF NOT
+ 180 003615  1777          TAD I   (SWAL)          /GET /A-/L SWITCHES
+ 181 003616  0376          AND     (1000)          /JUST /C SWITCH
+ 182 003617  7640          SZA CLA                 /SKIP IF /C NOT SET
+ 183 003620  1104          TAD     P7600/[-200]    /ELSE ADD ON BACKUP FACTOR
+ 184 003621  1371          TAD     (NPI2+2+200)    /ASSUME RELOCATED CONSTANT ADDRESS
+ 185 003622  3235          DCA     CONPTR          /STORE CORRECTED ADDRESS
+ 186 003623  1375          TAD     (3755)          /GET CORRECTIVE VALUE
+ 187 003624  3635          DCA I   CONPTR          /STORE OVER RELOCATED CONSTANT
+ 188 003625  1770  TEST8K, TAD I   (XDELETE+23)    /GET CDF TXTFLD INSTRUCTION
+ 189 003626  0367          AND     (70)            /JUST FIELD BITS
+ 190 003627  7450          SNA                     /SKIP IF 8K IN USE
+ 191 003630  5247          JMP     MOVEND          /JUMP IF NOT
+ 192 003631  1366          TAD     (CDF)           /TURN INTO TEXT CDF INSTRUCTION
+ 193 003632  3235          DCA     CONPTR          /STORE IN-LINE
+ 194 003633  1133          TAD     CFRS/[LINE0]    /GET DUMMY LINE POINTER
+ 195 003634  3200          DCA     WORD4           /STASH THE POINTER
+ 196 003635  0000  CONPTR, .-.                     /WILL BE CDF TEXT FIELD
+ 197 003636  1252  MOVLUP, TAD     NLINE0          /GET A WORD
+ 198 003637  2236          ISZ     MOVLUP          /BUMP TO NEXT
+ 199 003640  7040          CMA                     /INVERT FOR TESTING
+ 200 003641  7450          SNA                     /SKIP IF NOT AT END
+ 201 003642  5247          JMP     MOVEND          /JUMP IF AT END
+ 202 003643  7040          CMA                     /INVERT BACK
+ 203 003644  3600          DCA I   WORD4           /STORE IN 8K DUMMY LINE
+ 204 003645  2200          ISZ     WORD4           /BUMP TO NEXT
+ 205 003646  5236          JMP     MOVLUP          /KEEP GOING
+ 206               
+ 207 003647  6201  MOVEND, CDF     00              /BACK TO OUR FIELD
+ 208 003650  3765          DCA I   (BEOFZAP)       /RESTORE BINARY LOADER
+ 209 003651  5765          JMP I   (BEOFZAP)       /CONTINUE IN LOADER
+ 210               /      DUMMY LINE FOR 8K FOUR WORD VERSION.
+ 211               
+ 212 003652  0000  NLINE0, 0                               /FORWARD POINTER
+ 213 003653  0000          0                               /LINE 00.00
+ 214 003654  0340          TEXT    "C 8K P"                /TEXT BLURB
+     003655  7013  
+     003656  4020  
+ 215 003657  3723          "?-40^100+"S-300                /?S
+ 216 003660  5770          TEXT    "/8 4WORD V"            /MORE TEXT
+     003661  4064  
+     003662  2717  
+     003663  2204  
+     003664  4026  
+ 217 003665  6160          VERSION%12^66+VERSION+6060      /<HIGH VERSION DIGIT><LOW VERSION DIGIT>
+ 218 003666  0440          REVISION^100+" -200             /<REVISION><SPACE>
+ 219 003667  7715          7715                            /<CR>
+ 220 003670  7777          -1                              /THIS ENDS THE LIST
+ 221               
+ 222 003765  7505          PAGE
+     003766  6201  
+     003767  0070  
+     003770  2105  
+     003771  5375  
+     003772  5320  
+     003773  5314  
+     003774  5310  
+     003775  3755  
+     003776  1000  
+     003777  7604  
+ 223               
+ 224               /       THE FOLLOWING PATCH ZAPS THE LOADER TO COME TO OUR ONCE-ONLY CODE.
+ 225               
+ 226                       *BEOFZAP                        /OVER LOADER 0000
+ 227               
+ 228 007505  7410          SKP                             /MAKE IT COME TO US
+ 229               
+ 230                       $                               /THAT'S ALL FOLK!
+
+AC1H    0041
+AC1L    0042
+BEOFZA  7505
+BONCE   3600
+CFRS    0133
+CONPTR  3635
+DATUM   7102
+DCOUNT  6143
+DIGITS  0012
+DMDONE  7063
+DMULT4  7036
+DNORM   7335
+DV3     7267
+FISW    0052
+FPNT    6400
+GINC    0070
+HORD    0045
+LORD    0046
+MD      5526
+MFLT    0117
+MIF     7260
+MOVEND  3647
+MOVLUP  3636
+MP1     7254
+MP2     7256
+MP4     7200
+MP5     7253
+MULDIV  7101
+NFRST   3305
+NLINE0  3652
+NPI2    5173
+OVER1   0043
+OVER2   0047
+P7600   0104
+PI      5312
+PIOT    5316
+PTEN    6275
+REVISI  0004
+RND2    5527 unreferenced
+SWAL    7604
+TEST2   6736
+TEST8K  3625
+TESTA   3612
+TWOPI   5306
+VERSIO  0012
+WORD4   3600
+WORDS   0004
+XDELET  2062
+ZERO    6520

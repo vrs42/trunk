@@ -1,0 +1,90 @@
+   1               /       TC08 DECTAPE GENASYS HELPER
+   2               
+   3               /       LAST EDIT:      05-APR-1986     05:00:00        CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       THIS ROUTINE IS MEANT TO BE USED TO GENERATE 'ALIEN' SYSTEMS ON A MACHINE
+   8               /       EQUIPPED WITH TC01/TC08 DECTAPE, BUT LACKING THE 'ALIEN' TARGET HARDWARE.
+   9               
+  10               /       THE NORMAL METHOD OF SYSTEM GENERATION ALLOWS FOR THE CONCEPT OF EITHER
+  11               /       STAND-ALONE GENERATION, OR GENERATION BY THE CURRENT P?S/8 SYSTEM (IF ANY).
+  12               
+  13               /       SETTING THE SWITCHES TO 7777 BEFORE GENERATING THE SYSTEM WILL USE THE
+  14               /       CURRENT P?S/8 I/O ROUTINES TO GENERATE THE (NEW) SYSTEM. BY USING THIS
+  15               /       ROUTINE FIRST, A PRE-EXISTING P?S/8 TC01/TC08 DECTAPE SYSTEM'S I/O ROUTINES
+  16               /       CAN BE READ INTO 007600 TO ALLOW THIS POSSIBILITY TO EXIST.
+  17               
+  18               /       GENERATION INSTRUCTIONS.
+  19               
+  20               /       TO GENERATE AN 'ALIEN' TARGET SYSTEM ON A DECTAPE, FIRST LOAD ALL NORMAL
+  21               /       P?S/8 INITIAL GENERATION FILES. HOWEVER, INSTEAD OF STARTING AT 000200,
+  22               /       START AT 030200 (IN THIS ROUTINE) WHICH WILL THEN HALT.
+  23               
+  24               /       AFTER THE FIRST HALT, MOUNT A PRE-EXISTING P?S/8 TC08 DECTAPE SYSTEM TAPE
+  25               /       ON DRIVE ZERO AND PRESS CONTINUE. THE TAPE SHOULD REWIND AND READ IN BLOCK
+  26               /       ZERO AND THEN HALT AGAIN WITHOUT ERRORS. ANY ERRORS WILL BE INDICATED
+  27               /       IN THE TC01/TC08 "B" REGISTER DISPLAY AND ALSO THE AC. SHOULD ANY ERROR
+  28               /       OCCUR, THE PROGRAM CAN BE RESTARTED AT 030200 TO TRY AGAIN.
+  29               
+  30               /       AFTER THE SECOND HALT, CHANGE THE TAPE TO THE TARGET DECTAPE INTENDED FOR
+  31               /       SYSTEM GENERATION ON DRIVE ZERO. HITTING CONTINUE WILL START THE NORMAL
+  32               /       P?S/8 SYSTEM GENERATION ROUTINES (WILL BEEP AND HALT WITH 7777 IN AC, ETC.).
+  33               
+  34               /       DON'T FORGET TO SET THE SWITCHES TO 7777 BEFORE CONTINUING AGAIN, OR THIS
+  35               /       EXTRA ROUTINE SERVES NO PURPOSE!
+  36               
+  37               /       DEFINITIONS.
+  38               
+  39                       DTLA=   6766            /LOAD "A" REGISTER
+  40                       DTLB=   6774            /LOAD "B" REGISTER
+  41                       DTRB=   6772            /READ "B" REGISTER
+  42                       DTXA=   6764            /XOR "A" REGISTER
+  43                       DTSF=   6771            /SKIP ON DECTAPE OR ERROR FLAG
+  44                       SYSGEN= 0200            /NORMAL SYSTEM GENERATION ADDRESS
+  45                      FIELD   3               /GENASYS HELPER FIELD
+  46               
+  47                       *200                    /GENASYS HELPER ADDRESS
+  48               
+  49 030200  7300  START,  CLA CLL                 /CLEAN UP
+  50 030201  6774          DTLB                    /ENSURE CLEAR "B" REGISTER
+  51 030202  7402          HLT                     /WAIT FOR A P?S/8 TAPE TO BE MOUNTED
+  52 030203  6201          CDF     00              /ALL IN FIELD 0
+  53 030204  1377          TAD     (7600-7754)     /SETUP
+  54 030205  3776          DCA I   (7754)          /WORD COUNT
+  55 030206  1375          TAD     (7600-1)        /SETUP
+  56 030207  3774          DCA I   (7755)          /CURRENT ADDRESS
+  57 030210  1373          TAD     (600)           /REWIND
+  58 030211  6766          DTLA                    /THE TAPE
+  59 030212  6771          DTSF                    /WAIT FOR IT
+  60 030213  5212          JMP     .-1             /TO FINISH
+  61 030214  1372          TAD     (220)           /READ FORWARD
+  62 030215  6766          DTLA                    /MOST OF BLOCK ZERO
+  63 030216  6771          DTSF                    /WAIT FOR IT
+  64 030217  5216          JMP     .-1             /TO FINISH
+  65 030220  1371          TAD     (202)           /GET A MOTION BIT AND PRESERVE ERRORS
+  66 030221  6764          DTXA                    /STOP THE TAPE
+  67 030222  6772          DTRB                    /GET "B" REGISTER
+  68 030223  7402          HLT                     /WAIT FOR NEW TAPE MOUNT
+  69 030224  7640          SZA CLA                 /SKIP IF OK
+  70 030225  5200          JMP     START           /ELSE GO TRY AGAIN
+  71 030226  6203          CIF CDF 00              /GOING TO FIELD ZERO
+  72 030227  5200          JMP     SYSGEN          /CONTINUE THERE
+  73               
+  74 030371  0202          PAGE
+     030372  0220  
+     030373  0600  
+     030374  7755  
+     030375  7577  
+     030376  7754  
+     030377  7624  
+  75               
+  76                       $                       /THAT'S ALL FOLK!
+
+DTLA    6766
+DTLB    6774
+DTRB    6772
+DTSF    6771
+DTXA    6764
+START   0200
+SYSGEN  0200

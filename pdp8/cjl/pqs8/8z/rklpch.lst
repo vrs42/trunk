@@ -1,0 +1,59 @@
+   1               /       P?S/8 PATCH TO RKLFMT
+   2               
+   3               /       PATCH TO DEC'S RKLFMT TO MAKE IT WORK ON P?S/8 SYSTEMS.
+   4               
+   5               /       LAST EDIT:      15-JAN-1983     12:00:00        CJL
+   6               
+   7               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   8               
+   9               /       DEFINITIONS:
+  10               
+  11                       BGN=    0200            /START OF MAIN FORMATTER PROGRAM
+  12                       CNTRLC= 3347            /<^C> ROUTINE
+  13                       NL0100= CLA IAC BSW     /LOAD AC WITH 0100
+  14                       XC8CKP= 3641            /CONSOLE PACKAGE CHECK
+  15                       XC8CNT= 3200            /CONSOLE PACKAGE CONTROL CHECK
+  16                       XC8ERR= 4007            /C8ERR ROUTINE
+  17                      *2200                   /NEW SYSTEM STARTING ADDRESS
+  18               
+  19                       IFNZRO  .&177   <ERROR  .>
+  20               
+  21                       RK4MAT= .               /RK4MAT SYSTEM STARTS HERE
+  22               
+  23 002200  7000  RK4MAT, NOP                     /HERE IN CASE CHAINED TO
+  24 002201  7203          NL0100                  /TEST FOR PDP-8/E
+  25 002202  1377          TAD     (7700)          /COMPARE TO EXPECTED VALUE
+  26 002203  7640          SZA CLA                 /SKIP IF ACTUALLY PDP-8/E OR BETTER
+  27 002204  5207          JMP     NOT8E           /JUMP IF NOT
+  28 002205  6007          CAF                     /CLEAN UP THE BUS
+  29 002206  5776          JMP I   (BGN)           /GO START IT UP
+  30               
+  31 002207  1375  NOT8E,  TAD     (RAR)           /GET REPLACEMENT INSTRUCTION
+  32 002210  3774          DCA I   (XC8CNT+6)      /PREVENT PROBLEMS
+  33 002211  1375          TAD     (RAR)           /LIKEWISE
+  34 002212  3773          DCA I   (XC8CKP+2)      /PREVENT PROBLEMS
+  35 002213  1375          TAD     (RAR)           /YET AGAIN
+  36 002214  3772          DCA I   (XC8ERR+3)      /PREVENT PROBLEMS
+  37 002215  1371          TAD     (NOP)           /PREVENT THE
+  38 002216  3770          DCA I   (CNTRLC+3)      /CLEAR PROBLEM
+  39 002217  5776          JMP I   (BGN)           /GO START IT UP
+  40               
+  41 002370  3352          PAGE
+     002371  7000  
+     002372  4012  
+     002373  3643  
+     002374  3206  
+     002375  7010  
+     002376  0200  
+     002377  7700  
+  42               $
+end of file     ^
+
+BGN     0200
+CNTRLC  3347
+NL0100  7203
+NOT8E   2207
+RK4MAT  2200 unreferenced
+XC8CKP  3641
+XC8CNT  3200
+XC8ERR  4007

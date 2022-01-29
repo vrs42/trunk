@@ -1,0 +1,151 @@
+#!/usr/bin/expect -f
+
+# Set -h to emulate a human typist.
+set send_human {.3 .3 55 .1 9}
+
+# Set this for a scratch build
+set rebuild 1
+set rebuild 0
+
+# Remove the old PQS8, for a clean start.
+spawn rm -f dt.out
+wait
+
+# Fire up a PDP-8, then walk it through the build steps.
+spawn pdp8
+set timeout -1
+expect {
+	{..$} { exp_continue }
+        {.$} { send "DATE 30-JUL-99\r" }
+}
+expect -re {\n\.$}
+send "ASSIGN RKB0 TMP\r"
+expect -re {\n\.$}
+send "ASSIGN RKA1 A\r"
+expect -re {\n\.$}
+send "ASSIGN RKB1 B\r"
+expect -re {\n\.$}
+send "ASSIGN DTA1 SCR\r"
+if { $rebuild == 1 } {
+  expect -re {\n\.$}
+  send "ZERO TMP:\r"
+  expect -re {\n\.$}
+  send "SUBMIT PQSASM/T\r"
+  expect -re {END BATCH\r\n\r\n\.$}
+}
+send "DIR TMP:/F\r"
+expect -re {\n\.$}
+if { $rebuild == 1 } {
+  send "SUBMIT COMGEN/T\r"
+  expect -re {END BATCH\r\n\r\n\.$}
+  #
+  # We will need "COMGEN.DU" and "DTAGEN.DU" later, and this seems
+  # to be the only place to stash them.
+  send "COPY SCR:COMGEN<B:COMGEN.DU/A\r"
+  expect -re {\n\.$}
+  send "COPY SCR:DTAGEN<B:DTAGEN.DU/A\r"
+  expect -re {\n\.$}
+}
+send "COPY PTP:<TMP:OS8CON.BN\r"
+expect -re {\n\.$}
+send "DIR SCR:/F\r"
+expect -re {\n\.$}
+send "EX TMP:Z12K,TMP:PQSMON,TMP:PQSDTA,TMP:BIN,TMP:ODT,TMP:DUMP\r"
+expect -re {\nsim> }
+send "D SR 0\r"
+expect -re {\nsim> }
+send "C\r"
+expect -re {\nsim> }
+send "B DT\r"
+expect -re {\n\a\.$}
+#
+# BUGBUG: Why is PQS8 ignoring every other character? As a workaround, I'm
+# using send -h as necessary.
+#
+#
+# Here we have a problem.  We want to run DUMP with input from "comgen.du".
+# The only copy available to PQS8 is on unit 1 (formerly SCR:), after all
+# the binaries.
+#
+set oldway 0
+if { $oldway == 1 } {
+  # BUGBUG: Invoke DUMP with a magic DD to create "COMGEN" in %.
+  # This approach fails, because the OS/8 "comgen.du" doesn't have
+  # the correct size of 2K, nor the stuff in the line number region.
+  send -h "WR COMGEN\r"
+  expect -re {\n\.$}
+  send -h "DUMP\r"
+  expect -re {: $}
+  send "TR 1:1172\r"
+  expect -re {MBER: $}
+  send "15\r"
+  expect -re {BLOCK: $}
+  send "0:20\r"
+  expect -re {TION: $}
+  send "EX\r"
+  expect -re {\n\a\.$}
+}
+if { $oldway == 0 } {
+  # OS8CON is in the high speed reader, so load it.
+  # /F Use HSR; /P Load BIN tape; /V Use virtual loader.
+  send -h "BIN %</F/P/V\r"
+   expect -re {TAPES?}
+   send -h "N\r"
+  expect -re {\n\a\.$}
+  send -h "GET %\r"
+  expect -re {\n\a.$}
+# expect -re {\nsim> }
+# send "E AC\r"
+# expect -re {\nsim> }
+# send "G 7600\r"
+# expect -re {\n.$}
+  # Now we can convert our DUMP command files.
+  # COMGEN.         1172    15      16-JUN-69
+  # DTAGEN.         1211    4       16-JUN-69
+  # "RUN %" runs the program we just loaded.
+  # "COMGEN<COMGEN" says copy COMGEN. to COMGEN (input side ignored)
+  # "/1" says from OS/8 on unit 1
+  # =1172 says the file starts at block 1172 (BUGBUG)
+  send -h "RUN % COMGEN,COMG2</1=1172\r"
+  expect -re {\n\a\.$}
+}
+send -h "CAT\r"
+expect -re {\n\.$}
+#send -h "FETCH COMG2\r"
+#expect -re {\n\.$}
+#send -h "RE\r"
+#expect -re {\n\.$}
+#send -h "LIST\r"
+#expect -re {\n\.$}
+#
+# Invoke DUMP to upgrade the installation.
+# BUGBUG: CORE command is not installed yet!!
+#
+#send -h "CORE 7\r"
+#expect -re {\n\.$}
+send -h "DUMP COMGEN,COMG2\r"
+expect -re {\n\a\.$}
+send -h "CORE ALL\r"
+expect -re {\n\a\.$}
+#
+# At this point, OS8CON should have an official copy in the DIRectory.
+# Run that to get DTAGEN into the CATalog.
+send -h "RUN OS8CON DTAGEN</1=1211\r"
+expect -re {\n\a\.$}
+#
+# Now run DUMP with DTAGEN to get the rest of the DECtape.
+send -h "DUMP DTAGEN\r"
+expect -re {\n\a\.$}
+#
+# See if the new DIRectory command is working
+#send -h "DIR\r"
+#expect -re {\n\a\.$}
+#
+# Close SIMH cleanly.
+send -h "\005"
+expect -re {\nsim> }
+send -h "q\r"
+expect -re {file\r}
+expect -re {file\r}
+close
+exit 0

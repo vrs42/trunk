@@ -1,0 +1,235 @@
+   1               /       400 WORDS/BLOCK PARAMETER FILE
+   2               
+   3                       BLKSIZE=400             /400 WORDS/BLOCK
+   4               /       P?S/8 PDP-12 NON-SYSTEM HANDLER
+   5               
+   6               /       P?S/8 LINCTAPE NON-SYSTEM HANDLER FOR THE PDP-12.
+   7               
+   8               /       LAST EDIT:      17-APR-1986     10:00:00        CJL
+   9               
+  10               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+  11               
+  12               /       FEATURES:
+  13               
+  14               /               1)      SUPPORT OF EIGHT UNITS (0-7).
+  15               
+  16               /               2)      PARITY ERROR DETECTION AND RETRY (WITH COUNTER).
+  17               
+  18               /               3)      NOT READY OR WRITE LOCK DETECTION AND RETRY (WITH COUNTER).
+  19               
+  20               /               4)      WAITS IN PDP-8 MODE, THUS ALLOWING INTERRUPTS.
+  21               
+  28                       XLIST   ON;     IFZERO  1       <
+  29               /               5)      SUPPORTS 256 OR 257 WORDS/BLOCK LINCTAPES AS A NON-STANDARD
+  30               /                       FEATURE OF THIS PROGRAM.
+  36                       XLIST   ON
+  37                      PAGE                    /START ON A GOOD BOUNDARY
+  38               
+  39                       HERE=   .               /WHERE WE ARE
+  40               
+  41               /       DEFINITIONS.
+  42               
+  43                       AXO=    0001            /LOAD EXTENDED OPERATIONS BUFFER
+  50                       XLIST   ON
+  51                       BLKSIZE=0400            /256 WORDS/BLOCK (ALSO ALLOWS 257)
+  53                       XLIST   ON
+  54                       LDA=    1000            /LOAD ACCUMULATOR
+  55                       LINC=   6141            /GOTO LINC MODE
+  58                       XLIST   ON
+  59                       LMR=    6151            /LOAD MAINTENANCE REGISTER
+  60                       LTLENGT=4000            /LINCTAPE BLOCK COUNT
+  61                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+  62                       NL4000= CLA CLL CML RAR /LOAD AC WITH 4000
+  63                       NL7775= CLA CLL CMA RTL /LOAD AC WITH 7775
+  64                       PDP=    0002            /GOTO PDP-8 MODE
+  65                       RDE=    0702            /READ A TAPE BLOCK
+  66                       REVISIO="B&77           /REVISION OF HANDLER
+  67                       TAC=    0003            /TAPE ACCUMULATOR TO ACCUMULATOR
+  68                       TMA=    0023            /LOAD TAPE MEMORY ADDRESS REGISTER
+  69                       TRC=    6152            /TAPE REGISTER CLOCK
+  70                       XFR=    6154            /TRANSFER SELECTED REGISTER TO ACCUMULATOR
+  71               
+  72               /       DEVICE HANDLER HEADER BLOCK.
+  73               
+  82                       XLIST   ON
+  83                       *"L&177;*"T&177;*"D&177 /GROUP NAME
+  84                       *-1                     /GROUP COUNT
+  85                       *"L&177;*"T&177;*"D&177 /DEVICE NAME
+  87                       XLIST   ON
+  88                       *LINCTAPE&177           /ENTRY POINT
+  89                       *LTLENGTH-1             /LENGTH EXPRESSED AS HIGHEST BLOCK
+  90                       *REVISION               /REVISION OF HANDLER
+  91                      *HERE                   /RESET ORIGIN
+  92               
+  93 000200  0000  LINCTAP,.-.                     /ENTRY POINT
+  94 000201  7326          NL0002                  /SET INSTRUCTION FIELD BIT
+  95 000202  6214          RDF                     /NOW HAVE CALLING FIELD
+  96 000203  1377          TAD     (CDF)           /MAKE RETURN CIF CDF INSTRUCTION
+  97 000204  3351          DCA     LTEXIT          /STORE IN-LINE FOR EXIT LATER
+  98 000205  1600          TAD I   LINCTAPE        /GET PARAMETER POINTER
+  99 000206  3303          DCA     LTBLOCK         /STASH IT
+ 100 000207  2200          ISZ     LINCTAPE        /BUMP TO ERROR RETURN
+ 101 000210  1703          TAD I   LTBLOCK         /GET TRANSFER ADDRESS
+ 102 000211  3353          DCA     LTCORE          /STASH IT
+ 103 000212  2303          ISZ     LTBLOCK         /BUMP TO NEXT
+ 104 000213  1703          TAD I   LTBLOCK         /GET FUNCTION WORD
+ 105 000214  0376          AND     (70)            /JUST TRANSFER FIELD
+ 106 000215  1377          TAD     (CDF)           /MAKE INTO CDF TRANSFER FIELD INSTRUCTION
+ 107 000216  3310          DCA     LTSVFLD         /STORE IN-LINE FOR LATER
+ 108 000217  1703          TAD I   LTBLOCK         /GET FUNCTION WORD AGAIN
+ 109 000220  7010          RAR                     /LOW-ORDER UNIT BIT TO LINK
+ 110 000221  0323          AND     LT3/(3)         /ISOLATE HIGH-ORDER UNIT BITS
+ 111 000222  3354          DCA     LTEMP           /SAVE FOR LATER
+ 112 000223  1703          TAD I   LTBLOCK         /U2  RW P0 P1  P2 P3 P4  F0 F1 F2  U0 U1 U2
+ 113 000224  7006          RTL                     /P0  P1 P2 P3  P4 F0 F1  F2 U0 U1  U2 U2 RW
+ 114 000225  0323          AND     LT3/(3)         /P0  0  0  0   0  0  0   0  0  0   0  U2 RW
+ 115 000226  7106          CLL RTL                 /0   0  0  0   0  0  0   0  0  U2  RW 0  0
+ 116 000227  1375          TAD     (RDE)           /0   0  0  0   1  1  1   0  0  U2  RW 1  0
+ 117 000230  3302          DCA     LTAPINST        /SAVE "RDE" OR "WRI" OR "RDE U" OR "WRI U" IN-LINE
+ 118 000231  1302          TAD     LTAPINST        /GET TAPE INSTRUCTION BACK
+ 119 000232  3267          DCA     LTAPTST         /SAVE IN-LINE FOR TESTING ALSO
+ 120 000233  1703          TAD I   LTBLOCK         /GET FUNCTION WORD AGAIN
+ 121 000234  7004          RAL                     /MOVE UP AND
+ 124                       XLIST   ON
+ 125 000235  0374          AND     (7400)          /ISOLATE PAGE BITS
+ 131                       XLIST   ON
+ 132 000236  3355          DCA     LTPAGCT         /SAVE FOR COUNTING
+ 133 000237  1310          TAD     LTSVFLD         /RW  1  1  0   0  1  0   F0 F1 F2  0  0  1
+ 134 000240  0376          AND     (70)            /RW  0  0  0   0  0  0   F0 F1 F2  0  0  0
+ 135 000241  7106          CLL RTL                 /0   0  0  0   0  F0 F1  F2 0  0   0  0  0
+ 136 000242  7127          STL IAC RTL             /0   0  0  F0  F1 F2 0   0  0  0   1  1  0
+ 137 000243  7006          RTL                     /0   F0 F1 F2  0  0  0   0  1  1   0  0  0
+ 138 000244  1354          TAD     LTEMP           /0   F0 F1 F2  0  0  0   0  1  1   0  U0 U1
+ 139 000245  3265          DCA     LTAXO           /STORE FIELD, NOPAUSE, EXTENDED ADDRESSING,
+ 140                                               /HIGH-ORDER UNIT BITS IN-LINE FOR LATER
+ 141 000246  2303          ISZ     LTBLOCK         /BUMP TO BLOCK NUMBER
+ 142 000247  1703          TAD I   LTBLOCK         /GET THE BLOCK NUMBER
+ 143 000250  3303          DCA     LTBLOCK         /STASH IT FOR LATER
+ 144 000251  6224          RIF                     /GET OUR FIELD
+ 145 000252  1373          TAD     (CIF)           /MAKE INTO CIF OUR FIELD INSTRUCTION
+ 146 000253  3321          DCA     LTINHBT         /STORE IN-LINE TO TEMPORARILY PREVENT
+ 147                                               /INTERRUPTS AS THE CODE GOES INTO LINC MODE
+ 148 000254  1321          TAD     LTINHBT         /GET CIF OUR FIELD INSTRUCTION BACK
+ 149 000255  3261          DCA     LTINH2          /STORE IN-LINE AS BEFORE
+ 150 000256  7346          NL7775                  /SETUP THE
+ 151 000257  3356          DCA     LTRYCNT         /ERROR RETRY COUNTER
+ 152 000260  1353  LTNEXT,        TAD     LTCORE          /GET TRANSFER ADDRESS
+ 153 000261  0000  LTINH2, .-.                     /WILL BE CIF OUR FIELD TO INHIBIT INTERRUPTS
+ 154 000262  6141          LINC                    /GOTO LINC MODE
+ 155 000263  0023          TMA                     /LOAD TAPE MEMORY ADDRESS SETUP REGISTER
+ 156 000264  1020          LDA!20                  /LOAD ACCUMULATOR WITH
+ 157 000265  0000  LTAXO,  .-.                     /EXTENDED ADDRESSING, NOPAUSE, FIELD
+ 158                                               /AND HIGH-ORDER UNIT BITS
+ 159 000266  0001          AXO                     /LOAD EXTENDED OPERATIONS BUFFER
+ 160 000267  0000  LTAPTST,.-.                     /WILL BE "RDE" OR "WRI" OR "RDE U" OR "WRI U"
+ 161 000270  0000          0                       /MUST USE BLOCK ZERO!
+ 162 000271  1020          LDA!20; 5000            /GET REGISTER SETTING BITS
+     000272  5000  
+ 163 000273  0002          PDP                     /BACK TO PDP-8 MODE
+ 164 000274  6151          LMR                     /LOAD MAINTENANCE REGISTER
+ 165 000275  6154          XFR                     /GET DRIVE STATUS BACK
+ 166 000276  7012          RTR                     /DRIVE OK TO LINK
+ 167 000277  7620          SNL CLA                 /SKIP IF DRIVE OK
+ 168 000300  5343          JMP     LTERR           /JUMP IF NOT
+ 169 000301  6141          LINC                    /GOTO LINC MODE
+ 170 000302  0000  LTAPINS,.-.                     /WILL BE "RDE" OR "WRI" OR "RDE U" OR "WRI U"
+ 171 000303  0000  LTBLOCK,.-.                     /WILL BE DESIRED BLOCK NUMBER
+ 172 000304  0002          PDP                     /BACK TO PDP-8 MODE
+ 173 000305  1353          TAD     LTCORE          /GET TRANSFER ADDRESS
+ 174 000306  1372          TAD     (BLKSIZE)       /NOW HAVE ENDANGERED WORD'S ADDRESS
+ 175 000307  3354          DCA     LTEMP           /SAVE IT
+ 176 000310  0000  LTSVFLD,.-.                     /WILL BE CDF TRANSFER FIELD
+ 177 000311  1754          TAD I   LTEMP           /GET ENDANGERED WORD
+ 178 000312  3357          DCA     LTSAVIT         /SAVE IT
+ 179 000313  1371          TAD     (100)           /GET TEST BIT
+ 180 000314  6151          LMR                     /LOAD MAINTENANCE REGISTER
+ 181 000315  5314          JMP     .-1             /WILL SKIP WHEN TAPE IS DONE
+ 182 000316  7600  LT7600, CLA!400                 /CLEAN UP
+ 183 000317  1357          TAD     LTSAVIT         /GET ENDANGERED WORD
+ 184 000320  3754          DCA I   LTEMP           /RESTORE IT
+ 185 000321  0000  LTINHBT,.-.                     /WILL BE CIF OUR FIELD INSTRUCTION
+ 186 000322  6141          LINC                    /GOTO LINC MODE
+ 187 000323  0003  LT3,    TAC                     /GET TAPE ACCUMULATOR
+ 188 000324  0002          PDP                     /BACK TO PDP-8 MODE
+ 189 000325  7101          CLL IAC                 /LINK IS SET IF NO PARITY ERRORS IF
+ 190                                               /READING, GARBAGE VALUE IF WRITING
+ 191 000326  7207          CLA IAC RTL             /FORM (WRI&4)+(RDE&2&(NO PARITY ERROR))
+ 192 000327  0302          AND     LTAPINS         /AC=4 (IF WRITING) OR AC=2 (IF READING
+ 193                                               /AND NO PARITY ERROR)
+ 194 000330  7650          SNA CLA                 /SKIP IF WRITING OR NO PARITY ERROR WHILE READING
+ 195 000331  5343          JMP     LTERR           /JUMP ON READ PARITY ERROR
+ 196 000332  1354          TAD     LTEMP           /GET PROTECTED ADDRESS
+ 197 000333  3353          DCA     LTCORE          /USE NEXT TIME FOR TRANSFER ADDRESS
+ 198 000334  2303          ISZ     LTBLOCK         /BUMP TO NEXT BLOCK
+ 199 000335  1355         TAD     LTPAGCT         /GET THE PAGE COUNT
+ 202                       XLIST   ON
+ 203 000336  1374          TAD     (-BLKSIZE)      /ACCOUNT FOR LATEST TRANSFER
+ 209                       XLIST   ON
+ 210 000337  7450          SNA                     /ANY LEFT TO DO?
+ 211 000340  5350          JMP     LTDONE          /NO, RETURN TO CALLER
+ 212 000341  3355          DCA     LTPAGCT         /YES, SAVE FOR NEXT TIME
+ 213 000342  5260          JMP     LTNEXT          /GO DO NEXT BLOCK
+ 214               
+ 215 000343  2356  LTERR,  ISZ     LTRYCNT         /TOO MANY ERRORS?
+ 216 000344  5260          JMP     LTNEXT          /NO, GO READ IT AGAIN
+ 217 000345  7330          NL4000                  /GET PRESET BIT
+ 218 000346  6152          TRC                     /RESET THE TAPE CONTROLLER
+ 219 000347  7410          SKP                     /FORGET IT
+ 220 000350  2200  LTDONE, ISZ     LINCTAPE        /BUMP TO SUCCESSFUL RETURN
+ 221 000351  0000  LTEXIT, .-.                     /WILL BE CIF CDF RETURN FIELD
+ 222 000352  5600          JMP I   LINCTAPE        /RETURN TO CALLER
+ 223               
+ 224 000353  0000  LTCORE, .-.                     /TRANSFER ADDRESS
+ 225 000354  0000  LTEMP,  .-.                     /TEMPORARY
+ 226 000355  0000  LTPAGCT,.-.                     /PAGE COUNTER
+ 227 000356  0000  LTRYCNT,.-.                     /RETRY COUNTER
+ 228 000357  0000  LTSAVIT,.-.                     /TEMPORARY
+ 229               
+ 230 000371  0100          PAGE
+     000372  0400  
+     000373  6202  
+     000374  7400  
+     000375  0702  
+     000376  0070  
+     000377  6201  
+ 231               
+ 232                       $                       /THAT'S ALL FOLK!
+
+AXO     0001
+BLKSIZ  0400
+HERE    0200
+LDA     1000
+LINC    6141
+LINCTA  0200
+LMR     6151
+LT3     0323
+LT7600  0316 unreferenced
+LTAPIN  0302
+LTAPTS  0267
+LTAXO   0265
+LTBLOC  0303
+LTCORE  0353
+LTDONE  0350
+LTEMP   0354
+LTERR   0343
+LTEXIT  0351
+LTINH2  0261
+LTINHB  0321
+LTLENG  4000
+LTNEXT  0260
+LTPAGC  0355
+LTRYCN  0356
+LTSAVI  0357
+LTSVFL  0310
+NL0002  7326
+NL4000  7330
+NL7775  7346
+OFF     0001
+ON      0000
+PDP     0002
+RDE     0702
+REVISI  0002
+TAC     0003
+TMA     0023
+TRC     6152
+XFR     6154

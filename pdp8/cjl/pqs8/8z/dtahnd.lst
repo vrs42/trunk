@@ -1,0 +1,264 @@
+   1               /       P?S/8 TC01/TC08 DECTAPE HANDLER
+   2               
+   3               /       LAST EDIT:      12-MAR-1986     18:00   CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       FEATURES:
+   8               
+   9               /       1)      SUPPORT OF EIGHT UNITS (0-7).
+  10               
+  11               /       2)      INDIVIDUAL RETENTION OF LATEST BLOCK INFORMATION.
+  12               
+  13               /       3)      THROUGH USE OF 2), CORRECT INITIAL SEARCH DIRECTION.
+  14               
+  15               /       4)      ADJUSTABLE (ONE WORD) CUSTOM OVERSHOOT FACTOR.
+  16               
+  17               /       5)      SPECIAL HANDLING OF TAPE ERRORS:
+  18               
+  19               /               A)      DURING SEARCH:
+  20               
+  21               /                       I)      SELECT AND REVERSE END ZONE ERRORS ARE IGNORED.
+  22               
+  23               /                       II)     ALL OTHER ERRORS ARE RETRIED (SUBJECT TO ERROR COUNTER).
+  24               
+  25               /               B)      DURING READ OR WRITE:
+  26               
+  27               /                       I)      ALL ERRORS ARE RETRIED (SUBJECT TO ERROR COUNTER).
+  28                      PAGE                    /START ON A NEW PAGE
+  29               
+  30                       HERE=   .               /WHERE WE ARE
+  35                       XLIST   ON
+  36               
+  37               /       DEFINITIONS.
+  38               
+  39                       CA=     7755            /CURRENT ADDRESS
+  40                       DTLA=   6766            /LOAD DECTAPE "A" REGISTER
+  41                       DTLB=   6774            /LOAD DECTAPE "B" REGISTER
+  42                       DTLENGT=2702            /DECTAPE LENGTH IN BLOCKS
+  43                       DTRA=   6761            /READ DECTAPE "A" REGISTER
+  44                       DTRB=   6772            /READ DECTAPE "B" REGISTER
+  45                       DTSF=   6771            /SKIP ON DECTAPE DONE OR ERROR FLAG
+  46                       DTXA=   6764            /EXCLUSIVE OR AC WITH DECTAPE "A" REGISTER
+  47                       NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+  48                       NL2000= CLA CLL CML RTR /LOAD AC WITH 2000
+  49                       NL7775= CLA CLL CMA RTL /LOAD AC WITH 7775
+  50                       NL7777= CLA CMA         /LOAD AC WITH 7777
+  51                       OVSHOOT=5               /OVERSHOOT FACTOR
+  52                       REVISIO="B&77           /REVISION OF HANDLER
+  53                       SYSIO=  7640            /SYSTEM I/O ENTRY POINT
+  54                       WC=     7754            /WORD COUNT
+  55               
+  56               /       DEVICE HANDLER HEADER BLOCK.
+  57               
+  58                       *"D&177;*"T&177;*"A&177 /GROUP NAME
+  59                       *-1                     /GROUP COUNT
+  60                       *"D&177;*"T&177;*"A&177 /DEVICE NAME
+  61                       *DECTAPE&177            /RELATIVE ENTRY POINT
+  62                       *DTLENGTH-1             /LENGTH (LARGEST BLOCK)
+  63                       *REVISION               /REVISION OF HANDLER(S)
+  64                      *HERE                           /RESTORE ORIGIN
+  65               
+  66                       IFNZRO  .&177   <ERROR  .>
+  67 000200  0007  D7,     7                               /CONSTANT 0007
+  68 000201  4002  D4002,  4002                            /CONSTANT 4002
+  69 000202  0000  DFUNCT, .-.                             /FUNCTION WORD
+  70 000203  0000  DBLK,   .-.                             /BLOCK NUMBER
+  71 000204  0000  DADDR,  .-.                             /TRANSFER ADDRESS
+  72 000205  7754  DWC,    WC                              /WORD COUNT
+  73 000206  7755  DCAA,   CA                              /CURRENT ADDRESS
+  74               
+  75               /       CUSTOMIZABLE OVERSHOOT FACTOR; MINIMUM VALUE FIVE FOR ECO'D TU56 DRIVES.
+  76               
+  77 000207  0005  DOVSHT, OVSHOOT                         /OVERSHOOT FACTOR
+  78               
+  79                       IFNZRO  .&177-10        <ERROR  .>
+  80 000210  0400  D400,   400                             /CONSTANT 0400
+  81               
+  82 000211  0000  DECTAPE,.-.                             /MAIN ENTRY POINT
+  83 000212  7326          NL0002                          /SET INSTRUCTION FIELD BIT
+  84 000213  6214          RDF                             /GET CALLING FIELD
+  85 000214  1232          TAD     DCDF/(CDF)              /FORM CIF CDF RETURN INSTRUCTION
+  86 000215  3363          DCA     DTEXIT                  /SAVE FOR LATER
+  87 000216  1611          TAD I   DECTAPE                 /GET PARAMETER POINTER
+  88 000217  3246          DCA     GETBLK                  /SAVE IT
+  89 000220  2211          ISZ     DECTAPE                 /BUMP TO ERROR RETURN
+  90 000221  7240          NL7777                          /BACKUP
+  91 000222  1646          TAD I   GETBLK                  /GET TRANSFER ADDRESS
+  92 000223  3204          DCA     DADDR                   /SAVE FOR <CA> LATER
+  93 000224  2246          ISZ     GETBLK                  /BUMP TO FUNCTION WORD
+  94 000225  1646          TAD I   GETBLK                  /GET FUNCTION
+  95 000226  3202          DCA     DFUNCT                  /SAVE IT
+  96 000227  2246          ISZ     GETBLK                  /BUMP TO BLOCK
+  97 000230  1646          TAD I   GETBLK                  /GET BLOCK NUMBER
+  98 000231  3203          DCA     DBLK                    /SAVE IT
+  99 000232  6201  DCDF,   CDF     00                      /MUST HAVE FIELD 0 NOW
+ 100 000233  7346          NL7775                          /SETUP THE ERROR
+ 101               /       DCA I   D7750/(7750)            /RETRY COUNTER
+ 102 000234  3366          DCA     DRETRY                  /RETRY COUNTER
+ 103 000235  1202          TAD     DFUNCT                  /GET FUNCTION
+ 104 000236  0200  D200,   AND     D7/(7)                  /ISOLATE UNIT BITS
+ 105 000237  1367          TAD     TADOLB/(TAD     OLBLK0) /NOW HAVE "TAD OLBLK<N>"
+ 106 000240  3246          DCA     GETBLK                  /SAVE IN-LINE
+ 107 000241  7332          NL2000  /TAD    (DCA-TAD)       /GET "DCA"-"TAD"
+ 108 000242  1246          TAD     GETBLK                  /NOW HAVE "DCA OLBLK<N>"
+ 109 000243  3354          DCA     PUTBLK                  /SAVE IN-LINE
+ 110 000244  1203          TAD     DBLK                    /GET DESIRED BLOCK
+ 111 000245  7141          CLL CIA                         /INVERT
+ 112 000246  0000  GETBLK, .-.                             /WILL BE "TAD OLBLK<N>"
+ 113 000247  1207          TAD     DOVSHT                  /ADD ON OVERSHOOT FACTOR
+ 114 000250  7600  D7600,  CLA+400                         /CLEAN UP
+ 115 000251  1202  DRESTAR,TAD    DFUNCT          /GET FUNCTION
+ 116 000252  0200          AND     D7/(7)          /JUST UNIT BITS
+ 117 000253  7012          RTR;RTR                 /MOVE UNITS, DIRECTION TO AC[0-3]
+     000254  7012  
+ 118 000255  1311          TAD     D210/(210)      /ADD ON SEARCH, GO BITS
+ 119 000256  6766          DTLA                    /LOAD "A" WITH GO, CORRECT DIRECTION,
+ 120                                               /UNIT, AND SEARCH FUNCTION BITS
+ 121 000257  6774          DTLB                    /SEARCH INTO FIELD 0
+ 122 000260  1203          TAD     DBLK            /GET DESIRED BLOCK
+ 123 000261  3246          DCA     GETBLK          /BECOMES NEW OLBLK<N> EVENTUALLY
+ 124 000262  1205          TAD     DWC/(WC)        /SEARCH INTO
+ 125 000263  3606          DCA I   DCAA/(CA)       /<WC> LOCATION
+ 126 000264  7710  DCONT,  SPA CLA                 /CHANGE DIRECTION?
+ 127 000265  1210          TAD     D400/(400)      /YES
+ 128 000266  6764          DTXA                    /CLEAR FLAG (MAYBE CHANGE DIRECTION)
+ 129 000267  6773  DTWAIT, DTSF DTRB               /WAIT FOR IT
+ 130 000270  5267          JMP     DTWAIT          /TO HAPPEN
+ 131 000271  7500          SMA                     /ANY ERRORS?
+ 132 000272  5310          JMP     DTAPOK          /NO
+ 133 000273  7046          CMA RTL;RAL             /MOVE END ERROR TO LINK, SELECT ERROR TO AC[0]
+     000274  7004  
+ 134 000275  7700          SMA CLA                 /SELECT ERROR?
+ 135 000276  5251          JMP     DRESTART        /IGNORE IT
+ 136 000277  7630          SZL CLA                 /END ZONE ERROR?
+ 137 000300  5304          JMP     TAPERR          /NO, COMPLAIN OF OTHER ERRORS
+ 138 000301  6761  TPERR2, DTRA                    /GET DIRECTION
+ 139 000302  0210          AND     D400/(400)      /ISOLATE DIRECTION BIT
+ 140 000303  7650          SNA CLA                 /SKIP IF REVERSE
+ 141               TAPERR, /ISZ I  D7750/(7750)    /TOO MANY ERRORS?
+ 142 000304  2366          ISZ     DRETRY          /TOO MANY ERRORS?
+ 143 000305  5251          JMP     DRESTART        /NO, RESTART IN DIRECTION OF LINK
+ 144 000306  6772          DTRB                    /GET STATUS
+ 145 000307  5356          JMP     DEXCOM          /BARF
+ 146               
+ 147 000310  6761  DTAPOK, DTRA                    /GET DIRECTION
+ 148 000311  0210  D210,   AND     D400/(400)      /JUST DIRECTION BIT
+ 149 000312  7640  D7640,  SZA CLA                 /GOING FORWARD?
+ 150 000313  1201          TAD     D4002/(4002)    /NO, ADD MAGIC REVERSE FUDGE
+ 151 000314  1605          TAD I   DWC/(WC)        /GET LATEST BLOCK
+ 152 000315  7041          CIA                     /INVERT FOR TEST
+ 153 000316  1203          TAD     DBLK            /GET DESIRED BLOCK
+ 154 000317  7440          SZA                     /DID WE FIND IT?
+ 155 000320  5264          JMP     DCONT           /NO, BUT SIGN TELLS WHAT TO DO NEXT!
+ 156 000321  1204          TAD     DADDR           /YES, GET TRANSFER ADDRESS
+ 157 000322  3606          DCA I   DCAA/(CA)       /STORE IN <CA>
+ 158 000323  1202          TAD     DFUNCT          /GET FUNCTION AGAIN
+ 159 000324  6774          DTLB                    /SET TRANSFER FIELD
+ 160 000325  1202         TAD     DFUNCT          /GET FUNCTION AGAIN
+ 161 000326  7004          RAL                     /READ/WRITE TO LINK
+ 162 000327  0250          AND     D7600/(7600)    /ISOLATE PAGE BITS
+ 163               /       DCA I   D7640/(SYSIO)   /SAVE AS PAGE COUNT
+ 164 000330  3365          DCA     DPAGCT          /SAVE AS PAGE COUNT
+ 165 000331  7004          RAL;IAC;STL RTL;RTL     /30 IF READING, 50 IF WRITING
+     000332  7001  
+     000333  7126  
+     000334  7006  
+ 166 000335  6764  DNEXT,  DTXA                    /SETUP NEXT BLOCK TO READ OR WRITE
+ 167 000336  1250          TAD     D7600/(-200)    /SETUP
+ 168 000337  3605          DCA I   DWC/(WC)        /<WC>
+ 169 000340  6773  DTRWAIT,DTSF DTRB               /WAIT FOR TRANSFER
+ 170 000341  5340          JMP     DTRWAIT         /TO HAPPEN
+ 171 000342  7750  D7750,  SPA SNA CLA             /ANY ERRORS?
+ 172 000343  5301          JMP     TPERR2          /YES
+ 173 000344  2246          ISZ     GETBLK          /BUMP CURRENT BLOCK
+ 174               /       TAD I   D7640/(SYSIO)   /GET PAGE COUNT
+ 175 000345  1365          TAD     DPAGCT          /GET PAGE COUNT
+ 176 000346  1250          TAD     D7600/(-200)    /COUNT DOWN
+ 177 000347  7450          SNA                     /DONE?
+ 178 000350  5353          JMP     DEXIT           /YES
+ 179               /       DCA I   D7640/(SYSIO)   /PUT IT BACK
+ 180 000351  3365          DCA     DPAGCT          /PUT IT BACK
+ 181 000352  5335          JMP     DNEXT           /GO DO NEXT
+ 182               
+ 183 000353  1246  DEXIT,  TAD     GETBLK          /GET LATEST BLOCK
+ 184 000354  3370  PUTBLK, DCA     OLBLK0+.-.      /WILL BE "DCA OLBLK<N>"
+ 185 000355  2211          ISZ     DECTAPE         /BUMP TO GOOD RETURN
+ 186 000356  3354  DEXCOM, DCA     PUTBLK          /SAVE STATUS
+ 187 000357  6761          DTRA                    /GET GO BIT
+ 188 000360  0236          AND     D200/(200)      /ISOLATE IT
+ 189 000361  6764          DTXA                    /TAPE IS NOW STOPPED
+ 190 000362  1354          TAD     PUTBLK          /RESTORE STATUS
+ 191 000363  0000  DTEXIT, .-.                     /WILL BE CIF CDF RETURN FIELD
+ 192 000364  5611          JMP I   DECTAPE         /RETURN TO CALLER
+ 193               
+ 194 000365  0000  DPAGCT, .-.                     /PAGE COUNTER; THIS CAN BE OPTIMIZED OUT!
+ 195 000366  0000  DRETRY,.-.                      /RETRY COUNTER; THIS CAN BE OPTIMIZED OUT!
+ 196 000367  1370  TADOLB, TAD     OLBLK0          /INSTRUCTION CONSTANT
+ 197               
+ 198               /       TABLE OF LAST REFERENCED BLOCKS FOR EACH UNIT; INITIALIZED TO START THE
+ 199               /       SEARCH BACKWARDS THE FIRST TIME.
+ 200               
+ 201 000370  3777  OLBLK0, 3777                    /FOR UNIT ZERO
+ 202 000371  3777          3777                    /FOR UNIT ONE
+ 203 000372  3777          3777                    /FOR UNIT TWO
+ 204 000373  3777          3777                    /FOR UNIT THREE
+ 205 000374  3777          3777                    /FOR UNIT FOUR
+ 206 000375  3777          3777                    /FOR UNIT FIVE
+ 207 000376  3777          3777                    /FOR UNIT SIX
+ 208 000377  3777          3777                    /FOR UNIT SEVEN
+ 209               
+ 210                       $                       /THAT'S ALL FOLK!
+
+CA      7755
+D200    0236
+D210    0311
+D400    0210
+D4002   0201
+D7      0200
+D7600   0250
+D7640   0312 unreferenced
+D7750   0342 unreferenced
+DADDR   0204
+DBLK    0203
+DCAA    0206
+DCDF    0232
+DCONT   0264
+DECTAP  0211
+DEXCOM  0356
+DEXIT   0353
+DFUNCT  0202
+DNEXT   0335
+DOVSHT  0207
+DPAGCT  0365
+DRESTA  0251
+DRETRY  0366
+DTAPOK  0310
+DTEXIT  0363
+DTLA    6766
+DTLB    6774
+DTLENG  2702
+DTRA    6761
+DTRB    6772
+DTRWAI  0340
+DTSF    6771
+DTWAIT  0267
+DTXA    6764
+DWC     0205
+GETBLK  0246
+HERE    0200
+NL0002  7326
+NL2000  7332
+NL7775  7346
+NL7777  7240
+OFF     0001
+OLBLK0  0370
+ON      0000
+OVSHOO  0005
+PUTBLK  0354
+REVISI  0002
+SYSIO   7640 unreferenced
+TADOLB  0367
+TAPERR  0304
+TPERR2  0301
+WC      7754

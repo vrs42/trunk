@@ -1,0 +1,305 @@
+   1               /       BINARY PATCHES TO FOCAL
+   2               
+   3               /       LAST EDIT:      15-MAY-1986     18:00:00        CJL
+   4               
+   5               /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6               
+   7               /       THIS FILE IS A ONE-PAGE COLLECTION OF PATCHES TO FOCAL TO IMPLEMENT THREE
+   8               /       FUNCTIONS:
+   9               
+  10               /       1):     FBLK(BLOCK[,WRITE-INDICATOR])
+  11               /       2):     FWRD(ADDRESS[,REPLACEMENT VALUE])
+  12               /       3):     FAND(FIRST-ARGUMENT[,SECOND-ARGUMENT])
+  13               
+  14               /       DESCRIPTION OF FUNCTIONS:
+  15               
+  16               /       FUNCTION "FBLK" READS (OR WRITES) A SET OF DISK BLOCKS STARTING FROM THE
+  17               /       BLOCK NUMBER EVALUATED FROM THE FIRST ARGUMENT. THE FUNCTION WILL CAUSE
+  18               /       A READ OPERATION IF ONE ARGUMENT IS GIVEN; MERELY GIVING A SECOND
+  19               /       ARGUMENT CAUSES A WRITE OPERATION (THE ARGUMENT VALUE IS UNIMPORTANT).
+  20               /       THE MEMORY AFFECTED BY THE TRANSFER IS LOCATION 0000 ONWARD IN FIELD
+  21               /       "BUFFLD." THE NUMBER OF BLOCKS TRANSFERRED IS DETERMINED BY "N." THE
+  22               /       LOGICAL I/O UNIT IS DETERMINED BY "UNIT."
+  23               
+  24               /       FUNCTION "FWRD" RETURNS THE CONTENTS OF THE SPECIFIED MEMORY ADDRESS
+  25               /       EVALUATED FROM THE FIRST ARGUMENT. IF A SECOND ARGUMENT IS PASSED, THEN
+  26               /       ITS EVALUATION BECOMES THE REPLACEMENT VALUE AT THE SPECIFIED ADDRESS.
+  27               /       THE "FWRD" FUNCTION CAN BE CONDITIONALLY ASSEMBLED TO TREAT THE FIRST
+  28               /       ARGUMENT AS A TWELVE BIT ADDRESS OF A TWELVE BIT NUMBER OR AN ELEVEN BIT
+  29               /       ADDRESS OF A TWENTY-FOUR BIT NUMBER.
+  30               
+  31               /       FUNCTION "FAND" RETURNS THE LOGICAL BIT-WISE AND OF THE TWO ARGUMENTS
+  32               /       PASSED TO IT. IF THE SECOND ARGUMENT IS NOT PRESENT, IT IS TREATED AS
+  33               /       ZERO AND CAUSES A ZERO RETURN VALUE.
+  34               
+  35               /       ASSEMBLY INSTRUCTIONS:
+  36               
+  37               /       SET "ADR" TO 0 FOR 12-BIT ADDRESSING, 1 FOR 24-BIT ADDRESSING (DEFAULT IS 0).
+  38               
+  39               /       SET "BUFFLD" TO THE PROPER FIELD FOR "FBLK", "FWRD" (DEFAULT IS 40).
+  40               
+  41               /       SET "N" TO THE I/O CALL LENGTH DESIRED IN "FBLK" (DEFAULT IS 00 WHICH
+  42               /       USES 40 BLOCKS).
+  43               
+  44               /       SET "UNIT" TO THE DESIRED I/O UNIT (DEFAULT IS 7).
+  45               /      DEFINITIONS FROM FOCAL, 1969 (ORIGINAL PAPER-TAPE VERSION).
+  46               
+  47                       BOTTOM= 0035                    /FOCAL PUSHDOWN LIMIT
+  48                       CHAR=   0066                    /FOCAL'S INPUT BUFFER
+  49                       EFUN3I= 0136                    /FUNCTION RETURN POINTER
+  50                       EVAL=   1613                    /EVALUATOR ENTRY POINT
+  51                       FLAC=   0044                    /FLOATING ACCUMULATOR HERE
+  52                       FNTABF= 0374                    /FUNCTION ADDRESS TABLE
+  53                       FNTABL= 2165                    /HASHED FUNCTION NAME TABLE
+  54                       INTEGER=0053                    /FLOATING TO FIXED CONVERSION POINTER
+  55                       POPA=   TAD I   13              /REMOVE WORD FROM STACK
+  56                       POPJ=   JMP I   141             /REMOVE AND RETURN FROM STACK
+  57                       PUSHA=  JMS I   142             /PUSH WORD ONTO STACK
+  58                       PUSHJ=  JMS I   140             /CALL WITH RETURN ON STACK
+  59                       P7600=  0104                    /CONSTANT 7600
+  60                       RETURN= JMP I   EFUN3I          /FUNCTION RETURN INSTRUCTION
+  61               
+  62               /       DEFINITIONS FROM P?S/8 FOCAL OVERLAY.
+  63               
+  64                       BEOFZAP=7505                    /BINARY LOADER ZAP WORD
+  65                       BONCE=  3600                    /OVERLAY ONCE-ONLY ADDRESS
+  66                       SYSIO=  7640                    /SYSTEM I/O ENTRY POINT
+  67               
+  68               /       MISCELLANEOUS DEFINITIONS.
+  69               
+  70                       IFNDEF  ADR     <ADR=   1>      /USE 12-BIT ADDRESSING FOR FWRD
+  71                       IFNDEF  BUFFLD  <BUFFLD=40>     /BUFFER FIELD FOR FBLK AND FWRD
+  72                       IFNDEF  N       <N=     00>     /DO 40 BLOCK READ/WRITE CALLS FOR FBLK
+  73                       NL4000= CLA CLL CML RAR         /SET AC TO 4000
+  74                       NSTART= -12^ADR+4077            /PATCH ASSEMBLY ADDRESS
+  75                       IFNDEF  UNIT    <UNIT=  7>      /I/O UNIT FOR FBLK
+  76               
+  77                       FIELD   0                       /ENSURE FIELD ZERO
+  78               
+  79                       *FNTABL+14                      /PUT IN HASHED NAMES
+  80               
+  81 002201  2553          "B^2+"L^2+"K                    /BLK
+  82 002202  2704          "W^2+"R^2+"D                    /WRD
+  83 002203  2544          "A^2+"N^2+"D                    /AND
+  84                      *NSTART                         /START PATCH HERE FOR DIRECT LOADING
+  85               
+  86               /       DISK I/O FUNCTION:      FBLK(BLOCK[,WRITE-INDICATOR]).
+  87               
+  88 004065  4453  XBLK,   JMS I   INTEGER                 /GET BLOCK ARGUMENT
+  89 004066  4542          PUSHA                           /SAVE IT
+  90 004067  4540          PUSHJ                           /FIND OUT IF WE WRITE
+  91 004070  4165  LARG1,  ARG                             /**** RELOCATE ****
+  92 004071  7330          NL4000                          /MAKE IT A READ
+  93 004072  1377          TAD     (N^100+BUFFLD+UNIT+4000)/GET OTHER FUNCTION BITS
+  94 004073  3300          DCA     FUN                     /PUT IN-LINE EITHER WAY
+  95 004074  1413          POPA                            /RESTORE BLOCK ARGUMENT
+  96 004075  3301          DCA     TBLK                    /PUT IN-LINE ALSO
+  97 004076  4767          JMS I   PSYSIO/(SYSIO)          /CALL FOR READ OR WRITE
+  98 004077  0000          0                               /CORE
+  99 004100  0000  FUN,    .-.                             /FILLED IN
+ 100 004101  0000  TBLK,   .-.                             /FILLED IN
+ 101 004102  6001          ION                             /MAKE SURE INTERRUPTS ARE STILL ON
+ 102 004103  5536          RETURN                          /BACK TO FOCAL
+ 103               
+ 104               /       LOGICAL AND FUNCTION:   FAND(FIRST-ARGUMENT,SECOND-ARGUMENT)
+ 105               
+ 106 004104  4453  XAND,   JMS I   INTEGER                 /GET FIRST ARGUMENT
+ 107 004105  4542          PUSHA                           /SAVE IT
+ 108 004106  1045          TAD     FLAC+1                  /GET HIGH-ORDER
+ 109 004107  4542          PUSHA                           /SAVE IT ALSO
+ 110 004110  4540          PUSHJ                           /FIND OUT VALUE OF SECOND ARGUMENT
+ 111 004111  4165  LARG2,  ARG                             /**** RELOCATE ****
+ 112 004112  5326          JMP     NOSEC                   /WASN'T ANY
+ 113 004113  4453          JMS I   INTEGER                 /EVALUATE SECOND ARGUMENT
+ 114 004114  7200          CLA                             /THROW IT AWAY FOR NOW
+ 115 004115  1413  ZEROIN, POPA                            /GET FIRST HIGH-ORDER
+ 116 004116  0045          AND     FLAC+1                  /AND WITH SECOND HIGH-ORDER
+ 117 004117  3045          DCA     FLAC+1                  /SAVE RESULT
+ 118 004120  1413          POPA                            /GET FIRST LOW-ORDER
+ 119 004121  0046          AND     FLAC+2                  /AND WITH SECOND LOW-ORDER
+ 120 004122  3046  FBLKIN, DCA     FLAC+2                  /SAVE RESULT
+ 121 004123  1376          TAD     (27)                    /SETUP THE
+ 122 004124  3044          DCA     FLAC                    /NEW EXPONENT
+ 123 004125  5536          RETURN                          /RETURN TO FOCAL
+ 124               
+ 125 004126  3045  NOSEC,  DCA     FLAC+1                  /CLEAR
+ 126 004127  3046          DCA     FLAC+2                  /FLAC
+ 127 004130  5315          JMP     ZEROIN                  /CONTINUE THERE
+ 128               /      MEMORY REFERENCE FUNCTION:      FWRD(ADDRESS[,NEWVALUE]).
+ 129               
+ 130 004131  4453  XWRD,   JMS I   INTEGER         /GET ADDRESS ARGUMENT
+ 131               
+ 132                       IFNZRO  ADR     <
+ 133               
+ 134 004132  7104          CLL RAL                 /ADJUST TO DOUBLE-WORD ADDRESS
+ 135               
+ 136                                       >
+ 137               
+ 138 004133  4542          PUSHA                   /SAVE IT
+ 139 004134  4540          PUSHJ                   /EVALUATE SECOND IF ANY
+ 140 004135  4165  LARG3,  ARG                     /**** RELOCATE ****
+ 141 004136  5354          JMP     GET             /NONE, JUST GET VALUE
+ 142 004137  1413          POPA                    /RESTORE ADDRESS
+ 143 004140  3301          DCA     TBLK            /SAVE AS POINTER
+ 144 004141  4453          JMS I   INTEGER         /GET REPLACEMENT VALUE
+ 145               
+ 146                       IFNZRO  ADR     <
+ 147               
+ 148 004142  7200          CLA                     /THROW AWAY LOW-ORDER
+ 149 004143  1045          TAD     FLAC+1          /GET HIGH-ORDER
+ 150               
+ 151                                       >
+ 152               
+ 153 004144  6241          CDF     BUFFLD          /GOTO BUFFER FIELD
+ 154 004145  3701          DCA I   TBLK            /STORE IT
+ 155               
+ 156                       IFNZRO  ADR     <
+ 157               
+ 158 004146  1301          TAD     TBLK            /GET THE POINTER
+ 159 004147  7001          IAC                     /BUMP TO NEXT
+ 160 004150  3300          DCA     FUN             /STASH IT
+ 161 004151  1046          TAD     FLAC+2          /GET LOW-ORDER
+ 162 004152  3700          DCA I   FUN             /STORE IT ALSO
+ 163               
+ 164                                       >
+ 165               
+ 166 004153  5356          JMP     GET2            /FINISH UP
+ 167 004154  1413  GET,   POPA                    /GET BACK ADDRESS
+ 168 004155  3301          DCA     TBLK            /SAVE IT
+ 169 004156  6241  GET2,   CDF     BUFFLD          /GOTO BUFFER FIELD
+ 170               
+ 171                       IFNZRO  ADR     <
+ 172               
+ 173 004157  1701          TAD I   TBLK            /GET HIGH-ORDER
+ 174               
+ 175                                       >
+ 176               
+ 177 004160  3045          DCA     FLAC+1          /STORE IT
+ 178               
+ 179                       IFNZRO  ADR     <
+ 180               
+ 181 004161  2301          ISZ     TBLK            /BUMP TO NEXT
+ 182               
+ 183                                       >
+ 184               
+ 185 004162  1701          TAD I   TBLK            /GET VALUE
+ 186 004163  6201          CDF     00              /BACK TO US
+ 187 004164  5322          JMP     FBLKIN          /CONTINUE THERE
+ 188               
+ 189 004165  1066  ARG,    TAD     CHAR            /ARGUMENT EVALUATOR
+ 190 004166  1375          TAD     (-",)           /GOOD TERMINATOR?
+ 191 004167  7640  PSYSIO, SZA CLA                 /SKIP IF SO
+ 192 004170  5541          POPJ                    /RETURN IF NOT
+ 193 004171  4540          PUSHJ;  EVAL-1          /EVALUATE SECOND ARGUMENT
+     004172  1612  
+ 194 004173  7001          IAC                     /INDICATE SKIP RETURN
+ 195 004174  5541          POPJ                    /RETURN
+ 196               
+ 197 004175  7524          PAGE
+     004176  0027  
+     004177  4047  
+ 198               
+ 199                       NEND=   .               /END OF RELOCATABLE PATCH CODE
+ 200               /      ONCE-ONLY CODE STARTS HERE.
+ 201               
+ 202                       *BONCE                  /OVER DEFAULT ONCE-ONLY AREA
+ 203               
+ 204 003600  1035  PBASE,  TAD     BOTTOM          /\
+ 205 003601  1377          TAD     (-200+1)        / \ESTABLISH
+ 206 003602  0104          AND     P7600/[7600]    / /BASE ADDRESS
+ 207 003603  3200          DCA     PBASE           //
+ 208 003604  1200          TAD     PBASE           /\
+ 209 003605  1376          TAD     (NSTART&177-1)  / >ESTABLISH NEW LIMIT
+ 210 003606  3035          DCA     BOTTOM          //
+ 211 003607  1200          TAD     PBASE           /\
+ 212 003610  1375          TAD     (XBLK&177)      / >INSERT FBLK
+ 213 003611  3774          DCA I   (FNTABF+14)     //
+ 214 003612  1200          TAD     PBASE           /\
+ 215 003613  1373          TAD     (XWRD&177)      / >INSERT FWRD
+ 216 003614  3772          DCA I   (FNTABF+15)     //
+ 217 003615  1200          TAD     PBASE           /\
+ 218 003616  1371          TAD     (XAND&177)      / >INSERT FAND
+ 219 003617  3770          DCA I   (FNTABF+16)     //
+ 220 003620  1200          TAD     PBASE           /\
+ 221 003621  1367          TAD     (ARG&177)       / \
+ 222 003622  3766          DCA I   (LARG1)         /  \
+ 223 003623  1766          TAD I   (LARG1)         /   >FIXUP ADDRESS CONSTANTS
+ 224 003624  3765          DCA I   (LARG2)         /  /
+ 225 003625  1765          TAD I   (LARG2)         / /
+ 226 003626  3764          DCA I   (LARG3)         //
+ 227 003627  1035          TAD     BOTTOM          /\
+ 228 003630  7001          IAC                     / >SETUP MOVE BASE
+ 229 003631  3200          DCA     PBASE           //
+ 230 003632  1642          TAD I   LNSTART         /\
+ 231 003633  3600          DCA I   PBASE           / \
+ 232 003634  2242          ISZ     LNSTART         /  \MOVE DOWN PATCH TO
+ 233 003635  2200          ISZ     PBASE           /  /WHERE IT BELONGS
+ 234 003636  2243          ISZ     MOVCNT          / /
+ 235 003637  5232          JMP     .-5             //
+ 236 003640  3763          DCA I   (BEOFZAP)       /REPAIR LOADER
+ 237 003641  5763          JMP I   (BEOFZAP)       /RESUME LOADING
+ 238 003642  4065  LNSTART,NSTART                 /POINTER TO NSTART
+ 239 003643  7665  MOVCNT, NSTART-NEND             /CODE MOVE COUNTER
+ 240               
+ 241 003763  7505          PAGE
+     003764  4135  
+     003765  4111  
+     003766  4070  
+     003767  0165  
+     003770  0412  
+     003771  0104  
+     003772  0411  
+     003773  0131  
+     003774  0410  
+     003775  0065  
+     003776  0064  
+     003777  7601  
+ 242               
+ 243                       *BEOFZAP                /OVER LOADER
+ 244               
+ 245 007505  7410          SKP                     /MAKE IT COME TO US
+ 246               
+ 247                       $                       /THAT'S ALL FOLK!
+
+ADR     0001
+ARG     4165
+BEOFZA  7505
+BONCE   3600
+BOTTOM  0035
+BUFFLD  0040
+CHAR    0066
+EFUN3I  0136
+EVAL    1613
+FBLKIN  4122
+FLAC    0044
+FNTABF  0374
+FNTABL  2165
+FUN     4100
+GET     4154
+GET2    4156
+INTEGE  0053
+LARG1   4070
+LARG2   4111
+LARG3   4135
+LNSTAR  3642
+MOVCNT  3643
+N       0000
+NEND    4200
+NL4000  7330
+NOSEC   4126
+NSTART  4065
+P7600   0104
+PBASE   3600
+POPA    1413
+POPJ    5541
+PSYSIO  4167
+PUSHA   4542
+PUSHJ   4540
+RETURN  5536
+SYSIO   7640 unreferenced
+TBLK    4101
+UNIT    0007
+XAND    4104
+XBLK    4065
+XWRD    4131
+ZEROIN  4115
