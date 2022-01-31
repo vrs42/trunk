@@ -44,7 +44,7 @@ verify:	dt.out
 
 # Rebuild the PQS8 DECtape when the TMP half of pqs8build.new changes.
 # (Rebuild anyway if the "runbuild" script is changed.)
-dt.out: pqs8build.new runbuild
+dt.out: pqs8build.new runbuild ab.new
 	./runbuild
 
 pqs8build.new: pqs8build.xml+
