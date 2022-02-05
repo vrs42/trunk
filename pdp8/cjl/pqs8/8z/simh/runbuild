@@ -98,11 +98,21 @@ send -h "CAT\r"
 expect -re {\n\.$}
 #
 # Invoke DUMP to upgrade the installation.
-# BUGBUG: CORE command is not installed yet!!
+# (CORE command is not installed yet!!)
 #
-#send -h "DUMP COMGEN,COMG2\r"
+#send -h "DUMP/C COMGEN,COMG2\r"
 send -h "DUMP COMGEN,COMG2\r"
 expect -re {\n\a\.$}
+#
+# Remove the build scripts.
+# We avoid creating more than two CATalog entries at a time,
+# so that when we are done there aren't "deleted files".
+send -h "KILL COMGEN\r"
+expect -re {\n\.$}
+send -h "KILL COMG2\r"
+expect -re {\n\.$}
+#
+# Use all of memory.
 send -h "CORE ALL\r"
 expect -re {\n\a\.$}
 #
@@ -128,10 +138,6 @@ send -h "SET RUBOUT BACKUP\r"
 expect -re {\n\a\.$}
 #
 # Remove the build scripts
-send -h "KILL COMGEN\r"
-expect -re {\n\.$}
-send -h "KILL COMG2\r"
-expect -re {\n\.$}
 send -h "KILL DTAGEN\r"
 expect -re {\n\.$}
 send -h "KILL BYHAND\r"
