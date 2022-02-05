@@ -6,7 +6,7 @@ set timeout -1
 
 # Set this for a scratch build
 set rebuild 1
-set rebuild 0
+#set rebuild 0
 
 # Remove the old PQS8, for a clean start.
 spawn rm -f dt.out
@@ -41,12 +41,12 @@ if { $rebuild == 1 } {
   #
   # We will need "COMGEN.DU" and "DTAGEN.DU" later, and this seems
   # to be the only place to stash them.
-  # Likewise the locally grown DATFIX.DU.
-  send "COPY SCR:COMGEN<B:COMGEN.DU/A\r"
+  # Likewise the locally grown BYHAND.DU.
+  send "COPY SCR:<B:COMGEN.DU/A\r"
   expect -re {\n\.$}
-  send "COPY SCR:DTAGEN<B:DTAGEN.DU/A\r"
+  send "COPY SCR:<B:DTAGEN.DU/A\r"
   expect -re {\n\.$}
-  send "COPY SCR:DATFIX<B:DATFIX.DU/A\r"
+  send "COPY SCR:<B:BYHAND.DU/A\r"
   expect -re {\n\.$}
 }
 send "COPY PTP:<TMP:OS8CON.BN\r"
@@ -70,51 +70,33 @@ expect -re {\n\a\.$}
 # The only copy available to PQS8 is on unit 1 (formerly SCR:), after all
 # the binaries.
 #
-set oldway 0
-if { $oldway == 1 } {
-  # BUGBUG: Invoke DUMP with a magic DD to create "COMGEN" in %.
-  # This approach fails, because the OS/8 "comgen.du" doesn't have
-  # the correct size of 2K, nor the stuff in the line number region.
-  send -h "WR COMGEN\r"
-  expect -re {\n\.$}
-  send -h "DUMP\r"
-  expect -re {: $}
-  send "TR 1:1172\r"
-  expect -re {MBER: $}
-  send "15\r"
-  expect -re {BLOCK: $}
-  send "0:20\r"
-  expect -re {TION: $}
-  send "EX\r"
-  expect -re {\n\a\.$}
-}
-if { $oldway == 0 } {
-  # OS8CON is in the high speed reader, so load it.
-  # /F Use HSR; /P Load BIN tape; /V Use virtual loader.
-  send -h "BIN %</F/P/V\r"
-   expect -re {TAPES?}
-   send -h "N\r"
-  expect -re {\n\a\.$}
-  send "\r"
-  expect -re {\n\.$}
-  send -h "GET %\r"
-  expect -re {\n\a.$}
-  # Now we can convert our DUMP command files.
-  # COMGEN.         1172    15      16-JUN-69
-  # DTAGEN.         1211    4       16-JUN-69
-  # "RUN %" runs the program we just loaded.
-  # "COMGEN<COMGEN" says copy COMGEN. to COMGEN (input side ignored)
-  # "/1" says from OS/8 on unit 1
-  # =1172 says the file starts at block 1172 (BUGBUG)
-  send -h "RUN % COMGEN,COMG2</1=1172\r"
-  expect -re {\n\a\.$}
-}
+# OS8CON is in the high speed reader, so load it.
+# /F Use HSR; /P Load BIN tape; /V Use virtual loader.
+send -h "BIN %</F/P/V\r"
+ expect -re {TAPES?}
+ send -h "N\r"
+expect -re {\n\a\.$}
+send "\r"
+expect -re {\n\.$}
+send -h "GET %\r"
+expect -re {\n\a.$}
+# Now we can convert our DUMP command files.
+# COMGEN.DU       1172    15      16-JUN-69
+# DTAGEN.DU       1211    4       16-JUN-69
+# BYHAND.DU       1215    4       16-JUN-69
+# "RUN %" runs the program we just loaded.
+# "COMGEN<COMGEN" says copy COMGEN. to COMGEN (input side ignored)
+# "/1" says from OS/8 on unit 1
+# =1172 says the file starts at block 1172 (BUGBUG)
+send -h "RUN % COMGEN,COMG2</1=1172\r"
+expect -re {\n\a\.$}
 send -h "CAT\r"
 expect -re {\n\.$}
 #
 # Invoke DUMP to upgrade the installation.
 # BUGBUG: CORE command is not installed yet!!
 #
+#send -h "DUMP COMGEN,COMG2\r"
 send -h "DUMP COMGEN,COMG2\r"
 expect -re {\n\a\.$}
 send -h "CORE ALL\r"
@@ -129,12 +111,12 @@ expect -re {\n\a\.$}
 send -h "DUMP DTAGEN\r"
 expect -re {\n\a\.$}
 #
-# Run OS8CON to get DATFIX into the CATalog.
-send -h "RUN OS8CON DATFIX</1=1215\r"
+# Run OS8CON to get BYHAND into the CATalog.
+send -h "RUN OS8CON BYHAND</1=1215\r"
 expect -re {\n\a\.$}
 #
-# Now run DUMP with DATFIX to fix the epoch.
-send -h "DUMP DATFIX\r"
+# Now run DUMP with BYHAND to apply the patches.
+send -h "DUMP BYHAND\r"
 expect -re {\n\a\.$}
 #
 # See if the new DIRectory command is working

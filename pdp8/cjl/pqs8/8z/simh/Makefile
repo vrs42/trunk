@@ -17,7 +17,7 @@ bfiles	= 00Readme-B.txt 4patch.pa 8patch.pa allcat.pa blk400.pa \
 	rklpch.pa rx4mat.pa rxagen.du rxahnd.pa rxboot.pa rxbut0.pa \
 	rxbut1.pa rxinit.pa rxutil.pa set.pa sup4k.pa sup8k.pa \
 	syshnd.pa systat.pa vt8e.pa vt8pch.pa xequa.tc \
-	z12k.pa z4k.pa z8k.pa
+	z12k.pa z4k.pa z8k.pa byhand.du
 new	= vt8e-comp.txt vt8e.pa vt8pch-comp.txt vt8pch.pa
 PABIN	= z4k.bn z8k.bn z12k.bn pqsmon.bn bin.bn odt.bn dump.bn pqsdta.bn \
 	pqsrxa.bn pqsdsu.bn pqsrka.bn pqslta.bn pqsflp.bn bsave.bn asmblr.bn \
@@ -40,7 +40,7 @@ all:	pqs8build.new ab.new scrtmp.new dt.out verify
 verify:	dt.out
 	dt2dk dt.out && mv dt.out.dsk dt.dsk
 	pqs8xplode dt.dsk
-	for i in pqs8_tc08.0/*.sd; do cmp $$i dt.0/`basename $$i`; done
+	for i in pqs8_tc08.0/*.sd pqs8_tc08.0/.[a-z]*; do cmp $$i dt.0/`basename $$i`; done
 
 # Rebuild the PQS8 DECtape when the TMP half of pqs8build.new changes.
 # (Rebuild anyway if the "runbuild" script is changed.)
