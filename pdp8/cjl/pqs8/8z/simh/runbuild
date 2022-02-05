@@ -48,6 +48,10 @@ if { $rebuild == 1 } {
   expect -re {\n\.$}
   send "COPY SCR:<B:BYHAND.DU/A\r"
   expect -re {\n\.$}
+  send "COPY SCR:<B:README.TX/A\r"
+  expect -re {\n\.$}
+  send "COPY SCR:<B:TCBOOT.TX/A\r"
+  expect -re {\n\.$}
 }
 send "COPY PTP:<TMP:OS8CON.BN\r"
 expect -re {\n\.$}
@@ -119,9 +123,26 @@ expect -re {\n\a\.$}
 send -h "DUMP BYHAND\r"
 expect -re {\n\a\.$}
 #
-# See if the new DIRectory command is working
-#send -h "DIR\r"
-#expect -re {\n\a\.$}
+# Do a SET RUBOUT BACKUP to align the TTY system area.
+send -h "SET RUBOUT BACKUP\r"
+expect -re {\n\a\.$}
+#
+# Remove the build scripts
+send -h "KILL COMGEN\r"
+expect -re {\n\.$}
+send -h "KILL COMG2\r"
+expect -re {\n\.$}
+send -h "KILL DTAGEN\r"
+expect -re {\n\.$}
+send -h "KILL BYHAND\r"
+expect -re {\n\.$}
+#
+# Run OS8CON to get README and TCBOOT into the CATalog.
+# BUGBUG: Fix these block numbers!
+send -h "RUN OS8CON README</1=1223\r"
+expect -re {\n\a\.$}
+send -h "RUN OS8CON TCBOOT</1=1227\r"
+expect -re {\n\a\.$}
 #
 # Close SIMH cleanly.
 send -h "\005"

@@ -17,7 +17,7 @@ bfiles	= 00Readme-B.txt 4patch.pa 8patch.pa allcat.pa blk400.pa \
 	rklpch.pa rx4mat.pa rxagen.du rxahnd.pa rxboot.pa rxbut0.pa \
 	rxbut1.pa rxinit.pa rxutil.pa set.pa sup4k.pa sup8k.pa \
 	syshnd.pa systat.pa vt8e.pa vt8pch.pa xequa.tc \
-	z12k.pa z4k.pa z8k.pa byhand.du
+	z12k.pa z4k.pa z8k.pa byhand.du readme.tx tcboot.tx
 new	= vt8e-comp.txt vt8e.pa vt8pch-comp.txt vt8pch.pa
 PABIN	= z4k.bn z8k.bn z12k.bn pqsmon.bn bin.bn odt.bn dump.bn pqsdta.bn \
 	pqsrxa.bn pqsdsu.bn pqsrka.bn pqslta.bn pqsflp.bn bsave.bn asmblr.bn \
@@ -49,6 +49,9 @@ dt.out: pqs8build.new runbuild ab.new
 
 pqs8build.new: pqs8build.xml+
 	mkdsk $<
+
+%.dsk:	%.dt
+	dt2dk $< && mv $<.dsk $@
 
 # BUGBUG: It is not the case that over-writing a/b modifies a.
 # So these dependency checks aren't quire right.  A size change in
