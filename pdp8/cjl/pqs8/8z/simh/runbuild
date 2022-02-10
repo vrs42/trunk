@@ -69,6 +69,19 @@ expect -re {\n\a\.$}
 # BUGBUG: Why is PQS8 ignoring every other character? As a workaround, I'm
 # using send -h as necessary.
 #
+# Move the user files from block 300 to block 1000.
+# Otherwise, DUMP will over-write the user files while executing
+# the commands they contain!
+send -h "DUMP\r"
+expect -re {FUNCTION: $}
+send -h "ZA 0:16\r"
+expect -re {\n$}
+send -h "177/1000\r"
+expect -re {\n$}
+send -h "\033"
+expect -re {FUNCTION: $}
+send -h "EX"
+expect -re {\n\a\.$}
 #
 # Here we have a problem.  We want to run DUMP with input from "comgen.du".
 # The only copy available to PQS8 is on unit 1 (formerly SCR:), after all
@@ -100,8 +113,7 @@ expect -re {\n\.$}
 # Invoke DUMP to upgrade the installation.
 # (CORE command is not installed yet!!)
 #
-#send -h "DUMP/C COMGEN,COMG2\r"
-send -h "DUMP COMGEN,COMG2\r"
+send -h "DUMP/C COMGEN,COMG2\r"
 expect -re {\n\a\.$}
 #
 # Remove the build scripts.
