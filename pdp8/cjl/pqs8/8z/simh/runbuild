@@ -5,8 +5,9 @@ set send_human {.3 .3 75 .3 9}
 set timeout -1
 
 # Set this for a scratch build
-set rebuild 1
-#set rebuild 0
+# N.B.: Only a scratch build is guaranteed to work!
+set rebuild 0
+#set rebuild 1
 
 # Remove the old PQS8, for a clean start.
 spawn rm -f dt.out
@@ -52,7 +53,11 @@ if { $rebuild == 1 } {
   expect -re {\n\.$}
   send "COPY SCR:<B:TCBOOT.TX/A\r"
   expect -re {\n\.$}
+  send "COPY SCR:<TMP:KL8.BN/A\r"
+  expect -re {\n\.$}
 }
+#
+# We will need OS8CON.BN in the HSR later, for BIN.
 send "COPY PTP:<TMP:OS8CON.BN\r"
 expect -re {\n\.$}
 send "DIR SCR:/F\r"
@@ -142,12 +147,21 @@ send -h "RUN OS8CON BYHAND</1=1215\r"
 expect -re {\n\a\.$}
 #
 # Now run DUMP with BYHAND to apply the patches.
-send -h "DUMP BYHAND\r"
+send -h "DUMP/A BYHAND\r"
 expect -re {\n\a\.$}
 #
 # Do a SET RUBOUT BACKUP to align the TTY system area.
 send -h "SET RUBOUT BACKUP\r"
 expect -re {\n\a\.$}
+#
+# Do a SET TAB NO FILL to align the TTY system area.
+send -h "SET TAB NO FILL\r"
+expect -re {\n\a\.$}
+
+#
+# TODO: In block 1237 is the file KL8.BN.  Use BIN to
+# read it in.
+
 #
 # Remove the build scripts
 send -h "KILL DTAGEN\r"
@@ -157,9 +171,9 @@ expect -re {\n\.$}
 #
 # Run OS8CON to get README and TCBOOT into the CATalog.
 # BUGBUG: Fix these block numbers!
-send -h "RUN OS8CON README</1=1223\r"
+send -h "RUN OS8CON README</1=1224\r"
 expect -re {\n\a\.$}
-send -h "RUN OS8CON TCBOOT</1=1227\r"
+send -h "RUN OS8CON TCBOOT</1=1230\r"
 expect -re {\n\a\.$}
 #
 # Close SIMH cleanly.
