@@ -7,10 +7,10 @@ set timeout -1
 # Set this for a scratch build
 # N.B.: Only a scratch build is guaranteed to work!
 set rebuild 0
-#set rebuild 1
+set rebuild 1
 
 # Remove the old PQS8, for a clean start.
-spawn rm -f dt.out
+spawn rm -f dt0.dt
 wait
 
 # Fire up a PDP-8, then walk it through the build steps.
@@ -53,9 +53,31 @@ if { $rebuild == 1 } {
   expect -re {\n\.$}
   send "COPY SCR:<B:TCBOOT.TX/A\r"
   expect -re {\n\.$}
-  send "COPY SCR:<TMP:KL8.BN/A\r"
-  expect -re {\n\.$}
 }
+#
+# We will need kl8.pa on DT2.  Since our OS/8 is built for two DT drives,
+# we temporarly mount the tape on drive zero.
+send -h "\005"
+expect -re {\nsim> $}
+send -h "att dt0 dt2.dt\r"
+expect -re {\nsim> $}
+send -h "c\r"
+expect -re {\n$}
+send "ZERO DTA0:\r"
+expect -re {\n\.$}
+send "COPY DTA0:<B:KL8.PA\r"
+expect -re {\n\.$}
+send "COPY DTA0:<B:VT8E.PA\r"
+expect -re {\n\.$}
+send -h "\005"
+expect -re {\nsim> $}
+send -h "att dt0 dt0.dt\r"
+expect -re {\nsim> $}
+send -h "att dt2 dt2.dt\r"
+expect -re {\nsim> $}
+send -h "c\r"
+expect -re {\n$}
+
 #
 # We will need OS8CON.BN in the HSR later, for BIN.
 send "COPY PTP:<TMP:OS8CON.BN\r"
@@ -176,9 +198,45 @@ expect -re {\n\a\.$}
 send -h "RUN OS8CON TCBOOT</1=1230\r"
 expect -re {\n\a\.$}
 #
+# Copy DT0 to DT3.  This creates a convenient place to build the KL8 overlay.
+send -h "DTCOPY\r"
+expect -re {FROM UNIT $}
+send -h "0\r"
+expect -re {TO UNIT $}
+send -h "3\r"
+expect -re {\) $}
+send -h "0\r"
+expect -re {\) $}
+send -h "2000\r"
+expect -re {: $}
+send -h "0\r"
+expect -re {DONE$}
+send -h "\003"
+expect -re {\n\a\.$}
+#
+# Copy the VT8E overlay source and assemble it.
+send -h "RUN OS8CON VT81:3,VT82,VT83,VT84,VT85,VT86,VT87,VT88,VT89,VT810,VT811,VT812,VT813,VT814,VT815,VT816</P/2=213\r"
+expect -re {\n\a\.$}
+send -h "PAL VT8E<VT81:3,VT82,VT83,VT84,VT85,VT86,VT87,VT88,VT89,VT810,VT811,VT812,VT813,VT814,VT815,VT816/Q\r"
+expect -re {\n\a\.$}
+#
+# Load the newly created VT8 overlay.
+send -h "CONSOLE/R VT8E\r"
+expect -re {\n\a\.$}
+#
+# Copy the KL8 overlay source and assemble it.
+send -h "RUN OS8CON KL81:3,KL82,KL83,KL84,KL85,KL86,KL87,KL88,KL89,KL810,KL811,KL812,KL813,KL814,KL815,KL816</2=7\r"
+expect -re {\n\a\.$}
+send -h "PAL KL8:3<KL81:3,KL82,KL83,KL84,KL85,KL86,KL87,KL88,KL89,KL810,KL811,KL812,KL813,KL814,KL815,KL816/Q\r"
+expect -re {\n\a\.$}
+#
+# Replace it with the newly created KL8 overlay.
+send -h "CONSOLE/R KL8:3\r"
+expect -re {\n\a\.$}
+#
 # Close SIMH cleanly.
 send -h "\005"
-expect -re {\nsim> }
+expect -re {\nsim> $}
 send -h "q\r"
 expect -re {file\r}
 expect -re {file\r}

@@ -33,18 +33,18 @@ PDP12	= mark12.bn mark12.sv tc12f.bn tc12f.sv
 UNUSEDA	= cpscon.pa lap6w.pa phocal.pa
 UNUSEDB	= dl8hnd.pa dol8.pa fixup.pa ipbgen.pa ipboot.pa l8mhnd.pa rxboot.pa \
 	rxbut0.pa rxbut1.pa rxinit.pa xequa.tc
+.IGNORE: dt0.dt
 
-all:	pqs8build.new ab.new scrtmp.new dt.out verify
+all:	pqs8build.new ab.new scrtmp.new dt0.dt verify
 
-# Verify the dt.out result against the canonical media.
-verify:	dt.out
-	dt2dk dt.out && mv dt.out.dsk dt.dsk
-	pqs8xplode dt.dsk
-	for i in pqs8_tc08.0/*.sd pqs8_tc08.0/.[a-z]*; do cmp $$i dt.0/`basename $$i`; done
+# Verify the dt0.dt result against the canonical media.
+verify:	dt0.dsk
+	./pqs8xplode dt0.dsk
+	for i in pqs8_tc08.0/*.sd pqs8_tc08.0/.[a-z]*; do cmp $$i dt0.0/`basename $$i`; done
 
 # Rebuild the PQS8 DECtape when the TMP half of pqs8build.new changes.
 # (Rebuild anyway if the "runbuild" script is changed.)
-dt.out: pqs8build.new runbuild ab.new
+dt0.dt: pqs8build.new runbuild ab.new
 	./runbuild
 
 pqs8build.new: pqs8build.xml+
