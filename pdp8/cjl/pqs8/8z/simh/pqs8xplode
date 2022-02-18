@@ -36,7 +36,7 @@
 # to be able to extract the date from the keyboard monitor 
 # image in blocks 001-017, and eventually at least 
 # use that to set the timestamps of the extracted files.
-# Meanwhile, this data stuff is just cruft.
+# Meanwhile, this date stuff is just cruft.
 #
 # The date algorithm stores an epoch, multiplied by 8 and 
 # added to 1960.  First, get the right epoch.
@@ -318,7 +318,7 @@ sub writefile {
 
     # Open a file for our results.
     open(OUTPUT, ">$fsname/$name") || die "$fsname/$name: $!";
-warn "writefile($first, $last, '$name')\n";
+#warn "writefile($first, $last, '$name')\n";
     binmode(OUTPUT);
     # Copy out the file.  These are binary, so leave the words in DSK format.
     for (; $first <= $last; $first++) {

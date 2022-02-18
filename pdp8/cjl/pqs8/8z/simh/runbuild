@@ -217,11 +217,11 @@ expect -re {\n\a\.$}
 # Copy the VT8E overlay source and assemble it.
 send -h "RUN OS8CON VT81:3,VT82,VT83,VT84,VT85,VT86,VT87,VT88,VT89,VT810,VT811,VT812,VT813,VT814,VT815,VT816</P/2=213\r"
 expect -re {\n\a\.$}
-send -h "PAL VT8E<VT81:3,VT82,VT83,VT84,VT85,VT86,VT87,VT88,VT89,VT810,VT811,VT812,VT813,VT814,VT815,VT816/Q\r"
+send -h "PAL VT8E:3<VT81:3,VT82,VT83,VT84,VT85,VT86,VT87,VT88,VT89,VT810,VT811,VT812,VT813,VT814,VT815,VT816/Q\r"
 expect -re {\n\a\.$}
 #
 # Load the newly created VT8 overlay.
-send -h "CONSOLE/R VT8E\r"
+send -h "CONSOLE/R VT8E:3\r"
 expect -re {\n\a\.$}
 #
 # Copy the KL8 overlay source and assemble it.

@@ -1,0 +1,19 @@
+See diffs/Diffs.txt for a explanations of the remaining differences between
+the media built here and the PEPS release media.
+
+I hate how everything magically knows the block and offsets needed to patch
+things.  I think we can do better.
+
+I'm not sure MARK12 and TC12F build correctly.  (They definitely do not when
+the cross assembler is used.)
+
+The Makefile currently does a poor job of detecting dependencies, and the
+"runbuild" script rebuilds a lot of stuff when it does not actually require
+rebuilding.
+
+It may be desirable to create a DT unit 6 with a PQS8 file-system and the
+.DUMP scripts, date setting, and other configuration nonsense to converge
+the built media with the released media.  Currently we are copying that
+stuff around and building stuff on the fly in a very awkward way.
+
+	Vince
