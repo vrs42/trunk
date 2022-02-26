@@ -2,10 +2,11 @@ M43	= $(shell find . -name "*.m43")
 PXG	= $(shell find . -name "*.pxg")
 DT	= $(PXG:.pxg=.dt)
 DSK	= $(PXG:.pxg=.dsk) $(M43:.m43=.dsk)
+RK05	= $(M43:.m43=.rk05)
 LST	= $(DSK:.dsk=.lst)
 TOOLS	= $(HOME)/pdp8/8tools
 
-all:	$(DT) $(DSK) $(LST)
+all:	$(DT) $(DSK) $(LST) $(RK05)
 
 %.dt:	%.pxg $(TOOLS)/pxg2dt
 	rm -f $@ && $(TOOLS)/pxg2dt $<
@@ -15,6 +16,9 @@ all:	$(DT) $(DSK) $(LST)
 
 %.dsk:	%.m43 $(TOOLS)/m43dk
 	rm -f $@ && $(TOOLS)/m43dk $<
+
+%.rk05:	%.m43 $(TOOLS)/m43rk
+	rm -f $@ && $(TOOLS)/m43rk $<
 
 %.lst:	%.dsk $(TOOLS)/os8dir
 #	-$(TOOLS)/os8dir $< >$@ || (rm -f $@; exit 1)
