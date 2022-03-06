@@ -3847,8 +3847,19 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b target=_blank>8-504b
 </a><td><div>ESIX - Extended ESI </div>
 <td>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/Makefile target=_blank>Makefile</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/Readme.txt target=_blank>Readme.txt</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/decus-8-504b.htm target=_blank>decus-8-504b.htm</a></div>
 <div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/decus-8-504b.pdf target=_blank>decus-8-504b.pdf</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/defs.pal target=_blank>defs.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/esix.bin target=_blank>esix.bin</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/esix.bin.canon target=_blank>esix.bin.canon</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/esix.lst target=_blank>esix.lst</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/esix.pal target=_blank>esix.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/esix_doc.txt target=_blank>esix_doc.txt</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/esixswre.tar target=_blank>esixswre.tar</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/fp.pal target=_blank>fp.pal</a></div>
+<div><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504b/macro8x.c target=_blank>macro8x.c</a></div>
 <tr>
 <td><a href=http://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-504c target=_blank>8-504c
 </a><td><div>ESI Demonstration Programs </div>
