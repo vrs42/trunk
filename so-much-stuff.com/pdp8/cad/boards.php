@@ -4,7 +4,7 @@
 ?>
 <BODY>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./20ma-connections target=_blank>./20ma-connections</a></b>: Diagram of the 20ma connections in 8i, 8L.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./20ma-connections target=_blank>./20ma-connections</a></b>: Diagram of the 20ma connections in 8i, 8L.
 
 </LEGEND><DL>
 <DT>20ma</A>
@@ -16,7 +16,7 @@
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./20ma-rs232 target=_blank>./20ma-rs232</a></b>: Board for TTY adapter box
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./20ma-rs232 target=_blank>./20ma-rs232</a></b>: Board for TTY adapter box
 
 </LEGEND><DL>
 <DT>loop-rs232</A>
@@ -24,7 +24,7 @@
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./32k-8i target=_blank>./32k-8i</a></b>: PDP-8/i Core replacement.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./32k-8i target=_blank>./32k-8i</a></b>: PDP-8/i Core replacement.
 
 </LEGEND><DL>
 <DT>sboardnew</A>
@@ -33,7 +33,7 @@ hook into a PDP-8/i or PDP-12.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./32k-Omnibus target=_blank>./32k-Omnibus</a></b>: Omnibus 32K SRAM board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./32k-Omnibus target=_blank>./32k-Omnibus</a></b>: Omnibus 32K SRAM board
 
 </LEGEND><DL>
 <DT>Lafferty1</A>
@@ -55,7 +55,7 @@ hook into a PDP-8/i or PDP-12.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./BusCon target=_blank>./BusCon</a></b>: Bus Connector paddles for Negibus and Posibus
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./BusCon target=_blank>./BusCon</a></b>: Bus Connector paddles for Negibus and Posibus
 
 </LEGEND><DL>
 <DT>8j-merge</A>
@@ -83,7 +83,7 @@ hook into a PDP-8/i or PDP-12.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./BusStop target=_blank>./BusStop</a></b>: Bus Interconnect for Posibus
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./BusStop target=_blank>./BusStop</a></b>: Bus Interconnect for Posibus
 
 </LEGEND><DL>
 <DT>busstop</A>
@@ -91,7 +91,7 @@ hook into a PDP-8/i or PDP-12.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ConsoleEmu target=_blank>./ConsoleEmu</a></b>: Project with Henk Gooijen.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ConsoleEmu target=_blank>./ConsoleEmu</a></b>: Project with Henk Gooijen.
 
 </LEGEND><DL>
 <DT>core+io1</A>
@@ -176,7 +176,7 @@ both sides.
 hooks for the tester board.
 </DL>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ConsoleEmu/FlipChip target=_blank>./ConsoleEmu/FlipChip</a></b>: FlipChip Test Jig based on core and i/o boards.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ConsoleEmu/FlipChip target=_blank>./ConsoleEmu/FlipChip</a></b>: FlipChip Test Jig based on core and i/o boards.
 
 </LEGEND><DL>
 <DT>flipchip</A>
@@ -188,7 +188,7 @@ Rxxx modules.</DL>
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ConsoleEmuFDC target=_blank>./ConsoleEmuFDC</a></b>: Floppy Controller for ConsoleEmu Project
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./ConsoleEmuFDC target=_blank>./ConsoleEmuFDC</a></b>: Floppy Controller for ConsoleEmu Project
 
 </LEGEND><DL>
 <DT>core09gnd</A>
@@ -200,10 +200,10 @@ prototype.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC target=_blank>./DEC</a></b>: Various stuff pertaining to DEC gear.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC target=_blank>./DEC</a></b>: Various stuff pertaining to DEC gear.
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/4U-4452 target=_blank>./DEC/4U-4452</a></b>: 4U 4452 Prototype card
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/4U-4452 target=_blank>./DEC/4U-4452</a></b>: 4U 4452 Prototype card
 
 </LEGEND><DL>
 <DT>4U-4452</A>
@@ -211,7 +211,7 @@ prototype.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/8aPanel target=_blank>./DEC/8aPanel</a></b>: PDP-8a Programmer's Panel
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/8aPanel target=_blank>./DEC/8aPanel</a></b>: PDP-8a Programmer's Panel
 
 </LEGEND><DL>
 <DT>board1</A>
@@ -254,7 +254,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/8ePanel target=_blank>./DEC/8ePanel</a></b>: 8/E Front Panel
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/8ePanel target=_blank>./DEC/8ePanel</a></b>: 8/E Front Panel
 
 </LEGEND><DL>
 <DT>5409057D</A>
@@ -262,10 +262,10 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx target=_blank>./DEC/Axxx</a></b>: Axxx Modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx target=_blank>./DEC/Axxx</a></b>: Axxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A008 target=_blank>./DEC/Axxx/A008</a></b>: AD8A 10 Bit A-D
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A008 target=_blank>./DEC/Axxx/A008</a></b>: AD8A 10 Bit A-D
 
 </LEGEND><DL>
 <DT>A00B</A>
@@ -273,7 +273,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A100 target=_blank>./DEC/Axxx/A100</a></b>: Multiplexor Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A100 target=_blank>./DEC/Axxx/A100</a></b>: Multiplexor Switch
 
 </LEGEND><DL>
 <DT>A100C</A>
@@ -281,11 +281,11 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A103 target=_blank>./DEC/Axxx/A103</a></b>: Multiplexor Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A103 target=_blank>./DEC/Axxx/A103</a></b>: Multiplexor Switch
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A111 target=_blank>./DEC/Axxx/A111</a></b>: Millivolt Multiplex Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A111 target=_blank>./DEC/Axxx/A111</a></b>: Millivolt Multiplex Switch
 
 </LEGEND><DL>
 <DT>A111C</A>
@@ -293,7 +293,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A112 target=_blank>./DEC/Axxx/A112</a></b>: Low Level Multiplex Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A112 target=_blank>./DEC/Axxx/A112</a></b>: Low Level Multiplex Switch
 
 </LEGEND><DL>
 <DT>A112A</A>
@@ -301,15 +301,15 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A121 target=_blank>./DEC/Axxx/A121</a></b>: Multiplexor Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A121 target=_blank>./DEC/Axxx/A121</a></b>: Multiplexor Switch
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A124 target=_blank>./DEC/Axxx/A124</a></b>: 4 Input Multiplexer Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A124 target=_blank>./DEC/Axxx/A124</a></b>: 4 Input Multiplexer Switch
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A126 target=_blank>./DEC/Axxx/A126</a></b>: 8 Channel CMOS Analog Switch (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A126 target=_blank>./DEC/Axxx/A126</a></b>: 8 Channel CMOS Analog Switch (double)
 
 </LEGEND><DL>
 <DT>A126A</A>
@@ -317,11 +317,11 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A130 target=_blank>./DEC/Axxx/A130</a></b>: Multiplexor
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A130 target=_blank>./DEC/Axxx/A130</a></b>: Multiplexor
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A131 target=_blank>./DEC/Axxx/A131</a></b>: Multiplexer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A131 target=_blank>./DEC/Axxx/A131</a></b>: Multiplexer
 
 </LEGEND><DL>
 <DT>A131B</A>
@@ -331,11 +331,11 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A133 target=_blank>./DEC/Axxx/A133</a></b>: Analog Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A133 target=_blank>./DEC/Axxx/A133</a></b>: Analog Switch
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A140 target=_blank>./DEC/Axxx/A140</a></b>: 2 Chan. Analog Switch, for VT15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A140 target=_blank>./DEC/Axxx/A140</a></b>: 2 Chan. Analog Switch, for VT15
 
 </LEGEND><DL>
 <DT>A140C</A>
@@ -343,35 +343,35 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A163 target=_blank>./DEC/Axxx/A163</a></b>: Multiplexer and Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A163 target=_blank>./DEC/Axxx/A163</a></b>: Multiplexer and Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A200 target=_blank>./DEC/Axxx/A200</a></b>: Operational Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A200 target=_blank>./DEC/Axxx/A200</a></b>: Operational Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A202 target=_blank>./DEC/Axxx/A202</a></b>: Two Analog Preamplifiers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A202 target=_blank>./DEC/Axxx/A202</a></b>: Two Analog Preamplifiers
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A214 target=_blank>./DEC/Axxx/A214</a></b>: 2 Analog Amplifiers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A214 target=_blank>./DEC/Axxx/A214</a></b>: 2 Analog Amplifiers
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A215 target=_blank>./DEC/Axxx/A215</a></b>: Analog Buffer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A215 target=_blank>./DEC/Axxx/A215</a></b>: Analog Buffer
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A222 target=_blank>./DEC/Axxx/A222</a></b>: Selectable Gain Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A222 target=_blank>./DEC/Axxx/A222</a></b>: Selectable Gain Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A225 target=_blank>./DEC/Axxx/A225</a></b>: Deflection Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A225 target=_blank>./DEC/Axxx/A225</a></b>: Deflection Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A238 target=_blank>./DEC/Axxx/A238</a></b>: Dual Analog Summer and Driver (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A238 target=_blank>./DEC/Axxx/A238</a></b>: Dual Analog Summer and Driver (double)
 
 </LEGEND><DL>
 <DT>A238C</A>
@@ -379,7 +379,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A312 target=_blank>./DEC/Axxx/A312</a></b>: KV8/L Analog Function Generator, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A312 target=_blank>./DEC/Axxx/A312</a></b>: KV8/L Analog Function Generator, Double
 
 </LEGEND><DL>
 <DT>A312E</A>
@@ -387,7 +387,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A3170 target=_blank>./DEC/Axxx/A3170</a></b>: Arbitrary Vector Generator (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A3170 target=_blank>./DEC/Axxx/A3170</a></b>: Arbitrary Vector Generator (double, long)
 
 </LEGEND><DL>
 <DT>A3170C</A>
@@ -395,7 +395,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A3180 target=_blank>./DEC/Axxx/A3180</a></b>: Arbitrary Integrator (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A3180 target=_blank>./DEC/Axxx/A3180</a></b>: Arbitrary Integrator (double, long)
 
 </LEGEND><DL>
 <DT>A3180C</A>
@@ -403,23 +403,23 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A400 target=_blank>./DEC/Axxx/A400</a></b>: Sample and Hold Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A400 target=_blank>./DEC/Axxx/A400</a></b>: Sample and Hold Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A401 target=_blank>./DEC/Axxx/A401</a></b>: Sample and Hold
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A401 target=_blank>./DEC/Axxx/A401</a></b>: Sample and Hold
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A404 target=_blank>./DEC/Axxx/A404</a></b>: Sample and Hold
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A404 target=_blank>./DEC/Axxx/A404</a></b>: Sample and Hold
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A405 target=_blank>./DEC/Axxx/A405</a></b>: Sample and Hold Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A405 target=_blank>./DEC/Axxx/A405</a></b>: Sample and Hold Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A502 target=_blank>./DEC/Axxx/A502</a></b>: Difference Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A502 target=_blank>./DEC/Axxx/A502</a></b>: Difference Amplifier
 
 </LEGEND><DL>
 <DT>A502D</A>
@@ -428,7 +428,7 @@ schematics work. (Has a consistency problem to highlight changes.)
   <DD>is a 'modernized' version of the A502.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A601 target=_blank>./DEC/Axxx/A601</a></b>: 3 Bit DAC
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A601 target=_blank>./DEC/Axxx/A601</a></b>: 3 Bit DAC
 
 </LEGEND><DL>
 <DT>A601E</A>
@@ -438,11 +438,11 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A603 target=_blank>./DEC/Axxx/A603</a></b>: 2 Bit DAC
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A603 target=_blank>./DEC/Axxx/A603</a></b>: 2 Bit DAC
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A604 target=_blank>./DEC/Axxx/A604</a></b>: 2-bit D-A Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A604 target=_blank>./DEC/Axxx/A604</a></b>: 2-bit D-A Converter
 
 </LEGEND><DL>
 <DT>A604E</A>
@@ -455,15 +455,15 @@ schematics work. (Has a consistency problem to highlight changes.)
   <DD>is a 'modernized' version of the A604.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A605 target=_blank>./DEC/Axxx/A605</a></b>: 2-bit D-A Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A605 target=_blank>./DEC/Axxx/A605</a></b>: 2-bit D-A Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A606 target=_blank>./DEC/Axxx/A606</a></b>: D-A Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A606 target=_blank>./DEC/Axxx/A606</a></b>: D-A Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A607 target=_blank>./DEC/Axxx/A607</a></b>: 10-bit Single Buffered D/A Converter, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A607 target=_blank>./DEC/Axxx/A607</a></b>: 10-bit Single Buffered D/A Converter, double
 
 </LEGEND><DL>
 <DT>A607B</A>
@@ -473,7 +473,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A612 target=_blank>./DEC/Axxx/A612</a></b>: D/A Converter for KV8/L, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A612 target=_blank>./DEC/Axxx/A612</a></b>: D/A Converter for KV8/L, Double
 
 </LEGEND><DL>
 <DT>A612B</A>
@@ -481,15 +481,15 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A614 target=_blank>./DEC/Axxx/A614</a></b>: 12 Bit bipolar D/A Converter, Double Long
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A614 target=_blank>./DEC/Axxx/A614</a></b>: 12 Bit bipolar D/A Converter, Double Long
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A615 target=_blank>./DEC/Axxx/A615</a></b>: D/A Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A615 target=_blank>./DEC/Axxx/A615</a></b>: D/A Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A618 target=_blank>./DEC/Axxx/A618</a></b>: 10 Bit D-A Converter (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A618 target=_blank>./DEC/Axxx/A618</a></b>: 10 Bit D-A Converter (double)
 
 </LEGEND><DL>
 <DT>A618E</A>
@@ -497,7 +497,7 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A622 target=_blank>./DEC/Axxx/A622</a></b>: 10 Bit Single Buffered DAC 0 to 5V (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A622 target=_blank>./DEC/Axxx/A622</a></b>: 10 Bit Single Buffered DAC 0 to 5V (double)
 
 </LEGEND><DL>
 <DT>A622C</A>
@@ -505,11 +505,11 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A701 target=_blank>./DEC/Axxx/A701</a></b>: Reference Supply
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A701 target=_blank>./DEC/Axxx/A701</a></b>: Reference Supply
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A702 target=_blank>./DEC/Axxx/A702</a></b>: Reference Supply (-10V), double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A702 target=_blank>./DEC/Axxx/A702</a></b>: Reference Supply (-10V), double
 
 </LEGEND><DL>
 <DT>A702B</A>
@@ -518,7 +518,7 @@ schematics work. (Has a consistency problem to highlight changes.)
   <DD>is a 'modernized' version of the A702.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A704 target=_blank>./DEC/Axxx/A704</a></b>: Reference Supply, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A704 target=_blank>./DEC/Axxx/A704</a></b>: Reference Supply, Double
 
 </LEGEND><DL>
 <DT>A704E</A>
@@ -529,15 +529,15 @@ schematics work. (Has a consistency problem to highlight changes.)
   <DD>is a 'modernized' version of the A704.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A706 target=_blank>./DEC/Axxx/A706</a></b>: Power Supply for A202
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A706 target=_blank>./DEC/Axxx/A706</a></b>: Power Supply for A202
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A708 target=_blank>./DEC/Axxx/A708</a></b>: Dual Voltage Regulator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A708 target=_blank>./DEC/Axxx/A708</a></b>: Dual Voltage Regulator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A712 target=_blank>./DEC/Axxx/A712</a></b>: Voltage Regulator for KV8/L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A712 target=_blank>./DEC/Axxx/A712</a></b>: Voltage Regulator for KV8/L
 
 </LEGEND><DL>
 <DT>A712A</A>
@@ -545,32 +545,32 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A801 target=_blank>./DEC/Axxx/A801</a></b>: 10-bit A/D Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A801 target=_blank>./DEC/Axxx/A801</a></b>: 10-bit A/D Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A811 target=_blank>./DEC/Axxx/A811</a></b>: 10-bit A/D Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A811 target=_blank>./DEC/Axxx/A811</a></b>: 10-bit A/D Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A860 target=_blank>./DEC/Axxx/A860</a></b>: A/D Converter, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A860 target=_blank>./DEC/Axxx/A860</a></b>: A/D Converter, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A877 target=_blank>./DEC/Axxx/A877</a></b>: 13-bit A/D Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A877 target=_blank>./DEC/Axxx/A877</a></b>: 13-bit A/D Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A990 target=_blank>./DEC/Axxx/A990</a></b>: Operational Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A990 target=_blank>./DEC/Axxx/A990</a></b>: Operational Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A992 target=_blank>./DEC/Axxx/A992</a></b>: Operational Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx/A992 target=_blank>./DEC/Axxx/A992</a></b>: Operational Amplifier
 
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/BM812i target=_blank>./DEC/BM812i</a></b>: Omnibus Memory adapter for PDP-8/i and PDP-12
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/BM812i target=_blank>./DEC/BM812i</a></b>: Omnibus Memory adapter for PDP-8/i and PDP-12
 
 </LEGEND><DL>
 <DT>proto</A>
@@ -592,7 +592,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/BM8L target=_blank>./DEC/BM8L</a></b>: Omnibus Memory adapter for PDP-8/L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/BM8L target=_blank>./DEC/BM8L</a></b>: Omnibus Memory adapter for PDP-8/L
 
 </LEGEND><DL>
 <DT>bm8l</A>
@@ -600,10 +600,10 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx target=_blank>./DEC/Bxxx</a></b>: Bxxx Modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx target=_blank>./DEC/Bxxx</a></b>: Bxxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B104 target=_blank>./DEC/Bxxx/B104</a></b>: 4 Inverters, 3 Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B104 target=_blank>./DEC/Bxxx/B104</a></b>: 4 Inverters, 3 Loads
 
 </LEGEND><DL>
 <DT>B104B</A>
@@ -615,7 +615,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B105 target=_blank>./DEC/Bxxx/B105</a></b>: 5 Inverters, 5 Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B105 target=_blank>./DEC/Bxxx/B105</a></b>: 5 Inverters, 5 Loads
 
 </LEGEND><DL>
 <DT>B105B</A>
@@ -627,7 +627,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B113 target=_blank>./DEC/Bxxx/B113</a></b>: 4 2-Input Negative NAND Gates, 3 Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B113 target=_blank>./DEC/Bxxx/B113</a></b>: 4 2-Input Negative NAND Gates, 3 Loads
 
 </LEGEND><DL>
 <DT>B113A</A>
@@ -637,7 +637,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B115 target=_blank>./DEC/Bxxx/B115</a></b>: 3 3-Input Negative NAND Gates, 3 Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B115 target=_blank>./DEC/Bxxx/B115</a></b>: 3 3-Input Negative NAND Gates, 3 Loads
 
 </LEGEND><DL>
 <DT>B115A</A>
@@ -651,7 +651,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B117 target=_blank>./DEC/Bxxx/B117</a></b>: 2 5-Input Negative NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B117 target=_blank>./DEC/Bxxx/B117</a></b>: 2 5-Input Negative NAND Gates
 
 </LEGEND><DL>
 <DT>B117C</A>
@@ -661,15 +661,15 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B123 target=_blank>./DEC/Bxxx/B123</a></b>: 4 2-Input OC NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B123 target=_blank>./DEC/Bxxx/B123</a></b>: 4 2-Input OC NAND Gates
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B124 target=_blank>./DEC/Bxxx/B124</a></b>: 3 3-Input OC NOR Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B124 target=_blank>./DEC/Bxxx/B124</a></b>: 3 3-Input OC NOR Gates
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B130 target=_blank>./DEC/Bxxx/B130</a></b>: 4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B130 target=_blank>./DEC/Bxxx/B130</a></b>: 4 3-Input ANDs ORed, both outputs, Parity for 3 Bits
 
 </LEGEND><DL>
 <DT>B130A</A>
@@ -681,7 +681,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B131 target=_blank>./DEC/Bxxx/B131</a></b>: PDP10 Adder
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B131 target=_blank>./DEC/Bxxx/B131</a></b>: PDP10 Adder
 
 </LEGEND><DL>
 <DT>B131F</A>
@@ -691,7 +691,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B132 target=_blank>./DEC/Bxxx/B132</a></b>: LINC Adder
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B132 target=_blank>./DEC/Bxxx/B132</a></b>: LINC Adder
 
 </LEGEND><DL>
 <DT>B131B</A>
@@ -699,7 +699,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalent to B113
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B133 target=_blank>./DEC/Bxxx/B133</a></b>: 2 mA equivalent to B113
 
 </LEGEND><DL>
 <DT>B133C</A>
@@ -709,7 +709,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B134 target=_blank>./DEC/Bxxx/B134</a></b>: 4 2-Input Positive AND Gates, 3 Loads, 2mA
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B134 target=_blank>./DEC/Bxxx/B134</a></b>: 4 2-Input Positive AND Gates, 3 Loads, 2mA
 
 </LEGEND><DL>
 <DT>B134B</A>
@@ -719,7 +719,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B135 target=_blank>./DEC/Bxxx/B135</a></b>: 2 mA equivalent to B115
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B135 target=_blank>./DEC/Bxxx/B135</a></b>: 2 mA equivalent to B115
 
 </LEGEND><DL>
 <DT>B135C</A>
@@ -729,7 +729,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B136 target=_blank>./DEC/Bxxx/B136</a></b>: 3 mA equivalent to B134
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B136 target=_blank>./DEC/Bxxx/B136</a></b>: 3 mA equivalent to B134
 
 </LEGEND><DL>
 <DT>B136B</A>
@@ -739,7 +739,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B137 target=_blank>./DEC/Bxxx/B137</a></b>: 2 mA equivalent to B117
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B137 target=_blank>./DEC/Bxxx/B137</a></b>: 2 mA equivalent to B117
 
 </LEGEND><DL>
 <DT>B137C</A>
@@ -749,7 +749,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B138 target=_blank>./DEC/Bxxx/B138</a></b>: PDP10 Adder (B131 with added diode to kill the carry quickly)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B138 target=_blank>./DEC/Bxxx/B138</a></b>: PDP10 Adder (B131 with added diode to kill the carry quickly)
 
 </LEGEND><DL>
 <DT>B138B</A>
@@ -759,7 +759,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B141 target=_blank>./DEC/Bxxx/B141</a></b>: 7 2-Input Gates, 2mA input equivalent to R141
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B141 target=_blank>./DEC/Bxxx/B141</a></b>: 7 2-Input Gates, 2mA input equivalent to R141
 
 </LEGEND><DL>
 <DT>B141A</A>
@@ -769,7 +769,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B142 target=_blank>./DEC/Bxxx/B142</a></b>: Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B142 target=_blank>./DEC/Bxxx/B142</a></b>: Diode Gate, B141 with 10mA Loads on inputs F, J, L, N, R, T, V, for PDP8
 
 </LEGEND><DL>
 <DT>B142A</A>
@@ -778,7 +778,7 @@ chassis to see if it has the needed clearances.)
   <DD>is a 'modernized' B142.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B152 target=_blank>./DEC/Bxxx/B152</a></b>: Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B152 target=_blank>./DEC/Bxxx/B152</a></b>: Binary to Octal Decoder, R151 with higher fan-in & no clamp loads & no emitter gating
 
 </LEGEND><DL>
 <DT>B152A</A>
@@ -788,11 +788,11 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B155 target=_blank>./DEC/Bxxx/B155</a></b>: Half Binary to Octal Decoder
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B155 target=_blank>./DEC/Bxxx/B155</a></b>: Half Binary to Octal Decoder
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B156 target=_blank>./DEC/Bxxx/B156</a></b>: 2mA equivalent to B155
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B156 target=_blank>./DEC/Bxxx/B156</a></b>: 2mA equivalent to B155
 
 </LEGEND><DL>
 <DT>B156A</A>
@@ -802,7 +802,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B163 target=_blank>./DEC/Bxxx/B163</a></b>: 6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B163 target=_blank>./DEC/Bxxx/B163</a></b>: 6 2-Input Gates, 1 Paired Common Input, 2mA equivalent of R123
 
 </LEGEND><DL>
 <DT>B163D</A>
@@ -812,7 +812,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B165 target=_blank>./DEC/Bxxx/B165</a></b>: 2mA Diode equivalent of B105
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B165 target=_blank>./DEC/Bxxx/B165</a></b>: 2mA Diode equivalent of B105
 
 </LEGEND><DL>
 <DT>B165A</A>
@@ -822,7 +822,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B166 target=_blank>./DEC/Bxxx/B166</a></b>: Counting Gate for SC Adder of PDP10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B166 target=_blank>./DEC/Bxxx/B166</a></b>: Counting Gate for SC Adder of PDP10
 
 </LEGEND><DL>
 <DT>B166A</A>
@@ -832,7 +832,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B167 target=_blank>./DEC/Bxxx/B167</a></b>: 8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B167 target=_blank>./DEC/Bxxx/B167</a></b>: 8 2-Input NANDs ORed to 4 Outputs with 2 Enable Inputs, 2x4
 
 </LEGEND><DL>
 <DT>B167D</A>
@@ -842,7 +842,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B168 target=_blank>./DEC/Bxxx/B168</a></b>: 4 3-Input NANDs ORed to 3 Outputs with 3 Enable Inputs, 3x3
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B168 target=_blank>./DEC/Bxxx/B168</a></b>: 4 3-Input NANDs ORed to 3 Outputs with 3 Enable Inputs, 3x3
 
 </LEGEND><DL>
 <DT>B168B</A>
@@ -852,11 +852,11 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B169 target=_blank>./DEC/Bxxx/B169</a></b>: Diode Gate Equivalent to B129, PDP9, 8 2-Input NANDs ORed to 2 Outputs, 4 Enable Inputs, 4x2
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B169 target=_blank>./DEC/Bxxx/B169</a></b>: Diode Gate Equivalent to B129, PDP9, 8 2-Input NANDs ORed to 2 Outputs, 4 Enable Inputs, 4x2
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B171 target=_blank>./DEC/Bxxx/B171</a></b>: 6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B171 target=_blank>./DEC/Bxxx/B171</a></b>: 6 Sets of 2-Input ANDs ORed, both polarities out, PDP7
 
 </LEGEND><DL>
 <DT>B171B</A>
@@ -868,7 +868,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B172 target=_blank>./DEC/Bxxx/B172</a></b>: Faster B171, 2mA Fan-In
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B172 target=_blank>./DEC/Bxxx/B172</a></b>: Faster B171, 2mA Fan-In
 
 </LEGEND><DL>
 <DT>B172C</A>
@@ -878,11 +878,11 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B173 target=_blank>./DEC/Bxxx/B173</a></b>: 14 Input Negative NAND Gate with one input preceded by a 10 Input Positive NAND, ME10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B173 target=_blank>./DEC/Bxxx/B173</a></b>: 14 Input Negative NAND Gate with one input preceded by a 10 Input Positive NAND, ME10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B198 target=_blank>./DEC/Bxxx/B198</a></b>: Protection Comparator, PDP10  Memory, 0 & -3V in & out, Compares 2 8-bit Words
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B198 target=_blank>./DEC/Bxxx/B198</a></b>: Protection Comparator, PDP10  Memory, 0 & -3V in & out, Compares 2 8-bit Words
 
 </LEGEND><DL>
 <DT>B198A</A>
@@ -892,15 +892,15 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B199 target=_blank>./DEC/Bxxx/B199</a></b>: FM Address Decoder for B250, ICs, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B199 target=_blank>./DEC/Bxxx/B199</a></b>: FM Address Decoder for B250, ICs, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B200 target=_blank>./DEC/Bxxx/B200</a></b>: Flip Flop
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B200 target=_blank>./DEC/Bxxx/B200</a></b>: Flip Flop
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B201 target=_blank>./DEC/Bxxx/B201</a></b>: Flip Flop
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B201 target=_blank>./DEC/Bxxx/B201</a></b>: Flip Flop
 
 </LEGEND><DL>
 <DT>B201E</A>
@@ -910,7 +910,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B204 target=_blank>./DEC/Bxxx/B204</a></b>: 4 Flip-flops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B204 target=_blank>./DEC/Bxxx/B204</a></b>: 4 Flip-flops
 
 </LEGEND><DL>
 <DT>B204B</A>
@@ -922,15 +922,15 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B210 target=_blank>./DEC/Bxxx/B210</a></b>: PDP-7 Accumulator, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B210 target=_blank>./DEC/Bxxx/B210</a></b>: PDP-7 Accumulator, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B211 target=_blank>./DEC/Bxxx/B211</a></b>: Flip-flop, Buffered, No Delay
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B211 target=_blank>./DEC/Bxxx/B211</a></b>: Flip-flop, Buffered, No Delay
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B212 target=_blank>./DEC/Bxxx/B212</a></b>: Dual RS Flip-flop, PDP10, Bus Driver Output, Delayed & not Delayed RS Inputs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B212 target=_blank>./DEC/Bxxx/B212</a></b>: Dual RS Flip-flop, PDP10, Bus Driver Output, Delayed & not Delayed RS Inputs
 
 </LEGEND><DL>
 <DT>B212C</A>
@@ -938,15 +938,15 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B213 target=_blank>./DEC/Bxxx/B213</a></b>: PDP9 Flip-flop, Single Input Jam, no Delay
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B213 target=_blank>./DEC/Bxxx/B213</a></b>: PDP9 Flip-flop, Single Input Jam, no Delay
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B214 target=_blank>./DEC/Bxxx/B214</a></b>: 4 Flip-flops, B204 made out of 3 mA Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B214 target=_blank>./DEC/Bxxx/B214</a></b>: 4 Flip-flops, B204 made out of 3 mA Gates
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B250 target=_blank>./DEC/Bxxx/B250</a></b>: Flip-flop Memory, PDP10, Fairchild ICs, 8x12 bits/card, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B250 target=_blank>./DEC/Bxxx/B250</a></b>: Flip-flop Memory, PDP10, Fairchild ICs, 8x12 bits/card, double
 
 </LEGEND><DL>
 <DT>B250D</A>
@@ -954,7 +954,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B301 target=_blank>./DEC/Bxxx/B301</a></b>: 10 MC One Shot
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B301 target=_blank>./DEC/Bxxx/B301</a></b>: 10 MC One Shot
 
 </LEGEND><DL>
 <DT>B301B</A>
@@ -964,11 +964,11 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B310 target=_blank>./DEC/Bxxx/B310</a></b>: 4 Delay Lines, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B310 target=_blank>./DEC/Bxxx/B310</a></b>: 4 Delay Lines, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B311 target=_blank>./DEC/Bxxx/B311</a></b>: Tapped Delay Line, 200 ns, 25 ns steps, Emitter Follower Input
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B311 target=_blank>./DEC/Bxxx/B311</a></b>: Tapped Delay Line, 200 ns, 25 ns steps, Emitter Follower Input
 
 </LEGEND><DL>
 <DT>B311D</A>
@@ -976,7 +976,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B312 target=_blank>./DEC/Bxxx/B312</a></b>: Delay Line, B311 Continuously Variable, Diode Input, PDP10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B312 target=_blank>./DEC/Bxxx/B312</a></b>: Delay Line, B311 Continuously Variable, Diode Input, PDP10
 
 </LEGEND><DL>
 <DT>B312B</A>
@@ -984,7 +984,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B360 target=_blank>./DEC/Bxxx/B360</a></b>: Screwdriver Delay Line + Pulse Amp, 200-250 ns max
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B360 target=_blank>./DEC/Bxxx/B360</a></b>: Screwdriver Delay Line + Pulse Amp, 200-250 ns max
 
 </LEGEND><DL>
 <DT>B360C</A>
@@ -994,19 +994,19 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B401 target=_blank>./DEC/Bxxx/B401</a></b>: Variable Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B401 target=_blank>./DEC/Bxxx/B401</a></b>: Variable Clock
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B405 target=_blank>./DEC/Bxxx/B405</a></b>: Crystal Clock, 2 to 10 MC
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B405 target=_blank>./DEC/Bxxx/B405</a></b>: Crystal Clock, 2 to 10 MC
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B410 target=_blank>./DEC/Bxxx/B410</a></b>: Voltage Controlled Clock, 1-10 MC, 40 to 100 ns negative pulses, potentiometer adjustment
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B410 target=_blank>./DEC/Bxxx/B410</a></b>: Voltage Controlled Clock, 1-10 MC, 40 to 100 ns negative pulses, potentiometer adjustment
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B602 target=_blank>./DEC/Bxxx/B602</a></b>: Dual 10 MC Pulse Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B602 target=_blank>./DEC/Bxxx/B602</a></b>: Dual 10 MC Pulse Amplifier
 
 </LEGEND><DL>
 <DT>B602A</A>
@@ -1014,22 +1014,22 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B611 target=_blank>./DEC/Bxxx/B611</a></b>: Dual Pulse Amplifier, 25 ns, PDP10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B611 target=_blank>./DEC/Bxxx/B611</a></b>: Dual Pulse Amplifier, 25 ns, PDP10
 
 </LEGEND><DL>
 <DT>B611B</A>
   <DD>is a drawing of DEC's B611B.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B620 target=_blank>./DEC/Bxxx/B620</a></b>: Dual Carry Pulse Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B620 target=_blank>./DEC/Bxxx/B620</a></b>: Dual Carry Pulse Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B681 target=_blank>./DEC/Bxxx/B681</a></b>: 4 Power Inverters
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B681 target=_blank>./DEC/Bxxx/B681</a></b>: 4 Power Inverters
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B683 target=_blank>./DEC/Bxxx/B683</a></b>: 3 Bus Drivers, OR output, 50 ohm load, 0 -3V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B683 target=_blank>./DEC/Bxxx/B683</a></b>: 3 Bus Drivers, OR output, 50 ohm load, 0 -3V
 
 </LEGEND><DL>
 <DT>B683C</A>
@@ -1038,7 +1038,7 @@ chassis to see if it has the needed clearances.)
   <DD>is a 'modernized' B683.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B684 target=_blank>./DEC/Bxxx/B684</a></b>: 2 Bus Drivers, like 6684
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B684 target=_blank>./DEC/Bxxx/B684</a></b>: 2 Bus Drivers, like 6684
 
 </LEGEND><DL>
 <DT>B684C</A>
@@ -1050,12 +1050,12 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B685 target=_blank>./DEC/Bxxx/B685</a></b>: 3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Bxxx/B685 target=_blank>./DEC/Bxxx/B685</a></b>: 3 Diode Gate Drivers, 2 circuits, 80 mA at ground, 8 mA at -3V, PDP10
 
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/CES target=_blank>./DEC/CES</a></b>: Computer Extension Systems Memory Boards
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/CES target=_blank>./DEC/CES</a></b>: Computer Extension Systems Memory Boards
 
 </LEGEND><DL>
 <DT>VM8E8K</A>
@@ -1063,7 +1063,7 @@ chassis to see if it has the needed clearances.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/COI_LINCtape target=_blank>./DEC/COI_LINCtape</a></b>: COI LINC Tape Controller
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/COI_LINCtape target=_blank>./DEC/COI_LINCtape</a></b>: COI LINC Tape Controller
 
 </LEGEND><DL>
 <DT>C10450-01</A>
@@ -1075,7 +1075,7 @@ Doug Jones' COI LINC tape drive.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Charmille_Andrews target=_blank>./DEC/Charmille_Andrews</a></b>: Charmille Andrews Paper Tape Reader Controller
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Charmille_Andrews target=_blank>./DEC/Charmille_Andrews</a></b>: Charmille Andrews Paper Tape Reader Controller
 
 </LEGEND><DL>
 <DT>005743-001</A>
@@ -1083,7 +1083,7 @@ Doug Jones' COI LINC tape drive.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DM01 target=_blank>./DEC/DM01</a></b>: Data Break Multiplexor
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DM01 target=_blank>./DEC/DM01</a></b>: Data Break Multiplexor
 
 </LEGEND><DL>
 <DT>DM04r</A>
@@ -1103,7 +1103,7 @@ based on DEC's DM01.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DW08A target=_blank>./DEC/DW08A</a></b>: Posibus to Negibus Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DW08A target=_blank>./DEC/DW08A</a></b>: Posibus to Negibus Converter
 
 </LEGEND><DL>
 <DT>dw08a2s</A>
@@ -1128,7 +1128,7 @@ beefed up.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DW08Bx target=_blank>./DEC/DW08Bx</a></b>: Negibus to Posibus Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DW08Bx target=_blank>./DEC/DW08Bx</a></b>: Negibus to Posibus Converter
 
 </LEGEND><DL>
 <DT>dw08a</A>
@@ -1141,7 +1141,7 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DouglasElectronics target=_blank>./DEC/DouglasElectronics</a></b>: Various Eagle approximations of boards sold by Douglas Electronics.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/DouglasElectronics target=_blank>./DEC/DouglasElectronics</a></b>: Various Eagle approximations of boards sold by Douglas Electronics.
 
 </LEGEND><DL>
 <DT>5-de-7</A>
@@ -1167,18 +1167,18 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx target=_blank>./DEC/Gxxx</a></b>: Gxxx modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx target=_blank>./DEC/Gxxx</a></b>: Gxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G001 target=_blank>./DEC/Gxxx/G001</a></b>: DC Sense Amp, PDP-7, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G001 target=_blank>./DEC/Gxxx/G001</a></b>: DC Sense Amp, PDP-7, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G005 target=_blank>./DEC/Gxxx/G005</a></b>: 4-input Sense Amp, PDP-6, 2us, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G005 target=_blank>./DEC/Gxxx/G005</a></b>: 4-input Sense Amp, PDP-6, 2us, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G007 target=_blank>./DEC/Gxxx/G007</a></b>: Sense Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G007 target=_blank>./DEC/Gxxx/G007</a></b>: Sense Amplifier
 
 </LEGEND><DL>
 <DT>G007C</A>
@@ -1188,7 +1188,7 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G008 target=_blank>./DEC/Gxxx/G008</a></b>: Slice Control for G007 & G009
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G008 target=_blank>./DEC/Gxxx/G008</a></b>: Slice Control for G007 & G009
 
 </LEGEND><DL>
 <DT>G008A</A>
@@ -1198,7 +1198,7 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G009 target=_blank>./DEC/Gxxx/G009</a></b>: Sense Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G009 target=_blank>./DEC/Gxxx/G009</a></b>: Sense Amplifier
 
 </LEGEND><DL>
 <DT>G009B</A>
@@ -1206,11 +1206,11 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G010 target=_blank>./DEC/Gxxx/G010</a></b>: Sense Amp Selector for PDP-9, 164, also used for G012
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G010 target=_blank>./DEC/Gxxx/G010</a></b>: Sense Amp Selector for PDP-9, 164, also used for G012
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G020 target=_blank>./DEC/Gxxx/G020</a></b>: Sense Amp for 8/I, G021 etch, IC levels
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G020 target=_blank>./DEC/Gxxx/G020</a></b>: Sense Amp for 8/I, G021 etch, IC levels
 
 </LEGEND><DL>
 <DT>G020E</A>
@@ -1222,7 +1222,7 @@ been checked against the DEC version.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G021 target=_blank>./DEC/Gxxx/G021</a></b>: Dual Sense Amp for 8/I, IC levels, also used for G020
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G021 target=_blank>./DEC/Gxxx/G021</a></b>: Dual Sense Amp for 8/I, IC levels, also used for G020
 
 </LEGEND><DL>
 <DT>G021B</A>
@@ -1256,15 +1256,15 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G022 target=_blank>./DEC/Gxxx/G022</a></b>: 4-input Sense Amp for PDP-10, with cable, +6.2V, -6.2V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G022 target=_blank>./DEC/Gxxx/G022</a></b>: 4-input Sense Amp for PDP-10, with cable, +6.2V, -6.2V
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G023 target=_blank>./DEC/Gxxx/G023</a></b>: Master Slice Control for G022
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G023 target=_blank>./DEC/Gxxx/G023</a></b>: Master Slice Control for G022
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G050 target=_blank>./DEC/Gxxx/G050</a></b>: 9 Track, 45 ips, Dual Gap Head Read Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G050 target=_blank>./DEC/Gxxx/G050</a></b>: 9 Track, 45 ips, Dual Gap Head Read Amplifier
 
 </LEGEND><DL>
 <DT>G050D</A>
@@ -1272,11 +1272,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G060 target=_blank>./DEC/Gxxx/G060</a></b>: Mag Tape Compressor, 9 Track
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G060 target=_blank>./DEC/Gxxx/G060</a></b>: Mag Tape Compressor, 9 Track
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G062 target=_blank>./DEC/Gxxx/G062</a></b>: Mag Tape Peak Detector, 9 Track
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G062 target=_blank>./DEC/Gxxx/G062</a></b>: Mag Tape Peak Detector, 9 Track
 
 </LEGEND><DL>
 <DT>G062D</A>
@@ -1284,7 +1284,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G064 target=_blank>./DEC/Gxxx/G064</a></b>: Mag Tape Slicer, 9 Track (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G064 target=_blank>./DEC/Gxxx/G064</a></b>: Mag Tape Slicer, 9 Track (double)
 
 </LEGEND><DL>
 <DT>G064D</A>
@@ -1292,7 +1292,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G083 target=_blank>./DEC/Gxxx/G083</a></b>: Disc Preamplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G083 target=_blank>./DEC/Gxxx/G083</a></b>: Disc Preamplifier
 
 </LEGEND><DL>
 <DT>G083D</A>
@@ -1300,7 +1300,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G084 target=_blank>./DEC/Gxxx/G084</a></b>: Mag Tape Read, Rectify, Slice Amp, TU20, also used on G086
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G084 target=_blank>./DEC/Gxxx/G084</a></b>: Mag Tape Read, Rectify, Slice Amp, TU20, also used on G086
 
 </LEGEND><DL>
 <DT>G084C</A>
@@ -1308,7 +1308,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G085 target=_blank>./DEC/Gxxx/G085</a></b>: Disk Amplifier, replaces 1/2 G083 + 1/2 W532 + 1/2 W533 (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G085 target=_blank>./DEC/Gxxx/G085</a></b>: Disk Amplifier, replaces 1/2 G083 + 1/2 W532 + 1/2 W533 (double)
 
 </LEGEND><DL>
 <DT>G085E</A>
@@ -1316,7 +1316,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G088 target=_blank>./DEC/Gxxx/G088</a></b>: Read Amplifier and Peak Detector (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G088 target=_blank>./DEC/Gxxx/G088</a></b>: Read Amplifier and Peak Detector (double)
 
 </LEGEND><DL>
 <DT>G088E</A>
@@ -1324,11 +1324,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G094 target=_blank>./DEC/Gxxx/G094</a></b>: Threshold and Buffer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G094 target=_blank>./DEC/Gxxx/G094</a></b>: Threshold and Buffer
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G100 target=_blank>./DEC/Gxxx/G100</a></b>: Sense Amp & Inhibit Driver, PDP15, 3 wire, 3D memory (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G100 target=_blank>./DEC/Gxxx/G100</a></b>: Sense Amp & Inhibit Driver, PDP15, 3 wire, 3D memory (double)
 
 </LEGEND><DL>
 <DT>G100E</A>
@@ -1336,7 +1336,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G102 target=_blank>./DEC/Gxxx/G102</a></b>: Sense, Inhibit, & Register (4 bits) for MM11 & ME10 (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G102 target=_blank>./DEC/Gxxx/G102</a></b>: Sense, Inhibit, & Register (4 bits) for MM11 & ME10 (long)
 
 </LEGEND><DL>
 <DT>G102D</A>
@@ -1344,7 +1344,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G103 target=_blank>./DEC/Gxxx/G103</a></b>: Memory Levels and Gates (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G103 target=_blank>./DEC/Gxxx/G103</a></b>: Memory Levels and Gates (long)
 
 </LEGEND><DL>
 <DT>G103A</A>
@@ -1352,15 +1352,15 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G206 target=_blank>./DEC/Gxxx/G206</a></b>: Memory Selector, PDP-6, 2us, double, used for G212
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G206 target=_blank>./DEC/Gxxx/G206</a></b>: Memory Selector, PDP-6, 2us, double, used for G212
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G207 target=_blank>./DEC/Gxxx/G207</a></b>: Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G207 target=_blank>./DEC/Gxxx/G207</a></b>: Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G208 target=_blank>./DEC/Gxxx/G208</a></b>: Inhibit Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G208 target=_blank>./DEC/Gxxx/G208</a></b>: Inhibit Driver
 
 </LEGEND><DL>
 <DT>G208B</A>
@@ -1368,26 +1368,26 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G209 target=_blank>./DEC/Gxxx/G209</a></b>: Memory Selector, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G209 target=_blank>./DEC/Gxxx/G209</a></b>: Memory Selector, double
 
 </LEGEND><DL>
 <DT>G209B</A>
   <DD>is a drawing of DEC's G209B.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G212 target=_blank>./DEC/Gxxx/G212</a></b>: Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G212 target=_blank>./DEC/Gxxx/G212</a></b>: Memory common Driver, G206 + Misc. R&D, G206 etch, for PDP6 2us memory
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G217 target=_blank>./DEC/Gxxx/G217</a></b>: Word Driver, MA10, uses G219 for Digit Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G217 target=_blank>./DEC/Gxxx/G217</a></b>: Word Driver, MA10, uses G219 for Digit Driver
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G219 target=_blank>./DEC/Gxxx/G219</a></b>: Memory Selector (A G209 for negative supply), PDP9
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G219 target=_blank>./DEC/Gxxx/G219</a></b>: Memory Selector (A G209 for negative supply), PDP9
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G221 target=_blank>./DEC/Gxxx/G221</a></b>: Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G221 target=_blank>./DEC/Gxxx/G221</a></b>: Memory Driver, IC Inputs, 4 circuits, PDP8/I, PDP8/L
 
 </LEGEND><DL>
 <DT>G221A</A>
@@ -1399,7 +1399,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G222 target=_blank>./DEC/Gxxx/G222</a></b>: Memory Selector, PDP15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G222 target=_blank>./DEC/Gxxx/G222</a></b>: Memory Selector, PDP15
 
 </LEGEND><DL>
 <DT>G222A</A>
@@ -1407,7 +1407,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G223 target=_blank>./DEC/Gxxx/G223</a></b>: 2 Read-Write Drivers, PDP-15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G223 target=_blank>./DEC/Gxxx/G223</a></b>: 2 Read-Write Drivers, PDP-15
 
 </LEGEND><DL>
 <DT>G223D</A>
@@ -1415,7 +1415,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G225 target=_blank>./DEC/Gxxx/G225</a></b>: X and Y Current Source (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G225 target=_blank>./DEC/Gxxx/G225</a></b>: X and Y Current Source (long)
 
 </LEGEND><DL>
 <DT>G225D</A>
@@ -1423,7 +1423,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G226 target=_blank>./DEC/Gxxx/G226</a></b>: XY Selection Switch, single 8.5", ME10, MM11 (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G226 target=_blank>./DEC/Gxxx/G226</a></b>: XY Selection Switch, single 8.5", ME10, MM11 (long)
 
 </LEGEND><DL>
 <DT>H3190B</A>
@@ -1431,7 +1431,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G228 target=_blank>./DEC/Gxxx/G228</a></b>: Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G228 target=_blank>./DEC/Gxxx/G228</a></b>: Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
 
 </LEGEND><DL>
 <DT>G228B</A>
@@ -1445,11 +1445,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G230 target=_blank>./DEC/Gxxx/G230</a></b>: Current Source, with Delay Line on input, 0 to 40ns
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G230 target=_blank>./DEC/Gxxx/G230</a></b>: Current Source, with Delay Line on input, 0 to 40ns
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G284 target=_blank>./DEC/Gxxx/G284</a></b>: Disc Writer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G284 target=_blank>./DEC/Gxxx/G284</a></b>: Disc Writer
 
 </LEGEND><DL>
 <DT>G284D</A>
@@ -1457,7 +1457,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G285 target=_blank>./DEC/Gxxx/G285</a></b>: Series Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G285 target=_blank>./DEC/Gxxx/G285</a></b>: Series Switch
 
 </LEGEND><DL>
 <DT>G285A</A>
@@ -1467,7 +1467,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G286 target=_blank>./DEC/Gxxx/G286</a></b>: Centertap Selector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G286 target=_blank>./DEC/Gxxx/G286</a></b>: Centertap Selector
 
 </LEGEND><DL>
 <DT>G286A</A>
@@ -1475,7 +1475,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G287 target=_blank>./DEC/Gxxx/G287</a></b>: Mag Tape Writer, 2 channels, 100mA Head Current, no center tap, 0 to -15V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G287 target=_blank>./DEC/Gxxx/G287</a></b>: Mag Tape Writer, 2 channels, 100mA Head Current, no center tap, 0 to -15V
 
 </LEGEND><DL>
 <DT>G287B</A>
@@ -1483,7 +1483,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G290 target=_blank>./DEC/Gxxx/G290</a></b>: Disk Writer, includes 2.5MHz flip-flop, RS09
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G290 target=_blank>./DEC/Gxxx/G290</a></b>: Disk Writer, includes 2.5MHz flip-flop, RS09
 
 </LEGEND><DL>
 <DT>G290A</A>
@@ -1491,27 +1491,27 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G291 target=_blank>./DEC/Gxxx/G291</a></b>: Disc Writer with Power Fail
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G291 target=_blank>./DEC/Gxxx/G291</a></b>: Disc Writer with Power Fail
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G294 target=_blank>./DEC/Gxxx/G294</a></b>: Disc Writer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G294 target=_blank>./DEC/Gxxx/G294</a></b>: Disc Writer
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G295 target=_blank>./DEC/Gxxx/G295</a></b>: Series Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G295 target=_blank>./DEC/Gxxx/G295</a></b>: Series Switch
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G296 target=_blank>./DEC/Gxxx/G296</a></b>: Center Tap Selector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G296 target=_blank>./DEC/Gxxx/G296</a></b>: Center Tap Selector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G350 target=_blank>./DEC/Gxxx/G350</a></b>: 9 Track, Dual Head, 45 IPS, Mag Tape Write Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G350 target=_blank>./DEC/Gxxx/G350</a></b>: 9 Track, Dual Head, 45 IPS, Mag Tape Write Driver
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G380 target=_blank>./DEC/Gxxx/G380</a></b>: Solenoid Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G380 target=_blank>./DEC/Gxxx/G380</a></b>: Solenoid Drivers
 
 </LEGEND><DL>
 <DT>G380E</A>
@@ -1519,7 +1519,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G381 target=_blank>./DEC/Gxxx/G381</a></b>: Line Feed Solenoid Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G381 target=_blank>./DEC/Gxxx/G381</a></b>: Line Feed Solenoid Driver
 
 </LEGEND><DL>
 <DT>G381A</A>
@@ -1527,19 +1527,19 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G500 target=_blank>./DEC/Gxxx/G500</a></b>: TU55/TU56 Skew Tester
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G500 target=_blank>./DEC/Gxxx/G500</a></b>: TU55/TU56 Skew Tester
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G589 target=_blank>./DEC/Gxxx/G589</a></b>: Differential Integrator/Amp, RP10 Controller, RP01-Memorex 630-1
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G589 target=_blank>./DEC/Gxxx/G589</a></b>: Differential Integrator/Amp, RP10 Controller, RP01-Memorex 630-1
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G590 target=_blank>./DEC/Gxxx/G590</a></b>: Differential Filtered Integrator, RP10, RP02, Memorex 660
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G590 target=_blank>./DEC/Gxxx/G590</a></b>: Differential Filtered Integrator, RP10, RP02, Memorex 660
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G603 target=_blank>./DEC/Gxxx/G603</a></b>: Memory Selector Matrix (non-standard size)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G603 target=_blank>./DEC/Gxxx/G603</a></b>: Memory Selector Matrix (non-standard size)
 
 </LEGEND><DL>
 <DT>G603A</A>
@@ -1547,31 +1547,31 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G604 target=_blank>./DEC/Gxxx/G604</a></b>: Memory Selection Matrix, PDP-6
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G604 target=_blank>./DEC/Gxxx/G604</a></b>: Memory Selection Matrix, PDP-6
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G609 target=_blank>./DEC/Gxxx/G609</a></b>: Memory Mounting Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G609 target=_blank>./DEC/Gxxx/G609</a></b>: Memory Mounting Board
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G610 target=_blank>./DEC/Gxxx/G610</a></b>: "A" Diode Matrix Board for PDP-8 stack 30-05256
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G610 target=_blank>./DEC/Gxxx/G610</a></b>: "A" Diode Matrix Board for PDP-8 stack 30-05256
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G611 target=_blank>./DEC/Gxxx/G611</a></b>: "B" Diode Matrix Board for PDP-8 stack 30-05256 (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G611 target=_blank>./DEC/Gxxx/G611</a></b>: "B" Diode Matrix Board for PDP-8 stack 30-05256 (double)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G613 target=_blank>./DEC/Gxxx/G613</a></b>: X Diode Matrix, 3 wire, 3D memory, 4K, 9/I
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G613 target=_blank>./DEC/Gxxx/G613</a></b>: X Diode Matrix, 3 wire, 3D memory, 4K, 9/I
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G614 target=_blank>./DEC/Gxxx/G614</a></b>: Y Diode Matrix, 3 wire, 3D memory, 4K, 9/I
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G614 target=_blank>./DEC/Gxxx/G614</a></b>: Y Diode Matrix, 3 wire, 3D memory, 4K, 9/I
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G618 target=_blank>./DEC/Gxxx/G618</a></b>: VT15 Character Generator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G618 target=_blank>./DEC/Gxxx/G618</a></b>: VT15 Character Generator
 
 </LEGEND><DL>
 <DT>G618BYA</A>
@@ -1593,11 +1593,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G622 target=_blank>./DEC/Gxxx/G622</a></b>: Resistor Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G622 target=_blank>./DEC/Gxxx/G622</a></b>: Resistor Board
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G624 target=_blank>./DEC/Gxxx/G624</a></b>: Resistor Board for 8/I memory, similar to G621
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G624 target=_blank>./DEC/Gxxx/G624</a></b>: Resistor Board for 8/I memory, similar to G621
 
 </LEGEND><DL>
 <DT>G624C</A>
@@ -1607,19 +1607,19 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G626 target=_blank>./DEC/Gxxx/G626</a></b>: Resistor Board for memory, PDP-10, 2.5 D
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G626 target=_blank>./DEC/Gxxx/G626</a></b>: Resistor Board for memory, PDP-10, 2.5 D
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G680 target=_blank>./DEC/Gxxx/G680</a></b>: DS32 Disk Head Matrix
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G680 target=_blank>./DEC/Gxxx/G680</a></b>: DS32 Disk Head Matrix
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G681 target=_blank>./DEC/Gxxx/G681</a></b>: Track Matrix
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G681 target=_blank>./DEC/Gxxx/G681</a></b>: Track Matrix
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G700 target=_blank>./DEC/Gxxx/G700</a></b>: 100 Ohm Cable Terminator, W028 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G700 target=_blank>./DEC/Gxxx/G700</a></b>: 100 Ohm Cable Terminator, W028 etch
 
 </LEGEND><DL>
 <DT>G700B</A>
@@ -1627,47 +1627,47 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7000 target=_blank>./DEC/Gxxx/G7000</a></b>: I/O Bus Terminator 1
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7000 target=_blank>./DEC/Gxxx/G7000</a></b>: I/O Bus Terminator 1
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7001 target=_blank>./DEC/Gxxx/G7001</a></b>: I/O Bus Terminator 2
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7001 target=_blank>./DEC/Gxxx/G7001</a></b>: I/O Bus Terminator 2
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7002 target=_blank>./DEC/Gxxx/G7002</a></b>: I/O Bus Terminator 3
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7002 target=_blank>./DEC/Gxxx/G7002</a></b>: I/O Bus Terminator 3
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7003 target=_blank>./DEC/Gxxx/G7003</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7003 target=_blank>./DEC/Gxxx/G7003</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7004 target=_blank>./DEC/Gxxx/G7004</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7004 target=_blank>./DEC/Gxxx/G7004</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7005 target=_blank>./DEC/Gxxx/G7005</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7005 target=_blank>./DEC/Gxxx/G7005</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7006 target=_blank>./DEC/Gxxx/G7006</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7006 target=_blank>./DEC/Gxxx/G7006</a></b>: I/O Bus Terminator used in H807, quick-latch terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G701 target=_blank>./DEC/Gxxx/G701</a></b>: Cable Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G701 target=_blank>./DEC/Gxxx/G701</a></b>: Cable Terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G702 target=_blank>./DEC/Gxxx/G702</a></b>: DS32 Disk Simulator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G702 target=_blank>./DEC/Gxxx/G702</a></b>: DS32 Disk Simulator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G703 target=_blank>./DEC/Gxxx/G703</a></b>: 100 ohm Terminator, G700 pattern, double board with cut-out to fit over H003 or H004
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G703 target=_blank>./DEC/Gxxx/G703</a></b>: 100 ohm Terminator, G700 pattern, double board with cut-out to fit over H003 or H004
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G704 target=_blank>./DEC/Gxxx/G704</a></b>: 2 mA Level Terminator, G796 etch & components
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G704 target=_blank>./DEC/Gxxx/G704</a></b>: 2 mA Level Terminator, G796 etch & components
 
 </LEGEND><DL>
 <DT>G704B</A>
@@ -1675,19 +1675,19 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G705 target=_blank>./DEC/Gxxx/G705</a></b>: DEC Tape Jumper Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G705 target=_blank>./DEC/Gxxx/G705</a></b>: DEC Tape Jumper Module
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G706 target=_blank>./DEC/Gxxx/G706</a></b>: DEC Tape Attenuator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G706 target=_blank>./DEC/Gxxx/G706</a></b>: DEC Tape Attenuator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G708 target=_blank>./DEC/Gxxx/G708</a></b>: Diode Board (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G708 target=_blank>./DEC/Gxxx/G708</a></b>: Diode Board (double)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G709 target=_blank>./DEC/Gxxx/G709</a></b>: Cable Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G709 target=_blank>./DEC/Gxxx/G709</a></b>: Cable Terminator
 
 </LEGEND><DL>
 <DT>G709A</A>
@@ -1695,7 +1695,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G711 target=_blank>./DEC/Gxxx/G711</a></b>: RF08 Terminator Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G711 target=_blank>./DEC/Gxxx/G711</a></b>: RF08 Terminator Board
 
 </LEGEND><DL>
 <DT>G711A</A>
@@ -1703,11 +1703,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G715 target=_blank>./DEC/Gxxx/G715</a></b>: Terminator, equiv 100 ohms to +4V, uses +10V & ground, G700 pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G715 target=_blank>./DEC/Gxxx/G715</a></b>: Terminator, equiv 100 ohms to +4V, uses +10V & ground, G700 pins
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G717 target=_blank>./DEC/Gxxx/G717</a></b>: Positive Bus Control Signal Terminator, 5 100 ohms to ground, pins K2, M2, P2, S2, T2, same grounds as W022
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G717 target=_blank>./DEC/Gxxx/G717</a></b>: Positive Bus Control Signal Terminator, 5 100 ohms to ground, pins K2, M2, P2, S2, T2, same grounds as W022
 
 </LEGEND><DL>
 <DT>G717</A>
@@ -1715,11 +1715,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G718 target=_blank>./DEC/Gxxx/G718</a></b>: Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G718 target=_blank>./DEC/Gxxx/G718</a></b>: Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G719 target=_blank>./DEC/Gxxx/G719</a></b>: RF08 Terminator Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G719 target=_blank>./DEC/Gxxx/G719</a></b>: RF08 Terminator Board
 
 </LEGEND><DL>
 <DT>G719A</A>
@@ -1727,7 +1727,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G720 target=_blank>./DEC/Gxxx/G720</a></b>: RF08 Terminator Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G720 target=_blank>./DEC/Gxxx/G720</a></b>: RF08 Terminator Board
 
 </LEGEND><DL>
 <DT>G720A</A>
@@ -1735,7 +1735,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G723 target=_blank>./DEC/Gxxx/G723</a></b>: RF09 Cable Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G723 target=_blank>./DEC/Gxxx/G723</a></b>: RF09 Cable Terminator
 
 </LEGEND><DL>
 <DT>G723A</A>
@@ -1743,18 +1743,18 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G726 target=_blank>./DEC/Gxxx/G726</a></b>: ME10 Bus Control, a Jumper Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G726 target=_blank>./DEC/Gxxx/G726</a></b>: ME10 Bus Control, a Jumper Board
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G727 target=_blank>./DEC/Gxxx/G727</a></b>: Grant Continuity, a Jumper Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G727 target=_blank>./DEC/Gxxx/G727</a></b>: Grant Continuity, a Jumper Board
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7273 target=_blank>./DEC/Gxxx/G7273</a></b>: Grant Continuity, double height
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G7273 target=_blank>./DEC/Gxxx/G7273</a></b>: Grant Continuity, double height
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G728 target=_blank>./DEC/Gxxx/G728</a></b>: Jumper Card (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G728 target=_blank>./DEC/Gxxx/G728</a></b>: Jumper Card (double)
 
 </LEGEND><DL>
 <DT>G728A</A>
@@ -1762,11 +1762,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G734 target=_blank>./DEC/Gxxx/G734</a></b>: Input Clamp
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G734 target=_blank>./DEC/Gxxx/G734</a></b>: Input Clamp
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G736 target=_blank>./DEC/Gxxx/G736</a></b>: Jumper Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G736 target=_blank>./DEC/Gxxx/G736</a></b>: Jumper Module
 
 </LEGEND><DL>
 <DT>G736A</A>
@@ -1774,19 +1774,19 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G737 target=_blank>./DEC/Gxxx/G737</a></b>: 9 Dividers, 150 ohms to +3V, W028 pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G737 target=_blank>./DEC/Gxxx/G737</a></b>: 9 Dividers, 150 ohms to +3V, W028 pins
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G738 target=_blank>./DEC/Gxxx/G738</a></b>: Peripheral Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G738 target=_blank>./DEC/Gxxx/G738</a></b>: Peripheral Terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G739 target=_blank>./DEC/Gxxx/G739</a></b>: Peripheral Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G739 target=_blank>./DEC/Gxxx/G739</a></b>: Peripheral Terminator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G740 target=_blank>./DEC/Gxxx/G740</a></b>: Disk Selection
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G740 target=_blank>./DEC/Gxxx/G740</a></b>: Disk Selection
 
 </LEGEND><DL>
 <DT>G740A</A>
@@ -1794,7 +1794,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G741 target=_blank>./DEC/Gxxx/G741</a></b>: TU10 Negative Bus Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G741 target=_blank>./DEC/Gxxx/G741</a></b>: TU10 Negative Bus Terminator
 
 </LEGEND><DL>
 <DT>G741B</A>
@@ -1806,15 +1806,15 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G742 target=_blank>./DEC/Gxxx/G742</a></b>: Jumper Card, pins of non-inverting M500 & M531, TU56 with positive logic controls
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G742 target=_blank>./DEC/Gxxx/G742</a></b>: Jumper Card, pins of non-inverting M500 & M531, TU56 with positive logic controls
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G766 target=_blank>./DEC/Gxxx/G766</a></b>: G796 with 3M cable, 14 signals, 2 grounds
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G766 target=_blank>./DEC/Gxxx/G766</a></b>: G796 with 3M cable, 14 signals, 2 grounds
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G772 target=_blank>./DEC/Gxxx/G772</a></b>: PDP-11 Power Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G772 target=_blank>./DEC/Gxxx/G772</a></b>: PDP-11 Power Connector
 
 </LEGEND><DL>
 <DT>G772B</A>
@@ -1824,11 +1824,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G775 target=_blank>./DEC/Gxxx/G775</a></b>: 36 wires to Indicator, Q's, +6.5V from lamps, RF09
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G775 target=_blank>./DEC/Gxxx/G775</a></b>: 36 wires to Indicator, Q's, +6.5V from lamps, RF09
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G778 target=_blank>./DEC/Gxxx/G778</a></b>: KV8I Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G778 target=_blank>./DEC/Gxxx/G778</a></b>: KV8I Cable Connector
 
 </LEGEND><DL>
 <DT>G778A</A>
@@ -1838,15 +1838,15 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G780 target=_blank>./DEC/Gxxx/G780</a></b>: Power Connector Card for PDP-12
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G780 target=_blank>./DEC/Gxxx/G780</a></b>: Power Connector Card for PDP-12
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G783 target=_blank>./DEC/Gxxx/G783</a></b>: 9 Twisted Pair and Shield, 1 pair ground return
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G783 target=_blank>./DEC/Gxxx/G783</a></b>: 9 Twisted Pair and Shield, 1 pair ground return
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G785 target=_blank>./DEC/Gxxx/G785</a></b>: Power Connector, 8/L, with Power OK (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G785 target=_blank>./DEC/Gxxx/G785</a></b>: Power Connector, 8/L, with Power OK (double)
 
 </LEGEND><DL>
 <DT>G785D</A>
@@ -1858,15 +1858,15 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G789 target=_blank>./DEC/Gxxx/G789</a></b>: Signal Simulator Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G789 target=_blank>./DEC/Gxxx/G789</a></b>: Signal Simulator Connector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G790 target=_blank>./DEC/Gxxx/G790</a></b>: Signal Simulator Generator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G790 target=_blank>./DEC/Gxxx/G790</a></b>: Signal Simulator Generator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G792 target=_blank>./DEC/Gxxx/G792</a></b>: PDP-8/I Power Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G792 target=_blank>./DEC/Gxxx/G792</a></b>: PDP-8/I Power Connector
 
 </LEGEND><DL>
 <DT>G792A</A>
@@ -1874,11 +1874,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G793 target=_blank>./DEC/Gxxx/G793</a></b>: PDP-8/I Switch Connector, 8/I to console
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G793 target=_blank>./DEC/Gxxx/G793</a></b>: PDP-8/I Switch Connector, 8/I to console
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G795 target=_blank>./DEC/Gxxx/G795</a></b>: Clamped Level Cable Connector, W021 pins, diodes to +0.7V & -3V, PDP-9, extended memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G795 target=_blank>./DEC/Gxxx/G795</a></b>: Clamped Level Cable Connector, W021 pins, diodes to +0.7V & -3V, PDP-9, extended memory
 
 </LEGEND><DL>
 <DT>G795D</A>
@@ -1886,7 +1886,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G796 target=_blank>./DEC/Gxxx/G796</a></b>: Clamped Level Cable Connector, W034 with clamps, ground and -3V with 2mA clamped loads, G704 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G796 target=_blank>./DEC/Gxxx/G796</a></b>: Clamped Level Cable Connector, W034 with clamps, ground and -3V with 2mA clamped loads, G704 etch
 
 </LEGEND><DL>
 <DT>G796B</A>
@@ -1894,15 +1894,15 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G799 target=_blank>./DEC/Gxxx/G799</a></b>: Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G799 target=_blank>./DEC/Gxxx/G799</a></b>: Cable Connector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G800 target=_blank>./DEC/Gxxx/G800</a></b>: Control for 739 Power Supply
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G800 target=_blank>./DEC/Gxxx/G800</a></b>: Control for 739 Power Supply
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8000 target=_blank>./DEC/Gxxx/G8000</a></b>: Filter Network (short)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8000 target=_blank>./DEC/Gxxx/G8000</a></b>: Filter Network (short)
 
 </LEGEND><DL>
 <DT>G8000A</A>
@@ -1910,7 +1910,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8002 target=_blank>./DEC/Gxxx/G8002</a></b>: AC/DC Low Sensor
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8002 target=_blank>./DEC/Gxxx/G8002</a></b>: AC/DC Low Sensor
 
 </LEGEND><DL>
 <DT>G8002C</A>
@@ -1918,18 +1918,18 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8004 target=_blank>./DEC/Gxxx/G8004</a></b>: Power Fail
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8004 target=_blank>./DEC/Gxxx/G8004</a></b>: Power Fail
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8010 target=_blank>./DEC/Gxxx/G8010</a></b>: -5.2V Control (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8010 target=_blank>./DEC/Gxxx/G8010</a></b>: -5.2V Control (long)
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8014 target=_blank>./DEC/Gxxx/G8014</a></b>: Low Voltage Detector (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8014 target=_blank>./DEC/Gxxx/G8014</a></b>: Low Voltage Detector (long)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G803 target=_blank>./DEC/Gxxx/G803</a></b>: Rectifying Slicer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G803 target=_blank>./DEC/Gxxx/G803</a></b>: Rectifying Slicer
 
 </LEGEND><DL>
 <DT>G803A</A>
@@ -1938,39 +1938,39 @@ LM837.
   <DD>is a 'modernized' G803.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G804 target=_blank>./DEC/Gxxx/G804</a></b>: Control for G805
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G804 target=_blank>./DEC/Gxxx/G804</a></b>: Control for G805
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G805 target=_blank>./DEC/Gxxx/G805</a></b>: Regulator for negative 8 memory, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G808 target=_blank>./DEC/Gxxx/G808</a></b>: Control for 708 Power Supply
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G808 target=_blank>./DEC/Gxxx/G808</a></b>: Control for 708 Power Supply
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G809 target=_blank>./DEC/Gxxx/G809</a></b>: -15V Sense and Relay Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G809 target=_blank>./DEC/Gxxx/G809</a></b>: -15V Sense and Relay Driver
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G810 target=_blank>./DEC/Gxxx/G810</a></b>: 6V Regulator Control, Drives a G805
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G810 target=_blank>./DEC/Gxxx/G810</a></b>: 6V Regulator Control, Drives a G805
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G816 target=_blank>./DEC/Gxxx/G816</a></b>: Modified G806 for driving 70V Power Supply Regulator Outputs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G816 target=_blank>./DEC/Gxxx/G816</a></b>: Modified G806 for driving 70V Power Supply Regulator Outputs
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G817 target=_blank>./DEC/Gxxx/G817</a></b>: Card 1 for 713
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G817 target=_blank>./DEC/Gxxx/G817</a></b>: Card 1 for 713
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G818 target=_blank>./DEC/Gxxx/G818</a></b>: Card 2 for 713
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G818 target=_blank>./DEC/Gxxx/G818</a></b>: Card 2 for 713
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G820 target=_blank>./DEC/Gxxx/G820</a></b>: LINC-8 Positive Power Supply
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G820 target=_blank>./DEC/Gxxx/G820</a></b>: LINC-8 Positive Power Supply
 
 </LEGEND><DL>
 <DT>G820A</A>
@@ -1978,7 +1978,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G821 target=_blank>./DEC/Gxxx/G821</a></b>: +5V Regulator Control and Output Card for PDP15, see G829 (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G821 target=_blank>./DEC/Gxxx/G821</a></b>: +5V Regulator Control and Output Card for PDP15, see G829 (double)
 
 </LEGEND><DL>
 <DT>G821C</A>
@@ -1986,7 +1986,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G822 target=_blank>./DEC/Gxxx/G822</a></b>: -6V Regulator (from -10V) for sense amps, PDP15 (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G822 target=_blank>./DEC/Gxxx/G822</a></b>: -6V Regulator (from -10V) for sense amps, PDP15 (double)
 
 </LEGEND><DL>
 <DT>G822C</A>
@@ -1994,7 +1994,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G823 target=_blank>./DEC/Gxxx/G823</a></b>: -24V Memory Regulator Control, drives G825, PDP15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G823 target=_blank>./DEC/Gxxx/G823</a></b>: -24V Memory Regulator Control, drives G825, PDP15
 
 </LEGEND><DL>
 <DT>G823C</A>
@@ -2002,14 +2002,14 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G824 target=_blank>./DEC/Gxxx/G824</a></b>: +5V Regulator Control for PDP-12, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G824 target=_blank>./DEC/Gxxx/G824</a></b>: +5V Regulator Control for PDP-12, double
 
 </LEGEND><DL>
 <DT>G824A</A>
   <DD>is a drawing of DEC's G824A.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G825 target=_blank>./DEC/Gxxx/G825</a></b>: -24V Pass Element (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G825 target=_blank>./DEC/Gxxx/G825</a></b>: -24V Pass Element (double)
 
 </LEGEND><DL>
 <DT>G825B</A>
@@ -2017,7 +2017,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G826 target=_blank>./DEC/Gxxx/G826</a></b>: Regulator Control for 8/I, drives G805 & detects presence of other voltages (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G826 target=_blank>./DEC/Gxxx/G826</a></b>: Regulator Control for 8/I, drives G805 & detects presence of other voltages (double)
 
 </LEGEND><DL>
 <DT>G826D</A>
@@ -2029,7 +2029,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G827 target=_blank>./DEC/Gxxx/G827</a></b>: Low Voltage Detector, PDP-15, + K303 RC's detects +9V, uses +5V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G827 target=_blank>./DEC/Gxxx/G827</a></b>: Low Voltage Detector, PDP-15, + K303 RC's detects +9V, uses +5V
 
 </LEGEND><DL>
 <DT>G827A</A>
@@ -2037,11 +2037,11 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G828 target=_blank>./DEC/Gxxx/G828</a></b>: Regulator Control, ME10, uses G805
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G828 target=_blank>./DEC/Gxxx/G828</a></b>: Regulator Control, ME10, uses G805
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G829 target=_blank>./DEC/Gxxx/G829</a></b>: 5V Connector Card for PDP15 peripherals, with over-voltage SCR & fuse, can replace G821 (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G829 target=_blank>./DEC/Gxxx/G829</a></b>: 5V Connector Card for PDP15 peripherals, with over-voltage SCR & fuse, can replace G821 (double)
 
 </LEGEND><DL>
 <DT>G829A</A>
@@ -2049,23 +2049,23 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G830 target=_blank>./DEC/Gxxx/G830</a></b>: 5V, 10 Amp Regulator from 8V, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G830 target=_blank>./DEC/Gxxx/G830</a></b>: 5V, 10 Amp Regulator from 8V, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G831 target=_blank>./DEC/Gxxx/G831</a></b>: -10V Reference, +5V output, 0 to +10V 6-bit DAC, Marginal Check Control, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G831 target=_blank>./DEC/Gxxx/G831</a></b>: -10V Reference, +5V output, 0 to +10V 6-bit DAC, Marginal Check Control, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G836 target=_blank>./DEC/Gxxx/G836</a></b>: Positive & -20V Regulator for VT14
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G836 target=_blank>./DEC/Gxxx/G836</a></b>: Positive & -20V Regulator for VT14
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G838 target=_blank>./DEC/Gxxx/G838</a></b>: Fault Protection, provides +5V for intensity board W682, in VR14
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G838 target=_blank>./DEC/Gxxx/G838</a></b>: Fault Protection, provides +5V for intensity board W682, in VR14
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G847 target=_blank>./DEC/Gxxx/G847</a></b>: Dual Voltage Control for G848, TU56
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G847 target=_blank>./DEC/Gxxx/G847</a></b>: Dual Voltage Control for G848, TU56
 
 </LEGEND><DL>
 <DT>G847C</A>
@@ -2077,7 +2077,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G848 target=_blank>./DEC/Gxxx/G848</a></b>: TU56 Motor Drive, Triple
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G848 target=_blank>./DEC/Gxxx/G848</a></b>: TU56 Motor Drive, Triple
 
 </LEGEND><DL>
 <DT>G848H</A>
@@ -2089,7 +2089,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G850 target=_blank>./DEC/Gxxx/G850</a></b>: SCR Motor Driver, TU55
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G850 target=_blank>./DEC/Gxxx/G850</a></b>: SCR Motor Driver, TU55
 
 </LEGEND><DL>
 <DT>G850L</A>
@@ -2099,7 +2099,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G851 target=_blank>./DEC/Gxxx/G851</a></b>: DECtape Relay Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G851 target=_blank>./DEC/Gxxx/G851</a></b>: DECtape Relay Module
 
 </LEGEND><DL>
 <DT>G851B</A>
@@ -2108,7 +2108,7 @@ LM837.
   <DD>is a 'modernized' G851.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G853 target=_blank>./DEC/Gxxx/G853</a></b>: DECtape Misc, Single Unit Selection & Timing Track Sensing
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G853 target=_blank>./DEC/Gxxx/G853</a></b>: DECtape Misc, Single Unit Selection & Timing Track Sensing
 
 </LEGEND><DL>
 <DT>G853A</A>
@@ -2117,11 +2117,11 @@ LM837.
   <DD>is a 'modernized' G853.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G854 target=_blank>./DEC/Gxxx/G854</a></b>: Telegraph Line Circuit
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G854 target=_blank>./DEC/Gxxx/G854</a></b>: Telegraph Line Circuit
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G858 target=_blank>./DEC/Gxxx/G858</a></b>: PDP 15 Teletype Connector Card
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G858 target=_blank>./DEC/Gxxx/G858</a></b>: PDP 15 Teletype Connector Card
 
 </LEGEND><DL>
 <DT>G858A</A>
@@ -2129,7 +2129,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G859 target=_blank>./DEC/Gxxx/G859</a></b>: Clock and Regulator for TU56 (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G859 target=_blank>./DEC/Gxxx/G859</a></b>: Clock and Regulator for TU56 (long)
 
 </LEGEND><DL>
 <DT>G859A</A>
@@ -2137,7 +2137,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G879 target=_blank>./DEC/Gxxx/G879</a></b>: Transport Detector, TC08, TC09, TC15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G879 target=_blank>./DEC/Gxxx/G879</a></b>: Transport Detector, TC08, TC09, TC15
 
 </LEGEND><DL>
 <DT>G879A</A>
@@ -2147,7 +2147,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G882 target=_blank>./DEC/Gxxx/G882</a></b>: Manchester Reader-Writer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G882 target=_blank>./DEC/Gxxx/G882</a></b>: Manchester Reader-Writer
 
 </LEGEND><DL>
 <DT>G882B</A>
@@ -2156,7 +2156,7 @@ LM837.
   <DD>is a 'modernized' G882.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G888 target=_blank>./DEC/Gxxx/G888</a></b>: Manchester Reader/Writer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G888 target=_blank>./DEC/Gxxx/G888</a></b>: Manchester Reader/Writer
 
 </LEGEND><DL>
 <DT>G888A</A>
@@ -2166,51 +2166,51 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9002 target=_blank>./DEC/Gxxx/G9002</a></b>: AC/DC Low Sensor
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9002 target=_blank>./DEC/Gxxx/G9002</a></b>: AC/DC Low Sensor
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G903 target=_blank>./DEC/Gxxx/G903</a></b>: Clock Accelerator for Paper Tape Reader
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G903 target=_blank>./DEC/Gxxx/G903</a></b>: Clock Accelerator for Paper Tape Reader
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G906 target=_blank>./DEC/Gxxx/G906</a></b>: LINC-8 Capacitor and Power Up
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G906 target=_blank>./DEC/Gxxx/G906</a></b>: LINC-8 Capacitor and Power Up
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G912 target=_blank>./DEC/Gxxx/G912</a></b>: Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12, Long, Double, Thick
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G912 target=_blank>./DEC/Gxxx/G912</a></b>: Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12, Long, Double, Thick
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G913 target=_blank>./DEC/Gxxx/G913</a></b>: Clock Control, (G903 + 1/2 R302 + 1/3 R603)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G913 target=_blank>./DEC/Gxxx/G913</a></b>: Clock Control, (G903 + 1/2 R302 + 1/3 R603)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G916 target=_blank>./DEC/Gxxx/G916</a></b>: Power Detector & Switch Filter, PDP-12
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G916 target=_blank>./DEC/Gxxx/G916</a></b>: Power Detector & Switch Filter, PDP-12
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G917 target=_blank>./DEC/Gxxx/G917</a></b>: Gain & Set Control for VR12
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G917 target=_blank>./DEC/Gxxx/G917</a></b>: Gain & Set Control for VR12
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G918 target=_blank>./DEC/Gxxx/G918</a></b>: Photocell Amplifier for PT04, PT05, replacement for G908, for photo-transistors
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G918 target=_blank>./DEC/Gxxx/G918</a></b>: Photocell Amplifier for PT04, PT05, replacement for G908, for photo-transistors
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G920 target=_blank>./DEC/Gxxx/G920</a></b>: Control Memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G920 target=_blank>./DEC/Gxxx/G920</a></b>: Control Memory
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G921 target=_blank>./DEC/Gxxx/G921</a></b>: PDP-8/L Console (plugs in)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G921 target=_blank>./DEC/Gxxx/G921</a></b>: PDP-8/L Console (plugs in)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G932 target=_blank>./DEC/Gxxx/G932</a></b>: Capstan Servo Preamp (drives H603)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G932 target=_blank>./DEC/Gxxx/G932</a></b>: Capstan Servo Preamp (drives H603)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G933 target=_blank>./DEC/Gxxx/G933</a></b>: Reel Motor Amp for TU10, +/-12V, +/-6A
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G933 target=_blank>./DEC/Gxxx/G933</a></b>: Reel Motor Amp for TU10, +/-12V, +/-6A
 
 </LEGEND><DL>
 <DT>G933D</A>
@@ -2218,7 +2218,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9340 target=_blank>./DEC/Gxxx/G9340</a></b>: Brake Actuator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9340 target=_blank>./DEC/Gxxx/G9340</a></b>: Brake Actuator
 
 </LEGEND><DL>
 <DT>G9340A</A>
@@ -2226,7 +2226,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9341 target=_blank>./DEC/Gxxx/G9341</a></b>: TU10 Brake Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G9341 target=_blank>./DEC/Gxxx/G9341</a></b>: TU10 Brake Driver
 
 </LEGEND><DL>
 <DT>G9341A</A>
@@ -2236,7 +2236,7 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G936 target=_blank>./DEC/Gxxx/G936</a></b>: Clock Accelerator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G936 target=_blank>./DEC/Gxxx/G936</a></b>: Clock Accelerator
 
 </LEGEND><DL>
 <DT>G936C</A>
@@ -2244,19 +2244,19 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G938 target=_blank>./DEC/Gxxx/G938</a></b>: DECPack Head Position Servo Preamp, Long, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G938 target=_blank>./DEC/Gxxx/G938</a></b>: DECPack Head Position Servo Preamp, Long, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G998 target=_blank>./DEC/Gxxx/G998</a></b>: Current Measuring Extender, 1-1/2 length with Bus Loops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G998 target=_blank>./DEC/Gxxx/G998</a></b>: Current Measuring Extender, 1-1/2 length with Bus Loops
 
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx target=_blank>./DEC/Hxxx</a></b>: Hxxx Modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx target=_blank>./DEC/Hxxx</a></b>: Hxxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx/H3190 target=_blank>./DEC/Hxxx/H3190</a></b>: Staggered Turnaround (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx/H3190 target=_blank>./DEC/Hxxx/H3190</a></b>: Staggered Turnaround (long)
 
 </LEGEND><DL>
 <DT>H3190B</A>
@@ -2265,50 +2265,50 @@ LM837.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx target=_blank>./DEC/Kxxx</a></b>: Kxxx modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx target=_blank>./DEC/Kxxx</a></b>: Kxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K003 target=_blank>./DEC/Kxxx/K003</a></b>: Gate Expander
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K003 target=_blank>./DEC/Kxxx/K003</a></b>: Gate Expander
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K026 target=_blank>./DEC/Kxxx/K026</a></b>: Gate Expander
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K026 target=_blank>./DEC/Kxxx/K026</a></b>: Gate Expander
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K113 target=_blank>./DEC/Kxxx/K113</a></b>: Inverting Gate
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K113 target=_blank>./DEC/Kxxx/K113</a></b>: Inverting Gate
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K123 target=_blank>./DEC/Kxxx/K123</a></b>: English Gate
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K123 target=_blank>./DEC/Kxxx/K123</a></b>: English Gate
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K138 target=_blank>./DEC/Kxxx/K138</a></b>: Eight Inverters
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K138 target=_blank>./DEC/Kxxx/K138</a></b>: Eight Inverters
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K210 target=_blank>./DEC/Kxxx/K210</a></b>: Decimal or Binary Counter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K210 target=_blank>./DEC/Kxxx/K210</a></b>: Decimal or Binary Counter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K220 target=_blank>./DEC/Kxxx/K220</a></b>: Decimal Up/Down Counter, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K220 target=_blank>./DEC/Kxxx/K220</a></b>: Decimal Up/Down Counter, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K230 target=_blank>./DEC/Kxxx/K230</a></b>: Parallel Input Shift Register
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K230 target=_blank>./DEC/Kxxx/K230</a></b>: Parallel Input Shift Register
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K271 target=_blank>./DEC/Kxxx/K271</a></b>: Set/Reset Memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K271 target=_blank>./DEC/Kxxx/K271</a></b>: Set/Reset Memory
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K273 target=_blank>./DEC/Kxxx/K273</a></b>: Retentive Memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K273 target=_blank>./DEC/Kxxx/K273</a></b>: Retentive Memory
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K303 target=_blank>./DEC/Kxxx/K303</a></b>: Three Delay Timers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K303 target=_blank>./DEC/Kxxx/K303</a></b>: Three Delay Timers
 
 </LEGEND><DL>
 <DT>K303B</A>
@@ -2316,72 +2316,72 @@ LM837.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K374 target=_blank>./DEC/Kxxx/K374</a></b>: Calibrated Timer Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K374 target=_blank>./DEC/Kxxx/K374</a></b>: Calibrated Timer Control
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K376 target=_blank>./DEC/Kxxx/K376</a></b>: Calibrated Timer Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K376 target=_blank>./DEC/Kxxx/K376</a></b>: Calibrated Timer Control
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K378 target=_blank>./DEC/Kxxx/K378</a></b>: Calibrated Timer Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K378 target=_blank>./DEC/Kxxx/K378</a></b>: Calibrated Timer Control
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K508 target=_blank>./DEC/Kxxx/K508</a></b>: Pilot Circuit Converter, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K508 target=_blank>./DEC/Kxxx/K508</a></b>: Pilot Circuit Converter, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K522 target=_blank>./DEC/Kxxx/K522</a></b>: Comparator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K522 target=_blank>./DEC/Kxxx/K522</a></b>: Comparator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K604 target=_blank>./DEC/Kxxx/K604</a></b>: Pilot Circuit Converter, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K604 target=_blank>./DEC/Kxxx/K604</a></b>: Pilot Circuit Converter, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K614 target=_blank>./DEC/Kxxx/K614</a></b>: Isolated AC Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K614 target=_blank>./DEC/Kxxx/K614</a></b>: Isolated AC Switch
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K652 target=_blank>./DEC/Kxxx/K652</a></b>: DC Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K652 target=_blank>./DEC/Kxxx/K652</a></b>: DC Driver
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K671 target=_blank>./DEC/Kxxx/K671</a></b>: Decade Display
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K671 target=_blank>./DEC/Kxxx/K671</a></b>: Decade Display
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K683 target=_blank>./DEC/Kxxx/K683</a></b>: Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K683 target=_blank>./DEC/Kxxx/K683</a></b>: Driver
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K716 target=_blank>./DEC/Kxxx/K716</a></b>: Pilot Circuit Converter, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K716 target=_blank>./DEC/Kxxx/K716</a></b>: Pilot Circuit Converter, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K731 target=_blank>./DEC/Kxxx/K731</a></b>: Multi-Purpose Source
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K731 target=_blank>./DEC/Kxxx/K731</a></b>: Multi-Purpose Source
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K732 target=_blank>./DEC/Kxxx/K732</a></b>: Slave Regulator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K732 target=_blank>./DEC/Kxxx/K732</a></b>: Slave Regulator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K791 target=_blank>./DEC/Kxxx/K791</a></b>: Test Probe
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K791 target=_blank>./DEC/Kxxx/K791</a></b>: Test Probe
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K940 target=_blank>./DEC/Kxxx/K940</a></b>: Mounting Bar Support
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K940 target=_blank>./DEC/Kxxx/K940</a></b>: Mounting Bar Support
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K941 target=_blank>./DEC/Kxxx/K941</a></b>: Mounting Bar
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx/K941 target=_blank>./DEC/Kxxx/K941</a></b>: Mounting Bar
 
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/M11x target=_blank>./DEC/M11x</a></b>: Replacement for M11[13579] modules.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/M11x target=_blank>./DEC/M11x</a></b>: Replacement for M11[13579] modules.
 
 </LEGEND><DL>
 <DT>MxxxRow</A>
@@ -2415,7 +2415,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/MSC_303-0115 target=_blank>./DEC/MSC_303-0115</a></b>: Omnibus Memory Extension and Timeshare Option (M837 clone)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/MSC_303-0115 target=_blank>./DEC/MSC_303-0115</a></b>: Omnibus Memory Extension and Timeshare Option (M837 clone)
 
 </LEGEND><DL>
 <DT>MSC_303-0115</A>
@@ -2424,10 +2424,10 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx target=_blank>./DEC/Mxxx</a></b>: Mxxx modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx target=_blank>./DEC/Mxxx</a></b>: Mxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M002 target=_blank>./DEC/Mxxx/M002</a></b>: 15 Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M002 target=_blank>./DEC/Mxxx/M002</a></b>: 15 Loads
 
 </LEGEND><DL>
 <DT>M002A</A>
@@ -2437,7 +2437,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M040 target=_blank>./DEC/Mxxx/M040</a></b>: Solenoid Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M040 target=_blank>./DEC/Mxxx/M040</a></b>: Solenoid Driver
 
 </LEGEND><DL>
 <DT>M040E</A>
@@ -2446,7 +2446,7 @@ fourth PAL.
   <DD>is a 'modernized' M040.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M044 target=_blank>./DEC/Mxxx/M044</a></b>: 4-100mA Solenoid Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M044 target=_blank>./DEC/Mxxx/M044</a></b>: 4-100mA Solenoid Drivers
 
 </LEGEND><DL>
 <DT>M044B</A>
@@ -2455,7 +2455,7 @@ fourth PAL.
   <DD>is a 'modernized' M044.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M050 target=_blank>./DEC/Mxxx/M050</a></b>: Inverter driver, 12 circuits, switch -30V and 50mA max/driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M050 target=_blank>./DEC/Mxxx/M050</a></b>: Inverter driver, 12 circuits, switch -30V and 50mA max/driver
 
 </LEGEND><DL>
 <DT>M050B</A>
@@ -2465,7 +2465,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M051 target=_blank>./DEC/Mxxx/M051</a></b>: Level Converter, positive logic in and negative logic out, 12 circuits, open collector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M051 target=_blank>./DEC/Mxxx/M051</a></b>: Level Converter, positive logic in and negative logic out, 12 circuits, open collector
 
 </LEGEND><DL>
 <DT>M051B</A>
@@ -2475,7 +2475,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M060 target=_blank>./DEC/Mxxx/M060</a></b>: Solenoid Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M060 target=_blank>./DEC/Mxxx/M060</a></b>: Solenoid Driver
 
 </LEGEND><DL>
 <DT>M060A</A>
@@ -2484,7 +2484,7 @@ fourth PAL.
   <DD>is a 'modernized' M060.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M100 target=_blank>./DEC/Mxxx/M100</a></b>: Bus Data Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M100 target=_blank>./DEC/Mxxx/M100</a></b>: Bus Data Interface
 
 </LEGEND><DL>
 <DT>M100A</A>
@@ -2493,7 +2493,7 @@ fourth PAL.
   <DD>is a 'modernized' M100.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M101 target=_blank>./DEC/Mxxx/M101</a></b>: Bus Data Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M101 target=_blank>./DEC/Mxxx/M101</a></b>: Bus Data Interface
 
 </LEGEND><DL>
 <DT>M101A</A>
@@ -2503,7 +2503,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M102 target=_blank>./DEC/Mxxx/M102</a></b>: Negative Bus Equivalent to M103
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M102 target=_blank>./DEC/Mxxx/M102</a></b>: Negative Bus Equivalent to M103
 
 </LEGEND><DL>
 <DT>M102A</A>
@@ -2513,7 +2513,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M103 target=_blank>./DEC/Mxxx/M103</a></b>: Device Selector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M103 target=_blank>./DEC/Mxxx/M103</a></b>: Device Selector
 
 </LEGEND><DL>
 <DT>M103A</A>
@@ -2525,7 +2525,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M104 target=_blank>./DEC/Mxxx/M104</a></b>: I/O Bus Multiplexor
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M104 target=_blank>./DEC/Mxxx/M104</a></b>: I/O Bus Multiplexor
 
 </LEGEND><DL>
 <DT>M104C</A>
@@ -2535,7 +2535,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M105 target=_blank>./DEC/Mxxx/M105</a></b>: Address Selector (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M105 target=_blank>./DEC/Mxxx/M105</a></b>: Address Selector (long)
 
 </LEGEND><DL>
 <DT>M105B</A>
@@ -2547,7 +2547,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M106 target=_blank>./DEC/Mxxx/M106</a></b>: Dot NOR Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M106 target=_blank>./DEC/Mxxx/M106</a></b>: Dot NOR Gates
 
 </LEGEND><DL>
 <DT>M106A</A>
@@ -2556,15 +2556,15 @@ fourth PAL.
   <DD>is a 'modernized' M106.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M107 target=_blank>./DEC/Mxxx/M107</a></b>: Device Selector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M107 target=_blank>./DEC/Mxxx/M107</a></b>: Device Selector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M108 target=_blank>./DEC/Mxxx/M108</a></b>: Flag Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M108 target=_blank>./DEC/Mxxx/M108</a></b>: Flag Module
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M109 target=_blank>./DEC/Mxxx/M109</a></b>: Device Select Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M109 target=_blank>./DEC/Mxxx/M109</a></b>: Device Select Module
 
 </LEGEND><DL>
 <DT>M109A</A>
@@ -2573,7 +2573,7 @@ fourth PAL.
   <DD>is a 'modernized' M109.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1091 target=_blank>./DEC/Mxxx/M1091</a></b>: Memory Device Select (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1091 target=_blank>./DEC/Mxxx/M1091</a></b>: Memory Device Select (long)
 
 </LEGEND><DL>
 <DT>M1091A</A>
@@ -2583,7 +2583,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1103 target=_blank>./DEC/Mxxx/M1103</a></b>: 10 2-Input AND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1103 target=_blank>./DEC/Mxxx/M1103</a></b>: 10 2-Input AND Gates
 
 </LEGEND><DL>
 <DT>M1103A</A>
@@ -2592,7 +2592,7 @@ fourth PAL.
   <DD>is a 'modernized' M1103.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M111 target=_blank>./DEC/Mxxx/M111</a></b>: Inverters
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M111 target=_blank>./DEC/Mxxx/M111</a></b>: Inverters
 
 </LEGEND><DL>
 <DT>M111A</A>
@@ -2608,7 +2608,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M112 target=_blank>./DEC/Mxxx/M112</a></b>: NOR Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M112 target=_blank>./DEC/Mxxx/M112</a></b>: NOR Gates
 
 </LEGEND><DL>
 <DT>M112D</A>
@@ -2619,7 +2619,7 @@ fourth PAL.
   <DD>is a 'modernized' M112.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1125 target=_blank>./DEC/Mxxx/M1125</a></b>: 10 Exclusive OR Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1125 target=_blank>./DEC/Mxxx/M1125</a></b>: 10 Exclusive OR Gates
 
 </LEGEND><DL>
 <DT>M1125A</A>
@@ -2629,7 +2629,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M113 target=_blank>./DEC/Mxxx/M113</a></b>: 10 2-Input NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M113 target=_blank>./DEC/Mxxx/M113</a></b>: 10 2-Input NAND Gates
 
 </LEGEND><DL>
 <DT>M113B</A>
@@ -2642,7 +2642,7 @@ fourth PAL.
   <DD>is a 'modernized' M113.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M115 target=_blank>./DEC/Mxxx/M115</a></b>: 8 3-Input NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M115 target=_blank>./DEC/Mxxx/M115</a></b>: 8 3-Input NAND Gates
 
 </LEGEND><DL>
 <DT>M115C</A>
@@ -2654,7 +2654,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M116 target=_blank>./DEC/Mxxx/M116</a></b>: 6 4-Input NOR Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M116 target=_blank>./DEC/Mxxx/M116</a></b>: 6 4-Input NOR Gates
 
 </LEGEND><DL>
 <DT>M116A</A>
@@ -2663,7 +2663,7 @@ fourth PAL.
   <DD>is a 'modernized' M116.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M117 target=_blank>./DEC/Mxxx/M117</a></b>: 6 4-Input NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M117 target=_blank>./DEC/Mxxx/M117</a></b>: 6 4-Input NAND Gates
 
 </LEGEND><DL>
 <DT>M117B</A>
@@ -2677,7 +2677,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M119 target=_blank>./DEC/Mxxx/M119</a></b>: 3 8-Input NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M119 target=_blank>./DEC/Mxxx/M119</a></b>: 3 8-Input NAND Gates
 
 </LEGEND><DL>
 <DT>M119B</A>
@@ -2689,7 +2689,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M121 target=_blank>./DEC/Mxxx/M121</a></b>: 6 AND-NOR Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M121 target=_blank>./DEC/Mxxx/M121</a></b>: 6 AND-NOR Gates
 
 </LEGEND><DL>
 <DT>M121B</A>
@@ -2700,11 +2700,11 @@ fourth PAL.
   <DD>is a 'modernized' M121.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M126 target=_blank>./DEC/Mxxx/M126</a></b>: H version of M121, not pin compatible
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M126 target=_blank>./DEC/Mxxx/M126</a></b>: H version of M121, not pin compatible
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M127 target=_blank>./DEC/Mxxx/M127</a></b>: 3 2-2-2-3 AND-NOR Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M127 target=_blank>./DEC/Mxxx/M127</a></b>: 3 2-2-2-3 AND-NOR Gates
 
 </LEGEND><DL>
 <DT>M127A</A>
@@ -2714,7 +2714,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M129 target=_blank>./DEC/Mxxx/M129</a></b>: 4-4 AND-NOR, H, 4 circuits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M129 target=_blank>./DEC/Mxxx/M129</a></b>: 4-4 AND-NOR, H, 4 circuits
 
 </LEGEND><DL>
 <DT>M129A</A>
@@ -2724,15 +2724,15 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M130 target=_blank>./DEC/Mxxx/M130</a></b>: 5 8-bit parity circuits + 5 2-input XOR gates (MC4008)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M130 target=_blank>./DEC/Mxxx/M130</a></b>: 5 8-bit parity circuits + 5 2-input XOR gates (MC4008)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1307 target=_blank>./DEC/Mxxx/M1307</a></b>: 6 4-Input AND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1307 target=_blank>./DEC/Mxxx/M1307</a></b>: 6 4-Input AND Gates
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M133 target=_blank>./DEC/Mxxx/M133</a></b>: 10-2 Input NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M133 target=_blank>./DEC/Mxxx/M133</a></b>: 10-2 Input NAND Gates
 
 </LEGEND><DL>
 <DT>M133A</A>
@@ -2743,7 +2743,7 @@ fourth PAL.
   <DD>is a 'modernized' M133.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M135 target=_blank>./DEC/Mxxx/M135</a></b>: 8-3 Input NAND Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M135 target=_blank>./DEC/Mxxx/M135</a></b>: 8-3 Input NAND Gates
 
 </LEGEND><DL>
 <DT>M135A</A>
@@ -2752,7 +2752,7 @@ fourth PAL.
   <DD>is a 'modernized' M135.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M139 target=_blank>./DEC/Mxxx/M139</a></b>: H version of M119
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M139 target=_blank>./DEC/Mxxx/M139</a></b>: H version of M119
 
 </LEGEND><DL>
 <DT>M139A</A>
@@ -2762,7 +2762,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M141 target=_blank>./DEC/Mxxx/M141</a></b>: Two 2-2-2-2 AND-NOR gates, 2-2-2 AND-NOR gate. 2 input NAND, 2 inverters
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M141 target=_blank>./DEC/Mxxx/M141</a></b>: Two 2-2-2-2 AND-NOR gates, 2-2-2 AND-NOR gate. 2 input NAND, 2 inverters
 
 </LEGEND><DL>
 <DT>M141B</A>
@@ -2771,19 +2771,19 @@ fourth PAL.
   <DD>is a 'modernized' M141.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M142 target=_blank>./DEC/Mxxx/M142</a></b>: Adder, discrete equivalent to M132
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M142 target=_blank>./DEC/Mxxx/M142</a></b>: Adder, discrete equivalent to M132
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M143 target=_blank>./DEC/Mxxx/M143</a></b>: 10 2-input NAND gates, with one pair sharing common input, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M143 target=_blank>./DEC/Mxxx/M143</a></b>: 10 2-input NAND gates, with one pair sharing common input, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M145 target=_blank>./DEC/Mxxx/M145</a></b>: 3-input NAND gates, 7 circuits, 74H, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M145 target=_blank>./DEC/Mxxx/M145</a></b>: 3-input NAND gates, 7 circuits, 74H, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M149 target=_blank>./DEC/Mxxx/M149</a></b>: 9x2 NAND Wired OR Matrix
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M149 target=_blank>./DEC/Mxxx/M149</a></b>: 9x2 NAND Wired OR Matrix
 
 </LEGEND><DL>
 <DT>M149A</A>
@@ -2794,11 +2794,11 @@ fourth PAL.
   <DD>is a 'modernized' M149.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1500 target=_blank>./DEC/Mxxx/M1500</a></b>: Bi-directional Bus Interfacing Gates, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1500 target=_blank>./DEC/Mxxx/M1500</a></b>: Bi-directional Bus Interfacing Gates, extended single
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1501 target=_blank>./DEC/Mxxx/M1501</a></b>: Bus Input Interface, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1501 target=_blank>./DEC/Mxxx/M1501</a></b>: Bus Input Interface, extended single
 
 </LEGEND><DL>
 <DT>M1501B</A>
@@ -2808,7 +2808,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1502 target=_blank>./DEC/Mxxx/M1502</a></b>: Bus Output Interface, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1502 target=_blank>./DEC/Mxxx/M1502</a></b>: Bus Output Interface, extended double
 
 </LEGEND><DL>
 <DT>M1502C</A>
@@ -2818,15 +2818,15 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M151 target=_blank>./DEC/Mxxx/M151</a></b>: Dual binary to octal with enable, H series, KI10, 74H20
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M151 target=_blank>./DEC/Mxxx/M151</a></b>: Dual binary to octal with enable, H series, KI10, 74H20
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1510 target=_blank>./DEC/Mxxx/M1510</a></b>: Bus Device Selector Module, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1510 target=_blank>./DEC/Mxxx/M1510</a></b>: Bus Device Selector Module, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M152 target=_blank>./DEC/Mxxx/M152</a></b>: M151 non-inverting, KI10, 74H21
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M152 target=_blank>./DEC/Mxxx/M152</a></b>: M151 non-inverting, KI10, 74H21
 
 </LEGEND><DL>
 <DT>M152B</A>
@@ -2836,7 +2836,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M155 target=_blank>./DEC/Mxxx/M155</a></b>: 4 Line to 16 Line Decoder, uses 50-08908 board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M155 target=_blank>./DEC/Mxxx/M155</a></b>: 4 Line to 16 Line Decoder, uses 50-08908 board
 
 </LEGEND><DL>
 <DT>M155A</A>
@@ -2846,7 +2846,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M159 target=_blank>./DEC/Mxxx/M159</a></b>: 4 bit Arithmetic Logic Unit (DEC 74181), uses 50-08908 board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M159 target=_blank>./DEC/Mxxx/M159</a></b>: 4 bit Arithmetic Logic Unit (DEC 74181), uses 50-08908 board
 
 </LEGEND><DL>
 <DT>M159A</A>
@@ -2856,7 +2856,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M160 target=_blank>./DEC/Mxxx/M160</a></b>: AND-NOR Gate Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M160 target=_blank>./DEC/Mxxx/M160</a></b>: AND-NOR Gate Module
 
 </LEGEND><DL>
 <DT>M160C</A>
@@ -2866,7 +2866,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M161 target=_blank>./DEC/Mxxx/M161</a></b>: Binary to Octal/Decimal Decoder
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M161 target=_blank>./DEC/Mxxx/M161</a></b>: Binary to Octal/Decimal Decoder
 
 </LEGEND><DL>
 <DT>M161</A>
@@ -2878,7 +2878,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M162 target=_blank>./DEC/Mxxx/M162</a></b>: Parity Circuit
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M162 target=_blank>./DEC/Mxxx/M162</a></b>: Parity Circuit
 
 </LEGEND><DL>
 <DT>M162A</A>
@@ -2890,7 +2890,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M163 target=_blank>./DEC/Mxxx/M163</a></b>: Dual binary to decimal decoder
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M163 target=_blank>./DEC/Mxxx/M163</a></b>: Dual binary to decimal decoder
 
 </LEGEND><DL>
 <DT>M163A</A>
@@ -2899,7 +2899,7 @@ fourth PAL.
   <DD>is a 'modernized' M163.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M164 target=_blank>./DEC/Mxxx/M164</a></b>: 6-bit adder for PDP-15, 2 adders for carry-in 1 or 0
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M164 target=_blank>./DEC/Mxxx/M164</a></b>: 6-bit adder for PDP-15, 2 adders for carry-in 1 or 0
 
 </LEGEND><DL>
 <DT>M164B</A>
@@ -2908,7 +2908,7 @@ fourth PAL.
   <DD>is a 'modernized' M164.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M165 target=_blank>./DEC/Mxxx/M165</a></b>: Memory buffer, inverting and non-inverting output from open collector, 8 channels for KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M165 target=_blank>./DEC/Mxxx/M165</a></b>: Memory buffer, inverting and non-inverting output from open collector, 8 channels for KI10
 
 </LEGEND><DL>
 <DT>M165D</A>
@@ -2917,11 +2917,11 @@ fourth PAL.
   <DD>is a 'modernized' M165.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M166 target=_blank>./DEC/Mxxx/M166</a></b>: 9-bit Counting Gate, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M166 target=_blank>./DEC/Mxxx/M166</a></b>: 9-bit Counting Gate, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M167 target=_blank>./DEC/Mxxx/M167</a></b>: 8 Bit Magnitude Comparator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M167 target=_blank>./DEC/Mxxx/M167</a></b>: 8 Bit Magnitude Comparator
 
 </LEGEND><DL>
 <DT>M167B</A>
@@ -2929,7 +2929,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M168 target=_blank>./DEC/Mxxx/M168</a></b>: 12 Bit Magnitude Comparator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M168 target=_blank>./DEC/Mxxx/M168</a></b>: 12 Bit Magnitude Comparator
 
 </LEGEND><DL>
 <DT>M168A</A>
@@ -2938,7 +2938,7 @@ fourth PAL.
   <DD>is a 'modernized' M168.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M169 target=_blank>./DEC/Mxxx/M169</a></b>: Functional gate module for PDP-12, 4 4-bit output multiplexors
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M169 target=_blank>./DEC/Mxxx/M169</a></b>: Functional gate module for PDP-12, 4 4-bit output multiplexors
 
 </LEGEND><DL>
 <DT>M169B</A>
@@ -2947,11 +2947,11 @@ fourth PAL.
   <DD>is a 'modernized' M169.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M170 target=_blank>./DEC/Mxxx/M170</a></b>: 3-3-3-2-2-2-2-2 AND-NOR & 3-2-2-2 AND-NOR, H series, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M170 target=_blank>./DEC/Mxxx/M170</a></b>: 3-3-3-2-2-2-2-2 AND-NOR & 3-2-2-2 AND-NOR, H series, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1701 target=_blank>./DEC/Mxxx/M1701</a></b>: 4 to 1 MUX, 4 circuits, 74153, 08912 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1701 target=_blank>./DEC/Mxxx/M1701</a></b>: 4 to 1 MUX, 4 circuits, 74153, 08912 etch
 
 </LEGEND><DL>
 <DT>M1701D</A>
@@ -2961,7 +2961,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1703 target=_blank>./DEC/Mxxx/M1703</a></b>: Omnibus Dual 12 bit Input Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1703 target=_blank>./DEC/Mxxx/M1703</a></b>: Omnibus Dual 12 bit Input Interface
 
 </LEGEND><DL>
 <DT>M1703C</A>
@@ -2969,7 +2969,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1705 target=_blank>./DEC/Mxxx/M1705</a></b>: Omnibus Dual 12 bit Output Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1705 target=_blank>./DEC/Mxxx/M1705</a></b>: Omnibus Dual 12 bit Output Interface
 
 </LEGEND><DL>
 <DT>M1705B</A>
@@ -2983,11 +2983,11 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M171 target=_blank>./DEC/Mxxx/M171</a></b>: 2-2-2-3 AND-NOR, 3 circuits, different pins than M127
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M171 target=_blank>./DEC/Mxxx/M171</a></b>: 2-2-2-3 AND-NOR, 3 circuits, different pins than M127
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1713 target=_blank>./DEC/Mxxx/M1713</a></b>: 16 to 1 MUX inverting, 74150, 50-08908 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M1713 target=_blank>./DEC/Mxxx/M1713</a></b>: 16 to 1 MUX inverting, 74150, 50-08908 etch
 
 </LEGEND><DL>
 <DT>M1713A</A>
@@ -2996,35 +2996,35 @@ fourth PAL.
   <DD>is a 'modernized' M1713.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M172 target=_blank>./DEC/Mxxx/M172</a></b>: 2 En x 9 out mixer, 74H50, for KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M172 target=_blank>./DEC/Mxxx/M172</a></b>: 2 En x 9 out mixer, 74H50, for KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M173 target=_blank>./DEC/Mxxx/M173</a></b>: Non-inverting M143
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M173 target=_blank>./DEC/Mxxx/M173</a></b>: Non-inverting M143
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M174 target=_blank>./DEC/Mxxx/M174</a></b>: 4 En x 9 out mixer, 74H53s, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M174 target=_blank>./DEC/Mxxx/M174</a></b>: 4 En x 9 out mixer, 74H53s, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M175 target=_blank>./DEC/Mxxx/M175</a></b>: 7 3-input AND gates, 74H, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M175 target=_blank>./DEC/Mxxx/M175</a></b>: 7 3-input AND gates, 74H, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M177 target=_blank>./DEC/Mxxx/M177</a></b>: Non-inverting M147
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M177 target=_blank>./DEC/Mxxx/M177</a></b>: Non-inverting M147
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M178 target=_blank>./DEC/Mxxx/M178</a></b>: 8 En x 6 out mixer, 74H53, 74H62, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M178 target=_blank>./DEC/Mxxx/M178</a></b>: 8 En x 6 out mixer, 74H53, 74H62, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M181 target=_blank>./DEC/Mxxx/M181</a></b>: Non-inverting M171
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M181 target=_blank>./DEC/Mxxx/M181</a></b>: Non-inverting M171
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M182 target=_blank>./DEC/Mxxx/M182</a></b>: M162 with fast ICs, 74H
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M182 target=_blank>./DEC/Mxxx/M182</a></b>: M162 with fast ICs, 74H
 
 </LEGEND><DL>
 <DT>M182A</A>
@@ -3035,7 +3035,7 @@ fourth PAL.
   <DD>is a 'modernized' M182.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M191 target=_blank>./DEC/Mxxx/M191</a></b>: 2 Look-ahead elements (74182), uses W961 board, used with M190 or M159 (board 50-08912)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M191 target=_blank>./DEC/Mxxx/M191</a></b>: 2 Look-ahead elements (74182), uses W961 board, used with M190 or M159 (board 50-08912)
 
 </LEGEND><DL>
 <DT>M191C</A>
@@ -3044,7 +3044,7 @@ fourth PAL.
   <DD>is a 'modernized' M191.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M202 target=_blank>./DEC/Mxxx/M202</a></b>: Triple J-K Flip Flop
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M202 target=_blank>./DEC/Mxxx/M202</a></b>: Triple J-K Flip Flop
 
 </LEGEND><DL>
 <DT>M202B</A>
@@ -3054,7 +3054,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M203 target=_blank>./DEC/Mxxx/M203</a></b>: 8 Set-Reset Flip Flops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M203 target=_blank>./DEC/Mxxx/M203</a></b>: 8 Set-Reset Flip Flops
 
 </LEGEND><DL>
 <DT>M203B</A>
@@ -3063,7 +3063,7 @@ fourth PAL.
   <DD>is a 'modernized' M203.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M204 target=_blank>./DEC/Mxxx/M204</a></b>: Counter Buffer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M204 target=_blank>./DEC/Mxxx/M204</a></b>: Counter Buffer
 
 </LEGEND><DL>
 <DT>M204D</A>
@@ -3072,7 +3072,7 @@ fourth PAL.
   <DD>is a 'modernized' M204.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M205 target=_blank>./DEC/Mxxx/M205</a></b>: 5 D Flip Flops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M205 target=_blank>./DEC/Mxxx/M205</a></b>: 5 D Flip Flops
 
 </LEGEND><DL>
 <DT>M205A</A>
@@ -3081,7 +3081,7 @@ fourth PAL.
   <DD>is a 'modernized' M205.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M206 target=_blank>./DEC/Mxxx/M206</a></b>: 6 D Flip-Flops with 2 jumpers for clear
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M206 target=_blank>./DEC/Mxxx/M206</a></b>: 6 D Flip-Flops with 2 jumpers for clear
 
 </LEGEND><DL>
 <DT>M206B</A>
@@ -3095,7 +3095,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M207 target=_blank>./DEC/Mxxx/M207</a></b>: 6 J-K Flip-Flops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M207 target=_blank>./DEC/Mxxx/M207</a></b>: 6 J-K Flip-Flops
 
 </LEGEND><DL>
 <DT>M207C</A>
@@ -3109,7 +3109,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M208 target=_blank>./DEC/Mxxx/M208</a></b>: Buffer/Shift Register
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M208 target=_blank>./DEC/Mxxx/M208</a></b>: Buffer/Shift Register
 
 </LEGEND><DL>
 <DT>M208C</A>
@@ -3118,11 +3118,11 @@ fourth PAL.
   <DD>is a 'modernized' M208.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M211 target=_blank>./DEC/Mxxx/M211</a></b>: 6-bit Up/down counter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M211 target=_blank>./DEC/Mxxx/M211</a></b>: 6-bit Up/down counter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M212 target=_blank>./DEC/Mxxx/M212</a></b>: 6 Bit L-R Shift Register
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M212 target=_blank>./DEC/Mxxx/M212</a></b>: 6 Bit L-R Shift Register
 
 </LEGEND><DL>
 <DT>M212B</A>
@@ -3132,11 +3132,11 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M213 target=_blank>./DEC/Mxxx/M213</a></b>: BCD Up/Down Counter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M213 target=_blank>./DEC/Mxxx/M213</a></b>: BCD Up/Down Counter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M214 target=_blank>./DEC/Mxxx/M214</a></b>: 6-bit Accumulator with 3 inputs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M214 target=_blank>./DEC/Mxxx/M214</a></b>: 6-bit Accumulator with 3 inputs
 
 </LEGEND><DL>
 <DT>M214A</A>
@@ -3146,7 +3146,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M215 target=_blank>./DEC/Mxxx/M215</a></b>: 4 Bits of 3 Registers, Adder per Bit
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M215 target=_blank>./DEC/Mxxx/M215</a></b>: 4 Bits of 3 Registers, Adder per Bit
 
 </LEGEND><DL>
 <DT>M215A</A>
@@ -3156,7 +3156,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M216 target=_blank>./DEC/Mxxx/M216</a></b>: 6 D Flip-Flops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M216 target=_blank>./DEC/Mxxx/M216</a></b>: 6 D Flip-Flops
 
 </LEGEND><DL>
 <DT>M216B</A>
@@ -3166,7 +3166,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M217 target=_blank>./DEC/Mxxx/M217</a></b>: Clock register for PDP-12, 4 bit counter with buffer register for preset or readout
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M217 target=_blank>./DEC/Mxxx/M217</a></b>: Clock register for PDP-12, 4 bit counter with buffer register for preset or readout
 
 </LEGEND><DL>
 <DT>M217A</A>
@@ -3175,7 +3175,7 @@ fourth PAL.
   <DD>is a 'modernized' M217.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M218 target=_blank>./DEC/Mxxx/M218</a></b>: Bi-directional shift register, 9 bits, 2 parallel loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M218 target=_blank>./DEC/Mxxx/M218</a></b>: Bi-directional shift register, 9 bits, 2 parallel loads
 
 </LEGEND><DL>
 <DT>M218A</A>
@@ -3185,7 +3185,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M219 target=_blank>./DEC/Mxxx/M219</a></b>: 7-bit synchronous counter with jam and clear presets
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M219 target=_blank>./DEC/Mxxx/M219</a></b>: 7-bit synchronous counter with jam and clear presets
 
 </LEGEND><DL>
 <DT>M219B</A>
@@ -3195,7 +3195,7 @@ fourth PAL.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M220 target=_blank>./DEC/Mxxx/M220</a></b>: Major Registers, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M220 target=_blank>./DEC/Mxxx/M220</a></b>: Major Registers, double
 
 </LEGEND><DL>
 <DT>M220A</A>
@@ -3223,7 +3223,7 @@ m220a.v, m220b.v, and m220c.v.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M221 target=_blank>./DEC/Mxxx/M221</a></b>: Register for PDP-12 (M220 plus extra logic), Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M221 target=_blank>./DEC/Mxxx/M221</a></b>: Register for PDP-12 (M220 plus extra logic), Double
 
 </LEGEND><DL>
 <DT>M221D</A>
@@ -3232,7 +3232,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M221.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M222 target=_blank>./DEC/Mxxx/M222</a></b>: Tape register for PDP-12, 2 bits, 6 registers, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M222 target=_blank>./DEC/Mxxx/M222</a></b>: Tape register for PDP-12, 2 bits, 6 registers, Double
 
 </LEGEND><DL>
 <DT>M222B</A>
@@ -3241,7 +3241,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M222.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M223 target=_blank>./DEC/Mxxx/M223</a></b>: MA,/MB Registers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M223 target=_blank>./DEC/Mxxx/M223</a></b>: MA,/MB Registers
 
 </LEGEND><DL>
 <DT>M223B</A>
@@ -3250,7 +3250,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M223.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M224 target=_blank>./DEC/Mxxx/M224</a></b>: Data Paths (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M224 target=_blank>./DEC/Mxxx/M224</a></b>: Data Paths (double, long)
 
 </LEGEND><DL>
 <DT>M224B</A>
@@ -3259,7 +3259,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M224.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M225 target=_blank>./DEC/Mxxx/M225</a></b>: 16x16 Memory (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M225 target=_blank>./DEC/Mxxx/M225</a></b>: 16x16 Memory (double, long)
 
 </LEGEND><DL>
 <DT>M225A</A>
@@ -3268,7 +3268,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M225.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M226 target=_blank>./DEC/Mxxx/M226</a></b>: 1 Bit, all registers (except ACC) for PDP-15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M226 target=_blank>./DEC/Mxxx/M226</a></b>: 1 Bit, all registers (except ACC) for PDP-15
 
 </LEGEND><DL>
 <DT>M226A</A>
@@ -3277,7 +3277,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M226.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M227 target=_blank>./DEC/Mxxx/M227</a></b>: Accumulator for PDP-15, 9 bits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M227 target=_blank>./DEC/Mxxx/M227</a></b>: Accumulator for PDP-15, 9 bits
 
 </LEGEND><DL>
 <DT>M227B</A>
@@ -3286,7 +3286,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M227.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M228 target=_blank>./DEC/Mxxx/M228</a></b>: Mark Track Decoder
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M228 target=_blank>./DEC/Mxxx/M228</a></b>: Mark Track Decoder
 
 </LEGEND><DL>
 <DT>M228A</A>
@@ -3296,19 +3296,19 @@ m220a.v, m220b.v, and m220c.v.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M230 target=_blank>./DEC/Mxxx/M230</a></b>: Binary to BCD and BCD to Binary Converter, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M230 target=_blank>./DEC/Mxxx/M230</a></b>: Binary to BCD and BCD to Binary Converter, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M232 target=_blank>./DEC/Mxxx/M232</a></b>: 16x1 RAM
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M232 target=_blank>./DEC/Mxxx/M232</a></b>: 16x1 RAM
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M233 target=_blank>./DEC/Mxxx/M233</a></b>: Disk Shift Register
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M233 target=_blank>./DEC/Mxxx/M233</a></b>: Disk Shift Register
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M236 target=_blank>./DEC/Mxxx/M236</a></b>: 12 Bit Binary Up/Down Counter, 8931 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M236 target=_blank>./DEC/Mxxx/M236</a></b>: 12 Bit Binary Up/Down Counter, 8931 etch
 
 </LEGEND><DL>
 <DT>M236B</A>
@@ -3317,11 +3317,11 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M236.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M237 target=_blank>./DEC/Mxxx/M237</a></b>: 3 Digit BCD Up/Down Counter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M237 target=_blank>./DEC/Mxxx/M237</a></b>: 3 Digit BCD Up/Down Counter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M238 target=_blank>./DEC/Mxxx/M238</a></b>: 2 4-bit Synchronous up/down counters with parallel load, separate up & down clocks, board etch 50-08912
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M238 target=_blank>./DEC/Mxxx/M238</a></b>: 2 4-bit Synchronous up/down counters with parallel load, separate up & down clocks, board etch 50-08912
 
 </LEGEND><DL>
 <DT>M238D</A>
@@ -3330,7 +3330,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M238.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M239 target=_blank>./DEC/Mxxx/M239</a></b>: 3-4 Bit Counter/Registers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M239 target=_blank>./DEC/Mxxx/M239</a></b>: 3-4 Bit Counter/Registers
 
 </LEGEND><DL>
 <DT>M239A</A>
@@ -3340,7 +3340,7 @@ m220a.v, m220b.v, and m220c.v.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M240 target=_blank>./DEC/Mxxx/M240</a></b>: 6 R/S Flip Flops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M240 target=_blank>./DEC/Mxxx/M240</a></b>: 6 R/S Flip Flops
 
 </LEGEND><DL>
 <DT>M240B</A>
@@ -3349,11 +3349,11 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M240.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M241 target=_blank>./DEC/Mxxx/M241</a></b>: 6 D Flip-flops (74H74) with common clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M241 target=_blank>./DEC/Mxxx/M241</a></b>: 6 D Flip-flops (74H74) with common clock
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M242 target=_blank>./DEC/Mxxx/M242</a></b>: H version of M202
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M242 target=_blank>./DEC/Mxxx/M242</a></b>: H version of M202
 
 </LEGEND><DL>
 <DT>M242A</A>
@@ -3362,15 +3362,15 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M242.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M243 target=_blank>./DEC/Mxxx/M243</a></b>: 8 D Flip-flops (74H74) with 2 common clocks, 4 bits each
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M243 target=_blank>./DEC/Mxxx/M243</a></b>: 8 D Flip-flops (74H74) with 2 common clocks, 4 bits each
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M245 target=_blank>./DEC/Mxxx/M245</a></b>: Dual 4 Bit Shift Register
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M245 target=_blank>./DEC/Mxxx/M245</a></b>: Dual 4 Bit Shift Register
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M246 target=_blank>./DEC/Mxxx/M246</a></b>: 5 D flip-flops, all pins available (74H74)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M246 target=_blank>./DEC/Mxxx/M246</a></b>: 5 D flip-flops, all pins available (74H74)
 
 </LEGEND><DL>
 <DT>M246A</A>
@@ -3379,11 +3379,11 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M246.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M247 target=_blank>./DEC/Mxxx/M247</a></b>: 6 RS flip-flops, clocked to 6 D flip-flops
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M247 target=_blank>./DEC/Mxxx/M247</a></b>: 6 RS flip-flops, clocked to 6 D flip-flops
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M248 target=_blank>./DEC/Mxxx/M248</a></b>: 8-bit Shift right, parallel load, 50-08914 etch, 7495
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M248 target=_blank>./DEC/Mxxx/M248</a></b>: 8-bit Shift right, parallel load, 50-08914 etch, 7495
 
 </LEGEND><DL>
 <DT>M248B</A>
@@ -3392,11 +3392,11 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M248.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M250 target=_blank>./DEC/Mxxx/M250</a></b>: 16 Words, 4-bit memory (F9035), KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M250 target=_blank>./DEC/Mxxx/M250</a></b>: 16 Words, 4-bit memory (F9035), KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M2500 target=_blank>./DEC/Mxxx/M2500</a></b>: 2 64-Word, 4-Bit MOS Memories, 08912 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M2500 target=_blank>./DEC/Mxxx/M2500</a></b>: 2 64-Word, 4-Bit MOS Memories, 08912 etch
 
 </LEGEND><DL>
 <DT>M2500D</A>
@@ -3406,7 +3406,7 @@ m220a.v, m220b.v, and m220c.v.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M253 target=_blank>./DEC/Mxxx/M253</a></b>: 16 Words, 12-bit memory (TI 7489)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M253 target=_blank>./DEC/Mxxx/M253</a></b>: 16 Words, 12-bit memory (TI 7489)
 
 </LEGEND><DL>
 <DT>M253B</A>
@@ -3415,19 +3415,19 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M253.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M260 target=_blank>./DEC/Mxxx/M260</a></b>: Associative memory, 4x12, KI10, Fairchild 4102 IC, 35ns match time
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M260 target=_blank>./DEC/Mxxx/M260</a></b>: Associative memory, 4x12, KI10, Fairchild 4102 IC, 35ns match time
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M261 target=_blank>./DEC/Mxxx/M261</a></b>: 4-State Motor Translator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M261 target=_blank>./DEC/Mxxx/M261</a></b>: 4-State Motor Translator
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M262 target=_blank>./DEC/Mxxx/M262</a></b>: 10-State Motor Translator, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M262 target=_blank>./DEC/Mxxx/M262</a></b>: 10-State Motor Translator, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M302 target=_blank>./DEC/Mxxx/M302</a></b>: One Shot Delay
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M302 target=_blank>./DEC/Mxxx/M302</a></b>: One Shot Delay
 
 </LEGEND><DL>
 <DT>M302D</A>
@@ -3438,7 +3438,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M302.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M3020 target=_blank>./DEC/Mxxx/M3020</a></b>: 2 One Shot Delays with Hysteresis
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M3020 target=_blank>./DEC/Mxxx/M3020</a></b>: 2 One Shot Delays with Hysteresis
 
 </LEGEND><DL>
 <DT>M3020A</A>
@@ -3447,7 +3447,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M3020.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M304 target=_blank>./DEC/Mxxx/M304</a></b>: One Shot Delay
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M304 target=_blank>./DEC/Mxxx/M304</a></b>: One Shot Delay
 
 </LEGEND><DL>
 <DT>M304A</A>
@@ -3458,7 +3458,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M304.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M306 target=_blank>./DEC/Mxxx/M306</a></b>: Integrating One Shot
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M306 target=_blank>./DEC/Mxxx/M306</a></b>: Integrating One Shot
 
 </LEGEND><DL>
 <DT>M306B</A>
@@ -3467,7 +3467,7 @@ m220a.v, m220b.v, and m220c.v.
   <DD>is a 'modernized' M306.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M307 target=_blank>./DEC/Mxxx/M307</a></b>: Integrating One Shot
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M307 target=_blank>./DEC/Mxxx/M307</a></b>: Integrating One Shot
 
 </LEGEND><DL>
 <DT>M307-9601</A>
@@ -3484,15 +3484,15 @@ now hard to find 9601 monostables.
   <DD>is a 'modernized' M307.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M3070 target=_blank>./DEC/Mxxx/M3070</a></b>: Dual integrating one-shot 200ns to 20ms in 5 steps
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M3070 target=_blank>./DEC/Mxxx/M3070</a></b>: Dual integrating one-shot 200ns to 20ms in 5 steps
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M308 target=_blank>./DEC/Mxxx/M308</a></b>: Integrating one-shot, edge or pulse triggered, clock, power up & down
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M308 target=_blank>./DEC/Mxxx/M308</a></b>: Integrating one-shot, edge or pulse triggered, clock, power up & down
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M310 target=_blank>./DEC/Mxxx/M310</a></b>: Delay Line
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M310 target=_blank>./DEC/Mxxx/M310</a></b>: Delay Line
 
 </LEGEND><DL>
 <DT>M310A</A>
@@ -3502,14 +3502,14 @@ now hard to find 9601 monostables.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M311 target=_blank>./DEC/Mxxx/M311</a></b>: Tapped Delay Lines
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M311 target=_blank>./DEC/Mxxx/M311</a></b>: Tapped Delay Lines
 
 </LEGEND><DL>
 <DT>M311A</A>
   <DD>is a drawing of DEC's M311A.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M312 target=_blank>./DEC/Mxxx/M312</a></b>: Delay Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M312 target=_blank>./DEC/Mxxx/M312</a></b>: Delay Module
 
 </LEGEND><DL>
 <DT>M312B</A>
@@ -3519,11 +3519,11 @@ now hard to find 9601 monostables.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M321 target=_blank>./DEC/Mxxx/M321</a></b>: M311 except one delay line, one output buffer can drive 30 TTL H loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M321 target=_blank>./DEC/Mxxx/M321</a></b>: M311 except one delay line, one output buffer can drive 30 TTL H loads
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M360 target=_blank>./DEC/Mxxx/M360</a></b>: Variable Delay
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M360 target=_blank>./DEC/Mxxx/M360</a></b>: Variable Delay
 
 </LEGEND><DL>
 <DT>M360</A>
@@ -3533,15 +3533,15 @@ by Dave Brockman.
   <DD>is a drawing of DEC's M360B.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M362 target=_blank>./DEC/Mxxx/M362</a></b>: Delay, 25 to 50 ns
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M362 target=_blank>./DEC/Mxxx/M362</a></b>: Delay, 25 to 50 ns
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M363 target=_blank>./DEC/Mxxx/M363</a></b>: Delay, 15 to 30 ns, inverts
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M363 target=_blank>./DEC/Mxxx/M363</a></b>: Delay, 15 to 30 ns, inverts
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M401 target=_blank>./DEC/Mxxx/M401</a></b>: Variable Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M401 target=_blank>./DEC/Mxxx/M401</a></b>: Variable Clock
 
 </LEGEND><DL>
 <DT>M401B</A>
@@ -3553,7 +3553,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M402 target=_blank>./DEC/Mxxx/M402</a></b>: Remotely variable clock, Uses 5V photomod, 2Hz to 1MHz
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M402 target=_blank>./DEC/Mxxx/M402</a></b>: Remotely variable clock, Uses 5V photomod, 2Hz to 1MHz
 
 </LEGEND><DL>
 <DT>M402B</A>
@@ -3563,15 +3563,15 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M403 target=_blank>./DEC/Mxxx/M403</a></b>: RC Multivibrator Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M403 target=_blank>./DEC/Mxxx/M403</a></b>: RC Multivibrator Clock
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M404 target=_blank>./DEC/Mxxx/M404</a></b>: Crystal Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M404 target=_blank>./DEC/Mxxx/M404</a></b>: Crystal Clock
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M405 target=_blank>./DEC/Mxxx/M405</a></b>: Crystal Clock, positive and negative pulse outputs, 5KHz to 10MHz
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M405 target=_blank>./DEC/Mxxx/M405</a></b>: Crystal Clock, positive and negative pulse outputs, 5KHz to 10MHz
 
 </LEGEND><DL>
 <DT>M405A</A>
@@ -3582,7 +3582,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M405.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M410 target=_blank>./DEC/Mxxx/M410</a></b>: Resonant Reed Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M410 target=_blank>./DEC/Mxxx/M410</a></b>: Resonant Reed Clock
 
 </LEGEND><DL>
 <DT>M410A</A>
@@ -3590,7 +3590,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M420 target=_blank>./DEC/Mxxx/M420</a></b>: Phase Lock Clock, RP09, RP15, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M420 target=_blank>./DEC/Mxxx/M420</a></b>: Phase Lock Clock, RP09, RP15, double
 
 </LEGEND><DL>
 <DT>M420C</A>
@@ -3600,7 +3600,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M4201 target=_blank>./DEC/Mxxx/M4201</a></b>: Phase Lock Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M4201 target=_blank>./DEC/Mxxx/M4201</a></b>: Phase Lock Clock
 
 </LEGEND><DL>
 <DT>M4201C</A>
@@ -3608,7 +3608,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M452 target=_blank>./DEC/Mxxx/M452</a></b>: Variable Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M452 target=_blank>./DEC/Mxxx/M452</a></b>: Variable Clock
 
 </LEGEND><DL>
 <DT>M452A</A>
@@ -3618,7 +3618,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M453 target=_blank>./DEC/Mxxx/M453</a></b>: Variable Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M453 target=_blank>./DEC/Mxxx/M453</a></b>: Variable Clock
 
 </LEGEND><DL>
 <DT>M453A</A>
@@ -3628,7 +3628,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M500 target=_blank>./DEC/Mxxx/M500</a></b>: Negative Input Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M500 target=_blank>./DEC/Mxxx/M500</a></b>: Negative Input Converter
 
 </LEGEND><DL>
 <DT>M500A</A>
@@ -3640,7 +3640,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M501 target=_blank>./DEC/Mxxx/M501</a></b>: Schmitt Trigger
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M501 target=_blank>./DEC/Mxxx/M501</a></b>: Schmitt Trigger
 
 </LEGEND><DL>
 <DT>M501B</A>
@@ -3650,7 +3650,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M502 target=_blank>./DEC/Mxxx/M502</a></b>: Negative Input Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M502 target=_blank>./DEC/Mxxx/M502</a></b>: Negative Input Converter
 
 </LEGEND><DL>
 <DT>M502A</A>
@@ -3662,7 +3662,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M503 target=_blank>./DEC/Mxxx/M503</a></b>: Differential Schmitt, 2 channels, pulse amplifier in each
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M503 target=_blank>./DEC/Mxxx/M503</a></b>: Differential Schmitt, 2 channels, pulse amplifier in each
 
 </LEGEND><DL>
 <DT>M503A</A>
@@ -3671,7 +3671,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M503.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M506 target=_blank>./DEC/Mxxx/M506</a></b>: Negative Input Converter, 6 channels, 0 and -3V in
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M506 target=_blank>./DEC/Mxxx/M506</a></b>: Negative Input Converter, 6 channels, 0 and -3V in
 
 </LEGEND><DL>
 <DT>M506C</A>
@@ -3681,7 +3681,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M507 target=_blank>./DEC/Mxxx/M507</a></b>: Bus Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M507 target=_blank>./DEC/Mxxx/M507</a></b>: Bus Converter
 
 </LEGEND><DL>
 <DT>M507A</A>
@@ -3690,11 +3690,11 @@ by Dave Brockman.
   <DD>is a 'modernized' M507.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M508 target=_blank>./DEC/Mxxx/M508</a></b>: Negative bus to positive bus converter, 6 circuits, open collector outputs, GND in = positive out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M508 target=_blank>./DEC/Mxxx/M508</a></b>: Negative bus to positive bus converter, 6 circuits, open collector outputs, GND in = positive out
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M510 target=_blank>./DEC/Mxxx/M510</a></b>: I/O Bus Receiver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M510 target=_blank>./DEC/Mxxx/M510</a></b>: I/O Bus Receiver
 
 </LEGEND><DL>
 <DT>M510A</A>
@@ -3703,11 +3703,11 @@ by Dave Brockman.
   <DD>is a 'modernized' M510.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M511 target=_blank>./DEC/Mxxx/M511</a></b>: Unibus Receiver, 15 circuits, 4 GND, DS11, DL10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M511 target=_blank>./DEC/Mxxx/M511</a></b>: Unibus Receiver, 15 circuits, 4 GND, DS11, DL10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M514 target=_blank>./DEC/Mxxx/M514</a></b>: TU10 Transceiver (for connection to TC58, TC59, & TM10), see M519, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M514 target=_blank>./DEC/Mxxx/M514</a></b>: TU10 Transceiver (for connection to TC58, TC59, & TM10), see M519, double
 
 </LEGEND><DL>
 <DT>M514H</A>
@@ -3716,7 +3716,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M514.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M515 target=_blank>./DEC/Mxxx/M515</a></b>: Real Time Clock, 12VAC input on tabs, uses +11V & +5V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M515 target=_blank>./DEC/Mxxx/M515</a></b>: Real Time Clock, 12VAC input on tabs, uses +11V & +5V
 
 </LEGEND><DL>
 <DT>M515C</A>
@@ -3726,7 +3726,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M516 target=_blank>./DEC/Mxxx/M516</a></b>: Hex Positive Bus Receiver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M516 target=_blank>./DEC/Mxxx/M516</a></b>: Hex Positive Bus Receiver
 
 </LEGEND><DL>
 <DT>M516A</A>
@@ -3735,31 +3735,31 @@ by Dave Brockman.
   <DD>is a 'modernized' M516.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M517 target=_blank>./DEC/Mxxx/M517</a></b>: M507 with an enable input
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M517 target=_blank>./DEC/Mxxx/M517</a></b>: M507 with an enable input
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M521 target=_blank>./DEC/Mxxx/M521</a></b>: K to M Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M521 target=_blank>./DEC/Mxxx/M521</a></b>: K to M Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M531 target=_blank>./DEC/Mxxx/M531</a></b>: 8 channel Negative Bus Receiver with noise filtering (M500 pins)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M531 target=_blank>./DEC/Mxxx/M531</a></b>: 8 channel Negative Bus Receiver with noise filtering (M500 pins)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M564 target=_blank>./DEC/Mxxx/M564</a></b>: I/O Bus Receiver, 8 circuits, negative bus, positive logic, light input load
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M564 target=_blank>./DEC/Mxxx/M564</a></b>: I/O Bus Receiver, 8 circuits, negative bus, positive logic, light input load
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M565 target=_blank>./DEC/Mxxx/M565</a></b>: Memory Bus Receiver, 8 circuits, negative bus, positive logic
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M565 target=_blank>./DEC/Mxxx/M565</a></b>: Memory Bus Receiver, 8 circuits, negative bus, positive logic
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M592 target=_blank>./DEC/Mxxx/M592</a></b>: I/O Device Select (used with M71000)10 74H ICs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M592 target=_blank>./DEC/Mxxx/M592</a></b>: I/O Device Select (used with M71000)10 74H ICs
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5921 target=_blank>./DEC/Mxxx/M5921</a></b>: Bus Transceiver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5921 target=_blank>./DEC/Mxxx/M5921</a></b>: Bus Transceiver
 
 </LEGEND><DL>
 <DT>M5921A</A>
@@ -3769,7 +3769,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M594 target=_blank>./DEC/Mxxx/M594</a></b>: EIA Level Converter (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M594 target=_blank>./DEC/Mxxx/M594</a></b>: EIA Level Converter (long)
 
 </LEGEND><DL>
 <DT>M594B</A>
@@ -3779,11 +3779,11 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5940 target=_blank>./DEC/Mxxx/M5940</a></b>: 8 channel EIA-CCITT to DEC, 7 DEC to EIA-CCITT, DF11-A, 1V hysteresis, 5" version
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M5940 target=_blank>./DEC/Mxxx/M5940</a></b>: 8 channel EIA-CCITT to DEC, 7 DEC to EIA-CCITT, DF11-A, 1V hysteresis, 5" version
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M597 target=_blank>./DEC/Mxxx/M597</a></b>: 6 Channel IBM Receiver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M597 target=_blank>./DEC/Mxxx/M597</a></b>: 6 Channel IBM Receiver
 
 </LEGEND><DL>
 <DT>M597D</A>
@@ -3791,7 +3791,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M602 target=_blank>./DEC/Mxxx/M602</a></b>: Pulse Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M602 target=_blank>./DEC/Mxxx/M602</a></b>: Pulse Amplifier
 
 </LEGEND><DL>
 <DT>M602A</A>
@@ -3800,11 +3800,11 @@ by Dave Brockman.
   <DD>is a 'modernized' M602.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M603 target=_blank>./DEC/Mxxx/M603</a></b>: 2 Pulse Amplifiers, negative edge in, 1 positive 60ns & 1 positive 45-100ns out, 4 2-input NANDs (74H00), 3 3-input ANDs (74H11)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M603 target=_blank>./DEC/Mxxx/M603</a></b>: 2 Pulse Amplifiers, negative edge in, 1 positive 60ns & 1 positive 45-100ns out, 4 2-input NANDs (74H00), 3 3-input ANDs (74H11)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M606 target=_blank>./DEC/Mxxx/M606</a></b>: Pulse Generator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M606 target=_blank>./DEC/Mxxx/M606</a></b>: Pulse Generator
 
 </LEGEND><DL>
 <DT>M606A</A>
@@ -3816,11 +3816,11 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M610 target=_blank>./DEC/Mxxx/M610</a></b>: 6 Open Collector 2-Input NAND Gates + Pulse Amplifier
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M610 target=_blank>./DEC/Mxxx/M610</a></b>: 6 Open Collector 2-Input NAND Gates + Pulse Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M611 target=_blank>./DEC/Mxxx/M611</a></b>: High Speed Power Inverter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M611 target=_blank>./DEC/Mxxx/M611</a></b>: High Speed Power Inverter
 
 </LEGEND><DL>
 <DT>M611A</A>
@@ -3831,11 +3831,11 @@ by Dave Brockman.
   <DD>is a 'modernized' M611.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M612 target=_blank>./DEC/Mxxx/M612</a></b>: 6 Power Gates, 6 grounds, 5 inputs per gate pair
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M612 target=_blank>./DEC/Mxxx/M612</a></b>: 6 Power Gates, 6 grounds, 5 inputs per gate pair
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M617 target=_blank>./DEC/Mxxx/M617</a></b>: 6-4 Input NOR Buffers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M617 target=_blank>./DEC/Mxxx/M617</a></b>: 6-4 Input NOR Buffers
 
 </LEGEND><DL>
 <DT>M617B</A>
@@ -3848,7 +3848,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M617.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M621 target=_blank>./DEC/Mxxx/M621</a></b>: Bus Driver, 6 circuits, enables for each of 2 6-bit words
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M621 target=_blank>./DEC/Mxxx/M621</a></b>: Bus Driver, 6 circuits, enables for each of 2 6-bit words
 
 </LEGEND><DL>
 <DT>M621A</A>
@@ -3857,7 +3857,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M621.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M622 target=_blank>./DEC/Mxxx/M622</a></b>: Bus Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M622 target=_blank>./DEC/Mxxx/M622</a></b>: Bus Drivers
 
 </LEGEND><DL>
 <DT>M622A</A>
@@ -3866,7 +3866,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M622.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M623 target=_blank>./DEC/Mxxx/M623</a></b>: Bus Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M623 target=_blank>./DEC/Mxxx/M623</a></b>: Bus Drivers
 
 </LEGEND><DL>
 <DT>M623A</A>
@@ -3878,7 +3878,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M624 target=_blank>./DEC/Mxxx/M624</a></b>: Bus Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M624 target=_blank>./DEC/Mxxx/M624</a></b>: Bus Drivers
 
 </LEGEND><DL>
 <DT>M624A</A>
@@ -3888,7 +3888,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M627 target=_blank>./DEC/Mxxx/M627</a></b>: Power Amplifier Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M627 target=_blank>./DEC/Mxxx/M627</a></b>: Power Amplifier Module
 
 </LEGEND><DL>
 <DT>M627A</A>
@@ -3902,7 +3902,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M628 target=_blank>./DEC/Mxxx/M628</a></b>: 2 switches, 2 bit adder, 1 M621 type driver, for MX15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M628 target=_blank>./DEC/Mxxx/M628</a></b>: 2 switches, 2 bit adder, 1 M621 type driver, for MX15
 
 </LEGEND><DL>
 <DT>M628A</A>
@@ -3911,11 +3911,11 @@ by Dave Brockman.
   <DD>is a 'modernized' M628.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M629 target=_blank>./DEC/Mxxx/M629</a></b>: Bus Driver, 11 circuits, for positive bus, PDP11, 8881's
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M629 target=_blank>./DEC/Mxxx/M629</a></b>: Bus Driver, 11 circuits, for positive bus, PDP11, 8881's
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M632 target=_blank>./DEC/Mxxx/M632</a></b>: Positive Input Converter Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M632 target=_blank>./DEC/Mxxx/M632</a></b>: Positive Input Converter Drivers
 
 </LEGEND><DL>
 <DT>M632B</A>
@@ -3924,7 +3924,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M632.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M633 target=_blank>./DEC/Mxxx/M633</a></b>: Negative Bus Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M633 target=_blank>./DEC/Mxxx/M633</a></b>: Negative Bus Driver
 
 </LEGEND><DL>
 <DT>M633B</A>
@@ -3934,7 +3934,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M640 target=_blank>./DEC/Mxxx/M640</a></b>: Master Interface Bus Driver, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M640 target=_blank>./DEC/Mxxx/M640</a></b>: Master Interface Bus Driver, double
 
 </LEGEND><DL>
 <DT>M640C</A>
@@ -3944,7 +3944,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M650 target=_blank>./DEC/Mxxx/M650</a></b>: Negative output converter, 3 channels, R650 type outputs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M650 target=_blank>./DEC/Mxxx/M650</a></b>: Negative output converter, 3 channels, R650 type outputs
 
 </LEGEND><DL>
 <DT>M650D</A>
@@ -3954,7 +3954,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M651 target=_blank>./DEC/Mxxx/M651</a></b>: M650 with outputs clamped to ground when 5V goes away
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M651 target=_blank>./DEC/Mxxx/M651</a></b>: M650 with outputs clamped to ground when 5V goes away
 
 </LEGEND><DL>
 <DT>M651C</A>
@@ -3964,7 +3964,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M652 target=_blank>./DEC/Mxxx/M652</a></b>: Negative Output Converters
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M652 target=_blank>./DEC/Mxxx/M652</a></b>: Negative Output Converters
 
 </LEGEND><DL>
 <DT>M652A</A>
@@ -3974,7 +3974,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M660 target=_blank>./DEC/Mxxx/M660</a></b>: Positive Level Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M660 target=_blank>./DEC/Mxxx/M660</a></b>: Positive Level Drivers
 
 </LEGEND><DL>
 <DT>M660A</A>
@@ -3986,7 +3986,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M661 target=_blank>./DEC/Mxxx/M661</a></b>: Positive Level Driver for 8/I bus, 3 circuits, output clamped to +3V, M660 pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M661 target=_blank>./DEC/Mxxx/M661</a></b>: Positive Level Driver for 8/I bus, 3 circuits, output clamped to +3V, M660 pins
 
 </LEGEND><DL>
 <DT>M661A</A>
@@ -3996,27 +3996,27 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M663 target=_blank>./DEC/Mxxx/M663</a></b>: 3 negative Memory Bus Drivers, positive input, 50 ohm load, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M663 target=_blank>./DEC/Mxxx/M663</a></b>: 3 negative Memory Bus Drivers, positive input, 50 ohm load, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M664 target=_blank>./DEC/Mxxx/M664</a></b>: I/O Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M664 target=_blank>./DEC/Mxxx/M664</a></b>: I/O Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M665 target=_blank>./DEC/Mxxx/M665</a></b>: Memory Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M665 target=_blank>./DEC/Mxxx/M665</a></b>: Memory Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M666 target=_blank>./DEC/Mxxx/M666</a></b>: I/O Bus Reset, 12 outputs, 20mA@-3V, 1/3 duty factor max
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M666 target=_blank>./DEC/Mxxx/M666</a></b>: I/O Bus Reset, 12 outputs, 20mA@-3V, 1/3 duty factor max
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M671 target=_blank>./DEC/Mxxx/M671</a></b>: M to K Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M671 target=_blank>./DEC/Mxxx/M671</a></b>: M to K Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M688 target=_blank>./DEC/Mxxx/M688</a></b>: Unibus Power Fail Drivers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M688 target=_blank>./DEC/Mxxx/M688</a></b>: Unibus Power Fail Drivers
 
 </LEGEND><DL>
 <DT>M688B</A>
@@ -4026,7 +4026,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M697 target=_blank>./DEC/Mxxx/M697</a></b>: 4 Channel IBM Transmitter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M697 target=_blank>./DEC/Mxxx/M697</a></b>: 4 Channel IBM Transmitter
 
 </LEGEND><DL>
 <DT>M697D</A>
@@ -4034,7 +4034,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M700 target=_blank>./DEC/Mxxx/M700</a></b>: Manual Timing Generator, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M700 target=_blank>./DEC/Mxxx/M700</a></b>: Manual Timing Generator, double
 
 </LEGEND><DL>
 <DT>M700A</A>
@@ -4048,7 +4048,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M701 target=_blank>./DEC/Mxxx/M701</a></b>: Display Control, VC8/I, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M701 target=_blank>./DEC/Mxxx/M701</a></b>: Display Control, VC8/I, double
 
 </LEGEND><DL>
 <DT>M701D</A>
@@ -4058,7 +4058,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7010 target=_blank>./DEC/Mxxx/M7010</a></b>: VV15 Timing and Control (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7010 target=_blank>./DEC/Mxxx/M7010</a></b>: VV15 Timing and Control (double, long)
 
 </LEGEND><DL>
 <DT>M7010B</A>
@@ -4068,11 +4068,11 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7011 target=_blank>./DEC/Mxxx/M7011</a></b>: Serial Transmitter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7011 target=_blank>./DEC/Mxxx/M7011</a></b>: Serial Transmitter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M703 target=_blank>./DEC/Mxxx/M703</a></b>: Power Fail Logic, 8/I
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M703 target=_blank>./DEC/Mxxx/M703</a></b>: Power Fail Logic, 8/I
 
 </LEGEND><DL>
 <DT>M703E</A>
@@ -4082,11 +4082,11 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M704 target=_blank>./DEC/Mxxx/M704</a></b>: Plotter Control, 8/I
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M704 target=_blank>./DEC/Mxxx/M704</a></b>: Plotter Control, 8/I
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M705 target=_blank>./DEC/Mxxx/M705</a></b>: Reader Control, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M705 target=_blank>./DEC/Mxxx/M705</a></b>: Reader Control, double
 
 </LEGEND><DL>
 <DT>M705D</A>
@@ -4097,7 +4097,7 @@ by Dave Brockman.
   <DD>is a 'modernized' M705.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transition out-of-tape sense, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7050 target=_blank>./DEC/Mxxx/M7050</a></b>: Reader Control with feed hole strobe & feed hole transition out-of-tape sense, Double
 
 </LEGEND><DL>
 <DT>M7050C</A>
@@ -4111,7 +4111,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M706 target=_blank>./DEC/Mxxx/M706</a></b>: Teletype Receiver, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M706 target=_blank>./DEC/Mxxx/M706</a></b>: Teletype Receiver, double
 
 </LEGEND><DL>
 <DT>M706D</A>
@@ -4127,7 +4127,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7065 target=_blank>./DEC/Mxxx/M7065</a></b>: Synchronous Receiver (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7065 target=_blank>./DEC/Mxxx/M7065</a></b>: Synchronous Receiver (long)
 
 </LEGEND><DL>
 <DT>M7065C</A>
@@ -4136,7 +4136,7 @@ by Dave Brockman.
   <DD>is a'modernized' drawing of DEC's M7065.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M707 target=_blank>./DEC/Mxxx/M707</a></b>: Teletype Transmitter, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M707 target=_blank>./DEC/Mxxx/M707</a></b>: Teletype Transmitter, double
 
 </LEGEND><DL>
 <DT>M707A</A>
@@ -4152,7 +4152,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7075 target=_blank>./DEC/Mxxx/M7075</a></b>: Synchronous Transmitter (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7075 target=_blank>./DEC/Mxxx/M7075</a></b>: Synchronous Transmitter (long)
 
 </LEGEND><DL>
 <DT>M7075C</A>
@@ -4161,7 +4161,7 @@ by Dave Brockman.
   <DD>is a'modernized' drawing of DEC's M7075.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M708 target=_blank>./DEC/Mxxx/M708</a></b>: Clock Control, 8/I
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M708 target=_blank>./DEC/Mxxx/M708</a></b>: Clock Control, 8/I
 
 </LEGEND><DL>
 <DT>M708A</A>
@@ -4175,7 +4175,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M709 target=_blank>./DEC/Mxxx/M709</a></b>: Clock Counter, 8/I
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M709 target=_blank>./DEC/Mxxx/M709</a></b>: Clock Counter, 8/I
 
 </LEGEND><DL>
 <DT>M709A</A>
@@ -4187,7 +4187,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M710 target=_blank>./DEC/Mxxx/M710</a></b>: Punch control, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M710 target=_blank>./DEC/Mxxx/M710</a></b>: Punch control, double
 
 </LEGEND><DL>
 <DT>M710B</A>
@@ -4201,11 +4201,11 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7100 target=_blank>./DEC/Mxxx/M7100</a></b>: I/O Device Control, used with M592, 10 74H ICs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7100 target=_blank>./DEC/Mxxx/M7100</a></b>: I/O Device Control, used with M592, 10 74H ICs
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7101 target=_blank>./DEC/Mxxx/M7101</a></b>: Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7101 target=_blank>./DEC/Mxxx/M7101</a></b>: Control
 
 </LEGEND><DL>
 <DT>M7101F</A>
@@ -4213,7 +4213,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7102 target=_blank>./DEC/Mxxx/M7102</a></b>: Positive I/O Bus Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7102 target=_blank>./DEC/Mxxx/M7102</a></b>: Positive I/O Bus Converter
 
 </LEGEND><DL>
 <DT>M7102</A>
@@ -4221,7 +4221,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7103 target=_blank>./DEC/Mxxx/M7103</a></b>: Negative I/O Bus Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7103 target=_blank>./DEC/Mxxx/M7103</a></b>: Negative I/O Bus Converter
 
 </LEGEND><DL>
 <DT>M7103</A>
@@ -4229,7 +4229,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7104 target=_blank>./DEC/Mxxx/M7104</a></b>: RK8E Data Buffer and Status
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7104 target=_blank>./DEC/Mxxx/M7104</a></b>: RK8E Data Buffer and Status
 
 </LEGEND><DL>
 <DT>M7104B</A>
@@ -4237,7 +4237,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7105 target=_blank>./DEC/Mxxx/M7105</a></b>: RK8E Major Registers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7105 target=_blank>./DEC/Mxxx/M7105</a></b>: RK8E Major Registers
 
 </LEGEND><DL>
 <DT>M7105B</A>
@@ -4245,7 +4245,7 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7106 target=_blank>./DEC/Mxxx/M7106</a></b>: RK8E Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7106 target=_blank>./DEC/Mxxx/M7106</a></b>: RK8E Control
 
 </LEGEND><DL>
 <DT>M7106C</A>
@@ -4253,19 +4253,19 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M711 target=_blank>./DEC/Mxxx/M711</a></b>: Scope Control, PDP-12
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M711 target=_blank>./DEC/Mxxx/M711</a></b>: Scope Control, PDP-12
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M712 target=_blank>./DEC/Mxxx/M712</a></b>: Control Logic I, CR8-I, CR8-L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M712 target=_blank>./DEC/Mxxx/M712</a></b>: Control Logic I, CR8-I, CR8-L
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M714 target=_blank>./DEC/Mxxx/M714</a></b>: Control Logic I, CR8-I, CR8-L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M714 target=_blank>./DEC/Mxxx/M714</a></b>: Control Logic I, CR8-I, CR8-L
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M715 target=_blank>./DEC/Mxxx/M715</a></b>: Reader Clock, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M715 target=_blank>./DEC/Mxxx/M715</a></b>: Reader Clock, double
 
 </LEGEND><DL>
 <DT>M715A</A>
@@ -4279,11 +4279,11 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M716 target=_blank>./DEC/Mxxx/M716</a></b>: Control Logic II, CR8-I, CR8-L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M716 target=_blank>./DEC/Mxxx/M716</a></b>: Control Logic II, CR8-I, CR8-L
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M717 target=_blank>./DEC/Mxxx/M717</a></b>: Display Control, VP09, VP15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M717 target=_blank>./DEC/Mxxx/M717</a></b>: Display Control, VP09, VP15
 
 </LEGEND><DL>
 <DT>M717A</A>
@@ -4291,11 +4291,11 @@ by Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M719 target=_blank>./DEC/Mxxx/M719</a></b>: Clock Sync & Decade Counter, KW12
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M719 target=_blank>./DEC/Mxxx/M719</a></b>: Clock Sync & Decade Counter, KW12
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M720 target=_blank>./DEC/Mxxx/M720</a></b>: Memory Detection
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M720 target=_blank>./DEC/Mxxx/M720</a></b>: Memory Detection
 
 </LEGEND><DL>
 <DT>M720</A>
@@ -4306,7 +4306,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7212 target=_blank>./DEC/Mxxx/M7212</a></b>: Bus Repeater (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7212 target=_blank>./DEC/Mxxx/M7212</a></b>: Bus Repeater (long)
 
 </LEGEND><DL>
 <DT>M7212C</A>
@@ -4314,7 +4314,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7219 target=_blank>./DEC/Mxxx/M7219</a></b>: RC11 Bus Interface (quad)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7219 target=_blank>./DEC/Mxxx/M7219</a></b>: RC11 Bus Interface (quad)
 
 </LEGEND><DL>
 <DT>M7219D</A>
@@ -4322,7 +4322,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7220 target=_blank>./DEC/Mxxx/M7220</a></b>: RC11 Clock Control (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7220 target=_blank>./DEC/Mxxx/M7220</a></b>: RC11 Clock Control (long)
 
 </LEGEND><DL>
 <DT>M7220B</A>
@@ -4330,7 +4330,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7221 target=_blank>./DEC/Mxxx/M7221</a></b>: RC11 Disk Interface (quad)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7221 target=_blank>./DEC/Mxxx/M7221</a></b>: RC11 Disk Interface (quad)
 
 </LEGEND><DL>
 <DT>M7221D</A>
@@ -4340,7 +4340,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7222 target=_blank>./DEC/Mxxx/M7222</a></b>: RC11 Status Control (quad)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7222 target=_blank>./DEC/Mxxx/M7222</a></b>: RC11 Status Control (quad)
 
 </LEGEND><DL>
 <DT>M7222E</A>
@@ -4348,7 +4348,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7224 target=_blank>./DEC/Mxxx/M7224</a></b>: RC11 Unit and Track Selector (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7224 target=_blank>./DEC/Mxxx/M7224</a></b>: RC11 Unit and Track Selector (long)
 
 </LEGEND><DL>
 <DT>M7224B</A>
@@ -4356,7 +4356,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7225 target=_blank>./DEC/Mxxx/M7225</a></b>: 
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7225 target=_blank>./DEC/Mxxx/M7225</a></b>: 
 
 </LEGEND><DL>
 <DT>M7225B</A>
@@ -4364,7 +4364,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M724 target=_blank>./DEC/Mxxx/M724</a></b>: Bus and Console Control (quad, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M724 target=_blank>./DEC/Mxxx/M724</a></b>: Bus and Console Control (quad, long)
 
 </LEGEND><DL>
 <DT>M724C</A>
@@ -4372,7 +4372,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7246 target=_blank>./DEC/Mxxx/M7246</a></b>: Modem Control Scan (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7246 target=_blank>./DEC/Mxxx/M7246</a></b>: Modem Control Scan (double, long)
 
 </LEGEND><DL>
 <DT>M7246H</A>
@@ -4380,7 +4380,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M725 target=_blank>./DEC/Mxxx/M725</a></b>: Bus Interface and IR (quad, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M725 target=_blank>./DEC/Mxxx/M725</a></b>: Bus Interface and IR (quad, long)
 
 </LEGEND><DL>
 <DT>M725B</A>
@@ -4388,7 +4388,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M726 target=_blank>./DEC/Mxxx/M726</a></b>: IR Decode (quad, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M726 target=_blank>./DEC/Mxxx/M726</a></b>: IR Decode (quad, long)
 
 </LEGEND><DL>
 <DT>M726B</A>
@@ -4396,7 +4396,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M727 target=_blank>./DEC/Mxxx/M727</a></b>: State Control (quad, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M727 target=_blank>./DEC/Mxxx/M727</a></b>: State Control (quad, long)
 
 </LEGEND><DL>
 <DT>M727C</A>
@@ -4404,7 +4404,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M728 target=_blank>./DEC/Mxxx/M728</a></b>: Timing and States (quad, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M728 target=_blank>./DEC/Mxxx/M728</a></b>: Timing and States (quad, long)
 
 </LEGEND><DL>
 <DT>M728D</A>
@@ -4412,7 +4412,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7290 target=_blank>./DEC/Mxxx/M7290</a></b>: Control Logic (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7290 target=_blank>./DEC/Mxxx/M7290</a></b>: Control Logic (double, long)
 
 </LEGEND><DL>
 <DT>M7290C</A>
@@ -4420,7 +4420,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M730 target=_blank>./DEC/Mxxx/M730</a></b>: Positive Output Bus Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M730 target=_blank>./DEC/Mxxx/M730</a></b>: Positive Output Bus Interface
 
 </LEGEND><DL>
 <DT>M730A</A>
@@ -4428,23 +4428,23 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M731 target=_blank>./DEC/Mxxx/M731</a></b>: Negative Output Bus Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M731 target=_blank>./DEC/Mxxx/M731</a></b>: Negative Output Bus Interface
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M732 target=_blank>./DEC/Mxxx/M732</a></b>: Positive Input Bus Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M732 target=_blank>./DEC/Mxxx/M732</a></b>: Positive Input Bus Interface
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M733 target=_blank>./DEC/Mxxx/M733</a></b>: Negative Input Bus Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M733 target=_blank>./DEC/Mxxx/M733</a></b>: Negative Input Bus Interface
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M734 target=_blank>./DEC/Mxxx/M734</a></b>: Input/Output Bus Multiplexer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M734 target=_blank>./DEC/Mxxx/M734</a></b>: Input/Output Bus Multiplexer
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7341 target=_blank>./DEC/Mxxx/M7341</a></b>: MPS Processor Module, quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7341 target=_blank>./DEC/Mxxx/M7341</a></b>: MPS Processor Module, quad
 
 </LEGEND><DL>
 <DT>M7341E</A>
@@ -4452,7 +4452,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7344 target=_blank>./DEC/Mxxx/M7344</a></b>: MPS Read/Write Memory Module, quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7344 target=_blank>./DEC/Mxxx/M7344</a></b>: MPS Read/Write Memory Module, quad
 
 </LEGEND><DL>
 <DT>M7344CYA</A>
@@ -4460,7 +4460,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7345 target=_blank>./DEC/Mxxx/M7345</a></b>: MPS 4Kx8 Read Only Memory Module, quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7345 target=_blank>./DEC/Mxxx/M7345</a></b>: MPS 4Kx8 Read Only Memory Module, quad
 
 </LEGEND><DL>
 <DT>M7345C</A>
@@ -4468,7 +4468,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7346 target=_blank>./DEC/Mxxx/M7346</a></b>: MPS External Event Detection Module, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7346 target=_blank>./DEC/Mxxx/M7346</a></b>: MPS External Event Detection Module, extended single
 
 </LEGEND><DL>
 <DT>M7346B</A>
@@ -4476,7 +4476,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7347 target=_blank>./DEC/Mxxx/M7347</a></b>: MPS Reader Run
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7347 target=_blank>./DEC/Mxxx/M7347</a></b>: MPS Reader Run
 
 </LEGEND><DL>
 <DT>M7347B</A>
@@ -4484,23 +4484,23 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M735 target=_blank>./DEC/Mxxx/M735</a></b>: Input/Output Bus Transfer Register
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M735 target=_blank>./DEC/Mxxx/M735</a></b>: Input/Output Bus Transfer Register
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M736 target=_blank>./DEC/Mxxx/M736</a></b>: Priority Interrupt Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M736 target=_blank>./DEC/Mxxx/M736</a></b>: Priority Interrupt Module
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M737 target=_blank>./DEC/Mxxx/M737</a></b>: 12-Bit Bus Receiver Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M737 target=_blank>./DEC/Mxxx/M737</a></b>: 12-Bit Bus Receiver Interface
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M738 target=_blank>./DEC/Mxxx/M738</a></b>: Counter-Buffer Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M738 target=_blank>./DEC/Mxxx/M738</a></b>: Counter-Buffer Interface
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7390 target=_blank>./DEC/Mxxx/M7390</a></b>: Asynchronous Transceiver, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7390 target=_blank>./DEC/Mxxx/M7390</a></b>: Asynchronous Transceiver, extended double
 
 </LEGEND><DL>
 <DT>M7390D</A>
@@ -4508,27 +4508,27 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M750 target=_blank>./DEC/Mxxx/M750</a></b>: Line I/O Control, equivalent to 2 W750s
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M750 target=_blank>./DEC/Mxxx/M750</a></b>: Line I/O Control, equivalent to 2 W750s
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M751 target=_blank>./DEC/Mxxx/M751</a></b>: Line Register & R Register for DC08A, I/O Bus Connection
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M751 target=_blank>./DEC/Mxxx/M751</a></b>: Line Register & R Register for DC08A, I/O Bus Connection
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M752 target=_blank>./DEC/Mxxx/M752</a></b>: Instruction Decoder & Gates for DC08A
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M752 target=_blank>./DEC/Mxxx/M752</a></b>: Instruction Decoder & Gates for DC08A
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M753 target=_blank>./DEC/Mxxx/M753</a></b>: Control for 2 Data Set Lines in DC08F
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M753 target=_blank>./DEC/Mxxx/M753</a></b>: Control for 2 Data Set Lines in DC08F
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M760 target=_blank>./DEC/Mxxx/M760</a></b>: A/D CONTROL FOR PDP-12, POSSIBLE GENERAL APPLICATION
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M760 target=_blank>./DEC/Mxxx/M760</a></b>: A/D CONTROL FOR PDP-12, POSSIBLE GENERAL APPLICATION
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M761 target=_blank>./DEC/Mxxx/M761</a></b>: 32 to 8 Bit Multiplexer (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M761 target=_blank>./DEC/Mxxx/M761</a></b>: 32 to 8 Bit Multiplexer (double)
 
 </LEGEND><DL>
 <DT>M761A</A>
@@ -4536,7 +4536,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M762 target=_blank>./DEC/Mxxx/M762</a></b>: ROM Diode Matrix Receiver (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M762 target=_blank>./DEC/Mxxx/M762</a></b>: ROM Diode Matrix Receiver (double)
 
 </LEGEND><DL>
 <DT>M762A</A>
@@ -4544,7 +4544,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M763 target=_blank>./DEC/Mxxx/M763</a></b>: 9 Track Write Buffer for TU10, negative logic, see M893, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M763 target=_blank>./DEC/Mxxx/M763</a></b>: 9 Track Write Buffer for TU10, negative logic, see M893, double
 
 </LEGEND><DL>
 <DT>M763C</A>
@@ -4554,7 +4554,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M765 target=_blank>./DEC/Mxxx/M765</a></b>: 9 Track Read Buffer for TU10, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M765 target=_blank>./DEC/Mxxx/M765</a></b>: 9 Track Read Buffer for TU10, double
 
 </LEGEND><DL>
 <DT>M765A</A>
@@ -4564,7 +4564,7 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M767 target=_blank>./DEC/Mxxx/M767</a></b>: Clock and Skew Delay
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M767 target=_blank>./DEC/Mxxx/M767</a></b>: Clock and Skew Delay
 
 </LEGEND><DL>
 <DT>M767A</A>
@@ -4574,15 +4574,15 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7670 target=_blank>./DEC/Mxxx/M7670</a></b>: Forward BOT Timer, TU10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7670 target=_blank>./DEC/Mxxx/M7670</a></b>: Forward BOT Timer, TU10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7671 target=_blank>./DEC/Mxxx/M7671</a></b>: Master Slave Bus Driver, TU10, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7671 target=_blank>./DEC/Mxxx/M7671</a></b>: Master Slave Bus Driver, TU10, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7672 target=_blank>./DEC/Mxxx/M7672</a></b>: TU10 Command Buffers, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7672 target=_blank>./DEC/Mxxx/M7672</a></b>: TU10 Command Buffers, Double
 
 </LEGEND><DL>
 <DT>M7672</A>
@@ -4594,11 +4594,11 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7673 target=_blank>./DEC/Mxxx/M7673</a></b>: Data Checker, TU10, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7673 target=_blank>./DEC/Mxxx/M7673</a></b>: Data Checker, TU10, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M768 target=_blank>./DEC/Mxxx/M768</a></b>: Delay Selector for TU10, with TC58, TC59, TM10, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M768 target=_blank>./DEC/Mxxx/M768</a></b>: Delay Selector for TU10, with TC58, TC59, TM10, double
 
 </LEGEND><DL>
 <DT>M768E</A>
@@ -4606,7 +4606,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7687 target=_blank>./DEC/Mxxx/M7687</a></b>: Drive Data Interface (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7687 target=_blank>./DEC/Mxxx/M7687</a></b>: Drive Data Interface (long)
 
 </LEGEND><DL>
 <DT>M7687C</A>
@@ -4614,7 +4614,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M769 target=_blank>./DEC/Mxxx/M769</a></b>: Function Control for TU10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M769 target=_blank>./DEC/Mxxx/M769</a></b>: Function Control for TU10
 
 </LEGEND><DL>
 <DT>M769F</A>
@@ -4622,7 +4622,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M770 target=_blank>./DEC/Mxxx/M770</a></b>: EAE CONTROL FOR PDP-15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M770 target=_blank>./DEC/Mxxx/M770</a></b>: EAE CONTROL FOR PDP-15
 
 </LEGEND><DL>
 <DT>M770B</A>
@@ -4630,7 +4630,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M771 target=_blank>./DEC/Mxxx/M771</a></b>: INTERNAL DEVICE DECODER FOR PDP-15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M771 target=_blank>./DEC/Mxxx/M771</a></b>: INTERNAL DEVICE DECODER FOR PDP-15
 
 </LEGEND><DL>
 <DT>M771A</A>
@@ -4638,7 +4638,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7710 target=_blank>./DEC/Mxxx/M7710</a></b>: Print Sequencer (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7710 target=_blank>./DEC/Mxxx/M7710</a></b>: Print Sequencer (double)
 
 </LEGEND><DL>
 <DT>M7710F</A>
@@ -4646,11 +4646,11 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7711 target=_blank>./DEC/Mxxx/M7711</a></b>: Control Logic A (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7711 target=_blank>./DEC/Mxxx/M7711</a></b>: Control Logic A (double)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7712 target=_blank>./DEC/Mxxx/M7712</a></b>: Control Logic B (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7712 target=_blank>./DEC/Mxxx/M7712</a></b>: Control Logic B (double)
 
 </LEGEND><DL>
 <DT>M7712D</A>
@@ -4660,7 +4660,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7713 target=_blank>./DEC/Mxxx/M7713</a></b>: LCV (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7713 target=_blank>./DEC/Mxxx/M7713</a></b>: LCV (double)
 
 </LEGEND><DL>
 <DT>M7713E</A>
@@ -4668,7 +4668,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7715 target=_blank>./DEC/Mxxx/M7715</a></b>: Line Feed Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7715 target=_blank>./DEC/Mxxx/M7715</a></b>: Line Feed Control
 
 </LEGEND><DL>
 <DT>M7715C</A>
@@ -4676,7 +4676,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7716 target=_blank>./DEC/Mxxx/M7716</a></b>: H550 Motor Translator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7716 target=_blank>./DEC/Mxxx/M7716</a></b>: H550 Motor Translator
 
 </LEGEND><DL>
 <DT>M7716B</A>
@@ -4684,7 +4684,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7717 target=_blank>./DEC/Mxxx/M7717</a></b>: Motor Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7717 target=_blank>./DEC/Mxxx/M7717</a></b>: Motor Control
 
 </LEGEND><DL>
 <DT>M7717C</A>
@@ -4692,7 +4692,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M772 target=_blank>./DEC/Mxxx/M772</a></b>: CONSOLE CONTROL #1 FOR PDP-15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M772 target=_blank>./DEC/Mxxx/M772</a></b>: CONSOLE CONTROL #1 FOR PDP-15
 
 </LEGEND><DL>
 <DT>M772A</A>
@@ -4700,7 +4700,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7721 target=_blank>./DEC/Mxxx/M7721</a></b>: Control Logic A (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7721 target=_blank>./DEC/Mxxx/M7721</a></b>: Control Logic A (double)
 
 </LEGEND><DL>
 <DT>M7721B</A>
@@ -4708,7 +4708,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7724 target=_blank>./DEC/Mxxx/M7724</a></b>: Character Generator ROM (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7724 target=_blank>./DEC/Mxxx/M7724</a></b>: Character Generator ROM (double)
 
 </LEGEND><DL>
 <DT>M7724B</A>
@@ -4716,7 +4716,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M773 target=_blank>./DEC/Mxxx/M773</a></b>: CONSOLE CONTROL #2 FOR PDP-15
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M773 target=_blank>./DEC/Mxxx/M773</a></b>: CONSOLE CONTROL #2 FOR PDP-15
 
 </LEGEND><DL>
 <DT>M773B</A>
@@ -4724,7 +4724,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M775 target=_blank>./DEC/Mxxx/M775</a></b>: TIME STATE GENERATOR
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M775 target=_blank>./DEC/Mxxx/M775</a></b>: TIME STATE GENERATOR
 
 </LEGEND><DL>
 <DT>M775B</A>
@@ -4732,7 +4732,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M776 target=_blank>./DEC/Mxxx/M776</a></b>: Reader Register, PC15, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M776 target=_blank>./DEC/Mxxx/M776</a></b>: Reader Register, PC15, Double
 
 </LEGEND><DL>
 <DT>M776A</A>
@@ -4740,7 +4740,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M780 target=_blank>./DEC/Mxxx/M780</a></b>: TTY Transmitter & Receiver, 110 baud (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M780 target=_blank>./DEC/Mxxx/M780</a></b>: TTY Transmitter & Receiver, 110 baud (double, long)
 
 </LEGEND><DL>
 <DT>M780A</A>
@@ -4748,7 +4748,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7800 target=_blank>./DEC/Mxxx/M7800</a></b>: DL11 Asynch Interface (quad)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7800 target=_blank>./DEC/Mxxx/M7800</a></b>: DL11 Asynch Interface (quad)
 
 </LEGEND><DL>
 <DT>M7800A</A>
@@ -4756,7 +4756,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M782 target=_blank>./DEC/Mxxx/M782</a></b>: Interrupt Control (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M782 target=_blank>./DEC/Mxxx/M782</a></b>: Interrupt Control (long)
 
 </LEGEND><DL>
 <DT>M782E</A>
@@ -4764,11 +4764,11 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7820 target=_blank>./DEC/Mxxx/M7820</a></b>: Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7820 target=_blank>./DEC/Mxxx/M7820</a></b>: Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7821, extended single
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7821 target=_blank>./DEC/Mxxx/M7821</a></b>: Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7821 target=_blank>./DEC/Mxxx/M7821</a></b>: Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
 
 </LEGEND><DL>
 <DT>M7821</A>
@@ -4780,7 +4780,7 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M783 target=_blank>./DEC/Mxxx/M783</a></b>: Unibus/Omnibus Drivers, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M783 target=_blank>./DEC/Mxxx/M783</a></b>: Unibus/Omnibus Drivers, extended single
 
 </LEGEND><DL>
 <DT>M783B</A>
@@ -4796,7 +4796,7 @@ AM26S10 instead of the DS8881.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M784 target=_blank>./DEC/Mxxx/M784</a></b>: Unibus/Omnibus Receivers, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M784 target=_blank>./DEC/Mxxx/M784</a></b>: Unibus/Omnibus Receivers, extended single
 
 </LEGEND><DL>
 <DT>M784C</A>
@@ -4812,7 +4812,7 @@ AM26S10 instead of the SP380.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M785 target=_blank>./DEC/Mxxx/M785</a></b>: Unibus/Omnibus Transceiver, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M785 target=_blank>./DEC/Mxxx/M785</a></b>: Unibus/Omnibus Transceiver, extended single
 
 </LEGEND><DL>
 <DT>M785B</A>
@@ -4829,11 +4829,11 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M786 target=_blank>./DEC/Mxxx/M786</a></b>: Device Register Interface, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M786 target=_blank>./DEC/Mxxx/M786</a></b>: Device Register Interface, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M792 target=_blank>./DEC/Mxxx/M792</a></b>: ROM Diode Matrix (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M792 target=_blank>./DEC/Mxxx/M792</a></b>: ROM Diode Matrix (long)
 
 </LEGEND><DL>
 <DT>M792D</A>
@@ -4841,7 +4841,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M795 target=_blank>./DEC/Mxxx/M795</a></b>: Word Count and Bus Address Module, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M795 target=_blank>./DEC/Mxxx/M795</a></b>: Word Count and Bus Address Module, extended double
 
 </LEGEND><DL>
 <DT>M795D</A>
@@ -4849,7 +4849,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M796 target=_blank>./DEC/Mxxx/M796</a></b>: Unibus Master Control, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M796 target=_blank>./DEC/Mxxx/M796</a></b>: Unibus Master Control, extended single
 
 </LEGEND><DL>
 <DT>M796C</A>
@@ -4857,7 +4857,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M797 target=_blank>./DEC/Mxxx/M797</a></b>: Register Select
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M797 target=_blank>./DEC/Mxxx/M797</a></b>: Register Select
 
 </LEGEND><DL>
 <DT>M797B</A>
@@ -4865,7 +4865,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M798 target=_blank>./DEC/Mxxx/M798</a></b>: Unibus Drivers, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M798 target=_blank>./DEC/Mxxx/M798</a></b>: Unibus Drivers, extended single
 
 </LEGEND><DL>
 <DT>M798B</A>
@@ -4873,7 +4873,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M820 target=_blank>./DEC/Mxxx/M820</a></b>: Data Path Control (quad, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M820 target=_blank>./DEC/Mxxx/M820</a></b>: Data Path Control (quad, long)
 
 </LEGEND><DL>
 <DT>M820C</A>
@@ -4881,7 +4881,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M821 target=_blank>./DEC/Mxxx/M821</a></b>: Register Control (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M821 target=_blank>./DEC/Mxxx/M821</a></b>: Register Control (double, long)
 
 </LEGEND><DL>
 <DT>M821C</A>
@@ -4889,7 +4889,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M822 target=_blank>./DEC/Mxxx/M822</a></b>: Flag Control (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M822 target=_blank>./DEC/Mxxx/M822</a></b>: Flag Control (double, long)
 
 </LEGEND><DL>
 <DT>M822A</A>
@@ -4897,7 +4897,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M823 target=_blank>./DEC/Mxxx/M823</a></b>: Codes Data (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M823 target=_blank>./DEC/Mxxx/M823</a></b>: Codes Data (long)
 
 </LEGEND><DL>
 <DT>M823A</A>
@@ -4905,7 +4905,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M824 target=_blank>./DEC/Mxxx/M824</a></b>: Priority (double, long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M824 target=_blank>./DEC/Mxxx/M824</a></b>: Priority (double, long)
 
 </LEGEND><DL>
 <DT>M824C</A>
@@ -4913,7 +4913,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M825 target=_blank>./DEC/Mxxx/M825</a></b>: Power Fail and Control (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M825 target=_blank>./DEC/Mxxx/M825</a></b>: Power Fail and Control (long)
 
 </LEGEND><DL>
 <DT>M825C</A>
@@ -4921,15 +4921,15 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8290 target=_blank>./DEC/Mxxx/M8290</a></b>: CR11 Card Reader Interface (Unibus)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8290 target=_blank>./DEC/Mxxx/M8290</a></b>: CR11 Card Reader Interface (Unibus)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8291 target=_blank>./DEC/Mxxx/M8291</a></b>: CR11 Card Reader Interface (Unibus)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8291 target=_blank>./DEC/Mxxx/M8291</a></b>: CR11 Card Reader Interface (Unibus)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8300 target=_blank>./DEC/Mxxx/M8300</a></b>: KK8E Major Registers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8300 target=_blank>./DEC/Mxxx/M8300</a></b>: KK8E Major Registers
 
 </LEGEND><DL>
 <DT>M8300B</A>
@@ -4937,7 +4937,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8310 target=_blank>./DEC/Mxxx/M8310</a></b>: KK8E Major Register Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8310 target=_blank>./DEC/Mxxx/M8310</a></b>: KK8E Major Register Control
 
 </LEGEND><DL>
 <DT>M8310F</A>
@@ -4945,14 +4945,14 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8317 target=_blank>./DEC/Mxxx/M8317</a></b>: KM8A 8/A Option Board 2<UL>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8317 target=_blank>./DEC/Mxxx/M8317</a></b>: KM8A 8/A Option Board 2<UL>
 
 </LEGEND><DL>
 <DT>M8317E</A>
   <DD>needs a drawing.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8320 target=_blank>./DEC/Mxxx/M8320</a></b>: KK8E Bus Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8320 target=_blank>./DEC/Mxxx/M8320</a></b>: KK8E Bus Loads
 
 </LEGEND><DL>
 <DT>M8320D</A>
@@ -4960,7 +4960,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M833 target=_blank>./DEC/Mxxx/M833</a></b>: KK8E Timing Generator (obsoleted by M8330)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M833 target=_blank>./DEC/Mxxx/M833</a></b>: KK8E Timing Generator (obsoleted by M8330)
 
 </LEGEND><DL>
 <DT>M833D</A>
@@ -4968,7 +4968,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8330 target=_blank>./DEC/Mxxx/M8330</a></b>: KK8E Timing Generator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8330 target=_blank>./DEC/Mxxx/M8330</a></b>: KK8E Timing Generator
 
 </LEGEND><DL>
 <DT>M8330C</A>
@@ -4982,7 +4982,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8331 target=_blank>./DEC/Mxxx/M8331</a></b>: TA8E Cassette Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8331 target=_blank>./DEC/Mxxx/M8331</a></b>: TA8E Cassette Interface
 
 </LEGEND><DL>
 <DT>M8331B</A>
@@ -4990,7 +4990,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8335 target=_blank>./DEC/Mxxx/M8335</a></b>: VT8E Keyboard/Printer Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8335 target=_blank>./DEC/Mxxx/M8335</a></b>: VT8E Keyboard/Printer Control
 
 </LEGEND><DL>
 <DT>M8335B</A>
@@ -4998,7 +4998,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8340 target=_blank>./DEC/Mxxx/M8340</a></b>: KE8E Decoder and Step Counter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8340 target=_blank>./DEC/Mxxx/M8340</a></b>: KE8E Decoder and Step Counter
 
 </LEGEND><DL>
 <DT>M8340F</A>
@@ -5006,7 +5006,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8341 target=_blank>./DEC/Mxxx/M8341</a></b>: KE8E Multiplexers and Timing Generator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8341 target=_blank>./DEC/Mxxx/M8341</a></b>: KE8E Multiplexers and Timing Generator
 
 </LEGEND><DL>
 <DT>M8341D</A>
@@ -5014,7 +5014,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8350 target=_blank>./DEC/Mxxx/M8350</a></b>: KA8E Positive I/O Bus Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8350 target=_blank>./DEC/Mxxx/M8350</a></b>: KA8E Positive I/O Bus Interface
 
 </LEGEND><DL>
 <DT>M8350C</A>
@@ -5022,7 +5022,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8365 target=_blank>./DEC/Mxxx/M8365</a></b>: LA180 Interface, Omnibus (quad, extended)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8365 target=_blank>./DEC/Mxxx/M8365</a></b>: LA180 Interface, Omnibus (quad, extended)
 
 </LEGEND><DL>
 <DT>M8365B</A>
@@ -5030,7 +5030,7 @@ hard to find chips replaced with 7438 and the (too) expensive TL3116.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M837 target=_blank>./DEC/Mxxx/M837</a></b>: Omnibus Memory Extension and Timeshare Option
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M837 target=_blank>./DEC/Mxxx/M837</a></b>: Omnibus Memory Extension and Timeshare Option
 
 </LEGEND><DL>
 <DT>M837</A>
@@ -5042,7 +5042,7 @@ M837cc is a variant without the the TP_CB1 input.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M840 target=_blank>./DEC/Mxxx/M840</a></b>: PC8E High Speed Reader/Punch Control (Omnibus)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M840 target=_blank>./DEC/Mxxx/M840</a></b>: PC8E High Speed Reader/Punch Control (Omnibus)
 
 </LEGEND><DL>
 <DT>M840K</A>
@@ -5052,7 +5052,7 @@ M837cc is a variant without the the TP_CB1 input.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8416 target=_blank>./DEC/Mxxx/M8416</a></b>: KT8A 128K Memory Management Board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8416 target=_blank>./DEC/Mxxx/M8416</a></b>: KT8A 128K Memory Management Board
 
 </LEGEND><DL>
 <DT>M8416C</A>
@@ -5064,7 +5064,7 @@ M837cc is a variant without the the TP_CB1 input.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M842 target=_blank>./DEC/Mxxx/M842</a></b>: XY8E Plotter Control (Omnibus)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M842 target=_blank>./DEC/Mxxx/M842</a></b>: XY8E Plotter Control (Omnibus)
 
 </LEGEND><DL>
 <DT>M843E</A>
@@ -5072,7 +5072,7 @@ M837cc is a variant without the the TP_CB1 input.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M843 target=_blank>./DEC/Mxxx/M843</a></b>: CR8E Card Reader Control (Omnibus)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M843 target=_blank>./DEC/Mxxx/M843</a></b>: CR8E Card Reader Control (Omnibus)
 
 </LEGEND><DL>
 <DT>M843E</A>
@@ -5080,7 +5080,7 @@ M837cc is a variant without the the TP_CB1 input.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M847 target=_blank>./DEC/Mxxx/M847</a></b>: MI8E Diode Bootstrap Loader
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M847 target=_blank>./DEC/Mxxx/M847</a></b>: MI8E Diode Bootstrap Loader
 
 </LEGEND><DL>
 <DT>M847</A>
@@ -5088,7 +5088,7 @@ M837cc is a variant without the the TP_CB1 input.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M850 target=_blank>./DEC/Mxxx/M850</a></b>: EIA Converter and Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M850 target=_blank>./DEC/Mxxx/M850</a></b>: EIA Converter and Cable Connector
 
 </LEGEND><DL>
 <DT>M850A</A>
@@ -5099,7 +5099,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M851 target=_blank>./DEC/Mxxx/M851</a></b>: Bus Receiver - Address Decoder (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M851 target=_blank>./DEC/Mxxx/M851</a></b>: Bus Receiver - Address Decoder (double)
 
 </LEGEND><DL>
 <DT>M851E</A>
@@ -5107,7 +5107,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M865 target=_blank>./DEC/Mxxx/M865</a></b>: KL8E Terminal Control (Obsoleted by M8650)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M865 target=_blank>./DEC/Mxxx/M865</a></b>: KL8E Terminal Control (Obsoleted by M8650)
 
 </LEGEND><DL>
 <DT>M865C</A>
@@ -5115,7 +5115,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8650 target=_blank>./DEC/Mxxx/M8650</a></b>: KL8E Terminal Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8650 target=_blank>./DEC/Mxxx/M8650</a></b>: KL8E Terminal Control
 
 </LEGEND><DL>
 <DT>M8650B</A>
@@ -5133,7 +5133,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8652 target=_blank>./DEC/Mxxx/M8652</a></b>: KL8F Terminal Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8652 target=_blank>./DEC/Mxxx/M8652</a></b>: KL8F Terminal Control
 
 </LEGEND><DL>
 <DT>M8652B</A>
@@ -5141,7 +5141,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8655 target=_blank>./DEC/Mxxx/M8655</a></b>: KL8J Terminal Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8655 target=_blank>./DEC/Mxxx/M8655</a></b>: KL8J Terminal Control
 
 </LEGEND><DL>
 <DT>M8655B</A>
@@ -5149,7 +5149,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M868 target=_blank>./DEC/Mxxx/M868</a></b>: TD8E Simple DECtape Controller
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M868 target=_blank>./DEC/Mxxx/M868</a></b>: TD8E Simple DECtape Controller
 
 </LEGEND><DL>
 <DT>M868H</A>
@@ -5163,7 +5163,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M869 target=_blank>./DEC/Mxxx/M869</a></b>: VC8E Point Plot Display Controller
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M869 target=_blank>./DEC/Mxxx/M869</a></b>: VC8E Point Plot Display Controller
 
 </LEGEND><DL>
 <DT>M869D</A>
@@ -5171,11 +5171,11 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M870 target=_blank>./DEC/Mxxx/M870</a></b>: IMPLEMENTS SIMPLE CLOCK IN PDP12
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M870 target=_blank>./DEC/Mxxx/M870</a></b>: IMPLEMENTS SIMPLE CLOCK IN PDP12
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M882 target=_blank>./DEC/Mxxx/M882</a></b>: Omnibus Real Time Clock (Line)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M882 target=_blank>./DEC/Mxxx/M882</a></b>: Omnibus Real Time Clock (Line)
 
 </LEGEND><DL>
 <DT>M882</A>
@@ -5183,7 +5183,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M885 target=_blank>./DEC/Mxxx/M885</a></b>: VC8E Point Plot Display D/A
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M885 target=_blank>./DEC/Mxxx/M885</a></b>: VC8E Point Plot Display D/A
 
 </LEGEND><DL>
 <DT>M885E</A>
@@ -5195,7 +5195,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M890 target=_blank>./DEC/Mxxx/M890</a></b>: Motion Control for TU10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M890 target=_blank>./DEC/Mxxx/M890</a></b>: Motion Control for TU10
 
 </LEGEND><DL>
 <DT>M890F</A>
@@ -5203,7 +5203,7 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M891 target=_blank>./DEC/Mxxx/M891</a></b>: TU10 CRC and Write Gating, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M891 target=_blank>./DEC/Mxxx/M891</a></b>: TU10 CRC and Write Gating, Double
 
 </LEGEND><DL>
 <DT>M891</A>
@@ -5211,15 +5211,15 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M892 target=_blank>./DEC/Mxxx/M892</a></b>: TU10 Write Gap Timing, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M892 target=_blank>./DEC/Mxxx/M892</a></b>: TU10 Write Gap Timing, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M895 target=_blank>./DEC/Mxxx/M895</a></b>: TU10/TU15 Read Timing, Double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M895 target=_blank>./DEC/Mxxx/M895</a></b>: TU10/TU15 Read Timing, Double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M896 target=_blank>./DEC/Mxxx/M896</a></b>: TU10 CRC Checker
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M896 target=_blank>./DEC/Mxxx/M896</a></b>: TU10 CRC Checker
 
 </LEGEND><DL>
 <DT>M896</A>
@@ -5231,7 +5231,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M900 target=_blank>./DEC/Mxxx/M900</a></b>: CONNECTOR TO 8/I CONSOLE, 30 SIGNALS, 2 GNDS, TTL BUFFERING
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M900 target=_blank>./DEC/Mxxx/M900</a></b>: CONNECTOR TO 8/I CONSOLE, 30 SIGNALS, 2 GNDS, TTL BUFFERING
 
 </LEGEND><DL>
 <DT>M900D</A>
@@ -5241,7 +5241,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M901 target=_blank>./DEC/Mxxx/M901</a></b>: Flat Mylar Cable Connector, 10 ohms in A2,B2,U1 & V1, 2 cables
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M901 target=_blank>./DEC/Mxxx/M901</a></b>: Flat Mylar Cable Connector, 10 ohms in A2,B2,U1 & V1, 2 cables
 
 </LEGEND><DL>
 <DT>M901B</A>
@@ -5251,7 +5251,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M902 target=_blank>./DEC/Mxxx/M902</a></b>: TERMINATOR, 18 100 OHM RESISTORS, M903 & M904 CONNECTIONS
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M902 target=_blank>./DEC/Mxxx/M902</a></b>: TERMINATOR, 18 100 OHM RESISTORS, M903 & M904 CONNECTIONS
 
 </LEGEND><DL>
 <DT>M902A</A>
@@ -5259,7 +5259,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M903 target=_blank>./DEC/Mxxx/M903</a></b>: Flat Mylar Connector, 18 signals, 14 GND pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M903 target=_blank>./DEC/Mxxx/M903</a></b>: Flat Mylar Connector, 18 signals, 14 GND pins
 
 </LEGEND><DL>
 <DT>M903B</A>
@@ -5269,7 +5269,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M904 target=_blank>./DEC/Mxxx/M904</a></b>: Coax Connector, 2x 9-signals, split lug, M903 Pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M904 target=_blank>./DEC/Mxxx/M904</a></b>: Coax Connector, 2x 9-signals, split lug, M903 Pins
 
 </LEGEND><DL>
 <DT>M904B</A>
@@ -5277,7 +5277,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M906 target=_blank>./DEC/Mxxx/M906</a></b>: Cable Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M906 target=_blank>./DEC/Mxxx/M906</a></b>: Cable Terminator
 
 </LEGEND><DL>
 <DT>M906A</A>
@@ -5287,7 +5287,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M907 target=_blank>./DEC/Mxxx/M907</a></b>: Diode Clamp
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M907 target=_blank>./DEC/Mxxx/M907</a></b>: Diode Clamp
 
 </LEGEND><DL>
 <DT>M907A</A>
@@ -5295,7 +5295,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M908 target=_blank>./DEC/Mxxx/M908</a></b>: Connector Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M908 target=_blank>./DEC/Mxxx/M908</a></b>: Connector Module
 
 </LEGEND><DL>
 <DT>M908B</A>
@@ -5305,7 +5305,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M909 target=_blank>./DEC/Mxxx/M909</a></b>: Terminator Card
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M909 target=_blank>./DEC/Mxxx/M909</a></b>: Terminator Card
 
 </LEGEND><DL>
 <DT>M909A</A>
@@ -5313,7 +5313,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M90x,W0x1 target=_blank>./DEC/Mxxx/M90x,W0x1</a></b>: Negibus/Posibus Connectors
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M90x,W0x1 target=_blank>./DEC/Mxxx/M90x,W0x1</a></b>: Negibus/Posibus Connectors
 
 </LEGEND><DL>
 <DT>BusCon</A>
@@ -5322,7 +5322,7 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M910 target=_blank>./DEC/Mxxx/M910</a></b>: CP Terminator Card
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M910 target=_blank>./DEC/Mxxx/M910</a></b>: CP Terminator Card
 
 </LEGEND><DL>
 <DT>M910A</A>
@@ -5330,11 +5330,11 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M9100 target=_blank>./DEC/Mxxx/M9100</a></b>: H854 to H854 or Flip Chip Adapter, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M9100 target=_blank>./DEC/Mxxx/M9100</a></b>: H854 to H854 or Flip Chip Adapter, extended single
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M911 target=_blank>./DEC/Mxxx/M911</a></b>: Memory Bus CP Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M911 target=_blank>./DEC/Mxxx/M911</a></b>: Memory Bus CP Terminator
 
 </LEGEND><DL>
 <DT>M911A</A>
@@ -5342,15 +5342,15 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M912 target=_blank>./DEC/Mxxx/M912</a></b>: Coax Connector, 4x 9-conductor, split lug, M904 Connections, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M912 target=_blank>./DEC/Mxxx/M912</a></b>: Coax Connector, 4x 9-conductor, split lug, M904 Connections, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M915 target=_blank>./DEC/Mxxx/M915</a></b>: 35 WIRES TO PDP-15 CONSOLE WITH PULL-UP RESISTORS
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M915 target=_blank>./DEC/Mxxx/M915</a></b>: 35 WIRES TO PDP-15 CONSOLE WITH PULL-UP RESISTORS
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M916 target=_blank>./DEC/Mxxx/M916</a></b>: 36 Pin connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M916 target=_blank>./DEC/Mxxx/M916</a></b>: 36 Pin connector
 
 </LEGEND><DL>
 <DT>M916</A>
@@ -5358,11 +5358,11 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M917 target=_blank>./DEC/Mxxx/M917</a></b>: Ribbon Connector, 18 Signals, 14 GND Pins, split lug
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M917 target=_blank>./DEC/Mxxx/M917</a></b>: Ribbon Connector, 18 Signals, 14 GND Pins, split lug
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M918 target=_blank>./DEC/Mxxx/M918</a></b>: Flat Mylar Connector, 36 Signals
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M918 target=_blank>./DEC/Mxxx/M918</a></b>: Flat Mylar Connector, 36 Signals
 
 </LEGEND><DL>
 <DT>M918A</A>
@@ -5370,11 +5370,11 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M919 target=_blank>./DEC/Mxxx/M919</a></b>: 11 EXTERNAL BUS, 2 60-WIRE MYLAR, 56 SIGNALS, 14 GND PINS
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M919 target=_blank>./DEC/Mxxx/M919</a></b>: 11 EXTERNAL BUS, 2 60-WIRE MYLAR, 56 SIGNALS, 14 GND PINS
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M920 target=_blank>./DEC/Mxxx/M920</a></b>: Unibus Jumper Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M920 target=_blank>./DEC/Mxxx/M920</a></b>: Unibus Jumper Module
 
 </LEGEND><DL>
 <DT>M920B</A>
@@ -5382,23 +5382,23 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M921 target=_blank>./DEC/Mxxx/M921</a></b>: DEVICE CODE SELECT JUMPER MODULE, FOR 3 IOT'S
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M921 target=_blank>./DEC/Mxxx/M921</a></b>: DEVICE CODE SELECT JUMPER MODULE, FOR 3 IOT'S
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M922 target=_blank>./DEC/Mxxx/M922</a></b>: M901 WITH JUMPERS INSTEAD OF RESISTORS FOR INDICATOR BUS, NOT TO BE USED ON BOTH ENDS OF ANY CABLE
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M922 target=_blank>./DEC/Mxxx/M922</a></b>: M901 WITH JUMPERS INSTEAD OF RESISTORS FOR INDICATOR BUS, NOT TO BE USED ON BOTH ENDS OF ANY CABLE
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M925 target=_blank>./DEC/Mxxx/M925</a></b>: Flat Mylar Connector, 18 Signals, 19 Grounds, short single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M925 target=_blank>./DEC/Mxxx/M925</a></b>: Flat Mylar Connector, 18 Signals, 19 Grounds, short single
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M926 target=_blank>./DEC/Mxxx/M926</a></b>: M901 WITH 100 OHMS IN SERIES WITH SOME OF THE PINS
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M926 target=_blank>./DEC/Mxxx/M926</a></b>: M901 WITH 100 OHMS IN SERIES WITH SOME OF THE PINS
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M927 target=_blank>./DEC/Mxxx/M927</a></b>: Coax Connector, 18-signals, split lug, short
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M927 target=_blank>./DEC/Mxxx/M927</a></b>: Coax Connector, 18-signals, split lug, short
 
 </LEGEND><DL>
 <DT>M927A</A>
@@ -5406,11 +5406,11 @@ the more common 74174.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M929 target=_blank>./DEC/Mxxx/M929</a></b>: Bus Connector, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M929 target=_blank>./DEC/Mxxx/M929</a></b>: Bus Connector, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M930 target=_blank>./DEC/Mxxx/M930</a></b>: Bus Terminator (double, short)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M930 target=_blank>./DEC/Mxxx/M930</a></b>: Bus Terminator (double, short)
 
 </LEGEND><DL>
 <DT>M930</A>
@@ -5425,11 +5425,11 @@ DIP resistor packs.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M931 target=_blank>./DEC/Mxxx/M931</a></b>: 15 TERMINATORS, 2K TO +5V, CLAMPED AT +.75 & +3V, M903 PINS EXCEPT 9 INDICATOR OUTPUTS, KI10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M931 target=_blank>./DEC/Mxxx/M931</a></b>: 15 TERMINATORS, 2K TO +5V, CLAMPED AT +.75 & +3V, M903 PINS EXCEPT 9 INDICATOR OUTPUTS, KI10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M935 target=_blank>./DEC/Mxxx/M935</a></b>: Omnibus Jumper Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M935 target=_blank>./DEC/Mxxx/M935</a></b>: Omnibus Jumper Module
 
 </LEGEND><DL>
 <DT>M935B</A>
@@ -5437,11 +5437,11 @@ DIP resistor packs.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M941 target=_blank>./DEC/Mxxx/M941</a></b>: JUMPER/EXTENDER BOARD FOR TU56
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M941 target=_blank>./DEC/Mxxx/M941</a></b>: JUMPER/EXTENDER BOARD FOR TU56
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M942 target=_blank>./DEC/Mxxx/M942</a></b>: Bus Terminator (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M942 target=_blank>./DEC/Mxxx/M942</a></b>: Bus Terminator (double)
 
 </LEGEND><DL>
 <DT>M942A</A>
@@ -5449,7 +5449,7 @@ DIP resistor packs.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M943 target=_blank>./DEC/Mxxx/M943</a></b>: Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M943 target=_blank>./DEC/Mxxx/M943</a></b>: Cable Connector
 
 </LEGEND><DL>
 <DT>M943A</A>
@@ -5457,47 +5457,47 @@ DIP resistor packs.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M947 target=_blank>./DEC/Mxxx/M947</a></b>: INDICATOR DRIVER, 24 CKTS, CABLE OUT BACK
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M947 target=_blank>./DEC/Mxxx/M947</a></b>: INDICATOR DRIVER, 24 CKTS, CABLE OUT BACK
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M948 target=_blank>./DEC/Mxxx/M948</a></b>: 24 RESISTORS TO CABLE, 4 RESISTORS TO COMMON POINT, COMPANION TO M947
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M948 target=_blank>./DEC/Mxxx/M948</a></b>: 24 RESISTORS TO CABLE, 4 RESISTORS TO COMMON POINT, COMPANION TO M947
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M949 target=_blank>./DEC/Mxxx/M949</a></b>: 9 INDICATOR DRIVERS, 18 SIGNALS, FOR KI CONSOLE
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M949 target=_blank>./DEC/Mxxx/M949</a></b>: 9 INDICATOR DRIVERS, 18 SIGNALS, FOR KI CONSOLE
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M950 target=_blank>./DEC/Mxxx/M950</a></b>: 9 RESISTORS TO CABLE, 9 R TO COMMON, 18 RC FILTERS, COMPANION TO M949
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M950 target=_blank>./DEC/Mxxx/M950</a></b>: 9 RESISTORS TO CABLE, 9 R TO COMMON, 18 RC FILTERS, COMPANION TO M949
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M952 target=_blank>./DEC/Mxxx/M952</a></b>: 27 LEVEL TERMINATORS, CLAMPS AT +.75 & 3.25V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M952 target=_blank>./DEC/Mxxx/M952</a></b>: 27 LEVEL TERMINATORS, CLAMPS AT +.75 & 3.25V
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M953 target=_blank>./DEC/Mxxx/M953</a></b>: Flat Cable Connector, 18 Signals, 18 Grounds
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M953 target=_blank>./DEC/Mxxx/M953</a></b>: Flat Cable Connector, 18 Signals, 18 Grounds
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M954 target=_blank>./DEC/Mxxx/M954</a></b>: Flat Cable Connector, 36 Signals
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M954 target=_blank>./DEC/Mxxx/M954</a></b>: Flat Cable Connector, 36 Signals
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M955 target=_blank>./DEC/Mxxx/M955</a></b>: Flat Cable Connector, 18 Signals
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M955 target=_blank>./DEC/Mxxx/M955</a></b>: Flat Cable Connector, 18 Signals
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M956 target=_blank>./DEC/Mxxx/M956</a></b>: 18 130 OHMS TO +3.0V, M903 PINS
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M956 target=_blank>./DEC/Mxxx/M956</a></b>: 18 130 OHMS TO +3.0V, M903 PINS
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M957 target=_blank>./DEC/Mxxx/M957</a></b>: 8,5" LONG M908, NO HANOLE, CABLE CLAMP LOCATION ON SIDES & END
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M957 target=_blank>./DEC/Mxxx/M957</a></b>: 8,5" LONG M908, NO HANOLE, CABLE CLAMP LOCATION ON SIDES & END
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M960 target=_blank>./DEC/Mxxx/M960</a></b>: TD8E Connector #1
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M960 target=_blank>./DEC/Mxxx/M960</a></b>: TD8E Connector #1
 
 </LEGEND><DL>
 <DT>M960</A>
@@ -5508,7 +5508,7 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M961 target=_blank>./DEC/Mxxx/M961</a></b>: TD8E Connector #2
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M961 target=_blank>./DEC/Mxxx/M961</a></b>: TD8E Connector #2
 
 </LEGEND><DL>
 <DT>M961</A>
@@ -5520,7 +5520,7 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M966 target=_blank>./DEC/Mxxx/M966</a></b>: PDP15 Memory Bus Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M966 target=_blank>./DEC/Mxxx/M966</a></b>: PDP15 Memory Bus Terminator
 
 </LEGEND><DL>
 <DT>M966A</A>
@@ -5528,15 +5528,15 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M969 target=_blank>./DEC/Mxxx/M969</a></b>: 24 LEVEL TERMINATORS LIKE M952 + 1 THERMISTOR
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M969 target=_blank>./DEC/Mxxx/M969</a></b>: 24 LEVEL TERMINATORS LIKE M952 + 1 THERMISTOR
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M970 target=_blank>./DEC/Mxxx/M970</a></b>: H854 MTD ON SINGLE X 8.5 CARD, ACCEPTS BC05C & BC01V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M970 target=_blank>./DEC/Mxxx/M970</a></b>: H854 MTD ON SINGLE X 8.5 CARD, ACCEPTS BC05C & BC01V
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M971 target=_blank>./DEC/Mxxx/M971</a></b>: Cable Interface Board #2 (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M971 target=_blank>./DEC/Mxxx/M971</a></b>: Cable Interface Board #2 (long)
 
 </LEGEND><DL>
 <DT>M971B</A>
@@ -5544,7 +5544,7 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M973 target=_blank>./DEC/Mxxx/M973</a></b>: TTY Cable Connector (long)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M973 target=_blank>./DEC/Mxxx/M973</a></b>: TTY Cable Connector (long)
 
 </LEGEND><DL>
 <DT>M973A</A>
@@ -5552,11 +5552,11 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M975 target=_blank>./DEC/Mxxx/M975</a></b>: Flip Chip to 2x H854 Adapter, special double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M975 target=_blank>./DEC/Mxxx/M975</a></b>: Flip Chip to 2x H854 Adapter, special double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M982 target=_blank>./DEC/Mxxx/M982</a></b>: Blank Universal Terminator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M982 target=_blank>./DEC/Mxxx/M982</a></b>: Blank Universal Terminator
 
 </LEGEND><DL>
 <DT>M982B</A>
@@ -5564,7 +5564,7 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M993 target=_blank>./DEC/Mxxx/M993</a></b>: RK8E Control Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M993 target=_blank>./DEC/Mxxx/M993</a></b>: RK8E Control Cable Connector
 
 </LEGEND><DL>
 <DT>M993</A>
@@ -5574,7 +5574,7 @@ select DEC7384 replaced with a more readily available gate.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8I target=_blank>./DEC/PDP8I</a></b>: PDP-8/i
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8I target=_blank>./DEC/PDP8I</a></b>: PDP-8/i
 
 </LEGEND><DL>
 <DT>pdp8i</A>
@@ -5586,7 +5586,7 @@ select DEC7384 replaced with a more readily available gate.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8L target=_blank>./DEC/PDP8L</a></b>: PDP-8/L
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8L target=_blank>./DEC/PDP8L</a></b>: PDP-8/L
 
 </LEGEND><DL>
 <DT>pdp8l</A>
@@ -5595,7 +5595,7 @@ grounded to suppress warnings, and the hand-wired +5 distribution connections om
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8S target=_blank>./DEC/PDP8S</a></b>: PDP-8/S
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8S target=_blank>./DEC/PDP8S</a></b>: PDP-8/S
 
 </LEGEND><DL>
 <DT>Memory-4K.sch</A>
@@ -5622,7 +5622,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PowerMon target=_blank>./DEC/PowerMon</a></b>: Voltage monitor for DEC backplanes
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PowerMon target=_blank>./DEC/PowerMon</a></b>: Voltage monitor for DEC backplanes
 
 </LEGEND><DL>
 <DT>Vprobe</A>
@@ -5630,7 +5630,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Proto target=_blank>./DEC/Proto</a></b>: DEC Compatible Prototyping boards
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Proto target=_blank>./DEC/Proto</a></b>: DEC Compatible Prototyping boards
 
 </LEGEND><DL>
 <DT>proto</A>
@@ -5642,10 +5642,10 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/RL0x target=_blank>./DEC/RL0x</a></b>: RL01/RL02 Related stuff.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/RL0x target=_blank>./DEC/RL0x</a></b>: RL01/RL02 Related stuff.
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/RL0x/terminator target=_blank>./DEC/RL0x/terminator</a></b>: RL0x Termininator boards.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/RL0x/terminator target=_blank>./DEC/RL0x/terminator</a></b>: RL0x Termininator boards.
 
 </LEGEND><DL>
 <DT>terminator-sil</A>
@@ -5656,7 +5656,7 @@ subsystem replaced with level converters and a ramboard.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/RX8E target=_blank>./DEC/RX8E</a></b>: M8357 RX8E Floppy Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/RX8E target=_blank>./DEC/RX8E</a></b>: M8357 RX8E Floppy Interface
 
 </LEGEND><DL>
 <DT>RX8E</A>
@@ -5664,10 +5664,10 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx target=_blank>./DEC/Rxxx</a></b>: Rxxx modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx target=_blank>./DEC/Rxxx</a></b>: Rxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R001 target=_blank>./DEC/Rxxx/R001</a></b>: Diode Network, 7 diodes, both ends brought to pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R001 target=_blank>./DEC/Rxxx/R001</a></b>: Diode Network, 7 diodes, both ends brought to pins
 
 </LEGEND><DL>
 <DT>R001A</A>
@@ -5679,7 +5679,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R002 target=_blank>./DEC/Rxxx/R002</a></b>: Diode Network, 5 groups of 2 diodes, cathode common
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R002 target=_blank>./DEC/Rxxx/R002</a></b>: Diode Network, 5 groups of 2 diodes, cathode common
 
 </LEGEND><DL>
 <DT>R002A</A>
@@ -5691,11 +5691,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R012 target=_blank>./DEC/Rxxx/R012</a></b>: Diode Network, R002 etch, anodes common
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R012 target=_blank>./DEC/Rxxx/R012</a></b>: Diode Network, R002 etch, anodes common
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R107 target=_blank>./DEC/Rxxx/R107</a></b>: 7 Inverters, 1 with expansion node
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R107 target=_blank>./DEC/Rxxx/R107</a></b>: 7 Inverters, 1 with expansion node
 
 </LEGEND><DL>
 <DT>R107A</A>
@@ -5715,7 +5715,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1075 target=_blank>./DEC/Rxxx/R1075</a></b>: 7 Inverters, 1 with expansion node
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1075 target=_blank>./DEC/Rxxx/R1075</a></b>: 7 Inverters, 1 with expansion node
 
 </LEGEND><DL>
 <DT>R1075B</A>
@@ -5725,7 +5725,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R111 target=_blank>./DEC/Rxxx/R111</a></b>: 3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R111 target=_blank>./DEC/Rxxx/R111</a></b>: 3 2-Input Gates, Expandable, Open Collector, 3 clamp load resistors
 
 </LEGEND><DL>
 <DT>R111E</A>
@@ -5737,11 +5737,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1110 target=_blank>./DEC/Rxxx/R1110</a></b>: R111 with 2mA fan-in & 6534-C transistors, sinks 63ma
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1110 target=_blank>./DEC/Rxxx/R1110</a></b>: R111 with 2mA fan-in & 6534-C transistors, sinks 63ma
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R113 target=_blank>./DEC/Rxxx/R113</a></b>: 5 2-Input Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R113 target=_blank>./DEC/Rxxx/R113</a></b>: 5 2-Input Gates
 
 </LEGEND><DL>
 <DT>R113A</A>
@@ -5753,11 +5753,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1130 target=_blank>./DEC/Rxxx/R1130</a></b>: R113 with 2mA fan-in & 6534-C transistors, sinks 63ma
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R1130 target=_blank>./DEC/Rxxx/R1130</a></b>: R113 with 2mA fan-in & 6534-C transistors, sinks 63ma
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R121 target=_blank>./DEC/Rxxx/R121</a></b>: 2 2-Input, 1 3-Input, 1 4-Input Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R121 target=_blank>./DEC/Rxxx/R121</a></b>: 2 2-Input, 1 3-Input, 1 4-Input Gates
 
 </LEGEND><DL>
 <DT>R121A</A>
@@ -5769,7 +5769,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R122 target=_blank>./DEC/Rxxx/R122</a></b>: Logical Complement of R121
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R122 target=_blank>./DEC/Rxxx/R122</a></b>: Logical Complement of R121
 
 </LEGEND><DL>
 <DT>R122C</A>
@@ -5779,7 +5779,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R123 target=_blank>./DEC/Rxxx/R123</a></b>: Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R123 target=_blank>./DEC/Rxxx/R123</a></b>: Input Bus Gate, 6 Gates, 1 Independent Input, 1 Paired Common Input
 
 </LEGEND><DL>
 <DT>R123A</A>
@@ -5791,7 +5791,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R131 target=_blank>./DEC/Rxxx/R131</a></b>: Exclusive OR, 4 circuits, Output is -3V if inputs are the same
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R131 target=_blank>./DEC/Rxxx/R131</a></b>: Exclusive OR, 4 circuits, Output is -3V if inputs are the same
 
 </LEGEND><DL>
 <DT>R131C</A>
@@ -5801,7 +5801,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R141 target=_blank>./DEC/Rxxx/R141</a></b>: AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R141 target=_blank>./DEC/Rxxx/R141</a></b>: AND-NOR Gate, 7 sets of 2-Input AND Gates NORed together
 
 </LEGEND><DL>
 <DT>R141C</A>
@@ -5815,7 +5815,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R151 target=_blank>./DEC/Rxxx/R151</a></b>: Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R151 target=_blank>./DEC/Rxxx/R151</a></b>: Binary-Octal Decoder, 6 Inputs + Enable, 8 Outputs
 
 </LEGEND><DL>
 <DT>R151A</A>
@@ -5829,11 +5829,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R152 target=_blank>./DEC/Rxxx/R152</a></b>: Obsolete, R151 without clamp loads, see B152
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R152 target=_blank>./DEC/Rxxx/R152</a></b>: Obsolete, R151 without clamp loads, see B152
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R181 target=_blank>./DEC/Rxxx/R181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R181 target=_blank>./DEC/Rxxx/R181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 
 </LEGEND><DL>
 <DT>R181A</A>
@@ -5845,11 +5845,11 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R200 target=_blank>./DEC/Rxxx/R200</a></b>: Set-Reset Flip-flop
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R200 target=_blank>./DEC/Rxxx/R200</a></b>: Set-Reset Flip-flop
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R201 target=_blank>./DEC/Rxxx/R201</a></b>: RS FF with 3 Set and 2 Reset DCD Gates
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R201 target=_blank>./DEC/Rxxx/R201</a></b>: RS FF with 3 Set and 2 Reset DCD Gates
 
 </LEGEND><DL>
 <DT>R201A</A>
@@ -5865,7 +5865,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R202 target=_blank>./DEC/Rxxx/R202</a></b>: Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R202 target=_blank>./DEC/Rxxx/R202</a></b>: Dual FF, Direct Clear, Common Set, 1 set & 1 reset DCD Gate each
 
 </LEGEND><DL>
 <DT>R202D</A>
@@ -5877,7 +5877,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R203 target=_blank>./DEC/Rxxx/R203</a></b>: Triple FF, Direct Clear, Set DCD Gate each
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R203 target=_blank>./DEC/Rxxx/R203</a></b>: Triple FF, Direct Clear, Set DCD Gate each
 
 </LEGEND><DL>
 <DT>R203D</A>
@@ -5887,7 +5887,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R204 target=_blank>./DEC/Rxxx/R204</a></b>: Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R204 target=_blank>./DEC/Rxxx/R204</a></b>: Quad FF, Direct Set for each, Direct Clear for 2, Common for 2
 
 </LEGEND><DL>
 <DT>R204B</A>
@@ -5897,7 +5897,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R205 target=_blank>./DEC/Rxxx/R205</a></b>: Dual FF, Common Direct Clear, 2 DCD Gates each
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R205 target=_blank>./DEC/Rxxx/R205</a></b>: Dual FF, Common Direct Clear, 2 DCD Gates each
 
 </LEGEND><DL>
 <DT>R205B</A>
@@ -5909,7 +5909,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R210 target=_blank>./DEC/Rxxx/R210</a></b>: PDP8 Accumulator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R210 target=_blank>./DEC/Rxxx/R210</a></b>: PDP8 Accumulator
 
 </LEGEND><DL>
 <DT>R210A</A>
@@ -5923,7 +5923,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R211 target=_blank>./DEC/Rxxx/R211</a></b>: MB, PC, MA, (PDP8)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R211 target=_blank>./DEC/Rxxx/R211</a></b>: MB, PC, MA, (PDP8)
 
 </LEGEND><DL>
 <DT>R211J</A>
@@ -5937,7 +5937,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R212 target=_blank>./DEC/Rxxx/R212</a></b>: MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R212 target=_blank>./DEC/Rxxx/R212</a></b>: MQ (PDP8), 2 FFs, SR, SL, Read-in, Clear
 
 </LEGEND><DL>
 <DT>R212D</A>
@@ -5951,7 +5951,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R220 target=_blank>./DEC/Rxxx/R220</a></b>: 3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R220 target=_blank>./DEC/Rxxx/R220</a></b>: 3-Bit SR, Parallel Read-in, Diodes out for detecting all 0s in R111 node
 
 </LEGEND><DL>
 <DT>R220J</A>
@@ -5963,7 +5963,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R284 target=_blank>./DEC/Rxxx/R284</a></b>: Quadraflop, PDP8, 4 stable states
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R284 target=_blank>./DEC/Rxxx/R284</a></b>: Quadraflop, PDP8, 4 stable states
 
 </LEGEND><DL>
 <DT>R284A</A>
@@ -5975,7 +5975,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R302 target=_blank>./DEC/Rxxx/R302</a></b>: 2 One-shots
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R302 target=_blank>./DEC/Rxxx/R302</a></b>: 2 One-shots
 
 </LEGEND><DL>
 <DT>R302J</A>
@@ -5989,7 +5989,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R303 target=_blank>./DEC/Rxxx/R303</a></b>: Integrating One Shot
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R303 target=_blank>./DEC/Rxxx/R303</a></b>: Integrating One Shot
 
 </LEGEND><DL>
 <DT>R303D</A>
@@ -5999,7 +5999,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R401 target=_blank>./DEC/Rxxx/R401</a></b>: Variable Clock, 30CPS to 2 MC
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R401 target=_blank>./DEC/Rxxx/R401</a></b>: Variable Clock, 30CPS to 2 MC
 
 </LEGEND><DL>
 <DT>R401D</A>
@@ -6013,7 +6013,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R405 target=_blank>./DEC/Rxxx/R405</a></b>: Crystal Clock, 5 KC to 2 MC Available
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R405 target=_blank>./DEC/Rxxx/R405</a></b>: Crystal Clock, 5 KC to 2 MC Available
 
 </LEGEND><DL>
 <DT>R405H</A>
@@ -6025,19 +6025,19 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R406 target=_blank>./DEC/Rxxx/R406</a></b>: Clock for PDP9/L, 1.5us
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R406 target=_blank>./DEC/Rxxx/R406</a></b>: Clock for PDP9/L, 1.5us
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R407 target=_blank>./DEC/Rxxx/R407</a></b>: PDP9 Parity Clock, 1.2us
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R407 target=_blank>./DEC/Rxxx/R407</a></b>: PDP9 Parity Clock, 1.2us
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R408 target=_blank>./DEC/Rxxx/R408</a></b>: PDP8 Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R408 target=_blank>./DEC/Rxxx/R408</a></b>: PDP8 Clock
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R409 target=_blank>./DEC/Rxxx/R409</a></b>: PDP9 Clock (R405 configured for 1MC)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R409 target=_blank>./DEC/Rxxx/R409</a></b>: PDP9 Clock (R405 configured for 1MC)
 
 </LEGEND><DL>
 <DT>R409H</A>
@@ -6049,7 +6049,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Variable Clock
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R450 target=_blank>./DEC/Rxxx/R450</a></b>: Variable Clock
 
 </LEGEND><DL>
 <DT>R450B</A>
@@ -6061,7 +6061,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R451 target=_blank>./DEC/Rxxx/R451</a></b>: Teletype Clock, for faster teletype think R450
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R451 target=_blank>./DEC/Rxxx/R451</a></b>: Teletype Clock, for faster teletype think R450
 
 </LEGEND><DL>
 <DT>R451E</A>
@@ -6071,7 +6071,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R601 target=_blank>./DEC/Rxxx/R601</a></b>: Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R601 target=_blank>./DEC/Rxxx/R601</a></b>: Pulse Amplifier, 6 DCD Gates, 100 or 400 ns pulses
 
 </LEGEND><DL>
 <DT>R601E</A>
@@ -6085,7 +6085,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R602 target=_blank>./DEC/Rxxx/R602</a></b>: Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R602 target=_blank>./DEC/Rxxx/R602</a></b>: Pulse Amplifier, 2 DCD Gates & 1 Diode Input each, 100 or 400 ns pulses
 
 </LEGEND><DL>
 <DT>R602H</A>
@@ -6096,7 +6096,7 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a 'modernized' R602.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R603 target=_blank>./DEC/Rxxx/R603</a></b>: Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R603 target=_blank>./DEC/Rxxx/R603</a></b>: Pulse Amplifier, 3 circuits, 1 DCD Gate & 1 Diode Input each
 
 </LEGEND><DL>
 <DT>R603D</A>
@@ -6105,7 +6105,7 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a 'modernized' R603.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R613 target=_blank>./DEC/Rxxx/R613</a></b>: R603 that cannot be triggered from output, with 5 mA loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R613 target=_blank>./DEC/Rxxx/R613</a></b>: R603 that cannot be triggered from output, with 5 mA loads
 
 </LEGEND><DL>
 <DT>R613B</A>
@@ -6114,11 +6114,11 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a 'modernized' R613.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R623 target=_blank>./DEC/Rxxx/R623</a></b>: R603 with 400us pulse, R603 etch, retrofit for LINC-8
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R623 target=_blank>./DEC/Rxxx/R623</a></b>: R603 with 400us pulse, R603 etch, retrofit for LINC-8
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R650 target=_blank>./DEC/Rxxx/R650</a></b>: Bus Driver, 2 circuits, 2 Inputs & Node
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R650 target=_blank>./DEC/Rxxx/R650</a></b>: Bus Driver, 2 circuits, 2 Inputs & Node
 
 </LEGEND><DL>
 <DT>R650BS1B</A>
@@ -6132,15 +6132,15 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R663 target=_blank>./DEC/Rxxx/R663</a></b>: B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Rxxx/R663 target=_blank>./DEC/Rxxx/R663</a></b>: B163 with DEC 6534C (6 2-Input NANDs, 1 Input/Gate + 1 Input/Gate pair, 2mA fan-in)
 
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx target=_blank>./DEC/Sxxx</a></b>: Sxxx Modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx target=_blank>./DEC/Sxxx</a></b>: Sxxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S107 target=_blank>./DEC/Sxxx/S107</a></b>: R107 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S107 target=_blank>./DEC/Sxxx/S107</a></b>: R107 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S107A</A>
@@ -6153,7 +6153,7 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a 'modernized' S107.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S111 target=_blank>./DEC/Sxxx/S111</a></b>: R111 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S111 target=_blank>./DEC/Sxxx/S111</a></b>: R111 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S111E</A>
@@ -6165,7 +6165,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S123 target=_blank>./DEC/Sxxx/S123</a></b>: Diode Gate
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S123 target=_blank>./DEC/Sxxx/S123</a></b>: Diode Gate
 
 </LEGEND><DL>
 <DT>S123B</A>
@@ -6175,7 +6175,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S151 target=_blank>./DEC/Sxxx/S151</a></b>: R151 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S151 target=_blank>./DEC/Sxxx/S151</a></b>: R151 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S151A</A>
@@ -6189,7 +6189,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S181 target=_blank>./DEC/Sxxx/S181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S181 target=_blank>./DEC/Sxxx/S181</a></b>: DC Carry Chain, 6 Interconnected Diode Gates + 1 Inverter
 
 </LEGEND><DL>
 <DT>S181A</A>
@@ -6201,7 +6201,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S202 target=_blank>./DEC/Sxxx/S202</a></b>: R202 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S202 target=_blank>./DEC/Sxxx/S202</a></b>: R202 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S202D</A>
@@ -6213,7 +6213,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S203 target=_blank>./DEC/Sxxx/S203</a></b>: R203 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S203 target=_blank>./DEC/Sxxx/S203</a></b>: R203 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S203D</A>
@@ -6223,7 +6223,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S205 target=_blank>./DEC/Sxxx/S205</a></b>: R205 Dual Flip Flop with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S205 target=_blank>./DEC/Sxxx/S205</a></b>: R205 Dual Flip Flop with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S205C</A>
@@ -6235,7 +6235,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S206 target=_blank>./DEC/Sxxx/S206</a></b>: S205 Dual Flip Flop with 10mA clamp loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S206 target=_blank>./DEC/Sxxx/S206</a></b>: S205 Dual Flip Flop with 10mA clamp loads
 
 </LEGEND><DL>
 <DT>S206D</A>
@@ -6245,7 +6245,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S284 target=_blank>./DEC/Sxxx/S284</a></b>: R284 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S284 target=_blank>./DEC/Sxxx/S284</a></b>: R284 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S284B</A>
@@ -6254,7 +6254,7 @@ subsystem replaced with level converters and a ramboard.
   <DD>is a 'modernized' S284.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S602 target=_blank>./DEC/Sxxx/S602</a></b>: R602 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S602 target=_blank>./DEC/Sxxx/S602</a></b>: R602 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>S602H</A>
@@ -6266,7 +6266,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S603 target=_blank>./DEC/Sxxx/S603</a></b>: R603 with 5 mA Clamp Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sxxx/S603 target=_blank>./DEC/Sxxx/S603</a></b>: R603 with 5 mA Clamp Loads
 
 </LEGEND><DL>
 <DT>R603D</A>
@@ -6277,7 +6277,7 @@ subsystem replaced with level converters and a ramboard.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sykes target=_blank>./DEC/Sykes</a></b>: Sykes Omnibus Floppy Controller
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Sykes target=_blank>./DEC/Sykes</a></b>: Sykes Omnibus Floppy Controller
 
 </LEGEND><DL>
 <DT>1005A0151D</A>
@@ -6285,7 +6285,7 @@ subsystem replaced with level converters and a ramboard.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TC08 target=_blank>./DEC/TC08</a></b>: TC08 Backplane
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TC08 target=_blank>./DEC/TC08</a></b>: TC08 Backplane
 
 </LEGEND><DL>
 <DT>indicators</A>
@@ -6306,7 +6306,7 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TP34_Autoloader target=_blank>./DEC/TP34_Autoloader</a></b>: TP-34 Autoloader
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TP34_Autoloader target=_blank>./DEC/TP34_Autoloader</a></b>: TP-34 Autoloader
 
 </LEGEND><DL>
 <DT>TP-34</A>
@@ -6316,7 +6316,7 @@ board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TR02x target=_blank>./DEC/TR02x</a></b>: TR02 Incremental Tape Controller
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TR02x target=_blank>./DEC/TR02x</a></b>: TR02 Incremental Tape Controller
 
 </LEGEND><DL>
 <DT>tr02</A>
@@ -6325,7 +6325,7 @@ of the two drive's controllers is complete.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TSC8-75 target=_blank>./DEC/TSC8-75</a></b>: TSC8-75 EDUCOMP ETOS Timeshare Extension
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/TSC8-75 target=_blank>./DEC/TSC8-75</a></b>: TSC8-75 EDUCOMP ETOS Timeshare Extension
 
 </LEGEND><DL>
 <DT>TSC8-75</A>
@@ -6333,7 +6333,7 @@ of the two drive's controllers is complete.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/VC8x target=_blank>./DEC/VC8x</a></b>: VC8i Compatible Posibus Device.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/VC8x target=_blank>./DEC/VC8x</a></b>: VC8i Compatible Posibus Device.
 
 </LEGEND><DL>
 <DT>vc8</A>
@@ -6342,10 +6342,10 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx target=_blank>./DEC/Wxxx</a></b>: Wxxx modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx target=_blank>./DEC/Wxxx</a></b>: Wxxx modules
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W002 target=_blank>./DEC/Wxxx/W002</a></b>: 15 2mA Clamped Loads, W005 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W002 target=_blank>./DEC/Wxxx/W002</a></b>: 15 2mA Clamped Loads, W005 etch
 
 </LEGEND><DL>
 <DT>W002B</A>
@@ -6355,7 +6355,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W005 target=_blank>./DEC/Wxxx/W005</a></b>: 15 Clamped Loads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W005 target=_blank>./DEC/Wxxx/W005</a></b>: 15 Clamped Loads
 
 </LEGEND><DL>
 <DT>W005B</A>
@@ -6365,7 +6365,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W010 target=_blank>./DEC/Wxxx/W010</a></b>: 10 10mA Clamped loads to -15V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W010 target=_blank>./DEC/Wxxx/W010</a></b>: 10 10mA Clamped loads to -15V
 
 </LEGEND><DL>
 <DT>W010A</A>
@@ -6375,7 +6375,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W011 target=_blank>./DEC/Wxxx/W011</a></b>: W021 but 3.25" long.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W011 target=_blank>./DEC/Wxxx/W011</a></b>: W021 but 3.25" long.
 
 </LEGEND><DL>
 <DT>W011B</A>
@@ -6384,27 +6384,27 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W011.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W012 target=_blank>./DEC/Wxxx/W012</a></b>: Flexprint Indicator Cable, -15 +15 Signal, PDP10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W012 target=_blank>./DEC/Wxxx/W012</a></b>: Flexprint Indicator Cable, -15 +15 Signal, PDP10
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W013 target=_blank>./DEC/Wxxx/W013</a></b>: Word Sink Stack Connector, W016 etc, PDP10, 2 1/2 D Memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W013 target=_blank>./DEC/Wxxx/W013</a></b>: Word Sink Stack Connector, W016 etc, PDP10, 2 1/2 D Memory
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W014 target=_blank>./DEC/Wxxx/W014</a></b>: Digit Stack Connector, PDP10, 2 1/2 D Memory, modified W015 layout
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W014 target=_blank>./DEC/Wxxx/W014</a></b>: Digit Stack Connector, PDP10, 2 1/2 D Memory, modified W015 layout
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W017 target=_blank>./DEC/Wxxx/W017</a></b>: Drive Cable Connector, PDP9 Memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W017 target=_blank>./DEC/Wxxx/W017</a></b>: Drive Cable Connector, PDP9 Memory
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W018 target=_blank>./DEC/Wxxx/W018</a></b>: Cable Connector for Indicator Amplifiers (with diodes)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W018 target=_blank>./DEC/Wxxx/W018</a></b>: Cable Connector for Indicator Amplifiers (with diodes)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W020 target=_blank>./DEC/Wxxx/W020</a></b>: Indicator Cable Conn,. 18 ribbon cable, 1.5K resistors
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W020 target=_blank>./DEC/Wxxx/W020</a></b>: Indicator Cable Conn,. 18 ribbon cable, 1.5K resistors
 
 </LEGEND><DL>
 <DT>W020B</A>
@@ -6414,7 +6414,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W021 target=_blank>./DEC/Wxxx/W021</a></b>: Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot, 10 grounds: C, F, J, L, N, R, U
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W021 target=_blank>./DEC/Wxxx/W021</a></b>: Signal Cable Conn., 19 wire ribbon, D, E, H, K, M, P, S, T, V hot, 10 grounds: C, F, J, L, N, R, U
 
 </LEGEND><DL>
 <DT>W021A</A>
@@ -6425,11 +6425,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W021.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W022 target=_blank>./DEC/Wxxx/W022</a></b>: W021 with 100 ohm shunt terminators
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W022 target=_blank>./DEC/Wxxx/W022</a></b>: W021 with 100 ohm shunt terminators
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W023 target=_blank>./DEC/Wxxx/W023</a></b>: 18 Line Ribbon Connector, component spaces near A & B, others straight through
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W023 target=_blank>./DEC/Wxxx/W023</a></b>: 18 Line Ribbon Connector, component spaces near A & B, others straight through
 
 </LEGEND><DL>
 <DT>W023A</A>
@@ -6438,14 +6438,14 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W023.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W024 target=_blank>./DEC/Wxxx/W024</a></b>: Coax Connector, 16-signals, split lug, short
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W024 target=_blank>./DEC/Wxxx/W024</a></b>: Coax Connector, 16-signals, split lug, short
 
 </LEGEND><DL>
 <DT>W024X</A>
   <DD>is a 'modernized' W024.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W025 target=_blank>./DEC/Wxxx/W025</a></b>: 32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W025 target=_blank>./DEC/Wxxx/W025</a></b>: 32 Split Lugs, 4 slots, double size, Memory Paddle used for W075
 
 </LEGEND><DL>
 <DT>W025A</A>
@@ -6454,7 +6454,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W025.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W026 target=_blank>./DEC/Wxxx/W026</a></b>: 18 Split Lugs, diode and resistor termination
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W026 target=_blank>./DEC/Wxxx/W026</a></b>: 18 Split Lugs, diode and resistor termination
 
 </LEGEND><DL>
 <DT>W026B</A>
@@ -6463,11 +6463,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W026.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W027 target=_blank>./DEC/Wxxx/W027</a></b>: Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W027 target=_blank>./DEC/Wxxx/W027</a></b>: Ribbon Cable Connector, 18 Signals with 3Kohm resistors, split lugs
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W028 target=_blank>./DEC/Wxxx/W028</a></b>: W021 with lugs for series of shunt resistors or diodes in signal leads
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W028 target=_blank>./DEC/Wxxx/W028</a></b>: W021 with lugs for series of shunt resistors or diodes in signal leads
 
 </LEGEND><DL>
 <DT>W028A</A>
@@ -6476,11 +6476,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W028.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W031 target=_blank>./DEC/Wxxx/W031</a></b>: Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W031 target=_blank>./DEC/Wxxx/W031</a></b>: Flat Mylar Cable Connector, 9 Signals, 9 Grounds, short single
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W032 target=_blank>./DEC/Wxxx/W032</a></b>: 5 shielded triples, DEC Tape Signal Connector, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W032 target=_blank>./DEC/Wxxx/W032</a></b>: 5 shielded triples, DEC Tape Signal Connector, double
 
 </LEGEND><DL>
 <DT>W032B</A>
@@ -6490,7 +6490,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W033 target=_blank>./DEC/Wxxx/W033</a></b>: Flexprint, W023 connections, side entry cable
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W033 target=_blank>./DEC/Wxxx/W033</a></b>: Flexprint, W023 connections, side entry cable
 
 </LEGEND><DL>
 <DT>W033C</A>
@@ -6500,7 +6500,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W034 target=_blank>./DEC/Wxxx/W034</a></b>: Flexprint, 16 connections on "B" side 10 ohms on A2, B2
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W034 target=_blank>./DEC/Wxxx/W034</a></b>: Flexprint, 16 connections on "B" side 10 ohms on A2, B2
 
 </LEGEND><DL>
 <DT>W034D</A>
@@ -6512,11 +6512,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W035 target=_blank>./DEC/Wxxx/W035</a></b>: Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W035 target=_blank>./DEC/Wxxx/W035</a></b>: Cable Connector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W040 target=_blank>./DEC/Wxxx/W040</a></b>: 2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W040 target=_blank>./DEC/Wxxx/W040</a></b>: 2 Solenoid Drivers, 2 Inputs plus a node, 0.6A max, similar to 4113 + 4681
 
 </LEGEND><DL>
 <DT>W040B</A>
@@ -6526,15 +6526,15 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W042 target=_blank>./DEC/Wxxx/W042</a></b>: 10 Amp Driver (double height, double width)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W042 target=_blank>./DEC/Wxxx/W042</a></b>: 10 Amp Driver (double height, double width)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W043 target=_blank>./DEC/Wxxx/W043</a></b>: 2 Solenoid Drivers, 2 Inputs plus a node, 2.0A max, similar to W040
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W043 target=_blank>./DEC/Wxxx/W043</a></b>: 2 Solenoid Drivers, 2 Inputs plus a node, 2.0A max, similar to W040
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W050 target=_blank>./DEC/Wxxx/W050</a></b>: 7 Indicator/Solenoid Drivers, 30mA -20V max
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W050 target=_blank>./DEC/Wxxx/W050</a></b>: 7 Indicator/Solenoid Drivers, 30mA -20V max
 
 </LEGEND><DL>
 <DT>W050B</A>
@@ -6546,7 +6546,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W051 target=_blank>./DEC/Wxxx/W051</a></b>: 7 Indicator/Solenoid Drivers, 100mA -15V max
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W051 target=_blank>./DEC/Wxxx/W051</a></b>: 7 Indicator/Solenoid Drivers, 100mA -15V max
 
 </LEGEND><DL>
 <DT>W051D</A>
@@ -6556,7 +6556,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W061 target=_blank>./DEC/Wxxx/W061</a></b>: 4 Relay Drivers, 250mA +55V max
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W061 target=_blank>./DEC/Wxxx/W061</a></b>: 4 Relay Drivers, 250mA +55V max
 
 </LEGEND><DL>
 <DT>W061B</A>
@@ -6568,7 +6568,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W070 target=_blank>./DEC/Wxxx/W070</a></b>: Teletype Cable Connector, PDP8, PT08
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W070 target=_blank>./DEC/Wxxx/W070</a></b>: Teletype Cable Connector, PDP8, PT08
 
 </LEGEND><DL>
 <DT>W070C</A>
@@ -6578,15 +6578,15 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W072 target=_blank>./DEC/Wxxx/W072</a></b>: LINC-8 Scope Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W072 target=_blank>./DEC/Wxxx/W072</a></b>: LINC-8 Scope Cable Connector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W073 target=_blank>./DEC/Wxxx/W073</a></b>: LINC-8 Tape Cable Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W073 target=_blank>./DEC/Wxxx/W073</a></b>: LINC-8 Tape Cable Connector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W076 target=_blank>./DEC/Wxxx/W076</a></b>: Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W076 target=_blank>./DEC/Wxxx/W076</a></b>: Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
 
 </LEGEND><DL>
 <DT>W076B</A>
@@ -6600,7 +6600,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W078 target=_blank>./DEC/Wxxx/W078</a></b>: W076 with AMP connector instead of cable
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W078 target=_blank>./DEC/Wxxx/W078</a></b>: W076 with AMP connector instead of cable
 
 </LEGEND><DL>
 <DT>W078</A>
@@ -6608,15 +6608,15 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W080 target=_blank>./DEC/Wxxx/W080</a></b>: Isolated AC/DC Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W080 target=_blank>./DEC/Wxxx/W080</a></b>: Isolated AC/DC Switch
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W100 target=_blank>./DEC/Wxxx/W100</a></b>: Emitter Follower
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W100 target=_blank>./DEC/Wxxx/W100</a></b>: Emitter Follower
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W101 target=_blank>./DEC/Wxxx/W101</a></b>: I/O Bus Driver, similar to 4657
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W101 target=_blank>./DEC/Wxxx/W101</a></b>: I/O Bus Driver, similar to 4657
 
 </LEGEND><DL>
 <DT>W101A</A>
@@ -6628,7 +6628,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W102 target=_blank>./DEC/Wxxx/W102</a></b>: Memory Bus Transceiver, 1665 type
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W102 target=_blank>./DEC/Wxxx/W102</a></b>: Memory Bus Transceiver, 1665 type
 
 </LEGEND><DL>
 <DT>W102J</A>
@@ -6636,7 +6636,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W103 target=_blank>./DEC/Wxxx/W103</a></b>: Device Selector, PDP8, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W103 target=_blank>./DEC/Wxxx/W103</a></b>: Device Selector, PDP8, double
 
 </LEGEND><DL>
 <DT>W103C</A>
@@ -6646,7 +6646,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W104 target=_blank>./DEC/Wxxx/W104</a></b>: PDP-9 I/O Bus Module (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W104 target=_blank>./DEC/Wxxx/W104</a></b>: PDP-9 I/O Bus Module (double)
 
 </LEGEND><DL>
 <DT>W104C</A>
@@ -6656,11 +6656,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W106 target=_blank>./DEC/Wxxx/W106</a></b>: Priority Interrupt Grant
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W106 target=_blank>./DEC/Wxxx/W106</a></b>: Priority Interrupt Grant
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W107 target=_blank>./DEC/Wxxx/W107</a></b>: I/O Receiver, PDP10, 7 channels
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W107 target=_blank>./DEC/Wxxx/W107</a></b>: I/O Receiver, PDP10, 7 channels
 
 </LEGEND><DL>
 <DT>W107B</A>
@@ -6670,7 +6670,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W108 target=_blank>./DEC/Wxxx/W108</a></b>: Bipolar Decoding Driver, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W108 target=_blank>./DEC/Wxxx/W108</a></b>: Bipolar Decoding Driver, double
 
 </LEGEND><DL>
 <DT>W108C</A>
@@ -6679,11 +6679,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W108.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W122 target=_blank>./DEC/Wxxx/W122</a></b>: Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W122 target=_blank>./DEC/Wxxx/W122</a></b>: Pulsed Bus Transceiver, pin compatible with W102 & W112, positive logic in, -bus, -logic out
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W123 target=_blank>./DEC/Wxxx/W123</a></b>: Device Selector (double)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W123 target=_blank>./DEC/Wxxx/W123</a></b>: Device Selector (double)
 
 </LEGEND><DL>
 <DT>W123C</A>
@@ -6693,15 +6693,15 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W132 target=_blank>./DEC/Wxxx/W132</a></b>: Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W132 target=_blank>./DEC/Wxxx/W132</a></b>: Memory Bus Transceiver, KI10, negative bus, 4 circuits, similar to W102
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W250 target=_blank>./DEC/Wxxx/W250</a></b>: 12 Indicator Drivers, flex print, ground & -15V from male end
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W250 target=_blank>./DEC/Wxxx/W250</a></b>: 12 Indicator Drivers, flex print, ground & -15V from male end
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W300 target=_blank>./DEC/Wxxx/W300</a></b>: Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W300 target=_blank>./DEC/Wxxx/W300</a></b>: Tapped 800ns Delay Lines with 50ns taps, 3 Output Amplifiers, replaced by W301
 
 </LEGEND><DL>
 <DT>W300C</A>
@@ -6709,11 +6709,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W301 target=_blank>./DEC/Wxxx/W301</a></b>: Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W301 target=_blank>./DEC/Wxxx/W301</a></b>: Tapped 800ns Delay Lines with 50ns taps, W300 pins, different input loading and improved margins
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W404 target=_blank>./DEC/Wxxx/W404</a></b>: DTR Jumper (2.5" length)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W404 target=_blank>./DEC/Wxxx/W404</a></b>: DTR Jumper (2.5" length)
 
 </LEGEND><DL>
 <DT>W404C</A>
@@ -6723,7 +6723,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W500 target=_blank>./DEC/Wxxx/W500</a></b>: High Impedance Follower, 7 circuits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W500 target=_blank>./DEC/Wxxx/W500</a></b>: High Impedance Follower, 7 circuits
 
 </LEGEND><DL>
 <DT>W500A</A>
@@ -6733,7 +6733,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W501 target=_blank>./DEC/Wxxx/W501</a></b>: Schmitt Trigger, +/-10V in, 0 and -3V out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W501 target=_blank>./DEC/Wxxx/W501</a></b>: Schmitt Trigger, +/-10V in, 0 and -3V out
 
 </LEGEND><DL>
 <DT>W501D</A>
@@ -6745,11 +6745,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W502 target=_blank>./DEC/Wxxx/W502</a></b>: 2 Photon Coupled Triggers
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W502 target=_blank>./DEC/Wxxx/W502</a></b>: 2 Photon Coupled Triggers
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W504 target=_blank>./DEC/Wxxx/W504</a></b>: Initial Transient Detector, A Schmitt, 0 delay, 10ms blackout
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W504 target=_blank>./DEC/Wxxx/W504</a></b>: Initial Transient Detector, A Schmitt, 0 delay, 10ms blackout
 
 </LEGEND><DL>
 <DT>W504A</A>
@@ -6759,11 +6759,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W505 target=_blank>./DEC/Wxxx/W505</a></b>: Low Voltage Detector, measures +10V & -15V
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W505 target=_blank>./DEC/Wxxx/W505</a></b>: Low Voltage Detector, measures +10V & -15V
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W506 target=_blank>./DEC/Wxxx/W506</a></b>: Power Monitor
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W506 target=_blank>./DEC/Wxxx/W506</a></b>: Power Monitor
 
 </LEGEND><DL>
 <DT>W506C</A>
@@ -6775,19 +6775,19 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W507 target=_blank>./DEC/Wxxx/W507</a></b>: Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W507 target=_blank>./DEC/Wxxx/W507</a></b>: Low Voltage Detector, ME10, measures +5, +5, -15, -15, all reg, -15, +10 unreg, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W509 target=_blank>./DEC/Wxxx/W509</a></b>: 3 phase AC Low Voltage Detector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W509 target=_blank>./DEC/Wxxx/W509</a></b>: 3 phase AC Low Voltage Detector
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W510 target=_blank>./DEC/Wxxx/W510</a></b>: Positive Level Converter, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W510 target=_blank>./DEC/Wxxx/W510</a></b>: Positive Level Converter, 3 circuits, thresholds of 0, +1 or +2V; 0 & -3V out
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W511 target=_blank>./DEC/Wxxx/W511</a></b>: Negative Level Converter, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W511 target=_blank>./DEC/Wxxx/W511</a></b>: Negative Level Converter, 2 circuits, thresholds of 0, -1, -2V, -3V; 0 & -3V out
 
 </LEGEND><DL>
 <DT>W511A</A>
@@ -6797,7 +6797,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W512 target=_blank>./DEC/Wxxx/W512</a></b>: Positive Level Converter, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W512 target=_blank>./DEC/Wxxx/W512</a></b>: Positive Level Converter, 7 circuits, thresholds of +1.6 or 0.8V for use with TTL; 0 & -3V out
 
 </LEGEND><DL>
 <DT>W512A</A>
@@ -6806,19 +6806,19 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W512.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W513 target=_blank>./DEC/Wxxx/W513</a></b>: Negative Level Converter, 6 circuits, used in TU55
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W513 target=_blank>./DEC/Wxxx/W513</a></b>: Negative Level Converter, 6 circuits, used in TU55
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W514 target=_blank>./DEC/Wxxx/W514</a></b>: Positive Level Converter, 6 circuits, 100 ohm input
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W514 target=_blank>./DEC/Wxxx/W514</a></b>: Positive Level Converter, 6 circuits, 100 ohm input
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W519 target=_blank>./DEC/Wxxx/W519</a></b>: Power Sequence & Crowbar
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W519 target=_blank>./DEC/Wxxx/W519</a></b>: Power Sequence & Crowbar
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W520 target=_blank>./DEC/Wxxx/W520</a></b>: Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W520 target=_blank>./DEC/Wxxx/W520</a></b>: Comparator, 3 differential circuits, 100mV resolution, like 1501 level converter
 
 </LEGEND><DL>
 <DT>W520B</A>
@@ -6827,7 +6827,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W520.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W532 target=_blank>./DEC/Wxxx/W532</a></b>: Dual AC coupled Sense Amplifier, used on PDP8-S
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W532 target=_blank>./DEC/Wxxx/W532</a></b>: Dual AC coupled Sense Amplifier, used on PDP8-S
 
 </LEGEND><DL>
 <DT>W532B</A>
@@ -6836,7 +6836,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W532.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W533 target=_blank>./DEC/Wxxx/W533</a></b>: Dual Rectifying Slicer, was G803
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W533 target=_blank>./DEC/Wxxx/W533</a></b>: Dual Rectifying Slicer, was G803
 
 </LEGEND><DL>
 <DT>W533A</A>
@@ -6845,19 +6845,19 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W533.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W590 target=_blank>./DEC/Wxxx/W590</a></b>: IBM N Line to DEC converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W590 target=_blank>./DEC/Wxxx/W590</a></b>: IBM N Line to DEC converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W591 target=_blank>./DEC/Wxxx/W591</a></b>: Positive Bus to DEC converter, for Memorex, 0 to +3V, 8 MC, 5 channels, W592 pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W591 target=_blank>./DEC/Wxxx/W591</a></b>: Positive Bus to DEC converter, for Memorex, 0 to +3V, 8 MC, 5 channels, W592 pins
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W592 target=_blank>./DEC/Wxxx/W592</a></b>: IBM 360 Bus to DEC Converter (non-inverting)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W592 target=_blank>./DEC/Wxxx/W592</a></b>: IBM 360 Bus to DEC Converter (non-inverting)
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W600 target=_blank>./DEC/Wxxx/W600</a></b>: Negative Level Amplifier, like 1667, 3 inverting circuits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W600 target=_blank>./DEC/Wxxx/W600</a></b>: Negative Level Amplifier, like 1667, 3 inverting circuits
 
 </LEGEND><DL>
 <DT>W600A</A>
@@ -6867,7 +6867,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W601 target=_blank>./DEC/Wxxx/W601</a></b>: Positive Level Amplifier, 3 inverting circuits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W601 target=_blank>./DEC/Wxxx/W601</a></b>: Positive Level Amplifier, 3 inverting circuits
 
 </LEGEND><DL>
 <DT>W601D</A>
@@ -6877,7 +6877,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W602 target=_blank>./DEC/Wxxx/W602</a></b>: Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W602 target=_blank>./DEC/Wxxx/W602</a></b>: Bipolar Level Amplifier, 3 circuits, EIA Line Interfacer
 
 </LEGEND><DL>
 <DT>W602A</A>
@@ -6886,7 +6886,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
   <DD>is a 'modernized' W602.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W603 target=_blank>./DEC/Wxxx/W603</a></b>: Positive Level Amplifier, 7 circuits
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W603 target=_blank>./DEC/Wxxx/W603</a></b>: Positive Level Amplifier, 7 circuits
 
 </LEGEND><DL>
 <DT>W603A</A>
@@ -6898,7 +6898,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W607 target=_blank>./DEC/Wxxx/W607</a></b>: 3 Pulse Converters, positive or negative, 70ns 2.5V pulse out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W607 target=_blank>./DEC/Wxxx/W607</a></b>: 3 Pulse Converters, positive or negative, 70ns 2.5V pulse out
 
 </LEGEND><DL>
 <DT>W607B</A>
@@ -6906,11 +6906,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W612 target=_blank>./DEC/Wxxx/W612</a></b>: Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W612 target=_blank>./DEC/Wxxx/W612</a></b>: Dual Pulse Amplifier, B602 pins, 120 & 320ns, Diode Output for "OR" Bus
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W640 target=_blank>./DEC/Wxxx/W640</a></b>: 3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W640 target=_blank>./DEC/Wxxx/W640</a></b>: 3 Pulse Converters, positive or negative, 400ns or 1us, 2.5V pulse out
 
 </LEGEND><DL>
 <DT>W640D</A>
@@ -6920,7 +6920,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W681 target=_blank>./DEC/Wxxx/W681</a></b>: Scope Intensifier for 34 Display
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W681 target=_blank>./DEC/Wxxx/W681</a></b>: Scope Intensifier for 34 Display
 
 </LEGEND><DL>
 <DT>W681A</A>
@@ -6930,7 +6930,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W682 target=_blank>./DEC/Wxxx/W682</a></b>: Scope Intensifier, 0 to +3V step, delay 50 to 300ns, 400ns pulse (for VR12 & VR14)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W682 target=_blank>./DEC/Wxxx/W682</a></b>: Scope Intensifier, 0 to +3V step, delay 50 to 300ns, 400ns pulse (for VR12 & VR14)
 
 </LEGEND><DL>
 <DT>W682A</A>
@@ -6940,19 +6940,19 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W690 target=_blank>./DEC/Wxxx/W690</a></b>: DEC to IBM N Line Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W690 target=_blank>./DEC/Wxxx/W690</a></b>: DEC to IBM N Line Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W692 target=_blank>./DEC/Wxxx/W692</a></b>: DEC to IBM 360 Bus Driver
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W692 target=_blank>./DEC/Wxxx/W692</a></b>: DEC to IBM 360 Bus Driver
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W693 target=_blank>./DEC/Wxxx/W693</a></b>: DEC to CTUL Converter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W693 target=_blank>./DEC/Wxxx/W693</a></b>: DEC to CTUL Converter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W700 target=_blank>./DEC/Wxxx/W700</a></b>: Switch Filter, 6 circuits, similar to 1703, used on W710
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W700 target=_blank>./DEC/Wxxx/W700</a></b>: Switch Filter, 6 circuits, similar to 1703, used on W710
 
 </LEGEND><DL>
 <DT>W700A</A>
@@ -6964,11 +6964,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W701 target=_blank>./DEC/Wxxx/W701</a></b>: Input Network, for PDP8 Card Reader
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W701 target=_blank>./DEC/Wxxx/W701</a></b>: Input Network, for PDP8 Card Reader
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W702 target=_blank>./DEC/Wxxx/W702</a></b>: Teletype Level Converter for DC10B Data Line Scanner
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W702 target=_blank>./DEC/Wxxx/W702</a></b>: Teletype Level Converter for DC10B Data Line Scanner
 
 </LEGEND><DL>
 <DT>W702A</A>
@@ -6976,7 +6976,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W7040 target=_blank>./DEC/Wxxx/W7040</a></b>: Diode Cluster
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W7040 target=_blank>./DEC/Wxxx/W7040</a></b>: Diode Cluster
 
 </LEGEND><DL>
 <DT>W7040B</A>
@@ -6984,7 +6984,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W705 target=_blank>./DEC/Wxxx/W705</a></b>: 3.6V Power Supply, triple width
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W705 target=_blank>./DEC/Wxxx/W705</a></b>: 3.6V Power Supply, triple width
 
 </LEGEND><DL>
 <DT>W705A</A>
@@ -6994,7 +6994,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W706 target=_blank>./DEC/Wxxx/W706</a></b>: Teletype Receiver, 8-bit, 11 Unit Codes, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W706 target=_blank>./DEC/Wxxx/W706</a></b>: Teletype Receiver, 8-bit, 11 Unit Codes, double
 
 </LEGEND><DL>
 <DT>W706C</A>
@@ -7004,7 +7004,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W707 target=_blank>./DEC/Wxxx/W707</a></b>: Teletype Transmitter, 8 bit, 2 unit stop code, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W707 target=_blank>./DEC/Wxxx/W707</a></b>: Teletype Transmitter, 8 bit, 2 unit stop code, double
 
 </LEGEND><DL>
 <DT>W707F</A>
@@ -7018,7 +7018,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W708 target=_blank>./DEC/Wxxx/W708</a></b>: Teletype Communications Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W708 target=_blank>./DEC/Wxxx/W708</a></b>: Teletype Communications Interface
 
 </LEGEND><DL>
 <DT>W708A</A>
@@ -7026,11 +7026,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W709 target=_blank>./DEC/Wxxx/W709</a></b>: Divide by 16/64 Counter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W709 target=_blank>./DEC/Wxxx/W709</a></b>: Divide by 16/64 Counter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W714 target=_blank>./DEC/Wxxx/W714</a></b>: Switch Module, 2 form C micro-switches, no circuits, 9/I memory
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W714 target=_blank>./DEC/Wxxx/W714</a></b>: Switch Module, 2 form C micro-switches, no circuits, 9/I memory
 
 </LEGEND><DL>
 <DT>W714A</A>
@@ -7038,7 +7038,7 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W726 target=_blank>./DEC/Wxxx/W726</a></b>: 4 DC & 3 Differentiating Switch Filters, for positive logic, TU10
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W726 target=_blank>./DEC/Wxxx/W726</a></b>: 4 DC & 3 Differentiating Switch Filters, for positive logic, TU10
 
 </LEGEND><DL>
 <DT>W726B</A>
@@ -7046,63 +7046,63 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W800 target=_blank>./DEC/Wxxx/W800</a></b>: 2 Form A Reed Relays, similar to 1803
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W800 target=_blank>./DEC/Wxxx/W800</a></b>: 2 Form A Reed Relays, similar to 1803
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W802 target=_blank>./DEC/Wxxx/W802</a></b>: Relay Multiplexer, 8 Reed Relays, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W802 target=_blank>./DEC/Wxxx/W802</a></b>: Relay Multiplexer, 8 Reed Relays, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W808 target=_blank>./DEC/Wxxx/W808</a></b>: 2-2 Form A, 1/8 Amp 250V Relays
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W808 target=_blank>./DEC/Wxxx/W808</a></b>: 2-2 Form A, 1/8 Amp 250V Relays
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W841 target=_blank>./DEC/Wxxx/W841</a></b>: 1/2 W851 for 9 Coax
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W841 target=_blank>./DEC/Wxxx/W841</a></b>: 1/2 W851 for 9 Coax
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W850 target=_blank>./DEC/Wxxx/W850</a></b>: Connector, 2 double boards with W021 layout, frame, hold-down screw
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W850 target=_blank>./DEC/Wxxx/W850</a></b>: Connector, 2 double boards with W021 layout, frame, hold-down screw
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W851 target=_blank>./DEC/Wxxx/W851</a></b>: Connector, similar to W850, W851 is card & components, BC10 is assembly & cable
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W851 target=_blank>./DEC/Wxxx/W851</a></b>: Connector, similar to W850, W851 is card & components, BC10 is assembly & cable
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W852 target=_blank>./DEC/Wxxx/W852</a></b>: W851 with no components, used in BC10C-xx, uses W851 board
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W852 target=_blank>./DEC/Wxxx/W852</a></b>: W851 with no components, used in BC10C-xx, uses W851 board
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W900 target=_blank>./DEC/Wxxx/W900</a></b>: Multilayer Extender, long double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W900 target=_blank>./DEC/Wxxx/W900</a></b>: Multilayer Extender, long double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W940 target=_blank>./DEC/Wxxx/W940</a></b>: Wire Wrappable Module, 50x 16 pin, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W940 target=_blank>./DEC/Wxxx/W940</a></b>: Wire Wrappable Module, 50x 16 pin, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W941 target=_blank>./DEC/Wxxx/W941</a></b>: Wire Wrappable Module, 25x 16 pin, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W941 target=_blank>./DEC/Wxxx/W941</a></b>: Wire Wrappable Module, 25x 16 pin, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W942 target=_blank>./DEC/Wxxx/W942</a></b>: Wire Wrappable Module, 50x 16 pin, with sockets, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W942 target=_blank>./DEC/Wxxx/W942</a></b>: Wire Wrappable Module, 50x 16 pin, with sockets, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W943 target=_blank>./DEC/Wxxx/W943</a></b>: Wire Wrappable Module, 25x 16 pin, with sockets, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W943 target=_blank>./DEC/Wxxx/W943</a></b>: Wire Wrappable Module, 25x 16 pin, with sockets, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W950 target=_blank>./DEC/Wxxx/W950</a></b>: Wire Wrappable Module, 30x 16 pin, 8x 24 pin, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W950 target=_blank>./DEC/Wxxx/W950</a></b>: Wire Wrappable Module, 30x 16 pin, 8x 24 pin, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W951 target=_blank>./DEC/Wxxx/W951</a></b>: Wire Wrappable Module, 15x 16 pin, 4x 24 pin, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W951 target=_blank>./DEC/Wxxx/W951</a></b>: Wire Wrappable Module, 15x 16 pin, 4x 24 pin, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W952 target=_blank>./DEC/Wxxx/W952</a></b>: Wire Wrappable Module, 30x 16 pin, 8x 24 pin, with sockets, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W952 target=_blank>./DEC/Wxxx/W952</a></b>: Wire Wrappable Module, 30x 16 pin, 8x 24 pin, with sockets, extended quad
 
 </LEGEND><DL>
 <DT>W952</A>
@@ -7110,11 +7110,11 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W953 target=_blank>./DEC/Wxxx/W953</a></b>: Wire Wrappable Module, 15x 16 pin, 4x 24 pin, with sockets, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W953 target=_blank>./DEC/Wxxx/W953</a></b>: Wire Wrappable Module, 15x 16 pin, 4x 24 pin, with sockets, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W960 target=_blank>./DEC/Wxxx/W960</a></b>: MSI Mounting Board (2 14-16 pin or 1 24 pin, all pins brought out)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W960 target=_blank>./DEC/Wxxx/W960</a></b>: MSI Mounting Board (2 14-16 pin or 1 24 pin, all pins brought out)
 
 </LEGEND><DL>
 <DT>W960</A>
@@ -7123,7 +7123,7 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W964 target=_blank>./DEC/Wxxx/W964</a></b>: Blank Universal Terminator, 28 pins, single 5", 50-09733 etch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W964 target=_blank>./DEC/Wxxx/W964</a></b>: Blank Universal Terminator, 28 pins, single 5", 50-09733 etch
 
 </LEGEND><DL>
 <DT>W964</A>
@@ -7131,55 +7131,55 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W966 target=_blank>./DEC/Wxxx/W966</a></b>: Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W966 target=_blank>./DEC/Wxxx/W966</a></b>: Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W967 target=_blank>./DEC/Wxxx/W967</a></b>: Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, with sockets, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W967 target=_blank>./DEC/Wxxx/W967</a></b>: Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, with sockets, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W968 target=_blank>./DEC/Wxxx/W968</a></b>: Collage Mounting Board, 72x 16 pin, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W968 target=_blank>./DEC/Wxxx/W968</a></b>: Collage Mounting Board, 72x 16 pin, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W969 target=_blank>./DEC/Wxxx/W969</a></b>: Collage Mounting Board, 36x 16 pin, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W969 target=_blank>./DEC/Wxxx/W969</a></b>: Collage Mounting Board, 36x 16 pin, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W970 target=_blank>./DEC/Wxxx/W970</a></b>: Bare Board, 36 pins, no split lugs, similar to W990
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W970 target=_blank>./DEC/Wxxx/W970</a></b>: Bare Board, 36 pins, no split lugs, similar to W990
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W971 target=_blank>./DEC/Wxxx/W971</a></b>: Bare board, 72 pins, no lugs, similar to W991, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W971 target=_blank>./DEC/Wxxx/W971</a></b>: Bare board, 72 pins, no lugs, similar to W991, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W972 target=_blank>./DEC/Wxxx/W972</a></b>: Copper Clad, 36 pins, similar to W992
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W972 target=_blank>./DEC/Wxxx/W972</a></b>: Copper Clad, 36 pins, similar to W992
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9720 target=_blank>./DEC/Wxxx/W9720</a></b>: Copper clad board, both sides, extended single
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9720 target=_blank>./DEC/Wxxx/W9720</a></b>: Copper clad board, both sides, extended single
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9721 target=_blank>./DEC/Wxxx/W9721</a></b>: Copper clad board, both sides, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9721 target=_blank>./DEC/Wxxx/W9721</a></b>: Copper clad board, both sides, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9722 target=_blank>./DEC/Wxxx/W9722</a></b>: Copper clad board, both sides, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W9722 target=_blank>./DEC/Wxxx/W9722</a></b>: Copper clad board, both sides, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W973 target=_blank>./DEC/Wxxx/W973</a></b>: Bare Board, 72 pins, copper clad, similar to W993, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W973 target=_blank>./DEC/Wxxx/W973</a></b>: Bare Board, 72 pins, copper clad, similar to W993, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W974 target=_blank>./DEC/Wxxx/W974</a></b>: Perforated single height board, 36 pins, 0.1" grid, contacts only
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W974 target=_blank>./DEC/Wxxx/W974</a></b>: Perforated single height board, 36 pins, 0.1" grid, contacts only
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W975 target=_blank>./DEC/Wxxx/W975</a></b>: Perforated double height board, 72 pins, 0.1" grid, contacts only
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W975 target=_blank>./DEC/Wxxx/W975</a></b>: Perforated double height board, 72 pins, 0.1" grid, contacts only
 
 </LEGEND><DL>
 <DT>W975</A>
@@ -7187,7 +7187,7 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W979 target=_blank>./DEC/Wxxx/W979</a></b>: Collage Mounting Board, 18x 16 pin, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W979 target=_blank>./DEC/Wxxx/W979</a></b>: Collage Mounting Board, 18x 16 pin, double
 
 </LEGEND><DL>
 <DT>W979C</A>
@@ -7195,31 +7195,31 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W980 target=_blank>./DEC/Wxxx/W980</a></b>: Module Extender, single sided
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W980 target=_blank>./DEC/Wxxx/W980</a></b>: Module Extender, single sided
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W982 target=_blank>./DEC/Wxxx/W982</a></b>: Module Extender, double sided
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W982 target=_blank>./DEC/Wxxx/W982</a></b>: Module Extender, double sided
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W983 target=_blank>./DEC/Wxxx/W983</a></b>: Module Extender, double height double sided
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W983 target=_blank>./DEC/Wxxx/W983</a></b>: Module Extender, double height double sided
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W984 target=_blank>./DEC/Wxxx/W984</a></b>: Module Extender, extended double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W984 target=_blank>./DEC/Wxxx/W984</a></b>: Module Extender, extended double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W985 target=_blank>./DEC/Wxxx/W985</a></b>: System Module Adapter
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W985 target=_blank>./DEC/Wxxx/W985</a></b>: System Module Adapter
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W987 target=_blank>./DEC/Wxxx/W987</a></b>: Module Extender, extended quad
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W987 target=_blank>./DEC/Wxxx/W987</a></b>: Module Extender, extended quad
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W990 target=_blank>./DEC/Wxxx/W990</a></b>: Blank Module, split lug for each of 18 pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W990 target=_blank>./DEC/Wxxx/W990</a></b>: Blank Module, split lug for each of 18 pins
 
 </LEGEND><DL>
 <DT>W990D</A>
@@ -7229,15 +7229,15 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W991 target=_blank>./DEC/Wxxx/W991</a></b>: Bare board, split lugs, 36 pins, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W991 target=_blank>./DEC/Wxxx/W991</a></b>: Bare board, split lugs, 36 pins, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W992 target=_blank>./DEC/Wxxx/W992</a></b>: Copper clad, 18 pins
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W992 target=_blank>./DEC/Wxxx/W992</a></b>: Copper clad, 18 pins
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W993 target=_blank>./DEC/Wxxx/W993</a></b>: Copper clad, 36 pins, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W993 target=_blank>./DEC/Wxxx/W993</a></b>: Copper clad, 36 pins, double
 
 </LEGEND><DL>
 <DT>W993A</A>
@@ -7245,7 +7245,7 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W994 target=_blank>./DEC/Wxxx/W994</a></b>: Perforated Module, 0.2" centers, 18 lands
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W994 target=_blank>./DEC/Wxxx/W994</a></b>: Perforated Module, 0.2" centers, 18 lands
 
 </LEGEND><DL>
 <DT>W994A</A>
@@ -7253,20 +7253,20 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W995 target=_blank>./DEC/Wxxx/W995</a></b>: Perforated Module, 0.2" centers, 36 lands, double
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W995 target=_blank>./DEC/Wxxx/W995</a></b>: Perforated Module, 0.2" centers, 36 lands, double
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W998 target=_blank>./DEC/Wxxx/W998</a></b>: Perforated single height board, 18 pins, 0.1" grid, contacts only
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W998 target=_blank>./DEC/Wxxx/W998</a></b>: Perforated single height board, 18 pins, 0.1" grid, contacts only
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W999 target=_blank>./DEC/Wxxx/W999</a></b>: Perforated double height board, 36 pins, 0.1" grid, contacts only
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W999 target=_blank>./DEC/Wxxx/W999</a></b>: Perforated double height board, 36 pins, 0.1" grid, contacts only
 
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/X127026 target=_blank>./DEC/X127026</a></b>: Misc. Function Control
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/X127026 target=_blank>./DEC/X127026</a></b>: Misc. Function Control
 
 </LEGEND><DL>
 <DT>12706</A>
@@ -7274,7 +7274,7 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/buscon target=_blank>./DEC/buscon</a></b>: Negibus/Posibus Connectors
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/buscon target=_blank>./DEC/buscon</a></b>: Negibus/Posibus Connectors
 
 </LEGEND><DL>
 <DT>BusCon</A>
@@ -7283,11 +7283,11 @@ pin DIP components to be connected to a DEC backplane.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/flipchip target=_blank>./DEC/flipchip</a></b>: 6 pin flip-chip modules
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/flipchip target=_blank>./DEC/flipchip</a></b>: 6 pin flip-chip modules
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/xR210 target=_blank>./DEC/xR210</a></b>: Straight-8 Accumulator
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/xR210 target=_blank>./DEC/xR210</a></b>: Straight-8 Accumulator
 
 </LEGEND><DL>
 <DT>smt</A>
@@ -7297,7 +7297,7 @@ Straight-8 Accumulator board.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC9601 target=_blank>./DEC9601</a></b>: Functional equivalent to DEC9601 chip.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC9601 target=_blank>./DEC9601</a></b>: Functional equivalent to DEC9601 chip.
 
 </LEGEND><DL>
 <DT>DEC9601</A>
@@ -7309,7 +7309,7 @@ chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DS32-pdp8.net target=_blank>./DS32-pdp8.net</a></b>: DS32 replacement based on effort of Dave G. at www.pdp8.net.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DS32-pdp8.net target=_blank>./DS32-pdp8.net</a></b>: DS32 replacement based on effort of Dave G. at www.pdp8.net.
 
 </LEGEND><DL>
 <DT>ds32djg</A>
@@ -7319,7 +7319,7 @@ chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./EpromEmu target=_blank>./EpromEmu</a></b>: EPROM Emulator based on work of Philip Pemberton.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./EpromEmu target=_blank>./EpromEmu</a></b>: EPROM Emulator based on work of Philip Pemberton.
 
 </LEGEND><DL>
 <DT>EpromEmu</A>
@@ -7328,10 +7328,10 @@ attaches to the parallel port of a PC.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FP6120 target=_blank>./FP6120</a></b>: Attempt to replicate Bob Armstrong's FP6120.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FP6120 target=_blank>./FP6120</a></b>: Attempt to replicate Bob Armstrong's FP6120.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FlipChip target=_blank>./FlipChip</a></b>: Flip Chip Edge Connector
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FlipChip target=_blank>./FlipChip</a></b>: Flip Chip Edge Connector
 
 </LEGEND><DL>
 <DT>EdgeConnector</A>
@@ -7353,7 +7353,7 @@ attaches to the parallel port of a PC.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FlipChipTester target=_blank>./FlipChipTester</a></b>: Various ideas for a flip-chip tester.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./FlipChipTester target=_blank>./FlipChipTester</a></b>: Various ideas for a flip-chip tester.
 
 </LEGEND><DL>
 <DT>io</A>
@@ -7421,7 +7421,7 @@ implemented with three FETs and a section of an LM139 comparator.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./H11-5 target=_blank>./H11-5</a></b>: Heath H-11 Serial Card
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./H11-5 target=_blank>./H11-5</a></b>: Heath H-11 Serial Card
 
 </LEGEND><DL>
 <DT>h11-5</A>
@@ -7429,7 +7429,7 @@ implemented with three FETs and a section of an LM139 comparator.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./IOB6120 target=_blank>./IOB6120</a></b>: IOB 6120 by Jim Kearney
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./IOB6120 target=_blank>./IOB6120</a></b>: IOB 6120 by Jim Kearney
 
 </LEGEND><DL>
 <DT>iob6-r</A>
@@ -7451,7 +7451,7 @@ implemented with three FETs and a section of an LM139 comparator.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./KM11 target=_blank>./KM11</a></b>: KM-11 Debug flip-chip
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./KM11 target=_blank>./KM11</a></b>: KM-11 Debug flip-chip
 
 </LEGEND><DL>
 <DT>km11</A>
@@ -7460,10 +7460,10 @@ Guy Sotomayor is much better.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./LD12 target=_blank>./LD12</a></b>: PDP-8 Clone based on Prosser Book
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./LD12 target=_blank>./LD12</a></b>: PDP-8 Clone based on Prosser Book
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./LogoPanel target=_blank>./LogoPanel</a></b>: Logo Panel for the top of the rack.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./LogoPanel target=_blank>./LogoPanel</a></b>: Logo Panel for the top of the rack.
 
 </LEGEND><DL>
 <DT>8ipanelb</A>
@@ -7473,7 +7473,7 @@ Guy Sotomayor is much better.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M1709 target=_blank>./M1709</a></b>: OMNIBUS Interface Foundation Module
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M1709 target=_blank>./M1709</a></b>: OMNIBUS Interface Foundation Module
 
 </LEGEND><DL>
 <DT>M1709</A>
@@ -7482,7 +7482,7 @@ prototyping) board.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452S target=_blank>./M452S</a></b>: Simplified M452X that lays out.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452S target=_blank>./M452S</a></b>: Simplified M452X that lays out.
 
 </LEGEND><DL>
 <DT>M452sx</A>
@@ -7493,7 +7493,7 @@ layer.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452X target=_blank>./M452X</a></b>: M452 Replacement -- M8655 Style
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452X target=_blank>./M452X</a></b>: M452 Replacement -- M8655 Style
 
 </LEGEND><DL>
 <DT>M452x</A>
@@ -7501,7 +7501,7 @@ layer.
 not finished.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452r target=_blank>./M452r</a></b>: M452 Replacement based on MC14411
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./M452r target=_blank>./M452r</a></b>: M452 Replacement based on MC14411
 
 </LEGEND><DL>
 <DT>M452r</A>
@@ -7510,7 +7510,7 @@ MC14411 baud rate generator chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./NTC08 target=_blank>./NTC08</a></b>: Bogus TC08 clone in TTL.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./NTC08 target=_blank>./NTC08</a></b>: Bogus TC08 clone in TTL.
 
 </LEGEND><DL>
 <DT>nt08</A>
@@ -7522,7 +7522,7 @@ controller.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Overvoltage target=_blank>./Overvoltage</a></b>: Power Safety Switch
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Overvoltage target=_blank>./Overvoltage</a></b>: Power Safety Switch
 
 </LEGEND><DL>
 <DT>max486x</A>
@@ -7534,10 +7534,10 @@ circuits from power supply anomalies.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PCBShop target=_blank>./PCBShop</a></b>: Boards sent out for fabrication.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PCBShop target=_blank>./PCBShop</a></b>: Boards sent out for fabrication.
 
 </LEGEND><FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PCBShop/M452x target=_blank>./PCBShop/M452x</a></b>: M452 Replacement Board (as fabbed)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PCBShop/M452x target=_blank>./PCBShop/M452x</a></b>: M452 Replacement Board (as fabbed)
 
 </LEGEND><DL>
 <DT>M452x</A>
@@ -7545,7 +7545,7 @@ circuits from power supply anomalies.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PCBShop/W076x target=_blank>./PCBShop/W076x</a></b>: W076 Replacement Board (as fabbed)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PCBShop/W076x target=_blank>./PCBShop/W076x</a></b>: W076 Replacement Board (as fabbed)
 
 </LEGEND><DL>
 <DT>w076x</A>
@@ -7562,7 +7562,7 @@ in the as-shipped assembled boards.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PLD-Omnibus target=_blank>./PLD-Omnibus</a></b>: Ideas for using CPLD devices to build Omnibus cards.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PLD-Omnibus target=_blank>./PLD-Omnibus</a></b>: Ideas for using CPLD devices to build Omnibus cards.
 
 </LEGEND><DL>
 <DT>TD8Edaughter</A>
@@ -7578,7 +7578,7 @@ in the as-shipped assembled boards.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PT08 target=_blank>./PT08</a></b>: PT08 TTY Interface
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PT08 target=_blank>./PT08</a></b>: PT08 TTY Interface
 
 </LEGEND><DL>
 <DT>PT08</A>
@@ -7594,7 +7594,7 @@ in the as-shipped assembled boards.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PosiDMux target=_blank>./PosiDMux</a></b>: FPGA PDP-8 Demultiplexer to Posibus
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./PosiDMux target=_blank>./PosiDMux</a></b>: FPGA PDP-8 Demultiplexer to Posibus
 
 </LEGEND><DL>
 <DT>8j-merge</A>
@@ -7604,10 +7604,10 @@ in the as-shipped assembled boards.
 FPGA implementation of the PDP-8 and older Posibus gear.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Posibus target=_blank>./Posibus</a></b>: Posibus Backplane and Boards
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Posibus target=_blank>./Posibus</a></b>: Posibus Backplane and Boards
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RF08 target=_blank>./RF08</a></b>: RF08 Replacement
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RF08 target=_blank>./RF08</a></b>: RF08 Replacement
 
 </LEGEND><DL>
 <DT>8x11</A>
@@ -7630,7 +7630,7 @@ replacement.
   <DD>is an start on an Omnibus version.
 </DL>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RF08/Old8x12 target=_blank>./RF08/Old8x12</a></b>: RF08 Replacement (Old Version)
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RF08/Old8x12 target=_blank>./RF08/Old8x12</a></b>: RF08 Replacement (Old Version)
 
 </LEGEND><DL>
 <DT>writelockswitches</A>
@@ -7695,7 +7695,7 @@ indicators, all on an olimex sized panel, with 10mil design rules.
 </FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RX08 target=_blank>./RX08</a></b>: Posibus version of RX8E
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RX08 target=_blank>./RX08</a></b>: Posibus version of RX8E
 
 </LEGEND><DL>
 <DT>RX08-</A>
@@ -7729,11 +7729,11 @@ used to debug the prototype.
 used to debug the prototype.
 </DL>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RX08/RX08 target=_blank>./RX08/RX08</a></b>: The Posibus RX08 files as sent to the fab (prototype didn't work).
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RX08/RX08 target=_blank>./RX08/RX08</a></b>: The Posibus RX08 files as sent to the fab (prototype didn't work).
 </LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RX8-Ulrich target=_blank>./RX8-Ulrich</a></b>: RX8E to Posibus Adapter per Ulrich Fierz
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RX8-Ulrich target=_blank>./RX8-Ulrich</a></b>: RX8E to Posibus Adapter per Ulrich Fierz
 
 </LEGEND><DL>
 <DT>rx08-ulrich</A>
@@ -7753,7 +7753,7 @@ implementation in a CPLD.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RXM target=_blank>./RXM</a></b>: RX01/RX02 Emulation with a PC
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./RXM target=_blank>./RXM</a></b>: RX01/RX02 Emulation with a PC
 
 </LEGEND><DL>
 <DT>rxm</A>
@@ -7762,7 +7762,7 @@ the parallel port of a PC.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./SMT-8 target=_blank>./SMT-8</a></b>: Thoughts about a discrete SMT PDP-8.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./SMT-8 target=_blank>./SMT-8</a></b>: Thoughts about a discrete SMT PDP-8.
 
 </LEGEND><DL>
 <DT>adapter</A>
@@ -7773,7 +7773,7 @@ something more current and affordable (2x20 header).
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./TU56x target=_blank>./TU56x</a></b>: TU56 Drive Emulation
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./TU56x target=_blank>./TU56x</a></b>: TU56 Drive Emulation
 
 </LEGEND><DL>
 <DT>tu56</A>
@@ -7783,7 +7783,7 @@ something more current and affordable (2x20 header).
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./W076O target=_blank>./W076O</a></b>: W076 for either RS-232 or Current Loop
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./W076O target=_blank>./W076O</a></b>: W076 for either RS-232 or Current Loop
 
 </LEGEND><DL>
 <DT>w076o</A>
@@ -7792,7 +7792,7 @@ for machines which use DEC's W076 card.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Watch target=_blank>./Watch</a></b>: PIC based timepieces
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Watch target=_blank>./Watch</a></b>: PIC based timepieces
 
 </LEGEND><DL>
 <DT>bcdwatch</A>
@@ -7805,7 +7805,7 @@ display.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./WireWrap target=_blank>./WireWrap</a></b>: DEC Compatible Wire-Wrap boards
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./WireWrap target=_blank>./WireWrap</a></b>: DEC Compatible Wire-Wrap boards
 
 </LEGEND><DL>
 <DT>1highfront</A>
@@ -7823,7 +7823,7 @@ take DIP packages in narrow or wide form up to 42 pins.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X target=_blank>./X</a></b>: M452 Replacement
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X target=_blank>./X</a></b>: M452 Replacement
 
 </LEGEND><DL>
 <DT>M452sx</A>
@@ -7832,7 +7832,7 @@ Generator based on the M8655 (doesn't route).
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X8iHenk target=_blank>./X8iHenk</a></b>: 8iPanel Driver boards for Henk
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X8iHenk target=_blank>./X8iHenk</a></b>: 8iPanel Driver boards for Henk
 
 </LEGEND><DL>
 <DT>9iSwitches</A>
@@ -7858,7 +7858,7 @@ Generator based on the M8655 (doesn't route).
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X8iPanel target=_blank>./X8iPanel</a></b>: PDP-8/i Front Panel PCB
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./X8iPanel target=_blank>./X8iPanel</a></b>: PDP-8/i Front Panel PCB
 
 </LEGEND><DL>
 <DT>1switch</A>
@@ -7913,7 +7913,7 @@ could be ordered from a protoype shop.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./XDS32 target=_blank>./XDS32</a></b>: DS32 Disk Drive Emulation
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./XDS32 target=_blank>./XDS32</a></b>: DS32 Disk Drive Emulation
 
 </LEGEND><DL>
 <DT>ds32</A>
@@ -7921,7 +7921,7 @@ could be ordered from a protoype shop.
 would attach to a DEC RF08 controller.</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./XMM8i target=_blank>./XMM8i</a></b>: Memory extension for PDP-8/i.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./XMM8i target=_blank>./XMM8i</a></b>: Memory extension for PDP-8/i.
 
 </LEGEND><DL>
 <DT>mm8i</A>
@@ -7929,7 +7929,7 @@ would attach to a DEC RF08 controller.</DL>
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Xeltec target=_blank>./Xeltec</a></b>: Replacement for Xeltec SuperPro interface card.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./Xeltec target=_blank>./Xeltec</a></b>: Replacement for Xeltec SuperPro interface card.
 
 </LEGEND><DL>
 <DT>foo1</A>
@@ -7945,7 +7945,7 @@ card to interface the Xeltec SuperPro to a PC.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./chipfudge target=_blank>./chipfudge</a></b>: Replacements for obsolete chips
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./chipfudge target=_blank>./chipfudge</a></b>: Replacements for obsolete chips
 
 </LEGEND><DL>
 <DT>AM27S13</A>
@@ -7954,7 +7954,7 @@ card to interface the Xeltec SuperPro to a PC.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./mmu6100 target=_blank>./mmu6100</a></b>: MMU for the 6100 PDP-8 on a chip
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./mmu6100 target=_blank>./mmu6100</a></b>: MMU for the 6100 PDP-8 on a chip
 
 </LEGEND><DL>
 <DT>error</A>
@@ -7977,7 +7977,7 @@ features added.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./rs-232-20ma target=_blank>./rs-232-20ma</a></b>: RS-232 converter to go in the Logic Lab
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./rs-232-20ma target=_blank>./rs-232-20ma</a></b>: RS-232 converter to go in the Logic Lab
 
 </LEGEND><DL>
 <DT>loop-rs232o</A>
@@ -7991,7 +7991,7 @@ with CTS or DTR flow control.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./xRK08 target=_blank>./xRK08</a></b>: RK01 Disk Controller for Posibus.
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./xRK08 target=_blank>./xRK08</a></b>: RK01 Disk Controller for Posibus.
 
 </LEGEND><DL>
 <DT>rk08i</A>

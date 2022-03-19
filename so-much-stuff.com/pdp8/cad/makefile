@@ -6,4 +6,5 @@ all: .
 	(cd $(EAGLE); svn update .)
 	(cd $(EAGLE)/projects; ./publish.pl) > boards.php
 	(cd $(EAGLE)/projects; ./chk_mime.sh)
+	(cd $(STL); svn update .)
 	(cd $(STL); ./publish.pl) > 3d.php
