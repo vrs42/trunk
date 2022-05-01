@@ -1,0 +1,31 @@
+:: d0ba.ini
+::
+cd %~p0
+!rm d0ba.log
+set log d0ba.log
+
+:: Limit maximum diagnostic execution time
+runlimit 2 minutes
+set on
+on error ignore
+on runtime echof "\r\n*** Test Runtime Limit %SIM_RUNLIMIT% %SIM_RUNLIMIT_UNITS% Exceeded ***\n"; exit 1
+
+:: Maximum memory, extended address element:
+set cpu 32k
+set cpu eae
+
+:: PDP-12 CP Test 1: LINC Instruction Test 1 (D0BA)
+:: maindec-12-d0ba-pb Instruction Test 1
+echof -n "** PDP-12: LINC Instruction Test (1): "
+load tests/diags/maindec-12-d0ba-pb.bin
+:: Patch address 5103 with HLT to stop execution after a 
+:: full pass is done or else it will run forever.
+dep 5103 0000
+dep sr 0
+#BUGBUG: Need a provision to start in LINC mode.
+# For now, force a LINC instruction at 4017.
+dep 4017 6141
+br 4000-5777;e l,ac,mq,4004,4005,4006,4007,4010,4012,4673,4702;c
+go -q 4017
+c
+q

@@ -1,0 +1,122 @@
+This information comes from the "LINC-8 Users Handbook"
+which can be found as a section beginning on page 299 of
+the "Small Computer Handbook", March 1967 edition. 
+
+Page 347 begins a discussion of the PDP-8 IOTs to control
+the LINC in the LINC-8:
+
+6141	ICON	LINC CONTROL
+AC8:11:	00	0 to MOTION
+	01	AC0 to MOTION
+	02	Search the tape unit indicated by A0
+	03	Set block transfer mode for the tape
+	04	Unset block transfer mode
+	05	Begin writing tape data
+	06	Stop writing tape data
+	07	Clear all LINC interrupt flip flops
+	10	Select the LINC
+	11	Stop (reset) the LINC
+	12	Start the LINC execution
+	13	Delayed LINC restart
+	14	Clear the Z register
+	15	Transfer from B to Z
+	16	Not Used
+	17	Not Used
+
+6143	IBAC	READ LINC B REGISTER
+	The LINC B register is read into the PDP-8 accumulator.
+
+6145	ILES	READ LEFT SWITCHES
+	The left switches are read into the PDP-8 accumulator.
+
+6145	INTS	READ LINC INTERRUPT STATUS
+	AC00	Tape interrupt flip flop
+	AC01	LINC Console function interrupt flip flop
+	AC02	Execute class interrupt flip flop
+	AC03	Address match interrupt flip flop
+	AC04	Auto-restart delay interrupt flip flop
+	AC05	MTP instruction indicator
+	AC06	OPR instruction indicator
+	AC07	EXC instruction indicator
+	AC08	RUN INT flip flop
+	AC09	Not Used
+	AC10	Mag Tape MOTN flip flop
+	AC11	Mag Tape MOTN flip flop
+
+6151	ICS1	READ LINC CONSOLE SWITCHES
+	AC00	STOP
+	AC01	FILL
+	AC02	FILL STOP
+	AC03	EXAM
+	AC04	STEP EXAM
+	AC05	INST X INST
+	AC06	STEP
+	AC07	RESUME
+	AC08	DO TOG
+	AC09	START RS
+	AC10	START 20
+	AC11	START 400
+
+6153	ICS2	READ LINC CONSOLE SWITCHES
+	AC00	MARK
+	AC01	AUTO RESTART
+	AC02	I STOP
+	AC03	E STOP
+	AC04	CLEAR
+	AC05	AUTO flip flop
+	AC06	Not Used
+	AC07	Not Used
+	AC08	Not Used
+	AC09	Not Used
+	AC10	Not Used
+	AC11	Not Used
+
+6155	IMBS	READ MEMORY BANK SELECTORS
+	AC00	Not Used
+	AC01	Not Used
+	AC02	UMB0
+	AC03	UMB1
+	AC04	UMB2
+	AC05	UMB3
+	AC06	UMB4
+	AC07	LMB0
+	AC08	LMB1
+	AC09	LMB2
+	AC10	LMB3
+	AC11	LMB4
+
+6175	IACF	SET LINC INDICATOR FLIP FLOPS
+	AC00	Not Used
+	AC01	Not Used
+	AC02	CLEAR flip flop
+	AC03	INST X INST flip flop
+	AC04	F STOP flip flop
+	AC05	E STOP flip flop
+	AC06	AUTO flip flop
+	AC07	KEY STRUCK flip flop
+	AC08	Not Used
+	AC09	MARK flip flop
+	AC10	Extended tape unit U1
+	AC11	Extended tape unit U2
+
+6161	IACB	SET LINC B REGISTER
+	PDP-8 Accumulator is transferred to LINC B register.
+
+6163	IACS	SET LINC S REGISTER
+	PDP-8 Accumulator is transferred to LINC S register and LINC
+	B regiser is cleared.
+
+6165	ISSP	SET LINC P REGISTER
+	PDP-8 AC2:11 is transferred to LINC P register.  Previous
+	LINC P register replaces B2:11.  S register cleared.
+
+6167	IACA	SET LINC ACCUMULATOR
+	PDP-8 Accumulator is transferred to LINC B register and LINC
+	Accumulator.
+
+6171	IAAC	READ LINC ACCUMULATOR
+	LINC Accumulator is transferred to LINC B register and PDP-8
+	Accumulator.
+
+6173	IZSA	LINC Z TO A
+	LINC Z register to LINC Accumulator.  LINC B register is cleared.
