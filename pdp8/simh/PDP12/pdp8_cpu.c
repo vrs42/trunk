@@ -233,6 +233,7 @@ int32 SC = 0;                                           /* EAE shift count */
 int32 UB = 0;                                           /* User mode Buffer */
 int32 UF = 0;                                           /* User mode Flag */
 int32 SR = 0;                                           /* Switch Register */
+int32 LSR = 0;                                          /* LINC Switches */
 t_bool LINC = FALSE;                                    /* In LINC mode */
 int32 tsc_ir = 0;                                       /* TSC8-75 IR */
 int32 tsc_pc = 0;                                       /* TSC8-75 PC */
@@ -298,6 +299,7 @@ REG cpu_reg[] = {
     { ORDATA (PCQP, pcq_p, 6), REG_HRO },
     { FLDATAD (STOP_INST, stop_inst, 0, "stop on undefined instruction") },
     { ORDATAD (WRU, sim_int_char, 8, "interrupt character") },
+    { ORDATAD (LSR, LSR, 12, "LINC panel switches") },
     { NULL }
     };
 
@@ -409,21 +411,22 @@ while (reason == 0) {                                   /* loop until halted */
         reason = STOP_OPBKPT;                            /* stop simulation */
         break;
         }
-    PC = (PC + 1) & 07777;                              /* increment PC */
     int_req = int_req | INT_NO_ION_PENDING;             /* clear ION delay */
     sim_interval = sim_interval - 1;
 
-/* Instruction decoding.
-   We execute a LINC or a PDP8 instruction, depending.
-   Note that MA contains IF'PC.
-*/
+    /* Instruction decoding.
+       We execute a LINC or a PDP8 instruction, depending.
+       Note that MA contains IF'PC.
+    */
     if (LINC) {
+        PC = (PC&06000) + ((PC + 1) & 01777);           /* increment PC */
         do_linc();
     } else {
+        PC = (PC + 1) & 07777;                          /* increment PC */
         do_pdp8();
     }
 
-    }                                                   /* end while */
+    }                                                   /* end while */ 
 
 /* Simulation halted */
 
@@ -1993,9 +1996,9 @@ do_linc()
             ea = (PC&06000) + index;                    /* Registers in IF */
             if (IR & 020) {                             /* Pre-increment? */
                 switch (IR & 01740) {
-                    case 1300: /* LDH */
-                    case 1340: /* STH */
-                    case 1400: /* SHD */
+                    case 01300: /* LDH */
+                    case 01340: /* STH */
+                    case 01400: /* SHD */
                         /* These increment specially by a half-word */
                         M[ea] = M[ea] + 04000;
                         if (M[ea] & 010000) /* End-around carry */
@@ -2005,29 +2008,29 @@ do_linc()
                         M[ea] = (M[ea]&06000) + ((M[ea]+1)&01777);
                 }
             }
-fprintf(stderr, "ea reg: m[%04o] == %04o, PC = %05o\n", ea, M[ea], PC);
-fprintf(stderr, "ea reg: ea = %04o, PC = %05o\n", ea, PC);
+//fprintf(stderr, "ea reg: m[%04o] == %04o, PC = %05o\n", ea, M[ea], PC);
+//fprintf(stderr, "ea reg: ea = %04o, PC = %05o\n", ea, PC);
         } else {
             ea = PC;
             PC = (PC&06000) + ((PC+1)&01777);
-fprintf(stderr, "ea pc: ea = %04o, PC = %05o\n", ea, PC);
+//fprintf(stderr, "ea pc: ea = %04o, PC = %05o\n", ea, PC);
         }
         if ((IR & 037) != 020) {                        /* Indirect? */
             /* Set H so that it's available after indirection. */
             h = M[ea] & 04000;
-fprintf(stderr, "ea I: ea = %04o, PC = %05o\n", ea, PC);
-fprintf(stderr, "ea I: ldf = %04o, IR = %04o\n", LDF, IR);
+//fprintf(stderr, "ea I: ea = %04o, PC = %05o\n", ea, PC);
+//fprintf(stderr, "ea I: ldf = %04o, IR = %04o\n", LDF, IR);
             if (M[ea] & 02000)
                 ea = (LDF<<10) + (M[ea]&01777);
             else
                 ea = (PC&06000) + (M[ea]&01777);
-fprintf(stderr, "ea I: ea = %04o, IR = %05o\n", ea, IR);
+//fprintf(stderr, "ea I: ea = %04o, IR = %05o\n", ea, IR);
         } else {
             /* Set H to 0 since there's no indirection. */
             h = 0;
         }
-fprintf(stderr, "ea b: ea = %04o, PC = %05o\n", ea, PC);
-fprintf(stderr, "ea b: ea = %04o, IR = %04o\n", ea, IR);
+//fprintf(stderr, "ea b: ea = %04o, PC = %05o\n", ea, PC);
+//fprintf(stderr, "ea b: ea = %04o, IR = %04o\n", ea, IR);
     } else {                                            /* Direct addressing */
         /* Direct addressing */
         ea = (PC&06000) + (IR&01777);
@@ -2056,32 +2059,25 @@ fprintf(stderr, "ea b: ea = %04o, IR = %04o\n", ea, IR);
     */
     switch (IR & 06000) {
         case 06000: /* JMP */
-fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-            M[PC&06000] = PC;
+//fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//          M[PC&06000] = PC; // BUGBUG: Should be "JMP PC" for return
+            if (IR&01777)
+                M[PC&06000] = 06000 + (PC&01777) + 1;   /* Stow ret. addr */
             PC = ea;
-//          M[0] = 06000 + (PC&01777) + 1;              /* Stow ret. addr */
-//          PC = (PC&06000) + ea;                       /* Load new PC */
-fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
             break;
         case 04000: /* STC */
-// BUGBUG: Here and elsewhere, honor IF/DF in LINC ea.
             M[ea] = LAC & 07777;
             LAC &= 010000;
-fprintf(stderr, "stc: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "stc: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "stc: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "stc: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
             break;
         case 02000: /* ADD */
-// BUGBUG: Here and elsewhere, honor IF/DF in LINC ea.
-// BUGBUG: I don't think this is supposed to interact with LINK.
-            LAC = LAC + M[ea];
-            LAC += !!(LAC&010000);                      /* One's complement */
+            tmp = (LAC&07777) + M[ea];
+            tmp += !!(tmp&010000);                      /* One's complement */
+            LAC = (LAC&010000) + (tmp&07777);
             break;
         case 00000: /* other */
-
-// BUGBUG: Z Register
-// The Z register is the LSB 12 bits of MUL results.  Sort of like MQ.
-// Identified with MQ in the PDP-12?  Affected by CLR MUL DSC SAM ROR ROL.
-
             switch ((IR >> 5) & 037) {                  /* decode IR<2:6> */
                 case 000: /* other */
                     switch (IR & 017) {                 /* decode IR<7:11> */
@@ -2121,16 +2117,16 @@ fprintf(stderr, "stc: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
                     break;
                 case 001: /* SET */
                     ea = (PC&06000) + ea;
-fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     if (IR & 020) {
                         tmp = PC;
                     } else {
                         tmp = (PC&06000) + (M[PC] & 01777);
                     }
-fprintf(stderr, "set: val = %04o, PC = %05o, ea = %04o\n", M[tmp], PC, ea);
+//fprintf(stderr, "set: val = %04o, PC = %05o, ea = %04o\n", M[tmp], PC, ea);
                     M[ea] = M[tmp];
                     PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
-fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     break;
                 case 002: /* SAM */
 // BUGBUG: Sample signal indicated by ea.  Leave result in 8 LSB of AC.
@@ -2154,19 +2150,19 @@ fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     ea &= 017;
                     if (IR & 020) {
                         /* Rotate with LINK */
-fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                         for (i = 0; i < ea; i++)
                             LAC = ((LAC<<1) + (LAC>>12)) & 017777;
-fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                     } else {
                         /* Rotate without LINK */
-fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                         tmp = LAC & 010000; /* remember LINK */
                         LAC &= 07777;      /* clear LINK */
                         for (i = 0; i < ea; i++)
                             LAC = ((LAC<<1) + (LAC>>11)) & 07777;
                         LAC |= tmp; /* restore LINK */
-fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                     }
                     break;
                 case 006: /* ROR */
@@ -2255,10 +2251,10 @@ fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                         tmp = 1;
                         break;
                     }
-fprintf(stderr, "skip class: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
+//fprintf(stderr, "skip class: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
                     if (IR & 020) /* reverse sense */
                         tmp = !tmp;
-fprintf(stderr, "skip class: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
+//fprintf(stderr, "skip class: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
                     if (tmp)
                         PC = (PC&06000) + ((PC+tmp)&01777); /* Bump PC */
                     break;
@@ -2267,9 +2263,27 @@ fprintf(stderr, "skip class: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
 // BUGBUG: 015 is Keyboard read and release.
 // BUGBUG: 016 is Right Switch Register.
 // BUGBUG: 017 is Left Switch Register.
+                    switch (ea) {
+                    case 000: /* IOB */
+                        do_pdp8();
+                        PC = (PC&06000) + ((PC+1)&01777);
+                        break;
+                    case 016: /* RSW */
+//fprintf(stderr, "rsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "rsw: IR = %04o, PC = %05o, SR = %05o\n", IR, PC, SR);
+                        LAC = (LAC&010000) + SR;
+//fprintf(stderr, "rsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+                        break;
+                    case 017: /* LSW */
+//fprintf(stderr, "lsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "lsw: IR = %04o, PC = %05o, LSR = %05o\n", IR, PC, LSR);
+                        LAC = (LAC&010000) + LSR;
+//fprintf(stderr, "lsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+                        break;
+                    }
                     break;
                 case 020: /* LDA */
-fprintf(stderr, "LDA: ea = %04o, PC = %05o\n", ea, PC);
+//fprintf(stderr, "LDA: ea = %04o, PC = %05o\n", ea, PC);
                     LAC = (LAC&010000) + M[ea]; /* Load AC */
                     break;
                 case 021: /* STA */
@@ -2292,19 +2306,20 @@ fprintf(stderr, "LDA: ea = %04o, PC = %05o\n", ea, PC);
                     break;
                 case 024: /* LAM */
                     /* Link add to memory. */
-fprintf(stderr, "lam: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "lam: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "lam: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "lam: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     if (LAC & 010000)
                         LAC = (LAC&07777) + 1;
                     LAC = (LAC&010000) | ((LAC&07777) + M[ea]);
                     M[ea] = LAC & 07777;
-fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     break;
                 case 025: /* MUL */
-fprintf(stderr, "mul in: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "mul in: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-fprintf(stderr, "mul in: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "mul in: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "mul in: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "mul in: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "mul in: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     /* First, form the unsigned product. */
                     if (LAC & 04000)
                         tmp = (~LAC) & 07777;
@@ -2318,82 +2333,74 @@ fprintf(stderr, "mul in: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     /* absolute value of the result.  MQ is always the */
                     /* absolute value of the low 11 bits.              */
                     MQ = (tmp&03777) << 1;
-fprintf(stderr, "mul: IR = %04o, PC = %05o, tmp = %04o\n", IR, PC, tmp);
+//fprintf(stderr, "mul: IR = %04o, PC = %05o, tmp = %04o\n", IR, PC, tmp);
                     /* Compute the sign of the result. */
                     LAC = ((LAC&04000) ^ (M[ea]&04000)) * 3;
-fprintf(stderr, "mul: IR = %04o, PC = %05o, sign = %04o\n", IR, PC, LAC);
+//fprintf(stderr, "mul: IR = %04o, PC = %05o, sign = %04o\n", IR, PC, LAC);
                     /* Correct the sign of the result. */
                     if (LAC & 010000)
-                        tmp = ~tmp;
-                    /* Which half should we leave in AC? */
-                    if (IR & 017)
-                        h = M[IR&017] & 02000;
-                    else
-                        h = (IR&020) << 6;
+                        tmp = ~tmp & 017777777;
+                    /* Likely redundant */
                     LAC = (LAC&010000) + ((LAC&010000)>>1);
-                    if (h)
+                    /* H was set during EA computation */
+//fprintf(stderr, "mul: IR = %04o, PC = %05o, tmp = %04o\n", IR, PC, tmp);
+//fprintf(stderr, "mul: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
+                    if (h&04000)
                         LAC += tmp >> 11;
                     else
                         LAC += tmp & 03777;
-fprintf(stderr, "mul out: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "mul out: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-fprintf(stderr, "mul out: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
+//fprintf(stderr, "mul out: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "mul out: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "mul out: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     break;
                 case 026: /* LDH */
-// BUGBUG: I believe the index register has already been indexed here!
-                    /* Perform half indexing */
-                    tmp = IR & 017;
-fprintf(stderr, "ldh: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "ldh: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-fprintf(stderr, "ldh: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
+//fprintf(stderr, "ldh: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "ldh: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "ldh: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     if (h & 04000)
                         LAC = (LAC&010000) + (M[ea]&077);
                     else
                         LAC = (LAC&010000) + (M[ea]>>6);
                     break;
                 case 027: /* STH */
-// BUGBUG: I believe the index register has already been indexed here!
-                    /* Perform half indexing */
-                    tmp = IR & 017;
-fprintf(stderr, "sth: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "sth: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-fprintf(stderr, "sth: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
+//fprintf(stderr, "sth: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "sth: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "sth: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     if (h & 04000)
                         M[ea] = (M[ea]&07700) + (LAC&077);
                     else
                         M[ea] = ((LAC&077)<<6) + (M[ea]&077);
-fprintf(stderr, "sth: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "sth: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
                     break;
                 case 030: /* SHD */
-// BUGBUG: I believe the index register has already been indexed here!
-fprintf(stderr, "shd: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "shd: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-fprintf(stderr, "shd: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
+//fprintf(stderr, "shd: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "shd: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "shd: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     if (h & 04000)
                         tmp = (M[ea]&077) != (LAC&077);
                     else
                         tmp = (M[ea]>>6) != (LAC&077);
                     if (tmp)
                         PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
-fprintf(stderr, "shd: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "shd: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
+//fprintf(stderr, "shd: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "shd: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
                     break;
                 case 031: /* SAE */
-fprintf(stderr, "sae: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-fprintf(stderr, "sae: IR = %04o, LAC = %05o, m[ea] = %04o\n", IR, LAC, M[ea]);
+//fprintf(stderr, "sae: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "sae: IR = %04o, LAC = %05o, m[ea] = %04o\n", IR, LAC, M[ea]);
                     if ((LAC&07777) == M[ea])
                         PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
-fprintf(stderr, "sae: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "sae: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     break;
                 case 032: /* SRO */
-fprintf(stderr, "sro: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "sro: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     if ((M[ea]&01) == 0) {
                         PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
                         M[ea] = M[ea]>>1;
                     } else {
                         M[ea] = 04000 + (M[ea]>>1);
                     }
-fprintf(stderr, "sro: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
+//fprintf(stderr, "sro: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     break;
                 case 033: /* BCL */
                     LAC &= ~M[ea];

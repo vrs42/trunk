@@ -21,11 +21,21 @@ load tests/diags/maindec-12-d0ba-pb.bin
 :: Patch address 5103 with HLT to stop execution after a 
 :: full pass is done or else it will run forever.
 dep 5103 0000
-dep sr 0
+dep sr 7777
+dep lsr 7777
+br 5103
 #BUGBUG: Need a provision to start in LINC mode.
 # For now, force a LINC instruction at 4017.
 dep 4017 6141
-br 4000-5777;e l,ac,mq,4004,4005,4006,4007,4010,4012,4673,4702;c
+# Trace the whole diagnostic
+#br 4000-5777;e l,ac,mq,4004,4005,4006,4007,4010,4012,4673,4702,sr,lsr;c
+# Trace the integer MUL test
+#br 4670-4730;e l,ac,mq,4004,4005,4006,4007,4010,4012,4673,4702,sr,lsr;c
+# Trace the STH test
+#br 4437-4455;e l,ac,mq,4004,4005,4006,4007,4010,4012,4013;c
+# Trace the restart
+#br 5073-5104;e l,ac,mq,4000,4004,4005,4006,4007,4010,4012,4013;c
 go -q 4017
 c
+#e l,ac,mq,4004,4005,4006,4007,4010,4012,4673,4702,sr,lsr
 q

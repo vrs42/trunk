@@ -1077,8 +1077,7 @@ char *laopcode[] = { /* Alpha mode addressing */
     "ROR",
     "SCR",
     "SXL",
-//BUGBUG: SNS is less readable than AZE, etc.
-    "SNS",
+    0, /* SNS is less readable than AZE, etc. */
     0,
     "0540",
     "0600",
@@ -1172,7 +1171,11 @@ t_stat fprint_sym_linc (FILE *of, t_value *val)
                     fprintf (of, " I");
                 break;
             case 012: /* 05xx */
-                if (wd1 == 0515)
+                if (wd1 == 0500) {
+                    wd2 = val[1];
+                    fprintf (of, "IOB %04o", wd2);
+                    nwd = -2;
+                } else if (wd1 == 0515)
                     fprintf (of, "KBD");
                 else if (wd1 == 0516)
                     fprintf (of, "RSW");
