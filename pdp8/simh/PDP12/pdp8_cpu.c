@@ -301,6 +301,7 @@ REG cpu_reg[] = {
     { ORDATA (PCQP, pcq_p, 6), REG_HRO },
     { FLDATAD (STOP_INST, stop_inst, 0, "stop on undefined instruction") },
     { ORDATAD (WRU, sim_int_char, 8, "interrupt character") },
+    { ORDATAD (LINC, LINC, 1, "LINC mode operation") },
     { ORDATAD (LSR, LSR, 12, "LINC panel switches") },
     { ORDATAD (FLO, FLO, 1, "LINC overflow") },
     { NULL }
@@ -2056,34 +2057,25 @@ do_linc()
                         M[ea] = (M[ea]&06000) + ((M[ea]+1)&01777);
                 }
             }
-//fprintf(stderr, "ea reg: m[%04o] == %04o, PC = %05o\n", ea, M[ea], PC);
-//fprintf(stderr, "ea reg: ea = %04o, PC = %05o\n", ea, PC);
         } else {
             ea = PC;
             PC = (PC&06000) + ((PC+1)&01777);
-//fprintf(stderr, "ea pc: ea = %04o, PC = %05o\n", ea, PC);
         }
         if ((IR & 037) != 020) {                        /* Indirect? */
             /* Set H so that it's available after indirection. */
             h = M[ea] & 04000;
-//fprintf(stderr, "ea I: ea = %04o, PC = %05o\n", ea, PC);
-//fprintf(stderr, "ea I: ldf = %04o, IR = %04o\n", LDF, IR);
             if (M[ea] & 02000)
                 ea = ldfbase + (M[ea]&01777);
             else
                 ea = lifbase + (M[ea]&01777);
-//fprintf(stderr, "ea I: ea = %04o, IR = %05o\n", ea, IR);
         } else {
             /* Set H to 0 since there's no indirection. */
             h = 0;
         }
-//fprintf(stderr, "ea b: ea = %04o, PC = %05o\n", ea, PC);
-//fprintf(stderr, "ea b: ea = %04o, IR = %04o\n", ea, IR);
     } else {                                            /* Direct addressing */
         /* Direct addressing */
         ea = lifbase + (IR&01777);
     }
-//fprintf(stderr, "do_linc() PC=%05o\r\n", PC);
     if (hst_lnt) {                                      /* history enabled? */
         hst_p = (hst_p + 1);                            /* next entry */
         if (hst_p >= hst_lnt)
@@ -2095,7 +2087,6 @@ do_linc()
         hst[hst_p].ea = ea;
     }
 
-//fprintf(stderr, "\tdo_linc() IR=%04o\r\n", IR);
     /*
         Now that the effective address, if any is sorted, let's see
         which instruction we're doing.  Most of the time, the low
@@ -2107,7 +2098,6 @@ do_linc()
     */
     switch (IR & 06000) {
         case 06000: /* JMP */
-//fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
             if ((!DJR) && (IR&01777))
                 M[lifbase] = 06000 + (PC&01777) + 1;    /* Stow ret. addr */
             if (DJR || (IR&01777)) {
@@ -2125,13 +2115,10 @@ do_linc()
             } else
                 int_req = int_req | INT_NO_CIF_PENDING; /* clr intr inhibit */
             DJR = 0;
-//fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
             break;
         case 04000: /* STC */
             M[ea] = LAC & 07777;
             LAC &= 010000;
-//fprintf(stderr, "stc: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "stc: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
             break;
         case 02000: /* ADD */
             tmp = (LAC&07777) + M[ea];
@@ -2207,16 +2194,13 @@ do_linc()
                     break;
                 case 001: /* SET */
                     ea = lifbase + ea;
-//fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     if (IR & 020) {
                         tmp = PC;
                     } else {
                         tmp = lifbase + (M[PC] & 01777);
                     }
-//fprintf(stderr, "set: val = %04o, PC = %05o, ea = %04o\n", M[tmp], PC, ea);
                     M[ea] = M[tmp];
                     PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
-//fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     break;
                 case 002: /* SAM */
 // BUGBUG: Sample signal indicated by ea.  Leave result in 8 LSB of AC.
@@ -2240,19 +2224,15 @@ do_linc()
                     ea &= 017;
                     if (IR & 020) {
                         /* Rotate with LINK */
-//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                         for (i = 0; i < ea; i++)
                             LAC = ((LAC<<1) + (LAC>>12)) & 017777;
-//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                     } else {
                         /* Rotate without LINK */
-//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                         tmp = LAC & 010000; /* remember LINK */
                         LAC &= 07777;      /* clear LINK */
                         for (i = 0; i < ea; i++)
                             LAC = ((LAC<<1) + (LAC>>11)) & 07777;
                         LAC |= tmp; /* restore LINK */
-//fprintf(stderr, "rotate class: IR = %04o, PC = %05o, AC = %05o\n", IR, PC, LAC);
                     }
                     break;
                 case 006: /* ROR */
@@ -2332,9 +2312,7 @@ do_linc()
                         tmp = !(LAC&010000);
                         break;
                     case 014: /* FLO */
-//fprintf(stderr, "flo: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
                         tmp = FLO;
-//fprintf(stderr, "flo: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
                         break;
                     case 013: /* IBZ */
 // BUGBUG: Either tape unit is up to speed and at an interblock zone.
@@ -2346,10 +2324,8 @@ do_linc()
                         tmp = 1;
                         break;
                     }
-//fprintf(stderr, "skip class: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
                     if (IR & 020) /* reverse sense */
                         tmp = !tmp;
-//fprintf(stderr, "skip class: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
                     if (tmp)
                         PC = (PC&06000) + ((PC+tmp)&01777); /* Bump PC */
                     break;
@@ -2363,16 +2339,10 @@ do_linc()
                         PC = (PC&06000) + ((PC+1)&01777);
                         break;
                     case 016: /* RSW */
-//fprintf(stderr, "rsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
-//fprintf(stderr, "rsw: IR = %04o, PC = %05o, SR = %05o\n", IR, PC, SR);
                         LAC = (LAC&010000) + SR;
-//fprintf(stderr, "rsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                         break;
                     case 017: /* LSW */
-//fprintf(stderr, "lsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
-//fprintf(stderr, "lsw: IR = %04o, PC = %05o, LSR = %05o\n", IR, PC, LSR);
                         LAC = (LAC&010000) + LSR;
-//fprintf(stderr, "lsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                         break;
                     default: /* Illegal */
                         linc_trap();
@@ -2383,16 +2353,13 @@ do_linc()
                     linc_trap();
                     break;
                 case 014: /* LIF/LMB */
-//fprintf(stderr, "LIF: ea = %04o, PC = %05o, IR = %04o\n", ea, PC, IR);
                     LIB = IR & 037;
                     IB = LIB >> 2;
                     int_req = int_req & ~INT_NO_LIF_PENDING;
                     break;
                 case 015: /* LDF/UMB */
-//fprintf(stderr, "LDF: ea = %04o, PC = %05o, IR = %04o\n", ea, PC, IR);
                     LDF = IR & 037;
                     DF = LDF >> 2;
-//fprintf(stderr, "LDF: ldf = %04o, PC = %05o, df = %04o\n", LDF, PC, DF);
                     break;
                 case 016: /* 0700+xx */
                     if (ESF&0400)
@@ -2405,7 +2372,6 @@ do_linc()
                     linc_trap();
                     break;
                 case 020: /* LDA */
-//fprintf(stderr, "LDA: ea = %04o, PC = %05o\n", ea, PC);
                     LAC = (LAC&010000) + M[ea]; /* Load AC */
                     break;
                 case 021: /* STA */
@@ -2433,21 +2399,13 @@ do_linc()
                 case 024: /* LAM */
                     /* Link add to memory. */
                     h = (LAC^M[ea]) & 04000; /* Dissimilar signs? */
-//fprintf(stderr, "lam: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "lam: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-//fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     if (LAC & 010000)
                         LAC = (LAC&07777) + 1;
                     LAC = (LAC&010000) | ((LAC&07777) + M[ea]);
                     FLO = h? 0: !!((LAC^M[ea])&04000);
                     M[ea] = LAC & 07777;
-//fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     break;
                 case 025: /* MUL */
-//fprintf(stderr, "mul in: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "mul in: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-//fprintf(stderr, "mul in: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
-//fprintf(stderr, "mul in: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     /* First, form the unsigned product. */
                     if (LAC & 04000)
                         tmp = (~LAC) & 07777;
@@ -2461,74 +2419,50 @@ do_linc()
                     /* absolute value of the result.  MQ is always the */
                     /* absolute value of the low 11 bits.              */
                     MQ = (tmp&03777) << 1;
-//fprintf(stderr, "mul: IR = %04o, PC = %05o, tmp = %04o\n", IR, PC, tmp);
                     /* Compute the sign of the result. */
                     LAC = ((LAC&04000) ^ (M[ea]&04000)) * 3;
-//fprintf(stderr, "mul: IR = %04o, PC = %05o, sign = %04o\n", IR, PC, LAC);
                     /* Correct the sign of the result. */
                     if (LAC & 010000)
                         tmp = ~tmp & 017777777;
                     /* Likely redundant */
                     LAC = (LAC&010000) + ((LAC&010000)>>1);
                     /* H was set during EA computation */
-//fprintf(stderr, "mul: IR = %04o, PC = %05o, tmp = %04o\n", IR, PC, tmp);
-//fprintf(stderr, "mul: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     if (h&04000)
                         LAC += tmp >> 11;
                     else
                         LAC += tmp & 03777;
-//fprintf(stderr, "mul out: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "mul out: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-//fprintf(stderr, "mul out: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     break;
                 case 026: /* LDH */
-//fprintf(stderr, "ldh: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "ldh: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-//fprintf(stderr, "ldh: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     if (h & 04000)
                         LAC = (LAC&010000) + (M[ea]&077);
                     else
                         LAC = (LAC&010000) + (M[ea]>>6);
                     break;
                 case 027: /* STH */
-//fprintf(stderr, "sth: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "sth: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-//fprintf(stderr, "sth: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     if (h & 04000)
                         M[ea] = (M[ea]&07700) + (LAC&077);
                     else
                         M[ea] = ((LAC&077)<<6) + (M[ea]&077);
-//fprintf(stderr, "sth: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
                     break;
                 case 030: /* SHD */
-//fprintf(stderr, "shd: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "shd: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
-//fprintf(stderr, "shd: IR = %04o, PC = %05o, h = %04o\n", IR, PC, h);
                     if (h & 04000)
                         tmp = (M[ea]&077) != (LAC&077);
                     else
                         tmp = (M[ea]>>6) != (LAC&077);
                     if (tmp)
                         PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
-//fprintf(stderr, "shd: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "shd: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
                     break;
                 case 031: /* SAE */
-//fprintf(stderr, "sae: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//fprintf(stderr, "sae: IR = %04o, LAC = %05o, m[ea] = %04o\n", IR, LAC, M[ea]);
                     if ((LAC&07777) == M[ea])
                         PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
-//fprintf(stderr, "sae: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     break;
                 case 032: /* SRO */
-//fprintf(stderr, "sro: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     if ((M[ea]&01) == 0) {
                         PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
                         M[ea] = M[ea]>>1;
                     } else {
                         M[ea] = 04000 + (M[ea]>>1);
                     }
-//fprintf(stderr, "sro: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     break;
                 case 033: /* BCL */
                     LAC &= ~M[ea];
@@ -2550,10 +2484,8 @@ do_linc()
                 default: /* undefined instruction */
                     break;
             } /* end inner switch */
-//fprintf(stderr, "\tdo_linc() IR=%04o done\r\n", IR);
             break;
     } /* end outer switch */
-//fprintf(stderr, "do_linc() PC=%04o\r\n", PC);
 }
 
 /*
