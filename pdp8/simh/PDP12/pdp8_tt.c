@@ -242,6 +242,7 @@ return SCPE_OK;
 
 int32 tto (int32 IR, int32 AC)
 {
+fprintf(stderr, "got tto: dev_done == %o\n", dev_done);
 switch (IR & 07) {                                      /* decode IR<9:11> */
 
     case 0:                                             /* TLF */

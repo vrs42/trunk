@@ -211,6 +211,7 @@ typedef struct {
 #define INT_V_NO_ION_PENDING (INT_V_OVHD+0)             /* ion pending */
 #define INT_V_NO_CIF_PENDING (INT_V_OVHD+1)             /* cif pending */
 #define INT_V_ION       (INT_V_OVHD+2)                  /* interrupts on */
+#define INT_V_NO_LIF_PENDING (INT_V_OVHD+3)             /* lif pending */
 
 #define INT_LPT         (1 << INT_V_LPT)
 #define INT_PTP         (1 << INT_V_PTP)
@@ -240,12 +241,13 @@ typedef struct {
 #define INT_FPP         (1 << INT_V_FPP)
 #define INT_NO_ION_PENDING (1 << INT_V_NO_ION_PENDING)
 #define INT_NO_CIF_PENDING (1 << INT_V_NO_CIF_PENDING)
+#define INT_NO_LIF_PENDING (1 << INT_V_NO_LIF_PENDING)
 #define INT_ION         (1 << INT_V_ION)
 #define INT_DEV_ENABLE  ((1 << INT_V_DIRECT) - 1)       /* devices w/enables */
 #define INT_ALL         ((1 << INT_V_OVHD) - 1)         /* all interrupts */
 #define INT_INIT_ENABLE (INT_TTI+INT_TTO+INT_PTR+INT_PTP+INT_LPT) | \
                         (INT_TTI1+INT_TTO1)
-#define INT_PENDING     (INT_ION+INT_NO_CIF_PENDING+INT_NO_ION_PENDING)
+#define INT_PENDING     (INT_ION+INT_NO_CIF_PENDING+INT_NO_LIF_PENDING+INT_NO_ION_PENDING)
 #define INT_UPDATE      ((int_req & ~INT_DEV_ENABLE) | (dev_done & int_enable))
 
 /* Function prototypes */

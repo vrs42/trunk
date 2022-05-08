@@ -1076,7 +1076,7 @@ char *laopcode[] = { /* Alpha mode addressing */
     "ROL",
     "ROR",
     "SCR",
-    "SXL",
+    0, /* SXL is less readable than KST, etc. */
     0, /* SNS is less readable than AZE, etc. */
     0,
     "0540",
@@ -1126,10 +1126,18 @@ t_stat fprint_sym_linc (FILE *of, t_value *val)
             case 000: /* 00xx */
                 if (wd1 == 0000)
                     fprintf (of, "HLT");
+                else if (wd1 == 0001)
+                    fprintf (of, "AXO");
                 else if (wd1 == 0002)
                     fprintf (of, "PDP");
+                else if (wd1 == 0003)
+                    fprintf (of, "TAC");
+                else if (wd1 == 0004)
+                    fprintf (of, "ESF");
                 else if (wd1 == 0005)
                     fprintf (of, "ZTA");
+                else if (wd1 == 0006)
+                    fprintf (of, "DJR");
                 else if (wd1 == 0010)
                     fprintf (of, "ENI");
                 else if (wd1 == 0011)
@@ -1142,10 +1150,33 @@ t_stat fprint_sym_linc (FILE *of, t_value *val)
                     fprintf (of, "NOP");
                 else if (wd1 == 0017)
                     fprintf (of, "COM");
+                else if (wd1 == 0021)
+                    fprintf (of, "XOA");
+                else if (wd1 == 0023)
+                    fprintf (of, "TMA");
+                else if (wd1 == 0024)
+                    fprintf (of, "SFA");
                 else
                     fprintf (of, "%04o", wd1);
                 break;
-            case 011: /* 044+xx SNS */
+            case 010: /* 0400+xx SXL */
+                if (wd2 == 015)
+                    fprintf (of, "KST");
+                else if (wd2 == 016)
+                    fprintf (of, "STD");
+                else if (wd2 == 017)
+                    fprintf (of, "TWC");
+                else {
+                    fprintf (of, "SXL");
+                    if (wd1 & 020)
+                        fprintf (of, " I");
+                    fprintf (of, " %03o", wd2);
+                    break;
+                }
+                if (wd1 & 020)
+                    fprintf (of, " I");
+                break;
+            case 011: /* 0440+xx SNS */
                 if (wd2 == 010)
                     fprintf (of, "AZE");
                 else if (wd2 == 011)
@@ -1173,7 +1204,7 @@ t_stat fprint_sym_linc (FILE *of, t_value *val)
             case 012: /* 05xx */
                 if (wd1 == 0500) {
                     wd2 = val[1];
-                    fprintf (of, "IOB %04o", wd2);
+                    fprintf (of, "IOB; %04o", wd2);
                     nwd = -2;
                 } else if (wd1 == 0515)
                     fprintf (of, "KBD");
@@ -1184,21 +1215,27 @@ t_stat fprint_sym_linc (FILE *of, t_value *val)
                 else
                     fprintf (of, "%04o", wd1);
                 break;
+            case 014: /* 060x-063x */
+                fprintf (of, "LIF %03o", wd1&037);
+                break;
+            case 015: /* 064x-067x */
+                fprintf (of, "LDF %03o", wd1&037);
+                break;
             case 016: /* 07xx */
                 if (wd1 == 0700)
-                    fprintf (of, "MTP");
-                else if (wd1 == 0701)
                     fprintf (of, "RDC");
-                else if (wd1 == 0702)
+                else if (wd1 == 0701)
                     fprintf (of, "RCG");
-                else if (wd1 == 0703)
+                else if (wd1 == 0702)
                     fprintf (of, "RDE");
-                else if (wd1 == 0704)
+                else if (wd1 == 0703)
                     fprintf (of, "MTB");
-                else if (wd1 == 0705)
+                else if (wd1 == 0704)
                     fprintf (of, "WRC");
+                else if (wd1 == 0705)
+                    fprintf (of, "WCC");
                 else if (wd1 == 0706)
-                    fprintf (of, "WCG");
+                    fprintf (of, "WRI");
                 else if (wd1 == 0707)
                     fprintf (of, "CHK");
                 else

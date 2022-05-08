@@ -235,6 +235,8 @@ int32 UF = 0;                                           /* User mode Flag */
 int32 SR = 0;                                           /* Switch Register */
 int32 LSR = 0;                                          /* LINC Switches */
 t_bool LINC = FALSE;                                    /* In LINC mode */
+int32 FLO = 0;                                          /* LINC Switches */
+int32 ESF = 0;                                          /* LINC Special Func */
 int32 tsc_ir = 0;                                       /* TSC8-75 IR */
 int32 tsc_pc = 0;                                       /* TSC8-75 PC */
 int32 tsc_cdf = 0;                                      /* TSC8-75 CDF flag */
@@ -300,6 +302,7 @@ REG cpu_reg[] = {
     { FLDATAD (STOP_INST, stop_inst, 0, "stop on undefined instruction") },
     { ORDATAD (WRU, sim_int_char, 8, "interrupt character") },
     { ORDATAD (LSR, LSR, 12, "LINC panel switches") },
+    { ORDATAD (FLO, FLO, 1, "LINC overflow") },
     { NULL }
     };
 
@@ -347,6 +350,8 @@ int32 IR, MB, IF, DF, LAC, MQ;
 uint32 PC, MA;
 int32 MODEL = PDP12;
 uint32 LIF, LDF, P, A, B, S, Z; /* LINC-8 saved state for mode switch */
+uint32 LIB; /* Buffer for LIF change */
+uint32 DJR; /* Disable LINC JMP return */
 int32 device, pulse, temp, iot_data;
 t_stat reason;
 void do_linc();
@@ -385,10 +390,17 @@ while (reason == 0) {                                   /* loop until halted */
 
     if (int_req > INT_PENDING) {                        /* interrupt? */
         int_req = int_req & ~INT_ION;                   /* interrupts off */
-        SF = (UF << 6) | (IF >> 9) | (DF >> 12);        /* form save field */
-        PCQ_ENTRY (IF | PC);                            /* save old PC with IF */
+        if (LINC) {
+            SF = (LIF << 5) | LDF;                      /* form save field */
+            LIF = LDF = 0;
+        } else
+            SF = (UF << 6) | (IF >> 9) | (DF >> 12);    /* form save field */
+        PCQ_ENTRY (IF | PC);                            /* save old PC w/ IF */
         IF = IB = DF = UF = UB = 0;                     /* clear mem ext */
-        if (MODEL == PDP5) {
+        if (LINC) {
+            M[00040] = PC;                              /* save PC in 40 */
+            PC = 00041;                                 /* fetch from 41 */
+        } else if (MODEL == PDP5) {
             M[1] = PC;                                  /* save PC in 1 */
             PC = 2;                                     /* fetch next from 2 */
         } else {
@@ -396,7 +408,6 @@ while (reason == 0) {                                   /* loop until halted */
             PC = 1;                                     /* fetch next from 1 */
         }
     }
-// BUGBUG: Need to take interrupts correctly in LINC mode.
 
     MA = IF | PC;                                       /* form PC */
     if (sim_brk_summ && 
@@ -461,6 +472,7 @@ saved_LAC = 0;
 int_req = (int_req & ~INT_ION) | INT_NO_CIF_PENDING;
 saved_DF = IB = saved_PC & 070000;
 UF = UB = gtf = emode = 0;
+FLO = 0; // BUGBUG: Initialize other LINC stuff here
 pcq_r = find_reg ("PCQ", NULL, dptr);
 if (pcq_r)
     pcq_r->qptr = 0;
@@ -1812,21 +1824,37 @@ do_pdp8()
                     break;
 
                 case 1:                                 /* RDF */
-                    LAC = LAC | (DF >> 9);
-                        break;
+                    if (LINC)
+                        LAC = LAC | (LDF << 1);
+                    else
+                        LAC = LAC | (DF >> 9);
+                    break;
 
                 case 2:                                 /* RIF */
-                    LAC = LAC | (IF >> 9);
+                    if (LINC)
+                        LAC = LAC | (LIF << 1);
+                    else
+                        LAC = LAC | (IF >> 9);
                     break;
 
                 case 3:                                 /* RIB */
-                    LAC = LAC | SF;
+                    if (LINC)
+                        LAC = LAC | (SF >> 2) | ((SF&03) << 10);
+                    else
+                        LAC = LAC | SF;
                     break;
 
                 case 4:                                 /* RMF */
-                    UB = (SF & 0100) >> 6;
-                    IB = (SF & 0070) << 9;
-                    DF = (SF & 0007) << 12;
+                    if (LINC) {
+                        LIB = SF >> 5;
+                        IB = LIB >> 2;
+                        LDF = SF & 037;
+                        DF = LDF >> 2;
+                    } else {
+                        UB = (SF & 0100) >> 6;
+                        IB = (SF & 0070) << 9;
+                        DF = (SF & 0007) << 12;
+                    }
                     int_req = int_req & ~INT_NO_CIF_PENDING;
                     break;
 
@@ -1878,7 +1906,7 @@ do_pdp8()
         case 015:                                       /* LINC */
         case 016:                                       /* LINC */
         case 017:                                       /* LINC */
-            if (linciot(device, pulse))                              /* Do IOT if needed */
+            if (linciot(device, pulse))                 /* Do IOT if needed */
                 break;                                  /* IOT was done */
             /* FALL THROUGH */
 
@@ -1896,6 +1924,24 @@ do_pdp8()
         }                                               /* end switch device */
         break;                                          /* end case IOT */
     }                                                   /* end switch opcode */
+}
+
+/*
+   The LINC emulation on the PDP-12 supports trapping to software
+   emulation of various otherwise undefined operations, and optionally
+   also the LINCtape instructions.  Here, we check whether to trap to
+   location 00141, or whether to just proceed normally.
+*/
+void
+linc_trap()
+{
+    if (!(ESF & 01000))                          /* Ignoring traps? */
+        return;                                  /* Yes, never mind */
+    SF = (LIF<<5) + LDF;                         /* Save IF and DF in SF */
+    IF = LIF = LDF = 0;
+    M[00140] = PC;                               /* Store PC in 00140 */
+    PC = 00141;                                  /* Trap to 00141 */
+    int_req = int_req & ~INT_NO_CIF_PENDING;     /* Set intr inhibit */
 }
 
 /*
@@ -1987,13 +2033,15 @@ do_linc()
         LINC DF is initialized from IF/PC during the LINC instruction.
     */
     int index = IR & 017;
+    int lifbase = LIF << 10;
+    int ldfbase = LDF << 10;
     if (IR < 01000)                                     /* Index class? */
         /* Alpha class (00xxx) */
         ea = index;                                     /* No, use reg */
     else if (IR < 02000) {
         /* Index (beta) class (01xxx) */
         if (index) {
-            ea = (PC&06000) + index;                    /* Registers in IF */
+            ea = lifbase + index;                       /* Registers in IF */
             if (IR & 020) {                             /* Pre-increment? */
                 switch (IR & 01740) {
                     case 01300: /* LDH */
@@ -2021,9 +2069,9 @@ do_linc()
 //fprintf(stderr, "ea I: ea = %04o, PC = %05o\n", ea, PC);
 //fprintf(stderr, "ea I: ldf = %04o, IR = %04o\n", LDF, IR);
             if (M[ea] & 02000)
-                ea = (LDF<<10) + (M[ea]&01777);
+                ea = ldfbase + (M[ea]&01777);
             else
-                ea = (PC&06000) + (M[ea]&01777);
+                ea = lifbase + (M[ea]&01777);
 //fprintf(stderr, "ea I: ea = %04o, IR = %05o\n", ea, IR);
         } else {
             /* Set H to 0 since there's no indirection. */
@@ -2033,7 +2081,7 @@ do_linc()
 //fprintf(stderr, "ea b: ea = %04o, IR = %04o\n", ea, IR);
     } else {                                            /* Direct addressing */
         /* Direct addressing */
-        ea = (PC&06000) + (IR&01777);
+        ea = lifbase + (IR&01777);
     }
 //fprintf(stderr, "do_linc() PC=%05o\r\n", PC);
     if (hst_lnt) {                                      /* history enabled? */
@@ -2060,10 +2108,23 @@ do_linc()
     switch (IR & 06000) {
         case 06000: /* JMP */
 //fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
-//          M[PC&06000] = PC; // BUGBUG: Should be "JMP PC" for return
-            if (IR&01777)
-                M[PC&06000] = 06000 + (PC&01777) + 1;   /* Stow ret. addr */
+            if ((!DJR) && (IR&01777))
+                M[lifbase] = 06000 + (PC&01777) + 1;    /* Stow ret. addr */
+            if (DJR || (IR&01777)) {
+                LIF = LIB;
+                IF = LIF >> 2;
+            }
+            /* Recalculate ea based on new LIF */
+            ea = ((LIF&03)<<10) + (ea&01777);
             PC = ea;
+            /* LINC clears intr inhibit on the *second* JMP. */
+            if (!(int_req & INT_NO_LIF_PENDING)) {
+                /* clr LIF inhibit, set CIF inhibit */
+                int_req = int_req |  INT_NO_LIF_PENDING;
+                int_req = int_req & ~INT_NO_CIF_PENDING;
+            } else
+                int_req = int_req | INT_NO_CIF_PENDING; /* clr intr inhibit */
+            DJR = 0;
 //fprintf(stderr, "jmp: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
             break;
         case 04000: /* STC */
@@ -2075,6 +2136,8 @@ do_linc()
         case 02000: /* ADD */
             tmp = (LAC&07777) + M[ea];
             tmp += !!(tmp&010000);                      /* One's complement */
+            /* If like signs, check for overflow */
+            FLO = (LAC^M[ea]) & 04000? 0: !!((LAC^tmp)&04000);
             LAC = (LAC&010000) + (tmp&07777);
             break;
         case 00000: /* other */
@@ -2087,8 +2150,35 @@ do_linc()
                         case 002: /* PDP */
                             LINC = 0;
                             break;
+                        case 004: /* ESF/SFA */
+                            if (IR & 020) {
+                                LAC = (LAC&010000) + ESF;
+                                break;
+                            }
+                            /* ESF, not SFA */
+                            ESF = LAC & 01760;
+// BUGBUG: These bits are supposed to do stuff:
+// BUGBUG: 2    Instruction Trap
+// BUGBUG: 3    Tape Trap
+// BUGBUG: 4    Character Size
+// BUGBUG: 5    Fast Sample
+                            if (ESF & 040)      /* Like KIE */
+                                int_enable = int_enable & ~(INT_TTI+INT_TTO);
+                            else
+                                int_enable = int_enable | (INT_TTI+INT_TTO);
+                            int_req = INT_UPDATE;       /* update interrupts */
+                            if (ESF & 020)  {   /* Like CAF */
+                                int_req = int_req & INT_NO_CIF_PENDING;
+                                dev_done = 0;
+                                int_enable = INT_INIT_ENABLE;
+                                reset_all (1);          /* reset all dev */
+                            }
+                            break;
                         case 005: /* ZTA */
                             LAC = (LAC&010000) | (MQ>>1);
+                            break;
+                        case 006: /* DJR */
+                            DJR = 1;
                             break;
                         case 010: /* ENI */
                             break;
@@ -2116,12 +2206,12 @@ do_linc()
                     }
                     break;
                 case 001: /* SET */
-                    ea = (PC&06000) + ea;
+                    ea = lifbase + ea;
 //fprintf(stderr, "set: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
                     if (IR & 020) {
                         tmp = PC;
                     } else {
-                        tmp = (PC&06000) + (M[PC] & 01777);
+                        tmp = lifbase + (M[PC] & 01777);
                     }
 //fprintf(stderr, "set: val = %04o, PC = %05o, ea = %04o\n", M[tmp], PC, ea);
                     M[ea] = M[tmp];
@@ -2225,7 +2315,7 @@ do_linc()
                     case 004: /* SW 0 */
                     case 005: /* SW 0 */
 // BUGBUG: Skip on sense switch (0-5).
-// This is not the/either switch register, but rather another set of six.
+// This is not either switch register, but rather another set of six.
                         tmp = 1;
                         break;
                     case 010: /* AZE */
@@ -2240,6 +2330,11 @@ do_linc()
                         break;
                     case 012: /* LZE */
                         tmp = !(LAC&010000);
+                        break;
+                    case 014: /* FLO */
+//fprintf(stderr, "flo: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
+                        tmp = FLO;
+//fprintf(stderr, "flo: IR = %04o, PC = %05o+%d\n", IR, PC, tmp);
                         break;
                     case 013: /* IBZ */
 // BUGBUG: Either tape unit is up to speed and at an interblock zone.
@@ -2261,10 +2356,9 @@ do_linc()
                 case 012: /* OPR */
 // BUGBUG: Operate digital channel.  If (IR&020), pause as needed.
 // BUGBUG: 015 is Keyboard read and release.
-// BUGBUG: 016 is Right Switch Register.
-// BUGBUG: 017 is Left Switch Register.
                     switch (ea) {
                     case 000: /* IOB */
+                        IR = M[PC];
                         do_pdp8();
                         PC = (PC&06000) + ((PC+1)&01777);
                         break;
@@ -2280,7 +2374,35 @@ do_linc()
                         LAC = (LAC&010000) + LSR;
 //fprintf(stderr, "lsw: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                         break;
+                    default: /* Illegal */
+                        linc_trap();
+                        break;
                     }
+                    break;
+                case 013: /* 0540+xx Illegal */
+                    linc_trap();
+                    break;
+                case 014: /* LIF/LMB */
+//fprintf(stderr, "LIF: ea = %04o, PC = %05o, IR = %04o\n", ea, PC, IR);
+                    LIB = IR & 037;
+                    IB = LIB >> 2;
+                    int_req = int_req & ~INT_NO_LIF_PENDING;
+                    break;
+                case 015: /* LDF/UMB */
+//fprintf(stderr, "LDF: ea = %04o, PC = %05o, IR = %04o\n", ea, PC, IR);
+                    LDF = IR & 037;
+                    DF = LDF >> 2;
+//fprintf(stderr, "LDF: ldf = %04o, PC = %05o, df = %04o\n", LDF, PC, DF);
+                    break;
+                case 016: /* 0700+xx */
+                    if (ESF&0400)
+                        linc_trap();
+                    else {
+// BUGBUG: RDC, RCG, RDE, MTB, WRC, WCG, WRI, CHK?
+                    }
+                    break;
+                case 017: /* 0740+xx Illegal */
+                    linc_trap();
                     break;
                 case 020: /* LDA */
 //fprintf(stderr, "LDA: ea = %04o, PC = %05o\n", ea, PC);
@@ -2291,27 +2413,33 @@ do_linc()
                     break;
                 case 022: /* ADA */
                     /* One's complement add to AC. */
+                    h = (LAC^M[ea]) & 04000; /* Dissimilar signs? */
                     tmp = LAC & 010000; /* remember LINK */
                     LAC = (LAC&07777) + M[ea];
                     if (LAC & 010000)
                         LAC = (LAC&07777) + 1;
                     LAC |= tmp; /* restore LINK */
+                    FLO = h? 0: !!((LAC^M[ea])&04000);
                     break;
                 case 023: /* ADM */
                     /* One's complement add to memory. */
+                    h = (LAC^M[ea]) & 04000; /* Dissimilar signs? */
                     M[ea] = (LAC&07777) + M[ea];
                     if (M[ea] & 010000)
                         M[ea] = (M[ea]&07777) + 1;
+                    FLO = h? 0: !!((LAC^M[ea])&04000);
                     LAC = (LAC&010000) + M[ea];
                     break;
                 case 024: /* LAM */
                     /* Link add to memory. */
+                    h = (LAC^M[ea]) & 04000; /* Dissimilar signs? */
 //fprintf(stderr, "lam: IR = %04o, PC = %05o, ea = %04o\n", IR, PC, ea);
 //fprintf(stderr, "lam: IR = %04o, PC = %05o, m[ea] = %04o\n", IR, PC, M[ea]);
 //fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     if (LAC & 010000)
                         LAC = (LAC&07777) + 1;
                     LAC = (LAC&010000) | ((LAC&07777) + M[ea]);
+                    FLO = h? 0: !!((LAC^M[ea])&04000);
                     M[ea] = LAC & 07777;
 //fprintf(stderr, "lam: IR = %04o, PC = %05o, LAC = %05o\n", IR, PC, LAC);
                     break;
@@ -2411,6 +2539,9 @@ do_linc()
                 case 035: /* BCO */
                     LAC ^= M[ea];
                     break;
+                case 036: /* 1700+xx Illegal */
+                    linc_trap();
+                    break;
                 case 037: /* DSC */
 // BUGBUG: Display the character.  X coordinate is in index register 1.
 // Y coordinate in AC.  The H bit selects which display.  4 Pixels per point.
@@ -2445,7 +2576,9 @@ int device, pulse;
 {
     if ((MODEL == PDP12) && (device == 014))
         if (pulse & 01) {
-            LDF = (IF<<2) + ((PC&06000)>>10);   /* LINC IF to DF */
+            LDF = (IF<<2) + ((PC&06000)>>10);   /* IF to LDF */
+            LIF = LIB = LDF;                    /* ...and also LIF */
+            DJR = 0;
             LINC = 1;                           /* Just start the LINC */
             return TRUE;
         }
