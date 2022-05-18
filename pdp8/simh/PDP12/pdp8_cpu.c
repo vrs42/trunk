@@ -233,7 +233,11 @@ int32 SC = 0;                                           /* EAE shift count */
 int32 UB = 0;                                           /* User mode Buffer */
 int32 UF = 0;                                           /* User mode Flag */
 int32 SR = 0;                                           /* Switch Register */
-int32 LSR = 0;                                          /* LINC Switches */
+int32 LSR = 0;                                          /* LINC Left Switches */
+int32 SNS = 0;                                          /* LINC SNS Switches */
+int32 SXL = 0;                                          /* LINC Sense Lines */
+int32 AD12[040] = { 0 };                                /* AD12 registers */
+int32 RELAYS = 0;					/* Relay register */
 t_bool LINC = FALSE;                                    /* In LINC mode */
 int32 FLO = 0;                                          /* LINC Switches */
 int32 ESF = 0;                                          /* LINC Special Func */
@@ -302,8 +306,12 @@ REG cpu_reg[] = {
     { FLDATAD (STOP_INST, stop_inst, 0, "stop on undefined instruction") },
     { ORDATAD (WRU, sim_int_char, 8, "interrupt character") },
     { ORDATAD (LINC, LINC, 1, "LINC mode operation") },
-    { ORDATAD (LSR, LSR, 12, "LINC panel switches") },
+    { ORDATAD (LSR, LSR, 12, "LINC left switches") },
+    { ORDATAD (SXL, SXL, 12, "LINC sense lines") },
+    { ORDATAD (SNS, SNS, 6, "LINC sense switches") },
     { ORDATAD (FLO, FLO, 1, "LINC overflow") },
+    { BRDATAD (AD12, AD12, 8, 10, 040, "AD12 registers"), 0 },
+    { ORDATAD (RELAYS, RELAYS, 6, "LINC relays") },
     { NULL }
     };
 
@@ -805,11 +813,11 @@ return SCPE_OK;
 //BUGBUG: Special non-existant memory behaviors for straight-8, LINC-8.
 //BUGBUG: Implement memory protect feature for the 8/L.
 //BUGBUG: Implement special nop CIF/CDF for the 8/L.
-//BUGBUG: Debug LINC instruction emulations.
+//BUGBUG: Debug LINC I/O instructions.
 //BUGBUG: Distinguish LINC-8 and PDP-12 LINC instruction emulations.
 //BUGBUG: Implement LINC peripherals.
 //BUGBUG: Implement PDP-12 API/stack stuff.
-//BUGBUG: Restrict pre-Omnibus IOT handling.
+//BUGBUG: Restrict pre-Omnibus IOT handling for non-TTY devices.
 //BUGBUG: Implement special 8/A handling for line printer port.
 //BUGBUG: Implement special 8/A handling for memory over 32K.
 //BUGBUG: Implement special 8/A handling for PUSH/POP.
@@ -1992,7 +2000,6 @@ linc_trap()
    Note that address increments are two's complement.
 
    Note that address calculations are 10 bit.
-   (BUGBUG: Not true if bit 1 is set!!)
 
    The miscellaneous format is:
 
@@ -2006,6 +2013,7 @@ linc_trap()
    encode an operan, count, etc.
 
 */
+extern void vc12_dis(int IR, int x, int y);
 void
 do_linc()
 {
@@ -2099,7 +2107,7 @@ do_linc()
     switch (IR & 06000) {
         case 06000: /* JMP */
             if ((!DJR) && (IR&01777))
-                M[lifbase] = 06000 + (PC&01777) + 1;    /* Stow ret. addr */
+                M[lifbase] = 06000 + (PC&01777);    /* Stow ret. addr */
             if (DJR || (IR&01777)) {
                 LIF = LIB;
                 IF = LIF >> 2;
@@ -2145,8 +2153,6 @@ do_linc()
                             /* ESF, not SFA */
                             ESF = LAC & 01760;
 // BUGBUG: These bits are supposed to do stuff:
-// BUGBUG: 2    Instruction Trap
-// BUGBUG: 3    Tape Trap
 // BUGBUG: 4    Character Size
 // BUGBUG: 5    Fast Sample
                             if (ESF & 040)      /* Like KIE */
@@ -2176,10 +2182,10 @@ do_linc()
 // BUGBUG: Set WTM in LINCtape controller if MARK button pressed..
                             break;
                         case 014: /* ATR */
-// BUGBUG: Set relay register from 6 LSB of LAC.
+                            RELAYS = LAC & 077;
                             break;
                         case 015: /* RTA */
-// BUGBUG: Set AC from relay register.
+                            LAC = (LAC&017700) | RELAYS;
                             break;
                         case 016: /* NOP */
                             /* fully implemented! */
@@ -2203,13 +2209,36 @@ do_linc()
                     PC = (PC&06000) + ((PC+1)&01777);   /* Bump PC */
                     break;
                 case 002: /* SAM */
-// BUGBUG: Sample signal indicated by ea.  Leave result in 8 LSB of AC.
-// 0-7 are potentiometers.  10-17 are analog inputs.
+                    ea = IR & 037;
 // BUGBUG: Asynchronous conversion is not implemented.
+// BUGBUG: There should be a conversion interval modeled.
+// BUGBUG: Registers 010-037 should be assignable.
+                    /* For now, just return the value from AD12[]. */
+                    LAC = (LAC&010000) + AD12[ea];
+                    if (LAC & 01000)    /* 10 bit signed */
+                        LAC |= 06000;   /* Sign extend */
+                    if (ea < 8) {
+                        /* 0-7 are potentiometers. */
+                        /* Set them with "d AD12[n] = value". */
+                    } else {
+                        /* 10-17 are standard analog inputs. */
+                        /* 20-37 are optional analog inputs. */
+                        /* These should be attachable as well as settable. */
+                    }
                     break;
                 case 003: /* DIS */
-// BUGBUG: Display a point at AC:3-11, M[ea]:3-11.  Use M[ea]:0 to determine
-// which scope.  Horizontal axis is unsigned, vertical is signed.
+                    /* Display a point at AC:3-11, M[ea]:3-11.  Use M[ea]:0
+                     * to determine which channel.  Horizontal axis is
+                     * unsigned, vertical is signed.
+                    */
+//fprintf(stderr, "dis: pc = %05o, ea = %04o\n", PC, ea);
+                    /* First up, fetch the horizontal coordinate. */
+                    // BUGBUG: Consider the case for register zero!!
+                    ea += lifbase;
+                    if (IR & 020) /* Index it */
+                        M[ea] = (M[ea]&06000) + ((M[ea]+1)&01777);
+                    vc12_dis(IR, M[ea], LAC);
+//fprintf(stderr, "dis: x = %03o, y = %03o\n", M[ea]&0777, LAC&00777);
                     break;
                 case 004: /* XSK */
                     ea += PC & 06000; /* Registers are in IF */
@@ -2219,8 +2248,7 @@ do_linc()
                         PC = (PC&06000) + ((PC+1)&01777); /* Bump PC */
                     break;
                 case 005: /* ROL */
-// BUGBUG: What is the relationship with the Z register??
-// ROL doesn't affect MQ.
+                    /* ROL doesn't affect MQ. */
                     ea &= 017;
                     if (IR & 020) {
                         /* Rotate with LINK */
@@ -2276,9 +2304,45 @@ do_linc()
                     }
                     break;
                 case 010: /* SXL */
-// BUGBUG: Skip if the digital input is not grounded.
-// BUGBUG: 015 is Key struck input!
-                    tmp = 0;
+                    ea &= 017;
+//fprintf(stderr, "SXL: ea == %d, mask = %o\n", ea, (1<<(014-ea)));
+                    switch (ea) {
+                    /* Skip if the digital "sense line input" is not
+                       grounded.  These are not either switch register,
+                       but rather yet another set of 12 inputs. */
+                    case 000: /* SXL 0 */
+                    case 001: /* SXL 1 */
+                    case 002: /* SXL 2 */
+                    case 003: /* SXL 3 */
+                    case 004: /* SXL 4 */
+                    case 005: /* SXL 5 */
+                    case 006: /* SXL 6 */
+                    case 007: /* SXL 7 */
+                    case 010: /* SXL 10 */
+                    case 011: /* SXL 11 */
+                    case 012: /* SXL 12 */
+                    case 013: /* SXL 13 */
+//fprintf(stderr, "SXL: ea == %d, mask = %o\n", ea, (1<<(014-ea)));
+                        tmp = !!(SXL & (04000>>ea));
+//fprintf(stderr, "SXL: tmp == %d, sxl = %o\n", tmp, SXL);
+                        break;
+                    case 014: /* SXL 14 */
+// BUGBUG: 014 is LTP8 block (TC12-F)
+                        tmp = 0;
+                        break;
+                    case 015: /* KST */
+// BUGBUG: 015 is KST!
+                        tmp = 0;
+                        break;
+                    case 016: /* STD */
+// BUGBUG: 016 is STD!
+                        tmp = 0;
+                        break;
+                    case 017: /* TWC */
+// BUGBUG: 017 is TWC!
+                        tmp = 0;
+                        break;
+                    }
                     if (IR & 020) /* reverse sense */
                         tmp = !tmp;
                     if (tmp)
@@ -2288,15 +2352,32 @@ do_linc()
                     tmp = 0;
                     ea &= 017;
                     switch (ea) {
+                    /* These are not either switch register, but rather
+                       yet another set of six switches. */
                     case 000: /* SW 0 */
-                    case 001: /* SW 0 */
-                    case 002: /* SW 0 */
-                    case 003: /* SW 0 */
-                    case 004: /* SW 0 */
-                    case 005: /* SW 0 */
-// BUGBUG: Skip on sense switch (0-5).
-// This is not either switch register, but rather another set of six.
-                        tmp = 1;
+                        tmp = !!(SNS & 040);
+                        break;
+                    case 001: /* SW 1 */
+                        tmp = !!(SNS & 020);
+                        break;
+                    case 002: /* SW 2 */
+                        tmp = !!(SNS & 010);
+                        break;
+                    case 003: /* SW 3 */
+                        tmp = !!(SNS & 004);
+                        break;
+                    case 004: /* SW 4 */
+                        tmp = !!(SNS & 002);
+                        break;
+                    case 005: /* SW 5 */
+                        tmp = !!(SNS & 001);
+                        break;
+//                  case 006: /* ??? */
+//                      break;
+                    case 007: /* Color is Red */
+// BUGBUG: Is the color stuff for the VR20 documented somewhere?
+fprintf(stderr, "Skip on color\n");
+                        tmp = 0;
                         break;
                     case 010: /* AZE */
                         tmp = LAC&07777;
@@ -2311,11 +2392,11 @@ do_linc()
                     case 012: /* LZE */
                         tmp = !(LAC&010000);
                         break;
-                    case 014: /* FLO */
-                        tmp = FLO;
-                        break;
                     case 013: /* IBZ */
 // BUGBUG: Either tape unit is up to speed and at an interblock zone.
+                        break;
+                    case 014: /* FLO */
+                        tmp = FLO;
                         break;
                     case 015: /* ZZZ */
                         tmp = !(MQ&01);
@@ -2323,6 +2404,8 @@ do_linc()
                     case 016: /* SKP */
                         tmp = 1;
                         break;
+//                  case 017: /* ??? */
+//                      break;
                     }
                     if (IR & 020) /* reverse sense */
                         tmp = !tmp;
@@ -2477,9 +2560,33 @@ do_linc()
                     linc_trap();
                     break;
                 case 037: /* DSC */
-// BUGBUG: Display the character.  X coordinate is in index register 1.
-// Y coordinate in AC.  The H bit selects which display.  4 Pixels per point.
-// Coordinates updated in index register 1 and AC.  Z register destroyed.
+                    /* Display a character.  X coordinate is in index
+                     * register 1.  Y coordinate in AC.  The H bit in
+                     * register 1 selects which channel.  4 Pixels per
+                     * point.  Coordinates are updated in index register
+                     * 1 and AC.  Z register destroyed.
+                   */
+                    {   int row, col, scale, x, y;
+                        tmp = M[ea];        /* Pattern word */
+                        if (ESF&200)
+                            scale = 4; /* Full size */
+                        else
+                            scale = 2; /* Half size */
+                        x = M[lifbase+1]; /* Includes Channel */
+                        for (col=0; col < 2; col++) {
+                            x += scale;
+                            y = LAC & 0777;
+                            for (row=0; row < 6; row++) {
+                                if (tmp & 1)
+                                    vc12_dis(IR, x, y);
+                                tmp = tmp >> 1;
+                                y += scale;
+                            }
+                        }
+                        M[lifbase+1] = x;
+                        LAC = (LAC&017740) + scale*6;
+                    }
+//fprintf(stderr, "dsc: x = %03o, y = %03o\n", M[ea]&0777, LAC&00777);
                     break;
                 default: /* undefined instruction */
                     break;

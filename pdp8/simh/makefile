@@ -1606,13 +1606,15 @@ PDP8_OPT = -I ${PDP8D}
 
 
 PDP12D = ${SIMHD}/PDP12
+PDP12_DISPLAY_OPT = -DDISPLAY_TYPE=DIS_VR14 -DPIX_SCALE=RES_FULL
 PDP12 = ${PDP12D}/pdp8_cpu.c ${PDP12D}/pdp8_clk.c ${PDP12D}/pdp8_df.c \
 	${PDP12D}/pdp8_dt.c ${PDP12D}/pdp8_lp.c ${PDP12D}/pdp8_mt.c \
 	${PDP12D}/pdp8_pt.c ${PDP12D}/pdp8_rf.c ${PDP12D}/pdp8_rk.c \
 	${PDP12D}/pdp8_rx.c ${PDP12D}/pdp8_sys.c ${PDP12D}/pdp8_tt.c \
 	${PDP12D}/pdp8_ttx.c ${PDP12D}/pdp8_rl.c ${PDP12D}/pdp8_tsc.c \
-	${PDP12D}/pdp8_td.c ${PDP12D}/pdp8_ct.c ${PDP12D}/pdp8_fpp.c
-PDP12_OPT = -I ${PDP12D}
+	${PDP12D}/pdp8_td.c ${PDP12D}/pdp8_ct.c ${PDP12D}/pdp8_fpp.c \
+	${PDP12D}/pdp8_vc12.c ${DISPLAYL}
+PDP12_OPT = -I ${PDP12D} ${DISPLAY_OPT} $(PDP12_DISPLAY_OPT)
 
 
 H316D = ${SIMHD}/H316
