@@ -59,7 +59,6 @@ t_stat vc12_reset (DEVICE *dptr);
 */
 
 #define CYCLE_TIME 5                    /* 5us memory cycle */
-#define CYCLE_TIME 1                    /* 5us memory cycle */
 #define VC12_WAIT (50/CYCLE_TIME)       /* 50us */
 
 UNIT vc12_unit = {
@@ -70,6 +69,29 @@ static t_bool vc12_stop_flag = FALSE;
 static void vc12_quit_callback (void)
 {
     vc12_stop_flag = TRUE;
+}
+
+t_stat vc12_set_chan (UNIT *uptr, int32 val, CONST char *cptr, void *desc)
+{
+    CHAN = val & 03;
+    return SCPE_OK;
+}
+
+t_stat vc12_show_chan (FILE *st, UNIT *uptr, int32 val, CONST void *desc)
+{
+    switch (CHAN) {
+    case 0:
+        fprintf (st, "no display");
+        break;
+    case 1:
+    case 2:
+        fprintf (st, "channel %d", CHAN);
+        break;
+    case 3:
+        fprintf (st, "channels 1 and 2");
+        break;
+    }
+    return SCPE_OK;
 }
 
 #define DEB_VMOU      SIM_VID_DBG_MOUSE             /* Video mouse */
@@ -85,17 +107,22 @@ DEBTAB vc12_deb[] = {
     { NULL, 0 }
 };
 
+REG vc12_reg[] = {
+    { ORDATAD (CHAN, CHAN, 2, "channel selector") },
+};
+
+MTAB vc12_mod[] = {
+    { MTAB_XTD|MTAB_VDV, 0, "ICHANNEL", NULL, &vc12_set_chan, NULL, NULL },
+    { MTAB_XTD|MTAB_VDV, 0, "CHANNEL", NULL, NULL, &vc12_show_chan, NULL },
+};
+
 DEVICE vc12_dev = {
-    "VC12", &vc12_unit, NULL, NULL,
+    "VC12", &vc12_unit, 0, 0,
     1, 10, 31, 1, 8, 8,
     NULL, NULL, &vc12_reset,
     NULL, NULL, NULL,
     NULL, DEV_DISABLE | DEV_DEBUG,
     0, vc12_deb
-};
-
-REG vc12_reg[] = {
-    { ORDATAD (CHAN, CHAN, 2, "channel selector") },
 };
 
 /*
@@ -127,6 +154,12 @@ int32 vc12_dis (int32 inst, int32 io, int32 ac)
      * Oddly, x and y are two's complement, not one's complement.
      */
     y ^= 0400;
+
+    /*
+     * Center our display in the VR14 window.
+    */
+    x += 256;
+    y += 128;
 
     // Currently ignoring color. */
 

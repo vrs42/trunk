@@ -1,0 +1,48 @@
+:: pdp12_test.ini
+::
+:: Run the paper tape-based diagnostics for the PDP-12 simulator.
+::
+::
+:: Script is where the diagnostics ought to reside as well.
+cd %~p0
+!rm -f d6bc.log
+set log d6bc.log
+
+:: Limit maximum diagnostic execution time
+runlimit 2 minutes
+set on
+on error ignore
+on runtime echof "\r\n*** Test Runtime Limit %SIM_RUNLIMIT% %SIM_RUNLIMIT_UNITS% Exceeded ***\n"; exit 1
+
+:: Maximum memory, extended address element:
+set cpu 32k
+set cpu eae
+
+:: PDP-12 VR14/VR20 Display Test (D6BC)
+:: This test displays four test patterns (on the VR14), for
+:: about 10 seconds each.
+:: maindec-12-d6bc-pb VR14/VR20 Display Test
+set throttle 200k
+# BUGBUG: Set to display both channels (0 and 1).
+# Set sense switches 0-4 will freeze the test on the corresponding
+# pattern.  (Set SNS bit 5 to test a VR20.)
+d sns 20
+d sns 10
+d sns 02
+d sns 01
+d sns 00
+# Ename VR20 test:
+#d sns 04
+echof -n "** PDP-12: Display Test: "
+load tests/diags/maindec-12-d6bc-pb.bin
+:: Patch address 5557 with HLT to stop execution after a 
+:: full pass is done or else it will run forever.
+#dep 5557 0000
+# Trace the whole diagnostic, for now.
+#br 4000-5777;e l,ac,mq,4000,4001,4006,4007,4010,4012,4066,4702,sr,lsr;c
+# Start at 0020 in LINC mode
+d 4017 6141
+run -q 4017
+e pc,mq,l,ac,sns
+if (PC != 05560) echof "MAINDEC-12-D6BC failed.";# exit 1
+if (PC == 05560) echof "passed"

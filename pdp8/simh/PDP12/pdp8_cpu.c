@@ -2153,8 +2153,10 @@ do_linc()
                             /* ESF, not SFA */
                             ESF = LAC & 01760;
 // BUGBUG: These bits are supposed to do stuff:
-// BUGBUG: 4    Character Size
-// BUGBUG: 5    Fast Sample
+// ESF & 0100 Fast Sample Mode
+// From the VC12 schematics:
+//   ESF & 0010 is used to clock a color change.
+//   ESF & 0004 is the new color.
                             if (ESF & 040)      /* Like KIE */
                                 int_enable = int_enable & ~(INT_TTI+INT_TTO);
                             else
@@ -2372,11 +2374,18 @@ do_linc()
                     case 005: /* SW 5 */
                         tmp = !!(SNS & 001);
                         break;
-//                  case 006: /* ??? */
-//                      break;
+                    case 006: /* Color change complete *.
+// From the VC12 schematics, it appears that case 7 can immediately
+// report that "red" is set.  Case 6 skips a little later, as controlled
+// by a monostable, snf indicates the color change should be complete.
+                        /* Unimplemented.  Any VR20 exist? */
+                        tmp = 0;
+                        break;
                     case 007: /* Color is Red */
-// BUGBUG: Is the color stuff for the VR20 documented somewhere?
-fprintf(stderr, "Skip on color\n");
+// ESF & 0010 is used to clock a color change.
+// ESF & 0004 is the new color.
+//fprintf(stderr, "Skip on color\n");
+                        /* Unimplemented.  Any VR20 exist? */
                         tmp = 0;
                         break;
                     case 010: /* AZE */
@@ -2567,15 +2576,18 @@ fprintf(stderr, "Skip on color\n");
                      * 1 and AC.  Z register destroyed.
                    */
                     {   int row, col, scale, x, y;
+// BUGBUG: Should "tmp" here really be MQ?
                         tmp = M[ea];        /* Pattern word */
                         if (ESF&200)
                             scale = 4; /* Full size */
                         else
                             scale = 2; /* Half size */
                         x = M[lifbase+1]; /* Includes Channel */
+                        /* Do this as documented for LINC */
+                        LAC &= 017740;
                         for (col=0; col < 2; col++) {
                             x += scale;
-                            y = LAC & 0777;
+                            y = LAC & 07777;
                             for (row=0; row < 6; row++) {
                                 if (tmp & 1)
                                     vc12_dis(IR, x, y);
@@ -2584,9 +2596,7 @@ fprintf(stderr, "Skip on color\n");
                             }
                         }
                         M[lifbase+1] = x;
-                        LAC = (LAC&017740) + scale*6;
                     }
-//fprintf(stderr, "dsc: x = %03o, y = %03o\n", M[ea]&0777, LAC&00777);
                     break;
                 default: /* undefined instruction */
                     break;

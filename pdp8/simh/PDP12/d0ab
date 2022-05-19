@@ -1,0 +1,44 @@
+:: pdp12_test.ini
+::
+:: Run the paper tape-based diagnostics for the PDP-12 simulator.
+::
+::
+:: Script is where the diagnostics ought to reside as well.
+cd %~p0
+!rm pdp12_test.log
+set log d0ab.log
+
+:: Limit maximum diagnostic execution time
+runlimit 2 minutes
+set on
+on error ignore
+on runtime echof "\r\n*** Test Runtime Limit %SIM_RUNLIMIT% %SIM_RUNLIMIT_UNITS% Exceeded ***\n"; exit 1
+
+:: Maximum memory, extended address element:
+set cpu 32k
+set cpu eae
+
+:: PDP-12 CP Test 2: Skip and Data Handling (D0AB)
+:: This test halts after the first 3 instructions to let the
+:: operator verify that HLT and CLA works before continuing 
+:: onto the real tests.
+:: maindec-12-d0ab-pb Instruction Test 2
+# Set 6 sense switches to all ones.
+d sns 77
+echof -n "** PDP-12: CP Test (2): "
+load tests/diags/maindec-12-d0ab-pb.bin
+:: Patch address 5276 with HLT to stop execution after a 
+:: full pass is done or else it will run forever.
+dep 7415 7402
+dep sr 07777
+run -q 20
+#e PC
+if (PC != 00023 || AC != 0) echof "MAINDEC-12-D0AB failed."; exit 1
+go -q
+#e PC
+if (PC != 00027 || AC != 07777) echof "MAINDEC-12-D0AB failed."; exit 1
+go -q
+e pc,mq,l,ac,sns
+if (PC != 07416) echof "MAINDEC-12-D0AB failed."; exit 1
+#echof -n "** PDP-12: CP Test (2): "
+echof "passed"
