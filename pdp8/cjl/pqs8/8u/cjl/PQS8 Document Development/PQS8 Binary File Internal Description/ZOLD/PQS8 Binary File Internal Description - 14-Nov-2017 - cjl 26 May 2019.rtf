@@ -1,0 +1,514 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fmodern\fprq1\fcharset0 Lucida Console;}{\f1\fnil\fcharset0 Arial;}{\f2\fnil\fcharset0 MS Shell Dlg 2;}{\f3\fnil\fcharset0 Lucida Console;}{\f4\fswiss\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;\red0\green0\blue255;\red255\green255\blue255;\red140\green140\blue140;\red155\green155\blue155;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$3B'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 1440
+  FtrMarg = 1440
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -13
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  Collate = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\cf1\f0\fs20 P?S/8 Binary File Internal Description\par
+\par
+Last edit:\tab 14-Nov-2017\tab cjl\par
+\par
+P?S/8 supports binary files in a variety of contexts, primarily as input to the multi-purpose binary loader program known as P?S/8 \i BIN\i0 .\par
+\par
+The binary file format is known as \i slurp\i0  binary; this term was coined by its inventor, the legendary Richard Lary, generally known as the best PDP-8 programmer in the history of mankind.  The term is an attempt to explain how the loader works without requiring a buffer, even when loading from certain storage devices traditionally associated with block-oriented access.  In\par
+P?S/8, each system device generally has a companion slurp loader which is used by the BIN utility to load binary files on any particular system.  This is a customized routine geared to the same device as the system device handler for the express purpose of loading binary files.\par
+\par
+Note: The P?S/8 BIN \strike progtam \cf2\strike0 program \cf1 should not be confused with the name of standard binary paper-tapes which are generally loaded by the BIN loader.  That said, P/S/8 BIN does support certain operating modes that handle BIN (and RIM) binary paper-tapes, including the conversion of BIN format paper-tapes from/to P?S/8 slurp-format binary files.  When the terms \i BIN\i0  and \i file\i0  are used in the same sentence, this refers to slurp format binary files.\line\line The advantages of the custom loader include:\line\line 1) No reserved memory areas beyond the prevailing system convention (which is\par
+   generally locations 00000-07577 unless an extended-memory device handler\par
+   extension is required).\cf2   You mean no area other than 07600-07777, right?  Your sentence could be misunderstood as saying that 00000-07577 is reserved, though that obviously doesn't make sense.  Unless I'm completely confused here....   Migraine :( ....\cf1\par
+\par
+2) The ability to load memory with the system device write-protected (where\par
+   applicable).\par
+\par
+3) Surprisingly rapid program loading which is often counter to the\par
+   expectations of programmers taught to believe \cf2 that \cf1 what the slurp loader\par
+   achieves is deemed impossible.\par
+\par
+The best example of a slurp binary loader implementation is the one customized for the TC01/TC08 DECtape controller.\par
+\par
+The TC01/TC08 system device handler loads into 07600-07777 and provides a read or write subroutine call to access the various logical drive units (either TU55 or TU56).  Certain locations are reserved for various system parameters and passed file data used by various system programs.  The operating system can always be restarted at location 07600 which is the universal starting address for all PDP-8 operating systems.\cf2   Are these "certain (memory) locations" in the 07600-07777 range too?  Now my dumbest question (in this paragraph, I think -- when an OS restarts @ 7600, it is reloaded by a loader located there?  \par
+\par
+I forget the details, but to my forgetful mind it seems that since the TC01/08 device handler is now in 07600-07777, something at 07600 is needed to reload the OS from some sort of media.  Or since we're talking DECtapes right here, do you simply load an OS tape and give the appropriate restart command and let it overwrite the device handler?  Damn!  Use it or lose it....  This paragraph's "confusion" is not related to this document!  Oh.... I should read teh next paragraph -- face palm time....\cf1\line\line Typical usage of the BIN program is to replace the contents of 07600-07777 with the slurp binary loader and a stand-alone bootstrap starting at 07600 which can also reload the operating system.  While the slurp loader is in memory, no read/write services are available.\par
+\par
+The slurp loader directly searches the DECtape logical drive units using passed file parameters of the starting block and logical unit for all input files passed to the BIN program.  When the proper starting block is located, the program is directly loaded into memory using the novel technique of using a one-word buffer within the slurp loader.\cf2   The slurp loader applies to other than just DECtapes, so should you state that it "... searches the ___ device logical drive units..."?  I forget the term that ought to be in the "___".\cf1\line\line The reason this is possible is that 12-bit words are brought into memory by the three-cycle data break mechanism; it is possible to detect individual word transfers by monitoring the associated word count (and/or current address) locations for an instant change.  Once the word count changes, it \cf2 i\cf1 s reset for the next transfer and the latest word transferred can then be used to effect the latest binary operation (which is primarily to load the latest word into memory and increment the location counter).\cf2   I have forgotten a lot of my English classes, but shouldn't "effect" above be "affect"?  Affect is a verb, effect is a noun.  <{\field{\*\fldinst{HYPERLINK "https://www.grammarly.com/blog/affect-vs-effect/"}}{\fldrslt{\ul\cf2 https://www.grammarly.com/blog/affect-vs-effect/}}}\f0\fs20 >  How do you interpret what they are saying?\cf1\page The slurp loader internal operations are analogous to those of the paper-tape binary loaders which use a completely different data format on paper-tape media.  All needed operations are provided in either loader; however, paper-tape loading is far slower and designed for that slow medium.  Slurp loading is nearly as efficient as block image loading, yet is random access loading much like paper-tape loading.\par
+\par
+In the case of the TC01/TC08 slurp loader, it is necessary for each word transfer to be completed nominally in 133 microseconds; this is easily achieved since the loader programming is short and efficient.\cf2   Is this the same for other storage devices?  133 \f1\u956?\f2 sec\f0  sounds awfully familiar, but I can't remember the details -- is this particular to DECtape?  Or does it apply to all devices because it is particular to the timing of the PDP-8* itself?  Maybe the 3-cycle data break requires the 133 \f1\u956?\f2 sec\f0  transfer?\cf1\par
+\par
+The loading process continues while the DECtape read operation spans multiple blocks; tape motion is continuously forward without turn-around.  Once the slurp end-of-file indication is processed, the next passed file parameters are processed, generally requiring a new block search.  Eventually all of the passed file parameters are processed and the loading process is complete.  At this point, a starting field and starting address are used to start the program as intended.  (This information was provided by initialization code in the BIN program as determined by command-line parameters provided by the user.  Additional command-line options may have been processed prior to moving the slurp loader through memory over the system device handler.)\cf2   What if the user doesn't know the starting field & starting address (like it is an unknown program, written by someone else)?  Does he/she have to guess at something like field 0 & address 200?  Or does he/she have to look at memory to try to find this information?\cf1\par
+\par
+On all releases of P?S/8, there is an alternative binary loader that uses virtual techniques to load binary files; however, due to the virtualization overhead, the loading process will tend to take more time.  Additionally, write enable is required on the logical device unit where the BIN program resides as the BIN program includes its own virtual buffer.\line\line While the majority of P?S/8 releases include a slurp loader customized to the same hardware as the system device handler, a few system configurations force the use of the virtual loader:\line\line 1) The RF08 is the only three-cycle data break device that cannot support a\par
+   slurp loader; this is due to the transfer speed which doesn't provide\par
+   sufficient time between word transfers.\par
+\par
+2) The RK8E and all other single-cycle data break (DMA) devices.  No method is\par
+   provided to detect word transfers; the flag raises only at the end of block\par
+   transfers.\cf2   Which devices are single-cycle DMA devices, therefore requiring virtual slurp loaders?\cf1\par
+\par
+All other devices are generally program-transfer devices which readily allow a device-specific slurp loader.\line\line An advantage of the virtual loader is that the system device handler is still resident after the program is loaded; however, all customized slurp loaders support optional reloading of the system device handler (which admittedly appears at first glance to be both counter-intuitive and impossible).  The only restriction on this usage is lowering the normal maximum file load count of 17 to 16 total input files; this is indicated by invoking the BIN command with the \cf3\highlight4\f3\fs24 /I\cf1\highlight0\f0\fs20  command-line switch.\par
+\line While there are many additional details regarding loading options, the reader is directed to documentation of the BIN program for more information; the primary purpose of this document is to describe details of the slurp file format.\line\line Slurp format can be broken down into a series of contiguous file blocks, each independent of other blocks with the exception of the prevailing loading address and memory field.\line\line Each block of slurp format binary consists of a series of seven-word groups in contiguous order.  Except for the end-of-file block, there are always 18 seven-word groups in any block; each block also contains two waste words (since the blocks are logically 128 words each).\page Note: DECtape blocks are actually 129 12-bit words each; however, the 129th word is ignored throughout P?S/8.  On the TC01/TC08 system, the word count is generally set to -128 as required; as such, the 129th word is never transferred.  The majority of PDP-8 operating systems are designed to operate in a like manner.\cf2   Is this related to DECtape preceding the PDP-8 on older machines that weren't 12-bit?  I know you explained this at least once before, but other than a "memory" of the content of my previous sentence, I don't recall exactly what you said.  A "yes" or "no" answer is sufficient here so you won't have to rewrite a short "War and Peace" rexplaining the details of this comment's topic.\cf1\par
+\par
+Each seven-word group breaks down as follows:\line\line 1) A control word consisting of six two-bit status bits.\par
+\par
+2) The first of six data words; the action taken regarding this word is\par
+   determined by bits[0-1] of the control word.\par
+\par
+3) The second of six data words; the action taken regarding this word is\par
+   determined by bits[2-3] of the control word.\par
+\par
+4) The third of six data words; the action taken regarding this word is\par
+   determined by bits[4-5] of the control word.\par
+\par
+5) The fourth of six data words; the action taken regarding this word is\par
+   determined by bits[6-7] of the control word.\par
+\par
+6) The fifth of six data words; the action taken regarding this word is\par
+   determined by bits[8-9] of the control word.\par
+\par
+7) The sixth of six data words; the action taken regarding this word is\par
+   determined by bits[10-11] of the control word.\par
+\par
+ Each pair of control word bits breaks down as follows:\line\line 1) 00 - The corresponding word is a data word; load this word into the memory\par
+   location pointed to by the internal load pointer then increment the load\par
+   pointer for the next data operation.  The loading field value in effect\par
+   determines the memory field used for data loading.\cf2   The loading field value, in effect, determines..."?  "Loading field" is the field where the data is being loaded?  My first knee-jerk reaction is that a "loading field" is the field from which something is being loaded, but I think my knee-jerk interpretation is incorrect and the loading field _IS_ the field from where the data is being loaded.  I guess my initial confusion is the "...ing" on the end of many of the above words....  But, I believe that I am now interpreting the paragraph correctly.  Others that are also new to the format of the slurp loader may have the same incorrect knee-jerk interpretation when they read this paragraph, but if they think about it, they ought to correct themselves.  I hope I'm correct with my interpretation here!\cf1\par
+\par
+2) 01 - The end-of-file has been reached.  The slurp loader has finished\par
+   processing this file; loading continues with the contents of the next\par
+   passed file (if any).\par
+\par
+3) 10 - The corresponding word is an origin setting. \strike set \cf2\strike0 Set \cf1 the load pointer to\par
+   the contents of this word.\par
+\par
+4) 11 - The corresponding word is a field setting in the form of CDF \i nn\i0  where\par
+   nn is the new loading field in bits\cf2  \cf1 [6-8].\cf2   I added a space between "bits" and "[6-8]" here.\cf1\par
+\par
+Despite the fact that slurp format is inherently random access (and not block-oriented), the efficiency of data loading approaches 6/7 of that of core-image loading.  (P?S/8 system programs are stored in core-image format for the fastest possible loading speed; however, core-image data can only be loaded by accessing the system device handler.)\cf2   After looking at the slurp loader format details, now I understand the 6/7 efficiency!\cf1\line\line Practical implementations of programs that create slurp format files include repeatable characteristics within the file.  This allows other utilities to determine if a file may be in slurp binary format.  \cf2 "...to determine whether a file is in slurp binary..."?  \cf1 Additionally, multiple files may be loaded in the same overall loading operation.  Specific safeguards must be present to prevent potential loading mishap.\cf2   Where are these "specific safeguards" documented?\cf1\par
+\par
+A short example program follows including the slurp format binary output file created by assembly with P?S/8 \i PAL\i0 .  (The example program is short enough to be entirely contained in the first file block)\page .FETCH EXAMPLE            \cf5 This brings the source program into the edit buffer.\par
+\cf1\par
+.LI                       \cf5 The contents of the file are listed on the console.\cf1\par
+\par
+ 100    /       EXAMPLE OF P?S/8 "SLURP" BINARY FILE FORMAT\par
+ 110    \par
+ 120            FIELD   7\par
+ 130    \par
+ 140            *1000\par
+ 150    \par
+ 160    START,  CLA CLL         /CLEAN UP\par
+ 170            CIF CDF 00      /GOING TO FIELD O\par
+ 180            JMP I   .+1     /GOING THERE\par
+ 190            7600            /THROUGH HERE\par
+ 200    \par
+ 210            $               /THAT'S ALL, FOLK!\par
+\par
+.PAL EXAMPLE /B /L        \cf5 This assembles the program producing binary output\par
+                          into block 0020 which is addressed as the \i %\i0  file.\par
+\cf1\par
+\par
+              /       EXAMPLE OF P?S/8 "SLURP" BINARY FILE FORMAT\par
+\par
+        0007          FIELD   7\par
+\par
+       *1000          *1000\par
+\par
+071000  7300  START,  CLA CLL         /CLEAN UP\par
+071001  6203          CIF CDF 00      /GOING TO FIELD O\par
+071002  5603          JMP I   .+1     /GOING THERE\par
+071003  7600          7600            /THROUGH HERE\par
+\par
+                      $               /THAT'S ALL, FOLK!\par
+\par
+NO ERRORS DETECTED \par
+\par
+NO LINKS GENERATED\par
+\par
+5K MEMORY UTILIZED \par
+\par
+1 FILE  CREATED\par
+\par
+1 SYMBOL\par
+\par
+This example program illustrates all features of the slurp binary format file in a single block printout.\par
+\par
+\par
+\fs12\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\par
+\u9474? BLOCK: 0:0020                                                    \u9474?\par
+\u9474?                                                                  \u9474?\par
+\u9474? 0000  5340 0200 0200 6271 1000 7300 6203 0125 *+ B@B@29H@;@2CAU* \u9474?\par
+\u9474? 0010  5603 7600 4503 5441 7332 1125 0010 7650 *.C>@%C,!;ZIU@H>(* \u9474?\par
+\u9474? 0020  5212 7346 1013 3025 4452 3425 6201 5212 **J;&HKXU$*\\U2A*J* \u9474?\par
+\u9474? 0030  7201 4503 5441 7344 1013 3025 4452 1425 *:A%C,!;$HKXU$*LU* \u9474?\par
+\u9474? 0040  7004 7130 3425 6201 5231 3145 1117 7640 *8D9X\\U2A*YY%IO> * \u9474?\par
+\u9474? 0050  4437 1337 4200 1325 4200 0000 2110 2107 *$_K_"@KU"@@@QHQG* \u9474?\par
+\u9474? 0060  1323 3730 0000 2105 2053 1335 4200 1731 *KS_X@@QEP+K]"@OY* \u9474?\par
+\u9474? 0070  7640 5274 1324 3733 1727 3722 1337 4200 *> *<KT_[OW_RK_"@* \u9474?\par
+\u9474? 0100  4726 0321 1145 1015 4726 0347 1614 0047 *'VCQI%HM'VC'NL@'* \u9474?\par
+\u9474? 0110  3133 3143 3144 3102 3117 1336 4200 4721 *Y[Y#Y$YBYOK^"@'Q* \u9474?\par
+\u9474? 0120  5732 2501 4165 2442 5277 4410 4503 2767 */ZUA!5T"*?$H%CW7* \u9474?\par
+\u9474? 0130  4376 4126 3447 4065 3542 4421 4430 4337 *#>!V\\' 5]"$Q$X#_* \u9474?\par
+\u9474? 0140  1314 1104 4042 4057 3042 5275 0750 7240 *KLID " /X"*=G(: * \u9474?\par
+\u9474? 0150  0104 0200 0137 0200 0246 7000 0234 7711 *ADB@A_B@B&8@B\\?I* \u9474?\par
+\u9474? 0160  0007 0200 0155 0000 3517 5247 3541 4771 *@GB@A-@@]O*']!'9* \u9474?\par
+\u9474? 0170  3542 4736 1363 4427 0733 7640 2442 1341 *]"'^K3$WG[> T"K!* \u9474?\par
+\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\par
+\par
+Figure 1: Dump of binary output file (block 0020).\page\fs20\par
+\cf2 Can you increase the size of the text in Figure 1?  It's too hard to read, both here and in the PDF.  \cf1 Figure 1 shows the contents of block 0020 just after the assembly of the example file.  A description of each word is as follows:\line\line 00) 5340 - This is the first control word in the block which indicates the\par
+    disposition of the next six data words.\par
+\par
+01) 0200 - All binary files automatically generate an opening *200 origin\par
+    setting.  This is universally the case with all PDP-8 assemblers.\par
+\par
+02) 0200 - P?S/8 PAL outputs the prevailing current origin at the start of\par
+    each binary output file.  In this example, this is redundant to the\par
+    previous word only because this is the first (and only) output file.  The\par
+    prevailing field setting is contained within the slurp loader; it is\par
+    initialized to load into field zero by default.\par
+\par
+Note: Future releases of P?S/8 PAL may also include the prevailing field setting after the prevailing origin setting.  Future releases of P?S/8 BIN will include corresponding changes when converting binary paper-tapes to P/S/8 slurp format binary files.\par
+\par
+03) 6271 - The source program starts with a FIELD 7 directive; as such, a\par
+    corresponding CDF 70 (6271) instruction is placed in the output file. \par
+\par
+Note: Most PDP-8 assemblers can place an automatic *200 after FIELD directives; this is generally not necessary as good programming practice demands the use of a new origin setting.  OS/8 PAL8 and P?S/8 PAL include option switches to enable this feature; by default this does not happen to minimize the binary file size.  Files intended to be punched to binary paper-tapes and ultimately loaded by the DEC "self-starting" binary loader must enable this feature to avoid a fatal loading bug which was never fixed.\cf2   Now folks will want the details of the never-fixed fatal loading bug!  I do.  ;)\cf1\par
+\par
+04) 1000 - The source program includes *1000 at this point.\par
+\par
+05) 7300 - The source program includes a CLA CLL instruction.\par
+\par
+06) 6203 - The source program includes a CIF CDF 00 instruction.\par
+\par
+07) 0125 - This is the second (and final) control word in the block (and\par
+    entire program) which indicates the disposition of the next six data\par
+    words.  (Actually, this is partially moot as the end-of-file is indicated\par
+    within the control word.)\par
+\par
+10) 5603 - The program includes a JMP I 0203 instruction.\line\line 11) 7600 - The program includes the address value of 7600 used to exit the\par
+    program.\par
+\par
+12) xxxx - The end-of-file point has been reached.  Words 012-175 are ignored.\par
+    Additionally, words 176-177 are ignored in all slurp binary file blocks.\cf2   I think my "study" (a separate text file) is correct because it seems to agree with all of this word-by-word explanation.\cf1\par
+\par
+[end-of-file]\par
+\cf0\f4\par
+}
+                                                                                                                        PIE1PBTT7B4GQ2M91HMCFV7OOIKDP2E>
+<SLJ82K361BH4D3A6QHNSAPKPDBJ9PQJEK9LDCBQGAOG69LI8CDJ7CQN6CB86DGNACPQEJ>
+<HJUST25AHN493L5S8UGBMP5GP2BQVB2GQJE59M6SAF7CP7MFH3COLJ9HPQK9V2ED775SQ>
+<2D0PHJQ1J4LQQ6EL3E8I7AAOI50NC0R9AOVH75EJH48R65COGE3N83BF2O9MJDFBK6D8M>
+<GCR1EKPJKT7B7GPR627GCCNA6QHNSAP84C7J2ROF50VHLT5UGCK3M9R82SVNA5Q3EK786>
+<D0F2SP6E6RGQC3J4UPU4DR2MOKI4QO464NA0QR2OAHN497H6C2EG8PQEKP29QVB70QJE8>
+<DGECIV7BK0DDRC0A1NAJQJD07LEQ0J0SK2E6RKID7IG8OE61RKLOK79OOEDCPL2C3EG7L>
+<2TMBC48R65DP8UDR82CFJ9IR2MKV2ESEJ2QK061PGOSH39AHN493L5C92GBLNT2N8BRF2>
+<O9M35FHGUCBF1SK3U6NKNQ126PHB6J3JK8R65DP86DP84T337DPVCA92DC232BL3T2LBD>
+<A526PHB6J3JMA1J1OO6KDP2ESLJ81K369VJK8R65DP6MJP87C73AAHN49RIMT0EG8M7E3>
+<H2L8RINJK3687HECMQGAPS6IPH9CRJ2KOIM51H6AL6GCPOD0LJGDJJ9LQ363DIECI71SQ>
+<JU9HJL8R26PHB6K9GDQ0UKBMPDGR39OLAQCPJ497H6S22G8QJEIR2I8JB0GOIT83BCB1A>
+<6SH4U4PG9Q137DQJ4A7GCCN6MCQH61R82D139AHN49RIMD6UGDQI6JHGMT9M54H6M11H5>
+<AGAMRL9T1NDOB126PHB6J3MMA1J1OO6KDP2ESLJ83K3EEBL4D1A6SH4U1HCL8RI4HQJ64>
+<784CTNADH8S9HMMS3M54H6M11H4AHMRDH8S9LJGC3J1HPI4DJ2MSJB9SK3M3HL58RI4HQ>
+<JE4184D9N9CHAK9LJ8D7N3JQJEO9GK8R65CQCEQP86C730QHN49RIMD06GCP7UEP39OLN>
+<75QI6GJB6SJB9SK3M3HL58RI4TPB6G384C7N5TH949LG8C9N4GK26KRKMOKE4QPO61PGO>
+<SP26PHBEA1JEQ0N7CPGUCHIT8RI4HQIM4H84BBA6SH4EKRH0A13ADQB4AL2DCQ38CQF5K>
+<H3EOLM55PR6C7J4CN6MCQH61N83QHEP1M24DJ2MC871SK3U1HCL8RI4HQIM4H85RE2P8M>
+<6KDP29S9J0HK26FRCEOKI4QO464NDOBD2OAHN49TKSC3A6SH7EARK2A1JA8R66ERH68LA>
+<4QPK6JNCGB126PHA5HL3DS277RLHS9NCGR126PHBE89J48R65CQH61P87S32OQHN49RIM>
+<D0EG8PNEEH2L8RNA9QJ689JMAOI4QOC61RL4T92PAHN49RILT6AG8M3DGN2GOJI6PHB66>
+<9JKCB73DOD6IN82RPEQKMALUV2ET97ACK3U3RJ9D1N2JQEM51H6C6J7OOMKDPIACD32PO>
+<RE39KMA0EUBQBMKP29QVB90QJ63RJUD0N9CQDEJPH1Q1J7LOJCD92LT8BCRLG49P38OLB>
+<7SMAS95DSB1MOSHAK9LJ8D1J4IOJEC9LK8R65CQH61R82D93CTMB4A92DC630RMS5MHC5>
+<8RI4HQJ64384CVMPCHBE3HJKQPJ21OFD0BJUCHR0OOIKDP28T9B28K2TN1DKB3A6SH4U4>
+<PG9A1J6BOE4DJ2MD8J0RK1LNHC6R1I5AH6MD1KTR42O8HMCAHCT8RJ13PI6BJB5RE2R8M>
+<6KDPJ7CBJ3OQITC12C8R65DP86DP87STJ9FPU6DL3E8I7ACOGL0PJ5S726PHBEA1JEA0V>
+<88M2KDP38OLJ4VPR5CL2DCQ39TOKMIHJUT5I59H76C3J5QM2Q8HMCARIGCRIG2O7EF9KK>
+<8RM5CHAEHLJMCVI4TPB6JB86D5V98QAKDP2ECJB6BQ65KRC48LA6SO7U2LKMD9I4HQJ64>
+<386CPVA8Q2EKPBPC3N7KQBD01JUCA79CQJU9PJGQ1B70OJ50VHTD837SOL6EHLET1M53H>
+<6MD1GEC6768HMCARIGCRIG4OF63PGCCPA6SH6E3PHHQ1B20OQ5GL3E8JN5BQ1T0NDIR12>
+<6THBCA12EC2N3OHN4AN29ALEO0M3CD12LCFIOCH4U4PG9A1J6BOE6EL3E8I7ACOGL0PL8>
+<SD32AHN497H6C3UGDOD6GHKL8RI4HQIM4H86D5V8BQCDDH3COLJ21OFD01KKCVN9TH949>
+<LG8C9EK1LMTI1C68JQNSQKMDLH8D5B7GOREN5JTC839QP46EPGJDBN32OM4DJ2MC871TK>
+<1EFPLPS93AAHN497H6C2EGCPJM5H3COLJA4O6T0DDSB1MQTH8S9HJMS3I5AH6MD1KUC9F>
+<9OHMCAPH0S7EG6MU5GRDEOKI4QO464NA3BF2ODMN4AVH6CR77OPQDCPH0S7IGEP7E69K4>
+<D5A6SH4EKLH4A1ER0MQ5HL3E8IF2CO4D0HIER3M54H6M11H6CJ6GDPO66HL6T5M53H66E>
+<RGE8LA4QPK6GPHACTJ1RP24DJ2MSKF6RK05IHC58R24TM74AJGCB36MBMO5MHCD8RI4SP>
+<26KL3E8I7ACOGD0HIER3I54H6M31GECJ37CO56EH3COLN50PN50FK4B3A6QHNSAPL4SHJ>
+<9PK3EJ985CG32SOL6EP83CVMG0PV653KMD9V4SPOT0PJQS9A6VHAM91L6C7V6DQCU5P84>
+<D9J2MK369BJ6A1R0SOI50PGACTN63ON50BKMT8BAOPREJH2L8RJ2KPR63NI6AP64QQC6Q>
+<PHCC737QHN493L5C92GBM8LJP3FOLJ6FPU6GJB6SKF6TK1EFPL4C739AHN493L6C9UGCQ>
+<L6NHGST9INLOUMKR86TEB7QOG6JPJ3CBJA9K36E586DAR38ONEIP2GOJB70OIT8FCDBFU>
+<4SODE8LGOCNJ0HOVE97JMD9QGAOK6NPGJDBN32OM50R8UOKE4OPRE1R2I8JB0GOJ6IVK5>
+<D7U4SODE8LGOCNN6IPV65786C2N9COR6LLJ0TJ26PHB633IC8R65CQH61R81AHN83PU5D>
+<RCEOKE4QR861PGOSPA4VH76JJIUD16GCOQL0RLAD7MG5OJ6DBK6C9UG8PRE5P2L8JB6GQ>
+<36FVJ4CV78CLTEBLH8D1J3PPUME1HTD837SOJELPK7Q137DONCA92DC232DPTULRH2C72>
+<6PHB6K9GDQ06KBM85GP2AAVN7KPRD0BH5CQ38AP466LG8D9J2KPQ4DJ2MD67DCK363HGD>
+<8RI4TPB6J986TA36SH55FRL8CRMG5OB66BHKD5A6SH4EKNH3Q1ER0M24DJ2MSKF6RK05I>
+<HC58R24TMISAF2DRC6OCHKSAPJ7CBEM0H64DJ2MSK36SK363RJPCB39AHN49RIMD06GDO>
+<8MFHL58RN7NQNE49GTQO24SHNSARGQD1399LI5GL3ESUJATOCM8NB08J26PHBEA1JDA03>
+<4SQBUGHKT8RJ9FQ2MJPCE8IF2CO6D0P81SVN82QI4DJ2MSKF6TK06IHJUT7M50QAUF5KU>
+<AOI4QOC61PI6CV32AHN49RIMT6AGDQ0UFR398LN83PU5JJB6D5JA8HMCAPKMD926PHB64>
+<3GUA1V4BPGM4H3COLJA4O750VI5SOB28HMCAPGACTEG7L2TK1C48R65CQH61L80CJN7GO>
+<E6KRKM8KI4QOC61PIFQ1N1KQ26IL3EOIF4SRBT0RGQD139AHN493L6C92GCPT6CHCL8RM>
+<4KQA6CL3EOIJ98PIKDP2FC3B28K2TN1D4B1A6SH4EKPH4A1J7KPI4DJ2MC871QK069RJO>
+<C73ADQB4AJ2DD63DDPS63HL6T5I59H6MJ1MMSUVATOH63H3COLN9GPE4DJ2MSKF6TK1E4>
+<HJET1I5AH6MD1KUD5V88QEKDP2ESLN82K3EG7JSB3A6SQBUGHKSQPJ9FQ26JRCE8LA4QP>
+<K6GPIFQ1JAJQI68RKK8LA6SP36FLH7BRI6KHBEL1JDQO24OHMCAPL2C3IG5PJEE9HTCHU>
+<4TOT65P82SPN74OV68386DD70SPGM1HJ6SBM53H66EJGE8J6NTOQL0PHFT5MG4P76JT85>
+<CU37COR69RH9Q1NA5QBE3BL4D5N2SHAK9LJ8D1J7DPVE15L68J6NTOQL0PHFT5IGFOJ65>
+<TKTAE3ADPL61RL1CB26PHB63PJ48R65CQH61P86C732PPR5F9GEC8EGDQKMIRHACTIG9Q>
+<E6QRHEOKI4QO464HA4RBI4HLUM41H6A7UGCOOL0PJ1SV35TQFCA72DDK36COCECL2FOJB>
+<BGON61BKMA1F7SK1M9P85T7N4JQ24DJ2MSK36SK3UEPKNSV36QHN493L6C8EGCPJM5R2A>
+<QVJ81OIMK1HEC7V6CQFM9PHUA1J2NPQ6KRI6OKI4QO464HA4RBI4ILV6PT86DAB6QOK6I>
+<LJOCDJ1FPJE37IS8R65COGE3P86C732PPR5F3KTDC32TOOMFP86C7J7LQF4DT2MCU76QQ>
+<J6IP28T9J2FK36L9LSC7NADH949LG8C9EK2MM5HRC68KI4QOC61PGUD93BTOJ4A72DCI3>
+<38M2KDP2ESLJ9PK3D0BJUCHR0OOIKDPI6CVF2DMA5EL3EC7JAAQV64N29BB2OTM3CABGM>
+<CCJ0SLGK9HLESDI5COB63TITQO24OHMCARIGCRMG2QVEK5HCD5A6SH4EKLH4A12QQHN49>
+<3L6C8AGCPIU3LJNOJJAKQ361BL6A1J1CPUU3L80A7B10R65LL3E8IF2CO4L0PJ5S737AH>
+<N493L5C92GBLKLHHC6R1I54H6M31GESUVATOH63H3COLJA4O7D0BGMCCJ0OHMCAPH0S7I>
+<G3PVEG5L48R65DP86DL80CJJ2DQM6GL3C8R65CQ1U1HHD8RI64H7697KLT9NCQM3S9PJ1>
+<SVJ0PQIMF1JLCU33DP46ELL8D9N22P7E59GUSV798HNCAP2JT12OPLJ6K9GEQ037OQIDI>
+<PBSC7J2ROF503H5D832TPT6GPIFCV26PHB6IPGD8JU4RPRD0P87AFJALPN6I7ICAFA6TH>
+<46JPG9Q136DO74A72CCRN0SH949LGOC3J26O66CRHUOKI4QO464RA2SVJA8OE6IL3E8IF>
+<2CO7T0RKQDF31TP34AL2DCQ39SOF6IHHL8RI4HQJ64986C2NA8HMCARIHSRIG4Q361BL4>
+<8R65DP8UDR81C736DOR4AL2DCQ39SOF6IHHL8RI4HQJ64B86T2F68HMCAPKOST26PHB69>
+<7GC8R65COCE9L2FOJN9KOND01LEA0N7DOT61PIATDIGFOFEL9JK8R65COGE3P86C3J7EO>
+<EMKV2ET6R0SOLL0LJOD5N64O665RKMOKI4QO464PGFCPN1KPRC97BUC2NBCK3U6PKMA1J>
+<0LQI6IL3E8IF2CO750PJNC7BAFH7EJDGECAQGAPS6IRJ2C332TQBCA92DC232CP6D0RJG>
+<CD3ADQBCA92DC232BL1TNHDERFI54H6M31GED9N2OQ2KDP28T9J29K350BL4CRN8DH8S9>
+<LJ8C3J1HPI4DJ2MSK36SK1MEHIESTI53H6M91HKB1A6SH7EAPKSQ1IGEP768TGCC9A6RH>
+<55HHC6R1I59OJEIJL6AOI4SP4UIHL6TJE51H64DJ2MSK36SK3M9RH1CB39AHN499GTSC2>
+<GAH7S9PGQCVN2KK36F786CGF2SPDL0HJUT5M54H6M11H6CIIGDP56ILMFOJJ67ON61JJ5>
+<D83CQPS66RH1CJN2KOFEFJKK8R65COCEDP86C736AHN493L6C96GCK158PI9T5BABR65I>
+<L3E8IJ1ROOD0HC58RI4UQE6CL3E8I7AAOI50NDOBF2OAHNC9LKUCOEG8PJE1P2L8JB6GQ>
+<3629ICCJ79CLUE4PKHSBNA2PV6PJ86D6AG8O7E4R2I8JB0GOJEF9K5B3U4SODE8LGOCNN>
+<0GPJ685GECB7AAR865RJQD1J4UPU4DJ2MD676OHMCARIGCRIGFPREJ5JSD9A6SH7M1LH4>
+<A1EQNMMLNV2ES8F4SO762RHAA1B40ONE51JDD83CSO56EP86C5J7ROFD01JUD9V4OPREJ>
+<P2I8JB1GO7EF9K4B3A6SH7EARKPQ1N7KQB499BUCU6GCPQD0PJMD1J0LOF50VKTD43AAP>
+<S6ERI8CTBAGQJ62DLESCB2OHMCAPGRC9EG0M64DJ2MD8J0TK06FHL6R3I5FPREJ5JSD96>
+<MCO56EN81AH2O9H75FHGUCBF1SK26KLHFQ1J4FK36GJL4CVN7DH8S9LMGC3J1HPI4DJ2M>
+<SKF6SK1E8PGAS939AHMKDV2MA1V1TQL6ER82STJ6LOB6IV86CD6GDPPEGLL0D7J3FQBED>
+<985CG32SQFE1PHAA1J2PQQ63RHE8KI4QOC61RI9STN1KPQ4DJ2MD8J0SK3M9RHID139AH>
+<NE79HES6J7CLIC9HGES7I54H6M31GECR77OPQKDP28T9J29K350VJCCJN7DH8S9LMGC3J>
+<1HPI4DJ2MSK36SK3UEPKPDB26PHB6K9GDQ0MKBM85GH3COLJ21OEL01IECR77OPQKDP28>
+<T9B28K25JL3E8I7ACOJD0PJVCJ26PHB643GUA0NA8PNEGR2I8JB0GOIT85DCB1MOCH949>
+<LGOC3N4KK3E51JE8RQ5DPTEJHGKQPJA4O750VJCCJN7DH949LG8C92KDMJ4A92DC630SP>
+<MEFHJL8RI4TOE61L3E8I7ACOID0PJHT737DQJ4A92DC630TP4UERGQCT26PHB6K9GEQ03>
+<7OQIDIHBUTBI51H6ME1H5QG2OOHMCAPKOTLIGCOE61L3E8JN5CQ3L0RJQD134TPNCA92D>
+<C232CP7D0PJVCJ26PHB633IC8R65CQH61L80CJJ4MPREG5L48R65CQCEQP86C730QHN49>
+<RIMD1QGDPT6GHIESRM54H6M11H6CR77OPQKDP2ESLJ87K3657L4CTNA8HAKDPJKSD379L>
+<JEA7JEQ0B2TQ8MFH3COLJ7COR65TIDQM2Q8HMCARIGCRIG2O7EF9KK8RM5CHBM9RH1CB3>
+<99LJEA7JEQ0B2TQ8MFH3COLJ14O7699KLQM2Q8HMCARIGCRIG2O7EF9KK8RM5CHAE2RH1>
+<CJIMAH6MD1KUSAB98PVEIP2H8JJ0KOIM9NKKB9MOCHAK9LJ8D1J0VOA6IRL48LA6TQT6I>
+<RH9D5IMAH6MD1KUSAB98PVEIP2NOJNAIOMUI9ASB1A6SH7EAPK0Q1N12PU6KL3E8QE5CP>
+<HEFLKMD5I4TPB6JB86D5V98QAKDP2EC7N2IQATB1D48R65DP86DP81C3N7KQA4DR2M8LV>
+<7CQBUFHJCQPN53PND05HET4B7OHMCARKPD1J1DPITB1D48R65DP86DP81C3N7KQA4DR2M>
+<8K71DOGE5PB58JB6GQFE55KKCVN9CH8K9PIASFF8KLE5GL3E8JN5CQ0D0RGHCV3AAHM4D>
+<J2MD0V0OOMKDR32AVN43P7D07IEA13ADOKT0PLAT1N95Q761JKUCCF0SOLEKPH2A1J4LQ>
+<B63VL5D43CTQ161RL1CBJ7DK3617L6CHR4TOSL0RJQDBJ4LPQ4DR2MOKINQP065RI8CTB>
+<AGQJE45IESAJ1TPUEIR81SJIG5QF617KMCGJ2SK1E8LKMCBIG6P6L01GESQJ0OOFE8P2K>
+<QVJ9MK36FTLES8MGCQFM9RHQA1B40ONE91JLDA3ACOVUIPLCT137DOV4AFBTSU7ACK1E7>
+<LL0D7J1UPV6KVKMSOUGCP66KP81ARJ63PUMB1KTCI37CQHE8P81S32GAHN4DT2MSUJ8AP>
+<76DP29S9J0LK3E3BJSCTNACH949LGOC3N10OI6KRKM8KI4QOC61PKMCD30TOU4AL3ECTJ>
+<1CPUU3RB28JB0GOJE21H4D979CLVUGRIACTB2GQAMK1JUD67AAQ86KLJOCDN22P750PGM>
+<CVF1OHMCAPH0S7MG2R24DJ2MC6R28K3DGR2I8JB0GOJ69586S8J8AQBS9RHQCBIG8QJ65>
+<B86SSBACR4T0PJVDB3AAHN497H6C2AGDOH63LKNOJN32PV50HL5CI39SOBUCHGUSNM54H>
+<6M11H6SJ2GAQBS9RHQCBIGCOB6FNGUQ0N7CPLE2PKJA1N4JQB6KD86CIN68HMCAPH0S7I>
+<GCOB6FNGS8R65CQH61L80CJ3C9QB5FBJLDG3ACQDU5PJFCBJAEK36L5JCCBN9CH949LGO>
+<C3J6COQ61JHUAUR4TK169L80B1BBGOMM11L6CAJ78HMCARIDD7MG2R2K9V2ED775TQ150>
+<RHACTJ0PQIMM1HECDJ4TOLT0PJQD526PHB6K9GDA034OR2EIPBQSFBADK36ERLES4B2SK>
+<1MFP87CJB30PVEN5JSC9N9SH8S9HICS3I4TLV61BIUA1V8DQD69HLMSBI54H6M31GECIR>
+<7DQSU4H3COLJA4O7D05M58JU4SQ2EFLJGD9BA0PVE65ICD7NACHAC9HGCS7I4LLVEE5L4>
+<DJA6SH4U4PGAQ1N82QI4DR2M8LJ1DPS6FRB28JB0GOJ69B86T0BACH5TFLH8D9J3CP765>
+<3JLCQ32TQSMFHH58RI4KOEU6384B1A6SH7MJPG9Q1369O7C97BUSM34SK1M9P84SDB60O>
+<NE85HCCBA6SH7EAPK2Q1N6KQ2MPV2DCTR7QLO5ERI9T9IG5QB61PJ6DI6GCPPD0RJAD13>
+<CQHN493L6C96GCPOUJHJKT9INLQF6KT86DAB6QOK6ILJOCDN4GPQML1L5D837SPJUFHIT>
+<8RI4JOJ61T86S6J7CH4DFPL0Q1B60PIM11L6CUF78OMKDP29S9J0TK361DL4CP73SLV63>
+<RH9C3IG1PN6KHGUA1J38O7E7R2I8JB0GOJ69DJMT0BACH4DFRH1C9N2JQF50DJUA173DQ>
+<96JP87CJN84QM4DJ2MT635SHNCALJMB3I4HQJ64F86T0BAAMBS9PGAC9N93ON6JV86CCE>
+<GDQKMIRHACTIGEP7EG9LC8R65CQH61N82QHA4VH7E77L6TGJ1DK1EJLGGD5N91ONEL5ID>
+<CA39QQK6JHL6SVI54H6M31GESEJ88QADIPBVT1N4KPR50VL6A1R2SOJT0PHJA1J4SOM64>
+<L3E8I7ACOHD0RK1D9M4GLV6FTIED8IGCP5EIPGVT9B90R76GJJUCSNADQ950HJT8RI4HQ>
+<IM4H84B964SLVM5PH7Q1J35K3EE5L6DIQGAPS6IPKUS3N2IK3E57GCCVN7CH949LGOC3N>
+<3KQ26IRCEOKI4QO464RHQD1399M75FBKUD8MGCQ1EELM0D9BA0PV6GJJTCS3A8QJEFR2I>
+<8JB0GOJ69DJMTEF2CH7DFRIASTJ9UK36L5JDCA39APS66PGNSPN1JPF50TIC8R65COGE3>
+<R80CBN78OMMKV2ECDJ4TOLT0PJQD526PHB6K9GDA1MK8M6DGRBQSTJ6LOB6IV86CCEGDP>
+<0M1RKQA1J7SK36FNJUQ0J0THLSAPIACPB7CPN497H6C2EG8PREKR2I8JB0GOJ6IPHKC37>
+<3SLU63PHDS7MG2LU4DJ2MD67DCK363HGD8RI4TPB6GR86SAJCCH5DFRLHC                          	   
+                   =+       M+       PYÌ  ï   S¦      SÇ H    SÇ  
+    på¦      {š   	    š       ¨½   ö   ©ãÇ B    ©íÇ      ½V — <    ½Á       ½ËÇ      ËÁ      ç¾À     ! çÏg    " V        # \J    @  $ ¿š   j  % À%       & Å	   a  ' Éš   i  ( Ö¹    *  )    *  Ö  +  Ç  , L Ú  - x è  . – Ø  / 
+ æ  0    ä  1 TP      2 o      3 o    À  4 ¹    Â  5 ¯Ç :   6 ¯	= €  7 Ö5 [ €  8 Ö\Ç     9 Ö]9    : ØÂ9  8   ; åo       < ñ%       =   > 3­\    ?   @   A   B   C   D   E   F   G   H   I   J   K   L   M     N ™ƒ 5     O   P   Q šs    R   S ê;i  T   U Å	å  V   W ™ƒ 5   X   Y   Z   [ ™ƒ 5 Å	åšs  ê;i  \   ] ™ƒ 5 ê;iÅ	åšs    ^   _   `   a   b   c   d   e   f   g   h YÌ  T   i   j   k   l YÌ   m   n YÌ   o   p   q   r   s     t   u   v   w   x   y   z   {   |   }   ~      €      ‚   ƒ   „   …   †   ‡   ˆ   ‰   Š   ‹   Œ               ‘   ’   “   ”   •   –   —   ˜   ™   š   ›   œ 3­\        Ÿ       ¡   ¢   £   ¤   ¥   ¦   §   ¨   ©   ª   «   ¬   ­   ®   ¯   °   ±     ²   ³   ´   µ   ¶   ·   ¸   ¹   º   »   ¼ [aÖ
+    ½   ¾   ¿   À ì2 ¹    Á   Â   Ã   Ä   Å Ú       Æ   Ç Š     È Š1  	   É ô	 
+   Ê   Ë   Ì   Í   Î Ø1     Ï Ö5 Ö
+    Ğ _ã 
+
+    Ñ _ç 
+    Ò U— ï	  ½| 
+
+  Ó w7        Ô ò¬    Õ Ÿ
+
+  på¦   Ö ¼7Ö
+    × çÜ    Ø çÜ1    Ù ê]¼  ¼7ê  Ú æ8    Û £ÂY	    Ü Ûç     İ [¹  Å
+  Ş [eä
+  ø¯   ß [À3     à ùä
+ ! Œa	  á Ø   "   â O[	 # [R  ã [  9   $ )ä
+  ä Åá	 %   å Úê  &   æ Ê+  '   ç ì+ ( Í )	  è Ü    )   é Â£O * ‹ O	  ê ÷Qt + ŒÏ(  ë Ş–ç ,   ì Ş{ -   í   î   ï   ğ Şê  .   ñ ½Å
+ /   ò   ó   ô Şç 0   õ Şç 1   ö Ş	ç 2   ÷ Ş	   3   ø åb¼ 4   ù Ş
+1 5   ú Ş
+Å 6   û Ş 7   ü ŞÅ 8   ı Şç 9   ş Ş1 :   ÿ ŞV ;    Ş{ <     Åê÷
+ = „Za	  Å
+ > „[Ç  ÅÇ ? [R[U
+      ğ™ e
+ @   ÊÑw A „
+  	Ë6Ö
+   B   
+Ë6 C „:¬	  Ù  D   Ê;®
+ D „b
+  Ë_Z	 E   æ  F †2 ¹  ñ®
+ G ˆ®
+  7¦ ) H   7© 
+ I   @ô J ø­   RÀ [	 K O
+  cV 6
+ L ÁËz  c~ Ÿ
+ M Ê=¹  cË) N Ë,”  cá	 O Í     c°å
+ P ØÓ7  \/p Q Ë— 9  V8 ô
+ R ßÓP
+  V8 ö
+ S ßÓš
+  YË T [Ä®
+  ]A¹ U ğ3   bÇa	 V ˆ»S  b[ä
+ W ˆ£
+   Øx  X   !dÆ l
+ X éñ  "dıP
+ Y ø­   #dıš
+ Z ø¯   $eæ8 [   %e  ì+ \ ˆ)	  &eò¬ ]   '›¬ Ö
+ ^   (  )  *  +éñ _   ,éñ1 `   -éñV a   .Ù    b   /éñ{ c   0ÄˆS d   1ç e   2ç1 f   3å] S g   4ØÈ
+ h Ñº ”  5ØÎ i Ö£é
+  6Ë[ j   7pç=
+ k   8V  9 l   9ùä
+  :Şšç n   ;\/p  <V9  =  >éä
+ q   ?ôö r   @ôö1 s   A  B  Cca	 t Ôä
+  DåM 
+ u   EŞÅ v   F  G  H  I  JŞ       K  L  M  N„b
+ € „[Ç  O„[Ç  PO[	  Qeæ8  Reò¬    SŞ{  Téä
+  UŞšç  VÇ©Ö
+  W: ‰ éä
+  Xéñ  Y  Z÷í
+  [éñ  \  ]bèT	  ^›¬ Ö
+  _V9  `÷í
+  aV9  b  c:  dbèT	 – „[Ç  e  f÷í
+  g  h  iéñ  j  k  l÷í
+  m  n„[Ç  oéñ    pÇ©Ö
+ ¢   q  rÛç   sb[ä
+  t  uİç   vYË  wS9
+  xÇ©Ö
+  yéä
+  z:  {Úê   |YË  }„b
+  ~  „[Ç ° Ø
+  €÷í
+  „[Ç  ‚Åı	 ³ „b
+  ƒò¬  „÷í
+  …Åş	  †éñ  ‡›¬ Ö
+  ˆéä
+    ‰  Š„b
+  ‹  Œ[9    éä
+    éñ    ‘Åı	  ’[9    “Åş	 Ä ÷Qt  ”„b
+  •  –  —[9    ˜  ™„[Ç  š„[Ç  ›  œ÷í
+ Ì   ì+  Şç  Ÿ     ¡›¬ Ö
+  ¢  £  ¤  ¥÷í
+  ¦  §›¬ Ö
+  ¨  ©÷í
+  ª  ÷í
+  «  ¬¯  Û æ   ­[9    ®¯+
+ İ ca	  ¯7© 
+  °ùä
+  ±S9
+ à   ²›¬ Ö
+  ³7¦ )  ´  µÖ5 Ö
+  ¶ØÈ
+  ·¯ö
+ æ Ö5 [  ¸Ö\Ç   ¹ØÂ9   ºŞ     »ç  ¼Ë6Ö
+  ½¯ö
+  ¾Ë6  ¿  ÀŠ   ÁcV 6
+  Â  Š   Ãéñ  Äéñ  ÅŞê   Æ  Çcá	  Èéñ  Éİç  ø Şç  Êc~ Ÿ
+  Ë¯; ú   Ì  Í  Î  Ï  Ğ¯ä
+ ÿ Å
+  Ñ  Ò  Ó½a=
+  éñ  Ô  ÕbÇa	  Öéñ  ×Ø¿   Ø  ÙU _à À  ÚçÜ  Û_ç 
+  ÜçÜ1    İ_à À  Ş_ç 
+  ß  à_ã 
+
+  á{º š
+  â\®
+ Ş     ãb[ä
+  äRÀ [	  å  æÂ›ç
+ ì+  ç  èU  éÅê÷
+  ê[9    ëŸğ3  ìRÀ [	  í  îØ¿  ùä
+  ï  ğ  ñéñ  ò\/p  óéñ  ôU  õRÀ [	  ö  ÷Ö5   a	  7© 
+  øca	  ù7¦ )  ú›¬ Ö
+  ûØÈ
+  üÖ5 [  ıÖ\Ç   şÖ]9  ÿÖ5 Ö
+   Ø¿       ğ3  *  ç    ğ3   ğ3   Š   	  
+ğ3   ğ3   Š1   Š   Š1   ç    ğ3     {  º š
+ 9  çÜ1    çÜ    {º š
+  ç    çÜ  Š   Š   ç     {º š
+  !  "Ÿğ3 G  #  $Åá	  %ôö  &ôö  'Ÿğ>  (Ë_Z	  )Ÿğ>  *çÜ  +  ,ôö  -ğ3   .Ÿğ> S  /    0Š1   1çÜ  2Åá	  3  4çÜ1  5  6ç  7ôö  8  9Ë_Z	  :éñ  ;ŸğJ `ôö  <éñ  =Ë_Z	  >ôö  ?Ë_Z	  @ôö  AË_Z	  B
+  Côö  Dôö  E
+  FË_Z	  GË_Z	  Hç  IŸğJ  J    KË_Z	  LçÜ1  M{º š
+  NŸğ3  O  P  Q½a  tØÈ
+  R½aa	  S  T  U  V  W¬  yØÈ
+  X_à À z  Y  Z¯Ç  [_à À  \  ]  ^)Ğ  €  _  `O
+   aÖ5 Ö
+  b  ccTP
+  d[¹  eO"
+ †Å
+  f~  â
+
+  gÊ+   hË[  iÄˆS  jË[  kÊ+   lÊÑw  m_[	  nË_Z	  oË_Z	  pÅá	  qbÆ A
+  r  s_[	 ”Åá	  tò¬  u  veò¬  w  xO
+  yÙ     z  {éñ  |  }éñ  ~çÜ    €çÜ1    ‚  ƒ  ¼7Ö
+  „Â£O  …æô	  †O
+  ‡çÜ  ˆ  ‰Åá	  Šç  ‹çÜ  Œôö  ôö  éñ  ôö1  ôö1  ‘çÜ  ’  “[Ñ  ³ôö  ”ôö1  •  –ôö  —ôö  ˜  ™ôö1  šôö1  ›ç  œ[Ñ       Åá	  Ÿ   çÜ1  ¡  ¢ç  £  ¤çÜ1  ¥Š   ¦  §Š   ¨Š1   ©Š1   ª  «çÜ1  ¬[Ñ ÌŠ   ­éñ  ®Š1   ¯Š   °Š1   ±ç  ²[Ñ  ³Åá	  ´eæ8  µeò¬  ¶  ·ò¬  ¸ç  ¹eò¬    º[Ñ Úì+  »eì+  ¼ò¬  ½eò¬  ¾ç  ¿[Ñ  ÀÅá	  ÁÊ+   ÂÅá	  ÃO
+  Ä  Å~â
+
+ äæ   Æ[9    ÇSï§  È|§   Éó› ¹  Ê  Ë|§  é  ÌŠ   Í|   ëŠ   ÎŠ   Ï  Ğ|§   Ñéñ    Ò  Ó|    ÔŠ   Õôö  Öôö  ×  Ø)ä
+ õ  Ù¼7Ö
+  ÚÂ£O  Û[9 è	  Ü[9 ğ	 ùO
+  İğä
+ úca	  ŞO
+  ß  à  áSï§ ü|
+¿
+  âbÆ A
+ ıŸğ3  ãcTP
+ şÖ5 a	  äó› ¹ ÿ¯+
+  å  æ  çˆ»S    è    ébÇ   êØ    ëb[ä
+  ìØ1   íb[ä
+  î~Ñï	  ïˆ»S  ğ  ñ  òbÇ  	ˆ»S  óŞ	  ô  õbÙ'  öŞê   ÷Úê   øb[ä
+  ùˆ»S  ú  û  übÙ' å] S  ı  ş~Ñï	  ÿ     ò¬    Ø

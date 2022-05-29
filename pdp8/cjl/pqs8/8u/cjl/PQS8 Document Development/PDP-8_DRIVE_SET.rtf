@@ -1,0 +1,486 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2509;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 720
+  FtrMarg = 720
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 PDP-8 Development Drive Setup Utility\f1  Guide\par
+\par
+\f2 Copyright \'a9 2016 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+Last edit: 29-Aug-2016 cjl\par
+\par
+This document is a guide to the program logic used within the \ul PDP-8\par
+\f0 Development Drive Setup\f1  Utility\ulnone  batch script file usually known as \f0\par
+\i\f1 PDP-8_DRIVE_SET.BAT\i0 .  Certain advanced features are used that were first introduced in Windows XP, which is the earliest Windows system supported by the P?S Advanced SIMH Package [PASP].  Any additional changes to the program will be made to either correct minor cosmetic or logic errors.  The need for these changes may arise from specific incompatibility with various Windows configurations as the program has not been thoroughly tested with all of the supported Windows variants. Most notably, an advanced batch feature is used to work around a bug that presented while testing the package in Windows Vista 64-bit edition.  The implementation of the workaround is known to be compatible with all of the intended Windows systems through Windows 10; other problems will be fixed should they arise.\par
+\par
+The rest of this file consists of the actual batch script file punctuated as required with commentary indicated by the use of blue text such as \cf1 this\cf0 .  Perfunctory batch statements will not be commented on; it is assumed the reader has a basic understanding of Windows batch script programming.\par
+\par
+\fs29\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f0\fs20 @ECHO OFF\par
+\fs24\par
+\cf1\f1 Any batch statement that starts with the "@" character will not be displayed during execution.  In this case, the purpose of the statement is to turn off further output other than by use of ECHO and explicit display statements.\cf0\f0\par
+\par
+\fs20 Rem PDP-8 Development Drive Setup Utility                                27-Aug-2016\par
+\par
+Rem Copyright 1975-2016 CLA Systems.\fs24\par
+\par
+\cf1\f1 By using environment variables, the program version and creation date can be set in a central location, then used throughout the output as required.\par
+\cf0\f0\par
+\fs20 SET VERSION=1.2\par
+\par
+SET CREDATE=27-Aug-2016\fs24\par
+\par
+\cf1\f1 This statement creates a custom color screen for the batch screen using White characters on a blue background.\par
+\cf0\f0\par
+\fs20 COLOR 1f\fs24\page\cf1\f1 The overall size of the batch window can be adjusted to a custom value.  In this case, the usual 80 column window is used with an extended length of 37 lines.\par
+\cf0\f0\par
+\fs20 MODE CON: COLS=80 LINES=37\par
+\par
+Rem This program sets the development drive required by all PDP-8 development\par
+Rem packages.  THe user environment variable PDP-8_DRIVE will be set to the desired\par
+Rem drive letter [followed by ":"] which is used by all development packages as the\par
+Rem drive to read components of the various packages from.\par
+\par
+Rem Output the title bar now.\par
+\par
+\cf1\f1\fs24 The TITLE statement is used to modify the frame of the batch window. The program can change the frame text at any time during execution to produce various effects such as "thermometer" growing lines, etc.\par
+\par
+In this particular instance, the TITLE statement is very wide; it has been modified into two lines for documentation purposes only.  Depending on certain Windows parameters [usually set by default], the window frame text can extend to several hundred characters.  More recent versions of Windows batch allow very wide lines to support such features; no continuation characters are required.\par
+\cf0\f0\fs20\par
+Title PDP-8 Development Drive Setup Utility,       Version %VERSION%, Copyright (c) 2016, CLA Systems\par
+\par
+Rem First check if a valid file collection.\par
+\par
+\cf1\f1\fs24 The dummy file \i DEVELOP\cf0\i0  \cf1 must be located in the current directory to indicate the batch script and required support files are completely present.\cf0\fs20\par
+\f0\par
+IF EXIST DEVELOP GOTO INSTALL\par
+\par
+ECHO.\par
+ECHO.\par
+ECHO INSTALLATION FILES CORRUPT OR INCOMPLETE.  INSTALLATION ABORTED!\par
+ECHO.\par
+\par
+:MISSCOM\par
+\par
+PAUSE\par
+\par
+EXIT\par
+\par
+\cf1\f1\fs24 The program requires the system Notepad editor which is used to display the associated help screen.\par
+\cf0\f0\fs20\par
+:INSTALL\par
+\par
+Rem First check if required system files are present.\par
+\par
+Rem Check if Notepad editor is installed.\par
+\par
+IF EXIST %SystemRoot%\\system32\\notepad.exe GOTO NTPDOK\par
+\par
+ECHO Notepad editor not installed!\par
+\par
+GOTO MISSCOM\page\cf1\f1\fs24 The program requires the command-line version of the registry editor to adjust the working parameters of the Notepad editor.\cf0\f0\fs20\par
+\par
+:NTPDOK\par
+\par
+Rem Check if system registry editor is installed.\par
+\par
+IF EXIST %SystemRoot%\\system32\\reg.exe GOTO REGOK\par
+\par
+ECHO Reg.exe program not installed!\par
+\par
+GOTO MISSCOM\par
+\par
+\cf1\f1\fs24 The program requires the freeware SLEEP timer program that creates specific time delays to ensure certain screen displays are seen by the user.\cf0\f0\fs20\par
+\par
+:REGOK\par
+\par
+Rem Check if sleep.exe file is present.\par
+\par
+IF EXIST sleep.exe GOTO SLEEPOK\par
+\par
+ECHO sleep.exe not found!\par
+\par
+GOTO MISSCOM\par
+\par
+\cf1\f1\fs24 The help screen text file must be present; it is used to provide some additional documentation to the user during the program execution.  The user must close the separate Notepad session window to continue the main program execution.  The help screen indicates this explicitly.\cf0\f0\fs20\par
+\par
+:SLEEPOK\par
+\par
+Rem Check if hlpscrn1.txt file is present.\par
+\par
+IF EXIST hlpscrn1.txt GOTO HLP1OK\par
+\par
+ECHO hlpscrn1.txt not found!\par
+\par
+GOTO MISSCOM\par
+\par
+\par
+:HLP1OK\par
+\par
+Rem Check if we are in the correct directory.\par
+\par
+\cf1\f1\fs24 This is an advanced feature of batch for the express purpose of determining the exact path string for any file.  In this instance, the expected path is where the batch script and related files must be located.  The environment variable is set to the path string without the drive letter to allow proper testing below.\cf0\f0\fs20\par
+\par
+FOR %%F IN (*.*) DO SET OURPATH=%%~PF\cf1\f1\fs24\page The environment variable string is compared to the expected path; this thwarts attempts to improperly use this utility.\cf0\f0\fs20\par
+\par
+IF "%OURPATH%" == "\\PDP-8\\SIMH\\Links and Support Files\\PDP-8_SETUP\\" GOTO PATHOK\par
+\par
+ECHO Invalid installation directory!\par
+\par
+GOTO MISSCOM\par
+\par
+\par
+:PATHOK\par
+\par
+Rem output opening screen.\par
+\par
+\cf1\f1\fs24 Assuming all components have been properly validated, the first display in the batch script window is outputted here.  Note the use of environment variables to output the current version and program creation date.\cf0\f0\fs20\par
+\par
+ECHO PDP-8 Development Drive Setup Utility                   Version %VERSION%, %CREDATE%\par
+\par
+Rem ECHO.\par
+ECHO Copyright (c) 2016, CLA Systems\par
+ECHO CLASystems@gmail.com\par
+\par
+Rem Output starting date and time before (hopefully) setting the output drive.\par
+\par
+ECHO.\par
+\par
+\cf1\f1\fs24 The current date and time are displayed; these are maintained by Windows and are accurate to at least the nearest two seconds.\cf0\f0\fs20\par
+\par
+ECHO %DATE% %TIME%\par
+ECHO.\par
+\par
+\cf1\f1\fs24 The current logged-in user is displayed using the environment variable maintained by Windows.\cf0\f0\fs20\par
+\par
+ECHO Current Profile: %USERNAME%\par
+ECHO.\par
+ECHO Gathering system information, please wait...\par
+\par
+Rem Output the gathering status on the title bar as well.\par
+\par
+\cf1\f1\fs24 All title frame considerations apply here as above; this allows for modification of the text in case the program might require extensive initialization time.  No actual change occurs as the delay is minimal on most Windows systems.  Future versions could implement a change of TITLE text followed later by another instance of a TITLE statement with the standard text as used below.  Practical testing shows that program execution is so fast, the user cannot discern any change in the TITLE frame text.  This is partially due to the design of Windows itself.  Future releases of this program may implement this feature should viable Windows configurations prove to be noticably slower; as of this writing, this program has not been tested with Windows 10.\cf0\f0\fs20\par
+\par
+Title PDP-8 Development Drive Setup Utility,       Version %VERSION%, Copyright (c) 2016, CLA Systems\page Rem Setup Notepad editor for our help screen.\par
+\par
+\cf1\f1\fs24 Changes are made to the registry to customize the Notepad window for purposes of this utility.  The user preference settings are preserved and will be restored after the custom Notepad window closes.  Notepad preference settings apply to all uses of the Notepad editor; certain users prefer unusual settings.  As such, their usage will not be changed other than during the execution of this program.\line\line This program uses internal subroutines; this is a relatively new feature of batch; the only requirement is all subroutines exit via the very last line of the file; since multiple routines are present, the last line has its own label to effect proper exit for all cases.\cf0\f0\fs20\par
+\par
+CALL :NTPDSET\par
+\par
+ECHO.\par
+ECHO Launching Notepad editor with Help Screen 1.\par
+\par
+Rem startup Notepad with our output file.\par
+\par
+\cf1\f1\fs24 Control is passed to the Notepad window until closed by the user.  This is accomplished using the START /WAIT command instead of simple program execution.\line\line An important feature of Notepad is the ability to pass the intended text file on the command-line; in this case the contents of the related help screen file are displayed.\cf0\f0\fs20\par
+\par
+START /WAIT Notepad.exe hlpscrn1.txt\par
+\par
+\cf1\f1\fs24 Program execution continues here when the separate Notepad window is manually closed by the user.\cf0\f0\fs20\par
+\par
+ECHO.\par
+ECHO Notepad editor closed.\par
+ECHO.\par
+\par
+Rem Restore former Notepad editor settings.\par
+\par
+\cf1\f1\fs24 The original user preference settings for Notepad will now be restored.\cf0\f0\fs20\par
+\par
+CALL :NTPDREST\par
+\par
+:AGAIN\par
+\par
+Rem Check if PDP-8_DRIVE is already set before we got here.\par
+\par
+Rem First check if the variable is clear.\par
+\par
+\cf1\f1\fs24 The primary purpose of this program is to setup the environment variable \i PDP-8_DRIVE\i0 .  First check if it is not present.\cf0\f0\fs20\par
+\par
+IF "%PDP-8_DRIVE%"=="" GOTO NOTSET\page Rem PDP-8_DRIVE exists and must be validated.\par
+\par
+\cf1\f1\fs24 The environment variable is nominally present; the actual contents must conform to our requirements of stating the correct drive letter.  An advanced feature of Windows batch is used to isolate the drive portion of the tested string [in this case the entirety of the environment variable string contents] for further testing.\cf0\f0\fs20\par
+\par
+FOR %%F IN (%PDP-8_DRIVE%) DO SET DRV=%%~DF\par
+\par
+IF NOT "%PDP-8_DRIVE%"=="%DRV%" GOTO BADVAR\par
+\par
+\cf1\f1\fs24 In certain specific circumstances, the current value of the environment variable may be nominally valid yet incorrect.  This can occur if the entire PASP drive is changed during a logged-in session; changes made to environment variables do not take effect until the current user session is logged off [if not a total reboot].\par
+\cf0\f0\fs20\par
+:MLOOP\par
+\par
+ECHO PDP-8 Development Drive already set.\par
+ECHO.\par
+ECHO PDP-8 Development packages will be located on drive %PDP-8_DRIVE%\par
+ECHO.\par
+\par
+\cf1\f1\fs24 The user interacts with the question regarding modification of the environment variable.  This advanced batch feature sets the stated environment variable to the string typed by the user which is terminated by pressing Enter [which is not included in the string].  In this case, only yes or no answers are acceptable in the form of either "Y" or "N".  Both upper and lower-case responses are allowed.\cf0\f0\fs20\par
+\par
+SET /P YN=Modify? (y/n) \par
+\par
+IF "%YN%"=="Y" GOTO CHANGIT\par
+\par
+IF "%YN%"=="y" GOTO CHANGIT\par
+\par
+IF "%YN%"=="N" GOTO NOCHANGE\par
+\par
+IF "%YN%"=="n" GOTO NOCHANGE\par
+\par
+\cf1\f1\fs24 If the user types an unacceptable response, the program loops and asks the question repeatedly until a proper response is given.  The only other way to break out of the loop is to press Control-C which will offer to terminate the batch job.\cf0\f0\fs20\par
+\par
+ECHO.\par
+\par
+GOTO MLOOP\par
+\par
+\cf1\f1\fs24 The user opted to preserve the present setting.  This is generally the proper course of action unless the unusual circumstances described above apply.\par
+\par
+\cf0\f0\fs20 :NOCHANGE\par
+\par
+ECHO.\par
+ECHO PDP-8 Development Drive setting will not be changed.\page\cf1\f1\fs24 All program exit points not associated with errors come here to exit after displaying the program output for an additional five seconds.\cf0\f0\fs20\par
+\par
+:GOODEXIT\par
+\par
+ECHO.\par
+ECHO Exiting...\par
+\par
+Rem Since this is not an error, the sleep time has been shortened.\par
+\par
+\cf1\f1\fs24 The sleep timer program takes an in-line argument which is the delay time in seconds.  Certain versions of the program support decimal fractions; the freeware version included in the package only supports integers in the range of 0 through 99 [where 0 exits immediately without delay].\cf0\f0\fs20\par
+\par
+SLEEP 5\par
+\par
+EXIT\par
+\par
+\par
+:CHANGIT\par
+\par
+\cf1\f1\fs24 The program continues here if the user opted to change the environment variable contents.\par
+\cf0\f0\fs20\par
+Rem Comes here to change existing source drive letter.\par
+\par
+ECHO.\par
+ECHO PDP-8 Development drive letter will be reset.\par
+ECHO.\par
+\par
+GOTO NOTSET\par
+\par
+\par
+:BADVAR\par
+\par
+\cf1\f1\fs24 The program comes here if the present contents of the environment variable string is not as expected.  The user is informed of this, including a statement of the present contents which will be changed.\cf0\f0\fs20\par
+\par
+Rem Comes here if variable is corrupted or misformatted.\par
+\par
+ECHO The environment variable setting:\par
+ECHO.\par
+ECHO "PDP-8_DRIVE=%PDP-8_DRIVE%"\par
+ECHO.\par
+ECHO is incompatible with the PDP-8 Development Packages.\par
+ECHO.\par
+ECHO PDP-8_DRIVE must be reset to continue.\par
+ECHO.\par
+ECHO (Press control-C to cancel this program and preserve the current value.)\par
+ECHO.\par
+\par
+PAUSE\par
+\par
+ECHO.\par
+\par
+Rem GOTO NOTSET\par
+\page :NOTSET\par
+\par
+Rem Comes here if no prior source volume set.\par
+\par
+Rem Use our current drive as the source drive.\par
+\par
+\cf1\f1\fs24 An advanced feature of batch is used to obtain the drive letter of this package; this drive will be used as the basis of the environment variable string.\cf0\f0\fs20\par
+\par
+FOR %%F IN (.) DO SET ICDRIVE=%%~DF\par
+\par
+\cf1\f1\fs24 The user is asked to continue with the drive letter determined to be suitable for use as the basis for the environment variable string.  As used in the early user input section above, only yes or no answers are acceptable.\cf0\f0\fs20\par
+\par
+:ALOOP\par
+\par
+ECHO PDP-8 Development packages will be located on drive %ICDRIVE%\par
+ECHO.\par
+\par
+SET /P YN=Is this correct? (y/n) \par
+\par
+ECHO.\par
+\par
+IF "%YN%"=="Y" GOTO ACCEPTIT\par
+\par
+IF "%YN%"=="y" GOTO ACCEPTIT\par
+\par
+IF "%YN%"=="N" GOTO NOACCEPT\par
+\par
+IF "%YN%"=="n" GOTO NOACCEPT\par
+\par
+GOTO ALOOP\par
+\par
+\cf1\f1\fs24 If the program comes here, the user opted to abort the update.\cf0\f0\fs20\par
+\par
+:NOACCEPT\par
+\par
+ECHO Cancelled!\par
+\par
+GOTO BADEXIT\par
+\par
+\par
+\cf1\f1\fs24 If the program comes here, the user has agreed to the proposed change.  Ensure the full complement of support directories is present.\cf0\f0\fs20\par
+\par
+:ACCEPTIT\par
+\par
+Rem Check if this drive has the proper additional directories.\par
+\par
+IF NOT EXIST "%ICDRIVE%\\PDP-8\\SIMH\\Links and Support Files\\PDP-8_SETUP\\" GOTO DRVINC\par
+\par
+IF NOT EXIST %ICDRIVE%\\PDP-8\\SIMH\\PDP-8\\ GOTO DRVINC\par
+\par
+Rem The drive seems to have the appropriate files to be used as the source drive.\par
+\par
+Rem Delete any previous setting.\page\cf1\f1\fs24 Check if the environment variable currently exists in the registry.  If so, it must be deleted before it can be updated.  All registry modifications are accomplished using the command-line version of the registry editor reg.exe.\cf0\f0\fs20\par
+\par
+IF "%PDP-8_DRIVE%"=="" GOTO NODELETE\par
+\par
+REG DELETE "HKCU\\Environment" /v PDP-8_DRIVE /f > NUL:\par
+\par
+:NODELETE\par
+\par
+REG ADD "HKCU\\Environment" /v PDP-8_DRIVE /t REG_SZ /d "%ICDRIVE%" /f > NUL:\par
+\par
+ECHO PDP-8 Development Drive Setup successful.\par
+ECHO.\par
+\par
+\cf1\f1\fs24 The environment variable was successfully updated.  Inform the user that the current logon session must be terminated completely to cause the changes to go into effect.\cf0\f0\fs20\par
+\par
+ECHO Completely Log off %USERNAME% (switching users is not sufficient) to allow\par
+ECHO the settings to update).\par
+\par
+GOTO GOODEXIT\par
+\par
+\cf1\f1\fs24 All program exit situations arising from some problem will display the batch window for ten seconds to call special attention to the problem.\cf0\f0\fs20\par
+\par
+:BADEXIT\par
+\par
+Rem All of the error exit routines come here.\par
+\par
+ECHO.\par
+ECHO Exiting...\par
+\par
+Rem This can be made longer if desired.\par
+\par
+SLEEP 10\par
+\par
+EXIT\par
+\par
+\cf1\f1\fs24 The program comes here if important components of the package are missing.\cf0\f0\fs20\par
+\f1\par
+\f0 :DRVINC\par
+\par
+Rem Comes here is some vital files are missing.\par
+\par
+ECHO Selected source drive incomplete - Files missing, aborting . . .\par
+\par
+GOTO BADEXIT\page Rem Internal subroutines.\par
+\par
+\cf1\f1\fs24 The NTPDSET routine is used to preserve all existing user preference settings of the Notepad editor; then custom values are set to create the desired properties of the separate Notepad Window used to display the help screen file.  Note: Certain lines of this routine have been\par
+broken into two displayed lines for documentation purposes only.\cf0\f0\fs20\par
+\par
+:NTPDSET\par
+\par
+Rem Save whatever Notepad settings currently are.\par
+\par
+IF EXIST %TEMP%\\notepadbackup.reg DEL /Q %TEMP%\\notepadbackup.reg > NUL:\par
+\par
+REG EXPORT "HKCU\\SOFTWARE\\MICROSOFT\\NOTEPAD" %TEMP%\\notepadbackup.reg > NUL:\par
+\par
+Rem Customize Notepad for installation/guided help purposes.\par
+\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfEscapement /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfOrientation /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfWeight /t REG_DWORD /d 400 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfItalic /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfUnderline /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfStrikeOut /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfCharSet /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfOutPrecision /t REG_DWORD /d 3 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfClipPrecision /t REG_DWORD /d 2 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfQuality /t REG_DWORD /d 1 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfPitchAndFamily /t REG_DWORD /d 49 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iPointSize /t REG_DWORD /d 80 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v fWrap /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v StatusBar /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v fSaveWindowPositions /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v lfFaceName /t REG_SZ /d "Lucida Console" /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v szHeader /t REG_SZ /d "&f" /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v szTrailer /t REG_SZ /d "Page &p" /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iMarginTop /t REG_DWORD /d 1000 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iMarginBottom /t REG_DWORD /d 1000 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iMarginLeft /t REG_DWORD /d 750 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iMarginRight /t REG_DWORD /d 750 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v fMLE_is_broken /t REG_DWORD /d 0 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iWindowPosX /t REG_DWORD /d 244 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iWindowPosY /t REG_DWORD /d 4 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iWindowPosDX /t REG_DWORD /d 538 /f > NUL:\par
+REG ADD "HKCU\\Software\\Microsoft\\Notepad" /v iWindowPosDY /t REG_DWORD /d 586 /f > NUL:\par
+\par
+GOTO THE_END\page\cf1\f1\fs24 The NTPDREST routine restores the original user preference settings for the Notepad editor.  Note: Certain lines of this routine have been\par
+broken into two displayed lines for documentation purposes only.\cf0\f0\fs20\par
+\par
+:NTPDREST\par
+\par
+Rem Restore former notepad settings.\par
+\par
+Rem Redirecting both output streams to NUL: should not be required.  However, when\par
+Rem running on Windows Vista, the successful report message outputs anyway unless both\par
+Rem streams are stated explicitly.  While clearly a bug, this could also apply to other\par
+Rem Windows releases.\par
+\par
+\cf1\f1\fs24 The 1> and 2> notation is used to separate the normal output redirection from the error output redirection.  For unknown reasons, this eliminates the bug discovered when running the program in Windows Vista 64-bit edition; other releases may also exhibit this behavior.  The feature is supported in Windows XP and later Windows versions.\cf0\f0\fs20\par
+\par
+REG IMPORT %TEMP%\\notepadbackup.reg 1> NUL: 2> NUL:\par
+\par
+\cf1\f1\fs24 This is an example of the typical method used to suppress unwanted command execution output.  Note: Error output is normally impossible as this program creates the file to be deleted.  Any unwanted display is the result of some unknown Windows problem.\cf0\f0\fs20\par
+\par
+DEL %TEMP%\\notepadbackup.reg > NUL:\par
+\par
+Rem GOTO THE_END\par
+\par
+\cf1\f1\fs24 This is the last line of the batch file.  All internal subroutines exit by reaching the last line of the file.  The previous line is a comment because NTPDREST is the last internal routine present.\cf0\f0\fs20\par
+\par
+:THE_END\par
+\par
+\f1\fs29\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\fs24\par
+End-of-file]\cf1\f1\par
+\cf0\f0\fs20\par
+}
+ 

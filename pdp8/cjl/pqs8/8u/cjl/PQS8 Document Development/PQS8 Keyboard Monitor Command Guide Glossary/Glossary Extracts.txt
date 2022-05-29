@@ -1,0 +1,399 @@
+This file contains sections extracted from the main Glossary document to allow
+release as an "alpha" level document.
+
+The edited version plus the contents of this file is equivalent to the latest
+ongoing version including in-line discussion, etc.
+
+a)      [Note: Many older programs
+	cannot be executed on DECmate systems unless the internal console routines
+	are upgraded to full P?S/8 conformance.  Example programs are available to
+	illustrate what is required.]
+
+*** What are these example programs and where are they available? ***
+****
+I have to create the example programs in stages to understand what is going on:
+
+1)	For starters, P?S/8 supports teleprinter output overlapping with processing.
+	[Non-conforming programs can do it the simplistic way that waits for the
+	flag after output, but this slows things down unnecessarily and would
+	neeslessly complicate the final implementation of all of these explanation
+	"levels" when fully explained, etc.
+
+	This requires an initialization section to make sure it will function, even
+	if the program is manually restarted.  [Initialization in this sense means
+	even if the program is restarted.  OTHER initialization refers to a one-off
+	initialization to interface with the optional P?S/8 components; most system
+	programs are not meant to be restarted, thus all initialization is once-only
+	code when the program starts, located in some throw-away area such as what
+	will be used as some buffer later.  Just about every program has such space
+	available "for free".
+
+	If the hardware is used [even if a DECmate] you have to time out the output
+	to make sure any previous output has completed.  Typically, P?S/8 loads
+	executable programs where the keyboard monitor outputs a character to the
+	console and does NOT wait for it.  Thus, by the time a program initialized
+	the expected value in the timeout routine is minimal, perhaps only a single
+	test pass and no additional wait time.  But this code runs on anything
+	including a teletype that takes a whole 1/10th of a second to print that
+	character, which is a lot longer than the time to load a program on many
+	disk devices, thus there is still some time to wait in that instance.  On
+	faster terminals, this could be moot; the code works for all situations.
+
+	Thus, basic initialization is to wait until TSF might skip.  If it does,
+	perform TLS with the AC clear to output a <NUL> is the general way to do a
+	proper init routine and a non-modified output routine.  [A modified  routine
+	would need a flag word to indicate that this is the first time, so don't
+	wait.  Best possible in theory, but I have yet to find a device that is
+	degraded in any way by output one extraneous <NUL> when starting, thus a
+	needless complication in the running output subroutine.  Once-only code
+	being "for free" so to speak means the emphasis should always be on the
+	overall running code size; longer initialization code is not a factor.]
+
+	If this is running on the DECmate, the rules are different because the
+	instruction to test if the flag is up clears the flag!  Thus, minor
+	adjustments are made in the output routine.
+
+There really is a LOT more, and not appropriate for this document!
+
+I could extract out the few bits from a P?S/8 system program [like SYSTAT] but it's
+too "compact" to follow in the final form.  It needs the baby steps to derive it to
+be meaningful.  A job for another time...
+
+end of a)
+
+b)	[By way of comparison, OS/8 cannot drive a device 66 line printer
+	beyond 300 lines per minute (LPM) while P?S/8, with the Logical Console
+	Overlay enabled, has successfully printed on suitable printers at over 1200
+	LPM.]
+
+*** I vaguely remember using Control-S & Control-Q before, probably on a video
+ terminal to stop & restart scrolling to be able to (try to) read what was
+ scrolling by so fast, but didn't know that was "industry-standard protocol."
+  Can you tell me what the "Standard" was?  Or was "known" as?  Enough detail so
+ that I can "google" it to perhaps find it. 
+
+Or are you referring to the ASCII "control characters" where Control-Q is 
+"Device Control 1 (oft. XON)" and Control-S is "Device Control 3 (oft. XOFF),"
+ both as flow controls to the line printer?
+
+I suppose that microcomputers "redefined" Control-Q & Control-S to stop & start
+ video terminal scrolling, since few people by then would have wanted to print 
+everything they could see on their terminal.  I remember using them in MS-DOS. ***
+
+**** Software flow control in Wikipedia has it pretty much correct.  It's widely
+used and DEC depended on hit heavily, as well as products from many others such
+as GE Terminet and some TI hard-copy terminals.  And of course all things VT52 and
+newer with scroll keys that sent the two characters alternately, etc.  There is
+no difference in your examples, they are all equally compatible.
+
+OS/8 does not support it, and it was so pathetic a bandaid was created.  The
+so-called KL8E handler that replaces the usual TTY: handler but needs two pages
+to support several things.  By reassembling it, I got it to support serial
+line printers such as the Datasouth speedup modification to the LA36 that makes it
+print 4 times as fast, and should have a 2400-9600 baud connection to always fill
+the buffer well and keep it moving, etc.  Of course P?S/8 loves it as either a
+hard-copy console terminal or the serial printer off of the logical console
+overlay.  Most actual OS/8 output is unchecked and splats on the overloaded
+console such as a VT-100, because only the HANDLER output supports the protocol.
+Messages from programs are embarassingly backwards.  [I doubt if anything supports
+it correctly other than Kermit-12 because I wrote that!]  [Internally, Kermit-12
+supports a terminal emulator mode that is essentially a two-directional doubly
+ring-buffered input and output device so nothing is dropped as long as all agree
+to support the protocol.  That way, even mis-matched devices don't drop data, etc.]
+
+end of b)
+
+c)      [As in the case of the P?S/8
+	system console, example programs are available to illustrate what is
+	required.]
+
+*** What are these example programs and where are they available? ***
+****
+The appropriate extracted routines from a system program that supports the
+redirected console and the redirected line printer exist, but are confusing.  This
+topic needs a series of short routines that culminate in the practical, compact
+and hard to follow code.  Part of the problem is that the code has to be patched
+to different values plural, not merely the original and a patch, but rather a choice
+of several patches depending on the configuration.  the code works, but it is very
+hard to follow [and I had to study it and I wrote it!]
+  ****
+
+end of c)
+
+d)	Core image refers to data stored on blocks of storage where entire pages of
+	program or other data are presented in 128 word units meant to be loaded
+	into various memory locations as determined elsewhere such as within
+	directory or complex file structures that manage loading and mapping issues.
+
+*** "... as determined elsewhere..."?  Would/could that mean "... loaded into
+ various memory locations such as within directory or complex file structures that
+ manage loading and mapping issues."?  The "as determined elsewhere" makes me think
+ there is something like a program deciding where to load the core "128 word units."
+  If so, maybe you should specifically state that and state which program(s)
+ does/do that? ***
+
+****
+
+No, it is that core-image is what you make of it.  The idea is one or more contiguous
+[if there are more than one] are destined to be either loaded into memory or
+written from memory to blocks depending on exactly what is going on.  The act of
+creating a little piece of an operating system writes core-image binary to 
+designated blocks, looking up a file name is reading in the image of the DATA of
+a directory that leads to a determination of a block, if it happens to be a
+core-image, you are loading it into memory, but not necessarily for execution,
+ODT may read in pieces of a core-image to focus on and then write them back, and
+various aspects of program execution from ODT, the START command, execution class
+command or other places all deal with placing core-image into memory for the
+purpose of executing it in place, presumably at a designated starting address.
+
+But it gets worse:  Some core image data is loaded deliberately into the WRONG
+memory locations because it cannot yet be put where it must, such as the image of
+the slurp loader is read in from a block as core image, but not into 07600-07777
+because the system device driver has to perform the work of doing that, so it is
+instead loaded into an alternate buffer; later it is MOVED to the intended place
+wiping out the system device handler.
+
+Too many pragmatic situations, just better to say it is a versatile concept and
+various things have been implemented.  But the most straight-forward is to load
+the image of an executable program into the memory locations they were designed to
+execute in, start it up, and that defines straight-forward program execution, as
+the primary example of where core-image programs instruction and data are used, but
+hardly the only one, etc. ****
+
+Update:  I have also updated the previous paragraph to be less run-on:
+
+	Core image refers to data stored on blocks of storage where entire pages of
+	program or other data are presented in 128 word units meant to be loaded
+	into various memory locations.  Specific loading of groups of core image
+	blocks is determined outside of the core image data such as within directory
+	or other complex file structures that manage loading and mapping issues.
+
+end of d)
+
+e)	Work on the core-image can resume at a later time by restoration
+	of the % and $ files.
+
+*** Should this glossary include entries for the "%" and "$" files? 
+
+ I think non-Professional P?S/8 users will need the extra help. ***
+
+
+**** already added ****
+
+Update:  The description violates its own definition in various places.
+Core-image and core image have been reversed in several places accordingly.
+
+Here is a corrected copy of the entire section:
+
+ 3)	Core image [or core-image when used as an adjective].
+
+	Core image refers to data stored on blocks of storage where entire pages of
+	program or other data are presented in 128 word units meant to be loaded
+	into various memory locations.  Specific loading of groups of core image
+	blocks is determined outside of the core image data such as within directory
+	or other complex file structures that manage loading and mapping issues.
+
+	Core images stored in order of adjacency by loading address are the most
+	efficient form of direct binary storage for executable programs assuming the
+	operating system maintains relevant loading parameters [such as the P?S/8
+	system program directory].
+
+	P?S/8 system programs are stored in core-image form for at least the first
+	load segment of fully adjacent storage blocks; additional segments may be
+	defined by the program for additional purposes such as program or data
+	overlays.
+
+	Binary files are not core-image files; however, binary files can be loaded
+	into memory and saved into system blocks 0020-0057 which is a core image of
+	all of field 0.  Once saved, various utilities exist to interact with the
+	core image saved in these blocks which are referred to as the system scratch
+	area.
+
+	It is possible to save core-image files in P?S/8 by using two separate save
+	operations as required.  P?S/8 supports positional files that are each one
+	half of this area.  % is the name of the file that is stored in blocks
+	0020-0037 and $ is the name of the file that is stored in blocks 0040-0057.
+	[Note: These files can be used for a variety of purposes; all usage that is
+	incompatible with the core image must be avoided while the current active
+	core image is in effect.  The contents of % and $ can be loaded [separately]
+	into the tentative file buffer and saved to two named files in the TFS
+	directory.  Work on the core image can resume at a later time by restoration
+	of the % and $ files.
+
+	A debugging session may be initiated with P?S/8 ODT which will use the
+	system scratch area as a virtual image of locations 00000-07577.  [Locations
+	07600-07777 are the system kernel and are generally off-limits other than
+	certain system parameters that can be used only by fully conforming
+	programs.]  All references to extended memory are directly to memory.  The
+	user is warned that certain programs will also access extended memory such
+	as the P?S/8 PAL assembler.  As such, extended memory loading should be
+	considered transient at best.  [Note: The P?S/8 BSAVE utility can save any
+	collection of memory locations to a series of binary output files.  The
+	storage saved need not be block-oriented or even adjacent; individual memory
+	locations can be saved as desired.]  At any time, the core image can again
+	be saved or restored using % and $ and two named TFS files as described
+	above.
+
+end of e)
+
+f)	At any time, the core image can again
+	be saved or restored using % and $ and two named TFS files as described
+	above.
+
+*** Should you explain the "system scratch area" as a separate entry too?
+  For the same reasons?  I certainly don't fully understand what it is or where it
+ is, even though I've read more about P?S/8 than most future users. ***
+
+**** Already added.  ****
+
+end of f)
+
+g)	Certain configurations support the slurp loader, a hardware-dependent loader
+	capable of faster loading without a block-oriented buffer.  Since the loader
+	is wholly contained within the system kernel area, there is no need to
+	implement protective virtual mechanisms as used in the standard virtual
+	loader.  The data is obtained directly from the file blocks in binary loader
+	format a word at a time.
+
+*** Will you need to explain the "system kernel area" somewhere, perhaps another
+ document?  For "non-Professional" users? ***
+
+**** did that one too ****
+
+**** I added it below; now you have a whole lot more reading to do :-)
+its at the hairy edge of being too intimidating for beginning users and refers to
+advanced documentation for more information. ****
+
+end of g)
+
+h)	Since there are no protective virtual mechanisms, the
+	slurp loader can operate with storage devices write-protected [where
+	applicable].
+
+*** So, the slurp loader will only really be used by people with DECtapes since
+ there probably aren't many DF32s out there?  I'm talking about real hardware,
+ not emulators like SimH (and WinEight & others) where it certainly can be used.
+  Of course, most of what you've written about P?S/8 is about using DECtapes
+ -- almost to the point that it sounds like any other peripheral was almost added
+ as a second thought. ***
+
+****
+
+Historically, that's they way the PDP-8 was sold, first with no storage, later with
+TC01 and TU55, later TC08 and TU56 and expensive machines with RF08 and cheaper
+ones with DF32.  Later the RK08 came out [I worked on them at Western Union] but it
+was obscure due to its extreme price, but was more useful than the RF08 which was
+only 256K per platter [up to 4, much later, a mod for the PDP-12 allowed 8, but is
+so obscure, only the clinical-lab-12 supports it, even OS/8 doesn't do more than 4]
+fast but obscene cost and remember all DF and RF require 24/7 power.  Needs repair
+if stopped!
+
+Later came the RK8E and then soon after the RX01 and a few years later the RX02.
+
+Very late in the game was the RL8A controller for the 8/A only, and RL01 and then
+RL02 drives.  Not really used in many systems, but while a poor item, the biggest
+standard disk for any form of -8.  DM I supports the RL278 option, but is standard
+with RX02.  If you look at DEC-only, most of the history was DECtape and quite a
+few users used them on newer upgraded systems, but eventually RX users outnumbered
+them.
+
+Slurp loader is also for all program-transfer devices as mentioned, such as RX01.
+Perhaps needs that as an example.  The others are specific because only 3 were made
+other than magtape, not meant to be a system device.  Insane people create block
+replacable magtapes with wide gaps between the blocks.  They run EXTREMELY slow if
+at all, and only a few people ever bother [and magtapes are very expensive, far more
+than an RK system, only get them if you need compatibility with IBM mainframes with
+magtapes as the primary reason.   I worked at Western Union on a bootable read-only
+menu-driven system to load in a half-dozen programs.  But this was on non-DEC magtape
+hardware and is not a general-purpose operating system.  [More like a customized
+version of the DECtape Library System which treats DECtape as if it were as limited
+as a magtape.]
+
+****
+
+end of h)
+
+i)	Future releases will use block 0060 of the system boot
+	device.  This will prevent potential problems such as running BIN from an
+	incompatible system such as a TD8E P?S/8 system while booted to a TC08
+	system; the system-dependent bootstrap code and slurp loader will also be
+	moved to a dedicated system block to avoid the analogous issues.  As a
+	result, future releases of the P?S/8 BIN program will be one block shorter,
+	all other things equal.]
+
+*** Does this mean that the slurp loader won't be extremely system-dependent in the
+ future releases? ***
+
+**** No, it means that it will be identical and virtually impossible to get the
+wrong one [for different hardware].
+
+Consider if you have a TD8E P?S/8 tape on unit one and you attempted BIN:1.  It
+would try to put the wrong slurp loader into memory!  By changing the internals of
+the BIN utility program, calling up the slurp loader means to load block something
+like 62 [or so, I am guessing; it will hatch when I am ready to do this] on the
+system device that booted up regardless; the BIN program will then be generic.
+Already the /I code is that way, but I think the logic doesn't quite honor it
+that way; I have to check the source code of BIN to see if that was fixed. I 
+think it is broken in the 1976 release, but it's moot since we don't have any
+other bootables but the TC01/TC08 DECtape version!
+
+This was one of the long-term cleanup items I have produced over the years.  And
+this will be done soon after I get a working 1989 system up unchanged.  These
+changes will not be user-noticable, but they do need to be cleaned up, remove
+the needless structure of the never-implemented elaborate directory for multiple
+extended-length files, etc.  [That's how I will get that other dedicated block.
+
+It also affects BIN /P [possibly also /F] which loads the BIN and RIM loaders
+with the system dependent bootstrap.  Right now that is inside of BIN.  when
+completed, it's the one from the system that booted up, thus impossible to accidentally
+get it wrong, etc.
+
+
+****
+
+
+*** I guess you'll need to write a "P?S/8 for Dummies" after P?S/8 is "in the wild" 
+to explain what you are so familiar with, like "user memory" and 
+
+"reserved system block," that you don't even think about it due to knowing
+ everything about these simple items since before P?S/8 was even started. 
+ The "new users" out there will probably need the "for Dummies" document in order to
+ become more advanced users, to eventually become advanced Programmers in a few
+ cases. ***
+****
+Then it isn't really for dummies, is it?  [Yes, it is for dummies who use OS/8 and
+don't know better :-) ]
+
+****
+
+**** I didn't see you mark off spelling errors;did you just fix them? [I don't
+see any now, etc. ****
+
+end of i)
+
+j)	Slurp loaders exist for other PDP-8 operating systems such as the R-L
+	Monitor System [that P?S/8 is based on], POLY BASIC [sold by DEC as
+	EDUsystem 30 and EDUsystem 15/30 for the TD8E] and DIBOL-8 [the forerunner
+	to COS-300/310 which is actually the R-L Monitor System thinly "disguised"
+	which includes the identical BIN program code within the R-L Monitor
+	System].
+
+**** new stuff below.  Open to the subject of resorting items according to I have
+no idea; they do interact unfortunately, I don't see how to avoid that. ****
+
+ 4)	System kernel area.
+
+end of j)
+
+
+
+
+
+
+
+
+
+
+
+
+

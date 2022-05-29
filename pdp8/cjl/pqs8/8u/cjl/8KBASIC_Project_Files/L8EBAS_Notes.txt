@@ -1,0 +1,1173 @@
+DEC-08-LBASA-A-LA [8K BASIC and LAB-8/E BASIC] Release notes
+
+Last edit: 01-Mar-2014 cjl
+
+The source file usually known as L8EBAS.PAL produces the binary programs usually
+known as "8K BASIC" and "LAB-8/E BASIC" as documented in the following DEC
+publications:
+
+1) Pub. P/N DEC-08-LBSMA-A-D, '8k basic'; PDP-8 Series (Copyright © 1973, Digital
+   Equipment Corp.); First printing, July, 1973
+
+2) Pub. P/N DEC-LB-U70-B-D, 'basic/rt user's manual'; LAB-8/E Series (Copyright ©
+   1971, Digital Equipment Corp.); Second printing, August, 1971
+
+Issues common to both variant implementations as well as individual considerations
+will be discussed.
+
+
+
+
+tHIS IS SOME COMMENTS ABOUT THE PATCH TO bin LOADER TO SELF-START.
+
+
+
+/	COMMENTARY BY CHARLES LASNER.
+
+/	THERE DOESN'T SEEM TO BE A COMPARABLE ROUTINE FOR AUTOMATIC SELF-START OF 8K
+/	BASIC. IF THE BIN LOADER IS ACTIVELY IN FIELD 0 LOADING THE PROGRAM, THERE
+/	DOES NOT SEEM TO BE A REASON NOT TO OVERLAY THE LOADER IN AN ANALOGOUS FASHION
+/	TO ACHIEVE THE EQUIVALENT MINOR FRILL.
+
+/	THE AREA OF MEMORY IN FIELD 1 POSSIBLY OCCUPIED BY THE BIN LOADER WILL BE
+/	DESTROYED BY STARTING LAB-8/E OR 8K BASIC.  IF THE RIM LOADER IS STILL PRESENT
+/	IN FIELD 1 IT CAN BE USED TO RESTORE MEMORY WITHOUT TOGGLING IN ANY ADDITIONAL
+/	CODE.  THIS COULD ALSO BE USEFUL IF LAB-8/E OR 8K BASIC IS MODIFIED BY THE
+/	USER TO IMPLEMENT THE USER-DEFINED FUNCTION.
+
+/	IT WOULD BE USEFUL TO MAKE THESE LOADING CONSIDERATIONS CLEARER IN SOME FUTURE
+/	SOURCE FILE RELEASE IN A DOCUMENTATION SECTION.  HOWEVER, THE SOURCE CODE WAS
+/	NOT MODIFIED TO PRESERVE THE ORIGINAL INTENT OF THE AUTHORS.
+
+
+
+
+
+/		BINARY PAPER-TAPE LOADING CONSIDERATIONS.
+
+/		WHEN THE PAPER-TAPE BINARY LOADERS ARE IN EFFECT, THE HIGHEST LOCATI
+ON
+/		IN ANY 4K MEMORY FIELD IS RESERVED AS A JUMP TO THE ACTUAL STARTING
+/		ADDRESS OF THE BIN LOADER IN USE IN THAT FIELD.  THUS, THE OFFICIAL
+/		STARTING ADDRESS OF ANY VERSION OF THE BIN LOADER IS 7777 OF THE FIELD
+/		THE BIN LOADER IS OPERATING IN, ETC. [NOTE: AT LEAST THREE DIFFERENT
+/		VERSIONS OF THE BIN LOADER HAVE BEEN RELEASED BY DIGITAL EQUIPMENT
+/		CORPORATION; USER-WRITTEN VERSIONS ACCOUNT FOR SEVERAL MORE.]
+
+/		IN THE SAME FIELD AS THE BIN LOADER, LOCATIONS 7756-7776 ARE RESERVED
+/		FOR THE RIM LOADER.  SHOULD THE BIN LOADER BE DESTROYED, THE RIM LOADER
+/		CAN BE USED TO RELOAD THE BIN LOADER TO IN TURN ALLOW LARGER PROGRAMS TO
+/		BE LOADED BY THE BIN LOADER, ETC.  [NOTE: GENERALLY ONLY THE BIN LOADER
+/		IS READ IN BY THE RIM LOADER.  RIM FORMAT IS BOTH LESS EFFICIENT AND
+/		LESS RELIABLE THAN BIN FORMAT; HOWEVER THE RIM LOADER IS FAR SMALLER IN
+/		TERMS OF CODE SPACE WHICH IS A CONSIDERATION WHEN MANUALLY TOGGLING IN
+/		THE INITIAL LOADING PROGRAM.]
+
+/		THE AGGREGATE MEMORY RESERVATION FOR THE RIM AND BIN LOADERS IS IN THE
+/		RANGE OF 7621-7777 [THE LOWEST ADDRESS VARIES ACCORDING TO THE ACTUAL
+/		VERSION OF BIN IN EFFECT] THUS ALLOWING MARGINAL LOADING INTO THE
+/		ADDRESS RANGE 7600-7620 OR SO, ETC.
+
+/		ALL STORAGE-BASED PDP-8 OPERATING SYSTEMS MUST RESERVE ALL OF 7600-7777
+/		IN FIELD 0.  SOME OPERATING SYSTEMS HAVE ADDITIONAL REQUIREMENTS
+/		RESERVING EXTENDED MEMORY LOCATIONS DEPENDING ON SPECIFIC DESIGN AND
+/		IN SOME CASES CONFIGURATIONAL ISSUES BEYOND SOME MINIMUM RESERVATION.
+/		TO BE COMPATIBLE WITH A STORAGE-BASED OPERATING SYSTEM, A PROGRAM MUST
+/		CONFORM TO THE MORE STRINGENT LOADING RANGE OF 00000-07577 ONLY AS WELL
+/		AS FURTHER CONSIDERATIONS IN EXTENDED MEMORY DEPENDING ON SPECIFIC
+/		REQUIREMENTS OF EACH SYSTEM.
+
+/		AS RELEASED, 8K BASIC AND LAB-8/E BASIC REQUIRE ALL OF FIELD 1 AS WELL
+/		EXCEPT FOR 17756-17776 ALLOWING ONLY THE RIM LOADER TO BE PRESERVED
+/		ASSUMING IT IS LOADED INTO FIELD 1.  THIS WILL BE IN CONFLICT WITH
+/		CERTAIN OPERATING SYSTEMS MAKING THEM UNSUITABLE FOR SUPPORTING THE
+/		PROGRAM. [NOTE: IN SOME CASES, THIS MAY BE PARTIALLY REMEDIED.]
+
+/		CERTAIN PARAMETERS HAVE BEEN ADDED TO THIS RELEASE OF 8K AND LAB-8/E
+/		BASIC TO MODIFY THE LOADING REQUIREMENTS THAT MAY BE SUITABLE FOR
+/		SPECIFIC PURPOSES.  PROCEED WITH EXTREME CAUTION WHEN ATTEMPTING TO
+/		CHANGE ANY ASPECT OF THIS PROGRAM TO AVOID SOFTWARE BLOWUPS.
+/		FIELD 0 MEMORY CONSIDERATIONS.
+
+/		THIS PROGRAM LOADS INTO THE USUAL MAXIMUM SPACE IN FIELD 0; SUCH
+/		BEHAVIOR DOES NOT CONFLICT WITH ANY OF THE USUAL PDP-8 OPERATING
+/		SYSTEMS.  oTHER THAN A FEW SMALL HOLES, THE PROGRAM LOADS INTO THE
+/		ENTIRE MEMORY AREA OF 00000-07577. [NOTE: THE EARLIER 4K BASIC [WHICH
+/		THIS PROGRAM IS BASED ON] CANNOT BE LOADED BY ANY STORAGE-BASED
+/		OPERATING SYSTENM AND WILL DESTROY PARTS OF THE BIN AND RIM LOADER SPACE
+/		AS IT STARTS UP.] THUS, REGARDING FIELD 0 USAGE, THERE SHOULD BE NO
+/		PROBLEM RUNNING 8K BASIC OR LAB-8/E BASIC UNDER THE DISK MONITOR SYSTEM,
+/		P?S/8 OR OS/8, AS THERE IS NO COMMUNICATION BETWEEN LAB-8/E BASIC OR
+/		8K BASIC AND THE OPERATING SYSTEM [WITHOUT A NUMBER OF SEVERE
+/		MODIFICATIONS NOT DEFINED HERE]. [NOTE: A FEASIBILITY STUDY IS BEING
+/		UNDERTAKEN AS TO THE BEST WAY TO INTERFACE LAB-8/E BASIC OR 8K BASIC TO
+/		P?S/8 IN TERMS OF FILE SUPPORT, ETC.  IT IS EXPECTED THAT A SEPARATE
+/		OVERLAY FILE WILL BE USED TO ACCOMPLISH THIS RESULT, MUCH THE SAME WAY
+/		AS FOCAL, 1969 WAS INTERFACED TO THE R-L MONITOR SYSTEM AND THE LATER
+/		P?S/8.  BINARY COMPATIBILITY WILL BE AN IMPORTANT GOAL.]
+
+/		GENERAL EXTENDED MEMORY CONSIDERATIONS.
+
+/		ONE NEARLY COMPLETE MEMORY FIELD IS ALSO NEEDED, GENERALLY FIELD 1.
+/		BECAUSE OF ORIGINAL DESIGN SPECIFICATIONS ALLOWING ONLY FOR THE RIM
+/		LOADER IN FIELD 1, IT IS IMPOSSIBLE TO RUN LAB-8/E BASIC OR 8K BASIC
+/		FROM OS/8 WITHOUT DESTROYING PART OF THE RESIDENT OPERATING SYSTEM.
+/		MOST, BUT NOT ALL, P?S/8 SYSTEMS CAN RUN LAB-8/E BASIC OR 8K BASIC AS
+/		LONG AS THERE IS SUFFICIENT FREE MEMORY IN FIELD 1 [OR ANY OTHER
+/		NON-CONFLICTING MEMORY FIELD, IF LAB-8/E BASIC OR 8K-BASIC IS
+/		REASSEMBLED WITH NON-STANDARD SETTINGS].
+
+/		OS/8 EXTENDED MEMORY CONSIDERATIONS.
+
+/		PROVISIONAL AND HIGHLY RESTRICTED USAGE UNDER OS/8 REQUIRES 12K MEMORY
+/		MINIMUM TO AVOID CONFLICT WITH THE OS/8 SYSTEM DEVICE HANDLER AND OTHER
+/		OS/8 SYSTEM CONVENTIONS IN EFFECT REGARDING RESERVED MEMORY LOCATIONS IN
+/		FIELDS 0 AND 1.  ADDITIONALLY, THIS ASSUMES SCRUPULOUS AVOIDANCE OF OS/8
+/		BATCH AT THE USER'S PERIL.  THIS REQUIREMENT RISES TO 16K IF 1) OS/8 BATCH
+/		IS CONTEMPLATED, OR 2) THE OS/8 SYSTEM HANDLER IS WRITTEN TO REQUIRE
+/		[NEARLY] TWO PAGES WHERE THE SECOND PAGE OF MEMORY USED IS DEFINED AS
+/		27600-27774 THUS REQUIRING 12K MINIMUM.  [ASSUMING 8K BASIC OR LAB-8/E
+/		BASIC WERE CUSTOMIZED TO REQUIRE 12K, LOCATIONS 27600-27755 WOULD BE IN
+/		CONFLICT WITH THE REQUIREMENTS OF ANY OS/8 TWO-PAGE SYSTEM DEVICE
+/		HANDLER AND/OR OS/8 BATCH WHICH ALSO REQUIRES A PORTION OF FIELD 2.]
+/		[NOTE: OS/8 TWO-PAGE SYSTEM HANDLERS MAY BE RELOCATED TO HIGHER MEMORY
+/		FIELDS BY OTHER APPLICATIONS!  THIS IS SUFFICIENT REASON WHY OS/8 CAN
+/		NEVER BE TOTALLY COMPATIBLE WITH 8K BASIC OR LAB-8/E BASIC.  SIMILAR
+/		REASONING APPLIES INDEPENDENTLY TO OS/8 BATCH WHICH MAY ALSO BE
+/		RELOCATED TO LOCATIONS ADJACENT TO THE TWO-PAGE HANDLER RESERVED AREA
+/		REGARDLESS OF SYSTEM HANDLER TYPE, ETC.]
+/		EVEN WITH THE EXTRA CONSIDERATIONS MET, THE USE OF LAB-8/E BASIC OR 8K
+/		BASIC IS STILL NOT "LEGAL" UNDER OS/8 BECAUSE IT VIOLATES THE OS/8
+/		STANDARD OF RESERVING MEMORY AREA X7600-X7777 FOR EVERY MEMORY FIELD X.
+/		CERTAIN SPECIFIC CONFIGURATIONS OF OS/8 SYSTEMS MAY CRASH DESPITE
+/		POSSIBLY ACCEPTABLE USE ON SOME OTHER SYSTEMS; THIS IS BECAUSE OS/8 WAS
+/		NEVER DESIGNED TO HANDLE PROGRAMS THAT UTILIZE MEMORY AS FREELY AS LAB-8/E
+/		BASIC OR 8K BASIC WHICH PUSH THE UPPER ENVELOPE OF PAPER-TAPE LOADING
+/		CONVENTIONS.
+
+/		ADDITIONALLY, OS/8 WILL LIKELY NOT BE ABLE TO DEBUG LAB-8/E BASIC
+/		PROGRAM CODE IN THE EXTENDED MEMORY FIELD [WHICH MUST BE FIELD 2 OR,
+/		MORE LIKELY, FIELD 3 OR HIGHER] DUE TO INTERACTION WITH THE EXTENDED
+/		MEMORY BREAKPOINT CODE OF OS/8 ODT.  [NOTE: ODT ASSOCIATED WITH CERTAIN
+/		VERSIONS OF THE OS/8 FAMILY WILL LIKELY ATTEMPT TO PLACE BREAKPOINT CODE
+/		INTO EVERY MEMORY FIELD IN WHICH A BREAKPOINT *MIGHT* BE PRESENT.  AS
+/		SUCH, ODT MAY NOT BE VIABLE AT ALL WHILE ATTEMPTING SUCH “QUASI-POSSIBLE”
+/		OS/8 USE. [8K BASIC DOES NOT HAVE ANY EXTENDED MEMORY PROGRAM CODE;
+/		SOFTWARE DEBUGGERS CANNOT TRAP DATA ACCESS OPERATIONS.]
+
+/		TO ATTEMPT TO ACCOMPLISH THIS, A NON-STANDARD BINARY VERSION MUST BE
+/		CREATED USING THE SETTING FOR THE EXTENDED MEMORY FIELD AS 2 OR, MORE
+/		LIKELY, 3 OR HIGHER.  THE DEFAULT IS SET TO FIELD 1 TO ALLOW THE
+/		ORIGINAL VERSION TO RUN ON 8K MACHINES WITHOUT OS/8 PRESENT.  SEE BELOW
+/		TO CHANGE THE BINARY OUTPUT CONFIGURATION FOR TENTATIVE PROVISIONAL USE
+/		WITH OS/8.  NOTE:  UNLESS THE CAPABILITIES OF LAB-8/E BASIC OR 8K BASIC ARE
+/		GREATLY REDUCED, UNCONDITIONAL USAGE UNDER OS/8 IS NOT POSSIBLE.
+
+/		P?S/8 EXTENDED MEMORY CONFIGURATION CONSIDERATIONS.
+
+/		P?S/8 GENERALLY WILL SUPPORT LAB-8/E BASIC OR 8K BASIC ON 8K OR LARGER
+/		SYSTEMS UNLESS THE CONFIGURATION FALLS INTO A LIMITED CLASS OF SYSTEMS:
+/		1) EXACTLY 8K PHYSICAL MEMORY, AND 2) THE REQUIREMENT OF VARIOUS
+/		MANDATORY AND/OR OPTIONAL COMPONENTS PRECLUDES COMPLETE AVAILABILITY OF
+/		FIELD 1.
+
+/		P?S/8 EXTENDED MEMORY LAYOUT ISSUES.
+
+/		P?S/8 CONFIGURATIONS OF 12K OR MORE CAN RUN LAB-8/E BASIC OR 8K BASIC
+/		UNCONDITIONALLY. [4K CONFIGURATIONS CANNOT RUN LAB-8/E BASIC OR 8K BASIC
+/		AND THERE ARE NO PLANS TO CREATE A VIRTUAL/SWAPPING VERSION TO OVERCOME
+/		THIS RESTRICTION.  IN SUCH AN IMPLEMENTATION THERE WOULD BE FAR TOO MUCH
+/		OVERHEAD OF THRASHING ASSOCIATED WITH ANY FORM OF CODE STACK OR OTHER
+/		VIRTUALIZED DATA MANAGEMENT.]
+
+/		CERTAIN P?S/8 CONFIGURATIONS MAY INCLUDE MODULES THAT LOAD INTO THE
+/		HIGHEST PHYSICAL FIELD OF MEMORY [FIELD "X", AS IS USED IN THE FOLLOWING
+/		DESCRIPTION OF THE RELEVANT COMPONENTS].
+
+/		8K P?S/8 CONFIGURATIONS [WHERE "X" WOULD BE DYNAMICALLY CONFIGURED AS 1]
+/		CAN ONLY RUN LAB-8/E BASIC OR 8K BASIC IF ALL EXTENDED MEMORY COMPONENTS
+/		OF P?S/8 ARE NOT PRESENT OR DISABLED:
+/		X0000-X5377 - LOGICAL CONSOLE OVERLAY.  THIS FEATURE CAN BE DISABLED BY
+/			      THE USER.  THE CONSOLE, LINEPRINTER AND INTERRUPT
+/			      FUNCTIONS OF THE LOGICAL CONSOLE OVERLAY CANNOT BE
+/			      ACCESSED BY THIS VERSION OF LAB-8/E BASIC OR 8K BASIC.
+/			      THE ORIGINAL DESIGN IS STRICTLY FOR STANDALONE USAGE
+/			      WITHOUT A STORAGE DEVICE-BASED OPERATING SYSTEM.
+
+/			      MOST OF THE FEATURES OF THE LOGICAL CONSOLE OVERLAY DO NOT
+/			      PERTAIN TO THE STANDALONE VERSION OF LAB-8/E BASIC OR 8K
+/			      BASIC.  ONLY THE SYSTEM DEVICE-ORIENTED COMPONENTS OF THE
+/			      LOGICAL CONSOLE OVERLAY ARE RELEVANT.
+
+/		X5400-X5777 - SHELL SYSTEM COMMUNICATIONS AREA.  USAGE OF THIS PORTION
+/			      OF MEMORY CAN BE AVOIDED BY THE USER BY ONE OF TWO
+/			      METHODS: 1) DISABLING THE P?S/8 SHELL, OR 2) RUNNING THE
+/			      P?S/8 SHELL WITH THE SHELL SYSTEM COMMUNICATION AREA
+/			      VIRTUALIZED TO THE CONTENTS OF TWO [LOW-NUMBERED] SYSTEM
+/			      BLOCKS.
+
+/			      VIRTUALIZING THE SHELL SYSTEM COMMUNICATIONS AREA WILL
+/			      GENERALLY CAUSES A SMALL PERFORMANCE LOSS DURING CERTAIN
+/			      OPERATIONS THAT REPEATEDLY ACCESS THE TWO BLOCKS.  [NOTE:
+/			      P?S/8 BLOCKS ARE 128 WORDS EACH; OS/8 LOGICAL RECORDS ARE
+/			      256 WORDS EACH.] FOR SYSTEMS WITH LESS THAN 12K, THE
+/			      VIRTUALIZATION METHOD IS GENERALLY AN ACCEPTABLE
+/			      COMPROMISE BETWEEN PERFORMANCE AND MEMORY AVAILABILITY.
+
+/			      [NOTE: THE P?S/8 SHELL IS DESIGNED FOR LARGER MEMORY
+/			      CONFIGURATIONS THAT CAN BETTER MAKE USE OF THE ADVANCED
+/			      SHELL FEATURES, ETC.  ON 4K SYSTEMS THE VIRTUALIZATION
+/			      IS MANDATORY AND ALL EXTENDED MEMORY COMPONENTS MUST BE
+/			      DISABLED.  MOST SHELL COMPONENTS WILL ISSUE ERROR MESSAGES
+/			      ON INADEQUATE MEMORY CONFIGURATIONS.]
+
+/		X6000-X7777 - SYSTEM HANDLER EXTENSION.  THIS IS A MANDATORY COMPONENT
+/			      OF ALL P?S/8 SYSTEMS THAT REQUIRE EXTENDED MEMORY TO
+/			      OPERATE DUE TO SPECIFIC HARDWARE ISSUES.  AS SUCH, SYSTEMS
+/			      THAT INCLUDE THE SYSTEM HANDLER EXTENSION CANNOT RUN
+/			      LAB-8/E BASIC OR 8K BASIC UNLESS THERE IS 12K OR MORE
+/			      PHYSICAL MEMORY PRESENT [WHICH WOULD DYNAMICALLY MAKE X=2
+/			      OR MORE, X=7 ON A 32K MACHINE].
+
+/			      KNOWN HARDWARE CONFIGURATIONS THAT CANNOT RUN ON A 4K
+/			      MACHINE INCLUDE THE TD8E/TU56[H] DECTAPE WHEN USED WITHOUT
+/			      THE MR8E-C ROM, RX01/RX02 AND THIRD-PARTY COMPATIBLES
+/			      [DSD-210], UNMODIFIED LINC-8 [WHICH REQUIRES AT LEAST 8K
+/			      TO OPERATE P?S/8; 4K LINC-8 SYSTEMS REQUIRE DESIGNATED
+/			      HARDWARE MODIFICATIONS.  OS/8 CANNOT RUN ON AN UNMODIFIED
+/			      8K LINC-8; IT CAN RUN ON A MODIFIED 8K LINC-8],
+/			      RX50/DECMATE II, III AND III+ SYSTEMS, RK01/RK08,
+/			      RK8E/RK05, RL8A/RL01, RL8A/RL02 AND CESI MDC8 SCSI
+/			      CONTROLLER WITH 256 WORD DISK BLOCKS.
+/			      THE MDC8 SUPPORTS TWO DIFFERENT DISK FORMATS: 256 BYTE AND
+/			      512 BYTE DISK SECTORS THAT YIELD 128 WORD AND 256 WORD
+/			      RECORDS, RESPECTIVELY.  ON 128 WORD DISKS, P?S/8 AND OS/8
+/			      CAN RUN ON 4K AND 8K MINIMUM SYSTEMS, RESPECTIVELY.  P?S/8
+/			      REQUIRES A SYSTEM HANDLER EXTENSION TO RUN ON THE 256 WORD
+/			      VERSION IN 8K MINIMUM; OS/8 CANNOT BE RUN ON THIS SYSTEM.
+
+/			      THE 256 WORD VERSION IS USUALLY FOUND ON PDP-8/A MACHINES
+/			      CONFIGURED WITH CESI EXTENDED MEMORY CONFIGURATIONS THAT
+/			      ARE NOT COMPATIBLE WITH THE KT8A.  HOWEVER, THEY CAN BE
+/			      CONFIGURED FOR UP TO 512K MEMORY INSTEAD OF THE KT8A
+/			      MAXIMUM OF 128K.
+
+/			      THE DESIGNATED SOFTWARE APPLICATION FOR THESE
+/			      CONFIGURATIONS IS OMNI-8, A STANDALONE APPLICATION SYSTEM
+/			      THAT EMULATES MULTIPLE PDP-8 SYSTEMS VIRTUALLY USING THE
+/			      MDC8 FOR BACKING STORE.  TO MINIMIZE DISK THRASHING, EACH
+/			      USER IMAGE IS MAINTAINED IN 32K OF THE AVAILABLE MEMORY.
+/			      THIS ALLOWS UP TO 15 USERS TO SHARE THE UNDERLYING SYSTEM
+/			      WITHOUT DISK SWAPPING, ALTHOUGH PRACTICAL SYSTEMS WERE
+/			      OFTEN CONFIGURED FOR A SOMEWHAT HIGHER NUMBER OF OVERALL
+/			      USERS, EACH RUNNING A VIRTUAL MACHINE.
+
+/			      THE VIRTUAL MACHINES CAN SUPPORT A VARIETY OF OPERATING
+/			      SYSTEMS INCLUDING AN OS/8 SYSTEM USING TRAP EMULATION
+/			      HANDLERS NOT CORRESPONDING TO ANY NORMAL PHYSICAL DEVICE.
+/			      ALL OMNI-8 FUNCTIONS MUST BE RUN FROM THE OMNI-8
+/			      APPLICATION SYSTEM OR FROM P?S/8 CONFIGURED TO RUN AND
+/			      SUPPORT THE SAME UNDERLYING HARDWARE.  ATTEMPTS AT RUNNING
+/			      8K BASIC OR LAB-8/E BASIC ON VIRTUALIZED HARDWARE WOULD BE
+/			      SUBJECT TO SIMILAR RESTRICTIONS AS OUTLINED ELSEWHERE.]
+
+/		THERE MAY BE ADDITIONAL P?S/8 CONFIGURATIONS REQUIRING MORE THAN 4K
+/		WHERE OS/8 EITHER CANNOT RUN AT ALL OR WILL EXHIBIT UNACCEPTABLE ERROR
+/		RECOVERY AND/OR PERFORMANCE ISSUES.
+
+/		SINCE P?S/8 ALLOWS FOR A TOTAL OF [NEARLY] NINE PAGES OF CODE SPACE,
+/		P?S/8 HANDLERS GENERALLY EXHIBIT EXEMPLARY PERFORMANCE AND PROPER ERROR
+/		RECOVERY THAT SIMPLY CANNOT BE ACHIEVED IN [NEARLY] TWO PAGES OF CODE
+/		SPACE, AS MUST BE THE CASE IN OS/8.
+
+/		AS SUCH, IT WILL GENERALLY BE TRUE FOR THIS CLASS OF DEVICES THAT P?S/8
+/		WILL REQUIRE A MINIMUM OF 8K TO OPERATE AND 12K TO RUN LAB-8/E BASIC OR
+/		8K BASIC.  OS/8 WILL ALWAYS REQUIRE 12K OR MORE TO RUN, PROVISIONALLY,
+/		LAB-8/E BASIC OR 8K BASIC--ASSUMING THIS IS EVEN POSSIBLE. [SUCH
+/		OPERATION WOULD NEVER BE RECOMMENDED UNLESS SOME STORAGE RESOURCES WERE
+/		REMOVED FROM LAB-8/E BASIC OR 8K BASIC BY MODIFYING THE SOURCE CODE.]
+/		KNOWN LIMITATIONS.
+
+/		THE LAB-8/E VERSION HAS A KNOWN BUG.  ON CERTAIN CONFIGURATIONS
+/		CONTAINING MORE THAN THE MINIMUM COMPLEMENT OF LAB-8/E HARDWARE,
+/		LOCATION 10000 AND PERHAPS THE FOLLOWING TWO WORDS MAY BE DESTROYED!
+/		THESE LOCATIONS ARE NORMALLY USED TO CONTAIN THE FLOATING POINT CONSTANT
+/		VALUE 10.0,USED TO CALCULATE LINE NUMBERS AS PART OF A LIST COMMAND
+/		OPERATION [AS WELL AS A COMPONENT OF OTHER PROGRAM SECTIONS].  uNDER
+/		THESE CIRCUMSTANCES, QUITE BIZARRE LINE NUMBERS MAY APPEAR, ETC.  THIS
+/		ISSUE NEEDS TO BE ADDRESSED; IT IS HOPED THAT A SMALL PATCH THAT BETTER
+/		CLEARS INTERRUPTS IS ALL THAT IS NEEDED.  HOWEVER, THE CLEAR ALL FLAGS
+/		INSTRUCTION IS NOT SAFE FOR ALL CONFIGURATIONS AND GENERALLY MUST BE
+/		AVOIDED.  THUS, SOME ONCE-ONLY CODE SHOULD BE ADDED THAT CHECKS FOR THE
+/		PDP-8/E OR PDP-8/A [OR NEWER] CPU TO ALLOW THE SAFE ISSUANCE OF THE CAF
+/		INSTRUCTION [6007] TO REMEDY THIS BEHAVIOR.  BY CAREFUL CODE PLACEMENT,
+/		BINARY COMPATIBILITY CAN BE MAINTAINED ESSENTIALLY BY IMPLEMENTATION AS
+/		A ONCE-ONLY PATCH.  AS OF THIS WRITING, THIS ISSUE HAS NOT BEEN
+/		ADDRESSED, PENDING A PROPER TESTING ENVIRONMENT.
+
+/		CORE COMMAND CONSIDERATIONS.
+
+/		P?S/8 AND OS/8 BOTH SUPPORT A LOGICAL CORE SIZE PARAMETER AND COMMAND
+/		SET TO LOGICALLY LIMIT CORE SIZE TO SMALLER VALUES THAN THE ACTUAL
+/		PHYSICAL SIZE.
+
+/		IT IS ASSUMED THE CORE SIZE IS NOT LIMITED TO A VALUE SMALLER THAN THE
+/		REQUIREMENTS OF ANY ASSEMBLED VERSION OF THIS PROGRAM.  AS DOCUMENTED
+/		EARLIER, OS/8 USAGE IS NOT ONLY PROVISIONAL, BUT DEPENDS ON HAVING
+/		SUFFICIENT PHYSICAL MEMORY TO PROPERLY LOAD THE PROGRAM.  TOO LOWER A
+/		LOGICAL CORE SIZE SETTING MAY INTERFERE WITH THIS SITUATION PREVENTING
+/		A WORKING PROGRAM OF ANY NATURE.
+
+/		THE SAME GENERAL IDEA APPLIES TO P?S/8 WHICH TAKES THE CONCEPT ONE STEP
+/		FURTHER.  WHILE OS/8 CAN LIMIT THE CORE SIZE TO 8K [THE OS/8 MINIMUM],
+/		P?S/8 CAN LIMIT THE CORE SIZE TO 4K, A VALUE THAT CANNOT SUPPORT ANY
+/		VERSION OF THIS PROGRAM. USING SUFFICIENTLY LARGE CORE SIZE VALUES WILL
+/		ALLOW PROPER LOADING UNDER EACH OPERATING SYSTEM, ETC.
+
+/		SETTING THE EXTENDED MEMORY FIELD.
+
+/		THE DEFAULT SETTING OF "XFLD=1" WILL PRODUCE THE STANDARD VERSION OF
+/		LAB-8/E OR 8K BASIC AS ORIGINALLY DISTRIBUTED.  THIS VERSION CAN BE
+/		LOADED ON 8K MACHINES USING THE BINARY PAPER-TAPE LOADERS OR UNDER THE
+/		DISK MONITOR SYSTEM OR P?S/8 WITHOUT FIELD 1 RESTRICTIONS OR ANY P?S/8
+/		SYSTEM RUNNING ON A 12K OR LARGER MACHINE.  SETTING "XFLD=2" OR "XFLD=3"
+/		WILL PRODUCE A VERSION THAT CAN BE PROVISIONALLY RUN FROM OS/8.  LARGER
+/		VALUES ARE ALSO ACCEPTABLE IF THE PHYSICAL MEMORY IS PRESENT.
+/		DEBUGGING ISSUES.
+
+/		AS WRITTEN, LAB-8/E BASIC OR 8K BASIC DOES NOT CONFORM TO PDP-8
+/		SOFTWARE DEBUGGING CONVENTIONS AS LOCATION 00004 IS USED BY THE PROGRAM.
+/		ALL PDP-8 DEBUGGING PROGRAMS REQUIRE BREAKPOINT IMPLEMENTATION USING
+/		LOCATION 00004 ASSUMING FIELD 0 CODE IS BEING DEBUGGED.  THE BREAKPOINT
+/		MECHANISM FOR OS/8 IS JMP I 4 TO TRAP TO OS/8 ODT DURING A DEBUGGING
+/		SESSION.  P?S/8 IS SIMILAR EXCEPT P?S/8 ODT USES JMS I 4 TO SUPPORT
+/		MULTIPLE BREAKPOINTS.  BY STORING THE COMPLETE BREAKPOINT TABLE, P?S/8
+/		ODT CAN PROVIDE AN ADDITIONAL LEVEL OF SAFETY AND RELIABILITY.
+
+/		BREAKPOINT SPOOFING WARNINGS.
+
+/		WHEN PROGRAMS HAVE MARGINAL SPACE TO CONFORM WITH SOFTWARE DEBUGGERS,
+/		PROGRAMMERS MIGHT BE TEMPTED TO SPOOF OR FAKE BREAKPOINTS SUCH AS CAN BE
+/		ATTEMPTED IN PAPER-TAPE VERSIONS OF ODT OR PERHAPS OS/8 ODT.
+
+/		IN P?S/8, BREAKPOINTS ARE REQUIRED TO BE LEGITIMATE AS A VALIDATED TABLE
+/		OF MULTIPLE BREAKPOINT ADDRESSES IS MAINTAINED.  ILLEGAL BREAKPOINTS
+/		WILL BE FLAGGED AS ERRORS TO SAFEGUARD THE DEBUGGING ENVIRONMENT.
+/		HOWEVER, IN STAND-ALONE OR OS/8 ODT, IT IS MUCH EASIER TO FAKE A
+/		BREAKPOINT BY CAUSING A PROGRAM TO GET TO THE SAME PLACE AS THE PROPER
+/		JMP I 4 WAS DESIGNED TO ACCOMPLISH; THE DEBUGGER CANNOT REALIZE IT IS
+/		BEING SPOOFED WHETHER ON PURPOSE OR ACCIDENTALLY.  THUS, IT IS QUITE
+/		DANGEROUS TO CONSIDER SUCH MECHANISMS WHICH CAN FATALLY DESTROY PROPER
+/		PROGRAM FLOW AND ALTHOUGH UNLIKELY, COULD IN THEORY DESTROY THE
+/		OPERATING SYSTEM, PERHAPS ON THE STORAGE DEVICE, ETC.  SINGLE-BREAKPOINT
+/		MECHANISMS CANNOT HELP BUT TO SIMULATE THE APPARENT TRAP LOCATION AND
+/		THUS CONTINUE BY PRESUMING THIS IS THE PROPER COURSE OF ACTION.  P?S/8
+/		CAN CONTINUE FROM AN ILLEGAL BREAKPOINT, BUT ONLY AFTER A WARNING
+/		MESSAGE HAD BEEN ISSUED AND TOTALLY AT THE USER'S POTENTIAL PERIL;
+/		THIS IS NEVER RECOMMENDED.
+
+/		TO AVOID LEGITIMATE DEBUGGING CONFLICTS, LOCATION 00004 WILL BE FREED IF
+/		POSSIBLE.  THIS CAN ONLY BE ACCOMPLISHED IF THERE IS A FREE WORD ON PAGE
+/		ZERO, WHICH IS PRESUMED AT THIS TIME.  THIS IS NOT KNOWN WITH CERTAINTY
+/		AT THE TIME OF THIS WRITING AND CAUTION SHOULD BE USED ENABLING
+/		PARAMETERS IN FUTURE RELEASES OF THIS PROGRAM UNTIL THIS FEATURE [NOT
+/		CURRENTLY AVAILABLE] IS FULLY TESTED.
+
+/		EXTENDED MEMORY DEBUGGING CONSIDERATIONS.
+
+/		EACH FIELD IN WHICH A BREAKPOINT IS INSERTED REQUIRES FREEING LOCATION
+/		0004 OF THAT FIELD.  THE STANDARD VERSION OF 8K BASIC HAS NO EXECUTABLE
+/		CODE IN THE EXTENDED MEMORY FIELD.  HOWEVER, THE LAB-8/E VERSION DOES
+/		REQUIRE SEVERAL PAGES OF CODE IN EXTENDED MEMORY.  TO FACILITATE
+/		BREAKPOINT PLACEMENT IN THE EXTENDED MEMORY FIELD, A SECONDARY
+/		PARAMETER IS PROVIDED TO PROTECT A FEW LOCATIONS IN THE EXTENDED MEMORY
+/		FIELD, SHOULD THIS BECOME NECESSARY.  HOWEVER, EXTENDED MEMORY DEBUGGING
+/		IN ALL RELEVANT ENVIRONMENTS MUST OF NECESSITY ALSO RESERVE PART OF
+/		7600-7777 IN THAT FIELD.  AS SUCH, ONLY A VERSION ASSEMBLED TO
+/		CONSIDERABLY FORESHORTEN THE VARIABLE SPACE IN THE EXTENDED MEMORY FIELD
+/		CAN EVEN ATTEMPT THIS.  [SEE ALSO INTERRUPT CONSIDERATIONS AS
+/		DISCUSSED BELOW.]
+/		NOTES: CHANGING ANY OF THE DEFAULT PARAMETERS DESTROYS SOME ASPECT OF
+/		BINARY COMPATIBILITY WITH THE ORIGINAL 8K BASIC OR LAB-8/E BASIC.  WHEN
+/		EXTENDED MEMORY FIELD DEBUGGING IS ENABLED, THE MAXIMUM SIZE OF BASIC
+/		CODE MUST BE LIMITED TO FACILITATE THE DEBUGGING SESSION, ETC.  AS SUCH,
+/		DYNAMIC DATA STORAGE LOCATIONS MUST BE FORESHORTENED TO ADDRESSES NOT
+/		COMPATIBLE WITH STANDARD LISTINGS OF THIS PROGRAM.  THUS, AN ADDITIONAL
+/		CONSIDERATION WHEN PERFORMING EXTENDED MEMORY DEBUGGING OF THE LAB-8/E
+/		FUNCTION CODE WOULD BE TO CREATE A CORRECT LISTING CORRESPONDING TO THE
+/		DEBUGGING ENVIRONMENT REQUIREMENTS.
+
+/		INTERRUPT CONSIDERATIONS DURING DEBUGGING.
+
+/		LAB-8/E BASIC AND 8K-BASIC RUN WITH INTERRUPTS ENABLED.  THIS LIMITS
+/		DEBUGGING TO SECTIONS OF CODE WITH INTERRUPTS OFF.  IT MAY BE NECESSARY
+/		TO CONTRIVE ACCEPTABLE BREAKPOINTS BY APPLYING LOCAL PATCHES TO TURN
+/		INTERRUPTS OFF AND LIMIT THE BREAKPOINTS TO THESE SAFELY PATCHED AREAS,
+/		WHICH CONTAIN ADDITIONAL CODE TO TURN INTERRUPTS ON AGAIN AFTERWARDS.
+
+/		AN INHERENT PROBLEM IS DETERMINING THE TIMING RELEVANCE OF PLACING ANY
+/		PATCHES THAT TURN INTERRUPTS OFF AND THEN RESTORING THEM.  MAINTAINING
+/		BINARY COMPATIBILITY WILL GENERALLY REQUIRE FUDGING IN A PAIR OF
+/		SUBROUTINES TO REPLACE A PAIR OF INSTRUCTIONS WITH A JMP TO A FIXUP
+/		ROUTINE ON ANOTHER PAGE THAT INCLUDES EITHER IOF OR ION AS APPROPRIATE,
+/		FOLLOWED BY A JUMP BACK TO BEYOND WHERE THE TWO-WORD PATCHES WERE
+/		ORIGINALLY LOCATED.  THERE ARE SUFFICIENT FREE CODE SPACE AREAS,
+/		PRIMARILY IN THE 07400-07577 PAGE ASSUMING NO USER FUNCTIONS HAVE ALSO
+/		BEEN LOADED, ETC.  EVEN IF DEBUGGED WITH P?S/8 ODT, IT IS DIFFICULT TO
+/		CREATE MANY SUCH CONTRIVED INTERRUPTIBLE CODE SECTIONS; DEBUGGING WILL
+/		GENERALLY HAVE TO BE LIMITED TO A CODE TOTALLY CONTAINED WITHIN A
+/		REGION OF CODE SPACE LOCATED INSIDE OF BRACKETING INTERRUPT CONTROL
+/		PATCHES, ETC.
+
+/		IT WILL LIKELY BE NECESSARY TO RESERVE ADDITIONAL SPACE FOR THESE
+/		PATCHES WHEN CONSIDERING EXTENDED MEMORY DEBUGGING.  THE MAXIMUM NUMBER
+/		OF PATCHES TO BE APPLIED WILL FACTOR INTO THIS CONSIDERATIONS WHICH TO
+/		SOME EXTENT FURTHER COMPLICATES EXTENDED MEMORY DEBUGGING, ETC.  AS
+/		STATED ABOVE, IT WILL ESSENTIALLY BE MANDATORY TO HAVE A PROPER CURRENT
+/		LISTING OF THE PROGRAM TO ALLOW PRAGMATIC CREATION OF BREAKPOINTS THAT
+/		EFFECT EXTENDED MEMORY CODE DEBUGGING.
+/		ASSEMBLY INSTRUCTIONS.
+
+
+Program Assembly Considerations.
+
+While it may be possible to assemble L8EBAS.PAL using PAL10 running under the
+TOPS-10 operating system [or TOPS-20 TOPS-10 Compatibility Mode], certain
+considerations of PDP-8 assembly language may not be compatible with this older
+assembler as usually distributed.  [Note: The incompatibilities are not major; it
+is conceivable a PDP-10 programming expert can be contacted for the purposes of
+modernizing this otherwise valuable development tool.]
+
+PDP-8-based Assembly methods.
+
+Using OS/8 to assemble the program and work-arounds to correct known limitations.
+
+Introducing L8EBAS.PAL into the OS/8 environment requires truncation of the
+filename to L8EBAS.PA.  The following OS/8 command will produce a loadable binary
+file and a listing file suitable for printing [perhaps after some post-processing
+to correct for known OS/8 limitations].
+
+.PAL L8EBAS.BN,L8EBAS.LS<L8EBAS.PA /E /C
+
+Depending on the length of the source file, the /M option may be required to allow
+OS/8 CREF.SV to handle the complete symbol table.  Using /M should only be included
+as necessary:
+
+1) The assembly process takes considerably longer when the /M ["mammoth"] option is
+   set.  Additional scratch storage space is required over the basic amount; the
+   intermediary output file is read additional times during the process.
+
+2) The process will insert an extraneous <FF> and output starts on a new page
+   typically after a partial last page from the first phase of the scan.
+
+3) The CREF /M process is based on the notion of a "balanced" usage of symbols
+   within the assembly [including permanent symbols and literals/links].
+   Unfortunately, the "center point" of the table split is the arbitrary dividing
+   line for a potential symbol "LGNNNN".  [The first phase is for all symbols less
+   than LGNNNN is the linear sorting sense; the second phase is for all symbols
+   from LGNNN [if present] and up with the literals/links at the end of the second
+   phase.]  If either "half" of the actual symbol usage exceeds the capability
+   allocated for that half, the process will abort with an error message.]  [Note:
+   certain intrepid programmers have attempted to patch CREF.SV to rebalance the
+   symbol-table split with varying degrees of success.]
+
+The PAL8 /F switch must be avoided as all usage of the TEXT directive requires the
+original standard meaning; many more recent assemblies require the switch be set;
+error messages will be issued if the /F switch is set for this assembly.
+
+OS/8 internally can only represent the system date from 1970 through 1977.  A bad
+kludge was added in 1977 to allow the cosmetic appearance of date support through
+the end of 2001:
+
+1) OS/8 file dates can be created either with no actual date or 1970 through 1977
+   at the user's preference.  The reasons for leaving the date out entirely stem
+   from inadequate directory design; in many cases it is necessary to completely
+   abandon date support in order to have somewhat more actual files in the
+   directory.  [OS/8 has the dubious distinction of having a directory structure
+   where often the directory runs out of filename entries before the underlying
+   disk storage is used up.]
+
+2) Assuming the date is supported, attempts to set the date past 1977 are only
+   cosmetically available.  The actual implementation allows setting the date to
+   any arbitrary year up to 2001 with the proviso that all files are now presumed
+   to be in the years from seven years before through the current year; however,
+   this could mean that files that are actually at least eight years old appear to
+   be in the current year in future months of the current year setting.
+
+3) Certain programs have the infamous "Y2K" bug.  A year stated past 1999 may print
+   garbled output instead of the intended date.  [Note: At the time there was not
+   much enthusiasm fixing output for the two years 2000 and 2001.]
+
+4) All such schemes are moot at this point; as of this writing, the last possible
+   kludged OS/8 date is 13 years in the past.
+
+As such, it is recommended that an arbitrary year be chosen and then cosmetic
+alterations can be applied to create a synthesized modern assembly date.  This is
+easily carried out with trivial TECO macro programming to find and replace all
+occurrences of the predictably wrong string and replace with the desired string.
+The final listing file can be made to perfectly acceptable standards.
+
+The complete list of PAL8 command-line option switches is as follows:
+
+ 1) /B - Treat the "!" operator is left-shift six bits instead of inclusive-or.
+         This switch is obsolescent and was created for use in assemblers prior to
+         the general support for the '^" operator which is a general-purpose
+         multiplcation operator.  It is recommended that all very old source code
+         using the "!" operator as left-shift six bits be replaced by the more
+         conforming ^100.  [Note: Inclusive-or usage is quite commonplace.]
+
+ 2) /C - Chain to CREF.SV to process the listing output.  As a result, the stated
+         file name will be the CREF output file.  The PAL8 output file will be
+         forced to be SYS:CREFLS.TM.  Note: There may not be sufficient space on the
+         system device.  As such, this operation may have to be carried out manually
+         after the main assembly is over.  [See the description of the /M option if
+         /C is used.]
+
+	 Note: Recent releases of PAL8 support a third output specification that can
+         be used to specify an alternative to SYS:CREFLS.TM on another available
+         file-structured storage device [if available].
+
+ 3) /D - The symbol table output is reduced to a single column per page.  With a lot
+         of additional processing, it is possible to create a symbol file to be
+         punched onto paper-tape that can be read into the paper-tape debugging
+         program known as DDT.  Note: OS/8 does not support DDT; it is a stand-alone
+         portion of the paper-tape software package and must be loaded by the BIN
+         loader.
+ 
+ 4) /E - Generated links will be flagged as errors.  This feature should never be
+         encouraged in PDP-8 programming as it is prone to failure.  The errors
+         cannot be detected at assembly time as the exact situation depends on
+         dynamic factors beyond the control of any utility.
+
+         PDP-8 programming requires reference to either page zero or any location on
+         the current 128-word page.  If a reference is not actually an indirect
+         usage, the theory is that transforming the instruction into an indirect
+         reference can be used to fixup the logical mistake made by the programmer.
+
+         Unfortunately, this only works in certain circumstances reliably while in
+         others it will fail depending on program circumstances.  No
+         distinction is made by PAL8 as to the viability of any form of link
+         generation; it is the programmer's responsibility to check all links to
+         determine the suitability; the programmer may be incorrect leading to
+         addtional potential logic errors.  [Note: Considering the substantial
+         effort needed to determine if the generated links are actually valid, the
+         usage of links is actually counter-productive; generally new PDP-8
+         programmers are erroneously introduced to this misfeature; it will be
+         necessary to learn to abandon this frill to be successful at the art of
+         meaningful PDP-8 programming.  The following is an example of an attempt at
+         a link that will always fail:
+ 
+         *200
+
+         CDF     10
+         TAD     AT400
+
+         PAGE
+
+AT400,
+
+
+         The CDF 10 instruction forces the Data Field to 10, a non-zero valid state;
+         the dynamics of the program could set the Data Field to a non-zero value
+         even if the instruction wasn't there [this just forces the issue statically
+         for the purposes of the example].  The code generated is an indirect
+         reference to 0400 using a pointer to 0400 that will be created in 0377 and
+         thus the instruction will be 1777.  If AT400 were somehow on the same page,
+         the code generally intends some form of direct addressing instruction that
+         would resemble 1377 [or perhaps somewhat less].  On direct addressing
+         instructions, the Data Field plays no role.  By preventing this poor
+         programming crutch, instructions will always work as intended.  [Note: The
+         usual unacceptable excuse for this is that generally all JMP and JMS
+         operations will work because the Instruction Field is used, not the Data
+         Field in those two instances.  [By nature, the Instruction Field does not
+         change often, and if it does, the next JMP or JMS will be to the new
+         Instruction Field just after it is changed.  Indirect addressing plays no
+         role in the way the hardware works.]  The fallacy is that the assembler
+         does not discriminate between JMP or JMS linkgs and the other MRI links
+         for AND, TAD, DCA and ISZ instructions where the Data Field dynamics play
+         an undetectable role.  The overhead of determining whether or not the
+         generated links are valid outweighs any perceived benefit to a beginning
+         user; it's merely a bad programming technique which should be avoided.
+
+         The proper techique would be to use the equivalent of a literal:
+
+         TAD I   (AT400)
+
+         While the Data Field rules still apply, at least the programmer will have
+         to determine if the Data Field matches the current Instruction Field to
+         ensure the code will work as intended.  When this discipline is used, all
+         attempts at links will be clearly seen as errors; fixing the problem will
+         force the programmer to consider if the program logic is sound enough to
+         support the unexpected problem that must be dealt with.
+
+         All generated links have a special listing variant that flags the code
+         to indicate a link was used.  Even if errors are suppressed, the flagging
+         will always be present; assembly statistics indicate the total number of
+         links generated to encourage their disuse.  When /E is in effect, the
+         instruction is properly flagged as an illegal indirect attempt that counts
+         as an assembly error.
+
+ 5) /F - TEXT directives are passed strings of characters surrounded by a variety
+         of valid delimiter characters.  Each character generates a six-bit packed
+         ASCII text value; values are packed in the following order:  The first
+         character is placed in the high-order six bits of a twelve bit word; the
+         second character is placed in the low-order six bits of the same twelve bit
+         word.  This process repeats for all characters in the string.  If the last
+         string character is placed into the high-order half of a twelve-bit word,
+         the low-order six bits are set to 00.  This allows string-processing
+         routines to locate a delimiting value of 00 if the coding works with
+         variable-length strings.  [Note: While this is a common technique, some
+         variations use fixed string lengths; in such cases, the last half would be
+         implicitly ignored.]
+
+         When the string length is even, there is a need to determine if a trailing
+         zero-fill delimiter is required.  The default is to generate an extra
+         12-bit word of 0000 to use a delimiter-based method.  However, this will be
+         incorrect for fixed-length strings such as filenames used within OS/8 when
+         six characters are given followed by a two-letter extension.  Program logic
+         might break down especially if the string is part of a series of in-line
+         arguments where the program resumes control after the arguments.  In such
+         cases, the /F switch should be used to prevent the automatic 12-bit zero
+         value filler word.  Since this is an assembler option, it applies to the
+         entire source code of any particular assembly.
+
+         There is an alternative syntax to mitigate this problem:  The TEXTZ
+         directive will always provide the filler word if necessary.  This would
+         then allow the TEXT directive in conjunction with passing /F to allow both
+         variants within the same program.  Note: The /F option [or equivalent in
+         other viable assemblers] as well as the TEXTZ directive are relatively new
+         features.  Most older programs do not use either technique; as such, the
+         default behavior allows older programs to function as originally written.
+
+ 6) /G - Chain to ABSLDR.SV to load the binary file created by the assembly and then
+         start the program.  This action is aborted if there are assembly errors.
+         [See =xxxxx.]
+
+ 7) /H - Output to the system console device generally attempts to simulate
+         pagination by creating a tear-off line.  This is a consession to teletypes
+         that use roll paper to allow the user to cut the output into pages to be
+         stored in some form of clip or binder system.  If this is not desired,
+         setting /H will inhibit this behavior.  Note: No combination of listing
+         options can take advantage of paginating consoles such as the LS120 which
+         can handle the <FF> character to move the output to the top of the next
+         page.  OS/8 has no solution for this problem.
+
+ 8) /J - Conditional assembly is a technique used in many assemblers to deliberately
+         ignore sections of a program based on global assembly-time parameters.
+         Often one global setting can cause a variety of alternative assembly
+         results.  If /J is specified, conditional programming within a failing
+         conditional will not appear in the assembly listing.
+
+         This is an obsolescent feature to allow compatibility with former versions
+         of PAL8 [and other more primitive assemblers] where there was no proper
+         listing control.  The current release of PAL8 properly supports the XLIST
+         directive which can be used within conditional sections to exercise and
+         selective control of all output for any and all circumstances.  XLIST
+         without an argument flips the state of output; when the output is turned
+         off, the listing will be suppressed identically to using /J for failing
+         conditional assembly.  However, XLIST is generic and can be used for any
+         situation to suppress output.  Moreover, XLIST takes an argument:  If a
+         non-zero value is passed [which may in turn be an evaluated expression],
+         listing becomes suppressed.  If a zero value is passed, listing output is
+         forced on.  This leads to the ability to define simple XLIST controls to
+         turn the listing off and on at will; additionally, by using a symbolic
+         parameter, it is possible to debug conditional code by overriding the
+         intended suppression to determine if the logic is correct.  [Note: Ancient
+         versions of PAL8 do not support XLIST with an argument.]
+
+ 9) /K - Change the use of available memory to optimize for larger assemblies.  This
+         switch has no meaning if 24K or more memory is available.
+
+10) /L - Chain to ABSLDR.SV to load the binary file created by the assembly.  The
+         program will not be started as is the case of /G when used with =xxxxx.
+         The system restarts at 07600 after saving memory.  Start or debugging
+         options may then be used.  This action is aborted if there are assembly
+         errors.
+
+11) /M - If /C is set, the CREF operation will use the "mammoth" operation as
+         described above.
+
+12) /N - No assembly listing per se will be created when getting a third pass
+         listing.  This means the only output will be the symbol table.  If /D is
+         also specified, the symbol table is a single column.  After minor editing,
+         this output can be punched on paper-tape for use with the DDT debugging
+         program to be loaded by the paper-tape BIN program.
+
+13) /O - This is an obsolescent feature to allow compatibility with the behavior of
+         very old assembler programs.  Normal programming conventions with regard
+         to field settings function as follows:
+
+         FIELD   0
+
+         *200
+
+         When the FIELD directive is used, the internal equivalent of the *200 is
+         automatically generated.  [Note: This is visible in the listing output of
+         most successful PDP-8 assemblers.]  Thus, the example given above would be
+         redundant.  If /O is used, the automatic generation of the *200 is
+         inhibited to imitate the quirky behavior of very old assemblers.  It is
+         likely no program was ever written that depends on this behavior; proper
+         programming technique demands explicit origin settings after field
+         settings; 0200 as a new origin is arbitrary and simplistic; many programs
+         start with an effective origin within the range of 0000-0177 to define
+         page zero before any coding in page 1 [0200-0377].  It is never recommended
+         to depend on any specific value; it is the programmer's responsibility to
+         give the proper loading origin for all program sections.
+
+         There are at least three official releases of the DEC paper-tape BIN format
+         loader.  One of them is known as the "self-starting" binary loader.  The
+         programmer adds a deliberate final origin at the end of the assembly
+         without any loaded data following; this is then interpreted as an automatic
+         starting address within the currently defined field.  [Note: Most programs
+         do not use automatic starting address explicitly; however, any program that
+         ends with PAGE or FIELD with the automatic *200 normally set is, in fact,
+         ending with the stated origin setting; this could be a consideration if
+         contemplating usage with this loader.]
+
+         The self-starting binary loader has a serious bug:  When field settings are
+         given and the next binary output is not an origin setting [whether
+         automatically generated or not], the data word will be loaded into the
+         wrong field.  [The previous field in effect will be erroneously used.]  The
+         only way to work around this problem is to provide an origin setting since
+         it doesn't matter what loading field is in effect; no actual loading
+         occurs, rather only the storage pointer is changed.  As such, using the /O
+         option creates output that will always load incorrectly.
+
+         Due to the obsolescent nature of this option, it is not supported in any
+         other PDP-8 assembly program.  On the off chance the equivalent of this
+         option is needed, the following syntax is recommended which will function
+         in all systems:
+
+         HERE= .
+
+         FIELD   1
+
+         *HERE
+
+         All properly written programs for extended memory should use an explicit
+         origin after a FIELD setting.
+
+         An anomaly exists if /O is used that only the above syntax can successfully
+         avoid:
+
+         When a FIELD setting is used, all open page zero and current page literals
+         are automatically outputted as necessary.  All existent literal offset
+         "remembering" is reset.  [See /W documentation for more information about
+         literal "remembering".]
+
+         Assuming literal tables exist [current page and/or page zero], the tables
+         will be dumped.  This consists of an automatic origin setting to the lowest
+         address in the table followed by all of the relevant data words in the
+         table.  If the page zero literal table is the last one outputted, the
+         effective origin will be just past 0177 or the usual 0200.  As such, the
+         notion of not outputting an automatic *200 may not be defeatable.  The
+         PAL8 implementation will not restore the loading origin in effect before
+         the FIELD setting was issued if /O is used; thus, it cannot be guaranteed
+         to function.
+
+14) /S - When a third-pass listing is being created, do not output the symbol table.
+         If /N and /S are used together, only minimal statistics are created since
+         both major components of the listing are suppressed.
+
+15) /T - When a third-pass listing is being created, suppress <FF> characters.  This
+         can be useful if outputting to a teletype device that either doesn't
+         support the <FF> character [such as the ASR-33] or isn't properly supported
+         without additional characters not provided by PAL8 [such as the ASR-35].
+
+         OS/8 outputs directly to the console device during normal operations.  This
+         is subject to a variety of problems since OS/8 does not support device
+         control via control-S/control-Q protocol.  If the KL8E handler is modified,
+         it is possible to properly support the <FF> character through that handler.
+         The /T option was created before the KL8E handler was added to OS/8 in an
+         attempt to mitigate this problem.  Given the availability of the KL8E
+         handler, this option is essentially obsolete.  Since it is a concession to
+         a limitation of the OS/8 operating system itself, this option is generally
+         unavailable on other systems [such as P?S/8 where all console output
+         conforms to full DEC conventions].
+
+16) /W - Disable "remembering" of literals.  Generally, PDP-8 coding using literals
+         is written in complete pages.  When the code on the latest page ends, the
+         literal table is dumped.  [Note:  This is part of what happens when a
+         FIELD setting is used.]
+
+         Should the programmer use an odd [and not recommended] technique of first
+         leaving the page, then later returning to it, the literals used in the
+         first section are already dumped.
+
+         Literal generation always attempts to match existing literals before
+         creating new ones.  Unfortunately, in this scenario, the literal table is
+         already dumped; new values must be created; no advantage can be taken if
+         the value was already dumped earlier; however, to even be successful, new
+         literals must be created at addresses just lower than the lowest one
+         created earlier.  [Literals are created initially at the last location of
+         the page; additional literals are created linearly at lower addresses; if
+         the highest address of code used crosses the lowest address of literal
+         created, the page has experienced literal table overflow; the program must
+         be rewritten to prevent this.]  The process of allowing literals to be
+         continued when coming back to a prior page is referred to as "remembering"
+         literals.  This is the default behavior.
+
+         In some circumstances, literal remembering must be prevented.  Programmers
+         create overlay structures.  By the use of various assembly features, code
+         is created for what appears to be the same as a prior page; however, the
+         actual loading origin is different.  By means beyond the scope of this
+         discussion, the overlay code will replace the former code at some point.
+         As such, the literal table must be reset to allow proper literal usage for
+         the latest page.  [Note: Literal "remembering" must be totally avoided in
+         such circumstances because the assembler cannot track which instance of
+         code generated on any particular page requires which "remembrances".]  Page
+         zero literals do not fall into a category concerning literal "remembering"
+         as all page zero literals are dumped at the end of the assembly or when a
+         FIELD directive is used, which also resets all literal extents in all 31
+         possible current pages.  Page changes within a field do not affect page
+         zero literals.
+
+17) =    When specifying a load-and-go assembly with /G, a starting address must be
+         given else the option becomes identical to the /L [load only] option.  This
+         is specified using an option of the form =xxxxx.  Up to four digits
+         specifies a starting address in field 0.  It is necessary to specify five
+         digits to allow the highest digit to be used as the starting field; this is
+         the only way to start a program in an extended memory field.
+
+Successful assembly of L8EBAS will generally require switches to be set [and others
+to be clear] as follows:
+
+ 1) /B - This switch must be clear; few if any programs use this setting.  Source
+         code within L8EBAS will expect the normal meaning.
+
+ 2) /E - This switch should be set.  L8EBAS should not generate links; all links are
+         errors.
+
+ 3) /F - This switch must be clear; L8EBAS demands zero-fill words in TEXT directive
+         statements.
+
+ 4) /G - This option must be used carefully.  The standard assembly of 8K BASIC is
+         not compatible with OS/8.  The binary can be loaded into memory; however,
+         starting the program corrupts OS/8 in memory; restart at 07600 is highly
+         likely to corrupt OS/8 on the storage device!
+
+ 5) /J - Unless and until L8EBAS is cleaned up at the source level, code is
+         assembled for the LAB-8/E variant in 8K BASIC.  Without the unassembled
+         code that is conditional, this will be confusing.  Future releases of the
+         source file will properly control conditional output making /J erroneous.
+
+ 6) /L - The binary assembler output can be loaded into memory; however, depending
+         on the exact assembly parameters, not all of the program is actually loaded
+         preventing proper operation.
+
+ 7) /O - This option must be clear.  L8EBAS expects the normal FIELD directive
+         behavior to run in any environment.
+
+ 8) /W - Thus option is currently irrelevant as L8EBAS should not be used with
+         literals due to the tight coding techniques already present.  Should any
+         overlay techniques be applied, /W will be required if literals are used in
+         the overlay structure.  [Note: This is not recommended.]
+
+ 9) =    Unless and until the source code of L8EBAS is made compatible with OS/8,
+         it is actually dangerous to start the program.  Note: The proper starting
+         address and field must be given when this is feasible; this must be done in
+         conjunction with /G.
+
+All other assembly option switches may be freely used with consequences as stated
+above.
+
+1978 P?S/8 Assembly Considerations.
+
+[Note: P?S/8 circa 1978 is available for the TC01/TC08 DECtape controller with up
+to eight tape drive units.  Eventually, it is hoped that newer releases will be
+available; all documentation assumes using the 1978 edition.]
+
+P?S/8 supports several file systems:
+
+1) A special directory only for executable system programs.  The programs relevant
+   to assembling L8EBAS are:
+
+a) PAL - The P?S/8 PAL assembler; this is essentially a superset of PAL8 in most
+   respects.  Most notably, X-REF output is created by the assembler directly.
+   This prevents certain anomalies that exist only when OS/8 CREF.SV is used; PAL
+   and PAL10 are both immune to these problems by nature of more straight-forward
+   design.  Additionally, PAL can cross-assemble LINC programming which applies to
+   the LINC, LINC-8 and PDP-12.  [Note: It is conceivable a PDP-12 LAB version of
+   BASIC could be created.]
+
+b) MAP - The P?S/8 Bitmap facility.  OS/8 can create Bitmap output separately; the
+   binary file L8EBAS.BN [or equivalent] can be processed by BITMAP.SV to produce
+   a separate output file that can be manually appended to the listing output
+   prior to eventual printing; however, PAL can automatically chain to MAP within
+   P?S/8 to have this function accomplished automatically.
+
+c) BIN - The P?S/8 BIN utility is used to load binary files created by PAL.  It can
+   be chained to automatically either by PAL or MAP as part of a load-and-go
+   combined operation in one command.  BIN can also be used to punch binary
+   paper-tape output in either BIN or RIM format on the ASR or high-speed punch as
+   a function of command-line options.
+
+2) The basic small file system known as the Tiny File System [TFS].  All filenames
+   are up to six upper-case characters and there is no date support for any TFS
+   files whatsoever.  All files are exactly 2048 words long and are accounted for
+   by fixed filename slots in the directory.  Unlike OS/8, empty directory slots
+   are always the same length; it is impossible for there to be inaccessible data
+   storage associated with the TFS directory; however, only a maximum of 84 fixed
+   length files can be stored.
+
+   The TFS file system text format includes actual line numbers within the file.
+   The line number values are permanent within any saved file; they can be changed
+   by available editor commands and then saved back in place with new values.  By
+   clever placement of files within the TFS directory, portions of the source code
+   can be selectively edited without having to rewrite the entire file.  Depending
+   on the user, this could be considered either a blessing or a curse.  Accepting
+   the inherent limitations allows for palpably faster system throughput,
+   especially on slower devices such as DECtapes and LINCtapes.
+
+3) An experimental file system designed to use the rest of the device defined after
+   the last active TFS files.  [Note: the TFS directory can be configured to not
+   allow any files if desired.]  The directory includes the highest physical block
+   actually present on the device as the practical upper limit for any form of file
+   storage.  Since this structure is experimental, usage is generally limited to
+   the creation of one file starting at the first physical block defined by this
+   directory structure and extending as far as necessary.  Prevailing programs will
+   prevent impossible situations.
+
+Files are passed to the P?S/8 system programs such as PAL via commands where the
+line numbers [if present] are generally ignored.  [Note: A small few P?S/8 system
+programs demand line numbers; generally they validate the presence of the line
+numbers as binary files always lack line numbers; also the starting block of a file
+can prevent access by determining the file starting block is outside of the realm
+of the TFS directory.]
+
+For long assemblies such as L8EBAS, the source can be stored in one or more
+experimental directory extended-length files.  Experienced programmers can patch in
+an arbitrary six character filename as the first [and only] entry in the
+experimental directory.
+
+Typical assemblies in P?S/8 specify up to 17 files total, including output files.
+L8EBAS requires at least three files.  [Note: At the time of this writing, the
+number of files required by the LAB-8/E version has not been deterimined.  While
+it still required verification, it is expected that the 8K BASIC variant requires
+three binary output files.  This section will be updated to reflect better
+information when available.]
+
+In early development of L8EBAS, assembly under P?S/8 PAL can be accomplished with
+a command such as the following:
+
+.PAL BBAS1,BBAS2,BBAS3 < BS01,BS02,BS03,BS04,BS05,BS06,BS07,BS08,BS09,BS10,BS11
+
+The maximum number of files that can be passed is 17 total; this is not adequate
+for the fully developed L8EBAS [and reasonable expectation of modifications, which
+could slightly raise the total source code length].
+
+As such, the experimental directory can be used for the entire source code [or
+a large fraction of it allowing a small number of filenames to represent the entire
+source code in P?S/8].
+
+Assuming the entire source is contained in the extended-length file L8EBAS in the
+experimental directory on tape drive unit 1, the following command can be used
+to assemble L8EBAS:
+
+.PAL BBAS1,BBAS2,BBAS3 < L8EBAS:1
+
+[Note: P?S/8 supports conversion programs between OS/8 and P?S/8 including support
+for the extended-length directory [or equivalent depending on specific release].]
+
+P?S/8 can represent the system date from 01-Jan-1960 through 31-Dec-2471.  [Note:
+Future versions may modify the exact range to 1920 through 2431; this will allow
+any file associated with twentieth century computing and newer.]
+
+[Note: As of this writing, the specifics of how to maintain the system date past
+the present setting of 1976-1986 [with the last three months if 1986 impossible to
+express] are not documented.  With some effort, the ability to restore the full
+intended date range will be restored.  This involves changing a limited number of
+key binary words within each program image supporting the date particulars.]
+
+As necessary, the date-oriented output of P?S/8 PAL [and optionally MAP] can be
+cosmetically altered prior to printing using similar techniques to those required
+by OS/8 PAL8.  [Note: This is especially easy to implement when P?S/8 is run under
+the SIMH simulator under Windows.  Host utilities written by Charles Lasner allow
+the output of both assemblers to be post-processed in the host environment.  This
+includes simulating printer output into .PDF files using available host utilities.]
+
+The complete list of P?S/8 PAL command-line option switches is as follows:
+
+
+
+/	ASSEMBLY INSTRUCTIONS.
+
+/	KERMIT-12 CAN BE ASSEMBLED BY EITHER OF TWO METHODS:
+
+
+/	P?S/8 METHOD:
+
+/	ASSUMING THE EXTENDED-LENGTH FILE KERM12 IS  THE  SOURCE  FILE,  THE FOLLOWING
+/	COMMAND WILL PRODUCE A FULLY ORNAMENTED LISTING:
+
+/	.PAL KB1,KB2,KB3,KB4<KERM12(ACEJLMNPQSX8)
+
+/	OPTION SWITCH BREAKDOWN:
+
+/	/A	ALL SYMBOLS IN SYMBOL PRINTOUT.
+
+/***	/B	USE % AS THE OUTPUT FILE.
+
+/	/C	OPTIMIZE  CORE  DURING ASSEMBLY FOR MORE SYMBOLS,  LESS  BUFFERS.
+/		THIS OPTION SHOULD BE DELETED IF MORE THAN  8K  IS  AVAILABLE FOR
+/		ASSEMBLY.
+
+/***	/D	USE % AND [AND ALSO $ IF NECESSARY] AS THE OUTPUT FILE[S].
+
+/	/E	FORGET LITERAL BOUNDARIES WHEN LEAVING THE CURRENT PAGE.
+
+/***	/F	USE HIGH-SPEED PUNCH FOR PAPER-TAPE OUTPUT.
+
+/***	/G	LOAD AND START THE PROGRAM IF AN ADDRESS IS SPECIFIED WITH =XXXX.
+
+/***	/H	FILE ALL USER MEMORY WITH 7402 [HLT].
+
+/***	/I	RELOAD SYSTEM ROUTINES AFTER LOADING [IF AVAILABLE].
+
+/	/J	*DO NOT* TERMINATE TEXT STRINGS WITH EXTRA ZERO WORD.
+
+/***	/K	???
+
+/	/L	PERFORM SECOND-PASS LISTING.
+
+/	/M	CHAIN TO MAP FOR BITMAP OUTPUT AT END OF ASSEMBLY.
+
+/	/N	ENABLE NEATNESS ADORNMENTS TO LISTING OUTPUT.
+
+/***	/O	???
+
+/	/P	ENABLE PRINTER-ORIENTED (WIDE MODE) LISTING OUTPUT.
+
+/	/Q	ENABLE LITERALS ONLY, GENERATED LINKS ARE ERRORS.
+
+/***	/R	PAPER-TAPE OUTPUT IS IN RIM FORMAT.
+
+/	/S	ENABLE SYMBOL TABLE PRINTOUT.
+
+/	/T	OUTPUT TO SYSTEM CONSOLE TERMINAL WITH TEAROFFS.
+
+/***	/U	USE %:1 AS THE DEFAULT OUTPUT; OVERRIDES UNIT ON /B AND /D.
+
+/***	/V	USE VIRTUAL LOADER [OVERRIDES /I].
+
+/***	/W	CHAIN TO BIN FOR PAPER-TAPE OUTPUT OF BINARY FILE[S].
+
+/	/X	ENABLE CROSS-REFERENCE OUTPUT AT END OF ASSEMBLY.
+
+/***	/Y	???
+
+/***	/Z	FILL ALL USER MEMORY WITH 0000.
+
+/***	/0	USE FIELD ZERO AS THE STARTING FIELD [DEFAULT].
+****		**** THIS COULD BE USED FOR NEW FEATURES AS FIELD 0 IS IMPLIED.
+
+/***	/1	USE FIELD ONE AS THE STARTING FIELD [DEFAULT].
+
+/***	/2	USE FIELD TWO AS THE STARTING FIELD.
+
+/***	/3	USE FIELD THREE AS THE STARTING FIELD.
+
+/***	/4	USE FIELD FOUR AS THE STARTING FIELD..
+
+/***	/5	USE FIELD FIVE AS THE STARTING FIELD.
+
+/***	/6	USE FIELD SIX AS THE STARTING FIELD.
+
+/***	/7	USE FIELD SEVEN AS THE STARTING FIELD.
+
+/	/8	ENABLE FULL SYMBOL TABLE INCLUDING LINC MODE CROSS ASSEMBLY.
+
+/***	/9	ENABLE FULL SYMBOL TABLE INCLUDING LINK MODE CROSS ASSEMBLY AND START IN LMODE.
+
+/	THE NUMBER OF BINARY FILES REQUIRED (KB1, KB2, KB3, ETC.) IS  TO BE DETERMINED
+/	AT ASSEMBLY TIME, AS KERMIT-12 WILL TEND TO GROW LARGER AS FEATURES ARE ADDED.
+
+
+
+ 2) /C - Chain to CREF.SV to process the listing output.  As a result, the stated
+         file name will be the CREF output file.  The PAL8 output file will be
+         forced to be SYS:CREFLS.TM.  Note: There may not be sufficient space on the
+         system device.  As such, this operation may have to be carried out manually
+         after the main assembly is over.  [See the description of the /M option if
+         /C is used.]
+
+
+
+/	P?S/8 PAL IS THE PREFERRED METHOD  OF ASSEMBLING K12MIT DURING DEVELOPMENT DUE
+/	TO SUPERIOR ERROR DIAGNOSTICS AND OVERALL SPEED.   K12MIT COULD GROW TO A SIZE
+/	BEYOND THE CAPABILITIES OF OS/8 CREF.  THIS  LIMITATION  CANNOT  APPLY  TO THE
+/	P?S/8 DEVELOPMENT ENVIRONMENT.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/		THIS PROGRAM MAKES HEAVY USE OF THE TEXT DIRECTIVE EXPECTING EVEN-LENGTH
+/		STRINGS TO BE ZERO-TERMINATED.  THIS BEHAVIOR IS CONTROLLED BY THE USE
+/		OF A COMMAND-LINE OPTION SWITCH WHEN INVOKING THE ASSEMBLER PROGRAM.
+
+/		WHILE OTHER SWITCHES MAY APPLY [EACH ASSEMBLER USES DIFFERENT OPTION
+/		SWITCHES FOR DIFFERENT PURPOSES], THE FOLLOWING SETTINGS ARE REQUIRED TO
+/		PRODUCE A PROPER ASSEMBLY:
+
+/		WHEN USING PAL8 TO ASSEMBLE THIS PROGRAM, THE /F SWITCH MUST NOT BE SET.
+/		THIS WILL ENSURE THE REQUIRED TEXT CONVENTION IS CONFORMED TO.
+
+/		WHEN USING P?S/8 PAL TO ASSEMBLE THIS PROGRAM, THE /J SWITCH MUST NOT BE
+/		SET. THIS WILL ENSURE THE REQUIRED TEXT CONVENTION IS CONFORMED TO.
+
+/		ALL LATTER-DAY RELEASES OF OS/8 AND P?S/8 INCLUDE ASSEMBLERS THAT FULLY
+/		SUPPORT THE PAL LANGUAGE FEATURE SET AS NEEDED FOR SERIOUS PDP-8
+/		PROGRAMMING.  [NOTE: THE OS/8 FORERUNNER SYSTEM, PS/8, IS GENERALLY NOT
+/		COMPATIBLE WITH THIS REQUIREMENT AS IT USED A VERY EARLY VERSION OF
+/		PAL8 THAT WAS INCOMPATIBLE IN MANY WAYS.]
+
+/		IT IS NOT KNOWN WITH CERTAINTY WHAT OTHER PDP-8 ASSEMBLERS [OR POSSIBLY
+/		CROSS-ASSEMBLERS] ARE COMPATIBLE WITH THIS SOURCE CODE.  IN THE CASE OF
+/		TOPS-10 PAL10, FAILURE TO REMAIN CURRENT ON ADDED FEATURES HAS BECOME AN
+/		IMPORTANT ISSUE.
+
+/		DEPENDING ON CERTAIN OPERATIONS USED IN THIS ASSEMBLY, PAL10 IS PROBABLY
+/		NOT A PROPER CANDIDATE ASSEMBLER FOR SEVERAL REASONS:
+
+/		1) THE TEXT DIRECTIVE BEHAVIOR IN PAL10 IS ARBITRARY AND DOESN'T SUPPORT
+/		   A COMMAND-LINE SWITCH TO REVERSE THE BEHAVIOR.  [NOTE: ON THIS POINT
+/		   IT MIGHT FUNCTION ANYWAY, BUT IN THE GENERAL CASE WOULDN'T UNLESS THE
+/		   BEHAVIOR CAN BE SET EITHER WAY AS IN THE OTHER ASSEMBLERS.]
+
+/		2) THE ZBLOCK DIRECTIVE IS KNOWN TO BE DEFECTIVELY IMPLEMENTED.  ANY
+/		   ATTEMPT TO CREATE 4000 OCTAL OR MORE ZEROS CAUSES AN ERRONEOUS ERROR.
+/		   PROPER IMPLEMENTATION DEMANDS 7777 OCTAL ZEROES BE ALLOWED.
+
+/		3) ATTEMPTS TO REDEFINE A SYMBOL WHEN THE REDEFINITION CHANGES THE
+/		   VALUE USING A LABEL EXPRESSION IS AN ERROR IN ALL ASSEMBLERS.
+/		   HOWEVER, IF THE VALUE REMAINS UNCHANGED, ONLY PAL10 CONSIDERS THIS
+/		   AS AN ERROR; IT IS INTEGRAL TO MUCH WELL-ORGANIZED PDP-8 PROGRAMMING
+/		   THAT THIS PROGRAMMING ELEMENT BE PROPERLY SUPPORTED SINCE OVERLAYS
+/		   AND RELATED ORIGIN SETTING USAGES THAT REDEFINE SYMBOLS IDENTICALLY
+/		   MUST BE SUPPORTED. [THE PROGRAMMER RELIES ON THE ASSEMBLER TO
+/		   INDICATE CHANGED VALUES ONLY, NOT FALSELY REPORT REDUNDANT USAGE THAT
+/		   MERELY CONFIRMS SECTIONS OF CODE ARE IN SYNC WITH EACH OTHER, ETC.]
+
+/		4) SEVERAL SOMEWHAT NEWER FEATURES VITALLY NEEDED IN MORE MODERN PDP-8
+/		   PROGRAMMING ARE NOT SUPPORTED IN PAL10 SUCH AS THE RELOC DIRECTIVE.
+
+/		IT IS QUITE UNFORTUNATE THIS SHORT LIST OF FEATURES PREVENTS PAL10 FROM
+/		BEING USED; A COMPETENT PDP-10 PROGRAMMER SHOULD BE ABLE TO REMEDY THESE
+/		AND OTHER ISSUES TO MAKE PAL10 FULLY COMPATIBLE.
+

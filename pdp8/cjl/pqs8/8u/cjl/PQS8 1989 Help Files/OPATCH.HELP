@@ -1,0 +1,115 @@
+
+/       P?S/8 FOCAL I/O REDIRECTION       PAL8-VB0  08-APR-87 PAGE 1
+
+   1                 /       P?S/8 FOCAL I/O REDIRECTION
+   2   
+   3                 /       LAST EDIT:      08-APR-1987     23:00:00        CJL
+   4   
+   5                 /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       P?S/8 FOCAL OVERLAY FOR REDIRECTION OF FOCAL INPUT AND OUTPUT OPERATIONS.
+   8   
+   9                 /       THIS OVERLAY PROVIDES VARIOUS "O" COMMANDS TO ALLOW FOCAL TO COMMUNICATE
+  10                 /       WITH VARIOUS STANDARD DEVICES. THE CONSOLE OVERLAY IS SUPPORTED AS THREE
+  11                 /       ADDITIONAL DEVICES (LOGICAL KEYBOARD INPUT, LOGICAL TERMINAL OUTPUT, AND
+  12                 /       LOGICAL LINEPRINTER OUTPUT) AS WELL AS THE STANDARD HARDWARE PHYSICAL DEVICES
+  13                 /       (03 KEYBOARD, 04 TERMINAL OUTPUT, AND 66 LINEPRINTER OUTPUT).
+  14   
+  15                 /       ALL COMMANDS REPRESENT A PROPER SUBSET OF THOSE FOUND IN "VT8PCH" WITH ALL
+  16                 /       VT-8/E DEPENDENT FEATURES REMOVED (VT-8/E CONSOLE OVERLAY SUPPORT IS, OF
+  17                 /       COURSE, IMPLICITLY AVAILABLE IF THE VT-8/E CONSOLE OVERLAY IS PRESENT; THE
+  18                 /       COMMANDS MUST REFER TO THE OVERLAY, NOT TO THE VT-8/E HARDWARE-SPECIFIC
+  19                 /       OPTIONS).
+  20   
+  21                 /       OPTION COMMANDS.
+  22   
+  23                 /       O(PTION) G(ENERIC)      GENERIC CONSOLE INPUT DEVICE; DEVICE 03 IF NO OVERLAY
+  24                 /       O(PTION) K(EYBOARD)     DEVICE 03 (CONSOLE TERMINAL) KEYBOARD INPUT
+  25                 /       O(UTPUT) L(PT)          DEVICE 66 (LINEPRINTER) OUTPUT
+  26                 /       O(PTION) M(ONITOR)      RETURN TO P?S/8 KEYBOARD MONITOR.
+  27                 /       O(UTPUT) P(RINTER)      LOGICAL PRINTER OUTPUT (DEVICE 66 IF NO OVERLAY)
+  28                 /       O(UTPUT) T(ERMINAL)     DEVICE 04 (CONSOLE TERMINAL) TERMINAL OUTPUT
+  29                 /       O(UTPUT) U(NIVERSAL)    OUTPUT TO CONSOLE (DEVICE 04 IF NO OVERLAY)
+  30   
+  31                 /       ALL "O" COMMAND ERRORS REPORT ?30.00.
+  32   
+  33                 /       ALL FOCAL "?" REPORTS (INCLUDING <^P>-CAUSED ?01.00) REVERT INPUT TO O(PTION)
+  34                 /       G(ENERIC) AND OUTPUT TO O(UTPUT) U(NIVERSAL).
+  35   
+  36                 /       FUNCTIONS AVAILABLE:
+  37   
+  38                 /       FIO(NEGATIVE)           RETURNS NUMERICAL VALUE (MODULO 128) OF NEXT ASCII
+  39                 /                               CHARACTER TYPED; P?S/8 FOCAL WILL WAIT FOR INPUT
+  40                 /                               IF NECESSARY. SINCE INTEGER CONVERSION IS USED FOR
+  41                 /                               EVALUATION, THE ARGUMENT MUST BE NEGATIVE OR WITHIN
+  42                 /                               THE RANGE 2048-4095 MOD 4096.
+  43   
+  44                 /       FIO(CHAR<2048)          OUTPUT ASCII CHARACTER. SINCE INTEGER CONVERSION
+  45                 /                               IS USED FOR EVALUATION, THE ARGUMENT MUST BE POSITIVE
+  46                 /                               AND BETWEEN 0000-2047 MOD 2048. NORMAL OUTPUT DEVICES
+  47                 /                               GENERALLY REDUCE THE CHARACTER VALUE RANGE TO 000-255
+  48                 /                               MOD 256 ALLOWING ANY COMBINATION OF ASCII CHARACTER
+  49                 /                               OUTPUT WITH OR WITHOUT PARITY SET.
+  50   
+  51                 /       THE UNBUFFERED FDIS FUNCTION IS DELETED BY USING THIS OVERLAY; A BUFFERED
+  52                 /       FDIS FUNCTION MAY BE RESTORED ONLY BY USE OF A COMPATIBLE DISPLAY OVERLAY
+  53                 /       (SUCH AS "DPATCH").
+
+/       P?S/8 FOCAL I/O REDIRECTION       PAL8-VB0  08-APR-87 PAGE 2
+
+  54                 /       ASSEMBLY PARAMETERS.
+  55   
+  56                 /       SET THE OPTION FIELD.
+  57   
+  58                 /       OFIELD= 40                      /OPTION CODE FIELD
+  59   
+  60                 /       CONDITIONAL ASSEMBLY PARAMETERS.
+  61   
+  62                         IFNDEF  CI      <CI=    03>     /CONSOLE KEYBOARD IS DEVICE 03
+  63                         IFNDEF  CO      <CO=    04>     /CONSOLE PRINTER IS DEVICE 04
+  64                         IFNDEF  LP      <LP=    66>     /LINE PRINTER IS DEVICE 66
+  65                         IFNDEF  OFIELD  <OFIELD=40>     /USE FIELD FOUR FOR OPTION CODE
+  66   
+  67                 /       IOT DEFINITIONS.
+  68   
+  69           6035          KIEIOT= CI^10+6005              /KEYBOARD INTERRUPT ENABLE PER AC[11]
+  70           6036          KRBIOT= CI^10+6006              /READ KEYBOARD BUFFER, CLEAR FLAG
+  71           6031          KSFIOT= CI^10+6001              /SKIP ON KEYBOARD FLAG
+  72           6033          KTIIOT= CI^10+6003              /KEYBOARD TEST INSTRUCTION
+  73           6666          LLSIOT= LP^10+6006              /OUTPUT LPT: CHARACTER, CLEAR FLAG
+  74           6661          LSFIOT= LP^10+6001              /SKIP ON (CLEAR IF 6120) LPT: FLAG
+  75           6042          TCFIOT= CO^10+6002              /CLEAR TTY: FLAG
+  76           6045          TIEIOT= CO^10+6005              /OUTPUT INTERRUPT ENABLE PER AC[11] FOR 6120
+  77           6046          TLSIOT= CO^10+6006              /OUTPUT CHARACTER, CLEAR FLAG
+  78           6041          TSFIOT= CO^10+6001              /SKIP ON (CLEAR IF 6120) OUTPUT FLAG
+  79   
+  80                 /       DEFINITIONS FROM FOCAL, 1969 (ORIGINAL PAPER-TAPE VERSION).
+  81   
+  82           0035          BOTTOM= 0035                    /END OF PUSHDOWN AREA
+  83           0066          CHAR=   0066                    /FOCAL'S CHARACTER BUFFER
+  84           1163          COMGO=  1163                    /COMMAND DISPATCH TABLE ADDRESS
+  85           0774          COMLST= 0774                    /COMMAND DECODING LIST
+  86           0136          EFUN3I= 0136                    /FUNCTION RETURN
+  87           2725          ERROR5= 2725                    /ERROR FUNCTION
+  88           0044          FLAC=   0044                    /FLOATING AC
+  89           0374          FNTABF= 0374                    /FUNCTION ADDRESS TABLE
+  90           2165          FNTABL= 2165                    /FUNCTION NAME TABLE
+  91           4545          GETC=   JMS I   145             /UNPACK A CHARACTER
+  92           0064          INDEV=  0064                    /INPUT ROUTINE POINTER
+  93           0053          INTEGER=0053                    /FIXING ROUTINE FOR FLAC
+  94           0063          OUTDEV= 0063                    /OUTPUT ROUTINE POINTER
+  95           1413          POPA=   TAD I   13              /REMOVE WORD FROM STACK
+  96           0611          PROC=   0611                    /FOCAL PROCESSING ADDRESS
+  97           4542          PUSHA=  JMS I   142             /PUSH WORD ONTO STACK
+  98           0104          P7600=  0104                    /CONSTANT 7600
+  99           2740          RECOVR= 2740                    /RECOVERY ADDRESS
+ 100           2761          RECOVX= 2761                    /RECOVERY ADDRESS
+ 101           5536          RETURN= JMP I   EFUN3I          /RETURN FROM A FUNCTION
+ 102           4550          SORTC=  JMS I   150             /SORT CHAR AGAINST LIST
+ 103           0054          SORTCN= 0054                    /SORTC INDEX NUMBER
+ 104           4560          SPNOR=  JMS I   160             /IGNORE LEADING ZEROES AND SPACES
+ 105           0016          TELSW=  0016                    /TERMINAL I/O IN PROGRESS SWITCH
+ 106           1770          TERMS=  1770                    /TERMINATOR TABLE
+ 107           1142          XDYS=   1142                    /FDIS FUNCTION ADDRESS
+ 108           1160          XINT=   1160                    /INTEGER PART ROUTINE
+

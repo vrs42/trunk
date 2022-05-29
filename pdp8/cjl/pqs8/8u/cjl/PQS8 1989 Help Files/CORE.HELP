@@ -1,0 +1,197 @@
+
+/       P?S/8 CORE COMMAND                PAL8-VB0  23-JUL-86 PAGE 1
+
+   1                 /       P?S/8 CORE COMMAND
+   2   
+   3                 /       LAST EDIT:      25-SEP-1985     15:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       DEFINITION OF MONITOR CORE SIZE WORD CONVENTIONS:
+   8   
+   9                 /       LOCATION 007611 CONTAINS THE CURRENT MEMORY CONFIGURATION OF THE SYSTEM
+  10                 /       FORMATTED AS FOLLOWS:
+  11   
+  12                 /       0  1  2  -  3  4  5  -  6  7  8  -  9 10 11
+  13                 /        <PCS>       <MCS>       <LCS>      J  C  I
+  14   
+  15                 /       PCS BITS:       PHYSICAL CORE SIZE. THESE THREE BITS ARE SET TO THE HIGHEST
+  16                 /                       FIELD AVAILABLE IN THE PHYSICAL MEMORY SPACE OF FIELD 0-7
+  17                 /                       BY THE MONITOR'S ONCE-ONLY CODE AT BOOTSTRAP TIME.
+  18   
+  19                 /       MCS BITS:       MAXIMUM CORE SIZE. THESE THREE BITS ARE SET TO THE CURRENT
+  20                 /                       MAXIMUM CORE SIZE. THIS REPRESENTS ALL FIELDS FROM 0 THROUGH
+  21                 /                       MCS WHICH ARE AVAILABLE WITH NO RESTRICTIONS (07600-07777
+  22                 /                       ARE NEVER AVAILABLE!). IF THE CONSOLE OVERLAY IS NOT PRESENT,
+  23                 /                       THIS WILL BE IDENTICAL TO THE PHYSICAL CORE SIZE, UNLESS THE
+  24                 /                       SYSTEM IS OF THE "ADJUSTABLE" TYPE, IN WHICH CASE THE VALUE
+  25                 /                       WILL BE (PCS)-1. INSTALLATION OF THE CONSOLE OVERLAY WILL
+  26                 /                       LOWER THIS VALUE BY ONE OR MORE FIELDS.
+  27   
+  28                 /       LCS BITS:       LOGICAL CORE SIZE. THIS DEFINES THE CURRENT LOGICAL CORE
+  29                 /                       SIZE LIMITATION IMPOSED BY THE USER ON SYSTEM AND OTHER
+  30                 /                       PROGRAMS BY INVOKING THE "CORE" COMMAND (OR EQUIVALENT).
+  31                 /                       THE LCS VALUE CAN VARY BETWEEN 0 AND MCS. THIS VALUE CAN BE
+  32                 /                       OVERRIDDEN IN CERTAIN CASES (SEE BELOW).
+  33   
+  34                 /       J BIT:          SYSTEM ADJUSTABILITY BIT. THIS BIT INDICATES THE PRESENCE
+  35                 /                       OF A SYSTEM HANDLER WHICH REQUIRES EXTENDED MEMORY TO FUNCTION.
+  36                 /                       THE SYSTEM HANDLER WILL NOT ONLY OCCUPY 07600-07777 AS USUAL,
+  37                 /                       BUT ALSO 6000-7777 IN THE HIGHEST FIELD AVAILABLE (1-7). THE
+  38                 /                       MCS VALUE WILL BE PCS-1 AT BEST IN THIS SITUATION. IF A 
+  39                 /                       CONSOLE OVERLAY IS PRESENT, IT CAN OCCUPY 0000-5777 OF THIS
+  40                 /                       SAME FIELD IF NECESSARY; ALL CONSOLE OVERLAYS ARE DESIGNED
+  41                 /                       TO HANDLE THIS SITUATION.
+  42   
+  43                 /       C BIT:          CONSOLE OVERLAY BIT. THIS BIT INDICATES THE PRESENCE OF A
+  44                 /                       CONSOLE OVERLAY IN FIELD MCS+1 (AND POSSIBLY HIGHER). ALL
+  45                 /                       SYSTEM (AND OTHER) PROGRAMS WILL USE LOGICAL UNIT RECORD
+  46                 /                       HANDLING (TTY:, LPT:) INSTEAD OF PHYSICAL (DEVICE 03, 04, 66)
+  47                 /                       HANDLING IF THIS BIT IS SET. THIS BIT WILL ALSO INHIBIT
+  48                 /                       ATTEMPTS TO OVERRIDE THE MCS BITS TO OBTAIN MORE MEMORY.
+
+/       P?S/8 CORE COMMAND                PAL8-VB0  23-JUL-86 PAGE 2
+
+  49                 /       I BIT:          CONSOLE INTERRUPT (<^C>) BIT. THIS BIT IS SET BY SYSTEM
+  50                 /                       (AND OTHER) PROGRAMS TO INDICATE THE DETECTION OF <^C> BY
+  51                 /                       MEANS OTHER THAN PHYSICAL DEVICE 03 OR LOGICAL CONSOLE
+  52                 /                       HANDLING FOR THE BENEFIT OF "NON-OVERLAYING" BOOTSTRAP-TYPE
+  53                 /                       SYSTEM HANDLERS. THIS ALLOWS MONITOR CONFIGURATIONS WITH
+  54                 /                       INCOMPATIBLE CONSOLE HARDWARE (DECMATE) AS LONG AS THE
+  55                 /                       ASSOCIATED SYSTEM HANDLER IS OF THE "NON-OVERLAYING" TYPE
+  56                 /                       (SUCH AS PQSRXX). THIS BIT IS SET BY ANY PROGRAM RUNNING
+  57                 /                       UNDER THE MONITOR SYSTEM AND LOOKED AT AND CLEARED BY THE
+  58                 /                       KEYBOARD MONITOR WHEN IT IS RELOADED. THIS BIT SHOULD NOT
+  59                 /                       BE USED FOR ANY OTHER PURPOSE AS IT COULD CAUSE UNPREDICTABLE
+  60                 /                       RESULTS IF FALSELY SET. N. B. THIS BIT WAS DELIBERATELY
+  61                 /                       CHOSEN AS BIT[11] TO FACILITATE SETTING IT WITH "ISZ I (7611)"
+  62                 /                       AS THIS WORD CAN NEVER BE 7777 AND THUS CAN'T SKIP.
+  63   
+  64                 /       OVERRIDING THE CORE SIZE.
+  65   
+  66                 /       IN SITUATIONS SUCH AS "PAL/C", THE SYSTEM PROGRAM ATTEMPTS TO OBTAIN MORE
+  67                 /       MEMORY THAN IS INDICATED BY THE LCS BITS. THE FOLLOWING RULES APPLY:
+  68   
+  69                 /       1)              IF MCS>LCS THEN RAISE THE EFFECTIVE VALUE OF LCS BY OBTAINING
+  70                 /                       AN EXTRA FIELD(S) UP TO THE LIMIT OF MCS.
+  71   
+  72                 /       2)              IF MCS=LCS, THEN CHECK THE "C" BIT. IF THIS IS SET, NO
+  73                 /                       ADDITIONAL MEMORY IS AVAILABLE. IF IT IS OFF THEN ADDITIONAL
+  74                 /                       MEMORY (0000-5777 ONLY) IS AVAILABLE IN FIELD MCS+1.
+  75   
+  76                 /       INSTALLING AN OVERLAY.
+  77   
+  78                 /       THE CORE SIZE WORD SHOULD BE MANIPULATED AS FOLLOWS:
+  79   
+  80                 /       1)              IF PCS=MCS=LCS=0 THEN NO EXTRA MEMORY IS AVAILABLE.
+  81   
+  82                 /       2)              IF THE "C" BIT IS SET, THE OVERLAY CAN'T BE INSTALLED AS
+  83                 /                       ANOTHER OVERLAY IS ALREADY INSTALLED!
+  84   
+  85                 /       3)              IF PCS>MCS, THEN N FIELDS (N=PCS-MCS) ARE AVAILABLE FROM
+  86                 /                       MCS+1 THROUGH PCS.
+  87   
+  88                 /       4)              TO RESERVE N FIELDS, SET MCS TO MCS-N. ENSURE THAT LCS IS
+  89                 /                       SET TO LESS OR EQUAL TO THE NEW VALUE OF MCS.
+  90   
+  91                 /       5)              SET THE "C" BIT TO INDICATE INSTALLATION OF THE OVERLAY.
+
+/       P?S/8 CORE COMMAND                PAL8-VB0  23-JUL-86 PAGE 3
+
+  92                 /       MONITOR INTERACTION WITH THE CORE SIZE WORD.
+  93   
+  94                 /       THE MONITOR'S INITIALIZATION ROUTINE ALWAYS SETS THE PCS BITS OF THE CORE
+  95                 /       SIZE WORD. IF THE "C" BIT IS SET, ALL OTHER BITS ARE HELD CONSTANT. IF THE
+  96                 /       "J" BIT IS CLEAR, THE MCS BITS WILL BE SET TO THE PCS BITS. IF THE "J" BIT
+  97                 /       IS SET, THE MCS BITS WILL BE SET TO PCS-1. WHEN THE MONITOR CHECKS FOR <^C>
+  98                 /       FOR VARIOUS PURPOSES, THE "I" BIT WILL BE LOOKED AT AND THEN CLEARED AS ONE
+  99                 /       OF SEVERAL POSSIBLE <^C> INDICATORS.
+ 100   
+ 101                 /       OPERATION OF THE "CORE" COMMAND:
+ 102   
+ 103                 /       OPTION                  FUNCTION
+ 104                 /       ------                  --------
+ 105   
+ 106                 /       <NONE>                  PRINT CURRENT CONFIGURATION.
+ 107   
+ 108                 /       "A[LL]"                 THE LCS IS SET TO THE MCS. PRINT NEW CONFIGURATION.
+ 109   
+ 110                 /       N (0<N<7)               IF MCS>=N THEN LCS IS SET TO N. PRINT THE NEW
+ 111                 /                               CONFIGURATION. IF MCS<N THEN COMPLAIN.
+ 112   
+ 113                 /       CONFIGURATION PRINTOUT.
+ 114   
+ 115                 /       THE MEMORY CONFIGURATION IS PRINTED OUT AS FOLLOWS:
+ 116   
+ 117                 /       PHYSICAL: <PCS>
+ 118                 /       LOGICAL:  <LCS>
+ 119                 /       MAXIMUM:  <MCS>
+ 120                 /       SYSTEM LIMIT: <PCS-1> (IF "J" BIT SET).
+ 121                 /       FIELD <MCS+1> RESERVED BY OVERLAY (IF "C" BIT SET AND PCS=MCS+1).
+ 122                 /       FIELDS <MCS+1> - <PCS> RESERVED BY OVERLAY (IF "C" BIT SET AND PCS>MCS+1).
+ 123   
+ 124                 /       ANY VALUE OF 4K IS PRECEEDED BY "ONLY." ANY VALUE OF 32K HAS "!" AFTER IT.
+ 125   
+ 126                 /       "CORE" COMMAND ACTION TAKEN REGARDING THE CORE SIZE WORD.
+ 127   
+ 128                 /       THE PCS BITS ON THE SYSTEM DEVICE ARE CLEARED WHEN UPDATING THE CORE SIZE
+ 129                 /       WORD. THE MEMORY-RESIDENT COPY IS COMPLETELY UPDATED TO ACCOMODATE
+ 130                 /       NON-OVERLAYING BOOTSTRAP SYSTEMS.
+
+/       P?S/8 CORE COMMAND                PAL8-VB0  23-JUL-86 PAGE 7
+
+ 253   003113  2010  PHYMSG, TEXT    "PHYSICAL: ";0
+ 254   003114  3123
+ 255   003115  1103
+ 256   003116  0114
+ 257   003117  7240
+ 258   003120  0000
+ 259   003121  1417  LOGMSG, TEXT    "LOGICAL: "
+ 260   003122  0711
+ 261   003123  0301
+ 262   003124  1472
+ 263   003125  4000
+ 264   003126  2331  SYLMSG, TEXT    "SYSTEM LIMIT: ";0
+ 265   003127  2324
+ 266   003130  0515
+ 267   003131  4014
+ 268   003132  1115
+ 269   003133  1124
+ 270   003134  7240
+ 271   003135  0000
+ 272   003136  4022  STLMSG, TEXT    " RESERVED BY OVERLAY."
+ 273   003137  0523
+ 274   003140  0522
+ 275   003141  2605
+ 276   003142  0440
+ 277   003143  0231
+ 278   003144  4017
+ 279   003145  2605
+ 280   003146  2214
+ 281   003147  0131
+ 282   003150  5600
+ 283   003151  1114  BDCMSG, TEXT    "ILLEGAL MEMORY REQUEST!"
+ 284   003152  1405
+ 285   003153  0701
+ 286   003154  1440
+ 287   003155  1505
+ 288   003156  1517
+ 289   003157  2231
+ 290   003160  4022
+ 291   003161  0521
+ 292   003162  2505
+ 293   003163  2324
+ 294   003164  4100
+ 295   
+ 296   003166  6011
+ 297   003167  3200
+ 298   003170  3317
+ 299   003171  0423
+ 300   003172  3020
+ 301   003173  0434
+ 302   003174  5644
+ 303   003175  2363
+ 304   003176  2307
+ 305   003177  2365
+ 306           3200          PAGE
+

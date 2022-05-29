@@ -1,0 +1,141 @@
+
+/       P?S/8 SYSTEM STATUS COMMAND       PAL8-VB0  04-FEB-87 PAGE 1
+
+   1                 /       P?S/8 SYSTEM STATUS COMMAND
+   2   
+   3                 /       LAST EDIT:      28-DEC-1986     03:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       THIS PROGRAM PRINTS OUT SUNDRY INFORMATION ABOUT P?S/8 AND THE MACHINE
+   8                 /       IT IS RUNNING ON.
+   9   
+  10                 /       PROGRAM OPTIONS.
+  11   
+  12                 /       /F      OUTPUT <FF> CHARACTER AS PAGE DELIMITER. DEFAULT IF OUTPUT IS TO
+  13                 /               THE SYSTEM LINE-PRINTER. IF NOT INVOKED AND OUTPUT IS TO THE
+  14                 /               CONSOLE TERMINAL, USE HASH LINE AS PAGE DELIMITER.
+  15   
+  16                 /       /N      NO PAGE DELIMITERS.
+  17   
+  18                 /       /T      OUTPUT TO CONSOLE TERMINAL. DEFAULT IS TO USE THE LINE-PRINTER
+  19                 /               IF AVAILABLE ELSE THE CONSOLE TERMINAL.
+  20   
+  21                 /       /U      OUTPUT IN UPPER CASE ONLY. DEFAULT IS UPPER/LOWER CASE OUTPUT.
+  22   
+  23                 /       PROGRAM MESSAGES.
+  24   
+  25                 /       RUNNING SYSTAT PRODUCES THE FOLLOWING OUTPUT:
+  26   
+  27                 /       P?S/8 SYSTEM STATUS  SYSTAT V10C  MONDAY 17-NOV-86  VERSION.REVISION,DAY,DATE
+  28   
+  29                 /       SYSTEM:          TC08:7 (01)                        DEVICE.UNIT,SYSTEM NUMBER
+  30   
+  31                 /       VERSION:         8.1                                P?S/8 VERSION.REVISION
+  32   
+  33                 /       CONSOLE:         KL8ESP:0 (41) (DISABLED)           OVERLAY.UNIT,NUMBER,ACTIVITY
+  34   
+  35                 /       CPU TYPE:        PDP-8/E                            BASIC MACHINE TYPE
+  36   
+  37                 /       PHYSICAL MEMORY: 32K                                PHYSICAL CORE SIZE
+  38   
+  39                 /       MAXIMUM MEMORY:  28K (LIMITED BY SYSTEM)            MAXIMUM CORE SIZE,LIMITATION
+  40   
+  41                 /       LOGICAL MEMORY:  4K                                 LOGICAL CORE SIZE
+  42   
+  43                 /       EAE:             NOT INSTALLED                      (OR AVAILABILITY)
+  44   
+  45                 /       HANDLER INFORMATION:
+  46   
+  47                 /       NAME    BLOCK  LENGTH  ENTRY  BLOCK SIZE            HEADER
+  48   
+  49                 /       [SPECIFIC HANDLER INFORMATION HERE AS NECESSARY]
+  50                 /       <FREE>  BBBB     NN                                 FIRST FREE HANDLER BLOCK,SIZ
+  51   
+  52                 /       FREE SLOTS:      NN                                 FREE HANDLER SLOTS
+
+/       P?S/8 SYSTEM STATUS COMMAND       PAL8-VB0  04-FEB-87 PAGE 29
+
+1166                 /       CPU IDENTIFICATION LIST.
+1167   
+1168   002045  3625  CPULIST,TEXT    "^UNKNOWN^"                     /00=UNKNOWN
+1169   002046  1613
+1170   002047  1617
+1171   002050  2716
+1172   002051  3600
+1173   002052  3620          TEXT    "^PDP-5^^^"                     /01=PDP-5
+1174   002053  0420
+1175   002054  5565
+1176   002055  3636
+1177   002056  3600
+1178   002057  3620          TEXT    "^PDP-8^^^"                     /02=PDP-8
+1179   002060  0420
+1180   002061  5570
+1181   002062  3636
+1182   002063  3600
+1183   002064  3620          TEXT    "^PDP-8/S^"                     /03=PDP-8/S
+1184   002065  0420
+1185   002066  5570
+1186   002067  5723
+1187   002070  3600
+1188   002071  3614          TEXT    "^LINC-8^^"                     /04=LINC-8
+1189   002072  1116
+1190   002073  0355
+1191   002074  7036
+1192   002075  3600
+1193   002076  3620          TEXT    "^PDP-8/I^"                     /05=PDP-8/I
+1194   002077  0420
+1195   002100  5570
+1196   002101  5711
+1197   002102  3600
+1198   002103  3620          TEXT    "^PDP-8/L^"                     /06=PDP-8/L
+1199   002104  0420
+1200   002105  5570
+1201   002106  5714
+1202   002107  3600
+1203   002110  3620          TEXT    "^PDP-12^^"                     /07=PDP-12
+1204   002111  0420
+1205   002112  5561
+1206   002113  6236
+1207   002114  3600
+1208   002115  3620          TEXT    "^PDP-8/E^"                     /10=PDP-8/E
+1209   002116  0420
+1210   002117  5570
+1211   002120  5705
+1212   002121  3600
+1213   002122  3620          TEXT    "^PDP-8/A^"                     /11=PDP-8/A
+1214   002123  0420
+1215   002124  5570
+1216   002125  5701
+1217   002126  3600
+
+/       P?S/8 SYSTEM STATUS COMMAND       PAL8-VB0  04-FEB-87 PAGE 30
+
+1218   002127  6661          TEXT    "6100^^^^^"                     /12=6100
+1219   002130  6060
+1220   002131  3636
+1221   002132  3636
+1222   002133  3600
+1223   002134  6661          TEXT    "6120^"                         /13=6120
+1224   002135  6260
+1225   002136  3600
+1226   
+1227   002137  4545  CPUMSG, TEXT    "%%^CPU T^YPE:        "         /CPU TYPE MESSAGE
+1228   002140  3603
+1229   002141  2025
+1230   002142  4024
+1231   002143  3631
+1232   002144  2005
+1233   002145  7240
+1234   002146  4040
+1235   002147  4040
+1236   002150  4040
+1237   002151  4000
+1238   002152  4036  DATMSG, TEXT    " ^UN-DAT-ED%^"                 /DATE WILL BE FILLED IN
+1239   002153  2516
+1240   002154  5504
+1241   002155  0124
+1242   002156  5505
+1243   002157  0445
+1244   002160  3600
+

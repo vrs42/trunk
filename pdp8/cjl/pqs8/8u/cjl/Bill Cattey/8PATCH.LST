@@ -1,0 +1,511 @@
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 1
+
+   1                 /       P?S/8 FOCAL 8K OVERLAY
+   2   
+   3                 /       LAST EDIT:      28-DEC-1986     03:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       MODIFICATIONS TO P?S/8 FOCAL TO USE FIELD ONE FOR TEXT BUFFERING.
+   8   
+   9                 /       MUST BE LOADED BEFORE OTHER BINARY PATCHES TO FOCAL (4 WORD OVERLAY IS THE
+  10                 /       ONLY EXCEPTION).
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 2
+
+  11                 /       DEFINITIONS FROM FOCAL, 1969 (ORIGINAL PAPER-TAPE VERSION).
+  12   
+  13           0010          AXIN=   0010            /PACKING AUTO-INDEX REGISTER
+  14           0060          BUFR=   0060            /POINTER TO NEXT FREE LOCATION IN TEXT BUFFER
+  15           0133          CFRS=   0133            /POINTER TO DUMMY LINE
+  16           0226          COMBOT= 0226            /PDL PROTECTION POINTER
+  17           0132          COMBUF= 0132            /START OF COMMAND BUFFER STORED HERE
+  18           0425          DGRP=   0425            /DO ROUTINE ADDRESS
+  19           0441          DGRP1=  0441            /DO ROUTINE ADDRESS
+  20           2225          ERG=    2225            /ERASE LINES ADDRESS
+  21           2214          ERT=    2214            /ERASE TEXT ADDRESS
+  22           2217          ERV=    2217            /ERASE VARIABLES ADDRESS
+  23           2237          ERVX=   2237            /ERASE VARIABLES ADDRESS
+  24           2246          FINDN=  2246            /FINDLN ADDRESS
+  25           2345          GET3=   2345            /GET ONE HALFWORD ADDRESS
+  26           0232          GONE=   0232            /COMMAND PROCESSOR ADDRESS
+  27           1437          GS1=    1437            /SUBSCRIPT SEARCH ROUTINE ADDRESS
+  28           0271          INPUTX= 0271            /IMMEDIATE COMMAND ADDRESS
+  29           0134          END=    0134            /FIRST VARIABLE LOCATION IN 8K VERSION
+  30           0135          ENDT=   0135            /END OF TEXT POINTER
+  31           0031          LASTV=  0031            /ADDRESS OF LAST VARIABLE
+  32           1256          MODIFY= 1256            /MODIFY ROUTINE ADDRESS
+  33           6154          OUTDG=  6154            /OUTPUT ONE DIGIT ROUTINE
+  34           0027          PACKST= 0027            /RUBOUT PROTECTION WORD
+  35           0022          PC=     0022            /PROGRAM COUNTER
+  36           2535          PCK1=   2535            /PACK ONE HALFWORD ROUTINE
+  37           0013          PDLXR=  0013            /PUSHDOWN LIST AUTO-INDEX REGISTER
+  38           0030          PT1=    0030            /TEMPORARY FOR TDUMP ROUTINE, ETC.
+  39           2761          RECOVX= 2761            /RECOVERY ADDRESS
+  40           1563          RETRN=  1563            /ADDRESS OF RETURN ROUTINE
+  41           3004          RUB1=   3004            /RUBOUT ADDRESS
+  42           0177          START=  0177            /FOCAL'S INTERNAL STARTING ADDRESS
+  43           3052          TDUMP=  3052            /SYMBOL TABLE TYPEOUT ROUTINE
+  44           0023          THISLN= 0023            /LINE POINTER FOR FINDLN
+  45           0664          WALL=   0664            /WRITE COMMAND ADDRESS
+  46           0635          WRITE=  0635            /WRITE COMMAND ADDRESS
+  47           0653          WTEST2= 0653            /WRITE COMMAND ADDRESS
+  48           2062          XDELETE=2062            /DELETE ROUTINE ADDRESS
+  49           2360          XENDLN= 2360            /ENDLN ROUTINE
+  50           0011          XRT=    0011            /TEXT, ETC. AUTO-INDEX REGISTER
+  51   
+  52                 /       DEFINITIONS FROM P?S/8 FOCAL OVERLAY.
+  53   
+  54           3235          NCOMEIN=3235            /NEW COMMAND BUFFER ADDRESS (IN 4K)
+  55           0167          P8K=    0167            /8K POINTERS START HERE
+  56           0004          REVISIO="D&77           /REVISION OF FOCPQS
+  57           0012          VERSION=12              /VERSION OF FOCPQS
+  58   
+  59                 /       MISCELLANEOUS DEFINITIONS.
+  60   
+  61           5600          JMPIC=  JMP I   .       /JUMP INDIRECT CURRENT PAGE DEFINITION
+  62           0010          TXTFLD= 10              /USE FIELD ONE FOR TEXT
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 3
+
+  63                 /       DIRECT PATCHES TO THE RUNNING P?S/8 (4K) FOCAL.
+  64   
+  65           0000          FIELD   0               /ENSURE FIELD ZERO
+  66   
+  67           0010          *AXIN                   /OVER PACKING AUTO-INDEX REGISTER
+  68   
+  69   000010  0060  AXIN,   INBUF                   /POINT TO NEW COMMAND BUFFER
+  70   
+  71           0013          *PDLXR                  /OVER PDL AUTO-INDEX REGISTER
+  72   
+  73   000013  0162  PDLXR,  LINE0                   /SETUP COMMAND BUFFER PROTECTION VALUE
+  74   
+  75           0022          *PC                     /OVER PC
+  76   
+  77   000022  0000  PC,     ZEROPC                  /ZERO DATA IN TEXT FIELD
+  78   
+  79           0027          *PACKST                 /OVER BUFFER START LOCATION
+  80   
+  81   000027  0060  PACKST, INBUF                   /SETUP RUBOUT PROTECTION
+  82   
+  83           0031          *LASTV                  /LAST VARIABLE POINTER
+  84   
+  85   000031  3235  LASTV,  NCOMEIN                 /USE OLD COMMAND BUFFER, OLD DUMMY LINE AS WELL
+  86   
+  87           0060          *BUFR                   /USER TEXT POINTER
+  88   
+  89   000060  0200  BUFR,   LINE1                   /POINT TO NEW SPACE
+  90   
+  91           0132          *COMBUF                 /OVER COMMAND BUFFER POINTER
+  92   
+  93   000132  0060  COMBUF, INBUF                   /POINT TO NEW INPUT BUFFER
+  94   
+  95           0133          *CFRS                   /OVER START OF TEXT POINTER (DUMMY LINE)
+  96   
+  97   000133  0162  CFRS,   LINE0                   /POINT TO DUMMY LINE
+  98   
+  99           0134          *END                    /OVER 8K END POINTER
+ 100   
+ 101   000134  3235  END,    NCOMEIN                 /8K VARIABLE LIMIT
+ 102   
+ 103           0135          *ENDT                   /OVER RESET VALUE FOR ERASE
+ 104   
+ 105   000135  0200  ENDT,   LINE1                   /POINT TO NEW SPACE
+ 106   
+ 107           0167          *P8K                    /OVER AVAILABLE POINTER SPACE
+ 108   
+ 109   000167  6160  DAXIN,  AXIND                   /DCA I AXIN ROUTINE POINTER
+ 110   000170  6163  DPC,    PCD                     /TAD I PC ROUTINE POINTER
+ 111   000171  6166  DPT1,   PT1D                    /TAD I PT1 ROUTINE POINTER
+ 112   000172  6171  DTHIS,  THISD                   /TAD I THISLN ROUTINE POINTER
+ 113   000173  6174  DXRT,   XRTD                    /TAD I XRT ROUTINE POINTER
+ 114   
+ 115           0201          *START+2                /OVER TAD CFRSX
+ 116   
+ 117   000201  7000          NOP                     /JUST POINT TO LOCATION ZERO (ZEROPC) IN TEXT FIELD
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 4
+
+ 118           0226          *COMBOT                 /OVER END OF COMMAND BUFFER POINTER
+ 119   
+ 120   000226  0162  COMBOT, LINE0                   /WAS NCOMEOUT+12; NO BIAS NEEDED FOR PROTECTION
+ 121   
+ 122           0255          *GONE+23                /OVER DCA I AXIN
+ 123   
+ 124   000255  4567          JMS I   DAXIN/[AXIND]   /CALL 8K STORE ROUTINE
+ 125   
+ 126           0273          *INPUTX+2               /OVER TAD I PC
+ 127   
+ 128   000273  4570          JMS I   DPC/[PCD]       /CALL 8K READ ROUTINE
+ 129   
+ 130           0436          *DGRP+11                /OVER TAD I XRT
+ 131   
+ 132   000436  4573          JMS I   DXRT/[XRTD]     /CALL 8K READ ROUTINE
+ 133   
+ 134           0445          *DGRP1+4                /OVER TAD I PC
+ 135   
+ 136   000445  4570          JMS I   DPC/[PCD]       /CALL 8K READ ROUTINE
+ 137   
+ 138           0455          *DGRP1+14               /OVER TAD I PT1
+ 139   
+ 140   000455  4571          JMS I   DPT1/[PT1D]     /CALL 8K READ ROUTINE
+ 141   
+ 142           0460          *DGRP1+17               /OVER TAD I PT1
+ 143   
+ 144   000460  4571          JMS I   DPT1/[PT1D]     /CALL 8K READ ROUTINE
+ 145   
+ 146           0652          *WRITE+15               /OVER TAD I THISLN
+ 147   
+ 148   000652  4572          JMS I   DTHIS/[THISD]   /CALL 8K READ ROUTINE
+ 149   
+ 150           0661          *WTEST2+6               /OVER TAD I PT1
+ 151   
+ 152   000661  4571          JMS I   DPT1/[PT1D]     /CALL 8K READ ROUTINE
+ 153   
+ 154           0664          *WALL                   /OVER TAD I PT1
+ 155   
+ 156   000664  4571  WALL,   JMS I   DPT1/[PT1D]     /CALL 8K READ ROUTINE
+ 157   
+ 158           1265          *MODIFY+7               /OVER DCA I AXIN
+ 159   
+ 160   001265  4567          JMS I   DAXIN/[AXIND]   /CALL 8K STORE ROUTINE
+ 161   
+ 162           1440          *GS1+1                  /OVER TAD STARTV
+ 163   
+ 164   001440  1134          TAD     END             /USE 8K END INSTEAD
+ 165   
+ 166           1563          *RETRN                  /OVER TAD CFRSX
+ 167   
+ 168   001563  7000          NOP                     /JUST USE LOCATION ZERO IN TEXT FIELD (ZEROPC)
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 5
+
+ 169           2105          *XDELETE+23             /OVER NOP
+ 170   
+ 171   002105  6211          CDF     TXTFLD          /USE TEXT FIELD
+ 172   
+ 173           2216          *ERT+2                  /OVER DCA I CFRS
+ 174   
+ 175   002216  6211          CDF     TXTFLD          /GOTO TEXT FIELD
+ 176   002217  3533  ERV,    DCA I   CFRS/[LINE0]    /CLEAR FORWARD POINTER IN DUMMY LINE
+ 177   002220  6201          CDF     00              /BACK TO OUR FIELD
+ 178   
+ 179           2231          *ERG+4                  /OVER TAD I THISLN
+ 180   
+ 181   002231  4572          JMS I   DTHIS/[THISD]   /CALL 8K READ ROUTINE
+ 182   
+ 183           2233          *ERG+6                  /OVER JMP ERV
+ 184   
+ 185   002233  5177          JMP     START           /DON'T ERASE VARIABLES
+ 186   002234  4572          JMS I   DTHIS/[THISD]   /CALL 8K READ ROUTINE
+ 187   
+ 188           2237          *ERVX                   /OVER TAD STARTV
+ 189   
+ 190   002237  1134  ERVX,   TAD     END             /USE 8K END INSTEAD
+ 191   
+ 192           2253          *FINDN+5                /OVER TAD I XRT
+ 193   
+ 194   002253  4573          JMS I   DXRT/[XRTD]     /CALL 8K READ ROUTINE
+ 195   
+ 196           2262          *FINDN+14               /OVER TAD I THISLN
+ 197   
+ 198   002262  4572          JMS I   DTHIS/[THISD]   /CALL 8K READ ROUTINE
+ 199   
+ 200           2347          *GET3+2                 /OVER NOP
+ 201   
+ 202   002347  6211          CDF     TXTFLD          /USE TEXT FIELD
+ 203   
+ 204           2361          *XENDLN+1               /OVER NOP
+ 205   
+ 206   002361  6211          CDF     TXTFLD          /USE TEXT FIELD
+ 207   
+ 208           2374          *XENDLN+14              /OVER TAD STARTV
+ 209   
+ 210   002374  6201          CDF     00              /BACK TO OUR FIELD
+ 211   002375  5760          JMP I   XENDLN          /RETURN WITH VARIABLES INTACT
+ 212   
+ 213           2541          *PCK1+4                 /OVER DCA I AXIN
+ 214   
+ 215   002541  4567          JMS I   DAXIN/[AXIND]   /CALL 8K READ ROUTINE
+ 216   
+ 217           2543          *PCK1+6                 /OVER OVERFLOW CHECK
+ 218   
+ 219   002543  7000          NOP                     /WAS TAD PDLXR
+ 220   002544  7000          NOP                     /WAS CLL CIA
+ 221   002545  1010          TAD     AXIN            /GET INDEX
+ 222   002546  7140          CLL CMA                 /INVERT FOR TEST
+ 223   002547  7640          SZA CLA                 /SKIP IF FULL
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 6
+
+ 224           2767          *RECOVX+6               /OVER TAD I PC
+ 225   
+ 226   002767  4570          JMS I   DPC/[PCD]       /CALL 8K READ ROUTINE
+ 227   
+ 228           3020          *RUB1+14                /OVER NOP
+ 229   
+ 230   003020  6211          CDF     TXTFLD          /USE TEXT FIELD
+ 231   
+ 232           3052          *TDUMP                  /OVER TAD STARTV
+ 233   
+ 234   003052  1134  TDUMP,  TAD     END             /USE 8K END INSTEAD
+ 235   
+ 236                 /       8K SUPPORT ROUTINES IN FIELD ZERO.
+ 237   
+ 238           6160          *OUTDG+4                /OVER AVAILABLE SPACE
+ 239   
+ 240   006160  0000  AXIND,  .-.                     /DCA I AXIN ROUTINE
+ 241   006161  6212          CIF     TXTFLD          /GOTO TEXT FIELD
+ 242   006162  5007          JMP     DOAXIN          /FINISH IT THERE
+ 243   
+ 244   006163  0000  PCD,    .-.                     /TAD I PC ROUTINE
+ 245   006164  6212          CIF     TXTFLD          /GOTO TEXT FIELD
+ 246   006165  5022          JMP     DOPC            /FINISH IT THERE
+ 247   
+ 248   006166  0000  PT1D,   .-.                     /TAD I PT1 ROUTINE
+ 249   006167  6212          CIF     TXTFLD          /GOTO TEXT FIELD
+ 250   006170  5025          JMP     DOPT1           /FINISH IT THERE
+ 251   
+ 252   006171  0000  THISD,  .-.                     /TAD I THISLN ROUTINE
+ 253   006172  6212          CIF     TXTFLD          /GOTO TEXT FIELD
+ 254   006173  5030          JMP     DOTHISLN        /FINISH IT THERE
+ 255   
+ 256   006174  0000  XRTD,   .-.                     /TAD I XRT ROUTINE
+ 257   006175  6212          CIF     TXTFLD          /GOTO TEXT FIELD
+ 258   006176  5033          JMP     DOXRT           /FINISH IT THERE
+ 259   
+ 260   006177  0000  RJMP,   .-.                     /WILL BE RETURN JUMP
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 7
+
+ 261           0001          FIELD   TXTFLD%10               /WHERE THE REST GOES
+ 262   
+ 263           0000          *0                              /START AT THE BEGINNING
+ 264   
+ 265   010000  0000  ZEROPC, ZBLOCK  2                       /FOR COMMANDS, ETC.
+ 266   
+ 267   010002  5760  AXRETUR,AXIND&177+JMPIC                 /JMP I AXIND
+ 268   010003  0000  COMPTR, .-.                             /ARGUMENT ADDRESS STASHED HERE
+ 269   010004  0000  COMSAVE,.-.                             /AC SAVED HERE
+ 270   010005  0010  PAXIN,  AXIN                            /POINTER TO AXIN
+ 271   010006  6177  PRJMP,  RJMP                            /POINTER TO RJMP
+ 272   
+ 273                 /       FIELD ONE SUPPORT ROUTINES.
+ 274   
+ 275   010007  6201  DOAXIN, CDF     00                      /ENSURE FIELD ZERO
+ 276   010010  3004          DCA     COMSAVE                 /SAVE PASSED AC
+ 277   010011  2405          ISZ I   PAXIN/[AXIN]            /FAKE AUTO-INDEX OPERATION
+ 278   010012  1405          TAD I   PAXIN/[AXIN]            /GET BUMPED VALUE
+ 279   010013  3003          DCA     COMPTR                  /STASH IT
+ 280   010014  1002          TAD     AXRETU/[AXIND&177+JMPIC]/GET RETURN INSTRUCTION
+ 281   010015  3406          DCA I   PRJMP/[RJMP]            /SETUP RETURN
+ 282   010016  6211          CDF     TXTFLD                  /GOTO OUR FIELD
+ 283   010017  1004          TAD     COMSAVE                 /GET AC VALUE
+ 284   010020  3403          DCA I   COMPTR                  /STORE IT
+ 285   010021  5056          JMP     COMEXIT                 /FINISH IT THERE
+ 286   
+ 287   010022  4040  DOPC,   JMS     COMMON                  /DO COMMON STUFF
+ 288   010023  0022          PC                              /WITH PC
+ 289   010024  5763          PCD&177+JMPIC/JMP I PCD         /RETURN INSTRUCTION
+ 290   
+ 291   010025  4040  DOPT1,  JMS     COMMON                  /DO COMMON STUFF
+ 292   010026  0030          PT1                             /WITH PT1
+ 293   010027  5766          PT1D&177+JMPIC/JMP I PT1D       /RETURN INSTRUCTION
+ 294   
+ 295   010030  4040  DOTHISL,JMS     COMMON                  /DO COMMON STUFF
+ 296   010031  0023          THISLN                          /WITH THISLN
+ 297   010032  5771          THISD&177+JMPIC/JMP I THISD     /RETURN INSTRUCTION
+ 298   
+ 299   010033  6201  DOXRT,  CDF     00                      /ENSURE FIELD ZERO
+ 300   010034  2436          ISZ I   PXRT/[XRT]              /FAKE AUTO-INDEX OPERATION
+ 301   010035  4040          JMS     COMMON                  /DO COMMON STUFF
+ 302   010036  0011  PXRT,   XRT                             /WITH XRT
+ 303   010037  5774          XRTD&177+JMPIC/JMP I XRTD       /RETURN INSTRUCTION
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 8
+
+ 304   010040  0000  COMMON, .-.                             /COMMON ROUTINE FOR SUPPORT ROUTINES
+ 305   010041  3004          DCA     COMSAVE                 /SAVE PASSED AC
+ 306   010042  6211          CDF     TXTFLD                  /GOTO OUR FIELD
+ 307   010043  1440          TAD I   COMMON                  /GET ARGUMENT
+ 308   010044  3003          DCA     COMPTR                  /STASH IT
+ 309   010045  2040          ISZ     COMMON                  /BUMP TO NEXT
+ 310   010046  1440          TAD I   COMMON                  /GET RETURN INSTRUCTION
+ 311   010047  6201          CDF     00                      /GOTO MAIN FIELD
+ 312   010050  3406          DCA I   PRJMP/[RJMP]            /SETUP RETURN JUMP INSTRUCTION
+ 313   010051  1403          TAD I   COMPTR                  /GET VALUE OF SPECIFIED POINTER
+ 314   010052  3003          DCA     COMPTR                  /SET IT UP
+ 315   010053  1004          TAD     COMSAVE                 /RESTORE AC
+ 316   010054  6211          CDF     TXTFLD                  /GOTO OUR FIELD
+ 317   010055  1403          TAD I   COMPTR                  /DO SPECIFIED OPERATION
+ 318   010056  6203  COMEXIT,CIF CDF 00                      /GOTO MAIN FIELD
+ 319   010057  5406          JMP I   PRJMP/[RJMP]            /RETURN THERE
+ 320   
+ 321   010060  0000  INBUF,  ZBLOCK  102                     /COMMAND INPUT BUFFER
+ 322   
+ 323                 /       DUMMY LINE.
+ 324   
+ 325   010162  0000  LINE0,  0                               /FORWARD POINTER
+ 326   010163  0000          0                               /LINE 00.00
+ 327   010164  0340          TEXT    "C 8K P"                /TEXT BLURB
+ 328   010165  7013
+ 329   010166  4020
+ 330   010167  3723          "?-40^100+"S-300                /?S
+ 331   010170  5770          TEXT    "/8 FOCAL V"            /MORE TEXT
+ 332   010171  4006
+ 333   010172  1703
+ 334   010173  0114
+ 335   010174  4026
+ 336   010175  6160          VERSION%12^66+VERSION+6060      /<HIGH VERSION DIGIT><LOW VERSION DIGIT>
+ 337   010176  0440          REVISION^100+" -200             /<REVISION><SPACE>
+ 338   010177  7715          7715                            /<CR>
+ 339   
+ 340           0200          LINE1=  .                       /AVAILABLE FOR USER TEXT
+ 341   
+ 342           0000          FIELD   0                       /RESET FIELD FOR NAIVE OVERLAYS
+ 343   
+ 344                         $                               /THAT'S ALL FOLK!
+
+/       P?S/8 FOCAL 8K OVERLAY            PAL8-VB0  21-SEP-89 PAGE 9
+
+AXIN   0010      REVISI 0004      
+AXIND  6160      RJMP   6177      
+AXRETU 0002      RUB1   3004      
+BUFR   0060      START  0177      
+CFRS   0133      TDUMP  3052      
+COMBOT 0226      THISD  6171      
+COMBUF 0132      THISLN 0023      
+COMEXI 0056      TXTFLD 0010      
+COMMON 0040      VERSIO 0012      
+COMPTR 0003      WALL   0664      
+COMSAV 0004      WRITE  0635      
+DAXIN  0167      WTEST2 0653      
+DGRP   0425      XDELET 2062      
+DGRP1  0441      XENDLN 2360      
+DOAXIN 0007      XRT    0011      
+DOPC   0022      XRTD   6174      
+DOPT1  0025      ZEROPC 0000      
+DOTHIS 0030      
+DOXRT  0033      
+DPC    0170      
+DPT1   0171      
+DTHIS  0172      
+DXRT   0173      
+END    0134      
+ENDT   0135      
+ERG    2225      
+ERT    2214      
+ERV    2217      
+ERVX   2237      
+FINDN  2246      
+GET3   2345      
+GONE   0232      
+GS1    1437      
+INBUF  0060      
+INPUTX 0271      
+JMPIC  5600      
+LASTV  0031      
+LINE0  0162      
+LINE1  0200      
+MODIFY 1256      
+NCOMEI 3235      
+OUTDG  6154      
+PACKST 0027      
+PAXIN  0005      
+PC     0022      
+PCD    6163      
+PCK1   2535      
+PDLXR  0013      
+PRJMP  0006      
+PT1    0030      
+PT1D   6166      
+PXRT   0036      
+P8K    0167      
+RECOVX 2761      
+RETRN  1563      
+
+
+
+ERRORS DETECTED: 0
+LINKS GENERATED: 0
+
+
+
+
+AXIN        13    67    69#  221   270  
+AXIND      109   240#  267  
+AXRETU     267#  280  
+BUFR        14    87    89# 
+CFRS        15    95    97#  176  
+COMBOT      16   118   120# 
+COMBUF      17    91    93# 
+COMEXI     285   318# 
+COMMON     287   291   295   301   304#  307   309   310  
+COMPTR     268#  279   284   308   313   314   317  
+COMSAV     269#  276   283   305   315  
+DAXIN      109#  124   160   215  
+DGRP        18#  130  
+DGRP1       19#  134   138   142  
+DOAXIN     242   275# 
+DOPC       246   287# 
+DOPT1      250   291# 
+DOTHIS     254   295# 
+DOXRT      258   299# 
+DPC        110#  128   136   226  
+DPT1       111#  140   144   152   156  
+DTHIS      112#  148   181   186   198  
+DXRT       113#  132   194  
+END         29    99   101#  164   190   234  
+ENDT        30   103   105# 
+ERG         20#  179   183  
+ERT         21#  173  
+ERV         22   176# 
+ERVX        23   188   190# 
+FINDN       24#  192   196  
+GET3        25#  200  
+GONE        26#  122  
+GS1         27#  162  
+INBUF       69    81    93   321# 
+INPUTX      28#  126  
+JMPIC       61#  267   289   293   297   303  
+LASTV       31    83    85# 
+LINE0       73    97   120   325# 
+LINE1       89   105   340# 
+MODIFY      32#  158  
+NCOMEI      54#   85   101  
+OUTDG       33#  238  
+PACKST      34    79    81# 
+PAXIN      270#  277   278  
+PC          35    75    77#  288  
+PCD        110   244#  289  
+PCK1        36#  213   217  
+PDLXR       37    71    73# 
+PRJMP      271#  281   312   319  
+PT1         38#  292  
+PT1D       111   248#  293  
+PXRT       300   302# 
+P8K         55#  107  
+RECOVX      39#  224  
+RETRN       40#  166  
+REVISI      56#  337  
+RJMP       260#  271  
+RUB1        41#  228  
+
+START       42#  115   185  
+TDUMP       43   232   234# 
+THISD      112   252#  297  
+THISLN      44#  296  
+TXTFLD      62#  171   175   202   206   230   241   245   249   253  
+           257   261   282   306   316  
+VERSIO      57#  336   336  
+WALL        45   154   156# 
+WRITE       46#  146  
+WTEST2      47#  150  
+XDELET      48#  169  
+XENDLN      49#  204   208   211  
+XRT         50#  302  
+XRTD       113   256#  303  
+ZEROPC      77   265# 
+
+VB0

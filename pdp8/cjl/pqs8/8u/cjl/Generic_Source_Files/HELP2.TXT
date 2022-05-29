@@ -1,0 +1,90 @@
+Computermuseum der Fakultät Informatik
+
+R.B.W.s Helploader
+Wie kommt die Software in den PDP8/L?
+
+Da der PDP8/L kein externes Speichermedium und kein ROM mit einem Boot-
+straploader besitzt, muß der Besitzer bei der ersten Inbetriebnahme 
+oder wenn ein Programm versehentlich den ganzen Speicher gelöscht hat, 
+am Frontpanel ein (möglichst kurzes) Ladeprogramm eingeben.
+
+Das kürzeste, mir bisher bekannte Ladeprogramm (außer dem RK8E Boot-
+programm) ist Robert B. Websters revidierter Helpstarter:
+
+0027 6031
+     5027
+     6036
+     7440
+     2036
+     7012
+     7010
+     3006
+     5027
+
+Der disassemblierte Helpstarter ist übrigens an die Source des Help-
+generators angehängt!
+
+Diese neun Worte sind ab Adresse 0027 in den Speicher einzugeben. Start-
+adresse ist 0027. Dieses Programm lädt den HELPLOADER, der seinerseits
+wieder einen beliebigen Loader, z. B. den BINLOADER ab der Adresse 7600
+in den Speicher lädt. HELPLOADER und der speziell kodierte BINLOADER
+sind zusammen im File HLPLDR.PT enthalten.
+
+Zur Kontrolle gibt es noch einen Oktaldump des Helploaders. Den Sourcecode
+des BINLDRs gibt es auch, und ebenfalls die Source des Helploader-Generators.
+Beide sind aber nicht nötig, es reicht, den Helpstarter zu Fuß einzugeben
+und dann den HELPLOADER enweder von der Teletype, oder vom PC mit KERMIT
+oder PROCOMM einmal zu laden. Mein PDP8/L schafft das locker mit 9600 Bd.
+
+Der BINL3 ist eine leicht modifizierte Version des original Binloaders:
+Startadresse ist 7600 oder 7605, er lädt die von PAL8 erzeugten .BN-
+Files, mit Ausnahme von Feldangaben. (Mein 8/L hat nur 4K. Sorry).
+Er zeigt im AC die Adressen an, die gerade geladen werden, außerdem bleibt
+er am Ende des Down-Loads vor einem Sprung nach Adresse 0200 stehen. Es
+genügt also bei den meisten Programmen 'CONT' am Frontpanel zu drücken,
+um das Programm zu starten.
+
+Im Allgemeinen benutze ich meinen 8/E als Entwicklungssystem und als File-
+server für den 8/L, und den 8/L wieder als E/A-Prozessor zum Ansteuern
+der IBM 735 Kugelkopfmaschine oder des Tektronix 4015-Terminals.
+
+
+Anleitung für KERMIT:
+Ich benutze MS-DOS Kermit Vers. 3.10  13 March 1991.
+Die Verwendung von Kermit als Terminal ist trivial (full duplex, VT100-
+Emulation usw).
+
+Binär-Upload wie folgt:
+
+
+1. Eingabe des Helpstarters am Frontpanel, starten bei Adresse 0027
+
+
+2. Start von KERMIT, im Kommando-Modus feststellen mit 'stat' ob:
+
+Speed: 9600		      <- oder was der PDP8 gerne möchte
+Parity: none (8-Bit-data)
+Local echo: off
+Flow control: xon/xoff
+handshake used: none
+set eof-mode: noCtrl-Z
+
+
+3. Kommando an KERMIT:
+transmit hlpldr.pt
+
+oder, wenn der BINLOADER im Speicher ist:
+
+transmit file.bn
+
+
+4. transmit endet nicht von selbst, sondern muss mit 'ctrl-c' abge-
+brochen werden.
+
+
+Hinweis: Der File hlpldr.pt ist nicht im .bn-Format und kann nur
+mit dem Helpstarter geladen werden. Unter .bn-Files verstehe ich
+die Files, die von PAL8 erzeugt wurden.
+
+
+zur Homepage des Computermuseums

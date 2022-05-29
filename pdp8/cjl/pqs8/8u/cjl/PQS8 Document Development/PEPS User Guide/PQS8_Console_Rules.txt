@@ -1,0 +1,159 @@
+Notes regarding P?S/8 console conformance rules.
+
+Each PDP-8 operating system has a policy regarding handing off control from the
+system to an application program and dealing with the system console.  On some
+systems, such as OS/8, these rules are nearly non-existent.  However, because the
+P?S/8 console definition is complex, there are several issues to achieve complete
+conformance.
+
+Program context.
+
+Many P?S/8 programs are essentially executed once and exit to P?S/8 at 07600.  In
+a few cases, the programs perform a warm internal restart such as BLKCPY.  It is
+expected that program halts [if any] are followed only by pressing CONTINUE and
+not modifying console output flags.
+
+P?S/8 with the Logical Console Overlay disabled will generally have the console
+output flag in flux when the program is started.  As such, it is generally allowed
+to wait for the console output flag to raise (it might have already depending on
+how slow the system device is).  At that point, the efficient method should be
+used to overlap output with processing.   The notion of waiting the entire time
+for the flag to raise is always discouraged.
+
+If a program can be subject to manual restart, or for compatibility with less
+rigorous systems such as OS/8, the program can start with some form of console
+initialization.
+
+The specifics will vary depending on the program; any opening message represents
+an opportunity to have tight control.
+
+If necessary, the opening message can consist of merely CR then LF.  By having an
+independent opening message, the program can start with a dedicated flag sync
+routine freeing all other programming to be donw with the assumption of waiting
+for the flag before printing and not waiting when leaving.
+
+The basic method is to have a time-out routine that waits for perhaps as much as
+three seconds based on the cycle time of the original PDP-8.  Longer intervals
+can be annoying, especially on slower machines while insufficient waiting could
+garble the content.
+
+After the flag comes up, the first character of the opening message can be sent
+directly; subsequent characters can use the usual low-level subroutine that
+applies to all output, etc.
+
+If the flag does not come up during the time-out, then the first character should
+be output directly using TLS.
+
+This method can be used in P?S/8 expecting the flag will raise at the appropriate
+time without the time-out effect at all.  But if manually restarted, this may be
+a requirement, etc.
+
+Programs not specifically writen for P?S/8 can ignore all other factors; however,
+P?S/8 comformance expects the output routines to also check for
+Control-S/Control-Q protocol.  This is why P?S/8 NEVER garbles the output when
+using terminals such as the VT-100 and related protocol-driven terminals.
+
+Logical Console and DECmate considerations.
+
+If it is determined the computer is a DECmate, the console output routines require
+an in-line modification typically carried out by once-only code.
+
+Checking for a DECmate is easily accomplished.  Early in the initialization code,
+once it is determined that the output done flag is up, this will have been
+accomplished by the fact that the TSF instruction skips.  This is true on all
+models.
+
+However, on a DECmate, another attempt at TSF will NOT skip.  This is because on
+the 6121 interface used in DECmates, the TSF instruction is defined as skip on
+flag AND clear the flag.
+
+If this is the case, the routines are modified to instead to unconditionally use
+KRB after KSF skips.  Typical programming also uses Control-C checking by
+noticing the latest character is Control-C, but is designed to perform KRS to
+leave the flag up.  As such, it is impossible to signal abort by Control-C as is
+the case in all PDP-8 models.
+
+To overcome this limitation, a logical abort bit has been added to the system
+kernel in the low-order bit of 07611 in memory.  When an abort condition is
+noticed AND the flag cannot be left up [and even optionally on PDP-8 hardware as
+a matter of choice] the program performs ISZ I (7611) just before exiting to
+07600 in the normal manner.
+
+Note: This is the principle reason why OS/8 cannot run on DECmates and instead
+various weakened subsets attempt to do so, each with unique limitations, some of
+which are thoroughly unaccountable caused by newer incompetent programmers
+destroying code they literally didn't understand.  On one notable issue:  Various
+OS/78 V4 and newer source files have a well-adorned chart proclaiming how to
+perform console programming on the PDP-8 versus the DECMate.  The problem is this
+chart is fallacious, thus causing even more bad coding done by naive programmers
+who assumed this was factual, etc.
+
+once any of the above considerations has been accomplished, checking for the
+presence of the Logical Console Overlay must be performed.
+
+Various system kernel bit indicate all relevant parameters of the Logical Console
+Overlay.  If it is present, all calls to various devices are modified into
+logical calls:
+
+a) The Console input
+
+b) The Console output
+
+c) The system lineprinter output
+
+d) The designated reverse channel of the lineprinter input [used only for
+control-S/Control-Q protocol if applicable].
+
+e) Logical interrupt handler for the above four devices; use earlier in the
+interrupt skip chain to prevent confusion with interrupt handlers for the same
+underlying devices that should be ignored if in conflict with the logical console
+usage of the same devices.
+
+As such, all of the considerations above are ignored; the code is replaced by
+subroutine calls to designated places in extended memory as dictated by the
+kernel. the underlying actual devices are solely the issue of the Overlay; the
+calling program should not concern itself with any of the details.  The Overlay
+itself is configurable using patch files that overlay the permanent copy of the
+overlay. [Note: There is a master restore patch to nullify all changes.]
+
+Control-C checking should use the logical abort if applicable ISZ I (7611) before
+exit to 07600.  Control-S/Control-Q checking applies same as for physical console
+checking, etc.
+
+Checking the reverse channel of the lineprinter is optional unless interrupts are
+enabled.  The logical output generally buffers the output and attempts to output
+as many characters as possible to empty the buffer.  Because of the unique timing
+characteristics of actual parallel line printers, the output flag will tend to
+come up in less than 25 microseconds every time the printer hardware is available
+to buffer additional characters.  When the printer is busy [generally because of
+a print cycle] the flag may take many milliseconds to rais.  As such, the call
+to the logical printer output always internally checks the hardware-level flag
+and will process any and all characters until the flag is not up after the 20
+microsecond wait [generally carried out by instruction timing].  The output
+always takes a skip return if the character was processed in some manner.  The
+flag will take perhaps a very long time to raise assuming the buffer is full and
+ the printer is undergoing a print cycle, in which case, the flag will not raise
+for perhaps a few seconds in some extreme cases.  In non-interrupt-driven
+situations, it is recommended to just wait until the subroutine call takes a skip
+return.  Sending a FF character should be done when appropriate; the entire page
+will print fully emptying the buffer to ensure the latest page is printed.
+
+Printer initialization must assume a partial print page has been attempted but
+failed to complete.  As such, the latest usage of the lineprinter in conforming
+programs must start with first establishing control of the output flag, then
+outputting a FF character to establish a new page at top of form.  In real
+hardware situations, this might waste a page occasionally, but when programs
+are transient ahd the operating system has no overall control of this facility,
+assumptions can only be made in the minimal sense.
+
+
+
+ 
+
+
+
+
+
+
+
+   

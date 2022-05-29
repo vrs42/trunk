@@ -1,0 +1,224 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fmodern\fprq1\fcharset0 Lucida Console;}{\f1\fnil\fcharset0 Arial;}{\f2\fnil\fcharset0 MS Shell Dlg 2;}{\f3\fnil\fcharset0 Lucida Console;}{\f4\fswiss\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;\red0\green0\blue255;\red255\green255\blue255;\red140\green140\blue140;\red155\green155\blue155;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$3B'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 1440
+  FtrMarg = 1440
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -13
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  Collate = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\cf1\f0\fs20 P?S/8 Binary File Internal Description\par
+\par
+Last edit:\tab 14-Nov-2017\tab cjl\par
+\par
+P?S/8 supports binary files in a variety of contexts, primarily as input to the multi-purpose binary loader program known as P?S/8 \i BIN\i0 .\par
+\par
+The binary file format is known as \i slurp\i0  binary; this term was coined by its inventor, the legendary Richard Lary, generally known as the best PDP-8 programmer in the history of mankind.  The term is an attempt to explain how the loader works without requiring a buffer, even when loading from certain storage devices traditionally associated with block-oriented access.  In\par
+P?S/8, each system device generally has a companion slurp loader which is used by the BIN utility to load binary files on any particular system.  This is a customized routine geared to the same device as the system device handler for the express purpose of loading binary files.\par
+\par
+Note: The P?S/8 BIN \strike progtam \cf2\strike0 program \cf1 should not be confused with the name of standard binary paper-tapes which are generally loaded by the BIN loader.  That said, P/S/8 BIN does support certain operating modes that handle BIN (and RIM) binary paper-tapes, including the conversion of BIN format paper-tapes from/to P?S/8 slurp-format binary files.  When the terms \i BIN\i0  and \i file\i0  are used in the same sentence, this refers to slurp format binary files.\line\line The advantages of the custom loader include:\line\line 1) No reserved memory areas beyond the prevailing system convention (which is\par
+   generally locations 00000-07577 unless an extended-memory device handler\par
+   extension is required).\cf2   You mean no area other than 07600-07777, right?  Your sentence could be misunderstood as saying that 00000-07577 is reserved, though that obviously doesn't make sense.  Unless I'm completely confused here....   Migraine :( ....\cf1\par
+\par
+2) The ability to load memory with the system device write-protected (where\par
+   applicable).\par
+\par
+3) Surprisingly rapid program loading which is often counter to the\par
+   expectations of programmers taught to believe \cf2 that \cf1 what the slurp loader\par
+   achieves is deemed impossible.\par
+\par
+The best example of a slurp binary loader implementation is the one customized for the TC01/TC08 DECtape controller.\par
+\par
+The TC01/TC08 system device handler loads into 07600-07777 and provides a read or write subroutine call to access the various logical drive units (either TU55 or TU56).  Certain locations are reserved for various system parameters and passed file data used by various system programs.  The operating system can always be restarted at location 07600 which is the universal starting address for all PDP-8 operating systems.\cf2   Are these "certain (memory) locations" in the 07600-07777 range too?  Now my dumbest question (in this paragraph, I think -- when an OS restarts @ 7600, it is reloaded by a loader located there?  \par
+\par
+I forget the details, but to my forgetful mind it seems that since the TC01/08 device handler is now in 07600-07777, something at 07600 is needed to reload the OS from some sort of media.  Or since we're talking DECtapes right here, do you simply load an OS tape and give the appropriate restart command and let it overwrite the device handler?  Damn!  Use it or lose it....  This paragraph's "confusion" is not related to this document!  Oh.... I should read teh next paragraph -- face palm time....\cf1\line\line Typical usage of the BIN program is to replace the contents of 07600-07777 with the slurp binary loader and a stand-alone bootstrap starting at 07600 which can also reload the operating system.  While the slurp loader is in memory, no read/write services are available.\par
+\par
+The slurp loader directly searches the DECtape logical drive units using passed file parameters of the starting block and logical unit for all input files passed to the BIN program.  When the proper starting block is located, the program is directly loaded into memory using the novel technique of using a one-word buffer within the slurp loader.\cf2   The slurp loader applies to other than just DECtapes, so should you state that it "... searches the ___ device logical drive units..."?  I forget the term that ought to be in the "___".\cf1\line\line The reason this is possible is that 12-bit words are brought into memory by the three-cycle data break mechanism; it is possible to detect individual word transfers by monitoring the associated word count (and/or current address) locations for an instant change.  Once the word count changes, it \cf2 i\cf1 s reset for the next transfer and the latest word transferred can then be used to effect the latest binary operation (which is primarily to load the latest word into memory and increment the location counter).\cf2   I have forgotten a lot of my English classes, but shouldn't "effect" above be "affect"?  Affect is a verb, effect is a noun.  <{\field{\*\fldinst{HYPERLINK "https://www.grammarly.com/blog/affect-vs-effect/"}}{\fldrslt{\ul\cf2 https://www.grammarly.com/blog/affect-vs-effect/}}}\f0\fs20 >  How do you interpret what they are saying?\cf1\page The slurp loader internal operations are analogous to those of the paper-tape binary loaders which use a completely different data format on paper-tape media.  All needed operations are provided in either loader; however, paper-tape loading is far slower and designed for that slow medium.  Slurp loading is nearly as efficient as block image loading, yet is random access loading much like paper-tape loading.\par
+\par
+In the case of the TC01/TC08 slurp loader, it is necessary for each word transfer to be completed nominally in 133 microseconds; this is easily achieved since the loader programming is short and efficient.\cf2   Is this the same for other storage devices?  133 \f1\u956?\f2 sec\f0  sounds awfully familiar, but I can't remember the details -- is this particular to DECtape?  Or does it apply to all devices because it is particular to the timing of the PDP-8* itself?  Maybe the 3-cycle data break requires the 133 \f1\u956?\f2 sec\f0  transfer?\cf1\par
+\par
+The loading process continues while the DECtape read operation spans multiple blocks; tape motion is continuously forward without turn-around.  Once the slurp end-of-file indication is processed, the next passed file parameters are processed, generally requiring a new block search.  Eventually all of the passed file parameters are processed and the loading process is complete.  At this point, a starting field and starting address are used to start the program as intended.  (This information was provided by initialization code in the BIN program as determined by command-line parameters provided by the user.  Additional command-line options may have been processed prior to moving the slurp loader through memory over the system device handler.)\cf2   What if the user doesn't know the starting field & starting address (like it is an unknown program, written by someone else)?  Does he/she have to guess at something like field 0 & address 200?  Or does he/she have to look at memory to try to find this information?\cf1\par
+\par
+On all releases of P?S/8, there is an alternative binary loader that uses virtual techniques to load binary files; however, due to the virtualization overhead, the loading process will tend to take more time.  Additionally, write enable is required on the logical device unit where the BIN program resides as the BIN program includes its own virtual buffer.\line\line While the majority of P?S/8 releases include a slurp loader customized to the same hardware as the system device handler, a few system configurations force the use of the virtual loader:\line\line 1) The RF08 is the only three-cycle data break device that cannot support a\par
+   slurp loader; this is due to the transfer speed which doesn't provide\par
+   sufficient time between word transfers.\par
+\par
+2) The RK8E and all other single-cycle data break (DMA) devices.  No method is\par
+   provided to detect word transfers; the flag raises only at the end of block\par
+   transfers.\cf2   Which devices are single-cycle DMA devices, therefore requiring virtual slurp loaders?\cf1\par
+\par
+All other devices are generally program-transfer devices which readily allow a device-specific slurp loader.\line\line An advantage of the virtual loader is that the system device handler is still resident after the program is loaded; however, all customized slurp loaders support optional reloading of the system device handler (which admittedly appears at first glance to be both counter-intuitive and impossible).  The only restriction on this usage is lowering the normal maximum file load count of 17 to 16 total input files; this is indicated by invoking the BIN command with the \cf3\highlight4\f3\fs24 /I\cf1\highlight0\f0\fs20  command-line switch.\par
+\line While there are many additional details regarding loading options, the reader is directed to documentation of the BIN program for more information; the primary purpose of this document is to describe details of the slurp file format.\line\line Slurp format can be broken down into a series of contiguous file blocks, each independent of other blocks with the exception of the prevailing loading address and memory field.\line\line Each block of slurp format binary consists of a series of seven-word groups in contiguous order.  Except for the end-of-file block, there are always 18 seven-word groups in any block; each block also contains two waste words (since the blocks are logically 128 words each).\page Note: DECtape blocks are actually 129 12-bit words each; however, the 129th word is ignored throughout P?S/8.  On the TC01/TC08 system, the word count is generally set to -128 as required; as such, the 129th word is never transferred.  The majority of PDP-8 operating systems are designed to operate in a like manner.\cf2   Is this related to DECtape preceding the PDP-8 on older machines that weren't 12-bit?  I know you explained this at least once before, but other than a "memory" of the content of my previous sentence, I don't recall exactly what you said.  A "yes" or "no" answer is sufficient here so you won't have to rewrite a short "War and Peace" rexplaining the details of this comment's topic.\cf1\par
+\par
+Each seven-word group breaks down as follows:\line\line 1) A control word consisting of six two-bit status bits.\par
+\par
+2) The first of six data words; the action taken regarding this word is\par
+   determined by bits[0-1] of the control word.\par
+\par
+3) The second of six data words; the action taken regarding this word is\par
+   determined by bits[2-3] of the control word.\par
+\par
+4) The third of six data words; the action taken regarding this word is\par
+   determined by bits[4-5] of the control word.\par
+\par
+5) The fourth of six data words; the action taken regarding this word is\par
+   determined by bits[6-7] of the control word.\par
+\par
+6) The fifth of six data words; the action taken regarding this word is\par
+   determined by bits[8-9] of the control word.\par
+\par
+7) The sixth of six data words; the action taken regarding this word is\par
+   determined by bits[10-11] of the control word.\par
+\par
+ Each pair of control word bits breaks down as follows:\line\line 1) 00 - The corresponding word is a data word; load this word into the memory\par
+   location pointed to by the internal load pointer then increment the load\par
+   pointer for the next data operation.  The loading field value in effect\par
+   determines the memory field used for data loading.\cf2   The loading field value, in effect, determines..."?  "Loading field" is the field where the data is being loaded?  My first knee-jerk reaction is that a "loading field" is the field from which something is being loaded, but I think my knee-jerk interpretation is incorrect and the loading field _IS_ the field from where the data is being loaded.  I guess my initial confusion is the "...ing" on the end of many of the above words....  But, I believe that I am now interpreting the paragraph correctly.  Others that are also new to the format of the slurp loader may have the same incorrect knee-jerk interpretation when they read this paragraph, but if they think about it, they ought to correct themselves.  I hope I'm correct with my interpretation here!\cf1\par
+\par
+2) 01 - The end-of-file has been reached.  The slurp loader has finished\par
+   processing this file; loading continues with the contents of the next\par
+   passed file (if any).\par
+\par
+3) 10 - The corresponding word is an origin setting. \strike set \cf2\strike0 Set \cf1 the load pointer to\par
+   the contents of this word.\par
+\par
+4) 11 - The corresponding word is a field setting in the form of CDF \i nn\i0  where\par
+   nn is the new loading field in bits\cf2  \cf1 [6-8].\cf2   I added a space between "bits" and "[6-8]" here.\cf1\par
+\par
+Despite the fact that slurp format is inherently random access (and not block-oriented), the efficiency of data loading approaches 6/7 of that of core-image loading.  (P?S/8 system programs are stored in core-image format for the fastest possible loading speed; however, core-image data can only be loaded by accessing the system device handler.)\cf2   After looking at the slurp loader format details, now I understand the 6/7 efficiency!\cf1\line\line Practical implementations of programs that create slurp format files include repeatable characteristics within the file.  This allows other utilities to determine if a file may be in slurp binary format.  \cf2 "...to determine whether a file is in slurp binary..."?  \cf1 Additionally, multiple files may be loaded in the same overall loading operation.  Specific safeguards must be present to prevent potential loading mishap.\cf2   Where are these "specific safeguards" documented?\cf1\par
+\par
+A short example program follows including the slurp format binary output file created by assembly with P?S/8 \i PAL\i0 .  (The example program is short enough to be entirely contained in the first file block)\page .FETCH EXAMPLE            \cf5 This brings the source program into the edit buffer.\par
+\cf1\par
+.LI                       \cf5 The contents of the file are listed on the console.\cf1\par
+\par
+ 100    /       EXAMPLE OF P?S/8 "SLURP" BINARY FILE FORMAT\par
+ 110    \par
+ 120            FIELD   7\par
+ 130    \par
+ 140            *1000\par
+ 150    \par
+ 160    START,  CLA CLL         /CLEAN UP\par
+ 170            CIF CDF 00      /GOING TO FIELD O\par
+ 180            JMP I   .+1     /GOING THERE\par
+ 190            7600            /THROUGH HERE\par
+ 200    \par
+ 210            $               /THAT'S ALL, FOLK!\par
+\par
+.PAL EXAMPLE /B /L        \cf5 This assembles the program producing binary output\par
+                          into block 0020 which is addressed as the \i %\i0  file.\par
+\cf1\par
+\par
+              /       EXAMPLE OF P?S/8 "SLURP" BINARY FILE FORMAT\par
+\par
+        0007          FIELD   7\par
+\par
+       *1000          *1000\par
+\par
+071000  7300  START,  CLA CLL         /CLEAN UP\par
+071001  6203          CIF CDF 00      /GOING TO FIELD O\par
+071002  5603          JMP I   .+1     /GOING THERE\par
+071003  7600          7600            /THROUGH HERE\par
+\par
+                      $               /THAT'S ALL, FOLK!\par
+\par
+NO ERRORS DETECTED \par
+\par
+NO LINKS GENERATED\par
+\par
+5K MEMORY UTILIZED \par
+\par
+1 FILE  CREATED\par
+\par
+1 SYMBOL\par
+\par
+This example program illustrates all features of the slurp binary format file in a single block printout.\par
+\par
+\par
+\fs12\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\par
+\u9474? BLOCK: 0:0020                                                    \u9474?\par
+\u9474?                                                                  \u9474?\par
+\u9474? 0000  5340 0200 0200 6271 1000 7300 6203 0125 *+ B@B@29H@;@2CAU* \u9474?\par
+\u9474? 0010  5603 7600 4503 5441 7332 1125 0010 7650 *.C>@%C,!;ZIU@H>(* \u9474?\par
+\u9474? 0020  5212 7346 1013 3025 4452 3425 6201 5212 **J;&HKXU$*\\U2A*J* \u9474?\par
+\u9474? 0030  7201 4503 5441 7344 1013 3025 4452 1425 *:A%C,!;$HKXU$*LU* \u9474?\par
+\u9474? 0040  7004 7130 3425 6201 5231 3145 1117 7640 *8D9X\\U2A*YY%IO> * \u9474?\par
+\u9474? 0050  4437 1337 4200 1325 4200 0000 2110 2107 *$_K_"@KU"@@@QHQG* \u9474?\par
+\u9474? 0060  1323 3730 0000 2105 2053 1335 4200 1731 *KS_X@@QEP+K]"@OY* \u9474?\par
+\u9474? 0070  7640 5274 1324 3733 1727 3722 1337 4200 *> *<KT_[OW_RK_"@* \u9474?\par
+\u9474? 0100  4726 0321 1145 1015 4726 0347 1614 0047 *'VCQI%HM'VC'NL@'* \u9474?\par
+\u9474? 0110  3133 3143 3144 3102 3117 1336 4200 4721 *Y[Y#Y$YBYOK^"@'Q* \u9474?\par
+\u9474? 0120  5732 2501 4165 2442 5277 4410 4503 2767 */ZUA!5T"*?$H%CW7* \u9474?\par
+\u9474? 0130  4376 4126 3447 4065 3542 4421 4430 4337 *#>!V\\' 5]"$Q$X#_* \u9474?\par
+\u9474? 0140  1314 1104 4042 4057 3042 5275 0750 7240 *KLID " /X"*=G(: * \u9474?\par
+\u9474? 0150  0104 0200 0137 0200 0246 7000 0234 7711 *ADB@A_B@B&8@B\\?I* \u9474?\par
+\u9474? 0160  0007 0200 0155 0000 3517 5247 3541 4771 *@GB@A-@@]O*']!'9* \u9474?\par
+\u9474? 0170  3542 4736 1363 4427 0733 7640 2442 1341 *]"'^K3$WG[> T"K!* \u9474?\par
+\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\par
+\par
+Figure 1: Dump of binary output file (block 0020).\page\fs20\par
+\cf2 Can you increase the size of the text in Figure 1?  It's too hard to read, both here and in the PDF.  \cf1 Figure 1 shows the contents of block 0020 just after the assembly of the example file.  A description of each word is as follows:\line\line 00) 5340 - This is the first control word in the block which indicates the\par
+    disposition of the next six data words.\par
+\par
+01) 0200 - All binary files automatically generate an opening *200 origin\par
+    setting.  This is universally the case with all PDP-8 assemblers.\par
+\par
+02) 0200 - P?S/8 PAL outputs the prevailing current origin at the start of\par
+    each binary output file.  In this example, this is redundant to the\par
+    previous word only because this is the first (and only) output file.  The\par
+    prevailing field setting is contained within the slurp loader; it is\par
+    initialized to load into field zero by default.\par
+\par
+Note: Future releases of P?S/8 PAL may also include the prevailing field setting after the prevailing origin setting.  Future releases of P?S/8 BIN will include corresponding changes when converting binary paper-tapes to P/S/8 slurp format binary files.\par
+\par
+03) 6271 - The source program starts with a FIELD 7 directive; as such, a\par
+    corresponding CDF 70 (6271) instruction is placed in the output file. \par
+\par
+Note: Most PDP-8 assemblers can place an automatic *200 after FIELD directives; this is generally not necessary as good programming practice demands the use of a new origin setting.  OS/8 PAL8 and P?S/8 PAL include option switches to enable this feature; by default this does not happen to minimize the binary file size.  Files intended to be punched to binary paper-tapes and ultimately loaded by the DEC "self-starting" binary loader must enable this feature to avoid a fatal loading bug which was never fixed.\cf2   Now folks will want the details of the never-fixed fatal loading bug!  I do.  ;)\cf1\par
+\par
+04) 1000 - The source program includes *1000 at this point.\par
+\par
+05) 7300 - The source program includes a CLA CLL instruction.\par
+\par
+06) 6203 - The source program includes a CIF CDF 00 instruction.\par
+\par
+07) 0125 - This is the second (and final) control word in the block (and\par
+    entire program) which indicates the disposition of the next six data\par
+    words.  (Actually, this is partially moot as the end-of-file is indicated\par
+    within the control word.)\par
+\par
+10) 5603 - The program includes a JMP I 0203 instruction.\line\line 11) 7600 - The program includes the address value of 7600 used to exit the\par
+    program.\par
+\par
+12) xxxx - The end-of-file point has been reached.  Words 012-175 are ignored.\par
+    Additionally, words 176-177 are ignored in all slurp binary file blocks.\cf2   I think my "study" (a separate text file) is correct because it seems to agree with all of this word-by-word explanation.\cf1\par
+\par
+[end-of-file]\par
+\cf0\f4\par
+}
+ 

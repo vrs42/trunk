@@ -1,0 +1,714 @@
+Glossary of terms as used in the various P?S/8 help guide documents.
+
+Please direct any typographical errors in this document to either Charles Lasner
+CLASystems@gmail.com or Bob Vines bobvines00@gmail.com.
+
+Last edit: 22-May-2015 cjl
+
+Terms presented here should be consistent with the contents of the various guide
+documents and related.  The master definition should be maintained here for
+reference as the other documents are developed.
+
+Note: Due to interaction, certain terms may make reference to other portions of this
+document.
+
+ 1)	System Console Device.
+
+	This is the main operator terminal of P?S/8.  It is generally a device 03
+	[for input] and device 04 [for output] combined keyboard and [typically]
+	low-speed teleprinter for all system messages and the output of most
+	programs run under P?S/8.
+
+	Variations exist for the system console device such as display terminals
+	[instead of hard-copy terminals] which are generally compatible with the
+	original supported device, the Teletype Corp. model 33 teletype [usually the
+	automatic send/receive or ASR variant] which allows low-speed paper-tape to
+	be read as required.  P?S/8 includes support for a variety of console
+	device variants such as the VT-100 [and compatible] family of display
+	terminals as well as older models such as the VT-52 and the VT05.  [Note:
+	The VT05 requires the use of the M8655 KL8-JA serial interface card with the
+	fill-jumper set unless used at 300 baud or less.]  Hard-copy terminals can
+	be configured for minimal support of buffer character delete acknowledgment
+	or the method defined in the TOPS-10 operating system for hard-copy
+	terminals [which involves surrounding all deleted characters, printed in
+	reverse order as they are deleted, by a leading and trailing "\" character.
+
+	The P?S/8 Logical Console Overlay supports several emulated terminals using
+	hardware devices such as the VT8E and the PDP-12 VR-12/14 display
+	oscilloscope.  Certain support parameters can be tailored for use with these
+	devices as required.
+
+	Because P?S/8 supports an absolute standard for the console device, all
+	conforming programs need not be involved in the details of the support.
+	Programs that are non-conforming may have limited compatibility with only
+	certain console devices and/or machine models.  [Note: Many older programs
+	cannot be executed on DECmate systems unless the internal console routines
+	are upgraded to full P?S/8 conformance.  Example programs are available to
+	illustrate what is required.]
+
+*** What are these example programs and where are they available? ***
+****
+I have to create the example programs in stages to understand what is going on:
+
+1)	For starters, P?S/8 supports teleprinter output overlapping with processing.
+	[Non-conforming programs can do it the simplistic way that waits for the
+	flag after output, but this slows things down unnecessarily and would
+	neeslessly complicate the final implementation of all of these explanation
+	"levels" when fully explained, etc.
+
+	This requires an initialization section to make sure it will function, even
+	if the program is manually restarted.  [Initialization in this sense means
+	even if the program is restarted.  OTHER initialization refers to a one-off
+	initialization to interface with the optional P?S/8 components; most system
+	programs are not meant to be restarted, thus all initialization is once-only
+	code when the program starts, located in some throw-away area such as what
+	will be used as some buffer later.  Just about every program has such space
+	available "for free".
+
+	If the hardware is used [even if a DECmate] you have to time out the output
+	to make sure any previous output has completed.  Typically, P?S/8 loads
+	executable programs where the keyboard monitor outputs a character to the
+	console and does NOT wait for it.  Thus, by the time a program initialized
+	the expected value in the timeout routine is minimal, perhaps only a single
+	test pass and no additional wait time.  But this code runs on anything
+	including a teletype that takes a whole 1/10th of a second to print that
+	character, which is a lot longer than the time to load a program on many
+	disk devices, thus there is still some time to wait in that instance.  On
+	faster terminals, this could be moot; the code works for all situations.
+
+	Thus, basic initialization is to wait until TSF might skip.  If it does,
+	perform TLS with the AC clear to output a <NUL> is the general way to do a
+	proper init routine and a non-modified output routine.  [A modified  routine
+	would need a flag word to indicate that this is the first time, so don't
+	wait.  Best possible in theory, but I have yet to find a device that is
+	degraded in any way by output one extraneous <NUL> when starting, thus a
+	needless complication in the running output subroutine.  Once-only code
+	being "for free" so to speak means the emphasis should always be on the
+	overall running code size; longer initialization code is not a factor.]
+
+	If this is running on the DECmate, the rules are different because the
+	instruction to test if the flag is up clears the flag!  Thus, minor
+	adjustments are made in the output routine.
+
+There really is a LOT more, and not appropriate for this document!
+
+I could extract out the few bits from a P?S/8 system program [like SYSTAT] but it's
+too "compact" to follow in the final form.  It needs the baby steps to derive it to
+be meaningful.  A job for another time...
+
+
+
+
+
+
+
+
+2)	System Line Printer.
+
+	The system line printer is an optional component of any P?S/8 system,
+	generally consisting of a high-speed hard-copy printing unit connected by a
+	separate interface.  The standard device is device 66 with a parallel
+	interface that conforms to Centronics parallel and related standards as made
+	by a variety of companies such as Data Products [both with and without DEC
+	branding that changes little to no internal components].  [Note: DEC sold a
+	Centronics printer with the DEC branding on the outside and a cooling fan
+	removed from the inside; no other changes were made to the device.  Clever
+	users saved money purchasing the Centronics variant.]
+
+	P?S/8 universally supports the device 66 line printer as necessary.  Other
+	variations can be supported through customization of the Logical Console
+	Overlay, which allows flexible support of other devices including serial
+	printers that require reverse-channel flow-control support by the use of the
+	Control-S/Control-Q industry-standard protocol.  The device 66 support is
+	generally enhanced by the use of software buffering which can cause
+	dramatic improvement of printing throughput especially on higher speed
+	models.  [By way of comparison, OS/8 cannot drive a device 66 line printer
+	beyond 300 lines per minute (LPM) while P?S/8, with the Logical Console
+	Overlay enabled, has successfully printed on suitable printers at over 1200
+	LPM.]
+
+*** I vaguely remember using Control-S & Control-Q before, probably on a video
+ terminal to stop & restart scrolling to be able to (try to) read what was
+ scrolling by so fast, but didn't know that was "industry-standard protocol."
+  Can you tell me what the "Standard" was?  Or was "known" as?  Enough detail so
+ that I can "google" it to perhaps find it. 
+
+Or are you referring to the ASCII "control characters" where Control-Q is 
+"Device Control 1 (oft. XON)" and Control-S is "Device Control 3 (oft. XOFF),"
+ both as flow controls to the line printer?
+
+I suppose that microcomputers "redefined" Control-Q & Control-S to stop & start
+ video terminal scrolling, since few people by then would have wanted to print 
+everything they could see on their terminal.  I remember using them in MS-DOS. ***
+
+**** Software flow control in Wikipedia has it pretty much correct.  It's widely
+used and DEC depended on hit heavily, as well as products from many others such
+as GE Terminet and some TI hard-copy terminals.  And of course all things VT52 and
+newer with scroll keys that sent the two characters alternately, etc.  There is
+no difference in your examples, they are all equally compatible.
+
+OS/8 does not support it, and it was so pathetic a bandaid was created.  The
+so-called KL8E handler that replaces the usual TTY: handler but needs two pages
+to support several things.  By reassembling it, I got it to support serial
+line printers such as the Datasouth speedup modification to the LA36 that makes it
+print 4 times as fast, and should have a 2400-9600 baud connection to always fill
+the buffer well and keep it moving, etc.  Of course P?S/8 loves it as either a
+hard-copy console terminal or the serial printer off of the logical console
+overlay.  Most actual OS/8 output is unchecked and splats on the overloaded
+console such as a VT-100, because only the HANDLER output supports the protocol.
+Messages from programs are embarassingly backwards.  [I doubt if anything supports
+it correctly other than Kermit-12 because I wrote that!]  [Internally, Kermit-12
+supports a terminal emulator mode that is essentially a two-directional doubly
+ring-buffered input and output device so nothing is dropped as long as all agree
+to support the protocol.  That way, even mis-matched devices don't drop data, etc.]
+
+
+
+	Note: Many older programs cannot support printers other than the device 66
+	standard models.  By conforming with P?S/8 standards, any program can be
+	made to work with all supported printers.  [As in the case of the P?S/8
+	system console, example programs are available to illustrate what is
+	required.]
+
+*** What are these example programs and where are they available? ***
+****
+The appropriate extracted routines from a system program that supports the
+redirected console and the redirected line printer exist, but are confusing.  This
+topic needs a series of short routines that culminate in the practical, compact
+and hard to follow code.  Part of the problem is that the code has to be patched
+to different values plura, not merely the original and a patch, but rather a choice
+of several patches depending on the configuration.  the code works, but it is very
+hard to follow [and I had to study it and I wrote it!]
+  ****
+
+ 3)	Core image [or core-image when used as an adjective].
+
+	Core image refers to data stored on blocks of storage where entire pages of
+	program or other data are presented in 128 word units meant to be loaded
+	into various memory locations as determined elsewhere such as within
+	directory or complex file structures that manage loading and mapping issues.
+
+*** "... as determined elsewhere..."?  Would/could that mean "... loaded into
+ various memory locations such as within directory or complex file structures that
+ manage loading and mapping issues."?  The "as determined elsewhere" makes me think
+ there is something like a program deciding where to load the core "128 word units."
+  If so, maybe you should specifically state that and state which program(s)
+ does/do that? ***
+
+****
+
+No, it is that core-image is what you make of it.  The idea is one or more contiguous
+[if there are more than one] are destined to be either loaded into memory or
+written from memory to blocks depending on exactly what is going on.  The act of
+creating a little piece of an operating system writes core-image binary to 
+designated blocks, looking up a file name is reading in the image of the DATA of
+a directory that leads to a determination of a block, if it happens to be a
+core-image, you are loading it into memory, but not necessarily for execution,
+ODT may read in pieces of a core-image to focus on and then write them back, and
+various aspects of program execution from ODT, the START command, execution class
+command or other places all deal with placing core-image into memory for the
+purpose of executing it in place, presumably at a designated starting address.
+
+But it gets worse:  Some core image data is loaded deliberately into the WRONG
+memory locations because it cannot yet be put where it must, such as the image of
+the slurp loader is read in from a block as core image, but not into 07600-07777
+because the system device driver has to perform the work of doing that, so it is
+instead loaded into an alternate buffer; later it is MOVED to the intends place
+wiping out the system device handler.
+
+Too many pragmatic situations, just better to say it is a versatile concept and
+various things have been implemented.  But the most straight-forward is to load
+the image of an executable program into the memory locations they were designed to
+execute in, start it up, and that defines straight-forward program execution, as
+the primary example of where core-image programs instruction and data are used, but
+hardly the only one, etc. ****
+
+	Core images stored in order of adjacency by loading address are the most
+	efficient form of direct binary storage for executable programs assuming the
+	operating system maintains relevant loading parameters [such as the P?S/8
+	system program directory].
+
+	P?S/8 system programs are stored in core image form for at least the first
+	load segment of fully adjacent storage blocks; additional segments may be
+	defined by the program for additional purposes such as program or data
+	overlays.
+
+	Binary files are not core-image files; however, binary files can be loaded
+	into memory and saved into system blocks 0020-0057 which is a core-image of
+	all of field 0.  Once saved, various utilities exist to interact with the
+	core-image saved in these blocks which are referred to as the system scratch
+	area.
+
+	It is possible to save core-image files in P?S/8 by using two separate save
+	operations as required.  P?S/8 supports positional files that are each one
+	half of this area.  % is the name of the file that is stored in blocks
+	0020-0037 and $ is the name of the file that is stored in blocks 0040-0057.
+	[Note: These files can be used for a variety of purposes; all usage that is
+	incompatible with the core-image must be avoided while the current active
+	core-image is in effect.  The contents of % and $ can be loaded [separately]
+	into the tentative file buffer and saved to two named files in the TFS
+	directory.  Work on the core-image can resume at a later time by restoration
+	of the % and $ files.
+
+*** Should this glossary include entries for the "%" and "$" files? 
+
+ I think non-Professional P?S/8 users will need the extra help. ***
+
+
+**** already added ****
+
+	A debugging session may be initiated with P?S/8 ODT which will use the
+	system scratch area as a virtual image of locations 00000-07577.  [Locations
+	07600-07777 are the system kernel and are generally off-limits other than
+	certain system parameters that can be used only by fully conforming
+	programs.]  All references to extended memory are directly to memory.  The
+	user is warned that certain programs will also access extended memory such
+	as the P?S/8 PAL assembler.  As such, extended memory loading should be
+	considered transient at best.  [Note: The P?S/8 BSAVE utility can save any
+	collection of memory locations to a series of binary output files.  The
+	storage saved need not be block-oriented or even adjacent; individual memory
+	locations can be saved as desired.]  At any time, the core-image can again
+	be saved or restored using % and $ and two named TFS files as described
+	above.
+
+*** Should you explain the "system scratch area" as a separate entry too?
+  For the same reasons?  I certainly don't fully understand what it is or where it
+ is, even though I've read more about P?S/8 than most future users. ***
+
+**** Already added.  ****
+
+	P?S/8 does not provide a means to directly create system programs.  A
+	thorough knowledge of P?S/8 is required to create system programs on a
+	permanent basis; future releases may provide a utility to transfer
+	core-image data to designated blocks within the system directory.  However,
+	only advanced users will be technically qualified to take advantage of the
+	overlay facility available within the system program directory.  A complete
+	understanding of the internal workings of P?S/8 execution and interaction
+	with the system program directory and the system device handler is a
+	necessary prerequisite.  Advanced information on this topic will be made
+	available in various forms covering P?S/8 principles of operation.
+
+	Note: Long-term plans for P?S/8 include a system builder program that will
+	be able to either create or update a P?S/8 system based on features not
+	presently implemented [but planned].  Such a utility will be required to
+	simplify the process of modifying the system program directory and related
+	structures.
+
+ 4)	Slurp loader.
+
+	P?S/8 binary files are designed for rapid loading; the relative storage
+	efficiency approaches 6/7 of core-image yet imposes no block structure.
+
+	All P?S/8 systems can load binary files by the use of a virtual loader that
+	operates in a manner analogous to the OS/8 ABSLDR program.  This allows
+	device-independent binary loading on all configurations.
+
+	Certain configurations support the slurp loader, a hardware-dependent loader
+	capable of faster loading without a block-oriented buffer.  Since the loader
+	is wholly contained within the system kernel area, there is no need to
+	implement protective virtual mechanisms as used in the standard virtual
+	loader.  The data is obtained directly from the file blocks in binary loader
+	format a word at a time.
+
+*** Will you need to explain the "system kernel area" somewhere, perhaps another
+ document?  For "non-Professional" users? ***
+
+**** did that one too ****
+
+**** I added it below; now you have a whole lot more reading to do :-)
+its at the hairy edge of being too intimidating for beginning users and refers to
+advanced documentation for more information. ****
+
+	Slurp loading can only be accomplished on program-transfer devices such as
+	the RX01/RX02 and the specific three-cycle data break devices DF32 and
+	TC01/TC08/TU55/TU56.  [Note: The RF08 transfers too quickly to support a
+	slurp loader; the standard virtual loader must be used.]  In the case of the
+	supported three-cycle data break devices, the DMA is diverted into a
+	one-word buffer as the transfer progresses allowing the binary data to be
+	loaded in real time.  Since there are no protective virtual mechanisms, the
+	slurp loader can operate with storage devices write-protected [where
+	applicable].
+
+*** So, the slurp loader will only really be used by people with DECtapes since
+ there probably aren't many DF32s out there?  I'm talking about real hardware,
+ not emulators like SimH (and WinEight & others) where it certainly can be used.
+  Of course, most of what you've written about P?S/8 is about using DECtapes
+ -- almost to the point that it sounds like any other peripheral was almost added
+ as a second thought. ***
+
+****
+
+Historically, that's they way the PDP-8 was sold, first with no storage, later with
+TC01 and TU55, later TC08 and TU56 and expensive machines with RF08 and cheaper
+ones with DF32.  Later the RK08 came out [I worked on them at Western Union] but it
+was obscure due to its extreme price, but was more useful than the RF08 which was
+only 256K per platter [up to 4, much later, a mod for the PDP-12 allowed 8, but is
+so obscure, only the clinical-lab-12 supports it, even OS/8 doesn't do more than 4]
+fast but obscene cost and remember all DF and RF require 24/7 power.  Needs repair
+if stopped!
+
+Later came the RK8E and then soon after the RX01 and a few years later the RX02.
+
+Very late in the game was the RL8A controller for the 8/A only, and RL01 and then
+RL02 drives.  Not really used in many systems, but while a poor item, the biggest
+standard disk for any form of -8.  DM I supports the RL278 option, but is standard
+with RX02.  If you look at DEC-only, most of the history was DECtape and quite a
+few users used them on newer upgraded systems, but eventually RX users outnumbered
+them.
+
+Slurp loader is also for all program-transfer devices as mentioned, such as RX01.
+Perhaps needs that as an example.  The others are specific because only 3 were made
+other than magtape, not meant to be a system device.  Insane people create block
+replacable magtapes with wide gaps between the blocks.  They run EXTREMELY slow if
+at all, and only a few people ever bother [and magtapes are very expensive, far more
+than an RK system, only get them if you need compatibility with IBM mainframes with
+magtapes as the primary reason.   I worked at Western Union on a bootable read-only
+menu-driven system to load in a half-dozen programs.  But this was on non-DEC magtape
+hardware and is not a general-purpose operating system.  [More like a customized
+version of the DECtape Library System which treats DECtape as if it were as limited
+as a magtape.]
+
+****
+
+
+	The virtual loader operates with the system device handler always resident.
+	The slurp loader displaces the system device handler during the loading
+	process; however, a device-dependent bootstrap is included to allow system
+	restart at 07600.
+
+	An advanced feature of the slurp loader is a companion "file" created in
+	binary loading format to be used after all user program loading is finished.
+	This "file" modifies the slurp loader in real time to cause the system
+	device handler to be reloaded without disturbing user memory [00000-07577].
+	Since this "file" must be loaded last [and is extremely system-dependent] it
+	is written to the reserved system block 0060.  [Note: Binary files are
+	usually 16 block TFS files or perhaps some form of extended-length binary
+	file since the binary loading format supports an explicit internal end of
+	load condition.]  The "file" that reloads the system device handler is always
+	definable in a single block.  [Note: This has been the case to date; it is
+	not expected this will ever become a problem for future devices.]  To ensure
+	the "file" is loaded last, it is passed internally past all user-specified
+	files as block 0060.  [Note: The present definition of the logical unit for
+	the reload "file" is the logical unit of the P?S/8 BIN program that loads
+	the binary file.  Future releases will use block 0060 of the system boot
+	device.  This will prevent potential problems such as running BIN from an
+	incompatible system such as a TD8E P?S/8 system while booted to a TC08
+	system; the system-dependent bootstrap code and slurp loader will also be
+	moved to a dedicated system block to avoid the analogous issues.  As a
+	result, future releases of the P?S/8 BIN program will be one block shorter,
+	all other things equal.]
+
+*** Does this mean that the slurp loader won't be extremely system-dependent in the
+ future releases? ***
+
+**** No, it means that it will be identical and virtually impossible to get the
+wrong one [for different hardware].
+
+Consider if you have a TD8E P?S/8 tape on unit one and you attempted BIN:1.  It
+would try to put the wrong slurp loader into memory!  By changing the internals of
+the BIN utility program, calling up the slurp loader means to load block something
+like 62 [or so, I am guessing; it will hatch when I am ready to do this] on the
+system device that booted up regardless; the BIN program will then be generic.
+Already the /I code is that way, but I think the logic doesn't quite honor it
+that way; I have to check the source code of BIN to see if that was fixed. I 
+think it is broken in the 1976 release, but it's moot since we don't have any
+other bootables but the TC01/TC08 DECtape version!
+
+This was one of the long-term cleanup items I have produced over the years.  And
+this will be done soon after I get a working 1989 system up unchanged.  These
+changes will not be user-noticable, but they do need to be cleaned up, remove
+the needless structure of the never-implemented elaborate directory for multiple
+extended-length files, etc.  [That's how I will get that other dedicated block.
+
+It also affects BIN /P [possibly also /F] which loads the BIN and RIM loaders
+with the system dependent bootstrap.  Right now that is inside of BIN.  when
+completed, it's the one from the system that booted up, thus impossible to accidentally
+get it wrong, etc.
+
+
+****
+
+
+*** I guess you'll need to write a "P?S/8 for Dummies" after P?S/8 is "in the wild" 
+to explain what you are so familiar with, like "user memory" and 
+
+"reserved system block," that you don't even think about it due to knowing
+ everything about these simple items since before P?S/8 was even started. 
+ The "new users" out there will probably need the "for Dummies" document in order to
+ become more advanced users, to eventually become advanced Programmers in a few
+ cases. ***
+****
+Then it isn't really for dummies, is it?  [Yes, it is for dummies who use OS/8 and
+don't know better :-) ]
+
+****
+
+**** I didn't see you mark off spelling errors;did you just fix them? [I don't
+see any now, etc. ****
+
+	Since the "file" must be passed when the reload feature is selected [by the
+	use of the /I command-line switch], the effective maximum user-selected
+	binary file count drops from 17 to 16.  [Note: The /I option is ignored on
+	systems that do not support a slurp loader; the system device handler
+	participates in the virtual loading processes and is never displaced from
+	memory, thus does not require reloading.]
+
+	Slurp loaders exist for other PDP-8 operating systems such as the R-L
+	Monitor System [that P?S/8 is based on], POLY BASIC [sold by DEC as
+	EDUsystem 30 and EDUsystem 15/30 for the TD8E] and DIBOL-8 [the forerunner
+	to COS-300/310 which is actually the R-L Monitor System thinly "disguised"
+	which includes the identical BIN program code within the R-L Monitor
+	System].
+
+**** new stuff below.  Open to the subject of resorting items according to I have
+no idea; they do interact unfortunately, I don't see how to avoid that. ****
+
+ 4)	System kernel area.
+
+	All PDP-8 software design conventions are based on the reservation of the
+	highest 128-word area in memory in the basic 4K model [07600-07777].  The
+	earliest systems reserve most of this page in various ways to create
+	specific paper-tape conventions since these systems had no storage devices.
+	The Read-In-Mode [RIM] loader is defined as exactly 07756-07776.  This is
+	the smallest practical loader that can be loaded at the top of memory.
+
+	This set of locations was not chosen capriciously as while the basic
+	paper-tape conventions were being formed, locations 07750-07755 were
+	reserved for three-cycle data break devices that were in the early stages of
+	development:
+
+	a) Locations 07750-07751 are reserved for the DF32 mini-disk platter and the
+	   larger RF08 disk platter storage devices [which cannot co-exist].  As
+	   with all three-cycle data break [DMA] designs, the lower address [07750]
+	   is used as the word count for the DMA transfer, allowing a transfer size
+	   of 1 through 4096 words anywhere in the 32K memory space.  [Registers
+	   within the disk controllers control the DMA memory field.]
+
+	   The higher address [07751] is used as the current address register, which
+	   must be initialized to one less than the desired transfer address within
+	   the selected memory field.  As the DMA transfers occur, but memory
+	   addresses auto-increment causing read [or write] operations between the
+	   disk controller and PDP-8 memory.  When the word count overflows, the
+	   latest transfer will be the last one made.
+
+	   The P?S/8 slurp loader for DF32 manipulates the word count and current
+	   address register to effectively always transfer into the same word; this
+	   allows loading into the rest of memory [outside of the system kernel
+	   sometimes known as the user memory space] without the use of a dedicated
+	   buffer space and additional programming which in turn requires virtual
+	   loading techniques which involves the use of reserved storage blocks and
+	   significant overhead.  [The virtual loader is standard for all P?S/8
+	   configurations.]
+
+	   Users of the RF08 must use the standard virtual loader as the RF08 DMA
+	   rate exceeds the capability of any slurp loader design to manipulate the
+	   word count and current address registers.
+
+	b) Locations 07752 and 07753 perform the corresponding function for various
+	   three-cycle magnetic tape controllers such as the TC58.
+
+	c) Locations 07754 and 07755 perform the corresponding function for the
+	   TC01 or TC08 DECtape controller.  Due to the serial access limitations of
+	   DECtape, the TC01/TC08/TU55/TU56 variant of the slurp loader operates at
+	   profoundly faster speeds than the standard virtual loader, especially if
+	   the binary files are located on the same drive as the scratch area used
+	   to carry out the virtual buffering.  [Note: The exact blocks used for the
+	   virtual buffering is a design feature of the P?S/8 BIN program that
+	   launches either the standard virtual loader or the slurp loader; this
+	   portion of P?S/8 is undergoing design changes.]
+
+	As such, the RIM loader starts just after the locations reserved for the
+	three-cycle DMA devices [07756].
+
+	Closer to the beginning of the reserved page, the companion BIN loader is
+	loaded; they are designed to loaded as a set.  [If the BIN loader is
+	destroyed in memory, the RIM loader can be used to load in a copy of the BIN
+	loader in RIM loader format, which is less efficient and does not use
+	checksum protection.]  [Note: Certain programs are known to destroy all of
+	memory other than 07756-07777.]
+
+	The RIM loader was carefully written to fit into the available memory space
+	leaving 07777 available.  Since the BIN loader is subject to change, the
+	contents of location 07777 are set to a JMP instruction to the actual
+	starting address of the particular BIN loader currently in memory; thus, the
+	standard starting address of the BIN loader is always stated at 07777.
+	[Note: At least four versions of the BIN loader have been released, each
+	with a slightly different memory layout and certain incompatibilities with
+	each other.  Additionally, all versions released by DEC have some issues
+	with potential destruction by the execution of programs written for the
+	various three-cycle DMA devices.  P?S/8 is undergoing some redesign to
+	eliminate the last vestige of this problem in the version of BIN placed in
+	memory by the P?S/8 BIN program; currently, location 07753 must be
+	maintained to avoid program corruption while all DEC releases can be
+	corrupted by the destruction of various locations within the three-cycle
+	reserved area.  Since the TC58 magnetic tape and related controllers are
+	relatively rare, this has been considered the best overall compromise.  Due
+	to other changes in the design of P?S/8, this last restriction will be
+	lifted in the next new release.]
+
+	When block-oriented storage devices [such as DECtape] were introduced,
+	additional standards were imposed:
+
+	a) Programs loaded by the operating system have the ability to exit back to
+	   the operating systems.  The address chosen for this purpose is 07600, the
+	   lowest memory location of the last page of memory in the standard
+	   configuration of 4K memory.
+
+	b) The entire page of memory is reserved for the implementation of the
+	   system kernel.  [As a practical matter, this is only a few memory
+	   locations larger than is typically reserved by RIM and the most common
+	   variety of the BIN loader.]
+
+	Various locations within the system kernel [normally resident in 07600-07777
+	but occasionally displaced; see below] are reserved for optional data to be
+	passed to conforming programs loaded into the user memory space [and
+	possibly any available extended memory locations].  [Particulars regarding
+	the various options available to programs are documented elsewhere.]
+
+	The P?S/8 BIN program provides a means to support binary paper-tape; this is
+	selected by the use of various command-line options.  Most notably, the
+	low-speed or high-speed reader options can be selected.  [Note: The RIM
+	loader is available as a low-speed or a high-speed version.  Stand-alone
+	systems require toggling in the desired version on the front panel.  When
+	running from P?S/8, either can be selected by appropriate command-line
+	option switches.  Most BIN loaders are designed for stand-alone usage; as
+	such, the front panel switches must be available to determine the choice of
+	reader to load binary paper-tapes from; this can be problematic for certain
+	machines that lack an operator's panel such as the OEM version of the
+	PDP-8/M.  P?S/8 solves this problem by the use of the same option switches
+	as used to select the reader for the RIM loader.  Thus, when the loaders are
+	placed in memory, the selected read-in device applies to both loaders.]
+
+	Unlike other operating systems, P?S/8 can be restarted at 07600 due to the
+	smaller size of the P?S/8 version of the BIN loader.  Locations 07600
+	through 07642 [future releases will limit this to 7641 to eliminate the
+	remaining problem of the P?S/8 BIN loader with regard to corruption by
+	loading programs that operate the TC58 magnetic tape controller] are used as
+	a device-dependent bootstrap to reload the specific P?S/8 system in use.
+
+	The system kernel code is displaced from 07600-07777 in one additional
+	context.  When an implementation of the slurp loader is in use, the same
+	coding as is used in with the BIN and RIM loaders is loaded into 07600
+	through 07642 [07641 in future releases as discussed above].  Locations
+	07643 [07642 in future releases] starts the main coding of the slurp
+	loader [which may also use portions of the bootstrap area in the lowest
+	addresses of the system kernel area; certain routines may be part of both
+	the slurp loader and the system bootstrap].  As a rule, the slurp loader
+	code does not directly depend on the contents of 07750-07754 [unless the
+	slurp loader is for a particular three-cycle device such as the DF32].
+	However, these locations are available during the loading process.
+
+	Location 07756 contains the starting address of the program after all
+	binary files have been loaded.  Starting field information is passed to the
+	slurp loader using short sections of code and CIF CDF instructions that are
+	release-dependent as determined by P?S/8 BIN and the various slurp loader
+	implementations compatible with it.  [Location 07756 is used universally in
+	all P?S/8 program execution to store the value passed by the particular
+	usage of the =xxxx command-line option.  In the case of both variants of
+	the binary file loader, the value is used as the starting location of the
+	loaded program; once-only final initialization code is used to start the
+	program anywhere in the 32K memory space as chosen by the user.
+
+	As with all basic P?S/8 executable programs, locations 07757 through 07757
+	are reserved for the list of file handles [starting block and logical unit]
+	of each of up to 17 passed input files.  All specified input files will be
+	loaded by the slurp loader; at the end of all loading, the program will be
+	started up as specified in the original command-line.  [Note: The virtual
+	binary loader does not displace the contents of the system kernel area; the
+	system device handler is called to carry out all aspects of the buffered
+	loading including reading portions of the passed input files into an input
+	buffer and carrying out the virtualization of the area of memory that must
+	be protected during the loading process.  The last operation of the virtual
+	loader is to load the entire virtual area into memory using a call to the
+	system device handler initiated from a small reserved area within the
+	system kernel area known as the system loader; other internal operations of
+	P?S/8 also use the system loader for various purposes such as loading in the
+	BIN program that initiates the entire binary file loading process or the
+	paper-tape loaders as required depending on user-specified command-line
+	switches.  Further information on the particulars of the system kernel and
+	the system device handler is available elsewhere as part of advanced P?S/8
+	documentation.]
+
+ 5)	The system scratch/save area and the % and $ files.
+
+	Many operations of P?S/8 depend on the saved [thus virtual] image of field 0
+	to allow subsequent operations once this area is initially loaded by one of
+	the binary file loader choices.
+
+	When either of the binary file loaders has completed all file loading, the
+	user-selected starting address and field are used to start the program.  If
+	location 07632 is selected, the system loader starting address is chosen.
+
+	When the binary file loaders have completed all binary file loading, the
+	system loader contains a dedicated call to the system device handler to save
+	all of field 0 into blocks 0020 through 0057.  [Note: If the slurp loader
+	was selected for the loading process, the /I option switch must be set on
+	the original command-line to P?S/8 BIN.  This option reloads the system
+	device handler after loading the contents of all passed binary input files.
+	As a consequence, the maximum count of input files is reduced to sixteen as
+	the reloading process is carried out by a small additional loading program
+	passed as a file handle (but is actually located on the reserved system
+	block 0060).  If seventeen input files are required, the virtual loader must
+	be used; on systems that do not support a slurp loader, /I is ignored.]
+
+	[Note: the P?S/8 GET utility is actually an alias to P?S/8 BIN with the
+	starting address set to 07632 and /I forced on unless GET /V is used.]
+
+	Once all binary input files have been loaded and the system save area now
+	contains the virtual image of all field 0 loading, additional utilities can
+	now be used with the program.  [Note: All extended memory is loaded directly
+	and not virtualized.  The user is warned to not run any programs that may
+	use extended memory if this is required.  Conforming programs may be limited
+	to the use of field 0 only by the use of the CORE 0 command.  This situation
+	is somewhat superior to OS/8 which cannot guarantee the contents of any
+	memory location should any program be executed.]
+
+	The program can be debugged with P?S/8 ODT [a proper superset of OS/8
+	"invisible" ODT].  The virtual image can be started with the START command.
+	locations in memory can be saved into binary output files using the BSAVE
+	command.  Memory can be specified down to individual memory locations or
+	larger blocks of contiguous memory can be specified.  [Note: While certain
+	aspects of the BSAVE command superficially resemble the OS/8 SAVE operation,
+	the parameters give for saving memory with the BSAVE utility are not block
+	oriented; this is due to the random-access nature of the P?S/8 binary file
+	format.
+
+	[More information is available in separate documentation for these programs
+	that operate on the virtualized field 0 image when loaded into the system
+	save area.]
+
+	The system save area is universal to both the basic P?S/8 system and the
+	forthcoming P?S/8 SHELL overlay.  [Switching between the two environments
+	will preserve the core image.]
+
+	In the basic system, there are two positional files not directly controlled
+	by the TFS directory known as % and $.  % is defined as the first half of
+	the system save area [blocks 0020-0037] and $ is defined as the second half
+	of the system save area [blocks 0040-0057].  By using file loading and
+	saving operations initiated by keyboard monitor commands, the saved
+	core-image may be archived into two TFS files for restoration later.
+
+	Note: % and $ have independent usage in conflict with the definition of the
+	system save area where they are used in lieu of TFS files for faster access.
+	The user is cautioned to only use the relevant options of the context of
+	interest with respect to these files.
+
+	For example, a small assembly-language program can be created using the
+	P?S/8 keyboard monitor/editor and saved in the $ file.  P?S/8 PAL can be
+	executed specifying the $ file as input and the % file as binary output.
+	Option switches of P?S/8 PAL allow % [or perhaps % and $ as as a second
+	file] as the designated binary output file[s] for rapid program development
+	of small utilities.  This is especially useful on systems based on DECtapes
+	and LINCtapes where the access time can be notably improved over using files
+	stored in the TFS directory.  System options exist to save the tentative
+	file buffer in the keyboard monitor/editor to the $ file when any program
+	is executed and/or to load the $ file into the tentative file buffer.  This
+	allows P?S/8 to vaguely resemble various implementations of BASIC with
+	regard to small program development, etc.
+
+	Once a program exceeds this small but fast environment, TFS files must be
+	chosen for additional development work; however, this frees the % and $
+	files for use as the system save area allowing full debugging and other
+	core-image usage.
+
+[End-of-file]

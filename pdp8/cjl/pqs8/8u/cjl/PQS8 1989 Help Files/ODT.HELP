@@ -1,0 +1,189 @@
+
+/       P?S/8 OCTAL DEBUGGING TECHNIQUE   PAL8-VB0  23-JUL-86 PAGE 1
+
+   1                 /       P?S/8 OCTAL DEBUGGING TECHNIQUE (ODT)
+   2   
+   3                 /       LAST EDIT:      05-JAN-1986     10:00:00        CJL
+   4   
+   5                 /       INVISIBLE ODT FOR THE NEW IMPROVED P?S/8 MONITOR SYSTEM.
+   6   
+   7                 /       CAN BE ASSEMBLED WITH '/J' SWITCH SET.
+   8   
+   9                 /       RESTRICTIONS OVER IDEAL INVISIBILITY:
+  10   
+  11                 /       A)      FIELD 0:        07600-07777
+  12                 /       B)      FIELD X (X>0) CONTAINING A BREAKPOINT:  X7771-X7777
+  13                 /               N. B. X7600-X7770 ARE NOT USED!
+  14   
+  15                 /       C)      FIELD Y (Y>=0) CONTAINING A BREAKPOINT: Y0004
+  16                 /               N. B. Y0004 ALWAYS CONTAINS 7771
+  17   
+  18                 /       ODT WILL INHIBIT REFERENCES TO ANY NON-EXISTANT, NON-CONTIGUOUS, OR
+  19                 /       RESTRICTED MEMORY. (EXAMPLE: 8K + FIELD 7 ROM FOR TD-8/E (MR-8/E-C)
+  20                 /       CANNOT ADDRESS FIELD 2 AND ABOVE SO ROM'S CONTENTS ARE NOT AVAILABLE
+  21                 /       FOR DIRECT EXAMINATION THROUGH ODT.)
+  22   
+  23                 /       BREAKPOINT RESTRICTIONS:
+  24   
+  25                 /       A)      BREAKPOINT USAGE WILL DESTROY THE OUTPUT FILE COUNT WORD AT 07607
+  26                 /               (SOUTFLS) AND THE SWITCH SETTINGS /M-/X AT 07605 (SWMX) AND /Y-/9
+  27                 /               AT 07606 (SWY9). THE SWITCH SETTINGS /A-/L AT 07604 (SWAL) WILL BE
+  28                 /               PRESERVED.
+  29                 /       B)      ALL FILE ARGUMENTS AT 07757-07777 (STARTING AT SFILES) WILL BE
+  30                 /               DESTROYED. THE EQUALS PARAMETER AT 07756 (SPARM) WILL BE PRESERVED.
+  31                 /               THE SYSTEM DATE WORD AT 07610 (SDATE) AND SYSTEM CORE SIZE WORD AT
+  32                 /               07611 (SCRSIZE) WILL ALSO BE PRESERVED.
+  33                 /       C)      THE SYSTEM LOADER AT 07632-07637 (SLOAD-SYSTART) CANNOT BE USED
+  34                 /               FOR ANY NORMAL PURPOSE SUCH AS ATTEMPTING TO DETERMINE THE LOAD
+  35                 /               BLOCK BY LOOKING AT THE BLOCK WORD AT 07635 (SBLOCK).
+  36   
+  37                 /       USE OF BREAKPOINTS DOES NOT CHANGE ANY OTHER LOCATIONS WITHIN THE
+  38                 /       RANGE OF 07600-07777 AS THESE LOCATIONS ARE THE ACTUAL SYSTEM HANDLER
+  39                 /       AT 07600-07603 (STARTING AT SBOOT), 07612-07631, AND 07640-07755
+  40                 /       (STARTING AT SYSIO). SINCE ALL ILLEGAL EXTENDED MEMORY REFERENCES ARE
+  41                 /       INHIBITED, THE REST OF ANY EXTENDED HANDLER CODE CANNOT BE CHANGED
+  42                 /       (NORMALLY) BY ODT.
+  43   
+  44                 /       ANY FIELD NOT CONTAINING BREAKPOINTS WILL HAVE ITS LOCATION 0004
+  45                 /       PRESERVED. ANY FIELD CONTAINING BREAKPOINTS WILL HAVE ITS LOCATION
+  46                 /       0004 CHANGED TO THE CONSTANT 7771.
+  47   
+  48                 /       ALL SYSTEM PARAMETERS ARE AVAILABLE UNDER ODT AS LONG AS PROGRAM
+  49                 /       STARTUP IS BY THE "S" COMMAND ONLY. THIS IS A SUPERIOR METHOD TO THE
+  50                 /       KEYBOARD MONITOR "START" COMMAND AS THIS DOES NOT RESTRICT THE EQUALS
+  51                 /       PARAMETER AT 07756 (SPARM), OR THE SWITCHES /1-/7 AT 07606 (SWY9).
+  52   
+  53                 /       PRESSING <^A>, <^B>, <^C>, OR <NUL> SAVES FIELD 0 (00000-07577) AND
+  54                 /       RELOADS THE KEYBOARD MONITOR.
+
+/       P?S/8 OCTAL DEBUGGING TECHNIQUE   PAL8-VB0  23-JUL-86 PAGE 9
+
+ 389   000460  1375  TRYLOWR,TAD     (-117)                  /AC NOW CONTAINS CHARACTER-177
+ 390   000461  7100          CLL                             /CLEAR LINK FOR TEST
+ 391   000462  1374          TAD     (36)                    /ADD ON RANGE
+ 392   000463  7420          SNL                             /SKIP IF VALID LOWER-CASE
+ 393   000464  5267          JMP     NOQ                     /BARF OTHERWISE
+ 394   000465  1373          TAD     ("A&177)                /MAKE IT UPPER-CASE
+ 395   000466  5772          JMP I   (TRYAGAN)               /TRY IT AGAIN
+ 396   
+ 397   000467  7326  NOQ,    NL0002                          /CLEAN UP AND FORM BEGINNING OF RIGHT CONSTANT
+ 398   000470  1150          TAD     ["?-"0-6-2]             /??=BAD INPUT CHARACTER
+ 399   000471  7001  NO6,    IAC                             /?6=NO ARGUMENT TO "G" OR "R"
+ 400   000472  7001  NO5,    IAC                             /?5=DUPLICATE BREAKPOINT ATTEMPTED
+ 401   000473  7001  NO4,    IAC                             /?4=ILLEGAL BREAKPOINT CONDITION (N=0)
+ 402   000474  7001  NO3,    IAC                             /?3=BREAKPOINT LOOKUP FAILURE FROM "#"
+ 403   000475  7001  NO2,    IAC                             /?2=NO ARGUMENT TO "#"
+ 404   000476  7001  NO1,    IAC                             /?1=ILLEGAL ADDRESS OR VALUE
+ 405   000477  3573  NO0,    DCA I   [CRLF]                  /?0=TOO MANY DIGITS
+ 406   000500  1147          TAD     ["?&77]                 /GET A "?"
+ 407   000501  4557          JMS I   [P6CH]                  /PRINT IT
+ 408   000502  1573          TAD I   [CRLF]                  /GET PASSED CODE
+ 409   000503  1146          TAD     ["0&77]                 /MAKE INTO DIGIT
+ 410   000504  4557          JMS I   [P6CH]                  /PRINT IT
+ 411   000505  5174          JMP     BEGIN                   /START OVER
+ 412   
+ 413   000506  0000  P5BLNKS,.-.                             /PRINT FIVE <SPACE> CHARACTERS ROUTINE
+ 414   000507  1371          TAD     (-5)                    /SETUP FOR
+ 415   000510  3316          DCA     P5TEMP                  /FIVE
+ 416   000511  1145          TAD     [" &177]                /GET A <SPACE>
+ 417   000512  4055          JMS     P7CH                    /PRINT IT
+ 418   000513  2316          ISZ     P5TEMP                  /DONE YET?
+ 419   000514  5311          JMP     .-3                     /NO, KEEP GOING
+ 420   000515  5706          JMP I   P5BLNKS                 /YES, RETURN
+ 421   
+ 422   000516  0000  P5TEMP, .-.                             /TEMPORARY
+
+/       P?S/8 OCTAL DEBUGGING TECHNIQUE   PAL8-VB0  23-JUL-86 PAGE 21
+
+ 889           1400          PAGE
+ 890   
+ 891   001400  0000  BRKTBL, ZBLOCK  100             /BREAKPOINTS SAVED HERE
+ 892   001500  7777  DSPADR, 7777                    /DISPLAYED ADDRESS
+ 893   001501  0000  DSPAD1, .-.                     /ON A BREAKPOINT
+ 894   
+ 895   001502  0040  TABL1,  " &177                  /BLANK
+ 896   001503  0012          12&177                  /LINE FEED
+ 897   001504  0015          15&177                  /CARRIAGE RETURN
+ 898   001505  0057          "/&177                  //
+ 899   001506  0101  SPTABL, "A&177                  /A
+ 900   001507  0114          "L&177                  /L
+ 901   001510  0121          "Q&177                  /Q
+ 902   001511  0104          "D&177                  /D
+ 903   001512  0106          "F&177                  /F
+ 904   001513  0116          "N&177                  /N
+ 905   001514  0115          "M&177                  /M
+ 906   001515  0110          "H&177                  /H
+ 907   001516  0125          "U&177                  /U
+ 908   001517  0117          "O&177                  /O
+ 909   001520  0126          "V&177                  /V
+ 910   001521  0134          "\&177                  /\
+ 911   001522  0050          "(&177                  /(
+ 912   001523  0102          "B&177                  /B
+ 913   001524  0111          "I&177                  /I
+ 914   001525  0107          "G&177                  /G
+ 915   001526  0122          "R&177                  /R
+ 916   001527  0073          ";&177                  /;
+ 917   001530  0103          "C&177                  /C
+ 918   001531  0123          "S&177                  /S
+ 919   001532  0105          "E&177                  /E
+ 920   001533  0127          "W&177                  /W
+ 921   001534  0130          "X&177                  /X
+ 922   001535  0113          "K&177                  /K
+ 923   001536  0136          "^&177                  /^
+ 924   001537  0053          "+&177                  /+
+ 925   001540  0055          "-&177                  /-
+ 926   001541  0043          "#&177                  /#
+ 927   001542  0054          ",&177                  /,
+ 928   001543  0074          "<&177                  /<
+ 929   001544  0120          "P&177                  /P
+ 930   001545  0137          137                     /BACK ARROW
+ 931   001546  7710          -70                     /END OF LIST USED FOR NUMERIC CHECK
+
+/       P?S/8 OCTAL DEBUGGING TECHNIQUE   PAL8-VB0  23-JUL-86 PAGE 22
+
+ 932   001547  0203  TABL2,  BEGNIN                  /BLANKS ARE IGNORED
+ 933   001550  0307          LNFEED                  /CLOSE PREVIOUS, OPEN + DISPLAY NEXT
+ 934   001551  0305          RETURN                  /CLOSE PREVIOUS
+ 935   001552  0235          EXAMIN                  /DISPLAY CURRENT
+ 936   001553  0450          ACX                     /OPEN AC LOCATION
+ 937   001554  0447          LINKX                   /OPEN LINK LOCATION
+ 938   001555  0446          QUEUE                   /OPEN MQ LOCATION
+ 939   001556  0445          DX                      /OPEN BREAK DATA FIELD LOCATION
+ 940   001557  0444          FX                      /OPEN SEARCH DATA FIELD LOCATION
+ 941   001560  0443          NX                      /OPEN BREAKPOINT NUMBER LOCATION
+ 942   001561  0442          MX                      /OPEN WORD SEARCH MASK LOCATION
+ 943   001562  0441          HX                      /OPEN HOME (LOWER SEARCH LIMIT) LOCATION
+ 944   001563  0440          UX                      /OPEN UPPER SEARCH LIMIT LOCATION
+ 945   001564  0437          OX                      /OPEN OUTPUT CONTROL WORD
+ 946   001565  0436          VX                      /OPEN VIEW CONTROL WORD
+ 947   001566  2400          BKSLSH                  /DUMP MEMORY
+ 948   001567  1002          DSPNBL                  /ENABLE BREAKPOINT DISPLAY
+ 949   001570  2200          BREAK                   /INSERT BREAKPOINT
+ 950   001571  0413          INCN                    /INCREMENT BREAKPOINT NUMBER
+ 951   001572  1076          GO                      /START PROGRAM
+ 952   001573  1073          ARE                     /RESUME FROM MANUAL SETTINGS
+ 953   001574  0345          SEMICOLON               /SAME AS LINEFEED BUT NO DISPLAY
+ 954   001575  1053          CONTINUE                /CONTINUE FROM A PREVIOUS BREAKPOINT
+ 955   001576  2255          START                   /START OR SAVE
+ 956   001577  7600          SBOOT                   /UNCONDITIONALLY (HASTILY) EXIT FROM ODT
+ 957   001600  2042          WRDSRCH                 /SEARCH CORE AGAINST MASK
+ 958   001601  2043          ECKS                    /SEARCH CORE AGAINST MASK (COMPLEMENTED)
+ 959   001602  0424          KAY                     /SET COUNT OF A BREAKPOINT
+ 960   001603  0322          UPARW1                  /OPERAND OPEN
+ 961   001604  0400          ADDIT                   /OPEN .+ARGUMENT LOCATION
+ 962   001605  0401          SBTRCT                  /OPEN .-ARGUMENT LOCATION
+ 963   001606  0714          NUMSGN                  /FIND BREAKPOINT IN TABLE
+ 964   001607  0420          COMMA                   /SET BREAKPOINT NUMBER
+ 965   001610  0351          PREV                    /RESTORE PREVIOUS ADDRESS
+ 966   001611  2076          SRCPRC                  /PROCEED TO NEXT WORD SEARCH
+ 967   001612  0331          INDRCT                  /OPEN INDIRECTLY
+ 968   
+ 969   001613  0000  LOAD,   .-.                     /LOAD A WORD ROUTINE
+ 970   001614  1613          TAD I   LOAD            /GET THE ARGUMENT
+ 971   001615  4317          JMS     GETADR          /SETUP THE ADDRESS
+ 972   001616  0014  L14,    14                      /THIS CAN BE SKIPPED
+ 973   001617  1403          TAD I   ADDRESS         /GET THE VALUE
+ 974   001620  6201          CDF     00              /IN CASE OF EXTENDED MEMORY
+ 975   001621  2213          ISZ     LOAD            /BUMP PAST ARGUMENT
+ 976   001622  5613          JMP I   LOAD            /RETURN
+

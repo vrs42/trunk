@@ -1,0 +1,345 @@
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 1
+
+   1                 /       DIRECTORY UTILITY FOR P?S/8
+   2   
+   3                 /       LAST EDIT:      03-SEP-1987     16:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       DIRECTORY LISTING UTILITY FOR P?S/8 FIXED FILES CATALOG, EXTENDED FILES
+   8                 /       DIRECTORY, AND SYSTEM PROGRAMS DIRECTORY.
+   9   
+  10                 /       USAGE:
+  11   
+  12                 /       .[R ]DIRECT (SWITCH OPTIONS) (OPTIONAL SEARCH STRING)
+  13   
+  14                 /       SWITCH OPTIONS:
+  15   
+  16                 /       /A      REPORT ONLY ASCII TYPE FILES. DEFAULT IS ALL FILE TYPES AND EMPTY
+  17                 /               SLOTS. SEE /B, /E, /I, /Q. THESE FILES WILL PRINT <ASCI> IF /I IS
+  18                 /               NOT INVOKED.
+  19   
+  20                 /       /B      REPORT ONLY BINARY TYPE FILES. DEFAULT IS ALL FILE TYPES AND EMPTY
+  21                 /               SLOTS. SEE /A, /E, /I, /Q. THESE FILES WILL PRINT <BNRY> IF /I IS
+  22                 /               NOT INVOKED.
+  23   
+  24                 /       /D      REPORT FILE (OR EMPTY SLOT) STARTING BLOCK IN DECIMAL. DEFAULT
+  25                 /               IS NO BLOCK INFORMATION.
+  26   
+  27                 /       /E      REPORT ONLY EMPTY SLOTS. DEFAULT IS ALL FILE TYPES AND EMPTY SLOTS.
+  28                 /               SEE /A, /B, /D, /I, /O, /Q.
+  29   
+  30                 /       /F      OUTPUT <FF> CHARACTER AS PAGE DELIMITER. DEFAULT IF OUTPUT IS TO
+  31                 /               THE SYSTEM LINE-PRINTER. IF NOT INVOKED AND OUTPUT IS TO THE CONSOLE
+  32                 /               TERMINAL, USE HASH LINE AS PAGE DELIMITER.
+  33   
+  34                 /       /H      NO HEADERS ON OUTPUT. ONLY THE CURRENT DATE WILL BE OUTPUT BEFORE
+  35                 /               THE FILE LINES, ETC. DEFAULT IS A DESCRIPTIVE HEADER ON EACH PAGE.
+  36   
+  37                 /       /I      DON'T IDENTIFY FILE TYPE. DEFAULT IS TO INDICATE WHETHER FILE (OR
+  38                 /               EMPTY SLOT) IS ASCII <ASCI>, BINARY <BNRY>, OR UNKNOWN <UNKN>. SEE
+  39                 /               /A, /B, /E, /Q.
+  40   
+  41                 /       /L      FILE NAMES (AND EMPTY SLOTS) ARE REPORTED IN LINEAR ORDER (ACCORDING
+  42                 /               TO ASCENDING STARTING BLOCK NUMBER). DEFAULT IS AN ASCENDING SORT
+  43                 /               BY FILE NAME (EMPTY SLOTS REPORTED LAST SORTED BY BLOCK NUMBER).
+  44   
+  45                 /       /N      NO PAGINATION ON OUTPUT.
+  46   
+  47                 /       /O      REPORT FILE (OR EMPTY SLOT) STARTING BLOCK IN OCTAL. DEFAULT IS
+  48                 /               NO BLOCK INFORMATION.
+  49   
+  50                 /       /P      PAUSE BETWEEN OUTPUT PAGES. THREE <BEL> CHARACTERS WILL BE SENT
+  51                 /               TO THE CONSOLE TERMINAL TO INDICATE THE PAUSE. HITTING <CR> ON THE
+  52                 /               CONSOLE KEYBOARD WILL RESUME THE OUTPUT.
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 2
+
+  53                 /       /Q      REPORT ONLY FILE TYPES OTHER THAN ASCII, BINARY. DEFAULT IS ALL
+  54                 /               FILE TYPES AND EMPTY SLOTS. SEE /A, /B, /E, /I. THESE FILES WILL
+  55                 /               PRINT <UNKN> IF /I IS NOT INVOKED.
+  56   
+  57                 /       /R      DON'T REPORT AVAILABLE AND TOTAL SLOT RESOURCES. DEFAULT IS TO
+  58                 /               REPORT AVAILABLE AND TOTAL SLOT INFORMATION.
+  59   
+  60                 /       /S      OUTPUT SYSTEM DIRECTORY INFORMATION. DEFAULT IS FILES DIRECTORY
+  61                 /               INFORMATION. IF /S IS INVOKED, THE FOLLOWING SWITCHES WILL BE IGNORED:
+  62                 /               /A, /B, /D, /E, /H, /I, /L, /O, /Q, /R, /V, /X. THE =NNNN PARAMETER
+  63                 /               WILL BE VALIDATED BUT NOT USED. THE SEARCH STRING WILL BE VALIDATED
+  64                 /               BUT NOT USED. SEE SYSTEM DIRECTORY DESCRIPTION FOR MORE INFORMATION.
+  65   
+  66                 /       /T      OUTPUT TO CONSOLE TERMINAL. DEFAULT IS TO USE THE LINE-PRINTER IF
+  67                 /               AVAILABLE ELSE ALL OUTPUT IS ROUTED TO THE CONSOLE TERMINAL. ERROR
+  68                 /               MESSAGE PRINTOUT IS ALWAYS SENT TO THE CONSOLE TERMINAL.
+  69   
+  70                 /       /U      OUTPUT IN UPPER CASE ONLY. DEFAULT IS UPPER/LOWER CASE OUTPUT.
+  71   
+  72                 /       /V      DON'T OUTPUT FILE NAMES WITH VERTICAL ORIENTATION. IF /V IS INVOKED
+  73                 /               WITH /L, THE FILE NAMES WILL APPEAR HORIZONTALLY IN THE ORDER OF
+  74                 /               OCCURRENCE ON THE SPECIFIED DEVICE. IF /V IS NOT INVOKED, ALL OUTPUT
+  75                 /               CHANGES TO BALANCED-LENGTH VERTICAL COLUMNS.
+  76   
+  77                 /       /X      OUTPUT EXTENDED DIRECTORY INSTEAD OF CATALOG. THE FOLLOWING SWITCHES
+  78                 /               WILL BE IGNORED: /A, /B, /I, /Q, /R. OTHER SWITCHES MAY HAVE ALTERNATE
+  79                 /               MEANING. NOT IMPLEMENTED AT THIS TIME.
+  80   
+  81                 /       /0-/7   LOGICAL UNIT FOR DIRECTORY LISTING. DEFAULT VALUE IS THE SYSTEM
+  82                 /               BOOTSTRAP UNIT.
+  83   
+  84                 /       =NNNN   USE NNNN COLUMNS PER PAGE. DEFAULT IS 3. MAXIMUM IS 74 (112 OCTAL).
+  85   
+  86                 /       FILE EXCLUSION SWITCHES (ASSUMING /S, /X ARE NOT INVOKED).
+  87   
+  88                 /       THE DEFAULT ACTION IS TO ALLOW ALL FILE TYPES AND EMPTY SLOTS TO BE ELEGIBLE
+  89                 /       FOR PRINTOUT. USE OF ANY OF THESE SWITCHES:
+  90   
+  91                 /               /A      FOR ASCII FILES
+  92                 /               /B      FOR BINARY FILES
+  93                 /               /E      FOR EMPTY SLOTS
+  94                 /               /Q      FOR FILES OTHER THAN ASCII OR BINARY (UNKNOWN)
+  95   
+  96                 /       WILL EXCLUDE ALL FILE TYPES (OR EMPTY SLOTS) WHOSE OPTION SWITCHES ARE NOT
+  97                 /       EXPLICITLY GIVEN.
+  98   
+  99                 /       INVOKING /A/B/E/Q IS EQUIVALENT TO INVOKING NONE OF THESE OPTION SWITCHES.
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 3
+
+ 100                 /       OPTIONAL SEARCH STRING.
+ 101   
+ 102                 /       AN OPTIONAL SEARCH STRING CAN BE GIVEN (IF PRESENT, IT MUST BE LAST ON THE
+ 103                 /       COMMAND LINE PAST ALL OPTION SWITCHES) TO LIMIT PRINTOUT TO THOSE FILES
+ 104                 /       "MATCHING" THE SEARCH STRING. THE STRING CAN CONSIST OF ANY COMBINATION
+ 105                 /       OF VALID P?S/8 FILE NAME CHARACTERS ("A", "B", "C", "D", "E", "F", "G",
+ 106                 /        "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+ 107                 /       "V", "W", "X", "Y", "Z", "[", "\", "]", "^", "0", "1", "2", "3", "4", "5",
+ 108                 /       "6", "7", "8", "9"), AND THE SPECIAL CHARACTERS: "*", "?", AND AT MOST A
+ 109                 /       SINGLE OCCURRENCE OF THE SPECIAL CHARACTER: ".". ALL IMBEDDED SPACE CHARACTERS
+ 110                 /       AND HORIZONTAL TABS ARE IGNORED.
+ 111   
+ 112                 /       TO QUALIFY FOR PRINTOUT, A FILE NAME MUST MATCH THE SEARCH STRING EXACTLY.
+ 113                 /       TO ALLOW FOR "WILD CARD" CAPABILITY, THE SPECIAL CHARACTERS "?" AND "*"
+ 114                 /       CAN BE USED. THE "?" CHARACTER MATCHES ANY ONE CHARACTER IN A FILE NAME.
+ 115                 /       THE CHARACTER MUST BE PRESENT, UNLESS THE "?" IS PART OF A SERIES OF "?"
+ 116                 /       CHARACTERS RIGHT-MOST IN THE SEARCH STRING. FOR EXAMPLE:
+ 117   
+ 118                 /       .DIRECT FOO???
+ 119   
+ 120                 /       THIS WOULD MATCH FILE NAMES: "FOO", "FOOD", "FOOLS", AND "FOOBAR".
+ 121   
+ 122                 /       THE "*" CHARACTER IS USED TO MATCH AN ARBITRARY NUMBER OF FILE NAME CHARACTERS
+ 123                 /       FROM NONE THROUGH THE ENTIRE NAME IF NECESSARY. FOR EXAMPLE:
+ 124   
+ 125                 /       .DIRECT *
+ 126   
+ 127                 /       THIS WOULD MATCH ANY FILE NAME (AS IF THE SEARCH STRING WERE NOT INVOKED
+ 128                 /       AT ALL!).
+ 129   
+ 130                 /       .DIRECT F*
+ 131   
+ 132                 /       THIS WOULD MATCH FILE NAMES: "F", "FOO", AND "FOOBAR".
+ 133   
+ 134                 /       .DIRECT F*R
+ 135   
+ 136                 /       THIS WOULD MATCH FILE NAMES: "FR", "FAR", AND "FOOBAR".
+ 137   
+ 138                 /       THE SPECIAL CHARACTER "." MAY BE GIVEN AT THE END OF THE SEARCH STRING
+ 139                 /       OPTIONALLY FOLLOWED BY AN ADDITIONAL STRING USING ALL OTHER VALID SEARCH
+ 140                 /       CHARACTERS; THE "." CHARACTER ITSELF MUST NOT BE REPEATED. THE "." CHARACTER
+ 141                 /       IS USED TO INDICATE AN "EXTENSION" (ALSO KNOWN AS A "QUALIFIED NAME"),
+ 142                 /       WHICH IS NOT IMPLEMENTED AT THIS TIME. DUE TO CURRENT IMPLEMENTATION
+ 143                 /       RESTRICTIONS, THE P?S/8 FILE NAME STRUCTURE IS LIMITED TO AT MOST SIX
+ 144                 /       CHARACTERS WITHOUT EXTENSION, SO THE SCOPE OF USEFUL COMMANDS MUST BE
+ 145                 /       LIMITED TO THIS AMOUNT. THE EXTENSION STRING (IF GIVEN) WILL BE IGNORED,
+ 146                 /       OTHER THAN VALIDATION OF ITS SYNTAX. FUTURE IMPLEMENTATION PLANS FOR P?S/8
+ 147                 /       INCLUDE UPGRADING THE FILE NAMES TO A FORM:
+ 148   
+ 149                 /       LONGASSEMBLYFILE.MAC8   16 CHARACTER FILE NAMES WITH 4 CHARACTER EXTENSIONS
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 4
+
+ 150                 /       PROGRAM OUTPUT.
+ 151   
+ 152                 /       CATALOG-ORIENTED PRINTOUT.
+ 153   
+ 154                 /       RUNNING DIRECT (WITHOUT /S, /X) PRODUCES THE FOLLOWING OUTPUT:
+ 155   
+ 156                 /       DIRECTORY OF SYSN:  DIRECT V10B  FRIDAY 03-JUL-87  PAGE 1       REQUESTED UNIT
+ 157                 /                                                                       [0-7], VERSION,
+ 158                 /                                                                       REVISION,
+ 159                 /                                                                       DAY, DATE,
+ 160                 /                                                                       PAGE NUMBER
+ 161   
+ 162                 /       FOOBAR <BNRY>  1000                                             FILE NAME, ID,
+ 163                 /                                                                       STARTING BLOCK
+ 164                 /       <FREE> <UNKN>  1020                                             FREE SLOT, ID,
+ 165                 /                                                                       STARTING BLOCK
+ 166                 /       <FREE> <UNKN>  1040                                             FREE SLOT, ID,
+ 167                 /                                                                       STARTING BLOCK
+ 168                 /       BARFOO <ASCI>  1060                                             FILE NAME, ID,
+ 169                 /                                                                       STARTING BLOCK
+ 170   
+ 171                 /        2 FILES                                                        FILE COUNT
+ 172   
+ 173                 /        2 FREE FILE SLOTS                                              IMBEDDED FREE
+ 174                 /                                                                       SLOT COUNT
+ 175   
+ 176                 /       80 AVAILABLE FILE SLOTS                                         TOTAL FREE
+ 177                 /                                                                       SLOT COUNT
+ 178   
+ 179                 /       84 TOTAL FILE SLOTS                                             TOTAL SLOTS
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 5
+
+ 180                 /       SYSTEM DIRECTORY-ORIENTED OUTPUT.
+ 181   
+ 182                 /       RUNNING DIRECT WITH /S PRODUCES THE FOLLOWING OUTPUT:
+ 183   
+ 184                 /       P?S/8 SYSTEM DIRECTORY  DIRECT V10B  FRIDAY 03-JUL-87  PAGE 1   VERSION,
+ 185                 /                                                                       REVISION,
+ 186                 /                                                                       DAY, DATE,
+ 187                 /                                                                       PAGE NUMBER
+ 188   
+ 189                 /       SYSTEM: TC08:0                                                  DEVICE, UNIT
+ 190   
+ 191                 /       IMAGE INFORMATION:                                              HEADER
+ 192   
+ 193                 /        NAME   BLOCK  SIZE  LOAD  LENGTH  OUT   IN   R  S  O  START    HEADER
+ 194   
+ 195                 /       ODT     0163   016   0000    16   GENO  GENI  0  0  0  03000    ODT ENTRY
+ 196                 /       BATCH   0201   002   7400    01         BAT   0  0  0  07400    BATCH ENTRY
+ 197                 /       BIN     0203   027   0000    13   BIN   BIN   0  0  0  00200    BIN ENTRY
+ 198                 /       [OTHER SPECIFIC SYSTEMS INFORMATION AS NECESSARY]
+ 199                 /       <FREE>  BBBB   NNN                                              FIRST FREE
+ 200                 /                                                                       BLOCK, SIZE
+ 201   
+ 202                 /       FREE SLOTS:    NNN                                              FREE
+ 203                 /                                                                       DIRECTORY
+ 204                 /                                                                       SLOTS
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 6
+
+ 205                 /       EXPLANATION OF SYSTEM DIRECTORY PARTICULARS.
+ 206   
+ 207                 /       NAME    SYSTEM PROGRAM NAME
+ 208   
+ 209                 /       BLOCK   FIRST LOADING BLOCK OF SYSTEM PROGRAM
+ 210   
+ 211                 /       SIZE    OVERALL SIZE OF SYSTEM PROGRAM INCLUDING OVERLAYS, ETC.
+ 212   
+ 213                 /       LOAD    SIZE OF INITIALLY LOADED PROGRAM SEGMENT
+ 214   
+ 215                 /       OUT     DEFAULT OUTPUT EXTENSION FOR EXTENDED DIRECTORY FILES
+ 216   
+ 217                 /       IN      DEFAULT INPUT EXTENSION FOR EXTENDED DIRECTORY FILES
+ 218   
+ 219                 /       R       EQUALS PARAMETER RADIX DISPOSITION: 0=USE OCTAL, 1=USE CURRENT RADIX
+ 220   
+ 221                 /       S       SCAN FILES DISPOSITION: 0=ALLOW FILE SCAN, 1=PREVENT FILE SCAN
+ 222   
+ 223                 /       O       SCAN OUTPUT FILES DISPOSITION: 0=NORMAL, 1=ALLOW OUTPUT FILES ONLY
+ 224   
+ 225                 /       IF SIZE AND LOAD DIFFER, THE SYSTEM PROGRAM CONTAINS OVERLAYS OR IMBEDDED
+ 226                 /       BUFFER AREAS. SEE SPECIFIC SYSTEM PROGRAM DOCUMENTATION FOR MORE DETAILS.
+ 227   
+ 228                 /       DEFAULT EXTENSIONS ARE PROVIDED WHERE APPLICABLE ONLY. NULL ENTRIES GENERALLY
+ 229                 /       IMPLY THE LACK OF (INPUT OR OUTPUT) FILES WHEN NORMALLY INVOKING THE SPECIFIED
+ 230                 /       SYSTEM PROGRAM.
+ 231   
+ 232                 /       THE "O" ENTRY IS IGNORED IF THE "S" ENTRY IS SET.
+ 233   
+ 234                 /       AVAILABLE DEFAULT FILE EXTENSION TYPES.
+ 235   
+ 236                 /       THE CURRENTLY IMPLEMENTED DEFAULT FILE EXTENSION TYPES ARE:
+ 237   
+ 238                 /       (NULL)  (00)    NO DEFAULT FILE TYPE
+ 239                 /       ASC     (01)    ASCII FILE
+ 240                 /       BAT     (02)    BATCH FILE
+ 241                 /       BIN     (03)    BINARY FILE
+ 242                 /       DUMP    (04)    DUMP FILE
+ 243                 /       FOC     (05)    FOCAL FILE
+ 244                 /       GENI    (06)    GENERAL INPUT FILE
+ 245                 /       GENO    (07)    GENERAL OUTPUT FILE
+ 246                 /       PAL     (10)    PAL FILE
+ 247   
+ 248                 /       ONE FILE TYPE FOR INPUT MAY BE COMBINED WITH ONE FILE TYPE FOR OUTPUT.
+ 249                 /       INPUT AND OUTPUT FILE TYPES MAY BE DIFFERENT; CERTAIN COMBINATIONS ARE
+ 250                 /       NOT IMPLEMENTED.
+ 251   
+ 252                 /       **** GENERAL IMPLEMENTATION NOTE ****
+ 253   
+ 254                 /       SINCE EXTENDED FILES ARE NOT IMPLEMENTED AT THIS TIME, ALL EXTENSIONS, BOTH
+ 255                 /       DEFAULT AND EXPLICIT ARE NOT AVAILABLE. SYSTEM PROGRAM COMMANDS DO NOT
+ 256                 /       ACCEPT FILE EXTENSIONS AT THIS TIME.
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 7
+
+ 257                 /       EXTENDED DIRECTORY-ORIENTED OUTPUT.
+ 258   
+ 259                 /       **** GENERAL IMPLEMENTATION NOTE ****
+ 260   
+ 261                 /       SINCE EXTENDED FILES ARE NOT IMPLEMENTED AT THIS TIME, THE /X OPTION WILL
+ 262                 /       BE IGNORED. FUTURE IMPLEMENTATIONS WILL HONOR THE /X SWITCH TO PRODUCE
+ 263                 /       EXTENDED DIRECTORY FILE PRINTOUT.
+ 264   
+ 265                 /       ERROR MESSAGES.
+ 266   
+ 267                 /       THERE ARE SEVERAL FATAL ERRORS. ALL ERRORS EXIT TO THE MONITOR AFTER PRINTING
+ 268                 /       ONE OF THE FOLLOWING MESSAGES:
+ 269   
+ 270                 /       MULTIPLE PERIOD CHARACTERS IN SEARCH STRING!
+ 271   
+ 272                 /               MORE THAN ONE PERIOD CHARACTER WAS PASSED IN THE SEARCH STRING.
+ 273                 /               ONLY ONE PERIOD CHARACTER IS ALLOWED IN THE SEARCH STRING TO
+ 274                 /               SEPARATE THE FILE NAME STRING FROM THE EXTENSION STRING.
+ 275   
+ 276                 /       SEARCH STRING TOO LONG!
+ 277   
+ 278                 /               THE SEARCH STRING EXCEEDED THE BUFFER PROVIDED FOR IT. THE MAXIMUM
+ 279                 /               SEARCH STRING LENGTH IS 36 CHARACTERS. THIS MESSAGE INDICATES THE
+ 280                 /               EXCESSIVE USE OF SEARCH STRING CHARACTERS WHICH ARE EXTRANEOUS TO
+ 281                 /               EFFECTIVE SEARCH FUNCTION. DUE TO THE LIMITED LENGTH OF FILE NAMES,
+ 282                 /               ALL EFFECTIVE SEARCH STRING COMBINATIONS CAN BE ACHIEVED WITHIN
+ 283                 /               THE CONFINES OF THIS MINOR LIMITATION.
+ 284   
+ 285                 /       TOO MANY COLUMNS!
+ 286   
+ 287                 /               THE COLUMN COUNT REQUESTED IS BEYOND THE MAXIMUM ALLOWED. USE SMALLER
+ 288                 /               COLUMN COUNT (VIA THE EQUALS PARAMETER, DEFAULT IS 4). THE MAXIMUM
+ 289                 /               COLUMN COUNT ALLOWED IS 74 (112 OCTAL).
+
+/       DIRECTORY UTILITY FOR P?S/8       PAL8-VB0  20-OCT-87 PAGE 8
+
+ 290                 /       IMPLEMENTATION NOTES AND CUSTOMIZATION.
+ 291   
+ 292                 /       IT MAY BE DESIRABLE TO CUSTOMIZE ANY PARTICULAR COPY OF DIRECT TO THE USER'S
+ 293                 /       OWN PREFERENCE REGARDING CERTAIN SWITCHES. FOR EXAMPLE, A USER MAY PREFER
+ 294                 /       A HORIZONTAL DIRECTORY PRINTOUT, RATHER THAN THE DEFAULT VERTICAL PRINTOUT.
+ 295                 /       OPTION SWITCHES CONTROLLING THIS AND OTHER ASPECTS OF DIRECT ARE AVAILABLE
+ 296                 /       TO CUSTOMIZE THE OPERATIONS OF THE PROGRAM, BUT THESE REQUIRE THE USER TO
+ 297                 /       INVOKE FAVORED OPTIONS REPEATEDLY.
+ 298   
+ 299                 /       SEVERAL KNOWN OPERATING SYSTEMS SUPPORT "PATCHED" VERSIONS OF SYSTEM PROGRAMS
+ 300                 /       WHICH EFFECTIVELY FORCE THE EFFECT OF OPTION SWITCHES WHETHER EXPLICITLY
+ 301                 /       GIVEN OR NOT. THIS PREVENTS THE POSSIBILITY OF USING THE PROGRAM IN THE
+ 302                 /       ORIGINAL WAY AS THERE IS NO METHOD TO REVERT THE ENFORCED OPTION.
+ 303   
+ 304                 /       TO OVERCOME THIS LIMITATION, THE USER CAN PATCH THE FIRST THREE WORDS OF
+ 305                 /       THE CORE IMAGE OF DIRECT ITSELF WITH A "MASK" (EACH BIT CORRESPONDS TO AN
+ 306                 /       OPTION SWITCH SERIALLY FROM /A-/Z FOLLOWED BY /0-/9). (IMPLEMENTATION NOTE:
+ 307                 /       THE CORE IMAGE OF DIRECT ACTUALLY STARTS WITH SEVERAL PAGES OF ONCE-ONLY
+ 308                 /       CODE. THE FIRST PAGE OF THE RUNNING DIRECT PROGRAM CAN BE OBTAINED BY
+ 309                 /       CALCULATING THE VALUE OF THE SYMBOL "PZ" (WHICH STANDS FOR PAGE ZERO) AND
+ 310                 /       SUBTRACTING 2600 (THE ACTUAL LOADING ADDRESS OF DIRECT) FROM IT, THEN
+ 311                 /       DIVIDING BY 200 TO OBTAIN THE NUMBER OF PAGES. THIS PAGE COUNT SHOULD BE
+ 312                 /       ADDED TO THE BLOCK, INDICATED BY DIRECT (USING /S) AS THE STARTING BLOCK
+ 313                 /       OF DIRECT, TO OBTAIN THE ACTUAL BLOCK TO PATCH.) THIS MASKING VALUE WILL
+ 314                 /       BE USED TO "REVERSE" THE EFFECT OF THE SPECIFIED SWITCH. FOR EXAMPLE: SETTING
+ 315                 /       RELATIVE WORD ONE OF THE CORE IMAGE OF DIRECT TO 0004 WILL REVERSE THE /V
+ 316                 /       OPTION. THIS WOULD REQUIRE THE USER TO INVOKE /V IF THE VERTICAL PRINTOUT
+ 317                 /       WERE DESIRED, OPPOSITE TO NORMAL CONVENTION. ALL SWITCHES CAN BE "REVERSED"
+ 318                 /       ACCORDINGLY (INCLUDING OPTION SWITCHES IGNORED BY DIRECT!). THE RESULTANT
+ 319                 /       CUSTOMIZED COPY OF DIRECT OPERATES IN A TOTALLY CONVENTIONAL MANNER; ONLY
+ 320                 /       THE METHOD OF PASSING SWITCH OPTIONS CHANGES.
+

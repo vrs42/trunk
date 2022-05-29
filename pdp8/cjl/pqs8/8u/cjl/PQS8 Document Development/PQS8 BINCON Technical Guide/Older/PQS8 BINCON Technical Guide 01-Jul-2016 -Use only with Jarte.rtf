@@ -1,0 +1,180 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red192\green192\blue192;}
+{\*\generator Msftedit 5.41.21.2508;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$APtnn0001&p of &t'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$3B'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 1440
+  FtrMarg = 1440
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -13
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 P?S/8 \f1 BINCON Technical Guide [preliminary]\f0\par
+\par
+\f1 Copyright \f2\'a9 1975-1989 Charles Lasner Associates\f0\par
+\f2 Copyright \'a9 1990-2016 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+Last edit: 02-Jul-2016 cjl\par
+\par
+\f1 Note: This document generally follows the conventions of the \ul\i P?S/8\par
+Keyboard Monitor Command Guide\ulnone\i0  available separately.\par
+\par
+This is a preliminary specification for a new P?S/8 utility to be known as \i BINCON\i0 .\par
+\par
+Note: BINCON is being introduced as an add-on to existing copies of\par
+P?S/8; as such, it may only be present on certain system release media.  Appendix A contains information on using BINCON on P?S/8 Version 8Z systems should BINCON not be present in the System Programs Directory.\par
+\par
+The BINCON utility is designed to solve several specific problems caused by design limitations of OS/8 PAL8.  When used to develop certain large PDP-8 programs [such as the source files of the P?S/8 operating system], it is not possible to use the DTORG directive.  This is due to compromises made to PAL8 early on in the development of OS/8 to comply with short-sighted demands made by the Typeset-8 group.\par
+\par
+By implementing a utility to post-process the binary output of OS/8 PAL8, P?S/8 BINCON allows source code to be developed from either operating system allowing free usage of the DTORG directive.  \par
+\par
+Additionally, the complete feature set of P?S/8 PAL can be used to develop binary programs capable of being run in the OS/8 environment.  PAL language enhancements include support for conditional literals and dual-mode LINC/PDP-8 assembly targeted for the LINC, LINC-8 or PDP-12.  \par
+\par
+Note: With regard to LINC assembly implementation, P?S/8 PAL is compatible with the PDP-12 LAP6-DIAL/DIAL-MS assembler including the use of all PDP-8 literal types.  The DIAL assembler does not support literals; P?S/8 PAL allows free usage of literals to construct any appropriate PDP-8 coding.  For more information on P?S/8 PAL features, the reader is directed to the \ul\i\f0 P?S/8 PAL\f1  Version Technical Guide\ulnone\i0  available as a separate document.\par
+\par
+Prior to the availability of P?S/8 BINCON, only the original historic method of generating P?S/8 from the source files could be implemented.  This involves using an internal system generation routine to write out various components loaded into specific memory locations to the designated target storage blocks.  This was implemented such that 12K to 16K is required [depending on whether the P?S/8 system device handler for the target system requires an extended-memory section].  In some cases, this requirement exceeds available memory on the intended target system; various roundabout mechanisms had to be created to indirectly bring a working operating system to the intended target hardware.\par
+\par
+Future system generation and update mechanisms will depend on the use of the DTORG directive to allow implementation of a standalone storage block-writing utility program.  In nearly all cases, such a utility can be run in 4K ensuring that all systems can be created in available memory.\par
+\par
+Note: The historic method will continue to be supported primarily for the benefit of P?S/8 developers.  In certain instances, conditional assembly techniques may be necessary to allow PAL8 to assemble the source code [unless P?S/8 BINCON is available to post-process the binary output of PAL8].\par
+\par
+When the DTORG directive is used in PAL8 [and P?S/8 BINCON is not available to post-process the binary output], it is impossible to load the PAL8 binary output file with OS/8 \i ABSLDR\i0 . This is by design as part of the Typeset-8 compromises.  Punching the OS/8 binary files to binary paper-tapes creates output that can only be read with a special Typeset-8 block-writing utility; the binary paper-tapes are not compatible with the standard BIN loader.\par
+\par
+BINCON implements bi-directional binary file conversion between P?S/8 PAL binary output and OS/8 PAL8 binary output.  When BINCON encounters a DTORG frame in the PAL8 binary file, P?S/8 binary output will contain corrected DTORG output consistent with the new definition of DTORG as described in this document.  As a result, the P?S/8 binary files can be loaded [or even punched to binary paper-tape in BIN or RIM format using standard P?S/8 utilities].  Conversion of the resultant P?S/8 binary files back to OS/8 binary format yields a compatible file that can be loaded by OS/8 ABSLDR.  Note: Certain additional features are available in BINCON oriented towards peculiarities of the P?S/8 filesystems and are included for completeness and symmetry.  \par
+\par
+Appendix B describes the derivation of the replacement implementation for the DTORG directive as defined by the author of this document.  A compatible implementation will be made available as part of the next upgrade to P?S/8 PAL.  Note: While this implementation has been slated for implementation, without a satisfactory method of implementing the corrected assembler feature in OS/8, no other PDP-8 development project could ever take advantage of this feature of the PAL language.  The actual P?S/8 PAL implementation involves a small change at the source code level [likely involving about 10-12 lines of PAL source code].\par
+\par
+Individuals interested in revamping OS/8 PAL8 DTORG support can contact the author at the e-mail address indicated above.  Unfortunately, the nature of distribution of P?S/8 cannot depend on such good work even if implemented widely due to overall P?S/8 development principles.\par
+\par
+1. Purpose of BINCON.\par
+\par
+The primary reason for the creation of the BINCON utility is to improve the P?S/8 development regimen, which demands that OS/8 can create a P?S/8 starter system from the P?S/8 source or binary file.  Memory must be 12K [or 16K if the target P?S/8 system device handler requires extended memory].\par
+\par
+Source programs must be generally compatible with the specific limitations of OS/8 PAL8.  No P?S/8 superset features are used; this aids in the general distribution of P?S/8 to specific user sites that have no other access to P?S/8 directly.  [A functional P?S/8 system is also capable of creating the P?S/8 starter system].  Supporting the proposed distribution method described below will allow an alternative to the current method [which will be retained for the benefit of P?S/8 developers].\par
+\par
+BINCON will allow the DTORG directive to be useful to development of PDP-8 programs, especially the alternative system generation method for P?S/8 as described in this document.\par
+\par
+When DTORG directive usage is well-integrated into the relevant P?S/8 source code files, the alternative method of system generation will be made available to a wider user audience.  This will allow implementing a smaller program that runs as a standalone block-writing utility on any system of at least 4K memory.  [More memory will be needed only if the P?S/8 system device handler requires extended memory.]\par
+\par
+Distribution files will be released that are compatible with the standard BIN loader; the block-writing utility will be loaded and used to write out the P?S/8 system components on the other binary paper-tapes.  Note: The block-writing utility will also run as a P?S/8 system program with access to P?S/8 binary files; this will avoid the need for paper-tape input.\par
+\par
+\f2 2. BINCON features.\line\line P?S/8 BINCON will convert P?S/8 slurp binary files to OS/8 binary files [for use with OS/8 \i ABSLDR\i0 ] as well as the conversion in the opposite direction.\line\line BINCON identifies the incompatible frames within the OS/8 binary output and replace them [in the P?S/8 output data] with the compatible equivalent as described above.  [If feasible, the input data will be checksummed perhaps by using techniques involving multiple passes over the data.]\par
+\par
+By using P?S/8 BINCON, binary files can be loaded in P?S/8 despite the presence of DTORG statements created in the OS/8 environment. \par
+\par
+Additionally, OS/8 format binary files can be written out to OS/8-compatible media that can load in the OS/8 environment despite the presence of DTORG statements, even if the assembly originated with OS/8 PAL8.\par
+\par
+\f1 If the '/E' command-line option switch is set, P?S/8 binary output will be written to extended-length files.  This will typically allow a single P?S/8 binary output file to contain the entire OS/8 binary file contents.  [Note: P?S/8 \i BIN\i0\f2  is capable of loading extended-length binary files in \i Slurp\i0  format; each block of a Slurp format binary file is independent of all other blocks in the file other than the\par
+prevailing loading field and origin from the previous block; every file starts with origin and field settings.  The final block indicates logical end of file; there are no inherent file length considerations.]\par
+\par
+By using BINCON to convert several P?S/8 TFS binary files to OS/8 format, then using BINCON to convert the OS/8 binary file to an extended-length file, only one extended-length file need be specified to load the equivalent of several TFS binary files.  This represents not only a potential convenience, truly large projects could benefit by having each module of a project create a single output file for ultimate composite loading.\par
+\par
+Other option switches may be implemented as development of BINCON progresses.\page\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+Appendix A.\par
+\par
+Using BINCON on P?S/8 systems without BINCON installed.\par
+\par
+BINCON is a recent addition to releases of P?S/8 Version 8Z; it will be included in all future releases as a standard system program compatible with the concise or extended forms of program execution.\par
+\par
+Those familiar with the P?S/8 system programs directory can add BINCON as long as there is sufficient free storage space.  Failing this, it is also possible to run BINCON as an impromptu system program as described below; the binary file[s] created by assembling BINCON source file[s] must be available on an available logical device unit [drive 1 in this example].\par
+\par
+Console output\tab\tab\tab\tab\tab\tab\cf1\f1 Comments\cf0\f2\par
+\par
+.     \tab\tab\tab\tab\tab\tab\tab\cf1\f1 Keyboard monitor prompt.\cf0\f2\par
+.CA:1\tab\tab\tab\tab\tab\tab\tab\cf1\f1 CA\{talog\} command for drive 1.\cf0\f2\par
+BINCN1  BINCN2  README  RDMETU\tab\tab\cf1\f1 Contents of TFS directory on\cf0\f2\par
+\tab\tab\tab\tab\tab\tab\tab\tab\cf1\f1 drive containing binary files.\cf0\f2\par
+.LC:0\tab\tab\tab\tab\tab\tab\tab\cf1\f1 Avoid potential system \tab\tab\tab\tab\tab\tab\tab\tab\tab\tab dependencies on data drive.\cf0\f2\par
+.GET BINCN1:1 BINCN2\tab\tab\tab\tab\cf1\f1 Create program image.\par
+\tab\tab\tab\tab\tab\tab\tab\tab System restarts here.\par
+\cf0\f2 .R $ \cf1\f1 [Files and other parameters]\tab\tab Particulars as used when \tab\tab\tab\tab\tab\tab\tab\tab\tab BINCON is already installed.\par
+\par
+\cf0\f2 The R [or RU\{n\}] command specifying the program name \highlight1 $\highlight0  [or \highlight1 %\highlight0 ] executes the default core image as setup by the latest GET operation or equivalent.  [Note: This will function permanently unless some other system usage or command changes the contents of the \highlight1 %\highlight0  and \highlight1 $\highlight0  files.  If necessary, the GET operation can be repeated to refresh the default program image.]\par
+\par
+BINCON is designed to be compatible with the work-around mechanism described above to allow rapid addition to existing systems; this mechanism was introduced in P?S/8 Version 8Y and is supported on all newer releases.\par
+\par
+Usage restrictions.\par
+\par
+There are no usage restriction associated with BINCON.  The program does not use the =\i xxxx\i0  construction; there is no internal overlay structure within the program.  The program is designed to start at 00200 to be compatible with the default program execution mechanism.\par
+\par
+End of Appendix A.\page\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+Appendix B.\par
+\par
+History of the implementation of the DTORG directive and a new compatible replacement.\par
+\par
+\f1 1. Early implementation of DTORG for the DEC Typeset-8 group.\par
+\par
+On systems based on logical blocks of 128 words per block [such as The R-L Monitor System, POLY BASIC and related derivative operating systems, P?S/8 and Typeset-8] it is useful to designate specific logical blocks to write out particular operating system components.\par
+\par
+For example, the P?S/8 system device handler and integrated boot-up block must be written to logical block 0000 of the target operating system being created.\line\line Presently, this is accomplished by a large system generation utility that requires 12K-16K [depending on whether the system device handler requires an extended-memory section] as part of a complete routine to create a bootable starter system.  This memory requirement may exceed the available memory on the intended target system; elaborate workarounds must be contrived presently to create these systems.\par
+\par
+If each target block can be designated as part of a stand-alone block installation program, it is likely that all systems can be created on the actual intended hardware regardless of memory size.  [The only requirement would be that a suitable non-system device handler was available that can fit into the available memory size; this would usually be the case even if the target machine was 4K.]\line\line Typeset-8 takes advantage of the DTORG directive to implement this method of system generation on 4K Typeset-8 systems.  However, due to specific implementation limitations [that are arguably needless] the prevailing assemblers cannot be used to benefit development of any other operating system.\line\line The reason for this is that Typeset-8 is created from binary paper-tapes that are deliberately incompatible with all binary standards including the RIM and BIN loaders.\line\line The BIN file format does not support the DTORG directive output as implemented for Typeset-8.  An unsupported frame type is used to start the data intended to be written out on the block described by the DTORG frame pair.  [Note: The end of the data to be written is defined as all data prior to an origin setting outside of the current page as defined within the assembly; this part of the design is rational and quite acceptable.]\line\line Due to the presence of the unsupportable frame, it is impossible for the binary paper-tape to pass a checksum test as defined in the BIN loader specification.  As such, only the Typeset-8 program could confirm the validity of the data due to the incompatible format.\par
+\par
+Note: The previous sentence above is pure speculation; it may not be possible to confirm the validity or at the least it would require the paper-tape be read more than once, which is onerous.  Clearly, they never investigated this notion and merely ignored validation.\par
+\par
+The Typeset-8 block-writing utility program doesn't confirm validity of the paper-tape, merely writing out each data block as encountered.  \par
+\par
+Note: Many Typeset-8 systems were created using the low-speed reader on Teletype Model 33 ASR or 35 ASR terminals; these devices are known for reliability problems unless maintained an a schedule that is beyond impractical.  Undoubtedly, Typeset-8 development suffered some setbacks due to this rather poor design, occasionally writing out incorrect and unintended data.\par
+\par
+When Typeset-8 development meant much to DEC management, the Typeset-8 group was able to convince the developers of TOPS-10 PAL10 to support the distorted binary output format.  Very long paper-tapes were created and hand-walked to Typeset-8 machines to be read into memory [perhaps in some cases for hours at a time] as part of their rather disorganized attempt at software development.  Since TOPS-10 has no built-in requirement for compatibility with the PDP-8 BIN loader, this mis-feature was easily added to PAL10.\line\line However, when OS/8 [or actually one of its predecessors] were in the early design stages, the binary file format was deliberately made far more inefficient than necessary merely to slavishly continue this poor design mechanism.\par
+\par
+Note: It is clear that the far more efficient \i Slurp\i0  format was known to all parties involved at the time; however Slurp format was rejected in favor of placating the Typeset-8 group's demands without ever thinking through how all could be accommodated without needless overhead.]\par
+\par
+Very early in the design period of OS/8, the author of this document suggested a practical alternative.  However, it was never considered and he was never a part of the design team.  [Note: He was asked to join the development group, but rejected DEC's offer of employment.  Instead, he chose to develop the R-L Monitor System along with some colleagues.  It is noteworthy that at least four other well-reknowned PDP-8 experts, all employees of DEC at the time, also rejected the project that eventually was known as OS/8.]\line\line The method described  below implements this suggested alternative.\line\line Note: Several other programs have been written using analogous design principles, most notably OS/8 \i BUILD\i0 .  BUILD imparts special information within a compatible binary file using binary constructs that are actually more complex than the corrected DTORG implementation requires.\line\line 2. Compatible implementation of DTORG directive support.\line\line By clever design, it is possible to maintain the integrity of the binary file format for all purposes.\par
+\par
+Note: With the burden of incompatible frames lifted, it would have been possible to implement Slurp format in OS/8; as a result, all binary loading operations for all users over the years could have been carried out in far less time.  Slurp format was demonstrated by the author to various DEC employees; binary file loading time using Slurp format is profoundly faster that a file format derived from paper-tape frames; a DECtape-based P?S/8 system actually loaded large sample binary files \b faster\b0  than an RK05-based OS/8 system despite the large difference in basic data transfer rate of the two storage devices.]\par
+\par
+A few of the design principles of BUILD were adapted to create compatible DTORG output yet maintain overall binary compatibility with all known loading programs.\par
+\par
+This is accomplished by the use of special origin settings in the file without any corresponding data word loading.  The sequence of origin settings is meaningless to the standard binary loaders [which handle the binary file correctly as long as the standard BIN checksum is correct within the file].  However, a special program aware of the presence of the origin groups can implement the intent of the DTORG directive.\line\line Note: If the Typeset-8 group remained unmovable and insisted their demands be met, this could still be done in a way that only affected their interests without harming that of all other users.  A conversion program [perhaps another option to OS/8 \i PIP\i0 ] could convert compatible binary files to Typeset-8 compliant binary paper-tapes].  Had that been done, P?S/8 BINCON would be largely unnecessary.\line\line The following PAL coding is the equivalent of what the DTORG directive does [to be released after the next major edit of P?S/8 PAL]:\par
+\par
+\f2 /       DTORG   DTBLOCK         /SOURCE CODE PROCESSED BELOW.\par
+\par
+        DTBLOCK=XXXX            /BLOCK EVALUATED FROM DTORG STATEMENT.\par
+\par
+        FOO=    .               /WE NEED THE CURRENT ORIGIN SETTING.\par
+\par
+        *7777                   /START OF DTORG SECTION. NEVER USED IN\par
+                                /PRACTICAL PDP-8 PROGRAMMING OUTSIDE\par
+                                /OF PERHAPS THE BIN AND RIM LOADER.\par
+        *DTBLOCK                /DTORG VALUE FOR SPECIAL LOADER.\par
+\par
+        *FOO                    /RESTORE THE PREVIOUS ORIGIN SETTING.\par
+\par
+Internally, P?S/8 PAL has access to all of this information; an internal routine returns the binary value of the passed block argument.  If the argument is not present, the returned value is 0.\par
+The corresponding origin settings are added to the binary output file stream; for conventional loading purposes, there is no net change in the binary output.  As such, the historic method of development can function as intended.\par
+\par
+Only a special block-writing utility aware of the special meaning of the origin settings can make use of this added data.  Implementation of the corrected DTORG directive in P?S/8 PAL will require less than 10 additional words of PDP-8 code over the current incomplete routine.  [Currently, P?S/8 PAL acknowledges the DTORG directive by processing the argument, then otherwise ignoring the statement.]\par
+\par
+Note: The specification for a functional block-writing utility is outside of the scope of this document.  Once meaningful use of the DTORG directive is added to the various P?S/8 source files, a formal specification will be drawn up leading to implementation of the alternate system generation block-writing utility.\par
+\par
+End of Appendix B.\par
+\par
+\f0 [End-of-file]\f2\par
+\par
+}
+ 

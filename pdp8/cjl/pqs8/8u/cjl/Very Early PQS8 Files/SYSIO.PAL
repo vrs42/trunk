@@ -1,0 +1,372 @@
+/P?S MONITOR SYSTEM I/O ROUTINES
+/BOOTSTRAP,SYSTEM LOADER,PARAMETERS,ETC. ALL IN 7600 !
+/OR
+/HOW THE WHOLE THING BECAME POSSIBLE
+/ROTH-LASNER (R-L) VERSION (GENERALLY NOT APPLICABLE OUTSIDE 7600 FIELD ZERO)
+
+        ENPUNCH                 /MAKE SURE WE HAVE AN I/O ROUTINE
+
+
+
+
+
+
+
+
+        *6600                   /STICK 'EM HERE
+        GENAD1= .               /FOR GENASYS
+        NOPUNCH
+        *7600                   /THAT'S BETTER
+/GENERATE COMPATIBLE BOOTSTRAP FOR ALL I/O ROUTINES
+/DECTAPE SYSTEMS WILL MOVE DOWN THIS BOOTSTRAP DURING SYSTEM RUNS ONLY
+/AT OTHER TIMES THE TC01 BOOTSTRAP WILL RESIDE FOR COMPATIBILITY
+/SIMILAR BOOTSTRAPS WILL RESIDE FOR OTHER SYSTEMS
+SBOOT,  JMS     SREAD           /USE I/O ROUTINES TO BOOTSTRAP
+        7600                    /SYSTEM CORE ARG.
+SYSBARF,7777                    /ARBITRARY,CAN BE A TEMPORARY
+S0000,  0000                    /SYSTEM BLOCK ARG.
+SWTCH1, 0000                    /PASSED SW'S    A-L
+SWTCH2, 0000                    /PASSED SW'S    M-X
+SWTCH3, 0000                    /PASSED SW'S    Y,Z,0-9
+SOUTFLS,0000                    /COUNT OF PASSED OUTPUT FILES
+/END OF LOWER PARAMETER LIST + SELF BOOTSTRAP   
+        *7600                   /RESET ORIGIN
+        ENPUNCH
+        IFNZRO  DECTAPE <
+/GENERATE TC01 BOOTSTRAP FOR FULL COMPATIBILITY WITH ALL OTHER
+/DECTAPE SYSTEMS,EVEN THOSE THAT PUT BACK NON-COMPATIBLE
+/BOOTSTRAPS (PS/8,OS/8,COS/8,ETC.)
+/R-L IS COMPATIBLE IN BOTH DIRECTIONS WITH THE
+/DECTAPE LIBRARY SYSTEM WHICH SAVES CORE IMAGES
+/R-L DOES EVERYTHING ELSE;BOTH USE TC01 BOOTSTRAP SO
+/TC01 BOOTSTRAP WILL BE LEFT IN CORE AT TIMES SYSTEM IS IN MONITOR
+/COMMAND MODE (ALL THE TIME EXCEPT WHEN RUNNING A SUB-SYSTEM)
+        CLA CLL                 /SOMETIMES RIF BUT NOT NEEDED
+        DTLB                    /FIELD 0 FOR TRANSFER
+        TAD     S600            /REVERSE MOVE
+        JMS     SWAIT           /WAIT FOR END ZONE (HOPEFULLY)
+        TAD     S7577           /SBOOT-1 FOR CURRENT ADDRESS
+        DCA     SCAA            /WHEN TRANSFERRING DATA
+        TAD     S220            /READ DATA FORWARD
+        JMS     SWAIT           /WAIT FOR OVERLAY
+SCOM,   SHERE                   /PHONEY SUBROUTINE HEADER
+        TAD     S7600           /SET UP FOR 200 WORDS/BLOCK (IRRELEVANT FOR SEARCH)
+        JMP     SCOM2           /GOTO REAL ONE
+SWAIT,  SCOM3                   /FOR BOOTSTRAPPING REST OF SYS
+        DTLA                    /DO FUNCTION IN AC
+SCOM2,  DCA     SWC             /MAKE SURE IT'LL BOOTSTRAP
+        DTSF                    /FLAG UP YET ?
+        JMP     .-1             /NO,TRY AGAIN
+        JMP I   SWAIT           /YES,GO BACK
+S600,   0600                    /MOVE REVERSE CONSTANT
+S7577,  SBOOT-1                 /CURRENT ADDRESS GETS THIS
+S220,   0220                    /READ FORWARD CONSTANT
+/END OF TC01 BOOTSTRAP WITH A LITTLE EXTRAS THROWN IN TO HELP OUT>
+        IFNZRO  LINCTAPE        <
+/ENTER LINCTAPE STUFF BEFORE SYSTEM LOADER
+SBOOT,  SWAP+4&177+6000         /GOTO SUPER MODE (JB)
+        LDA     II              /LOAD AC IMMEDIATELY
+        0030                    /EXTENDED ADDRESSING+NOPAUSE
+        AXO                     /LOTL
+        LDA     II              /LOAD AC IMMEDIATELY OR ELSE
+S7600,  7600                    /BOOTSTRAP ADDRESS
+        TMA                     /TO TAPE MEMORY REGISTER
+        RDC     II              /READ AND CHECK ONE BLOCK
+        0000                    /BLOCK ZERO
+        PDP                     /BACK TO GOODY MODE
+        SKP CLA                 /SKIP HEADER
+SWAIT,  SWAITI                  /TAPE WAIT LOOP IN PMODE
+S100,   0100                    /STD CONSTANT
+        TAD     S100            /CHECK TAPE DONE
+        LMR                     /IOT 6151 WITH AC=100
+        JMP     .-1             /NOT READY YET;AC STILL =100
+        6000                    /WHAT HAVE WE HERE !!?
+        CLA                     /TO BE NICE,CLEAR AC
+        JMP I   SWAIT           /RETURN NOW THAT IT'S OVER
+        ZBLOCK  1               /A HOLE !!
+/END OF LINCTAPE STUFF BEFORE THE SYSTEM LOADER >
+        IFNZRO  DF32    <
+/ENTER DF32 STUFF BEFORE SYSTEM LOADER
+        CLA CLL                 /JUST IN CASE
+        DEAL                    /CLEAR EXTENDED BITS AND POKER CHIPS
+        TAD     SBOOTAD         /SBOOT-1
+        DCA     SCAA            /TO CURRENT ADDRESS
+        DCA     SWC             /0 IS A GOOD VALUE
+        DMAR                    /READ IT IN
+        JMP     SWAIT+1         /WAIT 'TIL DONE
+SBOOTAD,SBOOT-1                 /BOOT ADDRESS-1
+        ZBLOCK  3               /EMPTY SPACE
+SWAIT,  SERR-1                  /ADDRESS TO RETURN TO
+        DFSE                    /NO ERRORS?
+        JMP     .+4             /NO THERE ARE ERRORS
+        DFSC                    /COMPLETION OF TRANSFER?
+        JMP     .-3             /NO,WAIT
+        SKP                     /YES,TAKE NORMAL RETURN
+        ISZ     SWAIT           /TAKE SKP RETURN ON ERRORS
+        JMP I   SWAIT           /RETURN
+        ZBLOCK  1               /EMPTY SPACE
+/END OF DF32 STUFF BEFORE THE SYSTEM LOADER     >
+/SYSTEM LOADER + SPECIAL LOCATIONS
+/
+/
+/
+/
+/ALL THE SYSTEM LOADER CONTAINS IS A CALL TO THE I/O ROUTINES 
+/TO LOAD A CORE IMAGE FROM THE SYSTEM TAPE WHICH IS STORED INTO
+/BY THE ROUTINE SWAPPED IN BY THE RUN COMMAND
+/THE ACTION IS OPTIMIZED FOR MINIMUM TAPE MOTION AS IS
+/THE ENTIRE P ? S SYSTEM !
+SLOAD,  JMS     SREAD           /CALL I/O ROUTINES TO LOAD
+SKORE,  EDITIT                  /TYPICAL LOADING ADDRESS;THIS ONE RELOADS EDIT
+SNUM,   -EDLEN+EDSLEN           /MAX SYS LENGTH FOR FIELD 0
+SBLOCK, EDBLK+EDSLEN            /SYS. BLOCK START
+        JMP I   .+1             /START SYSTEM
+SYSTART,EDITRL                  /TYPICAL STARTING ADDRESS
+SFIELD, 0000                    /FIELD BITS 6-8 ONLY
+SUNIT,  0000                    /UNIT BITS 0-2 ONLY 
+/SUNIT IGNORED IN DF32 SYSTEM
+/END OF SYSTEM LOADER + SPECIAL LOCATIONS (NO SECRET VARIABLES)
+        IFNZRO  DECTAPE <
+/HERE'S THE PART EVERYBODY'S BEEN WAITING FOR
+SBLK,   SCAA                    /PTR TO CA TO BE PUT IN CA
+SFUN,   0030                    /HOLDS READ OR WRITE FUNCTION
+STEM,   0000                    /WHERE THE TAPE IS AT ANY TIME
+SNCB,   -20                     /DEFAULT IS # OF BLOCKS TO READ MONITOR IN
+SREAD,  0000                    /ENTRY FOR READ=SZA CLA (7640)
+S7600,  7600                    /CLA JUST IN CASE
+        TAD     SREAD           /USE CALLING POINTER
+        DCA     SWRITE          /AS IN WRITE
+        TAD     S7750           /-READ BITS TO XOR IN LATER
+        JMP     SWRITE+4        /CONTINUE FROM WRITE
+SWRITE, INPBUF-1                /ENTRY FOR WRITE AS IF CALLED
+S7730,  7730                    /ERRONEOUS SKIP WHICH CLA'S
+S10,    10                      /OVERSHOOT FACTOR (ALSO HARMLESS AND)
+        TAD     S7730           /-WRITE BITS TO XOR IN LATER
+        CIA                     /CREATE CORRECT BITS BY COMPLEMENTING
+        DCA     SFUN            /SAVE TAPE FUNCTION FOR LATER
+        STA                     /NL7777
+        TAD I   SWRITE          /ADD ON CORE
+        DCA     SREAD           /SAVE FOR CA LATER
+        ISZ     SWRITE          /BUMP POINTER
+SRETRY, TAD I   SWRITE          /GET NUMBER OF BLOCKS
+        DCA     SNCB            /SAVE IN COUNTER
+        ISZ     SWRITE          /BUMP POINTER
+        TAD I   SWRITE          /GET BLOCK NUMBER
+        CLL CIA                 /-BLOCK NUMBER
+        TAD     STEM            /CURRENT BLK-DESIRED BLK
+        TAD     S10             /OVERSHOOT FACTOR
+        CLA CML RTR             /FORM COMPLEMENT OF DIRECTION
+        RTR                     /MOVE TO RIGHT BITS
+        TAD     S10             /ADD SEARCH BITS
+        TAD     SUNIT           /AND UNIT BITS
+        DTLA                    /LOAD REGISTER WITH RIGHT BITS
+                                /EXCEPT MOTION,DIRECTION (COM)
+        DTLB                    /SEARCH IN FIELD ZERO
+        TAD I   SWRITE          /BLOCK NUMBER GOES
+        DCA     STEM            /TO SPECIAL LOCATION
+STURNX, NL4000                  /MOTION BIT
+SCONT,  CML RTR                 /MOVE NEW MOTION,DIRECTION BITS
+        RTR                     /TO RIGHT BITS
+        DTXA                    /XOR IN SO IT'S RIGHT
+        TAD     SBLK            /GET CA POINTER
+        DCA     SCAA            /PUT IN CA
+        JMS     SCOM            /WAIT FOR BLOCK NUMBER
+        DTRA                    /GET DIRECTION BIT
+        CMA RTL                 /COMPLEMENT AND MOVE
+        RTL                     /TO LINK
+        SNL CLA                 /IF LINK ON
+        CML RTL                 /LEAVE IT ON
+        TAD     SCAA            /ADD ON CURRENT BLOCK
+        CML CIA                 /INVERT DIFFERENCE
+        TAD     STEM            /ADD ON DESIRED BLOCK
+        SNA CLA                 /IF ZERO CHECK LINK
+        SNL CLA                 /IF LINK ON WE FOUND IT
+        JMP     SCONT           /TRY AGAIN
+        TAD     SREAD           /NOW USE PASSED CORE ARG.
+        DCA     SCAA            /FOR TRANSFER (CORRECTED)
+        TAD     SFIELD          /USE DESIRED FIELD
+        DTLB                    /FOR TRANSFER
+        TAD     SFUN            /NOW XOR READ OR WRITE
+SNEXT,  DTXA                    /INTO REGISTER
+        JMS     SCOM            /AND WAIT
+SHERE,  ISZ     STEM            /ADVANCE 1 BLOCK
+        ISZ     SNCB            /ANY MORE BLOCKS WANTED ?
+        JMP     SNEXT           /KEEP ON GOING
+        TAD     SUNIT           /TURN OFF ALL BITS
+        DTLA                    /BUT THE UNIT BITS
+        ISZ     SWRITE          /BUMP POINTER
+        JMP I   SWRITE          /RETURN
+SCOM3,  DTRB                    /GET ERRORS
+        RTL                     /CHECK FOR END ZONE
+S7750,  SPA SNA CLA             /IF IN END ZONE
+        JMP     STURNX          /THEN TURN AROUND
+        DTRB                    /NOW GET REAL ERROR BITS
+        SMA CLA                 /ANY REAL ERRORS ?
+        JMP I   SCOM            /NO,RETURN
+        DTRB                    /GET ERROR BITS
+SERR,   HLT                     /DISPLAY PROBLEM
+        STA                     /NL7777
+        TAD     SWRITE          /RESET
+        DCA     SWRITE          /CALLING SEQUENCE
+        JMP     SRETRY          /TRY,TRY AGAIN
+SWC,    SCAA                    /REQUIRED FOR BOOTSTRAP
+SCAA,   SCAA                    /LIKEWISE I'M SURE
+/SET SWC TO -1 OR -2 TO PREVENT OVERLAY OF FINAL PARAMETERS     >
+        IFNZRO  LINCTAPE        <
+SFIX,   NL7775                  /BACK UP
+        TAD     SWRITE          /ARGUMENT POINTER
+        DCA     SWRITE          /TO PICK THEM UP AGAIN
+        JMP     SRETRY          /TRY,TRY AGAIN
+SREAD,  0                       /READ ENTRY POINT
+        CLA CLL                 /JUST IN CASE
+        TAD     SREAD           /CHANGE CALLING SEQUENCE
+        DCA     SWRITE          /TO SWRITE
+        JMP     SWRITE+2        /CONTINUE OPERATIONS
+SNCB,   -20                     /FOR BOOTSTRAP
+SWRITE, INPBUF                  /MOVE CATALOG ROUTINE
+        NL0004                  /RDE I+4=WRI I
+        DCA     SVAL            /STICK IT IN SEQUENCE
+SRETRY, TAD I   SWRITE          /GET CORE ARGUMENT
+        DCA     SCORE           /PUT IT INLINE
+        ISZ     SWRITE          /BUMP POINTER
+        TAD I   SWRITE          /GET NUMBER OF BLOCKS
+        DCA     SNCB            /SAVE IN COUNTER
+        ISZ     SWRITE          /BUMP POINTER
+        TAD I   SWRITE          /GET BLOCK NUMBER
+        DCA     SBLK            /PUT IN LINC CODE
+        ISZ     SWRITE          /BUMP POINTER
+        TAD     SFIELD          /GET FIELD BITS
+        CLL RTL                 /MOVE 'EM
+        RAL                     /AROUND
+        TAD     SUNIT           /ADD ON UNIT BITS
+        TAD     S3              /MAGIC CONSTANT
+        CLL RTL                 /MOVE 'EM
+        RAL                     /AROUND
+        DCA     SAXO            /PUT INLINE BEFORE AXO
+        TAD     SRDINS          /BUILD INSTRUCTION
+        SZL                     /LINK = U BIT
+        TAD     S10             /PUT ON THE U BIT
+        TAD     SVAL            /GET READ OR WRITE BIT
+        DCA     SFUN            /SAVE INSTRUCTION
+SNEXT,  LINC                    /GO TO L...MODE
+        LDA II                  /LOAD AC IMMEDIATE
+SCORE,  0000                    /FOR BOOTSTRAP=0000
+        TMA                     /TAPE MEMORY ADDRESS SETUP
+                                /REGISTER LOAD NOT TRANSIT
+                                /AUTHORITY IN BOSTON (MTA)
+                                /BESIDES THESE ROUTINES RETURN
+        LDA II                  /LDA IMMEDIATE
+SAXO,   0030                    /FOR BOOTSTRAP=0030
+        AXO                     /AC TO EXT. OPER. BUFFER
+SFUN,   RDE                     /FUNCT=RDE FOR BOOTSTRAP
+SBLK,   0000                    /BLOCK ZERO FOR BOOTSTRAP
+        LDA II                  /LDA IMMED.
+        200                     /PAGE SIZE CONSTANT
+        PDP                     /BACK TO PMODE
+        TAD     SCORE           /UPDATE
+        DCA     SCORE           /CORE POINTER
+        JMS     SWAP            /SAVE 129TH WORD
+        JMS     SWAIT           /WAIT FOR COMPLETION
+SWAITI, JMS     SWAP            /RESTORE 129TH WORD
+        LINC                    /BACK TO LMODE
+S3,     TAC                     /TAPE AC TO REAL AC
+        PDP                     /TO GOODY MODE (JB)
+        CLL IAC                 /JACK
+        CLA IAC RTL             /BURNESS
+        AND     SFUN            /IS
+        SNA CLA                 /REALLY
+        JMP     SERR            /COOL !!
+        ISZ     SBLK            /BUMP BLOCK NUMBER
+        ISZ     SNCB            /ALL DONE YET ?
+        JMP     SNEXT           /NO,DO ANOTHER
+        JMP I   SWRITE          /RETURN TO SENDER
+SRDINS, RDE                     /READ INSTRUCTION CONSTANT
+SWAP,   0                       /SAVE A WORD ROUTINE
+        TAD     SCDF            /FORM
+        TAD     SFIELD          /CDF INSTRUCTION
+        DCA     .+1             /STICK INLINE
+        SSTART&177+6000         /EXECUTE HERE;MAGIC BOOTSTRAP VALUE INITIALLY
+        TAD I   SCORE           /GET WORD
+        DCA     SWAIT           /A HANDY TEMPORARY
+        TAD     SREAD           /GET SAVED WORD
+        DCA I   SCORE           /PUT BACK IN WORD
+        TAD     SWAIT           /GET TEMPORARY
+        DCA     SREAD           /PUT INTO SAVE AREA (1F)
+SCDF,   CDF     00              /PUT FIELD BACK TO ZERO
+        JMP I   SWAP            /DONE
+S10,    0010                    /U BIT CONSTANT
+SVAL,   0                       /READ OR WRITE
+SERR,   HLT                     /UGH !!
+        JMP     SFIX            /TRY TO RECOVER
+/END OF THIS PART OF THE LINCTAPE STUFF >
+        IFNZRO  DF32    <
+/ENTER DF32 ROUTINES
+        ZBLOCK  2               /EMPTY SPACE
+S6605,  DMAW                    /WRITE CONSTANT
+S3700,  3700                    /DEAL MASK
+SREAD,  0000                    /ENTRY FOR READ
+        CLA CLL                 /JUST IN CASE
+        TAD     SREAD           /USE SWRITE
+        DCA     SWRITE
+        NL7776                  /DMAW-2=DMAR
+        JMP     SWRITE+2        /CONTINUE
+SWRITE, INPBUF                  /WRITE ENTRY INITIAL. FOR BOOT
+        CLA                     /JUST IN CASE
+        TAD     S6605           /WRITE (OR READ) INSTRUCTION
+        DCA     SINST           /PUT IN LINE
+SRETRY, STA                     /CA=CORE-1
+        TAD I   SWRITE          /CORE ARGUMENT
+        DCA     SCAA            /PUT GOOD VALUE IN CUR ADDRESS
+        ISZ     SWRITE          /BUMP POINTER
+        JMS     SCNVRT          /GET NEXT ARGUMENT
+        DCA     SWC             /NUMBER OF BLOCKS
+        TAD I   SWRITE          /BLOCK NUMBER
+        RAL                     /TO CORRECT BITS
+        AND     S3700           /JUST EXTENDED BITS
+        TAD     SFIELD          /EXTENDED MEMORY BITS
+        DEAL                    /EXTEND. ADDR. LOAD INSTRUCT.
+S7600,  7600                    /CLA
+        JMS     SCNVRT          /GET 12 BIT ADDRESS
+SINST,  DMAR                    /READ OR WRITE INSTRUCTION
+        JMS     SWAIT           /WAIT FOR FLAG
+        JMP I   SWRITE          /RETURN IF OK
+SERR,   DEAC                    /DISPLAY ERROR
+        SKP HLT                 /NON-EXISTANT DISK IF HERE
+        HLT                     /OTHER ERRORS HERE
+        NL7775                  /-3
+        TAD     SWRITE          /+SWRITE
+        DCA     SWRITE          /=OLD SWRITE
+        JMP     SRETRY          /TRY,TRY AGAIN
+SCNVRT, 0                       /ARGUMENT FIXUP ROUTINE
+        TAD I   SWRITE          /GET NEXT ARGUMENT
+        ISZ     SWRITE          /BUMP POINTER
+        RTR                     /MOVE TO
+        RTR                     /RIGHT
+        RTR                     /BITS
+        AND     S7600           /TO BE SURE
+        JMP I   SCNVRT          /RETURN
+        ZBLOCK  7750-.          /GET TO WC
+SWC,    SCAA                    /TO MAINTAIN
+SCAA,   SCAA-3600               /TRANSFERS
+/END OF DF32 STUFF FOR NOW              >
+        IFNZRO  LINCTAPE        <
+/GENERATE MANUAL BOOTSTRAP LOADER
+DISPST, FILBEG+600              /PROBABLE STARTING ADDRESS
+SFROM,  4000                    /RDC 0000 PUTS IT HERE
+SSTART, PDP                     /*LS = 4160
+STO,    7600                    /CLA
+        TAD     SNEXT           /GET A LINC INSTRUCTION
+        DCA     SBOOT           /SAVE IN BOOTSTRAP JUST IN CASE
+        TAD I   SFROM           /MOVE
+        DCA I   STO             /THE
+        ISZ     SFROM           /I/O
+        ISZ     STO             /ROUTINES
+        JMP     .-4             /DOWN
+        JMP I   S7600           /NOW BOOTSTRAP FOR REAL
+STDISP, JMS     SREAD           /READ IN DISPLAY OVERLAY
+DSCORE, FILBEG+200              /LOWEST IT WILL FIT
+DSNUM,  -3                      /PROBABLE LENGTH
+DSBLOK, 0/DSPBLK                /DISPLAY BLOCK
+        JMP I   DISPST          /START DISPLAY
+/END OF LINCTAPE ROUTINES       >
+        $

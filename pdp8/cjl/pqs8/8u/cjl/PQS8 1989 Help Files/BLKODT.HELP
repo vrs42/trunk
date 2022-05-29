@@ -1,0 +1,82 @@
+
+/       BLOCK-ORIENTED ODT FOR P?S/8      PAL8-VB0  23-JUL-86 PAGE 22
+
+ 959   001600  0040  TABL1,  " &177                  /BLANK
+ 960   001601  0012          12&177                  /LINE FEED
+ 961   001602  0015          15&177                  /CARRIAGE RETURN
+ 962   001603  0057          "/&177                  //
+ 963   001604  0073          ";&177                  /;
+ 964   001605  0053          "+&177                  /+
+ 965   001606  0055          "-&177                  /-
+ 966   001607  0056  INTLIMI,".&177                  /.
+ 967   001610  0072          ":&177                  /:
+ 968   001611  0134          "\&177                  /\
+ 969   001612  0123          "S&177                  /S
+ 970   001613  0105          "E&177                  /E
+ 971   001614  0127          "W&177                  /W
+ 972   001615  0130          "X&177                  /X
+ 973   001616  0074          "<&177                  /<
+ 974   001617  0120          "P&177                  /P
+ 975   001620  0115  SPTABL, "M&177                  /M
+ 976   001621  0110          "H&177                  /H
+ 977   001622  0125          "U&177                  /U
+ 978   001623  0117          "O&177                  /O
+ 979   001624  0126          "V&177                  /V
+ 980   001625  0116          "N&177                  /N
+ 981   001626  7710          -70                     /END OF LIST USED FOR NUMERIC CHECK
+ 982   
+ 983   001627  0206  TABL2,  BEGNIN                  /BLANKS ARE IGNORED
+ 984   001630  0334          LNFEED                  /CLOSE PREVIOUS, OPEN + DISPLAY NEXT
+ 985   001631  0307          RETURN                  /CLOSE PREVIOUS
+ 986   001632  0240          EXAMIN                  /DISPLAY CURRENT
+ 987   001633  0311          SEMICOLON               /SAME AS LINEFEED BUT NO DISPLAY
+ 988   001634  1042          ADDIT                   /OPEN .+ARG LOCATION
+ 989   001635  1043          SBTRCT                  /OPEN .-ARG LOCATION
+ 990   001636  0347          POINT                   /CHANGE BLOCK
+ 991   001637  0400          COLON                   /CHANGE UNIT
+ 992   001640  1200          BKSLSH                  /DUMP MEMORY
+ 993   001641  0460          SAVE                    /SAVE BUFFER AND BOOTSTRAP
+ 994   001642  7600          SBOOT                   /UNCONDITIONALLY (HASTILY) EXIT
+ 995   001643  1656          WRDSRCH                 /SEARCH CORE AGAINST MASK
+ 996   001644  1655          ECKS                    /SEARCH CORE AGAINST MASK (COMPLEMENTED)
+ 997   001645  0315          PREV                    /RESTORE PREVIOUS ADDRESS
+ 998   001646  1741          SRCPRC                  /PROCEED TO NEXT WORD SEARCH
+ 999   001647  1032          MX                      /SET SEARCH MASK
+1000   001650  1031          HX                      /SET LOWER LIMIT
+1001   001651  1030          UX                      /SET UPPER LIMIT
+1002   001652  1027          OX                      /DISPLAY MODE
+1003   001653  1026          VX                      /VIEW CONTROL WORD
+1004   001654  1025          NX                      /SEARCH UNIT
+
+/       BLOCK-ORIENTED ODT FOR P?S/8      PAL8-VB0  23-JUL-86 PAGE 24
+
+1058   001741  4567  SRCPRC, JMS I   [CRLF]          /DO A <CR>, <LF>
+1059   001742  5743          JMP I   CHKLIMITS       /RESTART THERE
+1060   
+1061   001743  0200  CHKLIMI,BEGIN                   /CHECK LIMITS ROUTINE;INITIALIZED FOR FALSE RESTART
+1062   001744  1044          TAD     HOME            /GET LOWER LIMIT
+1063   001745  7141          CLL CIA                 /INVERT FOR TEST
+1064   001746  1045          TAD     UPPER           /COMPARE TO UPPER LIMIT
+1065   001747  7620          SNL CLA                 /SKIP IF OK TO PROCEED
+1066   001750  5552          JMP I   [BEGIN]         /JUMP IF NOT
+1067   001751  5743          JMP I   CHKLIMITS       /RETURN IF OK
+1068   
+1069   001752  7200  NOQ,    CLA                     /CLEAN UP
+1070   001753  1375          TAD     ("?-"0-11)      /??=BAD INPUT CHARACTER
+1071   001754  7001  NO9,    IAC                     /?9=BAD ARGUMENT TO "/"
+1072   001755  7001  NO8,    IAC                     /?8=NO ARGUMENT TO ":"
+1073   001756  7001  NO7,    IAC                     /?7=BAD ARGUMENT TO ":"
+1074   001757  7001  NO6,    IAC                     /?6=NO ARGUMENT TO "G" OR "R" ****
+1075   001760  7001  NO5,    IAC                     /?5=DUPLICATE BREAKPOINT ATTEMPTED ****
+1076   001761  7001  NO4,    IAC                     /?4=BAD ARGUMENTS TO "\"
+1077   001762  7001  NO3,    IAC                     /?3=BREAKPOINT LOOKUP FAILURE IN "#" ****
+1078   001763  7001  NO2,    IAC                     /?2=NO ARGUMENT TO "#" ****
+1079   001764  7001  NO1,    IAC                     /?1=ILLEGAL ADDRESS OR VALUE
+1080   001765  5774  NO0,    JMP I   (NOCOM)         /?0=TOO MANY DIGITS
+1081   
+1082   001774  0300
+1083   001775  0006
+1084   001776  0255
+1085   001777  1714
+1086           2000          PAGE
+

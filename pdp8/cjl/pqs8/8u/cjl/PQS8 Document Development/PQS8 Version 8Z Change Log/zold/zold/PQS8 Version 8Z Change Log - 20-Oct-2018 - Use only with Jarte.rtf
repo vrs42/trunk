@@ -1,0 +1,2624 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Lucida Console;}{\f1\fmodern\fprq1\fcharset0 Lucida Console;}{\f2\fnil Calibri;}}
+{\colortbl ;\red192\green192\blue192;\red255\green255\blue255;\red140\green140\blue140;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 720
+  FtrMarg = 720
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 P?S/8 Version 8Z Change Log.\par
+\par
+\f1 Copyright \'a9 2018 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+\par
+Introduction.\par
+\par
+All changes to P?S/8 Version 8Z (since the initial release on several devices) are logged in this file.\par
+\par
+23-Feb-1988\tab Initial system creation.\par
+\par
+This is the date of the initial release of P?S/8 Version 8Z.\par
+\par
+This does not include updates to various components created somewhat later.  The relevant files are currently under review; however, the only known issues relate to the simultaneous use of the Logical Console Overlay configured for the VT8E and FOCAL customized with the VT8E-oriented VT8PCH binary patch file.  This issue has been tabled pending a more general release of the system.\par
+\par
+13-Nov-2014\tab Version 8Z for MDC8 diskette (FLP) image recovered.\par
+\par
+This image was recovered from a working diskette for P?S/8 Version 8Z configured for the MDC8 5.25" diskette drives (FLP).\par
+\par
+Most importantly, the .DUMP files that are used to generate system components beyond the initial starter system were recovered from this image after successfully transferring it to the SIMH environment.\par
+\par
+Note:  A series of utilities was required to create the SIMH version of this image.  The files were accessed and converted using existing bootable images of P?S/8 Version 8T.\par
+\par
+All known variant system-generation .DUMP files were recovered including the common file used to extend the starter system (created from binary files of the relevant source files) to a (nearly) complete system.\par
+\par
+Note: Several additional system components are generally added to full releases to include support for specific hardware such as media formatting or copying programs.\par
+\par
+The .DUMP file used to complete the FLP system is essentially the same as the similar file used for TC01/TC08/TU55/TU56 systems with the exception of the device length (the capacity of the FLP system diskettes exceeds that of standard or premium DECtapes).\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\par
+26-Nov-2014\tab P?S/8 Version 8Z "A" source files recovered.\par
+\par
+All known source files for P?S/8 that are part of the "A" collection (meant to be placed on an \i RKAx\i0 : drive or equivalent) were recovered from OS/8 format MDC8 5.25" diskettes.  Image files were transferred to SIMH and all files were checked for consistent contents and file validity.  These files have also been transferred to MS-DOS/Windows equivalent directories with full file names (OS/8 file naming limitations have been removed).\cf1\par
+\par
+\cf0 13-Dec-2014\tab P?S/8 Version 8Z "B" source files recovered.\par
+\par
+All known source files for P?S/8 that are part of the "B" collection (meant to be placed on an \i RKBx\i0 : drive or equivalent) were recovered from OS/8 format MDC8 5.25" diskettes.  Image files were transferred to SIMH and all files were checked for consistent contents and file validity.  These files have also been transferred to MS-DOS/Windows equivalent directories with full file names (OS/8 file naming limitations have been removed).\par
+\par
+VT8E and MDC8 issues.\par
+\par
+At some point later, the VT8E-related source files mentioned above were recovered along with many other files unrelated to P?S/8 (apparently as part of a general backup of an OS/8 development drive based on the MDC8).  These files are not part of the general release of P?S/8 per se; they are needed by users who configure the Logical Console Overlay and/or P?S/8 FOCAL for use with the VT8E DMA terminal device; binary files produced from these files are passed to the respective program for customization purposes.  Future releases of\line P?S/8 may include these updated source files; at this time, it is not known if this work was finalized (or even tested).\par
+\par
+As of this writing, nearly all P?S/8 source files have been recovered with notable exceptions related to the MDC8 Winchester (hard drive) system, the two variant LINC-8 system configurations supported, and all files related to the TD8E both with and without the MR8E-C ROM.\par
+\par
+The MDC8 Winchester source files can be derived from other source files already recovered, notably the P?S/8 MDC8 FLP system and non-system device handlers, and the OS/8 MDC8 system and non-system device handlers for the FLP and Winchester systems.\par
+\par
+Note: All MDC8 device handlers are quite elegant due to the exceptional nature of the hardware (which was designed to avoid software issues).  As such, it is not that much effort to restore any missing (or new) handlers as necessary.  Other than the usual relationships between P?S/8 and OS/8 regarding logical blocks of 128 words/block versus records of 256 words/block, an advanced feature was added to allow a master offset of an entire memory field storage before starting all device handlers (in either system).\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\par
+\par
+The purpose of this logical offset is to implement the essential element of MENU-8, a \ul\i Master Menu\ulnone\i0  system vaguely reminiscent of the actual utility system implemented on the DECmate II and DECmate III+ systems using hard disks; however, DECmate systems include hardware support of named volumes to isolate the menu system from the subordinate operating systems.  On the MDC8, a logical sector offset allows sufficient code space to implement the most primitive functions of a menu-based system, including configuring where on the device the rest of the menu system is located based on absolute logical blocks states as a 24-bit logical block value.\line\line Because the MDC8 logical capacity includes a reserved area at the highest physical blocks, the rest of MENU-8 is intended to be located just before the blocks reserved for the bad block management area on the disk.  In general, this represents a small percentage of the overall device capacity; as such, MENU-8 reserving slightly more disk space is not a significant issue.\line\line While MENU-8 was never completed, the source code was also recovered with the VT8E-related files mentioned above.  The work can be continued should appropriate hardware-related circumstances arise.  (For new work on PDP-8 storage devices, the MDC8 is the recommended device to emulate assuming single-cycle DMA transfers.)\line\line As currently implemented, the MDC8 will boot into the first logical sector, which could contain the boot block of either P?S/8 or OS/8 assuming the respective source code files are assembled with the offset disabled.  If the offset is enabled in these handlers, it is assumed that the MENU-8 reboot code is present, configured to point to the desired operating system located further up the device.  Because of the logical addressing, well-rounded values are generally used as starting logical block addresses (if the offset is disabled) and one track higher-still (if the offset is enabled).  All configurations on any particular hard drive must be consistent (either way).\line\line The only handler source code currently missing is the P?S/8 system device handler for the MDC8 hard drive.  Fortunately, it shares much with the OS/8 system device handler (which was recovered along with several of the other source files mentioned above).  Thus, it is fairly easy to recover the original handler by using the P?S/8 system device handler from the FLP: system coupled with the OS/8 system device handler.  All of the relevant geometrical definitions are identically contained in the two handlers, thus the recovery can be easily completed with minimum effort.  Note: The equivalent non-system handler was never written; however this can also be derived from the FLP: non-system handler.  All of these handlers represent themes and variations on each other.\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\par
+\par
+LINC-8 and TD8E issues.\par
+\par
+Bootable LINC-8 systems are available on surviving LINCtapes.  The missing source files can be recovered by a medium effort of binary disassembly; additionally, certain related utilities are available in source form (which can help with certain code fragments).\par
+\par
+All P?S/8 TD8E source files are presently unavailable.  Assuming the files are never recovered, programming for this device will require new work, in part based on the author's recollections.\par
+\par
+Note: A partial recovery of TD8E support has been initiated using a recovered P?S/8 TD8E with MR8E-C ROM DECtape image.  It is not clear if this is the final version of this configuration.  The author acknowledges this particular system variant was produced under expedient circumstances with known defects.  For the present, it is presumed this will be the best available recovered source code fragment; disassembly has produced a working copy that documents the known defective behavior.\par
+\par
+Additionally, a set of specific workarounds for this aspect of this system have been proposed but not finalized pending overall source code cleanup; it is not certain the corrected source code will be compatible with P?S/8 Version 8Z, as most new work in ongoing projects is targeted to a next-generation Version 9A system which has slightly different internal features.  Considering the changes that will be required to produce Version 9A compatibility, it is deemed of little value to produce an interim release for Version 8Z.  Additionally, some of the recovery work will affect a TD8E with extended memory variant system, as certain components are either partially or fully compatible across both configurations.\par
+\par
+It is known that the missing files were never part of the "A" and "B" file collections due to lack of sufficient storage space at the various development sites used at the time.  Backup copies of these files may show up as part of an ongoing recovery process.\par
+\par
+All present efforts will be focused on releasing other P?S/8 configurations that are achievable using the various source files, most notably the TC01/TC08/TU55/TU56 DECtape system, the TC12 LINCtape system, the RX01 system and the RK8E/RK05 system.  Several other sets of handler source code exists for somewhat obscure third-party devices such as the DSD-240-8/Western Dynex fixed/removable disk cartridge system.\par
+\par
+The most appropriate system to implement first is a modern release of the TC01/TC08/TU55/TU56 system; surviving hardware is available in several locations and there is excellent support for this device within the SIMH environment.  Many internal aspects of P?S/8 development must be dealt with before any semblance of a workable system can be created.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+15-May-2015\tab Hacking up a bootable system for the TC01/TC08 DECtape.\par
+\par
+Using P?S/8 Version 8U for TC01/TC08/TU55/TU56 (available on the SIMH simulator), the system device handler for the TC01/TC08/TU55/TU56 was kludged onto to a copy of the image of the Version 8Z FLP system.  Predictably, many functions do not work properly; with some manual patching of the directory, a viable temporary system was created.\cf1\par
+\cf0\par
+Most importantly, access to certain newer system programs is now possible to aid in a proper reconstruction.  The image of the Version 8Z FLP system can be accessed as a mounted logical unit (such as unit six).\par
+\par
+Note: P?S/8 Version 8T is quite incompatible with P?S/8 Version 8Z. The only functional level of compatibility is the keyboard monitor commands (while generally different) are equivalent to those in the newer system allowing access to the TFS directory on the newer system.\par
+\par
+15-Jun-2015\tab Bootable startup system for the TC01/TC08 DECtape.\par
+\par
+Various OS/8 BATCH files are available within the "A" and "B" file collections to assemble the binary files needed to create a P?S/8 release.  By studying the BATCH files, it was determined what source files are needed to create what is referred to as the P?S/8 "starter" system.\par
+\par
+The starter system is a bootable operating system with limited capability configured for the target device.  Creation of the starter system depends on the ability to run the target system device handler for the purpose of creating a clean image of itself (and other system components) from a working copy moved to the intended operating memory locations (07600-07777).  An internal system generation routine is used, essentially a series of calls to write out system component sections loaded into most memory locations of a 12K machine; the system generation routine is aware of the loading address of all components involved in the system generation (which has nothing to do with their ultimate execution address when called into memory for their normal operating function).\par
+\par
+Note: Certain system device configurations require an extended memory device handler extension for normal operation.  In some cases, the complication of creating a functioning system device handler for the intended purpose may be cumbersome.  Future releases will avoid this problem by supplying an associated non-system device handler for the identical configuration.  In most instances, the non-system device handler will occupy less memory than the routines needed to force temporary viability of the system device handler.  Additionally, in certain specific cases, the source code can be simplified to allow internal documentation that is more appropriate to the resultant coding.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+The starter system is obtained by loading the following binary files in the proper order as follows:\par
+\par
+1)\tab Z12K.BN\tab\tab This is a memory-clearing file that loads 0000 \tab\tab\tab\tab\tab into every memory location in the range of 00000-\tab\tab\tab\tab\tab 07577, 10000-17577 and 20000-27577.  This pre-\tab\tab\tab\tab\tab clears the memory that will be occupied by the \tab\tab\tab\tab\tab system components that are loaded next.\par
+\cf1\par
+\cf0 2)\tab PQSMON.BN\tab\tab This is the primary code of the P?S/8 keyboard\par
+\tab\tab\tab\tab monitor, P?S/8 BATCH, FIND, CHANGE and various\par
+\tab\tab\tab\tab support elements of P?S/8 that must be written to\par
+ \tab\tab\tab\tab designated storage blocks.  The system generation\par
+\tab\tab\tab\tab routine is also part of this file.\par
+\par
+\tab\tab\tab\tab Note: Future releases of P?S/8 may reduce this\par
+\tab\tab\tab\tab file to merely the keyboard monitor.  By doing\par
+\tab\tab\tab\tab this, these separate system programs can be better\par
+\tab\tab\tab\tab explained.  Even using the present mechanism to\par
+\tab\tab\tab\tab create the starter system (and extending it to\par
+\tab\tab\tab\tab include most of the rest of the system programs\par
+\tab\tab\tab\tab later) does not require these other system program\par
+\tab\tab\tab\tab components to be functional or even available,\par
+\tab\tab\tab\tab albeit highly recommended.  As such, a better\par
+\tab\tab\tab\tab overall mechanism can relegate the creation of all\par
+\tab\tab\tab\tab of them to whatever ultimate process is used to\par
+\tab\tab\tab\tab create the overall system.\cf1\par
+\par
+\cf0 3)\tab PQSDTA.BN\tab\tab This is the image of the system device handler for \tab\tab\tab\tab TC01/TC08/TU55/TU56.  Since this device also \tab\tab\tab\tab\tab supports a \i Slurp\i0  loader, the image of the\par
+ \tab\tab\tab\tab hardware-dependent \i Slurp\i0  loader is included.\par
+\par
+\tab\tab\tab\tab Note: For systems that do not support a hardware-\par
+\tab\tab\tab\tab dependent \i Slurp\i0  loader, the system generation\par
+ \tab\tab\tab\tab routines write out a deliberately non-functional\par
+ \tab\tab\tab\tab dummy program stub to cause attempts to load a \tab\tab\tab\tab\tab hardware-dependent \i Slurp\i0  loader to instead use the\par
+\tab\tab\tab\tab device-independent virtual \i Slurp\i0  loader.\par
+\par
+\tab\tab\tab\tab Since this device supports a hardware-dependent\par
+\tab\tab\tab\tab\i Slurp \i0 loader, the system device handler reloader\par
+\tab\tab\tab\tab\i file\i0  image (associated with the P?S/8 \i BIN\i0  utility\par
+\tab\tab\tab\tab /I command-line option switch) is also included.\par
+\line 4)\tab BIN.BN\tab\tab This is the image of the P?S/8 \i BIN\i0  utility program\par
+\tab\tab\tab\tab which includes the P?S/8 \i START\i0  and \i GET\i0  commands\par
+\tab\tab\tab\tab created as aliases with alternate starting\par
+\tab\tab\tab\tab addresses into the same system program.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 5)\tab ODT.BN\tab\tab This is the image of the P?S/8 \i ODT\i0  debugging \tab\tab\tab\tab\tab program which is a proper superset of the OS/8 \tab\tab\tab\tab\tab equivalent.\par
+\par
+\tab\tab\tab\tab With P?S/8 \i ODT\i0  available to the starter system, it\par
+\tab\tab\tab\tab is possible to make certain changes to the P?S/8\par
+\tab\tab\tab\tab keyboard monitor and other system components if\par
+\tab\tab\tab\tab unusual (or unexpected) situations arise.\par
+\par
+\tab\tab\tab\tab Note: The starter system is quite meager without\par
+\tab\tab\tab\tab the additional utilities to be added later.\par
+\par
+6)\tab DUMP.BN\tab\tab This is the image of the P?S/8 \i DUMP\i0  utility \tab\tab\tab\tab\tab\tab program.  Recent releases of \i DUMP\i0  support command \tab\tab\tab\tab files to automate block transfers and block \tab\tab\tab\tab\tab\tab patching.  Once the starter system is running, \tab\tab\tab\tab\tab .DUMP files can be passed to \i DUMP\i0  to create the \tab\tab\tab\tab\tab rest of the system.\par
+\cf1\par
+\cf0 The system generation process creates a safe subset of the TFS directory without (necessarily) supporting the proper file capacity. An appropriate .DUMP file is used to initialize the TFS directory\par
+parameters to match the proper device size.  Advanced users can\par
+override these values as deemed appropriate; this is usually used in\par
+specific situations such as supporting premium-length DECtapes and\par
+LINCtapes.\par
+\par
+Note: The .DUMP files are generally made available on a logical device\par
+unit other than the system bootup unit which is created without any existing files.  As appropriate, the files can be copied to the system bootup unit; at least one additional logical device unit is required\par
+for the binary data to be transferred as the starter system is updated in place.\cf1\par
+\par
+\cf0 The starter system binary composite is started at 00200.  The machine\par
+halts to allow any manual changes of target media; pressing \cf2\highlight1 CONTINUE\par
+\cf0\highlight0 starts the main system generation process.  After many write\par
+operations, the machine halts again; pressing \cf2\highlight1 CONTINUE\cf0\highlight0  will boot the newly-created starter system (assuming the system was configured for the current hardware; front panel switch options can override this in various ways).\par
+\par
+25-Jun-2015\tab Problems completing the common system generation.\par
+\par
+While not all components of the OS/8 BATCH command files have been tested to determine if a complete collection of required binary files can be obtained, a problem has already been identified:\par
+\par
+All components of every released configuration of P?S/8 beyond the starter system must be created on an OS/8 non-system device such as \i DTA1\i0 :.  Even if a specific program is not required for any particular system, error-free assembly of all components must be enforced.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+The reason for this is that the OS/8 non-system device will create core-image copies of all of the P?S/8 components involved; the specific OS/8 records where these files are stored is crucial.  The .DUMP files are extremely pragmatic; the most minor change will corrupt the process.\par
+\par
+With two notable exceptions, all of the P?S/8 source files are compatible with PAL8 Version B0 which is the standard version released with \i OS/278\i0  Version 2.0.  To within a minor operational bug that never affects most users, this version will function correctly under earlier systems such as \i OS/8\i0  Version 3D, considered the standard release for all PDP-8 systems.  (The bug has to do with the \i TTY\i0 : handler and interaction with the \highlight1 Control-Z\highlight0  character; the problem is completely avoidable by observing proper timing or simply not using the \i TTY\i0 : handler.)\line\line Note: The original release of PAL8 associated with OS/8 Version 3D is not recommended for use; however, available patches can produce a version that is adequate for the purpose of P?S/8 system generation.  The OS/278 version of PAL8 is widely available since it is included in the Kermit-12 collection written by the author of this document.  Moreover, Kermit-12 is meant to be assembled on DECmates; as such, the requirements for Kermit-12 include the need for one universal release version reasonably compatible with all possible systems Kermit-12 runs on.  No release of PAL8 from OS/8 Version 3D runs on DECmates.\cf1\par
+\cf0\par
+Two programs, \i MARK12\i0  and \i TC12F\i0 , are adaptations of standard components of the \ul\i LAP6-DIAL/DIAL-MS\ulnone\i0  system for the PDP-12 only.  The source code was taken from a specific release of \i DIAL-MS\i0  and is likely not the final release code (nor is this even important).  Apparently there are no operational differences between this code and the standard versions found on any newer \i DIAL\i0  systems per se; however, these programs have been modified to be more suitable for use with 128 words/block LINCtapes (which are used by P?S/8 and OS/8 on the PDP-12 and the LINC-8) with the ability to format longer LINCtapes assuming premium media is available.  As such, these programs must be supported as written, if possible.\par
+\par
+Note: Custom modifications exist in the P?S/8 version of the programs to overcome \i DIAL\i0 -specific issues which are in conflict with PDP-8 memory loading conventions.  When these programs are loaded into\par
+memory, the P?S/8 kernel is destroyed.  As such, manual bootstrap procedures are required after using either program.\par
+\par
+When P?S/8 system generation was being performed in 1988, these programs were assembled with a specific user-written assembler known as \i PAL12\i0 .\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0\i PAL12\i0  is based on a very early release of \i PAL8\i0  (that is quite deficient).  Despite major shortcomings, the LINC mode assembly facility is an acceptable implementation of the \i DIAL\i0  embedded assembler LINC mode subsection.  Very little PDP-8 code is used in these programs; as such, This particular \i PAL12\i0  release is an\par
+acceptable assembler for this limited purpose.\par
+\par
+Note: P?S/8 PAL Version 8S (as released as a component of P?S/8 Version 8Z) is a proper superset of both \i PAL8\i0  and \i PAL12\i0 ; however, it is not an OS/8 program.\par
+\par
+Unfortunately, attempts to locate this specific release of \i PAL12\i0  has not been successful to date:\par
+\par
+Earlier releases of \i PAL12\i0  were located that cannot assemble the programs due to lacking certain assembler features added later.  Apparent file dates confirm these are precursors to the stable release required.\line\line Unfortunately, the \i PAL12\i0  project was turned over to other programmers who have a very poor understanding of exactly how a proper LINC mode assembler should operate.  While the features missing from the earlier releases are present (and many mostly irrelevant features of PAL8 are more like newer releases), the ability to assemble most LINC mode instructions is hopelessly incompatible other than some simplistic subsets; the newer release is essentially worthless for practical assembly of many LINC programs such as TC12F and MARK12.\par
+\par
+A binary copy of OS/8 for the modified 8K LINC-8 has been located.  This includes LINC-8 handlers loaded into a copy of OS/8 \i BUILD\i0 .  This LINCtape is likely the only surviving OS/8 LINCtape for the LINC-8 in the world due to its dependency on hardware modifications that were only applied to a single 8K LINC-8.  (P?S/8 runs on at least one other 4K LINC-8 with the same modifications.)  A paper directory indicates the proper \i PAL12\i0  release may be found on this tape.  Once a reasonable recovery process can be completed, the issue of producing the common system components (and system-specific add-ons) will be revisited.\line\line Note: Fortunately, example LINC-8 LINCtape programs exist that take advantage of the same hardware modifications as used in these handlers (and the P?S/8 analogous handlers); as such, it is not really a major programming problem to recreate these handlers (and actually improve the performance further).\line\line It is the author's recollection that the OS/8 handler used on this unique OS/8 bootable LINC-8 LINCtape does not depend on all of the available instructions provided by the final version of the modifications.  As such, it is highly likely that even if the source code is reconstructed, it can be improved to add useful features.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+Note: Some programming effort (using the SIMH PDP-8 simulator) has been performed modifying the \i MARK12\i0  program in an attempt to make the source code compatible with the newer (albeit defective) release of \i PAL12\i0 .  In theory, after a lot of recoding effort, the source code for the two affected programs could produce proper binary files for use in\par
+the P?S/8 system generation process.  However, the two affected system programs are not present on the recovered P?S/8 Version 8Z (FLP) system; existing binary copies are needed to confirm the source code changes produce the intended binary output.  A P?S/8 Version 8R system for TC12 has also been recovered.  If a copy of the core image of the programs on this LINCtape can be transferred to the SIMH environment, the source code modification process can continue with confidence.\par
+\par
+27-Jun-2015\tab Hacking up a complete P?S/8 Version 8Z system for TC08.\par
+\par
+It has been determined that the P?S/8 Version 8Z (FLP) system is essentially the same as the TC08 system with regard to the process of creating the common system generation and system-specific extensions.  The only important difference is ensuring the TFS directory length is appropriate to the TC08 system.\par
+\par
+Note: This was determined by inspection of the FLP-related system-specific extensions .DUMP file and the TC01/TC08-related system-specific extensions .DUMP file.\par
+\par
+P?S/8 \i BLKCPY\i0  was run by booting to the starter system with the hacked-up TC08 (but mostly FLP) system on logical device unit 0 while also mounting an exact copy imaged onto a DECtape file image mounted on logical unit six.  This allows the major sections that would be created by the .DUMP files to be copied en masse from the blocks on the image on device unit 6 to the corresponding blocks on the booted device unit 0.\par
+\par
+Note: While P?S/8 is fully compatible with all standard bootstraps on all standard devices, the TC01/TC08/TU55/TU56 Version 8Y and newer systems are also compatible with \i TCBOOT\i0 , an extended DECtape startup program that allows P?S/8 to boot to any DECtape drive unit in the range of 0 through 7.  TCBOOT can also boot most PDP-8 operating systems for the same configuration as long as drive unit 0 is selected.  While fully functional, usage outside of booting P?S/8 for TC01/TC08 on non-zero logical units is not recommended since shorter bootstraps exist for drive 0 only.\par
+\par
+A copy of \i TCBOOT.PAL\i0  is available from Charles Lasner; this version requires manual drive unit selection via the front panel switches; an automatic version can be derived that will detect the first drive available in a manner analogous to the extended \i RXBOOT\i0  program for RX01/RX02/RX03/DSD-210/RX278.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+Certain structures were also copied using P?S/8 \i DUMP\i0  in manual command mode, such as copying the system programs directory; this allows the newly-added systems program to run directly on the newly-created TC08 system.\par
+\par
+After confirming (by direct inspection with P?S/8 DUMP) that all directory structures are consistent with the TC01/TC08 system, the first P?S/8 Version 8Z system for TC01/TC08/TU55/TU56 in over twenty-five years has been produced!\par
+\par
+10-Jul-2015\tab P?S/8 PAL bug fix.\par
+\par
+Problem: P?S/8 PAL creates defective binary files only during an obscure scenario involving the simultaneous creation of binary files and listing output at the same time.  If literals are in use and there are no current page literals on the last page of code and page zero literals exist to be dumped because there is a FIELD directive in the source code, the field change associated with the new field setting will be created incorrectly.  The problem had apparently been present for many releases prior to P?S/8 PAL Version 8S, but was never observed before due to the requirement of so many specific conditions simultaneously.\par
+\cf1\par
+\cf0 The problem was traced to an improper use of a subroutine header used as a counter.  It is actually unavailable in the specific circumstances described above.  (The technique is valid per se, just not in these specific circumstances.)\par
+\par
+Resolution: As a temporary fix, both references to the temporary (\i XP45CH\i0 ) will be patched to instead use an available page zero location;  Future releases will reorganize the code to prevent the problem.\par
+\par
+This needs to be studied to attempt to not require another Page Zero location.  It is simply used as a counter, thus one instruction sets the count, and the other is an ISZ counting instruction.\line\line For example, there could be another unused subroutine header that is actually available indirectly though an existing Page Zero pointer.  The code would then be done with the indirect bit set in the two instructions preserving the intended logic.\line\line P?S/8 PAL is extremely optimized, yet there are a small number of spare locations.  They will likely be needed for planned additional features and changes.  Proper optimization techniques should always be applied.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+Implementation: Using P?S/8 BLKODT, the problem is readily fixed:\par
+\par
+.BLKODT\par
+\par
+0:0266.001 /3315 3174\tab\tab\cf1 DCA Page Zero temporary location\cf0\par
+11+\tab\tab\tab\tab\tab\tab\cf1 Setup address of next patch\cf0\par
+0:0266.012 /1315 1174\tab\tab\cf1 TAD Page Zero temporary location\par
+\cf0 S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\par
+\cf0\par
+01-Aug-2015\tab Date year base group update to 2008.\par
+\par
+In P?S/8 Version 8Z, the date is partially determined by the present value of the implicit base year group.  The base year group is calculated as the count of 8 year increments past 1960; when P?S/8 Version 8Z was originally released, the value used was 3 corresponding to a valid year range of 1984 through 1994.\par
+\par
+Note: While the internal implementation of the date allows a theoretical range of somewhat over 11 years, the P?S/8 \i DATE\i0  utility only allows valid dates in the present 11 year range to avoid unexpected date expiration during the next (partial) year following.\par
+\par
+The base year values are implemented as internal locations within all programs that support the present date; the relative date within the 11 year range is stored in the system kernel as the contents of location 07610.  The system kernel value is updated by the \i DATE\i0  command; the other programs generally support printing today's date by reading the current date value in memory and calculating the overall date using the locally-stored base year group value within the image of the program.  As such, all such programs require a binary patch to reflect the desired base year group value.\par
+\par
+The replacement value to be applied is 6, which corresponds to a date range of 2008 through 2018.  If desired, the base year group value can be updated in the future to 7 to correspond to a date range of 2016-2026.\par
+\par
+Note: P?S/8 Version 9A will use an entirely different method of implementing the system date.  The entire date will be available in the system kernel; the maintenance procedure described here will become moot and completely obsolete.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+Implementation: Using P?S/8 BLKODT, the base year group values are\par
+readily updated:\par
+\par
+.BLKODT\par
+\par
+0:0255.162 /0003 6\tab\tab\tab\cf1 PAL\cf0\par
+0:0363.000 /0003 6\tab\tab\tab\cf1 MAP\cf0\par
+0:0414.000 /0003 6\tab\tab\tab\cf1 DATE\par
+\cf0 0:0440.000 /0003 6\tab\tab\tab\cf1 PRINT\par
+\cf0 0:0613.140 /0003 6\tab\tab\tab\cf1 SYSTAT\par
+\cf0 0:0627.021 /0003 6\tab\tab\tab\cf1 MAP\cf0\par
+S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\cf0\par
+ \par
+After all patches are applied, the current date can be set with the \i DATE\i0  command.  Operation of all affected programs should be tested for correct output.\par
+\par
+05-Aug-2015\tab LE\{ft\} command message change.\par
+\par
+In keeping with current practice of character counting, the definition of the basic unit of textual input in the P?S/8 keyboard monitor and integrated editor is being changed from characters or 12-bit words to bytes (which partially explains the internal implementation of free space in more realistic terms).\par
+\par
+Since the P?S/8 text file format uses six-bit ASCII codes with several translated characters, the proper reference term will be the six-bit byte; this is consistent with all available command documentation.\par
+\par
+As such, the message associated with the count of available characters within the text file currently in the edit buffer will be changed from\par
+\par
+CHARACTERS: \i xxxx\i0\tab\tab\tab\cf1\i xxxx\i0  is the free character count\par
+\par
+\cf0 to\par
+\par
+BYTES: \i xxxx\i0\tab\tab\tab\tab\cf1\i xxxx\i0  is the free byte count\par
+\cf0\par
+Implementation: Using P?S/8 BLKODT, the message text characters are readily updated:\par
+\par
+.BLKODT\par
+\par
+0:0007.171 /7764 7771\tab\tab\cf1 message length\cf0\par
+0:0007.172 /0310 0231\tab\tab\cf1 BY\cf0\par
+0:0007.173 /0122 2405\tab\tab\cf1 TE\cf0\par
+0:0007.174 /0103 2372\tab\tab\cf1 S:\par
+\cf0 0:0007.175 /2405 4000\tab\tab\cf1 <SP><EOL>\par
+\cf0 S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\cf0\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 Notes:\par
+\par
+1)\tab This patch frees up locations 01576-01577 within the keyboard \tab monitor for a projected patch presently under review.\par
+\par
+2)\tab Using the P?S/8 OS8CON program, P?S/8 six-bit bytes can be \tab converted from/to seven-bit ASCII text bytes as used in OS/8 and \tab other systems (and eventually the P?S/8 SHELL overlay).  The \tab present P?S/8 six-bit character set supports various languages \tab including P?S/8 PAL and the P?S/8 implementation of FOCAL, 1969. \tab Future releases are expected to support implementations of BASIC \tab and FORTRAN.\par
+\par
+08-Aug-2015\tab Keyboard monitor bug fix.\par
+\par
+Problem: Keyboard monitor commands that support both an optional \cf3\i :u \cf0\i0 suffix and an optional \cf3\i filename\cf0\i0  [such as EN\{ter\}, FE\{tch\}, KI\{ll\} and WR\{ite\}] fail to properly support the \cf3\i filename\cf0\i0  when both options are used simultaneously.\par
+\par
+Note: The problem also exists if the \cf3\i filename:u\cf0\i0  form is used; however, the second \cf3\i :u\cf0\i0  suffix is unrelated to the problem.\par
+\par
+In most instances, the optional \cf3\i :u \cf0\i0 suffix is rarely used.  When the optional \cf3\i filename\cf0\i0  is not present, the default name from a prior command is used as the file name for the current command:\par
+\par
+.FE FOOBAR\tab\cf1 The explicit file name used sets the default name.\cf0\par
+\par
+\cf1 [Some editing operations are performed to update the file contents.]\cf0\par
+\par
+.WR\tab\tab\tab\cf1 The updated file is written using the default name.\par
+\cf0\par
+Alternatively, the command\par
+\par
+.WR:1\par
+\par
+writes the file to logical device unit 1 with the same file name.\par
+\par
+Since there is no explicit file name in either WR\{ite\} command example, both commands function as expected.\par
+\par
+However, if both options are used in the same command such as\par
+\par
+.WR:1 FOOBAR\par
+\par
+the command will fail to complete properly and will likely lead to an error message.\par
+\par
+Note: The contents of the edit buffer are not affected by the problem.  A similar command with only one of the options or no options given will succeed without error.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+The problem was traced to a failure to properly update all internal command parsing data; this can only happen when the simultaneous usage of both options is attempted.\par
+\par
+Resolution: As a temporary fix, the proper call to the optional unit scan routine (\i NEWCAT\i0 ) is patched in using available locations on the same code page.  Future releases will reorganize the code to prevent the problem using less total words.\par
+\par
+Implementation: Using P?S/8 BLKODT, the problem is readily fixed:\par
+\par
+.BLKODT\par
+\par
+0:0007.166 /5401 5376\tab\tab\cf1 JMP to patch area\cf0\par
+0:0007.176 /2223 4134\tab\tab\cf1 Call NEWCAT subroutine\cf0\par
+0:0007.177 /7240 5401\tab\tab\cf1 Continue as before\cf0\par
+S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\cf0\par
+  \par
+Notes:\par
+\par
+1)\tab Implementation of this patch depends on the prior implementation \tab of the 05-Aug-2015 LE\{ft\} command message change as described \tab above.\par
+\par
+2)\tab As of this writing, this patch has not received rigorous testing.  \tab The only P?S/8 Version 8Z configuration presently released is for \tab TC01/TC08/TU55/TU56; as such, the release file pqs8_tc08.tu56 \tab (image file for use with the SIMH PDP-8 simulator) will also be \tab available without this patch; the unpatched file will be known as \tab pqs_tc08_05-Aug-2015.tu56 consistent with the previous patch \tab level.\par
+\par
+09-Aug-2015\tab TCBOOT program now available for public release.\line\line The source code of TCBOOT.PAL was cleaned up for release.  A copy will be made available on one (or more) of the usual PDP-8 archive sites.\par
+\par
+19-Aug-2015\tab P?S/8 PAL bug fix.\par
+\par
+Problem: The \i ASMIFM\i0 , \i ASMIFN\i0  and \i ASMIFZ\i0  directives are non-functional.\par
+\par
+Note: These directives are part of the dual mode assembly option and were added for compatibility with the DIAL-MS assembler.\par
+\par
+Detailed explanation.\par
+\par
+The total failure of the three directives mentioned above was traced to an incorrect offset past a symbolic reference within the source code due to gradual changes in the code over some period of time.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+This is actually a poor programming technique that is no longer used in P?S/8 development.  If a specific location will be modified, it should have its own symbolic identification.  In this case, the referenced address is part of a relocation list.  (The dual mode assembly feature is one of the modular options; depending on the specific combination of modules retained, a dynamic update reflecting the relocation must be applied to all memory locations in the rest of the assembler code sections that need to be updated accordingly.)  In this specific case, the relocation was correct; however, it was applied to an incorrect memory location.\line\line Resolution: As a temporary fix, the proper address will be patched to restore proper operation.  The source code will be modified to include a proper symbolic reference (without a potentially "drifting" offset) to ensure the accuracy of the program.  (At the source code level, the address requiring the relocation was erroneously coded as \i MASSIF\i0 +2 when in fact it should be \i MASSIF\i0 +4 due to changes in the source code over the years.  A new reference to \i NASSIF\i0  without an offset will be applied, as this is presently the closest symbolic address.)\par
+\par
+Implementation: Using P?S/8 BLKODT, the problem is readily fixed:\par
+\par
+.BLKODT\par
+\par
+0:0277.010 /2373 2375\tab\tab\cf1 Adjust to proper offset\cf0\par
+S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\cf0\par
+\par
+Note:  Conditional directives such as \i IFZERO\i0 , \i IFNZRO\i0 , \i IFDEF\i0  and \i IFNDEF\i0  are universally available in P?S/8 PAL regardless of modular options chosen (such as dual mode assembly).\par
+\par
+The \i DIAL\i0  assembler supports the \i ASMIFM\i0 , \i ASMIFN\i0 , \i ASMIFZ\i0  and \i ASMSKP\i0  directives as an equivalent functionality to the \i IFZERO\i0  and \i IFNZRO\i0  directives; however, the usage is somewhat more cumbersome (in part due to the usage of one's complement arithmetic when assembling in LINC mode).  The standard directives can handle equivalent parameters to achieve the same results, generally using a simpler overall approach.  (The \i IFDEF\i0  and \i IFNDEF\i0  directives have no functional equivalent in the \i DIAL\i0  assembler.)\par
+\par
+Since the standard directives are fully compatible with all popular PAL assemblers (such as \ul\i TOPS-10 PAL10\ulnone\i0 , \ul\i OS/8 PAL8\ulnone\i0  and \ul\i P?S/8 PAL\ulnone\i0 ), it is recommended to avoid the \i DIAL\i0  assembler directives in all new work.\par
+\par
+As such, support for the \i DIAL\i0  conditional directives will be available in P?S/8 PAL only as part of the dual mode assembly module.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+Additional P?S/8 PAL issues:\par
+\par
+Note: A fix for the following problem will not be made available for this release of P?S/8 PAL; instead, a minimal workaround is discussed below.\par
+\par
+Certain directives are implemented in the dual mode assembly module that arguably should be available regardless of modular options set. The only way to use these directives is by enabling dual mode assembly by the use of the /8 or /9 command-line option switches.\par
+\par
+The \i ENBITS\i0  and \i NOBITS\i0  directives are available for compatibility with \ul\i TOPS-10 PAL10\ulnone\i0 ; however, there is no actual function performed (as the feature within \i PAL10\i0  the directives manage is not implemented in any other PAL assembler).\par
+\par
+Note: The intended usage is to enable or disable the automatic bitmap dump after every FIELD directive usage.  \ul\i OS/8 PAL8\ulnone\i0  and \ul\i P?S/8 PA\ulnone\i0 L do not support this implementation; however, both systems support an independent bitmap facility to perform an equivalent function on the binary output of the assembly.  As such, it is not likely that functional compatibility will be available in either system.\par
+\par
+Since these directives are not particularly related to dual assembly mode, the next source-level release of P?S/8 PAL will shift these directives into the main symbol table load.  For the present, if these features are required, the restriction of requiring the /8 (or /9) command-line option switch be set will apply.\cf1\par
+\cf0\par
+The DTORG directive is also erroneously part of the dual mode assembly module; however, DTORG should not be used as it will tend to corrupt the binary output.\par
+\par
+Note: There had been an intention to create an alternate special-purpose loading utility to punch binary paper-tapes of output containing DTORG statements, but as a practical matter, there no longer is any interest in the Typeset-8 product, the only system where this feature was ever required.  However, future releases of P?S/8 will provide an alternate implementation that is also fully compatible with all binary output standards.\par
+\par
+At the point of release, the directive will be moved to the main symbol table load in the same manner as the NOBITS and ENBITS directives as discussed above.  Future P?S/8 system generation utilities will require the revamped DTORG directive; it will be possible to convert the compatible binary output to the format as required by Typeset-8 punched on incompatible binary paper-tapes should that capability ever be needed.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+31-Dec-2015\tab Date year base group update to 2016.\par
+\par
+In P?S/8 Version 8Z, the date is partially determined by the present value of the implicit base year group.  The base year group is calculated as the count of 8 year increments past 1960; when P?S/8 Version 8Z was released, the value used was 3 corresponding to a valid year range of 1984 through 1994.\par
+\par
+Note: While the internal implementation of the date allows a theoretical range of somewhat over 11 years, the P?S/8 \i DATE\i0  utility only allows valid dates in the present 11 year range to avoid unexpected date expiration during the next (partial) year following.\par
+\par
+The base year values are implemented as internal locations within all programs that support the present date; the relative date within the 11 year range is stored in the system kernel as the contents of location 07610.  The system kernel value is updated by the DATE command; the other programs generally support printing today's date by reading the current date value in memory and calculating the overall date using the locally-stored base year group value in the image of the program.  As such, all programs require a binary patch to reflect the desired base year group value.\par
+\par
+The replacement value to be applied is 7, which corresponds to a date range of 2016 through 2026.  If desired, the base year group value can be updated in the future to 10 to correspond to a date range of 2024-2034.\par
+\par
+Note: P?S/8 Version 9A will use an entirely different method of implementing the system date.  The entire date will be available in the system kernel; the maintenance procedure described here will become moot and completely obsolete.\par
+\par
+Implementation: Using P?S/8 BLKODT, the base year group values are\par
+readily updated:\par
+\par
+.BLKODT\par
+\par
+0:0255.162 /0003 7\tab\tab\tab\cf1 PAL\cf0\par
+0:0363.000 /0003 7\tab\tab\tab\cf1 MAP\cf0\par
+0:0414.000 /0003 7\tab\tab\tab\cf1 DATE\par
+\cf0 0:0440.000 /0003 7\tab\tab\tab\cf1 PRINT\par
+\cf0 0:0613.140 /0003 7\tab\tab\tab\cf1 SYSTAT\par
+\cf0 0:0627.021 /0003 7\tab\tab\tab\cf1 MAP\cf0\par
+S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\cf0\par
+\par
+After all patches are applied, the current date can be set with the \i DATE\i0  command.  Operation of all affected programs should be tested for correct output.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+04-Apr-2017\tab Reversal of Patch as performed 08-Aug-2015.\par
+\par
+The patch performed as described above has been shown to cause additional problems in other operations of the keyboard monitor.  As such, the patch is now officially withdrawn.\line\line The problem as described in the original patch still applies.  Until a better fix can be pursued (or a new release of P?S/8 such as Version 9A), do not attempt the specific command syntax that causes the problem; the equivalent action can always be accomplished using two commands.\par
+\par
+Implementation: Using P?S/8 BLKODT, the original patch is removed:\par
+\par
+.BLKODT\par
+\par
+0:0007.166 /5376 5401\tab\tab\cf1 Restore original value\cf0\par
+S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\par
+\cf0\par
+Restoration of the original code frees up the two locations involved in the former patch.  Additionally, the patch from 05-Aug-2015 to change the message associated with the LE\{ft\} command is now\par
+optional (albeit still recommended).\par
+\par
+09-May-2017\tab SIMH TC08 Rewind and Unload Bug Patch.\par
+\par
+P?S/8 is generally compatible with the SIMH simulator with the exception of the rewind and unload routines.  Until such a time the SIMH problem is solved, apply the following patch:\par
+\par
+.BLKODT\par
+\par
+0:0006.145 /7650 7600\tab\tab\cf1 This prevents the DECtape actions\cf0\par
+S\cf1\tab\tab\tab\tab\tab\tab Save latest block and exit\cf0\par
+.\cf1\tab\tab\tab\tab\tab\tab Command prompt\par
+\par
+\cf0 17-May-2017\tab Certain P?S/8 System Device Handlers Located.\par
+\par
+A significant P?S/8 system device handler file recovery in the form of a single very long source file has been found.\line\line Prior to P?S/8 Version 8V, a misguided attempt to keep every handler and related component in one file along with all the other source code the components interacted with (primarily the keyboard monitor) was the chosen method to create (most of) the P?S/8 starter system for an6 particular supported device.\line\line Eventually, it was realized this is highly impractical and the practice was abandoned.\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\line\line The usual "portable" approach to developing P?S/8 was carried out in the form of an "A" and a "B" collection.  This refers to the likelihood that sites where work might be accomplished (including the possibilities of an available lineprinter) were typically organized as either RK05 packs or alternate hardware with comparable disk geometry.  (Note: OS/8 actually allows logical devices nearly 50% larger, but none of these larger devices were relevant at the time.)\line\line In turn, the "A" and "B" files were stored on three designated DECtapes each; OS/8 BATCH control files were developed to manage this file collection, etc.\line\line Unfortunately, eventually the full complement of source code files of P?S/8 could not fit into this structure, and this ultimately (and indirectly) caused certain problems, including the need to recover several specific handlers.\par
+\par
+The MDC8 P?S/8 hard drive handler ("Winchester") was never included in this collection, in part because the author's personal system had grown to be more than adequate, and primarily based on the MDC8 itself.  As such, the OS/8 logical volumes were the largest allowed in OS/8 (and thus nearly 50% larger than the RK05 logical size) where this was no longer a problem (but was prohibitive in terms of backup DECtapes).\line\line To date, while this hard drive handler has not been recovered (but the process to do so using all of the other recovered handlers, including all of the OS/8 equivalents), is an easily accomplished task given the high degree of documentation of the other handlers and the elegant simplicity of the MDC8 itself.  Thus, MDC8 issues post-date any of these considerations.\line\line The very large file \i PQSMON.OL\i0  was located on a premium-length DECtape as the only file present (with few spare blocks past the file).\line\line Analyzing this file yields certain results as follows:\line\line a) All of the then-present handlers (some not even complete!) are\par
+   present; the file appears to correspond to P?S/8 Version 8U.\line\line b) A string of conditional assembly variables are used to choose which\par
+   particular system should be assembled.  This roughly corresponds to\par
+   the current method of creating P?S/8 for the same components.\par
+\par
+   Note: The current method has been expanded to also include adding\par
+   in the P?S/8 DUMP and P?S/8 ODT components to create a more viable\par
+   starter system capable of being patched when booted to; this would\par
+   be part of a potential fixup when upgrading a starter system to a\line    more complete system by adding common system programs.\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\line\line c) Conditionals exist to create a variety of "lost" systems including\par
+   the unmodified LINC-8 requiring 8K, the modified LINC-8 requiring\par
+   4K (or more), the TD8E with 8K or more and the TD8E with 4K and the\par
+   MR8E-C ROM (located at the end of memory in field 7 7400-7777).\par
+\par
+   Additionally, several other systems are present (such as the TC08)\par
+   which are already available as modular system devices; when\par
+   creating a starter system, the appropriate device handler complex\par
+   is loaded along with the other binary files to create a starter\par
+   system for that device, etc.\par
+\line    While the recovery of these source file sections is extremely\par
+   important, further work is needed to make use of them:\par
+\par
+a) There are some internal differences between Version 8U and Version\par
+   8Z that must be resolved.  This is considered a moderate amount of \par
+   work (but hardly insurmountable).  Much of this has to do with the\par
+   newer modular approach and the specific environment described by\par
+   the present starter system scenario.\line\line    Note: The entire method of creating P?S/8 is subject to change\par
+   involving using some never-before-used methods that are now under\par
+   consideration.\par
+\par
+b) All modular P?S/8 system device handler source files include\par
+   interception routines associated with the Logical Console Overlay.\par
+   At the time of this earlier work (nearly six years before Version\par
+   8Z), this was not (yet) an established method.  As such, each\par
+   handler must have new work applied to be fully compatible.\line\line c) A nearly-functioning P?S/8 system for the TD8E and MR8E-C has been\par
+   recovered (and booted both on the actual hardware and on the SIMH\par
+   simulator).  This has led to an understanding there is an\par
+   unresolved major problem that some work has been done on to achieve\par
+   a successful replacement device handler.  Assembling the identical\par
+   configuration as used in the \i PQSMON.OL\i0  file produces the same exact\par
+   system device handler (and identical bugs).\line\line    The author recollects a special interaction between the TD8E and\par
+   the vT8E-specific variant of the Logical Console Overlay.  This\par
+   involves limiting the DMA overhead of the VT8E to an 8 character\par
+   display of the word \i WAITING\i0  using blink attributes on every\par
+   character, etc.  To avoid rederiving old work, the recovery\par
+   process has to continue to investigate this particular DECtape\par
+   image.\line\line This P?S/8 system is from a time where two major differences apply:\line\line a) There is no way to determine the exact release revision.\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\line\line b) The Logical Console Overlay was not created originally in the\par
+   present form.  This system has the forerunner \i VT\i0  program that is\par
+   VT8E-specific and not capable of configuration.\line\line    As such, disassembly of the VT program will be required; hopefully,\par
+   this feature can be located within the VT code, and then recreated\par
+   as an add-on to the current Logical Console Overlay.\line\line    Note: This issue is only related to the TD8E hardware due to the\par
+   critical timing nature of the (primitive) DECtape controller).\par
+\par
+   From the author's recollection, it is not likely the VT program\par
+   interaction was ever applied to the TD8E (with extended memory)\par
+   variation.  There will be some differences between the two\par
+   variant systems that may require slightly different implementation.\par
+\par
+   When using the extended-memory variant implementation, all device\par
+   handler code can be intercepted as required; the ROM version\par
+   requires the VT8E screen messaging to be limited for a much larger\par
+   operational phase of the overall handler.  This will allow the\par
+   screen to be used during the search phase with a longer message as\par
+   the overhead of DMA cannot have as much impact on the block search\par
+   code (as compared to having to be limited until nearly all of the\par
+   ROM-oriented code has completed).\par
+\par
+17-Sep-2018\tab P?S/8 for RX01 (and related devices) created.\par
+\par
+Using the TC01/TC08 version of P?S/8 Version 8Z for most of the system blocks needed, the RX01 version was generated taking advantage of the advanced configuration features of P?S/8 for TC01/TC08.\line\line There may be problems with the RX01 handler feature of attempting to create a viable handler for the purpose of writing all of the starter system blocks by creating an in-place fixed-up version of the handler in memory; this coding may have never been tested.\line\line The P?S/8 system generation method for the starter system can also be created by an alternate method as follows:\line\line a) Instead of assembling the starter system components in OS/8 using\par
+   PAL8, P?S/8 PAL is used to create TFS files in \i Slurp\i0  binary format.\line\line b) When all binary components of the starter system are loaded by the\par
+   P?S/8 \i BIN\i0  utility, it is not necessary to preload memory with\par
+   zeroes using the Z4K or Z8K or Z12K programs.  Instead, the /Z\par
+   command-line option switch is used to load a clean copy into\par
+   memory.\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\line\line c) To avoid the in-place fixup problem mentioned above, P?S/8 for\par
+   TC01/TC08 was booted to logical unit 7.  This allows the use of the\par
+   special front-panel switches setting to indicate the use of the\par
+   current P?S/8 system in effect for all writing operations.  As\par
+   such, DECtape logical unit 0 becomes an image of the intended RX01\par
+   system.\par
+\par
+d) Using P?S/8 BLKCPY from the P?S/8 system booted to logical unit 7,\par
+   the relevant system blocks were copied to the actual RX01 media.\par
+   Certain blocks were copied from the TC01/TC08 system which includes\par
+   all of the required additional system programs (and additionally\par
+   several that were removed to preserve storage space on the RX01.\par
+   The RX01 media is a significantly smaller storage device than a\par
+   DECtape).\par
+\par
+e) The \i MARK12\i0  and \i TC12F\i0  programs were added to the RX01 system\par
+   programs directory for use when this system is booted to a\par
+   PDP-12.\par
+\par
+f) The various directory structures were set to appropriate block\par
+   limits as required on the RX01 media.\par
+\par
+Note: All aspects of creating P?S/8 for the RX01 were performed on the PEPS SIMH package for Windows.\line\f0\page\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f1\par
+Glossary of Terms\par
+\par
+ 1.\tab BIN format\par
+\par
+\tab The standard binary loading format in the DEC \ul\i Paper-tape\par
+\ulnone      \ul operating system\ulnone\i0  is known as \i BIN\i0  format which is optimized for\par
+\tab loading data from paper-tape frames.  The format includes both\par
+\tab leader and trailer frame codes to delineate sets of data; the\par
+\tab highest tape channel is used as a visual aid to help position\par
+\tab paper-tapes in the reader; all leader and trailer frames have \tab only the high-order bit punched.  Data frames may or may not have\par
+\tab this bit punched, but clearly have some combination of the other \tab bits also punched.  All leader frames are ignored. \tab Loading\par
+\tab ends when the first trailer frame is encountered.  \i BIN\i0  format\par
+ \tab incorporates all necessary elements needed to load 12-bit\par
+\tab words into memory including a 12-bit checksum at the end of the\par
+\tab tape; memory field change frames are included as required.\par
+\par
+\tab Note: field change frames have the two highest bits punched. \tab Additionally, field change frames are not included in the overall\par
+ \tab tape checksum.  It is surmised this came about because the format\par
+\tab was upgraded when machines larger than 4K memory were first\par
+\tab produced by then, this could have compatibility issues with \i BIN\i0  \tab format tapes produced somewhat earlier.\line\line\tab BIN format is inherently compromised in terms of loading\par
+\tab efficiency because of the need to support leader and checksum\par
+\tab codes that are superfluous in an operating system environment\par
+\tab such as P?S/8.  Storage devices inherently have device parity\par
+\tab checking for all data; leader and trailer frame codes serve no\par
+\tab purpose when data is stored in blocks on a mass \tab storage device.\par
+\par
+\tab While certain systems use an adaptation of BIN format for binary\par
+\tab files, P?S/8 uses the more versatile and efficient \i Slurp \i0 binary\par
+\i\tab\i0 loading format described elsewhere; \i Slurp\i0  format is optimized for\par
+ \tab efficient loading.  The P?S/8 binary utility program (also known\par
+\tab as \i BIN\i0 ) includes utilities to convert between paper-tape data and\par
+\tab binary file data (in both conversion directions).\par
+\par
+ 2.\tab Burness\par
+\par
+\tab Jack Burness is one of the original members of the \ul\i WFCMPG\ulnone\i0\par
+\tab (described elsewhere in this document).  He created most of the\par
+\tab\i DIAL\i0  operating systems for the PDP-12 (described elsewhere in\par
+\tab this document).  Additionally, he produced the 8K BASIC\par
+\tab modifications of 4K BASIC (and LAB-8/E BASIC, which is actually\par
+\tab the same source code file with a global variable changed to \tab create either version).\par
+\par
+\tab Most notably, Mr. Burness is one of the first four people to\par
+\tab reject working on the defective demo program that eventually\par
+\tab became released as OS/8.  (This is described in more detail\par
+\tab elsewhere in this document.)\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+ 3.\tab DEC\par
+\par
+\tab\i DEC\i0  is the usual abbreviation of Digital Equipment Corporation,\par
+\tab the company that created the PDP-8 and other computers.\par
+\par
+\tab Note: If you are not already familiar with this, you probably\par
+\tab have little reason to read this document.\par
+\par
+ 4.\tab DECtape\par
+\par
+\tab\i DECtape\i0  is a removable media storage device based on the earlier\par
+\tab\i LINCtape\i0  used on the classic \i LINC\i0 , \i LINC-8\i0  and \i PDP-12\i0  as an\par
+\tab embedded subsystem of these machines.\par
+\cf3\par
+\tab\cf0 Note: While the media used for both \i DECtape\i0  and \i LINCtape\i0  is\par
+\tab nominally the same magnetic media, the formats differ greatly.\par
+\tab The most obvious difference is that using \i DECtapes\i0 , the supply\par
+\tab reel is mounted on the left side of the drive (while \i LINCtapes\i0\par
+\tab spin in the opposite direction).  Where applicable, plastic\par
+\tab canisters for tape storage exist;  by convention, blue plastic\par
+\tab parts are used for \i DECtapes\i0  while green plastic parts are used\par
+\tab for \i LINCtapes\i0 .  (This is unreliable as the convention is often\par
+\tab violated.)\par
+\par
+\tab\i DECtapes\i0 , much like \i LINCtapes\i0 , are completely block-replaceable \tab and can be considered to be analogous to more typical rotating\par
+\tab disk drives; however, block placement is for more critical due to\par
+\tab the serial nature of having to locate a new block by traversing\par
+\tab all intervening blocks starting from the present position.\par
+ \tab Additionally, there are considerations regarding the choice of\par
+\tab initial search direction; using the wrong initial direction will\par
+\tab cause delays due to the need to turn the tape around, etc.\par
+\par
+\tab More successful software operating systems use performance-\par
+\tab enhancing techniques; less successful operating systems can take \tab profoundly longer to accomplish roughly analogous tasks.\line\line\tab A related issue is the ability to transfer multiple blocks in the\par
+\tab same handler call.  Once a block is not accessed during the\par
+\tab latest read or write operation, the entire operation must be\par
+\tab restarted; assuming the next block is adjacent to the last block\par
+ \tab transferred, the delay will be palpable.  As such, more\par
+\tab successful software combines multiple block transfers in the same\par
+\tab transfer operation.\par
+\par
+\tab\i LINCtapes\i0  can only transfer data moving in the forward direction. \tab Both formats can search while moving in reverse; however, \i DECtape\i0\par
+\tab can also transfer data while moving in the reverse direction.  \tab Certain software utilities take advantage of reverse data\par
+\tab transfers, especially on other DEC machines based on wider\par
+\tab word lengths.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab Unlike \i LINCtapes\i0 , the count of words in a \i DECtape\i0  block is\par
+\tab subject to a restriction of being a whole multiple of 18-bit\par
+\tab words.  As such, the standard format for the PDP-8 is \tab 129 12-bit\par
+\tab words (or 86 18-bit words).\par
+\par
+\tab The underlying format of \i DECtape\i0  first used on the PDP-1 and\par
+\tab PDP-4 was changed with the release of the type 552 controller\par
+\tab originally designed for the \i PDP-5\i0  (a precursor design that\par
+\tab predates the PDP-8).  As such, these two systems are merely\par
+\tab compatible with each other and cannot share data with other\par
+\tab machines that support \i DECtape\i0 .\par
+\par
+\tab Note: For information on a tentative solution to this problem,\par
+\tab see the description of the \i LINC-8\i0  elsewhere in this document.\par
+\cf3\par
+\cf0\tab With the exception of very early \i Typeset-8\i0  systems, all PDP-8\par
+\tab models equipped with \i DECtape\i0  use a compatible \i DECtape\i0  controller\par
+\tab and one or more compatible \i DECtape\i0  drives.\par
+\par
+\tab Note: For more information on the type 552 \i DECtape\i0  controller and\par
+\tab the type 555 dual \i DECtape\i0  drive, see the description of the\par
+\tab\i Typeset-8\i0  operating system elsewhere in this document.\par
+\par
+\tab Note: For more information on \i DECtape\i0  controllers, see the\par
+\tab appropriate entry (elsewhere in this document) for one of the\par
+\tab following:\line\line\tab a) TC01\par
+\par
+\tab b) TC08\par
+\par
+\tab c) TD8E\par
+\par
+\tab For more information on \i DECtape\i0  drives, see the appropriate entry\par
+\tab (elsewhere in this document) for one of the following:\par
+\par
+\tab a) TU55\par
+\par
+\tab b) TU56\par
+\par
+\tab The P?S/8 operating system \i standard-bearer\i0  configuration is\par
+\tab designed for use with \i DECtape\i0  as implemented on the TC01 (or\par
+\tab TC08) \i DECtape\i0  controller and TU55 (or TU56) drives.\par
+\line\tab Note: For more information on the rudiments of the P?S/8\par
+\tab operating system, see the P?S/8 entry elsewhere in this document.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+ 5.\tab DIAL\par
+\par
+\tab\ul\i LAP6-DIAL\ulnone\i0  and \ul\i DIAL-MS\ulnone\i0  are related operating systems for the\par
+\tab PDP-12 only.  These systems are partially (and primarily\par
+\tab cosmetically) based on former systems for the classic LINC and\par
+\tab LINC-8 that are 100% constructed of LINC code; \i DIAL\i0  takes\par
+\tab advantage of the PDP-8 processor and largely consists of PDP-8\par
+\tab code using LINC mode programming (only) to access the peripherals\par
+\tab (which cannot be directly accessed using PDP-8 coding).\line\line\tab\i LAP6-DIAL\i0  only runs from LINCtapes, whereas \i DIAL-MS\i0  can be\par
+\tab configured to include a choice of several hard disk drives that\par
+\tab may be available on the same machine.  Either system is always\par
+\tab started from a standard bootstrap of two words entered on the\par
+\tab front panel switches; if relevant, this will perform a reboot to \tab the hard disk (if present).\line\line\tab Both systems can only support a maximum of 8K of memory (despite\par
+\tab the fact that the PDP-12 supports up to 32K memory).\par
+\line\tab\i LAP6-DIAL\i0  can run in 4K of memory while \i DIAL-MS\i0  requires 8K.  The\par
+\tab largest program that can be assembled (and saved) is the entirety\par
+\tab of fields 0 and 1 without restriction.\par
+\par
+\tab Note: The reason there is no apparent memory restriction is that\par
+\tab all programs are required to start in one of a small number of\par
+\tab designated memory locations.\par
+\par
+\tab There are actually minor restrictions on the contents of memory\par
+\tab which must be preloaded with a small series of startup\par
+\tab instructions associated with the designated startup locations,\par
+ \tab etc.\par
+\par
+\tab Due to the potential presence of support routines for the\par
+\tab supported hard disk options, programs that load into the highest\tab\tab addresses of field 1 may require loading from a system configured\par
+\tab for LINCtape exclusively; since the system is always started by\par
+\tab booting a LINCtape, the hard disk routines can be reloaded\par
+\tab afterwards.\par
+\par
+\tab Note: These conventions are in sharp contrast with PDP-8\par
+\tab standards which generally reserve (at least) locations 07600-\par
+\tab 07777 as (the primary section of) the system kernel.\par
+\par
+\tab\i DIAL\i0  files can be converted from/to P?S/8 using the P?S/8\par
+\tab\i L6DCON\{vert\}\i0  utility.  \i L6DCON\i0  can only be run from P?S/8 systems\par
+\tab running on the LINC-8 or PDP-12.  (The program includes its own\par
+\tab internal LINCtape handlers for both systems.)  More information\par
+\tab about \i L6DCON\i0  can be obtained from other documents such as the\par
+\tab\ul\i P?S/8 System Programs Guide\ulnone\i0  available separately.\page\cf3 Glossary of Terms (continued)\cf0\line\line\tab Note: With the exception of P?S/8 and OS/8, virtually all\par
+\tab operating systems based on LINCtapes use 256 12-bit words/block\par
+\tab LINCtapes.  Various total block counts are associated with either\par
+\tab standard or custom usage for any of these systems, etc.\par
+\par
+\tab Most of both \i DIAL\i0  systems was created by Jack Burness, who, as a\par
+\tab student at Brooklyn Poly was a member of the \ul\i WCFMPG\ulnone\i0 .  (See\par
+\tab elsewhere in this document for more information regarding the\par
+\tab\ul\i WCFMPG\ulnone\i0 .)\par
+\par
+ 6.\tab Disk Monitor System\par
+\par
+\tab The \ul\i Disk Monitor System\ulnone\i0  is a rather poor operating system for\par
+\tab certain arbitrary configurations of the PDP-8.  Certain of the\par
+\tab internal design principles make excessive use of minimally\par
+\tab available resources.  Most notably, performance is only tolerable\par
+\tab on the fastest disks available at the time:\line\line\tab a) RF08\line\line\tab b) DF32\par
+\par
+\tab This system also runs on TC01/TC08 DECtape using TU55 or TU56 \tab drives.  The DECtape handling is simply horrid.  Because of the\par
+\tab internal design limitations, it is impossible to transfer\par
+\tab multiple blocks in a single handler call.  As such, each DECtape\par
+\tab read/write block transfer must be individually searched.\par
+\tab Additionally, it is highly likely that blocks are actually\par
+\tab (nearly) adjacent (and certainly no attempt is made to create a\par
+\tab proper inter-block offset).  This invariably means that the next\par
+\tab call to the same handler will require a reverse search to before\par
+\tab the last block transferred, followed by a turn-around to transfer\par
+\tab the desired block in the forward direction.  This behavior is\par
+\tab sometimes referred to as either \i shoe-shining\i0  or \i yo-yo\i0  motion.\par
+\line\tab While this behavior describes a small subset of the block search\par
+\tab behavior of OS/8 and P?S/8 (and the\ul\i  DECtape Library System\ulnone\i0  that\par
+\tab predates all three of the stated systems), these systems support\par
+\tab attempts to transfer multiple blocks in one call without the\par
+\tab turn-around overhead associated with \b\i every\b0\i0  tape operation in the\par
+\tab Disk Monitor environment.\par
+\par
+\tab Note: At some point in time, an advanced user of both the \ul\i Paper-\ulnone\i0\par
+\tab\ul\i tape operating system\ulnone\i0  software and the \ul\i Disk Monitor System\ulnone\i0\par
+\tab pointed out that a skilled operator can develop software on the\par
+\tab high-speed reader/punch \b\i faster\b0\i0  than on the \ul\i Disk Monitor System\ulnone\i0 .\line\line\tab Some of the poor design aspects of the \ul\i Disk Monitor System\ulnone\i0  were\par
+\tab demanded by ignorant managers causing the design of what\par
+\tab ultimately was released as OS/8 to be forever ruined in certain \tab ways.  Ultimately, it can be shown that all of these notions are\par
+\tab superfluous.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab Note: Despite this, OS/8 (which also requires 8K memory) is a\par
+\tab somewhat better performing system than the \ul\i Disk Monitor System\ulnone\i0 .  \tab The forthcoming P?S/8 \i SHELL\i0  overlay will define a system\par
+\tab largely analogous to OS/8 with these defective design notions\par
+\tab removed.  The present basic P?S/8, as implemented and released as\par
+\tab Version 8Z, already illustrates some of these issues.\par
+\par
+\tab Here is a single case in point:\line\line\tab The \ul\i Disk Monitor System\ulnone\i0  restarts by saving a portion of memory\par
+\tab\b\i every\b0\i0  time the system restarts at 07600; however, only rarely is\par
+\tab this feature constructively required.\par
+\par
+\tab This concept is mimicked in OS/8 because of the original\par
+\tab managerial edict, etc.\line\line\tab In P?S/8 8Z, restart at 07600 is a read-only operation; the\par
+\tab system device can be write-locked (for safety) if desired.  When\par
+\tab the user desired the contents of memory to be saved, memory\par
+\tab should be loaded with the \i GET\i0  command.  All of Field 0 will be\par
+\tab saved in the system scratch area reserved for this purpose.\par
+\tab Following this operation, the usual read-only restart is\par
+\tab performed.  System commands exist to manipulate the saved core\par
+\tab image in various ways, including saving designated memory\par
+\tab locations to binary output files, and performing debugging\par
+\tab sessions using P?S/8 ODT (which implements a proper superset of\par
+\tab OS/8 ODT).  If desired, conforming programs can be run as\par
+\tab impromptu versions of P?S/8 system programs by invoking the\par
+\tab appropriate command.\par
+\par
+\tab In the P?S/8 \i SHELL\i0  this concept will be extended in a compatible\par
+\tab way to allow any useful operation; however, the basic concept\par
+\tab will be supported at every level of implementation.\par
+\par
+\tab As such, this fundamental design point as implemented in the Disk\par
+\tab Monitor System is superfluous and actually somewhat dangerous to \tab use, yet cannot be prevented.\line\line\tab The \ul\i Disk Monitor System\ulnone\i0  is based on a highly inflexible design\par
+\tab restriction:  The candidate device must be capable of being\par
+\tab expressed in logical blocks that are 129 words long.  This is\par
+ \tab\b\i not\b0\i0  because the system is based on storage allocation tables.\par
+\tab Instead, the 129th word is required as an simple-minded\par
+\tab implementation of the link to the next block in a sequence of\par
+\tab blocks that encompass a file.\line\line\tab Unfortunately, this mechanism only works for the DF32 and RF08\par
+\tab head-per-track hard disks because they can be organized on a word\par
+\tab basis.  PDP-8 DECtape requires this format (which is clearly the\par
+\tab inspiration for the closed-end design).\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab All more modern PDP-8 storage devices are based on storage blocks\par
+\tab that are exact multiples of powers of two quantities of 12-bit \tab words.  As such, the \ul\i Disk Monitor System\ulnone\i0  cannot be implemented on\par
+\tab other devices supported by P?S/8, OS/8 and other systems.\par
+\par
+ 7.\tab DTORG\par
+\par
+\tab The \i DTORG\i0  directive is a versatile feature of the PAL language\par
+\tab (at least in theory).  It was first used by the Typeset-8 group\par
+\tab for the purpose of specifying a DECtape (or other storage device)\par
+\tab block intended to be used as part of a special-purpose loader of\par
+\tab (up to 128 12-bit) words intended to be written to a designated\par
+\tab block on a target system device.\par
+\par
+\tab At the time, the symbolic name \i DTORG\i0  was appropriate as the\par
+\tab Typeset-8 bootable application system only ran on PDP-8 format\par
+\tab DECtapes on first the type 552 DECtape controller and then later\par
+\tab the TC01 or TC08 DECtape controller.  For more information, see\par
+\tab the appropriate description of the TC01 or TC08 DECtape\par
+\tab controllers elsewhere in this document.  The symbol suggests an\par
+\tab\ul\i OR\ulnone i\ul G\ulnone in\i0  (meaning a designated storage block) on \ul\i D\ulnone EC\ul T\ulnone ape\i0 . \tab However, the concept can be applied to any application that is \tab oriented towards logical blocks that are 128 12-bit words long.\par
+\par
+\tab Note: \i DTORG\i0  is not normally used in OS/8 because the logical\par
+\tab records are 256 words long; as such, this would require some\par
+\tab additional features to create an aligned double-page memory space\par
+\tab in the corresponding loading program.  Virtually all other\par
+\tab operating systems (with the exception of the \ul\i Disk Monitor System\ulnone\i0  \tab which uses 129 words per block) designed for the PDP-8 can \tab theoretically make use of this feature.\line\line\tab\i DTORG\i0  was first implemented on the \ul\i TOPS-10 PAL10\ulnone\i0  cross-assembler.\par
+ \tab Unfortunately, the Typeset-8 group made unreasonable demands on \tab the design of \i PAL10\i0  such that the binary output, which attempts\par
+\tab to punch binary paper-tape output in \i BIN\i0  format, creates\par
+ \tab defective output when the DTORG directive is used.\line\line\tab This largely went unnoticed because it has no direct effect on\par
+\tab any other program that runs on \i TOPS-10\i0 ; however, this makes the\par
+\tab DTORG directive virtually useless for any other application.\par
+\par
+\tab Some time later, managerial edicts were made regarding \ul\i OS/8 PAL8\ulnone\i0 , \par
+\tab which would seem to be the OS/8 equivalent of \i PAL10\i0 .\par
+\par
+\tab Note: This is actually not true.  There are numerous\par
+\tab incompatibilities between \i PAL8\i0  and \i PAL10\i0 .  For the most part,\par
+\tab P?S/8 \i PAL\i0  is fully compatible with \i PAL10\i0 ; however, when\par
+\tab programming for \i PAL8\i0  compatibility, certain language elements\par
+\tab must be avoided.\page\cf3 Glossary of Terms (continued)\par
+\par
+\tab\cf0 While the goal was to provide an alternate development\par
+\tab environment for the \i Typeset-8\i0  programmers, the implementation of\par
+\tab\i DTORG\i0  in \i PAL8\i0  was done in a heavy-handed manner; as such, binary\par
+\tab output of PAL8 cannot be loaded by any OS/8 utility if DTORG is\par
+\tab used in the source code.\line\line\tab Note: For the purpose of advancing the development of P?S/8 in\par
+\tab general, there are proposed changes to this situation that can\par
+\tab satisfy all interested groups (with some cooperation).  For more\par
+\tab information, consult the \ul\i P?S/8 PAL Version 8S Technical Guide\ulnone\i0  \tab available as a separate document.\par
+\par
+ 8.\tab DUMP\par
+\par
+\tab P?S/8 \i DUMP\i0  is a small versatile utility program that is included\par
+\tab in the P?S/8 starter system.\line\line\tab\i DUMP\i0  is used for a small number of specific tasks initiated by \tab commands as follows:\par
+\par
+\tab a) DU\{MP\} and display the contents of a designated block on the\par
+\tab    system device or any other logical unit controlled by the\par
+\tab    system device.  The display consists of a formatted display of\par
+\tab    (up to) the entire contents of the designated block where each\par
+\tab    line includes the relative index number of the left-most value\par
+\tab    followed by the eight values starting from that particular\par
+\tab    relative index; to the right of the octal display is a\par
+\tab    character display representing the same values in six-bit\par
+\tab    ASCII text.  (The character display format was chosen\par
+\tab    arbitrarily because it is the most likely text display to be\par
+\tab    relevant to the contents of various P?S/8 system blocks.)  The\par
+\tab    output is always directed to the system console device (which\par
+\tab    may be redirected to the Logical Console Overlay if enabled).\par
+\par
+\tab    The display can be limited to the lowest portion of the\par
+\tab    potential display as indicated above by the setting of the\par
+\tab    computer front panel switches.  If desired, the /S command-\par
+\tab    line option switch can be used to override this; the value of\par
+\tab    \i =xxxx\i0  passed on the command line will be used for all\par
+\tab    displayed output.  If the \i =xxxx\i0  is not explicitly passed, the\par
+\tab    value 0000 will be used (which will display all output).\par
+\par
+\tab b) TR\{ANSFER\} a set of contiguous blocks from any accessible\par
+\tab    logical device unit and starting block to another accessible\par
+\tab    logical device unit and starting number.\line\line\tab    Note: Only advanced users should INVOKE this option as\par
+\tab    transfers that overlay certain system blocks can cause\par
+\tab    permanent damage to the operating system.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab    The transfer mode checks for available memory when DUMP is\par
+\tab    first loaded into memory.  In 4K, the largest number of blocks\par
+\tab    that can be transferred in any one operation is a function of\par
+\tab    the program length.  As of P?S/8 Version 8Z, the largest\par
+\tab    read/write transfer allowed is 23 blocks per command.\cf3\par
+\par
+\tab    \cf0 DUMP fully conforms to P?S/8 extended memory allocation rules.\par
+ \tab    On certain systems, the first 3/4 of Field 1 may also be\par
+\tab    available; in this case, DUMP can always transfer 24 blocks\par
+\tab    because the read/write transfer occurs in 10000-15777.\par
+\par
+\tab    For all systems that run on 8K (or larger) memory, the largest\par
+\tab    transfer is 32 blocks (an entire memory field) because this is\par
+\tab    the largest value that can be supported on any supported\par
+\tab    configuration (generally as a hardware restriction).\par
+\par
+\tab c) ZA\{P\} (or patch) the contents of a designated block on any\par
+\tab    accessible logical device unit.  The designated block is first\par
+\tab    displayed in the same format as described above for the DU\{MP\}\par
+\tab    command.\par
+\par
+\tab    Various single-character commands can be used to examine and\par
+\tab    change the contents of any of the relative locations in the\par
+\tab    range of 000-177.  As such, it is possible to completely\par
+\tab    change the contents of the block being patched.\par
+\par
+\tab    Note: As stated above with regard to the TR\{ANSFER\} operation,\par
+\tab    only advanced users should invoke this option as patching\par
+\tab    certain system blocks can cause permanent damage to the\par
+\tab    operating system.\par
+\par
+\tab d) EX\{IT\} is used to terminate the \i DUMP\i0  utility and reload P?S/8.\par
+\par
+\tab Note: All P?S/8 system configurations handle logical units in\par
+\tab particular ways.  The general unit range is 0 through 7; however,\par
+\tab depending on system device handler specifics, certain logical\par
+\tab units may cause permanent errors (which will require some form of\par
+\tab restart) or certain logical units may be anomalous to other\par
+\tab logical units.\par
+\par
+\tab In general, these anomalies arise due to certain bits of the\par
+\tab three-bit field expressing the unit (throughout any particular\par
+\tab configuration of P?S/8) being ignored.  For example, the RX01\par
+\tab variation of P?S/8 will support units 0 through 3 on some\par
+\tab hardware configurations and units 0 through 1 on others.  For all\par
+\tab supported RX01-compatible configurations, the high-order bit of\par
+\tab the unit is always ignored.  As such, units 4 through 7 are\par
+\tab anomalous to units 0 through 3.  Future releases of the RX01-\tab based system may include better internal testing of the unit bits\par
+\tab to cause all unavailable logical unit bits to permanently cause\par
+\tab errors.  For the present implementation, it is up to the user \tab to understand which logical units are available, etc.\page\cf3 Glossary of Terms (continued)\par
+\par
+\cf0\tab Most importantly, it is possible to fully automate all \i DUMP\i0  \tab operations through the use of .DUMP command input files passed to\par
+\tab the program.\par
+\par
+\tab .DUMP files are ASCII text files compatible with the TFS file\par
+\tab structure of P?S/8.\par
+\par
+\tab Note: The designation of .DUMP files refers to the way they are\par
+\tab stored in other file structures; this is used to indicate the\par
+\tab contents are valid commands to the P?S/8 DUMP utility.  The\par
+\tab actual files (once stored on a P?S/8 system) are ordinary text\par
+\tab files that can be prepared (or modified) with the P?S/8 embedded\par
+\tab text editor.\par
+\par
+\tab .DUMP files can (and \b should!\b0 ) include internal commentary; any\par
+\tab line within a .DUMP file starting with the \cf2\highlight3\f0\\\cf0\highlight0\f1  character is\par
+\tab considered a comment and will otherwise be ignored.\line\line\tab The operations of the P?S/8 starter system make extensive use of\par
+\tab DUMP controlled by .DUMP files to create initial structures, etc.\par
+\tab This is done to facilitate adding on additional system programs\par
+\tab and other settings to produce a complete release.\par
+\par
+\tab Note: Future releases of P?S/8 will use alternate techniques to\par
+\tab create system releases.  For more information, see the\par
+\tab description of the DTORG directive elsewhere in this document.\par
+\par
+ 9.\tab DW8E\par
+\par
+\tab The \i DW8E\i0  is a (partially compatible) bus convertor that can be\par
+\tab attached to PDP-8 models that predate the Omnibus machines.  The\par
+\tab DW8E-P is for positive bus machines such as the PDP-12 and the\par
+\tab PDP-8/L and positive bus PDP-8/I systems (that are exceedingly\par
+\tab rare).\line\line\tab The DW8E-N is for the PDP-8, LINC-8 and the PDP-8/I (with the\par
+\tab more common negative bus).\par
+\par
+\tab Note: The LINC-8 cannot provide DMA support for the DW8E-N\par
+\tab because of the LINC CPU; only the program transfer portion is\par
+\tab supported.\par
+\par
+\tab The only DMA peripheral supported is a modified version of the\par
+\tab RK8E known as the RK8F, which is compatible with the RK8E except\par
+\tab for the specific DMA interface modifications for the DW8E\par
+\tab specifically.\line\line\tab Additionally, certain Omnibus peripherals support instructions of \tab the form \i 6xy0\i0  which are not supported on the DW8E.  For certain \tab peripherals, this may be a problem.\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+10.\tab Elekman\par
+\par
+\tab Lenny Elekman is one of the original members of the \ul\i WCFMPG\par
+\ulnone\tab\i0 (described elsewhere in this document).  Mr. Elekman is the co-\par
+\tab creator of the \ul\i R-L Monitor System\ulnone\i0  and \ul\i POLY BASIC\ulnone\i0 , and the author\par
+\tab of \ul\i 4K BASIC\ulnone  \i0 and sometime consultant to DEC for the purpose of\par
+\tab enhancing certain aspects of the various OS/8 BASIC\par
+\tab implementations.\line\line\tab Most notably, Mr. Elekman was the first person to refuse to work\par
+\tab on the poor demo program that eventually became OS/8, largely\par
+\tab because the entire \ul\i WCFMPG\ulnone\i0  membership was brainstorming what was\par
+\tab to become the proper internal features of a presumed ordered\par
+\tab replacement system.\line\line\tab Note: The demo system was created over a weekend in less than 48\par
+\tab hours.  By the time it was viable as a demonstration program,\par
+\tab much if it was already obsolete due to internal inconsistencies.\par
+\tab Despite the technical realities, the profoundly incompetent\par
+\tab managers insisted on using the demo despite being told this was\par
+\tab not recommended; worse still, they insisted on certain idiotic\par
+\tab notions be added inappropriately copied from the \ul\i Disk Monitor\par
+\ulnone\tab\ul System\ulnone\i0  as described elsewhere in this document.\par
+\par
+\tab It should be further noted that certain of the features that were\par
+\tab only half-baked in the demo program are fully fleshed out within\par
+\tab the equivalent portions of \ul\i P?S/8\ulnone\i0 .\par
+\par
+\tab After \ul\i P?S/8\ulnone\i0  was demonstrated (twice!) nearly five years later to\par
+\tab the DEC PDP-8 programming group (but shot down by managers openly\par
+\tab hostile to the wishes of their own programmers), Mr. Elekman was\par
+\tab instrumental in arranging a meeting between Charles Lasner and\par
+\tab the chief engineer of the IM6100 (PDP-8 on a chip) project within\par
+\tab the Intersil Corporation; this led to a limited license of P?S/8\par
+\tab to Intersil for the specifically limited purpose of using the\par
+\tab then-current system on the Intercept I, a computer sold by\par
+\tab Intersil based on the IM6100.  This release was renamed \ul\i IFDOS\par
+\ulnone\i0\tab (Intercept Floppy Disk Operating System).  While this system was\par
+\tab initially P?S/8 for the RX01 and required at least 8K, Intersil\par
+\tab issued replacement ROM-based coding for the Intercept that\par
+\tab allowed \ul\i IFDOS\ulnone\i0  operation in 4K of memory by relocating some of the\par
+\tab device handling code to Control Panel memory.  Additionally, all\par
+\tab printing software references to \ul\i P?S/8\ulnone\i0  were patched to instead \par
+\tab reference \ul\i IFDOS\ulnone\i0 , etc.\line\line\tab When DEC released the VT78, it was based on the second-source\par
+\tab HM6100 from Harris Semiconductor.  The VT78 is noticeably slower\par
+\tab due to the use of dynamic RAM and slowing the main CPU clock from\par
+\tab 4.0 MHz to 3.3 MHz, etc.\page\cf3 Glossary of Terms (continued)\cf0\par
+ \par
+11.\tab Fischetti\par
+\par
+\tab Joe Fischetti is one of the original members of the \ul\i WCFMPG\par
+\ulnone\tab\i0 (described elsewhere in this document).  He was instrumental in\par
+\tab the creation of the original \ul\i R-L Monitor System\ulnone\i0  (described \tab elsewhere in this document) and other notable works for the PDP-8 \tab and other computers.\par
+\par
+\tab Most notably, Mr. Fischetti was one of the first people to refuse\par
+\tab to work on the poor demo program that eventually became OS/8,\par
+\tab largely because the entire \ul\i WCFMPG\ulnone\i0  membership was brainstorming\par
+\tab what was to become the proper internal features of a presumed\par
+\tab ordered replacement system.  (See the description of Lenny\par
+\tab Elekman for more details on this particular fiasco.)  However, \tab Mr. Fischetti maintained employment at DEC for a brief time; he\par
+\tab joined a truly awful PDP-11 project, and was the first to leave \tab it because of intolerable management interference.\par
+\par
+\tab Note: Soon thereafter, the entire project was canceled.  All \tab further work by Mr. Fischetti was as a consulting to other \tab companies.\par
+\par
+\tab Mr. Fischetti was very instrumental in the early PDP-8 education\par
+\tab of Charles Lasner, including a proper explanation of PDP-8 co-\par
+\tab routines and the debunking of the conventional wisdom notion that\par
+\tab testing to determine if a given integer is within (or not within)\par
+\tab a stated range of possible value requires two tests.\par
+\par
+\tab Note: This method is widely used within components of P?S/8.\par
+\par
+\tab The PDP-8 PAL assembler directive was suggested my Mr. Fischetti \tab As a result, most operating system programming (as practiced\par
+\tab since then), is now more elegantly schematically explained.\par
+\par
+\tab Note: It is unfortunate that this just furthers the obsolescence\par
+\tab of TOPS-10 PAL10 (which is nearly useless because of a relatively\par
+\tab small number of deficiencies).\par
+\par
+12.\tab FLP\par
+\par
+\tab\i FLP\i0  is the group designation for devices attached to the diskette\par
+\tab ports of designated SCSI controllers under the control of the \tab MDC8 SCSI host adapter for the PDP-8/A.  Handlers are available \tab for both OS/8 and P?S/8 written by Charles Lasner.  The media are \tab HD diskettes as used on PC-AT class personal computers except for\par
+\tab the specifics of the diskette geometry.\par
+\par
+\tab Through a series of conversions, image copies of these diskettes\par
+\tab have been used with the SIMH simulator and related utilities to \tab recover many important PDP-8 files, etc.\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+13.\tab Friends of the Boston Massacre\par
+\par
+\tab The \ul\i Friends of the Boston Massacre\ulnone\i0  is an alternative name for the\par
+\tab\ul\i WCFMPG\ulnone\i0  bestowed upon it by the \ul\i WCFMPG\ulnone\i0  members.  A placard to this\par
+\tab effect was hung in their collective large office when they were \tab DEC employees.\par
+\par
+14.\tab Lary\par
+\par
+\tab Richard Lary is one of the original members of the \ul\i WCFMPG\par
+\ulnone\tab\i0 (described elsewhere in this document).  He is the co-creator of\par
+\tab the \ul\i R-L Monitor System\ulnone\i0  (described \tab elsewhere in this document) \par
+\tab and other notable works for the PDP-8 \tab and other (mostly DEC)\tab computers.\par
+\par
+\tab Note: While virtually all of the source code of P?S/8 is original\par
+\tab work of others (including Charles Lasner), the relevant specifics\par
+\tab of data structures and other internal system specifics were\par
+\tab copied from the R-L Monitor counterparts; most of these were \tab designed by Mr. Lary and some items were used in other PDP-8\par
+\tab systems, most notably the Slurp Loader (described elsewhere in\par
+\tab this document).\par
+\par
+\tab Richard Lary was one of about ten people who contributed to the\par
+\tab eventual squeezing down of the code of the P?S/8 TC01/TC08\par
+\tab DECtape system device handler; to date, there is actually one\par
+\tab additional free word.\line\line 15.\tab Lasner\par
+\par
+\tab Charles Lasner is the author of this document and the chief\par
+\tab architect and current maintainer of the entire P?S/8 operating\par
+\tab system.  He has personally known many other members of the \i P?S\i0  \tab and \i WCFMPG\i0  for many years; all of these individuals have made \tab major contributions to PDP-8 software (as well as software for \tab other computers).\par
+\par
+\tab Mr. Lasner was one of the earliest people to turn down working at\par
+\tab DEC on the unfortunate project that eventually became \i OS/8\i0 .  He\par
+\tab is widely known as the chief critic of OS/8 and can point out\par
+\tab many of its (needless) shortcomings borne of incompetent\par
+\tab management interference.\line\line\tab One of the eventual goals of P?S/8 is to cause OS/8 to be\par
+\tab completely obsolete.  It is theorized that much of what P?S/8 is\par
+\tab capable of becoming (in progress as of this writing) would be \tab what OS/8 would have become were it not for management \tab interference; this is due to the very fluid nature of all of the\par
+\tab relevant programmers who contributed to portions of both systems,\par
+\tab etc.\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+16.\tab LINC\par
+\par
+\tab The classic Laboratory INstrument Computer (LINC) was developed \tab at the MIT Lincoln Laboratories prior to the DEC release of the \tab PDP-5 (an unsuccessful variant of the PDP-8).  Both machines were\par
+\tab constructed by hand using soldered wires on a backplane.\line\line\tab Certain programs written for the LINC can be run on other models \tab such as the LINC-8 or PDP-12; there are restrictions with regard \tab to certain of the features due to certain hardware upgrades on \tab the newer models, or the need to emulate certain instructions in \tab PDP-8 software, etc.\par
+\par
+17.\tab LINC-8\par
+\par
+\tab The LINC-8 is a DEC product that include a (mostly functional)\par
+\tab LINC central processing unit (CPU) added onto a special\par
+\tab adaptation of a classic PDP-8 CPU, etc.\line\line\tab When running classic LINC operating systems (or special LINC-8\par
+\tab variant versions) it is necessary to reserve the first 1024 \tab instructions of memory to an interrupt handler and instruction\par
+\tab emulator known as the PROGram OF OPeration (\i PROGOFOP\i0 ).\par
+\par
+\tab One of the most notable features of the LINC-8 is the \i apparent\i0  \par
+\tab presence of the LINC front panel.  With few exceptions, the\par
+\tab actual implementation is a PDP-8 peripheral device that is\par
+\tab usually handled by \i PROGOFOP \i0 to allow full emulation).  The panel\par
+\tab can be repurposed for any reason using PDP-8 programming, etc.\line\line\tab While LINCtape is implemented within the hardware of the LINC,\par
+\tab the LINC-8 LINCtape is actually a PDP-8 peripheral using the \tab major registers of the LINC CPU for various functions (analogous\par
+\tab to the LINC hardware, but totally under software control).\line\line\tab As such, LINCtapes can be used on the LINC-8 that are not\par
+\tab compatible with the LINC in terms of number of words in each \tab block, or total number of blocks, etc.\par
+\par
+\tab Note: Since PDP-8 software is organized around blocks the size of\par
+\tab the PDP-8 page (128 12-bit words), most PDP-8 software is run\par
+ \tab from LINCtapes using this format (which the LINC cannot read).\par
+\par
+\tab Due to unforeseen limitations of the memory bus, it is not\par
+\tab possible to implement more than 8K on the LINC-8 (and\par
+\tab implementing 8K requires modifications to slow down the \tab processor).\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab Additionally, it is not possible to implement P?S/8 in 4K on the \tab LINC-8 without a series of hardware modifications designed in \tab stages by Kurt Metzger of the Cooley Laboratories of the \tab University of Michigan, Charles Lasner and David Soergel of \tab Syracuse University.\line\line\tab The composite modifications allow P?S/8 to run in 4K and OS/8 to\par
+\tab run in 8K respectively.\par
+\par
+\tab Note: An alternate configuration of P?S/8 runs in 8K on an \tab unmodified LINC-8.\par
+\par
+\tab The modifications allow reliable reading and writing of DECtapes. \tab This includes the PDP-1 and PDP-4 format as well as all more\par
+\tab recent DECtape formats; as such, the modified LINC-8 is the only\par
+\tab DEC machine that can read and write all known DECtape formats.\par
+\par
+\tab Note: While all DECtape utilities require custom programming, the \tab PDP-1/PDP-4 DECtape format requires alternate custom programming\par
+\tab due to the incompatible tape format (as compared to newer tape\par
+\tab formats).\par
+\par
+18.\tab LINCtape\par
+\par
+\tab\i LINCtape\i0  is a removable media storage device originally\par
+\tab implemented on the classic \i LINC\i0  and on the later \i LINC-8\i0  and\par
+\tab\i PDP-12\i0  computers; \i LINCtape\i0  support is implemented as an embedded\par
+\tab subsystem on all supported models.\par
+\par
+\tab The \i DECtape\i0  media developed later is based on the \i LINCtape\i0  media \tab using identical underlying tape media and reels (with perhaps\par
+\tab different tape length); however, the tape format is incompatible\par
+\tab (although there are conversion mechanisms available for the\par
+\tab\i LINC-8\i0  and \i PDP-12\i0 ).\par
+\par
+19.\tab Logical Console Overlay\par
+\par
+\tab The \ul\i Logical Console Overlay\ulnone\i0  is an optional component of P?S/8.\par
+\tab When enabled, all conforming programs will direct all system\tab console (and lineprinter) input/output to subroutine calls to \tab designated  memory locations instead of the usual physical\par
+\tab devices.  While the use of the Logical Console Overlay requires\par
+\tab the availability of extended memory, certain advanced features\par
+\tab are described as follows:\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab a) If the P?S/8 system device handler detects an error, the usual\tab    action is to halt the CPU (often displaying device-dependent\par
+\tab    status bits in the accumulator); pressing \highlight1 CONTINUE\highlight0  on the\par
+\tab    system front panel will safely retry the latest read/write\par
+\tab    operation. Users need to be familiar with the particular\par
+\tab    system device handler in use to gain insight as to what is\par
+ \tab    causing the specific problem by examining the contents of the\par
+\tab    accumulator (if feasible).\par
+\par
+\tab    Note: A system option is available to disable the system halt,\par
+\tab    resulting in an infinite retry after any error; depending on\par
+\tab    hardware particulars, this setting is generally not\par
+\tab    recommended.  (Ironically, using this setting causes error\par
+\tab    handling to resemble the mediocre error recovery techniques\par
+\tab    usually implemented in many OS/8 device handlers.)\par
+\par
+\tab    When the \ul\i Logical Console Overlay\ulnone\i0  is enabled, the default\par
+\tab    action taken by the system device handler is transformed into\par
+\tab    issuing a status report on the system console device (which is\par
+\tab    potentially redefined by the \ul\i Logical Console Overlay\par
+\ulnone\tab    \i0 configuration to be directed to alternative hardware).  This\par
+\tab    generally includes details of the attempted read/write\par
+\tab    operation; the user can choose which action to take at the\par
+\tab    point of error by entering one of the stated options on the\par
+\tab    system console keyboard.  This allows the user to correct the\par
+\tab    problem (if possible) and retry the latest read/write\par
+\tab    operation, or to abort the latest operation (if necessary).\par
+ \tab    Without requiring specific knowledge of the vagaries of the\par
+\tab    current system device, any user can properly manage all system\par
+\tab    device handler recovery operations (perhaps after consulting\par
+\tab    some device-specific documentation).\cf3\par
+\cf0\par
+\tab b) Not every system device handler is capable of optimal\par
+ \tab    performance; this is especially true of system device handlers\par
+        designed to run on 4K systems (without requiring loading of a\par
+        portion of the handler into extended memory).  Due to the\par
+\tab    limited memory space on 4K systems, it is often necessary to\par
+\tab    compromise performance to obtain basic functionality.\par
+\par
+        When the \ul\i Logical Console Overlay\ulnone\i0  is enabled, additional\par
+        functionality (designed into the system device handler for\par
+\tab    this purpose) is also enabled.  This generally effects\par
+\tab    additional performance that overcomes the original design\par
+\tab    compromise.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+        Note: On hardware configurations where the system device\par
+\tab    handler requires an extended-memory segment, the Logical\par
+\tab    Console Overlay is designed to function in lower memory\par
+\tab    locations within the same (highest) memory field.  As such,\par
+\tab    for conforming programs (such as P?S/8 \i PAL\i0 ) attempting to\par
+\tab    locate extended memory fields, the presence of the Logical\par
+\tab    Console Overlay does not change the count of fully available\par
+\tab    memory fields.  Under certain circumstances, programs may take\par
+\tab    advantage of the 3/4 memory field available if the \ul\i Logical\par
+\ulnone\tab    \ul Console Overlay\ulnone\i0  is disabled.  For example, P?S/8 \i PAL\i0  may load\par
+\tab    up to 768 additional symbols into this available memory space.\par
+\par
+\tab c) Certain configurations of the \ul\i Logical Console Overlay\ulnone\i0  may use\par
+ \tab    alternate console hardware (such as an alternate console\par
+\tab    terminal with device codes differing from 03/04).  In certain\par
+\tab    configurations, an error panel screen may temporarily replace\par
+\tab    the normal display of console output until the error is\par
+\tab    resolved.\par
+\par
+20.\tab MARK12\par
+\par
+\tab LINCtapes cannot be used on any supporting system until the tapes\par
+\tab are preformatted as intended.  On the PDP-12 this is accomplished \tab by a program generally known as \i MARK12\i0 .  This is reminiscent of \tab the original tape formatting process on the classic LINC system \tab which used a front-panel switch labeled \i MARK\i0 .  Additionally, the\par
+\tab user must press the \i MARK\i0  switch on the PDP-12 front panel at the\par
+\tab indicated time; this is essentially an upgraded process which is \tab used to safeguard against accidental data loss.\line\line\tab While the original \i MARK12\i0  program is designed to run under the\par
+\tab\i DIAL\i0  operating system(s), an adaptation of \i MARK12\i0  is available as\par
+\tab a P?S/8 system program where required.\par
+\par
+\tab A notable difference between the original and P?S/8 versions is\par
+\tab support for 128-word LINCtapes.  Apparently programmers assigned \par
+\tab to produce the DIAL version were not informed of the fact that\par
+\tab there are no applications for the PDP-12 requiring 129\par
+\tab words/block LINCtapes.\cf3\par
+\par
+\tab\cf0 Worse still, since alternate versions of MARK12 have generally\par
+\tab been unavailable, the design of OS/8 and P?S/8 device handlers\par
+\tab for PDP-12 LINCtape had to be compromised to handle potential\par
+\tab data corruption that may be caused by the unwanted additional\par
+\tab data word.\line\line\tab While there are no constructive advantages to using the 129 word\par
+\tab format, what follows are additional known downsides over 128 word\par
+\tab usage:\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab a) The potential for more data on the tape is hampered by the\par
+\tab    presence of the unwanted word in every block; all other things\par
+\tab    equal, more physical tape is required for any logical tape\par
+\tab    length.\par
+\par
+\tab b) Unwanted searching overhead applies to all blocks that must be\par
+\tab    traversed between the current tape position and the desired\par
+\tab    block(s) to transfer.  This effectively makes all tape \par
+\tab    operations take more time.\par
+\par
+\tab c) Since the tape is effectively used more, the overall condition\par
+\tab    of tape media and tape guides is needlessly diminished.\par
+ \tab    Inevitably, this increases maintenance costs, etc.\par
+\par
+\tab d) For use with PDP-8 operating systems on the LINC-8, LINCtape\par
+\tab    cannot be other than 128 words per block.  The use of 129\par
+\tab    words per block causes needless loss of compatibility.\par
+\par
+\tab Note: It is possible to retrofit the P?S/8 version of MARK12 to\par
+\tab be compatible with OS/8 or other systems; however, this requires\par
+\tab certain source code changes.  P?S/8 \i MARK12\i0  conforms with P?S/8\par
+\tab features such \tab as the \ul\i Logical Console Overlay\ulnone\i0  and DECmate-\tab specific dynamic modifications to device 03/04 console routines\par
+\tab (for the purpose of providing appropriate messages when the\par
+\tab program starts).  The main program is hard-coded to ignore these\par
+\tab features in part due to its creation as a \i DIAL\i0  application\par
+\tab program; as such, it is recommended the useful subset of the\par
+\tab program initialization section be retained to achieve a\par
+\tab standalone version which can then be transferred to an OS/8 or\par
+\tab other operating system.  The most appropriate implementation\par
+\tab would use a global conditional parameter to create either\par
+\tab version; this would tend to make future program maintenance\par
+\tab simpler, etc.  All issues discussed within this section also\par
+\tab apply to the \i TC12F\i0  program described elsewhere in this document.\cf3\par
+\cf0\par
+21.\tab Master Menu\par
+\par
+\tab\ul\i Master Menu\ulnone\i0  is an umbrella utility for the \ul\i DECmate II\ulnone\i0  with the\par
+\tab hard disk option and the \ul\i DECmate III+\ulnone\i0  (which always includes a\par
+\tab hard disk).  While totally optional, the use of \ul\i Master Menu\par
+\ulnone\i0\tab allows the use of multiple operating systems using a text-based\par
+\tab menu system to choose options such as the default operating\par
+\tab system and ways to override defaults, and various \tab copy/delete/backup/restore functions, etc.\par
+\par
+\tab The DECmate hard disk controller implementation includes named\par
+\tab logical volumes; this feature allows easier implementation of a\par
+\tab menu-driven system for multiple subordinate operating systems, \tab etc.  Since virtually all storage devices for the PDP-8 are\par
+\tab generally defined for independent operating systems, the notion\par
+\tab of an umbrella system never developed.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab On systems based on the \i MDC8\i0  SCSI host adapter, it is easier to\par
+\tab create a semblance of an umbrella system, in part due to the\par
+ \tab large storage capability (which is comparable to the DECmates \tab with hard disks, and can even support far larger disk drives).\par
+\par
+\tab\i Charles Lasner\i0  developed the rudiments of such a system for the\par
+\tab\i MDC8\i0  known as \i MENU-8.\i0   More information on MENU-8 (and the \i MDC8\i0  \par
+\tab and \i Charles Lasner\i0 ) is available elsewhere in this document.\par
+\par
+22.\tab Maurer\par
+\par
+\tab Hank Maurer is one of the original members of the \ul\i WCFMPG\par
+\ulnone\tab\i0 (described elsewhere in this document).  Mr. Maurer is the\par
+\tab author of the original \i DIBOL-8\i0  compiler later implemented as a\par
+\tab principal component of the COS-300/310 operating systems.\par
+\par
+\tab While most of the later work on DIBOL-8 was written for COS-\par
+\tab 300/310, the original version was released as the operating\par
+\tab system referred to as \i DIBOL-8\i0  (according to the official DEC\par
+\tab documentation which uses presumptive language regarding exactly\par
+\tab what the name applies to); however, this original release was\par
+\tab actually a hacked-up version of the \ul\i R-L Monitor System\ulnone\i0  with the\par
+\tab internal commands reorganized to conform with the proposed COS-\tab 300/310 commands that were implemented at a later time.\par
+\par
+\tab Note: The release process was so sloppy that DEC management never\par
+\tab actually knew they were selling the \ul\i R-L Monitor System\ulnone\i0  to\par
+\tab customers.  Mr. Maurer eventually informed members of the P?S\par
+\tab about these changes, which eventually led to conforming command\par
+\tab modifications within P?S/8.\par
+\par
+\tab P?S/8 takes advantage of these newer command conventions to\par
+\tab implement efficient concise command execution (which is discussed \par
+\tab elsewhere in this document).\par
+\par
+\tab Mr. Maurer also contributed to various components of the OS/8\par
+\tab BASIC implementations.\par
+\par
+23.\tab MDC8\par
+\par
+\tab The \i MDC8\i0  is a SCSI host adapter and storage controller for the \tab PDP-8/A series of hex-wide Omnibus machines made by Computer\par
+\tab Extension Systems, Inc. (CESI).  The \ul\i Disk Maintenance Utilities\ulnone\i0\par
+\tab (\i DMU\i0 ), all P?S/8 and OS/8 handlers and (the rudiments of) \i Menu-8\i0  \par
+\tab for the \i MDC8\i0  were written by Charles Lasner (author of this\par
+\tab document).\par
+\par
+\tab Note: All \i MDC8\i0  software as described above have been recovered at\par
+\tab the time of this writing with the (minor) exception of the P?S/8\par
+\tab Winchester Disk system device handler.  (The P?S/8 non-system\par
+\tab device handler for the Winchester Disk has not yet been written.)\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab Fortunately, the internal description and much of the source code\par
+\tab in the OS/8 system device handler for the Winchester Disk was\par
+\tab originally derived from the missing file; as such, it is a\par
+\tab straight-forward process to completely recover all additional\par
+\tab source code by deriving the source code from the other available\par
+\tab files.  (Writing the non-system device handler is a relatively\par
+\tab trivial matter once the system device handler for the same device\par
+\tab is fully recovered.)  The reason that \i MDC8\i0  source code recovery\par
+\tab is (relatively) trivial is the elegant nature of the device \tab design.\par
+\par
+\tab In essence, a SCSI read or write command is formatted out in\par
+\tab memory; then the controller is directed to execute the command\par
+\tab to the SCSI controller while the PDP-8 waits for the entire\par
+\tab process to be completed within the host adapter (which has DMA\par
+\tab controller of the Omnibus); as such, the source code is quite\par
+\tab small (a design principle from the inception of the MDC8\par
+\tab project).\par
+\par
+\tab When emulating a high-performance disk controller for new work,\par
+\tab use of the \i MDC8\i0  design is highly recommended.\par
+\par
+24.\tab MENU-8\par
+\par
+\tab The \i MENU-8\i0  multiple operating system utility for the \i MDC8\i0  is an \par
+\tab unfinished project for the PDP-8/A with the \i MDC8\i0  Winchester hard \tab disk subsystem.\line\line\tab Unlike all other storage devices for the PDP-8, there is\par
+\tab inherently storage space reserved for the \i MENU-8\i0  routines next to\par
+\tab the area at the rear-most storage blocks of the disk already\par
+\tab reserved for bad block management.\line\line\tab All OS/8 and P?S/8 handlers for the MDC8 Winchester disk support\par
+\tab a one-track offset to allow reservation for the bootup/hand-off\par
+\tab routines of \i MENU-8\i0  which can boot the default operating system or\par
+\tab use keyboard input to load the keyboard monitor of \i MENU-8\i0  itself.\par
+\tab\i MENU-8\i0  source code has been recovered; there is sufficient \tab functionality to perform the basic hand-off/reboot function by \tab performing a patch of the double-precision absolute disk record \tab where the desired operating system is stored, etc.\par
+\par
+25.\tab MS/8\par
+\par
+\tab The \ul\i Mass Storage System\ulnone\i0  for the \ul PDP-\i 8\ulnone\i0  (\i MS/8\i0 ) is a contrived \tab identification name for the operating system more generally known\par
+\tab as the \ul\i R-L Monitor System\ulnone\i0  written by Richard Lary and Lenny\par
+\tab Elekman with the help and encouragement of Jack Burness, Hank\par
+\tab Maurer and Joe Fischetti, all of whom are members of the \i WCFMPG\par
+\i0\tab (otherwise known as the \ul\i Friends of the Boston Massacre\ulnone\i0 ).\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+\tab The alternate name \i MS/8 \i0 was chosen when the software was\par
+\tab submitted to the \ul\i Digital Equipment Corporation User Society\par
+\ulnone\i0\tab (\i DECUS\i0 ); this was a feeble attempt to accomplish a few goals as\par
+\tab follows:\par
+\par
+\tab a) While the software is actually a legitimate and serious\par
+\tab    product, the \i WCFMPG\i0  members are generally not serious at all.\par
+\tab    It became necessary to add some credibility so the DECUS\par
+\tab    people would accept the submission.  However, the process was\par
+\tab    further hampered by the submission of the product to DECUS by\par
+\tab    Stan Rabinowitz of the P?S, since he is generally regarded as\par
+\tab    having even less credibility than the members of the WCFMPG.\par
+\tab    (Mr. Rabinowitz has been accused of various shenanigans over\par
+\tab    the course of many years.  We cannot provide any assistance of\par
+\tab    any kind to him, legal or otherwise, regarding any of these\par
+\tab    matters.)\par
+\par
+\tab    Note: There is only a small amount of surviving documentation\par
+\tab    available for MS/8 available from the author of this document.  \tab    Presumably, paper copies were actually submitted to the \i DECUS\i0\par
+\tab    office within DEC's main headquarters, including the author's\par
+\tab    documentation on his work on FOCAL for MS/8, etc.\par
+\par
+\tab b) The entire event was a thinly disguised attempt at poking fun\par
+\tab    at the then-current DEC marketing practice of creating too\par
+\tab    many very similar products with very similar names by using\par
+\tab    operating system names that are far too similar in contracted\par
+\tab    form followed by \cf2\highlight3\f0 /8\cf0\highlight0\f1 .\par
+\par
+\tab    Note: This has led to the very serious problem of the extreme \tab    difficulty in determining proper versions of programs and\par
+\tab    other components of OS/8 family systems.  Some of the names\par
+\tab    merely indicate contrived and largely pointless marketing\par
+\tab    variations while others indicate very important hardware\par
+\tab    restrictions.  Only a true expert can tell the difference\par
+\tab    indicated in the subtleties in the named products.\par
+\par
+\tab Due to the influence of the release of \ul\i MS/8\ulnone\i0  to \i DECUS\i0 , the\par
+\tab operating system that is the logical follow-on and successor to\par
+\tab the \ul\i R-L Monitor System\ulnone\i0  became known as \i P?S/8\i0  (the patch log of\par
+\tab\i P?S/8\i0  itself is the main subject of this document),  This action\par
+\tab essentially continues the \i tradition\i0  of poking fun at DEC\par
+ \tab management, since they were clueless about any and all of these \tab issues (to the detriment of the company).  For additional\par
+\tab information, see the sections on the \i P?S\i0  and \i P?S/8\i0  elsewhere in\par
+\tab this document.\par
+\par
+26.\tab ODT\par
+\par
+\tab The OCTAL DEBUGGING TECHNIQUE (\i ODT\i0 ) is the common name for a\par
+\tab series of PDP-8 debugging programs.  Various implementations\par
+\tab exist as follows:\page\cf3 Glossary of Terms (continued)\par
+\par
+\tab\cf0 a) ODT-LO  This is a memory resident version of ODT for use with\par
+\tab    the \ul\i Paper-tape Operating System\ulnone\i0 .  This version occupies\par
+\tab    relatively low addresses in memory to allow the object program\par
+\tab    to occupy higher addresses in memory.\par
+\par
+\tab b) ODT-HI  This is a memory resident version of ODT for use with\par
+\tab    the \ul\i Paper-tape Operating System\ulnone\i0 .  This version occupies\par
+\tab    relatively high addresses in memory to allow the object\par
+\tab    program to occupy lower addresses in memory.\par
+\par
+\tab    Note: Both ODT-LO and ODT-HI are somewhat difficult to use due\par
+\tab    to the arbitrary nature of their intrusion into the program\par
+ \tab    design, etc.\par
+\par
+\tab c) OS/8 ODT  This is an \i invisible\i0  implementation of \i ODT\i0  that\par
+\tab    occupies memory locations already reserved for the operating\par
+\tab    system; as such, this is a more flexible debugger than ODT-LO\par
+\tab    or ODT-HI.\par
+\par
+\tab d) P?S/8 ODT  This is a proper superset of OS/8 \i ODT\i0  which is less\par
+\tab    intrusive due to the smaller reserved memory area of P?S/8 as\par
+\tab    compared to OS/8.  The main advantages of P?S/8 \i ODT\i0  include\tab\tab    the implementation of a table of 16 breakpoints (instead of\par
+ \tab    a single preakpoint) as in all versions discussed above.\par
+\tab    Commands are provided to allow lock-step compatibility if only\par
+\tab    a single breakpoint is used.  Additional breakpoints can be\par
+\tab    used by reference to breakpoints either by sequence number or\par
+\tab    by breakpointed memory address as desired.  Additionally,\par
+\tab    commands are available to dump out formatted blocks of memory\par
+\tab    in a variety of formats.\par
+\par
+\tab    With regard to the present method of P?S/8 system generation,\par
+\tab    all P?S/8 starter systems includes P?S/8 \i ODT\i0  to allow any\par
+\tab    final program patches if necessary.\par
+\par
+27.\tab OS/278\par
+\par
+\tab The only OS/8 variant that can run on the DECmate II, III or III+\par
+\tab models is OS/278 Version 2.\par
+\par
+\tab Note: All versions of OS/278 are compromised and incompatible\par
+\tab subsets of OS/8.  This is partially due to the console hardware\par
+\tab incompatibility of DECmates as compared to all of the PDP-8\par
+\tab models and partially due to the profound incompetence of the\par
+\tab programmers who worked on the source code.\line\line\tab An earlier Version 1 was never released because so much of the\par
+\tab system was hopelessly broken.  Some of the code was made \tab (partially) operational by retrofitting the source code from\par
+\tab OS/78 Version 4 (described elsewhere in this document).\page\cf3 Glossary of Terms (continued)\cf0\line\line\tab Note: Certain components of OS/278 Version 1 can be found on\par
+\tab released diagnostic diskettes for these models; some have been\par
+\tab hacked up to create various automatic operations when booted,\par
+\tab etc.\par
+\par
+28.\tab OS/78\par
+\par
+\tab\b Proper\b0  OS/8 family operating systems may or may not include\par
+\tab various OS/78 variants; OS/78 Version 4 is a bastardized system\par
+ \tab attempting to use much of the OS/8 operating system on\par
+\tab DECmate I systems; known incompatible components have been \tab removed producing partial compatibility (without complete \tab failure).  However, certain performance-oriented features were\par
+\tab removed (such as Control-C abort checking in non-system device\par
+\tab handlers) due to the incompatible device 03/04 hardware of all\par
+\tab DECmates.  In general, a program taken from OS/78 Version 4 can\par
+\tab be expected to perform equally as poorly on PDP-8 systems due to\par
+\tab the missing code sections.  (For many such programs, the original\par
+\tab OS/8 program is the proper choice for PDP-8 and VT78 systems\par
+\tab despite the system name.)\line\line\tab Certain aspects of OS/78 Version 4 were used to retrofit the \tab failed OS/278 Version 1 into Version 2 as discussed elsewhere in \tab this document.\line\line\tab Releases of OS/78 with lower release numbers generally reveal an\par
+\tab absurd alternate agenda: Removing programs from OS/8 due to lack\par
+\tab of space; in some cases, a few programs were added that have\par
+\tab little application outside of being used on the VT78.  These are \tab extremely pragmatic; they were designed to run on contrived\par
+\tab configurations of PDP-8-based systems or the VT78 only.  (By \tab nature, this means that most OS/8 systems cannot run any of\par
+\tab them.)\par
+\par
+\tab One such release was produced for the pathetic purpose of\par
+\tab illustrating that a system where the only possible execution\par
+\tab being limited to CCL was somehow a \i feature\i0 .  This release was\par
+\tab withdrawn when it was shown to be possible to completely self-\par
+\tab destruct by the execution of a single command (as the entire\par
+\tab design was quite feeble and misguided).\line\line\tab Only an expert can tell the differences between several of these\par
+\tab seemingly similar products; they do not represent a coherent set\par
+\tab of product options as the overall product name might suggest.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+29.\tab OS/8\par
+\par
+\tab OS/8 is the name given to the most popular system in this family\par
+\tab of operating systems.  For purely marketing purposes, it was\par
+\tab renamed from the former name of \i PS/8\i0  due to claims from sales \tab personnel regarding the difficulty of selling customers on a \tab\i programming\i0  system as opposed to an \i operating\i0  system.\par
+\par
+\tab As discussed elsewhere in this document, OS/8 was never intended\par
+\tab to be a product; it was created over a weekend purely as a \tab demonstration (proof of concept); the consensus of the competent\par
+\tab programmers who were already brainstorming a complete replacement\par
+\tab (retaining the look and feel) was that it was too much work\par
+ \tab compared to just starting all over again at a rational design\par
+ \tab pace; moreover, many features were misimplemented, half-baked or\par
+ \tab just plain missing.\line\line\tab When incompetent management overruled the programmers, most of\par
+\tab them walked out on the project.  Further, they insisted upon\par
+\tab forcing the system to forever require 8K of memory (and later 12K\par
+\tab for certain configurations).  Needless restrictions were added to\par
+ \tab (overly) manage memory in a manner consistent with (what is wrong \tab with) the \ul\i Disk Monitor System\ulnone\i0  known for its poor performance and \tab needless misimplementation of unnecessary operations.\line\line\tab Over the course of several years following these foolish\par
+\tab management edicts, the effects of poor design became apparent as\par
+\tab follows:\par
+\par
+\tab a) Since the number of storage records was prematurely fixed, it\par
+\tab    was not possible to add on important features such as BATCH\par
+\tab    operations; as such, a belated poor attempt produced a\par
+\tab    semblance of a BATCH which is not device-independent (which\par
+\tab    differs from all of the rest of the system design) and\par
+\tab    additionally requires 12K; this is due to the need to be\par
+\tab    memory-resident.  As such, it is not possible to operate\par
+\tab    across system reboot operations.\par
+\par
+\tab    Note: Despite the trivial nature of the implied change (to a\par
+\tab    non-fixated design), non-structured device handlers are\par
+\tab    restricted to being loaded into Field 0.  This prevents BATCH\par
+\tab    from operating as intended being completely resident in\par
+\tab    extended memory (Field 2).  Since file-structured device\par
+\tab    handlers are also restricted to being loaded into Field 2, the\par
+\tab    BATCH output cannot be sent to a log file.\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+\tab    Contrast this with P?S/8 which supports BATCH operations in 4K\par
+\tab    with optional checkpointing across reboots.  P?S/8 is in turn\par
+\tab    partially based on the \ul\i R-L Monitor System \ulnone\i0 described elsewhere\par
+\tab    in this document; this forerunner system had been presented to\par
+\tab    DEC management.  However, the managers were profoundly\par
+\tab    incompetent and were clueless as to what they were looking at.\par
+\tab    Even this older system, which also runs in 4K, supports BATCH\par
+\tab    operations.\par
+\par
+\tab b) The OS/8 directory structure includes the overhead of using a\par
+\tab    linked overall structure, yet the directory is required to be\par
+\tab    located in fixed adjacent records.\par
+\par
+\tab    Because of the fixed size, the directory capacity is too\par
+\tab    limited for many users; directory entries cannot be added yet\par
+\tab    the underlying storage is available and wasted (even on\par
+\tab    logical storage devices that are quite smaller than the\par
+\tab    maximum storage capacity,\par
+\par
+\tab c) The directory entry for all files in any directory are subject \par
+\tab    to removal of a special \ul\i extra-information-word\ulnone\i0  to allow more\par
+\tab    entries at the expense of loss of file date.  Clearly, users\par
+\tab    affected most by b) above were forced into this situation.\line\tab    However, this drastic action only partially helps; the\par
+\tab    effective storage space actually used is often still\par
+\tab    compromised.\par
+\par
+\tab d) System designers often start with relatively round starting\par
+\tab    date years; OS/8 is no exception since it uses 1970.  However,\par
+\tab    the constructive years for most users starts several years\par
+\tab    later.\par
+\par
+\tab    The poor design of the date range results in a maximum range\par
+\tab    of eight years using a single 12-bit word resident in the\par
+\tab    system kernel.  Thus, it is impossible to uniquely express\par
+\tab    file dates past 31-Dec-1977.\par
+\par
+\tab    This problem was the point of many heated discussions as far\par
+\tab    back as 1974; this occurred because there was an analogous\par
+\tab    problem in the TOPS-10 system for the PDP-10 computer that\par
+\tab    would similarly end file date support in 1975.  Despite this,\par
+\tab    management was totally unreasonable and insisting on the\par
+\tab    impossible - don't change anything!\page\cf3 Glossary of Terms (continued)\cf0\line\line\tab    What was done was a truly awful kludge:\line\line\tab    Because OS/8 is so locked in, only two free bits were located\par
+\tab    in the entire system kernel.  These two bits were used to\par
+\tab    extended the theoretical date range from 1970-1977 to\par
+\tab    1970-2001; however, because of the pressure from users already\par
+\tab    resorting to removing the single \ul\i extra-information-word\ulnone\i0 , there\par
+\tab    would be no support for a second \ul\i extra-information-word\ulnone\i0  to\par
+\tab    support even this meager date year extension.\line\line\tab    The implementation amounts to perpetrating a hoax on the user\par
+\tab    community.  Since the date only has eight possible values, the\par
+\tab    date is recast as the present year and the previous seven\par
+\tab    years.  If you have a file that actually dates from eight\par
+\tab    years ago, it is impossible to reference the actual date.\par
+\tab    Instead the claimed file date is anomalous to the present\par
+\tab    year.\line\line\tab    This might be marginally acceptable to new users, but\par
+\tab    eventually all users are subject to the problem.  It is not\par
+\tab    possible to determine which group of eight years the proper\par
+\tab    file date pertains to; without specific documentation or\par
+\tab    proper commentary within a source file, the true file date is\par
+\tab    truly a matter of guesswork. (And after 2001, all date\par
+\tab    settings are always in some portion of the past.)\line\line\tab    Worse still, early in the present year, there is a high\par
+ \tab    probability that existent files from eight (or sixteen or\par
+\tab    twenty-four) years ago are presented as if in the future!\par
+\par
+\tab    Note: The P?S/8 system kernel reserves locations 07600-07777\par
+\tab    with no extended memory support included (unless the system\par
+\tab    device handler requires an extended memory segment).  Despite\par
+\tab    this, seven new bits have been allocated to be implemented in\par
+\tab    the next release of P?S/8 Version 9A.\par
+\par
+\tab e) There are many other problems not documented here; most could\par
+\tab    have either been avoided or perhaps remedied if the use of the\par
+\tab    failed demo not been insisted on by ignorant managers.\par
+\par
+30.\tab P?S\par
+\par
+\tab The \ul\i Poly Question Society\ulnone\i0  (\i P?S\i0 ) is the (self-appointed) name \tab\tab of a group of questioners most of whom met at the school \tab\tab\tab affectionately known as \ul\i Brooklyn Poly\ulnone\i0  (or \ul\i Brooklyn Polytech\ulnone\i0 ) or\par
+\tab the more formal name of the \ul\i Polytechnic Institute of Brooklyn\ulnone\i0 .\par
+\par
+\tab Note: Various other names of the school have existed or been\par
+\tab proposed over the years; as of the time of this writing, the\par
+\tab school has been taken over by \ul\i New York University\ulnone\i0  (\i NYU\i0 ).\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+\tab A certain group of people have many names for this institution,\par
+\tab some of which are not necessarily suitable for publication (or\par
+\tab even discussion) in mixed company.\par
+\par
+\tab Most of the members of the P?S (whether living, dead, or \tab\tab\tab mythological creatures) are additionally somewhat legendary in\par
+\tab the annals of computer programming (and in some cases beyond the\par
+\tab limitations of their own minds); certain individuals are\par
+\tab responsible for many programming projects, most of which were\par
+\tab eventually products of Digital Equipment Corporation (DEC).\par
+\par
+\tab When and where possible, \i P?S\i0  should be spelled \ul\i P?S\ulnone\i0  to be \tab\tab\tab pronounced as \ul\i pee.kew.ess\ulnone\i0 ; if necessary, \i P?S\i0  can be printed as\par
+\tab\ul\i PQS\ulnone\i0  which corresponds to the pronunciation.  (This generally\par
+\tab applies to limited character set situations such as associated\par
+\tab file names; the \ul\i ?\ulnone\i0  character is often reserved for wild-card\par
+\tab searches.)\par
+\par
+\tab Note: The P?S also has an official symbol which closely resembles\par
+ \tab the large \cf2\highlight3\f0 ?\cf0\highlight0\f1  as seen on various costumes worn by the late \ul\i Frank\par
+\ulnone\tab\ul Gorshin\ulnone\i0  as \ul\i The Riddler\ulnone\i0  on the 1966 TV show \ul\i Batman\ulnone\i0  (starring \ul\i Adam\par
+\ulnone\tab\ul West\ulnone\i0  as \i Batman\i0  and \ul\i Burt Ward\ulnone\i0  as \i Robin\i0 ).\par
+\par
+\tab In print, the \ul\i Lucida Console\ulnone\i0  font (as used in this document) \tab\tab renders the \ul\i ?\ulnone\i0  character in a somewhat acceptable manner.\par
+\par
+31.\tab P?S/8\par
+\par
+\tab This Glossary section explains key aspects of \i P?S/8\i0 , a\par
+\tab versatile operating system for the 4K PDP-8 (requiring\par
+\tab extended memory only if the system device handler cannot be\par
+\tab entirely implemented in the system kernel area of 07600-07777).\par
+\tab As is the case with certain other operating systems for the\par
+\tab PDP-8, P?S/8 runs on all 12-bit PDP-8 models with the exception\par
+\tab of the PDP8/S (which is not fully compatible) and the PDP-5\par
+\tab (which is far less compatible than the PDP-8/S).\par
+\par
+\tab Note: DEC marketing created definitive terms for the various\par
+\tab PDP-8 models sold at different times as follows:\line\line\tab a) \ul Family of 8\ulnone  - This term conjures up references to pirates and\par
+\tab    \ul\i pieces of 8\ulnone\i0  (which is a similar sounding measurement unit for\par
+\tab    coinage).  However, \ul family of 8\ulnone  refers to the definition of\par
+\tab    the PDP-8 models as described above.  While it may have been\par
+\tab    part of a sales pitch, it is an adequately accurate term that\par
+\tab    is often seen in various documents.\par
+\par
+\tab    Most importantly, other than for the express purpose of cost-\par
+\tab    cutting (such as the inability for the PDP-8/L and many newer\par
+\tab    models to support the \ul\i Extended Arithmetic Element\ulnone\i0  [\i EAE\i0 ]\par
+\tab    option), The PDP-8/S is the only PDP-8 model to be\par
+\tab    architecturally less capable than its immediate predecessor.\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+\i\tab    \i0 P?S/8 runs on all \ul family of 8\ulnone  models, as well as several\par
+\tab    (generally) compatible machines made by competitors.  while\par
+\tab    EAE is not required, system status mechanisms exist to report\par
+\tab    the presence of EAE; additionally, certain P?S/8 system\par
+\tab    programs may take (partial) advantage of EAE (such as\par
+ \tab    displaying current program status information in the MQ\par
+\tab    register).\par
+\par
+\tab b) \ul Pre-OMNIBUS\ulnone  - This term was used in a rather ominous manner\par
+\tab    when it was first introduced (perhaps the obvious word play is\par
+\tab    no coincidence).  \ul\i Pre-OMNIBUS\ulnone\i0  in this case means all 12-bit\par
+\tab    DEC computers made prior to the introduction of the PDP-8/E\par
+\tab    (and related OMNIBUS-based models such as the PDP-8/F and\par
+\tab    PDP-8/M) for the express purpose of dropping support for these\par
+\tab    machines.\par
+\par
+\tab    However, the underlying reasoning was caused by management\par
+\tab    losing control of the competency of programmers working for\par
+\tab    the PDP-8 program development group.  While seasoned members\par
+\tab    were easily able to conform their efforts to \ul family of 8\par
+\ulnone\tab    restrictions,\ul  \ulnone poorly trained new hirees were left to fend for\par
+\tab    themselves without proper supervision (or even proper\par
+\tab    documentation of the issues).\par
+\par
+\tab    As a consequence of their own limitations (and as an over-\par
+\tab    reaction), an edict was declared that from then onwards there\par
+\tab    were no guarantees that new software would work on existing\par
+\tab    older machines.  This was especially disappointing because\par
+\tab    certain hardware had been purchased (as encouraged by the same\par
+\tab    marketing people) for the purpose of extending the useful life\par
+\tab    of existing machines.\par
+\par
+\tab    Note: This was not taken well by certain customers who were\par
+\tab    torn as to whether to upgrade existing machines or to replace\par
+\tab    the CPU with a newer model; the economic decision rang hollow\par
+\tab    when it was announced their \ul Pre-OMNIBUS\ulnone  machines were now\par
+\tab    considered obsolete too soon after the purchase of the\par
+\tab    relevant upgrades including backward compatibility.\line\line\tab    Fortunately, since P?S/8 runs on all \ul family of 8\ulnone  models, this\par
+\tab    is not a consideration.  In truth, this issue is rather\par
+\tab    overblown and merely amounts to some modest constraint when\par
+\tab    potentially programming a very small class of group I operate\par
+\tab    instructions and the CAF and other interrupt-related\par
+\tab    instructions where necessary.\par
+\par
+\tab    Note: The author of this document (Charles Lasner) has\par
+\tab    personally discovered many of these problems within OS/8\par
+\tab    source programs and provided work-arounds for all of them.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab    Thus, the only consideration, with regard to P?S/8\par
+\tab    compatibility, is the one implied by the \ul family of 8\ulnone  marketing\par
+\tab    term.  All P?S members who have developed components of P?S/8\par
+\tab    simply laugh at the notion of \ul Pre-OMNIBUS\ulnone  machines.\par
+\par
+\i\tab\i0 P?S/8 also supports the DECmate series, the final DEC 12-bit\par
+`    computers based on the 6120 chip.  Due to the use of the \tab incompatible 6121 I/O support chips, these machines are\par
+\tab incompatible with the PDP-8 device 03/04 console device; OS/8\par
+\tab does not support these machines (although there are incompatible\par
+\tab software variant systems that partially function).\par
+\par
+\tab P?S/8 uses fully conforming console terminal handling in all\par
+\tab system components.  DECmate compatibility is achieved using\par
+\tab additional software features not available in other operating\par
+\tab systems.  Programs that will always avoid DECmate execution by\par
+\tab circumstance (such as utility programs for devices that cannot\par
+\tab run on DECmates) need not include the conforming console\par
+\tab routines.  The P?S/8 keyboard monitor routines check for both\par
+\tab variations to achieve full compatibility.\line\line\tab DECmate support also requires a concept unique to the P?S/8 \tab system kernel: The software abort status bit.\par
+\par
+\tab On all DEC 12-bit models (from the PDP-5 through the VT78) the \tab console handling is identical.  The key features of concern as\par
+\tab follows:\line\line\tab a) It is possible to detect that the Control-C character has been\par
+\tab    pressed when the keyboard flag is raised; the detection\par
+\tab    process doesn't change the status of the keyboard flag.\line\line\tab    Unfortunately, in the DECmate implementation the instruction\par
+ \tab    to skip on keyboard flag raised also clears the keyboard flag.\par
+\tab    It is impossible for a portion of the keyboard monitor read\par
+\tab    into memory to check for the same keyboard flag event; as\par
+ \tab    such, this prevents proper abort actions concerning Control-C\par
+\tab    such as issuing abort messages and canceling BATCH operations,\par
+\tab    etc.\par
+\par
+\tab b) There is an ability to read the latest character without \par
+\tab    initiating the process of reading the next character.\line\line\tab    Unfortunately, in the DECmate implementation the only\par
+\tab    instruction available to read the latest character initiates\par
+\tab    reading the next character which prevents re-read operations.\page\cf3 Glossary of Terms (continued)\cf0\line\line\tab As such, fully conforming P?S/8 components must communicate the \tab abort by setting the software abort status bit in the P?S/8\par
+\tab system kernel.  Fully conforming programs may continue to use the\par
+ \tab earlier mechanism on strictly PDP-8 family models; however, when\par
+\tab the DECmate-specific console hardware is detected, the program\par
+\tab must dynamically self-modify to use the software abort method.\line\par
+\tab This is easily accomplished in virtually every instance due to\par
+\tab ample code space in the initialization section of all conforming\par
+\tab programs; the appropriate coding will be in effect during the\par
+\tab entire main program execution, etc.\par
+\par
+\tab P?S/8 has been developed (sporadically) over the course of\par
+\tab multiple decades by several P?S members with the (sometime)\par
+\tab assistance of several other computer programmers.  A few of these\par
+\tab other programmers have actually written PDP-8 programs prior to\par
+\tab their participation in the P?S/8 project (or perhaps sometime\par
+\tab afterwards).  In certain cases, remnants of their participation\par
+\tab are actually still considered a portion of the overall source\par
+\tab code collection, and not necessarily commented out; as such, some\par
+\tab of their works produces binary code that is part of relatively\par
+\tab recent system releases.  In specific cases, the names of these\par
+\tab individuals have been withheld for a variety of reasons, none of\par
+\tab which have anything to do with known witness protection programs.\par
+\par
+\tab P?S/8 should be pronounced as \ul\i pee.kew.ess.ate\ulnone\i0 ; if necessary,\par
+\tab P?S/8 can be spelled as \i PQS/8\i0  and if applied to portions of\par
+\tab related file names, abbreviated to \i PQS8\i0  in all capital letters.\cf3\par
+\cf0\par
+\tab At the time of this writing, virtually all current support for\par
+\tab P?S/8 is performed by Charles Lasner, who has written much of the\par
+\tab source code, and is also the author of this document.\line\line\tab Various releases of P?S/8 may be of interest as follows:\par
+\par
+\tab a) P?S/8 Version 8Z - This is the current complete release as\par
+\tab    described elsewhere in this document (which explains all known\par
+\tab    official patches to the system and system programs).\par
+\par
+\tab b) P?S/8 Version 8T - This is a very old P?S/8 release that\par
+\tab    requires mastery of the \ul\i P?S/8 Version 8T Keyboard Monitor\par
+\ulnone\i0\tab    \ul\i Guide\ulnone\i0  (available as a separate document).  Many of the\par
+\tab    keyboard monitor commands are different from newer releases.\par
+\tab    P?S/8 Version 8T actually corresponds closely to the \ul\i R-L\par
+\ulnone\tab    \ul Monitor System\ulnone\i0  since the commands were changed in later P?S/8\par
+\tab    releases to closely resemble the keyboard monitor commands and \par
+\tab    conventions of \ul\i COS-300/310\ulnone\i0 .\page\cf3 Glossary of Terms (continued)\par
+\cf0\line\tab    Note: Only the TC01/TC08/TU55/TU56 configuration of P?S/8\ul\i  \par
+\ulnone\tab    \i0 Version 8T is known to have survived.  It is available as a\par
+\tab    portion of the \ul\i P?S Enhanced PDP-8 Simulator\ulnone\i0  (\i PEPS\i0 ) package for\par
+\tab    \ul\i Microsoft Windows\ulnone\super\i0 tm\nosupersub , also available from the author of this\par
+\tab    document.\par
+\par
+\tab    For the most part, the only reason to use this older release\par
+\tab    is to illustrate just how much progress was made in the nine\par
+\tab    or ten years between the releases of P?S/8 as described above.\par
+\par
+\tab c) P?S/8 Version 9A - This is the tentative title of the next\par
+\tab    full release of P?S/8.\par
+\par
+\tab    With the exception of a few internal specifics, P?S/8 Version\par
+\tab    9A will hardly differ from Version 8Z from a user's\par
+\tab    perspective.  This is basically a code cleanup release to\par
+\tab    solve a host of small technical issues that are required to\par
+\tab    include the P?S/8\i  SHELL\i0 , an optional overlay which will\par
+\tab    include virtually all of the useful features of OS/8 etc.\par
+\par
+\tab    Additional changes will be made to the keyboard monitor\par
+\tab    implementation and internal specifics related to extended-\par
+\tab    length file support that affects several system programs, etc.\par
+\par
+\tab    Note: Due to the complexity of the P?S/8 SHELL, the initial\par
+\tab    release of P?S/8 Version 9A will not include the P?S/8 SHELL.\par
+\tab    If all underlying issues are solved (perhaps by applying\par
+\tab    patches), the P?S/8 SHELL overlay may be included in a system\par
+\tab    re-release, etc.\par
+\par
+32.\tab P?S/8 BLKCPY\par
+\par
+\tab The P?S/8 \i BLKCPY\i0  system program is used to copy (or compare) sets \tab of contiguous blocks on any device(s) supported by the P?S/8 non-\tab system device handlers.  Blocks are specified in absolute form by\par
+\tab either a first through last block range or a starting block and a\par
+\tab block count, etc.\line\line\tab The command syntax is similar to that of command decoders\par
+\tab associated with several systems (except that absolute blocks are\par
+ \tab specified instead of file names).\line\line\tab The exact function performed is determined by the command \tab separator character.  As in the execution-class commands of the \tab P?S/8 keyboard monitor, commands can be specified in either an \tab output first or an input first manner.  Comparisons are specified \tab using an alternate separator character between block \tab specifications.\line\line\tab Input files can be passed to BLKCPY using execution-class\par
+ \tab commands.  The contents of the file must consist of valid BLKCPY \tab command specifications or designated comments.\page\cf3 Glossary of Terms (continued)\par
+\par
+\cf0\tab As of P?S/8 Version 8Y, P?S/8 BLKCPY supports blocks in the range\par
+ \tab of 0000 through 7777.  P?S/8 Version 9A will upgrade the non-\tab system device handlers to handle blocks as high as 77777777.  As \tab such, a command-line option switch will be added to BLKCPY to \tab enable extended transfers with up to eight digit block numbers.\cf3\par
+\cf0\line 33.\tab P?S/8 BLKODT\par
+\par
+\tab The P?S/8 \i BLKODT\i0  utility is used to display and/or modify the\par
+\tab contents of a specified block on any logical unit that can be\par
+\tab accessed using the system device handler.\par
+\par
+\tab BLKODT commands are identical to those of ODT with several \tab exceptions as follows:\line\line\tab a) Instead of accessing memory locations, all commands are\par
+\tab    oriented to relative locations within a specified block.  As\par
+\tab    such, the range is limited to 000-177.\line\line\tab b) All commands associated with breakpoints are removed.\par
+\par
+\tab c) Command extensions exist to specify logical unit and block.\line\line\tab BLKODT can be run by the contents of input files passed to any\par
+\tab execution-class command used to run BLKODT.\par
+\par
+\tab Due to the straight-forward syntax used to specify patches, all\par
+\tab relevant changes described in this document are illustrated using\par
+ \tab BLKODT commands.\par
+\par
+34.\tab P?S/8 OS8CON\par
+\par
+\tab The P?S/8 \i OS8CON\i0  utility is used to convert text files between\par
+\tab the OS/8 operating system format and the P?S/8 operating system\par
+\tab formats as supported by the TFS file system and the extended-\tab length file system.\par
+\par
+\tab Conversion specifics are determined by command-line option\par
+\tab switches and file names passed in execution-class commands.\line\line\tab Transfers from/to P?S/8 extended-length output files is\par
+\tab implemented with a temporary restriction in P?S/8 Version 8Z\par
+\tab requiring the user to exercise caution when using this conversion\par
+ \tab mode.  This problem will be eliminated in the next release.\par
+ \tab Additionally, several minor character conversion changes will be\par
+\tab implemented (that few users are affected by).  More information\par
+\tab about inter-system character conversion can be obtained from\par
+\tab Appendix C of the \ul\i P?S/8 Keyboard Monitor Command Guide\ulnone\i0  available\par
+\tab as a separate document.\page\cf3 Glossary of Terms (continued)\cf0\par
+\par
+35.\tab P?S/8 PAL\par
+\par
+\tab The P?S/8 \i PAL\i0  is an implementation of the PDP-8 assembly language\par
+\tab (also known as \i PAL\i0 ).  In general, P?S/8 PAL is a superset of OS/8\par
+\tab PAL8 and TOPS-10 PAL10.  LINC mode dual assembly is available as\par
+\tab a modular option enabled by the use of command-line options.\par
+\tab When LINC mode dual assembly is enabled, P?S/8 PAL is a superset\par
+\tab of the DIAL embedded assembler (described elsewhere in this\par
+\tab document).\par
+\par
+  \tab More information about P?S/8 PAL can be obtained from the \ul\i\f0 P?S/8\par
+\ulnone\tab\ul PAL Version 8S Technical Guide\ulnone\i0\f1  available as a separate document.\par
+\par
+36.\tab P?S/8 SHELL\par
+\par
+\tab The P?S/8 \i SHELL\i0  overlay is an optional overlay to the basic P?S/8\par
+\tab system (as described by P?S/8 Version 8Z).  The SHELL overlay is\par
+ \tab currently being developed for release some time after the initial\tab release of P?S/8 Version 9A; this will allow additional internal\par
+\tab features to be implemented (and upgrade of many other internal\par
+\tab issues) required by the P?S/8 SHELL overlay.\line\line\tab When the P?S/8 SHELL overlay is fully implemented, P?S/8 will\par
+\tab have an optional environment reminiscent of other DEC operating\par
+\tab systems capable of running (modified) versions of existing OS/8\par
+\tab programs, etc.  Users can choose from two very different file\par
+\tab structures as desired.\par
+\par
+37.\tab PAL8\par
+\par
+\tab The OS/8 PAL8 assembler is the standard implementation of the\par
+\tab PDP-8 Assembly Language (PAL) (which can also be run under the\par
+\tab COS-300/310 operating system).\line\line\tab OS/8 PAL8 is a subset of P?S/8 PAL and has some problematic\par
+\tab quirks which makes program development somewhat more difficult to \tab accomplish.\par
+\par
+\tab Note: As of this writing, all current P?S/8 source files can be\par
+\tab assembled by PAL8 or P?S/8 PAL; this has been accomplished by\par
+\tab avoiding the use of certain P?S/8 PAL superset features.  Future\par
+\tab releases of P?S/8 may abandon PAL8 compatibility as new methods\par
+\tab of generating P?S/8 are developed.\par
+\par
+38.\tab PAL10\par
+\par
+\tab TOPS-10 \i PAL10\i0  is a PDP-8 cross-assembler that runs on PDP-10\par
+\tab systems.  At one point, virtually all PDP-8 program development\par
+\tab was performed on this system.\page\cf3 Glossary of Terms (continued)\cf0\line\line\tab Unfortunately, PAL10 is incompatible regarding certain key\par
+\tab features added to both OS/8 PAL8 and P?S/8 PAL in more recent\par
+\tab years; as such, PAL10 had become far less useful as a system\par
+ \tab development tool.\par
+\par
+\tab With regard to certain features, P?S/8 PAL and TOPS-10 PAL10 are\par
+\tab fully compatible while OS/8 mis-implements these features.  As\par
+\tab such, P?S/8 development has avoided these features (as described\par
+\tab above).\par
+\par
+39.\tab Paper-Tape Operating System\par
+\par
+\tab The (so-called) \ul\i Paper-Tape Operating System\ulnone\i0  is a collection of\par
+\tab programs provided by DEC to all customers of PDP-8 systems.  The\par
+\tab only requirement to run any of these programs is a 4K system\par
+\tab equipped with either an Teletype Model 33 ASR (or Model 35 ASR)\par
+\tab console device; this allows these programs to be read into memory\par
+\tab using the DEC BIN loader (as described above).  An optional high-\par
+\tab speed reader/punch is recommended if serious use of this software\par
+\tab is contemplated.\par
+\par
+\tab Note: With the exception of the \ul Disk Monitor System\ulnone , program\par
+\tab development is markedly faster on any of the storage-based PDP-8\par
+\tab operating systems such as OS/8 and P?S/8 (which also include\par
+\tab additional advanced features).\par
+\par
+\tab The components of the \ul Paper-Tape Operating System\ulnone  are generally\par
+\tab bundled with system-specific diagnostics and packaged in plastic\par
+\tab bins designed for fan-fold paper-tape storage.  Utilities are\par
+\tab included to allow copying of existing paper-tapes (which can be\par
+\tab worn out or damaged).\par
+\par
+\tab Note: PAL III is the standard paper-tape assembler for PDP-8\par
+\tab Assembly Language (PAL).  Modifications were made to PAL III to\par
+\tab allow use with the \ul R-L Monitor System\ulnone  (described elsewhere in\par
+\tab this document).\par
+\par
+\tab Certain design aspects of the P?S/8 PAL assembler are inspired by\tab features (otherwise) unique to PAL III.  The lack of these\par
+\tab features in OS/8 PAL8 causes excessive time spent during the\par
+\tab early stages of program development.\par
+\par
+40.\tab PDP-12\par
+\par
+\tab The\i  PDP-12\i0  is a follow-on model to the earlier LINC-8 system.\par
+\par
+\tab Note: The PDP-12 was originally intended to be known as the LINC-\par
+\tab 8/I (which would be consistent with the description of the\par
+\tab original PDP-8 versus the PDP-8/I).\par
+\par
+\tab P?S/8 supports PDP-12 LINCtape on 4K or larger machines.\page\cf3 Glossary of Terms (continued)\par
+\par
+\cf0 41.\tab PS/8\par
+\par
+\tab The ill-advised demo version of the system that eventually was\par
+\tab known as OS/8 was first marketed as Programming System for the \tab PDP-8 (\i PS/8\i0 ).  The name was later changed to Operating System for\par
+\tab the PDP-8 (OS/8).  This change was made at the request of DEC\par
+\tab sales personnel claiming it was more difficult to sell a customer \tab a \ul Programming System\ulnone  as opposed to an \ul Operating System\ulnone  (despite\par
+\tab the fact that the software releases were virtually identical).\par
+\par
+42.\tab RIM format\par
+\par
+\tab While BIN format (as described elsewhere in this document) is the\par
+\tab standard format for loading most binary paper-tape programs, \i RIM\par
+\i0\tab format is generally used to first load the BIN loader.  While RIM \tab format is more inefficient, this is generally not an issue when\par
+\tab loading relatively short programs.\cf3\par
+\par
+\cf0\tab Some users want a minimal overall solution to loading certain \tab particular programs; as such, the \tab binary data might be punched\par
+\tab in RIM format, eliminating the need for the BIN loader as an\par
+\tab intermediate loading program.\par
+\par
+\tab RIM format paper-tape frames use the same overall layout as that\par
+\tab of the BIN loader; the differences are as follows:\par
+\par
+\tab a) Auto-update of the memory loading pointer is not supported.\par
+\tab    Each loaded word must include an origin setting preceding the\par
+\tab    data word.\par
+\par
+\tab b) There is no support for an overall checksum in a RIM binary\par
+\tab    paper tape.\par
+\par
+\tab    Note: There are various techniques available to include an\par
+\pard\li720    optional checksum at the end of a RIM format binary paper\par
+\pard\tab    tape; this adds the ability for the BIN loader to load the\par
+\tab    same program as an alternative to the RIM loader.\par
+\par
+\tab c) No support for Field settings.  The user must set the loading\par
+\tab    field from the front panel Data Field switches or equivalent\par
+\tab    means; this setting applies throughout the entire RIM loading\par
+\tab    session.\par
+\par
+\tab d) Two equally short versions of the DEC standard RIM loader\par
+        exist.  One supports the high-speed reader; the other supports\par
+\tab    the low-speed reader of the model ASR 33 (or ASR 35) Teletype\par
+\tab    often used as the system console device.  All versions of the\par
+\tab    BIN loader are far longer programs; either of the RIM loader\par
+\tab    variants can be used to quickly load the BIN loader; as such,\par
+\tab    the RIM\i  \i0 loader is often hand-toggled into memory using the\par
+\tab    computer's front panel switches.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+43.\tab RK05\par
+\par
+\tab The \i RK05\i0  removable cartridge disk is a storage device found in\par
+\tab higher-performance PDP-8 systems.  The total capacity of a single\par
+\tab cartridge is 1,662,976 12-bit words.  In later production, the\par
+\tab drive is designated \i RK05J\i0  to distinguish the removable cartridge\par
+\tab device from the \i RK05F\i0  fixed cartridge device (which is interfaced\par
+\tab to the controller as an even/odd drive pair).  In general,\par
+\tab operating system software does not take advantage of the RK05F\par
+\tab other than treating it as two separate logical drives.\par
+\par
+\tab Due to design limitations of OS/8, the RK05 must be partitioned\par
+\tab into two logical drives each half the capacity of the physical \tab disk.  The P?S/8 implementation supports a number of\par
+\tab configurations each suited for a slightly different purpose.  \tab This ranges from eight logical drives in the range of 0 through 7\par
+\tab on one RK05 cartridge pack through each drive completely\par
+\tab addressed as a single logical device unit.\par
+\par
+\tab One of the considerations for P?S/8 configuration is whether some\par
+\tab portion of the cartridge should be available for file conversion\par
+\tab between OS/8 and P?S/8 using programs such as P?S/8 OS8CON, which\par
+\tab is capable of text file transfers in either conversion direction.\line\line\tab It is generally desirable to have alignment between devices such\par
+\tab that block 0000 on the P?S/8 device coincides with OS/8 record\par
+\tab 0000 on the same storage blocks.  This will allow an easier \tab conversion using default OS/8 record values.  This can always be\par
+\tab achieved for any supported P?S/8 configuration; however, the\par
+\tab particulars are specific for each supported configuration.\par
+\par
+44.\tab RK8E\par
+\par
+\tab The \i RK8E\i0  hard disk controller is used to interface up to four\par
+\tab physical RK05 drives in the range of 0 through 3.  This\par
+\tab controller is for Omnibus-based computers such as the PDP-8/E.\par
+\par
+\tab Note: There exists a variant controller known as the \i RKS8E\i0  which\par
+\tab allows more reliable transfers in real-time (with certain\par
+\tab transfer restrictions) and increases the controller capacity to\par
+\tab up to eight physical drives in the range of 0 through 7.\line\line\tab Once documentation is located, the P?S/8 implementation for\par
+\tab entire RK05 cartridges per logical unit will support physical\par
+ \tab drives 4 through 7.  Safeguards are needed to prevent accidental\par
+\tab anomaly between units 0 through 3 and units 4 through 7.  OS/8\par
+\tab only offers partial support for the RKS8E as the device handlers\par
+\tab merely assume the presence of the RKS8E controller (which can \tab easily be spoofed).  OS/8 users should exercise caution when\par
+\tab using these handlers, etc.\page\cf3 Glossary of Terms (continued)\par
+\par
+\cf0 45.\tab RK8F\par
+\par
+\tab If a pre-OMNIBUS machine (as described above) is equipped with a\par
+\tab\i DW8E\i0  bus converter, hardware support exists for the \i RK8F\i0 , a\par
+\tab modified RK8E controller for use in the DW8E.  There are no\par
+\tab software considerations (other than avoiding instructions not \tab available on the specific machine).\par
+\par
+46.\tab R-L Monitor System.\par
+\par
+\tab P?S/8 is partially based on a forerunner operating system known\par
+\tab as the \ul\i R-L Monitor System\ulnone\i0 .  It was later submitted to DECUS as\par
+\tab\ul Mass Storage for the PDP-8\ulnone  (MS/8) by several P?S members sometime\par
+\tab after Charles Lasner added FOCAL, 1969 support.\par
+\par
+\tab The \ul R-L Monitor System\ulnone  was created by Richard Lary and Lenny\par
+\tab Elekman with the help and encouragement of the rest of the WCFMPG\par
+\tab members over a four month period when the PDP-8 at Brooklyn Poly\par
+\tab was upgraded with the addition of a TC01 DECtape controller and a\par
+\tab single TU55 DECtape drive.\line\line\tab The most profound aspect of this work is that it was created\par
+\tab completely by hand.  This consisted of several stages of hand\par
+\tab assembly language programming and coding into binary (expressed\par
+\tab as four digit octal numbers) later directly entered into the\par
+\tab PDP-8 memory using the front panel switches.\line\line\tab The only original component not written by WCFMPG members was a \tab binary copy of PAL III (the standard assembler for use with input\par
+\tab on paper tapes).  Modifications were made to read files on the \tab system DECtape and write binary output to a dedicated storage\par
+ \tab area on the system DECtape.\par
+\par
+\tab Note: It is likely the image copy of PAL III was obtained from\par
+\tab the TC01/TC08 version of the DECtape Library System.  A copy of\par
+\tab this minimal utility system was supplied by DEC when the hardware\par
+\tab upgrade was installed.  The system configuration lacked a high-\tab speed reader/punch; the system console device was a Teletype \tab Model 35 KSR.  As such, it was not possible to read binary paper-\tab tapes on this machine at the time.  (The author of this document \tab cannot confirm or deny alternative methods of obtaining PAL III \tab in DEC BIN binary paper-tape format; however, at the time, other \tab PDP-8 installations existed within the school building.)\line\line\tab Once the \ul R-L Monitor System\ulnone  was viable, a fraction of the\par
+\tab original source code was typed into source files after the fact.\par
+\tab Additionally, some additional system programs were added written\par
+ \tab on the base system (such as \ul\i POLY SNOBOL\ulnone\i0  and \ul\i String Language 8\ulnone\i0 ).\page\cf3 Glossary of Terms (continued)\cf0\line\line\tab Virtually all of the original members of the P?S learned to\par
+\tab program the PDP-8 using this pioneering system.  All development\par
+\tab of P?S/8 was inspired by the desire to improve the original\par
+\tab system by more conventional programming; this included source\par
+\tab code editing and assembly on the \ul R-L Monitor System\ulnone  and\par
+\tab eventually other DEC systems supporting PDP-8 assembly language.\line\line 47.\tab RX01\par
+\par
+\tab The \i RX01\i0  is a storage device based on 8" diskettes in IBM 3740 \tab format.  Total capacity is 77 tracks each containing 26 sectors\par
+\tab of 128 8-bit bytes; this a total capacity of 256256 8-bit bytes\par
+\tab (assuming proper usage of the entire media).\par
+\par
+\tab No DEC RX-type device can format the media; at first DEC \tab specified boxes of 10 diskettes made by IBM.  Eventually,\par
+\tab competitors produced compatible media allowing end users several \tab choices.\par
+\par
+\tab DEC management never understood how the proper usage of the media \tab ought to apply to DEC products:\tab\par
+\par
+\tab On the actual IBM 3740 product line, the simplest way to erase \tab the media depended on certain specified contents of portions of \tab track 0.  If track 0 passed muster on the IBM product, a typical \tab 3740 user could achieve a properly formatted media.\line\line\tab The fallacy is that the rest of the diskette is truly reformmated \tab on certain 3740 devices only if track 0 passes validation; the \tab net result is the contents of track 0 are set to IBM standard \tab values and a formatting pattern is applies to the rest of the \tab media.  However, savvy users knew how to use a device \tab maintainence mode function to format truly uninitialized media.\par
+\tab As such, there never was an actual need to maintain any aspect of\par
+\tab the contents of track zero (or any other track).\par
+\par
+\tab Note: The 3740 was a replacement for a punched card system.  No \tab aspect of DEC support was compatible with this irrelevant device.  \tab No purpose is served abiding by its conventions.\par
+\par
+\tab As such, the management edict of avoiding writing on track zero\par
+\tab was merely conventional wisdom.  Assuming an organization owned a \tab 3740 device, knowledge of the maintenance mode true full format \tab function avoided the need to maintain any aspect of the contents \tab of the media as a reserved area; however, few DEC users had \tab access to the IBM product.\line\line\tab Despite this, all known support for the RX01 considers the device\par
+\tab to be 76 tracks numbered 01-76.\page\cf3 Glossary of Terms (continued)\par
+\par
+\tab\cf0 Bootstrap convention for the RX01 (and follow-on devices) \tab involves reading in track one sector one.  (No constructive use \tab of track 0 as pure storage is available.)\line\line\tab The DSD-210 is an RX01-compatible drive from Data Systems Design,\par
+\tab Inc.  While this device supports up to four drives, only the \tab first two drives are 100% RX01-compatible.  A proprietary scheme \tab to select drives 2 and 3 exists, but is not compatible with the\par
+\tab way DEC selected the second pair of drives in the VT-78 and\par
+\tab DECmate I (which were released later).\par
+\par
+\tab Despite these minor issues, P?S/8 handlers support up to four \tab drives in the range of 0 through 3 regardless of manufacturer. \tab Dynamic discovery within the handler supports all known pair-\par
+\tab select methods (including the RX278 option of the DECmate II).\par
+\par
+\tab The DSD-210 implements a true format-track function allowing a \tab practical diskette formatting program.  Charles Lasner wrote the \tab basic diskette formatting program; the source code is available \tab upon request.\line\line\tab Note: The DSD-210 uses superior quality diskette drives capable \tab of supporting the formatting function due to reduced jitter.\line\line\tab DEC also marketed a double-density version of the RX01 known as\par
+\tab the RX02 (and produced an in-house prototype for a two-sided \tab diskette known as the RX03).\par
+\par
+\tab The P?S/8 single-density system device handler for the RX01\par
+\tab supports single-density media in the RX02 and RX03.  In the case\par
+\tab of the RX03, if the diskette is double-sided, the second side is\par
+ \tab used to double the device capacity.\line\line\tab DEC's approach to double-density is unusual: The basic disk\par
+\tab formatting is the standard single-density scheme where the FM\par
+\tab stream of bits is interrupted to form key information on the\par
+\tab diskette media such as index and sector information, etc.  If the\par
+\tab media is double-density, only the data sectors are written in MFM\par
+\tab to achieve the larger capacity.\par
+\par
+\tab As such, it is not possible to truly format media on the RX02.\par
+\tab However, there are existing programs mislabeled as formatting\par
+\tab programs; the actual function performed is to rewrite the data \tab sectors in the chosen format.  Unless the underlying index and \tab sector data in intact, it is not possible to produce a working \par
+\tab diskette.\page\cf3 Glossary of Terms (continued)\cf0\line\line\tab Note: There is an industry-wide misunderstanding of just what\par
+\tab\i formatting\i0  actually is.  For certain media, a distinction is made\par
+\tab between what amounts to actual media formatting and merely \tab setting a directory structure to a valid state without any files \tab present.  In the case of the RX02, this makes the situation \tab slightly more complicated.\cf3\par
+\par
+\tab\cf0 P?S/8 support is geometrically compatible with OS/8 RX01 support.\par
+\tab This means that all tracks are accessed in a 2:1 interleave where \tab all the odd sectors (1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, \tab 25) are accessed first followed by all the even sectors (2, 4, 6,\par
+\tab 8, 10, 12, 14, 16, 18, 20, 22, 24, 26).\line\line\tab Note: On other systems, performance may be improved by\par
+\tab anticipating the partial device revolution when seeking to the\par
+\tab next track.  A \i stagger\i0  (also known as \i slide\i0 ) factor can be\par
+\tab applied to increase performance.\par
+\par
+\tab P?S/8 support for the RX01 requires a system device handler \tab extended memory extension.  At the time of writing of the\par
+\tab original P?S/8 RX01 system handler, the size of the extension was\par
+\tab expected to be smaller than the present eight additional pages of\par
+\tab memory available as of P?S/8 Version 8Y.\par
+\par
+\tab Note: The size of the extended memory handler extension was\par
+\tab raised to allow practical handler implementation for problematic\par
+\tab devices such as the RX50 as implemented on the DECmate II and\par
+\tab newer models.\line\line\tab Future releases of the P?S/8 RX01 system device handler will add \tab more diagnostic support for potential error conditions.  However,\par
+\tab performance improvement will not be added until such a time as\par
+\tab the need for compatibility with the OS8CON program is no longer\par
+\tab important on this device.  (Changing to a stagger/slide optimized\par
+\tab device handler would prevent OS8CON from functioning.)\par
+\par
+\tab As part of a P?S/8 SHELL implementation, a future utility (to be\par
+\tab known as \i PIPOS8)\i0  will be proposed.  This utility will include\par
+\tab existent OS/8 handlers to guarantee full compatibility with any\par
+\tab OS/8 configuration (including directory support).  At that time,\par
+\tab improvement to the P?S/8 RX01 system device handler performance\par
+\tab may be implemented as lock-step compatibility with OS/8 at the \tab handler level will become moot.\par
+\par
+48.\tab RX50\par
+\par
+\tab The \i RX50\i0  is a dual 5.25" diskette drive used in several different\par
+\tab DEC systems ranging from PDP-11 and VAX systems to the Rainbow,\par
+\tab DECmate II and DECmate III.\page\cf3 Glossary of Terms (continued)\par
+\par
+\tab\cf0 The RX50 drive mechanics is unusual in that both head mechanisms\par
+\tab move together and the lower drive is mounted upside down.  While\par
+\tab data density is the same as double-density 360K PC diskettes, \tab track density is the same as high-density 1.2 MB PC diskettes\par
+ \tab used in newer PC systems.\par
+\par
+\tab Note: HD media cannot be used with the RX50 due to extreme\par
+\tab unreliability.  The preferred media would be the double-density \tab media as used with 360K PC diskettes, especially without hub\par
+\tab rings (which can disturb track registration and alignment).\par
+\par
+\tab As with other RX-type media on DEC systems, the RX50 is incapable\par
+\tab of formatting blank media; many users purchased RX50 formatted\par
+\tab media first from DEC and later third-party companies (such as the\par
+\tab Maxell MD1DD-RX50).\par
+\par
+\tab The RX50 is a one-sided drive with 80 tracks numbered 00 through \tab 79.  Each track holds ten sectors of 512 bytes numbered 1 through\par
+\tab 10.  In a manner analogous to the handling of the RX01, the boot\par
+\tab process starts with sector 1 on track 1; however, the contents of\par
+\tab tracks 0, 78 and 79 are reserved for boot-time loading of the\par
+\tab extension of the system BIOS routines (referred to as \i slushware\i0 ).\par
+\par
+\tab PC systems equipped with HD diskette drives can create proper\par
+\tab media for RX50 devices using various available utilities for\par
+\tab MS-DOS, etc.\line\line\tab Note: The DECmate III+ does not use RX50 drives; however, TEAC \tab FD55GFV/GFR drivers are used permanently in double-density mode.  \tab As such, hardly advantage is made of the superior quality of the\par
+\tab TEAC drives over the RX50.  (The motor speed is raised 20% to \tab obtain the proper clock speed.)\par
+\par
+49.\tab Slurp binary file format and the Slurp loader\par
+\par
+\tab\i Slurp \i0 is the name given to the P?S/8 binary file format by its\par
+\tab inventor, Richard Lary.  (The name is suggestive of the mechanism\par
+\tab by which the loader functions.)  Mr. Lary and his colleague Lenny \tab Elekman are the principal authors of the \ul\i R-L Monitor System\ulnone\i0 .\par
+\tab P?S/8 is (partially) based on this earlier system.  Both\par
+\tab operating systems support \i Slurp\i0  format binary files as created by\par
+\tab P?S/8 PAL and other utilities; due to implementation\par
+\tab restrictions, there is no support for extended memory loading.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab Note: The assembler used in the \ul R-L Monitor System\ulnone  is the DEC\par
+\tab paper-tape operating system assembler known as \ul\i PAL III\ulnone\i0 .  Certain \tab modifications were made to write binary output to the system\par
+\tab device in \i Slurp\i0  binary format.  Although binary output is limited\par
+\tab to designated system blocks, additional commands exist to \par
+\tab transfer the binary output to user-designated \i Slurp\i0  format binary\par
+\tab files in the TFS directory (when and where feasible, which is not\par
+\tab always the case due to limited storage space).  P?S/8 PAL\par
+\tab supports \i Slurp\i0  format binary output files directly, which\par
+\tab completely eliminates this problem which was remedied as follows:\par
+\par
+\tab a) The block layout of the R-L Monitor is such that Slurp format\par
+\tab    binary output is always written starting at absolute block\par
+\tab    0022.  There is a fixed file that can be generally referenced\par
+\tab    (as if it were in the TFS directory) located at blocks 0040-\tab\par
+\tab    0057; in all command scenarios, this is accessed using the \ul\i $\ulnone\par
+\i0\tab    symbol.  If sufficiently long binary output is created, it can\par
+\tab    easily overlap the storage space of the \ul $\ulnone  file; as long as the\par
+\tab    length is less than 0020 blocks (meaning that no more than\par
+\tab    blocks 0020-0021 have been overwritten within the \ul $\ulnone  file), the\par
+\tab    Slurp binary data can be transferred to a named file in the\par
+\tab    TFS directory.  However, some programs create larger Slurp\par
+\tab    binary data areas (which are allowed to be as long as blocks\par
+\tab    0022 through 0057 without damage to the operating system).\par
+\tab    Such programs have to be reassembled and then loaded in place\par
+\tab    should there be any activity that might change these specific\par
+\tab    circumstances.\line\line         Due to an implementation restriction of the R-L Monitor \i BIN\par
+\i0  \tab    utility, it is impossible to load the contents of the actual \ul $\ulnone\par
+\tab    file; the syntax used to access it instead refers to the Slurp\par
+\tab    binary output area starting in block 0022.  (The BIN program\par
+\tab    reinterprets being passed a file block parameter of 0040 as\par
+\tab    block 0022.)\line\line\tab    Note: R-L Monitor system program names are limited to two\par
+\tab    characters, thus R-L Monitor \i RU\{n\}\i0  commands typically\par
+\tab    reference \i PA\i0  and \i BI\i0 , etc.  Additional characters are allowed \tab\tab    on the command line, but will be ignored.\par
+\line\tab b) P?S/8 changes certain aspects of the operating system block\par
+\tab    layout such that blocks 0020-0037 can be referenced with the\par
+\tab    symbol \ul\i %\ulnone\i0  which has an analogous significance to the \ul $\ulnone  file\par
+\tab    (which references blocks 0040-0057) in all relevant command\par
+\tab    contexts.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+\tab    The storage blocks occupied by the two files (\ul %\ulnone  and \ul $)\ulnone  are\par
+\tab    also accessed as the system virtual image of field 0 once\par
+\tab    created by the \i GET\i0  command (or equivalent).  In this context,\par
+\tab    direct usage of the two file names should be avoided to\par
+\tab    prevent destruction of the virtual core image; however, the\par
+\tab    image contents can be saved (and restored at a later time if\par
+\tab    desired) by using keyboard monitor FE\{tch\} and WR\{ite\}\par
+\tab    commands as required.  If there is no requirement to preserve\par
+\tab    the virtual core image, the two files can be used\par
+\tab    independently.\par
+\par
+\tab    Note: while the P?S/8 SHELL overlay will (generally) not\par
+\tab    reference the TFS file structure, the field 0 virtual area is\par
+\tab    identically defined as the same blocks used in the basic P?S/8\par
+\tab    system.\line\line\tab    P?S/8 PAL includes the /B, /D and /U command-line option\par
+\tab    switches to access these files without having to provide\par
+\tab    explicit output file references (where applicable).\line\line\tab    Thus, any reference to the \ul %\ulnone  file (whether explicitly as a\par
+\tab    stated output file, or by use of the /B command-line option\par
+\tab    switch passed to PAL) is the closest equivalent to the\par
+\tab    original functionality in the \ul R-L Monitor System\ulnone  (without the\par
+\tab    potential file destruction problem).\par
+\par
+\tab    Note: The basic P?S/8 execution class commands access system\par
+\tab    programs with up to six character names.  For programs with\par
+\tab    exactly six characters in the name, the commands can be\par
+\tab    embellished using additional characters of the user's choosing\par
+\tab    (all of which are ignored).  As such, this is not an issue for\par
+\tab    relevant programs as discussed here named PAL, BIN, GET,\par
+ \tab    START, etc.\par
+\par
+\tab The fastest loading of binary data into randomly accessed memory\par
+\tab locations is achieved using \i Slurp\i0  binary format.  Actual loading\par
+\tab efficiency approaches 6/7 of block-oriented (core-image) binary\par
+\tab format while allowing the loading of arbitrary data ranging from\par
+\tab individual memory locations through large blocks of contiguous\par
+\tab memory without requiring any form of block structure.  Memory can\par
+\tab be freely loaded anywhere in the entire PDP-8 32K memory space\par
+\tab (other than system reserved memory).\par
+\par
+\tab Note: All implementations of the \i Slurp\i0  loader prior to P?S/8 were\par
+\tab limited to loading into field 0 only; P?S/8 uses an extension to\par
+\tab the format that doesn't make its 4K usage any less efficient.  An \tab appropriate \i CDF XX\i0  instruction to the new memory loading field is\par
+\tab required (only) when the loading field changes.\par
+\par
+\tab Note: Since the P?S/8 \i Slurp\i0  loader is a superset of the original\par
+\tab 4K-only versions as used is several other PDP-8 systems, files\par
+\tab transferred from the \ul R-L Monitor System\ulnone  can be loaded without\par
+\tab internal conversion.  Since P?S/8 PAL supports chaining to P?S/8\par
+\tab\i BIN\i0 , all loading options of the \i Slurp\i0  loader are available during\par
+\tab a chain operation; this is described elsewhere in this document.\par
+\par
+\tab The list of other operating systems that support the \i Slurp\i0  loader\par
+\tab is as follows:\par
+\par
+\tab a) \ul The R-L Monitor System\ulnone  (also known as \i MS/8\i0  as submitted to the\par
+\tab    \ul\i Digital Equipment Corporation User Society\ulnone\i0  [\i DECUS\i0 ]).  This is\par
+\tab    the earliest system to support a \i Slurp\i0  loader, albeit limited\par
+\tab    to 4K loading.  This system did not provide a virtual \i Slurp\par
+\i0\tab    loader option and is only implemented on TC01/TC08 DECtape for\par
+\tab    a single drive unit.  Most notably, MS/8 is not a commercial\par
+\tab    product, as it was entirely written by students of the\par
+\tab    \ul\i Polytechnic Institute of Brooklyn\ulnone\i0  (now a division of \ul\i New York \par
+\ulnone\i0\tab    \ul\i University\ulnone\i0 ).  Most of these students eventually became\par
+\tab    employees of \ul\i Digital Equipment Corporation\ulnone\i0  (\i DEC\i0 ); however, all\par
+\tab    work on the R-L Monitor System was performed by students in\par
+\tab    the New York City area (including the author of this\par
+\tab    document who added support for FOCAL, 1969 just before the\par
+ \tab    submission to DECUS.).\par
+\par
+\tab b) While DEC was totally unaware of this situation, \i DIBOL-8\i0  (the\par
+\tab    precursor of \i COS-300/310\i0 ) was actually a hacked-up variant of\par
+\tab    the \ul R-L Monitor System\ulnone ; binary output of the DIBOL compiler\tab\tab    (and the DIBOL run-time system) are loaded by the original\par
+\tab    \ul R-L Monitor System\ulnone  \i Slurp \i0 loader.  The keyboard monitor\par
+\tab    commands were modified to be consistent with the proposed COS\par
+\tab    systems released somewhat later.\par
+\par
+\tab    Note: Early releases of P?S/8 are faithful to the original\par
+\tab    keyboard monitor commands of the \ul R-L Monitor System\ulnone ; however,\par
+\tab    all recent releases are consistent with the DIBOL/COS systems.\par
+\tab    Where relevant, documentation of the COS keyboard commands\par
+\tab    also applies to P?S/8.\par
+\par
+\tab c) \ul\i POLY BASIC\ulnone\i0  is a stand-alone BASIC-only operating system for a\par
+\tab    4K PDP-8 including any of several storage devices such as the\par
+\tab    TC01/TC08 DECtape, PDP-12 LINCtape, DF32 and RF08.  The \ul POLY\par
+\ulnone\tab    \ul BASIC\ulnone  source code was originally created on The \ul R-L Monitor\par
+\ulnone\tab    \ul System\ulnone  by the same students who created the original \ul R-L\par
+\ulnone\tab    \ul Monitor System\ulnone  while still students (just before their\par
+\tab    employment began at DEC in Maynard Mass).\par
+\par
+\tab    Note: Since \ul POLY BASIC\ulnone  is a standalone operating system,\par
+\tab    binary output from PAL III is loaded into memory; when the\par
+\tab    system halts, a scratch DECtape is mounted on drive unit 0 to\par
+\tab    allow writing out the components of the \ul POLY BASIC\ulnone  system.\par
+\par
+ \tab    The internal run-time system and binary output of the \ul POLY\par
+\ulnone\tab    \ul BASIC\ulnone  compiler are loaded into memory using a \i Slurp\i0  loader\par
+\tab    limited to 4K memory.\par
+\par
+\tab    Note: For devices where a virtual loader would be required in\par
+\tab    P?S/8 (due to hardware limitations), \ul POLY BASIC\ulnone  takes\par
+\tab    advantage of an internal buffer known to be available while\par
+\tab    file loading is in progress.  (The buffer area is later used\par
+\tab    for dynamic program storage.\par
+\par
+\tab    A minimal distribution cleanup and eventual submission to\par
+\tab    DECUS was accomplished later when the (former) students were\par
+\tab    DEC employees (as opposed to the bulk of the work done earlier\par
+\tab    as students).\par
+\par
+\tab    DEC management unfairly exploited this situation and claimed\par
+\tab    the project as DEC intellectual property without any\par
+\tab    compensation to either the students or the school.  This\par
+\tab    situation never sat well with certain individuals associated\par
+\tab    with this incident; it was felt at the time that DEC was too\par
+\tab    powerful to lodge any complaints against (and the inherent\par
+\tab    intimidation caused by fear of being fired).\par
+\par
+\tab d) \ul\i EDUSYSTEM 30\ulnone\i0  is DEC's brazenly commercial release of \ul POLY\par
+\ulnone  \tab    \ul BASIC\ulnone  with little to no modifications to the original\par
+ \tab    student project.\par
+\par
+\tab e) \ul\i EDUSYSTEM 15-30\ulnone  \i0 is a specific variant of EDUSYSTEM 30 that\par
+\tab    runs only on the TD8E DECtape.  Either 8K of memory or the\par
+\tab    MR8E-C support ROM is required.\par
+\par
+\tab    Note: When the MR8E-C ROM is used, it is located in field 7 of\par
+\tab    memory in locations 77400-77777.  As such, the host PDP-8/E\par
+\tab    (or similar) system must support extended memory for either\par
+\tab    configuration.  It is believed that, out of expediency, the\par
+\tab    technique of using an internal buffer during \i Slurp\i0  loading is\par
+\tab    deployed in this system despite the ability to implement an\par
+\tab    appropriate hardware-dependent version; P?S/8 implements a\par
+\tab    TD8E-specific \i Slurp \i0 loader for the identical hardware\par
+\tab    configurations analogous to other devices such as the RX01\par
+\tab    which also transfer data solely by program transfer\par
+\tab    techniques.\par
+\par
+50.\tab System Console Device\par
+\par
+51.\tab System Kernel\line\line 52.\tab TC01 mention 552\par
+\par
+53.\tab TC08\par
+\par
+54.\tab TC12F PRTC12F\par
+\par
+for additional information, see the final note at the end of the description of the MARK12 program elsewhere in this document.\par
+\par
+55.\tab TCBOOT\par
+\par
+56.\tab TD8E\par
+\par
+57.\tab TFS\par
+\par
+8.\tab Tiny File System (TFS) and the TFS directory\par
+\par
+\tab The \ul\i Tiny File System\ulnone\i0  (\i TFS\i0 ) is the primary file format used in the\par
+ \tab basic P?S/8 system.  Each TFS file is of fixed size allowing the\par
+\tab TFS directory structure to consist of allocatable slots that are\par
+\tab adjacent and cannot overlap.\page\cf3 Glossary of Terms (continued)\par
+\cf0\par
+ \tab If a TFS directory filename is modified or deleted, the\par
+\tab underlying storage is not changed (unless an explicit write\par
+\tab operation is performed).  This allows files to be easily renamed\par
+\tab as needed.\par
+\par
+\tab There are unique advantages to the TFS structure which, for\par
+\tab certain users, requires some measure of orientation and \par
+\tab experience.  Once mastered, rapid editing of large projects can\par
+\tab proceed with little additional effort.\line\line\tab Files are loaded into the keyboard monitor edit buffer to modify\par
+\tab the contents.  The process is not finalized until appropriate\par
+\tab commands are issued to write the edit buffer contents to a slot \tab in the TFS directory.  This generally means that the same file \tab slot is reused; as such, there will be no need to access the TFS\par
+\tab directory.\par
+\par
+\tab Note: For those requiring the notion of a file backup, the\par
+\tab updated file can be written to a different TFS directory slot.\par
+\tab Appropriate filename changes can be made later to maintain\par
+\tab ongoing file names.  Advanced users are known to pre-allocate \tab additional directory slots for this purpose.\par
+\par
+\tab The TFS directory structure is used only for user-created files,\par
+\tab including the \i Slurp\i0  binary files produced by P?S/8 PAL assembly\par
+\tab of TFS text files (and/or extended-length text files).  System\par
+\tab programs are stored in an independent file structure elsewhere on \par
+\tab the system device and/or other logical device units.\par
+\par
+\tab It is expected that PAL assembly projects will require multiple\par
+\tab files.  The contents of multiple files are concatenated together\par
+\tab and passed to P?S/8 PAL as required to carry out the current\par
+\tab assembly project.\par
+\par
+\tab Note: While certain P?S/8 system programs address the associated\par
+\tab line numbers within TFS text files, P?S/8 PAL ignores line number\par
+\tab data.  When necessary, extended-length files can be passed to\par
+\tab P?S/8 PAL to allow assembly of vary large source programs.  As\par
+\tab necessary, the source file input stream to P?S/8 PAL can be a\par
+\tab mixture of TFS text files and extended-length text files.\par
+\par
+51.\tab TOPS=10\par
+\par
+52. TU55 also 555 and BE03\par
+\par
+53.\tab TU56\par
+\par
+54.\tab Typeset-8\par
+\par
+\par
+Move this to the Typeset-8 definition.\par
+\par
+\tab Note: The type 552 DECtape controller was designed for the PDP-5; however that computer model was an extremely poor seller (and a net loss to DEC).  Worse still, the design was deficient and did not allow extended memory support; as an after-thought, the extended memory control for the DECtape block data transfers was connected to the Data Field bits.  This is not a viable solution since if interrupts are on at the time of the transfer, any actual interrupt clears the Data Field.  As such, interrupts must be disallowed, etc.\line\line\tab This was of no consequence to the Typeset-8 group as all of their application machines (sold to customers) were only 4K; as such, this was a way to get rid of dead inventory as it was very unlikely the customers would ever realize the restriction was a sign of second-rate hardware.\par
+\par
+\tab Additionally, the type 555 DECtape drive pair was also in the same state of only a few systems could support the device; they were designed to work together, although the Typeset-8 software really had no utilities requiring a second drive.\line\line\tab Later systems replaced the dual 555 drive with a single TU55 drive which occupies the same rack space.  By proper internal hardware configuration, the TU55 could be retrofitted for use with the type 552 controller; when the TC01 DECtape controller was available, newer systems used the newer controller with the same TU55 drive reconfigured for the newer controller.\par
+\par
+\tab Note: DEC generally kept their Typeset-8 customers in the dark regarding the specific hardware; each customer system was a custom release.\par
+\par
+55.\tab VT05\par
+\par
+56.\tab VT8E\par
+\par
+57.\tab WCFMPG\par
+\par
+58.\tab Winchester\par
+\par
+\tab\i Winchester\i0  is a designation for certain hard disk drives that\par
+\tab encompass various related (yet incompatible) interface types.  \tab For the purposes of various interfaces, it is necessary to use \tab matching components in terms of the specific interface used by \tab both the hard disk drive and hard disk controller.\line\line\tab The relevant usage concerns the use of a designated SCSI\par
+\tab controller on the MDC8 SCSI Host Adaptor for the PDP-8/A.  This\par
+\tab is analogous to the diskette devices that also can be connected \tab to the same controller series; common configurations are up to \tab four diskette drives in the range of device unit 0 through 3, but \tab limited to 2 and 3 if the Winchester disk(s) are configured (as \tab these devices are limited to device unit 0 and 1).\line\line\tab Due to the relatively large disk capacity, a common configuration\par
+\tab is to have a single Winchester SCSI drive on device unit 0 and \tab diskettes on device units 0 and 1.  This configuration reserves \tab device unit 1 for a temporary connection of an additional hard \tab drive for backup purposes, etc.\par
+\par
+\tab Note: On some systems, device unit 1 is used for removable \tab cartridge disk drives of a lower capacity per cartridge; these \tab cartridges can be quickly changed, allowing a complete high-speed \tab backup or restore in very little time.\par
+\par
+\tab The use of \i Winchester\i0  in turn leads to the truncated form \i WNax: \tab\i0 where \i WN\i0  is the group designation, \i a\i0  is an alphabetic character\par
+\tab such as \cf2\highlight3\f0 A\cf0\highlight0\f1  and \i x\i0  is a numeric character in the range of \cf2\highlight3\f0 0\cf0\highlight0\f1  through\par
+\tab\cf2\highlight3\f0 7\cf0\highlight0\f1 .  The actual implementation is using mapped sections of a\par
+\tab larger physical device.\par
+\par
+\tab This notation is actually an accommodation made for the benefit\par
+\tab of \i OS/8\i0 , which cannot address more than 2.0 MWords per logical\par
+\tab device.  As such, the logical device arrangement on any given\par
+\tab hard disk starts with WNA0:, WNA1: etc.\par
+\par
+\tab Since OS/8 has few devices available in any practical system,\par
+\tab various separately-named copies of OS/8 \i BUILD.SV\i0  were needed to\par
+\tab effect non-system drives chosen from the much larger available\par
+\tab pool of non-system logical drives in order to quickly change the\par
+\tab instant scope of the configuration needed at any time.\line\line\tab Part of the design of the forthcoming P?S/8 SHELL overlay is to\par
+\tab overcome this clumsy implementation by allowing far larger\par
+\tab logical units as part of a non-system handler with a far larger \tab scope of storage allocation.  While it is theoretically possible \tab to have the entire drive be considered such as WNA0: and a second \tab hard disk as WNA1:, this is an inadequate granularity erring on \tab the side of excessive unwieldiness.  As such, it is expected that\par
+\tab\i MDC8\i0  support for the P?S/8 SHELL will map the entire drive into\par
+\tab\i MDA0:\i0  through \i MDA7:\i0  allowing a second hard disk to be \i MDB0:\i0  \tab through \i MDB7:\i0 .\par
+\par
+\tab Note: P?S/8 non-system device handlers will be deliberately \tab renamed to the \i MD\i0  designation to avoid confusion with the OS/8 \tab designations (for far smaller logical storage units).\par
+\par
+\tab A comparison of various maximum system device sizes follows:\line\line\tab a) OS/8 devices can be as large as 2.0 MWords expressed as up to \tab    4096 records of 256 12-bit words each.\par
+\par
+\tab    Note: For the MDC8, only logical unit 0 can be bootstrapped.\par
+\par
+\tab b) P?S/8 system devices can be as large as 1.0 MWords expressed \tab\tab    as up to 4096 blocks of 128 12-bit words each.  For the MDC8,\par
+\tab    each of these system devices includes eight logical units 0\par
+ \tab    through 7.\par
+\par
+\tab    Note: Any of these eight logical units can be bootstrapped\par
+\tab    with the appropriate extended boot code.\par
+  \par
+\tab c) P?S/8 non-system devices can be as large as 4096 MWords\par
+\tab    expressed as up to 16,777,216 blocks of 128 12-bit words each\par
+\tab    per logical unit.  The total capacity for an entire device\par
+\tab    with eight logical units is 134,217,728 blocks of 128 12-bit\par
+\tab    words each.\par
+\par
+\tab    Note: Assuming six-bit bytes, the largest theoretical capacity \tab    of an entire non-system device (addressable using one non-\par
+\tab    system handler) is 32 GB.\line\line\tab The largest disk drive allowed on the MDC8 as developed is 416 \tab MB.  This capability is far beyond the practical scope of OS/8,\par
+\tab yet is hardly a challenge for P?S/8 non-system handlers.\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\cf3\par
+\cf0  \par
+\par
+\par
+\par
+\par
+\par
+\par
+\cf3 Glossary of Terms (continued)\par
+\par
+\par
+\par
+\cf0\par
+\par
+End of Glossary of Terms\par
+____________________________________________________________________\par
+\f0\par
+[End-of-file]\par
+\f1\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+____________________________________________________________________\par
+\f0\par
+[End-of-file]\par
+\f2\fs22\par
+}
+ 

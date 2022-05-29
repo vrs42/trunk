@@ -1,0 +1,187 @@
+
+/       P?S/8 ABSOLUTE BITMAP UTILITY     PAL8-VB0  23-JUL-86 PAGE 1
+
+   1                 /       P?S/8 ABSOLUTE BITMAP UTILITY
+   2   
+   3                 /       LAST EDIT:      09-FEB-1986     15:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       P?S/8 BITMAP IS A BINARY-ORIENTED UTILITY TO CREATE A LOADING MAP OF
+   8                 /       ALL LOCATIONS ACTUALLY LOADED BY A STREAM OF INPUT FILES WERE THEY
+   9                 /       TO BE BINARY LOADED. THE FILES ARE NOT ACTUALLY LOADED, RATHER THEY ARE
+  10                 /       JUST ACCOUNTED FOR IN A "BITMAP" FORMAT WHICH DISPLAYS THE COUNT
+  11                 /       OF HOW MANY TIMES EACH AND EVERY LOCATION IN ALL OF MEMORY WAS LOADED.
+  12   
+  13                 /       THE OUTPUT OF BITMAP WILL GO TO THE SYSTEM LPT: IF AVAILABLE, ELSE TO
+  14                 /       THE SYSTEM CONSOLE (SEE /T). ALL CONSOLE OVERLAY OPTIONS APPLY. BITMAP
+  15                 /       RESPONDS TO THE STANDARD CONTROL CHARACTERS (<^S>/<^Q>, <^O>, <BRK>, <^A>,
+  16                 /       <^B>, <^C>).
+  17   
+  18                 /       BITMAP DOES NOT REQUIRE ANY EXTENDED MEMORY TO MAP THE ENTIRE MEMORY SPACE
+  19                 /       FROM 00000-77777 AS IT DOES THE MAPPING ONE FIELD AT A TIME, WHICH ONLY
+  20                 /       REQUIRES 4000 LOCATIONS.
+  21   
+  22                 /       RESTRICTIONS:
+  23   
+  24                 /       BITMAP CANNOT ACCURATELY MAP FILES CONTAINING FIELD SETTINGS TO FIELDS
+  25                 /       LARGER THAN 7; LOADING WILL APPEAR TO BE ACCOUNTED FOR IN FIELD MODULO 10.
+  26   
+  27                 /       BITMAP CANNOT ACCURATELY DETERMINE MULTIPLE ATTEMPTS TO LOAD A LOCATION
+  28                 /       BEYOND SIX TIMES. A "*" WILL BE USED TO INDICATE MULTIPLE LOADING OF
+  29                 /       SEVEN OR MORE TIMES. ALL LOCATIONS WILL THEREFORE HAVE A LOAD COUNT OF
+  30                 /       0-6 OR "*".
+  31   
+  32                 /       MODES OF OPERATION.
+  33   
+  34                 /       BITMAP CAN BE USED IN SEVERAL MODES OF OPERATION:
+  35   
+  36                 /       MODE (A)        MAP PASSED FILES. EXIT.
+  37                 /       MODE (B)        MAP PASSED FILES. CHAIN TO "BIN" WHICH LOADS THE FILES.
+  38                 /       MODE (C)        MAP PASSED FILES. CHAIN TO "BIN" WHICH PUNCHS THE FILES.
+  39                 /       MODE (D)        "PAL" CHAINS TO "MAP". PASSED FILES ARE MAPPED. EXIT.
+  40                 /       MODE (E)        "PAL" CHAINS TO "MAP". PASSED FILES ARE MAPPED. CHAIN
+  41                 /                       TO "BIN" WHICH LOADS THE FILES.
+  42                 /       MODE (F)        "PAL" CHAINS TO "MAP". PASSED FILES ARE MAPPED. CHAIN
+  43                 /                       TO "BIN" WHICH PUNCHES THE FILES.
+  44   
+  45                 /       EACH MODE OF OPERATION HAS ITS OWN OPTIONS; SEVERAL SWITCH OPTIONS HAVE
+  46                 /       ANALOGOUS MEANINGS IN DIFFERENT MODES.
+  47   
+  48                 /       ANY MODE WHICH CHAINS TO "BIN" WILL ALWAYS DELETE THE '/P' OPTION TO
+  49                 /       PREVENT "BIN"'S BINARY PAPER TAPE INPUT MODES. THE ACTUAL MODE OF
+  50                 /       "BIN" OPERATION IS DETERMINED BY WHETHER '/W' IS USED. THE CHAIN TO
+  51                 /       "BIN" WILL NOT BE PERFORMED IF "MAP" WAS CHAINED TO BY "PAL" UNLESS
+  52                 /       THERE WERE NO ASSEMBLY ERRORS DETECTED BY "PAL". I. E., THE DOUBLE CHAIN
+  53                 /       IMPLIED BY SUCH SYNTAX AS: ".PAL FILES/M/G" WILL BE DOWNGRADED TO:
+  54                 /       ".PAL FILES/M" IF ANY ASSEMBLY ERRORS. THIS WILL ACTUALLY BE DETERMINED
+  55                 /       BY "MAP" WHEN IT IS CHAINED TO (OVERLAYING "PAL").
+
+/       P?S/8 ABSOLUTE BITMAP UTILITY     PAL8-VB0  23-JUL-86 PAGE 2
+
+  56                 /       MODE (A): MAP PASSED FILES AND THEN EXIT.
+  57   
+  58                 /       THIS IS THE BASIC MODE OF OPERATION WHICH JUST PRODUCES THE MAP OUTPUT
+  59                 /       AND THEN EXITS.
+  60   
+  61                 /       ALL FILES ARE CHECKED FOR BINARY VALIDITY BEFORE MAPPING; BAD FORMAT FILES
+  62                 /       WILL CAUSE AN ERROR MESSAGE AND WILL ABORT THE MAPPING PROCESS.
+  63   
+  64                 /       MAP MODE (A) OPTIONS.
+  65   
+  66                 /       <NONE>  MAP %:[BOOTSTRAP] UNIT. ALL FIELDS ARE ELEGIBLE FOR MAPPING.
+  67                 /       /A      SELECT ALL FIELDS 0-7 AS ELEGIBLE FOR MAPPING. THIS IS THE
+  68                 /               DEFAULT MODE OF OPERATION AND OVERRIDES /0-/7 IF PRESENT.
+  69                 /       /B      SAME AS PASSING NO OPTIONS. USED TO ESTABLISH %:[BOOTSTRAP UNIT]
+  70                 /               AS THE FILE TO BE MAPPED. THIS OPTION IS IGNORED IF INPUT FILES
+  71                 /               ARE PASSED.
+  72                 /       /D      SAME AS /B ALSO LOAD $:[BOOTSTRAP UNIT] AS A SECOND FILE.
+  73                 /       /O      ONLY USE INDIVIDUAL FIELDS IN THE RANGE 0-7 AS INDICATED BY
+  74                 /               /0-/7. USES ALL FIELDS IF /0-/7 NOT PRESENT.
+  75                 /       /P      WIDE PRINTER FORMAT. OUTPUT CONSISTS OF GROUPS OF EIGHT
+  76                 /               LOCATIONS SEPARATED BY SPACES. DEFAULT IS PACKED HALF-PAGES WITH
+  77                 /               ZONE HEADERS.
+  78                 /       /T      DISABLE CHECK FOR SYSTEM LPT: AND OUTPUT TO SYSTEM CONSOLE
+  79                 /               EVEN IF LPT: IS AVAILABLE.
+  80                 /       /U      SAME AS /B BUT CHANGES THE FILE(S) TO %:[BOOTSTRAP UNIT XOR ONE]
+  81                 /               (AND $:[BOOTSTRAP UNIT XOR ONE] IF /D).
+  82                 /       /0-/7   SELECT FIELD(S) FOR MAPPING. IF ONLY ONE FIELD SWITCH IS SET,
+  83                 /               THAT SWITCH SELECTS THE LOWER LIMIT OF ELEGIBILITY FOR MAPPING;
+  84                 /               THIS IMPLICITLY SETS THE UPPER LIMIT AS SEVEN. IF TWO FIELD
+  85                 /               SWITCHES ARE SET, THEN SELECT ALL FIELDS FROM THE LOWER TO THE
+  86                 /               UPPER INCLUSIVE. IF THREE OR MORE FIELD SWITCHES ARE SET, EACH
+  87                 /               REPRESENTS AN INDIVIDUALLY SELECTED FIELD. USE OF /O MAKES ALL
+  88                 /               PASSED FIELD SWITCHES ACT INDIVIDUALLY EVEN IF THERE ARE ONLY
+  89                 /               ONE OR TWO PRESENT.
+  90   
+  91                 /       PASSING EXPLICIT INPUT FILES CAUSES /B, /D, /U TO BE IGNORED.
+  92   
+  93                 /       PASSED OUTPUT FILES ARE ALWAYS IGNORED AS IF NOT PASSED AND SERVE ONLY
+  94                 /       TO WASTE SPACE IN THE FILE LIST.
+
+/       P?S/8 ABSOLUTE BITMAP UTILITY     PAL8-VB0  23-JUL-86 PAGE 3
+
+  95                 /       MODE (B): MAP PASSED FILES THEN CHAIN TO "BIN" TO LOAD THE FILES.
+  96   
+  97                 /       THIS MODE IS USED TO MAP THE FILES AND THEN ACTUALLY LOAD THEM. ALL OF
+  98                 /       THE OPTIONS OF MODE (A) APPLY.
+  99   
+ 100                 /       RESTRICTIONS:
+ 101   
+ 102                 /       THE FIELD SWITCHES /1-/7 MUST NOT BE USED AS IN MODE (A) WHEN CHAINING
+ 103                 /       TO "BIN" AS THEY IMPLY THE STARTING FIELD TO THE LOADER. TO PREVENT
+ 104                 /       CONFUSION WHEN THE PROGRAM IS TO BE STARTED IN EXTENDED MEMORY, ALWAYS
+ 105                 /       USE /A TO FORCE THE FIELD SWITCHES TO BE IGNORED BY "MAP". THIS WILL
+ 106                 /       ALLOW A STARTING FIELD TO BE PASSED TO "BIN".
+ 107   
+ 108                 /       ADDITIONAL OPTIONS OF MODE (B).
+ 109   
+ 110                 /       /G      CHAIN TO "BIN" AFTER MAPPING. OTHER SWITCHES MAY SELECT
+ 111                 /               ADDITIONAL LOADING OPTIONS.
+ 112                 /       /H      SET /G AND FILL ALL UNPROTECTED MEMORY WITH HLT INSTRUCTIONS
+ 113                 /               (7402) BEFORE STARTING THE LOADER (P?S/8 CORE SIZE PROTECTION
+ 114                 /               APPLIES.).
+ 115                 /       /I      SET /G AND RELOAD THE SYSTEM I/O ROUTINES AFTER LOADING. ALL
+ 116                 /               RESTRICTIONS ON THIS OPTION OF "BIN" APPLY. SEE "BIN" FOR
+ 117                 /               ADDITIONAL INFORMATION.
+ 118                 /       /V      SET /G AND USE VIRTUAL LOADER. SEE "BIN" FOR ADDITIONAL INFORMATION.
+ 119                 /       /Z      SET /G AND ZERO ALL UNPROTECTED MEMORY BEFORE STARTING THE LOADER
+ 120                 /               (P?S/8 CORE SIZE PROTECTION APPLIES.).
+ 121                 /       =NNNN   STARTUP USER PROGRAM AT NNNN IN DESIGNATED FIELD. SEE "BIN" FOR
+ 122                 /               ADDITIONAL INFORMATION.
+ 123                 /       /1-/7   STARTING FIELD. SEE "BIN" FOR MORE INFORMATION.
+ 124   
+ 125                 /       MODE (C); MAP PASSED FILES THEN CHAIN TO "BIN" TO PUNCH THE FILES.
+ 126   
+ 127                 /       THIS IS ESSENTIALLY THE SAME AS MODE (B), EXCEPT THAT '/W' IS SET
+ 128                 /       TO INDICATE THAT "BIN" IS TO PUNCH THE FILES INSTEAD OF LOADING THEM.
+ 129   
+ 130                 /       ALL LOADING OPTIONS OF "BIN" WILL BE IGNORED AS PUNCHING HAS PRIORITY
+ 131                 /       OVER LOADING WITHIN "BIN".
+ 132   
+ 133                 /       THE RESTRICTION OVER /1-/7 DOES NOT APPLY, AS THESE SWITCHES ARE IGNORED
+ 134                 /       BY "BIN" WHEN IN THIS MODE.
+ 135   
+ 136                 /       ADDITIONAL OPTIONS.
+ 137   
+ 138                 /       /F      SET /W AND USE HIGH-SPEED PUNCH (DEVICE 02) AS PAPER TAPE
+ 139                 /               OUTPUT DEVICE. DEFAULT IS THE CONSOLE TELETYPE EQUIPPED WITH
+ 140                 /               A PAPER TAPE PUNCH (DEVICE O4).
+ 141                 /       /G      SET BY /W TO INDICATE CHAIN TO "BIN". OTHER SWITCHES WILL
+ 142                 /               DETERMINE PUNCHING OPTIONS.
+ 143                 /       /R      OUTPUT IN RIM FORMAT; DEFAULT IS BIN FORMAT.
+ 144                 /       /W      MUST BE PRESENT OR IMPLIED. SETS /G AND CHAINS TO "BIN" AFTER
+ 145                 /               MAPPING TO PUNCH THE FILES. SEE "BIN" FOR MORE INFORMATION.
+
+/       P?S/8 ABSOLUTE BITMAP UTILITY     PAL8-VB0  23-JUL-86 PAGE 4
+
+ 146                 /       MODE (D): "PAL" CHAINS TO "MAP" TO MAP THE NEWLY CREATED BINARY FILES.
+ 147   
+ 148                 /       IN THIS MODE, OUTPUT FILES OF "PAL" WILL BE MAPPED BY "MAP". THE BITMAP OUTPUT
+ 149                 /       WILL BE SPECIALLY ADAPTED TO CONFORM TO THE FORMAT OF THE "PAL" OUTPUT.
+ 150   
+ 151                 /       ALL BASIC OPTIONS OF MODE (A) APPLY EXCEPT FOR THE FOLLOWING:
+ 152   
+ 153                 /       ALL FIELD SWITCHES /0-/7 WILL BE IGNORED AND TREATED AS IF /A WERE GIVEN.
+ 154   
+ 155                 /       ALL FILES ORIGINALLY PROCESSED BY "PAL" AS OUTPUT FILES WILL BE MAPPED
+ 156                 /       AS INPUT FILES BY "MAP". THE ORIGINAL INPUT (SOURCE) FILES AND ANY
+ 157                 /       EXTRANEOUS OUTPUT FILES WILL BE IGNORED.
+ 158   
+ 159                 /       THE '/N' OPTION OF "PAL" WILL CAUSE THE BITMAP OUTPUT TO PAGINATE
+ 160                 /       ACCORDING TO THE "NEATNESS" RULES OF "PAL" WHEN CHAINING TO "MAP".
+ 161   
+ 162                 /       MODE (E): "PAL" CHAINS TO "MAP" TO MAP THE NEWLY CREATED BINARY FILES;
+ 163                 /                 "MAP" CHAINS TO "BIN" TO LOAD THE FILES.
+ 164   
+ 165                 /       THIS MODE IS A COMBINATION OF MODE (B) AND MODE (D). ALL RESTRICTIONS OF
+ 166                 /       BOTH MODES APPLY. THE CHAIN TO "BIN" WILL ONLY OCCUR IF THERE WERE NO
+ 167                 /       ASSEMBLY ERRORS, ELSE THE ACTION WILL BE DOWNGRADED TO MODE (D).
+ 168   
+ 169                 /       MODE (F): "PAL" CHAINS TO "MAP" TO MAP THE NEWLY CREATED BINARY FILES;
+ 170                 /                 "MAP CHAINS TO "BIN" TO PUNCH THE FILES.
+ 171   
+ 172                 /       THIS MODE IS A COMBINATION OF MODE (C) AND MODE (D). ALL RESTRICTIONS OF
+ 173                 /       BOTH MODES APPLY. THE CHAIN TO "BIN" WILL ONLY OCCUR IF THERE WERE NO
+ 174                 /       ASSEMBLY ERRORS, ELSE THE ACTION WILL BE DOWNGRADED TO MODE (D).
+

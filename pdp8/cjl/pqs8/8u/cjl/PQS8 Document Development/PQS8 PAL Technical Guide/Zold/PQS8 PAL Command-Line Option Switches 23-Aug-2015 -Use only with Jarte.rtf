@@ -1,0 +1,1186 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red192\green192\blue192;\red0\green0\blue255;\red140\green140\blue140;}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 720
+  FtrMarg = 720
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 P?S/8 PAL\f1  C\f0 ommand-line \f1 O\f0 ption\f1  S\f0 witches\f1  [and related subjects].\f0\par
+\par
+\f1 Copyright \f2\'a9 1975-1989 Charles Lasner Associates\f0\par
+\f2 Copyright \'a9 1990-2015 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+Last edit: 23-Aug-2015 cjl\f0\par
+\par
+P?S/8 PAL\f1  Version 8S\f0  is a general-purpose PDP-8 assembler for \f1 PDP-8 Assembly Language [PAL]\f0 .\f1   It is distributed as part of P?S/8 Version 8Z.  Unlike competing assemblers [TOPS-10 PAL10 and OS/8 PAL8], there are many command-line option switches; this is necessary to allow the flexible and modular sections of P?S/8 PAL to be invoked as needed.\par
+\par
+The command-line options are passed in the same manner as OS/8 CCL commands.  [Note: P?S/8 supports several command prompt variations.  The one used throughout this document is identical to TOPS-10 and OS/8 to aid in various comparisons.  \highlight1 <SP>\highlight0  and \highlight1 <HT>\highlight0  are freely allowed between command elements to enhance command readability and are not otherwise required.]\par
+\par
+Typical command examples [in slightly simplified form] would be formed as follows:\par
+\par
+.PAL \highlight1 output files\highlight0  < \highlight1 input files\highlight0\i  \highlight1\i0 option switches\highlight0\par
+\par
+or\par
+\par
+.PAL \highlight1 input files\highlight0  > \highlight1 output files\highlight0\i  \highlight1\i0 option switches\highlight0\f0\par
+\par
+\f1 Note: P?S/8 allows command formation in either order as shown above; this allows the user to work in a familiar environment; the commands are generally similar to the various concise command implementations found in other DEC operating systems.\par
+\par
+The option switches can be placed anywhere in the command line after the program name [PAL].\par
+\par
+For more information about P?S/8 command-line variations, consult the \ul P?S/8 Keyboard Monitor Command Guide\ulnone  available as a separate document.\par
+\par
+PAL Input Files.\par
+\par
+The program input text passed to PAL is generally the textual contents of a series of Tiny File System [TFS] files concatenated together in the command.  Each TFS file is exactly 2048 12-bit words long; in general, each file will tend to contain roughly 3/4 of this capacity as six-bit bytes in the P?S/8 six-bit ASCII text character set.  This roughly translates to about 3000 characters per TFS file.\par
+\par
+The total number of files that can be passed to any P?S/8 system program is 17.  Since several file positions may be needed for output files, the actual number of input files tends to be slightly less.\page Note: P?S/8 also supports extended-length input files, each of which can contain considerably more characters than the entirety of 17 TFS files.  For more information, consult documentation of the P?S/8 OS8CON program or other similar file conversion programs available as separate documents.\par
+\par
+PAL Output Files.\par
+\par
+In P?S/8, all TFS files are fixed size of 2048 12-bit words.  TFS binary files are created in the famous \i Slurp\i0  format which is far more efficient than files based on paper-tape frame images.  A typical TFS binary file contains nearly 6/7 as much as a block-format core-image file yet no block structure is used or required.  Binary loaders for TFS binary files are available on all P?S/8 configurations.  A generic virtual loader is always available; most systems also support a device-specific binary file loader [which will be the default loader if present].  Command line switches control which loader is used in specific situations initiated by P?S/8 PAL [assemble, load and go \i or\i0   assemble, map, load and go].\par
+\par
+At the end of the assembly, information is displayed regarding various assembly particulars; the count of binary output files actually created is given [allowing any excess passed output files to be used for other purposes].  If insufficient files are passed, a binary overflow [\highlight1 BO\highlight0\b ]\b0  error will be displayed which aborts the assembly.\par
+\par
+Command-line Option Switches.\par
+\par
+The command-line option switches are passed in a manner consistent with OS/8 CCL.  Two variant forms are supported:\par
+\par
+1)\tab Individual option switches are preceded by \highlight1 /\highlight0  such as:\par
+\par
+\tab /M /N /L\par
+\par
+2)\tab Grouped switches are preceded by \highlight1 (\highlight0  such as:\par
+\par
+\tab (MNL)\par
+\par
+Note: The trailing \highlight1 )\highlight0  is optional unless needed to delimit the option group from another command section.\par
+\par
+Both forms of option switches can be used together; option switches may be given redundantly without error.\par
+\par
+Passed Numeric Value.\par
+\par
+P?S/8 PAL can chain to P?S/8 BIN to load the binary files created by the assembly.  If desired, the binary program can be automatically started at an address expressed as =\i xxxx\i0  where \i xxxx\i0  is up to four octal digits in the range of 0 through 7776; for programs starting in extended memory, the /1 through /7 switches provide the starting field.\page While the specific value =7777 is not permitted, the absence of the passed value causes P?S/8 BIN to use an internal safe halt location.  [The exact value depends on other loading options.]  [Internally,\par
+P?S/8 passes =7777 to system programs when the explicit numerical value is not given on the command line.]\par
+\par
+Note: Assembly errors abort the chaining process to P?S/8 BIN.\par
+\par
+Command-line option switches grouped by general function.\par
+\par
+1.\tab Output File Options.\par
+\par
+\tab If explicit binary output files are not given, the following \tab option switches can be used:\par
+\par
+\tab /B\tab The \highlight1 %\highlight0  file on the P?S/8 system device bootup logical unit \tab\tab\tab [see description of the /U option switch below] is used as \tab\tab\tab the [first] binary output file.\par
+ \par
+\tab /D\tab If the /B option switch is set, the \highlight1 $\highlight0  on the P?S/8 system \tab\tab\tab device bootup \tab logical unit [see description of the /U \tab\tab\tab option switch below] is used as the second binary output \tab\tab\tab file.\par
+\par
+\tab Note: If the second binary output file is not required, the /D \tab option switch will be ignored; assembly statistics will indicate \tab the \tab actual output file count.\par
+\par
+\tab /U\tab Change the logical unit that applies with the /B and /D \tab\tab\tab option switches set as described above from the system \tab\tab\tab device bootup logical unit to the result of the \tab operation \tab\tab [system device bootup logical unit \highlight1 XOR\highlight0  1].\par
+\par
+\tab The use of the \highlight1 %\highlight0  and \highlight1 $\highlight0  files can greatly speed up various system \tab operations due to their fixed placement near the physical \tab beginning of the device.  Additionally, they are not subject to \tab entries within the TFS directory; as such, certain operations \tab have significantly lower overhead when these files are used \tab strategically.  On tape-based systems, throughput can be further \tab improved by using a logical unit different from the system bootup \tab logical unit.\par
+\par
+\tab Note: The /B, /D and /U option switches are provided to simplify \tab the process of specifying output files.  Since all file \tab specifications can have optional device units, any combination of \tab these files on any logical unit can be explicitly stated; the \tab option switches provide the most commonly used output file \tab combinations in a succinct form.\par
+\par
+\tab If more than two binary output files are required, or the created \tab binary files should be written to permanent TFS file slots, the \tab command line given must use an explicit list of output files.\page 2.\tab Chaining Options.\par
+\par
+\tab If desired, automatic chaining options can be invoked to further \tab process the output files created during the assembly:\par
+\par
+\tab\f0 /G\f1\tab\f0 The output files created during the assembly are passed as \f1\tab\tab\tab\f0 input files to the\f1  \f0 P?S/8 BIN utility for loading [or \f1\tab\tab\tab\tab punching binary paper-tape as described below\f0 ].\f1   \f0 Chaining to \f1\tab\tab\f0 P?S/8 BIN is prevented if there are any assembly errors.  \f1\tab\tab\tab\f0 Additional\f1  \f0 loading\f1 -specific\f0  option switches may be used [see\f1  \tab\tab the \f0 description of\f1  the\f0  /V, /H, /Z\f1  and\f0  /I\f1  option switches\f0  and \f1\tab\tab\f0 the\f1  \f0 =\i\f1 xxxx\i0  passed numerical value\f0  to set the starting adress \f1\tab\tab\f0 in conjunction with \f1 the \f0 /1\f1  through \f0 /7\f1  option switches\f0  to set \f1\tab\tab\f0 the\f1  \f0 starting memory field\f1  in Section 9 of this document\f0 ].\par
+\par
+\f1\tab /M\tab The output files created during the assembly are passed as \tab\tab\tab input files to the P?S/8 MAP [bitmap] utility to create a \tab\tab\tab formatted bitmap of the assembled program.\par
+\par
+\tab\tab Note: The format of the bitmap output is generally \tab\tab\tab\tab consistent with the output of PAL10 after any FIELD \tab\tab\tab\tab directive [or end of assembly] and is a superset of OS/8 \tab\tab\tab BITMAP.  The title format and pagination details are the \tab\tab\tab same as those established for the assembler listing output \tab\tab\tab [if any] and statistics pages.\par
+\par
+\tab\tab When P?S/8 MAP is used without chaining, there are options \tab\tab\tab to limit which memory fields are subject to mapping; during \tab\tab the chaining process, these options are not allowed; as \tab\tab\tab such, all memory fields are elegible for bitmap output.\par
+\par
+\tab\tab It is possible to use both chaining options in a single \tab\tab\tab command; the chain to P?S/8 MAP will always be performed \tab\tab\tab first; the further chain to P?S/8 BIN will be aborted if \tab\tab\tab any assembly errors occurred.\par
+\par
+3.\tab Pass Control Options.\par
+\par
+\tab /K\tab Perform a two-pass assembly; the default is a single \tab\tab\tab\tab assembly pass.\par
+\par
+\tab\tab Unlike OS/8 PAL8 which always performs two [or three] \tab\tab\tab\tab passes, P?S/8 PAL can perform a useful single-pass assembly \tab\tab [which is consistent with the paper-tape system assembler \tab\tab\tab PAL III].\page\tab\tab At the end of pass one, all symbols still not defined are \tab\tab\tab shown on the system console in sorted order; the value \tab\tab\tab indicated is the address within the assembly where each \tab\tab\tab undefined symbol was first encountered.  This facilitates \tab\tab\tab early development of the program when it is likely that \tab\tab\tab portions of the program have not yet been written, variables \tab\tab and temporaries are not yet defined [or perhaps are the \tab\tab\tab object of typographical errors which can cause problems when\tab\tab certain symbols have names similar to other symbols] or some \tab\tab other problem exists that can be resolved merely by \tab\tab\tab\tab reference to the list of undefined symbols.\par
+\par
+\tab\tab Contrast this with OS/8 PAL8 which does not support a \tab\tab\tab\tab mechanism to merely determine undefined symbols.  The only \tab\tab\tab facility provided is to create a second-pass or third-pass \tab\tab\tab listing file of the entire assembly; searching through this \tab\tab far larger document can be tedious as there are usually \tab\tab\tab several references to each undefined symbol.  As such, this \tab\tab can easily become a time-consuming process.\par
+\par
+\tab\tab The /K option switch is not required if any binary or \tab\tab\tab\tab listing options are specified.\par
+\par
+\tab\tab Note: See the description of the /L and /N option switches \tab\tab\tab for the alternate usage of the /K option switch.\par
+\par
+\tab\f0 Second assembly pass considerations.\par
+\par
+\f1\tab A second assembly pass is performed if binary output files are \tab created and/or assembly listing output is produced.  During pass \tab two, any additional error messages will be displayed on the \tab system console in a format similar to that of OS/8 PAL8 and\par
+\tab TOPS-10 PAL10 [including the nearest symbol plus any numerical \tab offset] to facilitate source code development; additional \tab information may be displayed in certain specific instances.\par
+\par
+\tab Programmers may embellish the console output of the assembly \tab process when critical sections are being processed.  Several \tab methods are described below:\par
+\par
+\tab a)\tab P?S/8 PAL supports the ERROR directive; this causes a \tab\tab\tab\tab deliberate assembly error.  By using the ERROR directive, \tab\tab\tab the programmer can design internal safeguards to prevent \tab\tab\tab logical inconsistencies that might occur during program \tab\tab\tab maintenance.  [The design process generally includes the use \tab\tab of conditional assembly to calculate problematic scenarios. \tab\tab As long as certain specific requirements are met, there \tab\tab\tab would be no output of the ERROR directive.]\par
+\par
+\tab\tab The output of the ERROR directive is consistent with that of \tab\tab all standard errors during each assembly pass and can \tab\tab\tab\tab include the display of an optional evaluated argument. \tab\tab\tab Automatic binary loading by chaining to P?S/8 BIN will be \tab\tab\tab aborted if the ERROR directive is invoked.\page\tab b)\tab P?S/8 PAL supports the PAUSE directive both as it was \tab\tab\tab\tab originally implemented in PAL III [to ignore the rest of the \tab\tab contents of the latest input file] and also an extension \tab\tab\tab which can embellish console output during the assembly \tab\tab\tab process.\par
+\par
+\tab\tab When the PAUSE directive is used with an argument, the \tab\tab\tab argument is evaluated as a 12-bit unsigned value.  Output is \tab\tab consistent with the format of standard error message.\tab\tab\tab\tab However, this usage does not report as an error.\par
+\par
+\tab\tab The programmer can use the PAUSE directive for a variety of \tab\tab purposes [such as announcing the assembly pass or start of \tab\tab\tab assembly of a critical section].  When a logical \tab\tab\tab\tab\tab inconsistency is detected, the PAUSE directive can be used \tab\tab\tab to output additional information about the error to help \tab\tab\tab maintainence programmers understand the nature of the\tab\tab\tab\tab problem.\par
+\par
+\tab\tab Note: The techniques described above and other features \tab\tab\tab unique to P?S/8 PAL can be qualified to prevent use with \tab\tab\tab incompatible assemblers.\par
+\par
+\tab\tab The PQS directive is defined only in P?S/8 PAL; this allows \tab\tab the programmer to create conditional assembly statements to \tab\tab restrict usage of these features to P?S/8 PAL and not \tab\tab\tab\tab generate erroneous errors caused by the failure to support \tab\tab\tab the features in other assemblers.  An example of this usage \tab\tab follows:\par
+\par
+\tab\tab\tab IFNDEF\tab PQS\tab <PQS= 0>\tab /WILL BE ZERO IF NOT P?S PAL.\par
+\par
+\tab\tab\tab IFNZRO\tab PQS\tab <PAUSE .>\tab /DISPLAY CURRENT ORIGIN.\par
+\par
+\tab\tab Note: The XLIST directive implemented in P?S/8 PAL is \tab\tab\tab\tab consistent with OS/8 PAL8; XLIST statements can be used to \tab\tab\tab hide portions of the assembly as necessary such as \tab\tab\tab\tab assembler-specific statements.  Deployed judiciously, all \tab\tab\tab unassembled conditional assembly can be hidden when \tab\tab\tab\tab producing the listing output.\par
+\par
+4.\tab Symbol Table Options.\par
+\par
+\tab /S\tab The symbol table will be output at the end of the assembly.\par
+\par
+\tab\tab If the /N option switch is also set, the symbol table format \tab\tab will be consistent with that of an enhanced listing pass [if \tab\tab enabled].\par
+\par
+\tab\tab Note: The exact output may be subject to the number of \tab\tab\tab assembly passes performed; two pass assembly is performed if \tab\tab binary output files are created and/or listing output is \tab\tab\tab produced, or the /K option switch is set.\page\tab /A\tab If the /S option switch is set, the entire symbol table will \tab\tab be output at the end of the assembly; this includes all \tab\tab\tab permanent symbols and assembly directives.\par
+\par
+\tab\tab Note: If dual-mode [PDP-8 and LINC] assembly is in effect, \tab\tab\tab the symbol table will be set to that which applies at the \tab\tab\tab end of the assembly; certain symbols with dual definitions \tab\tab\tab will display values as used during the final assembly mode.\par
+\par
+\tab\tab Certain permanent symbols may have been redefined by the \tab\tab\tab source code; this is especially important in LINC mode \tab\tab\tab assembly where there can be multiple definitions of certain \tab\tab instructions that are model-dependent within the various \tab\tab\tab LINC implementations.\par
+\par
+\tab\tab While all default LMODE definitions within P?S/8 PAL are for \tab\tab the PDP-12 LINC variant, source code changes can be made to\tab\tab\tab redefine the affected symbols for compatibility with the \tab\tab\tab LINC-8 or classic LINC as required.  [Permanent changes of \tab\tab\tab certain SKP class or other instructions can only be made at \tab\tab the source-code level of P?S/8 PAL.]\par
+\par
+5.\tab Listing Options.\par
+\par
+\tab /L\tab Assembly listing output will be produced.\par
+\par
+\tab\tab Note: Unlike OS/8 PAL8, P?S/8 PAL performs at most two\par
+\tab\tab passes; P?S/8 PAL is capable of binary file and listing \tab\tab\tab output simultaneously.\par
+\par
+\tab\tab There are obscure quirks of the PAL language when literals \tab\tab\tab are in effect.  Novice programmers must avoid certain \tab\tab\tab\tab problematic situations where the definition of certain \tab\tab\tab symbols and values is dependent on the number of passes \tab\tab\tab performed.  While this is very bad programming technique, it \tab\tab can be confusing to debug in OS/8 PAL8; PAL8 binary output \tab\tab\tab is created using symbols obtained at the end of pass one \tab\tab\tab possibly updated during pass two.  However, PAL8 listing \tab\tab\tab output is created using symbols obtained at the end of pass \tab\tab two and possibly updated during pass three.  Unless the \tab\tab\tab programmer is careful to avoid pass-dependent definitions, \tab\tab\tab the binary output may differ from that in the listing output \tab\tab [which may appear correct].  Since P?S/8 PAL always creates \tab\tab all output during pass two, there will not be any pass-\tab\tab\tab dependent differences between binary output and listing \tab\tab\tab output.  Programming blunders will be discovered far sooner \tab\tab using P?S/8 PAL [along with additional experience when the \tab\tab\tab improper techniques are realized and then avoided].\page\tab /P\tab Enable wide-carriage mode listing output.  This option also \tab\tab affects the symbol table output allowing more columns of \tab\tab\tab printed symbols per page.\par
+\par
+\tab\tab Note: OS/8 PAL8 only outputs to a meager line width to \tab\tab\tab guarantee compatibility with narrow-carriage devices such as \tab\tab the LP01 despite the fact that many printers support 132 \tab\tab\tab column mode.  [Output to the LP01 will likely truncate in \tab\tab\tab many instances of listing output.]\par
+\par
+\tab\tab P?S/8 PAL allows far wider source statements than OS/8 PAL8.  \tab\tab The listing output of P?S/8 PAL will not be truncated as in \tab\tab the case of PAL8 listing output.\par
+\par
+\tab\tab Warning: Users of PAL8 must exercise caution with regard to\par
+ \tab\tab what are considered "excessively wide" input statements.\par
+  \tab\tab The number of characters that is considered "excessive" \tab\tab\tab varies with the specific statement type.  Depending on the \tab\tab\tab exact circumstances, part of the input statement may be \tab\tab\tab truncated changing the intent of the program.  This is not\tab\tab\tab merely a matter of truncating the printed output; rather, \tab\tab\tab part of the source statement may be ignored.  Debugging \tab\tab\tab unexpected assembly results may be difficult.\par
+\par
+\tab /T\tab Prevent output to the system line printer.  All output is \tab\tab\tab directed to the system console terminal.  See the \tab\tab\tab\tab description of the /N option switch below.\par
+\par
+\tab /N\tab Output "niceties" are applied to the listing output \tab\tab\tab\tab including titles on each printed page.  If output is \tab\tab\tab\tab directed to the system console [instead of the system line \tab\tab\tab printer], the output will produce simulated form-feeds by \tab\tab\tab the use of tear-off lines instead of \highlight1 <FF>\highlight0  characters; this \tab\tab\tab will ensure compatibility with system console devices that \tab\tab\tab use roll paper such as the Teletype Model 33.\par
+\par
+\tab\tab Note: For systems lacking a line printer that support hard \tab\tab\tab copy console terminals such as the LA36 [which can properly \tab\tab support \highlight1 <FF>\highlight0  characters], the Logical Console Overlay can be \tab\tab configured to redirect line printer output to the same \tab\tab\tab physical device as the as the console output. \par
+\par
+\tab\tab The /N option switch enables features that require one extra \tab\tab page of allocated memory.  Consult Section 8 of this \tab\tab\tab\tab document for more information regarding memory allocation \tab\tab\tab and related issues.\page\f0 Title considerations.\par
+\par
+\f1 When the /L option switch is used in conjunction with the /N option switch, the title field for the entire assembly is taken from the first line of the first input file.  Longer assemblies are generally created by concatenating the contents of multiple TFS text files; in most instances, there is no connection between program sections in different files and intended titles on sections of the assembly.\par
+\par
+To maintain compatibility with TOPS-10 PAL10 and OS/8 PAL8, P?S/8 PAL supports the change of title field using the first line of every input file.  To enable this feature, the /K option switch should be given along with the /L and /N option switches.  When each section of a program is contained in an extended-length file [or perhaps a small parameter section in a TFS file], meaningful titles can be provided.\par
+\par
+Note: When the /K option switch is used in this context, the alternate usage to force two-pass assembly is superfluous.\par
+\par
+As a practical matter, assembly title field changes within an assembly are performed infrequently.  For example, the source code of FOCAL, 1969 updates the title field once; as such, two extended-length files [FOCAL and FLOAT] can support the intended title field changes during the assembly.\par
+\par
+\tab /X\tab Enable the creation of cross-reference output by loading the \tab\tab cross-reference module which outputs all symbolic and \tab\tab\tab\tab literal references [if any] as well as the statement number \tab\tab associated with the reference.  Cross-reference data is \tab\tab\tab created in statement order during the assembly; at the end \tab\tab\tab of the assembly the data is sorted and output as part of the \tab\tab general listing output.\par
+\par
+\tab\tab Enabling cross-reference output causes all listing output to \tab\tab be somewhat wider because all printed lines start with the \tab\tab\tab lowest statement number on the line.  [The PAL language \tab\tab\tab allows multiple statements on a line separated by \highlight1 ;\highlight0 .]  \tab\tab\tab Statement numbers must be in the range of 1 through 99999.\par
+\par
+\tab\tab It is strongly recommended the listing output with statement \tab\tab numbering be targeted for printing on a 132 column \tab\tab\tab\tab printer, especially if the /P option is also enabled.\par
+\par
+\tab\tab If the /A option switch is also enabled, all symbolic \tab\tab\tab\tab references will generate cross-reference output; the default \tab\tab is references to user symbols only.\par
+\par
+\tab\tab The /X option switch enables features that require two extra \tab\tab pages of allocated memory.  Consult Section 8 of this \tab\tab\tab\tab document for more information regarding memory allocation \tab\tab\tab and related issues.\page Cross-reference Implementation Restrictions.\par
+\par
+Due to changes planned in P?S/8 Version 9A [but not yet implemented], the cross-reference output is currently written to logical unit 7 starting at block 0000; all prior contents of this device will be overwritten.  Once the cross-reference output can allocate extended-length files via a user-settable configuration table, this restriction will be lifted; significantly larger programs will be handled than presently on appropriate configurations [such as RK8E/RK05-based systems] due to the availability of multiple extended-length files to store reference data during the assembly.\par
+\par
+As of this writing, the processing of the cross-reference output is not fully implemented pending the changes described above with regard to the cross-reference output data; however the statement numbering and creation of the reference data are functional.  Logical unit 7 must be available as described above.\par
+\par
+Note: OS/8 PAL8 does not support cross-reference output.  Instead, OS/8 listing files are rescanned by OS/8 CREF [if enabled] as a post-processing utility.  There are several disadvantages to this method of implementation:\par
+\par
+\tab a)\tab The listing output of PAL8 is not a statement-by-statement \tab\tab\tab listing file; statements that were hidden by the use of \tab\tab\tab XLIST and other directives do not appear in the listing.  As \tab\tab such, the cross-reference output is potentially incomplete. \tab\tab Statement numbers are inherently inaccurate and are not \tab\tab\tab trustworthy.\par
+\par
+\tab\tab By contrast, P?S/8 PAL statement numbering is compatible \tab\tab\tab with TOPS-10 PAL10, which correctly shows statement numbers \tab\tab reflecting hidden statements.\par
+\par
+\tab b)\tab A valid technique for including documentation within PAL \tab\tab\tab source code is to use deliberately failing conditional \tab\tab\tab assembly on a section of commentary as large as an entire \tab\tab\tab page of the listing.  Content examples include details \tab\tab\tab regarding program operation and banner pages of large \tab\tab\tab\tab character outlines created from a series of smaller \tab\tab\tab\tab characters; the nature of this form of output is limited \tab\tab\tab only by the programmer's creativity.\par
+\par
+\tab\tab Unfortunately, OS/8 CREF has no ability to discern this \tab\tab\tab portion of an OS/8 PAL8 listing file as commentary; as such, \tab\tab the commentary is cross-referenced as if part of assembled \tab\tab\tab code-generating statements.  When banner pages are used, \tab\tab\tab there can be numerous junk references to "symbols" that are \tab\tab merely the individual characters used to build up the larger \tab\tab character layouts; as such, the cross-reference output can \tab\tab\tab be cluttered with many erroneous references.  Since OS/8 \tab\tab\tab CREF has limitations on symbol size, this can have an \tab\tab\tab\tab insidious effect on the overall usage of OS/8 CREF.  See c) \tab\tab and d) below.\page\tab c)\tab OS/8 CREF internally reckons statement numbers as 13-bit \tab\tab\tab integers in the range of 1 through 8192 with an odd quirk. \tab\tab\tab Additional statements wrap back to 4096 instead of 1.  As\par
+ \tab\tab such, there is inherent anomaly in the cross-reference \tab\tab\tab output regarding precise statement numbering of individual \tab\tab\tab references.\par
+\par
+\tab\tab By contrast, P?S/8 PAL and TOPS-10 PAL10 allow unique \tab\tab\tab\tab statement numbering in the range of 1 through 99999.\par
+\par
+\tab d)\tab OS/8 CREF has limited overall capability.  If the entire \tab\tab\tab cross-reference cannot be accomplished in one pass the \tab\tab\tab program aborts unless the /M option switch is used.  If the \tab\tab /M option switch is enabled, CREF operates as a strictly-\tab\tab\tab defined two-pass operation which may [eventually] allow the \tab\tab program to complete.  However, each "half" of the overall \tab\tab\tab operation must succeed to obtain a successful overall\tab  \tab\tab\tab result.\par
+\par
+\tab\tab Note: A quirk of the two-pass method is the insertion of an \tab\tab extraneous \highlight1 <FF>\highlight0  in the output stream when the second pass \tab\tab\tab starts.  [This is documented but not explained.]\par
+\par
+ \tab\tab The split-point for this so-called "mammoth" mode is set to \tab\tab the theoretical symbol LGNNNN.  References to all symbols \tab\tab\tab that sort lower than this value are scanned in the first \tab\tab\tab pass while ignoring references to symbols that sort higher. \tab\tab The second pass processes all symbols that sort higher than \tab\tab LGNNNN including all references to current-page and page \tab\tab\tab zero literals; the references processed in the first pass \tab\tab\tab are ignored.  Each pass must scan the entire listing file.\par
+\par
+\tab\tab Because of the arbitrary nature of the split-point, it is \tab\tab\tab possible for the overall cross-reference to fail because the \tab\tab program symbols are not "balanced" sufficiently to conform \tab\tab\tab to this arbitrary scheme [for which there are no options].\par
+\par
+\tab e)\tab Because of the inherently redundant nature of rescanning \tab\tab\tab text files attempting to obtain information about the \tab\tab\tab\tab assembly without having access to the original symbol table \tab\tab and parsing techniques, OS/8 CREF operates very slowly.\par
+\par
+\tab\tab By contrast, assembler-based cross-reference implementation \tab\tab has the advantage of only processing legitimate references \tab\tab\tab to symbols and literals; commentary is ignored.  Instead of \tab\tab rescanning entire listing files, the essential cross-\tab\tab\tab\tab reference data is scanned as many times as necessary to \tab\tab\tab process all references; there is no arbitrary static split-\tab\tab\tab point nor requirement of at most two passes on the far \tab\tab\tab smaller set of data.\par
+\par
+\tab\tab Note: Many large PAL programs cannot be completely processed \tab\tab by OS/8 CREF.  This includes the source code of P?S/8 PAL.\page 6.\tab Literal and Link options.\par
+\par
+\tab /Q\tab Enable generation of current page and page zero literals.  \tab\tab\tab Link generation is disabled; attempts at off-page references \tab\tab will be treated as errors.\par
+\par
+\tab /O\tab Enable generation of current page and page zero literals.  \tab\tab\tab Link generation is enabled; however, links will be flagged \tab\tab\tab as errors.\par
+\par
+\tab\tab Enabling literal generation and/or link generation requires \tab\tab three extra pages of allocated memory.  Consult Section 8 of \tab\tab this document for more information regarding memory \tab\tab\tab\tab allocation and related issues.\par
+\par
+\tab\tab Using the /Q option switch in conjunction with the /O option \tab\tab switch will suppress error messages on generated links.  \tab\tab\tab However, the count of links generated is always included in \tab\tab the statistics page produced at the end of the assembly.\par
+\par
+\tab\tab Assembly listing lines containing generated links will be \tab\tab\tab flagged with \highlight1\f0 '\highlight0\f1 ; this feature cannot be disabled.\par
+\par
+\tab\tab Note: OS/8 PAL8 is compatible with P?S/8 PAL with regard to \tab\tab all aspects of the disposition of generated link statements. \tab\tab However, all features regarding literals in PAL8 cannot be \tab\tab\tab disabled.  See below for detailed warnings regarding \tab\tab\tab\tab generated links that apply to both assemblers.\par
+\par
+\tab /E\tab Reset the current page literal extent when leaving the \tab\tab\tab latest page.  [Use of the /E option switch requires some \tab\tab\tab combination of the /Q and /O option switches to be \tab\tab\tab\tab meaningful.]\par
+\par
+\tab\tab Note: See below for more information on literal extent \tab\tab\tab issues and options.\par
+\par
+Limitations of Generated Links.\par
+\par
+The usage of generated links should be totally avoided; in general, links do not work!\par
+\par
+While this caveat ought to be sufficient, a study of the PDP-8 architecture reveals the details of the problem:\par
+\par
+Links are an attempt to pervert the PDP-8 architecture into something it isn't, yet have sloppily written programs work while violating the hard-wired rules of the computer's instruction set.\par
+\par
+A link is an indirect reference fixup where the program specifies a direct reference to memory and instead an indirect reference is manufactured  by the assembler involving a literal address pointer not specified in the source program.\page The following is an attempt to violate the rules of the PDP-8 instruction set flagged as an error [because link generation is not enabled]:\par
+\par
+\tab\tab *200\tab\tab\tab\tab\tab /ON PAGE 1\par
+\par
+\tab\tab TAD\tab 577\tab\tab\tab\tab /ATTEMPT TO ACCESS PART OF PAGE 2\par
+\par
+This usage is impossible because unless the reference is to a page zero location, the only allowed value would be in the current page range of 0200-0377 in this instance; 0577 is part of page 2.  Locations on any page from 2 [0400-0577] through 37 [7600-7777] are equally inaccessible.  The instruction is correctly marked with the \highlight1 IR\highlight0  error message [Illegal Reference].\par
+\par
+If link generation is enabled, the same source code instead produced flagged output.  The instruction at 0200 is changed to TAD I 377; additionally, location 0377 is generated containing 0577.  Ignoring for the moment the instruction is now an indirect reference to 0577 using the pointer address 0377 as an intermediary, to the naive programmer, the intended logic is satisfied: the contents of location 0577 are added to the accumulator.\par
+\par
+Note: In all of these examples, symbols are not present to cloud the issue.  Actual attempts at link generation are likely completely symbolic; had the code been located in an accessible location, there would be no links required; links often come about when code overflows the intended page into the next page.  By using purely numerical references, we are forcing the results to be clear.\par
+\par
+To the naive programmer, the program "works" per se.  Unfortunately, in real programming, considerations outside of this example tend to crop up; programs that had "worked" suddently don't work at all and get unavoidable assembly errors.  [The kind of error enabling link generation cannot remedy.]\par
+\par
+The naive programmer might be tempted to use a location already inaccessible [due to being on another page from the instruction] as a pointer.  The assembler will properly mark this with the error message \highlight1 II\highlight0   [Illegal Indirect].  Since it takes a pointer to access indirectly the address of the pointer, it is not possible to use it indirectly. Had the programmer obeyed the rules of the instruction set, this would come as no surprise.\par
+\par
+Before investigating the insidious nature of link generation failing to work when no error messages occur [just generated link flagging], it will be shown that \i certain\i0  forms of generated links actually work, as long as the mechanism is not "stretched" to attempt to perform the impossible.\page In all cases, links involving \i direct\i0  JMP or JMS instructions do "work" in the sense described above.  [Statements of the form JMS I or JMP I cannot function as explained above.]  If this were the only issue, lazy programmers would have a valid excuse to desire link generation.\par
+\par
+Unfortunately, all of the other forms of link generation will fail depending on the exact nature of the running program; the assembler cannot have knowledge of the programmer's intentions in the dynamic sense.\par
+\par
+The following is an example of a generated link that will be flagged as a link [and will not generate an assembly error if error messages on links are suppressed], yet the program logic will fail:\par
+\par
+[This is the same program as above; the program is started from the front panel with the instruction field [IF] set to 0 and the data field [DF] set to any value from 1 through 7]\par
+\tab\par
+\tab\tab *200\tab\tab\tab\tab\tab /ON PAGE 1\par
+\par
+\tab\tab TAD\tab 577\tab\tab\tab\tab /ATTEMPT TO ACCESS PART OF PAGE 2\par
+\par
+The program does not accomplish the intended function.  The contents of location 0577 in the data field are added to the accumulator.\par
+\par
+In general, programs are written for the 32K PDP-8 address space.  The data field is often part of some internal convention of the program logic.  When the program uses direct references as the nominal statements do in the example, the data field plays no role in the logic of the program.  Programmers who never enable link generation are certain their programs are designed as expected as long as no statements are marked with errors during the assembly.  [Note:  This is not to say there are no logic errors in the program.  But at least the type of error illustrated here won't be present.]\par
+\par
+Thus, as soon as extended memory factors creep into the logic of a program dependent on link generation, insidious failures start to occur.  A naive programmer who never learned the necessary discipline required to avoid this programming pitfall is now faced with an unsolvable dilemma.  The only possible repair is to "bite the bullet" and eliminate all generated links as a first step towards debugging the program; eliminating the attendant error mesages solves at least 99% of the problem.  [Note: Cleaning up after link generation might involve a lot of work all at once; had links never been used, the work to eliminate assembly errors would have been accomplished in small increments.]\par
+\par
+In short, link generation "works" only if direct JMP and JMS instructions are involved.  Link generation fails to "work" if AND, TAD, ISZ or DCA instructions are involved.  All forms of indirect usage attempts always fail.\page Positing a stubborn and lazy PDP-8 programmer [the author has met people who fall into this category; their careers as PDP-8 programmers who use generated links are always short], one of those who insist on using link generation despite all the caveats.  The excuses are invariably of the form:\par
+\par
+\tab a)\tab Only uses JMP and JMS links. [Don't believe this for a \tab\tab\tab minute.]\par
+\par
+\tab b)\tab Never uses the cases that cannot work and counts how many \tab\tab\tab links are generated in the assembler statistics page every \tab\tab\tab time to make sure nothing has changed.\par
+\par
+There are several logical fallacies in a) and b) above:\par
+\par
+\tab c)\tab One can only assume a) is true; it is necessary to check the \tab\tab entire program to ensure this is the case.  Confirming this \tab\tab is far more work than just avoiding generated links.\par
+\par
+\tab d)\tab The count of links generated may be the same as past usage. \tab\tab However, there is still no guarantee all of the generated \tab\tab\tab links avoid the impossible cases; if the code is moved \tab\tab\tab around sufficiently, a JMP or JMS link could drop out and \tab\tab\tab one of the impossible cases might replace it in the \tab\tab\tab\tab assembler link count statistics.  It is still necessary to \tab\tab\tab check the entire program as in c) above; the description of \tab\tab the extra work involed still holds.\par
+\par
+\tab e)\tab In reality, people this stubborn are hypocritical.  They \tab\tab\tab also tend to use the potentially impossible form of \tab\tab\tab\tab generated links because they "know" the data field will \tab\tab\tab "never" be wrong.  This puts them squarely into the \tab\tab\tab\tab insidious problem position described earlier.\par
+\par
+\tab f)\tab When cross-field calling conventions are established in \tab\tab\tab meaningful programs, it is belatedly understood just how \tab\tab\tab problematic the artifice of link generation really is.  The \tab\tab work involved in cleaning up the program can be profound.\par
+\par
+\tab g)\tab Other architectures may support something that can be \tab\tab\tab\tab likened to "training wheels".  Generated links already take \tab\tab programmers "off the rails".\par
+\par
+\tab h)\tab In the case of P?S/8 PAL, TOPS-10 PAL10 and OS/8 PAL8, \tab\tab\tab additional option switches have to be enabled to suppress \tab\tab\tab error messages associated with link generation.  This is by \tab\tab design, as the developers of real operating systems never \tab\tab\tab use generated links and are trying to guide programmers to \tab\tab\tab success in PDP-8 programming.  Hopefully  all stubborn and \tab\tab\tab lazy programmers eventually get past this illogical stage.\page\f0 Examples of \f1 L\f0 iteral \f1 S\f0 tatements.\par
+\par
+\f1 P?S/8 PAL supports the two general forms of literal generation along with a unique third form that can shorten program development time.\par
+\par
+\tab a)\tab Current page literals - The operand address is located on \tab\tab\tab the current page of the program; the address is assigned by \tab\tab the assembler starting at relative location 177.  Additional \tab\tab literals are created in reverse order; a second current page \tab\tab literal is placed at relative location 176.\par
+\par
+\tab\tab The maximum number of current page literals allowed is 63\tab\tab\tab [decimal] in the relative range of 101-177.  When a \tab\tab\tab\tab statement contains a current page literal, the current page \tab\tab literal table is searched for a matching value.  If \tab\tab\tab\tab successful, the existing literal address is used.  New \tab\tab\tab values create additional current page literals.  When either \tab\tab too many current page literals are attempted or statements \tab\tab\tab on the current page overflow into the literal table, a \highlight1 PE\highlight0\par
+ \tab\tab [Page Exceeded] error message is displayed.\par
+\par
+\tab\tab A typical current page literal usage follows:\par
+\par
+\tab\tab TAD\tab (3)\tab\tab\tab\tab /ADD 0003 TO THE ACCUMULATOR\par
+\par
+\tab b)\tab Page zero literals - The operand address is located on page \tab\tab zero; the address is assigned by the assembler starting at \tab\tab\tab location 0177.  Additional literals are created in reverse \tab\tab\tab order; a second page zero literal is placed at location \tab\tab\tab 0176.\par
+\par
+\tab\tab The maximum number of page zero literals is 112 [decimal] in \tab\tab the range of 0020-0177.  [Locations lower than 0020 are \tab\tab\tab disallowed due to the special characteristics of these \tab\tab\tab locations; locations 0010-0017 auto-increment when \tab\tab\tab\tab referenced indirectly.\par
+\par
+\tab\tab When a statement contains a page zero literal, the page zero \tab\tab literal table is searched for a matching value.  If \tab\tab\tab\tab successful, the existing literal address is used.  New \tab\tab\tab values create additional page zero literals.  When either \tab\tab\tab too many page zero literals are attempted or statements on \tab\tab\tab page zero overflow into the literal table, a \highlight1 ZE\highlight0  [page Zero \tab\tab\tab Exceeded] error message is displayed.\par
+\par
+\tab\tab A typical page zero literal usage follows:\par
+\par
+\tab\tab TAD\tab [3]\tab\tab\tab\tab /ADD 0003 TO THE ACCUMULATOR\page\tab c)\tab Conditional literals - The operand address is either on the \tab\tab current page or on page zero depending upon specific \tab\tab\tab\tab circumstances.  If a matching page zero literal value \tab\tab\tab\tab exists, it will be used.  Failing a page zero match, If a \tab\tab\tab matching current page literal exists, it will be used.  \tab\tab\tab Failing both a page zero match and a current page match, a \tab\tab\tab new current page literal is created [subject to the \tab\tab\tab\tab possibility of a \highlight1 PE\highlight0  error if the current page overflows].\par
+\par
+\tab\tab A typical conditional literal usage follows:\par
+\par
+\tab\tab TAD\tab\\3/\tab\tab\tab\tab /ADD 0003 TO THE ACCUMULATOR\par
+\par
+\tab\tab The actual code generated is dependent on the literal pools\par
+\tab\tab in effect at the point in the assembly the usage is \tab\tab\tab\tab encountered.\par
+\par
+\tab\tab A common technique employed in well-developed programs is \tab\tab\tab the use of source code libraries of commonly used \tab\tab\tab\tab subroutines.  It is desirable to use page zero literals \tab\tab\tab where appropriate; however, page zero literals should not be \tab\tab used if there are only singular references.  By using  \tab\tab\tab conditional literals, more effective management of memory is \tab\tab achieved without the need to hand-optimize the library \tab\tab\tab source code statements containing literals.\par
+\par
+\tab\tab Note: This feature is not supported by OS/8 PAL8.\par
+\par
+Literal Extent Issues.\par
+\par
+In general, all literals asssociated with any current page should be defined in proximate order to the code statements referencing them.  This facilitates locating any potential matches to avoid new literals [if possible].\par
+\par
+Leaving the present page, the existing literals are dumped to finish the intent and requirements of all source code statements defined so far.\par
+\par
+If that page is ever revisited, it is possible to define additional literals on the page because the literal extent formerly in effect was saved and will be restored.  However, since the actual literals have been dumped, all new literals will only be able to search for a match within the newly-created literal pool.\par
+\par
+Note: This feature, while enabled by default, is hardly ever used.  It is supported primarily to maintain compatibility with the literal generation features of TOPS-10 PAL10 and OS/8 PAL8.\page If the /E option switch is used, the literal extent when leaving a current page is totally reset; no history of previous literals on any current page is retained.  [Note: The use of the /E option switch does not impact page zero literals, which are completely reset upon either end of assembly or a FIELD directive.  In some documents about PDP-8 assemblers, this is referred to as "forgetting" current page literals.]\par
+\par
+Resetting literal extents is useful when defining overlays.  The overlay code must be created in the context of another section of the assembly which presumably will be replaced in memory by the overlay code; however, the overlay code must maintain its own current page literals as required.\par
+\par
+while there are many techniques associated with the deployment of overlays, the /E option switch is always required to allow overlays to maintain their own current page literal pools.\par
+\par
+Note: Future implementations of P?S/8 PAL [or a new assembler for the P?S/8 SHELL based on P?S/8 PAL tentatively to be called XPAL] will likely invert the default condition regarding literal extent retention due to disuse of the current default; as a practical matter, sections of program code that revisit formerly used pages are always part of an overlay structure.  There are no justifiable reasons to deliberately separate small program sections on the same code page.\par
+\par
+7. \f0 Dual \f1 A\f0 ssembly \f1 M\f0 ode \f1 O\f0 ptions.\par
+\line\f1\tab /8\tab Enable LINC mode assembly; the default operating mode is \par
+\tab\tab PDP-8 mode [PMODE].  While not strictly necessary, it is \tab\tab\tab good practice when abling dual assembly to state the desired \tab\tab opening mode; this is equivalent to using the PMODE \tab\tab\tab\tab directive.  The current location counter is set to the usual\tab\tab PDP-8 value of 0200.\par
+\par
+\tab /9\tab Enable LINC mode assembly; the default operating mode is \tab\tab\tab LINC mode [LMODE].  While not strictly necessary, it is good \tab\tab practice when enabling dual assembly mode to state the \tab\tab\tab desired opening mode; this is equivalent to using the LMODE \tab\tab directive.  The current location counter is set to the usual \tab\tab LINC value of 4020.\par
+\par
+\tab\tab Enabling the dual mode assembly module requires the \tab\tab\tab\tab allocation of three additional pages of memory.  Consult \tab\tab\tab Section 8 of this document for more information regarding \tab\tab\tab memory allocation and related issues.\page Dual Mode Assembly Tips.\par
+\par
+While it is good practice to start source code with the appropriate mode directive, it is possible [using conditional assembly techniques] to determine the current assembly mode.  References to the current definition of the HLT instruction [which will be 7402 in PMODE and 0000 in LMODE] can determine whether LMODE or PMODE is in effect.\par
+Critical programs can abort the assembly if it is determined the assembly process is not in keeping with source code requirements [which could include failure to enable LINC mode assembly].\par
+\par
+P?S/8 PAL is the only known assembler that fully supports LINC mode assembly, literals, large assemblies and the full complement of PDP-8 assembler features.  The LINC mode support is generally compatible with the LAP6-DIAL/DIAL-MS assembler; however, all versions of DIAL can only run on the PDP-12; additonally, the DIAL assembler does not support literals.  P?S/8 PAL does not require LINC hardware to assemble LINC mode programs.\par
+\par
+While the use of literals generally applies to PDP-8 code, certain features can be adapted to LINC mode programming with restrictions.  Advanced users can contrive viable cases modestly worth pursuing.\par
+\par
+In general, LINC programming does not require literals due to significantly different addressing modes.  Immediate mode addressing replaces literals because the immediate mode operand cannot be used in other instructions.  Immediate mode specifying the address of common variables can be likened to literals; if the addresses can be contrived to conform to PDP-8 page addressing, actual PDP-8 literals can be used obtaining the intended results.  [Note: Any form of arithmetic used to calculate addresses in LINC mode is performed using one's complement arithmetic.] \par
+\par
+All LINC instructions on the PDP-12 and the LINC are implemented in hardware.  On the LINC-8, certain instructions are trapped and emulated using a support program known as PROGOFOP [PROGram OF OPeration].  PROGOFOP is required for 100% emulation support; however, short sections of LINC programming can be initiated by PDP-8 programming with interrupt-handling optional.  [Note: The PDP-12 also supports an alternate form of trap simulator to allow programs written for the classic LINC and/or LINC-8 to be run as intended, perhaps with alternate interpretation of the LINCtape class instructions.  For more information, consult DEC documentation of the PDP-12 trap simulator.]\par
+\par
+LINCtape Information.\par
+\par
+P?S/8 and OS/8 run on 128 words/block LINCtapes; DIAL uses extended-length 256 words/block LINCtapes.  Utilities to access 256 words/block LINCtapes require custom programming for each machine.  To transfer assembled programs to the classic LINC requires a custom image utility as conventions for LINC operating systems vary.  LINC systems cannot access PDP-8-oriented LINCtapes; the LINC-8 can handle all formats because the underlying hardware is actually a PDP-8 peripheral.  The PDP-12 includes extended operations to work with all common formats.\page 8.\tab Memory Management Options and Issues.\par
+\par
+\tab /C\tab Enable internal reconfiguration of assembler resources; \tab\tab\tab using the /C option may make certain assembly configurations \tab\tab on smaller machines viable at the expense of performance. \tab\tab\tab See below for additional configuration details.\par
+\par
+P?S/8 PAL is designed to run on 4K or larger machines; additional memory, if available, is used to allow a larger symbol table which is generally the limiting factor with regard to overall program size that can be successfully assembled.\par
+\par
+When P?S/8 PAL is first loaded, the passed option switches are checked to determine the running configuration size with regard to modular assembler components once the assembly process begins.  Deselected modular sections are removed; retained modular options are then relocated as required to maximize the space available for symbol table and input/output buffers.\par
+\par
+Depending on the options selected, it is possible the symbol table load could overflow the assembler capabilities; the configuration selected cannot run given the normal allocation of input/output buffers.\line\line To aid in achieving a viable configuration, the number of input/output buffers can be reduced; the space is then made available for additional symbols.  The assembly process will take longer due to the smaller buffers [but will generally be successful unless the source code has many symbols].\par
+\par
+To gauge the magnitude of the problem on 4K systems, the following is a list of the extra memory allocation requirements [over the minimum needed for an assembly without any modular sections retained]:\par
+\par
+\tab a)\tab /N-related "niceties" options [fully formatted headers on \tab\tab\tab listing particulars] requires one additional page.\par
+\par
+\tab b)\tab Literal and/or link generation requires three additional \tab\tab\tab pages.\par
+\par
+\tab c)\tab Enabling dual mode [LINC] assembly requires three additional \tab\tab pages.\par
+\par
+\tab d)\tab Enabling cross-referenced listing output requires two \tab\tab\tab\tab additional pages.\par
+\par
+Each page retained for symbol table usage adds the ability to support 32 additional symbols; an assembly with no modular options retained can support 288 additional symbols.\page If the /C option switch is set, the input and output buffers are reduced to a minimum complement causing the assembly process to take considerably more time; however, sufficient memory space should be available to support any combination of the optional modular program sections as described above.\par
+\par
+P?S/8 PAL is designed to dynamically take advantage of additional memory if available.  On all systems with 8K, at least another 3K of memory is available for the symbol table; as such, all modular components can be retained without restriction.\par
+\par
+Note: Certain P?S/8 configurations reserve the highest quarter memory field available for the system device handler extension.  For all systems that do not require the handler extension, the full additional 4K of memory is available to P?S/8 PAL [and other programs].\par
+\par
+When 7K [or more] memory is available, symbols are not stored in field 0.  The /C option switch can be used to sacrifice performance while allowing additional symbols residing in field 0.\par
+\par
+The maximum number of symbols allowed is 4095 including all permanent symbols and directives.  If 16K of memory is available for symbols [20K total memory or more], there is no point in enabling the /C option other than to perform timing tests to measure the resulting performance degradation; the exact configuration with regard to the modular options becomes moot for the larger configurations.\par
+\par
+Note: OS/8 PAL8 requires 24K or more to support the maximum symbol table size of 4095 symbols due to certain design limitations of OS/8.\par
+\par
+P?S/8 PAL Assembler Performance.\par
+\par
+P?S/8 PAL performance was once compared to OS/8 PAL8 using a deliberately biased configuration and a stopwatch.  While P?S/8 PAL took twice as long to assemble a large file chosen at random from various OS/8 source programs under development at the time, the P?S/8 configuration was based on TC08/TU56 DECtape while the the OS/8 configuration was based on the RK8E/RK05 removable cartridge disk [which is inherently a higher performance system].  Given the overhead of the underlying system devices, it is estimated that P?S/8 PAL can assemble large programs as much as four times as fast as OS/8 PAL8 on identical hardware configurations.\par
+\par
+Note: The performance of the P?S/8 BIN \i slurp\i0  loader was compared to OS/8 ABSLDR on the same configuration.  The DECtape-based P?S/8 \i slurp\i0  loader successfully loaded binary files twice as fast as OS/8 ABSLDR on the RK8E/RK05.\page 9.\tab Additional Binary Chaining Options.\par
+\par
+Various options of the P?S/8 BIN utility apply during a successful chain operation.  Assuming no assembly errors, chaining to P?S/8 BIN is generally used for the purpose of loading the binary output files created during the assembly.\par
+\par
+Note: See the description of the /W option switch below for the alternate purpose of chaining to P?S/8 for the purpose of punching binary paper-tapes.\par
+\par
+As explained above, chaining to P?S/8 BIN creates a list of binary input files derived from the list of output files created during the assembly; this list may be the direct result of explicitly passed output files or as a result of some particular combined usage of the /B, /D and /U option switches.  As necessary, the list may have been truncated if excess output files were specified.\par
+\par
+The following additional options of P?S/8 BIN apply if set in the original P?S/8 PAL command line:\par
+\par
+\tab /G\tab Chain to P?S/8 BIN for the purpose of either loading the \tab\tab\tab binary files created during the assembly or punching binary \tab\tab paper-tapes of the binary files [if the /W option switch is \tab\tab also set].  The chain is inhibited if there are assembly \tab\tab\tab errors.\par
+\par
+\tab /V\tab Enable the virtual binary file loader instead of the \tab\tab\tab\tab hardware-specific binary file loader [if relevent].\par
+\par
+\tab\tab Where possible, P?S/8 BIN loads binary input files using an \tab\tab implementation of the \i slurp\i0  loader as originally defined by \tab\tab Richard Lary for the R-L Monitor System.  The P?S/8 \tab\tab\tab\tab implementation\tab  supports loading anywhere within the 32K \tab\tab\tab PDP-8 memory space \tab [restrictions apply to system reserved \tab\tab\tab memory areas].\par
+\par
+\tab\tab Specifics of the P?S/8 system configuration will indicate \tab\tab\tab whether the \i slurp\i0  loader is available [as only certain \tab\tab\tab hardware configurations are capable of supporting the \i slurp\i0  \tab\tab loader].\par
+\par
+\tab\tab On systems that do not include a hardware-specific \i slurp\i0  \tab\tab\tab loader, a virtual binary file loader is used that requires \tab\tab\tab the presence of the system device handler.  Other than \tab\tab\tab certain performance issues and minor tradeoffs, the two \tab\tab\tab loaders perform the same overall function.\par
+\par
+\tab\tab If the /V option switch is set, the virtual binary file \tab\tab\tab loader is used instead of the hardware-specific \i slurp \i0 binary \tab\tab file loader.  This is a user preference option assuming the \tab\tab hardware-specific \i slurp\i0  loader is available; it may be \tab\tab\tab preferable to force the virtual loader under certain \tab\tab\tab\tab circumstances.\page\tab /I\tab If the \i slurp\i0  loader is in effect, the system device handler \tab\tab is reloaded after all binary files are loaded.  As a \tab\tab\tab\tab restriction, it is not possible to pass the maximum input \tab\tab\tab file count of 17 input files; the maximum input file count \tab\tab\tab is reduced to 16 [which is generally of no consequence to \tab\tab\tab most users].\par
+\par
+\tab\tab Note: If the virtual loader is in effect, the /I option \tab\tab\tab switch is ignored; the restriction on maximum binary input \tab\tab\tab files does not apply.  If the \i slurp\i0  loader is in effect and \tab\tab the /I option switch is not set, the system device handler \tab\tab\tab will not be available; however, a hardware-specific \tab\tab\tab\tab bootstrap will be placed into locations 07600-07642 to allow \tab\tab program exit to 07600 in the identical manner as if the \tab\tab\tab system device handler were present.\par
+\par
+\tab /H\tab All user memory is preloaded with 7402 [the PDP-8 HLT \tab\tab\tab\tab instruction] before binary file loading.  This is strongly \tab\tab\tab recommended when debugging programs undergoing development \tab\tab\tab to prevent unexpected loss of control.\par
+\par
+\tab /Z\tab All user memory is preloaded with 0000 [the LINC HLT \tab\tab\tab\tab instruction] before binary file loading.  This is strongly \tab\tab\tab recommended when the program under development contains \tab\tab\tab numerous LINC instructions or it is expected the binary \tab\tab\tab output will be saved in core-image format; unloaded \tab\tab\tab\tab locations will show 0000 in any form of memory or storage \tab\tab\tab block dump printout.\par
+\par
+\tab\tab P?S/8 can create a core-image of a program under development \tab\tab using the GET /Z command [or as a result of a chaining \tab\tab\tab operation as described above].  The resultant core-image \tab\tab\tab blocks can be transferred to pairs of TFS files which can be \tab\tab restored to the % and $ file for execution.\par
+\par
+\tab\tab Future releases of P?S/8 will include the SHELL overlay \tab\tab\tab [currently under development] which will support versions of \tab\tab the ENCODE and DECODE programs which are currently available \tab\tab as part of the Kermit-12 program collection.  Core images \tab\tab\tab created in the P?S/8 SHELL environment [through equivalent \tab\tab\tab means to the GET command] passed through the ENCODE program \tab\tab will produce smaller output files due to the elimination of \tab\tab uninitialized storage locations within the core-image file.\page\tab\tab If the =\i xxxx\i0  passed numerical option is set, the value \i xxxx \tab\tab\i0 is used as the starting address for the program; the default \tab\tab starting field is 0.  If the program will be started after \tab\tab\tab loading, the following additional option switches apply:\par
+\par
+\tab /1\tab The program will start in field 1 at location \i xxxx\i0  as \tab\tab\tab\tab specified in the =\i xxxx\i0  passed numerical value.\par
+\par
+\tab /2\tab The program will start in field 2 at location \i xxxx\i0  as \tab\tab\tab\tab specified in the =\i xxxx\i0  passed numerical value.\par
+\par
+\tab /3\tab The program will start in field 3 at location \i xxxx\i0  as \tab\tab\tab\tab specified in the =\i xxxx\i0  passed numerical value.\par
+\par
+\tab /4\tab The program will start in field 4 at location \i xxxx\i0  as \tab\tab\tab\tab specified in the =\i xxxx\i0  passed numerical value.\par
+\par
+\tab /5\tab The program will start in field 5 at location \i xxxx\i0  as \tab\tab\tab\tab specified in the =\i xxxx\i0  passed numerical value.\par
+\par
+\tab /6\tab The program will start in field 6 at location \i xxxx\i0  as \tab\tab\tab\tab specified in the =\i xxxx\i0  passed numerical value.\par
+\par
+\tab /7\tab The program will start in field 7 at location \i xxxx\i0  as \tab\tab\tab\tab specified in the =\i xxxx\i0  passed numerical value.\par
+\par
+\tab Note: All of the options stated above assume the /W option switch \tab is not set to allow binary file loading.\par
+\par
+\tab If the chain to P?S/8 BIN is for the purpose of punching binary \tab paper-tapes, the following option switches apply:\par
+\par
+\tab /W\tab The /G option switch is set; the chain to P?S/8 BIN will be \tab\tab used to punch binary paper-tapes if there are no assembly \tab\tab\tab errors [else the chain to BIN will be prevented].\par
+\par
+\tab /F\tab The default device for the binary paper-tape output is the \tab\tab\tab low-speed console device paper-tape punch found on various \tab\tab\tab console terminals such as the Teletype Model 33 ASR and \tab\tab\tab Model 35 ASR [device 04].  If the /F option switch is set, \tab\tab\tab the binary output is directed to the high-speed punch \tab\tab\tab\tab [device 02].\par
+\par
+\tab /R\tab By default, the paper-tape output is punched in BIN format.  \tab\tab If the /R option switch is set, the output format used is \tab\tab\tab enhanced RIM format [which includes a checksum so the binary \tab\tab paper-tape can also be read by the BIN loader].\par
+\par
+\tab Note: the /0 option switch is not passed to P?S/8 BIN as it has \tab alternate meaning within P?S/8 PAL.  See Section 11 for more \tab details.\page 10.\tab Text Management Options and Issues.\par
+\par
+\tab /J\tab Prevent generation of a 12-bit word of 0000 after text \tab\tab\tab strings with an even count of characters as used with the \tab\tab\tab TEXT and SIXBIT directives.\par
+\par
+Text Directive Issues.\par
+\par
+\tab\tab The PAL language defines the TEXT directive which is used \tab\tab\tab with a string argument.  The string consists of an \tab\tab\tab\tab indefinite number of printable characters preceded by a \tab\tab\tab delimiter character which cannot be included in the \tab\tab\tab\tab generated text; the string ends with a second usage of the \tab\tab\tab delimiter\tab character.\par
+\par
+\tab\tab Note: P?S/8 PAL does not require the trailing delimiter \tab\tab\tab character unless there are multiple statements on the same \tab\tab\tab line.\par
+\par
+\tab\tab Early implementations of the TEXT directive restricted the \tab\tab\tab delimiter character to \highlight1 "\highlight0 , \highlight1 '\highlight0  and in some cases \highlight1 @\highlight0  [which is \tab\tab\tab not supported by P?S/8 PAL and other assemblers].  The use \tab\tab\tab of \highlight1 "\highlight0  or \highlight1 '\highlight0  as text delimiters is recommended for maximum \tab\tab\tab compatibility with other PAL assemblers; P?S/8 PAL and OS/8 \tab\tab PAL8 support an extension allowing any printing character \tab\tab\tab not contained within the text string to be used as the \tab\tab\tab delimiter character.\par
+\par
+\tab\tab All usage of the TEXT directive creates strings of six-bit \tab\tab\tab ASCII text characters packed two per 12-bit word.  If the \tab\tab\tab count of characters in the string is an odd number, the last \tab\tab 12-bit word has 00 in the low-order six bits which can act \tab\tab\tab as a string delimiter.\par
+\par
+\tab\tab Since the most likely usage of the TEXT directive is to \tab\tab\tab generate strings used with printing subroutines, the default \tab\tab action for string arguments with even character counts is to \tab\tab output an additional 12-bit word of 0000 to ensure the \tab\tab\tab presence of a string delimiter.\par
+\par
+\tab\tab TEXT directive usage is not limited to string creation as \tab\tab\tab described above; some alternate schemes use internal \tab\tab\tab\tab printing characters as delimiters or other control purposes.  \tab\tab Within the P?S/8 keyboard monitor coding, explicit string \tab\tab\tab length arguments are used in some instances; in other cases \tab\tab the string length is an implicit constant value.  The 00 \tab\tab\tab case plays no role in any of these cases; creation of an \tab\tab\tab extra 12-bit word of 0000 is undesirable.\page\tab\tab Note: Early PDP-8 programs such as FOCAL, 1969 were \tab\tab\tab\tab developed on systems incapable of modifying the output of \tab\tab\tab the TEXT directive; as such, the source code includes \tab\tab\tab\tab statements to backup the assembler current location counter \tab\tab to allow the desired contents which differs from the \tab\tab\tab\tab automatically generated 0000 value.  Ironically, the \tab\tab\tab\tab source-level workaround is incompatible with the /J option \tab\tab\tab switch which would eliminate the problem.\par
+\par
+\tab\tab As documented above, setting the /J option switch prevents \tab\tab\tab the creation of the extra 12-bit word of 0000 on even count \tab\tab text strings.  It is strongly recommended the disposition of \tab\tab the /J option switch be documented at the beginning of all \tab\tab\tab source code; in many cases, this may be the only departure \tab\tab\tab from assembler default settings and could easily be \tab\tab\tab\tab overlooked.\par
+\par
+Other Text-related Issues.\par
+\par
+P?S/8 PAL supports the SIXBIT directive which takes the same general form as the TEXT directive.  The only difference is the internal six-bit code used is not the PDP-8 standard six-bit subset of the ASCII character set.  Instead, the alternate definition of six-bit text as used on DEC 18-bit and 36-bit computers applies.\par
+\par
+The basic difference between the two character sets is the highest of the six bits used is inverted.  Input processing of seven-bit ASCII characters to six-bit code is easier using the PDP-8 standard while output processing of six-bit code to seven-bit ASCII characters is easier using the alternative standard.  The PDP-8 standard was chosen largely because there are often multiple input routines while output is generally performed by a single output routine.\par
+\par
+Note: OS/8 PAL8 does not support the SIXBIT directive.\par
+\par
+The DEVICE and FILENA\{ME\} directives are supported by P?S/8 PAL and OS/8 PAL8.  These are special-purpose text directives to create a four-character and eight-character text string respectively.  Early OS/8 programs required the use of the /J option switch [or its equivalent in OS/8 PAL8 which is the /F option switch]; this allows creation of the intended string arguments while preventing compatibility with the usual string printing applications, which require even-length string termination.  With the availability of the DEVICE and FILENA\{ME\} directives, the normal flexibility of text string creation is restored.\par
+\par
+Note: P?S/8 supports the FILENA\{ME\} directive for compatibility purposes only.  Future P?S/8 systems will support the P?S/8 SHELL with an extended assembler based on P?S/8 PAL to be known as XPAL.  XPAL will support an option to extend the FILENA\{ME\} directive to support SHELL directory file names.\page Certain user-modified assemblers exist that support the TEXTZ directive which forces the extra 12-bit word of 0000 even if the /J option switch [or equivalent] is in effect.  Future versions of P?S/8 PAL may support the TEXTZ directive and the SIXBTZ directive [using the alternate six-bit text code].\par
+\par
+Note: As of PAL8 Version B0 [the last version released by DEC], the TEXTZ directive is not supported.\par
+\par
+Most PAL assemblers [including P?S/8 PAL and OS/8 PAL8] support the \highlight1 "\highlight0  operator in expressions.  The next character [which cannot be \highlight1 <HT>\highlight0 ] is used to form the seven-bit ASCII value of the stated character; the mark parity bit is set.\par
+\par
+A proposed ASCII directive would take a string argument much like the TEXT directive to create a string of seven-bit ASCII characters.  The /J option switch would prevent a trailing 12-bit word of 0000.\par
+\par
+An additional ASCIIZ directive could be implemented to force the creation of the trailing 12-bit word of 0000 regardless of the setting of the /J option switch.\par
+\par
+Note: An additional issue is whether to have an option to prevent the mark parity bit within the text string as arithmetic operations are not possible on individual string characters.\par
+\par
+Even without any form of ASCII directive, it is currently possible to create seven-bit ASCII text strings with any of the discussed variations using the \highlight1 "\highlight0  operator.  When used alone, each character in the string will have the mark parity set; string delimiter characters can be added if desired, such as ending the string with a 12-bit word of 0000 or making the last character of the string negative [in the 12-bit sense].  By adding an additional element in each expression, it is possible to strip off the mark parity bit:\par
+\par
+HLOWRLD,"H&177;"E&177;"L&177;"L&177;"O&177;" &177\tab /HELLO WORLD MESSAGE\par
+        "W&177;"O&177;"R&177;"L&177;"D&177!4000\tab /NEGATIVE ENDS TEXT.\par
+\par
+An unnamed additional text directive has been proposed to create packed seven-bit ASCII text strings following the "three for two" packing convention as used in OS/8 text files [and the P?S/8 SHELL].  Because of alignment restrictions, additional null eight-bit bytes will be required, regardless of the issue regarding the mark parity bit.  If the string is meant to be an image of an actual file section, there must also be a mechanism to append a trailing \highlight1 Control-Z\highlight0  character into the string.\par
+\par
+Note: The issue of a "three for two" directive will likely be taken up in the XPAL assembler which will support upper-case/lower-case input files.  A PARITY directive with appropriate argument support can be implemented to handle all mark parity bit [and perhaps \highlight1 Control-Z\highlight0  character] issues raised above.\page 11.\tab Additional Option Switches and Issues.\par
+\par
+\tab /0\tab Automatically generate *200 after the use of the FIELD \tab\tab\tab directive.\par
+\par
+\tab\tab Note: Most programs have data or explicit origins after \tab\tab\tab FIELD settings.  By using an explicit origin setting, a \tab\tab\tab known serious bug of one of the released DEC BIN loaders \tab\tab\tab [known as the "self-starting" binary loader] can be avoided.\par
+\par
+\tab\tab The problem with this version of the loader [which was never \tab\tab fixed] is that when a FIELD setting is encountered, it is \tab\tab\tab applied prematurely; the last data word from the previous \tab\tab\tab address [presumably intended for use with the former FIELD \tab\tab\tab setting] is erroneously loaded into the new field.  By \tab\tab\tab ensuring the last data frame is an origin setting, the \tab\tab\tab problem is generally avoided.\par
+\par
+\tab\tab As a practical matter, most well-designed programs use \tab\tab\tab specific origins after FIELD settings for appropriate \tab\tab\tab\tab purposes; as such, this option is generally irrelevant.\par
+\par
+\tab /Y\tab The \highlight1 !\highlight0  operator is changed from inclusive OR [.IOR] to shift \tab\tab left six bits.\par
+\par
+\tab\tab Without the /Y option switch set, 22!33 generates 0033; with \tab\tab the /Y option switch set, 22!33 generates 2233.\par
+\par
+\tab\tab The \highlight1 !\highlight0  operator [with the /Y option switch set] can be used \tab\tab\tab to create short six-bit text expressions:\par
+\par
+\tab\tab A=\tab "A&77\par
+\par
+\tab\tab B=\tab "B&77\par
+\par
+\tab\tab A!B\par
+\par
+\tab\tab Each word created using the \highlight1 !\highlight0  operator in this manner \tab\tab\tab\tab produces the same result as a 12-bit component [two \tab\tab\tab\tab characters] of a text string.\par
+\par
+\tab\tab Note: Certain programs require the default \highlight1 !\highlight0  when \tab\tab\tab\tab embellishing combined OPR or IOT instructions:\par
+\par
+\tab\tab CLA!CLL!CML!RTL\tab\tab /SET THE ACCUMULATOR TO 0002\par
+\par
+\tab\tab DTSF!DTRB\tab\tab\tab\tab /SKIP ON DECTAPE DONE OR ERROR FLAG\par
+\tab\tab\tab\tab\tab\tab\tab /SET; READ THE ERROR REGISTER\par
+\par
+\tab\tab Programmer preference will determine whether to use the /Y \tab\tab\tab option switch.  As in the case of the /J option switch, if \tab\tab\tab the /Y option switch should be set, this should be \tab\tab\tab\tab documented in the beginning of the source code to ensure \tab\tab\tab proper assembly.\page 12.\tab P?S/8 PAL Directives and Issues.\par
+\par
+P?S/8 PAL is fully compatible with all standard directives as implemented in OS/8 PAL8.  Certain additional directives are supported compatible with other assemblers such as the DIAL-MS assembler or TOPS-10 PAL10.  Additional directives are unique to P?S/8 PAL.\par
+\par
+A complete list of P?S/8 PAL directives is provided in Appendix B.\par
+\par
+In one particular case, the DTORG directive, the OS/8 implementation is deliberately not supported in P?S/8 PAL.  A proposed solution to the underlying problem is presented below which will allow the DTORG directive to be useful to P?S/8 system generation in future releases of P?S/8 PAL.\par
+\par
+OS/8 PAL8 Implementation of DTORG.\par
+\par
+As implemented in OS/8 PAL8, the DTORG directive is provided for compatibility with TOPS-10 PAL10.  The DTORG directive is meant to create 128 words/block numbered block references within the binary output to allow a special-purpose loader [only used by the Typeset-8 group] to write Typeset-8 system blocks on DECtape [and perhaps other devices].\par
+\par
+The general function is to specify a numbered storage block on a TC01/TC08/TU55/TU56 DECtape followed by the [up to] 128 words to be written to the specified block.\par
+\par
+The origin in memory is set prior to the DTORG directive; however, it is generally ignored because no form of standard loader [such as the BIN paper-tape binary loader] is supported.  The origin is used to define the upper limit in memory of the [up to] 128 data words that follow; once an entire PDP-8 page has been defined [placing the current location counter on the next PDP-8 page], the intended block contents are finalized.\line\line Typeset-8 programs create a series of these small sections; each is loaded by a special-purpose Typeset-8 generation utility which writes the data to the specified DECtape [or other device] block.  However, there are serious issues:\par
+\par
+\tab a)\tab Each section written to a targeted DECtape block is taken \tab\tab\tab from a lengthy punched binary paper-tape created at an OS/8 \tab\tab development site; the tape invariably was the latest release \tab\tab of a major section of the Typeset operating system [or one \tab\tab\tab of its utilities].  Typeset-8 machines generally did not \tab\tab\tab have high-speed readers.  In-house Typeset-8 computers \tab\tab\tab invariably used Teletype Model 35 ASR terminals to read in \tab\tab\tab the binary data.\page\tab b)\tab There is no form of checksum protection associated with the \tab\tab written data.  Since the binary paper-tapes were generally \tab\tab\tab quite long, this is patently foolhardy.\par
+\par
+\tab\tab By the nature of paper-tape, it is expected that reading in \tab\tab long binary paper-tapes will occasionally result in read \tab\tab\tab errors.  This is why the BIN loader format includes checksum \tab\tab frames.  \par
+\par
+\tab\tab The RIM loader, which lacks a checksum mechanism, is only \tab\tab\tab used to load short binary programs such as the BIN loader, \tab\tab\tab which in turn can load in significant binary program data \tab\tab\tab with the confidence provided by passing an overall checksum \tab\tab test.\par
+\par
+\tab c)\tab Despite being created by PAL8 in OS/8 standard binary \tab\tab\tab\tab format [as a .BN file], the binary output violates the OS/8 \tab\tab binary file standard; the output of a program that uses the \tab\tab DTORG directive cannot be loaded successfully by OS/8 \tab\tab\tab\tab ABSLDR.  Attempts to read in the punched binary paper-tape \tab\tab\tab will always end in a checksum error, even if an error-free \tab\tab\tab read was performed.  This is because the implementation of \tab\tab\tab the DTORG directive usurps the underlying BIN format that \tab\tab\tab OS/8 converts into three-for-two OS/8 records [384 frames \tab\tab\tab per logical record].\par
+\par
+\tab\tab As such, it is impossible to improve the performance of the \tab\tab Typeset-8 special-purpose loader; reading in the entire \tab\tab\tab binary paper-tape will not yield valid checksum information \tab\tab that could be used to reject attempts to read the lengthy \tab\tab\tab tapes that introduce additional flaws.\par
+\par
+Proposed Remedies to the DTORG Problem.\par
+\par
+Apparently due to internal DEC politics, no attempt was made to remedy this problem by educating the Typeset-8 programmers regarding their naive design; various well-known mechanisms can easily solve the problem.\par
+\par
+\tab a)\tab Instead of implementing the DTORG directive as a violation \tab\tab\tab of the internal binary format of BIN utilities and OS/8, the \tab\tab binary data can be patterned after a variety of utility \tab\tab\tab formats such as certain details of P?S/8 non-system device \tab\tab\tab handlers and OS/8 device handlers [as required by OS/8 \tab\tab\tab BUILD].\page\tab\tab An arbitrary series of origin settings can be used to \tab\tab\tab\tab indicate the intention of DTORG directive statements:\par
+\par
+           DTORG  1234              /DESIGNATE BLOCK 1234 FOR OUTPUT.\par
+\par
+\tab\tab The DTORG usage could create the equivalent of the following \tab\tab binary output:\par
+\par
+           PREV=  .                 /NEED THE PREVIOUS ORIGIN SETTING.\par
+\par
+           *7777;*1234;*PREV        /OUTPUT FLAG ORIGIN FOLLOWED BY\par
+                                    /THE DTORG BLOCK NUMBER FOLLOWED\par
+                                    /BY THE PREVIOUS ORIGIN.\par
+\par
+\tab\tab A special-purpose loader is still required to create\par
+\tab\tab Typset-8 system blocks in the proposed format; however, the \tab\tab binary data created is compatible with all loading \tab\tab\tab\tab mechanisms; a lengthy binary paper-tape punched out and then \tab\tab read on a Teletype Model 35 ASR read station could be known \tab\tab to have passed the checksum test.  Afterwards, all \tab\tab\tab\tab designated blocks can be written out at once.  [Note: The \tab\tab\tab Typeset-8 system runs on 4K machines.  The binary paper \tab\tab\tab tapes used would tend to be somewhat longer than the binary \tab\tab paper-tape for FOCAL, 1969 as a representative example.]\par
+\par
+\tab b)\tab The example remedy represents the most expedient method to \tab\tab\tab solve the DTORG problem.  More elaborate schemes could \tab\tab\tab include additional origin settings, perhaps following the \tab\tab\tab last two data-based origins as shown in the example.  An \tab\tab\tab overall mini-checksum for the entire string of origin \tab\tab\tab\tab settings could be created if desired.\par
+\par
+\tab\tab Regardless of implementation details, the entire problem of \tab\tab supporting incompatible binary files would be eliminated.  \tab\tab\tab All binary files can be used with all available binary \tab\tab\tab format utilities.  After punching the lengthy paper-tape, it \tab\tab could be read back in using the high-speed paper-tape \tab\tab\tab\tab reader.  The resulting file would not only have to pass the \tab\tab standard checksum test, but additionally could be directly \tab\tab\tab compared to the original binary output file to completely \tab\tab\tab confirm the validity of the paper-tape before bring the tape \tab\tab to the Typeset-8 site for the usual purpose of generationg \tab\tab\tab Typeset-8 system components.\par
+\par
+\tab c)\tab Without having to support incompatible binary format, the \tab\tab\tab need to store paper-tape binary frames becomes superfluous.  \tab\tab OS/8 could have easily been developed using a more efficient \tab\tab internal file format similar to P?S/8.\par
+\par
+\tab\tab It is well known that DEC managers perverted certain aspects \tab\tab of the demo project that was eventually to become OS/8. \tab\tab\tab Their demonstrable ignorance of PDP-8 operating systems has \tab\tab left its mark on various forms of internal poor design \tab\tab\tab aspects of this system.\page\tab\tab It is surmised that Richard Lary intended to use \i slurp\i0  \tab\tab\tab binary format for OS/8 [having just recently demonstrated \tab\tab\tab the R-L Monitor to the same dim bulbs who rejected it], but \tab\tab the edict to use images of binary paper-tape frames clearly \tab\tab was created in part due to demands of the Typeset-8 group.\par
+\par
+\tab\tab Note: TOPS-10 PAL10 also implements the creation of\tab\tab\tab\tab incompatible binary paper-tapes; the DTORG support is \tab\tab\tab\tab identical to OS/8 PAL8.\par
+\par
+\tab d)\tab OS/8 PIP could easily be modified to convert compatible \tab\tab\tab binary files with DTORG usage within [as proposed above] \tab\tab\tab into Typeset-8 format binary paper-tapes [assuming no \tab\tab\tab\tab cooperation from the Typeset-8 group].  Thus, the problems \tab\tab\tab associated with incompatible binary format would only affect \tab\tab the users of Typeset-8, and not the entire PDP-8 community \tab\tab\tab at large.\par
+\par
+\tab\tab While not likely to occur, the binary format of OS/8 \tab\tab\tab\tab utilities could be updated to \i slurp\i0  binary format which \tab\tab\tab would improve the performance of OS/8 for all users.\par
+\par
+\tab e)\tab While the DTORG directive is not particularly useful for \tab\tab\tab OS/8 purposes [just about every aspect of the present DTORG \tab\tab implementation is responsible for some negative aspect of \tab\tab\tab OS/8 performance] since it addresses 128 words/block storage \tab\tab [while OS/8 addresses 256 word logical records], it can be \tab\tab\tab useful for future implementation of P?S/8 system generation \tab\tab utilities that follow the overall flow of the Typeset-8 \tab\tab\tab system generation method [but none if the flawed details].\par
+\par
+\tab\tab Future releases of P?S/8 PAL [and the SHELL assembler XPAL] \tab\tab will develop a more useful implementation of the DTORG \tab\tab\tab directive; for the present, P?S/8 PAL merely implements \tab\tab\tab DTORG as one of the nonfunctional directives supported for \tab\tab\tab source-level compatibility reasons.\par
+\par
+\tab f)\tab A P?S/8 utility, tentatively to be known as BINCON, may be \tab\tab\tab written to read and convert present OS/8 binary files to the \tab\tab proposed format [with respect to the DTORG disposition]; the \tab\tab resulting compatible binary format would then be stored as \tab\tab\tab P?S/8 \i slurp\i0  binary format files.  This would implement \tab\tab\tab binary compatibility with the proposed changes to DTORG \tab\tab\tab as implemented in future releases of P?S/8 PAL.  P?S/8 \tab\tab\tab system generation utilities could operate with binary paper \tab\tab tapes or other media developed on either operating system.\par
+\par
+\tab\tab Note: P?S/8 BIN can create binary paper tapes in BIN format \tab\tab on the low-speed or high-speed punch; this can be \tab\tab\tab\tab accomplished by a chained assemble-and-punch operation as \tab\tab\tab described\tab elsewhere in this document.\page The reader is directed to various documents available on the Internet covering the fundamentals of PDP-8 programming and the PAL language as implemented on various systems [not all of which are compatible with DEC standards].  P?S/8 PAL is generally a superset of all other compatible implementations [to within nitpicks].\f0\par
+\par
+Additional information on the P?S/8 PAL assembler is available on the Internet at:\par
+\par
+{\field{\*\fldinst{HYPERLINK "http://www.ibiblio.org/pub/academic/computer-science/history/pdp-8"}}{\fldrslt{\ul\cf2 http://www.ibiblio.org/pub/academic/computer-science/history/pdp-8}}}\f0\fs24\par
+            \highlight1\f1\'a7\highlight0\f0 /PQS8-related%20Files/1989%20Help%20Files/ASMBLR.HELP\par
+\par
+Note: The \highlight1\f1\'a7\highlight0\f0  above\f1  \f0 indicates continuation of the\f1  URL\f0  address on\f1  \f0 the next line; the address was split into two lines due to overall length.\par
+\par
+A \f1 short \f0 summary of all supported command\f1  line option\f0  switches is contained within this file\f1  \f0 along with other internal documentation of P?S/8 PAL\f1  taken from the source code file [ASMBLR.PAL]\f0 .\par
+\par
+\f1 FLIP.EXE-related issues.\f0\par
+\par
+Proper usage of the\f1  online copy of ASMBLR.HELP\f0  may require\par
+end-of-line conversion\f1  due to unix conventions used on the server.\par
+\par
+All text files [including the aforementioned ASMBLR.HELP] located within the archive referenced above can be converted to MS-DOS/Windows conventions using Rahul Dhesi's popular FLIP.EXE program.\par
+\par
+FLIP can convert files between MS-DOS and unix conventions in both conversion directions.  Running the program without arguments from an MS-DOS window will output the program options needed for a successful conversion.\par
+\par
+FLIP.EXE is widely available as freeware; a\f0  copy of\f1  \f0 this program is included in the P?S/8 Advanced SIMH Package\f1  [PASP]\f0  in the\par
+\f1\\PDP-8\\SIMH\\PDP-8\\\f0 SIMH \f1 U\f0 tilities\f1  \f0 directory.\par
+\par
+\f1 Note: Due to limitations of FLIP.EXE, it may be necessary to use file names conforming to MS-DOS conventions; many files associated with the P?S/8 project use naming conventions compatible with the forthcoming P?S/8 SHELL directory structure.  [The P?S/8 SHELL uses 12.4 file names with case retention while MS-DOS uses 8.3 file names in upper-case only].  Other than file date limitations, SHELL directory files are easily stored in Windows directories; files may be renamed to\par
+MS-DOS conventions in Windows for further processing with FLIP.EXE, then renamed back to the original file name as required.\page\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+Appendix A.\par
+\par
+P?S/8 PAL Error Messages.\par
+\par
+Error\tab Meaning\par
+\par
+BE\tab\tab Current page literal \highlight1 B\highlight0 uffer \highlight1 E\highlight0 xceeded.  Only 63 current page \tab\tab literals are allowed per page.\par
+\par
+BO\tab\tab\highlight1 B\highlight0 inary output \highlight1 O\highlight0 verflow.  Insufficent binary output files \tab\tab\tab passed to complete the assembly.\par
+\par
+CO\tab\tab\highlight1 CO\highlight0 nditional assembly syntax error or nested \highlight1 <\highlight0  or \highlight1 >\highlight0   count \tab\tab\tab problem.\par
+\par
+DT\tab\tab\highlight1 D\highlight0 uplicate \highlight1 T\highlight0 ag error.  An attempt was made to modify an \tab\tab\tab existing symbol value using \highlight1 ,\highlight0 .\par
+\par
+ER\tab\tab User generated \highlight1 ER\highlight0 ror.  The program includes internal logical \tab\tab safeguards that were violated.  See Note 1.\par
+\par
+FI\tab\tab\highlight1 FI\highlight0 xmri error.  An attempt was made to improperly define an \tab\tab\tab MRI type symbol or redefine a permanent symbol.\par
+\par
+IC\tab\tab\highlight1 I\highlight0 llegal \highlight1 C\highlight0 haracter error.  Possibly \highlight1 [\highlight0  or \highlight1 (\highlight0  usage without \tab\tab\tab enabling literals.\par
+\par
+IE\tab\tab\highlight1 I\highlight0 llegal \highlight1 E\highlight0 xpression error.  The latest statement is \tab\tab\tab\tab syntactically malformed.\par
+\par
+II\tab\tab\highlight1 I\highlight0 llegal \highlight1 I\highlight0 ndirect error.  The designated pointer is not \tab\tab\tab located on the current page or page zero.\par
+\par
+IM\tab\tab\highlight1 I\highlight0 nsufficient \highlight1 M\highlight0 emory to load the symbol table.  This may be \tab\tab\tab remedied by using the /C option switch.\par
+\par
+IP\tab\tab\highlight1 I\highlight0 llegal \highlight1 P\highlight0 seudo-op [directive] redefinition attempt.  All \tab\tab\tab directives are permanent symbols and cannot be redefined.\par
+\par
+IR\tab\tab\highlight1 I\highlight0 llegal \highlight1 R\highlight0 eference to an inaddressable memory location by a \tab\tab\tab direct reference instruction [instead of a pointer address].\par
+\par
+LG\tab\tab Unsuppresed \highlight1 L\highlight0 ink \highlight1 G\highlight0 enerated error with link generation \tab\tab\tab\tab enabled.  The generated link will also be flagged.\par
+\par
+NE\tab\tab\highlight1 N\highlight0 ull \highlight1 E\highlight0 xpression within a literal reference.  The expression \tab\tab must contain at least one term.\par
+\par
+NU\tab\tab\highlight1 NU\highlight0 merical data error.  This is usually an attempt to use \highlight1 8\highlight0  \tab\tab\tab or \highlight1 9\highlight0  when the prevailing radix is octal.\page\cf1\f1 Appendix A [continued].\par
+\cf0\f2\par
+PA\tab\tab\highlight1 PA\highlight0 use message.  A programmed value associated with this \tab\tab\tab message is displayed.  See Note 2.\par
+\par
+PE\tab\tab\highlight1 P\highlight0 age \highlight1 E\highlight0 xceeded.  The code on a current overlaps the literal \tab\tab\tab table.  The literal table [or program] must be made smaller.\par
+\par
+PH\tab\tab Conditional assembly \highlight1 PH\highlight0 ase error.  The assembly terminated \tab\tab\tab with an open failing conditional assembly statement.\par
+\par
+PO\tab\tab\highlight1 P\highlight0 ushdown list \highlight1 O\highlight0 verflow.  The latest expression is too \tab\tab\tab\tab complex; simplify the code using a series of smaller steps.\par
+\par
+ST\tab\tab\highlight1 S\highlight0 ymbol \highlight1 T\highlight0 able exceeded.  More memory is required [or use less \tab\tab modular assembly options].\par
+\par
+SY\tab\tab Miscellaneous \highlight1 SY\highlight0 ntax error.  The error doesn't fall into any \tab\tab of the other reported categories.\par
+\par
+UF\tab\tab\highlight1 U\highlight0 ndefined \highlight1 F\highlight0 ield error.  The argument to a FIELD directive is \tab\tab undefined.\par
+\par
+UO\tab\tab\highlight1 U\highlight0 ndefined \highlight1 O\highlight0 rigin error.  The argument to an origin setting \tab\tab\tab using \highlight1 *\highlight0  is undefined.\par
+\par
+US\tab\tab\highlight1 U\highlight0 ndefined \highlight1 S\highlight0 ymbol error.  A symbol was referenced that was \tab\tab\tab never defined by the end of pass one of the assembly.\par
+\par
+ZE\tab\tab Page \highlight1 Z\highlight0 ero \highlight1 E\highlight0 xceeded.  Page zero code overlaps the literal \tab\tab\tab table; the program or literal table must be made smaller.\par
+\par
+Notes.\par
+\par
+1)\tab\tab Well-written programs include internal safeguards to prevent \tab\tab scenarios that violate obscure nuanced details of the \tab\tab\tab\tab program such as requiring a particular symbol to be \tab\tab\tab\tab maintained within a narrow address range [or at a particular \tab\tab location in memory].  Analysis of the error message report \tab\tab\tab may help the maintenance programmer determine what \tab\tab\tab\tab programming blunder was committed.\par
+\par
+2)\tab\tab The PAuse message is not an error.  Well- developed programs \tab\tab occasionally include reports during the assembly for a \tab\tab\tab variety of purposes, including providing additional \tab\tab\tab\tab information about an error condition signaled by \tab the ERROR \tab\tab directive.  Extremely long source files may \tab include the \tab\tab\tab PAUSE directive to report when an assembly pass \tab starts [or \tab\tab finishes].\par
+\par
+End of Appendix A.\page\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+Appendix B.\par
+\par
+P?S/8 PAL Directives.\par
+\par
+ASMIFM \i expression\i0\par
+\par
+\tab\tab The ASMIFM directive is one of the conditional assembly \tab\tab\tab features of the extended PAL language.  See Note 1.\par
+\par
+\tab\tab The specified \i expression\i0  is evaluated.  If the result is \tab\tab\tab negative, the next line is assembled.  If the result is \tab\tab\tab positive, the next line is ignored.\par
+\par
+\tab\tab ASMIFM\tab A-B\tab\tab\tab /COMPARE A TO B.\par
+\tab\tab D=3\tab\tab\tab\tab\tab /SET D TO 0003.\par
+\par
+\tab\tab The next line may be blank or consist of comments only \tab\tab\tab rendering the conditional moot.  During the early \tab\tab\tab\tab development of a program, this may deliberately be done to \tab\tab\tab force a specific outcome.\par
+\par
+\tab\tab Note: If additional statements are on the same line as the \tab\tab\tab ASMIFM directive [using \highlight1 ;\highlight0  to separate the statements] and \tab\tab\tab the conditional test fails, the additional statements are \tab\tab\tab also ignored.\par
+\par
+ASMIFN \i expression\i0\par
+\par
+\tab\tab The ASMIFN directive is one of the conditional assembly \tab\tab\tab features of the extended PAL language.  See Note 1.\par
+\par
+\tab\tab The specified \i expression\i0  is evaluated.  If the result is \tab\tab\tab non-zero, the next line is assembled.  If the result is \tab\tab\tab zero, the next line is ignored.\par
+\par
+\tab\tab ASMIFN\tab A-B\tab\tab\tab /COMPARE A TO B.\par
+\tab\tab D=3\tab\tab\tab\tab\tab /SET D TO 0003.\par
+\par
+\tab\tab The next line may be blank or consist of comments only \tab\tab\tab rendering the conditional moot.  During the early \tab\tab\tab\tab development of a program, this may deliberately be done to \tab\tab\tab force a specific outcome.\par
+\par
+\tab\tab Note: If additional statements are on the same line as the \tab\tab\tab ASMIFN directive [using \highlight1 ;\highlight0  to separate the statements] and \tab\tab\tab the conditional test fails, the additional statements are \tab\tab\tab also ignored.\page\cf3 Appendix B [continued].\par
+\cf0\par
+ASMIFZ \i expression\i0\par
+\par
+\tab\tab The ASMIFZ directive is one of the conditional assembly \tab\tab\tab features of the extended PAL language.  See Note 1.\par
+\par
+\tab\tab The specified \i expression\i0  is evaluated.  If the result is \tab\tab\tab zero, the next line is assembled.  If the result is \tab\tab\tab\tab non-zero, the next line is ignored.\par
+\par
+\tab\tab ASMIFZ\tab A-B\tab\tab\tab /COMPARE A TO B.\par
+\tab\tab D=3\tab\tab\tab\tab\tab /SET D TO 0003.\par
+\par
+\tab\tab The next line may be blank or consist of comments only \tab\tab\tab rendering the conditional moot.  During the early \tab\tab\tab\tab development of a program, this may deliberately be done to \tab\tab\tab force a specific outcome.\par
+\par
+\tab\tab Note: If additional statements are on the same line as the \tab\tab\tab ASMIFZ directive [using \highlight1 ;\highlight0  to separate the statements] and \tab\tab\tab the conditional test fails, the additional statements are \tab\tab\tab also ignored.\par
+\par
+ASMSKP \i expression\i0\par
+\par
+\tab\tab The ASMSKP directive is one of the conditional assembly \tab\tab\tab features of the extended PAL language.  See Note 1.\par
+\par
+\tab\tab The specified \i expression\i0  is evaluated as an unsigned 12-bit \tab\tab integer value.  The next \i expression\i0  value lines of the \tab\tab\tab source code are ignored.\par
+\par
+\tab\tab ASMSKP\tab 3\tab\tab\tab /SKIP THE NEXT THREE LINES.\par
+\tab\tab HLT\tab\tab\tab\tab\tab /THIS IS IGNORED!\par
+\tab\tab JMP\tab\tab .+3\tab\tab\tab /THIS IS ALSO IGNORED!\par
+\tab\tab /\tab\tab\tab\tab\tab IGNORED AND ALSO A COMMENT!\par
+\par
+\tab\tab If the \i expression\i0  evaluates to zero, all lines following the \tab\tab ASMSKP directive will be assembled.  If the \i expression\i0  \tab\tab\tab evaluates to a non-zero value and additional statments are \tab\tab\tab on the same line as the ASMSKP directive [using \highlight1 ;\highlight0  to \tab\tab\tab\tab separate the statements], the additional statements are also \tab\tab ignored.\par
+\par
+\tab\tab Note: The need for the ASMSKP directive comes about because \tab\tab of the complex nature of conditional assembly using the \tab\tab\tab provided directives [certain logical expressions might \tab\tab\tab require the use of multiple conditionals].  Unfortunely, \tab\tab\tab since the ASMSKP directive does not work with any form of\tab\tab\tab delimiter mechanism, the programmer must carefully count the \tab\tab lines expected to be skipped; changes to the program source \tab\tab can cause unexpected results.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+CONSOL\{E\}\par
+\par
+\tab\tab The front panel switches are read during the assembly.\par
+\par
+\tab\tab The CONSOL\{E\} directive returns the contents of the front \tab\tab\tab panel switches to allow storage of the value into an \tab\tab\tab\tab assembly-time symbol:\par
+\par
+\tab\tab SW=\tab CONSOL\tab\tab /STORE CONSOLE SWITCHES IN SW.\par
+\par
+\tab\tab Conditional assembly can use the front panel switch register \tab\tab value for a variety of purposes as determined by the \tab\tab\tab\tab programmer.\par
+\par
+DATE\par
+\par
+\tab\tab The DATE directive returns the low-order 12-bits of the \tab\tab\tab current system date to allow storage of the value into an \tab\tab\tab assembly-time symbol:\par
+\par
+\tab\tab CURDAY=   DATE\tab\tab /STORE THE DATE IN CURDAY.\par
+\par
+\tab\tab Conditional assembly can use the date for a variety of \tab\tab\tab purposes including creating a current version of the \tab\tab\tab\tab program.\par
+\par
+\tab\tab Note: Future releases of P?S/8 PAL will likely include the \tab\tab\tab DATEHI directive to obtain the high-order six bits of the \tab\tab\tab full current system date.  The two values can be combined to \tab\tab form the complete date [in the range of 01-JAN-1900 through \tab\tab 31-DEC-2411].\par
+\par
+DECIMA\{L\}\par
+\par
+\tab\tab The internal radix for mathematical expressions is set to \tab\tab\tab DECIMA\{L\}; the default radix is OCTAL.\par
+\par
+DEVICE\par
+\par
+\tab\tab The DEVICE directive takes a four-character string argument. \tab\tab It is used to form the device-name string used to reference \tab\tab P?S/8 non-system device handlers and OS/8 device handlers:\par
+\par
+\tab\tab DEVICE    DTA1\tab\tab /REFERENCE TO DTA1:\par
+\par
+\tab\tab The DEVICE directive creates two 12-bit words containing the \tab\tab packed six-bit ASCII text characters of the argument.  In \tab\tab\tab the example given, the output would consist of 0424 followed \tab\tab by 0161.\par
+\par
+\tab\tab Note: The DEVICE directive is not affected by the setting of \tab\tab the /J option switch.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+DTORG \i expression\i0\par
+\par
+\tab\tab The DTORG directive is intended to provide target storage \tab\tab\tab block number information when generating operating system \tab\tab\tab components in systems such as Typeset-8.  See Notes 1, 2 and \tab\tab 3.\par
+\par
+\tab\tab The \i expression\i0  is evaluated as a 12-bit unsigned integer to \tab\tab designate a target storage block on a device such as \tab\tab\tab\tab TC01/TC08/TU55/TU56 DECtape.\par
+\par
+\tab\tab Note: The implementation of the DTORG is extremely \tab\tab\tab\tab problematic; see section 12 of this document for more \tab\tab\tab\tab information.\par
+\par
+EJECT \i optional-string-value\cf1\i0\par
+\par
+\tab\tab\cf0 The EJECT directive causes assembler listing output to \tab\tab\tab advance to the next page.\par
+\par
+\tab\tab If used with the \i optional-string-value\i0 , the title on the \tab\tab\tab next page is set to the \i optional-string-value\i0  text [subject \tab\tab to truncation].\par
+\par
+\tab\tab Note: Statements containing the EJECT directive are not \tab\tab\tab shown in the assembler listing output.\par
+\par
+ENBITS\par
+\par
+\tab\tab The ENBITS directive is used in TOPS-10 PAL10 to enable the \tab\tab bitmap of the latest memory field when either a new FIELD \tab\tab\tab directive is used or the end of the assembly.  This feature \tab\tab is not implemented in any other PAL assembler; the ENBITS \tab\tab\tab directive is provided for compatibility purposes only.  See \tab\tab Note 2.\par
+\par
+ENDBIN\par
+\par
+\tab\tab The ENDBIN directive closes the current binary file.  \tab\tab\tab\tab Additional binary output [if any] will be stored in the next \tab\tab binary output file.\par
+\par
+\tab\tab The ENDBIN directive is ignored if binary output generation \tab\tab is not enabled in the overall assembly.\par
+\par
+\tab\tab The ENDBIN directive is useful when creating optional \tab\tab\tab\tab program segments from a master assembly file to be loaded\tab\tab  \tab separately.  It is supported primarily for compatibility \tab\tab\tab with the paper-tape system assembler PAL III.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+ENPUNC\{H\}\par
+\par
+\tab\tab Binary output generation may have been turned off; the \tab\tab\tab ENPUNC\{H\} directive [re-]enables binary output generation.\par
+\par
+  \tab\tab The ENPUNC\{H\} directive is ignored if binary output \tab\tab\tab\tab generation is not enabled in the overall assembly.  See Note \tab\tab 4.\par
+\par
+ERROR \i optional-numeric-expression\i0\par
+\par
+\tab\tab The ERROR directive causes a deliberate error and error \tab\tab\tab message which will prevent automatic chaining to P?S/8 BIN.  \par
+\par
+\tab\tab Well developed PDP-8 programs may contain safeguards to \tab\tab\tab prevent undesirable scenarios such as having a definition \tab\tab\tab fall out of a required narrow range of addresses [or in some \tab\tab cases a unique required value].  This will help future \tab\tab\tab program maintainers from making logical blunders.\par
+\par
+  \tab\tab The value of the \i optional-numeric-expression\i0  will be \tab\tab\tab\tab displayed as part of the error message to help pinpoint the \tab\tab problem:\par
+\par
+\tab\tab *7\par
+\par
+LOCTM1,\tab .-.\tab\tab\tab\tab\tab /TEMPORARY STORAGE.\par
+LOCTM2,\tab .-.\tab\tab\tab\tab\tab /ANOTHER TEMPORARY [WRONG PLACE!]\par
+\par
+\tab\tab AUTOXR=\tab .\tab\tab\tab /THIS IS WRONG! SHOULD BE 0010.\par
+\par
+\tab\tab MYPTR=    AUTOXR+7\tab\tab /USED AS AN AUTO-INDEX REGISTER.\par
+\par
+\tab\tab IFNZRO    MYPTR&7770-10\tab <ERROR MYPTR>\par
+\par
+\tab\tab The value of MYPTR is 0020 instead of staying within the \tab\tab\tab required range of 0010 through 0017; as such, it is not \tab\tab\tab capable of being used as an auto-index register as the \tab\tab\tab program logic demands.  Hopefully, the error message\par
+\tab\tab\highlight1 ER  0020  AT LOCTM2+0001 (0011)\highlight0  [where 0011 is the current \tab\tab\tab location counter of the assembly in this example], is \tab\tab\tab\tab sufficient to aid the maintenance programmer in correcting \tab\tab\tab the mistake.  [The LOCTM2 location is inappropriately placed \tab\tab in the auto-index register area ruining the program logic. \tab\tab\tab By moving LOCTM2 to another area of page-zero memory, the \tab\tab\tab problem is eliminated; program reassembly will not trigger \tab\tab\tab the error-detection safeguard.]\par
+\par
+\tab\tab Note: If the \i optional-numeric-expression\i0  is not used, the \tab\tab\tab error message will output \highlight1 ER  0000\highlight0 .\page\cf3 Appendix B [continued].\par
+\par
+\cf0 EXPUNG\{E\}\par
+\par
+\tab\tab The EXPUNG\{E\} directive is used to clear the entire symbol \tab\tab\tab table at the start of an assembly.\par
+\par
+\tab\tab All permanent symbols are removed [except directives].  The \tab\tab program must define all symbols used [including MRI symbols \tab\tab using the FIXMRI directive].\cf1\f1\par
+\cf0\f2\par
+\tab\tab By deleting the internal symbol table, it is possible \tab\tab\tab\tab certain programs may be capable of assembly on small memory \tab\tab configurations.\par
+\par
+\tab\tab Note: The source code of P?S/8 PAL performs an EXPUNG\{E\} at \tab\tab the beginning of the assembly; P?S/8 PAL supports many \tab\tab\tab symbols not ordinarily found in many assemblers [such as IOT \tab\tab instructions for several peripherals and PDP-8/E EAE].\par
+\par
+FIELD \i optional-numeric-expression\i0\par
+\par
+\tab\tab The FIELD directive is used to set a designated memory field \tab\tab for binary loading of statements that follow.  If the \tab\tab\tab\tab\i optional-numeric-expression\i0  is present, it is evaluated to \tab\tab\tab set the desired field; if there is no argument, the next \tab\tab\tab memory field is selected.\par
+\par
+\tab\tab When a FIELD directive is used, all open literal pools are \tab\tab\tab output and reset to default values.  If the /0 option switch \tab\tab is set, an automatic *200 will also be generated overriding \tab\tab the previous value of the current location counter.\par
+\par
+\tab\tab Note: Memory fields up to a maximum of 256K are supported \tab\tab\tab for compatibility with the KT8A option; however, all \tab\tab\tab\tab standard binary loaders can only load binary generated in \tab\tab\tab the normal 32K address space [field 0 through field 7].  \tab\tab\tab Future releases of P?S/8 may include a KT8A-specific loader \tab\tab that will require the optional hardware to operate.\par
+\par
+FILENA\{ME\}\par
+\par
+\tab\tab The FILENA\{ME\} directive is used to create a four word text \tab\tab string consisting of an OS/8 six-character file name and a \tab\tab\tab two-character file extension:\par
+\par
+\tab\tab FILENAME  FOOBAR.PA\tab /STATIC FILE NAME STRING.\par
+\par
+\tab\tab The FILENA\{ME\} directive creates four 12-bit words \tab\tab\tab\tab containing the packed six-bit ASCII text characters of the \tab\tab\tab argument.  In the example given, the output would consist of \tab\tab 0617, 1702, 0122 and 2001.\page\cf3 Appendix B [continued].\par
+\cf0\par
+\tab\tab P?S/8 supports the FILENA\{ME\} directive for compatibility \tab\tab\tab with OS/8 PAL8.  Future P?S/8 systems will support the P?s/8 \tab\tab SHELL with an extended assembler based on P?S/8 PAL to be \tab\tab\tab known as XPAL.  XPAL will support an option to extend the \tab\tab\tab FILENA\{ME\} directive to support SHELL directory file names.\par
+\par
+\tab\tab Note: The FILENA\{ME\} directive is not affected by the \tab\tab\tab\tab setting of the /J option switch.\cf1\f1\par
+\cf0\f2\par
+FIXMRI\par
+\par
+\tab\tab The FIXMRI directive is used to modify a standard equate \tab\tab\tab statement so the assembler treats the symbol as a Memory \tab\tab\tab Reference Instruction [MRI].  MRI symbols modify the \tab\tab\tab\tab expression evaluation so that the PDP-8 addressing rules are \tab\tab applied instead of simple inclusive OR [.IOR] logic which is \tab\tab the default method of expression evaluation:\par
+\par
+\tab\tab FIXMRI    INC=\tab 2000\tab\tab\tab /ISZ PRESUMED TO NEVER SKIP.\par
+\par
+\tab\tab The FIXMRI directive is also used to define floating-point \tab\tab\tab pseudo-instructions that generally follow the MRI addressing \tab\tab rules as part of several software floating-point packages.\par
+\par
+\tab\tab When the EXPUNG\{E\} directive is used, FIXMRI is needed to \tab\tab\tab redefine the standard symbols that are MRI type [such as \tab\tab\tab TAD, DCA, etc.].\par
+\par
+FIXTAB\par
+\par
+\tab\tab The FIXTAB directive is used after certain symbols are \tab\tab\tab defined that the programmer desires to be treated as \tab\tab\tab\tab permanent symbols.  All such initialization should occur at \tab\tab the start of the assembly to establish the permanent symbol \tab\tab table [perhaps after an EXPUNG\{E\} directive].\par
+\par
+\tab\tab All permanent symbols will not be included in the cross-\tab\tab\tab reference output [if the /X option switch is in effect] or \tab\tab\tab the symbol table printout at the end of the assembly [if the \tab\tab /S option switch is in effect] unless the /A option switch \tab\tab\tab is also set.\par
+\par
+I\par
+\par
+\tab\tab The I directive is used in all PDP-8 MRI statements \tab\tab\tab\tab involving indirect references.  This forces bit[3] to be set \tab\tab so the generated instruction conforms to the PDP-8 \tab\tab\tab\tab addressing rules [after the evaluated expression is adjusted \tab\tab according to the MRI addressing rules in effect] for \tab\tab\tab\tab indirect addressing.  See Note 5.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+IFDEF \i symbol-name\i0  \highlight1 <\highlight0\i statements\highlight1\i0 >\highlight0\par
+\par
+\tab\tab The IFDEF directive is one of the conditional assembly \tab\tab\tab features of the PAL language.\par
+\par
+\tab\tab The symbol table is searched for the specified \i symbol-name\i0 .  \tab\tab If the symbol is present and defined, the \i statements\i0  \tab\tab\tab\tab contained within the \highlight1 <\highlight0  and \highlight1 >\highlight0  are assembled.  If the symbol \tab\tab\tab is either not present or not defined at that point in the \tab\tab\tab assembly, the \i statements\i0  contained within the \highlight1 <\highlight0  and \highlight1 >\highlight0  are \tab\tab\tab ignored.\par
+\par
+\tab\tab The \i statements\i0  can span an indefinite number of lines of \tab\tab\tab source code as necessary.  Conditionals are occasionally \tab\tab\tab used within other conditionals in a "nested" manner.  The \tab\tab\tab count of  \highlight1 <\highlight0  and \highlight1 >\highlight0  must be carefully maintained to achieve an \tab\tab error-free assembly.\par
+\par
+\tab\tab Note: The contents of comments are scanned for \highlight1 <\highlight0  and \highlight1 >\highlight0  when \tab\tab conditional assembly is in effect.\par
+\par
+\tab\tab The IFDEF directive is often used to include other symbols \tab\tab\tab or data into an assembly if relevant:\par
+\par
+\tab\tab IFDEF     DECTAPE   <WC=\tab 7754>\tab /DEFINE WORD COUNT.\par
+\par
+\tab\tab Note: Unlike ordinary references to symbols, attempting to \tab\tab\tab locate an undefined symbol does not cause an error.\par
+\par
+IFNDEF \i symbol-name\i0  \highlight1 <\highlight0\i statements\highlight1\i0 >\highlight0\par
+\par
+  \tab\tab The IFNDEF directive is one of the conditional assembly \tab\tab\tab features of the PAL language.\par
+\par
+\tab\tab The symbol table is searched for the specified \i symbol-name\i0 .  \tab\tab If the symbol not present, the \i statements\i0  contained within \tab\tab\tab the \highlight1 <\highlight0  and \highlight1 >\highlight0  are assembled.  If the symbol is present and \tab\tab\tab defined at that point in the assembly, the \i statements\i0  \tab\tab\tab\tab contained within the \highlight1 <\highlight0  and \highlight1 >\highlight0  are ignored.\par
+\par
+\tab\tab The \i statements\i0  can span an indefinite number of lines of \tab\tab\tab source code as necessary.  Conditionals are occasionally \tab\tab\tab used within other conditionals in a "nested" manner.  The \tab\tab\tab count of  \highlight1 <\highlight0  and \highlight1 >\highlight0  must be carefully maintained to achieve an \tab\tab error-free assembly.\par
+\par
+\tab\tab Note: The contents of comments are scanned for \highlight1 <\highlight0  and \highlight1 >\highlight0  when \tab\tab conditional assembly is in effect.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+\tab\tab The IFNDEF directive is often used to initialize a symbol \tab\tab\tab default value:\par
+\par
+\tab\tab IFNDEF    NEWDATA   <NEWDATA=1>\tab /GET NEW DATA.\par
+\par
+\tab\tab In the example above, the conditional statement is assembled \tab\tab during pass one of the assembly.  During pass two the \tab\tab\tab\tab statement is ignored because the symbol is defined.\par
+\par
+\tab\tab Note: Unlike ordinary references to symbols, attempting to \tab\tab\tab locate an undefined symbol does not cause an error.\par
+\par
+IFNZRO \i expression\i0  \highlight1 <\highlight0\i statements\highlight1\i0 >\highlight0\par
+\cf1\par
+\cf0   \tab\tab The IFNZRO directive is one of the conditional assembly \tab\tab\tab features of the PAL language.\par
+\par
+\tab\tab The specified \i expression\i0  is evaluated.  If the result is \tab\tab\tab non-zero, the \i statements\i0  contained within the \highlight1 <\highlight0  and \highlight1 >\highlight0  are \tab\tab\tab assembled.  If the result is zero, the \i statements\i0  contained \tab\tab within the \highlight1 <\highlight0  and \highlight1 >\highlight0  are ignored.\par
+\par
+\tab\tab The \i statements\i0  can span an indefinite number of lines of \tab\tab\tab source code as necessary.  Conditionals are occasionally \tab\tab\tab used within other conditionals in a "nested" manner.  The \tab\tab\tab count of  \highlight1 <\highlight0  and \highlight1 >\highlight0  must be carefully maintained to achieve an \tab\tab error-free assembly.\par
+\par
+\tab\tab Note: The contents of comments are scanned for \highlight1 <\highlight0  and \highlight1 >\highlight0  when \tab\tab conditional assembly is in effect.\par
+\par
+\tab\tab The IFNZRO directive is often used to check an assembly \tab\tab\tab parameter range:\par
+\par
+\tab\tab AUTOXR=   11\tab\tab\tab /THIS IS WRONG!  SHOULD BE 0010.\par
+\par
+\tab\tab MYPTR=    AUTOXR+7\tab\tab /USED AS AN AUTO-INDEX REGISTER.\par
+\par
+\tab\tab IFNZRO    MYPTR&7770-10\tab <ERROR MYPTR>\par
+\par
+\tab\tab In the example above, the range of MYPTR must be between \tab\tab\tab 0010 and 0017.  If this is not correct, an error message is \tab\tab issued.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+IFZERO \i expression\i0  \highlight1 <\highlight0\i statements\highlight1\i0 >\highlight0\par
+\cf1\par
+\cf0   \tab\tab The IFZERO directive is one of the conditional assembly \tab\tab\tab features of the PAL language.\par
+\par
+\tab\tab The specified \i expression\i0  is evaluated.  If the result is \tab\tab\tab zero, the \i statements\i0  contained within the \highlight1 <\highlight0  and \highlight1 >\highlight0  are \tab\tab\tab\tab assembled.  If the result is non-zero, the \i statements\i0  \tab\tab\tab\tab contained within the \highlight1 <\highlight0  and \highlight1 >\highlight0  are ignored.\par
+\par
+\tab\tab The \i statements\i0  can span an indefinite number of lines of \tab\tab\tab source code as necessary.  Conditionals are occasionally \tab\tab\tab used within other conditionals in a "nested" manner.  The \tab\tab\tab count of  \highlight1 <\highlight0  and \highlight1 >\highlight0  must be carefully maintained to achieve an \tab\tab error-free assembly.\par
+\par
+\tab\tab Note: The contents of comments are scanned for \highlight1 <\highlight0  and \highlight1 >\highlight0  when \tab\tab conditional assembly is in effect.\par
+\par
+\tab\tab The IFZERO directive is often used to create assembler \tab\tab\tab default values:\par
+\par
+\tab\tab IFZERO    OURFLD   <\par
+\par
+\tab\tab BUFFER=   4000\tab\tab\tab /USE FIELD 0 VALUE.>\par
+\par
+\tab\tab IFZERO\tab OURFLD-1 <\par
+\par
+\tab\tab BUFFER=   6000\tab\tab\tab /USE FIELD 1 VALUE.>\par
+\par
+\tab\tab In the example above, a parameter must be set to a value \tab\tab\tab consistent with an overall assembly parameter that can have \tab\tab multiple values.\par
+\par
+LMODE\par
+\par
+\tab\tab The LMODE directive is provided in the dual mode assembly \tab\tab\tab module to enable LINC mode addressing and certain symbols \tab\tab\tab unique to LINC mode.  See Note 1.\par
+\par
+NOBITS\par
+\par
+\tab\tab The NOBITS directive is used in TOPS-10 PAL10 to disable the \tab\tab bitmap of the latest memory field when either a new FIELD \tab\tab\tab directive is used or the end of the assembly.  This feature \tab\tab is not implemented in any other PAL assembler; the NOBITS \tab\tab\tab directive is provided for compatibility purposes only.  See \tab\tab Note 2.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+NOPUNC\{H\}\par
+\par
+\tab\tab The NOPUNC\{H\} directive [temporarily] turns off binary \tab\tab\tab output generation during the assembly without affecting the \tab\tab assembler's current location counter.\par
+\par
+  \tab\tab The NOPUNC\{H\} directive is ignored if binary output \tab\tab\tab\tab generation is not enabled in the overall assembly.  See Note \tab\tab 4.\par
+\par
+OCTAL\par
+\par
+\tab\tab The internal radix for mathematical expressions is set to \tab\tab\tab OCTAL.  While the default radix is OCTAL, an earlier section \tab\tab of the source file may have changed the radix to DECIMA\{L\}.  \tab\tab Any programming section where the current radix is in doubt \tab\tab should include a usage of the OCTAL directive.\par
+\par
+PAGE \i optional-numeric-expression\i0\par
+\par
+\tab\tab The PAGE directive is used to set an origin setting at the \tab\tab\tab lowest location on a PDP-8 memory page for binary loading of \tab\tab statements that follow.  If the \i optional-numeric-expression\i0  \tab\tab is present, it is evaluated to set the desired page; if \tab\tab\tab there is no argument, the next memory page is selected.\par
+\par
+\tab\tab Selecting a new page will cause the output of the \tab\tab\tab\tab literal table of the previous page in effect.\par
+\par
+\tab\tab Note: The default origin of any assembly is 0200; this is \tab\tab\tab equivalent to using the PAGE 1 directive.\par
+\par
+PAUSE \i optional-numeric-expression\i0\par
+\par
+\tab\tab The PAUSE directive has two different usages:\par
+\par
+\tab\tab When used without the \i optional-numeric-expression\i0 , the PAUSE \tab\tab directive indicates the rest of the latest input file will \tab\tab\tab be ignored.  This usage of the PAUSE directive is provided \tab\tab\tab for compatibility with the paper-tape operating system PAL \tab\tab\tab III assembler.\par
+\par
+\tab\tab When used with the \i optional-numeric-expression\i0 , a PAUSE \tab\tab\tab message is displayed during each pass of the assembly.  This \tab\tab is a user-defined function and is not an error message per \tab\tab\tab se [although the programmer can define values to specific \tab\tab\tab messages to describe some internal situation].\par
+\par
+  \tab\tab When developing extremely long programs, programmers \tab\tab\tab\tab may use the PAUSE directive to signal the program section \tab\tab\tab being processed and/or the start [or end] of each assembly \tab\tab\tab pass.  For more information see Section 3 of this document.\page\cf3 Appendix B [continued].\cf1\f1\par
+\par
+\cf0\f2 PMODE\par
+\par
+\tab\tab The PMODE directive is provided in the dual mode assembly \tab\tab\tab module to enable PDP-8 mode addressing and certain symbols \tab\tab\tab unique to PDP-8 mode.  See Note 1.\par
+\par
+PQS\par
+\par
+\tab\tab The PQS directive is a unique feature of P?S/8 PAL.  It can \tab\tab be used in conditional assembly statements to allow special-\tab\tab purpose programming only supported by P?S/8 PAL; alternate \tab\tab\tab statements can attempt to provide compatibility with other \tab\tab\tab assemblers.  Unfortunately, certain powerful features of\par
+\tab\tab P?S/8 PAL are not available in other assemblers; crude \tab\tab\tab alternatives have been used to provide a functional, albeit \tab\tab inferior, result.\par
+\par
+\tab\tab Features of P?S/8 PAL such as conditional literals have been \tab\tab instrumental in implementing several very large programs; \tab\tab\tab conditional assembly has been used to provide inferior \tab\tab\tab support of statically-determined page zero literals through \tab\tab the use of manual optimization at some point in the \tab\tab\tab\tab development.  However, as additional development is \tab\tab\tab\tab performed, the static manual optimization tends to drift \tab\tab\tab while assembly with P?S/8 is always current.  Only \tab\tab\tab\tab additional manual optimization can sync up the relevant \tab\tab\tab changes.  As such, the PQS directive has been used \tab\tab\tab\tab extensively to allow OS/8 PAL8 to replicate the latest \tab\tab\tab static optimization until further development with P?S/8 can \tab\tab be performed.\par
+\par
+\tab\tab Note: The forthcoming P?S/8 SHELL will include a more \tab\tab\tab\tab advanced assembler partially based on P?S/8 PAL tentatively \tab\tab to be known as XPAL.  P?S/8 SHELL XPAL will also support the \tab\tab PQS directive; however, since XPAL will be a more \tab\tab\tab\tab comprehensive assembler, a companion PQSX directive will be \tab\tab implemented.  This will allow programmers to take advantage \tab\tab of the advanced features of both assemblers.\par
+\par
+RELOC \i optional-numeric-expression\i0\par
+\par
+\tab\tab The RELOC directive performs much of the functionality of \tab\tab\tab the NOPUNC\{H\} and ENPUNC\{H\} directives in a more compact and \tab\tab elegant form.  The \i optional-numeric-expression\i0  is evaluated \tab\tab to form a relocation factor that sets up an offset between \tab\tab\tab the assembler's current location counter and the binary \tab\tab\tab output origin.\par
+\par
+\tab\tab Since the relocation factor is applied to all binary output, \tab\tab the RELOC directive can be used with literals.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+\tab\tab Additional usage of the RELOC directive with the\par
+\i\tab\tab optional-numeric-expression\i0  causes cumulative relocation, \tab\tab\tab which can be useful in certain obscure situations.  The \tab\tab\tab RELOC directive used without the \i optional-numeric-expression\i0  \tab\tab resets the relocation factor to zero.\par
+\par
+\tab\tab Note: While OS/8 PAL8 is the only other assembler that \tab\tab\tab supports the RELOC directive, there are certain differences:\par
+\par
+\tab\tab a)\tab OS/8 PAL8 flags statements detected as \i apparently\i0\tab\tab\tab\tab\tab relocated with \highlight1 *\highlight0 .  P?S/8 PAL flags statements in a \tab\tab\tab\tab similar manner, but only if relocation is actually in \tab\tab\tab\tab effect.\par
+\par
+\tab\tab\tab If a statement of the form\par
+\par
+\tab\tab\tab RELOC .\par
+\par
+\tab\tab\tab is used in the source program, relocation is reset to \tab\tab\tab\tab zero; however, OS/8 PAL8 will only cancel the \tab\tab\tab\tab\tab statement relocation flag when the RELOC directive is \tab\tab\tab\tab used without the \i optional-numeric-expression\i0 .\par
+\par
+\tab\tab b)\tab OS/8 PAL8 does not flag statements that are relocated \tab\tab\tab\tab by the use of the NOPUNC\{H\} and ENPUNC\{H\} directives.\par
+\par
+\tab\tab\tab P?S/8 PAL outputs the \highlight1 *\highlight0  on all statements actually \tab\tab\tab\tab relocated regardles of method of relocation.\par
+\par
+\tab\tab Note: Certain advanced programming methods include the \tab\tab\tab simultaneous usage of the NOPUNC\{H\} and ENPUNC\{H\} directives \tab\tab and the RELOC directive; this is necessary when there are \tab\tab\tab several independent aspects of relocation in affect at the \tab\tab\tab same time.\par
+\par
+SEGMNT \i optional-numeric-expression\i0\par
+\par
+\tab\tab The SEGMNT directive is used to set the field and origin \tab\tab\tab setting to the quarter memory field segment specified by the \tab\tab\i optional-numeric-expression\i0  in the range of 00 [field 0, \tab\tab\tab location 0000] through 37 [field 7,location 6000] as \tab\tab\tab\tab required by the LINC architecture of the LINC-8 and PDP-12.\par
+\par
+\tab\tab If the \i optional-numeric-expression\i0  is present, it is \tab\tab\tab\tab evaluated to set the desired segment; if there is no \tab\tab\tab\tab argument, the next memory segment is selected\par
+\par
+\tab\tab Note: Segment 2 is the default value for LINC mode assembly \tab\tab followed by an origin of 0020 (04020).  This is equivalent \tab\tab\tab to SEGMNT 2 followed by *20 [in LINC mode, addresses are \tab\tab\tab specified within a segment].  See Note 1.\page\cf3 Appendix B [continued].\cf0\par
+\par
+SIXBIT \i text-string\i0\par
+\par
+\tab\tab The SIXBIT directive creates 12-bit words packed with six-\tab\tab\tab bit characters taken from the \i text-string\i0  [other than \tab\tab\tab\tab delimiter characters].  The encoding is six-bit ASCII text \tab\tab\tab as used with similar directives in assemblers for DEC 18-bit \tab\tab and 36-bit systems [which is not the PDP-8 standard].\par
+\par
+\tab\tab Note: If the number of characters in the \i text-string\i0  is \tab\tab\tab even, an additional 12-bit word of 0000 is created as a \tab\tab\tab delimiter unless the /J option switch is set.  For more \tab\tab\tab information see Section 10 of this document.\par
+\par
+SKIP \i optional-numeric-expression\i0\par
+\par
+\tab\tab The SKIP directive is used to create deliberately blank \tab\tab\tab lines in the listing output of an assembly.  The\par
+\tab\tab\i optional-numeric-expression\i0  is evaluated as an unsigned \tab\tab\tab 12-bit integer.  Blank lines are created as many times as \tab\tab\tab necessary unless the value is zero, in which case no blank \tab\tab\tab lines are created.  If the \i optional-numeric-expression\i0  is \tab\tab\tab not present, one blank line will be created.\par
+\par
+\tab\tab Note: All lines containing the SKIP directive will not be \tab\tab\tab displayed in the listing.\par
+\par
+TEXT \i text-string\i0\par
+\par
+\tab\tab The TEXT directive creates 12-bit words packed with six-\tab\tab\tab bit characters taken from the \i text-string\i0  [other than \tab\tab\tab\tab delimiter characters].  The encoding is six-bit ASCII text \tab\tab\tab as typically used on the PDP-8 [which is not compatible with \tab\tab similar directives in assemblers for DEC 18-bit and 36-bit \tab\tab\tab systems].\par
+\par
+\tab\tab Note: If the number of characters in the \i text-string\i0  is \tab\tab\tab even, an additional 12-bit word of 0000 is created as a \tab\tab\tab delimiter unless the /J option switch is set.  For more \tab\tab\tab information see Section 10 of this document.\par
+\par
+TITLE \i text-string\i0\par
+\par
+\tab\tab The TITLE directive is used to set the title field of the \tab\tab\tab page header used on every listing page if the /L and /N \tab\tab\tab option switches are set.  The \i text-string\i0  will be used \tab\tab\tab [subject to truncation] starting with the next printed page.\page\cf3 Appendix B [continued].\cf1\f1\par
+\cf0\f2\par
+\tab\tab Normally, the title field is taken from the first line of \tab\tab\tab the first input file; the TITLE directive can only affect \tab\tab\tab subsequent output.  However, the TITLE directive can be used \tab\tab to override the first page title field by using the XLIST \tab\tab\tab directive beforehand:\par
+\par
+\tab\tab /\tab EXAMPLE WHERE THIS IS NOT USED IN THE TITLE FIELD.\par
+\par
+\tab\tab\tab XLIST\tab\tab\tab\tab /TURN OFF LISTING NOW.\par
+\par
+\tab\tab\tab TITLE\tab MY TITLE\tab\tab /USE DESIRED TITLE INSTEAD.\par
+\par
+\tab\tab\tab XLIST\tab\tab\tab\tab /TURN LISTING ON NOW.\par
+\par
+\tab\tab Note: All lines containing the XLIST directive are hidden.\par
+\par
+XLIST \i optional-numeric-expression\i0\par
+\par
+\tab\tab The XLIST directive is used to hide portions of a listing \tab\tab\tab file [assuming the /L option switch is set].  If the \tab\tab\tab\tab\i optional-numeric-expression\i0  evaluates to a non-zero value, \tab\tab\tab the listing is turned off.  If it evaluates to zero, the \tab\tab\tab listing output is restored.  If no argument is given, the \tab\tab\tab listing output state is reversed from its former state.\par
+\par
+\tab\tab Note: All lines containing the XLIST directive are hidden.\par
+\par
+Z\par
+\par
+\tab\tab The Z directive is provided for compatibility with the PAL \tab\tab\tab II assembler of the paper-tape operating system.  All PDP-8 \tab\tab assemblers starting with PAL III are capable of properly \tab\tab\tab setting arguments to MRI type instructions according to the \tab\tab rules of the PDP-8 architecture.  PAL II only implements a \tab\tab\tab subset where all symbols are erroneously placed on the \tab\tab\tab current page.  When necessary, the Z directive is used on \tab\tab\tab all statements that actually address page zero to remove the \tab\tab current page bit from the generated value.\par
+\par
+\tab\tab Note: PAL III was originally written in PAL II.  Later \tab\tab\tab releases of the source code were modified to require a \tab\tab\tab binary copy of PAL III to assemble its own source code.\par
+\par
+ZBLOCK \i numeric-expression\i0\par
+\par
+\tab\tab The ZBLOCK directive is used to create blocks of data set to \tab\tab 0000.  The \i numeric-expression\i0  is evaluated as an unsigned \tab\tab\tab integer; the value determines how many words are generated.\par
+\par
+\tab\tab Note: If the \i numeric-expression\i0  evaluates to zero, no words \tab\tab are generated.\page\cf1 Appendix B Notes.\par
+\cf0\par
+1)\tab Certain directives are only available if LINC mode dual assembly \tab is enabled using either the /8 or /9 option switches.  They are \tab provided primarily for compatibility with the DIAL-MS dual mode \tab assembler.  Due to the nature of LINC mode expressions that use \tab one's complement arithmetic, the programmer must be aware of \tab the attendant quirks [such as positive and negative zero values].\par
+\par
+2)\tab Certain directives are erroneously provided only if dual mode \tab assembly is enabled using either the /8 or /9 option switches.  \tab These directives will be moved to the general symbol table load \tab in a future release; for the present, dual mode assembly must be \tab enabled.\par
+\par
+3)\tab The DTORG directive should not be used at this time as its \tab presence in the source code causes the binary output to be \tab corrupted.  See Section 12 of this document for more information.\par
+\par
+4)\tab The NOPUNC\{H\} and ENPUNC\{H\} directives are often used to relocate \tab binary output as part of an overlay structure.  The assembler \tab current location counter can be updated while the binary output \tab origin remains fixed.  The program segment loads into an address \tab space that can be moved or stored elsewhere while properly \tab assembled for its ultimate execution address space:\par
+\par
+\tab\tab *6000\tab\tab\tab /WHERE THE GENERATED CODE LOADS.\par
+\par
+\tab\tab NOPUNCH\tab\tab\tab /FOOL THE ASSEMBLER.\par
+\par
+\tab\tab *7600\tab\tab\tab /WHERE THE CODE EXECUTES.\par
+\par
+\tab\tab ENPUNCH\tab\tab\tab /UN-FOOL THE ASSEMBLER.\par
+\par
+\tab Note: The NOPUNC\{H\} and ENPUNC\{H\} directives are traditional \tab features of several PDP-8 assemblers including TOPS-10 PAL10.  \tab Literals cannot be used with this form of relocation mechanism.\par
+\par
+\tab The RELOC directive can accomplish a similar form of code \tab relocation including literals if necessary.  However, it is only \tab supported by P?S/8 PAL and OS/8 PAL8.\page\cf3 Appendix B Notes [continued].\cf0\par
+\par
+5)\tab The I directive changes meaning if LINC mode assembly is in \tab effect.  Since there are no indirect references in LINC \tab programming, the I directive is redefined to force bit[7] on.  In \tab the context of LINC addressing, the I directive means either \tab immediate mode [when used with instructions where the operand \tab immediately follows the instruction] or auto-indexed mode [when \tab used with references to locations 0001-0017].\par
+\par
+\tab Many LINC instructions take immediate arguments:\par
+\par
+\tab\tab LMODE\tab\tab\tab /LINC MODE ASSEMBLY.\par
+\par
+\tab\tab LDA I;    3000\tab\tab /LOAD THE AC WITH 3000.\par
+\tab\tab ADA  ;    FOO \tab\tab /ADD THE CONTENTS OF FOO\par
+\par
+\tab The first instruction above uses the I bit to indicate the \tab argument [3000] is immediately after the instruction.  The second \tab instruction does not use the I bit; as such, the address of the \tab operand follows [which ironically means it is an indirect \tab reference to the actual operand].\par
+\par
+\tab The PDP-8 references to locations 0010-0017 are auto-incremented \tab when referenced indirectly.  In LINC mode, references to 0001-\tab 0017 are ordinary indirect references unless the I directive is \tab used:\par
+\par
+\tab\tab LMODE\tab\tab\tab /LINC MODE ASSEMBLY.\par
+\par
+\tab\tab ADA    17\tab\tab\tab /ADD WHAT IS POINTED TO.\par
+\tab\tab ADA I  17\tab\tab\tab /ADD NEXT VALUE AS WELL.\par
+\par
+\tab The first instruction uses the present contents of 0017 to point \tab to the operand.  The second instruction first increments the \tab contents of 0017 to point to the [next] operand.\par
+\par
+\tab Certain LINC instructions have special meaning for references to \tab location 0000; these instructions have specific addressing needs \tab which do not involve the I bit.  The auto-increment references to \tab locations 0001-0017 clearly are the inspiration for the PDP-8 \tab auto-increment usage of locations 0010-0017.  The range was \tab shortened to allow PDP-8 interrupt handling at the lower \tab addresses.  [The LINC was designed without an interrupt \tab structure; however, some unofficial add-ons were known to exist. \tab The LINC-8 does not support LINC interrupts.  The PDP-12 defines \tab a LINC mode interrupt analogous to the PDP-8 interrupt but to an \tab alternate location.]\page\cf3 Appendix B Notes [continued].\cf1\par
+\cf0\par
+\tab The PDP-8 cannot use references to 0010-0017 without auto-\tab increment; to this limited extent, the LINC instruction set\par
+\tab is superior to the PDP-8 instruction set.  LINC mode addressing \tab does not allow indirect usage of any other locations [other than \tab pointer locations immediately after  the instructions].  There is \tab no concept of a page zero in the LINC architecture, and there are \tab only three instructions that address all of memory directly. \tab However, \tab all of memory in this case is limited to 1024 \tab locations, not the \tab PDP-8 norm of 4096 locations.  There is no \tab concept of a \tab subroutine call mechanism; the JMP instruction \tab attempts to act as \tab a stand-in.  However, if JMP instructions are \tab used in the subroutine, various fixups [read kludges here] are \tab needed to protect the return address.  All features considered, \tab system architecture experts are welcome to way in with their own \tab opinions which may greatly differ with the author's viewpoint.\par
+\par
+End of Appendix B.\par
+\par
+\f0 [End-of-file]\f2\par
+\par
+}
+ 

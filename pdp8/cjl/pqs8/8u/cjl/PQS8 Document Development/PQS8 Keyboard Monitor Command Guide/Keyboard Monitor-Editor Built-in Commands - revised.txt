@@ -1,0 +1,689 @@
+_________________________________________________________________________________________________
+
+Sections surrended by line of "___________" are to be deleted.
+
+
+Comments/changes/corrections/etc. between lines of "==============" below:
+=====================================================================================================================
+
+_________________________________________________________________________________________________
+
+P?S/8 Keyboard Monitor/Editor Commands a/o 1978.
+
+[Note: Mandatory characters in upper case; all else ignore but the usual meaning
+embellished here for clarification.]
+
+_________________________________________________________________________________________________
+
+Typo; interesting it is an obscure older spelling; not my intention this time, but I am prone to such as using OR instead of ER endings if I can get away with it.
+
+================
+Do you mean "embellished"?  I did find an online dictionary that said "imbellished" is an obsolete version of "embellished" though.
+
+_________________________________________________________________________________________________
+
+_________________________________________________________________________________________________
+=================
+
+CAtalog		Obtain a TFS directory on the console printer; the output format is
+		four file names per line.  Files are outputted in the physical order
+		they appear in.  Empty entries will always be indicated unless last
+		in the directory. [Note: Contrived file deletion may leave trailing
+		empty entries.  These can be removed by ENtering sufficent dummy
+		file names then DEleting them in reverse order.]
+
+==============		
+What does "Contrived" mean here?
+==============
+
+I admit "Contrived" is not the proper exact meaning;  you COULD contrive to show how it coud happen, but that's besides the point.  It's more a matter of if you just let it happen and do not apply proper care, it will tend to just happen.  Not sure the best word, you figure it out.  the relevant point is this:
+
+You can create a situation where there are empty entries with non-empty entries after them.  Only when the last empty entry is emptied, does it bother to zero it out.  There is an internal difference between a true empty and a deleted entry.  There never was written anyway to exploit the difference, but this is what MS-DOS copied from us; the first character is just made impossible; stick an unsupportable value there outside of the limited character set legal in file names such as the code for ?? 77 octal in the first char position.  Then, you could write a utility to show all non-truly-empty entries as they appear, literally ?OOBAR formerly FOOBAR for example.  It still is a place-holder and not valid as a file, but it makes it print as an official <EMPTY> in the printout, etc.
+
+Now, if you are in fact deleting the last active slot [which means the next one is 0000;0000;0000] then make this one 0000;0000;0000 to become the now-current last active directory slot.
+
+Thus, by some form of happenstance order, should the very last file be deleted, thus it becomes truly empty, no attempt is made to look for the previous one as a candidate for becoming the new last one as some might suggest to automagically take care of this circumstance.  Thus, if you delete the last one, a new CAtalog command will show all prior slots, even if they are empty, thus a directory listing could end with a collection of <EMPTY> printout, etc.  Thus, deliberately get rid of each and every one of them this method:
+
+Use the ENter command to get that last one filled; in general this means you also have to fill in any prior ones anywhere, but use names that mean DUMMY to you in our own mind.  Then DElete them in the reverse order they occur in.  That way, each is in turn the last actual one, and thus it gets cleaned up, repeat in reverse order as many times as necessary and you can prevent trailing empty slot printouts, etc.
+
+So, pick some verbiage to make it make sense in light of the explanation.  It happened for whatever reason; the suggestion can be used to cosmetically clean it up, and in the fact being unable to know what was there before while all <EMPTY> entrees in theory can show the trailing file name characters if available, etc.
+_________________________________________________________________________________________________
+_________________________________________________________________________________________________
+
+
+		
+DElete		Delete a file from the directory.  This can be reversed by using the
+		ENter command as long as the affected file slot is the first empty
+		available; dummy entries can be ENtered as necessary to ensure the
+		proper directory slot is restored. [Note: It is highly recommended
+		all available directory slots are ENtered before use to avoid
+		problems.]
+
+==============		
+"... to avoid problems" - What kind of problems?  Would this create empty entries that cannot be reclaimed/reused?
+==============
+no, that's never a problem.  But there are situations that can be problematic that can be avoided.
+
+Problems could include complications of fixing up for accidental erasure and not remembering which slot was the one to be repaired;  If all are filled, only one will be empty so the repair should be obvious.
+
+Other issues have to do with contriving the exact position to make it be accessed faster such as ordering in general and the notion of interleaving files logically accessed sequentially but needing the interleave to avoid overhead associated with such as DECtape searching restrictions.  You cannot just search in the same direction for the next block, you have to allow for coasting thus, the next forward-first search can only be allowed for a sufficently forward target next file.  Thus, if you interleave some unrelated files to force the current set being considered to have an interleave, the smart-search tape hanlder will always roll forward through the entire pass through all of them.  If they are physically adjacent, it must do a reverse-first search and turn around by nature.  Fortunately, the length of a single TFS file is a bit longer than the coast factor, thus guaranteeing the all forward searches will be successful and avoid intermediate turn arounds, etc.
+
+Embellish this if you wish regarding the problems, etc.
+
+_________________________________________________________________________________________________
+		
+_________________________________________________________________________________________________		
+NUmber		Enter auto-sequenced line numbering mode. [Note: This specific form
+		of the command is obsolescent and will be replaced with LNumber.]
+
+ECho		Inverts the state of output of command characters.  ECho 0 forces
+		all output off; ECho 1 forces all output on.  Pressing control-O
+		during any output operation in progress overrides this by
+		immediately reversing the echo state for each control-O pressed.
+
+EDit		EDit a specified line number.  The commands are patterned after the
+		FOCAL, 1969 "Modify" command with accommodations to the P?S/8
+		editing control characters that function more globally. [Note: In
+		some releases of P?S/8, the MOdify command is used to edit a
+		specified line;]
+
+		Relevant command control character description.
+
+		P?S/8 uses control-U to delete all characters in the command line
+		buffer. [Note: In auto-sequence mode or within the EDit command,
+		control-U does not delete the line number.  The line number includes
+		a trailing <HT> character as a separator [equivalent to using a
+		space character]; all of these outputted characters can be edited
+		using a combination of operations involving the use of either the
+		<BS> or <RO> characters to delete portions of the line number.
+		Pressing control-U will restore the line number essentially
+		restarting the latest operation.
+
+		In auto-sequence mode deleting the entire line number allows typing
+		in a direct command.  After the commmand is executed, the
+		auto-sequence mode continues [if relevant].  Within the context of
+		the EDit operation, this effectively cancels the original Edit
+		command.
+
+		The keyboard monitor/editor will accept the line number terminated
+		by a space character or <HT> equally; the initial output of the line
+		number is terminated with <HT> for cosmetic purposes.  The user can
+		use the "TAb 0" command to cause all <HT> characters to print as a
+		single space character or any of the other TAb command options.
+
+		Unlike FOCAL, 1969, the line number is capable of being edited in
+		either EDit mode or auto-sequence mode.]
+		
+==============
+Added a comma after "1969" in the paragraph immediately above.
+==============		
+
+		in FOCAL, 1969, the MOdify operation starts in character search mode
+		as if control-G were already pressed.  By design, the EDit command
+		does not start in search mode which must be initiated by control-G
+		explicitly every time.  [Subsequent searches work identically in the
+		two analogous situations.]
+
+==============
+Added a second space between the period and before "[subsequent..." for consistency.
+==============		
+		
+		In the EDit command, the search again for the same character
+		operation  is initiated by pressing control-A [not control-L].  If
+		there isn't a successful match further in the line, control-A will
+		output the entire line.  Unlike FOCAL, 1969, the line must be closed
+		explicitly with <CR>; FOCAL, 1969 will forcibly close out the entire
+		line which is considered too automatic since there is no recourse
+		but to have to edit the line again after ensuring the new contents
+		of the line are understood; this is clearly disruptive to the user
+		expecting a different search outcome.
+
+		P?S/8 uses the <LF> character to reprint the current tentative line.
+		Since there is no explicit command to output the entire line to the
+		end in P?S/8, using control-A as many times as necessary will
+		accomplish the same net effect.  Note: control-A will always close
+		out the entire line if there is either no current search character
+		or no further matches for the present search character.  However,
+		the line is still tentative until <CR> is pressed to process the
+		entire line.
+
+		Control-U may be typed to restart the EDit command; this avoids the
+		need to abort with control-C and retype the EDit command.  [Note:
+		Future releases of P?S/8 may designate an additional control
+		character to close out the entire line with a single keystroke more
+		in line with the FOCAL, 1969 usage of <LF>.]
+
+==============
+What character/key is used to represent <LF> when not using a "real" terminal, such as when running under SIMH or other emulator?
+==============
+
+_________________________________________________________________________________________________
+
+Common keyboard characters:
+
+Horizontal Tab <HT> is control-I.  In SIMH apparently so is the "Tab" key.
+
+Control-J is <LF> for all terminals even if an actual LF key.
+Control-M is <CR> for all terminals even if no actual Return or Enter key.
+
+If you seriously emulate DEC terminals, you should be able to have a "pause" key that flips control-S and control-Q in terms of sending same when you press that key.  OS/8 doesn't support contro-S and control-Q while P?S/8 SCRUPULOUSLY does.  And why OS/8 is an embarassment on the later DEC terminals such as the VT-100 and following so people had to slow down the interface to  MINIMIZE it [but not eliminate it] while P?S/8 just works completely fine at any rate.  [VT-100 was relatively late to the game, thus a lot of original users didn't notice this until it was too late.]  Obviously you can press the actual control-S and control-Q keys themselves.  A terminal emulator is entitled to send the characters itself if it cannot keep up, etc.
+
+this is why P?S/8 could handle the speeded-up LA36 caled LS-120 which printed nearly 4 times as fast bidirectional printing and recommended to be interfaced at 4800 or 9600 baud.  Thus, I didn't use it as the console, but did use it as a printer; I modified the OS/8 KL8E handler to make it use it; P?S/8 just loved it within the Logical Console OVerlay which defines a serial printer with a back-channel for the control-S/control-Q stuff only,etc.]
+
+_________________________________________________________________________________________________
+		
+		FOCAL, 1969 makes reference to a back-arrow as a command to delete
+		all text already processed in the buffer.  This character was
+		eventually phased out and is now the backspace character [or
+		Control-H in most but not all contexts on newer machines].  That
+		character and the <DEL> key are used to delete the previous
+		character to the left of the cursor and is cosmetically handled in
+		various ways by the P?S/8 keyboard monitor/editor.  A common way to
+		acknowledge the logical deletion of the previous character is to
+		output the sequence <BS> space <BS> which positions the cursor over
+		the now wiped character position. [This behavior is configurable
+		using certain options of the VARY or SET utility].
+
+		Within the EDit command, the functionality described above is
+		provided by the control-K key.  As in FOCAL, 1969, the line number
+		is not deleted.  However, the line number can be edited as described
+		above.
+
+		Since the P?S/8 EDit command allows editing or deleting of the line
+		number, it is possible to create a file used to hold complex
+		repetitive commands meant to be executed.  The simplest way to
+		execute such a stored command would be to LOad the file and then
+		use EDit nnnn where nnnn is the line number of the desired command.
+		The line number and <HT> can be deleted with the <RO> or <BS> key,
+		then control-A can be used to close out the entire line [since there
+		is no search character].  At that point, minor editing can be made
+		if necessary followed by <CR> to process the command.  [Note:
+		Changes to portions of the line can be accomplished using control-G
+		and control-A to position at and then edit key points of the line as
+		necessary.]
+
+		[Note: BATCH can be used to execute a complex command in a file as
+		long as the relevant line is the only line present [other than
+		commentary using ^^ lines or other innocuous content].  A file
+		containing multiple complex commands can be loaded, then the
+		unrelated file lines can be ERased [or SCratched in some releases]
+		leaving the desired line as the only contents.  The EDit command can
+		then be used as necessary.  Saving the file buffer to a scratch file
+		[such as $] would then allow execution under BATCH [such as
+		BATCH $].
+
+==============
+So, the "double-caret" is used to designate comment lines in a BATCH file?  I ask since I haven't seen that before and I want to ensure that Gmail didn't do something "strange" to what you typed.
+
+Of course, just because _I_ haven't seen it before doesn't mean much since my experience, "pre-MS-DOS" is limited to, in chronological order: punch cards on two unknown "mainframes," two different multi-user minicomputers (or small "mainframes"?) via terminals in a data center at Auburn, a Data General Nova 1220, a TRS-80 Model III, and then a series of PC-clones with MS-DOS & eventually Windows.  I don't remember anything about the editors used for FORTRAN on the Nova or for BASIC & FORTRAN at the data center before that.
+
+_________________________________________________________________________________________________
+
+Yes.  Exactly that; just goes back for another command ignoring the line's otherwise contents.
+
+_________________________________________________________________________________________________
+==============
+		
+ENter		A specified [or default from a prior file name command] file name is
+		entered into the directory; no actual file storage is modified.
+		This can be useful for recovering accidentally deleted files or
+		presetting multiple files for use later to take advantage of file
+		placement for maximum efficiency.  [Note: On certain tape systems,
+		some programs can access the contents of files faster if the files
+		are arranged in an interleaved manner; the ENter command can setup
+		the proper file placement without actually working with the file
+		data.]
+
+==============
+Added a second space after the period and before the "[Note:" like earlier.
+==============
+
+HAlt		The computer is HAlted.  Press "Continue" [or equivalent if
+		available] to restart the keyboard monitor.  [Note: It is merely a
+		vicious and unfounded rumor that the command also causes the machine
+		to catch fire.]
+
+==============
+I've never heard/read that rumor before!  (Is that a real rumor or are you pulling my leg?)  I've never even thought about considering that HALTing one of my PDP-8s could be dangerous at all.  Was that rumor started by the "competition" at another company?
+==============
+Added a second space after the period and before the "[Note:" like earlier.
+==============
+
+HReader		Read in text characters from the high-speed reader into
+		auto-sequenced line numbers; essentially the same as the LNumber [or
+		equivalent command] except the input is received from the high speed
+		paper tape reader.
+
+LAst		Outputs the LAst [highest] existing line number in the current file
+		buffer.
+
+LEft		Outputs the count of 12-bit words left in the current file buffer.
+		Most characters are stored two per 12-bit word; each additional line
+		number requires two 12-bit words.  A file full condition occurs when
+		there is insufficient space left in the file buffer for the current
+		line being attempted.  The LEft command can serve as a warning
+		device regarding a file being nearly full allowing corrective
+		remedies to be applied.
+
+==============
+This reminds me:  Since each line number is four characters, what is the *first* default line number?  Something like 0100?  Are leading zeros always displayed to keep four characters?		
+==============		
+_________________________________________________________________________________________________
+
+In the auto-sequencing commands, 4 characters are always printed.  Leading zeroes become space characters.  This is then followed by <HT> interpreted in the context of the current disposition as determined by the TAb command or the equivalent in VARY or SET which changes the default permanently.
+
+For commands that take  line number arguments, the first default is 100, and if relevant the second is 10.  You cannot specify only the second, but you can specify only the first [or both or leave them both out to get the two defaults of 100 and 10 respectively]
+
+_________________________________________________________________________________________________
+		
+LIst		The contents of the entire file [or a selected range of lines] is
+		printed on the console device.
+
+LOad		A specified [or default from a prior file name command] file name is
+		looked up in the TFS directory; if the file exists, the contents of
+		the file is loaded into the file editing buffer.  [Note: Since the
+		file must already exist, there is no directory overhead accessing
+		the contents of the file.  The only exception to this is if the
+		command is ended with a logical unit suffix since that forces a new
+		directory readin operation first.]
+		
+==============
+Added a second space after the period and before the "[Note:" like earlier.  And added a space between "with" and "a" before logical unit.
+==============
+
+MOnitor		Exit the keyboard MOnitor.  This reboots the operating system and is
+		equivalent to manually restarting the computer at 07600.
+
+PLease		The entire command [including any additional characters] is
+		displayed on the console device.  All operations are paused until a
+		character is pressed [which will otherwise be ignored].  [Note: This
+		output will occur even if the current state of ECho is off.]  [Note:
+		Historically this command was known as the PAuse command; it was
+		changed to allow compatibility with COS 300/310 with the common
+		goal among all of these systems to simplify CCL implementation.]
+		
+==============
+Added a second space after the period and before the "[Note:" like earlier.  And between "]" and "[Note:" in the last sentence.
+==============
+
+PUnch		This command is similar to the LIst command except the output is to
+		the system paper tape punch.  Line numbers are discarded and the
+		output is surrounded by leader/trailer conforming to paper tape
+		standards.  [Note: In some P?S/8 releases, if the high speed punch is
+		not available, the output is instead to the system console printer.]
+		
+==============
+Added a second space after the period and before the "[Note:" like earlier.
+==============
+
+RAdix		Without an argument, the RAdix of line numbers is flipped to the
+		opposite of the current value which is outputting numbers expressed
+		in either decimal or octal.  The usual default is decimal [but may
+		be subject to change by a system configuration command].  The RAdix
+		may also be forced by using the arguments 10 [for decimal] or 8 [for
+		octal].  [Note: The current radix does not affect the arguments as
+		internally the present value is saved then the radix is set to
+		decimal.  If the command fails, the previous radix is restored.  If
+		the command succeeds the RAdix is set to the value implied by the
+		argument.]
+		
+==============
+Added a second space after the period and before the "[Note:" like earlier.
+==============
+Why would you give line numbers in octal?  Is there a benefit for this ability?
+==============
+_________________________________________________________________________________________________
+
+Why not; there is even discussion about how to interpret the =xxxx in command lines perhaps in decimal!
+
+If you are very careful, you could have line numbers that look like where the instructions load.
+177   *200
+200   TAD FOO /I AM LOADED INTO 0200
+
+______________________________________________________________________________________________
+
+REsequence	All of the line numbers are set to values determined by the command
+		and any optional arguments given.  The default values are starting
+		with line 100 and incrementing by 10.  The second argument or both
+		arguments can be left out; the corresponding default values will
+		be used.
+
+R		Execute a system program specified after the "R" command.  File,
+		option switch and =xxxx parameters can be added as necessary.  The
+		R command is needed in case a system program name is anomalous to
+		the keyboard monitor/editor commands in terms of the first two
+		letters; otherwise the use of the R is optional.  P?S/8 has
+		tentative support for an additional directory not completely
+		implemented.  The R command allows access to these files; the usage
+		must be compatible with the selected executable system program.
+		[Note: All references to the additional directory are experimental
+		and subject to change by specific release.]
+
+		Note: Program execution, whether initiated by R [or perhaps RUn] or
+		not, is designed to parse commands where output if present is on the
+		left of the command line [past the program name] terminated by a
+		mandatory "<" character.  Input files always follow regardless of
+		whether output files are present [if desired].  This is consistent
+		with the command flow of TOPS-10 and OS/8 among other systems.
+		However, other DEC systems have the command flow reversed.  In newer
+		releases of P?S/8 both approaches are supported.  To use the
+		opposite flow direction, the separator character needs to be ">" to
+		place the output past all input.  If neither separator is present,
+		only input files are parsed.
+		
+==============
+Capitalized "program" after "Note:" at start of paragraph.  Also added a comma after "or not" before "is designed...."
+==============
+
+		Command option switches may be placed anywhere past the program name
+		in either the form of an individual switch preceded by "/" or the
+		form that allows multiple switches preceded by "(" and optionally
+		followed after all stated switches by ")".  "=" followed by up to
+		four digits is allowed anywhere in the command.  [Note: Multiple
+		usage is allowed; the last construct parsed overrides all previous
+		ones; the direction of parse determines which is actually last as
+		the form of the command is always internally parsed output files
+		first regardless of how the command is given.  This was a conscious
+		design decision; a rejected alternate was to declare the line to be
+		defective if multiple "=" usages were parsed.]
+		
+==============
+Added a second space after '").' and before '"=" followed'.
+==============
+Added a second space after the period and before the "[Note:" like earlier.
+==============
+
+		In most releases of P?S/8, =7777 is the only disallowed value.
+		However, not specifying the option defaults the value internally to
+		7777; this allows the program to create any default operation as
+		necessary.  For example, the BIN loader, when used to load binary
+		files, will use =xxxx as the user program's starting address.  If
+		7777 is passed, the program will choose a specific internal address
+		that is a safe address to halt at dependent on a variety of internal
+		conditions.
+
+RUn		RUn is essentially redundant to the R command.  In some releases
+		the level of implementation of the additional directory changes with
+		the use of the RUn command as opposed to the R command.  The
+		intended distinction is concerned with writing files in the
+		additional directory; the R command only outputs TFS files while
+		both commands can access existing files in the additional directory
+		for read purposes.  Exact implementation of the additional directory
+		is extremely release-specific and as of the date of this writing, no
+		system has been released with complete support.  [Note: The primary
+		purpose of the additional directory is to support the CONVRT program
+		or its predecessors.]
+		
+==============		
+Added a second space after the period and before the "[Note" like earlier.  Also changed the semicolon after "[Note" to a colon.
+==============
+
+SAve		The tentative file in the editor buffer will be saved to the stated
+		[or implied from a prior file name command] file; if the file name
+		doesn't exist, the TFS directory will be updated first and an
+		appropriate file slot will be allocated for the file permanently.
+		If the slot exists, the file will just be directly written out
+		saving time compared to more conventional systems.
+
+SCratch		The entire file [or a selected range of lines] is SCratched out of
+		the tentative file [the specified lines are removed] in the editor
+		file buffer.  [In some releases, this is replaced by the ERase
+		command.]
+		
+==============		
+Added a second space after the period and before the "[In some releases" like earlier.
+==============
+
+SEquence	Auto-SEquenced line number generation is enabled; optional arguments
+		can specify the starting line number and the increment to the next
+		line number.  [The arguments are optional; the first argument may
+		be specified with no second argument to default to an increment
+		factor of 10.]  [Note: In the 1978 release, this command is redundant
+		to the NUmber command; in newer releases both are deleted in favor
+		of a replacement LNumber command.  The change was made to allow
+		easier implementation of CCL commands and closer compatibility with
+		COS 300/310 which faced similar implementation problems; both
+		systems are based on the original R-L Monitor System that didn't
+		support any form of CCL commands.
+		
+==============		
+Added a second space between "... of 10.]" and [Note:" like earlier.
+==============
+
+SYstem		The current SYstem logical device unit is selected; without the
+		presence of an optional :x construction [where x is a logical unit
+		in the range of 0-7], the operation is extraneous.  If the logical
+		unit is changed, the corresponding TFS directory is read into memory
+		replacing the directory from the previous logical unit.  The command
+		is provided to allow changing the logical device unit without any
+		associated file operations.  [Note: All file-oriented commands can
+		change the logical unit using the same syntactical construction.]
+		
+==============		
+Added a second space between the period and "[Note:" like earlier.  And deleted the second space before "All" for consistency.
+==============
+
+		[Note: On certain releases, the command is used in the same sense as
+		within POLY BASIC and related products, to restart the computer.
+		This was done to allow the MOnitor command to be freed up and
+		reassigned to act as the MOdify command which replaces the EDit
+		command.  Each release of P?S/8 can have a unique configuration of
+		these interacting command names for vastly different function.]
+
+		The purpose of the command is to preset the current logical device
+		unit without otherwise executing a command.  The TFS directory on
+		the corresponding logical unit is read in to allow proper operation
+		of subsequent commands.  Since all commands can specify an optional
+		logical device unit where applicable, this command is essentially
+		irrelevant.
+
+TAb		The printing disposition of the <HT> character can be modified in
+		terms of the method chosen to display the character within the
+		keyboard monitor/editor.  Options exist to output exactly one space
+		character [TAb 0], a calculated amount of space characters to
+		simulate tab stops of 8 characters each [TAb 3], the <HT> character
+		alone [TAb without an argument] and <HT> characters with associated
+		filler characters to properly support the model 35 teletype [TAb 5]
+		as the console device.  [Note: Many systems do not support the model
+		35 teletype properly; examples of common mistakes include too few or
+		too many filler characters implemented simplistically as a constant
+		amount of filler characters [either <NUL> or <RO>].  The correct
+		implementation is to output 0 to 2 fill characters as a function of
+		the current position.  Resultant problems range from excessive print
+		times to garbled output of smeared characters printing while the
+		head is still in motion.]  [Note: The support assumes the mechanical
+		tab slugs within the teletype are properly placed every eight
+		columns which is the norm.]
+		
+==============
+So [TAb 0] outputs one space character and [TAb 3] outputs eight characters?  And [TAb 5] allows a Teletype 35 to be used as the console device?
+
+I don't quite follow the part about "the <HT> character alone [TAb without an argument] and <HT> characters with associated filler characters to properly support the model 35 teletype [TAb 5]...."  Can you give some examples with brief descriptions?
+
+_________________________________________________________________________________________________
+
+The goal is to have the terminal look like aligned to every 8 spaces.  TA noarg outputs just the <Ht> character hoping the terminal just does it right.
+
+TA 3 simulates that with the correct mumber of spaces to force alignment; no actual HT character is outputted.
+
+TA 5 is the same as TAb no arg except padded for the model 35 with calculated idle character counts; this is much faster than tab 3, but only for the 35.  Most hardware like it today, but the extra idle characters slow it down if not necessary on other than 35 hardware.
+
+TA 0 is for ugly but fast printing.
+
+If the carriage has to move only 1 or 2 characters, no need for any IDLE characters.  If it needs to move 6 or 7 positions, there better be two idle characters after the <HT> is sent to allow it to physically move over and then stabilize before any further printing.  all other cases output exactly one extra idle character afterwards, etc.
+_________________________________________________________________________________________________
+
+==============		
+Added a second space between "device." and "[Note:" like earlier.  And between "motion.]" and "[Note:" like before.
+==============
+
+^^		This is the system null command.  It can be used with any string
+		afterwards; the entire line is ignored.  ^^ lines are used within
+		BATCH to create internal documentation of the batch operations.
+
+==============
+"It can be used with any string afterwards; the entire line is ignored."  I'm confused with this sentence.  Do you mean that if ^^ is used anywhere in a line that the entire line is ignored?  Or all of the line is ignored after the ^^ in that line?
+==============
+		
+
+_________________________________________________________________________________________________
+
+The first characters are ^^ because it is an imbedded COMMAND to do nothing and move on.  Thus, the entire line is ignored after the first two were determined to match the ^^ command.
+
+_________________________________________________________________________________________________
+
+Notes:
+
+ 1) Commands are stored in block 0013 in sixbit text form [inverted].  Certain
+    commands will be updated for better compatibility with newer releases of P?S/8
+    and COS 300/310.
+
+ 2) All file and directory-oriented commands optionally allow a trailing :x where x
+    is the desired new logical unit for the active directory in the range of 0
+    through 7.  The default unit is the bootup drive until changed.  [Note: It is
+    acceptable for the new unit to be identical to the previous unit.]
+	
+==============		
+Added a second space between the period and "[Note:" like earlier.
+==============
+
+ 3) All file-oriented commands default to the last current file name if none is
+    given expressly on the command line.  From a bootup, there is no default current
+    name; such usage will cause an error message.
+	
+==============
+Is this a fatal error or simply an error message to expect and ignore at this point?
+==============
+
+________________________________________________________________________________________________
+
+It's just a not found error because nothing saved to look for yet; defaults to inadequate to ever be lookup-able.
+
+.MO
+[new bootup]
+
+.LO
+
+NOT FOUND!
+
+.LO FOOBAR
+.LO
+
+it loaded FOOBAR again without specifying anything because now there is a default name, etc.
+_________________________________________________________________________________________________
+
+
+ 4) The EDit command [known as the MOdify command in certain releases] is not
+    available during BATCH operations.
+
+ 5) During command entry, typing control-R or control-T is generally allowed.
+    Control-R rewinds the current system tape unit.  Control-T rewinds and unloads
+    the current system tape unit.
+
+    Actual tape operations are hardware-dependent; either or both commands may not
+    be supported on any specific system.  On the TC01/TC08 DECtape system, control-R
+    rewinds the current system tape; control is immediately returned to the keyboard
+    monitor; the DECtape controller will stop the tape in the reverse end zone.
+    Control-T on the same DECtape hardware will rewind the tape, then force the tape
+    off the reel to fully unload it.  If the drive is a TU56, the tape will spin
+    freely until stopped by the user.  On a TU55 drive, the drive brakes will lock
+    thus stopping the tape.  Control is transferred back to the keyboard monitor
+    after all tape operations have completed.
+
+    Control-R and Control-T are not available during BATCH operations.
+
+ 6) Line-number oriented commands default to a starting line number of 100 if not
+    specified and a default increment of 10 if not specified.  The second argument
+    or both arguments can be left out to use the defaults.
+_________________________________________________________________________________________________
+
+This pretty much answers what was asked above.
+
+_________________________________________________________________________________________________
+
+
+ 7) The NUmber command is redundant to the SEquence command.  Newer releases replace
+    these commands with the LNumber command for compatibility with COS-300/310.
+
+    The reasoning behind command changes is to allow common system programs to have
+    names that are not anomalous to the commands; anomaly requires the use of
+    command syntax that starts with the R command.  Thus, commands such as PAL and
+    SET are possible in P?S/8 releases where the former commands PAuse and SEq are
+    removed.  Newer releases of P?S/8 fully embrace this notion to be more
+    suggestive of what is often referred to in other DEC systems as CCL.  The
+    subject release described here was in a state of transition; future patched
+    versions of this release may correct the remaining problems.  [Note: In all
+    relatively recent releases of P?S/8, including the subject one, there is less
+    overhead or restrictions associated with invoking the program without the use of
+    the R syntax; certain programs are useless unless invoked via the shorter syntax
+    which allows programs to overlay the keyboard monitor.  As an acceptable
+    compromise, these programs cannot access the additional directory; this is
+    usually irrelevant to overlaying programs such as FIND and CHANGE which operate
+    on the current file buffer.  When overlay programs exit, the keyboard monitor
+    reloads the affected section of code that was not available nor needed during
+    the execution of the overlaying command.  The execution of system programs
+    initiated from the R or RUn commands will destroy additional components of the
+    keyboard monitor and/or the file buffer in exchange for access to the additional
+    directory structure; the exact limitations are release-dependent and also
+    command-dependent.]
+
+ 8) Certain commands are oriented around ranges of line numbers such as LIst, PUnch,
+    ERase, TYpe and SCratch.  The default range is the entire file.  Allowed options
+    include a closed-ended range specifying the lower bound and the upper bound.
+    Open-ended ranges can specify the lower bound only or the upper bound only as
+    required.  The "-" character is always used in any specified range.  The stated
+    values need not actually exist and only serve as boundaries for the command to
+    operate on.
+
+==============
+I changed "Erase" to "ERase" above.
+==============
+So you really need to take care with ERase and SCratch to ensure you don't delete the entire file, unless that's what you meant to do.
+==============
+Can you give examples of how to use "open-ended ranges"?
+==============
+_________________________________________________________________________________________________
+
+Yes, you do!  But remember, it is the tentative file in the buffer.  If you type up a lot and haven't saved it along the way, you are a fool!
+
+Thus, you should not have much at stake; just LOad the file in again and redo your latest incremental editing that you destroyed.
+
+LIST -1000  lists all existent lines no higher than 1000.  Could result in nothing, not a problem.
+
+SC 300-500 erases any matching lines; none need exist; these are just bounds.
+
+SC 2000- kills all existent lines from 2000 onward.
+
+_________________________________________________________________________________________________
+ 
+9) The TYpe command is redundant to the LIst command.  Newer releases only have the
+    LIst command for compatibility with COS-300/310.
+
+_________________________________________________________________________________________________
+
+Should it be:   have only the List command ?
+
+_________________________________________________________________________________________________
+
+10) The SCratch command is replaced with the ERase command in newer releases for
+    compatibility with COS-300/310.
+
+11) Due to the way the HReader command is implemented, it is possible that lines
+    will be displayed twice as they are read.  This is because the P?S/8 monitor and
+    editor treats the <LF> character to mean output <CR> then <LF> then repeat the
+    tentative command.  The actual contents of the reader will be properly read;
+    only one occurrence of each line will appear in the tentative file buffer.
+
+_________________________________________________________________________________________________
+
+12) In newer releases LOad is replaced by FEtch fpr compatibility with COS-300/310.
+
+13) In newer releases SAve is replaced by WRite for compatibility with COS-300/310.
+
+Should 12 and 13 be the way to word 10) and related, or the other way 'round?
+
+Also, I will likely patch some of the commands to the newer values!
+
+_________________________________________________________________________________________________
+
+Last edit: 13-Feb-2014 cjl

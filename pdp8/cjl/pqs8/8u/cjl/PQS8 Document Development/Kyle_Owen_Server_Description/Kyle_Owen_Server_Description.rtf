@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fmodern\fprq1\fcharset0 Lucida Console;}{\f1\fnil Calibri;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 720
+  FtrMarg = 720
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 Description of Kyle Owen's ersatz "RK8E" server and handler.\par
+\par
+And what modifications should be made to enhance it and also support P?S/8.\par
+\par
+Foreword:\par
+\par
+The original version of these two programs was done by Kyle Owen for use on a PDP-8/E (actually a PDP-8/M) connected to a PC running either Linux or Windows.  (Actually, he did use the compatible method requiring GCC compatibility which allows it to work if compiled for Windows adding in the file cygwin1.dll.  More recently, Microsoft has their own c++ compiler as part of their Visual Studio package, and you can compile directly for Windows and avoid the .dll file entirely, as long as the intended Windows is XP or newer.  To make things somewhat more interesting the Cygwin people are continuing to upgrade the .dll but dropped support for all before Windows 7, but they do have a stable version last version for XP and Vista.  In any case, none of these packages care about any of the new work.  Thus, use the GCC if for Linux, and use MS's package for Windows is the best way to go.  And also, SIMH is generally assembled precisely this way; my latest version was created by Dave Gesswein using the MS package and of course all works fine per se.)\par
+\par
+Some work was done on the package by Bob Adamson, who also attempted to change the OS/8 handlers in a feeble attempt to add pre-Omnibus support, but he had no hardware to test it on, and the net result is the code could not run on the RICM PDP-12.  I fixed all of this; the code was NOT really "family of 8" compatible, but it is now.  Also, he attempted to use the instruction to disable interrupts IOT 5 on the keyboard side with AC[11] clear, but he has no clue how IOP pulses work on older machines.  As such, the instruction was NOT IOT 5, but rather it as IOT1 THEN IOT4 which changed the AC.  Of course it did work on the 8/E, etc.\par
+\par
+My fixes make that true (of course it cannot be fixed) but innocuous, AC is cleared afterwards, etc.  Of course you still don't get interrupts disabled, so for example FRTS will hang, but there is a fix:  FRTS has some internal interrupts off code prior to handler call code internally IF the device being called is the TD8E.  Just have to patch that code to honor it if it is calling this handler.  Not my problem but some others are working on that fix.  The way the handler works, it cannot be expected to reliably not interrupt code unless certain this is an 8/E.  Thus, they have an independent problem on their hands.\par
+\par
+As an aside: P?S/8 FOCAL will need an internal patch as well for analogous reasons.  Interestingly enough, the P?S/8 TD8E handler turns off interrupts on entry and restores on exit!  But since the target is family of 8 machines, FOCAL needs an internal patch in the code that calls the system device handler, etc. to support the proposed P?S/8-supporting version.\page Adamson added support for eight half-RK05 drives; Kyle's only has support for four.  Apparently, making these minor changes is quite easy.  I get the impression that while I know zero about C, he doesn't know much.  He claimed he was interested in doing more fixes, but after I made his PDP-8-side OS/8 handler functional, he seems to have disappeared from the 12-bit world (again).  Contacting him via e-mail to no avail by also Michael Thompson.  My gut feeling is that he basically is in over his head on both sides of the project, which is part of why I have sought out help.  You don't know the other person I asked, but he has had some really bad near-death problems (!) and I don't want to get involved with him in his time of apparently seriously long recovery time.  His wife said he nearly died on the table!\par
+\par
+In any case, some of Adamson's notes were removed from the source because they are superfluous now (further proof of my assessment of his qualifications).  We thank him for his minimal service and want to move on.\par
+\par
+The basics are as follows:\line\line If you want to start a reboot operation, you send an @ character, literally octal 100.  I guess he feared that in general avoid sending nulls, but you can never be certain what you are sending in general, but start the protocol with a non-zero character.  I have no real problem with this as there are more than enough choices.\line\line The latest version does NOT assume the machine can perform NL0100 which only an 8/E can!  Thus, there is CLA and TAD a (100) literal constant nearby, etc.\line\line If this is what is sent, what will come back are pairs of frames that are 12-bit words from the boot block.  Arbitrarily, the image starts with an internal copy of what OS/8 has on the first half of record 0 literally, but once you have written out the code, that becomes moot.  Since presumably you use OS/8 BUILD to create the image, the whole thing is moot.\line\line Note: Adamson had on his list total removal of this side feature:  Read the binary of the OS/8 handler transferred the hard way to a .BIN file where the code is, and using that write out the boot block.\line\line My observation: I don't care, because to generate P?S/8 is to use a handler that MUST write out this record, etc.  I think Kyle was just developing it in stages and was also unfamiliar with how OS/8 BUILD works.  It's of course a small moot point now.\line\line By using this method, the bootup is small enough to toggle in and shorter than the TD8E boot as a comparable example.\page Note:  All read and write routines are 12-bit.  Each sends the AC both as called and also shifted six bits.  The server is expected to ignore dirty bits in the AC when sending and send back clean 12-bit so the PDP-8 code is slightly smaller.  I can send you the latest OS/8 handler (from me) when we get to that level of detail.\line\par
+To send a read or write request to the first half of the 0th disk, start the protocol with an "A" in the AC, literally 0101.  Because this is not the boot protocol, further sends are implied.  The arguments to the OS/8 call are sent verbatim in the OS/8 normal order.  This includes the superfluous field of transfer bits, but it is used for debugging as the verbose server mode displays all the latest call particulars; it's no big deal, but strictly speaking the server really has no clue what PDP-8 memory field even means!  Same for the buffer transfer address.\par
+\par
+Based on the page count and record number, a starting point is located within the .RK05 file image.  As I understand it, the whole thing is a big linear file past an offset of header info that includes knowledge this is a 16-sector file; the words are all 16 bits but 4 are ignored in 12-bit, etc.\par
+\par
+Now of course, this is very specific to only OS/8, but remember, OS/8 can ask for an odd page count and if writing that means that the second half of the record becomes don't care.  I have no idea how it works, but for P?S/8 I have to specify to the nearest 1/2 logical record AND require the preservation of the other half strictly.  But for all I know this is not even an issue calling the library file (from SIMH) as is.  I just know that OS/8 wouldn't care, etc.  (Of course on REAL RK8E, the second half gets obliterated!  The strict definition and I assume SIMH makes this happen AT SOME LEVEL (but at some higher level or in this very code?) the definition is to write all zeroes for the second half and then an overall CRC32 and the flag comes up at the physical end of the transfer even if reading first half only.  But as we know, emulators are sloppy, and perhaps in this case, the sloppiness is real and will be to our advantage for P?S/8.\par
+\par
+At the end of the protocol of passing data, there is an error status handshake as well, I think just single bit good or bad but it could be slightly more elaborate, etc.\par
+\par
+To get to RKB0: equivalent use a "B" and so on so "H" accesses the RKB3: drive.\line\line Now to what I want done for P?S/8:\line\line No change affects the OS/8 performance, but I do want to go out to eight complete disks.  Thus, there will be a need of up to "P" to access all sixteen half-drives in OS/8.  (It will be a very long command line but Windows can handle it with ease.)\par
+\par
+Thus, OS/8 will now handle to RKB7:\page The P?S/8 protocol is slightly different and matches the P?S/8 non-system device handlers.  I guess the P?S/8 protocol should start with "Q" or whatever.  (isn't that appropriate!) or should we use 77 for a real ? ?\par
+\par
+The first argument is the buffer address.  The second is the function word AS IT WAS ORIGINALLY INTENDED.  That means the logical device unit is in the three low-order bit.  This is how you access all eight drives.\par
+\line The third argument is the low-order half of the 24-bit disk address and the high-order is the last argument sent.\line\line Assuming forcing the .RK05 image format means that each logical unit has blocks 00000-31277 each 128 words/block.\line\line I would suggest a length error is trying to access past block 31277 over and above what OS/8 protocol already supports.  The OS/8 protocol needs to be able to be patched to more than 3130 per half drive, but clearly no OS/8 handler should go past 6260.\line\line The reason for that is we sometimes make RKA0: when SYS: longer, or perhaps shorter so RKB0 is as long as OS/8 allows.  In my time I have done both, so overly checking OS/8 record arguments is not a good idea.\line\line As defined for OS/8 and taken from the boot block is actually fine for P?S/8.  Kyle's method DOES NOT overlay!  Thus, it can read it in and just start the same way, except what was read in is my code, not OS/8's.  P?S/8 for 4K systems always has some room in the end of the handler to move it from one page to another, so loading in where they have it is fine; in an ideal world, I would have started more "neutral" but ironically, P?S/8 is more flexible on that aspect of things!  (For a good comparison, figure out the roundabout way P?S/8 for RX01 actually gets itself up!)\par
+\par
+That's pretty much it.  The mounted disks for P?S/8 are the SAME disks.  This allows maximum flexibility and I am often running at least one OS/8 device for inter-system file transfer.\line\line Now, for some future frills, I might need help defining a boot to drive 1-7 instead of 0 so I can have both systems booting to each other, etc. and no one "owns" everything, etc.  But this is for the future and I may just be able to do that by myself once the necessary changes are done, etc.\par
+\f1\fs22\par
+}
+ 

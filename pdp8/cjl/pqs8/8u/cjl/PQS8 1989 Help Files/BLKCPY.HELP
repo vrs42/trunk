@@ -1,0 +1,683 @@
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 1
+
+   1                 /       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM
+   2   
+   3                 /       P?S/8 BLOCK-ORIENTED FACILITY FOR COPY/COMPARISON OF CONTIGUOUS SETS OF
+   4                 /       BLOCKS ON ANY LOGICAL UNIT OF ANY NON-SYSTEM HANDLER.
+   5   
+   6                 /       LAST EDIT:      08-APR-1987     01:00:00        CJL
+   7   
+   8                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   9   
+  10                 /       PROGRAM USAGE EXAMPLE.
+  11   
+  12                 /       .[R ]BLKCPY[OPTIONAL INPUT FILES][OPTION SWITCHES]
+  13   
+  14                 /       BLKCPY V10F                             PROGRAM ANNOUNCEMENT
+  15                 /       *SYS7:0-577<SYS0:0                      USER INPUT COMMANDS
+  16                 /       COPY SYS7:0000-0577 FROM SYS0:0000-0577 COMMAND GUIDE
+  17                 /       ARE YOU SURE? YES!                      CONFIRMATION
+  18                 /       *$                                      USER EXIT VIA <ESC>
+  19   
+  20                 /       PROGRAM OPTIONS.
+  21   
+  22                 /       /B      USE HARDCOPY-ORIENTED BACKSPACE FOR COMMAND EDITING. DEFAULT IS
+  23                 /               SCREEN-ORIENTED BACKSPACE.
+  24   
+  25                 /       /C      ATTEMPT TO USE MORE MEMORY. IF AVAILABLE, MORE MEMORY WILL BE USED
+  26                 /               FOR LARGER BUFFERS DURING THE COPY/COMPARISON. THIS OPTION ALLOWS
+  27                 /               THE USE OF THE PARTIAL FIELD AVAILABLE BEYOND THE NORMAL MAXIMUM
+  28                 /               CORE SIZE OF ADJUSTABLE SIZE SYSTEMS SUCH AS THE "RX01." SHOULD
+  29                 /               THE CORE SIZE BE SET TO AN ENTIRE FIELD OR MORE BELOW AVAILABLE
+  30                 /               MAXIMUM SIZE, AN ENTIRE ADDITIONAL FIELD WILL BE USED FOR BUFFER
+  31                 /               SPACE. GENERALLY THE COPY/COMPARISON TAKES LESS TIME IF LARGER BUFFERS
+  32                 /               ARE USED. THE DEFAULT OPERATION IS TO DETERMINE THE BUFFER SIZE
+  33                 /               PURELY FROM THE CURRENT LOGICAL CORE SIZE.
+  34   
+  35                 /       /D      DO NOT DISPLAY COMMAND GUIDES. DEFAULT IS TO DISPLAY THE COMMAND
+  36                 /               GUIDES WHICH EXPLICITLY SHOW THE BLOCK EXTENTS IMPLIED BY THE LATEST
+  37                 /               COMMAND.
+  38   
+  39                 /       /N      DO NOT VERIFY THE COPIED DATA. DEFAULT IS TO VERIFY THE DATA. IGNORED
+  40                 /               IN COMPARISON COMMANDS.
+  41   
+  42                 /       /O      OVERRIDE THE MESSAGE "ARE YOU SURE?" ISSUED AFTER EVERY COMMAND.
+  43                 /               DEFAULT IS TO WAIT FOR USER RESPONSE ('Y' OR 'N') FROM THE CONSOLE.
+  44   
+  45                 /       /U      FOLD KEYBOARD INPUT TO UPPER-CASE AS IT IS TYPED IN. DEFAULT IS TO
+  46                 /               ALLOW LOWER-CASE. INTERPRETATION OF INPUT IS ALWAYS CASELESS. OUTPUT
+  47                 /               WILL ALSO BE TOTALLY UPPER-CASE IF THIS OPTION IS SELECTED.
+  48   
+  49                 /       /W      WORD UPDATE MODE. CONTINUE AT NEXT WORD DURING MISMATCH FAILURES
+  50                 /               OF COMPARISON OPERATION WHEN SKIPPING PAST LATEST PROBLEM (WORD).
+  51                 /               DEFAULT IS TO IGNORE REST OF AFFECTED BLOCK AND CONTINUE AT FIRST
+  52                 /               WORD OF NEXT BLOCK (NEXT HIGHER COMPATIBLE BLOCK IF COMPARING UNLIKE
+  53                 /               BLOCK SIZE DEVICES).
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 2
+
+  54                 /       FILE CONSIDERATIONS.
+  55   
+  56                 /       FILES   PASSING INPUT FILES TO BLKCPY CAUSES COMMAND INPUT TO BE TAKEN FROM
+  57                 /               THE CONTENTS OF THE FILES. AT END OF ALL PASSED INPUT FILES, INPUT
+  58                 /               REVERTS TO THE CONSOLE. THE "$" CHARACTER MAY BE PLACED AT THE END
+  59                 /               OF THE LAST INPUT FILE IN LIEU OF THE <ESC> CHARACTER TO EXIT BLKCPY
+  60                 /               AUTOMATICALLY. ALL OUTPUT FILES ARE IGNORED AND ONLY SERVE TO WASTE
+  61                 /               SPACE IN THE FILE LIST. ALL DEVICES ASSOCIATED WITH THE FILES MUST
+  62                 /               REMAIN RESIDENT DURING THE FILES-DRIVEN OPERATION. ALL YES/NO
+  63                 /               QUESTIONS MUST BE ANSWERED AT THE CONSOLE (SEE /O).
+  64   
+  65                 /       COMMAND LINE OPTIONS.
+  66   
+  67                 /       =NNNN   LENGTH OF BLOCKS TO COPY/COMPARE. MUST BE GIVEN UNLESS A RANGE IS
+  68                 /               SPECIFIED.
+  69   
+  70                 /       -NNNN   UPPER RANGE BLOCK. THE COPY/COMPARISON SHOULD BE PERFORMED UPON
+  71                 /               THE BLOCKS RANGING FROM THE PREVIOUS STARTING BLOCK THROUGH BLOCK
+  72                 /               NNNN. THIS FORM OF RANGE SPECIFICATION MAY BE APPLIED TO EITHER
+  73                 /               INPUT OR OUTPUT. NOT ALLOWED IN COMBINATION WITH EITHER ANOTHER
+  74                 /               (INPUT OR OUTPUT) RANGE OR AN "=" LENGTH SPECIFICATION.
+  75   
+  76                 /       USER COMMANDS CAN TAKE SEVERAL FORMS:
+  77   
+  78                 /       COPYING COMMANDS.
+  79   
+  80                 /       *SYS7:0-577<SYS0:0              OUTPUT DETERMINES RANGE
+  81   
+  82                 /       *SYS7:0<SYS0:0-577              INPUT DETERMINES RANGE
+  83   
+  84                 /       *SYS7:0<SYS0:0=600              LENGTH PARAMETER GIVEN EXPLICITLY
+  85   
+  86                 /       COMMANDS MAY ALTERNATIVELY BE GIVEN AS FOLLOWS:
+  87   
+  88                 /       *SYS0:0>SYS7:0-577              OUTPUT DETERMINES RANGE
+  89   
+  90                 /       *SYS0:0-577>SYS7:0              INPUT DETERMINES RANGE
+  91   
+  92                 /       *SYS0:0>SYS7:0=600              LENGTH PARAMETER GIVEN EXPLICITLY
+  93   
+  94                 /       THE DIRECTION OF TRANSFER IS DETERMINED BY WHETHER "<" OR ">" IS USED.
+  95   
+  96                 /       COMPARISON COMMANDS.
+  97   
+  98                 /       *SYS0:0-577!SYS7:0              FIRST INPUT DETERMINES RANGE
+  99   
+ 100                 /       *SYS0:0!SYS7:0-577              SECOND INPUT DETERMINES RANGE
+ 101   
+ 102                 /       *SYS0:0!SYS7:0=600              LENGTH PARAMETER GIVEN EXPLICITLY
+ 103   
+ 104                 /       THE "=" PARAMETER CAN BE GIVEN ANYWHERE ON THE COMMAND LINE EXCEPT WITHIN
+ 105                 /       THE 'DEVU:BLOCK' CONSTRUCTION.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 3
+
+ 106                 /       SPECIAL HANDLER CONSIDERATIONS.
+ 107   
+ 108                 /       WHEN DEALING WITH SPECIAL HANDLERS (PDP-10 DECTAPE, LAP6-DIAL LINCTAPE,
+ 109                 /       ETC.), THE LENGTH OR RANGE OF BLOCKS TO COPY/COMPARE REFERS TO THE ACTUAL
+ 110                 /       NUMBER OF BLOCKS SPECIFIED RELATIVE TO THE DEVICE ON THE SAME SIDE OF THE
+ 111                 /       I/O SEPARATOR ("<", ">" OR "!"). CONSEQUENTLY, THE NUMBER OF BLOCKS ACTUALLY
+ 112                 /       INVOLVED RELATIVE TO THE DEVICE ON THE OPPOSITE SIDE OF THE I/O SEPARATOR
+ 113                 /       WILL DEPEND ON THE INTER-DEVICE BLOCK SIZE RATIO. IN THE FOLLOWING EXAMPLE:
+ 114   
+ 115                 /       *SYS0:0<LTD1:0-1
+ 116   
+ 117                 /       THE 256 WORDS/BLOCK LINCTAPE HANDLER WILL INPUT BLOCKS 0 THROUGH 1 OUTPUTTING
+ 118                 /       TO THE 128 WORDS/BLOCK P?S/8 SYSTEM HANDLER BLOCKS 0 THROUGH 3. FOR ALL
+ 119                 /       NORMAL HANDLERS (AS WELL AS TRANSFERS BETWEEN LIKE-SIZE SPECIAL HANDLERS),
+ 120                 /       NO SPECIAL CONSIDERATION EXISTS AS ALL NORMAL HANDLERS HAVE IDENTICAL
+ 121                 /       BLOCK-SIZE VALUES OF 128 WORDS/BLOCK. AN ERROR MESSAGE WILL BE ISSUED
+ 122                 /       IF THE BLOCKS ARE NOT CONVERTIBLE BETWEEN UNLIKE BLOCK SIZE HANDLERS.
+ 123   
+ 124                 /       SINCE PARTIAL BLOCKS MAY BE INVOLVED IN TRANSFERS BETWEEN UNLIKE BLOCK SIZE
+ 125                 /       DEVICE HANDLERS, IT MIGHT BE MANDATORY TO EXPRESS THE LENGTH OR RANGE OF
+ 126                 /       THE COPY/COMPARE ON THE SAME SIDE OF THE I/O SEPARATOR AS THE ORIGINAL (OR
+ 127                 /       IMPLIED) DATA CREATION COMMAND. ASSUMING DTP IS THE PDP-10 DECTAPE HANDLER
+ 128                 /       (BLOCK SIZE = 3 PAGES), AND LTD IS THE 256 WORDS/BLOCK LINCTAPE HANDLER
+ 129                 /       (BLOCK SIZE = 2 PAGES), ISSUING THE FOLLOWING COMMAND:
+ 130   
+ 131                 /       *LTD0:0-4>DTP1:1077
+ 132   
+ 133                 /       WILL YIELD AN I/O ERROR AS LTD0: BLOCK THREE AND THE FIRST HALF OF BLOCK
+ 134                 /       FOUR WILL GO TO DTP1: BLOCK 1101 (HIGHEST AVAILABLE BLOCK ON THAT DEVICE),
+ 135                 /       BUT THE SECOND HALF OF LTD0: BLOCK FOUR WILL ATTEMPT TO TRANSFER TO DTP1:
+ 136                 /       BLOCK 1102 (NON-EXISTENT BLOCK) YIELDING AN I/O ERROR. A PROPER COMMAND
+ 137                 /       USAGE WOULD BE:
+ 138   
+ 139                 /       *LTD0:0>DTP1:1077-1101
+ 140   
+ 141                 /       THIS WILL ASK FOR TWO PAGES FROM LTD0: BLOCK THREE, AND A SINGLE PAGE FROM
+ 142                 /       LTD0: BLOCK FOUR TO COMPLETE THE THREE PAGE WRITE ON DTP1: BLOCK 1101.
+ 143   
+ 144                 /       WHEN REVERSING THE DIRECTION OF TRANSFER, THE BLOCK LIMITS (OR RANGE IF
+ 145                 /       "=NNNN" FORM IS USED) SHOULD STAY ON THE SAME SIDE OF THE SEPARATOR. THE
+ 146                 /       FOLLOWING COMMAND WILL SUCCESSFULLY COPY THE SAME DATA BACK TO THE LTD0:
+ 147                 /       DEVICE:
+ 148   
+ 149                 /       *DTP1:1077-1101>LTD0:0
+ 150   
+ 151                 /       SINCE THE ACTUAL NUMBER OF BLOCKS TRANSFERRED IS STILL DETERMINED BY THE
+ 152                 /       DTP1: HANDLER.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 4
+
+ 153                 /       RESTRICTIONS.
+ 154   
+ 155                 /       THE SYSTEM BOOTSTRAP UNIT MUST REMAIN RESIDENT UNTIL THE COPY/COMPARE STARTS
+ 156                 /       (JUST AFTER THE "ARE YOU SURE? " QUESTION IS ASKED). THIS, IN TURN, REQUIRES
+ 157                 /       THE USER TO NOT INVOKE /O IF ANY DISMOUNTING OF THE SYSTEM DEVICE IS REQUIRED,
+ 158                 /       AS THIS PREVENTS THE PAUSE FOR USER RESPONSE REQUIRED TO SYNCHRONIZE SUCH
+ 159                 /       DEVICE MOUNTS. THE RESTRICTION DOES NOT APPLY IF EITHER OF THE DEVICES "SYS"
+ 160                 /       OR "NUL" (SEE BELOW) ARE CHOSEN FOR ALL "DEVU:BLOCK" CONSTRUCTIONS.
+ 161   
+ 162                 /       REPEATING THE LATEST OPERATION BY USE OF <^R>, OR A SIMILAR OPERATION USING
+ 163                 /       THE SAME EXACT HANDLERS, WILL OBVIATE THE REQUIRED RESIDENCE OF THE SYSTEM
+ 164                 /       DEVICE, AS THE SAME HANDLERS ARE USED FOR THE SAME PURPOSE. A NEW OPERATION
+ 165                 /       REQUIRES THE SYSTEM DEVICE TO BE MOUNTED, AS EACH OPERATION IS DYNAMICALLY
+ 166                 /       ALLOCATED FOR THE BEST THROUGHPUT.
+ 167   
+ 168                 /       AS A CONVENIENCE TO THE USER, A HANDLER KNOWN AS "SYS" IS PROVIDED AND IS
+ 169                 /       ALSO MADE PERMANENTLY RESIDENT WHICH PREVENTS THE ABOVE-MENTIONED OVERHEAD
+ 170                 /       AND DISMOUNT RESPONSIBILITY (NON-/O REQUIREMENT). THIS HANDLER ADDRESSES
+ 171                 /       THE SYSTEM LOGICAL UNITS BY PASSING ITS PARAMETERS TO THE SYSTEM HANDLER
+ 172                 /       ITSELF. SINCE THE SYSTEM HANDLER PROVIDES NO ERROR RECOVERY TO A CALLING
+ 173                 /       PROGRAM, THE USER MUST INTERACT WITH THE SYSTEM HANDLER IN THE NORMAL FASHION
+ 174                 /       (HALT, RETRY OR OVERLAY ERROR MESSAGE) AS NECESSARY. ANY RETURN TO BLKCPY
+ 175                 /       IS PERCEIVED AS ERROR-FREE, AND THUS ALL ERROR RECOVERY PROCEDURES DOCUMENTED
+ 176                 /       HERE DO NOT APPLY WHEN USING THE "SYS" HANDLER.
+ 177   
+ 178                 /       CALLING THE "SYS" HANDLER WITH LOGICAL UNITS 0-7 APPENDED CORRESPONDS TO
+ 179                 /       ACCESSING LOGICAL UNITS 0-7 THROUGH THE SYSTEM HANDLER. ANY ANOMALIES CAUSED
+ 180                 /       BY THE SYSTEM HANDLER UNIT ARE PURELY WITHIN THE DOMAIN OF THE SYSTEM HANDLER.
+ 181                 /       THE USER IS REFERRED TO SPECIFIC SYSTEM HANDLER DOCUMENTATION. NO ATTEMPT
+ 182                 /       IS MADE TO LIMIT THE BLOCK RANGE APPLIED TO THE HANDLER, SO THIS ALSO IS
+ 183                 /       GOVERNED BY THE CONSTRAINTS OF THE HANDLER ITSELF AND IS BEYOND THE SCOPE
+ 184                 /       AND CONTROL OF THIS PROGRAM. FOR EXAMPLE: USING THE "RX01" SYSTEM HANDLER
+ 185                 /       WILL MAP ALL UNITS FROM 4-7 INTO 0-3 WITHOUT REPORTING AN ERROR. DEPENDING
+ 186                 /       ON HARDWARE CONFIGURATION, FURTHER MAPPING OF UNITS 2-3 INTO UNITS 0-1 MAY
+ 187                 /       OCCUR. ATTEMPTS TO ACCESS BLOCKS BEYOND 1733 (ON RX01 OR RX02, OR 3667 ON
+ 188                 /       RX03 WITH DOUBLE-SIDED DISKETTE INSERTED) WILL CAUSE A "HIGH TRACK" ERROR
+ 189                 /       TO BE REPORTED BY THE HANDLER ITSELF.
+ 190   
+ 191                 /       TO ALLOW FOR READ-CHECKING OF A DEVICE, A "NUL" HANDLER IS PROVIDED, AND
+ 192                 /       ALSO MADE PERMANENTLY RESIDENT. THE "NUL" HANDLER WILL ALWAYS RETURN
+ 193                 /       SUCCESSFULLY ON ANY READ TO ANY UNIT OR BLOCK. "NUL" HANDLER BLOCK SIZE
+ 194                 /       IS CONSIDERED TO BE 128 WORDS/BLOCK. READING FROM THE "NUL" HANDLER (NUL0-7)
+ 195                 /       WILL RESULT IN ZEROED DATA BEING READ, WHICH IS USEFUL FOR CLEARING OUTPUT
+ 196                 /       DEVICE BLOCKS.
+ 197   
+ 198                 /       IF INPUT FILES CONTAINING COMMANDS ARE PASSED, THE DEVICES ASSOCIATED WITH
+ 199                 /       THESE FILES MUST ALWAYS REMAIN RESIDENT DURING THE FILES-DRIVEN PORTION OF
+ 200                 /       THE BLKCPY SESSION. THE USER MUST RESPOND TO YES/NO QUESTIONS SUCH AS "ARE
+ 201                 /       YOU SURE" (ASSUMING NON-/O USAGE), OR ERROR MESSAGES GENERATED BY PROBLEMATIC
+ 202                 /       TRANSFERS, ON THE SYSTEM CONSOLE. ALL INPUT (INCLUDING COMMAND STRINGS)
+ 203                 /       REVERTS TO THE CONSOLE AFTER ALL INPUT FILES' CONTENTS HAVE BEEN PROCESSED.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 5
+
+ 204                 /       COMMAND FORMATTING AND STYLE NOTES.
+ 205   
+ 206                 /       SINCE BLKCPY COMMANDS ARE POTENTIALLY CONFUSING TO THE USER AND SUBTLETIES
+ 207                 /       SUCH AS AN INVERTED DIRECTION OF TRANSFER HAVE SUCH DIRE CONSEQUENCES, THE
+ 208                 /       USER IS ENCOURAGED TO DEVELOP A DISTINCTIVE STYLE WHEN USING BLKCPY TO PREVENT
+ 209                 /       MISHAPS. TOWARDS THIS END, SEVERAL COSMETIC FEATURES EXIST WITHIN BLKCPY:
+ 210   
+ 211                 /       A)      BLKCPY ALLOWS COMMANDS TO BE PARTIAL OR TOTAL COMMENTS. ANY PORTION
+ 212                 /               OF A COMMAND LINE STARTING WITH A SLASH ("/") CHARACTER IS CONSIDERED
+ 213                 /               TO BE A COMMENT. THIS IS ESPECIALLY USEFUL WHEN CREATING COMMAND
+ 214                 /               FILES FOR BATCH-ORIENTED USAGE.
+ 215   
+ 216                 /       B)      BLANK (NULL) LINES ARE FREELY ALLOWED FOR SPACING COMMANDS APART
+ 217                 /               TO AID CLARITY.
+ 218   
+ 219                 /       C)      SPACE AND HORIZONTAL TAB CHARACTERS ARE FREELY ALLOWED ANYWHERE
+ 220                 /               WITHIN A COMMAND TO AID CLARITY. THE HORIZONTAL TAB WILL ECHO AS
+ 221                 /               A SPACE CHARACTER WITHIN THE BLKCPY COMMAND; THE USER IS ENCOURAGED
+ 222                 /               TO USE HORIZONTAL TAB CHARACTERS WITHIN ANY COMMAND FILE TO AID
+ 223                 /               UNDERSTANDING OF THE BLKCPY SESSION IMPLIED BY THE CONTENTS OF THE
+ 224                 /               COMMAND FILE.
+ 225   
+ 226                 /       D)      SEVERAL KNOWN OPERATING SYSTEMS FOR OTHER COMPUTERS FORCE THE PERSONAL
+ 227                 /               PREFERENCE OF THE IMPLEMENTORS UPON THE USER WITH REGARD TO SUCH
+ 228                 /               AS THE IMPLIED DIRECTION OF MOVEMENT OF DATA WITHIN THE COMMAND
+ 229                 /               STRUCTURE OF THE SYSTEM. IN KEEPING WITH OTHER P?S/8 CONVENTIONS,
+ 230                 /               BLKCPY ALLOWS THE USER'S OWN PREFERENCE TO DETERMINE THIS THIS
+ 231                 /               (USE OF "<" OR ">" AS NECESSARY). IT IS HOPED THAT THE USER'S OWN
+ 232                 /               ROUTINE USAGE OF BLKCPY WILL PREVENT ACCIDENTAL REVERSAL PROBLEMS
+ 233                 /               OF THIS NATURE.
+ 234   
+ 235                 /       E)      BLKCPY FORCES NO PREFERENCE FOR UPPER OR LOWER CASE CHARACTERS.
+ 236                 /               THE USER MAY ENTER EITHER CASE WHERE APPLICABLE AS ACTUAL COMMAND
+ 237                 /               INTERPRETATION IS TOTALLY CASELESS. AT THE USER'S OPTION, ALL INPUT
+ 238                 /               WILL BE "FOLDED" TO UPPER CASE AS IT IS TYPED IN (SEE /U DESCRIPTION).
+ 239   
+ 240                 /       F)      THE COMMAND GUIDE FEATURE EXPLICITLY STATES THE OBJECTIVE OF ANY
+ 241                 /               COMMAND TO ASSIST THE USER IN DETERMINING COMMAND ERRORS. THE
+ 242                 /               CONFIRMING QUESTION (ARE YOU SURE?) GIVES THE USER A FINAL OPPORTUNITY
+ 243                 /               TO CANCEL ANY COMMAND. BOTH OF THESE FEATURES ARE AVAILABLE FROM
+ 244                 /               THE COMMAND FILE MODE (AND ARE DEFAULT). USAGE OF COMMAND FILES
+ 245                 /               (OPTIONALLY) IN CONJUNCTION WITH COMMAND GUIDES AND/OR CONFIRMATIONS
+ 246                 /               BRINGS THE SAFEST USAGE OF BLKCPY TO THE NOVICE OR CASUAL USER.
+ 247                 /               AUTOMATIC EXIT CAPABILITY IS OPTIONALLY AVAILABLE FROM COMMAND FILES
+ 248                 /               BY TERMINATING ANY LINE WITH A DOLLAR SIGN ("$") CHARACTER WHICH
+ 249                 /               WILL BE INTERPRETED AS AN <ESC> CHARACTER CAUSING BLKCPY TO EXIT
+ 250                 /               AFTER CONCLUDING THE LATEST COMMAND.
+ 251   
+ 252                 /       G)      EXTENSIVE DIAGNOSTIC MESSAGES ASSIST THE USER IN DETERMINING
+ 253                 /               SYNTACTIC ERRORS WHEN USING BLKCPY.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 6
+
+ 254                 /       IMPLEMENTATION NOTES AND CUSTOMIZATION.
+ 255   
+ 256                 /       IT MAY BE DESIRABLE TO CUSTOMIZE ANY PARTICULAR COPY OF BLKCPY TO THE USER'S
+ 257                 /       OWN PREFERENCE REGARDING CERTAIN SWITCHES. FOR EXAMPLE, A SOPHISTICATED
+ 258                 /       USER MAY PREFER TO DELETE THE COMMAND GUIDE FEATURE, OR EVEN THE "ARE YOU
+ 259                 /       SURE?" SEQUENCE INVOKED ON EVERY COMMAND. OPTION SWITCHES CONTROLLING THESE
+ 260                 /       AND OTHER ASPECTS OF BLKCPY ARE AVAILABLE TO CUSTOMIZE THE OPERATIONS OF
+ 261                 /       THE PROGRAM, BUT THESE REQUIRE THE USER TO INVOKE FAVORED OPTIONS REPEATEDLY.
+ 262   
+ 263                 /       SEVERAL KNOWN OPERATING SYSTEMS SUPPORT "PATCHED" VERSIONS OF SYSTEM PROGRAMS
+ 264                 /       WHICH EFFECTIVELY FORCE THE EFFECT OF OPTION SWITCHES WHETHER EXPLICITLY
+ 265                 /       GIVEN OR NOT. THIS PREVENTS THE POSSIBILITY OF USING THE PROGRAM IN THE
+ 266                 /       ORIGINAL WAY AS THERE IS NO METHOD TO REVERT THE ENFORCED OPTION.
+ 267   
+ 268                 /       TO OVERCOME THIS LIMITATION, THE USER CAN PATCH THE FIRST THREE WORDS OF
+ 269                 /       THE CORE IMAGE OF BLKCPY ITSELF WITH A "MASK" (EACH BIT CORRESPONDS TO AN
+ 270                 /       OPTION SWITCH SERIALLY FROM /A-/Z FOLLOWED BY /0-/9). THIS MASKING VALUE
+ 271                 /       WILL BE USED TO "REVERSE" THE EFFECT OF THE SPECIFIED SWITCH. FOR EXAMPLE:
+ 272                 /       SETTING RELATIVE WORD ZERO OF THE CORE IMAGE OF BLKCPY TO 0400 WILL REVERSE
+ 273                 /       THE /D OPTION. THIS WOULD REQUIRE THE USER TO INVOKE /D IF THE COMMAND
+ 274                 /       GUIDES WERE DESIRED, OPPOSITE TO NORMAL CONVENTION. ALL SWITCHES CAN BE
+ 275                 /       "REVERSED" ACCORDINGLY (INCLUDING OPTION SWITCHES IGNORED BY BLKCPY!).
+ 276                 /       THE RESULTANT CUSTOMIZED COPY OF BLKCPY OPERATES IN A TOTALLY CONVENTIONAL
+ 277                 /       MANNER; ONLY THE METHOD OF PASSING SWITCH OPTIONS CHANGES.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 7
+
+ 278                 /       PROGRAM MESSAGES.
+ 279   
+ 280                 /       COPY FINISHED [WITH ERRORS]
+ 281   
+ 282                 /               THE LATEST COPY COMMAND HAS BEEN COMPLETED. IF ANY ERRORS WERE
+ 283                 /               UNCORRECTED, THE ERROR APPENDAGE IS ALSO GIVEN.
+ 284   
+ 285                 /       COMPARISON FINISHED [WITH ERRORS]
+ 286   
+ 287                 /               THE LATEST COMPARISON COMMAND HAS BEEN COMPLETED. IF ANY ERRORS
+ 288                 /               WERE UNCORRECTED, OR DATA DIFFERENCES WERE DETECTED, THE ERROR
+ 289                 /               APPENDAGE IS ALSO GIVEN.
+ 290   
+ 291                 /       COPY FAILED!
+ 292   
+ 293                 /               THE USER OPTED TO ABORT THE COPY OPERATION INSTEAD OF RETRYING OR
+ 294                 /               POSSIBLY SKIPPING PAST AN I/O ERROR. THE COMMAND WAS NOT (COMPLETELY)
+ 295                 /               CARRIED OUT.
+ 296   
+ 297                 /       COMPARISON ERROR!
+ 298   
+ 299                 /               WHILE COMPARING THE SPECIFIED SETS OF CONTIGUOUS BLOCKS, A MISMATCH
+ 300                 /               OCCURRED BETWEEN TWO CORRESPONDING WORDS. BOTH WORDS ARE REPORTED
+ 301                 /               IN THE FORM OF DEVU:BBBB.OOOO /VVVV WHERE OOOO IS THE RELATIVE OFFSET
+ 302                 /               WITHIN THE BLOCK BBBB ON UNIT U OF DEVICE DEV, AND VVVV IS THE DATA
+ 303                 /               VALUE OF THE WORD. OPTIONS AT THIS POINT ARE TO:
+ 304   
+ 305                 /                       1A)     (/W NOT INVOKED) SKIP PAST BLOCK (Y/N) TO BYPASS
+ 306                 /                               THE PROBLEM BLOCK.
+ 307   
+ 308                 /                       1B)     (/W INVOKED) SKIP TO NEXT WORD (Y/N) TO BYPASS THE
+ 309                 /                               PROBLEM WORD.
+ 310   
+ 311                 /       FAILING TO TAKE THIS OPTION WILL YIELD THE "COMPARISON FAILED!" MESSAGE.
+ 312   
+ 313                 /       COMPARISON FAILED!
+ 314   
+ 315                 /               THE USER OPTED TO ABORT THE COMPARISON OPERATION INSTEAD OF RETRYING
+ 316                 /               OR POSSIBLY SKIPPING PAST AN I/O ERROR OR MISMATCH. THE COMMAND
+ 317                 /               WAS NOT (COMPLETELY) CARRIED OUT.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 8
+
+ 318                 /       INPUT ERROR ON DEVU:BBBB!
+ 319   
+ 320                 /               AN INPUT READ ERROR OCCURRED WHILE ATTEMPTING TO READ BLOCK BBBB
+ 321                 /               ON UNIT U OF DEVICE DEV. OPTIONS AT THIS POINT ARE TO:
+ 322   
+ 323                 /                       1)      RETRY (Y/N) TO RETRY THE READ.
+ 324   
+ 325                 /                       2A)     (COPY ONLY) WRITE DUMMY BLOCK (Y/N) TO WRITE A DUMMY
+ 326                 /                               BLOCK ON THE OUTPUT DEVICE AT THE CORRESPONDING
+ 327                 /                               BLOCK WHERE THE ORIGINAL DATA WAS INTENDED.
+ 328   
+ 329                 /                       2B)     (COMPARISON ONLY) SKIP PAST BLOCK (Y/N) TO BYPASS
+ 330                 /                               THE PROBLEM BLOCK.
+ 331   
+ 332                 /               TAKING ANY OPTION BUT 1) WILL CAUSE THE ERROR APPENDAGE TO APPEAR
+ 333                 /               WHEN (IF) THE COPY/COMPARISON COMPLETES. REJECTING ALL OPTIONS WILL
+ 334                 /               YIELD THE "COPY FAILED!" OR "COMPARISON FAILED!" MESSAGE.
+ 335   
+ 336                 /       OUTPUT ERROR ON DEVU:BBBB!
+ 337   
+ 338                 /               AN OUTPUT WRITE ERROR OCCURRED WHILE ATTEMPTING TO WRITE BLOCK BBBB
+ 339                 /               ON UNIT U OF DEVICE DEV. OPTIONS AT THIS POINT ARE TO:
+ 340   
+ 341                 /                       1)      RETRY (Y/N) TO RETRY THE WRITE.
+ 342   
+ 343                 /                       2)      SKIP PAST BLOCK (Y/N) TO BYPASS THE PROBLEM BLOCK.
+ 344   
+ 345                 /               TAKING ANY OPTION BUT 1) WILL CAUSE THE ERROR APPENDAGE TO APPEAR
+ 346                 /               WHEN (IF) THE COPY OPERATION COMPLETES. REJECTING ALL OPTIONS WILL
+ 347                 /               YIELD THE "COPY FAILED!" MESSAGE.
+ 348   
+ 349                 /       REPEATING LATEST OPERATION
+ 350   
+ 351                 /               <^R> WAS HIT AT THE COMMAND PROMPT OR DURING A COPY/COMPARISON.
+ 352                 /               THE OPERATION IS TOTALLY RESTARTED. IF THE ASSOCIATED MEDIA ARE
+ 353                 /               CHANGED BEFORE RESTARTING, MULTIPLE DISK COPY/COMPARISON CAN BE
+ 354                 /               INVOKED WITH A SINGLE KEYSTROKE PER OPERATION.
+ 355   
+ 356                 /       VERIFY ERROR ON DEVU:BBBB!
+ 357   
+ 358                 /               AFTER WRITING THE DATA TO THE OUTPUT DEVICE AND SUCCESSFULLY READING
+ 359                 /               IT BACK, A WORD BY WORD COMPARISON IS MADE FOR EVERY BLOCK BETWEEN
+ 360                 /               THE SOURCE AND DESTINATION DEVICE (UNLESS /N WAS INVOKED). THIS
+ 361                 /               ERROR INDICATES A DISCREPANCY BETWEEN THE SOURCE DATA AND THE
+ 362                 /               DESTINATION DATA, AND IS STATED AS AN ERROR ON THE DESTINATION DEVICE
+ 363                 /               DEV UNIT U AT BLOCK BBBB. OPTIONS AT THIS POINT ARE TO:
+ 364   
+ 365                 /                       1)      RETRY (Y/N) TO RETRY THE WRITE AND SUBSEQUENT READ
+ 366                 /                               OPERATION.
+ 367   
+ 368                 /                       2)      SKIP PAST BLOCK (Y/N) TO BYPASS THE PROBLEM BLOCK.
+ 369   
+ 370                 /               TAKING ANY OPTION BUT 1) WILL CAUSE THE ERROR APPENDAGE TO APPEAR
+ 371                 /               WHEN (IF) THE COPY OPERATION COMPLETES. REJECTING ALL OPTIONS WILL
+ 372                 /               YIELD THE "COPY FAILED!" FAILURE MESSAGE.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 9
+
+ 373                 /       VERIFY READ ERROR ON DEVU:BBBB!
+ 374   
+ 375                 /               A READ ERROR OCCURRED WHILE ATTEMPTING TO READ BLOCK BBBB ON UNIT
+ 376                 /               U OF DEVICE DEV JUST AFTER THE DATA WAS WRITTEN (NOT PERFORMED IF
+ 377                 /               /N INVOKED). THE OUTPUT DEVICE REPORTED NO ERROR WHILE WRITING THE
+ 378                 /               DATA, BUT THE DATA CANNOT BE READ BACK FOR VERIFICATION PURPOSES.
+ 379                 /               OPTIONS AT THIS POINT ARE TO:
+ 380   
+ 381                 /                       1)      RETRY (Y/N) TO RETRY THE WRITE AND SUBSEQUENT READ
+ 382                 /                               OPERATION.
+ 383   
+ 384                 /                       2)      SKIP PAST BLOCK (Y/N) TO BYPASS THE PROBLEM BLOCK.
+ 385   
+ 386                 /               TAKING ANY OPTION BUT 1) WILL CAUSE THE ERROR APPENDAGE TO APPEAR
+ 387                 /               WHEN (IF) THE COPY OPERATION COMPLETES. REJECTING ALL OPTIONS WILL
+ 388                 /               YIELD THE "COPY FAILED!" FAILURE MESSAGE.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 10
+
+ 389                 /       ERROR RECOVERY (ALL EXAMPLES ASSUME /D, /O INVOKED FOR BREVITY).
+ 390   
+ 391                 /       RECOVERING FROM INPUT ERRORS.
+ 392   
+ 393                 /       SEVERAL EXAMPLES OF USER ERROR RECOVERY FROM INPUT ERRORS:
+ 394   
+ 395                 /       *DTA1:0<DTA0:0=2702                     /USER INVOKES COPY COMMAND
+ 396                 /       INPUT ERROR ON DTA0:0001!               /INPUT ERROR OCCURS
+ 397                 /       RETRY? YES!                             /USER OPTS TO RETRY
+ 398                 /       INPUT ERROR ON DTA0:0001!               /ERROR PERSISTS
+ 399                 /       RETRY? NO!                              /USER OPTS TO NOT RETRY
+ 400                 /       WRITE DUMMY BLOCK? YES!                 /USER OPTS TO WRITE DUMMY DATA
+ 401                 /       COPY FINISHED [WITH ERRORS]             /COPY FINISHES
+ 402   
+ 403                 /       *DTA1:0-2701>DTA0:0                     /USER INVOKES COPY COMMAND
+ 404                 /       INPUT ERROR ON DTA1:0001!               /INPUT ERROR OCCURS
+ 405                 /       RETRY? NO!                              /USER OPTS TO NOT RETRY
+ 406                 /       WRITE DUMMY BLOCK? NO!                  /USER OPTS TO NOT WRITE DUMMY DATA
+ 407                 /       COPY FAILED!                            /COPY DOES NOT FINISH
+ 408   
+ 409                 /       *DTA1:0!DTA0:0=2702                     /USER INVOKES COMPARISON COMMAND
+ 410                 /       INPUT ERROR ON DTA1:0001!               /INPUT ERROR OCCURS
+ 411                 /       RETRY? NO!                              /USER OPTS TO NOT RETRY
+ 412                 /       SKIP PAST PROBLEM BLOCK? YES!           /USER OPTS TO SKIP THE BLOCK
+ 413                 /       COMPARISON FINISHED [WITH ERRORS]       /COMPARISON FINISHES
+ 414   
+ 415                 /       RECOVERING FROM OUTPUT ERRORS.
+ 416   
+ 417                 /       SEVERAL EXAMPLES OF USER ERROR RECOVERY FROM OUTPUT ERRORS:
+ 418   
+ 419                 /       *DTA1:0<DTA0:0=2702                     /USER INVOKES COPY COMMAND
+ 420                 /       OUTPUT ERROR ON DTA1:0000!              /OUTPUT ERROR OCCURS
+ 421                 /       RETRY? YES!                             /USER OPTS TO RETRY
+ 422                 /       COPY FINISHED                           /COPY FINISHES
+ 423   
+ 424                 /       *DTA0:0-2701>DTA1:0                     /USER INVOKES COPY COMMAND
+ 425                 /       OUTPUT ERROR ON DTA1:0000!              /OUTPUT ERROR OCCURS
+ 426                 /       RETRY? NO!                              /USER OPTS TO NOT RETRY
+ 427                 /       SKIP PAST PROBLEM BLOCK? YES!           /USER OPTS TO SKIP THE BLOCK
+ 428                 /       COPY FINISHED [WITH ERRORS]             /COPY FINISHES
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 11
+
+ 429                 /       RECOVERING FROM VERIFY ERRORS.
+ 430   
+ 431                 /       SEVERAL EXAMPLES OF USER ERROR RECOVERY FROM VERIFY ERRORS:
+ 432   
+ 433                 /       *DTA1:0<DTA0:0-2701                     /USER INVOKES COPY COMMAND
+ 434                 /       VERIFY ERROR ON DTA1:0000!              /VERIFY ERROR OCCURS
+ 435                 /       RETRY? YES!                             /USER OPTS TO RETRY
+ 436                 /       VERIFY ERROR ON DTA1:0000!              /ERROR PERSISTS
+ 437                 /       RETRY? NO!                              /USER OPTS NOT TO RETRY
+ 438                 /       SKIP PAST PROBLEM BLOCK? YES!           /USER OPTS TO SKIP THE BLOCK
+ 439                 /       COPY FINISHED [WITH ERRORS]             /COPY FINISHES
+ 440   
+ 441                 /       *DTA0:0>DTA1:0-2701                     /USER INVOKES COPY COMMAND
+ 442                 /       VERIFY ERROR ON DTA1:0000!              /VERIFY ERROR OCCURS
+ 443                 /       RETRY? YES!                             /USER OPTS TO RETRY
+ 444                 /       VERIFY ERROR ON DTA1:0000!              /ERROR PERSISTS
+ 445                 /       RETRY? NO!                              /USER OPTS NOT TO RETRY
+ 446                 /       SKIP PAST PROBLEM BLOCK? NO!            /USER OPTS NOT TO SKIP PAST THE BLOCK
+ 447                 /       COPY FAILED!                            /COPY DOES NOT FINISH
+ 448   
+ 449                 /       RECOVERING FROM VERIFY READ ERRORS.
+ 450   
+ 451                 /       SEVERAL EXAMPLES OF USER ERROR RECOVERY FROM VERIFY READ ERRORS:
+ 452   
+ 453                 /       *DTA1:0-2701<DTA0:0                     /USER INVOKES COPY COMMAND
+ 454                 /       VERIFY READ ERROR ON DTA1:0000!         /VERIFY READ ERROR OCCURS
+ 455                 /       RETRY? YES!                             /USER OPTS TO RETRY
+ 456                 /       COPY FINISHED                           /COPY FINISHES
+ 457   
+ 458                 /       *DTA0:0-2701>DTA1:0                     /USER INVOKES COPY COMMAND
+ 459                 /       VERIFY READ ERROR ON DTA1:0000!         /VERIFY READ ERROR OCCURS
+ 460                 /       RETRY? YES!                             /USER OPTS TO RETRY
+ 461                 /       VERIFY READ ERROR ON DTA1:0000!         /ERROR PERSISTS
+ 462                 /       RETRY? NO!                              /USER OPTS NOT TO RETRY
+ 463                 /       SKIP PAST PROBLEM BLOCK? YES!           /USER OPTS TO SKIP THE BLOCK
+ 464                 /       COPY FINISHED [WITH ERRORS]             /COPY FINISHES
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 12
+
+ 465                 /       RECOVERING FROM COMPARISON ERRORS.
+ 466   
+ 467                 /       SEVERAL EXAMPLES OF USER ERROR RECOVERY FROM COMPARISON ERRORS.
+ 468   
+ 469                 /       (/W NOT INVOKED IN FOLLOWING EXAMPLE.)
+ 470   
+ 471                 /       *DTA1:0-2701!DTA0:0                             /USER INVOKES COMPARISON COMMAND
+ 472                 /       COMPARISON ERROR!                               /COMPARISON ERROR OCCURRS
+ 473                 /       DTA1:0000.0001 /1234  DTA0:0000.0001 /4567      /BOTH VALUES REPORTED
+ 474                 /       SKIP PAST PROBLEM BLOCK? YES                    /USER OPTS TO SKIP THE BLOCK
+ 475                 /       COMPARISON FINISHED [WITH ERRORS]               /COMPARISON FINISHES
+ 476   
+ 477                 /       (/W INVOKED IN FOLLOWING EXAMPLES.)
+ 478   
+ 479                 /       *DTA1:0!DTA0:0-2701                             /USER INVOKES COMPARISON COMMAND
+ 480                 /       COMPARISON ERROR!                               /COMPARISON ERROR OCCURRS
+ 481                 /       DTA1:0000.0001 /1234  DTA0:0000.0001 /4567      /BOTH VALUES REPORTED
+ 482                 /       SKIP TO NEXT WORD? YES                          /USER OPTS TO SKIP THE WORD
+ 483                 /       DTA1:2701.0177 /4321  DTA0:2701.0177 /7654      /BOTH VALUES REPORTED
+ 484                 /       SKIP TO NEXT WORD? YES                          /USER OPTS TO SKIP THE WORD
+ 485                 /       COMPARISON FINISHED [WITH ERRORS]               /COMPARISON FINISHES
+ 486   
+ 487                 /       *DTA1:0!DTA0:0=2702                             /USER INVOKES COMPARISON COMMAND
+ 488                 /       COMPARISON ERROR!                               /COMPARISON ERROR OCCURRS
+ 489                 /       DTA1:0000.0001 /1234  DTA0:0000.0001 /4567      /BOTH VALUES REPORTED
+ 490                 /       SKIP TO NEXT WORD? NO                           /USER OPTS NOT TO SKIP THE WORD
+ 491                 /       COMPARISON FAILED!                              /COMPARISON DOES NOT FINISH
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 13
+
+ 492                 /       COMMAND ERROR MESSAGES.
+ 493   
+ 494                 /       INVALID COMMAND - BAD DEVICE UNIT
+ 495   
+ 496                 /               A LOGICAL UNIT "0"-"7" WAS NOT FOUND AFTER THE DEVICE NAME.
+ 497   
+ 498                 /       INVALID COMMAND - MISSING DEVICE UNIT
+ 499   
+ 500                 /               A LOGICAL UNIT "0"-"7" WAS NOT FOUND AFTER THE DEVICE NAME AND BEFORE
+ 501                 /               THE NEXT SPECIFICATION TERMINATOR ("<", ">", "!" OR <EOL>).
+ 502   
+ 503                 /       INVALID COMMAND - MISSING LENGTH PARAMETER
+ 504   
+ 505                 /               AN "=" WAS GIVEN WITHOUT THE LENGTH PARAMETER.
+ 506   
+ 507                 /       INVALID COMMAND - MISSING BLOCK NUMBER
+ 508   
+ 509                 /               THE BLOCK NUMBER AFTER "DEVU:" WAS NOT PRESENT.
+ 510   
+ 511                 /       INVALID COMMAND - MISSING COLON
+ 512   
+ 513                 /               THE ":" CHARACTER AFTER THE DEVICE UNIT IS NOT PRESENT. THIS CHARACTER
+ 514                 /               MUST BE PRESENT TO SEPARATE THE UNIT AND BLOCK NUMBER.
+ 515   
+ 516                 /       INVALID COMMAND - MISSING LOWER RANGE BLOCK
+ 517   
+ 518                 /               THE "-BBBB" CONSTRUCTION WAS GIVEN TO SPECIFY AN UPPER RANGE BLOCK
+ 519                 /               BUT NOT ADJACENT TO "DEVU:BBBB" WHICH IS THE REQUIRED POSITION FOR
+ 520                 /               THIS OPTION.
+ 521   
+ 522                 /       INVALID COMMAND - MISSING UPPER RANGE BLOCK
+ 523   
+ 524                 /               THE "-" FOR AN UPPER RANGE BLOCK CONSTRUCTION WAS GIVEN, BUT THE
+ 525                 /               UPPER BLOCK NUMBER IS MISSING.
+ 526   
+ 527                 /       INVALID COMMAND - MULTIPLE I/O SEPARATORS
+ 528   
+ 529                 /               THERE MUST BE EXACTLY ONE "<", ">", OR "!" CHARACTERS WITHIN A VALID
+ 530                 /               COMMAND. EITHER MORE THAN ONE OCCURANCE OR MIXED USAGE OF THESE
+ 531                 /               SOURCE/DESTINATION SEPARATORS WAS GIVEN.
+ 532   
+ 533                 /       INVALID COMMAND - MULTIPLE LENGTH/RANGE SPECIFICATIONS
+ 534   
+ 535                 /               THERE MUST BE EXACTLY ONE RANGE SPECIFICATION OR "=" LENGTH PARAMETER.
+ 536                 /               EITHER MORE THAN ONE OCCURANCE OR MIXED USAGE OF THESE SPECIFICATIONS
+ 537                 /               WAS GIVEN.
+ 538   
+ 539                 /       INVALID COMMAND - MISSING DEVICE NAME
+ 540   
+ 541                 /               THE DEVICE NAME WHICH STARTS THE "DEVU:BBBB" CONSTRUCTION WAS MISSING.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 14
+
+ 542                 /       INVALID COMMAND - NO I/O SEPARATORS
+ 543   
+ 544                 /               NEITHER "<", ">", NOR "!" COULD BE FOUND IN THE COMMAND. THERE MUST
+ 545                 /               BE EXACTLY ONE OF THESE IN A VALID COMMAND.
+ 546   
+ 547                 /       INVALID COMMAND - NO LENGTH/RANGE SPECIFICATIONS
+ 548   
+ 549                 /               NEITHER AN "=" NOR "-" CONSTRUCTION COULD BE FOUND IN THE COMMAND.
+ 550                 /               THERE MUST BE EXACTLY ONE OF THESE IN A VALID COMMAND.
+ 551   
+ 552                 /       DEV NOT AVAILABLE
+ 553   
+ 554                 /               DEVICE "DEV" IS NOT AVAILABLE TO THIS PROGRAM. USE AVAILABLE DEVICES
+ 555                 /               FOR COPY/COMPARISON OPERATIONS.
+ 556   
+ 557                 /       CANNOT REPEAT LATEST OPERATION!
+ 558   
+ 559                 /               NEW COMMAND INPUT HAS OCCURRED. THE PREVIOUS COMMAND IS LOST AND
+ 560                 /               CANNOT BE REPEATED. TO REPEAT A COMMAND, RESPOND WITH <^R> AT THE
+ 561                 /               COMMAND PROMPT INSTEAD OF A COMMAND LINE. INPUTTING <^R> WILL ALSO
+ 562                 /               ABORT A COMMAND IN PROGRESS AND REPEAT IT FROM THE BEGINNING.
+ 563   
+ 564                 /       INSUFFICIENT MEMORY FOR REQUESTED OPERATION!
+ 565   
+ 566                 /               INSUFFICIENT MEMORY EXISTS TO ACCOMODATE THE REQUESTED COMMAND BECAUSE
+ 567                 /               THE ASSOCIATED HANDLER(S) AND INPUT/OUTPUT (AND VERIFY) BUFFER(S)
+ 568                 /               CANNOT FIT IN AVAILABLE MEMORY. USE /C TO ACCESS ADDITIONAL MEMORY
+ 569                 /               IF AVAILABLE, ELSE USE OTHER (SMALLER) HANDLERS IF APPLICABLE. THE
+ 570                 /               "SYS" AND "NUL" HANDLERS (EFFECTIVELY ZERO LENGTH) ALWAYS ALLOW
+ 571                 /               FOR ENOUGH MEMORY TO CARRY OUT ANY COPY/COMPARISON OPERATION; THEY
+ 572                 /               ARE NOT SUBJECT TO THIS ERROR MESSAGE.
+ 573   
+ 574                 /       FUNCTION EXCEEDS DEVICE LIMITS!
+ 575   
+ 576                 /               THE LATEST COMMAND ATTEMPTS A COPY/COMPARISON OPERATION BETWEEN
+ 577                 /               UNLIKE BLOCK SIZE DEVICES. DUE TO HANDLER RESTRICTIONS, A BLOCK
+ 578                 /               LARGER THAN 4095 (7777 OCTAL) CANNOT BE ACCOMODATED ON ANY HANDLER;
+ 579                 /               THE LATEST COMMAND ATTEMPTS TO VIOLATE THIS UPPER LIMIT.
+ 580   
+ 581                 /               NOTE: IT IS ALSO POSSIBLE THAT THE ATTEMPTED TRANSFER MIGHT NOT
+ 582                 /               BE FEASABLE EVEN IF THIS MESSAGE IS NOT ISSUED. CONSULT SPECIFIC
+ 583                 /               HANDLER DOCUMENTATION TO DETERMINE INTER-DEVICE TRANSFER LIMITATIONS.
+ 584                 /               ALL LIKE BLOCK SIZE REQUESTS WILL ALWAYS CORRECTLY FUNCTION UP TO
+ 585                 /               THE LIMITS OF THE (SMALLER) DEVICE.
+
+/       P?S/8 BLOCK-TO-BLOCK COPY SYSTEM  PAL8-VB0  08-APR-87 PAGE 15
+
+ 586                 /       SPECIAL CONTROL CHARACTERS.
+ 587   
+ 588                 /       CERTAIN CHARACTERS HAVE MEANING TO THE PROGRAM IN GENERAL AND OTHERS ONLY
+ 589                 /       TO THE COMMAND PROCESSOR (THESE ARE MARKED WITH "*"):
+ 590   
+ 591                 /       <BRK>                   EXIT TO THE MONITOR; DON'T TERMINATE BATCH.
+ 592   
+ 593                 /       <^A>                    SAME AS <BRK>.
+ 594   
+ 595                 /       <^B>                    SAME AS <^A>.
+ 596   
+ 597                 /       <^C>                    EXIT TO MONITOR; PRINT "^C"; TERMINATE BATCH.
+ 598   
+ 599                 /       <BS>*                   BACKSPACE OVER PREVIOUS CHARACTER IN COMMAND LINE.
+ 600                 /                               IF AT PROMPT, A <BEL> CHARACTER WILL BE SENT IF
+ 601                 /                               ATTEMPTING TO BACKUP TOO FAR.
+ 602   
+ 603                 /       <RO>*                   SAME AS <BS>.
+ 604   
+ 605                 /       <UNDERSCORE>*           SAME AS <RO>.
+ 606   
+ 607                 /       <LF>*                   VIEW CURRENT COMMAND LINE BUFFER WITHOUT TERMINATING
+ 608                 /                               THE COMMAND.
+ 609   
+ 610                 /       <CR>*                   TERMINATE COMMAND INPUT AND START COMMAND. WHEN
+ 611                 /                               COMMAND IS DONE, RESTART THE PROGRAM.
+ 612   
+ 613                 /       <ESC>* OR <ALT>*        TERMINATE COMMAND INPUT AND START COMMAND. DENOTED
+ 614                 /                               BY ECHOING "$" WITHOUT <CR>, <LF>. EXIT THE PROGRAM
+ 615                 /                               WHEN CURRENT COMMAND IS DONE.
+ 616   
+ 617                 /       <^U>*                   IGNORE CURRENT COMMAND LINE AND RESTART COMMAND
+ 618                 /                               LINE PROCESSOR.
+ 619   
+ 620                 /       <^P>                    ABORT CURRENT OPERATION AND RESTART THE PROGRAM.
+ 621   
+ 622                 /       <^R>                    REPEAT LAST OPERATION; NOT ALLOWED IF THE USER ENTERS
+ 623                 /                               A NEW COMMAND. CAUSES RESTART OF CURRENT COMMAND
+ 624                 /                               IF PRESSED DURING COPY/COMPARISON OPERATION.
+ 625   
+ 626                 /       <^S>                    PAUSE PROGRAM UNTIL <^Q> ISSUED FROM TERMINAL OR
+ 627                 /                               USER. THIS IS USED IN THE CONVENTIONAL WAY TO PREVENT
+ 628                 /                               TERMINAL DATA OVERRUN, BUT CAN ACTUALLY PAUSE THE
+ 629                 /                               COPY/COMPARISON OPERATION AS WELL.
+ 630   
+ 631                 /       <^Q>                    RELEASE PROGRAM TO CONTINUE EXECUTION AND/OR MESSAGE
+ 632                 /                               PRINTING.
+ 633   
+ 634                 /       INPUTTING A MAXIMUM WIDTH COMMAND LINE (MORE THAN ADEQUATE FOR ANY REASONABLE
+ 635                 /       COMMAND) WILL CAUSE FURTHER INPUT TO BE IGNORED AND THE <BEL> CHARACTER
+ 636                 /       TO BE ECHOED. THE COMMAND SHOULD THEN BE TERMINATED WITH <CR> OR <ESC> OR
+ 637                 /       A BACKSPACE OPERATION SHOULD BE PERFORMED.
+

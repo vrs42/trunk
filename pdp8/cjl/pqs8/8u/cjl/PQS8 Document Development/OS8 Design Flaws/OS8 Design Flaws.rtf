@@ -1,0 +1,127 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fmodern\fprq1\fcharset0 Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fnil Lucida Console;}{\f3\fnil Calibri;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 720
+  FtrMarg = 720
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 OS/8 Design Flaws.\par
+\par
+Copyright \'a9 2019 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+\par
+\ul\f1 1.00 Introduction\ulnone\f0\par
+\par
+\f2 This is a technical discussion of some of the many flaws within OS/8, a fair quantity of which are not immediately apparent to end-users.\par
+\par
+\f1 Wherever possible, relevant details will be provided to allow the reader to gain insight into the various issue.  where relevant analogies will be made to the design of P?S/8 (which is, in part, an attempt to produce a better outcome on PDP-8 systems of a range of capabilities ranging from systems OS/8 cannot run on to larger systems where the availability of extended memory allows for a more powerful system when proper design techniques are applied.  In rare cases, compromises in the P?S/8 design will also be discussed to provide additional insight.\par
+\par
+On many levels, OS/8 represents the weaknesses of a mediocre design which was prematurely fixated due to management interference; as such, many of these problems can never be rectified.  Since P?S/8 is an independent effort (actually started \b prior\b0  to OS/8, and ironically by some of the same programmers) design changes have always been embraced.  If something was implemented and it was revealed it needed to be scrapped in favor of something better, the changes were made, time permitting.\par
+\par
+Since this document is being written both intermittently and without an overall outline, the author reserves the right to totally reorganize this work in the future (in many ways mimicking the P?S/8 design methods).\par
+\par
+\ul 1.10 Earlier single-user PDP-8 operating systems predating OS/8\par
+\par
+\ulnone There were technically two such offerings by DEC:\line\par
+1) The DECtape Library System.\line\line 2) The Disk Monitor System.\par
+\par
+Both of these systems, despite being specifically designed for a 4K system, contain features that unduly influenced OS/8:\line\line a) The DECtape Library System only runs on a 4K PDP-8 system with\par
+   TC01/TC08 DECtape and a TU55/TU56 DECtape drive.\par
+\par
+   Note: Only drive unit 0 is supported.\par
+\par
+   The only purpose served by this earliest DEC effort is to be booted\par
+   while any portion of user memory (00000-07577) contains a program\par
+   deemed worthy of saving for faster retrieval later.\page\par
+   In general, this pertains to memory loaded using the paper-tape\par
+   operating system; the most basic improvement being to save images\par
+   of the paper-tape operating system components such as PAL III,\par
+   EDIT, etc.  The computer is still being used solely for paper-tape\par
+   development; however, changing which paper-tape component is in\par
+   memory can be changed much more rapidly.\par
+\par
+   Note: There is no file data mechanism per se; the system merely\par
+   provides an orderly mechanism to save program images.  All actual\par
+   user data must be maintained on paper-tape.\par
+\par
+The interaction with OS/8 design is that there is hardly ever any reason to save the contents of memory when using OS/8.  A contrived excuse is that because of the lack of a proper alternative mechanism, creating OS/8 program images must be accomplished by this mechanism.  While the seeds of the related OS/8 problems started in the design of the DECtape Library System, the design was further weakened in the Disk Monitor System.\par
+\par
+b) The Disk Monitor System runs on a 4K PDP-8 system with limited\par
+   ability to load extended memory (must be performed as a non\par
+   starting image limited to a single field at a time).\line\line    Note: The Disk Monitor System became self-obsolescent as it\par
+   required devices capable of being expressed as multiples of 129\par
+   words/block when in fact, only three early devices were capable of\par
+   this.  The DF32 and RF08 fixed-head disks can be addressed to the\par
+   nearest word; as such, block size is arbitrary (up to a maximum of\par
+   4096 words).  The 129th word of DECtape is a requirement of the\par
+   tape format because all DECtape blocks are required to be whole\par
+   multiples of 18-bit words; all other PDP-8 operating systems are\par
+   organized around whole multiples of 128 words (including OS/8 and\par
+   P?S/8).\par
+\par
+   Despite the fact that system programs are hardly ever saved, all\par
+   reload operations of the Disk Monitor System save a portion of\par
+   memory to designated scratch blocks before loading in the keyboard\par
+   monitor ro allow further user input.\par
+\par
+   By nature, system reloading is a risky process because during some\par
+   portion of the process, the contents of memory is being changed\par
+   using a process that cannot verify its own validity (and also does\par
+   not provided recourse if an error actually occurred).  A good\par
+   design should make system reloading a read-only process as much as\par
+   possible; unfortunately, every reload operation starts with saving\par
+   a portion of memory in the scratch blocks thus lowering the overall\par
+   reliability at all times.\par
+\par
+The forerunner to what was eventually named OS/8 was presented to DEC management as a hack demo program written over a weekend in the midst of an extended brainstorming session over the course of months performed by the same people who wrote the R-L Monitor System (see below.)\page Because all of the relevant PDP-8 programmers responsible for much of the early works knew each other outside of the bounds of employment at DEC, a free discussion allowed arguing the merits of various design principles, some of which were shot down after proper discussion of the merits.\line\line The demo program merely represented an overview demo of what the project was all about (essentially reminiscent of a user's experience when using the PDP-10 TOPS1 operating system).  It was not intended as a product per se; the programmers were led to believe they had free reign to perform appropriate design and implementation as required.\par
+Instead of the rational expectations of the programmers (who represent the finest programming minds ever to program the PDP-8), DEC management issued various edicts illustrating their profound ignorance of the process of operating system deign in general.\par
+\par
+Despite the haphazard nature of the frenzied work performed over a very sleepless weekend, the managers insisted that the design be nearly frozen!\par
+\par
+Note: As such, much of the design is half-baked and includes contradictory and dormant features that make no sense considering what management did to the design process.  (Some of these features exist in P?S/8 fully implemented.)\line\line It is surmised that managemen presumed that changing the coding might change change the way the system was approached by end users despite this being completely inaccurate.\line\par
+Additionally, some of the limitations from the Disk Monitor design were demanded to be added (which is admittedly hypocritical and also self-defeating: By adding internal features the design is being modified).\par
+\par
+As such, OS/8 became needlessly memory-segmented with a minimal scratch space (which only makes sense in the case of the DECtape Library system).  Since the segment size is 1024 12-bit words, all functions must be implemented within that limited code space size.  Many features cannot be implemented due to this needless limitation.\par
+\par
+As such, many OS/8 design limitations arose that are deeply imbedded in the coding never be changed:\line\line 1) \line\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\line\par
+\par
+\par
+\f0\par
+\f3\fs22\par
+}
+ 

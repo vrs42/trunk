@@ -1,0 +1,963 @@
+Documentation of the P?S/8 PAL command-line option switches [and related subjects]
+
+©1975-1989, CHARLES LASNER ASSOCIATES
+©1990-2015, CLA SYSTEMS
+ClaSystems@gmail.com
+
+Last edit: 25-Jun-2015 cjl
+
+P?S/8 PAL is a general-purpose PDP-8 assembler for the PAL assembly language.
+Unlike OS/8 PAL8, there are many command-line options; this is necessary to allow
+the flexible and modular sections of P?S/8 PAL to be invoked as needed.  The options
+are passed in the same manner as OS/8 CCL commands.  [Note: P?S/8 supports several
+command prompt variations.  The one shown is identical to TOPS-10 and OS/8 to aid in
+the comparison.  Space and <HT> characters are freely allowed between command
+elements to enhance readability and are not required.]  A slightly simplified
+command example would be formed as follows:
+
+.PAL [output files] < [input files] [option switches]
+
+Note: the option switches can be placed anywhere in the command line after the
+program name [in this case "PAL"; P?S/8 system programs names generally conform to
+CCL commands to simplify the command structure without adding internal overhead].
+
+In the schematic example given, the switches are positioned at the end of the
+command line consistent with general practice.  [Note: In newer releases of P?S/8,
+command parsing can also be "reversed" by changing the order of input files and
+output files; this is indicated by using the ">" character instead of the "<"
+character.  This is consistent with certain newer implementations of DEC Command
+Language (DCL).]
+
+In P?S/8, output files are fixed size [exactly 2048 12-bit words].  The files are
+maintained by the Tiny File System (TFS) which is the standard P?S/8 directory
+structure.
+
+Binary file format is the famous "SLURP" format documented elsewhere.  While far
+more efficient than paper-tape binary format, large assemblies may require multiple
+binary output files.  [Note:  Should insufficient output files be specified, the
+assembly will be terminated with a error message at the point of output file
+overflow; final assembly statistics will indicate how many output files were
+actually created.  Any additional passed output files will be ignored.]
+
+The contents of all specified input files are concatenated together as the input
+filestream to P?S/8 PAL.  Any individual file can be a 2048 word TFS file containing
+standard P?S/8 text; all line numbers are ignored.  [Note: Conversion programs exist
+to transfer OS/8 text files to P?S/8 without line numbers; these extended-length
+files are not limited to the usual size of TFS files.]
+
+The command-line option switches are passed identically as in OS/8.  Two variant
+forms are supported:
+
+1) Individual switches such as:
+
+/M /N /L
+
+2) Grouped switches such as:
+
+(MNL)
+
+Both forms can be used if desired; all switches can be invoked redundantly without
+error.  [Note: The trailing ")" character in the group form is optional unless
+needed to delimit the group from another command section.]
+
+The command line also allows an =xxxx option where xxxx is any four-digit value
+from 0000 through 7776.  Leading zeros can be left out.  If the =xxxx option is not
+used, the program will internally be passed 7777 as the default value; disposition
+of this is program dependent and may be relevant to P?S/8 PAL if optionally chaining
+to the P?S/8 BIN binary utility program.  [Note: Certain releases of P?S/8 may allow
+the =xxxx parameter to be specified in decimal notation; this does not change any
+aspect of the internal value.  P?S/8 PAL does not support the decimal notation which
+only applies to programs such as FIND and CHANGE that specify line numbers in TFS
+files; the ability to support decimal notation is a property of individual P?S/8
+system programs.  For those few programs that support decimal notation, the =xxxx
+value would be expressed as a value between 0000 and 4094.]
+
+Output file options.
+
+If explicit output files are not given, the following switches apply.
+
+/B  The % file on the P?S/8 system device logical unit [see below] is used as the
+    [first] binary output file.
+
+/D  If /B is used, also use the $ file on the same system device logical unit as a
+    second binary output file.  [Note: The second binary output file will be ignored
+    if not required; the assembly statistics page will indicate the actual output
+    file usage.]
+
+    Note: % and $ are files placed in a fixed position near the beginning of the
+    device to speed up access, and are not subject to entries in the TFS directory.
+    % and $ should only be used for temporary purposes as the underlying storage
+    blocks are used by other system operations in a manner incompatible with this
+    usage.  [Note: Output files are generally created as temporary files during
+    program development to speed access.  Final project binary output files should
+    be stored within the TFS directory structure available on any logical unit of
+    the system device handler.  If more than two output files are created, the TFS
+    directory method must be used; explicit reference to % or $ can also be made as
+    part of the output section of the command if desired [subject to the
+    restrictions stated above].
+
+/U  The system device logical unit for the % and $ files will be calculated by .XOR.
+    operation between the current system device unit and the constant 1.  Early
+    implementations of P?S/8 only allowed logical unit zero for the system device.
+    In such circumstances, /U changes the output logical device unit to 1.
+
+Note: Early P?S/8 systems can only boot to logical unit 0; certain newer releases
+on specific devices can boot to other logical device units in the range of 0 through
+7.  On certain configurations units 0 and 1 are potentially inaccessible.  As such,
+the /U option was upgraded as described above.  On certain P?S/8 releases, the
+logical unit is derived from the current unit as determined by keyboard monitor
+commands which could differ from the bootup logical unit.  The exact logical unit
+used for this group of output file options would thus be determined by the logical
+unit P?S/8 PAL is run from, not the system bootup logical unit.  [The intended
+implementation when a new stable release of P?S/8 is achieved will be to use the
+system device logical unit, not the logical unit the program is run from.]
+
+[Note: All components of P?S/8 command lines can include an optional :u construction
+to specify a logical unit in the range of 0 through 7 [if available].  This allows
+override of the default unit which is determined by the current state of the
+keyboard monitor.  All file-oriented commands that affect logical device unit
+support this optional syntax [including all sections of the command line other than
+the option switches and =xxxx parameter].  Any portion of a command line with an
+explicit optional logical unit specification changes the default unit for the rest
+of the command line.]
+
+If a "load and go" operation is also chosen [see P?S/8 BIN chaining options below],
+all unused output files are ignored; the output file list is truncated and becomes
+the input file list to the next chained program [either P?S/8 MAP or P?S/8 BIN].
+
+Chaining options.
+
+/G  The output files created during the assembly are passed as input files to the
+    P?S/8 BIN utility for loading [or other function; see the /W description].
+    Chaining to P?S/8 BIN is prevented if there are any assembly errors.  Additional
+    loading option switches may be used [see description of /V, /H, /Z, /I and the
+    =xxxx option to set the starting adress in conjunction with /1-/7 to set the
+    starting memory field].
+
+/M  The files are passed to the P?S/8 bitmap utility program (MAP).  The output of
+    P?S/8 MAP is a superset of OS/8 BITMAP.  The title format and pagination is
+    generally consistent with P?S/8 PAL listing output.
+
+Note: It is possible to use both chaining options in a single command.  The chain to
+P?S/8 MAP will always be performed first; the further chain to P?S/8 BIN will be
+prevented if there any assembly errors occurred.
+
+Pass control options.
+
+/K  Perform a two-pass assembly.  The default is a single assembly pass.  Unlike
+    OS/8 PAL8 which always performs at least two passes, a single pass assembly
+    using P?S/8 PAL serves a useful purpose [with no equivalent mechanism available
+    in PAL8].  [Note: This functionality is based on a similar capability supported
+    by PAL III.]
+
+    At the end of pass one, all symbols still not defined are output on the console
+    device.  The indicated value is the address within the assembly where the
+    undefined symbol was first encountered, which facilitates debugging programs in
+    an early state of development.  [Note: OS/8 PAL8 does not provide any mechanism
+    to determine undefined symbols organized into a sorted list; a second (or third)
+    listing pass must be performed leading to tediously searching through a far
+    larger listing document, while manually accounting for all references to all
+    undefined symbols.  Since generally there are more symbolic references than
+    symbols this can easily become a time-consuming process.]
+
+    /K is not required if any binary or listing options are specified.  [Note: See
+    the description of /L and /N for the alternate usage of the /K option.]
+
+    If a second pass is performed, additional error messages will be output in a
+    format similar to that of OS/8 PAL8 and TOPS-10 PAL10 to facilitate source code
+    development; in certain context-specific instances, additional information may
+    be available.  Programmers may embellish the console output of critical logical
+    sections during each pass of the assembly using one of the techniques described
+    below as required.
+
+Second assembly pass considerations.
+
+    P?S/8 PAL supports the ERROR directive and expands the capability of the PAUSE
+    directive.  Both functions are affected by the current assembly pass in effect.
+
+    The ERROR directive causes a deliberate assembly error.  This allows the
+    programmer to design internal safeguards within the source code should logical
+    inconsistencies be detected.  The ERROR directive outputs during both assembly
+    passes; the format changes in a manner consistent with OS/8 PAL8 error messages.
+    Potential chaining to the P?S/8 BIN utility is prevented by any form of error.
+    Thus, the source code can prevent automatic binary loading of output files
+    created by source code determined to have internal inconsistencies.
+
+    The PAUSE directive was originally implemented in the PAL III paper-tape
+    assembler for the purpose of ignoring any additional paper-tape frames of the
+    current paper-tape.  [Note: P?S/8 PAL implementations exist that either ignore
+    the PAUSE directive or honor it by ignoring the rest of the latest passed input
+    file.]
+
+    P?S/8 PAL implements an extension to the PAUSE directive that requires an
+    argument in the form of an expression that evaluates to a 12-bit value.  When
+    this form of the PAUSE directive is processed by P?S/8 PAL, a message is output
+    indicating where the PAUSE directive was encountered along with the 12-bit
+    evaluation of the expression.  [A potential usage would be to indicate what
+    triggered a related ERROR directive surrounded by conditional assembly designed
+    to prevent certain logical inconsistencies.  The output could consist of the
+    largest [or smallest] value allowed in some context, or the actual value that
+    exceeded the restriction.]
+
+    Programmers may freely use the PAUSE directive throughout the source-code to
+    trace the assembly process or to flag warnings as the programmer sees fit.  As
+    with the ERROR directive, more information will be available during pass two
+    when the PAUSE directive is encountered.
+
+    Note: The PAUSE directive is not processed as an error condition.  
+
+Symbol table options.
+
+/S  The symbol table will be output at the end of the assembly.  If /N is also set,
+    the symbol table output format will be consistent with that of an enhanced
+    listing pass.  [Note: The exact output may be subject to the number of assembly
+    passes performed; a two pass assembly is performed if binary output files are
+    created, a listing is performed or the /K option is set.]
+
+/A  If /S is set, the entire symbol table will be output at the end of the assembly.
+    This includes all permanent symbols and assembly directives.
+
+Note: If dual-mode LINC assembly is in effect, the symbol table will be that which
+applies at the end of the assembly.  This affects certain specific symbols that are
+defined differently depending on the current assembly mode.  Certain permanent
+symbols may also be redefined by the source code; this is especially important in
+LINC mode assembly where there can be multiple definitions of certain instructions
+that are model dependent for the LINC architecture being targeted.  Where relevant,
+all default definitions are consistent with the PDP-12, which may differ from LINC
+or LINC-8 requirements.  Source code statements can redefine the affected symbols
+used within the assembly; this should be performed in equate statements at the
+beginning of the assembly. [Note: These considerations generally apply to various
+SKP class instructions which are model-dependent; permanent changes to default to
+classic LINC or LINC-8 values require P?S/8 PAL modifications at the source code
+level followed by system generation of P?S/8 PAL.]
+
+Listing options.
+
+/L  Listing output will be created during the second pass of the assembly.  [Note:
+    unlike OS/8 PAL8, there is no separate third pass; P?S/8 PAL is capable of
+    binary and listing output simultaneously.]
+
+Note: There are obscure quirks of the PAL language when literals are in effect.
+Unless the programmer is careful to avoid certain problematic situations, the
+definitions of certain symbols and values will be dependent on the exact number of
+passes.  In OS/8 PAL8, it is possible to create binary output that is different from
+the listing output unless the assembly is done twice, each with a different form of
+output.  Since P?S/8 PAL always performs at most two passes, this problem cannot
+occur.
+
+By using P?S/8 PAL, the programmer can discover the errors associated with this
+defective programming technique; no PDP-8 assembler warns of this usage which is a
+consequence of when addresses are dynamically formed depending on the exact extent
+of literals, which are themselves dynamically being created; clearly the use of this
+technique is not recommended.  The three-pass nature of PAL8 is known to have caused
+hundreds of hours of wasted time dealing with the consequences of this problem.
+Studying the listing did not reveal the exact binary program being attempted leading
+to obvious confusion.  Since P?S/8 PAL produces binary output consistent with the
+listing output, blunders of this type will be discovered sooner.
+
+/P  Enable wide-carriage mode listing output.  This option also affects the symbol
+    table output allowing more columns of printed symbols.  OS/8 PAL8 only outputs
+    to minimum width to guarantee compatibility with narrow-carriage devices despite
+    the fact that many printers support 132 columns.  [Note: DEC supported the LP01
+    80-column printer; however, no attempt was made to make better use of the
+    overwhelmingly popular 132 column printers.]
+
+    P?S/8 PAL allows far wider source statements than OS/8 PAL8.  The listing output
+    will not be truncated as is the case in OS/8 PAL8 listing output.
+
+/N  Output "niceties" are applied to the listing output including titles on each
+    printed page.  If output is directed to the system console [as opposed to the
+    line printer] the output will use simulated form-feed output by printing
+    tear-off lines instead of true <FF> characters.
+
+Title considerations.
+
+When /L is used in conjunction with /N, the title for the entire assembly is taken
+from the first line of the first input file.  Longer assemblies are generally
+created by concatenating the contents of multiple P?S/8 files; there is likely no
+connection between program sections in different files and intended titles on
+sections of the assembly.
+
+P?S/8 PAL does support the change of the title using the first line of every file if
+the /K option is given in conjunction with a listing [thus meaningful if /L and /N
+are both set].  This allows 100% compatibility with PAL10 and PAL8 and is generally
+useful when extended-length files are used to create the intended modularity.
+Well-designed assembly language programs may freely use this feature; as long as the
+intended section can be expressed within the contents of a single TFS [or
+extended-length] file, this feature can be used as intended.  [Note:  As a practical
+matter, assembly title changes are used quite sparingly.  For example, the source
+code of FOCAL, 1969 changes the title once; as such, two extended-length files, one
+for each section (known as FOCAL and FLOAT respectively) easily supports the
+intended functionality.]
+
+When /K is used in this context, its alternate meaning of forcing a two-pass
+assembly is superfluous.
+
+Note: /N is one of the modular options of P?S/8 PAL.  Exactly one page is required
+to implement this option.  In a 4K system, this generally means one less page of
+internal symbol table space [exactly 32 symbols fit on one page] or perhaps input
+[or output] buffer size is compromised.  On systems with 7K or more free memory,
+this will lower the efficiency of input and output file handling; the entire symbol
+table is stored in extended memory thus symbol table size would not normally be
+affected. [See description of the /C switch below.]
+
+[Note: P?S/8 extended memory configurations can add exactly 3K or 4K additional
+memory per additional available field depending on exact configuration of the system
+which may include the logical console overlay.  If more than 8K is available, all
+extended memory fields other than the highest field will add 4K memory capability to
+the overall memory layout.  The highest field will not add any additional memory if
+the logical console overlay is enabled.  If the overlay is not enabled, an
+additional 3K will be available; if the system device handler does not require an
+extended memory extension, an additional 1K will also be available.]
+
+/X  Enables the creation of cross-reference output by loading the cross-reference
+    module.  Setting /P causes all listing output to be extended-width if
+    applicable; cross-reference line numbers will cause the output to be somewhat
+    wider.  Note: If the /A option is set, all symbols used will be
+    cross-referenced.
+
+Note: Exact implementation level of cross-reference in P?S/8 PAL is
+release-dependent.  The number of pages used by this module is release dependent and
+may be as little as a single page but more likely two [or more] pages depending on
+available memory size and level of implementation.
+
+Note: Cross-reference temporary output is currently defined to output directly to
+logical unit 7.  All prior contents of this device can be destroyed.  Future
+releases of P?S/8 PAL will refer to a configuration table of concatenated
+extended-length files for this purpose.
+
+Note: As of this writing, the processing of cross-references is not fully
+implemented; however, the actual references and statement numbering are fully
+functional.
+
+Memory management options.
+
+/C  P?S/8 can be configured to have additional available memory utilized by all
+    conforming user and system programs.  By default, if at least 3K additional
+    memory is available, the symbol table occupies extended memory exclusively.  The
+    4K memory model used by P?S/8 PAL requires all symbols to be in field 0.  By
+    moving the symbol table completely to extended memory [if available], input
+    [and output] buffers can be enlarged for improved throughput.  This is always
+    done even if any and all of the modular options are in use since the available
+    symbol table space in field 0 is larger than the size of all option modules
+    combined.  [Note: In 4K, symbol table space is quite limited when all of the
+    options are invoked; modules should only be used if actually required.]
+
+    When /C is invoked, the throughput improvement considerations are not applied.
+    The symbol table may include symbols in field 0 as well as extended memory.  As
+    such, it may be possible to assemble larger programs in certain configurations
+    at the expense of speed and efficiency.
+
+    The use of /C may affect the final statistics of the assembly as the amount of
+    memory utilized represents the minimum amount of memory required for the
+    specifics of the assembly.  This allows the possibility of determining what
+    amount of memory is required both with and without the /C option set.
+
+    Systems with as much as 20K available do not require the /C option as the
+    maximum number of symbols will completely fit in fields 1 through 4.  The only
+    reason to use /C would be to produce the [likely] smaller memory requirement as
+    displayed on the assembly statistics output page.
+
+    Certain programs may require as much as 12K to assemble.  As such, the use of /C
+    might make it possible to assemble medium to large programs on such systems.
+    Truly humongous programs might require 20K to assemble.  [Note: OS/8 PAL8 likely
+    requires 24K to assemble these very large programs.]
+
+Literal and link options.
+
+/Q  Enable generation of current page and page zero literals.  Links are not
+    generated; attempts at off-page references will be treated as errors.
+
+/O  Link generation is enabled; however, links will be flagged as errors.  Literal
+    generation is also enabled.
+
+Note: Invoking both /Q and /O will suppress error messages on generated links.  As
+in OS/8 PAL8, the statistics counting generated links will always be created.
+Additionally, both assemblers flag the source line generating a link with the "'"
+character warning of the presence of a link.
+
+The usage of links is to be avoided; links do not always function as expected!  This
+is because of the way the PDP-8 architecture works.  Attempts to reference locations
+off of the current page without proper syntax will be attempted; however, success is
+not guaranteed depending on which specific MRI instructions are involved:
+
+a) Any attempt to use an off-page address indirectly is an error; links cannot fix
+   this situation and appropriate error messages will be issued.
+
+b) Seeming attempts to access off-page addresses directly will be made via an
+   indirect reference which generates a literal pointer to the off-page address as a
+   current page literal.
+
+   However, actual successful execution is dependent on the hardware conditions in
+   effect dynamically.  [The assembler cannot anticipate the dynamics of program
+   execution.]
+
+   All links generated for the purpose of accessing addresses in the same field as
+   the current instruction, but in a different page, might succeed.  However, if the
+   symbol is in a different field, memory extension instructions must precede the
+   attempt; this would be either a CIF or CIF CDF instruction to the new field.
+   Moreover, the code in the new field must be aware of this cross-field situation
+   and be designed to handle any return back to the original field, such as a
+   subroutine call via the JMS instruction.
+
+   Thus, the only cases that are likely to work are either a JMP or JMS to an
+   off-page routine located in the same field to avoid cross-field specifics which
+   cannot be resolved merely by an attempt made without proper support on both ends
+   of the attempt.  On any program of size, it is folly to program for links of
+   this sort.
+
+   Attempts at links involving all other MRI instructions will always fail to work
+   unless the current value of the data field matches the instruction field of the
+   code in the current page.  This is a totally uncontrolled situation determined
+   dynamically by program logic.  It is possible for a section of code to function
+   only occasionally depending on the data field in effect at each attempt.
+
+   Thus, for these MRI instructions, links will always fail unless the programmer
+   scrupulously controls the data field in effect each and every time the affected
+   portion of the program is executed.
+
+   Clearly, the maintenance of the two different kinds of potential generated links
+   requires a high degree of responsibility to be successful.  For any practical
+   program, it is far too much effort to maintain this ill-conceived feature, which
+   is usually only found in simplistic examples of programs written by misguided
+   novices or hardware engineers unfamiliar with the fundamentals of the PDP-8
+   extended memory architecture.  This is why there are so many obstacles to the
+   usage of links in both OS/8 PAL8 and P?S/8 PAL [especially P?S/8 PAL].  By
+   forcing programmers to follow the normal programming rules, impossible references
+   can be dealt with as errors to be corrected, not guessing games as to whether or
+   not sloppily-written code will function.
+
+   Enabling literals [and perhaps links] is a modular option of P?S/8 PAL.  Two
+   pages are removed from the 4K buffer [or symbol table] area when this module is
+   in use.
+
+Examples of literal statements.
+
+P?S/8 PAL supports the two forms of literal generation and a superset feature that
+can improve program development time.
+
+a) Current page literal - The operand address is somewhere on the current memory
+   page starting at relative 0177 of the page for the first literal.  Additional
+   literals are created at progressively lower addresses.  Only 63 unique current
+   page literals are allowed on any page.  The table of existing current page
+   literals is searched for a match before creating a new literal.
+
+        TAD     (3)             /ADD 0003 TO THE ACCUMULATOR.
+
+b) Page zero literal - The operand address is somewhere on page zero starting from
+   absolute 0177 for the first literal.  Additional literals are created at
+   progressively lower addresses.  Only 112 unique page zero literals are allowed;
+   locations lower than 0020 are disallowed since many of these locations have
+   special-purpose characteristics [interrupt handling and auto-index registers].
+   The table of existing page zero literals is searched for a match before creating
+   a new literal.
+
+        TAD     [3]             /ADD 0003 TO THE ACCUMULATOR.
+
+c) Conditional literal - The operand address is somewhere on the current page or on
+   page zero depending upon specific circumstances.  If there already is a matching
+   page zero literal, the page zero literal will be used.  If the value does not
+   already exist on page zero, a current page literal will be used.
+
+        TAD     \3/             /ADD 0003 TO THE ACCUMULATOR.
+
+   Programs often use existing source-code libraries of commonly used subroutines.
+   It is desirable to use page zero literals if appropriate; a page zero literal
+   should not be used if there is only one program section requiring it.  By the
+   use of conditional literals, the most effective use of memory is achieved without
+   the need to hand-optimize the literal usage.  [Note: This feature is not
+   available in OS/8 PAL8.]
+
+/E  Current page literal extents on all pages are stored during the assembly.  This
+    allows the programmer to code for multiple pages of memory out of sequence
+    without conflicting loading.  However, the actual literals are not recorded.
+    Coding techniques that correctly return to previously used pages will create new
+    literals in the proper locations consistent with the literals created earlier.
+    Any values of literals created cannot take advantage of values created during
+    the previous section of the program on the current page; as such, created
+    literals might be redundant limiting program size needlessly.
+
+    If /E is invoked, leaving a current page will completely reset the literal
+    pointer for that page.  [This is sometimes known as deliberately "forgetting"
+    literals.]
+
+This is useful when defining overlays.  The overlay code must be created in the
+context of the rest of the assembly, but represents a completely different contents
+of the particular page it is seemingly anomalous to; this technique would be part of
+a proper overall program design.  Overlays must be managed by the programmer in
+appropriate ways.  Many P?S/8 system programs create overlays in this very manner;
+if literals are used in the program, /E is required.  [Note: In general,
+"remembering" of literals is hardly ever used in practical programs.]  Future
+implementations of P?S/8 PAL [or a new assembler for the P?S/8 SHELL] will likely
+invert the default condition regarding this setting.]
+
+Additional binary chaining options.
+
+Various options of the P?S/8 binary utility program [BIN] apply during a successful
+chain operation, generally for the purpose of loading the binary output created
+during the assembly.  [Note: See description of the /W option below for alternate
+usage of P?S/8 BIN to punch binary paper-tapes instead of loading the binary output
+files.]
+
+/B, /D and /U will pass created binary output files as input files to P?S/8 BIN [and
+perhaps P?S/8 MAP] as defined above with regard to output file options.  The actual
+number of output files created determines the contents of the input file list passed
+in the chaining operation.
+
+/V  P?S/8 BIN loads binary input files in "SLURP" format into memory using a
+    special loader originally defined by Richard Lary in the R-L Monitor System.
+    P?S/8 supports a similar loader [actually a slight superset] if available, which
+    is subject to hardware constraints.  Specifications of the current P?S/8 system
+    configuration will indicate if this loader [and its corresponding reloading
+    component; see the description of /I below] are available.  Certain system
+    devices cannot support a "SLURP" loader due to timing or DMA considerations.
+    [Note: The 1978 release of P?S/8 for TC01/TC08 DECtape does support a "SLURP"
+    loader.]
+
+    All P?S/8 systems support a virtual loader that always uses the system device
+    handler [and an internal virtual buffer within the P?S/8 BIN program itself] to
+    load binary files in the same format; the system device must be write-enabled
+    to accomplish the loading operation.
+
+    If /V is invoked, virtual loader usage is forced on systems where it is not
+    already the default loader.
+
+/H  All user memory is pre-filled with 7402 [the PDP-8 HLT instruction] before the
+    binary file loading operations.  This is especially recommended when debugging
+    programs not yet well developed; loss of control could cause the machine to
+    execute unknown instructions at an unexpected address; by pre-filling all unused
+    memory locations with HLT instructions, this problem can be contained.  This
+    could aid in isolating program logic problems.
+
+/Z  All user memory is pre-filled with 0000 [the LINC HLT instruction].  This is
+    recommended for all LINC mode debugging and is analogous to /H.  Additionally,
+    when creating system image programs, all unloaded locations within the image
+    will be 0000 instead of unknown previous memory contents junk.  [Note: This
+    technique has additional considerations:  If a binary file will be subject to
+    run-length compression, all program areas containing consecutive 0000 values
+    will compress to a smaller size.]  [When looking at binary program images,
+    setting unused areas to 0000 avoids potential distraction caused by prior memory
+    junk values unrelated to the program.]
+
+/I  Assuming the system device supports a separate "SLURP" loader, the final state
+    of memory after loading will not include the system device handler.  [Note: This
+    is the only instance of P?S/8 operation where the system device handler is
+    displaced from memory other than when transferring control to the RIM and/or
+    P?S/8 version of the BIN loader.  Consult documentation of the P?S/8 BIN program
+    for more information.]  A stand-alone bootstrap routine will be available at
+    07600 to reload P?S/8 [which will destroy the entire user area of 00000-07577]
+    after the loaded program is no longer needed.  [Note:  This same bootstrap is
+    used when the P?S/8 BIN utility is used to launch the stand-alone versions of
+    the DEC BIN and RIM loaders as described above.]
+
+    However, if the /I option is invoked, a special "file" is passed to the "SLURP"
+    loader that selectively destroys the loader in a manner causing the system
+    device handler to be restored while also preserving all user memory loaded at
+    that point.  As with all other "SLURP" loader operations, the system device can
+    be write-protected while this is carried out.  Additionally, this process loads
+    binary files faster than the virtual loader since no virtual buffer is used nor
+    a conventional input buffer for the contents of the passed binary files.  As a
+    result, the system device handler is completely restored to memory [as if it had
+    been part of the virtual loading process].
+
+    Note: When /I is in effect, the P?S/8 BIN program can only load as many as 16
+    binary files.  When /I is not in effect [or the virtual loader is used], the
+    full complement of up to 17 binary files is allowed.  [Note: The /I "file" is
+    contained within a special reserved block [0060] on the system device logical
+    unit where the P?S/8 BIN program resides.]
+
+[Note: Conventional binary file loading demands an input buffer for a portion of a
+binary file which must be read into memory by a device handler, which, in the case
+of P?S/8 is the system device handler.  As such, it is not possible to load into
+either the last page or memory where the system device handler resides, or the
+page[s] designated as the input buffer for the binary file.  "SLURP" loading takes
+advantage of the limited capability of certain devices that operate either by
+3-cycle data break or by program transfer operations.  In the former case, the data
+can be loaded from a one-word input buffer subject to timing constraints; in the
+latter case, the data is read by a series of individual transfers and loaded
+directly without a buffer.  The /I "file" is crafted to take advantage of small
+areas of memory space within the "SLURP" loader which is dynamically available
+because the data is passed after all other binary files are already loaded.  In
+general, most of the reload operations are performed under the control of a portion
+of the program read in over the list of passed input files, which at that point has
+already been processed; as such, these memory locations are available as part of the
+reload process for the rest of the page.  The system device handler never directly
+uses this area; system device handler restoration can be accomplished by a limited
+form of data transfer starting at 07600 and ending somewhere before the code in
+control at the end of the reload operation located near the highest address of the
+page.]
+
+Passing =xxxx specifies an optional 12-bit starting address in field 0.  If this is
+not invoked in the command line, the binary loader [either "SLURP" or virtual
+variant that applies] will choose an internal safe HLT location that is dependent on
+the loader implementation.
+
+If a starting address in extended memory is required, a starting field can also be
+given as the lowest of the passed switches in the range of /1 through /7 to allow
+any starting location within the full 32K of memory.
+
+Note: In certain P?S/8 BIN releases, /0 is ignored; however, field 0 is always the
+default starting field.  In certain releases, P?S/8 BIN will issue an error message
+if more than a single switch in the range of /0 through /7 is attempted.  Future
+releases of P?S/8 PAL will also check for this situation and flag it as an error
+aborting the assembly.  [Note: /0 is not passed to BIN by P?S/8 PAL; /0 is used by
+P?S/8 PAL for an unrelated purpose.]
+
+/W  P?S/8 BIN will not load the passed binary files.  Instead the files will be
+    punched to binary paper-tape.  Additional command-line options may apply:
+
+/F  The default device for the binary paper-tape output is the low-speed console
+    punch as found on an ASR-33 or ASR-35 teletype [which punches while it also
+    produces gibberish on the printing terminal].  If /F is set, the output is
+    directed to the high-speed punch.
+
+/R  The default paper-tape format is the DEC standard paper-tape BIN format.  If /R
+    is invoked, the paper-tape is punched in DEC standard RIM format including an
+    extension feature:  Standard RIM format consists of origin settings followed
+    by the corresponding data to be loaded at the given origin.  Auto-increment of
+    the loading address is not supported as in BIN format; each word to be loaded
+    must be preceded by an origin setting even if the previous two words output were
+    the previous memory location and the corresponding data to be loaded there.
+
+    Field settings are not supported.  [Note: RIM format is designed for loading by
+    the RIM loader; the overall memory size of the RIM loader allows it to be more
+    readily toggled in manually.  This in turn causes these restrictions and
+    increases the size of the paper-tape output as an additional trade-off.]
+
+    If extended memory is not a consideration, the only reason such a tape would be
+    rejected by the BIN loader is the lack of a final checksum.  P?S/8 BIN outputs a
+    compatible checksum after the last data word [just following the last origin
+    setting and corresponding data].  Binary paper-tape created by this method can
+    be loaded by either the BIN or RIM loaders.  [Note: Some programmers write
+    source code to create equivalent output by having origin settings before every
+    word of data.  The P?S/8 BIN program RIM format paper-tape output is identical
+    to the binary paper-tape output produced by source programs coded as described.]
+
+[Note: P?S/8 BIN supports many additional options and operating modes beyond the
+scope of chaining from P?S/8 PAL.  This is more thoroughly covered in separate
+documentation of P?S/8 BIN.]
+
+Text management options.
+
+The PAL language defines the TEXT directive.  An argument is passed to TEXT
+consisting of a string of characters where the first and last character must be a
+special delimiting character which is usually either " or '.  [Note: It is not
+possible to include the delimiter character in the text string, thus both characters
+are allowed as proper delimiters.]  [Note: Certain assemblers additionally allow the
+@ character as a delimiter.  However, the @ character has no other proper usage
+within the PAL language and can generally be substituted for using one of the other
+two delimiter characters.  P?S/8 does not support the @ character within TFS text
+files.  future versions of P?S/8 will support an optional SHELL which will support a
+superset of OS/8 text character format.  The associated SHELL assembler will support
+all three delimiter characters and perhaps others.]
+
+All strings generated by the TEXT directive generally require a 00 half-word
+sentinel value in the text string.  This facilitates writing message printing
+routines which terminate the printout when the 00 is located.
+
+If the number of characters in the text string is an odd number, the last half word
+is padded with 00.  Even character counts require an additional word of 0000 to
+ensure all text string printing programs based on sentinel detection function
+regardless of string length.
+
+However, certain programs require this extra word of 0000 not be generated.
+
+/J  disables the automatic generation of the extra word of 0000 after text strings
+    with even character counts.
+
+Note: Many newer assemblers separately support the TEXTZ directive which forces the
+extra word to be generated regardless of the setting of /J [or the OS/8 PAL8 /F
+switch which provides the equivalent functionality].
+
+P?S/8 PAL also supports the SIXBIT directive.  This is analogous to the TEXT
+directive except excess-40 code is used instead of the six-bit stripped value of
+seven-bit ASCII.  This is the standard text format on systems based on 18-bit and
+36-bit systems such as the PDP-15 and PDP-10.  The same considerations apply with
+regard to the /J option as with the TEXT directive.  [Note: OS/8 PAL8 does not
+support the SIXBIT directive.]
+
+For compatibility purposes, The DEVICE and FILNAM directives are supported and are
+fully compatible with OS/8 requirements.  [Note: The P?S/8 SHELL will support an
+extended PAL assembler with options to repurpose the DEVICE and FILNAM directives to
+SHELL-specific requirements.]
+
+Dual assembly mode options.
+
+/8  LINC mode assembly is enabled; the default mode is PDP-8 mode [PMODE].  This is
+    equivalent to having the PMODE directive in the beginning of the source code.
+
+/9  LINC mode assembly is enabled; the default mode is LINC mode [LMODE].  This is
+    equivalent to having the LMODE directive in the beginning of the source code.
+
+    [Note: When using dual-mode assembly, it is good practice to start the assembly
+    with the appropriate directive in the source code.  By using conditional
+    assembly techniques, the source code can determine the current operating mode
+    by checking the current value of a symbol (such as HLT) that changes with the
+    assembly mode; this would allow a mode reversal if required.  Additionally, if
+    the mode change fails to change the value of a symbol common to both modes with
+    different values for each mode, the assembly can be flagged or even aborted by
+    appropriate conditional assembly.]
+
+P?S/8 PAL is the only known assembler that fully supports LINC assembly, literals
+and large assemblies.  The level of support is generally compatible with the
+LAP6-DIAL/DIAL-MS assembler; DIAL only runs on the PDP-12.  However, the DIAL
+assembler does not support literals or very large assemblies.  [Note: A very early
+version of PAL8 exists that is missing many features; a user variant of this program
+tenuously adds LINC mode assembly; however, many features are missing preventing
+much practical use of this program.]
+
+Enabling of LINC assembly requires three additional pages for this module.  In
+certain releases of the assembler, enabling all options including LINC assembly
+mode causes an error message during assembler initialization unless extended memory
+is available for symbol table loading.
+
+[Note: When all optional modules are used simultaneously, /C will add very few
+symbols to the overall assembler capability.]
+
+The use of literals only applies to PDP-8 code, although a certain subset of literal
+construction can be made compatible with LINC mode programming with undue
+restriction on the LINC mode addressing mechanism.  Attempts at this contrived usage
+could generate error messages and is not recommended.  In general, LINC programming
+does not require the literal generation module.  [Note:  this is because the few
+LINC MRI instructions do not support an indirect addressing mode and all operands
+are defined in a 1024 word segment; there is no page mode operation per se.  The
+LINC was originally defined as a 1024 word machine, but later models added a data
+field accessed by methods totally incompatible with PDP-8 addressing.  It is
+arguable this is a more inefficient architecture than the PDP-8, which always starts
+with a 4096 memory space.]
+
+LINC hardware is never required to assemble LINC programming.  Proper binary
+management requires an amount of PDP-8 program support that is highly hardware and
+software dependent.  [Note: On the LINC-8, part of the instruction set is trapped
+with the intention of emulation.  The corresponding PDP-8 programming to support
+trap emulation must be loaded at the same time.]  [A special generation program can
+be written on the LINC-8 or PDP-12 to create LINCtapes meant for execution on the
+LINC; classic LINCtape can be written on these machines; however, the tape format is
+not used by any PDP-8-based operating system; an alternate LINCtape format is used
+by P?S/8 and OS/8 on the LINC-8 and PDP-12 where relevant.]  Successful deployment
+of LINC code depends on knowledge of several subjects beyond the scope of more
+conventional PDP-8 usage.  However, the binary coding can be developed on P?S/8 on
+any supported media as long as the loading of the binary is accomplished on the
+intended hardware.]
+
+Additional command-line switch options.
+
+/0  FIELD settings ordinarily do not generate an automatic *0200 afterwards.  If the
+    /0 option is enabled, the automatic *0200 is created after all FIELD settings.
+
+/Y  Normally, the ! character indicates that an inclusive OR [.IOR.] operation is
+    to be performed between the running expression and the latest term.  If the /Y
+    option is set, the running expression is first shifted left six bits.  This
+    allows an alternate way to combine two sixbit characters in one word.  [Note:
+    This is a very old option only used in certain early PDP-8 assemblers.  It is
+    an unnecessary option in any more modern PDP-8 assembler where the ^ character
+    is available for general multipy operations.  The same result can always be
+    obtained by using ^100 (assuming octal notation is in effect) while allowing the
+    ! character to maintain its usual functionality.]
+
+/T  Prevent listing and related output to the system line printer.  All output is
+    directed to the system console device.  If /N is enabled, pagination is created
+    using tear-off lines for compatibility with roll-paper teletypes.
+
+    Note: For systems lacking a line printer that support hard copy consoles such as
+    the LA36 [that can properly support <FF> characters], the Logical Console
+    Overlay can be configured to redirect line printer output to the same device
+    as the system console device.
+
+Known problems with P?S/8 PAL.
+
+The 1978 release of P?S/8 PAL has observed quirks likely fixed in newer releases.
+Hopefully, newer releases will become available that are more compliant with PAL
+language specifications.
+
+1) TEXT directive bug.  The TEXT directive is used with a string argument to
+   generate a series of half-words of six-bit ASCII values.  A delimiter character
+   starts the string; a second occurrence of the same character ends the string.
+   Comments are allowed afterwards starting with the usual / character.  [Any number
+   of space or <HT> characters can be used before the / character.]
+
+   A known problem is that ";" is not allowed within the comment.  The assembler
+   mis-parses the comment looking for end of statement instead of end of line.  The
+   ";" mistakenly allows what follows to be treated as another statement on the same
+   line.  Changing the internal logic to force all commentary to close out the rest
+   of the line will repair the problem in a future release.  [Note: This problem was
+   fixed in later releases of P?S/8 PAL.]
+
+2) Page zero literal and FIELD directive interaction.  This is a serious problem
+   associated with certain specific forms of assembly for multiple fields when used
+   with page zero literals in the source code.
+
+   When page zero literals are used, there are circumstances which dump the entire
+   table of literals through that point in the assembly.  This includes:
+
+   a) Reaching the end of the source code,
+
+   b) Processing a FIELD directive.
+
+   When a FIELD directive is used, there is a high likelihood the new field differs
+   from the current field [although there are no rules regarding this].  Assuming
+   there are page zero literals to be dumped, if the new field differs from the old
+   field, the binary output file will have defective contents regarding the new
+   field after correctly outputting the literal table.  [Note: It is possible to
+   repair the output file by modifying a single word within the file; detailed
+   knowledge of "SLURP" binary file contents is required to accomplish this.]
+
+   A source level work-around for the problem consists of deliberately adding a
+   FIELD directive statement referencing the current field just prior to the FIELD
+   directive referencing a different field.  It appears the problem only exists when
+   literals require dumping; this usage assures this will not be the case.  [Note:
+   This extent of this problem has not been completely tested.  The problem could
+   apply to current page literals as well; the only known specific case involves the
+   use of field 0.  However, only fairly complex programs involve literals in
+   extended memory.]
+
+   Note: A slightly revised copy of the 1989 release of P?S/8 PAL has provisionally
+   resolved this problem pending a new release [to remove the patch and make more
+   permanent source code changes].
+
+3) The TEXTZ directive is not available.  This is a relatively new and seldom-used
+   feature created to allow text strings that always terminate the generated output
+   with at least one half-word of 00.  The output produced by the TEXT directive
+   may exhibit this behavior, but is subject to a command-line switch that can
+   deliberately inhibit the generation of an extra word of 0000 should the character
+   count in the text string be an even number.  Using the TEXTZ directive, it is
+   possible to create output not subject to the option while also creating output
+   where the extra delimiter word is not generated.
+
+   [Note: As of PAL8 Version B0, the TEXTZ directive is not supported.]
+
+   A later development effort of P?S/8 PAL will add the TEXTZ directive and several
+   additional directives, some of which are not available in OS/8 PAL8:
+
+   a) SIXBIT - The character codes of the TEXT and TEXTZ directive are derived from
+      the seven-bit ASCII values by removal of the high-order bit.  However, this
+      convention is not used on DEC 18-bit and 36-bit architectures.  On those
+      machines, an additional step is performed to invert the high-order bit of the
+      code.  The SIXBIT directive is compatible with the identical syntax as used on
+      these other systems.  It is believed the /J command-line option affects the
+      disposition of an extra word of 0000 for even length text strings in the same
+      manner as the TEXT directive.  [Note: There are plans to add a SIXBTZ
+      directive patterned after the TEXTZ directive with regard to extra word
+      generation on even length strings.]
+
+   b) ASCII - This is a similar directive that creates a series of words where the
+      low-order seven bits of each word is the full ASCII value of the characters in
+      the text string.
+
+      There is an issue with regard to the exact value used: Mark parity is
+      historically used in the "x [where x is any valid character] construction.
+      This suggests that mark parity should also apply here as well.  The ultimate
+      resolve of this issue may require either a command-line option or perhaps some
+      specific syntax to the assembler that changes the behavior of both language
+      elements.  Suggestions include adding a MARK directive which could take an
+      inline expression argument to enable or disable the mark parity bit in all
+      relevant cases.
+
+      Generated strings are terminated with a 12-bit word of 0000 unless the /J
+      command-line switch is given.
+
+   c) ASCIIZ - This is identical to the ASCII directive except the string is always
+      terminated with a 12-bit word of 0000 regardless of the /J command-line switch
+      setting.  All other issues apply as in the case of the ASCII directive.
+
+4) The DTORG directive is deliberately not available.  The implementation of DTORG
+   in OS/8 PAL8 is defective; binary output of any assembly using DTORG cannot be
+   loaded within OS/8; punched paper-tapes must be loaded with a special system
+   generation program as part of the Typeset-8 project which unwisely ignores the
+   entire concept of checksum protection.
+
+   While the DTORG directive has only been used historically with Typeset-8
+   programming, future development of P?S/8 may embrace this at the conceptual level
+   but not by the specific method chosen within PAL8.
+
+   It is possible to rework the output of the DTORG statement to maintain full
+   compatibility with all binary loaders by creating an alternate internal
+   convention for the output of the DTORG usage.  This would allow utility programs
+   to be written for backward-compatibility with the Typeset-8 usage while allowing
+   new P?S/8 system generation programs to take advantage of the new implementation 
+   for analogous purposes.  When a full definition of DTORG is completed, the output
+   of P?S/8 PAL will embrace this.  As such, future releases of P?S/8 PAL will
+   support DTORG in a useful manner.  [Note: Certain releases of P?S/8 PAL process
+   DTORG directives by ignoring them.]
+
+   DTORG was intended to guide a special system generation loading program to place
+   up to 128 words on a designated block on the system device of a Typeset-8 system.
+   Unfortunately, the implementation of DTORG in OS/8 creates defective binary files
+   that cannot be loaded by any OS/8 program.
+
+   Punching the output of such files produces a binary paper-tape that cannot be
+   loaded with the BIN loader.  However, a special Typeset-8 system generation
+   utility can read the paper-tapes and write individual blocks as directed by the
+   DTORG statements used; the overall paper-tape cannot be checksummed.  [Note:DTORG
+   statements create paper-tape frames incompatible with the BIN loader.  However,
+   it is possible to define an alternate mechanism to indicate DTORG while also
+   maintaining overall compatibility with all binary loaders; a special system
+   generation loader is still required to make use of the DTORG output, but the
+   overall integrity of the paper-tape can be checked conventionally.  Those
+   familiar with the OS/8 BUILD program can relate to the viability of an alternate
+   method that also maintains overall compatibility with prevailing loaders.  In the
+   case of P?S/8 system generation, this could be used to allow alternate and more
+   flexible means of creating a P?S/8 system from scratch.]
+
+   While this mechanism has no relevance to OS/8, P?S/8 logical block considerations
+   are quite similar to Typeset-8.  Once an alternate internal definition of DTORG
+   is implemented in P?S/8 PAL, this functionality can be used to aid in the
+   generation of P?S/8 from binary paper-tapes or equivalent.
+
+   In theory, the contents of OS/8 binary files can be converted to P?S/8 binary
+   files.  Encountering the DTORG output in these files can be translated to the
+   new definition allowing indirect source level compatibility with PAL8.
+   Conversion programs can be written to allow the output of PAL8 to conform with
+   the new definition without affecting the ability to load the files in OS/8 with
+   ABSLDR.SV or with the standard paper-tape BIN loader.  [Currently, attempts to
+   load binary files in OS/8 created from source code using DTORG statements will
+   always fail with a loading error message.]
+
+5) P?S/8 PAL does not have an option to change the behavior of the "!" character.
+   The default functionality is compatible with OS/8 PAL8:  Placing the "!"
+   character between two expression elements performs a bit-wise logical .OR.
+   function between them which is then uses as the result.
+
+   Certain assemblers allow redefining the "!" character to perform a left-shift
+   six bits function on the previous expression element.  However, both P?S/8 PAL
+   and OS/8 PAL8 already support the "^" character as a multiplication operator.
+   Thus, instead of using "!" as a left shift six operation, the expression can be
+   coded using "^100" which accomplishes the same result.  Assuming the left shift
+   six operation is functional, the following two statements create identical
+   results.
+
+   A!B
+
+   and
+
+   A^100+B [assuming OCTAL radix is in effect]
+
+   or
+
+   A^64+B [assuming DECIMAL radix is in effect].
+
+   [Note: P?S/8 PAL and OS/8 PAL8 both support the OCTAL and DECIMAl directives.]
+
+   Future implementations of P?S/8 PAL might support this function; the main problem
+   will be determination of an available command-line option switch to invoke the
+   feature.
+
+   Note: P?S/8 PAL released with version 8Z of P?S/8 [circa 1989] includes support
+   of this feature by setting the /Y switch.
+
+Additional information on the P?S/8 PAL assembler is available on the Internet at:
+
+http://www.ibiblio.org/pub/academic/computer-science/history/pdp-8
+                     §/PQS8-related%20Files/1989%20Help%20Files/ASMBLR.HELP
+
+Note: The § symbol above merely indicates continuation of the complete address on
+the next line; the address was split into two lines due to the overall length of the
+URL.
+
+A summary of all of the supported command switches is contained within this file
+along with other internal documentation of P?S/8 PAL.  [Note: Proper usage of the
+file may require end-of-line conversion using a program such as FLIP.EXE.  A copy of
+this program is included in the P?S/8 Advanced SIMH Package in the SIMH utilities
+directory.]
+
+[End-of-file]

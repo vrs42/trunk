@@ -1,0 +1,909 @@
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 1
+
+   1                 /       P?S/8 FILE MAINTAINENCE UTILITY
+   2   
+   3                 /       LAST EDIT:      06-OCT-1987     23:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       P?S/8 FILE MAINTAINENCE UTILITY FOR FIXED-LENGTH FILES (FILMAN).
+   8   
+   9                 /       SUPPORTED FUNCTIONS:
+  10   
+  11                 /       DEVICE UNIT TO DEVICE UNIT FILE COPYING WITH OPTIONAL SINGLE QUERY MODE.
+  12   
+  13                 /       SINGLE DEVICE UNIT FILE KILLING WITH OPTIONAL SINGLE QUERY MODE.
+  14   
+  15                 /       SINGLE DEVICE UNIT CATALOG EMPTYING.
+  16   
+  17                 /       INVOKED MODE (OPTION(S) INVOKED IN THE COMMAND LINE) AND RESPONSE MODE
+  18                 /       (USER IS PROMPTED FOR ALL OPTIONS) OPERATIONS ARE AVAILABLE. THE USE OF
+  19                 /       MULTI-CHARACTER OPTIONS UNIQUE TO FILMAN CAUSES INVOKED MODE OPERATION.
+  20                 /       RESPONSE MODE OPERATION IS AVAILABLE EITHER ALTERNATIVELY TO OR IN CONJUNCTION
+  21                 /       WITH INVOKED MODE OPERATION.
+  22   
+  23                 /       DOCUMENTATION NOTE:
+  24   
+  25                 /       ALL CHARACTERS ENCLOSED IN SQUARE BRACKETS ARE OPTIONAL AND SERVE ONLY TO
+  26                 /       EMBELLISH THE COMMAND.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 2
+
+  27                 /       COMMAND LINE DESCRIPTION.
+  28   
+  29                 /       .[R ]FILMAN (SWITCH OPTIONS) (MULTI-CHARACTER OPTIONS) (<CR> OR <ESC>)
+  30   
+  31                 /       PROGRAM NAME FIELD DESCRIPTION.
+  32   
+  33                 /       CURRENT P?S/8 KEYBOARD MONITOR CONVENTIONS ALLOW FOR INVOKING A SYSTEM
+  34                 /       PROGRAM OR UTILITY BY USE OF THE "R" COMMAND FOLLOWED BY THE PROGRAM NAME.
+  35                 /       THIS UTILITY IS ALWAYS CALLED "FILMAN" AND THIS PROGRAM NAME MUST PRECEDE
+  36                 /       ALL OTHER OPTIONS. AS OF THE CURRENT IMPLEMENTATION, THERE IS NO ANOMALY
+  37                 /       BETWEEN "FILMAN" AND ANY OTHER KEYBOARD MONITOR COMMAND (FIRST TWO LETTERS
+  38                 /       WOULD BE "FI") THUS THE "R" COMMAND MAY BE OMITTED. THE USE OF THE "R" COMMAND
+  39                 /       TO THE P?S/8 KEYBOARD MONITOR GENERALLY CAUSES SLIGHTLY MORE SYSTEM OVERHEAD
+  40                 /       WITH SUPERIOR SYNTAX ERROR MESSAGES (AND OTHER FEATURES IRRELEVANT TO FILMAN)
+  41                 /       BUT IN NO WAY AFFECTS THE OPERATION OF THE FILMAN UTILITY. THE STANDARD
+  42                 /       IMPLEMENTATION RESTRICTION APPLIES: THE SYSTEM DIRECTORY ENTRY FOR FILMAN
+  43                 /       MUST BE IN THE FIRST HALF OF THE SYSTEM DIRECTORY TO ALLOW THE "R" COMMAND
+  44                 /       TO BE OMITTED. THIS IS THE INTENDED IMPLEMENTATION; SYSTEMS PROGRAMMERS
+  45                 /       ARE ADVISED TO OBEY THIS CONVENTION TO ALLOW CONSISTENCY OF USAGE WITH
+  46                 /       DOCUMENTATION! (THE PROGRAM NAME MAY BE CHANGED IF NECESSARY AS THE INTERNAL
+  47                 /       CODING OF THE PROGRAM DOES NOT CHECK FOR ANY SPECIFIC PROGRAM NAME DURING
+  48                 /       THE COMMAND SCAN)
+  49   
+  50                 /       AS OF THE CURRENT IMPLEMENTATION OF THE KEYBOARD MONITOR, THE "RU" (USUALLY
+  51                 /       DESCRIBED AS "RUN") COMMAND IS IDENTICAL TO THE "R" COMMAND AND MAY BE USED
+  52                 /       ALTERNATIVELY TO INVOKE FILMAN.
+  53   
+  54                 /       SWITCH OPTION DESCRIPTION.
+  55   
+  56                 /       SWITCH OPTIONS TAKE THE FORM OF ONE OF THE FOLLOWING:
+  57   
+  58                 /               A)      A SLASH ("/") CHARACTER FOLLOWED BY A SINGLE OPTION
+  59                 /                       LETTER/DIGIT FOR EACH OPTION INVOKED. LETTERS ARE IN THE
+  60                 /                       RANGE "A"-"Z". DIGITS ARE IN THE RANGE "0"-"9".
+  61   
+  62                 /               B)      AN OPTION GROUP CONSISTING OF A LEFT PARENTHESIS ("(")
+  63                 /                       FOLLOWED BY A GROUP OF AT LEAST ONE OPTION LETTER/DIGIT
+  64                 /                       OPTIONALLY FOLLOWED BY A RIGHT PARENTHESIS (")"). LETTERS
+  65                 /                       ARE IN THE RANGE "A"-"Z". DIGITS ARE IN THE RANGE "0"-"9".
+  66                 /                       THE SLASH ("/") CHARACTER MUST BE OMITTED. THE RIGHT
+  67                 /                       PARENTHESIS (")") MUST BE PRESENT UNLESS THE OPTION GROUP
+  68                 /                       APPEARS LAST ON THE COMMAND LINE.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 3
+
+  69                 /       MULTI-CHARACTER OPTION DESCRIPTION.
+  70   
+  71                 /       MULTI-CHARACTER OPTIONS TAKE THE FORM OF A SLASH ("/") CHARACTER FOLLOWED
+  72                 /       BY A NAME FIELD CONSISTING OF AT LEAST TWO LETTERS FOLLOWED BY A COLON (":")
+  73                 /       CHARACTER FOLLOWED BY AN OPTION VALUE (ALSO KNOWN AS A QUALIFIER). WITHIN
+  74                 /       THE NAME FIELD, ADDITIONAL LETTERS/DIGITS ARE ALLOWED TO IMMEDIATELY FOLLOW
+  75                 /       THE TWO REQUIRED LETTERS FOR EMBELLISHMENT PURPOSES. THE OPTION VALUE WILL
+  76                 /       BE REQUIRED TO CONFORM TO ONE OF THE FOLLOWING:
+  77   
+  78                 /               A)      ALPHABETIC OPTION VALUES WHICH CONSIST OF ONE LETTER IN
+  79                 /                       THE RANGE "A"-"Z" OPTIONALLY FOLLOWED BY ADDITIONAL
+  80                 /                       LETTERS/DIGITS FOR EMBELLISHMENT PURPOSES. ALPHABETIC OPTION
+  81                 /                       VALUES ARE USED TO DETERMINE OPERATING MODE, AND FILE DATA
+  82                 /                       TYPE. QUERY AND VERIFY OPTIONS REQUIRE SPECIFIC Y[ES] OR
+  83                 /                       N[O] VALUES.
+  84   
+  85                 /               B)      NUMERIC OPTION VALUES WHICH CONSIST OF A SINGLE DIGIT IN
+  86                 /                       THE RANGE "0"-"7". NUMERIC OPTION VALUES ARE USED TO SET
+  87                 /                       THE VARIOUS SYSTEM UNITS 0-7 CORRESPONDING TO THE DEVICES
+  88                 /                       "SYS0:"-"SYS7:" FOR THE INPUT, OUTPUT AND UNIT OPTIONS.
+  89   
+  90                 /               C)      STRING OPTION VALUES CONSIST OF A SERIES OF VALID FILE NAME
+  91                 /                       CHARACTERS (THE LETTERS FROM "A"-"Z", THE DIGITS "0"-"9",
+  92                 /                       "[", "\", "]", AND "^") AND/OR THE SPECIAL CHARACTERS "*",
+  93                 /                       "?" AND ".". IMBEDDED SPACE AND TAB CHARACTERS WILL BE IGNORED.
+  94                 /                       THE STRING OPTION VALUE IS USED WITH THE NAME OPTION TO
+  95                 /                       SPECIFY A SEARCH STRING FOR FILE NAME MATCHING. IF ANY
+  96                 /                       CHARACTER OTHER THAN THE ABOVE IS USED WITHIN THE STRING,
+  97                 /                       ALL FILE NAMES WILL FAIL TO MATCH.
+  98   
+  99                 /       TERMINATOR DESCRIPTION.
+ 100   
+ 101                 /       <CR>            THE NORMAL COMMAND LINE TERMINATOR. THE COMMAND EXECUTES
+ 102                 /                       EITHER INVOKED MODE OR RESPONSE MODE AS REQUIRED. UNLESS
+ 103                 /                       THE /S OPTION IS INVOKED, ADDITIONAL RESPONSE MODE OPERATIONS
+ 104                 /                       OCCUR UNTIL USER EXIT TO THE KEYBOARD MONITOR.
+ 105   
+ 106                 /       <ESC>           IF THE COMMAND LINE IS TERMINATED WITH AN ACTIVE <ESC>
+ 107                 /                       CHARACTER, FILMAN WILL AUTOMATICALLY EXIT TO THE KEYBOARD
+ 108                 /                       MONITOR AFTER ONE INVOKED MODE OR RESPONSE MODE OPERATION
+ 109                 /                       AS REQUIRED. SEE THE KEYBOARD MONITOR "SET" COMMAND FOR
+ 110                 /                       THE DEFINITION OF ACTIVE <ESC> CHARACTERS.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 4
+
+ 111                 /       COMMAND LINE RESTRICTIONS.
+ 112   
+ 113                 /       ALTHOUGH SPACES AND TABS ARE NOT ALLOWED WITHIN THE PROGRAM NAME FIELD
+ 114                 /       ("FILMAN"), MULTI-CHARACTER OPTIONS (SUCH AS THE EMBELLISHED "VERIFY"),
+ 115                 /       OR MULTI-CHARACTER OPTION VALUES (SUCH AS THE EMBELLISHED "EVERYTHING"),
+ 116                 /       THESE CHARACTERS MAY BE USED FREELY BETWEEN ALL COMMAND FIELDS TO SEPARATE
+ 117                 /       COMPLETE PARAMETERS. SPACES AND TABS ARE ALLOWED BETWEEN SWITCH OPTIONS
+ 118                 /       USING THE INDIVIDUAL SLASH ("/") FORM, BUT NOT BETWEEN OPTIONS WITHIN AN
+ 119                 /       OPTION GROUP. SPACES AND TABS ARE ALSO ALLOWED BEFORE AND AFTER THE COLON
+ 120                 /       (":") CHARACTER OF THE MULTI-CHARACTER OPTIONS, AS WELL AS WITHIN STRING
+ 121                 /       OPTION VALUES.
+ 122   
+ 123                 /       THE SPECIAL CHARACTER "." MAY BE GIVEN AT THE END OF THE SEARCH STRING
+ 124                 /       OPTIONALLY FOLLOWED BY AN ADDITIONAL STRING USING ALL OTHER VALID SEARCH
+ 125                 /       CHARACTERS; THE "." CHARACTER ITSELF MUST NOT BE REPEATED TO PREVENT AN
+ 126                 /       ERROR MESSAGE. THE "." CHARACTER IS USED TO INDICATE AN "EXTENSION" (ALSO
+ 127                 /       KNOWN AS A "QUALIFIED NAME"), WHICH IS NOT IMPLEMENTED AT THIS TIME. DUE
+ 128                 /       TO CURRENT IMPLEMENTATION RESTRICTIONS, THE P?S/8 FILE NAME STRUCTURE IS
+ 129                 /       LIMITED TO AT MOST SIX CHARACTERS WITHOUT EXTENSION, SO THE SCOPE OF USEFUL
+ 130                 /       COMMANDS MUST BE LIMITED TO THIS AMOUNT. THE EXTENSION STRING (IF GIVEN)
+ 131                 /       WILL BE IGNORED, OTHER THAN VALIDATION OF ITS SYNTAX. FUTURE IMPLEMENTATION
+ 132                 /       PLANS FOR P?S/8 INCLUDE UPGRADING THE FILE NAMES TO A FORM:
+ 133   
+ 134                 /       LONGASSEMBLYFILE.MAC8   16 CHARACTER FILE NAMES WITH 4 CHARACTER EXTENSIONS
+ 135   
+ 136                 /       DUE TO P?S/8 MONITOR RESTRICTIONS, ALL SWITCH OPTIONS MUST PRECEDE ANY
+ 137                 /       MULTI-CHARACTER OPTIONS. SPACES AND TABS ARE NOT ALLOWED AFTER THE SLASH
+ 138                 /       ("/) IN THE FIRST OF ANY MULTI-CHARACTER OPTIONS. SEE THE DESCRIPTION OF
+ 139                 /       INVOKED MODE OPERATIONS FOR ANY ADDITIONAL RESTRICTIONS.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 5
+
+ 140                 /       SWITCH OPTIONS.
+ 141   
+ 142                 /       /B              USE HARDCOPY-ORIENTED BACKSPACE FOR COMMAND EDITING. DEFAULT
+ 143                 /                       IS SCREEN-ORIENTED BACKSPACE.
+ 144   
+ 145                 /       /C              ATTEMPT TO UTILIZE MORE CORE. IF AVAILABLE, A PARTIAL (3K)
+ 146                 /                       OR FULL (4K) FIELD OF ADDITIONAL MEMORY WILL BE USED TO
+ 147                 /                       ACCELERATE ALL OPERATIONS. THIS OPTION IS ONLY NECESSARY
+ 148                 /                       ON SYSTEMS WHERE THE CURRENT LOGICAL CORE SIZE IS 4K AND
+ 149                 /                       MORE IS ACTUALLY AVAILABLE.
+ 150   
+ 151                 /       /E              EMPTYING OF THE SPECIFIED CATALOG UNIT WILL OCCUR. INVOKING
+ 152                 /                       THIS OPTION OVERRIDES THE DEFAULT OPERATION OF UNIT TO UNIT
+ 153                 /                       COPYING. IF /Y IS NOT INVOKED, THE USER WILL BE PROMPTED
+ 154                 /                       WITH "ARE YOU SURE? " REQUIRING A Y(ES)/N(O) RESPONSE BEFORE
+ 155                 /                       THE CATALOG IS ACTUALLY EMPTIED. EQUIVALENT TO MO[DE]:E[MPTY].
+ 156   
+ 157                 /       /I              INVOKED MODE OPERATION WILL OCCUR. DEFAULT IS RESPONSE MODE
+ 158                 /                       OPERATION ONLY. SINCE USE OF ANY MULTI-CHARACTER OPTION
+ 159                 /                       IMPLIES INVOKED MODE, /I IS ONLY REQUIRED WHEN ALL PARAMETERS
+ 160                 /                       OF INVOKED MODE OPERATION ARE DEFAULTED. (SEE DEFAULT
+ 161                 /                       PARAMETERS FOR INVOKED MODE OPERATION.)
+ 162   
+ 163                 /       /K              FILES WILL BE KILLED FROM THE SPECIFIED CATALOG UNIT. INVOKING
+ 164                 /                       THIS OPTION OVERRIDES THE DEFAULT OPERATION OF UNIT TO UNIT
+ 165                 /                       COPYING. IF /Y IS NOT INVOKED, THE USER WILL BE PROMPTED
+ 166                 /                       WITH "ARE YOU SURE? " REQUIRING A Y(ES)/N(O) RESPONSE BEFORE
+ 167                 /                       THE FILES ARE ACTUALLY KILLED FROM THE CATALOG. INVOKING
+ 168                 /                       THE QUERY MODE WILL ALLOW ALL ELEGIBLE FILES TO BE KILLED
+ 169                 /                       INDIVIDUALLY. EQUIVALENT TO MO[DE]:K[ILL]. SEE /Q.
+ 170   
+ 171                 /       /N              NO VERIFICATION WILL BE PERFORMED. DEFAULT IS TO VERIFY
+ 172                 /                       ALL WRITE OPERATIONS. EQUIVALENT TO VE[RIFY]:N[O].
+ 173   
+ 174                 /       /O              OVERRIDE FILE TYPE IDENTIFICATION. THIS ALLOWS ALL FILES
+ 175                 /                       TO BE CONSIDERED (AS IN TY[PE]:E[VERYTHING]), BUT PREVENTS
+ 176                 /                       FILE TYPE IDENTIFICATION. EQUIVALENT TO TY[PE]:O[VERRIDE].
+ 177                 /                       OPERATIONS ARE GENERALLY FASTER THAN WHEN INVOKING OTHER
+ 178                 /                       FILE TYPES (A[SCII], B[INARY], C[OMBINED], E[VERYTHING]),
+ 179                 /                       AS THE FILES ARE NOT READ FOR CONTENT VALIDATION.
+ 180   
+ 181                 /       /Q              INDIVIDUAL QUERY MODE IS USED. ALL ELEGIBLE FILES WILL BE
+ 182                 /                       COPIED (MO[DE]:C[OPY] WHICH IS DEFAULT) OR KILLED (/K OR
+ 183                 /                       MO[DE]:K[ILL]) SUBJECT TO A Y(ES) OR N(O) RESPONSE TYPED
+ 184                 /                       ON THE SYSTEM CONSOLE. EQUIVALENT TO QU[ERY]:Y[ES]. THE
+ 185                 /                       QUERY MODE CAN BE REVERSED DURING ALL FILMAN OPERATIONS
+ 186                 /                       BY PRESSING <^R> ON THE SYSTEM CONSOLE.
+ 187   
+ 188                 /       /S              SINGLE OPERATION OPTION. FILMAN TERMINATES AFTER THE FIRST
+ 189                 /                       OPERATION (EITHER INVOKED MODE OR RESPONSE MODE). EQUIVALENT
+ 190                 /                       TO TERMINATING THE COMMAND LINE WITH <ESC>.
+ 191   
+ 192                 /       /U              OUTPUT IN UPPER-CASE ONLY. DEFAULT IS UPPER/LOWER CASE OUTPUT.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 6
+
+ 193                 /       /Y              USED TO EFFECTIVELY ANSWER "YES" TO THE "ARE YOU SURE? "
+ 194                 /                       QUERY OF /E (MO[DE]:E[MPTY]) OR /K (MO[DE]:K[ILL]). THE
+ 195                 /                       QUERY WILL NOT BE ISSUED.
+ 196   
+ 197                 /       MULTI-CHARACTER OPTIONS.
+ 198   
+ 199                 /       IN[PUT]:I       I=INPUT UNIT FOR COPY OPERATION. THE INPUT UNIT CAN BE ANY
+ 200                 /                       SYSTEM LOGICAL UNIT FROM 0-7. THIS OPTION CAN BE INVOKED
+ 201                 /                       IN COMBINATION WITH MO[DE]:C[OPY] (DEFAULT) AND MUST NOT
+ 202                 /                       BE COMBINED WITH MO[DE]:K[ILL] OR MO[DE]:E[MPTY]. IT MAY
+ 203                 /                       NOT BE COMBINED WITH U[NIT]:U. ILLEGAL COMBINATIONS WILL
+ 204                 /                       YIELD THE ERROR MESSAGE "UNIT AND MODE CONFLICT!".
+ 205   
+ 206                 /       MO[DE]:M        M=C[OPY] (DEFAULT) OR K[ILL] OR E[MPTY] OR Q[UIT]. FILES
+ 207                 /                       WILL BE COPIED OR KILLED OR ENTIRELY REMOVED AS NECESSARY.
+ 208                 /                       INVOKING /K IS IDENTICAL TO MO[DE]:K[ILL]. INVOKING /E IS
+ 209                 /                       IDENTICAL TO MO[DE]:E[MPTY]. MO[DE]:Q[UIT] CAUSES EXIT TO
+ 210                 /                       THE MONITOR EFFECTIVELY NULLIFYING THE COMMAND.
+ 211   
+ 212                 /       NA[ME]:STRING   OPTIONAL SEARCH STRING TO LIMIT FILES TO BE COPIED (DEFAULT
+ 213                 /                       OPERATION OR MO[DE]:C[OPY]) OR KILLED (/K OR MO[DE]:K[ILL])
+ 214                 /                       TO THOSE FILES "MATCHING" THE SEARCH STRING. THE SEARCH
+ 215                 /                       STRING CAN CONSIST OF ANY COMBINATION OF VALID P?S/8
+ 216                 /                       FIXED-LENGTH FILE NAME CHARACTERS ("A"-"Z", "0"-"9", "[",
+ 217                 /                       "\", "]", "^") AND THE "WILD-CARD" CHARACTERS ("*", "?"),
+ 218                 /                       AND AT MOST A SINGLE OCCURRENCE OF THE EXTENSION CHARACTER
+ 219                 /                       ("."). THE "?" MATCHES ANY SINGLE CHARACTER IN A FILE NAME
+ 220                 /                       WHICH MUST BE PRESENT, UNLESS THE "?" (OR A SERIES OF "?"
+ 221                 /                       CHARACTERS) IS RIGHT-MOST IN THE SEARCH STRING IN WHICH
+ 222                 /                       CASE THE CORRESPONDING FILE NAME CHARACTERS MAY BE NON-EXISTANT
+ 223                 /                       IF NECESSARY. THIS ALLOWS THE USE OF EXCESS "?" CHARACTERS
+ 224                 /                       WHEN MATCHING LEADING PORTIONS OF FILE NAMES (THE COMMAND
+ 225                 /                       MAY CONTAIN EXTRA RIGHT-MOST "?" CHARACTERS WHICH ARE
+ 226                 /                       EFFECTIVELY IGNORED). THE "*" MATCHES AN ARBITRARY NUMBER
+ 227                 /                       OF FILE NAME CHARACTERS FROM NONE THROUGH THE ENTIRE NAME
+ 228                 /                       IF NECESSARY. A SINGLE OCCURRENCE OF THE SPECIAL CHARACTER
+ 229                 /                       (".") MAY OPTIONALLY BE GIVEN AT THE END OF THE SEARCH STRING
+ 230                 /                       OPTIONALLY FOLLOWED BY AN ADDITIONAL STRING USING ALL OTHER
+ 231                 /                       VALID SEARCH CHARACTERS (THE "." AND EXTENSION STRING WILL
+ 232                 /                       BE IGNORED). IMBEDDED SPACE AND TAB CHARACTERS ARE IGNORED.
+ 233                 /                       MAXIMUM SEARCH STRING LENGTH IS 36 CHARACTERS.
+ 234   
+ 235                 /       OU[TPUT]:O      O=OUTPUT UNIT. THE OUTPUT UNIT CAN BE ANY SYSTEM LOGICAL
+ 236                 /                       UNIT FROM 0-7. THIS OPTION CAN BE INVOKED IN COMBINATION
+ 237                 /                       WITH MO[DE]:C[OPY] (DEFAULT) AND MUST NOT BE COMBINED WITH
+ 238                 /                       MO[DE]:K[ILL] OR MO[DE]:E[MPTY]. IT MAY NOT BE COMBINED
+ 239                 /                       WITH U[NIT]:U. ILLEGAL COMBINATIONS WILL YIELD THE ERROR
+ 240                 /                       MESSAGE "UNIT AND MODE CONFLICT!". IF THE OUTPUT UNIT IS
+ 241                 /                       IDENTICAL TO THE INPUT UNIT (O=I) THEN IN-PLACE COPYING
+ 242                 /                       WILL OCCUR. THIS IS USEFUL (IN CONJUNCTION WITH THE INDIVIDUAL
+ 243                 /                       QUERY MODE) TO INVESTIGATE THE DATA TYPE OF FILES WITHOUT
+ 244                 /                       NECESSARILY PERFORMING ANY EFFECTIVE COPYING OPERATIONS.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 7
+
+ 245                 /       QU[ERY]:Q       Q=Y[ES] OR N[O]. IF QU[ERY]:Y[ES] IS INVOKED, THE USER WILL
+ 246                 /                       BE REQUIRED TO RESPOND Y(ES) OR N(O) FOR EACH ELEGIBLE FILE
+ 247                 /                       TO BE COPIED (MO[DE]:C[OPY]) OR KILLED (MO[DE]:K[ILL]).
+ 248                 /                       INVOKING /Q IS EQUIVALENT TO QU[ERY]:Y[ES].
+ 249   
+ 250                 /       TY[PE]:T        T=DATA TYPE OF FILE (SEE BELOW).
+ 251   
+ 252                 /       UN[IT]:U        U=UNIT FOR FILE KILLING (MO[DE]:K[ILL]) OR CATALOG EMPTYING
+ 253                 /                       (MO[DE]:E[MPTY]). THIS OPTION MUST NOT BE INVOKED IN
+ 254                 /                       COMBINATION WITH IN[PUT]:I OR OU[TPUT]:O OR MO[DE]:C[OPY].
+ 255                 /                       ILLEGAL COMBINATIONS WILL YIELD THE ERROR MESSAGE "UNIT
+ 256                 /                       AND MODE CONFLICT!".
+ 257   
+ 258                 /       VE[RIFY]:V      V=Y[ES] OR N[O]. ALL WRITE OPERATIONS ARE VERIFIED IF
+ 259                 /                       VE[RIFY]:Y[ES] IS INVOKED (DEFAULT). VE[RIFY]:N[O] IS GENERALLY
+ 260                 /                       FASTER AT THE EXPENSE OF RELIABILITY. INVOKING /N IS EQUIVALENT
+ 261                 /                       TO VE[RIFY]:N[O].
+ 262   
+ 263                 /       FILE DATA TYPES.
+ 264   
+ 265                 /       A[SCII]         ONLY VALID ASCII FILES WILL BE CONSIDERED.
+ 266                 /       B[INARY]        ONLY VALID BINARY FILES WILL BE CONSIDERED.
+ 267                 /       C[OMBINED]      COMBINATION OF A AND B.
+ 268                 /       E[VERYTHING]    EVERYTHING WILL BE ALLOWED.
+ 269                 /       O[VERRIDE]      GENERALLY THE SAME AS E[VERYTHING], HOWEVER, NO FILE TYPING
+ 270                 /                       IS PERFORMED. THIS IS GENERALLY FASTER AS THE FILES WILL
+ 271                 /                       NOT BE READ FOR TYPE VALIDATION.
+ 272   
+ 273                 /       ASSUMING OVERRIDE IS NOT IN EFFECT, ALL EXISTENT FILES ARE READ AND TYPE
+ 274                 /       VALIDATED. ALL FILES ELEGIBLE UNDER THE PREVAILING FILE DATA TYPE WILL BE
+ 275                 /       REPORTED ON THE CONSOLE TERMINAL DURING THE PREVAILING OPERATION. THE FILE
+ 276                 /       IDENTIFICATION WILL CONSIST OF:
+ 277   
+ 278                 /       <ASCI>          FILE IS VALID ASCII TYPE.
+ 279                 /       <BNRY>          FILE IS VALID BINARY TYPE.
+ 280                 /       <UNKN>          FILE IS UNKNOWN TYPE (AVAILABLE ONLY IF FILE TYPE E[VERYTHING]
+ 281                 /                       IS USED).
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 8
+
+ 282                 /       INVOKED MODE OPERATIONS.
+ 283   
+ 284                 /       THE USE OF /I OR ANY MULTI-CHARACTER OPTIONS CAUSES INVOKED MODE OPERATIONS.
+ 285                 /       INVOKED MODE OPERATIONS TAKE ALL PARAMETERS FROM THE COMMAND LINE ONLY AND
+ 286                 /       CAN BE USED UNATTENDED IF DESIRED. QUERY RESPONSES ARE REQUIRED FROM THE
+ 287                 /       CONSOLE TERMINAL ONLY IF INVOKED IN THE COMMAND LINE. THIS ALLOWS UNATTENDED
+ 288                 /       BATCH OPERATIONS IF DESIRED, OR USER QUERY REGARDING FILE DISPOSITION AND
+ 289                 /       CATALOG EMPTYING FROM THE CONSOLE TERMINAL WHILE RUNNING A BATCH JOB. RESPONSE
+ 290                 /       MODE OPERATIONS CAN BE ALLOWED OR PREVENTED AS NECESSARY.
+ 291   
+ 292                 /       INVOKED MODE OPERATION ALLOWS THE USER TO COMPLETELY SPECIFY ALL PARAMETERS
+ 293                 /       ON THE COMMAND LINE IN A CONCISE FORM. ALL PARAMETERS NOT SPECIFIED ARE
+ 294                 /       SUBJECT TO THE FOLLOWING DEFAULTS:
+ 295   
+ 296                 /       MODE:COPY       FILES WILL BE COPIED FROM THE SPECIFIED INPUT UNIT TO THE
+ 297                 /                       SPECIFIED OUTPUT UNIT.
+ 298   
+ 299                 /       INPUT:B         THE INPUT FILES ARE LOCATED ON UNIT: <SYSTEM BOOTSTRAP UNIT>.
+ 300   
+ 301                 /       OUTPUT:U        THE OUTPUT FILES ARE TO BE COPIED TO UNIT: <SYSTEM BOOTSTRAP
+ 302                 /                       UNIT .XOR. 1>. SINCE MOST SYSTEMS SUPPORT A UNIT 1 AND BOOTSTRAP
+ 303                 /                       TO UNIT 0, THIS GENERALLY MEANS THE DEFAULT COPY WILL BE
+ 304                 /                       FROM UNIT 0 TO UNIT 1.
+ 305   
+ 306                 /       TYPE:EVERYTHING ALL FILE TYPES ARE ELEGIBLE FOR COPYING AND WILL BE IDENTIFIED
+ 307                 /                       AS TO FILE TYPE (<ASCI>, <BNRY>, <UNKN>).
+ 308   
+ 309                 /       NAME:*          ALL FILE NAMES ARE ELEGIBLE FOR COPYING.
+ 310   
+ 311                 /       QUERY:NO        THE FILES WILL BE COPIED WITHOUT USER QUERY.
+ 312   
+ 313                 /       VERIFY:YES      ALL FILES COPIED WILL BE WRITTEN AND VERIFIED.
+ 314   
+ 315                 /       UNIT:U          ASSUMING MO[DE]:K[ILL] OR MO[DE]:E[MPTY] IS INVOKED, THE
+ 316                 /                       FILES TO BE REMOVED ARE LOCATED ON UNIT: <SYSTEM BOOTSTRAP
+ 317                 /                       UNIT .XOR. 1>.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 9
+
+ 318                 /       INVOKED MODE COMMAND LINE RESTRICTIONS.
+ 319   
+ 320                 /       IT IS RECOMMENDED THAT THE USER POSITION MO[DE]:M AS THE FIRST MULTI-CHARACTER
+ 321                 /       OPTION ON THE COMMAND LINE FOR INVOKED MODE OPERATION. ALL OTHER
+ 322                 /       MULTI-CHARACTER OPTIONS ARE ALLOWED TO BE FIRST ON THE COMMAND LINE SUBJECT
+ 323                 /       TO THE FOLLOWING:
+ 324   
+ 325                 /       CERTAIN MULTI-CHARACTER OPTIONS GIVEN FIRST ON THE COMMAND LINE NULLIFY
+ 326                 /       THE EFFECT OF CERTAIN SWITCH OPTIONS DUE TO ANOMALY WITHIN THE P?S/8 KEYBOARD
+ 327                 /       MONITOR ROUTINES. THE FOLLOWING COMBINATIONS ARE NOT ALLOWED:
+ 328   
+ 329                 /       FIRST MULTI-CHARACTER OPTION    SWITCH OPTION
+ 330   
+ 331                 /       /NA[ME]:STRING                  /N
+ 332   
+ 333                 /       /OU[TPUT]:O                     /O
+ 334   
+ 335                 /       /UN[IT]:U                       /U
+ 336   
+ 337                 /       IN ADDITION, /Q WILL BE IGNORED IF QU[ERY]:Q IS USED, AS THE MULTI-CHARACTER
+ 338                 /       OPTION HAS PRIORITY OVER THE SWITCH OPTION.
+ 339   
+ 340                 /       ALL OTHER MULTI-CHARACTER OPTIONS CAN BE FIRST ON THE COMMAND LINE; THERE
+ 341                 /       IS NO ORDERING RESTRICTION REGARDING THE REST OF THE MULTI-CHARACTER OPTIONS
+ 342                 /       ON THE COMMAND LINE. MULTIPLE USAGE OF PARAMETERS IS ALLOWED; ALL BUT THE
+ 343                 /       LAST ARE IGNORED.
+ 344   
+ 345                 /       EXAMPLES OF INVOKED MODE OPERATION.
+ 346   
+ 347                 /       FILE COPY.
+ 348   
+ 349                 /       .FILMAN/MODE:COPY/INPUT:4/OUTPUT:6/TYPE:EVERYTHING/VERIFY:YES/QUERY:NO/NAME:*$
+ 350                 /       FILES COPIED:
+ 351   
+ 352                 /       SYS4:FOOBAR <BNRY> => SYS6:FOOBAR <BNRY> [OK]
+ 353                 /       SYS4:FOO <ASCI> => SYS6:FOO <ASCI> [OK]
+ 354                 /       SYS4:BAR <UNKN> => SYS6:BAR <UNKN> [OK]
+ 355   
+ 356                 /       3 FILES COPIED
+ 357   
+ 358                 /       THIS COMMAND COPIES ALL FILES FROM UNIT 4 TO UNIT 6 WITH VERIFICATION. ALL
+ 359                 /       FILE TYPES WERE ELEGIBLE AS WERE ALL FILE NAMES. NO USER QUERY WAS REQUIRED.
+ 360                 /       THE "$" AT THE END OF THE COMMAND LINE SIGNIFIES USE OF AN ACTIVE <ESC>
+ 361                 /       CHARACTER WHICH PREVENTED RESPONSE MODE OPERATIONS AND CAUSED EXIT TO THE
+ 362                 /       MONITOR.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 10
+
+ 363                 /       FILE KILL.
+ 364   
+ 365                 /       .FILMAN/S/MODE:KILL/UNIT:7/TYPE:COMBINED/QUERY:YES/NAME:F*
+ 366   
+ 367                 /       FILES KILLED:
+ 368   
+ 369                 /       SYS7:FEWBAR <BNRY>? YES! [OK]
+ 370                 /       SYS7:FOOB <ASCI>? NO!
+ 371                 /       SYS7:FBAR <ASCI>? NO!
+ 372   
+ 373                 /       ARE YOU SURE? YES!
+ 374   
+ 375                 /       1 FILE KILLED
+ 376   
+ 377                 /       THIS COMMAND KILLS ALL ASCII AND BINARY FILES ON SYSTEM UNIT 7 WHOSE NAMES
+ 378                 /       START WITH "F" SUBJECT TO USER QUERY. THE CATALOG WILL BE RE-WRITTEN WITH
+ 379                 /       VERIFICATION BY DEFAULT. SINCE /Y WAS NOT INVOKED, THE USER WAS QUERIED
+ 380                 /       WHETHER TO ACTUALLY KILL THE FILE(S). SINCE /S WAS INVOKED, RESPONSE MODE
+ 381                 /       OPERATION WAS PREVENTED AND FILMAN EXITS TO THE MONITOR.
+ 382   
+ 383                 /       CATALOG EMPTY.
+ 384   
+ 385                 /       .FILMAN/MODE:EMPTY/UNIT:2
+ 386   
+ 387                 /       CATALOG OF SYS2: TO BE EMPTIED (84 FILES CURRENTLY)
+ 388   
+ 389                 /       ARE YOU SURE? YES!
+ 390   
+ 391                 /       CATALOG OF SYS2: NOW EMPTY (84 FREE SLOTS)
+ 392   
+ 393                 /       MODE: ^C
+ 394   
+ 395                 /       THIS COMMAND EMPTIES THE CATALOG ON UNIT 2. THE CATALOG WILL BE RE-WRITTEN
+ 396                 /       WITH VERIFICATION BY DEFAULT. SINCE /Y WAS NOT INVOKED, THE USER WAS QUERIED
+ 397                 /       WHETHER TO ACTUALLY EMPTY THE CATALOG. RESPONSE MODE OPERATION WAS INITIATED
+ 398                 /       AND THE USER EXITS TO THE MONITOR VIA <^C>.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 11
+
+ 399                 /       RESPONSE MODE OPERATIONS.
+ 400   
+ 401                 /       ASSUMING NO MULTI-CHARACTER OPTIONS OR /I, FILMAN WILL INITIATE RESPONSE
+ 402                 /       MODE OPERATIONS. IF INVOKED MODE OPERATIONS OCCUR, AND THE COMMAND LINE
+ 403                 /       WAS NOT TERMINATED BY AN ACTIVE <ESC> CHARACTER, AND /S WAS NOT INVOKED,
+ 404                 /       RESPONSE MODE OPERATION WILL COMMENCE AFTER THE INVOKED MODE OPERATION HAS
+ 405                 /       COMPLETED. IF ANY OPERATION (INVOKED OR RESPONSE) IS TERMINATED PREMATURELY
+ 406                 /       BY <^P> PRESSED ON THE SYSTEM CONSOLE TERMINAL, RESPONSE MODE OPERATION
+ 407                 /       WILL BE INITIATED.
+ 408   
+ 409                 /       RESPONSE MODE OPERATION GIVES THE USER INDIVIDUAL PROMPTS FOR EACH PARAMETER
+ 410                 /       WHICH AGGREGATE TO THE SAME INFORMATION USED WITH INVOKED MODE OPERATION.
+ 411                 /       THERE ARE NO DEFAULTS, HENCE ALL QUESTIONS MUST BE ANSWERED. RESPONSE MODE
+ 412                 /       OPERATION LOOPS INDEFINITELY UNTIL USER EXIT, THUS REPEATED OPERATIONS ARE
+ 413                 /       POSSIBLE.
+ 414   
+ 415                 /       RESPONSE MODE OPERATIONS ARE IDENTICAL TO THOSE SUPPORTED BY INVOKED MODE
+ 416                 /       OPERATION: COPY, KILL, EMPTY, AND QUIT. USING THE QUIT MODE IS AN OPTIONAL
+ 417                 /       WAY TO EXIT TO THE MONITOR. ALL RESPONSE MODE OPERATIONS ARE SUBJECT TO
+ 418                 /       THE FOLLOWING SWITCH OPTIONS INVOKED ON THE COMMAND LINE:
+ 419   
+ 420                 /       /B      USE HARDCOPY-ORIENTED BACKSPACE FOR COMMAND EDITING. DEFAULT IS
+ 421                 /               SCREEN-ORIENTED BACKSPACE.
+ 422   
+ 423                 /       /C      THE CORE SIZE HAS BEEN INCREASED IF POSSIBLE. ALL OPERATIONS EXECUTE
+ 424                 /               AS QUICKLY AS POSSIBLE.
+ 425   
+ 426                 /       /N      NO VERIFICATION OF WRITE OPERATIONS WILL BE DONE. ALSO OCCURS IF
+ 427                 /               VE[RIFY]:N[O] WAS USED IN THE OPTIONAL INVOKED MODE OPERATION PRIOR
+ 428                 /               TO THE RESPONSE MODE OPERATION(S).
+ 429   
+ 430                 /       /Q      USER QUERY GIVEN FOR EACH ELEGIBLE FILE. A Y(ES) OR N(O) RESPONSE
+ 431                 /               IS REQUIRED FOR EVERY FILE TRANSACTION. ALSO OCCURS IF QU[ERY]:Y[ES]
+ 432                 /               WAS USED IN THE OPTIONAL INVOKED MODE OPERATION PRIOR TO THE RESPONSE
+ 433                 /               MODE OPERATION(S).
+ 434   
+ 435                 /       /S      ASSUMING NO INVOKED MODE OPERATION, THERE WILL BE ONLY ONE RESPONSE
+ 436                 /               MODE OPERATION FOLLOWED BY EXIT TO THE MONITOR. ALSO OCCURS IF THE
+ 437                 /               COMMAND LINE WAS TERMINATED BY AN ACTIVE <ESC> CHARACTER.
+ 438   
+ 439                 /       /U      OUTPUT IN UPPER-CASE ONLY. MESSAGES FROM FILMAN WILL BE FORCED TO
+ 440                 /               UPPER-CASE.
+ 441   
+ 442                 /       /Y      PREVENT THE "ARE YOU SURE? " QUERY ASSOCIATED WITH KILL AND EMPTY
+ 443                 /               MODES.
+ 444   
+ 445                 /       ALL OTHER OPTION SWITCHES AND MULTI-CHARACTER OPTIONS ARE IGNORED DURING
+ 446                 /       RESPONSE MODE OPERATIONS.
+ 447   
+ 448                 /       THE FIRST USAGE OF RESPONSE MODE CAUSES THE PROGRAM ANNOUNCEMENT MESSAGE
+ 449                 /       INCLUDING THE VERSION AND REVISION, ETC. (THIS WILL NOT OCCUR IF INVOKED
+ 450                 /       MODE OPERATION PRECEDES RESPONSE MODE.)
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 12
+
+ 451                 /       RESPONSE MODE OPERATIONS REQUIRE A SINGLE CHARACTER RESPONSE (EXCEPT THE
+ 452                 /       "NAME: " OPTION WHICH ALLOWS UP TO 36 CHARACTERS) FOLLOWED BY <CR> OR <ESC>.
+ 453                 /       IF THE OPTION CHOSEN IS INVALID, AN ERROR MESSAGE WILL BE ISSUED. IF
+ 454                 /       APPLICABLE, THE OPTION WILL BE EMBELLISHED AUTOMATICALLY TO A FULL WORD
+ 455                 /       RESPONSE. FOR EXAMPLE: THE "TYPE: " QUERY WOULD PRINT "EVERYTHING" WHEN
+ 456                 /       THE USER TYPED "E". THE USE OF ESCAPE ON ANY RESPONSE WILL CAUSE FILMAN
+ 457                 /       TO EXIT AFTER COMPLETING THE LATEST OPERATION.
+ 458   
+ 459                 /       RESPONSE MODE OPERATION MUST EXIT VIA USER INPUT AND CANNOT BE USED
+ 460                 /       UNATTENDED. THE USUAL BATCH CONSIDERATIONS APPLY: IF <BREAK>, <^A>, <^B>,
+ 461                 /       OR <^C> IS PRESSED ON THE SYSTEM CONSOLE TERMINAL, FILMAN WILL EXIT TO THE
+ 462                 /       MONITOR. IF EXIT WAS VIA <^C>, AND FILMAN WAS RUNNING UNDER BATCH, THE BATCH
+ 463                 /       JOB WILL TERMINATE AND EXIT TO THE MONITOR.
+ 464   
+ 465                 /       EXAMPLES OF RESPONSE MODE OPERATION.
+ 466   
+ 467                 /       FILE COPY.
+ 468   
+ 469                 /       .FILMAN(QCUNS)
+ 470   
+ 471                 /       P?S/8 FILE MAINTAINENCE UTILITY VERSION 10A
+ 472   
+ 473                 /       MODE: COPY
+ 474   
+ 475                 /       INPUT: 0
+ 476   
+ 477                 /       OUTPUT: 1
+ 478   
+ 479                 /       TYPE: EVERYTHING
+ 480   
+ 481                 /       NAME: *
+ 482   
+ 483                 /       FILES COPIED:
+ 484   
+ 485                 /       SYS0:FOOBAR <BNRY>? YES! => SYS1:FOOBAR <BNRY>
+ 486                 /       SYS0:BARFOO <ASCI>? YES! => SYS1:BARFOO <ASCI>
+ 487                 /       SYS0:NOTKOP <BNRY>? NO!
+ 488                 /       SYS0:FEWBAR <UNKN>? YES! => SYS1:FEWBAR <UNKN>
+ 489   
+ 490                 /       3 FILES COPIED
+ 491   
+ 492                 /       THIS COMMAND ATTEMPTS TO ACQUIRE MORE CORE TO RUN IN. FILES ARE COPIED FROM
+ 493                 /       UNIT 0 TO UNIT 1 WITH USER QUERY WITH ALL PROGRAM OUTPUT IN UPPER-CASE.
+ 494                 /       ALL FILE TYPES AND ALL FILE NAMES ARE ELEGIBLE TO BE COPIED. NO FILE WRITE
+ 495                 /       VERIFICATION WILL BE PERFORMED, SO THERE ARE NO "[OK]" MESSAGES TO CONFIRM
+ 496                 /       THE CORRECT FILE CONTENTS. SINCE /S WAS INVOKED, THE PROGRAM EXITS TO THE
+ 497                 /       MONITOR AFTER ONE OPERATION.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 13
+
+ 498                 /       FILE KILL.
+ 499   
+ 500                 /       .FILMAN/Q
+ 501   
+ 502                 /       P?S/8 FILE MAINTAINENCE UTILITY VERSION 10A
+ 503   
+ 504                 /       MODE: KILL
+ 505   
+ 506                 /       UNIT: 4
+ 507   
+ 508                 /       TYPE: BINARY
+ 509   
+ 510                 /       NAME: *BA*
+ 511   
+ 512                 /       FILES KILLED:
+ 513   
+ 514                 /       SYS4:FOOBAR <BNRY>? YES! [OK]
+ 515                 /       SYS4:BAR <BNRY>? NO!
+ 516                 /       SYS4:BATCH <BNRY>? NO!
+ 517   
+ 518                 /       1 FILE KILLED
+ 519   
+ 520                 /       MODE: ^C
+ 521   
+ 522                 /       THIS COMMAND KILLS ALL BINARY FILES ON UNIT 4 WHOSE NAMES HAVE "BA" IMBEDDED
+ 523                 /       WITHIN THEM SUBJECT TO USER QUERY. THE CATALOG WILL BE RE-WRITTEN WITH
+ 524                 /       VERIFICATION BY DEFAULT. EXIT IS VIA <^C> TO THE MONITOR.
+ 525   
+ 526                 /       CATALOG EMPTY.
+ 527   
+ 528                 /       .R FILMAN
+ 529   
+ 530                 /       P?S/8 FILE MAINTAINENCE UTILITY VERSION 10A
+ 531   
+ 532                 /       MODE: EMPTY
+ 533   
+ 534                 /       UNIT: 5
+ 535   
+ 536                 /       CATALOG OF SYS5: TO BE EMPTIED (1 FILE CURRENTLY)
+ 537   
+ 538                 /       ARE YOU SURE? YES!
+ 539   
+ 540                 /       CATALOG OF SYS2: NOW EMPTY (84 FREE SLOTS)
+ 541   
+ 542                 /       MODE: QUIT
+ 543   
+ 544                 /       THIS COMMAND EMPTIES THE CATALOG ON UNIT 5. THE CATALOG WILL BE RE-WRITTEN
+ 545                 /       WITH VERIFICATION BY DEFAULT. SINCE /Y WAS NOT INVOKED, THE USER WAS QUERIED
+ 546                 /       WHETHER TO ACTUALLY EMPTY THE CATALOG. THE USER EXITS TO THE MONITOR VIA
+ 547                 /       THE QUIT MODE.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 14
+
+ 548                 /       PROGRAM EXIT CONDITIONS.
+ 549   
+ 550                 /       THE /S OPTION OR COMMAND LINE TERMINATION WITH AN ACTIVE <ESC> CHARACTER
+ 551                 /       CAUSES AUTOMATIC EXIT AFTER ONE COMPLETE OPERATION. IF THIS OPERATION IS
+ 552                 /       TERMINATED PREMATURELY BY THE USER PRESSING <^P> ON THE SYSTEM CONSOLE
+ 553                 /       TERMINAL, RESPONSE MODE WILL BE (RE)STARTED TO ATTEMPT A COMPLETE OPERATION.
+ 554                 /       IF THE OPERATION COMPLETES, FILMAN WILL THEN EXIT TO THE MONITOR.
+ 555   
+ 556                 /       ASSUMING /S OR COMMAND LINE TERMINATION WITH AN ACTIVE <ESC> CHARACTER ARE
+ 557                 /       NOT IN EFFECT, THE FOLLOWING WILL APPLY:
+ 558   
+ 559                 /       A)      IF INVOKED MODE IS REQUESTED, THEN RESPONSE MODE WILL FOLLOW THE
+ 560                 /               COMPLETION OF THE INVOKED MODE OPERATION (UNLESS MO[DE]:Q[UIT] WAS
+ 561                 /               REQUESTED, WHICH EFFECTIVELY CAUSES NO OPERATION TO BE PERFORMED
+ 562                 /               AND AUTOMATICALLY EXITS TO THE MONITOR).
+ 563   
+ 564                 /       B)      IF RESPONSE MODE IS REQUESTED, THEN RESPONSE MODE WILL RESTART
+ 565                 /               AUTOMATICALLY FOLLOWING THE COMPLETION OF THE PREVIOUS RESPONSE
+ 566                 /               MODE OPERATION.
+ 567   
+ 568                 /       C)      RESPONSE MODE WILL LOOP INDEFINITELY UNTIL USER EXIT. SEE BELOW
+ 569                 /               FOR METHODS OF TERMINATION BY THE USER.
+ 570   
+ 571                 /       IMPROPER COMMAND LINES MAY BE REJECTED BY THE KEYBOARD MONITOR FOR REASONS
+ 572                 /       CONCERNING THE OVERALL COMMAND STRUCTURE BUT NOT RELATED TO THE
+ 573                 /       MULTI-CHARACTER OPTIONS, IF ANY. FILMAN WILL AUTOMATICALLY EXIT AFTER ISSUING
+ 574                 /       ERROR MESSAGES CONCERNING EITHER IMPROPERLY FORMATTED MULTI-CHARACTER OPTIONS,
+ 575                 /       OR IMPROPER CONTENTS OF ANY MULTI-CHARACTER OPTION OR OPTION VALUE, OR OPTION
+ 576                 /       CONFLICT AS NECESSARY. NO OPERATION WILL BE PERFORMED IF ANY COMMAND ERROR
+ 577                 /       IS DETECTED.
+ 578   
+ 579                 /       USER TERMINATION METHODS.
+ 580   
+ 581                 /       IN THE RESPONSE MODE, THE USER CAN CAUSE FILMAN TO EXIT BY USING THE VALUE:
+ 582                 /       Q(UIT) TO THE "MODE:" PROMPT AT THE BEGINNING OF EACH RESPONSE MODE CYCLE.
+ 583                 /       IN ADDITION, ALL FILMAN OPERATING PHASES MAY BE EXIT VIA ONE OF THE FOLLOWING:
+ 584   
+ 585                 /       A)      THE USER MAY PRESS <^P> ON THE SYSTEM CONSOLE TERMINAL. THIS CAUSES
+ 586                 /               PREMATURE COMPLETION OF THE CURRENT OPERATION INCLUDING CLOSING
+ 587                 /               ANY OPEN CATALOGS IF NECESSARY. FILMAN THEN RESTARTS IN RESPONSE
+ 588                 /               MODE (UNLESS AN ACTIVE <ESC> CHARACTER COMMAND TERMINATION OR /S
+ 589                 /               IS IN EFFECT, IN WHICH CASE FILMAN EXITS TO THE KEYBOARD MONITOR).
+ 590   
+ 591                 /       B)      THE USER MAY PRESS <BREAK> ON THE SYSTEM CONSOLE TERMINAL. THIS
+ 592                 /               CAUSES PREMATURE COMPLETION OF THE CURRENT OPERATION. NO CATALOG
+ 593                 /               UPDATE IS PERFORMED, THUS VARIOUS CATALOG ENTRIES COULD BE MISSING
+ 594                 /               OR OBSOLETE DEPENDING ON THE ACTIONS OF THE CURRENT COMMAND. THIS
+ 595                 /               METHOD OF TERMINATION SHOULD BE CONSIDERED A "HASTY" EXIT UNLESS
+ 596                 /               THE LATEST OPERATION HAS BEEN COMPLETED AND FILMAN IS CURRENTLY
+ 597                 /               IDLE WAITING FOR USER INPUT. WHEN THE USER PRESSES <BREAK> ON THE
+ 598                 /               SYSTEM CONSOLE, FILMAN EXITS TO THE KEYBOARD MONITOR.
+ 599   
+ 600                 /       C)      THE USER MAY PRESS <^A> ON THE SYSTEM CONSOLE TERMINAL. RESULTS
+ 601                 /               ARE IDENTICAL TO PRESSING <BREAK>.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 15
+
+ 602                 /       D)      THE USER MAY PRESS <^B> ON THE SYSTEM CONSOLE TERMINAL. RESULTS
+ 603                 /               ARE IDENTICAL TO PRESSING <BREAK>.
+ 604   
+ 605                 /       E)      THE USER MAY PRESS <^C> ON THE SYSTEM CONSOLE TERMINAL. RESULTS
+ 606                 /               ARE IDENTICAL TO PRESSING <BREAK> WITH THE FOLLOWING ADDITIONAL
+ 607                 /               CONSIDERATION: IF FILMAN WAS EXECUTING UNDER BATCH CONTROL, THE
+ 608                 /               BATCH JOB IS ALSO TERMINATED. THE KEYBOARD MONITOR WILL ACKNOWLEDGE
+ 609                 /               ALL PROGRAM EXITS VIA <^C> BY PRINTING A "^C" MESSAGE ALONG WITH
+ 610                 /               A BATCH ABORT MESSAGE IF APPLICABLE.
+ 611   
+ 612                 /       OUTPUT CATALOG CONSIDERATIONS.
+ 613   
+ 614                 /       BY MULTIPLE USAGES OF THE KEYBOARD MONITOR KI(LL) COMMAND, IT IS POSSIBLE
+ 615                 /       TO ACCUMULATE A SERIES OF DANGLING "<FREE>" SLOTS AT THE END OF THE USER
+ 616                 /       CATALOG. SHOULD ANY COPY OR KILL OPERATION BE INVOKED, THE END OF THE CATALOG
+ 617                 /       WILL BE COMPRESSED AS NECESSARY TO REMOVE THESE EXTRANEOUS ENTRIES. FILMAN
+ 618                 /       WILL REWRITE THE OUTPUT CATALOG EVEN IF NO OTHER FILE OPERATION OCCURRED.
+ 619                 /       OPTIMIZATION OF THIS OPERATION INCLUDES PREVENTING THE OUTPUT CATALOG WRITE
+ 620                 /       IF EITHER NO CHANGES WERE MADE TO THE CATALOG OR (USING THE COPY OPERATION)
+ 621                 /       THE SLOTS WERE USED FOR FILES WITH IDENTICAL NAMES PRIOR TO THE COPY.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 16
+
+ 622                 /       USER QUERY METHODS.
+ 623   
+ 624                 /               THE DEFAULT MODE OF OPERATION OF FILE COPYING (MO[DE]:C[OPY]) OR
+ 625                 /               FILE KILLING (MO[DE]:K[ILL]) IS TO ALLOW ALL ELEGIBLE FILES TO BE
+ 626                 /               ACTED UPON UNIMPEDED (AND IS EQUIVALENT TO QU[ERY]:N[O]). THIS CAN
+ 627                 /               BE INITIALLY CHANGED BY INVOKING /Q (OR QU[ERY]:Y[ES]) TO FORCE
+ 628                 /               USER QUERY (Y(ES)/N(O)) FOR THE DISPOSITION OF EVERY ELEGIBLE FILE.
+ 629                 /               PRESSING <^R> (ACKNOWLEDGED BY PRINTING: ^R) ON THE SYSTEM CONSOLE
+ 630                 /               WILL "REVERSE" THE STATE OF USER QUERY FOR SUBSEQUENT FILES (AND
+ 631                 /               MAY BE CONTINUALLY REVERSED IF DESIRED).
+ 632   
+ 633                 /               THIS CAN BE USEFUL IN SITUATIONS WHERE THE USER IS UNSURE OF THE
+ 634                 /               IMPLICATION OF THE LATEST OPERATION (SUCH AS KILLING A GROUP OF
+ 635                 /               FILES). QUERY MODE IS INVOKED TO ALLOW KILLING FILES CAUTIOUSLY
+ 636                 /               UNTIL CONFIDENCE IS GAINED IN THE ACCURACY OF THE INTENDED COMMAND.
+ 637                 /               FOR EXAMPLE:
+ 638   
+ 639                 /       .FILMAN/S/MODE:KILL/UNIT:0/NAME:TP*/QUERY:YES
+ 640   
+ 641                 /       FILES KILLED:
+ 642   
+ 643                 /       SYS0:TPB <BNRY>? NO!            USER QUERY WITH N(O) RESPONSE
+ 644                 /       SYS0:TP1 <ASCI>? YES! [OK]      USER QUERY WITH Y(ES) RESPONSE
+ 645                 /       SYS0:TP2 <ASCI>? YES! [OK]      USER QUERY WITH Y(ES) RESPONSE
+ 646                 /       SYS0:TP3 <ASCI>? YES! [OK]      USER QUERY WITH Y(ES) RESPONSE
+ 647                 /       SYS0:TP4 <ASCI>? ^RYES! [OK]    USER PRESSED <^R>Y FOR LAST Y(ES) RESPONSE
+ 648                 /       SYS0:TP5 <ASCI> [OK]            NO FURTHER QUERIES
+ 649                 /       SYS0:TP6 <ASCI> [OK]
+ 650                 /       SYS0:TP7 <ASCI> [OK]
+ 651                 /       SYS0:TP8 <ASCI> [OK]
+ 652                 /       SYS0:TP9 <ASCI> [OK]
+ 653   
+ 654                 /       9 FILES KILLED
+ 655   
+ 656                 /               AT THE FIFTH QUERY THE USER REVERSED THE QUERY MODE THEN RESPONDED
+ 657                 /               Y(ES) TO THE FIFTH QUERY. ALL SUBSEQUENT FILE KILLING WAS DONE
+ 658                 /               WITHOUT QUERY.
+ 659   
+ 660                 /               THE REVERSAL OF QUERY MODE MAY ALSO BE USED TO IMPOSE QUERY MODE
+ 661                 /               ON ONLY A PORTION OF A LONG FILE KILLING/COPYING OPERATION OR TO
+ 662                 /               ACTIVATE/DEACTIVATE QUERY MODE AS NECESSARY TO REMEDY AN ALREADY
+ 663                 /               INITIATED COMMAND NOW KNOWN TO BE INCORRECT REGARDING QUERY MODE.
+ 664                 /               FOR EXAMPLE:
+ 665   
+ 666                 /       .R FILMAN                       /Q WAS OMITTED UNINTENTIONALLY
+ 667   
+ 668                 /       MODE:   ^RCOPY                  USER PRESSED <^R>C<CR>
+ 669   
+ 670                 /               THE USER ENABLED QUERY MODE BEFORE ACTUALLY COPYING THE FILES TO
+ 671                 /               REMEDY THE INADVERTENT OMISSION OF /Q.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 17
+
+ 672                 /       INVOKED COMMAND ERROR MESSAGES.
+ 673   
+ 674                 /       ALL INVOKED COMMAND ERRORS ARE FATAL AND ARE ONE OF THE FOLLOWING:
+ 675   
+ 676                 /       IMPROPER FILE TYPE!
+ 677   
+ 678                 /               AN ATTEMPT WAS MADE TO INVOKE A TY[PE]: PARAMETER WITH AN IMPROPER
+ 679                 /               VALUE (OTHER THAN A[SCII], B[INARY], C[OMBINED], E[VERYTHING], OR
+ 680                 /               O[VERRIDE]). ONLY VALID FILE TYPES ARE ALLOWED.
+ 681   
+ 682                 /       IMPROPER MODE!
+ 683   
+ 684                 /               AN ATTEMPT WAS MADE TO INVOKE A MO[DE]: PARAMETER WITH AN IMPROPER
+ 685                 /               OPERATION VALUE (OTHER THAN C[OPY], K[ILL], E[MPTY], OR Q[UIT]).
+ 686                 /               ONLY VALID MODE VALUES ARE ALLOWED.
+ 687   
+ 688                 /       IMPROPER UNIT!
+ 689   
+ 690                 /               AN ATTEMPT WAS MADE TO INVOKE A UN[IT]:U OR IN[PUT]:I OR OU[TPUT]:O
+ 691                 /               PARAMETER WITH A VALUE OUTSIDE OF THE RANGE OF 0-7. ONLY VALID UNIT
+ 692                 /               PARAMETERS ARE ALLOWED.
+ 693   
+ 694                 /       INVALID PARAMETER!
+ 695   
+ 696                 /               AN ATTEMPT WAS MADE TO USE A NON-EXISTANT OR IMPROPERLY FORMED
+ 697                 /               MULTI-CHARACTER OPTION. USE ONLY VALID PARAMETERS WHEN USING INVOKED
+ 698                 /               MODE OPERATIONS.
+ 699   
+ 700                 /       MULTIPLE PERIOD CHARACTERS IN SEARCH STRING!
+ 701   
+ 702                 /               MORE THAN ONE PERIOD CHARACTER WAS PASSED IN THE SEARCH STRING.
+ 703                 /               ONLY ONE PERIOD CHARACTER IS ALLOWED IN THE SEARCH STRING TO
+ 704                 /               SEPARATE THE FILE NAME STRING FROM THE EXTENSION STRING.
+ 705   
+ 706                 /       SEARCH STRING TOO LONG!
+ 707   
+ 708                 /               AN ATTEMPT WAS MADE TO USE A SEARCH STRING WHICH WAS TOO MANY
+ 709                 /               CHARACTERS LONG. MAXIMUM SEARCH STRING LENGTH IS 36 CHARACTERS.
+ 710   
+ 711                 /       UNIT AND MODE CONFLICT!
+ 712   
+ 713                 /               AN INVOKED MODE OPERATION WAS ATTEMPTED WHERE THE UN[IT]:U PARAMETER
+ 714                 /               WAS USED WITH MO[DE]:C[OPY] OR IN[PUT]:I AND OU[TPUT]:O WERE USED
+ 715                 /               WITH MO[DE]:K[ILL] OR MO[DE]:E[MPTY]. INPUT AND OUTPUT UNITS MUST
+ 716                 /               BE USED ONLY WITH COPY MODE AND THE UNIT SPECIFICATION MUST ONLY
+ 717                 /               BE USED WITH KILL OR EMPTY MODES.
+ 718   
+ 719                 /       YES/NO VALUE REQUIRED!
+ 720   
+ 721                 /               AN ATTEMPT WAS MADE TO INVOKE EITHER QU[ERY]:Q OR VE[RIFY]:V WITH
+ 722                 /               AN IMPROPER VALUE. ONLY Y[ES] OR N[O] ARE VALID VALUES FOR THESE
+ 723                 /               PARAMETERS.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 18
+
+ 724                 /       RESPONSE MODE ERROR MESSAGES.
+ 725   
+ 726                 /       INVALID RESPONSE MODE PARAMETERS MAY LEAD TO THE FOLLOWING ERROR MESSAGES:
+ 727   
+ 728                 /       INVALID FILE TYPE!
+ 729   
+ 730                 /               THE USER ATTEMPTED AN INVALID FILE TYPE. ONLY A(SCII), B(INARY),
+ 731                 /               E(VERYTHING), OR O(VERRIDE) ARE ALLOWED. RESPOND TO THE REPEATED
+ 732                 /               QUERY WITH A PROPER FILE TYPE.
+ 733   
+ 734                 /       INVALID MODE!
+ 735   
+ 736                 /               THE USER ATTEMPTED AN INVALID MODE TYPE. ONLY C(OPY), K(ILL), E(MPTY),
+ 737                 /               OR Q(UIT) ARE ALLOWED. RESPOND TO THE REPEATED QUERY WITH A PROPER
+ 738                 /               MODE TYPE.
+ 739   
+ 740                 /       INVALID UNIT NUMBER!
+ 741   
+ 742                 /               THE USER ATTEMPTED AN INVALID UNIT NUMBER DURING A UNIT-ORIENTED
+ 743                 /               QUERY ("INPUT: ", "OUTPUT: ", OR "UNIT: "). ONLY THE DIGITS "0"
+ 744                 /               THROUGH "7" (CORRESPONDING TO SYS0: THROUGH SYS7:) ARE VALID. RESPOND
+ 745                 /               TO THE REPEATED QUERY WITH A VALID UNIT NUMBER.
+ 746   
+ 747                 /       MULTIPLE PERIOD CHARACTERS IN SEARCH STRING!
+ 748   
+ 749                 /               MORE THAN ONE PERIOD CHARACTER WAS PASSED IN THE SEARCH STRING.
+ 750                 /               ONLY ONE PERIOD CHARACTER IS ALLOWED IN THE SEARCH STRING TO
+ 751                 /               SEPARATE THE FILE NAME STRING FROM THE EXTENSION STRING.
+ 752   
+ 753                 /       ERROR MESSAGES COMMON TO INVOKED AND RESPONSE MODES.
+ 754   
+ 755                 /       INVALID CATALOG!
+ 756   
+ 757                 /               THE USER ATTEMPTED TO USE AN UNINITIALIZED OR OTHERWISE INVALID
+ 758                 /               CATALOG ON AN ACCESSIBLE LOGICAL UNIT. TOTAL INITIALIZATION OF A
+ 759                 /               CATALOG DEVICE IS NECESSARY BEFORE USING FILMAN AND IS BEYOND THE
+ 760                 /               SCOPE OF THIS UTILITY. SEE P?S/8 SYSTEM DIRECTORY INITIALIZATION
+ 761                 /               PROCEDURES ELSEWHERE.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 19
+
+ 762                 /       VERIFICATION MESSAGES.
+ 763   
+ 764                 /       THESE MESSAGES CONCERN VERIFICATION ERRORS CAUSED BY I/O FAILURE DURING
+ 765                 /       WRITE OR SUBSEQUENT VERIFY READ OPERATIONS (ASSUMING /N OR VE[RIFY]:N[O]
+ 766                 /       IS NOT IN EFFECT):
+ 767   
+ 768                 /       CATALOG VERIFY ERROR!
+ 769   
+ 770                 /               THE LATEST CATALOG TO BE WRITTEN WAS READ BACK AND FAILED TO VERIFY
+ 771                 /               CORRECTLY. THE USER WILL BE QUERIED FOR A POSSIBLE RETRY OF THE
+ 772                 /               ENTIRE WRITE AND VERIFY OPERATION. IF THE OPERATION DOES NOT FINISH
+ 773                 /               PROPERLY, AN ERROR MESSAGE WILL BE ISSUED: "CATALOG CORRUPTED!"
+ 774                 /               INDICATING THE PROBABLE CORRUPTION OF THE SYSTEM UNIT WHERE THE
+ 775                 /               AFFECTED FILES RESIDE. CORRECTIVE MEASURES MAY INCLUDE HARDWARE
+ 776                 /               MAINTAINENCE OR MEDIA REFORMATTING, ETC.
+ 777   
+ 778                 /       FILE VERIFY ERROR!
+ 779   
+ 780                 /               THE LATEST FILE TO BE WRITTEN WAS READ BACK AND FAILED TO VERIFY
+ 781                 /               CORRECTLY. THE USER WILL BE QUERIED FOR A POSSIBLE RETRY OF THE
+ 782                 /               ENTIRE WRITE AND VERIFY OPERATION. IF THE OPERATION DOES NOT FINISH
+ 783                 /               PROPERLY, THE USER IS ADVISED OF THE POSSIBLE CORRUPTION OF THE
+ 784                 /               SECTION OF THE SYSTEM UNIT WHERE THE AFFECTED FILE RESIDES. CORRECTIVE
+ 785                 /               MEASURES MAY INCLUDE HARDWARE MAINTAINENCE OR MEDIA REFORMATTING, ETC.
+ 786   
+ 787                 /       IMPLEMENTATION NOTES AND CUSTOMIZATION.
+ 788   
+ 789                 /       IT MAY BE DESIRABLE TO CUSTOMIZE ANY PARTICULAR COPY OF FILMAN TO THE USER'S
+ 790                 /       OWN PREFERENCE REGARDING CERTAIN SWITCHES. FOR EXAMPLE, A USER MAY PREFER
+ 791                 /       TO OVERRIDE THE "ARE YOU SURE? " QUERY ASSOCIATED WITH THE KILL AND EMPTY
+ 792                 /       OPERATIONS. OPTION SWITCHES CONTROLLING THIS AND OTHER ASPECTS OF FILMAN
+ 793                 /       ARE AVAILABLE TO CUSTOMIZE THE OPERATIONS OF THE PROGRAM, BUT THESE REQUIRE
+ 794                 /       THE USER TO INVOKE FAVORED OPTIONS REPEATEDLY.
+ 795   
+ 796                 /       SEVERAL KNOWN OPERATING SYSTEMS SUPPORT "PATCHED" VERSIONS OF SYSTEM PROGRAMS
+ 797                 /       WHICH EFFECTIVELY FORCE THE EFFECT OF OPTION SWITCHES WHETHER EXPLICITLY
+ 798                 /       GIVEN OR NOT. THIS PREVENTS THE POSSIBILITY OF USING THE PROGRAM IN THE
+ 799                 /       ORIGINAL WAY AS THERE IS NO METHOD TO REVERT THE ENFORCED OPTION.
+ 800   
+ 801                 /       TO OVERCOME THIS LIMITATION, THE USER CAN PATCH THE FIRST THREE WORDS OF
+ 802                 /       THE CORE IMAGE OF FILMAN ITSELF WITH A "MASK" (EACH BIT CORRESPONDS TO AN
+ 803                 /       OPTION SWITCH SERIALLY FROM /A-/Z FOLLOWED BY /0-/9). THIS MASKING VALUE
+ 804                 /       WILL BE USED TO "REVERSE" THE EFFECT OF THE SPECIFIED SWITCH. FOR EXAMPLE:
+ 805                 /       SETTING RELATIVE WORD TWO OF THE CORE IMAGE OF FILMAN TO 4000 WILL REVERSE
+ 806                 /       THE /Y OPTION. THIS WOULD REQUIRE THE USER TO INVOKE /Y IF THE
+ 807                 /       "ARE YOU SURE? " QUERY WERE DESIRED, OPPOSITE TO NORMAL CONVENTION. ALL
+ 808                 /       SWITCHES CAN BE "REVERSED" ACCORDINGLY (INCLUDING OPTION SWITCHES IGNORED
+ 809                 /       BY FILMAN!). THE RESULTANT CUSTOMIZED COPY OF FILMAN OPERATES IN A TOTALLY
+ 810                 /       CONVENTIONAL MANNER; ONLY THE METHOD OF PASSING SWITCH OPTIONS CHANGES.
+
+/       P?S/8 FILE MAINTAINENCE UTILITY   PAL8-VB0  20-OCT-87 PAGE 20
+
+ 811                 /       CORE LAYOUT FOR THE FILMAN PROGRAM.
+ 812   
+ 813                 /       00000-02377     RESIDENT PROGRAM CODE
+ 814   
+ 815                 /       02400-02777     OUTPUT CATALOG BUFFER
+ 816   
+ 817                 /       03000-06777     FILE READ/WRITE BUFFER FOR COPYING OR IDENTIFICATION
+ 818   
+ 819                 /       03000-04177     SWAPPED CODE
+ 820   
+ 821                 /       04200-04577     OUTPUT CATALOG VERIFY BUFFER
+ 822   
+ 823                 /       05200-05577     ONCE-ONLY STARTUP CODE
+ 824   
+ 825                 /       06776-06777     INPUT CATALOG BUFFER SEAM (IF 4K)
+ 826   
+ 827                 /       07000-07177     INPUT CATALOG BUFFER (FIRST HALF)
+ 828   
+ 829                 /       07200-07377     INPUT CATALOG BUFFER (SECOND HALF IF 6K)
+ 830   
+ 831                 /       07200-07377     FILE VERIFY BUFFER (IF 4K)
+ 832   
+ 833                 /       07400-07577     STRING BUFFER, STACK
+ 834   
+ 835                 /       07000-07577     ONCE-ONLY STARTUP CODE
+ 836   
+ 837                 /       07600-07777     P?S/8 MONITOR I/O ROUTINES
+ 838   
+ 839                 /       10000-13777     FILE VERIFY BUFFER (IF 6K)
+ 840   
+ 841                 /       14000-77777     UNUSED (P?S/8 I/O ROUTINES OR CONSOLE OVERLAY MAY BE PRESENT)
+ 842   
+ 843                 /       ALL RUNNING CODE IS INTIALLY LOADED 2600 HIGHER THAN ASSEMBLED TO ALLOW
+ 844                 /       FILMAN TO PROCESS THE KEYBOARD MONITOR COMMAND BUFFER. THE ONCE-ONLY CODE
+ 845                 /       IS LOADED INTO ABSOLUTE ADDRESS SPACE. THE ONCE-ONLY CODE MODIFIES AND
+ 846                 /       RELOCATES THE RUNNING CODE AS NECESSARY. IF RESPONSE MODE OPERATIONS ARE
+ 847                 /       NEEDED SUBSEQUENTLY, A PORTION OF THE PROGRAM WILL BE SWAPPED INTO ABSOLUTE
+ 848                 /       ADDRESS SPACE AS REQUIRED.
+

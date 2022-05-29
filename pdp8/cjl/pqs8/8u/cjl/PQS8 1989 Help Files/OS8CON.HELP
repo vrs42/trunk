@@ -1,0 +1,201 @@
+
+/       OS/8 <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 1
+
+   1                 /       OS/8 <- -> P?S/8 CONVERT PROGRAM
+   2   
+   3                 /       OS/8 TO P?S/8 OR P?S/8 TO OS/8 ASCII FILE CONVERSION PROGRAM.
+   4   
+   5                 /       LAST EDIT:      15-APR-1986     11:00:00        CJL
+   6   
+   7                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   8   
+   9                 /       P?S/8 UTILITY TO CONVERT ASCII FILES BETWEEN OS/8 MEDIA AND P?S/8 MEDIA.
+  10   
+  11                 /       ANY FILE REPRESENTABLE IN P?S/8 SIX-BIT ASCII SUBSET WITH OR WITHOUT LINE
+  12                 /       NUMBERS CAN BE CONVERTED TO THE CORRESPONDING SEVEN-BIT ASCII FILE IN OS/8
+  13                 /       FORMAT IN A MANNER COMPATIBLE WITH OS/8 DIRECTORY CONVENTIONS. THE PROGRAM
+  14                 /       CAN ALSO BE USED TO REGROUP P?S/8 FILES OR REMOVE/RESTORE P?S/8 LINE NUMBERS
+  15                 /       FROM A GROUP OF FILES FOR EDITING OR REFERENCE PURPOSES.
+  16   
+  17                 /       PROGRAM OPERATION AND OPTIONS.
+  18   
+  19                 /       CONVERSION OF OS/8 INPUT TO P?S/8 OUTPUT FILES:
+  20   
+  21                 /       .R OS8CON [LIST OF P?S/8 OUTPUT FILES] < (OPTION SWITCHES)
+  22   
+  23                 /       OR
+  24   
+  25                 /       .R OS8CON > [LIST OF P?S/8 OUTPUT FILES] (OPTION SWITCHES)
+  26   
+  27                 /       CONVERSION OF P?S/8 INPUT FILES TO A SINGLE OS/8 OUTPUT FILE:
+  28   
+  29                 /       .R OS8CON [LIST OF P?S/8 INPUT FILES] (OPTION SWITCHES)
+  30   
+  31                 /       THE DIRECTION OF CONVERSION IS DETERMINED BY PASSED P?S/8 FILES BEING EITHER
+  32                 /       INPUT OR OUTPUT. OS8CON CANNOT BE USED WITHOUT PASSED P?S/8 FILES.
+
+/       OS/8 <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 2
+
+  33                 /       PROGRAM OPTIONS.
+  34   
+  35                 /                       /C      ATTEMPT TO USE MORE MEMORY THAN CURRENT LOGICAL
+  36                 /                               CORE SIZE INDICATES. OS/8 FILE BUFFERS WILL BE
+  37                 /                               ENLARGED IN BOTH CONVERSION DIRECTIONS. THIS SWITCH
+  38                 /                               IS ONLY NEEDED IF THE LOGICAL CORE SIZE IS SET TO
+  39                 /                               4K EVEN THOUGH MORE IS ACTUALLY AVAILABLE. GENERALLY
+  40                 /                               CAUSES FASTER CONVERSION TO OCCUR. DEFAULT IF THE
+  41                 /                               LOGICAL CORE SIZE IS GREATER THAN 4K (I. E. CORE
+  42                 /                               1-7).
+  43   
+  44                 /                       /E      USE EXTENDED LENGTH P?S/8 OUTPUT FILE PROCESSING
+  45                 /                               WITHOUT P?S/8 LINE NUMBERS. THE PASSED OUTPUT FILE
+  46                 /                               SPECIFICATION IS ASSUMED TO BE THE STARTING POINT
+  47                 /                               FOR OUTPUT FILE CONVERSION LIMITED BY THE DEVICE
+  48                 /                               LENGTH WORD CONTAINED IN THE EXTENDED USER DIRECTORY.
+  49                 /                               THE USER IS WARNED TO INVOKE THIS OPTION CAREFULLY!
+  50   
+  51                 /                       /F      DELETE SPECIAL FORM-FEED PROCESSING. THIS CAUSES
+  52                 /                               OS/8 <FF> CHARACTERS TO BECOME P?S/8 <EOL> SEQUENCES.
+  53                 /                               P?S/8 <HT> EJECT <EOL> SEQUENCES ARE PASSED LITERALLY
+  54                 /                               INSTEAD OF CONVERSION TO OS/8 <FF> CHARACTERS.
+  55   
+  56                 /                       /L      OUTPUT <LF> TO OS/8 FILES WHEN PROCESSING P?S/8
+  57                 /                               <EOL> PRECEDED BY <EOL>. DEFAULT IS TO OUTPUT <CR>
+  58                 /                               AND <LF>.
+  59   
+  60                 /                       /P      PACK P?S/8 LINE NUMBER FILES. OS/8 <FF> CHARACTER
+  61                 /                               HANDLING WILL NOT CHECK FOR EXTRA ROOM IN THE FILE.
+  62                 /                               THIS OPTION IS IGNORED IF /E OR /F IS INVOKED AS
+  63                 /                               /E USES EXTENDED FILES AND /F DELETES SPECIAL <FF>
+  64                 /                               PROCESSING.
+  65   
+  66                 /                       /0-/7   LOGICAL UNIT FOR OS/8 INPUT/OUTPUT (DEFAULT IS /7).
+  67   
+  68                 /                       =NNNN   STARTING OS/8 RECORD (DEFAULT IS 0007).
+
+/       OS/8 <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 3
+
+  69                 /       DEFAULT OPTIONS.
+  70   
+  71                 /       OS/8 INPUT/OUTPUT ASSUMES OS/8 RECORD 0007 (P?S/8 BLOCK 0016) ON THE OS/8
+  72                 /       DEVICE DEFINED BY THE PREVAILING LOGICAL P?S/8 UNIT TO BE USED FOR OS/8
+  73                 /       INPUT/OUTPUT. THE DEFAULT LOGICAL UNIT IS SEVEN. EITHER OS/8 RECORD OR UNIT
+  74                 /       CAN BE MODIFIED WITH THE APPROPRIATE EQUALS PARAMETER (FOR RECORD) OR /0 
+  75                 /       THROUGH /7 (FOR LOGICAL UNIT).
+  76   
+  77                 /       THE OS/8 DEVICE MUST BE LAID OUT IN A MANNER COMPATIBLE WITH P?S/8 BLOCK
+  78                 /       CONVENTIONS. ALTHOUGH THIS IS USUALLY THE CASE, CONSULT DEVICE HANDLER
+  79                 /       DOCUMENTATION TO BE SURE.
+  80   
+  81                 /       OS/8 OUTPUT FILE CONSIDERATIONS.
+  82   
+  83                 /       IT IS RECOMMENDED THAT THE OS/8 OUTPUT FILE BE APPLIED TO AN EMPTY DEVICE
+  84                 /       (IN THE OS/8 SENSE, THE DEVICE CAN BE ZEROED OUT AND THEN A SINGLE FILE CAN
+  85                 /       BE TRANSFERRED TO IT VIA THIS UTILITY) TO MAKE THE PROCESS OF CONVERSION
+  86                 /       EASIER.
+  87   
+  88                 /       **** NOTE **** THIS PROGRAM DOES NOT RECOGNIZE OS/8 DIRECTORY CONSIDERATIONS,
+  89                 /       IT CAN ONLY WRITE THE ACTUAL FILE AS OS/8 WOULD REQUIRE IT ASSUMING THE
+  90                 /       BLOCK LAYOUT SCHEME IS COMPATIBLE WITH P?S/8 ON THE LOGICAL OUTPUT UNIT.
+  91   
+  92                 /       THIS UTILITY IS IGNORANT OF OS/8 LENGTH RESTRICTIONS AND COULD ATTEMPT TO
+  93                 /       ACCESS NON-EXISTANT RECORDS OR OVERWRITE RECORDS HIGHER UP ON THE OS/8 DEVICE
+  94                 /       ORDINARILY BELONGING TO OTHER OS/8 FILES.
+  95   
+  96                 /       BY USING THE DEFAULT OPTIONS, AN OS/8 FILE WILL BE PLACED WHERE IT WOULD
+  97                 /       BE PLACED BY OS/8 ITSELF JUST AFTER ZEROING THE DIRECTORY. THIS ALLOWS THE
+  98                 /       FOLLOWING METHOD TO WORK:
+  99   
+ 100                 /       (FROM P?S/8)
+ 101   
+ 102                 /       .R OS8CON,PQSFIL/1=7            CONVERT PQSFIL TO OS/8 FORMAT ON UNIT 0001
+ 103                 /                                       AT RECORD 0007.
+ 104   
+ 105                 /       (BOOTSTRAPPING TO OS/8)
+ 106   
+ 107                 /       ASSUMING AN OS/8 SYSTEM WITH NON-SYSTEM DECTAPE:
+ 108   
+ 109                 /       .R PIP                          INVOKE OS/8 PERIPHERAL UTILITY.
+ 110                 /       *DTA1:</Z                       ZERO THE OS/8 DEVICE ALREADY CONTAINING
+ 111                 /                                       THE CONVERTED ASCII FILE.
+ 112                 /       *DTA1:PQSFIL</I=1000            USE AN EXCESSIVELY LARGE LENGTH VALUE IN
+ 113                 /                                       THE EQUALS PARAMETER, BUT NOT ONE LARGER
+ 114                 /                                       THAN THE DEVICE. THIS WILL ENSURE THE PROPER
+ 115                 /                                       COVERING OF THE CONVERTED FILE.
+ 116                 /       *DTA1:PQSFIL<DTA1:PQSFIL/D/A    THIS WILL REWRITE THE FILE TO THE CORRECT
+ 117                 /                                       LENGTH IN THE OS/8 DIRECTORY ON DTA1:.
+
+/       OS/8 <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 4
+
+ 118                 /       CHARACTER CONSIDERATIONS.
+ 119   
+ 120                 /       ASSUMING /F IS NOT INVOKED, THE FOLLOWING CONVERSIONS APPLY:
+ 121   
+ 122                 /       OS/8 TO P?S/8 CONVERSION.
+ 123   
+ 124                 /       OS/8                                    P?S/8
+ 125   
+ 126                 /       <FF> PRECEDED BY <CR> OR <LF> OR AT
+ 127                 /       BEGINNING OF P?S/8 OUTPUT FILE          <EOL> <HT> EJECT <EOL>
+ 128                 /       <FF> NOT PRECEDED BY <CR> OR <LF>       <HT> EJECT <EOL>
+ 129                 /       <CR> NOT FOLLOWED BY <LF>               <EOL>
+ 130                 /       <CR>, <LF>                              <EOL>
+ 131                 /       <LF> NOT PRECEDED BY <CR>               <EOL>
+ 132   
+ 133                 /       P?S/8 TO OS/8 CONVERSION (ASSUMING /L IS INVOKED).
+ 134   
+ 135                 /       P?S/8                                   OS/8
+ 136   
+ 137                 /       <EOL> NOT PRECEDED BY <EOL>             <CR>, <LF>
+ 138                 /       <EOL> IMMEDIATELY FOLLOWING <EOL>       <LF>
+ 139                 /       <HT> EJECT <EOL>                        <FF>
+ 140   
+ 141                 /       ALL LOWER-CASE OS/8 INPUT CHARACTERS WILL BE FOLDED TO THE CORRESPONDING
+ 142                 /       UPPER-CASE P?S/8 OUTPUT CHARACTERS.
+ 143   
+ 144                 /       ALL CONTROL CHARACTERS OTHER THAN <CR>, <LF>, <HT>, <FF> ARE IGNORED.
+ 145   
+ 146                 /       ALL <RO> CHARACTERS WILL BE IGNORED.
+
+/       OS/8 <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 5
+
+ 147                 /       CONSOLE MESSAGES.
+ 148   
+ 149                 /       CANNOT PROCESS MIXED INPUT AND OUTPUT FILES!
+ 150   
+ 151                 /               P?S/8 FILES MUST BE ALL INPUT OR ALL OUTPUT, NOT BOTH. THE PROGRAM
+ 152                 /               EXITS TO THE MONITOR.
+ 153   
+ 154                 /       INSUFFICIENT OUTPUT FILES, OS/8 INPUT TRUNCATED!
+ 155   
+ 156                 /               THE P?S/8 OUTPUT FILES' CAPABILITY WAS EXHAUSTED WITH FURTHER OS/8
+ 157                 /               INPUT PRESENT. THE LAST P?S/8 FILE IS PROPERLY CLOSED AND THE
+ 158                 /               PROGRAM EXITS TO THE MONITOR.
+ 159   
+ 160                 /       NO P?S/8 FILES GIVEN!
+ 161   
+ 162                 /               NO P?S/8 FILES (EITHER INPUT OR OUTPUT) WERE GIVEN. THE PROGRAM
+ 163                 /               EXITS TO THE MONITOR.
+ 164   
+ 165                 /       OS/8 => P?S/8
+ 166   
+ 167                 /               CONVERSION IS FROM OS/8 TO P?S/8 LINE NUMBER FILES. P?S/8 OUTPUT
+ 168                 /               FILES WERE PASSED WITHOUT /E AND ARE CREATED FROM OS/8 INPUT.
+ 169   
+ 170                 /       OS/8 => P?S/8 [EXTENDED FILES]
+ 171   
+ 172                 /               CONVERSION IS FROM OS/8 TO P?S/8 EXTENDED FILES. P?S/8 OUTPUT FILES
+ 173                 /               WERE PASSED WITH /E INVOKED AND ARE CREATED FROM OS/8 INPUT.
+ 174   
+ 175                 /       P?S/8 => OS/8
+ 176   
+ 177                 /               CONVERSION IS FROM P?S/8 INPUT FILES TO A SINGLE OS/8 OUTPUT FILE.
+ 178                 /               P?S/8 INPUT FILES NEED NOT CONTAIN LINE NUMBERS AS THEY ARE IGNORED.
+ 179   
+ 180                 /       XX FILES CREATED
+ 181   
+ 182                 /               COUNT OF OUTPUT FILES CREATED BY CONVERSION. CAN BE "NO" (IF NO
+ 183                 /               FILES WERE CONVERTED) OR 1 THROUGH 17, THE P?S/8 UPPER LIMIT. THIS
+ 184                 /               QUANTITY WILL ALWAYS BE 1 IF CONVERTING P?S/8 FILES TO OS/8. THIS
+ 185                 /               MESSAGE IS PRINTED BEFORE EXITING TO THE MONITOR.
+

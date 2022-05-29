@@ -1,0 +1,232 @@
+
+/       KL8 CONSOLE OVERLAY FILE          PAL8-VB0  08-APR-87 PAGE 1
+
+   1                 /       KL8 CONSOLE OVERLAY FILE
+   2   
+   3                 /       LAST EDIT:      08-APR-1987     23:00:00        CJL
+   4   
+   5                 /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       THIS IS THE CONSOLE OVERLAY FILE FOR KL8 TYPE CONSOLE SUPPORT WITH
+   8                 /       STANDARD BUFFERED LPT: AND I/O ERROR HANDLING CAPABILITIES.
+   9   
+  10                 /       ASSEMBLY PARAMETERS.
+  11   
+  12                 /       SETTING OVTYPE=1 GENERATES A STANDARD OVERLAY (DEVICE 03, 04 CONSOLE
+  13                 /       AND DEVICE 65, 66 LPT:).
+  14   
+  15                 /       SETTING OVTYPE=2 GENERATES A NON-STANDARD OVERLAY (DEVICE 03, 04 CONSOLE
+  16                 /       AND DEVICE 40, 41 LPT:).
+  17   
+  18                 /       SETTING OVTYPE=10 GENERATES A DECMATE OVERLAY (DEVICE 03, 04 CONSOLE
+  19                 /       AND DEVICE 32, 33 LPT:).
+  20   
+  21                 /       SETTING OVTYPE=60 GENERATES A NON-STANDARD OVERLAY (DEVICE 40, 41 CONSOLE
+  22                 /       AND DEVICE 65, 66 LPT:).
+  23   
+  24                 /       SETTING OVTYPE=61 GENERATES A NON-STANDARD OVERLAY (DEVICE 40, 41 CONSOLE
+  25                 /       AND DEVICE 03, 04 LPT:).
+  26   
+  27                 /       ADDITIONAL TYPES CAN BE DEFINED FOR OTHER DEVICE CODES.
+  28   
+  29                 /       SETTING LPBUFF=1 GENERATES AN OVERLAY WITH LPT: BUFFERING ENABLED.
+  30   
+  31                 /       SETTING LPBUFF=0 GENERATES AN OVERLAY WITH LPT: BUFFERING DISABLED.
+  32   
+  33                 /       SETTING LCASE=1 GENERATES AN OVERLAY WITH LOWER-CASE CHARACTERS PASSED.
+  34   
+  35                 /       SETTING LCASE=0 GENERATES AN OVERLAY WITH LOWER-CASE FOLDED TO UPPER-CASE.
+  36   
+  37                 /       SETTING VT8LPT=1 GENERATES INTERRUPT ENABLE FOR A DEVICE 66 LPT:
+  38                 /       SHARING INTERRUPT CONTROL WITH THE VT-8/E KEYBOARD (DEVICE 43).
+  39   
+  40                 /       SETTING VT8LPT=0 GENERATES INTERRUPT ENABLE FOR DEVICE 66 ALONE.
+  41   
+  42                 /       SETTING ONEWAY=1 ASSUMES A HARDWARE HANDSHAKING (CENTRONICS, ETC.) TYPE
+  43                 /       INTERFACE TO THE LPT: WHICH HAS NO INPUT HANDLING.
+  44   
+  45                 /       SETTING ONEWAY=0 ASSUMES A SOFTWARE HANDSHAKING (<^S>/<^Q>) TYPE INTERFACE
+  46                 /       WITH SUITABLE INPUT HANDLING.
+
+/       KL8 CONSOLE OVERLAY FILE          PAL8-VB0  08-APR-87 PAGE 2
+
+  47                 /       SET CUSTOM PARAMETERS HERE.
+  48   
+  49                 /       DKEY=   43              /VT-8/E KEYBOARD IOT CODE
+  50   
+  51                 /       IRATE=  14              /4800 BAUD SERIAL PRINTER ON DECMATE, ETC.
+  52   
+  53                 /       KEY=    03              /KEYBOARD CODE
+  54   
+  55                 /       LCASE=  1               /LOWER-CASE CHARACTERS ALLOWED
+  56   
+  57                 /       LIN=    65              /LPT: INPUT CODE
+  58   
+  59                 /       LPBUFF= 1               /ENABLE LPT: BUFFERING
+  60   
+  61                 /       LPT=    66              /LPT: OUTPUT CODE
+  62   
+  63                 /       NMCH1=  "K^100+"L-300   /FIRST NAME PAIR
+  64   
+  65                 /       NMCH2=  "8^100          /SECOND NAME PAIR
+  66   
+  67                 /       NMCH3=  0000            /THIRD NAME PAIR
+  68   
+  69                 /       NOLIE=  1               /LIEIOT DOES NOT EXIST (USUALLY LPT: IS OUTPUT ONLY)
+  70   
+  71                 /       NOLOE=  1               /LPEIOT DOES NOT EXIST (INTERRUPTS ENABLED WITH
+  72                 /                               /DKIEIOT SHARED WITH VT-8/E KEYBOARD)
+  73                 /       ONEWAY= 1               /LPT: OUTPUT ONLY
+  74   
+  75                 /       OUT=    04              /CONSOLE OUTPUT CODE
+  76   
+  77                 /       OVTYPE= 01              /GENERATE STANDARD OVERLAY
+  78   
+  79                 /       VT8LPT= 1               /ALLOW VT-8/E KEYBOARD AND LPT: INTERRUPTS
+
+/       KL8 CONSOLE OVERLAY FILE          PAL8-VB0  08-APR-87 PAGE 3
+
+  80                 /       CONDITIONAL ASSEMBLY PARAMETERS.
+  81   
+  82                         IFNDEF  OVTYPE  <OVTYPE=1>                      /STANDARD OVERLAY TYPE
+  83   
+  84                 /       "KL8" OVERLAY CONDITIONALS.
+  85   
+  86                         IFZERO  OVTYPE-1                                <
+  87   
+  88                         IFNDEF  DKEY    <DKEY=  43>                     /VT-8/E KEYBOARD CODE
+  89                         IFNDEF  KEY     <KEY=   03>                     /KEYBOARD CODE
+  90                         IFNDEF  LIN     <LIN=   65>                     /LPT: INPUT CODE
+  91                         IFNDEF  LPT     <LPT=   66>                     /LPT: OUTPUT CODE
+  92                         IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST NAME PAIR
+  93                         IFNDEF  NMCH2   <NMCH2= "8^100>                 /SECOND NAME PAIR
+  94                         IFNDEF  NMCH3   <NMCH3= 0000>                   /THIRD NAME PAIR
+  95                         IFNDEF  ONEWAY  <ONEWAY=1>                      /ONE-WAY LPT: HANDLING
+  96                         IFNDEF  OUT     <OUT=   04>                     /CONSOLE OUTPUT CODE
+  97                         IFNDEF  VT8LPT  <VT8LPT=1>                      /VT-8/E LPT: INTERRUPTS
+  98   
+  99                 /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 100   
+ 101                         IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 102                         IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1!VT8LPT>      /LPEIOT DOES/DOES NOT EXIST
+ 103   
+ 104                                                                         >
+ 105   
+ 106                 /       "KL8SP" OVERLAY CONDITIONALS.
+ 107   
+ 108                         IFZERO  OVTYPE-2                                <
+ 109   
+ 110                         IFNDEF  KEY     <KEY=   03>                     /KEYBOARD CODE
+ 111                         IFNDEF  LIN     <LIN=   40>                     /LPT: INPUT CODE
+ 112                         IFNDEF  LPT     <LPT=   41>                     /LPT: OUTPUT CODE
+ 113                         IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST NAME PAIR
+ 114                         IFNDEF  NMCH2   <NMCH2= "8^100+"S-300>          /SECOND NAME PAIR
+ 115                         IFNDEF  NMCH3   <NMCH3= "P^100>                 /THIRD NAME PAIR
+ 116                         IFNDEF  ONEWAY  <ONEWAY=0>                      /TWO-WAY LPT: HANDLING
+ 117                         IFNDEF  OUT     <OUT=   04>                     /CONSOLE OUTPUT CODE
+ 118                         IFNDEF  VT8LPT  <VT8LPT=0>                      /NO VT-8/E LPT: INTERRUPTS
+ 119   
+ 120                 /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 121   
+ 122                         IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 123                         IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1>             /LPEIOT DOES/DOES NOT EXIST
+ 124   
+ 125                                                                         >
+
+/       KL8 CONSOLE OVERLAY FILE          PAL8-VB0  08-APR-87 PAGE 4
+
+ 126                 /       "KLMATE" OVERLAY CONDITIONALS.
+ 127   
+ 128                         IFZERO  OVTYPE-10                               <
+ 129   
+ 130                         IFNDEF  IRATE   <IRATE= 14>                     /4800 BAUD LPT: BAUD RATE
+ 131                         IFNDEF  KEY     <KEY=   03>                     /KEYBOARD CODE
+ 132                         IFNDEF  LIN     <LIN=   32>                     /LPT: INPUT CODE
+ 133                         IFNDEF  LPT     <LPT=   33>                     /LPT: OUTPUT CODE
+ 134                         IFNDEF  LSBIOT  <LSBIOT=LPT^10+6003>            /SET LPT: BAUD RATE
+ 135                         IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST NAME PAIR
+ 136                         IFNDEF  NMCH2   <NMCH2= "M^100+"A-300>          /SECOND NAME PAIR
+ 137                         IFNDEF  NMCH3   <NMCH3= "T^100+"E-300>          /THIRD NAME PAIR
+ 138                         IFNDEF  ONEWAY  <ONEWAY=0>                      /TWO-WAY LPT: HANDLING
+ 139                         IFNDEF  OUT     <OUT=   04>                     /CONSOLE OUTPUT CODE
+ 140                         IFNDEF  VT8LPT  <VT8LPT=0>                      /NO VT-8/E LPT: INTERRUPTS
+ 141   
+ 142                 /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 143   
+ 144                         IFNDEF  NOLIE   <NOLIE= 0>                      /LIEIOT EXISTS
+ 145                         IFNDEF  NOLOE   <NOLOE= 0>                      /LPEIOT EXISTS
+ 146   
+ 147                                                                         >
+ 148   
+ 149                 /       "KL40" OVERLAY CONDITIONALS.
+ 150   
+ 151   
+ 152                         IFZERO  OVTYPE-60                               <
+ 153   
+ 154                         IFNDEF  DKEY    <DKEY=  43>                     /VT-8/E KEYBOARD CODE
+ 155                         IFNDEF  KEY     <KEY=   40>                     /KEYBOARD CODE
+ 156                         IFNDEF  LIN     <LIN=   65>                     /LPT: INPUT CODE
+ 157                         IFNDEF  LPT     <LPT=   66>                     /LPT: OUTPUT CODE
+ 158                         IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST NAME PAIR
+ 159                         IFNDEF  NMCH2   <NMCH2= "4^100+"0-200>          /SECOND NAME PAIR
+ 160                         IFNDEF  NMCH3   <NMCH3= 0000>                   /THIRD NAME PAIR
+ 161                         IFNDEF  ONEWAY  <ONEWAY=1>                      /IS ONE-WAY LPT: HANDLING
+ 162                         IFNDEF  OUT     <OUT=   41>                     /CONSOLE OUTPUT CODE
+ 163                         IFNDEF  VT8LPT  <VT8LPT=1>                      /VT-8/E LPT: INTERRUPTS
+ 164   
+ 165                 /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 166   
+ 167                         IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 168                         IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1!VT8LPT>      /LPEIOT DOES/DOES NOT EXIST
+ 169   
+ 170                                                                         >
+
+/       KL8 CONSOLE OVERLAY FILE          PAL8-VB0  08-APR-87 PAGE 5
+
+ 171                 /       "KL40SP" OVERLAY CONDITIONALS.
+ 172   
+ 173                         IFZERO  OVTYPE-61                               <
+ 174   
+ 175                         IFNDEF  KEY     <KEY=   40>                     /KEYBOARD CODE
+ 176                         IFNDEF  LIN     <LIN=   03>                     /LPT: INPUT CODE
+ 177                         IFNDEF  LPT     <LPT=   04>                     /LPT: OUTPUT CODE
+ 178                         IFNDEF  NMCH1   <NMCH1= "K^100+"L-300>          /FIRST NAME PAIR
+ 179                         IFNDEF  NMCH2   <NMCH2= "4^100+"0-200>          /SECOND NAME PAIR
+ 180                         IFNDEF  NMCH3   <NMCH3= "S^100+"P-300>          /THIRD NAME PAIR
+ 181                         IFNDEF  ONEWAY  <ONEWAY=0>                      /TWO-WAY LPT: HANDLING
+ 182                         IFNDEF  OUT     <OUT=   41>                     /CONSOLE OUTPUT CODE
+ 183                         IFNDEF  VT8LPT  <VT8LPT=0>                      /NO VT-8/E LPT: INTERRUPTS
+ 184   
+ 185                 /       LPT: INTERRUPT ENABLE DEFINITIONS.
+ 186   
+ 187                         IFNDEF  NOLIE   <NOLIE= ONEWAY>                 /LIEIOT DOES/DOES NOT EXIST
+ 188                         IFNDEF  NOLOE   <NOLOE= ONEWAY-1&1>             /LPEIOT DOES/DOES NOT EXIST
+ 189   
+ 190                                                                         >
+ 191   
+ 192                 /       DEFAULT ("CATCH-ALL") PARAMETERS.
+ 193   
+ 194                         IFNDEF  DKEY    <DKEY=  43>                     /VT-8/E KEYBOARD CODE
+ 195                         IFNDEF  IRATE   <IRATE= 14>                     /4800 BAUD SERIAL LPT: RATE
+ 196                         IFNDEF  KEY     <KEY=   03>                     /KEYBOARD CODE
+ 197                         IFNDEF  LCASE   <LCASE= 1>                      /LOWER-CASE CHARACTERS ALLOWED
+ 198                         IFNDEF  LIN     <LIN=   65>                     /LPT: INPUT CODE
+ 199                         IFNDEF  LPBUFF  <LPBUFF=1>                      /LPT: BUFFERING ENABLED
+ 200                         IFNDEF  LPT     <LPT=   66>                     /LPT: OUTPUT CODE
+ 201                         IFNDEF  LSBIOT  <LSBIOT=NOP>                    /NO SERIAL LPT: RATE SETTING
+ 202                         IFNDEF  NMCH1   <NMCH1="K^100+"L-300>           /FIRST NAME PAIR
+ 203                         IFNDEF  NMCH2   <NMCH2="8^100>                  /SECOND NAME PAIR
+ 204                         IFNDEF  NMCH3   <NMCH3=0000>                    /THIRD NAME PAIR
+ 205                         IFNDEF  NOLIE   <NOLIE= 1>                      /NO LPT: INPUT INTERRUPTS
+ 206                         IFNDEF  NOLOE   <NOLOE= 0>                      /LPEIOT ENALES LPT: INTERRUPTS
+ 207                         IFNDEF  ONEWAY  <ONEWAY=0>                      /TWO-WAY LPT: HANDLING
+ 208                         IFNDEF  OUT     <OUT=   04>                     /CONSOLE OUTPUT CODE
+ 209   
+ 210                         IFZERO  LPT-66                                  <
+ 211   
+ 212                         IFNDEF  VT8LPT  <VT8LPT=0>                      /NO SHARED INTERRUPT HANDLING
+ 213   
+ 214                                                                         >
+ 215   
+ 216                         IFNDEF  VT8LPT  <VT8LPT=1>                      /VT-8/E LPT: IF DEVICE 66
+

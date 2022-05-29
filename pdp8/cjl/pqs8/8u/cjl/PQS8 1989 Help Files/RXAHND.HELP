@@ -1,0 +1,93 @@
+
+/       P?S/8 RX01 NON-SYSTEM HANDLER     PAL8-VB0  08-APR-87 PAGE 1
+
+   1                 /       P?S/8 RX01 NON-SYSTEM HANDLER
+   2   
+   3                 /       LAST EDIT:      17-DEC-1986     23:00:00        CJL
+   4   
+   5                 /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       P?S/8 NON-SYSTEM HANDLER FOR SINGLE-DENSITY 8" FLOPPY DISKS ON VARIOUS
+   8                 /       HARDWARE CONFIGURATIONS:
+   9   
+  10                 /       A)      RX01 AND COMPATIBLES (DSD-210, ETC.).
+  11   
+  12                 /       B)      RX02 WITH SINGLE-DENSITY DISKS AND COMPATIBLES (ALSO RX03).
+  13   
+  14                 /       C)      ANY OF THE ABOVE ON VT78, VT278 (DECMATE I), PC278 (DECMATE II).
+  15   
+  16                 /       SUPPORTS DOUBLE-SIDED DISKS ON RX03.
+  17   
+  18                 /       SUPPORTS SECONDARY DRIVES (UNITS 2 AND 3) ON VT78/VT278/PC278 AND DSD-210.
+  19   
+  20                 /       USES DEC OS/8 COMPATIBLE (12-BIT MODE) SINGLE-DENSITY DISK FORMAT FOR
+  21                 /       FILE CONVERSION, ETC. COMPATIBILITY.
+  22   
+  23                 /       CALLING SEQUENCE:
+  24   
+  25                 /       CDF     MYFLD           /SET CALLER'S DATA FIELD
+  26                 /       CIF     HNDFLD          /SET HANDLER'S INSTRUCTION FIELD
+  27                 /       JMS I   (RXAHND)        /CALL THE HANDLER
+  28                 /       PARAM                   /PARAMETER POINTER
+  29                 /       ERRORRETURN             /RETURNS HERE WITH STATUS IN AC
+  30                 /       GOODRETURN              /RETURNS HERE WITH CLEAR AC IF I/O OK
+  31   
+  32                 /       PARAMETER LIST BREAKDOWN:
+  33   
+  34                 /       PARAM=  .               /PARAMETER LIST HERE
+  35   
+  36                 /       ADDRESS                 /TRANSFER ADDRESS
+  37                 /       FUNCTION                /FUNCTION WORD
+  38                 /       BLOCK                   /LOGICAL BLOCK FOR TRANSFER
+  39   
+  40                 /       FUNCTION WORD BREAKDOWN:
+  41   
+  42                 /       BIT[0]:         READ IF 0, WRITE IF 1
+  43                 /       BITS[1-5]:      PAGE COUNT, 40 IF 0
+  44                 /       BITS[6-8]:      TRANSFER FIELD
+  45                 /       BITS[9-11]:     LOGICAL UNIT
+  46   
+  47                 /       BIT[9] IS IGNORED ON ALL SYSTEMS.
+  48   
+  49                 /       BIT[10] IS IGNORED ON ALL SYSTEMS WITH ONLY 1-2 DRIVES.
+
+/       P?S/8 RX01 NON-SYSTEM HANDLER     PAL8-VB0  08-APR-87 PAGE 2
+
+  50           0200          PAGE                    /START ON A NEW PAGE
+  51   
+  52           0200          HERE=   .               /WHERE WE ARE NOW
+  53   
+  54                 /       DEFINITIONS.
+  55   
+  56           7326          NL0002= CLA CLL CML RTL /LOAD AC WITH 0002
+  57           7346          NL7775= CLA CLL CMA RTL /LOAD AC WITH 7775
+  58           7240          NL7777= CLA CMA         /LOAD AC WITH 7777
+  59           0006          REVISIO="F&77           /REVISION OF HANDLER
+  60           1734          RXLENGT=114^32%2        /LENGTH OF RX01 (ONE SIDE)
+  61   
+  62                 /       RX8B DEFINITIONS.
+  63   
+  64           6750          DEVCODE=75^10+6000      /SKELETON IOT CODE OF DISK
+  65   
+  66           6750          SEL=    DEVCODE+0       /LOAD DRIVE PAIR PER AC[11]
+  67           6751          LCD=    DEVCODE+1       /LOAD COMMAND REGISTER
+  68           6752          XDR=    DEVCODE+2       /TRANSFER DATA REGISTER
+  69           6753          STR=    DEVCODE+3       /SKIP ON, CLEAR TRANSFER FLAG
+  70           6754          SER=    DEVCODE+4       /SKIP ON, CLEAR ERROR FLAG
+  71           6755          SDN=    DEVCODE+5       /SKIP ON, CLEAR DONE FLAG
+  72           6756          INTR=   DEVCODE+6       /INTERRUPT ENABLE/DISABLE PER AC[11]
+  73           6757          INIT=   DEVCODE+7       /INITIALIZE CONTROLLER, RECALIBRATE DRIVES
+  74   
+  75                 /       DEVICE HANDLER HEADER BLOCK.
+  76   
+  77           0122          *"R&177;*"X&177;*"A&177 /GROUP NAME
+  78           0130
+  79           0101
+  80           7777          *-1                     /GROUP COUNT
+  81           0122          *"R&177;*"X&177;*"A&177 /DEVICE NAME
+  82           0130
+  83           0101
+  84           0000          *RXAHND&177             /ENTRY POINT
+  85           1733          *RXLENGTH-1             /HIGHEST BLOCK
+  86           0006          *REVISION               /REVISION OF HANDLER
+

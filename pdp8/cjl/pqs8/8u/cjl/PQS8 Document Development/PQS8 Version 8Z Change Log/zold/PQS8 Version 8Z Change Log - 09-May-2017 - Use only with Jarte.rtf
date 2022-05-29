@@ -1,0 +1,416 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Lucida Console;}{\f1\fmodern\fprq1\fcharset0 Lucida Console;}{\f2\fnil Calibri;}}
+{\colortbl ;\red192\green192\blue192;\red255\green255\blue255;\red140\green140\blue140;}
+{\*\generator Msftedit 5.41.21.2509;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 720
+  FtrMarg = 720
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 P?S/8 Version 8Z Change Log.\par
+\par
+\f1 Copyright \'a9 1988-2017 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+Last edit: 09-May-2017 cjl\par
+\par
+All changes to P?S/8 Version 8Z are logged in this file.\par
+\par
+23-Feb-1988\tab Initial system creation.\par
+\par
+This is the date of the initial release of P?S/8 Version 8Z.\par
+\par
+This does not include updates to various components created somewhat later.  The relevant files are currently under review; however, the only known issues relate to the simultaneous use of the Logical Console Overlay configured for the VT8E and FOCAL customized with the VT8E-oriented VT8PCH binary patch file.  This issue has been tabled pending a more general release of the system.\par
+\par
+13-Nov-2014\tab Version 8Z for MDC8 diskette (FLP) image recovered.\par
+\par
+This image was recovered from a working diskette for P?S/8 Version 8Z configured for the MDC8 5.25" diskette drives (FLP).\par
+\par
+Most importantly, the .DUMP files that are used to generate system components beyond the initial starter system were recovered from this image after successfully placing it into the SIMH environment.  (Note:  A series of utilities was required to create the SIMH version of this image.  The files were accessed and converted using existing bootable\par
+images of P?S/8 Version 8U.)\par
+\par
+All known variant system-generation .DUMP files were recovered including the common file used to extend the starter system (created from binary files of the relevant source files) to a (nearly) complete system.  (Note: Several additional system components are generally added to full releases to include support for specific hardware such as media formatting or copying programs.)\par
+\par
+The .DUMP file used to complete the FLP system is essentially the same as the similar file used for TC01/TC08/TU55/TU56 systems with the exception of the device length (the capacity of the FLP system diskettes exceeds that of standard or premium DECtapes).\par
+\par
+26-Nov-2014\tab P?S/8 Version 8Z "A" source files recovered.\par
+\par
+All known source files for P?S/8 that are part of the "A" collection (meant to be placed on an RKA\i x\i0 : drive or equivalent) were recovered from OS/8 format MDC8 5.25" diskettes.  Image files were transferred to SIMH and all files were checked for consistent contents and file validity.  These files have also been transferred to MS-DOS/Windows equivalent directories with full file names (OS/8 file naming limitations have been removed).\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 13-Dec-2014\tab P?S/8 Version 8Z "B" source files recovered.\par
+\par
+All known source files for P?S/8 that are part of the "B" collection (meant to be placed on an RKB\i x\i0 : drive or equivalent) were recovered from OS/8 format MDC8 5.25" diskettes.  Image files were transferred to SIMH and all files were checked for consistent contents and file validity.  These files have also been transferred to MS-DOS/Windows equivalent directories with full file names (OS/8 file naming limitations have been removed).\par
+\par
+At some point later, the VT8E-related source files mentioned above were recovered along with many other files unrelated to P?S/8 (apparently as part of a general backup of an OS/8 development drive).  These files are not part of the general release of P?S/8 per se; they are needed by users who configure the Logical Console Overlay and/or P?S/8 FOCAL for use with the VT8E DMA terminal device; binary files produced from these files are passed to the respective program for customization purposes.  Future releases of P?S/8 may include these updated source files; at this time, it is not known if this work was finalized.\par
+\par
+As of this writing, nearly all P?S/8 source files have been recovered with notable exceptions related to the MDC8 Winchester (hard drive) system, the two variant LINC-8 system configurations supported, and all files related to the TD8E both with and without the MR8E-C ROM.\par
+\par
+The MDC8 Winchester source files can be derived from other source files already recovered, notably the P?S/8 MDC8 FLP system and non-system device handlers, and the OS/8 MDC8 system and non-system device handlers for the FLP and Winchester systems.\par
+\par
+Bootable LINC-8 systems are available on LINCtapes.  The missing source files can be recovered by binary disassembly; additionally, certain related utilities are available in source form.\par
+\par
+All P?S/8 TD8E source files are presently unavailable.  Assuming the files are never recovered, programming for this device will require new work, in part based on the author's recollections.\par
+\par
+Note: A partial recovery of TD8E support has been initiate using a recovered P?S/8 TD8E with MR8E-C ROM DECtape image.  It is not clear if this is the final version of this configuration.  The author acknowledges this particular system variant was produced under expedient circumstances with known defects.  For the present, it is presumed this will be the best available recovered source code fragment; disassembly has produced a working copy that documents the known defective behavior.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 Additionally, a set of specific workarounds for this aspect of this system have been proposed but not finalized pending overall source code cleanup; it is not certain the corrected source code will be compatible with P?S/8 Version 8Z, as most new work in ongoing projects is targeted to a next-generation Version 9A system which has slightly different internal features.  Considering the changes that will be required to produce Version 9A compatibility, it is deemed of little value to produce an interim release for Version 8Z.  Additionally, some of the recovery work will affect a TD8E with extended memory variant system, as certain components are either partially or fully compatible across both configurations.\par
+\par
+It is known that the missing files were never part of the "A" and "B" file collections due to lack of sufficient storage space at the various development sites used at the time.  Backup copies of these files may show up as part of an ongoing recovery process.\par
+\par
+All present efforts will be focused on releasing other P?S/8 configurations that are achievable using the various source files, most notably the TC01/TC08/TU55/TU56 DECtape system, the TC12 LINCtape system, the RX01 system and the RK8E/RK05 system.  Several other sets of handler source code exists for somewhat obscure third-party devices such as the DSD-240-8/Western Dynex fixed/removable disk cartridge system.\par
+\par
+The most appropriate system to implement first is a modern release of the TC01/TC08/TU55/TU56 system; surviving hardware is available in several locations and there is excellent support for this device within the SIMH environment.  Many internal aspects of P?S/8 development must be dealt with before any semblance of a workable system can be created.\par
+\par
+15-May-2015\tab Hacking up a bootable system for the TC01/TC08 DECtape.\par
+\par
+Using P?S/8 Version 8U for TC01/TC08/TU55/TU56 available on the SIMH simulator, the system handler for the TC01/TC08/TU55/TU56 was kludged to a copy of the image of the Version 8Z FLP system.  Predictably, many functions do not work properly; with some manual patching of the directory, a viable temporary system was created.\par
+\par
+Most importantly, access to certain newer system programs is now possible to aid in a proper reconstruction.  (Note: P?S/8 Version 8U is quite incompatible with Version 8Z; the only functional level of compatibility is the keyboard monitor commands to access the TFS directory on the newer system.)\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\par
+\par
+15-Jun-2015\tab Producing a proper bootable startup system for the \tab\tab\tab\tab TC01/TC08 DECtape.\par
+\par
+Various OS/8 BATCH files are available within the "A" and "B" file collections to create the binary files needed to create a P?S/8 release.  By studying the BATCH files, it was determined what source files are needed to create what is referred to as the P?S/8 "starter" system.\par
+\par
+The starter system is a bootable operating system with limited capability configured for the target device .  Creation of the starter system depends on the ability to run the target system device handler for the purpose of creating a clean image of itself (and other system components) from a working copy moved to the intended operating memory locations (07600-07777).  An internal system generation routine is used, essentially a series of calls to write out system component sections loaded into most memory locations of a 12K machine; the system generation routine is aware of the loading address of all components involved in the system generation (which has nothing to do with their ultimate execution address when called into memory for their normal operating function).\par
+\par
+Note: Certain system device configurations require an extended memory section for normal operation.  In certain cases, the complication of creating a functioning system device handler for the intended purpose may be cumbersome.  Future releases will avoid this problem by supplying an associated non-system device handler for the identical configuration.  In most instances, the non-system device handler will occupy less memory than the routines needed to force temporary viability of the system device handler.  Additionally, in certain specific cases, the source code can be simplified to allow internal documentation that is more appropriate to the resultant coding.\par
+\par
+The starter system is obtained by loading the following binary files in the proper order:\par
+\par
+1)\tab Z12K.BN\tab\tab This is a memory-clearing file that loads 0000 \tab\tab\tab\tab\tab into every memory location in the range of 00000-\tab\tab\tab\tab\tab 07577, 10000-17577 and 20000-27577.  This pre-\tab\tab\tab\tab\tab clears the memory that will be occupied by the \tab\tab\tab\tab\tab system components that are loaded next.\par
+\cf1\par
+\cf0 2)\tab PQSMON.BN\tab\tab This is the primary code of the keyboard monitor, \tab\tab\tab\tab P?S/8 BATCH, FIND, CHANGE and various support \tab\tab\tab\tab\tab elements of P?S/8 that must be written to \tab\tab\tab\tab\tab\tab designated blocks.  The system generation routine \tab\tab\tab\tab is also part of this file.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 3)\tab PQSDTA.BN\tab\tab This is the image of the system device handler for \tab\tab\tab\tab TC01/TC08/TU55/TU56.  Since this device also \tab\tab\tab\tab\tab supports a \i slurp\i0  loader, the image of the \i slurp\i0  \tab\tab\tab\tab\tab loader is included.  (Note: For systems that do \tab\tab\tab\tab\tab not support a \i slurp\i0  loader, the system generation \tab\tab\tab\tab routine writes out a deliberately non-functional \tab\tab\tab\tab\tab dummy program stub to make attempts to load a \tab\tab\tab\tab\tab\i slurp\i0  loader instead use the standard virtual \tab\tab\tab\tab\tab loader.]  Since this device supports a \i slurp\i0  \tab\tab\tab\tab\tab loader, the system device handler reloader "file" \tab\tab\tab\tab image [associated with the BIN /I option switch] \tab\tab\tab\tab\tab is also included.\par
+\line 4)\tab BIN.BN\tab\tab This is the image of the BIN utility program which \tab\tab\tab\tab includes the START and GET commands created as \tab\tab\tab\tab\tab aliases.\par
+\par
+5)\tab ODT.BN\tab\tab This is the image of the P?S/8 ODT debugging \tab\tab\tab\tab\tab program which is a proper superset of the OS/8 \tab\tab\tab\tab\tab equivalent.\par
+\par
+\tab\tab\tab\tab With ODT available to the starter system, it is \tab\tab\tab\tab\tab possible to make certain changes to the keyboard \tab\tab\tab\tab\tab monitor and other components if unusual situations \tab\tab\tab\tab arise.  [Note: The starter system is quite meager \tab\tab\tab\tab without the additional utilities to be added \tab\tab\tab\tab\tab later.]\par
+\par
+6)\tab DUMP.BN\tab\tab This is the image of the P?S/8 DUMP utility \tab\tab\tab\tab\tab\tab program.  Recent releases of DUMP support command \tab\tab\tab\tab files to automate block transfers and block \tab\tab\tab\tab\tab\tab patching.  Once the starter system is running, \tab\tab\tab\tab\tab .DUMP files can be passed to DUMP to create the \tab\tab\tab\tab\tab rest of the system.  [Note: The system generation \tab\tab\tab\tab process creates a safe subset of the TFS directory \tab\tab\tab\tab without supporting the proper capacity; the \tab\tab\tab\tab\tab\tab appropriate .DUMP file is used to initialize the \tab\tab\tab\tab\tab TFS directory parameters to match the proper \tab\tab\tab\tab\tab device size.  Advanced users can override these \tab\tab\tab\tab\tab values if appropriate; this is usually used in \tab\tab\tab\tab\tab situations such as supporting premium-length \tab\tab\tab\tab\tab DECtapes and LINCtapes.]\\\par
+\tab\tab\tab\tab [Note: The .DUMP files are generally made \tab\tab\tab\tab\tab\tab available on a logical device unit other than the \tab\tab\tab\tab system bootup unit which is created without any \tab\tab\tab\tab\tab existent files.  The files can be copied to the \tab\tab\tab\tab\tab system bootup unit if required; at least one \tab\tab\tab\tab\tab additional logical device unit is \tab required for \tab\tab\tab\tab\tab the binary data to be transferred as the starter \tab\tab\tab\tab\tab system is updated.]\cf1\par
+\par
+\cf0\tab\tab\tab\tab The starter system binary composite is started at \tab\tab\tab\tab 00200.  The machine halts to allow any manual \tab\tab\tab\tab\tab changes of target media; pressing \cf2\highlight1 CONTINUE\cf0\highlight0  starts \tab\tab\tab\tab the system generation process.  After many write \tab\tab\tab\tab\tab operations, the machine halts; pressing \cf2\highlight1 CONTINUE\cf0\highlight0  \tab\tab\tab\tab\tab will boot the newly-created starter system.\par
+\par
+25-Jun-2015\tab Problems completing the common system generation.\par
+\par
+While not all components of the OS/8 BATCH command files have been tested to determine if a complete collection of required binary files can be obtained, a problem has already been identified:\par
+\par
+All components of every released configuration of P?S/8 beyond the starter system must be created on an OS/8 non-system device such as DTA1:.  Even if a specific program is not required for any particular system, error-free assembly of all components must be enforced.\par
+\par
+The reason for this is that the OS/8 non-system device will create core-image copies of all of the P?S/8 components involved; the specific OS/8 records where these files are stored is crucial.  The .DUMP files are extremely pragmatic; the most minor change will corrupt the process.\par
+\par
+With two notable exceptions, all of the P?S/8 source files are compatible with PAL8 Version B0 which is the standard version released with OS/278 Version 2.0.  To within a minor operational bug that never affects most users, this version will function correctly under earlier systems such as OS/8 Version 3D, considered the standard release for all PDP-8 systems.  (The bug has to do with the TTY: handler and interaction with the \highlight1 Control-Z\highlight0  character; the problem is completely avoidable by observing proper timing or simply not using the TTY: handler.)\par
+\par
+Two programs, MARK12 and TC12F, are adaptations of standard components of the DIAL-MS system for the PDP-12 only.  The source code was taken from a specific release of DIAL-MS and is likely not the final release code.  Apparently there are no operational differences between this code and the standard versions found on any newer DIAL systems per se; however, these programs have been modified to be more suitable for use with 128 words/block LINCtapes (which are used by P?S/8 and OS/8 on the PDP-12 and the LINc-8) with the ability to format longer LINCtapes assuming premium media is available.  As such, these programs must be supported as written, if possible.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 (Note: Custom modifications exist in the P?S/8 version of the programs to overcome DIAL-specific issues which are in conflict with PDP-8 conventions.  When these programs are in memory, the P?S/8 kernel is destroyed.  As such, manual bootstrap procedures are required after using either program.)\par
+\par
+When P?S/8 system generation was being performed in 1988, these programs were assembled with a specific user-written assembler known as PAL12.\cf1\par
+\par
+\cf0 PAL12 is based on a very early release of PAL8 that is quite defective.  Despite major shortcomings, the LINC mode assembly was an acceptable implementation of the DIAL assembler LINC mode subsection.  Very little PDP-8 code is used in these programs; as such, PAL12 was an acceptable assembler for this limited purpose.  (Note: P?S/8 PAL is a proper superset of both PAL8 and PAL12; however, it is not an OS/8 program.)\par
+\par
+Unfortunately, attempts to locate this particular release of PAL12 has not been successful:\par
+\par
+Earlier releases of PAL12 were located that cannot assemble the programs due to lacking certain assembler features added later.  Apparent file dates confirm these are precursors to the stable release required.\line\line Unfortunately, the PAL12 project was turned over to other programmers who have a very poor understanding of exactly how a LINC mode assembler operates.  While the features missing from the earlier releases are present, the ability to assemble most LINC instructions is hopelessly incompatible; the newer release is essentially worthless for practical assembly of most LINC programs.\par
+\par
+A binary copy of OS/8 for the modified 8K LINC-8 has been located.  This includes LINC-8 handlers loaded into a copy of OS/8 BUILD.  This LINCtape may be the only surviving OS/8 LINCtape for the LINC-8 in the world.  A paper directory indicates the proper PAL12 release is on this tape.  Once a reasonable recovery process can be completed, the issue of producing the common system components [and system-specific addons] will be revisited.\par
+\par
+Note: Some programming effort [using the SIMH PDP-8 simulator] has been performed modifying the MARK12 program in an attempt to make the source code compatible with the newer [albeit defective] release of PAL12.  In theory, after a lot of effort, the source code for the two affected programs could produce proper binary files for use in the\par
+P?S/8 system generation process.  However, the two affected programs are not present on the P?S/8 Version 8Z [FLP] system; existing binary copies are needed to confirm the source code changes produce the intended binary output.  A P?S/8 Version 8R system for TC12 has also been recovered.  If a copy of the core image of the programs on this LINCtape can be transferred to the SIMH environment, the source code modification process can continue with confidence.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+27-Jun-2015\tab Hacking up a complete P?S/8 Version 8Z system for TC08.\par
+\par
+It has been determined that the P?S/8 Version 8Z [FLP] system is essentially the same as the TC08 system with regard to the process of creating the common system generation and system-specific extensions.  The only important difference is ensuring the TFS directory length is appropriate to the TC08 system.  [Note: This was determined by inspection of the FLP-related system-specific extensions .DUMP file and the TC08-related system-specific extensions .DUMP file.]\par
+\par
+P?S/8 BLKCPY was run by booting to the starter system with the hacked-up TC08 [but mostly FLP] system on logical device unit 6.  This allowed the major sections that would be created by the .DUMP files to be copied en masse from the blocks on the hacked-up image on device unit 6 to the corresponding blocks on the booted device unit 0.]\par
+\par
+[Note: While P?S/8 is fully compatible with all standard bootstraps on all standard devices, the TC01/TC08/TU55/TU56 Version 8Y and newer systems are also compatible with TCBOOT, an extended DECtape startup program that allows P?S/8 to boot to any DECtape drive unit in the range of 0 through 7.  TCBOOT can also boot most PDP-8 operating systems for the same configuration as long as drive unit 0 is selected.  While fully functional, this is not recommended since shorter bootstraps exist for drive 0 only.  A copy of TCBOOT is available from Charles Lasner; this version requires manual drive unit selection via the front panel switches; an automatic version can be derived that will detect the first drive available in a manner analogous to the extended RXBOOT program for RX01/RX02/RX03/DSD-210.]\par
+\par
+Certain structures were also copied using P?S/8 DUMP in manual command mode, such as copying the system programs directory; this allows the newly-added systems program to run directly on the newly-created TC08 system.\par
+\par
+After confirming [by direct inspection with P?S/8 DUMP] that all directory structures are consistent with the TC08 system, the first\par
+P?S/8 Version 8Z system for TC01/TC08/TU55/TU56 in over twenty-five years has been produced!\par
+\par
+10-Jul-2015\tab P?S/8 PAL bug fix.\par
+\par
+Problem: PAL creates defective binary files only during an obscure scenario involving the simultaneous creation of binary files and listing output at the same time.  If literals are in use and there are no current page literals on the last page of code and page zero literals exist to be dumped because there is a FIELD directive in the source code, the field change associated with the new field setting will be created incorrectly.  The problem had apparently been present for many years prior to Version 8Z, but was never observed before due to the requirement of so many specific conditions.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 The problem was traced to an improper use of a temporary location that is unavailable in the specific circumstances described above.\par
+\par
+Resolution: As a temporary fix, all references to the temporary [XP45CH] will be patched to instead use an available page zero location;  Future releases will reorganize the code to prevent the problem.\par
+\par
+Implementation: Using P?S/8 BLKODT, the problem is readily fixed:\par
+\par
+.BLKODT\par
+\par
+0:0266.001 /3315 3174\par
+11+\par
+0:0266.012 /1315 1174\par
+S\par
+.\par
+  \par
+01-Aug-2015\tab Date year base group update to 2008.\par
+\par
+In P?S/8 Version 8Z, the date is partially determined by the present value of the implicit base year group.  The base year group is calculated as the count of 8 year increments past 1960; when P?S/8 Version 8Z was released, the value used was 3 corresponding to a valid year range of 1984 through 1994.  [Note: While the internal implementation of the date allows a theoretical range of somewhat over 11 years, the P?S/8 DATE utility only allows valid dates in the present 11 year range to avoid unexpected date expiration during the next year following.]\par
+\par
+The base year values are implemented as internal locations within all programs that support the present date; the relative date within the 11 year range is stored in the system kernel as the contents of location 07610.  The system kernel value is updated by the DATE command; the other programs generally support printing today's date by reading the current date value in memory and calculating the overall date using the locally-stored base year group value in the image of the program.  As such, all programs require a binary patch to reflect the desired base year group value.\par
+\par
+The replacement value to be applied is 6, which corresponds to a date range of 2008 through 2018.  If desired, the base year group value can be updated in the future to 7 to correspond to a date range of 2016-2026.  [Note: P?S/8 Version 9A will use an entirely different method of implementing the system date.  The entire date will be available in the system kernel; the maintenance procedure described here will be obsolete.]\page\cf1 P?S/8 Version 8Z Change Log (continued).\cf0\par
+\par
+Implementation: Using P?S/8 BLKODT, the base year group values are\par
+readily updated:\par
+\par
+.BLKODT\par
+\par
+0:0255.162 /0003 6\tab\tab\tab\cf1 PAL\cf0\par
+0:0363.000 /0003 6\tab\tab\tab\cf1 MAP\cf0\par
+0:0414.000 /0003 6\tab\tab\tab\cf1 DATE\par
+\cf0 0:0440.000 /0003 6\tab\tab\tab\cf1 PRINT\par
+\cf0 0:0613.140 /0003 6\tab\tab\tab\cf1 SYSTAT\par
+\cf0 0:0627.021 /0003 6\tab\tab\tab\cf1 MAP\cf0\par
+S\par
+.\par
+ \par
+After all patches are applied, the current date can be set with the DATE command.  Operation of all affected programs should be tested for correct output.\par
+\par
+05-Aug-2015\tab LE\{ft\} command message change.\par
+\par
+In keeping with current practice of character counting, the definition of the basic unit of textual input in the P?S/8 keyboard monitor and integrated editor is being changed from characters to bytes.\par
+\par
+Since the P?S/8 text file format uses six-bit ASCII codes with several translated characters, the proper reference term will be the six-bit byte; this is consistent with all available command documentation.\par
+\par
+As such, the message associated with the count of available characters within the text file currently in the edit buffer will be changed from\par
+\par
+CHARACTERS: \i xxxx\i0\tab\tab\tab\cf1\i xxxx\i0  is the free character count\par
+\par
+\cf0 to\par
+\par
+BYTES: \i xxxx\i0\tab\tab\tab\tab\cf1\i xxxx\i0  is the free byte count\par
+\cf0\par
+Implementation: Using P?S/8 BLKODT, the message text characters are readily updated:\par
+\par
+.BLKODT\par
+\par
+0:0007.171 /7764 7771\tab\tab\cf1 message length\cf0\par
+0:0007.172 /0310 0231\tab\tab\cf1 BY\cf0\par
+0:0007.173 /0122 2405\tab\tab\cf1 TE\cf0\par
+0:0007.174 /0103 2372\tab\tab\cf1 S:\par
+\cf0 0:0007.175 /2405 4000\tab\tab\cf1 <SP><EOL>\par
+\cf0\par
+S\par
+.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\par
+\cf0 Notes:\par
+\par
+1)\tab This patch frees up locations 01576-01577 within the keyboard \tab monitor for a projected patch presently under review.\par
+\par
+2)\tab Using the P?S/8 OS8CON program, P?S/8 six-bit bytes can be \tab converted from/to seven-bit ASCII text bytes as used in OS/8 and \tab other systems [and eventually the P?S/8 SHELL overlay].  The \tab present P?S/8 six-bit character set supports various languages \tab including P?S/8 PAL and the P?S/8 implementation of FOCAL, 1969. \tab Future releases are expected to support implementations of BASIC \tab and FORTRAN.\par
+\par
+08-Aug-2015\tab Keyboard monitor bug fix.\par
+\par
+Problem: Keyboard monitor commands that support both an optional \cf3\i :u \cf0\i0 suffix and an optional \cf3\i filename\cf0\i0  [such as EN\{ter\}, FE\{tch\}, KI\{ll\} and WR\{ite\}] fail to properly support the \cf3\i filename\cf0\i0  when both options are used simultaneously.  [Note: The problem also exists if the \cf3\i filename:u\cf0\i0  form is used; however, the second \cf3\i :u\cf0\i0  suffix is unrelated to the problem.]\par
+\par
+In most instances, the optional \cf3\i :u \cf0\i0 suffix is rarely used.  When the optional \cf3\i filename\cf0\i0  is not present, the default name from a prior command is used as the file name for the current command:\par
+\par
+.FE FOOBAR\tab\cf1 The explicit file name used sets the default name.\cf0\par
+\par
+\cf1 [Some editing operations are performed to update the file contents.]\cf0\par
+\par
+.WR\tab\tab\tab\cf1 The updated file is written using the default name.\par
+\cf0\par
+Alternatively, the command\par
+\par
+.WR:1\par
+\par
+writes the file to logical device unit 1 with the same file name.\par
+\par
+Since there is no explicit file name in either WR\{ite\} command example, both commands function as expected.\par
+\par
+However, if both options are used in the same command such as\par
+\par
+.WR:1 FOOBAR\par
+\par
+the command will fail to complete properly and will likely lead to an error message.  [Note: The contents of the edit buffer are not affected by the problem.  A similar command with one of the options or no options will succeed.]\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+The problem was traced to a failure to properly update all internal command parsing data; this can only happen when the simultaneous usage of both options is attempted.\par
+\par
+Resolution: As a temporary fix, the proper call to the optional unit scan routine [NEWCAT] is patched in using available locations on the same code page.  Future releases will reorganize the code to prevent the problem using less total words.\par
+\par
+Implementation: Using P?S/8 BLKODT, the problem is readily fixed:\par
+\par
+.BLKODT\par
+\par
+0:0007.166 /5401 5376\par
+0:0007.176 /2223 4134\par
+0:0007.177 /7240 5401\par
+S\par
+.\par
+  \par
+Notes:\par
+\par
+1)\tab Implementation of this patch depends on the prior implementation \tab of the 05-Aug-2015 LE\{ft\} command message change as described \tab above.\par
+\par
+2)\tab As of this writing, this patch has not received rigorous testing.  \tab The only P?S/8 Version 8Z configuration presently released is for \tab TC01/TC08/TU55/TU56; as such, the release file pqs8_tc08.tu56 \tab [image file for use with the SIMH PDP-8 simulator] will also be \tab available without this patch; the unpatched file will be known as \tab pqs_tc08_05-Aug-2015.tu56 consistent with the previous patch \tab level.\par
+\par
+19-Aug-2015\tab P?S/8 PAL bug fix.\par
+\par
+Problem: The ASMIFM, ASMIFN and ASMIFZ directives are non-functional.\par
+\par
+Note: These directives are part of the dual mode assembly option and were added for compatibility with the DIAL-MS assembler.\par
+\par
+Detailed explanation.\par
+\par
+The total failure of the three directives mentioned above was traced to an incorrect offset past a symbolic reference within the source code due to gradual changes in the coding.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+This is actually a poor programming technique that is no longer used in P?S/8 development.  If a specific location will be modified, it should have its own symbolic identification.  In this case, the referenced address is part of a relocation list.  [The dual mode assembly feature is one of the modular options; depending on the specific combination of modules retained, a dynamic update reflecting the relocation must be applied to all memory locations in the rest of the assembler coding that need to be updated accordingly.]  In this specific case, the relocation was correct; however, it was applied to an incorrect memory location.\line\line Resolution: As a temporary fix, the proper address will be patched to restore proper operation.  The source code will be modified to include a proper symbolic reference [without a potentially "drifting" offset] to ensure the accuract of the coding.  [At the source code level, the address requiring the relocation was erroneously coded as MASSIF+2 when in fact it should be MASSIF+4 due to changes in the source code over the years.  A new reference to NASSIF without an offset will be applied, as this is presently the closest symbolic address.]\par
+\par
+Implementation: Using P?S/8 BLKODT, the problem is readily fixed:\par
+\par
+.BLKODT\par
+\par
+0:0277.010 /2373 2375\par
+S\par
+.\par
+\par
+Note:  Conditional directives such as IFZERO, IFNZRO, IFDEF and IFNDEF are universally available in P?S/8 PAL regardless of modular options chosen [such as dual mode assembly].\par
+\par
+The DIAL assembler supports the ASMIFM, ASMIFN, ASMIFZ and ASMSKP directives as an equivalent functionality to the IFZERO and IFNZRO directives; however, the usage is somewhat more cumbersome [in part due to the usage of one's complement arithmetic when assembling in LINC mode].  The standard directives can handle equivalent parameters to achieve the same results, generally using a simpler overall approach.  [The IFDEF and IFNDEF directives have no functional equivalent in the DIAL assembler.]\par
+\par
+Since the standard directives are fully compatible with all popular PAL assemblers [such as TOPS-10 PAL10, OS/8 PAL8 and P?S/8 PAL], it is recommended to avoid the DIAL assembler directives in all new work.\par
+\par
+As such, support for the DIAL conditional directives will be available in P?S/8 PAL only as part of the dual mode assembly module.\par
+\par
+Additional P?S/8 PAL issues:\par
+\par
+No fix for the following problems will be made available for this release of P?S/8 PAL.  A minimal workaround is discussed below.\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+Certain directives are implemented in the dual mode assembly module that arguably should be available regardless of modular options set; the only way to use the directives is by enabling dual mode assembly with the /8 or /9 option switches.\par
+\par
+The ENBITS and NOBITS directives are available for compatibility with TOPS-10 PAL10; however, there is no actual function performed (as the feature within PAL10 the directives manage is not implemented in any other PAL assembler).  (The intended usage is to enable or disable the automatic bitmap dump after every FIELD directive usage.  OS/8 PAL8 and P?S/8 PAL do not support this implementation; however, both systems support an independent bitmap facility to perform an equivalent function on the binary output of the assembly.  As such, it is not likely that functional compatibility will be available in either system.)\par
+\par
+Since these directives are not particularly related to dual assembly mode, the next source-level release of P?S/8 PAL will shift these directives into the main symbol table load.  For the present, if these features are required, the restriction of requiring the /8 option switch be set will apply.\cf1\par
+\cf0\par
+The DTORG directive is also erroneously part of the dual mode assembly module; however, DTORG should not be used as it will tend to corrupt the binary output.  (There had been an intention to create an alternate special-purpose loading utility to punch binary paper-tapes of output containing DTORG statements, but as a practical matter, there no longer is any interest in the Typeset-8 product, the only system where this feature was ever required.  However, future releases of P?S/8 will provide an alternate implementation that is also fully compatible with all binary output standards.  At the point of release, the directive will be moved to the main symbol table load in the same manner as the NOBITS and ENBITS directives as discussed above.  Future P?S/8 system generation utilities will require the revamped DTORG directive; it will be possible to convert the compatible binary output to the format as required by Typeset-8 punched on incompatible binary\par
+paper tapes.)\par
+\par
+31-Dec-2015\tab Date year base group update to 2016.\par
+\par
+In P?S/8 Version 8Z, the date is partially determined by the present value of the implicit base year group.  The base year group is calculated as the count of 8 year increments past 1960; when P?S/8 Version 8Z was released, the value used was 3 corresponding to a valid year range of 1984 through 1994.  [Note: While the internal implementation of the date allows a theoretical range of somewhat over 11 years, the P?S/8 DATE utility only allows valid dates in the present 11 year range to avoid unexpected date expiration during the next year following.]\par
+\par
+The base year values are implemented as internal locations within all programs that support the present date; the relative date within the 11 year range is stored in the system kernel as the contents of location 07610.  The system kernel value is updated by the DATE command; the other programs generally support printing today's date by reading the current date value in memory and calculating the overall date using the locally-stored base year group value in the image of the program.  As such, all programs require a binary patch to reflect the desired base year group value.\par
+\par
+The replacement value to be applied is 7, which corresponds to a date range of 2016 through 2026.  If desired, the base year group value can be updated in the future to 10 to correspond to a date range of 2024-2034.  [Note: P?S/8 Version 9A will use an entirely different method of implementing the system date.  The entire date will be available in the system kernel; the maintenance procedure described here will be obsolete.]\par
+\par
+Implementation: Using P?S/8 BLKODT, the base year group values are\par
+readily updated:\par
+\par
+.BLKODT\par
+\par
+0:0255.162 /0003 7\tab\tab\tab\cf1 PAL\cf0\par
+0:0363.000 /0003 7\tab\tab\tab\cf1 MAP\cf0\par
+0:0414.000 /0003 7\tab\tab\tab\cf1 DATE\par
+\cf0 0:0440.000 /0003 7\tab\tab\tab\cf1 PRINT\par
+\cf0 0:0613.140 /0003 7\tab\tab\tab\cf1 SYSTAT\par
+\cf0 0:0627.021 /0003 7\tab\tab\tab\cf1 MAP\cf0\par
+S\par
+.\par
+ \par
+After all patches are applied, the current date can be set with the DATE command.  Operation of all affected programs should be tested for correct output.\par
+\par
+\par
+\par
+04-Apr-2017\tab Reversal of Patch.\par
+\par
+\par
+08-Aug-2015\tab Keyboard monitor bug fix.\par
+\par
+Problem: Keyboard monitor commands that support both an optional \cf3\i :u \cf0\i0 suffix and an optional \cf3\i filename\cf0\i0  [such as EN\{ter\}, FE\{tch\}, KI\{ll\} and WR\{ite\}] fail to properly support the \cf3\i filename\cf0\i0  when both options are used simultaneously.  [Note: The problem also exists if the \cf3\i filename:u\cf0\i0  form is used; however, the second \cf3\i :u\cf0\i0  suffix is unrelated to the problem.]\par
+\par
+In most instances, the optional \cf3\i :u \cf0\i0 suffix is rarely used.  When the optional \cf3\i filename\cf0\i0  is not present, the default name from a prior command is used as the file name for the current command:\par
+\par
+.FE FOOBAR\tab\cf1 The explicit file name used sets the default name.\cf0\par
+\par
+\cf1 [Some editing operations are performed to update the file contents.]\cf0\par
+\par
+.WR\tab\tab\tab\cf1 The updated file is written using the default name.\par
+\cf0\par
+Alternatively, the command\par
+\par
+.WR:1\par
+\par
+writes the file to logical device unit 1 with the same file name.\par
+\par
+Since there is no explicit file name in either WR\{ite\} command example, both commands function as expected.\par
+\par
+However, if both options are used in the same command such as\par
+\par
+.WR:1 FOOBAR\par
+\par
+the command will fail to complete properly and will likely lead to an error message.  [Note: The contents of the edit buffer are not affected by the problem.  A similar command with one of the options or no options will succeed.]\page\cf1 P?S/8 Version 8Z Change Log (continued).\par
+\cf0\par
+The problem was traced to a failure to properly update all internal command parsing data; this can only happen when the simultaneous usage of both options is attempted.\par
+\par
+Resolution: As a temporary fix, the proper call to the optional unit scan routine [NEWCAT] is patched in using available locations on the same code page.  Future releases will reorganize the code to prevent the problem using less total words.\par
+\par
+Implementation: Using P?S/8 BLKODT, the problem is readily fixed:\par
+\par
+.BLKODT\par
+\par
+0:0007.166 /5401 5376\par
+0:0007.176 /2223 4134\par
+0:0007.177 /7240 5401\par
+S\par
+.\par
+\par
+\par
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^6\par
+\par
+\par
+-\par
+\par
+\par
+\par
+09-May-2017\tab SIMH Bug Patch.\par
+\par
+P?S/8 is generally compatible with the SIMH simulator with the exception of the rewind and unload routines.  Until such a time the SIMH problem is solved, apply the following patch:\par
+\par
+.BLKODT\par
+\par
+0:0006.145 /7650 7600\par
+S\par
+.\par
+\par
+\par
+\par
+\par
+(end of file)\par
+\f2\fs22\par
+}
+ 

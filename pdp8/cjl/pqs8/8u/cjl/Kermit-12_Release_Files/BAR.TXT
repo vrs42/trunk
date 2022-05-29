@@ -1,0 +1,99 @@
+Comparing files K12MIT.NEW and K12MIT.PAL
+***** K12MIT.NEW
+
+/       LAST EDIT:      10-NOV-1997     21:43:00        DJG
+
+***** K12MIT.PAL
+
+/       LAST EDIT:      06-SEP-1990     11:00:00        CJL
+
+*****
+
+***** K12MIT.NEW
+
+/       053     10-NOV-1997     ALLOW CONSOLE TO BE USED FOR TRANSFER   
+/                                                       DAVID GESSWEIN (DJG)
+/               IF IOCON IS DEFINED THEN ABORT CHAR TEST (CTLCTST) AND PRINTING
+/               OF MESSAGES DURING FILE TRANSFER WILL BE SUPPRESSED SO THAT
+/               THE CONSOLE CAN BE USED FOR THE DATA TRANSFER ALSO.  
+/               USER=1, XX=03, XY=04 MUST ALSO  BE SET
+
+/       052     06-SEP-1990     BUG FIX.                        CHARLES LASNER (CJL)
+***** K12MIT.PAL
+
+/       052     06-SEP-1990     BUG FIX.                        CHARLES LASNER (CJL)
+*****
+
+***** K12MIT.NEW
+        CLA                     /CLEAN UP                               /046 CJL
+        IFNDEF  IOCON   <       /NORMAL TIMEOUT                         /053 DJG
+        TAD     [-15]           /SETUP THE                              /049 CJL
+        >                                                               /053 DJG
+        IFDEF   IOCON   <       /NEED LONGER TIMEOUT WITHOUT CTRL-C     /053 DJG
+        TAD     [-50]           /CHECK                                  /053 DJG
+        >                                                               /053 DJG
+        DCA     TIMEOUT         /TIME-OUT FACTOR                        /046 CJL
+***** K12MIT.PAL
+        CLA                     /CLEAN UP                               /046 CJL
+        TAD     [-15]           /SETUP THE                              /049 CJL
+        DCA     TIMEOUT         /TIME-OUT FACTOR                        /046 CJL
+*****
+
+***** K12MIT.NEW
+
+NOTYET, IFNDEF  IOCON <         /CANT CHECK FOR ABORT IF IO ON CONSOLE  /053 DJG
+        JMS I   (CTLCTST)       /CHECK FOR <^C>, ETC.                   /044 CJL
+        TAD     [-CNTRLZ]       /COMPARE POSSIBLE CHARACTER TO <^Z>     /044 CJL
+***** K12MIT.PAL
+
+NOTYET, JMS I   (CTLCTST)       /CHECK FOR <^C>, ETC.                   /044 CJL
+        TAD     [-CNTRLZ]       /COMPARE POSSIBLE CHARACTER TO <^Z>     /044 CJL
+*****
+
+***** K12MIT.NEW
+        JMP     .-2             /ENSURE FLAG SETTING                    /049 CJL
+        >                       /END CANT CHECK FOR ABORT               /053 DJG
+INSTATU,JMS    UPSTATUS        /UPDATE THE PORT STATUS                 /049 CJL
+***** K12MIT.PAL
+        JMP     .-2             /ENSURE FLAG SETTING                    /049 CJL
+INSTATU,JMS    UPSTATUS        /UPDATE THE PORT STATUS                 /049 CJL
+*****
+
+***** K12MIT.NEW
+        JMS I   [FILN8]         /MAKE 8 BIT FORMATTED STRING
+        IFNDEF  IOCON   <       /SUPRESS PRINTING MESSAGES              /053 DJG
+        JMS I   [SCRIBE]        /TELL THEM
+***** K12MIT.PAL
+        JMS I   [FILN8]         /MAKE 8 BIT FORMATTED STRING
+        JMS I   [SCRIBE]        /TELL THEM
+*****
+
+***** K12MIT.NEW
+        CRLF                    /<CR>, <LF>
+        >                       /END SUPRESS PRINTING MESSAGES          /053 DJG
+        JMP     INPS03          /LOOP
+***** K12MIT.PAL
+        CRLF                    /<CR>, <LF>
+        JMP     INPS03          /LOOP
+*****
+
+***** K12MIT.NEW
+
+SNDP20, IFNDEF  IOCON   <       /SUPRESS PRINTING MESSAGES              /053 DJG
+        JMS I   [SCRIBE]        /TELL THEM                              /025 CJL
+        FSENMSG                 /WE ARE SENDING                         /025 CJL
+***** K12MIT.PAL
+
+SNDP20, JMS I   [SCRIBE]        /TELL THEM                              /025 CJL
+        FSENMSG                 /WE ARE SENDING                         /025 CJL
+*****
+
+***** K12MIT.NEW
+        CRLF                    /<CR>, <LF>                             /025 CJL
+        >                       /END SUPRESS PRINTING MESSAGES          /053 DJG
+        JMS     SLOOP
+***** K12MIT.PAL
+        CRLF                    /<CR>, <LF>                             /025 CJL
+        JMS     SLOOP
+*****
+

@@ -1,0 +1,2602 @@
+﻿P?S/8 Keyboard Monitor/Editor Commands and Additional Information.
+
+Copyright © 2015 »CLA Systems
+CLASystems@gmail.com
+
+Last edit: 08-May-2015 cjl
+
+This document is a guide to the P?S/8 keyboard monitor and integrated line editor.
+All available commands are documented sufficiently for beginning users to get
+started using P?S/8 for common text editing, initiating program execution and
+related tasks.
+
+Conventions used in this document.
+
+All commands are given in upper-case characters; as an accommodation, lower-case
+characters are "folded" to their upper-case equivalent as typed.  As such, the
+commands are shown in upper-case characters.  With the exception of the R command,
+all commands require the first two characters as shown; additional characters are
+allowed and will be ignored.  Commands will be shown with certain optional trailing
+characters enclosed in brackets indicating the usual meaning of the command for
+clarification purposes only.
+
+Commands that access files by name.
+
+Certain commands allow optional arguments that are file names taken from the
+standard P?S/8 directory structure known as the Tiny File System [TFS].  In general,
+file-oriented commands can also reference the special positional multiple purpose
+files known as % and $ [which are located near the physical start of every system
+device unit for faster access].  Where this usage applies, the command will be
+followed by "filnam".  [Note: The actual TFS file names are upper-case only.]
+
+Logical device unit access.
+
+Many commands indicate an optional :u suffix.  The current logical unit in effect
+can be updated using an appended :0 through :7 corresponding to the desired logical
+device unit.  [Note: Logical units are processed by the operating system in a
+hardware-dependent manner.  For example, when P?S/8 is implemented on the
+TC01/TC08/TU55/TU56 DECtape storage device, the logical units refer to the physical
+DECtape drive tape units which can be changed using drive-mounted unit-select
+switches.  On the TD8E/TU56 DECtape, only the low-order bit of the logical unit is
+meaningful; as such, all even logical units refer to drive 0 and all odd logical
+units refer to drive 1.  On the RX01 or compatible diskette device, the
+configuration may be analogous to the TD8e as cited above; however, certain RX
+storage systems support up to four drives; in these larger configurations, only the
+high-order bit of the logical unit is ignored; references to drive 3 would be the
+same as drive 7, etc.  The current configuration is established dynamically at
+bootup time by the system device handler; there are several implementations of
+RX-compatible systems on various machines such as the VT78, DECmate I, DECmate II
+RX278 option, DSD-210 and DSD-440 on various computers manufactured by DEC and
+third-party providers.]  [Note:  Future implementations of the P?S/8 system device
+handler for the TD8E without the MR8E-C ROM may extend support to as many as four
+TD8E controllers; this would allow up to four dual-drive TU56 transports in a
+suitably configured system; within each dual-drive pair, it will be necessary to
+select the appropriate unit switch position as each dual drive can only address two
+specific tape drive units.  Systems that use the MR8E-C ROM cannot be extended due
+to internal limitations of the ROM coding.]
+
+In general, commands that allow the optional :u suffix and optional file name
+arguments will allow the :u suffix on the passed file name.  [Note: Only commands
+for program execution allow multiple file names to be specified; the optional :u
+suffix is allowed on the program name and every specified input or output file name
+as required.]  All commands and file name options will indicate the optional :u
+suffix where appropriate.
+
+Where appropriate, the commands of the integrated line editor operate on text
+specified by line number.  This refers to the contents of the tentative file buffer
+only.  Until the tentative buffer is saved to a permanent file, it is only available
+in memory while the keyboard monitor is active.  If a file is loaded into the
+tentative buffer, changes can be made in a variety of ways; the modifications are
+not applied to the storage device until the tentative buffer is written to a
+permanent file.  Note: While line numbers are permanently assigned, various commands
+are available to change the permanent setting within the tentative file buffer;
+writing to a permanent file updates all file contents including the permanent line
+numbers.
+
+Command parameters expressed as a range of line numbers.
+
+Certain commands take an optional range of line numbers [indicated in the command
+description as line-number-range] that determine the scope of the command operation:
+
+1) nnnn		The stated line nnnn is selected; if this line does not exist, no
+		operation occurs.
+
+		One such command is the LI[st] command, which outputs the line
+		number and contents of specified lines to the system console
+		terminal.  For example, LIST 1000 will output line 1000 [if line
+		1000 exists].
+
+2) ssss-	The operating range for the command is line ssss through the end of
+		the file.  Line ssss does not need to exist and only serves as a
+		limiting value.  If no lines exist within this range, no operation
+		occurs.
+
+		For example, LIST 500- will output lines 500 and higher through the
+		end of the file.
+
+3) -ffff	The operating range for the command is the beginning of the file
+		through line ffff.  Line ffff does not need to exist and only serves
+		as a limiting value.  If no lines exist within this range, no
+		operation occurs.
+
+		For example, LIST -2000 will output all lines in the file through
+		line 2000.
+
+4) ssss-ffff	The operating range for the command is lines ssss through ffff.
+		Lines ssss and ffff need not exist and only serve as limiting
+		values.  If no lines exist within this range, no operation occurs.
+
+		For example, LIST 300-700 will output all lines that fall in the
+		range of 300 through 700.
+
+5) <none>	If the line-number-range is omitted, the operating range for the
+		command is all lines within the file.  If the file is empty, no
+		operation occurs.
+
+		For example, LIST will output all lines in the file.
+
+Commands parameters expressed as a starting line number and line number increment.
+
+*** Shouldn't "Commands parameters" be "Command parameters"? ***
+
+Certain commands take an optional line number parameter [and perhaps an optional
+line number increment].  This is indicated in the command description as
+optional-starting-line-number and optional-line-increment.  If neither parameter is
+present, the default starting line number is 100.  The default line increment is 10
+and can only be changed if the starting line number parameter is present.
+
+For example, the RE[sequence] command will reorder the line numbers in a file.  The
+command RESEQUENCE [without parameters] will reorder the line numbers starting at
+100 and all subsequent lines are incremented by 10.  RESEQUENCE 1000 50 will reorder
+the line numbers starting at 1000 and all subsequent lines are incremented by 50.
+RESEQUENCE 2000 will reorder the line numbers starting at 2000 and all subsequent
+lines are incremented by 10.
+
+Some commands use other unique forms of parameter passing; this will be explicitly
+documented within each command description as appropriate.
+
+In the interest of overall brevity, certain command descriptions may reference other
+commands with expanded description elsewhere; this will always be obvious due to the
+format of all commands as described above; it may be necessary to first reference
+the description of other command[s] to better understand the current command
+description.  [This is unavoidable as many of the commands are inter-related.]
+
+*** Is a reference given?  If so, beginners could use the search function in their text editor/reader to find the referenced command(s). ***
+
+____________________________________________________________________________________
+
+History of the P?S/8 command processor and fundamental design issues.
+
+P?S/8 is a direct outgrowth of the predecessor operating system known as the
+R-L Monitor System [named for the principal authors' initials] or MS/8 [as it was
+submitted to DECUS].  This more primitive system uses the basic concept of commands
+with only the first two characters significant, allowing additional optional
+characters that are ignored.  [Note: While the R-L Monitor System allows six
+character file names, system program names are limited to two characters; additional
+program name characters are ignored.]
+
+The R-L Monitor System was cosmetically modified [the names of certain commands were
+changed using trivial binary patches while retaining the command functionality] as a
+stopgap measure incorporated into the early release of DIBOL-8.  This temporary
+official DEC product, which is similar at the command level to future releases of
+systems supporting the DIBOL-8 compiler, had only the modest goals of supporting the
+earliest DIBOL-8 compiler and the ability to load the binary output of compilation.
+[Note: All of the systems described here use the exact same binary output format
+internally, thus identical loading techniques apply; the BIN system utility program
+exists throughout DIBOL-8, the R-L Monitor System and all releases of P?S/8 albeit
+with slightly different command syntax due to the evolving nature of the command
+execution process within each system.  P?S/8 adds many additional features and
+operating modes to the BIN utility; when only file names are passed to BIN, the
+functionality is identical to The R-L Monitor System and DIBOL-8; binary files from
+these systems can be copied to P?S/8 using available commands and utilities.  The
+R-L Monitor System implementation of BIN is limited to 4K memory support only; the
+binary file format supports 32K memory as implemented only in P?S/8.]
+
+The largest weakness of DIBOL-8 [which would be overcome in later releases which
+became known as COS-300/310 or Commercial Operating System Version 3] was the
+primitive nature of initiating program execution of the compiler and related utility
+programs; the only information that can be passed to any system program are the
+contents of user-specified input files [binary output is to an implied portion of
+the TC01/TC08/TU55/TU56 DECtape, the only device supported in the original DIBOL-8]
+and a 12-bit octal value expressed on the command-line as =xxxx where xxxx is any
+4-digit octal number.  [Note: For backward compatibility, P?S/8 internally supports
+the =xxxx parameter identically to the predecessor systems.]
+
+*** What was the 12-bit octal number expressed as =xxxx for?  How was it (meant to be) used? ***
+
+P?S/8 and COS-300/310 were developed independently but on a parallel track to
+improve execution processing by implementing a compact form of what is known in
+other DEC systems as Concise Command Language [CCL].  This includes the ability to
+pass input and output files and option switches [while retaining the =xxxx value
+which was repurposed in all instances other than specifying a starting address to
+binary loading utilities].
+
+P?S/8 initially retained consistency with the R-L Monitor System command set where
+possible.  As a result, a conflict arose between some system program names and the
+command names.  [Note: As described above, the R-L Monitor System only allows two
+characters for system program names as well as command names.  Both P?S/8 and
+COS-300/310 allow up to six character system program names where additional
+characters [for program names that are exactly six characters] are ignored which is
+analogous to the way command names are ignored beyond the first two characters in
+all of these systems.]
+
+*** Corrected spelling of "described" above. ***
+
+The DIBOL-8 system command names were chosen to allow the execution of the compiler
+and other projected system utilities by avoidance of anomaly between these program
+names and command names [regarding the first two characters].  Execution can always
+be initiated by appropriate execution commands (R or RU[n]) to resolve any conflict
+that could arise; however, the goal was to avoid the need to routinely resort to
+this for all common programs and system utilities [as well as eliminate certain
+forms of overhead which is noticeable on tape-based systems].
+
+*** Corrected spelling of "noticeable" above. ***
+
+Eventually, a parallel design change was gradually made to P?S/8 over the course of
+several releases.  For example, the R-L Monitor System provides a command useful
+during BATCH operations:
+
+.PAUSE TELL THE OPERATOR TO DO SOMETHING AND THEN PRESS ANY KEY TO CONTINUE
+
+The BATCH process is paused; the entire command line is shown on the system console
+[even if echoing of commands is otherwise suppressed]; execution continues after any
+key is pressed on the system console.
+
+As first implemented in DIBOL-8 [and retained in COS-300/310] the command name was
+later changed in P?S/8 to:
+
+.PLEASE DO SOMETHING AND THEN PRESS ANY KEY TO CONTINUE
+
+The general reason for this change was to allow concise command execution of an
+implementation of the PAL assembler [which is generally found in all of these
+systems, although the specific assembler referenced may be a completely different
+implementation of the PDP-8 Assembly Language processor].  By avoidance of a command
+name expressed as PA, the assembly can be concisely initiated by the PAL program
+name, thus avoiding the need to use R PAL [or perhaps RU[n] PAL] and the attendant
+overhead.
+
+Known surviving implementations of P?S/8 were created circa 1976 where the command
+names were in transition [without direct contact with the DIBOL-8 or COS-300/310
+development process].  As such, while the command names are somewhat different from
+the R-L Monitor System, these releases are not identical to the eventual release of
+P?S/8 circa 1989 [which is in the process of being made available as part of a
+further process of additional modifications for new work, including the P?S/8 SHELL
+overlay].
+
+Abort character and related considerations.
+
+*** Do you want to change to "Control-C" rather than "control-C"?  Or is the capitalized version too "modern"?  There's even a Wikipedia page on "Control-C."  Basically, do you want to capitalize the word "Control" when discussing these commands below? ***
+
+In general, all of the operating systems described here support the control-C
+character as a general abort and return to the keyboard monitor [by reboot if the
+abort is detected within a conforming program that will exit to location 007600].
+Within the keyboard monitor, control-C will generally abort an incomplete command
+being typed [perhaps in auto-sequenced line number input mode]; however, the
+original character to accomplish this was control-D as used in the R-L Monitor
+System and early P?S/8 releases.  In newer releases, the keyboard monitor abort
+character was changed to control-Z to be more consistent with other DEC operating
+systems.
+
+As first implemented in the R-L Monitor System, when the keyboard monitor is
+accepting input [and subject to abort or terminal control characters], it is
+possible to press control-R or control-T.  The disposition of these characters is
+device-dependent.  On the TC01/TC08/TU55/TU56 DECtape system, control-R will rewind
+the current logical unit allowing tape motion to overlap with further command
+typing; the tape will stop in the reverse end zone automatically.  Pressing
+control-T will rewind the tape, then the tape will be forced off the takeup reel.
+If the selected drive is a type TU55, the brakes will be locked; the keyboard
+monitor resumes control after the tape is fully unloaded.
+
+*** There are many differing opinions about whether to use "takeup reel" or "take-up reel."  Since I can find both from relatively "known" info sites, I'll go with your spelling, unless you tell me that it is a typo. ***
+
+The 1989 release of P?S/8 is completely consistent with the corresponding
+COS-300/310 command set.  Many of the utilities planned over the course of years are
+available in this release with the intended program names.  For example:
+
+Both COS-300/310 and P?S/8 support an integrated line editor within the command
+processor.  In both systems, the LN[umber] command is used to automatically number
+text input; the former command was the SE[quence] command.  By making this change,
+both systems support a SET utility to adjust system parameters [without resorting to
+using the R or RU[n] command].  [Note: In the 1976 P?S/8 release, the forerunner
+utility is somewhat less advanced and known as the VARY program to avoid command
+anomaly.]
+
+Appendix A covers all changes known to have been considered [whether
+implemented or not] for the P?S/8 keyboard monitor and integrated line editor
+command set.  It is conceivable some of the specific issues raised might be
+revisited in future P?S/8 releases.
+
+As a temporary accommodation, a description of the commands that apply to the 1976
+release of P?S/8 will be included; the description for the 1989 release of P?S/8
+follows.  [Note: Little to no further command name changes are contemplated; all
+additional work will be directed towards changes to either new or existing system
+utility programs or in preparation for the optional P?S/8 SHELL overlay currently
+under development; the P?S/8 SHELL uses a completely different command processor to
+implement alternate commands consistent with other DEC operating systems primarily
+for other computers.]
+
+Note: A list of all available system programs in the 1976 release of P?S/8 can be
+obtained by typing:
+
+.R SYSTYP
+
+Note: A list of all available system programs in later releases of P?S/8 can be
+obtained by typing:
+
+.DIRECT /S
+____________________________________________________________________________________
+
+1976 P?S/8 commands and footnotes.
+
+CA[talog]:u
+
+	Obtain a quick TFS directory listing on the console printer.  The output
+	format is four file names per line.  Files are outputted according to the
+	physical order in which they appear.  Empty entries will always be indicated
+	unless physically last in the directory [and thus the first of an indefinite
+	number of inactive directory slots].  [Note: Multiple EN[ter] and DE[lete]
+	operations may cause a series of trailing empty entries depending on
+	specific circumstances.  The CA[talog] command will print out deleted file
+	entries as empty entries as only the very last entry [or the first entry
+	never used] is truly empty by either having never been used, or cleared as a
+	special-case handled by the DE[lete] command.  Thus, depending on
+        circumstances, the directory may contain a series of trailing empty entries
+        indicated in the printout.  [Note: This is a deliberate design decision to
+        partially aid in file recovery; if it is clear there are no indicated empty
+        entries, the latest DE[lete] operation clears the very last active entry,
+        thus making it obvious that a restorative EN[ter] command will recover the
+        affected file.  When there are multiple indicated empty slots, it is harder
+        to determine the former associated name.  By always having all active
+        entries containing unique names, it is possible to recover from the
+        accidental deletion if quickly noticed [before another file is saved over
+        the file slot]; however, not all users abide by this safe technique.
+
+	[Arguments can be made regarding brevity of directory printout versus the
+	ability to more easily recover from an accidental file deletion; users who
+	opt for the all slots filled method will find it easier to recover; the
+        other alternative depends on running utilities to observe the deleted file
+        name which shows all of the rest of the file name characters; only the first
+        character is deleted and converted to an internally impossible case.  This
+	method has been copied by other systems such as MS-DOS for the same purpose
+	of helping to undelete files, etc.]  [Note: The 1976 release of P?S/8
+        does not include any utilities oriented around recovering from accidental
+        deletion; the all slots filled method or equivalent is the only method
+        available short of using the general-purpose P?S/8 DUMP utility which
+        requires a level of proficiency not only of the DUMP program, but in the
+        TFS structure itself.  Later releases include some efforts to solve this
+        problem by means other than the DE[lete] and EN[ter] commands] available in
+        all P?S/8 releases.]
+
+	To minimally clean up the directory, the DE[lete] command checks to see if
+	the deletion affects the very last active directory slot; if this is the
+	case, the entry is cleared establishing the active end of the directory one
+	slot closer to the beginning of the directory.  If other empty directory
+	entries immediately precede this entry, they will not be automatically
+	removed to possibly aid in file recovery in case of accidental deletion;
+	however, these entries can be removed by entering as many transient file
+	names [meaningful to the user] as is required, then using the DE[lete]
+        command to remove the entries in strictly reverse order.  [As described,
+        this is a deliberate design compromise between cosmetics and file recovery
+        issues.]
+
+	Note: Even with the file name destroyed, as long as the actual file contents
+	has not been overwritten, the EN[ter] command can be used to attempt to read
+	areas of the tape corresponding to the directory entries; the files can be
+	loaded into the editor and inspected; there is no guarantee that anything
+	coherent will be found as in many cases this is merely reading the former
+	contents of the corresponding blocks.  This would be considered the last
+        resort to recover from accidental deletion; attempting recovery by this
+        method does not involve execution of any utility program.  [In the process
+        of attempting file recovery by this method, the directory will be filled
+        with new file entries chosen by the user; in essence, the method of last
+        resort forces the user to use the recommended method of having all entries
+        pre-filled with arbitrary names convenient to the user.]
+
+*** Changed "atempting " (including the extra space) to "attempting" above. ***
+
+DE[lete]:u filnam:u
+
+	Delete a file from the TFS directory.  This can be reversed by using the
+	EN[ter] command as long as the affected file slot is the first empty
+	available in the directory; unrelated file name entries can be entered as
+	necessary to ensure the proper directory slot is restored.  [Note: It is
+	highly recommended all available directory slots are entered before use to
+	avoid potential accidental file deletion problems.]
+
+*** Is there an explanation somewhere of the "potential accidental file deletion problems"?
+
+EC[ho] [optional 0 or 1]
+
+	Inverts the state of output of command characters if no argument given.
+	EC[ho] 0 forces all output off; EC[ho] 1 forces all output on.  Pressing
+	control-O during any output operation in progress overrides this by
+	immediately reversing the echo state for each control-O pressed.  This
+	command is generally used within BATCH control files to limit output to the
+	system console.
+
+ED[it] [pre-existing line number]
+
+	ED[it] the contents of a specific line number.  The ED[it] command is
+	operated through the use of certain control characters unique to the ED[it]
+	command [as well as most of the control characters that are used throughout
+	the command processor].
+
+	The operation of the ED[it] command is patterned after the FOCAL, 1969
+	MO[dify] command with accommodations to the P?S/8 editing environment which
+	includes features that apply to several operating modes [including the
+	automatic placement of line numbers while entering text].  All control
+	functions operate consistently regardless of mode; additional control
+	characters also apply exclusively to the ED[it] command.  Description of
+	specific control characters that apply follow:
+
+	1) In both the P?S/8 ED[it] command and the FOCAL, 1969 MO[dify] command,
+	   pressing control-G initiates the search mode; the next character typed
+	   will be searched for from the current cursor position until either a
+	   matching character is found in the contents of the line or the end of the
+	   line is reached.
+
+	   In FOCAL, 1969, the MO[dify] operation starts as if control-G were
+	   already pressed; the P?S/8 ED[it] command starts in character insertion
+	   mode after the line number and a <HT> character are printed out on the
+	   system console.  [Note: For more information on the exact printing of the
+	   <HT> character, see the description of the TA[b] command.]
+
+	   At any point within the ED[it] command operation, any keyboard monitor
+	   function is allowed including the addition and deletion of text
+	   characters.  This can effect direct editing of the line number characters
+	   
+	   *** Do you mean "effect" as a noun, or "affect" as a verb here?  I'm not sure, but I'm guessing you really intend "effect" as a noun here, like you wrote?  ***
+	   
+	   [and trailing <HT> separator character] if desired.  It is possible to
+	   create an alternate line number with contents based on the specified line
+	   number without changing the contents of the specified line.  If the line
+	   number is deleted, it is possible to create a keyboard monitor command to
+	   be executed in place based on the contents of the original line number;
+	   this facilitates the use of common complex commands saved within text
+	   files avoiding the need to type them at each usage.  [Note: It is also
+	   possible to create files containing a single complex command; these files
+	   can be used with P?S/8 BATCH without any form of editing.  By editing out
+	   all other lines in a file containing multiple complex commands, a
+	   temporary file can be created containing only the desired line; depending
+	   on the nature of the command, it may be appropriate to save the file as
+	   one of the positional files $ or % due to their shorter access time.]
+
+	   In FOCAL, 1969, the MO[dify] command will completely close out the
+	   specified line if the search does not match; this can be quite disruptive
+	   and would require an additional MO[dify] [or other] command that in turn
+	   might have to reckon with other changes made along the way prior to the
+	   unexpected line closure.  In the P?S/8 ED[it] command, a failing search
+	   merely outputs all the rest of the characters in the specified line [if
+	   any] and waits for further input [which could include various abort or
+	   restart operations thus preserving the original contents of the specified
+	   line].
+
+	2) In FOCAL, 1969, control-L is used to search for the same character as
+	   used in previous searches.  In the ED[it] command, control-A is used to
+	   search for the same character as used in previous searches.  Note: If no
+	   prior searches have been performed, control-A will output the rest of the
+	   line contents [if any] to the system console terminal and wait for futher
+	   input.  See Note 1.
+
+	3) In FOCAL, 1969, control-J [<LF>] prints out all remaining characters in
+	   the line on the system console terminal; additional editing can be
+	   performed ending with control-M [<CR>] to close out the line.  See Note
+	   1.
+
+	   *** Since Note 1 is so far down into this document, perhaps you should mention that the Notes for this section are located at about line 1975 or so? ***
+	   
+	   In the ED[it] command, control-J [<LF>] will output <CR>/<LF and then
+	   the current tentative line contents to the system console terminal.
+	   This is especially useful throughout the keyboard monitor when using
+	   hard-copy console terminals which generally require the display of
+	   deleted characters [which can be confusing].
+
+	4) Control-U will completely restart the Edit operation; this includes
+	   the printing of the opening line number and <HT> characters on the system
+	   console terminal.  No changes have been made to the specified line.
+
+	5) The FOCAL, 1969 Mo[dify] command documentation makes reference to a
+	
+	*** Changed "Mo[dify]" to "MO[dify]." ***
+	
+	   back-arrow key used to delete all text already processed and output to
+	   the system console terminal.  This character was eventually phased out of
+	   the official ASCII character set and replaced with the underscore
+	   character, which is not considered to be appropriate for such
+	   functionality.
+
+	   In the ED[it] command, Control-K will delete all characters in the line
+	   already output on the system console terminal.	
+
+	   Note: If the ED[it] command has not modified the line number, the line
+	   number and <HT> will be preserved and will output to the system console
+	   terminal.  If the line number has already been modified/deleted, it will
+	   not be restored [unless control-U is used to restart the ED[it] command].
+
+	6) The control-H [<BS>] character is used to delete the previous character
+	   in the buffer.  This functionality is also provided by pressing the
+	   DEL [<RO>] key or the underscore key [formerly back-arrow] on the system
+	   console keyboard.
+
+	   The exact nature of how this function is carried out is a function of
+	   various settings within the keyboard monitor.  For most hard-copy
+	   terminals, each usage echoes the previous character which is now deleted.
+	   [Note: In some P?S/8 releases, all deleted characters can be surrounded
+           by "\" characters to indicate the deletion of the entire group; insertion
+           of a new character outputs the second "\" character to finishing the
+           visual enclosure of all deleted characters (which were output in reverse
+           order as they were deleted; this is identical to the equivalent setting
+           used in the TOPS10 system).]
+
+	   For CRT-type terminals, the general support is to output <BS> <SP> <BS>
+	   to visually obliterate the deleted character;  Certain versions of P?S/8
+	   also support custom terminal handling for common DEC terminals [such as
+	   VT05, VT52 and VT100].  For more information, type VARY /A for a list of
+	   available terminal customizations and related issues.
+
+EN[ter]:u filnam:u
+
+	A specified [or default from a prior file name command] file name is entered
+	into the directory; no actual file storage is modified.  This can be useful
+	for recovering accidentally deleted files or preselecting multiple file
+	names for later use to take advantage of relative file placement for maximum
+	efficiency.
+
+	On certain tape systems, some programs can access the contents of files
+	faster if the files are arranged in an interleaved manner; the EN[ter]
+	command can setup the proper file placement prior to any actual editing
+	operations.
+
+	For example, on TC01/TC08/TC55/TU56 systems, it is impossible to access
+	adjacent files without causing a tape turnaround.  [Note: This is a hardware
+	restriction.  If a DECtape handler allowed tape motion when the handler
+	exits, the tape would always eventually wind into the forward end zone; the
+	next tape operation would first have to rewind the tape to just below the
+	desired initial tape block, then turn around to cause forward tape motion.
+	Since every call to the system device handler stops the tape, the next call
+	must be to an area slightly further up the tape and not immediately adjacent
+	for a forward initial search to be effective.  In the specific case of TFS
+	files, this means attempts to access the immediately adjacent file will
+        cause a tape turnaround; accessing a file an additional file slot [or more]
+	further up the tape will start with forward motion and the tape operation
+        will successfully finish without a tape turnaround.
+
+	Thus, by arranging the files of a project in an interleaved order, access to
+	the files is greatly increased.  The interleave can be accomplished either
+	by having files from an unrelated project interdigitated with the current
+	project files, or the project files can be split into halves, with the
+	second half files between the first half files; there would be no
+	turnarounds in the former case and one turnaround in the latter case due to
+	having to rewind to access the second half files.
+
+	*** Changed "inter-digitated" to "interdigitated."  "interdigitated" seems to be used more according to dictionaries found with DuckDuckGo & Google searches. ***
+	
+	The "slurp" binary loader for TC01/TC08/TU55/TU56 always starts with an
+	initial forward search to more quickly access the binary files, which are
+	generally located further up the tape from the loader code image.  The
+	interleaved file approach will increase file access for binary files as this
+	improves the loading process as well; as such, it would be prudent to
+        interleave binary output files with the source code files of the same
+        project.  Both sets of files will be accessed in an optimal way by the
+        programs generally associated with these files [respectively PAL for source
+	code files and the BIN binary file loader for "slurp" binary files].  See
+        Note 2.
+
+HA[lt]
+
+	The computer is HA[lted].  Press "Continue" [or equivalent if available] to
+	restart the keyboard monitor in the state it was prior to halting.
+
+	Do not use this command on systems that do not support the "Continue"
+	functionality; the only remedy would be to perform a system restart which
+	would reload the keyboard monitor without saving the current tentative file
+	or other current particulars.
+
+	*** So, when running P?S/8 on SimH or another emulator, don't use this command. ***
+	
+	[Note: It is merely a vicious and unfounded rumor that the command also
+	causes the machine to catch fire.  The PDP-8 supports the HLT instruction to
+	stop program execution; it is the stuff of legend there is the HCF
+	instruction to both halt and catch fire; P?S/8 uses the HLT instruction
+	which would tend to cool the computer.]
+
+	*** A TV(?) Series called "Halt and Catch Fire" was actually created.  I have some episodes on my computer right now, but haven't gotten around to watching them.  ;) ***
+	
+HR[eader] [optional-starting-line-number] [optional-line-increment]
+
+	Auto-sequenced input is initiated starting at the specified
+	optional-starting-line-number [line 100 if none given].  Subsequent lines
+	are incremented by the optional-line-increment value [default is 10 if none
+	given].  If available, the input characters are read from the high-speed
+	paper-tape reader; otherwise, this command is identical to the SE[quence]
+	command.
+
+	*** Changed "line 100 is none given" to "line 100 if none given." ***
+	
+	Auto-sequence mode can be terminated by control-D.  The standard P?S/8 text
+	character set applies; lower-case characters will be "folded" to the
+	upper-case equivalent.  See Note 3.
+
+LA[st]
+
+	This command outputs the line number of the highest existing line [if any]
+	to the system console terminal.  All line numbers must be less than 2047
+	[which is normally the case].  [Note:  Perverse resequencing operations can
+	cause an overflow condition.  If required, the situation can always be
+	rectified without file loss by using smaller line number increments in a
+	subsequent resequence operation [such as merely using the default values].
+	If the user has some familiarity with the contents of the particular file,
+	the LA[st] command can confirm the highest line number is in range; if the
+	line numbers overflow, listing the file contents will show lack of proper
+	line number order.  After a valid resequencing operation, the file will
+	again show orderly line numbers; the LA[st] command will output the highest
+	line number as expected.]  [Note:  In all releases of P?S/8, resequence
+	operations perform an automatic LA[st] command; if the user is familiar with
+	the file contents, the effects of line number overflow will be immediately
+	evident.]
+
+	*** Why is 2047 the highest allowable line number? ***
+	
+LE[ft]
+
+	The internal free word count within the tentative file is output to the
+	system console printer.  As more text lines are added to the file, this
+	value decreases.  A full file condition occurs when there is insufficient
+	space in the file buffer to include the latest line in the command-line
+        buffer; a warning message is issued and the latest command-line contents are
+        lost.
+
+	The LE[ft] command can serve as a warning mechanism regarding a file being
+	nearly full allowing corrective remedies [such as splitting the file into
+	two independent files] to be applied.
+
+	All TFS files are exactly 2048 12-bit words long.  There is always a four
+	word reserved area thus an empty file will show 2044 words free.  For each
+	line stored in the file, two additional words are used for line number and
+	internal line pointer purposes.  [Note: Since the contents of each line
+        starts on a 12-bit word boundary and has an associated starting address
+        pointer, all file modifications are performed nearly instantaneously.]  The
+        text is stored two sixbit characters per word [including the end-of-line
+	character] with perhaps an additional half-word required for alignment
+	purposes.  A good rule of thumb to gauge file usage is the free character
+	count is approximately twice the stated free word count.
+ 
+ *** RFC 114, A File Transfer Protocol, written in 1971 appears to use SIXBIT (all caps) when talking about the data type "SIXBIT characters" (like ASCII) and when talking about octal & hexadecimal numbers, while it uses "Decimal numbers, sixbit" when obviously talking about decimal numbers.  Should you be using "SIXBIT" above? ***
+ 
+	It is advisable to leave a reasonable reserve of free words in every file
+	for future editing [to avoid losing the latest line typed into the
+	command-line buffer].  For most users, it is advisable to close out one file
+	[and then open a new file] when the count gets below 100 words.  See Note 4.
+
+LI[st] [line-number-range]
+
+	All lines in the specified line-number-range are outputted to the system
+	console terminal.  [Note: Output formatting is affected by the current
+	horizontal tab setting as each line of output starts with the line number
+	followed by <HT>.  Additional <HT> characters within the file are also
+	affected by the horizontal tab setting.]
+
+LO[ad]:u filnam:u
+
+	A specified [or default from a prior file name command] file name is located
+	within the TFS directory; the file contents are loaded into the tentative
+	file buffer.  Keyboard monitor/integrated line editor commands may be used
+	to examine or modify the contents of the tentative file buffer.  The
+	original file is unchanged unless an explicit SA[ve] command is performed.
+	[Note: Attempts to load non-existent files will cause an error message.]
+	See Note 5.
+
+MO[nitor]
+
+	The MO[nitor] command exits the keyboard monitor; the system is rebooted
+	by restarting the computer at 07600; this is entirely equivalent to a manual
+	restart at the same address.
+
+	[Note: Using the MO[nitor] command in BATCH files may change the overall
+	flow of BATCH operations depending on specific BATCH options chosen.  A
+	BATCH file under development may include the MO[nitor] command to
+	temporarily limit the overall scope of the BATCH file as necessary.  See
+	documentation of the P?S/8 BATCH utility elsewhere for more information.]
+
+*** Changed "necesary" to "necessary." ***
+	
+NU[mber] [optional-starting-line-number] [optional-line-increment]
+
+	Auto-sequenced input is initiated starting at the specified
+	optional-starting-line-number [line 100 if none given].  Subsequent lines
+	are incremented by the optional-line-increment value [default is 10 if none
+	given].
+
+*** Changed "line 100 is none given" to "line 100 if none given." ***
+	
+	During text entry, it is possible to delete all or a portion of the
+	sequence number to execute another command [or perhaps change the line
+	number that applies].  Auto-sequence mode can be terminated by pressing
+	control-D.  The standard P?S/8 text character set applies; lower-case
+	characters will be "folded" to the upper-case equivalent.  See Note 6.
+
+PL[ease] [character string]
+
+	Executing the PL[ease] command will display the entire command line
+	[including any character string past the command] on the system console
+	terminal.  All operations are paused until any character is pressed [which
+	will otherwise be ignored].
+
+	A typical usage of the PL[ease] command is within a BATCH file to allow some
+	external action to be applied:
+
+	^^ GET PROGRAM LISTING BATCH CONTROL FILE.
+	^^
+	^^ LAST EDIT: 07-APR-2015 CJL
+	^^
+	.PLEASE TURN ON THE SYSTEM LINEPRINTER OR PRESS CONTROL-C TO ABORT ...
+	<a character is pressed by the operator; it is not echoed.>
+	^^
+	^^THANK YOU FOR ENABLING THE LINEPRINTER; CONTINUING ...
+
+	Certain P?S/8 programs output to the system lineprinter [if available] or
+	the system console terminal if the lineprinter is not available.  [Some
+	programs have command-line options to prevent locating the lineprinter; the
+	default is to attempt to use the lineprinter.]  By inserting appropriate
+	lines into the BATCH file similar to the above example, the BATCH can be run
+	as intended.
+
+*** "Lineprinter" is used several times in the above paragraph.  I assume that that spelling was widely used "back in the day," but I can't find any dictionary-type spellings other than "line printer."  The only apparent "lineprinter" usage today (according to a quick Google search) is in programming code. ***
+
+*** Changed "approptiate" to "appropriate." ***
+
+	Note: All of the active control characters are monitored for their normal
+	function during the command pause initiated by the PL[ease] command; the
+	system remains paused until another non-control character is pressed.
+
+	[Note: The PL[ease] command can cause the system to be paused while
+	character echo is off.  When designing BATCH scripts, it is recommended the
+	control file output appropriate messages before and after executing the
+	PL[ease] command to prevent confusion.]
+
+PU[nch] [line-number-range]
+
+	This command is similar to the LI[st] command except the output is directed
+	to the high-speed paper-tape punch instead of the console terminal.  All
+	lines in the specified line-number-range are outputted in a format suitable
+	for paper-tape system usage.  Unlike the LI[st] command, the line numbers
+	[and trailing <HT> character] are suppressed.  The entire output is
+	surrounded by leader/trailer frames.  [Note: In some P?S/8 releases, if the
+	high-speed paper-tape punch is not available, the output is directed to the
+	system console terminal.]  See Note 3.
+
+*** Changed "supressed" to "suppressed." ***
+
+R system-program-name [options]
+
+	Execute the specified system program.  Various optional parameters are
+	allowed:
+
+	1) File names.
+
+	   An optional list of output files or input files [or both] can be passed
+	   to a system program.  Output files [if any] must precede input files [if
+	   any].  The maximum number of files allowed is 17.  [Note: Specific system
+	   programs may have further restrictions on this total.]  Output files are
+	   indicated by the < character after the last output file; input files [if
+	   any] follow all output files [if present].
+
+*** "The maximum number of files allowed is 17."  <-- Does this maximum of 17 files is regardless of how many are input vs. output?  Like 16 input files & 1 output file, for example? ***
+
+	2) =xxxx parameter.
+
+	   This is generally a value expressed in octal in the range of 0000 through
+	   7776.  While 7777 cannot be used with the =xxxx parameter, the default
+	   value of 7777 is passed when the =xxxx is not used.  [Note: Certain
+	   system programs allow the use of the current radix for the =xxxx
+	   parameter; most programs force the use of octal notation.  If decimal
+	   radix applies, the same values are expressed as 0000 through 4094; 4095
+	   is the default value passed when the =xxxx is not used.]
+
+*** I have to admit that I had to (re-)lookup "radix" to recall that radix = base, i.e., base 8 for octal & base 10 for decimal.  :P ***
+
+	3) Option switches.
+
+	   The option switches include /A through /Z and /0 through /9.  When
+	   expressing switches in groups, the / is replaced with a ( followed by an
+	   indefinite number of option switches; the group may optionally be closed
+	   with a trailing ) character.
+
+	All options can be included at any point after the system program name; all
+	values [other than the file name lists] can be specified redundantly without
+	error.  Space and <HT> characters are allowed between values freely to
+	clarify the command formation if desired.  To maintain backward
+	compatibility with the R-L Monitor System, the "," character is also allowed
+	as a file name separator [with or without additional space or <HT>
+	characters.  The > character is allowed before all input files even if no
+	output files are specified.
+
+*** I assume that you really meant to say "command formation if desired" instead of "command formatting if desired," even though _I_ could see how you could be meaning to use either. ***
+*** Changed "the , character" to "the "," character" above, based on your question at the end of this document. ***
+
+	The positionally optimized file names % and $ can be used in any situation
+	where a file name is allowed.  Output files will be entered into the TFS
+	directory if they do not exist presently.
+
+	Logical unit considerations.
+
+	The default logical unit for file names is the current logical unit possibly
+	updated by the use of various commands that might have changed this from the
+	default value of the bootup logical unit.  The default logical unit for the
+	system program is the bootup unit.  Both the system program and all files
+	can override the prevailing defaults with explicit use of the :u construct
+	as used in various other keyboard monitor commands.  With regard to
+	filenames, should the logical unit be changed, it will affect all additional
+	filenames unless a further change is made.  An arbitrary feature of the
+	design is the output files are processed first.
+
+*** "Bootup" doesn't seem to be "one" word today - it's two words: "boot up" -- I assume it was one word "back in the day"?  "Filename" is written both as one word and as two words today, and I've only used it as one word myself.
+
+	Concise system program execution.
+
+	Where allowed [not in conflict with keyboard monitor commands regarding the
+	first two characters of the program name] it is possible to invoke the
+	system program directly.  Depending on the release, this may cause the
+	command process to finish sooner [due to lower internal overhead] or in some
+	specific cases, the only productive way to use the command may be to avoid
+	the use of the R command form entirely.  [Note: There are issues with regard
+	to the disposition of the tentative file buffer during the processing of the
+	R command; these issues do not apply when the concise form is invoked.]
+
+	Note: Depending on the specific release of P?S/8, certain system programs
+	might require the use of the R command to initiate program execution;
+	however, none of these programs ordinarily interact with the tentative file
+	buffer.
+
+	Extended-length File Issues.
+
+	Most P?S/8 system programs are capable of reading the textual content of
+	files of indefinite length which are created by conversion utilities,
+	generally from OS/8 files made available on specified logical units to be
+	read by the system device handler as an image processed by the specific
+	utilities.  For input purposes, these files can be passed to most system
+	programs in the same manner as TFS input files [since most programs ignore
+	the line number data].  See note 7.
+
+	There may be additional restrictions regarding the writing of
+	extended-length files especially in the 1976 release due to the primitive
+	nature of extended-length file support from the prevailing file conversion
+	programs [CONVRT and BIGCON].  The early implementation of these programs
+	required great diligence on the part of the user as an ordinary TFS file is
+	passed to a program designed to violate the TFS directory conventions; thus,
+	successful operation depends on using the last file in the TFS directory;
+	any additional files will tend to be destroyed.  In addition, these
+	primitive programs further depend on setting the console switch registers to
+	the upper limit block of the device [which would be one higher than the
+	physical upper limit of the device or any value less than that; for example, on a 2702 block long DECtape, the switch
+	register would be set to 2700 to prevent writing past block 2677].
+
+*** Changed "dilligence" to "diligence." ***
+*** You wrote, "these primitive programs further depend on setting the console switch registers" <-- how do you set a switch register in SimH when running P?S/8? ***
+
+	These restrictions were eliminated in later releases by having a separate
+	directory structure that enforces proper block limits for the entire device.
+	[Note: The BIGCON program is known to have internal bugs beyond these issues
+	as it was the first release of this form of conversion program.  Later
+	releases of P?S/8 replaced both programs with the OS8CON conversion utility;
+	all known issues have since been resolved.]
+
+RA[dix] [10 or 8]
+
+	When the RA[dix] command is invoked without an optional parameter, the
+	radix for all numerical input or output is reversed to the opposite of the
+	current value in effect.  This applies to all contexts where a numerical
+	value may be expressed including file line numbers, passing parameters to
+	programs using the =xxxx construct [under certain circumstances] and the
+	numerical output of commands such as LA[st] and LE[ft].
+
+	The radix can be set by passing an explicit parameter: RADIX 10 will set
+	the radix to decimal; RADIX 8 will set the radix to octal.  [Note: The
+	current radix does not affect the interpretation of the passed parameter as
+	the current radix is saved and then set internally to decimal.  If the
+	command fails due to improper input, the previous radix is restored.]
+
+*** In the above two examples of using RADIX 10 and RADIX 8, does the entire word "RADIX" have to be used, like I assume from your spelling, or did you mean to say, RA[dix] 10 and RA[dix]8, which makes more sense to me? ***
+
+	Changes made with the RA[dix] command revert to the system default value
+	upon system restart; the scope of the RA[dix] command is within the current
+	keyboard monitor session only.  While the usual overall default is decimal,
+	this may be changed using the VARY RADIX EIGHT command.
+
+*** Do all characters in the "VARY RADIX EIGHT" command have to be capitalized and spelled out like shown?  I.e., no RA[dix]-type shortenings of commands? ***
+*** Or am I simply forgetting that PDP-8s only use upper-case ASCII?  ;)  Except where P?S/8 accepts and then converts (folds over) lower-case to upper-case.... ***
+
+	The radix chosen for most work is a user preference setting.  Certain
+	limited examples of octal output may be useful to explain basic PDP-8
+	assembly concepts as illustrated below.
+
+	.RADIX 8
+
+	.SEQUENCE 177 1
+
+	 177 		*200			/SET THE DESIRED ORIGIN.
+	 200 	BEGIN,	TAD	(7)		/GET A <BEL> CHARACTER.
+	 201 		TLS			/RING IT.
+	 202		JMP I	(7600)		/RESTART THE SYSTEM NOW.
+
+
+	[Note: The above example is not an actual assembly but it does cosmetically
+	resemble a simplified assembly listing.  Beginners can learn certain
+	practical aspects of assembly language before mastering additional concepts
+	needed to carry out assembly language programming on a more complete basis.
+	Since the line numbers are permanent [assuming the tentative file is saved],
+	small changes can be made which will reflect the way the program actually
+	loads into memory.]
+
+RE[sequence] [optional-starting-line-number] [optional-line-increment]
+
+	The RE[sequence] command reorders the line numbers within the tentative file
+	as specified by the optional-starting-line-number and
+	optional-line-increment accordingly.  After the resequencing operation
+	[which is carried out virtually instantly], all file lines will be in
+	equal increment order.  Note: No changes are made to the text contents of
+	nor the relative order of the lines; however, all future references to the
+	lines must be made with the new line number values.
+
+*** Dumb question here:  How are references to line done?  I assume that you're talking about something different than a BASIC "GOTO"-type command, where line numbers are critical? ***
+
+	Resequencing is required when a section of a file has been heavily modified
+	adding in lines with numbers in between original lines.  This can leave
+	little room for additional line numbers within the section.  By setting
+	relatively large line increments, it is possible to set aside sufficient
+	number space in the file for the purpose of adding lines [typically with an
+	increment of 1].  Depending on the scope of the editing operation, it may be
+	necessary to resequence the file more than once.
+
+	[Tip: Assume a file is sequenced with an increment of 10.  This would mean
+	there is the possibility of adding in lines 101 through 109 between line 100
+	and line 110.  The ED[it] command can be used to create a line 129 from the
+	contents of line 120 [which can then be deleted].  By changing that one
+	line, there is now the possibility of adding in lines 101 through 128.  If
+	the file is resequenced [or was created with even larger increments] then
+	more than enough line number space can be available for any reasonable edit.
+	[Note: In larger editing situations, the limiting factor may be file
+	capacity; it may be necessary to split the file into two independent files.]
+	Once a file is stable, it is always recommended to perform a final
+	resequence operation to the default values.]
+
+	After the resequencing, an automatic LA[st] command is performed.  All line
+	numbers must be in the range of 0 through 4094 [0 through 7776 in octal
+	radix].
+
+	[Note: It is possible to overflow the line number range by either using a
+	starting line number that is too high or a line increment that is too large;
+	this can always be remedied by using smaller parameters such as the default
+	values of starting at line 100 with a line increment of 10.]
+
+RU[n] system-program-name [options]
+
+	The RU[n] command is essentially redundant to the R command; all
+	considerations apply equally to RU[n] as to R.  See note 7.
+
+SA[ve]:u filnam:u
+
+	The tentative file buffer contents will be saved in the stated [or implied
+	from a prior file name] file.  The TFS directory will be updated first to
+	allocate a new file slot if necessary; if the slot exists, the file will be
+	written out directly.  [Note: On system based on DECtape or other serial
+	access devices, the time savings when updating a file can be profound.]
+	See Note 8.
+
+SC[ratch] [line-number-range]
+
+	All lines in the specified line-number-range are removed from the tentative
+	file.  See Note 9.
+
+	The SC[ratch] command is often used to split a file into two smaller files
+	when the file is nearly full.  A split-point line number is determined to
+	separate the contents of the current file.  [Note: beginning users are
+	advised to make a backup copy of the file before attempting this to avoid
+	data loss.]
+
+	First, all lines from the split-point onward can be deleted by using the
+	command SCRATCH XXXX- [where XXXX is the chosen split-point line number]
+	which creates the smaller file which consists of all lines up to the
+	split-point.  The buffer should be saved into the file designated to contain
+	the first part of the former file.
+
+	Second, the complete file should be reloaded; all lines from the beginning
+	of the file through the split-point should be deleted using the command
+	SCRATCH -YYYY where YYYY is the value XXXX above less 1] which creates the
+	smaller file which consists of all lines beyond the split-point.  The buffer
+	should be saved into the file designated to contain the second part of the
+	former file.
+
+	[Tip: Since the line number used in the ranges given to the SC[ratch]
+	command need not exist [and merely serves as a limit], a line that is
+	exactly one lower than the intended split-point [and non-existent] can be
+	used in both operations when splitting the original file.]
+
+	[Tip: The method illustrated is an example of one way to accomplish the
+	splitting operation.  By using equivalent alternative steps, the same net
+	result can be achieved by first saving the ending portion of the original
+	file then creating the beginning portion.]
+
+	[Tip: Seasoned users will reuse the original file name as one of the two
+	descendant files; only one additional file need be specified within the
+	overall stream of project files; the commands used to pass a stream of files
+	to a system program [PAL, FOCAL, etc.] should be updated accordingly.]
+
+	[Observation: Many competing systems require full-file editing; this means
+	that sufficient space on the storage device is tied up for roughly twice the
+	size of the entire project at the point of any editing operation; later the
+	obsolete copy is released, generally amounting to an inadequate smaller
+	portion of the storage device that eventually leads to serious fragmentation
+	and overhead issues.  By limiting editing to fixed size portions of the
+	project, it is only necessary to periodically allocate an additional file
+	at a time to resolve line number problems by splitting the file as described
+	here.]
+
+	[Note: After repeated editing operations on the set of files that encompass
+	a source file project, certain files will tend to be nearly full while
+	others may be more sparsely populated.  This can be remedied by periodically
+	using the CONVRT program to create a single file in OS/8 format, then use
+	CONVRT to recreate the source files; CONVRT standardizes the usage of each
+	file thus eliminating problems of variation in file usage.  A report is
+	given of how many files were created; it is conceivable the repacked file
+	set could occupy less files total.]
+
+SE[quence] [optional-starting-line-number] [optional-line-increment]
+
+	Auto-sequenced input is initiated starting at the specified
+	optional-starting-line-number [line 100 if none given].  Subsequent lines
+	are incremented by the optional-line-increment value [default is 10 if none
+	given].
+
+*** Changed "line 100 is none given" to "line 100 if none given."
+
+	During text entry, it is possible to delete all or a portion of the
+	sequence number to execute another command [or perhaps change the line
+	number that applies].  Auto-sequence mode can be terminated by pressing
+	control-D.  The standard P?S/8 text character set applies; lower-case
+	characters will be "folded" to the upper-case equivalent.  See Note 10.
+
+SY[stem]:u
+
+	The device logical unit [:u] specified in the SY[stem] command is selected
+	as the new logical unit for all subsequent file-oriented logical unit
+	purposes.  If the :u construct is omitted or the previous logical unit and
+	the new logical unit are identical, the command is ignored.  As required,
+	the corresponding TFS directory on the new logical unit is read into memory
+	replacing the previous one.  [Note: For all operations of the keyboard
+	monitor and integrated editor, the TFS directory on the current logical unit
+	is 100% resident in memory; in many instances, this causes an extraordinary
+	decrease in file access time.]
+
+	The SY[stem] command merely changes the logical unit without otherwise
+	performing another action.  See Note 11.
+
+	Tip: If a series of operations must be performed on a particular logical
+	unit as specified within a BATCH file, the first operation must effect a
+	change to the intended logical unit.  When a BATCH file is created, it is
+	often not possible to determine the intended logical unit until the actual
+	configuration is finalized.  The SY[stem] command can be used to initialize
+	the set of commands placed further into the BATCH file stream [all without
+	local logical unit settings] along with other appropriate initialization
+	such as a series of console messages or PL[ease] commands as required.
+	[Note: The SY[stem] command can be located in a separate initialization
+	file; BATCH operations can be performed with as many as 17 passed control
+	files.]
+
+TA[b] [0 3 5]
+
+	The printing disposition of the <HT> character within the keyboard monitor
+	can be customized in various ways to achieve the usual DEC-compatible
+	alignment to the nearest eight spaces.  All <HT> characters are affected
+	such as the printed separation between the line number and the text of a
+	file line, or <HT> characters within the file.
+
+	The <HT> character can be displayed in one of four different modes:
+
+	1) TAB <none>	The <HT> is printed as an actual <HT> character; the system
+			console terminal must support DEC-compatible tab stops every
+			eight columns.  This is the most efficient operating mode
+			assuming there is hardware support for the <HT> character;
+			this is generally true on modern terminals or terminal
+			emulators.
+
+	2) TAB 5	This mode is similar to 1) above except <NUL> characters are
+			used as filler characters as required for custom support of
+			the model 35 teletype.  The exact number of filler
+			characters required is dependent on the relative position of
+			the carriage within the latest eight-position tab stop.  For
+			certain positions, two filler characters are required; for
+			some others one filler is sufficient.  For two specific
+			positions, no filler is required.  [Note: This is the
+			correct method to handle this output device; in certain
+			software systems, the terminal is incorrectly handled by
+			always using one filler character.  This is a needless delay
+			in some instances and inadequate delay in others which will
+			lead to printhead smearing.]
+
+*** Changed "two specific posiitons" to "two specific positions." ***
+
+	3) TAB 3	This mode simulates horizontal tab stops by outputting the
+			proper number of characters to maintain alignment [such as
+			would be required on a Teletype Model 33 with no actual
+			horizontal tab support].  This is the slowest operating mode
+			which has the single advantage that it will work on all
+			console devices.
+
+*** Changed "model 33 teletype" to "Teletype Model 33," which is the nomenclature used by the Teletype Corporation. ***
+
+	4) TAB 0 	The <HT> character is printed as one space character; this
+			is useful when the system console terminal is very slow and
+			the full cosmetic effect of tabbing is considered a poor
+			tradeoff of appearance versus print time.
+
+	The TA[b] command allows temporary override of the permanent setting of the
+	<HT> disposition.  Users of slow terminals such as the Teletype Model 33 may
+	change the operating mode from TA[b] 3 to TA[b] 0 to more quickly get a raw
+	listing at times while primarily using TA[b] 3 for most purposes.
+
+*** Ditto. ***
+
+	The support for TA[b] 3 is the system default for maximum compatibility.
+	This can be customized for any particular system using the system VARY
+	utility.
+
+TY[pe] [line-number-range]
+
+	All lines in the specified line-number-range are outputted to the system
+	console terminal.  [Note: Output formatting is affected by the current
+	<HT> setting as each line of output starts with the line number followed by
+	<HT>.  Additional <HT> characters within the file are also affected.]
+
+	The TY[pe] command is equivalent to the LI[st] command.  See Note 12.
+
+^^ [optional comment string]
+
+	^^ is a non-action command to the keyboard monitor [and is equivalent to the
+	REM statement as implemented in most BASIC implementations or C[omment] as
+	implemented in FOCAL, 1969].  It can be used alone or with an optional
+	trailing string of additional characters which are ignored.  This is often
+	used as internal documentation within BATCH files.
+
+	[Tip: The output of BATCH files can be controlled by judicious use of the
+	EC[ho] command.  As such, the ^^ statement can be used to document internal
+	operations of the BATCH file or may be deliberately sent to the system
+	console printer as part of the overall BATCH operation.  It is often used in
+	conjunction with PL[ease] commands to acknowledge the operator's response.]
+____________________________________________________________________________________
+
+Notes:
+
+ 1)	In the 1976 release of P?S/8, the ED[it] command does not support a control
+	character to output all remaining characters in the line.  The workaround
+	for this is to use the control-A character as many times as it takes to
+	output the entire line contents.  [Note: If no search operation has been
+	performed, a single control-A character will output the entire line.  If a
+	search has been performed, multiple usage of the control-A character may be
+	necessary to output the entire line; additional control-A characters are
+	innocuous.]  Newer releases of P?S/8 support the control-F character to
+	output all remaining characters in the line.
+
+*** Changed "necesary" to "necessary." ***
+
+ 2)	Binary loading of P?S/8 "slurp" binary files is accomplished using the P?S/8
+	BIN system program utility.  This program actually has several operating
+	modes initiated by various command-line option switches which enable one of
+	several paper-tape utility modes; the default mode is to load the "slurp"
+	loader which is the only exception to the normal permanent residency of the
+	system device handler [other than when loading the binary paper-tape BIN and
+	RIM loader programs].  The system can still be restarted in the normal
+	manner because a device-specific bootstrap is placed at 07600 when the
+	"slurp" loader is moved over the system device handler.  Various loading
+	options are available to enhance the loading process by the use of specific
+	command-line option switches, some of which have equivalent meaning when
+	used in certain of the paper-tape utility modes.  For a complete description
+	of all of the functions and options of the BIN program, consult
+	documentation of the P?S?8 BIN program in another document.
+
+ 3)	The HR[eader] and PU[nch] commands were removed in subsequent releases of
+	P?S/8.  A paper-tape-oriented utility to replace both commands has been
+	planned; this will allow more flexible handling of paper-tape text of any
+	size.  A tentative design for the utility follows:
+
+	.PTUTIL outfiles < /F
+	^* [press any key at the ^ prompt; * is printed when the paper-tape input
+	times out or control-Z is encountered in the paper-tape stream.]
+
+*** Should "paper-tape input" above be "paper-tape output"? ***
+
+	A list of TFS output files is passed to the PTUTIL program [up to 17 unique
+	output files can be given in one command].
+
+	If the /F switch is not given, the low-speed reader is used; control-Z must
+	be read to end the input stream [and can be manually typed if necessary].
+
+	The number of output files created is reported on the system console
+	terminal; additional output files [if any] are ignored].  [Note: Future
+	versions of this program will support extended-length files; the support for
+	extended-length files in the 1976 release of P?S/8 is not considered
+	sufficiently robust to contemplate support.]
+
+	.PTUTIL infiles /F =xxxx
+
+	A list of text input files is passed to the PTUTIL program [up to 17
+	unique input files can be given in one command].
+
+	The contents of the passed input files is punched to the high-speed
+	paper-tape punch.  If the high-speed paper-tape punch is not available,
+	output will be directed to the system console terminal.  If /F is not given,
+	the output will be directed to the system console terminal directly.
+
+*** How can "input files" be punched to the high=speed punch?  I thought they were "input files," not "output files."  I think I'm completely not understanding your use of "input vs. output" while discussing PTUTIL. ***
+
+	All output will be preceded by leader characters and followed by trailer
+	characters followed by a sentinel control-Z frame.  The length of the
+	leader and trailer can be adjusted using the =xxxx parameter [default is 100
+	frames of leader and trailer].
+
+*** Please do complete the PTUTIL utility for those of us who have either low-speed or high-speed paper-tape reader/punches.  Please take care of BOTH the high-speed AND the low-speed reader/punches!  (Even though you personally can't stand paper-tape. ;)  I personally have a Teletype Model 33 ASR, but not a high-speed reader/punch, and am unlikely to get lucky enough to obtain a high-speed reader/punch. ***
+
+ 4)	The value printed out by the LA[st] command in the 1976 release of P?S/8 is
+	the number of free 12-bit words in the tentative file.  Since this can be
+	somewhat confusing, this was changed to the number of free characters in
+	subsequent releases.
+
+*** Changed "tenative" to "tentative." ***
+
+ 5)	The LO[ad] command was replaced with the FE[tch] command in subsequent
+	releases of P?S/8 for increased compatibility with DIBOL-8 and COS-300/310.
+
+ 6)	The NU[mber] command was briefly available in circa 1976 releases of P?S/8.
+	Although the goal was to transition to greater compatibility with the
+	DIBOL-8 and COS-300/310 systems [while retaining the equivalent SE[quence]
+	command for backward compatibility], the command was removed in subsequent
+	releases of P?S/8 when subsequent documentation revealed the actual
+	COS-300/310 command for auto-sequenced text entry is the LN[umber] command.
+
+ 7)	The implementation of the R and RU[N] commands was changed in newer releases
+	of P?S/8 which allowed the overhead associated with certain system programs
+	to be minimized.  This was related to the way extended-length files were
+	originally implemented.  Future releases of P?S/8 will lower the overhead
+	further once the extended-length file directory implementation is finalized.
+
+ 8)	The SA[ve] command was replaced with the WR[ite] command in subsequent
+	releases of P?S/8 for increased compatibility with DIBOL-8 and COS-300/310.
+
+ 9)	The SC[ratch] command was replaced with the ER[ase] command in subsequent
+	releases of P?S/8 for increased compatibility with DIBOL-8 and COS-300/310.
+*** This line is an "extra" line. ***
+
+10)	The SE[quence] command was replaced with the LN[umber] command in subsequent
+	releases of P?S/8 for increased compatibility with DIBOL-8 and COS-300/310;
+	the control character to end auto-sequence mode was changed from control-D
+	to Control-Z for increased compatibility with a variety of other DEC
+	operating systems.
+
+11)	The SY[stem] command was replaced with the LC[atalog] command in subsequent
+	releases of P?S/8 for increased compatibility with DIBOL-8 and COS-300/310.
+
+12)	The TY[pe] command was removed in favor of the LI[st] command in subsequent
+	releases of P?S/8 for increased compatibility with DIBOL-8 and COS-300/310.
+	Users of the 1976 release of P?S/8 are encouraged to use the LI[st] command
+	in anticipation of upgrading to a newer release.
+____________________________________________________________________________________
+
+1989 P?S/8 commands and footnotes.
+
+CA[talog]:u
+
+	Obtain a quick TFS directory listing on the console printer.  The output
+	format is four file names per line.  Files are outputted according to the
+	physical order in which they appear.  Empty entries will always be indicated
+	unless physically last in the directory [and thus the first of an indefinite
+	number of inactive directory slots].  [Note: Multiple EN[ter] and KI[ll]
+	operations may cause a series of trailing empty entries depending on
+	specific circumstances.  The CA[talog] command will print out deleted file
+	entries as empty entries as only the very last entry [or the first entry
+	never used] is truly empty by either having never been used, or cleared as a
+	special-case handled by the KI[ll] command.  Thus, depending on
+        circumstances, the directory may contain a series of trailing empty entries
+        indicated in the printout.  [Note: This is a deliberate design decision to
+        partially aid in file recovery; if it is clear there are no indicated empty
+        entries, the latest KI[ll] operation clears the very last active entry, thus
+        making it obvious that a restorative EN[ter] command will recover the
+        affected file.  When there are multiple indicated empty slots, it is harder
+        to determine the former associated name.  By always having all active
+        entries containing unique names, it is possible to recover from the
+        accidental deletion if quickly noticed [before another file is saved over
+        the file slot]; however, not all users abide by this safe technique.
+
+*** Is there an upper limit to the "indefinite number of inactive directory slots" in TFS?  Kind of like the maximum of 112 files allowed in earlier versions of MS-DOS in the "root" directory of a floppy disk?  If there is a maximum number of TFS directory slots, and I suspect there is, then you may want to reword the part above about 'indefinite number of inactive directory slots." ***
+
+	[Arguments can be made regarding brevity of directory printout versus the
+	ability to more easily recover from an accidental file deletion; users who
+	opt for the all slots filled method will find it easier to recover; the
+        other alternative depends on running utilities to observe the deleted file
+        name which shows all of the rest of the file name characters; only the first
+        character is deleted and converted to an internally impossible case.  This
+	method has been copied by other systems such as MS-DOS for the same purpose
+	of helping to undelete files, etc.]
+
+*** Should you change "This method has been copied by other systems..." to something like "This method has also been used by other systems...," since OS developers like Microsoft (I'm guessing) probably never saw P?S/8 in order to "copy" the method of changing the first character to show a deleted file?  Since one group of Programmers (i.e., P?S/8) came up with that method, it seems (to me) to make sense that other Programmers (i.e., Microsoft, et al.) could have also independently come up with the same good ideas? ***
+
+	Newer releases of P?S/8 support an advanced DIRECT[ory] utility with many
+	options.  It may be possible to see the deleted name entry [other than the
+	first character in the name] as an aid to recovering from an accidental
+	deletion [if there are multiple deleted file entries].  The ability to print
+	out the particulars of deleted files will be version-dependent as most
+	releases of the DIRECT program do not support this; all future releases of
+	P?S/8 DIRECT will have this capability as a command-line option.  [Note: The
+	CA[talog] command is a built-in resident feature of the keyboard
+	monitor/editor.  Since the TFS directory is 100% cached, this is the highest
+	level of performance that can be accomplished [sacrificing additional
+	features for speed]; the DIRECT command must be executed; this displaces the
+	entire keyboard monitor [and any tentative file in the editing buffer].  The
+	keyboard monitor/editor will be reloaded after the DIRECT program executes;
+	the CA[talog] command doesn't disturb any aspect of the system [unless a new
+	logical unit suffix is added to the command].
+
+	Both approaches are available in recent releases of P?S/8; most users will
+	find the CA[talog] command is adequate for most immediate needs, running the
+	DIRECT program only for the purposes of some more formal printout [which can
+	be directed to the system lineprinter].  A possible addition to future
+	releases of P?S/8 could include a file UNDELE[te] utility to make the
+        process of recovering from an accidental file deletion somewhat more
+        straightforward.
+
+	To minimally clean up the directory, the KI[ll] command checks to see if
+	the deletion affects the very last active directory slot; if this is the
+	case, the entry is cleared establishing the active end of the directory one
+	slot closer to the beginning of the directory.  If other empty directory
+	entries immediately precede this entry, they will not be automatically
+	removed to possibly aid in file recovery in case of accidental deletion;
+	however, these entries can be removed by entering as many transient file
+	names [meaningful to the user] as is required, then using the KI[ll] command
+        to remove the entries in strictly reverse order.  [As described, this is a
+        deliberate design compromise between cosmetics and file recovery issues.]
+
+	Note: Even with the file name destroyed, as long as the actual file contents
+	have not been overwritten, the EN[ter] command can be used to attempt to read
+	areas of the tape corresponding to the directory entries; the files can be
+	loaded into the editor and inspected; there is no guarantee that anything
+	coherent will be found as in many cases this is merely reading the former
+	contents of the corresponding blocks.  This would be considered the last
+        resort to recover from accidental deletion; attempting recovery by this
+        method does not involve execution of any utility program.  [In the process
+        of attempting  file recovery by this method, the directory will be filled
+        with new file entries chosen by the user; in essence, the method of last
+        resort forces the user to use the recommended method of having all entries
+        pre-filled with arbitrary names convenient to the user.]
+
+*** Changed "file contents has not been overwritten" to "file contents have not been overwritten" above. ***
+*** Changed "atempting" to "attempting" above. ***
+
+EC[ho] [optional 0 or 1]
+
+	Inverts the state of output of command characters if no argument given.
+	EC[ho] 0 forces all output off; EC[ho] 1 forces all output on.  Pressing
+	control-O during any output operation in progress overrides this by
+	immediately reversing the echo state for each control-O pressed.  This
+	command is generally used within BATCH control files to limit output to the
+	system console.
+
+ED[it] [pre-existing line number]
+
+	ED[it] the contents of a specific line number.  The ED[it] command is
+	operated through the use of certain control characters unique to the ED[it]
+	command [as well as most of the control characters that are used throughout
+	the command processor].
+
+	The operation of the ED[it] command is patterned after the FOCAL, 1969
+	MO[dify] command with accommodations to the P?S/8 editing environment which
+	includes features that apply to several operating modes [including the
+	automatic placement of line numbers while entering text].  All control
+	functions operate consistently regardless of mode; additional control
+	characters also apply exclusively to the ED[it] command.  Description of
+	specific control characters that apply follow:
+
+	1) In both the P?S/8 ED[it] command and the FOCAL, 1969 MO[dify] command,
+	   pressing control-G initiates the search mode; the next character typed
+	   will be searched for from the current cursor position until either a
+	   matching character is found in the contents of the line or the end of the
+	   line is reached.
+
+	   In FOCAL, 1969, the MO[dify] operation starts as if control-G were
+	   already pressed; the P?S/8 ED[it] command starts in character insertion
+	   mode after the line number and a <HT> character are printed out on the
+	   system console.  [Note: For more information on the exact printing of the
+	   <HT> character, see the description of the TA[b] command.]
+
+	   At any point within the ED[it] command operation, any keyboard monitor
+	   function is allowed including the addition and deletion of text
+	   characters.  This can effect direct editing of the line number characters
+	   [and trailing <HT> separator character] if desired.  It is possible to
+	   create an alternate line number with contents based on the specified line
+	   number without changing the contents of the specified line.  If the line
+	   number is deleted, it is possible to create a keyboard monitor command to
+	   be executed in place based on the contents of the original line number;
+	   this facilitates the use of common complex commands saved within text
+	   files avoiding the need to type them at each usage.  [Note: It is also
+	   possible to create files containing a single complex command; these files
+	   can be used with P?S/8 BATCH without any form of editing.  By editing out
+	   all other lines in a file containing multiple complex commands, a
+	   temporary file can be created containing only the desired line; depending
+	   on the nature of the command, it may be appropriate to save the file as
+	   one of the positional files $ or % due to their shorter access time.]
+
+	   In FOCAL, 1969, the MO[dify] command will completely close out the
+	   specified line if the search does not match; this can be quite disruptive
+	   and would require an additional MO[dify] [or other] command that in turn
+	   might have to reckon with other changes made along the way prior to the
+	   unexpected line closure.  In the P?S/8 ED[it] command, a failing search
+	   merely outputs all the rest of the characters in the specified line [if
+	   any] and waits for further input [which could include various abort or
+	   restart operations thus preserving the original contents of the specified
+	   line].
+
+*** How does P?S/8 indicate that it waiting for further input? ***
+
+	2) In FOCAL, 1969, control-L is used to search for the same character as
+	   used in previous searches.  In the ED[it] command, control-A is used to
+	   search for the same character as used in previous searches.  Note: If no
+	   prior searches have been performed, control-A will output the rest of the
+	   line contents [if any] to the system console terminal and wait for further
+	   input.
+
+*** Changed "futher" to "further." ***
+
+	3) In FOCAL, 1969, control-J [<LF>] prints out all remaining characters in
+	   the line on the system console terminal; additional editing can be
+	   performed ending with control-M [<CR>] to close out the line.  In recent
+	   releases of P?S/8, control-F performs the identical function.
+
+	4) In the ED[it] command, control-J [<LF>] will output <CR>/<LF> and then
+	   the current tentative line contents to the system console terminal.
+	   This is especially useful throughout the keyboard monitor when using
+	   hard-copy console terminals which generally require the display of
+	   deleted characters [which can be confusing].
+
+*** Changed "<CR>/<LF" to "<CR>/<LF>." ***
+
+	5) Control-U will completely restart the Edit operation; this includes
+	   the printing of the opening line number and <HT> characters on the system
+	   console terminal.  No changes have been made to the specified line.
+
+	6) The FOCAL, 1969 MO[dify] command documentation makes reference to a
+	   back-arrow key used to delete all text already processed and output to
+	   the system console terminal.  This character was eventually phased out of
+	   the official ASCII character set and replaced with the underscore
+	   character, which is not considered to be appropriate for such
+	   functionality.
+
+*** Changed "Mo[dify]" to "MO[dify]." ***
+
+	   In the ED[it] command, control-K will delete all characters in the line
+	   already output on the system console terminal.	
+
+*** Changed "Control-K" to "control-K." ***
+
+	   Note: If the ED[it] command has not modified the line number, the line
+	   number and <HT> will be preserved and will output to the system console
+	   terminal.  If the line number has already been modified/deleted, it will
+	   not be restored [unless control-U is used to restart the ED[it] command].
+
+	7) The control-H [<BS>] character is used to delete the previous character
+	   in the buffer.  This functionality is also provided by pressing the
+	   DEL [<RO>] key or the underscore key [formerly back-arrow] on the system
+	   console keyboard.
+
+*** I recommend perhaps adding an appendix translating these "old" ASCII symbols to what they mean/meant.  New users will be younger & younger and many may not even know what ASCII is and that even that the standard changed several times as computer & peripheral technology advanced. ***
+
+	   The exact nature of how this function is carried out is a function of
+	   various settings within the keyboard monitor.  For most hard-copy
+	   terminals, each usage echoes the previous character which is now deleted.
+	   [Note: In some P?S/8 releases, all deleted characters can be surrounded
+           by "\" characters to indicate the deletion of the entire group; insertion
+           of a new character outputs the second "\" character to finish the
+           visual enclosure of all deleted characters (which were output in reverse
+           order as they were deleted; this is identical to the equivalent setting
+           used in the TOPS10 system).]
+
+*** Changed "to finishing" to "to finish." ***
+
+	   For CRT-type terminals, the general support is to output <BS> <SP> <BS>
+	   to visually obliterate the deleted character;  Certain versions of P?S/8
+	   also support custom terminal handling for common DEC terminals [such as
+	   VT05, VT52 and VT100].  For more information, type SET /A for a list of
+	   available terminal customizations and related issues.
+
+EN[ter]:u filnam:u
+
+	A specified [or default from a prior file name command] file name is entered
+	into the directory; no actual file storage is modified.  This can be useful
+	for recovering accidentally deleted files or preselecting multiple file
+	names for later use to take advantage of relative file placement for maximum
+	efficiency.
+
+	On certain tape systems, some programs can access the contents of files
+	faster if the files are arranged in an interleaved manner; the EN[ter]
+	command can setup the proper file placement prior to any actual editing
+	operations.
+
+	For example, on TC01/TC08/TC55/TU56 systems, it is impossible to access
+	adjacent files without causing a tape turnaround.  [Note: This is a hardware
+	restriction.  If a DECtape handler allowed tape motion when the handler
+	exits, the tape would always eventually wind into the forward end zone; the
+	
+*** Do you mean the forward end zone or the "end" end zone, or whatever you call the header at the end of the tape?  That seems to be what you're talking about here, based on directions of the tape movements. ***
+	
+	next tape operation would first have to rewind the tape to just below the
+	desired initial tape block, then turn around to cause forward tape motion.
+	Since every call to the system device handler stops the tape, the next call
+	must be to an area slightly further up the tape and not immediately adjacent
+	for a forward initial search to be effective.  In the specific case of TFS
+	files, this means attempts to access the immediately adjacent file will
+        cause a tape turnaround; accessing a file an additional file slot [or more]
+	further up the tape will start with forward motion and the tape operation
+        will successfully finish without a tape turnaround.
+
+*** Didn't you say in another document or email that due to inertia, the tape will coast 2 (or 3) blocks(?) past where the controller tells it to stop?  How does that "space" compare to the size of a TFS file?  If the tape coasting is consistent, then you may be able to eliminate the "[or more]" above. ***
+
+	Thus, by arranging the files of a project in an interleaved order, access to
+	the files is greatly increased.  The interleave can be accomplished either
+	by having files from an unrelated project inter-digitated with the current
+	project files, or the project files can be split into halves, with the
+	second half files between the first half files; there would be no
+	turnarounds in the former case and one turnaround in the latter case due to
+	having to rewind to access the second half files.
+
+*** Changed "inter-digitated" to "interdigitated." ***
+
+	The "slurp" binary loader for TC01/TC08/TU55/TU56 always starts with an
+	initial forward search to more quickly access the binary files, which are
+	generally located further up the tape from the loader code image.  The
+	interleaved file approach will increase file access for binary files as this
+	improves the loading process as well; as such, it would be prudent to
+        interleave binary output files with the source code files of the same
+        project.  Both sets of files will be accessed in an optimal way by the
+        programs generally associated with these files [respectively PAL for source
+	code files and the BIN binary file loader for "slurp" binary files].  See
+        Note 1.
+
+ER[ase] [line-number-range]
+
+	All lines in the specified line-number-range are removed from the tentative
+	file.
+
+	The ER[ase] command is often used to split a file into two smaller files
+	when the file is nearly full.  A split-point line number is determined to
+	separate the contents of the current file.  [Note: beginning users are
+	advised to make a backup copy of the file before attempting this to avoid
+	data loss.]
+
+	First, all lines from the split-point onward can be deleted by using the
+	command ERASE XXXX- [where XXXX is the chosen split-point line number] which
+	creates the smaller file which consists of all lines up to the split-point.
+	The buffer should be saved into the file designated to contain the first
+	part of the former file.
+
+	Second, the complete file should be reloaded; all lines from the beginning
+	of the file through the split-point should be deleted using the command
+	ERASE -YYYY where YYYY is the value XXXX above less 1] which creates the
+	smaller file which consists of all lines beyond the split-point.  The buffer
+	should be saved into the file designated to contain the second part of the
+	former file.
+
+	[Tip: Since the line number used in the ranges given to the ER[ase] command
+	need not exist [and merely serves as a limit], a line that is exactly one
+	lower than the intended split-point [and non-existent] can be used in both
+	operations when splitting the original file.]
+
+	[Tip: The method illustrated is an example of one way to accomplish the
+	splitting operation.  By using equivalent alternative steps, the same net
+	result can be achieved by first saving the ending portion of the original
+	file then creating the beginning portion.]
+
+	[Tip: Seasoned users will reuse the original file name as one of the two
+	descendant files; only one additional file need be specified within the
+	overall stream of project files; the commands used to pass a stream of files
+	to a system program [PAL, FOCAL, etc.] should be updated accordingly.]
+
+	[Observation: Many competing systems require full-file editing; this means
+	that sufficient space on the storage device is tied up for roughly twice the
+	size of the entire project at the point of any editing operation; later the
+	obsolete copy is released, generally amounting to an inadequate smaller
+	portion of the storage device that eventually leads to serious fragmentation
+	and overhead issues.  By limiting editing to fixed size portions of the
+	project, it is only necessary to periodically allocate an additional file
+	at a time to resolve line number problems by splitting the file as described
+	here.]
+
+	[Note: After repeated editing operations on the set of files that encompass
+	a source file project, certain files will tend to be nearly full while
+	others may be more sparsely populated.  This can be remedied by periodically
+	using the CONVRT program to create a single file in OS/8 format, then use
+	CONVRT to recreate the source files; CONVRT standardizes the usage of each
+	file thus eliminating problems of variation in file usage.  A report is
+	given of how many files were created; it is conceivable the repacked file
+	set could occupy less files total.]
+
+*** Would "variation in file usage" really mean "variation in file storage"? ***
+
+
+FE[tch]:u filnam:u
+
+	A specified [or default from a prior file name command] file name is located
+	within the TFS directory; the file contents are loaded into the tentative
+	file buffer.  Keyboard monitor/integrated line editor commands may be used
+	to examine or modify the contents of the tentative file buffer.  The
+	original file is unchanged unless an explicit WR[ite] command is performed.
+	[Note: Attempts to fetch non-existent files will cause an error message.]
+
+HA[lt]
+
+	The computer is HA[lted].  Press "Continue" [or equivalent if available] to
+	restart the keyboard monitor in the state it was prior to halting.
+
+	Do not use this command on systems that do not support the "Continue"
+	functionality; the only remedy would be to perform a system restart which
+	would reload the keyboard monitor without saving the current tentative file
+	or other current particulars.
+
+	[Note: It is merely a vicious and unfounded rumor that the command also
+	causes the machine to catch fire.  The PDP-8 supports the HLT instruction to
+	stop program execution; it is the stuff of legend there is the HCF
+	instruction to both halt and catch fire; P?S/8 uses the HLT instruction
+	which would tend to cool the computer.]
+
+*** I went back and looked.  The TV series' first season was 2014 on AMC.  I don't know how many episodes they made though.  Something about PC-era micros. ***
+
+KI[ll]:u filnam:u
+
+	KI[ll] [delete] a file from the TFS directory.  This can be reversed by
+        using the EN[ter] command as long as the affected file slot is the first
+        empty available in the directory; unrelated file name entries can be
+        EN[tered] as necessary to ensure the proper directory slot is restored.
+        [Note: It is highly recommended all available directory slots are EN[tered]
+        before use to avoid potential accidental file deletion problems.]
+
+LA[st]
+
+	This command outputs the line number of the highest existing line [if any]
+	to the system console terminal.  All line numbers must be less than 2047
+	[which is normally the case].  [Note: Perverse resequencing operations can
+	cause an overflow condition.  If required, the situation can always be
+	rectified without file loss by using smaller line number increments in a
+	subsequent resequence operation [such as merely using the default values].
+	If the user has some familiarity with the contents of the particular file,
+	the LA[st] command can confirm the highest line number is in range; if the
+	line numbers overflow, listing the file contents will show lack of proper
+	line number order.  After a valid resequencing operation, the file will
+	again show orderly line numbers; the LA[st] command will output the highest
+	line number as expected.]  [Note: In all releases of P?S/8, resequence
+	operations perform an automatic LA[st] command; if the user is familiar with
+	the file contents, the effects of line number overflow will be immediately
+	evident.]
+
+*** Since this 198x P?S/8 section is so similar to the 197x P?S/8 section, many of my questions and comments in the 197x section apply here too.  I probably also missed some nit-picks from one section to the other, even though the text may be exactly the same in subsections. ***
+
+LC[atalog]:u
+
+	The device logical unit [:u] specified in the LC[atalog] command is selected
+	as the new logical unit for all subsequent file-oriented logical unit
+	purposes.  If the :u construct is omitted or the previous logical unit and
+	the new logical unit are identical, the command is ignored.  As required,
+	the corresponding TFS directory on the new logical unit is read into memory
+	replacing the previous one.  [Note: For all operations of the keyboard
+	monitor and integrated editor, the TFS directory on the current logical unit
+	is 100% resident in memory; in many instances, this causes an extraordinary
+	decrease in file access time.]
+
+	The LC[atalog] command merely changes the logical unit without otherwise
+	performing another action.
+
+	Tip: If a series of operations must be performed on a particular logical
+	unit as specified within a BATCH file, the first operation must effect a
+	change to the intended logical unit.  When a BATCH file is created, it is
+	often not possible to determine the intended logical unit until the actual
+	configuration is finalized.  The LC[atalog] command can be used to
+	initialize the set of commands placed further into the BATCH file stream
+	[all without local logical unit settings] along with other appropriate
+	initialization such as a series of console messages or PL[ease] commands as
+	required.  [Note: The LC[atalog] command can be located in a separate
+	initialization file; BATCH operations can be performed with as many as 17
+	passed control files.]
+
+LE[ft]
+
+	The internal free character count within the tentative file is output to the
+	system console printer.  As more text lines are added to the file, this
+	value decreases.  A full file condition occurs when there is insufficient
+	space in the file buffer to include the latest line in the command-line
+	buffer; a warning message is issued and the latest command-line contents are
+	lost.
+
+	The LE[ft] command can serve as a warning mechanism regarding a file being
+	nearly full allowing corrective remedies [such as splitting the file into
+	two independent files] to be applied.
+
+	All TFS files are exactly 2048 12-bit words long [theoretically equivalent
+	to 4096 characters].  There is always a four word reserved area thus an
+        empty file will show 4088 characters free.  For each line stored in the
+	file, two additional words are used for line number and internal line
+	pointer purposes.  [Note: Since the contents of each line starts on a 12-bit
+	word boundary and has an associated starting address pointer, all file
+	modifications are performed nearly instantaneously.]  The text is stored two
+	sixbit characters per word [including the end-of-line character] with
+	perhaps an additional half-word required for alignment purposes.
+
+*** Should you change "Since the contents of each line starts on..." to "Since the content of each line starts on..."?  I think so, but a beginning migraine makes it hard to decide. ***
+
+	It is advisable to leave a reasonable reserve of free space in every file
+	for future editing [to avoid losing the latest line typed into the
+	command-line buffer].  For most users, it is advisable to close out one file
+	[and then open a new file] when the count gets below 200 characters.
+
+LI[st] [line-number-range]
+
+	All lines in the specified line-number-range are outputted to the system
+	console terminal.  [Note: Output formatting is affected by the current
+	horizontal tab setting as each line of output starts with the line number
+	followed by <HT>.  Additional <HT> characters within the file are also
+	affected by the horizontal tab setting.]
+
+LN[umber] [optional-starting-line-number] [optional-line-increment]
+
+	Auto-sequenced input is initiated starting at the specified
+	optional-starting-line-number [line 100 is none given].  Subsequent lines
+	are incremented by the optional-line-increment value [default is 10 if none
+	given].
+
+*** Changed "[line 100 is none given]" to "[line 100 if none given]." ***
+
+	During text entry, it is possible to delete all or a portion of the
+	sequence number to execute another command [or perhaps change the line
+	number that applies].  Auto-sequence mode can be terminated by pressing
+	control-Z.  The standard P?S/8 text character set applies; lower-case
+	characters will be "folded" to the upper-case equivalent.
+
+LT[ext] [line-number-range]
+
+	The contents of all lines in the specified line-number-range are directed to
+	the system console terminal without the associated line numbers.  [Note: The
+	command name is derived from the action of listing only the text in the
+	file.]  This is the fastest form of file contents display, which can be
+        helpful on slow system console terminals such as the Teletype Model 33.
+
+*** Changed "model 33 teletype" to "Teletype Model 33." ***
+
+*** I'm assuming that while the Teletype Model 33 ASR was the most used, the Teletype Model 33 KSR was sometimes used as just a "terminal" (with only a keyboard & printer), and the Teletype Model 33 RO was rarely ever used with PDP-8s since it could only print. ***
+
+	Tip: To decrease printing time still further [at the expense of cosmetic
+	formatting], horizontal tab disposition should be set to output a single
+	space character for every <HT> character in the file with the TA[b] 0
+	command [or the analogous SET TAB SINGLE utility program option if it is
+	desirable to permanently change the default setting].
+
+MO[nitor]
+
+	The MO[nitor] command exits the keyboard monitor; the system is rebooted
+	by restarting the computer at 07600; this is entirely equivalent to a manual
+	restart at the same address.
+
+	[Note: Using the MO[nitor] command in BATCH files may change the overall
+	flow of BATCH operations depending on specific BATCH options chosen.  A
+	BATCH file under development may include the MO[nitor] command to
+	temporarily limit the overall scope of the BATCH file as necessary.  See
+	documentation of the P?S/8 BATCH utility elsewhere for more information.]
+
+*** Changed "necesary" to "necessary." ***
+
+PL[ease] [character string]
+
+	Executing the PL[ease] command will display the entire command line
+	[including any character string past the command] on the system console
+	terminal.  All operations are paused until any character is pressed [which
+	will otherwise be ignored].
+
+	A typical usage of the PL[ease] command is within a BATCH file to allow some
+	external action to be applied:
+
+	^^ GET PROGRAM LISTING BATCH CONTROL FILE.
+	^^
+	^^ LAST EDIT: 07-APR-2015 CJL
+	^^
+	.PLEASE TURN ON THE SYSTEM LINEPRINTER OR PRESS CONTROL-C TO ABORT ...
+	<a character is pressed by the operator; it is not echoed.>
+	^^
+	^^THANK YOU FOR ENABLING THE LINEPRINTER; CONTINUING ...
+
+	Certain P?S/8 programs output to the system lineprinter [if available] or
+	the system console terminal if the lineprinter is not available.  [Some
+	programs have command-line options to prevent locating the lineprinter; the
+	default is to attempt to use the lineprinter.]  By inserting appropriate
+	lines into the BATCH file similar to the above example, the BATCH can be run
+	as intended.
+
+*** Changed "approptiate" to "appropriate." ***
+
+	Note: All of the active control characters are monitored for their normal
+	function during the command pause initiated by the PL[ease] command; the
+	system remains paused until another non-control character is pressed.
+
+	[Note: The PL[ease] command can cause the system to be paused while
+	character echo is off.  When designing BATCH scripts, it is recommended the
+	control file output appropriate messages before and after executing the
+	PL[ease] command to prevent confusion.]
+
+R system-program-name [options]
+
+	Execute the specified system program.  Various optional parameters are
+	allowed:
+
+	1) File names.
+
+	   An optional list of output files or input files [or both] can be passed
+	   to a system program.  Output files [if any] must precede input files [if
+	   any].  The maximum number of files allowed is 17.  [Note: Specific system
+	   programs may have further restrictions on this total.]  Output files are
+	   indicated by the < character after the last output file; input files [if
+	   any] follow all output files [if present].
+
+	2) =xxxx parameter.
+
+	   This is generally a value expressed in octal in the range of 0000 through
+	   7776.  While 7777 cannot be used with the =xxxx parameter, the default
+	   value of 7777 is passed when the =xxxx is not used.  [Note: Certain
+	   system programs allow the use of the current radix for the =xxxx
+	   parameter; most programs force the use of octal notation.  If decimal
+	   radix applies, the same values are expressed as 0000 through 4094; 4095
+	   is the default value passed when the =xxxx is not used.]
+
+	3) Option switches.
+
+	   The option switches include /A through /Z and /0 through /9.  When
+	   expressing switches in groups, the / is replaced with a ( followed by an
+	   indefinite number of option switches; the group may optionally be closed
+	   with a trailing ) character.
+
+	All options can be included at any point after the system program name; all
+	values [other than the file name lists] can be specified redundantly without
+	error.  Space and <HT> characters are allowed between values freely to
+	clarify the command formation if desired.  To maintain backward
+	compatibility with the R-L Monitor System, the "," character is also allowed
+	as a file name separator [with or without additional space or <HT>
+	characters.  The > character is allowed before all input files even if no
+	output files are specified.
+
+*** Changed "the , character" to "the "," character" above, based on your question at the end of this document. ***
+
+	The positionally optimized file names % and $ can be used in any situation
+	where a file name is allowed.  Output files will be entered into the TFS
+	directory if they do not exist presently.
+
+	Choice of input and output file specification.
+
+	As of the 1989 release of P?S/8, the R command can also be expressed with
+	the lists of files reversed.  To place input files before output files, the
+	> is used as the separator.  This allows more flexible command formation
+	reminiscent of certain newer operating systems.  Seasoned users will likely
+	prefer the original method; newer users will likely prefer input files first
+	since most modern operating systems form analogous commands in this order.
+	[Note: By having both methods available, P?S/8 remains neutral on this
+	design issue; however, regardless of command form, output files are always
+	processed before input files as discussed below.]
+
+	Logical unit considerations.
+
+	The default logical unit for file names is the current logical unit possibly
+	updated by the use of various commands that might have changed this from the
+	default value of the bootup logical unit.  The default logical unit for the
+	system program is the bootup unit.  Both the system program and all files
+	can override the prevailing defaults with explicit use of the :u construct
+	as used in various other keyboard monitor commands.  With regard to
+	filenames, should the logical unit be changed, it will affect all additional
+	filenames unless a further change is made.  An arbitrary feature of the
+	design is the output files are processed first.
+
+	Concise system program execution.
+
+	Where allowed [not in conflict with keyboard monitor commands regarding the
+	first two characters of the program name] it is possible to invoke the
+	system program directly.  Depending on the release, this may cause the
+	command process to finish sooner [due to lower internal overhead] or in some
+	specific cases, the only productive way to use the command may be to avoid
+	the use of the R command form entirely.  [Note: There are issues with regard
+	to the disposition of the tentative file buffer during the processing of the
+	R command; these issues do not apply when the concise form is invoked.]
+
+*** Should you, in some document, explain the "Note" above? ***
+
+	Note: Depending on the specific release of P?S/8, certain system programs
+	might require the use of the R command to initiate program execution;
+	however, none of these programs ordinarily interact with the tentative file
+	buffer.
+
+	Extended-length File Issues.
+
+	Most P?S/8 system programs are capable of reading the textual content of
+	files of indefinite length which are created by conversion utilities,
+	generally from OS/8 or other file structures made available on specified
+	logical units to be read by the system device handler as an image processed
+	by the specific utilities.  [Note: In certain cases, the conversion
+	utilities use internal handlers to access the device because the data blocks
+	are not compatible with P?S/8 (or OS/8) handler conventions.  A good example
+        of such a utility is the L6DCON program which converts files between P?S/8
+	and the LAP6-DIAL operating system; the program can only be run on either
+	the LINC-8 or the PDP-12 to access 256 words/block LINCtapes; the P?S/8
+	aspects of this program function in an analogous manner to the OS8CON
+	program which uses the P?S/8 system device handler for all operations due to
+	the similarity of P?S/8 and OS/8 internal structures at the device level.]
+
+*** Please define "indefinite length" in "files of indefinite length" above, perhaps in a "Note."  I first read it as "infinite length," but quickly knew that I was wrong for obvious reasons based on physical limitations of PDP-8 file storage hardware & memory size(s). ***
+
+	When used as input to most system programs, these files can be passed in the
+	same manner as TFS input files [since most programs ignore the line number
+	data].  See Note 2.
+
+*** Should "...since most programs ignore..." be changed to "...since most system programs ignore..."?
+
+	The OS8CON program properly handles extended-length output files using the
+	1989 definition of the extended-directory format.  Future releases will
+	streamline the implementation requiring a corresponding update to OS8CON and
+	related utilities.  This will have no impact on the user.  [Note: There were
+	plans to allow multiple extended-length files per device; as such, there are
+	partially-implemented structures for this tentative support.  This entire
+	line of system development is being abandoned in favor of the P?S/8 SHELL
+	overlay, which is far more comprehensive and uses an entirely different
+	model.  Each logical device will continue to support one extended-length
+	file which is compatible with virtually all current usage of P?S/8.  The
+	SET command will be upgraded to better support extended-length files to
+	allow user name preference.]
+
+RA[dix] [10 or 8]
+
+	When the RA[dix] command is invoked without an optional parameter, the
+	radix for all numerical input or output is reversed to the opposite of the
+	current value in effect.  This applies to all contexts where a numerical
+	value may be expressed including file line numbers, passing parameters to
+	programs using the =xxxx construct [under certain circumstances] and the
+	numerical output of commands such as LA[st] and LE[ft].
+
+	The radix can be set by passing an explicit parameter: RADIX 10 will set
+	the radix to decimal; RADIX 8 will set the radix to octal.  [Note: The
+	current radix does not effect the interpretation of the passed parameter as
+	the current radix is saved and then set internally to decimal.  If the
+	command fails due to improper input, the previous radix is restored.]
+
+*** Changed "affect" to "effect" above. ***
+
+	Changes made with the RA[dix] command revert to the system default value
+	upon system restart; the scope of the RA[dix] command is within the current
+	keyboard monitor session only.  While the usual overall default is decimal,
+	this may be changed using the SET RADIX EIGHT command.
+
+*** So, the default radix is set to 10 when you start up P?S/8?  I would have thought it to have been 8 since octal is used when programming PDP-8s? ***
+
+	The radix chosen for most work is a user preference setting.  Certain
+	limited examples of octal output may be useful to explain basic PDP-8
+	assembly concepts as illustrated below.
+
+	.RADIX 8
+
+	.LNUMBER 177 1
+
+	 177 		*200			/SET THE DESIRED ORIGIN.
+	 200 	BEGIN,	TAD	(7)		/GET A <BEL> CHARACTER.
+	 201 		TLS			/RING IT.
+	 202		JMP I	(7600)		/RESTART THE SYSTEM NOW.
+
+
+	[Note: The above example is not an actual assembly but it does cosmetically
+	resemble a simplified assembly listing.  Beginners can learn certain
+	practical aspects of assembly language before mastering additional concepts
+	needed to carry out assembly language programming on a more complete basis.
+	Since the line numbers are permanent [assuming the tentative file is saved],
+	small changes can be made which will reflect the way the program actually
+	loads into memory.]
+
+RE[sequence] [optional-starting-line-number] [optional-line-increment]
+
+	The RE[sequence] command reorders the line numbers within the tentative file
+	as specified by the optional-starting-line-number and
+	optional-line-increment accordingly.  After the resequencing operation
+	[which is carried out virtually instantly], all file lines will be in
+	equal increment order.  Note: No changes are made to the text contents of
+	nor the relative order of the lines; however, all future references to the
+	lines must be made with the new line number values.
+
+*** What "future references to the lines" apply here?  Perhaps only BASIC programs with its GOTO, et al., commands? ***
+
+	Resequencing is required when a section of a file has been heavily modified
+	adding in lines with numbers in between original lines.  This can leave
+	little room for additional line numbers within the section.  By setting
+	relatively large line increments, it is possible to set aside sufficient
+	number space in the file for the purpose of adding lines [typically with an
+	increment of 1].  Depending on the scope of the editing operation, it may be
+	necessary to resequence the file more than once.
+
+	[Tip: Assume a file is sequenced with an increment of 10.  This would mean
+	there is the possibility of adding in lines 101 through 109 between line 100
+	and line 110.  The ED[it] command can be used to create a line 129 from the
+	contents of line 120 [which can then be deleted].  By changing that one
+	line, there is now the possibility of adding in lines 101 through 128.  If
+	the file is resequenced [or was created with even larger increments] then
+	more than enough line number space can be available for any reasonable edit.
+	[Note: In larger editing situations, the limiting factor may be file
+	capacity; it may be necessary to split the file into two independent files.]
+	Once a file is stable, it is always recommended to perform a final
+	resequence operation to the default values.]
+
+	After the resequencing, an automatic LA[st] command is performed.  All line
+	numbers must be in the range of 0 through 4094 [0 through 7776 in octal
+	radix].
+
+*** I still don't understand why the line numbers must be less than or equal to 4094 decimal.  Please explain in a (short?) "Note" if possible. ***
+
+	[Note: It is possible to overflow the line number range by either using a
+	starting line number that is too high or a line increment that is too large;
+	this can always be remedied by using smaller parameters such as the default
+	values of starting at line 100 with a line increment of 10.]
+
+RU[n] system-program-name [options]
+
+	The RU[n] command is essentially redundant to the R command; all
+	considerations apply equally to RU[n] as to R.  See Note 2.
+
+*** Changed "note 2" to "Note 2."
+
+TA[b] [0 3 5]
+
+	The printing disposition of the <HT> character within the keyboard monitor
+	can be customized in various ways to achieve the usual DEC-compatible
+	alignment to the nearest eight spaces.  All <HT> characters are affected
+	such as the printed separation between the line number and the text of a
+	file line, or <HT> characters within the file.
+
+*** I've already mentioned it above, but please make a short Appendix to define the characters you use, like <HT>, et al., for the younger people who have never seen or experienced the ASCII Standards.  I think you want P?S/8 to be understandable & usable by people in the future after we are gone.  Most of them will have to use emulators because of the rarity of hardware such as peripherals that are affected by the characters like <CR>, <LF>, <HT>, et al. ***
+
+	The <HT> character can be displayed in one of four different modes:
+
+	1) TAB <none>	The <HT> is printed as an actual <HT> character; the system
+			console terminal must support DEC-compatible tab stops every
+			eight columns.  This is the most efficient operating mode
+			assuming there is hardware support for the <HT> character;
+			this is generally true on modern terminals or terminal
+			emulators.
+
+	2) TAB 5	This mode is similar to 1) above except <NUL> characters are
+			used as filler characters as required for custom support of
+			the Teletype Model 35.  The exact number of filler
+			characters required is dependent on the relative position of
+			the carriage within the latest eight-position tab stop.  For
+			certain positions, two filler characters are required; for
+			some others one filler is sufficient.  For two specific
+			positions, no filler is required.  [Note: This is the
+			correct method to handle this output device; in certain
+			software systems, the terminal is incorrectly handled by
+			always using one filler character.  This is a needless delay
+			in some instances and inadequate delay in others which will
+			lead to printhead smearing.]
+
+*** Changed "model 35 teletype" to "Teletype Model 35."  I'm being picky on Teletype terminology because "Teletype Model 35" is how Teletype labeled it, for example. ***
+*** Changed "posiitons" to "positions" above. ***
+
+	3) TAB 3	This mode simulates horizontal tab stops by outputting the
+			proper number of characters to maintain alignment [such as
+			would be required on a Teletype Model 33 with no actual
+			horizontal tab support].  This is the slowest operating mode
+			which has the single advantage that it will work on all
+			console devices.
+
+*** Changed "model 33 teletype" to "Teletype Model 33" above for the same nitpicking reasons. ***
+
+	4) TAB 0 	The <HT> character is printed as one space character; this
+			is useful when the system console terminal is very slow and
+			the full cosmetic effect of tabbing is considered a poor
+			trade-off of appearance versus print time.
+
+*** Changed "tradeoff" to "trade-off" above, since that's how the Merriam-Webster dictionary spells it. ***
+
+	The TA[b] command allows temporary override of the permanent setting of the
+	<HT> disposition.  Users of slow terminals such as the Teletype Model 33 may
+	change the operating mode from TA[b] 3 to TA[b] 0 to more quickly get a raw
+	listing at times while primarily using TA[b] 3 for most purposes.
+
+*** *** Changed "model 33 teletype" to "Teletype Model 33" above. ***
+
+	The support for TA[b] 3 is the system default for maximum compatibility.
+	This can be customized for any particular system using the system SET
+	utility.
+
+WR[ite]:u filnam:u
+
+	The tentative file buffer contents will be saved in the stated [or implied
+	from a prior file name] file.  The TFS directory will be updated first to
+	allocate a new file slot if necessary; if the slot exists, the file will be
+	written out directly.  [Note: On a system based on DECtape or other serial
+	access devices, the time savings when updating a file can be profound.]
+
+*** Changed "On system..." to "On a system..." above. ***
+
+^^ [optional comment string]
+
+	^^ is a non-action command to the keyboard monitor [and is equivalent to the
+	REM statement as implemented in most BASIC implementations or C[omment] as
+	implemented in FOCAL, 1969].  It can be used alone or with an optional
+	trailing string of additional characters which are ignored.  This is often
+	used as internal documentation within BATCH files.
+
+	[Tip: The output of BATCH files can be controlled by judicious use of the
+	EC[ho] command.  As such, the ^^ statement can be used to document internal
+	operations of the BATCH file or may be deliberately sent to the system
+	console printer as part of the overall BATCH operation.  It is often used in
+	conjunction with PL[ease] commands to acknowledge the operator's response.]
+____________________________________________________________________________________
+
+Notes:
+
+1)	Binary loading of P?S/8 "slurp" binary files is accomplished using the P?S/8
+	BIN system program utility.  This program actually has several operating
+	modes initiated by various command-line option switches which enable one of
+	several paper-tape utility modes; the default mode is to load the "slurp"
+	loader which is the only exception to the normal permanent residency of the
+	system device handler [other than when loading the binary paper-tape BIN and
+	RIM loader programs].  The system can still be restarted in the normal
+	manner because a device-specific bootstrap is placed at 07600 when the
+	"slurp" loader is moved over the system device handler.  Various loading
+	options are available to enhance the loading process by the use of specific
+	command-line option switches, some of which have equivalent meaning when
+	used in certain of the paper-tape utility modes.  For a complete description
+	of all of the functions and options of the BIN program, consult
+	documentation of the P?S/8 BIN program in another document.
+
+*** Changed "P?S?8 BIN" to "P?S/8 BIN" above. ***
+*** Will you write a document completely describing the "slurp" loader, if it's not already in the "big document"?  New (especially younger) users won't have a clue as to what it is, what it is used for, etc. ***
+
+ 2)	In an ongoing development effort to lower the internal overhead of the R and
+	RU[N] operation which was started in earlier releases of P?S/8, future
+	releases will handle extended-length files in a manner consistent with the
+	planned simplified directory structure.  Overall command execution and
+	keyboard monitor swaps [where relevant] will occur faster; in certain
+	instances, system programs that act as overlays to the keyboard monitor will
+	have increased access to resident routines.  There will be no impact on the
+	user interface once these changes are made.
+____________________________________________________________________________________
+
+Appendix A.
+
+P?S/8 keyboard monitor command names and related design considerations.
+
+The P?S/8 keyboard monitor and integrated editor commands are stored internally in
+block 0013 of the system device as a table of two word entries:
+
+1) A 12-bit word containing the six-bit code for the command [inverted],
+
+2) The 12-bit address of the command within the keyboard monitor and integrated
+   editor as loaded into memory.
+
+The entries repeat until an internal terminator past the last command entry.  It is
+possible to modify the table to prevent certain commands if desired; all standard
+systems allow all commands per se.  [Note: The ED[it] command is inhibited during
+BATCH operations only.]  There is no defined order to the implemented commands; for
+the most part, they are implemented in alphabetical order.
+
+*** Changed "commmands" to "commands" above. ***
+
+While not necessarily ever implemented, various command name changes have been
+considered for the P?S/8 keyboard monitor and integrated line editor.  Some of these
+ideas and related issues follow:
+
+ 1) The PA[use] command was first used in the R-L Monitor System.  Since this is in
+    conflict with [at the very least] the PAL program for concise program execution,
+    the command was changed to PL[ease] first in DIBOL-8, COS-300/310 and then
+    P?S/8 some time after the earliest release of COS-300.  As a result, practical
+    usage of the command is to embellish it to PLEASE which represents a slight
+    shade of distinction in the scope of the usage of the command to alert the
+    operator to some issue that must be resolved immediately.  The ^^ command [which
+    does nothing but output the entire command line unless echo is turned off] is
+    often used as a follow-up command:
+
+*** Changed "followup" to "follow-up" above because the Merriam-Webster dictionary & others spell it that way.  (However, in the UK, it appears to be spelled as "followup" (by "The Daily Beast," at least sometimes.) ***
+
+    .PLEASE ENABLE THE LINE PRINTER FOR SUBSEQUENT ASSEMBLIES. [The operator presses
+    any key on the system console terminal keyboard and system operation continues,
+    presumably in BATCH mode.]
+    .^^ THANK YOU
+
+ 2) The SE[quence] command was first used in the R-L Monitor System; this usage
+    remained until the 1976 releases of P?S/8.  Since this is in conflict with
+    utility programs such as SET [which in the 1976 release of P?S/8 is known as
+    VARY], the command was changed in DIBOL-8, COS-300/310 to LN[umber].
+
+    P?S/8 was released in several stages of transition.  The 1976 release of P?S/8
+    still supports the SE[quence] command; however a short-lived NU[mber] command
+    was also present with the same functionality.  Newer releases of P?S/8 delete
+    both the SE[quence] and NU[mber] commands in favor of the LN[umber] command.
+    [Note: It is conceivable that tentative information about the command change in
+    DIBOL-8 was subsequently corrected to LN[umber]; however, the information was
+    unofficially communicated to the designers of P?S/8 as NU[mber].  As such, the
+    original SE[quence] command was not removed at that time until better
+    documentation was available which shows the actual command is LN[umber].  When
+    DIBOL-8 was first released, it was difficult to obtain documentation; the
+    product was rushed to market.
+
+    Note: It is a well-known fact that DEC management was unaware that the DIBOL-8
+    system was actually a hacked-up version of the R-L Monitor System, a product
+    they had already rejected when offered to them gratis; they simply could not
+    comprehend that this was a complete operating system at the time far better than
+    most of their other software.  In future years, P?S/8 was also offered to DEC
+    management for the "price" of permanent equipment donation to the Brooklyn
+    Polytechnic Institute [now a division of NYU] [which DEC could have easily
+    written off and perhaps even obtain a net profit; certain equipment was LOANED
+    to the school; however, negotiations broke off with regard to making the computer
+    [a PDP-12] become permanently the property of the school [despite the fact that
+    this system was near the end of its economic lifetime and would have to be sold
+    as a used system].  P?S/8 was shown to DEC personnel twice; each time,
+    indifferent managers rejected it despite massive approval by the PDP-8
+    programming staff.
+
+*** Changed "negotions" to "negotiations" above. ***
+
+ 3) In the interest of future system programs that might be named RESOUR[CE] or
+    similar, the RE[sequence] command could be renamed to the LR[esequence] command
+    which would provide a sense of symmetry with the LN[umber] command.
+
+ 4) The R-L Monitor System uses the MO[nitor] command to restart the system at
+    location 07600 [which is the PDP-8 standard address for rebooting any operating
+    system].  Any of a variety of compatible operating systems could be mounted
+    just before entering the command to reboot to another system.  [Note: The R-L
+    Monitor System only runs on TC01/TC08/TU55/TU56 DECtape hardware; the relevant
+    systems at the time were the DECtape Library System for TC01/TC08 and POLY BASIC
+    which was developed on the R-L Monitor System.  Due to its inept design, the
+    Disk Monitor System on DECtape is not compatible with this bootstrap convention
+    and must be booted using a somewhat longer and more inflexible bootup program
+    than all other systems; OS/8 and COS-300/310 were released later than the R-L
+    Monitor System and P?S/8; they are also compatible with this restart convention
+    with the additional requirement of extended memory [at least 8K memory is needed
+    except in certain configurations that require 12K memory].
+
+    When POLY BASIC [later known as EDU-SYSTEM-30 and sold by DEC] was developed,
+    the notion of leaving BASIC for an underlying [or alternate] operating system
+    was provided by the SY[stem] command.  By the use of the SY[stem] command, any
+    of these operating systems for compatible hardware can be booted.  Thus, an
+    alternate notion for the command to initiate the restart operation was
+    considered for P?S/8 as the SY[stem] command to replace the MO[nitor] command
+    which would also simplify migrating between systems.
+
+    A related issue is the P?S/8 ED[it] command which is patterned after the FOCAL,
+    1969 MO[dify] command.  If the MO[nitor] command was removed, the editing
+    function could be called MO[dify] for consistency with FOCAL, 1969.  None of
+    these changes were made in 1976 and the changes were tabled for the benefit of
+    an unrelated issue.  [See 5) below.]
+
+ 5)  When the concept of logical units was added to P?S/8, it became clear the
+     syntax to implement this could be added to many commands that would be
+     appropriate, such as the CA[talog] command could implement a trailing :u where
+     u was a logical unit in the range of 0 through 7.  However, this would then
+     require performing an explicit operation; merely changing the logical unit
+     without otherwise performing some operation was not available.
+
+     As such, the first implementation of a command to change the logical device
+     unit [and perform no other function] was implemented in early P?S/8 releases
+     as SY[stem]:u.  Since the :u syntax is optional, the command SY[stem] without
+     a logical unit specification merely reloads the current TFS directory (or
+     catalog).
+
+     It became clear that the SY[stem] command would be in conflict with future
+     programs such as the SYSTAT utility that provides various system configuration
+     values.  By the 1989 release, the command to merely load the TFS directory from
+     a new logical unit was changed to the LC[atalog]:u command which allows the
+     ability for programs that start with SY to be written.  This release also
+     includes a transitional version of the SYSTAT command.  [Note: SYSTAT is mostly
+     functional; however, it includes primitive support for various internal
+     system functions that are subject to change or complete removal in light of the
+     P?S/8 SHELL overlay currently under development.]
+
+     Thus, there will be no additional consideration of a command to reload the
+     operating system to be named SY[stem].  Presently, the MO[nitor] command is
+     used to reload the operating system.  [Note: A SYSTEM program utility could be
+     written perhaps to be a more general bootstrap program to multiple devices.
+     However, it is more likely such a program would be named BOOT with various
+     command-line options as required.]  The intra-line editing function of the
+     integrated line editor is invoked with the ED[it] command.
+
+ 6)  Historically, computer memory size was often referred to as core size as the
+     earliest memory implementations [as used in most PDP-8 models] were typically
+     measured that way [4K core].  As such, the P?S/8 program to control the logical
+     size of memory is known as the CORE utility.
+
+     It is feasible to change the program name to MEMORY if necessary; however, the
+     original name still applies.
+
+     If the keyboard monitor is ever modified to include an additional command, it
+     is conceivable it could be a CO[py] or other command.  If this becomes the
+     case, the name of the memory size management utility could be changed to MEMORY
+     or other more appropriate name.  If additional programs are written to add
+     this functionality [without adding a command to the keyboard monitor] any of
+     these methods would be feasible.  A COPY program utility would have its own
+     command syntax, presumably to implement a variety of functions.  [Note: The
+     1989 release of P?S/8 includes the FILMAN utility to perform several
+     file-related functions including selectable copy and delete, etc.  If desired,
+     the notion of a COPY program could be aliased into the FILMAN program by
+     implementing various command-line switches to force the operating mode.  [Note:
+     The START program is actually an alias within the BIN utility program; the GET
+     program is actually another alias within the BIN utility program.  BIN loads
+     P?S/8 "slurp" binary files or performs various paper-tape-oriented interchange
+     utilities [including loading in the stand-alone BIN and RIM loaders] depending
+     on various command-line options.  The START utility starts up the latest saved
+     memory image and shares certain command-line options with BIN.  The GET
+     command utility is equivalent to invoking BIN with certain options forced on
+     for the purpose of loading and saving an image of memory after the loading is
+     finished.  Since the three commands are inter-related, all are actually
+     different entries into the same system program.]
+
+*** Changed "COPY progam" to "COPY program" above. ***
+
+ 7)  In early releases of P?S/8, the command to remove a selected range of lines was
+     implemented as the DE[lete] [line-number-range] command, which is consistent
+     with the R-L Monitor System.  This was changed in the 1989 release to ER[ase]
+     [line-number-range] for greater compatibility with DIBOL and COS-300/310.  As
+     discussed in 6) above, an additional entry could be added to the FILMAN utility
+     to add a DELETE program function to take advantage of the various options
+     available in the FILMAN utility [such as wild-card matches or file filters].
+     The functionality is already available in FILMAN, but a DELETE program would
+     allow an alternate way to approach command file management functions.
+
+ 8)  The complexity of the FILMAN program should allow a file move capability.  As
+     such, the issues surrounding the MO[nitor] command may be reconsidered; there
+     could be the need to implement a MOVE alias entry to the FILMAN program; this
+     would necessitate changing the system restart function to a different command.
+     A tentative change could include the EX[it] (or EX[odus]) command or the BY[e]
+     command.
+
+*** Changed "could be tne need" to "could be the need" above. ***
+*** Are you really considering EX[odus] as a command name, or is that a wink to the upcoming Exodus?  EX[it] and BY[e] are both used by many programs to end the programs and return to the OS -- new (i.e., younger) users may relate to them better. ***
+
+ 9)  Due to the trade-offs of supporting high-speed paper-tape devices versus the
+     ability to support more important features, the HR[eader] and PU[nch] commands
+     were removed from P?S/8; this applies to all releases past 1976.  The functions
+     needed are best served in a utility program outside of the scope of the
+     keyboard monitor and integrated line edit.  The tentative utility to be known
+     as PTUTIL has been designed, but as of this writing has not been implemented.
+
+*** I'm sure that many prospective P?S/8 users will want PTUTIL! ***
+
+10)  P?S/8 supports a wide variety of console terminals, some of which are rather
+     slow compared to others.  As such, the needs of users of Teletypes and related
+     devices must be served; always outputting the best format cosmetically speaking
+     severely shortchanges users who are merely interested in a rough listing of the
+     contents of a file in a no-frills manner in the shortest amount of time.  As
+     such, a stripped-down version of the original PU[nch] command was retained in
+     later releases known as the LT[ext] command.  The line number and <HT>
+     character associated with each file line are not output; the text in every
+     specified file line is output on the system console terminal; by the use of the
+     TA[0] command, a raw version of the text can be obtained in the shortest time.
+
+*** Changed "teletypes" to "Teletypes" above. ***
+
+     While there are no plans to change this command, another command name
+     considered was the LC[ontents] command to emphasise that only the contents of
+     the lines are output, not the line numbers.  As is always the case, the design
+     goal is to provide an intuitive command name that is also not in conflict with
+     program names that can be as long as six characters.  With DIBOL-8/COS-300/310
+     compatibility already achieved, other command name changes are always possible
+     to deal with design elements unique to the P?S/8 environment.  [Note: The P?S/8
+     SHELL will not have an integrated editor; the design issues are thus markedly
+     different.]
+
+*** Changed "emphasis" to "emphasise" above. ***
+
+11)  With the introduction of the FILMAN utility in the 1989 release, using aliased
+     entry techniques [as practiced in other parts of the basic P?S/8 system] could
+     lead to a more general set of CCL-like capabilities in the sense that specific
+     system program names could be added for move [as discussed before], copy,
+     rename and delete operations to take advantage of the filtering and wild-card
+     capabilities of FILMAN [this would be along the lines of the DIRECT utility
+     also introduced in the 1989 release of P?S/8].  However, these would be
+     implemented as program names; the exact name must be used [and not some form of
+     contraction, although names that are six characters can always be embellished].
+     As part of any such future design, all contemplated commands must not be in
+     conflict with keyboard monitor and integrated editor commands.  [Note: When
+     active development of P?S/8 was paused circa 1990, this was one of the open
+     issues for future implementation.  Since the P?S/8 SHELL overlay will address
+     some of these issues for a new/different environment, a by-product of the new
+     design may be some level of implementation of the commands mentioned here.]
+
+*** Changed "capablities" to "capabilities" above. ***
+*** When you say that six-character names can always be embellished, do you mean that the user can type in more than six characters, if he or she wants to? ***
+
+12)  The TY[pe] command was used in the R-L Monitor System to output the contents
+     of a file to the system console terminal.  This command was also used in the
+     1976 release of P?S/8.  For increased compatibility with DIBOL-8 and
+     COS-300/310, the command was changed to the LI[st] command [which is
+     reminiscent of various BASIC implementations which use the same command].
+     However, in many CCL-oriented command processors, LI[st] is associated with
+     directing output to the system lineprinter.  This issue will be addressed in
+     the P?S/8 SHELL overlay implementation.  It is conceivable that the intention
+     in COS-300/310 was to use a single command for both operations with an option
+     switch [/T] to force output to the system console printer; this form of
+     command syntax is incompatible with the OS/8 implementation of CCL which is
+     puzzling; the P?S/8 SHELL will create its own set of commands to serve the
+     widest possible audience.  [Slavish compatibility with any one system is not
+     the main goal; improved utility over other PDP-8 operating systems is the prime
+     concern.]
+
+*** Changed "LI[ST] is associated" to "LI[st] is associated" above. ***
+*** Why do you work so hard to increase/maintain compatibility with DIBOL-8 and COS-300/310, but not with OS/8?  That's kinda what it looks like is happening here.  Or is it just not trying to maintain compatibility with bits of a part of OS/8 (CCL in this case) and you've had to not maintain compatibility with bits of DIBOL-8 and COS-300/310 too, for the same/similar reasons? ***
+
+13)  The SE[quence] command was changed to the LN[umber] command for increased
+     compatibility with DIBOL-8 and COS-300/310.  An immediate improvement was
+     obtained; the program used to alter many keyboard monitor [and related]
+     settings had been forced to be named VARY because this implementation had been
+     deferred; it was renamed in later releases to SET.
+
+14)  At various points in the P?S/8 development effort, a consideration was raised
+     as to whether the RU[n] command would have distinctive meaning from the R
+     command.
+
+     Some of the distinctions have to do with the level of implementation of
+     extended-length files; at one point, an entire extended-length file directory
+     structure was completely designed but only manual entry of a single file was
+     ever implemented.
+
+     The manner in which the present R and RU[n] commands are implemented merely
+     causes some additional swap overhead over the compact subset of CCL available
+     in recent versions of P?S/8; this allows additional entries in the system
+     program directory where the ability to execute programs by the compact
+     execution form is either superfluous or not possible due to potential anomaly
+     with keyboard monitor and integrated line editor commands.  No aspect of the
+     in-memory environment is lost with the possible exception of the tentative file
+     buffer.  Thus, these commands are only required to access programs in the
+     system program directory which are unrelated to the keyboard monitor
+     environment [such as device-specific formatting and utility programs].
+     Moreover, these commands must be avoided for successful use of keyboard monitor
+     extension utilities such as FIND and CHANGE [which are only useful when used
+     with the tentative file].
+
+     One possible variant [which was never implemented] was that the scope of the
+     RU[n] command would be increased to allow creation of multiple extended-length
+     files within the extended-length directory.
+
+*** Changed "RU[N]" to "RU[n]" above. ***
+
+     With the recent development of the P?S/8 SHELL overlay, all such plans have
+     been abandoned in favor of the far more general variable-length file
+     environment of the SHELL directory structure.  As such, the remnants of the
+     extended-length file directory will be removed; the functionality of allowing
+     one extended-length file per logical unit will be retained; however, the
+     entire directory structure will be replaced with a small reserved area at the
+     end of the system program directory [beyond all system program entries].
+
+*** Changed "variably-length" to "variable-length" above. ***
+*** Since you use the term "directory" several times in the paragraph above, and many times in this document, perhaps somewhere at the beginning you should explain what it _means_ in relation to most users' "directory" experience with DOS, Windows, various flavors of Unix, etc.?  Make it clear that there are no sub-directories, or something like that? ***
+
+     Appropriate changes to the SET command will be made to allow custom naming of
+     the extended files on each logical unit to suit the user's preference.  There
+     will be no operational difference between the R and RU[n] command [which is the
+     case as of this writing; however internally, the system will require one less
+     internal directory structure.]  As currently implemented, only utilities such
+     as the OS8CON utility [that fully recognize the extended-length files] will be
+     able to write these files; all system programs can access these files for all
+     read purposes.
+
+15)  The LO[ad] command was changed to FE[tch] in subsequent releases of P?S/8 for
+     increased compatibility with DIBOL-8 and COS-300/310.  While this does make
+     possible a LOAD alias name for the BIN utility, this was never implemented.
+     The GET alias name is the alias program name for this function.  It is trivial
+     to either change the alias name or allow both variants with identical meaning.
+
+16)  The SA[ve] command was changed to WR[ite] in subsequent releases of P?S/8 for
+     increased compatibility with DIBOL-8 and COS-300/310.  It is possible a SAVE
+     utility can be created to transfer the image of memory obtained after a GET
+     program execution to a system program image and execution name; however, there
+     is no guarantee the appropriate storage blocks are set aside on any particular
+     system.  As such, this must be deferred until a utility can be written to
+     maintain all other structures further up the system device [such as the
+     starting block of the TFS directory and extended-length file starting block].
+     There are plans to create a utility with a wider scope to also include the
+     ability to create a working copy of P?S/8 from various binary resources without
+     the need to assemble the source files.  Once such a utility completely manages
+     the storage device more effectively, it will be a fairly easy matter to create
+     a SAVE utility.  [Note: Despite the lack of a SAVE utility, P?S/8
+     provides ample facility to deal with core-image programs.  P?S/8 ODT operates
+     on the latest memory image after a GET command; from within ODT it is possible
+     to start any program as if it were a system program without restriction.  The
+     START utility can pass all parameters with a few restrictions.  The BSAVE
+     utility can save arbitrary memory locations and memory ranges anywhere in 32K
+     memory into a stream of binary "slurp" files.  In newer releases of P?S/8, the
+     R and RU[n] commands can run the latest memory image by specifying either % or
+     $ as the execution name.]
+
+*** Changed "P?S/8 P?S/8 provides ample facility" to "P?S/8 provides ample facility" above.  You'll need to fix the formatting caused by the deletion of the "extra" "P?S/8."  I assume that your editor will make that easy to do. ***
+*** Changed "In newer releases of P?S/8, The..." to "In newer releases of P?S/8, the..." above. ***
+    
+17)  The RU[n] command had been intended to be expanded to fully support the
+     extended-length file directory including multiple variable-length files.  Had
+     this been done, a distinction would have been made between the R and the RU[n]
+     commands.  In addition, the extended RU[n] command would have violated the
+     tentative file buffer to load additional support code in leaving a design
+     decision whether to just allow the tentative file to be destroyed or
+     alternatively destroy either the $ or % positional file.  [Note: There already
+     are keyboard monitor options to automatically perform a save operation of the
+     tentative file buffer to the $ file and a companion option to load the
+     tentative file buffer from the $ file, but these options are not mandatory nor
+     does one require the other.]
+
+*** Are there keyboard (or other) options to save the file buffer to the % file?  Or is that not appropriate for some reason that I don't (yet) understand? ***
+
+     The main idea was that the RU[n] command could create an extended-length file
+     while the current R command can only read an extended-length file [and as
+     presently implemented only the first existent file in the extended-length
+     directory.]
+
+     With the development of the P?S/8 SHELL overlay, this entire line of system
+     development has been abandoned; the SHELL will implement a far better
+     functionality [and can be enabled or disabled with one command].  Additionally,
+     the extended-length file directory is being simplified to only support a
+     single extended-length file; the entry for this file is being moved into a
+     different data area [the end of the system program directory, which is usually
+     already read in when the file information is needed].  As such, the system area
+     will be reduced by the elimination of the present reserve on the
+     extended-length directory blocks.  Since there will be only one extended-length
+     file per logical unit, the SET utility will be extended to allow a user
+     preference setting for extended-length filename.
+
+End of Appendix A.
+____________________________________________________________________________________
+
+Private notes to Bob Vines; remove this later!
+
+Note: This file must be saved as type UTF-8 because of character extensions!
+
+*** I just saw this and just changed my editor to "Encode in UTF-8."  I hope that I haven't already ruined the character extensions.  If I did, let me know and I'll try to go back to the "original" file and copy my added "*** <insert change/comment> ***" changes & comments so you don't have to. ***
+
+1) I am concerned about potential confusion in the description of the RA[dix]
+   command and consequences in various places throughout the document.  Please
+   review for clarity and consistency.  [Of course you can say that about everything
+   but I am not sure myself about all of the RA[dix] stuff.
+
+2) Overall organization.  Should there be more Appendices [is that even the right
+   way to do, as opposed to say, Supplements]?
+
+*** I recommended an additional appendix to define the ASCII character symbols that you use, like <HT>, <CR>, <LF>, et al., for people not aware of the ASCII standard and how it changed over the years and how that affected PDP-8 software, or at least how you document P?S/8. ***
+
+3) I have an issue about the various usages of file name, file names or filenames
+   in various places.  Is any one of these right, or must there be several different
+   usages to make sense?
+
+*** I made a comment about filename vs. file name in the section about the R command.  I said that both are commonly used and that I use "filename" myself.  I checked it via Google and the dictionaries (in my "Bob-flavored" Google results) don't seem to favor one over the other.  You used "file name" almost everywhere, so I'd just go with your spelling of it. ***
+
+4) Issues about the usage of <HT> [to describe the character code] versus spelling
+   it out as horizontal tab everywhere.  Not clear if I got all of them consistent
+   but I believe there needs to be both.  [Because in some places it's an action as
+   opposed to the character code that causes the action.]
+
+*** I think you got it right, or at least how you wrote it seemed right to me when I read those (TAB command) sections. ***
+
+5) Should there be a more formal [and consistent] implementation of characters
+   pointed out inside of "" characters such as the description of the "," character
+   as a keyword separator in parsing the R and RU[n] commands?  [You can use any of
+   <SP> or <HT> or "," interchangeably in these commands where relevant.]
+
+*** Now that you mention this, I think yes.  You didn't put parentheses around the "," character in the text above, but probably should have.  I know it made me initially wonder if you had made a typo, before realizing what you meant.  I just went back and put parentheses around the "," character in the two places where you described it above (in the R command sections). ***
+
+6) There is confusion in describing such as SET RADIX OCTAL.  This is NOT a
+   keyboard monitor command, rather it is concise execution of the SET utility
+   program [which could be R SET or RUN SET if you wanted to, but why bother].  The
+   SET utility uses the special internal "don-t scan" parsing bit of the keyboard
+   monitor so it can parse the rest of the command line itself.  RADIX is one of its
+   sub-options and that in turn takes the arguments OCTAL or DECIMA[l].
+
+   The concise execution commands are so good, these look just like keyboard monitor
+   commands, yet they are not.  SET /A [VARY/A in the circa 1976 system] shows all
+   of the options.  This is described in the on-line HELP file for SET on
+   sunsite/ibiblio I already released.
+
+   But the question for this document as a command guide is how to make it clear
+   that technically, this is not a "command" in the ordinary sense, but some
+   utility programs augment the operation of the keyboard monitor.  For example,
+   you can always type RA[dix] 8 or RA[dix] 10 to *temporarily* change the way
+   numeric input and output work.  The SET/VARY form changes the default value!
+
+*** Why not specifically say what you just said?  Perhaps something like "The SET utility is not a "command" in the ordinary sense, but a utility program to augment the operation of the keyboard monitor."?  (If I got that right.) ***
+
+7) A one-off esoteric clumsiness:
+
+   The parsing internals of the R and RU[n] commands are such that each program can
+   set not only the "I will parse the rest myself" bit but also a "I allow the
+   current radix to apply to the =xxxx construct" where the defaults are the
+   command processors parse the entire line for the usual options [but then do not
+   allow "tricks" such as FIND, CHANGE and SET] and for =xxxx the default is that
+   it must be entered in octal regardless of the overall radix.  [You for example
+   cannot specify a starting address to the bin loader in decimal!  But you can
+   specify line number arguments in the current radix where relevant, such as in
+   FIND and CHANGE.  [This is an advanced concept for an operating system:  Each
+   system program customizes its own command line to some extent if it wishes; the
+   SHELL will have additional tricks!]
+
+*** Changed "...the default is that is must be entered..." to "...the default is that it must be entered..." above.  :P ***
+*** I don't understand "...where the defaults are the command processors parse the entire line...."  Do you really mean "...where the defaults are the command processor parses the entire line..."?  Otherwise I'm confused about more than one command processor. ***
+*** I'm not sure how to overcome the "one-off esoteric clumsiness" above.  :(  Perhaps in your descriptions of R and R[un], you could say what you wrote above about when only octal can be used vs. when decimal can be used? ***
+
+   end-of-notes-to-Bob Vines to be removed when processed.

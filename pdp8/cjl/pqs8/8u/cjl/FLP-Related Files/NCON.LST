@@ -1,0 +1,1011 @@
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 1
+
+    1                /       NICOLET DATA CONVERSION
+    2   
+    3                /       PROGRAM TO CONVERT DATA LEFT IN MEMORY BY FOCAL WITH "NPATCH" INTO
+    4                /       P?S/8 OUTPUT FILE(S).
+    5   
+    6                /       LAST EDIT:      23-MAR-1986     13:00:00        CJL
+    7   
+    8                /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+    9   
+   10                /       ASSEMBLY INSTRUCTIONS:
+   11   
+   12                /       SET "BUFFLD" TO PROPER FIELD FOR MEMORY DATA (DEFAULT IS 20).
+   13   
+   14                /       SET "N" TO AMOUNT OF P?S/8 BLOCKS PER ORIGINAL READ/WRITE (DEFAULT IS 2).
+   15                /       MUST BE A POWER OF TWO FOR PROPER OPERATION.
+   16   
+   17                /       DEFINITIONS.
+   18   
+   19                /       P?S/8 DEFINITIONS.
+   20   
+   21          0040          DOLBLK= 0040                    /DEFAULT ASCII SCRATCH AREA ($)
+   22          0031          INCON=  0031                    /EQUATED FROM CONSOLE!
+   23          0033          OUTCON= 0033                    /EQUATED FROM CONSOLE!
+   24          0003          TTY=    0003                    /CONSOLE DEVICE CODE
+   25          7600          SBOOT=  7600                    /SYSTEM EXIT HERE
+   26          7602          SBTFUN= 7602                    /SYSTEM BOOTSTRAP UNIT WORD
+   27          7611          SCRSIZE=7611                    /SOFTWARE CORE SIZE WORD
+   28          7757          SFILES= 7757                    /PASSED FILES HERE
+   29          7607          SOUTFLS=7607                    /OUTPUT FILE COUNT
+   30          7605          SWMX=   7605                    /M-/X SWITCHES
+   31          7640          SYSIO=  7640                    /ENTER I/O ROUTINES HERE
+   32          4000          WRITE=  4000                    /SYSIO WRITE BIT
+   33   
+   34                /       OTHER DEFINITIONS.
+   35   
+   36                        IFNDEF  BUFFLD  <BUFFLD=20>     /BUFFER FIELD FOR FBLK AND FWRD
+   38          3000          FILBUFF=3000                    /FILE CREATED IN 003000
+   39          4200          JMSC=   JMS     .               /CURRENT PAGE JMS INSTRUCTION
+   40          4240          JMSSYSI=SYSIO&177+JMSC          /CALL TO SYSIO ON ITS PAGE
+   41          6032          KCCIOT= TTY^10+6002             /CLEAR KEYBOARD FLAG
+   42          6034          KRSIOT= TTY^10+6004             /READ KEYBOARD BUFFER
+   43          6031          KSFIOT= TTY^10+6001             /SKIP ON KEYBOARD FLAG
+   44                        IFNDEF  LINE    <LINE=  7>      /SEVEN ON A LINE
+   46                        IFNDEF  N       <N=     2>      /NUMBER OF P?S/8 BLOCKS IN READ/WRITE
+   48          7326          NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+   49          7330          NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+   50          7346          NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+   51          7240          NL7777= CLA CMA                 /LOAD AC WITH 7777
+   52          6046          TLSIOT= TTY+1^10+6006           /OUTPUT TO TELEPRINTER
+   53          6041          TSFIOT= TTY+1^10+6001           /SKIP ON TELEPRINTER FLAG
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 2
+
+   55         *0000          *0                      /START AT THE BEGINNING
+   56   
+   57   00000  0000          0                       /DON'T USE THIS!
+   58   00001  7757  FILPTR, SFILES                  /FILE POINTER
+   59   
+   60         *0010          *10                     /DEFINE AUTO-INDEX AREA
+   61   
+   62   00010  0250  EOLPROT,250                     /<EOL> PROTECTION VALUE FOR FIXED FILES
+   63   00011  0000  FILCNT, 0                       /P?S/8 FILE CREATION COUNT
+   64   00012  0000  PFFLATE,.-.                     /LATEST CHARACTER INSERTED INTO FIXED FILE
+   65   00013  0000  PFFPREV,.-.                     /PREVIOUS CHARACTER INSERTED INTO FIXED FILE
+   66   
+   67         *0020          *20                     /GET PAST AUTO-INDEX AREA
+   68   
+   69   00020  0000  INCHAR, .-.                     /LATEST KEYBOARD INPUT CHARACTER
+   70   00021  0000  P7TEMP, .-.                     /TERMINAL OUTPUT TEMPORARY
+   71   
+   72   00022  0000  CHKUP,  .-.                     /CHECK FOR <^C>, ETC. ROUTINE
+   73   00023  4041          JMS     CTLCTST         /CHECK FOR <^C>
+   74   00024  7440          SZA                     /SKIP IF NOTHING CAME IN
+   75   00025  1177          TAD     [-"Q!300]       /ELSE COMPARE TO <^Q>
+   76   00026  7450          SNA                     /SKIP IF NEITHER CASE
+   77   00027  5037          JMP     CHKCLR          /ELSE FORGET IT
+   78   00030  1176          TAD     [-"S+"Q]        /COMPARE TO <^S>
+   79   00031  7640  PSYSIO, SZA CLA                 /SKIP IF IT MATCHES
+   80   00032  5422          JMP I   CHKUP           /ELSE RETURN
+   81   00033  4041          JMS     CTLCTST         /GET ANOTHER CHARACTER
+   82   00034  1177          TAD     [-"Q!300]       /COMPARE TO <^Q>
+   83   00035  7640          SZA CLA                 /SKIP IF IT MATCHES
+   84   00036  5033          JMP     .-3             /ELSE KEEP GOING
+   85   00037  3020  CHKCLR, DCA     INCHAR          /OBLITERATE <^Q>, ETC.
+   86   00040  5422          JMP I   CHKUP           /RETURN
+   87   
+   88   00041  0000  CTLCTST,.-.                     /CHECK FOR <^C> ROUTINE
+   89   00042  7600  L7600,  CLA!400                 /CLEAN UP
+   90   00043  6031  CHKKSF, KSFIOT                  /**** CONSOLE **** CIF MCS+10
+   91   00044  5441  CHKJMP, JMP I   CTLCTST         /**** CONSOLE **** JMS INCON
+   92   00045  6034  CHKKRS, KRSIOT/OR KRBIOT        /**** CONSOLE **** JMP I CTLCTST
+   93   00046  0175          AND     [177]           /JUST SEVEN BITS
+   94   00047  3020          DCA     INCHAR          /STASH THE CHARACTER
+   95   00050  7346          NL7775                  /-3
+   96   00051  1020          TAD     INCHAR          /COMPARE INPUT TO <^C>
+   97   00052  7450          SNA                     /SKIP IF OTHER
+   98   00053  2574          ISZ I   [SCRSIZE]       /ELSE SET SOFT INDICATOR
+   99   00054  7750          SPA SNA CLA             /SKIP IF <^D> OR GREATER
+  100   00055  5442          JMP I   L7600/[SBOOT]   /ELSE GOODBYE
+  101   00056  6032  CHKKCC, KCCIOT/OR 0000          /**** CONSOLE **** 0000
+  102   00057  1020          TAD     INCHAR          /GET THE CHARACTER
+  103   00060  5441          JMP I   CTLCTST         /RETURN
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 3
+
+  105   00061  0000  P7CH,   .-.                     /SEVEN-BIT PRINT ROUTINE
+  106   00062  3021          DCA     P7TEMP          /STASH PASSED VALUE
+  107   00063  4022  P7AGN,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+  108   00064  1021          TAD     P7TEMP          /GET THE VALUE
+  109   00065  6041  P7TSF,  TSFIOT                  /**** CONSOLE **** CIF MCS+10
+  110   00066  5063  P7JMP,  JMP     P7AGN           /**** CONSOLE **** JMS OUTCON
+  111   00067  6046  P7TLS,  TLSIOT                  /**** CONSOLE **** JMP P7AGN
+  112   00070  4022          JMS     CHKUP           /CHECK FOR <^C>, ETC.
+  113   00071  5461          JMP I   P7CH            /RETURN
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 4
+
+  115         *0200          PAGE                    /PROGRAM STARTS HERE
+  116   
+  117   00200  7000  NCON,   NOP                     /IN CASE WE'RE CHAINED TO
+  118   00201  5602  SCRCASE,JMP I   SCRIBE/(INITIAL)/CONTINUE THERE
+  119   
+  120                /       MESSAGE PRINTING ROUTINE.
+  121   
+  122   00202  1000  SCRIBE, INITIALIZE              /MESSAGE PRINT ROUTINE; PRELOADED FOR STARTUP
+  123   00203  7200          CLA                     /JUST IN CASE
+  124   00204  1602          TAD I   SCRIBE          /GET MESSAGE POINTER
+  125   00205  3200          DCA     NCON            /STASH IT
+  126   00206  2202          ISZ     SCRIBE          /BUMP PAST ARGUMENT
+  127   00207  1377          TAD     (140)           /INITIALIZE TO
+  128   00210  3201  CASZP1, DCA     SCRCASE         /**** /U **** CLA!400
+  129   00211  1600  SCRLUP, TAD I   NCON            /GET LEFT HALF-WORD
+  130   00212  7012          RTR;RTR;RTR             /MOVE OVER
+        00213  7012 
+        00214  7012 
+  133   00215  4222          JMS     SCRPRNT         /PRINT IT
+  134   00216  1600          TAD I   NCON            /GET RIGHT HALF-WORD
+  135   00217  4222          JMS     SCRPRNT         /PRINT IT
+  136   00220  2200          ISZ     NCON            /BUMP TO NEXT PAIR
+  137   00221  5211          JMP     SCRLUP          /KEEP GOING
+  138   
+  139   00222  0000  SCRPRNT,.-.                     /CHARACTER PRINT ROUTINE
+  140   00223  0173          AND     [77]            /JUST SIX-BIT
+  141   00224  7450          SNA                     /END OF MESSAGE?
+  142   00225  5602          JMP I   SCRIBE          /YES, RETURN TO ORIGINAL CALLER
+  143   00226  3256          DCA     SCRCHAR         /NO, SAVE FOR NOW
+  144   00227  1256          TAD     SCRCHAR         /GET IT BACK
+  145   00230  1376          TAD     (-"%!200)       /IS IT "%"?
+  146   00231  7450          SNA                     /SKIP IF NOT
+  147   00232  5245          JMP     SCRCRLF         /JUMP IF IT MATCHES
+  148   00233  1172          TAD     [-"^+100+"%]    /IS IT "^"
+  149   00234  7650          SNA CLA                 /SKIP IF NOT
+  150   00235  5251          JMP     SCRFLIP         /JUMP IF IT MATCHES
+  151   00236  1256          TAD     SCRCHAR         /GET THE CHARACTER
+  152   00237  0171          AND     [40]            /DOES CASE MATTER?
+  153   00240  7650          SNA CLA                 /SKIP IF NOT
+  154   00241  1201          TAD     SCRCASE         /ELSE GET PREVAILING CASE
+  155   00242  1256          TAD     SCRCHAR         /GET THE CHARACTER
+  156   00243  4061  LFENTRY,JMS     P7CH            /PRINT THE CHARACTER
+  157   00244  5622          JMP I   SCRPRNT         /RETURN
+  158   
+  159   00245  1375  SCRCRLF,TAD     (15)            /GET A <CR>
+  160   00246  4061          JMS     P7CH            /PRINT IT
+  161   00247  1374          TAD     (12)            /GET A <LF>
+  162   00250  5243          JMP     LFENTRY         /CONTINUE THERE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 5
+
+  164   00251  1201  SCRFLIP,TAD     SCRCASE         /GET CURRENT CASE
+  165   00252  7041          CIA                     /INVERT IT
+  166   00253  1373          TAD     (140+100)       /ADD SUM OF POSSIBLE VALUES
+  167   00254  3201  CASZP2, DCA     SCRCASE         /**** /U **** CLA!400
+  168   00255  5622          JMP I   SCRPRNT         /RETURN
+  169   
+  170   00256  0000  SCRCHAR,.-.                     /LATEST OUTPUT CHARACTER
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 6
+
+  172                /       P?S/8 SIX-BIT OUTPUT ROUTINE.
+  173   
+  174                /       CALL WITH:
+  175   
+  176                /       TAD     CHAR            /AC CONTAINS LATEST CHARACTER TO OUTPUT
+  177                /       JMS I   (P6CH)          /CALL ROUTINE
+  178                /       ALWAYS RETURNS HERE WITH CLEAR AC
+  179                /       FILES ARE AUTOMATICALLY CREATED AS NECESSARY.
+  180   
+  181                /       CALL APPROPRIATE ROUTINE TO CLOSE THE FILE (NL4000;JMS I POUT).
+  182   
+  183                /       THE CONVERSION PROCESS STARTS AT "MEMIN" WHICH OPENS THE FIRST FILE.
+  184   
+  185   00257  0400  P6CH,   NEWBUFFER               /SIX-BIT OUTPUT ROUTINE; PRELOADED FOR STARTUP
+  186   00260  4772          JMS I   (PFFOUT)        /CALL P?S/8 OUTPUT ROUTINE
+  187   00261  7410          SKP                     /SKIP IF FILE JUST CLOSED
+  188   00262  5274          JMP     P6END           /JUMP IF NOT
+  189   00263  2001          ISZ     FILPTR          /BUMP TO NEXT FILE ARGUMENT
+  190   00264  1401  MEMIN,  TAD I   FILPTR          /GET THE NEXT FILE ARGUMENT
+  191   00265  7450          SNA                     /END OF ALL FILES?
+  192   00266  5276          JMP     TRUNCATE        /YES, WE LOSE
+  193   00267  3271          DCA     POFBLK          /NO, STORE IN-LINE
+  194   00270  4771          JMS I   (PFFINITIALIZE) /CALL INITIALIZE ROUTINE
+  195   00271  0000  POFBLK, .-.                     /WILL BE FILE ARGUMENT ([BLOCK&7770] + [UNIT&7])
+  196   00272  0144          144                     /INITIAL LINE NUMBER
+  197   00273  0012          12                      /LINE INCREMENT
+  198   00274  4022  P6END,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+  199   00275  5657          JMP I   P6CH            /RETURN TO CALLER
+  200   
+  201   00276  4570  TRUNCAT,JMS I   [SCRIBE]        /TELL THEM
+  202   00277  0330          TRUMSG                  /WE DIDN'T MAKE IT
+  203   00300  1011  CREPORT,TAD     FILCNT          /GET FILE COUNT
+  204   00301  7450          SNA                     /SKIP IF ANY
+  205   00302  5316          JMP     FILNO           /ELSE LEAVE IT SAYING "NO"
+  206   00303  1370          TAD     (-12)           /IS IT LESS THAN TEN?
+  207   00304  7500          SMA                     /SKIP IF SO
+  208   00305  1367          TAD     ("1^100-3612)   /ELSE CORRECT FOR 10-17
+  209   00306  1366          TAD     ("0-200+3612)   /GET NUMERIC CORRECTION
+  210   00307  3326          DCA     FCTMSG+1        /STORE IN MESSAGE
+  211   00310  7240          NL7777                  /-1
+  212   00311  1011          TAD     FILCNT          /EXACTLY ONE FILE?
+  213   00312  7640          SZA CLA                 /SKIP IF SO
+  214   00313  5316          JMP     FILNO           /JUMP IF OTHERWISE
+  215   00314  1365          TAD     ("E^100+"^-300) /ELSE MAKE IT DROP THE "S"
+  216   00315  3764          DCA I   (FLSMSG+3)      /STORE INTO THE MESSAGE
+  217   00316  4570  FILNO,  JMS I   [SCRIBE]        /TELL THEM
+  218   00317  0325          FCTMSG                  /THE FILE COUNT
+  219   00320  4570          JMS I   [SCRIBE]        /TELL THEM
+  220   00321  0766          FLSMSG                  /FILES (OR FILE)
+  221   00322  4570          JMS I   [SCRIBE]        /TELL THEM
+  222   00323  0552          CREMSG                  /CREATION MESSAGE
+  223   00324  5567          JMP I   [SBOOT]         /GOODBYE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 7
+
+  225   00325  4536  FCTMSG, TEXT    "%^NO^"
+        00326  1617 
+        00327  3600 
+  226   00330  4536  TRUMSG, TEXT    "%^I^NSUFFICIENT ^O^UTPUT ^F^ILES, ^I^NPUT ^T^RUNCATED!%"
+        00331  1136 
+        00332  1623 
+        00333  2506 
+        00334  0611 
+        00335  0311 
+        00336  0516 
+        00337  2440 
+        00340  3617 
+        00341  3625 
+        00342  2420 
+        00343  2524 
+        00344  4036 
+        00345  0636 
+        00346  1114 
+        00347  0523 
+        00350  5440 
+        00351  3611 
+        00352  3616 
+        00353  2025 
+        00354  2440 
+        00355  3624 
+        00356  3622 
+        00357  2516 
+        00360  0301 
+        00361  2405 
+        00362  0441 
+        00363  4500 
+  227   
+  228         *0364 
+        00364  0771 
+        00365  0536 
+        00366  3672 
+        00367  2266 
+        00370  7766 
+        00371  0674 
+        00372  0600 
+        00373  0240 
+        00374  0012 
+        00375  0015 
+        00376  7733 
+        00377  0140 
+              *0400          PAGE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 8
+
+  230   00400  3345  NEWBUFF,DCA     BUFPTR          /CLEAR BUFFER POINTER
+  231   00401  1377          TAD     (N^200^7777)    /SETUP THE
+  232   00402  3344          DCA     BUFCNT          /BUFFER COUNT
+  233   00403  6221  BUFLUP, CDF     BUFFLD          /GOTO BUFFER FIELD
+  234   00404  1745          TAD I   BUFPTR          /GET A WORD
+  235   00405  6201          CDF     00              /BACK TO OUR FIELD
+  236   00406  4235          JMS     DECOUT          /OUTPUT IT
+  237   00407  2345          ISZ     BUFPTR          /BUMP TO NEXT
+  238   00410  1345          TAD     BUFPTR          /GET THE POINTER
+  239   00411  4324          JMS     DIVIDE          /DIVIDE BY
+  240   00412  0007          LINE                    /LINE COUNT
+  241   00413  7200          CLA                     /THROW AWAY QUOTIENT
+  242   00414  1350          TAD     REM             /GET REMAINDER
+  243   00415  7640          SZA CLA                 /SKIP IF END OF LINE
+  244   00416  5221          JMP     NOTEOL          /JUMP IF NOT
+  245   00417  4776          JMS I   (P6CH)          /OUTPUT <EOL>
+  246   00420  5221          JMP     COMMON          /KEEP GOING
+  247   
+  248                NOTEOL,/TAD     (" &77)         /GET A <SPACE>
+  249                /       JMS I   (P6CH)          /OUTPUT IT
+  250   00421  2344  COMMON, ISZ     BUFCNT          /DONE YET?
+  251   00422  5203          JMP     BUFLUP          /NO, KEEP GOING
+  252   00423  1345          TAD     BUFPTR          /GET THE POINTER
+  253   00424  4324          JMS     DIVIDE          /DIVIDE BY
+  254   00425  0007          LINE                    /LINE COUNT
+  255   00426  7200          CLA                     /THROW AWAY QUOTIENT
+  256   00427  1350          TAD     REM             /GET REMAINDER
+  257   00430  7640          SZA CLA                 /SKIP IF ALREADY AT <EOL>
+  258                /       LINE PADDING MAY BE INSERTED HERE IF NECESSARY.
+  259   00431  4776          JMS I   (P6CH)          /OUTPUT <EOL> NOW
+  260   00432  7330          NL4000                  /SET <EOF> VALUE
+  261   00433  4775          JMS I   (PFFOUT)        /CLOSE THE FILE
+  262   00434  5566          JMP I   [CREPORT]       /FINISH IT THERE
+  263   
+  264   00435  0000  DECOUT, .-.                     /DECIMAL OUTPUT ROUTINE
+  265   00436  3347          DCA     DECTMP          /SAVE PASSED VALUE
+  266   00437  3346          DCA     DECSW           /INITIALIZE SWITCH
+  267   00440  1347          TAD     DECTMP          /GET IT BACK
+  268   00441  7710          SPA CLA                 /SKIP IF POSITIVE
+  269   00442  5247          JMP     DONEG           /JUMP IF NOT
+  270   00443  1374          TAD     (" &77)         /GET A <SPACE>
+  271   00444  4776          JMS I   (P6CH)          /OUTPUT IT
+  272   00445  1347          TAD     DECTMP          /GET THE NUMBER
+  273   00446  5253          JMP     DECCOMMON       /CONTINUE THERE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 9
+
+  275   00447  1373  DONEG,  TAD     ("-&77)         /GET A MINUS SIGN
+  276   00450  4776          JMS I   (P6CH)          /OUTPUT IT
+  277   00451  1347          TAD     DECTMP          /GET THE NUMBER
+  278   00452  7041          CIA                     /INVERT IT
+  279   00453  4324  DECCOMM,JMS     DIVIDE          /DIVIDE BY
+  280   00454  1750          1750                    /1000
+  281   00455  4304          JMS     DIGOUT          /PRINT THE QUOTIENT
+  282   00456  1350          TAD     REM             /GET THE REMAINDER
+  283   00457  4324          JMS     DIVIDE          /DIVIDE BY
+  284   00460  0144          144                     /100
+  285   00461  4304          JMS     DIGOUT          /PRINT THE QUOTIENT
+  286   00462  1350          TAD     REM             /GET THE REMAINDER
+  287   00463  4324          JMS     DIVIDE          /DIVIDE BY
+  288   00464  0012          12                      /10
+  289   00465  4304          JMS     DIGOUT          /PRINT THE QUOTIENT
+  290   00466  2346          ISZ     DECSW           /FORCE THE SWITCH ON
+  291   00467  1350          TAD     REM             /GET THE REMAINDER
+  292   00470  4304          JMS     DIGOUT          /PRINT IT
+  293   00471  1372          TAD     (".&77)         /GET A "."
+  294   00472  4776          JMS I   (P6CH)          /OUTPUT IT
+  295   00473  1374          TAD     (" &77)         /GET A <BLANK>
+  296   00474  4776          JMS I   (P6CH)          /PRINT IT
+  297   00475  1374          TAD     (" &77)         /GET A <BLANK>
+  298   00476  4776          JMS I   (P6CH)          /PRINT IT
+  299   00477  1374          TAD     (" &77)         /GET A <BLANK>
+  300   00500  4776          JMS I   (P6CH)          /PRINT IT
+  301   00501  1374          TAD     (" &77)         /GET A <BLANK>
+  302   00502  4776          JMS I   (P6CH)          /PRINT IT
+  303   00503  5635          JMP I   DECOUT          /RETURN
+  304   
+  305   00504  0000  DIGOUT, .-.                     /DIGIT OUTPUT ROUTINE
+  306   00505  3347          DCA     DECTMP          /SAVE THE VALUE
+  307   00506  7100          CLL                     /CLEAR THE LINK
+  308   00507  1346          TAD     DECSW           /GET THE SWITCH
+  309   00510  7640          SZA CLA                 /SKIP IF OFF
+  310   00511  7120          STL                     /ELSE SET THE LINK
+  311   00512  1347          TAD     DECTMP          /GET THE DIGIT
+  312   00513  7420          SNL                     /SKIP THE TEST IF SWITCH SET
+  313   00514  7440          SZA                     /SKIP IF ZERO
+  314   00515  1371          TAD     ("0-" )         /MAKE INTO DIGIT, NOT <BLANK>
+  315   00516  1374          TAD     (" &77)         /GET <BLANK> AT LEAST
+  316   00517  4776          JMS I   (P6CH)          /OUTPUT IT
+  317   00520  1347          TAD     DECTMP          /GET THE VALUE
+  318   00521  7640          SZA CLA                 /SKIP IF ZERO
+  319   00522  2346          ISZ     DECSW           /ELSE SET SWITCH FOR NEXT TIME
+  320   00523  5704          JMP I   DIGOUT          /RETURN
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 10
+
+  322                /       DIVIDE ROUTINE.
+  323   
+  324   00524  0000  DIVIDE, .-.                     /DIVIDE ROUTINE
+  325   00525  3350          DCA     REM             /SAVE IN REMAINDER
+  326   00526  3351          DCA     QUO             /CLEAR QUOTIENT
+  327   00527  1350          TAD     REM             /GET IT BACK
+  328   00530  7161          STL CIA                 /INVERT
+  329   00531  7410          SKP                     /DON'T FIRST TIME
+  330   00532  2351  DVLOOP, ISZ     QUO             /BUMP UP QUOTIENT
+  331   00533  1724          TAD I   DIVIDE          /ADD ON ARGUMENT
+  332   00534  7470          SNA SZL                 /UNDERFLOW?
+  333   00535  5332          JMP     DVLOOP          /NO, KEEP GOING
+  334   00536  7041          CIA                     /YES, INVERT IT BACK
+  335   00537  1724          TAD I   DIVIDE          /RESTORE LOST VALUE
+  336   00540  3350          DCA     REM             /SAVE AS REMAINDER
+  337   00541  1351          TAD     QUO             /GET THE QUOTIENT
+  338   00542  2324          ISZ     DIVIDE          /BUMP PAST ARGUMENT
+  339   00543  5724          JMP I   DIVIDE          /RETURN
+  340   
+  341   00544  0000  BUFCNT, .-.                     /BUFFER COUNTER
+  342   00545  0000  BUFPTR, .-.                     /BUFFER POINTER
+  343   00546  0000  DECSW,  .-.                     /LEADING ZERO SWITCH
+  344   00547  0000  DECTMP, .-.                     /TEPMPORARY
+  345   00550  0000  REM,    .-.                     /REMAINDER
+  346   00551  0000  QUO,    .-.                     /QUOTIENT
+  347   
+  348   00552  4036  CREMSG, TEXT    " ^C^REATED%"
+        00553  0336 
+        00554  2205 
+        00555  0124 
+        00556  0504 
+        00557  4500 
+  349   
+  350         *0571 
+        00571  0020 
+        00572  0056 
+        00573  0055 
+        00574  0040 
+        00575  0600 
+        00576  0257 
+        00577  7400 
+              *0600          PAGE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 11
+
+  352                /       P?S/8 FIXED FILE OUTPUT ROUTINE.
+  353   
+  354                /       CALL WITH:
+  355   
+  356                /       TAD     CHAR                    /AC CONTAINS LATEST CHARACTER TO OUTPUT
+  357                /       JMS I   (PFFOUT)                /CALL ROUTINE
+  358                /       JMP     FILEFULL                /THE FILE BECAME FULL AND WAS CLOSED OUT
+  359                /       JMP     FILEOK                  /FILE IS STILL ACTIVE
+  360   
+  361                /       FILES WILL BE CLOSED OUT IF:
+  362   
+  363                /       A)      A NON-<EOL> IS PASSED AND THERE IS ONLY ROOM ENOUGH FOR THE
+  364                /               NON-<EOL> CHARACTER AND AN ADDITIONAL <EOL> CHARACTER AND <EOF>.
+  365                /               AN <EOL> WILL BE AUTOMATICALLY INSERTED TO PRESERVE THE INTEGRITY
+  366                /               OF THE FILE ALONG WITH AN <EOF> TO CLOSE IT. THE FILE WILL ALSO
+  367                /               BE WRITTEN OUT TO THE SYSTEM DEVICE ACCORDING TO THE PRIOR
+  368                /               INITIALIZATION (SEE "PFFINIT").
+  369   
+  370                /       B)      AN <EOL> CHARACTER (0000) IS PASSED AND THERE IS LESS ROOM THAN
+  371                /               "EOLPROT" LEFT IN THE FILE. AN <EOF> WILL BE INSERTED INTO THE FILE
+  372                /               AND IT WILL BE CLOSED AND WRITTEN OUT TO THE SYSTEM DEVICE ACCORDING
+  373                /               TO THE PRIOR INITIALIZATION (SEE "PFFINIT").
+  374   
+  375                /       C)      AN <EOF> CHARACTER (4000) IS PASSED. IF THE PREVIOUS CHARACTER WAS
+  376                /               NOT AN <EOL> CHARACTER, ONE WILL BE INSERTED BEFORE AN <EOF> IS
+  377                /               INSERTED. THE FILE WILL BE CLOSED AND WRITTEN OUT TO THE SYSTEM
+  378                /               DEVICE ACCORDING TO THE PRIOR INITIALIZATION (SEE "PFFINIT").
+  379   
+  380   00600  0000  PFFOUT, .-.                             /FIXED FILE OUTPUT ROUTINE
+  381   00601  3012          DCA     PFFLATEST               /SAVE LATEST CHARACTER
+  382   00602  1012          TAD     PFFLATEST               /GET IT BACK
+  383   00603  7450          SNA                             /IS IT <EOL>?
+  384   00604  5222          JMP     PFFEOL                  /YES
+  385   00605  7710          SPA CLA                         /IS IT <EOF>?
+  386   00606  5237          JMP     PFFCLOSE                /YES
+  387   00607  1012          TAD     PFFLATEST               /NO, GET THE CHARACTER
+  388   00610  0173          AND     [77]                    /JUST IN CASE
+  389   00611  4342          JMS     PFFSTORE                /STORE IN FILE BUFFER
+  390   00612  1365          TAD     PFFPTR                  /GET THE INSERTION POINTER VALUE
+  391   00613  1377          TAD     (5)                     /ADD ON ULTIMATE PROTECTION VALUE
+  392   00614  7041          CIA                             /INVERT FOR TESTING
+  393   00615  1565          TAD I   [FILBUFFER+3777]        /COMPARE TO FILE POINTER LIMIT VALUE
+  394   00616  7740          SMA SZA CLA                     /SKIP IF FILE IS ABSOLUTELY FULL
+  395   00617  5260          JMP     PFFOK                   /JUMP IF STILL SOME EXTRA ROOM
+  396   00620  4264          JMS     PFFOEOL                 /STORE <EOL> CHARACTER TO PRESERVE FILE INTEGRITY
+  397   00621  5242          JMP     PFFWRITE                /CONTINUE THERE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 12
+
+  399   00622  4264  PFFEOL, JMS     PFFOEOL                 /OUTPUT <EOL> CHARACTER
+  400   00623  1364          TAD     PFFNUMBER               /GET LATEST LINE NUMBER
+  401   00624  1362          TAD     PFFINCREMENT            /BUMP TO NEXT VALUE
+  402   00625  3364          DCA     PFFNUMBER               /STORE BACK FOR NEXT TIME
+  403   00626  1376          TAD     (PFFLEFT)               /RESET THE
+  404   00627  3344          DCA     PFFPUT                  /CO-ROUTINE
+  405   00630  1564          TAD I   [FILBUFFER+3776]        /GET TEXT POINTER
+  406   00631  1010          TAD     EOLPROTECTION           /ADD ON PROTECTION VALUE
+  407   00632  7041          CIA                             /INVERT FOR TESTING
+  408   00633  1565          TAD I   [FILBUFFER+3777]        /COMPARE TO POINTER LIMIT
+  409   00634  7700  PF7700, SMA CLA                         /SKIP IF TOO FULL
+  410   00635  5260          JMP     PFFOK                   /JUMP IF STILL ENOUGH ROOM
+  411   00636  7410          SKP                             /FALL INTO <EOF> ROUTINE
+  412   00637  1013  PFFCLOS,TAD     PFFPREVIOUS             /GET PREVIOUS CHARACTER
+  413   00640  7640          SZA CLA                         /SKIP IF IT WAS <EOL>
+  414   00641  4264          JMS     PFFOEOL                 /STORE <EOL> CHARACTER TO PRESERVE FILE INTEGRITY
+  415   00642  1564  PFFWRIT,TAD I   [FILBUFFER+3776]        /GET FREE TEXT POINTER
+  416   00643  1375          TAD     (-FILBUFFER)            /COMPARE TO EMPTY VALUE
+  417   00644  7650          SNA CLA                         /SKIP IF OTHERWISE
+  418   00645  5253          JMP     PFFEMPTY                /JUMP IF FILE IS EMPTY
+  419   00646  4431          JMS I   PSYSIO/[SYSIO]          /CALL I/O ROUTINES
+  420   00647  3000  PFFBUFF,FILBUFFER                       /FILE ADDRESS
+  421   00650  6000  PFFFUN, 20^100+WRITE+00+.-.             /UNIT BITS WILL BE FILLED IN
+  422   00651  0000  PFFBLK, .-.                             /BLOCK NUMBER WILL BE FILLED IN
+  423   00652  2011          ISZ     FILCNT                  /BUMP UP CREATION COUNT
+  424   00653  4274  PFFEMPT,JMS     PFFINITIALIZE           /RE-INITIALIZE THE FILE POINTERS
+  425   00654  0040  PFFDOLL,DOLBLK+.-.                      /UNIT BITS FROM "SBTFUN" WILL BE FILLED IN
+  426   00655  0144          144                             /INITIAL LINE NUMBER
+  427   00656  0012          12                              /LINE NUMBER INCREMENT
+  428   00657  7410          SKP                             /DO NOT TAKE SKIP RETURN
+  429   00660  2200  PFFOK,  ISZ     PFFOUT                  /BUMP TO OK RETURN
+  430   00661  1012          TAD     PFFLATEST               /GET LATEST CHARACTER
+  431   00662  3013          DCA     PFFPREVIOUS             /SAVE AS PREVIOUS CHARACTER FOR NEXT TIME
+  432   00663  5600          JMP I   PFFOUT                  /RETURN TO CALLER
+  433   
+  434   00664  0000  PFFOEOL,.-.                             /<EOL> OUTPUT ROUTINE
+  435   00665  4342          JMS     PFFSTORE                /OUTPUT <EOL> CHARACTER
+  436   00666  2365          ISZ     PFFPTR                  /BUMP PAST LAST <EOL> WORD
+  437   00667  3765          DCA I   PFFPTR                  /STORE TENTATIVE <EOF>
+  438   00670  1364          TAD     PFFNUMBER               /GET LATEST LINE NUMBER
+  439   00671  3763          DCA I   PFFLPTR                 /STORE OVER (FORMER) DUMMY LINE VALUE
+  440   00672  4324          JMS     PFFLINE                 /UPDATE FILE POINTERS AND CREATE NEW DUMMY PAIR
+  441   00673  5664          JMP I   PFFOEOL                 /RETURN
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 13
+
+  443                /       P?S/8 FIXED FILE INITIALIZE ROUTINE.
+  444   
+  445                /       CALL WITH:
+  446   
+  447                /       JMS I   (PFFINITIALIZE)         /CALL ROUTINE
+  448                /       BLOCK+UNIT                      /FILE ARGUMENT ([BLOCK&7770] + [UNIT&7])
+  449                /       NUMBER                          /INITIAL LINE NUMBER
+  450                /       INCREMENT                       /LINE NUMBER INCREMENT
+  451                /       RETURN                          /ALWAYS RETURNS HERE
+  452   
+  453   00674  0000  PFFINIT,.-.                             /FIXED FILE INITIALIZE ROUTINE
+  454   00675  1674          TAD I   PFFINITIALIZE           /GET FILE ARGUMENT
+  455   00676  0163          AND     [7770]                  /JUST BLOCK BITS
+  456   00677  3251          DCA     PFFBLK                  /STORE IN-LINE
+  457   00700  1674          TAD I   PFFINITIALIZE           /GET IT AGAIN
+  458   00701  0172          AND     [7]                     /JUST UNIT BITS
+  459   00702  1374          TAD     (20^100+WRITE)          /FORM WRITE FUNCTION
+  460   00703  3250          DCA     PFFFUN                  /STORE IN-LINE
+  461   00704  2274          ISZ     PFFINITIALIZE           /BUMP TO NEXT ARGUMENT
+  462   00705  1674          TAD I   PFFINITIALIZE           /GET INTIAL LINE NUMBER
+  463   00706  3364          DCA     PFFNUMBER               /STASH IT
+  464   00707  2274          ISZ     PFFINITIALIZE           /BUMP TO NEXT ARGUMENT
+  465   00710  1674          TAD I   PFFINITIALIZE           /GET LINE NUMBER INCREMENT
+  466   00711  3362          DCA     PFFINCREMENT            /STASH IT
+  467   00712  2274          ISZ     PFFINITIALIZE           /BUMP PAST ARGUMENT
+  468   00713  1247          TAD     PFFBUFFER/(FILBUFFER)   /SETUP THE
+  469   00714  3365          DCA     PFFPTR                  /TEXT POINTER
+  470   00715  1376          TAD     (PFFLEFT)               /INITIALIZE
+  471   00716  3344          DCA     PFFPUT                  /CO-ROUTINE
+  472   00717  1165          TAD     [FILBUFFER+3777]        /INITIALIZE
+  473   00720  3363          DCA     PFFLPTR                 /LINE POINTER
+  474   00721  4324          JMS     PFFLINE                 /CREATE INITIAL FILE POINTERS
+  475   00722  3013          DCA     PFFPREVIOUS             /INITIALIZE PREVIOUS CHARACTER TO <EOL>
+  476   00723  5674          JMP I   PFFINITIALIZE           /RETURN
+  477   
+  478   00724  0000  PFFLINE,.-.                             /LINE POINTERS UPDATE ROUTINE
+  479   00725  7346          NL7775                          /BACKUP TO
+  480   00726  1363          TAD     PFFLPTR                 /PREVIOUS PAIR
+  481   00727  3363          DCA     PFFLPTR                 /STORE BACK
+  482   00730  1363          TAD     PFFLPTR                 /GET THE POINTER
+  483   00731  3565          DCA I   [FILBUFFER+3777]        /STORE LATEST PAIR POINTER
+  484   00732  1365          TAD     PFFPTR                  /GET LATEST TEXT POINTER
+  485   00733  3564          DCA I   [FILBUFFER+3776]        /STORE IN FREE TEXT POINTER
+  486   00734  1365          TAD     PFFPTR                  /GET TEXT POINTER
+  487   00735  3763          DCA I   PFFLPTR                 /STORE AS FREE TEXT POINTER IN DUMMY PAIR
+  488   00736  2363          ISZ     PFFLPTR                 /BUMP TO DUMMY LINE ADDRESS
+  489   00737  7240          NL7777                          /GET DUMMY LINE VALUE
+  490   00740  3763          DCA I   PFFLPTR                 /STORE IN DUMMY LINE HOLDER
+  491   00741  5724          JMP I   PFFLINE                 /RETURN
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 14
+
+  493   00742  0000  PFFSTOR,.-.                             /CHARACTER INSERTION ROUTINE
+  494   00743  5744          JMP I   PFFPUT                  /GO WHERE YOU SHOULD
+  495   
+  496   00744  0747  PFFPUT, PFFLEFT                         /EXIT ROUTINE; INITIALIZED FOR FIRST CHARACTER
+  497   00745  3765          DCA I   PFFPTR                  /STORE LATEST WORD
+  498   00746  5742          JMP I   PFFSTORE                /RETURN TO THEIR CALLER
+  499   
+  500   00747  7126  PFFLEFT,STL RTL;STL RTL;STL RTL         /SHIFT LEFT WITH GARBAGE
+        00750  7126 
+        00751  7126 
+  503   00752  4344          JMS     PFFPUT                  /STORE IT AND GET ANOTHER CHARACTER
+  504   00753  3274          DCA     PFFINITIALIZE           /SAVE LATEST CHARACTER
+  505   00754  1765          TAD I   PFFPTR                  /GET PREVIOUS AND GARBAGE
+  506   00755  0234          AND     PF7700/(7700)           /REMOVE GARBAGE
+  507   00756  1274          TAD     PFFINITIALIZE           /ADD ON LATEST
+  508   00757  4344          JMS     PFFPUT                  /STORE BOTH AND GET ANOTHER
+  509   00760  2365          ISZ     PFFPTR                  /BUMP TO NEXT PAIR
+  510   00761  5347          JMP     PFFLEFT                 /KEEP GOING
+  511   
+  512   00762  0000  PFFINCR,.-.                             /LINE NUMBER INCREMENT FOR FIXED FILES
+  513   00763  0000  PFFLPTR,.-.                             /FIXED FILE INFORMATION PAIR POINTER
+  514   00764  0000  PFFNUMB,.-.                             /LATEST LINE NUMBER FOR FIXED FILES
+  515   00765  0000  PFFPTR, .-.                             /FIXED FILE INSERTION POINTER
+  516   00766  4036  FLSMSG, TEXT    " ^F^ILES^"
+        00767  0636 
+        00770  1114 
+        00771  0523 
+        00772  3600 
+  517   
+  518         *0774 
+        00774  6000 
+        00775  5000 
+        00776  0747 
+        00777  0005 
+              *1000          PAGE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 15
+
+  520                /       INITIALIZATION STARTS HERE.
+  521   
+  522   01000  1777  INITIAL,TAD I   (SBTFUN)        /GET BOOTSTRAP FUNCTION WORD
+  523   01001  0172          AND     [7]             /JUST UNIT BITS
+  524   01002  1171          TAD     [DOLBLK]        /ADD ON "$" BLOCK NUMBER
+  525   01003  3776          DCA I   (PFFDOLLAR)     /STORE IN INITIALIZE CODE
+  526   01004  1567          TAD I   [SBOOT]         /GET BOOTSTRAP INSTRUCTION
+  527   01005  1375          TAD     (-JMSSYSIO)     /COMPARE TO POSSIBLE VALUE
+  528   01006  7650          SNA CLA                 /SKIP IF DIFFERENT
+  529   01007  5213          JMP     CHKCOVERLAY     /JUMP IF IT MATCHES
+  530   01010  2045          ISZ     CHKKRS          /TURN "KRSIOT"
+  531   01011  2045          ISZ     CHKKRS          /INTO "KRBIOT"
+  532   01012  3056          DCA     CHKKCC          /DESTROY "KCCIOT"
+  533   01013  7326  CHKCOVR,NL0002                  /SETUP "C" BIT MASK
+  534   01014  0574          AND I   [SCRSIZE]       /GET THE "C" BIT
+  535   01015  7650          SNA CLA                 /SKIP IF CONSOLE OVERLAY PRESENT
+  536   01016  5240          JMP     ANNOUNCE        /JUMP IF NOT
+  537   01017  1574          TAD I   [SCRSIZE]       /GET THE CORE SIZE WORD
+  538   01020  7012          RTR;RAR                 /MOVE OVER AND
+        01021  7010 
+  540   01022  0374          AND     (70)            /ISOLATE MCS BITS
+  541   01023  1373          TAD     (CIF    10)     /TURN INTO CIF MCS+10
+  542   01024  3065          DCA     P7TSF           /STORE OVER "TSFIOT"
+  543   01025  1066          TAD     P7JMP           /GET "JMP P7AGN"
+  544   01026  3067          DCA     P7TLS           /STORE OVER "TLSIOT"
+  545   01027  1372          TAD     (JMS    OUTCON) /GET OUTPUT CALL INSTRUCTION
+  546   01030  3066          DCA     P7JMP           /STORE OVER "JMP P7AGN"
+  547   01031  1065          TAD     P7TSF           /GET "CIF MCS+10" AGAIN
+  548   01032  3043          DCA     CHKKSF          /STORE OVER "KSFIOT"
+  549   01033  1044          TAD     CHKJMP          /GET "JMP I CTLCTST"
+  550   01034  3045          DCA     CHKKRS          /STORE OVER "KRSIOT" (OR "KRBIOT")
+  551   01035  1371          TAD     (JMS    INCON)  /GET INPUT CALL INSTRUCTION
+  552   01036  3044          DCA     CHKJMP          /STORE OVER "JMP I CTLCTST"
+  553   01037  3056          DCA     CHKKCC          /DESTROY "KCCIOT"
+  554   01040  4570  ANNOUNC,JMS I   [SCRIBE]        /TELL THEM
+  555   01041  1200          ANNMSG                  /WE HAVE ARRIVED
+  556   01042  1401          TAD I   FILPTR          /GET FIRST FILE ARGUMENT
+  557   01043  7650          SNA CLA                 /SKIP IF SOMETHING THERE
+  558   01044  5271          JMP     NOFILES         /ELSE COMPLAIN
+  559   01045  1770          TAD I   (SOUTFLS)       /GET OUTPUT FILE COUNT
+  560   01046  7450          SNA                     /SKIP IF SOME OUTPUT FILES PASSED
+  561   01047  5274          JMP     NOOUTFILES      /JUMP IF NOT
+  562   01050  1001          TAD     FILPTR          /POINT AT END OF OUTPUT LIST
+  563   01051  3021          DCA     P7TEMP          /STASH THE POINTER
+  564   01052  1421          TAD I   P7TEMP          /GET THE DELIMITER
+  565   01053  7640          SZA CLA                 /SKIP IF ACTUAL END OF LIST
+  566   01054  5266          JMP     MIXFILES        /ELSE COMPLAIN OF MIXED FILES
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 16
+
+  568   01055  1767          TAD I   (SWMX)          /GET /M-/X SWITCHES
+  569   01056  0366          AND     (10)            /JUST /U BIT
+  570   01057  7650          SNA CLA                 /SKIP IF SET
+  571   01060  5765          JMP I   (MEMIN)         /ELSE GO START IT UP
+  572   01061  1042          TAD     L7600/[CLA!400] /GET A "CLA" INSTRUCTION
+  573   01062  3764          DCA I   (CASZP1)        /PREVENT CASE CHANGE
+  574   01063  1042          TAD     L7600/[CLA!400] /GET A "CLA" INSTRUCTION
+  575   01064  3763          DCA I   (CASZP2)        /PREVENT CASE CHANGE
+  576   01065  5765          JMP I   (MEMIN)         /GO START IT UP
+  577   
+  578   01066  4570  MIXFILE,JMS I   [SCRIBE]        /TELL THEM
+  579   01067  1225          MFLMSG                  /OF MIXED FILES
+  580   01070  5566          JMP I   [CREPORT]       /GOODBYE!
+  581   
+  582   01071  4570  NOFILES,JMS I   [SCRIBE]        /TELL THEM
+  583   01072  1263          NFLMSG                  /THEY GOOFED
+  584   01073  5566          JMP I   [CREPORT]       /GOODBYE!
+  585   
+  586   01074  4570  NOOUTFI,JMS I   [SCRIBE]        /TELL THEM
+  587   01075  1302          NOFMSG                  /THEY GOOFED
+  588   01076  5566          JMP I   [CREPORT]       /GOODBYE
+  589   
+  590         *1163 
+        01163  0254 
+        01164  0210 
+        01165  0264 
+        01166  0010 
+        01167  7605 
+        01170  7607 
+        01171  4031 
+        01172  4033 
+        01173  6212 
+        01174  0070 
+        01175  3540 
+        01176  0654 
+        01177  7602 
+              *1200          PAGE
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 17
+
+  592                /       ONCE-ONLY TEXT MESSAGES.
+  593   
+  594   01200  3616  ANNMSG, TEXT    "^N^ICOLET ^A^VERAGER ^D^ATA ^C^ONVERSION"
+        01201  3611 
+        01202  0317 
+        01203  1405 
+        01204  2440 
+        01205  3601 
+        01206  3626 
+        01207  0522 
+        01210  0107 
+        01211  0522 
+        01212  4036 
+        01213  0436 
+        01214  0124 
+        01215  0140 
+        01216  3603 
+        01217  3617 
+        01220  1626 
+        01221  0522 
+        01222  2311 
+        01223  1716 
+  595   01224  4500  CRLF,   TEXT    "%"
+  596   01225  4536  MFLMSG, TEXT    "%^C^ANNOT ^P^ROCESS ^M^IXED ^I^NPUT AND ^O^UTPUT ^F^ILES!%^"
+        01226  0336 
+        01227  0116 
+        01230  1617 
+        01231  2440 
+        01232  3620 
+        01233  3622 
+        01234  1703 
+        01235  0523 
+        01236  2340 
+        01237  3615 
+        01240  3611 
+        01241  3005 
+        01242  0440 
+        01243  3611 
+        01244  3616 
+        01245  2025 
+        01246  2440 
+        01247  0116 
+        01250  0440 
+        01251  3617 
+        01252  3625 
+        01253  2420 
+        01254  2524 
+        01255  4036 
+        01256  0636 
+        01257  1114 
+        01260  0523 
+        01261  4145 
+        01262  3600 
+
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE 18
+
+  598   01263  4536  NFLMSG, TEXT    "%^N^O ^P?S/8 F^ILES ^G^IVEN!%"
+        01264  1636 
+        01265  1740 
+        01266  3620 
+        01267  7723 
+        01270  5770 
+        01271  4006 
+        01272  3611 
+        01273  1405 
+        01274  2340 
+        01275  3607 
+        01276  3611 
+        01277  2605 
+        01300  1641 
+        01301  4500 
+  599   01302  4536  NOFMSG, TEXT    "%^N^O ^P?S/8 O^UTPUT ^F^ILES ^G^IVEN!%^"
+        01303  1636 
+        01304  1740 
+        01305  3620 
+        01306  7723 
+        01307  5770 
+        01310  4017 
+        01311  3625 
+        01312  2420 
+        01313  2524 
+        01314  4036 
+        01315  0636 
+        01316  1114 
+        01317  0523 
+        01320  4036 
+        01321  0736 
+        01322  1126 
+        01323  0516 
+        01324  4145 
+        01325  3600 
+  600   
+  601                        $                       /THAT'S ALL FOLK!
+  601         *0163 
+        00163  7770 
+        00164  6776 
+        00165  6777 
+        00166  0300 
+        00167  7600 
+        00170  0202 
+        00171  0040 
+        00172  0007 
+        00173  0077 
+        00174  7611 
+        00175  0177 
+        00176  7776 
+        00177  7757 
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE S-1
+COMPLETE SYMBOL TABLE LISTING
+
+
+ACL    7701P    DATE   6765D    ICON   6141P    MIXFIL 1066     PLS    6026P    SCRSIZ=7611     U      0010P
+ADA    1100P    DCA    3000M    ICS1   6151P    MQA    7501P    PMODE  2576D    SEGMNT 3364D    UMB    0640P
+ADD    2000M    DCM    7575P    ICS2   6153P    MQL    7421P    POFBLK 0271     SET    0040P    WCG    0705P
+ADM    1140P    DDZ    7665P    IFDEF  3601D    MSC    0000P    PPC    6024P    SFA    0024P    WRC    0704P
+AND    0000M    DECCOM 0453     IFNDEF 3600D    MTB    0703P    PQS    1367D    SFILES=7757     WRI    0706P
+ANNMSG 1200     DECIMA 0306D    IFNZRO 3613D    MUL    1240P    PSF    6021P    SGT    6006P    WRITE =4000 
+ANNOUN 1040     DECOUT 0435     IFZERO 3614D    MUY    7405P    PSYSIO 0031     SHD    1400P    XLIST  2144D
+APO    0451P    DECSW  0546     ILES   6145P    N     =0002     P6CH   0257     SHL    7413P    XOA    0021P
+ASC    7403P    DECTMP 0547     IMBS   6155P    NCON   0200     P6END  0274     SINT   6254P    XSK    0200P
+ASMIFM 3361D    DEVICE 1150D    INC    2000M    NEWBUF 0400     P7AGN  0063     SIXBIT 1100D    Z      1367D
+ASMIFN 3357D    DIGOUT 0504     INCHAR 0020     NFLMSG 1263     P7CH   0061     SKIP   2561D    ZBLOCK 2154D
+ASMIFZ 3360D    DIS    0140P    INCON =0031     NL0002=7326     P7JMP  0066     SKON   6000P    ZTA    0005P
+ASMSKP 3355D    DIVIDE 0524     INITIA 1000     NL4000=7330     P7TEMP 0021     SKP    7410P    ZZZ    0455P
+ASR    7415P    DJR    0006P    INTS   6147P    NL7775=7346     P7TLS  0067     SMA    7500P    
+ATR    0014P    DLD    7663P    IOB    0500P    NL7777=7240     P7TSF  0065     SNA    7450P
+AXO    0001P    DOLBLK=0040     IOF    6002P    NMI    7411P    QAC    0005P    SNL    7420P
+AZE    0450P    DONEG  0447     ION    6001P    NOBITS 1367D    QLZ    0455P    SNS    0440P
+BCL    1540P    DPIC   7573P    ISSP   6165P    NOFILE 1071     QUO    0551     SOUTFL=7607 
+BCO    1640P    DPSZ   7451P    ISZ    2000M    NOFMSG 1302     RAL    7004P    SPA    7510P
+BSE    1600P    DSC    1740P    ITAC   6157P    NOOUTF 1074     RAR    7010P    SRO    1500P
+BSW    7002P    DST    7445P    IZSA   6173P    NOP    7000P    RCC    6016P    SRQ    6003P
+BUFCNT 0544     DTORG  2762D    JMP    5000M    NOPUNC 1176D    RCG    0701P    STA    7240P
+BUFFLD=0020     DVI    7407P    JMS    4000M    NOTEOL 0421     RDC    0700P    STB    0414P
+BUFLUP 0403     DVLOOP 0532     JMSC  =4200     OCTAL  0301D    RDE    0702P    STC    4000M
+BUFPTR 0545     EJECT  3400D    JMSSYS=4240     OPR    7000P    RDF    6214P    STD    0416P
+CAF    6007P    ENBITS 1367D    JSR    6000M    OSR    7404P    RELOC  0754D    STH    1340P
+CAM    7621P    ENDBIN 2551D    KBD    0515P    OUTCON=0033     REM    0550     STL    7120P
+CASZP1 0210     ENPUNC 1175D    KCC    6032P    PAGE   0565D    RFC    6014P    SUF    6274P
+CASZP2 0254     EOLPRO 0010     KCCIOT=6032     PAUSE  0535D    RIB    6234P    SWAB   7431P
+CDF    6201P    ERROR  0371D    KCF    6030P    PCE    6020P    RIF    6224P    SWBA   7447P
+CHK    0707P    ESF    0004P    KIE    6035P    PCF    6022P    RMF    6244P    SWD    0457P
+CHKCLR 0037     EXC    0740P    KRB    6036P    PDP    0002P    ROL    0240P    SWMX  =7605 
+CHKCOV 1013     EXPUNG 1367D    KRS    6034P    PFFBLK 0651     ROR    0300P    SWP    7521P
+CHKJMP 0044     FCTMSG 0325     KRSIOT=6034     PFFBUF 0647     RPE    6010P    SXL    0400P
+CHKKCC 0056     FIELD  0613D    KSF    6031P    PFFCLO 0637     RRB    6012P    SYSIO =7640 
+CHKKRS 0045     FILBUF=3000     KSFIOT=6031     PFFDOL 0654     RSF    6011P    SZA    7440P
+CHKKSF 0043     FILCNT 0011     KST    0415P    PFFEMP 0653     RSW    0516P    SZL    7430P
+CHKUP  0022     FILENA 1146D    LAM    1200P    PFFEOL 0622     RTA    0015P    TAC    0003P
+CIA    7041P    FILNO  0316     LAS    7604P    PFFFUN 0650     RTF    6005P    TAD    1000M
+CIF    6202P    FILPTR 0001     LDA    1000P    PFFINC 0762     RTL    7006P    TCF    6042P
+CINT   6204P    FIXMRI 2124D    LDF    0640P    PFFINI 0674     RTR    7012P    TEXT   1101D
+CLA    7200P    FIXTAB 1367D    LDH    1300P    PFFLAT 0012     SAE    1440P    TFL    6040P
+CLL    7100P    FLO    0454P    LFENTR 0243     PFFLEF 0747     SAM    7457P    TITLE  3401D
+CLR    0011P    FLSMSG 0766     LIF    0600P    PFFLIN 0724     SBOOT =7600     TLS    6046P
+CMA    7040P    GLK    7204P    LINC   6141P    PFFLPT 0763     SBTFUN=7602     TLSIOT=6046 
+CML    7020P    GTF    6004P    LINE  =0007     PFFNUM 0764     SCA    7441P    TMA    0023P
+COM    0017P    HLT    7402P    LMB    0600P    PFFOEO 0664     SCL    7403P    TPC    6044P
+COMMON 0421     I      1357D    LMODE  2575D    PFFOK  0660     SCR    0340P    TRUMSG 0330 
+CONSOL 6764D    IAAC   6171P    LMR    6151P    PFFOUT 0600     SCRCAS 0201     TRUNCA 0276 
+CREMSG 0552     IAC    7001P    LSR    7417P    PFFPRE 0013     SCRCHA 0256     TSF    6041P
+CREPOR 0300     IACA   6167P    LSW    0517P    PFFPTR 0765     SCRCRL 0245     TSFIOT=6041 
+CRLF   1224     IACF   6175P    LZE    0452P    PFFPUT 0744     SCRFLI 0251     TSK    6045P
+CTLCTS 0041     IACS   6163P    L7600  0042     PFFSTO 0742     SCRIBE 0202     TTY   =0003 
+CUF    6264P    IBAC   6143P    MEMIN  0264     PFFWRI 0642     SCRLUP 0211     TWC    0417P
+DAD    7443P    IBZ    0453P    MFLMSG 1225     PF7700 0634     SCRPRN 0222     TYP    0514P
+
+/    NICOLET DATA CONVERSION         P?S PAL V08I    23-MAR-86  PAGE S-2
+ASSEMBLY STATISTICS
+
+
+NO ERRORS DETECTED 
+
+NO LINKS GENERATED
+
+6K MEMORY UTILIZED 
+
+1 FILE  CREATED
+
+343 SYMBOLS
+
+
+
+MAP OF FIELD 0                P?S BITMAP V02F   23-MAR-86  PAGE M-1
+NO MAPPING RESTRICTIONS
+
+
+
+
+00000 11000000 11110000 11111111 11111111 11111111 11111111 11111111 11000000
+00100 00000000 00000000 00000000 00000000 00000000 00000000 00011111 11111111
+
+00200 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
+00300 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
+
+00400 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
+00500 11111111 11111111 11111111 11111111 11111111 11111111 00000000 01111111
+
+00600 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
+00700 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11101111
+
+01000 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111110
+01100 00000000 00000000 00000000 00000000 00000000 00000000 00011111 11111111
+
+01200 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
+01300 11111111 11111111 11111100 00000000 00000000 00000000 00000000 00000000
+
+01400
+01500
+
+01600
+01700
+
+02000
+02100
+
+02200
+02300
+
+02400
+02500
+
+02600
+02700
+
+03000
+03100
+
+03200
+03300
+
+03400
+03500
+
+03600
+03700
+
+
+MAP OF FIELD 0                P?S BITMAP V02F   23-MAR-86  PAGE M-2
+
+
+
+
+
+04000
+04100
+
+04200
+04300
+
+04400
+04500
+
+04600
+04700
+
+05000
+05100
+
+05200
+05300
+
+05400
+05500
+
+05600
+05700
+
+06000
+06100
+
+06200
+06300
+
+06400
+06500
+
+06600
+06700
+
+07000
+07100
+
+07200
+07300
+
+07400
+07500
+
+07600
+07700
+

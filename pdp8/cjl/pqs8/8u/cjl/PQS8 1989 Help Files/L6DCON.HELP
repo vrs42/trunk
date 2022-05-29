@@ -1,0 +1,203 @@
+
+/       DIAL <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 1
+
+   1                 /       DIAL <- -> P?S/8 CONVERT PROGRAM
+   2   
+   3                 /       LAP6-DIAL TO P?S/8 OR P?S/8 TO LAP6-DIAL ASCII FILE CONVERSION PROGRAM.
+   4   
+   5                 /       LAST EDIT:      17-APR-1986     10:00:00        CJL
+   6   
+   7                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   8   
+   9                 /       P?S/8 UTILITY TO CONVERT ASCII FILES BETWEEN LAP6-DIAL MEDIA AND P?S/8 MEDIA.
+  10   
+  11                 /       ANY FILE REPRESENTABLE IN P?S/8 SIX-BIT ASCII SUBSET WITH OR WITHOUT LINE
+  12                 /       NUMBERS CAN BE CONVERTED TO THE CORRESPONDING SIX-BIT ASCII FILE IN LAP6-DIAL
+  13                 /       FORMAT IN A MANNER COMPATIBLE WITH LAP6-DIAL DIRECTORY CONVENTIONS. THE
+  14                 /       PROGRAM CAN ALSO BE USED TO REGROUP P?S/8 FILES OR REMOVE/RESTORE P?S/8
+  15                 /       LINE NUMBERS FROM A GROUP OF FILES FOR EDITING OR REFERENCE PURPOSES.
+  16   
+  17                 /       PROGRAM OPERATION AND OPTIONS.
+  18   
+  19                 /       CONVERSION OF LAP6-DIAL INPUT TO P?S/8 OUTPUT FILES:
+  20   
+  21                 /       .R L6DCON [LIST OF P?S/8 OUTPUT FILES] < (OPTION SWITCHES)
+  22   
+  23                 /       OR
+  24   
+  25                 /       .R L6DCON > [LIST OF P?S/8 OUTPUT FILES] (OPTION SWITCHES)
+  26   
+  27                 /       CONVERSION OF P?S/8 INPUT FILES TO A SINGLE LAP6-DIAL OUTPUT FILE:
+  28   
+  29                 /       .R L6DCON [LIST OF P?S/8 INPUT FILES] (OPTION SWITCHES)
+  30   
+  31                 /       THE DIRECTION OF CONVERSION IS DETERMINED BY PASSED P?S/8 FILES BEING EITHER
+  32                 /       INPUT OR OUTPUT. L6DCON CANNOT BE USED WITHOUT PASSED P?S/8 FILES.
+
+/       DIAL <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 2
+
+  33                 /       PROGRAM OPTIONS.
+  34   
+  35                 /                       /C      ATTEMPT TO USE MORE MEMORY THAN CURRENT LOGICAL
+  36                 /                               CORE SIZE INDICATES. LAP6-DIAL FILE BUFFERS WILL
+  37                 /                               BE ENLARGED IN BOTH CONVERSION DIRECTIONS. THIS
+  38                 /                               SWITCH IS ONLY NEEDED IF THE LOGICAL CORE SIZE IS
+  39                 /                               SET TO 4K EVEN THOUGH MORE IS ACTUALLY AVAILABLE.
+  40                 /                               GENERALLY CAUSES FASTER CONVERSION TO OCCUR. DEFAULT
+  41                 /                               IF THE LOGICAL CORE SIZE IS GREATER THAN 4K (I. E.
+  42                 /                               CORE 1-7).
+  43   
+  44                 /                       /E      USE EXTENDED LENGTH P?S/8 OUTPUT FILE PROCESSING
+  45                 /                               WITHOUT P?S/8 LINE NUMBERS. THE PASSED OUTPUT FILE
+  46                 /                               SPECIFICATION IS ASSUMED TO BE THE STARTING POINT
+  47                 /                               FOR OUTPUT FILE CONVERSION LIMITED BY THE DEVICE
+  48                 /                               LENGTH WORD CONTAINED IN THE EXTENDED USER DIRECTORY.
+  49                 /                               THE USER IS WARNED TO INVOKE THIS OPTION CAREFULLY!
+  50   
+  51                 /                       /P      PACK P?S/8 LINE NUMBER FILES. LAP6-DIAL <HT>EJECT<EOL>
+  52                 /                               CHARACTER HANDLING WILL NOT CHECK FOR EXTRA ROOM
+  53                 /                               IN THE FILE. DEFAULT ACTION IS TO CLOSE THE CURRENT
+  54                 /                               FILE AND OPEN THE NEXT ONE IF A PROTECTION COUNT
+  55                 /                               IS EXCEEDED WHEN THIS SEQUENCE IS DETECTED IN THE
+  56                 /                               CONTENTS OF THE FILE. THIS OPTION IS IGNORED IF
+  57                 /                               /E IS INVOKED, AS EXTENDED FILES CONTAIN NO LINE
+  58                 /                               NUMBERS AND HAVE NO INTRINSIC SIZE RESTRICTIONS.
+  59   
+  60                 /                       /0-/7   LOGICAL UNIT FOR LAP6-DIAL INPUT/OUTPUT (DEFAULT
+  61                 /                               IS /7).
+  62   
+  63                 /                       =NNNN   STARTING LAP6-DIAL BLOCK (DEFAULT IS 0370).
+
+/       DIAL <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 3
+
+  64                 /       DEFAULT OPTIONS.
+  65   
+  66                 /       LAP6-DIAL INPUT/OUTPUT ASSUMES LAP6-DIAL BLOCK 0370 (LAP6-DIAL WORKING AREA)
+  67                 /       ON THE LAP6-DIAL DEVICE USING LOGICAL UNIT SEVEN. EITHER LAP6-DIAL BLOCK
+  68                 /       OR UNIT CAN BE MODIFIED WITH THE APPROPRIATE EQUALS PARAMETER (FOR BLOCK)
+  69                 /       OR /0 THROUGH /7 (FOR LOGICAL UNIT).
+  70   
+  71                 /       THE LAP6-DIAL DEVICE MUST BE ACCESSIBLE THROUGH ONE OF THE BUILT-IN HANDLERS
+  72                 /       WITHIN THE L6DCON PROGRAM. THE CURRENT VERSION SUPPORTS PDP-12 AND LINC-8
+  73                 /       LINCTAPE ONLY. NO HARDWARE MODIFICATIONS ARE REQUIRED. N. B. CERTAIN
+  74                 /       HANDLER-SPECIFIC RESTRICTIONS WILL APPLY:
+  75   
+  76                 /       1)      ONLY PDP-12 HANDLERS SUPPORT 256/257 WORDS/BLOCK LINCTAPES.
+  77   
+  78                 /       2)      LINC-8 HANDLERS USED ON LINC-8 WITH ONLY TWO DRIVES WILL MAP ALL
+  79                 /               LOGICAL UNIT NUMBERS 0-7 INTO 0-1 (ALL EVEN UNITS BECOME ZERO; ALL
+  80                 /               ODD UNITS BECOME ONE).
+  81   
+  82                 /       3)      LINC-8 HANDLERS USED ON LINC-8 WITH EXTENDED DRIVES WILL HANG
+  83                 /               INDEFINITELY, AND THE SYSTEM WILL REQUIRE MANUAL BOOTSTRAP, IF A
+  84                 /               NON-EXISTANT DRIVE IS SELECTED.
+  85   
+  86                 /       LAP6-DIAL OUTPUT FILE CONSIDERATIONS.
+  87   
+  88                 /       IT IS RECOMMENDED THAT THE LAP6-DIAL OUTPUT FILE BE APPLIED TO AN EMPTY
+  89                 /       DEVICE, AS LAP6-DIAL HAS THE CAPABILITY OF EDITING FILES TO ANY BLOCK USING
+  90                 /       THE "CL", AND "AP <BLOCK>,<UNIT>" COMMANDS. USING THE DEFAULT BLOCK VALUE
+  91                 /       OF 0370 WILL WRITE THE LAP6-DIAL FILE INTO THE LAP6-DIAL WORKING AREA
+  92                 /       DIRECTLY.
+  93   
+  94                 /       **** NOTE **** THIS PROGRAM DOES NOT RECOGNIZE LAP6-DIAL DIRECTORY
+  95                 /       CONSIDERATIONS, IT CAN ONLY WRITE THE ACTUAL FILE AS LAP6-DIAL WOULD REQUIRE
+  96                 /       IT. THIS UTILITY IS IGNORANT OF LAP6-DIAL LENGTH RESTRICTIONS AND COULD
+  97                 /       ATTEMPT TO ACCESS NON-EXISTANT BLOCKS OR OVERWRITE BLOCKS HIGHER UP ON THE
+  98                 /       LAP6-DIAL DEVICE ORDINARILY BELONGING TO OTHER LAP6-DIAL FILES OR SYSTEM
+  99                 /       AREAS.
+ 100   
+ 101                 /       IF THE USER IS UNSURE OF THE LENGTH OF P?S/8 FILES WHEN CONVERTED TO LAP6-DIAL
+ 102                 /       IT IS RECOMMENDED THAT A SCRATCH LAP6-DIAL TAPE BE USED AND "=0" INVOKED
+ 103                 /       TO OUTPUT TO THE BEGINNING OF THE TAPE. LATER, FROM LAP6-DIAL, AN
+ 104                 /       "AP 0,<UNIT>" COMMAND CAN BE USED, AS LAP6-DIAL SHOULD NOT OVERLOAD ITS
+ 105                 /       OWN WORK AREA. IF THE CONVERSION IS TOO LARGE, IT CAN THEN BE REPEATED AFTER
+ 106                 /       BREAKING UP THE FILES INTO SMALLER SECTIONS. ASSUMING LAP6-DIAL CONVENTIONS
+ 107                 /       APPLY TO THE CONTENTS OF THE FILE, THE "CHAIN" PSEUDO-OP CAN BE INSERTED
+ 108                 /       AT THE END OF EACH CONVERTED LAP6-DIAL FILE TO RETAIN THE LOGICAL STREAM
+ 109                 /       OF THE ORIGINAL P?S/8 FILES.
+
+/       DIAL <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 4
+
+ 110                 /       CHARACTER CONVERSION CONSIDERATIONS.
+ 111   
+ 112                 /       LAP6-DIAL TO P?S/8 CONVERSION.
+ 113   
+ 114                 /       LAP6-DIAL                               P?S/8
+ 115   
+ 116                 /       <CR>                                    <EOL>
+ 117                 /       <UNDER-SCORE> OR <BACK-ARROW>           <
+ 118   
+ 119                 /       P?S/8 TO LAP6-DIAL CONVERSION.
+ 120   
+ 121                 /       P?S/8                                   LAP6-DIAL
+ 122   
+ 123                 /       <EOL>                                   <CR>
+ 124                 /       #                                       %
+ 125                 /       '                                       "
+ 126   
+ 127                 /       ALL OTHER CHARACERS INTERCHANGE FREELY IN BOTH CONVERSION DIRECTIONS.
+ 128   
+ 129                 /       CONSOLE MESSAGES.
+ 130   
+ 131                 /       CANNOT PROCESS MIXED INPUT AND OUTPUT FILES!
+ 132   
+ 133                 /               P?S/8 FILES MUST BE ALL INPUT OR ALL OUTPUT, NOT BOTH. THE PROGRAM
+ 134                 /               EXITS TO THE MONITOR.
+ 135   
+ 136                 /       INSUFFICIENT OUTPUT FILES, LAP6-DIAL INPUT TRUNCATED!
+ 137   
+ 138                 /               THE P?S/8 OUTPUT FILES' CAPABILITY WAS EXHAUSTED WITH FURTHER
+ 139                 /               LAP6-DIAL INPUT PRESENT. THE LAST P?S/8 FILE IS PROPERLY CLOSED AND
+ 140                 /               THE PROGRAM EXITS TO THE MONITOR.
+ 141   
+ 142                 /       LAP6-DIAL LINCTAPE INPUT ERROR!
+ 143   
+ 144                 /               AN ERROR OCCURRED WHILE READING THE LAP6-DIAL LINCTAPE. AFTER SEVERAL
+ 145                 /               RETRIES WERE ATTEMPTED, THE ERROR COULD NOT BE CLEARED. THIS ERROR
+ 146                 /               IS CONSIDERED FATAL; P?S/8 FILES MAY OR MAY NOT BE CREATED DEPENDING
+ 147                 /               ON THE TAPE POSITION AT THE POINT OF FAILURE. THE PROGRAM EXITS TO
+ 148                 /               THE MONITOR.
+ 149   
+ 150                 /       LAP6-DIAL LINCTAPE OUTPUT ERROR!
+ 151   
+ 152                 /               AN ERROR OCCURRED WHILE OUTPUTTING TO THE LAP6-DIAL LINCTAPE. AFTER
+ 153                 /               SEVERAL RETRIES WERE ATTEMPTED, THE ERROR COULD NOT BE CLEARED. THIS
+ 154                 /               ERROR IS CONSIDERED FATAL; THE PROGRAM EXITS TO THE MONITOR.
+ 155   
+ 156                 /       LAP6-DIAL => P?S/8
+ 157   
+ 158                 /               CONVERSION IS FROM LAP6-DIAL TO P?S/8 LINE NUMBER FILES. P?S/8 OUTPUT
+ 159                 /               FILES WERE PASSED WITHOUT /E AND ARE CREATED FROM LAP6-DIAL INPUT.
+
+/       DIAL <- -> P?S/8 CONVERT PROGRAM  PAL8-VB0  23-JUL-86 PAGE 5
+
+ 160                 /       LAP6-DIAL => P?S/8 [EXTENDED FILES]
+ 161   
+ 162                 /               CONVERSION IS FROM LAP6-DIAL TO P?S/8 EXTENDED FILES. P?S/8 OUTPUT
+ 163                 /               FILES WERE PASSED WITH /E INVOKED AND ARE CREATED FROM LAP6-DIAL
+ 164                 /               INPUT.
+ 165   
+ 166                 /       NO LINCTAPE HARDWARE!
+ 167   
+ 168                 /               SYSTEM HARDWARE DOES NOT INCLUDE REQUISITE LINCTAPE CONTROLLER AND
+ 169                 /               DRIVE(S). THE PROGRAM EXITS TO THE MONITOR.
+ 170   
+ 171                 /       NO P?S/8 FILES GIVEN!
+ 172   
+ 173                 /               NO P?S/8 FILES (EITHER INPUT OR OUTPUT) WERE GIVEN. THE PROGRAM
+ 174                 /               EXITS TO THE MONITOR.
+ 175   
+ 176                 /       P?S/8 => LAP6-DIAL
+ 177   
+ 178                 /               CONVERSION IS FROM P?S/8 INPUT FILES TO A SINGLE LAP6-DIAL OUTPUT
+ 179                 /               FILE. P?S/8 INPUT FILES NEED NOT CONTAIN LINE NUMBERS AS THEY ARE
+ 180                 /               IGNORED.
+ 181   
+ 182                 /       XX FILES CREATED
+ 183   
+ 184                 /               COUNT OF OUTPUT FILES CREATED BY CONVERSION. CAN BE "NO" (IF NO
+ 185                 /               FILES WERE CONVERTED) OR 1 THROUGH 17, THE P?S/8 UPPER LIMIT. THIS
+ 186                 /               QUANTITY WILL ALWAYS BE 1 IF CONVERTING P?S/8 FILES TO LAP6-DIAL.
+ 187                 /               THIS MESSAGE IS PRINTED BEFORE EXITING TO THE MONITOR.
+

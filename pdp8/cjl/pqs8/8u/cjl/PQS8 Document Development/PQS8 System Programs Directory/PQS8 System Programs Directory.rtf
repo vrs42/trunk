@@ -1,0 +1,272 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Lucida Console;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red0\green0\blue0;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\f0\fs20 P?S/8 System Programs Directory Internal Structures\par
+\par
+Last edit:  04-Jun-2018 cjl\par
+\par
+Unlike most PDP-8 operating systems, P?S/8 maintains a separate directory for core-image system programs.  This allows highly specialized entries tailored to the individual requirements of each program.  This includes certain command-line parsing variations and the ability to maintain internal program overlays.  The P?S/8 command-line mechanism supports many features that are akin to Concise Command Language [CCL] as implemented in other systems with system-specific variations.  Certain aspects of the commands are managed by control bits in the entries for each system program; this is especially crucial regarding programs implemented as overlays to the keyboard monitor.\par
+\par
+Figure 1 shows the entire System Programs directory particular to the TC01/TC08 configuration and includes all specific program details.  Note: This listing can be obtained using the P?S/8 \i DIRECT \i0 program with the /S command-line option switch (and possibly additional options) set; for more information, consult separate documentation of P?S/8 DIRECT.\f1\par
+\par
+\cf1\f2\fs12\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\par
+\u9474? P?S/8 System Directory  DIRECT V10b  Thursday 02-Jul-15  Page 1 \u9474?\par
+\u9474?                                                                 \u9474?\par
+\u9474? System: TC08:0                                                  \u9474?\par
+\u9474?                                                                 \u9474?\par
+\u9474? Image Information:                                              \u9474?\par
+\u9474?                                                                 \u9474?\par
+\u9474?  Name   Block  Size  Load  Length  Out   In   R  S  O  Start    \u9474?\par
+\u9474?                                                                 \u9474?\par
+\u9474? ODT     0163   016   0000    16   GENO  GENI  0  0  0  03000    \u9474?\par
+\u9474? BATCH   0201   002   7400    01         BAT   0  0  0  07400    \u9474?\par
+\u9474? BIN     0203   027   0000    13   BIN   BIN   0  0  0  00200    \u9474?\par
+\u9474? GET     0203   027   0000    13   BIN   BIN   0  0  0  00600    \u9474?\par
+\u9474? START   0203   027   0000    13   GENO  GENI  0  0  0  00400    \u9474?\par
+\u9474? DUMP    0232   007   0000    07         DUMP  0  0  0  01400    \u9474?\par
+\u9474? CHANGE  0241   003   1200    03               1  1  0  01600    \u9474?\par
+\u9474? FIND    0241   003   1200    03               1  1  0  01200    \u9474?\par
+\u9474? BSAVE   0244   006   3000    06   BIN         0  0  1  03000    \u9474?\par
+\u9474? PAL     0252   102   0000    37   BIN   PAL   0  0  0  00200    \u9474?\par
+\u9474? MAP     0354   012   0000    12         BIN   0  0  0  01200    \u9474?\par
+\u9474? BLKODT  0366   011   0000    11               0  0  0  02000    \u9474?\par
+\u9474? SET     0377   013   3000    13               1  1  0  03000    \u9474?\par
+\u9474? CORE    0412   002   3000    02               0  1  0  03000    \u9474?\par
+\u9474? DATE    0414   012   3000    12               0  1  0  03000    \u9474?\par
+\u9474? PRINT   0426   014   0000    14         PAL   1  0  0  00200    \u9474?\par
+\u9474? FILMAN  0442   024   2600    24               0  1  0  07000    \u9474?\par
+\u9474? ALLCAT  0466   003   3000    03               0  1  0  03000    \u9474?\par
+\u9474? CONSOL  0471   040   3000    20         BIN   0  0  0  03000    \u9474?\par
+\u9474? FOCAL   0531   041   0000    37         FOC   0  0  0  03400    \u9474?\par
+\u9474? OS8CON  0572   012   0000    12   ASC   ASC   0  0  0  00200    \u9474?\par
+\u9474? SYSTAT  0604   014   0000    14               0  0  0  00200    \u9474?\par
+\u9474? DIRECT  0620   023   2600    23               1  1  0  07200    \u9474?\par
+\u9474? BLKCPY  0643   026   0000    26               0  0  0  00200    \u9474?\par
+\u9474? RK4MAT  0671   021   0000    21               0  0  0  02200    \u9474?\par
+\u9474? DT4MAT  0712   014   0000    14               0  0  0  02600    \u9474?\par
+\u9474? DTCOPY  0726   007   0000    07               0  0  0  00000    \u9474?\par
+\u9474? <free>  0735   043                                              \u9474?\par
+\u9474?                                                                 \u9474?\par
+\u9474? Free Slots:    072                                              \u9474?\par
+\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\par
+\par
+Figure 1: System Directory Printout of P?S/8 Version 8Z for TC08.\par
+\par
+\par
+\fs20 Figure 2 shows the contents of the first block of the System Programs directory.  Each program entry occupies six words:\par
+\par
+\pard\tx947\tx1042 Word 1-3: The program name in six-bit text format.  All trailing characters of\par
+\tab   program names shorter than six characters are nul [00].  Any character\par
+\tab   that is valid for a \i Tiny File System\i0  [TFS] file name is also valid for a system\par
+\tab   program name.  This includes characters such as \i\\\i0 , \i ^\i0 , \i [\i0  and \i ]\i0 .\par
+\pard\par
+Word 4:   The starting block number for the program.  The contents of this block (and any \tab     relevant additional contiguous blocks) will be loaded into memory when an\par
+\tab     execution-class keyboard monitor command initiates the program.\par
+\par
+\tab     Note: Since system programs in the basic P?S/8 system are loaded by calls to \tab     the system device handler, the starting block number is a 12-bit unsigned \tab     value.  When the optional P?S/8 \i SHELL\i0  overlay is implemented, programs will be\par
+\tab     controlled by independent entries in the SHELL filesystem directory.  AS such,\par
+\tab     the starting block will be expressed as a 24-bit unsigned integer which will be \tab     passed to a designated non-system device handler.\par
+\par
+\tab     Note: The additional words in each entry are likely to change in the next \tab     release; this may include changing the exact count of words per entry from six \tab     to seven.  Due to the generous allocation of blocks in the system programs \tab     directory, this is not expected to be of any practical consequence.\page Word 5:   This word contains several sets of loading and parsing information:\par
+\par
+\tab     Bits[0-4] contain the loading address of the system program (which must\par
+\tab     conform to full page boundaries).\par
+\par
+\tab     Bits[7-11] contain the length (in 128-word blocks) of the initial loading\par
+\tab     segment of the program.\par
+\par
+\tab     Note: All programs that do not utilize overlay structures contain no additional\par
+\tab     segments.  Programs that include overlay mechanisms define their own internal\par
+\tab     structures as required.  For example, P?S/8 \i FOCAL\i0  includes several secondary\par
+\tab     segments that are loaded into memory by FOCAL in specific circumstances; P?S/8\par
+\tab     \i PAL\i0  has an analogous set of secondary segments of program code and a data\par
+\tab     segment that consists of the internal symbol table that is loaded into memory\par
+\tab     as determined by dynamic memory allocation considerations.\par
+\par
+\tab     If Bit[5] is set, the command processor will not scan for (input or\par
+\tab     output) filenames.  Certain programs are designed to process the rest of\par
+\tab     the command line directly.  For example, the P?S/8 \i CORE\i0  program sets this\par
+\tab     bit to allow processing of various in-line arguments that must not be\par
+\tab     confused with filenames.\par
+\par
+\tab     If Bit[6] is set, processing of an \i =xxxx\i0  expression will occur in the\par
+\tab     current radix setting within the keyboard monitor.  Otherwise, the\par
+\tab     expression is always processed as octal notation.  For example, the P?S/8\par
+\tab     \i FIND\i0  program locates strings within file lines (within the edit buffer of\par
+\tab     the keyboard monitor) matching a specified string.  The search can be\par
+\tab     limited to a starting line number expressed as \i =xxxx\i0  in the current radix\par
+\tab     setting within the keyboard monitor.\par
+\par
+Word 6:   This word contains several sets of startup and parsing parameters:\par
+\par
+\tab     Bits[0-4] contains the startup address for the program.  Note: As of\par
+\tab     P?S/8 Version 8Z, all system programs must start on full page boundaries.\par
+\tab     Future releases may relax this restriction somewhat.\par
+\par
+\tab     If Bit[5] is set, the parsing of input files is inhibited.  For example,\par
+\tab     the P?S/8 \i BSAVE\i0  program must be passed output files without input files.\par
+\tab     After the input/output separator character (\i <\i0  or \i >\i0  according to user\par
+\tab     preference) has been processed, the list of output files is always\par
+\tab     processed first.  All command-line input beyond the separator character\par
+\tab     must be available to the BSAVE program for direct processing.  This\par
+\tab     section of the command consists of individual memory locations or groups\par
+\tab     of contiguous memory locations to be saved in the specified binary output\par
+\tab     files; however, if input file processing were not inhibited, certain\par
+\tab     memory location specifications could be mistaken for input files.\par
+\par
+\tab     Bits[6-11] are used for passive cosmetic purposes only.  Various\par
+\tab     combinations of potential input and output file types have been defined.\par
+\tab     The P?S/8 \i DIRECT\i0  program output as shown in Figure 1 includes the\par
+\tab     designated values for all programs that are ordinarily used with input\par
+\tab     files or output files (or both).\par
+\par
+\tab     Future P?S/8 releases will drop support of the usage of Bits[6-11] in Word 6 as\par
+\tab     described above.  These bits will be repurposed to allow the program starting \tab     address to be any value within field 0.  This will be implemented by moving the \tab     special scan bits to a seventh word; this will also allow for future system \tab     expansion such as theoretical SHELL compatibility allowing the SHELL \tab     subsystem to access compatible programs from the System Programs directory.\par
+\par
+\tab     Note: SHELL-based executable files will support a starting address anywhere \tab     within the entire 32K PDP-8 memory space.\page\fs12\par
+\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\par
+\u9474? BLOCK: 0:0063                                                    \u9474?\par
+\u9474?                                                                  \u9474?\par
+\u9474? 0000  1704 2400 0000 0163 0016 3001 0201 2403 *ODT@@@A3@NXABATC* \u9474?\par
+\u9474? 0010  1000 0201 7401 7411 0211 1600 0000 0203 *H@BA<A<IBIN@@@BC* \u9474?\par
+\u9474? 0020  0013 0203 0705 2400 0000 0203 0013 0603 *@KBCGET@@@BC@KFC* \u9474?\par
+\u9474? 0030  2324 0122 2400 0203 0013 0401 0425 1520 *START@BC@KDADUMP* \u9474?\par
+\u9474? 0040  0000 0232 0007 1412 0310 0116 0705 0241 *@@BZ@GLJCHANGEB!* \u9474?\par
+\u9474? 0050  1343 1600 0611 1604 0000 0241 1343 1200 *K#N@FIND@@B!K#J@* \u9474?\par
+\u9474? 0060  0223 0126 0500 0244 3006 3104 2001 1400 *BSAVE@B$XFYDPAL@* \u9474?\par
+\u9474? 0070  0000 0252 0037 0207 1501 2000 0000 0354 *@@B*@_BGMAP@@@C,* \u9474?\par
+\u9474? 0100  0012 1202 0214 1317 0424 0366 0011 2000 *@JJBBLKODTC6@IP@* \u9474?\par
+\u9474? 0110  2305 2400 0000 0377 3153 3000 0317 2205 *SET@@@C?Y+X@CORE* \u9474?\par
+\u9474? 0120  0000 0412 3102 3000 0401 2405 0000 0414 *@@DJYBX@DATE@@DL* \u9474?\par
+\u9474? 0130  3112 3000 2022 1116 2400 0426 0054 0215 *YJX@PRINT@DV@,BM* \u9474?\par
+\u9474? 0140  0611 1415 0116 0442 2724 7000 0114 1403 *FILMAND"WT8@ALLC* \u9474?\par
+\u9474? 0150  0124 0466 3103 3000 0317 1623 1714 0471 *ATD6YCX@CONSOLD9* \u9474?\par
+\u9474? 0160  3020 3002 0617 0301 1400 0531 0037 3413 *XPXBFOCAL@EY@_\\K* \u9474?\par
+\u9474? 0170  1723 7003 1716 0572 0012 0205 2331 2324 *OS8CONE:@JBESYST* \u9474?\par
+\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\par
+\par
+Figure 2: Dump of Block 0063 of P?S/8 Version 8Z for TC08.\par
+\par
+\par
+\fs20 Figure 3 shows the contents of the second block of the System Programs directory.  Several empty entries exist in this block indicating there is ample room for additional system programs.\par
+\par
+Note: To add a significant amount of additional system programs, the system device must be much larger than a DECtape or other relatively small storage media.  Larger devices can address up to block 7777 which would allow significant additional image program support.\par
+\par
+P?S/8 execution is initiated by one of two methods: concise command execution (starting the command with the program name), or by use of the R (or RU\{N\}) command specifying the desired program by name.\par
+\par
+Note: In the current release, the RU\{N\} command is an alias for the R command; either can be used interchangeably.\par
+\par
+When the R (or RU\{n\}) command method is used, the entire directory is available for system programs; in this mode of usage, a total of 125 octal (85 decimal) system programs can be accommodated.  Figure 1 indicates 072 octal (58 decimal) slots are available as the System Programs directory currently contains 33 octal (27 decimal) programs.\par
+\par
+When concise command execution is used, a restriction is made to only access entries wholly contained in the first two blocks of the System Programs directory.  (Note: Any entry past relative word[173] of the second System Programs directory block is destroyed in memory by the command processor.)  As such, when concise command execution is used, the maximum number of accessible slots is reduced to 52 octal (42 decimal).  With regard to the System Programs directory used in the example, 17 octal [15 decimal] programs can still be added while also avoiding the possibility of being unavailable for the concise execution method.\par
+\par
+Note: The two methods of initiating program execution have several tradeoffs:\par
+\par
+1) Certain programs are implemented as overlays to the keyboard monitor such as the \i FIND\i0  program used to locate string matches within the tentative file edit buffer of the keyboard monitor.  Only the concise execution method preserves the contents of the edit buffer; attempting to use FIND via the method of R FIND would be moot as the edit buffer contents will be destroyed.\par
+\par
+2) Certain programs such as P?S?8 \i OS8CON\i0  can be executed to make use of the extended user directory for the purpose of creating variable-length files.  The concise execution form cannot access the extended-length file directory.\par
+\par
+The general recommendation is to place programs with little interaction with P?S/8 resources in higher blocks to ensure programs implemented as overlays to always be executable by the concise method.  These generally include device formatting or diagnostic programs designed for standalone usage (with the paper-tape loading programs \i RIM\i0  or \i BIN\i0 .)\par
+\par
+Note: The support of extended-length files is undergoing major redesign.  As originally intended, it was foreseen that P?S/8 might attempt to include certain aspects of variable-length files in a more general-purpose way than merely one extended-length file per system device logical unit; however, no version of P?S/8 ever supported more than read access to the first file and the file name had to be manually entered into the first entry in the extended-length files directory.\page With the implementation of the P?S/8 SHELL (currently under development) the extended-length files directory is being eliminated in favor of a single entry placed at the end of the System Programs directory.  As such, the maximum number of system programs available to the R (or RU\{n\}) command will be reduced from 125 octal (85 decimal) to 123 octal (83 decimal).  Since the entry for the single extended-length file will be loaded into memory along with the rest of the System Programs directory, overall command efficiency will be notably improved.\par
+\par
+Appropriate modifications will be made to the P?S/8 \i SET\i0  command to accommodate the single extended-length file; it will no longer be necessary to enter the file name manually.\par
+\par
+Due to this design change, the R (or RU\{n\}) form of execution cannot access the extended-length directory presently.  A workaround is available as follows:\par
+\par
+The TFS directory manages all blocks up to the limit block just before the extended-length file directory area.  As such, a TFS file entry can be placed at the last allowed file slot.  This file entry will start exactly 20 octal (16 decimal) blocks before the (first and only) extended-length file.  As such, this final TFS directory slot can be used in lieu of an extended-length file name as necessary.\par
+\par
+Note: The file will not be compatible with the keyboard monitor edit-oriented commands. All system programs can be passed this file in the same manner an extended-length file would ordinarily be used.\par
+\par
+Note: P?S/8 OS8CON and related programs have been altered to not check validity of the passed file block; when access to the extended-length single file entry is restored, OS8CON validity checking will be restored.\par
+\par
+\fs12\par
+\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\par
+\u9474? BLOCK: 0:0064                                                    \u9474?\par
+\u9474?                                                                  \u9474?\par
+\u9474? 0000  0124 0604 0014 0200 0411 2205 0324 0620 *ATFD@LB@DIRECTFP* \u9474?\par
+\u9474? 0010  2763 7200 0214 1303 2031 0643 0026 0200 *W3:@BLKCPYF#@VB@* \u9474?\par
+\u9474? 0020  2213 6415 0124 0671 0021 2200 0424 6415 *RK4MATF9@QR@DT4M* \u9474?\par
+\u9474? 0030  0124 0712 0014 2600 0424 0317 2031 0726 *ATGJ@LV@DTCOPYGV* \u9474?\par
+\u9474? 0040  0007 0000 0000 0000 0000 0000 0000 0000 *@G@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0050  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0060  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0070  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0100  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0110  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0120  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0130  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0140  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0150  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0160  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0170  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\par
+\par
+Figure 3: Dump of Block 0064 of P?S/8 Version 8Z for TC08.\par
+\par
+\fs20 Figure 4 shows the contents of the third system programs directory block which is provided for completeness.  No additional entries exist within the example directory past the second system programs directory block.\par
+\fs12\par
+\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\par
+\u9474? BLOCK: 0:0065                                                    \u9474?\par
+\u9474?                                                                  \u9474?\par
+\u9474? 0000  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0010  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0020  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0030  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0040  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0050  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0060  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0070  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0100  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0110  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0120  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0130  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0140  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0150  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0160  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0170  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\par
+\par
+Figure 4: Dump of Block 0065 of P?S/8 Version 8Z for TC08.\par
+\par
+\par
+\fs20 Figure 5 shows the contents of the fourth and final system programs directory block.  Relative word[177] contains the first available block for additional system programs.  All released P?S/8 systems provide a small number of spare blocks to allow additional programs to be added.  There are no utilities available to aid in the creation of additional system programs; advanced users are familiar enough with P?S/8 as documented within this document to successfully add additional programs.  In this particular example, blocks 0735-0777 are available for additional system programs.\page Note: The TFS directory for this system is the documented example in another document detailing P?S/8 TFS directories.  The TFS files for this system start in block 1000.\par
+\par
+Temporary system programs can be created by use of the R (or RU\{n\}) % or R (or\par
+RU\{n\}) $ command.  When binary files are loaded and saved to the system save area (using the \i GET\i0  command or equivalent), it is possible to run the image as if in the System Programs directory via this command, complete with all commmand-line options; where relevant, the radix for the \i =xxxx\i0  is forced to octal.\par
+\par
+The only serious restriction on such usage is the inability to define overlay structures such as are used in P?S?8 PAL and P?S?8 FOCAL; proper implementation requires additional knowledge of P?S/8 internal operations.  Additionally, the program must start at location 00200 (which is the most likely address).  More information on this form of program execution is available in the \ul\i P?S/8 Keyboard Monitor Command Guide\ulnone\i0  document available separately.\par
+\fs12\par
+\par
+\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\par
+\u9474? BLOCK: 0:0066                                                    \u9474?\par
+\u9474?                                                                  \u9474?\par
+\u9474? 0000  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0010  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0020  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0030  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0040  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0050  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0060  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0070  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0100  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0110  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0120  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0130  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0140  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0150  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0160  0000 0000 0000 0000 0000 0000 0000 0000 *@@@@@@@@@@@@@@@@* \u9474?\par
+\u9474? 0170  0000 0000 0000 0000 0000 0000 0000 0735 *@@@@@@@@@@@@@@G]* \u9474?\par
+\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\par
+\par
+Figure 5: Dump of Block 0066 of P?S/8 Version 8Z for TC08.\par
+\par
+\fs20\par
+Tentative definition of the extended-length file entry (for P?S/8 Version 9A).\line\line As a practical matter, the ending words of the fourth system programs directory block are always unused.  Since the full definition of the system programs directory is only used by the R (or RU\{n\}) form of execution, this is ideal placement for the extended-length file entry (as the command execution processor will have already loaded the block into memory).\par
+\par
+The tentative definitions are as follows:\line\line Relative words[162-171] are reserved for the scratch file allocation list.  This is primarily used by P?S/8 PAL as temporary storage of the cross-reference data if the /X option is in effect.  The references are linearly created during the second pass of the assembly; once the main assembly ends, the references are read back in and stored in memory in sorted order for printout after the last linear reference is processed.  Note: Multiple passes of the reference data may be necessary on very large assemblies.\par
+\line Eight words are allocated to allow all possible logical units to provide the extended-length file entries.  For any system, the entries consist of the preferred order of the logical units desired.  All entries to be allocated will also have the high-order bit on available logical units (expressed in the three low-order bits).  During the reference dump process, the actual logical units will be read to determine available output blocks for each unit.  Note: Differing amounts will tend to be available depending on system configuration.\line\line Relative words[172-174 are reserved for the extended-length file name.  Note: This name must be unique with respect to the TFS directory on the same logical unit; if there is an anomaly, the TFS entry will always take preference.\line\line Relative word[175] is the starting block for the extended-length file.\line\line Relative word[176] is the high limit value for the extended length area on this logical unit.\line\line Note: All extended-length file entry information is optional; on certain systems, extended-length files may not be present.\par
+\par
+[end-of-file]\par
+\fs12\par
+}
+ 

@@ -1,0 +1,1055 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fmodern\fprq1\fcharset0 Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fnil Lucida Console;}{\f3\fnil Calibri;}}
+{\colortbl ;\red255\green0\blue0;\red0\green0\blue255;\red137\green90\blue165;\red117\green77\blue140;\red140\green140\blue140;\red0\green0\blue0;\red192\green192\blue192;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtnn0001&p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 1440
+  FtrMarg = 1440
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Marks = '289'
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 Bob:  I don't know why when this is separated out [and this sentence is not present!] the first page takes two extra lines!\par
+\cf1 I guess we've just tabled this problem.  It's not a problem in the document, although I am using the newer version YOU are having problems with?\par
+\cf0\par
+Glossary of Terms\par
+\par
+Note: Throughout this Glossary all terms used within term descriptions are marked with index numbers (such as DEC\sub 12\nosupersub ) for clarity and brevity.\par
+\cf2 You ought to make PDP-8\sub 12\nosupersub  instead of DEC.  ;)\par
+\cf1 No, just letting it happen.  DEC becomes 14 and PDP-8 may be as high  as in the 60's!\cf0\par
+Certain terms are included regarding P?S/8\sub 99\nosupersub  or PDP-8\sub 99\nosupersub  topics beyond the scope of this document.  (This section is considered the master Glossary for all P?S/8 documentation.)\cf2   If this master glossary isn't too big, you could simply attach it to every document in case the readers don't have access to every document.\par
+\par
+\cf1 Nope, it's huge.  Other documents will reference this one if need be!\line\line\cf3 Purple color for new sections now in the document as a result of changes past this one up until yesterday.\par
+\par
+I am up around section 30, way past this, but you should respond here so I can review, and otherwise please continue with the PAL document.\par
+\par
+\cf4 Glossary of Terms\par
+\par
+Note: Throughout this Glossary all terms used within term descriptions are marked with index numbers (such as DEC\sub 14\nosupersub ) for clarity and brevity.\par
+\par
+Certain terms are included regarding P?S/8\sub 99\nosupersub  or PDP-8\sub 99\nosupersub  topics beyond the scope of this document.  (This section is considered the Master Glossary for all P?S/8 documentation.)\cf1\line\cf0\par
+\par
+  1.\tab ASCII\par
+\par
+\tab The American Standard Code for Information Interchange (ASCII) is\par
+\tab an encoding scheme widely used throughout the computer industry.  \tab The ASCII codes are used to represent the complete printable\par
+\tab character set (and related non-printing control characters).\par
+\par
+\tab In more recent years, ASCII is often known as \i US-ASCII\i0  because of\par
+ \tab its origin in the United States of America.  Variations exist for\par
+\tab other countries in part due to localized character requirements.\line\line\tab On certain systems, the ASCII code is expanded from a seven-bit\par
+\tab encoding (with 128 unique cases) to a more general code expressed\par
+\tab in as many as 16-bits per character element.\par
+\par
+\tab Note: Certain extended character encoding methods take advantage\par
+\tab of the high likelihood that the contents of files will tend to\par
+\tab stay within the same eight-bit subset for most of the file; as\par
+\tab such, case shift codes are reserved for the implementation of \tab generally infrequent code page changes.  This allows the overall\par
+\tab file structure to support eight-bit bytes instead of groups of 16\par
+\tab (or more) bits.\par
+\par
+\tab Most PDP-8\sub 99\nosupersub  operating systems support seven-bit ASCII encoding \tab or a subset (such as upper-case only characters) which can be \tab expressed in six bits.  Where relevant, there may be issues\par
+\tab regarding an eighth storage bit based on the use of paper-tape\sub 99\nosupersub  \tab standards or an eight-bit storage orientation.\par
+\cf2 Deleted extra tab from before "orientation."\line\cf1 OK. Pesky things; I typically find them looking at the PDF and seeing obvious unintended white space gaps.\par
+\par
+\cf4\tab Most PDP-8\sub 99\nosupersub  operating systems support seven-bit ASCII encoding \tab or a subset code (such as upper-case only characters) which can\par
+\tab be expressed in six bits.  Where relevant, there may be issues\par
+\tab regarding an eighth storage bit based on the use of paper-tape\sub 99\nosupersub  \tab standards or an eight-bit byte storage method.\cf0\par
+\cf2\line\cf0\par
+  2.\tab BIN\par
+\par
+\tab The standard binary loading format in the DEC\sub 12\nosupersub  \ul\i Paper-tape\par
+\ulnone      \ul operating system\ulnone\sub\i0 99\nosupersub  is known as DEC\sub 12\nosupersub  \i BIN\i0  format (which is\par
+\tab optimized for loading binary data from punched paper-tape\sub 99\par
+\nosupersub\tab frames).\par
+\par
+\tab Data stored in DEC\sub 12\nosupersub  BIN format includes both leader and \tab trailer frame sections (to indicate overall sets of data).  The\par
+\tab highest tape channel is used as a visual aid to help position\par
+\tab paper-tapes\sub 99\nosupersub  in tape reader stations; all leader and trailer\par
+\tab frames have only the highest channel punched.  Data frames may or\par
+\tab may not have this channel punched; however, some combination of\par
+\tab the other channels will be punched throughout the entire data \tab section.\page\cf5 Glossary of Terms (continued)\par
+\cf2 If topics like this aren't written by CJL, then simply refer to the specific DEC doc(s) to save time & space?  Or keep this type of info here for those who won't bother to look elsewhere for it, even if you reference it.  If "they" are even worth bothering with....\par
+\cf1 I will make all the references, and refer the reader to potential other documents if interested.  Fortunately, there really aren't all that many of them.\cf2\par
+\par
+\b You have to decide what level of "PDP-8 experience" you are writing these documents for.  Am I continually asking for things to be "dumbed-down" too much?\par
+\par
+\cf1\b0 It tends to vary, but then again, the expertise level itself depends on the particulars.  Also, remember, as a master list, it is appended into an ECO change log, which experts are the only ones qualified to understand why patches were made, and those just beyond beginner stage are expected to merely follow the explicit example as to what exactly to do, expressed in BLKODT commands give verbatim as they would be from running the real BLKODT and making the absolute patch.\line\line When we get to something more "learn how to" such as the keyboard monitor guide, we can talk about more dumbing down.  Any system has technical manuals for more advanced readers to even care about, much less follow.\line\line Part of the problem here for you as I see it is this is diving into things too "deep" in terms of understanding.  It's a lot of reference material and a true understanding can take year.  But everyone might be curious about some different things and might pursue a few things, few will do all [of course I already have "done" ALL of them!]\line\line But in any case, ask away, because you do need to learn as much as you can, and many of these things stretch hardware as well as software issues, not all of which are P?S/8 clearly [because of references to OS/8 as NOT to do things!]\line\cf2\b\par
+\par
+\cf0\b0\tab When reading in binary paper-tapes\sub 99\nosupersub , all leader frames are\par
+\tab ignored.  Memory loading ends when the first trailer frame is\par
+\tab encountered.  DEC\sub 12\nosupersub  BIN format incorporates all necessary\par
+\tab elements needed to load 12-bit words into memory including a 12-\par
+\tab bit checksum at the end of the tape implemented as two adjacent\par
+ \tab frames; memory field change frames are included as required.\par
+\par
+\tab Note: field change frames have the two highest channels punched. \tab Additionally, field change frames are not included in the overall\par
+ \tab tape checksum.  It is surmised this came about because the DEC\sub 7\nosupersub  \tab BIN format was upgraded when machines larger than 4K memory were\par
+\tab first introduced; this could have caused compatibility issues\par
+\tab with DEC\sub 12\nosupersub  BIN format tapes produced somewhat earlier.\line\cf2 You've got DEC subscripted as 7 & 12.\par
+\par
+\cf1 Yeah. I missed that 7 (an older value before even more was added earlier] but now I fixed that so ALL of them are 14.  I will be in trouble if new stuff comes along, have to renumber them all, but it is getting less likely.  I have a text file with stuff to add, and none down in the A and B area any more, and I am currently filling in the E for Elekman entry, seems all are higher than that now, etc.\par
+\cf0\line\tab DEC\sub 12\nosupersub  BIN format is inherently compromised in terms of loading\par
+\tab efficiency because of the need to support leader, trailer and \par
+\tab checksum codes that are superfluous in an operating system\par
+\tab environment (such as P?S/8\sub 99\nosupersub ).  Storage devices inherently have\par
+\tab device-level error checking for all data; leader and trailer\par
+\tab frame codes serve no purpose when data is stored in blocks on a \tab mass storage device.\par
+\cf2 I forget, but do storage devices store these superfluous items, wasting space?\par
+\par
+\cf1 You are getting confused about the main point and implementation of what is so poor about OS/8 [and only because of DTORG].\line\line The whole idea about mass storage devices in general are they are more reliable as a group than something simpleminded like paper-tape formats.\line\line But more importantly, paper-tape formats can be grossly inefficient serving no proper purpose; that said, DTORG perverted the design which is already incompatible, making it worse!\line\line First, a history of DEC BIN format:\line\line 1) BIN format defined 4K loading.  This is some loader earlier than the LBAA release and its immediate predecessor.  LBAA came out in 1967 so that it wouldn't be corrupted if you are using TC01 DECtape.  The changes are done by hand in the write up so we can see what the immediate predecessor was, but even that one already supports extended memory.\line\line Thus, we can only presume there was an even earlier one that had only the ability to load into a 4K machine, etc.\line\line Call this Version 1.0.  It has leader and trailer that have the high-channel bit punched only, and is ignored when loading, and loading stops when the trailer is detected.\line\line The words are double-buffered because we may encounter the last two frames which is NOT loading, so we have to defer loading until we are sure this is NOT yet the case.  So, we get a new word [two adjacent frames, they create a 12-bit word from the six low-order bits, move six over and add the next six not moved.  If the first one has the bit just to the next of the data set [which is one to the right of the high-bit, then this word is an origin setting for loading the NEXT word.  If not set, then this is data to LOAD and then add one to the loading pointer [instead of loading a new value into it].  one bit determines everything because there are only those two possibilities.\line\line Notice so far this is also RIM format, but RIM MUST have an origin setting before every loadable word because the feeble RIM loader lacks the concept of the increment-the-load-pointer function, etc.\line\line And of course RIM doesn't have the checksum, so it is not double-buffered [also does not support memory field changes.]\line\line All of the "live" frames are paired off but are checksummed frame at a time.  this means that the I-am-an-origin-setting bit is factored into the checksum.  [If you did it 12-bits at a time, that would never happen, so in essence you are doing it 7 bits at a time because by definition the high-bit is always off.  But it is just carried out arithmetically, it just works out that way, etc.  [If you AND.ed off the high-order bit nothing would change because it is always 0 except in leader/trailer]\line\line OK, then after the fact they added on FIELD change.  The format is both highest bits are both punched.  The low-order bits are the field in the range of 0 to 7 [although that means expansion is possible for the future, such as the KT8A where it might somewhat matter!]  the three bits to the left of the lowest are unused in classic BIN format.  I doubt anyone with a KT8A is demanding a KT8A-aware paper-tape loader!  Yet, PAL8 is outputting that format internally!\line\line Field settings DO NOT contribute to the checksum.  I suspect because that would break the oldest loader code, which I doubt any of us will ever see, etc.\line\line Otherwise, there would be no reason to exclude it, and theoretically adding it into a running checksum is marginally more reliable, so it must have been excluded deliberately for a reason.\line\line In any case, in the code of a working BIN loader, the FIELD setting s changed to a CDF x0 instruction where x is the field in the low-order bits.  Then, when a DCA I LOADPTR is about to be executed, first execute the CDF x0 to the loading field. [Note, no other instruction in the BIN loader is indirect!]\line\line Remember, ALL MRI except JMP or JMS use the DF when indirect, those two use the instruction field thus you need to have a CIF x0 instruction just before either of them, etc.  not relevant to BIN loaders.\line\line That's LBAA from may 1967 except they had to patch it to NOT use 07754 and 07755 because those are the TC01/08 word count and current address reserved locations.  Running DECtape kills them, and that destroys the older loader, but the hand-made patches in the write-up fixup that.  [But leave it wide open to the DF32/RF08 analogous locations 07750 and 07751.\line\line Remember, P?S/8 will fix ALL such problems with all three 3-cycle Data break devices, thus will be the only one bug-free.\line\line Currently it can be broken if you load TC58 magtape programs because it need 07752/07753 but that's fixed in the next release of BIN the P/s/8 utility program NOT DEC Bin the paper-tape format and loaders, etc.\par
+\par
+But then comes the stupid Typeset-8 and DTORG.  They ruin the BIN format and don't care.  Why?  Because they are STRICTLY 4K and NEVER use extended memory!\par
+\par
+They added the DTORG as two frames with the first set with both bits as if a FIELD setting [maybe both frames, I forget; have to test it]\line\line This really sucks, and I cannot fix PAL8 output with BINCON because how do I know if its DTORG for a low  block number or a FIELD change instruction.  [If it was larger than 7, I can be sure, but what about block 0 through block 7?]\line\line Thus, I may need to fix PAL8 myself and that partially offsets the utility of BINCON, useful still for such as inter-system file conversion, such as P?S?8 LINC dual assembly binaries getting back to OS/8, but I don't think I can automagically notice all cases of DTORG and fix them by my suggested alternative implementation with origin settings.  I don't thing I can tell the difference between DTORG 0007 and FIELD 7, etc.  And clearly I need it to write out very low block numbers, ESPECIALLY 0000!  This needs to be researched to confirm.  Perhaps it's not quite as bad, dunno.  But clearly it is on shaky ground and stupid management let them do this!\par
+\par
+So,it is even stupider than I gave them credit for.  But remember, they had no clue what a machine larger than 4K was!  That's why the broken type 552 controller was palatable to them to help DEC palm them off on customers.  the ECO was set the break field on the type 552 controller to the DATA FIELD.  But that means you cannot have interrupts on, because an interrupt saves the DF an IF THAT WAS and clears both of them!\line\line Of course, if they had interrupts on strictly 4K machines, they didn't care!\line\line Also, the TU55 [the "solid state" DECtape drive] was able to be made compatible with "relay logic levels" to work with the 552 instead of the 555 drives, etc.\line\line So, Typeset-8 customers paid top dollar to have palmed off on them old crappy junk that was never finished because they were designed for the PDP-5 and they literally FORGOT about extended memory!\line\line In any case, this is what ruins BIN format\line\line Now to how OS/8 fails to protect itself from this:\line\line Instead of an INTELLIGENT format such as Slurp, the morons made Richard Lary use images of paper-tape for everything!  Each file consists of 256 12-bit word records that are arranged as 384 frames that have to be unpacked.  that's fine for ASCII files, and I intend the same for the SHELL text format [with even some extensions], but thoroughly stupid for a loader for 12-bit words.\line\line Thus, OS/8 .BN files become corrupted when DTORG [their way] is used and ABSLDR will ALWAYS get an error attempting to load OS/8 binary files with DTORG within, etc.\line\line So, not only is it inefficient, it is now perverted.\line\line There is no point in having OVERHEAD of paper-tape inside of a file.  Slurp is equivalent but 12-bit word oriented.  NOT 8-bit byte frames from a paper-tape [with arbitrary short leaders and trailers inside of the file].\line\line Thus, no one SHOULD be storing those frames, but OS/8 DOES, and inherently storage devices store DATA in their native hardware format as required.  Devices are more reliable and it's just plain silly to have an RK8E that creates CRC-32 protection have the overhead of leaders and trailers and checksum frames inside of the file thus you need an unpack level "in front" of a loader [which is why it is so slow, and I beat loading speed with SLURP on a DECtape when they used ABSLDR on an RK8E/RK05.\line\line So, don't compare apples to orange crates!\par
+\line\line\cf0\par
+\tab While certain systems use an adaptation of DEC\sub 12\nosupersub  BIN format for\par
+\tab binary files, P?S/8\sub 99\nosupersub  uses the more versatile and efficient \tab Slurp\sub 99\nosupersub\i  \i0 binary file loading format.\par
+\par
+ \tab Slurp\sub 99\nosupersub  binary file format is optimized for efficient loading.\par
+ \tab The P?S/8 BIN\sub 99 \nosupersub system program includes functions to interchange\par
+\sub\tab\nosupersub between binary paper-tape\sub 99\nosupersub  data and P?S/8\sub 99\nosupersub  binary files (in both\par
+\tab direction of conversion) as well as the ability to load the\par
+\tab contents of Slurp\sub 99\nosupersub  format binary files into memory.\par
+\par
+\tab Note: Throughout this document, BIN (with no direct reference to \tab DEC\sub 12\nosupersub ) refers to the P?S/8 BIN\sub 99\nosupersub  utility.  Detailed information\par
+\tab about P?S/8 BIN\sub 123\nosupersub  can be obtained from other documents such as\par
+\tab the \ul\i P?S/8 System Programs Guide\ulnone\i0  available separately.\par
+\par
+  3.\tab Binary Compatibility\par
+\par
+\tab In general, binary compatibility refers to the principle that,\par
+\tab to the extent possible, sections of one program are identical to\par
+\tab the corresponding sections of another program derived from the\par
+\tab first program.\par
+\par
+\tab When one program is created from another program (through the use \par
+\tab of overlays or other means), maintaining binary compatibility\par
+\tab guarantees that additional program modifications or patches\par
+\tab designed for the first program will be functional when applied to \par
+\tab the corresponding sections of the second program.\page\cf5 Glossary of Terms (continued)\cf0\line\line\tab P?S/8 FOCAL\sub 99\nosupersub  is based on FOCAL, 1969\sub 99\nosupersub ; all modifications made\par
+\tab to support FOCAL, 1969\sub 99\nosupersub  maintain binary compatibility to the\par
+\tab fullest extent possible.  This guarantees support for patches\par
+ \tab created by members of the FOCAL\sub 99\nosupersub  user community at large.\par
+\par
+\tab Failure to maintain binary compatibility is a serious problem\par
+\tab of other releases such as FOCAL-8\sub 99\nosupersub  (aka FOCAL-71\sub 99\nosupersub ); this release\par
+ \tab also exhibits additional problems beyond binary compatibility\par
+\tab (related to deliberate attempts at sabotaging products made by a\par
+\tab competitor).\par
+\par
+  4.\tab Burness\par
+\par
+\tab Jack Burness is one of the original members of the \ul\i WFCMPG\ulnone\sub\i0 99\nosupersub .  A\par
+\tab list of some of his accomplishments is as follows:\par
+\cf2 W\ul\b CF\ulnone\b0 MPG isn't it?\cf1 Yes, and as I said on the phone, the only case it was wrong!\cf0\page\tab a) Creation of most of the system components of both the \ul LAP6-\ulnone\tab    \ul DIAL\ulnone\sub 99\nosupersub  and \ul DIAL-MS\ulnone\sub 99\nosupersub  operating systems for the PDP-12\sub 99\nosupersub .\line\line\tab b) Author of the famous GT-40 demo program known as \i Moonlander\i0 ,\tab\par
+\tab    which is partially based first\cf2  first?\cf1  I am not sure myself how to word it, I was trying to create a list, but it got too complicated; Better to say Jack was inspired by current events that led a high-school student to write a FOCAL program, and he used the logic of that program and added on a graphical display and did all that on the PDP-12 under DIAL as a demo program.\line\line then later he was a consultant and did the GT-40 version which is even more ornate by a lot.\line\line The PDP-8/12 can do it also, but it's an unfair comparison because the 11 had more memory and the GT-40 has its own instruction set.  a fairer fight would be a PDP-8 with say 8K and also hooked to a type 338 intelligent display, but this was a demo for the -11 sales people.\line\line The -11 is NOT doing the display, it is setting up coordinates and line drawing subroutines.  The DMA of the GT-40 takes the data and it displays it on a VR-12 like display that sits on a table, not in the machine as in a PDP-12.  Also, it has a light-pen, not implemented in the PDP-12 version.\line\line The GT-40 graphics processor is more powerful than the -11 model they chose to bundle it with I think the 11/05.\line\line But the GT40 became the -11's intelligent display, the PDP-10 had the type 340, the PDP-8 had the type 339 and the 338 on the -8.  All three of those also had as a display tube the PDP-1 tube that is also the symbol of DECUS.  It was much older than any of those because it was designed in 1959.  Also, it has a slower phosphor so it can cheat and not flicker even if not updated that much. The LINC-8 had the same trick, etc.\line\line None of them could do video!\par
+\line Also, to my knowledge, there never was a PDP-11 spacewar!\par
+\line\par
+\cf0  on a well-publicized FOCAL\sub 99\par
+\nosupersub\tab    program (written by a high-school student) which inspired Mr.\par
+\tab    Burness to write a graphic version.  This was first\par
+\tab    implemented on the PDP-12\sub 99\nosupersub  as a demo program that runs under\par
+\tab    DIAL\sub 99\nosupersub ; the program was shown at a DECUS\sub 99\nosupersub  symposium with a\par
+\tab    PDP-12\sub 99\nosupersub  system on display.  The later GT-40 version was\par
+\tab    written when Mr. Burness was a consultant to DEC\sub 12 \nosupersub and no\par
+\tab    longer an employee.\par
+\par
+\par
+\par
+\tab    Note: The GT-40 is a self-contained graphics terminal that is\par
+\tab    partially based on an embedded PDP-11 CPU\sub 5\nosupersub  (which is also a\par
+\tab    DEC\sub 12 \nosupersub product.)\par
+\par
+\tab c) Modifications to 4K BASIC\sub 99\nosupersub  (as written by Lenny Elekman\sub 99\nosupersub ) to\par
+\tab    produce both 8K BASIC\sub 99\nosupersub  and LAB-8/E BASIC\sub 99\nosupersub ; both programs\par
+\tab    derive from the same source code by changing a global variable\par
+\tab    for the desired variant version.\par
+\par
+\par
+\cf4   6.\tab Burness\par
+\par
+\tab Jack Burness is one of the original members of the WCFMPG\sub 99\nosupersub .  A \tab partial list of his accomplishments is as follows:\par
+\par
+\tab a) Creation of most of the system components of of both the \ul LAP6-\ulnone\tab    \ul DIAL\ulnone\sub 20\nosupersub  and \ul DIAL-MS\ulnone\sub 20\nosupersub  operating systems for the PDP-12\sub 99\nosupersub .\line\line\tab b) Author of the famous GT-40 demo program known as \i Moonlander\i0 .\par
+\par
+\tab    The first relevant computer simulation game based on the then-\tab    recent lunar landings was a FOCAL\sub 99\nosupersub  program written by a high-\par
+\tab    school student that achieved some notoriety in the print\par
+\tab    media.  To enhance this good publicity for DEC\sub 14\nosupersub , Mr Burness\par
+\tab    wrote a demonstration program for the PDP-12\sub 99\nosupersub  that runs under\par
+\tab    DIAL\sub 99\nosupersub .  This program was shown at a DECUS\sub 18\nosupersub  symposium on a\par
+\tab    PDP-12\sub 99 \nosupersub system provided by DEC\sub 14\nosupersub .\par
+\par
+\tab    The GT-40 version was written when Mr. Burness was a\par
+\tab    consultant to DEC\sub 14\nosupersub  (and no longer an employee).\par
+\par
+\tab    Note: The GT-40 is a self-contained graphics terminal that is\par
+\tab    partially based on an embedded PDP-11 CPU\sub 7\nosupersub  (which is also a\par
+\tab    DEC\sub 14 \nosupersub product.)\par
+\par
+\tab c) Modifications to 4K BASIC\sub 99\nosupersub  (written by Lenny Elekman\sub 31\nosupersub ) to\par
+\tab    produce both 8K BASIC\sub 99\nosupersub  and LAB-8/E BASIC\sub 99\nosupersub ; both programs\par
+\tab    derive from the same source code by changing a single global\par
+\tab    variable parameter for the desired variant version.\page Glossary of Terms (continued)\par
+\par
+\tab d) \f1 Burness' Corollary to Elekman's Theorem\sub\f0 31\nosupersub\f1  states the time to\par
+ \tab    achieve further optimization of any program (in terms of the\par
+\tab    total number of instruction and data words) is proportional to\par
+\tab    the amount of time already spent getting to the current\par
+\tab    optimization state.\f0\par
+\cf0\par
+\par
+\par
+  5.\tab Central Processing Unit\par
+\par
+\tab The Central Processing Unit (CPU) is the term for the general\par
+\tab logic and arithmetic section of a digital computer design.\par
+\tab Memory and peripheral devices are often interfaced to the CPU in\par
+\tab practical systems such as the PDP-8\sub 99\nosupersub .\par
+\par
+\tab Most notably, the LINC-8\sub 99\nosupersub  includes a second CPU for the LINC\sub 99\nosupersub  \tab instruction set.  The main CPU is a modified version of the \tab standard PDP-8\sub 99\nosupersub  CPU\cf2 , which is? \cf1 Put back, mentally done but was not typed!\cf2\par
+\par
+\cf0  used for support functions when the LINC\sub 99\par
+\nosupersub\tab CPU is running.\page\cf5 Glossary of Terms (continued)\par
+\par
+\par
+\cf4   7.\tab Central Processing Unit\par
+\par
+\tab The Central Processing Unit (CPU) is the term for the general\par
+\tab logic and arithmetic section of a digital computer system.\par
+\tab Memory and peripheral devices are often interfaced to the CPU in\par
+\tab practical systems such as the PDP-8\sub 99\nosupersub .\par
+\par
+\tab Most notably, the LINC-8\sub 99\nosupersub  includes a second CPU for the LINC\sub 99\nosupersub  \tab instruction set.  The main CPU is a modified version of the \tab standard PDP-8\sub 99\nosupersub  CPU which is used for support functions when the\par
+\tab LINC\sub 99\nosupersub  CPU is running.\par
+\par
+\tab When the LINC\sub 99\nosupersub  CPU is disabled, the PDP-8\sub 99\nosupersub  CPU can be used for\par
+ \tab (nearly) all functions associated with the original PDP-8\sub 99\nosupersub  \tab model.\cf5\par
+\par
+\par
+\par
+\cf0\par
+  6.\tab Command-line option switches\par
+\par
+\tab In various operating systems (for several DEC\sub 12\nosupersub  computers),\par
+\tab program options are often expressed as \ul\i Command-line option\par
+\ulnone\tab\ul switches\ulnone\i0  as deemed necessary by the user.\line\cf2 Doesn't MS-DOS (& others) use command line option switches \ul\b with\ulnone\b0  various \ul\b commands\ulnone\b0  too?\page\cf0\page\cf1 Yes; they stole it all from DEC.\line\line TOPS-10 had it in 1964.\par
+\par
+\par
+\cf0\tab The general implementation refers to a collection of bits\par
+\tab organized into words of system-dependent length; unreferenced\par
+ \tab bits are set to zero while referenced bits are set to one.\par
+\par
+\tab On the PDP-10\sub 99\nosupersub  TOPS10\sub 99\nosupersub  operating system, each of the 36\par
+\tab alphanumeric characters (A-Z and 0-9) are expressed as described\par
+\tab above, all within a single 36-bit word.  On the PDP-8\sub 99\nosupersub , a series\par
+\tab of three 12-bit words is used to express the equivalent\par
+\tab information; this convention applies to both OS/8\sub 99\nosupersub  and P?S/8\sub 99\nosupersub . \tab The only difference between the two operating systems is the\par
+\tab specific address range used within each system kernel area\cf6  \cf2 (as far as option switches are concerned?)\cf0 .\page\page\cf1 Yes.  To be picky, I have to add that to add the confusion of potentially overstating things.  P?S/8 has no actual compatibility with OS/8. they just both support the same option switch concept and relative method of implementation.\par
+\par
+\par
+\cf0\tab\ul Command-line option switches\ulnone  can be specified using one of two \tab equivalent methods as follows:\par
+\par
+\tab a) Individual \ul command-line option switches\ulnone  are preceded by the \highlight7 /\highlight0\par
+\tab    character such as:\par
+\par
+\tab    .DUMP \highlight7 /C\par
+\highlight0\par
+\tab    Multiple \ul command-line option switches\ulnone  may be invoked on the\par
+\tab    same command line by using the same method with different\par
+\tab    option switches.  Spacing characters are not required between\par
+\tab    command sections; however, any number of spacing characters\par
+\tab    can be freely used for clarity if desired.\par
+\par
+\tab    Note: Spacing characters include \highlight7 <SP>\highlight0 , \highlight7 ,\highlight0  and \highlight7 <HT>\highlight0 .\cf5\par
+\cf0\par
+\tab    In this example, P?S/8 DUMP\sub 99\nosupersub  is executed\cf2\strike ;\strike0 , and?\cf0  because the \highlight7 /C\highlight0\tab\par
+\tab    \ul command-line option switch\ulnone  was set, a check is made for\par
+\tab    potentially available additional memory.\par
+\par
+\tab    If more memory is available (than is limited by the current\par
+\tab    physical or \ul\i Logical Core\ulnone\i0  \ul\i Size\ulnone\sub\i0 99\nosupersub ), DUMP will utilize some\par
+\tab    portion of the available memory space.\par
+\par
+\tab    The exact amount of additional memory potentially available is\par
+\tab    dependent on the system configuration.  Either 3/4 of an\par
+\tab    additional memory field (\cf2 x\cf0 0000-\cf2 x\cf0 5777) will be available or an\par
+\tab    entire additional memory field (\cf2 x\cf0 0000-\cf2 x\cf0 7777) depending on\par
+\tab    system specifics.  This will allow DUMP to read (and write)\par
+\tab    additional contiguous blocks in one TR\{ansfer\} command than is\par
+\tab    normally possible in 4K memory.\cf2   Is it correct to add the above "X" to the memory locations for the fields?\page\cf0\page\cf1 I pondered that, and I now agree with you will do, etc.\par
+memory field x has to use it first. else there is no reference.\par
+\par
+\par
+\cf0\tab    .DUMP \highlight7 /C\highlight0  \highlight7 /S\page\cf5\highlight0 Glossary of Terms (continued)\par
+\cf0  \par
+\tab    Since the \highlight7 /C\highlight0  \ul command-line option switch\ulnone  is set as in the\par
+\tab    previous example, the test for additional memory is performed\par
+\tab    as described above.\par
+\par
+\tab    Because the \highlight7 /S\highlight0  \ul command-line option switch\ulnone  is also set, the\par
+\tab    computer front panel switches are ignored when determining the\par
+\tab    relative starting point of various octal dump printouts.\par
+\par
+\tab    Since the \i =xxxx \i0 command-line option was not specified, the\par
+\tab    command is equivalent to explicitly using \i =0000\i0  (which causes\par
+\tab    all locations to be printed).\cf5\par
+\cf0\par
+\tab b) Multiple \ul command-line option switches\ulnone  are preceded with \highlight7 (\highlight0  and\par
+\tab    optionally followed by \highlight7 )\highlight0  to close the current command line\par
+\tab    section.\par
+\par
+\tab    .DUMP \highlight7 (\highlight0 CS\highlight7 )\highlight0  \par
+\par
+\tab    This produces the identical execution \strike resulst\cf2  \strike0 result\cf0  as in the\par
+ \tab    previous example.\par
+\par
+\tab\ul Command-line option switches\ulnone  may be passed redundantly in either\par
+\tab format without causing command errors.\par
+\par
+\tab Note: For detailed information about P?S/8 DUMP\sub 99\nosupersub , consult the\par
+\tab\ul P?S/8 System Programs Guide\ulnone  available as a separate document.\par
+\par
+\par
+\cf4   8.\tab Command-line option switches\par
+\par
+\tab In various operating systems (for several DEC\sub 14\nosupersub  computers),\par
+\tab program options are often expressed as \ul Command-line option\i\par
+\ulnone\tab\ul\i0 switches\ulnone  as deemed necessary by the user.\line\par
+\tab The general implementation refers to a collection of bits\par
+\tab organized into words of system-dependent length; unreferenced\par
+ \tab bits are set to zero while referenced bits are set to one.\par
+\par
+\tab On the PDP-10\sub 99\nosupersub  TOPS10\sub 99\nosupersub  operating system, each of the 36\par
+\tab alphanumeric characters (A-Z and 0-9) are expressed as described\par
+\tab above, all within a single 36-bit word.  On the PDP-8\sub 99\nosupersub , a series\par
+\tab of three 12-bit words is used to express the equivalent\par
+\tab information; this convention applies to both OS/8\sub 99\nosupersub  and P?S/8\sub 99\nosupersub . \tab The only difference between the two operating systems (with\par
+\tab regard to passing \ul command-line option switches\ulnone ) is the specific\par
+\tab address range used within each system kernel area.\par
+\par
+\tab\ul Command-line option switches\ulnone  can be specified using one of two \tab equivalent methods as follows:\par
+\par
+\tab a) Individual \ul command-line option switches\ulnone  are preceded by the \highlight7 /\highlight0\par
+\tab    character such as:\par
+\par
+\tab    .DUMP \highlight7 /C\page\highlight0 Glossary of Terms (continued)\par
+\par
+\tab    Multiple \ul command-line option switches\ulnone  may be invoked on the\par
+\tab    same command line by using the same method with different\par
+\tab    option switches.  Spacing characters are not required between\par
+\tab    command sections; however, any number of spacing characters\par
+\tab    can be freely used for clarity if desired.\par
+\par
+\tab    Note: Spacing characters include \highlight7 <SP>\highlight0 , \highlight7 ,\highlight0  and \highlight7 <HT>\highlight0 .\par
+\par
+\tab    In this example, P?S/8 DUMP\sub 99\nosupersub  is executed; because the \highlight7 /C\highlight0\tab\par
+\tab    \ul command-line option switch\ulnone  was set, a check is made for\par
+\tab    potentially available additional memory.\par
+\par
+\tab    If more memory is available (than is limited by the current\par
+\tab    \ul Logical Core Size\ulnone\sub 99 \nosupersub setting), P?S/8 DUMP\sub 99\nosupersub  will utilize some\par
+\tab    portion of the additional memory space.\par
+\par
+\tab    The exact amount of additional memory potentially available is\par
+\tab    dependent on the system configuration.  Either 3/4 of an\par
+\tab    additional memory field x (x0000-x5777) will be available or\par
+\tab    the entire additional memory field (x0000-x7777) depending on\par
+\tab    system specifics.  This will allow P?S/8 DUMP\sub 99\nosupersub  to read (and\par
+\tab    write) additional contiguous blocks in one TR\{ansfer\} command\par
+\tab    than is normally possible in 4K memory.\par
+\par
+\tab    .DUMP \highlight7 /C\highlight0  \highlight7 /S\highlight0\par
+ \par
+\tab    Since the \highlight7 /C\highlight0  \ul command-line option switch\ulnone  is set as in the\par
+\tab    previous example, the test for additional memory is performed\par
+\tab    as described above.\par
+\par
+\tab    Because the \highlight7 /S\highlight0  \ul command-line option switch\ulnone  is also set, the\par
+\tab    computer front panel switches are ignored when determining the\par
+\tab    relative starting point of various octal dump printouts.\par
+\par
+\tab    Since the \i =xxxx \i0 command-line option was not specified, the\par
+\tab    command is equivalent to explicitly using =0000 (which causes\par
+\tab    all locations to be printed).\par
+\par
+\tab b) Multiple \ul command-line option switches\ulnone  are preceded with \highlight7 (\highlight0  and\par
+\tab    optionally followed by \highlight7 )\highlight0  to close the current command line\par
+\tab    section.\par
+\par
+\tab    .DUMP \highlight7 (\highlight0 CS\highlight7 )\highlight0  \par
+\par
+\tab    This produces the identical execution resulst as in the\par
+ \tab    previous example.\par
+\par
+\tab\ul Command-line option switches\ulnone  may be passed redundantly in either\par
+\tab format without causing command errors.\par
+\par
+\tab Note: For detailed information about P?S/8 DUMP\sub 99\nosupersub , consult the\par
+\tab\ul P?S/8 System Programs Guide\ulnone  available as a separate document.\cf0\par
+\par
+\par
+\par
+\par
+\par
+  7.\tab COS-300 and COS-310\par
+\par
+\tab The DEC\sub 12\nosupersub  Commercial Operating System (COS) is a PDP-8\sub 99\nosupersub  operating\par
+\tab system primarily oriented towards the use of the DIBOL\sub 99\nosupersub  \tab language.\par
+\par
+\tab The initial release was known as DIBOL-8\sub 99\nosupersub  which is actually a\par
+\tab thinly-disguised variant of the \ul R-L Monitor System\ulnone\sub 99\nosupersub ; the two-\par
+\tab character keyboard monitor\cf2\sub does keyboard monitor need a subscript?\cf0\nosupersub  commands were modified for the benefit\par
+\tab of concise execution of projected utilities planned for the next \tab release.\par
+\par
+\cf1 I added an entry for Keyboard monitor, so now, yes it does.\cf0\par
+\par
+\tab When COS-300 (and later COS-310) were released, the actual\par
+\tab implementations were then-current variants of OS/8\sub 99\nosupersub  with an \tab alternate command layer expanding on compatibility with\par
+\tab DIBOL-8\sub 99\nosupersub .\par
+\par
+\tab A notable difference between COS and OS/8\sub 99\nosupersub  is the redefinition\par
+\tab of the base year for the system date from 1970 to 1974; this was \tab done expediently to avoid dealing with the impending expiration \tab of the OS/8\sub 99\nosupersub  year (which was never properly remedied).  As a \tab result, the reckoning of file dates is complicated by having to \tab factor in the proper base year depending on which operating \tab system is in effect.\page\cf5 Glossary of Terms (continued)\par
+\cf0\par
+\tab Note: Certain programs include Byzantine internal patches to\par
+\tab attempt to determine which operating system is in effect to allow \tab common program images that function when run from either system.\par
+\tab Many OS/8\sub 99\nosupersub  programs cannot run from COS (and vice-versa).  Due\par
+\tab to command processor differences, program execution requires \tab alternate command structure when attempting to accomplish\par
+\tab identical functions; in some cases, the program must be located\par
+\tab on the system bootup device when run from COS systems.\par
+\par
+\tab Certain COS releases are specifically designed for PDP-8\sub 99\nosupersub  \tab execution only\cf2 , \cf1 fixed!\cf2  \cf0  while others were released for use on various\par
+\tab DECmate\sub 99\nosupersub  models.  This is an issue beyond media-based\par
+\tab differences (several DECmate\sub 99\nosupersub  models support the RX02\sub 99\nosupersub  drive\par
+\tab using the same format as similarly-configured PDP-8\sub 99\nosupersub  systems).\par
+ \tab All DECmates\sub 99\nosupersub  share identical console hardware incompatibility\par
+\tab with all PDP-8\sub 99\nosupersub  models.\cf5\par
+\cf2 Blue commas simply don't show up well, like behind "only" above.\cf1 True, but I got it!\par
+\cf2  \cf0\par
+\tab With the exception of very early releases, most PDP-8\sub 99 \nosupersub COS\par
+\tab releases cannot run on Pre-OMNIBUS\sub 99\nosupersub  systems; this is the\par
+\tab consequence of various managerial edicts which led to the hiring\par
+\tab of incompetent maintenance programmers incapable of understanding\par
+\tab the relevant issues.  As such, instructions incompatible with\par
+\tab earlier models can be found throughout the program code.\cf2   The "incompetent" sentence borders on sounding arrogant, even though they were incompetent.  I don't know how to reword this to avoid sounding arrogant.  Maybe something like "...programmers who did not understand the relevant issues\sub 99\nosupersub ..." would work?  You'll have to add an entry for these "relevant issues" because almost only CJL would know them well enough to understand why those programmers (note my "unusual" small case "programmers" because they were so incompetent) screwed things up and caused those incompatibilities.  You'll have to explain these details somewhere, I think, including an explanation about how those programmers messed up and why those errors were mistakes, in language that non-Programmers can understand.\cf1  I'm Leaving it because if this were less formal in general [I say in general because it WILL have a reference to Mario DeNobili] Otherwise I would be targeting hackers and use the univerally understood [among smart programmers] the term CLUELESS NEWBIE.\line\line [not necessarily in caps, but NEVER in " characters!]\par
+\cf0\par
+\par
+\tab Note: A competent programmer could remedy the incompatibility \tab problems at the source code level.  In general, little \tab constructive use is made of the newer instructions; compatible\par
+\tab alternatives are generally easy to apply.\par
+\par
+\par
+\par
+\cf4   9.\tab COS-300 and COS-310\par
+\par
+\tab The DEC\sub 14\nosupersub  Commercial Operating System (COS) is a PDP-8\sub 99\nosupersub  operating\par
+\tab system primarily oriented towards the use of the DIBOL\sub 21\nosupersub  \tab language.\par
+\par
+\tab The initial release was known as DIBOL-8\sub 22\nosupersub  which is actually a\par
+\tab thinly-disguised variant of the \ul R-L Monitor System\ulnone\sub 99\nosupersub ; the two-\par
+\tab character keyboard monitor commands\sub 99\nosupersub  were modified for the\par
+\tab benefit of concise execution of projected utilities planned for\par
+\tab the next release.\par
+\par
+\tab When COS-300 (and later COS-310) were released, the actual\par
+\tab implementations were then-current variants of OS/8\sub 99\nosupersub  with an \tab alternate command layer expanding on compatibility with\par
+\tab DIBOL-8\sub 99\nosupersub .\par
+\par
+\tab A notable difference between COS and OS/8\sub 99\nosupersub  is the redefinition\par
+\tab of the base year for the system date from 1970 to 1974; this was \tab done expediently to avoid dealing with the impending expiration \tab of the OS/8\sub 99\nosupersub  year (which was never properly remedied).  As a \tab result, the reckoning of file dates is complicated by having to \tab factor in the proper base year depending on which operating \tab system is in effect.\par
+\par
+\tab Note: Certain programs include Byzantine internal patches to\par
+\tab attempt to determine which operating system is in effect to allow \tab common program images that function when run from either system.\par
+\tab Many OS/8\sub 99\nosupersub  programs cannot run from COS (and vice-versa).  Due\par
+\tab to command processor differences, program execution requires \tab alternate command structure when attempting to accomplish\par
+\tab identical functions; in some cases, the program must be located\par
+\tab on the system bootup device when run from COS systems.\par
+\par
+\tab Certain COS releases are specifically designed for PDP-8\sub 99\nosupersub  \tab execution only, while others were released for use on various\par
+\tab DECmate\sub 99\nosupersub  models.  This is an issue beyond media-based\par
+\tab differences (several DECmate\sub 99\nosupersub  models support the RX02\sub 99\nosupersub  drive\par
+\tab using the same format as similarly-configured PDP-8\sub 99\nosupersub  systems).\par
+ \tab All DECmates\sub 99\nosupersub  share identical console hardware incompatibility\par
+\tab with all PDP-8\sub 99\nosupersub  models.\par
+\par
+\tab With the exception of very early releases, most PDP-8\sub 99 \nosupersub COS\par
+\tab releases cannot run on Pre-OMNIBUS\sub 99\nosupersub  systems; this is the\par
+\tab consequence of various managerial edicts which led to the hiring\par
+\tab of incompetent maintenance programmers incapable of understanding\par
+\tab the relevant issues.  As such, instructions incompatible with\par
+\tab earlier models can be found throughout the program code.\page Glossary of Terms (continued)\par
+\par
+\tab Note: A competent programmer can remedy the incompatibility \tab problems at the source code level.  In general, little \tab constructive use is made of the newer instructions; compatible\par
+\tab alternatives are generally easy to apply.\cf0\par
+\par
+\par
+\par
+  8.\tab Computer Special Systems\par
+\par
+\tab At various times, certain DEC\sub 12\nosupersub  customers requested special\par
+\tab hardware \tab projects (perhaps including support software) to solve\par
+\tab specific computer issues (often recommended by DEC\sub 12\nosupersub  sales \tab personnel).  The DEC\sub 12\nosupersub  division responsible for these projects\par
+\tab was known as \ul\i Computer Special Systems\ulnone\i0  (\i CSS\i0 ).  In some instances, \tab DEC\sub 12\nosupersub  management might deem the solution worthy of marketing\par
+\tab within the appropriate product line.\cf2   Deleted an extra tab between "In" and "some" above.\cf1 damn! OK, fixed it!\par
+\cf0\par
+\par
+\tab Note: The original customer was charged for all expenses incurred \tab in creating their project; however, if DEC\sub 12\nosupersub  \cf2 marketed? \cf1 yes, exactly;it HAD been there, but fixing the subscript ate that exact word.\par
+\par
+\par
+\cf2  \cf0 the product, the \tab customer did not receive credit in any form (either recognition\par
+\tab or some form of discount).\par
+\par
+\tab A notable CSS product is the \i RKS8E\cf2\sub\i0 99\nosupersub ?\cf0  which is a software-compatible\par
+\tab upgrade of the RK8E\sub 99\nosupersub  hard disk controller for OMNIBUS\sub 99\nosupersub  machines.\par
+\tab Included improvements are as follows:\par
+\par
+\tab a) Support for additional disk drive units 4-7; the standard\par
+ \tab    RK8E\sub 99\nosupersub  only supports disk drive units 0-3.\page\cf5 Glossary of Terms (continued)\par
+\cf0\par
+\tab    Note: There are software issues with the support of the disk\par
+ \tab    drive unit extension unless software is expressly written for\par
+ \tab    the extended configuration.\cf5\par
+\cf0\par
+\tab b) In order to avoid rotational latency, data transfer to the\par
+\tab    next sector on the current track must be initiated within\par
+ \tab    100 microseconds after the done flag raises from the previous \tab    transfer; this is often difficult to achieve when using real-\par
+\tab    time interrupt-driven programming for data acquisition.\par
+\par
+\tab    To remedy this, a 4096 word control register is added that\par
+\tab    implements automated transfers that must be a multiple of 256\par
+\tab    12-bit words (which is the physical size of the disk sector).\cf5\par
+\cf0\par
+\tab Note: By the use of sophisticated interrupt-handling techniques,\par
+\tab it is possible to transfer data in real-time on the standard\par
+\tab RK8E\sub 99\nosupersub ; however, CSS customers, while expecting a quality\par
+\tab solution in every sense from DEC\sub 12\nosupersub  (and by extension CSS), often\par
+\tab paid for a result that was a clumsy hardware-centric solution.\par
+\tab This may or may not have been the best solution for the customer,\par
+\tab but it was always the best outcome for the internal CSS cost\par
+\tab center.  In the case of the RKS8E, it is surmised the support for\par
+\tab disk drive units 4-7 was added merely to allow the product to be\par
+\tab more marketable (since this aspect of the RKS8E was not requested\par
+\tab or purchased by the original customer).\cf5\par
+\cf0\par
+  9.\tab Data Break\par
+\par
+\tab Nearly all DEC\sub 12\nosupersub  computers support Direct Memory Access\sub 99\nosupersub  (DMA\sub 99\nosupersub ) \tab peripheral devices.  Many DEC\sub 12\nosupersub  engineering documents refer to \tab this data transfer method as Data Break.\par
+\par
+\tab All PDP-8\sub 99\nosupersub  models (with the exception of the LINC-8\sub 99\nosupersub ) support \tab Data Break peripheral devices.  A distinction is made between \tab single-cycle and three-cycle Data Break devices:\par
+\par
+\tab a) Single-cycle Data Break Devices transfer data between the\par
+ \tab    device and memory in a single cycle per 12-bit word\par
+ \tab    transferred.  The peripheral device is responsible for\par
+\tab    management of all data transfers.\par
+\par
+\tab b) Three-cycle Data Break devices designate hard-wired memory\par
+\tab    addresses reserved to manage data transfers; this tends to\par
+ \tab    standardize the Data Break operations and simplify the\par
+ \tab    peripheral device implementation.\page\cf5 Glossary of Terms (continued)\par
+\cf0\par
+\tab    For example, the TC01\sub 99\nosupersub  DECtape\sub 99\nosupersub  controller reserves memory\par
+\tab    locations 07754-07755.  During a typical transfer, the\par
+ \tab    contents of 07754 (known as the Word Count Register) are set\par
+ \tab    to the two's complement of the desired number of words to\par
+ \tab    transfer.  The contents of 07755 (known as the Current\par
+ \tab    Address Register) are set to one less than the designated \par
+\tab    memory address for the data transfer.\cf5\par
+\cf0\par
+\tab    Note: The memory field for the Data Break is set by separate\par
+ \tab    hardware within the peripheral device generally known as the\par
+ \tab    Break Field Register.\par
+\cf2\par
+\cf0\tab    Once the data transfer is initiated by software, each data\par
+ \tab    transfer proceeds when the controller is ready to obtain\par
+\tab    multiple memory cycles from the CPU\sub 99\nosupersub . The first transfer\par
+ \tab    operation increments the Word Count Register; if the contents\par
+\tab    changes from 7777 -> 0000 a condition known as Word Count\par
+\tab    Overflow occurs, which ends the entire Data Break transfer\par
+\tab    operation.\par
+\par
+\tab    Assuming Word Count Overflow does not occur, the next transfer\par
+\tab    operation increments the contents of the Current Address\par
+\tab    Register; in conjunction with the Break Field Register, a data\par
+\tab    transfer operation is initiated on the third cycle.  A 12-bit\par
+\tab    data word is transferred between the controller and the\par
+\tab    designated memory location.  Word Count Overflow (eventually)\par
+\tab    occurs ending all data transfers; this can be detected by the\par
+\tab    transfer initiating program (which continues execution when\par
+\tab    Data Break operations are not in effect).  In most Data Break \tab    peripherals, the Word Count Overflow (and any associated\par
+\tab    errors) can be detected by designated flag and interrupt\par
+\tab    conditions.\par
+\par
+\tab Depending on peripheral bus design, various converters may be\par
+\tab required to interface specific devices to newer computer models.\cf5\par
+\cf0\par
+\tab Certain OMNIBUS\sub 99\nosupersub  peripherals perform additional DMA cycles as \tab part of their operational design.  For example, the DP8E\par
+\tab synchronous modem interface can check each data word transferred \tab for a character match against as many as four possible values.\par
+\tab This simplifies the implementation of various synchronous data\par
+\tab protocols which require special attention when specific control \tab characters are detected.\par
+\par
+\tab Note: All DECmates\sub 99\nosupersub  (past the DECmate I\sub 99\nosupersub ) do not support Data\par
+\tab Break operations.\cf2   You mean DECmate II and up, right? \cf1 Yes.\cf2  Or maybe all from the (original) DECmate (I) and up? \cf1 No.\cf2  I also ASSuME that all microcontroller- & microprocessor-type mini PDP-8s are like DECmates and do not support Data Break operations either.\line\line\cf1 It is VERY difficult to add DMA directly to a micro, but it CAN be done with so complicated hardware, it ALMOST negates the advantage of having it done on a micro at all!  But they did add a bus grant control module to the DECmate I to support the RL278 option, or is that just on paper, as i have never seen or heard of one in the wild, etc.\line\line Clearly, it would be EXPENSIVE.  You basically have to have something that runs at a higher priority than the CPU that takes break requests from a dMA device and makes the CPU vie with that for cycles and that lords over the memory interface.  It also means it runs slower OR neads faster memory.  I do not know if they used static RAMs on the DM I, but they should have!\line\line DMA and micro designs don't mix, but it's all a game of who "owns" the memory and what has its "ear" to obtaining access, etc.\line\line Actually, it's a very old industry concept. The IBM 360 had "channel" processors that could do their own I/O for the benefit of a tape or disk at high speed.  They also had multiple CPUs and the internal guts had to grant cycle requests to any and all of them at established priority rules.  Bit 360's could have many 8-bit channel processors.  And row after row of tape drives, each likely on its own channel processor [or maybe a few if they were low-performance drives].  the washing machine disks always had one apiece.\line\line Today's descendents in that architecture use PCs as channel processors each running OS/2.\page\page\line\line\cf2   How about the emulators/simulators out there like SimH and the one the German guy wrote for the Apple, et al.?\page\page\cf1 They all just fake it; the timing is never real, just hopefully the code works.  But stuff like the PRNEWSWire system would not perform properly [and the minimum is just a 32K machine with RK support and a console.]\line\cf0\page\cf5 Glossary of Terms (continued)\par
+\cf0\par
+ 10.\tab DCC-112\par
+\par
+\tab The DCC-112 is a 12-bit computer manufactured by Digital Computer \tab Controls\sub 99\nosupersub , a would-be competitor to DEC\sub 12\nosupersub .  The DCC-112 is\par
+\tab compatible with the DEC\sub 12\nosupersub  PDP-8/L at the interface level, but is \tab known for better performance at a lower price.\par
+\par
+\tab Instead of engaging in fair market competition, DEC\sub 12\nosupersub  management\par
+\tab decided to sabotage various software products including OS/8\sub 99\par
+\nosupersub\tab and FOCAL-71\sub 99\nosupersub .\cf5\par
+\cf0\par
+\tab Note: The affected OS/8\sub 99\nosupersub  release was eventually withdrawn (in \tab part) because of a prank perpetrated on Charles Lasner\sub 99\nosupersub  by \tab various members of the DEC\sub 12\nosupersub  12-bit programming group.  This \tab involved a bogus software performance report which alleged the \tab sabotage code failed to booby-trap the software when run on the\par
+\tab DCC-112.  This was done without the knowledge or consent of Mr.\par
+\tab Lasner\sub 99\nosupersub , which led to his banishment from all DEC\sub 12\nosupersub  properties \tab until some time after managerial decisions were made to remove\par
+\tab the sabotage coding (and the prank was revealed).\par
+\cf2 Is this unfair banishment a big reason why you appear to be so angry at DEC's Management?\page\cf0\page\cf1 It's not intentional.  Actually, it just didn't come up because no needed circumstances, then Stan told me all about it and not to worry about it.\line\line Actually, you might be on firmer ground discussing that had Stan not told their damn lawyers, they could have sued me over IFDOS.  But Stan explained to them that DEC had turned me down twice before I went with Intersil as well as the fact no DEC employee wrote any of it [except FOCAL, but they were reselling that with DEC OK with that.]\line\line I actually to show Dave [forget his last name] his initials are in the IFDOS manual.  I slightly knew his brother indirectly and he wanted a left coast job, so I went through it all with him, etc.\line\line Anyway, I had to write code on the spot to show that if you have the binary from the paper-tape of FOCAL, 1969 in three TFS slurp format files, you load that and start it you have FOCAL.  But then if yoju assemble mu source code overlay, and call the system handler to write out what you have now on the proper system blocks, you have just created P?S/8 FOCAL, so this proves I own my own code, they have a license to use DEC's paper-tape only code, and IFDOS has the composite so it is all legal.\line\line But of course, it all impacts on me in the totality of things.\line\line Actually, the most I resented DEC was when because they made so many blunders, it was no longer possible for me to get a paying job with my knowledge, so I had to expand greatly on the sideline I had going for about 5 years, building PC clones, etc.  That became dominant and I was able to eat until only a few years ago, etc.\line\line I resented that the mediocre "generalists" could always find work no matter work, and at any point in their career, they were for the most part overpaid for very little knowledge.\line\line Perhaps the height of that was that for big companies, linux "administrators" were paid fortunes for rote knowledge and hand-holding stupid users by editing their ini files for them.  These people don't even know how to program!\par
+\par
+\cf0\tab The existence of the sabotage is evident in surviving OS/8\sub 99\nosupersub  \tab source files indicating the "removal of DCC code" in internal\par
+\tab file revision summaries.  In the case of FOCAL-71\sub 99\nosupersub , disassembly\par
+\tab of the released binary paper-tape\sub 99\nosupersub  reveals the details of the \tab sabotage.  If execution is attempted on the DCC-112, the program\par
+\tab will self-destruct in a manner suggesting hardware failure.\par
+\tab Undoubtedly this was done to cause would-be customers to lose\par
+\tab confidence in the competitor's product.\par
+\par
+\tab Note: Had the manufacturer of the DCC-112 not gone out of \tab business, this would have likely been the cause of a major \tab lawsuit (and bad publicity) for DEC\sub 12\nosupersub .\par
+\par
+\par
+\cf4  12.\tab DCC-112\par
+\par
+\tab The DCC-112 is a 12-bit computer manufactured by \ul Digital Computer\ulnone  \tab\ul Controls\ulnone\sub 99\nosupersub , a would-be competitor to DEC\sub 14\nosupersub .  The DCC-112 is\par
+\tab compatible with the DEC\sub 14\nosupersub  PDP-8/L at the interface level, but is \tab known for better performance at a lower price.\par
+\par
+\tab Instead of engaging in fair market competition, DEC\sub 14\nosupersub  management\par
+\tab decided to sabotage various software products including OS/8\sub 99\par
+\nosupersub\tab and FOCAL-71\sub 99\nosupersub .\par
+\par
+\tab Note: The affected OS/8\sub 99\nosupersub  release was eventually withdrawn (in \tab part) because of a prank perpetrated on Charles Lasner\sub 99\nosupersub  by \tab various members of the DEC\sub 14\nosupersub  12-bit programming group.  This \tab involved a ficticious Software Performance Report (a common often\par
+\tab informal method whereby customers could send surface mail to\par
+\tab DEC\sub 14\nosupersub ) which claimed the sabotage code failed to booby-trap the\par
+\tab software when run on the DCC-112.  This was done without the\par
+\tab knowledge or consent of Mr. Lasner\sub 99\nosupersub , which led to his temporary \tab banishment from all DEC\sub 14\nosupersub  properties until some time after\par
+\tab managerial decisions were made to remove the sabotage coding (and\par
+\tab the prank was revealed).\par
+\par
+\tab The existence of the sabotage is evident in surviving OS/8\sub 99\nosupersub  \tab source files indicating the "removal of DCC code" within internal\par
+\tab file revision summaries.\par
+\par
+\tab In the case of FOCAL-71\sub 99\nosupersub , disassembly of the released binary\par
+\tab paper-tape\sub 99\nosupersub  reveals the details of the \tab sabotage.  If execution\par
+\tab is attempted on the DCC-112, the program will self-destruct in a\par
+\tab manner suggesting hardware failure.  Undoubtedly this was done to\par
+\tab cause would-be customers to lose confidence in the product.\par
+\par
+\tab Note: Had the manufacturer of the DCC-112 not gone out of \tab business, this would have likely been the cause of a major \tab lawsuit (and bad publicity) for DEC\sub 14\nosupersub .\cf0\par
+\par
+\par
+ \par
+ 11.\tab DCC-112H\par
+\par
+\tab The DCC-112H was a 12-bit computer design announced by Digital\par
+\tab Computer Controls\sub 99\nosupersub , a would-be competitor to DEC\sub 12\nosupersub .  It was\par
+ \tab intended to be significantly faster than any then-current DEC\sub 12\nosupersub\par
+\tab PDP-8\sub 99\nosupersub  model.  (The \highlight7 H\highlight0  would stand for high-speed.)\cf5\par
+\par
+\cf0\tab Little is known about the DCC-112H other than the intention to be \tab 100% software compatible with the previous DCC-112\sub 10\nosupersub  model.  Due \tab to product announcement timing, it is likely the DCC-112H would \tab have been OMNIBUS\sub 99\nosupersub  compatible.\par
+\par
+\tab At the same point in time, DEC\sub 12\nosupersub  distributed bogus specifications \tab for the \ul\i Extended Arithmetic Element\ulnone\sub\i0 99\nosupersub  option of the forthcoming\par
+\tab PDP-8/E\sub 99\nosupersub  model.  It is surmised this was done to obfuscate (and\par
+ \tab cause delays of) the release of the DCC-112H to stifle\par
+\tab competition.\page\cf5 Glossary of Terms (continued)\par
+\cf0\par
+\tab Note: It is unlikely any DCC-112H computers were ever \tab manufactured (beyond prototypes shown to potential customers).\par
+\par
+ 12.\tab DEC\par
+\par
+\tab DEC is the usual abbreviation of \ul\i Digital Equipment Corporation\ulnone\i0 ,\par
+\tab the company that created the PDP-8\sub 99\nosupersub  and other computers.\par
+\par
+\tab Note: If you are not already familiar with this information, you\par
+\tab probably have little reason to read this document.\cf2   ;D\cf5\par
+\cf0\par
+ 13.\tab DECmate\par
+\par
+\tab The DECmate model series was released in the waning months of\par
+\tab DEC\sub 12\nosupersub  canceling the OMNIBUS series (primarily PDP-8/A\sub 99\nosupersub  models).\par
+\tab All DECmates have 32K of PDP-8\sub 99\nosupersub  memory (and 32K of Control Panel \tab memory, a feature unique to machines based on the 6100 or 6120\par
+\tab series of one-chip CPU design).\par
+\par
+\tab The first model was released as DECmate; however, due to the \tab release of subsequent models, it is now referred to as DECmate I.\par
+\par
+\tab Unlike the DECmate I, the follow-on models (DECmate II, DECmate\par
+\tab III and DECmate III+) require loadable firmware from the boot\par
+\tab device to provide additional support; the firmware is common to \tab all three models.\par
+\par
+\tab While the typical configuration of the DECmate II includes a \tab single RX50\sub 99\nosupersub  dual-diskette drive, the system can be expanded to \tab include a second RX50\sub 99\nosupersub  dual-diskette drive.  Primarily for \tab backward compatibility, the RX278 option board can be added to \tab support up to two pairs of RX01/RX02 series 8" dual diskette\par
+\tab drives.\par
+\par
+\tab Note: The DECmate II and DECmate III+ also support a hard disk \tab option known as the RD50\sub 99\nosupersub . (The RD50\sub 99\nosupersub  is included in the DECmate \tab III+.)  The DECmate II can support either the RX278\sub 99\nosupersub  option or \tab the RD50\sub 99\nosupersub  option (but not both simultaneously).\par
+\cf2 Isn't there a DECmate III too -- not just the DECmate III+?\cf0\par
+\tab Option boards for the DECmate II series are incompatible with the \tab DECmate III series.\cf5\par
+\cf2 I didn't know there was a DECmate II series, just the DECmate II?\line\line\cf1 The use of DECmate II SERIES is wrong, will fix, just only one.\line\line However, the DECmate III is part of the DECmate III series of two models, but only the III+ can have a hard disk controller, equivalent to what the DM II can have, in fact it is built-in and not an option.\line\line Odly, it COULD have been an option in hindsight, but they just scrapped the original DECmate III board and no longer supported the RX50, so they are different from the start, and then the hard disk board is as allocated for as in the DECmate II, so this is more a marketing thing, etc.  But since there is no RX278 option, that's unique to the DECmate II without the possibility of a hard disk controller, there is no knockout concept and that second board just routes the wires to the disk via standard MFM control and data cables, same as in the DM II.\line\line In any case, the confusion starts because the DECmate III SERIES of both models both take the APU Z80 board [a differenbt one, but equivalent.]  Also, they intended to have an XPU board for the III series, but never marketed it.\par
+\page\cf0\tab The DECmate III models are housed in the smallest chassis ever \tab released by DEC\sub 12\nosupersub  for 12-bit computers; due to limited space, the \tab DECmate III+ has a single diskette drive and a half-height hard \tab disk drive.\line\line\tab Both the DECmate II and DECmate III series support a graphics\par
+\tab option board and an option board with a Z80 processor chip\par
+\tab capable of running CP/M-80.  An option board for the DECmate II\par
+\tab was released which includes an 8086 processor chip as well as the\par
+\tab Z80 processor.\page\cf5 Glossary of Terms (continued)\par
+\par
+\cf0\tab Note: A similar board for the DECmate III series was considered, \tab but was withdrawn as production for DECmates was being\par
+\tab discontinued.\par
+\par
+\tab A major software consideration of all DECmate models is that all \tab interfaces are based on the 6121 support chip; each 6121 chip\par
+\tab supports five identical device interfaces.  However, all 6121\par
+\tab interfaces are incompatible with the device 03/04 console \tab requirements of all 12-bit models from the PDP-5\sub 99\nosupersub  through the\par
+\tab VT78\sub 99\nosupersub .  As such, only bastard subsets of OS/8\sub 99\nosupersub  can be supported\par
+\tab (with various system features missing).\line\line\tab Note: Due to superior design, P?S/8\sub 99\nosupersub  (as of Version 8V) can be\par
+\tab run from any DECmate model once a suitable system device handler\par
+\tab was\cf2 /is?\cf1 This is a slight stretch or projection. for as of the time of this writing purpose, it becomes IS.  But the main thrust is that it is definitely known to work because it was tested using the RX278 option and a fancier reboot program to boot from the RX278.  The DECmate II ROM doesn't do that, just the 4 RX50s or two RX50s and the hard disk.  But i patched together a reboot disk you placed in RX50 drive 0 and then when ready press a key and it STARTS with the RX278;  Worst case, you reboot to the rebooter disk and have to press a key again to try it all over again, etc.\line\line So, with explanation it's was, and without explanation it becomes is as you said.\par
+\cf0  made available.  The P?S/8\sub 99\nosupersub  system device handler for\cf2  the\cf0  RX01\sub 99\nosupersub  \tab supports the DECmate I (and the DECmate II using the RX278 option\par
+\tab board and an extended bootstrap).\par
+\par
+ \tab Time permitting\cf2 , \cf0 access to a suitable hardware\par
+\tab configuration, \cf2 and \cf0 a functional RD50:\sub 99\nosupersub  \cf2 CJL/the author should be able to (or could?) write a \cf0 hard disk system device \tab handler.\par
+\par
+\cf1 You are changing the meaning.  I had it impersonal as in ANY random P?S/8 expert can knock this out eventually give the proper time and effort.\line\line There is also an undercurrent of notation in this and perhaps other areas.  To a PROGRAMMER the device has a name, such as RD5x and since these are usually numbers, it would be RD50: and perhaps RD51: etc.  Bt the HARDWARE is usually I think called RD50 and then the DISK was MARKETED as something like the RD51 or other number, the half-heigh having different numbers from the full-height.  I have put in half-height hiding behind adaptive full-height bezels, etc.  In any case, the DECmate III+ has the half-height ST-225 seagate which perhaps they called the RD31 at 20 MB, and the RD51 was a 10 mB full-height also Seagate, but a little older, but pehaps a faster seek time, etc.\line\line In any case, this is a SOFTWARE reference to a handler identification so where appropriate the : appendage is correct.\line\line So, you changed the type of statement, not what I intended. i know it's subtle, but it does matter.  [You need to know that].  But handlers means software, not hardware!\line\line In any case, you never know; I could recruit someone else to write some of the code after I merely explain things.\line\line One of the great things about MOSt of the handlers NOW is that since you have either ONE PAGE to do a 4K handler OR you have NINE PAGES to do a system that needs at least 8K, is that short of the RX50: handler with all of those stupid problems primarily caused by the stupid notion of a disk that has to read/write and BOOT in 12-bit mode, but the validity is checked in BYTE mode, any lesser handler should be relatively easy to do.\line\line Actually, the interface looks like a big RX controller, and much of the Os/8 code I would essentially copy is quite familiar.\line\line Due to the record size, this also has pretty much all the same problems as doing the RK8E, but that is already done, so borrow most of the code and certainly all the concepts, etc.\line\line So, this is perhaps doable by someone with less knowledge/skills than me, under my guidance as to what to do, and in any case it is FAR EASIER to do than the RX50: which will test the wisdom of having "only" 8 extra pages of code for a system handler!\line\line Also, by nature, the SHELL will be open-ended and even can support overlays.  As such, none of that code ought to be optimized.  i intend to use literals throughout.  I can't see it costing as much as an extra page of code, and it could be truly huge, two pages short of an entire memory field.\line\line It has to have reserved 07400-07577 for code only used to interface with the UFO and other non-system handler and file-system calls, and of course not disturb the system kernel in 07600-07777.\line\line But the keyboard monitor could be 00000-07377 and that means its own page zero which is very important.  It really is "another" operating system command sentral but has plenty of room to do whatever is needed, and open ended because it can swap in sections of itself in the style of FOCAL or PAL, etc.  That means a truly insane sky's the limit non-restrictive environment [OS/8 you get a puny and locked-down 1K only!]\line\line The code in 07400 has to decide what to write out in the virtual area of field 0 and when to bring it back in over whatever was brought in from there, etc.  No "magic" supervisional separate magic to control 1K sections of 8K, etc.\line\line And programs once loaded have pretty much the same orientation.\line\line the bottom line point is while this is more than a trivial AMOUNT of code to write, it is not DIFFICULT code to write as in pretty much most of P?S/8 as it exists. [With the exception of some minor utilities such as the PRINT program which is very easy.  If you remember, I wanted a programming course project that would pretty mich aspire to being what the PRINT program does now. It's a good semi-beginner project where you have to know how to PDP-8 program, but incrementally learn P?s/8 stuff along the way.  All SHELL stuff would be a variation on that in terms of difficulty.\line\line I can relate to this pretty much when I was writing the "user level" code of the Pr NewsWire system which also used literals.  It had a lot of space to get done not all that much, dependent on powerful subroutine calls that did all the heavy lifting, etc.  And I wrote it "differently" accordingly, etc. [I played several roles in that prohject, but that particular "hat" was one of the easier things to do.]\line\line In any case, being non-specific here.  Not trying to create a system that can only be modified by a singular deity!\par
+\par
+\cf0\par
+\par
+\tab Note: Due to interaction with Master Menu\sub 99\nosupersub , and other \tab considerations, additional utilities will be needed to prepare \tab the hard disk prior to system installation.  OS/278 Version 2\sub 99\nosupersub\par
+\tab is not installed conventionally on these systems; instead an \tab image backup of a system is provided with a pragmatic restore \tab facility.  As such, the configuration is quite arbitrary; the\par
+\tab installation of P?S/8\sub 99\nosupersub  demands greater flexibility for proper\par
+\pard\sb100\sa100\tab operation.\cf2   What do you mean by "\ul\b pragmatic\ulnone\b0 " restore facility?  Google's "Dictionary" says that pragmatic means \f2 "dealing with things sensibly and realistically in a way that is based on practical rather than theoretical considerations."\f1\par
+Also, M\f2 erriam-Webster says that pragmatic means "relating to matters of fact or practical affairs often to the exclusion of intellectual or artistic matters : practical as opposed to idealistic."\par
+\f1 Both definitions seem to contradict "quite arbitrary..." above?  They seem to say that "pragmatic" describes we Engineers quite well.  ;)\line\line\cf1\f0 Perhaps better to say politely "expedient".  I really wanted to say quick-and dirty because you don't interact with anything!  They created the system, and you can only make small changes because they added SET HANDLER because BUILD cannot be used [RX50 and RD50, for different reasons, so this is a kludge to avoid the problem].\line\line So, they obviously hacked together something that worked on a system with Master Menu, then use that things BACKUP function and wrote a stand-alone restore program section in liue of an "installation" using source code taken right out of Master Menu [which does allow stand-alone installed without Master Menu if not present, but then only any one operating system].\line\line But in any case, you CANNOT do what works in the older systems, even OS/78 V4 for the DECmate I can sorta have BUiLD [maybe not, but could with a little rework, as all components suffer with the incompatible console hardware problems, but no worse.  The DECmate II and up make things for them much harder.\line\line In any case, the RIGHT way to do this is a standalone bootable dislete for the DECmate II with hard disk or the DECmate III+, prepare a named disk volume and perhaps allow your own name on the volume.  All of that can be hacked up with no code actually, just REQUIRE Master Menu which does have all the utulities built-in.\line\line In any case, once the volume is established, whatever method P?S/8 installation takes form as, the rest will work as it does today.  Just that as I have explained, I need to change it so it uses a designated non-system handler as part of the system generation.  And that in turn means there needs to be working non-system handlers for the RX50 as that is the only other device you can depend on existing.  [If you have the RX278, then the RX01 format as well].\line\line Thus, it has to wait for a) some general stuff that may be done for Version 8Z, and then stuff that is part of Version 9A as well as the disk prep stuff [or demand Master Menu be installed, which is actually likely] and in any case actually writing the hard disk handler is the easiest part once the rest is donw.\line\line And writing a non-system handler for RX50 is not a problem as no one cares about corrected slushware tracks or even are they even present at all, etc.\par
+\cf2\f2\par
+\pard\cf0\f0\par
+ \tab The development of an RX50:\sub 99\nosupersub  system device handler has been\par
+\tab deferred until P?S/8\sub 99\nosupersub  system generation techniques can support\par
+\tab certain new features required specifically for this \tab configuration.\cf5\par
+\cf0\par
+\tab The design size of the extended memory device handler extension\par
+\tab (required by certain P?S/8\sub 99\cf5\nosupersub  \cf0 system device handlers) has evolved\par
+\tab over the years to meet the challenges of various devices as \tab necessary.  The present length of eight additional pages of\par
+\tab memory (and a two-page additional area to prepare the system for\par
+\tab initial loading and related issues) was increased expressly for\par
+\tab the RX50:\sub 99\nosupersub\strike ; d\cf2\strike0   HOW ABOUT: ...RX50.\par
+\cf1 as I said, this is a SOFTWARE discussion.\line\cf2   D\cf0 ue to specific issues of the bootstap environment, \tab unique problems must be solved that are far more complicated than \tab any other configuration.\par
+\cf2 Now I'm curious about what these "unique problems" are and I'm sure many others will be too.  Can you insert a Glossary entry explaining them, how they affect the programming, etc.?  I.e., add a subscript to "unique problems"?\line\line\cf1 no. this is a white paper discussion for a newsgroup we both belong to called P?S/8.\line\line I have been noodling with the notion of another group for "internal" P?S/8 technical discussions while most are there for system announcements.\line\line This belongs to the new notion, but what is a good name to call such a new group?\line\line P?S/8-Internals  ??\par
+\par
+In any case, here is a simplified view of it just for you:\line\line\line P?S/8 for any device that must need extended-memory extension-based system device handlers is generally at a disadvantage because of a lazy cheat that only works in OS/8.\line\line The worst case example is all RX and as a consequence all DECmate II and up stuff.\line\line OS/8 has so much stuff reserved in field 1 7600-7777 that all you have to do is get 17666 and up loaded from that major fraction of the first half of record 0.  The handler is pristinely loaded not overlayed directly into 07600-07777 and it has nothing to do with getting itslef in.  That's thus, the transient copy of that first part of the first-half of record 0.  When looked upon as DECtape, the boot block only has to load block 1 into 07600 and said code does no work, it just gets placed,\line\line But P?S/8 gets it all done in ONE BLOCK.\line\line As such, what typically happens is that part of the block is reserved with overhead words from the RX boot series, and worst of all, some of them are NOT overlayed.  That means those relative words MUST be literally a copy of the designated bootstrap [which also stagnated the design of the bootstrap itself!]\line\line As such, P?S/8 block 0 is incomplete with a "big hole" in it with regard to what relatively wants to be in 07600 for a working handler.\line\line The RX50 makes this even worse because some of the words that are NOT CODE but rather reserved STORAGE words, such as having the date in relative 007 and 010 [now that the date is 18 bits] and some others MUST be able to withstand the entire problem both statically and dynamically.\line\line Thus, what happens is that the boot process is now just to get into memory and started one of the two "helper" blocks defined as part of the total of TEN extra blocks, 8 for the handler extension, etc.\line\line Once THAT code is in memory, it relocates the part of the handler that was allowed to be what it was supposed to be to the relavent part of 07600-07777 as intended [Note, the code is loaded relative to location 0002! Not 0000, but 0002!  So, it is all off by two as well!  the bootup code was selfishily and expendiently done, etc.\line\line Then after that's done, there is another copy of what belongs there also in the helper blocks.  That code is then loaded where needed.\line\line At this point, the basic handler is loaded, and all that is still needed is "only" to load the 8 pages into x6000-up where x is the highest field. [this is essentially what the RX01 handler does].\line\line the differennce is there are many small problems to solve, and it has to do all of them in only 8 pages.\line\line Some of them require internal buffers because the 128 word blocks have to be buffered because it is 8 pages in 3 records if we support byte ode, and 8 pages in 4 records otherwise, which is a little easier to do.\line\line In any case, "stealth" techniques have to be used to ensure that attemlts to access block 0 are filtered properly for validity, cause errors if too much is wrong.  Writes only update the sacred words, and they are not even on block 0, they are written to one of the two helper blocks and supplied into the caller's buffer when reading along with whatever else is in the contents of block 0 otherwise.  When writing, only the sacred words are updated.  this will work even with BLKCPY doing a write, read back and compare operation, etc.\line\line But no actual block 0 writing occurs.\line\line Which brings up yet another problem.  Version 9A needs not only non-system handlers to be used to create the system, but there has to be a special WRITe RAW unsecured function to get the first half of the boot sector written as it needs to be exactly.  This is part of my notion of asking for double-precision blocks numbers starting with the high-order bits all set.  Maybe something like ask for block 77777740 means write raw on what is block 0 bypassing the normal filtering and protection, etc.  On systems where none of this matters, write and write raw would be identical, etc.\line\line And then of course, all the low-level stuff to calculate the first time initial track and sector, and later derive the logical next already having the current one.  this is right out of the RX01 conceptually, but these are 10 sector disks so you need an EAE simulator type of divide not by 13, but rather divide by 5, etc.\line\par
+Just mimicking OS/8 you have to do the RK kind of fixups because the records are two pages long in 12-bit mode, so all of that happens as well, except there is no magic half-sector mode, so all four cases have to be handled, yet be prepared to not have to do anything speical for well-aligned normal reads and writes away from block 0 so the performance holds up.\line\line I'm probably missing a few things, but each of them is a tiny little bitch of a problem to solve!\par
+\par
+\line\cf0\par
+\tab Note: OS/278 Version 2\sub 99\nosupersub  exhibits (documented) fatal flaws caused \tab by failure to overcome these system problems.  As such, execution\par
+\tab of certain commands (that function normally on other\par
+\tab configurations) causes permanent corruption of system \tab boot\par
+\tab diskettes.  One of the goals of P?S/8\sub 99\nosupersub  RX50:\sub 99\nosupersub  support is the \tab elimination of this serious issue.\cf2   You've got an extra tab between system and boot.\cf1  OK!\cf0\page\cf5 Glossary of Terms (continued)\par
+\par
+\par
+\cf4  15.\tab DECmate\par
+\par
+\tab The DECmate model series was released in the waning months of\par
+\tab DEC\sub 14\nosupersub  canceling the OMNIBUS\sub 99\nosupersub  series (primarily PDP-8/A\sub 99\nosupersub  models).\par
+\tab All DECmates have 32K of PDP-8\sub 99\nosupersub  memory (and 32K of Control Panel \tab memory, a feature unique to machines based on the 6100 or 6120\par
+\tab series of one-chip CPU designs).\par
+\par
+\tab The first model was released as DECmate; however, due to the \tab release of subsequent models, it is now referred to as DECmate I.\par
+\par
+\tab Unlike the DECmate I, the follow-on models (DECmate II, DECmate\par
+\tab III and DECmate III+) require loadable firmware from the boot\par
+\tab device to provide additional support; the firmware is common to \tab all three models.\page Glossary of Terms (continued)\par
+\par
+\tab While the typical configuration of the DECmate II includes a \tab single RX50\sub 99\nosupersub  dual-diskette drive, the system can be expanded to \tab include a second RX50\sub 99\nosupersub  dual-diskette drive.  Primarily for \tab backward compatibility, the RX278 option board can be added to \tab support up to two pairs of RX01/RX02\cf0\sub 99\cf4\nosupersub  series 8" dual diskette\par
+\tab drives.\par
+\par
+\tab Note: The DECmate II and DECmate III+ also support a hard disk \tab option known as the RD50\sub 99\nosupersub . (The RD50\sub 99\nosupersub  is included in the DECmate \tab III+.)  The DECmate II can support either the RX278\sub 99\nosupersub  option or \tab the RD50\sub 99\nosupersub  option (but not both simultaneously).\par
+\par
+\tab Option boards for the DECmate II series are incompatible with the \tab DECmate III series.\par
+\par
+\tab The DECmate III models are housed in the smallest chassis ever \tab released by DEC\sub 14\nosupersub  for 12-bit computers; due to limited space, the \tab DECmate III+ has a single diskette drive and a half-height hard \tab disk drive.\line\line\tab Both the DECmate II and DECmate III series support a graphics\par
+\tab option board and an option board with a Z80 processor chip\par
+\tab capable of running CP/M-80.  An option board for the DECmate II\par
+\tab was released which includes an 8086 processor chip as well as the\par
+\tab Z80 processor.\par
+\par
+\tab Note: A similar board for the DECmate III series was considered, \tab but was withdrawn as production for DECmates was being\par
+\tab discontinued.\par
+\par
+\tab A major software consideration of all DECmate models is that all \tab interfaces are based on the 6121 support chip; each 6121 chip\par
+\tab supports five identical device interfaces.  However, all 6121\par
+\tab interfaces are incompatible with the device 03/04 console \tab requirements of all 12-bit models from the PDP-5\sub 99\nosupersub  through the\par
+\tab VT78\sub 99\nosupersub .  As such, only bastard subsets of OS/8\sub 99\nosupersub  can be supported\par
+\tab (with various system features missing).\line\line\tab Note: Due to superior design, P?S/8\sub 99\nosupersub  (as of Version 8V) can be\par
+\tab run from any DECmate model once a suitable system device handler\par
+\tab is made available.  The P?S/8\sub 99\nosupersub  system device handler for RX01\sub 99\nosupersub  \tab supports the DECmate I (and the DECmate II using the RX278 option\par
+\tab board and an extended bootstrap).\par
+\par
+ \tab Time permitting (and access to a suitable hardware\par
+\tab configuration), a functional RD50:\sub 99\nosupersub  hard disk system device \tab handler should be achievable.\page Glossary of Terms (continued)\par
+\par
+\tab Note: Due to interaction with Master Menu\sub 99\nosupersub , and other \tab considerations, additional utilities will be needed to prepare \tab the hard disk prior to system installation.  OS/278 Version 2\sub 99\nosupersub\par
+\tab is not installed conventionally on these systems; instead an \tab image backup of a system is provided with an expedient restore \tab facility.  As such, the configuration is quite arbitrary; the\par
+\tab installation of P?S/8\sub 99\nosupersub  demands greater flexibility for proper\par
+\tab operation.\par
+\par
+ \tab The development of a P?S/8\sub 99\nosupersub  RX50:\sub 99\nosupersub  system device handler has\par
+\tab been deferred until P?S/8\sub 99\nosupersub  system generation techniques can \tab support certain new features required specifically for this \tab configuration.\par
+\par
+\tab The design size of the extended memory device handler extension\par
+\tab (required by certain P?S/8\sub 99\nosupersub  system device handlers) has evolved\par
+\tab over the course of years to meet the challenges of various\par
+\tab devices as necessary.  The present length of eight additional\par
+\tab pages of memory (and a two-page additional area to prepare the\par
+\tab system for initial loading and related issues) was increased\par
+\tab expressly for the RX50:\sub 99\nosupersub ; due to specific issues of the\par
+\tab bootstrap environment, unique problems must be solved that are\par
+\tab far more complicated than any other configuration.\par
+\par
+\tab Note: OS/278 Version 2\sub 99\nosupersub  exhibits (documented) fatal flaws caused \tab by failure to overcome these system problems.  As such, execution\par
+\tab of certain commands (that function normally on other\par
+\tab configurations) causes permanent corruption of system boot\par
+\tab diskettes.  One of the goals of P?S/8\sub 99\nosupersub  RX50:\sub 99\nosupersub  support is the \tab elimination of this serious issue within P?S/8\sub 99\nosupersub .\cf5\par
+\par
+\par
+\par
+\cf0\par
+ 14.\tab DECtape\par
+\par
+\tab DECtape is a removable media storage device based on the earlier\par
+\tab LINCtape\sub 99\nosupersub  used on the classic \i LINC\sub\i0 99\nosupersub , LINC-8\sub 99\nosupersub  and PDP-12\sub 99\nosupersub  as an\par
+\tab embedded subsystem of these machines.\cf5\par
+\par
+\tab\cf0 Note: While the media used for both DECtape and LINCtape\sub 99\nosupersub  is\par
+\tab nominally the same magnetic material and tape width, the formats\par
+\tab differ greatly.  The most obvious difference is that using\par
+\tab DECtapes, the supply reel is mounted on the left side of the\par
+\tab drive (while LINCtapes\sub 99\nosupersub  turn in the opposite direction\cf2 ??  Or that the supply reel is on the right side for LINCtapes?  And still turn in the opposite direction, which seems logical if the supply reel is on the RHS\cf0 ). \cf1 I just made a correct, but "unbalanced" comparison.  both changes are both true, etc.  They do sorta implay each other, but I will reword it for more consistency, etc.\par
+ \cf0  Where\par
+\tab applicable, plastic canisters for tape storage exist;  by\par
+\tab convention, blue plastic canisters are used for DECtapes while\par
+\tab green plastic canisters are used for LINCtapes\sub 99\nosupersub .  (This\par
+\tab convention is often violated.)\par
+\par
+\tab DECtapes, much like LINCtapes\sub 99\nosupersub , are individually block-\par
+\tab replaceable and can be considered to be analogous to more typical\par
+\tab rotating disk drives; however, block placement is \strike for\cf2\strike0 far\cf0  more\par
+\tab critical due to the inherent overhead of locating a selected\par
+\tab block by traversing all intervening blocks starting from the\par
+\tab present tape position.  Additionally, there are considerations\par
+\tab regarding the choice of initial search direction: Using the wrong\par
+\tab initial  direction will cause undue delays because of the need to\par
+\tab turn the tape around after a sufficient undershoot (which may be \tab avoidable).\cf2   You've got extra tabs/spaces between initial & direction.\cf1 OK\par
+\par
+\cf2   Also, undershoot or overshoot?  I think I remember you explaining to me that the DECtape drives physically had to overshoot because of the inability to stop exactly on a specific block when needing to change direction there?  Didn't you tell me that \ul on average\ulnone , starting the search direction "backwards" was more correct than starting forwards?\page\cf0\page\cf1 I explained all that on the phone yesterday.\line\line The tape coasts mechanically, so inertially you have to assume it has coasted to a stop.  Moreover it takes a couple of blocks worth of time to get up to speed and no ability read anything until up to speed is satisfied so it makes it a few more.  Successful start initial search forward can only work for blocks even more forward than the last block transferred and that composite OVERSHOOT factor.\line\line However, when you are forced to search backwards, you have to search backwards moving for the block that is two higher than the desired\par
+one because the take is inertial and thus "sluggish" and thus by the time it is actually turned around, it will actually find the block you want if you ANTICIPATE this by the two blocks [erronouesly thought originally to be three blocks, and foolishly someone read the wrong old information so the code in the TD8E handlers for OS/8 and the MR8E-C ROM use three blocks.\line\line In any case, the term of art for this is called an UNDERSHOOT factor despite what is really going on.  Clearly the tape motion DOES have to undershoot, so I guess that's why they got the idea from.\line\line Intuitively, you would thing that you ought to search for the block 2 blocks BEFORE the one you want to find going forward, but in reality that's ridiculous!\line\line Note:  To find block 0 or 1 requires detection of the end zone error and handle it as a non-error and turn the tape around.  It will work.  also, they have added some extra inter-block zone words there to help make it a reality.  Remember, when traveling in the end zone going towards tne interior of the tape, this does NOt decode into anything special, and certainly not an end zone!  You have to go from not quite in to in generally to get the error.  Of course issuing a command to take you further in is another error, although do that enough times and the tape falls off, and that is part of the strategy of the UNLOAD operation in P/S/8 keyboard monitor press Control-T, etc.\line\line Note: LINCtape "cheats" because there is the block mark of a phantom block -1,-2, etc. so the stupider controller can turn the tape around in all cases.\par
+\par
+\par
+\cf0\tab More successful operating systems use performance-enhancing\par
+\tab techniques when accessing storage devices; less\strike er\strike0  \cf2 efficient? \cf0 operating\par
+\tab systems\par
+\par
+\cf1 Less efficient operating systems should handle it.\line\line I am not using center justification.  I am not clear if that is sensible given all these paragraphs have to be one tab indent in.  I think it would mean center of the space from that one tab to the right, but I don't think it can be done here.\line\line also, not quite sure if that is appropriate, and in any case, few examples it would apply to.\line\par
+\cf0  may take profoundly longer time to accomplish analogous\par
+\tab tasks.\line\cf2 And a center justification above the "More successful" paragraph too.\cf0\line\tab A case in point regarding DECtape is the ability to transfer\par
+\tab multiple blocks in the same device handler call; once the current\par
+\tab block has been transferred in the latest read or write operation, \tab starting a new device handler call must restart the overall\par
+\tab operation for the latest desired block (because the motion bit\par
+\tab must be cleared at the end of the latest transfer).  Assuming the\par
+\tab next desired block is adjacent to the last block transferred\par
+\tab previously, the delay in completing the next transfer will be\par
+\tab palpable.  As such, more successful software strategies combine\par
+\tab multiple block transfers in the same device handler operation to\par
+\tab the extent possible.\par
+\par
+\tab LINCtapes\sub 99\nosupersub  can only transfer data moving in the forward\par
+\tab direction.  Tapes in either format can search while moving in\par
+\tab the reverse direction; however, DECtapes can also transfer data \tab once the desired block is located.  Certain software utilities\par
+\tab take advantage of reverse motion data transfers, especially on\par
+\tab certain DEC\sub 12\nosupersub  machines based on various word lengths.\page\cf5 Glossary of Terms (continued)\par
+\cf0\par
+\tab Unlike LINCtapes\sub 99\nosupersub , the count of words in a DECtape block is\par
+\tab subject to a restriction of being a whole multiple of 18-bit\par
+\tab words.  As such, the standard format for the PDP-8\sub 99\nosupersub  is 129 12-\par
+\tab bit words (or 86 18-bit words).\cf5\par
+\cf0\par
+\tab The underlying format of DECtape (first used on the PDP-1\sub 99\nosupersub  and\par
+\tab PDP-4\sub 99\nosupersub ), was changed with the release of the type 552\sub 99\nosupersub  DECtape\par
+\tab controller originally designed for the \cf1 PDP-5\cf0\sub 99\nosupersub .  As such, \tab DECtapes for the PDP-1\sub 99\nosupersub  and PDP-4\sub 99\nosupersub  are merely compatible with\par
+\tab both systems and cannot share data with other computers that\par
+\tab support DECtape.\par
+\par
+\tab Note: A tentative solution to this problem is available on the \tab LINC-8\sub 99.\cf5\nosupersub\par
+\cf0\par
+\tab For detailed information on other DEC\sub 12\nosupersub  machines, the user is\par
+\tab directed to various documents on early computer architecture; the\par
+ \tab PDP-8\sub 99\nosupersub  is the first successful DEC\sub 12\nosupersub  12-bit computer based on\par
+\tab two's complement arithmetic (which is used throughout the\par
+\tab computer industry on all subsequently created systems).\cf5\par
+\cf0\par
+\tab With the exception of very early Typeset-8\sub 99\nosupersub  systems, all PDP-8\sub 99\par
+\nosupersub\tab models equipped with DECtape use a compatible DECtape controller\par
+\tab and one or more compatible DECtape drives.\par
+\par
+\tab Controllers:\line\line\tab a) TC01\sub 99\nosupersub\par
+\par
+\tab b) TC08\sub 99\nosupersub\par
+\par
+\tab c) TD8E\sub 99\nosupersub\par
+\par
+\tab DECtape drives:\cf5\par
+\cf0\par
+\tab a) TU55\sub 99\nosupersub\par
+\par
+\tab b) TU56\sub 99\nosupersub\par
+\par
+\tab The P?S/8\sub 99\nosupersub  operating system \i standard-bearer\i0  configuration is\par
+\tab designed for use with DECtape as implemented on the TC01\sub 99\nosupersub  (or\par
+\tab TC08\sub 99\nosupersub ) DECtape controller and TU55\sub 99\nosupersub  (or TU56\sub 99\nosupersub ) drives.\par
+\par
+\par
+\cf4  16.\tab DECtape\par
+\par
+\tab DECtape is a removable media storage device based on the earlier\par
+\tab LINCtape\sub 99\nosupersub  used on the (classic) LINC\sub 99\nosupersub , LINC-8\sub 99\nosupersub  and PDP-12\sub 99\nosupersub  as\par
+\tab an embedded subsystem of these machines.\par
+\par
+\tab Note: While the media used for both DECtape and LINCtape\sub 99\nosupersub  is\par
+\tab nominally the same magnetic material and tape width, the two\par
+\tab formats differ greatly.  The most obvious difference is that when\par
+\tab using DECtapes, the supply reel is mounted on the left side of\par
+\tab the tape drive; when using LINCtapes\sub 99\nosupersub , the supply reel is\par
+\tab mounted on the right side of the tape drive.  Forward motion for\par
+\tab either device is defined as winding the tape media onto the\par
+\tab takeup reel (mounted on the other side of the drive).\par
+\par
+\tab Where applicable, plastic canisters for tape media storage exist.\par
+\tab By convention, blue plastic canisters are used for DECtapes while\par
+\tab green plastic canisters are used for LINCtapes\sub 99\nosupersub .  (This\par
+\tab convention is often violated.)\page Glossary of Terms (continued)\par
+\par
+\tab DECtapes, much like LINCtapes\sub 99\nosupersub , are individually block-\par
+\tab replaceable devices and can be considered to be analogous to more\par
+\tab typical rotating disk drives; however, block placement is far\par
+\tab more critical due to the inherent overhead of locating a selected\par
+\tab block by traversing all intervening blocks starting from the\par
+\tab present tape position.\par
+\par
+\tab Additionally, there are considerations regarding the choice of\par
+\tab initial search direction: Using the wrong initial direction will\par
+\tab cause undue delays because of the need to turn the tape around\par
+\tab after performing a sufficient undershoot (which may have been\par
+\tab avoidable).  As such, more successful operating systems use\par
+\tab performance-enhancing techniques when accessing the storage\par
+\tab device; less efficient operating systems may take profoundly\par
+\tab longer time to accomplish analogous tasks.\line\line\tab A case in point regarding DECtape is the ability to transfer\par
+\tab multiple blocks in the same device handler call; once the current\par
+\tab block has been transferred in the latest read or write operation, \tab starting a new device handler call must restart the overall\par
+\tab operation for the latest desired block (because the motion bit\par
+\tab must be cleared at the end of the latest transfer).  Assuming the\par
+\tab next desired block is adjacent to the last block transferred\par
+\tab previously, the delay in completing the next transfer will be\par
+\tab palpable.  As such, more successful software strategies combine\par
+\tab multiple block transfers in the same device handler operation to\par
+\tab the extent possible.\par
+\par
+\tab LINCtapes\sub 99\nosupersub  can only transfer data moving in the forward\par
+\tab direction.  Tapes in either format can search while moving in\par
+\tab the reverse direction; however, DECtapes can also transfer data \tab once the desired block is located.  Certain software utilities\par
+\tab take advantage of reverse motion data transfers, especially on\par
+\tab certain DEC\sub 14\nosupersub  machines based on various word lengths.\par
+\par
+\tab Unlike LINCtapes\sub 99\nosupersub , the count of words in a DECtape block is\par
+\tab subject to a restriction of being a whole multiple of 18-bit\par
+\tab words.  As such, the standard format for the PDP-8\sub 99\nosupersub  is 129 12-\par
+\tab bit words (or 86 18-bit words).\par
+\par
+\tab Note: The underlying format of DECtape (first used on the PDP-1\sub 99\par
+\nosupersub\tab and PDP-4\sub 99\nosupersub ), was changed with the release of the type 552\sub 99\nosupersub  \tab DECtape controller originally designed for the \i PDP-5\sub\i0 99\nosupersub .  As such, \tab DECtapes for the PDP-1\sub 99\nosupersub  and PDP-4\sub 99\nosupersub  are merely compatible with\par
+\tab both systems and cannot share data with other machines that\par
+\tab support DECtape.  (A tentative solution to this problem is\par
+\tab available on the LINC-8\sub 99\nosupersub )\page Glossary of Terms (continued)\par
+\par
+\tab For detailed information on other DEC\sub 14\nosupersub  machines, the reader is\par
+\tab directed to various documents on early computer architecture; the\par
+ \tab PDP-8\sub 99\nosupersub  is the first successful DEC\sub 14\nosupersub  12-bit computer based on\par
+\tab two's complement arithmetic (which is used throughout the\par
+\tab computer industry on virtually all newer systems).\par
+\par
+\tab With the exception of very early Typeset-8\sub 99\nosupersub  computers, all\par
+\tab PDP-8\sub 99 \nosupersub systems equipped with DECtape use a compatible DECtape\par
+\tab controller as follows:\par
+\par
+\tab a) TC01\sub 99\par
+\par
+\nosupersub\tab b) TC08\sub 99\nosupersub\line\line\tab c) TD8E\sub 99\par
+\nosupersub\par
+\tab DECtape drives used with the above DECtape controllers are as\par
+\tab follows:\line\par
+\tab a) TU55\sub 99\nosupersub\par
+\par
+\tab b) TU56\sub 99\nosupersub\par
+\tab\par
+\tab Notes for this section:\par
+\par
+\tab a) The TU55\sub 99\nosupersub  is a single drive that can be set to select as any\par
+ \tab    drive in the range of 0-7.\par
+\par
+\tab b) The TU56\sub 99\nosupersub  is generally a dual drive where each drive can be\par
+\tab    individually set to select as any drive in the range of 0-7.\par
+\par
+\tab c) The TU56\sub 99\nosupersub  is also available in a single-drive version known\par
+\tab    as the TU56H\sub 99\nosupersub ; while nominally less expensive than the\par
+\tab    standard TU56\sub 99\nosupersub , the savings was disproportionate given the\par
+\tab    lack of a second drive.\par
+\par
+\tab d) The TD8E\sub 99\nosupersub  simple DECtape controller can only address one or\par
+ \tab    two drives on a single TU56\sub 99\nosupersub  chassis within a specific drive\par
+\tab    pair (such as drives 0-1); additionally, the chassis must\par
+\tab    include special modifications and modules unique to the TD8E\sub 99\par
+\nosupersub\tab    configuration.\par
+\par
+\tab e) The device codes set aside for the TD8E\sub 99\nosupersub  describe a\par
+\tab    configuration of up to four TD8E\sub 99\nosupersub  controllers; as such, up to\par
+\tab    eight drives can be supported with a superficial resemblance\par
+\tab    to a TC01\sub 99\nosupersub  or TC08\sub 99\nosupersub  system in terms of total drive capacity.  \tab    However, each TU56\sub 99\nosupersub  can only select a designated drive pair\par
+\tab    (such as drives 6-7 on the fourth controller).  This is in\par
+\tab    sharp contrast to the TC01\sub 99\nosupersub  or TC08\sub 99\nosupersub  configurations where any\par
+\tab    drive can be set to any unit in the range of 0-7.\page Glossary of Terms (continued)\par
+\par
+\tab f) The TD8E\sub 99\nosupersub  has many reliability issues and cannot be used with\par
+\tab    interrupts enabled.  A prototype controller was produced with\par
+\tab    full backward compatibility with the TC01\sub 99\nosupersub  and TC08\sub 99\nosupersub  (known\par
+\tab    as the TC8E\sub 99\nosupersub ); however, the TC8E\sub 99\nosupersub  was never marketed.\par
+\par
+\tab The P?S/8\sub 99\nosupersub  "standard-bearer" storage configuration consists of\par
+\tab the TC01\sub 99\nosupersub  (or TC08\sub 99\nosupersub ) DECtape controller with up to eight TU55\sub 99\par
+\nosupersub\tab (or TU56\sub 99\nosupersub ) drives.\cf0\par
+\f3\fs22\par
+}
+ 

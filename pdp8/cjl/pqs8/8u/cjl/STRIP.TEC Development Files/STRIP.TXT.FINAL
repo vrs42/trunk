@@ -1,0 +1,453 @@
+﻿Blow-by-blow documentation of what STRIP.TEC does internally
+
+Copyright 2004-2014 CLA Systems
+ClaSystems@gmail.com
+
+Last edit: 06-Apr-2014 cjl
+
+The TECO macro STRIP.TEC is executed by the following batch command:
+
+TECOC MUNG STRIP.TEC,%PTO%
+
+within prevailing batch files.
+
+This document will explain what this accomplishes and in most instances exactly how.
+
+Note:  Except where otherwise indicated, $ refers to the escape [<ESC>] character
+[ASCII code 27 decimal, 32 octal], which has no defined printing character; you see
+a "$" character as a display substitution when a TECO macro command containing <ESC>
+characters is typed out on the TECO command line; this includes displaying the
+contents of the edit buffer.  This is why it is difficult to edit a TECO macro other
+than within TECO itself.  The <ESC> character is used as a terminator of a string
+or command in most instances; a macro must contain <ESC> characters by nature.
+Making matters more complicated, TECO macros are known to dynamically create other
+TECO macros to be executed from the main TECO macro program.  As such, these created
+TECO macros likely have to have <ESC> characters within their contests.
+Fortunately, TECO allows direct insertion of characters by code; thus, the sequence
+27I$ is often seen.  The "I" [Insert] command, when passed a numerical argument [and
+terminated by an <ESC> character], creates a single character in the edit buffer
+with the specified code; there are no reserved values.  The numerical form of the
+"I" command requires a trailing <ESC> character to distinguish it from the text form
+of the "I" command which [potentialy] allows multiple insertions of text strings.
+[Note: Specifics of the text form of the "I" command could be version-dependent;
+STRIP.TEC does not depend on these command extensions.]  The text form of the "I"
+command inserts an indefinitely long text string into the edit buffer; the numerical
+form of the "I" command inserts one character; the character code is the numerical
+argument used in the command.  [Note: Various TECO commands have a similar duality
+of functionality determined by exact usage.]
+
+The description of the entire STRIP.TEC follows.  Afterwards, each section is
+explained as to what it does.  Please note that line breaks [CR/LF] are meaningless
+within TECO except when those characters would be part of a string passed to the
+text form of an "I" [Insert] command. Thus, within this document, it is merely a
+line break added for readability.  [The actual STRIP.TEC file may not have identical
+line break characters within.]
+
+STRIP.TEC Contents
+
+                    ╔═════════════════════════════════════════════════════════╗
+                    ║                                                         ║
+                    ║  EZ#128EZ$HXQHKGQ0JIEB$ZJ27I$HXBHKMB                    ║
+                    ║  Y0J<N^X$;-1A&127U1-D                                   ║
+                    ║  Q1-26"NONOTEND$'."EONOCHARS$'0,.P$0,.K$!NOCHARS!EFEX$  ║
+                    ║  !NOTEND!Q1"EOIGNORE$'Q1-127"EOIGNORE$'                 ║
+                    ║  Q1-12"NONOTFF$'.USQH"EOIGNORE$'0A+1"EOIGNORE$'         ║
+                    ║  !LOOP1!0A&127"NOLFTEST$'DOLOOP1$                       ║
+                    ║  !LFTEST!0A&127-10"NONOTFF$'C$                          ║
+                    ║  !LOOP2!0A&127"NOENDTEST$'DOLOOP2$                      ║
+                    ║  !ENDTEST!0A+1"NONOTEOF$'QS"EONOCH$'0,QSP$0,QSK$        ║
+                    ║  !NOCH!EFEX$!NOTEOF!QSJOPUTIN$                          ║
+                    ║  !NOTFF!Q1-10"NOPUTIN$'-1A-13"EOPUTIN$'13I$             ║
+                    ║  !PUTIN!Q1I$Q1-13"NONOTCR$'0A&127-10"N10I$'             ║
+                    ║  !NOTCR!%H!IGNORE!>EFEX$$                               ║
+                    ║                                                         ║
+                    ╚═════════════════════════════════════════════════════════╝
+
+Code fragment       Explanation
+
+EZ#128EZ$           EZ is a version-dependent internal register of TECOC with
+                    various control functions which can affect overall operation.
+                    The value already contained in the EZ register is inclusively
+                    .OR.ed with the constant 128 then written back to the EZ
+                    register.  By forcing this specific bit to the on state, buffer
+                    appendage limited by <FF> characters is inhibited.  Other TECO
+                    implementations could handle this situation differently or not
+                    at all; the logic of the STRIP.TEC macro depends on this
+                    operational behavior.
+
+HXQ                 The entire text in the edit buffer is copied into Q-register Q.
+                    The referenced text is the passed complete pathname argument,
+                    which is the expansion of the %PTO% environment variable such
+                    as:
+
+                    %PDP-8_DRIVE%\PDP-8\SIMH\PDP-8\SIMH_Working_Files\PTPFILE.TXT
+
+                    which in turn contains an environment variable; this reduces to
+                    something of the form:
+
+                    J:\PDP-8\SIMH\PDP-8\SIMH_Working_Files\PTPFILE.TXT
+
+                    by the time the text is placed into the edit buffer
+                    automatically by invoking TECOC in this manner.  [Note: The PTO
+                    environment variable is derived from the %1 argument to the
+                    overall batch file that initiated the TECOC command.
+                    Command-line arguments to invoke TECO are extremely
+                    system-dependent; this method is valid for MS-DOS and WINDOWS
+                    TECOC.]
+
+HK                  Kills the passed edit buffer, since it is now saved in
+                    Q-register Q.
+
+GQ                  Brings the passed string back into the edit buffer.  [Note: This
+                    method is used to allow additional file commands perhaps needed
+                    in a future version of the program.]
+
+0JIEB$              Jump to the beginning of the buffer and insert "EB" there.  "EB"
+                    is the TECO command to update an existing file; this is a
+                    command being formed and not yet ready to be executed as a TECO
+                    macro.
+
+ZJ27I$              A trailing <ESC> character is required to complete the macro
+                    command when it is executed.  The buffer pointer is adjusted to
+                    point to the end of the buffer and <ESC> is placed into the
+                    buffer to complete the command.
+
+
+HXB                 The entire edit buffer contents, which is something of the form:
+
+                    EBJ:\PDP-8\SIMH\PDP-8\SIMH_Working_Files\PTPFILE.TXT$
+
+                    is placed into Q-register B.
+
+HK$                 Kills the edit buffer, since it is now saved in Q-register B.
+                    Note: TECO macros occasionally contain extraneous <ESC>
+                    characters for formatting purposes only.  If the context doesn't
+                    require an <ESC> character, it is ignored.  This is somewhat
+                    analogous to when programmers of more typical mathematically
+                    oriented languages place superfluous sets of parentheses around
+                    expressions even when precedence rules might not require this.
+                    Occasionally, this is also done to make the overall editing
+                    process of the TECO macro slightly easier.  [Note: TECO and
+                    several other languages do not support any form of precedence
+                    rules; mathematical expressions are evaluated strictly left to
+                    right.]
+
+MB$                 Q-register B's string contents is executed as a TECO Macro.
+                    This setups up the passed file to be updated.
+
+Y                   The "Yank" command reads in some portion of the file into the
+                    editing buffer.  Since <FF> checking is inhibited, the buffer
+                    size alone determines the size of the portion loaded.  TECO
+                    implementations vary as to buffer size; a number of additional
+                    locations are reserved in case the buffer grows due to the
+                    various macro and other operations.  In the case of the
+                    STRIP.TEC program, the file size will change very little
+                    depending on the exact nature of what is being stripped out; a
+                    few operations might actually add as many as one or two
+                    characters for each occurrence of a special case; however, this
+                    would occur very infrequently.  Most characters are merely
+                    processed to remove undesirable high-order bits; as such, the
+                    overall character count will hardly change.
+
+0J                  Reset the buffer pointer to the beginning of the edit buffer.
+                    Most TECO implementations will do this automatically after a
+                    Yank operation.  TECO programmers often include this to clarify
+                    the scope of an iteration loop that follows.
+
+<                   Because of the leading "<" character, what follows up to a
+                    matching ">" character is executed in an infinite loop; various
+                    methods exist to break out of an infinite loop, such as a
+                    failing search operation.  This is the primary operational loop
+                    of most of the program.
+
+N^X$;               A Nonstop search is performed.  All characters processed will be
+                    forced into the output buffer and [eventually] written out.  In
+                    this case the search is a special-case operation; control-X
+                    means the search argument is any single character of any value.
+                    The only way this can fail is if the end of file is reached.
+                    When any form of search fails inside of iteration brackets when
+                    formed with a trailing ";" character, no error occurs; the
+                    iteration loop ends and execution continues past the ">"
+                    character matching the "<" character in effect when the failing
+                    search was attempted.  Assuming the search succeeded, the buffer
+                    pointer is now just past the matching text character.  Should a
+                    character be inserted, the buffer pointer will be placed just
+                    after the newly inserted character.  [Note: This form of
+                    insertion is only done for certain special cases.]
+
+-1A&127U1-D         When the "A" command is used with a leading numerical argument,
+                    the argument is used as an offset from the buffer pointer to
+                    locate a particular character in the buffer.  In this case, the
+                    numeric value of the previous character is returned [which is
+                    the character that matched the search as described above].  This
+                    value is then masked via a logical .and. operation against the
+                    mask constant 127 which preserves the low-order seven bits and
+                    strips the high-order bit.  This corrected value is then stored
+                    in Q-register 1; the referenced character is then removed from
+                    the buffer.  [Later, the corrected character value will be
+                    inserted into the buffer unless the character requires special
+                    handling.]
+
+Q1-26"NONOTEND$'    If the character is not control-Z [the expression evaluates to
+                    other than zero; 26 is the character code for control-Z] then
+                    gotO the portion of the program labeled !NOTEND!.  Otherwise,
+                    execution continues inline to finalize the file.  Note: The
+                    underlying operating system may have alternate conventions
+                    regarding the end of file state from the operating system that
+                    created the file; this is why end of file detection is also
+                    carried out elsewhere in the program.  [Note: ASCII text files
+                    created by/for OS/8 or the P?S/8 SHELL conform to this
+                    convention.  Extraneous characters may exist in the file past
+                    the control-Z; if present, they are to be ignored.  In extremely
+                    rare situations, defective OS/8 utilities may create files that
+                    end on the last character of the file with an active character;
+                    control-Z might not be present.  This situation is handled
+                    properly by this program; however, it may be necessary to remedy
+                    this situation within OS/8 to add a proper sentinel control-Z
+                    character.  MS-DOS and Windows do not support this convention
+                    internally; exact byte counts are used to account for file
+                    length.  P?S/8 conversion programs to/from OS/8 have safeguards
+                    against this problem; OS/8 PIP operating in ASCII text mode
+                    should prevent this problem; Kermit-12 for OS/8 implements
+                    internal defensive measures to prevent this problem.]
+
+."EONOCHARS$'       If the edit buffer pointer is zero, there were no characters in
+                    the buffer when the control-Z character was detected.  This is
+                    not a likely situation; however, this is part of the
+                    belts-and-suspenders approach taken with this program.  Should
+                    this be true, gotO the portion of the program labeled !NOCHARS!
+                    to avoid the immediately following operations.
+
+0,.P$0,.K$          All characters in the edit buffer are outPut [aka "Punched"];
+                    then those characters are deleted from the edit buffer.  These
+                    operations were skipped if the edit buffer was empty.  [The
+                    label !NOCHARS! follows.]
+
+!NOCHARS!EFEX$      The output file is closed using the "EF" [End File] command;
+                    TECO then EXits to the operating system.
+
+!NOTEND!            The rest of the program processes the latest [stripped]
+                    character checking for various special cases.  [Note: All
+                    operations are within the iteration brackets "<" and ">" and
+                    will be performed repeatedly; each iteration starts with the
+                    Non-stop search for any character [N^X$;] until the search
+                    attempt fails.  All processing for any iteration ends at the
+                    label !IGNORE!.]
+
+Q1"EOIGNORE$'       If the latest character is zero [<NUL> character] gotO the
+                    portion of the program labeled !IGNORE! which is the very end of
+                    the main section of the program running in iteration.  Thus, all
+                    <NUL> characters are removed.  Surprisingly, many OS/8 text
+                    files processed through the PTP: handler contain large
+                    quantities of <NUL> characters in large groups which must be
+                    removed; certain special cases are also known to exist and will
+                    be handled elsewhere.
+
+Q1-127"EOIGNORE$'   If the latest character is a <RO> it is removed.  Various files
+                    are known to contain extraneous <RO> characters for a variety of
+                    reasons.
+
+Q1-12"NONOTFF$'     If the latest character is not a <FF> [character code 12] gotO
+                    the portion of the program labeled !NOTFF!.  This is necessary
+                    because there are many anomalies in various files when a <FF>
+                    character is issued; it is theorized that many of these problems
+                    stem from an incomplete understanding of how to properly handle
+                    logical pages intended for printing from various processing
+                    utilities.  The source file convention for most PDP-8 files
+                    separates pages by a single <FF> character; unfortunately,
+                    various anomalies must be potentially dealt with when a <FF>
+                    character is detected in the file.
+
+.US                 The current edit buffer pointer is saved into Q-register S.
+                    Certain operations are performed on characters past where the
+                    latest <FF> was located; after these operations complete, the
+                    buffer pointer can be restored.
+
+QH"EOIGNORE$'       As a special concession to output files created by PAL8 and
+                    related OS/8 utilities, if the first character in the file is a
+                    <FF> character [after first removing all <NUL> and <RO>
+                    characters], it will be removed.  Additional <NUL> or <RO>
+                    characters may be in the file; they will be removed by other
+                    routines as necessary.
+
+                    [Note: P?S/8 PAL and related utilities from the circa 1978
+                    release of P?S/8 do not conform to this convention; the first
+                    <FF> and any prior <CR> and <LF> characters must be removed by
+                    external means if desired.
+
+                    Future versions of this program may handle this problem by
+                    assuming that removal of a <FF> character not quite at the
+                    beginning of a file is considered acceptable; extremely
+                    pragmatic coding may be required to avoid data loss in certain
+                    cases.  As of this writing, it is believed the exact sequence in
+                    P?S/8 PAL LPT:-oriented output [after all <NUL> and <RO>
+                    characters are removed] is CR LF CR LF FF; additional logic may
+                    be added to expressly handle this special case.]
+
+                    Note: This program depends on the known behavior of TECOC for
+                    MS-DOS and Windows to initialize numeric Q-register storage to
+                    zero.  This behavior is likely implementation-specific.  If the
+                    TECO implementation supports errors on unitialized variables,
+                    the program should be modifed to initialize variables such as
+                    this using commands such as OUH.  [The numeric argument to the
+                    "U" command is stored into the specified Q-register.]
+
+                    Q-register H is incremented when any non-ignored character is
+                    processed; as such, this operation only affects the initial <FF>
+                    character.
+
+0A+1"EOIGNORE$'     A feature of this program is to remove trailing <FF> characters
+                    where possible; files are handled differently in the host
+                    operating environment; print-oriented utilities process pages
+                    based on other conventions which avoid extraneous blank pages.
+
+                    TECO implements a safeguard at the end of file.  Attempts to
+                    access additional characters will result in an error abort.  To
+                    avoid this, if the code returned for the next character is -1,
+                    the end of file has been reached.  GotO the portion of the
+                    program labeled !IGNORE! to avoid processing this trailing <FF>
+                    character; the next iteration will cause the search to fail and
+                    break out of the iteration loop for final file processing.
+
+                    [Note: If a file contains <NUL> or <RO> characters after the
+                    last <FF> character, the condition checked for will not exist;
+                    if this occurrs, it is likely the problem can be remedied by
+                    running the program a second time on the stripped file; the net
+                    result will be processed properly to remove the trailing <FF>
+                    character.]
+
+!LOOP1!             In certain OS/8 files, sequences of up to nine <NUL> characters
+                    followed by a <LF> character are placed after every <FF>
+                    character which must be removed.  The program iterates back to
+                    !LOOP1! until all <NUL> characters after the <FF> character are
+                    removed.
+
+0A&127"NOLFTEST$'   If the next character after a <FF> character is not a <NUL>
+                    character, gotO the portion of the program labeled !LFTEST!.
+
+DOLOOP1$            If the next character after a <FF> character is a <NUL>
+                    character, delete the character; gotO the portion of the program
+                    labeled !LOOP1! to test further.
+
+!LFTEST!            After all <NUL> characters after a <FF> character are removed,
+                    the next character is likely a <LF> character.  Test for this
+                    now.
+
+0A&127-10"NONOTFF$' If the character after all <NUL> characters after a <FF>
+                    character is not a <LF> character, gotO the portion of the
+                    program labeled !NOTFF! to be processed as something other than
+                    part of this specially checked sequence.
+
+C$                  If the character after all <NUL> characters after a <FF>
+                    character is a <LF> character, advance the buffer pointer to
+                    preserve the <LF> character.
+
+!LOOP2!             In certain files passed through the OS/8 PTP: handler, a long
+                    sequence of trailing <NUL> characters may follow the last <FF>
+                    character followed by nine <NUL> characters followed by <LF>.
+                    All of these <NUL> characters will be removed.
+
+0A&127"NOENDTEST$'  If the character after the <LF> character is not a <NUL>
+                    character, gotO the portion of the program labeled !ENDTEST!.
+
+DOLOOP2$            If the next character after the <LF> character is a <NUL>
+                    character, delete this character; gotO the portion of the
+                    program labeled !LOOP2! to test further.
+
+!ENDTEST!           The extremely pragmatic sequence checked for so far includes the
+                    requirement that the buffer pointer must be at the end-of-file.
+                    If not, handle the <FF> character as a more typical case.
+
+0A+1"NONOTEOF$'     If the next character after the last <NUL> character after the
+                    <LF> character is not the end-of-file indicator, gotO the
+                    portion of the program labeled !NOTEOF!.
+
+QS"EONOCH$'         Q-register S contains the buffer pointer when the trailing <FF>
+                    character was located before the now-validated trailing sequence
+                    of additional characters.  If the contents of Q-register S is
+                    zero, gotO the portion of the program labeled !NOCH!.
+
+0,QSP$0,QSK$        All characters from the beginning of the buffer through the
+                    position indicated in Q-register S will be outPut now.  All
+                    characters from the beginning of the buffer through the position
+                    indicated in Q-register S will be deleted.
+
+!NOCH!EFEX$         After any existent characters in the buffer are processed [or
+                    not if there weren't any] the file is closed with an "EF"
+                    [End File] command.  The trailing <FF> and the entire sequence
+                    of trailing characters was deleted from the file.  Teco then
+                    EXits to the operating system.
+
+!NOTEOF!QSJOPUTIN$  If the pragmatic sequence of characters expected after the
+                    <FF> did not occur, the buffer pointer is restored to the
+                    position saved in Q-Register J.  Control is transferred to the
+                    portion of the program labeled !PUTIN! to handle the <FF> as a
+                    routine character.
+
+!NOTFF!             Control is transferred to this portion of the program if either
+                    the latest character is not a <FF> character or the expected
+                    <LF> character was not present.
+
+Q1-10"NOPUTIN$'     If the latest character is not a <LF> character, gotO the
+                    portion of the program labeled !PUTIN!.
+
+-1A-13"EOPUTIN$'    If the latest character is a <LF> character, check if the
+                    previous character is a <CR> character.  If so, gotO the portion
+                    of the program labeled !PUTIN!.
+
+13I$                If the latest character is a <LF> character and the previous
+                    character is not a <CR> character, insert a <CR> character
+                    before the <LF> character.  Many PDP-8 files fail to obey this
+                    convention; the host operating system requires lines end with
+                    <CR> <LF>.  Note: Files originating from unix systems may also
+                    have the identical problem.
+
+!PUTIN!Q1I$         Control is transferred to this portion of the program to insert
+                    the stripped version of the original character.  Q-register I
+                    contains the [possibly] corrected value which is inserted into
+                    the edit buffer.
+
+Q1-13"NONOTCR$'     If the latest character is not a <CR> character, gotO the
+                    portion of the program labeled !NOTCR!.
+
+0A&127-10"N10I$'    If the latest character is a <CR> character, test the next
+                    character; if the next character is not a <LF> character, insert
+                    a <LF> character.  Many PDP-8 files fail to obey this convention
+                    although not nearly as often as failing to have a <CR> before a
+                    <LF>.  This may be true if the file originates with various
+                    Apple or other products.  Certain P?S/8 programs from the circa
+                    1978 release have similar quirks; newer releases will fix these
+                    problems [if not already fixed].
+
+!NOTCR!%H           Q-register H is incremented to inhibit further special handling
+                    of initial <FF> characters.  Other than the characters
+                    associated with infrequent special handling, Q-register H will
+                    generally contain the running character count of the file as it
+                    is being processed.
+
+!IGNORE!>EFEX$$     Any direct transfer of control to this point will ignore the
+                    latest character.  All special-case routines that process
+                    characters also come here to finish the iteration loop.
+
+                    When the Non-stop search fails, control passes to the first
+                    command outside of the iteration brackets.  The file is closed
+                    with the "EF" [End File] command; TECO exits to the operating
+                    system.
+
+                    Since the entire macro string ends with two successive <ESC>
+                    characters, this also ends the macro input into TECO when TECO
+                    is initialized.  The exact process is version-dependent.  As
+                    such, it is good practice to avoid the use of the textual
+                    Q-registers X, Y, and Z, as in some TECO implementations, the
+                    passing of macro arguments may resemble the following:
+
+                    HXZMZ
+
+                    In essence, the entire macro is treated as a text string in the
+                    editing buffer as TECO starts; all characters are then placed
+                    into Q-register Z [or X or Y depending on version] then the "MZ"
+                    command is executed to start the Macro contents of Q-register Z.
+                    In some versions of TECO, this is effected using a "hidden"
+                    Q-register thus all of the 36 Q-registers are fully available.
+
+[end-of-file]

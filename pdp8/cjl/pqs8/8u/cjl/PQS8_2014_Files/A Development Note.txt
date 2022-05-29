@@ -1,0 +1,40 @@
+In consideration of the coming SHELL upgrade, try to stream-line required
+low blocks so a SHELL-oriented device gets as much back as possible for SHELL
+purposes yet is still basic P?S/8-compatible.  Thus, blocks 15-16 will
+contain a null amount of files starting from and ending at the same somewhere
+block TBD [by what else gets streamlined; an immediate goal is to get below
+block 0160]
+
+Then the stuff before the first deletable system program has to be minimized.
+
+The new low-level monitor will increase this slightly.  It would appear it
+has to check for Control-C but someone has to deal with the soft abort bit
+because that would not have brought in the low-level monitor, but an actual
+control-C would.  Perhaps the low-level monitor is brought in on either
+control-A or control-B.  Cannot depend on any terminal being able to generate
+control-break on real terminals like VT-100 so that is out.  Programs that
+just exit on less than Control-D have to be modified.
+
+In the low-level monitor, control-C detect has to join back with soft-abort
+bit detect somewhere else to make sense regarding batch.
+
+Batch might be nice to remove reserved blocks and make then relative to 
+BATCH core image blocks as if overlays.
+
+Extended-length Files Directory being scrapped.  Perhaps reorganize for the
+benefit of the new RU that handles interally the extended-length file ber
+logical unit being faster, but what about the ccl-like execution that has
+to read in the system programs directory first half?  Somebody has to be
+the most efficient.
+
+Perhaps the ccl-like processor is just before the system programs directory
+and loads in itself plus the first two while the R processor is after and
+reads in all four blocks of the system programs directory and itself all
+in once swoop, etc.  Then both are efficient.
+
+Non-system handlers that support 256 word LINCtapes have to do the RK8E
+trick to remain compatible fully or else be deleted forcing programs that
+do LINCtapes to be special with their own LINC-8 and PDP-12 code the way
+LTBODT and L6DCON work now.  No need to have both.  But all handlers have to
+support logical 128-word block transfers.
+

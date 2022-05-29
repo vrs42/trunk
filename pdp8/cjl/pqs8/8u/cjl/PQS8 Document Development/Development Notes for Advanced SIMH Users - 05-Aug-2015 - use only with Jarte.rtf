@@ -1,0 +1,593 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fnil\fcharset0 MS Shell Dlg;}{\f3\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red255\green255\blue255;\red140\green140\blue140;\red192\green192\blue192;}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 720
+  FtrMarg = 720
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 Command Development for the\f1  P?S Advanced\f0  PDP-8 Simulator Package.\par
+\par
+\f1\'a91975-1989, CHARLES LASNER ASSOCIATES\f0\par
+\f1\'a91990-2015, CLA SYSTEMS\f0\par
+ClaSystems@gmail.com\par
+\par
+Last edit: \f1 05\f0 -\f1 Aug\f0 -2015 cjl\par
+\par
+How to add a new program source file \f1 for\f0  develop\f1 ment\f0  with the P?S Advanced SIMH package.\par
+\par
+Additional topics include related issues with regard to OS/8 and P?S/8 as used with\f1  \f0 the SIMH PDP-8 simulator and resolution of problems whe\f1 re\f0  feasible.\par
+\par
+Newer versions of this document may add additional topics as required.  Feedback is\f1  \f0 welcome on any related topic.\par
+Contact Charles Lasner CLASystems@gmail.com for any\f1  \f0 questions.\par
+\par
+Technical level:\f1\tab\f0 Moderate to high with respect to Windows/MS-DOS as \f1\tab\tab\tab\tab\f0 well as PDP-8\f1  \f0 operating environments such as OS/8 \f1\tab\tab\tab\tab\f0 and P?S/8.\par
+\par
+The main purpose of this document is to explain how to organize the components\f1  \f0 needed to support easy access to the rest of this package\f1  for the purposes of\f0  develop\f1 ing\f0  a new source\f1  \f0 file\f1  project\f0 .\f1  \f0 Consequential issues that crop up during development will also be discussed.\par
+\par
+Note: In very few instances, extremely long complete pathnames are indicated to be\f1  \f0 explicitly used as part of a command file or\f1  \f0 parameter.  For readability purposes\f1  \f0 only, these are shown on multiple lines of this document with a \cf1\highlight2\f1\'a7\cf0\highlight0\f0  symbol\f1 .  T\f0 he actual\f1  \f0 usage must be one long line; a single \highlight3\f1 <SP>\highlight0\f0  character should be used where the \cf1\highlight2\f1\'a7\cf0\highlight0  \f0 is show\f1 n\f0 .\par
+\par
+Advanced SIMH Package Drive designation.\par
+\par
+A valid volume and drive letter must be chosen to operate the \f1 P?S \f0 Advanced SIMH package.\f1   \f0 Depending on system complexity, this will be C: or any valid drive through Z:  The\f1  \f0 choice will be set either manually within Windows' environment variables section or\f1  \f0 using available batch command files within the overall \f1 P?S \f0 Advanced SIMH package.  Due\f1  \f0 to the way various command lines function within MS-DOS and Windows, the various\f1  \f0 shortcuts and batch files depend on a master environment variable for proper\f1  \f0 functionality.\par
+\par
+Depending on the context, the string\par
+\par
+\i %PDP-8_DRIVE%\i0\par
+\par
+is to be typed literally as stated.  This applies to all command lines and input to\f1  \f0 shortcut fields, etc.\page Advanced SIMH Drive textual reference.\par
+\par
+When the reference to the drive is made as part of ordinary text within this\f1  \f0 document, it refers to the drive letter [and a ":" character] chosen for the actual\f1  \f0 drive used to install the \f1 P?S \f0 Advanced SIMH package such as D:.  For example, the\f1  \f0 COROUTINE.PAL file described in the next section will be located on a volume on the\par
+target system such as drive D:.  However, the path to all such files is described\f1  \f0 throughout this document starting with %PDP-8_DRIVE%.  Since this is merely\f1  \f0 documentation, not the contents of a command file or parameter specification,\f1  \f0 mentally substitute the drive letter [and ":"] chosen for installation of the\f1  \f0 Advanced SIMH package.\par
+\par
+Project files within the \f1 P?S \f0 Advanced SIMH environment.\par
+\par
+Various source files can be developed within the \f1 P?S \f0 Advanced SIMH environment.  To make\f1  \f0 this process significantly easier, various shortcuts and batch files can be created\f1  \f0 to avoid needless tedium.\par
+\par
+As an example, we will use the existing file COROUTINE.PAL. [Note: COROUTINE.PAL is\f1  \f0 actually an excerpt from the source file for Kermit-12, a Kermit implementation for\f1  \f0 OS/8 written by Charles Lasner [with some help from others].  It was extracted as an\f1  \f0 example of a well-constructed practical coroutine for illustrative use in an\f1  \f0 academic setting to explain PDP-8 coroutines used in non-real-time programs.\par
+\par
+The\f1  \f0 program segment is meant to be used to obtain unpacked bytes from an OS/8 input file\f1  \f0 called as a conventional subroutine from a main program; the coroutine aspect\f1  of things\f0  is\f1  \f0 totally contained within the called code including certain mode settings that could\f1  \f0 be set externally such as seven bit ASCII text or eight bit binary mode.\par
+\par
+Non-real-time coroutines were chosen to introduce the general concept of coroutines\f1  \f0 to students who had\f1  no prior experience with this data structure\f0 ; real-time usage of coroutines is\f1  a\f0  no\f1 n-\f0 trivial matter.  It is \f1 far\f0  more difficult to illustrate how coroutines facilitate\f1  \f0 foreground processing or inter-task communications without presenting a\f1  \f0 completely\f1  \f0 detailed entire program.  The academic setting was meant to introduce students to\f1  \f0 coroutines, not cause them to run for the nearest exit.\par
+\par
+The COROUTINE.PAL file is located within one of the recommended source file\f1  \f0 directories, in this case\f1 :\par
+\par
+\f0 %PDP-8_DRIVE%\\PDP-8\\Source Files\\Generic Source Files\par
+\par
+\f1 which is used for source file projects not particularly associated with any particular operating system [such as OS/8 or P?S/8].\f0\par
+\par
+[Note: The\f1  \f0 environment variable PDP-8_DRIVE should already be setup by the package setup\f1  \f0 program as documented elsewhere.  It should be set to D: or some similar drive\f1  \f0 letter\f1  other than C: if at all possible\f0 .]\page Important: After\f1  first setting up the PDP-8_DRIVE environment variable\f0 , the Windows system should be logged off or rebooted\f1  \f0 at least once before performing any of the operations described below to allow the\f1  \f0 environment variable change to take effect.\par
+\par
+The objective is to create two batch files to support the source file, each with a\f1  \f0 shortcut to their respective batch file, such as:\par
+\par
+1)\f1\tab\f0 Edit COROUTINE.PAL - This is a batch file that runs a\f1  designated \tab editing program to modify\f0  the \f1 source \f0 file\f1  [which in\f0  this example\f1  \tab is the Windows standard\f0  Notepad.exe]\f1 ,\f0  and then pass the\f1  \f0 file to \f1\tab\f0 the SIMH PDP-8 simulator by creating a copy as the paper-tape \f1\tab\f0 input\f1  \f0 stream file called PTRFILE.TXT.\f1   \f0 [Note: \f1 Nearly a\f0 ll \f1\tab\f0 files \f1\tab\f0 used in the SIMH PDP-8\f1  \f0 simulator use arbitrary names.\f1   \f0 By \f1\tab\f0 changing the\f1  content of the\f0  config.ini \f1\tab\f0 file\f1 [s]\f0 , alternate file\f1  \tab names \f0 can be defined to \f1\tab\f0 suit personal preference.]\par
+\par
+\f1\tab If the source file editor is closed [which closes the batch \tab file], the SIMH PDP-8 simulator can be run separately if \tab desired; however, as long as the source file is updated, it is \tab not necessary to end the editing session.  [see 2) below.]\f0\par
+\par
+2)\f1\tab\f0 Copy and Go for COROUTINE.PAL - This is a batch file that also \f1\tab\f0 copies the file\f1  \f0 to PTRFILE.TXT as in 1) above, then runs the SIMH \f1\tab\f0 PDP-8 simulator to allow the\f1  \f0 high-speed reader handler of OS/8 to \f1\tab\f0 create the file within the OS/8 environment.\f1   As source file \tab edits are made, this batch file can be used as need be.\par
+\par
+\tab The PDP-8 operating system of choice [OS/8 or P?S/8] is set \tab within the batch file by setting the GOCONFIG environment \tab variable as shown in the example below.\f0\par
+\par
+\f1\tab [Note: Future releases of P?S/8 will include the PTUTIL utility. \tab This will allow P?S/8 to process passed input files directly.  \tab The present method is to first use OS/8 configured with paper-\tab tape reader support; after the file is in the OS/8 environment, \tab the P?S/8 OS8CON program can convert the OS/8 data into P?S/8 \tab files.]\f0\par
+\par
+Example batch files.\par
+\par
+\f1\tab\f0 Edit and Copy the COROUTINE.PAL file.  The COROUTINE.PAL file is \f1\tab\f0 open in Notepad and\f1  \f0 then copied into the paper-tape input stream \f1\tab\f0 file PTRFILE.TXT\f1  afterwards\f0 .  When the editing\f1  \f0 session completes, \f1\tab\f0 it would \f1\tab\f0 be appropriate to run the SIMH PDP-8 simulator\f1  booting \tab the operating system of choice [OS/8 or P?S/8]\f0 .\page File Name: Edit and Copy COROUTINE.PAL.BA\f1 T\par
+\par
+\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f0\par
+REM Edit a specific file then copy it into the PTR: file in\par
+\f1 REM \f0 preparation for\f1  \f0 assembly in SIMH.\par
+\par
+REM Last edit: \f1 05\f0 -\f1 Aug\f0 -2015 cjl\par
+\par
+REM Set the file name.\par
+\par
+SET FILENAME=COROUTINE.PAL\par
+\par
+REM Set the path for source files.\par
+\par
+SET SRCPATH=%PDP-8_DRIVE%\\PDP-8\\Source Files\\Generic Source Files\par
+\par
+REM Set the path for the working files.\par
+\par
+SET WORKPATH=%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH_Working_Files\par
+\par
+START /WAIT NOTEPAD.EXE "%SRCPATH%\\%FILENAME%"\par
+\par
+REM Copy the source file to the SIMH PTR: file.\par
+\par
+COPY /Y "%SRCPATH%\\%FILENAME%" "%WORKPATH%\\PTRFILE.TXT"\fs20\par
+\par
+\f1\fs24\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\fs17\par
+\f0\fs24 For a new source file, the FILENAME and SRCPATH lines must be changed.  Alternatives\f1  \f0 to Notepad.exe can be used [\f1 specifying \f0 an explicit path as required].\par
+\par
+The next batch file will copy the COROUTINE.PAL file to the paper-tape input stream\f1  \f0 file PTRFILE.TXT.  It is presumed a\f1  host\f0  editing session \f1 might be\f0  in progress which need not\f1  \f0 be terminated.  The SIMH PDP-8 simulator will be run booting to\f1  either\f0  OS/8\f1  or P?S/8 as determined by the setting of the GOCONFIG environment variable within the batch file.\f0\par
+\par
+Eventually, after looking at results obtained from the SIMH PDP-8 simulator session\f1  \f0 [such as PTPFILE.TXT or LPTOUT.TXT after appropriate filtering and stripping has\f1  \f0 modified the file to be acceptable to the host environment], further editing \f1 can be \f0 performed without necessarily terminating the editing session.\par
+\par
+Note: OS/8 users have a choice of which output stream to pass the results back\f1  \f0 through.  P?S/8 users should use LPTOUT.TXT due to limited support of the high-speed\f1  \f0 punch within the present release of P?S/8 associated with the Advanced SIMH PDP-8\f1  \f0 simulator package at the time of this writing.\page\f1 The developers of \f0 P?S/8\f1  have\f0  always avoided\f1  \f0 paper-tape hardware\f1  support\f0  for a variety of reasons:\par
+\par
+\f1\tab a)\tab Using paper-tape is i\f0 ncredibly inefficient and \f1 was \f0 wasteful\f1  \tab\tab\f0 on the actual \f1 computer \f0 hardware\f1  used back\f0  in the day,\par
+\par
+\f1\tab\f0 b)\f1\tab N\f0 o high-speed\f1  paper-tape\f0  hardware was available to\f1  the\f0  P?S/8\f1\tab\tab\f0 developers; only the slow and quite unreliable\f1  Teletype \tab\tab\tab Model 33 \tab ASR \f0 was available on\f1  the specific\f0  PDP-8 systems\f1  \tab\tab\tab used to test and develop P?S/8.\f0\par
+\par
+\f1\tab\tab\f0 In fact,\f1  the original system used for testing and \tab\tab\tab\tab development had a Teletype Model 35 KSR\f0  as the system \f1\tab\tab\tab\tab\f0 console; \f1 as such, no paper-tape capability existed on that \tab\tab\tab system.\par
+\f0\par
+Future releases of P?S/8 \f1 will\f0  include\f1  the PTUTUL\f0  \f1 program\f0  \f1\tab\f0 supporting\f1  ASCII text \f0 paper-tape devices\f1  including the device 01 high-speed reader and device 02 high-speed punch, and the Teletype Model 33 ASR and Model 35 ASR console terminals which can read and punch paper-tape at low speed only.\par
+\par
+The paper-tape support is being added \f0 primarily as a concession to the SIMH PDP-8 simulator\f1  environment\f0 ; the\f1  \f0 high-speed paper-tape reader and \f1 high-speed paper-tape \f0 punch is the primary device used to bring files in\f1  \f0 and out of the simulated environment to allow \f1\tab\f0 host utilities to operate on the files\f1  \f0 as well as using PDP-8 \f1\tab\f0 facilities.\f1   PTUTIL will allow the reading and creation of P?S/8 TFS and extended-length files when completed.  [Note: PTUTIL for P?S/8 Version 8P may not support extended-length files due to the primitive suport inherent in this early release.]\f0\page File Name: Copy and Go COROUTINE.PAL.BAT\par
+\par
+\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f0\par
+\f1 @ECHO OFF\f0\par
+\par
+REM Copy the source file to the SIMH PTR: file and then run SIMH.\par
+\par
+REM Last edit: \f1 05\f0 -\f1 Aug\f0 -2015 cjl\par
+\par
+\f1 SETLOCAL\par
+\par
+REM Set desired PDP-8 bootup file below; REM the other one.\par
+\par
+SET GOCONFIG=os8config.ini\par
+REM SET GOCONFIG=pqsconfig.ini\f0\par
+\par
+REM Set the file name.\par
+\par
+SET FILENAME=COROUTINE.PAL\par
+\par
+REM Set the path for source files.\par
+\par
+SET SRCPATH=%PDP-8_DRIVE%\\PDP-8\\Source Files\\Generic Source Files\par
+\par
+REM Set the path for the working files.\par
+\par
+SET WORKPATH=%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH_Working_Files\par
+\par
+REM Copy the source file to the SIMH PTR: file.\par
+\par
+COPY /Y "%SRCPATH%\\%FILENAME%" "%WORKPATH%\\PTRFILE.TXT"\par
+\par
+REM Now run the SIMH PDP-8 Simulator.  If running OS/8, read\f1  the PTR:\f0\par
+REM into a .PA or other text file using OS/8 PIP.\f1   If running P?S/8,\f0\par
+REM use PTUTIL to read the PTR: input and\f1  \f0 create P?S/8 output files.\par
+\par
+CD "%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH_Working_Files"\par
+\par
+"%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH Simulator Releases\\PDP8.exe"\par
+\cf1\highlight2\f1\'a7\cf0\highlight0\f0  "%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH Configuration Files\\%GOCONFIG%"\par
+\par
+\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f0\par
+Note: The\f1  \f0 last\f1  file\f0  line\f1  is\f0  shown in two parts\f1  separated by \cf1\highlight2\'a7\cf0\highlight0\f0  for\f1  \f0 readability purposes only\f1 ;  it should be one continuous line with a single \highlight3 <SP>\highlight0  character between the two sections.\f0\par
+\par
+For a new source file, the FILENAME and SRCPATH lines must be changed.\par
+\par
+Both batch files should be stored in the\par
+\par
+%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH Batch Files\par
+\par
+directory to support the new source file.\page Creating proper shortcuts for the new source file.\par
+\par
+Example shortcuts for the batch files relating to COROUTINE.PAL must contain the\f1  \f0 following:\par
+\par
+Shortcut name:\f1\tab\tab\f0 Edit COROUTINE.PAL.lnk\par
+\par
+Important Properties:\par
+\par
+Target:\par
+\par
+"%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH Batch Files\\Edit and Copy COROUTINE.PAL.BAT"\par
+\par
+Start in:\f1\tab\tab\tab\f0 "%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH Batch Files"\par
+\par
+Run:\f1\tab\tab\tab\tab\f0 Minimized\par
+\par
+Screen buffer size:\par
+\par
+Width:\f1\tab\tab\tab\f0 132\par
+\par
+Height:\f1\tab\tab\tab\f0 1000\par
+\par
+Window size:\par
+\par
+Width:\f1\tab\tab\tab\f0 132\par
+\par
+Height:\f1\tab\tab\tab\f0 132\par
+\par
+[Note: Colors are unimportant for this shortcut because the window is run\f1  \f0 minimized.]\par
+\par
+When setting the icon for the shortcut, choose the following path in "Change Icons":\par
+\par
+"Look for icons in this file:"\par
+\par
+%PDP-8_DRIVE%\\PDP-8\\SIMH\\Links and Support Files\\Desktop Shortcuts and Icons\\question.ico.\par
+\par
+The actual icon file chosen in this directory is a user preference.  However, always\f1  \f0 choose an icon from this directory.\f1   \f0 [Additional icons can be added to this directory\f1  \f0 as needed.]\par
+\par
+After all of the parameters of the shortcut are set, open a command prompt and\f1  \f0 navigate to the %PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\Commands directory.  Set the file\f1  \f0 attributes as follows:\par
+\par
+ATTRIB [\i named shortcut .lnk file\i0 ] +a -h +s +r \f1  \f0 [Note: All pre-existing files should\f1  \f0 already have the attributes set this way.  Use the ATTRIB command without arguments\f1  \f0 to see the current status of all .lnk files.]\page Note: The reason for the attribute change is to prevent Windows from attempting to\f1  \f0 "guess" for new values of any of these parameters should something be set wrong,\f1  \f0 such as failing to set the PDP-8_DRIVE environment variable as directed.  Without\f1  \f0 the environment variable in effect, some of these parameters cannot be set.  By\f1  locking down\f0  the parameters, copies of the \f1 P?S \f0 Advanced SIMH PDP-8 simulator package\f1  will not be accidentally\f0  modified.  Should there be a reason to change any parameter, the\f1  \f0 read-only attribute of the shortcut can temporarily be changed from within the\f1  \f0 properties of the shortcut itself to allow updating.  After all changes are\f1  \f0 performed, ensure the attributes are set as documented here.\par
+\par
+Note: Windows does not provide a graphical interface to control the System attribute\f1  \f0 bit; only a command prompt can accomplish this.  Note that .lnk files with the\f1  S\f0 ystem attribute bit will not show in a DIR command at an MS-DOS prompt; however,\f1  \f0 these files will be revealed by the ATTRIB command as well as in Windows as icon\f1 /link properties\f0 .\par
+\par
+Example shortcut links.\par
+\par
+Shortcut name:\f1\tab\tab\f0 Copy and Go COROUTINE.PAL.lnk\par
+\par
+Important Properties:\par
+\par
+Target:\par
+\par
+"%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH Batch Files\\Copy and Go COROUTINE.PAL.BAT"\par
+\par
+Start in:\f1\tab\tab\tab\f0 "%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\SIMH Batch Files"\par
+\par
+Run:      \f1\tab\tab\f0 Normal window\f1\tab\f0 [Note: Maximized should be used \f1\tab\tab\tab\tab\tab\tab\tab\tab\f0 with caution; Normal window\f1  \f0 can \f1\tab\tab\tab\tab\tab\tab\tab\tab\f0 generally be adjusted to nearly \f1\tab\tab\tab\tab\tab\tab\tab\tab\f0 full screen if desired.]\par
+\par
+Screen buffer size:\par
+\par
+Width:\f1\tab\tab\tab\f0 132\par
+\par
+Height:\f1\tab\tab\tab\f0 1000\par
+\par
+Window size:\par
+\par
+Width:\f1\tab\tab\tab\f0 132\par
+\par
+Height:\f1\tab\tab\tab\f0 132\par
+\par
+Color options for this shortcut are significant and are a user preference.  The\f1  \f0 values chosen in Copy and Go COROUTINE.PAL.lnk will produce a window \f1 color scheme for the SIMH simulator \f0 reminiscent of\f1  \f0 a roll of \f1 teleprinter \f0 paper as would \f1 typically \f0 be\f1  used\f0  \f1 on\f0  a\f1  Teletype Model 33\f0 .\page The icon path/choice and attributes considerations are the same as in the previous\f1  \f0 example.\par
+\par
+Both shortcuts should have Display options set to "Window" to allow the window size\f1  \f0 to be adjusted during use [which is the defaultsetting].\par
+\par
+It is recommended these two example shortcuts be copied to become\f1  templates of\f0  the new shortcuts\f1  \f0 and then modified to match the intended new file.  This will cause most of the\f1  \f0 settings to be either set properly or be fairly close.  Note: The copies must have\f1  \f0 the Read-only attribute removed to change anything; when done, set the Read-only\f1  \f0 attribute as described above.  Do not attempt any of these changes unless the\f1  \f0 %PDP-8_DRIVE% environment variable is already set and the current profile has been\f1  \f0 completely logged off at least once [or the system is rebooted].\par
+\par
+Note: Inactive shortcuts can be removed from the\par
+\par
+%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\Commands directory\par
+\par
+and placed into the\par
+\par
+%PDP-8_DRIVE%\\PDP-8\\SIMH\\PDP-8\\Inactive Commands\par
+\par
+directory to avoid clutter in the main Command window.  The other shortcuts in the\f1  \f0 Command directory can be studied in case additional utilities are contemplated.  The\f1  \f0 examples here are oriented towards adding a new project file to the working copy of\f1  \f0 the \f1 P?S \f0 Advanced SIMH PDP-8 simulator package.  The other provided shortcuts and\f1  \f0 underlying batch files [if relevant] are a sufficient set of utilities for most\f1  \f0 users; studying the existent files should be an adequate guide to\f1  \f0 anyone wishing to\f1  \f0 implement additional capabilities.  A thorough working knowledge of Windows batch\f1  \f0 files and directories is\f1  \f0 recommended before proceeding as there are nuanced issues\f1  \f0 that need to be addressed for a successful addition to this package.\par
+\par
+Please contact Charles Lasner [CLASystems@gmail.com] for any relevant issues or\f1  \f0 additions.\par
+\par
+Passing files from the host environment to the SIMH PDP-8 simulator [and back].\par
+\par
+Assuming the file is setup by a Copy and Go routine, the following should be\f1  \f0 executed within the SIMH PDP-8 simulator OS/8 environment [the COROUTINE.PAL file is\f1  \f0 the subject of this example]:\par
+\par
+.R PIP\par
+*COROUT.PA<PTR:\par
+^\cf3 [Press any key to "start" the "reader".]\cf0\f1 *\page\f0 Note: OS/8 only allows \f1 six\f0  character names with two character extensions in\f1  \f0 upper-case.  When the P?S/8 SHELL is completed and a similar utility is available,\f1  \f0 files will be allowed with up to 12 character names with up to four charact\f1 e\f0 r\f1  \f0 extensions.  The file name case will be retained for all cosmetic purposes but will\f1  \f0 be otherwise treated as caseless.  Thus, in the P?S/8 SHELL environment, the entire\par
+file name could generally be used without truncation.]\par
+\par
+The file can then be used in the OS/8 environment and edited with TECO.SV if\f1  \f0 desired.  PAL8 can be used to assemble the file and create a listing output file.\f1  \f0 A typical usage might create COROUT.BN as the binary file and COROU\f1 T\f0 .LS as the\f1  \f0 listing file intended for printing or other purpose.\par
+\par
+Any file created within the OS/8 environment can be brought into the host\f1  \f0 environment as a file:\par
+\par
+.R PIP\par
+*PTP:<COROUT.LS\par
+\par
+When the SIMH PDP-8 simulator is closed, utilities can remove\f1  \f0 artifacts making the\f1  \f0 result\f1 ing\f0  file acceptable to the host\par
+Windows/MS-DOS standards.\par
+\par
+Only one file at a time can be returned to the host environment.  As such, it may be\f1  \f0 desirable to only edit in the host environment.  TECOC for Windows is available\f1  \f0 within the SIMH PDP-8 simulator Utilities directory; it is used as part of the\f1  \f0 filtering utilities needed to remove artifacts.\par
+\par
+The editing method used in this example involves the use of the\f1  \f0 standard Notepad.exe\f1  \f0 program within Windows.  All non-printing\f1  \f0 characters other than the exact sequence\f1  \highlight2 <CR>\highlight0\f0  immediately follows by\f1  \highlight2 <LF>\highlight0\f0  show as a thin rectangle with no way to distinguish\f1  \f0 the exact\f1  \f0 character.  Listing files will show pages separated by the \highlight2\f1 <FF>\highlight0\f0  character\f1  \f0 in this manner.  The character can be copied and pasted within Notepad to insert\f1  \f0 characters where desired; however, it is the user's responsibility to ensure that\f1  \f0 no other non-printing characters are present.  Editors such as SEDT or Notepad++\f1  \f0 may be used if desired to reveal the codes of characters accidentally placed in the\f1  \f0 file.  Appropriate shortcuts should be created in lieu of those described above if\f1  \f0 desired.\page Optional P?S/8 development.\par
+\par
+Also provided in this package\f1  are\f0  release\f1 s\f0  of P?S/8 circa 197\f1 6 [Version 8P] and 1989 [Version 8Z] with minor binary patches applied in 2015 to fix longstanding bugs until a new source code-based release is available tentatively to be known as Version 9A.  In certain ways, P?S/8 is superior to OS/8 [and admittedly there are tradeoffs between the systems presently].  For more information about issues related to OS/8 and P?S/8 [including historical information about early development of both including the R-L Monitor] consult Appendix A of this document.\par
+\par
+\f0 Note: P?S/8 is currently being developed using the SIMH PDP-8 simulator package as\f1  \f0 described in this document.  Updated files will be made generally available as the\f1  \f0 author sees fit; this will include interim updates as well as complete releases [or\f1  \f0 patched versions] as they occur.\par
+\par
+\f1 P?S/8 source files are maintained in the host environment and  presently assembled in OS/8.  Once a rudimentary implementation of  the P?S/8 SHELL is completed, further development will be performed entirely in the SHELL environment [without OS/8].\f0\par
+\par
+Source files may be freely converted from the OS/8 environment to/from P?S/8 using\f1  \f0 prevailing conversion programs in P?S/8.  More\f1  \f0 documentation is available elsewhere\f1  \f0 regarding file conversion both in the present system and in future releases of both\f1  \f0 the basic P?S/8 system and the optional SHELL environment.\par
+\par
+Note: The conversion\f1  \f0 programs depend on specific configurations of the PDP-8 as carried out within the\f1  \f0 SIMH PDP-8 simulator configuration as used in this package.  Where possible, the\f1  \f0 normal handlers associated with P?S/8 will be compatible with OS/8 a\f1 t\f0  the physical\f1  \f0 block level.\par
+\par
+In certain cases, it will be necessary for the P?S/8 SHELL to use\par
+special handlers geared towards OS/8 access to certain devices where P?S/8 uses a\f1  \f0 different method of access [generally to provide more storage on the same hardware;\f1  \f0 many PDP-8 peripherals can be used in a manner that wastes 1/3 of the available\f1  \f0 space.  OS/8 generally uses the inefficient operational modes on these devices due\f1  \f0 to lack of proper code space within the meager OS/8 handlers.  P?S/8 handlers may be\f1  \f0 provided for either mode depending on hardware and configuration specifics.  Only\f1  \f0 certain specific inter-system configurations will be acceptable to the conversion\f1  \f0 programs.  when the SHELL conversion program is written [tentatively to be known as\f1  \f0 PIPOS8] certain configuration rules can be somewhat relaxed.]\page\par
+File Conversion quirks and remedies.\par
+\par
+P?S/8 ASCII text paper-tape issues.\par
+\par
+P?S/8 was written in an environment devoid of paper-tape, universally despised by\f1  \f0 all serious PDP-8 programmers.  Yet, in the SIMH PDP-8 simulator environment, the\f1  \f0 only way to readily communicate files between the SIMH simulated PDP-8 and the host\f1  \f0 environment is the use of the high-speed reader and punch handlers simulated as the\f1  \f0 contents of two files in the host environment.\par
+\par
+\f1 Until a P?S/8-based ASCII paper-tape utility is written [tenatively to be named PTUTIL], it will be necessary to use OS/8's high-speed reader [and perhaps punch] device handlers to bring source files into and out of the SIMH environment for further editing and other work in the host environment [Windows].\par
+\par
+Each available implementation has a unique utility for conversion between OS/8 and P?S/8.  The companion P?S/8 command guide document details the method available to both systems.\par
+\par
+Using the 1976 release of P?S/8 [Version 8P], the HR\{eader\} command can be used to create P?S/8 TFS text files directly; unfortunately, the lengths of the files must be carefully controlled to avoid loss.\par
+\par
+Note: The HR\{eader\} command was dropped in later implementations of\par
+P?S/8.\par
+\par
+When the P?S/8 SHELL is implemented, utilities similar to PTUTIL will be available for a more direct conversion process.\f0\par
+\par
+P?S/8 binary paper-tape issues.\par
+\par
+P?S/8 supports binary paper-tape data using built-in command-line options of the BIN\f1  \f0 utility.  [The exact functionality is determined by proper selection of command-line\f1  \f0 option switches; BIN program documentation is available \f1 in other documents\f0 .]  This includes\par
+the following capabilities:\par
+\par
+1)\f1\tab\f0 Loading existing binary TFS files such as are created by \f1\tab\f0 assembling source\f1  \f0 programs with P?S/8 PAL; various loading and \f1\tab\f0 startup options are set by\f1  \f0 command-line options.\par
+\par
+2)\f1\tab\f0 Launching a [slightly modified] BIN [and RIM] loader with built-\f1\tab\f0 in system reboot\f1  \f0 by restarting at 07600.  Both the low-speed and \f1\tab\f0 high-speed reader are supported.\page\f1\tab\f0 Note: The modifications to BIN are consistent with the usual \f1\tab\f0 implementation of\f1  \f0 the RIM loader; the command-line options \f1\tab\f0 determine which reader device is used in\f1  \f0 both loaders; no purpose \f1\tab\f0 is served using the front panel switch register toselect the \f1\tab\f0 input device since the BIN and RIM loaders are being launched \f1\tab\f0 from a\f1  storage-based \f0 operating system.  This is especially \f1\tab\f0 helpful in the SIMH PDP-8 simulator\f1  \f0 environment since the switch \f1\tab\f0 register must be set by unwieldy keyboard commands\f1  \f0 that suspend \f1\tab\f0 the SIMH simulator.\par
+\par
+\f1\tab\f0 Unlike the DEC version of the BIN loader, P?S/8 can be restarted \f1\tab\f0 at 07600 while\f1  \f0 the BIN and RIM loaders are in memory [assuming \f1\tab\f0 the bootstrap code is not\f1  \f0 destroyed by the program loaded by BIN \f1\tab\f0 or RIM].\par
+\par
+\f1\tab\f0 Note: Restarting P?S/8 replaces\f1  \f0 the contents of 07600-07777 with \f1\tab\f0 the P?S/8 system kernel which, in turn, loads in\f1  \f0 the P?S/8 \f1\tab\f0 keyboard monitor and integrated editor.  The BIN and RIM loaders \f1\tab\f0 are\f1  \f0 provided merely as an accommodation to stand-alone paper-tape \f1\tab\f0 loading when\f1  \f0 [infrequently] needed; this is necessary to load \f1\tab\f0 "rogue" programs known to\f1  \f0 violate PDP-8 operating system \f1\tab\f0 conventions such as several DEC PDP-8/E diagnostic\f1  \f0 programs.  For \f1\tab\f0 al\f1 l\f0  conforming programs, loading should be accomplished within\par
+\f1  \tab\f0 P?S/8 by loading binary files on the storage device.\par
+\par
+\f1\tab\f0 As with all other versions of the BIN loader, the standard \f1\tab\f0 restart address of\f1  \f0 07777 applies; all known versions of the RIM \f1\tab\f0 loader must be restarted at 07756;\f1  \f0 the specified loader [RIM or \f1\tab\f0 BIN] is automatically started by executing the\f1  \f0 command-line with \f1\tab\f0 appropriate loading options.  The BIN utility supports several\par
+\f1\tab\f0 user memory pre-loading options using command-line options that \f1\tab\f0 can be performed\f1  \f0 before starting the selected loader.\par
+\par
+3)\f1\tab\f0 Reading binary paper tapes and converting to multiple binary TFS \f1\tab\f0 files including\f1  \f0 support for multiple sections within a single \f1\tab\f0 tape.  Both the low-speed and\f1  \f0 high-speed readers are supported in \f1\tab\f0 a choice of BIN or RIM format.\par
+\par
+4)\f1\tab\f0 Reading existent binary TFS files on the storage device and \f1\tab\f0 punching the contents\f1  \f0 to the low-speed or high-speed \f1 punch\f0  in \f1\tab\f0 either BIN or RIM format.\par
+\par
+Note: Thi\f1 s \f0 implementation of RIM format includes a checksum allowing the tapes to be read using either BIN or RIM loaders.\par
+\par
+OS/8 paper-tape and line-printer handler issues.\par
+\par
+The OS/8 paper-tape output handler exhibits bizarre quirks creating unexpected\f1  \f0 conversion difficulties.\page Note: documentation of part of this problem is so complex\f1  \f0 there is under development a separate "white paper" document on this problem.\par
+Th\f1 e \f0 problems exist by design despite wide-spread ignorance of the problem.  [The\f1  \f0 problems are quite apparent in the host environment when outputting ASCII text files\f1  \f0 through the PTP: handler.\f1 ]\f0\par
+\par
+Certain of these problems are shared by the OS/8 device 66 standard LPT: handler;\f1  \f0 some of the problems actually originate in the system programs used; the LPT:\f1  \f0 handler can magnify the severity of the problem.\par
+\par
+P?S/8 line-printer issues.\par
+\par
+P?S/8 does not output to the paper-tape device [other than binary files].  The\f1  \f0 standard device 66 line-printer is used, which also creates several quirks.\par
+\par
+Note:\f1  \f0 Some of these problems are considered bugs associated with the 197\f1 6\f0  release of P?S/8\f1  \f0 fixed in later releases.\par
+\par
+Fixing problems using file filtering.\par
+\par
+All of the problems stated above [and more] have been overcome through the use of a\f1  \f0 filtering utility based on TECOC [TECO for Windows and MS-DOS] and TECO macros\f1  \f0 written by Charles Lasner.  Shortcuts to the utility exist in the Command directory\f1  \f0 of the \f1 P?S \f0 Advanced SIMH PDP-8 simulator package; both paper-tape and device 66 line\f1  \f0 printer output filtering are supported.\par
+\par
+Filtering details and issues.\par
+\par
+The basic purpose of filtering output files is to strip the high-order bit of all\f1  \f0 ASCII text characters since the host environment does not tolerate mark parity set;\f1  \f0 the host environment reserves this bit for output characters beyond the scope of\f1  \f0 both P?S/8 and OS/8.\par
+\par
+However, there are a variety of additional problems beyond this [some of which \f1 were \f0 totally unexpected].  Some logistic details of certain discovered problems follows:\par
+\par
+1)\f1\tab\f0 A widespread problem of many programs in both operating system \f1\tab\f0 stems from the\f1  \f0 inconsistent use of \highlight2\f1 <CR>\highlight0\f0  not followed by \highlight2\f1 <LF>\highlight0\f0  or \f1\tab\highlight2 <LF>\highlight0  \f0 not preceded by \highlight2\f1 <CR>\highlight0\f0 .\f1   \f0 Additionally, other context-dependent \f1\tab\f0 problems exist that must be handled in the\f1  \f0 proper order of \f1\tab\f0 discovery after these problems are noticed.\par
+\par
+\f1\tab\f0 Note: Certain\f1  \f0 fixes are extremely pragmatic.\par
+\par
+2)\f1\tab\f0 Several "varieties" of unexpected artifacts are present in the \f1\tab\f0 output of PAL8\f1  \f0 [and to a far lesser extent the output of P?S/8 \f1\tab\f0 PAL also exhibits certain\f1  \f0 additional quirks].  Pragmatic code in \f1\tab\f0 the filtering utilities handle all known\f1  \f0 quirks in the output \f1\tab\f0 associated with both operating systems.\page 3)\f1\tab\f0 Once all detected artifacts are removed from a PAL8 output file, \f1\tab any l\f0 eading \highlight2\f1 <FF>\highlight0  \f0 character[s] will be removed.  Modern printing \f1\tab\f0 techniques performed in the host\f1  \f0 environment include various \f1\tab\f0 forms of post-processing; initial blank pages will be\f1  \f0 eliminated.  \par
+\par
+\f1\tab\f0 Note: \f1 In past years\f0  having an initial \highlight2\f1 <FF>\highlight0\f0  made sense\f1 : a) \f0 it is \f1\tab\f0 not\f1  \f0 possible to determine the prior state of the li\f1 n\f0 e\f1  \f0 printer\f1 , b) \tab\f0 the previous page may\f1  \f0 not be set to top-of-form\f1  and c) \f0 there \f1\tab\f0 could be a\f1  \f0 partially printed page that must be\f1  \f0 ejected before \f1\tab\f0 starting \f1 the current \f0 print job.  P\f1 rint\f0  management has been \f1\tab\f0 transferred to\f1  \f0 the host \f1\tab\f0 operating system to handle all such \f1\tab\f0 printing issues during\f1  \f0 post-processing operations beyond the SIMH \f1\tab\f0 PDP-8 simulator environment.]\par
+\par
+4)\f1\tab\f0 The opening content of the 197\f1 6\f0  P?S/8 PAL output files is a bit \f1\tab\f0 more complicated\f1  \f0 than merely a single \highlight2\f1 <FF>\highlight0\f0  character [after \f1\tab\f0 removal of all quirky output in the\f1  \f0 files created by both \f1\tab\f0 operating systems].  As of this writing, the latest\f1  \f0 filtering \f1\tab\f0 utilities remove the specific sequence; thus, there is basic \f1\tab\f0 parity in\f1  \f0 the output of P?S/8 PAL as compared to the output of \f1\tab\f0 PAL8.\f1   [Update: The output of 1988 P?S/8 PAL is now supported to \tab the same extent; the opening content was changed and unified.  \tab What is removed makes sense when dealing with real-world \tab printers; however must be removed for host printing purposes.]\f0\par
+\par
+5)\f1\tab\f0 The final \highlight2\f1 <FF>\highlight0\f0  and related artifacts are also removed from all\par
+ \f1\tab\f0 P?S/8 PAL and PAL8\f1  \f0 output.  This is a bit more complicated than \f1\tab\f0 expected as both assemblers have\f1  \f0 quirks in the output as a \f1\tab\f0 function of specific options selected.  Pragmatic code\f1  \f0 in the \f1\tab\f0 filtering utility handles all known cases.\par
+\par
+\f1\tab\f0 Note: In the unlikely event a file contains more than a single \f1\tab\f0 trailing \highlight2\f1 <FF>\highlight0  \f0 character, only the last one is removed.  Repeating \f1\tab\f0 the filtering operation on\f1  \f0 the file [as many times as required] \f1\tab\f0 will remove additional trailing \highlight2\f1 <FF>\highlight0  \f0 characters.\f1   PAL8 is \tab especially prone to this when the output is sent to the high-\tab speed punch handler specifically; no case of more than a single \tab extra trailing \highlight2 <FF>\highlight0  character has been observed, but the \tab filtering program is prepared to handle as many as necessary by \tab repeating the filtering process.\f0\par
+\par
+\f1\tab\f0 Note: It is theorized the presence of all of these problems is \f1\tab\f0 associated with\f1  \f0 bad documentation and limited contact with line\f1  \tab\f0 printers in general by the PDP-8\f1  \f0 programmers involved with both \f1\tab operating \f0 systems.  Some output techniques used \f1 were merely \tab\f0 mimicking poor output routines written by early hardware\f1\tab\f0 engineers.\par
+\f1\par
+\tab\f0 The SIMH PDP-8\f1  \f0 simulator environment \f1 tends to \f0 shed light on \f1\tab\f0 all programs using bad techniques.  However,\f1  \f0 some additional \f1\tab\f0 problematic "features" were added to the OS/8 PTP: handler for\par
+\f1\tab\f0 dubious purposes; this will be documented in an external "white \f1\tab\f0 paper" document as\f1  \f0 mentioned above.  Regardless of reason, the \f1\tab\f0 filtering utilities remove all known\f1  \f0 problematic cases.\page Additional issues.\par
+\par
+OS/8 is not capable of producing a direct output of the BITMAP program as part of\f1  \f0 an integrated assembly/map operation.  However, the\f1  \f0 separate output of the BITMAP\f1  \f0 program can be concatenated with the main PAL8 listing file for final printing or\f1  \f0 post-processing [such as creating a composite .PDF file].\par
+\par
+P?S/8 supports the MAP program [a superset of the \f1 OS/8\f0  BITMAP program] which can be\f1  \f0 chained to by P?S/8 PAL using command-line options.  [In one operation, it is\f1  \f0 possible to assemble, map, load and go as long as there are no assembly errors.]\f1   \f0 As such, the LPT: output from both programs is produced in the same session and\f1  \f0 will be filtered along with the P?S/8 PAL output.\par
+\par
+Various additional output quirks appear in the MAP output only; as of this writing,\f1  \f0 the filtering utility handles all known problems.\f1   \f0 [Some of the problems\f1  were \f0 remedied in newer releases of the MAP utility.]\par
+\par
+All trailing \highlight2\f1 <FF>\highlight0\f0  characters are removed from all output; this is consistent with\f1  \f0 host management and post-processing techniques that apply.\par
+\par
+For those curious to see these problems directly, the \f1 P?S \f0 Advanced SIMH PDP-8 simulator\f1  \f0 package allows viewing the line printer and paper-tape output files; viewing a file\f1  \f0 before applying the filtering utilities will illustrate what problematic quirks\f1  \f0 exist within the file [and then viewing after application of the filtering utilities\par
+will show how the output was corrected].\par
+\par
+P?S/8 Date issues.\par
+\par
+The basic P?S/8 file system [known as the TFS or Tiny File System directory] does\f1  \f0 not support individual file dates.  However, the operating system supports an\f1  \f0 overall date that ranges from 1960 to \f1 2087\f0  in the original implementatio\f1 n.\par
+\par
+Note: The date algorithm and base year are being modified for the upcoming release of P?S/8 Version 9A.  The date support is being expanded to handle all dates from 01-Jan-1900 through 31-Dec-2411.  The former modestly tedious maintenance requirement will be completely removed; the entire date will be available to any conforming program directly within the system kernel.\par
+\par
+In the 1976 implementation of P?S/8 system date support, the low-order portion of the date is implementented as a 12-bit word that can be set by the system DATE utility.  Programs such as P?S/8 PAL and P?S/8 MAP access the current value to provide date support in listing output.\par
+\par
+However, the high-order portion of the date is implemented by pragmatisms within each program to be coordinated as part of a system maintenance to be performed manually.  Thus, for each program that supports the current date, it will be necessary to perform a minor patch to specific locations within the core-image of each program.\page Unfortunately, the 1976 release was the first implementation of the date support; it is not known whether the date can be updated past 1976 through 1987.  There is no surviving documentation on specifics of this release.\line\line The 1988 release of P?S/8 [Version 8Z] uses the same method of date support and is fully documented.  The release associated with this document has been updated as described below:\par
+\par
+Each program includes an internal storage location for the date year base.  There is no particular pattern as to where the internal location is located since the matter is generally handled by program initialization code.\par
+\par
+Note: An associated change log document is part of this package.  All binary patches are logged detailing the exact locations modified; all date-related patches can be found there for future use.  [The next update can be performed 01-Jan-2016; however, it is hoped version 9A of P?S/8 will be available by then.]\par
+\par
+The value stored in the date year base word is multiplied by eight.  This becomes the high-order portion of a double-precision calculation of any day in the entire date range relative to 01-Jan-1960.\par
+\par
+For example, in 1960 the value would be 0, in 1968 it would be 1, etc.  For the current base year of 2008, the value should be set to 6.\par
+\par
+The date can be set to any day in the range of the base date through the end of the eleventh year past; thus, the current release of P?S/8 Version 8Z will allow valid dates from 01-Jan-2008 through 31-Dec-2019.\par
+\par
+Once the P?S/8 system kernel is updated to support the entire date range in memory, all date-related source code will be modified to conform to the new values; this entire issue will then be obsolete for users of P?S/8 Version 9A.\par
+\par
+\f0 OS/8 Date issues.\par
+\par
+OS/8 has a series of \f1 unfixable \f0 date problems:\par
+\par
+1)\f1\tab\f0 The internal date within OS/8 is limited to 1970-1977.  However, \f1\tab\f0 a kludge exists\f1  \f0 to allow the date to be \b perceived\b0  to be as late \f1\tab\f0 as 2001 [assuming that certain\f1  \f0 program bugs are fixed; as such, \f1\tab\f0 certain outputs will become corrupted if the\f1  \f0 year is set past \f1\tab\f0 1999].\par
+\par
+\f1\tab\f0 The underlying problem is \f1 that \f0 OS/8 stores a 12-bit date word \f1\tab\f0 found in memory\f1  \f0 from the original pre-PS/8 design that was never \f1\tab\f0 updated.\page\f1\tab\f0 Note: Some users\f1  \f0 disable the file date entirely because the\f1\tab\f0 directory structure is so compromised\f1  \f0 that the underlying storage \f1\tab\f0 may become inaccessible as a function of the total\f1  \f0 number of \f1\tab\f0 files and empty areas on the device\f1 ; adding an additional word \tab per file entry reduces the overall number of file entries allowed \tab in the directory.  T\f0 his is a device-wide setting;\f1  \f0 yo\f1 u\f0  \f1 must give \tab up\f0  all \f1 file \f0 dates to regain the space in the directory for more \f1\tab\f0 files\f1  \f0 [or empt\f1 y entries\f0 ].\par
+\par
+\f1\tab\f0 In a\f1  hasty\f0  desperation measure implemented in 1977\f1  after several \tab years of procrastination\f0 , two additional bits were made\f1\tab\f0 available for the overall date; however the additional bits are \f1\tab\f0 implemented in\f1  \f0 memory only.  As such, the date can be set to any \f1\tab\f0 year in the range of\f1  \f0 1970-2001.  However, assuming there is a \f1\tab\f0 date word function in the directory,\f1  \f0 the best that can be \f1\tab\f0 displayed is the \b presumption\b0  that all files are created in\f1  \f0 the \f1\tab\f0 year range of the current year and the previous seven years \f1\tab\f0 regardless of any\f1  \f0 differing reality.\par
+\par
+\f1\tab\f0 Worse still, this means \f1\tab\f0 that files for the present year will\f1  \tab\f0 appear to be in the future if they are for an apparent date later \f1\tab\f0 in the present\f1  \f0 year than today.  In reality, the file was created \f1\tab\f0 either 8, 16 or 24 years in\f1  \f0 the past, with no way to determine \f1\tab\f0 which specifically applies; the fantasy\f1  \f0 presentation of files \f1\tab\f0 created in the future \f1 would have to\f0  be ignored.\par
+\par
+2)\f1\tab\f0 The entire kludge breaks down in 2001, the last year the kludge \f1\tab\f0 can be operated.\f1   \f0 Due to program bugs, certain programs will \f1\tab\f0 mishandle dates past 1999.\par
+\par
+\f1\tab\f0 Note:\f1  \f0 P?S/8 has been tested well past 2000 for format errors \f1\tab\f0 associated with the end of\f1  \f0 a century; OS/8 suffers from the \f1\tab\f0 infamous "Y2K" problem.\par
+\par
+Date Issue Recourse.\par
+\par
+It is recommended that files in both\f1  the 1976 release of P?S/8 [Version 8P] and OS/8\f0  be set to 1986.\f1   \f0 Files that are created\par
+inside of the SIMH PDP-8 simulator environment can be transmitted to the host\f1  \f0 environment with these dates.  The values can be edited to current years for\f1  \f0 cosmetic consistency.\par
+\par
+\f1 Other than proper date patch maintenance, there are no such problems in P?S/8 Version 8Z.  Future releases of P?S/8 will require nothing but manually updating of the current date as necessary.\par
+\par
+Note: Unlike OS/8, P?S/8 retains the current date until changed.\par
+\par
+Other than changing the date for cosmetic purposes, it is expected the filtering utility will correct all output file quirks created by any of the three supported systems.  The file dates can be updated with trivial TECO macros to find and replace all date strings with more appropriate values as needed.\page Example:\par
+\par
+The date field in an assembler output contains the date string "04-10-86" on every page; a corrected date might be "04-10-15".  The following is an editing session that can be run in the host environment from an MS-DOS prompt.\par
+\par
+Note: All TECO-related documentation uses \highlight3 $\highlight0  as a stand-in for the \highlight3 <ESC>\highlight0  character as TECO will output \highlight3 $\highlight0  when \cf1\highlight3 ESC\cf0\highlight0  is typed.\par
+\par
+\f0 C:\\>TECOC\par
+\highlight3\f1 *\highlight0\f0 EBLPTOUT.TXT\highlight3\f1 $\highlight0\f0 <FN04-10-86\highlight3\f1 $\highlight0\f0 04-10-1\f1 5\highlight3 $\highlight0\f0 ;>EFEX\highlight3\f1 $$\highlight0\f0\par
+\par
+From the C:\\> prompt TECOC is executed.  The TECOC prompt is \highlight3\f1 *\highlight0\f0  .\f1   \f0 Type in the command exactly as stated above [substituting the desired file to be\f1  \f0 modified; in this example LPTOUT.TXT in the current directory will be modified].\par
+\par
+Note: the correct current date string contents must be provided, as well as the\f1  \f0 appropriate replacement text; overall current format rules must be obeyed to avoid\f1  \f0 unexpected output file aberrations.\par
+\par
+1)\f1\tab\f0 EBLPTOUT.TXT\highlight3\f1 $\highlight0\tab\f0 This opens the file LPTOUT.TXT in the current \f1\tab\tab\tab\tab\tab\f0 directory for\f1  \f0 editing with a backup file which \f1\tab\tab\tab\tab\tab\f0 will be named LPTOUT.BAK.\par
+\par
+2)\f1\tab\f0 <FN04-10-86\highlight3\f1 $\highlight0\tab\f0 Perform a \f1 n\f0 on-stop search of the file attempting \f1\tab\tab\tab\tab\tab\f0 to locate the\f1  \f0 string \highlight3\f1 04-10-86\highlight0\f0 .  All non-matching \f1\tab\tab\tab\tab\tab\f0 characters are processed\f1  \f0 and placed into the \f1\tab\tab\tab\tab\tab\f0 output file unchanged.\par
+\par
+3)\f1\tab\f0 04-10-1\f1 5\highlight3 $\highlight0\tab\tab\f0 This is the replacement string used for every \f1\tab\tab\tab\tab\tab\f0 matching string.\par
+\par
+4)\f1\tab\f0 ;>\f1\tab\tab\tab\f0 TECO commands placed within \highlight3\f1 <\highlight0\f0  and \highlight3\f1 >\highlight0\f0  run in\f1  \tab\tab\tab\tab\tab\tab\f0 infinite\f1  \f0 iteration loops.  When the search fails, \f1\tab\tab\tab\tab\f0 the iteration is broken\f1  \f0 and control passes to what \f1\tab\tab\tab\tab\f0 follows \highlight3\f1 >\highlight0\f0 .\par
+\par
+5)\f1\tab\f0 EF\f1\tab\tab\tab\f0 The output file is closed; the original file is \f1\tab\tab\tab\tab\tab\f0 retained with\f1  \f0 the .BAK extension.\par
+6)\f1\tab\f0 EX\f1\tab\tab\tab\f0 TECOC exits to the operating system.\par
+\par
+7)\f1\tab\highlight3 $$\highlight0\tab\tab\tab\f0 All commands to TECO must end with \cf1\highlight3\f1 ESC\cf0\highlight0\f0  \cf1\highlight3\f1 ESC\cf0\highlight0 .  T\f0 his\f1  \tab\tab\tab\tab\f0 allows \highlight3\f1 <ESC>\highlight0\f0  to be placed within the\f1  \f0 command.  \f1\tab\tab\tab\tab\tab\f0 When the second \cf1\highlight3\f1 ESC\cf0\highlight0\f0  is typed, the \f1\tab\f0 entire\f1  \f0 command \f1\tab\tab\tab\tab\f0 executes; until committing the command, errors can \f1\tab\tab\tab\tab\f0 be\f1  \f0 corrected by pressing the \f1\tab\cf1\highlight3 Backspace\cf0\highlight0\f0  key as \f1\tab\tab\tab\tab\tab\f0 many times as\f1  \f0 necessary, then\f1\tab  \f0 typing the rest of \f1\tab\tab\tab\tab\f0 the command.\page At that point, candidates for output can be post-processed in either Microsoft Word\f1  \f0 using an appropriate font [such as M+ 1m, a freeware monospace font capable of\f1  \f0 creating output similar to classic\f1  \f0 Centronics printer output as used by DEC], or the\f1  \f0 DaVince PDF package can be used to produce a greenbar output reduced to fit o\f1 n \f0 8.5x11 paper in landscape mode.\par
+\par
+\f1 N\f0 ote: PDFSAM \f1 [PDF Split And Merge] \f0 can be used to create mixed output\f1  \f0 as a single .PDF file for specific packages of program listings, documentation and\f1  \f0 cover pages.  It can also be used to remove artifacts that may produce superfluous\f1  \f0 pages in the output.]\page\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f3\par
+Appendix A.\par
+\par
+A few comparisons of OS/8 and P?S/8.\par
+\par
+Most of the information in this section is based on the vast experience of the author of this document, Charles Lasner who is the principal developer of P?S/8.  He has vast experience with OS/8 and has written utilities for OS/8 most notably the Kermit-12 package for the OS/8 family for all PDP-8 models, the PDP-12 and all DECmates.  One of his specialties is writing device handlers for both P?S/8 and OS/8 for various compatible devices sold by third-party companies for various 12-bit computers such as the MDC8 from Computer Extension Systems, Inc [CESI] [including all MDC8 system diagnostics].  Few individuals are in his unique position to provide an informed critique of both operating systems including both shortcomings and strong points where applicable.\par
+\par
+As of this writing, OS/8 is a totally dead system; no one is developng any system-wide improvements; few, if any, are even possible due to original poor design and management interference.  At best, we can use it in many ways as an example of what \i not\i0  to do.\par
+\par
+P?S/8 is currently under active development after a period of several decades of stagnation due to personal issues of the author, sufficiently overcome at this stage to allow active pursuit of advancing this system that actually predates OS/8 by several years.\par
+\par
+Early history of the R-L Monitor System, OS/8 and P?S/8.\par
+\par
+\f0 P?S/8 is based\f1  in part\f0  on the R-L Monitor System which predates all\f1  single-user PDP-8\f0  DEC operating systems of\f1  any \f0 import\f1 ance\f0 .  It was not well received by DEC management, but was universally loved by\f1  \f0 most of the \f1 DEC \f0 PDP-8 programming group, many of whom met at Brooklyn Polytech in the\f1  \f0 1960's and 1970's.\par
+\par
+\f1 The R-L Monitor system was written by some of the best PDP-8 programmers ever, most notably Richard Lary and Lenny Elekman.  Their numerous accomplishments include POLY BASIC, later sold by DEC as EDU-System 30 and EDU-System 15/30 [for the TD8E only] and various other projects.  Individually, Lenny Elekman is the author of 4K BASIC, which is the basis for 8K BASIC, various components of OS/8 BASIC in conjunction with others, and FOCAL-12 for DIAL-MS.  DIAL-MS was written by one of their colleagues Jack Burness, who in developed 8K BASIC from 4K BASIC.  These extraordinary programmers also worked with their friend and colleague Hank Maurer, the original developer of DIBOL-8, the precursor of COS-300/310.\par
+\par
+Richard Lary is also the original producer of the demo version of what later became PS/8 [later renamed OS/8 because marketing complained about having to sell a "programming system" instead of an "operating system" thus more appropriate system name, at least according to the salesmen of the time.]\f3\page\cf3\f1 Appendix A [continued].\par
+\par
+\cf0 Although never officially acknowledged, it is true that the R-L Monitor System with hacked-up command names was the actual release of the original DIBOL-8; the only new contribution was the DIBOL compiler and run-time system added by Hank Maurer.  The command changes were made to be more compatible with the paper specification of COS-300 which was not quite yet under development.\par
+\par
+Clearly, the R-L Monitor System plays an important role in the history of DEC operating systems, even if not documented outside of the small circle of PDP-8 programmers who were personal friends of each other.\par
+\par
+\f0 OS/8 is a mediocre system that was demonstrated to DEC management\f1  by Richard Lary\f0  as a weekend hack,\f1  \f0 but was a prematurely fixated design with many\f1  \f0 shortcomings; as such, it is mediocre\f1  \f0 at best and eventually much of the design limitations caught up with it.  There are\f1  \f0 problems such as poor directory design and an unworkable date methodology that ran\f1  \f0 out in 1977\f1 ,\f0  but was kludged to appear to work to the uninformed until perhaps as\f1  \f0 late as 1999 or in some cases 2001 depending on how many fixable bugs were still\f1  \f0 present.\par
+\par
+\f1 It is most important to know that OS/8 as written was intended only as a demo for another system to be written from scratch, including a lot of input from the prevailing PDP-8 expert community at the time, including Charles Lasner, who was asked to work on the project and refused; instead he worked with other well-known PDP-8 expert programmers on making improvements to the R-L Monitor System.\par
+\par
+Note: The week-end hack that eventually became OS/8 was known to PDP-8 programmers as the First Upward-Compatible Keyboard Editor and Monitor [with the obvious somewhat offensive acronym].  It was to be a demo for a true replacement system based on PDP-8 community input to be known as the Second Upward-Compatible Keyboard Editor and Monitor [with the similar acronym].  Had the second system been designed and implemented, it is entirely possible that Charles Lasner would have been one of its architects.  [In certain ways, the emerging P?S/8 SHELL project is the fulfillment of this never-developed product.]\par
+\par
+Had Richard Lary been treated at the time as the expert he is, OS/8 as we know it would have been totally scrapped.  However, DEC management has always been the weak spot [and ultimate downfall] of the company.\par
+\par
+Most notably, of the five original PDP-8 pioneering experts [Richard Lary, Lenny Elekman, Jack Burness, Hank Maurer and Joe Fischetti], all of the people on the list other than Richard Lary refused to work on the project Richard Lary was virtually forced to continue despite it not really being his intention either.  [Charles Lasner was asked after the others refused to deal with it; he sided with the majority.]\page\cf3 Appendix A [continued].\par
+\cf0\par
+Despite widespread conventional wisdom to the contrary, Richard Lary's participation in OS/8 virtually ended early on, other than to periodically participate with others on certain projects such as TECO for OS/8 and Fortran IV's runtime system to allow simulation of the FPP hardware when necessary.  Unfortunately, most of the work was done by mediocre people and thus OS/8 is largely a mediocre system based on design elements never really thought through.\cf3\par
+\par
+\cf0 In many ways, \f0 OS/8 was figuratively painted into a corner due to the poor design of both the\f1  \f0 directory and the basics of the system resident kernel that are unfixable without\f1  \f0 essentially starting all over; this has been deemed not worth bothering with by\f1  \f0 prevailing PDP-8 developers\f1  such as Charles Lasner.\par
+\par
+\f0 As the list of PDP-8 developers dwindles to a small few, it is clear that the future\f1  \f0 rests with developing the descendent of the R-L\f1  \f0 Monitor System.  This system has\f1  \f0 always been known as P?S/8, a pun on the duality of a) The members of the PDP-8\f1  \f0 programming world at large that met at Brooklyn Poly call\f1 ing\f0  themselves the Poly\f1  \f0 Question Society [always abbreviated P?S if possible, or else PQS if in a limited\f1  \f0 character set situation], b) DEC\f1 's\f0  marketing penchant for forming\f1  \f0 product names\f1  \f0 suggestive of some ethereal system coupled with a suffix for the machine number.\par
+\par
+\f1 Note: Certain members of the P?S submitted the R-L Monitor System to DECUS using the name MS/8 to further mock DEC marketing tactics.  The R-L Monitor System can only run on a single TC01/TC08/TU55/TU56 DECtape drive unit [0].  If an image of this system is made available as a .tu56 SIMH standard image, it should run under the SIMH PDP-8 simulator.\par
+\par
+\f3 Development of P?S/8 and some OS/8 issues.\par
+\par
+\f0 P?S/8 is all new work based on the concepts started in the excellent base system\f1  \f0 that is the R-L Monitor System.  The R-L Monitor System was created under incredible\f1  \f0 conditions, literally being hand\f1 -\f0 assembled code that was manually toggled into the\f1  \f0 PDP-8 using nothing other than the PDP-8 front panel and various sets of human\f1  \f0 fingers over a course of months.\par
+\par
+Note: Charles Lasner, the principle author of\f1  \f0 P?S/8, this package and this document, personally repaired the computer subjected to\f1  \f0 this abuse.  Literally, every front-panel slide switch was carefully replaced as\f1  \f0 they all had become quite unreliable; these switches are simply not designed for\f1  \f0 this class of rough service.\par
+\cf3\f1\par
+\cf0\f0 P?S/8 is still under development as of the writing of this document.  As with the\f1  \f0 R-L Monitor before it, DEC managers were given two opportunities to review P?S/8\f1  \f0 for the purpose of DEC taking it over for the "price" of hardware donation to\f1  \f0 Brooklyn Polytech for the benefit of students.\page\cf3\f1 Appendix A [continued].\par
+\par
+\cf0\f0 Note: Many large corporations\f1  \f0 routinely do this to lower their taxes, thus the actual cost to DEC conceivably\f1  \f0 could have been negligible or actually profitable.  At the time of these\f1  \f0 "negotiations", members of the P?S still visited the Brooklyn Polytech\f1  facility\f0  unofficially,\f1  \f0 giving advice and guidance to yet another generation of programmers.  Charles Lasner\f1  \f0 and others are considered the "second generation" of PDP-8 programmers who learned\f1  \f0 how to program the PDP-8 using the R-L monitor system instead of having to abuse the\f1  \f0 front panel.  As such, they had an opportunity to critique the R-L Monitor System\f1  \f0 and then create improvements and new features over the course of many years of\f1  \f0 intermittent development.\par
+\par
+P?S/8 was never written as a pa\f1 id\f0  project;\f1  \f0 programmers have to seek employment by writing applications, not operating systems;\f1  \f0 by and large, clients were unaware of exactly how these projects got\f1  \f0 developed;\f1  \f0 impetus for some of the P?S/8 development stemmed from the need to accomplish work\f1  \f0 commitments to clients because there was no other way to accomplish \f1 what was required\f0 .  For\f1  \f0 certain DEC employees, writing an operating system component or two was the entirety\f1  \f0 of their work.\f1   [At times, there are advantages to working in "the real world".]\par
+\par
+Earlier releases of this package contained only P?S/8 Version 8P released circa 1976.  \f0 More development work was performed on P?S/8 for as much as a decade past the\f1  \f0 release of\f1  this earlier work.\par
+\par
+New to this package is the release of P?S/8 Version 8Z for TC01/TC08/TU55/TU56.  This is essentially the system released first on 23-Feb-1988 with some binary patches applied to fix several minor known bugs.  A change log file will be kept on P?S/8 development starting in 2015; it is anticipated a newer release [Version 9A] will be available after some work on the source files has been integrated into the general release.\par
+\par
+\f0 At some point, work on the basic P?S/8 system will \f1 virtually\f0  cease, having taken\f1  \f0 it as far as it can go short of adding additional system programs [which will\f1  \f0 continue to be added].\par
+\par
+The future of P?S/8 is\f1  the inclusion of a\f0 n optional \f1 S\f0 HELL overlay which will be geared\f1  \f0 towards larger memory computers than the basic 4K required by the R-L Monitor System\f1  \f0 and P?S/8 as in the current implementation.\par
+\par
+Note: P?S/8 requires only 4K; however,\f1  \f0 certain system programs require more memory to either improve performance, add\f1  \f0 additional capabilities or both, most notably P?S/8 PAL which can utilize as much\f1  \f0 as 20K of memory to support humongous assemblies with huge symbol tables.  Few and\f1  \f0 far between one encounters PDP-8 projects that need that much memory to assemble the\f1  \f0 programs; the actual working binary programs could require  up to 32K regardless of\f1  \f0 how many user symbols are in the source code.\page\cf3\f1 Appendix A [continued].\par
+\par
+\cf0\f0 Certain P?S/8 configurations require extended memory to operate due to the\f1  \f0 limitations of certain devices used to create the system resident kernel.  Within\f1  \f0 the first 4K of memory, the requirements are met in all systems.  However, certain\f1  system \f0 device handlers require an additional section of code resident in the highest\f1  \f0 available memory field [which must be in the range of field 1 through\f1  field\f0  7]\f1 .\f0  However,\f1  \f0 assuming more than 8K is available, \f1 any \f0 user \f1 or system] \f0 program\f1  \f0 is allowed\f1  \f0 to allocate 100% of the extended memory\f1  below the field of the handler extension\f0  without restrictions [unlike OS/8 which\f1  \f0 always reserves the last page of every field due to poor design].\par
+\par
+The SHELL will be familiar to any seasoned DEC user; the user interface goals are\f1  \f0 very much like DEC systems created after OS/8 where the notion of CCL is not\f1  \f0 considered an option [that might have to be disabled].\par
+\par
+Note: OS/8 is slavishly\f1  \f0 designed to match the capabilities of TOPS-10 from the days before CCL was created.\f1   \f0 CCL was added to TOPS-10 and then was sloppily added to OS/8 in a way that\f1  \f0 theoretically seems appropriate.  \f1 P\f0 roblem\f1 s stem from the\f0  high-overhead process\f1  \f0 of software faking out other software which is profoundly inefficient and\f1  \f0 unnecessary in an alternate [better thought out] design.  It is rather curious that\f1  \f0 the use of CCL [not necessarily named CCL, sometimes known as DCL] was universally\f1  \f0 encouraged within DEC with the lone exception of OS/8: Unless the system device was\f1  \f0 powerful enough, it was recommended CCL be disabled due to \f1 the serious\f0  overhead when used\par
+on common slower devices such as DECtape, a configuration that P?S/8 thrives on due\f1  \f0 to superior design.\par
+\par
+\f1 T\f0 he \f1 P?S/8 \f0 SHELL will allow CCL-like commands to be entered directly without the need\f1  \f0 for a clumsy intermediate command-decode mode.\f1   The goal will be performance first and slavish compatibility second, although the command structure will be quite familiar to anyone with a background in any DEC system based on either CCL or DCL.\par
+\par
+\f0 Note: For backward-compatibility,\f1  \f0 the decode function will be used in the very few programs [such as PIP] where it\f1  \f0 makes sense to do so.  However, the function may be so specifically designed, each\f1  \f0 program requiring a command mode may implement its own variant; it is likely few\f1  \f0 programs will completely agree upon specific requirements.\f1  \f0 However, the SHELL\f1  \f0 implementation will include support for various forms of commands not necessarily\f1  \f0 designed to be compatible with the SHELL file\f1  \f0 system conventions.  This will allow\f1  \f0 "foreign" file\f1  \f0 systems to be supported, along with other variations known to be\f1  \f0 required by certain programs such as passing option strings not syntactically\par
+processed by the command decoder.\page\cf3\f1 Appendix A [continued].\par
+\cf0\f0\par
+In some cases, OS/8 has some awkward usage of the command-decode function which was\f1  \f0 not designed to provide what is required for certain specific programs; bad kludges\f1  \f0 only allow barely adequate functionality because the command-decode function has\f1  \f0 arbitrary rules regarding command formation contrary to the needs of certain\f1  \f0 programs calling it.  The alternative would be to "reinvent the wheel" which would\f1  \f0 point out the futility of the design.  A heavy-handed approach was used to achieve a\f1  \f0 program that barely worked with unnecessary restrictions and high overhead.\par
+\par
+Note:\f1  \f0 In the P?S/8 SHELL environment, this sort of inappropriate mechanism will be\f1  \f0 unnecessary as commands can be processed in various ways to suit the needs of a\f1  \f0 variety of utilities; much of the basic\par
+P?S/8 command processor already functions in\f1  \f0 this manner; the SHELL will implement a superset of what the basic system\f1  \f0 already\f1  \f0 supports; for commands where OS/8 struggles, P?S/8 already has several analogous\par
+commands implemented with \f1 little to \f0 no overhead.\par
+\par
+\f1 The following is an example of awkward OS/8 command implementation:\f0\par
+\par
+The RX02 double-density diskette controller requires a rewrite of the data sectors\f1  \f0 to change the diskette functionality from single to double density or vice versa.\f1   \f0 This is sometimes erroneously referred to as a \i format\i0  operation.  In actuality\f1 , \f0 true formatting is impossible on all DEC RX01/02/03 family drives\f1  due to hardware limitations\f0 .\par
+\par
+Note: Th\f1 e \f0 third-party DSD-210 drive is RX01-compatible and can also format using an operating\f1  \f0 mode not used on the DEC RX01 accessed with special software.\f1   The superior quality of the diskette drives used in the DSD-210 allow for direct formatting; DEC used drives with excessive jitter that can work with formatted media, but it was deemed unacceptable to allow the drive to format magnetically blank media.\f0\par
+\par
+The OS/8 implementation of a program to accomplish the density-change function on\f1  \f0 the RX02 uses the standard command decoder merely to select the drive unit for the\f1  \f0 operation.  Due to the overhead\f1  \f0 associated with the command decoder, the system\f1  \f0 must support the relevant non-system handlers merely to allow the command decoder\par
+the ability to parse the command line to determine the user's intention.  The\f1  \f0 non-system handler plays no actual role in the program; however the only way for the\f1  \f0 command to work requires all the overhead associated with device and file open\f1  \f0 operations; the only information actually needed is the logical RX02 drive and the\f1  \f0 new density [single or double].\par
+\par
+The CCL form of this command adds additional\f1  \f0 overhead to this already inefficient program that could have been implemented\f1  \f0 without the inflexible standard command decoder.  Otherwise valid commands will fail\f1  \f0 merely because the current system doesn't support the virtually superfluous\f1  \f0 non-system device handler\f1 .\page\cf3 Appendix A [continued].\par
+\par
+\cf0\f0 Note: OS/8 considers each logical unit of the same\f1  \f0 hardware device as a different software device.  Unless the system configuration\f1  \f0 supports both the RXA0: and RXA1: non-system handlers, commands might fail despite\f1  \f0 the fact the handler itself is never called.  However, all of the overhead\f1  \f0 associated with fetching the handler is required to parse the command.\par
+\par
+\f1 Since the P?S/8 SHELL overlay is all new work, features equivalent to the above can be implemented with far less overhead.\cf3\par
+\par
+\cf0\f0 Internally, the P?S/8 SHELL overlay will provide an environment analogous to what\f1  \f0 OS/8 provides to a system program.\f1   \f0 No attempt at absolute compatibility is\f1  \f0 to be implied here; analogous methods will be used to avoid limitations of OS/8\f1  \f0 locked into the original design.  However, adapting OS/8 system programs to the\f1  \f0 SHELL environment will be relatively straight-forward; it is expected that each and\f1  \f0 every useful OS/8 program will be ported to the P?S/8 SHELL environment eventually.\par
+\par
+Because the SHELL design is open-ended and will implement much of the familiar OS/8\f1  \f0 functionality [with the known quirks and limitations simply not present], the SHELL\f1  \f0 environment will be a complete logical replacement for OS/8 when completed; there\f1  \f0 will simply be no reason to run OS/8 as it will be inferior in most aspects and at\f1  \f0 best will be a poor second-rate system by comparison.  An important consideration is\par
+to utilize memory better than OS/8.  As such, P?S/8 should be superior to any\f1  imaginable\f0  OS/8\f1  \f0 configuration.  And yet, it\f1  will be an \f0 option which can be\f1  \f0 disabled yielding the present definition of the basic\par
+P?S/8 system\f1 .\par
+\par
+The P?S/8 SHELL may or may not appear in P?S/8 Version 9A; the primary effort is to clean up the code to implement many small changes that are prerequisite to adding the shell design.  In the interest of having a new cleaner implementation of the basic system, Version 9A may be the last P?S/8 release without the SHELL overlay; this will be decided some time in the future; as required, documentation of this package will be updated accordingly.\par
+\par
+\f3 End of Appendix A.\par
+\par
+\f0 [end-of-file\f1 ]\f0\par
+}
+ 

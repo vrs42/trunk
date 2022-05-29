@@ -1,0 +1,106 @@
+
+/       VT-8/E CONSOLE OVERLAY FILE       PAL8-VB0  08-APR-87 PAGE 1
+
+   1                 /       VT-8/E CONSOLE OVERLAY FILE
+   2   
+   3                 /       LAST EDIT:      17-DEC-1986     23:00:00        CJL
+   4   
+   5                 /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       THIS IS THE CONSOLE OVERLAY FILE FOR VT-8/E TYPE CONSOLE SUPPORT WITH
+   8                 /       STANDARD BUFFERED LPT: AND I/O ERROR HANDLING CAPABILITIES.
+   9   
+  10                 /       ASSEMBLY PARAMETERS.
+  11   
+  12                 /       SETTING OVTYPE=40 GENERATES A STANDARD OVERLAY (DEVICE 43, 45 CONSOLE AND
+  13                 /       DEVICE 65, 66 LPT:).
+  14   
+  15                 /       SETTING OVTYPE=41 GENERATES A NON-STANDARD OVERLAY (DEVICE 43, 45 CONSOLE
+  16                 /       AND DEVICE 40, 41 LPT:).
+  17   
+  18                 /       ADDITIONAL TYPES CAN BE DEFINED FOR OTHER DEVICE CODES.
+  19   
+  20                 /       SETTING LPBUFF=1 GENERATES AN OVERLAY WITH LPT: BUFFERING ENABLED.
+  21   
+  22                 /       SETTING LPBUFF=0 GENERATES AN OVERLAY WITH LPT: BUFFERING DISABLED.
+  23   
+  24                 /       SETTING VT8LPT=1 GENERATES INTERRUPT ENABLE FOR DEVICE 66. THIS IS TO BE
+  25                 /       SET WHEN THE LPT: IS NOT DEVICE 66, BUT DEVICE 66 SHARES INTERRUPT CONTROL
+  26                 /       WITH THE VT-8/E KEYBOARD (DEVICE 43).
+  27   
+  28                 /       SETTING VT8LPT=0 DISREGARDS DEVICE 66 INTERRUPTS AND IS THE DEFAULT SETTING
+  29                 /       WHEN THE LPT: IS DEVICE 66 (THERE IS NO "EXTRA" DEVICE 66).
+  30   
+  31                 /       SETTING ONEWAY=1 ASSUMES A HARDWARE HANDSHAKING (CENTRONICS, ETC.) TYPE
+  32                 /       INTERFACE TO THE LPT: WHICH HAS NO INPUT HANDLING.
+  33   
+  34                 /       SETTING ONEWAY=0 ASSUMES A SOFTWARE HANDSHAKING (<^S>/<^Q>) TYPE INTERFACE
+  35                 /       WITH SUITABLE INPUT HANDLING.
+  36   
+  37                 /       SET PARAMETERS HERE.
+  38   
+  39                 /       KEY=    43              /KEYBOARD CODE
+  40                 /       LIN=    65              /LPT: INPUT CODE
+  41                 /       LPBUFF= 1               /ENABLE LPT: BUFFERING
+  42                 /       LPT=    66              /LPT: OUTPUT CODE
+  43                 /       NMCH1=  "V^100+"T-300   /FIRST NAME PAIR
+  44                 /       NMCH2=  "8^100+"E-300   /SECOND NAME PAIR
+  45                 /       NMCH3=  0000            /THIRD NAME PAIR
+  46                 /       ONEWAY= 1               /LPT: OUTPUT ONLY
+  47                 /       OUT=    45              /VT-8/E VIDEO CODE
+  48                 /       OVTYPE= 40              /GENERATE STANDARD OVERLAY
+  49                 /       VT8LPT= 0               /DON'T ENABLE SEPARATE INTERRUPT HANDLER FOR
+  50                                                 /DORMANT DEVICE 66 (DEVICE 66 IS THE LPT:)
+
+/       VT-8/E CONSOLE OVERLAY FILE       PAL8-VB0  08-APR-87 PAGE 2
+
+  51                 /       CONDITIONAL ASSEMBLY PARAMETERS.
+  52   
+  53                         IFNDEF  OVTYPE  <OVTYPE=40>             /DEFAULT TO STANDARD OVERLAY TYPE
+  54   
+  55                         IFZERO  OVTYPE-40       <
+  56   
+  57                         IFNDEF  KEY     <KEY=   43>             /DEFAULT KEYBOARD CODE
+  58                         IFNDEF  LIN     <LIN=   65>             /DEFAULT LPT: INPUT CODE
+  59                         IFNDEF  LPT     <LPT=   66>             /DEFAULT LPT: OUTPUT CODE
+  60                         IFNDEF  NMCH1   <NMCH1= "V^100+"T-300>  /DEFAULT FIRST NAME PAIR
+  61                         IFNDEF  NMCH2   <NMCH2= "8^100+"E-300>  /DEFAULT SECOND NAME PAIR
+  62                         IFNDEF  NMCH3   <NMCH3= 0000>           /DEFAULT THIRD NAME PAIR
+  63                         IFNDEF  ONEWAY  <ONEWAY=1>              /DEFAULT IS ONE-WAY LPT: HANDLING
+  64                         IFNDEF  OUT     <OUT=   45>             /DEFAULT VT-8/E VIDEO CODE
+  65                         IFNDEF  VT8LPT  <VT8LPT=0>              /DEFAULT IS NO SHARED INTERRUPTS
+  66   
+  67                                                 >
+  68   
+  69                         IFZERO  OVTYPE-41       <
+  70   
+  71                         IFNDEF  KEY     <KEY=   43>             /KEYBOARD CODE
+  72                         IFNDEF  LIN     <LIN=   40>             /LPT: INPUT CODE
+  73                         IFNDEF  LPT     <LPT=   41>             /LPT: OUTPUT CODE
+  74                         IFNDEF  NMCH1   <NMCH1= "V^100+"T-300>  /DEFAULT FIRST NAME PAIR
+  75                         IFNDEF  NMCH2   <NMCH2= "8^100+"E-300>  /DEFAULT SECOND NAME PAIR
+  76                         IFNDEF  NMCH3   <NMCH3= "S^100+"P-300>  /DEFAULT THIRD NAME PAIR
+  77                         IFNDEF  ONEWAY  <ONEWAY=0>              /DEFAULT IS TWO-WAY LPT: HANDLING
+  78                         IFNDEF  OUT     <OUT=   45>             /VT-8/E VIDEO CODE
+  79                         IFNDEF  VT8LPT  <VT8LPT=1>              /GENERATE SHARED INTERRUPTS
+  80   
+  81                                                 >
+  82   
+  83                         IFNDEF  KEY     <KEY=   43>             /DEFAULT KEYBOARD CODE
+  84                         IFNDEF  LIN     <LIN=   65>             /DEFAULT LPT: INPUT CODE
+  85                         IFNDEF  LPBUFF  <LPBUFF=1>              /DEFAULTS TO LPT: BUFFERING
+  86                         IFNDEF  LPT     <LPT=   66>             /DEFAULT LPT: OUTPUT CODE
+  87                         IFNDEF  NMCH1   <NMCH1="V^100+"T-300>   /DEFAULT FIRST NAME PAIR
+  88                         IFNDEF  NMCH2   <NMCH2="8^100+"E-300>   /DEFAULT SECOND NAME PAIR
+  89                         IFNDEF  NMCH3   <NMCH3=0000>            /DEFAULT THIRD NAME PAIR
+  90                         IFNDEF  ONEWAY  <ONEWAY=0>              /DEFAULT IS TWO-WAY LPT: HANDLING
+  91                         IFNDEF  OUT     <OUT=   45>             /DEFAULT VT-8/E VIDEO CODE
+  92   
+  93                         IFZERO  LPT-66  <
+  94   
+  95                         IFNDEF  VT8LPT  <VT8LPT=0>              /NO SHARED INTERRUPT HANDLING
+  96   
+  97                                         >
+  98   
+  99                         IFNDEF  VT8LPT  <VT8LPT=1>              /HANDLE SHARED INTERRUPTS
+

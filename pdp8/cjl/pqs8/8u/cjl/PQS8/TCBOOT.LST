@@ -1,0 +1,148 @@
+
+/     P?S/8 TC01/TC08 EXTENDED BOOTSTRAP      P?S PAL V08S    TUE  09-AUG-15  PAGE 1
+
+              /       P?S/8 TC01/TC08 EXTENDED BOOTSTRAP
+
+              /       LAST EDIT:      09-AUG-2015     15:00:00        CJL
+
+              /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+
+              /       THIS IS THE BOOTSTRAP FOR ANY LOGICAL UNIT FOR P?S/8 TC01/TC08 USAGE ONLY.
+
+              /       INSTRUCTIONS FOR USE:
+
+              /       SET THE HIGH-ORDER THREE BITS OF THE SWITCH REGISTER TO THE DESIRED LOGICAL
+              /       UNIT [THE REST OF THE BITS ARE IGNORED].
+
+              /       START AT 00200 AFTER MOUNTING A COMPATIBLE P?S/8 SYSTEM DECTAPE ON THE
+              /       CORRESPONDING UNIT.  P?S/8 SHOULD COME UP SHORTLY THEREAFTER.  IF THE BOOTUP
+              /       FAILS, THE ENTIRE PROGRAM MUST BE RELOADED; AS WITH MOST BOOTSTRAP PROCEDURES,
+              /       THE CODE WILL TEND TO SELF-DESTRUCT REGARDLESS OF OUTCOME.
+
+              /       TC01/TC08 EQUATED SYMBOLS.
+
+        7755          CA=     7755                    /CURRENT ADDRESS REGISTER FOR 3-CYCLE DATA BREAK
+        6762          DTCA=   6762                    /CLEAR DECTAPE "A" REGISTER
+        6766          DTLA=   6766                    /LOAD DECTAPE "A" REGISTER
+        6774          DTLB=   6774                    /LOAD DECTAPE "B" REGISTER
+        6761          DTRA=   6761                    /READ DECTAPE "A" REGISTER
+        6772          DTRB=   6772                    /READ DECTAPE "B" REGISTER
+        6771          DTSF=   6771                    /SKIP ON DECTAPE FLAG OR ERROR FLAG
+        6764          DTXA=   6764                    /XOR DECTAPE "A" REGISTER
+        7754          WC=     7754                    /WORD COUNT REGISTER FOR 3-CYCLE DATA BREAK
+
+              //      P?S/8 EQUATED SYMBOLS.
+
+        7600          SBOOT=  7600                    /MONITOR RESTART ADDRESS
+
+              //      END OF P?S/8 EQUATED SYMBOLS.
+
+
+/     P?S/8 TC01/TC08 EXTENDED BOOTSTRAP      P?S PAL V08S    TUE  09-AUG-15  PAGE 2
+
+              /       THE BOOTSTRAP CODE STARTS HERE.
+
+       *0200          *200                            /CUSTOMARY STARTING ADDRESS
+
+000200  7600  START,  CLA!400                         /CLEAN UP; GROUP II CLA NEEDED
+000201  6201          CDF     00                      /ENSURE FIELD 0
+000202  1611  MOVLUP, TAD I   FROM                    /GET A WORD
+000203  3612          DCA I   TO                      /PUT A WORD
+000204  2211          ISZ     FROM                    /BUMP FROM POINTER
+000205  2212          ISZ     TO                      /BUMP TO POINTER
+000206  2213          ISZ     MOVCNT                  /DONE ENOUGH MOVING?
+000207  5202          JMP     MOVLUP                  /NO, GO BACK
+000210  5600          JMP I   START/(SBOOT)           /GO START IT UP
+
+000211  0214  FROM,   BUTNOW                          /WHERE IT IS NOW
+000212  7600  TO,     SBOOT                           /WHERE WE WANT IT
+000213  7755  MOVCNT, MOVBEG-MOVEND                   /COUNT OF HOW MANY WORDS TO MOVE
+
+
+/     P?S/8 TC01/TC08 EXTENDED BOOTSTRAP      P?S PAL V08S    TUE  09-AUG-15  PAGE 3
+
+              /       MULTIPLE DRIVE BOOTSTRAP.
+
+        0214          BUTNOW=.                        /WHERE BOOTSTRAP CODE IS NOW
+
+                      NOPUNCH                         /TURN OFF BINARY OUTPUT
+
+       *7600          *SBOOT                          /BOOTSTRAP LOADING ADDRESS
+
+                      ENPUNCH                         /TURN ON BINARY OUTPUT
+
+        7600          MOVBEG= .                       /START OF WORDS TO MOVE
+
+007600* 7604  SBOOT,  LAS                             /GET UNIT FROM SWITCHES
+007601* 0214          AND     SRWAIT/(7000)           /JUST UNIT BITS
+007602* 1213          TAD     SR600/(600)             /GET REWIND VALUE
+007603* 4214          JMS     SRWAIT                  /WAIT FOR END ZONE
+007604* 6774          DTLB                            /ENSURE FIELD 0 TRANSFER
+007605* 3354          DCA     WC                      /CLEAR WORD COUNT
+007606* 1221          TAD     SR7577/(SBOOT-1)        /SETUP THE
+007607* 3355          DCA     CA                      /CURRENT ADDRESS
+007610* 6761          DTRA                            /GET CURRENT "A" REGISTER CONTENTS
+007611* 1222          TAD     SR7620/(220-400)        /GET READ VALUE
+007612* 4214          JMS     SRWAIT                  /WAIT FOR TRANSFER
+007613* 0600  SR600,  600                             /CONSTANT 0600
+
+007614* 7000  SRWAIT, 7000                            /INITIALIZED FOR USE AS A CONSTANT
+007615* 6766          DTLA                            /LOAD "A" REGISTER
+
+                      IFNZRO  7616-.  <ERROR  .>      /WAIT LOOP MUST BE HERE!
+
+007616* 6771          DTSF                            /FLAG UP?
+007617* 5216          JMP     .-1                     /NO, WAIT FOR IT
+007620* 5614          JMP I   SRWAIT                  /YES, RETURN
+                      
+007621* 7577  SR7577, SBOOT-1                         /CONSTANT 7577
+007622* 7620  SR7620, 220-400                         /CONSTANT 7620
+
+        7623          MOVEND=.                        /END OF WORDS TO MOVE
+
+                      $                               /THAT'S ALL FOLK!
+
+
+/     P?S/8 TC01/TC08 EXTENDED BOOTSTRAP      P?S PAL V08S    TUE  09-AUG-15  PAGE S-1
+USER SYMBOL TABLE LISTING
+
+
+BUTNOW=0214 
+CA    =7755 
+DTCA  =6762 
+DTLA  =6766 
+DTLB  =6774 
+DTRA  =6761 
+DTRB  =6772 
+DTSF  =6771 
+DTXA  =6764 
+FROM   0211 
+MOVBEG=7600 
+MOVCNT 0213 
+MOVEND=7623 
+MOVLUP 0202 
+SBOOT  7600 
+SRWAIT 7614 
+SR600  7613 
+SR7577 7621 
+SR7620 7622 
+START  0200 
+TO     0212 
+WC    =7754 
+
+
+/     P?S/8 TC01/TC08 EXTENDED BOOTSTRAP      P?S PAL V08S    TUE  09-AUG-15  PAGE S-2
+ASSEMBLY STATISTICS
+
+
+NO ERRORS DETECTED 
+
+NO LINKS GENERATED
+
+4K MEMORY UTILIZED 
+
+NO FILES CREATED
+
+22 SYMBOLS
+
+

@@ -1,0 +1,549 @@
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 1
+
+   1                 /       FOCAL, 1969 FOR P?S/8
+   2   
+   3                 /       LAST EDIT:      04-FEB-1987     20:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       FOCAL, 1969 MODIFIED FOR USE WITH THE P?S/8 MONITOR SYSTEM.
+   8   
+   9                 /       ASSEMBLY INSTRUCTIONS:
+  10   
+  11                 /       ASSEMBLE THIS FILE (FOCPQS), AS A BINARY FILE.
+  12   
+  13                 /       ASSEMBLE FOCAL, 1969 AS A BINARY FILE (FOCL69).
+  14   
+  15                 /       BINARY LOAD FOCL69, FOCPQS.
+  16   
+  17                 /       SAVE AS A P?S/8 SYSTEM PROGRAM 00000-07577, FOLLOWED BY 10000-10377. THE
+  18                 /       P?S/8 FOCAL SYSTEM TO BE LOADED IS THE FIELD ZERO COMPONENT. THE FIELD
+  19                 /       ONE COMPONENT WILL BE USED FOR OVERLAYS TO 07400-07577 AS NECESSARY.
+  20   
+  21                 /       THIS ASSEMBLY IS A MASSIVE PATCH TO FOCAL.ZZM (DEC-08-AJAE-PB BINARY) TO
+  22                 /       CREATE A P?S/8 INTERFACE TO FOCAL. VARIOUS NEW FEATURES ARE IMPLEMENTED
+  23                 /       AS A RESULT, AND OLD FEATURES MAY WORK DIFFERENTLY, OR ACHIEVE A NEW
+  24                 /       UTILITY UNREALIZABLE WITH PAPER-TAPE.
+  25   
+  26                 /       MUCH ATTEMPT HAS BEEN MADE TO MAXIMIZE COMPATIBILITY WITH THE ORIGINAL
+  27                 /       PAPER-TAPE VERSION, AS MANY PEOPLE HAVE MADE CUSTOM CHANGES TO THE
+  28                 /       ORIGINAL VERSION; MOST OF THESE CHANGES ARE DIRECTLY APPLICABLE TO P?S/8
+  29                 /       FOCAL, AND MANY ARE ACTUALLY IMPLEMENTED HERE.
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 2
+
+  30                 /       P?S/8 FOCAL SWITCHES.
+  31   
+  32                 /       /A      RETAIN ARCTANGENT, LOGARITHM, AND EXPONENTIAL FUNCTIONS. THERE IS
+  33                 /               NO RESTRICTION ON THIS SWITCH REGARDING USE OF /C, EVEN THOUGH
+  34                 /               THE ORIGINAL PAPER-TAPE VERSION WOULDN'T ALLOW THIS COMBINATION
+  35                 /               OF BUILT-IN FUNCTIONS.
+  36                 /       /C      RETAIN COSINE, SINE FUNCTIONS. SEE /A.
+  37                 /       /E      TYPE "=" CHARACTER ON EVALUATED OUTPUT. THIS SWITCH IS PROVIDED
+  38                 /               FOR HISTORICAL COMPATIBILITY WITH THE PAPER-TAPE VERSION ONLY.
+  39                 /               THE DEFAULT IS TO ALLOW THE USER TOTAL CONTROL OF OUTPUT FORMATTING,
+  40                 /               INSTEAD OF FORCING A SOMETIMES UGLY OUTPUT TO BE IMPOSED.
+  41                 /       /F      INHIBIT LEADING BLANK ON POSITIVE NUMERICAL OUTPUT. THIS CAUSES
+  42                 /               COLUMNS OF MIXED-SIGN OUTPUT TO NOT LINE UP, BUT ALLOWS THE USER
+  43                 /               TO CONTROL THE PRECISE NATURE OF NUMERICAL OUTPUT, ESPECIALLY
+  44                 /               FOR UNSIGNED DATA.
+  45                 /       /G      EXECUTE "GO" COMMAND AT END OF FILE. DEFAULT IS TO JUST RETURN
+  46                 /               CONTROL OF FOCAL INPUT TO THE CONSOLE WITHOUT STARTING. N. B.
+  47                 /               THE USER CAN INSERT "GO" COMMANDS INTO THE INPUT STREAM AT ANY
+  48                 /               POINT TO INITIATE FOCAL EXECUTION WHICH COULD THEN READ DATA
+  49                 /               FURTHER DOWN THE INPUT STREAM. THE PURPOSE OF THIS SWITCH IS TO
+  50                 /               AUTO-START THE USER'S FOCAL PROGRAM WITH FURTHER INPUT FROM THE
+  51                 /               CONSOLE.
+  52                 /       /I      INITIAL INPUT ECHOING DURING ASCII FILE TRANSFERS. THE DEFAULT
+  53                 /               IS TO INPUT WITHOUT PRINTING DURING THE FILE TRANSFER. THE ECHO
+  54                 /               IS RESTORED WHEN END OF FILE IS REACHED.
+  55                 /       /L      RESTORE HISTORICAL OCTAL PRINTOUT OF LOCATIONS WHICH INDICATE
+  56                 /               STORAGE UTILIZATION WITHIN FOCAL. THE USER CAN GAUGE MEMORY
+  57                 /               REQUIREMENTS SOMEWHAT WITH THIS OPTION. DEFAULT IS THE STANDARD
+  58                 /               (CURRENTLY UNIMPLEMENTED) "LIBRARY" COMMAND. N. B. NEITHER OPTION
+  59                 /               IS AVAILABLE DURING INPUT FILE OPERATIONS. ATTEMPTS TO USE EITHER
+  60                 /               "L" COMMAND WILL EXIT TO P?S/8.
+  61                 /       /N      INHIBIT "ASK" INPUT PROMPT.
+  62                 /       /P      USE PERIOD (".") AS THE USER PROMPT CHARACTER. THE DEFAULT IS
+  63                 /               ASTERISK ("*").
+  64                 /       /Q      CHANGE ASK INPUT PROMPT CHARACTER TO "?". USE OF /N NULLIFIES
+  65                 /               THIS OPTION.
+  66                 /       /S      ECHO INPUT PROMPT CHARACTER DURING ASCII FILE TRANSFER. THE
+  67                 /               DEFAULT IS TO INPUT WITHOUT PROMPTING DURING THE FILE TRANSFER.
+  68                 /               THE PROMPT OUTPUT IS RESTORED WHEN END OF FILE IS REACHED.
+  69                 /       /T      DON'T CONVERT <HT> TO <SPACE>. THE DEFAULT IS TO CONVERT ANY
+  70                 /               <HT> CHARACTERS IN PASSED ASCII FILES TO <SPACE> AS THE FILE IS
+  71                 /               READ. N. B., FOCAL HANDLES <HT> AS A SINGLE CHARACTER; IF THE
+  72                 /               USER DIRECTS OUTPUT TO A DEVICE INCAPABLE OF DEALING WITH A "BARE"
+  73                 /               <HT> CHARACTER, THE OUTPUT COULD GARBLE OR DEPEND ON PRIOR
+  74                 /               INITIALIZATION OF THE DEVICE BY THE USER OUTSIDE OF THE SCOPE OF
+  75                 /               P?S/8 FOCAL.
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 3
+
+  76                 /       KEY P?S/8 FOCAL FEATURES.
+  77   
+  78                 /       P?S/8 FOCAL SUPPORTS UP TO 17 FILES PASSED TO IT BY P?S/8 (THIS IS THE
+  79                 /       LIMIT IMPOSED BY P?S/8, NOT FOCAL). AS FILES ARE PROCESSED, THEY ARE
+  80                 /       FIRST ASSUMED TO BE BINARY FILES INTENDED TO BE CUSTOM OVERLAYS TO P?S/8
+  81                 /       FOCAL. ANY FILE PROVING TO BE ASCII AND NOT BINARY ENDS THE BINARY MODE
+  82                 /       AND INITIATES THE ASCII FILE MODE. IN ASCII MODE, FILE CONTENTS ARE USED
+  83                 /       TO SATISFY ALL INPUT REQUIREMENTS OF FOCAL, REGARDLESS OF PURPOSE (PROGRAM
+  84                 /       LINES, INPUT DATA TO RUNNING PROGRAMS, ETC.). AT THE END OF THE LAST FILE,
+  85                 /       THE TERMINAL MODE TAKES OVER. FOR MOST PURPOSES THIS MODE IS SIMILAR TO
+  86                 /       THE PAPER-TAPE USAGE OF THE ORIGINAL FOCAL, 1969.
+  87   
+  88                 /       FOR BINARY MODIFICATION OF P?S/8 FOCAL, THE USER IS REFERRED TO DECUS
+  89                 /       FOCAL-17: "FOCAL:HOW TO WRITE NEW SUBROUTINES AND USE INTERNAL ROUTINES".
+  90                 /       THE MAIN RESTRICTIONS ARE: 
+  91   
+  92                 /               1)      DON'T INTERFERE WITH THE CHANGES OR PATCHES TO FOCAL,
+  93                 /                       ESPECIALLY IF THEY ARE TRANSIENT IN NATURE; MANY ITEMS
+  94                 /                       NORMALLY FOUND IN FOCAL ARE SOMETIMES TEMPORARALLY MODIFIED
+  95                 /                       TO EXPLOIT SOME OPTION SUCH AS DESTROYING A SUBROUTINE
+  96                 /                       CALL TO "PRINTC" TO SUPRESS ECHOING DURING ASCII FILE
+  97                 /                       TRANSFER MODE, ETC. MOST RESTRICTIONS OF THIS NATURE ARE
+  98                 /                       STRAIGHTFORWARD, AND PROBABLY WOULDN'T BE CHANGED ANYWAY.
+  99                 /                       IF IN DOUBT, COMPARE THE ORIGINAL AND PATCH, THEN CONTACT
+ 100                 /                       A MEMBER OF THE P?S FOR A FINAL DECISION.
+ 101   
+ 102                 /               2)      THE BINARY LOADER HAS A BUFFER WITHIN FOCAL'S TEXT BUFFER
+ 103                 /                       WHICH MUST REMAIN UNTOUCHED; THAT BUFFER IS LOCATED AT THE
+ 104                 /                       FIRST COMPLETE PAGE (03400), SO ANY FOCAL PATCH MADE BY A
+ 105                 /                       USER FOR SUBROUTINE ADDITION WOULD ALLOW LESS THAN 400
+ 106                 /                       CHARACTERS IN FOCAL'S TEXT BUFFER IF PLACED IN THIS AREA
+ 107                 /                       ACCORDING TO THE NORMAL RULES OF FOCAL MODIFYING, I. E.
+ 108                 /                       04617, 05177, OR 05377 (OR NEW ATN PACKAGE VALUE 05017)
+ 109                 /                       ON DOWN AS NECESSARY TO PLACE THE PATCH'S CODE. THIS IS
+ 110                 /                       NOT EXPECTED TO BE A PROBLEM; IF YOU WRITE SUCH A LARGE
+ 111                 /                       SEGMENT IN MACHINE LANGUAGE, DON'T USE FOCAL!
+ 112   
+ 113                 /               3)      PAGE 36 (07400-07577) IS A TRANSIENT AREA FOR THE SYSTEM
+ 114                 /                       INTERFACE. DO NOT USE THIS AREA FOR ANY PURPOSE!
+ 115   
+ 116                 /               4)      CREATE A SAVE AREA FOR ANYTHING MODIFIED BY THE PATCH AND
+ 117                 /                       PUT IT BACK THE WAY YOU FOUND IT WHEN THROUGH; VERIFY THAT
+ 118                 /                       ANY ROUTINE CALLED DURING THE TIME YOUR PATCH IS INSTALLED
+ 119                 /                       DOES NOT DEPEND ON THE OLD CONTENTS OF THE AREA YOU
+ 120                 /                       MODIFIED!
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 4
+
+ 121                 /               5)      THE SQUARE ROOT FUNCTION HAS BEEN RECODED AND RELOCATED
+ 122                 /                       TO THE FORMER START OF THE TEXT BUFFER REMOVING 33
+ 123                 /                       LOCATIONS FROM FOCAL'S TEXT BUFFER, HOWEVER THE SQUARE
+ 124                 /                       ROOT IS NOW MORE ACCURATE, AND THE SYSTEM INTERFACE IS OF
+ 125                 /                       REASONABLE SIZE. MANY OF THE RESTRICTIONS OF THE EARLIER
+ 126                 /                       "R-L FOCAL" HAVE BEEN REMOVED, SUCH AS USE OF EXTENDED
+ 127                 /                       FUNCTIONS OR THEIR CORE SPACE IF THEY ARE UNWANTED. A NEW
+ 128                 /                       CLASS OF LIBRARY FUNCTIONS CAN NOW BE ADDED SHOULD THEY
+ 129                 /                       EVER GET CODED; THIS IS NOW FEASIBLE. THE SYSTEM NOW ALLOWS
+ 130                 /                       FREE FORM BATCH FOCAL PROGRAMS ("GO" IS ALLOWED FROM A
+ 131                 /                       USER FILE WITH NO RESTRICTIONS). THE USE OF BATCH FILE
+ 132                 /                       PROGRAMMING ALLOWS EFFECTIVELY LARGER FOCAL PROGRAMS TO
+ 133                 /                       BE EXECUTED, AS THIS ALLOWS MORE EFFICIENT USE OF VALUABLE
+ 134                 /                       FOCAL BUFFER SPACE; THE LOSS OF 33 LOCATIONS IS MORE THAN
+ 135                 /                       OFFSET BY THESE ADVANTAGES. A STUDY DONE ON MULTIPLE
+ 136                 /                       HISTOGRAM PRINTING PROGRAMS INDICATES THAT 4K P?S/8 FOCAL
+ 137                 /                       CAN EXECUTE PROGRAMS OF THIS TYPE THAT THE 8K PAPER-TAPE
+ 138                 /                       VERSION CANNOT!
+ 139   
+ 140                 /               6)      EXCEPT WHERE RESTRICTED BY P?S/8 ITSELF, BINARY FILES CAN
+ 141                 /                       BE LOADED INTO ANY AVAILABLE EXTENDED MEMORY FOR ANY
+ 142                 /                       USER-DEFINED PURPOSE; THIS COULD REPRESENT A BETTER USE
+ 143                 /                       OF EXTENDED MEMORY THAN THE STRAIGHT 8K VERSION OF FOCAL.
+ 144                 /                       ASSUMING ENOUGH MEMORY, BOTH METHODS ARE AVAILABLE TO THE
+ 145                 /                       USER.
+ 146   
+ 147                 /       IN PASSING FILES TO FOCAL THE FOLLOWING POINTS SHOULD BE NOTED:
+ 148   
+ 149                 /               1)      FOCAL IGNORES PASSED OUTPUT FILES. USING OUTPUT FILES
+ 150                 /                       SERVES ONLY TO WASTE FILE LIST POSITIONS.
+ 151   
+ 152                 /               2)      PASS ALL BINARY FILES BEFORE ALL SOURCE FILES.
+ 153   
+ 154                 /               3)      PUT ALL DATA RESPONSES IN THEIR LOGICAL PLACE AFTER
+ 155                 /                       EXECUTION OF AN "ASK" STATEMENT.
+ 156   
+ 157                 /               4)      TURN ECHO ON WITH /I AND /S TO CHECK RESPONSES WHEN
+ 158                 /                       DEBUGGING ASCII PROGRAMS.
+ 159   
+ 160                 /               5)      DON'T USE LIBRARY COMMANDS IN BATCH MODE; ALL "L" COMMANDS
+ 161                 /                       EXIT TO P?S/8 DURING FILE TRANSFERS. THE OCTAL PRINTOUT
+ 162                 /                       OPTION (/L) IS ALSO INHIBITED AT THIS TIME.
+ 163   
+ 164                 /               6)      USE BATCH MODE FREELY, AS MUCH MEMORY IS SAVED BY PASSING
+ 165                 /                       DISPOSABLE ONCE-ONLY CODE WITHOUT FOCAL LINE NUMBERS, OR
+ 166                 /                       READ-ONLY DATA IN THE FORM OF ASCII NUMERICAL INPUT
+ 167                 /                       INSTEAD OF STORED ARRAYS. THESE TECHNIQUES LEND THEMSELVES
+ 168                 /                       TO BATCH OPERATIONS (SUCH AS REREADING NUMERICAL DATA IN
+ 169                 /                       STATISTICAL PROGRAMS, OR GRAPHIC PLOT LABELING, ETC.).
+ 170   
+ 171                 /               7)      REMEMBER THAT FOCAL READS COMMANDS AS VALID DATA NUMBERS
+ 172                 /                       AND VALID DATA NUMBERS AS LINE NUMBERS, BOTH LEGAL AND
+ 173                 /                       ILLEGAL; THIS CAN BE QUITE CONFUSING, SO ECHO THE INPUT
+ 174                 /                       IF YOU HAVE TO DEBUG ANY MIXED INPUT. 
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 5
+
+ 175                 /               8)      IF FOCAL LOOPS WITH NO "ASK"-ING BUT THE FILES ARE NOT
+ 176                 /                       DEPLETED (USER ERROR), THE USER MUST FORCE AN EXIT TO
+ 177                 /                       P?S/8 WITH THE STANDARD BREAK CHARACTERS (<^C>, ETC.).
+ 178   
+ 179                 /       A TRIVIAL (THOUGH VIABLE) EXAMPLE OF HOW TO USE ALL OF THE ABOVE IDEAS
+ 180                 /       ON PATCHING FOR CUSTOM DIALOGUES, BINARY FILES, SOURCE AND DATA FILES,
+ 181                 /       AND BATCH PROCESSING IS SHOWN BELOW:
+ 182   
+ 183                 /       THIS PROGRAM PROCESSES A NUMERIC DATA FILE PREVIOUSLY CREATED BY ANOTHER
+ 184                 /       PROGRAM. (ANY PROGRAM WHICH PRINTS ON THE CONSOLE IS ELEGIBLE TO BE
+ 185                 /       MODIFIED TO DO THIS. A ONE PAGE ROUTINE TO DO THIS IS AVAILABLE AS A
+ 186                 /       REPLACEMENT FOR A TERMINAL OUTPUT ROUTINE (6-BIT OR 8-BIT) WHICH CREATES
+ 187                 /       P?S/8 FILES IN MEMORY AND WRITES THEM ON THE SYSTEM DEVICE.)
+ 188   
+ 189                 /       THE FOLLOWING DRAMATIZATION OF A P?S/8 WORKING SESSION ILLUSTRATES A
+ 190                 /       PROGRAM WHICH COMPARES DATA NUMBERS TO A PARTICULAR SETTING ON THE
+ 191                 /       CONSOLE SWITCHES.
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 6
+
+ 192                 /       .FETCH SRC1             SOURCE OF THE ASSEMBLY PATCH
+ 193                 /       .LIST
+ 194                 /       100     *1345           /OVERLAY THE FADC FUNCTION
+ 195                 /       110     LAS             /READ CONSOLE SWITCHS
+ 196                 /       120     JMP     .+4     /FINISH UP AS OLD ADC DID
+ 197   
+ 198                 /       .PAL BIN1<SRC1          ASSEMBLE SOURCE AND CREATE BINARY
+ 199   
+ 200                 /       .FETCH FOCL1            FOCAL SOURCE PROGRAM
+ 201                 /       .LIST
+ 202                 /       100     C-PROGRAM TO SORT OUT NUMBERS LARGER THAN SWITCH SETTING
+ 203                 /       110     1.10    ASK COUNT;C                     GET COUNT OF NUMBERS
+ 204                 /       120     1.20    SET LIMIT=FADC();C              READ SWITCHS FOR LIMIT
+ 205                 /       130     1.30    TYPE !,"THE NUMBERS GREATER THAN",%4,LI," FOLLOW:
+ 206                 /       140     1.40    FOR I=1,COUNT;DO 2
+ 207                 /       150     1.50    QUIT;C                          PREVENT FURTHER EXECUTION OF 2.1
+ 208                 /       160     2.10    ASK TRIAL;C                     GET SOME DATA
+ 209                 /       170     2.20    IF (LIMIT-TRIAL)2.4;C           FAILURE RETURN
+ 210                 /       180     2.30    TYPE !,TRIAL;SET K=K+1;C        KEEP TRACK
+ 211                 /       190     2.40    RETURN
+ 212                 /       200     C THIS LINE IS IMMEDIATELY EXECUTED AS A COMMENT
+ 213                 /       210     TYPE !,"PRINT OUT THE BIGGER NUMBERS PROGRAM."
+ 214                 /       220     C-LINE 210 JUST EXECUTED (SO DOES THIS!)
+ 215                 /       230     C IF LINE 105 READ :    105     SET A=3
+ 216                 /       240     C THEN LINE 110 DESTROYS A BECAUSE FOCAL DESTROYS
+ 217                 /       250     C ALL VARIABLES WHEN INDIRECT SOURCE COMES IN!
+ 218                 /       260     C WHEN THE PROGRAM STARTS IT READS A NUMBER IN 1.10
+ 219                 /       270     C THE NEXT LINE OF SOURCE FOCAL SEES IS THAT NUMBER!
+ 220                 /       280     C WHICH IN THIS CASE IS THE FIRST NUMBER IN THE DATA FILE
+ 221                 /       290     GO
+ 222   
+ 223                 /       .FETCH DATA1            DATA FILE OF NUMBERS
+ 224                 /       .LIST
+ 225                 /       100     10
+ 226                 /       110     100 200 300
+ 227                 /       120     400
+ 228                 /       130     500
+ 229                 /       140     600,700
+ 230                 /       150     800,900 1000
+ 231                 /       160     C-PRETEND THIS ISN'T HERE (DOESN'T MATTER)
+ 232                 /       170     C FOCAL GOES BACK TO EXECUTING THESE LINES
+ 233   
+ 234                 /       .FETCH FOCL2
+ 235                 /       .LIST
+ 236                 /       100     C-FINISH UP
+ 237                 /       110     TYPE !,%1,COUNT-K," SAMPLES WERE TOO SMALL."
+ 238                 /       120     TYPE !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 239                 /       130     L;C-BOOTSTRAP BACK TO P?S/8
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 7
+
+ 240                 /       .PLEASE SET CONSOLE SWITCHS TO 0454 (300 BASE 10)
+ 241                 /       .^^ THANK YOU
+ 242                 /       .FOCAL BIN1 FOCL1 DATA1 FOCL2/N
+ 243                 /       *
+ 244                 /       PRINT OUT THE BIGGER NUMBERS PROGRAM.
+ 245                 /       THE NUMBERS GREATER THAN 300 FOLLOW:
+ 246                 /       400
+ 247                 /       500
+ 248                 /       600
+ 249                 /       700
+ 250                 /       800
+ 251                 /       900
+ 252                 /       1000
+ 253                 /       3 SAMPLES WERE TOO SMALL.
+ 254   
+ 255                 /       .BACK TO THE MONITOR
+ 256                 /       BACK NOT FOUND!
+ 257                 /       .
+ 258   
+ 259   
+ 260   
+ 261   
+ 262   
+ 263                 /       FOCAL FOR PQS/8, THE P?S MONITOR SYSTEM.
+ 264   
+ 265                 /       MAKE ALL INQUERIES AND CONTRIBUTIONS TO:
+ 266   
+ 267                 /       MARIO DENOBILI
+ 268                 /       C/O CHARLES LASNER
+ 269                 /       CHARLES LASNER ASSOCIATES.
+ 270                 /       72-55 METROPOLITAN AVENUE
+ 271                 /       MIDDLE VILLAGE, NEW YORK 11379-2107
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 8
+
+ 272                 /       CONDITIONAL ASSEMBLY PARAMETERS.
+ 273   
+ 274                         IFNDEF  AA01A   <AA01A= 0>      /DON'T USE AA01A D-A CONVERTER
+ 275                         IFNDEF  AF01    <AF01=  0>      /DON'T USE AF01 A-D CONVERTER
+ 276                         IFNDEF  AX08    <AX08=  0>      /DON'T USE AX08 CONVERTERS
+ 277                         IFNDEF  DF32    <DF32=  0>      /DON'T USE DF32 INTERRUPT HANDLING
+ 278                         IFNDEF  LAB8E   <LAB8E= 1>      /USE LAB-8/E CONVERTERS
+ 279                         IFNDEF  LINC8   <LINC8= 0>      /DON'T GENERATE LINC-8 INTERRUPT HANDLER
+ 280                         IFNDEF  TTY     <TTY=   03>     /BASE DEVICE CODE OF TTY:
+ 281   
+ 282                 /       I/O AND PERIPHERAL DEFINITIONS.
+ 283   
+ 284           6371          ACMX=   6371                    /LOAD MULTIPLEX REGISTER FOR AX08
+ 285           6364          ADCV=   6364                    /INITIATE CONVERSION FOR AX08
+ 286           6531          ADLM=   6531                    /LOAD CHANNEL FOR AD-8/E, A
+ 287           6533          ADRB=   6533                    /READ A-D BUFFER, CLEAR FLAG FOR AD-8/E, A
+ 288           6534          ADSK=   6534                    /SKIP ON A-D DONE FLAG FOR AD-8/E, A
+ 289           6532          ADST=   6532                    /START CONVERSION FOR AD-8/E, A
+ 290           6534          AFADRB= 6534                    /READ A-D BUFFER, CLEAR FLAG FOR AF01
+ 291           6542          ADSC=   6542                    /LOAD CHANNEL FOR AF01
+ 292           6531          ADSF=   6531                    /SKIP ON A-D DONE FLAG FOR AF01
+ 293           6551          DAL1=   6551                    /LOAD X D-A CONVERTER FOR AA01A
+ 294           6552          DAL2=   6552                    /LOAD Y D-A CONVERTER FOR AA01A
+ 295           6053          DILX=   6053                    /LOAD X REGISTER FOR VC-8/E
+ 296           6054          DILY=   6054                    /LOAD Y REGISTER FOR VC-8/E
+ 297           6304          DIS=    6304                    /INTENSIFY POINT FOR AX08
+ 298           6301          DXC=    6301                    /CLEAR X REGISTER FOR AX08
+ 299           6302          DXL=    6302                    /LOAD X REGISTER FOR AX08
+ 300           6311          DYC=    6311                    /CLEAR Y REGISTER FOR AX08
+ 301           6312          DYL=    6312                    /LOAD Y REGISTER FOR AX08
+ 302           6032          KCCIOT= TTY^10+6002             /CLEAR KEYBOARD FLAG
+ 303           6036          KRBIOT= TTY^10+6006             /READ KEYBOARD BUFFER, CLEAR FLAG
+ 304           6034          KRSIOT= TTY^10+6004             /READ KEYBOARD BUFFER
+ 305           6031          KSFIOT= TTY^10+6001             /SKIP ON KEYBOARD FLAG
+ 306           6362          RADC=   6362                    /READ A-D, CLEAR FLAG FOR AX08
+ 307           6332          SKAD=   6332                    /SKIP ON A-D DONE FLAG FOR AX08
+ 308           6042          TCFIOT= TTY+1^10+6002           /CLEAR TTY: FLAG
+ 309           6046          TLSIOT= TTY+1^10+6006           /CLEAR TTY: FLAG, OUTPUT CHARACTER
+ 310           6041          TSFIOT= TTY+1^10+6001           /SKIP ON TTY: DONE FLAG
+ 311   
+ 312                 /       NUMERIC LOAD DEFINITIONS.
+ 313   
+ 314           7326          NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+ 315           7203          NL0100= CLA IAC BSW             /LOAD AC WITH 0100
+ 316           7332          NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000
+ 317           7350          NL3777= CLA CLL CMA RAR         /LOAD AC WITH 3777
+ 318           7330          NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+ 319           7346          NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+ 320           7344          NL7776= CLA CLL CMA RAL         /LOAD AC WITH 7776
+ 321           7240          NL7777= CLA CMA                 /LOAD AC WITH 7777
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 23
+
+ 912                 /       CONDITIONAL INTERRUPT HOOKS.
+ 913   
+ 914                 /       IF NECESSARY, OTHER PERIPHERALS CAN BE INTERRUPT HANDLED HERE BY PATCHING
+ 915                 /       THE DF32 OR LINC8 INTERRUPT LOCATIONS.
+ 916   
+ 917                         IFNZRO  DF32    <
+ 918   
+ 919                         JMS I   DFINT/(7650)    /CALL DF32 INTERRUPT HANDLER
+ 920   
+ 921                                         >
+ 922   
+ 923                         IFZERO  DF32    <
+ 924   
+ 925   002712  7000          NOP                     /AVAILABLE FOR HOOK IF NO DF32
+ 926   
+ 927                                         >
+ 928   
+ 929                         IFNZRO  LINC8   <
+ 930   
+ 931                         TAD     LIST6+1/[7]     /GET CLEAR VALUE
+ 932                         ICON                    /CLEAR LINC INTERRUPTS
+ 933                         CLA                     /CLEAN UP
+ 934   
+ 935                                         >
+ 936   
+ 937                         IFZERO  LINC8   <
+ 938   
+ 939   002713  7000          NOP                     /AVAILABLE
+ 940   002714  7000          NOP                     /FOR INTERRUPT
+ 941   002715  7000          NOP                     /HOOKUP
+ 942   
+ 943                                         >
+ 944   
+ 945   002716  1361          TAD     LINK            /GET THE SAVED LINK
+ 946   002717  7110          CLL RAR                 /RESTORE IT
+ 947   002720  1124          TAD     AC              /GET THE SAVED AC
+ 948   002721  6244          RMF                     /RESTORE THE EXTENDED FIELDS
+ 949   002722  6001          ION                     /TURN INTERRUPT ON
+ 950   002723  5400          JMP I   0               /RETURN TO BACKGROUND
+ 951   
+ 952   002724  5662  PTTYOUT,TTYOUT                  /POINTER TO TTY: OUTPUT ROUTINE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 36
+
+1438                 /       COMES HERE TO ATTEMPT TO CLEAR OR DISABLE ALL ACTIVE (NON-REFERENCED)
+1439                 /       INTERRUPTS BY EXECUTIVE SEVERAL IOT'S TO THE DEVICE. THE LIST MAY BE
+1440                 /       PATCHED FOR INSTALLATION ANOMALIES.
+1441   
+1442   004031  1377  INTKILL,TAD     (TESTLST)       /POINT TO
+1443   004032  3344          DCA     LSTPTR          /MASTER LIST
+1444   004033  7326          NL0002                  /SETUP "C" BIT MASK
+1445   004034  0775          AND I   (SCRSIZE)       /GET THE "C" BIT
+1446   004035  7650          SNA CLA                 /SKIP IF OVERLAY PRESENT
+1447   004036  7203          NL0100                  /WILL BE 0100 ON 8/E OR BETTER
+1448   004037  1101          TAD     P7700/[-100]    /COMPARE TO EXPECTED VALUE
+1449   004040  7650          SNA CLA                 /SKIP IF DIFFERENT
+1450   004041  6007          CAF                     /CLEAN UP BUSS NOW
+1451   004042  1744  INTKLUP,TAD I   LSTPTR          /GET AN ENTRY
+1452   004043  7450          SNA                     /END OF LIST?
+1453   004044  5303          JMP     INTDONE         /YES
+1454   004045  7040          CMA                     /CHECK FOR 7777 ENTRY
+1455   004046  7450          SNA                     /SKIP IF NOT 7777
+1456   004047  5301          JMP     NOKILL          /JUMP IF 7777
+1457   004050  7040          CMA                     /INVERT BACK
+1458   004051  0376          AND     (7770)          /REMOVE IOP BITS
+1459   004052  3333          DCA     IOTINLINE       /STORE IN TEST INSTRUCTION
+1460   004053  4332          JMS     IOTEXC          /EXECUTE IOT0
+1461   004054  2333          ISZ     IOTINLINE       /BUMP UP AND
+1462   004055  4332          JMS     IOTEXC          /EXECUTE IOT1
+1463   004056  2333          ISZ     IOTINLINE       /BUMP UP AND
+1464   004057  4332          JMS     IOTEXC          /EXECUTE IOT2
+1465   004060  2333          ISZ     IOTINLINE       /BUMP
+1466   004061  2333          ISZ     IOTINLINE       /UP
+1467   004062  2333          ISZ     IOTINLINE       /AND
+1468   004063  4332          JMS     IOTEXC          /EXECUTE IOT5
+1469   004064  2333          ISZ     IOTINLINE       /BUMP
+1470   004065  2333          ISZ     IOTINLINE       /UP AND
+1471   004066  4332          JMS     IOTEXC          /EXECUTE IOT7
+1472   004067  1333          TAD     IOTINLINE       /GET IOT7
+1473   004070  1120          TAD     M5/[2-7]        /MAKE IT IOT2
+1474   004071  3333          DCA     IOTINLINE       /STORE IN-LINE
+1475   004072  1374          TAD     (-7)            /GET TIME-OUT COUNTER
+1476   004073  3332          DCA     IOTEXC          /STASH IT
+1477   004074  2124          ISZ     AC              /WASTE
+1478   004075  5274          JMP     .-1             /SOME TIME
+1479   004076  2332          ISZ     IOTEXC          /WAITED ENOUGH?
+1480   004077  5274          JMP     .-3             /NO, KEEP GOING
+1481   004100  4332          JMS     IOTEXC          /EXECUTE IOT2
+1482   004101  2344  NOKILL, ISZ     LSTPTR          /BUMP TO NEXT ELEMENT
+1483   004102  5242          JMP     INTKLUP         /KEEP GOING
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 37
+
+1484                 /       COMES HERE AFTER KILLING INTERRUPTS FROM THE LIST. ADDITIONAL PATCH SPACE
+1485                 /       CAN BE USED HERE FOR KILLING WEIRD DEVICES THAT WERE REMOVED FROM THE
+1486                 /       MASTER LIST.
+1487   
+1488   004103  0000  INTDONE,ZBLOCK  20              /FOR ADDITIONAL IOT PATCHING
+1489   004123  1773          TAD I   (SWMX)          /GET /M-/X SWITCHES
+1490   004124  0372          AND     (40)            /JUST /S SWITCH
+1491   004125  7640          SZA CLA                 /SKIP IF OFF
+1492   004126  5177          JMP     START           /JUMP IF ON
+1493   004127  1771          TAD I   (CSTAR)         /GET PREVAILING PROMPT CHARACTER
+1494   004130  4551          PRINTC                  /PRINT IT
+1495   004131  5177          JMP     START           /GO START IT UP
+1496   
+1497   004132  0000  IOTEXC, .-.                     /TEST IOT EXECUTION ROUTINE
+1498   004133  0000  IOTINLI,.-.                     /WILL BE PROBLEMATIC IOT
+1499   004134  6202          CIF     00              /PREVENT PROBLEMS!
+1500   004135  6202          CIF     00              /PREVENT PROBLEMS!
+1501   004136  6202          CIF     00              /PREVENT PROBLEMS!
+1502   004137  6202          CIF     00              /PREVENT PROBLEMS!
+1503   004140  6002          IOF                     /PREVENT PROBLEMS!
+1504   004141  6201          CDF     00              /PREVENT PROBLEMS!
+1505   004142  7300          CLA CLL                 /CLEAN UP
+1506   004143  5732          JMP I   IOTEXC          /RETURN
+1507   
+1508   004144  0000  LSTPTR, .-.                     /INTERRUPT DISABLE LIST POINTER
+1509   
+1510   004171  0225
+1511   004172  0040
+1512   004173  7605
+1513   004174  7771
+1514   004175  7611
+1515   004176  7770
+1516   004177  4200
+1517           4200          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 38
+
+1518                 /       INTERRUPT DISABLE TEST LIST.
+1519   
+1520   004200  7777  TESTLST,7777                    /DEVICE 00
+1521   004201  6011          RSF                     /DEVICE 01 - HIGH-SPEED READER
+1522   004202  6021          PSF                     /DEVICE 02 - HIGH-SPEED PUNCH
+1523   004203  7777  ENT03,  7777/KSFIOT             /DEVICE 03 - CONSOLE KEYBOARD
+1524   004204  7777  ENT04,  7777/TSFIOT             /DEVICE 04 - CONSOLE PRINTER
+1525   004205  7777          7777                    /DEVICE 05
+1526   004206  7777          7777                    /DEVICE 06
+1527   004207  7777          7777                    /DEVICE 07
+1528   004210  7777          7777                    /DEVICE 10
+1529   004211  7777          7777/11^10+6001         /DEVICE 11 - DC02, PT08
+1530   004212  7777          7777/12^10+6001         /DEVICE 12 - DC02, PT08
+1531   004213  7777          7777                    /DEVICE 13
+1532   004214  7777          7777                    /DEVICE 14
+1533   004215  7777          7777                    /DEVICE 15
+1534   004216  7777          7777                    /DEVICE 16
+1535   004217  7777          7777                    /DEVICE 17
+1536   004220  7777          7777                    /DEVICE 20 - EXTENDED MEMORY
+1537   004221  7777          7777                    /DEVICE 21 - EXTENDED MEMORY
+1538   004222  7777          7777                    /DEVICE 22 - EXTENDED MEMORY
+1539   004223  7777          7777                    /DEVICE 23 - EXTENDED MEMORY
+1540   004224  7777          7777                    /DEVICE 24 - EXTENDED MEMORY
+1541   004225  7777          7777                    /DEVICE 25 - EXTENDED MEMORY
+1542   004226  7777          7777                    /DEVICE 26 - EXTENDED MEMORY
+1543   004227  7777          7777                    /DEVICE 27 - EXTENDED MEMORY
+1544   004230  6301          30^10+6001              /DEVICE 30
+1545   004231  6311          31^10+6001              /DEVICE 31
+1546   004232  6321          32^10+6001              /DEVICE 32
+1547   004233  6331          33^10+6001              /DEVICE 33
+1548   004234  6341          34^10+6001              /DEVICE 34
+1549   004235  6351          35^10+6001              /DEVICE 35
+1550   004236  6361          36^10+6001              /DEVICE 36
+1551   004237  6371          37^10+6001              /DEVICE 37
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  04-FEB-87 PAGE 39
+
+1552   004240  6401          40^10+6001              /DEVICE 40 - PT08, KL-8/E
+1553   004241  6411          41^10+6001              /DEVICE 41 - PT08, KL-8/E
+1554   004242  6421          42^10+6001              /DEVICE 42 - KL-8/E
+1555   004243  6431          43^10+6001              /DEVICE 43 - KL-8/E, VT-8/E
+1556   004244  6441          44^10+6001              /DEVICE 44 - KL-8/E
+1557   004245  6456          45^10+6006              /DEVICE 45 - VT-8/E, KL-8/E
+1558   004246  6466          46^10+6006              /DEVICE 46 - KL-8/E
+1559   004247  6476          47^10+6006              /DEVICE 47 - KL-8/E
+1560   004250  7777          7777                    /DEVICE 50
+1561   004251  7777          7777                    /DEVICE 51
+1562   004252  7777          7777                    /DEVICE 52
+1563   004253  7777          7777                    /DEVICE 53
+1564   004254  7777          7777                    /DEVICE 54
+1565   004255  7777          7777                    /DEVICE 55
+1566   004256  7777          7777                    /DEVICE 56
+1567   004257  7777          7777                    /DEVICE 57
+1568   004260  7777          7777                    /DEVICE 60
+1569   004261  7777          7777                    /DEVICE 61
+1570   004262  7777          7777                    /DEVICE 62
+1571   004263  7777          7777                    /DEVICE 63
+1572   004264  7777          7777                    /DEVICE 64
+1573   004265  6651          65^10+6001              /DEVICE 65 - LPT:
+1574   004266  6661          66^10+6001              /DEVICE 66 - LPT:
+1575   004267  7777          7777                    /DEVICE 67
+1576   004270  7777          7777                    /DEVICE 70
+1577   004271  7777          7777                    /DEVICE 71
+1578   004272  7777          7777                    /DEVICE 72
+1579   004273  7777          7777                    /DEVICE 73
+1580   004274  7777          7777                    /DEVICE 74
+1581   004275  7777          7777                    /DEVICE 75
+1582   004276  7777          7777                    /DEVICE 76
+1583   004277  7777          7777                    /DEVICE 77
+1584   004300  0000          0                       /THIS ENDS THE LIST
+

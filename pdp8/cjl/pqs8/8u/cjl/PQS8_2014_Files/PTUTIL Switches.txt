@@ -1,0 +1,172 @@
+﻿Command-line options for PTUTIL.
+
+Output files		Paper-tape input to P?S/8 output files.
+
+Input files		Punch paper-tape output from the contents of P?S/8 input files.
+
+/A			Automatic mode.  All user prompts are eliminated allowing a
+			fully automated BATCH session that may include assembling the
+			source files created from paper-tape input or punching
+			paper-tape output from P?S/8 input files.  The user must have
+			all relevant paper-tape equipment reader for use automatically.
+
+/B			Paper-tape input is normally unbuffered.  If the /B option is set,
+			input handling is changed to buffered mode.  For certain readers,
+			this option is needed to prevent junk characters at the end of the
+			read operation.  The /B option only applies to the high-speed reader.
+
+			Note: The /B option must not be used in the SIMH environment as
+			this will cause data loss at the end of the simulated input.  [OS/8
+			paper-tape reader handling is flawed in this regard and that
+			system has no recourse to correct the problem.]  Note: /B does not
+			apply to the low-speed reader.
+
+/C			If the /C option switch is set, parity checking will be enabled
+			for the paper-tape input frames between the leader and trailer
+			sections.  The default parity method is mark parity as used in
+			most DEC-compatible paper-tapes.  Other option switches can
+			enable alternate parity-checking methods.  Violation of parity
+			will cause an error to be reported.  If the /A or /S switches
+			are disabled, the user will be given a chance to accept the
+			data despite the parity error [or abort the operation by pressing
+			Control-C on the console keyboard]; otherwise the program will
+			abort and exit after closing the latest output file.
+
+/D			Display paper-tape input on the system console.  All characters
+			are subject to P?S/8 character code conversion rules.  In a few
+			instances, certain characters may also cause additional format
+			changes to the displayed output such as the disposition of the
+			<FF> character.  Additional switches will modify the displayed
+			output to achieve optional embellishment of the displayed
+			output.  By default, receipt of a <FF> character will produce
+			the short sequence of characters "<FF>" instead of causing
+			pagination.
+
+/E			When creating P?S/8 output files, the default is to create a
+			series of standard TFS fixed-length output files [as passed by
+			the operating syste].  If /E is used, all output files are
+			processed as P?S/8 extended-length output files.  [Note: As of
+			P?S/8 Version 8Z, there is only provisional support requiring
+			the user to exercise care in implementing this feature.  The
+			restriction is identical to the similar implementation in the
+			OS8CON and other programs.  It is expected that all such
+			programs will be upgraded together in the next release [P?S/8
+			version 9A] when the restriction is lifted as part of an
+			internal structural upgrade of extended-length output file
+			processing.
+
+/F			The default paper-tape device is the console terminal, which
+			must be a Teletype Model 33 or 35 or equvalent.  [Note: The
+			Teletype must also support the ASR option when reading the
+			paper-tape data.
+
+			If /F is used, the high-speed reader/punch is used for all
+			paper-tape input and output operations.
+
+			Note: All paper-tape input operations are subject to time-out
+			considerations.  Attempting to use the high-speed reader will
+			fail if the hardware is either not ready or nonexistent.
+
+/M			When paper-tape input data is processed, end of data input
+			normally ends the program.  If /M is given, the program runs
+			in multiple tape mode allowing the user to either reposition
+			the current paper-tape to another section or load another
+			input tape.  Note: The /M option is not allowed if the /A
+			option switch is set.  User input is required to read in
+			every tape.
+
+			Multiple tape operation is recommended even if there is only
+			a single input tape if the reader may be subect to intermittent
+			operations perhaps due to misadjustment or problems with
+			specific problematic input tapes.  It may be necessary to
+			perform post-read editing operations on the P?S/8 output files
+			in perverse cases requiring frequent tape repositioning, etc.
+
+			Note: The /M switch is meaningless in the SIMH environment
+			unless the input is a single tape that is segmented within.
+			This is seldom used in actual paper-tapes but is supported.
+
+			Note: P?S/8 is capable of creating segmented data in the SIMH
+			environment by running PTUTIL several times before clearing the
+			simulated paper-tape output file.  To accomplish this, the
+			sentinel Control-Z character should be inhibited in all but the
+			last section.
+
+/N			If the /D option is set, input data is displayed with full
+			pagination using tear-off lines.  This is oriented towards
+			roll paper terminals such as the Teletype Model 33.
+
+/P			If the /D option is set, input data is displayed with full
+			pagination using <FF> characters.  Note: This option should
+			only be used on devices such as the LA36 DECwriter or Teletype
+			Model 35 that support the <FF> character properly.  <NUL>
+			characters will be inserted into the output stream to ensure
+			proper handling of the output to prevent garbling.  [Note:
+			Some of the supported devices neither need nor support flow
+			control with regard to normal printing.  However, for
+			certain characters such as <FF> or <VT> [which is not used in
+			PTUTIL] it is necessary to provide <NUL> padding to prevent
+			output garbling [caused by printing while the carriage is still
+			in motion].
+
+/Q			Check for sufficient additional space within TFS output files
+			when a <FF> is received.  This will tend to close the latest
+			TFS output file and open another if there is not likely
+			sufficient space in the latest file for another complete
+			source code page.  [Note: The conversion will always succeed.
+			However, the lines of a page intended to be printed together
+			may span adjacent files if this test is insufficent to properly
+			handle unusual input such as extremely heavily commented source
+			code.  For most typical programming, the /Q option is sufficient
+			to eliminate pages split across adjacent TFS output files.
+
+			The /Q switch is meaningless if the /E switch is in effect thus
+			creating extended-length output files.  If the /X switch is in
+			effect, the /Q switch is ignored [as no unique <FF> processing
+			will be in effect during the conversion].
+
+/S			If the /S switch is set, the program used silent running mode.
+			This suppresses all console output during all PTUTIL operations
+			other than important error messages.
+
+/U			Normally, console output is displayed in mixed upper-case and
+			lower-case as appropriate.  If the /U switch is set, all output
+			is in upper-case characters only.
+
+/V			If the /V option is set, the program runs in verbose mode.  This
+			will tend to embellish certain displayed output to include
+			more detailed information and additional operational statistics
+			as necessary.  Certain program conditions will include expanded
+			output as necessary.
+
+/X			If the /X option is set, special <FF> handling is disabled.  The
+			P?S/8 output will be reduced to an EOL sequence.
+
+/Z			If the /Z switch is set, the sentinel Control-Z character after the
+			last trailer frame is inhibited.  This may be desirable in multiple
+			section paper-tapes which can be created using PTUTIL several times
+			in one paper-tape punching session.
+
+/0			When punching paper-tape output, all data frames will have the high
+			bit clear [space parity].  If P?S/8 output files are being created
+			from paper-tape input data and the /C switch is set, the data frames
+			will be checked for space parity.
+
+/1			When punching paper-tape output, all data frames will have odd parity
+			with the high bit set accordingly.  If P?S/8 outut files are being
+			created from paper-tape input data and the /C switch is set, the data
+			frames will be checked for odd parity.
+
+/2			When punching paper-tape output, all data frames will have even parity
+			with the high bit set accordingly.  If P?S/8 output files are being
+			created from paper-tape input data and the /C switch is set, the data
+			frames will be checked for even parity.
+
+=xxxx			The default leader/trailler output frame count is 100 [144 octal]
+			and will be overriden by the =xxxx parameter if present.  Attempts
+			to use values smaller than 7 or larger than 1023 [1777 octal] will
+			be ignored.
+
+Parity error on paper-tape input!
+
+[end of file]

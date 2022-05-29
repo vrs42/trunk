@@ -1,0 +1,2589 @@
+
+
+-
+
+SKYLARK,1  LN=1
+
+
+/
+/  SKYLARK                      01/15/78
+/
+/  FEATURES:
+/
+/       GRAVITY
+/       BOUNCE -- IMPROVED
+/       MINES
+/       INTERRUPT TO DISPLAY
+/
+/       SWITCH CONTROLLED:
+/               SUN DISPLAY     (SNS 0)
+/               COLLISIONS      (SNS 1)
+/               GRAVITY         (SNS 2)
+/
+/       SWITCH REGISTER CONTROLS
+/               WHITE   INV.    (LSW 0)
+/                       MISSLE  (LSW 1)
+/                       MINE    (LSW 2)
+/                       ENGINE  (LSW 6)
+/                       LEFT    (LSW 7)
+/                       RIGHT   (LSW 10)
+/               BLACK   INV.    (RSW 3)
+/                       MISSLE  (RSW 4)
+/                       MINE    (RSW 5)
+/                       ENGINE  (RSW 11)
+/                       LEFT    (RSW 12)
+/                       RIGHT   (RSW 13)
+/
+/
+/
+/
+////////////////////////////////////////
+        
+        
+        
+        
+         PMODE
+        
+         LODSYM
+        
+         
+        PAGE 0
+        
+        0               /8-MODE INTERUPT
+        DCA ACSAVE      /SAVE AC,
+LINKSV, GLK             /LINK,
+        DCA LSAVE
+        JMP I .+1       /SERVICE
+        SERVCE          /INTERRUPT.
+        
+        
+ACSAVE, 0               /REG. STORAGE
+LSAVE,  0               /FOR INTERRUPTS
+MQSAVE, 0
+IBSAVE, 0
+        
+
+
+
+
+-
+
+SKYLARK,2  LN=72
+
+
+NOSUN,  0               /SNS TEMPS
+NOCLID, 0
+NOGRAV, 0
+         
+        
+        *20
+        
+ACLRTN, 0               /SUBR PARAMETERS
+VELCTY, 0               /(WATCH OUT FOR
+POSITN, 0               / THE EQUATES)
+XACCEL= .
+XDSTNC= .
+XCOORD, 0
+YACCEL= .
+YDSTNC= .
+YCOORD, 0
+EXPTBL, 0
+THETA,  0
+XC1PTR= .
+XFCPTR= .
+XCMPTR, 0
+YC1PTR= .
+YFCPTR= .
+YCMPTR, 0
+XFVPTR= .
+XVMPTR, 0
+YFVPTR= .
+YVMPTR, 0
+ST1PTR= .
+STMPTR, 0
+XC2PTR, 0
+YC2PTR, 0
+ST2PTR, 0
+         
+        
+        *40
+        
+         LMODE
+        0               /L MODE INTERUPT
+        STC ACSAVE      /SAVE AC,
+        QAC
+        STC MQSAVE      /MQ,
+        IOB
+        6234            /[RIB]
+        STC IBSAVE      /INT. BUFFER,
+        STC 0           /STORE 0 IN 0 TO
+        PDP             /DENOTE L MODE
+         PMODE          /INTERRUPT,
+        JMP LINKSV      /GO SAVE LINK.
+         
+        
+LOCBXC, BLKXCR          /SHIP AND MISSLE
+LOCBYC, BLKYCR          /ADDR. POINTRS
+LOCBST, BLKSTT          /FOR COLLIDE
+LOCBMX, BLKMXC          /SUBROUTINES
+LOCBMY, BLKMYC
+LOCBMS, BLKMST
+
+
+
+
+-
+
+SKYLARK,3  LN=163
+
+
+LOCWXC, WHTXCR
+LOCWYC, WHTYCR
+LOCWST, WHTSTT
+LOCWMX, WHTMXC
+LOCWMY, WHTMYC
+LOCWMS, WHTMST
+         
+        
+PRXMT0, PRXMTY          /SUBR. PTRS
+COLID0, COLLID
+MSLSH0, MSLSHP
+SQUAR0, SQUARE
+SQRT0,  SQRT
+RECIP0, RECIPR
+SINE=   JMS I .
+        SINSRC
+COSINE= JMS I .
+        COSRCH
+ROTATX= JMS I .
+        XROTAT
+ROTATY= JMS I .
+        YROTAT
+FRCVL0, FRCVEL
+NMNST0, NMNSET
+NXTMN0, NEXTMN
+MNEST0, MNESET
+CLMST0, CLMNST
+CLNXM0, CLNXMN
+         
+        
+SSTABL, SH2TBL          /DISTANCE TABLE
+MMTABL, MS2TBL          /POINTERS.
+MSTABL, MSHTBL
+NSTABL, MNSTBL
+NMTABL, MNMTBL
+NNTABL, MNNTBL
+SUNSHP, SN2SHP
+SUNMSL, SN2MSL
+         
+        
+BLKXCR, 0       /POSITIONS, VELOCITIES,
+BLKYCR, 0       /ACCELERATIONS, AND
+BLKXVC, 0       /STATUSES OF ALL
+BLKYVC, 0       /OBJECTS.  THE ORDER OF
+BLKSTT, 0       /THESE IS IMPORTANT FOR
+WHTXCR, 0       /SUBROUTINE FRCVEL, SO
+WHTYCR, 0       /DON"T MESS THESE UP
+WHTXVC, 0       /UNLESS YOU KNOW WHAT
+WHTYVC, 0       /YOU"RE DOING.
+WHTSTT, 0
+BLKMXC, 0
+BLKMYC, 0
+BLKMXV, 0
+BLKMYV, 0
+BLKMXA, 0
+BLKMYA, 0
+BLKMDR, 0
+
+
+
+
+-
+
+SKYLARK,4  LN=254
+
+
+BLKMST, 0
+WHTMXC, 0
+WHTMYC, 0
+WHTMXV, 0
+WHTMYV, 0
+WHTMXA, 0
+WHTMYA, 0
+WHTMDR, 0
+WHTMST, 0
+BKMNXC, 0
+BKMNYC, 0
+BKMNXV, 0
+BKMNYV, 0
+BKMNST, 0
+WTMNXC, 0
+WTMNYC, 0
+WTMNXV, 0
+WTMNYV, 0
+WTMNST, 0
+        
+        
+BLKINV, 0               /SWITCH VARIABLS
+BLKMIS, 0
+BLKMNE, 0
+BLKENG, 0
+BLKDIR, 0
+WHTINV, 0
+WHTMIS, 0
+WHTMNE, 0
+WHTENG, 0
+WHTDIR, 0
+         
+        
+NMINES, -10             /MINE LOCATIONS,
+FRSTMN, .+1             /RUN ONTO PAGE 1
+         
+         
+        *250            /(RIGHT AFTER
+                        / MINES)
+        
+/ INTERRUPT SERVICE ROUTINE
+         
+SERVCE, CLSK
+        JMP TTYINT      /TTY INTRUPT
+        CLSA
+        CLA
+        DSPLAY          /DISPLAY
+        TAD NOSUN
+        SMA CLA
+        JMP .+3
+        TAD SUNPTR
+        SUN             /DSP SUN
+        ISZ INTCTR
+        JMP RETURN
+        TAD INTCNT      /RESET INTERRUPT
+        DCA INTCTR      /COUNTER,
+        RECALC          /START NEXT
+
+
+
+
+-
+
+SKYLARK,5  LN=345
+
+
+                        /CALCULATION
+                        /CYCLE.
+        
+RETURN, CLA CLL         /GO TO RIGHT
+        TAD 0           /INTERRUPT
+        SZA CLA         /RETURN ROUTINE.
+        JMP RET8
+        
+        LINC            /LINC RET
+         LMODE
+        ADD 40          /FORM RETURN JMP
+        BSE I
+        6000            /[JMP]
+        STC RETLNC
+        ADD IBSAVE      /FORM LDF & LIF
+        ROL 2           /INSTRUCTIONS
+        BCL I
+        7740
+        BSE I
+        0640            /[LDF]
+        STC DFRSET
+        ADD IBSAVE
+        ROR 3
+        BCL I
+        7740
+        BSE I
+        0600            /[LIF]
+        STC IFRSET
+        ADD LSAVE       /RESTORE LINK
+        ROR I 1
+        ADD MQSAVE      /RESTORE MQ
+        SCR 13
+        ADD ACSAVE      /RESTORE AC
+DFRSET, 0               /LDF STORED HERE
+IFRSET, 0               /LIF STORED HERE
+        DJR
+        IOB
+        6001            /[ION]
+RETLNC, 0               /RETURN JMP
+                        /STORED HERE.
+        
+         PMODE
+RET8,   TAD LSAVE       /8-MODE RETURN
+        CLL RAR
+        TAD ACSAVE
+        ION
+        JMP I 0
+        
+TTYINT, KRB
+        TAD CTRLD
+        SNA
+        DIAL            /CALL DIAL
+        TAD CTRLS
+        SZA
+        NEWGAM
+        HLT             /STOP
+        JMP RETURN      /CONTINUE GAME
+
+
+
+
+-
+
+SKYLARK,6  LN=436
+
+
+                        /ON CONT KEY.
+        
+        
+/ THIS INITIALIZES THE INTERRUPT COUNTER
+/ AND SHOULD BE CALLED EACH TIME A GAME
+/ IS STARTED.
+        
+INTSET, 0
+        TAD INTCNT
+        DCA INTCTR
+        JMP I INTSET
+        
+INTCNT, -3
+INTCTR, 0
+CTRLD,  -204
+CTRLS,  204-223
+        
+NEWGAM= JMP I .
+        0400
+RECALC= JMP I .
+        RESTRT
+DSPLAY= JMS I .
+        DISPLA
+SUN=    JMS I .
+        ABSDSP
+SUNPTR, .+1
+        SUNBGN
+DIAL=   JMP I .
+        GTDIAL
+        
+        
+        
+        *400
+        
+/ MAIN PROGRAM
+        
+        KCC
+        CLA CLL         /INITIALIZE
+        TAD BXSTRT      /POSITIONS &
+        DCA BLKXCR      /VELOCITIES
+        TAD BYSTRT
+        DCA BLKYCR
+        TAD BDSTRT
+        DCA BLKDIR
+        TAD WXSTRT
+        DCA WHTXCR
+        TAD WYSTRT
+        DCA WHTYCR
+        TAD WDSTRT
+        DCA WHTDIR
+        DCA BLKXVC
+        DCA BLKYVC
+        DCA WHTXVC
+        DCA WHTYVC
+        DCA BLKSTT
+        DCA WHTSTT
+        CLA CMA
+
+
+
+
+-
+
+SKYLARK,7  LN=527
+
+
+        DCA BLKMST
+        CLA CMA
+        DCA WHTMST
+        CLA CMA
+        DCA BKMNST
+        CLA CMA
+        DCA WTMNST
+        JMS I CLMST0    /SET ALL MINES
+        CLA CMA         /TO NONEXISTANT
+        DCA I ST2PTR
+        JMS I CLNXM0
+        SZA CLA
+        JMP .-4
+        SETINT          /INIT. INT. CTR.
+                        /SET UP CLOCK
+        CLLR            /CLEAR MODES
+        CLEN
+        TAD CLKCNT      /SET TIME
+        CLAB
+        CLA
+        TAD P00100
+        CLLR            /CLR CTR
+        CLSA            /CLR EVENTS
+        CLA
+        TAD P00300      /LOAD CTR
+        CLEN
+        CLA
+        TAD P03100      /START CLOCK
+        CLLR
+        
+RESTRT, CLA CLL
+        ION
+        READSW          /GET SWITCHES
+        CHKXPS          /UPDATE EXPLOSNS
+        MSLNCH          /LAUNCH MSLS
+        RLSMNS          /RELEASE MINES
+        MOVE            /MOVE OBJECTS
+        SETMNS          /SET MINES
+        ISZ NOCLID      /CHK COLLISIONS
+        JMP .+3
+        BCOLID          /BLK COLL.
+        WCOLID          /WHT COLL.
+        JMP .           /WAIT FOR CLOCK
+        
+P00100, 100     /CONSTANTS FOR CLOCK
+P00300, 300
+P03100, 3100
+        
+BXSTRT, 1400    /ADJUST THE STARTING
+BYSTRT, 0       /POSITIONS OF THE SHIPS
+WXSTRT, -1400   /WITH THESE SIX NUMBERS
+WYSTRT, 0
+BDSTRT, 40
+WDSTRT, 140
+        
+CLKCNT, -500    /ADJUST THE SPEED OF THE
+                /GAME WITH THIS AND
+
+
+
+
+-
+
+SKYLARK,10  LN=620
+
+
+                /INTCNT ON PAGE 1
+        
+EDGE=   3600    /ADJUST EDGE OF SCREEN
+SACVCT= 6       /ADJUST SHIP ACCELRATION
+MACVCT= 14      /ADJUST MSL ACCELERATION
+        
+SETINT= JMS I .
+        INTSET
+READSW= JMS I .
+        RSREAD
+CHKXPS= JMS I .
+        EXPCHK
+MSLNCH= JMS I .
+        MISSLE
+RLSMNS= JMS I .
+        MNERLS
+MOVE=   JMS I .
+        MOVMNT
+SETMNS= JMS I .
+        BMNSHP
+BCOLID= JMS I .
+        BLKCOL
+WCOLID= JMS I .
+        WHTCOL
+        
+        
+        PAGE 3
+        
+/ READS OFF RIGHT AND LEFT SWITCHES
+        
+RSREAD, 0
+        CLA CLL
+        DCA BLKENG
+        DCA BLKMNE
+        DCA BLKINV
+        DCA WHTENG
+        DCA WHTMNE
+        DCA WHTINV
+        
+        LINC            /GET SNS"S
+         LMODE
+        SNS 0
+        COM
+        STC NOSUN
+        SNS 1
+        COM
+        STC NOCLID
+        SNS 2
+        COM
+        STC NOGRAV
+        PDP
+         PMODE
+         
+        OSR             /GET RIGHT SWCHS
+        RTL
+        RTL
+        SZL             /SET INVSIBILITY
+
+
+
+
+-
+
+SKYLARK,11  LN=711
+
+
+        ISZ BLKINV      /SWCH
+        RAL
+        DCA RSTEMP      /CHK MSL SWITCH,
+        SZL             /IF THE LOC. IS
+        JMP .+3         /-1, A MISSLE IS
+        DCA BLKMIS      /OUT, 0 MEANS NO
+        JMP .+6         /MSL.  TO LAUNCH
+        TAD BLKMIS      /A MSL, WE STORE
+        SZA CLA         /A 1, TO EXPLODE
+        JMP .+3         /ONE, WE STORE A
+        IAC             /ZERO.  THIS IS
+        DCA BLKMIS      /PREVENT "AUTO"
+                        /FIRING OF A MSL
+                        /WHEN THE FIRST
+                        /EXPLODES.
+        TAD RSTEMP
+        RAL             /CHK MINE SWITCH
+        SZL
+        ISZ BLKMNE
+        RTL
+        RTL
+        SZL             /SET ENG. SWCH
+        ISZ BLKENG
+        RAL             /FIND DIRECTION
+        SNL             /FROM GYRO SWCHS
+        JMP BLKRGT
+        RAL
+        CLA IAC         /LEFT TURN
+        TAD BLKDIR
+        DCA BLKDIR
+        SKP
+BLKRGT, RAL             /RIGHT TURN
+        SNL CLA
+        JMP WHTSWC
+        CMA
+        TAD BLKDIR
+        DCA BLKDIR
+         
+WHTSWC, LINC            /GET LEFT SWCHS
+         LMODE
+        LSW
+        PDP
+         PMODE
+        RAL
+        SZL             /SET INVSIBILITY
+        ISZ WHTINV      /SWCH
+        RAL 
+        DCA RSTEMP      /CHK MSL SWCH,
+        SZL             /SEE BLACK FOR
+        JMP .+3         /EXPLANATION.
+        DCA WHTMIS
+        JMP .+6
+        TAD WHTMIS
+        SZA CLA
+        JMP .+3
+        IAC
+        DCA WHTMIS
+
+
+
+
+-
+
+SKYLARK,12  LN=1002
+
+
+        TAD RSTEMP
+        RAL             /SET MINE SWCH
+        SZL
+        ISZ WHTMNE
+        RTL
+        RTL
+        SZL             /SET ENG. SWCH
+        ISZ WHTENG
+        RAL             /GET TURN DIR.
+        SNL
+        JMP WHTRGT
+        RAL
+        CLA IAC         /LEFT TURN
+        TAD WHTDIR
+        DCA WHTDIR
+        SKP
+WHTRGT, RAL             /RIGHT TURN
+        SNL CLA
+        JMP I RSREAD
+        CMA
+        TAD WHTDIR
+        DCA WHTDIR
+        JMP I RSREAD
+        
+RSTEMP, 0
+        
+        
+        PAGE 4
+        
+/ MOVES EXPLOSIONS THROUGH THEIR
+/ "FRAMES" BY PASSING PARAMETERS TO
+/ UPDATE.
+        
+EXPCHK, 0
+        CLA CLL
+        TAD BLKSTT
+        JMS I UPDAT0
+        DCA BLKSTT
+        TAD BLKMST
+        JMS I UPDAT0
+        DCA BLKMST
+        TAD WHTSTT
+        JMS I UPDAT0
+        DCA WHTSTT
+        TAD WHTMST
+        JMS I UPDAT0
+        DCA WHTMST
+        JMS I CLMST0
+NXTCHK, TAD I ST2PTR
+        JMS UPDATE
+        DCA I ST2PTR
+        JMS I CLNXM0
+        SZA CLA
+        JMP NXTCHK
+        JMP I EXPCHK
+        
+UPDAT0, UPDATE
+
+
+
+
+-
+
+SKYLARK,13  LN=1073
+
+
+         
+        
+/ UPDATER FOR EXPCHK, SETS EXPLOSIONS TO
+/ NEXT FRAME, OR SETS STATUS OF OBJECT
+/ NONEXISTANT IF IT AS AT LAST EXPLOSION
+/ FRAME.
+        
+UPDATE, 0
+        SPA SNA
+        JMP I UPDATE
+        IAC
+        TAD MXPLNG
+        SMA SZA
+        JMP .+3
+        TAD EXPLNG
+        JMP I UPDATE
+        CLA CMA
+        JMP I UPDATE
+        
+MXPLNG, -5      /EXPLOSION LENGTH, IF
+EXPLNG, 5       /YOU CHANGE IT HERE, YOU
+                /MUST CHANGE THE DISPLAY
+                /TABLES, ALSO.
+        
+        
+        PAGE 5
+        
+/ GETS ACCELERATIONS FOR MSLS &
+/ SHPS, LAUNCHES & XPLDES MSLS
+        
+MISSLE, 0
+        CLA CLL
+        TAD BLKSTT      /BLK MSL
+        SNA
+        JMP .+7
+        SPA CLA
+        JMP WTMSMV
+        TAD BLKMST
+        SNA CLA
+        ISZ BLKMST
+        JMP WTMSMV
+        TAD BLKMST      /DOES BLK MSL
+        SPA             /EXIST?
+        JMP NBLKMS
+        SZA CLA
+        JMP WTMSMV
+        TAD BLKMIS      /YES, XPLDE MSL
+        SNA CLA         /IF SWCH SET
+        ISZ BLKMST
+        JMP WTMSMV
+NBLKMS, CLA CLL         /NO, LNCH MSL
+        TAD BLKMIS      /IF SWCH SET
+        SNA SPA CLA
+        JMP WTMSMV
+        DCA BLKMST
+        CLA CMA
+        DCA BLKMIS
+
+
+
+
+-
+
+SKYLARK,14  LN=1164
+
+
+        TAD BLKDIR
+        DCA BLKMDR
+        TAD BLKDIR      /SET ACCL VCTR
+        ROTATX
+        MACVCT
+        DCA BLKMXA
+        TAD BLKDIR
+        ROTATY
+        MACVCT
+        DCA BLKMYA
+        TAD BLKXVC      /SET VEL VCTR
+        DCA BLKMXV
+        TAD BLKYVC
+        DCA BLKMYV
+        TAD BLKDIR      /SET STRT POS
+        ROTATX
+        MSSTRT
+        TAD BLKXCR
+        DCA BLKMXC
+        TAD BLKDIR
+        ROTATY
+        MSSTRT
+        TAD BLKYCR
+        DCA BLKMYC
+WTMSMV, TAD WHTSTT      /WHT MSL
+        SNA
+        JMP .+7
+        SPA CLA
+        JMP I MISSLE
+        TAD WHTMST
+        SNA CLA
+        ISZ WHTMST
+        JMP I MISSLE
+        TAD WHTMST      /DOES MSL EXIST?
+        SPA
+        JMP NWHTMS
+        SZA CLA
+        JMP I MISSLE
+        TAD WHTMIS      /YES, XPLDE MSL
+        SNA CLA         /IF SWCH SET
+        ISZ WHTMST
+        JMP I MISSLE
+NWHTMS, CLA CLL         /NO, LAUNCH MSL
+        TAD WHTMIS      /IF SWCH SET
+        SNA SPA CLA
+        JMP I MISSLE
+        DCA WHTMST
+        CLA CMA
+        DCA WHTMIS
+        TAD WHTDIR
+        DCA WHTMDR
+        TAD WHTDIR      /ACCEL.
+        ROTATX
+        MACVCT
+        DCA WHTMXA
+        TAD WHTDIR
+        ROTATY
+
+
+
+
+-
+
+SKYLARK,15  LN=1255
+
+
+        MACVCT
+        DCA WHTMYA
+        TAD WHTXVC      /VEL.
+        DCA WHTMXV
+        TAD WHTYVC
+        DCA WHTMYV
+        TAD WHTDIR      /POS.
+        ROTATX
+        MSSTRT
+        TAD WHTXCR
+        DCA WHTMXC
+        TAD WHTDIR
+        ROTATY
+        MSSTRT
+        TAD WHTYCR
+        DCA WHTMYC
+        JMP I MISSLE
+        
+        
+        
+        PAGE 6
+        
+/ MINE RELEASES
+        
+MNERLS, 0
+        TAD BLKMNE      /CHK BLK SWCH
+        SPA SNA CLA
+        JMP WHTRLS
+        TAD BLKSTT      /MAKE SURE THERE
+        SZA CLA         /IS A SHIP TO
+        JMP WHTRLS      /DROP THE MINE
+        TAD BKMNST
+        SMA CLA
+        JMP WHTRLS
+        DCA BKMNST      /MAKE UNSET MINE
+        TAD BLKXCR
+        DCA BKMNXC
+        TAD BLKYCR
+        DCA BKMNYC
+        TAD BLKXVC
+        DCA BKMNXV
+        TAD BLKYVC
+        DCA BKMNYV
+WHTRLS, TAD WHTMNE      /CHK WHT SWCH
+        SPA SNA CLA
+        JMP I MNERLS
+        TAD WHTSTT      /MAKE SURE THERE
+        SZA CLA         /IS A SHIP TO
+        JMP I MNERLS    /DROP THE MINE
+        TAD WTMNST
+        SMA CLA
+        JMP I MNERLS
+        DCA WTMNST      /MAKE UNSET MINE
+        TAD WHTXCR
+        DCA WTMNXC
+        TAD WHTYCR
+        DCA WTMNYC
+
+
+
+
+-
+
+SKYLARK,16  LN=1346
+
+
+        TAD WHTXVC
+        DCA WTMNXV
+        TAD WHTYVC
+        DCA WTMNYV
+        JMP I MNERLS
+        
+        
+/ MOVES ALL OBJECTS
+        
+MOVMNT, 0
+        CLA CLL
+        DCA XACCEL
+        DCA YACCEL
+        TAD BLKSTT      /MOVE BLK SHP
+        SZA CLA
+        JMP BKNPWR
+        TAD BLKENG
+        SNA CLA
+        JMP BKNPWR
+        TAD BLKDIR
+        ROTATX
+        SACVCT
+        DCA XACCEL
+        TAD BLKDIR
+        ROTATY
+        SACVCT
+        DCA YACCEL
+BKNPWR, JMS I FRCVL0
+        BLKXCR
+        TAD BLKMST      /MVE BLK MSL
+        SZA CLA
+        JMP BNMPWR
+        TAD BLKMXA
+        DCA XACCEL
+        TAD BLKMYA
+        DCA YACCEL
+BNMPWR, JMS I FRCVL0
+        BLKMXC
+        JMS I FRCVL0    /MOVE BLACK
+        BKMNXC          /UNSET MINE
+        TAD WHTSTT      /MOVE WHITE SHIP
+        SZA CLA
+        JMP WTNPWR
+        TAD WHTENG
+        SNA CLA
+        JMP WTNPWR
+        TAD WHTDIR
+        ROTATX
+        SACVCT
+        DCA XACCEL
+        TAD WHTDIR
+        ROTATY
+        SACVCT
+        DCA YACCEL
+WTNPWR, JMS I FRCVL0
+        WHTXCR
+        TAD WHTMST      /MVE WHT MSL
+
+
+
+
+-
+
+SKYLARK,17  LN=1437
+
+
+        SZA CLA
+        JMP WNMPWR
+        TAD WHTMXA
+        DCA XACCEL
+        TAD WHTMYA
+        DCA YACCEL
+WNMPWR, JMS I FRCVL0
+        WHTMXC
+        JMS I FRCVL0    /MOVE WHITE
+        WTMNXC          /UNSET MINE
+        JMS I MNEST0
+        SNA CLA
+        JMP I MOVMNT
+        JMS I FRENT0
+        JMS I NXTMN0
+        JMP .-4
+        
+FRENT0, FRCENT
+         
+         
+        PAGE 7
+        
+/ CALLS GRAVTY, PASSES X & Y PARAMETERS
+/ TO CHNGPV FOR UPDATING POSITION AND
+/ VELOCITY.
+        
+FRCVEL, 0
+        TAD I FRCVEL    /SET PTRS
+        ISZ FRCVEL
+        DCA XFCPTR
+        TAD XFCPTR
+        IAC
+        DCA YFCPTR
+        TAD YFCPTR
+        IAC
+        DCA XFVPTR
+        TAD XFVPTR
+        IAC
+        DCA YFVPTR
+        JMP .+4
+FRCENT, 0               /THIS ENTRY
+        TAD FRCENT      /POINT IS USED
+        DCA FRCVEL      /FOR MINES --
+        JMS I GRAVT0    /NOTE EQUATES.
+        TAD XACCEL      /PASS X PARAMS
+        DCA ACLRTN
+        TAD XFVPTR
+        DCA VELCTY
+        TAD XFCPTR
+        DCA POSITN
+        JMS I CHNGP0
+        TAD YACCEL      /PASS Y PARAMS
+        DCA ACLRTN
+        TAD YFVPTR
+        DCA VELCTY
+        TAD YFCPTR
+        DCA POSITN
+
+
+
+
+-
+
+SKYLARK,20  LN=1530
+
+
+        JMS I CHNGP0
+        DCA XACCEL
+        DCA YACCEL
+        JMP I FRCVEL
+        
+GRAVT0, GRAVTY
+CHNGP0, CHNGPV
+        
+        
+/ UPDATES POS. AND VEL. FOR ONE COORD.
+        
+CHNGPV, 0
+        CLL             /ADD ACCELRATION
+        TAD ACLRTN      /TO VELOCITY,
+        SPA CLA         /CHK FOR MAX VEL
+        CML 
+        TAD I VELCTY
+        SPA
+        CML
+        SZL
+        JMP YNTMAX
+        SMA
+        JMP YVCPOS
+        TAD ACLRTN
+        SPA
+        JMP YMAXED
+        CLA STL RAR
+        IAC
+        JMP YMAXED
+YVCPOS, TAD ACLRTN
+        SMA
+        JMP YMAXED
+        CLA CLL CMA RAR
+        JMP YMAXED
+YNTMAX, TAD ACLRTN
+YMAXED, DCA I VELCTY
+        TAD I VELCTY
+        CLL             /MUTE VELOCITY,
+        SPA             /MAKE POSITIVE
+        CML             /TO ALLOW FOR 1S
+        SPA             /COMP SCR
+        CIA
+        LINC
+         LMODE
+        SCR 4
+        PDP
+         PMODE
+        SZL             /RESTORE SIGN ON
+        CIA             /VELOCITY.
+        TAD I POSITN    /ADD VEL TO POS
+        DCA I POSITN
+        TAD I POSITN
+        SMA             /CHECK FOR EDGE
+        CIA
+        TAD EDGECR
+        SPA
+        JMP BOUNCE
+
+
+
+
+-
+
+SKYLARK,21  LN=1621
+
+
+        CLA CLL         /NOT AT EDGE
+        JMP I CHNGPV
+BOUNCE, DCA CHNGTP      /AT EDGE, CHECK
+        TAD I VELCTY    /TO SEE AT WHICH
+        SPA CLA         /EDGE.
+        JMP SUBNCE
+        TAD CHNGTP      /POSITIVE EDGE,
+        CLL RAL         /ADD TWICE THE
+        TAD I POSITN    /OVERSHOOT TO
+        DCA I POSITN    /GET POSITION.
+        JMP NEGVEL
+SUBNCE, TAD CHNGTP      /NEGATIVE EDGE,
+        CIA             /SUB. TWICE THE
+        CLL RAL         /OVERSHOOT TO
+        TAD I POSITN    /GET POSITION.
+        DCA I POSITN
+NEGVEL, TAD I VELCTY    /NEGATE VELOCITY
+        CIA
+        DCA I VELCTY
+        JMP I CHNGPV
+        
+EDGECR, EDGE
+CHNGTP, 0
+        
+        
+        PAGE 10
+        
+/ CALCULATES THE FORCE OF GRAVITY ON
+/ EACH OBJECT, RESULTS PASSED THROUGH
+/ XACCEL AND YACCEL.  THE CALCULATION
+/ IS NASTY, WITH BINARY POINTS FLYING
+/ BACK AND FORTH ACROSS THE REGISTERS.
+/ TO TOP IT OFF, THIS SUBROUTINE USES
+/ LINC-MODE 11-BIT MULTIPLY. HAVE FUN!
+        
+GRAVTY, 0
+        TAD NOGRAV
+        SMA CLA
+        JMP I GRAVTY
+        TAD I XFCPTR
+        SPA             /X^2+Y^2
+        CIA
+        LINC
+         LMODE
+        SCR I 6
+        PDP
+         PMODE
+        SZL
+        IAC
+        JMS I SQUAR0
+        DCA GRVTP1
+        TAD I YFCPTR
+        SPA
+        CIA
+        LINC
+         LMODE
+        SCR I 6
+
+
+
+
+-
+
+SKYLARK,22  LN=1712
+
+
+        PDP
+         PMODE
+        SZL
+        IAC
+        JMS I SQUAR0
+        TAD GRVTP1
+        SPA
+        CMA
+        DCA GRVTP1
+        CLA CLL CMA     /EXCLUDE PNTS
+        TAD GRVTP1      /WITHIN 20 DOTS
+        SPA SNA CLA     /OF CENTR
+        JMP I GRAVTY
+        TAD GRVTP1
+        JMS I SQRT0     /CALCULATE
+        LINC            /(X^2+Y^2)^3/2
+         LMODE
+        MUL
+        GRVTP1&1777!4000 /ADDR OF GRVTP1
+        ROL 6
+        BCL I
+        0077
+        STA
+        GRVTP2&1777
+        QAC
+        ROR 5
+        BCL I
+        7700
+        PDP
+         PMODE
+        TAD GRVTP2      /CALCULATE
+        JMS I RECIP0    /1/(X^2+Y^2)^3/2
+        CLL RAR
+        SZL
+        CLL IAC
+        SPA
+        CMA
+        DCA GRVTP1
+        TAD I XFCPTR    /CALCULATE
+        SPA             /X/(X^2+Y^2)^3/2
+        TAD MINUS1
+        LINC
+         LMODE
+        MUL
+        GRVTP1&1777!4000
+        SCR I 1
+        PDP
+         PMODE
+        SZL
+        CLL IAC         /ROUND UP
+        CIA
+        TAD XACCEL
+        DCA XACCEL
+        TAD I YFCPTR    /CALCULATE
+        SPA             /Y/(X^2+Y^2)^3/2
+        TAD MINUS1
+        LINC
+
+
+
+
+-
+
+SKYLARK,23  LN=2003
+
+
+         LMODE
+        MUL
+        GRVTP1&1777!4000
+        SCR I 1
+        PDP
+         PMODE
+        SZL
+        CLL IAC         /ROUND UP
+        CIA
+        TAD YACCEL
+        DCA YACCEL
+        JMP I GRAVTY
+        
+MINUS1, -1
+GRVTP1, 0
+GRVTP2, 0
+        
+        
+        PAGE 11
+        
+/ SETS MINES WHEN THEY ARE FAR ENOUGH
+/ FROM THE SHIP THAT LAUNCHED THEM.
+        
+BMNSHP, 0
+        TAD BKMNST
+        SZA CLA
+        JMP WBMNSH
+        TAD BLKSTT      /IF SHIP
+        SNA CLA         /EXPLODING
+        JMP .+4         /KILL MINE
+        CLA CMA
+        DCA BKMNST
+        JMP WBMNSH
+        TAD BKMNXC      /PASS DISTANCE
+        CIA             /FROM MINE TO
+        TAD BLKXCR      /SHIP TO PRXMTY
+        DCA XDSTNC
+        TAD BKMNYC
+        CIA
+        TAD BLKYCR
+        DCA YDSTNC
+        TAD BMNDST
+        DCA EXPTBL
+        JMS I PRXMT0
+        SZA CLA         /IF FAR ENOUGH,
+        JMP WBMNSH      /SET MNE
+        CLA CMA
+        DCA BKMNST
+        JMS I NMNST0
+        SNA CLA         /IF NO ROOM, MNE
+        JMP WBMNSH      /GOES AWAY
+        TAD BKMNXC
+        DCA I XCMPTR
+        TAD BKMNYC
+        DCA I YCMPTR
+        TAD BKMNXV
+        DCA I XVMPTR
+
+
+
+
+-
+
+SKYLARK,24  LN=2074
+
+
+        TAD BKMNYV
+        DCA I YVMPTR
+        DCA I STMPTR
+WBMNSH, TAD WTMNST
+        SZA CLA
+        JMP I BMNSHP
+        TAD WHTSTT      /IF SHIP
+        SNA CLA         /EXPLODING
+        JMP .+4         /KILL MINE
+        CLA CMA
+        DCA WTMNST
+        JMP I BMNSHP
+        TAD WTMNXC      /PASS DISTANCE
+        CIA             /TO PRXMTY
+        TAD WHTXCR
+        DCA XDSTNC
+        TAD WTMNYC
+        CIA
+        TAD WHTYCR
+        DCA YDSTNC
+        TAD BMNDST
+        DCA EXPTBL
+        JMS I PRXMT0
+        SZA CLA         /IF FAR ENOUGH,
+        JMP I BMNSHP    /SET MNE
+        CLA CMA
+        DCA WTMNST
+        JMS I NMNST0
+        SNA CLA         /IF NO ROOM, MNE
+        JMP I BMNSHP    /GOES AWAY
+        TAD WTMNXC
+        DCA I XCMPTR
+        TAD WTMNYC
+        DCA I YCMPTR
+        TAD WTMNXV
+        DCA I XVMPTR
+        TAD WTMNYV
+        DCA I YVMPTR
+        DCA I STMPTR
+        JMP I BMNSHP
+        
+BMNDST, -144
+        
+        
+        PAGE 12
+        
+/ CHECK FOR BLACKS COLLISIONS BY PASSING
+/ POINTERS TO COLLID
+         
+BLKCOL, 0
+        CLA CLL
+        TAD LOCBXC      /SET BLK SHIP
+        DCA XC1PTR      /PTRS
+        TAD LOCBYC
+        DCA YC1PTR
+        TAD LOCBST
+        DCA ST1PTR
+
+
+
+
+-
+
+SKYLARK,25  LN=2165
+
+
+        TAD LOCWXC      /BLK SHP,WHT SHP
+        DCA XC2PTR
+        TAD LOCWYC
+        DCA YC2PTR
+        TAD LOCWST
+        DCA ST2PTR
+        TAD SSTABL
+        DCA EXPTBL
+        JMS I COLID0
+        TAD LOCBMX      /BLK SHP,BLK MSL
+        DCA XC2PTR
+        TAD LOCBMY
+        DCA YC2PTR
+        TAD LOCBMS
+        DCA ST2PTR
+        TAD MSTABL
+        DCA EXPTBL
+        JMS I MSLSH0
+        TAD LOCWMX      /BLK SHP,WHT MSL
+        DCA XC2PTR
+        TAD LOCWMY
+        DCA YC2PTR
+        TAD LOCWMS
+        DCA ST2PTR
+        TAD MSTABL
+        DCA EXPTBL
+        JMS I MSLSH0
+        JMS I CLMST0    /BLK SHP, MINES
+        TAD NSTABL
+        DCA EXPTBL
+        JMS I COLID0
+        JMS I CLNXM0
+        SZA CLA
+        JMP .-5
+        TAD BLKSTT      /BLACK SHIP, SUN
+        SZA CLA
+        JMP NOBKSH
+        DCA BCOLTP
+        TAD BTMPTR
+        DCA XC2PTR
+        TAD BTMPTR
+        DCA YC2PTR
+        TAD BTMPTR
+        DCA ST2PTR
+        TAD SUNSHP
+        DCA EXPTBL
+        JMS I COLID0
+NOBKSH, TAD LOCBMX      /BLACK MSL, SUN
+        DCA XC1PTR
+        TAD LOCBMY
+        DCA YC1PTR
+        TAD LOCBMS
+        DCA ST1PTR
+        TAD BLKMST
+        SZA CLA
+        JMP NOBKMS
+        DCA BCOLTP
+
+
+
+
+-
+
+SKYLARK,26  LN=2256
+
+
+        TAD SUNMSL
+        DCA EXPTBL
+        JMS I COLID0
+NOBKMS, TAD LOCWMX      /BLK MSL,WHT MSL
+        DCA XC2PTR
+        TAD LOCWMY
+        DCA YC2PTR
+        TAD LOCWMS
+        DCA ST2PTR
+        TAD MMTABL
+        DCA EXPTBL
+        JMS I COLID0
+        JMS I CLMST0    /BLK MSL, MINES
+        TAD NMTABL
+        DCA EXPTBL
+        JMS I COLID0
+        JMS I CLNXM0
+        SZA CLA
+        JMP .-5
+        DCA BCOLTP      /MINES & SUN
+        TAD BTMPTR
+        DCA XC1PTR
+        TAD BTMPTR
+        DCA YC1PTR
+        TAD BTMPTR
+        DCA ST1PTR
+        JMS I CLMST0
+        TAD SUNMNE
+        DCA EXPTBL
+        JMS I COLID0
+        JMS I CLNXM0
+        SZA CLA
+        JMP .-5
+        JMP I BLKCOL
+        
+BTMPTR, BCOLTP
+BCOLTP, 0
+SUNMNE, .+1
+        -341
+        
+        
+        PAGE 13
+        
+/ CHECKS FOR WHITES COLLISIONS BY
+/ PASSING POINTERS TO COLLID
+         
+WHTCOL, 0
+        CLA CLL
+        TAD LOCWXC      /SET WHT SHIP
+        DCA XC1PTR      /PTRS
+        TAD LOCWYC
+        DCA YC1PTR
+        TAD LOCWST
+        DCA ST1PTR
+        TAD LOCWMX      /WHT SHP,WHT MSL
+        DCA XC2PTR
+        TAD LOCWMY
+
+
+
+
+-
+
+SKYLARK,27  LN=2347
+
+
+        DCA YC2PTR
+        TAD LOCWMS
+        DCA ST2PTR
+        TAD MSTABL
+        DCA EXPTBL
+        JMS I MSLSH0
+        TAD LOCBMX      /WHT SHP,BLK MSL
+        DCA XC2PTR
+        TAD LOCBMY
+        DCA YC2PTR
+        TAD LOCBMS
+        DCA ST2PTR
+        TAD MSTABL
+        DCA EXPTBL
+        JMS I MSLSH0
+        JMS I CLMST0    /WHT SHP, MINES
+        TAD NSTABL
+        DCA EXPTBL
+        JMS I COLID0
+        JMS I CLNXM0
+        SZA CLA
+        JMP .-5
+        TAD WHTSTT      /WHITE SHIP, SUN
+        SZA CLA
+        JMP NOWTSH
+        DCA WCOLTP
+        TAD WTMPTR
+        DCA XC2PTR
+        TAD WTMPTR
+        DCA YC2PTR
+        TAD WTMPTR
+        DCA ST2PTR
+        TAD SUNSHP
+        DCA EXPTBL
+        JMS I COLID0
+NOWTSH, TAD LOCWMX      /WHITE MSL, SUN
+        DCA XC1PTR
+        TAD LOCWMY
+        DCA YC1PTR
+        TAD LOCWMS
+        DCA ST1PTR
+        TAD WHTMST
+        SZA CLA
+        JMP NOWTMS
+        DCA WCOLTP
+        TAD SUNMSL
+        DCA EXPTBL
+        JMS I COLID0
+NOWTMS, JMS I CLMST0    /WHT MSL, MINES
+        TAD NMTABL
+        DCA EXPTBL
+        JMS I COLID0
+        JMS I CLNXM0
+        SZA CLA
+        JMP .-5
+        JMS I MNEST0    /MINES & MINES
+        SKP
+
+
+
+
+-
+
+SKYLARK,30  LN=2440
+
+
+OUTRMN, JMS I NXTMN0
+        SNA CLA
+        JMP LASTMN
+        TAD XC1PTR      /THESE LINES
+        DCA XC2PTR      /ARE A KLUDGE TO
+        TAD YC1PTR      /PREVENT CHKING
+        DCA YC2PTR      /A MINE AGAINST
+        TAD ST1PTR      /ONE HIGHER IN
+        DCA ST2PTR      /THE TABLE, AS
+        TAD I MCTPTR    /THEY WERE CHKED
+        DCA I MCCTPT    /ALREADY.
+        TAD I ST1PTR    /CHK FOR COLLISN
+        SZA CLA         /WITH SIDES OF
+        JMP INNRMN      /SCREEN
+        TAD I XC1PTR
+        SMA
+        CIA
+        TAD EDGCOL
+        SMA CLA
+        JMP CKYEDG
+        ISZ I ST1PTR
+        JMP INNRMN
+CKYEDG, TAD I YC1PTR    /CHK FOR COLLISN
+        SMA             /WITH TOP &
+        CIA             /BOTTM OF SCREEN
+        TAD EDGCOL
+        SPA CLA
+        ISZ I ST1PTR
+INNRMN, JMS I CLNXM0
+        SNA CLA
+        JMP OUTRMN
+        TAD NNTABL
+        DCA EXPTBL
+        JMS I COLID0
+        JMP INNRMN
+LASTMN, JMP I WHTCOL
+        
+WTMPTR, WCOLTP
+WCOLTP, 0
+MCTPTR, MNCNTR
+MCCTPT, CLMCTR
+EDGCOL, EDGE-10         /ALLOW FOR MAX
+                        /VELOCITY.
+        
+        
+/ CHECKS TO SEE IF SHIP CAN EAT MISSLE
+        
+MSLSHP, 0
+        TAD I ST1PTR    /ARE BOTH SHIP
+        SZA CLA         /AND MISSLE OK?
+        JMP NOEATM
+        TAD I ST2PTR
+        SZA CLA
+        JMP NOEATM
+        JMS I COLID0    /YES, CHECK FOR
+        TAD I ST1PTR    /EAT
+        SNA CLA
+
+
+
+
+-
+
+SKYLARK,31  LN=2531
+
+
+        JMP I MSLSHP
+        DCA I ST1PTR
+        CMA
+        DCA I ST2PTR
+        JMP I MSLSHP
+NOEATM, JMS I COLID0    /NO EATING
+        JMP I MSLSHP    /POSSIBLE
+        
+        
+        PAGE 14
+        
+/ THIS PROGRAM CHECKS DISTANCE
+/ BETWEEN TWO OBJECTS WHOSE X, Y
+/ COORDS ARE PASSED IN XACCEL AND
+/ YACCEL. STARTS EXPLOSIONS IF NECESSARY
+         
+COLLID, 0
+        CLA CLL
+        TAD I ST1PTR    /IF BOTH EXIST
+        SPA CLA         /AND AT LEAST
+        JMP I COLLID    /ONE IS OK GO
+        TAD I ST2PTR    /TO INTACT,
+        SPA CLA         /ELSE RETURN
+        JMP I COLLID
+        TAD I ST1PTR
+        SNA CLA
+        JMP INTACT
+        TAD I ST2PTR
+        SZA CLA
+        JMP I COLLID
+INTACT, TAD I ST1PTR    /FIND DSTNCE TBL
+        TAD I ST2PTR    /ENTRY, PUT IN
+        TAD EXPTBL      /EXPTBL
+        DCA EXPTBL
+        TAD I EXPTBL
+        DCA EXPTBL
+        TAD I XC1PTR    /PUT X & Y DISTS
+        CIA             /IN XDSTNC AND
+        TAD I XC2PTR    /YDSTNC
+        DCA XDSTNC
+        TAD I YC1PTR
+        CIA
+        TAD I YC2PTR
+        DCA YDSTNC
+        JMS I PRXMT0    /CHECK DISTANCE
+        SNA CLA
+        JMP I COLLID
+        TAD I ST1PTR    /INITIATE XPLSNS
+        SNA CLA
+        ISZ I ST1PTR
+        TAD I ST2PTR
+        SNA CLA
+        ISZ I ST2PTR
+        JMP I COLLID
+        
+        
+/ TAKES IN X DISTANCE IN XDSTNC, Y
+
+
+
+
+-
+
+SKYLARK,32  LN=2622
+
+
+/ DISTANCE IN YDSTNC, IF (DISTANCE)^2 IS
+/ LESS THAN NUMBER PASSED IN EXPTBL;
+/ THEN AC SET TO 1, ELSE AC SET TO 0.
+        
+PRXMTY, 0
+        CLA CLL         /CONVERTS
+        TAD XDSTNC      /DISTANCES TO
+        SPA             /SCREEN FORMAT
+        CIA             /(OTHERWISE, THE
+        CLL RAR         / SQUARES WOULD
+        CLL RAR         / BE TOO BIG TO
+        CLL RAR         / FIT IN ONE
+        DCA XDSTNC      / WORD)
+        TAD XDSTNC
+        TAD MAXDST
+        SMA CLA
+        JMP I PRXMTY
+        TAD YDSTNC
+        SPA
+        CIA
+        CLL RAR
+        CLL RAR
+        CLL RAR
+        DCA YDSTNC
+        TAD YDSTNC
+        TAD MAXDST
+        SMA CLA
+        JMP I PRXMTY
+        TAD XDSTNC      /CALCULATE DSTNC
+        JMS I SQUAR0
+        DCA XDSTNC
+        TAD YDSTNC
+        JMS I SQUAR0
+        TAD XDSTNC
+        TAD EXPTBL
+        SMA SZA CLA
+        JMP I PRXMTY
+        IAC
+        JMP I PRXMTY
+        
+MAXDST, -37
+        
+        
+        PAGE 15
+        
+/ SETS PARAMETERS TO CALL IMAGE TO 
+/ PLOT POINTS ON SCREEN FOR ALL
+/ OBJECTS
+        
+DISPLA, 0
+        TAD BLKSTT      /BLK SHIP
+        SPA CLA
+        JMP DSPWHT
+        TAD BLKXCR
+        DCA XCOORD
+        TAD BLKYCR
+        DCA YCOORD
+
+
+
+
+-
+
+SKYLARK,33  LN=2713
+
+
+        TAD BLKDIR
+        DCA THETA
+        TAD BLKINV      /CHK INVSIBILITY
+        SNA CLA
+        JMP .+4
+        TAD BLKSTT
+        SPA SNA CLA
+        JMP BLKFLR
+        TAD BLKSTT      /BUILD BODY
+        TAD BLKTBL
+        IMAGE
+        TAD BLKSTT
+        SZA CLA
+        JMP DSPWHT
+BLKFLR, TAD BLKENG      /ENG FLARE
+        SNA CLA
+        JMP DSPWHT
+        TAD BLKXCR
+        DCA XCOORD
+        TAD BLKYCR
+        DCA YCOORD
+        TAD FLRTBL
+        IMAGE
+DSPWHT, TAD WHTSTT      /WHT SHIP
+        SPA CLA
+        JMP DSPMSL
+        TAD WHTXCR
+        DCA XCOORD
+        TAD WHTYCR
+        DCA YCOORD
+        TAD WHTDIR
+        DCA THETA
+        TAD WHTINV      /CHK INVSIBILITY
+        SNA CLA
+        JMP .+4
+        TAD WHTSTT
+        SPA SNA CLA
+        JMP WHTFLR
+        TAD WHTSTT      /BUILD BODY
+        TAD WHTTBL
+        IMAGE
+        TAD WHTSTT
+        SZA CLA
+        JMP DSPMSL
+WHTFLR, TAD WHTENG      /ENG FLARE
+        SNA CLA
+        JMP DSPMSL
+        TAD WHTXCR
+        DCA XCOORD
+        TAD WHTYCR
+        DCA YCOORD
+        TAD FLRTBL
+        IMAGE
+DSPMSL, TAD BLKMXC      /BLK MSL
+        DCA XCOORD
+        TAD BLKMYC
+        DCA YCOORD
+
+
+
+
+-
+
+SKYLARK,34  LN=3004
+
+
+        TAD BLKMDR
+        DCA THETA
+        TAD BLKMST
+        TAD MISTBL
+        IMAGE
+        TAD WHTMXC      /WHT MSL
+        DCA XCOORD
+        TAD WHTMYC
+        DCA YCOORD
+        TAD WHTMDR
+        DCA THETA
+        TAD WHTMST
+        TAD MISTBL
+        IMAGE
+        DSMNST          /MINES
+DSPMNE, TAD I XCDPTR
+        DCA XCOORD
+        TAD I YCDPTR
+        DCA YCOORD
+        TAD I STDPTR
+        TAD MNETBL
+        XYIMAG
+        DSNXMN
+        SZA CLA
+        JMP DSPMNE
+        TAD BKMNXC      /"BABY" MINES
+        DCA XCOORD
+        TAD BKMNYC
+        DCA YCOORD
+        TAD BKMNST
+        TAD BMNTBL
+        XYIMAG
+        TAD WTMNXC
+        DCA XCOORD
+        TAD WTMNYC
+        DCA YCOORD
+        TAD WTMNST
+        TAD BMNTBL
+        XYIMAG
+        JMP I DISPLA
+        
+XYIMAG= JMS I .
+        XYDSP
+IMAGE=  JMS I .
+        IMGDSP
+DSMNST= JMS I .
+        DSPMST
+DSNXMN= JMS I .
+        DSPNXM
+        
+XCDPTR, 0               /MINE POINTER
+YCDPTR, 0               /LOCATIONS
+STDPTR, 0
+        
+BLKTBL, BLKSHP          /TABLE OF TABLES
+WHTTBL, WHTSHP          /OF DATA TABLES
+FLRTBL, FLARE
+
+
+
+
+-
+
+SKYLARK,35  LN=3075
+
+
+MISTBL, MISSLD
+MNETBL, MINE
+BMNTBL, BBMINE
+        
+        
+        PAGE 16
+        
+/ DISPLAYS OBJECT WHOSE TABLE IS
+/ "PASSED" THROUGH THE AC, TABLE MAY BE
+/ ANYWHERE.
+        
+IMGDSP, 0
+        DCA TABPTR
+        TAD I TABPTR
+        DCA TABPTR
+        TAD XCOORD      /CONVERT XCOORD
+        TAD P03774      /& YCOORD
+        CLL RAR         /TO SCREEN SPECS
+        CLL RAR
+        CLL RAR
+        DCA XCOORD
+        TAD YCOORD
+        CLL RAR
+        CLL RAR
+        CLL RAR
+        DCA YCOORD
+NXCORD, TAD I TABPTR    /GET NEXT ENTRY
+        ISZ TABPTR
+        SPA             /CHK FOR END
+        JMP CLRRTN
+        CLL RAL
+        DCA RHO
+        TAD I TABPTR
+        ISZ TABPTR
+        TAD THETA
+        AND SNMSKD
+        TAD CSTBLD
+        DCA IMGTMP
+        TAD I IMGTMP
+        LINC
+         LMODE
+        MUL
+        RHO&1777!4000
+        ROR I 1
+        PDP
+         PMODE
+        SZL
+        IAC
+        TAD XCOORD
+        DCA I XDSPLY
+        TAD IMGTMP
+        TAD MCOSDF
+        DCA IMGTMP
+        TAD I IMGTMP
+        LINC
+         LMODE
+        MUL
+
+
+
+
+-
+
+SKYLARK,36  LN=3166
+
+
+        RHO&1777!4000
+        ROR I 1
+        PDP
+         PMODE
+        SZL
+        IAC
+        TAD YCOORD
+        LINC
+         LMODE
+        DIS 0
+        PDP
+         PMODE
+        CLA CLL
+        JMP NXCORD
+        
+CLRRTN, CLA CLL
+        JMP I IMGDSP
+        
+TABPTR, 0
+P03774, 3774
+RHO,    0
+SNMSKD, 0177
+CSTBLD, COSTBL
+MCOSDF, -40
+XDSPLY, .&6000
+IMGTMP, 0
+        
+        
+/ SETS MINE POINTERS FOR DISPLA.  THIS
+/ IS THE EXACT SAME CODE AS CLMNST, IT
+/ IS DUPLICATED HERE TO AVOID HAVING TO
+/ WRITE IT IN RE-ENTRANT CODE FOR THE
+/ INTERRUPTS. (DISPLA IS CALLED ONLY
+/ FROM THE INTERRUPT SERVICE ROUTINE)
+        
+DSPMST, 0
+        CLA CLL
+        TAD NMINES      /SET COUNTER
+        DCA DSPCTR
+        TAD FRSTMN      /SET POINTERS
+        DCA I XCDDPT
+        TAD I XCDDPT
+        IAC
+        DCA I YCDDPT
+        CLA STL IAC RAL
+        TAD I YCDDPT
+        DCA I STDDPT
+        JMP I DSPMST
+        
+DSPCTR, 0
+          
+        
+/ THIS ROUTINE IS THE SAME AS CLNXMN,
+/ SEE ABOVE FOR REASONS.
+        
+DSPNXM, 0
+        CLA CLL
+
+
+
+
+-
+
+SKYLARK,37  LN=3257
+
+
+        ISZ DSPCTR      /CHECK FOR NO
+        SKP             /MORE MINES
+        JMP I DSPNXM
+        CLA CLL IAC RTL /INCREMENT TO
+        IAC             /NEXT MINE
+        TAD I XCDDPT
+        DCA I XCDDPT
+        CLA CLL IAC RTL
+        IAC
+        TAD I YCDDPT
+        DCA I YCDDPT
+        CLA CLL IAC RTL
+        IAC
+        TAD I STDDPT
+        DCA I STDDPT
+        IAC
+        JMP I DSPNXM
+        
+XCDDPT, XCDPTR
+YCDDPT, YCDPTR
+STDDPT, STDPTR
+        
+        
+        PAGE 17
+        
+/ FINDS FIRST EXISTING MINE, RETURNS
+/ ZERO IF NO MINES
+        
+MNESET, 0
+        CLA CLL
+        TAD NMINES      /START COUNTER
+        DCA MNCNTR
+        TAD FRSTMN      /SET UP POINTERS
+        DCA XCMPTR
+        TAD XCMPTR
+        IAC
+        DCA YCMPTR
+        TAD YCMPTR
+        IAC
+        DCA XVMPTR
+        TAD XVMPTR
+        IAC
+        DCA YVMPTR
+        TAD YVMPTR
+        IAC
+        DCA STMPTR
+        JMS NXMENT      /ENTRY POINT IN
+                        /NXMINE
+        JMP I MNESET
+MNCNTR, 0
+        
+        
+/ FINDS NEXT MINE LOC, RETURNS 0 IF NO
+/ MORE MINES.
+        
+INCMNE, 0
+        CLA CLL
+
+
+
+
+-
+
+SKYLARK,40  LN=3350
+
+
+        ISZ MNCNTR      /INCREMENT CTR,
+        SKP             /CHK FOR NO MORE
+        JMP I INCMNE    /MINES.
+        CLA CLL IAC RTL /INCREMENT PTRS
+        IAC
+        TAD XCMPTR
+        DCA XCMPTR
+        CLA CLL IAC RTL
+        IAC
+        TAD YCMPTR
+        DCA YCMPTR
+        CLA CLL IAC RTL
+        IAC
+        TAD XVMPTR
+        DCA XVMPTR
+        CLA CLL IAC RTL
+        IAC
+        TAD YVMPTR
+        DCA YVMPTR
+        CLA CLL IAC RTL
+        IAC
+        TAD STMPTR
+        DCA STMPTR
+        IAC
+        JMP I INCMNE
+        
+        
+/ FINDS 1ST NON-EXISTANT MINE, RETURNS
+/ 0 IF ALL FULL
+        
+NMNSET, 0
+        TAD NMINES      /SET COUNTER
+        DCA MNCNTR
+        TAD FRSTMN      /SET POINTERS
+        DCA XCMPTR
+        TAD XCMPTR
+        IAC
+        DCA YCMPTR
+        TAD YCMPTR
+        IAC
+        DCA XVMPTR
+        TAD XVMPTR
+        IAC
+        DCA YVMPTR
+        TAD YVMPTR
+        IAC
+        DCA STMPTR
+CKNXMN, TAD I STMPTR    /IS IT THERE?
+        SMA
+        JMP .+3
+        CLA IAC         /NO, RETURN.
+        JMP I NMNSET
+        JMS INCMNE      /YES, CHECK NEXT
+        SZA CLA         /(UNLESS AT END)
+        JMP CKNXMN
+        JMP I NMNSET
+        
+
+
+
+
+-
+
+SKYLARK,41  LN=3441
+
+
+        
+/ FIND NEXT EXISTING MINE, RETURN 0
+/ IF NO MINES
+        
+NEXTMN, 0
+        JMS INCMNE      /POINT POINTERS
+        SNA CLA         /NEXT MINE, IF
+        JMP I NEXTMN    /NO MORE, RETURN
+        JMP .+4
+NXMENT, 0               /(ENTRY FOR
+        TAD NXMENT      / MNESET)
+        DCA NEXTMN
+        TAD I STMPTR    /IS IT THERE?
+        SPA CLA
+        JMP NEXTMN+1    /NO, CHECK NEXT.
+        CLA IAC         /YES, RETURN.
+        JMP I NEXTMN
+        
+        
+/ SETS 2ND SET OF COLLISION PTRS
+/ TO 1ST MINE
+        
+CLMNST, 0
+        CLA CLL
+        TAD NMINES      /SET COUNTER
+        DCA CLMCTR
+        TAD FRSTMN      /SET POINTERS
+        DCA XC2PTR
+        TAD XC2PTR
+        IAC
+        DCA YC2PTR
+        CLA STL IAC RAL
+        TAD YC2PTR
+        DCA ST2PTR
+        JMP I CLMNST
+CLMCTR, 0
+        
+        
+/ SETS 2ND SET OF COLL. PTRS
+/ TO NEXT MINE LOC.
+        
+CLNXMN, 0
+        CLA CLL
+        ISZ CLMCTR      /INCREMENT CTR.
+        SKP             /IF NO MORE,
+        JMP I CLNXMN    /RETURN.
+        CLA CLL IAC RTL /MOVE POINTERS
+        IAC             /TO NEXT MINE.
+        TAD XC2PTR
+        DCA XC2PTR
+        CLA CLL IAC RTL
+        IAC
+        TAD YC2PTR
+        DCA YC2PTR
+        CLA CLL IAC RTL
+        IAC
+        TAD ST2PTR
+
+
+
+
+-
+
+SKYLARK,42  LN=3532
+
+
+        DCA ST2PTR
+        IAC
+        JMP I CLNXMN
+        
+        
+        *4011
+        
+/ CALLS DIAL
+        
+GTDIAL, LINC
+         LMODE
+        LDF 3
+        LDA I
+        20
+        ESF             /I-O PRESET
+        RCG             /(0701)
+        7300
+                /SEE, IT"S JUST LIKE
+                /STARTING UP DIAL.
+                /(THE NEXT LOC IS 20)
+        
+        
+         PMODE
+        
+/ XY DISPLAY, USES LOCS 0-3 OF LIF.
+/ ALL DATA FOR THIS ROUTINE MUST BE IN
+/ SEGMNT 3.
+        
+XYDSP,  0
+        DCA 4001
+        TAD XCOORD
+        TAD P3774A
+        CLL RAR
+        CLL RAR
+        CLL RAR
+        DCA 4002
+        TAD YCOORD
+        CLL RAR
+        CLL RAR
+        CLL RAR
+        DCA 4003
+        CMA
+        TAD I 4001
+        LINC
+         LMODE
+        STC 1
+        LDF 3
+NXTPNT, LDA I 1
+        APO             /- IS END OF TBL
+        JMP ENDPLT
+        ADD 2
+        STC 0
+        LDA I 1
+        ADD 3
+        DIS 0
+        JMP NXTPNT
+ENDPLT, PDP
+
+
+
+
+-
+
+SKYLARK,43  LN=3623
+
+
+         PMODE
+        CLA CLL
+        JMP I XYDSP
+        
+P3774A, 3774
+        
+        
+/ ABSOLUTE SCREEN COORD DISPLAY, USES
+/ LOCS 0 & 1 OF LIF.  ALL DATA FOR THIS
+/ ROUTINE MUST BE IN SEGMNT 3.
+        
+ABSDSP, 0
+        DCA 4001
+        CMA
+        TAD I 4001
+        DCA 4001
+        LINC
+         LMODE
+        LDF 3
+NXTSPT, LDA I 1
+        APO
+        JMP ENDABS
+        STC 0
+        LDA I 1
+        DIS 0
+        JMP NXTSPT
+ENDABS, PDP
+         PMODE
+        CLA CLL
+        JMP I ABSDSP
+        
+        
+        PAGE 21
+        
+/ RETURNS FIXED POINT 1/(AC)
+/ NOTE: THIS ROUTIN USES 13 BIT
+/ ARITHMETIC WITH THE LINK BEING A 
+/ WEIRD SIGN BIT.
+        
+RECIPR, 0
+        SZA
+        JMP .+3
+        CMA CLL         /RETURN 0.7777
+        JMP I RECIPR    /FOR OVERFLOW
+        DCA DIVISR
+        DCA QUOTNT
+        DCA DIVCNT
+        TAD DIVISR      /NORMALIZE
+CHKNRM, SPA
+        JMP NORMED
+        CLL RAL
+        ISZ DIVCNT
+        JMP CHKNRM
+NORMED, CIA             /STORE NEGATED
+        DCA DIVISR      /DIVISOR & CNT
+        TAD DIVCNT
+        CMA
+
+
+
+
+-
+
+SKYLARK,44  LN=3714
+
+
+        DCA DIVCNT
+        CLA CMA         /FORM 0.7777
+        JMP STRTDV
+DVLOOP, TAD DIVISR      /SCALE DIVISOR
+        STL RAR         /FOR NEXT SUB.
+        DCA DIVISR
+        TAD QUOTNT
+        CLL RAL         /SHIFT QUOTIENT
+        DCA QUOTNT
+        TAD DIVDND      /SUBTRACT DIVISR
+STRTDV, STL             /FROM DIVIDEND
+        TAD DIVISR
+        SZL             /STILL POSITIVE?
+        JMP DGNTST
+        ISZ QUOTNT      /YES, FINALIZE
+        DCA DIVDND      /SUBTRACTION
+DGNTST, ISZ DIVCNT
+        JMP DVLOOP
+        CLA CLL
+        TAD QUOTNT
+        JMP I RECIPR
+        
+DIVISR, 0
+QUOTNT, 0
+DIVCNT, 0
+DIVDND, 0
+        
+        
+/ RETURNS (AC)^2, ALL NUMBERS ASSUMED
+/ POSITIVE INTEGERS MOD 64
+        
+SQUARE, 0
+        AND SQRMSK
+        TAD SQTABL
+        DCA SQRTMP
+        TAD I SQRTMP
+        JMP I SQUARE
+        
+        
+/ RETURNS GREATEST INTEGER >= SQRT(AC),
+/ ALL NUMBERS ASSUMED POSITVE INTEGERS.
+/ USES BINARY CHOP ON SQUARE TABLE.
+        
+SQRT,   0
+        DCA SQRTMP      /SET PTRS
+        TAD TWOPTR
+        DCA BINPTR
+        TAD SQTABL
+        TAD I BINPTR
+        DCA SQTPTR
+        TAD SQRTMP
+        SMA CLA
+        JMP SQRTLP
+        CLA             /START AT HIGH
+        ISZ BINPTR      /END OF TABLE
+        TAD I BINPTR    /FOR HIGH NUMBER
+        TAD SQTPTR
+
+
+
+
+-
+
+SKYLARK,45  LN=4005
+
+
+        DCA SQTPTR
+SQRTLP, TAD I SQTPTR    /ARE WE THERE?
+        CIA
+        TAD SQRTMP
+        SMA CLA
+        JMP CHKLOW
+        ISZ BINPTR      /NO, TOO HIGH
+        TAD I BINPTR
+        CIA
+        TAD SQTPTR
+        DCA SQTPTR
+        JMP SQRTLP
+CHKLOW, ISZ SQTPTR
+        TAD I SQTPTR
+        CIA
+        TAD SQRTMP
+        SPA CLA
+        JMP RGHTON
+        ISZ BINPTR      /NO, TOO LOW
+        CLA CMA
+        TAD SQTPTR
+        TAD I BINPTR
+        DCA SQTPTR
+        JMP SQRTLP
+RGHTON, TAD SQTABL      /RIGHT ON, RETRN
+        CMA             /INDEX OF NUMBER
+        TAD SQTPTR      /FOUND.
+        JMP I SQRT
+        
+SQRTMP, 0
+SQTPTR, 0
+SQTABL, SQRTBL
+SQRMSK, 0077
+BINPTR, 0
+TWOPTR, .+1
+        40
+        20
+        10
+        4
+        2
+        1
+        
+        
+        PAGE 22
+        
+/ RETURNS SIN(AC), AC IS IN 128-THS
+/ OF A CIRCLE, SINE IS OF FORM
+/ +-S.BBBBBBBBBBB
+/ (USES TABLE LOOKUP)
+        
+SINSRC, 0
+        AND TRGMSK
+        TAD SNTABL
+        DCA TRGSTO
+        TAD I TRGSTO
+        JMP I SINSRC
+        
+
+
+
+
+-
+
+SKYLARK,46  LN=4076
+
+
+SNTABL, SINTBL
+        
+        
+/ RETURNS COS(AC)
+        
+COSRCH, 0
+        AND TRGMSK
+        TAD CSTABL
+        DCA TRGSTO
+        TAD I TRGSTO
+        JMP I COSRCH
+        
+CSTABL, COSTBL
+TRGMSK, 0177
+        
+        
+/ RETURNS (1ST PARA POSITION)*COS(AC)
+        
+XROTAT, 0
+        COSINE          /GET COSINE
+        DCA TRGSTO
+        TAD XROTAT      /MOVE RETURN
+        DCA YROTAT      /ADDR SO BOTH
+        JMP XENTRY      /SUBRS CAN USE
+                        /SAME CODE.
+        
+/ RETURNS (1ST PARA POSITION)*SIN(AC)
+        
+YROTAT, 0
+        SINE            /GET SINE
+        DCA TRGSTO
+XENTRY, TAD I YROTAT    /GET 1ST PARA.
+        ISZ YROTAT
+        CLL RAL
+        LINC
+         LMODE
+        MUL             /MULTIPLY,
+        TRGSTO&1777!4000
+        SCR I 1         /CORRECT FOR 11-
+        PDP             /BIT MULTIPLY.
+         PMODE
+        SZL
+        IAC
+        JMP I YROTAT
+        
+TRGSTO, 0
+         
+        
+        
+/
+/
+/  SKYLARK                      01/15/78
+/
+/
+/  THIS IS THE EXECUTABLE CODE FOR
+/  SKYLARK VERSION 5 (OR THEREABOUTS).
+/  THIS IS NOT ALL THERE IS.  DUE TO
+
+
+
+
+-
+
+SKYLARK,47  LN=4167
+
+
+/  DIAL"S TURKEY EDITOR, THE PROGRAM WAS
+/  SPLIT INTO CODE AND DATA TABLES.  YOU
+/  HAVE TO HAVE BOTH TO MAKE IT WORK.
+/
+///////////////////////////////////////
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
+
+
+
+
+
+
+
+
+
+
+
+\\

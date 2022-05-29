@@ -1,0 +1,630 @@
+﻿Preliminary Documentation of the P?S/8 PAL Assembler
+
+Last edit: 23-Dec-2014	cjl
+
+This is an initial stopgap documentation file to provide certain specific
+information about the P?S/8 PAL assembler as of Version 8S [06-Oct-1987].  This was
+implemented on P?S/8 Version 8Z [which was first released 12-Dec-1986 for the
+TC01/TC08 DECtape controller with 1-8 TU55/TU56 DECtape drives] as an update for a
+prior version of P?S/8 PAL, along with other system components added over the course
+of time.  [Note: The P?S/8 Monitor runs on many hardware configurations; consult
+P?S/8 configuration documentation for a complete list of supported hardware
+configurations.  P?S/8 system components often have independent version numbers.
+Consult the appropriate documentation for each program for further information.]
+____________________________________________________________________________________
+P?S/8 PAL Assember command-line switch options
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+
+
+ ability
+		to use the default output % and perhaps $ files on a different
+		physical drive which could be a performance advantage.
+
+
+
+
+	/A	Use all symbols where applicable including the permanent symbols.
+		This is used in several phases of the assembly process such as the
+		symbol-table printout at the end of the last pass.  The default is
+		to only output user symbols created during the assembly.  By using
+		the /A option, all symbols will be processed including internal
+		directives [also known as pseudo-operations].
+
+
+
+	/C	Core [memory] utilization is optimized for maximum symbol table size
+		instead of maximum assembly eficiency and throughput.  This may make
+		assembly of larger source files possible as available buffer space
+		is used for additional symbols instead of larger input or output
+		buffers.
+
+		On certain P?S/8 configurations it may be possible to obtain the use
+		of a partial additional memory field [generally 3K] in situations
+		where the last 1K of the highest field of physical memory is being
+		used by the system handler extended memory extension [if applicable]
+		and the Logical Console Overlay is disabled.  The system Logical
+		Core Size cannot be set beyond the largest fully available extended
+		memory field [if applicable].  On smaller configurations, the
+		availability of an additional 3K of memory allows as many as 768
+		additional symbols in the source file[s] which might make larger
+		assemblies possible without requiring additional memory beyond the
+		current configuration.
+
+		Note: The /C option will also override the current Logical Core Size
+		setting if additional complete memory fields are available; in such
+		situations, it is not necessary to change the overall assembly
+		method; internal operations will be optimized for maximum throughput
+		which is the norm.  [This is necessary when the Logical Core Size is
+		set to an artificially lowered value.]
+
+		If it is desired to optimize for maximum symbol table space at the
+		expense of throughput when additional complete memory fields are
+		available, set the Logical Core Size to the maximum allowed.  If the
+		system reserves the highest field of memory for the system handler
+		extended memory extension and the Logical Console Overlay is
+		disabled the /C option will optimize for maximum symbol space.
+
+
+
+	/E	When literals are in effect [see /Q and /O], as the assembly process
+		leaves any current page, the boundaries of how far into the page
+		generated code words reached, and also how far back literals were
+		generated [starting at the end of the page and progressing backwards
+		as long as these two boundaries are not in conflict], are internally
+		stored.  This is done to allow the possibility of returning to a
+		previous page for the purpose of allowing additional code to be
+		created with the possibility of additional literals.  In this
+		case, any additional literals will be created at still lower
+		addresses consistent with the previous boundaries used, etc.  [Note:
+		because the page had been abandoned, the former literals have
+		already been dumped into the binary output; this merely allows
+		addtional literals to be created at non-conflicting addresses.  If
+		a new line of code creates a literal with the same value as one used
+		earlier, that value will not be used; the literal will be created
+		redundantly.  The only way to avoid this is to never leave the
+		current page unless all code on the page is finalized.
+
+		Although seldom used, the above description applies as to how the
+		assembler deals with literals when tracing back to formerly used
+		pages.  However, if a page of code assembles into the same address
+		but is actually an overlay [using various techniques to separate
+		overlay code from the main code] the literal boundaries should be
+		set as if this is the first time literals are being created on the
+		page.  By setting the /E switch, default behavior is overriden; the
+		code will be generated independently with the normal defaults
+		associated with a new assembly of the current page.  [Note:  It is
+		still the programmer's responsibility to ensure the overlay
+		mechanism chosen actually functions as expected; this is beyond the
+		scope of the assembler.]
+
+		The default behavior described here is often referred to as
+		"remembering" literal boundaries.  The /E option "erases" this
+		"memory".
+
+
+
+	/G	Setting the /G switch will force a chain to the P?S/8 BIN utility
+		[after possibly chaining to the P?S/8 MAP utility if /M is set] for
+		the purpose of either loading the binary output files created during
+		the assembly process or punching binary paper-tapes [if the /W
+		option is also set].  The chain to BIN is only permitted if there
+		are no assembly errors.  [Note: Additional BIN option switches may
+		also be passed to customize the BIN utility operating specifics.]
+
+
+
+
+
+
+
+/	/U	SET /B AND USE %:[BOOTSTRAP UNIT XOR-ED WITH 0001] ALSO $:[BOOTSTRAP
+/		UNIT XOR-ED WITH 0001] IF /D. OVERRIDEN IF BINARY OUTPUT FILES.
+
+
+
+
+
+/	/I	SET /G AND INDICATE RELOADING OF SYSTEM I/O HANDLER AFTER LOADING
+/		(IGNORED IF /V ALSO PASSED OR SYSTEM USES VIRTUAL LOADER BY DEFAULT).
+/	/J	DO NOT GENERATE TRAILING WORD OF ZERO ON EVEN-LENGTH TEXT MESSAGES.
+	/K	DUAL MEANING - IF /L AND /N ARE SET: GENERATE A NEW TITLE FROM THE
+/		FIRST LINE OF EVERY FILE, NOT JUST THE FIRST FILE. IF /L IS NOT SET:
+/		FORCE A SECOND PASS EVEN IF /B IS NOT SET SO THAT SECOND PASS CAN BE
+/		PERFORMED (ALONG WITH ANY ADDITIONAL ERROR MESSAGES IN THE SECOND PASS).
+/		THIS ALLOWS A TWO-PASS ASSEMBLY WITH NO LISTING AND NO BINARY.
+/	/L	ENABLE SECOND PASS LISTING. OTHER SWITCHES MAY ENHANCE THE OUTPUT.
+/	/M	SET /B AND CHAIN TO MAP:[BOOTSTRAP UNIT] AFTER END OF ASSEMBLY. IF /G
+/		THEN MAP WILL CHAIN TO BIN:[BOOTSTRAP UNIT] AT END OF THE MAP PRINTOUT
+/		IF NO ASSEMBLY ERRORS.
+/	/N	ENABLE NEATNESS OPTIONS ON ALL APPROPRIATE OUTPUT. ENABLES TITLES ON
+/		THE LISTING IF /L AND PAGINATED LISTINGS OF ERROR MESSAGES IF /L NOT
+/		ENABLED. CHECKS FOR SYSTEM LPT: AND REDIRECTS ALL PRINTED OUTPUT TO LPT:
+/		IF AVAILABLE. SEE ALSO /K.
+/	/O	ENABLE LITERALS. USED WITHOUT /Q TO ENABLE OFF-PAGE REFERENCE FIXUPS
+/		(LINKS) WITH "LG" ERROR MESSAGE. IF /Q THEN DISABLE "LG" ERRORS.
+/	/P	ENABLE WIDE (PRINTER) TYPE OUTPUT ON SYMBOL TABLE, XREF, AND MAP
+/		OUTPUT (IF ANY). NOT PASSED TO BIN IF /G (DELETED BY MAP IF /M).
+/	/Q	ENABLE LITERALS. SEE ALSO /O.
+/	/R	SET /G AND /W INDICATING USE OF RIM FORMAT PUNCHED OUTPUT. SEE ALSO /F.
+/	/S	ENABLE SYMBOL TABLE AT END OF FINAL PASS (1 OR 2). SEE ALSO
+/		/A AND /K AND /N.
+/	/T	DISABLE CHECK FOR SYSTEM LPT: SO OUTPUT GOES TO SYSTEM CONSOLE EVEN IF
+/		/N IS IN EFFECT AND LPT: IS AVAILABLE.
+/	/U	SET /B AND USE %:[BOOTSTRAP UNIT XOR-ED WITH 0001] ALSO $:[BOOTSTRAP
+/		UNIT XOR-ED WITH 0001] IF /D. OVERRIDEN IF BINARY OUTPUT FILES.
+/	/V	SET /G AND INDICATE USE OF VIRTUAL LOADER.
+/	/W	SET /G AND INDICATE PUNCHING OF BINARY OUTPUT FILES. SEE ALSO /F AND /R.
+/	/X	IF /L THEN ENABLE CROSS-REFERENCE OUTPUT PROCESSING. SEE ALSO /A AND /P.
+/	/Y	"!" DOES A BYTE SHIFT (^100!) INSTEAD OF INCLUSIVE OR.
+/	/Z	SET /G AND INDICATE STORING OF ZERO IN ALL USER MEMORY.
+/	/0	FIELD SETTINGS GENERATE AN AUTOMATIC *0200.
+/	/1-/7	STARTING FIELD SWITCHES PASSED TO BIN. IF CHAINING TO MAP, THESE
+/		SWITCHES ARE IGNORED BY MAP BUT WILL BE PASSED IF CHAINING FURTHER TO
+/		BIN (/M AND /G AND NO ASSEMBLY ERRORS).
+/	/8	ENABLE LINC MODE CROSS-ASSEMBLY FEATURES AND START ASSEMBLY
+/		IN PMODE AT 000200.
+/	/9	ENABLE LINC MODE CROSS-ASSEMBLY FEATURES AND START ASSEMBLY
+/		IN LMODE AT 004020.
+/	=XXXX	SET /G AND PASS THE VALUE AS A STARTING ADDRESS TO BIN.
+
+Chaining considerations:
+
+P?S/8 PAL can chain to P?S/8 MAP to produce a formatted bitmap of all locations
+loaded by the program.  The main output consists of a series of digits "0" through
+"6" and "*" [where "*" means seven or more loads to the same location].  In a
+complex assembly, it is important to perhaps relocate binary output for subsequent
+execution in a defined set of memory locations, but the actual binary loading must
+conform to programming rules designed by the programmer to modify the loading after
+the fact according to some form of overlay scheme or perhaps write out then read in
+from a storage device.  The bitmap can confirm the loading does follow the proper
+expectations.
+
+	/M	Chain to P?S/8 MAP after the assembly ends to create a bitmap output
+		on the same device as the P?S/8 PAL output; formatting rules applied
+		to P?S/8 PAL will appy.  P?S/8 MAP is located on the same logical
+		unit as the system bootstrap unit.
+
+		Using the /M switch will internally force the /B switch to ensure
+		binary out.  If the /G switch is set P?S/8 MAP will then chain to
+		P?S/8 BIN unless there are assembly errors.
+
+Note: All chaining operations pass the original output files in effect as input
+files to P?S/8 MAP and/or P?S/8 BIN.  Output files that were passed but not actually
+used are deleted during the chain process.
+
+	/W	Chain to P?S/8 BIN [perhaps after first chaining to P?S/8 MAP; see
+		/M].  The binary files produced by the assembly will be punched out
+		in BIN binary paper-tape format on the low-speed punch associated
+		with the system console; this can be modified by the use of the /F
+		and /R switches.
+
+	/G	Chain to P?S/8 BIN [perhaps after first chaining to P?S/8 MAP; see
+		/M].  This switch may be set expressly or is forced on by any of the
+		loading options of P?S/8 BIN.  Note: If /W is set, the binary output
+		will be punched in binary paper-tape format instead of loaded.  The
+		chain to P?S/8 BIN will be inhibited if there were assembly errors.
+		P?S/8 BIN is located on the same logical unit as the system
+		bootstrap unit.
+
+Loading options and other considerations regarding the chain to P?S/8 BIN.
+
+Paper-tape punching options.
+
+	/F	The /F switch internally sets the /G switch to force a chain to
+		P?S/8 BIN if possible.  The /W switch is also set which causes P?S/8
+		BIN to punch binary paper-tape output instead of loading the
+		contents of the binary file[s] into memory.  The /F switch forces
+		the paper-tape output to be punched on the high-speed punch.  [Note:
+		If /F is not given, the binary paper-tape will be punched on the
+		system console device.]
+
+	/R	The /R switch internally sets the /G switch to force a chain to
+		P?S/8 BIN if possible.  The /W switch isalso set which causes P?S/8
+		BIN to punchbinary paper-tape output instead of loading the contents
+		of the binary file[s] into memory.  The /R switch changes the
+		paper-tape output to RIM format [instead of the default BIN format].
+
+Binary file loading options [which are only in effect if /W is not set].
+
+	/H	The /H switch internally sets the /G switch to force a chain to
+		P?S/8 BIN if possible.  Before loading the contents of the binary
+		files created during the assembly, the contents of all available
+		memory is first preset to 7402 [the PDP-8 HLT instruction].
+
+
+	/H	This is one of the options that causes a chain to BIN after a
+		successful assembly; the /G switch is forced on internally.  When
+		the binary files created during the assembly are about to be loaded,
+		the contents of all available memory locations are first preset to
+		7402 [the PDP-8 HLT instruction].  [See the /G description for more
+		information.]
+
+
+
+Binary output file considerations:
+
+To produce binary output files during the assembly process, output files must be
+passed on the command line either explicitly or by some combination of the following
+binary output option switches:
+
+	/B	If explicit binary output files are not passed to P?S/8 PAL, the "%"
+		file [which is located in absolute blocks 0020-0037] will be used
+		for binary output.  [Note: Any form of binary output file
+		specification causes a second assembly pass.]  The use of certain
+		other option switches may force /B to be set internally as part of
+		their functionality [see /D, /M and /U].
+
+		Unless overriden, the logical unit for the "%" output file is the
+		same as the system bootstrap unit [see /U].
+
+	/D	If explicit binary output files are not passed to P?S/8 PAL, the "%"
+		and [if necessary] "$" files [which are located at absolute blocks
+		0020-0037 and 0040-0057 respectively] will be used as binary output
+		files.  [Note: Any form of binary output file specification causes a
+		second assembly pass.]  The use of the /D switch internally forces
+		the /B switch.  If the entire binary output is contained in the "%"
+		file, the /D switch will be internally removed; this is only
+		relevant if chaining to MAP and/or BIN [see /M and any of the
+		loading options that chain to BIN].  Unless overriden, the logical
+		unit for the "%" and "$" file is the same as for the system
+		bootstrap unit [see /U].
+
+	/U	The /U switch is a modifier to the /B and /D switches.  The actual
+		logical unit used for the "%" [and "$"] file[s] is changed from the
+		bootstrap unit to [bootstap unit .XOR. 1].  This allows the use of
+		these same default areas perhaps on a different physical drive which
+		may provide a significant performance advantage.
+
+At the end of the assembly a report is given as to how many output files were
+created.  As necessary, the list of output files will be reduced to only the files
+actually written; this only applied if chaining options were used for further 
+processing of the output files by P?S/8 MAP or P?S/8 BIN.  [Note: The chain to P?S/8
+BIN will be inhibited if there were any errors during the assembly.  P?S/8 MAP will
+process the binary output files but honor the restriction due to errors and
+inhibit any futher chain to P?S/8 BIN.]
+
+____________________________________________________________________________________
+P?S/8 PAL Assember Error Messages
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Error messages may be issued at various phases of the assembly process.  Where
+relevant, the message may include additional information; in some instances, the
+exact nature of the message format may be pass-dependent.
+
+      Message		Meaning
+
+	BE		Current Page Literal Buffer Exceeded.  The code must be
+			reorganized to conform to PDP-8 addressing rules.  A
+			possible solution is to change some of the literal usage to
+			page zero literals; otherwise the code must be reorganized.
+
+	BO		Binary Output exceeded.  There are insufficient output files
+			to store the entire binary output of the assembly; this is a
+			fatal error which aborts the assembly process.  Additional
+			output files must be used to attempt to remedy this.  Note:
+			Logic errors associated with certain usage of the ZBLOCK
+			directive may cause an unexpected increase in binary output
+			size.
+
+			P?S/8 includes the ability to create longer temporary input
+			files in the extended user directory if required; this would
+			shorten the input file list and allow for additional output
+			files for unusually large assemblies.
+
+			Assuming a single input file, P?S/8 PAL allows for up to 16
+			binary output files which can store approximately 28K; this
+			is the largest individual assembly possible.
+
+			In general, PDP-8 projects break down into somewhat smaller
+			program modules perhaps meant to be loaded into memory all
+			together once fully developed.  If necessary, P?S/8 BIN can
+ 			be invoked multiple times to complete all necessary binary
+			loading.  No P?S/8 configuration occupies more than at most
+			7600-7777 in field 0 and perhaps 0000-7777 in the highest
+			memory field available [assuming the presence of both the
+			Logical Console Overlay and an extended memory system device
+			handler extension].  Assuming the largest supported
+			configuration of 32K, this generally allows a program to
+			occupy 28K of available memory; this is consistent with both
+			the largest output of a single assembly with P?S/8 PAL and
+			the largest binary input that P?S/8 BIN can load from a
+			single command line.  While this should always suffice, the
+			P?S/8 SHELL environment will support the XPAL assembler
+			which can create somewhat larger binary output files.  Note:
+			Typical assembly listings contain 55 lines of code per page.
+			A single program listing for such a huge project would
+			require over 500 pages per assembly.  Most PDP-8 programs
+			are a fraction of this size.
+
+	CO		Conditional assembly Error.  The use of conditional assembly
+			requires conforming to certain rules regarding the use of
+			the "<" and ">" characters [including those contained within
+			comments].
+
+			In general, for each "<" character within a failing
+ 			conditional section, it is mandatory to have a matching ">"
+			character.  This error indicates that conditional assembly
+			designed to fail uses improper source code techniques which
+			must be remedied.  [Note: When conditional assembly is in
+			effect and not failing, the assembly process is still
+			checking for proper bracketing overall; this allows for
+			maximum flexibility in cases where conditionals are nested
+			and only certain portions are failing.]
+
+	DT		Duplicate Tag Error.  An attempt is being made to redefine
+			an existing symbol, to a different value than has already
+			been established, by the use of a "," label.  [Labels by ","
+			are allowed on all statements including null statements.]
+
+			During the assembly, symbols defined by"=" are allowed to
+			redefine any user symbol.  It is possible a symbol defined
+			by a "," is being defined differently from that obtained
+			where an "=" is used elsewhere in the assembly; the two must
+			be resolved consistently.
+
+			In the typical case, a symbol defined by a "," label must
+			not be redefined to a different value by another "," label.
+			However, there is no problem with multiple definitions of
+			any symbol to identical values.  This is a valid programming
+			technique used to define overlays to the same memory space
+			that will occupy the space at different times.
+
+	ER		Program-controlled User Error.  This is caused deliberately
+			by the source file containing an instance of the ERROR
+			directive.  An associated value is provided; the
+			interpretation of the error is entirely determined by the
+			programmer.  Often the associated value indicates the
+			address of the assembly to more easily determine the section
+			of code affected [in which case the statement would resemble
+			the following: IFNZRO .-20 <ERROR .>].
+
+			User errors are generally used within critical sections of
+			source code where certain conditions must be maintained to
+			prevent logic errors in the programming.  Conditional
+			assembly is used to cause the section containing the ERROR
+			directive to routinely fail; however, if some internal logic
+			is broken at the source level [perhaps by faulty maintenance
+			of the source code], the conditional will succeed causing
+			the ERROR directive to be assembled; this will [hopefully]
+			alert the programmer that some pre-established program
+			requirement has been broken by some recent program changes.
+
+			As with any other form of error, user errors prevent any
+			chain from P?S/8 PAL to P?S/8 BIN to prevent loading [or
+			punching] of flawed binary output.
+
+	FI		FIXMRI Error.  An attempt is being made to use the FIXMRI
+			directive improperly; FIXMRI has explicit definition rules
+			that will be flagged if used improperly.
+
+	IC		Illegal Character Error.  A syntax error has occurred where
+			a certain character is not allowed in the current context.
+			The affected program section must be analyzed to determine
+			the specific problem.
+
+			It is possible the reason for an illegal character error is
+			failure to enable an assembly option such as literal
+			generation.
+
+	IE		Illegal Expression Error.  An "=" statement is being
+			attempted with some form of illegal character formation.
+			This must be analyzed to determine the specific problem.
+
+	II		Illegal Indirect Error.  An attempt is being made to use
+			a location as an indirect pointer that is out of the legal
+			addressing range.  The program must be reorganized to
+			follow the PDP-8 addressing rules.
+
+			This generally comes about in situations where the current
+			page has overflowed; the program must be reorganized as
+			necessary.  Indirect references must be made through direct
+			addresses that point to the indirect data; the pointers must
+			be addressable directly.
+
+	IM		Insufficent Memory.  The current configuration of memory is
+			too small to support the collection of options chosen.  This
+			is only possible when attempting an assembly requiring many
+			options is run on a very small configuration.  It may be
+			possible to run the assembly by adding the /C option to
+			optimize for more symbols and modular features at the
+			expense of smaller buffers leading to longer assembly times.
+
+			This condition can be caused by deliberately setting the
+			logical core size to 0 [4K only] on machines that allow
+			larger assemblies if the core size is increased.
+
+			P?S/8 PAL has several modular features; it may be possible
+			to delete certain modules for any particular assembly.  This
+			is generally not a consideration on any system with 8K of
+			memory where at least 7K of memory is available, although it
+			might be necessary to include the /C option to allow the
+			assembler to access the additional partial memory field.
+
+	IP		Illegal Pseudo-Op Error.  An attempt is being made to
+			redefine a P?S/8 PAL assembly directive.  The only remedy
+			for this situation is to change all references in the
+			program to a non-conflicting symbol.  Other than the ERROR
+			directive, P?S/8 internal directives are generally
+			compatible with most other PDP-8 assembler; this situation
+			generally doesn't happen.
+
+	IR		Illegal Reference Error.  An attempt is being made to
+			directly reference a memory location that is out of the
+			addressible range.  This is generally caused by programs
+			that are violating the PDP-8 addressing rules; the program
+			must be reorganized.
+
+			Note:  The use of generated links, which seems to solve this
+			problem, often does not work.  A such, it is not recommended
+			to use this assembly option under any circumstance.  The
+			feature is only present to allow bad programming techniques
+			to be supported in those instances where the program works
+			despite the sloppy methods used.  Making changes to such
+			programs can lead to nuanced logic errors beyond the
+			understanding of the simple-minded programmer, someone who
+			often is ignorant of the actual circumstances that are only
+ 			partially fixed.  Additionally, any change is considered
+			suspect and requires manual inspection of the source code
+			to determine if the poor technique has been exceeded to the
+			point the program can no longer run.
+
+	LG		A link has been generated to attempt the latest statement.
+			Unless assembly options have been set to ignore this, the
+			LG error is designed to thwart attempts to use links instead
+			of properly redesigning the coding techniques used to avoid
+			link generation entirely.
+
+			Note: Unless a generated link is part of a JMP or JMS
+			operation, the logic will definitely fail if the data field
+			differs from the instruction field.  This is a dynamic
+			condition and not under the control of the assembly process.
+			Thus, it is possible that as a program evolves, formerly
+			functioning code can "mysteriously" suddently fail.  By
+			avoiding links entirely, the programmer will learn an
+			appreciation for extended memory techniques that will guide
+			successful program operation.  As such, links are always
+			flagged as errors.  [Note:  There is a way to reduce
+			flagging of generated links.  However, they are always
+			treated as warnings in the least case.  All assembly
+			statistics will report the total numberof links generated.]
+
+	NE		Null Literal Expression Error.  An attempt is being made to
+			form a literal expression that failed to define any form of
+			value.  This is a syntax error that must be corrected.
+
+	NU		Numerical Error.  This is generally an attempt to use the
+			"8" or "9" character when octal radix is in effect.  This
+			can be remedied by either changing the usage or by using the
+			DECIMAl directive as appropriate.
+
+	PA		Pause-related message.  This is actually not an error.  The
+			PAL language includes the PAUSE directive which is an
+			obsolete directive used by paper-tape assemblers such as
+			PAL III.  P?S/8 PAL adds in the feature of the PAUSE
+			directive used with a numerical argument.  When this form of
+			PAUSE directive is parsed within the assembly, a console
+			message appears with the associated value; the assembly
+			continues.
+
+			The use of the PAUSE directive with an argument can be
+			useful to determine where in a very long assembly the
+			current progress is.  By the use of simple logic, it is
+			possible to signal specifics useful to the programmer for
+			any purpose, such as the extent of a table, etc.  With a few
+			additional statements, the beginning or end of an assembly
+			pass can be announced using the PAUSE directive with an
+			argument derived from the other statements.
+
+			Programmers may insert warnings into the program using the
+			PAUSE directive.  The argument may indicate some internal
+			resource is being depleted requiring remedial action fairly
+			soon after the message first appears.  By proper design,
+			this can be used as a series of warnings of varying
+			severities allowing the programmer to prioritze various
+			issues of program maintenance, etc.
+
+	PE		Page Exceeded error.  The program is attempting to load over
+			current page literals already created.  The program must be
+			reorganized to follow PDP-8 addressing rules.
+
+			The PE error is similar to the BE error; in this case, code
+			words are exceeding existing literals; in the case of BE an
+			attempt is being made to add a literal over existing words
+			of code.
+
+	PH		Phase Error.  This is generally caused by a conditional
+			assembly error that was not resolved at the end of the
+			source code.  The structure of a failing conditional is
+			improperly formed and must be remedied.
+
+	PO		This is an internal Pushdown Overflow error of the assembly
+			process.  By nature, there is ordinarily sufficient pushdown
+			stack space available for any form of expression.
+			Pathological cases can be formed that can exceed this
+			capability; however, only truly contrived cases can cause
+			this error condition.  [Note: The authors of the P?S/8 PAL
+			assembler worked for many hours to actually obtain a case
+			that would trigger this error.]
+
+	ST		Symbol Table Exceeded.  This is a fatal error indicating
+			there is no additional space for symbols to be added to the
+			internal symbol tables.  The only remedies are to either
+			obtain more memory to allow a larger symbol table, or to
+			use the EXPUNGE directive and remove all permanent symbols
+			other than directives, then define only the minimum
+			complement of permanent symbols.  [Note:  the FIXTAB
+			directive is used afterwards to indicate the new definition
+			of the permanent symbol table if desired.]
+
+			The assembly cannot be performed on the particular
+			configuration for this particular set of source files.  More
+			memory is required to assemble the source code than is
+			available.
+
+			While partial improvement can be obtained by removal of
+			unnecessary permanent symbols, additional memory fields can
+			add 1024 symbols to the overall symbol table size.  On
+			configurations where the Logical Console Overlay is disabled
+			and the system device handler requires an extended memory
+			section, the use of the /C option may add as many as 768
+			additional symbols to the symbol table capacity.  [Note: The
+			total capacity of the symbol table cannot exceed 4096
+			symbols.]
+
+	SY		Syntax Error.  An attempt is being made to form a statement
+			that violates the prevailing rules in a way not associated
+			with other particular error messages.  The statement must be
+			modified to conform with all syntax rules.
+
+	UF		Undefined Field Error.  An undefined value is being
+			attempted as the argument to a FIELD [or SEGMENT] directive.
+			The remedy may require some form of additional equate
+			statement elsewhere or slight modification depending on the
+			specifics.
+
+	UO		Undefined Origin Error.  an undefined value is being
+			attempted as the argument to the "*" statement to define an
+			origin setting.  The remedy may require some form of
+			additional equate statement elsewhere or slight modification
+			depending on the specifics.
+
+	US		Undefined Symbol error.  A statement is being attempted that
+			references an undefined symbol.
+
+			Undefined symbols are suppressed during the first pass of
+			the assembly; a temporary "value" is assigned that is
+			actually the address of the first occurrence of the symbol
+			unless an actual definition replaces it with the proper
+			value and internal flagging.  At the end of the first pass
+			all symbols still undefined are printed out on the console
+			to allow the programmer to more quickly remedy this
+			situation; it is recommended a second pass not be performed
+			as this would likely produce numerous undefined symbol
+			errors until the proper definitions are made.
+
+			This situation often occurs in the early stages of program
+			development.  Program development time is greatly improved
+			by resolving this problem at the end of the first pass
+			taking advantage of the relatively short list of undefined
+			symbols [as compared to the far longer list of all
+			references to all undefined symbols that would be present
+			during the second pass].
+
+	ZE		Page Zero Exceeded Error.  This occurs when code is
+			generated on page zero when page zero literals are in effect
+			which violates the rules of page zero literal generation.
+			The programmer must resolve this situation, which can have
+			several methods of resolution depending on the problem.
+
+			It may be possible to remedy this situation by the use of
+			page zero literals in equate statements placed strategically
+			in the source code to synthesize the intended instructions
+			without violating the overall page zero literal mechanism.
+
+			[Note: Page zero literals are created from location 0177 and
+			progressing towards lower memory locations.  The lower limit
+			is 0020 because locations 0010-0017 are auto-index registers
+			which cannot be guaranteed to function when used as general
+			purpose literals [which might be used indirectly].
+
+[End-of-file]

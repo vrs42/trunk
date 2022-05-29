@@ -1,0 +1,1197 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red192\green192\blue192;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtnn0001&p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 1440
+  FtrMarg = 1440
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -13
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 P?S/8 \f1 Program Execution Techniques\f0\par
+\par
+\f1 Copyright \f2\'a9 1975-1989 Charles Lasner Associates\f0\par
+\f2 Copyright \'a9 1990-2018 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+Last edit: 28-Jul-2018 cjl\par
+\par
+\f1 Note: This document generally follows the conventions of the \ul\i P?S/8\par
+Keyboard Monitor Command Guide\ulnone\i0  available separately.\par
+\par
+This document will describe the various methods of executing PDP-8 assembly language programs using the P?S/8\super [1]\nosupersub  operating system. Additionally, specific command examples will be provided for the relevant command variants.  Some familiarity with PDP-8 assembly language programming is required, but P?S/8 users of any skill level can benefit from this information.\line\line In some cases, comparisons will be drawn with the DEC \i OS/\i0 8\super [2]\nosupersub  operating system, which has a checkered history and is in some ways a "bastard step-cousin" of P?S/8.  (Additional information is available below.)\par
+\par
+P?S/8 was written independently of DEC by members of the P?S\super [1]\nosupersub  over a course of decades.  (It is still undergoing further development as of this writing.)\par
+\par
+Note: There is a lone exception to the statement above: Rick Merrill of DEC created \ul\i FOCAL, 1969\ulnone  \i0 as a console terminal-only interactive calculator program (and language) with very limited paper-tape support for input (as a frill).  FOCAL, 1969 is a binary base component of the system program known as P?S/8 \i FOCAL\i0 .  FOCAL includes many additional features, making it an effective component of the P?S/8 environment.  This is accomplished while maintaining internal binary compatibility with the original DEC release; this is an important aspect of the FOCAL system program allowing virtually all programs and patches (written by members of the FOCAL, 1969 user community at large) to run as intended.\par
+\par
+Earlier efforts.\par
+\par
+Quite significantly, many original members of the DEC PDP-8 programming staff started their PDP-8 programming careers on the immediate forebear of P?S/8, known as \ul\i The R-L Monitor System\ulnone\i0  (or \i MS/8\i0 , the name used on its submission to \i DECUS).\i0   DECUS was the usual repository for DEC-compatible programs either not supported by DEC or written by users.\par
+\par
+Some of these individuals were the actual implementers of The R-L Monitor System (which was demonstrated to DEC management personnel, all of whom were clueless and incapable of understanding it at a fundamental level).  (Additionally, some of the same programmers were involved in the original demo program that eventually became OS/8.)\par
+\par
+The R-L Monitor System was created out of whole cloth by hand program assembly; the subsequent binary instructions were manually entered into memory using the front panel of a specific PDP-8 located in the Electrical Engineering department of the Polytechnic Institute of Brooklyn (now a division of New York University).  The project was undertaken by the five original of the WCFMPG\super [1]\nosupersub .\par
+\par
+This work was done during the four month period just before the fall semester of 1967 at Brooklyn Poly; all of the relevant people indicated in this document met each other there (but not in the academic sense of classmates, but rather because the PDP-8 in question was available to any students who had an interest in the machine).\line\line Had a prior facility such as the R-L Monitor (or P?S/8) pre-existed, the entire effort would likely have been accomplished in about a quarter of the time.  This is due to the extreme talent of the five individuals who collaborated on this project [which came about when the PDP-8 was upgraded to include a TC01 DECtape controller and TU55 DECtape drive).  Unfortunately, this fantasy never happened, and it is an extremely tedious and error prone process to turn programming in the heads of a small group of individuals into a working product without any programming tools in the conventional sense.  (This is not uncommon when referring to pioneering efforts in computing; and these individuals were exceptional.)\line\line While this mixed group of friends and colleagues worked together and separately and freely discussed the merits of PDP-8 operating system techniques, there came a time when there was at first only a geographical "split" in that the original five individuals were simultaneously hired by DEC soon after finishing The R-L Monitor System; as such, little if any of the actual source code was preserved, and only a few items were recreated, primarily devoid of comments.  As such, much of the R-L Monitor System is undocumented on many levels.\line\line Less than two years later, several of the other students (including the author of this document) decided to review the "innards" of The\par
+R-L Monitor System which led to the creation of sparse documentation included with the MS/8 DECUS submission.  It is notable that, by that time, Charles Lasner (author of this document) had added on the last system program to the R-L system, an adaptation of FOCAL, 1969 that was the precursor to P?S/8 FOCAL; this was included in the DECUS submission in the form of R-L text files which includes some comments.  Unfortunately, the R-L Monitor system supports an inadequate text file format that discourages commenting.\line\line Note: This was one of the many reasons, we, as a group, decided to upgrade the R-L Monitor System; P?S/8 as it exists today is the direct result of these endeavors, still being worked on over 50 years later as of this writing.  Many improvements later, P?S/8 is a far more viable general-purpose operating system for the same exact hardware as the minimum complement of required hardware, with support for virtually all devices that became available over the years.\par
+\par
+Note: The R-L Monitor System only supports the original hardware configuration as described above; it is a closed-ended system.\line\line Unfortunately, there was another level of "split" among these groups sometime later because of DEC management interference at a profound level based on what can only be referred to as abject stupidity and arrogance.  Management was seeking a new operating system to be written by the then-current programming staff.  It is a maxim of programming in general: Programmers write code, and managers manage the programmers, not the programs they write.  Unfortunately, the managers at DEC were clueless as to this basic concept.  Here are the relevant issues:\line\line 1) They saw themselves as hardware and software and marketing\par
+   directors.  As such, the phrase "jack of all trades, master of\par
+   none" applies to this situation.\par
+\par
+2) They had an agenda to arbitrarily require 8K of memory instead of\par
+   the obvious rational decision:  The operating system's minimum\par
+   memory requirement should be irrelevant.  It might be helpful in\par
+   certain applications to allow a subset of the system to \b only\par
+   require \b0 4K of memory; that said, it would \b possibly\b0  be recommended\par
+   that to make use of what they proposed, perhaps 8K (or more) memory\par
+   should be strongly \b recommended\b0 .  This concept of this material\par
+   difference was figuratively over their heads.  They just insisted\par
+   the product had to require 8K -- case closed --.\par
+\par
+   Note: The proposed system still could have been marketed as an 8K\par
+   product (as it was, eventually named OS/8); in fact, later due to\par
+   mediocre design, in some cases it eventually required 12K.  This\par
+   still doesn't change the fact that it could be useful to certain\par
+   customers if it could run in 4K.  DEC later sold many different\par
+   configurations of PDP-8/A models that in some cases had \b less\b0  than\par
+   4K memory.  Marketing of those machines could have easily benefited\par
+   by recommending 4K memory modules.  Ironically, during that era,\par
+   P?S/8 was demonstrated to one of these managers and their staff.\par
+   Despite the obvious advantages, P?S/8 was rejected merely because\par
+   it \b could\b0  run in 4K of memory (depending on configuration) while at\par
+   the same time OS/8 was marketed including the 8K/12K requirement.\par
+\par
+   A far more rational argument can be made that describes the long-\par
+   term goal of P?S/8:\line\line    P?S/8 requires 4K of memory (or perhaps 8K depending on the\par
+   hardware configuration); however, depending on specific needs, more\par
+   memory might be indicated, perhaps as much as 32K.  A reasonable\par
+   assertion can be made that \b development\b0  of a program could require\par
+   more memory, but the binary product of that development may perhaps\par
+   \b execute\b0  in 4K (this is often the case).  (The 4K boundaries arise\par
+   due to the nature of the PDP-8 architecture.)\par
+\par
+3) A truly awful system (known as \i The Disk Monitor System\i0  on DECtape)\par
+   had been created at DEC some time after The R-L Monitor System was\par
+   already heavily used at Brooklyn Poly and other sites.  The R-L\par
+   Monitor System was deployed by certain members of the P?S who used\par
+   the software to allow them to create programs at their places of\par
+   employment.\line\line    This rather pathetic system also requires 4K, but is quite poor\par
+   when compared to P?S/8, yet these foolhardy managers insisted on\par
+   recreating some of the awful internal features of this horrible\par
+   system; in reality, proper design makes these notions idiotic and\par
+   quite obsolete.\line\line    Despite this folly, the managers insisted these notions be included\par
+   in the new project that was being demonstrated to them by the same\par
+   programmers who had written The R-L Monitor System.\line\line    The writer of the demonstration acquiesced to the 8K requirement,\par
+   but only out of expediency as opposed to technical reasons\super [2]\nosupersub .\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+This is a preliminary specification for a new P?S/8 utility to be known as \i BINCON\i0 .\par
+\par
+\f0\fs20\par
+\fs24 P?S/8 program execution methods.\par
+\par
+Program execution generally applies to programs already included in the System  Programs Directory, as the user files in the Tiny File System [TFS] directory are  limited to text and binary files [other than a few assorted oddities].\par
+\par
+Binary files are optimized for loading into memory by the "Slurp" loader using a  format that approaches 6/7 the efficiency of core-image binary, yet is actually  random-access loading as opposed to loading complete blocks.\par
+\par
+The basic Slurp loader has no options; the program is loaded into memory and has to  fend for itself once started.  The only action available is to exit to location  07600 to reload P?S/8 via the provided bootstrap.\par
+\par
+Note: The definition of the bootstrap in this context is the contents of at most  07600-07642 which was placed there by the Slurp loading process, generally as some  part of the loader code that also aids in the bootup process.  In the next release,  this will be scaled back slightly to 07600-07641 to allow one additional word to be  added to the P?S/8 variant of the BIN loader, which can eliminate a small  theoretical weakness associated with loading programs for the TC58 3-cycle data  break version of the .5" magnetic tape controller, etc.  There are commands in\par
+P?S/8 BIN to load a version of the BIN and RIM loaders along with the same  bootstrap as used at the start of the Slurp loader.  To date, it appears the  longest boot code is actually the TC01/TC08 version which is actually an additional  word shorter than the new shorter upper limit; as such, no problems are  contemplated making this change.  The next release of the BIN utility will cover  this and other issues addressed in Version 9A; Version 8Z, the present stable  release, is subject to this theoretical problem.\par
+\par
+Note:  P?S/8, unlike OS/8, also runs on DECmates will full support.  However,  console programming must conform to the incompatible hardware.  While a program can  detect this situation itself, it is recommended that a program be made to be more  conforming with additional P?S/8 requirements before attempting this.  For all  PDP-8, PDP-12 and related models, this is not an issue, and any reasonable form of  console handling is allowed.\par
+\par
+Note: P?S/8 supplies the program, when initially loaded, with the certainty the  console output flag is either up or will be soon after starting.  Thus, it is  recommended to use the overlapped method of console output to take advantage of  this.  If the program is restarted, this cannot be guaranteed as the new context is  the responsibility of the program itself now.  [Fortunately, few programs are meant  to be restarted; however, there are rules regarding restart and consistent handling  of the console output flag.]\par
+\par
+In this environment described by Slurp loading, there are no system facilities  whatsoever.\par
+\par
+Accessing certain P?S/8 system parameters.\par
+\par
+The first cut at improving this situation is to load the program with either the /I  or /V options.\par
+\par
+/I - After the program is loaded, reload the system device handler.  This sounds  counter-intuitive and impossible.  Yet, it does work.  Advanced PDP-8 programmers  who do not understand this can have their conventional wisdom notions erased from  their brains.  Only those who REALLY understand PDP-8 storage devices can  understand this, but the point is, if you believe this cannot be done, I have a  bridge in Brooklyn to sell you :-).\par
+\par
+There is a modest restriction on the use of the /I option switch:  The P?S/8 BIN   utility can load up to 17 [0021 octal] files normally.  When /I is in effect, this  is lowered by one to 16 [0020 octal].  The reason is that a special "file" is  appended onto the passed list of files to be loaded, to perform the dark grey magic  to make the overall loading work as advertised.  [The special "file" can be  described as a "friendly virus".  The exact mechanism is device-dependent, but the  overall effect is identical: Once the "file" is loaded, the system device handler  is viable and the program can be started at the designated starting address in the  designated starting field.]\par
+\par
+This restores the ability to access the P?S/8 system device handler call at 07640  and following, etc.  However, this is the only system services available in this  usage [but perhaps the program only requires this and nothing else].  Note: Future  releases could expand on this, but there is no current commitment because every  device that this pertains to must be thoroughly tested, etc.  At best, only  information known to be written on the system device can be conceptually stored; as  such, this might aspire to the system date value as implemented in the next  release.\par
+\par
+/V - While the Slurp loader [with or without /I] replaces the system device  handler, and as such, that form of loading is the fastest [and can be performed  with the device write-locked], there is always an alternative method of loading.  This option forces the use of a virtual loader that is vaguely analogous to the  operations of the OS/8 ABSLDR program, etc.  On certain devices, it is not possible  to support a hardware-dependent Slurp loader due to hardware limitations.  On such  system, /V becomes mandatory and is internally forced on accordingly; in these  cases, the /I option switch is ignored.\par
+\par
+The advantage of this mode is that the entire system kernel is present; all system  services can be referenced to allow programs to completely conform to P?S/8  standards if desired.  The virtual loader requires write-enable on the system  device where applicable, as part of the loading process.\par
+\par
+As a practical matter, the only additional information gained by this method is  access to the system date word.  In P/S/8 Version 8Z, the date word is contained in  07610 and is a 12-bit value that covers a period of approximately 11 years.  A  non-resident parameter must be adhered to that changes every 8 years with an  additional 3 year grace period before the parameter update must be deployed.\par
+\par
+While not actually present in the system, the value of the parameter is as follows:\par
+\par
+[Note: This is always a four-bit value and will be shown in bit form.]\par
+\par
+0000 = the base year for the date is 1960.  Thus, if this base year group value is  used, the system date pertains to the years 1960-1971.\par
+\par
+Note: OS/8 can only handle the system date in a TRUSTWORTHY manner from 1970  through 1977.  The actual year may be off by 8 or 16 or 24 years and can only be  reckoned by intimate knowledge of each file to achieve certainty; this is an  unfixable limitation of OS/8 that can be troublesome, especially when creating new  files that are limited to this primitive facility.\par
+\par
+1960 was chosen as the base year for several reasons:  Actual work on the earliest  forebears of P?S/8 started prior to 1968; additionally, 12-bit computing itself  started in 1960 with the CDC 160 design of Seymour Cray.  The earliest  implementations of the date value were thus tested during the actual years of the  design.\par
+\par
+0001 - 1968-1979.  Back in the day, this was clearly superior to OS/8, which became  an ugly kludge in 1978.  Warnings were issued by users as far back as 1975, but  OS/8's design is too fixated to create a proper solution.  One of the long-term  goals of the P?S/8 project is to completely obsolete the OS/8 system while  providing a new "home" for worthwhile programs that currently only work from OS/8,  etc.  This will be addressed in detail once more of the P?S/8 SHELL is functional.\par
+\par
+0002 - 1976-1987.\par
+\par
+0003 - 1984-1995.\par
+\par
+0004 - 1992-2003.  Note: The P?S/8 DATE utility includes the notion of the favored  century short-hand.  This is a more effective solution than that of the typical Y2K  problems because  you can designate which are the years that two-digit input is  allowed; full four digit is required for all other potential years; most Y2K  solutions abandoned the former entirely and forced the use of the latter; by  "sliding" the two-digit shorthand forward, the notion could be continued for the  benefit of most users.\par
+\par
+0005 - 2000-2011.\par
+\par
+0006 - 2008-2019.  Note: Certain nearly-complete releases of P?S/8 exist with this  setting.  These systems should be updated as the date will expire next year!\par
+\par
+0007 - 2016-2027 - The relevant locations on the P/?S/8 TC01/TC08 release tape have  been patched to this value.  A complete list is available in the system patch log  file.  This technique can be continued until 2099 when the code fails due to a  longstanding bug; however, this is of no consequence as this method of date group  reckoning is being abandoned.\par
+\par
+To unpack the date information for Version 8Z, the date word should be divided by  372 [this is the number of days in an idealized year where every month has 31  days].  The quotient is the relative year [to be added to the imputed base group as  defined above].  The remainder is the relative day of the year.  Dividing that by  12 yields the relative month 0-11 past January.  The remainder is the relative day  of the month [which becomes the numbered day of the month if you add one].  These  values can be used with the more general reckoning of time to determine day of the  week, etc.  Due to a bug in the code used throughout the system, century years are  not handled properly past 2099.\par
+\par
+Starting in Version 9A, the date implementation is being overhauled.  The new date  format is 18 bits where bits[1-6] of the contents of location 07611 are the six  highest bits; the contents of 07610 remain as the low-order 12-bits but the new  format is the 18-bit calculation of the unique day calculated nearly linearly.   Thus, no further patching will be required.  Within the 12 low-order bits, the  high-order 3 bits are the relative year within the 8-year group defined by the bits  in 07611.  The next 4 bits are the relative month and the low-order 5 bits are the  relative day in the month.  To allow the system to be truly undated, the relative  day of the month is origin 1; as such, if the 12-bit word is all zeroes, the system  date has not been set.\par
+ \par
+Note:  The low-order 12-bits are essentially the same as in OS/8 except the bit  weighting is not scrambled as in OS/8.  As such, it is possible to more readily  sort dates of files without having to bit twiddle the data first.  This is one of  the many sore spot issues of OS/8 caused by the complete folly of using demo code  instead of developed code, etc.\par
+\par
+If bits[1-6] are isolated and moved to bits[6-11], the two words form an 18-bit  integer that can be readily handled in double-precision arithmetic.  This is the  offset past the year 1900 thus, that constant value of the starting year has to be  added to create the proper date in the range of 01-Jan-1900 through 31-Dec-2411.\par
+\par
+Additional P?S/8 system kernel information.\par
+\par
+To get access to more of the available system data, there is a way to write out the  program to a core-image without dealing with the inner workings of the Systems  Program directory.  While it is necessary to learn how to interact with the  parameters themselves, dealing with the overall Systems Program directory is an  additional involved process; at the least, the former can be mastered without  learning the latter and all of the attendant considerations.\par
+\par
+Note: While it is true the following is somewhat of a copout, few users of P?S/8  will aspire to creating their own PERMANENT system programs that should be included  in the System Programs directory [perhaps coupled with removing certain programs  already present] since this is a resource that must be managed with precision.   Additionally, the System Programs directory offers additional features that are  only used currently by a small few existing portions of a typical P?S/8 system:\par
+\par
+1) System programs can be passed the =xxxx construct if present on a command line.   Any value between 0 and 4094 [0000 through 7776 octal] can be used.  If the  parameter is not present, the value defaults to 4095 [7777 octal], the program can  decide some specific default action.\par
+\par
+While this feature per se is available to all programs [even the easily used subset  described below], there is a system attribute to change the way decimal radix  values are handled:\par
+\par
+The default system parsing is to force the =xxxx to be interpreted in octal.  If  this special attribute is passed, the method is changed to interpret the parameter  in the current radix setting [which defaults to decimal and is easily changed  either temporarily or permanently].  This parameter is not available in the  alternate method to be described below.\par
+\par
+2) Generally, the additional information on the command line is parsed according to  all of the rules associated with command formation.  A system attribute is  available that prevents parsing of what potentially would be the file name section  of a command; this is used by overlays to the P?S/8 keyboard monitor to take  advantage of existing routines within the monitor, etc.  In these circumstances,  the rest of the line is not actually filename-oriented; the program determines the  proper syntax particulars and parses the rest of the command-line according to its  own rules.\par
+\par
+For example, the P?S/8 SET utility program uses its own rules to parse the command  line to set various system parameters. Moreover, this is meaningless outside of the  specific environment of interacting with the keyboard monitor [or at least most of  it; there are ways to reload a portion or not] and is only relevant to overlay or  at least adjacent memory loading.  This restriction can only be accomplished by  access to the System Programs directory to indicate only partial loading of memory  that creates the special environment to use this attribute.  While this is not  likely of much use to any P?S/8 user short of an implementer, it is none-the-less  only available to system programs fully described in the System Programs directory,  and is thus an advanced feature of little use to general program development.\par
+\par
+3) The file scan attribute has a related additional attribute created solely for  the BSAVE command [or in theory something akin to it].\par
+\par
+The issue is that the BSAVE is used as follows:\par
+\par
+BSAVE requires a list of output files such as OUT1, OUT2, OUT3 etc. which we will  summarize as outfiles.  Memory locations to be saved are specified as groups of  contiguous memory locations anywhere within the 32K address space; individual  memory locations can also be saved.  We will summarize this as memlocs.\par
+\par
+Thus, the BSAVE command can be formed as follows:\par
+\par
+.BSAVE outfiles < memlocs\par
+\par
+OR\par
+\par
+.BSAVE memlocs > outfiles\par
+\par
+Note: All P?S/8 execution-class commands have this "bidirectional" parsing  characteristic; this allows the user to use whichever is more familiar, as other  systems are known to form commands one way or another.  P?S/8 does not take "sides"  in such issues and commands are formed either way.\par
+\par
+Thus, output files must be allowed and input file parsing must be prevented.  Both  this attribute as well as the one described above in 2) are unavailable in the  simplified form.\par
+\par
+4) P?S/8 in the basic system form [SHELL disabled], supports the concept of  overlays.  The initial program segment is loaded and started at an address  determined by the System Programs directory entry.  Programs designed to support  overlays determine the particulars of where they were loaded from and then  calculate hard block count offsets to where the overlays are as determined by  program design.\par
+\par
+For example, when the PAL assembler is loaded, once-only initialization code  determines the starting block of the internal symbol table which is written out in  compacted form.  This code reads the table into an available buffer [later used to  read in the source text] and "sprays" each symbol into dynamically allocated memory  for the symbol table.  This is necessary as the PAL program uses address hashing  for rapid lookup of each symbol.  Using this method, even the permanent symbol  table is properly hash-loaded and there are no exceptions, etc.  At the end of the  assembly, another overlay is loaded to produce a well-formatted statistical report  of the particulars during the assembly process [number of errors, count of  generated links, count of symbols, and a synthetic count of memory used to aid in  determining if there is enough memory to assemble the program in the future; this  is important for very large assemblies, additionally there are optimization  switches to change the amount of memory allocated to buffers to allow additional  symbols if necessary, but at the expense of overall assembly speed and performance,  etc.].\par
+\par
+P?S/8 FOCAL uses overlays to change the way FOCAL operates. Initially, what LATER  becomes command input from the console is redirected to the contents of text files  passed to FOCAL.  Once overall end of all text files is reached, an overlay is used  to restore keyboard input, etc.\par
+\par
+Another overlay is used to handle the unimplemented L[ibrary] command that causes  the default action one sees in the paper-tape version.  Even that fully compatible  minor output indicates the relative use of internal resources and can be useful if  the FOCAL program and/or variables and/or stack depth is getting close to the  limit, etc.  Future releases might support expansion of the L command to include  loading and/or saving of FOCAL programs to files.  This is open-ended at this point  and could be expanded upon in the future.  However, the foundation of the overlay  structure is already present.\par
+\par
+The only way to take advantage of this is with complete mastery of a variety of\par
+P?S/8 internal resources, and perhaps only a small handful of users may ever need  to have such depth of understanding.\par
+\par
+Note: The overlay feature is quite flexible and powerful, and well advanced beyond  OS/8, it will be recreated in the SHELL design to allow overlay structures within  individual core-image executables.\par
+\par
+5) The System Programs directory allows the setting of custom program starting  addresses stated within the directory.  The methodology below has restrictions on  this as well.\par
+\par
+Using the GET command.\par
+\par
+A unique feature of P?S/8 is the placement of two key files near the physical start  of the device, specifically known as % and $ respectively.  These are otherwise  "illegal" names with regard to the valid file name characters of files contained in  the TFS directory, but are treated as specific special cases.  This allows  transient usage for small projects, with the understanding that the contents may be  destroyed by certain operations, but can be helpful to produce results rapidly.   Numerous examples can be found elsewhere, but this is outside of the bounds of this  discussion:\par
+\par
+The Slurp loader [and the virtual equivalent] supports the ability to have present  access to the system device handler under specific circumstances.  If these  requirements are followed, starting at location 07632 invokes the embedded call to  the system device handler with arguments set to save all of field 0 in blocks 0020  through 0057 on the system boot device.  These are precisely the blocks of the %  and $ files aggregated together.  [And as such, this usage is incompatible with  those outlined above, which is why they are described as fleeting and transient,  etc.]\par
+\par
+Note: If the need arises, the two files % and $ can be copies to named TFS files  for deferred usage at another time.  This includes debugging the program with P?S/8  ODT which is compatible with this core-image mechanism.  Alternatively, specific  memory locations can be saved to Slurp binary files using BSAVE; however, the  entire contents of field 0 requires three binary output files while just preserving  the image format requires two files [and no overhead to reload other than the  restoration of the two files].\par
+\par
+In general, P?S/8 does not use extended memory, thus after any form of binary  loading, extended memory will remain intact [until a program is run that  deliberately changes this, such as another assembly or other program that checks  for and takes advantage of extended memory].  By staying within definable bounds,  all extended memory locations will remain intact, etc.\par
+\par
+Since now the entirety of field 0 has been saved as a virtual core image, several  programs can interact with this, such as P?S/8 ODT.  Changes made by ODT are thus  permanent if in field 0.  The BSAVE command can save the locations to be stated by  the user back into stated output files, etc.\par
+\par
+After a GET command, it is possible to use the START command.  All program  parameters can be specified, including input and output files, the =xxxx parameter  and all command-line switches from /A through /Z and /0 through /9.\par
+\par
+However, the START command reserves the use of the /0 through /7 switch to allow  starting the program in extended memory.  Additionally, the value of the =xxxx  construct is used as the starting address [00200 if none given].\par
+\par
+Thus, this is a nearly acceptable way to run the equivalent of a system program  without any interaction with the System Programs directory.\par
+\par
+Additional execution.\par
+\par
+As of P?S/8 Version 8Y, there is an alternate mechanism:\par
+\par
+Execution is often accomplished in P?S/8 by the use of the R command.  [Presently  the RU[n] command is entirely equivalent, but in theory could change in future  releases].\par
+\par
+If the program name is given as either % or $, this has special meaning to the  execution commands:\par
+\par
+The program becomes the virtual image of field 0.  Blocks 0020-0057 are loaded into  00000-07577 and started at 00200.  All of the parameters specified apply to using  the program just created recently with the GET command, etc.\par
+\par
+Of course, the attributes stated above are not possible, including that the =xxxx  command cannot be stated in the current radix, but rather must be interpreted as  octal digits [as are most programs in the system program directory].\par
+\par
+Thus, for most users, this is a perfectly viable way to perform all P?S/8 system  kernel interactions beyond these few minor restrictions without interaction with  the System Programs directory.\par
+\par
+Additional available information from the system kernel.\par
+\par
+07604- The passed command-line switches /A through /L.  This is completely  equivalent to OS/8 [which imitated P?S/8 which in turn imitates TOPS10].\par
+07605 - /M-X.\par
+07605 - /Y- /9.\par
+\par
+As in OS/8, the lowest ranking bit is the high-order and the bits are reckoned left  to right.  Thus, the effort in parsing command-line bits is a virtual "tie" in  terms of using them in P?S/8 versus OS/8 [but are defined in specifically different  memory locations within the kernel.]\par
+\par
+OS/8 requires a large amount of interaction with the file system to successfully  use any files.  The P?S/8 SHELL will be somewhat similar, yet also more powerful.   However, in the basic P?S/8 system, things are quite a bit easier:\par
+\par
+07607 - this is a shared word:\par
+\par
+Bit[0] is a SHELL parameter that is not relevant at this time, it is reserved to  determine the exact placement of the area in the SHELL system that has all of the  file "stuff" that any aspect of the system needs to know, etc.  This is far more  comprehensive than OS/8, in part because of the open-ended nature of this area as  follows:\par
+\par
+a) It is 256 words long.  The closest equivalent in OS/8 is 64 words or so but  encompasses far less information.\par
+\par
+b) It includes the name of the latest executable program [a common concept in other  systems but not implemented in OS/8].  Loading considerations have temporaries  reserved within the 256 words; much of this space is available for future needs.\par
+\par
+c) File names in OS/8 are in the 6.2 notation where the TOPS-10 and RT-11 filenames  are 6.3.  MS-DOS names are  8.3.  P?S/8 SHELL file names are 12.4 and include case  retention the same way as OS/2.  [Case retention means that when a file is created,  the case of all alpha characters' initial values are determined.  However, for all  file lookup purposes, the case is ignored.  Utilities can be written to change this  if desired, to standardize on any desired scheme, such as auto-capitalize lower- case the rest, all lower-case, all upper-case, any form of mixed case or custom,  etc.  Utilities that create directory printouts can choose to override this for  cosmetic purposes.  This is a feature that adds flexibility and is conceptually  beyond OS/8, etc.\par
+\par
+As a practical matter, this means that source files do not have to be known as, for  example, PROGRM.PA and instead can easily be PROGRAM.PAL or Program.PAL etc.  Core  image files do not have to be PROGRM.SV but rather PROGRAM.SAVE, etc. [or perhaps  PROGRAM.EXEC.]  Fortan files can be MYPROGRAM.FORT and TECO macros can be  MyMacro.TECO.  Use your imagination instead of being forced to use cryptic short  names limited to 6 characters, etc.\par
+\par
+Thus, in the SHELL the latest file name will be six words of packed text characters  plus a separate word for each of the 12 characters' case select bit.  Searches will  ignore the case word used only when creating the file initially.  [A monitor call  can be implemented to RENAME with perhaps changing only the case bits word in the  directory entry.]\par
+\par
+Since P?S/8 devices use logical units, logical devices will be known as up to four  characters and SEPARATELY logical units up to 0 through 7.  Thus, a DTA handler  that can access DTA0: through DTA7: doesn't tax this notation, it could be such as  TAPE0: through TAPE7: or somesuch.  [The syntax could be TAPE:0 through TAPE:7 if  desired; the four characters of the overall name of the device is unrelated to the  logical unit 0 through 7.]\par
+\par
+All file operations will be centralized to this area.  It will be implemented in  one of two possibe ways:\par
+\par
+1) If enough memory is available, this will be located in x5400-x5777 where x is  the highest field of memory available [at least 8K or at most 32K].  Clearly, it is  highly recommended to have extended memory to accommodate this.  Note:  P?S/8 DOES  NOT automatically reserve ANY extended memory field; compare this to OS/8 that also  reserves field 1 17600-17777.  15-bit addressing programs such as OS/8-type BASIC  implementations and Fortran IV require linear contiguous 15-bit addressing and in  OS/8 this can never be any less than 20000 because of all the overhead [and that  itself is accomplished by ugly kludges!].  But in a P?S/8 "port" of the Fortran IV  runtime system, this could ALWAYS start at 10000 onward, etc.\par
+\par
+The reason these addresses were chosen is as follows:\par
+\par
+a) P?S/8 system device handlers MAY require x6000-x7777 due to hardware  restrictions.  In general, this follows the fule of thumb of OS/8, thus for  example, OS/8 requires 12K to support the RX01 and TD8E instead of the usual 8K  while P?S/8 will require 8K to suport these devices instead of the usual 4K.\par
+\par
+As such, if this area [known as the File and Communications area [FCA] is memory  resident, it is just "behind" the system device handler extension area [if  implemented].\par
+\par
+In such a configuration, dynamic memory allocation in conforming programs can  determine if the highest field of memory exists as a FULL field, or a PARTIAL field  ending at either 5377 or 5777 depending.  In the case of linear 15-bit addressing,  this would define the upper limit for a compiled binary load image, etc.\par
+\par
+b) P?S/8 supports the concept [conceptually beyond OS/8] of the Logical Console  Overlay.  If this is implemented, it occupies x0000-x5377.  As such, if active, the  entirety of the highest field of memory may be fully occupied, etc.\par
+\par
+If the Logical Console Overlay is enabled, a conforming program dynamically  reconfigures itself to perform logical subroutine calls instead of physical input  and output.\par
+\par
+For example:\par
+\par
+Typical console input routine [simplified]\par
+\par
+        KSF\par
+        JMP    ,-1\par
+        KRB\par
+\par
+If the overlay is in effect, change the code to the following:\par
+\par
+        CIF     70\par
+\tab JMS     31\par
+        JMP     .-2\par
+\par
+Generally the calling field is usually field 0, but the conforming program must set  this accurately [any field is allowed].  the CIF xx to the field xx is determined  elsewhere [see below].\par
+\par
+Location 31 is the address designated for the logical console input.\par
+\par
+If keyboard input is available, the subroutine call skips and takes the skip return  with the AC loaded with the latest character from the logical device.  [Note: The  Logical Console Overlay can be configured separately for a whole host of devices.   Practical implementations include the VT8E keyboard or alternate serial ports  identical to the 03/04 console except perhaps being device 40/41 to an alternate  terminal, etc.  This is only the concern of the Overlay which has a self- configuration internal routine and designated binary patch files to change the  configuration.  Most devices have already been written, but a few are only in the  planning stages [such as no change on the keyboard, but output to the PDP-12  VR12/14 scope display].  Many notes are already available on that implementation,  but it must be developed on a working PDP-12, etc.  The VT8E is not a terminal,  although it physically resembles a VT05 actual terminal; however, the display is an  extremely fast DMA device and the VT8E configuration includes essentially a  terminal emulator package, etc.\par
+\par
+Similarly, calls to location 33 are for output.  Skip return means the output  device accepted the input character.  Internally, this could also mean buffering is  being performed, but this is device-dependent, and as such, is "invisible" to the  caller, etc.\par
+\par
+Two more calls exist to replace the standard device 66 lineprinter which also  logically supports a reverse channel from the [serial] printer where Control- S/Control-Q protocol may be required.\par
+\par
+However, it is NOT necessary for non-interrupt programming to call the reverse  channel routine.  When output is logically directed to lineprinter output, the  Overlay checks the assocated input hardware and automatically updates in sync with  the hardware, always attempting to maintain the buffer no more than 3/4 full and  more desirably as empty as possible, but when 1/4 full, will indicate more  characters can [now] be sent.  But all characters are buffered inside of the  Overlay; failng to do this, the call will NOT take the skip return.\par
+\par
+This method drives line printers to near interrupt-driven speed and has been  demonstrated on a 1200 LPM printer to be FOUR TIMES AS FAST as OS/8 which  essentially wastes any printer capability past 300 LPM due to profoundly poor  design.\par
+\par
+There is also a call to location 0000 [done on purpose to mimic the hardware  interrupt] to poll the logical devices.  Interrupt-driven programs should do this  before checking for the corresponding physical devices, calling the appropriate  device calls as the logical flags dictate.  P?S/8 FOCAL is a good example of a  program that hooks into the logical interrupt system, etc. \par
+\par
+The logical calls to the Logical Console Overlay are determined within the P?S/8  Kernel as described below.\par
+\par
+Bit[0] of 07607 if set means that the FCA is located in x5400-x5777. If this is  clear, it is then the virtualized contents of two very low system blocks TBD, but  will be very much adjacent to the blocks that handle the file operations equivalent  to the OS/8 User Service Routine [known in P?S/8 SHELL as the User File Operator  [UFO].]  Timing tests have been performed that prove that as long as the two FCA  blocks are quite close to the UFO blocks, performance will be surprisingly close to  being resident in memory despite any perceived conventional wisdom.\par
+\par
+Note: This is the principal reason why OS/8 CANNOT JUSTIFY REQUIRING 8K! [This is  the topic of an alternate post, too far afield here to continue, etc.]\par
+\par
+Thus, if bit[0] is clear, the UFO components will use the contents of the two  hardwired low system blocks instead of location x5400-x5777.\par
+\par
+Bits[1-6] of 07607 are the high-order bits of the 18-bit date value. [Note: As  discussed above, this will first be made available in the next full release, P?S/8  Version 9A.] As of P?S/8 version 8Z, bits[0 through 6 are PRESUMED to be always  0000000, and minor changes to all programs will be made to isolate bits [7-11].   [Note: This generaly consists of adding an AND (37) instruction to the once-only  initialization code within all relevant system programs.]\par
+\par
+Bits[7-11] are the count of how many passed file handles are output files.  P?S/8  passes as many as 17 [octal 0021] file handles.  All could be output files, or all  could be input files, or any mixed situation.  These bits provide the count of how  many are output files [if any].  The rest [if any] are input files.\par
+\par
+Location 07610 is the low-order system date word.  There is an "imputed" high-order  section as described above.  In Version 9A the format will be changed so the 18  bits of 07610 and bits [1-6] of 07607 form an 18-bit resident date in the range of  the years 1900 through 2411.  Any value is valid within this range.  [Note:  Far  future versions of P?S/8 could in theory change the base year :-) .]\par
+\par
+The internal format of 07610 is quite different in Version 8Z, and is essentially a  presumption of 31 days in every month running for 11 years + etc.  Dividing the  date word by 372 gives the relative year in the range of 0 through 10.  By  convention, the partial relative year 11 is to be avoided; the intention is to  update the imputed year every 8 years thus, there is a three-year "grace period" to  allow more than adequate time for updating the relevant words [as documented in the  P?S/8 Patch log file].  This describes all programs that calculate the date for  printing purposes [if at all], and all should be updated at once.  The release tape  of P?S/8 Version 8Z on TC01/TC08 DECtape is already patched to support 2016 through  2027.  P?S/8 Version 9Z is expected quite early within that worst-case time-frame!\par
+\par
+Location 07611 contains several inter-related parameters:\par
+\par
+Bits[0-2] are the actual physical size of the machine where 0 is 4K and 7 is 32K by  memory fields.  Unlike OS/8, no program has to calculate the memory size; it is  available in the system kernel as described here.\par
+\par
+Bits[3-5] are the LARGEST value that the current logical core size is allowed to be  set to.  OS/8 supports a similar concept, but it is not comprehensive enough to  support a Logical Console Overlay.\par
+\par
+This field can only be the same as the field described in bits[0-2] maximum.  If  the logical console overlay is not active AND there is no system handler device  extension present, the two values can coincide.  If the Overlay is present, this  value generally is the amount available which is one less than the physical size in  bits[0-2].  However, this is NOT how it is defined.\par
+\par
+In theory, the Logical Console Overlay could occupy more than 0000-5377 in the  highest field of memory.  In that case, the logical calls go to the highest memory  field, but in theory more code of the Overlay could be in one or more prior fields.  [Note: An obscure peripheral is the VK8A.  It would appear it takes two memory  fields to support it, but we have no documentation; it was apparently a successor  to the VT8E with support for upper-lower case and 132 column mode, etc. With that  large a character buffer, the terminal emulator would likely be far more code than  for the smaller VT8E screen, which resembles a 64-column wide VT05; however, output  automatically creates obvious continuation lines for those cases that are wider  output, etc.]\par
+\par
+Thus, the field to call is the same as the one described in bits[0-2] but it is NOT  a given that the field bits [in 3-5 are necessarily one less field, but to date  this is always the case.  Conforming programs must use this value as the highest to  be used if desired.]\par
+\par
+Bits[6-8] are the CURRENT logical core size.  Unlike OS/8, 000 means the highest  logical field is field 0 on a 4K system.  [In OS/8, 0 just means it is not  defined].\par
+\par
+The value can be 000 up to and including the contents of bits[3-5].  The user can  set this with the CORE xxx command in the P?S/8 system programs directory.  Valid  arguments are 0, 1, 2, 3, 4, 5, 6, 7, and ALL.  All settings are scrutinized for  consistency and validity within the current configuration.  ALL is a request to get  the most allowed, etc.  The CORE command also includes a display of all three  values as currently set, etc.\par
+\par
+Bit[9] is set if the System Device Handler extension is in effect.  By examining  all of the above bits, conforming programs can dynamically configure how much  memory is available. If only 4K, this implies 00000-07577.  Whole additional memory  fields may also be available, and/or a partial memory field foreshortened as  determined above.  In the basic P?S/8, the only practical restriction is at most  the last 1/4 memory field is reserved [or if the Logical Console Overlay is  enabled, none of the topmost memory field is available.]\par
+\par
+Bit[10] is set if the Logical Console Overlay is in effect.  The CIF instructions  associated with the calls are determined by bits[0-2] and use the field one  smaller. [As stated above, this MIGHT NOT be the same as the value in bits[3-5].\par
+\par
+Bit[11] is the logical abort bit.  Conforming programs running on PDP-8 models need  not use this, but are free to do so.  DECmate systems MUST use this bit to exit  with a Control-C abort in effect as the keyboard flag is lost due to the  incompatible hardware of the DECmates.]\par
+\par
+to set a logical abort, perform ISZ I [7611] before exiting to 07600.\par
+\par
+As described elsewhere, location 07632 is reserved for a multi-purpose embedded  call to the system device handler.\par
+\par
+When a true system program is run, location 07635 contains the starting block of  the program.  This allows true system programs to calculate the blocks for internal  overlays, etc. The function word in location 07634 indicates the logical unit the  program was loaded in from as well, etc.  Location 7637 contains the starting  address [which should implicitly be known as part of the program design].\par
+\par
+As in OS/8, system programs might be chained to, in which case, they actually start  one higher, but this information is not relevant here.  For example, P?S8 PAL may  optionally chain to P?S/8 MAP and/or P?S/8 BIN to either map then load the binary  output of the assembly according to passed command-line option switches, etc.  BIN  is capable of realizing it is being chained to by MAP and whether this is in turn  from PAL or not using inter-program conventions shared by the three programs.\par
+[P?S/8 does not dictate any of this],\par
+\par
+7756 - the passed =xxxx parameter value.  If set to 7777, it was not specified; the  program can decide what the defaults are.\par
+\par
+7757-7777.\par
+\par
+Passed file handles.  As determined in the low-order five bits of 7607, the first  files [if any] are output files followed by input files [if any].  Lists exactly 21  octal long are not terminated, as clever use of the ISZ I instruction will  automatically self-terminate.  For all other possibilities, the list is terminated  by a word of zero to indicate the end of all passed files.\par
+\par
+File handle format.\par
+\par
+In the R-L Monitor, there was no special alignment of the starting block for the  TFS files.  In theory, any reasonable block could be used, etc.  However, the R-L  Monitor was only ever implemented for a single DECtape drive.  As such, there was  no logical unit support.\par
+\par
+In P?S/8, there is support for the logical unit; as is the case with most system  device configurations, this means drives 0 through 7 [which in the case of the  TC01/TC08 DECtape and other devices] are the actual DECtape drives, which can be  set by the user by the appropriate manual setting on the front panel of the drives,  etc.  [Note: For some larger devices, logical units refer to a mapped arrangement  on a physical device.  In some cases, there may be several choices each with a  different set of tradeoffs, etc.]\par
+\par
+Since TFS files are of a fixed size of 16 [20 octal] blocks, the imposition of a  boundary requirement simplifies the logical block implementation.  As such, the  starting block of the TFS directory is constrained to a multiple of 8 blocks.  \par
+Note: All current implementations are actually demanding needless constraint to a  multiple of 16 blocks; however, this never yielded any actual feature.  As such,  the constraint of every 8 blocks is now the official limitation.  The notion, never  implemented is superseded by the addition of the P?S/8 SHELL that will be part of  the Version 9 releases, etc.\par
+\par
+Thus, the starting block number of any TFS file is stated in the nine highest bits  of the file handle; the low-order three bits is the logical unit of the file.   These values are easily isolated with AND instructions using the appropriate  constants [7770 for the block number and 0007 for the logical unit].  This is the  basics of file access for any TFS file in the basic system.\par
+\par
+Note: When used as temporary files, % and $ qualify as they are created on a  boundary of 16.  The "file" used as part of the /I option of P?S/8 BIN to induce  the system device handler to be reloaded, is permanently assigned to block 0100,  thus this also is in proper alignment.\par
+\par
+Extended-length files.\par
+\par
+Originally, there was an intention to support multiple files, each of which were of  potentially different lengths, to all reside in high block numbers, such as those  found on larger storage devices.  This feature was never fully implemented and  remains as an overhead to be removed in the next release.  However, it does serve  to provide one important piece of information:  The highest block that can be  accessed by the system device handler on any of the logical units.  This can be as  high as block 7777 in theory, but many devices are smaller than this maximum.\par
+\par
+Note: Certain devices are actually even longer.  The blocks 1000 and higher cannot  be accessed by the system device handler.  P?S/8 supports non-system device  handlers that can access as much as 2048 times as much storage as OS/8 on each of  the logical units!  This corresponds to 32 GB assuming six-bit bytes, etc.\par
+\par
+This feature is under development and is an outgrowth of an implemented subset for  the sole benefit of the BLKCPY program, which can copy or compare any number of  blocks between devices.  It is thus, the "stopgap" in development between the  current system and that of Version 9A.  [In version 9A, the implementation of the  device handlers and descriptor table is being revamped; the actual handlers will  easily achieve the claimed size.  In the case of many devices such as RX01,  TC01/TC08, TC12 LINCtapes, etc. the current handlers will only require minor  modifications to support special calls that are being formulated currently.  For  example, although the maximum size of even an extra-long DECtape is only 3300 octal  blocks [easily achieved in any version of the proper handlers], blocks about  77770000 will be reserved for special functions.  An attempt to access block  77770000 will cause the handler to determine the actual maximum size of the  currently mounted DECtape.  This can be done by searching forward until an END zone  error; the last block successfully transferred before the END zone error is the  highest block available.  This is needed to handle DECtapes of differing sizes.  In  OS/8 there is a rudimentary analog for the possibility of a single-density diskette  in an RX02 drive as opposed to a double-density drive.  However, only those two  cases are handled and only as a special case for RX01/RX02 and requires an obscure  newer handler.  In P?S/8, every device will potentially support the feature.  An  error return means the drive is not ready, and in the case of the TC01/TC08 this  can be achieved by also timing out the done flag, etc.  The actual length will be  stored into the caller's buffer in the first two words in the format of the highest  block allowed.  [Note: This is actually the number that is the origin one capacity  of the drive, but actually means the first block that CANNOT be accessed.  Block  0000 is always assumed to exist in all structures; if the value is 0000 this means  4096 blocks are present.  Returned values for existent DECtapes will be 00002702  and 00003000 etc.  Larger devices will return values meaningful enough to require  the double-precision.  For example, P?S/8 support for the RK8E is configured to  access the entire drive.  In terms of 128 12-bit words, the capacity of each  logical drive is from blocks 00000 through 31277.  As such, the RK8E equivalent  function will return 31300.]\par
+\par
+Thus, for most existent non-system handlers, the only change is to support double- precision block numbers [which for some devices ignores the high-order bits  entirely] and support the special functions [such as the current media length] etc.\par
+\par
+For the present, the scope of the non-system handlers is identical to the system  handlers, and the main purpose is to allow data interchange only [or to compare  blocks on dissimilar devices],  Thus, this is not a very large change as most of  the facility is already implemented, etc.\par
+\par
+And of course, all of the above is a prerequisite for the implementation of the\par
+P?S/8 SHELL which will embrace the larger storage capabilities, etc.\par
+\par
+Since extended-length files are under the purview of the system device handler, the  largest theoretical block is 7777.  This is only meaningful on larger devices such  as the RK8E.\par
+\par
+P?S/8 supports the OS8CON conversion utility.  This program can convert between P? S/8 text files and OS/8 text files in either direction.  By specifying the /E  command-line option switch, conversion of P?S/8 files from OS/8 input can be  accomplished to extended-length output files.\par
+\par
+Each logical unit can handle an extended-length file [one each] assuming each  logical drive is configured functionally for the purpose. [Note: Each logical unit  can be configured differently.  For example, by limiting the TFS storage and system  program storage on any device, it is possible to start extended-length files from  approximately block 0160 throu\f1 g\f0 h the maximum size of the device, etc.  On some  larger devices, a substantial P?S/8 basic system can coexist with extended-length  files further up to the device through as much as block 7777.  On RK8E systems,  this is routinely the case, etc.\fs20\par
+\par
+\par
+\par
+\par
+\par
+\f2\fs24\par
+Other command-line option switches may be implemented in BINCON as development of the program progresses.\f1\'af\'af\'af\par
+\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\page\par
+\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+\f1 Notes and References\par
+\par
+\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+\f1  1. The \ul\i Poly Question Society\ulnone\i0  (abbreviated wherever possible as \ul\i P?S\ulnone\i0 ,\par
+    or \ul\i PQS\ulnone\i0  if only a limited character set is available and pronounced\par
+    as if spelled \ul\i pea-queue-ess\ulnone\i0 ) is an informal group of questioners\par
+    concerned with a multitude of subjects.  In general, the members\par
+    of the P?S (whether alive, dead or imaginary) met many years ago\par
+    at an institution of higher learning known as the \ul\i Polytechnic\ulnone\par
+\i0    \i  \ul Institute of Brooklyn\ulnone  \i0 or more informally \ul\i Brooklyn Poly\ulnone\i0  (now a\par
+    division of \ul\i New York University\ulnone\i0 ).  Nearly all P?S members are\par
+    computer programmers known for exceptional works implemented for\par
+    various computer architectures, especially the \ul\i Digital Equipment\ulnone\i0\par
+    \ul\i Corporation\ulnone\i0  (\i DEC\i0 ) PDP-8 family.\par
+\par
+    The P?S is an outgrowth of a pre-existing organization known as\par
+    the \ul\i William Claude Fields Memorial Programming Group\ulnone\i0  (\ul\i WCFMPG\ulnone\i0 )\par
+    (also known as \ul\i Friends of the Boston Massacre\ulnone\i0 ).  The various\par
+    works of the WCFMPG are legendary in the realm of PDP-8\par
+    programming; all original WCFMPG members are responsible for\par
+    either starting or creating various software projects for DEC\par
+    computers, especially the PDP-8.  All members of the WCFMPG were\par
+    DEC employees at some point in their careers; however, much of\par
+    their work for PDP-8 systems (and other computers made by other\par
+    companies) predates their DEC employment.\par
+\par
+    P?S/8 as it exists today, is a composite project featuring the\par
+    work of many members of the P?S and all of the members of the\par
+    WCFMPG working at times together and independently at other times.\par
+    Some portions of this operating system derive from the earlier\par
+    work known as \ul\i The R-L Monitor\i0  \i System\ulnone\i0  which was created as a result\par
+    of an incredible amount of manual labor over the course of a four\par
+    month period.  No conventional software tools were used as the\par
+    environment that existed at the time didn't include any.\par
+\par
+    The front panel of the particular PDP-8 machine used for this work\par
+    was quite thoroughly worn out from toggling in thousands of\par
+    instructions; it would not become reliable again until (among\par
+    other things) it was repaired by replacing all of the front panel\par
+    slide switches by Charles Lasner, the author of this document and\par
+    principle architect of much of P?S/8.\par
+\par
+    Note: All of the code in The R-L Monitor System was all new work\par
+    created during that time period with the exception of a binary\par
+    copy of DEC's \i PAL III\i0  assembler.  While normally meant for use\par
+    with paper-tape, PAL III was modified to read the contents of\par
+    files on the R-L system DECtape, and to create binary output\par
+    written to a designated area on the system DECtape.  (The R-L\par
+    Monitor System is a fixed closed-end project available only for a\par
+    single DECtape drive such as a TU55 or TU56H).\page     While unconfirmed, it is generally accepted that the particular\par
+    image of PAL III was obtained from a copy of the \ul\i DECtape Library\par
+\ulnone     \ul System\ulnone\i0  which was provided by DEC when the TC01 and TU55 were\par
+    installed.  With the exception of the later DEC product \ul\i The Disk\ulnone\i0\par
+    \ul\i Monitor System\ulnone\i0 , all DECtape-based software is compatible with a\par
+    short bootstrap code segment.  Official TC01/TC08 bootstrap\par
+    programs are needlessly longer to accommodate the restrictions\par
+    imposed by The Disk Monitor System traceable to needlessly\par
+    incompatible design.  (It would appear those associated with that\par
+    system had no regard for standards.  Due to poor design, this\par
+    system cannot be implemented on newer PDP-8 peripherals while\par
+    P?S/8 is available for virtually all other configurations.)\par
+\par
+    Additionally, a single block of The R-L Monitor System DECtape\par
+    contains an image of the DEC \i BIN\i0  and \i RIM\i0  loaders, provided merely\par
+    for the convenience of using the PDP-8 in the original stand-alone\par
+    paper-tape environment.\par
+\par
+    Note: The version of the BIN loader used is the one released at\par
+    about the time the project started; patches had been applied to an\par
+    earlier version to be compatible with the TC01 (and later TC08)\par
+    DECtape controller.  Arbitrarily, the RIM loader incorporated is\par
+    for the low-speed ASR reader and not the high-speed reader.\par
+    Neither device was available on the original system configuration\par
+    of that PDP-8 system.\line\line     Several years later, certain P?S members, with encouragement and\par
+    partial cooperation of the WCFMPG started on the P?S/8 project; no\par
+    code was used from The R-L Monitor System.  However, many of the\par
+    original concepts were retained where practical.  In certain\par
+    instances, internal structures are actually identical (but this is\par
+    not apparent because other internal aspects of the P?S/8 system\par
+    were changed due to more advanced design).\line\line     The last work on The R-L Monitor was performed by Charles Lasner,\par
+    adding in support for \ul\i FOCAL, 1969\ulnone\i0 .  The implementation is in the\par
+    form of binary overlay to create an interface to read the contents\par
+    of R-L text files into R-L \i FOCAL\i0  instead of the system console\par
+    input.  Once all characters are read from all passed input files,\par
+    input reverts back to the normal console, etc.\par
+\par
+    The work on FOCAL was done in preparation for P?S/8 \i FOCAL\i0  which\par
+    adds many additional features.\par
+\par
+    During the early years of all new work on P?S/8, it was decided to\par
+    submit The R-L Monitor to the \ul\i Digital Equipment Corporation User\par
+\ulnone     \ul Society\ulnone\i0  (DECUS) as the "Mass Storage System for the PDP-8" or \ul\i MS/8\par
+\ulnone\i0     for short.\page     This was done to thumb our collective noses at DEC's marketing\par
+    department because of their petty annoyances with the original\par
+    marketing name of \ul\i PS/8\ulnone\i0  for their 8K project borne of mediocrity.\par
+\par
+    Actually, it was named by its creators as the \ul\i First Upward\par
+\ulnone     \ul Compatible Keyboard Editor and Monitor\ulnone\i0  (\i FUCKEM\i0 ) and was intended\par
+    to be a demonstration only to be completely replaced by a better\par
+    and more thought out system to be designated as the \ul\i Second Upward\ulnone\i0\par
+    \ul\i Compatible Keyboard Editor and Monitor\ulnone\i0  (\i SUCKEM\i0 ).  Despite the fact\par
+    that the FUCKEM demo was created over a weekend (without sleep),\par
+    the idiot managers insisted on using the demo code which is both\par
+    incomplete and inconsistent internally, along with some absurd\par
+    notions of their own, which became the basis of what is known as\par
+    \ul\i OS/8\ulnone\i0  today.  Despite the fact that the managers named it "PS/8",\par
+    they acquiesced to the marketing department and had all the names\par
+    changed to "OS/8" (which was nuisance work to the programmers,\par
+    more interested in trying to salvage the existing code to actually\par
+    somewhat function, etc.\line\line     Thus, the next release continued the prevailing version numbers,\par
+    but was identified as OS/8 instead of PS/8. (Marketing had\par
+    complained that they had difficulties selling a computer with a\par
+    "programming system" and demanded it be renamed an "operating\par
+    system" claiming they could sell more computers that way.\line\line     At that time, P?S/8 had no actual system name, as we had no intent\par
+    of "marketing" it.  However, due to the salesmen's antics at DEC,\par
+    we decided to take the joke one step further.  Since this was a\par
+    product from the P?S, the software was dubbed P?S/8.\line\line     For some time, this action actually backfired as the joke became\par
+    apparent, as many refused to believe the software actually\par
+    existed!  Fortunately, by the time much of P?S/8 was sufficiently\par
+    developed, specific groups of people were exposed to the software.\par
+    It was well known in certain PDP-8 circles.\line\line     Two separate attempts were made to "sell" P?S/8 to DEC at the\par
+    heavy insistence of the in-house PDP-8 programming staff (who knew\par
+    P?S/8 was better than The R-L Monitor System, from which many had\par
+    started programming the PDP-8 while at school).  Unfortunately,\par
+    this never happened due to manager sabotage and apathy.\par
+\par
+    In one instance, insulting "reasons" were given that made no sense\par
+    for the company; in the other case, the manager feigned excuses to\par
+    not engage (concocted the notion of having to make a telephone\par
+    call that would last the rest of his work day).\page     In large part due to intermediaries (including Lenny Elekman of\par
+    the WCFMPG and various engineers at Data System Design), a limited\par
+    royalty agreement was struck between Charles Lasner and the\par
+    Intersil Corporation to allow use P?S/8 on the Intersil computer\par
+    known as the \ul\i Intercept I\ulnone\i0 .  No support was offered and only printed\par
+    listings of the major components were provided, along with some\par
+    limited training of a key recent hiree of Intersil, etc.  Their\par
+    only demand was to change the name of the system to the \ul\i Intersil\ulnone\i0\par
+    \ul\i Floppy Disk Operating System\ulnone\i0  (\i IFDOS\i0 ) in any internal system\par
+    blocks.  Note: The Intercept I was a machine of the class of the\par
+    DEC VT78 but far more flexible and supports many more peripherals.\par
+    The DSD-210 is connected to the Intercept bus using an interface\par
+    card created by DSD and Intersil; it is functionally equivalent to\par
+    the DEC RX8E interface for Omnibus machines such as the PDP-8/E.\par
+    The DSD-210 is a compatible superset of the DEC RX01; most\par
+    notably, it can format the media (something that cannot be done on\par
+    the DEC counterpart).\par
+\par
+    After several years had passed, all rights to P?S/8 were retained\par
+    by Charles Lasner on behalf of the P?S, which is the current\par
+    situation as of this writing.\par
+\par
+    Note: This includes revealing the true nature of IFDOS. Presently,\par
+    a stable version of P?S/8 Version 8Z (with certain patches) is\par
+    available from the author.  While only a small few programs are\par
+    intended to be added to Version 8Z, the next release of \ul\i P?S/8\ulnone\i0\par
+    \ul\i Version 9A\ulnone\i0  is already in the early stages of development.  Contact\par
+    Charles Lasner for more information, as not all P?S/8 device\par
+    handlers are available for a variety of reasons.\line\line     Some of the issues raised in this document relate to the coming\par
+    transition where temporary restrictions and kludges will give way\par
+    to a better implementation in the next release.\par
+\par
+2) DEC management was convinced that it was necessary to market an\par
+   operating system that required 8K memory.  (The decision was not\par
+   made by consulting expert programmers; the only known input came\par
+   from marketing people unconcerned with technical details.)  While\par
+   it may be true that certain programs might either require or take\par
+   advantage of extended memory, it is not technically valid the\par
+   operating system need require 8K as well.\page    Note: While it is known this "executive decision" was made circa\par
+   1969, within five years DEC was selling PDP-8/A models which could\par
+   be configured with less than 4K system memory depending on the\par
+   application.\par
+\par
+   Customers seeking small PDP-8/A-based solutions were encouraged to\par
+   discuss their requirements; certain small memory modules were\par
+   marketed to best meet the specialized needs of this customer base.\par
+   An operating system that did not require extended-memory hardware\par
+   to perform certain program execution tasks (as opposed to software\par
+   development) would be a welcome product to this market segment.  It\par
+   is a much harder to sell an operating system that requires 8K just\par
+   to perform simple 4K (or less) program loading tasks to such\par
+   customers.\par
+\par
+   The notion of the differing requirements of the operating system,\par
+   and certain programs that run under the operating system, is easily\par
+   demonstrated using P?S/8.  Depending on the specifics, a program\par
+   may issue error messages if the requirements are not met.\par
+\par
+   For example, the P?S/8 \i PAL\i0  assembler might run in 4K, but not under\par
+   all circumstances.  Due to the large number of modular options, it\par
+   is not possible to enable all of the available options and also\par
+   load the complete set of permanent symbols (which includes optional\par
+   sections used only if dual-mode assembly of PDP-8 and LINC\par
+   programming is enabled); however, there is a remedy in the form of\par
+   an acceptable tradeoff: a command-line switch reconfigures the\par
+   input and output buffers used during the assembly process; this\par
+   increases the available symbol table storage space sufficiently to\par
+   load all optional symbol table sections, but significantly slows\par
+   the entire assembly process.\par
+\par
+   The result technically allows all features to be accessed, but at\par
+   the expense of only a small number of user symbols; as such, this\par
+   means that the size of the source code is likely too large for any\par
+   practical assembly.  As such, it is highly likely the assembly is\par
+   aborted due to symbol table overflow.\par
+\par
+   As a result, the minimum amount of memory actually needed is a\par
+   function of the requirements of the user and not that of the\par
+   operating system.  For many users, forcing a needless requirement\par
+   of 8K memory is quite problematic, especially when for many models,\par
+   adding in the extended memory controller and additional memory\par
+   stacks is either very expensive or quite difficult or both.\par
+\par
+   Had competent programmers had any input to these decisions, perhaps\par
+   the outcome would have been quite different from what actually\par
+   transpired.  The experience with the LINC-8 and PDP-12 operating\par
+   systems didn't gain them any insight into this very real problem.\page    Because of the separation of the overall group of PDP-8 programmers\par
+   who knew each other into "factions" there wasn't sufficient\par
+   communications to solve this problem properly.\line\line    There are several key issues as to what the proper scope of the\par
+   system device handler must accomplish for a successful operating\par
+   system as follows:\line\line    a) The system device handler must be located within locations\par
+      07600-07777.  This is an absolute requirement as this last page\par
+      of field 0 (the highest page of a 4K machine) has several pre-\par
+      existing requirements created during the prior paper-tape-only\par
+      era.  Clearly, exit to the operating system must be made by\par
+      restarting at location 07600.\par
+\par
+      This was first established in the earlier \ul\i DECtape Library System\ulnone\i0  \par
+      which was used to save images of memory in the range of\par
+      00000-07577 (or any subset memory space to the nearest complete\par
+      memory page).  This system allows saving images of binary paper-\par
+      tapes loaded into memory (which is a tedious and error-prone\par
+      process).  Named images can be quickly loaded into memory at any\par
+      time to eliminate waiting for paper-tape loading, etc.\par
+\par
+      Additionally, the highest page of field 0 may have as many as\par
+      six locations reserved for three-cycle data break.  As such,\par
+      many restrictions are placed on the usage of these locations.\par
+      (07750-07751 are reserved for the DF32/RF08, 07752-07753 are\par
+      reserved for the TC58 magnetic tape controller and 07754-07755\par
+      are reserved for the TC01/TC08 DECtape controller.)\line\line    b) Subroutine calls must be available to read or write multiple\par
+      blocks of memory to designated groups of storage blocks on the\par
+      device.  While there are no fixed design rules, earlier works\par
+      used separate read and write entry points; unfortunately, this\par
+      causes avoidable overhead; memory locations for code space or at\par
+      an absolute premium.  Inevitably, certain compromises must be\par
+      made; simplifying the implementation of any aspect of the design\par
+      is highly desirable.\par
+\par
+      Fortunately, some aspects of this were hammered out by members\par
+      of the group at large.  The notion of a composite function word\par
+      is used to supply the basic read or write function, the number\par
+      of memory pages involved (1-31; 32 is implied if this field of\par
+      three bits is set to all zeros), extended memory field for the\par
+      data transfer (to support up to 32K memory) and, in the case of\par
+      P?S/8 only, three logical bits to represent the individual drive\par
+      units as first implemented in the earlier type 552 DECtape\par
+      controller for the PDP-5 (that was occasionally used on early\par
+      PDP-8 systems).\page       Note: The time frame of these early design decisions included\par
+      the TC01 DECtape controller and the TU55 DECtape drive; each\par
+      drive has manual logical unit settings for any drive in the\par
+      range of 0 through 7.  The earlier type 552 DECtape controller\par
+      and type 555 dual DECtape drives were still supported by DEC in\par
+      such as existing Typeset-8 systems with the clear intention of\par
+      phasing them out in favor of the TC01 and TU55 (later TU56 dual\par
+      drives).  However, the 552 controller also supports eight drives\par
+      numbered 1 through 8.  Proper documentation can clear up any\par
+      confusion when using one controller instead of the other.  Three\par
+      bits accommodate the logical unit bits for both of these\par
+      controllers (as well as similar aspects of other tape\par
+      controllers such as the TC12 on the PDP-12).\line\line       When DEC management was forcing their notions on the in-house\par
+      programmers, the notion of the logical unit was not yet\par
+      developed; it was assumed by all of the WCFMPG members that the\par
+      quick and dirty demo program would be scrapped in favor of the\par
+      newer design as kicked around by all members of the P?S as well.\par
+\par
+      Because of the incredibly stupid edict of the incompetent\par
+      managers to only use the demo code, the logical unit feature was\par
+      never implemented.  As such, P?S/8, as a 4K operating system, is\par
+      more powerful in this regard than the 8K system that was\par
+      eventually marketed as OS/8.\par
+\par
+      Comparing P?S/8 and OS/8 system device handler calls, the\par
+      function word of both systems is identical with the exception of\par
+      the logical unit bits, which in OS/8 are largely undefined.\par
+\par
+      Note: In the interest of complete accuracy, the lowest of the\par
+      three bits that were meant to be logical unit bits is\par
+      tentatively reassigned in OS/8 as follows:\par
+\par
+      Within all existing OS/8 programming, there are perhaps as many\par
+      as four calls to the system device handler that set this low-\par
+      order bit.  This is used to inform an ignorant system device\par
+      handler implemented on DECtape or LINCtape the notion that it is\par
+      certain it is faster to initiate a forward initial block search\par
+      on the tape rather than the usual default reverse search.  This\par
+      helps per se, as any real opportunity to avoid needless reverse-\par
+      first searches will speed up all such tape operations.\par
+\par
+      However, this is actually a fallacy:  While it is true that most\par
+      searches should be started in the reverse direction, as many as\par
+      40% of actual searches would benefit from initial forward\par
+      search.  Unfortunately, most of these opportunities can only be\par
+      determined dynamically.\page       The P?S/8 TC01/TC08 DECtape system device handler includes a\par
+      small coding section that determines the proper initial search\par
+      direction based on comparing the last block transferred during\par
+      the previous call to the handler with the latest block specified\par
+      in the current call.  (An overshoot factor must be included to\par
+      avoid false positives,)\line\line       Moreover, there exists a user-written replacement for the OS/8\par
+      system device handler that incorporates the same logic.  (It was\par
+      copied from the P?S/8 system handler source code.)  Similar\par
+      techniques can be used for the TD8E DECtape controller; due to\par
+      excessively "smart" hardware, the TC12 LINCtape controller\par
+      cannot be made to perform anything but an automatic reverse\par
+      initial search.\par
+\par
+      Given all of the above, this minor frill is actually inferior to\par
+      the easily implemented dynamic search method; as such, the usage\par
+      of this bit is superfluous and can be considered as an\par
+      unimplemented feature equivalent to the other two bits which\par
+      were never used.\par
+\par
+      Note: Had the demo been scrapped, the design of the system would\par
+      have taken a different course.  In OS/8, each logical device is\par
+      a one-off item.  The handler for DTA0: and the one for DTA1: are\par
+      totally independent.  In P?S/8 the non-system handler is for the\par
+      DTA device and the command syntax includes placing the logical\par
+      unit number into the commands as needed.  As such, the single\par
+      handler covers all eight logic units in the range of 0 through\par
+      7.\line\line       Had OS/8 been designed to use the same conventions, there would\par
+      be a SYS0: through a SYS7: notation with SYS: reserved for\par
+      accessing the drive booted to.\par
+\par
+      Note: The P?S/8 TC01/TC08 system device handler is compatible\par
+      with an extended bootstrap for any logical unit in the range of \par
+      0 through 7.  (All systems can be booted on drive 0; only P?S/8\par
+      can handle the rest of the logical drive settings.)  As such,\par
+      P?S/8 implements this (although the usual command syntax is\par
+      slightly different).\line\line       OS/8 implemented on the RK8E supports the same notion of an\par
+      extended bootstrap.  However, instead of embracing the logical\par
+      unit openly, the limited syntax causes command anomaly.  Unless\par
+      the user is aware of the drive unit chosen, handlers can access\par
+      different logical drives than expected, etc.  Implementing\par
+      logical drives in the system device handler could eliminate any\par
+      of these anomalies.\page    c) Other functions that can be implemented in the system device\par
+      handler include writing out memory to a scratch area before\par
+      loading the system keyboard monitor and implementation of an\par
+      embedded call to the system device handler totally contained\par
+      within the 07600-07777 system kernel area.\par
+\par
+      These two features interact in various ways and introduce\par
+      tradeoffs.  While the OS/8 design includes the memory saving\par
+      feature, this was implemented in an ill-advised way.  The demo\par
+      version of the code was too expedient to see the folly of the\par
+      specific implementation.  As such, not enough of memory was\par
+      saved to allow more general functionality.  (This was copied\par
+      from the poor design of The Disk Monitor as demanded by the\par
+      idiot managers.)  By being slavish to this notion, additional\par
+      overhead had to be managed by segmenting memory areas to the\par
+      nearest 1K of memory (including the use of memory locations in\par
+      field 1).  By needlessly segmenting memory, the system kernel\par
+      must include control words to manage this, etc.\par
+\par
+      Additionally, as all programs exit to location 07600, this means\par
+      that memory is \b always\b0  saved regardless of the user's\par
+      requirements.  This is inherently dangerous as the bootup\par
+      process may be error-prone.  If the device is write-protected,\par
+      it is beyond the ability of an typical end user to realize the\par
+      error is caused solely by the write protect hardware and not a\par
+      consequence of the boot process gone awry.  Allowing the system\par
+      to continue from a HLT condition may corrupt the operating\par
+      system!\line\line       In actual practice, many users either ignored this potential\par
+      deadly problem, or were never made aware of the issue.  There\par
+      are periodic reports of actual monitor head destruction of the\par
+      OS/8 bootup media, including potential destruction of the device\par
+      directory, etc.\par
+\par
+      While further discussion of this important issue is needed, it\par
+      is important to first discuss the implementation of basic\par
+      program execution.\line\line       Because of the schism between the WCFMPG programmers and the P?S\par
+      programmers, the WCFMPG (now DEC employees) were out of touch\par
+      with the proper solution to this problem as implemented in\par
+      P?S/8.\line\line       The WCFMPG implementation of the R-L Monitor System has a major\par
+      design flaw.  There is no way to execute programs directly!\par
+      Instead, as necessary, the system device handler is removed from\par
+      memory and replaced with what was known as the "system loader"\par
+      code.\page       The R-L Monitor System first loads into memory a template copy\par
+      of the system loader.  All parameters to be passed to the\par
+      executable are copied to the proper relative position in the\par
+      template.  This also includes patching in the starting block of\par
+      the program (as obtained from the system programs directory) and\par
+      the designated starting address.  Input files specified by the\par
+      user are also passed into the corresponding reserved area as\par
+      well as the reserved location for the =\i xxxx\i0  specified on the\par
+      command-line.\par
+\par
+      The system loader includes reboot code for the TC01/TC08 for\par
+      logical drive unit 0.  (This code is compatible with many other\par
+      PDP-8 operating systems.)\par
+\par
+      There are no subroutine calls; the only function is to read in\par
+      the executable program up to 00000-07577.\line\line       When the executable program is started, the system parameters\par
+      are available, but there is no means to functionally make use of\par
+      them; the vital system device handler is not present.\line\line       The "solution" in the R-L Monitor is to require all system\par
+      programs to include their own internal means of accessing the\par
+      system DECtape, etc.  This generally took the form of a stand-\par
+      alone subroutine that was compatible with the actual system\par
+      device handler (which is only available to the keyboard monitor \par
+      routines).\line\line       In effect, this extra burden means the executable program cannot\par
+      quite be as intended.  For example, in R-L FOCAL, the internal\par
+      pointers of FOCAL are modified to protect the memory locations\par
+      occupied by the read/write subroutine included in the program.\par
+      As such, R-L FOCAL cannot support the full breadth of programs\par
+      that function in the original paper-tape implementation of\par
+      FOCAL, 1969.\par
+\par
+      The P?S/8 solution to this problem was to implement an embedded\par
+      subroutine call within the system kernel followed by two\par
+      instructions to start the program after loading.\line\line       Note: It was extremely difficult to accomplish this!  A lot of\par
+      effort was expended squeezing down the code of the system device\par
+      handler.  Arguably, this problem was the largest example of\par
+      brainstorming the squeezing down of any program on any computer\par
+      architecture ever.\line\line       The PDP-8 architecture allows many forms of code-space\par
+      optimization; details of this advanced subject are beyond the\par
+      scope of this document.  However, the current P?S/8 TC01/TC08\par
+      system device handler does implement this call (honorarily also\par
+      named the system loader as was called the longer routine in The\par
+      R-L Monitor System).\page       Program execution is achieved by merely inserting the parameters\par
+      obtained from the system programs directory into the\par
+      corresponding in-line arguments of this embedded call to the\par
+      system device handler.\par
+\par
+      Note: Unlike the "system loader" described above in The R-L\par
+      Monitor System, this increases the reliability of the execution\par
+      process; error recovery is now completely at parity with the\par
+      capability of the system device handler.  (The R-L routine\par
+      merely halted on any error and the only recovery possible is to\par
+      reboot at 07600; the command execution is lost.)\par
+\par
+      Most importantly, there is no need for system programs to\par
+      internally support a read/write subroutine in lieu of the system\par
+      device handler; rather, calls can be made to the system device\par
+      handler which remains resident throughout the entire execution\par
+      process; the former code space reservation is now eliminated.\par
+\par
+      The specific nature of the system device handler need not be\par
+      known by the program.  This is referred to as complete device-\par
+      independent execution.  The typical P?S/8 system program is\par
+      written for any release of P?S/8 regardless of the specifics of\par
+      the system device configuration.\par
+\par
+      The equivalent function in the OS/8 demo program was not\par
+      implemented.  An underlying reason was the lack of\par
+      communications between the WCFMPG and the P?S/8 programmers; the\par
+      advanced P?S/8 implementation was thus ignored out of\par
+      expediency.\line\line       As such, and in light of the management edict of requiring 8K,\par
+      the demo design was compromised.  Thus, OS/8 requires the\par
+      reservation of 17600-17777 as well as 07600-07777.   The OS/8\par
+      equivalent call to the system handler is located within\par
+      17600-17777 to accomplish the equivalent program execution\par
+      loading; however, the size of the resident system kernel was\par
+      doubled despite no overall justification.\line\line       While there are other parameters stored in the field one area, a\par
+      better design doesn't require any of them.  Moreover, a\par
+      significant number are wasted merely being used as part of the\par
+      bootup process.\par
+\par
+      Note: P?S/8 does not use a separate block devoted to little more\par
+      than the bootup process.  Despite the lack of this frill, P?S/8\par
+      runs on virtually every device OS/8 does (often requiring less\par
+      minimum memory).  The design of the bootup process requires more\par
+      effort, but always yields a successful design.  This is true\par
+      despite certain designs not being mindful of systems such as\par
+      P?S/8 where there could be considerations that don't arise in a\par
+      system with a separate bootstrap totally apart from the main\par
+      device handler code.\page       Starting with the next complete release of P?S/8 (Version 9A),\par
+      certain small modifications are being made to accommodate the\par
+      upcoming major upgrade, the P?S/8 SHELL.  This optional\par
+      component will provide a superior operating system environment\par
+      when compared to OS/8; equivalent system calls will be part of\par
+      this support, allowing P?S/8 to execute slightly modified\par
+      versions of any and all OS/8 programs.  This will be\par
+      accomplished without reserving any additional memory per se.\line\line       Note: Certain OS/8 programs cannot be moved to the P?S/8 SHELL\par
+      environment because they are only concerned with OS/8-specific\par
+      implementation particulars; as such, they are either entirely\par
+      not required, or P?S/8 equivalents will be written to\par
+      accommodate the superior environment, etc.\line\line       P?S/8 operates using an advanced memory model: Field 0\par
+      requirements for both systems are identical, albeit the specific\par
+      system kernel parameters within the memory range of 07600-07777\par
+      are quite different between the two systems.\line\line       In the case of system parameters related to file operations,\par
+      P?S/8 operates by one of two methods:\par
+\par
+       i) Location x5400-x5777 contains the analog to the OS/8 file\par
+          parameters as used in the OS/8 \ul\i User Service Routine\ulnone\i0 .\par
+          However, the P?S/8 equivalent known as the \ul\i File and\par
+\ulnone           \ul Communications Area\ulnone\i0  (\i FCA\i0 ) is far larger; sections of the FCA\par
+          will be defined as existing features of the P?S/8 SHELL as\par
+          presently being implemented.  Additional memory words are\par
+          reserved for future expansion.\line\line           A portion of the FCA is reserved for file-related parameters\par
+          as required by the \ul\i User File Operato\ulnone\i0 r (\i UFO\i0 ).  All SHELL-\par
+          related system programs will obtain services from the UFO.\par
+          In the case of migrating programs from OS/8, the existing\par
+          USR-related routines will be upgraded to UFO compatibility.\par
+          In general, there should be little to no additional\par
+          modifications required (although some will be made to \par
+          eliminate weaknesses and bugs, etc.).\line\line           The P?S/8 system kernel includes all required information on\par
+          how to interface with the UFO, including determining if the\par
+          non-resident method is in effect (as described in ii)\par
+          below).\page       ii) The contents of the FCA are accessed by reading or updating\par
+          the contents of two adjacent system blocks located near the\par
+          beginning of the current operating system blocks.  Exact\par
+          block placement has not been determined pending other\par
+          features and block reassignments that will be determined\par
+          before P?S/8 Version 9A is released.  These blocks will be\par
+          physically near the storage blocks for the UFO itself,\par
+          allowing only minimal performance degradation as compared to\par
+          the memory-resident implementation as described in 1) above.\par
+\par
+          Note: The present method of access to the FCA is determined\par
+          by a bit within the P?S/8 system kernel.\par
+\par
+          Present plans for the UFO implementation is as an offset\par
+          past a basic system program to be called SHELL in the system\par
+          programs directory.  SHELL operation can be enabled and\par
+          disabled from the basic system.\par
+\par
+          If the SHELL is present, this should be an early entry in\par
+          the System Programs Directory.\par
+\par
+          Overall system performance is expected to be superior to\par
+          OS/8 when running programs that inherently need only 4K\par
+          memory or less.  Programs requiring 8K or more can benefit\par
+          from the elimination of the reservation of the last page of\par
+          every memory field (other than the highest physical field of\par
+          memory, if applicable).\line\line           Note: In the case of migrating the OS/8 BASIC and FORTRAN IV\par
+          runtime systems, the P?S/8 SHELL environment provides a\par
+          superior memory layout for the benefit of these 15-bit\par
+          addressing programs.  Where relevant, the contiguous memory\par
+          space can start at location 10000; in OS/8, this must start\par
+          at 20000, thus wasting an entire memory field.\par
+          Additionally, the kludges associated with OS/8 system device\par
+          handlers that require 12K is completely eliminated, as are\par
+          the inherent implementation risks.  During talks associated\par
+          with the never-completed negotiations with DEC management to\par
+          take over the P?S/8 project, the P?S/8 memory model was\par
+          discussed with the DEC PDP-8 programming staff; they agreed\par
+          that the P?S/8 method was superior.  However, management\par
+          would never approve changing their stagnated design from\par
+          years earlier.\par
+\par
+          By implementing an embedded call to the system device\par
+          handler in field 0, P?S/8 entirely avoids the need to\par
+          consider saving an image of memory.  P?S/8 always boots up\par
+          without writing; as such, the system device can be write-\par
+          locked for improved safety.\page           While OS/8 always writes out part of memory to scratch\par
+          blocks, rarely is this functionality needed.  Memory saving\par
+          is the designated way to create system programs, but this\par
+          can be accomplished by alternate means.\line\line           When P?S/8 loads programs in binary form (as opposed to\par
+          core-image executable form), the contents of the embedded\par
+          call to the system device handler are defaulted to save all\par
+          of field 0 in the designated full-field scratch area (blocks\par
+          0020-0057).  As such, a program that requires being saved\par
+          can accomplish this by instead starting at the entry point\par
+          of the embedded system device call (07632).  After all of\par
+          field 0 is saved, the embedded call restarts the normal\par
+          read-only bootstrap process at 07600.\line\line           The P?S/8 \i GET\i0  command accomplishes this automatically.  (It\par
+          is actually an alias to the P?S/8 \i BIN\i0  utility specifying the\par
+          complete set of parameters to perform the memory save\par
+          operation and then restart, etc.\par
+\par
+          As such, a user program can be created using the GET\par
+          command; additional utilities are available to start the\par
+          created temporary image program, debug it and optionally\par
+          save it in binary file format for deferred loading.\line\line           Note: The basic P?S/8 system does not currently suppport any\par
+          utilities to directly create an additional system program\par
+          (or delete an existing one).  Advanced users are capable of\par
+          performing this using existing utilities.  Future releases\par
+          may include such utilities for the basic system, but this is\par
+          a very low priority.  However, the SHELL environment will\par
+          include a system program builder of higher complexity than\par
+          OS/8.  This is necessarsy because all P?S/8 executable\par
+          programs can directly support overlays; this is cannot be\par
+          accomplished merely by saving loaded memory locations.\par
+\par
+          Part of the problem of system component creation will be\par
+          overcome by a more useful implementation of the \i DTORG\par
+         \i0  directive in P?S/8 PAL.  Instead of being a useless and\par
+          perverted feature originally implemented to accommodate the\par
+          Typeset-8 group, it will be repurposed into a general-\par
+          purpose feature to define code overlays, etc.  This will be\par
+          incorporated into the SHELL image building utility and may\par
+          provide a stop-gap method of creating user-written system\par
+          programs for the basic system.\line\line           Also planned is the P?S/8 \i BINCON\i0  program to allow OS/8 users\par
+          the ability to take advantage of all features of P?S/8 PAL\par
+          (including the corrected DTORG directive).  Because of the\par
+          overall importance of this issue, documentation is available\par
+          elsewhere as part of the specification of the BINCON\par
+          utility.\page\par
+\par
+\par
+\par
+\par
+\par
+\par
+\line\par
+\par
+\par
+\par
+\line\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\line\line\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+  While this is potentially a hindsight argument, it is clear that certain members of the PDP-8 programming group at large realized this was an avoidable overhead.  As such\par
+\par
+\par
+\par
+\par
+\par
+\par
+   unless another option is invoked to minimize the input and output\par
+   buffers to increase available symbol table storage space; while\par
+   this generally results in increased assembly times, but is the only way to successfully load the entire assembler unless additional memory is available.  While this may barely fit in 4K, it is far from practical: The number of user symbols allowed is likely too small for any practical purpose.  As such, it is virtually necessary to have 8K to take advantage of reasonable program size when using all of the options.\line\line Note: Due to the way P?S/8 allocates memory, it is possible to have 7K available to system programs in specific configurations.  To take full advantage of all of the P?S/8 PAL features, this is the practical minimum size of memory.  If a program does not require literals/link generation nor dual-mode assembly, a reasonable amount of user symbol space can be accommodated in 4K.  As a rule of thumb, each additional 4K of available memory adds 1024 additional user symbols, etc.  If 20K (or more) memory is available, the maximum size symbol table (4096 symbols including permanent symbols) can be accommodated, etc.\par
+\par
+\par
+\par
+ had looked at other 8K systems such as CPS-8K that\par
+   cannot run on any other machine than the LINC-8, while also\par
+   violating certain aspects of PDP-8 memory layout standards.\par
+   Internally, these systems are worse than The R-L Monitor System in\par
+   many ways.  Thankfully, this was rejected.  At the time, most\par
+   operating systems were attempting to be centered on 4K systems.\par
+\par
+   Due to inadequate hardware, both the 4K and 8K versions of CPS are\par
+   unreliable on the intended hardware.\par
+\par
+   As a side effect of this search, one of the members of the WCFMPG\par
+   created the \i LAP6-DIAL\i0  and \i DIAL-MS\i0  operating systems that run only\par
+   on suitably configured PDP-12 systems.  There was no intention to\par
+   produce a more general-purpose operating system at the time.\page    Most notably, LAP6-DIAL can run on a 4K machine as management left\par
+   the project to be defined by the programmer.  However, part of the\par
+   decision hinged on the fact that the former LINC-8 systems also\par
+   generally functioned on 4K LINC-8 systems.\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\f2\par
+Appendix A.\par
+\par
+Using BINCON on P?S/8 systems without BINCON installed.\par
+\par
+BINCON is a recent addition to releases of P?S/8 Version 8Z; it will be included in all future releases as a standard system program compatible with the concise or extended forms of program execution.\par
+\par
+Those familiar with the P?S/8 system programs directory can add BINCON as long as there is sufficient free storage space.  Failing this, it is also possible to run BINCON as an impromptu system program as described below; the binary file[s] created by assembling BINCON source file[s] must be available on an available logical device unit [drive 1 in this example].\par
+\par
+Console output\tab\tab\tab\tab\tab\tab\cf1\f1 Comments\cf0\f2\par
+\par
+.     \tab\tab\tab\tab\tab\tab\tab\cf1\f1 Keyboard monitor prompt.\cf0\f2\par
+.CA:1\tab\tab\tab\tab\tab\tab\tab\cf1\f1 CA\{talog\} command for drive 1.\cf0\f2\par
+BINCN1  BINCN2  README  RDMETU\tab\tab\cf1\f1 Contents of TFS directory on\cf0\f2\par
+\tab\tab\tab\tab\tab\tab\tab\tab\cf1\f1 drive containing binary files.\cf0\f2\par
+.LC:0\tab\tab\tab\tab\tab\tab\tab\cf1\f1 Avoid potential system \tab\tab\tab\tab\tab\tab\tab\tab\tab\tab dependencies on data drive.\cf0\f2\par
+.GET BINCN1:1 BINCN2\tab\tab\tab\tab\cf1\f1 Create program image.\par
+\tab\tab\tab\tab\tab\tab\tab\tab System restarts here.\par
+\cf0\f2 .R $ \cf1\f1 [Files and other parameters]\tab\tab Particulars as used when \tab\tab\tab\tab\tab\tab\tab\tab\tab BINCON is already installed.\par
+\par
+\cf0\f2 The R [or RU\{n\}] command specifying the program name \highlight1 $\highlight0  [or \highlight1 %\highlight0 ] executes the default core image as setup by the latest GET operation or equivalent.  [Note: This will function permanently unless some other system usage or command changes the contents of the \highlight1 %\highlight0  and \highlight1 $\highlight0  files.  If necessary, the GET operation can be repeated to refresh the default program image.]\par
+\par
+BINCON is designed to be compatible with the work-around mechanism described above to allow rapid addition to existing systems; this mechanism was introduced in P?S/8 Version 8Y and is supported on all newer releases.\par
+\par
+Usage restrictions.\par
+\par
+There are no usage restriction associated with BINCON.  The program does not use the =\i xxxx\i0  construction; there is no internal overlay structure within the program.  The program is designed to start at 00200 to be compatible with the default program execution mechanism.\par
+\par
+End of Appendix A.\page\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+Appendix B.\par
+\par
+History of the implementation of the DTORG directive and a new compatible replacement.\par
+\par
+\f1 1. Early implementation of DTORG for the DEC Typeset-8 group.\par
+\par
+On systems based on logical blocks of 128 words per block [such as The R-L Monitor System, POLY BASIC and related derivative operating systems, P?S/8 and Typeset-8] it is useful to designate specific logical blocks to write out particular operating system components.\par
+\par
+For example, the P?S/8 system device handler and integrated boot-up block must be written to logical block 0000 of the target operating system being created.\line\line Presently, this is accomplished by a large system generation utility that requires 12K-16K [depending on whether the system device handler requires an extended-memory section] as part of a complete routine to create a bootable starter system.  This memory requirement may exceed the available memory on the intended target system; elaborate workarounds must be contrived presently to create these systems.\par
+\par
+If each target block can be designated as part of a stand-alone block installation program, it is likely that all systems can be created on the actual intended hardware regardless of memory size.  [The only requirement would be that a suitable non-system device handler was available that can fit into the available memory size; this would usually be the case even if the target machine was 4K.]\line\line Typeset-8 takes advantage of the DTORG directive to implement this method of system generation on 4K Typeset-8 systems.  However, due to specific implementation limitations [that are arguably needless] the prevailing assemblers cannot be used to benefit development of any other operating system.\line\line The reason for this is that Typeset-8 is created from binary paper-tapes that are deliberately incompatible with all binary standards including the RIM and BIN loaders.\line\line The BIN file format does not support the DTORG directive output as implemented for Typeset-8.  An unsupported frame type is used to start the data intended to be written out on the block described by the DTORG frame pair.  [Note: The end of the data to be written is defined as all data prior to an origin setting outside of the current page as defined within the assembly; this part of the design is rational and quite acceptable.]\page Due to the presence of the unsupportable frame, it is impossible for the binary paper-tape to pass a checksum test as defined in the BIN loader specification.  As such, only the Typeset-8 program could confirm the validity of the data due to the incompatible format.\par
+\par
+Note: The previous sentence above is pure speculation; it may not be possible to confirm the validity or at the least it would require the paper-tape be read more than once, which is onerous.  Clearly, they never investigated this notion and merely ignored validation.\par
+\par
+The Typeset-8 block-writing utility program doesn't confirm validity of the paper-tape, merely writing out each data block as encountered.  \par
+\par
+Note: Many Typeset-8 systems were created using the low-speed reader on Teletype Model 33 ASR or 35 ASR terminals; these devices are known for reliability problems unless maintained an a schedule that is beyond impractical.  Undoubtedly, Typeset-8 development suffered some setbacks due to this rather poor design, occasionally writing out incorrect and unintended data.\par
+\par
+When Typeset-8 development meant much to DEC management, the Typeset-8 group was able to convince the developers of TOPS-10 PAL10 to support the distorted binary output format.  Very long paper-tapes were created and hand-walked to Typeset-8 machines to be read into memory [perhaps in some cases for hours at a time] as part of their rather disorganized attempt at software development.  Since TOPS-10 has no built-in requirement for compatibility with the PDP-8 BIN loader, this misfeature was easily added to PAL10.  Unfortunately, expediency was the dominant factor in adding DTORG to PAL10, not the needs of the general user audience for unrelated program development.\par
+\par
+Note: It appears that at some point, DEC management wasn't even aware there were PDP-8 programming experts available outside of the meager number of people working on in-house development systems at the time.  When it became clear many "outsiders" existed, some being hired by DEC, no one ever revisited this feature and became essentially moribund.  Part of the problem is there is no direct benefit to OS/8 development to use the DTORG feature.  Yet the methods described here using DTORG also apply to other DEC products.  [About the only products the concept doesn't apply to are the Disk Monitor System and OS/8.]\par
+\par
+However, this issue had come up even before the OS/8 project was contemplated:\par
+\par
+POLY BASIC was developed [well over 95%] at Brooklyn Poly on the R-L Monitor System [the forerunner of P?S/8] on a configuration consisting of a 4K PDP-8 CPU, a TC01 and a single TU55 DECtape drive.  At the time, POLY BASIC only supported this configuration.\page The authors of POLY BASIC [Richard Lary and Lenny Elekman] became DEC employees and brought POLY BASIC with them to demonstrate to DEC management, who were very impressed with this standalone BASIC system.  They were "encouraged" to add on support for all then-current other storage devices; development was moved to PAL10 on an in-house TOPS-10 system.\line\line While the conceptual problem of creating POLY BASIC from a few binary modules parallels the same development issues for P?S/8 as described in this document, the authors were forced to reject the suggested method because the Typeset-8 group had influenced the maintainers of PAL10 to implement DTORG in an incompatible manner; binary paper-tapes produced by PAL10 cannot be loaded with the standard BIN loader.\line\line As this was unacceptable, they implemented a slightly more "guided" approach to the same overall method of system generation, even though it was obvious the alternative method described here would be advantageous.  The net result is a very long binary paper-tape set that used the BIN loader for all operations, but still requires a central system generation program; the modules cannot target the intended storage blocks.\par
+\par
+At some time later, DEC decided to co-opt POLY BASIC and revamp it slightly into EDU-System 30 [and later EDU-System 15/30 for the TD8E only].  Because of the additional overhead of a hamstrung development method, DEC assigned fledging programmers to finish what should have been a simple modification; in the end Richard Lary had to help the new programmers bring the product[s] to functioning condition.\par
+\par
+DEC management clearly had an opportunity to make decisions about how to modify the prevailing assembler for use with more active products than the stagnant Typeset-8.  Unfortunately, when OS/8 was being developed, no changes were made; OS/8 PAL8 just implemented DTORG identically to PAL10 to the benefit of no one.\line\line When OS/8 [or actually one of its predecessors] were in the early design stages, the binary file format was deliberately made far more inefficient than necessary merely to slavishly continue this poor design mechanism.\par
+\par
+It is clear that the far more efficient \i Slurp\i0  format was known to all parties involved at the time; however Slurp format was rejected in favor of placating the Typeset-8 group's demands without ever thinking through how all parties could be accommodated without needless overhead that effectively locks out program development of another block-writing utility unless completely compatible with the limitations of Typeset-8.\page Very early in the overall design period of OS/8, the author of this document suggested a practical alternative implementation of DTORG.  However, it was never considered and he was never a part of the design team.  [Note: He was asked to join the development group, but rejected DEC's offer of employment.  Instead, he chose to develop the R-L Monitor System along with some colleagues; this lead to the current implementation of P?S/8.  It is noteworthy that at least four other renowned PDP-8 experts, all employees of DEC at the time, also rejected the project that would eventually be known as OS/8.]\par
+\par
+Note: Several other programs have been written using analogous design principles, most notably OS/8 \i BUILD\i0 .  BUILD imparts special information within a compatible binary file using binary constructs that are vaguely analogous to the suggested mechanism to implement DTORG.\par
+\par
+2. Compatible implementation of DTORG directive support.\line\line By clever design, it is possible to maintain the integrity of the binary file format for all purposes whether the DTORG directive is involved or not.\par
+\par
+Note: With the burden of incompatible frames lifted, it would have been possible to implement Slurp format in OS/8; had this been accomplished, all binary loading operations for all users over the years could have been carried out in far less time.  Slurp format was demonstrated by the author to various DEC employees; binary file loading time using Slurp format is profoundly faster that any file format derived from paper-tape frames such as OS/8's .BN files; a DECtape-based P?S/8 system actually loaded large sample binary files \b faster\b0  than an RK05-based OS/8 system despite the large difference in basic data transfer rate of the two storage devices.\par
+\par
+A few of the design principles of BUILD were adapted to create compatible DTORG output yet maintain overall binary compatibility with all known loading programs.\par
+\par
+This is accomplished by the use of special origin settings in the file without any corresponding data word loading.  The sequence of origin settings is meaningless to the standard binary loaders [which handle the binary file correctly as long as the standard BIN checksum is correct within the file].  However, a special program aware of the presence of the origin groups can implement the intent of the DTORG directive.\line\line Note: If the Typeset-8 group remained unmovable and insisted their demands be met, this could still be done in a way that only affected their interests without harming that of all other users.  A conversion program [perhaps another option to OS/8 \i PIP\i0 ] could convert compatible binary files to Typeset-8 compliant binary paper-tapes].  Had that been done, P?S/8 BINCON would be largely unnecessary.\page The following PAL coding is the equivalent of what the DTORG directive does [to be released after the next major edit of P?S/8 PAL]:\par
+\par
+\f2 /       DTORG   DTBLOCK         /SOURCE CODE PROCESSED BELOW.\par
+\par
+        DTBLOCK=XXXX            /BLOCK EVALUATED FROM DTORG STATEMENT.\par
+\par
+        FOO=    .               /WE NEED THE CURRENT ORIGIN SETTING.\par
+\par
+        *7777                   /START OF DTORG SECTION. NEVER USED IN\par
+                                /PRACTICAL PDP-8 PROGRAMMING OUTSIDE\par
+                                /OF PERHAPS THE BIN AND RIM LOADER.\par
+        *DTBLOCK                /DTORG VALUE FOR SPECIAL LOADER.\par
+\par
+        *FOO                    /RESTORE THE PREVIOUS ORIGIN SETTING.\par
+\par
+Internally, P?S/8 PAL has access to all of this information; an internal routine returns the binary value of the passed block argument.  If the argument is not present, the returned value is 0.\par
+The corresponding origin settings are added to the binary output file stream; for conventional loading purposes, there is no net change in the binary output.  As such, the historic method of development can function as intended.\par
+\par
+Only a special block-writing utility aware of the special meaning of the origin settings can make use of this added data.  Implementation of the corrected DTORG directive in P?S/8 PAL will require less than 10 additional words of PDP-8 code over the current incomplete routine.  [Currently, P?S/8 PAL acknowledges the DTORG directive by processing the argument, then otherwise ignoring the statement.]\par
+\par
+Note: The specification for a functional block-writing utility is outside of the scope of this document.  Once meaningful use of the DTORG directive is added to the various P?S/8 source files, a formal specification will be drawn up leading to implementation of the alternate system generation block-writing utility.\par
+\par
+End of Appendix B.\par
+\par
+\f0 [End-of-file]\f2\par
+\par
+}
+ 

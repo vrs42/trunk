@@ -1,0 +1,971 @@
+{\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red0\green0\blue0;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\cf1\lang1033\f0\fs20                                                                                                                                                                                                                                                                                                                                          STRIP.TEC Macro Internal Description \par
+\par
+Copyright \'a9 Charles Lasner Associates 1975\par
+Copyright \'a9 \cf0\'bbCLA Systems 1990, 2019\cf1\par
+ClaSystems@gmail.com\par
+\par
+Last edit: 10-Jun-2019 cjl\par
+\par
+Technical level: Intermediate+.  Some working knowledge of the \ul Text Editor and\ulnone\par
+\ul Corrector\ulnone  (\i TECO)\i0  utility program (as implemented on many computer systems including the \i DEC PDP-8\i0 ) is required; \i TECOC\i0  is a TECO implementation for \i MS-DOS\super tm\nosupersub\i0  and \i Windows\super tm\nosupersub\i0  which is available for free download on the Internet.  Access to a TECOC reference document is highly recommended to obtain a full understanding of the more arcane TECO commands used.  It is hoped the reader gains insight into the inner workings of this program merely by reading this document.\par
+\par
+Note: Advanced TECO users may use a larger subset of TECOC in their manual editing work; however, some of the commands described in this document will exceed even \b their\b0  working knowledge of TECO.  Certain commands are hardly ever used outside of TECO macros; specific commands are virtually unique to TECOC.\par
+\par
+\b Introduction.\b0\par
+\par
+Various components of the \ul\i P?S Extended PDP-8 Simulator\ulnone\i0  (\i PEPS\i0 ) package (an extension\par
+to the \i SIMH\i0  PDP-8 simulator) for Windows\super tm\nosupersub  use the \i STRIP.TEC\i0  macro program to filter and correct various file quirks in output files created within the SIMH simulated PDP-8 environment.  These aberrations are usually caused by minor programming errors that went virtually unnoticed when originally used on then-present day hardware.  This was often because physical lineprinters and similar output devices generally could tolerate modest formatting errors (and many programmers were either complacent or novices with regard to proper programming for lineprinters).\par
+\par
+Prior to the use of simulators, printer users were willing to tear off output\par
+perhaps after manually separating pages (or at least removing extraneous pages on\par
+either side of the listing).  Few programmers cared about minor anomalies; merely\par
+obtaining a listing was often considered a luxury.\par
+\par
+Note: Some users were especially picky regarding the way fan-folded listings were folded, preferring a top page with the fold at the bottom; as necessary, this could include an additional blank page after the last printed page with the fold at the top.  Failing to obtain this precise result led to manually refolding the pages.\par
+Savvy users learned the behavior of specific lineprinters to generally assure the final result would be obtained without resorting to refolding; however, if the only "problem" was the "wrong" fold direction, listings were generally manually refolded while waiting for the next file to print.  Access to lineprinters was often limited such that elaborate scenarios were planned to obtain printed output (sometimes from relatively remote computer installations).\par
+\par
+\b Processing output files.\b0\par
+\par
+In "modern times" we expect to either read the lineprinter-oriented output directly in an editor such as Windows\super tm\nosupersub  Notepad\super tm\nosupersub , or perhaps publish the output through a word-processor or a .PDF file creator.  As such, all minor aberrations must first be removed for the benefit of these "fragile" utilities, which tend to easily reveal such quirks (which are often dealt with in a heavy-handed manner).\par
+\par
+The burden of printing has shifted to post-processing within the host environment\par
+(in this instance Windows\super tm\nosupersub  or perhaps MS-DOS\super tm\nosupersub ) which can be somewhat "hostile" to the raw output created by prevailing programs such as \i OS/8 PAL8\i0  and \i P?S/8 PAL\i0 .  In\par
+certain cases, the output can be tainted by the deliberate insertion of\par
+inappropriate characters as part of an ill-conceived design (which was demanded by\par
+programming managers with a twisted agenda).  The reasoning behind all of these\par
+issues (or lack thereof) is beyond the scope of this document; the only concern is how the STRIP.TEC program resolves them.\par
+\par
+Note: For more information about the problems addressed above, contact the author using the indicated email address; include in the subject line: "Typeset-8 Edict".\page The PEPS package enhancements allow easy correction of lineprinter (and simulated paper-tape et al.) text files.  For those interested in viewing specific quirks, the files can be displayed before and after processing by the STRIP.TEC program.\par
+\par
+Note: Viewing \i OS/8\i0 -generated text files prior to processing by STRIP.TEC may be problematic; the files are often created with mark parity set on every character.  Windows\super tm\nosupersub -based editors are available within the PEPS package (such as \i EditPad\i0  \i Lite\super tm\nosupersub\i0 ), which can interpret text encoding as seven-bit ASCII using custom program settings.\par
+\par
+\b TECO macro arguments and execution.\b0\par
+\par
+The TECO macro STRIP.TEC is launched by the following command contained within certain PEPS package batch files; specific command usage is initiated by use of a shortcut in the \ul Commands\ulnone  section of the package.  Within each relevant batch file,  command-line usage is as follows:\par
+\par
+\ul TECOC MUNG STRIP.TEC,%STRIPFILE%\ulnone\par
+\par
+The \i STRIPFILE\i0  environment variable contents are derived from the \ul %1\ulnone  argument as passed to the relevant batch file.  By specifying an independent variable, flexibility in command formation is achieved and readability is enhanced.\par
+\par
+Note: Generally, the contents of STRIPFILE will be the complete pathname of the text file to be processed.\par
+\par
+The \i MUNG\i0  sub-command places the entire contents of STRIP.TEC into an internal buffer within TECOC; this is the usual mechanism for passing TECO macro contents into TECOC.  Other TECO implementations (such as the \i OS/8\i0  version) use a separate MUNG command as an analogous TECO macro startup mechanisn.\par
+\par
+Note: Various implementations of TECO have analogous startup mechanisms (perhaps) incompatible with TECOC; the particulars, although likely minor, must be reconciled as necessary.  STRIP.TEC is designed to work only with TECOC; modifications may be necessary to use STRIP.TEC with other TECO implementations (if at all possible).\par
+\par
+As implemented in TECOC, the contents of the STRIPFILE environment variable are placed into the edit buffer (usually associated with text while performing conventional editing).  The execution of the STRIP.TEC macro starts with the entire macro contents read into a separate internal buffer (which can be likened to an internal unnamed \i Q-register\i0 , as text storage is referred to within TECO).  Since the STRIP.TEC macro is designed to take the pathname of the passed file as an argument, it will process the text as necessary to create dynamic TECO read or write commands (targeting the passed file for editing purposes) as required.  \par
+\par
+Note: Startup conventions and exact mechanisms used to pass command-line arguments to TECO are extremely implementation-specific.  In some versions, the string is passed as the text within a Q-register, perhaps different from another Q-register within which are the macro contents; see specific TECO release documentation for more information regarding startup and initial argument passing considerations.\par
+ \par
+Except where otherwise indicated, \ul $\ulnone  refers to the escape character (<ESC>) (the ASCII character code for <ESC> is 27 decimal, 32 octal), which has no defined printing character.  When viewing a macro program within most versions of TECO, \ul $\ulnone  characters are displayed as a substitution for <ESC>; this includes displaying <ESC> within the edit buffer using any of the usual viewing commands.  This is why it is difficult to edit TECO macros other than within TECO itself.  <ESC> is used as a terminator of a string or command in most instances; a macro must contain multiple <ESC> characters by nature.  The situation is often complicated as TECO macros are known to dynamically create other TECO macros to be executed from the originating TECO macro program.  As such, these created TECO macros will also contain multiple <ESC> characters.\par
+\par
+Fortunately, TECO allows direct insertion of individual characters by character\par
+code.  The instruction sequence \ul 27I$\ulnone  can be used for the purpose of inserting <ESC> into the edit buffer, as the numerical value of the ASCII code for <ESC> is 27.\page Note: Some programmers are more comfortable using octal values; by executing the \ul Control-O\ulnone  command, all further numeric input will be evaluated in octal radix until a \ul Control-D\ulnone  command is executed to return the input radix to decimal.  In that context, the instruction sequence \ul 32I$\ulnone  is often used to achieve the identical result.  Future releases of STRIP.TEC may use octal radix notation given the number of special case character codes processed.\par
+\par
+\b Similarity of different commands.\b0\par
+\par
+The \ul I\ulnone nsert command, when passed a numerical argument (and terminated by an <ESC> character), creates a single character in the edit buffer with the ASCII code of the numerical argument.  This numerical form of the \ul I\ulnone  command requires a trailing escape character to distinguish this from the textual form of the \ul I\ulnone  command; when used for text insertion, an optional leading numerical argument (potentially) allows multiple insertions of the passed text string.  In textual usage, the entire string that follows is the argument, which must be terminated by an <ESC> character; <CR> and <LF> may be present in the text string for the purpose of inserting line breaks in the edit buffer.\par
+\par
+Note: Specifics of the textual form of the \ul I\ulnone  command might be version-dependent. STRIP.TEC avoids command extensions where possible.  The text form of the \ul I\ulnone  command inserts the entirety of an indefinite text string into the edit buffer when the terminating <ESC> is reached; however, an alternate usage of the same command could merely insert a single text character (as opposed to an evaluated character).\par
+\par
+Other sets of TECO commands have an analogous duality where function is determined by exact usage.  In some instances, the contents of TECO macros must be carefully studied to determine the exact form of the command being used.\par
+\par
+\b Known Limitations.\b0\par
+\par
+Due to the way OS/8 creates quirky output with the standard OS/8 \i PTP:\i0  handler, it is possible for trailing <FF> characters to occasionally still be present in the file after character stripping has been performed.  As necessary, the stripping process can be repeated to remove trailing <FF> characters.  Since a recent update was made to the STRIP.TEC macro, this problem has no longer been observed.  Please report any problems with the latest release to the author.\par
+\par
+Additional modifications have been made to the STRIP.TEC macro to protect against malformed text files that do not comply with standard line termination rules.  Please report any specific problems to the author for possible remedy; it may be necessary to apply manual text exiting prior to character stripping in the case of exceptional character string situations not currently handled.  A possible alternative solution would be to avoid the PTP: handler and instead using the LPT: handler (which is known to exhibit fewer problems).\par
+\par
+Note: The quirky behavior of the standard OS/8 PTP: handler is completely by design.  For more information, contact the author using the indicated email address; include in the subject line: "Typeset-8 Edict".\par
+\par
+A description of the entire STRIP.TEC file follows immediately below.  Still further below, each line is explained in full detail.\par
+\par
+Note: Line breaks (<CR>/<LF>) are meaningless within TECO except when those characters would be part of a string of characters passed to the textual form of the \ul I\ulnone  command; as such, line breaks have been added merely for readability.\par
+\par
+Conventions used to create lines within STRIP.TEC are as follows:\line\line 1) Emphasis is given to natural breaks in the flow of the code that start with a\par
+   label (expressed as a symbol surrounded by \ul !\ulnone  characters); not every label starts\par
+   a new line\par
+\par
+2) In situations where 1) above does not apply and a conditional skip construction\par
+   ends the line, the \ul '\ulnone  character that starts the code past the conditional skip\par
+   will be stated at the beginning of the next line; this aids in illustrating that\par
+   all following code is always executed (assuming an associated g\ul O\ulnone to command and\par
+   label were not executed).\page\b STRIP.TEC Contents.\par
+\par
+\tab     \u9556?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9559?\par
+\tab     \u9553?                                                           \u9553?\par
+\tab     \u9553?  EZ#128EZ$HXQHKGQ0JIEB$ZJ27I$HXBHKMB                      \u9553?\par
+\tab     \u9553?  Y0J<N^X$;-1A&127U1-D                                     \u9553?\par
+\tab     \u9553?  Q1-26"NONOTEND$'."EONOCHARS$                             \u9553?\par
+\tab     \u9553?  '-3A-12"NONOFF$'.-3UZQZJ!NOFF!0,.P0,.K!NOCHARS!EFEX$     \u9553?\par
+\tab     \u9553?  !NOTEND!Q1"EOPL8CH1$'Q1-127"EOIGNORE$'OFFCHK$            \u9553?\par
+\tab     \u9553?  !PL8CH1!0A+1"NOIGNORE$'-7A-12"NOIGNORE$'-7DOIGNORE$      \u9553?\par
+\tab     \u9553?  !FFCHK!Q1-12"NONOTFF$'0A&127-12"EOIGNORE$'QF"NOPASTBEG$  \u9553?\par
+ \tab     \u9553?  '.-11"L0,.DOIGNORE$!PASTBEG!%F.USQH"EOIGNORE$            \u9553?     \par
+\tab     \u9553?  '0A+1"EOIGNORE$'1A+1"EOIGNORE$'2A+1"NOPL8CH2$            \u9553?\par
+\tab     \u9553?  '2DOIGNORE$!PL8CH2!6A+1"NOFRSTCHK$                       \u9553?\par
+\tab     \u9553?  '6DOIGNORE$!FRSTCHK!QP"NOLOOP1$                          \u9553?\par
+\tab     \u9553?  '%P$.-4"NOLOOP1$'-4DOIGNORE$                             \u9553?\par
+\tab     \u9553?  !LOOP1!0A&127"NOLFTEST$'DOLOOP1$                         \u9553?\par
+\tab     \u9553?  !LFTEST!0A&127-10"NONOTFF$'C$                            \u9553?\par
+\tab     \u9553?  !LOOP2!0A&127"NOENDTEST$'DOLOOP2$                        \u9553?\par
+\tab     \u9553?  !ENDTEST!0A+1"NONOTEOF$'QS"EONOCH$'0,QSP0,QSK            \u9553?\par
+\tab     \u9553?  !NOCH!EFEX$!NOTEOF!QSJOPUTIN$                            \u9553?\par
+\tab     \u9553?  !NOTFF!Q1-10"NOPUTIN$'-1A-13"EOPUTIN$'13I$               \u9553?\par
+\tab     \u9553?  !PUTIN!Q1I$Q1-13"NONOTCR$'0A&127-10"N10I$'               \u9553?\par
+\tab     \u9553?  !NOTCR!%H!IGNORE!>EFEX$$                                 \u9553?\par
+\tab     \u9553?                                                           \u9553?\par
+\tab     \u9562?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9552?\u9565?\b0\par
+\par
+Detailed explanation.\par
+\par
+Code Fragment\tab    Description\par
+\par
+\b Line 1\tab\tab    EZ#128EZ$HXQHKGQ0JIEB$ZJ27I$HXBHKMB\par
+                   \b0\par
+EZ#128EZ$\tab\tab    \ul EZ\ulnone  is a version-dependent internal command register of TECOC\par
+                     which contains various control function bits which can affect\par
+                     overall operation.  The value already contained in the \i EZ\ul\i0\par
+\ulnone                      register is inclusive-or'ed (\ul #\ulnone ) with 128 then the updated\par
+                     value is written back to the \i EZ\i0  register.  By forcing the\par
+                     referenced bit to the on state, buffer reads limited by <FF>\par
+                     characters are inhibited.  Other TECO implementations may\par
+                     handle this situation differently (or not at all); the logic\par
+                     flow of the STRIP.TEC macro depends on this operational\par
+                     characteristic with respect to searching for <FF> as a\par
+                     nondescript character.\par
+\par
+HXQ\tab\tab\tab    All of the (w\ul H\ulnone ole) text in the edit buffer is copied (\ul X\ulnone )\par
+\tab\tab\tab    into Q-register \i Q\i0 .  The referenced text is the passed\par
+\tab\tab\tab    complete pathname argument, which is the expansion of the\par
+\tab\tab\tab    \i STRIPFILE\i0  environment variable such as:\par
+\par
+\tab\tab\tab    \ul %PDP-8_DRIVE%\\PEPS\\Folders\\Working_Files\\PTPOUT.TXT\ulnone\par
+\par
+\tab\tab\tab    which includes the contents of the environment variable\par
+                     \i PDP-8_DRIVE\i0 .  This reduces to something of the form:\par
+\par
+\tab\tab\tab    \ul P:\\PEPS\\Folders\\Working_Files\\PTPOUT.TXT\ulnone .\par
+\par
+\tab\tab\tab    The expanded string is placed in the edit buffer by invoking\par
+                     TECOC in this manner.\par
+\par
+                     Note: The \i STRIPFILE\i0  environment variable is generally derived\par
+                     from the \ul %1\ulnone  argument to the batch file initiating the TECOC\par
+                     command.  Command-line arguments to invoke TECO variants are\par
+                     extremely system-dependent; this method is valid for the\par
+                     MS-DOS\super tm\nosupersub  and WINDOWS\super tm\nosupersub  versions of TECOC.\par
+\par
+HK\tab\tab\tab    Delete (\ul K\ulnone ill) the entire (w\ul H\ulnone ole) passed edit buffer, (now\par
+                     saved in Q-register \i Q)\i0 .\page GQ\tab\tab\tab    \ul G\ulnone et the contents of Q-Register \i Q\i0  (back) into the edit buffer.\par
+\par
+                     Note: This method is used to allow additional file commands\par
+                     (perhaps needed in a future version of the STRIP.TEC program).\par
+\par
+0JIEB$\tab\tab    \ul J\ulnone ump to the beginning (\ul 0\ulnone ) of the buffer and insert the string\par
+                     \ul EB\ulnone  there.  The \ul E\ulnone dit \ul B\ulnone ackup command (when fully formed) will be\par
+                     executed as a separate TECO macro command.\par
+ \par
+ZJ27I$\tab\tab    A trailing escape character is required to complete the\par
+\tab\tab\tab    macro command before it is executed.  The buffer pointer is\par
+\tab\tab\tab    set to point to the end of the edit buffer (\ul ZJ\ulnone ), then an\par
+                     <ESC> character is \ul I\ulnone nserted into the edit buffer to complete\par
+                     the command contents.\par
+\par
+HXB\tab\tab\tab    The entire (w\ul H\ulnone ole) edit buffer contents, which is something of\par
+                     the form \ul EBP:\\PEPS\\Folders\\Working_Files\\PTPOUT.TXT$\ulnone , is\par
+                     copied (\ul X\ulnone ) into Q-register \i B\i0 .\par
+\par
+HK\tab\tab\tab    \ul K\ulnone ill the entire (w\ul H\ulnone ole) edit buffer (since it is now saved in\par
+                     Q-register \i B\i0 ).\par
+\par
+MB\tab\tab\tab    The text string contents of Q-register \i B\i0  is executed using a\par
+                     \ul M\ulnone acro \ul\i B\ulnone\i0  command.\par
+\par
+                     Note: This sets up the passed file for editing its contents.\par
+\par
+\b Line 2\b0\tab\tab    \b Y0J<N^X$;-1A&127U1-D\par
+\b0\par
+Y\tab\tab\tab    The \ul Y\ulnone ank command reads some portion of the input file into the\par
+                     edit buffer.  Since <FF> checking has been inhibited, only the\par
+                     currently available buffer size determines the exact quantity\par
+                     read in at any point.  TECO implementations vary as to exact\par
+                     edit buffer size; a number of additional locations are\par
+                     generally reserved in case the edit buffer grows larger.\par
+\par
+                     Note: Typical usage of the STRIP.TEC program will generally\par
+                     maintain the overall file size; certain specific operations\par
+                     might tend to raise or lower the overall size (slightly)\par
+                     depending on specific file contents.  Most character\par
+                     processing consists of merely clearing the high-order (mark\par
+                     parity) bit.  As such, the overall character count tends to \par
+                     remain (relatively) constant.\par
+\par
+0J\tab\tab\tab    Reset the buffer pointer (\ul J\ulnone ump) to the beginning (\ul 0\ulnone ) of the\par
+                     edit buffer; most TECO implementations will do this\par
+\tab\tab\tab    automatically after a \ul Y\ulnone ank operation.  However, TECO programs\par
+                     will (often) include this to clarify the scope of an iteration\par
+                     loop that follows.\par
+\par
+<\tab\tab\tab    Because of the leading \ul <\ulnone  character, what follows (up to a\par
+\tab\tab\tab    matching \ul >\ulnone  character) is executed in an infinite loop.\par
+\tab\tab\tab    Various methods exist to break out of the loop, such as a\par
+\tab\tab\tab    failing search operation.\par
+\par
+                     Note: This is the primary operational loop for (most of) the\par
+                     STRIP.TEC program.\par
+\par
+N^X$;\tab\tab\tab    A \ul N\ulnone onstop search is performed; all characters processed will\par
+                     be forced into the output buffer and (eventually) written to\par
+                     the output file.  In this case, the search is a special-case\par
+                     operation indicated by the single character \ul Control-X\ulnone .  This\par
+                     means the search argument is any (existent) single character\par
+                     of any value.  The only way the search can fail is when the\par
+                     search returns a special value indicating there is no further\par
+                     input to process.\page                      Note: This condition can be detected by alternate means; the\par
+                     value of all "additional" characters is always set to return\par
+                     \ul -1\ulnone  at the end of the input file.  The \ul Control-X\ulnone  method is used\par
+                     within the STRIP.TEC program because implementation is more\par
+                     straight-forward, albeit requiring a fully compliant TECO\par
+                     implementation.\par
+\par
+                     As implemented, this mechanism is not searchable in the\par
+                     ordinary sense.  It is merely the special status of the buffer\par
+                     pointer being positioned at the end of the input file and not\par
+                     an actual character; searching for any input character failed\par
+                     to obtain a matching result. \par
+\par
+\tab\tab\tab    When any form of search inside of iteration brackets fails\par
+\tab\tab\tab    and a trailing \ul ;\ulnone  character exists, the normal error abort\par
+\tab\tab\tab    is inhibited.  The iteration loop ends and execution\par
+\tab\tab\tab    continues past the \ul >\ulnone  character matching the \ul <\ulnone  character in\par
+                     effect when the failing search was attempted.  It is quite\par
+                     typical to use this method for handling end of file input.\par
+\par
+                     Note: In STRIP.TEC there is only one general iteration loop.\par
+                     TECO allows any number of nested iteration loops as needed,\par
+                     including the "breaking out" function if needed.\par
+\par
+\tab\tab\tab    Assuming the search succeeded, the buffer pointer is now\par
+\tab\tab\tab    just past the matching character.  Should a character be\par
+\tab\tab\tab    inserted, the buffer pointer will be placed just past the\par
+\tab\tab\tab    newly inserted character.  In some instances the matching\par
+\tab\tab\tab    character will be deleted (causing the buffer pointer to be\par
+\tab\tab\tab    placed just past the previous character, if any).\line\line                      Note: Character insertion or deletion after a match is only\par
+                     performed in certain specific cases.\par
+\tab\tab\tab   \par
+                     \ul Control-X\ulnone  as used here is the single character \ul Control-X\ulnone\par
+                     (ASCII code 24 decimal, 30 octal); in other contexts, the\par
+\tab\tab\tab    two-character sequence \ul ^X\ulnone  (or \ul ^x\ulnone ) is also allowed.  However,\par
+                     all search arguments in TECO must be stated literally.\par
+\par
+                     Note: Most TECO implementations echo the \ul Control-X\ulnone  character\par
+                     as \ul ^X\ulnone ; when viewing macros such as STRIP.TEC, the correct\par
+                     usage must be confirmed as display operations are generally\par
+                     anomalous in this regard.\par
+\par
+                     Since a \ul ;\ulnone  character is present just past the search argument,\par
+                     the search can fail without an error message; the iterative\par
+                     search loop will end and execution continues just past the \ul >\par
+\ulnone                      character as detailed in the line 20 description below.\par
+\par
+-1A&127U1-D\tab\tab    When the \ul A\ulnone  command is used with a leading numerical\par
+\tab\tab\tab    argument, the enumerated value is used as an offset from the\par
+\tab\tab\tab    buffer pointer to locate a particular character in the\par
+\tab\tab\tab    buffer.  In this instance the numeric value of the previous\par
+\tab\tab\tab    character (-1) is returned (which is the character that\par
+\tab\tab\tab    matched the search as described above).  This value is then\par
+\tab\tab\tab    masked against the constant 127 (177 octal) via a logical\par
+\tab\tab\tab    .AND. operation which preserves the low-order seven bits\par
+\tab\tab\tab    while removing the high-order bit.  The filtered value is\par
+\tab\tab\tab    then stored (U) in numeric Q-register 1 for further testing;\par
+\tab\tab\tab    the original character (located one position before (-) the\par
+\tab\tab\tab    current buffer pointer value) is then Deleted (D) from the\par
+\tab\tab\tab    edit buffer.  (Later in the program, the test character will\par
+\tab\tab\tab    generally be inserted into the edit buffer unless special\par
+\tab\tab\tab    handling is required.)\page\b Line 3\tab\tab    Q1-26"NONOTEND$'."EONOCHARS$\b0\par
+\b\par
+\b0 Q1-26"NONOTEND$'\tab    If the test character is not \ul Control-Z\ulnone  (ASCII code 26\par
+\tab\tab\tab    decimal, 32 octal), transfer control (using the gOtO (\ul O\ulnone )\par
+\tab\tab\tab    command) to the portion of the program labeled \i !NOTEND!\i0 .  If\par
+\tab\tab\tab    the character is \ul Control-Z\ulnone , execution continues inline to\par
+\tab\tab\tab    finalize the file in the next code section.\par
+\par
+                     Note: The host operating system may have different conventions\par
+                     regarding the end of file state from the operating system that\par
+                     created the file; this is why end-of-file detection is also\par
+                     carried out elsewhere in the program.\par
+\par
+                     ASCII text files created by/for OS/8 or the \i P?S/8 SHELL\par
+                    \i0  will generally conform to this convention.  Extraneous\par
+                     characters may exist in the file past the sentinel Control-Z\par
+                     character; all such characters will be ignored.\par
+\par
+                     Note: The P?S/8 SHELL is an optional feature that will be\par
+                     implemented in the next full release, sometime after\par
+                     P?S/8 Version 9A is completed.  Consult various P?S/8\par
+                     documents (available elsewhere) for more information.\par
+\par
+                     In extremely rare situations, known defective OS/8 utilities\par
+                     may create files that end on the last character of the last\par
+                     file record without using a sentinel Control-Z character; this\par
+                     situation is correctly handled by the STRIP.TEC program.\par
+                     However, it may be necessary to remedy this situation within\par
+                     OS/8 to add a proper sentinel Control-Z character.  MS-DOS\super tm\nosupersub\par
+                    \super  \nosupersub and Windows\super tm\nosupersub  do not support this convention internally; exact\par
+                     byte counts are used to account for the proper file length.\par
+                     P?S/8 conversion programs from/to OS/8 include safeguards\par
+                     against this problem; \i OS/8 PIP\i0  operating in ASCII text mode\par
+                     should be used to correct this problem as required.  \i Kermit-12\i0\par
+                     for OS/8 implements internal defensive measures to prevent\par
+                     this problem by making this situation impossible to occur.  If\par
+                     need be, an entire extra record containing only Control-Z\par
+                     characters would be appended at the file ending point.\par
+\par
+."EONOCHARS$         If the edit buffer pointer is zero, there were no characters\par
+\tab\tab\tab    in the buffer when the Control-Z sentinel character was\par
+                     detected.  This is not a likely situation; however, this is\par
+                     a portion of the "belts and suspenders" approach taken within\par
+                     this program.  Should this condition apply, transfer control\par
+                     to the portion of the program labeled \i !NOCHARS!\i0  bypassing all\par
+                     commands beyond this point in the program.\par
+\par
+\b Line 4\tab\tab    '-3A-12"NONOFF$'.-3UZQZJ!NOFF!0,.P0,.K!NOCHARS!EFEX$\b0\par
+\par
+'-3A-12"NONOFF$'     The implementation of the standard OS/8 high-speed\par
+                     reader/punch coresident device handlers is quite poor.  The\par
+                     reader handler will generally drop the last character; this is\par
+                     problematic when the contents of the data stream are not\par
+                     delimited by leader/trailer codes.\par
+\par
+                     Note: It is not clear if the implemented design logic actually\par
+                     applies to properly adjusted hardware; it may have merely been\par
+                     used as a defensive measure applied by an ignorant programmer\par
+                     not aware of various maintenance issues of the PC04/PC05\par
+                     reader/punch devices.  This was especially true in the case of\par
+                     DEC in-house development systems known to have had shoddy\par
+                     maintenance procedures.  In essence, program development was\par
+                     often performed on aberrant hardware inconsistent with user\par
+                     systems nominally configured with the same devices.\page                      In the \i PEPS/SIMH\i0  environment, the notion of a malformed\par
+                     character does not apply; as such, it is necessary to obtain\par
+                     every character.  Unfortunately, the handler design is such\par
+                     that a double-buffered approach is taken that will predictably\par
+                     ignore the final character.\line\line                      To remedy this problem, \i OS/8 PIP\i0  may be used to restore the\par
+                     final character (generally a <LF>) or be certain the OS/8\par
+                     program that will process the file ignores <LF> characters.\par
+                     (\i OS/8 PAL8\i0  delimits source lines with <CR> and ignores <LF>.)\par
+\par
+                     When using \i P?S/8 OS8CON\i0  to convert OS/8 input to P?S/8 output\par
+                     files, this case is properly handled; when converting P?S/8\par
+                     text files to OS/8 text files, the result is always properly\par
+                     formed with <CR> and <LF> on every line and a Control-Z\par
+                     character is always provided as a sentinel character to\par
+                     signify proper end-of-file.\par
+\par
+                     The OS/8 high-speed punch handler situation is far worse:  A\par
+                     mis-feature intended only for the Typeset-8 group was foisted\par
+                     on the general OS/8 user community despite it having no\par
+                     constructive purpose.\par
+\par
+                     The mis-feature is the deliberate insertion of otherwise\par
+                     extraneous characters to attempt to format long paper tapes to\par
+                     be placed into the reader stations of offline Teletype Model\par
+                     ASR-35 terminals; These ASR-35 terminals were generously\par
+                     available in all in-house Typeset-8 installations.  A sensible\par
+                     arrangement would have included a Typeset-8-based (or other\par
+                     utility program) to properly handle the particulars of this\par
+                     terminal as required; instead, the paper tape is greatly\par
+                     lengthened because of badly implemented attempts to directly\par
+                     format and print the output.\par
+\par
+                     While this conceptual approach is quite bad, the actual\par
+                     implementation is even worse: Proper handling of the <HT>\par
+                     character on this device depends on exact carriage position.\par
+                     Depending on the particulars, one or perhaps two fill\par
+                     characters must be placed into the data stream, allowing the\par
+                     file to be self-contained (as apparently was intended).  A\par
+                     simple formula \b should\b0  have been used to determine the proper\par
+                     fill character count; instead a single <NUL> (or perhaps <RO>)\par
+                     character is always inserted just past the <HT> character.\par
+                     While this method does work in nearly half of the applicable\par
+                     cases that apply, this causes the output to be needlessly\par
+                     slowed down where the fill character is not required, and when\par
+                     two fill characters are needed, it is inadequate, leading to\par
+                     character smear on the terminal paper (as the carriage is\par
+                     still in motion when the character is printed).\par
+\par
+                     Various filler character strategies (both adequate and\par
+                     inadequate) are used for the supported control characters,\par
+                     which includes <FF>, <VT> and <HT>.  Quite pointlessly,\par
+                     distinct fill characters are used in some cases different from\par
+                     others.  The approach used is sometimes simple-minded; the\par
+                     worst-case quantity of fill characters is used instead of\par
+                     using a programmed method that keeps track of where on the\par
+                     printed page the current carriage position would be located.\par
+                     (Had that better method been used, the typical count of fill\par
+                     characters would be far less.)\par
+\par
+                     Note: The quirky behavior of the standard OS/8 PTP: handler is\par
+                     completely by design.  For more information, contact the author\par
+                     using the indicated email address; include in the subject line:\par
+                     "Typeset-8 Edict".\page                      The STRIP.TEC macro is designed to eliminate every instance of\par
+                     undesirable output; as such, a properly formatted output file\par
+                     is created suitable for further processing.  As such, there\par
+                     are certain quirky cases that must be addressed in this\par
+                     section of the program.\par
+\par
+                     While some of the associated overhead has already been removed\par
+                     elsewhere, a specific case has been observed where a <FF>\par
+                     followed by <CR>/<LF> is in the buffer just before the\par
+                     Control-Z sentinel character.  Since one of the goals of the\par
+                     program is to remove trailing <FF> characters, this section\par
+                     was added to explicitly remove this undesirable character\par
+                     sequence.\par
+\par
+                     If the last three characters just before the Control-Z\par
+                     sentinel character are <FF> <CR> <LF> they will be removed.\par
+                     Checking three characters before the Control-Z sentinel\par
+                     character, compare that character to <FF>.  If not a match,\par
+                     proceed to the next section of the program (labeled \i !NOFF!\i0 ).\par
+\par
+                     Note: This simplified method is adequate for this purpose.\par
+                     The reasoning is that it is not possible for there to be a\par
+                     line that does not have both a <CR> and a <LF> at this point\par
+                     in the overall filtering process.  As such, the two characters\par
+                     after the <FF> are already completely determined and all three\par
+                     characters can be removed with impunity.\par
+\par
+.-3UZQZJ!            If the tested character matches <FF>, store it's position in Q\par
+                     register Z; then change the edit buffer pointer to match this \par
+                     position effectively ignoring the three undesirable characters.\par
+                     (The label \i !NOFF!\i0  follows.)\par
+\par
+!NOFF!0,.P0,.K\tab    All characters in the edit buffer to this point (0,.) are\par
+\tab\tab\tab    output using the Punch (P) command then deleted using the\par
+\tab\tab\tab    Kill (K) command.  These operations are skipped if the edit\par
+\tab\tab\tab    buffer is empty.  (The label \i !NOCHARS!\i0  follows.)\par
+\par
+!NOCHARS!EFEX$\tab    The output file is closed using the End File (EF) command;\par
+\tab\tab\tab    TECO EXits (EX) to the operating system.\par
+\par
+\b Line 5\tab\tab    !NOTEND!Q1"EOPL8CH1$'Q1-127"EOIGNORE$'OFFCHK$\b0\par
+\par
+!NOTEND!\tab\tab    The rest of the program processes the test character\par
+\tab\tab\tab    checking for various special cases.  All additional\par
+\tab\tab\tab    operations are within the iteration brackets ("<" and ">")\par
+\tab\tab\tab    and will be performed repeatedly.  Each iteration starts\par
+\tab\tab\tab    with the Non-stop search for any existent character until\par
+\tab\tab\tab    failing due to lack of further input.  (Note: All processing\par
+\tab\tab\tab    for any iteration ends at the label \i !IGNORE!\i0  whether control\par
+\tab\tab\tab    is transferred there explicitly or execution falls through\par
+\tab\tab\tab    from the prior command.)\par
+\par
+Q1"EOPL8CH1$\tab    If the test character is a <NUL> (ASCII code 0), transfer\par
+\tab\tab\tab    control to the portion of the program labeled \i !PL8CH1!\i0 .\par
+\tab\tab\tab    Files created by OS/8 PAL8 must be checked for a potential\par
+\tab\tab\tab    quirk associated with <NUL> characters near the end of the\par
+\tab\tab\tab    file.  The <NUL> character will be removed; additional\par
+\tab\tab\tab    output filtering may be performed.\par
+\par
+\tab\tab\tab    Note: Surprisingly, many OS/8 text files processed through\par
+\tab\tab\tab    the PTP: handler contain significant quantities of <NUL>\par
+\tab\tab\tab    characters typically in large groups.  Similar special cases\par
+\tab\tab\tab    are known to exist which are handled elsewhere in this\par
+                     program.\par
+\page 'Q1-127"EOIGNORE$\tab    If the latest character is a <RO> (ASCII code 127 decimal,\par
+\tab\tab\tab    177 octal]), it will be removed by transferring control\par
+\tab\tab\tab    to the portion of the program labeled \i !IGNORE!\i0 ; the latest\par
+\tab\tab\tab    character will not be placed into the output file.  Various\par
+\tab\tab\tab    files are known to contain extraneous <RO> characters for a\par
+\tab\tab\tab    variety of reasons.\par
+\par
+\tab\tab\tab    Note: Virtually all P?S/8 device 66 lineprinter output\par
+\tab\tab\tab    starts with a single <RO> character.  This was implemented\par
+\tab\tab\tab    based on misleading information suggesting this as the\par
+\tab\tab\tab    proper technique to initialize the printer interface.\par
+\tab\tab\tab    Future releases of P?S/8 will output a leading <NUL>\par
+\tab\tab\tab    character to enhance compatibility with certain quirky\par
+\tab\tab\tab    printers where a graphic character (such as a heart) is\par
+\tab\tab\tab    printed when <RO> is transmitted.  Proper implementation will\par
+                     allow a one-word patch to restore the historic value of <RO> \par
+                     if desired.\par
+\par
+'OFFCHK$\tab\tab    Transfer control to the portion of the program labeled\par
+\tab\tab\tab    \i !FFCHK!\i0  to handle potential <FF> character situations.\par
+\par
+\b Line 6\tab\tab    !PL8CH1!0A+1"NOIGNORE$'-7A-12"NOIGNORE$'-7DOIGNORE$\b0\par
+\par
+!PL8CH1!\tab\tab    A <NUL> character was detected in the output file.  If this\par
+\tab\tab\tab    is the last character in the file, determine if the file was\par
+\tab\tab\tab    created by PAL8 without the /C (CREF) option set.  In this\par
+\tab\tab\tab    specific instance, PAL8 creates quirky output of several\par
+\tab\tab\tab    blank lines after the last <FF> character with the first\par
+\tab\tab\tab    line incompletely formed.\par
+\par
+\tab\tab\tab    This actually represents two different problems: a) The file\par
+\tab\tab\tab    should end with a <FF> character (ignoring trailing <NUL>\par
+\tab\tab\tab    characters which will be removed), b) The blank lines are\par
+\tab\tab\tab    not formed correctly; one consists of merely a <LF>\par
+\tab\tab\tab    character.\par
+\par
+\tab\tab\tab    When the /C option is passed to PAL8, a chain to CREF.SV\par
+\tab\tab\tab    will be performed; the final output file will correctly end\par
+\tab\tab\tab    with a <FF> character (ignoring trailing <NUL> characters\par
+\tab\tab\tab    which will be removed).  The blank lines are still present\par
+\tab\tab\tab    in the output file; STRIP.TEC includes programming to\par
+\tab\tab\tab    correct defectively formed blank lines.  This will lead to a\par
+\tab\tab\tab    deliberate blank page in the output consistent with the\par
+\tab\tab\tab    original behavior of PAL8 when used with physical printers.\par
+\par
+                     Note: Post-processing of the output file may disallow blank\par
+                     pages; disposition of blank pages is beyond the scope of this\par
+                     program.\par
+\par
+\tab\tab\tab    Since a design goal of STRIP.TEC is to remove the last <FF>\par
+\tab\tab\tab    character, the entire sequence will be removed.\par
+\par
+                     Note: The sequence of characters removed consists of <FF> <LF>\par
+                     <CR> <LF> <CR> <LF>; the last character in the file is a <NUL>\par
+\tab\tab\tab    character which will also be removed.\par
+\par
+\tab\tab\tab    Other than this quirky specific case, no properly formed file\par
+\tab\tab\tab    should be modified.  Another portion of the program deals with\par
+                     the a similar problem when <NUL> characters are not involved\par
+                     should the file become available in the host environment by an\par
+                     exceptional process that avoids the PTP: handler artifacts.\par
+\par
+0A+1"NOIGNORE$\tab    If the code returned for the next character following (0A)\par
+\tab\tab\tab    the detected <NUL> character is -1, transfer control to the\par
+\tab\tab\tab    portion of the program labeled \i !IGNORE!\i0  to remove the\par
+\tab\tab\tab    latest <NUL> character.  This portion of the program is\par
+\tab\tab\tab    concerned only with a <NUL> character that is at the end of\par
+\tab\tab\tab    the file.\page '-7A-12"NOIGNORE$\tab    If the character before the previous five characters is not\par
+\tab\tab\tab    a <FF> (ASCII code 12 decimal, 14 octal), transfer control\par
+\tab\tab\tab    to the portion of the program labeled \i !IGNORE!\i0  to remove the\par
+\tab\tab\tab    last <NUL> character in the file; the file does not have the\par
+\tab\tab\tab    quirky special case present.\par
+\par
+'-7DOIGNORE$\tab    Delete the <FF> and all of the other characters through the\par
+\tab\tab\tab    end of the file; transfer control to the portion of the\par
+\tab\tab\tab    program labeled \i !IGNORE!\i0  to continue the iteration loop.\par
+\par
+\tab\tab\tab    Note: The next iteration will break out of the loop when\par
+\tab\tab\tab    the nonstop search fails to complete this operation.\par
+\par
+\b Line 7\tab\tab    !FFCHK!Q1-12"NONOTFF$'0A&127-12"EOIGNORE$'QF"NOPASTBEG$\b0\par
+\par
+!FFCHK!\tab\tab    This portion of the program checks for <FF> characters.\par
+\tab\tab\tab    This is a pivotal test as anomalies may be present either\par
+\tab\tab\tab    just before or just after a <FF> character.  It is theorized\par
+\tab\tab\tab    most of these problems stem from an incomplete understanding\par
+\tab\tab\tab    of how to properly format logically distinct print pages\par
+                     within various programs.  Conforming text files separate pages\par
+                     with a single <FF> character; unfortunately, several anomalies\par
+                     may be present. \par
+\par
+Q1-12"NONOTFF$\tab    If the latest character is not a <FF> (ASCII code 12 decimal,\par
+                     14 octal), transfer control to the portion of the program\par
+                     labeled \i !NOTFF!\i0 .\par
+\par
+'0A&127-12"EOIGNORE$ The latest character is a <FF>.  If the next character is also\par
+                     a <FF> (ASCII code 12 decimal, 14 octal), transfer control to\par
+\tab\tab\tab    the portion of the program labeled \i !IGNORE!\i0  (to ignore the\par
+\tab\tab\tab    latest character).  The next iteration will handle repeat\par
+\tab\tab\tab    situation such that a string of adjacent <FF> characters will\par
+                     all be ignored.\par
+\par
+                     Note: The latest character must be .AND. 127 (177 octal) since\par
+                     the latest character could have the parity bit set.\par
+\par
+'QF"NOPASTBEG$\tab    Q-register F is tested to determine if this section has been\par
+\tab\tab\tab    executed previously.  If so, transfer control to the portion\par
+\tab\tab\tab    of the program labeled \i !PASTBEG!\i0  to avoid repeat processing.\par
+\par
+\b Line 8\tab\tab    '.-11"L0,.DOIGNORE$'!PASTBEG!%F'.USQH"EOIGNORE$\b0\par
+\par
+'.-11"L0,.DOIGNORE$' Since the <FF> character match is the first one encountered\par
+\tab\tab\tab    in the file, it is possible there are a few characters just\par
+\tab\tab\tab    before the <FF> which is generally the first character in\par
+\tab\tab\tab    the file (assuming it is at the beginning of the file at\par
+\tab\tab\tab    all).  However, certain programs output small groups of\par
+                     various characters before the <FF> to ensure the viability of\par
+                     the lineprinter interface.  If this is the case, all of these\par
+\tab\tab\tab    characters will be deleted.\par
+\par
+\tab\tab\tab    Transfer control to the portion of the program labeled\par
+\tab\tab\tab    \i !IGNORE!\i0  to continue processing; initial <FF> characters are\par
+\tab\tab\tab    removed.\par
+\par
+                     Note: This section can only be executed once; Q-Register F is\par
+                     incremented as necessary to prevent this section from being\par
+                     executed again.  See the previous section above for more\par
+                     information.\par
+\par
+!PASTBEG!%F\tab\tab    Control is transferred to this portion of the program to\par
+\tab\tab\tab    ensure the previous once-only section is not executed again.\par
+                     Q-register F is incremented accordingly.\page .US\tab\tab\tab    The current edit buffer position (.) is stored (U) in\par
+\tab\tab\tab    numeric Q-register S.  Certain operations may be performed\par
+\tab\tab\tab    on characters located past the current position; after these\par
+\tab\tab\tab    operations complete, the buffer pointer can be restored\par
+\tab\tab\tab    using the contents of Q-register S that was stored at this\par
+\tab\tab\tab    earlier point in the program execution.\par
+\par
+QH"EOIGNORE$'\tab    As a special accommodation for output files created by PAL8\par
+\tab\tab\tab    and related OS/8 utilities, if the first character in the\par
+\tab\tab\tab    file is a <FF> character (after first removing all leading\par
+\tab\tab\tab    <NUL> and <RO> characters), it will be removed.  Additional\par
+\tab\tab\tab    <NUL> or <RO> characters may follow; removal of these\par
+                     undesirable artifact characters is accomplished elsewhere in\par
+                     the program.\par
+\par
+\tab\tab\tab    Notes:\par
+\par
+                     1) When output files from PAL8 and related OS/8 utilities are\par
+                        processed by the device 66 LPT: handler, additional leading\par
+                        <FF> character(s) may be inserted by the device handler.\par
+                        The program logic is designed to eliminate any number of\par
+                        leading <FF> characters until a printing character is\par
+                        processed (this includes <CR> or <LF> but not undesirable\par
+                        artifact characters).\par
+\par
+\tab\tab\tab    2) P?S/8 PAL and related utilities (perhaps only from the\par
+                        circa 1978 release o P?S/8 Version 8T) do not conform to\par
+                        this convention; the first <FF> (and any prior <CR> and\par
+                        <LF> characters) will be removed in another section of the\par
+                        program.\par
+\par
+\tab\tab\tab    3) This program depends on the known behavior of TECOC for\par
+                        MS-DOS and Windows to initialize numeric Q-register storage \par
+                        to zero.  This behavior is often implementation-specific\par
+                        and a general TECO standard feature.  If the TECO\par
+                        implementation used supports errors on uninitialized\par
+                        variables, the program should be modified to initialize\par
+                        variables using commands such as OUH.  (Other TECO features\par
+                        used are virtually specific to TECOC.)\par
+\par
+\b Line 9\tab\tab    '0A+1"EOIGNORE$'1A+1"EOIGNORE$'2A+1"NOPL8CH2$\b0\par
+\par
+'0A+1"EOIGNORE$      STRIP.TEC attempts to remove trailing <FF> characters (if\par
+\tab\tab\tab    possible); text files are handled differently in the SIMH\par
+\tab\tab\tab    host environment from classic direct printing techniques on\par
+\tab\tab\tab    physical printing hardware; post-processing is generally\par
+\tab\tab\tab    applied before final printing (or further conversion for\par
+\tab\tab\tab    publishing purposes).  As such, steps must be taken to avoid\par
+\tab\tab\tab    trailing blank pages.\par
+\par
+\tab\tab\tab    TECO implements safeguards associated with the end of file\par
+\tab\tab\tab    condition.  Attempts to access additional characters will\par
+\tab\tab\tab    result in an error abort.  To avoid this situation, if the\par
+\tab\tab\tab    code returned for the next character following (0A) (the\par
+\tab\tab\tab    <FF> character) is -1, the end of file has been reached.\par
+\tab\tab\tab    Control will be transferred to the portion of the program\par
+\tab\tab\tab    labeled \i !IGNORE!\i0  to avoid processing the trailing <FF>\par
+\tab\tab\tab    character; the next iteration will cause the search to fail\par
+\tab\tab\tab    and break out of the iteration loop to allow proper file\par
+\tab\tab\tab    closing and exit.\par
+\par
+\tab\tab\tab    If the end of file has not been reached, program flow\par
+\tab\tab\tab    continues.\page\tab\tab\tab    Note: In the unlikely event a file contains alternate\par
+\tab\tab\tab    quirky output anomalies not quite identical to the condition\par
+\tab\tab\tab    checked for here, the test for this condition may not\par
+\tab\tab\tab    detect the actual problem present.  Should this occur, a\par
+\tab\tab\tab    viable remedy is to run the STRIP.TEC program a second (or\par
+\tab\tab\tab    perhaps even a third) time; on reprocessed files, existing\par
+\tab\tab\tab    tests should successfully remove a trailing <FF>.  (Prior to\par
+                     adding this test, removal of this specific quirk of PAL8\par
+                     required a two-pass approach.)\par
+\par
+\par
+'1A+1"EOIGNORE$      If the buffer pointer is only one character from the end of the\par
+                     file, avoid the next test as described below.\par
+\par
+                     Note: This pre-check is necessary because occasionally there\par
+                     are quirky end-of-file conditions that can confuse the program.\par
+                     The root cause is the numeric value of attempts to quantify the\par
+                     "characters" at the end of file return -1; this is not merely\par
+                     confined to the first such character position.  As such, it\par
+                     must be established that there are two (or more) characters to\par
+                     consider; this must be avoided for the case of only one\par
+                     character.\par
+ \par
+'2A+1"NOPL8CH2$\tab    If the buffer pointer is not at the end of file, check if\par
+\tab\tab\tab    the end of file is after exactly two additional characters\par
+\tab\tab\tab    (2A).\par
+\par
+                     Note: The most likely case of extraneous output is <CR>\par
+                     followed by <LF> after the (otherwise) trailing <FF>\par
+\tab\tab\tab    character.  In general, this condition does not apply.\par
+\par
+\tab\tab\tab    Transfer control to the portion of the program labeled\par
+\tab\tab\tab    \i !PL8CH2!\i0 .\par
+\par
+\b Line 10\tab\tab    '2DOIGNORE$!PL8CH2!6A+1"NOFRSTCHK$\b0\par
+\par
+'2DOIGNORE$\tab\tab    Remove the two characters past the (otherwise) trailing <FF>\par
+\tab\tab\tab    character (2D) .  Then transfer control to the portion of the\par
+                     program labeled \i !IGNORE!\i0 ; the trailing <FF> character will be\par
+                     removed.\par
+\par
+\tab\tab\tab    Note: Future releases of STRIP.TEC may reorganize this program\par
+                     section.\par
+\par
+!PL8CH2!\tab\tab    This portion of the program also checks for the quirky output\par
+                     of PAL8 when the /C (CREF) option is not used.  The same logic\par
+                     is used with the exception of the <NUL> character\par
+                     consideration.  Files that are present in the host environment\par
+                     transmitted by means other than the PTP: handler may still have\par
+                     the same quirky output.\par
+\par
+                     Note: Files processed by prior versions of STRIP.TEC may\par
+                     require processing by this (newer) release.\par
+\par
+6A+1"NOFRSTCHK$\tab    If the end of file is not after exactly six additional\par
+                     characters, transfer control to the portion of the program\par
+                     labeled \i !FRSTCHK!\i0 .\par
+\par
+\tab\tab\tab    If the end of file is detected after exactly six additional\par
+                     characters, program flow continues on the next line following.\par
+\par
+\b Line 11\tab\tab    '6DOIGNORE$!FRSTCHK!QP"NOLOOP1$\b0\par
+\par
+'6DOIGNORE$          Delete the six additional characters.  Transfer control to the\par
+                     portion of the program labeled \i !IGNORE!\i0 ; the trailing <FF>\par
+                     character will be removed.\page !FRSTCHK!\tab\tab    This is the section of the program labeled \i !FRSTCHK!\i0 .  When the\par
+                     program continues here, the portion of the edit buffer being\par
+                     processed is not at the end of the file.  As such, initial <FF>\par
+                     checking (when a <FF> is not the first character in the file)\par
+                     can be checked at this point.\par
+\par
+QP"NOLOOP1$\tab\tab    If this is not the first <FF> encountered (because the contents\par
+                     of Q-register P is non-zero), transfer control to the portion\par
+                     of the program labeled \i !LOOP1!\i0 .  Only the initial detected <FF>\par
+                     character is considered in this section.\par
+\par
+                     Note: This test is required for files where the first <FF> is\par
+                     not the first character in the file (but only a few additional\par
+                     characters precede the first <FF> character which should be\par
+                     removed).\par
+\par
+\b Line 12\b0\tab\tab    \b '%P$.-4"NOLOOP1$'-4DOIGNORE$\b0\par
+\par
+'%P$.-4"NOLOOP1$\tab    Increment (%) the contents of Q-register P to prevent\par
+                     additional initial <FF> testing in later program iterations.\par
+\par
+\tab\tab\tab    Note: Certain printing files created by the circa 1978 release\par
+                     of P?S/8 (Version 8T) are known to start the output with a\par
+                     small number (four) of introductory characters prior to the\par
+                     first <FF> character.  If this is not the case, transfer\par
+                     control to the portion of the program labeled \i !LOOP1!\i0 .\par
+\par
+'-4DOIGNORE$\tab    If the introductory characters are present before the current\par
+                     edit buffer position, delete (D) the first four characters\par
+                     (-4).  Transfer control to the portion of the program labeled\par
+                     \i !IGNORE!\i0  to remove the initial <FF> character.\par
+\par
+\tab\tab\tab    Note: Newer releases of P?S/8 eliminated this problem; only\par
+                     output oriented to console terminals should have initial\par
+                     <CR>/<LF>-only lines before the first printing page (and only\par
+                     if the proper command switches are used to produce page-\par
+                     oriented output with tear-off lines).\par
+\par
+\tab\tab\tab    When this portion of certain P?S/8 programs was designed,\par
+                     handling of physical lineprinters was not well documented.\par
+                     Later releases of P?S/8 generally do not exhibit this quirk in\par
+                     P?S/8 standard system programs (but may have alternate quirks\par
+                     handled elsewhere in this program).  Certain user programs may\par
+                     exist that copied the older method; STRIP.TEC will correctly\par
+                     filter the output of all such programs by the logic implemented\par
+                     in this section.\par
+\par
+\b Line 13\b0\tab\tab    \b !LOOP1!0A&127"NOLFTEST$'DOLOOP1$\b0\par
+\par
+!LOOP1!\tab\tab    In certain OS/8 files, sequences of up to nine <NUL> characters\par
+                     followed by a <LF> character are placed after every <FF>\par
+                     character, all of which must be removed.  The program\par
+                     iteratively loops back to the portion of the program labeled\par
+                     \i !LOOP1!\i0  until all <NUL> characters after the <FF> character are\par
+                     removed.\par
+\par
+0A&127"NOLFTEST$'\tab    If the next character after a <FF> character is not a <NUL>\par
+\tab\tab\tab    character, transfer control to the portion of the program\par
+\tab\tab\tab    labeled \i !LFTEST!\i0 .\par
+\par
+                     Note: All tests of this form must mask the high-order bit using\par
+                     the constant 127 (octal 177) because all characters not yet\par
+                     tested might have the mark parity bit set.\par
+\par
+DOLOOP1$\tab\tab    If the next character currently after a <FF> character is a\par
+                     <NUL> character, delete the character; transfer control back to\par
+                     the portion of the program labeled \i !LOOP1!\i0  to test for\par
+                     additional <NUL> characters.\page\b Line 14\tab\tab    !LFTEST!0A&127-10"NONOTFF$'C$\b0\par
+\par
+!LFTEST!\tab\tab    After all <NUL> characters after a <FF> character are removed,\par
+                     the next character is likely a <LF> character; test for this\par
+                     now.\par
+\par
+0A&127-10"NONOTFF$   If the character after all <NUL> characters after a <FF\par
+                     character is not a <LF> (ASCII code 10 decimal, 12 octal),\line                      transfer control to the portion of the program labeled \i !NOTFF!\i0 .\par
+\par
+                     Note: This applies if the file differs from the explicitly\par
+                     checked character sequence found in certain files created\par
+                     within OS/8.\par
+\par
+'C$\tab\tab\tab    If the character after all <NUL> characters after a <FF\par
+                     character is a <LF> character, advance the buffer pointer (C)\par
+                     to preserve the <LF> character.\par
+\par
+\b Line 15\tab\tab    !LOOP2!0A&127"NOENDTEST$'DOLOOP2$\b0\par
+\par
+!LOOP2!\tab\tab    In certain files passed through the OS/8 PTP: handler, a long\par
+                     sequence of trailing <NUL> characters may follow the last <FF>\par
+                     character followed by nine <NUL> characters followed by <LF>.\par
+                     All of these additional <NUL> characters will also be removed.\par
+\par
+0A&127"NOENDTEST$\tab    If the character after the <LF> character is not a <NUL>\par
+                     character, transfer control to the portion of the program\par
+                     labeled \i !ENDTEST!\i0 .\par
+\par
+'DOLOOP2$\tab\tab    If the next character currently after the <LF> character is a\par
+                     <NUL> character, delete this character; transfer control to the\par
+                     portion of the program labeled \i !LOOP2!\i0  to test for additional\par
+                     <NUL> characters.\par
+\par
+\b Line 16\tab\tab    !ENDTEST!0A+1"NONOTEOF$'QS"EONOCH$'0,QSP0,QSK\b0\par
+\par
+!ENDTEST!\tab\tab    An extremely pragmatic sequence known to be contained within\par
+                     certain OS/8 files processed by the PTP: handler must be\par
+                     located at the end of the file.  If this is not the case, all\par
+                     further character processing will be handled conventionally.\par
+\par
+0A+1"NONOTEOF$\tab    If the code returned for the next character following (0A) the\par
+                     latest <NUL> character is -1, the end of file has been reached.\par
+                     If this is not the case, transfer control to the portion of the\par
+                     program labeled \i !NOTEOF!\i0 .\par
+\par
+'QS"EONOCH$'         Q-register S contains the buffer pointer value where the\par
+                     trailing <FF> character was located before the now-validated\par
+\tab\tab\tab    trailing sequence of additional characters.  If the contents of\par
+                     Q-register S is zero, control is transferred to the portion of\par
+                     the program labeled \i !NOCH!\i0  (because the edit buffer does not\par
+                     contain any characters to be processed into the output file).\par
+\par
+0,QSP0,QSK\tab\tab    All characters from the beginning of the buffer through the\par
+\tab\tab\tab    position indicated in Q-register S will be output using the\par
+\tab\tab\tab    Punch (P) command.  All characters from the beginning of the\par
+\tab\tab\tab    buffer through the position indicated in Q-register S will then\par
+                     be deleted using the Kill (K) command.  Program flow continues\par
+                     at the label \i !NOCH!\i0  which follows.\par
+\par
+\b Line 17\tab\tab    !NOCH!EFEX$!NOTEOF!QSJOPUTIN$\b0\par
+\par
+!NOCH!EFEX$\tab\tab    All retained characters in the edit buffer (if any) have been\par
+                     processed.  Close the file with an \ul E\ulnone nd \ul F\ulnone ile command.  TECO\par
+                     \ul EX\ulnone its to the operating system.  All relevant characters\par
+                     (within the pragmatic sequence specially checked for) were\par
+                     removed as required.\page !NOTEOF!QSJOPUTIN$   If the pragmatic sequence of characters expected after the\par
+                     <FF> did not occur, control is transferred here.  The edit\par
+                     buffer pointer is restored (J) to the position saved earlier\par
+                     in Q-register \i S\i0 .  Control is then transferred to the portion\par
+                     of the program labeled \i !PUTIN!\i0  to handle the latest <FF>\par
+                     character in a routine manner.\par
+\par
+\b Line 18\tab\tab    !NOTFF!Q1-10"NOPUTIN$'-1A-13"EOPUTIN$'13I$\b0\par
+\par
+!NOTFF!\tab\tab    Control is transferred to this portion of the program if\par
+                     either the latest character is not a <FF> character or the\par
+                     pragmatic sequence (possibly present after a <FF> character in\par
+                     certain OS/8 files) was not detected.\par
+\par
+Q1-10"NOPUTIN$\tab    If the latest character is not a <LF> character, control is\par
+\tab\tab\tab    transferred to the portion of the program labeled \i !PUTIN!\i0 .\par
+\par
+'-1A-13"EOPUTIN$\tab    If the latest character is a <LF> character, check if the\par
+\tab\tab\tab    previous character (-1A) is a <CR> character (ASCII code 13\par
+\tab\tab\tab    decimal, 15 octal).  If this is the case, transfer control to\par
+                     the portion of the program labeled \i !PUTIN!\i0 .\par
+\par
+                     Note: It is not necessary to mask this value against the\par
+                     constant 127 (octal 177) because the program has already\par
+                     removed the high-order bit of all previous characters; all\par
+                     newly inserted characters do not have the high-order bit set.\par
+\par
+'13I$\tab\tab\tab    If the latest character is a <LF> character and the previous\par
+\tab\tab\tab    character is not a <CR> character, insert a <CR> character\par
+                     before the <LF> character.  Certain PDP-8-sourced files\par
+                     fail to obey the <CR> followed by <LF> convention; this is \par
+\tab\tab\tab    especially likely before or after a <FF> character; the host\par
+\tab\tab\tab    operating system requires lines to strictly end with <CR>\par
+                     followed by <LF>.\par
+\par
+                     Note: Files originating from unix-compatible systems may\par
+                     require this <CR> correction at the end of every line.\par
+                     Program flow continues at the label \i !PUTIN!\i0  which follows.\par
+\par
+\b Line 19\tab\tab    !PUTIN!Q1I$Q1-13"NONOTCR$'0A&127-10"N10I$'\b0  \par
+\par
+!PUTIN!Q1I$\tab\tab    Control is transferred to this portion of the program to insert\par
+                     the latest character with the high-order bit removed.\par
+                     Q-register I contains the (possibly) corrected value which is\par
+                     inserted into the edit buffer at the current character\par
+                     position.\par
+\par
+Q1-13"NONOTCR$\tab    If the latest character is not a <CR> character, control is\par
+\tab\tab\tab    transferred to the portion of the program labeled \i !NOTCR!\i0 .\par
+\par
+'0A&127-10"N10I$'\tab    If the latest character is a <CR> character, test the next\par
+\tab\tab\tab    character (0A) masking the high-order bit (&127); if the next\par
+                     character is not a <LF> character, insert a <LF> character\par
+                     after the <CR> character.  Certain PDP-8 files (occasionally)\par
+                     fail to obey the <CR> followed by <LF> convention (although\par
+                     there are generally more occurrences of failing to have a <CR>\par
+                     before a <LF>).  This situation can arise if the file\par
+                     originates from various Apple or other products.  Certain P?S/8\par
+                     programs from the circa 1978 Version 8T release have similar\par
+                     quirks; newer releases will correct these problems (if they\par
+                     haven't already been fixed).  Program flow continues at the\par
+                     label \i !NOTCR!\i0  which follows.\page\b Line 20\tab\tab    !NOTCR!%H!IGNORE!>EFEX$$\b0\par
+\par
+!NOTCR!%H\tab\tab    Q-register \i H\i0  is incremented (\ul %\ulnone ) to inhibit further special\par
+\tab\tab\tab    handling of potential initial <FF> characters.  Other than the\par
+                     characters associated with infrequent special handling, Q-\par
+                     register \i H\i0  will generally contain the running character count\par
+                     of the file as it is being processed.  Program flow continues\par
+                     inline at the label \i !IGNORE!\i0  which follows.\par
+\par
+!IGNORE!>\tab\tab    Any direct transfer of control to this point will ignore the\par
+\tab\tab\tab    latest character.  All special-case routines that process\par
+\tab\tab\tab    characters also come here to finish the latest iteration loop\par
+                     indicated by the \ul >\ulnone  character.\par
+\par
+EFEX\tab\tab\tab    When the non-stop search fails, control is transferred here to\par
+                     the first command outside of the iteration brackets.  The file\par
+                     is closed with the \ul E\ulnone nd \ul F\ulnone ile command; the program \ul EX\ulnone its to the\par
+                     operating system.\par
+\par
+$$\tab\tab\tab    Since the entire macro string ends with two successive <ESC>\par
+\tab\tab\tab    characters, this ends the macro input as TECO is initialized.\par
+                     Macro execution starts with the first character of the\par
+                     program.\par
+\par
+\tab\tab\tab    Note: The exact process of macro initialization is extremely\par
+\tab\tab\tab    version-dependent.  As such, it is good practice to initially\par
+                     avoid the use of the textual Q-registers \i X\i0 , \i Y\i0  and \i Z\i0 ; certain\par
+                     TECO implementations (other than TECOC) pass macro string\par
+                     arguments using methods that resemble the following:\par
+\par
+\tab\tab\tab    \ul HXZMZ\ulnone\par
+\par
+\tab\tab\tab    The entire macro contents are treated as a text string in the\par
+                     editing buffer as TECO starts up; all characters are then\par
+                     placed into Q-register \i Z\i0  (or \i X\i0  or \i Y\i0  depending on version), then\par
+                     the \ul M\ulnone acro \ul Z\ulnone  command is executed to start the contents of Q-\par
+                     register \i Z\i0 .  In some versions of TECO (including TECOC), this\par
+                     is accomplished using a \i hidden\i0  Q-register.  As such, the full\par
+                     complement of 36 Q-registers is always available.\par
+\par
+[end-of-file]\par
+\par
+}
+ 

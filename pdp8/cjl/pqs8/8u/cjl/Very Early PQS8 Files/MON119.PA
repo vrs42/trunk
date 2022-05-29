@@ -1,0 +1,3017 @@
+/THE NEW IMPROVED P?S MONITOR
+
+
+
+
+
+/THIS SYSTEM IS DEDICATED TO THE DECTAPE VERSION OF THE DECDISK MONITOR SYSTEM
+/WITHOUT WHICH IT DOES NOW AND ALWAYS HAS RUN
+        
+        
+/       EQUATED SYMBOLS
+        
+        
+        AXO=    0001            /AC TO EXTENDED OPERATIONS BUFFER
+        BCO=    1640            /BIT COMPLEMENT
+        BFILES= 7757            /FIRST FILE PASSED TO BINARY LOADER HERE
+        BINADR= 20              /DEFAULT BINARY SCRATCH AREA
+        BINBLK= 110             /BLOCK NUMBER OF BIN SYSTEM
+        BINLEN= 12              /TOTAL BINARY LOADER LENGTH 
+        CATADR= 7000            /USER CATALOG ADDRESS
+        CLR=    0011            /CLEAR AC,LINK,MQ
+        DIR=    15              /FIRST OF TWO USER DIRECTORY BLOCKS
+        DTLA=   DTCA DTXA       /SOME ASSEMBLERS DON'T HAVE THIS
+        DUMBLK= 102             /DUMP SYSTEM BLOCK
+        DUMLEN= 3               /DUMP SYSTEM LENGTH
+        EDBLK=  74              /BATCH EDIT SYSTEM BLOCK
+        EDLEN=  6               /TOTAL EDIT LENGTH
+        EDSLEN= 2               /EDIT SYSTEM LENGTH
+        ERLEN=  1               /EDIT RECOVERY LENGTH
+        FILBEG= 3000            /FILE BUFFER
+        FILSIZ= 20              /LENGTH OF FILE
+        II=     20              /LINC MODE I
+        IOB=    0500            /I/O BUS CONTROL
+        LCR=    6152            /LOAD LINCTAPE HARDWARE CONTROL REGISTER
+        LDA=    1000            /LINC MODE LOAD AC
+        LINC=   6141            /ENTER LINC (SUPER) MODE
+        LMR=    6151            /LOAD MAINTANENCE REGISTER
+        LZE=    0452            /SKIP IF LINK ZERO
+        NL0001= CLA IAC         /SET AC TO ONE
+        NL0002= CLA CLL CML RTL /SET AC TO TWO
+        NL0004= CLA CLL IAC RTL /SET AC TO FOUR (FOR PDP-12 ONLY)
+        NL2000= CLA CLL CML RTR /SET AC TO TWO THOUSAND
+        NL3777= CLA CLL CMA RAR /SET AC TO THREE SEVEN SEVEN SEVEN
+        NL4000= CLA CLL CML RAR /SET AC TO FOUR THOUSAND
+        NL7775= CLA CLL CMA RTL /SET AC TO SEVEN SEVEN SEVEN FIVE
+        NL7776= CLA CLL CMA RAL /SET AC TO SEVEN SEVEN SEVEN SIX
+        PDP=    0002            /GOTO PDP-8 (GOODY) MODE
+        RCC=    RFC RRB         /NEW-FANGLED READER DEFINITION
+        RDC=    0700            /READ AND CHECK A BLOCK
+        RDE=    0702            /READ A BLOCK
+        RUNBLK= 72              /RUN COMMAND BLOCK
+        RUNCOR= 3600            /RUN COMMAND GENERATION ADDRESS
+        SWAPIN= 1200            /ADDRESS TO SWAP CODE INTO
+        SWPLEN= 2               /NUMBER OF BLOCKS(PAGES) TO SWAP
+        SWPMON= 6               /EQUALS [SWAPIN/(2^7)]+1
+        SYSCAT= 70              /SYSTEM CATALOG BLOCK
+        TAC=    0003            /TAPE AC TO REAL AC
+        TMA=    0023            /AC TO TAPE MEMORY ADDRESS
+
+        VERSION=05              /VERSION # OF SYSTEM
+/       SYSGEN PARAMETER AREA
+/SETTING        DECTAPE=1       GENERATES A DECTAPE SYSTEM (TC01-TC08)
+/SETTING        FLOPPY= 1       GENERATES A FLOPPY DISC SYSTEM (1-4 UNITS)
+/SETTING        DF32=   1       GENERATES A DF32 SYSTEM (1-4 PLATTERS)
+/SETTING        LINCTAPE=1      GENERATES A LINCTAPE SYSTEM (TC12)
+/FOR THE PDP-12 (128 OR 129 WORDS/BLOCK REQUIRED)
+/THE TC12-F OPTION CAN BE USED TO TRANSFER DATA BETWEEN TAPE SYSTEMS 
+/EITHER LINCTAPE TO DECTAPE OR VICE VERSA
+/(SEE DOCUMENTATION OF THE PRTC12-F PROGRAM ELSEWHERE)
+/
+/
+/       INSERT SYSGEN PARAMETER HERE
+/
+/
+        DECTAPE=1               /GENERATE A DECTAPE SYSTEM
+/
+/
+        IFNDEF  DF32            <DF32=  0>
+        IFNDEF  FLOPPY          <FLOPPY=0>
+        IFNDEF  LINCTAPE        <LINCTAPE=0>
+        IFNDEF  DECTAPE         <DECTAPE=0>
+/
+/
+        IFZERO  DECTAPE+LINCTAPE+DF32+FLOPPY    <
+        DECTAPE=1               /DEFAULT TO DECTAPE>
+        IFNZRO  DECTAPE+FLOPPY+LINCTAPE+DF32-1  <
+        /COMPLAIN ABOUT BOTCHED SYSGEN
+        **** ERROR **** INCOMPATIBLE SYSGEN PARAMETERS
+        /       $               /TERMINATE ASSEMBLY>
+/       USER FILE SPECIFICATION
+/GIVE THE NUMBER OF USER FILES DESIRED
+/MAXIMUM IS 84 (NOT INCLUDING "$" FILES
+/ALL PHYSICAL SPACE REMAINING AFTER USER CATALOG
+/WILL BE USED FOR THE EXTENDED CATALOG
+        DECIMAL
+/       INSERT # OF USER FILES HERE
+/
+/
+        UFILES= 84              /GENERATE MAXIMUM SIZE USER CATALOG
+/
+/
+        OCTAL
+        IFNDEF  UFILES  <UFILES=124     /MAXIMUM>
+        IFNZRO  124-UFILES&4000 <
+        /COMPLAIN ABOUT BOTCHED SYSGEN
+        **** ERROR **** TOO MANY USER FILES
+        /       $               /TERMINATE ASSEMBLY>
+
+
+
+
+
+/       BLOCK LAYOUT OF THE  P ? S  STARTER SYSTEM
+
+
+
+/       BLOCK   GENERATION CORE LOADING CORE    MAJOR FUNCTION
+/       -----   --------------- ------------    ----- --------
+
+
+/       0       6600-6777       7600-7777       BOOTSTRAP, SYSTEM I/O, ETC.
+/       1-13    0000-2577       0000-2577       IN CORE MONITOR
+/       14      2600-2777       2600-2777       THE "EDIT" COMMAND
+/       15-16   1000-1377       7000-7377       USER CATALOG
+/                              (3000-3377)
+/       17         N.A.         3400-3577       RESERVED I/O BLOCK FOR THE TD8/E SYSTEM
+/       20-37   1000-1777 (4X)     N.A.         DEFAULT BINARY FILE
+/       40-57   1000-1777 (4X)     N.A.         "$" SOURCE FILE
+/       60-67      N.A.            N.A.         SYSTEM SCRATCH AREA
+/       70      3000-3127       1200-1377       SYSTEM CATALOG
+/              (1000-1127)
+/       71      3400-3577       1400-1577       THE "R" COMMAND
+/       72      3600-3777       3000-3177       THE "RUN" COMMAND
+/       73      1000-1177       3200-3377       EXTENDED USER'S (SYSTEMS PROGRAMMER'S) CATALOG
+/       74      2400-2527       2400-2577       MODIFIED COMMAND TABLE + BATCH
+/              (3000-3127)
+/              +3130-3177
+/       75      3200-3377       2600-2777       EDIT/BATCH SYSTEM
+/       76         N.A.         2600-2777       ACTIVE BATCH SAVE AREA
+/       77      6314-6377       3000-3063       BATCH RECOVERY ROUTINE
+/                              (3064-3177 N.A.)
+/       100-101    N.A.         3200-3577       SAVE AREA FOR ACTIVE COPY OF SYSIO,PAGE ZERO ETC.
+/       102-104 7000-7577       0000-0577       THE DUMP SYSTEM
+/       105        N.A.         0600-0777       RESERVED FOR EXTENDED DUMP OVERLAY
+/       106-107    N.A.            N.A.         RESERVED FOR PRINT COMMAND OVERLAY
+/       110-121 4200-6577       0000-2577       BINARY LOADER
+/       122-127    N.A.            N.A.         FIRST FREE BLOCKS FOR NEW SYSTEMS
+/       130        N.A.            N.A.         FIRST FREE BLOCK FOR USER CATALOG
+        *0
+        VERSION                 /INTERNAL VERSION NUMBER OF MONITOR
+
+        *3
+
+
+
+/MONITOR INITIALIZATION PARAMETER (INITSW)
+/
+/
+/       BITS<0-1>       INITIAL TTY MODE
+/                       00 IS TTY 3
+/                       01 IS TTY 0
+/                       10 IS TTY 5
+/                       11 TABS PRINT AS ONE TAB WITH NO TIMEOUT
+/       BITS<2-3>       PUNCH STATUS
+/                       00 IS TTY 3
+/                       01 IS TTY 0
+/                       10 IS TTY 5
+/                       11 TABS PUNCH AS ONE TAB WITHOUT NULL
+/       BIT <4>         INITIAL LOADING STATUS
+/                       0 = NO LOAD
+/                       1 = LOAD $
+/       BIT <5>         INITIAL SAVING STATUS
+/                       0 = NO SAVE
+/                       1 = SAVE $
+/       BIT <10>        INITIAL RADIX
+/                       0 = DECIMAL
+/                       1 = OCTAL
+/       BIT <11>        INITIAL ECHO STATUS
+/                       0 = ECHO ON
+/                       1 = ECHO OFF
+
+INITSW, 1400                    /CHANGE THIS TO FIT YOUR INSTALLATION
+                                /USED WHEN BOOTSTRAPPING
+
+/       DEFAULT FILE NAME
+FNAME,  7777                    /??
+        7777                    /??
+        7777                    /??
+
+
+L3,     3                       /USED TO TERMINATE FNAME;MUST BE 77 OR LESS
+/       AUTO-INDEX REGISTERS
+XR1,    0
+XR2,    0
+NFMSG,  TEXT    ' NOT FOUND !'
+        *.-1                    /DUMB TEXT PSEUDO-OP
+        IFNZRO  20-.    <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+L12,    12
+SWAPSW, 0
+BUFEND, 6775
+BUFINFO,6774
+PEDCMND,EDCMND
+CHAR,   0
+GETNDX, 0                       /DON'T MOVE THIS
+DIREND, CATADR+377
+ECHOSW, 0
+FIZZ1,  6776
+FIZZ2,  6777
+FLIPECHO,ECHOFLP
+GETBASE,0
+DOLFIL,
+L40,    40
+GLINE,  XGLINE  
+INPUT,  TTYR    
+INSAVE, 0
+TUNIT,  XTUNIT
+L15,    15
+BEGLIN, INPBUF
+WHAT,   XWHAT
+UPLIM,  0
+L37,    37
+LNO,    0
+GETHAF, XGETHAF
+L5,     5
+SCRIBE, XSCRIBE
+TSPACE, XTSPACE
+L7400,  7400
+L7734,  7734
+        IFNZRO  56-.    <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+L77,    77
+EDLIN,  0
+        IFNZRO  60-.    <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+L7700,  7700
+L7720,  7720
+L7740,  7740
+L7741,  7741
+TAPREC, 0
+L7752,  7752
+L7756,  7756
+L7761,  7761
+L7766,  7766
+L7770,  7770
+L7772,  7772
+L7773,  7773
+L7774,  7774
+LIMITS, XLIMIT  
+LINENO, XLINENO 
+LINLEN, INPBUF-INPEND^2
+        IFNZRO  100-.   <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        ****  ERROR  ****  UNABLE TO ASSEMBLE
+        /       $       >
+MODEPUN,6000
+LNSRCH, XLNSRCH 
+LOOKSW, 0
+LOOKUP, XLOOKUP 
+L200,
+LNOPRT, XLNOPRT 
+LOWLIM, 0
+NAME,   XNAME   
+NAMPRT, XPRTNAM
+OLDRAD, 0
+OLDUNIT,0
+OUTPUT, TTYP    
+PBEGIN, BEGIN
+PSBLOK, SBLOCK
+PSCORE, SKORE
+PSLOAD, SLOAD
+PSNUM,  SNUM
+PSYSTART,SYSTART
+PLODCAT,LODCAT
+PFASTP, FASTP   
+PFASTR, FASTR   
+PINSERT,INSERT  
+PMOVE,  MOVE    
+PR6BIT, XPR6BIT 
+PRINT,  XPRINT  
+L137,
+PTEMP1, TEMP1   
+PTTYP,  TTYP    
+PTTYR,  TTYR    
+PUTBASE,0
+PUTHAF, XPUTHAF 
+PUTNDX, 0
+RADXSW, -12
+        IFNZRO 137-.    <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+TEMP1,  0
+TEMP2,  0
+TEMP3,  0
+L2,     2                       /PUT THIS AFTER TEMP3 TO TERMINATE
+TEMP4,  0
+SEQSW,  0
+TCNT1,  0
+TCNT2,  0
+TABSW,  0
+SYSIN,  SREAD
+SYSOUT, SWRITE
+SLINUM, 0
+CATCORE,7000
+NEWCAT, 0                       /NEW CATALOG SUBROUTINE
+        JMS I   TUNIT           /TEST FOR :0
+L7440,  SZA                     /NONE FOUND
+        JMS I   PLODCAT         /: FOUND,GET A NEW CATALOG LOADED
+        JMP I   NEWCAT          /RETURN
+/
+TEMCNT, 0
+TPTR1,  0
+TPTR2,  0
+        IFNZRO  164-.   <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+PSUNIT, SUNIT
+TABCNT, 0
+L7726,  7726
+
+        *177
+        IFNZRO  177-.   <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+L7,     7
+        IFNZRO  200-.   <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+XLNOPRT,JMP I   XLINENO         /FOR GENASYS
+        DCA     XLINENO         /SAVE NUMBER
+        TAD     BEGLIN          /\
+        DCA     PUTBASE         / >POINT TO INPUT BUFFER
+        DCA     PUTNDX          //
+        TAD     L7774           /INITIALIZE COUNT TO
+        DCA     TEMCNT          /PRINT FOUR DIGITS
+        TAD     L7440           /INITIALIZE ZERO SWITCH
+        DCA     ZEROSW          /TO A SZA
+DIVLUP, TAD     TEMCNT          /COPY THE
+        DCA     TEMP1           /COUNT
+        CMA                     /ASSUME RADIX^0
+        DCA     TSTINT          /SAVE IT
+        ISZ     TEMP1           /DO WE RAISE IT TO A HIGHER POWER?
+        SKP                     /YES...
+        JMP     PRTDIG          /NO...NOW USE IT
+        TAD     RADXSW          /\
+        DCA     NEWCAT          / \
+        TAD     TSTINT          /  >MULTIPLY BY RADIX
+        ISZ     NEWCAT          / /
+        JMP     .-2             //
+        JMP     DIVLUP+3        /SEE IF WE RAISE AGAIN
+PRTDIG, TAD     XLINENO         /GET NUMBER
+        CLL                     /CLEAR MAGIC LINK
+        TAD     TSTINT          /\
+        SNL                     / \
+        JMP     .+3             /  >DIVIDE BY RADIX^N
+        ISZ     TEMP1           / /
+        JMP     .-5             //
+        CIA                     /\
+        TAD     TSTINT          / >RESTORE REMAINDER
+        CIA                     //
+        DCA     XLINENO         /SAVE AS NEW NUMBER
+        TAD     TEMP1           /GET QUOTIENT
+ZEROSW, SZA                     /TEST FOR LEADING ZEROS
+        JMP     .+4             /JUMP IF SIGNIFIGANT DIGIT
+        TAD     L40             /\
+        JMS I   PRINT           / >BLANK LEADING ZEROS
+        JMP     .+5             //
+        TAD     L60             /ADD "0-200
+        JMS I   PINSERT         /NOW INSERT INTO BUFFER
+        TAD     NOPCON          /TURN OFF LEADING
+        DCA     ZEROSW          /ZERO TESTER
+        ISZ     TEMCNT          /ANY DIGITS LEFT?
+        JMP     DIVLUP          /YES...GO GET EM
+        TAD     L37             /TAKE A TAB AND
+        JMS I   PINSERT         /INSERT IT
+        JMP I   XLNOPRT         /RETURN
+XLINENO,GENASYS                 /FOR GENASYS PURPOSES ONLY
+        JMS     TSTINT          /GO FIND A DIGIT
+        JMP I   XLINENO         /NONE FOUND JUST RETURN
+LINUM1, DCA     XLNOPRT         /SAVE IT
+        ISZ     GETNDX          /BUMP INDEX
+        JMS     TSTINT          /TRY TO FIND ANOTHER
+        JMP     LINUM2          /NO CAN DO
+        DCA     TEMP1           /SAVE TEMPORARILY
+        TAD     RADXSW          /SETUP TO MULTIPLY
+        DCA     TEMCNT          /BY RADIX
+        CLL                     /CLEAR MAGIC LINK
+        TAD     XLNOPRT         /\
+        SZL                     / \
+        JMP I   WHAT            /  >MULTIPLY BY RADIX & TEST FOR OVERFLOW
+        ISZ     TEMCNT          / /
+        JMP     .-4             //
+        TAD     TEMP1           /ADD DIGIT
+        SNL                     /TEST FOR OVERFLOW
+        JMP     LINUM1          /IF NONE THEN GET NEXT DIGIT
+        JMP I   WHAT            /ERROR IF OVERFLOWED
+LINUM2, JMS I   TSPACE          /IS CHAR A BLANK OR TAB
+        TAD     XLNOPRT         /GET NUMBER
+        CMA                     /TEST FOR 7777
+        SNA                     /SKIP IF NOT
+        JMP I   WHAT            /ERROR IF IT IS
+        STL CMA                 /RESTORE NUMBER   SET LINK=1
+        ISZ     XLINENO         /BUMP RETURN ADDRESSS TO DO A
+        JMP I   XLINENO         /SKIP RETURN
+        
+TSTINT, 0
+        JMS I   GETHAF          /GET THE CHARACTER
+        TAD     L7720           /TEST LOWER BOUND
+        SPA                     /PASSES
+        JMP     .+4             /FAILS
+        TAD     RADXSW          /TEST UPPER BOUND
+        SPA                     /FAILS
+        JMP     .+3             /PASSES
+        CLA CLL                 /ZERO AC & LINK
+        JMP I   TSTINT          /FAIL RETURN
+        CIA                     /\
+        TAD     RADXSW          / >RESTORE DIGIT
+        CIA                     //
+        ISZ     TSTINT          /BUMP FOR
+        JMP I   TSTINT          /SKIP RETURN
+RUN,    JMS I   NAME            /LOOK FOR NAME
+        JMP I   WHAT            /BADNESS IF NONE FOUND
+RUNGO,  TAD I   PSUNIT          /SAVE PRESENT
+        DCA     OLDUNIT         /TAPE UNIT
+        JMS I   TUNIT           /LOOK FOR :UNIT
+NOPCON, NOP                     /NOP
+        TAD     RADXSW          /SAVE OLD
+        DCA     OLDRAD          /RADIX SWITCH
+        STA                     /TURN ON 
+        DCA     SWAPSW          /RELOAD FLAG
+        JMS I   SYSIN           /\
+RUNPTR, SWAPIN                  / \READ SYSTEM CATALOG
+        -SWPLEN                 / /INTO CORE
+        SYSCAT                  //
+        TAD     L7              /SET BUMP FACTOR
+        DCA     TCNT1           /TO SEVEN WORDS
+        DCA     LOOKSW          /ZERO LOOK SWITCH
+        TAD     RUNPTR          /POINT TO SYSTEMS CATALOG
+        JMS I   LOOKUP          /LOOK FOR NAME
+        CLA                     /IGNORE BLOCK NUMBER
+        TAD I   XR1             /FETCH STARTING BLOCK NUMBER
+        DCA I   PSBLOK          /STORE IT
+        TAD I   XR1             /GET GLOP WORD
+        DCA     TEMP1           /SAVE IT
+        TAD     TEMP1           /\
+        AND     L77             / \EXTRACT LENGTH &
+        CIA                     / /STORE IT
+        DCA I   PSNUM           //
+        TAD     TEMP1           /\
+L60,    AND     L7700           / >DO SAME FOR CORE ADDRESS
+        DCA I   PSCORE          //
+RUNSAV, SKP CLA                 /JUMP TO SECOND PART OF RUN COMMAND
+        3000                    /\
+        -20                     / \WILL DO A SAVE $ IF
+        40                      / /ACTIVATED BY INITSW
+        JMP I   .+1             //
+RUNST,  XGLINE
+        PAGE
+EDITOR, DCA     TEMP1           /SAVE INITIALIZE MODE
+        TLS                     /SET TTY FLAG
+        JMS I   PR6BIT          /DO A CRLF FOR NEATNESS
+        ISZ     TEMP1           /SKIP IF SCRATCH ONLY MODE
+        JMP     SYS+4           /ELSE DO A SYS
+        
+NEWBUF, TAD     BUFBEG          /\
+        DCA I   FIZZ1           / \RESET THE TWO
+        TAD     BUFINFO         / /FILE POINTERS
+        DCA I   FIZZ2           //
+        TAD     BUFBEG          /\
+        DCA I   BUFINFO         / \CREATE AN INITIAL
+        CMA                     / /LINE INFO ENTRY
+        DCA I   BUFEND          //
+        JMS     CLEAR           /CLEAR BUFFER
+PLRTN,  TAD     L7              /DING-DONG
+        JMS I   PRINT           /AVON CALLING
+        JMP I   PBEGIN          /BEGIN TO DO SOME WORK
+        
+SCRATCH,JMS I   GETHAF          /\
+        SNA CLA                 / >IF NO PARMS THEN WHOLE SCRATCH
+        JMP     NEWBUF          //
+        JMS I   LIMITS          /ELSE LOOK FOR VALID LIMITS
+        JMP I   WHAT            /BARF IF INVALID
+        JMS     REMOVE          /DELETE SPECIFIED LINES
+        JMP I   PBEGIN          /NOW RETURN
+        
+SYS,    JMS I   TUNIT           /CHECK FOR A :UNIT
+        NOP                     /NOP
+        STA                     /FUDGE TO PREVENT A
+        DCA     TEMP1           /SCRATCH FROM OCCURING
+        JMS I   PLODCAT         /READ CATALOG INTO USER CATALOG AREA
+        ISZ     TEMP1           /SKIP IF NOT TO DO A SCRATCH
+        JMP     NEWBUF          /ELSE GO DO A SCRATCH
+        JMP I   PBEGIN          /RETURN
+
+SWAPIT, TAD     OLDUNIT         /RESTORE
+        DCA I   PSUNIT          /TAPE UNIT
+        TAD     OLDRAD          /RESTORE
+        DCA     RADXSW          /RADIX
+        JMS I   SYSIN           /\
+        SWAPIN                  / \RESTORE SWAPPED
+        -SWPLEN                 / /PART OF MONITOR
+        SWPMON                  //
+        DCA     SWAPSW          /CLEAR SWAP SWITCH
+        JMP     SYS+2           /DO A SYS
+
+MOVE,   0
+        DCA     TCNT1           /SAVE NUMBER OF WORDS TO MOVE
+        STA                     /\
+        TAD I   MOVE            / \SETUP AUTO-INDEXED
+        ISZ     MOVE            / /FROM POINTER
+        DCA     XR1             //
+        STA                     /\
+        TAD I   MOVE            / \SETUP AUTO-INDEXED
+        ISZ     MOVE            / /TO POINTER
+        DCA     XR2             //
+        TAD I   XR1             /FETCH
+        DCA I   XR2             /STORE
+        ISZ     TCNT1           /TEST
+        JMP     .-3             /LOOP
+        JMP I   MOVE            /RETURN
+        
+CLEAR,  0
+        TAD I   FIZZ2           /\
+        CIA                     / \
+        TAD I   FIZZ1           /  \COMPUTE AND TEST LENGTH
+        SNA                     /  /OF UNUSED SECTION
+        JMP I   CLEAR           / /
+        DCA     TCNT1           //
+        CMA                     /\
+        TAD I   FIZZ1           / >SETUP POINTER
+        DCA     XR1             //
+        DCA I   XR1             /\
+        ISZ     TCNT1           / >CLEAR IT
+        JMP     .-2             //
+        JMP I   CLEAR           /RETURN
+REMOVE, 0
+        NL7776                  /\
+        TAD     UPLIM           / >POINTER TO LINE INFO AFTER UPPER LIMIT
+        DCA     TPTR1           //
+        TAD I   TPTR1           /\
+        DCA     REMOVP          / \SET UP POINTERS TO
+        TAD I   LOWLIM          / /FROM AND TO POINTERS
+        DCA     REMOVP+1        //
+        TAD I   FIZZ1           /\
+        CMA                     / >COMPUTE LENGTH OF MOVE
+        TAD I   TPTR1           //
+        JMS     MOVE            /\
+REMOVP, 0                       / >MOVE THE TEXT DOWN
+        0                       //
+        TAD     XR2             /RESET FILES NEXT
+        DCA I   FIZZ1           /LINE POINTER
+        TAD     UPLIM           /\
+        CIA                     / \
+        TAD I   FIZZ2           /  >LINE INFO MOVE COUNT
+        STL RAR                 / /
+        DCA     TCNT1           //
+        TAD I   TPTR1           /\
+        CIA                     / \COMPUTE RELOCATION
+        TAD I   LOWLIM          / /FACTOR FOR INFOS
+        DCA     TEMP1           //
+REMOV1, TAD I   TPTR1           /FETCH POINTER TO LINE
+        TAD     TEMP1           /ADD RELOCATION FACTOR
+        DCA I   LOWLIM          /RESTORE POINTER TO LINE
+        ISZ     TPTR1           /BUMP FROM POINTER
+        ISZ     LOWLIM          /BUMP TO POINTER
+        TAD I   TPTR1           /FETCH LINE NUMBER
+        DCA I   LOWLIM          /RESTORE LINE NUMBER
+        NL7775                  /\
+        TAD     TPTR1           / >ADJUST FROM POINTER
+        DCA     TPTR1           //
+        NL7775                  /\
+        TAD     LOWLIM          / >ADJUST TO POINTER
+        DCA     LOWLIM          //
+        ISZ     TCNT1           /TEST FOR COMPLETION AND
+        JMP     REMOV1          /JUMP BACK
+        NL0002                  /\
+        TAD     LOWLIM          / >RESET FILES NEXT INFO POINTER
+        DCA I   FIZZ2           //
+        JMS     CLEAR           /CLEAR UNUSED SECTION
+        JMP I   REMOVE          /RETURN
+
+EDIT,   JMS I   SYSIN           /\
+        EDITIT                  / \SWAP IN EDIT COMMAND
+        -1                      / /FIRST TIME ONLY
+        14                      /
+        JMP I   .-3             /USE IT TO FIX ITSELF UP
+/
+RRUN,   JMS I   SYSIN           /\
+BUFBEG, 3000                    / \
+        -2                      /  >SWAP IN "RUN" COMMAND AND BRANCH TO IT
+        RUNBLK                  / /
+        JMP I   BUFBEG          //
+        PAGE
+HALT,   HLT                     /HALT
+        
+BEGIN,  7600                    /CLEAR AC
+        TAD     SWAPSW          /\
+        SZA CLA                 / >BYPASS IF SWAP SWITCH IS OFF
+        JMP I   PSWAP           //
+        JMS I   GLINE           /GET A LINE OF INPUT
+BEGIN1, JMS I   LINENO          /IS THERE A LINE NUMBER?
+        JMP     COMAND          /NOPE... ITS A COMMAND
+        DCA     LNO             /YES... SAVE LINE NUMBER
+        TAD     SLINUM          /\
+        TAD     SEQSW           / >INCREMENT LINE NUMBER
+        DCA     SLINUM          //
+        TAD     LNO             /GET LINE NUMBER
+        JMS I   LNSRCH          /DOES IT EXIST?
+        JMP     NEWLIN          /NO... CREATE IT
+        DCA     LOWLIM          /\
+        TAD     LOWLIM          / >YES... SETUP DELETION LIMITS
+        DCA     UPLIM           //
+        JMS I   PREMOV          /DELETE LINE
+        SKP                     /SKIP
+NEWLIN, DCA     UPLIM           /SET UPLIM
+        TAD     GETNDX          /\
+        CIA                     / >COMPUTE LENGTH OF TEXT
+        TAD     PUTNDX          //
+        SNA                     /SKIP IF SOMETHING THERE
+        JMP     BEGIN           /IF NULL THEN IGNORE
+        TAD     L2              /FUDGE FOR CR
+        CLL RAR                 /DIVIDE BY TWO TO GET
+        DCA     TEMP1           /LENGTH IN WORDS
+        NL0002                  /TWO INFO WORDS
+        TAD     TEMP1           /PLUS LENGTH
+        TAD I   FIZZ1           /\
+        CMA CLL                 / >TEST IF IT WILL FIT
+        TAD I   FIZZ2           //
+        SZL CLA                 /SKIP IF NO ROOM
+        JMP     .+5             /JUMP IF IT WILL FIT
+        DCA     ECHOSW          /DISPLAY PROBLEM ALWAYS
+        JMS I   SCRIBE          /PRINT NO ROOM MESSAGE
+        TBMSG
+        JMP     BEGIN           /BACK FOR MORE
+        TAD I   FIZZ1           /\
+        CMA                     / \COMPUTE NUMBER OF WORDS OF
+        TAD I   UPLIM           / /CHARACTERS TO MOVE
+        DCA     TCNT1           //
+        TAD I   FIZZ1           /SET UP FROM
+        DCA     TPTR1           /POINTER
+        TAD     TPTR1           /\
+        TAD     TEMP1           / >SET UP TO POINTER
+        DCA     TPTR2           //
+        TAD     TPTR2           /RESET FILES NEXT
+        DCA I   FIZZ1           /LINE POINTER
+INSRT1, TAD I   TPTR1           /FETCH
+        DCA I   TPTR2           /STORE
+        CMA                     /\
+        TAD     TPTR1           / >BACKUP FROM POINTER
+        DCA     TPTR1           //
+        CMA                     /\
+        TAD     TPTR2           / >BACKUP TO POINTER
+        DCA     TPTR2           //
+        ISZ     TCNT1           /TEST IF DONE
+        JMP     INSRT1          /LOOP BACK
+        NL0002                  /\
+        TAD     UPLIM           / \
+        CIA                     /  \COMPUTE NUMBER OF LINE INFO
+        TAD I   FIZZ2           /  /ENTRIES TO MOVE
+        STL RAR                 / /
+        DCA     TCNT1           //
+        CMA                     /\
+        TAD I   FIZZ2           / >SETUP FROM POINTER
+        DCA     XR1             //
+        NL7776                  /\
+        TAD     XR1             / >SETUP TO POINTER
+        DCA     XR2             //
+        TAD     XR2             /\
+        IAC                     / >RESET FILES NEXT INFO POINTER
+        DCA I   FIZZ2           //
+INSRT2, TAD I   XR1             /\
+        TAD     TEMP1           / >MOVE AND RELOCATE
+        DCA I   XR2             //
+        TAD I   XR1             /MOVE LINE
+        DCA I   XR2             /NUMBER
+        ISZ     TCNT1           /TEST FOR END
+        JMP     INSRT2          /LOOP BACK
+        TAD I   UPLIM           /SETUP PUT
+        DCA     PUTBASE         /POINTER
+        TAD     PUTNDX          /\
+        CMA                     / \COMPUTE NUMBER OF
+        TAD     GETNDX          / /CHARACTERS TO MOVE
+        DCA     TCNT1           //
+        DCA     PUTNDX          /CLEAR PUT INDEX
+INSRT3, JMS I   GETHAF          /FETCH CHARACTER
+        JMS I   PUTHAF          /STORE CHARACTER
+        ISZ     GETNDX          /BUMP GET INDEX
+        ISZ     PUTNDX          /BUMP PUT INDEX
+        ISZ     TCNT1           /TEST FINISH
+        JMP     INSRT3          /LOOP BACK
+        ISZ     UPLIM           /\
+        TAD     LNO             / >SHOVE LINE # INTO INFO ENTRY
+        DCA I   UPLIM           //
+        JMP     BEGIN           /CONTINUE
+COMAND, JMS I   NAME            /VALID NAME?
+        JMP I   WHAT            /NO... BARF
+        TAD     PCMNDS          /SETUP POINTER TO COMMAND TABLE
+        JMS     CMDSUB          /CALL LOOKUP ROUTINE
+        JMP I   FUDGE           /TRY TO RUN IT
+        
+CMDSUB, 0                       /LOOKUP ROUTINE
+        DCA     XR1             /STASH POINTER
+CMDLUP, ISZ     XR1             /BUMP PAST ROUTINE ADDRESS
+        TAD I   XR1             /FETCH TRIAL
+        SNA                     /SKIP IF GOOD
+        JMP I   CMDSUB          /RETURN
+        TAD     TEMP1           /IS THIS IT?
+        SZA CLA                 /SKIP IF YES
+        JMP     CMDLUP          /BACK IF NO
+        TAD I   XR1             /GET ADDRESS
+        DCA     TPTR1           /SAVE IT
+        JMP I   TPTR1           /BRANCH TO IT
+
+XWHAT,  CLA                     /AC IS OFTEN DIRTY
+        DCA     ECHOSW          /ALWAYS DISPLAY ERRORS
+        JMS I   SCRIBE          /PRINT WHAT?
+        WHATMG                  /ME WORRY?
+WHATMOR,JMP     BEGIN           /IF WHATMOR IS ZAPPED,IT BOOTSTRAPS
+MOUNT,  DCA I   PSUNIT          /ZERO UNIT OUT
+        JMP I   BEGIN           /BOOTSTRAP
+
+
+PCMNDS, CMNDS-2
+PREMOV, REMOVE  
+PSWAP,  SWAPIT
+FUDGE,  RUNGO                   /STARR
+        PAGE
+XPR6BIT,0
+        SZA                     /SKIP ON NEW LINE CHARACTER
+        JMP     PR6BT1          /JUMP
+        TAD     L15             /FETCH CARRIAGE RETURN
+        JMS I   PRINT           /PRINT IT
+        TAD     L12             /TAKE A LINE FEED
+        JMS I   PRINT           /PRINT IT
+        DCA     COLUMN          /RESET COLUMN
+        JMP I   XPR6BIT         /EOL RETURN
+
+
+PR6BT1, ISZ     XPR6BIT         /BUMP RETURN ADDRESS
+        TAD     L7741           /TAB CHARACTER?
+        SNA                     /NO...SKIP
+        JMP     PR6TAB          /YES...GO TAB OUT
+        AND     L77             /TRIM AND
+        TAD     L37             /RESTORE TO 7-BIT ASCII
+        JMS I   PRINT           /PRINT IT
+        JMP I   XPR6BIT         /RETURN
+
+
+PR6TAB, TAD     TABSW           /FETCH TAB SWITCHES
+        CLL RAL                 /SAVE TTY MODE
+        TAD     COLUMN          /GET PRESENT COLUMN
+        SPA                     /SKIP IF TABS ENABLED
+        STA                     /FUDGE IF TABS TURNED OFF
+        IFNZRO  .&177-GETNDX    <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $               >
+L177,   AND     L7              /MODULO EIGHT
+        TAD     L7770           /NEGATIVE SPACES TO TAB STOP
+        DCA     TABCNT          /SAVE IT
+        SZL                     /SKIP IF MOD33
+        JMP     PR6TB1          /JUMP IF MOD35
+        TAD     L40             /FETCH A BLANK
+        JMS I   PRINT           /PRINT IT
+        ISZ     TABCNT          /SKIP IF TAB STOP HAS BEEN REACHED
+        JMP     .-3             /ELSE JUMP BACK
+        JMP I   XPR6BIT         /RETURN
+
+
+PR6TB1, TAD     TABCNT          /GET NEGATIVE COUNT
+        ISZ     TABCNT          /SKIP IF COUNT EQUALS ONE
+        TAD     L7774           /ELSE ADD FUDGE
+        STL RAR                 /SIGNED HALVE
+        STL RAR                 /ONCE MORE TO QUARTER IT
+        DCA     TABCNT          /NOW SAVE IT
+        TAD     L11             /GRAB A TAB (ONLY 1 CALORIE)
+        JMS I   PRINT           /OUTPUT IT
+        ISZ     TABCNT          /SKIP IF ALL DONE
+        JMP     .-2             /ELSE OUTPUT A NULL
+        JMP     PR6BT1-2        /GO LEAVE
+XPRINT, 0
+        TAD     ECHOSW          /TEST ECHO SWITCH
+        SMA                     /SKIP IF OFF
+        JMS I   OUTPUT          /OUTPUT IF ON
+        AND     L177            /REDUCE PRINTED CHAR TO 7-BIT
+        TAD     L7766           /CHECK FOR L. F.
+        SZA CLA                 /DON'T UP COUNT ON LINE FEEDS
+        ISZ     COLUMN          /BUMP COLUMN
+        JMS     TCNTLO          /SEE IF ^O WAS HIT
+        JMP I   XPRINT          /RETURN IF IT WASN'T
+        JMP I   XPRINT          /RETURN IF IT WAS
+        
+TCNTLO, 0
+        KSF                     /TEST KEYBOARD FLAG
+        JMP     NOCTLO          /RETURN IF NOT SET
+        KRS                     /READ CHARACTER
+        AND     L177            /TRIM TO 7-BIT ASCII
+        TAD     L7761           /TEST FOR ^O
+        SZA CLA                 /SKIP IF SUCCESSFUL
+        JMP I   TCNTLO          /RETURN IF NOT
+        KCC                     /CLEAR FLAG
+        JMS I   FLIPECHO        /COMPLEMENT ECHO SWITCH BIT
+NOCTLO, ISZ     TCNTLO          /DO A SKIP
+        JMP I   TCNTLO          /RETURN
+        
+XPRTNAM,0
+        TAD     XPRTNAM         /PRETEND THAT WE
+        DCA     XSCRIBE         /CAME INTO SCRIBE
+        TAD     L7440           /SET SCRIBE FLAG
+        DCA     SCRIBR+1        /TO A SZA
+        TAD     L7772           /MAX OF SIX CHARACTERS
+        SKP                     /SKIP
+        
+XSCRIBE,0
+        DCA     XPRTNAM         /SET MAXCHAR COUNT
+        TAD I   XSCRIBE         /FETCH MESSAGE ADDRESS
+        ISZ     XSCRIBE         /BUMP PAST POINTER
+        DCA     GETBASE         /SET GET BASE POINTER
+        DCA     GETNDX          /ZERO GET INDEX
+SCRIBR, JMS I   GETHAF          /FETCH A SIX-BIT CHARACTER
+        NOP                     /THIS IS THE SCRIBE FLAG
+        JMS I   PR6BIT          /PRINT THE CHARACTER
+        JMP     SCRIBG          /EXIT ON EOL
+        JMS     TCNTLO          /TEST FOR ^O
+        JMP     SCRIBG          /LEAVE IF NON-^O FOUND
+        ISZ     GETNDX          /BUMP GET INDEX
+        ISZ     XPRTNAM         /MAXCHAR TEST
+        JMP     SCRIBR          /BACK FOR MORE
+SCRIBG, TAD     NOP2            /RESET SCRIBE FLAG
+        DCA     SCRIBR+1        /TO A NOP
+        JMP I   XSCRIBE         /RETURN
+XLIMIT, 0
+        TAD     BUFINFO         /ASSUME LOWER LIMIT
+        DCA     LOWLIM          /TO BE FIRST LINE
+        JMS I   GETHAF          //\
+        TAD     L7723           / >TEST FOR DASH
+        SNA CLA                 //
+        JMP     LIMIT1          /JUMP IF FOUND
+        JMS I   LINENO          /TEST FOR LINE NUMBER
+        JMP     LIMIT1+2        /JUMP IF NOT FOUND
+        JMS I   LNSRCH          /\
+NOP2,   NOP                     / >GET POINTER TO LINE INFO
+        DCA     LOWLIM          //
+        CMA RAL                 /-1 IF IT EXISTS
+        DCA     TEMP1           /-2 IF IT DOESN'T
+        JMS I   GETHAF          /\
+        TAD     L7723           / >TEST FOR DASH
+        SNA CLA                 //
+        JMP     LIMIT1          /JUMP IF FOUND
+        ISZ     TEMP1           /DID LINE EXIST?
+        JMP I   XLIMIT          /NO...TAKE FAILURE EXIT
+        TAD     LOWLIM          /YES...FUDGE UPPER LIMIT
+        JMP     LIMIT2          /SAME AS LOWER LIMIT
+LIMIT1, ISZ     GETNDX          /BUMP PAST DASH
+        JMS I   LINENO          /TEST FOR LINE NUMBER
+        NL7776                  /IF NONE FOUND THEN ASSUME 7776
+        JMS I   LNSRCH          /GET POINTER TO LINE INFO
+        TAD     L2              /+2 IF IT DOESENT EXIST
+LIMIT2, DCA     UPLIM           /SAVE AS UPPER LIMIT
+        TAD     UPLIM           /\
+        CIA                     / >IS RANGE POSITIVE?
+        TAD     LOWLIM          //
+        SMA CLA                 /SKIP IF NOT
+        ISZ     XLIMIT          /ELSE SETUP SKIP RETURN
+        JMP I   XLIMIT          /RETURN
+L7723,  7723
+COLUMN, 0
+L11,    0011
+        PAGE
+NUMNUM, 0
+        JMS I   LINENO          /\
+        TAD     L144            / >LOOK FOR LINE NUMBER
+        DCA     SLINUM          //
+        JMS I   LINENO          /\
+        TAD     L12             / >LOOK FOR ANOTHER ONE
+        DCA     SEQSW           //
+        JMP I   NUMNUM          /RETURN
+        
+HREAD,  TAD     INPUT           /PRESERVE POINTER TO
+        DCA     INSAVE          /CURRENT INPUT ROUTINE
+        TAD     PFASTR          /SETUP FOR
+        DCA     INPUT           /FAST READER
+        RFC                     /START THE READER
+        
+SEQ,    JMS     NUMNUM          /SCAN ARGUMENTS
+        JMP I   PBEGIN          /NOW GO USE THEM
+        
+RESEQ,  JMS     NUMNUM          /SCAN ARGUMENTS
+        TAD     BUFEND          /START WITH FIRST LINE NUMBER
+RESLUP, DCA     TPTR1           /SAVE POINTER TO LINE NUMBER
+        TAD I   TPTR1           /FETCH NEXT LINE NUMBER
+        CMA                     /\
+        SZA CLA                 / \
+        JMP     .+3             /  >IF 7777 THEN RETURN
+        DCA     SEQSW           / /
+        JMP I   PBEGIN          //
+        TAD     SLINUM          /ELSE SET IT TO A
+        DCA I   TPTR1           /NEW LINE NUMBER
+        TAD     SLINUM          /\
+        TAD     SEQSW           / >BUMP LINE NUMBER
+        DCA     SLINUM          //
+        NL7776                  /\
+        TAD     TPTR1           / >BUMP POINTER & JUMP BACK
+        JMP     RESLUP          //
+        
+PUNCH,  STA                     /INDICATE PUNCH MODE
+        
+LIST,   DCA     TEMP2           /SAVE MODE
+        JMS I   LIMITS          /TEST FOR VALID LIMITS
+        JMP I   PBEGIN          /NO... FORGET IT
+        TAD     TEMP2           /\
+        SNA CLA                 / >BYPASS IF NOT IN PUNCH MODE
+        JMP     LISLUP          //
+PRZAP1, PLS                     /START THE PUNCH
+        TAD     PFASTP          /\
+        DCA     OUTPUT          / >HIGH SPEED PUNCH SOME LEADER TRAILER
+        JMS     LDRTLR          //
+        TAD     TABSW           /\
+        DCA     TEMP3           / \SAVE CURRENT TAB SWITCH &
+PRZAP2, TAD     MODEPUN         / /SET UP A NEW ONE
+        DCA     TABSW           //
+LISLUP, TAD I   LOWLIM          /\
+        DCA     LISTPT          / >FETCH POINTER TO LINE
+        ISZ     LOWLIM          //
+        TAD     TEMP2           /\
+PRZAP3, SZA CLA                 / >BYPASS IF IN PUNCH MODE
+        JMP     .+3             //
+        TAD I   LOWLIM          /ELSE FETCH LINE NUMBER
+        JMS I   LNOPRT          /AND PRINT IT
+        JMS I   SCRIBE          /NOW PRINT THE
+LISTPT, 0                       /LINE
+        KSF                     /\
+        SKP                     / >ABORT IF KEYBOARD FLAG RAISED
+        JMP     LISTCR          //
+        AND I   NUMNUM          /\
+        ISZ     NUMNUM          / >SLOW DOWN LISTING A LITTLE
+        JMP     .-2             //
+        NL7775                  /\
+        TAD     LOWLIM          / >BUMP POINTER
+        DCA     LOWLIM          //
+        TAD     UPLIM           /\
+        CIA                     / \
+        TAD     LOWLIM          /  >TEST IF FINISHED & JUMP BACK
+        SMA CLA                 / /
+        JMP     LISLUP          //
+LISTCR, KCC                     /JUST TO KEEP
+        JMS I   PR6BIT          /EVERYTHING NEAT
+        ISZ     TEMP2           /TEST FOR PUNCH MODE
+        JMP I   PBEGIN          /RETURN IF NOT
+        JMS     LDRTLR          /LEADER-TRAILER AGAIN
+        TAD     TEMP3           /RESTORE
+        DCA     TABSW           /TAB SWITCH
+        TAD     PTTYP           /RESTORE
+        DCA     OUTPUT          /SLOW PRINT
+        JMP I   PBEGIN          /RETURN
+        
+LDRTLR, 0
+        TAD     L7440           /SETUP FOR 22.4 INCHES
+        DCA     TCNT1           /OF LEADER-TRAILER
+        JMS I   PRINT           /PRINT IT
+        KSF                     /\
+        SKP                     / >ABORT ON KEYBOARD FLAG
+        JMP     .+3             //
+        ISZ     TCNT1           /IF WE AINT DONE
+        JMP     LDRTLR+3        /THEN LOOP BACK
+        KCC                     /CLEAN UP ANY LOOSE FLAGS
+        JMP I   LDRTLR          /RETURN
+TAB,    JMS I   LINENO          /LOOK FOR A NUMBER
+        JMP     TABFLP          /IF NONE FOUND THEN FLIP MODE
+        SNA                     /IF ZERO
+        JMP     TABOFF          /GO TURN TABS OFF
+        TAD     L7773           /\
+        SNA                     / >IF 5 SET MOD35
+        JMP     TABOFF-1        //
+        TAD     L2              /\
+        SNA CLA                 / >IF 3 SET MOD33
+        JMP     TABSET          //
+        JMP I   WHAT            /ELSE BARF
+        NL0001                  /ENTRY FOR MOD35
+TABOFF, RTR                     /ENTRY FOR TABS OFF
+        JMP     TABSET          /GO SET IT
+TABFLP, TAD     TABSW           /\
+        RAL                     / >FLIP MODE & TURN TABS ON
+        CLA CML RAR             //
+TABSET, DCA     TABSW           /SET TAB SWITCH
+        JMP I   PBEGIN          /NOW RETURN
+        
+ECHO,   JMS I   LINENO          /SCAN FOR A NUMBER
+        JMP     ECHFLP          /JUST FLIP IF NONE FOUND
+        RAR                     /\
+        CLA RAR                 / >ON IF ODD    OFF IF EVEN
+        DCA     ECHOSW          //
+ECHFLP, JMS     ECHOFLP         /FLIP IT FROM WHAT IT WERE
+        JMP I   PBEGIN          /RETURN TO OS
+ECHOFLP,0
+        NL4000                  /\
+        TAD     ECHOSW          / >INVERT ECHO STATUS
+        DCA     ECHOSW          //
+        JMP I   ECHOFLP         /RETURN
+L144,   144
+ZAPMSG, TEXT    ' ZAP!'
+        PAGE
+        IFNZRO  .&177           <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $               >
+XGLINE, 0
+        TAD     BEGLIN          /POINT PUTBASE TO
+        DCA     PUTBASE         /BEGINING OF INPUT BUFFER
+        DCA     PUTNDX          /ZERO INDEX
+        TAD     SEQSW           /AUTO SEQUENCE MODE?
+L7640,  SZA CLA                 /SKIP IF NO
+        JMP     .+4             /JUMP IF YES
+        TAD     L56             /TAKE A PERIOD
+        JMS I   PRINT           /NOW PRINT IT
+        JMP     CHLOOP          /NOW BYPASS NUMBER
+        TAD     SLINUM          /GET LINE NUMBER
+        JMS I   LNOPRT          /PRINT IT
+        TAD     PUTNDX          /SAVE FOR EDIT
+        DCA     EDLIN           /COMMAND
+CHLOOP, JMS I   INPUT           /FETCH 7-BIT ASCII CHARACTER
+        DCA     TEMP1           /PRESERVE CHARACTER
+        TAD     PCHTBL          /TABLE POINTER
+        JMS I   PCMDSUB         /CALL LOOKUP ROUTINE
+        TAD     TEMP1           /RESTORE CHARACTER
+        TAD     L7640           /SEE IF LOWER CASE
+        SMA                     /SKIP IF NOT
+        TAD     L7740           /CONVERT TO UPPER CASE
+        TAD     L101            /RESTORE CHARACTER
+        SPA SNA                 /SKIP IF GOOD CHARACTER
+        JMP     CHLOOP          /IGNORE BAD CHARACTERS
+TABCH,  TAD     L37             /RESTORE CHARACTER
+L56,    AND     L77             /TRIM TO SIX-BIT
+EDSWIT, NOP                     /SOMETIMES A "JMP I  PEDSCH"
+GOTCR,  JMS     INSERT          /INSERT INTO BUFFER & PRINT
+        JMP     CHLOOP          /CONTINUE
+        
+
+
+
+L101,   101
+PCHTBL, CHTBL-2
+PCMDSUB,CMDSUB
+CHTBL,  -176;   DELETL
+        -175;   DELETL
+        -137;   BACKSP
+        -177;   BACKSP
+        -33;    DELETL
+        -22;    REWIND
+        -24;    REWIND
+        -17;    CNTRLO
+        -15;    GOTCR
+        -12;    LNFEED
+        -11;    TABCH
+        -3;     EOSEQ
+        -4;     EOSEQ
+        -5;     CTRLE
+EDCH1,  0;      EDSLP1          /SOMETIMES A 7777 GOES HERE
+        -30;    EDTRM
+        -25;    CTRLU
+        -23;    CTRLS
+        -7;     NEWSCH
+        0                       /ABSOLUTE END OF TABLE
+INSERT, 0
+        JMS I   PUTHAF          /PUT CHARACTER INTO BUFFER
+        TAD     CHAR            /GET IT AGAIN
+        JMS I   PR6BIT          /NOW TRY TO ECHO IT
+        JMP     GLINGO          /JUMP IF CR
+        ISZ     PUTNDX          /BUMP INDEX
+        TAD     PUTNDX          /TEST INDEX TO SEE
+        TAD     LINLEN          /IF LINE IS TOO LONG
+        SMA CLA                 /SKIP IF OK
+        JMP I   WHAT            /ELSE ERROR
+        JMP I   INSERT          /RETURN
+        
+GLINGO, TAD     PUTNDX          /IS ANYTHING IN THE BUFFER?
+        SNA CLA                 /YES...
+        JMP I   PLRST           /NO... IGNORE NULL LINES
+        TAD     BEGLIN          /\
+        DCA     GETBASE         / >SETUP GET POINTERS
+        DCA     GETNDX          //
+        JMP I   XGLINE          /RETURN
+        
+EOSEQ,  DCA     SEQSW           /TURN OFF AUTO-SEQUENCE
+        DCA     ECHOSW          /TURN ECHO ON
+        
+DELETL, JMS I   SCRIBE          /SAY ZAP
+        ZAPMSG                  / ZAP!
+XBACK,  JMP I   PLRST           /RESTART LINE
+        
+CNTRLO, JMS I   FLIPECHO        /COMPLEMENT ECHO SWITCH BIT
+        JMP     CHLOOP          /CONTINUE
+
+PLRST,  XGLINE+1                /SOMETIMES ERST
+PEDSCH, SRCHX                   /GET'S IT ALL GOING
+        ZBLOCK  1               /EMPTY SPACE
+        IFNZRO  DECTAPE         <
+        *.-1                    /REMOVE ZBLOCK
+        TAD     L7770           /MAGIC TIMEOUT FACTOR>
+REWIND, IFNZRO  DECTAPE <
+        DCA     INSERT          /SET TIMEOUT FACTOR
+        TAD I   PSUNIT          /GET CURRENT UNIT
+        TAD     L700            /REWIND CONTINOUS
+        DTLA                    /DO IT  
+        TAD     TEMP1           /GET INPUT CHAR
+        TAD     L7756           /ADD -^R
+        SNA CLA                 /SKIP IF NOT ^R
+        JMP     CHLOOP          /CONTINUE
+UNLODE, DTSF                    /TEST FLAG
+        SKP                     /SKIP IF NOT UP
+        JMP     REWIND-1        /DO IT AGAIN IF UP
+        ISZ     TEMP1           /TEST FIRST LINE OF DEFENSE
+        JMP     UNLODE          /STILL TRYING
+        ISZ     INSERT          /TEST TIMEOUT FACTOR
+        JMP     UNLODE          /STILL GOING
+        TAD     L400            /CONTINOUS FORWARD
+        DTXA                    /DO IT
+        ISZ     TEMP1           /GIVE IT TIME TO
+        JMP     .-1             /TAKE HOLD
+        DTCA                    /STOP THE TAPE I WANT TO TAKE IT OFF
+L700,   700
+L400,   400                     >
+        IFNZRO  LINCTAPE        <
+        TAD I   PSUNIT          /GET CURRENT UNIT
+        CLL RTL                 /ROL UNIT BITS
+        RAL                     /AROUND
+        TAD     L14             /GET NOPAUSE + HOLD MOTION BITS
+        DCA     LNCOFF          /PUT INLINE FOR LATER
+        SNL                     /ODD UNIT ?
+        TAD     L7770           /NO,ADD ON -U
+        TAD     LMTBIN          /ADD ON MTB I U INSTRUCTION
+        DCA     LINS            /GARDEN
+        TAD     TEMP1           /GET INPUT CHAR
+        RTR                     /PUT DECIDING BIT INTO LINK
+        CLA                     /CLEAN UP
+        TAD     LNCOFF          /GET MOVE INSTRUCTION
+        LINC                    /GOTO L...MODE
+        AXO                     /START UP TAPE
+LINS,   0                       /MTB I 0 OR MTB I U
+        0                       /BLOCK ZERO
+        LDA II                  /LOAD IMMEDIATELY
+LNCOFF, 0                       /UNIT EXT.,NOPAUSE,HOLD MOTION
+        BCO II                  /BIT COMPLEMENT IMMEDIATELY
+        3                       /THE UNIT BITS FOR DESELECT
+        LZE II                  /SKIP IF LINK NON-ZERO
+        AXO                     /UNLOAD IF ZERO LINK
+        PDP                     /BACK TO GOODY MODE
+L14,    14                      /HARMLESS AND
+LMTBIN, 0733                    /MTB I U >
+
+        IFNZRO  DECTAPE <ZBLOCK 4 /FOR ALIGNMENT>
+ 
+        IFZERO  LINCTAPE+DECTAPE <ZBLOCK 32  /EMPTY SPACE>
+
+        JMP     CHLOOP          /CONTINUE
+        PAGE
+XNAME,  7777                    /FOR INITIALIZATION ONLY
+        TAD     GETNDX          /SAVE
+        DCA     TPTR1           /INDEX
+NAMTST, JMS I   GETHAF          /\
+        SZA                     / \TEST CHARACTER FOR
+        TAD     L7741           / /A - Z , [ , \ , ] , ^
+        SPA                     //
+        JMP     NAMOK           /YES...GOOD NUFF
+        TAD     L7757           /\
+        SPA                     / >NG IF BELOW NUMERIC RANGE
+        NL2000                  //
+        TAD     L7766           /\
+NAMOK,  SMA CLA                 / >NG IF ABOVE NUMERIC RANGE
+        JMP     NAMNG           //
+        ISZ     GETNDX          /BUMP TO NEXT CHARACTER
+        JMP     NAMTST          /AND TEST IT
+NAMNG,  TAD     GETNDX          /\
+        CIA                     / \DID WE FIND
+        TAD     TPTR1           / /ANY GOOD CHARS?
+        SNA                     //
+        JMP I   XNAME           /NO...FAILURE EXIT
+        TAD     L6              /\
+        SPA                     / \
+        CLA                     /  >SET -7<COUNT<0
+        TAD     L7772           / /
+        DCA     TCNT1           //
+        TAD     GETNDX          /SAVE
+        DCA     TPTR2           /INDEX
+        TAD     TPTR1           /POINT TO START OF
+        DCA     GETNDX          /NAME AGAIN
+        TAD     PTEMP1          /\
+        DCA     PUTBASE         / \
+        DCA     PUTNDX          /  >SETUP TO MOVE TO TEMP1,2,3
+        DCA     TEMP2           / /
+        DCA     TEMP3           //
+NAMLUP, JMS I   GETHAF          /FETCH
+        JMS I   PUTHAF          /STORE
+        ISZ     GETNDX          /BUMP
+        ISZ     PUTNDX          /BUMP
+        ISZ     TCNT1           /TEST
+        JMP     NAMLUP          /LOOP
+        TAD     PUTNDX          /\
+        RAR                     / \ZERO RIGHT HALF
+        SZL CLA                 / /WORD IF NECESSARY
+        JMS I   PUTHAF          //
+        TAD     TPTR2           /POINT TO TERMINATING
+        DCA     GETNDX          /CHARACTER AGAIN
+        ISZ     XNAME           /BUMP RETURN ADDRESS
+        JMS I   TSPACE          /IS CHAR A BLANK OR TAB?
+        JMP I   XNAME           /RETURN
+XLNSRCH,0
+        DCA     TEMP1           /SAVE LINE NUMBER
+        TAD     BUFEND          /POINTER TO FIRST ENTRY
+LSRLUP, DCA     TPTR1           /SAVE POINTER
+        TAD I   TPTR1           /GET TEST NUMBER
+        STL CIA                 /NEGATE AND SET MAGIC LINK
+        TAD     TEMP1           /ADD LINE NUMBER
+        SNA                     /NOT IT
+        ISZ     XLNSRCH         /SKIP RETURN IF FOUND
+        SZL SNA CLA             /SKIP IF NOT DONE
+        JMP     LSRFND          /JUMP IF FOUND OR PASSED
+        NL7776                  /\
+        TAD     TPTR1           / >BACKSPACE POINTER & TRY AGAIN
+        JMP     LSRLUP          //
+LSRFND, STA                     /BRING BACK POINTER
+        TAD     TPTR1           /TO LINE INFO >= REQUEST
+        JMP I   XLNSRCH         /FOUND THEN L=1 ELSE L=0
+
+
+
+TBMSG,  TEXT    'NO ROOM!'
+        *.-1                    /DUMB TEXT PSEUDO-OP
+L6,     6
+
+WHATMG, TEXT    'WHAT?'
+
+LEFMSG, TEXT    'WORDS'
+TTYR,   0
+        KSF                     /WAIT FOR FLAG
+        JMP     .-1             /TO BE RAISED
+        KRB                     /READ
+        AND I   NAMNG           /TRIM
+        JMP I   TTYR            /RETURN
+        
+TTYP,   0
+        TAD     L200            /ADD ON MARK STATE PARITY
+        TSF                     /WAIT FOR FLAG
+        JMP     .-1             /TO BE RAISED
+        TLS                     /OUTPUT
+        JMP I   TTYP            /RETURN
+        
+FASTR,  0
+        TAD     L7740           /SET TIMEOUT
+        DCA     TTYP            /VALUE
+FASTRD, RSF                     /SKIP IF FLAG IS UP
+        JMP     .+4             /ELSE CHECK FOR TIMEOUT
+        RRB RFC                 /READ THE CHARACTER + FETCH ANOTHER
+        AND I   NAMNG           /TRIM
+        JMP I   FASTR           /RETURN
+        ISZ     FASTP           /\
+        JMP     FASTRD          / \KEEP TRYING UNTIL
+        ISZ     TTYP            / /TIMEOUT OCCURS
+        JMP     FASTRD          //
+        TAD     INSAVE          /ELSE RESTORE TO
+        DCA     INPUT           /OLD INPUT ROUTINE
+        JMP I   FASTR           /RETURN
+        
+FASTP,  0
+        TAD     L200            /ADD ON MARK STATE PARITY
+        DCA     FASTR           /SAVE CHAR
+        TAD     L7740           /SET TIMEOUT
+        DCA     TTYP            /VALUE
+        TAD     FASTR           /GET CHAR AGAIN
+FASTPN, PSF                     /SKIP IF FLAG IS UP
+        JMP     .+3             /ELSE CHECK FOR TIMEOUT
+        PLS                     /OUTPUT CHAR
+        JMP I   FASTP           /RETURN
+        ISZ     FASTR           /\
+        JMP     FASTPN          / \KEEP TRYING UNTIL
+        ISZ     TTYP            / /TIMEOUT OCCURS
+        JMP     FASTPN          //
+        JMS     TTYP            /TYPE IT SLOWLY
+        CLA                     /HELP KEEP NEW YORK CLEAN
+        TAD     PTTYP           /RESET POINTER
+        DCA     OUTPUT          /TO SLOW OUTPUT
+        JMP I   FASTP           /RETURN
+        
+        ZBLOCK  1777-.          /ALIGN THE PAGE
+L7757,  7757
+        PAGE
+CAT,    JMS     NEWCAT          /READ NEW CATALOG IF NECESSARY
+        TAD     CATCORE         /SET UP POINTER
+        DCA     CATPTR          /TO CATALOG
+CATLUP, TAD     L7774           /SET COUNT TO
+        DCA     TCNT1           /FOUR NAMES PER LINE
+        TAD I   CATPTR          /\
+        SNA                     / >TEST FOR END OF CATALOG
+        JMP     CATEND          //
+        CMA                     /\
+        SNA CLA                 / >TEST FOR HOLE
+        JMP     CATHOL          //
+        JMS I   NAMPRT          /PRINT FILE NAME
+CATPTR, 0
+CATGO,  KSF                     /\
+        SKP                     / >ABORT ON KEY STRUCK
+        JMP     CATEND          //
+        TAD     L3              /\
+        TAD     CATPTR          / >BUMP POINTER TO NEXT ENTRY
+        DCA     CATPTR          //
+        ISZ     TCNT1           /IF LINE IS DONE THEN SKIP
+        JMP     .+3             /ELSE JUMP
+        JMS I   PR6BIT          /DO A CRLF
+        JMP     CATLUP          /DO ANOTHER LINE
+        TAD     L37             /GRAB A TAB
+        JMS I   PR6BIT          /PRINT IT
+L72,    72                      /HARMLESS AND WHICH IS SKIPPED
+        JMP     CATLUP+2        /CONTINUE LINE
+CATHOL, JMS I   NAMPRT          /INDICATE EMPTY SLOT
+        FREMSG                  /<FREE>
+        JMP     CATGO           /TEST FLAGS   BUMP   ETC
+CATEND, JMS I   PR6BIT          /CLEAN UP WITH CRLF
+        KCC                     /FOR NICENESS
+        JMP I   PBEGIN          /BACK TO MOMMA
+        
+LOAD,   JMS     FILNAM          /LOOK FOR FILE NAME
+        DCA     LODBLK          /SAVE BLOCK NUMBER
+        JMS I   SYSIN           /\
+        FILBEG                  / \READ USER FILE
+        -FILSIZ                 / /INTO CORE
+LODBLK, 40                      //
+        JMP I   PBEGIN          /RETURN
+BSAVE,  JMS I   SYSIN           /\
+        FILBEG                  / \FETCH DEFAULT BIN
+        -FILSIZ                 / /FILE INTO CORE
+        BINADR                  //
+
+SAVE,   STA                     /SET CREATE FLAG
+        JMS     FILNAM          /LOOK FOR FILE NAME OR CREATE
+        DCA     SAVBLK          /SAVE BLOCK NUMBER
+        JMS I   SYSOUT          /\
+        FILBEG                  / \SAVE USERS FILE
+        -FILSIZ                 / /ONTO TAPE
+SAVBLK, 0                       //
+        JMP I   PBEGIN          /RETURN
+        
+DELETE, JMS     FILNAM          /LOOK FOR FILE NAME
+        CLA                     /IGNORE BLOCK NUMBER
+        TAD I   XR1             /\
+        SZA CLA                 / \IF NEXT ENTRY IS ZERO THEN ZERO THIS
+        STA                     / /ONE ELSE SET TO ??
+        DCA I   TPTR1           //
+        JMS     SAVCAT          /WRITE USERS CATALOG BACK
+        JMP I   PBEGIN          /RETURN
+
+PLEASE, KCC                     /CLEAR FLAG FIRST
+        JMS I   FLIPECHO        /REVERSE ECHO
+        JMS I   SCRIBE          /NOW MAYBE PRINT
+        INPBUF                  /THE INPUT BUFFER
+        JMS I   FLIPECHO        /RESTORE ECHO
+        JMS I   PTTYR           /WAIT FOR ANY CHAR
+        CLA CLL                 /THROW IT AWAY
+        JMP I   .+1             /ACKNOWLEDGE WITH
+        PLRTN                   /BELL AND GO ON
+
+SAVCAT, 0
+        JMS I   SYSOUT          /\
+CORCAT, CATADR                  / \WRITE USERS CATALOG
+        -2                      / /BACK ONTO HIS TAPE
+        DIR                     //
+        JMP I   SAVCAT          /RETURN
+
+LODCAT, 0                       /LOAD A NEW CATALOG
+        JMS I   SYSIN           /\
+        CATADR                  / \READ IN USERS CATALOG
+        -2                      / /INTO CATALOG AREA
+        DIR                     //
+        JMP I   LODCAT          /RETURN
+
+ENTER,  STA                     /SET CREATE FLAG
+        JMS     FILNAM          /ENTER NAME IN CATALOG
+        JMP I   PBEGIN          /RETURN
+        
+FILNAM, 0
+        DCA     LOOKSW          /SET LOOK SWITCH
+        JMS I   NAME            /IS THERE A NAME?
+        JMP     TRYDOL          /NO BUT IT MIGHT BE $
+        JMS     NEWCAT          /READ NEW CATALOG IF NECESSARY
+        NL7775                  /SET UP FOR 3 WORDS
+        JMS I   PMOVE           /MOVE THEM
+        TEMP1                   /FROM HERE
+        FNAME                   /TO HERE
+        TAD     L3              /SET BUMP FACTOR
+        DCA     TCNT1           /TO THREE WORDS
+        TAD I   DIREND          /FIND OUT WHERE USERS
+        DCA     TAPREC          /FIRST FILE BEGINS
+        TAD     CATCORE         /POINT TO USER CATALOG
+        JMS I   LOOKUP          /TRY TO FIND NAME
+        JMP I   FILNAM          /RETURN
+TRYDOL, JMS I   GETHAF          /\
+        TAD     L7734           / \
+        SZA                     /  >ERROR IF NO $ UNLESS NONE
+        JMP     TRYOLD          / /
+        ISZ     GETNDX          //
+        JMS     NEWCAT          /READ NEW CATALOG IF NECESSARY
+        TAD     DOLFIL          /FETCH BLOCK NUMBER OF $ FILE
+        JMP I   FILNAM          /RETURN
+TRYOLD, TAD     L7752           /CHECK FOR COLON
+        SZA                     /OR MAYBE
+        TAD     L72             /C. R.
+        SZA CLA                 /OK
+        JMP I   WHAT            /BARF
+        NL7775                  /SET UP TO MOVE THREE WORDS
+        JMS I   PMOVE           /MOVE THEM
+        FNAME                   /FROM HERE
+        TEMP1                   /TO HERE
+        JMP     FILNAM+4        /TRY AGAIN
+
+FREMSG, TEXT    '<FREE>'
+        *.-1                    /DUMB TEXT PSEUDO-OP
+FULMSG, TEXT    'CATALOG FULL!'
+        PAGE
+LAST,   TAD I   BUFEND          /\
+        CMA                     / \IF NULL FILE
+        SNA CLA                 / /THEN NOP
+        JMP     LASTCR          //
+        NL0002                  /\
+        TAD I   FIZZ2           /POINT TO LAST ENTRY
+        DCA     XR1             //
+        TAD I   XR1             /GET LAST LINE NUMBER
+        JMS I   LNOPRT          /PRINT IT OUT
+LASTCR, JMS I   SCRIBE          /CRLF
+FILLEN, L12     
+        JMP I   PBEGIN          /RETURN
+        
+LEFT,   TAD I   FIZZ1           /\
+        CIA                     / >COMPUTE WORDS LEFT
+        TAD I   FIZZ2           //
+        JMS I   LNOPRT          /PRINT OUT THE NUMBER
+        JMS I   SCRIBE          /GIVE HIM HIS WORDS WORTH
+        LEFMSG  
+        JMP I   PBEGIN          /RETURN
+        
+RADIX,  TAD     RADXSW          /GET CURRENT RADIX
+        DCA     OLDRAD          /SAVE IT
+        TAD     L7766           /SET
+        DCA     RADXSW          /DECIMAL
+        JMS I   LINENO          /LINE NUMBER PRESENT
+        JMP     RADFLP          /NO...FLIP RADIX
+        TAD     L7766           /\
+        SNA                     / >JUMP IF DECIMAL
+        JMP I   PBEGIN          //
+        TAD     L2              /\
+        SZA CLA                 / >ERROR IF NOT OCTAL
+        JMP I   WHAT            //
+        TAD     L7766           /SET ENTRY
+        SKP                     /TO OCTAL
+RADFLP, TAD     OLDRAD          /\
+        CIA                     / >FLIP RADIX
+        TAD     L7756           //
+        DCA     RADXSW          /SAVE RADIX
+        JMP I   PBEGIN          /RETURN
+XTUNIT, 0
+        JMS I   GETHAF          /\
+        TAD     L7706           / \
+        SZA CLA                 /  >TEST FOR :
+        JMP I   XTUNIT          / /
+        ISZ     GETNDX          //
+        JMS I   GETHAF          /\
+        TAD     L7720           / \
+        SPA                     /  \
+        JMP I   WHAT            /   \
+        CLL RTR                 /    >SET UP NEW UNIT,COMPLAIN IF BAD
+        RTR                     /   /
+        SZL                     /  /
+        JMP I   WHAT            / /
+        DCA I   PSUNIT          //
+        ISZ     GETNDX          /BUMP GET INDEX
+        ISZ     XTUNIT          /BUMP RETURN ADDRESS
+        JMP I   XTUNIT          /RETURN
+XLOOKUP,0
+        DCA     TPTR1           /SAVE POINTER TO CATALOG
+        TAD I   TPTR1           /\
+        SNA CLA                 / >TEST FOR END OF CATALOG
+        JMP     NOTFND          //
+        STA                     /\
+        TAD     TPTR1           / >SETUP AUTO-INDEXED POINTER TO FILE ENTRY
+        DCA     XR1             //
+        STA                     /\
+        TAD     PTEMP1          / >SETUP AUTO-INDEXED POINTER TO NAME
+        DCA     XR2             //
+        NL7775                  /SET NAME LENGTH
+        DCA     TCNT2           /OF THREE WORDS
+        TAD I   XR1             /\
+        CIA                     / >TEST IF WORDS MATCH
+        TAD I   XR2             //
+        SZA CLA                 /SKIP IF THEY DO
+        JMP     .+5             /JUMP IF THEY DONT
+        ISZ     TCNT2           /DOES WHOLE NAME MATCH?
+        JMP     .-6             /NOT YET...TRY AGAIN
+        TAD     TAPREC          /FETCH BLOCK NUMBER OF FILE
+        JMP I   XLOOKUP         /RETURN
+        TAD     TAPREC          /\
+LKINST, TAD     FILLEN          / >BUMP BLOCK NUMBER
+        DCA     TAPREC          //
+        TAD     TPTR1           /\
+        TAD     TCNT1           / >BUMP POINTER & LOOP BACK
+        JMP     XLOOKUP+1       //
+NOTFND, CLA CLL IAC             /\
+        TAD     TEMP1           / >CHECK FOR ASSUMED DEFAULT NAME
+        SNL     CLA             /
+        ISZ     LOOKSW          /DO WE CREATE AN ENTRY?
+        JMP     LOOKNG          /NO...
+        TAD I   DIREND          /\
+        DCA     TAPREC          / >INITIALIZE POINTERS
+        TAD     CATCORE         //
+LOOKMT, DCA     LOOKPT          /RESTORE POINTER
+        TAD     LOOKPT          /CHECK
+        TAD I   CATTOP          /FOR
+        SMA CLA                 /FULL
+        JMP     FULL            /CATALOG
+        TAD I   LOOKPT          /\
+        SZA                     / \
+        CMA                     /  >BRANCH ON EOF OR HOLE
+        SNA CLA                 / /
+        JMP     SAVNAM          //
+        TAD     TAPREC          /\
+        TAD     FILLEN          / >ELSE BUMP BLOCK NUMBER
+        DCA     TAPREC          //
+        TAD     LOOKPT          /\
+        TAD     TCNT1           / >BUMP POINTER & JUMP BACK
+        JMP     LOOKMT          //
+SAVNAM, NL7775                  /\
+        JMS I   PMOVE           / \MOVE THE FILE NAME
+        TEMP1                   / /INTO THE ENTRY
+LOOKPT, 0                       //
+        JMS I   PSAVCAT         /RESTORE USERS CATALOG
+        TAD     TAPREC          /FETCH BLOCK NUMBER
+        JMP I   XLOOKUP         /RETURN
+LOOKNG, JMS I   NAMPRT          /\
+        TEMP1                   / \
+        JMS I   SCRIBE          /  \PRINT FILE NAME,
+        NFMSG                   /  /NOT FOUND AND RESTART
+        JMP I   .+1             / /
+        WHATMOR                 //
+
+FULL,   JMS I   SCRIBE          /COMPLAIN
+        FULMSG                  /OF NO ROOM
+        JMP I   PBEGIN          /AND RESUME MONITOR MODE
+
+PSAVCAT,SAVCAT
+L7706,  7706
+CATTOP, 7375                    /PTR TO ABSOLUTE END OF CATALOG
+        PAGE
+        IFNZRO  .&177   <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+XGETHAF,7604                    /FOR EDIT
+        TAD     GETNDX          /GET HALFWORD INDEX
+        CLL RAR                 /SHIFT HALFWORD BIT INTO LINK
+        TAD     GETBASE         /ADD ON BASE POINTER
+        DCA     XPUTHAF         /SAVE POINTER
+        TAD I   XPUTHAF         /GET TWO HALFWORDS
+        SZL                     /\
+        JMP     .+4             / \
+        RTR                     /  >IF LINK ON THEN SHIFT UP
+        RTR                     / /
+        RTR                     //
+        AND     L77             /TRIM TO SIX-BIT
+        JMP I   XGETHAF         /RETURN
+
+XPUTHAF,7605                    /FOR EDIT
+        DCA     CHAR            /SAVE SIX-BIT CHARACTER
+        TAD     PUTNDX          /GET HALFWORD INDEX
+        CLL RAR                 /SHIFT
+        TAD     PUTBASE         /ADD BASE
+ECNT2,  DCA     XGETHAF         /SAVE IT
+        TAD I   XGETHAF         /GET OLD HALFWORDS
+        AND     L7700           /IN CASE WE NEED TOP
+        TAD     CHAR            /GET CHAR INTO LOW SIX BITS
+        SZL                     /SKIP IF UPPER HALFWORD
+        JMP     .+4             /JUMP IF LOWER
+        STL RTL                 /\
+        STL RTL                 / >SHIFT LEFT WITH GARBAGE
+        STL RTL                 //
+        DCA I   XGETHAF         /STORE IT
+        JMP I   XPUTHAF         /RETURN
+
+XTSPACE,7607                    /FOR EDIT
+        JMS I   GETHAF          /GET NEXT CHAR
+        TAD     L7740           /IS IT A BLANK?
+        SZA                     /SKIP IF IT IS
+        IAC                     /IS IT A TAB?
+        SNA CLA                 /SKIP IF NOT BLANK OR TAB
+        ISZ     GETNDX          /IGNORE IT
+        JMP I   XTSPACE         /RETURN
+/       COMMAND DISPATCH TABLE
+
+CMNDS,
+        -0223                   /BIN FILE SAVE
+        BSAVE
+        -0301                   /LIST CATALOG
+        CAT
+        -0405                   /DELETE FILENAME FROM CATALOG
+        DELETE
+        -0503                   /CHANGE ECHO STATUS
+        ECHO
+        -0504                   /EDIT A LINE
+EDCMND, EDCOM
+        -0516                   /ENTER FILENAME IN CATALOG
+        ENTER
+        -1001                   /HALT
+        HALT
+        -1022                   /HIGH SPEED READ
+        HREAD
+        -1401                   /PRINT LAST LINE NUMBER
+        LAST
+        -1405                   /PRINT WORDS LEFT
+        LEFT
+        -1411                   /LIST BUFFER
+        LIST
+        -1417                   /LOAD A FILE
+        LOAD
+        -1517                   /BOOTSTRAP TO NEW MONITOR
+        MOUNT
+        -2014                   /PLEASE
+        PLEASE
+PRZAP4, -2025                   /PUNCH BUFFER (SOMETIMES PRINT INSTEAD)
+        PUNCH
+        -2201                   /CHANGE RADIX
+        RADIX
+        -2205                   /RESEQUENCE BUFFER
+        RESEQ
+        -2200                   /R COMMAND
+RZAP1,  RUN
+        -2225                   /RUN COMMAND
+        RRUN
+        -2301                   /SAVE A FILE
+        SAVE
+        -2303                   /DELETE LINES
+        SCRATCH
+        -2305                   /AUTO-SEQUENCE MODE
+        SEQ
+        -2331                   /READ NEW CATALOG INTO CORE
+        SYS
+        -2401                   /CHANGE TAB MODE
+PRZAP5, TAB
+        -3636                   /^^ COMMENT COMMAND
+        BEGIN                   /JUST GO BACK
+        0                       /THIS ENDS THE TABLE
+/       THIS CODE RESIDES IN THE INPUT BUFFER AND WILL BE DESTROYED !!!
+
+INPBUF, TAD     L7400           /\
+        JMS I   PMOVE           / \MOVE CATALOG UP
+        FILBEG                  / /WHERE IT BELONGS
+        CATADR                  //
+        ISZ I   NAME            /IS BATCH RUNNING ?
+        JMP I   PSLOAD          /YES,RELOAD EDIT
+        TAD     INITSW          /\
+        AND     MODEPUN         / >TAB SWITCH
+        DCA     TABSW           //
+        NL0002                  /\
+        AND     INITSW          / \INITIALIZE
+        TAD     L7766           / /RADIX
+        DCA     RADXSW          //
+        TAD     INITSW          /\
+        RAR                     / \INITIALIZE
+        CLA RAR                 / /ECHO STATUS
+        DCA     ECHOSW          //
+        TAD     INITSW          /\
+        CLL RTL                 / \SET PUNCH MODE
+L100,   AND     MODEPUN         / /PERMANENTLY
+        DCA     MODEPUN         //
+INPMOR, TAD     L100            /\
+        AND     INITSW          / \
+        SNA CLA                 /  \CHECK WHETHER
+        JMP     .+3             /  /TO SAVE $
+        TAD     LJMSISYSOUT     / /
+        DCA I   PRUNSAV         //
+        TAD     L200            /\
+        AND     INITSW          / \CHECK WHETHER
+        SZA CLA                 / /TO LOAD $
+        ISZ     NORML+1         //
+        TSF                     /SET TTY FLAG
+        TLS                     /ONLY IF NECESSARY
+        JMS I   PR6BIT          /DO CRLF FOR NEATNESS
+NORML,  STA                     /SET INIT MODE TO
+        JMP I   .+1             /DO A SCRATCH AND
+        EDITOR                  /BRANCH THERE
+        LOAD+2                  /OR THERE
+PRUNSAV,RUNSAV
+LJMSISYSOUT,JMS I SYSOUT
+
+
+
+        INPEND= INPBUF+177&7600 /END OF THE INPUT BUFFER
+        PAGE                    /BATCH FINISHS UP HERE
+EDITIT, TAD     LINST           /ESTABLISH
+SAVSLI, DCA I   EEDCMND         /EDIT COMMAND RESIDENCY
+SAVSEQ, TAD     PTTYR           /RESET
+SCHAR,  DCA     INPUT           /INPUT TO TELETYPE
+        TAD     SWAPSW          /SEE IF
+        SZA CLA                 /SWAP IN
+        JMP I   PWHATMR         /IS NEEDED
+EDERR1, JMP I   PCHLOOP         /RESTART
+PCHLOOP,CHLOOP                  /THE EDITOR
+EEDCMND,EDCMND                  /POINTER TO EDIT COMMAND ENTRY
+LINST,  EDCOM                   /RESET POINTER WITH THIS VALUE
+PWHATMR,WHATMORE
+EDCOM,  TAD     SLINUM          /SAVE OLD
+        DCA     SAVSLI          /SEQUENCE NUMBER
+        TAD     SEQSW           /AND THE
+        DCA     SAVSEQ          /OLD INCREMENT
+        TAD     PEWHAT          /FUDGE WHAT TO
+        DCA     WHAT            /RETURN TO EDIT
+        DCA     ECHOSW          /FORCE ECHO ON
+        CMA                     /FIX COMMAND
+        DCA I   PEDCH1          /TABLE
+        TAD     PERST           /CHANGE RESTART
+        DCA I   PPLRST          /ADDRESS
+        JMS I   LINENO          /LOOK FOR A LINE NUMBER
+        JMP     EWHAT           /ERROR IF NONE
+        DCA     SLINUM          /SAVE FOR GLINE
+        TAD     SLINUM          /RETRIEVE LINE NUMBER
+        JMS I   LNSRCH          /SEE IF IT EXISTS
+        JMP     EWHAT           /ERROR IF IT DOESN'T
+        DCA     LINST           /ELSE SAVE POINTER
+ERST,   TAD I   LINST           /GET POINTER TO START OF LINE
+        DCA     GETBASE         /AND SETUP GETHAF BASE POINTER
+        DCA     GETNDX          /START AT BEGINNING
+        DCA     SCHAR           /CLEAR SEARCH CHARACTER
+        DCA     EDERR1          /CLEAR ERROR SWITCH
+        ISZ     SEQSW           /FOR GLINE FUDGE
+        TAD     PSRCHX          /GET THE JUMP INSTRUCTION
+        DCA I   PEDSWIT         /AND MODIFY CHLOOP FOR NOW.
+        JMS I   GLINE           /START THE MESS GOING
+        JMP     EDDONE          /ALL DONE .. CLEAN UP AND GO HOME
+NEWSCH, TAD     PSRCHX          /GET THE MAGIC JUMP
+        DCA I   PEDSWIT         /AND MODIFY CHLOOP 
+        JMP I   PCHLOOP         /NOW GO READ ANOTHER CHAR.
+SRCHX,  CIA                     /COMPLEMENT THE SEARCH CHAR.
+CTRLS,  DCA     SCHAR           /AND SAVE FOR LATER
+        TAD     L7400           /GET A NOP
+        DCA I   PEDSWIT         /AND FIX CHLOOP TO RUN AGAIN
+EDSLP1, JMS I   GETHAF          /GET A CHARACTER FROM THE LINE
+        SNA                     /OK IF IT'S NOT AN END OF LINE
+        JMP I   PCHLOOP         /ELSE READ SOME TEXT
+        ISZ     GETNDX          /BUMP INPUT POINTER
+        JMS I   PINSERT         /GO INSERT THE CHARACTER
+        TAD     CHAR            /RETRIEVE THE CHARACTER
+        TAD     SCHAR           /IS THIS THE ONE?
+        SZA CLA                 /SKIP IF IT IS
+        JMP     EDSLP1          /ELSE TRY AGAIN
+        JMP I   PCHLOOP         /READ TEXT IF FOUND A MATCH
+EWHAT,  NL7776                  /WHAT SETS SWITCH TO -1
+EDTRM,  IAC                     /EXIT SETS SWITCH TO +1
+        DCA     EDERR1          /SET THE SWITCH
+EDDONE, TAD     PXWHAT          /RESET "WHAT" POINTER
+        DCA     WHAT            /TO IT'S ORIGINAL STATE
+        TAD     L7400           /RESET GLINE FUDGE
+        DCA I   PEDSWIT         /SO IT WORKS RIGHT
+        TAD     SAVSEQ          /RESTORE THE OLD
+        DCA     SEQSW           /SEQUENCE INCREMENT
+        DCA I   PEDCH1          /RESET TABLE
+        TAD     SAVSLI          /RESTORE OLD
+        DCA     SLINUM          /SEQUENCE NUMBER
+        TAD     PXGL1           /RESET THE LINE
+        DCA I   PPLRST          /RESTART POINTER
+        TAD     EDERR1          /FETCH THE EXIT SWITCH
+        SNA                     /SKIP IF ANY ERRORS
+        JMP I   PBEGN1          /ELSE MODIFY LINE
+        SPA CLA                 /SKIP IF ABORT
+        JMP I   WHAT            /PRINT "WHAT?" IF AN ERROR
+        JMS I   PR6BIT          /DO A NEW-LINE
+        JMP I   PBEGIN          /ABORT EDIT COMMAND
+CTRLE,  JMS I   PR6BIT          /DO A <CR> <LF>
+        TAD     GETNDX          /SCRIBE DESTROYS INPUT
+        DCA     CHAR            /POINTERS
+        TAD     PUTNDX          /FETCH INDEX
+        SNA                     /SKIP IF WE GOT SOME
+        JMP I   PCHLOOP         /RETURN IF WE DIDN'T
+        CIA                     /COMPLEMENT FOR SCRIBE
+        JMS I   SCRIBE          /GO SHOW THE LINE AS IT IS
+        INPBUF
+        TAD     CHAR            /RESET
+        DCA     GETNDX          /THE
+        TAD I   LINST           /CLOBBERED
+        DCA     GETBASE         /POINTERS
+        JMP I   PCHLOOP         /AND CONTINUE EDITING
+
+CTRLU,  TAD     EDLIN           /POINT US BACK
+        DCA     PUTNDX          /TO END OF LINE NUMBER
+        JMP     CTRLE           /AND FAKE A ^E
+
+BACKSP, TAD     ECHOSW          /ECHO SWITCH ON?
+        SZA CLA                 /YES...
+        JMP I   PCHLOOP         /NO... IGNORE
+        STA                     /DECREMENT INDEX
+        TAD     PUTNDX          /IS IT STILL VALID?
+        SPA                     /SKIP IF IT IS
+        JMP     BACKED          /JUMP IF IT AINT
+        DCA     PUTNDX          /RESTORE INDEX
+        TAD     EDLIN           /\
+        CIA                     / \
+        TAD     PUTNDX          /  \
+        SMA CLA                 /   >IF EDLIN>PUTNDX THEN EDLIN=PUTNDX;
+        JMP     EDOK            /  /
+        TAD     PUTNDX          / /
+        DCA     EDLIN           //
+EDOK,   TAD     L137            /FETCH A BACK ARROW
+        SKP                     /SKIP
+        
+LNFEED, TAD     L12             /FETCH A LINE FEED
+        JMS I   PRINT           /PRINT IT
+        JMP I   PCHLOOP         /CONTINUE
+        
+BACKED, CLA                     /FUDGE A NEWLINE CHARACTER
+        JMS I   PR6BIT          /PRINT IT
+        JMP I   PXBACK          /RESTART LINE
+
+
+
+PEWHAT, EWHAT
+PERST,  ERST
+PPLRST, PLRST
+PSRCHX, PEDSCH&177+5600         /REALLY A "JMP I  PEDSCH"
+PEDSWIT,EDSWIT
+PXWHAT, XWHAT
+PXGL1,  XGLINE+1
+PBEGN1, BEGIN1
+PEDCH1, EDCH1
+PXBACK, XBACK
+        *INPBUF&177+3000        /GENERATE IT HERE
+        EGEN=   .&7600          /EDIT REALLY LOADS FROM HERE
+        NOPUNCH                 /JUST FOR ASSEMBLY
+        *INPBUF                 /STICK IT HERE
+        ENPUNCH                 /WE NOW RETURN CONTROL TO YOUR BINARY OUTPUT ROUTINE
+
+
+/THE EDIT COMMAND IS DESTROYED BY LOADING BATCH BECAUSE THE
+/DISPATCH TABLE IS ON THIS PAGE AND IS ZAPPED AT SYSGEN TIME
+EEREAD, EREAD
+EEBRK,  EBRK
+SID1,   0
+SID2,   0
+EEMORE, EMORE
+ERUNST, RUNST
+EETEST, ETEST
+EEFILE, EFILE
+EBSTRT, DCA     EFSB            /BATCH START FORCES /B
+ESTART, TAD     EEREAD          /CHANGE INPUT ROUTINE POINTER
+        DCA     INPUT           /TO POINT TO OUR ROUTINE
+        TAD     SID1
+        DCA I   SID2
+        NL0001                  /\
+        AND I   XPUTHAF         / \CHECK IF THE /X
+        SNA CLA                 / /SWITCH IS ENABLED
+        JMP     .+3             //
+        TAD I   L7756           /IF IT IS THEN
+        DCA I   EETEST          /CHANGE EOT TEST CHAR
+        TAD I   XTSPACE         /\
+        TAD I   EEFILE          / >IGNORE ANY OUTPUT FILES
+        DCA I   EEFILE          //
+        TAD I   XGETHAF         /\
+        RTL                     / \
+        SNL CLA                 /  >CHECK FOR /B
+EFSB,   JMP     .+4             / /
+        DCA     EZAP            //
+        TAD     EEBRK           /STOP
+        DCA I   ERUNST          /RUN PART TWO
+        TAD I   XGETHAF         /\
+        SMA CLA                 / >CHECK FOR /A SWITCH
+        JMP I   EEMORE          //
+        TAD I   FIZZ1           /\
+        CIA                     / \
+        TAD     ECNT2           /  >IF LESS THAN ONE PAGE THEN DONT WRITE
+        SMA SZA CLA             / /
+EZAP,   JMP     EMOR            //
+        JMS I   SYSOUT          /\
+        FILBEG                  / \SAVE ACTIVE FILE IN
+EMOR,   -FILSIZ                 / /THE BINARY SCRATCH AREA
+        BINADR                  //
+        DCA     SEQSW           /SET NON-SEQUENCE MODE
+EMOUNT, MOUNT                   /HARMLESS AND
+        IFZERO  RUNST+7000&4000 <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $               >
+        IFNZRO  .&177-3         <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $               >
+EERUNST,RUNST                   /HARMLESS AND INSTRUCTION
+        TAD     EE7600          /\
+        JMS I   PMOVE           / \MOVE FIRST PAGE INTO
+        FILBEG                  / /EDIT'S BUFFER
+        7400                    //
+        TAD     EUNIT           /MODIFY INITIAL
+        DCA     ETRIM           /BRANCH ADDRESS
+        TAD I   PSUNIT          /SAVE CURRENT
+        DCA     EUNIT           /UNIT NUMBER
+EMORE,  TAD I   EREAD           /\
+        AND     E100            / \CHECK FOR
+        SZA CLA                 / /R SWITCH
+        ISZ     EZAPP           //
+        NL2000                  /\
+        AND I   EREAD           / >CHECK /N SWITCH
+        SZA CLA                 //
+        JMP I   PBEGIN          /DON'T SCRATCH IF IT'S ON
+EPTR,   JMP I   ECNT            /DO SCRATCH IF IT'S OFF
+
+EUNIT,  EBLOCK+4
+ETEST,  "\&77                   /DEFAULT EOT CHARACTER
+LEDIT,  EDIT
+ECNT,   NEWBUF                  /POINTER TO UNCONDITIONAL SCRATCH ROUTINE
+EBACK,  TAD I   EPTR            /FETCH A WORD
+        SNA                     /SKIP IF ITS OK
+        JMP     EOF             /ELSE TAKE END OF FILE BRANCH
+        CLL RTR                 /\
+        RTR                     / >WOULDN'T YOU RATHER USE A BSW
+        RTR                     //
+        JMS     ETRIM           /GO TRIM CHARACTER
+        TAD I   EPTR            /FETCH THE WORD AGAIN
+        JMS     ETRIM           /GO TRIM SECOND CHARACTER
+        ISZ     EPTR            /BUMP FETCH POINTER
+        ISZ     ECNT            /ARE WE DONE WITH THIS BLOCK?
+        JMP     EBACK           /NO... NOT QUITE YET
+
+EOB,    TAD I   PSUNIT          /YES...SO SAVE
+        DCA     EPTR            /CURRENT UNIT NUMBER
+        TAD     EUNIT           /NOW RESET TO
+        DCA I   PSUNIT          /OUR UNIT NUMBER
+        JMS I   SYSIN           /\
+E7400,  7400                    / \READ IN NEXT
+        -1                      / /BLOCK OF TEXT
+EBLOCK, BINADR+1                //
+        ISZ     EBLOCK          /BUMP BLOCK NUMBER
+        TAD     EPTR            /RESTORE THE
+        DCA I   PSUNIT          /UNIT NUMBER
+        TAD     E7400           /RESET OUR
+        DCA     EPTR            /FETCH POINTER
+        TAD     EE7600          /RESET OUR
+        DCA     ECNT            /WORD COUNT
+        JMP     EBACK           /START MUNCHING AT THIS BLOCK
+ETRIM,  EOF
+        AND     L77             /TRIM TO SIX-BIT
+        SNA                     /SKIP IF NORMAL CHAR
+        JMP     EOL             /ELSE TAKE END OF LINE BRANCH
+        CIA                     /\
+        TAD     ETEST           / \
+        SNA                     /  \IF THIS IS THE EOT CHAR
+        JMP     EZAPP           /  /THEN TAKE TAKE THE ZAP BRANCH
+        CIA                     / /
+        TAD     ETEST           //
+        TAD     L7741           /\
+        SNA                     / >ADJUST IF TAB
+        TAD     E7652           //
+        SPA                     /\
+        TAD     E100            / >CHANGE TO 7-BIT ASCII
+        TAD     L37             //
+        JMP I   EREAD           /NOW RETURN TO CALLER
+EOL,    TAD     ERESET          /RESET TRIM POINTER
+        DCA     ETRIM           /FOR THE NEXT TIME
+        TAD     L15             /FETCH A CARRIAGE-RETURN AND
+        JMP I   EREAD           /RETURN
+ERESET, EOB-3
+
+EBRK,   DCA I   NAME            /SETS BATCH ON
+        TAD I   PSUNIT          /SAVE
+        DCA     NEWCAT          /CURRENT UNIT
+        DCA I   PSUNIT          /DEFAULT TO ZERO
+        JMS I   SYSOUT          /WRITE
+        EDITIT                  /OUT
+        -1                      /COPY OF
+        EDBLK+2                 /EDIT
+        JMS I   SYSOUT          /WRITE
+        XNAME                   /BATCHED
+        -1                      /NAME
+        10                      /BLOCK
+        JMS I   SYSOUT          /SAVE I/O
+EE7600, 7600                    /PARMS
+        -2                      /AND
+E100,   EDBLK+4                 /PAGE ZERO
+        
+        IFNZRO  EDBLK+4-100     <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $               >
+
+        TAD     NEWCAT          /RESTORE
+        DCA I   PSUNIT          /UNIT
+        DCA I   EWHATMOR        /MAKE RUN BOMBS BOOTSTRAP
+        JMP I   GLINE           /GOTO RUN SWAPIN
+E7652,  7652                    /TAB CONVERSION CONSTANT
+
+
+
+EZAPP,  TAD     EEOSEQ          /FETCH AN EOT AND
+        JMP I   EREAD           /RETURN
+EOF,    ISZ     EFILE           /BUMP FILE POINTER
+        TAD     E777            /LOAD MASK
+E777,   AND I   EFILE           /AND OFF BLOCK NUMBER
+        SNA                     /SKIP IF GOOD
+        JMP     EOT             /ELSE TAKE END OF TRANSMISSION EXIT
+        CLL RTL                 /ADJUST
+        RAL                     /BLOCK #
+        DCA     EBLOCK          /SAVE BLOCK NUMBER
+        TAD     CATCORE         /LOAD MASK
+        AND I   EFILE           /AND OFF UNIT NUMBER
+        DCA     EUNIT           /SAVE UNIT NUMBER
+        JMP     EOB             /NOW GO WORK ON THIS FILE
+
+
+
+EOT,    TAD     GLINE           /ALLOW A
+EC,     DCA I   EERUNST         /NORMAL RUN
+EEOSEQ, 3;22                    /^C OR ^R
+        JMP I   LEDIT           /RELOAD EDIT COMMAND AND FINISH UP
+/
+EWHATMOR,WHATMOR                /POINTER TO END OF WHAT
+
+EREAD,  7605
+        KSF                     /KEY STRUCK ?
+        JMP I   ETRIM           /NO,GO ABOUT YOUR BUSINESS
+        KRB                     /READ KEYBOARD BUFFER
+        TAD     E7575           /-^C
+        SZA CLA                 /SKP IF ^C
+        JMP I   ETRIM           /GO WHERE YOUR SUPPOSED TO GO
+EEC,    JMS I   SCRIBE          /PRINT
+        EC                      /^C (MAD PANIC)
+        JMP I   EMOUNT          /NOW
+E7575,  7575                    /-^C
+        IFNZRO  .&177-177       <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $               >
+EFILE,  7756
+        *3400                   /THIS IS JUST TO ASSEMBLE THE CODE
+        SWPBLK= .
+
+
+
+
+        NOPUNCH
+        *SWAPIN+200             /CODE WILL LAND HERE WHEN SWAPPED IN
+        ENPUNCH
+
+
+
+XGLINE, TAD I   XR1             /FETCH DEFAULT PARM
+        DCA I   L7756           /STORE IT
+        TAD I   XR1             /FETCH STARTING ADDRESS
+        DCA I   PSYSTART        /STORE IT
+        TAD I   PSUNIT          /SAVE UNIT NUMBER
+        DCA     LNO             /FOR LATER
+        TAD     OLDUNIT         /CHANGE BACK TO
+        DCA I   PSUNIT          /PREVIOUS UNIT
+        TAD     L7770           /CHANGE RADIX
+        DCA     RADXSW          /TO OCTAL
+RUNLUP, JMS I   GETHAF          /\
+        SNA                     / >WERE DONE ON CR
+        JMP     EOPARM          //
+        TAD     L7703           /\
+        SZA                     / \
+        JMP     .+6             /  \
+        ISZ     GETNDX          /   >PROCESS =
+        JMS I   LINENO          /  /
+        JMP I   WHAT            / /
+        DCA I   L7756           //
+        JMP     RUNLUP          /
+        IAC                     /\
+        SZA                     / \
+        JMP     NOTLT           /  \
+        TAD     PARMS+3         /   \
+        SZA CLA                 /    \
+        JMP I   WHAT            /     \PROCESS < BUT
+        TAD     L21             /     /ALLOW ONLY ONE
+        TAD     FILPTR          /   /
+        DCA     PARMS+3         /  /
+        ISZ     GETNDX          / /
+        JMP     RUNLUP          //
+NOTLT,  TAD     L15             /\
+        SZA                     / \
+        JMP     .+4             /  \LOOK FOR /
+        ISZ     GETNDX          /  /AND SET THE SWITCH
+        JMS     SWITCH          / /
+        JMP     RUNLUP          //
+        TAD     L3              /\
+        SNA                     / >PROCESS ,
+        JMP     NOTLT-2         //
+        TAD     L4              /\
+        SZA CLA                 / \
+        JMP     RUNFIL          /  \
+        ISZ     GETNDX          /   \
+        JMS     SWITCH          /    \
+        JMS I   GETHAF          /     \PROCESS (SWITCHES
+        SNA                     /     /FOLLOWED BY ) OR EOL
+        JMP     EOPARM          /    /
+        TAD     L7727           /   /
+        SZA CLA                 /  /
+        JMP     .-6             / /
+        JMP     NOTLT-2         //
+RUNFIL, JMS I   PFILNAM         /SCAN OFF A FILENAME
+        CLL RTR                 /ADJUST
+        RAR                     /BLOCK #
+PSWITS, TAD I   PSUNIT          /GET UNIT BIT
+        DCA I   FILPTR          /SAVE IT IN TABLE
+        ISZ     FILPTR          /GO BACK AFTER BUMPING
+        JMP     RUNLUP          /BACK FOR MORE
+EOPARM, DCA I   FILPTR          /ZERO MARKS THE END
+        TAD     LNO             /RESTORE SYSTEMS
+        DCA I   PSUNIT          /UNIT NUMBER
+        TAD     L7770           /\
+        JMS I   PMOVE           / \MOVE NEW BOOTSTRAP AND
+        BOOTY                   / /PARMS UP IN CORE
+        7600                    //
+        JMP I   PSLOAD          /NOW GO LOAD THE SYSTEM
+FILPTR, 7757
+L21,    21
+L4,     4
+BADSWT, TEXT    'BAD SWITCH!'
+SWITCH, RUNBK2                  /FOR "RUN" COMMAND
+        TAD     PSWITS          /SETUP POINTER TO
+        DCA     TPTR1           /SWITCH TABLE
+        JMS I   GETHAF          /\
+        SNA                     / \
+        JMP     SWITOK-3        /  \
+        TAD     L7745           /   \
+        SPA                     /    \
+        JMP     SWITOK          /     >DO SUAVE TESTS TO TEST VALID SWITCH
+        TAD     L7741           /    /
+        STL                     /   /
+        TAD     L12             /  /
+        SNL                     / /
+        JMP     SWITOK          //
+        CLA                     /CLEAR ACCUMULATOR
+        JMS I   SCRIBE          /TELL THE DUMMY
+        BADSWT                  /HE HAD A BAD SWITCH
+        JMP I   SWHATMR         /RETURN
+SWITOK, TAD     L32             /FIX UP NUMBER
+        ISZ     TPTR1           /BUMP POINTER
+        TAD     L7764           /TWELVE BITS WORTH
+        SMA                     /SKIP IF OK
+        JMP     SWITOK+1        /JUMP BACK IF NOT
+        DCA     TCNT1           /SAVE BIT POSITION
+        STL                     /TURN FLAG ON
+        RAL                     /\
+        ISZ     TCNT1           / >MOVE FLAG TO CORRECT POSITION
+        JMP     .-2             //
+        DCA     TCNT1           /SAVE FLAG
+        TAD     TCNT1           /\
+        CMA                     / \
+        AND I   TPTR1           /  >OR FLAG INTO TABLE
+        TAD     TCNT1           / /
+        DCA I   TPTR1           //
+        ISZ     GETNDX          /BUMP PAST SWITCH
+        JMP I   SWITCH          /RETURN
+BOOTY,  SREAD&177+4200          /FUDGE JMS DREAD
+        7600
+DATEWD, 0                       /SYSTEM DATE WORD
+        0
+        IFNZRO  .&177-165       <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $               >
+PARMS,  0
+        0
+        0
+        0
+PFILNAM,FILNAM
+L32,    32
+L7703,  7703
+L7727,  7727
+L7745,  7745
+L7764,  7764
+SWHATMR,WHATMORE
+/       P?S MONITOR GENERATOR   (CONSTANT VOLTAGE TYPE)
+        *4000                   /AS GOOD A PLACE AS ANY
+GENASYS,CLA CLL                 /\
+G1177,  TAD     L7              / \
+        TLS                     /  >RING THE BELL AND HALT
+        STA STL                 / /
+        HLT                     //
+        CLA                     /
+GLOOP,  TAD I   GTEM            /\
+        DCA I   GCNT            / \
+        ISZ     GTEM            /  >MOVE THE I/O ROUTINES UP
+        ISZ     GCNT            / /
+        JMP     GLOOP           //
+        JMS I   SYSOUT          /WRITE ROUTINE (WORKING COPY)
+GNAD1,  GENAD1                  /WHERE ROUTINES ARE
+        -1                      /ONE ONLY
+        0                       /ONTO BLOCK ZERO
+        JMS I   SYSOUT          /WRITE SOME MORE
+        0                       /FROM PAGE ZERO
+        -14                     /ALL OF THE EDITOR INCLUDING THE EDIT COMMAND
+        1                       /START AT BLOCK ONE
+        JMS     GCLEAR          /CLEAR 1000-1777
+        NL7775                  /MOVE
+        JMS I   PMOVE           /CATALOG
+        GUSER                   /POINTERS
+        1375                    /DOWN
+        JMS I   SYSOUT          /WRITE ON
+G1000,  1000                    /EMPTY CATALOG CORE
+        -2                      /TWO ONLY
+        DIR                     /FIRST DIRECTORY BLOCK
+        JMS     GCLEAR          /CLEAR BUFFER AGAIN
+GDOLCLR,JMS I   SYSOUT          /WRIGHT AWN
+        1000                    /EMPTYNESS
+        -4                      /FORE ONLY
+GDOLBLK,20                      /DOLLAR BLOCK
+        TAD     L7774           /-4
+        CIA                     /+4
+        TAD     GDOLBLK         /ADD ON BLOCK
+        DCA     GDOLBLK         /PUT IT BACK
+        ISZ     GCNT2           /DONE YET ?
+        JMP     GDOLCLR         /NO,DO SOME MORE
+        TAD     L7774           /FOUR WORDS
+        JMS I   PMOVE           /TO MOVE
+        GEMPTY                  /FROM HERE
+        1774                    /TO HERE
+        JMS I   SYSOUT          /WRYTE ONN
+        1000                    /SCRATCHED FILE CORE
+        -4                      /LAST FOUR
+        54                      /LAST FOUR BLOCKS OF $ FILE
+        TAD     GSUM            /\
+        JMS I   PMOVE           / \MOVE SYSTEM
+        EGEN                    / /CATALOG DOWN
+        1000                    //
+        TAD     GV              /PUT VERSION ##
+        DCA I   G1177           /INTO SYSTEMS CATALOG
+        JMS I   SYSOUT          /WRITE STILL FURTHER ON
+        1000                    /SYSTEMS CATALOG HERE FOR GENASYS
+        -1                      /WON ON LEE
+        SYSCAT                  /SYSTEM CATALOG BLOCK
+        JMS I   SYSOUT          /WRITE RIGHT ON
+        SWPBLK                  /RUN SWAP IN
+        -1                      /UN UNLY
+        SYSCAT+1                /SWAP IN FOR RUINING A SYSTEM
+        JMS I   SYSOUT          /WHIRT ON
+        3600                    /KHORE BOFFUR
+        -1                      /1 OHMLY
+        SYSCAT+2                /RUN COMMAND
+        JMS     GCLEAR          /CLEAR OUT BUFFER
+        TAD     GUSER           /SET UP CAT POINTER
+        DCA I   G1177           /FOR COMPLETENESS
+        JMS I   SYSOUT          /WHRITE ON
+        1000                    /BOFFER
+        -1                      /WHON OHNLY
+        SYSCAT+3                /XCAT
+        TAD     WHAT            /REMOVE EDIT COMMAND
+        DCA I   GEDCMND         /FROM TABLE FOR BATCH
+        TAD     GSUM            /\
+        JMS I   PMOVE           / \MOVE PART OF EDITOR
+        XGETHAF                 / /NEXT TO EDIT INITIALIZE
+        EGEN                    //
+        JMS I   SYSOUT          /WRITE RIGHT STILL FURTHER ON
+        EGEN                    /WHERE BATCH EDIT IS
+        -EDSLEN                 /1+FOO/FOO ONLY
+        EDBLK                   /BATCH'S BLOCK
+        JMS I   SYSOUT          /WRITE RIGHT JUST STILL FURTHER ON
+        ERLGEN                  /EDIT RELOAD
+        -ERLEN                  /SQRT(5) TRUNCATED
+        EDBLK+EDSLEN+1          /END OF EDIT
+        JMS I   SYSOUT          /(INGIALIZED)
+G7000,  DUMPUSYS                /.R DUMP
+        -DUMLEN                 /A BLOCK IS A BLOCK IS A BLOCK IS A
+        DUMBLK                  /DUMPY
+        JMS I   SYSOUT          /(EMULSIFIED)
+        BIP                     /YOU BET YOURS
+        -BINLEN                 /THAT MANY EH!
+        BINBLK                  /BINARY LOADER BLOCK
+        JMP I   G7600           /BOOT! BOOT!
+GEMPTY, FILBEG                  /3000
+        -1                      /7777
+        FILBEG                  /3000
+        DTLB                    /6774
+
+GUSER,  -7000-UFILES-UFILES-UFILES      /ABSOLUTE END OF CATALOG
+        UFILES^20+BINBLK+BINLEN+7&7770  /FIRST SCRATCH BLOCK FOR XCAT
+        BINBLK+BINLEN+7&7770            /USER CATALOG POINTER
+
+GCLEAR, 0                       /CLEAR BUFFER ROUTINE
+        CLA                     /CLEAR HERE TOO
+        TAD     G1000           /START OF BUFFER
+        DCA     GTEM            /TO PTR
+        TAD     G7000           /BUFFER COUNT
+        DCA     GCNT            /TO COUNTER
+        DCA I   GTEM            /CLEAR A WORD
+        ISZ     GTEM            /BUMP PTR
+        ISZ     GCNT            /ANOTHER ?
+        JMP     .-3             /GO BACK 'TIL DONE
+        JMP I   GCLEAR          /RETURN
+
+GEDCMND,EDCMND                  /POINTER TO EDIT COMMAND
+G7600,  7600
+GCNT,   7600                    /INITIALIZED
+GCNT2,  -7
+GTEM,   GENAD1                  /LIKEWISE
+GSUM,   XGETHAF-INPBUF
+        V1=     VERSION&70^10+6000
+        V2=     VERSION&7+60
+GV,     V1+V2
+/END OF GENASYS
+/"AND IN THE END,THE TAPE OXIDE YOU MAKE IS EQUAL TO THE RED DUST YOU TAKE
+/       (OFF THE TAPE GUIDES)
+
+/                               MARIO DENOBILI,1972
+        *EGEN
+/PUT SYSTEMS CATALOG HERE FOR GENASYS
+        TEXT    'SYSTEM'        /THIS IS THE SYSTEM OF SYSTEMS
+        *.-1                    /DUMB TEXT PSEUDO-OP
+        0000                    /BLOCK #
+        SBOOT+EDBLK             /LOAD ADDRESS+LENGTH
+        VERSION                 /DEFAULT PARM
+        SBOOT                   /STARTING ADDRESS
+        TEXT    'BATCH'         /BATCH SYSTEM
+        EDBLK                   /BLOCK #
+        XGETHAF+EDSLEN          /LOAD ADDRESS+LENGTH
+        0000                    /DEFAULT PARM
+        EBSTRT                  /STARTING ADDRESS
+        TEXT    'EDIT'          /EDIT SYSTEM
+        EDBLK                   /BLOCK #
+        XGETHAF+EDSLEN          /LOAD ADDRESS+LENGTH
+        0000                    /DEFAULT PARM
+        ESTART                  /STARTING ADDRESS
+        TEXT    '$BATCH'        /BATCH FILLER ENTRY
+        *.-1                    /DUMB TEXT PSEUDO-OP
+        EDBLK+2                 /BLOCK #
+        EDLEN-EDSLEN            /LOAD ADDRESS+LENGTH
+        0000                    /DEFAULT PARM
+        SBOOT                   /STARTING ADDRESS
+        TEXT    'DUMP'          /DUMP SYSTEM
+        DUMBLK                  /BLOCK #
+        DUMLEN                  /LOAD ADDRESS+LENGTH
+        0000                    /DEFAULT PARM
+        0200                    /STARTING ADDRESS
+        TEXT    'DUMPIN'        /DUMP FILE INPUT SYSTEM
+        *.-1                    /DUMB TEXT PSEUDO-OP
+        DUMBLK                  /BLOCK #
+        DUMLEN+1                /LOAD ADDRESS+LENGTH
+        7777                    /DEFAULT PARM
+        0600                    /STARTING ADDRESS
+        TEXT    'PRINT'         /PRINT OVERLAY SYSTEM
+        106                     /BLOCK #
+        FILBEG+2                /LOAD ADDRESS+LENGTH
+        7777                    /DEFAULT PARM
+        FILBEG                  /STARTING ADDRESS
+        TEXT    'BIN'           /BINARY LOADER
+        0000                    /TEXT IS NOT SMART
+        BINBLK                  /BLOCK #
+        BINLEN                  /LOAD ADDRESS+LENGTH
+        7777                    /DEFAULT PARM
+        0200                    /STARTING ADDRESS
+        TEXT    'USERMC'        /USER'S MONITOR COMMAND
+        *.-1                    /DUMB TEXT PSEUDO-OP
+        BINBLK+10               /BLOCK #
+        UMC&7600+1              /LOAD ADDRESS+LENGTH
+        7777                    /DEFAULT PARM
+        UMC                     /STARTING ADDRESS
+        
+        ZBLOCK  INPBUF&177+EGEN-./FILL IN CATALOG
+        *RUNCOR
+        NOPUNCH
+        *FILBEG                 /WHERE IT LOADS
+        ENPUNCH
+/GRAND & GLORIOUS "RUN" COMMAND PROCESSOR
+DORUN,  DCA     DORUN           /\
+RPTR1,  TAD     L7774           / \
+RPTR2,  JMS I   PMOVE           /  >SCRATCH THE FILE FIRST
+RPTR3,  RUNCLR                  / /
+        6774                    //
+        CLL                     /PERFORM A
+OLDNDX, JMS     RZAP            /LIMITED ZAP
+        JMP I   .+1             /DO AN "R" (PART 1)
+        RUN                     /WITH MINIMAL ZAP
+/IF "R" (PART 1) SUCCEEDS,IT COMES HERE :
+RUNBAK, JMS     RZAPBK          /LEGAL SINCE WE MODIFIED WHATMORE
+        TAD     RESTR           /MAKE FULL ZAPS
+        DCA     RREST           /NEXT TIME
+        TAD     XINST4          /MAKE OVERLAY
+        DCA I   GLINE           /COME TO US
+        JMP I   .+1             /TO XGLINE OVERLAY OR EBRK IF BATCH
+        RUNST-1                 /STARTING FROM HERE
+/TRAP FOR NEW CAT CALLS (NO DOG CALLS)
+RTRAP1, JMS I   PLODCAT         /LOAD NEW USER CATALOG
+        JMS I   SYSIN           /\
+L3200,  3200                    / \READ IN NEW
+        -1                      / /EXTENDED CATALOG
+        SYSCAT+3                //
+        JMP I   NEWCAT          /RETURN
+/TRAP FOR "FILE NOT FOUND!"
+RTRAP2, TAD     OLDNDX          /\
+        TAD     GETNDX          / >HAVE WE BEEN HERE BEFORE ?
+        SNA                     //
+        JMP I   RGONE           /YES,BARF
+        CIA                     /\
+        TAD     OLDNDX          / >NO,SETUP OLD VALUE FOR NEXT TIME
+        DCA     OLDNDX          //
+R3,     JMP     RMOR            /TRY AGAIN IN EXTENDED CATALOG
+/
+RGONE,  LOOKNG                  /POINTER TO "FILE NOT FOUND!" ROUTINE
+/TRAPS FOR ALL ERRORS WHICH ULTIMATELY GOTO XWHATMORE COME HERE :
+RTRAP0, TAD     XINST2          /PUT BACK FIXED LENGTH INSTRUCTION
+        DCA I   XCTZAP          /IN CASE XCAT WAS LAST SEARCHED
+        JMS     RZAPBK          /FINISH UP BY RESTORING OR BOOTSTRAP
+        JMP I   RWHATMR         /LIKEWISE
+/"R" (PART 2) OVERLAY COMES HERE BEFORE STARTING :
+RUNBK2, CLA CLL                 /FOR RZAP
+        JMS     RZAP            /ZAP EVERYTHING
+XINST1, TAD I   XR1             /DO DISPLACED INSTRUCTION
+        JMP I   .+1             /GO BACK THERE
+        XGLINE+1                /AND FINISH IT UP
+/TRAP FOR ILLEGAL NAMES WHICH MIGHT BEGIN WITH "*"
+RTRAP3, JMS I   GETHAF          /GET BEGINNING CHARACTER
+        TAD     L7726           /\
+        SZA CLA                 / >COMPLAIN IF NOT "*"
+        JMP I   WHAT            //
+        ISZ     GETNDX          /BUMP AROUND IT
+        JMS I   NAME            /TRY AGAIN
+        JMP I   WHAT            /BARF AGAIN
+        JMS     NEWCAT          /OK, CHECK FOR UNIT
+RMOR,   TAD     L5              /SET BUMP FACTOR
+        DCA     TCNT1           /TO FIVE
+        TAD I   L3377           /GET FIRST XCAT FILE'S BLOCK
+        DCA     TAPREC          /TO STARTING BLOCK
+        TAD     XINST1          /MAKE LENGTHS
+        DCA I   XCTZAP          /ADDITIVE
+        TAD     L3200           /GET XCAT POINTER
+        JMS I   LOOKUP          /TRY TO FIND NAME
+        DCA     TEMCNT          /SAVE BLOCK #
+        TAD     XINST2          /PUT BACK
+        DCA I   XCTZAP          /FIXED FILES
+        TAD     TEMCNT          /GET BLOCK #
+        JMP I   .+1             /RETURN
+        TRYDOL-1                /TO SENDER
+/TRAP FOR SUCCESSFUL TERMINATION:
+RTRAP4, TAD     XINST3          /FIXUP SUBROUTINE TO
+        DCA     RZPBZP          /LEAVE WHATMORE ALONE IF 0
+        JMS     RZAPBK          /CALL IT TO PUT EVERYTHING BACK
+        JMP I   PSLOAD          /START THE SYSTEM
+/
+RZAPBK, 0                       /RESTORE ROUTINE
+        TAD I   RWHATMR         /\
+        SNA CLA                 / >BOOTSTRAP IF BATCH IS RUNNING
+RZPBZP, JMP I   RWHATMR         //
+        STL                     /PUT BACK ALL
+        JMS     RZAP            /PREVIOUS ZAPS
+        JMP I   RZAPBK          /RETURN
+RZAP,   0                       /ZAP ROUTINE
+        TAD     R1              /\
+        DCA     RPTR1           / \
+        TAD     R2              /  \RESET
+        DCA     RPTR2           /  /POINTERS
+        TAD     R3              / /
+        DCA     RPTR3           //
+RZAPLP, TAD I   RPTR1           /GET FIRST ADDRESS
+        SNA                     /DONE?
+        JMP I   RZAP            /YES
+L3377,  DCA     RUNTEM          /NO, SAVE IT
+        SZL                     /SKIP IF ZAPPING
+        JMP     .+5             /JUMP IF PUTTING BACK
+        TAD I   RUNTEM          /SAVE OLD VALUE
+        DCA I   RPTR3           /FOR LATER RESTORATION
+        TAD I   RPTR2           /GET ZAP VALUE
+        SKP                     /1 WAY ONLY
+        TAD I   RPTR3           /GET RESTORE VALUE
+        DCA I   RUNTEM          /STASH IT
+        ISZ     RPTR1           /\
+        ISZ     RPTR2           / >BUMP LIST POINTERS
+        ISZ     RPTR3           //
+        JMP     RZAPLP          /GO BACK AND DO ANOTHER
+/
+RESTR,  NEWCAT+3                /DISPLACED ADDRESS
+XINST2, FILLEN&177+1200         /TAD FILLEN FOR USER CATALOG LOOKUP
+XINST3, DCA I   R3              /ZAP RZAPBK TO MAINTAIN WHATMORE ZEROES
+XCTZAP, LKINST                  /WHERE TO PUT XINST1 OR XINST2
+XINST4, SWITCH&177+5600         /JMP I  SWITCH
+R1,     RWHATMR                 /PTR TO ZAP ADDRESS LIST
+R2,     RCMDSUB                 /PTR TO ZAP VALUE LIST
+RWHATMR,WHATMORE
+        CMDSUB
+        RUNST
+RREST,  0                       /BECOMES NEWCAT+3
+        EDLIN
+        NOTFND+4
+        LOOKPT
+        TRYOLD+4
+        SAVCAT
+        PSLOAD
+        0                       /THIS ENDS THE TABLE
+RCMDSUB,CMDSUB&177+5600         /JMP I  CMDSUB
+        RTRAP0
+        RUNBAK
+        JMP I   EDLIN
+        RTRAP1
+        LOOKPT&177+5600         /JMP I  LOOKPT
+        RTRAP2
+        SAVCAT&177+5600         /JMP I  SAVCAT
+        RTRAP3
+        RTRAP4
+        IFNZRO  3174-.  <
+        /COMPLAIN ABOUT BOTCHED ASSEMBLY
+        **** ERROR **** UNABLE TO ASSEMBLE
+        /       $       >
+RUNCLR, FILBEG                  /\
+        7777                    / \IMAGE OF EMPTY
+        FILBEG                  / /FILE ENDING
+RUNTEM, 6774                    //
+/
+        NOPUNCH
+        *FILBEG                 /TO PREVENT OBSCURE PROBLEMS OF ASSEMBLY
+        *JMP RMOR               /DSECT (A LA OS 360??)
+RWHATST,BEGIN&177+5200          /JMP  BEGIN OR 0 IF ZAPPED
+        0                       /CMDSUB
+        XGLINE                  /OR EBRK IF ZAPPED
+        JMS I   PLODCAT         /NEWCAT+3
+        0                       /EDLIN
+        LOOKNG&177+5200         /JMP  LOOKNG
+        0                       /LOOKPT
+        JMP I   WHAT            /TRYOLD+4
+        0                       /SAVCAT
+        SLOAD                   /PSLOAD
+        ENPUNCH
+        *4200
+BIP,/PUT BIN HERE
+*6200
+/PUT /I HERE
+        *6256                   /WHERE THIS REALLY GOES WITHIN BINARY LOADER
+        NOPUNCH
+/USER'S MONITOR COMMAND:        R USERMC
+UMCGEN, *.&177+2600             /LOADS IN 2600 EVENTUALLY
+        ENPUNCH
+UMC,    CLA CLL                 /TO BE SURE
+        KCC                     /SO WE DON'T GET WIPED OUT
+        JMS I   SCRIBE          /DISPLAY
+        ARGMSG                  /BLURB
+        JMS I   SCRIBE          /NOW SHOW IT OFF
+        INPBUF                  /SHOW HIM HIS OWN STUFF
+        TAD I   UWHATMOR        /CHECK FOR WHETHER WE CAME FROM BATCH
+        SNA CLA                 /SKIP IF NO BATCH
+        JMP I   UWHATMOR        /GO BACK AND EXECUTE A 0000 THEN BOOTSTRAP
+        TAD     SWAPSW          /IF SWAP IS NEEDED
+        SNA CLA                 /THEN PRINT A POINT (.)
+        TAD     U56             /ELSE DO A
+        JMS I   PR6BIT          /<CR> <LF>
+U56,    AND     L77             /HARMLESS SKIPPED AND ????
+        JMP I   .+1             /GO RELOAD THE EDIT COMMAND AND RESTART FROM IT
+        EDIT                    /POINTER TO EDIT RELOAD ROUTINE
+UWHATMOR,WHATMOR                /POINTER TO END OF WHAT ROUTINE
+ 
+ARGMSG, TEXT    'YOUR MONITOR COMMAND WAS:'
+        UMCEND= .               /END OF USER'S MONITOR COMMAND
+        NOPUNCH
+        *UMCGEN+UMCEND-UMC      /WHERE WE REALLY ARE
+ERLGEN, *FILBEG                 /WHERE THIS GOES LATER
+        ENPUNCH
+EDITRL, 7600                    /RESTART EDIT AFTER BOOTSTRAP
+        TSF                     /DON'T KERCHUNK
+        TLS                     /UNLESS NECESSARY
+        STA                     /TURN OFF
+        DCA I   NAME            /BATCH BITS
+        JMS I   SYSOUT          /REFRESH 
+        XNAME                   /THE
+        -1                      /SYSTEM
+        10                      /COPY
+        JMS     ECTRLC          /ABORT ?
+        TAD I   PEUNIT          /\
+        DCA I   PSUNIT          / \
+        STA                     /  \
+        TAD I   ERBLOCK         /   \
+        DCA     ERBLOCK         /    >PUT BACK EDIT'S BUFFER
+        JMS I   SYSIN           /   /
+ERECNT, 7400                    /  /
+        -1                      / /
+ERBLOCK,EBLOCK                  //
+        JMS     ECTRLC          /CHECK AGAIN
+        TAD I   ER3200          /\
+        DCA I   EDITRL          / \
+        ISZ     ER3200          /  \
+        ISZ     EDITRL          /   >MOVE I/O AND PAGE ZERO BACK
+ERRUNST,RUNST                   /  /
+        ISZ     ERECNT          / /
+        JMP     .-6             //
+        TAD     OLDUNIT         /RESTORE
+        DCA I   PSUNIT          /PREVIOUS UNIT
+        TAD     OLDRAD          /RESTORE
+        DCA     RADXSW          /PREVIOUS RADIX
+        TAD     ERBRK           /PREVENT RUNNING
+        DCA I   ERRUNST         /WITHOUT BATCH
+        TAD     WHAT            /DESTROY 
+        DCA I   EREDCMND        /EDIT COMMAND
+        DCA     SWAPSW          /FOR LESS OVERHEAD
+        JMP I   .+1             /FINISH UP INIT
+        INPMOR                  /BY GOING HERE
+ERBRK,  EBRK
+PEUNIT, EUNIT
+ER3200, 3200
+EREDCMND,EDCMND
+ERM203, -203
+ECTRLC, 0
+        KSF                     /KEY STRUCK ?
+        JMP I   ECTRLC          /RETURN IF NOT
+        KRB                     /READ KEYBOARD IF YES
+        TAD     ERM203          /WAS IT CONTROL-C ?
+        SZA CLA                 /SKIP IF YES
+        JMP I   ECTRLC          /RETURN IF NO
+        JMP I   .+1             /BOOTSTRAP
+        EEC                     /GO THERE TO BOOT
+        ERLEND= .               /END OF EDIT RELOAD
+        *ERLGEN+ERLEND-EDITRL   /SHOULD BE 6400
+/PUT SLURP LOADER HERE
+        *CATADR
+DUMPUSYS,NOPUNCH                /DUMP UTILITY SYSTEM
+        *0
+        ENPUNCH
+        ZBLOCK  2               /FILL IN SOME EMPTY SPACE
+DADDR,  0
+DBLK,   DBLOCK
+DBUFF,  DMPBUF
+        DBUFFR= 0600
+DCRLF,  XDCRLF
+DFUDGE, XDFUDGE
+DINPUT, XINPUT
+CXR,    0
+DLIMIT, -34-1
+DLOOP,  0
+DL170,  170
+DL177,  177
+DL52,   52
+DL60,   60
+DL7,    7
+DL200,  200
+DL700,  700
+DL7673, 7673
+DL77,   77
+DL7741, 7741
+DL7763, 7763
+DL7765, 7765
+DL7770, 7770
+DL7771, 7771
+DL7774, 7774
+DSCRIBE,XDSCRIBE
+DSUNIT, SUNIT
+DTTYIN, DKBD
+DUNPAK, XUNPK
+DWORD,  0
+DJMSIW, JMS I   .+1             /\
+DWRITE, SWRITE                  / >MUST REMAIN TOGETHER
+DREAD,  SREAD                   //
+FOURLF, XFORLF
+DMSG1,  "M-300^100+"O-300       /TEXT   "MODE? "
+        "D-300^100+"E-300
+        "?-200^100+" -200
+DL10,   10
+DMSG2,  " -200^100+" -200       /TEXT   "  SWITCH"
+        "S-300^100+"W-300
+        "I-300^100+"T-300
+        "C-300^100+"H-300
+DL12,   12
+DMSG3,  "B-300^100+"L-300       /TEXT   "BLOCK = "
+        "O-300^100+"C-300
+        "K-300^100+" -200
+        "=-200^100+" -200
+DL15,   15
+DMSG4,  "N-300^100+"U-300       /TEXT   "NUMBER= "
+        "M-300^100+"B-300
+        "E-300^100+"R-300
+        "=-200^100+" -200
+DL16,   16
+DBLANKS," -200^100+" -200       /TEXT   "  "
+DL25,   25
+DLIST,  " -200^100+" -200       /TEXT   "     *"
+        " -200^100+" -200
+        " -200^100+"*-200
+DL40,   40
+DREWND, 0                       /REWIND SUBROUTINE
+        TAD     DL700           /REVERSE CONTINOUS MOVE
+        TAD I   DSUNIT          /PLUS UNIT BITS
+        DTLA                    /TO COMMAND REGISTER
+DL7600, 7600                    /CLA IN CASE NO DECTAPE
+        JMP I   DREWND          /RETURN
+/
+MODES,  .
+        "D-300^100+"U-300       /TEXT   "DU"
+        DUMP
+        "Z-300^100+"A-300       /TEXT   "ZA"
+        ZAP
+        "T-300^100+"R-300       /TEXT   "TR"
+        TRANS
+        "B-300^100+"O-300       /TEXT   "BO"
+        BOOT
+DTYPE,  0                       /TTY OUTPUT ROUTINE
+        TSF                     /WAIT
+        JMP     .-1             /FOR IT
+        TLS                     /PRINT IT
+        CLA                     /CLEAR IT
+        JMP I   DTYPE           /RETURN
+DPRINT, 0                       /DUMP A BLOCK ROUTINE
+        JMS I   FOURLF          /CLOVER
+        JMS I   DSCRIBE         /TELL THEM
+        DMSG3                   /BLOCK =
+        TAD I   DBLK            /GET WHICH ONE
+        JMS I   DUNPAK          /PRINT IT
+        JMS I   DCRLF           /DO A CR,LF
+        TAD     DL12            /DO AN
+        JMS     DTYPE           /EXTRA LF
+        LAS                     /GET SWITCHES
+        AND     DL170           /JUST ADDRESS BITS
+        DCA     DADDR           /SAVE IT
+DNXTLN, TAD     DL7770          /SET UP
+        DCA     DLOOP           /LINE COUNT
+DAZAP1, NOP                     /LAS IF /A
+        AND     DL7600          /JUST PAGE BITS
+        TAD     DADDR           /PLUS ADDRESS BITS
+        JMS I   DUNPAK          /PRINT IT
+        JMS I   DSCRIBE         /PRINT
+        DBLANKS                 /SOME BLANKS
+        TAD     DADDR           /\
+        TAD I   DBUFF           / >NOW SETUP POINTER TO DUMP LINE
+        DCA     DWORD           //
+DAGAIN, KSF                     /SKIP ON KEY STRUCK
+        JMP     DODUMP          /JUMP ON NO SUCH THING
+        TAD     DPRINT          /SET UP
+        DCA I   DTTYIN          /RETURN ADDRESS
+        JMP I   .+1             /JUMP TO WHERE DKBD
+        DKBD+3                  /HANDLES IT
+DODUMP, TAD I   DWORD           /GET THIS PARTICULAR WORD
+        JMS I   DUNPAK          /PRINT IT
+        ISZ     DWORD           /BUMP IT
+        ISZ     DLOOP           /DONE 10 YET ?
+        JMP     DAGAIN          /NO,GO BACK
+DKZAP1, JMS I   DSCRIBE         /ISZ DADDR IF /K
+        DLIST                   /SEPARATOR
+DKZAP2, JMS I   DFUDGE          /JMP .+3 IF /K
+        TAD     DL52            /PRINT A
+        JMS     DTYPE           /TRAILING STAR
+        JMS I   DCRLF           /PRINT A CR,LF
+        TAD     DADDR           /\
+        TAD     DL7600          / \
+        SZA CLA                 /  >RETURN IF DONE,ELSE DO NEXT LINE
+        JMP     DNXTLN          / /
+        JMP I   DPRINT          //
+        ZBLOCK  .+177&7600-.
+DSTART, KCC                     /CLEAR TO START
+        TSF                     /KERCHUNK IF
+        TLS                     /NECESSARY
+        JMS I   FOURLF          /CLOVER
+        JMS I   DSCRIBE         /ASK FOR
+        DMSG1                   /MODE ?
+        JMS I   DTTYIN          /GET A CHAR
+        TLS                     /ECHO IT
+        AND     DL77            /MASK TO 6-BIT
+        CLL RTL                 /\
+        RTL                     / >SHIFT TO LEFT HALF
+        RTL                     //
+        DCA     DREWND          /SAVE IT
+        JMS I   DTTYIN          /GET ANOTHER CHAR
+        TLS                     /ECHO IT
+        AND     DL77            /TRIM IT
+        TAD     DREWND          /ADD PREVIOUS
+        CIA                     /INVERT FOR TESTING
+        DCA     DREWND          /SAVE FOR LATER
+        JMS I   DTTYIN          /\
+        TLS                     / \
+        TAD     DL7763          /  >THROW AWAY CHAR'S 'TIL CR
+        SZA CLA                 / /
+        JMP     .-4             //
+        TAD     DL7774          /\
+        DCA     GETPUT          / \SET UP FOR
+        TAD     MODES           / /COMMAND SEARCH
+        DCA     CXR             //
+        TAD I   CXR             /\
+        TAD     DREWND          / \
+        SNA CLA                 /  \
+        JMP     FNDCOM          /   >SEARCH FOR COMMAND
+        ISZ     CXR             /  /
+        ISZ     GETPUT          / /
+        JMP     .-6             //
+        JMP     DSTART          /RESTART ON BAD COMMAND
+ 
+FNDCOM, TAD I   CXR             /\
+        DCA     DREWND          / >BRANCH TO COMMAND
+        JMP I   DREWND          //
+DUMP,   JMS     GETBLK          /ASK FOR A BLOCK
+        JMS     GETNUM          /GET A NUMBER
+        CIA                     /NEGATE FOR COUNT
+        SMA                     /ONLY 1-3777 BLOCKS AT A TIME
+        JMP     DUMP+1          /JUMP BACK IF 0 OR 4000 OR GREATER
+        DCA     GETNUM          /SAVE AS COUNTER
+        STA CLL                 /1 BLOCK ONLY,INDICATE READ IN LINK
+        JMS     GETPUT          /GET A BLOCK
+        JMS     DPRINT          /PRINT IT
+        ISZ     DBLOCK          /BUMP BLOCK NUMBER
+        ISZ     GETNUM          /GO BACK
+        JMP     .-5             /'TIL ALL IS DUMPED
+        JMP     DSTART          /GET NEXT COMMAND
+/
+TRANS,  JMS     GETBLK          /ASK FOR FIRST BLOCK
+        JMS     GETNUM          /GET A NUMBER
+        SPA SNA                 /1-3777 ONLY
+        JMP     .-2             /BAD ARG,GET ANOTHER
+        TAD     DLIMIT          /-(MAXBLKS+1)
+        SMA                     /SKIP IF 1-MAXBLKS
+        JMP     .-5             /BAD ARG,GET ANOTHER
+        CLL CIA                 /CLEAR LINK AND INVERT
+        TAD     DLIMIT          /RESTORE ARG,LINK IS STILL CLEAR
+        JMS     GETPUT          /GET SOME BLOCKS
+        JMS     DREWND          /REWIND THE TAPE
+        JMS I   DSCRIBE         /TELL THEM
+        DMSG2                   /TO SWITCH
+        JMS     GETBLK          /GET TO: BLOCK
+        STL                     /INDICATE WRITE
+        JMS     GETPUT          /WRITE SAME NUMBER OF BLOCKS
+        JMP     DSTART          /RESTART
+/
+GETPUT, 0                       /GET OR PUT ROUTINE
+        SZL                     /LINK ON = WRITE
+        JMP     PUTIT           /SO WRITE ON
+        DCA     DNMBLKS         /SAVE NUMBER OF BLOCKS IF READ
+        IAC                     /INCREMENT INSTRUCTION
+PUTIT,  TAD     DJMSIW          /GET A JMS I DWRITE INSTRUCTION
+        DCA     .+1             /PUT IN LINE
+        HLT                     /EXEC SYSIO CALL
+DMPBUF, DBUFFR                  /CORE ARG
+DNMBLKS,-1                      /NUMBER OF BLOCKS
+DBLOCK, 0                       /PUT IN BY GETBLK
+        JMP I   GETPUT          /RETURN
+ZAP,    JMS     GETBLK          /GET BLOCK NUMBER
+        STA CLL                 /1 BLOCK READ
+        JMS     GETPUT          /INTO BUFFER
+        JMS     DPRINT          /DISPLAY STUFF IN IT
+ZAPIN,  JMS     GETNUM          /GET A POTENTIAL ADDRESS
+        SPA                     /DO IT IF POSITIVE
+        JMP     ZAPDUN          /TERMINATE IF NEGATIVE
+        TAD     DL7600          /CHECK FOR BAD POSITIVE ADDRESS
+        SMA                     /SKIP IF NOT
+        JMP     .-5             /GO GET ANOTHER
+        TAD     DL200           /RESTORE OFFSET
+        TAD I   DBUFF           /ADD ON BASE
+        DCA     GETBLK          /SAVE IT
+        TAD     DL40            /PRINT
+        JMS     DTYPE           /A BLANK
+        JMS I   DINPUT          /GET A NUMBER
+        JMP     ZAPIN           /BAD INPUT
+        DCA I   GETBLK          /ZAP IT
+        TAD I   DFUDGE          /WAS IT
+        TAD     DL7763          /TERMINATED BY A C. R. ?
+        SNA CLA                 /SKIP IF NO
+        JMP     ZAPIN           /DO ANOTHER
+        ISZ     GETBLK          /BUMP UP ZAP ADDRESS
+        TAD     GETBLK          /GET IT
+        AND     DL177           /JUST ADDR BITS
+        JMP     ZAPIN+1         /GET NEXT
+ZAPDUN, CLA STL                 /INDICATE WRITE
+        JMS     GETPUT          /WRITE IT OUT
+        JMP     DSTART          /NEXT COMMAND
+/
+GETBLK, 0                       /GET A BLOCK NUMBER
+        JMS I   DCRLF           /NEATLY PLEASE
+        JMS I   DSCRIBE         /TELL THEM
+        DMSG3                   /BLOCK =
+        JMS I   DINPUT          /GET A NUMBER
+        JMP     .-4             /BAD INPUT, RETRY
+        SPA                     /SKIP IF GOOD
+        JMP     .-6             /0-3777 ONLY
+        DCA     DBLOCK          /PUT IN GETPUT CALL
+        JMP I   GETBLK          /RETURN
+/
+GETNUM, 0                       /GET A NUMBER ROUTINE
+        CLA                     /JUST IN CASE
+        JMS I   DCRLF           /NEATLY
+        JMS I   DSCRIBE         /TELL THEM
+        DMSG4                   /NUMBER =
+        JMS I   DINPUT          /GET AN INPUT NUMBER
+        JMP     .-4             /BAD INPUT, RETRY
+        JMP I   GETNUM          /RETURN
+        ZBLOCK  .+177&7600-.
+XDSCRIBE,0                      /PRINT A MESSAGE ROUTINE
+        TAD I   XDSCRIBE        /GET ARG
+        DCA     DWORD           /SAVE IT
+        TAD I   DWORD           /GET PAIR
+        AND     DL7700          /JUST LEFT HALF
+        SNA CLA                 /RETURN ON
+        JMP I   XDSCRIBE        /ZERO WORD
+        JMS     DP2CH           /PRINT GOOD WORD
+        JMP     XDSCRIBE+3      /TRY TO PRINT AGAIN
+/
+DP6CH,  0                       /PRINT 6-BIT ROUTINE
+        TAD     DL40            /ADD ON CONTROL BIT
+        AND     DL77            /THROW AWAY EXCESS
+        TAD     DL40            /CONVERT TO 7-BIT
+        JMS     DTYPE           /PRINT IT
+        JMP I   DP6CH           /RETURN
+/
+XFORLF, 0                       /SPACE DOWN ROUTINE
+        TAD     DL7774          /SETUP FOR
+        DCA     DP6CH           /4 LINES
+        TAD     DL15            /C. R.
+        JMS     DTYPE           /PRINT THAT FIRST
+        TAD     DL12            /L. F.
+        JMS     DTYPE           /PRINT IT
+        ISZ     DP6CH           /DONE YET ?
+        JMP     .-3             /NO,GO BACK
+        JMP I   XFORLF          /YES,RETURN
+/
+XDCRLF, 0                       /CR LF ROUTINE
+        TAD     DL15            /C. R.
+        JMS     DTYPE           /PRINT IT
+        TAD     DL12            /L. F.
+        JMS     DTYPE           /PRINT IT
+        JMP I   XDCRLF          /RETURN
+DP2CH,  0                       /PRINT TWO
+        TAD I   DWORD           /GET FIRST WORD
+        RTR                     /\
+        RTR                     / >MOVE DOWN PASSED PAIR
+        RTR                     //
+        JMS     DP6CH           /PRINT 6-BIT
+        TAD I   DWORD           /GET IT AGAIN
+        JMS     DP6CH           /PRINT OTHER HALF
+        ISZ     DWORD           /FOR NEXT TIME
+        JMP I   DP2CH           /RETURN
+/
+XDFUDGE,0                       /ASCII OUTPUT ROUTINE
+        TAD     DADDR           /GET REL OFFSET
+        TAD I   DBUFF           /PLUS BUFFER ADDRESS
+        DCA     DWORD           /SAVE IT
+        TAD     DL7770          /-10
+        DCA     DLOOP           /TO COUNT
+DFUDG1, JMS     DP2CH           /PRINT PAIR AND ADVANCE
+        ISZ     DADDR           /BUMP ADDRESS
+        ISZ     DLOOP           /DONE 10 YET ?
+        JMP     DFUDG1          /NO,GO BACK
+        JMP I   XDFUDGE         /YES,RETURN
+/
+DKBD,   0                       /TTY IN
+        KSF                     /\
+        JMP     .-1             / >READ IN TTY CHAR AFTER WAITING
+        KRB                     //
+        AND     DL177           /TRIM TO 7-BIT
+        DCA     XDFUDGE         /SAVE IT
+        TAD     XDFUDGE         /RESTORE
+        TAD     DL7774          /BRK,^A,^B,^C ?
+DL7700, SMA CLA                 /SKIP ON ABORT CHAR
+        JMP     DOGCHK          /JUMP ON OTHER
+BOOT,   DCA I   DSUNIT          /CLEAR UNIT BITS
+        JMP I   DL7600          /BOOTSTRAP
+DOGCHK, TAD     XDFUDGE         /RESTORE AGAIN
+        TAD     DL7771          /^G ?
+        SNA                     /SKIP IF NO
+        JMP I   DL200           /JUMP IF YES
+        TAD     DL7765          /^R ?
+        SZA CLA                 /SKIP IF YES
+        JMP     .+3             /JUMP IF NO
+        JMS     DREWND          /REWIND A TAPE
+        JMP     DKBD+1          /AGAIN
+        TAD     XDFUDGE         /GET CHAR AGAIN
+        JMP I   DKBD            /RETURN
+XINPUT, 0                       /NUMERIC INPUT ROUTINE
+        DCA     XFORLF          /ZERO REGISTER
+DINMOR, JMS I   DTTYIN          /GRAB A CHAR
+        TAD     DL7710          /CHECK UPPER LIMIT
+        SMA                     /SKIP IF <"8"
+        JMP     DALT1           /JUMP IF POTENTIAL ALTMODE,ETC
+        TAD     DL10            /CHECK LOWER LIMIT
+        SPA                     /SKIP IF >"/"
+        JMP     DALT2           /CHECK FOR ALT 33 ^[,ETC
+        DCA     DP6CH           /SAVE VALUE OF CURR CHAR
+        TAD     XFORLF          /GET REGISTER
+        CLL RAL                 /\
+        CLL RAL                 / >ROTATE CLEANLY
+        CLL RAL                 //
+        TAD     DP6CH           /ADD ON CURR CHAR
+        DCA     XFORLF          /STORE IT
+        TAD     XDFUDGE         /GET CHAR AGAIN
+        JMS     DTYPE           /PRINT IT
+        JMP     DINMOR          /GET ANOTHER
+DALT1,  TAD     DL7673          /ALT 175,176 OR RUBOUT ?
+DL7710, SPA CLA                 /SKIP IF YES
+        JMP     DINMOR          /JUMP IF NO
+        JMP I   XINPUT          /RETURN WITH NOTHING
+DALT2,  TAD     DL25            /^[ ?
+        SNA                     /SKIP IF NOT ALT 33
+        JMP I   XINPUT          /RETURN WITH NOTHING ON ALTMODES
+        TAD     DL16            /C. R. ?
+        SZA                     /DON'T CHECK COMMA IF YES
+        TAD     DL7741          /, ?
+        SZA CLA                 /SKIP IF C. R. OR ,
+        JMP     DINMOR          /JUMP BACK FOR BETTER CHAR
+        ISZ     XINPUT          /SKIP RETURN
+        TAD     XFORLF          /GET NUMBER
+        JMP I   XINPUT          /EXIT
+/
+XUNPK,  0                       /NUMBER UNPACK
+        CLL RAL                 /INITIAL FIXUP
+        DCA     DKBD            /SAVE IT
+        TAD     DL7774          /SETUP
+        DCA     XINPUT          /FOR 4
+DUNLOP, TAD     DKBD            /\
+        RAL                     / \ROLL AROUND
+        RTL                     / /TO NEXT DIGIT
+        DCA     DKBD            //
+        TAD     DKBD            /GET IT BACK
+        AND     DL7             /JUST ONE DIGIT
+        TAD     DL60            /ASCII IT
+        JMS     DTYPE           /PRINT IT
+        ISZ     XINPUT          /DONE 4 ?
+        JMP     DUNLOP          /NO,GO BACK
+        TAD     DL40            /PRINT
+        JMS     DTYPE           /A BLANK
+        JMP I   XUNPK           /EXIT

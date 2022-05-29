@@ -1,0 +1,26 @@
+Shortest Serial Disk Bootstrap Code.
+
+
+ 221   000020* 7240  BUTUP,  NL7777                          /SET AC TO 0000 LESS AUTO-INDEX BACKUP FACTOR.
+ 222   000021* 3017          DCA     STXR17                  /STASH THE POINTER.
+ 223   000022* 1044          TAD     BOOTMSG/(100)           /SETUP SERVER COMMAND BOOT VALUE.
+ 224   000023* 6416          RTLS                            /SEND IT.
+ 225   000024* 6411          RTSF                            /DONE YET?
+ 226   000025* 5024          JMP     .-1                     /NO, WAIT FOR IT.
+ 227   000026* 6402  BTLP,   RKCC                            /CLEAR THE FLAG AND THE AC.
+ 228   000027* 6401          RKSF                            /FLAG UP?
+ 229   000030* 5027          JMP     .-1                     /NO, WAIT FOR IT.
+ 230   000031* 6406          RKRB                            /YES, READ IN THE FIRST CHARACTER.
+ 231   000032* 7106          CLL RTL;RTL                     /MOVE UP.
+ 232   000033* 7006
+ 233   000034* 7510          SPA                             /SKIP IF NOT END OF DATA.
+ 234   000035* 5000          JMP     BOOT                    /ALL DATA IN, NOW GO START IT UP.
+ 235   000036* 7006          RTL                             /NO HAVE FIRST HALF IN HIGH-ORDER.
+ 236   000037* 6401          RKSF                            /FLAG UP?
+ 237   000040* 5037          JMP     .-1                     /NO, WAIT FOR IT.
+ 238   000041* 6404          RKRS                            /.OR. IN THE LOW-ORDER HALF.
+ 239   000042* 3417          DCA I   STXR17                  /STORE THE LATEST WORD.
+ 240   000043* 5026          JMP     BTLP                    /KEEP GOING.
+ 241   
+ 242   000044* 0100  BOOTMS, "A&177-1                        /BOOTUP CHARACTER.
+ 

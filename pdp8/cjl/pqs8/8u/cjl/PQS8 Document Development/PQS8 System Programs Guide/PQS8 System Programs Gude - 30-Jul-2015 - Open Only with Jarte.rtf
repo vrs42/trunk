@@ -1,0 +1,594 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fmodern\fprq1\fcharset0 Lucida Console;}}
+{\colortbl ;\red140\green140\blue140;\red255\green255\blue255;\red192\green192\blue192;}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$APtpn0001Page &p of &t'
+  RFtr = '$3B'
+  PrtHdr = True
+  PrtFtr = True
+  HdrMarg = 1440
+  FtrMarg = 1440
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -11
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 Guide to P?S/8 System Programs.\par
+\par
+\f1 Copyright \'a9 2015 \'bbCLA Systems\f0\par
+CLASystems@gmail.com\par
+\par
+Last edit: \f1 30\f0 -\f1 Jul\f0 -2015 cjl\par
+\par
+This document is a brief guide to the various P?S/8 system programs and keyboard\f1  \f0 monitor overlays as implemented in\f1  P?S/8 Version 8Z.\f0\par
+\par
+As an temporary accommodation, variations from this list associated with the 1976\f1  \f0 release\f1  [Version 8P]\f0  will be noted.\par
+\par
+For more information on any particular program [full lists of option switches, error\f1  \f0 messages, etc.] consult the various help files associated with the programs that\f1  \f0 have been released on the Internet at various PDP-8-oriented archive sites.\par
+\par
+Note: This document revision only covers the TC01/TC08/TU55/TU56 release of P?S/8.\f1   \f0 Consult the various help files associated with additional programs that are specific\f1  \f0 to other implementations based on other hardware configurations.  [Eventually, a\f1  \f0 long-form manual will be written to cover all programs in the basic system and the\par
+P?S/8 SHELL which is currently under development.]\par
+\par
+Program Execution.\par
+\par
+Note: For a more detailed discussion of command execution syntax, consult the \b P?S/8\f1  \f0 Keyboard Monitor/Editor Commands and Additional Information\b0  document available\f1  \f0 separately.  The notation used here is consistent with that document.\par
+\par
+The basic P?S/8 system operates with a concise command mechanism that is the basis\f1  \f0 for various extensions used elsewhere.  It is completely compatible with\f1  \f0 the command processor of COS-300/310 [since both P?S/8 and DIBOL-8/COS-300/310 are\f1  \f0 based on the R-L Monitor].\par
+\par
+Execution of a system program is initiated in one of several ways:\par
+\par
+.R \i\f2 system-program\cf1 :u\cf0\i0\f0  [options]\par
+\par
+or\par
+\par
+.RU\f1\{\f0 n\f1\}\f0  \i\f2 system-program\cf1 :u\cf0\i0\f0  [options]\par
+\par
+or\par
+\par
+.\i\f2 system-program\cf1 :u\cf0\i0\f0  [options]\page The latter form can only be used if the program name is not in conflict with any of\f1  \f0 the two-letter commands of the keyboard monitor.  As of the 1976 release of P?S/8,\f1  \f0 all standard system programs conform to this limitation.\par
+\par
+\cf1\i\f2 :u\cf0\i0\f0  \f1 refers to an optional logical device unit specification; system programs can be executed from any available logical device unit as long as it is a valid P?S/8 system at the same system release.\f0\par
+\par
+Depending on the system release, there may be certain system limits on the number of\f1  \f0 programs that can be used in the concise execution form\f1 .\f0  \f1 H\f0 owever, as a practical\f1  \f0 matter all relevant programs can be called up via the concise form.  Any update to\f1  \f0 the system program\f1 s\f0  directory may exceed this limited capability; it is recommended\f1  \f0 that programs that do not interact with the operating system environment described\par
+by the keyboard monitor\f1  \f0 be placed in the rear of the directory to avoid any\f1  \f0 p\f1 otential\f0  issues.  [As of the 1989 release\f1  of P?S/8 Version 8Z\f0 , all system programs are contained within\f1  \f0 the first \f1 two pages\f0  of the directory; \f1 as such, \f0 no program is currently subject to this\par
+theoretical restriction.]\par
+\par
+Optional command elements can consist of lists of input or output files, option\f1  \f0 switches and an =xxxx construct.  [Note: Most programs demand the =xxxx parameter be\f1  \f0 expressed as an [up to] four-digit octal value in the range of 1-7776.  Where\f1  \f0 noted, certain programs allow the value to be expressed in the current radix which\f1  \f0 could be either octal or decimal; in the latter case the value would be expressed\f1  \f0 as an [up to] four-digit value in the range of 1-4094].  [Note: For more\f1  \f0 information about command and file name considerations, logical unit considerations\f1  \f0 and additional information, consult the \b P?S/8 Keyboard Monitor/Editor Commands and\f1  \f0 Additional Information\b0  document available separately.]\par
+\par
+Certain programs opt to self-parse any remaining characters on the line to support\f1  \f0 sub-commands specific to the program; these will be documented below as necessary.\f1   \f0 For these programs, all options as described here will preceed special delimiters as\f1  \f0 required.\par
+\par
+All execution commands must terminate with either <CR> or <ESC> [the latter will be\f1  \f0 indicated as $; the program determines if there is signific\f1 e\f0 nce to the command\f1  \f0 delimiter; in most cases they are equivalent\f1 ]\f0 .  See Note 1.\page System programs and specific program details.\par
+\par
+Section 1: Overlays to the keyboard monitor/editor.\par
+\par
+ 1)\f1\tab\f0 FIND [delimiter character] [search string] [optional delimiter \f1\tab\f0 character]\par
+\par
+\f1\tab\f0 The stated string will be searched for in the file loaded into \f1\tab\f0 the \f1\tab edit \f0 buffer.  The entire contents of the first line that \f1\tab\f0 matches the search\f1  \f0 string will be displayed on the system\f1  \tab\f0 console.  The keyboard monitor is\f1  \f0 completely reloaded to \f1\tab\f0 allow \f1\tab\f0 further editing commands.\par
+\par
+\f1\tab\f0 Example:\par
+\par
+\f1\tab\f0 .FIND "FOO"\par
+\par
+\f1\tab\f0 100\f1 0\f0  THIS LINE HAS FOO IN IT.\par
+\par
+\f1\tab\f0 Options:\par
+\par
+\f1\tab\f0 /A\f1\tab\tab\f0 All matching lines will be displayed.\par
+\par
+\f1\tab\f0 =xxxx\f1\tab\f0 Start the search at line xxxx instead of the lowest \f1\tab\tab\tab\tab\f0 line in the file.\f1   [This line need not exist.]\f0\par
+\par
+\f1\tab\f0 Note: xxxx is stated in the current prevailing radix.\par
+\par
+\f1\tab\f0 The use of a null string is allowed; as such, it is considered to \f1\tab\f0 be at the\f1  \f0 beginning of the line.  [Using FIND with a null string \f1\tab\f0 and /A is equivalent to\f1  \f0 the LIST command.]\par
+\par
+\f1  \f0 2)\f1\tab\f0 CHANGE [delimiter character] [search string] [optional delimiter \f1\tab\f0 character]\f1  \f0 [optional replacement string]\par
+\par
+\f1\tab\f0 The stated string will be searched for in the file loaded into \f1\tab\f0 the \f1 edit \f0 buffer.  The entire contents of the first line that \f1\tab\f0 matches the search\f1  \f0 string will be displayed on the system console \f1\tab\f0 with the matching string deleted\f1  \f0 and optionally replaced by the \f1\tab\f0 replacement string.\f1   \f0 The keyboard\f1  \f0 monitor is completely reloaded \f1\tab\f0 to allow further editing commands.\par
+\par
+\f1\tab\f0 Note: If using a\f1  \f0 replacement string, the second delimiter\f1  \tab\f0 character is mandatory.\par
+\par
+\f1\tab\f0 Examples:\par
+\par
+\f1\tab\f0 .CHANGE "FOO"BAR\par
+\par
+\f1\tab\f0 100\f1 0\f0  THIS LINE HAS BAR IN IT.\page\cf1\f2 Section 1: Overlays to the keyboard monitor/editor [continued].\par
+\cf0\f0\par
+     .CHANGE=100\f1 0\f0  ""FOOBAR,\par
+\f1\tab\f0 100\f1 0\tab\f0 FOOBAR,THIS LINE HAS BAR IN IT.\par
+\par
+\f1\tab\f0 Options:\par
+\par
+\f1\tab\f0 /A\f1\tab\tab\f0 All matching lines will be modified and displayed.\par
+\par
+\f1\tab\f0 =xxxx\f1\tab\f0 Start the search at line xxxx instead of the lowest \f1\tab\tab\tab\tab\f0 line in the file.\f1   [This line need not exist.]\f0\par
+\par
+\f1\tab\f0 Note: xxxx is stated in the current prevailing radix.]\par
+\par
+\f1\tab\f0 If the search string is a null string, the replacement string \f1\tab\f0 will be placed at\f1  \f0 the beginning of the line.\par
+\par
+\f1\tab\f0 Note: Since null strings match all lines, it is\f1  \f0 strongly adivsed \f1\tab\f0 that /A not be used and the =xxxx construct be used to specify\f1  \tab\f0 the [singular] desired line to be modified.\par
+\par
+\f1\tab\f0 Note: The delimiter character is allowed within the text of the \f1\tab\f0 replacement\f1  \f0 string.\par
+\par
+\f1\tab\f0 Tip:\f1\tab\f0 All modifications are made to the \f1 contents of the edit\f0  \f1\tab\f0 buffer.\f1   \f0 If the\f1  \f0 CHANGE commmand produces unwanted results, the\f1\tab\f0 file can be reloaded to undo the\f1  \f0 un\f1 expected\f0  change\f1 s\f0 .\par
+\par
+ 3)\f1\tab\f0 ALLCAT\par
+\par
+\f1\tab\f0 Normally, the P?S/8 keyboard monitor caches the entire Tiny File \f1\tab\f0 Syste\f1 m\f0  [TFS]\f1  \f0 directory for the current logical unit only.\f1   \f0 While \f1\tab\f0 this is extremely useful on\f1  \f0 tape-oriented systems [such as \f1\tab\f0 DECtape and LINCtape], commands within the\f1  \f0 keyboard monitor \f1\tab\f0 involving multiple logical units still incur noticeable\f1  \f0 overhead \f1\tab\f0 when attempting to perform file maintanence using common keyboard\f1  \tab\f0 monitor commands to load, save\f1  [with perhaps an alternate name] \tab\f0 or delete files from one logical unit to\f1  \f0 another.\par
+\par
+\f1\tab\f0 All references to the TFS directories of every logical unit [0 \f1\tab\f0 through 7] are\f1  \f0 handled through a master caching routine located \f1\tab\f0 in memory.  [ALLCAT requires 8K\f1  \f0 memory].  Once any logical unit \f1\tab\f0 is referenced, the appropriate TFS directory\f1  \f0 information will be \f1\tab\f0 transferred through memory to allow all keyboard monitor\f1  \f0 commands \f1\tab\f0 to access any file on any logical unit with dramatically \f1\tab\f0 increased\f1  performance\f0 .  If all appropriate file names are pre-\f1\tab\f0 entered before attempting to copy the file contents[\f1 which is \f0 a \f1\tab\f0 recommended technique], all tape motion will be limited to\f1  \f0 file \f1\tab\f0 copy operations virtually eliminating any further access to the \f1\tab\f0 TFS\f1  \f0 directories [with the attendant overhead] on both the source \f1\tab\f0 and destination\f1  \f0 logical units.\page\cf1\f2 Section 1: Overlays to the keyboard monitor/editor [continued].\par
+\cf0\f0\par
+\f1\tab\f0 The ALLCAT overlay inhibits all forms of additional program \f1\tab\f0 execution as a\f1  \f0 safety precaution.  Complete exit of the keyboard \f1\tab\f0 monitor using the MO\f1\{\f0 nitor\f1\} \f0 command [or manual restart at 07600] \f1\tab\f0 will cancel ALLCAT operations; the\f1  \f0 restarted system will run \f1\tab\f0 normally.\page Section 2: Text\f1 -related\f0  file utilities.\par
+\par
+ 1)\f1\tab\f0 PRINT [\i list of input files\i0 ] [options]\par
+\par
+\f1\tab\f0 The contents of \f1 passed \f0 text\f1 ual input\f0  files will be printed on the \f1\tab\f0 system line\f1  \f0 printer.  Various\f1  \f0 options are available to format the \f1\tab\f0 files includ\f1 i\f0 ng the number of lines per\f1  \f0 page, various header \f1\tab\f0 options, accommodations to various forms of console devices\f1\tab\tab\f0 [such as tear-offs for roll paper terminals such as the\f1  Teletype \tab Model 33 ASR].\f0\par
+\par
+\f1\tab\f0 While the default device is the system line\f1  \f0 printer,\f1  \f0 if it is not \f1\tab\f0 available the\f1  \f0 output will be directed \f1 to\f0  the system console t\f1\tab t\f0 erminal.  [Options exist to\f1  \f0 direct the output directly to the\f1\tab\f0 system console bypassing the system\f1  \f0 line\f1  \f0 printer.\f1 ]\f0   See Note 2.\page Section 3: Binary file and core-image related utilities.\par
+\par
+Note: When considering core-image programs, all of field 0 is\f1  stored\f0  virtually in\f1  \f0 the\f1  storage space overlapping the\f0  positional files % and $\f1 .  \f0 While there are other us\f1 es for these\f0  files\f1  in other contexts\f0 ,\f1   all such alternatives\f0  must be abandoned during \f1 any and all\f0  core\f1 -\f0 image\f1  related\f0  activities.\par
+\par
+All extended\f1  \f0 memory operations are carried out directly.\par
+\par
+\f1 N\f0 ote: Other than Logical Console\f1  \f0 Overlay and/or extended device\f1  \f0 handler considerations, P?S/8 does not use the\f1  \f0 contents of extended memory; however, executing programs that \f1 access\f0  extended\f1  \f0 memory will \f1 tend to \f0 change\f1  extended memory\f0  contents.  \f1 Should the contents of extended memory require preservation, p\f0 rograms that can change extended memory must \f1 not be \f0 executed or prevented from changing extended memory by use of the\f1  \f0 CORE command.\par
+\par
+ 1)\f1\tab\f0 BIN [options]\par
+\par
+\f1\tab\f0 The P?S/8 BIN program is actually a multiple function utility.  \f1\tab\f0 It is primarily\f1  \f0 used to load the contents of binary files into \f1\tab\f0 memory\f1 .\f0  \f1 M\f0 any loading options are\f1  \f0 available including a choice of \f1\tab\f0 loader programs.\par
+\par
+\f1\tab\f0 Note:\f1  with regard to binary file loading, a\f0  generic loader is\par
+\f1\tab\f0 always available; the user can opt to use a hardware-dependen\f1 t\f0  \f1\tab\f0 alternate loader\f1  \f0 if implemented.\par
+\par
+\f1\tab\f0 BIN is also used to read \b BIN\b0  [or \b RIM\b0 ] paper-tapes for the \f1\tab\f0 purpose of creating\f1  \f0 P?S/8 binary files in the TFS directory.  \f1\tab\f0 Both the low\f1 -speed \f0 and high-speed reader are\f1  \f0 supported.\par
+\f1\par
+\tab\f0 BIN can also punch existing binary files to paper-tape in either\f1  \tab\b\f0 BIN\b0  or\f1  \f0 [enhanced] \b RIM\b0  format.  Both the low and high-speed punch \f1\tab\f0 are supported.\par
+\par
+\f1\tab\f0 BIN can also be used to \f1 load\f0  a standalone version of the \b BIN\b0  \f1\tab\f0 and \b RIM\b0  loaders.\f1   \f0 A unique feature is the presence of a P?S/8 \f1\tab\f0 system bootstrap \f1 to be started at\f0  07600 to allow\f1  \f0 P?S/8 to be \f1\tab\f0 reloaded after all paper-tape operations are over.  [This assumes\par
+\f1\tab\f0 the P?S/8 bootstrap code is not destroyed by the consequences of \f1\tab\f0 running binary\f1  \f0 paper-tape programs\f1 .\f0 ]\par
+\par
+\f1\tab\f0 Chaining considerations.\par
+\par
+\f1\tab\f0 BIN can be chained to from PAL for assemble-load-and-go\f1\tab\f0 operations.  [The chain\f1  \f0 operation is inhibited by PAL if there \f1\tab\f0 are assembly errors.]\page\cf1\f2 Section 3: Binary file and core-image related utilities [continued].\par
+\cf0\f0\par
+\f1\tab\f0 BIN can chain to MAP to display the \f1 load map\f0  of binary files \f1\tab\f0 created from\f1  \f0 binary paper-tapes.  MAP can chain to BIN to load \f1\tab\f0 binary files passed to MAP for\f1  \f0 loading into memory [including a \f1\tab\f0 chain from PAL to create an\f1  \f0 assemble-map-load-and-go operation].  \par
+\par
+\f1\tab\f0 If initiated by PAL, the chain to\f1  \f0 MAP will be allowed; MAP \f1\tab\f0 will \f1\tab\f0 honor preventing the chain to BIN if there were\f1  \f0 assembly errors.\par
+\par
+ 2)\f1\tab\f0 MAP [options]\par
+\par
+\f1\tab\f0 The P?S/8 MAP program is used to create a \f1 load map\f0  of all \f1\tab\f0 binary \f1 input \f0 files\f1  \f0 passed to the program.  The format is \f1\tab\f0 identical to the field dump within the\f1  \f0 TOPS10 PAL10 assembler\f1  \tab\tab\f0  and is a superset of\f1  \f0 the output of the OS/8 BITMAP program.  \f1\tab\f0 Options are available to limit the\f1  \f0 mapping consideration to a \f1\tab\f0 selected subset of all possible fields.\par
+\par
+\f1\tab\f0 Output of the MAP program is oriented to wide line printer \f1\tab\f0 output; options exist\f1  \f0 to limit the output on narrow terminals.  \f1\tab\f0 The default output device is the\f1  \f0 system line\f1  \f0 printer.  If the \f1\tab\f0 system line\f1  \f0 printer is not available, the output will\par
+\f1\tab\f0 be directed to the system console termin\f1 a\f0 l.  Options are \f1\tab\f0 available to direct the\f1\tab\f0 output to the console terminal even if \f1\tab\f0 the system line\f1  \f0 printer is available.\par
+\par
+\f1\tab\f0 When MAP is chained from PAL, the output is cosmetically altered \f1\tab\f0 to\f1  resemble \f0 the previous listing pages from PAL; the printout is\f1  \tab\f0 achieved in one continuous operation.  If PAL options use the \f1\tab\f0 wide carriage\f1  \f0 output, MAP will automatically assume the \f1\tab\f0 comparable line width.\par
+\par
+ 3)\f1\tab\f0 GET [\i list of input files\i0 ] [loading\f1  \f0 options]\par
+\par
+\f1\tab\f0 The GET command is used to setup the\f1  field 0 virtual area \f0 from \f1\tab\f0 the contents of the\f1  \f0 passed binary input files.  The keyboard \f1\tab\f0 monitor is reloaded to allow further\f1  \f0 commands.\par
+\par
+ 4)\f1\tab START [startup options]\par
+\par
+\tab\f0 The START command will run the latest core-image program\f1  stored \tab in the field 0 virtual area\f0 .  There are a few\f1  \f0 restrictions since \f1\tab\f0 the START command uses the /0-/7 option switches and the\f1  \f0 =xxxx \f1\tab\f0 command\f1  option\f0  to start the program at any specified location in \f1\tab\f0 32K of memory\f1 ; h\f0 owever, the system device can be write-protected \f1\tab\f0 beforehand as a safety\f1  \f0 precaution.\par
+\par
+\f1\tab\f0 The R [or RU\f1\{\f0 n\f1\}\f0 ] command used with either the % or $ \f1\tab\f0 file name \f1\tab initiates \f0 temporary \f1 core-image\f0  execution.\f1   \f0 The starting address \f1\tab\f0 is 00200; all program options [other than program-dependent \f1\tab\f0 internal overlays]\f1  \f0 are \f1 supported\f0 .  See \f1\tab\f0 Note 3.\page\cf1\f2 Section 3: Binary file and core-image related utilities [continued].\par
+\cf0\f0\par
+ 5)\f1\tab\f0 ODT [options]\par
+\par
+\f1\tab\f0 The P?S/8 implementation of ODT is a proper superset of all other \f1\tab\f0 ODT programs\f1  \f0 including the equivalent OS/8 command.  It is\f1  \tab\f0 completely "invisible" [as is\f1  \f0 defined in OS/8 terms, which \f1\tab\f0 implies small exceptions within the last page of\f1  \f0 any field where \f1\tab\f0 a breakpoint is defined, and the system kernel of 07600-07777 is\f1  \tab\f0 not to be modified by any non-conforming program].  Commands \f1\tab\f0 exist to support\f1  \f0 multiple breakpoints and to display the contents \f1\tab\f0 of memory in a variety of octal\f1  \f0 and other formats.\par
+\f1\tab\f0\par
+\f1\tab\f0 Because multiple simultaneous breakpoints are\f1  \f0 supported, it is \f1\tab\f0 not possible nor necessary to "spoof" additional breakpoints\f1 .\tab\f0\par
+\f1\tab\f0 Most breakpoint mechanisms are implemented as JMP I 4; P?S/8 ODT \f1\tab\f0 uses\f1  \f0 JMS I 4 to determine the calling address of the latest \f1\tab\f0 sprung breakpoint.\par
+\par
+\f1\tab\f0 Normally ODT does not require any command-line options.  If no \f1\tab\f0 breakpoint\f1  \f0 operations have been \f1 performed\f0 , the command xxxxS \f1\tab\f0 [where xxxx is any octal value in\f1  \f0 the range 0000-7777] can be \f1\tab\f0 used to run the core-image program as a P?S/8\f1  \f0 system program \f1\tab\f0 without restrictions.  All options are passed as would apply to\f1\tab\f0 a system program without exception.  [This is the preferred \f1\tab\f0 method for using a\f1  \f0 core-image as a system program if the \f1\tab\f0 restrictions caused by the START or R or\f1  \f0 RU\f1\{\f0 n\f1\}\f0  % or $ form are \f1\tab\f0 unacceptable.  However, once a breakpoint has been setup,\f1  \f0 ODT \f1\tab\f0 modifies most of the passed parameters.\par
+\par
+ 6) BSAVE [\i\f1 list of o\f0 utput files\i0 ] [save options].\par
+\par
+\f1\tab\f0 The BSAVE utility saves specified areas of memory into binary \f1\tab\f0 output files.  Any\f1  \f0 form of memory range can be specified from a \f1\tab\f0 single location to an entire memory\f1  \f0 field.\par
+\par
+\f1\tab\f0 Example:\par
+\par
+\f1\tab\f0 .BSAVE FOO,BAR,FOOBAR < 0-7577,10001,20200-20377\par
+\par
+\f1\tab\f0 P?S/8 binary format\f1  approaches 6/7 the efficiency of core-image \tab without imposing block loading.  \f0 Each file\f1  is\f0  2048\f1  12-bit\f0  \f1\tab\f0 words \f1\tab\f0 including a descriptor word for each six loading words.  \f1 Up to 17 \tab output files can be \f0 created in any one command\f1 ; this corresponds \tab to \f0 the maximum number of input files that can be \f1\tab\f0 loaded by BIN \f1\tab\f0 for\f1  \f0 any one binary file loading operation.  [\f1 About 28K is allowed \tab per command\f0 ; if\f1  \f0 necessary, BSAVE and BIN operations can be \f1\tab\f0 performed in two memory sections if\f1  \f0 32K must be loaded.]\page Section 4: Programming utilities.\par
+\par
+ 1)\f1\tab\f0 PAL [options]\par
+\par
+\f1\tab\f0 The P?S/8 implementation of the PDP-8 Assembly Language [PAL] is \f1\tab\f0 a superset of\f1  \f0 all other known fully-compatible PDP-8 assemblers \f1\tab\f0 [to within nitpicks].  It is\f1  \f0 highly modular in implementation\f1 ;  \tab certain options can be deleted to allow additional symbol table \tab space or improve performance through the use of larger \tab input/output buffers.\par
+\par
+\tab\f0 Note: This is especially crucial on small systems where less than \f1\tab\f0 7K memory is\f1  \f0 available.  PDP-8 assembly programs vary greatly in \f1\tab\f0 symbolic content.  The\f1  \f0 largest symbol table possible is 4096 \f1\tab\f0 symbols including permanent symbols and\f1  \f0 internal directives \f1\tab\f0 [pseudo-operations].\par
+\par
+\f1\tab\f0 Notable features include the optional support of current page, \f1\tab\f0 page zero and\f1  \f0 conditional literals [the latter a unique feature \f1\tab\f0 of P?S/8 PAL].  When enabled,\f1  \f0 P?S/\f1 8\f0  PAL is a superset of the \f1\tab\f0 dual-mode LAP6-DIAL assembler for PDP-8 and LINC\f1  \f0 mode assembly.\par
+\f1\tab [\f0 The DIAL assembler does not support literals.\f1 ]\f0\par
+\par
+\f1\tab\f0 P?S/8 PAL can take full advantage of wide-carriage printers \f1\tab\f0 [using available\f1  \f0 option switches].  The default output device is \f1\tab\f0 the system line\f1  \f0 printer.  If the\f1  \f0 system line\f1  \f0 printer is not \f1\tab\f0 available, listing output defaults to the\f1  system\f0  console\f1  \tab\f0 terminal.  [Options exist to direct the output to the system \f1\tab\f0 console\f1  \f0 bypassing\f1  tests for\f0  the system line\f1  \f0 printer.]\par
+\par
+\f1\tab\f0 An extremely useful feature of P?S/8 PAL [\f1 also\f0  supported by\f1  the\f0  \f1\tab\f0 PAL III\f1  paper-tape system assembler\f0 ] is the\f1  \f0 ability to obtain a \f1\tab single-pass\f0  assembly.  At the end of pass \f1 one\f0 , all symbols\f1\tab\tab\f0 still undefined are printed on the system console referencing the \f1\tab\f0 first location\f1  \f0 within the assembly where the undefined symbol was \f1\tab\f0 referenced.  When compared to\f1  \f0 other assemblers [such as PAL10 and \f1\tab\f0 PAL8\f1  which do not implement this\f0 ], this feature can be virtually\f1\tab\f0 indispensible in the early stages of program development.  [\f1 O\f0 ther \f1\tab\f0 systems\f1  \f0 offer no \f1 productive method\f0  of remedying this predictable \f1\tab\f0 program development \f1 situation \f0 other than wastefully producing an \f1\tab\f0 entire listing including all references to\f1  \f0 each and every \f1\tab\f0 undefined symbol; this could amount to the tedious process of\f1\tab\f0 manually looking through thousands of lines referencing all of \f1\tab\f0 the undefined\f1  \f0 symbols instead of merely looking at a compact list \f1\tab\f0 of the undefined symbols by\f1  \f0 name in a \f1 well-\f0 ordered list\f1 ing\f0 .]\par
+\par
+\f1\tab\f0 Unlike \f1 many other PDP-8\f0  assemblers, P?S/8 PAL performs either a \f1\tab\f0 one pass or a two pass\f1  \f0 assembly.  As required, binary output and \f1\tab\f0 listing output are created\f1  \f0 simultaneously.\page\cf1\f2 Section 4: Programming utilities [continued].\par
+\cf0\f0\par
+\f1\tab\f0 Note: There are anomalies of PDP-8 assembly when certain\f1  \f0 features \f1\tab\f0 are used improperly that create output that changes for each\f1\tab\f0 assembly\f1  \f0 pass.  As such, three pass assemblers such as PAL10 and \f1\tab\f0 PAL8 can create a\f1  \f0 subtle anomaly condition where the binary\f1  \tab\f0 output does not match the assembly\f1  \f0 listing.  By using a two-pass \f1\tab\f0 approach, this is impossible; \f1 the \f0 debugging\f1  process to locate\f0  the\f1  \tab\f0 incorrect usage will be greatly improved.]\par
+\par
+\f1\tab\f0 P?S/8 PAL can chain to MAP and/or BIN to create automatic\f1\tab\f0 assemble, [map,] load\f1  \f0 and go operations.\par
+\par
+\f1\tab\f0 Note: Extremely long source files can be created through the use \f1\tab\f0 of\f1  \f0 extended-length files [such as those created by the OS8CON\f1\tab\f0 program].\f1   \f0 See Note 4.\par
+\par
+ 2)\f1\tab\f0 FOCAL [options]\par
+\par
+\f1\tab\f0 P?S/8 FOCAL is a binary-compatible superset of FOCAL, 1969. \f1\tab\f0 Virtually all known\f1  \f0 user-created patches to FOCAL, 1969 can be \f1\tab\f0 used with P?S/8 FOCAL [and a few have\f1  \f0 been added internally to be \f1\tab\f0 enabled/disabled by command-line option switches].\par
+    \par
+\f1\tab\f0 The functionality of FOCAL is vastly improved as custom binary \f1\tab\f0 files can be\f1  \f0 passed to create extensions to the language.  [The \f1\tab\f0 process of customization is\f1  \f0 described in large part in FOCAL-17, \f1\tab which is a\f0  manual on this subject distributed by DECUS\f1 ; known \tab copies exist on v\f0 arious PDP-8 archive\f1  \f0 websites.].\par
+\par
+\f1\tab\f0 A total of 17 input files can be passed to FOCAL [all binary \f1\tab\f0 patch files must\f1  \f0 precede all text files].\f1   As FOCAL processes \tab input, t\f0 he contents of all text files\f1  \f0 replaces the normal console \f1\tab keyboard \f0 device; once the end of the last file is reached,\f1\tab\tab\f0 input control returns to the \f1 console using a new fully-buffered \tab console routine.\par
+\par
+\tab N\f0 ote:\f1  The original\f0  \f1 FOCAL, 1969 only supports \f0 fully-buffered\f1  \tab console\f0  output.  Th\f1 e new routines\f0  largely avoid\f1  \f0 the problem of \f1\tab\f0 input overflow on the low-speed reader if ASCII paper-tapes are\f1\tab\f0 read into FOCAL directly; however, it is always recommended the \f1\tab\f0 paper-tapes b\f1 e \f0 converted to P?S/8 text files.  See Note 5.\par
+\par
+\f1\tab\f0 Because of the ability to allow FOCAL to interact in various ways \f1\tab\f0 with P?S/8, it\f1  \f0 is possible to define complex projects that would \f1\tab\f0 never be thought of as viable\f1  \f0 in the paper-tape \f1 environment\f0  of \f1\tab\f0 FOCAL, 1969.\page\cf1\f2 Section 4: Programming utilities [continued].\cf0\f0   \par
+\par
+\f1\tab\f0 Many project\f1  examples\f0  are available\f1  \f0 that use FOCAL in various \f1\tab\f0 ways [such as allowing FOCAL programmers to control\f1  \f0 assembly \f1\tab\f0 language projects as a "front end" to tweak control parameters] \f1\tab\f0 or\f1  \f0 outputting display graphics to a va\f1 r\f0 iety of devices or to \f1\tab\f0 process\f1  \f0 indefinite lists of data for statistical purposes, etc.  \f1\tab\f0 Numerous biomedical\f1  programs\f0  have been written using P?S/8 FOCAL \f1\tab\f0 at the heart of the overall\f1  application\f0 .\par
+\par
+\f1\tab\f0 There is a command-line option to suppress console output during \f1\tab\f0 the\f1  \f0 time FOCAL input is obtained from P?S/8 text files [which is\f1  \tab\f0 recommended during\f1  \f0 very long number-crunching sessions using data \f1\tab\f0 obtained from a long list of\f1  \f0 input data contained in P?S/8 text \f1\tab\f0 files].\par
+\par
+\f1\tab\f0 P?S/8 FOCAL supports the 4-word floating point modification and \f1\tab\f0 the 8K patch to\f1  \f0 place all FOCAL text storage into field 1.\f1   \tab\f0 [Custom versions of these\f1  \f0 files are available as P?S/8 binary \f1\tab\f0 files; the original versions cause \f1 certain \f0 cosmetic problems \f1\tab\f0 solved by using the P?S/8 variants in a proscribed order.]\par
+\par
+\f1\tab\f0 While P?S/8 FOCAL does not\f1  directly\f0  support the original FOCAL \f1\tab\f0 initial dialogue\f1  [INIT]\f0 , the\f1  \f0 configuration questions asked have \f1\tab\f0 been implemented as command-line option\f1  \f0 switches.\par
+\par
+\f1\tab\f0 Note: The restriction regarding the requirement that one of the\f1\tab\f0 trigonometric packages can only be retained if the other package \f1\tab is also\f0  retained has been removed by \f1 performing\f0  dynamic\f1\tab\f0  \f1\tab\f0 relocation\f1 ; this \f0 was never\f1  \f0 offered in the original FOCAL, 1969.\par
+\par
+\f1\tab A\f0  FOCAL, 1969\f1  bug [\f0 fixed in FOCAL-12 and FOCAL-8, neither of \f1\tab\f0 which are binary-compatible with\f1  \f0 FOCAL, 1969\f1 ]\f0  has been\f1  fixed\f0  in \f1\tab\f0 P?S/8 FOCAL without losing overall binary\f1  \f0 compatibility.\par
+\par
+\f1\tab\f0 Note: Unlike FOCAL-8, P?S/8 FOCAL does not attempt to\f1  \tab internally\f0  \f1\tab self-\f0 sa\f1 b\f0 ot\f1 a\f0 g\f1 e\f0  if running on a DCC\f1 -\f0 112 or DCC\f1 -\f0 112H computer.\par
+\par
+\f1\tab A\f0  report-only version of the initial dialogue \f1 may \f0 be developed \f1\tab\f0 as a binary patch file \f1 to\f0  P?S/8 FOCAL.  [No \f1 interactive \f0 questions \f1\tab\f0 can be asked\f1  \f0 as all relevant decisions are made by command-line \f1\tab\f0 options\f1 ;\f0  \f1 h\f0 owever, a user\f1  \f0 application written in FOCAL might want \f1\tab\f0 to start \f1\tab\f0 with a configuration report\f1  \f0 including the status of the \f1\tab\f0 4-word and 8K options and the trigonometric packages\f1 , to be used \tab as\f0  a\f1  documentation \tab\f0 aid.  A complete command-line can be\f1  \tab\f0 reconstructed including the names and types of passed files.]\par
+\par
+\f1\tab\f0 While small changes can be made to the FOCAL \f1 program\f0  code from \f1\tab\f0 within FOCAL, it\f1  \f0 is \f1 strongly\f0  recommended the file be maintained \f1\tab\f0 within P?S/8 text\f1  \f0 file\f1 s\f0 .  The\f1  \f0 keyboard monitor ED\f1\{\f0 it\f1\} \f0 command\f1  \f0 is \f1\tab\f0 patterned after the\f1  \f0 FOCAL MO\f1\{\f0 dify\f1\}\f0  command\f1  \f0 and is an analogous \f1\tab\f0 superset of the same functionality.\page\par
+Section 5: Additional file maintenance utilities.\par
+\par
+\f1\tab\f0 Note: P?S/8 files can be maintained on any P?S/8 system on an \f1\tab\f0 individual basis\f1  \f0 using the keyboard monitor, perhaps enhanced by \f1\tab\f0 the ALLCAT utility.\par
+\par
+ 1)\f1\tab\f0 FILMAN [options]\par
+\par
+\f1\tab\f0 The P?S/8 FILMAN [file manager] utility allows for patterned copy \f1\tab\f0 or deletion of\f1  groups\f0  of TFS files with a single command. \f1  \tab\f0 Various wild-card options are\f1  \f0 supported to allow the creation of \f1\tab\f0 powerful operations.\par
+\par
+\f1\tab\f0 FILMAN operates in both\f1  \f0 a command-line mode and an interactive \f1\tab\f0 mode [as determined by a single\f1  \f0 command-line option switch which \f1\tab\f0 bypasses the \f1 general \f0 command-line mode].\par
+\par
+\f1\tab\f0 Command-line options allow the optional filtering of file types \f1\tab\f0 if desired; the\f1  \f0 default is all files will be considered.  All \f1\tab\f0 files can be selected\f1  \f0 automatically or be subject to approval by \f1\tab\f0 manual input.\par
+\par
+\f1\tab\f0 Future\f1  \f0 releases of FILMAN may include various additional options \f1\tab\f0 such as a MOVE\f1 , RENAME or UNDELETE facility.  \f0 See Note 6.\par
+\par
+\f1\tab A future direction of development of the FILMAN utility may \tab include aliased program named.  This may be a challenge since \tab certain proposed options are in conflict with present keyboard \tab monitor commands such as MO\{ve\} and RE\{sequence\}.  [UNDELE\{te\} \tab and COPY do not have this potential; however, a complete set of \tab alias entries would be helpful.  [One way to get around this is \tab to use alternates such as MV and RN such as are used in unix \tab systems.]  Due to interaction with these commands and other \tab issues, this entire issue may be tabled pending potential changes \tab in the relevant keyboard monitor commands.\par
+\par
+\tab Note: There is already an open issue regarding the MO\{nitor\} \tab command suggesting changing the command name to SY[stem\} or BY\{e\} \tab to encourage intuitive acceptance from those familiar with \tab implementations of BASIC where these are the prevailing command \tab names.  MO\{nitor\} is the current command name and is compatible \tab with the R-L Monitor System command for the same function.\page\f0 Section 6: User-settable configuration programs.\par
+\par
+ 1)\f1\tab\f0 SET [options]\par
+\par
+\f1\tab\f0 The SET utility is used to \f1 configure\f0  a variety of custom keyboard \f1\tab\f0 monitor and\f1  \f0 other functions that affect various aspects of using \f1\tab\f0 P?S/8.  The /A option can\f1  \f0 be used to view all available options\f1 . \tab In\f0  \f1 certain \f0 cases the default values for the various settings\f1  will \tab be displayed\f0 .\par
+\par
+\f1\tab\f0 Some of the settings determine how the keyboard monitor interacts \f1\tab\f0 with various\f1  \f0 supported console devices such as the VT05 and VT52\f1  \tab\f0 display terminals, as well\f1  as hard-copy devices such as the \tab Teletype Model 33 and Model 35.\par
+\par
+\tab\f0 Note: A complete list\'12of all options is\f1  \f0 available in the help\f1  \tab\f0 file for the SET program that is distributed on various\par
+\f1\tab\f0 PDP-8-oriented archive websites.  See Note 7.\par
+\par
+ 2)\f1\tab\f0 CORE [options]\par
+\par
+\f1\tab\f0 The CORE command with options\f1  given\f0  displays the current memory \f1\tab\f0 configuration of\f1  \f0 P?S/8.\par
+\par
+\f1\tab\f0 The CORE ALL command will maximize all parameters [if possible].\f1  \tab\f0 Assuming \f1 additional \f0 memory is available, it is possible to limit \f1\tab\f0 access to additional memory by\f1  \f0 setting an explicit upper limit \f1\tab\f0 using CORE 0 through CORE 7 as required.  An\f1  \f0 error message will \f1\tab\f0 be issued if an attempt is made to enable non-existent\f1  \f0 memory.\par
+\par
+\f1\tab\f0 Regardless of the setting of the CORE command, if the Logical\f1  \tab\f0 Console Overlay is\f1  \f0 enabled, it will be loaded into [at least] the \f1\tab\f0 highest available memory field.\par
+\par
+\f1\tab\f0 Note: To date, no configuration of the Logical Console Overlay \f1\tab\f0 actually uses\f1  \f0 more than one memory field; this remains a\f1  largely\f0  \f1\tab\f0 theoretic\f1  consideration.\f0\par
+\par
+\f1\tab\f0 For specific configurations of P?S/8, the system device handler \f1\tab\f0 requires the\f1  \f0 use of an extended memory section [loaded during the \f1\tab\f0 bootup process].  This will\f1  \f0 always be located in locations 6000-\f1\tab\f0 7777 of the highest memory field available.\f1   \f0 When this is in \f1\tab\f0 effect, it is not possible to obtain access to the highest\f1  \f0 memory \f1\tab\f0 field.  However, if the Logical Console Overlay is not enabled, \f1\tab\f0 locations\f1  \f0 0000-5777 may be available to certain programs such as \f1\tab\f0 PAL, which will use\f1  \f0 available memory space to support mor\f1 e \tab\f0 symbols during \f1 the \f0 assembly\f1  process\f0 .  As such\f1 , \f0 certain 8K systems \f1\tab\f0 can support a 7K assembly with significantly more symbols\f1  \f0 than \f1\tab\f0 can be processed in 4K of memory.  [PAL will always use\f1  \tab\f0 completely\f1  \f0 available memory fields to allow assembly of programs \f1\tab\f0 with up to 4096 symbols.]\page\cf1\f2 Section 6: User-settable configuration programs [continued].\cf0\f0  \par
+\par
+\f1\tab\f0 [Depending on release specifics, several other system programs \f1\tab\f0 can take\f1  \f0 advantage of additional memory either as a partial or \f1\tab\f0 full memory field.]\par
+\par
+ 3)\f1\tab\f0 DATE [options]\par
+\par
+\f1\tab\f0 The P?S/8 DATE command can be used to set the system date.\f1   \tab\f0 Unlike OS/8, the\f1  \f0 date setting is permanent until changed again.\f1  \tab\f0 When the DATE command is used\f1  \f0 without any options, the current \f1\tab\f0 system date will be displayed.\par
+\par
+\f1\tab\f0 Certain specific dates have associated \i message-of-the-day\i0  \f1\tab\f0 information.  A\f1  \f0 limited ability to add user-preference additional \f1\tab\f0 messages is available [which\f1  \f0 cannot override the permanent \f1\tab\f0 messages].\par
+\par
+\f1\tab\f0 Certain system programs support current date information in the \f1\tab\f0 associated\f1  \f0 output.  See Note 8.\par
+\par
+\f1\tab\f0 The implementation of the DATE command is\f1  currently\f0  under\f1  \tab\f0 development.  See Note 8.\par
+\par
+ 4)\f1\tab\f0 CONSOL\f1\{\f0 e\f1\}\f0  [options]\par
+\par
+\f1\tab\f0 The Logical Console Overlay can be enabled or disabled by the \f1\tab following \f0 commands:\par
+\par
+\f1\tab\f0 CONSOL\f1\{\f0 E\f1\}\f0  \f1 /E\cf1\f2\tab\tab This enables the Logical Console Overlay.\cf0\f0\par
+\par
+    \f1\tab\f0 CONSOL\f1\{\f0 E\f1\}\f0  \f1 /D\tab\tab\cf1\f2 This disables the Logical Console Overlay.\cf0\f0\par
+\par
+\f1\tab\f0 See Note 9.\par
+\par
+\f1\tab\f0 The configuration of the Overlay can be updated by passing binary \f1\tab\f0 files that are\f1  \f0 specially written for the purpose.  while these \f1\tab\f0 files are ordinary TFS binary\f1  \f0 files, they are heavily checked for \f1\tab\f0 compatibility with the Overlay mechanism to\f1  \f0 prevent internal \f1\tab\f0 corruption.\par
+\par
+\f1\tab\f0 Configurations are available for a variety of alternate console \f1\tab\f0 devices such as\f1  \f0 console terminals with device codes other than \f1\tab\f0 the standard 03/04 [which can\f1  \f0 allow a remote console terminal].\f1\tab\f0 The VT8E is a featured device and includes\f1  \f0 special display \f1\tab\f0 emulation designed for use with the keyboard monitor.\par
+\par
+\f1\tab\f0 Additional devices can be supported such as the VR12/VR14 on the \f1\tab\f0 PDP-12.\page\cf1\f2 Section 6: User-settable configuration programs [continued].\cf0\f0  \par
+\par
+\f1\tab\f0 A unique feature of the Logical Console Overlay is interaction \f1\tab\f0 with the system\f1  \f0 device handler on a customized basis.  Each \f1\tab\f0 system device handler provides\f1  \f0 error and/or performance intercept \f1\tab routines\f0  to allow the Overlay to improve\f1  \f0 performance in specific \f1\tab\f0 ways [such as implementing dynamic initial\f1  \f0 search direction \f1\tab\f0 support on PDP-12 LINCtape systems] and in all cases the\par
+\f1\tab\f0 Overlay interacts with\f1  detected\f0  device errors.  This allows the \f1\tab\f0 user to make the required\f1  \f0 decisions with regard to the\f1  \tab\f0 disposition of device errors.\par
+\par
+\f1\tab\f0 Note: Users of\f1  \f0 MS-DOS \f1 may\f0  recognize this as the precurs\f1 o\f0 r to the \f1\tab\f0 familiar \i Abort, Retry, Fail\i0  dialogue, but actually it has its\f1  \tab\f0 roots in the ADSS/9 system IOPS4 support.\par
+\par
+\f1\tab\f0 On the LINC-8 with 8K, the Overlay can use the small\f1  \f0 oscilloscope \f1\tab\f0 display for handling device errors; it is somewhat impractical \f1\tab\f0 for\f1  \f0 a complete console display\f1 .  The PDP-12 supports half-size \tab characters which provides a more resolute display.  \f0 On\f1  \f0 devices \f1\tab\f0 that \f1 use\f0  terminal emula\f1 tion\f0  such as the VT8E, the screen\f1  \f0 contents \f1\tab\f0 will be changed to the\f1  \f0 device error handler; when the error is\f1  \tab\f0 dismissed, the normal terminal screen return\f1 s\f0 .\par
+\par
+\f1\tab\f0 The Logical Console Overlay also configures the system line\f1  \tab\f0 printer for all\f1  \f0 Overlay sessions.  A variety of devices can be \f1\tab\f0 supported including serial\f1  \f0 printers that require reverse channel \f1\tab C\f0 ontrol-S/\f1 C\f0 ontrol-Q support and/or\f1  \f0 character buffering.\par
+\par
+\f1\tab\f0 Note: OS/8 cannot drive a parallel line\f1  \f0 printer to faster\f1  t\f0 han \f1\tab\f0 about 300 LPM regardless of printer capability.  The P?S/8 \f1\tab\f0 Logical Console\f1  \f0 Overlay provides buffering that allows at least \f1\tab\f0 1200 LPM on printers capable of\f1  \f0 high-speed output when properly \f1\tab\f0 buffered.  Most programs lack the sophistication\f1  \f0 to drive a line\f1  \tab\f0 printer beyond that obtained by simplistic output routines.\par
+\par
+\f1\tab\f0 A logical interrupt handler is available to interface the Logical \f1\tab\f0 Consol\f1 e \f0 Overlay with interrupt-driven programs such as P?S/8 \f1\tab\f0 FOCAL.  By calling the\f1  \f0 logical interrupt handler first, logical \f1\tab\f0 devices can be handled on an interrupt\f1  \f0 basis correctly.  All\f1\tab\f0 input and output to the console device and the line\f1  \f0 printer\par
+\f1\tab\f0 [and reverse channel support] are handled.\par
+\par
+\f1\tab\f0 The default configuration for the Logical Console Overlay\f1  uses \tab\f0 the device\f1  \f0 03/04 standard console device and the device 66 \f1\tab\f0 standard line\f1  \f0 printer without\f1  \f0 reverse channel support [with \f1\tab\f0 internal line\f1  \f0 printer buffering].  This will \f1 function\f0  on\f1  \f0 all \f1\tab\f0 system configurations and will enable the interaction with the \f1\tab\f0 system device\f1  \f0 handler.\par
+\par
+\f1\tab\f0 Note: Since configuration updates are permanent, binary files are\f1\tab\f0 available to revert the configuration\f1  \f0 to the standard\f1  \f0 release.\page Section 7: Batch and advanced system utilities.\par
+\par
+ 1)\f1\tab\f0 BATCH [options]\par
+\par
+\f1\tab\f0 P?S/8 BATCH runs on all P?S/8 configurations as an overlay to the \f1\tab\f0 keyboard\f1  \f0 monitor.  Command input is taken from the contents of \f1\tab\f0 passed input files.  A\f1  \f0 command-line option \f1 enables \f0 checkpointing \f1\tab\f0 of BATCH operations preserv\f1 ing internal status \f0 across system \f1\tab\f0 restarts\f1 ; this\f0  allow\f1 s\f0  fully automated system operations.  [It is\f1\tab\f0 possible for BATCH to initiate another BATCH operation, in which \f1\tab\f0 case the system\f1  \f0 can be put into a deliberate perpetual loop.  \f1\tab\f0 This can be useful for certain\f1  \f0 purposes such as running a \f1 group\f0  \f1\tab\f0 of diagnostics merely by initiating the\f1  \f0 overall process.]\par
+\par
+\f1\tab\f0 Nearly all system programs can run under BATCH in an identical \f1\tab\f0 manner to the\f1  \f0 way they are initiated manually.  For the few \f1\tab\f0 instances where there are issues\f1  [\f0 which invariably are overlay \f1\tab\f0 commands to the keyboard monitor itself], BATCH\f1  \f0 must be initiated \f1\tab\f0 with the checkpointing disabled.  [Under certain\f1  \f0 circumstances, \f1\tab\f0 the checkpointing-disabled mode of BATCH can itself be run under\f1\tab\f0 the checkpointing variant of BATCH.  Thus, even these few \f1\tab\f0 problematic programs\f1  \f0 can be run under BATCH as long as all \f1\tab\f0 considerations are met.\f1 ]\f0\par
+\par
+\f1\tab\f0 The only hard restrictions under BATCH operations are certain \f1\tab\f0 keyboard monitor\f1  \f0 commands and operations requiring control \f1\tab\f0 characters [such as the ability to\f1  \f0 rewind and unload the system \f1\tab\f0 device and the ED\f1\{\f0 it\f1\}\f0  command which is controlled\f1  \f0 by additional \f1\tab\f0 control characters specific to certain ED\f1\{\f0 it\f1\}\f0  operations\f1 ]\f0 .\par
+\par
+\f1\tab\f0 It is possible to perform file edits from BATCH.  A file can have \f1\tab\f0 line\f1 s \f0 update\f1 d\f0  and saved [perhaps as a temporary file].\f1\tab\f0 Conditional assembly can then\f1  \f0 be performed that depends on small \f1\tab\f0 edits to control files changing the outcome\f1  \f0 or scope of the \f1\tab\f0 assembly process.\par
+\par
+\f1\tab\f0 Several keyboard monitor commands have been added which are\f1  \tab\f0 BATCH-oriented such\f1  \f0 as the PL\f1\{\f0 ease\f1\}\f0  command and the ^^ co\f1 m\f0 mand.  \f1\tab\f0 By carefuly controlling the state\f1  \f0 of ECHO [using the EC\f1\{\f0 ho\f1\}\f0  \f1\tab\f0 command]\f1 ,\f0  the output produced during a BATCH session\f1  \f0 can be \f1\tab\f0 carefully controlled [and cosmetically enhanced].\par
+\par
+\f1\tab\f0 The most conventional usage of P?S/8 BATCH is to create a file \f1\tab\f0 containing any\f1  \f0 mix of keyboard monitor commands and program \f1\tab\f0 execution.  This file can be passe\f1 d \f0 to BATCH as an input file\f1 .\f0  \f1\tab A\f0 ll of the commands will be carried out in sequence.\f1   [/E is \tab required if program execution is used with additional command \tab lines contained in the BATCH control file.]\page\cf1\f2 Section 7: Batch and advanced system utilities [continued].\cf0\f0\par
+\par
+ 2)\f1\tab\f0 DUMP [options]\par
+\par
+\f1\tab\f0 P?S/8 DUMP is a small versatile program to display the contents \f1\tab\f0 of any block on\f1  \f0 any logical unit of the system device.  It is \f1\tab\f0 also possible to transfer a group\f1  \f0 of blocks from any block on any \f1\tab\f0 logical unit to other blocks on any logical\f1  \f0 unit.  The latter \f1\tab\f0 operation must be done cautiously as serious damage can occu\f1 r \f0 to \f1\tab\f0 the system if the wrong blocks are accessed!\par
+\par
+\f1\tab\f0 DUMP can also modify the contents of any block.  Caution must be \f1\tab\f0 observed as\f1  \f0 serious damage can occur to the system if incorrect \f1\tab\f0 modifications are made.\par
+\f1\tab\par
+\tab\f0 DUMP can also take control files to automate DUMP operations.  \f1\tab\f0 See Note 10.\par
+\par
+ 3)\f1\tab\f0 BLKODT [options]\par
+\par
+\f1\tab\f0 P?S/8 BLKODT allows access [and optional update] to any logical \f1\tab\f0 block on any\f1  \f0 logical unit using the command environment of ODT \f1\tab\f0 [where applicable; there are\f1  \f0 no execution or breakpoint-oriented \f1\tab\f0 commands].  As in the case of P?S/8 DUMP,\f1  \f0 BLKODT should be used \f1\tab\f0 carefully as making incorrect modifications can cause\f1  \f0 damage to \f1\tab\f0 the system.\par
+\par
+\f1\tab\f0 Unlike DUMP, BLKODT can display the contents of blocks in \f1 a \tab variety of \f0 formats\f1 .  Output format control is identical to the\par
+ \tab P?S/8 ODT implementation.  See Notes 11 and 12.\par
+\par
+ \f0 4)\f1\tab\f0 BLKCPY [options]\par
+\par
+\f1\tab\f0 P?S/8 BLKCPY\f1  is a universal block-oriented copy/compare program.  \tab All blocks are addressed by using P?S/8 non-system device \tab handers.\par
+\par
+\tab Note: Currently, P?S/8 BLKCPY is the only system program that \tab makes use of non-system device handlers.\par
+\par
+\tab\f0 Any block on any supported device can be copied [or\f1  compared\f0 ] to \f1\tab\f0 any block on any other supported device.  The syntax is similar \f1\tab\f0 to\f1  \f0 command-decode lines as used in OS/8 except all references are \f1\tab\f0 to absolete\f1  \f0 blocks instead of files.  Blocks can be selected \f1\tab\f0 either by specifying a range\f1  \f0 of blocks [starting through end \f1\tab\f0 block] or by a starting block and an =xxxx\f1  \f0 expression\f1  as the\f0  \f1\tab\f0 count of blocks to copy.\page\cf1\f2 Section 7: Batch and advanced system utilities [continued].\par
+\cf0\f0\par
+\f1\tab\f0 Command syntax uses either \cf2\highlight1\f1 <\cf0\highlight0\f0  or \cf2\highlight1\f1 >\cf0\highlight0\f0  to indicate the direction of \f1\tab\f0 the transfer.\f1   \f0 The user can choose which ever "direction" of the \f1\tab\f0 copy operation is more \f1 meaningful\f0 .\f1   \f0 Unless a command-line option \f1\tab\f0 is given to supress comparison, all blocks copied\f1  \f0 are read-\f1\tab\f0 verified at the individual word level.\par
+\par
+\f1\tab BLKCPY \f0 can also perform an absolute compare on groups of blocks \f1\tab\f0 by using \cf2\highlight1\f1 !\cf0\highlight0\f0  as the separator [in which case no blocks are\f1  \tab\f0 written].  See Note 13.\par
+\par
+\f1\tab\f0 BLKCPY always attempts to allocate maximum available memory to \f1\tab improve throughput\f0 .  If 12K of memory is available, BLKCPY can\par
+ \f1\tab\f0 copy one DECtape to another faster than by any other method \f1\tab\f0 including the\f1  \f0 standard DTCOPY program [which cannot verify the \f1\tab\f0 copy operation].\par
+\par
+\f1\tab\f0 BLKCPY can be automated by passing control files containing \f1\tab\f0 BLKCPY commands.\par
+\par
+\f1\tab\f0 Future implementations of BLKCPY will work with the new double-\f1\tab\f0 precision\f1  \f0 non-system\f1  device\f0  handlers planned for use with the\par
+\f1\tab\f0 P?S/8 SHELL to allow humongous\f1  \f0 device support.\page Section 8: System utilities that create reports.\par
+\par
+ 1)\f1\tab\f0 DIRECT [options]\par
+\par
+\f1\tab\f0 P?S/8 DIRECT is a utility program to report the contents of TFS \f1\tab\f0 directories on\f1  \f0 specified logical\f1  device\f0  units.  Various file\par
+\f1\tab\f0 filters are available to tailor the\f1  \f0 output if desired.  Optional \f1\tab\f0 enhancements can show specific file type if desired\f1  \f0 independent \f1\tab\f0 of optional file filters chosen].  See Note 14.\par
+\par
+\f1\tab\f0 DIRECT can also output complete information about all current \f1\tab\f0 system programs\f1  \f0 including specific internal information [some of \f1\tab\f0 which will be dropped from\f1  \f0 support in future releases due to the \f1\tab\f0 development of the P?S/8 SHELL].  The\f1  \f0 output can be formatted in \f1\tab\f0 a var\f1 i\f0 ety of ways and can be directed to the system\f1  \f0 line\f1  \f0 printer \f1\tab\f0 [if available] or the console terminal.  See Note 15.\par
+\par
+ 2)\f1\tab\f0 SYSTAT [options]\par
+\par
+\f1\tab\f0 P?S/8 SYSTAT outputs a variety of system configuration parameters \f1\tab\f0 including the\f1  \f0 availability of EAE and the CPU type.  The status \f1\tab\f0 of the Logical Console Overlay\f1  \f0 is reported both with regard to\f1  \tab\f0 its internal configuration as well as whether it\f1  \f0 is enabled.  See \f1\tab\f0 Note 16.\par
+\par
+\f1\tab\f0 Note: Certain items reported in SYSTAT are being phased out due \f1\tab\f0 to the\f1  \f0 development of the P?S/8 SHELL.\page Section 9: Conversion utilities.\par
+\par
+ 1)\f1\tab\f0 OS8CON [options]\par
+\par
+\f1\tab\f0 P?S/8 OS8CON is a bi-directional conversion program to either \f1\tab\f0 read or write OS/8\f1  \f0 file\f1  data\f0  on media that can be read by the \f1\tab\f0 system device\f1  hander\f0  [such as DTA1: which is\f1  \f0 logical unit 1\f1  of \tab the \f0 P?S/8 system\f1  device handler for \f0 DECtape].  See Note 17.\par
+\par
+\f1\tab\f0 P?S/8 input files can be any mix of TFS text files and extended-\f1\tab\f0 length text\f1  \f0 files as necessary.  The OS/8 target can be specified \f1\tab\f0 in terms of command-line\f1  \f0 options to select the logical unit and \f1\tab\f0 the =xxxx construct which specifies th\f1 e \f0 starting OS/8 record [NOT \f1\tab\f0 the P?S/8 logical block].\par
+\par
+\f1\tab\f0 Converting to P?S/8 output files is selected by specifying output \f1\tab\f0 files instead\f1  \f0 of input files.  A list of TFS output files can be\f1\tab\f0 specified.  By the use of a\f1  \f0 specific command-line option, a list \f1\tab\f0 of extended-length files can be used for\f1  \f0 extremely large files.\par
+\par
+\f1\tab\f0 After all conversions, the count of output files created is \f1\tab\f0 reported.  [In the\f1  \f0 case of converting to OS/8 format, the count \f1\tab\f0 is always one.]\par
+\par
+\f1\tab\f0 No OS/8 directory operations are performed.  Assuming the file is \f1\tab\f0 written to an\f1  \f0 otherwise empty OS/8 device [such as DTA1:] the \f1\tab\f0 following OS/8 PIP commands can\f1  \f0 produce a proper directory\f1  entry\f0 :\par
+\par
+\f1\tab\f0 .R PIP\par
+\f1\tab\f0 *DTA1:</Z\par
+\f1\tab\f0 *DTA1:FOOBAR.PA</I=xxxx\f1\tab\cf1\f2 xxxx is any large record count [1000]\cf0\f1\tab\f0 *DTA1:FOOBAR.PA<DTA1:FOOBAR.PA/D/A\par
+\par
+ 2)\f1\tab\f0 L6DCON [options]\par
+\par
+\f1\tab\f0 L6DCON is a bi-directional conversion program to either read or \f1\tab\f0 write LAP6-DIAL\f1 /DIAL-MS \f0 text files on 256 words/block LINCtapes.  \f1\tab\f0 All program usage is modeled on\f1  \f0 the OS8CON program.\par
+\par
+\f1\tab\f0 The default DIAL parameters are logical unit 1 and the default \f1\tab\f0 block where the\f1  \f0 DIAL edit buffer is located.  It is recommended \f1\tab\f0 to use absolute block 0000 on\f1  \f0 an empty DIAL tape in case the file \f1\tab\f0 exceeds DIAL's maximum editable file size.\par
+    \par
+\f1\tab\f0 Note: If the file will be edited in the DIAL environment, the \f1\tab\f0 file must be\f1  \f0 broken down into small sections, and the DIAL \f1\tab\f0 assembler CHAIN option will\f1  \f0 be required to actually assemble the \f1\tab\f0 composite text of the original source\f1  \f0 code.\page\cf1\f2 Section 9: Conversion utilities [continued].\par
+\cf0\f0\par
+\f1\tab\f0 No DIAL directory operations are performed\f1 ; h\f0 owever, DIAL \f1\tab\f0 includes commands to\f1  \f0 directly access programs by absolute \f1\tab\f0 starting block.\par
+\par
+\f1\tab\f0 Note: The development of\f1  \f0 DIAL-MS was largely performed using \f1\tab\f0 DIAL10, a variant of PAL10 that only runs on\f1  \f0 the \f1 PDP-10 \f0 TOPS\f1 -1\f0 0\f1  \tab operating system.  \f0 Like the DIAL assembler itself [as\f1  \f0 well as the \f1\tab\f0 P?S/8 PAL assembler], DIAL10 supports dual mode\f1  PDP-8 and LINC\f0  \f1\tab mode \f0 assembly and is 100%\f1  \f0 compatible with DIAL source code\f1  files\f0 .  \f1\tab\f0 Particularly long files were edited only on\f1  TOPS-10 then brought \tab to the DIAL environment for the purpose of producing binary \tab output for testing.  The obscure feature of direct access by \tab starting block number was retained in released versions of LAP6-\tab DIAL and DIAL-MS.\par
+\par
+\tab\f0 L6DCON is only available on PDP-12 and LINC-8 systems; internal \f1\tab device \f0 handlers\f1  are used as required.\page\f0 Section 10: Miscellaneous utilities.\par
+\par
+\f1\tab Note: \f0 Depending on the system device and/or intended potential \f1\tab\f0 system target, additional\f1  \f0 hardware-dependent programs may be \f1\tab\f0 supplied.  The programs listed here are generally\par
+\f1\tab\f0 supplied on TC01/TC08/TU55/TU56-based systems only.\par
+\par
+ 1)\f1\tab\f0 DT4MAT [options]\par
+\par
+\f1\tab\f0 DT4MAT [also known as DTFRMT] is an adaptation of the TOG-8 \f1\tab\f0 DECtape formatting\f1  \f0 program from DEC.  It is slightly enhanced \f1\tab\f0 over the standard DEC \f1 v\f0 ersion to\f1  \f0 allow the creation of custom-\f1\tab\f0 length DECtapes; the accepted alternate standard\f1  \f0 length is 3300 \f1\tab\f0 blocks which compares well with the standard length of PDP-8\par
+    \f1\tab\f0 LINCtapes as used on the PDP-12.\par
+\par
+\f1\tab\f0 Note: Only premium DECtapes can achieve this\f1  \f0 extended length; at \f1\tab\f0 least 40% of all DECtapes will not be able to be formatted\f1  to\f0  \f1\tab\f0 this length, but many tapes in good condition will pass \f1\tab\f0 certification.\par
+\par
+\f1\tab Non-standard lengths are achieved using a command-line option.  \tab See Note 18.\par
+\f0\par
+ 2)\f1\tab\f0 DTCOPY\par
+\par
+\f1\tab\f0 DTCOPY is the standard DECtape copying program \f1 as released by\f0  \par
+\f1\tab\f0 DEC.  It can copy a complete\f1  \f0 PDP-8 or PDP-10 [and all other \f1\tab\f0 formats as used on other machines that are\par
+    \f1\tab\f0 compatible with this tape format] in 4K of memory using a three-\f1\tab\f0 pass scheme\f1  \f0 where the tapes are read and written on all six \f1\tab\f0 phases of tape motion.  [Certain\f1  \f0 blocks are read and written \f1\tab\f0 backwards.]\par
+\par
+ 3)\f1\tab\f0 RK4MAT\par
+\par
+\f1\tab\f0 RK4MAT [also known as RKFRMT] is the standard DEC formatting \f1\tab\f0 program for the\f1  \f0 RK8E/RK8F/RKS8E controller and RK05/RK05F drives\f1 ; \tab certain patches have been made to allow operation on pre-Omnibus \tab machines with the RK8F/DW8E.\f0   It is provided as an\f1  \f0 accommodation \f1\tab\f0 to systems with only a single RK05 drive as well as DECtape to\f1\tab\f0 allow the RK05 drive to more easily be unloaded and then mounted \f1\tab\f0 with new media\f1  \f0 that requires reformatting.  [P?S/8 RK-based \f1\tab\f0 systems always include this utility\f1  \f0 as a standard complement of \f1\tab\f0 that configuration.]  See Note 19.\par
+\par
+ 4)\f1\tab\f0 Additional utilities are provided on various P?S/8 configurations \f1\tab\f0 generally to\f1  \f0 support hardware-dependent utilities such as disk \f1\tab\f0 formatting utilities.  See\f1  \f0 Note 20.\page\f1 Footnotes.\f0\par
+\par
+\f1  \f0 1)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  does not support the <ESC> \f1\tab\f0 character asa command\f1  \f0 delimiter.\par
+\par
+ 2)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  does not completely \f1\tab\f0 support\f1  \f0 all options of the PRINT\f1  \f0 command.\par
+\par
+ 3)\f1\tab\f0 The R or RU\f1\{\f0 n\f1\}\f0  commands when used with % or $\f1  [to execute the \tab field 0 virtual image]\f0  are not available in the 1976\f1  \f0 release of \f1\tab\f0 P?S/8\f1  [Version 8P]\f0 .\par
+\par
+ 4)\f1\tab\f0 Extended-length files can be created by the OS8CON program from \f1\tab\f0 OS/8 format text\f1  \f0 input.  If necessary, the OS/8 format can be \f1\tab\f0 used as an intermediary format for\f1  \f0 creating an extended-length \f1\tab\f0 file from a stream of TFS text input files as a\f1  \f0 first step.\par
+\par
+\f1\tab\f0 In the\f1  case of the\f0  1976 release of P?S/8\f1  [Version 8P]\f0 , the OS/8 \f1\tab\f0 format text data can be\f1  \f0 created by either the CONVRT or BIGCON \f1\tab\f0 prog\f1 r\f0 am\f1 s\f0 .\par
+\par
+\f1\tab However, t\f0 he creation of extended-length\f1  \f0 files in the 1976 \f1\tab\f0 release of P?S/8\f1  [Version 8P]\f0  can only be accomplished by a crude \f1\tab\f0 method\f1  using BIGCON.  This involves\f0  \f1 assigning\f0  a \f1 specific \f0 TFS file\f1  \tab output file\f0  to be considered the \f1 designated\f0  file name\f1  of the \tab extended-length file.  T\f0 he rest of the storage on the \f1 designated \tab\f0 device is used\f1  to store \f0 the\f1  \f0 extended-length file.\par
+\par
+\f1\tab\f0 This is a hazardous operation and requires the front\f1  \f0 panel switch \f1\tab\f0 register set to the limiting value for extended-length file\f1\tab\f0 creation.  For example, it would be recommended to use a logical \f1\tab\f0 unit where the\f1  \f0 first [and only] file name in the directory will\f1  \tab\f0 be used to \f1 create and \f0 access the\f1  \f0 extended-length file.\par
+\par
+\f1\tab\f0 For a standard DECtape-based system, the switch register\f1  \tab\f0 should be set to 2700.  Assuming the only entry in the TFS \f1\tab\f0 directory is named\f1  EXTFIL\f0  and the first available block for the \f1\tab\f0 TFS directory on that device is 0500,\f1  \f0 this would mean the \f1\tab\f0 extended-length file for that logical unit could be as\f1  \f0 large as \f1\tab\f0 0500-2677; \f1 maximum \f0 lengths must be set to whole multiples of 10 \f1\tab\f0 octal blocks.\par
+\par
+\f1\tab\f0 For truly humongous OS/8 source file conversion, multiple \f1\tab\f0 extended-length files\f1  \f0 may be created on multiple logical units.  \f1\tab\f0 Regardless of system release or\f1  \f0 access to the extended-length \f1\tab\f0 files, up to eight extended-length files can\f1  \f0 be passed to P?S/8 \f1\tab\f0 system program\f1 s\f0  [presumably P?S/8 PAL for\f1  the purpose of an \tab extremely long assembly\f0 ].\page\cf3\f2 Footnotes [continued].\par
+\cf0\f0     \par
+\f1\tab All \f0 known PDP-8 programming project\f1 s\f0  require\f1  less storage than \tab this provides\f0 ; the longest\f1  \f0 program in the experience of the \f1\tab\f0 author of this document\f1  [the principal developer of P?S/8]\f0  \f1 would \tab require\f0  three such\f1  \f0 extended-length files\f1 .  This\f0  would be\f1  \f0 roughly \f1\tab\f0 the equivalent of 48 TFS text files\f1  \f0 for \f1 a single\f0  assembly.\par
+\par
+\f1\tab\f0 The\f1  \f0 source files of P?S/8 were developed using PAL8 during a \f1\tab significant \f0 portion of\f1  its overall\f0  development\f1  timeframe\f0  wh\f1 i\f0 ch \f1\tab\f0 spans several decades\f1 ; early development made use of\f0  PAL10 on a\f1  \tab PDP-10 \f0 TOPS\f1 -\f0 10 time-sharing system.\par
+\par
+\f1\tab\f0 At no time after an early release of P?S/8 PAL [prior to the 1976 \f1\tab\f0 release of\f1  \f0 P?S/8] became available as the then-current release of \f1\tab\f0 P?S/8 PAL, was P?S/8 PAL\f1  \f0 not up to the task of assembling all \f1\tab\f0 portions of the then-current P?S/8 source\f1  \f0 code; however, various \f1\tab improvements\f0  have been \f1 made\f0  over the years that affected\f1  the \tab assembly of\f0  even larger projects.\par
+\par
+\f1\tab\f0 In one notable case, the source code had\f1  \f0 to be \f1 radically modified\f0  \f1\tab\f0 to allow \f1\tab\f0 OS/8 PAL8 to create slightly\f1  \tab\f0 incompatible output due \f1\tab\f0 to\f1  \f0 lack of support for conditional literals; infrequently, manual \f1\tab\f0 effort was\f1  \f0 expended to synchronize the source code by observing \f1\tab\f0 the output\f1  generated by\f0  P?S/8 PAL\f1 .  C\f0 onditional assembly \f1 methods \tab were used \f0 to \f1 force\f0  the output from PAL8\f1  \f0 to be binary-consistent \f1\tab\f0 with the P?S/8 PAL output by the use of\f1  \f0 statically-determined \f1\tab\f0 page zero literals instead of\f1  \f0 conditional literals.\par
+\par
+\f1\tab Since PAL8 can only work with static definitions to create page \tab zero literals, the source code [when assembled by PAL8] is always \tab in danger of being \tab inconsistent with the programmers' \tab intentions; this project could not have been successfully \tab developed without P?S/8 PAL.\par
+\par
+\tab Note: Conditional assembly can be written to allow program \tab sections to only assemble on P?S/8 PAL; as such, certain sections \tab of this program were written for separate PAL8 and P?S/8 assembly \tab as required.  Only one master source file is needed when this \tab technique is used.\f0\par
+\par
+\f1\tab\f0 Still newer releases of P?S/8\f1  [projected to be first released as \tab part of P?S/8 Version 9A]\f0  will change the internal directory \f1\tab\f0 structure to\f1  \f0 streamline the support for extended-length files as \f1\tab\f0 described here.  A vestigial\f1  \f0 effort was once attempted to allow \f1\tab\f0 multiple extended-length files, but this was\f1  \f0 never completed.  \f1\tab\par
+\par
+\tab\f0 Since the P?S/8 SHELL is now contemplated to perform \f1 this \tab function and much more [\f0 and will have its own unified directory \f1\tab\f0 structure]\f1 ,\f0  the\f1  \f0 remnants of the vestigial support will be removed \f1\tab\f0 from the basic P?S/8 syste\f1 m\f0 .\page\cf3\f2 Footnotes [continued].\par
+\cf0\f1\par
+\tab Future releases will support one \f0 extended-length file per logical \f1\tab\f0 unit.  \f1 Extended-length f\f0 ile name maintenance will be added to\f1\tab\f0 the SET \f1 utility program\f0 .\par
+\par
+\f1\tab\f0 Note: Presently extended-length file names must be created\f1\tab\f0 manually using P?S/8 DUMP or BLKODT.  To prevent file name \f1\tab\f0 anomaly, the\f1  \f0 extended-length file should be set to a unique name, \f1\tab\f0 as any TFS file name on the\f1  \f0 same logical unit will always have \f1\tab\f0 preference.  While extended-length file\f1  \f0 renaming is seldom \f1\tab required\f0 , the proposed method will allow any level of P?S/8\f1  \f0 user \f1\tab the ability \f0 to perform this minimal function.  Once named, \f1\tab\f0 extended-length files are\f1  \f0 passed to system programs in an \f1\tab\f0 identical manner as TFS files.]\par
+\par
+ 5)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  ha\f1 s\f0  limited support for \f1\tab\f0 ASCII text paper-tapes by use\f1  \f0 of the HR\f1\{\f0 reader\f1\}\f0  command.  This \f1\tab\f0 facility \f1 was\f0  removed in later releases.\par
+\par
+\f1\tab\f0 Since paper-tape has had a resurgence of popularity [often \f1\tab\f0 because this is the\f1  \f0 only way to pass text files to P?S/8 when \f1\tab\f0 running the SIMH simulator and wishing\f1  \f0 to avoid using OS/8's \f1\tab\f0 paper-tape device handler as part of an intermediary\f1  \f0 solution], a \f1\tab\f0 simple utility [compatible with all releases of P?S/8] is\f1  \tab\f0 contemplated to more effectively solve this problem, which is \f1\tab\f0 tentatively known as PTUTIL.  For more information on \f1\tab\f0 PTUTIL, \f1\tab\f0 consult \f1 Appendix D\f0  of\f1  \f0 the \b P?S/8 Keyboard Monitor/Editor\par
+    Commands and Additional Information\b0  document available \f1\tab\f0 separately.\par
+\par
+ 6)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  does not support the \f1\tab\f0 FILMAN utility; certain \f1 necessary internal \f0 features\f1  \f0 of the \f1\tab\f0 keyboard monitor were not\f1  \f0 available until developed years later.\par
+\par
+ 7)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  uses the VARY \f1 program\f0  to \f1\tab\f0 perform most of the\f1  functions of the SET utility\f0 ; the \f1 commmand \tab\f0 syntax is generally \f1 similar\f0  [if a\f1 pplicable\f0 ].  VARY /A can be\par
+\f1\tab\f0 used to show all options implemented.\par
+\par
+ 8)\f1\tab B\f0 oth the 1976\f1  [Version 8P]\f0  and 1989 \f1 [Version 8Z] \f0 release\f1 s\f0  of \f1\tab\f0 P?S/8\f1  \f0 date support\f1  \f0 an algorithm that\f1  provides for an \f0 1\f1 1 \f0 year \f1\tab\f0 range of dates passed in memory as an internal\f1  \f0 parameter of the \f1\tab\f0 system kernel.  System dates are ordinarily unique to within\f1\tab\f0 any date within an eight-year period\f1 ; b\f0 y providing the anomaly \f1\tab\f0 of this method,\f1  \f0 adjustment of the base year [originally set to \f1\tab\f0 1960] could be deferred by nearly\f1  \f0 four years after the system \f1\tab\f0 changes \f1 could first\f0  be made.\page\cf3\f2 Footnotes [continued].\par
+\cf0\f0\par
+\f1\tab\f0 The \f1 i\f0 mplementation of th\f1 is\f0  method was at an early stage of \f1\tab\f0 development when the\f1  \f0 1976 version of P?S/8\f1  [Version 8P]\f0  was \f1\tab created\f0 .  As such, the DATE command prevents setting\f1\tab\f0 any date \f1\tab\f0 outside of the range of 1976 through 1986.\par
+\f1\par
+\tab\f0 By the release\f1  of P?S/8 Version 8Y\f0 , all system programs that \f1\tab\f0 conform to the date\f1  \f0 mechanism define internal storage locations \f1\tab\f0 allowing adjustment of the base date\f1 ; this \f0 allow\f1 s manual patching \tab of any date range from 1960 through\f0  2087.\par
+\par
+\f1\tab\f0 Future releases of P?S/8 will abandon this method entirely.  The \f1\tab\f0 new base date\f1  \f0 is 01-Jan-1900 and the entire date is available in \f1\tab\f0 the system kernel in an\f1  1\f0 8-bit form\f1 at\f0 .  As such, all programs \f1\tab\f0 will be modifed to obtain the date directly\f1  \f0 without restriction.\par
+\f1\par
+\tab\f0 By enlarging the supported date range to 1900 through 2411, all \f1\tab\f0 relevant file\f1  \f0 dates from the twentieth century well into the \f1\tab\f0 future [as of this writing] are\f1  \f0 supported.\par
+\par
+\f1\tab\f0 While basic P?S/8 TFS files do not support file dates, the P?S/8\f1\tab\f0 SHELL directory will fully support the expanded date support.  As \f1\tab\f0 such, P?S/8\f1  \f0 date support will be more useful than OS/8, unix and \f1\tab\f0 other systems, especially\f1  \f0 for existing computer files from the \f1\tab\f0 1960s and the 1970s [which cannot be\f1  \f0 supported by most of the \f1\tab\f0 "modern" operating systems in use today].\par
+\par
+ 9)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  only supports the VT8E and \f1\tab\f0 cannot be configured.\f1   \f0 The\f1  \f0 program is \f1 managed\f0  by\f1  use of\f0  the VT \f1\tab\f0 [O\f1 N\f0 ] or VT [OFF] command\f1 s as required\f0 .\par
+\par
+10)\f1\tab\f0 The 1976 release of P?S/8 DUMP does not support control files.\par
+\par
+11)\f1\tab\f0 The BLKODT \f1 user interface \f0 is available for 256 words/block\f1  \tab\f0 LINCtapes using a\f1  \f0 derivative program called LTBODT.  This program \f1\tab\f0 can only run on the PDP-12 or\f1  \f0 LINC-8 and uses internal handlers \f1\tab\f0 to determine the appropriate access to \f1 256 words/block \f0 LINCtapes.\par
+\par
+12)\f1\tab\f0 BLKODT is not available on the 1976 release of P?S/8\f1  [Version \tab 8P]\f0 .\par
+\par
+13)\f1\tab\f0 BLKCPY is based on SYSCPY which can only support the system \f1\tab\f0 device and all\f1  \f0 logical units.  For backward compatibility, BLKCPY \f1\tab\f0 has a pseudo-device called\f1  \f0 SYS\i\f1 x\i0 : [where \i x \i0 is the desired logical \tab unit in the range of 0 through 7]\f0  to allow the former operations \f1\tab\f0 [by indirectly calling the system device\f1  \f0 handler].\par
+\par
+\f1\tab\f0 BLKCPY is not available on the 1976 release of P?S/8\f1  [Version \tab 8P]\f0 ; however, \f1 a very early [and incompatible] release of \f0 SYSCPY \f1\tab\f0 is\f1  \f0 supported.\page\cf3\f2 Footnotes [continued].\par
+\cf0\f0\par
+14)\f1\tab The \f0 DIRECT\f1  utility\f0  is not available on the 1976 release of P?S/8\f1  \tab [Version 8P]\f0 .\par
+\par
+15)\f1\tab\f0 In the 1976 release of P?S/8\f1  [Version 8P]\f0 , certain information \f1\tab\f0 about available system\f1  \f0 programs is obtained using the SYSTYP \f1\tab\f0 program which was dropped in \f1 future releases in favor of the\tab\f0 DIRECT\f1  program used with the /S option]\f0 .\par
+\par
+16)\f1\tab\f0 The SYSTAT utility is not available \f1 in\f0  the 1976 release of P?S/8\f1  \tab [Version 8P]\f0 .\par
+\par
+17)\f1\tab\f0 OS8CON is not available \f1 in\f0  the 1976 release of P?S/8\f1  [Version \tab 8P]\f0 .  CONVRT and BIGCON are\f1  \f0 used as necessary to accomplish the \f1\tab\f0 same basic functionality.\par
+\par
+\f1\tab\f0 OS8CON is based\f1  \f0 on the design of both of these programs with \f1\tab\f0 newer support for extended-length\f1  \f0 files\f1  \f0 not available \f1 in \f0 the 1976 \f1\tab\f0 release.  For more information, see\f1  \f0 Note 4 above.\par
+\par
+18)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  only supports the standard \f1\tab\f0 DECtape formatting program.\par
+\par
+19)\f1\tab\f0 The 1976 release of P?S/8\f1  [Version 8P]\f0  does not including the \f1\tab\f0 RK4MAT program.\par
+\par
+20)\f1\tab\f0 The \f1 surviving \f0 1976\f1  DECtape\f0  release of P?S/8 includes several \f1\tab\f0 programs that are not part of the\f1  \f0 original release.\par
+\par
+\f1\tab\f0 UCNVR8 is a program written by Mark J. Hyde of Syracuse\f1  \tab\f0 University to convert\f1  \f0 files on DECtapes between various systems \f1\tab\f0 including P?S/8, OS/8, ADSS-9/15 and\f1  \f0 possibly the Disk Monitor \f1\tab\f0 System on DECtape.  It runs in 4K memory as a\f1  \f0 stand-alone utility \f1\tab\f0 and only supports the TC01/TC08/TU55/TU56 DECtape.  [If run\f1  \f0 on \f1\tab\f0 the PDP-12, the TC12F option is used to access DECtapes; LAP6-\f1\tab\f0 DIAL LINCtapes\f1  \f0 are also supported using the DIAL default edit \f1\tab\f0 buffer only.]\par
+\par
+\f1\tab\f0 UCNVR8 uses a\f1  \f0 unique form of DECtape support where the motion bit \f1\tab\f0 can be maintained; this is\f1  \f0 useful when accessing PDP-9/15\f1  \tab\f0 DECtapes where the next block to be read can be\f1  \f0 accesssed without \f1\tab\f0 tape turnaround.\par
+\par
+\f1\tab\f0 UCNVR8 is a stand-alone utility and need not be a P?S/8 system \f1\tab\f0 program.  It can\f1  \f0 be made more generably available for use on \f1\tab\f0 newer releases of P?S/8 or OS/8\f1  [or LAP6-DIAL/DIAL-MS]\f0 .\par
+\par
+\f1\tab\f0 P?S/8 TFS text files created by UCNVR8 are deficient \'12n that the \f1\tab\f0 internal line\f1  \f0 numbers and text pointers are not created; however, \f1\tab\f0 they are properly accounted\f1  \f0 for thus each file is properly \f1\tab\f0 allocated without overload.\page\cf3\f2 Footnotes [continued].\par
+\cf0\f0\par
+\f1\tab\f0 The NUM program was \f1 also \f0 written by Mark\f1  Hyde\f0  as a partial remedy \f1\tab\f0 to this problem.\f1   \f0 Files are passed to NUM to be read\f1  in and\f0  \f1\tab\f0 corrected to proper TFS standards then\f1  \f0 written \f1 back to the same \tab storage blocks\f0 .\par
+\par
+\f1\tab\f0 Note: \f1 The \f0 NUM\f1  program\f0  is ignorant of P?S/8 output fil\f1 e \tab\f0 conventions; the\f1  \f0 first file in the passed parameter list is used \f1\tab\f0 without regard for input or\f1  \f0 output status.  To within this \f1\tab\f0 proviso, NUM can be run on any P?S/8 release.\par
+\par
+\f1\tab\f0 Charles Lasner pointed out the NUM program is superfluous as the \f1\tab\f0 same results\f1  \f0 can be achieved through the use of a short BATCH \f1\tab\f0 program.  Assume the file\f1  \f0 FOOBAR must have line number \f1\tab\f0 entries created.  Create a control file FOO with\f1  \f0 the single line:\par
+\par
+\f1\tab  \f0 100 SEQUENCE\par
+\par
+\f1\tab Note: \f0 This assumes the 1976 release of P?S/8\f1  [Version 8P]\f0 ; for \f1\tab\f0 all newer releases\f1  \f0 use \f1 L\f0 NUMBER]\par
+\par
+    .BATCH FOO FOOBAR\par
+\par
+\f1\tab This \f0 will put the keyboard monitor into automatic line numbering \f1\tab\f0 mode; the text\f1  \f0 contents of the file FOO\f1 BAR\f0  will be used to create \f1\tab\f0 a complete file in the \f1 edit\f0  buffer.\par
+\par
+\f1\tab\f0 When the BATCH file \f1 finishes\f0 , type control-D\f1  for the 1976 release\f0  \f1\tab\f0 [or control-Z\f1  for\f0  newer releases]\f1  \f0 to end the automatic\f1  line-\tab numbering\f0  mode.  If successful, the \f1 edit\f0  buffer\f1  \f0 can be saved \f1\tab to \f0 any de\f1 s\f0 ired file name on any\f1  \f0 logical unit.\par
+\par
+\f1\tab\f0 The TRAN program was used \f1 to support \f0 the first\f1  \f0 application of \f1\tab\f0 the\f1  \f0 Inter\f1 P\f0 rocessor Buffer [IPB] dual-bus asynchronous transfer \f1\tab\f0 device.  A \f1 PDP-8 \f0 with a high-speed reader provide\f1 d\f0  BIN loader \f1\tab\f0 support to a\f1 nother PDP-8\f0  with only a\f1  T\f0 eletype\f1  Model 33\f0  [and no \f1\tab\f0 storage device].  [The Syracuse University PDP-8 computer lab\par
+\f1\tab\f0 had an odd collection of machines including one with neither a \f1\tab\f0 paper-tape\f1  \f0 reader nor a DECtape storage \f1 device\f0 .  By loading into \f1\tab\f0 the receiving computer a\f1  \f0 BIN loader program [with mod\f1 ified \tab\f0 instructions to match the device code of the\f1  \f0 IPB, this machine \f1\tab\f0 was more useful in the shared environment.\par
+\par
+\f1\tab\f0 TRAN is a\f1  \f0 stand-alone program that can be loaded by any operating \f1\tab\f0 system.  [TRAN was run\f1  \f0 from P?S/8 on a 4K PDP-8 with TC01/TU55 \f1\tab\f0 DECtape and the high-speed\f1  \f0 reader/punch and the server side of \f1\tab\f0 the IPB.]\page\cf3\f2 Footnotes [continued].\par
+\cf0\f0\par
+\f1\tab\f0 Charles Lasner used the IPB to allow a PDP-8/E equipped with a \f1\tab\f0 VT8E to control\f1  \f0 a LINC-8 by modifying PROGOFOP to support the IPB \f1\tab\f0 instead of the device 03\f1  \f0 keyboard\f1  of a Teletype Model 33\f0 .  [\f1 On \tab the \f0 LINC-8\f1 ,\f0  pure LINC mode programs do not support the\f1\tab\f0 teleprinter.]\par
+\par
+\f1\tab\f0 Eventually, the IPB was used to provide device support between \f1\tab\f0 two machines that\f1  \f0 have different storage devices; this allowed \f1\tab\f0 each to have access to the storage\f1  \f0 device of the other.  A common \f1\tab\f0 server program was written to be used on the\f1  \f0 storage-providing \f1\tab [server] \f0 side of the dual interface while device handlers were \f1\tab\f0 used on\f1  \f0 the o\f1 ther\f0  side.\par
+\par
+\f1\tab\f0 Note: There are bootable IBP-based systems for P?S/8 [and OS/8 \f1\tab\f0 can also be\f1  \f0 supported on 8K or larger machines].  Had this system \f1\tab\f0 been available at the time\f1  \f0 the TRAN program was in use, TRAN \f1\tab\f0 would never have been required.]  [Non-system\f1  \f0 handlers\f1  also\f0  exist \f1\tab\f0 for OS/8 IPB access.]\par
+\par
+\f1\tab\f0 It is hoped the IPB becomes the inspiration for a modern\f1  \tab\f0 multi-purpose device\f1  \f0 for the PDP-8 to provide mass storage as \f1\tab\f0 well as potential additional devices\f1  \f0 using a support computer\f1  or \tab "smart" microprocessor\f0 .\par
+\par
+[End-of-file]\par
+\par
+}
+ 

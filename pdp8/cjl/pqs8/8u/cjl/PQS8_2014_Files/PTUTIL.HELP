@@ -1,0 +1,444 @@
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 1
+
+    1                 /       P?S/8 ASCII PAPER-TAPE UTILITY
+    2   
+    3                 /       LAST EDIT:      24-OCT-2015     05:00:00        CJL
+    4   
+    5                 /       MUST BE ASSEMBLED WITH THE '/J' [PAL8 '/F'] OPTION SWITCH CLEAR.
+    6   
+    7                 /       P?S/8 ASCII TEXT-ORIENTED PAPER-TAPE UTILITY TO CONVERT P?S/8 TEXT FILES
+    8                 /       FROM/TO ASCII PAPER-TAPES AS GENERALLY USED IN THE SO-CALLED "PAPER TAPE
+    9                 /       OPERATING SYSTEM" [WHICH IS ACTUALLY JUST A BUNCH OF VAGUELY RELATED
+   10                 /       STAND-ALONE UTILITIES THAT CAN BE USED TO DEVELOP SHORT PDP-8 PROGRAMS AT
+   11                 /       GREAT EXPENSE OF TIME AND EFFORT ON A MACHINE WITHOUT A STORAGE DEVICE].
+   12   
+   13                 /       PTUTIL WAS WRITTEN PRIMARILY TO ENHANCE THE SIMULATED PDP-8 ENVIRONMENT
+   14                 /       IMPLEMENTED IN THE P?S ADVANCED SIMH PACKAGE [PASP], AN ADVANCED
+   15                 /       CONFIGURATION OF THE SIMH PDP-8 SIMULATOR.  BY TAKING ADVANTAGE OF SPECIFIC
+   16                 /       FEATURES ONLY AVAILABLE WHEN RUNNING THE SIMH SIMULATOR FROM RECENT RELEASES
+   17                 /       OF MICROSOFT WINDOWS, THE OVERALL IMPLEMENTATION ALLOWS REALISTIC PDP-8
+   18                 /       PROGRAM DEVELOPMENT.  HOWEVER, P?S/8 [AS CURRENTLY DISTRIBUTED] LACKS AN
+   19                 /       APPROPRIATE MECHANISM TO DIRECTLY INTERFACE WITH FILES OBTAINED FROM THE HOST
+   20                 /       [WINDOWS] ENVIRONMENT.
+   21   
+   22                 /       PRIOR TO THE CREATION OF THE PTUTIL PROGRAM, THE PROCESS REQUIRED THE USE OF
+   23                 /       OS/8 TO RECEIVE THE FILE UNDER DEVELOPMENT VIA THE PTR: HANDLER WHILE ENSURING
+   24                 /       THE LIMITATIONS OF THIS PROCESS DID NOT INTERFERE WITH THE OUTCOME.  [NOTE:
+   25                 /       THE OS/8 HANDLER IS FLAWED; PTUTIL IMPLEMENTS SUFFICIENT FEATURES TO PREVENT
+   26                 /       ANALOGOUS PROBLEMS.]  BY PLACING THE OS/8 FILE ON APPROPRIATE DEVICES [SUCH AS
+   27                 /       DTA1:], THE FILE CAN BE MIGRATED TO P?S/8 USING THE P?S/8 OS8CON [OS/8
+   28                 /       CONVERSION] UTILITY.  FROM OS/8 IT IS THEN POSSIBLE TO BOOT TO P?S/8 IN THE
+   29                 /       SAME SESSION, WHERE OS8CON CAN BE RUN AS PART OF A BATCH PROGRAM INCLUDING
+   30                 /       CREATING AN ASSEMBLY LISTING OF THE FILE PASSED BACK TO THE HOST WINDOWS
+   31                 /       ENVIRONMENT AS THE OUTPUT OF THE SIMULATED DEVICE 66 LINE PRINTER.  WITH THE
+   32                 /       AVAILABILITY OF PTUTIL, OS/8 CAN BE COMPLETELY AVOIDED DURING THE DEVELOPMENT
+   33                 /       PROCESS; P?S/8 BATCH CAN BE RUN AUTOMATICALLY IN AN INFINITE LOOP IF DESIRED
+   34                 /       [SUCH AS WHEN MAKING FREQUENT EDIT/LISTING CYCLES] IN AN EXTENDED DEVELOPMENT
+   35                 /       SESSION.  THE ENTIRE PROCESS CAN BE FULLY AUTOMATED OTHER THAN THE REQUIREMENT
+   36                 /       OF PRESSING CONTROL-E TO EXIT THE SIMH ENVIRONMENT.  [NOTE: UNLIKE OS/8, P?S/8
+   37                 /       RETAINS THE CURRENT DATE ACROSS REBOOTS.  MOREOVER, P?S/8 SUPPORTS THE TRUE
+   38                 /       CURRENT DATE WHILE THE OS/8 DATE SUPPORT RAN OUT IN EITHER 1977 OR 2001
+   39                 /       DEPENDING UPON WHETHER THE OS/8 USER CAN TOLERATE KNOWN KLUDGES THAT DO NOT
+   40                 /       COMPLETELY FUNCTION.]
+   41   
+   42                 /       THUS, WITH THE AVAILABILITY OF PTUTIL, THE PASP ENCOURAGES THE USE OF HOST
+   43                 /       EDITING AND FILE MAINTENANCE; THE SIMH SIMULATOR IS CALLED UP FOR BRIEF
+   44                 /       SESSIONS FOR THE PURPOSE OF OBTAINING AN ASSEMBLY LISTING THROUGHOUT THE
+   45                 /       DEVELOPMENT PROCESS.
+   46   
+   47                 /       THE PASP ENCOURAGES THE USE OF HOST EDITING AND FILE MAINTENANCE; THE SIMH
+   48                 /       SIMULATOR IS CALLED UP FOR BRIEF SESSIONS FOR THE PURPOSE OF OBTAINING AN
+   49                 /       ASSEMBLY LISTING DURING THE DEVELOPMENT PROCESS; THE PERMANENT COPIES OF
+   50                 /       SOURCE CODE FILES ARE MAINTAINED IN THE HOST ENVIRONMENT [WINDOWS], NOT IN
+   51                 /       EITHER P?S/8 OR OS/8.
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 2
+
+   53                 /       IT IS NECESSARY TO FREELY INTERCHANGE SIMULATED PAPER-TAPE INPUT AND OUTPUT
+   54                 /       BETWEEN THE SIMH ENVIRONMENT AND THE HOST ENVIRONMENT.  SINCE P?S/8 HAS
+   55                 /       TRADITIONALLY SHUNNED PAPER-TAPE FOR ALL THE OBVIOUS REASONS GIVEN THE
+   56                 /       PRESENCE OF STORAGE-BASED OPERATING SYSTEMS, IT DOES NOT PRESENTLY SUPPORT
+   57                 /       A UTILITY OF THIS NATURE; PTUTIL CAN BE ADDED AS A TEMPORARY SYSTEM PROGRAM
+   58                 /       [SEE BELOW] TO ALLOW THE DEVELOPMENT MECHANISM DESCRIBED ABOVE.
+   59                 /       ANYONE WITH ACTUAL PDP-8 HARDWARE DEPENDING ON PAPER-TAPE DATA IS STRONGLY
+   60                 /       ENCOURAGED TO ABANDON THIS APPROACH IF THEY HAVE SUFFICIENT HARDWARE TO
+   61                 /       SUPPORT P?S/8.  SINCE MOST P?S/8 CONFIGURATIONS CAN RUN ON A 4K PDP-8 OR NEWER
+   62                 /       MODEL [EXCEPT FOR THE PDP-8/S DUE TO INCOMPATIBILITY], IT IS RELATIVELY EASY
+   63                 /       TO COMPLETELY LEAVE THE PAPER-TAPE ENVIRONMENT BEHIND.  [NOTE: PTUTIL ONLY
+   64                 /       HANDLES ASCII TEXT PAPER-TAPE DATA; P?S/8 BIN CAN HANDLE ALL VARIANTS OF
+   65                 /       BINARY PAPER-TAPE FORMAT INCLUDING BIN AND RIM FORMAT PAPER-TAPE INPUT AND
+   66                 /       OUTPUT.]
+   67   
+   68                 /       RUNNING PTUTIL IN P?S/8 VERSION 8Z.
+   69   
+   70                 /       WHILE PTUTIL CAN BE MANUALLY ADDED TO THE P?S/8 SYSTEMS PROGRAM DIRECTORY, IT
+   71                 /       WOULD TAKE CONSIDERABLE MANUAL EFFORT TO POSITION IT CLOSER TO THE BEGINNING
+   72                 /       OF THE SYSTEM DEVICE WITHOUT A MAJOR REORGANIZATION OF THE EXISTING SYSTEM
+   73                 /       PROGRAMS.  [FORTUNATELY, SUFFICIENT FREE SPACE WAS PROVIDED FOR ADDITION OF
+   74                 /       SYSTEM PROGRAMS WHEN P?S/8 VERSION 8Z WAS FIRST RELEASED IN 1988.]  AS SUCH,
+   75                 /       IT IS NOT RECOMMENDED THIS EXPEDIENT METHOD BE USED TO IMPLEMENT PTUTIL ON
+   76                 /       THIS PARTICULAR P?S/8 RELEASE UNLESS RUNNING UNDER THE SIMH SIMULATOR. [NOTE:
+   77                 /       FUTURE P?S/8 RELEASES WILL INCLUDE THE OPTION TO SUPPORT PTUTIL WITH PROPER
+   78                 /       PROGRAM PLACEMENT.  THOSE KNOWLEDGEABLE OF P?S/8 SYSTEM PROGRAM DIRECTORY
+   79                 /       PARTICULARS CAN ADD THE PROGRAM AT THE END OF THE CURRENTLY IMPLEMENTED
+   80                 /       SYSTEM PROGRAMS; ONCE PTUTIL IS STABLE, A PROVISIONAL RE-RELEASE OF P?S/8
+   81                 /       VERSION 8Z MAY BE PRODUCED.]
+   82   
+   83                 /       AS OF VERSION 8Y, P?S/8 INCLUDES THE ABILITY TO SUPPORT A TEMPORARY SYSTEM
+   84                 /       PROGRAM:
+   85   
+   86                 /       .GET BPTUTL                             GET THE BINARY FILE[S] OF PTUTIL.
+   87                 /       .R % [FILES AND COMMAND-LINE OPTIONS]   RUN THE PROGRAM AS % [OR $].
+   88   
+   89                 /       THE ONLY RESTRICTION PLACED ON A SYSTEM PROGRAM INITIATED BY THIS MECHANISM IS
+   90                 /       THE REQUIREMENT OF A STARTING ADDRESS OF 00200 [WHICH IS THE USUAL PROGRAM
+   91                 /       STARTING ADDRESS FOR MOST PDP-8 PROGRAMMING].  ANY COMBINATION OF COMMAND-LINE
+   92                 /       OPTION SWITCHES, PASSED INPUT [OR OUTPUT] FILES OR USE OF THE =XXXX IS ALLOWED
+   93                 /       IN A MANNER IDENTICAL TO PASSING PARAMETERS TO A PERMANENT SYSTEM PROGRAM.
+   94   
+   95                 /       [NOTE: IN LIGHT OF THIS MECHANISM, FUTURE RELEASES OF P?S/8 MAY REMOVE CERTAIN
+   96                 /       SYSTEM PROGRAMS SUCH AS DEVICE FORMATTING PROGRAMS THAT ARE SELDOM USED.  AS
+   97                 /       SUCH, THEY CAN BE PROVIDED AS BINARY FILES AND AN ACCOMPANYING BATCH FILE TO
+   98                 /       PERFORM THE EQUIVALENT FUNCTION.  WHERE NECESSARY, THE PROGRAMS CAN BE PATCHED
+   99                 /       TO ALLOW AN INTERNAL START AT 00200 TO CONFORM WITH THE R % OR $ MECHANISM.
+  100                 /       USERS CAN MAINTAIN APPROPRIATE UTILITY FILES ON NON-SYSTEM LOGICAL UNITS FOR
+  101                 /       INFREQUENT ACCESS ALLOWING GENERAL USAGE OF THE SYSTEM DEVICE AT GREATER
+  102                 /       EFFICIENCY.]
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 3
+
+  104                 /       PROGRAM HISTORY.
+  105   
+  106                 /       01-SEP-2015     -       PRELEASE; INITIAL MAIN-LINE, PARAMETER-CHECKING
+  107                 /                               ONCE-ONLY CODE AND SUPPORT ROUTINES UNDER DEVELOPMENT.
+  108                 /                               TESTING SECTIONS UNTIL A BASIC FUNCTIONAL RELEASE.
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 4
+
+  110                 /       PTUTIL COMMAND-LINE OPTIONS.
+  111   
+  112                 /       LIST OF OUTPUT FILES    USED WHEN READING PAPER-TAPE INPUT DATA.  A MAXIMUM OF
+  113                 /                               17 OUTPUT FILES CAN BE CREATED IN A SINGLE SESSION.
+  114                 /                               THE ACTUAL NUMBER OF OUTPUT FILES CREATED WILL BE
+  115                 /                               REPORTED.  [NOTE: WHEN EXTENDED-LENGTH OUTPUT FILES
+  116                 /                               ARE USED, THE MAXIMUM NUMBER OF OUTPUT FILES IS
+  117                 /                               REDUCED TO EIGHT; HOWEVER, DUE TO THE GENERALLY LARGER
+  118                 /                               SIZE OF EXTENDED-LENGTH FILES, IT IS LIKELY THE ENTIRE
+  119                 /                               PAPER-TAPE DATA WITHIN A SINGLE SESSION WILL FIT INTO
+  120                 /                               A SINGLE EXTENDED-LENGTH FILE.]
+  121   
+  122                 /       LIST OF INPUT FILES     USED WHEN PUNCHING PAPER-TAPE OUTPUT DATA.
+  123   
+  124                 /       /A                      AUTOMATIC MODE.  PTUTIL WILL NOT WAIT FOR ANY USER
+  125                 /                               RESPONSES; THIS MODE IS GENERALLY USED FROM FULLY
+  126                 /                               AUTOMATED BATCH SESSIONS TO ALLOW BRIEF SESSIONS OF
+  127                 /                               P?S/8 AS PART OF PROGRAM DEVELOPMENT FROM THE SIMH
+  128                 /                               SIMULATOR.
+  129   
+  130                 /       /D                      DISPLAY PAPER-TAPE INPUT CHARACTERS.  NOTE: THIS
+  131                 /                               OPTION SHOULD BE USED SPARINGLY WHEN READING FROM
+  132                 /                               THE HIGH-SPEED READER AS THROUGHPUT CAN BE NEGATIVELY
+  133                 /                               IMPACTED.  OTHER OPTION SWITCHES CAN MODIFY THE
+  134                 /                               DISPLAY FORMAT.  [NOTE: ALL INPUT CHARACTERS ARE
+  135                 /                               SUBJECT TO P?S/8 TEXT CONVERSION RULES PRIOR TO
+  136                 /                               DISPLAY.]
+  137   
+  138                 /       /E                      USE EXTENDED-LENGTH P?S/8 OUTPUT FILES WHEN READING
+  139                 /                               PAPER-TAPE INPUT DATA.  [NOTE: THIS OPTION MUST BE
+  140                 /                               USED CAREFULLY UNTIL P?S/8 IS UPGRADED TO AVOID
+  141                 /                               POTENTIAL TFS FILE DESTRUCTION.  THE CURRENT RELEASE
+  142                 /                               OF PTUTIL IS PROVISIONALLY COMPATIBLE WITH P?S/8
+  143                 /                               VERSION 8Y AND NEWER.  IT IS EXPECTED THAT P?S/8
+  144                 /                               VERSION 9A WILL FULLY SUPPORT EXTENDED-LENGTH FILES
+  145                 /                               CORRECTLY WHICH WILL ELIMINATE THIS RESTRICTION.
+  146                 /                               OTHER THAN THIS WARNING, PTUTIL IS FULLY COMPATIBLE
+  147                 /                               WITH THE INTENTION OF FUTURE RELEASES OF P?S/8; FULLY
+  148                 /                               COMPATIBLE OUTPUT FILE HANDLING WILL BE ADDED TO
+  149                 /                               PTUTIL CONCURRENTLY WITH FUTURE SYSTEM RELEASES.]
+  150   
+  151                 /       /F                      USE THE HIGH-SPEED READER OR HIGH-SPEED PUNCH INSTEAD
+  152                 /                               OF THE CONSOLE DEVICE FOR PAPER-TAPE INPUT OR OUTPUT.
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 5
+
+  154                 /       /M                      MULTIPLE PAPER-TAPE MODE IS ENABLED.  AT THE END OF
+  155                 /                               THE LATEST PAPER-TAPE, THE USER INDICATES IF FURTHER
+  156                 /                               PAPER-TAPE DATA IS AVAILABLE; CONSOLE INPUT IS
+  157                 /                               REQUIRED [PRESS CONTROL-Z TO CANCEL, ANY OTHER KEY TO
+  158                 /                               PROCEED] TO CONTINUE.  [NOTE: AT THE END OF ANY
+  159                 /                               PAPER-TAPE, THE LATEST LINE OF TEXT WITHIN THE CURRENT
+  160                 /                               OUTPUT FILE IS TERMINATED WITH AN INTERNAL END-OF-LINE
+  161                 /                               SEQUENCE [IF NECESSARY]; HOWEVER, IN MULTIPLE
+  162                 /                               PAPER-TAPE MODE, THE CURRENT OUTPUT FILE REMAINS OPEN
+  163                 /                               TO ALLOW FURTHER PAPER-TAPE INPUT TO BE APPENDED TO
+  164                 /                               THE CURRENT OUTPUT FILE.  ONCE MULTIPLE PAPER-TAPE
+  165                 /                               MODE CONCLUDES, THE CURRENT OUTPUT FILE WILL BE CLOSED
+  166                 /                               IN THE SAME MANNER AS WHEN MULTIPLE PAPER-TAPE MODE IS
+  167                 /                               NOT IN EFFECT.]
+  168   
+  169                 /       /N                      IF THE '/D' COMMAND-LINE OPTION SWITCH IS SET, INPUT
+  170                 /                               CHARACTERS ARE DISPLAYED WITH FULL PAGINATION
+  171                 /                               INCLUDING TEAR-OFF LINES ORIENTED TOWARDS ROLL PAPER
+  172                 /                               TERMINALS SUCH AS THE TELETYPE MODEL 33.
+  173   
+  174                 /       /P                      IF THE '/D' COMMAND-LINE OPTION SWITCH IS SET, INPUT
+  175                 /                               CHARACTERS ARE DISPLAYED WILL FULL PAGINATION.  NOTE:
+  176                 /                               THIS OPTION SHOULD ONLY BE USED ON CONSOLE TERMINALS
+  177                 /                               THAT SUPPORT THE FORM-FEED CHARACTER FUNCTION PROPERLY
+  178                 /                               SUCH AS THE TELETYPE MODEL 35 OR DEC LA36 DECWRITER.
+  179   
+  180                 /       /Q                      CHECK FOR ADDITIONAL FREE SPACE AVAILABLE IN THE
+  181                 /                               CURRENT P?S/8 [TFS] OUTPUT FILE WHEN PROCESSING <FF>
+  182                 /                               CHARACTERS IN THE PAPER-TAPE DATA STREAM.  CERTAIN
+  183                 /                               PROGRAMMING CONVENTIONS EXIST WHERE IT IS DESIRABLE TO
+  184                 /                               AVOID BREAKING THE CONTENTS OF ANY PRINTABLE PAGE [AS
+  185                 /                               DEFINED IN CERTAIN EDITING ENVIRONMENTS AS ALL
+  186                 /                               CHARACTERS CONTAINED BETWEEN <FF> DELIMITING
+  187                 /                               CHARACTERS] IF POSSIBLE.  THIS OPTION IS IGNORED IF
+  188                 /                               THE '/E' COMMAND-LINE OPTION SWITCH IS SET [P?S/8
+  189                 /                               EXTENDED-LENGTH FILES DO NOT REQUIRE INTERNAL FREE
+  190                 /                               SPACE] OR THE '/X' COMMAND-LINE OPTION SWITCH IS SET
+  191                 /                               [WHICH DISABLES SPECIAL <FF> CHARACTER HANDLING].
+  192   
+  193                 /       /S                      SILENT RUNNING MODE.  THE '/D', '/M' AND '/V'
+  194                 /                               COMMAND-LINE OPTION SWITCHES ARE IGNORED; NO MESSAGES
+  195                 /                               ARE ISSUED [OTHER THAN IMPORTANT ERROR MESSAGES].  ALL
+  196                 /                               OTHER REPORTS ARE SUPPRESSED.  PTUTIL WILL RUN IN
+  197                 /                               AUTOMATIC MODE [AS IF THE '/A' COMMAND-LINE OPTION
+  198                 /                               SWITCH WAS SET].
+  199   
+  200                 /       /U                      CONSOLE REPORT OUTPUT IN UPPER-CASE CHARACTERS; THE
+  201                 /                               DEFAULT IS MIXED UPPER-CASE AND LOWER-CASE OUTPUT.
+  202   
+  203                 /       /V                      VERBOSE MODE.  VARIOUS CONSOLE MESSAGES ARE
+  204                 /                               EMBELLISHED TO HIGHLIGHT VARIOUS ASPECTS OF THE
+  205                 /                               PROGRAM.  [NOTE: NOT AVAILABLE IN SILENT RUNNING
+  206                 /                               MODE.]
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 6
+
+  208                 /       /X                      DISABLE SPECIAL FORM-FEED PROCESSING.  THIS CAUSES
+  209                 /                               <FF> CHARACTERS READ FROM PAPER-TAPE INPUT TO BECOME
+  210                 /                               THE P?S/8 <EOL> SEQUENCE.
+  211   
+  212                 /                               WHEN PUNCHING PAPER-TAPE DATA FROM P?S/8 INPUT FILES,
+  213                 /                               THE SEQUENCE <HT> EJECT <EOL> IS PROCESSED LITERALLY
+  214                 /                               INSTEAD OF CONVERSION TO THE <FF> CHARACTER.
+  215   
+  216                 /       /2                      USE DOUBLE-BUFFERED HIGH-SPEED READER INPUT; THE
+  217                 /                               READER INPUT ROUTINE IS NORMALLY UNBUFFERED.  THIS
+  218                 /                               OPTION SHOULD ONLY BE USED IF THE HIGH-SPEED READER IS
+  219                 /                               PRONE TO TRAILING JUNK CHARACTERS [AND ONLY IF THERE
+  220                 /                               ARE TRAILER FRAMES THAT CAN BE IGNORED].  NOTE: THIS
+  221                 /                               METHOD, WHICH IS ALSO USED IN THE OS/8 PTR: HANDLER,
+  222                 /                               MAY FAIL TO PROCESS THE FINAL PAPER-TAPE FRAME.  DO
+  223                 /                               NOT USE THIS OPTION IF RUNNING P?S/8 ON THE SIMH
+  224                 /                               SIMULATOR AS JUNK CHARACTERS ARE IMPOSSIBLE IN THE
+  225                 /                               SIMH ENVIRONMENT.  NOTE: THE /2 OPTION SWITCH IS
+  226                 /                               IGNORED IF THE LOW-SPEED TELETYPE MODEL 33 ASR OR 35
+  227                 /                               ASR TERMINAL IS USED FOR PAPER-TAPE INPUT; THE /F
+  228                 /                               OPTION SWITCH WILL NOT BE SET.  [THIS OPTION IS
+  229                 /                               IGNORED IF PUNCHING PAPER-TAPE DATA FROM P?S/8 INPUT
+  230                 /                               FILES.]
+  231   
+  232                 /       /8                      PTUTIL WILL EXIT BY EXECUTION OF THE 6050 INSTRUCTION
+  233                 /                               WHICH TERMINATES SUITABLY CONFIGURED SIMH SIMULATOR
+  234                 /                               SESSIONS.  [NOTE: THE PROGRAM WILL ALSO EXIT TO P?S/8
+  235                 /                               IN THE USUAL MANNER IN CASE THIS FEATURE IS NOT
+  236                 /                               SUPPORTED.]
+  237   
+  238                 /       =XXXX                   OVERRIDE THE DEFAULT LEADER/TRAILER OUTPUT FRAME COUNT
+  239                 /                               OF 100 DECIMAL [144 OCTAL].  [NOTE: ATTEMPTS TO USE A
+  240                 /                               LEADER/TRAILER OUTPUT FRAME COUNT OF LESS THAN 7 OR
+  241                 /                               LARGER THAN 400 (DECIMAL 256) WILL BE IGNORED.]
+  242   
+  243                 /       NOTE: FUTURE RELEASES MAY DEFINE ADDITIONAL COMMAND-LINE OPTIONS.
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 7
+
+  245                 /       PROGRAM MESSAGES.
+  246   
+  247                 /       PAPER-TAPE => P?S/8
+  248   
+  249                 /                               PAPER-TAPE DATA WILL BE OBTAINED FROM THE PREVAILING
+  250                 /                               PAPER-TAPE READER AND WRITTEN TO P?S/8 TFS FILE[S].
+  251                 /                               THIS INDICATES P?S/8 OUTPUT FILES ARE SPECIFIED; THE
+  252                 /                               '/E' COMMAND-LINE OPTION SWITCH IS NOT SET.
+  253   
+  254                 /       PAPER-TAPE => P?S/8 [EXTENDED FILES]
+  255   
+  256                 /                               PAPER-TAPE DATA WILL BE OBTAINED FROM THE PREVAILING
+  257                 /                               PAPER-TAPE READER AND WRITTEN TO P?S/8 EXTENDED-LENGTH
+  258                 /                               FILE[S].  THIS INDICATES P?S/8 OUTPUT FILES ARE
+  259                 /                               SPECIFIED; THE '/E' COMMAND-LINE OPTION SWITCH IS SET.
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 8
+
+  261                 /       COMMAND ERROR MESSAGES.
+  262   
+  263                 /       CANNOT COMBINE INPUT FILES *AND* OUTPUT FILES!
+  264   
+  265                 /               AN ATTEMPT WAS MADE TO RUN PTUTIL WITH BOTH INPUT AND OUTPUT FILES.
+  266                 /               PTUTIL CAN ONLY BE USED WITH INPUT FILES OR OUTPUT FILES BUT NOT BOTH
+  267                 /               TYPES OF FILES AT THE SAME TIME.
+  268   
+  269                 /       NO FILES!
+  270   
+  271                 /               AN ATTEMPT WAS MADE TO RUN PTUTIL WITHOUT PASSING ANY FILES.  PTUTIL
+  272                 /               CAN ONLY BE USED WITH INPUT [OR OUTPUT] FILES [BUT NOT BOTH AT THE
+  273                 /               SAME TIME].
+  274   
+  275                 /       ONE OR MORE INPUT FILES ARE DUPLICATES!
+  276   
+  277                 /               AN INPUT FILE WAS DETECTED THAT IS A DUPLICATE OF ANOTHER INPUT FILE.
+  278                 /               ALL INPUT FILES USED WITH PTUTIL MUST BE UNIQUE.
+  279   
+  280                 /       ONE OR MORE OUTPUT FILES ARE DUPLICATES!
+  281   
+  282                 /               AN OUTPUT FILE WAS DETECTED THAT IS A DUPLICATE OF ANOTHER OUTPUT
+  283                 /               FILE.  ALL OUTPUT FILES USED WITH PTUTIL MUST BE UNIQUE.
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 9
+
+  285                 /       SPECIAL CONTROL CHARACTERS.
+  286   
+  287                 /       <BRK>
+  288   
+  289                 /       IF THE <BRK> KEY IS PRESSED DURING PROGRAM OPERATION, THE PROGRAM ABORTS AND
+  290                 /       EXITS TO 07600 TO REBOOT P?S/8.  THIS WILL NOT AFFECT BATCH OPERATIONS [IF
+  291                 /       APPLICABLE].
+  292   
+  293                 /       CONTROL-A
+  294   
+  295                 /       IF THE CONTROL-A KEY IS PRESSED DURING PROGRAM OPERATION, THE PROGRAM ABORTS
+  296                 /       AND EXITS TO 07600 TO REBOOT P?S/8.  THIS WILL NOT AFFECT BATCH OPERATIONS
+  297                 /       [IF APPLICABLE].
+  298   
+  299                 /       CONTROL-B
+  300   
+  301                 /       IF THE CONTROL-B KEY IS PRESSED DURING PROGRAM OPERATION, THE PROGRAM ABORTS
+  302                 /       AND EXITS TO 07600 TO REBOOT P?S/8.  THIS WILL NOT AFFECT BATCH OPERATIONS [IF
+  303                 /       APPLICABLE].
+  304   
+  305                 /       CONTROL-C
+  306   
+  307                 /       IF THE CONTROL-C KEY IS PRESSED DURING PROGRAM OPERATION, THE PROGRAM ABORTS
+  308                 /       AND EXITS TO 07600 TO REBOOT P?S/8.  BATCH OPERATIONS WILL ALSO BE ABORTED [IF
+  309                 /       APPLICABLE].
+  310   
+  311                 /       CONTROL-O
+  312   
+  313                 /       IF THE CONTROL-O KEY IS PRESSED, THE CURRENT STATE OF OUTPUT DISPLAY IS
+  314                 /       INVERTED.  "^O" WILL BE PRINTED TO ACKNOWLEDGE THE CHANGE OF DISPLAY STATE.
+  315   
+  316                 /       CONTROL-S
+  317   
+  318                 /       IF CONTROL-S IS DETECTED ON THE CONSOLE INPUT DEVICE, THE PROGRAM WAITS UNTIL
+  319                 /       CONTROL-Q IS DETECTED ON THE CONSOLE INPUT DEVICE BEFORE FURTHER CONSOLE
+  320                 /       OUTPUT [IF ANY].
+  321   
+  322                 /       WHILE WAITING FOR CONTROL-Q, ALL CONTROL CHARACTERS THAT CAN ABORT THE PROGRAM
+  323                 /       ARE ACTIVE.  [NOTE: DEPENDING ON THE EXACT CONSOLE DEVICE, CONTROL-S AND
+  324                 /       CONTROL-Q MAY BE AUTOMATICALLY GENERATED BY THE TERMINAL AS PART OF THE
+  325                 /       STANDARD FLOW-CONTROL PROTOCOL.]
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 10
+
+  327                 /       PAPER-TAPE INPUT FORMAT.
+  328   
+  329                 /       1)      LEADER SECTION.
+  330   
+  331                 /               WHILE OPTIONAL [BECAUSE TOTAL COMPLIANCE CANNOT BE FORCED], THIS IS
+  332                 /               A SECTION OF PAPER-TAPE FRAMES WITH THE HIGH-BIT ONLY PUNCHED.  THE
+  333                 /               LEADER SECTION CAN BE ANY CONVENIENT LENGTH [OR LENGTH ZERO].  PTUTIL
+  334                 /               INITIALLY IS PLACED IN THE LEADER DETECTION MODE AS ALL LEADER FRAMES
+  335                 /               ARE IGNORED.
+  336   
+  337                 /       2)      DATA SECTION.
+  338   
+  339                 /               THIS IS THE ACTIVE TEXTUAL DATA SECTION OF THE PAPER-TAPE.  FAILING TO
+  340                 /               OBTAIN THIS SECTION WILL RESULT IN AN ERROR MESSAGE REGARDING THE LACK
+  341                 /               OF INPUT DATA.  ALL DATA VALUES ARE ALLOWED EXCEPT A LEADER/TRAILER
+  342                 /               FRAME [WHICH WOULD SIGNAL THE END OF THE DATA SECTION].  ALL PARITY
+  343                 /               BITS ARE REMOVED BEFORE ANY FURTHER CHARACTER FILTERING FOR PROCESSING
+  344                 /               INTO THE CONTENTS OF P?S/8 TEXTUAL OUTPUT FILES.
+  345   
+  346                 /       3)      TRAILER SECTION.
+  347   
+  348                 /               WHILE OPTIONAL [BECAUSE TOTAL COMPLIANCE CANNOT BE FORCED], THIS IS
+  349                 /               GENERALLY A SECTION CONSISTING OF PAPER-TAPE FRAMES WITH ONLY THE
+  350                 /               HIGH-BIT PUNCHED.  WHILE ANY CONVENIENT LENGTH MAY BE PRESENT, ONLY
+  351                 /               THE FIRST TRAILER FRAME IS READ.  ASSUMING THE MULTIPLE INPUT TAPE
+  352                 /               MODE ['/M' COMMAND-LINE OPTION SWITCH IS SET] IS IN EFFECT, THE
+  353                 /               TRAILER WILL BE CONSIDERED THE LEADER SECTION DURING A
+  354                 /               SUBSEQUENT READ OPERATION [UNLESS THE TAPE IS REPOSITIONED].
+  355   
+  356                 /       NOTE: IF THE DATA SECTION TERMINATES WITH THE CONTROL-Z CHARACTER, THE REST OF
+  357                 /       THE DATA SECTION [IF ANY] AND THE ENTIRE TRAILER SECTION [IF ANY] ARE IGNORED.
+  358                 /       IF THE MULTIPLE INPUT TAPE MODE IS IN EFFECT, THE USER MAY HAVE TO REPOSITION
+  359                 /       THE TAPE IN THE READER TO AVOID JUNK [OR ALLOW THE JUNK CHARACTERS TO BE
+  360                 /       PROCESSED WHICH MAY REQUIRE SUBSEQUENT MANUAL FILE EDITING].  [THE STANDARD
+  361                 /       PAPER-TAPE FORMAT, WHICH IS CREATED BY PTUTIL WHEN PUNCHING PAPER-TAPE OUTPUT
+  362                 /       DATA, CONSISTS OF A LEADER SECTION, A DATA SECTION TERMINATED BY CONTROL-Z AND
+  363                 /       A TRAILER SECTION.  STANDARD FORMAT TAPES WILL ALWAYS BE READ CORRECTLY AND
+  364                 /       COMPLETELY.  IF MULTIPLE STANDARD FORMAT TAPES ARE BEING READ, THE USER MUST
+  365                 /       CHANGE PAPER-TAPES WHEN DIRECTED.]
+  366   
+  367                 /       THIS FORMAL DEFINITION OF PROPER PAPER-TAPE INPUT ALLOWS STANDARD TAPES TO BE
+  368                 /       READ WITH EASE, YET ALLOWS NON-STANDARD INPUT TO BE READ, ALBEIT WITH SOME
+  369                 /       NEED TO DO FOLLOW-UP EDITING AS REQUIRED.
+  370   
+  371                 /       FOR EXAMPLE, CERTAIN PAPER-TAPES WERE CREATED DURING FOCAL INPUT SESSIONS THAT
+  372                 /       HAVE THE "*" PROMPT OF FOCAL STARTING EVERY LINE.  [THESE TAPES WERE GENERALLY
+  373                 /       PRODUCED BY ENABLING THE PAPER-TAPE PUNCH ON TELETYPE MODEL 33 ASR OR 35 ASR
+  374                 /       CONSOLE TERMINALS DURING THE ORIGINAL ENTRY OF THE FOCAL PROGRAM INTO THE
+  375                 /       STANDALONE PAPER-TAPE RELEASE OF FOCAL, 1969 OR OTHER VERSIONS.]
+
+
+/     P?S/8 ASCII PAPER-TAPE UTILITY  P?S PAL V08S    SAT  24-OCT-15  PAGE 11
+
+  377                 /       AFTER USING PTUTIL TO TRANSFER THE PAPER-TAPE DATA TO P?S/8 TEXT FILES,
+  378                 /       FOLLOW-UP EDITING CAN BE PERFORMED TO REMOVE THE "*" CHARACTERS.  [NOTE: AN
+  379                 /       IMPERFECT SOLUTION TO THIS PROBLEM CAN BE ACHIEVED WITH THE KEYBOARD MONITOR
+  380                 /       "CHANGE" COMMAND.  WHEN THE '/A' OPTION SWITCH IS USED, ALL OCCURRENCES OF THE
+  381                 /       "*" CHARACTER CAN BE REMOVED; THIS WILL INCLUDE "*" CHARACTERS POTENTIALLY
+  382                 /       USED IN THE BODY OF THE FOCAL STATEMENTS THAT MUST BE PRESERVED.  A COPY OF
+  383                 /       THE FILE SHOULD BE LISTED OUT OR PRINTED WITH THE P?S/8 "PRINT" COMMAND TO
+  384                 /       LOCATE THIS INCIDENTAL EXCESSIVE CHARACTER REMOVAL FOR MANUAL RESTORATION
+  385                 /       AFTER ALL AUTOMATIC OPERATIONS HAVE CONCLUDED.]
+  386   
+  387                 /       NOTE: PAPER-TAPES CREATED BY LISTING THE FOCAL PROGRAM USING THE FOCAL "W"
+  388                 /       COMMAND ARE UNAFFECTED BY THIS ANOMALY; THE STATEMENTS WILL BE PROPERLY STORED
+  389                 /       AS INTENDED [FOCAL DOES NOT INCLUDE THE "*" PROMPT IN THE LISTING CREATED BY
+  390                 /       THIS COMMAND].
+  391   
+  392                 /       LOW-SPEED READER CONSIDERATIONS.
+  393   
+  394                 /       WHEN THE LOW-SPEED PAPER-TAPE READER IS SELECTED [WHICH GENERALLY APPLIES ONLY
+  395                 /       TO TELETYPE MODEL 33 ASR OR 35 ASR CONSOLE TERMINALS], CERTAIN RESTRICTIONS
+  396                 /       WILL BE IN EFFECT DURING PAPER-TAPE READ OPERATIONS:
+  397   
+  398                 /       1) THE LOGICAL CONSOLE OVERLAY WILL NOT BE USED; ALL INPUT [AND OUTPUT] IS
+  399                 /          DIRECTED TO THE PHYSICAL CONSOLE DEVICE.  [NOTE: IF APPLICABLE, THE
+  400                 /          PAPER-TAPE READ SESSION WILL BE INITIATED BY PRESSING ANY KEY ON THE
+  401                 /          LOGICAL CONSOLE KEYBOARD INPUT DEVICE.]
+  402   
+  403                 /       2) THE CONSOLE INPUT WILL BE SUBJECT TO A TIME-OUT.  FAILING TO OBTAIN CONSOLE
+  404                 /          INPUT CHARACTERS WILL RESULT IN CLOSING THE INPUT DEVICE FOR DATA PURPOSES.
+  405   
+  406                 /       3) DUE TO HARDWARE RESTRICTIONS, IT WILL NOT BE POSSIBLE TO CHANGE THE
+  407                 /          OPERATION OF THE PROGRAM WITH REGARD TO ANY OF THE NORMALLY SUPPORTED
+  408                 /          CONTROL CHARACTER FUNCTIONS [<BRK>, CONTROL-A, CONTROL-B, CONTROL-C,
+  409                 /          CONTROL-S/CONTROL-Q AND CONTROL-O]; ATTEMPTS TO USE KEYBOARD INPUT MAY
+  410                 /          GARBLE THE INPUT DATA.
+

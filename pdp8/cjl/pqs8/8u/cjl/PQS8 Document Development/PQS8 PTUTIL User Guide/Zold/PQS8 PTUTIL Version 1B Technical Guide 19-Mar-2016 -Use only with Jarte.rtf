@@ -1,0 +1,479 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Lucida Console;}{\f1\fnil\fcharset0 Lucida Console;}{\f2\fmodern\fprq1\fcharset0 Lucida Console;}{\f3\fnil\fcharset0 MS Shell Dlg;}}
+{\colortbl ;\red192\green192\blue192;\red255\green255\blue255;\red140\green140\blue140;}
+{\*\generator Msftedit 5.41.21.2508;}\viewkind4\margl1080\margr1080\psz1
+{\*\jarte object RichPersist
+  Version = 2
+  LMarg = 1080
+  RMarg = 1080
+  TMarg = 1440
+  BMarg = 1440
+  Equal = True
+  Orient = 1
+  Size = 1
+  Width = 2159
+  Height = 2794
+  LHdr = '$3B'
+  MHdr = '$3B'
+  RHdr = '$3B'
+  LFtr = '$3B'
+  MFtr = '$3B'
+  RFtr = '$3B'
+  HdrMarg = 1440
+  FtrMarg = 1440
+  HdrFont.Charset = DEFAULT_CHARSET
+  HdrFont.Color = clWindowText
+  HdrFont.Height = -13
+  HdrFont.Name = 'MS Sans Serif'
+  HdrFont.Style = []
+  Wrap = 2
+  WMark = 'None'
+  WColor = 13822463
+  BlackInk = True
+  SpellDict = 'ssceam2.clx'
+end
+}\uc1\pard\f0\fs24 P?S/8 P\f1 TUTIL Version 1B Technical Guide\f0\par
+\par
+\f1 Copyright \f2\'a9 1975-1989 Charles Lasner Associates\f0\par
+\f2 Copyright \'a9 1990-2016 \'bbCLA Systems\par
+CLASystems@gmail.com\par
+Last edit: 21-Jun-2016 cjl\par
+\par
+\f1 Note: This document generally follows the conventions of the \ul\i P?S/8\par
+Keyboard Monitor Command Guide\ulnone\i0  available separately.\par
+\par
+\f2 P?S/8 supports an ASCII text paper-tape utility named \i\f0 P\f1 TUTIL\i0 .  As of P?S/8 Version 8Z, the current release is PTUTIL Version 1B.\par
+\par
+Note: PTUTIL is being introduced as an add-on to existing copies of\par
+P?S/8; as such, it may not be present on any particular system.  Appendix A contains information on using PTUTIL on P?S/8 systems where PTUTIL is not currently installed in the System Programs Directory.\par
+\par
+PTUTIL is used to process 8-level punched paper-tapes in standard ASCII text format.  Note: Binary paper-tapes punched in standard BIN or RIM format are handled separately by the P?S/8 \i BIN\i0  program documented elsewhere.\par
+\par
+PTUTIL supports the standard high-speed reader/punch hardware [device 01/02] and console devices [03/04] that support paper-tape reader and punch capabilities such as Teletype Model 33 Automatic Send and Receive [ASR] and Model 35 ASR as modified to DEC specifications.  The choice of input [or output] device is determined by command-line option switches.\par
+\par
+If the source of the paper-tape input data is the low-speed ASR device, special handling of certain control characters such as \highlight1\f2 Control\f1\fs29 -\f2\fs24 C\highlight0\f1 , \highlight1\f2 Control\f1\fs29 -\f2\fs24 S\highlight0\f1 , \highlight1\f2 Control\f1\fs29 -\f2\fs24 Q\highlight0\f1  and \highlight1\f2 Control\f1\fs29 -\f2\fs24 O\highlight0\f1  will be disabled to prevent data garbling.  As such, only devices that do not require reverse flow control can be supported.  While this will always be the case on the supported Teletype models, PTUTIL may not be able to handle certain hybrid console devices that were never supported by DEC.\par
+\par
+If any reader compatibility issues arise [such as the need for flow control, which the supported devices do not use], PTUTIL must be used in an operating mode that does not echo or embellish the input on the console output device; command-line options are available to produce a variety of console output displays during reader input.  If necessary, all such options must be turned off.  Additionally, if any of the options that echo input data on the console output device are in effect, it will not be possible to detect \highlight1\f2 Control\f1\fs29 -\f2\fs24 O\highlight0\f1  [which flips the state of character echo on and off].  Program abort by the detection of \highlight1\f2 Control\f1\fs29 -\f2\fs24 C\highlight0\f1  will not be possible until reader timeout has occurred.\page Note: None of the restrictions stated above apply to paper-tape input from the high-speed reader; however, reader throughput can be degraded by echoing the characters on low-speed console output devices; the display speed must be of sufficient speed to maintain reader throughput of 300 characters/second [or perhaps only slightly less].\par
+Most DEC high-speed readers must maintain a minimum throughput speed to avoid slowing down to a small fraction of normal operating speed. This situation can easily become further degraded by poor maintenance practice; many high-speed readers are misadjusted with respect to the speed threshold adjustment as most applications do not exhibit the problem.  Generally, all such difficulties can be prevented by avoiding input echoing to allow the reader to run within the higher-speed performance range.\par
+\par
+1.\tab ASCII text paper-tape format.\par
+\par
+A fully conforming ASCII text paper-tape consists of the following components:\par
+\par
+a)\tab Leader Section.\par
+\par
+\tab The leader section consists of one or more frames with only the \tab high-order bit punched.  Many paper-tape system programs tend to \tab create fairly lengthy leader sections to assist the operator in \tab placing the paper-tape in the reader.\par
+\par
+\tab When PTUTIL is used to create ASCII text paper-tapes, the default \tab leader length is 100 [octal 144] frames.  This value can be \tab overriden with the \f2 =\i xxxx\i0\f1  command-line parameter to produce a \tab longer or shorter leader [and trailer] section as desired.\par
+\par
+\tab Note: If the command-line includes the =0 parameter value, all \tab leader and trailer frames will be eliminated.  Setting the \tab parameter to =1023 [1777 octal] will produce the largest \tab leader/trailer section allowed; attempting to use a larger value \tab will yield an error message.\par
+\par
+\tab PTUTIL ignores the entire leader section when creating P?S/8 \tab output files from paper-tape input.\par
+\par
+b)\tab Data Section.\par
+\par
+\tab The data section generally consists of frames punched \tab with \tab [nearly] any ASCII value permitted.  While the parity bit will \tab be ignored, the specific combination of only punching the high-\tab order bit is not allowed in the data section to avoid \tab confusion \tab with leader or trailer frames.\par
+\par
+\tab Most paper-tape operating system programs create paper-tape \tab frames with the high-order bit set [which is known as mark \tab parity].  This is primarily done to allow visual distinction from \tab binary paper-tapes which generally do not punch the high-order \tab bit in the binary data section.\par
+\par
+\tab When PTUTIL is used to create ASCII text paper-tapes, all frames \tab in the data section will have the high-order bit set by default.  \tab The \tab disposition of the high-order bit in the data section may be \tab subject to PTUTIL command-line option switches that affect frame \tab parity.  All four frame parity variants are available.  When \tab reading paper-tapes, PTUTIL can optionally check the parity in \tab effect; program action when an error is detected is dependent on \tab other command-line options set.\par
+\par
+\tab When creating P?S/8 output files, the parity bit of all frames in \tab the data section is ignored.  All frames in the data section \tab are subject to conversion to P?S/8 SIXBIT text format as \tab described in Appendix C of the \ul\i P?S/8 Keyboard Monitor Command\par
+\ulnone\i0\tab\ul\i Guide\ulnone\i0  available as a separate document.\par
+\par
+\tab Note: At the time of this writing, the document referenced above \tab is being updated to describe changes to recent releases of the \tab prevailing inter-system conversion programs including PTUTIL.  \tab The only issues under review concern the disposition of the \tab seldom used \highlight1\f2 @\highlight0\f1  and \highlight1\f2 _\highlight0\f1  characters; in previous releases of \i OS8CON \tab\i0 and related conversion programs, these characters were ignored. \tab In PTUTIL and future releases of the other conversion programs, \tab the characters will be converted to \highlight1\f2 #\highlight0\f1  and \highlight1\f2 -\highlight0\f1  respectively.\par
+\par
+c)\tab Trailer Section.\par
+\par
+\tab The trailer section consists of one or more frames with only the \tab high-order bit punched.  Many paper-tape system programs tend to \tab create fairly lengthy trailer sections to assist the operator in \tab placing the paper-tape in the reader.\par
+\par
+\tab Note: In some instances, there are multiple data sections within \tab a single paper-tape; the trailer of one section also serves as \tab the leader of the next section, etc.  PTUTIL supports command-\tab line options to manage multiple input sections or multiple tapes \tab as required.\par
+\par
+\tab When PTUTIL is used to create ASCII text paper-tapes, the default \tab trailer length is 100 [octal 144] frames.  This value can be \tab overriden with the \f2 =\i xxxx\i0\f1  command-line parameter to produce a \tab longer or shorter trailer [and leader] section as desired.  The \tab command-line switches apply equally to leader and trailer \tab lengths.\par
+\par
+\tab Note: When creating P?S/8 output files, PTUTIL closes the current \tab file on the first occurrence of a trailer character; all trailer\par
+\tab characters are otherwise ignored.  The output file will also be \tab closed if there is no further paper-tape input as determined by \tab paper-tape reader device timeout.  As such, \tab the trailer section \tab is considered optional.  If multiple-tape options are in effect,\par
+\tab the reader can be restarted as needed; the operator must\par
+\tab reposition [or change] the tape in the reader device to an \tab appropriate leader or data section to allow further input during \tab the overall conversion session.\page d)\tab Sentinel Character.\par
+\par
+\tab A final frame may be punched with the \highlight1\f2 Control\f1\fs29 -\f2\fs24 Z\highlight0\f1  character code \tab with the high-order bit clear.  The sentinel character is \tab provided for compatibility with other storage-based operating \tab systems supporting this convention.  PTUTIL can create paper-\tab tapes with the sentinel character suppressed by using the '/Z' \tab command-line option.  It is recommended that the \highlight1\f2 Control\f1\fs29 -\f2\fs24 Z\highlight0\f1  \tab character be used in conjunction with a shortened trailer section \tab [or perhaps no trailer section].  Systems that support this \tab convention generally expect the sentinel character [or will \tab modify the trailer to conform to system standards].  [This method \tab is used in the TOPS-10 and OS/8 operating systems.  Other systems \tab hosting the SIMH simulator may have additional requirements.]\par
+\par
+2.   P?S/8 keyboard monitor commands to invoke PTUTIL.\par
+\par
+Command-lines are formed within P?S/8 allowing options to be passed to system programs in the same overall manner as OS/8 CCL commands [with a few minor variations and several significant extensions].\par
+\par
+Note: P?S/8 supports several command prompt variations.  The prompt used throughout this document is identical to that used in TOPS-10 and OS/8 to facilitate comparisons between the various operating systems.  \cf2\highlight3 <SP>\cf0\highlight0  and \cf2\highlight3 <HT>\cf0\highlight0  characters are freely allowed between command elements to enhance command readability and are otherwise ignored.\par
+\par
+Typical command examples to invoke PTUTIL [in slightly simplified form] are structured as follows:\par
+\par
+a)\tab Create P?S/8 output files from paper-tape input.\par
+\par
+\tab .[optional R or RU\{n\}] PTUTIL \cf2\highlight3 output files\cf0\highlight0  < \cf2\highlight3 option switches\cf0\highlight0\par
+\i\par
+\tab or\i0\par
+\par
+\tab .[optional R or RU\{n\}] PTUTIL > \cf2\highlight3 output files\cf0\highlight0\i  \cf2\highlight3\i0 option switches\cf0\highlight0  \par
+\par
+b)\tab Create paper-tapes from P?S/8 input files.\par
+\par
+\tab .[optional R or RU\{n\}] PTUTIL < \cf2\highlight3 input files\cf0\highlight0  \cf2\highlight3 option switches\cf0\highlight0\par
+\i\par
+\tab or\i0\par
+\par
+\tab .[optional R or RU\{n\}] PTUTIL \cf2\highlight3 input files\cf0\highlight0  >\i  \cf2\highlight3\i0 option switches\cf0\highlight0\par
+\par
+Note: PTUTIL must not be passed mixed input and output files.\par
+\par
+Note: Within keyboard monitor execution commands not specifying output files, the use of \highlight1\f2 <\highlight0\f1  and \highlight1\f2 >\highlight0\f1  characters is optional; they are often used to clarify command variations by delineating command sections while maintaining command symmetry.  The use of these characters is recommended within P?S/8 \i BATCH\i0  files to enhance readability.\page Note: The P?S/8 keyboard monitor allows command formation in either file specification order as shown above; this allows the user to work in a familiar environment regardless of prior experience [with various other DEC or similar operating systems].  The commands are generally similar to the various concise command implementations found in other DEC operating systems.\par
+\par
+Command-line option switches [and the \i =xxxx\i0  parameter if required] can be placed anywhere in the command line after the program name [in this instance \i\f0 P\f1 TUTIL\i0 ] and may be stated redundantly.\par
+\par
+For more information about P?S/8 command-line variations, consult the \ul\i P?S/8 Keyboard Monitor Command Guide\ulnone\i0  available as a separate document.\par
+\par
+3.\tab P?S/8 file formats supported by PTUTIL.\line\line PTUTIL supports both P?S/8 ASCII text file formats:\par
+\par
+a)\tab Fixed-length files that are compatible with the Tiny File System \tab [\i TFS\i0 ] directory,\par
+\par
+\tab\i and\i0\par
+\par
+b)\tab Extended-length files.  Note: Extended-length files are generally \tab available only as a single file on each logical device unit.\par
+\par
+TFS file support in PTUTIL.\par
+\par
+TFS files are supported directly by the P?S/8 Keyboard Monitor.  Each file is 2048 12-bit words.  In general, each file will tend to contain up to 3/4 of this capacity as six-bit bytes in the P?S/8 SIXBIT text format as described in Appendix C of the \ul\i P?S/8 Keyboard Monitor Command Guide\ulnone\i0  available as a separate document.  This corresponds to about 3000 characters per TFS file depending on average line length and the attendant line number overhead.\par
+\par
+Note: Each line in the file contains a pointer to the start of the line and a permanent line number.  This allows rapid editing of each file by the P?S/8 Keyboard Monitor which includes a 2048 word edit buffer to hold the entire file while performing any editing operation.  Changes are not permanent until the file is written back to the storage device.\par
+\par
+When PTUTIL is used to create TFS output files, each file includes automatically generated line numbers starting at 100 and incrementing by 10 for each additional line.  Files are closed when a \cf2\highlight3 <FF>\cf0\highlight0  character from the paper-tape is being processed and there is less than a reasonable amount of space for future editing left in the file.  Should there be insufficient space to store the latest line obtained from the paper-tape input, the latest file will be closed and the next file will be opened.  The process continues until the entire paper-tape is processed [or there is an error caused by insufficient output files passed to PTUTIL].\page PTUTIL can be passed up to 17 TFS output files which corresponds to about 50,000 text characters on the paper-tape input of any one session.  [Note: While this is generally considered a rather large quantity of input for practical use of ASCII text paper-tapes, P?S/8 easily handles far larger text projects if necessary.  This would generally be accomplished by additional processing as documented within the \ul\i P?S/8 Keyboard Monitor Command Guide\ulnone\i0  and is beyond the scope of this document.]  An error message will be issued if insufficient output files are supplied in the command invoking PTUTIL.  As such, it is recommended to supply more output files than contemplated; PTUTIL supplies a summary of how many output files were actually used; the rest of the files [if any] can be repurposed.\par
+\par
+Extended-length file support in PTUTIL.\par
+\par
+PTUTIL also supports P?S/8 extended-length ASCII text output files.  This file format is identical to the TFS file format in terms of text characters; however, no line numbers or related information exists.  As such, extended-length output files can be created up to the storage limit on each logical device unit selected for the file creation.\par
+\par
+Appendix B describes the current and future implementation of extended-length files as it applies to P?S/8 Version 8Z and future releases.  As a practical matter, there can only be as many as eight extended-length output files where each file is placed on a different logical device unit.  [More modest systems may support less than the maximum of eight logical units limiting this facility still further].\par
+\par
+Extended-length output files are closed when the latest line of paper-tape input cannot be processed in the last output block available on the current logical unit.  An error message will be issued if there are insufficient extended-length output files.  PTUTIL supplies a summary of how many extended-length output files were actually used during paper-tape processing; the rest of the files can be repurposed.\par
+\par
+When PTUTIL is used to create ASCII text paper-tape, all line number information [if any] is ignored.  As such, TFS and extended-length input files can be freely mixed.  PTUTIL can be passed up to 17 input files.  On sufficiently large P?S/8 configurations, this corresponds to as much as 8,000,000 paper-tape output frames [not counting leader and trailer].  [Note: For all paper-tape frame tallies and summaries, PTUTIL calculates the various paper-tape frame counts in 24-bit unsigned integer arithmetic.  While these numbers may appear to be preposterously large, one of the primary purposes of PTUTIL is to interface P?S/8 to external host files when used in a simulated environment such as the SIMH PDP-8 simulator package.  All inter-system file interchange is via paper-tape simulation.  For the very largest practical PDP-8 programs ever written, this may not be enough for any one project.  However, such programs tax all PDP-8 development systems whether on real hardware or via simulation.  In many ways,\par
+P?S?8 can provided superior support for these projects for at least the development phase; generally these programs are written as stand-alone bootable applications as no PDP-8 development system is adequate for running them.]\page 4.\tab Command-line option switch and passed numeric value format.\par
+\par
+The P?S/8 command-line supports option-switches passed in a manner consistent with many DEC operating systems [such as \i OS/8\i0  \i CCL\i0 ].  Two variant forms are supported:\par
+\par
+a)\tab Individual option switches each preceded by \cf2\highlight3 /\cf0\highlight0  such as:\par
+\par
+\tab /F /U /V\par
+\par
+b)\tab Grouped switchs preceded by \cf2\highlight3 (\cf0\highlight0  such as:\par
+\par
+\tab (FUV)\par
+\par
+The trailing \cf2\highlight3 )\cf0\highlight0  is optional unless needed to delimit the option group from another command section.\par
+\par
+A numeric value can be passed to system programs using the =\i xxxx\i0  syntax where \i xxxx\i0  is any value of up to four digits in the range of 0 through 4094 [or 0000 through 7776 octal].  [Note: The explicit value of 4095 [or 7777 octal] is not allowed; however, that value is passed to the program to indicate the explicit form of =\i xxxx\i0  was not used in the command.]\par
+\par
+4.\tab Using PTUTIL to punch paper-tapes from P?S/8 input files.\par
+\par
+When P?S/8 input files are passed to PTUTIL, paper-tape output data is created.  Up to 17 [21 octal] P?S/8 input files can be passed to PTUTIL; the output will be a continuous stream of paper-tape frames taken from the concatenated contents of all input files.  Note: Extended-length input files may be freely used with TFS files in this operating mode.\par
+\par
+The following command-line options apply:\par
+\par
+\tab /A\tab Set automatic mode.  All prompts to the user are eliminated.  \tab\tab The paper-tape punch hardware must be ready before running \tab\tab\tab PTUTIL.  Automatic mode can be used to create fully \tab\tab\tab\tab automated P?S/8 BATCH sessions for repetitive tasks.\par
+\par
+\tab /F\tab The default paper-tape output device is the optional low-\tab\tab\tab speed punch of the Teletype model 33 or model 35 console \tab\tab\tab device.  If the '/F' command-line option switch is set, the \tab\tab output device is changed to the DEC standard high-speed \tab\tab\tab punch [device 02].\par
+\par
+\tab\tab Note: High-speed punch support is subject to time-out.  If \tab\tab\tab the high-speed punch is not available, the output will be \tab\tab\tab redirected to the console device.  Unless the '/S' command-\tab\tab\tab line option switch is set [silent mode], a console message \tab\tab\tab will be issued if the output is redirected.\page\tab /S\tab If the '/S' command-line option switch is set, all console \tab\tab\tab output is suppressed [silent-running mode] with the \tab\tab\tab\tab exception of important error messages.  Silent-running mode \tab\tab can be used in BATCH operations that might otherwise create \tab\tab unwanted console output.  [Note: P?S/8 BATCH can suppress \tab\tab\tab its own console output.  A carefully crafted BATCH file \tab\tab\tab could punch a series of paper-tapes without creating \tab\tab\tab\tab unwanted message strings that could be punched on the tape.] \par
+\par
+\tab /U\tab As necessary, various console messages will be issued by \tab\tab\tab PTUTIL.  By default, all messages are printed in mixed-case \tab\tab characters.  If the '/U' command-line option switch is set, \tab\tab all messages will be printed in upper-case characters.\par
+\par
+  \tab\tab Note: Certain console terminal devices automatically "fold" \tab\tab lower-case characters to upper-case; this option is only \tab\tab\tab required if the console terminal does not support any form \tab\tab\tab of direct lower-case printing capability.\par
+\par
+\par
+\par
+ \par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\page\tab =\i\tab\i0 When punching paper-tape data, the default length of the \tab\tab\tab leader and trailer sections is 100 [144 octal] frames with \tab\tab\tab only the high-order bit punched.  The =\i xxxx\i0  \tab parameter can \tab\tab\tab be set to any value in the range of 0 through 1023 [0000 \tab\tab\tab through 1777 octal] to override the default length.  [Note: \tab\tab Setting =\i 0\i0  will completely eliminate the leader and trailer \tab\tab sections.]\par
+\par
+\par
+\par
+\par
+\par
+\par
+\tab /V\tab When the '/V' command-line option switch is set, certain \tab\tab\tab messages may be embellished to provide additional program \tab\tab\tab management guidance; certain console messages may be \tab\tab\tab\tab enhanced to provide additional information.  [Note: This is \tab\tab known as verbose operating mode.]  This option switch is \tab\tab\tab ignored if the '/S' [silent running mode] is set.\par
+\par
+\tab\tab This command-line option switch also applies to PTUTIL when \tab\tab used to create P?S/8 output files from paper-tape input data \tab\tab as described below.\par
+\par
+5.\tab Creating P?S/8 output files from the contents of paper-tapes.\par
+\par
+In this operating mode, the contents of paper-tapes will be processed into the contents of P?S/8 output files.  There are two variants to this operating mode:\par
+\par
+a)\tab Output is created as a collection of up to 17 TFS output files.  \tab Sufficent files must be passed to avoid error messages indicating \tab data overflow.  The count of output files created will be \tab available in the final program summary.  Unused files are ignored \tab and can be repurposed.  This output mode is used when the '/E' \tab command-line option switch is not set.\par
+\par
+b)\tab Output is created as a collection of up to eight extended-length \tab output files.  [Note: Smaller P?S/8 configurations may only \tab support fewer than eight logical device units limiting the \tab maximum output size.  Additionally, the amount of space available \tab to an extended-length file is subject to several configuration \tab issues including the underlying size of the storage device.]  \tab This output mode is used when the '/E' command-line option switch \tab is set.\par
+\par
+Specific command-line options that apply are as follows:\par
+\par
+\tab /E\tab This command-line option switch determines the output mode \tab\tab\tab as defined above.\par
+\par
+\tab /S\tab This command-line option switch suppresses all console \tab\tab\tab output with the exception of error messages as described \tab\tab\tab above.  [This is known as silent-running mode.]\par
+\par
+\tab /U\tab This command-line option switch determines the exact \tab\tab\tab\tab character set of all console messages as described above.\par
+\par
+\tab /V\tab This command-line option switch enables verbose message mode \tab\tab as described above.  This option is ignored if the '/S' \tab\tab\tab [silent running mode] is enabled.\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\tab\tab\par
+\par
+\par
+b)\tab Grouped switchs preceded by \cf2\highlight3 (\cf0\highlight0  such as:\line\par
+\par
+\par
+\par
+\par
+ \par
+\par
+\par
+\par
+\par
+Unused switches\par
+\par
+A\par
+B\par
+C\par
+D\par
+E\fs29\u8730?\fs24\par
+F\fs29\u8730?\f3\fs17\par
+\f1\fs24 G\par
+H\par
+I\par
+J\par
+K\par
+L\par
+M\par
+N\par
+O\par
+P\par
+Q\par
+R\par
+S\fs29\u8730?\fs24\par
+T\par
+U\fs29\u8730?\fs24\par
+V\fs29\u8730?\fs24\par
+W\par
+X\par
+Y\par
+Z\par
+0\par
+1\par
+2\par
+3\par
+4\par
+5\par
+6\par
+7\par
+8\par
+9\par
+\par
+\par
+\par
+\par
+Output File Options.\par
+\par
+If explicit binary output files are not given, the following option switches can be used:\par
+\par
+\tab /B\tab The \cf2\highlight3 %\cf0\highlight0  file on the P?S/8 system device bootup logical unit \tab\tab\tab [see description of the /U option switch below] is used as \tab\tab\tab the [first] binary output file.\par
+ \par
+\tab /D\tab If the /B option switch is set, the \cf2\highlight3 $\cf0\highlight0  on the P?S/8 system \tab\tab\tab device bootup logical unit [see description of the /U \tab\tab\tab\tab option switch below] is used as the second binary output \tab\tab\tab file [if required].\page\tab /U\tab Change the logical unit that applies [when the /B and /D \tab\tab\tab option switches are set as described above] from the system \tab\tab device bootup logical unit to the result of the following \tab\tab\tab calculation: \{System device bootup logical unit\} \cf2\highlight3 XOR\cf0\highlight0  1.  \tab\tab\tab This selects the "opposite" logical unit of the primary pair \tab\tab of logical drive units.  [Note: Certain P?S/8 systems can be \tab\tab booted to non-zero logical units; as such, this \tab\tab\tab\tab\tab implementation will generally allow a useful drive pairing.]\par
+\par
+\tab Note: If the second binary output file is not required, the /D \tab option switch will effectively be ignored; assembly statistics \tab indicate the actual output file count.\par
+\par
+\tab Due to their physical proximity to the beginning of the storage \tab device, specifying the \cf2\highlight3 %\cf0\highlight0  and \cf2\highlight3 $\cf0\highlight0  files can greatly speed up various \tab system operations.  Additionally, these files are not subject to \tab the overhead of TFS directory operations with regard to the \tab TFS directory on the same logical device unit; as such, many \tab operations have significantly lower overhead when these files are \tab used strategically.  On tape-based systems, \tab throughput can be \tab further improved by using a logical unit different from the \tab system bootup logical unit.\par
+\par
+\tab Note: The /B, /D and /U option switches are provided to simplify \tab the process of allocating output files as most assemblies require \tab one or two output files.  All file specifications can designate \tab an optional device unit; as such, any combination of files can \tab explicitly state associated logical device units as necessary.  \tab The use of these option switches merely allows the use of the \tab more commonly used output file combinations stated in a more \tab succinct form.\par
+\par
+\tab If more than two binary output files are required, or the created \tab binary files should be written to permanent TFS file names, the \tab command line must include explicitly stated output files.\par
+\par
+Chaining Options.\par
+\par
+\tab If desired, automatic chaining options can be invoked to further \tab process output files created during the assembly:\par
+\par
+\tab\f0 /G\f1\tab\f0 The output files created during the assembly are passed as \f1\tab\tab\tab\f0 input files to the\f1  \f0 P?S/8 BIN utility for loading\f1  and \tab\tab\tab\tab execution\f0  [or\f1  punching binary paper-tapes as described \tab\tab\tab below\f0 ]\f1 ; a\f0 dditional\f1  \f0 loading \f1 [or punching] \f0 option\f1 s\f0  may\f1  be\f0  \f1\tab\tab\tab applied.  Note: Chaining to P?S/8 BIN is prevented if there \tab\tab are any assembly errors.\page\tab\tab When chaining to P?S/8 BIN for the purpose of loading binary \tab\tab files, see the section of this document pertaining to \tab\tab\tab\tab additional binary chaining options for information \tab\tab\tab\tab regarding the /H, /I, /V and /Z option switches and the \tab\tab\tab\f0 =\i\f1 xxxx\i0  passed numerical value [possibly in conjunction with \tab\tab\tab the /1 through /7 option switches].  Note: The /W option \tab\tab\tab switch must be clear when loading binary files.\par
+\par
+\tab\tab When chaining to P?S/8 BIN for the purpose of punching \tab\tab\tab binary paper-tape output, see the section of this document \tab\tab\tab pertaining to additional binary chaining options for \tab\tab\tab\tab information regarding the /F, /R and /W option switches.  \tab\tab\tab Note: The /W option switch must be set when punching binary \tab\tab paper-tape output.\par
+\par
+\tab /M\tab The output files created during the assembly are passed as \tab\tab\tab input files to the P?S/8 \i MAP\i0  utility to create a\tab  bitmap of \tab\tab the assembled program indicating actual memory usage.\par
+\par
+\tab\tab Note: The format of P?S/8 MAP bitmap output is generally \tab\tab\tab consistent with the output produced by PAL10 after any FIELD \tab\tab directive is used [or end of assembly] and is a superset of \tab\tab the output of OS/8 \i BITMAP\i0 .  The title format and pagination \tab\tab specifics are the same as those used for the assembler \tab\tab\tab listing output [if any] and assembly statistics pages [which \tab\tab in part depend on the usage of the /P option switch \tab\tab\tab\tab described below].\par
+\par
+\tab\tab Note: When the P?S/8 MAP utility is used without chaining, \tab\tab\tab there are options available to limit which memory fields are \tab\tab subject to mapping; during the chaining process from P?S/8 \tab\tab\tab PAL, these options are inhibited.  As such, all memory \tab\tab\tab fields are elegible for bitmap output following the \tab\tab\tab\tab assembly; however, the output will be limited to fields \tab\tab\tab actually referenced during the assembly.\par
+\par
+\tab\tab It is possible to specify chaining options to P?S/8 MAP and\par
+\tab\tab P?S/8 BIN in a single command; the chain to P?S/8 MAP will \tab\tab\tab always be performed first.  [Note: The further chain to\par
+\tab\tab P?S/8 BIN will be prevented if assembly errors occurred.]\par
+\par
+Pass Control Options.\par
+\par
+\tab /K\tab Perform a two-pass assembly; the default is a single \tab\tab\tab\tab assembly pass.  Note: The /K option switch is not required \tab\tab\tab if any binary or listing options are specified, as these \tab\tab\tab functions intrinsically require two pass operation.\par
+\par
+\tab\tab Unlike OS/8 PAL8 which always performs two [or three] \tab\tab\tab\tab passes, P?S/8 PAL can perform a useful single-pass assembly \tab\tab [which is consistent with the paper-tape system assembler \tab\tab\tab program known as PAL III].\page\tab\tab At the end of pass one, all symbols still not defined are \tab\tab\tab shown on the system console in sorted order; the value \tab\tab\tab indicated is the address within the assembly where each \tab\tab\tab undefined symbol was first encountered.  This facilitates \tab\tab\tab early program development when it is likely that \tab portions \tab\tab\tab of the program have not yet been written.  Alternatively,\par
+\tab\tab variables and temporaries may not yet defined [or perhaps \tab\tab\tab are the object of typographical errors which can cause \tab\tab\tab problems when\tab certain symbols have names similar to other \tab\tab\tab symbols]; any problem of this nature can generally be \tab\tab\tab\tab quickly resolved by merely referencing the relatively short \tab\tab list of undefined symbols.\par
+\par
+\tab\tab Contrast this functionality with that provided by TOPS-10 \tab\tab\tab PAL10 or OS/8 PAL8, neither of which support a mechanism to \tab\tab highlight undefined symbols.  The only \tab facility provided in \tab\tab these assembly programs is to create a second pass [or third \tab\tab pass] listing file of the entire assembly; searching through \tab\tab this far more voluminous output can be tedious as there are \tab\tab usually several references to each undefined symbol as well \tab\tab as many lines of output unrelated to the particular errors.\par
+\tab\tab [Note: In perverse instances, large quantities of extraneous \tab\tab output could be triggered by the failure to correctly define \tab\tab key symbols during early program development; these \tab\tab\tab\tab circumstances could make the manual process of eliminating \tab\tab\tab errors far worse due to cascade dependencies.]\par
+\par
+\par
+\par
+\tab\tab As such, using OS/8 PAL8 can easily become a time-consuming \tab\tab process.  In such circumstances, it would be prudent to \tab\tab\tab limit the assembly to a single pass using P?S/8 PAL until \tab\tab\tab key problems are solved.  Using only the undefined symbol \tab\tab\tab report available at the end of pass one of P?S/8 PAL, most \tab\tab\tab problematic cases can generally be eliminated.  [Note: A two \tab\tab pass listing provided by P?S/8 PAL would be as frustrating\tab\tab\tab to use as that obtained from OS/8 PAL8; however, only P?S/8 \tab\tab PAL provides the one pass method that is recommended \tab for \tab\tab\tab early program development.]\par
+\par
+\tab\tab [Note: See the description of the /L and /N option switches \tab\tab for the alternate usage of the /K option switch.]\par
+\par
+\f0 Second \f1 pass \f0 assembly considerations.\par
+\par
+\f1\tab A second assembly pass is performed if binary output files are \tab created and/or assembly listing output is produced.  During pass \tab two, any additional error messages will be displayed on the \tab prevailing output device [system console or line printer] in a \tab format similar to that of OS/8 PAL8 and TOPS-10 PAL10 [including \tab the nearest symbol plus any numerical \tab offset] to facilitate \tab source code development; additional information may be displayed \tab in certain instances.\par
+\par
+\tab Programmers may embellish the displayed output of the assembly \tab process when critical sections are being processed:\par
+\par
+\tab a)\tab P?S/8 PAL supports the ERROR directive; this causes a \tab\tab\tab\tab deliberate assembly error.  By using the ERROR directive, \tab\tab\tab the programmer can design internal safeguards to prevent \tab\tab\tab logical inconsistencies that might occur during program \tab\tab\tab maintenance.  [Note: The design of safeguarded code sections \tab\tab generally includes the use of conditional assembly \tab\tab\tab\tab statements to calculate problematic scenarios; as long as \tab\tab\tab certain specific requirements are met, there will be no \tab\tab\tab output of the ERROR directive.]\page\tab\tab Note: The output of the ERROR directive is consistent with\tab\tab\tab that of all standard errors during each assembly pass and \tab\tab\tab can include the display of an optional evaluated argument. \tab\tab\tab Automatic binary loading by chaining to P?S/8 BIN will be \tab\tab\tab aborted if for no other reason than the ERROR directive was \tab\tab invoked.\par
+\par
+\tab b)\tab P?S/8 PAL supports the PAUSE directive both as it was \tab\tab\tab\tab originally implemented in PAL III [to ignore the rest of the \tab\tab contents of the latest input file] and also as an extension \tab\tab which can embellish displayed output during the assembly \tab\tab\tab process.\par
+\par
+\tab\tab When the PAUSE directive is used with an argument, the \tab\tab\tab argument is evaluated as a 12-bit unsigned value.  Displayed \tab\tab output is consistent with the format of standard error \tab\tab\tab messages; however, PAUSE usage does not report as an error.\par
+\par
+\tab\tab The programmer can use the PAUSE directive for a variety of \tab\tab purposes [such as announcing the assembly pass or start of \tab\tab\tab assembly of a critical section].  When a logical \tab\tab\tab\tab\tab inconsistency is detected, the PAUSE directive can be used \tab\tab\tab to output additional information about the error to help \tab\tab\tab maintainence programmers understand the nature of the\tab\tab\tab\tab problem.\par
+\par
+\tab\tab The techniques described above and other features unique to \tab\tab P?S/8 PAL can be qualified to prevent use with incompatible \tab\tab assemblers.\par
+\par
+\tab\tab The PQS directive is defined only in P?S/8 PAL; this allows \tab\tab the programmer to create conditional assembly statements to \tab\tab restrict usage of these features to P?S/8 PAL and not \tab\tab\tab\tab generate erroneous errors caused by the failure to support \tab\tab\tab the features in other assemblers.  An example of this usage \tab\tab follows:\par
+\par
+\tab\tab\tab IFNDEF\tab PQS\tab <PQS= 0>\tab /WILL BE ZERO IF NOT P?S PAL.\par
+\par
+\tab\tab\tab IFNZRO\tab PQS\tab <PAUSE .>\tab /DISPLAY CURRENT ORIGIN.\par
+\par
+\tab\tab Note: The XLIST directive, as implemented in P?S/8 PAL, is \tab\tab\tab consistent with OS/8 PAL8; XLIST statements can be used to \tab\tab\tab hide portions of the assembly as necessary such as \tab\tab\tab\tab assembler-specific statements.  Deployed judiciously, all \tab\tab\tab unassembled conditional assembly can be hidden when \tab\tab\tab\tab producing the listing output.\page Symbol Table Options.\par
+\par
+\tab /S\tab The symbol table will be output at the end of the assembly.\par
+\par
+\tab\tab If the /N option switch is also set, the symbol table format \tab\tab will be consistent with that of an enhanced listing pass [if \tab\tab enabled].\par
+\par
+\tab\tab Note: The exact output may be subject to the number of \tab\tab\tab assembly passes performed; two pass assembly is performed if \tab\tab binary output files are created and/or listing output is \tab\tab\tab produced, or the /K option switch is set.\par
+\par
+\tab /A\tab If the /S option switch is set, the entire symbol table will \tab\tab be output at the end of the assembly; this includes all \tab\tab\tab permanent symbols and assembly directives.\par
+\par
+\tab\tab Note: If dual-mode [PDP-8 and LINC] assembly is in effect, \tab\tab\tab the symbol table will be set to that which applies at the \tab\tab\tab end of the assembly; certain symbols with dual definitions \tab\tab\tab will display values as used during the final assembly mode.\par
+\par
+\tab\tab Certain permanent symbols may have been redefined by the \tab\tab\tab source code; this is especially important in LINC mode \tab\tab\tab assembly where there may be multiple definitions of certain \tab\tab instructions that are model-dependent within the various \tab\tab\tab LINC implementations.\par
+\par
+\tab\tab While all default LMODE definitions within P?S/8 PAL are for \tab\tab the PDP-12 LINC variant, source code changes can be made to\tab\tab\tab redefine the affected symbols for compatibility with the \tab\tab\tab LINC-8 or classic LINC as required.  [Note: Permanent \tab\tab\tab\tab changes of certain SKP class or other LINC instructions can \tab\tab only be made at the source-code level of P?S/8 PAL.  The \tab\tab\tab best overall recommendation is to redefine the affected \tab\tab\tab symbols to be consistent with the target architectural \tab\tab\tab model.]\par
+\par
+Listing Options.\par
+\par
+\tab /L\tab Assembly listing output will be produced.\par
+\par
+\tab\tab Unlike OS/8 PAL8, P?S/8 PAL performs at most two passes.\par
+\page\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+Appendix A.\par
+\par
+Using PTUTIL on P?S/8 systems without PTUTIL installed.\par
+\par
+PTUTIL is a recent addition to releases of P?S/8 Version 8Z; it will be included in all future releases as a standard system program compatible with the concise or extended forms of program execution.\par
+\par
+Those familiar with the P?S/8 system programs directory can add PTUTIL as long as there is sufficient free storage space.  Failing this, it is also possible to run PTUTIL as an impromptu system program as described below; the binary file[s] created by assembling PTUTIL source file[s] must be available on an available logical device unit [drive 1 in this example].\par
+\par
+Console output\tab\tab\tab\tab\tab\tab\cf1\f1 Comments\cf0\f2\par
+\par
+.     \tab\tab\tab\tab\tab\tab\tab\cf1\f1 Keyboard monitor prompt.\cf0\f2\par
+.CA:1\tab\tab\tab\tab\tab\tab\tab\cf1\f1 CA\{talog\} command for drive 1.\cf0\f2\par
+BPTUT1  BPTUT2  README  RDMETU\tab\tab\cf1\f1 Contents of TFS directory on\cf0\f2\par
+\tab\tab\tab\tab\tab\tab\tab\tab\cf1\f1 drive containing binary files.\cf0\f2\par
+.LC:0\tab\tab\tab\tab\tab\tab\tab\cf1\f1 Avoid potential system \tab\tab\tab\tab\tab\tab\tab\tab\tab\tab dependencies on data drive.\cf0\f2\par
+.GET BPTUT1:1 BPTUT2\tab\tab\tab\tab\cf1\f1 Create program image.\par
+\tab\tab\tab\tab\tab\tab\tab\tab System restarts here.\par
+\cf0\f2 .R $ \cf1\f1 [Files and other parameters]\tab\tab Particulars as used when \tab\tab\tab\tab\tab\tab\tab\tab\tab PTUTIL is already installed.\par
+\par
+\cf0\f2 The R [or RU\{n\}] command specifying the program name \highlight1 $\highlight0  [or \highlight1 %\highlight0 ] executes the default core image as setup by the latest GET operation or equivalent.  [Note: This will function permanently unless some other system usage or command changes the contents of the \highlight1 %\highlight0  and \highlight1 $\highlight0  files.  If necessary, the GET operation can be repeated to refresh the default program image.]\par
+\par
+PTUTIL is designed to be compatible with the work-around mechanism described above to allow rapid addition to existing systems; this mechanism was introduced in P?S/8 Version 8Y and is supported on all newer releases.\par
+\par
+Usage restrictions.\par
+\par
+When using PTUTIL to create ASCII text paper-tape output, the default leader/trailer length [surrounding the characters obtained from \par
+P?S/8 input files] is 100 [144 octal] frames.  This parameter can be changed using the =\i xxxx\i0  parameter which is normally expressed in the current keyboard monitor radix [which is generally decimal].  However,  this execution attribute is only available to programs located in the system programs directory [the default value is to force octal radix].  As such, any usage of the =\i xxxx\i0  parameter as described here must be expressed in octal.\par
+\par
+End of Appendix A.\page\f1\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\'af\f2\par
+Appendix B.\par
+\par
+Extended-length file support in P?S/8 Version 8Z and future releases.\par
+\par
+The notion of extended-length files has been well-established in P?S/8 over the years including the file format for ASCII text files as used in PTUTIL and other inter-system conversion utilities [\i OS8CON\i0 , \i L6DCON\i0 , etc.].  However, the directory structure to manage extended-length files has gone through several incomplete implementations, all of which are being scrapped in favor of the P?S/8 SHELL which is expected to be released as a part of P?S/8 Version 9B.  [Version 9A will be a cleanup release to clear the backlog of lesser issues that have surfaced over the years that require slightly changing many programs to achieve various improvements.  Despite this, very little will be changed from the vantage point of the end user or P?S/8 developer with the exception of how to access extended-length files.]\par
+\par
+As of this writing, P?S/8 Version 8Z contains a vestigial structure that provides the rudiments of supporting extended-length files with several provisos.\par
+\par
+a)\tab The user doesn't actually supply extended-length file \tab specifications.  Instead, the user supplies an existing TFS file \tab name which must be the highest file [by storage block] placed \tab into the TFS directory [and would be the last file name shown by \tab the CA\{TALOG\} command].  Clearly this implementation is quite \tab flawed as the \tab user must be aware of the restriction for which \tab there are no safeguards.  All files physically further up the \tab device beyond the file name specified are subject to destruction.\par
+\par
+b)\tab The structure known as the extended-length directory is used for \tab only one purpose: To establish the highest block on the current \tab logical unit to limit the size of an extended-length file.\par
+\par
+c)\tab There is no facility to name extended-length files [which is moot \tab since they are not referenced currently].\par
+\par
+d)\tab The rest of the extended-length directory structure is unused. \tab It was created only for a theoretical attempt at a multiple-file \tab directory structure.  This has since been scrapped in favor of \tab the P?S/8 SHELL which is currently under development.\par
+\par
+As such, programs such as PTUTIL check to see if the '/E' command-line switch is set, but cannot validate the file handles as part of the extended-length file system blocks.  [In fact, this is impossible presently;the passed blocks are merely the highest blocks currently used in the TFS directory; files will be created from that passed block up to as much as all the rest of the blocks on the storage device.]  Thus arises the user caveat to always pass the highest actual TFS file in the directory to avoid file destruction.]\page\cf3 Appendix B [continued].\par
+\par
+\cf0 All existing [relevant] conversion programs that create P?S/8 extended-length output files reserve internal initialization code space for future implementation where extended-length files are confirmed to start outside of the scope of the TFS directory and appropriate validation can be applied [including appropriate error messages].  When this is operational, the temporary kludge of supplying the starting block of the highest-block existing TFS file will cease to function; safe and proper support of the extended-length file will replace this risky situation.\cf3\par
+\par
+\cf0 The entire block structure of the extended-length file directory is being removed [and the blocks repurposed] from P?S/8 and will be replaced by a streamlined mechanism that formalizes the role of the extended-length file in a rational and completely safe manner.\line\line In future P?S/8 releases, it will be necessary to use the R or RU\{N\} form of program execution to access extended-length files.  This is in keeping with the original intention of P?S/8 extended-length file support; all proposed support mechanisms require sufficient code space in memory that cannot coexist with the keyboard monitor edit buffer.  \par
+\par
+[Note: The keyboard monitor provides support routines to the execution-class code sections that are brought into memory, including the concise execution mechanism that overlays a portion of the keyboard monitor.  This overall scheme is especially useful to certain utility programs that interact directly with the keyboard monitor in various ways.  Certain programs are designed to post-process the command line for additional information; a good example is the P?S/8 \i SET\i0  utility.  The entry for the SET program in the system programs directory indicates limited parsing by the execution-class command processor to allow SET to process commands via its own syntax parsing routines.]\par
+\par
+Historically, in all relevant implementations of P?S/8, a distinction has always been made between supporting the first physical half of the system programs directory [the first two blocks] and supporting the entire system programs directory due to specific resource issues.\par
+\par
+The concise form of program execution [where merely the program name is invoked causing it to be executed] restricts the entry for the program to be executed to the first half of the system programs directory.  This allows the P?S8 keyboard monitor to overlay the code that supports the execution and the first half of the system programs directory over a portion of the keyboard monitor [containing routines that are not used during the command-line processing].\page\cf3 Appendix B [continued].\par
+\cf0\par
+Note: Where relevant, the displaced portion of the keyboard monitor can be restored after the command is processed; this is important in case of programs such as the \i FIND\i0  and \i CHANGE\i0  utilities which interact with the keyboard monitor and the edit buffer.  Most program execution commands merely lead to loading the program image into some portion of user memory [locations 00000-07577] which then exit to location 07600 to reload the entire keyboard monitor; no interaction with the keyboard monitor is required.\par
+\par
+The advantage of this form of execution is the preservation of the edit buffer which is crucial to the execution of the overlay type of utilities [and P?S/8 \i BATCH\i0 ].  When PTUTIL is used without extended-length files, this is a suitable means for invoking the utility.\par
+\par
+One reason for using the R [or RU\{N\}] form of execution is to allow system program names that are anomalous to keyboard monitor commands.  Additionally, since the second half of the system programs directory is accessible, this allows as many as 85 system programs instead of the concise execution limit of 42 system programs [that are stored in the first half of the system programs directory].\par
+\par
+All program entries contained in the second half of the systems program directory must of necessity not depend on the preservation of the edit buffer.  [Note: This would generally be the case considering how few programs actually require this support.  For most programs, the somewhat lower overhead of the concise form of execution is merely a welcome slight improvement in performance but not an absolute requirement.]\cf3\par
+\par
+\cf0 As a practical matter, no existent P?S/8 release has ever fully filled the first half of the system programs directory; the typical system program count is 28.  [This has partially been a result of ensuring all existing program names are not in conflict with the keyboard monitor commands; for most users, there aren't all that many programs that warrant placement in the system programs directory; most programs can be run as user binary files to be loaded by the BIN program's slurp loader.]  As such, there haven't been sufficient system programs to require the full length of the system programs directory.  [Future specific system releases could cause these restrictions to be more meaningful; diagnostic programs could be added to a designated P?S/8 system directory or other purpose.]\par
+\cf3\par
+\cf0 Long term, it was always planned to require these restrictions to access extended-length output files and the entire system programs directory by overlaying the edit buffer [and potentially requiring a system reload if various errors were detected in the command-line].  Until the solution described here is implemented, the workaround for P?S/8 Version 8Z described in Appendix A above must be used.\page\cf3 Appendix B [continued].\par
+\cf0\par
+Extended-length files will be formally redefined in future releases of P?S/8 starting with Version 9A.  Each logical unit will support one extended-length file; supported file formats will not change.  As a practical matter, the extended-length file starting block will be exactly 0020 octal blocks past the best-case work-around of supplying the highest possible TFS file name.\par
+\par
+[Note: By design, the extended-length file storage follows the highest file permitted in the TFS directory.  The present workaround actually allows 0020 octal additional blocks for the largest possible extended-length file as compared to the eventual formal implementation.  However, the extent of the TFS directory can always be adjusted downward to allow more storage allocated to the extended-length file on the logical device.  If desired, the TFS directory can be rendered moot causing all available storage past the last block reserved by the system programs directory to be available for the extended-length file.  P?S/8 storage devices such as DECtape could be deliberately configured this way for routine use of extended-length files only.]\par
+\par
+The actual implementation of this support is to repurpose a few words at the end of the system programs directory for the extended-length file parameters.  This will have minimal effect on the system directory capacity; in the worst case implemenation, two less entries  will be available for additional system programs [leaving a maximum of 83 program entries].  As a practical matter, the system programs directory is presently utilized at a 40% level; as such, this will be of no particular consequence.]\line\line Since the extended length file entry will be located in the system programs directory, it will have already been read in with the rest of the system programs structure when the R [or RU\{N\}] form of execution is invoked.  Thus, there will be virtualy no additional overhead [actually somewhat less overhead] when specifying extended-length files once the full execution coding is revamped to support this in future releases.\par
+\par
+[Note: The extended-files directory structure blocks will be repurposed into part of the new low-level keyboard monitor used to manage all structures that overlay the keyboard monitor such as the Logical Console Overlay and the P?S/8 SHELL.  Additional blocks may be repurposed to other modules of the P?S/8 SHELL implementation such as the virtualized copy of the File and Communications area.]\par
+\par
+Once this revised form of program execution is fully implemented, all programs such as PTUTIL will be revised to fully support extended-length files with proper validation [meaning starting blocks will of necessity fall just outside of the TFS structure that precedes it].  In future releases, PTUTIL can check the TFS directory structure on the same logical unit the extended-length file entry passed resides.\par
+The limit block of the TFS directory defines the lowest block allowed for extended-length files.\page\cf3 Appendix B [continued].\par
+\cf0\par
+Access to the dedicated entry in the system programs directory for the single extended-length file will require the user to set an appropriate file name that is unique and not anomalous to the TFS directory to avoid confusion.  If there is sufficient code space, the execution code can implement safeguards to ensure unique file names to enforce the restriction.  [PTUTIL could easily perform a lookup of the passed file name to ensure it is not present in both directories; this situation would lead to appropriate error messages during the initialization phase of PTUTIL startup coding.]\par
+\par
+File names for extended-length files will be implemented using SET commands to establish proper naming conventions as well as preventing file name anomaly.  Additional SET commands will manage scratch extended-length file lists for programs such as P?S/8 \i PAL\i0 , which requires long temporary files during the operation of the cross-reference module.  [Up to eight extended-length files can be made available for reference storage during the assembly.]\par
+\par
+End of Appendix B.\par
+\par
+\f0 [End-of-file]\f2\par
+\par
+}
+ 

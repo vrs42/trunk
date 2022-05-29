@@ -1,0 +1,44 @@
+
+/RT-11 TO P?S CONVERTOR                   PAL8-VB0  27-DEC-86 PAGE 1
+
+   1                 /RT-11 TO P?S CONVERTOR
+   2   
+   3                 /READS RT-11 DECTAPES BLOCK # FROM = PARM,USES UNIT 7 FOR INPUT
+   4   
+   5                 /       EQUATED SYMBOLS
+   6   
+   7           0000          BUFFER= 0               /USE THIS BUFFER FOR INPUT
+   8           7640          SYSIO=  7640            /I/O ENTRY POINT
+   9           4000          WRITE=  4000            /SYSIO WRITE BIT
+  10   
+  11           6600          PAGE    33              /FOR ONCE ONLY CODE
+  12   
+  13   006600  1777  RT11,   TAD I   (7756           /GET EQUALS PARM
+  14   006601  7040          CMA                     /INVERT FOR TEST
+  15   006602  7450          SNA                     /NONE PASSED ?
+  16   006603  5776          JMP I   (BAD            /BARF
+  17   006604  7040          CMA                     /RESTORE ARGUMENT
+  18   006605  3775          DCA I   (RTBLK          /STORE IT
+  19   006606  1774          TAD I   (7607           /GET # OF OUTPUT FILES
+  20   006607  7450          SNA                     /SKIP IF ANY
+  21   006610  5776          JMP I   (BAD            /BARF IF NONE
+  22   006611  1373          TAD     (7757           /ADD ON BASE
+  23   006612  3200          DCA     RT11            /SAVE IT
+  24   006613  3600          DCA I   RT11            /WIPE OUT INPUT FILES
+  25   006614  1372          TAD     (1347
+  26   006615  3771          DCA I   (7614
+  27   006616  1370          TAD     (7600
+  28   006617  3767          DCA I   (7747
+  29   006620  5766          JMP I   (INRT11         /START IT UP
+  30   
+  31   006766  7551
+  32   006767  7747
+  33   006770  7600
+  34   006771  7614
+  35   006772  1347
+  36   006773  7757
+  37   006774  7607
+  38   006775  7253
+  39   006776  7563
+  40   006777  7756
+  41           7000          PAGE

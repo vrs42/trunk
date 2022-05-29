@@ -1,0 +1,97 @@
+Comparing files VT8PCH.PAL and VT8PCHNEW.PAL
+***** VT8PCH.PAL
+
+/       LAST EDIT:      08-APR-1987     23:00:00        CJL
+
+***** VT8PCHNEW.PAL
+
+/       LAST EDIT:      04-FEB-1988     15:00:00        CJL
+
+*****
+
+***** VT8PCH.PAL
+
+/       SET THE DISPLAY FIELD:
+
+***** VT8PCHNEW.PAL
+
+/       SET THE DISPLAY FIELD(S):
+
+*****
+
+***** VT8PCH.PAL
+        NL0004                  /SET OFFSET TO POTENTIAL INSTRUCTION
+        TAD I   (INTLST)        /POINT TO POTENTIAL DPCL INSTRUCTION
+        DCA     ILPTR           /STASH THE POINTER
+***** VT8PCHNEW.PAL
+        NL0004                  /SET OFFSET TO POTENTIAL INSTRUCTION
+        TAD I   (INTLST)        /POINT TO POTENTIAL DPCLIOT INSTRUCTION
+        DCA     ILPTR           /STASH THE POINTER
+*****
+
+***** VT8PCH.PAL
+NOCONSO,DCA     REM             /STORE CONSOLE TYPE INDICATOR AS NECESSARY
+CZAPLUP,CDF    DFIELD                  /GOTO OUR FIELD
+        TAD I   CZTPTR                  /GET AN OUTPUT ROUTINE ZAP WORD
+        SNA                             /END OF LIST?
+        JMP     CZAPEND                 /YES
+        CDF     00                      /GOTO FIELD ZERO
+        DCA I   CZAPTR                  /ZAP IT IN
+        ISZ     CZTPTR                  /BUMP TO NEXT ELEMENT
+        ISZ     CZAPTR                  /BUMP TO NEXT ADDRESS
+        JMP     CZAPLUP                 /KEEP GOING
+
+CZAPEND,TAD     REM                     /GET CONSOLE TYPE
+        SPA CLA                         /SKIP IF NON-VT-8/E CONSOLE OR NO CONSOLE AT ALL
+        JMP I   (USEVT8EOVERLAY)        /JUMP IF VT-8/E CONSOLE
+        TAD     (INTVT8E)               /POINT OUTPUT ROUTINE
+        DCA     ODEV                    /AT OUR VT-8/E HANDLER
+        TAD     (INTVT8E)               /POINT THE O(UTPUT) S(COPE) ROUTINE
+        DCA     OSCOPE                  /AT OUR VT-8/E HANDLER
+        CIF     DFIELD+10               /GOTO OUR HANDLER FIELD
+        JMS I   (CLEAR)                 /CLEAR OUR BUFFER
+        TAD     (VTBUFFER)              /POINT AT DISPLAY BUFFER
+        DPLAIOT                         /LOAD DISPLAY ADDRESS
+        TAD     (DFIELD+10+1)           /GET FIELD, MODE, INTERRUPT ENABLE
+        DPGOIOT                         /START UP THE DISPLAY
+        JMP I   (OCOMN)                 /CONTINUE THERE
+
+CZAPTR, COUTPUT+3                       /WHERE OUTPUT CODE GOES
+CZTPTR, CZTABLE                         /POINTER TO OUTPUT REPLACEMENT CODE
+
+***** VT8PCHNEW.PAL
+NOCONSO,DCA     REM             /STORE CONSOLE TYPE INDICATOR AS NECESSARY
+CZAPLUP,CDF    DFIELD          /GOTO OUR FIELD
+        TAD I   CZTPTR          /GET AN OUTPUT ROUTINE ZAP WORD
+        SNA                     /END OF LIST?
+        JMP     CZAPEND         /YES
+        CDF     00              /GOTO FIELD ZERO
+        DCA I   CZAPTR          /ZAP IT IN
+        ISZ     CZTPTR          /BUMP TO NEXT ELEMENT
+        ISZ     CZAPTR          /BUMP TO NEXT ADDRESS
+        JMP     CZAPLUP         /KEEP GOING
+
+CZAPEND,TAD     REM             /GET CONSOLE TYPE
+        SPA CLA                 /SKIP IF NON-VT-8/E CONSOLE OR NO CONSOLE AT ALL
+        JMP I   (USEVT8EOVERLAY)/JUMP IF VT-8/E CONSOLE
+        TAD     (INTVT8E)       /POINT OUTPUT ROUTINE
+        DCA     ODEV            /AT OUR VT-8/E HANDLER
+        TAD     (INTVT8E)       /POINT THE O(UTPUT) S(COPE) ROUTINE
+        DCA     OSCOPE          /AT OUR VT-8/E HANDLER
+        CIF     DFIELD+10       /GOTO OUR HANDLER FIELD
+        JMS I   (CLEAR)         /CLEAR OUR BUFFER
+        DPCLIOT                 /WAIT FOR
+        JMP     .-1             /DISPLAY FLAG
+        DPCLIOT                 /WAIT FOR
+        JMP     .-1             /A FRESH FLAG
+        TAD     (VTBUFFER)      /POINT AT DISPLAY BUFFER
+        DPLAIOT                 /LOAD DISPLAY ADDRESS
+        TAD     (DFIELD+10+1)   /GET FIELD, MODE, INTERRUPT ENABLE
+        DPGOIOT                 /START UP THE DISPLAY
+        JMP I   (OCOMN)         /CONTINUE THERE
+
+CZAPTR, COUTPUT+3               /WHERE OUTPUT CODE GOES
+CZTPTR, CZTABLE                 /POINTER TO OUTPUT REPLACEMENT CODE
+
+*****
+

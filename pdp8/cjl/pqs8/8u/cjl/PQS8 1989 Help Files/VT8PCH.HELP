@@ -1,0 +1,131 @@
+
+/       VT-8/E OVERLAY FOR P?S/8 FOCAL    PAL8-VB0  08-APR-87 PAGE 1
+
+   1                 /       VT-8/E OVERLAY FOR P?S/8 FOCAL
+   2   
+   3                 /       LAST EDIT:      08-APR-1987     23:00:00        CJL
+   4   
+   5                 /       MAY BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       P?S/8 FOCAL OVERLAY FOR DISPLAY OF X-Y POINTS ON THE VT-8/E.
+   8   
+   9                 /       THIS OVERLAY PROVIDES A DISPLAY FUNCTION TO P?S/8 FOCAL SIMILAR TO FOCAL-12
+  10                 /       OR BASIC-RT.
+  11   
+  12                 /       FUNCTIONS AVAILABLE:
+  13   
+  14                 /       FDIS(X,Y)               INSERT POINT AT (X,Y) (POINT NEED NOT BE CLEAR).
+  15   
+  16                 /       FDIS(X,Y,0)             CLEAR POINT AT (X,Y) (POINT NEED NOT BE PRESENT).
+  17   
+  18                 /       FDIS(X,Y,NON-ZERO)      TEST POINT AT (X,Y); RETURN 0 IF NOT PRESENT, -1
+  19                 /                               IF PRESENT.
+  20   
+  21                 /       FDIS(0)                 CLEAR ALL POINTS FROM DISPLAY.
+  22   
+  23                 /       FDIS(NON-ZERO)          SET ALL POINTS ON DISPLAY.
+  24   
+  25                 /       FIO(NEGATIVE)           RETURNS NUMERICAL VALUE (MODULO 128) OF NEXT ASCII
+  26                 /                               CHARACTER TYPED; P?S/8 FOCAL WILL WAIT FOR INPUT
+  27                 /                               IF NECESSARY (WHILE BUFFERING THE DISPLAY). SINCE
+  28                 /                               INTEGER CONVERSION IS USED FOR EVALUATION, THE
+  29                 /                               ARGUMENT MUST BE NEGATIVE OR WITHIN THE RANGE
+  30                 /                               2048-4095 MOD 4096.
+  31   
+  32                 /       FIO(CHAR<2048)          OUTPUT ASCII CHARACTER; P?S/8 FOCAL WILL BUFFER
+  33                 /                               THE DISPLAY IF IT MUST WAIT TO OUTPUT THE CHARACTER.
+  34                 /                               SINCE INTEGER CONVERSION IS USED FOR EVALUATION,
+  35                 /                               THE ARGUMENT MUST BE POSITIVE AND BETWEEN 0000-2047
+  36                 /                               MOD 2048. NORMAL OUTPUT DEVICES GENERALLY REDUCE
+  37                 /                               THE CHARACTER VALUE RANGE TO 0000-0255 MOD 256
+  38                 /                               ALLOWING ANY COMBINATION OF ASCII CHARACTER OUTPUT
+  39                 /                               WITH OR WITHOUT PARITY SET.
+
+/       VT-8/E OVERLAY FOR P?S/8 FOCAL    PAL8-VB0  08-APR-87 PAGE 2
+
+  40                 /       DOMAIN FOR X:           [-94,+94]
+  41   
+  42                 /       RANGE FOR Y:            [-100,+99]
+  43   
+  44                 /       OPTIONS (FOCAL/O):
+  45   
+  46                 /       O(UTPUT) A(LTERNATING)  OUTPUT BLINKING CHARACTERS (TO VT-8/E)
+  47   
+  48                 /       O(UTPUT) B(OLD)         OUTPUT BOLD CHARACTERS (TO VT-8/E) (DEFAULT)
+  49   
+  50                 /       O(UTPUT) C(LEAR)        CLEAR ALL OUTPUT, OUTPUT SCOPE, DISPLAY CHARACTERS-ONLY
+  51   
+  52                 /       O(UTPUT) D(ELETE)       DELETE POINTS, OUTPUT SCOPE, DISPLAY CHARACTERS-ONLY
+  53   
+  54                 /       O(UTPUT) E(RASE)        ERASE CHARACTERS, OUTPUT SCOPE, DISPLAY GRAPHICS-ONLY
+  55   
+  56                 /       O(UTPUT) F(REE)         OUTPUT IS FREE OF CURSOR
+  57   
+  58                 /       O(PTION) G(ENERIC)      GENERIC CONSOLE INPUT DEVICE; VT-8/E IF NO OVERLAY
+  59   
+  60                 /       O(UTPUT) I(NVERTING)    OUTPUT CURSOR CHARACTERS (TO VT-8/E)
+  61   
+  62                 /       O(PTION) K(EYBOARD)     DEVICE 03 (CONSOLE TERMINAL) KEYBOARD INPUT
+  63   
+  64                 /       O(UTPUT) L(PT)          DEVICE 66 (LINEPRINTER) OUTPUT
+  65   
+  66                 /       O(PTION) M(ONITOR)      RETURN TO P?S/8 KEYBOARD MONITOR.
+  67   
+  68                 /       O(UTPUT) N(ORMAL)       OUTPUT NORMAL CHARACTERS (TO VT-8/E)
+  69   
+  70                 /       O(UTPUT) O(N)           OUTPUT CURSOR IS ON
+  71   
+  72                 /       O(UTPUT) P(RINTER)      LOGICAL PRINTER OUTPUT (DEVICE 66 IF NO OVERLAY)
+  73   
+  74                 /       O(UTPUT) S(COPE)        OUTPUT TO VT-8/E (CONSOLE OVERLAY OR INTERNAL ROUTINES)
+  75   
+  76                 /       O(UTPUT) T(ERMINAL)     DEVICE 04 (CONSOLE TERMINAL) TERMINAL OUTPUT
+  77   
+  78                 /       O(UTPUT) U(NIVERSAL)    OUTPUT TO CONSOLE (VT-8/E IF NO OVERLAY)
+  79   
+  80                 /       O(PTION) V(T-8/E)       INPUT FROM VT-8/E KEYBOARD
+  81   
+  82                 /       O(UTPUT) W(AIT)         DISPLAY GRAPHICS-ONLY UNTIL NEXT INPUT, SET FORMER MODE
+  83   
+  84                 /       ALL "O" COMMAND ERRORS REPORT ?30.00.
+  85   
+  86                 /       ALL FOCAL "?" REPORTS (INCLUDING <^P>-CAUSED ?01.00) REVERT
+  87                 /       INPUT TO O(PTION) V(T-8/E) AND OUTPUT TO O(UTPUT) S(COPE).
+
+/       VT-8/E OVERLAY FOR P?S/8 FOCAL    PAL8-VB0  08-APR-87 PAGE 3
+
+  88                 /       ASSEMBLY PARAMETERS.
+  89   
+  90                 /       SET THE DISPLAY FIELD:
+  91   
+  92                 /       DFIELD= 40                      /DISPLAY FIELD(S)
+  93   
+  94                 /       CONDITIONAL ASSEMBLY PARAMETERS.
+  95   
+  96                         IFNDEF  DFIELD  <DFIELD=40>     /USE FIELD FOUR (AND FIVE) FOR DISPLAY
+  97                         IFNDEF  CI      <CI=    03>     /CONSOLE KEYBOARD IS DEVICE 03
+  98                         IFNDEF  CO      <CO=    04>     /CONSOLE PRINTER IS DEVICE 04
+  99                         IFNDEF  KEY     <KEY=   43>     /VT-8/E KEYBOARD IS DEVICE 43
+ 100                         IFNDEF  LP      <LP=    66>     /LINE PRINTER IS DEVICE 66
+ 101                         IFNDEF  VT      <VT=    45>     /VT-8/E VIDEO IS DEVICE 45
+ 102   
+ 103                 /       IOT DEFINITIONS.
+ 104   
+ 105           6435          DKIEIOT=KEY^10+6005             /KEYBOARD INTERRUPT ENABLE PER AC[11]
+ 106           6436          DKRBIOT=KEY^10+6006             /READ KEYBOARD BUFFER, CLEAR KEYBOARD FLAG
+ 107           6431          DKSFIOT=KEY^10+6001             /SKIP ON KEYBOARD FLAG
+ 108           6457          DPBLIOT=VT^10+6007              /GENERATE BELL TONE
+ 109           6456          DPCLIOT=VT^10+6006              /SKIP ON, CLEAR VIDEO RETRACE FLAG
+ 110           6451          DPGOIOT=VT^10+6001              /LOAD INTERRUPT ENABLE, VIDEO MODE, GO
+ 111           6450          DPLAIOT=VT^10+6000              /LOAD VIDEO DISPLAY ADDRESS
+ 112           6455          DPMSIOT=VT^10+6005              /READ SENSE REGISTER
+ 113           6452          DPSMIOT=VT^10+6002              /STOP DISPLAY
+ 114           6035          KIEIOT= CI^10+6005              /KEYBOARD INTERRUPT ENABLE PER AC[11]
+ 115           6036          KRBIOT= CI^10+6006              /READ KEYBOARD BUFFER, CLEAR FLAG
+ 116           6031          KSFIOT= CI^10+6001              /SKIP ON KEYBOARD FLAG
+ 117           6666          LLSIOT= LP^10+6006              /OUTPUT LPT: CHARACTER, CLEAR FLAG
+ 118           6661          LSFIOT= LP^10+6001              /SKIP ON (CLEAR IF 6120) LPT: FLAG
+ 119           6042          TCFIOT= CO^10+6002              /CLEAR TTY: FLAG
+ 120           6046          TLSIOT= CO^10+6006              /OUTPUT CHARACTER, CLEAR FLAG
+ 121           6041          TSFIOT= CO^10+6001              /SKIP ON (CLEAR IF 6120) OUTPUT FLAG
+

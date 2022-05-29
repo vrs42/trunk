@@ -1,0 +1,96 @@
+/	Some tentative notes about 8KBASIC and P?S/8
+
+BASIC loads a few constants into page zero of field 1.  Beyond that is the code
+stack and then the variables and push-down area that are not needed for file setup or
+save.
+
+The code stack can be quite large, especially since tokens can be expanded into longer
+keywords.
+
+Any save mechanism requires a series of TFS output files.
+
+If they are to be specified, the name parser needs to restrict STATED name to
+5 characters to allow numeric characters to be appended to create actual TFS files.
+
+SAVE FOO
+
+This would create FOO1,FOO2, FOO3 etc. as needed.  [Diagnostic message could indicate
+how many.]
+
+
+The TFS directory is loaded completely to make it easy to create the file entries
+while each file is created and written, then write the directory back if dirty.
+
+each file has a sequence number in it and the last one has a sentinel 7 in it, thus
+at most 8 files.  Extended unit support via /0-/7; default is the drive BASIC was
+loaded from.  all info in the last word in the file.
+
+8K machines demand the use of 0020-0057 to store field 1 to swap in the code to
+create these files by reading the code stack.  Since it is essentially linear there
+should be low overhead reading it back in.  If 12K is available, it can be moved to
+field 2 and the save code can still run in field 1 unchanged other than knowing where
+to obtain the code stack tokens.
+
+Field 1 should be able to do this in 2K of code intercepting the LIST command output
+and placing the expanded contents into the 2K buffer in the end of field 1.
+
+Restoration is either move the field 2 back to field 1 or read in the scratch area
+into field 1.
+
+LOAD FOO
+
+would attempt to find file FOO1,FOO2, FOO3 etc. as available. the loading ends when
+the next file cannot be located.
+
+As the files are unpacked BASIC interprets them and builds up field 1.  Control is
+returned to BASIC for further keyboard input.  There needs to be an area to place
+the file unpack routines and a hopefully two page buffer to read in the tfs directory
+etc.  
+
+Better still, LOAD destroys the in field 1 stack as it was expected to be destroyed
+anyway.  that way an overlay comes into field 1 that can read the entire TFS directory
+and locate the FOO* files.  This would create a short list of the files to read to
+be passed to an unpacker routine.  The files can be validated as a set by placing
+some rear-of-file info which needs to only be the count of files and which one this
+one is, thus only two words reserved at the end of the file, or even one word with
+two halves.  By leaving out the name, that work falls on the code to find all files
+FOO* and thus they can be renamed to BAR* and it still works.
+
+Below is the best idea, not above!  keep track with a sentinel and an internal
+checksum.
+
+
+The whole thing can be done in one word:
+
+bits[6-8] is 110 unless this is the sentinel file then 111
+bits[9-11] is the index number of this file 000-111
+
+bits[0-5] the two's complement of bits[6-11] for validation.
+
+Thus, the string in the LOAD command makes it find FOO1 through FOO8 as necessary.
+Any one of them sets up how to succeed and also how to fail for a variety of reasons:
+
+No such file set
+Not all files present in file set
+all files present [diagnostic].
+
+Created files always have line numerical contents due to the way the files are created.
+
+It might be possible to prove a dynamic reduction can be done to use a variable-sized
+input buffer instead of the number of pages of the rest of the code stack empty space
+at any one time.  A problem is that parsed variable names create variables.  stack
+space should be provably not deep, and certainly does not use the GOSUB stack.
+
+But the buffer size has to be solved.  If 12K use that as the input buffer!
+
+
+If at all possible, find space for P?S/8 text file buffer for passed control files to
+BASIC the program.  Also needs an unpack routine but can replace the one used to
+create files if can be kept separate else has to reserve some space [or use field 2 also].
+
+
+In BASIC, create the illusion of 5-char file names.  Translates to TFS files named
+5-char-name appended with a sequence digit 1-8 that matches an internal field 0-7 or perhaps
+something a bit different sort of as above; in any case relative 0 through 7 causes the
+need for the file to be named namer1 through namer8 or whatever is referred internally as
+NAMER.

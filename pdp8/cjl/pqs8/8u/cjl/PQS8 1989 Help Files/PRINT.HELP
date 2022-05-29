@@ -1,0 +1,95 @@
+
+/       PRINT PROGRAM FOR P?S/8           PAL8-VB0  03-JUL-87 PAGE 1
+
+   1                 /       PRINT PROGRAM FOR P?S/8
+   2   
+   3                 /       LAST EDIT:      03-JUL-1987     02:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       PRINT PROGRAM FOR P?S/8 FIXED AND VARIABLE-LENGTH ASCII FILES.
+   8   
+   9                 /       USAGE:
+  10   
+  11                 /       .[R ]PRINT FILE1,FILE2, ... FILEN (OPTIONS)
+  12   
+  13                 /       OPTIONS:
+  14   
+  15                 /       /E      DON'T EJECT ON "<HT>EJECT"; CHANGES DEFAULT NUMBER OF LINES PER
+  16                 /               PAGE TO 55; SEE /L.
+  17   
+  18                 /       /F      USE <FF> INSTEAD OF HASHED PAGE SEPARATOR ON CONSOLE.
+  19   
+  20                 /       /H      NO HEADERS ON OUTPUT. DEFAULT IS A HEADER ON EACH PAGE. SEE /I, /R.
+  21   
+  22                 /       /I      INITIAL FILE'S FIRST LINE USED AS HEADER THROUGHOUT LISTING. DEFAULT
+  23                 /               IS TO OBTAIN A NEW HEADER FROM EITHER THE NAME AND UNIT, OR THE
+  24                 /               FIRST LINE OF EACH FILE. SEE /R.
+  25   
+  26                 /       /K      NO LINE OR SEQUENCE NUMBERS ON OUTPUT.
+  27   
+  28                 /       /L      USE EQUALS PARAMETER AS NUMBER OF LINES PER PAGE; DEFAULT IS 56;
+  29                 /               SEE /E.
+  30   
+  31                 /       /N      NO PAGINATION ON OUTPUT.
+  32   
+  33                 /       /O      OCTAL LINE NUMBERS ON LINE NUMBERED FILES. THE DEFAULT IS DECIMAL
+  34                 /               LINE NUMBERS. SEE /K, /S.
+  35   
+  36                 /       /P      PAUSE BETWEEN OUTPUT PAGES. THREE <BEL> CHARACTERS WILL BE SENT
+  37                 /               TO THE CONSOLE TERMINAL TO INDICATE THE PAUSE. HITTING <CR> ON THE
+  38                 /               CONSOLE KEYBOARD WILL RESUME THE OUTPUT.
+  39   
+  40                 /       /R      THE HEADER IS TAKEN FROM THE CONTENTS OF THE FIRST LINE OF THE FILE
+  41                 /               IF IT IS A LINE NUMBERED FILE. (THE HEADER IS TAKEN FROM THE CONTENTS
+  42                 /               OF THE FIRST LINE OF VARIABLE-LENGTH FILES REGARDLESS OF THIS SWITCH.)
+  43                 /               THE DEFAULT IS TO USE THE FILE NAME AND UNIT IN THE HEADER. SEE /H, /I.
+  44   
+  45                 /       /S      USE SEQUENTIAL NUMBERS ON ENTIRE OUTPUT. LINE NUMBERS IN LINE NUMBERED
+  46                 /               FILES WILL BE IGNORED. DEFAULT FOR VARIABLE-LENGTH FILES. SEE /K.
+  47   
+  48                 /       /T      USE CONSOLE FOR OUTPUT; DON'T CHECK FOR LPT:.
+  49   
+  50                 /       /U      OUTPUT IN UPPER CASE ONLY. DEFAULT IS UPPER/LOWER CASE OUTPUT.
+  51   
+  52                 /       =NNNN   NNNN LINES PER PAGE USED IF /L IS PASSED. IGNORED IF OUTSIDE OF
+  53                 /               RANGE 1-60.
+
+/       PRINT PROGRAM FOR P?S/8           PAL8-VB0  03-JUL-87 PAGE 2
+
+  54                 /       ERROR MESSAGES.
+  55   
+  56                 /       THERE IS ONE FATAL ERROR, WHICH EXITS TO THE MONITOR AFTER PRINTING THE
+  57                 /       FOLLOWING MESSAGE:
+  58   
+  59                 /       NO INPUT FILES!
+  60   
+  61                 /               NO INPUT FILES WERE PASSED TO PRINT FOR PROCESSING. INPUT FILES
+  62                 /               MUST BE PRESENT WHEN INVOKING THE PRINT UTILITY.
+  63   
+  64                 /       IMPLEMENTATION NOTES AND CUSTOMIZATION.
+  65   
+  66                 /       IT MAY BE DESIRABLE TO CUSTOMIZE ANY PARTICULAR COPY OF PRINT TO THE USER'S
+  67                 /       OWN PREFERENCE REGARDING CERTAIN SWITCHES. FOR EXAMPLE, A USER MAY PREFER
+  68                 /       A PERMANENT TITLE ON ALL OUTPUT TAKEN FROM THE FIRST LINE OF THE FIRST FILE.
+  69                 /       OPTION SWITCHES CONTROLLING THIS AND OTHER ASPECTS OF PRINT ARE AVAILABLE
+  70                 /       TO CUSTOMIZE THE OPERATIONS OF THE PROGRAM, BUT THESE REQUIRE THE USER TO
+  71                 /       INVOKE FAVORED OPTIONS REPEATEDLY.
+  72   
+  73                 /       SEVERAL KNOWN OPERATING SYSTEMS SUPPORT "PATCHED" VERSIONS OF SYSTEM PROGRAMS
+  74                 /       WHICH EFFECTIVELY FORCE THE EFFECT OF OPTION SWITCHES WHETHER EXPLICITLY
+  75                 /       GIVEN OR NOT. THIS PREVENTS THE POSSIBILITY OF USING THE PROGRAM IN THE
+  76                 /       ORIGINAL WAY AS THERE IS NO METHOD TO REVERT THE ENFORCED OPTION.
+  77   
+  78                 /       TO OVERCOME THIS LIMITATION, THE USER CAN PATCH THE FIRST THREE WORDS OF
+  79                 /       THE CORE IMAGE OF PRINT ITSELF WITH A "MASK" (EACH BIT CORRESPONDS TO AN
+  80                 /       OPTION SWITCH SERIALLY FROM /A-/Z FOLLOWED BY /0-/9). THIS MASKING VALUE
+  81                 /       WILL BE USED TO "REVERSE" THE EFFECT OF THE SPECIFIED SWITCH. FOR EXAMPLE:
+  82                 /       SETTING RELATIVE WORD ZERO OF THE CORE IMAGE OF PRINT TO 0010 WILL REVERSE
+  83                 /       THE /I OPTION. THIS WOULD REQUIRE THE USER TO INVOKE /I IF THE TITLE SHOULD
+  84                 /       BE TAKEN FROM EACH FILE AS IN THE UNMODIFIED VERSION, OPPOSITE TO NORMAL
+  85                 /       CONVENTION. ALL SWITCHES CAN BE "REVERSED" ACCORDINGLY (INCLUDING OPTION
+  86                 /       SWITCHES IGNORED BY PRINT!). THE RESULTANT CUSTOMIZED COPY OF PRINT OPERATES
+  87                 /       IN A TOTALLY CONVENTIONAL MANNER; ONLY THE METHOD OF PASSING SWITCH OPTIONS
+  88                 /       CHANGES.
+

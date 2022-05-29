@@ -1,0 +1,1819 @@
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 1
+
+   1                 /       P?S/8 PAL ASSEMBLER
+   2   
+   3                 /       THE PDP-8 ASSEMBLER (AND LINC CROSS-ASSEMBLER) FOR THE P?S/8 MONITOR SYSTEM.
+   4   
+   5                 /       THIS IS INTERNAL EDIT NUMBER:   392.
+   6   
+   7                 /       LAST EDIT:      06-OCT-1987     19:00:00        CJL
+   8   
+   9                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 2
+
+  10                 /       PAL ASSEMBLER FOR THE P?S/8 MONITOR SYSTEM.
+  11   
+  12                 /ORIGINAL CODE (FOR THE R. L. MONITOR), HASH
+  13                 /AND SYMBOL SORT RESEARCH (ORIGINAL) BY:
+  14   
+  15                 /       JAMES W. ROTH
+  16                 /                                               POLY QUESTION SOCIETY
+  17                 /                                               DIGITAL EQUIPMENT CORPORATION
+  18   
+  19   
+  20                 /BUGS CORRECTED BY, OPTIMIZATION OF CORE,
+  21                 /LITERAL PROCESSOR (LATEST), TITLES (LATEST),
+  22                 /LINC MODE, SWITCH ONCE-ONLY CODE (FINAL),
+  23                 /INPUT BUFFERING (FINAL), SYMBOL TABLE LOADING
+  24                 /AND PRINTING ROUTINES, STATEMENT SEQUENCE
+  25                 /NUMBERING, FULL RECURSIVE EQUATE HANDLING
+  26                 /(INCLUDING FIXMRI), ARITHMETICS (LATEST),
+  27                 /CROSS REFERENCE INTERCEPT ROUTINES, <^C>,
+  28                 /<^S>/<^Q>, <^O> SUPPORT, DAY AND DATE
+  29                 /HANDLING, CONSOLE SUPPORT, 256K SUPPORT,
+  30                 /BOOTSTRAP UNIT AND PROPER /U HANDLING,
+  31                 /LOGICAL LINEPRINTER SUPPORT, AND
+  32                 /ADDITIONAL FEATURES BY:
+  33   
+  34                 /       CHARLES J. LASNER
+  35                 /                                               POLY QUESTION SOCIETY
+  36                 /                                               MOUNT SINAI MEDICAL CENTER
+  37                 /                                               WESTERN UNION TELEPROCESSING INC.
+  38                 /                                               UNITED TELEPHONE SERVICES CORP.
+  39                 /                                               MERGENTHALER LINOTYPE CO.
+  40                 /                                               COLUMBIA UNIVERSITY
+  41                 /                                               TLF INC.
+  42                 /                                               ROCKEFELLER UNIVERSITY
+  43                 /                                               CRYPTEL INC.
+  44                 /                                               PR NEWSWIRE INC.
+  45                 /                                               VICKERS AMERICA MEDICAL CORP.
+  46                 /                                               CENTAUR TECHNOLOGY INC.
+  47                 /                                               ICHOR INC.
+  48                 /                                               STARCOM INC.
+  49                 /                                               N. U. S. C. NEWPORT, R. I.
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 3
+
+  50                 /VARIABLE INPUT BUFFERING (ORIGINAL, NOW
+  51                 /PARTIALLY OBSOLETE), TITLES (ORIGINAL),
+  52                 /CROSS REFERENCE RESEARCH,  MISTAKES BY THE
+  53                 /OTHER TWO GUYS CORRECTED, INSPECTED, DETECTED,
+  54                 /REJECTED, INFECTED, AND INJECTED BY:
+  55   
+  56                 /       ROD DORMAN
+  57                 /                                               POLY QUESTION SOCIETY
+  58                 /                                               COMMUNITY TREATMENT FOUNDATION OF
+  59                 /                                               NEW YORK STATE
+  60                 /                                               HOSKYNS INC.
+  61                 /                                               UNITED TELEPHONE SERVICES CORP.
+  62                 /                                               TLF INC.
+  63                 /                                               QANTEL INC.
+  64                 /                                               CRYPTEL INC.
+  65                 /                                               CITI-BANK
+  66                 /                                               PR NEWSWIRE INC.
+  67   
+  68   
+  69                 /LITERALS (ORIGINAL), MORE MISTAKES, LISTAPE
+  70                 /(ORIGINAL), SWITCHES (ORIGINAL), CHAIN LOOKUP
+  71                 /(ORIGINAL), AND MORE MISTAKES BY:
+  72   
+  73                 /       SCOTT RIKER
+  74                 /                                               POLY QUESTION SOCIETY
+  75                 /                                               DWIGHT FRYE FAN CLUB 
+  76                 /                                               NEW YORK UNIVERSITY
+  77                 /                                               MERGENTHALER LINOTYPE CO.
+  78   
+  79   
+  80                 /CORE MANAGEMENT, SWITCH ORGANIZATION (PARTIAL)
+  81                 /HASHED AND SORTED SYMBOL TABLE HANDLING
+  82                 /ROUTINES, OPTIMIZED SYMBOL-HANDLING ROUTINE
+  83                 /CALLING SEQUENCES, CHAIN LOOKUP (LATEST) BY:
+  84   
+  85                 /       SIDNEY J. DUNAYER
+  86                 /                                               POLY QUESTION SOCIETY
+  87                 /                                               POLYTECHNIC INSTITUTE OF BROOKLYN
+  88                 /                                               EQUITABLE LIFE
+  89                 /                                               BANKERS TRUST COMPANY
+  90                 /                                               DEAN WITTER & CO. INC.
+  91                 /                                               (FIRST NATIONAL) CITI-BANK
+  92                 /                                               PROGRESSIVE CYBERNETIC SERVICES
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 4
+
+  93                 /FANCY SYMBOL TABLE PRINT AND OTHER ASSORTED
+  94                 /INSPIRATION, ASSISTANCE, AND HINDRANCE BY:
+  95   
+  96                 /       ROBERT W. HARPER, JR.
+  97                 /                                               P?S NORTHEASTERN REGIONAL ANNEX
+  98                 /                                               SYKES DATATRONICS INC.
+  99                 /                                               MERGENTHALER LINOTYPE CO.
+ 100                 /                                               UNITED TELEPHONE SERVICES CORP.
+ 101                 /                                               ROCKEFELLER UNIVERSITY
+ 102                 /                                               A. T. T.
+ 103   
+ 104   
+ 105                 /SEER + OVERSEER:
+ 106   
+ 107                 /       MARIO DENOBILI
+ 108                 /                                               POLY QUESTION SOCIETY, M. I. E.
+ 109   
+ 110   
+ 111                 /SPIRITUAL GUIDANCE:
+ 112   
+ 113                 /       RICHARD LARY
+ 114                 /                                               POLY HACKING FAMILY:
+ 115                 /                                               W. C. F. M. P. G.
+ 116                 /                                               FRIENDS OF THE BOSTON MASSACRE
+ 117                 /                                               DIGITAL EQUIPMENT CORPORATION
+ 118                 /                                               DWIGHT FRYE INTERNATIONAL FAN CLUB
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 5
+
+ 119                 /SUSTINENCE BY:
+ 120   
+ 121                 /                                               LIN'S GARDEN RESTAURANT
+ 122                 /                                               CHINATOWN, N. Y., U. S. A.
+ 123   
+ 124                 /                                               MEI'S RESTAURANT
+ 125                 /                                               FRAMINGHAM, MASS., U. S. A.
+ 126   
+ 127                 /                                               SZECHUAN GARDEN RESTAURANT
+ 128                 /                                               CHINATOWN, N. Y., U. S. A.
+ 129   
+ 130                 /                                               TUNG LAI SHUN PEKING RESTAURANT
+ 131                 /                                               CHINATOWN, N. Y., U. S. A.
+ 132   
+ 133                 /                                               HUNAN HOUSE RESTAURANT
+ 134                 /                                               CHINATOWN, N. Y., U. S. A.
+ 135   
+ 136                 /                                               HUNAN GARDEN RESTAURANT
+ 137                 /                                               CHINATOWN, N. Y., U. S. A.
+ 138   
+ 139                 /                                               CHUAN YUAN RESTAURANT
+ 140                 /                                               BROOKLYN HEIGHTS, N. Y., U. S. A.
+ 141   
+ 142                 /                                               HUNAN TASTE RESTAURANT
+ 143                 /                                               CHINATOWN, N. Y., U. S. A.
+ 144   
+ 145                 /                                               TING FU GARDEN RESTAURANT
+ 146                 /                                               CHINATOWN, N. Y., U. S. A.
+ 147   
+ 148                 /                                               CHINA STAR RESTAURANT
+ 149                 /                                               MIDDLE VILLAGE, N. Y., U. S. A.
+ 150   
+ 151                 /                                               HUNAN YUAN RESTAURANT
+ 152                 /                                               REGO PARK, N. Y., U. S. A.
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 6
+
+ 153   
+ 154   
+ 155   
+ 156   
+ 157   
+ 158                 /                               DEDICATION
+ 159   
+ 160   
+ 161   
+ 162                 /       THIS ASSEMBLY IS DEDICATED TO
+ 163                 /                               
+ 164                 /                               
+ 165                 /                                       MARIO   (-----) DENOBILI
+ 166                 /                                                  ^
+ 167                 /                                                  ^             EMPER0R, POLY ? SOCIETY
+ 168                 /                                                  ^
+ 169                 /                                                  ^
+ 170                 /                                                  ^
+ 171                 /                                                  ^ <= <= <= <= CENSORED BY MARIO
+ 172   
+ 173   
+ 174                 /       WITHOUT WHOSE ASSISTANCE AND CONSTANT VIGIL WE COULD'VE GOTTEN
+ 175                 /       RICHARD LARY TO HELP US GET IT DONE A LOT SOONER.
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 7
+
+ 176                 /       THIS ASSEMBLER WILL GENERATE ITS OWN SYMBOL TABLE AND NEED NOT HAVE ANY
+ 177                 /       SYMBOLS OUTSIDE OF SOME COMMON PDP-8 SYMBOLS, A FEW OF WHICH FOLLOW:
+ 178   
+ 179                 /       EXPUNGE                 /ELIMINATE OLD SYMBOL TABLE
+ 180   
+ 181   
+ 182                 /       FIXMRI  SYMBOLS.
+ 183   
+ 184           0000          FIXMRI  AND=    0000    /AND ADDRESS WITH AC
+ 185           3000          FIXMRI  DCA=    3000    /DEPOSIT INTO ADDRESS AND CLEAR AC
+ 186           2000          FIXMRI  INC=    2000    /INCREMENT ADDRESS ASSUMING IT DOESN'T SKIP ON ZERO
+ 187           2000          FIXMRI  ISZ=    2000    /INCREMENT ADDRESS AND SKIP IF ZERO
+ 188           5000          FIXMRI  JMP=    5000    /JUMP ADDRESS
+ 189           4000          FIXMRI  JMS=    4000    /JUMP TO SUBROUTINE ADDRESS
+ 190           1000          FIXMRI  TAD=    1000    /TWO'S COMPLEMENT ADD ADDRESS TO AC
+ 191   
+ 192                 /       NONMRI  SYMBOLS.
+ 193   
+ 194           7701          ACL=    7701            /AC LOAD FROM MQ
+ 195           7403          ASC=    7403            /AC TO STEP COUNTER
+ 196           7415          ASR=    7415            /ARITHMETIC SHIFT RIGHT
+ 197           7002          BSW=    7002            /BYTE SWAP
+ 198           6007          CAF=    6007            /CLEAR ALL FLAGS
+ 199           7621          CAM=    7621            /CLEAR AC AND MQ
+ 200           6201          CDF=    6201            /CHANGE DATA FIELD
+ 201           7041          CIA=    7041            /COMPLEMENT AND INCREMENT AC
+ 202           6202          CIF=    6202            /CHANGE INSTRUCTION FIELD
+ 203           6204          CINT=   6204            /CLEAR USER INTERRUPT
+ 204           7200          CLA=    7200            /CLEAR THE ACCUMULATOR
+ 205           7100          CLL=    7100            /CLEAR THE LINK
+ 206           7040          CMA=    7040            /COMPLEMENT AC
+ 207           7020          CML=    7020            /COMPLEMENT LINK
+ 208           6264          CUF=    6264            /CLEAR USER FLIP-FLOP
+ 209           7443          DAD=    7443            /DOUBLE PRECISION ADD
+ 210           7575          DCM=    7575            /DOUBLE PRECISION COMPLEMENT
+ 211           7665          DDZ=    7665            /DOUBLE PRECISION DEPOSIT ZERO
+ 212           7663          DLD=    7663            /DOUBLE PRECISION LOAD
+ 213                 //      DL0001= 7773            /DOUBLE PRECISION LOAD CONSTANT 0000 0001
+ 214           7573          DPIC=   7573            /DOUBLE PRECISION INCREMENT
+ 215           7451          DPSZ=   7451            /DOUBLE PRECISION SKIP IF ZERO
+ 216           7445          DST=    7445            /DOUBLE PRECISION STORE
+ 217           6762          DTCA=   6762            /CLEAR DECTAPE STATUS "A"
+ 218           6766          DTLA=   6766            /LOAD DECTAPE STATUS "A"
+ 219           6774          DTLB=   6774            /LOAD DECTAPE STATUS "B"
+ 220           6761          DTRA=   6761            /READ DECTAPE STATUS "A"
+ 221           6772          DTRB=   6772            /READ DECTAPE STATUS "B"
+ 222           6771          DTSF=   6771            /SKIP ON DECTAPE OR ERROR FLAG
+ 223           6764          DTXA=   6764            /XOR DECTAPE STATUS "A"
+ 224           7407          DVI=    7407            /DIVIDE
+ 225           7401          EAE=    7401            /EAE NOP
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 8
+
+ 226           7204          GLK=    7204            /GET LINK
+ 227           6004          GTF=    6004            /GET FLAGS
+ 228           7402          HLT=    7402            /HALT CPU
+ 229           7001          IAC=    7001            /INCREMENT ACCUMULATOR
+ 230           6002          IOF=    6002            /INTERRUPT OFF
+ 231           6001          ION=    6001            /INTERRUPT ON
+ 232           6000          IOT=    6000            /IOT NOP
+ 233           6032          KCC=    6032            /KEYBOARD CLEAR AND CAUSE READER TO RUN
+ 234           6030          KCF=    6030            /KEYBOARD CLEAR FLAG ONLY
+ 235           6035          KIE=    6035            /KEYBOARD/PRINTER INTERRUPT ENABLE/DISABLE
+ 236           6036          KRB=    6036            /KEYBOARD READ BUFFER AND CLEAR FLAG
+ 237           6034          KRS=    6034            /KEYBOARD READ STATIC
+ 238           6031          KSF=    6031            /KEYBOARD SKIP ON FLAG
+ 239           7604          LAS=    7604            /LOAD ACCUMULATOR FROM CONSOLE SWITCHES
+ 240           7417          LSR=    7417            /LOGICAL SHIFT RIGHT
+ 241           7501          MQA=    7501            /MQ OR WITH AC
+ 242           7421          MQL=    7421            /MQ LOAD FROM AC, CLEAR AC
+ 243           7405          MUY=    7405            /MULTIPLY
+ 244           7411          NMI=    7411            /NORMALIZE
+ 245           7000          NOP=    7000            /NO OPERATION
+ 246           7400          NOPSKP= 7400            /SKIP GROUP NOP
+ 247           7000          OPR=    7000            /OPERATE CLASS NOP
+ 248           7404          OSR=    7404            /OR AC WITH CONSOLE SWITCHES
+ 249           6020          PCE=    6020            /CLEAR PUNCH/READER INTERRUPT ENABLE
+ 250           6022          PCF=    6022            /CLEAR PUNCH FLAG
+ 251           6026          PLS=    6026            /PUNCH LOAD BUFFER SEQUENCE
+ 252           6024          PPC=    6024            /PUNCH LOAD BUFFER AND PUNCH CHARACTER
+ 253           6021          PSF=    6021            /PUNCH SKIP ON FLAG
+ 254           7004          RAL=    7004            /ROTATE AC AND LINK LEFT
+ 255           7010          RAR=    7010            /ROTATE AC AND LINK RIGHT
+ 256           6016          RCC=    6016            /READ BUFFER, CLEAR FLAG AND FETCH NEW CHARACTER
+ 257           6214          RDF=    6214            /READ DATA FIELD
+ 258           6014          RFC=    6014            /READER FETCH NEW CHARACTER
+ 259           6234          RIB=    6234            /READ INTERRUPT BUFFER
+ 260           6224          RIF=    6224            /READ INSTRUCTION FIELD
+ 261           6244          RMF=    6244            /RESTORE MEMORY FIELDS
+ 262           6010          RPE=    6010            /READER/PUNCH INTERRUPT ENABLE
+ 263           6012          RRB=    6012            /READ READER BUFFER
+ 264           6011          RSF=    6011            /READER SKIP ON FLAG
+ 265           6005          RTF=    6005            /RESTORE FLAGS
+ 266           7006          RTL=    7006            /ROTATE AC AND LINK TWICE LEFT
+ 267           7012          RTR=    7012            /ROTATE AC AND LINK TWICE RIGHT
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 9
+
+ 268           7457          SAM=    7457            /SUBTRACT AC FROM MQ
+ 269           7441          SCA=    7441            /STEP COUNTER OR INTO AC
+ 270           7403          SCL=    7403            /STEP COUNTER LOAD
+ 271           6006          SGT=    6006            /SKIP ON GREATER-THAN FLAG
+ 272           7413          SHL=    7413            /SHIFT LEFT
+ 273           6254          SINT=   6254            /SKIP ON USER INTERRUPT
+ 274           6000          SKON=   6000            /SKIP IF INTERRUPT ON AND TURN IT OFF
+ 275           7410          SKP=    7410            /UNCONDITIONAL SKIP
+ 276           7500          SMA=    7500            /SKIP ON MINUS ACCUMULATOR
+ 277           7450          SNA=    7450            /SKIP ON NON-ZERO ACCUMULATOR
+ 278           7420          SNL=    7420            /SKIP ON NON-ZERO LINK
+ 279           7510          SPA=    7510            /SKIP ON POSITIVE OR ZERO ACCUMULATOR
+ 280           6003          SRQ=    6003            /SKIP ON INTERRUPT REQUEST
+ 281           7240          STA=    7240            /SET ALL BITS OF AC
+ 282           7120          STL=    7120            /SET LINK ON
+ 283           6274          SUF=    6274            /SET USER FLIP-FLOP
+ 284           7431          SWAB=   7431            /SWITCH TO MODE "B"
+ 285           7447          SWBA=   7447            /SWITCH TO MODE "A"
+ 286           7521          SWP=    7521            /SWAP AC AND MQ
+ 287           7440          SZA=    7440            /SKIP ON ZERO ACCUMULATOR
+ 288           7430          SZL=    7430            /SKIP ON ZERO LINK
+ 289           6042          TCF=    6042            /TELETYPE PRINTER CLEAR FLAG
+ 290           6040          TFL=    6040            /TELETYPE FLAG SET
+ 291           6046          TLS=    6046            /TELETYPE LOAD BUFFER SEQUENCE
+ 292           6044          TPC=    6044            /TELETYPE LOAD BUFFER AND PRINT
+ 293           6041          TSF=    6041            /TELETYPE SKIP ON FLAG
+ 294           6045          TSK=    6045            /TELETYPE/READER SKIP ON FLAG (EITHER)
+ 295   
+ 296                 /       INSERT FURTHER SYMBOLS HERE FOR ASSEMBLY PURPOSES ONLY.
+ 297   
+ 298                 /       MICRO-OPERATE DEFINITIONS.
+ 299   
+ 300           7200          NL0000= CLA             /SET AC TO ZERO ZERO ZERO ZERO
+ 301           7201          NL0001= CLA IAC         /SET AC TO ONE
+ 302           7326          NL0002= CLA CLL CML RTL /SET AC TO TWO
+ 303           7332          NL2000= CLA CLL CML RTR /SET AC TO TWO THOUSAND
+ 304           7350          NL3777= CLA CLL CMA RAR /SET AC TO THREE SEVEN SEVEN SEVEN
+ 305           7330          NL4000= CLA CLL CML RAR /SET AC TO FOUR THOUSAND
+ 306           7352          NL5777= CLA CLL CMA RTR /SET AC TO FIVE SEVEN SEVEN SEVEN
+ 307           7346          NL7775= CLA CLL CMA RTL /SET AC TO MINUS THREE
+ 308           7344          NL7776= CLA CLL CMA RAL /SET AC TO MINUS TWO
+ 309           7240          NL7777= CLA CMA         /SET AC TO SEVEN SEVEN SEVEN SEVEN
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 10
+
+ 310                 /       ERROR   DEFINITIONS.            
+ 311   
+ 312           2000          ERRSYM= 2000                    /PRINT SYMBOL WITH ERROR
+ 313           4000          ERROCT= 4000                    /PRINT OCTAL NUMBER WITH ERROR
+ 314   
+ 315           0117          BE=     "B-300^45+"E-300        /LITERAL BUFFER EXCEEDED
+ 316           0131          BO=     "B-300^45+"O-300        /BINARY OUTPUT OVERFLOW
+ 317           0176          CO=     "C-300^45+"O-300        /CONDITIONAL ASSEMBLY ERROR
+ 318           2250          DT=     "D-300^45+"T-300+ERRSYM /DUPLICATE TAG  
+ 319           4313          ER=     "E-300^45+"R-300+ERROCT /USER ERROR
+ 320           0347          FI=     "F-300^45+"I-300        /FIXMRI ERROR   
+ 321           4520          IC=     "I-300^45+"C-300+ERROCT /ILLEGAL CHARACTER
+ 322           0522          IE=     "I-300^45+"E-300        /ILLEGAL EXPRESSION
+ 323           0526          II=     "I-300^45+"I-300        /ILLEGAL INDIRECT
+ 324           0532          IM=     "I-300^45+"M-300        /INSUFFICIENT MEMORY
+ 325           2535          IP=     "I-300^45+"P-300+ERRSYM /ILLEGAL PSEUDO-OP REDEFINITION ATTEMPT
+ 326           4537          IR=     "I-300^45+"R-300+ERROCT /ILLEGAL REFERENCE
+ 327           0703          LG=     "L-300^45+"G-300        /LINK GENERATED
+ 328           1013          NE=     "N-300^45+"E-300        /NULL LITERAL TERM
+ 329           1033          NU=     "N-300^45+"U-300        /NUMERICAL ERROR
+ 330           5121          PA=     "P-300^45+"A-300+ERROCT /PAUSE MESSAGE
+ 331           1125          PE=     "P-300^45+"E-300        /PAGE EXCEEDED
+ 332           1130          PH=     "P-300^45+"H-300        /CONDITIONAL ASSEMBLY PHASE ERROR
+ 333           1137          PO=     "P-300^45+"O-300        /PUSHDOWN OVERFLOW
+ 334           3323          ST=     "S-300^45+"T-300+ERRSYM /SYMBOL TABLE EXCEEDED
+ 335           1330          SY=     "S-300^45+"Y-300        /SYNTAX ERROR
+ 336           1417          UF=     "U-300^45+"F-300        /UNDEFINED FIELD
+ 337           1430          UO=     "U-300^45+"O-300        /UNDEFINED ORIGIN
+ 338           3434          US=     "U-300^45+"S-300+ERRSYM /UNDEFINED SYMBOL
+ 339           1707          ZE=     "Z-300^45+"E-300        /ZERO PAGE EXCEEDED
+ 340   
+ 341                 /       N.B.:
+ 342   
+ 343                 /       "PA" IS NOT AN ERROR, RATHER IT IS A USER INVOKED FEATURE.
+ 344                 /       "ER" IS AN ERROR CAUSED BY INVOKING THE "ERROR" PSEUDO-OP.
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 11
+
+ 345                 /       ASSEMBLER SWITCH OPTIONS.
+ 346   
+ 347                 /       /A      USE ALL SYMBOLS WHERE APPLICABLE INCLUDING PERMANENT SYMBOLS.
+ 348                 /       /B      USE %:[BOOTSTRAP UNIT] FOR BINARY. OVERRIDDEN IF BINARY OUTPUT FILES
+ 349                 /               PASSED. INTERNALLY SET IF ANY BINARY OUTPUT SHOULD OCCUR TO FORCE A
+ 350                 /               SECOND PASS WITH BINARY OUTPUT PROCESSING. OTHER SWITCHES MAY SET /B.
+ 351                 /       /C      OPTIMIZE MEMORY UTILIZATION BY MINIMIZING BUFFER SPACE IN FIELD 0 AND
+ 352                 /               ATTEMPTING TO GET ANOTHER (PARTIAL) FIELD ABOVE THE CURRENT CORE-SIZE
+ 353                 /               LIMIT. THIS RESULTS IN A SLOWER ASSEMBLY, BUT USES LESS MEMORY, MAKING
+ 354                 /               POSSIBLE ASSEMBLIES OTHERWISE IMPOSSIBLE.
+ 355                 /       /D      SET /B AND USE $:[BOOTSTRAP UNIT] FOR BINARY AS WELL. OVERRIDDEN IF
+ 356                 /               BINARY OUTPUT FILES.
+ 357                 /       /E      FORGET LITERAL BOUNDARIES WHEN RE-ENTERRING A PREVIOUS PAGE. NEEDED
+ 358                 /               FOR RELOCATED PAGES IN OVERLAYS.
+ 359                 /       /F      SET /G AND /W AND INDICATE USE OF HIGH-SPEED PUNCH.
+ 360                 /       /G      CHAIN TO BIN:[BOOTSTRAP UNIT] IF NO ASSEMBLY ERRORS. OTHER SWITCHES
+ 361                 /               MAY BE INCLUDED TO PASS ADDITIONAL LOADER OPTIONS.
+ 362                 /       /H      SET /G AND INDICATE STORING OF HALT (7402) IN ALL USER MEMORY.
+ 363                 /       /I      SET /G AND INDICATE RELOADING OF SYSTEM I/O HANDLER AFTER LOADING
+ 364                 /               (IGNORED IF /V ALSO PASSED OR SYSTEM USES VIRTUAL LOADER BY DEFAULT).
+ 365                 /       /J      DO NOT GENERATE TRAILING WORD OF ZERO ON EVEN-LENGTH TEXT MESSAGES.
+ 366                 /       /K      DUAL MEANING - IF /L AND /N ARE SET: GENERATE A NEW TITLE FROM THE
+ 367                 /               FIRST LINE OF EVERY FILE, NOT JUST THE FIRST FILE. IF /L IS NOT SET:
+ 368                 /               FORCE A SECOND PASS EVEN IF /B IS NOT SET SO THAT SECOND PASS CAN BE
+ 369                 /               PERFORMED (ALONG WITH ANY ADDITIONAL ERROR MESSAGES IN THE SECOND PASS).
+ 370                 /               THIS ALLOWS A TWO-PASS ASSEMBLY WITH NO LISTING AND NO BINARY.
+ 371                 /       /L      ENABLE SECOND PASS LISTING. OTHER SWITCHES MAY ENHANCE THE OUTPUT.
+ 372                 /       /M      SET /B AND CHAIN TO MAP:[BOOTSTRAP UNIT] AFTER END OF ASSEMBLY. IF /G
+ 373                 /               THEN MAP WILL CHAIN TO BIN:[BOOTSTRAP UNIT] AT END OF THE MAP PRINTOUT
+ 374                 /               IF NO ASSEMBLY ERRORS.
+ 375                 /       /N      ENABLE NEATNESS OPTIONS ON ALL APPROPRIATE OUTPUT. ENABLES TITLES ON
+ 376                 /               THE LISTING IF /L AND PAGINATED LISTINGS OF ERROR MESSAGES IF /L NOT
+ 377                 /               ENABLED. CHECKS FOR SYSTEM LPT: AND REDIRECTS ALL PRINTED OUTPUT TO LPT:
+ 378                 /               IF AVAILABLE. SEE ALSO /K.
+ 379                 /       /O      ENABLE LITERALS. USED WITHOUT /Q TO ENABLE OFF-PAGE REFERENCE FIXUPS
+ 380                 /               (LINKS) WITH "LG" ERROR MESSAGE. IF /Q THEN DISABLE "LG" ERRORS.
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 12
+
+ 381                 /       /P      ENABLE WIDE (PRINTER) TYPE OUTPUT ON SYMBOL TABLE, XREF, AND MAP
+ 382                 /               OUTPUT (IF ANY). NOT PASSED TO BIN IF /G (DELETED BY MAP IF /M).
+ 383                 /       /Q      ENABLE LITERALS. SEE ALSO /O.
+ 384                 /       /R      SET /G AND /W INDICATING USE OF RIM FORMAT PUNCHED OUTPUT. SEE ALSO /F.
+ 385                 /       /S      ENABLE SYMBOL TABLE AT END OF FINAL PASS (1 OR 2). SEE ALSO
+ 386                 /               /A AND /K AND /N.
+ 387                 /       /T      DISABLE CHECK FOR SYSTEM LPT: SO OUTPUT GOES TO SYSTEM CONSOLE EVEN IF
+ 388                 /               /N IS IN EFFECT AND LPT: IS AVAILABLE.
+ 389                 /       /U      SET /B AND USE %:[BOOTSTRAP UNIT XOR-ED WITH 0001] ALSO $:[BOOTSTRAP
+ 390                 /               UNIT XOR-ED WITH 0001] IF /D. OVERRIDEN IF BINARY OUTPUT FILES.
+ 391                 /       /V      SET /G AND INDICATE USE OF VIRTUAL LOADER.
+ 392                 /       /W      SET /G AND INDICATE PUNCHING OF BINARY OUTPUT FILES. SEE ALSO /F AND /R.
+ 393                 /       /X      IF /L THEN ENABLE CROSS-REFERENCE OUTPUT PROCESSING. SEE ALSO /A AND /P.
+ 394                 /       /Y      "!" DOES A BYTE SHIFT (^100!) INSTEAD OF INCLUSIVE OR.
+ 395                 /       /Z      SET /G AND INDICATE STORING OF ZERO IN ALL USER MEMORY.
+ 396                 /       /0      FIELD SETTINGS GENERATE AN AUTOMATIC *0200.
+ 397                 /       /1-/7   STARTING FIELD SWITCHES PASSED TO BIN. IF CHAINING TO MAP, THESE
+ 398                 /               SWITCHES ARE IGNORED BY MAP BUT WILL BE PASSED IF CHAINING FURTHER TO
+ 399                 /               BIN (/M AND /G AND NO ASSEMBLY ERRORS).
+ 400                 /       /8      ENABLE LINC MODE CROSS-ASSEMBLY FEATURES AND START ASSEMBLY
+ 401                 /               IN PMODE AT 000200.
+ 402                 /       /9      ENABLE LINC MODE CROSS-ASSEMBLY FEATURES AND START ASSEMBLY
+ 403                 /               IN LMODE AT 004020.
+ 404                 /       =XXXX   SET /G AND PASS THE VALUE AS A STARTING ADDRESS TO BIN.
+ 405   
+ 406                 /       OPTION SWITCH DEFAULT MODIFICATION.
+ 407   
+ 408                 /       ALL SWITCHES CAN BE INVERTED IN SENSE BY SETTING THE CORRESPONDING
+ 409                 /       SWITCHES IN THE THREE WORDS STARTING AT "OPTLST". THE SWITCHES ARE XOR-ED
+ 410                 /       WITH THESE VALUES INTERNALLY BEFORE ANY OPTION SWITCHES ARE ACTED UPON.
+ 411   
+ 412                 /       EXAMPLE:
+ 413   
+ 414                 /               TO PERMANENTLY ENABLE LITERALS BY DEFAULT (AS IF /Q WERE ALWAYS SET,
+ 415                 /               AND REQUIRING /Q TO BE GIVEN WHEN IT IS ACTUALLY MEANT TO BE TURNED
+ 416                 /               OFF!) CHANGE LOCATION "OPTLST+1" FROM 0000 TO 0200.
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 14
+
+ 462                 /       HEADER BLOCK FOR SYSODT.
+ 463   
+ 464           7777          *7777                   /MAIN SEGMENT
+ 465   
+ 466           2001          *"P-300^100+"A-300      /PA
+ 467           1400          *"L-300^100             /L<ZERO>
+ 468           0000          *0000                   /<ZERO><ZERO>
+ 469   
+ 470           0037          *7600%200               /LOAD/LENGTH WORD
+ 471   
+ 472           0200          *PAL                    /STARTING ADDRESS
+ 473   
+ 474           0204          *ASMSIZE+0200           /LOAD/LENGTH OF FIRST OVERLAY
+ 475   
+ 476           0206          *STOSIZE+0200           /LOAD LENGTH OF SECOND OVERLAY
+ 477   
+ 478           2411          *SYMSIZE+SYMTAB         /LOAD/LENGTH OF SYMBOL TABLE
+ 479   
+ 480           0401          *CRFSIZE+0400           /LOAD/LENGTH OF CROSS-REFERENCE OVERLAY
+ 481   
+ 482           7777          *7777                   /END OF OVERLAY LIST
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 84
+
+3572                 /       INTERNAL OPTION SWITCH MODIFICATION LIST.
+3573   
+3574   005200  0000  OPTLST, ZBLOCK  3               /FOR XOR-ING SWITCHES
+3575   
+3576                 /       LINC MODE RELOCATION LIST.
+3577   
+3578   005203  1200  LNCRLC, -LNCODE                 /-ASSEMBLED ADDRESS
+3579   005204  6527          LNCRL1                  /POINTER TO PASS 1 MODE CHECK
+3580   005205  6537          LNCRL2                  /SYMBOL TABLE FIXUP POINTER
+3581   005206  2241          XSGMNT+1                /SEGMNT PSEUDO-OP POINTER
+3582   005207  2575          SKPASM+1                /ASMSKP PSEUDO-OP POINTER
+3583   005210  2373          MASSIF+2                /ASMIFX PSEUDO-OP POINTER
+3584   005211  2377          XDTORG+1                /RELOCATE DTORG PSEUDO-OP POINTER
+3585   005212  6543          LNCRL3                  /SYMBOL HANDLER
+3586   005213  6547          LNCRL4                  /ORIGIN HANDLER
+3587   005214  6551          LNCRL5                  /PASS 2 STARTUP
+3588   005215  7171          LNCRL6                  /LMODE MRI HANDLER
+3589   005216  6555          LNCRL8                  /RELOCATE "\" OPERATOR
+3590   005217  1557          XPMODE+1                /LMODE, PMODE PSEUDO-OP POINTER
+3591   005220  6754          RPADR                   /PMODE ZAP ADDRESS
+3592   005221  6755          MODTBL                  /LMODE ZAP ADDRESS
+3593   005222  6756          MLTABLE                 /LMODE SYMBOLS
+3594   005223  6553          LNCRL7                  /FIXTAB FIXUP POINTER
+3595   005224  7003          MLTAB2                  /FIXTAB TABLE POINTER
+3596   005225  7215          ABCKSL                  /RELOCATE "\" HANDLING CODE POINTER
+3597   005226  7216          LCHKMODE                /RELOCATE POINTER TO CHKMODE
+3598   005227  0000          0                       /END OF POSITIVE LIST
+3599   005230  0000          0                       /END OF NEGATIVE LIST
+3600   
+3601                 /       CROSS-REFERENCE RELOCATION LIST.
+3602   
+3603   005231  0400  XRLC,   -EXCODE                 /-ASSEMBLED ADDRESS
+3604   005232  7473          CWBUFF                  /RELOCATE CROSS-REFERENCE BUFFER ARGUMENT
+3605   005233  1674          DIGPT                   /PRINTOUT DIGIT POINTER
+3606   005234  4440          EXRL2                   /ERROR INTERCEPT POINTER
+3607   005235  4434          EXRL3                   /CURRENT FIELD OUTPUT INTERCEPT
+3608   005236  4450          EXRL4                   /RELOCATE EQUATE INTERCEPT POINTER
+3609   005237  4444          EXRL7                   /SYMBOL INTERCEPT POINTER
+3610   005240  3567          EXZAPA                  /STATEMENT NUMBER INCREMENT POINTER
+3611   005241  6414          QPUTREF                 /RELOCATE LITERAL'S POINTER TO PUTREF
+3612   005242  7572          RESET                   /RESET POINTER FOR DIGIT INCREMENT
+3613   005243  0012          RXR                     /CROSS-REFERENCE OUTPUT INDEX
+3614   005244  0000          0                       /END OF POSITIVE LIST
+3615   005245  0000          0                       /END OF NEGATIVE LIST
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 95
+
+4096                 /       OFFPAGE LITERAL PROCESSOR.
+4097   
+4098                 /       SOMETIMES KNOWN AS LINK GENERATOR.
+4099                 /       SOMETIMES KNOWN AS ILLEGAL REFERENCES.
+4100   
+4101                 /       WARNING:        
+4102                 /               THIS PROCESSOR IS IGNORANT OF RELOCATION. THE
+4103                 /               DEVELOPMENT OF THIS ASSEMBLER WAS INHIBITED BY THE USE
+4104                 /               OF A SYSTEM WHERE THIS VERY FEATURE COULD NOT BE TURNED
+4105                 /               OFF. WE RECOMMEND YOU NEVER TURN IT ON! HOW LAZY CAN
+4106                 /               YOU GET IF YOU NEED THIS KLUDGE TO GET YOUR CRUMMY
+4107                 /               PROGRAM WORKING AT ALL!
+4108   
+4109                 /       FURTHER WARNING:
+4110                 /               LINKS FOR "AND", "TAD", "ISZ", AND "DCA" INSTRUCTIONS
+4111                 /               DON'T WORK IN EXTENDED MEMORY SITUATIONS WHERE (QUITE
+4112                 /               USUALLY) THE DATA AND INSTRUCTION FIELDS DIFFER.
+4113   
+4114   006117  4200  OFPLIT, JMS     TESTPE                          /TEST IF WE EXCEED THE PAGE
+4115   006120  4427  OZAPLG, JMS I   ERR/[XERR]                      /**** /O AND /Q **** 0000
+4116   006121  0703          LG                                      /LINK GENERATION ERROR
+4117   006122  1344          TAD     CPLZAP/(PLGFIX&177+JMPIC)       /ZAP GOTCPL ROUTINE
+4118   006123  3745          DCA I   PGOTZAP                         /TO COME BACK TO US
+4119   006124  5746          JMP I   POFFIN                          /INSERT LITERAL ON CURRENT PAGE
+4120   
+4121   006125  3076  LGFIX,  DCA     RESULT                          /AC CONTAINS Q&177
+4122   006126  1201          TAD     GOTFIX/(TAD     OLDLOC)         /RESTORE
+4123   006127  3745          DCA I   PGOTZAP                         /CPL INSTRUCTION
+4124   006130  1124          TAD     MRINDS                          /\
+4125   006131  0350          AND     LT400/(400)                     / \
+4126   006132  7640          SZA CLA                                 /  >COMPLAIN IF ALREADY INDIRECT
+4127   006133  4427          JMS I   ERR/[XERR]                      / /
+4128   006134  0526          II                                      //
+4129   006135  2155          ISZ     OFPCNT                          /UP BADNESS COUNT
+4130   006136  1347          TAD     L600/(600)                      /FORCE INDIRECTNESS
+4131   006137  3124          DCA     MRINDS                          /FROM CURRENT PAGE
+4132   006140  1267          TAD     L47/("'&77)                     /PUT FIXUP
+4133   006141  7200  OZAPL2, CLA                                     /**** PASS 2 AND /L AND /O **** DCA RCHA
+4134   006142  5743          JMP I   .+1/(MRIOK)                     /RETURN TO MRI PROCESSOR
+4135   006143  1325          MRIOK                                   /THROUGH HERE
+4136   
+4137   006144  5737  CPLZAP, PLGFIX&177+JMPIC                        /"JMP I PLGFIX"
+4138   006145  5667  PGOTZAP,GOTZAP                                  /**** RELOCATE ****
+4139   006146  5633  POFFIN, OFFIN                                   /**** RELOCATE ****
+4140   006147  0600  L600,   600                                     /CURRENT PAGE, INDIRECT
+4141   006150  0400  LT400,  400                                     /INDIRECT MASK
+4142   
+4143   006151  0000  REMTBL, ZBLOCK  40                              /MUST BE ZEROED OUT BEFORE PASS 1 STARTS
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 113
+
+4839                 /       PMODE COPY OF ANOMALOUS SYMBOLS.
+4840   
+4841   007265  2464  PTABLE, "H-300^45+"L-300+NFLAG  /HLT
+4842   007266  5344          "T-300^45+PFLAG
+4843   007267  0000          0000
+4844   007270  7402          HLT                     /PMODE HLT
+4845                 /       "I-300^45+SFLAG         /I
+4846                 /       PFLAG
+4847                 /       0000
+4848                 /       EYE
+4849   007271  4577          "J-300^45+"M-300+MFLAG  /JMP
+4850   007272  4020          "P-300+PFLAG
+4851   007273  0000          0000
+4852   007274  5000          JMP     0000            /PMODE JMP
+4853   007275  3025          "N-300^45+"O-300+NFLAG  /NOP
+4854   007276  5120          "P-300^45+PFLAG
+4855   007277  0000          0000
+4856   007300  7000          NOP                     /PMODE NOP
+4857   007301  3073          "O-300^45+"P-300+NFLAG  /OPR
+4858   007302  5232          "R-300^45+PFLAG
+4859   007303  0000          0000
+4860   007304  7000          OPR                     /PMODE OPR
+4861   007305  3300          "S-300^45+"A-300+NFLAG  /SAM
+4862   007306  4015          "M-300+PFLAG
+4863   007307  0000          0000
+4864   007310  7457          SAM                     /PMODE SAM
+4865   007311  3312          "S-300^45+"K-300+NFLAG  /SKP
+4866   007312  4015          "M-300+PFLAG
+4867   007313  0000          0000
+4868   007314  7410          SKP                     /PMODE SKP
+4869   007315  3323          "S-300^45+"T-300+NFLAG  /STA
+4870   007316  4045          "A-300^45+PFLAG
+4871   007317  0000          0000
+4872   007320  7240          NL7777                  /PMODE STA
+4873   
+4874   007321  0000          0000                    /THIS ENDS THE LIST
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 114
+
+4875                 /       LMODE COPY OF ANOMALOUS SYMBOLS.
+4876   
+4877   007322  2464  LTABLE, "H-300^45+"L-300+NFLAG  /HLT
+4878   007323  5344          "T-300^45+PFLAG
+4879   007324  0000          0000
+4880   007325  0000          0000                    /LMODE HLT
+4881                 /       "I-300^45+SFLAG         /I
+4882                 /       PFLAG
+4883                 /       0000
+4884                 /       EYE
+4885   007326  4577          "J-300^45+"M-300+MFLAG  /JMP
+4886   007327  5120          "P-300^45+PFLAG
+4887   007330  0000          0000
+4888   007331  6000          6000                    /LMODE JMP
+4889   007332  3025          "N-300^45+"O-300+NFLAG  /NOP
+4890   007333  5120          "P-300^45+PFLAG
+4891   007334  0000          0000
+4892   007335  0016          0016                    /LMODE NOP
+4893   007336  3073          "O-300^45+"P-300+NFLAG  /OPR
+4894   007337  5232          "R-300^45+PFLAG
+4895   007340  0000          0000
+4896   007341  0500          0500                    /LMODE OPR
+4897   007342  3300          "S-300^45+"A-300+NFLAG  /SAM
+4898   007343  4741          "M-300^45+PFLAG
+4899   007344  0000          0000
+4900   007345  0100          0100                    /LMODE SAM
+4901   007346  3312          "S-300^45+"K-300+NFLAG  /SKP
+4902   007347  5120          "P-300^45+PFLAG
+4903   007350  0000          0000
+4904   007351  0466          0466                    /LMODE SKP
+4905   007352  3323          "S-300^45+"T-300+NFLAG  /STA
+4906   007353  4045          "A-300^45+PFLAG
+4907   007354  0000          0000
+4908   007355  1040          1040                    /LMODE STA
+4909   
+4910   007356  0000          0000                    /THIS ENDS THE LIST
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 130
+
+5531           1000          PAGE
+5532   
+5533                         IFNZRO  .&177   <ERROR  .>
+5534           1000          XTRATAB=.               /TRANSLATE TABLE HERE
+5535   
+5536                 /       MASTER SIXBIT TRANSLATE AND DISPATCH TABLE.
+5537   
+5538                 /       0      0      1      2      3      4      5      6      7       0
+5539                 /           ATSIGN    A      B      C      D      E      F      G
+5540                 /             00     01     02     03     04     05     06     07
+5541   001000* 0336                EOS ;LETTER;LETTER;LETTER;LETTER;LETTER;LETTER;LETTER
+5542   001001* 1672
+5543   001002* 1672
+5544   001003* 1672
+5545   001004* 1672
+5546   001005* 1672
+5547   001006* 1672
+5548   001007* 1672
+5549                 /       1      0      1      2      3      4      5      6      7       1
+5550                 /              H      I      J      K      L      M      N      O
+5551                 /             10     11     12     13     14     15     16     17
+5552   001010* 1672              LETTER;LETTER;LETTER;LETTER;LETTER;LETTER;LETTER;LETTER
+5553   001011* 1672
+5554   001012* 1672
+5555   001013* 1672
+5556   001014* 1672
+5557   001015* 1672
+5558   001016* 1672
+5559   001017* 1672
+5560                 /       2      0      1      2      3      4      5      6      7       2
+5561                 /              P      Q      R      S      T      U      V      W
+5562                 /             20     21     22     23     24     25     26     27
+5563   001020* 1672              LETTER;LETTER;LETTER;LETTER;LETTER;LETTER;LETTER;LETTER
+5564   001021* 1672
+5565   001022* 1672
+5566   001023* 1672
+5567   001024* 1672
+5568   001025* 1672
+5569   001026* 1672
+5570   001027* 1672
+5571                 /       3      0      1      2      3      4      5      6      7       3
+5572                 /              X      Y      Z      [      \      ]      ^   BKARROW
+5573                 /             30     31     32     33     34     35     36     37
+5574   001030* 1672              LETTER;LETTER;LETTER;LBRAK ;ILLCHR;RBRAK ;UPARRX;TAB
+5575   001031* 1672
+5576   001032* 1672
+5577   001033* 1601
+5578   001034* 0772
+5579   001035* 1605
+5580   001036* 0405
+5581   001037* 0464
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 131
+
+5582                 /       4      0      1      2      3      4      5      6      7       4
+5583                 /           BLANK     !      "      #      $      %      &      '
+5584                 /             40     41     42     43     44     45     46     47
+5585   001040* 0464              SPACE ;BAR   ;XDQUO ;NUMSGN;DOLLAR;PRCENT;AMPSND;QUOTE
+5586   001041* 0404
+5587   001042* 1430
+5588   001043* 1602
+5589   001044* 3534
+5590   001045* 0400
+5591   001046* 0401
+5592   001047* 2360
+5593                 /       5      0      1      2      3      4      5      6      7       5
+5594                 /              (      )      *      +      ,      -      .      /
+5595                 /             50     51     52     53     54     55     56     57
+5596   001050* 1600              LPARN ;RPARN ;STAR  ;PLUS  ;COMMA ;MINUS ;POINT ;COMMNT
+5597   001051* 1606
+5598   001052* 0600
+5599   001053* 0402
+5600   001054* 2600
+5601   001055* 0403
+5602   001056* 1535
+5603   001057* 3535
+5604                 /       6      0      1      2      3      4      5      6      7       6
+5605                 /              0      1      2      3      4      5      6      7
+5606                 /             60     61     62     63     64     65     66     67
+5607   001060* 1673              DIGIT ;DIGIT ;DIGIT ;DIGIT ;DIGIT ;DIGIT ;DIGIT ;DIGIT
+5608   001061* 1673
+5609   001062* 1673
+5610   001063* 1673
+5611   001064* 1673
+5612   001065* 1673
+5613   001066* 1673
+5614   001067* 1673
+5615                 /       7      0      1      2      3      4      5      6      7       7
+5616                 /              8      9      :      ;      <      =      >      ?
+5617                 /             70     71     72     73     74     75     76     77
+5618   001070* 1673              DIGIT ;DIGIT ;COMMA ;EOS   ;BRKTRP;EQU   ;TESTLI;ILLCHR
+5619   001071* 1673
+5620   001072* 2600
+5621   001073* 0336
+5622   001074* 0333
+5623   001075* 0703
+5624   001076* 1656
+5625   001077* 0772
+5626                 /       0      0      1      2      3      4      5      6      7       0
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 155
+
+6573           7777  SYMTAB, *7777                           /END OF AN
+6574           7777          *7777                           /OVERLAY
+6575   
+6576           0051          SUDOBLK=OVLYBLK                 /SYMBOL TABLE BLOCK
+6577   
+6578           2000          NFLAG=  2000                    /NON-MEMORY REFERENCE FLAG
+6579           4000          PFLAG=  4000                    /PERMANENT SYMBOL FLAG
+6580           4000          MFLAG=  4000                    /MEMORY REFERENCE FLAG
+6581           6000          SFLAG=  6000                    /PSEUDO-OP FLAG
+6582           4000          VFLAG=  4000                    /VALUED PSEUDO-OP FLAG
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 156
+
+6583           2400          *SYMTAB                         /RESTORE ORIGIN
+6584   
+6585   002400  6070          "A-300^45+"S-300+SFLAG          /ASMIFM
+6586   002401  4752          "M-300^45+"I-300+PFLAG
+6587   002402  0353          "F-300^45+"M-300
+6588   002403  2371          MASSIF
+6589   002404  6070          "A-300^45+"S-300+SFLAG          /ASMIFN
+6590   002405  4752          "M-300^45+"I-300+PFLAG
+6591   002406  0354          "F-300^45+"N-300
+6592   002407  2373          NASSIF
+6593   002410  6070          "A-300^45+"S-300+SFLAG          /ASMIFZ
+6594   002411  4752          "M-300^45+"I-300+PFLAG
+6595   002412  0370          "F-300^45+"Z-300
+6596   002413  2372          ZASSIF
+6597   002414  6070          "A-300^45+"S-300+SFLAG          /ASMSKP
+6598   002415  4764          "M-300^45+"S-300+PFLAG
+6599   002416  0647          "K-300^45+"P-300
+6600   002417  2574          SKPASM
+6601   002420  6250          "D-300^45+"T-300+SFLAG          /DTORG
+6602   002421  5075          "O-300^45+"R-300+PFLAG
+6603   002422  0403          "G-300^45
+6604   002423  2376          XDTORG
+6605   002424  6307          "E-300^45+"N-300+SFLAG          /ENBITS
+6606   002425  4123          "B-300^45+"I-300+PFLAG
+6607   002426  1367          "T-300^45+"S-300
+6608   002427  1370          XPSDRET
+6609                 /       "I-300^45+SFLAG                 /I
+6610                 /       PFLAG
+6611                 /       0
+6612                 /       EYE
+6613   002430  6711          "L-300^45+"M-300+SFLAG          /LMODE
+6614   002431  5057          "O-300^45+"D-300+PFLAG
+6615   002432  0271          "E-300^45
+6616   002433  1555          XLMODE
+6617   002434  7025          "N-300^45+"O-300+SFLAG          /NOBITS
+6618   002435  4123          "B-300^45+"I-300+PFLAG
+6619   002436  1367          "T-300^45+"S-300
+6620   002437  1370          XPSDRET
+6621   002440  7135          "P-300^45+"M-300+SFLAG          /PMODE
+6622   002441  5057          "O-300^45+"D-300+PFLAG
+6623   002442  0271          "E-300^45
+6624   002443  1556          XPMODE
+6625   002444  7304          "S-300^45+"E-300+SFLAG          /SEGMNT
+6626   002445  4420          "G-300^45+"M-300+PFLAG
+6627   002446  1032          "N-300^45+"T-300
+6628   002447  2240          XSGMNT
+6629   
+6630   002450  0000          0000                            /THIS ENDS THE LIST
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 157
+
+6631           2600          PAGE
+6632   
+6633   002600  6176          "C-300^45+"O-300+SFLAG          /CONSOLE
+6634   002601  5031          "N-300^45+"S-300+PFLAG
+6635   002602  1067          "O-300^45+"L-300
+6636   002603  5411          XCNSOL+VFLAG
+6637   002604  6225          "D-300^45+"A-300+SFLAG          /DATE
+6638   002605  5351          "T-300^45+"E-300+PFLAG
+6639   002606  0000          0000
+6640   002607  5412          XDATE+VFLAG
+6641   002610  6231          "D-300^45+"E-300+SFLAG          /DECIMAL
+6642   002611  4170          "C-300^45+"I-300+PFLAG
+6643   002612  0742          "M-300^45+"A-300
+6644   002613  0277          RAD10
+6645   002614  6231          "D-300^45+"E-300+SFLAG          /DEVICE
+6646   002615  5467          "V-300^45+"I-300+PFLAG
+6647   002616  0164          "C-300^45+"E-300
+6648   002617  1102          XDVICE
+6649   002620  6303          "E-300^45+"J-300+SFLAG          /EJECT
+6650   002621  4274          "E-300^45+"C-300+PFLAG
+6651   002622  1344          "T-300^45
+6652   002623  3401          XEJECT
+6653   002624  6307          "E-300^45+"N-300+SFLAG          /ENDBIN
+6654   002625  4226          "D-300^45+"B-300+PFLAG
+6655   002626  0533          "I-300^45+"N-300
+6656   002627  2550          XENDBIN
+6657   002630  6307          "E-300^45+"N-300+SFLAG          /ENPUNCH
+6658   002631  5145          "P-300^45+"U-300+PFLAG
+6659   002632  1011          "N-300^45+"C-300
+6660   002633  1552          XPUNCH
+6661   002634  6313          "E-300^45+"R-300+SFLAG          /ERROR
+6662   002635  5251          "R-300^45+"O-300+PFLAG
+6663   002636  1232          "R-300^45
+6664   002637  0363          XERROR
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 158
+
+6665   002640  6321          "E-300^45+"X-300+SFLAG          /EXPUNGE
+6666   002641  5145          "P-300^45+"U-300+PFLAG
+6667   002642  1015          "N-300^45+"G-300
+6668   002643  1374          XPUNGE
+6669   002644  6347          "F-300^45+"I-300+SFLAG          /FIELD
+6670   002645  4305          "E-300^45+"L-300+PFLAG
+6671   002646  0224          "D-300^45
+6672   002647  0613          XFLD
+6673   002650  6347          "F-300^45+"I-300+SFLAG          /FILENAME
+6674   002651  4701          "L-300^45+"E-300+PFLAG
+6675   002652  1007          "N-300^45+"A-300
+6676   002653  1100          XFLNAM
+6677   002654  6347          "F-300^45+"I-300+SFLAG          /FIXMRI
+6678   002655  5605          "X-300^45+"M-300+PFLAG
+6679   002656  1243          "R-300^45+"I-300
+6680   002657  2124          MAKMRI
+6681   002660  6347          "F-300^45+"I-300+SFLAG          /FIXTAB
+6682   002661  5614          "X-300^45+"T-300+PFLAG
+6683   002662  0047          "A-300^45+"B-300
+6684   002663  1376          XFXTAB
+6685   002664  6515          "I-300^45+SFLAG                 /I
+6686   002665  4000          PFLAG
+6687   002666  0000          0000
+6688   002667  1400          EYE
+6689   002670  6523          "I-300^45+"F-300+SFLAG          /IFDEF
+6690   002671  4231          "D-300^45+"E-300+PFLAG
+6691   002672  0336          "F-300^45
+6692   002673  1437          IFDF
+6693   002674  6523          "I-300^45+"F-300+SFLAG          /IFNDEF
+6694   002675  5012          "N-300^45+"D-300+PFLAG
+6695   002676  0277          "E-300^45+"F-300
+6696   002677  1436          IFNDF
+6697   002700  6523          "I-300^45+"F-300+SFLAG          /IFNZRO
+6698   002701  5040          "N-300^45+"Z-300+PFLAG
+6699   002702  1251          "R-300^45+"O-300
+6700   002703  1447          IFNZER
+6701   002704  6523          "I-300^45+"F-300+SFLAG          /IFZERO
+6702   002705  5707          "Z-300^45+"E-300+PFLAG
+6703   002706  1251          "R-300^45+"O-300
+6704   002707  1450          IFZER
+6705   002710  7025          "N-300^45+"O-300+SFLAG          /NOPUNCH
+6706   002711  5145          "P-300^45+"U-300+PFLAG
+6707   002712  1011          "N-300^45+"C-300
+6708   002713  1553          XNOPUN
+6709   002714  7056          "O-300^45+"C-300+SFLAG          /OCTAL
+6710   002715  5345          "T-300^45+"A-300+PFLAG
+6711   002716  0674          "L-300^45
+6712   002717  0272          RAD8
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 159
+
+6713   002720  7121          "P-300^45+"A-300+SFLAG          /PAGE
+6714   002721  4410          "G-300^45+"E-300+PFLAG
+6715   002722  0000          0000
+6716   002723  1417          XPAGE
+6717   002724  7121          "P-300^45+"A-300+SFLAG          /PAUSE
+6718   002725  5434          "U-300^45+"S-300+PFLAG
+6719   002726  0271          "E-300^45
+6720   002727  0542          XPAUSE
+6721   002730  7141          "P-300^45+"Q-300+SFLAG          /PQS
+6722   002731  5277          "S-300^45+PFLAG
+6723   002732  0000          0000
+6724   002733  1370          XPSDRET
+6725   002734  7237          "R-300^45+"E-300+SFLAG          /RELOC
+6726   002735  4713          "L-300^45+"O-300+PFLAG
+6727   002736  0157          "C-300^45
+6728   002737  1517          XRELOC
+6729   002740  7310          "S-300^45+"I-300+SFLAG          /SIXBIT
+6730   002741  5572          "X-300^45+"B-300+PFLAG
+6731   002742  0541          "I-300^45+"T-300
+6732   002743  1000          XSXBIT
+6733   002744  7312          "S-300^45+"K-300+SFLAG          /SKIP
+6734   002745  4535          "I-300^45+"P-300+PFLAG
+6735   002746  0000          0000
+6736   002747  1623          XSKIP
+6737   002750  7351          "T-300^45+"E-300+SFLAG          /TEXT
+6738   002751  5614          "X-300^45+"T-300+PFLAG
+6739   002752  0000          0000
+6740   002753  1001          XTEXT
+6741   002754  7355          "T-300^45+"I-300+SFLAG          /TITLE
+6742   002755  5360          "T-300^45+"L-300+PFLAG
+6743   002756  0271          "E-300^45
+6744   002757  3402          XTITLE
+6745   002760  7604          "X-300^45+"L-300+SFLAG          /XLIST
+6746   002761  4540          "I-300^45+"S-300+PFLAG
+6747   002762  1344          "T-300^45
+6748   002763  2144          XLISTI
+6749   002764  7702          "Z-300^45+SFLAG                 /Z
+6750   002765  4000          PFLAG
+6751   002766  0000          0000
+6752   002767  1370          XPSDRET
+6753   002770  7704          "Z-300^45+"B-300+SFLAG          /ZBLOCK
+6754   002771  4713          "L-300^45+"O-300+PFLAG
+6755   002772  0172          "C-300^45+"K-300
+6756   002773  2154          ZBLK
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 160
+
+6757   002774  2050          "A-300^45+"C-300+NFLAG          /ACL
+6758   002775  4674          "L-300^45+PFLAG
+6759   002776  0000          0000
+6760   002777  7701          ACL
+6761   003000  4063          "A-300^45+"N-300+MFLAG          /AND
+6762   003001  4224          "D-300^45+PFLAG
+6763   003002  0000          0000
+6764   003003  0000          AND     0000
+6765   003004  2070          "A-300^45+"S-300+NFLAG          /ASC
+6766   003005  4157          "C-300^45+PFLAG
+6767   003006  0000          0000
+6768   003007  7403          ASC
+6769   003010  2070          "A-300^45+"S-300+NFLAG          /ASR
+6770   003011  5232          "R-300^45+PFLAG
+6771   003012  0000          0000
+6772   003013  7415          ASR
+6773   003014  2135          "B-300^45+"S-300+NFLAG          /BSW
+6774   003015  5523          "W-300^45+PFLAG
+6775   003016  0000          0000
+6776   003017  7002          BSW
+6777   003020  2160          "C-300^45+"A-300+NFLAG          /CAF
+6778   003021  4336          "F-300^45+PFLAG
+6779   003022  0000          0000
+6780   003023  6007          CAF
+6781   003024  2160          "C-300^45+"A-300+NFLAG          /CAM
+6782   003025  4741          "M-300^45+PFLAG
+6783   003026  0000          0000
+6784   003027  7621          CAM
+6785   003030  2163          "C-300^45+"D-300+NFLAG          /CDF
+6786   003031  4336          "F-300^45+PFLAG
+6787   003032  0000          0000
+6788   003033  6201          CDF
+6789   003034  2170          "C-300^45+"I-300+NFLAG          /CIA
+6790   003035  4045          "A-300^45+PFLAG
+6791   003036  0000          0000
+6792   003037  7041          CIA
+6793   003040  2170          "C-300^45+"I-300+NFLAG          /CIF
+6794   003041  4336          "F-300^45+PFLAG
+6795   003042  0000          0000
+6796   003043  6202          CIF
+6797   003044  2170          "C-300^45+"I-300+NFLAG          /CINT
+6798   003045  5032          "N-300^45+"T-300+PFLAG
+6799   003046  0000          0000
+6800   003047  6204          CINT
+6801   003050  2173          "C-300^45+"L-300+NFLAG          /CLA
+6802   003051  4045          "A-300^45+PFLAG
+6803   003052  0000          0000
+6804   003053  7200          CLA
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 161
+
+6805   003054  2173          "C-300^45+"L-300+NFLAG          /CLL
+6806   003055  4674          "L-300^45+PFLAG
+6807   003056  0000          0000
+6808   003057  7100          CLL
+6809   003060  2174          "C-300^45+"M-300+NFLAG          /CMA
+6810   003061  4045          "A-300^45+PFLAG
+6811   003062  0000          0000
+6812   003063  7040          CMA
+6813   003064  2174          "C-300^45+"M-300+NFLAG          /CML
+6814   003065  4674          "L-300^45+PFLAG
+6815   003066  0000          0000
+6816   003067  7020          CML
+6817   003070  2204          "C-300^45+"U-300+NFLAG          /CUF
+6818   003071  4336          "F-300^45+PFLAG
+6819   003072  0000          0000
+6820   003073  6264          CUF
+6821   003074  2225          "D-300^45+"A-300+NFLAG          /DAD
+6822   003075  4224          "D-300^45+PFLAG
+6823   003076  0000          0000
+6824   003077  7443          DAD
+6825   003100  4227          "D-300^45+"C-300+MFLAG          /DCA
+6826   003101  4045          "A-300^45+PFLAG
+6827   003102  0000          0000
+6828   003103  3000          DCA     0000
+6829   003104  2227          "D-300^45+"C-300+NFLAG          /DCM
+6830   003105  4741          "M-300^45+PFLAG
+6831   003106  0000          0000
+6832   003107  7575          DCM
+6833   003110  2230          "D-300^45+"D-300+NFLAG          /DDZ
+6834   003111  5702          "Z-300^45+PFLAG
+6835   003112  0000          0000
+6836   003113  7665          DDZ
+6837   003114  2240          "D-300^45+"L-300+NFLAG          /DLD
+6838   003115  4224          "D-300^45+PFLAG
+6839   003116  0000          0000
+6840   003117  7663          DLD
+6841                 /       "D-300^45+"L-300+NFLAG          /DL0001
+6842                 /       "0-225^45+"0-225+PFLAG
+6843                 /       "0-225^45+"1-225
+6844                 /       DL0001
+6845   003120  2244          "D-300^45+"P-300+NFLAG          /DPIC
+6846   003121  4520          "I-300^45+"C-300+PFLAG
+6847   003122  0000          0000
+6848   003123  7573          DPIC
+6849   003124  2244          "D-300^45+"P-300+NFLAG          /DPSZ
+6850   003125  5331          "S-300^45+"Z-300+PFLAG
+6851   003126  0000          0000
+6852   003127  7451          DPSZ
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 162
+
+6853   003130  2247          "D-300^45+"S-300+NFLAG          /DST
+6854   003131  5344          "T-300^45+PFLAG
+6855   003132  0000          0000
+6856   003133  7445          DST
+6857   003134  2250          "D-300^45+"T-300+NFLAG          /DTCA
+6858   003135  4160          "C-300^45+"A-300+PFLAG
+6859   003136  0000          0000
+6860   003137  6762          DTCA
+6861   003140  2250          "D-300^45+"T-300+NFLAG          /DTLA
+6862   003141  4675          "L-300^45+"A-300+PFLAG
+6863   003142  0000          0000
+6864   003143  6766          DTLA
+6865   003144  2250          "D-300^45+"T-300+NFLAG          /DTLB
+6866   003145  4676          "L-300^45+"B-300+PFLAG
+6867   003146  0000          0000
+6868   003147  6774          DTLB
+6869   003150  2250          "D-300^45+"T-300+NFLAG          /DTRA
+6870   003151  5233          "R-300^45+"A-300+PFLAG
+6871   003152  0000          0000
+6872   003153  6761          DTRA
+6873   003154  2250          "D-300^45+"T-300+NFLAG          /DTRB
+6874   003155  5234          "R-300^45+"B-300+PFLAG
+6875   003156  0000          0000
+6876   003157  6772          DTRB
+6877   003160  2250          "D-300^45+"T-300+NFLAG          /DTSF
+6878   003161  5305          "S-300^45+"F-300+PFLAG
+6879   003162  0000          0000
+6880   003163  6771          DTSF
+6881   003164  2250          "D-300^45+"T-300+NFLAG          /DTXA
+6882   003165  5571          "X-300^45+"A-300+PFLAG
+6883   003166  0000          0000
+6884   003167  6764          DTXA
+6885   003170  2252          "D-300^45+"V-300+NFLAG          /DVI
+6886   003171  4515          "I-300^45+PFLAG
+6887   003172  0000          0000
+6888   003173  7407          DVI
+6889   003174  2272          "E-300^45+"A-300+NFLAG          /EAE
+6890   003175  4271          "E-300^45+PFLAG
+6891   003176  0000          0000
+6892   003177  7401          EAE
+6893   003200  2417          "G-300^45+"L-300+NFLAG          /GLK
+6894   003201  4627          "K-300^45+PFLAG
+6895   003202  0000          0000
+6896   003203  7204          GLK
+6897   003204  2427          "G-300^45+"T-300+NFLAG          /GTF
+6898   003205  4336          "F-300^45+PFLAG
+6899   003206  0000          0000
+6900   003207  6004          GTF
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 163
+
+6901   003210  2464          "H-300^45+"L-300+NFLAG          /HLT
+6902   003211  5344          "T-300^45+PFLAG
+6903   003212  0000          0000
+6904   003213  7402          HLT
+6905   003214  2516          "I-300^45+"A-300+NFLAG          /IAC
+6906   003215  4157          "C-300^45+PFLAG
+6907   003216  0000          0000
+6908   003217  7001          IAC
+6909   003220  4533          "I-300^45+"N-300+MFLAG          /INC
+6910   003221  4157          "C-300^45+PFLAG
+6911   003222  0000          0000
+6912   003223  2000          INC     0000
+6913   003224  2534          "I-300^45+"O-300+NFLAG          /IOF
+6914   003225  4336          "F-300^45+PFLAG
+6915   003226  0000          0000
+6916   003227  6002          IOF
+6917   003230  2534          "I-300^45+"O-300+NFLAG          /ION
+6918   003231  5006          "N-300^45+PFLAG
+6919   003232  0000          0000
+6920   003233  6001          ION
+6921   003234  2534          "I-300^45+"O-300+NFLAG          /IOT
+6922   003235  5344          "T-300^45+PFLAG
+6923   003236  0000          0000
+6924   003237  6000          IOT
+6925   003240  4540          "I-300^45+"S-300+MFLAG          /ISZ
+6926   003241  5702          "Z-300^45+PFLAG
+6927   003242  0000          0000
+6928   003243  2000          ISZ     0000
+6929   003244  4577          "J-300^45+"M-300+MFLAG          /JMP
+6930   003245  5120          "P-300^45+PFLAG
+6931   003246  0000          0000
+6932   003247  5000          JMP     0000
+6933   003250  4577          "J-300^45+"M-300+MFLAG          /JMS
+6934   003251  5277          "S-300^45+PFLAG
+6935   003252  0000          0000
+6936   003253  4000          JMS     0000
+6937   003254  2632          "K-300^45+"C-300+NFLAG          /KCC
+6938   003255  4157          "C-300^45+PFLAG
+6939   003256  0000          0000
+6940   003257  6032          KCC
+6941   003260  2632          "K-300^45+"C-300+NFLAG          /KCF
+6942   003261  4336          "F-300^45+PFLAG
+6943   003262  0000          0000
+6944   003263  6030          KCF
+6945   003264  2640          "K-300^45+"I-300+NFLAG          /KIE
+6946   003265  4271          "E-300^45+PFLAG
+6947   003266  0000          0000
+6948   003267  6035          KIE
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 164
+
+6949   003270  2651          "K-300^45+"R-300+NFLAG          /KRB
+6950   003271  4112          "B-300^45+PFLAG
+6951   003272  0000          0000
+6952   003273  6036          KRB
+6953   003274  2651          "K-300^45+"R-300+NFLAG          /KRS
+6954   003275  5277          "S-300^45+PFLAG
+6955   003276  0000          0000
+6956   003277  6034          KRS
+6957   003300  2652          "K-300^45+"S-300+NFLAG          /KSF
+6958   003301  4336          "F-300^45+PFLAG
+6959   003302  0000          0000
+6960   003303  6031          KSF
+6961   003304  2675          "L-300^45+"A-300+NFLAG          /LAS
+6962   003305  5277          "S-300^45+PFLAG
+6963   003306  0000          0000
+6964   003307  7604          LAS
+6965   003310  2717          "L-300^45+"S-300+NFLAG          /LSR
+6966   003311  5232          "R-300^45+PFLAG
+6967   003312  0000          0000
+6968   003313  7417          LSR
+6969   003314  2762          "M-300^45+"Q-300+NFLAG          /MQA
+6970   003315  4045          "A-300^45+PFLAG
+6971   003316  0000          0000
+6972   003317  7501          MQA
+6973   003320  2762          "M-300^45+"Q-300+NFLAG          /MQL
+6974   003321  4674          "L-300^45+PFLAG
+6975   003322  0000          0000
+6976   003323  7421          MQL
+6977   003324  2766          "M-300^45+"U-300+NFLAG          /MUY
+6978   003325  5635          "Y-300^45+PFLAG
+6979   003326  0000          0000
+6980   003327  7405          MUY
+6981   003330  3023          "N-300^45+"M-300+NFLAG          /NMI
+6982   003331  4515          "I-300^45+PFLAG
+6983   003332  0000          0000
+6984   003333  7411          NMI
+6985   003334  3025          "N-300^45+"O-300+NFLAG          /NOP
+6986   003335  5120          "P-300^45+PFLAG
+6987   003336  0000          0000
+6988   003337  7000          NOP
+6989   003340  3025          "N-300^45+"O-300+NFLAG          /NOPSKP
+6990   003341  5143          "P-300^45+"S-300+PFLAG
+6991   003342  0647          "K-300^45+"P-300
+6992   003343  7400          NOPSKP
+6993   003344  3073          "O-300^45+"P-300+NFLAG          /OPR
+6994   003345  5232          "R-300^45+PFLAG
+6995   003346  0000          0000
+6996   003347  7000          OPR
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 165
+
+6997   003350  3076          "O-300^45+"S-300+NFLAG          /OSR
+6998   003351  5232          "R-300^45+PFLAG
+6999   003352  0000          0000
+7000   003353  7404          OSR
+7001   003354  3123          "P-300^45+"C-300+NFLAG          /PCE
+7002   003355  4271          "E-300^45+PFLAG
+7003   003356  0000          0000
+7004   003357  6020          PCE
+7005   003360  3123          "P-300^45+"C-300+NFLAG          /PCF
+7006   003361  4336          "F-300^45+PFLAG
+7007   003362  0000          0000
+7008   003363  6022          PCF
+7009   003364  3134          "P-300^45+"L-300+NFLAG          /PLS
+7010   003365  5277          "S-300^45+PFLAG
+7011   003366  0000          0000
+7012   003367  6026          PLS
+7013   003370  3140          "P-300^45+"P-300+NFLAG          /PPC
+7014   003371  4157          "C-300^45+PFLAG
+7015   003372  0000          0000
+7016   003373  6024          PPC
+7017   003374  3143          "P-300^45+"S-300+NFLAG          /PSF
+7018   003375  4336          "F-300^45+PFLAG
+7019   003376  0000          0000
+7020   003377  6021          PSF
+7021   003400  3233          "R-300^45+"A-300+NFLAG          /RAL
+7022   003401  4674          "L-300^45+PFLAG
+7023   003402  0000          0000
+7024   003403  7004          RAL
+7025   003404  3233          "R-300^45+"A-300+NFLAG          /RAR
+7026   003405  5232          "R-300^45+PFLAG
+7027   003406  0000          0000
+7028   003407  7010          RAR
+7029   003410  3235          "R-300^45+"C-300+NFLAG          /RCC
+7030   003411  4157          "C-300^45+PFLAG
+7031   003412  0000          0000
+7032   003413  6016          RCC
+7033   003414  3236          "R-300^45+"D-300+NFLAG          /RDF
+7034   003415  4336          "F-300^45+PFLAG
+7035   003416  0000          0000
+7036   003417  6214          RDF
+7037   003420  3240          "R-300^45+"F-300+NFLAG          /RFC
+7038   003421  4157          "C-300^45+PFLAG
+7039   003422  0000          0000
+7040   003423  6014          RFC
+7041   003424  3243          "R-300^45+"I-300+NFLAG          /RIB
+7042   003425  4112          "B-300^45+PFLAG
+7043   003426  0000          0000
+7044   003427  6234          RIB
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 166
+
+7045   003430  3243          "R-300^45+"I-300+NFLAG          /RIF
+7046   003431  4336          "F-300^45+PFLAG
+7047   003432  0000          0000
+7048   003433  6224          RIF
+7049   003434  3247          "R-300^45+"M-300+NFLAG          /RMF
+7050   003435  4336          "F-300^45+PFLAG
+7051   003436  0000          0000
+7052   003437  6244          RMF
+7053   003440  3252          "R-300^45+"P-300+NFLAG          /RPE
+7054   003441  4271          "E-300^45+PFLAG
+7055   003442  0000          0000
+7056   003443  6010          RPE
+7057   003444  3254          "R-300^45+"R-300+NFLAG          /RRB
+7058   003445  4112          "B-300^45+PFLAG
+7059   003446  0000          0000
+7060   003447  6012          RRB
+7061   003450  3255          "R-300^45+"S-300+NFLAG          /RSF
+7062   003451  4336          "F-300^45+PFLAG
+7063   003452  0000          0000
+7064   003453  6011          RSF
+7065   003454  3256          "R-300^45+"T-300+NFLAG          /RTF
+7066   003455  4336          "F-300^45+PFLAG
+7067   003456  0000          0000
+7068   003457  6005          RTF
+7069   003460  3256          "R-300^45+"T-300+NFLAG          /RTL
+7070   003461  4674          "L-300^45+PFLAG
+7071   003462  0000          0000
+7072   003463  7006          RTL
+7073   003464  3256          "R-300^45+"T-300+NFLAG          /RTR
+7074   003465  5232          "R-300^45+PFLAG
+7075   003466  0000          0000
+7076   003467  7012          RTR
+7077   003470  3300          "S-300^45+"A-300+NFLAG          /SAM
+7078   003471  4741          "M-300^45+PFLAG
+7079   003472  0000          0000
+7080   003473  7457          SAM
+7081   003474  3302          "S-300^45+"C-300+NFLAG          /SCA
+7082   003475  4045          "A-300^45+PFLAG
+7083   003476  0000          0000
+7084   003477  7441          SCA
+7085   003500  3302          "S-300^45+"C-300+NFLAG          /SCL
+7086   003501  4674          "L-300^45+PFLAG
+7087   003502  0000          0000
+7088   003503  7403          SCL
+7089   003504  3306          "S-300^45+"G-300+NFLAG          /SGT
+7090   003505  5344          "T-300^45+PFLAG
+7091   003506  0000          0000
+7092   003507  6006          SGT
+7093   003510  3307          "S-300^45+"H-300+NFLAG          /SHL
+7094   003511  4674          "L-300^45+PFLAG
+7095   003512  0000          0000
+7096   003513  7413          SHL
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 167
+
+7097   003514  3310          "S-300^45+"I-300+NFLAG          /SINT
+7098   003515  5032          "N-300^45+"T-300+PFLAG
+7099   003516  0000          0000
+7100   003517  6254          SINT
+7101                 /       "S-300^45+"K-300+NFLAG          /SKB
+7102                 /       "B-300^45+PFLAG
+7103                 /       0000
+7104                 /       SKB
+7105   003520  3312          "S-300^45+"K-300+NFLAG          /SKON
+7106   003521  5071          "O-300^45+"N-300+PFLAG
+7107   003522  0000          0000
+7108   003523  6000          SKON
+7109   003524  3312          "S-300^45+"K-300+NFLAG          /SKP
+7110   003525  5120          "P-300^45+PFLAG
+7111   003526  0000          0000
+7112   003527  7410          SKP
+7113   003530  3314          "S-300^45+"M-300+NFLAG          /SMA
+7114   003531  4045          "A-300^45+PFLAG
+7115   003532  0000          0000
+7116   003533  7500          SMA
+7117   003534  3315          "S-300^45+"N-300+NFLAG          /SNA
+7118   003535  4045          "A-300^45+PFLAG
+7119   003536  0000          0000
+7120   003537  7450          SNA
+7121   003540  3315          "S-300^45+"N-300+NFLAG          /SNL
+7122   003541  4674          "L-300^45+PFLAG
+7123   003542  0000          0000
+7124   003543  7420          SNL
+7125   003544  3317          "S-300^45+"P-300+NFLAG          /SPA
+7126   003545  4045          "A-300^45+PFLAG
+7127   003546  0000          0000
+7128   003547  7510          SPA
+7129   003550  3321          "S-300^45+"R-300+NFLAG          /SRQ
+7130   003551  5165          "Q-300^45+PFLAG
+7131   003552  0000          0000
+7132   003553  6003          SRQ
+7133   003554  3323          "S-300^45+"T-300+NFLAG          /STA
+7134   003555  4045          "A-300^45+PFLAG
+7135   003556  0000          0000
+7136   003557  7240          NL7777
+7137   003560  3323          "S-300^45+"T-300+NFLAG          /STL
+7138   003561  4674          "L-300^45+PFLAG
+7139   003562  0000          0000
+7140   003563  7120          STL
+7141   003564  3324          "S-300^45+"U-300+NFLAG          /SUF
+7142   003565  4336          "F-300^45+PFLAG
+7143   003566  0000          0000
+7144   003567  6274          SUF
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 168
+
+7145   003570  3326          "S-300^45+"W-300+NFLAG          /SWAB
+7146   003571  4047          "A-300^45+"B-300+PFLAG
+7147   003572  0000          0000
+7148   003573  7431          SWAB
+7149   003574  3326          "S-300^45+"W-300+NFLAG          /SWBA
+7150   003575  4113          "B-300^45+"A-300+PFLAG
+7151   003576  0000          0000
+7152   003577  7447          SWBA
+7153   003600  3326          "S-300^45+"W-300+NFLAG          /SWP
+7154   003601  5120          "P-300^45+PFLAG
+7155   003602  0000          0000
+7156   003603  7521          SWP
+7157   003604  3331          "S-300^45+"Z-300+NFLAG          /SZA
+7158   003605  4045          "A-300^45+PFLAG
+7159   003606  0000          0000
+7160   003607  7440          SZA
+7161   003610  3331          "S-300^45+"Z-300+NFLAG          /SZL
+7162   003611  4674          "L-300^45+PFLAG
+7163   003612  0000          0000
+7164   003613  7430          SZL
+7165   003614  5345          "T-300^45+"A-300+MFLAG          /TAD
+7166   003615  4224          "D-300^45+PFLAG
+7167   003616  0000          0000
+7168   003617  1000          TAD     0000
+7169   003620  3347          "T-300^45+"C-300+NFLAG          /TCF
+7170   003621  4336          "F-300^45+PFLAG
+7171   003622  0000          0000
+7172   003623  6042          TCF
+7173   003624  3352          "T-300^45+"F-300+NFLAG          /TFL
+7174   003625  4674          "L-300^45+PFLAG
+7175   003626  0000          0000
+7176   003627  6040          TFL
+7177   003630  3360          "T-300^45+"L-300+NFLAG          /TLS
+7178   003631  5277          "S-300^45+PFLAG
+7179   003632  0000          0000
+7180   003633  6046          TLS
+7181   003634  3364          "T-300^45+"P-300+NFLAG          /TPC
+7182   003635  4157          "C-300^45+PFLAG
+7183   003636  0000          0000
+7184   003637  6044          TPC
+7185   003640  3367          "T-300^45+"S-300+NFLAG          /TSF
+7186   003641  4336          "F-300^45+PFLAG
+7187   003642  0000          0000
+7188   003643  6041          TSF
+7189   003644  3367          "T-300^45+"S-300+NFLAG          /TSK
+7190   003645  4627          "K-300^45+PFLAG
+7191   003646  0000          0000
+7192   003647  6045          TSK
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 169
+
+7193   003650  7777          7777                            /THIS TERMINATES THE TABLE
+7194   
+7195           4000          PAGE
+7196   
+7197                 /       ADDITIONAL LINC MODE SYMBOLS ENABLED BY /8, /9.
+7198   
+7199   004000  2051          "A-300^45+"D-300+NFLAG          /ADA
+7200   004001  4045          "A-300^45+PFLAG
+7201   004002  0000          0000
+7202   004003  1100          1100
+7203   004004  4051          "A-300^45+"D-300+MFLAG          /ADD
+7204   004005  4224          "D-300^45+PFLAG
+7205   004006  0000          0000
+7206   004007  2000          2000
+7207   004010  2051          "A-300^45+"D-300+NFLAG          /ADM
+7208   004011  4741          "M-300^45+PFLAG
+7209   004012  0000          0000
+7210   004013  1140          1140
+7211   004014  2065          "A-300^45+"P-300+NFLAG          /APO
+7212   004015  5053          "O-300^45+PFLAG
+7213   004016  0000          0000
+7214   004017  0451          0451
+7215   004020  2071          "A-300^45+"T-300+NFLAG          /ATR
+7216   004021  5232          "R-300^45+PFLAG
+7217   004022  0000          0000
+7218   004023  0014          0014
+7219   004024  2075          "A-300^45+"X-300+NFLAG          /AXO
+7220   004025  5053          "O-300^45+PFLAG
+7221   004026  0000          0000
+7222   004027  0001          0001
+7223   004030  2077          "A-300^45+"Z-300+NFLAG          /AZE
+7224   004031  4271          "E-300^45+PFLAG
+7225   004032  0000          0000
+7226   004033  0450          0450
+7227   004034  2115          "B-300^45+"C-300+NFLAG          /BCL
+7228   004035  4674          "L-300^45+PFLAG
+7229   004036  0000          0000
+7230   004037  1540          1540
+7231   004040  2115          "B-300^45+"C-300+NFLAG          /BCO
+7232   004041  5053          "O-300^45+PFLAG
+7233   004042  0000          0000
+7234   004043  1640          1640
+7235   004044  2135          "B-300^45+"S-300+NFLAG          /BSE
+7236   004045  4271          "E-300^45+PFLAG
+7237   004046  0000          0000
+7238   004047  1600          1600
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 170
+
+7239   004050  2167          "C-300^45+"H-300+NFLAG          /CHK
+7240   004051  4627          "K-300^45+PFLAG
+7241   004052  0000          0000
+7242   004053  0707          0707
+7243   004054  2173          "C-300^45+"L-300+NFLAG          /CLR
+7244   004055  5232          "R-300^45+PFLAG
+7245   004056  0000          0000
+7246   004057  0011          0011
+7247   004060  2176          "C-300^45+"O-300+NFLAG          /COM
+7248   004061  4741          "M-300^45+PFLAG
+7249   004062  0000          0000
+7250   004063  0017          0017
+7251   004064  2235          "D-300^45+"I-300+NFLAG          /DIS
+7252   004065  5277          "S-300^45+PFLAG
+7253   004066  0000          0000
+7254   004067  0140          0140
+7255   004070  2236          "D-300^45+"J-300+NFLAG          /DJR
+7256   004071  5232          "R-300^45+PFLAG
+7257   004072  0000          0000
+7258   004073  0006          0006
+7259   004074  2247          "D-300^45+"S-300+NFLAG          /DSC
+7260   004075  4157          "C-300^45+PFLAG
+7261   004076  0000          0000
+7262   004077  1740          1740
+7263   004100  2314          "E-300^45+"S-300+NFLAG          /ESF
+7264   004101  4336          "F-300^45+PFLAG
+7265   004102  0000          0000
+7266   004103  0004          0004
+7267   004104  2321          "E-300^45+"X-300+NFLAG          /EXC
+7268   004105  4157          "C-300^45+PFLAG
+7269   004106  0000          0000
+7270   004107  0740          0740
+7271   004110  2352          "F-300^45+"L-300+NFLAG          /FLO
+7272   004111  5053          "O-300^45+PFLAG
+7273   004112  0000          0000
+7274   004113  0454          0454
+7275                 /       "H-300^45+"L-300+NFLAG          /HLT
+7276                 /       "T-300^45+PFLAG
+7277                 /       0000
+7278                 /       HLT
+7279   004114  2516          "I-300^45+"A-300+NFLAG          /IAAC
+7280   004115  4050          "A-300^45+"C-300+PFLAG
+7281   004116  0000          0000
+7282   004117  6171          6171
+7283   004120  2516          "I-300^45+"A-300+NFLAG          /IACA
+7284   004121  4160          "C-300^45+"A-300+PFLAG
+7285   004122  0000          0000
+7286   004123  6167          6167
+7287   004124  2516          "I-300^45+"A-300+NFLAG          /IACF
+7288   004125  4165          "C-300^45+"F-300+PFLAG
+7289   004126  0000          0000
+7290   004127  6175          6175
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 171
+
+7291   004130  2516          "I-300^45+"A-300+NFLAG          /IACS
+7292   004131  4202          "C-300^45+"S-300+PFLAG
+7293   004132  0000          0000
+7294   004133  6163          6163
+7295   004134  2517          "I-300^45+"B-300+NFLAG          /IBAC
+7296   004135  4050          "A-300^45+"C-300+PFLAG
+7297   004136  0000          0000
+7298   004137  6143          6143
+7299   004140  2517          "I-300^45+"B-300+NFLAG          /IBZ
+7300   004141  5702          "Z-300^45+PFLAG
+7301   004142  0000          0000
+7302   004143  0453          0453
+7303   004144  2520          "I-300^45+"C-300+NFLAG          /ICON
+7304   004145  5071          "O-300^45+"N-300+PFLAG
+7305   004146  0000          0000
+7306   004147  6141          6141
+7307   004150  2520          "I-300^45+"C-300+NFLAG          /ICS1
+7308   004151  5333          "S-300^45+"1-225+PFLAG
+7309   004152  0000          0000
+7310   004153  6151          6151
+7311   004154  2520          "I-300^45+"C-300+NFLAG          /ICS2
+7312   004155  5334          "S-300^45+"2-225+PFLAG
+7313   004156  0000          0000
+7314   004157  6153          6153
+7315   004160  2531          "I-300^45+"L-300+NFLAG          /ILES
+7316   004161  4314          "E-300^45+"S-300+PFLAG
+7317   004162  0000          0000
+7318   004163  6145          6145
+7319   004164  2532          "I-300^45+"M-300+NFLAG          /IMBS
+7320   004165  4135          "B-300^45+"S-300+PFLAG
+7321   004166  0000          0000
+7322   004167  6155          6155
+7323   004170  2533          "I-300^45+"N-300+NFLAG          /INTS
+7324   004171  5367          "T-300^45+"S-300+PFLAG
+7325   004172  0000          0000
+7326   004173  6147          6147
+7327   004174  2534          "I-300^45+"O-300+NFLAG          /IOB
+7328   004175  4112          "B-300^45+PFLAG
+7329   004176  0000          0000
+7330   004177  0500          0500
+7331   004200  2540          "I-300^45+"S-300+NFLAG          /ISSP
+7332   004201  5317          "S-300^45+"P-300+PFLAG
+7333   004202  0000          0000
+7334   004203  6165          6165
+7335   004204  2541          "I-300^45+"T-300+NFLAG          /ITAC
+7336   004205  4050          "A-300^45+"C-300+PFLAG
+7337   004206  0000          0000
+7338   004207  6157          6157
+7339   004210  2547          "I-300^45+"Z-300+NFLAG          /IZSA
+7340   004211  5300          "S-300^45+"A-300+PFLAG
+7341   004212  0000          0000
+7342   004213  6173          6173
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 172
+
+7343                 /       "J-300^45+"M-300+MFLAG          /JMP
+7344                 /       "P-300^45+PFLAG
+7345                 /       0000
+7346                 /       JMP     0000
+7347   004214  4605          "J-300^45+"S-300+MFLAG          /JSR
+7348   004215  5232          "R-300^45+PFLAG
+7349   004216  0000          0000
+7350   004217  6000          6000
+7351   004220  2631          "K-300^45+"B-300+NFLAG          /KBD
+7352   004221  4224          "D-300^45+PFLAG
+7353   004222  0000          0000
+7354   004223  0515          0515
+7355   004224  2652          "K-300^45+"S-300+NFLAG          /KST
+7356   004225  5344          "T-300^45+PFLAG
+7357   004226  0000          0000
+7358   004227  0415          0415
+7359   004230  2675          "L-300^45+"A-300+NFLAG          /LAM
+7360   004231  4741          "M-300^45+PFLAG
+7361   004232  0000          0000
+7362   004233  1200          1200
+7363   004234  2700          "L-300^45+"D-300+NFLAG          /LDA
+7364   004235  4045          "A-300^45+PFLAG
+7365   004236  0000          0000
+7366   004237  1000          1000
+7367   004240  2700          "L-300^45+"D-300+NFLAG          /LDF
+7368   004241  4336          "F-300^45+PFLAG
+7369   004242  0000          0000
+7370   004243  0640          0640
+7371   004244  2700          "L-300^45+"D-300+NFLAG          /LDH
+7372   004245  4450          "H-300^45+PFLAG
+7373   004246  0000          0000
+7374   004247  1300          1300
+7375   004250  2705          "L-300^45+"I-300+NFLAG          /LIF
+7376   004251  4336          "F-300^45+PFLAG
+7377   004252  0000          0000
+7378   004253  0600          0600
+7379   004254  2705          "L-300^45+"I-300+NFLAG          /LINC
+7380   004255  5011          "N-300^45+"C-300+PFLAG
+7381   004256  0000          0000
+7382   004257  6141          6141
+7383   004260  2711          "L-300^45+"M-300+NFLAG          /LMB
+7384   004261  4112          "B-300^45+PFLAG
+7385   004262  0000          0000
+7386   004263  0600          0600
+7387   004264  2711          "L-300^45+"M-300+NFLAG          /LMR
+7388   004265  5232          "R-300^45+PFLAG
+7389   004266  0000          0000
+7390   004267  6151          6151
+7391   004270  2717          "L-300^45+"S-300+NFLAG          /LSW
+7392   004271  5523          "W-300^45+PFLAG
+7393   004272  0000          0000
+7394   004273  0517          0517
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 173
+
+7395   004274  2726          "L-300^45+"Z-300+NFLAG          /LZE
+7396   004275  4271          "E-300^45+PFLAG
+7397   004276  0000          0000
+7398   004277  0452          0452
+7399   004300  2764          "M-300^45+"S-300+NFLAG          /MSC
+7400   004301  4157          "C-300^45+PFLAG
+7401   004302  0000          0000
+7402   004303  0000          0000
+7403   004304  2765          "M-300^45+"T-300+NFLAG          /MTB
+7404   004305  4112          "B-300^45+PFLAG
+7405   004306  0000          0000
+7406   004307  0703          0703
+7407   004310  2766          "M-300^45+"U-300+NFLAG          /MUL
+7408   004311  4674          "L-300^45+PFLAG
+7409   004312  0000          0000
+7410   004313  1240          1240
+7411                 /       "N-300^45+"O-300+NFLAG          /NOP
+7412                 /       "P-300^45+PFLAG
+7413                 /       0000
+7414                 /       NOP
+7415   004314  3124          "P-300^45+"D-300+NFLAG          /PDP
+7416   004315  5120          "P-300^45+PFLAG
+7417   004316  0000          0000
+7418   004317  0002          0002
+7419   004320  3166          "Q-300^45+"A-300+NFLAG          /QAC
+7420   004321  4157          "C-300^45+PFLAG
+7421   004322  0000          0000
+7422   004323  0005          0005
+7423   004324  3201          "Q-300^45+"L-300+NFLAG          /QLZ
+7424   004325  5702          "Z-300^45+PFLAG
+7425   004326  0000          0000
+7426   004327  0455          0455
+7427   004330  3235          "R-300^45+"C-300+NFLAG          /RCG
+7428   004331  4403          "G-300^45+PFLAG
+7429   004332  0000          0000
+7430   004333  0701          0701
+7431   004334  3236          "R-300^45+"D-300+NFLAG          /RDC
+7432   004335  4157          "C-300^45+PFLAG
+7433   004336  0000          0000
+7434   004337  0700          0700
+7435   004340  3236          "R-300^45+"D-300+NFLAG          /RDE
+7436   004341  4271          "E-300^45+PFLAG
+7437   004342  0000          0000
+7438   004343  0702          0702
+7439   004344  3251          "R-300^45+"O-300+NFLAG          /ROL
+7440   004345  4674          "L-300^45+PFLAG
+7441   004346  0000          0000
+7442   004347  0240          0240
+7443   004350  3251          "R-300^45+"O-300+NFLAG          /ROR
+7444   004351  5232          "R-300^45+PFLAG
+7445   004352  0000          0000
+7446   004353  0300          0300
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 174
+
+7447   004354  3255          "R-300^45+"S-300+NFLAG          /RSW
+7448   004355  5523          "W-300^45+PFLAG
+7449   004356  0000          0000
+7450   004357  0516          0516
+7451   004360  3256          "R-300^45+"T-300+NFLAG          /RTA
+7452   004361  4045          "A-300^45+PFLAG
+7453   004362  0000          0000
+7454   004363  0015          0015
+7455   004364  3300          "S-300^45+"A-300+NFLAG          /SAE
+7456   004365  4271          "E-300^45+PFLAG
+7457   004366  0000          0000
+7458   004367  1440          1440
+7459                 /       "S-300^45+"A-300+NFLAG          /SAM
+7460                 /       "M-300^45+PFLAG
+7461                 /       0000
+7462                 /       SAM
+7463   004370  3302          "S-300^45+"C-300+NFLAG          /SCR
+7464   004371  5232          "R-300^45+PFLAG
+7465   004372  0000          0000
+7466   004373  0340          0340
+7467   004374  3304          "S-300^45+"E-300+NFLAG          /SET
+7468   004375  5344          "T-300^45+PFLAG
+7469   004376  0000          0000
+7470   004377  0040          0040
+7471   004400  3305          "S-300^45+"F-300+NFLAG          /SFA
+7472   004401  4045          "A-300^45+PFLAG
+7473   004402  0000          0000
+7474   004403  0024          0024
+7475   004404  3307          "S-300^45+"H-300+NFLAG          /SHD
+7476   004405  4224          "D-300^45+PFLAG
+7477   004406  0000          0000
+7478   004407  1400          1400
+7479                 /       "S-300^45+"K-300+NFLAG          /SKP
+7480                 /       "P-300^45+PFLAG
+7481                 /       0000
+7482                 /       SKP
+7483   004410  3315          "S-300^45+"N-300+NFLAG          /SNS
+7484   004411  5277          "S-300^45+PFLAG
+7485   004412  0000          0000
+7486   004413  0440          0440
+7487   004414  3321          "S-300^45+"R-300+NFLAG          /SRO
+7488   004415  5053          "O-300^45+PFLAG
+7489   004416  0000          0000
+7490   004417  1500          1500
+7491                 /       "S-300^45+"T-300+NFLAG          /STA
+7492                 /       "A-300^45+PFLAG
+7493                 /       0000
+7494                 /       1040
+7495   004420  3323          "S-300^45+"T-300+NFLAG          /STB
+7496   004421  4112          "B-300^45+PFLAG
+7497   004422  0000          0000
+7498   004423  0414          0414
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 175
+
+7499   004424  5323          "S-300^45+"T-300+MFLAG          /STC
+7500   004425  4157          "C-300^45+PFLAG
+7501   004426  0000          0000
+7502   004427  4000          4000
+7503   004430  3323          "S-300^45+"T-300+NFLAG          /STD
+7504   004431  4224          "D-300^45+PFLAG
+7505   004432  0000          0000
+7506   004433  0416          0416
+7507   004434  3323          "S-300^45+"T-300+NFLAG          /STH
+7508   004435  4450          "H-300^45+PFLAG
+7509   004436  0000          0000
+7510   004437  1340          1340
+7511   004440  3326          "S-300^45+"W-300+NFLAG          /SWD
+7512   004441  4224          "D-300^45+PFLAG
+7513   004442  0000          0000
+7514   004443  0457          0457
+7515   004444  3327          "S-300^45+"X-300+NFLAG          /SXL
+7516   004445  4674          "L-300^45+PFLAG
+7517   004446  0000          0000
+7518   004447  0400          0400
+7519   004450  3345          "T-300^45+"A-300+NFLAG          /TAC
+7520   004451  4157          "C-300^45+PFLAG
+7521   004452  0000          0000
+7522   004453  0003          0003
+7523   004454  3361          "T-300^45+"M-300+NFLAG          /TMA
+7524   004455  4045          "A-300^45+PFLAG
+7525   004456  0000          0000
+7526   004457  0023          0023
+7527   004460  3373          "T-300^45+"W-300+NFLAG          /TWC
+7528   004461  4157          "C-300^45+PFLAG
+7529   004462  0000          0000
+7530   004463  0417          0417
+7531   004464  3375          "T-300^45+"Y-300+NFLAG          /TYP
+7532   004465  5120          "P-300^45+PFLAG
+7533   004466  0000          0000
+7534   004467  0514          0514
+7535   004470  3411          "U-300^45+NFLAG                 /U
+7536   004471  4000          PFLAG
+7537   004472  0000          0000
+7538   004473  0010          0010
+7539   004474  3426          "U-300^45+"M-300+NFLAG          /UMB
+7540   004475  4112          "B-300^45+PFLAG
+7541   004476  0000          0000
+7542   004477  0640          0640
+7543   004500  3526          "W-300^45+"C-300+NFLAG          /WCG
+7544   004501  4403          "G-300^45+PFLAG
+7545   004502  0000          0000
+7546   004503  0705          0705
+7547   004504  3545          "W-300^45+"R-300+NFLAG          /WRC
+7548   004505  4157          "C-300^45+PFLAG
+7549   004506  0000          0000
+7550   004507  0704          0704
+
+/       P?S/8 PAL ASSEMBLER               PAL8-VB0  06-OCT-87 PAGE 176
+
+7551   004510  3545          "W-300^45+"R-300+NFLAG          /WRI
+7552   004511  4515          "I-300^45+PFLAG
+7553   004512  0000          0000
+7554   004513  0706          0706
+7555   004514  3607          "X-300^45+"O-300+NFLAG          /XOA
+7556   004515  4045          "A-300^45+PFLAG
+7557   004516  0000          0000
+7558   004517  0021          0021
+7559   004520  3613          "X-300^45+"S-300+NFLAG          /XSK
+7560   004521  4627          "K-300^45+PFLAG
+7561   004522  0000          0000
+7562   004523  0200          0200
+7563   004524  3726          "Z-300^45+"T-300+NFLAG          /ZTA
+7564   004525  4045          "A-300^45+PFLAG
+7565   004526  0000          0000
+7566   004527  0005          0005
+7567   004530  3734          "Z-300^45+"Z-300+NFLAG          /ZZZ
+7568   004531  5702          "Z-300^45+PFLAG
+7569   004532  0000          0000
+7570   004533  0455          0455
+

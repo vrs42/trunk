@@ -1,0 +1,99 @@
+
+/       DISPLAY OVERLAY FOR P?S/8 FOCAL   PAL8-VB0  08-APR-87 PAGE 1
+
+   1                 /       DISPLAY OVERLAY FOR P?S/8 FOCAL
+   2   
+   3                 /       LAST EDIT:      01-APR-1987     18:00:00        CJL
+   4   
+   5                 /       P?S/8 FOCAL OVERLAY FOR BUFFERED DISPLAY OF X-Y POINTS ON A SCOPE INTERFACE.
+   6   
+   7                 /       THIS OVERLAY PROVIDES A DISPLAY FUNCTION TO P?S/8 FOCAL SIMILAR TO FOCAL-12
+   8                 /       OR BASIC-RT. IT CAN BE ASSEMBLED FOR SEVERAL HARDWARE CONFIGURATIONS:
+   9   
+  10                 /       SETTING AA01A=1 CREATES A VERSION FOR THE AA01A (A. S. D-A).
+  11                 /       SETTING AX08=1 CREATES A VERSION FOR THE AX08 WITH RM-503 SCOPE.
+  12                 /       SETTING S34D=1 CREATES A VERSION FOR THE 34D SCOPE.
+  13                 /       SETTING VC12=1 CREATES A VERSION FOR THE PDP-12 SCOPE.
+  14                 /       SETTING VC8E=1 CREATES A VERSION FOR THE LAB-8/E SCOPE.
+  15   
+  16                 /       SETTING CSW=1 CAUSES THE CONSOLE SWITCHES TO CONTROL AN ADDITIONAL DELAY.
+  17                 /                     THIS IS BEYOND THE NORMAL HARDWARE FLAGS, ETC.
+  18   
+  19                 /       FUNCTIONS AVAILABLE:
+  20   
+  21                 /       FDIS(X,Y)       INSERT POINT AT (X,Y) INTO DISPLAY BUFFER.
+  22                 /       FDIS(0)         CLEAR ALL POINTS FROM DISPLAY BUFFER.
+  23                 /       FDIS(NON-ZERO)  FORCE ALL POINTS TO DISPLAY ONCE.
+  24                 /       FIO(NEGATIVE)   RETURNS NUMERICAL VALUE (MODULO 128) OF NEXT ASCII CHARACTER
+  25                 /                       TYPED; P?S/8 FOCAL WILL WAIT FOR INPUT IF NECESSARY (WHILE
+  26                 /                       BUFFERING THE DISPLAY). SINCE INTEGER CONVERSION IS USED
+  27                 /                       FOR EVALUATION, THE ARGUMENT MUST BE NEGATIVE OR WITHIN
+  28                 /                       THE RANGE 2048-4095 MOD 4096.
+  29                 /       FIO(CHAR<2048)  OUTPUT ASCII CHARACTER; P?S/8 FOCAL WILL BUFFER THE DISPLAY
+  30                 /                       IF IT MUST WAIT TO OUTPUT THE CHARACTER. SINCE INTEGER
+  31                 /                       CONVERSION IS USED FOR EVALUATION, THE ARGUMENT MUST BE
+  32                 /                       POSITIVE AND BETWEEN 0000-2047 MOD 4096. NORMAL OUTPUT
+  33                 /                       DEVICES GENERALLY REDUCE THE CHARACTER VALUE RANGE TO
+  34                 /                       0000-0255 MOD 256 ALLOWING ANY COMBINATION OF ASCII
+  35                 /                       CHARACTER OUTPUT WITH OR WITHOUT PARITY SET.
+  36   
+  37                 /       ALL CURRENT POINTS WILL BE DISPLAYED WHILE P?S/8 FOCAL WAITS FOR EITHER
+  38                 /       KEYBOARD INPUT OR TERMINAL OUTPUT.
+  39   
+  40                 /       THIS OVERLAY CAN BE USED WITH THE "OPATCH" AND "VT8PCH" OVERLAYS, BUT MUST
+  41                 /       BE LOADED LAST TO PREVENT PATCH CONFLICT.
+  42   
+  43                 /       USE OF THIS OVERLAY WITH INCOMPATIBLE VERSIONS OF FOCAL/OVERLAYS WILL YIELD
+  44                 /       THE ERROR MESSAGE: 'FOCAL/OVERLAY CONFLICT!' FOLLOWED BY EXIT TO P?S/8.
+  45   
+  46                 /       DOMAIN AND RANGE CONSIDERATIONS:
+  47   
+  48                 /       AA01A VERSIONS RANGE FROM -2048 THROUGH 2047.
+  49                 /       VC-8/E, 34D VERSIONS RANGE FROM -512 THROUGH 511.
+  50                 /       AX08, VC-12 VERSIONS RANGE FROM -256 THROUGH 255.
+  51   
+  52                 /       UP TO 1984 POINTS CAN BE BUFFERED IN THE NORMAL VERSION.
+  53   
+  54                 /       INVOKING '/2' USES AN ADDITIONAL MEMORY FIELD WHICH THEN ALLOWS UP TO
+  55                 /       3968 BUFFERED POINTS.
+
+/       DISPLAY OVERLAY FOR P?S/8 FOCAL   PAL8-VB0  08-APR-87 PAGE 2
+
+  56                 /       ASSEMBLY PARAMETERS.
+  57   
+  58                 /       SET ONE OF THE FOLLOWING HARDWARE PARAMETERS BY REMOVING THE "/":
+  59   
+  60                 /       AA01A=  1                       /CREATE AA01A (A. S.) VERSION
+  61                 /       AX08=   1                       /CREATE AX08 VERSION
+  62                 /       S34D=   1                       /CREATE 34D VERSION
+  63                 /       VC12=   1                       /CREATE VC-12 VERSION
+  64                 /       VC8E=   1                       /CREATE VC-8/E VERSION
+  65   
+  66                 /       SET ONE OF THE FOLLOWING PARAMETERS GOVERNING CONSOLE-CONTROLLED DELAY BY
+  67                 /       REMOVING THE "/":
+  68   
+  69                 /       CSW=    0                       /NO ADDITIONAL CONSOLE-CONTROLLED DELAY
+  70                 /       CSW=    1                       /USE CONSOLE SWITCHES FOR ADDITIONAL DELAY
+  71   
+  72                 /       SET THE DISPLAY FIELD(S):
+  73   
+  74                 /       DFIELD= 20                      /(FIRST OF TWO) DISPLAY FIELD(S)
+  75   
+  76                 /       CONDITIONAL ASSEMBLY PARAMETERS.
+  77   
+  78                         IFNDEF  AA01A   <AA01A= 0>      /DON'T CREATE AA01A (A. S.) VERSION
+  79                         IFNDEF  AX08    <AX08=  0>      /DON'T CREATE AX08 VERSION
+  80                         IFNDEF  CSW     <CSW=   0>      /DON'T CAUSE CONSOLE DELAY
+  81                         IFNDEF  DFIELD  <DFIELD=20>     /USE FIELD(S) TWO (AND THREE) FOR DISPLAY
+  82                         IFNDEF  S34D    <S34D=  0>      /DON'T CREATE 34D VERSION
+  83                         IFNDEF  TTY     <TTY=   03>     /BASE DEVICE CODE OF TTY:
+  84                         IFNDEF  VC12    <VC12=  0>      /DON'T CREATE VC-12 VERSION
+  85                         IFNDEF  VC8E    <VC8E=  0>      /DON'T CREATE VC-8/E VERSION
+  86   
+  87                 /       DEFAULT PARAMETERS.
+  88   
+  89           0000          H=      AA01A!AX08!S34D!VC12    /ACCUMULATE PARAMETERS
+  90           0001          H=      H!VC8E                  /ACCUMULATE PARAMETERS
+  91   
+  92                         IFZERO  H       <VC8E=  1>      /DEFAULT TO VC-8/E VERSION
+

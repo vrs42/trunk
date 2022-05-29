@@ -1,0 +1,2983 @@
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 1
+
+   1                 /       FOCAL, 1969 FOR P?S/8
+   2   
+   3                 /       LAST EDIT:      04-FEB-1987     20:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       FOCAL, 1969 MODIFIED FOR USE WITH THE P?S/8 MONITOR SYSTEM.
+   8   
+   9                 /       ASSEMBLY INSTRUCTIONS:
+  10   
+  11                 /       ASSEMBLE THIS FILE (FOCPQS), AS A BINARY FILE.
+  12   
+  13                 /       ASSEMBLE FOCAL, 1969 AS A BINARY FILE (FOCL69).
+  14   
+  15                 /       BINARY LOAD FOCL69, FOCPQS.
+  16   
+  17                 /       SAVE AS A P?S/8 SYSTEM PROGRAM 00000-07577, FOLLOWED BY 10000-10377. THE
+  18                 /       P?S/8 FOCAL SYSTEM TO BE LOADED IS THE FIELD ZERO COMPONENT. THE FIELD
+  19                 /       ONE COMPONENT WILL BE USED FOR OVERLAYS TO 07400-07577 AS NECESSARY.
+  20   
+  21                 /       THIS ASSEMBLY IS A MASSIVE PATCH TO FOCAL.ZZM (DEC-08-AJAE-PB BINARY) TO
+  22                 /       CREATE A P?S/8 INTERFACE TO FOCAL. VARIOUS NEW FEATURES ARE IMPLEMENTED
+  23                 /       AS A RESULT, AND OLD FEATURES MAY WORK DIFFERENTLY, OR ACHIEVE A NEW
+  24                 /       UTILITY UNREALIZABLE WITH PAPER-TAPE.
+  25   
+  26                 /       MUCH ATTEMPT HAS BEEN MADE TO MAXIMIZE COMPATIBILITY WITH THE ORIGINAL
+  27                 /       PAPER-TAPE VERSION, AS MANY PEOPLE HAVE MADE CUSTOM CHANGES TO THE
+  28                 /       ORIGINAL VERSION; MOST OF THESE CHANGES ARE DIRECTLY APPLICABLE TO P?S/8
+  29                 /       FOCAL, AND MANY ARE ACTUALLY IMPLEMENTED HERE.
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 2
+
+  30                 /       P?S/8 FOCAL SWITCHES.
+  31   
+  32                 /       /A      RETAIN ARCTANGENT, LOGARITHM, AND EXPONENTIAL FUNCTIONS. THERE IS
+  33                 /               NO RESTRICTION ON THIS SWITCH REGARDING USE OF /C, EVEN THOUGH
+  34                 /               THE ORIGINAL PAPER-TAPE VERSION WOULDN'T ALLOW THIS COMBINATION
+  35                 /               OF BUILT-IN FUNCTIONS.
+  36                 /       /C      RETAIN COSINE, SINE FUNCTIONS. SEE /A.
+  37                 /       /E      TYPE "=" CHARACTER ON EVALUATED OUTPUT. THIS SWITCH IS PROVIDED
+  38                 /               FOR HISTORICAL COMPATIBILITY WITH THE PAPER-TAPE VERSION ONLY.
+  39                 /               THE DEFAULT IS TO ALLOW THE USER TOTAL CONTROL OF OUTPUT FORMATTING,
+  40                 /               INSTEAD OF FORCING A SOMETIMES UGLY OUTPUT TO BE IMPOSED.
+  41                 /       /F      INHIBIT LEADING BLANK ON POSITIVE NUMERICAL OUTPUT. THIS CAUSES
+  42                 /               COLUMNS OF MIXED-SIGN OUTPUT TO NOT LINE UP, BUT ALLOWS THE USER
+  43                 /               TO CONTROL THE PRECISE NATURE OF NUMERICAL OUTPUT, ESPECIALLY
+  44                 /               FOR UNSIGNED DATA.
+  45                 /       /G      EXECUTE "GO" COMMAND AT END OF FILE. DEFAULT IS TO JUST RETURN
+  46                 /               CONTROL OF FOCAL INPUT TO THE CONSOLE WITHOUT STARTING. N. B.
+  47                 /               THE USER CAN INSERT "GO" COMMANDS INTO THE INPUT STREAM AT ANY
+  48                 /               POINT TO INITIATE FOCAL EXECUTION WHICH COULD THEN READ DATA
+  49                 /               FURTHER DOWN THE INPUT STREAM. THE PURPOSE OF THIS SWITCH IS TO
+  50                 /               AUTO-START THE USER'S FOCAL PROGRAM WITH FURTHER INPUT FROM THE
+  51                 /               CONSOLE.
+  52                 /       /I      INITIAL INPUT ECHOING DURING ASCII FILE TRANSFERS. THE DEFAULT
+  53                 /               IS TO INPUT WITHOUT PRINTING DURING THE FILE TRANSFER. THE ECHO
+  54                 /               IS RESTORED WHEN END OF FILE IS REACHED.
+  55                 /       /L      RESTORE HISTORICAL OCTAL PRINTOUT OF LOCATIONS WHICH INDICATE
+  56                 /               STORAGE UTILIZATION WITHIN FOCAL. THE USER CAN GAUGE MEMORY
+  57                 /               REQUIREMENTS SOMEWHAT WITH THIS OPTION. DEFAULT IS THE STANDARD
+  58                 /               (CURRENTLY UNIMPLEMENTED) "LIBRARY" COMMAND. N. B. NEITHER OPTION
+  59                 /               IS AVAILABLE DURING INPUT FILE OPERATIONS. ATTEMPTS TO USE EITHER
+  60                 /               "L" COMMAND WILL EXIT TO P?S/8.
+  61                 /       /N      INHIBIT "ASK" INPUT PROMPT.
+  62                 /       /P      USE PERIOD (".") AS THE USER PROMPT CHARACTER. THE DEFAULT IS
+  63                 /               ASTERISK ("*").
+  64                 /       /Q      CHANGE ASK INPUT PROMPT CHARACTER TO "?". USE OF /N NULLIFIES
+  65                 /               THIS OPTION.
+  66                 /       /S      ECHO INPUT PROMPT CHARACTER DURING ASCII FILE TRANSFER. THE
+  67                 /               DEFAULT IS TO INPUT WITHOUT PROMPTING DURING THE FILE TRANSFER.
+  68                 /               THE PROMPT OUTPUT IS RESTORED WHEN END OF FILE IS REACHED.
+  69                 /       /T      DON'T CONVERT <HT> TO <SPACE>. THE DEFAULT IS TO CONVERT ANY
+  70                 /               <HT> CHARACTERS IN PASSED ASCII FILES TO <SPACE> AS THE FILE IS
+  71                 /               READ. N. B., FOCAL HANDLES <HT> AS A SINGLE CHARACTER; IF THE
+  72                 /               USER DIRECTS OUTPUT TO A DEVICE INCAPABLE OF DEALING WITH A "BARE"
+  73                 /               <HT> CHARACTER, THE OUTPUT COULD GARBLE OR DEPEND ON PRIOR
+  74                 /               INITIALIZATION OF THE DEVICE BY THE USER OUTSIDE OF THE SCOPE OF
+  75                 /               P?S/8 FOCAL.
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 3
+
+  76                 /       KEY P?S/8 FOCAL FEATURES.
+  77   
+  78                 /       P?S/8 FOCAL SUPPORTS UP TO 17 FILES PASSED TO IT BY P?S/8 (THIS IS THE
+  79                 /       LIMIT IMPOSED BY P?S/8, NOT FOCAL). AS FILES ARE PROCESSED, THEY ARE
+  80                 /       FIRST ASSUMED TO BE BINARY FILES INTENDED TO BE CUSTOM OVERLAYS TO P?S/8
+  81                 /       FOCAL. ANY FILE PROVING TO BE ASCII AND NOT BINARY ENDS THE BINARY MODE
+  82                 /       AND INITIATES THE ASCII FILE MODE. IN ASCII MODE, FILE CONTENTS ARE USED
+  83                 /       TO SATISFY ALL INPUT REQUIREMENTS OF FOCAL, REGARDLESS OF PURPOSE (PROGRAM
+  84                 /       LINES, INPUT DATA TO RUNNING PROGRAMS, ETC.). AT THE END OF THE LAST FILE,
+  85                 /       THE TERMINAL MODE TAKES OVER. FOR MOST PURPOSES THIS MODE IS SIMILAR TO
+  86                 /       THE PAPER-TAPE USAGE OF THE ORIGINAL FOCAL, 1969.
+  87   
+  88                 /       FOR BINARY MODIFICATION OF P?S/8 FOCAL, THE USER IS REFERRED TO DECUS
+  89                 /       FOCAL-17: "FOCAL:HOW TO WRITE NEW SUBROUTINES AND USE INTERNAL ROUTINES".
+  90                 /       THE MAIN RESTRICTIONS ARE: 
+  91   
+  92                 /               1)      DON'T INTERFERE WITH THE CHANGES OR PATCHES TO FOCAL,
+  93                 /                       ESPECIALLY IF THEY ARE TRANSIENT IN NATURE; MANY ITEMS
+  94                 /                       NORMALLY FOUND IN FOCAL ARE SOMETIMES TEMPORARALLY MODIFIED
+  95                 /                       TO EXPLOIT SOME OPTION SUCH AS DESTROYING A SUBROUTINE
+  96                 /                       CALL TO "PRINTC" TO SUPRESS ECHOING DURING ASCII FILE
+  97                 /                       TRANSFER MODE, ETC. MOST RESTRICTIONS OF THIS NATURE ARE
+  98                 /                       STRAIGHTFORWARD, AND PROBABLY WOULDN'T BE CHANGED ANYWAY.
+  99                 /                       IF IN DOUBT, COMPARE THE ORIGINAL AND PATCH, THEN CONTACT
+ 100                 /                       A MEMBER OF THE P?S FOR A FINAL DECISION.
+ 101   
+ 102                 /               2)      THE BINARY LOADER HAS A BUFFER WITHIN FOCAL'S TEXT BUFFER
+ 103                 /                       WHICH MUST REMAIN UNTOUCHED; THAT BUFFER IS LOCATED AT THE
+ 104                 /                       FIRST COMPLETE PAGE (03400), SO ANY FOCAL PATCH MADE BY A
+ 105                 /                       USER FOR SUBROUTINE ADDITION WOULD ALLOW LESS THAN 400
+ 106                 /                       CHARACTERS IN FOCAL'S TEXT BUFFER IF PLACED IN THIS AREA
+ 107                 /                       ACCORDING TO THE NORMAL RULES OF FOCAL MODIFYING, I. E.
+ 108                 /                       04617, 05177, OR 05377 (OR NEW ATN PACKAGE VALUE 05017)
+ 109                 /                       ON DOWN AS NECESSARY TO PLACE THE PATCH'S CODE. THIS IS
+ 110                 /                       NOT EXPECTED TO BE A PROBLEM; IF YOU WRITE SUCH A LARGE
+ 111                 /                       SEGMENT IN MACHINE LANGUAGE, DON'T USE FOCAL!
+ 112   
+ 113                 /               3)      PAGE 36 (07400-07577) IS A TRANSIENT AREA FOR THE SYSTEM
+ 114                 /                       INTERFACE. DO NOT USE THIS AREA FOR ANY PURPOSE!
+ 115   
+ 116                 /               4)      CREATE A SAVE AREA FOR ANYTHING MODIFIED BY THE PATCH AND
+ 117                 /                       PUT IT BACK THE WAY YOU FOUND IT WHEN THROUGH; VERIFY THAT
+ 118                 /                       ANY ROUTINE CALLED DURING THE TIME YOUR PATCH IS INSTALLED
+ 119                 /                       DOES NOT DEPEND ON THE OLD CONTENTS OF THE AREA YOU
+ 120                 /                       MODIFIED!
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 4
+
+ 121                 /               5)      THE SQUARE ROOT FUNCTION HAS BEEN RECODED AND RELOCATED
+ 122                 /                       TO THE FORMER START OF THE TEXT BUFFER REMOVING 33
+ 123                 /                       LOCATIONS FROM FOCAL'S TEXT BUFFER, HOWEVER THE SQUARE
+ 124                 /                       ROOT IS NOW MORE ACCURATE, AND THE SYSTEM INTERFACE IS OF
+ 125                 /                       REASONABLE SIZE. MANY OF THE RESTRICTIONS OF THE EARLIER
+ 126                 /                       "R-L FOCAL" HAVE BEEN REMOVED, SUCH AS USE OF EXTENDED
+ 127                 /                       FUNCTIONS OR THEIR CORE SPACE IF THEY ARE UNWANTED. A NEW
+ 128                 /                       CLASS OF LIBRARY FUNCTIONS CAN NOW BE ADDED SHOULD THEY
+ 129                 /                       EVER GET CODED; THIS IS NOW FEASIBLE. THE SYSTEM NOW ALLOWS
+ 130                 /                       FREE FORM BATCH FOCAL PROGRAMS ("GO" IS ALLOWED FROM A
+ 131                 /                       USER FILE WITH NO RESTRICTIONS). THE USE OF BATCH FILE
+ 132                 /                       PROGRAMMING ALLOWS EFFECTIVELY LARGER FOCAL PROGRAMS TO
+ 133                 /                       BE EXECUTED, AS THIS ALLOWS MORE EFFICIENT USE OF VALUABLE
+ 134                 /                       FOCAL BUFFER SPACE; THE LOSS OF 33 LOCATIONS IS MORE THAN
+ 135                 /                       OFFSET BY THESE ADVANTAGES. A STUDY DONE ON MULTIPLE
+ 136                 /                       HISTOGRAM PRINTING PROGRAMS INDICATES THAT 4K P?S/8 FOCAL
+ 137                 /                       CAN EXECUTE PROGRAMS OF THIS TYPE THAT THE 8K PAPER-TAPE
+ 138                 /                       VERSION CANNOT!
+ 139   
+ 140                 /               6)      EXCEPT WHERE RESTRICTED BY P?S/8 ITSELF, BINARY FILES CAN
+ 141                 /                       BE LOADED INTO ANY AVAILABLE EXTENDED MEMORY FOR ANY
+ 142                 /                       USER-DEFINED PURPOSE; THIS COULD REPRESENT A BETTER USE
+ 143                 /                       OF EXTENDED MEMORY THAN THE STRAIGHT 8K VERSION OF FOCAL.
+ 144                 /                       ASSUMING ENOUGH MEMORY, BOTH METHODS ARE AVAILABLE TO THE
+ 145                 /                       USER.
+ 146   
+ 147                 /       IN PASSING FILES TO FOCAL THE FOLLOWING POINTS SHOULD BE NOTED:
+ 148   
+ 149                 /               1)      FOCAL IGNORES PASSED OUTPUT FILES. USING OUTPUT FILES
+ 150                 /                       SERVES ONLY TO WASTE FILE LIST POSITIONS.
+ 151   
+ 152                 /               2)      PASS ALL BINARY FILES BEFORE ALL SOURCE FILES.
+ 153   
+ 154                 /               3)      PUT ALL DATA RESPONSES IN THEIR LOGICAL PLACE AFTER
+ 155                 /                       EXECUTION OF AN "ASK" STATEMENT.
+ 156   
+ 157                 /               4)      TURN ECHO ON WITH /I AND /S TO CHECK RESPONSES WHEN
+ 158                 /                       DEBUGGING ASCII PROGRAMS.
+ 159   
+ 160                 /               5)      DON'T USE LIBRARY COMMANDS IN BATCH MODE; ALL "L" COMMANDS
+ 161                 /                       EXIT TO P?S/8 DURING FILE TRANSFERS. THE OCTAL PRINTOUT
+ 162                 /                       OPTION (/L) IS ALSO INHIBITED AT THIS TIME.
+ 163   
+ 164                 /               6)      USE BATCH MODE FREELY, AS MUCH MEMORY IS SAVED BY PASSING
+ 165                 /                       DISPOSABLE ONCE-ONLY CODE WITHOUT FOCAL LINE NUMBERS, OR
+ 166                 /                       READ-ONLY DATA IN THE FORM OF ASCII NUMERICAL INPUT
+ 167                 /                       INSTEAD OF STORED ARRAYS. THESE TECHNIQUES LEND THEMSELVES
+ 168                 /                       TO BATCH OPERATIONS (SUCH AS REREADING NUMERICAL DATA IN
+ 169                 /                       STATISTICAL PROGRAMS, OR GRAPHIC PLOT LABELING, ETC.).
+ 170   
+ 171                 /               7)      REMEMBER THAT FOCAL READS COMMANDS AS VALID DATA NUMBERS
+ 172                 /                       AND VALID DATA NUMBERS AS LINE NUMBERS, BOTH LEGAL AND
+ 173                 /                       ILLEGAL; THIS CAN BE QUITE CONFUSING, SO ECHO THE INPUT
+ 174                 /                       IF YOU HAVE TO DEBUG ANY MIXED INPUT. 
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 5
+
+ 175                 /               8)      IF FOCAL LOOPS WITH NO "ASK"-ING BUT THE FILES ARE NOT
+ 176                 /                       DEPLETED (USER ERROR), THE USER MUST FORCE AN EXIT TO
+ 177                 /                       P?S/8 WITH THE STANDARD BREAK CHARACTERS (<^C>, ETC.).
+ 178   
+ 179                 /       A TRIVIAL (THOUGH VIABLE) EXAMPLE OF HOW TO USE ALL OF THE ABOVE IDEAS
+ 180                 /       ON PATCHING FOR CUSTOM DIALOGUES, BINARY FILES, SOURCE AND DATA FILES,
+ 181                 /       AND BATCH PROCESSING IS SHOWN BELOW:
+ 182   
+ 183                 /       THIS PROGRAM PROCESSES A NUMERIC DATA FILE PREVIOUSLY CREATED BY ANOTHER
+ 184                 /       PROGRAM. (ANY PROGRAM WHICH PRINTS ON THE CONSOLE IS ELEGIBLE TO BE
+ 185                 /       MODIFIED TO DO THIS. A ONE PAGE ROUTINE TO DO THIS IS AVAILABLE AS A
+ 186                 /       REPLACEMENT FOR A TERMINAL OUTPUT ROUTINE (6-BIT OR 8-BIT) WHICH CREATES
+ 187                 /       P?S/8 FILES IN MEMORY AND WRITES THEM ON THE SYSTEM DEVICE.)
+ 188   
+ 189                 /       THE FOLLOWING DRAMATIZATION OF A P?S/8 WORKING SESSION ILLUSTRATES A
+ 190                 /       PROGRAM WHICH COMPARES DATA NUMBERS TO A PARTICULAR SETTING ON THE
+ 191                 /       CONSOLE SWITCHES.
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 6
+
+ 192                 /       .FETCH SRC1             SOURCE OF THE ASSEMBLY PATCH
+ 193                 /       .LIST
+ 194                 /       100     *1345           /OVERLAY THE FADC FUNCTION
+ 195                 /       110     LAS             /READ CONSOLE SWITCHS
+ 196                 /       120     JMP     .+4     /FINISH UP AS OLD ADC DID
+ 197   
+ 198                 /       .PAL BIN1<SRC1          ASSEMBLE SOURCE AND CREATE BINARY
+ 199   
+ 200                 /       .FETCH FOCL1            FOCAL SOURCE PROGRAM
+ 201                 /       .LIST
+ 202                 /       100     C-PROGRAM TO SORT OUT NUMBERS LARGER THAN SWITCH SETTING
+ 203                 /       110     1.10    ASK COUNT;C                     GET COUNT OF NUMBERS
+ 204                 /       120     1.20    SET LIMIT=FADC();C              READ SWITCHS FOR LIMIT
+ 205                 /       130     1.30    TYPE !,"THE NUMBERS GREATER THAN",%4,LI," FOLLOW:
+ 206                 /       140     1.40    FOR I=1,COUNT;DO 2
+ 207                 /       150     1.50    QUIT;C                          PREVENT FURTHER EXECUTION OF 2.1
+ 208                 /       160     2.10    ASK TRIAL;C                     GET SOME DATA
+ 209                 /       170     2.20    IF (LIMIT-TRIAL)2.4;C           FAILURE RETURN
+ 210                 /       180     2.30    TYPE !,TRIAL;SET K=K+1;C        KEEP TRACK
+ 211                 /       190     2.40    RETURN
+ 212                 /       200     C THIS LINE IS IMMEDIATELY EXECUTED AS A COMMENT
+ 213                 /       210     TYPE !,"PRINT OUT THE BIGGER NUMBERS PROGRAM."
+ 214                 /       220     C-LINE 210 JUST EXECUTED (SO DOES THIS!)
+ 215                 /       230     C IF LINE 105 READ :    105     SET A=3
+ 216                 /       240     C THEN LINE 110 DESTROYS A BECAUSE FOCAL DESTROYS
+ 217                 /       250     C ALL VARIABLES WHEN INDIRECT SOURCE COMES IN!
+ 218                 /       260     C WHEN THE PROGRAM STARTS IT READS A NUMBER IN 1.10
+ 219                 /       270     C THE NEXT LINE OF SOURCE FOCAL SEES IS THAT NUMBER!
+ 220                 /       280     C WHICH IN THIS CASE IS THE FIRST NUMBER IN THE DATA FILE
+ 221                 /       290     GO
+ 222   
+ 223                 /       .FETCH DATA1            DATA FILE OF NUMBERS
+ 224                 /       .LIST
+ 225                 /       100     10
+ 226                 /       110     100 200 300
+ 227                 /       120     400
+ 228                 /       130     500
+ 229                 /       140     600,700
+ 230                 /       150     800,900 1000
+ 231                 /       160     C-PRETEND THIS ISN'T HERE (DOESN'T MATTER)
+ 232                 /       170     C FOCAL GOES BACK TO EXECUTING THESE LINES
+ 233   
+ 234                 /       .FETCH FOCL2
+ 235                 /       .LIST
+ 236                 /       100     C-FINISH UP
+ 237                 /       110     TYPE !,%1,COUNT-K," SAMPLES WERE TOO SMALL."
+ 238                 /       120     TYPE !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 239                 /       130     L;C-BOOTSTRAP BACK TO P?S/8
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 7
+
+ 240                 /       .PLEASE SET CONSOLE SWITCHS TO 0454 (300 BASE 10)
+ 241                 /       .^^ THANK YOU
+ 242                 /       .FOCAL BIN1 FOCL1 DATA1 FOCL2/N
+ 243                 /       *
+ 244                 /       PRINT OUT THE BIGGER NUMBERS PROGRAM.
+ 245                 /       THE NUMBERS GREATER THAN 300 FOLLOW:
+ 246                 /       400
+ 247                 /       500
+ 248                 /       600
+ 249                 /       700
+ 250                 /       800
+ 251                 /       900
+ 252                 /       1000
+ 253                 /       3 SAMPLES WERE TOO SMALL.
+ 254   
+ 255                 /       .BACK TO THE MONITOR
+ 256                 /       BACK NOT FOUND!
+ 257                 /       .
+ 258   
+ 259   
+ 260   
+ 261   
+ 262   
+ 263                 /       FOCAL FOR PQS/8, THE P?S MONITOR SYSTEM.
+ 264   
+ 265                 /       MAKE ALL INQUERIES AND CONTRIBUTIONS TO:
+ 266   
+ 267                 /       MARIO DENOBILI
+ 268                 /       C/O CHARLES LASNER
+ 269                 /       CHARLES LASNER ASSOCIATES.
+ 270                 /       72-55 METROPOLITAN AVENUE
+ 271                 /       MIDDLE VILLAGE, NEW YORK 11379-2107
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 8
+
+ 272                 /       CONDITIONAL ASSEMBLY PARAMETERS.
+ 273   
+ 274                         IFNDEF  AA01A   <AA01A= 0>      /DON'T USE AA01A D-A CONVERTER
+ 275                         IFNDEF  AF01    <AF01=  0>      /DON'T USE AF01 A-D CONVERTER
+ 276                         IFNDEF  AX08    <AX08=  0>      /DON'T USE AX08 CONVERTERS
+ 277                         IFNDEF  DF32    <DF32=  0>      /DON'T USE DF32 INTERRUPT HANDLING
+ 278                         IFNDEF  LAB8E   <LAB8E= 1>      /USE LAB-8/E CONVERTERS
+ 279                         IFNDEF  LINC8   <LINC8= 0>      /DON'T GENERATE LINC-8 INTERRUPT HANDLER
+ 280                         IFNDEF  TTY     <TTY=   03>     /BASE DEVICE CODE OF TTY:
+ 281   
+ 282                 /       I/O AND PERIPHERAL DEFINITIONS.
+ 283   
+ 284           6371          ACMX=   6371                    /LOAD MULTIPLEX REGISTER FOR AX08
+ 285           6364          ADCV=   6364                    /INITIATE CONVERSION FOR AX08
+ 286           6531          ADLM=   6531                    /LOAD CHANNEL FOR AD-8/E, A
+ 287           6533          ADRB=   6533                    /READ A-D BUFFER, CLEAR FLAG FOR AD-8/E, A
+ 288           6534          ADSK=   6534                    /SKIP ON A-D DONE FLAG FOR AD-8/E, A
+ 289           6532          ADST=   6532                    /START CONVERSION FOR AD-8/E, A
+ 290           6534          AFADRB= 6534                    /READ A-D BUFFER, CLEAR FLAG FOR AF01
+ 291           6542          ADSC=   6542                    /LOAD CHANNEL FOR AF01
+ 292           6531          ADSF=   6531                    /SKIP ON A-D DONE FLAG FOR AF01
+ 293           6551          DAL1=   6551                    /LOAD X D-A CONVERTER FOR AA01A
+ 294           6552          DAL2=   6552                    /LOAD Y D-A CONVERTER FOR AA01A
+ 295           6053          DILX=   6053                    /LOAD X REGISTER FOR VC-8/E
+ 296           6054          DILY=   6054                    /LOAD Y REGISTER FOR VC-8/E
+ 297           6304          DIS=    6304                    /INTENSIFY POINT FOR AX08
+ 298           6301          DXC=    6301                    /CLEAR X REGISTER FOR AX08
+ 299           6302          DXL=    6302                    /LOAD X REGISTER FOR AX08
+ 300           6311          DYC=    6311                    /CLEAR Y REGISTER FOR AX08
+ 301           6312          DYL=    6312                    /LOAD Y REGISTER FOR AX08
+ 302           6032          KCCIOT= TTY^10+6002             /CLEAR KEYBOARD FLAG
+ 303           6036          KRBIOT= TTY^10+6006             /READ KEYBOARD BUFFER, CLEAR FLAG
+ 304           6034          KRSIOT= TTY^10+6004             /READ KEYBOARD BUFFER
+ 305           6031          KSFIOT= TTY^10+6001             /SKIP ON KEYBOARD FLAG
+ 306           6362          RADC=   6362                    /READ A-D, CLEAR FLAG FOR AX08
+ 307           6332          SKAD=   6332                    /SKIP ON A-D DONE FLAG FOR AX08
+ 308           6042          TCFIOT= TTY+1^10+6002           /CLEAR TTY: FLAG
+ 309           6046          TLSIOT= TTY+1^10+6006           /CLEAR TTY: FLAG, OUTPUT CHARACTER
+ 310           6041          TSFIOT= TTY+1^10+6001           /SKIP ON TTY: DONE FLAG
+ 311   
+ 312                 /       NUMERIC LOAD DEFINITIONS.
+ 313   
+ 314           7326          NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+ 315           7203          NL0100= CLA IAC BSW             /LOAD AC WITH 0100
+ 316           7332          NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000
+ 317           7350          NL3777= CLA CLL CMA RAR         /LOAD AC WITH 3777
+ 318           7330          NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+ 319           7346          NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+ 320           7344          NL7776= CLA CLL CMA RAL         /LOAD AC WITH 7776
+ 321           7240          NL7777= CLA CMA                 /LOAD AC WITH 7777
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 9
+
+ 322                 /       EQUATED SYMBOLS FROM FOCAL, 1969.
+ 323   
+ 324           4732          ARCALG= 4732            /ARCTANGENT ROUTINE
+ 325           5024          ARCRTN= 5024            /ARCTANGENT ADDRESS
+ 326           5000          ARTN=   5000            /ARCTANGENT ADDRESS
+ 327           0017          AXOUT=  0017            /TEXT POINTING XR
+ 328           0035          BOTTOM= 0035            /END OF PUSHDOWN AREA
+ 329           0060          BUFR=   0060            /POINTER TO NEXT FREE LOCATION IN TEXT BUFFER
+ 330           0077          CCR=    0077            /CONSTANT 0215
+ 331           0133          CFRS=   0133            /POINTER TO DUMMY LINE
+ 332           0066          CHAR=   0066            /FOCAL'S CHARACTER BUFFER
+ 333           2155          CHIN=   2155            /READ A CHARACTER ROUTINE
+ 334           1255          COL=    1255            /ASK ":" LOCATION
+ 335           0226          COMBOT= 0226            /PDL PROTECTION POINTER
+ 336           0132          COMBUF= 0132            /START OF COMMAND BUFFER STORED HERE
+ 337           3140          COMEIN= 3140            /COMMAND INPUT BUFFER
+ 338           1163          COMGO=  1163            /COMMAND DISPATCH TABLE ADDRESS
+ 339           5037          CON1=   5037            /POINTER TO CONSTANT ONE
+ 340           0225          CSTAR=  0225            /ACKNOWLEDGE CHARACTER
+ 341           0006          C100=   0006            /CONSTANT 0100
+ 342           0123          C200=   0123            /CONSTANT 0200
+ 343           0113          C260=   0113            /CONSTANT 0260
+ 344           5332          C9=     5332            /SINE CONSTANT
+ 345           0026          DEBGSW= 0026            /DEBUG SWITCH
+ 346           0004          DDTJR=  0004            /DDT JUMP RETURN
+ 347           5627          DECON=  5627            /DECIMAL CONVERSION ROUTINE
+ 348           5600          DECONV= 5600            /DECIMAL CONVERSION ROUTINE ADDRESS
+ 349           5754          DIV1=   5754            /FLOATING POINT DIVISION ROUTINE
+ 350           6302          DPCVPT= 6302            /POINTER TO DECONV IN FLOATING INPUT ROUTINE
+ 351           6305          DPN=    6305            /POINTER TO DNUMBR IN FLOATING INPUT ROUTINE
+ 352           5640          DSAVE=  5640            /DECIMAL CONVERSION ROUTINE ADDRESS
+ 353           5647          DTST=   5647            /DECIMAL CONVERSION ROUTINE ADDRESS
+ 354           0136          EFUN3I= 0136            /FUNCTION RETURN
+ 355           0134          END=    0134            /FIRST VARIABLE LOCATION IN 8K VERSION
+ 356           6243          ENDFI=  6243            /FLOATING OUTPUT LOCATION
+ 357           0135          ENDT=   0135            /END OF TEXT POINTER
+ 358           4566          ERROR2= JMS I   0166    /ERROR TRAP
+ 359           4566          ERROR3= JMS I   0166    /ERROR TRAP
+ 360           2725          ERROR5= 2725            /ERROR FUNCTION
+ 361           1613          EVAL=   1613            /EXPRESSION EVALUATOR
+ 362           5034          EXIT1=  5034            /EXIT POINTER IN ARCTANGENT ROUTINE
+ 363           2313          EXTR=   2313            /EXTRA CHARACTER UNPACK ADDRESS
+ 364           1101          FCONT=  1101            /FOR ROUTINE LOCATION
+ 365           5200          FCOS=   5200            /COSINE/SINE ROUTINE
+ 366           4620          FEXP=   4620            /EXPONENTIAL FUNCTION
+ 367           6221          FIGO1=  6221            /FLOATING INPUT ADDRESS
+ 368           1133          FINKP=  1133            /FOR ROUTINE LOCATION
+ 369           0044          FLAC=   0044            /FLOATING AC
+ 370           6200          FLINTP= 6200            /FLOATING INPUT ROUTINE
+ 371           6000          FLOUTP= 6000            /FLOATING OUTPUT ROUTINE
+ 372           2405          FLTONE= 2405            /FLOATING CONSTANT ONE
+ 373           5163          FNEG=   5163            /FLOATING NEGATE ROUTINE FOR FEXP, ETC.
+ 374           0374          FNTABF= 0374            /FUNCTION ADDRESS TABLE
+ 375           2165          FNTABL= 2165            /FUNCTION NAME TABLE
+ 376           0130          FOUTPUT=0130            /POINTER TO FLOATING OUTPUT ROUTINE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 10
+
+ 377           2334          GEND=   2334            /GET ONE HALFWORD ADDRESS
+ 378           4545          GETC=   JMS I   0145    /GET A CHARACTER
+ 379           1045          GETSGN= TAD     FLAC+1  /GET SIGN OF FLOATING AC
+ 380           2330          GET1=   2330            /GET ONE HALFWORD ROUTINE
+ 381           2345          GET3=   2345            /GET ONE HALFWORD ADDRESS
+ 382           0070          GINC=   0070            /VARIABLE ENTRY LENGTH WORD
+ 383           5021          GO=     5021            /ARCTANGENT ADDRESS
+ 384           0232          GONE=   0232            /COMMAND PROCESSOR ADDRESS
+ 385           0021          GTEM=   0021            /TEMPORARY FOR GET1 ROUTINE
+ 386           0037          HINBUF= 0037            /HIGH-SPEED READER INPUT BUFFER
+ 387           0034          INBUF=  0034            /CHARACTER INPUT BUFFER
+ 388           0064          INDEV=  0064            /INPUT ROUTINE POINTER
+ 389           0053          INTEGER=0053            /FIXING ROUTINE FOR FLAC
+ 390           0756          INPUT=  0756            /INPUT ROUTINE
+ 391           3120          IOBUF=  3120            /I/O BUFFER FOR TERMINAL OUTPUT
+ 392           2414          I33=    2414            /NO-INTERRUPT INPUT ROUTINE ADDRESS
+ 393           5525          K5=     5525            /CONSTANT 0005 WITHIN FLOATING POINT PACKAGE
+ 394           0031          LASTV=  0031            /ADDRESS OF LAST VARIABLE
+ 395           0067          LINENO= 0067            /LINE NUMBER
+ 396           0116          MCR=    0116            /CONSTANT 7563
+ 397           5662          MINE=   5662            /-"E CONSTANT ADDRESS
+ 398           0051          MINSKI= 0051            /FLOATING NEGATE POINTER
+ 399           6301          MINUSE= 6301            /-"E CONSTANT ADDRESS
+ 400           5663          MINUSZ= 5663            /-"Z CONSTANT ADDRESS
+ 401           5664          MPLUS=  5664            /-"+ CONSTANT ADDRESS
+ 402           5665          MSPACE= 5665            /-"  CONSTANT ADDRESS
+ 403           0121          M11=    0121            /CONSTANT 7767
+ 404           2556          M140=   2556            /CONSTANT 7640
+ 405           0111          M2=     0111            /CONSTANT 7776
+ 406           0105          M20=    0105            /CONSTANT 7760
+ 407           0114          M240=   0114            /CONSTANT 7540
+ 408           0120          M5=     0120            /CONSTANT 7773
+ 409           0103          M77=    0103            /CONSTANT 7701
+ 410           4716          ONE=    4716            /FLOATING CONSTANT ONE IN ATN, ETC. PACKAGE
+ 411           0063          OUTDEV= 0063            /OUTPUT ROUTINE POINTER
+ 412           4546          PACKC=  JMS I   0146    /PACK A CHARACTER
+ 413           2530          PACX=   2530            /PACKING ROUTINE ADDRESS
+ 414           0102          PER=    0102            /CONSTANT 0256
+ 415           5036          PI2=    5036            /POINTER TO PIOT
+ 416           5541          POPJ=   JMP I   0141    /POP JUMP
+ 417           4551          PRINTC= JMS I   0151    /PRINT A CHARACTER
+ 418           2442          PRNT=   2442            /TWO-DIGIT PRINT ROUTINE
+ 419           4553          PRNTLN= JMS I   0153    /PRINT LINE NUMBER
+ 420           0126          PTCH=   0126            /INPUT ROUTINE POINTER RESET LOCATION
+ 421           0030          PT1=    0030            /TEMPORARY FOR TDUMP ROUTINE, ETC.
+ 422           0005          P13=    0005            /CONSTANT 0013
+ 423           0107          P17=    0107            /CONSTANT 0017
+ 424           0106          P177=   0106            /CONSTANT 0177
+ 425           0110          P277=   0110            /CONSTANT 0277
+ 426           0075          P337=   0075            /CONSTANT 0337
+ 427           0124          P4000=  0124            /FORMER CONSTANT 4000
+ 428           6310          P43=    6310            /CONSTANT 0043
+ 429           0104          P7600=  0104            /CONSTANT 7600
+ 430           0122          P77=    0122            /CONSTANT 0077
+ 431           0101          P7700=  0101            /CONSTANT 7700
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 11
+
+ 432           2740          RECOVR= 2740            /RECOVERY ADDRESS
+ 433           2761          RECOVX= 2761            /RECOVERY ADDRESS
+ 434           5536          RETURN= JMP I   EFUN3I  /RETURN FROM A FUNCTION
+ 435           4557          RTL6=   JMS I   0157    /ROTATE AC 6 LEFT
+ 436           3004          RUB1=   3004            /RUBOUT ADDRESS
+ 437           6150          SADR=   6150            /FLOATING OUTPUT BUFFER POINTER
+ 438           7124          SIGN=   7124            /SIGN ROUTINE
+ 439           1363          SRNLST= 1363            /MODIFY CONTROL CHARACTER LIST
+ 440           0177          START=  0177            /FOCAL'S INTERNAL STARTING ADDRESS
+ 441           5064          STARTL= 5064            /LOG ADDRESS
+ 442           0060          STARTV= 0060            /START OF VARIABLES (IN 4K)
+ 443           1204          TASK=   1204            /TYPE/ASK ADDRESS
+ 444           1253          TASK4=  1253            /TYPE/ASK ADDRESS
+ 445           1246          TCRLF2= 1246            /TYPE/ASK ADDRESS
+ 446           3052          TDUMP=  3052            /SYMBOL TABLE TYPEOUT ROUTINE
+ 447           0016          TELSW=  0016            /TERMINAL I/O IN PROGRESS SWITCH
+ 448           5156          TEM=    5156            /POINTER TO ATN TEMPORARY
+ 449           0017          TEXTP=  0017            /TEXT POINTER
+ 450           5400          TGO=    5400            /FLOATING OUTPUT ROUTINE
+ 451           0032          T1=     0032            /TEMPORARY FOR L COMMAND
+ 452           0033          T3=     0033            /TEMPORARY
+ 453           1343          XADC=   1343            /FADC FUNCTION ADDRESS
+ 454           0020          XCT=    0020            /GET HALF-WORD SWITCH
+ 455           1142          XDYS=   1142            /FDIS FUNCTION ADDRESS
+ 456           5666          XINPUT= 5666            /FLOATING POINT INPUT POINTER
+ 457           4676          XSQ2=   4676            /POINTER TO XSQR
+ 458           5035          X1=     5035            /POINTER TO X
+ 459           4675          X2=     4675            /POINTER TO X
+ 460           6520          ZERO=   6520            /INTERPRETIVE POWER ADDRESS
+ 461   
+ 462                 /       EQUATED SYMBOLS FROM P?S/8.
+ 463   
+ 464           0000          CONINT= 0000            /CONSOLE INTERRUPT LOCATION
+ 465           0031          INCON=  0031            /CONSOLE INPUT ROUTINE
+ 466           0003          INTLST= 0003            /INTERRUPT LIST POINTER IN CONSOLE OVERLAY
+ 467           0033          OUTCON= 0033            /CONSOLE OUTPUT ROUTINE
+ 468           7635          SBLOCK= 7635            /LOAD BLOCK IN SYSTEM LOADER
+ 469           7600          SBOOT=  7600            /SYSTEM BOOTSTRAP ADDRESS
+ 470           7611          SCRSIZE=7611            /SYSTEM CORE SIZE WORD
+ 471           7757          SFILES= 7757            /FILE PARAMETERS START HERE
+ 472           7634          SFUN=   7634            /SYSTEM LOADER FUNCTION WORD
+ 473           7607          SOUTFLS=7607            /OUTPUT FILE COUNT
+ 474           7604          SWAL=   7604            /PASSED SWITCHES: A-L
+ 475           7605          SWMX=   7605            /PASSED SWITCHES: M-X
+ 476           7606          SWY9=   7606            /PASSED SWITCHES: Y, Z, 0-9
+ 477           7640          SYSIO=  7640            /SYSTEM I/O ROUTINES ENTRY POINT
+ 478           4000          WRITE=  4000            /SYSIO WRITE FUNCTION BIT
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 12
+
+ 479                 /       FLOATING POINT OPERATIONS.
+ 480   
+ 481           1000          FIXMRI  FADD=   1000    /FLOATING ADD
+ 482           3000          FIXMRI  FDIV=   3000    /FLOATING DIVIDE
+ 483           4407          FENTER= JMS I   0007    /FLOATING ENTER
+ 484           0000          FEXIT=  0000            /FLOATING EXIT
+ 485           0000          FIXMRI  FGET=   0000    /FLOATING GET
+ 486           4000          FIXMRI  FMUL=   4000    /FLOATING MULTIPLY
+ 487           6000          FIXMRI  FPUT=   6000    /FLOATING PUT
+ 488           2000          FIXMRI  FSUB=   2000    /FLOATING SUBTRACT
+ 489   
+ 490                 /       MISCELLANEOUS SYMBOLS.
+ 491   
+ 492           0200          ANDC=   AND     .       /CURRENT PAGE AND
+ 493           3600          BONCE=  3600            /OVERLAY ONCE-ONLY ADDRESS (ASSUMED)
+ 494           7400          BUFFA=  7400            /TRANSIENT AREA AND BUFFER
+ 495           5200          JMPC=   JMP     .       /CURRENT PAGE JUMP
+ 496           4200          JMSC=   JMS     .       /CURRENT PAGE JMS
+ 497           4400          JMSIZ=  JMS I   0       /PAGE ZERO JMS INDIRECT
+ 498           4240          JMSSYSI=SYSIO&177+JMSC  /CALL TO SYSIO FROM ITS PAGE
+ 499           2564          NBUFFER=2564            /NEW BUFFER FOR FLOATING OUTPUT, ETC.
+ 500           0004          REVISIO="D&77           /REVISION OF FOCPQS
+ 501           0012          VERSION=12              /VERSION OF FOCPQS
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 13
+
+ 502                 /       PATCHES TO FOCAL, 1969.
+ 503   
+ 504           0000          *DDTJR-4                /OVER INTERRUPT LOCATIONS
+ 505   
+ 506   000000  0000  PCSAVE, .-.                     /INTERRUPT PC SAVED HERE
+ 507   000001  5402          JMP I   PINTHND/[INTHND]/GOTO INTERRUPT HANDLER
+ 508   
+ 509   000002  2651  PINTHND,INTHND                  /POINTER TO INTERRUPT HANDLER
+ 510   000003  3120  PIOBUF, IOBUF                   /POINTER TO I/O OUTPUT BUFFER
+ 511   000004  0000  DDTJR,  .-.                     /AVAILABLE LOCATION
+ 512   
+ 513                 /       INITIALIZE IN-PROGRESS SWITCH.
+ 514   
+ 515           0016          *TELSW                  /RIGHT OVER THE SWITCH
+ 516   
+ 517   000016  0000          0                       /IDLE INITIALLY
+ 518   
+ 519                 /       NEW TEXT POINTER VALUE.
+ 520   
+ 521           0017          *AXOUT                  /TEXT POINTING XR
+ 522   
+ 523   000017  3317  TEXTP,  NFRSTX                  /WE ATE SOME LOCATIONS UP
+ 524   
+ 525                 /       NEW VARIABLE POINTER VALUE.
+ 526   
+ 527           0031          *LASTV                  /POINTS TO LAST VARIABLE
+ 528   
+ 529   000031  3321          NBUFBEG                 /WE ATE SOME LOCATIONS UP
+ 530   
+ 531                 /       SET INITIAL PUSHDOWN VALUE.
+ 532   
+ 533           0035          *BOTTOM                 /LAST LOCATION AVAILABLE
+ 534   
+ 535   000035  4617          FEXP-1                  /END OF FREE CORE IF FUNCTIONS RETAINED
+ 536   
+ 537                 /       AVAILABLE LOCATION BECAUSE HIGH-SPEED READER NO LONGER SUPPORTED.
+ 538   
+ 539           0037          *HINBUF                 /OVER HIGH-SPEED READER INPUT BUFFER
+ 540   
+ 541   000037  0000  CSCQSW, 0                       /<^S>/<^Q> SWITCH; 4000=<^S> RECEIVED
+ 542   
+ 543                 /       NEW TEXT POINTER VALUE.
+ 544   
+ 545           0060          *BUFR                   /POINTS TO LAST LOCATION OF TEXT
+ 546   
+ 547   000060  3321  STARTV, NBUFBEG                 /WE ATE SOME LOCATIONS UP
+ 548   
+ 549           0063          *OUTDEV                 /OVER EXISTING OUTPUT POINTER
+ 550   
+ 551   000063  2630          COUTPUT                 /POINT TO OUR OUTPUT ROUTINE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 14
+
+ 552                 /       WE INITIALLY POINT THE INPUT ROUTINE AT THE BINARY LOADER. EVENTUALLY
+ 553                 /       THIS WILL BECOME GETCHR, AND THEN CINPUT, ITS NORMAL VALUE.
+ 554   
+ 555           0064          *INDEV                  /INPUT POINTER HERE
+ 556   
+ 557   000064  7400  INDEV,  BENTRY                  /BINARY LOADER ADDRESS
+ 558   
+ 559                 /       THE FOLLOWING LOCATION IS AVAILABLE BECAUSE WE DON'T NEED THE CONSTANT 4000.
+ 560   
+ 561           0124          *P4000                  /OVER FORMER CONSTANT
+ 562   
+ 563   000124  0000  AC,     .-.                     /AC SAVED HERE DURING INTERRUPT
+ 564   
+ 565                 /       THE FOLLOWING LOCATION IS AVAILABLE BECAUSE THE CONTENTS OF "RDIV" WILL
+ 566                 /       NO LONGER CHANGE.
+ 567   
+ 568           0126          *PTCH                   /OVER INPUT RESET LOCATION
+ 569   
+ 570   000126  0000  INCHAR, .-.                     /INPUT BUFFER
+ 571   
+ 572                 /       REDEFINED COMMAND BUFFER POINTER.
+ 573   
+ 574           0132          *COMBUF                 /OVER COMMAND BUFFER POINTER
+ 575   
+ 576   000132  3235  COMBUF, NCOMEIN                 /POINT TO NEW COMMAND BUFFER
+ 577   
+ 578                 /       REDEFINED TEXT POINTERS DUE TO EATING UP A LITTLE SPACE.
+ 579   
+ 580           0133          *CFRS                   /FIRST LINE POINTER
+ 581   
+ 582   000133  3305  CFRS,   NFRST                   /POINT TO OUR NEW DUMMY LINE
+ 583   
+ 584                 /       REDEFINED 8K END POINTER.
+ 585   
+ 586           0134          *END                    /OVER 8K END POINTER
+ 587   
+ 588   000134  3235  END,    NCOMEIN                 /POINT TO ULTIMATELY UNUSED (4K) COMMAND BUFFER
+ 589   
+ 590           0135          *ENDT                   /END OF TEXT POINTER
+ 591   
+ 592   000135  3321          NBUFBEG                 /POINT TO NEW BEGINNING OF BUFFER
+ 593   
+ 594           0167          *167                    /AT END OF PAGE ZERO
+ 595   
+ 596   000167  0000  P8K,    ZBLOCK  5               /USED BY 8K OVERLAY
+ 597   
+ 598   000174  0000          ZBLOCK  2               /EMPTY SPACE
+ 599   
+ 600           0176          *START-1                /OVER STARTUP ADDRESS
+ 601   
+ 602   000176  2741          RECOVR+1                /NO DIALOGUE USED
+ 603   
+ 604           0226          *COMBOT                 /OVER PDL PROTECTION POINTER
+ 605   
+ 606   000226  3317  COMBOT, NCOMEOUT+12             /ACCOUNT FOR MOVED COMMAND BUFFER
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 15
+
+ 607           0245          *GONE+13                /OVER REFERENCE TO P4000
+ 608   
+ 609   000245  7330          NL4000                  /TEST FOR SINGLE LINE
+ 610   
+ 611                 /       NEW FUNCTION ENTRIES.
+ 612   
+ 613           0407          *FNTABF+13              /OVER OLD XSQRT
+ 614   
+ 615   000407  3140          XSQRT                   /NEW XSQRT
+ 616   
+ 617           0412          *FNTABF+16              /OVER X FUNCTION ENTRY
+ 618   
+ 619   000412  7600          SBOOT                   /ADVANCED UCK FUNCTION
+ 620   
+ 621                 /       THE FOLLOWING LOCATIONS FORMERLY REFERENCED BUFFERS WITHIN THE OLD
+ 622                 /       SQUARE ROOT FUNCTION CODE. WE NOW USE ANOTHER AREA.
+ 623   
+ 624           1114          *FCONT+13               /OVER "FOR" ROUTINE
+ 625   
+ 626   001114  2570          NITER1                  /WAS ITER1
+ 627   
+ 628           1133          *FINKP                  /OVER "FOR" ROUTINE
+ 629   
+ 630   001133  2570          NITER1                  /WAS ITER1
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 16
+
+ 631                 /       FOCAL FDIS(X,Y) FUNCTION PATCHES.
+ 632   
+ 633                 /       CAN BE CUSTOMIZED FOR AA01A, AX08, OR LAB-8/E.
+ 634   
+ 635                         IFNZRO  AA01A   <
+ 636   
+ 637                         *XDYS+11                /WHERE Y LOAD GOES
+ 638   
+ 639                         DAL2                    /LOAD Y D-A CONVERTER
+ 640   
+ 641                         *XDYS+14                /WHERE X LOAD GOES
+ 642   
+ 643                         DAL1                    /LOAD X CONVERTER
+ 644   
+ 645                                         >
+ 646   
+ 647                         IFNZRO  AX08    <
+ 648   
+ 649                         *XDYS+11                /WHERE Y LOAD GOES
+ 650   
+ 651                         DYC DYL                 /LOAD Y CONVERTER
+ 652   
+ 653                         *XDYS+14                /WHERE X LOAD GOES
+ 654   
+ 655                         DXC DXL DIS             /LOAD X CONVERTER AND INTENSIFY
+ 656   
+ 657                                         >
+ 658   
+ 659                         IFNZRO  LAB8E   <
+ 660   
+ 661           1153          *XDYS+11                /WHERE Y LOAD GOES
+ 662   
+ 663   001153  6054          DILY                    /LOAD Y REGISTER
+ 664   
+ 665           1156          *XDYS+14                /WHERE X LOAD GOES
+ 666   
+ 667   001156  6053          DILX                    /LOAD X CONVERTER
+ 668   
+ 669                                         >
+ 670   
+ 671           1173          *COMGO+10               /OVER LIBRARY DISPATCH ADDRESS
+ 672   
+ 673   001173  7600          SBOOT                   /UCK
+ 674   
+ 675           1201          *COMGO+16               /OVER HIGH-SPEED READER DISPATCH ADDRESS
+ 676   
+ 677   001201  2725          ERROR5                  /NO HIGH-SPEED READER FUNCTION
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 17
+
+ 678                 /       TYPE/ASK CODE FIXUP.
+ 679   
+ 680                 /       VARIOUS VERSIONS OF FOCAL (FOCAL-12, FOCAL-8, ETC.) HAVE REDEFINED THE
+ 681                 /       PRECISE DEFINITION OF THE DEBUGGING MODE REGARDING FORMATTED INPUT
+ 682                 /       STATEMENTS (SUCH AS ASK "HELLO",VARIABLE). THIS REQUIRED REASSEMBLING
+ 683                 /       THE SOURCE OF FOCAL, AS THE PATCH WAS COMPREHENSIVE. BY REUSING THE
+ 684                 /       AVAILABLE SPACE, THE EQUIVALENT CAN BE IMPLEMENTED, BUT MAINTAINING A
+ 685                 /       HIGHER DEGREE OF COMPATIBILITY WITH THE ORIGINAL FOCAL, 1969.
+ 686   
+ 687           1204          *TASK                   /OVER FORMER CODE
+ 688   
+ 689   001204  0272  NCOL,   ":                      /**** /Q **** 0277
+ 690   
+ 691           1216          *TASK+12                /OVER EXISTING CODE
+ 692   
+ 693   001216  1204          TAD     NCOL            /GET NEW PROMPT CHARACTER
+ 694   
+ 695                 /       THE <CR> ONLY OUTPUT ROUTINE ATTEMPTS TO DELAY FOR THE BENEFIT OF TERMINALS
+ 696                 /       REQUIRING A CHARACTER TIME AFTER THE <CR>. VARIOUS FEEBLE ATTEMPTS AT THIS
+ 697                 /       HAVE PRODUCED VERSIONS OF FOCAL WHICH DON'T WORK ON CERTAIN TERMINALS.
+ 698                 /       MOST NOTABLY, FOCAL, 1969 OUTPUTS A <FF> CHARACTER, AND FOCAL-8 OUTPUTS
+ 699                 /       <^N> (EVIL TO VT05). BY CREATING A SUITABLE CONSTANT, A TRUE <NUL> (0200)
+ 700                 /       CHARACTER WILL BE OUTPUT INSTEAD.
+ 701   
+ 702           1250          *TCRLF2+2               /WHERE TO COUNTERACT <CR>
+ 703   
+ 704   001250  1362          TAD     L7763/(-15)     /MAKE IT 0200 INSTEAD
+ 705   
+ 706           1253          *TASK4                  /OVER EXISTING CODE
+ 707   
+ 708   001253  3026  TASK4,  DCA     DEBGSW          /CLEAR SWITCH NOW
+ 709   001254  4545          GETC                    /GET NEXT CHARACTER
+ 710   001255  5204  COL,    JMP     TASK            /KEEP GOING
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 18
+
+ 711                 /       ANALOGUE TO DIGITAL CONVERSION FIXUP.
+ 712   
+ 713                 /       AS SUPPLIED, FOCAL DOESN'T WORK ON CHANNEL 0 AS ON THE OTHERS, ALSO SOME
+ 714                 /       CONVERTERS MAY NOT WORK IF MERELY DEVICE CODES ARE CHANGED. THIS IS AN
+ 715                 /       ATTEMPT TO SOLVE THIS. ADJACENT SPACE IS USED FROM THE NO INTERRUPT OUTPUT
+ 716                 /       ROUTINE WHICH IS NOT NEEDED TO DEBUG THE FADC FUNCTION. IF DEBUGGING IS
+ 717                 /       DESIRED THEN PATCH THE NO INTERRUPT OUTPUT ROUTINE BACK IN AND HAVE FUN
+ 718                 /       (WILL INTERRUPT?). THIS PATCH CAN BE CONDITIONALLY ASSEMBLED FOR AF01,
+ 719                 /       AX08, OR AD-8/E, A CONVERTERS. CHANGE DEVICE CODES APPROPRIATELY FOR
+ 720                 /       OTHER CONVERTERS.
+ 721   
+ 722           1343          *XADC                   /OVER A-D ROUTINE
+ 723   
+ 724   001343  4453          JMS I   INTEGER         /FIX THE FLAC
+ 725   
+ 726                         IFNZRO  AF01    <
+ 727   
+ 728                         IOF                     /PREVENT INTERRUPT PROBLEMS
+ 729                         ADSC                    /LOAD CHANNEL AND CONVERT
+ 730                         CLA CLL                 /CLEAN UP NOW
+ 731                         ADSF                    /FLAG UP?
+ 732                         JMP     .-1             /NO, WAIT FOR IT
+ 733                         AFADRB                  /YES, READ IT IN
+ 734   
+ 735                                         >
+ 736   
+ 737                         IFNZRO  AX08    <
+ 738   
+ 739                         NOP                     /AX08 WILL NOT INTERRUPT
+ 740                         ACMX ADCV               /LOAD CHANNEL AND START CONVERSION
+ 741                         CLA CLL                 /CLEAN UP NOW
+ 742                         SKAD                    /FLAG UP?
+ 743                         JMP     .-1             /NO, WAIT FOR IT
+ 744                         RADC                    /YES, READ IT IN
+ 745   
+ 746                                         >
+ 747   
+ 748                         IFNZRO  LAB8E   <
+ 749   
+ 750   001344  7000          NOP                     /AD-8/E, A WILL NOT INTERRUPT
+ 751   
+ 752   001345  6531          ADLM                    /LOAD CHANNEL
+ 753   001346  6532          ADST                    /START CONVERSION
+ 754   001347  6534          ADSK                    /FLAG UP?
+ 755   001350  5347          JMP     .-1             /NO, WAIT FOR IT
+ 756   001351  6533          ADRB                    /YES, READ IT IN
+ 757   
+ 758                                         >
+ 759   
+ 760   001352  3045          DCA     FLAC+1          /STORE HIGH-ORDER
+ 761   001353  3046          DCA     FLAC+2          /CLEAR LOW-ORDER
+ 762   001354  1005          TAD     P13/[13]        /SET THE
+ 763   001355  3044          DCA     FLAC            /EXPONENT
+ 764   001356  6001          ION                     /OK IF ALREADY ON
+ 765   001357  5536          RETURN                  /GO BACK TO FOCAL FUNCTION CHECK
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 19
+
+ 766                 /       EMPTY SPACE AFTER A-D CONVERTER PATCH.
+ 767   
+ 768   001360  0000          ZBLOCK  SRNLST-1-.      /EMPTY SPACE
+ 769   
+ 770   001362  7763  L7763,  -15                     /CONSTANT 7763
+ 771   
+ 772           2203          *FNTABL+16              /OVER X FUNCTION ENTRY
+ 773   
+ 774   002203  2645          "U^2+"C^2+"K            /ADVANCED UCK FUNCTION
+ 775   
+ 776                 /       REVAMPED GET1 ROUTINE; CAN EASILY BE MODIFIED FOR EXTENDED MEMORY.
+ 777   
+ 778           2330          *GET1                   /OVER EXISTING ROUTINE
+ 779   
+ 780   002330  0000  GET1,   .-.                     /GET A HALF-WORD ROUTINE
+ 781   002331  2020          ISZ     XCT             /WHICH HALF?
+ 782   002332  5345          JMP     GET3            /GET LEFT ONE FIRST
+ 783   002333  1021          TAD     GTEM            /GET THE PAIR
+ 784   002334  0122  GEND,   AND     P77/[77]        /JUST SIX BITS
+ 785   002335  3066          DCA     CHAR            /SAVE IT
+ 786   002336  1066          TAD     CHAR            /GET IT BACK
+ 787   002337  1103          TAD     M77/[-77]       /COMPARE TO CASE CODE VALUE
+ 788   002340  7450          SNA                     /SKIP IF NOT CASE CODE
+ 789   002341  5313          JMP     EXTR            /JUMP IF CASE CODE
+ 790   002342  1344          TAD     G37/(37)        /ADJUST 0000-0077 TO 7740-0037
+ 791   002343  5730          JMP I   GET1            /RETURN
+ 792   
+ 793   002344  0037  G37,    37                      /CONSTANT 0037
+ 794   
+ 795   002345  7240  GET3,   NL7777                  /SET THE SWITCH
+ 796   002346  3020          DCA     XCT             /FOR NEXT TIME
+ 797   002347  7000          NOP                     /**** 8K **** CDF TXTFLD
+ 798   002350  1417          TAD I   AXOUT           /GET THE PAIR
+ 799   002351  6201          CDF     00              /BACK TO OUR FIELD
+ 800   002352  3021          DCA     GTEM            /SAVE IT
+ 801   002353  1021          TAD     GTEM            /GET IT BACK
+ 802   002354  4557          RTL6;RAL                /MOVE UP
+ 803   002355  7004
+ 804   002356  5334          JMP     GEND            /CONTINUE THERE
+ 805   
+ 806           2414          *I33                    /OVER NO-INTERRUPT INPUT ROUTINE
+ 807   
+ 808                 /       COMES HERE AFTER END OF FILE TO SWAP IN MORE CODE INTO 07400. ALSO COMES
+ 809                 /       HERE TO SWAP IN OPTIONAL LIBRARY HANDLER.
+ 810   
+ 811   002414  4756  ENDFIL, JMS I   M140/(SYSIO)    /GOTO NEXT PHASE (INITIALLY ENDFILE HANDLER)
+ 812   002415  7400  ENDADR, BUFFA                   /LOAD IT HERE
+ 813   002416  0100  ENDFUN, 1^100+.-.               /UNIT BITS WILL BE FILLED IN
+ 814   002417  0000  SWAPBLK,.-.                     /BLOCK NUMBER WILL BE FILLED IN
+ 815   002420  2217          ISZ     SWAPBLK         /BUMP UP FOR NEXT USER OF THIS ROUTINE
+ 816   002421  5615          JMP I   ENDADR/(BUFFA)  /GO THERE
+ 817   
+ 818   002422  0000          ZBLOCK  3               /EMPTY SPACE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 20
+
+ 819           2530          *PACX                   /OVER CHARACTER PACKING ROUTINE
+ 820   
+ 821   002530  6201          CDF     00              /IN CASE EXTENDED MEMORY IN USE
+ 822   
+ 823           2564          *NBUFFER                /NEW BUFFER FOR FLOATING OUTPUT, ETC.
+ 824   
+ 825   002564  0000  NFPAC1, ZBLOCK  4               /TEMPORARY FOR XSQRT, ETC.
+ 826   002570  0000  NITER1, ZBLOCK  4               /BUFFER FOR "FOR" ROUTINE, ETC.
+ 827   
+ 828   002574  0000          ZBLOCK  NBUFFER+13-.    /GET TO END OF FLOATING OUTPUT BUFFER
+ 829   
+ 830   002577  0000          ZBLOCK  1               /EMPTY SPACE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 21
+
+ 831           2600          PAGE
+ 832   
+ 833   002600  0000  CINPUT, .-.                     /CONSOLE INPUT ROUTINE
+ 834   002601  1034  CINWAIT,TAD     INBUF           /GET INPUT BUFFER
+ 835   002602  7750          SPA SNA CLA             /SKIP IF ANYTHING THERE
+ 836   002603  5201          JMP     CINWAIT         /ELSE WAIT FOR IT
+ 837   002604  6002          IOF                     /PREVENT PROBLEMS
+ 838   002605  1034          TAD     INBUF           /GET THE CHARACTER
+ 839   002606  3230          DCA     COUTPUT         /SAVE IT
+ 840   002607  6001          ION                     /PROTECT NEXT AND COME OUT
+ 841   002610  3034          DCA     INBUF           /CLEAR INPUT BUFFER
+ 842   002611  1230          TAD     COUTPUT         /GET OUT CHARACTER
+ 843   002612  5600          JMP I   CINPUT          /RETURN
+ 844   
+ 845   002613  0000  BUMPIT, .-.                     /POINTER BUMP ROUTINE
+ 846   002614  1613          TAD I   BUMPIT          /GET IN-LINE VALUE
+ 847   002615  7001          IAC                     /ADD ONE
+ 848   002616  0107          AND     P17/[17]        /JUST BUFFER BITS
+ 849   002617  1003          TAD     PIOBUF/(IOBUF)  /POINT AT BUFFER
+ 850   002620  3613          DCA I   BUMPIT          /STORE IN-LINE
+ 851   002621  2213          ISZ     BUMPIT          /BUMP PAST POINTER
+ 852   002622  5613          JMP I   BUMPIT          /RETURN
+ 853   
+ 854   002623  1200  OUTDO,  TAD     CINPUT          /GET THE CHARACTER
+ 855   002624  4724          JMS I   PTTYOUT/(TTYOUT)/PRINT IT NOW
+ 856   002625  3016  OUTZAP, DCA     TELSW           /**** CONSOLE AND NO OUTPUT INTERRUPTS **** 7600
+ 857   002626  6001  OUTGO,  ION                     /TURN INTERRUPT ON AGAIN
+ 858   002627  5630          JMP I   COUTPUT         /RETURN
+ 859   
+ 860   002630  0000  COUTPUT,.-.                     /CONSOLE OUTPUT ROUTINE
+ 861   002631  3200  PKEYHND,DCA     CINPUT          /SAVE PASSED CHARACTER
+ 862   002632  6001          ION                     /ENSURE INTERRUPT IS ON
+ 863   002633  1647          TAD I   FILPTR          /GET LATEST CHARACTER IN BUFFER
+ 864   002634  1037          TAD     CSCQSW          /OR IN <^S>/<^Q> FLAG
+ 865   002635  7640          SZA CLA                 /SKIP IF EMPTY POSITION
+ 866   002636  5233          JMP     .-3             /ELSE WAIT FOR IT TO EMPTY
+ 867   002637  6002          IOF                     /PREVENT PROBLEMS
+ 868   002640  1016          TAD     TELSW           /GET IN-PROGRESS FLAG
+ 869   002641  7650  DFINT,  SNA CLA                 /SKIP IF SET
+ 870   002642  5223          JMP     OUTDO           /JUMP IF NOT
+ 871   002643  7350          NL3777                  /FORM MASK
+ 872   002644  0200          AND     CINPUT          /GET THE CHARACTER
+ 873   002645  3647          DCA I   FILPTR          /STORE IN THE BUFFER
+ 874   002646  4213          JMS     BUMPIT          /BUMP UP THE
+ 875   002647  3120  FILPTR, IOBUF                   /OUTPUT POINTER
+ 876   002650  5226          JMP     OUTGO           /CONTINUE THERE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 22
+
+ 877                 /       INTERRUPT HANDLER STARTS HERE.
+ 878   
+ 879   002651  3124  INTHND, DCA     AC              /SAVE THE AC
+ 880   002652  7004          RAL                     /GET THE LINK
+ 881   002653  3361          DCA     LINK            /SAVE IT ALSO
+ 882   002654  7410  CHKINT, SKP                     /**** CONSOLE **** CIF MCS+10
+ 883   002655  4000          JMS     CONINT          /CHECK OVERLAY INTERRUPTS FIRST
+ 884   002656  3213          DCA     BUMPIT          /SAVE CONSOLE INTERRUPT STATUS
+ 885   002657  6031  CHKKSF, KSFIOT                  /**** CONSOLE **** CIF MCS+10
+ 886   002660  5273  CHKJMP, JMP     TRYOUT          /**** CONSOLE **** JMS INCON
+ 887   002661  6034  CHKKRS, KRSIOT/OR KRBIOT        /**** CONSOLE **** JMP TRYOUT
+ 888   002662  0106          AND     P177/[177]      /JUST SEVEN-BIT
+ 889   002663  3126          DCA     INCHAR          /SAVE IT
+ 890   002664  4631          JMS I   PKEYHND/(KEYHND)/CHECK KEYBOARD OUT THERE
+ 891   002665  1034  KEYBACK,TAD     INBUF           /GET CURRENT BUFFER
+ 892   002666  7640          SZA CLA                 /SKIP IF WE DIDN'T OVERRUN
+ 893   002667  7000  ERRZAP, NOP                     /**** END OF FILE **** ERROR2
+ 894   002670  1126          TAD     INCHAR          /GET OUR CHARACTER
+ 895   002671  1123          TAD     C200/[200]      /MAKE IT EIGHT-BIT
+ 896   002672  3034          DCA     INBUF           /STORE IT FOR OTHERS
+ 897   002673  7200  TRYOUT, CLA                     /**** CONSOLE **** NL0002
+ 898   002674  6041  TRYTSF, TSFIOT                  /**** CONSOLE **** AND BUMPIT
+ 899   002675  5311  TRYJMP, JMP     INTXIT          /**** CONSOLE **** SNA CLA
+ 900   002676  6042  TRYTCF, TCFIOT                  /**** CONSOLE **** JMP INTXIT
+ 901   002677  3016          DCA     TELSW           /CLEAR IN-PROGRESS FLAG
+ 902   002700  1710  TRYAGN, TAD I   EMTPTR          /GET A BUFFERED CHARACTER
+ 903   002701  1037          TAD     CSCQSW          /OR IN <^S>/<^Q> SWITCH
+ 904   002702  7550          SPA SNA                 /SKIP IF PRESENT AND ALLOWED
+ 905   002703  5311          JMP     INTXIT          /ELSE FORGET IT
+ 906   002704  4724          JMS I   PTTYOUT/(TTYOUT)/OUTPUT THE CHARACTER
+ 907   002705  3016          DCA     TELSW           /SET IN-PROGRESS FLAG
+ 908   002706  3710          DCA I   EMTPTR          /CLEAR THE BUFFERED CHARACTER
+ 909   002707  4213          JMS     BUMPIT          /BUMP UP THE
+ 910   002710  3120  EMTPTR, IOBUF                   /EMPTYING POINTER
+ 911   002711  7200  INTXIT, CLA                     /CLEAN UP
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 23
+
+ 912                 /       CONDITIONAL INTERRUPT HOOKS.
+ 913   
+ 914                 /       IF NECESSARY, OTHER PERIPHERALS CAN BE INTERRUPT HANDLED HERE BY PATCHING
+ 915                 /       THE DF32 OR LINC8 INTERRUPT LOCATIONS.
+ 916   
+ 917                         IFNZRO  DF32    <
+ 918   
+ 919                         JMS I   DFINT/(7650)    /CALL DF32 INTERRUPT HANDLER
+ 920   
+ 921                                         >
+ 922   
+ 923                         IFZERO  DF32    <
+ 924   
+ 925   002712  7000          NOP                     /AVAILABLE FOR HOOK IF NO DF32
+ 926   
+ 927                                         >
+ 928   
+ 929                         IFNZRO  LINC8   <
+ 930   
+ 931                         TAD     LIST6+1/[7]     /GET CLEAR VALUE
+ 932                         ICON                    /CLEAR LINC INTERRUPTS
+ 933                         CLA                     /CLEAN UP
+ 934   
+ 935                                         >
+ 936   
+ 937                         IFZERO  LINC8   <
+ 938   
+ 939   002713  7000          NOP                     /AVAILABLE
+ 940   002714  7000          NOP                     /FOR INTERRUPT
+ 941   002715  7000          NOP                     /HOOKUP
+ 942   
+ 943                                         >
+ 944   
+ 945   002716  1361          TAD     LINK            /GET THE SAVED LINK
+ 946   002717  7110          CLL RAR                 /RESTORE IT
+ 947   002720  1124          TAD     AC              /GET THE SAVED AC
+ 948   002721  6244          RMF                     /RESTORE THE EXTENDED FIELDS
+ 949   002722  6001          ION                     /TURN INTERRUPT ON
+ 950   002723  5400          JMP I   0               /RETURN TO BACKGROUND
+ 951   
+ 952   002724  5662  PTTYOUT,TTYOUT                  /POINTER TO TTY: OUTPUT ROUTINE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 24
+
+ 953                 /       PATCHES TO RECOVERY ROUTINE.
+ 954   
+ 955           2742          *RECOVR+2               /OVER EXISTING CODE
+ 956   
+ 957   002742  2016  CONPAT, ISZ     TELSW           /**** CONSOLE AND NO OUTPUT INTERRUPTS **** 7600
+ 958   
+ 959           2746          *RECOVR+6               /OVER POINTER REFERENCE
+ 960   
+ 961   002746  1003          TAD     PIOBUF/(IOBUF)  /USE OUR POINTER
+ 962   
+ 963           2750          *RECOVR+10              /OVER FORMER NOP
+ 964   
+ 965   002750  6201          CDF     00              /IN CASE EXTENDED MEMORY IN USE
+ 966   
+ 967           2755          *RECOVR+15              /OVER POINTER REFERENCE
+ 968   
+ 969   002755  1003          TAD     PIOBUF/(IOBUF)  /USE OUR POINTER
+ 970   002756  3310          DCA     EMTPTR          /RESET EMPTY POINTER
+ 971   002757  1003          TAD     PIOBUF/(IOBUF)  /USE OUR POINTER
+ 972   002760  3247          DCA     FILPTR          /RESET FILL POINTER
+ 973   
+ 974           2761          *RECOVX                 /OVER RECOVERY OUTPUT
+ 975   
+ 976   002761  0000  LINK,   .-.                     /WILL BE 0000 OR 0001 (SAVED LINK BIT)
+ 977   002762  4724          JMS I   PTTYOUT/(TTYOUT)/SEND IT
+ 978   002763  1110          TAD     P277/["?]       /GET A "?"
+ 979   
+ 980                 /       PATCH TO ELIMINATE REFERENCES TO PTCH.
+ 981   
+ 982           2771          *RECOVX+10              /OVER RECOVERY CODE
+ 983   
+ 984   002771  5377          JMP     NOLINE          /DON'T PRINT LINE NUMBER
+ 985   002772  3067          DCA     LINENO          /SAVE VALUE
+ 986   002773  1101          TAD     P7700/[7700]    /GET <AT-SIGN>
+ 987   002774  4551          PRINTC                  /PRINT IT
+ 988   002775  4551          PRINTC                  /PRINT <SPACE>
+ 989   002776  4553          PRNTLN                  /PRINT THE LINE NUMBER
+ 990   002777  1077  NOLINE, TAD     CCR/["M&37!200] /GET A <CR>
+ 991   003000  4551          PRINTC                  /PRINT <CR>, <LF>
+ 992   003001  5177          JMP     START           /RESTART
+ 993   
+ 994   003002  2564  PNFPAC1,NFPAC1                  /POINTER TO NEW TEMPORARY
+ 995   
+ 996   003003  0000          ZBLOCK  1               /EMPTY SPACE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 25
+
+ 997                 /       REVISED SYMBOL TYPEOUT ROUTINE.
+ 998   
+ 999                 /       THIS CODE IS NO LONGER THAN THE ORIGINAL CLUMSY CODE WHICH REQUIRES
+1000                 /       EXTENDED MEMORY CONSIDERATIONS FOR FIELD ZERO DATA!
+1001   
+1002           3052          *TDUMP                  /OVER EXISTING CODE
+1003   
+1004   003052  1060  TDUMP,  TAD     STARTV          /**** 8K **** TAD END
+1005   003053  3030  TDMPLP, DCA     PT1             /STASH NEW POINTER
+1006   003054  1031          TAD     LASTV           /GET LAST VARIABLE POINTER
+1007   003055  7041          CIA                     /INVERT FOR TEST
+1008   003056  1030          TAD     PT1             /COMPARE TO CURRENT POINTER
+1009   003057  7650  PR50,   SNA CLA                 /SKIP IF MORE TO DO
+1010   003060  5541          POPJ                    /ELSE RETURN
+1011   003061  1430          TAD I   PT1             /GET VARIABLE NAME
+1012   003062  4557          RTL6;RAL                /WANT HIGH-ORDER FIRST
+1013   003063  7004
+1014   003064  4311          JMS     PTRIM           /PRINT IT
+1015   003065  1430          TAD I   PT1             /GET LOW-ORDER
+1016   003066  4311          JMS     PTRIM           /PRINT IT
+1017   003067  1257          TAD     PR50/("(&77)    /GET A "("
+1018   003070  4311          JMS     PTRIM           /PRINT IT
+1019   003071  2030          ISZ     PT1             /BUMP TO SUBSCRIPT
+1020   003072  1430          TAD I   PT1             /GET THE SUBSCRIPT
+1021   003073  4717          JMS I   NPRNT2/(PRNT)   /PRINT IT
+1022   003074  1304          TAD     PR51/(")&77)    /GET A ")"
+1023   003075  4311          JMS     PTRIM           /PRINT IT
+1024   003076  2030          ISZ     PT1             /BUMP TO VALUE
+1025   003077  4407          FENTER                  /ENTER FPP
+1026   003100  0430          FGET I  PT1             /GET THE VALUE
+1027   003101  0000          FEXIT                   /LEAVE FPP
+1028   003102  4530          JMS I   FOUTPUT/[FLOUTP]/PRINT THE VALUE
+1029   003103  1077          TAD     CCR/["M&37!200] /GET A <CR>
+1030   003104  4551  PR51,   PRINTC                  /PRINT IT AND <LF>
+1031   003105  1070          TAD     GINC            /GET INCREMENT
+1032   003106  1111          TAD     M2/[-2]         /ADJUST TO ENTRY INCREMENT
+1033   003107  1030          TAD     PT1             /ADD ONTO CURRENT POINTER
+1034   003110  5253          JMP     TDMPLP          /KEEP GOING
+1035   
+1036   003111  0000  PTRIM,  .-.                     /TRIM AND PRINT ROUTINE
+1037   003112  1205          TAD     RUB1+1/(7640)   /INVERT IT
+1038   003113  0122          AND     P77/[77]        /ISOLATE SIX-BIT
+1039   003114  1205          TAD     RUB1+1/(7640)   /MAKE IT EIGHT-BIT
+1040   003115  4551          PRINTC                  /PRINT IT
+1041   003116  5711          JMP I   PTRIM           /RETURN
+1042   
+1043   003117  2442  NPRNT2, PRNT                    /POINTER TO TWO-DIGIT PRINT ROUTINE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 26
+
+1044                 /       NEWLY CONCOCTED SQUARE ROOT FUNCTION.
+1045   
+1046           3140          *COMEIN                         /OVER FORMER INPUT BUFFER
+1047   
+1048   003140  4407  XSQRT,  FENTER                          /\
+1049   003141  6602          FPUT I  PNFPAC1/(NFPAC1)        / >STORE FLAC INITIALLY
+1050   003142  0000          FEXIT                           //
+1051   003143  1045          GETSGN                          /DO ONLY POSITIVE SQUARE ROOTS
+1052   003144  7710          SPA CLA                         /BARF ON MINUS
+1053   003145  4566          ERROR3                          /NEW SQUARE ROOT ERROR MESSAGE FROM HERE
+1054   003146  7301          CLA CLL IAC                     /NL0001
+1055   003147  1044          TAD     FLAC                    /START APPROXIMATION
+1056   003150  7550          SPA SNA                         /SIGNED AT THAT!
+1057   003151  7020          CML                             /FOR MINUS
+1058   003152  7010          RAR                             /DIVIDE BY TWO
+1059   003153  3044          DCA     FLAC                    /PUT IT BACK
+1060   003154  1121          TAD     M11/[-11]               /ELSE SETUP
+1061   003155  3566          DCA I   ERROR3-JMSIZ            /ITERATION COUNTER
+1062   003156  1045  CLCU,   TAD     FLAC+1                  /CHECK FOR
+1063   003157  7450          SNA                             /ZERO
+1064   003160  1046          TAD     FLAC+2                  /ARGUMENT
+1065   003161  7650          SNA CLA                         /WHICH HAS SQUARE ROOT=0
+1066   003162  5373          JMP     SQUEND                  /AND WE'RE DONE
+1067   003163  4407          FENTER                          /\
+1068   003164  6777          FPUT I  (NITER1)                / \
+1069   003165  0602          FGET I  PNFPAC1/(NFPAC1)        /  \PERFORM NEWTON-RAPHSON
+1070   003166  3777          FDIV I  (NITER1)                /  /ITERATION ONE TIME
+1071   003167  1777          FADD I  (NITER1)                / /
+1072   003170  0000          FEXIT                           //
+1073   003171  7240          NL7777                          /PEEL
+1074   003172  1044          TAD     FLAC                    /EXPONENT
+1075   003173  3044  SQUEND, DCA     FLAC                    /DOWN
+1076   003174  2566          ISZ I   ERROR3-JMSIZ            /DONE YET?
+1077   003175  5356          JMP     CLCU                    /NOT YET
+1078   003176  5536          RETURN                          /GO BACK WITH GOOD VALUE
+1079   
+1080   003177  2570
+1081           3200          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 27
+
+1082                 /       KEYBOARD INPUT ROUTINE.
+1083   
+1084                         IFNZRO  .-CINPUT&177    <ERROR  .>
+1085   003200  2665  KEYHND, KEYBACK                         /KEYBOARD HANDLING ROUTINE; MUST BE PRELOADED!
+1086   003201  7346          NL7775                          /-3
+1087   003202  1126          TAD     INCHAR                  /COMPARE TO LATEST
+1088   003203  7450          SNA                             /SKIP IF OTHER
+1089   003204  2631          ISZ I   PSCRSIZE/(SCRSIZE)      /ELSE INDICATE SO
+1090   003205  7750          SPA SNA CLA                     /SKIP IF <^D> OR GREATER
+1091   003206  5504          JMP I   P7600/[SBOOT]           /ELSE LEAVE FOR P?S/8
+1092   003207  6032  CHKKCC, KCCIOT/OR 0000                  /**** CONSOLE **** 0000
+1093   003210  1126          TAD     INCHAR                  /GET THE CHARACTER
+1094   003211  1105          TAD     M20/[-"P!300]           /IS IT <^P>?
+1095   003212  7450          SNA                             /SKIP IF NOT
+1096   003213  5634          JMP I   RECADDRESS              /JUMP IF SO
+1097   003214  1230          TAD     M1/(-"Q+"P)             /IS IT <^Q>?
+1098   003215  7450          SNA                             /SKIP IF NOT
+1099   003216  5223          JMP     GOTQ                    /JUMP IF SO
+1100   003217  1111          TAD     M2/[-"S+"Q]             /IS IT <^S>?
+1101   003220  7640          SZA CLA                         /SKIP IF SO
+1102   003221  5600          JMP I   KEYHND                  /ELSE RETURN
+1103   003222  7330  GOTS,   NL4000                          /SET HOLD VALUE
+1104   003223  3037  GOTQ,   DCA     CSCQSW                  /STORE EITHER WAY
+1105   003224  1016          TAD     TELSW                   /GET IN-PROGRESS SWITCH
+1106   003225  7650          SNA CLA                         /SKIP IF SET
+1107   003226  5632          JMP I   PTRYAGN/(TRYAGN)        /ELSE TRY TO INFLUENCE OUTPUT
+1108   003227  5633          JMP I   PTRYOUT/(TRYOUT)        /FORGET THIS INTERRUPT
+1109   
+1110   003230  7777  M1,     -1                              /CONSTANT 7777
+1111   003231  7611  PSCRSIZ,SCRSIZE                         /POINTER TO SCRSIZE
+1112   003232  2700  PTRYAGN,TRYAGN                          /POINTER TO TRYAGN
+1113   003233  2673  PTRYOUT,TRYOUT                          /POINTER TO TRYOUT
+1114   003234  2673  RECADDR,TRYOUT                          /**** END OF FILE **** RECOVR
+1115   
+1116                 /       NEW 4K INPUT BUFFER.
+1117   
+1118   003235  0000  NCOMEIN,ZBLOCK  50                      /INPUT BUFFER HERE IF 4K VERSION
+1119   
+1120           3305          NCOMEOU=.                       /END OF COMMAND BUFFER
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 28
+
+1121                 /       NEW DUMMY LINE.
+1122   
+1123   003305  0000  NFRST,  0000                                    /POINTER TO END OF LIST
+1124   003306  0000          0000                                    /00.00 LINE NUMBER
+1125   003307  0340          TEXT    "C "                            /C<SPACE>
+1126   003310  2037          "P^100+"?-240                           /P?
+1127   003311  2357          TEXT    "S/8 FOCAL "                    /MORE TEXT
+1128   003312  7040
+1129   003313  0617
+1130   003314  0301
+1131   003315  1440
+1132   003316  2661          VERSION%12+2660                         /V <HIGH VERSION DIGIT>
+1133   003317  6004          VERSION%12^66+VERSION+"0^100+REVISION   /<LOW VERSION DIGIT> <REVISION>
+1134   
+1135           3317          NFRSTX= .-1                             /NEW INITIAL POINTER VALUE
+1136   
+1137   003320  7715          "M&37!7700                              /<CR>
+1138   003321  0000  NBUFBEG,0000                                    /PAD CORE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 29
+
+1139           3400          PAGE
+1140   
+1141                 /       FOCAL SYSTEM OFFICIALLY STARTS HERE FOR ALIGNMENT PURPOSES.
+1142   
+1143                         IFNZRO  .&177   <ERROR  .>
+1144   
+1145           3400          FOCAL=  .                       /FOCAL SYSTEM STARTS HERE
+1146   
+1147   003400  0037  FOCAL,  37/NOP                          /HERE IN CASE CHAINED TO
+1148   003401  1777          TAD I   (SWMX)                  /GET /M-/X SWITCHES
+1149   003402  0376          AND     (400)                   /JUST /P
+1150   003403  7650          SNA CLA                         /SKIP IF SET
+1151   003404  5207          JMP     INITNXT                 /JUMP IF NOT
+1152   003405  1102          TAD     PER/[".]                /GET NEW PROMPT
+1153   003406  3775          DCA I   (CSTAR)                 /STASH IT
+1154   003407  1374  INITNXT,TAD     (SFILES-1)              /GET POINTER TO FIRST FILE
+1155   003410  1773          TAD I   (SOUTFLS)               /UPDATE TO FIRST INPUT FILE-1
+1156   003411  3772          DCA I   (BFLPTR)                /SETUP THE BINARY LOADER'S POINTER
+1157   003412  1771          TAD I   (SFUN)                  /GET OUR LOADING UNIT
+1158   003413  0370          AND     (7)                     /JUST UNIT BITS
+1159   003414  1006          TAD     C100/[1^100]            /MAKE INTO ONE PAGE READ
+1160   003415  3767          DCA I   (ENDFUN)                /STORE INTO SWAP ROUTINE
+1161   003416  1766          TAD I   (SBLOCK)                /GET OUR LOADING BLOCK
+1162   003417  1200          TAD     FOCAL/(37)              /ADD ON OFFSET TO OVERLAY BLOCK
+1163   003420  3765          DCA I   (SWAPBLK)               /STORE IN OVERLAY HANDLER
+1164   003421  1764  TESTEYE,TAD I   (SWAL)                  /GET SWITCHES /A-/L
+1165   003422  0363          AND     (10)                    /JUST /I BIT
+1166   003423  7640          SZA CLA                         /SKIP IF OFF
+1167   003424  5227          JMP     TESTES                  /JUMP IF ON
+1168   003425  1362          TAD     (ION)                   /GET ZAP VALUE
+1169   003426  3761          DCA I   (CHIN+6)                /LEAVE ECHO OFF UNTIL FLIPPED BACK
+1170   003427  1777  TESTES, TAD I   (SWMX)                  /GET SWITCHES /M-/X
+1171   003430  4557          RTL6                            /MOVE /S BIT TO HIGH-ORDER
+1172   003431  7710          SPA CLA                         /SKIP IF OFF
+1173   003432  5235          JMP     TESTEE                  /JUMP IF ON
+1174   003433  1104          TAD     P7600/[CLA!400]         /GET ZAP VALUE
+1175   003434  3760          DCA I   (START+12)              /PREVENT STAR PRINTOUT
+1176   003435  1764  TESTEE, TAD I   (SWAL)                  /GET SWITCHES /A-/L
+1177   003436  0123          AND     C200/[200]              /JUST /E BIT
+1178   003437  7650          SNA CLA                         /SKIP IF SET
+1179   003440  5243          JMP     TESTQUE                 /JUMP IF OFF
+1180   003441  1357          TAD     (PRINTC)                /GET ZAP VALUE
+1181   003442  3756          DCA I   (FLOUTP+2)              /MAKE IT PRINT "="
+1182   003443  1777  TESTQUE,TAD I   (SWMX)                  /GET SWITCHES /M-/X
+1183   003444  0123          AND     C200/[200]              /JUST /Q BIT
+1184   003445  7650          SNA CLA                         /SKIP IF SET
+1185   003446  5251          JMP     TESTEN                  /JUMP IF OFF
+1186   003447  1110          TAD     P277/["?]               /GET "?"
+1187   003450  3755          DCA I   (NCOL)                  /USE INSTEAD OF ":"
+1188   003451  7332  TESTEN, NL2000                          /SET /N MASK
+1189   003452  0777          AND I   (SWMX)                  /JUST /N BIT
+1190   003453  7650          SNA CLA                         /SKIP IF SET
+1191   003454  5257          JMP     TESTEF                  /JUMP IF NOT
+1192   003455  1104          TAD     P7600/[CLA!400]         /GET ZAP VALUE
+1193   003456  3754          DCA I   (TASK+13)               /MAKE IT NOT PRINT ":"
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 30
+
+1194   003457  1764  TESTEF, TAD I   (SWAL)                  /GET SWITCHES /A-/L
+1195   003460  4557          RTL6                            /F BIT TO LINK
+1196   003461  7620          SNL CLA                         /SKIP IF SET
+1197   003462  5265          JMP     TESTTEA                 /JUMP IF NOT
+1198   003463  1353          TAD     (FLOUTP+10&177+JMPC)    /MAKE IT NOT PRINT
+1199   003464  3752          DCA I   (FLOUTP+5)              /ANY LEADING SPACES
+1200   003465  1777  TESTTEA,TAD I   (SWMX)                  /GET SWITCHES /M-/X
+1201   003466  0351          AND     (20)                    /JUST /T BIT
+1202   003467  7640          SZA CLA                         /SKIP IF OFF
+1203   003470  5273          JMP     TESTAC                  /JUMP IF ON
+1204   003471  1350          TAD     (" -337)                /GET TAB FUDGE VALUE
+1205   003472  3747          DCA I   (GTABCON)               /MAKE IT CONVERT <HT> TO <SPACE>
+1206   003473  1764  TESTAC, TAD I   (SWAL)                  /GET SWITCHES /A-/L
+1207   003474  0346          AND     (5000)                  /JUST /A, /C BITS
+1208   003475  7450          SNA                             /SKIP IF EITHER ON
+1209   003476  5310          JMP     DELBOTH                 /JUMP IF BOTH OFF
+1210   003477  7004          RAL                             /A TO LINK
+1211   003500  7650          SNA CLA                         /SKIP IF /C SET
+1212   003501  5322          JMP     DELSIN                  /JUMP IF /C OFF
+1213   003502  7430          SZL                             /SKIP IF /A OFF
+1214   003503  5321          JMP     ONCECOMMON              /JUMP IF /A ON; DON'T CHANGE ANYTHING
+1215   003504  1345          TAD     (FCOS-1)                /GET SINE ADDRESS
+1216   003505  3035          DCA     BOTTOM                  /SETUP NEW LIMIT
+1217   003506  7346          NL7775                          /SETUP COUNT OF THREE
+1218   003507  5313          JMP     BOTHMORE                /CONTINUE THERE
+1219   
+1220   003510  1344  DELBOTH,TAD     (TGO-1)                 /SETUP NO FUNCTIONS ADDRESS
+1221   003511  3035  FUNCT,  DCA     BOTTOM                  /ESTABLISH NEW LIMIT
+1222   003512  1120          TAD     M5/[-5]                 /DELETE ALL FIVE FUNCTIONS
+1223   003513  3311  BOTHMOR,DCA     FUNCT                   /SAVE DELETION COUNTER
+1224   003514  1343          TAD     (ERROR5)                /GET ERROR VALUE
+1225   003515  3725          DCA I   FUNPTR                  /DESTROY A FUNCTION ENTRY
+1226   003516  2325          ISZ     FUNPTR                  /BUMP TO NEXT FUNCTION
+1227   003517  2311          ISZ     FUNCT                   /DONE ALL YET?
+1228   003520  5314          JMP     .-4                     /NO, GO BACK
+1229   003521  5742  ONCECOM,JMP I   (TESTCON)               /CONTINUE THERE
+1230   
+1231   003522  1341  DELSIN, TAD     (FNTABF+11)             /GET NEW FUNCTION POINTER VALUE
+1232   003523  3325          DCA     FUNPTR                  /SAVE FOR DELETION LATER
+1233   003524  5740          JMP I   (RELOCATE)              /GO RELOCATE FUNCTIONS, THEN COME BACK
+1234   
+1235   003525  0402  FUNPTR, FNTABF+6                        /FUNCTION TABLE ADDRESS
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 31
+
+1236   003540  3600
+1237   003541  0405
+1238   003542  3641
+1239   003543  2725
+1240   003544  5377
+1241   003545  5177
+1242   003546  5000
+1243   003547  6313
+1244   003550  7701
+1245   003551  0020
+1246   003552  6005
+1247   003553  5210
+1248   003554  1217
+1249   003555  1204
+1250   003556  6002
+1251   003557  4551
+1252   003560  0211
+1253   003561  2163
+1254   003562  6001
+1255   003563  0010
+1256   003564  7604
+1257   003565  2417
+1258   003566  7635
+1259   003567  2416
+1260   003570  0007
+1261   003571  7634
+1262   003572  7521
+1263   003573  7607
+1264   003574  7756
+1265   003575  0225
+1266   003576  0400
+1267   003577  7605
+1268           3600          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 32
+
+1269                 /       ROUTINE TO RELOCATE ARCTANGENT, LOGARITHM, EXPONENTIAL PACKAGE SO IT
+1270                 /       WILL WORK WITHOUT SINE, COSINE PACKAGE WHEN THE LATTER IS DELETED.
+1271   
+1272   003600  1377  RELOCAT,TAD     (FEXP+200-1)    /NEW CORE LIMIT
+1273   003601  3035          DCA     BOTTOM          /TO CORE LIMIT ADDRESS
+1274   003602  1631          TAD I   RELTBL          /GET FIRST ADDRESS TO RELOCATE
+1275   003603  1123          TAD     C200/[200]      /RELOCATION FACTOR IS 200
+1276   003604  3631          DCA I   RELTBL          /PUT IT BACK
+1277   003605  2204          ISZ     .-1             /ZAP STORE INSTRUCTION
+1278   003606  2202          ISZ     .-4             /ZAP LOAD INSTRUCTION
+1279   003607  2227          ISZ     RELCNT          /DONE YET?
+1280   003610  5202          JMP     .-6             /NO, GO RELOCATE SOME MORE
+1281   003611  1625  RELLUP, TAD I   A1              /5177
+1282   003612  3626          DCA I   A2              /5377
+1283   003613  7240          NL7777                  /BACK
+1284   003614  1225          TAD     A1              /UP
+1285   003615  3225          DCA     A1              /POINTER
+1286   003616  7240          NL7777                  /BACK
+1287   003617  1226          TAD     A2              /UP
+1288   003620  3226          DCA     A2              /POINTER
+1289   003621  2230          ISZ     MOVCNT          /DONE YET?
+1290   003622  5211          JMP     RELLUP          /NO
+1291   003623  7344          NL7776                  /CORRECT COUNT
+1292   003624  5776          JMP I   (BOTHMOR)       /CONTINUE THERE
+1293   
+1294   003625  5177  A1,     FCOS-1                  /LAST LOCATION IN ATN PACKAGE
+1295   003626  5377  A2,     TGO-1                   /LAST NEW LOCATION FOR ATN PACKAGE
+1296   003627  7770  RELCNT, RELTBL-RELEND           /TABLE COUNT
+1297   003630  7220  MOVCNT, FEXP-TGO                /MOVE COUNTER
+1298   
+1299           3631          RELTBL= .               /RELOCATABLE ADDRESSES
+1300                         
+1301   003631  0402          FNTABF+6                /ARTN ENTRY
+1302   003632  0403          FNTABF+7                /FEXP ENTRY
+1303   003633  0404          FNTABF+10               /FLOG ENTRY
+1304   003634  4675          X2                      /POINTER TO NX
+1305   003635  4676          NNEGP                   /FLOATING NEGATE CHECK
+1306   003636  4754          ARCALG+22               /ARCTAN JUMP ADDRESS
+1307   003637  5023          GO+2                    /ARCTAN JUMP ADDRESS
+1308   003640  5156          TEM                     /FLOATING TEMPORARY POINTER
+1309   
+1310           3641          RELEND= .               /END OF TABLE HERE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 33
+
+1311                 /       TEST FOR EXISTENCE OF CONSOLE OVERLAY, ETC.
+1312   
+1313   003641  1504  TESTCON,TAD I   P7600/[SBOOT]   /GET BOOTSTRAP INSTRUCTION
+1314   003642  1375          TAD     (-JMSSYSIO)     /COMPARE TO MAGIC VALUE
+1315   003643  7650          SNA CLA                 /SKIP IF DIFFERENT
+1316   003644  5250          JMP     CHKCOVRLAY      /JUMP IF IT MATCHES
+1317   003645  2774          ISZ I   (CHKKRS)        /TURN "KRSIOT"
+1318   003646  2774          ISZ I   (CHKKRS)        /INTO "KRBIOT"
+1319   003647  3773          DCA I   (CHKKCC)        /DESTROY "KCCIOT"
+1320   003650  7326  CHKCOVR,NL0002                  /SET "C" BIT MASK
+1321   003651  0772          AND I   (SCRSIZE)       /GET THE BIT
+1322   003652  7650  LSNACLA,SNA CLA                 /SKIP IF ON
+1323   003653  5771          JMP I   (INTKILLER)     /JUMP IF OFF
+1324   003654  1370          TAD     (KSFIOT)        /GET DEVICE 03 INSTRUCTION
+1325   003655  3767          DCA I   (ENT03)         /STORE IN TABLE
+1326   003656  1366          TAD     (TSFIOT)        /GET DEVICE 04 INSTRUCTION
+1327   003657  3765          DCA I   (ENT04)         /STORE IN TABLE
+1328   003660  1772          TAD I   (SCRSIZE)       /GET CORE SIZE WORD
+1329   003661  7012          RTR;RAR                 /MOVE DOWN AND
+1330   003662  7010
+1331   003663  0364          AND     (70)            /ISOLATE MCS BITS
+1332   003664  1363          TAD     (CDF    10)     /FORM CDF MCS+10
+1333   003665  3270          DCA     INTCDF          /STORE IN-LINE
+1334   003666  1270          TAD     INTCDF          /GET CDF MCS+10
+1335   003667  3762          DCA I   (LUP1)          /STORE IN-LINE
+1336   003670  0000  INTCDF, .-.                     /WILL BE CDF MCS+10
+1337   003671  1761          TAD I   (INTLST)        /GET THE LIST POINTER
+1338   003672  3124          DCA     AC              /STASH IT
+1339   003673  1124          TAD     AC              /GET LIST POINTER
+1340   003674  7001          IAC                     /POINT TO CONSOLE OUTPUT ENTRY
+1341   003675  3270          DCA     INTCDF          /STASH THE POINTER
+1342   003676  1670          TAD I   INTCDF          /GET THE CONSOLE OUTPUT ENTRY
+1343   003677  6201          CDF     00              /BACK TO OUR FIELD
+1344   003700  7040          CMA                     /INVERT FOR CHECKING
+1345   003701  7640          SZA CLA                 /SKIP IF NO OUTPUT INTERRUPTS
+1346   003702  5307          JMP     CONORMAL        /JUMP IF NORMAL CONSOLE OUTPUT
+1347   
+1348                 /       SINCE THERE ARE NO OUTPUT INTERRUPTS, WE MUST DISABLE THE OUTPUT BUFFERING.
+1349   
+1350   003703  1104          TAD     P7600/[CLA!400] /GET CLEARING INSTRUCTION
+1351   003704  3760          DCA I   (OUTZAP)        /PREVENT IN-PROGRESS FLAG FROM BEING SET
+1352   003705  1104          TAD     P7600/[CLA!400] /GET CLEARING INSTRUCTION
+1353   003706  3757          DCA I   (CONPAT)        /PREVENT RECOVERY ROUTINE FROM SETTING IT ALSO
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 34
+
+1354   003707  3773  CONORMA,DCA I   (CHKKCC)                /DESTROY "KCCIOT"
+1355   003710  1762          TAD I   (LUP1)                  /GET "CDF MCS+10"
+1356   003711  7001          IAC     /TAD    (CIF-CDF)       /MAKE IT "CIF MCS+10"
+1357   003712  3756          DCA I   (CHKKSF)                /STORE OVER "KSFIOT"
+1358   003713  1755          TAD I   (CHKJMP)                /GET "JMP TRYOUT"
+1359   003714  3774          DCA I   (CHKKRS)                /STORE OVER "KRSIOT" OR "KRBIOT"
+1360   003715  1371          TAD     (JMS    INCON)          /GET INPUT ROUTINE CALL
+1361   003716  3755          DCA I   (CHKJMP)                /STORE OVER "JMP TRYOUT"
+1362   003717  1756          TAD I   (CHKKSF)                /GET "CIF MCS+10"
+1363   003720  3754          DCA I   (CHKINT)                /ENABLE CONSOLE INTERRUPT HANDLER
+1364   003721  1250          TAD     CHKCOVRLAY/(NL0002)     /GET NL0002 INSTRUCTION
+1365   003722  3753          DCA I   (TRYOUT)                /ENABLE OUTPUT INTERRUPT BIT MASK
+1366   003723  1352          TAD     (BUMPIT&177+ANDC)       /GET "AND BUMPIT" INSTRUCTION
+1367   003724  3751          DCA I   (TRYTSF)                /STORE OVER "TSFIOT"
+1368   003725  1750          TAD I   (TRYJMP)                /GET "JMP INTXIT"
+1369   003726  3747          DCA I   (TRYTCF)                /STORE OVER "TCFIOT"
+1370   003727  1252          TAD     LSNACLA/(SNA CLA)       /GET TEST INSTRUCTION
+1371   003730  3750          DCA I   (TRYJMP)                /STORE OVER "JMP INTXIT"
+1372   003731  1756          TAD I   (CHKKSF)                /GET "CIF MCS+10"
+1373   003732  3746          DCA I   (TTYOUT+1)              /STORE OVER "TLSIOT"
+1374   003733  1345          TAD     (JMS    OUTCON)         /GET OUTPUT ROUTINE CALL
+1375   003734  3744          DCA I   (TTYOUT+2)              /STORE OVER "SKP"
+1376   003735  5762          JMP I   (LUP1)                  /CONTINUE THERE
+1377   
+1378   003744  5664
+1379   003745  4033
+1380   003746  5663
+1381   003747  2676
+1382   003750  2675
+1383   003751  2674
+1384   003752  0213
+1385   003753  2673
+1386   003754  2654
+1387   003755  2660
+1388   003756  2657
+1389   003757  2742
+1390   003760  2625
+1391   003761  0003
+1392   003762  4000
+1393   003763  6211
+1394   003764  0070
+1395   003765  4204
+1396   003766  6041
+1397   003767  4203
+1398   003770  6031
+1399   003771  4031
+1400   003772  7611
+1401   003773  3207
+1402   003774  2661
+1403   003775  3540
+1404   003776  3513
+1405   003777  5017
+1406           4000          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 35
+
+1407                 /       COMES HERE TO REMOVE INTERRUPT DEVICES IN THE CONSOLE OVERLAY FROM THE
+1408                 /       MASTER INTERRUPT CLEARING LIST.
+1409   
+1410   004000  0000  LUP1,   .-.                     /WILL BE CDF MCS+10
+1411   004001  1524          TAD I   AC              /GET AN ENTRY IN CONSOLE INTERRUPT LIST
+1412   004002  6201          CDF     00              /BACK TO OUR FIELD
+1413   004003  7450          SNA                     /END OF LIST?
+1414   004004  5231          JMP     INTKILLER       /YES
+1415   004005  7040          CMA                     /CHECK FOR NON-INTERRUPT CASE
+1416   004006  7450          SNA                     /SKIP IF NOT 7777 ENTRY
+1417   004007  5227          JMP     IGNORE          /ELSE JUST IGNORE IT
+1418   004010  7001          IAC                     /NOW HAVE NEGATIVE FORM FOR TESTING
+1419   004011  3332          DCA     IOTEXC          /SAVE IT
+1420   004012  1377          TAD     (TESTLST)       /SETUP THE
+1421   004013  3344          DCA     LSTPTR          /LIST POINTER
+1422   004014  1744  LUP2,   TAD I   LSTPTR          /GET AN ENTRY FROM MASTER LIST
+1423   004015  7450          SNA                     /END OF LIST?
+1424   004016  5227          JMP     IGNORE          /YES
+1425   004017  1332          TAD     IOTEXC          /COMPARE TO TEST VALUE
+1426   004020  0376          AND     (7770)          /DELETE IOP BITS FROM TEST
+1427   004021  7640          SZA CLA                 /SKIP IF IT MATCHES
+1428   004022  5225          JMP     NOMATCH         /JUMP IF NOT
+1429   004023  7240          NL7777                  /CREATE 7777 ENTRY
+1430   004024  3744          DCA I   LSTPTR          /DESTROY MASTER LIST ELEMENT
+1431   004025  2344  NOMATCH,ISZ     LSTPTR          /BUMP TO NEXT
+1432   004026  5214          JMP     LUP2            /KEEP SEARCHING
+1433   
+1434                 /       COMES HERE IF CONSOLE ELEMENT IS 7777 OR MASTER LIST SEARCH IS DONE.
+1435   
+1436   004027  2124  IGNORE, ISZ     AC              /BUMP TO NEXT CONSOLE LIST ELEMENT
+1437   004030  5200          JMP     LUP1            /TRY TO MATCH NEXT ITEM IN MASTER LIST
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 36
+
+1438                 /       COMES HERE TO ATTEMPT TO CLEAR OR DISABLE ALL ACTIVE (NON-REFERENCED)
+1439                 /       INTERRUPTS BY EXECUTIVE SEVERAL IOT'S TO THE DEVICE. THE LIST MAY BE
+1440                 /       PATCHED FOR INSTALLATION ANOMALIES.
+1441   
+1442   004031  1377  INTKILL,TAD     (TESTLST)       /POINT TO
+1443   004032  3344          DCA     LSTPTR          /MASTER LIST
+1444   004033  7326          NL0002                  /SETUP "C" BIT MASK
+1445   004034  0775          AND I   (SCRSIZE)       /GET THE "C" BIT
+1446   004035  7650          SNA CLA                 /SKIP IF OVERLAY PRESENT
+1447   004036  7203          NL0100                  /WILL BE 0100 ON 8/E OR BETTER
+1448   004037  1101          TAD     P7700/[-100]    /COMPARE TO EXPECTED VALUE
+1449   004040  7650          SNA CLA                 /SKIP IF DIFFERENT
+1450   004041  6007          CAF                     /CLEAN UP BUSS NOW
+1451   004042  1744  INTKLUP,TAD I   LSTPTR          /GET AN ENTRY
+1452   004043  7450          SNA                     /END OF LIST?
+1453   004044  5303          JMP     INTDONE         /YES
+1454   004045  7040          CMA                     /CHECK FOR 7777 ENTRY
+1455   004046  7450          SNA                     /SKIP IF NOT 7777
+1456   004047  5301          JMP     NOKILL          /JUMP IF 7777
+1457   004050  7040          CMA                     /INVERT BACK
+1458   004051  0376          AND     (7770)          /REMOVE IOP BITS
+1459   004052  3333          DCA     IOTINLINE       /STORE IN TEST INSTRUCTION
+1460   004053  4332          JMS     IOTEXC          /EXECUTE IOT0
+1461   004054  2333          ISZ     IOTINLINE       /BUMP UP AND
+1462   004055  4332          JMS     IOTEXC          /EXECUTE IOT1
+1463   004056  2333          ISZ     IOTINLINE       /BUMP UP AND
+1464   004057  4332          JMS     IOTEXC          /EXECUTE IOT2
+1465   004060  2333          ISZ     IOTINLINE       /BUMP
+1466   004061  2333          ISZ     IOTINLINE       /UP
+1467   004062  2333          ISZ     IOTINLINE       /AND
+1468   004063  4332          JMS     IOTEXC          /EXECUTE IOT5
+1469   004064  2333          ISZ     IOTINLINE       /BUMP
+1470   004065  2333          ISZ     IOTINLINE       /UP AND
+1471   004066  4332          JMS     IOTEXC          /EXECUTE IOT7
+1472   004067  1333          TAD     IOTINLINE       /GET IOT7
+1473   004070  1120          TAD     M5/[2-7]        /MAKE IT IOT2
+1474   004071  3333          DCA     IOTINLINE       /STORE IN-LINE
+1475   004072  1374          TAD     (-7)            /GET TIME-OUT COUNTER
+1476   004073  3332          DCA     IOTEXC          /STASH IT
+1477   004074  2124          ISZ     AC              /WASTE
+1478   004075  5274          JMP     .-1             /SOME TIME
+1479   004076  2332          ISZ     IOTEXC          /WAITED ENOUGH?
+1480   004077  5274          JMP     .-3             /NO, KEEP GOING
+1481   004100  4332          JMS     IOTEXC          /EXECUTE IOT2
+1482   004101  2344  NOKILL, ISZ     LSTPTR          /BUMP TO NEXT ELEMENT
+1483   004102  5242          JMP     INTKLUP         /KEEP GOING
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 37
+
+1484                 /       COMES HERE AFTER KILLING INTERRUPTS FROM THE LIST. ADDITIONAL PATCH SPACE
+1485                 /       CAN BE USED HERE FOR KILLING WEIRD DEVICES THAT WERE REMOVED FROM THE
+1486                 /       MASTER LIST.
+1487   
+1488   004103  0000  INTDONE,ZBLOCK  20              /FOR ADDITIONAL IOT PATCHING
+1489   004123  1773          TAD I   (SWMX)          /GET /M-/X SWITCHES
+1490   004124  0372          AND     (40)            /JUST /S SWITCH
+1491   004125  7640          SZA CLA                 /SKIP IF OFF
+1492   004126  5177          JMP     START           /JUMP IF ON
+1493   004127  1771          TAD I   (CSTAR)         /GET PREVAILING PROMPT CHARACTER
+1494   004130  4551          PRINTC                  /PRINT IT
+1495   004131  5177          JMP     START           /GO START IT UP
+1496   
+1497   004132  0000  IOTEXC, .-.                     /TEST IOT EXECUTION ROUTINE
+1498   004133  0000  IOTINLI,.-.                     /WILL BE PROBLEMATIC IOT
+1499   004134  6202          CIF     00              /PREVENT PROBLEMS!
+1500   004135  6202          CIF     00              /PREVENT PROBLEMS!
+1501   004136  6202          CIF     00              /PREVENT PROBLEMS!
+1502   004137  6202          CIF     00              /PREVENT PROBLEMS!
+1503   004140  6002          IOF                     /PREVENT PROBLEMS!
+1504   004141  6201          CDF     00              /PREVENT PROBLEMS!
+1505   004142  7300          CLA CLL                 /CLEAN UP
+1506   004143  5732          JMP I   IOTEXC          /RETURN
+1507   
+1508   004144  0000  LSTPTR, .-.                     /INTERRUPT DISABLE LIST POINTER
+1509   
+1510   004171  0225
+1511   004172  0040
+1512   004173  7605
+1513   004174  7771
+1514   004175  7611
+1515   004176  7770
+1516   004177  4200
+1517           4200          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 38
+
+1518                 /       INTERRUPT DISABLE TEST LIST.
+1519   
+1520   004200  7777  TESTLST,7777                    /DEVICE 00
+1521   004201  6011          RSF                     /DEVICE 01 - HIGH-SPEED READER
+1522   004202  6021          PSF                     /DEVICE 02 - HIGH-SPEED PUNCH
+1523   004203  7777  ENT03,  7777/KSFIOT             /DEVICE 03 - CONSOLE KEYBOARD
+1524   004204  7777  ENT04,  7777/TSFIOT             /DEVICE 04 - CONSOLE PRINTER
+1525   004205  7777          7777                    /DEVICE 05
+1526   004206  7777          7777                    /DEVICE 06
+1527   004207  7777          7777                    /DEVICE 07
+1528   004210  7777          7777                    /DEVICE 10
+1529   004211  7777          7777/11^10+6001         /DEVICE 11 - DC02, PT08
+1530   004212  7777          7777/12^10+6001         /DEVICE 12 - DC02, PT08
+1531   004213  7777          7777                    /DEVICE 13
+1532   004214  7777          7777                    /DEVICE 14
+1533   004215  7777          7777                    /DEVICE 15
+1534   004216  7777          7777                    /DEVICE 16
+1535   004217  7777          7777                    /DEVICE 17
+1536   004220  7777          7777                    /DEVICE 20 - EXTENDED MEMORY
+1537   004221  7777          7777                    /DEVICE 21 - EXTENDED MEMORY
+1538   004222  7777          7777                    /DEVICE 22 - EXTENDED MEMORY
+1539   004223  7777          7777                    /DEVICE 23 - EXTENDED MEMORY
+1540   004224  7777          7777                    /DEVICE 24 - EXTENDED MEMORY
+1541   004225  7777          7777                    /DEVICE 25 - EXTENDED MEMORY
+1542   004226  7777          7777                    /DEVICE 26 - EXTENDED MEMORY
+1543   004227  7777          7777                    /DEVICE 27 - EXTENDED MEMORY
+1544   004230  6301          30^10+6001              /DEVICE 30
+1545   004231  6311          31^10+6001              /DEVICE 31
+1546   004232  6321          32^10+6001              /DEVICE 32
+1547   004233  6331          33^10+6001              /DEVICE 33
+1548   004234  6341          34^10+6001              /DEVICE 34
+1549   004235  6351          35^10+6001              /DEVICE 35
+1550   004236  6361          36^10+6001              /DEVICE 36
+1551   004237  6371          37^10+6001              /DEVICE 37
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 39
+
+1552   004240  6401          40^10+6001              /DEVICE 40 - PT08, KL-8/E
+1553   004241  6411          41^10+6001              /DEVICE 41 - PT08, KL-8/E
+1554   004242  6421          42^10+6001              /DEVICE 42 - KL-8/E
+1555   004243  6431          43^10+6001              /DEVICE 43 - KL-8/E, VT-8/E
+1556   004244  6441          44^10+6001              /DEVICE 44 - KL-8/E
+1557   004245  6456          45^10+6006              /DEVICE 45 - VT-8/E, KL-8/E
+1558   004246  6466          46^10+6006              /DEVICE 46 - KL-8/E
+1559   004247  6476          47^10+6006              /DEVICE 47 - KL-8/E
+1560   004250  7777          7777                    /DEVICE 50
+1561   004251  7777          7777                    /DEVICE 51
+1562   004252  7777          7777                    /DEVICE 52
+1563   004253  7777          7777                    /DEVICE 53
+1564   004254  7777          7777                    /DEVICE 54
+1565   004255  7777          7777                    /DEVICE 55
+1566   004256  7777          7777                    /DEVICE 56
+1567   004257  7777          7777                    /DEVICE 57
+1568   004260  7777          7777                    /DEVICE 60
+1569   004261  7777          7777                    /DEVICE 61
+1570   004262  7777          7777                    /DEVICE 62
+1571   004263  7777          7777                    /DEVICE 63
+1572   004264  7777          7777                    /DEVICE 64
+1573   004265  6651          65^10+6001              /DEVICE 65 - LPT:
+1574   004266  6661          66^10+6001              /DEVICE 66 - LPT:
+1575   004267  7777          7777                    /DEVICE 67
+1576   004270  7777          7777                    /DEVICE 70
+1577   004271  7777          7777                    /DEVICE 71
+1578   004272  7777          7777                    /DEVICE 72
+1579   004273  7777          7777                    /DEVICE 73
+1580   004274  7777          7777                    /DEVICE 74
+1581   004275  7777          7777                    /DEVICE 75
+1582   004276  7777          7777                    /DEVICE 76
+1583   004277  7777          7777                    /DEVICE 77
+1584   004300  0000          0                       /THIS ENDS THE LIST
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 40
+
+1585                 /       FUNCTION PATCHES.
+1586   
+1587                 /       AS WRITTEN, THE TRIGONOMETRIC FUNCTION PACKAGES ARE INTERDEPENDENT, THUS
+1588                 /       IT IS IMPOSSIBLE TO HAVE ATN, LOG, EXP WITHOUT SIN, COS.
+1589   
+1590                 /       BY TAKING ADVANTAGE OF CODE OPTIMIZATION TECHNIQUES, COINCIDENCES OF
+1591                 /       ASSEMBLY AND SMALL HOLES IN THE AREA, THE TWO PACKAGES CAN BE SPLIT. THIS
+1592                 /       ALLOWS THE ATN, LOG, EXP PACKAGE TO BE SELECTED ALONE BY RELOCATING IT TO
+1593                 /       THE AREA FORMERLY OCCUPIED BY SIN, COS. THIS SAVES EXACTLY ONE PAGE OF
+1594                 /       FOCAL BUFFER SPACE.
+1595   
+1596           4622          *FEXP+2                 /OVER JMS I NEGP
+1597   
+1598   004622  4676          JMS I   NNEGP/(FNEG)    /NEW POINTER
+1599   
+1600           4634          *FEXP+14                /OVER FPUT I XSQ2
+1601   
+1602   004634  6316          FPUT    NXSQR           /NEW TEMPORARY
+1603   
+1604           4636          *FEXP+16                /OVER FSUB I XSQ2
+1605   
+1606   004636  2316          FSUB    NXSQR           /NEW TEMPORARY
+1607   
+1608           4641          *FEXP+21                /OVER FPUT I XSQ2
+1609   
+1610   004641  6316          FPUT    NXSQR           /NEW TEMPORARY
+1611   
+1612           4652          *FEXP+32                /OVER FMUL I XSQ2
+1613   
+1614   004652  4316          FMUL    NXSQR           /NEW TEMPORARY
+1615   
+1616           4657          *FEXP+37                /OVER FMUL TWO
+1617   
+1618   004657  4322          FMUL    NTWO            /NEW CONSTANT
+1619   
+1620           4660          *FEXP+40                /OVER FADD ONE
+1621   
+1622   004660  1777          FADD I  (FLTONE)        /EXISTING CONSTANT
+1623   
+1624           4671          *FEXP+51                /OVER FGET ONE
+1625   
+1626   004671  0777          FGET I  (FLTONE)        /EXISTING CONSTANT
+1627   
+1628           4675          *X2                     /OVER POINTER TO X
+1629   
+1630   004675  5167  X2,     NX                      /NEW STORAGE POINTER
+1631   
+1632           4676          *XSQ2                   /OVER POINTER TO XSQR
+1633   
+1634   004676  5163  NNEGP,  FNEG                    /NEW POINTER TO FNEG
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 41
+
+1635           4716          *ONE                    /OVER FORMER CONSTANT ONE
+1636   
+1637   004716  0000  NXSQR,  ZBLOCK  4               /NEW TEMPORARY
+1638   004722  0002  NTWO,   0002;   2000;   0000    /NEW CONSTANT TWO
+1639   004723  2000
+1640   004724  0000
+1641   
+1642           4735          *ARCALG+3               /OVER FPUT I XSQ2
+1643   
+1644   004735  6316          FPUT    NXSQR           /NEW TEMPORARY
+1645   
+1646           4740          *ARCALG+6               /OVER FMUL I XSQ2
+1647   
+1648   004740  4316          FMUL    NXSQR           /NEW TEMPORARY
+1649   
+1650           4744          *ARCALG+12              /OVER FMUL I XSQ2
+1651   
+1652   004744  4316          FMUL    NXSQR           /NEW TEMPORARY
+1653   
+1654           4746          *ARCALG+14              /OVER FMUL I XSQ2
+1655   
+1656   004746  4316          FMUL    NXSQR           /NEW TEMPORARY
+1657   
+1658   004777  2405
+1659           5000          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 42
+
+1660           5005          *ARTN+5                 /OVER FPUT I X1
+1661   
+1662   005005  6367          FPUT    NX              /NEW TEMPORARY
+1663   
+1664           5015          *ARTN+15                /OVER FDIV I X1
+1665   
+1666   005015  3367          FDIV    NX              /NEW TEMPORARY
+1667   
+1668           5016          *ARTN+16                /OVER FPUT I X1
+1669   
+1670   005016  6367          FPUT    NX              /NEW TEMPORARY
+1671   
+1672           5025          *ARCRTN+1               /OVER JMP I EXIT1
+1673   
+1674   005025  5233          JMP     ARCEXIT         /NEW EXIT ROUTINE
+1675   
+1676           5027          *ARCRTN+3               /OVER FPUT I X1
+1677   
+1678   005027  6367          FPUT    NX              /NEW TEMPORARY
+1679   
+1680           5030          *ARCRTN+4               /OVER FGET I PI2
+1681   
+1682   005030  0373          FGET    NPI2            /NEW CONSTANT
+1683   
+1684           5031          *ARCRTN+5               /OVER FSUB I X1
+1685   
+1686   005031  2367          FSUB    NX              /NEW TEMPORARY
+1687   
+1688           5033          *ARCRTN+7               /OVER JMP I EXIT1, ETC.
+1689   
+1690   005033  2033  ARCEXIT,ISZ     T3              /SWITCH SIGNS?
+1691   005034  5536  EXIT1,  RETURN                  /NO, JUST RETURN
+1692   005035  4451  X1,     JMS I   MINSKI          /NEGATE FLAC
+1693   005036  5536  PI2,    RETURN                  /THEN RETURN
+1694   
+1695           5037          *CON1                   /OVER POINTER TO ONE
+1696   
+1697   005037  2405  CON1,   FLTONE                  /POINTER TO AVAILABLE CONSTANT ONE
+1698   
+1699           5100          *STARTL+14              /OVER FPUT I X1
+1700   
+1701   005100  6367          FPUT    NX              /NEW TEMPORARY
+1702   
+1703           5123          *STARTL+37              /OVER FADD I X1
+1704   
+1705   005123  1367          FADD    NX              /NEW TEMPORARY
+1706   
+1707           5125          *STARTL+41              /JMP I EXIT1
+1708   
+1709   005125  5233          JMP     ARCEXIT         /NEW EXIT ROUTINE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 43
+
+1710           5167          *FNEG+4                         /OVER EMPTY SPACE
+1711   
+1712   005167  0000  NX,     ZBLOCK  4                       /TEMPORARY
+1713   005173  0001  NPI2,   0001;   3110;   3756;   3235    /CONSTANT PI/2
+1714   005174  3110
+1715   005175  3756
+1716   005176  3235
+1717   
+1718   005177  0000          ZBLOCK  1                       /EMPTY SPACE
+1719   
+1720           5333          *C9+1                           /OVER SINE CONSTANT
+1721   
+1722   005333  2501          2501                            /CORRECTED VALUE
+1723   
+1724           5525          *K5                             /OVER FLOATING POINT CONSTANT
+1725   
+1726   005525  0004  K5,     4                               /CORRECT ROUNDING ERROR
+1727   
+1728                 /       THE FOLLOWING PATCHES ALLOW THE TTYOUT ROUTINE TO LIVE ON THIS PAGE.
+1729   
+1730           5610          *DECONV+10                      /OVER DECIMAL CONVERSION ROUTINE
+1731   
+1732   005610  1375          TAD     NMPLUS/(-"+)            /COMPARE TO "+"
+1733   
+1734           5620          *DECONV+20                      /OVER DECIMAL CONVERSION
+1735   
+1736   005620  4777          JMS I   NXINPUT/(INPUT)         /GET NEXT CHARACTER
+1737   
+1738           5622          *DECONV+22                      /OVER DECIMAL CONVERSION
+1739   
+1740   005622  1114          TAD     M240/[-" ]              /COMPARE TO " "
+1741   
+1742           5631          *DECON+2                        /OVER DECIMAL CONVERSION
+1743   
+1744   005631  1376          TAD     NMINE/(-"E)             /COMPARE TO "E"
+1745   
+1746           5645          *DSAVE+5                        /OVER DECIMAL CONVERSION
+1747   
+1748   005645  4777          JMS I   NXINPUT/(INPUT)         /GET NEXT CHARACTER
+1749   
+1750           5654          *DTST+5                         /OVER DECIMAL CONVERSION
+1751   
+1752   005654  1374          TAD     NMINUSZ/(-"Z)           /COMPARE TO "Z"
+1753   
+1754                 /       TTYOUT ROUTINE.
+1755   
+1756           5662          *MINE                           /OVER FORMER CONSTANTS
+1757   
+1758           5662          TTYOUT= .                       /TTY: OUTPUT ROUTINE
+1759   
+1760   005662  0000  MINE,   .-.                             /TTY: OUTPUT
+1761   005663  6046  MINUSZ, TLSIOT                          /**** CONSOLE **** CIF MCS+10
+1762   005664  7410  MPLUS,  SKP                             /**** CONSOLE **** JMS OUTCON
+1763   005665  5263  MSPACE, JMP     .-2                     /WAIT FOR IT IF NECESSARY
+1764   005666  5662  XINPUT, JMP I   TTYOUT                  /RETURN
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 44
+
+1765                 /       AVAILABLE SPACE FOR NEW CONSTANTS.
+1766   
+1767           5774          *DIV1+20                /AFTER DIVIDE ROUTINE
+1768   
+1769   005774  7446  NMINUSZ,-"Z                     /CONSTANT 7446
+1770   005775  7525  NMPLUS, -"+                     /CONSTANT 7525
+1771   
+1772                         IFNZRO  .-5776  <ERROR  .>
+1773   005776  7473  NMINE,  -"E                     /CONSTANT 7473
+1774   005777  0756  NXINPUT,INPUT                   /POINTER TO INPUT ROUTINE
+1775   
+1776                 /       PATCH TO REMOVE "=" ON OUTPUT.
+1777   
+1778           6002          *FLOUTP+2               /OVER OUTPUT ROUTINE
+1779   
+1780   006002  7600          CLA!400                 /REMOVE "="
+1781   
+1782                 /       PATCH TO POINT FLOATING OUTPUT TO A NEW BUFFER.
+1783   
+1784           6150          *SADR                   /OVER BUFFER POINTER
+1785   
+1786   006150  2563          NBUFFER-1               /NEW OUTPUT BUFFER
+1787   
+1788                 /       PATCHES TO ALLOW FILE UNPACKING ROUTINE TO LIVE ON THIS PAGE.
+1789   
+1790           6200          *FLINTP                 /FLOATING INPUT ROUTINE PAGE
+1791   
+1792                 /       THE FOLLOWING LITERAL DEFINITIONS ENSURE THAT THE POINTER TO NMINE WILL
+1793                 /       BE CORRECTLY ASSEMBLED.
+1794   
+1795           6377          FOO=    (7)             /ARBITRARY CONSTANT NEEDED LATER
+1796   
+1797           6376          FOO=    (ENDFILE)       /THIS MUST BE SECOND; OTHER LITERALS ARE ARBITRARY
+1798   
+1799           6207          *FLINTP+7               /OVER FLOATING INPUT ROUTINE
+1800   
+1801   006207  4650          JMS I   ENDFI+5/(DECONV)/READ DIGIT GROUP
+1802   
+1803           6215          *FLINTP+15              /OVER FLOATING INPUT ROUTINE
+1804   
+1805   006215  3702          DCA I   NDPN/(DNUMBR)   /STORE THE VALUE
+1806   
+1807           6217          *FLINTP+17              /OVER FLOATING INPUT ROUTINE
+1808   
+1809   006217  1702          TAD I   NDPN/(DNUMBR)   /GET THE VALUE BACK
+1810   
+1811           6232          *FIGO1+11               /OVER FLOATING OUTPUT ROUTINE
+1812   
+1813   006232  1763          TAD I   GNMINE/(NMINE)  /COMPARE TO "E"
+1814   
+1815           6236          *FIGO1+15               /OVER FLOATING OUTPUT ROUTINE
+1816   
+1817   006236  4650          JMS I   ENDFI+5/(DECONV)/READ DIGIT GROUP
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 45
+
+1818           6301          *MINUSE                         /OVER AVAILABLE AREA
+1819   
+1820           6301          GETCHR= .                       /GET A CHARACTER ROUTINE HERE
+1821   
+1822   006301  0000  MINUSE, .-.                             /GET A CHARACTER ENTRY POINT
+1823   
+1824           6302          NDPN=   ./(DNUMBR)              /POINTER TO DNUMBR HERE
+1825   
+1826   006302  5714  DPCVPT, JMP I   GTRIM                   /GO WHEREVER YOU GO
+1827   
+1828           6305          *DPN                            /OVER AVAILABLE AREA
+1829   
+1830   006305  7715  G7715,  "M-400                          /<CR> FUDGE CONSTANT
+1831   
+1832           6311          *P43+1                          /PUT BODY OF ROUTINE OVER OLD PTR: ROUTINE
+1833   
+1834   006311  7756  GFILE,  SFILES-1                        /FILE POINTER; WILL BE UPDATED AS NECESSARY
+1835   006312  7400  GPTR,   BUFFA                           /BUFFER POINTER
+1836   006313  7652  GTABCON,"I&77-37-100                    /**** NOT /T **** 7701
+1837   
+1838                         IFNZRO  .&177-114       <ERROR  .>
+1839   006314  6357  GTRIM,  GEOF                            /TRIM ROUTINE
+1840   006315  0122          AND     P77/[77]                /TRIM TO SIX-BIT
+1841   006316  7440          SZA                             /END OF LINE?
+1842   006317  5323          JMP     .+4                     /NO
+1843   006320  1375          TAD     (GETMR2)                /YES, FORCE
+1844   006321  3314          DCA     GTRIM                   /ALIGNMENT
+1845   006322  1305          TAD     G7715/("M-400)          /FORCE A <CR>
+1846   006323  1374          TAD     (-37)                   /COMPARE TO <HT>
+1847   006324  7450          SNA                             /NO
+1848   006325  1313          TAD     GTABCON                 /YES (MAY BE (" -337) FOR <SPACE>)
+1849   006326  7500          SMA                             /ALPHA?
+1850   006327  1101          TAD     P7700/[-100]            /NO
+1851   006330  1075          TAD     P337/[337]              /FIXUP TO EIGHT-BIT
+1852   006331  5701  GEXIT,  JMP I   GETCHR                  /RETURN TO FOCAL
+1853   
+1854   006332  1712  GETMORE,TAD I   GPTR                    /GET A WORD
+1855   006333  7450          SNA                             /<EOF>?
+1856   006334  5357          JMP     GEOF                    /YES
+1857   006335  4557          RTL6;RAL                        /BYTE SWAP
+1858   006336  7004
+1859   006337  4314          JMS     GTRIM                   /TRIM AND EXIT
+1860   006340  1712          TAD I   GPTR                    /COME BACK AND GET AGAIN
+1861   006341  4314          JMS     GTRIM                   /TRIM AND EXIT AGAIN
+1862   006342  2312  GETMR2, ISZ     GPTR                    /COME BACK AND BUMP POINTER
+1863   006343  1312          TAD     GPTR                    /COMPARE IT
+1864   006344  1123          TAD     C200/[-BUFFA-200]       /TO LIMIT
+1865   006345  7640  GSYSIO, SZA CLA                         /DONE WITH BUFFER?
+1866   006346  5332          JMP     GETMOR                  /NO
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 46
+
+1867   006347  4745  GEOB,   JMS I   GSYSIO/(SYSIO)  /READ A BLOCK
+1868   006350  7400  GBUFFA, BUFFA                   /INTO 07400
+1869   006351  0100  GFUN,   1^100+.-.               /1 BLOCK ONLY; UNIT BITS WILL BE FILLED IN
+1870   006352  0000  GBLOCK, .-.                     /BLOCK NUMBER WILL BE FILLED IN
+1871   006353  2352          ISZ     GBLOCK          /FOR NEXT TIME
+1872   006354  1350          TAD     GBUFFA/(BUFFA)  /RESET
+1873   006355  3312          DCA     GPTR            /CHARACTER POINTER
+1874   006356  5332          JMP     GETMORE         /TRY AGAIN
+1875   
+1876   006357  2311  GEOF,   ISZ     GFILE           /BUMP FILE POINTER
+1877   006360  1711          TAD I   GFILE           /GET A FILE ARGUMENT
+1878   006361  0373          AND     (7770)          /JUST BLOCK BITS
+1879   006362  7450          SNA                     /<EOT>?
+1880   006363  5776  GNMINE, JMP I   (ENDFILE)       /YES
+1881   006364  3352          DCA     GBLOCK          /NO, GO GET ANOTHER
+1882   006365  1711          TAD I   GFILE           /GET FILE ARGUMENT AGAIN
+1883   006366  0377          AND     (7)             /JUST UNIT BITS
+1884   006367  1006          TAD     C100/[1^100]    /GET READ ONE BLOCK BIT
+1885   006370  3351          DCA     GFUN            /PUT INTO CALL
+1886   006371  5347          JMP     GEOB            /NOW READ IT IN
+1887   
+1888   006372  0000          ZBLOCK  1               /EMPTY SPACE
+1889   
+1890   006373  7770
+1891   006374  7741
+1892   006375  6342
+1893   006376  2414
+1894   006377  0007
+1895           6400          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 47
+
+1896                 /       POINT INTERPRETIVE POWER ROUTINE AT NEW BUFFER SINCE SQUARE ROOT HAS MOVED.
+1897   
+1898           6551          *ZERO+31                /OVER ITER1 ADDRESS
+1899   
+1900   006551  2570          NITER1                  /POINT TO NEW BUFFER
+1901   
+1902           6554          *ZERO+34                /OVER ITER1 ADDRESS
+1903   
+1904   006554  2570          NITER1                  /POINT TO NEW BUFFER
+1905   
+1906           7127          *SIGN+3                 /OVER REFERENCE TO P4000
+1907   
+1908   007127  7330          NL4000                  /LOAD 4000 TO XOR THE SIGN BITS
+1909   
+1910                 /       BINARY LOADER ROUTINE FOR FOCAL.
+1911   
+1912           7400          *BUFFA                  /WHERE THIS EXECUTES
+1913   
+1914   007400  0000  BENTRY, .-.                     /FOCAL COMES HERE WHEN LOOKING FOR AN INPUT CHARACTER
+1915   007401  6002          IOF                     /PREVENT PROBLEMS
+1916   007402  1200          TAD     BENTRY          /GET CALLER
+1917   007403  3777          DCA I   (GETCHR)        /SAVE THERE IN CASE FINAL <EOF>
+1918   007404  7240          NL7777                  /\
+1919   007405  1200          TAD     BENTRY          / >BACKUP TO CALLER WITHIN FOCAL
+1920   007406  3200          DCA     BENTRY          //
+1921   007407  2321  BEOLOD, ISZ     BFLPTR          /POINT TO NEXT FILE
+1922   007410  1721          TAD I   BFLPTR          /GET NEXT FILE ARGUMENT
+1923   007411  0376          AND     (7770)          /JUST BLOCK BITS
+1924   007412  7450          SNA                     /END OF LIST?
+1925   007413  5775          JMP I   (ENDFILE)       /YES, GO SWAP IN OVERLAY
+1926   007414  3226          DCA     BINBLK          /NO, SAVE AS LATEST FILE BLOCK
+1927   007415  1721          TAD I   BFLPTR          /GET ARGUMENT AGAIN
+1928   007416  0374          AND     (7)             /JUST UNIT BITS
+1929   007417  1006          TAD     C100/[1^100]    /ADD ON ONE BLOCK READ BIT
+1930   007420  3225          DCA     BFUN            /STORE IN-LINE
+1931   007421  7240          NL7777                  /INDICATE VALIDITY
+1932   007422  3320          DCA     BCHK            /CHECK NEEDED
+1933   007423  4662  BLOAD,  JMS I   BSYSIO/(SYSIO)  /CALL I/O ROUTINES
+1934   007424  3400  B3400,  3400                    /BUFFER
+1935   007425  0100  BFUN,   1^100+.-.               /UNIT BITS WILL BE FILLED IN
+1936   007426  0000  BINBLK, .-.                     /BLOCK NUMBER WILL BE FILLED IN
+1937   007427  1224          TAD     B3400/(3400)    /RESET THE
+1938   007430  3323          DCA     BINPTR          /BUFFER POINTER
+1939   007431  1373          TAD     (-22)           /RESET THE
+1940   007432  3322          DCA     BGRPCT          /GROUP COUNTER
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 48
+
+1941   007433  1372  BNWGRP, TAD     (-6)            /RESET THE
+1942   007434  3326          DCA     BWDCT           /WORD COUNTER
+1943   007435  4314          JMS     BGETWD          /GET A WORD
+1944   007436  3325          DCA     BRLBTS          /SAVE AS FLAG WORD
+1945   007437  2320          ISZ     BCHK            /SHOULD WE CHECK FOR VALIDITY?
+1946   007440  5253          JMP     BGRPLP          /NO
+1947   007441  1723          TAD I   BINPTR          /MAKE
+1948   007442  1104          TAD     P7600/[-200]    /CHECK
+1949   007443  7650          SNA CLA                 /FOR VALIDITY
+1950   007444  5253          JMP     BGRPLP          /OK
+1951   007445  7240          NL7777                  /RESET
+1952   007446  1321          TAD     BFLPTR          /FILE POINTER
+1953   007447  3771          DCA I   (GFILE)         /FOR GETCHR
+1954   007450  1377          TAD     (GETCHR)        /POINT FOCAL
+1955   007451  3064          DCA     INDEV           /AT NEXT ROUTINE
+1956   007452  5600          JMP I   BENTRY          /GO BACK; NEVER DARKEN MY DOOR AGAIN
+1957   
+1958   007453  1325  BGRPLP, TAD     BRLBTS          /GET FLAG
+1959   007454  7106          CLL RTL                 /ROTATE TO NEXT
+1960   007455  3325          DCA     BRLBTS          /PUT IT BACK
+1961   007456  7221          CLA IAC CML             /SET LINK ON + AC[11]
+1962   007457  0325          AND     BRLBTS          /CHECK FOR CONDITIONS
+1963   007460  7420          SNL                     /<EOF> OR FIELD SETTING?
+1964   007461  5303          JMP     BEOF            /YES
+1965   007462  7640  BSYSIO, SZA CLA                 /WORD OF CODE?
+1966   007463  5300          JMP     BORGIN          /NO
+1967   007464  4314          JMS     BGETWD          /GET ANOTHER
+1968   007465  6201  BCDF,   CDF     00              /GETS CHANGED
+1969   007466  3724          DCA I   BLOC            /STORE CODE
+1970   007467  6201          CDF     00              /RESTORE FIELD
+1971   007470  2324          ISZ     BLOC            /BUMP CORE POINTER
+1972   007471  7000          NOP                     /JUST IN CASE
+1973   007472  2326  BNXTWD, ISZ     BWDCT           /DONE SIX YET?
+1974   007473  5253          JMP     BGRPLP          /NO DO ANOTHER
+1975   007474  2322          ISZ     BGRPCT          /DONE 22 GROUPS YET?
+1976   007475  5233          JMP     BNWGRP          /NO DO ANOTHER
+1977   007476  2226          ISZ     BINBLK          /BUMP BLOCK FOR NEXT
+1978   007477  5223          JMP     BLOAD           /GET IT IN
+1979   
+1980   007500  4314  BORGIN, JMS     BGETWD          /GET A NEW WORD
+1981   007501  3324          DCA     BLOC            /MAKE IT THE NEW LOCATION COUNTER
+1982   007502  5272          JMP     BNXTWD          /GO DO NEXT ONE
+1983   
+1984   007503  7640  BEOF,   SZA CLA                 /SKIP IF <EOF>
+1985   007504  5311          JMP     BFIELD          /JUMP IF FIELD SETTING
+1986   
+1987                 /       THE FOLLOWING IS PROVIDED FOR THE BENEFIT OF OVERLAY FILES WHICH CAN
+1988                 /       EASILY ZAP THIS AND GAIN CONTROL.
+1989   
+1990   007505  0000  BEOFZAP,0000                    /**** FILES WHICH INITIALIZE **** SKP
+1991   007506  7410          SKP                     /DON'T NORMALLY GO ANYWHERE
+1992   007507  5770          JMP I   (BONCE)         /STARTUP JUST READ IN OVERLAY
+1993   007510  5207          JMP     BEOLOD          /GO DO NEXT FILE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 49
+
+1994   007511  4314  BFIELD, JMS     BGETWD          /GET A NEW WORD
+1995   007512  3265          DCA     BCDF            /MAKE IT THE NEW FIELD SETTING
+1996   007513  5272          JMP     BNXTWD          /GO DO NEXT ONE
+1997   
+1998   007514  0000  BGETWD, .-.                     /GET A WORD FROM THE BUFFER
+1999   007515  1723          TAD I   BINPTR          /GET NEXT WORD
+2000   007516  2323          ISZ     BINPTR          /FOR NEXT TIME
+2001   007517  5714          JMP I   BGETWD          /RETURN 
+2002   
+2003   007520  0000  BCHK,   .-.                     /VALIDITY CHECKING SWITCH
+2004   007521  7756  BFLPTR, SFILES-1                /POINTER TO PASSED FILES
+2005   007522  0000  BGRPCT, .-.                     /GROUP COUNTER
+2006   007523  0000  BINPTR, .-.                     /BUFFER POINTER
+2007   007524  0000  BLOC,   .-.                     /LOCATION COUNTER
+2008   007525  0000  BRLBTS, .-.                     /FLAG WORD
+2009   007526  0000  BWDCT,  .-.                     /WORD COUNTER
+2010   
+2011   007570  3600
+2012   007571  6311
+2013   007572  7772
+2014   007573  7756
+2015   007574  0007
+2016   007575  2414
+2017   007576  7770
+2018   007577  6301
+2019           7600          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 50
+
+2020           0001          FIELD   1               /OVERLAY FIELD
+2021   
+2022           0000          *0                      /WHERE IT GENERATES
+2023   
+2024                         NOPUNCH                 /FOOL THE ASSEMBLER
+2025   
+2026           0000          FIELD   0               /WHERE IT EXECUTES
+2027   
+2028           0000          *0                      /RESTORE ORIGIN
+2029   
+2030                         ENPUNCH                 /RESTORE BINARY OUTPUT
+2031   
+2032           7400          RELOC   BUFFA           /WHERE IT EXECUTES
+2033   
+2034   007400* 1777  BUFFA,  TAD I   (SWAL)          /GET SWITCHES /A-/L
+2035   007401* 4557  QCNT,   RTL6                    /G TO AC[0]
+2036   007402* 7700  QCNT2,  SMA CLA                 /SKIP IF /G SET
+2037   007403* 5211          JMP     NOGEE           /JUMP IF NOT SET
+2038   007404* 1376          TAD     ("G)            /GET A "G"
+2039   007405* 3066          DCA     CHAR            /PREPARE TO PACK IT IN
+2040   007406* 4546          PACKC                   /PACK IT IN
+2041   007407* 1077          TAD     CCR/["M&37!200] /GET A <CR>
+2042   007410* 3034          DCA     INBUF           /SET INPUT BUFFER ALSO
+2043   007411* 6002  NOGEE,  IOF                     /PREVENT PROBLEMS
+2044   007412* 1375          TAD     (PRINTC)        /GET INSTRUCTION
+2045   007413* 3774          DCA I   (CHIN+6)        /RESTORE ECHO
+2046   007414* 1375          TAD     (PRINTC)        /GET INSTRUCTION
+2047   007415* 3773          DCA I   (START+12)      /RESTORE STARS (OR POINTS)
+2048   007416* 1372          TAD     (RECOVR)        /ALLOW
+2049   007417* 3771          DCA I   (RECADDRESS)    /<^P> HANDLING
+2050   007420* 1370          TAD     (ERROR2)        /RESTORE
+2051   007421* 3767          DCA I   (ERRZAP)        /INPUT BUFFER OVERFLOW ERROR
+2052   007422* 1366          TAD     (CINPUT)        /RESTORE THE
+2053   007423* 3064          DCA     INDEV           /INPUT POINTER
+2054   007424* 7240          NL7777                  /\
+2055   007425* 1765          TAD I   (GETCHR)        / >BACKUP CALLER
+2056   007426* 3765          DCA I   (GETCHR)        //
+2057   007427* 1777          TAD I   (SWAL)          /GET SWITCHES /A-/L
+2058   007430* 7010          RAR                     /L TO LINK
+2059   007431* 7630          SZL CLA                 /SKIP IF /L OFF
+2060   007432* 5236          JMP     LIBSET          /JUMP IF ON
+2061   007433* 1364          TAD     (LCOM)          /SETUP THE
+2062   007434* 3763          DCA I   (COMGO+10)      /LIBRARY ENTRY
+2063   007435* 5762          JMP I   (ENDFILE)       /GO SWAP IN NEXT LIBRARY HANDLER
+2064   
+2065   007436* 1361  LIBSET, TAD     (LIBRARY)       /SETUP
+2066   007437* 3763          DCA I   (COMGO+10)      /OUR LIBRARY COMMAND
+2067   007440* 6001          ION                     /SAFE TO COME OUT NOW!
+2068   007441* 5760          JMP I   (GEXIT)         /GO REJOIN FOCAL FROM THERE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 51
+
+2069                 /       LIBRARY (LOCATIONS COMMAND) IF /L.
+2070   
+2071   007442* 1133  LIBRARY,TAD     CFRS            /GET FIRST
+2072   007443* 4302          JMS     PRNT8           /PRINT IT
+2073   007444* 1060          TAD     BUFR            /GET BUFFER LIMIT
+2074   007445* 4302          JMS     PRNT8           /PRINT IT
+2075   007446* 1031          TAD     LASTV           /GET LAST VARIABLE LIMIT
+2076   007447* 4302          JMS     PRNT8           /PRINT IT
+2077   007450* 1035          TAD     BOTTOM          /GET STACK LIMIT
+2078   007451* 4302          JMS     PRNT8           /PRINT IT
+2079   007452* 5255          JMP     .+3             /NOT YET!
+2080   
+2081   007453* 4545          GETC                    /GET ADDITIONAL INPUT
+2082   007454* 4551          PRINTC                  /PRINT IT
+2083   007455* 1066          TAD     CHAR            /GET DELIMITER
+2084   007456* 1116          TAD     MCR/[-"M!100]   /COMPARE TO <CR>
+2085   007457* 7640          SZA CLA                 /SKIP IF IT MATCHES
+2086   007460* 5253          JMP     .-5             /GO BACK OTHERWISE
+2087   007461* 1757          TAD I   (FILPTR)        /GET FILL POINTER
+2088   007462* 7041          CIA                     /INVERT FOR TEST
+2089   007463* 1756          TAD I   (EMTPTR)        /COMPARE TO EMPTYING POINTER
+2090   007464* 7640          SZA CLA                 /SKIP IF THEY MATCH
+2091   007465* 5261          JMP     .-4             /ELSE WAIT FOR IT
+2092   007466* 1016          TAD     TELSW           /GET IN-PROGRESS FLAG
+2093   007467* 7640          SZA CLA                 /SKIP IF IDLE
+2094   007470* 5261          JMP     .-7             /ELSE WAIT FOR EVERYTHING TO FINISH
+2095   007471* 1355          TAD     (-40)           /GET TIME COUNTER
+2096   007472* 3202          DCA     QCNT2           /SET IT UP
+2097   007473* 2201          ISZ     QCNT            /WASTE
+2098   007474* 5273          JMP     .-1             /SOME TIME
+2099   007475* 2202          ISZ     QCNT2           /WASTED ENOUGH TIME?
+2100   007476* 5273          JMP     .-3             /NO, KEEP GOING
+2101   007477* 6002          IOF                     /TURN INTERRUPTS OFF
+2102   007500* 7000  LIBZAP, NOP                     /**** VT-8/E OVERLAY **** DPSMIOT
+2103   007501* 5504          JMP I   P7600/[SBOOT]   /GOODBYE!
+2104   
+2105   007502* 0000  PRNT8,  .-.                     /PRINT AN OCTAL NUMBER ROUTINE
+2106   007503* 3032          DCA     T1              /SAVE IN T1
+2107   007504* 1354          TAD     (-4)            /GET CONSTANT
+2108   007505* 3201          DCA     QCNT            /SAVE IN COUNTER
+2109   007506* 1032  QLP,    TAD     T1              /GET IT BACK
+2110   007507* 7106          CLL RTL;RAL             /SHIFT IT TO LOW-ORDER BITS
+2111   007510* 7004
+2112   007511* 3032          DCA     T1              /SAVE IT BACK
+2113   007512* 1032          TAD     T1              /GET IT AGAIN
+2114   007513* 7004          RAL                     /SHIFT INTO PLACE
+2115   007514* 0353          AND     (7)             /AND WITH A SUITABLE FUDGE
+2116   007515* 1113          TAD     C260/["0]       /MAKE IT ASCII
+2117   007516* 4551          PRINTC                  /AND PRINT IT
+2118   007517* 2201          ISZ     QCNT            /DONE 4 YET?
+2119   007520* 5306          JMP     QLP             /NO, GO BACK
+2120   007521* 1077          TAD     CCR/["M&37!200] /YES, GET <CR>
+2121   007522* 4551          PRINTC                  /AND PRINT THAT
+2122   007523* 5702          JMP I   PRNT8           /RETURN
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 52
+
+2123   007553* 0007
+2124   007554* 7774
+2125   007555* 7740
+2126   007556* 2710
+2127   007557* 2647
+2128   007560* 6331
+2129   007561* 7442
+2130   007562* 2414
+2131   007563* 1173
+2132   007564* 7404
+2133   007565* 6301
+2134   007566* 2600
+2135   007567* 2667
+2136   007570* 4566
+2137   007571* 3234
+2138   007572* 2740
+2139   007573* 0211
+2140   007574* 2163
+2141   007575* 4551
+2142   007576* 0307
+2143   007577* 7604
+2144           7600          PAGE
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 53
+
+2145           0200          RELOC                   /TURN OFF RELOCATION
+2146   
+2147           0001          FIELD   1               /WHERE IT GENERATES
+2148   
+2149           0200          *200                    /WHERE IT GENERATES
+2150   
+2151                         NOPUNCH                 /FOOL THE ASSEMBLER
+2152   
+2153           0000          FIELD   0               /WHERE IT EXECUTES
+2154   
+2155           0200          *200                    /WHERE IT LOADS
+2156   
+2157                         ENPUNCH                 /RESTORE BINARY OUTPUT
+2158   
+2159           7400          RELOC   BUFFA           /WHERE IT EXECUTES
+2160   
+2161   007400* 6001  BUFFA,  ION                     /RESTORE INTERRUPT
+2162   007401* 5777  QCNT3,  JMP I   (GEXIT)         /REJOIN FOCAL
+2163   
+2164                 /       UNIMPLEMENTED LIBRARY COMMAND; AVAILABLE ONLY AFTER BEING SWAPPED IN.
+2165   
+2166   007402* 4545          GETC                    /GET A CHARACTER
+2167   007403* 4551          PRINTC                  /PRINT IT
+2168   007404* 1066  LCOM,   TAD     CHAR            /GET THE LATEST
+2169   007405* 1116          TAD     MCR/[-"M!100]   /COMPARE TO <CR>
+2170   007406* 7640          SZA CLA                 /SKIP IF IT MATCHES
+2171   007407* 5202          JMP     .-5             /ELSE KEEP GOING
+2172   007410* 1776          TAD I   (FILPTR)        /GET FILL POINTER
+2173   007411* 7041          CIA                     /INVERT FOR TEST
+2174   007412* 1775          TAD I   (EMTPTR)        /COMPARE TO EMPTYING POINTER
+2175   007413* 7640          SZA CLA                 /SKIP IF THEY MATCH
+2176   007414* 5210          JMP     .-4             /ELSE WAIT FOR IT
+2177   007415* 1016          TAD     TELSW           /GET IN-PROGRESS FLAG
+2178   007416* 7640          SZA CLA                 /SKIP IF IDLE
+2179   007417* 5210          JMP     .-7             /ELSE WAIT FOR EVERYTHING TO FINISH
+2180   007420* 1374          TAD     (-40)           /GET TIME COUNTER
+2181   007421* 3200          DCA     BUFFA           /SET IT UP
+2182   007422* 2201          ISZ     QCNT3           /WASTE
+2183   007423* 5222          JMP     .-1             /SOME TIME
+2184   007424* 2200          ISZ     BUFFA           /WASTED ENOUGH TIME?
+2185   007425* 5222          JMP     .-3             /NO, KEEP GOING
+2186   007426* 6002          IOF                     /TURN INTERRUPTS OFF
+2187   007427* 7000  LCOMZAP,NOP                     /**** VT-8/E OVERLAY **** DPSMIOT
+2188   007430* 6002          IOF                     /TURN INTERRUPTS OFF
+2189   007431* 5504          JMP I   P7600/[SBOOT]   /GOODBYE!
+2190   
+2191   007574* 7740
+2192   007575* 2710
+2193   007576* 2647
+2194   007577* 6331
+2195           7600          PAGE
+2196   
+2197           0400          RELOC                   /TURN OFF RELOCATION
+2198   
+2199                         $                       /THAT'S ALL FOLK!
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 54
+
+AA01A  0000      CHKINT 2654      ENT04  4204      GPTR   6312
+AC     0124      CHKJMP 2660      ERROR2 4566      GSYSIO 6345
+ACMX   6371      CHKKCC 3207      ERROR3 4566      GTABCO 6313
+ADCV   6364      CHKKRS 2661      ERROR5 2725      GTEM   0021
+ADLM   6531      CHKKSF 2657      ERRZAP 2667      GTRIM  6314
+ADRB   6533      CINPUT 2600      EVAL   1613      G37    2344
+ADSC   6542      CINWAI 2601      EXIT1  5034      G7715  6305
+ADSF   6531      CLCU   3156      EXTR   2313      HINBUF 0037
+ADSK   6534      COL    1255      FADD   1000      IGNORE 4027
+ADST   6532      COMBOT 0226      FCONT  1101      INBUF  0034
+AFADRB 6534      COMBUF 0132      FCOS   5200      INCHAR 0126
+AF01   0000      COMEIN 3140      FDIV   3000      INCON  0031
+ANDC   0200      COMGO  1163      FENTER 4407      INDEV  0064
+ARCALG 4732      CONINT 0000      FEXIT  0000      INITNX 3407
+ARCEXI 5033      CONORM 3707      FEXP   4620      INPUT  0756
+ARCRTN 5024      CONPAT 2742      FGET   0000      INTCDF 3670
+ARTN   5000      CON1   5037      FIGO1  6221      INTDON 4103
+AXOUT  0017      COUTPU 2630      FILPTR 2647      INTEGE 0053
+AX08   0000      CSCQSW 0037      FINKP  1133      INTHND 2651
+A1     3625      CSTAR  0225      FLAC   0044      INTKIL 4031
+A2     3626      C100   0006      FLINTP 6200      INTKLU 4042
+BCDF   7465      C200   0123      FLOUTP 6000      INTLST 0003
+BCHK   7520      C260   0113      FLTONE 2405      INTXIT 2711
+BENTRY 7400      C9     5332      FMUL   4000      IOBUF  3120
+BEOF   7503      DAL1   6551      FNEG   5163      IOTEXC 4132
+BEOFZA 7505      DAL2   6552      FNTABF 0374      IOTINL 4133
+BEOLOD 7407      DDTJR  0004      FNTABL 2165      I33    2414
+BFIELD 7511      DEBGSW 0026      FOCAL  3400      JMPC   5200
+BFLPTR 7521      DECON  5627      FOO    6376      JMSC   4200
+BFUN   7425      DECONV 5600      FOUTPU 0130      JMSIZ  4400
+BGETWD 7514      DELBOT 3510      FPUT   6000      JMSSYS 4240
+BGRPCT 7522      DELSIN 3522      FSUB   2000      KCCIOT 6032
+BGRPLP 7453      DFINT  2641      FUNCT  3511      KEYBAC 2665
+BINBLK 7426      DF32   0000      FUNPTR 3525      KEYHND 3200
+BINPTR 7523      DILX   6053      GBLOCK 6352      KRBIOT 6036
+BLOAD  7423      DILY   6054      GBUFFA 6350      KRSIOT 6034
+BLOC   7524      DIS    6304      GEND   2334      KSFIOT 6031
+BNWGRP 7433      DIV1   5754      GEOB   6347      K5     5525
+BNXTWD 7472      DPCVPT 6302      GEOF   6357      LAB8E  0001
+BONCE  3600      DPN    6305      GETC   4545      LASTV  0031
+BORGIN 7500      DSAVE  5640      GETCHR 6301      LCOM   7404
+BOTHMO 3513      DTST   5647      GETMOR 6332      LCOMZA 7427
+BOTTOM 0035      DXC    6301      GETMR2 6342      LIBRAR 7442
+BRLBTS 7525      DXL    6302      GETSGN 1045      LIBSET 7436
+BSYSIO 7462      DYC    6311      GET1   2330      LIBZAP 7500
+BUFFA  7400      DYL    6312      GET3   2345      LINC8  0000
+BUFR   0060      EFUN3I 0136      GEXIT  6331      LINENO 0067
+BUMPIT 2613      EMTPTR 2710      GFILE  6311      LINK   2761
+BWDCT  7526      END    0134      GFUN   6351      LSNACL 3652
+B3400  7424      ENDADR 2415      GINC   0070      LSTPTR 4144
+CCR    0077      ENDFI  6243      GNMINE 6363      LUP1   4000
+CFRS   0133      ENDFIL 2414      GO     5021      LUP2   4014
+CHAR   0066      ENDFUN 2416      GONE   0232      L7763  1362
+CHIN   2155      ENDT   0135      GOTQ   3223      MCR    0116
+CHKCOV 3650      ENT03  4203      GOTS   3222      MINE   5662
+
+/       FOCAL, 1969 FOR P?S/8             PAL8-VB0  21-SEP-89 PAGE 54-1
+
+MINSKI 0051      PCSAVE 0000      SIGN   7124      
+MINUSE 6301      PER    0102      SKAD   6332      
+MINUSZ 5663      PINTHN 0002      SOUTFL 7607      
+MOVCNT 3630      PIOBUF 0003      SQUEND 3173      
+MPLUS  5664      PI2    5036      SRNLST 1363      
+MSPACE 5665      PKEYHN 2631      START  0177      
+M1     3230      PNFPAC 3002      STARTL 5064      
+M11    0121      POPJ   5541      STARTV 0060      
+M140   2556      PRINTC 4551      SWAL   7604      
+M2     0111      PRNT   2442      SWAPBL 2417      
+M20    0105      PRNTLN 4553      SWMX   7605      
+M240   0114      PRNT8  7502      SWY9   7606      
+M5     0120      PR50   3057      SYSIO  7640      
+M77    0103      PR51   3104      TASK   1204      
+NBUFBE 3321      PSCRSI 3231      TASK4  1253      
+NBUFFE 2564      PTCH   0126      TCFIOT 6042      
+NCOL   1204      PTRIM  3111      TCRLF2 1246      
+NCOMEI 3235      PTRYAG 3232      TDMPLP 3053      
+NCOMEO 3305      PTRYOU 3233      TDUMP  3052      
+NDPN   6302      PTTYOU 2724      TELSW  0016      
+NFPAC1 2564      PT1    0030      TEM    5156      
+NFRST  3305      P13    0005      TESTAC 3473      
+NFRSTX 3317      P17    0107      TESTCO 3641      
+NITER1 2570      P177   0106      TESTEE 3435      
+NL0002 7326      P277   0110      TESTEF 3457      
+NL0100 7203      P337   0075      TESTEN 3451      
+NL2000 7332      P4000  0124      TESTES 3427      
+NL3777 7350      P43    6310      TESTEY 3421      
+NL4000 7330      P7600  0104      TESTLS 4200      
+NL7775 7346      P77    0122      TESTQU 3443      
+NL7776 7344      P7700  0101      TESTTE 3465      
+NL7777 7240      P8K    0167      TEXTP  0017      
+NMINE  5776      QCNT   7401      TGO    5400      
+NMINUS 5774      QCNT2  7402      TLSIOT 6046      
+NMPLUS 5775      QCNT3  7401      TRYAGN 2700      
+NNEGP  4676      QLP    7506      TRYJMP 2675      
+NOGEE  7411      RADC   6362      TRYOUT 2673      
+NOKILL 4101      RECADD 3234      TRYTCF 2676      
+NOLINE 2777      RECOVR 2740      TRYTSF 2674      
+NOMATC 4025      RECOVX 2761      TSFIOT 6041      
+NPI2   5173      RELCNT 3627      TTY    0003      
+NPRNT2 3117      RELEND 3641      TTYOUT 5662      
+NTWO   4722      RELLUP 3611      T1     0032      
+NX     5167      RELOCA 3600      T3     0033      
+NXINPU 5777      RELTBL 3631      VERSIO 0012      
+NXSQR  4716      RETURN 5536      WRITE  4000      
+ONCECO 3521      REVISI 0004      XADC   1343      
+ONE    4716      RTL6   4557      XCT    0020      
+OUTCON 0033      RUB1   3004      XDYS   1142      
+OUTDEV 0063      SADR   6150      XINPUT 5666      
+OUTDO  2623      SBLOCK 7635      XSQRT  3140      
+OUTGO  2626      SBOOT  7600      XSQ2   4676      
+OUTZAP 2625      SCRSIZ 7611      X1     5035      
+PACKC  4546      SFILES 7757      X2     4675      
+PACX   2530      SFUN   7634      ZERO   6520      
+
+
+
+ERRORS DETECTED: 0
+LINKS GENERATED: 0
+
+
+
+
+AA01A      274#  274   635  
+AC         563#  879   947  1338  1339  1411  1436  1477  
+ACMX       284#  740  
+ADCV       285#  740  
+ADLM       286#  752  
+ADRB       287#  756  
+ADSC       291#  729  
+ADSF       292#  731  
+ADSK       288#  754  
+ADST       289#  753  
+AFADRB     290#  733  
+AF01       275#  275   726  
+ANDC       492# 1366  
+ARCALG     324# 1306  1642  1646  1650  1654  
+ARCEXI    1674  1690# 1709  
+ARCRTN     325# 1672  1676  1680  1684  1688  
+ARTN       326# 1660  1664  1668  
+AXOUT      327#  521   798  
+AX08       276#  276   647   737  
+A1        1281  1284  1285  1294# 
+A2        1282  1287  1288  1295# 
+BCDF      1968# 1995  
+BCHK      1932  1945  2003# 
+BENTRY     557  1914# 1916  1919  1920  1956  
+BEOF      1964  1984# 
+BEOFZA    1990# 
+BEOLOD    1921# 1993  
+BFIELD    1985  1994# 
+BFLPTR    1156  1921  1922  1927  1952  2004# 
+BFUN      1930  1935# 
+BGETWD    1943  1967  1980  1994  1998# 2001  
+BGRPCT    1940  1975  2005# 
+BGRPLP    1946  1950  1958# 1974  
+BINBLK    1926  1936# 1977  
+BINPTR    1938  1947  1999  2000  2006# 
+BLOAD     1933# 1978  
+BLOC      1969  1971  1981  2007# 
+BNWGRP    1941# 1976  
+BNXTWD    1973# 1982  1996  
+BONCE      493# 1992  
+BORGIN    1966  1980# 
+BOTHMO    1218  1223# 1292  
+BOTTOM     328#  533  1216  1221  1273  2077  
+BRLBTS    1944  1958  1960  1962  2008# 
+BSYSIO    1933  1965# 
+BUFFA      494   812  1835  1868  1912  2032  2034  2159  2161# 2181  
+          2184  
+BUFR       329#  545  2073  
+BUMPIT     845#  846   850   851   852   874   884   909  1366  
+BWDCT     1942  1973  2009# 
+B3400     1934# 1937  
+CCR        330#  990  1029  2041  2120  
+CFRS       331   580   582# 2071  
+CHAR       332#  785   786  2039  2083  2168  
+CHIN       333# 1169  2045  
+CHKCOV    1316  1320# 1364  
+CHKINT     882# 1363  
+CHKJMP     886# 1358  1361  
+
+CHKKCC    1092# 1319  1354  
+CHKKRS     887# 1317  1318  1359  
+CHKKSF     885# 1357  1362  1372  
+CINPUT     833#  843   854   861   872  1084  2052  
+CINWAI     834#  836  
+CLCU      1062# 1077  
+COL        334   710# 
+COMBOT     335   604   606# 
+COMBUF     336   574   576# 
+COMEIN     337# 1046  
+COMGO      338#  671   675  2062  2066  
+CONINT     464#  883  
+CONORM    1346  1354# 
+CONPAT     957# 1353  
+CON1       339  1695  1697# 
+COUTPU     551   839   842   858   860# 
+CSCQSW     541#  864   903  1104  
+CSTAR      340# 1153  1493  
+C100       341# 1159  1884  1929  
+C200       342#  895  1177  1183  1275  1864  
+C260       343# 2116  
+C9         344# 1720  
+DAL1       293#  643  
+DAL2       294#  639  
+DDTJR      346   504   511# 
+DEBGSW     345#  708  
+DECON      347# 1742  
+DECONV     348# 1730  1734  1738  
+DELBOT    1209  1220# 
+DELSIN    1212  1231# 
+DFINT      869#  919  
+DF32       277#  277   917   923  
+DILX       295#  667  
+DILY       296#  663  
+DIS        297#  655  
+DIV1       349# 1767  
+DPCVPT     350  1826# 
+DPN        351# 1828  
+DSAVE      352# 1746  
+DTST       353# 1750  
+DXC        298#  655  
+DXL        299#  655  
+DYC        300#  651  
+DYL        301#  651  
+EFUN3I     354#  434  
+EMTPTR     902   908   910#  970  2089  2174  
+END        355   586   588# 
+ENDADR     812#  816  
+ENDFI      356# 1801  1817  
+ENDFIL     811# 1797  1880  1925  2063  
+ENDFUN     813# 1160  
+ENDT       357#  590  
+ENT03     1325  1523# 
+ENT04     1327  1524# 
+ERROR     1084  1143  1772  1838  
+ERROR2     358# 2050  
+ERROR3     359# 1053  1061  1076  
+ERROR5     360#  677  1224  
+
+ERRZAP     893# 2051  
+EVAL       361# 
+EXIT1      362  1691# 
+EXTR       363#  789  
+FADD       481# 1071  1622  1705  
+FCONT      364#  624  
+FCOS       365# 1215  1294  
+FDIV       482# 1070  1666  
+FENTER     483# 1025  1048  1067  
+FEXIT      484# 1027  1050  1072  
+FEXP       366#  535  1272  1297  1596  1600  1604  1608  1612  1616  
+          1620  1624  
+FGET       485# 1026  1069  1626  1682  
+FIGO1      367# 1811  1815  
+FILPTR     863   873   875#  972  2087  2172  
+FINKP      368#  628  
+FLAC       369#  379   760   761   763  1055  1059  1062  1064  1074  
+          1075  
+FLINTP     370# 1790  1799  1803  1807  
+FLOUTP     371# 1181  1198  1199  1778  
+FLTONE     372# 1622  1626  1697  
+FMUL       486# 1614  1618  1648  1652  1656  
+FNEG       373# 1634  1710  
+FNTABF     374#  613   617  1231  1235  1301  1302  1303  
+FNTABL     375#  772  
+FOCAL     1145  1147# 1162  
+FOO       1795  1797# 
+FOUTPU     376# 1028  
+FPUT       487# 1049  1068  1602  1610  1644  1662  1670  1678  1701  
+FSUB       488# 1606  1686  
+FUNCT     1221# 1223  1227  
+FUNPTR    1225  1226  1232  1235# 
+GBLOCK    1870# 1871  1881  
+GBUFFA    1868# 1872  
+GEND       377   784#  804  
+GEOB      1867# 1886  
+GEOF      1839  1856  1876# 
+GETC       378#  709  2081  2166  
+GETCHR    1820# 1852  1917  1954  2055  2056  
+GETMOR    1854# 1866  1874  
+GETMR2    1843  1862# 
+GETSGN     379# 1051  
+GET1       380   778   780#  791  
+GET3       381   782   795# 
+GEXIT     1852# 2068  2162  
+GFILE     1834# 1876  1877  1882  1953  
+GFUN      1869# 1885  
+GINC       382# 1031  
+GNMINE    1813  1880# 
+GO         383# 1307  
+GONE       384#  607  
+GOTQ      1099  1104# 
+GOTS      1103# 
+GPTR      1835# 1854  1860  1862  1863  1873  
+GSYSIO    1865# 1867  
+GTABCO    1205  1836# 1848  
+GTEM       385#  783   800   801  
+GTRIM     1826  1839# 1844  1859  1861  
+
+G37        790   793# 
+G7715     1830# 1845  
+HINBUF     386#  539  
+ICON       932  
+IGNORE    1417  1424  1436# 
+INBUF      387#  834   838   841   891   896  2042  
+INCHAR     570#  889   894  1087  1093  
+INCON      465# 1360  
+INDEV      388   555   557# 1955  2053  
+INITNX    1151  1154# 
+INPUT      390# 1774  
+INTCDF    1333  1334  1336# 1341  1342  
+INTDON    1453  1488# 
+INTEGE     389#  724  
+INTHND     509   879# 
+INTKIL    1323  1414  1442# 
+INTKLU    1451# 1483  
+INTLST     466# 1337  
+INTXIT     899   905   911# 
+IOBUF      391#  510   875   910  
+IOTEXC    1419  1425  1460  1462  1464  1468  1471  1476  1479  1481  
+          1497# 1506  
+IOTINL    1459  1461  1463  1465  1466  1467  1469  1470  1472  1474  
+          1498# 
+I33        392#  806  
+JMPC       495# 1198  
+JMSC       496#  498  
+JMSIZ      497# 1061  1076  
+JMSSYS     498# 1314  
+KCCIOT     302# 1092  
+KEYBAC     891# 1085  
+KEYHND    1085# 1102  
+KRBIOT     303# 
+KRSIOT     304#  887  
+KSFIOT     305#  885  1324  
+K5         393  1724  1726# 
+LAB8E      278#  278   659   748  
+LASTV      394#  527  1006  2075  
+LCOM      2061  2168# 
+LCOMZA    2187# 
+LIBRAR    2065  2071# 
+LIBSET    2060  2065# 
+LIBZAP    2102# 
+LINC8      279#  279   929   937  
+LINENO     395#  985  
+LINK       881   945   976# 
+LIST6      931  
+LSNACL    1322# 1370  
+LSTPTR    1421  1422  1430  1431  1443  1451  1482  1508# 
+LUP1      1335  1355  1376  1410# 1437  
+LUP2      1422# 1432  
+L7763      704   770# 
+MCR        396# 2084  2169  
+MINE       397  1756  1760# 
+MINSKI     398# 1692  
+MINUSE     399  1818  1822# 
+MINUSZ     400  1761# 
+MOVCNT    1289  1297# 
+
+MPLUS      401  1762# 
+MSPACE     402  1763# 
+M1        1097  1110# 
+M11        403# 1060  
+M140       404#  811  
+M2         405# 1032  1100  
+M20        406# 1094  
+M240       407# 1740  
+M5         408# 1222  1473  
+M77        409#  787  
+NBUFBE     529   547   592  1138# 
+NBUFFE     499#  823   828  1786  
+NCOL       689#  693  1187  
+NCOMEI     576   588  1118# 
+NCOMEO     606  1120# 
+NDPN      1805  1809  1824# 
+NFPAC1     825#  994  
+NFRST      582  1123# 
+NFRSTX     523  1135# 
+NITER1     626   630   826# 1068  1070  1071  1900  1904  
+NL0002     314# 1320  1444  
+NL0100     315# 1447  
+NL2000     316# 1188  
+NL3777     317#  871  
+NL4000     318#  609  1103  1908  
+NL7775     319# 1086  1217  
+NL7776     320# 1291  
+NL7777     321#  795  1073  1283  1286  1429  1918  1931  1951  2054  
+NMINE     1744  1773# 
+NMINUS    1752  1769# 
+NMPLUS    1732  1770# 
+NNEGP     1305  1598  1634# 
+NOGEE     2037  2043# 
+NOKILL    1456  1482# 
+NOLINE     984   990# 
+NOMATC    1428  1431# 
+NPI2      1682  1713# 
+NPRNT2    1021  1043# 
+NTWO      1618  1638# 
+NX        1630  1662  1666  1670  1678  1686  1701  1705  1712# 
+NXINPU    1736  1748  1774# 
+NXSQR     1602  1606  1610  1614  1637# 1644  1648  1652  1656  
+ONCECO    1214  1229# 
+ONE        410# 1635  
+OUTCON     467# 1374  
+OUTDEV     411#  549  
+OUTDO      854#  870  
+OUTGO      857#  876  
+OUTZAP     856# 1351  
+PACKC      412# 2040  
+PACX       413#  819  
+PCSAVE     506# 
+PER        414# 1152  
+PINTHN     507   509# 
+PIOBUF     510#  849   961   969   971  
+PI2        415  1693# 
+PKEYHN     861#  890  
+PNFPAC     994# 1049  1069  
+
+POPJ       416# 1010  
+PRINTC     417#  987   988   991  1030  1040  1180  1494  2044  2046  
+          2082  2117  2121  2167  
+PRNT       418# 1043  
+PRNTLN     419#  989  
+PRNT8     2072  2074  2076  2078  2105# 2122  
+PR50      1009# 1017  
+PR51      1022  1030# 
+PSCRSI    1089  1111# 
+PTCH       420#  568  
+PTRIM     1014  1016  1018  1023  1036# 1041  
+PTRYAG    1107  1112# 
+PTRYOU    1108  1113# 
+PTTYOU     855   906   952#  977  
+PT1        421# 1005  1008  1011  1015  1019  1020  1024  1026  1033  
+P13        422#  762  
+P17        423#  848  
+P177       424#  888  
+P277       425#  978  1186  
+P337       426# 1851  
+P4000      427#  561  
+P43        428# 1832  
+P7600      429# 1091  1174  1192  1313  1350  1352  1948  2103  2189  
+P77        430#  784  1038  1840  
+P7700      431#  986  1448  1850  
+P8K        596# 
+QCNT      2035# 2097  2108  2118  
+QCNT2     2036# 2096  2099  
+QCNT3     2162# 2182  
+QLP       2109# 2119  
+RADC       306#  744  
+RECADD    1096  1114# 2049  
+RECOVR     432#  602   955   959   963   967  2048  
+RECOVX     433#  974   982  
+RELCNT    1279  1296# 
+RELEND    1296  1310# 
+RELLUP    1281# 1290  
+RELOC     2032  2145  2159  2197  
+RELOCA    1233  1272# 
+RELTBL    1274  1276  1296  1299# 
+RETURN     434#  765  1078  1691  1693  
+REVISI     500# 1133  
+RTL6       435#  802  1012  1171  1195  1857  2035  
+RUB1       436# 1037  1039  
+SADR       437# 1784  
+SBLOCK     468# 1161  
+SBOOT      469#  619   673  
+SCRSIZ     470# 1111  1321  1328  1445  
+SFILES     471# 1154  1834  2004  
+SFUN       472# 1157  
+SIGN       438# 1906  
+SKAD       307#  742  
+SOUTFL     473# 1155  
+SQUEND    1066  1075# 
+SRNLST     439#  768  
+START      440#  600   992  1175  1492  1495  2047  
+STARTL     441# 1699  1703  1707  
+STARTV     442   547# 1004  
+
+SWAL       474# 1164  1176  1194  1206  2034  2057  
+SWAPBL     814#  815  1163  
+SWMX       475# 1148  1170  1182  1189  1200  1489  
+SWY9       476# 
+SYSIO      477#  498  
+TASK       443#  687   691   710  1193  
+TASK4      444   706   708# 
+TCFIOT     308#  900  
+TCRLF2     445#  702  
+TDMPLP    1005# 1034  
+TDUMP      446  1002  1004# 
+TELSW      447#  515   856   868   901   907   957  1105  2092  2177  
+TEM        448# 1308  
+TESTAC    1203  1206# 
+TESTCO    1229  1313# 
+TESTEE    1173  1176# 
+TESTEF    1191  1194# 
+TESTEN    1185  1188# 
+TESTES    1167  1170# 
+TESTEY    1164# 
+TESTLS    1420  1442  1520# 
+TESTQU    1179  1182# 
+TESTTE    1197  1200# 
+TEXTP      449   523# 
+TGO        450# 1220  1295  1297  
+TLSIOT     309# 1761  
+TRYAGN     902# 1112  
+TRYJMP     899# 1368  1371  
+TRYOUT     886   897# 1113  1114  1365  
+TRYTCF     900# 1369  
+TRYTSF     898# 1367  
+TSFIOT     310#  898  1326  
+TTY        280#  280   302   303   304   305   308   309   310  
+TTYOUT     952  1373  1375  1758# 1764  
+T1         451# 2106  2109  2112  2113  
+T3         452# 1690  
+VERSIO     501# 1132  1133  1133  
+WRITE      478# 
+XADC       453#  722  
+XCT        454#  781   796  
+XDYS       455#  637   641   649   653   661   665  
+XINPUT     456  1764# 
+XSQRT      615  1048# 
+XSQ2       457# 1632  
+X1         458  1692# 
+X2         459  1304  1628  1630# 
+ZERO       460# 1898  1902  
+_03177    1068  1070  1071  
+_03540    1233  
+_03541    1231  
+_03542    1229  
+_03543    1224  
+_03544    1220  
+_03545    1215  
+_03546    1207  
+_03547    1205  
+_03550    1204  
+_03551    1201  
+
+_03552    1199  
+_03553    1198  
+_03554    1193  
+_03555    1187  
+_03556    1181  
+_03557    1180  
+_03560    1175  
+_03561    1169  
+_03562    1168  
+_03563    1165  
+_03564    1164  1176  1194  1206  
+_03565    1163  
+_03566    1161  
+_03567    1160  
+_03570    1158  
+_03571    1157  
+_03572    1156  
+_03573    1155  
+_03574    1154  
+_03575    1153  
+_03576    1149  
+_03577    1148  1170  1182  1189  1200  
+_03744    1375  
+_03745    1374  
+_03746    1373  
+_03747    1369  
+_03750    1368  1371  
+_03751    1367  
+_03752    1366  
+_03753    1365  
+_03754    1363  
+_03755    1358  1361  
+_03756    1357  1362  1372  
+_03757    1353  
+_03760    1351  
+_03761    1337  
+_03762    1335  1355  1376  
+_03763    1332  
+_03764    1331  
+_03765    1327  
+_03766    1326  
+_03767    1325  
+_03770    1324  
+_03771    1323  1360  
+_03772    1321  1328  
+_03773    1319  1354  
+_03774    1317  1318  1359  
+_03775    1314  
+_03776    1292  
+_03777    1272  
+_04171    1493  
+_04172    1490  
+_04173    1489  
+_04174    1475  
+_04175    1445  
+_04176    1426  1458  
+_04177    1420  1442  
+_04777    1622  1626  
+
+_06373    1878  
+_06374    1846  
+_06375    1843  
+_06376    1880  
+_06377    1883  
+_07553    2115  
+_07554    2107  
+_07555    2095  
+_07556    2089  
+_07557    2087  
+_07560    2068  
+_07561    2065  
+_07562    2063  
+_07563    2062  2066  
+_07564    2061  
+_07565    2055  2056  
+_07566    2052  
+_07567    2051  
+_07570    1992  2050  
+_07571    1953  2049  
+_07572    1941  2048  
+_07573    1939  2047  
+_07574    1928  2045  2180  
+_07575    1925  2044  2046  2174  
+_07576    1923  2038  2172  
+_07577    1917  1954  2034  2057  2162  
+
+VB0

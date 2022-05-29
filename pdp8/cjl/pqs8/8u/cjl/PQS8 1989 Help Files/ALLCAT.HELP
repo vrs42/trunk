@@ -1,0 +1,105 @@
+
+/P?S/8 ALL CATALOGS MONITOR OVERLAY       PAL8-VB0  23-JUL-86 PAGE 1
+
+   1                 /P?S/8 ALL CATALOGS MONITOR OVERLAY
+   2   
+   3                 /       LAST EDIT:      07-OCT-1985     08:00:00        CJL
+   4   
+   5                 /       MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7                 /       UTILITY PROGRAM FOR IMPROVED TRANSFER RATE ON 8K (OR MORE) SYSTEMS.
+   8   
+   9                 //      P?S/8 MONITOR DEFINITIONS.
+  10   
+  11           7000          CATADR= 7000                    /CATALOG ADDRESS
+  12           0150          CATCORE=0150                    /CATALOG ADDRESS POINTER
+  13           1221          CHLOOP= 1221                    /CHARACTER INPUT ROUTINE
+  14           2420          CMNDS=  2420                    /COMMAND TABLE
+  15           2363          CTCPZAP=2363                    /<^C> PRINT ZAP ADDRESS
+  16           2365          CTCZAP= 2365                    /<^C> ZAP ADDRESS
+  17           0015          DIR=    0015                    /DIRECTORY STARTS HERE
+  18           2156          FUDGE=  2156                    /FUDGE ROUTINE
+  19           0104          GETHAF= 0104                    /GET HALF WORD ROUTINE POINTER
+  20           0461          LODCAT= 0461                    /LOAD CATALOG ROUTINE
+  21           0113          L7600=  0113                    /CONSTANT 7600
+  22           0034          L7757=  0034                    /CONSTANT 7757
+  23           0013          L7772=  0013                    /CONSTANT 7772
+  24           0400          NEWBUF= 0400                    /SCRATCH ROUTINE
+  25           0071          PBEGIN= 0071                    /POINTER TO BEGIN ROUTINE
+  26           0127          PMOVE=  0127                    /POINTER TO MOVE ROUTINE
+  27           0047          PR6BIT= 0047                    /POINTER TO SIX-BIT PRINT ROUTINE
+  28           0170          PSCRSIZ=0170                    /POINTER TO SOFTWARE CORE SIZE WORD
+  29           1335          REWIND= 1335                    /REWIND ROUTINE
+  30           0073          RST=    0073                    /POINTER TO "EXTENDED COMMAND" STARTUP
+  31           0661          SAVCAT= 0661                    /SAVE CATALOG ROUTINE
+  32           1414          SCMORE=1414                     /EXTENDED COMMAND ADDRESS
+  33           0171          SCRIBE= 0171                    /POINTER TO PRINT TEXT ROUTINE
+  34           7604          SWAL=   7604                    /SWITCHES /A-/L
+  35           0423          SWAPIT= 0423                    /SWAP IT ROUTINE
+  36           0000          UNIT=   0000                    /MONITOR'S CURRENT UNIT NUMBER
+  37           0037          UNITIO= 0037                    /UNIT-ORIENTED I/O ROUTINES
+  38           0111          WHAT=   0111                    /POINTER TO WHAT ROUTINE
+  39           0057          WHATMOR=0057                    /WHATMORE ROUTINE
+  40           4000          WRITE=  4000                    /SYSIO WRITE BIT
+  41           0444          XGETHAF=0444                    /GET HALF WORD ROUTINE
+  42   
+  43                 //      ADDITIONAL DEFINITIONS.
+  44   
+  45           4000          FIELD1= 4000                    /FIELD ONE CODE ADDRESS
+  46           5600          JMPIC=  JMP I   .               /CURRENT PAGE INDIRECT JUMP
+  47           7326          NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+  48           7240          NL7777= CLA CMA                 /LOAD AC WITH 7777
+  49           5471          SRINST= JMP I   PBEGIN/[BEGIN]  /INSTRUCTION CONSTANT
+
+/P?S/8 ALL CATALOGS MONITOR OVERLAY       PAL8-VB0  23-JUL-86 PAGE 6
+
+ 236   003235  0114  BCHMSG, TEXT    "ALL CATALOGS UTILITY NOT ALLOWED FROM BATCH UNLESS /E SWITCH SET!"
+ 237   003236  1440
+ 238   003237  0301
+ 239   003240  2401
+ 240   003241  1417
+ 241   003242  0723
+ 242   003243  4025
+ 243   003244  2411
+ 244   003245  1411
+ 245   003246  2431
+ 246   003247  4016
+ 247   003250  1724
+ 248   003251  4001
+ 249   003252  1414
+ 250   003253  1727
+ 251   003254  0504
+ 252   003255  4006
+ 253   003256  2217
+ 254   003257  1540
+ 255   003260  0201
+ 256   003261  2403
+ 257   003262  1040
+ 258   003263  2516
+ 259   003264  1405
+ 260   003265  2323
+ 261   003266  4057
+ 262   003267  0540
+ 263   003270  2327
+ 264   003271  1124
+ 265   003272  0310
+ 266   003273  4023
+ 267   003274  0524
+ 268   003275  4100
+ 269   003276  3301  INSMSG, TEXT    "[ALL CATALOGS OVERLAY ENABLED]";0
+ 270   003277  1414
+ 271   003300  4003
+ 272   003301  0124
+ 273   003302  0114
+ 274   003303  1707
+ 275   003304  2340
+ 276   003305  1726
+ 277   003306  0522
+ 278   003307  1401
+ 279   003310  3140
+ 280   003311  0516
+ 281   003312  0102
+ 282   003313  1405
+ 283   003314  0435
+ 284   003315  0000
+

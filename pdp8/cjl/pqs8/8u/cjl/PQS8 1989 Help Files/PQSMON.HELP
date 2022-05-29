@@ -1,0 +1,397 @@
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 1
+
+   1                 /       THE NEW IMPROVED P?S MONITOR    
+   2   
+   3                         LAST EDIT:      12-DEC-1986     18:00:00        CJL
+   4   
+   5                         MUST BE ASSEMBLED WITH '/J' SWITCH SET.
+   6   
+   7   
+   8   
+   9   
+  10   
+  11                 P P P P       ? ? ?       S S S                   8 8 8
+  12                 P       P   ?       ?   S       S           /   8       8
+  13                 P       P         ?     S                 /     8       8
+  14                 P P P P         ?         S S S         /         8 8 8
+  15                 P               ?               S     /         8       8
+  16                 P                       S       S   /           8       8
+  17                 P               ?         S S S                   8 8 8
+  18   
+  19   
+  20   
+  21   
+  22   
+  23   
+  24   
+  25                 THIS SYSTEM IS DEDICATED TO THE DECTAPE VERSION OF THE DEC DISK MONITOR SYSTEM
+  26                 WITHOUT WHICH IT DOES NOW AND ALWAYS HAS RUN.
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 5
+
+ 172                 /       MEMORY LAYOUT OF THE P?S/8 STARTER SYSTEM.
+ 173   
+ 174                 /     BLOCK   GENERATION CORE  LOADING CORE     MAJOR SYSTEM FUNCTION
+ 175   
+ 176                 /     N. A.     06600-07377        N. A.        SYSTEM GENERATION ROUTINES
+ 177                 /    000        07400-07577     07600-07777     BOOTSTRAP, SYSTEM I/O, ETC.
+ 178                 /    001-013    00000-02577     00000-02577     KEYBOARD MONITOR
+ 179                 /    014        02600-02777     02600-02777     THE "EDIT" COMMAND
+ 180                 /    015-016    01000-01377     07000-07377     USER CATALOG
+ 181                 /                              (03000-03377)
+ 182                 /    017        03000-03177     07400-07577     TTY: EDITING FEATURES, ETC.
+ 183                 /                              (03400-03577)
+ 184                 /    020-037       N. A.           N. A.        "%" SCRATCH FILE
+ 185                 /    040-057       N. A.           N. A.        "$" SCRATCH FILE
+ 186                 /    060        24000-24177        N. A.        /I BLOCK
+ 187                 /    061-062    21400-21777     01200-01577     EXTENDED COMMAND PROCESSOR
+ 188                 /    063-066    25000-25777     03000-03777     SYSTEMS CATALOG
+ 189                 /                              (01600-02177)
+ 190                 /    067-071    01000-01577     04000-04577     EXTENDED USER'S CATALOG
+ 191                 /    072-075    20000-20777     04600-05577     "R", "RU" COMMAND PROCESSOR
+ 192                 /    076-077       N. A.           N. A.        RESERVED FOR EXPANSION
+ 193                 /    100        24400-24577     02600-02777     SLURP LOADER BLOCK
+ 194                 /                              (07600-07756)
+ 195                 /                              (00031-00050)
+ 196                 /    101-102    13400-13777     05400-05777     EXTENDED HANDLER INITIALIZATION
+ 197                 /    103-112    14000-15777     16000-17777     EXTENDED HANDLER CODE
+ 198                 /    113-114    21000-21377    (RELOCATABLE)    I/O HANDLER TRAP BLOCKS
+ 199                 /    115        24200-24377     03000-03177     BATCH RECOVERY BLOCK
+ 200                 /    116           N. A.        02600-02777     ACTIVE COPY OF BATCH SAVED IN THIS BLOCK
+ 201                 /                               (3200-3377)
+ 202                 /    117           N. A.        07400-07577     LAST BATCH BUFFER SAVED IN THIS BLOCK
+ 203                 /                               (3400-3577)
+ 204                 /    120           N. A.        07600-07777     SYSTEM I/O, SWITCHES, FILES SAVED HERE
+ 205                 /                               (3600-3777)
+ 206                 /    121           N. A.        00000-00177     PAGE ZERO USER SETTINGS SAVED HERE
+ 207                 /                               (4000-4177)
+ 208                 /    122           N. A.           N. A.        RESERVED FOR HANDLER INFORMATION
+ 209                 /    123-162       N. A.           N. A.        RESERVED FOR HANDLERS
+ 210                 /    163-200    10000-13377     00000-03377     ODT SYSTEM
+ 211                 /    201        03400-03577     07400-07577     BATCH SYSTEM ONCE-ONLY CODE
+ 212                 /    202        03600-03777     02600-02777     BATCH CODE
+ 213                 /    203-215    04000-06577     00000-02577     BIN/GET/START SYSTEM
+ 214                 /    216-231       N. A.           N. A.        SCRATCH AREA FOR VIRTUAL LOADER
+ 215                 /    232-240    26000-27577     00000-01577     DUMP SYSTEM
+ 216                 /    241-243    22000-22577     01200-01777     CHANGE/FIND SYSTEM
+ 217                 /    244           N. A.           N. A.        FIRST FREE BLOCK FOR USER CATALOG
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 23
+
+ 990   001246  7601  CHTBL,  -177;   BACKSP          /<RO>
+ 991   001247  7421
+ 992   001250  7641          -137;   BACKSP          /<BACK ARROW>
+ 993   001251  7421
+ 994   001252  7745          -33;    GOTESC          /<ESC>
+ 995   001253  7407
+ 996   001254  7746          -"Z!300;EOSEQ           /<^Z>
+ 997   001255  1547
+ 998   001256  7753          -"U!300;DELETL          /<^U>
+ 999   001257  2143
+1000   001260  7754          -"T!300;REW             /<^T>
+1001   001261  2146
+1002   001262  7756          -"R!300;REW             /<^R>
+1003   001263  2146
+1004   001264  7763          -"M!300;GOTCR           /<CR>
+1005   001265  1241
+1006   001266  7765          -"K!300;CTRLK           /<^K>
+1007   001267  2670
+1008   001270  7766          -"J!300;LFVIEW          /<LF>
+1009   001271  2674
+1010   001272  7767          -"I!300;TABCH           /<HT>
+1011   001273  1234
+1012   001274  7770          -"H!300;BACKSP          /<BS>
+1013   001275  7421
+1014   001276  0000  EDENABL,0;      CTRLA           /**** EDIT MODE **** -"A!300 <^A>
+1015   001277  2656
+1016   001300  7772          -"F!300;SRCHX           /<^F>
+1017   001301  2652
+1018   001302  7771          -"G!300;NEWSCH          /<BEL>
+1019   001303  2647
+1020   001304  0000          0                       /THIS TERMINATES THE LIST
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 38
+
+1627                 /       COMMAND DISPATCH TABLE
+1628   
+1629   002420  7477  CMNDS,  -"C^100-"A+300;         CAT     /LIST CATALOG
+1630   002421  1600
+1631   002422  7275          -"E^100-"C+300;         ECHO    /CHANGE ECHO STATUS
+1632   002423  1527
+1633   002424  7274          -"E^100-"D+300; EDCMND, EDCOM   /EDIT A LINE
+1634   002425  2602
+1635   002426  7262          -"E^100-"N+300;         ENTER   /ENTER FILENAME IN CATALOG
+1636   002427  1716
+1637   002430  7256          -"E^100-"R+300;         SCRATCH /ERASE LINES
+1638   002431  0414
+1639   002432  7173          -"F^100-"E+300;         LOAD    /FETCH FILE
+1640   002433  1634
+1641   002434  6777          -"H^100-"A+300;         HALT    /HALT
+1642   002435  0600
+1643   002436  6467          -"K^100-"I+300;         DELETE  /KILL FILENAME FROM CATALOG
+1644   002437  1676
+1645   002440  6377          -"L^100-"A+300;         LAST    /PRINT LAST LINE NUMBER
+1646   002441  1433
+1647   002442  6375          -"L^100-"C+300;         SYS     /LOAD NEW CATALOG INTO CORE
+1648   002443  0435
+1649   002444  6373          -"L^100-"E+300;         LEFT    /PRINT WORDS LEFT
+1650   002445  1536
+1651   002446  6367          -"L^100-"I+300;         LIST    /LIST BUFFER
+1652   002447  1461
+1653   002450  6362          -"L^100-"N+300;         SEQ     /LINE NUMBERS
+1654   002451  1410
+1655   002452  6354          -"L^100-"T+300;         PUNCH   /LIST NO NUMBERS
+1656   002453  1460
+1657   002454  6261          -"M^100-"O+300;         SBOOT   /BOOTSTRAP TO NEW MONITOR
+1658   002455  7600
+1659   002456  5764          -"P^100-"L+300;         PLEASE  /PLEASE
+1660   002457  1706
+1661   002460  5577          -"R^100-"A+300;         RADIX   /CHANGE RADIX
+1662   002461  1643
+1663   002462  5573          -"R^100-"E+300;         RESEQ   /RESEQUENCE BUFFER
+1664   002463  1412
+1665   002464  5553          -"R^100-"U+300;         R       /RUN COMMAND
+1666   002465  1446
+1667   002466  5600          -"R^100;                R       /R COMMAND
+1668   002467  1446
+1669   002470  5377          -"T^100-"A+300;         TAB     /CHANGE <TAB> MODE
+1670   002471  1507
+1671   002472  5056          -"W^100-"R+300;         SAVE    /WRITE FILE
+1672   002473  1666
+1673   002474  4142          -"^^100-"^+300;         BEGIN   /^^ COMMENT COMMAND
+1674   002475  0440
+1675   002476  0000          0                               /THIS ENDS THE TABLE
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 57
+
+2434                 /       STRING SEARCH FOR P?S/8
+2435                  
+2436                 /       STRING SEARCH OVERLAY FOR THE P?S/8 KEYBOARD MONITOR/EDITOR.
+2437   
+2438                 /       USAGE:
+2439   
+2440                 /       FIND [DELIMITER] [SEARCH STRING] [OPTIONAL DELIMITER]
+2441   
+2442                 /       CHANGE [DELIMITER] [SEARCH STRING] [OPTIONAL DELIMITER]
+2443                 /                       [OPTIONAL REPLACEMENT STRING]
+2444   
+2445                 /       OPTIONS:
+2446   
+2447                 /       /A              SEARCH ADDITIONAL LINES PAST THE FIRST MATCHING ONE
+2448                 /                       FOR THE SEARCH STRING.
+2449   
+2450                 /       =NNNN           START SEARCH FOR SEARCH STRING AT LINE NNNN IN THE FILE.
+2451   
+2452                 /       [NULL STRING]   NULL STRINGS ARE VALID AND ARE DEFINED AS BEING LOCATED
+2453                 /                       AT THE BEGINNING OF THE LINE. PASSING A NULL STRING AS A
+2454                 /                       SEARCH STRING TO CHANGE WILL INSERT THE REPLACEMENT STRING
+2455                 /                       AT THE BEGINNING OF THE LINE. PASSING A NULL STRING AS A
+2456                 /                       SEARCH STRING TO FIND WILL MATCH ANY LINE. PASSING A
+2457                 /                       NULL STRING OR NO STRING AT ALL AS A REPLACEMENT STRING
+2458                 /                       TO CHANGE WILL IMPLY DELETING THE SEARCH STRING.
+2459                 /                       THE SECOND DELIMITER IS MANDATORY WHEN PASSING A
+2460                 /                       REPLACEMENT STRING TO CHANGE. IT IS ALLOWED BUT NOT
+2461                 /                       NECESSARY WHEN JUST DELETING THE SEARCH STRING IN THE FILE.
+2462   
+2463                 /       RESTRICTIONS:
+2464   
+2465                 /       ALL EQUALS PARAMETER AND SWITCH SETTINGS MUST BE PASSED BEFORE THE
+2466                 /       FIRST DELIMITER. THE DELIMITER CHARACTER SET IS ANY PRINTING CHARACTER
+2467                 /       EXCEPT:
+2468   
+2469                 /       ( ) / < = >
+2470   
+2471                 /       THE DELIMITER CHARACTER CANNOT BE IN THE SEARCH STRING, BUT IS
+2472                 /       ALLOWED IN THE REPLACEMENT STRING.
+2473   
+2474                 /       BATCH USAGE:
+2475   
+2476                 /       FIND AND CHANGE COMMANDS ARE NOT ALLOWED FROM NORMAL BATCH.
+2477   
+2478                 /       FIND AND CHANGE COMMANDS ARE ALLOWED FROM BATCH WITH THE /E OPTION INVOKED
+2479                 /       WHICH IN TURN CAN BE RUN FROM THE NORMAL BATCH.
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 66
+
+2770   001675* 2324  BATFU,  TEXT    "STRING OPERATIONS NOT ALLOWED FROM BATCH WITHOUT /E!";0
+2771   001676* 2211
+2772   001677* 1607
+2773   001700* 4017
+2774   001701* 2005
+2775   001702* 2201
+2776   001703* 2411
+2777   001704* 1716
+2778   001705* 2340
+2779   001706* 1617
+2780   001707* 2440
+2781   001710* 0114
+2782   001711* 1417
+2783   001712* 2705
+2784   001713* 0440
+2785   001714* 0622
+2786   001715* 1715
+2787   001716* 4002
+2788   001717* 0124
+2789   001720* 0310
+2790   001721* 4027
+2791   001722* 1124
+2792   001723* 1017
+2793   001724* 2524
+2794   001725* 4057
+2795   001726* 0541
+2796   001727* 0000
+2797   001730* 1617  NSTMSG, TEXT    "NO STRING GIVEN!";0
+2798   001731* 4023
+2799   001732* 2422
+2800   001733* 1116
+2801   001734* 0740
+2802   001735* 0711
+2803   001736* 2605
+2804   001737* 1641
+2805   001740* 0000
+2806   
+2807   001762* 1532
+2808   001763* 2363
+2809   001764* 2307
+2810   001765* 2365
+2811   001766* 1501
+2812   001767* 7677
+2813   001770* 1524
+2814   001771* 1366
+2815   001772* 1325
+2816   001773* 1273
+2817   001774* 6364
+2818   001775* 1201
+2819   001776* 1301
+2820   001777* 1243
+2821           2000          PAGE
+2822   
+2823           2600          RELOC                   /TURN OFF RELOCATION
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 83
+
+3577                 /       ERROR MESSAGES.
+3578   
+3579   005315* 0201  BDNMSG, TEXT    "BAD SYSTEM NAME!";0
+3580   005316* 0440
+3581   005317* 2331
+3582   005320* 2324
+3583   005321* 0515
+3584   005322* 4016
+3585   005323* 0115
+3586   005324* 0541
+3587   005325* 0000
+3588   005326* 0201  BDSWMSG,TEXT    "BAD SWITCH!"
+3589   005327* 0440
+3590   005330* 2327
+3591   005331* 1124
+3592   005332* 0310
+3593   005333* 4100
+3594   005334* 0201  BEQMSG, TEXT    "BAD EQUALS PARAMETER!"
+3595   005335* 0440
+3596   005336* 0521
+3597   005337* 2501
+3598   005340* 1423
+3599   005341* 4020
+3600   005342* 0122
+3601   005343* 0115
+3602   005344* 0524
+3603   005345* 0522
+3604   005346* 4100
+3605   005347* 0201  BFSMSG, TEXT    "BAD FILE SEPARATOR!"
+3606   005350* 0440
+3607   005351* 0611
+3608   005352* 1405
+3609   005353* 4023
+3610   005354* 0520
+3611   005355* 0122
+3612   005356* 0124
+3613   005357* 1722
+3614   005360* 4100
+3615   005361* 2417  TMFMSG, TEXT    "TOO MANY FILES!"
+3616   005362* 1740
+3617   005363* 1501
+3618   005364* 1631
+3619   005365* 4006
+3620   005366* 1114
+3621   005367* 0523
+3622   005370* 4100
+3623   
+3624   005374* 7764
+3625   005375* 0032
+3626   005376* 7745
+3627   005377* 5310
+3628           5400          PAGE
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 86
+
+3670                 /       DEFAULT EXTENSION DEFINITIONS.
+3671   
+3672                 /       TO BE USED IN SYSTEMS CATALOG ENTRIES FOR EXTENDED EXECUTION.
+3673   
+3674           0000          TYPE0=  0               /NO OUTPUT, NO INPUT
+3675           0001          TYPE1=  1               /GENERAL OUTPUT, GENERAL INPUT
+3676           0002          TYPE2=  2               /NO OUTPUT, BINARY INPUT
+3677           0003          TYPE3=  3               /BINARY INPUT, BINARY OUTPUT
+3678           0004          TYPE4=  4               /BINARY OUTPUT, NO INPUT
+3679           0005          TYPE5=  5               /ASCII OUTPUT, ASCII INPUT
+3680           0006          TYPE6=  6               /ASCII OUTPUT, NO INPUT
+3681           0007          TYPE7=  7               /BINARY OUTPUT, PAL INPUT
+3682           0010          TYPE10= 10              /PAL OUTPUT, PAL INPUT
+3683           0011          TYPE11= 11              /NO OUTPUT, BATCH INPUT
+3684           0012          TYPE12= 12              /NO OUTPUT, DUMP INPUT
+3685           0013          TYPE13= 13              /NO OUTPUT, FOCAL INPUT
+3686           0014          TYPE14= 14              /PAL OUTPUT, NO INPUT
+3687           0015          TYPE15= 15              /NO OUTPUT, PAL INPUT
+3688   
+3689                 /       DEFINE ADDITIONAL TYPES AS NECESSARY.
+
+/       THE NEW IMPROVED P?S MONITOR      PAL8-VB0  12-DEC-86 PAGE 96
+
+4026                 /       P?S/8 SYSTEM I/O ROUTINES.
+4027                  
+4028                 /       THE NEW IMPROVED P?S/8 MONITOR SYSTEM'S I/O ROUTINES FOR ALL SUPPORTED MASS
+4029                 /       STORAGE DEVICES. INCLUDES SYSTEM I/O, BOOTSTRAP RECORD, SYSTEM LOADER, FILE
+4030                 /       AND PARAMETER AREA.
+4031   
+4032                 /       ALL I/O ROUTINES ARE PATTERNED AFTER THE RL (ROTH-LASNER) ROUTINES.
+4033                  
+4034                 /       CALLING SEQUENCE:
+4035   
+4036                 /       CDF     MYFLD           /IF NECESSARY
+4037                 /       CIF     00              /IF NECESSARY
+4038                 /       JMS I   (7640)          /SZA CLA IS CONVENIENT
+4039                 /       CORE                    /CORE ADDRESS
+4040                 /       FUNCTION                /FUNCTION WORD
+4041                 /       BLOCK                   /STARTING BLOCK NUMBER
+4042                 /       RETURNS WITH AC CLEAR AND MYFLD DATA FIELD
+4043                  
+4044                 /       FUNCTION WORD BREAKDOWN:
+4045   
+4046                 /       <BIT 0>     <BITS 1-5>     <BITS 6-8>     <BITS 9-11>
+4047                 /        READ         NUMBER         FIELD          DEVICE
+4048                 /         OR            OF             OF           LOGICAL
+4049                 /        WRITE        BLOCKS        TRANSFER         UNIT
+4050                  
+4051                 /       IF THE NUMBER OF BLOCKS INDICATED IS 0, THEN THE TRANSFER IS TAKEN AS A
+4052                 /       COMPLETE FIELD TRANSFER (40 BLOCKS).
+4053                  
+4054                 /       BOOTSTRAPPING IS PERFORMED BY BRANCHING TO FIELD 0 LOCATION 7600.
+4055                 /       CONTENTS OF AC, LINK, MQ, INTERRUPT REGISTERS ARE UNIMPORTANT WHEN CALLING
+4056                 /       THE I/O ROUTINES FOR ANY PURPOSE (INCLUDING BOOTSTRAPPING).
+4057                 /       IF INTERRUPT IS ON, IT MAY BE IN AN ARBITRARY STATE AFTER THE CALL, AS
+4058                 /       CERTAIN IMPLEMENTATIONS OF I/O ROUTINES MAY TURN INTERRUPTS OFF EITHER DURING
+4059                 /       THE CALL ONLY, OR AT THE BEGINNING OF THE CALL PERMANENTLY, OR LEAVE THE
+4060                 /       INTERRUPT SYSTEM ALONE AT THE DISCRETION OF THE HANDLER.
+4061                  
+4062                 /       ERROR RECOVERY IS USUALLY PROVIDED BY A PROGRAMMED HALT WITH ERROR BITS IN
+4063                 /       THE AC IN A DEVICE-DEPENDENT MANNER. MANUALLY PRESSING CONTINUE RETRIES THE
+4064                 /       I/O OPERATION. (THIS IS KNOWN AS "SET SYSTEM HALT")
+4065   
+4066                 /       AT THE USER'S OPTION, THE I/O ROUTINES CAN BE MADE TO HANG BY INFINITELY
+4067                 /       RETRYING THE OPERATION UPON AN ERROR. (THIS IS KNOWN AS "SET SYSTEM RETRY")
+4068   
+4069                 /       CERTAIN SYSTEMS WILL IMPLEMENT AN OVERLAY TO THEIR I/O ROUTINES TO PROVIDE
+4070                 /       AN INTERACTIVE ERROR RECOVERY (SEE "CONSOLE", ETC.).
+

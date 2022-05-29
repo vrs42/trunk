@@ -1,0 +1,2313 @@
+remove this
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 1
+
+    1                 /       P?S/8 SYSTEM HANDLER TD8E/MR8E-C
+    2   
+    3                 /       COPYRIGHT (C) 1975-1989, CHARLES LASNER ASSOCIATES; 1990-2016, CLA SYSTEMS.
+    4   
+    5                 /       LAST EDIT:      05-MAR-2016     12:00:00        CJL
+    6   
+    7                 /       MUST BE ASSEMBLED WITH '/J' [OS/8 PAL8 '/F'] OPTION SWITCH SET.
+    8   
+    9                 /       P?S/8 SYSTEM DEVICE HANDLER FOR PRIMARY TD8E [DEVICE CODE 77] WITH TU56H [ONE
+   10                 /       DRIVE ONLY] OR TU56 [TWO DRIVES].
+   11   
+   12                 /       AUTOMATICALLY REMEMBERS PROPER INITIAL SEARCH DIRECTION WHEN THE LOGICAL
+   13                 /       CONSOLE OVERLAY IS IN EFFECT; OTHERWISE ALWAYS STARTS SEARCHES IN REVERSE
+   14                 /       SIMILAR TO TC12.  [NOTE: THIS APPLIES TO CALLS FOR EITHER LOGICAL DRIVE UNIT.]
+   15   
+   16                 /       IGNORES THE TWO HIGH-ORDER BITS OF THE LOGICAL UNIT FOR ALL CALLS.  THUS, THE
+   17                 /       CALL CANNOT DISTINGUISH BETWEEN DRIVES 0, 2, 4, 6 OR 1, 3, 5, 7; FUTURE
+   18                 /       RELEASES WILL CAUSE A SELECT ERROR ON LOGICAL UNITS 2 THROUGH 7 WHEN THE
+   19                 /       LOGICAL CONSOLE OVERLAY IS IN EFFECT.  [NOTE: THE MR8E-C ROM ONLY SUPPORTS THE
+   20                 /       DEVICE 77 TD8E CONTROLLER; NON-SYSTEM DEVICE HANDLERS CAPABLE OF SUPPORTING 4
+   21                 /       TD8E CONTROLLERS AND UP TO EIGHT DRIVES WILL EVENTUALLY BE IMPLEMENTED.]
+   22   
+   23                 /       CAN ONLY BE BOOTSTRAPPED TO LOGICAL DRIVE UNIT 0.  THIS IS A RESTRICTION OF
+   24                 /       THE MR8E-C ROM.  ALTERNATE BOOTSTRAPS MAY BE DEVELOPED IN FUTURE RELEASES TO
+   25                 /       OVERCOME THIS [WITH DIFFICULTY].
+   26   
+   27                 /       THE BASIC DEVICE HANDLER HALTS/RETRIES ON ALL ERRORS DETECTED BY THE ROM.  DUE
+   28                 /       TO LACK OF SPACE IN FIELD 0, THE ROM-BASED RETRY COUNT LOGIC IS NOT SUPPORTED.
+   29                 /       HOWEVER, IN KEEPING WITH THE P?S/8 PHILOSOPHY OF NOT OBFUSCATING HARDWARE
+   30                 /       PROBLEMS, THIS DESIGN DECISION WOULD APPLY EVEN IF THE CODE SPACE WERE
+   31                 /       AVAILABLE.  IT IS NECESSARY TO MAKE THE USER AWARE OF DEGRADING HARDWARE
+   32                 /       SITUATIONS; THIS CAN ONLY BE REALIZED BY ALERTING THE USER WITH APPROPRIATE
+   33                 /       ERROR HANDLING.  WHEN THE LOGICAL CONSOLE OVERLAY IS IN EFFECT, THE NATURE OF
+   34                 /       THE ERROR WILL BE EVEN MORE OBVIOUS.  HOWEVER, PROPERLY FUNCTIONING EQUIPMENT
+   35                 /       AND DECTAPE MEDIA DOES NOT ROUTINELY CAUSE ERRORS; THEY SHOULD BE TREATED AS A
+   36                 /       SIGN OF IMPENDING FAILURE OF THE DRIVE GUIDES AND/OR THE DECTAPE MEDIA.  IF
+   37                 /       TAKEN CARE OF EARLY, ALL DATA ON THE DECTAPE SHOULE BE RECOVERABLE BEFORE THE
+   38                 /       PROBLEM WORSENS.  [NOTE: THE RETRY COUNT IS USED THROUGHOUT OS/8 DECTAPE
+   39                 /       HANDLING AND IS THE ROOT CAUSE OF THIS PROBLEM; BY PROPER DESIGN, THIS
+   40                 /       "FEATURE" WITHIN THE MR8E-C IS AVOIDED.]
+   41   
+   42                 /       INTERRUPT STATUS IS RESTORED AFTER A CALL TO THE SYSTEM HANDLER; INTERNALLY,
+   43                 /       THE HANDLER OPERATES WITH INTERRUPTS OFF TO PREVENT TIMING PROBLEMS.  WHILE
+   44                 /       THERE IS NO RULES REGARDING THIS THROUGHOUT P?S/8, GIVEN THAT THE TD8E IS TO
+   45                 /       BE USED ONLY ON OMNIBUS MACHINES ALLOWS THIS FEATURE TO BE ADDED.  [NOTE: DUE
+   46                 /       TO SPEED CONSIDERATIONS, IT IS RECOMMENDED THE TD8E ONLY BE USED WHERE THE
+   47                 /       KK8E CPU IS AVAILABLE [PDP-8/E, PDP-8/F, PDP-8/M AND PDP-8/A-600 SERIES].
+   48                 /       THIS IS ESPECIALLY PROBLEMATIC WHEN THE MR8E-C IS IN USE DUE TO THE OVERHEAD
+   49                 /       CAUSED BY INTER-FIELD SUBROUTINE CALLS.
+   50   
+   51                 /       ADDITIONAL NOTEWORTHY FEATURES WILL BE DESCRIBED HERE AS THE BINARY IMAGE CODE
+   52                 /       IS DISSASSEMBLED.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 2
+
+   54                 /       NOTE: CERTAIN FEATURES OF THE HANDLER ARE BASED ON THE RECOLLECTION OF
+   55                 /       CHARLES LASNER, P?S NY, WHO HASTILY WROTE THE ORIGINAL VERSION 40 YEARS AGO,
+   56                 /       WHEN BRIEFLY AN APPROPRIATE PDP-8/E WITH TD8E AND MR8E-C CONFIGURATION WAS
+   57                 /       AVAILABLE DURING A TRANSIENT PROGRAMMING ASSIGNMENT.  DUE TO CIRCUMSTANCES,
+   58                 /       THIS SYSTEM CONFIGURATION WAS NEVER UPDATED; THE ORIGINAL SOURCE CODE IS NOT
+   59                 /       AVAILABLE AND PRESUMED PERMANENTLY LOST.  IT IS KNOWN THAT THE SOURCE CODE OF
+   60                 /       THE MR8E-C ROM WAS INCLUDED WITHIN THE SOURCE FILE OF THE HANDLER TO ALLOW
+   61                 /       OCCASIONAL DEVELOPMENT CONSISTENT WITH THE OVERALL EVOLVEMENT OF P?S/8.
+   62                 /       HOWEVER, NO SIGNIFICANT CHANGES TO P?S/8 OF ANY RELEVANCE TO THE TD8E WERE
+   63                 /       MADE AFTER THE LAST KNOWN CONTACT WITH AN ALTERNATE PDP-8/E SYSTEM IN 1976
+   64                 /       [AND PERHAPS THE EARLY PART OF 1977.  THE LAST KNOWN SYSTEM CONSISTED OF A
+   65                 /       TU56H, TD8E AND 32K OF CORE MEMORY [AND UNRELATED PERIPHERALS].  THE MR8E-C
+   66                 /       ROM IMAGE WAS LOADED BEFORE BOOTING THE SYSTEM TO ALLOW CREATING AN IMAGE OF A
+   67                 /       FUNCTIONAL SYSTEM FOR TESTING.
+   68   
+   69                 /       DUE TO THE CIRCUMSTANCES OF P?S/8 DEVELOPMENT, ALL TD8E-SPECIFIC CODE WAS
+   70                 /       STRIPPED OUT OF THE TYPICAL SET OF DEVELOPMENTAL SOURCE FILES DUE TO FILE SIZE
+   71                 /       LIMITATIONS.  DUE TO THE APPLICABLE LOGISTICS, ALL DEVELOPMENT FILES WERE
+   72                 /       SPLIT INTO TWO SECTIONS EACH CAPABLE OF BEING STORED ON HALF OF AN RK8E/RK05
+   73                 /       PACK.  IT WAS IMPRACTICAL TO PHYSICALLY TRANSPORT THE MEDIA; DECISIONS WERE
+   74                 /       MADE TO SPLIT OFF THE TD8E-RELATED FILES [AS WELL AS CERTAIN OTHER FILES
+   75                 /       RELEVANT TO OTHER CONFIGURATIONS].  IT IS HOPED THE SOURCE FILES FOR THESE
+   76                 /       OTHER CONFIGURATIONS CAN BE RECONSTRUCTED FROM SURVIVING BINARY MEDIA; IF THIS
+   77                 /       CANNOT BE ACCOMPLISHED, THE CONFIGURATION WILL REQUIRE COMPLETE SOURCE
+   78                 /       RECREATION AND ACCESS TO THE APPLICABLE HARDWARE AT THE MINIMUM.  NOTE:
+   79                 /       CERTAIN ENHANCEMENTS TO THE SOURCE CODE SPECIFIC TO THESE SYSTEMS WILL ALSO
+   80                 /       REQUIRE ADDITIONAL CONTACT WITH THE RELEVANT HARDWARE; P?S/8 DEVELOPMENT
+   81                 /       IS NOW ACTIVE AGAIN AFTER A SHORT RECESS OF ABOUT 22 YEARS.  SOME OF THESE
+   82                 /       ISSUES WILL BE RESOLVED AS TIME PERMITS AS WELL AS ACCESS TO THE RELEVANT
+   83                 /       HARDWARE.  THE TD8E ISSUES WILL BE RESOLVED USING THE SIMH PDP-8 SIMULATOR
+   84                 /       FOLLOWED BY PERIODIC TESTING ON TD8E-BASED PDP-8/E HARDWARE.
+   85   
+   86                 /       UNTIL ALL TD8E-SPECIFIC CODE CAN BE DISASSEMBLED FROM THE RECENTLY RECOVERED
+   87                 /       VERSION 8T DECTAPE, IT IS NOT CLEAR IF THIS TAPE REPRESENTS THE FINAL POINT IN
+   88                 /       THE DEVELOPMENT OF THIS SYSTEM.  CERTAIN COMPONENTS NOT YET CONFIRMED SHOULD
+   89                 /       PROVIDE PLAUSIBLE ANSWERS.  [IT IS KNOWN THERE WAS A SPECIAL INTERACTION
+   90                 /       BETWEEN THIS HARDWARE CONFIGURATION AND THE LOGICAL CONSOLE OVERLAY WHEN
+   91                 /       CONFIGURED EXPRESSLY FOR THE VT8E.]
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 3
+
+   93                 /       PROGRAM EDIT HISTORY.
+   94   
+   95                 /       01-APR-1975     -       ORIGINAL RELEASE OF THE BINARY CODE [ESTIMATED]; THIS
+   96                 /                               IS LIKELY THE ONLY SURVIVING COPY OF THE P?S/8
+   97                 /                               OPERATING SYSTEM FOR THE TD8E/MR8E-C.  MOST OF THE
+   98                 /                               SOURCE CODE WILL BE OBTAINED BY DISASSEMBLY OF THIS
+   99                 /                               RELEASE RECOVERED ON A SURVIVING DECTAPE.
+  100   
+  101                 /                               NOTE: IT IS SUSPECTED THIS IS THE ONLY KNOWN SURVIVING
+  102                 /                               COPY OF THE CONFIGURATION FOR THE TD8E WITH MR8E-C
+  103                 /                               ROM.  IT IS LIKELY IT WAS NOT PROPERLY TESTED.  AS OF
+  104                 /                               THIS WRITING, IT IS NOW KNOWN THE CONFIGURATION IS
+  105                 /                               FATALLY FLAWED, BUT TENTATIVELY FUNCTIONAL BY A
+  106                 /                               CONTRIVED KLUDGE THAT WAS APPARENTLY APPLIED AFTER
+  107                 /                               USING ANY P?S/8 OPERATION THAT MODIFIED BLOCK 0000.
+  108                 /                               LATER RELEASES WILL OVERCOME THIS BY MAKING FURTHER
+  109                 /                               CHANGES IN THE DESIGN WHICH WILL CORRECT THE PROBLEM.
+  110                 /                               THE ONLY KNOWN PROBLEM THAT CANNOT BE OVERCOME IS THAT
+  111                 /                               THE DESIGN CHANGE WILL ELIMINATE THE FATAL PROBLEM,
+  112                 /                               BUT THE SYSTEM BOOTUP PROCEDURE WILL REQUIRE AN
+  113                 /                               ADDITIONAL TAPE TURN-AROUND.  [USERS OF THE TC01/TC08
+  114                 /                               RELEASE OF P?S/8 MAY NOTICE THIS TINY LOSS OF
+  115                 /                               PERFORMANCE; BY CONTRAST, OS/8 BOOTUP TAKES MUCH MORE
+  116                 /                               TIME THAN EITHER RELEASE.]
+  117   
+  118                 /       18-DEC-2015     -       IMAGE OF THE 1975 RELEASE AVAILABLE FOR USE WITH THE
+  119                 /                               SIMH PDP-8 SIMULATOR.  EXAMINATION OF THE TAPE
+  120                 /                               CONFIRMS IT IS A SYSTEM CREATED SOMETIME IN 1974/1975.
+  121                 /                               HOWEVER, THE TAPE CANNOT BE BOOTED BECAUSE THE IMAGE
+  122                 /                               OF THE MR8E-C ROM IS NOT AVAILABLE TO THE SIMH PDP-8
+  123                 /                               SIMULATOR.
+  124   
+  125                 /       26-JAN-2016     -       OPERATIONAL PRE-FINAL RELEASE OF THE SOURCE CODE OF
+  126                 /                               THE MR8E-C ROM IS COMPLETED.  USING THE MR8E-C BINARY
+  127                 /                               IMAGE, THE ORIGINAL RELEASE IS BOOTED ON THE SIMH
+  128                 /                               PDP-8 SIMULATOR; ALTHOUGH THIS IS A VERY OLD RELEASE
+  129                 /                               OF P?S/8 [APPARENTLY VERSION 8T BASED ON ASSOCIATED
+  130                 /                               DECTAPE PACKAGING], MOST OF THE BASIC ELEMENTS OF
+  131                 /                               DEVICE-SPECIFIC FUNCTIONALITY ARE CONFIRMED WORKING ON
+  132                 /                               THE SIMH PDP-8 SIMULATOR [OTHER THAN OPERATIONS THAT
+  133                 /                               MODIFY THE CONTENTS OF BLOCK 0000 SUCH AS THE "DATE"
+  134                 /                               COMMAND, WHICH WRITES THE CURRENT DATE VALUE ON THE
+  135                 /                               DECTAPE].  DISASSEMBLY WILL PROCEED FOR IDENTIFIABLE
+  136                 /                               ELEMENTS; DIRECT BINARY COMPARISON WILL BE USED TO
+  137                 /                               CONFIRM SOURCE FILE AUTHENTICITY.  UNTIL THIS IS
+  138                 /                               ACCOMPLISHED, ANY IDEAS REGARDING CODE IMPROVEMENT
+  139                 /                               WILL BE DEFERRED; HOWEVER, CERTAIN TENTATIVE CHANGES
+  140                 /                               ARE BEING MADE TO THE SOURCE FILE AS COMMENTS TO BE
+  141                 /                               CONSIDERED AFTER ALL RECOVERABLE SOURCE CODE
+  142                 /                               OPERATIONS HAVE CONCLUDED.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 4
+
+  144                 /       31-JAN-2016     -       NEW P?S/8-SPECIFIC TD8E BOOTSTRAP ADDED; THE BINARY
+  145                 /                               RELEASE IS CONFIRMED COMPATIBLE WITH THIS NEWER CODE.
+  146                 /                               [NOTE: SEE SPECIFICS OF THIS CODE ELSEWHERE IN THIS
+  147                 /                               FILE FOR DESCRIPTION OF NEW FEATURES.]  [NOTE: IN
+  148                 /                               LIGHT OF THE FATAL FLAW NOW KNOWN TO EXIST IN THIS
+  149                 /                               SPECIFIC RELEASE, THIS BOOTSTRAP MAY EITHER BE
+  150                 /                               WITHDRAWN OR MODIFIED TO CREATE A CUSTOM BOOTSTRAP FOR
+  151                 /                               VARIOUS P?S/8-SPECIFIC PURPOSES SUCH AS SUPPORTING AN
+  152                 /                               ALTERNATE BOOTSTRAP TO DRIVE UNIT 1 IF AT ALL
+  153                 /                               FEASIBLE.  IT IS PRESENTLY IN THE SOURCE CODE BECAUSE
+  154                 /                               IT IS A FUNCTIONAL EXAMPLE OF HOW TO BOOT THIS
+  155                 /                               PARTICULAR SYSTEM DECTAPE; ALSO IT CAN BE ASSEMBLED
+  156                 /                               TO BOOT THIS SYSTEM IN ONE LESS WORD THAN THE
+  157                 /                               STANDARD DEC TD8E BOOTSTRAP.  [NOTE: ALL OF THESE
+  158                 /                               CONSIDERATIONS ARE MOOT SINCE THIS IS THE MR8E-C ROM
+  159                 /                               SYSTEM WHICH HAS THE EQUIVALENT FUNCTIONALITY BUILT
+  160                 /                               IN; HOWEVER, THIS MAY BE REVISITED WHEN THE P?S/8
+  161                 /                               TD8E NON-ROM SYSTEM IS ATTEMPTED SOME TIME IN THE
+  162                 /                               FUTURE; IT IS HOPED THAT AN EXAMPLE OF THAT SYSTEM IS
+  163                 /                               RECOVERED.  OTHERWISE, IT WILL HAVE TO BE REDESIGNED
+  164                 /                               AND RECODED FROM SCRATCH.]  FUTURE RELEASES OF THIS
+  165                 /                               FILE WILL REMOVE ALL NON-FUNCTIONAL CODE FRAGMENTS AT
+  166                 /                               THE APPROPRIATE TIME AS PART OF A CODE CLEANUP
+  167                 /                               OPERATION, ETC.
+  168   
+  169   
+  170                 /       05-FEB-2016     -       IMAGE OF BLOCK 0 RECREATED IN SOURCE CODE [CONFIRMED
+  171                 /                               ACCURATE.  NOTE: THIS RELEASE IS ACTUALLY DEFECTIVE AS
+  172                 /                               A PRACTICAL MATTER; WORK STARTED ON CORRECTING DEFECTS
+  173                 /                               FOR A FUTURE RELEASE ONCE ENOUGH OF THE CODE IS
+  174                 /                               RECOVERED TO ALLOW APPLICATION TO P?S/8 VERSION 8Z.
+  175                 /                               CERTAIN LOCATIONS WITHIN THE HANDLER ARE INDICATED AS
+  176                 /                               CONTAINING SPECIFIC VALUES THAT ARE A PART OF THE
+  177                 /                               ATTEMPT TO BOOT THE SYSTEM IN ONE TAPE PASS.  WHEN
+  178                 /                               THE FATAL FLAW IS CORRECTED, THESE LOCATIONS WILL BE
+  179                 /                               MODIFIED TO REFLECT THEIR INTENDED VALUE.
+  180   
+  181                 /       18-FEB-2016     -       WORK COMMENCING ON THE SLURP LOADER WHICH WAS
+  182                 /                               DISCOVERED BY TRIAL AND ERROR.  P?S/8 CONVENTIONS HAVE
+  183                 /                               CHANGED OVER THE YEARS FOR PLACEMENT OF THIS PORTION
+  184                 /                               OF THE OPERATING SYSTEM DEVICE-DEPENDENT COMPONENTS.
+  185                 /                               WHEN VERSION 8T WAS RELEASED CIRCA 1974/1975, THE
+  186                 /                               "BIN" SYSTEM PROGRAM [THAT LAUNCHES THE SLURP LOADER
+  187                 /                               WHEN NEEDED], INCLUDED THIS BLOCK WITHIN ITS OWN
+  188                 /                               CORE IMAGE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 5
+
+  190                 /                               THIS IS POOR DESIGN SINCE THAT MEANS THAT SHOULD A
+  191                 /                               TD8E DECTAPE BE ACCESSED ON A TC01/TC08 [OR OTHER
+  192                 /                               POTENTIAL PROBLEMATIC INTERACTION] OCCUR, THE "BIN"
+  193                 /                               PROGRAM ON THAT SYSTEM WILL LOAD THE INCORRECT SLURP
+  194                 /                               LOADER.  WHILE THERE CANNOT BE PROTECTION FROM THIS IN
+  195                 /                               GENERAL [AS CERTAIN SYSTEM CONVENTIONS ONLY CHANGE
+  196                 /                               SLOWLY IF AT ALL], THIS SYSTEM IS SO FAR REMOVED FROM
+  197                 /                               NEWER RELEASES, THE ABILITY TO EVEN ACCESS "BIN" FROM
+  198                 /                               THESE EARLIER RELEASES IS ACTUALLY IMPOSSIBLE [AND WHY
+  199                 /                               THE DECTAPE HAD TO BE SEARCHED MANUALLY TO EVEN LOCATE
+  200                 /                               THE CODE!].  HOWEVER, THE NEWER DESIGN ELIMINATES
+  201                 /                               DEVICE-DEPENDENT CODE FROM THE "BIN" PROGRAM AND
+  202                 /                               PLACES THE COMPONENT ON AN IMPLIED SYSTEM BLOCK.
+  203                 /                               THUS, IF ALL SYSTEMS ARE WITHIN A CLOSE RANGE OF
+  204                 /                               RELEASE, THIS PROBLEM IS ELIMINATED AS THE SLURP
+  205                 /                               LOADER WILL ALWAYS BE READ FROM THE IMPLIED BLOCK ON
+  206                 /                               THE SYSTEM DEVICE LOGICAL UNIT FOR BOOTUP.
+  207   
+  208                 /                               NOTE: THE '/I' DEVICE HANDLER RELOAD CODE HAS ALSO
+  209                 /                               BEEN LOCATED; THIS CAN BE WORKED ON ONCE THE SLURP
+  210                 /                               LOADER HAS BEEN COMPLETELY DOCUMENTED AT THE SOURCE
+  211                 /                               LEVEL, ETC.  [NOTE: FORTUNATELY, WHILE THESE BLOCK
+  212                 /                               ASSIGNMENTS HAVE CHANGED OVER THE YEARS, THE OVERALL
+  213                 /                               FUNCTIONALITY HAS NOT, ALTHOUGH A FEW MINOR
+  214                 /                               ADDITIONAL LIMITATIONS MAY APPLY THAT WILL REQUIRE
+  215                 /                               MODIFICATION FOR FUTURE RELEASES [AS WELL AS FOR USE
+  216                 /                               WITH THE PRESENT RELEASE VERSION 8Z].  ALSO, ANY
+  217                 /                               CHANGES MADE TO OVERCOME THE FATAL FLAW MAY INTERACT
+  218                 /                               WITH THIS ASPECT OF THE OPERATING SYSTEM AND THUS
+  219                 /                               AFFECT CERTAIN SPECIFICS OF THE RELOAD; THE RELOAD
+  220                 /                               CONCEPT INTERACTS THREE SPECIFIC PORTIONS OF THE
+  221                 /                               SYSTEM CONFIGURATION: 1) THE SPECIFICS OF THE SYSTEM
+  222                 /                               DEVICE HANDLER WHICH WILL BE UNDERGOING NECESSARY
+  223                 /                               CHANGES TO OVERCOME THE FATAL FLAW, 2) THE SLURP
+  224                 /                               LOADER SPECIFICS THAT WILL BE MODIED, AND 3) THE
+  225                 /                               RELOAD BLOCK ITSELF AS NECESSARY; ALL THREE MUST BE
+  226                 /                               UPDATED IN A COOPERATIVE EFFORT TO ACHIEVE A WORKABLE
+  227                 /                               RELEASE FOR ANY SYSTEM DEVICE THAT SUPPORTS A SLURP
+  228                 /                               LOADER.]  [NOTE: ALL TAPE-BASED SYSTEMS AND RX-BASED
+  229                 /                               SYSTEMS SUPPORT A SLURP LOADER AND FEW ELSE.  DEVICES
+  230                 /                               THAT RUN ON VERY FAST OR ONE-CYCLE DMA INTERFACES
+  231                 /                               MUST ALWAYS USE THE VIRTUAL LOADER WHICH IS ALWAYS AN
+  232                 /                               OPTION FOR ALL SYSTEMS [BUT MAY BE DEFAULT ON THESE
+  233                 /                               HIGHER-PERFORMANCE CONFIGURATIONS].]
+  234   
+  235                 /                               THE REWIND AND UNLOAD ROUTINES ARE NOW ROUGHED OUT,
+  236                 /                               BUT NOT FLESHED OUT YET; THE DEVICE SIZE PATCH IS
+  237                 /                               NOW PRESENT.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 6
+
+  239                 /       25-FEB-2016     -       SLURP LOADER FOR THE TD8E WITH MR8EC ROM NOW RECREATED
+  240                 /                               IN SOURCE FORM [AND CONFIRMED CORRECT BY DIRECT BINARY
+  241                 /                               COMPARISON].  CERTAIN CONVENTIONS OF P?S/8 HAVE
+  242                 /                               CHANGED SLIGHTLY; MINOR EDITING WILL BE NECESSARY TO
+  243                 /                               UPDATE THE SOURCE CODE TO FULL COMPATIBILITY WITH
+  244                 /                               P?S/8 VERSION 8Z.  OTHER THAN THE CHANGE IN INTERNAL
+  245                 /                               SYSTEM CONVENTIONS, THE SOURCE CODE APPEARS TO BE
+  246                 /                               COMPLETELY FUNCTION AS INTENDED.  MOREOVER, MOST OF
+  247                 /                               THE CODE WILL BE EASILY ADAPTED TO THE P?S/8
+  248                 /                               CONFIGURATION FOR THE TD8E WHEN USED WITH EXTENDED
+  249                 /                               MEMORY [WITHOUT THE MD8E-C ROM].  CERTAIN P?S/8
+  250                 /                               GLOBAL DEFINITIONS ARE TEMPORARILY MODIFIED TO PREVENT
+  251                 /                               ASSEMBLY ERRORS.  [NOTE: ONCE THIS SOURCE FILE IS
+  252                 /                               COMPLETED WITH REGARD TO SOURCE CODE RECOVERY, IT WILL
+  253                 /                               BE ARCHIVED; ADDITIONAL CHANGES WILL BE MADE TO
+  254                 /                               ACHIEVE COMPATIBILITY WITH P?S/8 VERSION 8Z.]
+  255   
+  256                 /       29-FEB-2016     -       REWIND AND UNLOAD ROUTINE FULLY RECOVERED.  CERTAIN
+  257                 /                               DEFINITIONS ARE CONDITIONAL ON VERSION 8T.  ALTERNATE
+  258                 /                               DEFINITIONS ARE AVAILABLE TO UPGRADE THE SOURCE CODE
+  259                 /                               TO VERSION 8Z STANDARDS [ASSUMING OTHER CHANGES ARE
+  260                 /                               MADE TO CORRECT ALL RELATED ISSUES].
+  261   
+  262                 /                               THE ALTERNATE STANDALONE BOOTSTRAP FOR THE TD8E IS NOW
+  263                 /                               SHORTER THAN THE DEC STANDARD TD8E BOOTSTRAP
+  264                 /                               REGARDLESS OF CONFIGURATION.  DUE TO THE DISCOVERY OF
+  265                 /                               THE FATAL FLAW IN THE BOOTSTRAP OPERATION OF THE
+  266                 /                               SYSTEM DEVICE HANDLER [AND PROJECTED CHANGES TO BE
+  267                 /                               MADE TO REMEDY THE SITUATION], THIS CODE MAY BE
+  268                 /                               IRRELEVANT TO A CORRECTED RELEASE OF THIS SYSTEM.  IT
+  269                 /                               IS ESSENTIALLY EXTRANEOUS DUE TO THE BUILT-IN
+  270                 /                               BOOTSTRAP FUNCTION IN THE MR8E-C ROM; HOWEVER, THIS
+  271                 /                               BOOTSTRAP PROGRAM MAY BE SIGNIFICANT TO THE TD8E
+  272                 /                               SYSTEM REQUIRING EXTENDED MEMORY [WITHOUT THE MR8E-C
+  273                 /                               ROM].  AS SUCH, IT WAS TESTED ON THE PRESENT [FLAWED]
+  274                 /                               SYSTEM AND RETAINED FOR REFERENCE PURPOSES ONLY.
+  275                 /                               [NOTE: THE FLAWED SYSTEM WILL BOOT UP ONLY IF NO
+  276                 /                               CHANGES ARE MADE TO THE CONTENTS OF BLOCK 0000 UNLESS
+  277                 /                               A KLUDGE IS APPLIED THAT MUST BE CALCULATED EACH AND
+  278                 /                               EVERY TIME A CHANGE IS MADE; THIS IS AN UNACCEPTABLE
+  279                 /                               SITUATION THAT WILL REQUIRE SIGNIFICANT REDESIGN.  BY
+  280                 /                               AVOIDING SUCH CHANGES FOR THE PRESENT, IT CAN BE
+  281                 /                               BOOTED BY ANY PROPERLY DESIGNED BOOTSTRAP ROUTINE.]
+  282   
+  283                 /       02-MAR-2016     -       SYSTEM DEVICE HANDLER RELOADER CODE ROUGHED OUT.  SOME
+  284                 /                               COSMETIC CLEANUP, COMMENT CHANGES AND REPAGINATION.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 7
+
+  286                 /       05-MAR-2016     -       SYSTEM DEVICE HANDLER RELOADER CODE FULLY RECOVERED.
+  287   
+  288                 /                               SOME COMMENTS ADDED REGARDING FUTURE RELEASES; DESPITE
+  289                 /                               THE AMPLE CODE SPACE ALLOCATED FOR THE RELOADER, SOME
+  290                 /                               TECHNIQUES CAN BE IMPROVED TO BE MORE INLINE WITH THE
+  291                 /                               STANDARD OF PROGRAMMING USED IN OTHER ANALOGOUS CODE
+  292                 /                               FOR OTHER DEVICES.  THIS WILL BETTER SERVE AS AN
+  293                 /                               EXAMPLE OF HOW TO WRITE FUTURE RELOADER CODE FOR OTHER
+  294                 /                               DEVICES.
+  295   
+  296                 /                               INTERACTION WITH THE LOGICAL CONSOLE OVERLAY FOR THIS
+  297                 /                               SYSTEM WILL REQUIRE A LOT OF DISCOVERY AS THE OVERLAY
+  298                 /                               WAS IN A MORE PRIMITIVE FORM IN VERSION 8T; IT WAS
+  299                 /                               ONLY FOR THE VT8E AND NON-CONFIGURABLE.  MANY OF THE
+  300                 /                               SAME PRINCIPLES CARRIED OVER IN LATER DEVELOPMENT
+  301                 /                               YEARS, BUT IT IS NOT CLEAR IF ANY OF THIS WORK WAS
+  302                 /                               DONE ON THIS PARTICULAR SYSTEM [AS IT IS AN OPTION OF
+  303                 /                               P?S/8 AND IF NO PARTICULAR IMPROVEMENT IS SOUGHT, IT
+  304                 /                               COULD BE IGNORED.  HOWEVER, VIRTUALLY EVERY SUPPORTED
+  305                 /                               DEVICE HAS INCLUDED SOME FORM OF INTERACTION WITH THE
+  306                 /                               LOGICAL CONSOLE OVERLAY; THE TD8E SYSTEM DEVICE
+  307                 /                               SYSTEM DEVICE HANDLER CAN CLEARLY BENEFIT FROM THE
+  308                 /                               KIND OF ENHANCEMENT PROVIDED FOR OTHER DEVICES SUCH AS
+  309                 /                               THE TC01/TC08 DECTAPE.
+  310   
+  311                 /                               FROM THE RECOLLECTIONS OF CHARLES LASNER, IT WOULD
+  312                 /                               APPEAR SOME MEASURE OF OVERLAY SUPPORT WAS ADDED.
+  313                 /                               HOWEVER, IT IS POSSIBLE THIS IS A PRELIMINARY RELEASE
+  314                 /                               CREATED FOR EXPEDIENT PURPOSES;  THE CODE MAY SIMPLY
+  315                 /                               NOT BE PRESENT ON THIS PARTICULAR SYSTEM IMAGE FROM
+  316                 /                               THE RECOVERED DECTAPE.  MOREOVER, ESPECIALLY IN LIGHT
+  317                 /                               OF THE FATAL FLAW DISCOVERED IN THE LOGIC OF THE
+  318                 /                               SYSTEM DEVICE HANDLER [PREVENTING MODIFICATION OF
+  319                 /                               BLOCK 0000 WITHOUT SOME EXTERNAL REMEDY APPLIED AFTER
+  320                 /                               THE FACT], IT IS LIKELY THAT AT LEAST SOME PORTION OF
+  321                 /                               THIS SUPPORT NEVER EXISTED BEFORE.  A COMPLETED FUTURE
+  322                 /                               RELEASE OF A SYSTEM FOR THE TD8E/MR8E-C ROM SHOULD
+  323                 /                               INCLUDE ALL SUCH IMPROVEMENTS [AS WELL AS RESOLVING
+  324                 /                               THE FATAL FLAW AND RECONCILING CERTAIN SYSTEM
+  325                 /                               DEFINITIONS THAT HAVE CHANGED OVER THE YEARS].
+  326                 /                               CERTAIN OF THESE CHANGES HAVE BEEN DOCUMENTED IN THE
+  327                 /                               SOURCE CODE IN THE FORM OF COMMENTS; HOWEVER,
+  328                 /                               ADDITIONAL WORK IS REQUIRED TO PRODUCE A COMPLETELY
+  329                 /                               FUNCTIONAL SYSTEM AS INTENDED [FOR VERSION 8Z AND
+  330                 /                               COMPATIBILITY WITH THE FUTURE REQUIREMENTS OF VERSION
+  331                 /                               9A WHICH IS CURRENTLY IN DESIGN DEVELOPMENT].
+  332   
+  333                 /                               DEPENDING ON THE LEAD TIME FOR FURTHER WORK ON THIS
+  334                 /                               CONFIGURATION, A PROVISIONAL SYSTEM MAY BE PRODUCED TO
+  335                 /                               PROVIDE NOMINAL COMPATIBILITY WITH VERSION 8Z TO
+  336                 /                               ALLOW TESTING ON BOTH THE SIMH SIMULATOR AND ALSO ON
+  337                 /                               AVAILABLE HARDWARE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 8
+
+  339                 /                               IT IS BECOMING INCREASINGLY CLEAR THAT THIS SPECIFIC
+  340                 /                               CONFIGURATION CANNOT SUPPORT BOOTUP FROM DRIVE UNIT 1.
+  341                 /                               AS SUCH, REFERENCES TO THIS WILL EVENTUALLY BE REMOVED
+  342                 /                               FROM ALL SOURCE CODE.  [THE NON-ROM TD8E WITH EXTENDED
+  343                 /                               MEMORY SYSTEM VARIANT COULD STILL SUPPORT SUCH AN
+  344                 /                               EXTENDED BOOTSTRAP; WHERE CODE IS INCLUDED FOR FUTURE
+  345                 /                               USE IN DEVELOPING THAT ALTERNATIVE SYSTEM, DRIVE 1
+  346                 /                               REFERENCES WILL BE RETAINED BUT NOTED THAT THE CODE
+  347                 /                               IS PROVIDED [OR COMMENTED ON] PRESUMING THIS IS
+  348                 /                               POSSIBLE [IF ONLY IN THEORY].
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 9
+
+  350                 /       P?S/8 SYSTEM EXTERNAL EQUATED SYMBOLS.
+  351   
+  352                 /       THE FOLLOWING SYMBOLS ARE SPECIFIC TO VERSION 8Z OF P?S/8 AND ARE SUBJECT TO
+  353                 /       CHANGE IN ANY OTHER RELEASE.  [NOTE: MOST SYMBOLS ARE INHERENTLY STABLE AS
+  354                 /       CORE DEFINITIONS OF THE SYSTEM; HOWEVER, OTHER SYMBOLS ARE DEPENDENT ON EITHER
+  355                 /       SPECIFIC SYSTEM COMPONENTS OR SYSTEM GENERATION METHODS WHICH MAY CHANGE
+  356                 /       CONSIDERABLY OR EVEN BECOME OBSOLETE.]
+  357   
+  358                 /       THE SYMBOLS ARE DEFINED IN A PRESCRIBED WAY: THE STARTING AND ENDING SYMBOLS
+  359                 /       MUST BE WITHIN TWO COMMENTS WHICH START WITH '//'; NO OTHER FORM OF COMMENTARY
+  360                 /       IS ALLOWED OTHER THAN A SINGLE COMMENT ON EACH DEFINITION LINE.
+  361   
+  362                 //      P?S/8 EQUATED SYMBOLS.
+  363   
+  364           7603          ADRLST= 7603                    /ZAP ADDRESS LIST.
+  365           0043          BBLEN=  0043                    /SLURP LOADER BOOTSTRAP LENGTH.
+  366           7734          BCIF=   7734/ **** 8Z **** 7746 /SLURP LOADER STARTING FIELD LOCATION.
+  367           0020          BINADR= 0020                    /"%" FILE STARTING BLOCK.
+  368           0020          BINIT=  0020                    /SLURP INITIALIZE ROUTINE.
+  369           0020          BINITLN=0020                    /LENGTH OF SLURP INITIALIZE CODE.
+  370           0031          BINIT2= 0031                    /SECONDARY SLURP INITIALIZE ADDRESS.
+  371           7776          BISTRT= 7776                    /DEFAULT STARTING ADDRESS IF '/I' OR '/V'.
+  372           0020          CALADR= 0020                    /CALLING ADDRESS.
+  373           0021          CALFLD= 0021                    /CALLING FIELD.
+  374           1416          CHLOOP= 1416                    /CHARACTER INPUT ROUTINE.  **** 8U ONLY ****
+  375           7615          CNTLST= 7615                    /CONTENTS LIST FOR ZAPPED ADDRESSES.
+  376           6760          DEVSIZE=6760                    /DEVICE SIZE VALUE IN SYSGEN ROUTINE.
+  377           0024          DSPBLB= 0024                    /BLURB DISPLAY ROUTINE.
+  378           0046          ERRTRP= 0046                    /ERROR TRAP POINTER.
+  379           0077          ESTATUS=0077                    /ERROR STATUS.
+  380           0023          FILBLB= 0023                    /BLURB FILL ROUTINE.
+  381           7400          GENAD1= 7400                    /SYSIO GENERATION ADDRESS.
+  382           7600          HIDWRD= 7600                    /SYSTEM HANDLER ID WORD.
+  383           4020          IGEN=   4020                    /I GENERATION FIELD AND ADDRESS.
+  384           0045          IOTRAP= 0045                    /I/O TRAP POINTER.
+  385           0047          IOWAIT= 0047                    /I/O WAIT POINTER.
+  386           1305          INSERT= 1305                    /CHARACTER INSERT ROUTINE.
+  387           0105          L200=   0105                    /CONSTANT 0200.
+  388           0177          L7=     0177                    /CONSTANT 0007.
+  389           0056          L77=    0056/ **** 8Z **** 0103 /CONSTANT 0077.
+  390           0077          L7000=  0077                    /CONSTANT 7000.  **** 8U ONLY ****
+  391           0064          L7756=  0064/ **** 8Z **** 0065 /CONSTANT 7756.
+  392           0040          L7770=  0040                    /CONSTANT 7770.
+  393           0353          MONSTRT=0353                    /KEYBOARD MONITOR STARTUP ADDRESS.
+  394           0022          MOVBLB= 0022                    /ERROR BLURB MOVE ROUTINE.
+  395           0162          PCHLOOP=0162                    /POINTER TO CHARACTER INPUT ROUTINE.
+  396           1547          REWIND= 1547/ **** 8Z **** 1335 /REWIND/UNLOAD ADDRESS.
+  397           7635          SBLOCK= 7635                    /SYSTEM LOADER BLOCK ARGUMENT.
+  398           7600          SBOOT=  7600                    /MONITOR RESTART ADDRESS.
+  399           7602          SBTFUN= 7602                    /SYSTEM BOOTSTRAP FUNCTION.
+  400           7633          SCORE=  7633                    /SYSTEM LOADER TRANSFER ADDRESS.
+  401           7611          SCRSIZE=7611                    /SYSTEM MEMORY SIZE, ETC. WORD.
+  402           7610          SDATE=  7610                    /SYSTEM LOW-ORDER DATE WORD.
+  403           7757          SFILES= 7757                    /FILE LIST PASSED HERE.
+  404           7634          SFUN=   7634                    /SYSTEM LOADER FUNCTION WORD.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 10
+
+  406           7632          SLOAD=  7632                    /SYSTEM LOADER ADDRESS.
+  407           4420          SLPGEN= 4420                    /SLURP LOADER GENERATION FIELD AND ADDRESS.
+  408           7777          SLPSA=  7777                    /SLURP LOADER STARTING ADDRESS WORD.
+  409           2600          SLUPAGE=2600                    /SLURP LOADING PAGE.
+  410           7607          SOUTFLS=7607                    /OUTPUT FILE COUNT PASSED HERE.
+  411           7756          SPARM=  7756                    /EQUALS PARAMETER PASSED HERE.
+  412           7604          SWAL=   7604                    /COMMAND-LINE OPTION SWITCHES '/A'-'/L'.
+  413           7605          SWMX=   7605                    /COMMAND-LINE OPTION SWITCHES '/M'-'/X'.
+  414           7606          SWY9=   7606                    /COMMAND-LINE OPTION SWITCHES '/Y'-'/9'.
+  415           7640          SYSIO=  7640                    /SYSTEM I/O ENTRY POINT.
+  416           7637          SYSTART=7637                    /SYSTEM LOADER STARTUP ADDRESS.
+  417           0100          TEMP1=  0100                    /TEMPORARY.
+  418           1041          TRAPIO= 1041                    /ENTRY POINT FOR I/O TRAPS.
+  419           1200          TRPERR= 1200                    /ENTRY POINT FOR I/O ERROR TRAPS.
+  420           1020          TRPGEN= 1020                    /TRAP ROUTINE GENERATION FIELD AND ADDRESS.
+  421           0000          UNIT=   0000                    /KEYBOARD MONITOR UNIT.
+  422           1110          WAITIO= 1110                    /ENTRY POINT FOR I/O WAIT TRAPS.
+  423           4000          WRITE=  4000                    /SYSIO WRITE BIT.
+  424           7627          ZAPLST= 7627                    /REPLACEMENT LIST FOR ZAPPED ADDRESSES.
+  425   
+  426                 //      END OF P?S/8 EQUATED SYMBOLS.
+  427   
+  428                 /       TD8E SIMPLE DECTAPE INPUT/OUTPUT DEFINITIONS.
+  429   
+  430           0077          SDCODE= 77                      /DEVICE CODE FOR TD8E SIMPLE DECTAPE [PRIMARY].
+  431   
+  432           6771          SDSS=   SDCODE^10+6001          /SIMPLE DECTAPE SKIP ON SINGLE LINE FLAG.
+  433           6772          SDST=   SDCODE^10+6002          /SIMPLE DECTAPE SKIP IF TIME ERROR FLAG SET.
+  434           6773          SDSQ=   SDCODE^10+6003          /SIMPLE DECTAPE SKIP ON QUAD LINE FLAG.
+  435           6774          SDLC=   SDCODE^10+6004          /SIMPLE DECTAPE LOAD COMMAND REGISTER.
+  436           6775          SDLD=   SDCODE^10+6005          /SIMPLE DECTAPE LOAD DATA REGISTER.
+  437           6776          SDRC=   SDCODE^10+6006          /SIMPLE DECTAPE READ COMMAND REGISTER.
+  438           6777          SDRD=   SDCODE^10+6007          /SIMPLE DECTAPE READ DATA REGISTER.
+  439   
+  440                 /       NUMERIC LOAD DEFINITIONS.
+  441   
+  442           7201          NL0001= CLA IAC                 /LOAD AC WITH 0001.
+  443                 /       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002.
+  444           7332          NL2000= CLA CLL CML RTR         /LOAD AC WITH 2000.
+  445           7330          NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000.
+  446                 /       NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775.
+  447           7344          NL7776= CLA CLL CMA RAL         /LOAD AC WITH 7776.
+  448                 /       NL7777= CLA CMA                 /LOAD AC WITH 7777.
+  449   
+  450                 /       MISCELLANEOUS EQUATED SYMBOLS.
+  451   
+  452                 /       SBOFF=  SLUPAGE-SBOOT           /OFFSET VALUE FOR SLURP LOADER.
+  453           0000          SYSBLK= 0000                    /SYSTEM BOOTSTRAP BLOCK.
+  454           0014          SYSNUM= 0014                    /SYSTEM ID NUMBER; **** MUST BE UNIQUE. ****
+  455           2702          TDSIZE= 2702                    /STANDARD DECTAPE BLOCK LENGTH.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 11
+
+  457                 /       SLURP FORMAT CONTROL DEFINITIONS.
+  458   
+  459           0000          DA=     0                       /DATA WORD.     
+  460           0001          EF=     1                       /END-OF-FILE.
+  461           0003          FL=     3                       /FIELD SETTING.
+  462           0002          OR=     2                       /ORIGIN SETTING.
+  463   
+  464                 /       ROM ADDRESS DEFINITIONS.
+  465   
+  466           7552          F2SET=  7552                    /CONTINUATION OF FUNCTION CALL ADDRESS.
+  467           7470          ROMBOOT=7470                    /ROM-BASED BOOTSTRAP ROUTINE ADDRESS.
+  468           0070          ROMFLD= 70                      /ROM LOADS INTO FIELD 7.
+  469           7405          ROMGO=  7405                    /RETRY ADDRESS AFTER ERRORS.
+  470           7677          READLP= 7677                    /READ DATA WORD LOOP ADDRESS IN THE ROM.
+  471   
+  472                 /       ROM-DEFINED LOCATIONS WITHIN THE SYSTEM DEVICE HANDLER.
+  473   
+  474           7751          BUFADR= 7751                    /READ/WRITE BUFFER ADDRESS.
+  475           7753          BUFPTR= 7753                    /BUFFER POINTER FOR READ AND STORE ROUTINES.
+  476           7674          CIFR=   7674                    /INTERNAL RETURN ADDRESS FOR WRITING.
+  477           7731          DRVUNIT=7731                    /DECTAPE DRIVE UNIT.
+  478           7704          EQUFUN= 7704                    /EQUIVALENCE CHECKSUM ROUTINE.
+  479           7750          EQUTMP= 7750                    /TEMPORARY FOR EQUIVALENCE CHECKSUM ROUTINE.
+  480           7647          GETWRD= 7647                    /GET A WORD FROM THE CALLER'S BUFFER ROUTINE.
+  481           7752          PAGCNT= 7752                    /TRANSFER PAGE COUNT.
+  482           7654          PUTWRD= 7654                    /PUT A WORD INTO THE CALLER'S BUFFER ROUTINE.
+  483           7676          RDQUAD= 7676                    /READ A 12-BIT WORD ROUTINE.
+  484           7734          SBLK=   7734                    /LATEST DECTAPE BLOCK NUMBER.
+  485           7733          SCKSUM= 7733                    /RUNNING CHECKSUM WORD.
+  486           7661          SERR=   7661                    /ERROR HANDLER ADDRESS.
+  487           7722          SEXIT=  7722                    /ROM EXIT WHEN FINISHED.
+  488           7732          SFUNCTI=7732                    /FUNCTION WORD.
+  489           7735          SUNIT=  7735                    /DRIVE UNIT FOR LATEST HANDLER CALL.
+  490           7730          TRYCNT= 7730                    /RETRY COUNTER.
+  491           7754          WORDCT= 7754                    /WORD COUNTER FOR LATEST DATA BLOCK.
+  492           7724          WRQ=    7724                    /WRITE QUAD ROUTINE ROM CONTINUATION ADDRESS.
+  493           7671          WRQUAD= 7671                    /WRITE A 12-BIT WORD ROUTINE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 12
+
+  495                 /       TD8E BOOTSTRAP METHODS.
+  496   
+  497                 /       1.      MR8E-C ROM TD8E BOOTSTRAP.
+  498   
+  499                 /       ASSUMING THE MR8E-C ROM IS AVAILABLE [WHICH IS A REQUIRMEMENT OF THIS SYSTEM
+  500                 /       CONFIGURATION], THE FOLLOWING IS THE SHORTEST WAY TO BOOTSTRAP ANY COMPATIBLE
+  501                 /       TD8E OPERATING SYSTEM [ON LOGICAL UNIT 0 ONLY] BY THE USE OF AN EXECUTABLE
+  502                 /       PROGRAM.  [USING THE FRONT PANEL SWITCH REGISTER TO BOOTSTRAP THE SYSTEM IS
+  503                 /       ESSENTIALLY THE MANUAL EQUIVALENT OF THIS PROGRAM.]
+  504   
+  505                         NOPUNCH                         /PREVENT BINARY OUTPUT; THIS SECTION IS FOR
+  506                                                         /DOCUMENTATION PURPOSES ONLY.
+  507   
+  508          *0200          *200                            /ANYWHERE ON ANY PAGE OF ANY FIELD.
+  509   
+  510                 /       CLA                             /THE AC MUST BE CLEAR.
+  511                 /       IOF                             /INTERRUPTS MUST BE OFF.
+  512                 /       CDF     XX                      /THE DATA FIELD IS IGNORED.
+  513   000200  6272          CIF     70                      /GOING TO ROM FIELD.
+  514   000201* 5602          JMP I   .+1;    ROMBOOT         /START THE BOOTSTRAP WITHIN THE ROM.
+  515   000202* 7470 
+  516   
+  517                 /       NOTE: THIS BOOTSTRAP CAN BE SHORTENED BY ONE INSTRUCTION BY LOADING ANYWHERE
+  518                 /       ON PAGE 36 [7400-7577].  THE "JMP I" INSTRUCTION CAN THEN BE REPLACED BY
+  519                 /       "JMP ROMBOOT"; THE ADDRESS POINTER TO "ROMBOOT" BECOMES SUPERFLUOUS.
+  520   
+  521                 /       2.      STANDARD DEC TD8E BOOTSTRAP.
+  522   
+  523                         NOPUNCH                         /PREVENT BINARY OUTPUT; THIS SECTION IS FOR
+  524                                                         /DOCUMENTATION PURPOSES ONLY.
+  525   
+  526           0000          FIELD   0                       /LOADS IN FIELD 0.
+  527   
+  528          *7300          *7300                           /THIS IS WHERE THE STANDALONE BOOTSTRAP LOADS.
+  529   
+  530   007300* 1312  K1000,  TAD     GET/(2000)              /GET REVERSE DIRECTION BIT.  ALSO CONSTANT
+  531                                                         /1000 [ONLY THE HIGH-ORDER FOUR BITS ARE USED].
+  532   007301* 4312          JMS     GET                     /LOCATE REVERSE END ZONE.
+  533   007302* 4312          JMS     GET                     /LOOK FOR 31 CODE GOING FORWARD.
+  534   007303* 6773  RD,     SDSQ                            /QUAD FLAG UP?
+  535   007304* 5303          JMP     .-1                     /NO, WAIT FOR IT.
+  536   007305* 6777          SDRD                            /YES, READ IT IN.
+  537   007306* 3726          DCA I   WCT                     /STORE IT INTO MEMORY.
+  538   007307* 2326          ISZ     WCT                     /BUMP TO NEXT; ALL DONE YET?
+  539   007310* 5303          JMP     RD                      /NO, KEEP GOING.
+  540   
+  541                 /       AT THIS POINT BLOCK 0000 HAS BEEN READ INTO 07360-07557 AND BLOCK 0001 HAS
+  542                 /       BEEN READ INTO 07600-07777.  [NOTE: ONLY OS/8 AND COS-300/310 REQUIRE THE
+  543                 /       BLOCK OOO1 DATA LOAD; EDU-SYSTEM 15/30 AND P?S/8  ONLY REQUIRE BLOCK 0000
+  544                 /       LOADING INTO MEMORY.]  FOR ALL SUPPORTED SYSTEMS, THE OFFSET LOADING INTO
+  545                 /       FIELD 0 7360-7557 WILL BE EXPECTED AND DEALT WITH ACCORDINGLY.
+  546   
+  547   007311* 5732          JMP I   STRT/(STARTIT)          /GO START IT UP.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 13
+
+  549                 /       GET TO DESIRED MARK WINDOW VALUE ROUTINE.  [NOTE: INITIALIZED TO SAVE A WORD.]
+  550   
+  551   007312* 2000  GET,    2000                            /GET TO DESIRED MARK ROUTINE.
+  552   007313* 1300          TAD     K1000/(1000)            /ADD ON UNIT [0] AND GO BITS TO DIRECTION BIT
+  553                                                         /PASSED IN AC.  NOTE: LOW-ORDER BITS IGNORED.
+  554   007314* 6774          SDLC                            /LOAD COMMAND REGISTER TO START THE TAPE MOVING.
+  555   007315* 6771  MRKSRCH,SDSS                            /NEW LINE IN?
+  556   007316* 5315          JMP     .-1                     /NO, WAIT FOR IT.
+  557   007317* 6776          SDRC                            /YES, READ THE COMMAND REGISTER.
+  558   007320* 0331          AND     K77/(77)                /JUST MARK WINDOW BITS.
+  559   
+  560                 /       THE FIRST TIME THIS ROUTINE IS USED, THE REVERSE END ZONE MARK VALUE IS
+  561                 /       SEARCHED FOR; THE SECOND TIME, THE 31 CODE IS SEARCHED FOR.
+  562   
+  563   007321* 1327  MARKSEL,TAD     MRKVALUE                /COMPARE TO DESIRED [END MARK OR 31 CODE].
+  564   007322* 7640          SZA CLA                         /SKIP IF IT MATCHES.
+  565   007323* 5315          JMP     MRKSRCH                 /GO BACK IF NOT.
+  566   007324* 2321          ISZ     MARKSEL                 /BUMP TO NEXT MARK CODE FOR NEXT TIME.
+  567   007325* 5712          JMP I   GET                     /RETURN TO CALLER.
+  568   
+  569   007326* 7354  WCT,    BOOTBUFFER                      /WORD COUNT AND STORE POINTER.
+  570   
+  571   007327* 7756  MRKVALU,-22;    -31                     /REVERSE END AND 31 CODE MARK CONSTANTS.
+  572   007330* 7747 
+  573   007331* 0077  K77,    77                              /CONSTANT 0077.
+  574   007332* 7400  STRT,   STARTIT                         /WHERE TO START THE BOOT CODE READ IN.
+  575   
+  576   007333* 0000          ZBLOCK  7354-.                  /EMPTY SPACE.
+  577   
+  578           7354          BOOTBUF=.                       /DECTAPE BLOCK 0000 CONTENTS START LOADING HERE.
+  579   
+  580   007354* 0000          ZBLOCK  4                       /THESE LOCATIONS ARE LOADED WITH PRE-DATA WORDS.
+  581   
+  582           7360          BLKDATA=.                       /THE DATA WORDS FROM BLOCK 0000 LOAD HERE.
+  583   
+  584   007360* 0000          ZBLOCK  7400-.                  /THE FIRST 0020 WORDS OF BLOCK 0000 LOAD HERE.
+  585   
+  586           7400          STARTIT=.                       /THE REST OF THE WORDS IN BLOCK 0000 LOAD
+  587                 /                                       HERE.  CONTROL IS TRANSFERRED HERE AFTERWARDS.
+  588                 /                                       ALL /COMPATIBLE OPERATING SYSTEMS NEED TO BE
+  589                 /                                       AWARE OF THIS OFFSET LOADING AND PROVIDE A
+  590                                                         /SYSTEM-SPECIFIC PROCESS TO CONTINUE THE OVERALL
+  591                                                         /OPERATING SYSTEM LOADING PROCESS.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 14
+
+  593                 /       NOTES:
+  594   
+  595                 /       1)  THE STANDARD DEC TD8E BOOTSTRAP ALSO LOADS THE CONTENTS OF BLOCK 0001 INTO
+  596                 /           07600-07777; THIS IS ONLY MEANINGFUL TO OS/8 AND COS-300/310.
+  597   
+  598                 /       2)  THE MR8E-C ROM BOOTSTRAP FUNCTIONS IDENTICALLY TO THE STANDARD DEC TD8E
+  599                 /           BOOTSTRAP; CLEARLY THE STANDARD DEC TD8E BOOTSTRAP IS THE TEMPLATE FOR THE
+  600                 /           DESIGN OF THE ROM-BASED ROUTINES.
+  601   
+  602                 /       3)  THE STANDARD DEC TD8E BOOTSTRAP IS NOT WELL DEVELOPED.  IT CAN BE MADE
+  603                 /           MORE ROBUST BY CHANGING THE "K1000" SYMBOLIC REFERENCE TO THE WORD AT
+  604                 /           "GET+1" [WHICH WOULD MAKE IT SELF-REFERENTIAL].  THE ONLY REQUIREMENT OF
+  605                 /           THE CONSTANT USED IS THE HIGH-ORDER FOUR BITS ARE 0, 0, 1, 0; AS WRITTEN,
+  606                 /           EITHER LOCATION ACCOMPLISHES THIS; ONCE THIS CHANGE IS MADE, ADDITIONAL
+  607                 /           CHANGES ARE POSSIBLE TO MAKE THIS PROGRAM MORE ROBUST [BY ITSELF, THIS
+  608                 /           CHANGE IS MERELY INNOCUOUS].
+  609   
+  610                 /       4)  ASSUMING 3) ABOVE HAS BEEN PERFORMED, THE INSTRUCTION AT 07300 CAN BE
+  611                 /           CHANGED TO "CLA CLL CML RTR" WHICH LOADS THE ACCUMULATOR WITH 2000 [AKA
+  612                 /           "NL2000"].  THIS CHANGE HAS THE ADDED BENEFIT OF ENSURING THE PROPER
+  613                 /           CONTENTS OF THE AC AS THE PROGRAM STARTS, WITHOUT RELIANCE ON POWER CLEAR
+  614                 /           CONSIDERATIONS [WHICH COULD BE IMPROPERLY CARRIED OUT BY USERS UNFAMILIAR
+  615                 /           WITH THE PROCESS].
+  616   
+  617                 /       5)  ASSUMING 3) AND 4) ABOVE HAVE BEEN PERFORMED, THE CONTENTS OF "GET" BECOME
+  618                 /           UNIMPORTANT.  THIS ALLOWS THE FRONT PANEL OPERATIONS NEEDED TO TOGGLE IN
+  619                 /           THIS CODE TO BE ONE OPERATION SHORTER [THE PREVIOUS VALUE CAN BE LEFT ON
+  620                 /           THE FRONT PANEL SWITCHES THEN PRESS DEPOSIT TWICE].
+  621   
+  622                 /       IT IS CLEAR THIS BOOTSTRAP WAS NOT OPTIMIZED AS IS USUALLY THE CASE WITH OTHER
+  623                 /       DEC BOOTSTRAP CODING; HOWEVER, IT IS KNOWN THAT AT THE TIME THE TD8E WAS FIRST
+  624                 /       PRODUCED, THERE WAS WIDESPREAD PROGRAMMER APATHY OR EVEN OPEN DISDAIN FOR THE
+  625                 /       DEVICE.  THE NON-ROM VERSION OF A DEVICE HANDLER FOR OS/8 TO SUPPORT THE TD8E
+  626                 /       [THAT REQUIRES AT LEAST 12K OF MEMORY] IS DOCUMENTED IN SURVIVING OS/8 SOURCE
+  627                 /       FILES AS "THE TD8E PROBLEM".  THIS ALSO IMPACTED NEGATIVELY ON SUBSEQUENT
+  628                 /       DEVICE HANDLERS ALSO REQUIRING AT LEAST 12K OF MEMORY; THE HANDLERS FOR THESE
+  629                 /       NEWER DEVICES WERE PRAGMATICALLY WRITTEN TO SUPERFICIALLY MIMIC QUIRKS OF THE
+  630                 /       TD8E HANDLER.  THIS BECAME NECESSARY TO ALLOW CERTAIN PROGRAMS TO HANDLE "THE
+  631                 /       TD8E PROBLEM" GENERICALLY EVEN IF THIS REQUIREMENT WAS DETRIMENTAL TO THE
+  632                 /       HANDLERS FOR THESE OTHER DEVICES.
+  633   
+  634                 /       IT WAS SUGGESTED TO THE PDP-8 PROGRAMMING STAFF THAT OS/8 BE REWRITTEN TO
+  635                 /       CONFORM TO THE EMERGING P?S/8 MEMORY MANAGEMENT STANDARD USED IN ALL P?S/8
+  636                 /       RELEASES FROM THAT ERA TO THE PRESENT; THEY CONSIDERED IT A GOOD IDEA BUT TOO
+  637                 /       MUCH WORK TO BOTHER WITH.  AS SUCH, THE RELEVANT RELEASES OF OS/8 BASIC AND
+  638                 /       FORTRAN IV HAVE WEAKNESSES WITHIN THEM DIRECTLY TRACEABLE TO THIS "PROBLEM".
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 15
+
+  640                 /       3.      P?S/8 TD8E BOOTSTRAP.
+  641   
+  642                 /       THIS BOOTSTRAP IS ONLY FOR P?S/8 SYSTEMS BASED ON THE TD8E DECTAPE CONTROLLER.
+  643                 /       THE STANDARD DEC TD8E BOOTSTRAP WILL ALSO WORK; HOWEVER, IT CANNOT ACCESS
+  644                 /       DRIVE UNIT 1 AS AN ALTERNATE BOOTUP DEVICE CHOICE.  [NOTE: THE CODE PRESENTED
+  645                 /       HERE DOES NOT ACTUALLY BOOTUP DRIVE UNIT 1; IT IS HOPED THAT FUTURE RELEASES
+  646                 /       OF P?S/8 FOR TD8E WILL BE COMPATIBLE WITH THIS CODE WITH SUITABLE CHANGES MADE
+  647                 /       THAT WILL SUPPORT DRIVE UNIT 1.]  [NOTE: SUPPORT FOR DRIVE UNIT 1 BOOTUP IN
+  648                 /       THE P?S/8 TD8E/MR8E-C CONFIGURATION IS CURRENTLY UNDER DEVELOPMENT; IT MAY
+  649                 /       PROVE IMPOSSIBLE GIVEN THE NEED TO SOLVE THE FATAL FLAW IN THE PRESENT CODE AS
+  650                 /       WAS RECOVERED FROM THE SPECIFIC DECTAPE IN QUESTION.  THIS BOOTSTRAP MAY
+  651                 /       BECOME WORTHLESS AS THE FATAL FLAW IS REMOVED, OR PERHAPS MIGHT BE USEFUL
+  652                 /       WHERE IT IS POSSIBLY NEEDED, NAMELY ON THE TD8E CONFIGURATION WITH 8K OR MORE
+  653                 /       MEMORY WITHOUT THE MR8E-C ROM; FOR THE PRESENT IT IS RETAINED FOR REFERENCE
+  654                 /       PURPOSES ONLY.]
+  655   
+  656                 /       THE STANDARD DEC TD8E BOOTSTRAP IS SELFISHLY DESIGNED TO ALLOW OS/8 BOOTUP
+  657                 /       EASIER AT THE EXPENSE OF OTHER SYSTEMS COMPATIBLE WITH THIS CONVENTION; AS
+  658                 /       SUCH, IT IS NEEDLESSLY INFLEXIBLE.  [NUANCES OF OTHER SYSTEMS SUCH AS MULTIPLE
+  659                 /       DRIVE UNIT SUPPORT CANNOT BE IMPLEMENTED.]
+  660   
+  661                 /       THE STANDARD DEC TD8E BOOTSTRAP LOADS THE CONTENTS OF BLOCK 0001 INTO
+  662                 /       07600-07777 WHERE OS/8 [AND COS-300/310] REQUIRE THIS; THE CONTENTS OF BLOCK
+  663                 /       0000 ARE LOADED INTO 07360-07557 WHICH IS OF NO PARTICULAR ADVANTAGE TO ANY
+  664                 /       SUPPORTED SYSTEM [AND TENDS TO CAUSE NEEDLESS BOOTUP COMPLEXITY].  AS SUCH,
+  665                 /       FOR ALL SUPPORTED SYSTEMS [INCLUDING OS/8 AND COS-300/310], WHATEVER ASPECT OF
+  666                 /       BLOCK 0000 REQUIRING PROPER PAGE ALIGNMENT [GENERALLY TO 7600-7777, AND IN THE
+  667                 /       CASES OF OS/8 AND COS-300/310 INTO FIELD 1] MIGHT BE NEEDED, IT IS NOT
+  668                 /       PROVIDED.  IT IS NECESSARY TO COPY THE CONTENTS OF BLOCK 0000 TO THE PROPER
+  669                 /       MEMORY LOCATIONS VIA ADDITIONAL CODING WITHIN EACH SYSTEMS DEVICE HANDLER
+  670                 /       STRUCTURE.
+  671   
+  672                 /       IN THE CASE OF THE P?S/8 TD8E/MR8E-C SYSTEM DEVICE HANDLER, THIS REQUIRES
+  673                 /       HANDLER CODING TO SUPPORT THE CIRCUMSTANCES OF THIS ODD RELOCATION; MEASURES
+  674                 /       ARE THEN TAKEN TO UNDO SPECIFIC CORRUPTION CAUSED BY THE MISALIGNMENT.
+  675                 /       AFTERWARDS, THE HANDLER CODE IS COPIED TO THE INTENDED MEMORY LOCATIONS.  DUE
+  676                 /       TO THE LIMITATIONS OF THE DEC STANDARD TD8E BOOTSTRAP, ONLY DEVICE UNIT 0 CAN
+  677                 /       BE ACCESSED AT BOOTUP TIME.
+  678   
+  679                 /       THE P?S/8-SPECIFIC BOOTSTRAP CORRECTS THESE PROBLEMS BY PROPERLY LOADING THE
+  680                 /       ENTIRE BLOCK 0000 CONTENTS DIRECTLY INTO 07600-07777 AS INTENDED.  THIS WILL
+  681                 /       ALLOW FUTURE RELEASES TO POTENTIALLY SUPPORT BOOTING TO DRIVE UNIT 1
+  682                 /       [ASSUMING PROPER REVISIONS ARE MADE TO ALL AFFECTED COMPONENTS].  THE PRESENT
+  683                 /       VERSION OF THIS BOOTSTRAP IS SEVERAL WORDS SHORTER THAN THE DEC BOOTSTRAP.
+  684   
+  685                 /       NOTE: THE BUILT-IN BOOTSTRAP WITHIN THE MR8E-C ROM IS CONSISTENT WITH THE
+  686                 /       DEC STANDARD TD8E BOOTSTRAP IN ALL RELEVANT WAYS.  ONLY THE P?S/8 TD8E
+  687                 /       BOOTSTRAP HAS THE POTENTIAL TO ACCESS DRIVE UNIT 1 AS DESCRIBED ABOVE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 16
+
+  689                         NOPUNCH                         /PREVENT BINARY OUTPUT; THIS SECTION IS FOR
+  690                                                         /DOCUMENTATION PURPOSES ONLY.
+  691   
+  692          *7544          *7544                           /STARTING ADDRESS OF BOOT CODE.
+  693   
+  694                 /       NOTE: THE FIRST WORD BELOW NEED NOT BE LOADED INTO MEMORY IF THE BOOTSTRAP
+  695                 /       PROGRAM IS STARTED AT "BUTSTRT" [07562].  IT IS INCLUDED TO CAUSE THE LOWEST
+  696                 /       LOADING ADDRESS TO BE AN ALTERNATE STARTING ADDRESS; THIS WILL MINIMIZE THE
+  697                 /       INFORMATION NEEDED FOR AN AVERAGE USER TO SUCCESSFULLY START P?S/8 FOR THE
+  698                 /       TD8E.  [NOTE: IT IS HOPED THIS BOOTSTRAP WILL BE COMPATIBLE WITH THE P?S/8
+  699                 /       TD8E CONFIGURATION FOR USE WITH 8K OR LARGER SYSTEMS THAT DO NOT INCLUDE THE
+  700                 /       MR8E-C ROM.]
+  701   
+  702   007544* 5362  GTMARK, JMP     BUTSTRT                 /JUMP TO REAL START.
+  703   007545* 1345  GT1000, TAD     GT1000/(1000)           /ADD ON UNIT 0, GO BIT TO PASSED DIRECTION.
+  704   007546* 6774          SDLC                            /LOAD COMMAND REGISTER TO START THE TAPE MOVING.
+  705   007547* 6771  GTSRCH, SDSS                            /NEW LINE IN?
+  706   007550* 5347          JMP     .-1                     /NO, WAIT FOR IT.
+  707   007551* 6776          SDRC                            /YES, READ THE COMMAND REGISTER.
+  708   007552* 0360          AND     GT77/(77)               /JUST MARK TRACK BITS.
+  709   007553* 1375  TADGTCM,TAD     GTCMPVALUE              /GET END MARK [OR 40 MARK] COMPARISON VALUE.
+  710   007554* 7640          SZA CLA                         /SKIP IF IT MATCHES.
+  711   007555* 5347          JMP     GTSRCH                  /GO BACK IF NO MATCH.
+  712   007556* 2353          ISZ     TADGTCMP                /LOOK FOR 40 CODE SECOND TIME THROUGH.
+  713   007557* 5744          JMP I   GTMARK                  /RETURN TO CALLER.
+  714   
+  715   007560* 0077  GT77,   77                              /CONSTANT 0077.
+  716   007561* 7577  GTCT,   SBOOT-1                         /WORD COUNT AND STORE POINTER.
+  717   
+  718                 /       THE BOOTSTRAP STARTS HERE [OR JUMPED TO FROM THE LOWEST LOADING ADDRESS].
+  719   
+  720   007562* 7332  BUTSTRT,NL2000                          /SET REVERSE DIRECTION BIT.
+  721   007563* 4344          JMS     GTMARK                  /REWIND TAPE 0 INTO THE END ZONE.
+  722   007564* 4344          JMS     GTMARK                  /READ FORWARD TO 40 MARK.
+  723   007565* 6773  GTLOOP, SDSQ                            /QUAD LINE FLAG UP?
+  724   007566* 5365          JMP     .-1                     /NO, WAIT FOR IT.
+  725   007567* 6777          SDRD                            /YES, GET A WORD.
+  726   007570* 3761          DCA I   GTCT                    /STORE INTO BOOT AREA [MINUS ONE].
+  727   007571* 2361          ISZ     GTCT                    /DONE ENOUGH?
+  728   007572* 5365          JMP     GTLOOP                  /NO, GO DO ANOTHER ONE.
+  729   007573* 6774          SDLC                            /YES, STOP THE TAPE.
+  730   007574* 7410          SKP                             /SKIP TO THE SMA SZA CLA CONSTANT.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 17
+
+  732   007575* 7756  GTCMPVA,-22                             /REVERSE END ZONE MARK CONSTANT.
+  733   007576* 7740          SMA SZA CLA                     /40 CODE MARK CONSTANT; THIS WILL SKIP THE NEXT.
+  734   
+  735                 /       THIS IS THE END OF THE BOOTSTRAP CODE TO BE LOADED. THE NEXT LOCATION WILL BE
+  736                 /       SKIPPED BECAUSE THE CONTENTS ARE COPIED FROM THE BOOTUP DECTAPE MEDIA AND ARE
+  737                 /       NOT TRUSTWORTHY.  [THE CONTENTS OF PART OF THE REVERSE PCC MARK DATA IS NOW
+  738                 /       LOADED INTO 07577; THIS VALUE IS OFTEN 7777.]  THE NEXT LOCATION TO BE
+  739                 /       EXECUTED IS 07600 WHICH NOW CONTAINS THE CONTENTS OF THE FIRST DATA WORD [AND
+  740                 /       IS FOLLLOWED BY THE REST OF THE DATA WORDS READ IN FROM BLOCK 0000.]
+  741   
+  742   007577* 0000  AT7577, .-.                             /THIS GETS STORED INTO.
+  743   
+  744                 /       THE CODE FALLS THROUGH INTO THE BOOTUP CODE READ IN FROM THE DECTAPE.  AS
+  745                 /       APPROPRIATE, THE SYSTEM DEVICE HANDLER MAY BE MODIFIED TO BOOT TO DRIVE UNIT 1
+  746                 /       [ASSUMING THIS IS SUPPORTED].
+  747   
+  748           7600          SBOOT=  .                       /SYSTEM BOOTS HERE.
+  749   
+  750                         ENPUNCH                         /RESTORE NORMAL BINARY OUTPUT.
+  751   
+  752                 /       NOTE: THIS BOOTSTRAP MAY NOT BE FEASIBLE DEPENDING ON THE INTERNALS OF THE
+  753                 /       P?S/8 TD8E HANDLER WHICH IS UNDERGOING DESIGN CHANGES; IT IS CONCEIVABLE THAT
+  754                 /       ELEMENTS OF THIS BOOTSTRAP MAY BECOME RELEVANT TO THE NON-ROM CONFIGURATION.
+  755                 /       HOWEVER, IT HAS BEEN TESTED WITH THE RECOVERED [BUT FLAWED] TD8E/MR8E-C
+  756                 /       DECTAPE WHICH USES A METHOD OF BOOTUP THAT IS COMPATIBLE WITH THIS BOOTSTRAP
+  757                 /       [AS WELL AS THE STANDARD DEC TD8E BOOTSTRAP, WHICH IS LONGER].
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 18
+
+  759                 /       TD8E/MR8E-C DECTAPE SYSTEM DEVICE HANDLER.
+  760   
+  761           0000          FIELD   0                       /WHERE THIS LOADS WHEN GENERATED/EXECUTED.
+  762   
+  763          *7400          *GENAD1                         /REQUIRED FOR SYSTEM GENERATION PURPOSES.
+  764   
+  765          *7600          RELOC   SBOOT                   /WHERE THE CODE EXECUTES
+  766   
+  767   007600* 4240  SBOOT,  JMS     SYSIO                   /CALL SYSTEM I/O ROUTINES TO BOOTUP.
+  768   007601* 7600          SBOOT                           /READ INTO 07600 AND ONWARD.
+  769   007602* 2000  SBTFUN, 20^100+.-.                      /FUNCTION WORD; LOW-ORDER UNIT BIT MAY BE SET.
+  770   007603* 0000          SYSBLK                          /BLOCK 0000 AND ONWARD.
+  771   
+  772                 /       ALTHOUGH SEEMINGLY A SUBROUTINE CALL, THERE IS NO ACTUAL RETURN TO THE CALLER.
+  773                 /       ONCE INITIATED, DATA TRANSFERS OVERLAY MEMORY; KEY CONTROLLING ADDRESSES AND
+  774                 /       OTHER PARAMETERS READ IN FROM BLOCK 0000 TAKE CONTROL OF THE OVERALL PROCESS
+  775                 /       IN MEMORY.  THE ACTUAL TRANSFER IS 07600-03577 [USING ADDRESS WRAP-AROUND
+  776                 /       KNOWN TO CONTINUE IN FIELD 0].  THE FUNCTION WORD IS SET TO READ 20 BLOCKS
+  777                 /       INTO MEMORY [BLOCKS 0000-0017].  THIS INITIALIZES THE KEYBOARD MONITOR [AND
+  778                 /       BUILT-IN LINE EDITOR], THE RESIDENT COPY OF THE TFS DIRECTORY AND THE KEYBOARD
+  779                 /       MONITOR TRANSIENT COMMAND AREA.  [NOTE: FINALIZATION OF THESE SYSTEM
+  780                 /       COMPONENTS IS PERFORMED WITHIN THE KEYBOARD MONITOR.]
+  781   
+  782                 /       ONCE COMPLETELY LOADED [AND MOVED BY THE KEYBOARD MONITOR FOR CERTAIN AREAS]
+  783                 /       THE MEMORY LAYOUT IS AS FOLLOWS:
+  784   
+  785                  /      BLOCK[S]          MEMORY        FUNCTION
+  786   
+  787                 /         0000          07600-07777     THE SYSTEM DEVICE HANDLER.
+  788   
+  789                 /       0001-0014       00000-02777     THE RESIDENT KEYBOARD MONITOR AND LINE EDITOR.
+  790   
+  791                 /          N/A          03000-06777     INTERNAL FILE BUFFER FOR THE LINE EDITOR.
+  792   
+  793                 /       0015-0016       07000-07377     CACHED COPY OF THE CURRENT UNIT TFS DIRECTORY.
+  794   
+  795                 /         0017          07400-07577     THE TRANSIENT AREA OF THE KEYBOARD MONITOR.
+  796   
+  797                 /       NOTE: THE TRANSIENT AREA SERVES SEVERAL PURPOSES.  THE CONTENTS AND USAGE
+  798                 /       DEPENDS ON VARIOUS COMMANDS.
+  799   
+  800   007604* 0000  SWAL,   .-.                             /COMMAND-LINE OPTION SWITCHES '/A'-'/L'.
+  801   007605* 0000  SWMX,   .-.                             /COMMAND-LINE OPTION SWITCHES '/M'-'/X'.
+  802   007606* 0000  SWY9,   .-.                             /COMMAND-LINE OPTION SWITCHES '/Y'-'/9'.
+  803   007607* 2316  SOUTFLS,2316/.-.                        /OUTPUT FILE COUNT ETC. WORD.
+  804   007610* 2316  SDATE,  2316/.-.                        /SYSTEM DATE WORD.
+  805   007611* 4000  SCRSIZE,4000/.-.                        /SYSTEM CORE SIZE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 19
+
+  807                 /       NOTES ON OUTPUT FILE COUNT, SYSTEM DATE AND SYSTEM CORE SIZE WORDS:
+  808   
+  809                 /       THE OUTPUT FILE COUNT WORD WILL BE REDEFINED IN P?S/8 VERSION 9A.  AS OF
+  810                 /       VERSION 8Z, BITS[7-11] CONTAIN THE COUNT OF OUTPUT FILES IN THE PASSED FILE
+  811                 /       LIST; HOWEVER, BITS[0-6] MUST BE 0000000.  BITS[1-6] WILL BECOME THE
+  812                 /       HIGH-ORDER SIX BITS OF A REDESIGNED DATE WORD THAT COVERS 512 YEARS DIRECTLY.
+  813                 /       BIT[0] WILL DETERMINE THE STATUS OF THE FILE AND COMMUNICATIONS AREA OF THE
+  814                 /       OPTIONAL P?S/8 SHELL [CURRENTLY UNDER DEVELOPMENT].  AS SUCH, ALL CONFORMING
+  815                 /       PROGRAMS MUST MASK OFF BITS[0-6] TO OBTAIN THE OUTPUT FILE COUNT.
+  816   
+  817                 /       THE FORMAT OF THE SYSTEM DATE WORD WILL BE MODIFIED TO FORM AN 18-BIT INTEGER
+  818                 /       WHEN COMBINED WITH BITS[1-6] OF THE OUTPUT FILE COUNT WORD.  THIS WILL REQUIRE
+  819                 /       ALL PROGRAMS THAT ACCESS THE SYSTEM DATE TO BE REWRITTEN.  THIS IS ALSO
+  820                 /       SCHEDULED FOR IMPLEMENTATION IN P?S/8 VERSION 9A.
+  821   
+  822                 /       THE CORE SIZE WORD CONTAINS SEVERAL SETS OF MEMORY AND OTHER STATUS BITS:
+  823   
+  824                 /       BITS[0-2] CONTAIN THE PHYSICAL SIZE OF MEMORY OF THE SYSTEM.
+  825   
+  826                 /       BITS[3-5] CONTAIN THE MAXIMUM SIZE THE LOGICAL CORE SIZE CAN BE SET TO.  THIS
+  827                 /       COULD DIFFER FROM THE PHYSICAL SIZE FOR SEVERAL REASONS SUCH AS THE PRESENCE
+  828                 /       OF THE LOGICAL CONSOLE OVERLAY IN THE PHYSICAL MAXIMUM FIELD, OR THE SYSTEM
+  829                 /       DEVICE HANDLER REQUIRES AN EXTENSION SUCH AS IN THE CASE OF THE TD8E SYSTEM
+  830                 /       THAT REQUIRES 8K OF MEMORY OR MORE [BUT DOES NOT USE THE MR8E-C ROM].
+  831   
+  832                 /       BITS[6-8] CONTAIN THE CURRENT LOGICAL CORE SIZE.  THIS VALUE CAN BE SET TO
+  833                 /       ANY VALUE FROM 0 UP THROUGH THAT FOUND IN THE MAXIMUM LOGICAL SIZE STORED IN
+  834                 /       BITS[3-5].  THIS ALLOWS PROGRAMS TO BE TESTED IN RESTRICTED CONFIGURATIONS TO
+  835                 /       MIMIC THE LIMITATIONS OF SMALLER MACHINES OR TO PROTECT THE CONTENTS OF MEMORY
+  836                 /       FOR USER-DEFINED PURPOSES.
+  837   
+  838                 /       BIT[9] IS SET IF THE SYSTEM DEVICE HANDLER REQUIRES A DEVICE EXTENSION.  THE
+  839                 /       DEVICE EXTENSION OCCUPIES LOCATIONS 6000-7777 OF THE HIGHEST PHYSICAL FIELD OF
+  840                 /       MEMORY.  [NOTE: CERTAIN SYSTEM PROGRAMS SUCH AS P?S/8 PAL CAN ALLOCATE
+  841                 /       LOCATIONS 0000-5777 OF THE HIGHEST PHYSICAL FIELD IN CASE THE LOGICAL CONSOLE
+  842                 /       IS DISABLED AND THE SYSTEM DEVICE HANDLER REQUIRES THE EXTENSION.]
+  843   
+  844                 /       BIT[10] IS SET IF THE LOGICAL CONSOLE OVERLAY IS ACTIVE.  ENTRY POINTS ARE
+  845                 /       IMPLIED WITH RESPECT TO SPECIFIC 12-BIT ADDRESSES; THE FIELD IS DEFINED AS ONE
+  846                 /       FIELD MORE THAN THE FIELD VALUE IN BITS[3-5].  WHILE THIS IS GENERALLY
+  847                 /       IDENTICAL TO THE FIELD REPRESENTED BY THE PHYSICAL CORE SIZE, THIS METHOD
+  848                 /       ALLOWS MULTIPLE MEMORY FIELDS TO BE RESERVED FOR UNUSUAL CONFIGURATIONS.
+  849   
+  850                 /       BIT[11] IS THE LOGICAL ABORT SWITCH THAT ANY PROGRAM CAN SET TO SIGNAL PROGRAM
+  851                 /       EXIT BY ABORT [GENERALLY CONTROL-C DETECTED ON THE SYSTEM CONSOLE DEVICE].
+  852                 /       WHILE COMPATIBLE PDP-8 CONSOLE HARDWARE CAN PROVIDE THIS INFORMATION VIA THE
+  853                 /       KEYBOARD FLAG BEING RAISED [AND THE KEYBOARD BUFFER CONTAINING THE CONTROL-C
+  854                 /       CHARACTER], DECMATES ARE NOT CAPABLE OF THIS DUE TO THE INCOMPATIBLE KEYBOARD
+  855                 /       HARDWARE ON ALL MODELS.  BY SETTING BIT[11] AS NECESSARY, FULLY CONFORMING
+  856                 /       PROGRAMS CAN BE WRITTEN TO COMPLETELY FUNCTION ON ALL PDP-8 AND DECMATE MODELS
+  857                 /       SUPPORTED.  [NOTE: P?S/8 ONLY SUPPORTS "FAMILY OF 8" MODELS WHICH EXPLICITLY
+  858                 /       EXCLUDE THE PDP-5 AND PDP-8/S; THESE MACHINES ARE NOT COMPATIBLE WITH THE
+  859                 /       ORIGINAL PDP-8 MODEL RELEASED IN 1965 WHICH IS CONSIDERED THE MINIMUM SYSTEM
+  860                 /       THAT CAN BE SUPPORTED IN P?S/8 AND ALSO OS/8 WITH SUFFICIENT MEMORY.]
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 20
+
+  862                 /       COMES HERE WITH INTERRUPTS OFF TO CONTINUE PROCESSING THE LATEST SYSTEM DEVICE
+  863                 /       HANDLER CALL.
+  864   
+  865   007612* 6214  SMORE,  RDF                             /GET THE CALLER'S FIELD.
+  866   007613* 1346          TAD     SCIDF/(CIF CDF)         /TURN INTO CIF CDF RETURN FIELD INSTRUCTION.
+  867   007614* 3325          DCA     SFLDXIT                 /STORE INLINE FOR EXIT LATER.
+  868   007615* 1640          TAD I   SYSIO                   /GET THE CALLER'S BUFFER ADDRESS.
+  869   007616* 3351          DCA     BUFADRESS               /STASH IT FOR THE ROM ROUTINES.
+  870   007617* 2240          ISZ     SYSIO                   /BUMP TO FUNCTION WORD.
+  871   
+  872                 /       NOTE: THE FOLLOWING INSTRUCTIONS ARE EXECUTED IN LOCATIONS 07400 ONWARD DURING
+  873                 /       THE STANDARD DEC TD8E [OR ROM-BASED] BOOTSTRAP; THE EFFECTS OF THIS WILL BE
+  874                 /       INDICATED IN THE COMMENTS ON THE MISALIGNED CODE AFTER THE NORMAL USAGE BELOW.
+  875   
+  876   007620* 6774          SDLC                            /STOP THE TAPE NOW.  [SEEMINGLY EXTRANEOUS.]
+  877   007621* 7344          NL7776                          /MASK THE UNIT BIT OFF.
+  878   007622* 0640          AND I   SYSIO                   /GET ALL OTHER FUNCTION WORD BITS.
+  879   007623* 6775          SDLD                            /LOAD DATA REGISTER TO CONFORM WITH THE ROM.
+  880   007624* 0327          AND     S70/(70)                /GET BACK FIELD BITS FOR CALLER'S BUFFER.
+  881   007625* 1346          TAD     SCIDF/(CIF CDF)         /FORM "CIF CDF" INSTRUCTION TO CALLER'S BUFFER
+  882                                                         /FIELD.  NOTE: THE "CIF" IS EXTRANEOUS BECAUSE
+  883                                                         /THE INSTRUCTION FIELD WILL BE CHANGED TO 7.
+  884   007626* 3250          DCA     GETFLD                  /STORE INTO "GETWRD" ROUTINE.
+  885   007627* 1250          TAD     GETFLD                  /GET IT BACK.
+  886   007630* 3255          DCA     PUTFLD                  /ALSO STORE INTO "PUTWRD" ROUTINE.
+  887                 /       TAD I   SYSTEM                  /GET THE FUNCTION WORD AGAIN.
+  888   007631* 5336          JMP     SMORE2                  /CONTINUE THERE.
+  889   
+  890                 /       THE FOLLOWING IS WHAT OCCURS WHEN THE ABOVE WORDS ARE LOCATED AT 07400 ONWARD
+  891                 /       BECAUSE OF THE STANDARD DEC TD8E [OR ROM-BASED] BOOTSTRAP.
+  892   
+  893                 /       *7400                           /WHERE THESE WORDS EXECUTE.
+  894   
+  895                 /       DECTAPE DRIVE UNIT 0 IS STILL MOVING FROM THE LAST BOOTUP DATA TRANSFER.
+  896   
+  897                 /       SDLC                            /THE AC IS CLEAR; STOP THE DRIVE.
+  898                 /       NL7776                          /AC SET TO 7776.
+  899                 /       AND I   SYSIO&177+7420/(5654)   /MASK AGAINST THE RANDOM CONTENTS OF 05654.
+  900                 /       SDLD                            /PUT JUNK VALUE INTO THE DATA REGISTER.
+  901                 /       AND     S70&177+7420/(5625)     /MASK OFF SOME BITS.
+  902                 /       TAD     S6203&177+7420/(2353)   /ADD WORTHLESS CONSTANT.
+  903                 /       DCA     GETFLD&177+7420         /DESTROY "SROMGO" POINTER.
+  904                 /       TAD     GETFLD&177+7420         /GET JUNK VALUE BACK.
+  905                 /       DCA     PUTFLD&177+7420         /DESTROY "WRQUAD" ROUTINE RETURN INSTRUCTION.
+  906   
+  907                 /       THE DECTAPE DRIVE HAS CORRECTLY BEEN STOPPED; HOWEVER, TWO LOCATIONS OF THE
+  908                 /       HANDLER HAVE BEEN DESTROYED.  THIS DAMAGE MUST BE REPAIRED BEFORE THE HANDLER
+  909                 /       IS SAFE TO MOVE TO THE PROPER LOCATIONS.
+  910   
+  911                 /       JMP     SMORE2&177+7420         /CONTINUE IN DAMAGE RECOVERY ROUTINE.
+  912   
+  913                         ZBLOCK  7632-.                  /EMPTY SPACE [IF ANY].
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 21
+
+  915                 /       THE SYSTEM LOADER STARTS HERE. VARIOUS ARGUMENTS ARE STORED AS NECESSARY TO
+  916                 /       IMPLEMENT A VARIETY OF SPECIFIC TASKS [SUCH AS STARTING A SYSTEM PROGRAM OR
+  917                 /       IMPLEMENTING SYSTEM PROGRAM OVERLAYS].
+  918   
+  919                 /       THE DEFAULT CONTENTS WILL SAVE ALL OF FIELD 0 IN BLOCKS 0020-0057 [WHICH IS
+  920                 /       ALSO THE BLOCKS OF THE TWO FILES "%" [0020-0037] AND "$" [0040-0057]
+  921                 /       RESPECTIVELY.  THIS DEFINES HOW CORE-IMAGES ARE HANDLED WITHIN P?S/8 WHEN
+  922                 /       USING SUCH PROGRAMS AS "GET", "START", "ODT" AND "BSAVE".  THE CORE IMAGE MAY
+  923                 /       ALSO BE MOVED TO TWO DESIGNATED TINY FILE SYSTEM [TFS] FILES TO DEFER SUCH
+  924                 /       WORK TO A LATER TIME WHEN THE TWO FILES ARE RESTORED.  WHEN THE "GET" COMMAND
+  925                 /       [OR EQUIVALENT] IS USED, THE PROGRAM STARTING ADDRESS IS 07632 TO IMPLEMENT
+  926                 /       THIS DEFAULT ACTION.
+  927   
+  928   007632* 4240  SLOAD,  JMS     SYSIO                   /SYSTEM LOADER ENTRY POINT; DEFAULT VALUES
+  929                                                         /SAVE ALL OF FIELD 0 THEN RESTART.
+  930   007633* 0000  SCORE,  0000                            /BUFFER STARTING ADDRESS; DEFAULT VALUE
+  931                                                         /IS LOCATION 00000. 
+  932   007634* 4000  SFUN,   00^100+WRITE+.-.                /FUNCTION WORD; DEFAULT IS WRITE 40 BLOCKS FROM
+  933                                                         /THE FIELD 0 BUFFER [LOCATIONS 00000-07777].
+  934                                                         /AS REQUIRED, THE LOGICAL UNIT BITS WILL BE
+  935                                                         /FILLED IN TO INDICATE THE BOOTUP UNIT.
+  936   007635* 0020  SBLOCK, BINADR                          /STARTING BLOCK NUMBER; DEFAULT IS 0020.
+  937   007636* 5637          JMP I   .+1/(SYSTART)           /START AT THE INDICATED STARTING ADDRESS.
+  938   007637* 7600  SYSTART,SBOOT                           /STARTING ADDRESS; DEFAULTS TO THE SYSTEM
+  939                                                         /RESTART ADDRESS.
+  940   
+  941                 /       THE DEVICE HANDLER I/O ROUTINES ENTER HERE.  THE CALLER MUST SET THE DATA
+  942                 /       FIELD TO THE CALLING FIELD; THE CONTENTS OF THE AC AND LINK ARE IGNORED WHEN
+  943                 /       ENTERED.  UPON RETURN THE AC WILL BE CLEAR; THE LINK CONTENTS ARE GENERALLY
+  944                 /       NOT MEANINGFUL; HOWEVER, MOST P?S/8 SYSTEM DEVICE HANDLERS ALSO CLEAR THE LINK
+  945                 /       [IF POSSIBLE].
+  946   
+  947                 /       SYSTEM DEVICE HANDLER ENTRY POINT.
+  948   
+  949                 /       THIS ABSOLUTELY *MUST* BE AT LOCATION 07640.
+  950   
+  951                         IFNZRO  SZA CLA-. <ERROR .>     /ENSURE ENTRY POINT MATCHES "SZA CLA" VALUE.
+  953   
+  954   007640* 2530  SYSIO,  2530/MONSTRT                    /SYSTEM HANDLER ENTRY POINT.  INITIALIZED FOR
+  955                                                         /THE BOOTSTRAP TO STARTUP THE KEYBOARD MONITOR.
+  956   007641* 7301          CLA CLL IAC                     /CLEAR THE LINK AND SET AC TO 0001.
+  957   007642* 6000  S6000,  SKON                            /SKIP THE NEXT IF INTERRUPTS ARE ON AND
+  958                                                         /ALSO TURN THE INTERRUPT SYSTEM OFF.
+  959   007643* 7001          IAC                             /AC=1 IF INTERRUPTS WERE ON, AC=2 IF
+  960                                                         /INTERRUPTS WERE OFF.
+  961   007644* 1242          TAD     S6000/(IOF-2)           /NOW HAVE "IOF" INSTRUCTION IF INTERRUPTS WERE
+  962                                                         /OFF OR "ION" INSTRUCTION IF INTERRUPTS WERE ON
+  963                                                         /BEFORE THE SYSTEM DEVICE HANDLER WAS CALLED.
+  964   007645* 3324          DCA     SINTXIT                 /STORE IN LINE FOR EXIT LATER.
+  965   007646* 5212          JMP     SMORE                   /CONTINUE THERE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 22
+
+  967                 /       SUPPORT ROUTINES FOR THE ROM-BASED CODE; THIS CODE CANNOT BE MOVED.
+  968   
+  969   007647* 0000  GETWRD, .-.                             /GET A WORD FROM THE CALLER'S BUFFER ROUTINE.
+  970   007650* 6201  GETFLD, .-.^10+CDF                      /WILL BE "CIF CDF XX" WHERE XX IS THE
+  971                                                         /DATA FIELD OF THE CALLER'S BUFFER.
+  972   007651* 1753          TAD I   BUFPTR                  /GET A WORD FROM THE BUFFER.
+  973   007652* 6272          CIF     ROMFLD                  /GOING TO ROM FIELD.
+  974   007653* 5647          JMP I   GETWRD                  /RETURN TO CALLER.
+  975   
+  976   007654* 7705  PUTWRD, READLP+6                        /PUT A WORD INTO THE CALLER'S BUFFER ROUTINE.
+  977                                                         /THIS WORD IS INITIALIZED FOR DIRECT OVERLAY
+  978                                                         /DURING THE BOOTUP OPERATION [PRESENTLY].
+  979   007655* 6201  PUTFLD, .-.^10+CDF                      /WILL BE "CIF CDF XX" WHERE XX IS THE
+  980                                                         /DATA FIELD OF THE CALLER'S BUFFER.
+  981   007656* 3753          DCA I   BUFPTR                  /PUT A WORD INTO THE BUFFER.
+  982   007657* 6272          CIF     ROMFLD                  /GOING TO ROM FIELD.
+  983   007660* 5654          JMP I   PUTWRD                  /RETURN TO CALLER.
+  984   
+  985                 /       ROM-DETECTED DECTAPE ERRORS COME HERE.
+  986   
+  987   007661* 7300  SERR,   CLA CLL                         /ENSURE LINK IS CLEAR FOR RETRIES.
+  988   007662* 7402          HLT                             /HALT ON ALL ERRORS.
+  989   007663* 6272          CIF     ROMFLD                  /GOING TO ROM FIELD.
+  990   007664* 5670          JMP I   SROMGO/(ROMGO)          /RETRY THE LATEST BLOCK.
+  991   
+  992                 /       CALL HANDLING CONTINUES HERE.
+  993   
+  994                 /       BY PASSING THE LOGICAL UNIT BIT DIRECTLY TO THIS PART OF THE ROM SETUP CODE,
+  995                 /       THE RETRY COUNTER SUPPORT IS BYPASSED [ALLOWING THE RETRY COUNTER WORD TO BE
+  996                 /       REPURPOSED].  [LOOK IN THE OS/8 HANDLER FOR HOW TO INTERACT WITH THE RETRY
+  997                 /       COUNTER; THIS MAKES TAPE OPERATIONS LESS RELIABLE COMPARED TO P?S/8.]
+  998   
+  999   007665* 1335  SMORE3, TAD     SUNIT                   /GET LOGICAL DRIVE UNIT.
+ 1000   007666* 6272          CIF     ROMFLD                  /GOING TO ROM FIELD.
+ 1001   007667* 5730          JMP I   SF2SET5/(F2SET+5)       /CONTINUE SETUP THERE IN THE ROM.
+ 1002   
+ 1003                 /       NOTE: THE FOLLOWING WORD IS SUBJECT TO DESTRUCTION WHEN THE CONTENTS OF BLOCK
+ 1004                 /       0000 ARE LOADED INTO 07360-07557.  THE RECOVERY ROUTINE WILL HAVE TO RECREATE
+ 1005                 /       THE PROPER CONTENTS PRIOR TO MOVING THE ENTIRE PAGE CONTENTS FROM 07360-07557
+ 1006                 /       TO 07600-07777; THIS CAN BE AVOIDED BY ONE OF SEVERAL METHODS:
+ 1007   
+ 1008                 /       1)  REWORK THE CODE NORMALLY LOADED AT 07620 TO AVOID THE DESTRUCTION [AND
+ 1009                 /           HOPEFULLY NOT MERELY CAUSE SOME ALTERNATE DESTRUCTION].
+ 1010   
+ 1011                 /       2)  REPURPOSE THE LOCATION TO BECOME AN UNIMPORTANT VALUE [OR COMPLETELY
+ 1012                 /           UNREFERENCED] THUS THE DESTRUCTION WOULD BECOME SUPERFLUOUS.
+ 1013   
+ 1014   007670* 7405  SROMGO, ROMGO                           /POINTER TO "ROMGO" ROUTINE TO START SEARCH.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 23
+
+ 1016                 /       NOTE: THE PREVIOUS FOUR WORDS MAY BE REWORKED INTO THE FOLLOWING:
+ 1017   
+ 1018                 /S70,   70                              /CONSTANT 0070.
+ 1019                 /SROMGO,ROMGO                           /POINTER TO "ROMGO" ROUTINE TO START SEARCH.
+ 1020   
+ 1021                 /       ZBLOCK  1                       /EMPTY SPACE THAT MAY BE USEFUL.
+ 1022   
+ 1023                 /       ZBLOCK  1                       /EMPTY SPACE THAT CAN BE HARMLESSLY DESTROYED.
+ 1024   
+ 1025   007671* 0000  WRQUAD, .-.                             /WRITE A 12-BIT WORD TO THE DECTAPE ROUTINE.
+ 1026   
+ 1027                 /       THE ACTUAL CODE IS IN THE ROM; THIS IS USED ONLY TO ESTABLISH THE PROPER
+ 1028                 /       SUBROUTINE LINKAGE AS IT IS CALLED FROM SEVERAL PLACES.
+ 1029   
+ 1030   007672* 6272          CIF     ROMFLD                  /GOING TO THE ROM FIELD.
+ 1031   007673* 5324          JMP     WRQ                     /CONTINUE THERE.
+ 1032   
+ 1033                 /       COMES BACK HERE FROM THE ROM-BASED CODE THAT CARRIES OUT THE SUBROUTINE CODE.
+ 1034   
+ 1035   007674* 6272  CIFR,   CIF     ROMFLD                  /GOING TO THE ROM FIELD.
+ 1036   007675* 5671          JMP I   WRQUAD                  /RETURN TO CALLER.
+ 1037   
+ 1038                 /       NOTE: THE PREVIOUS WORD IS SUBJECT TO DESTRUCTION WHEN THE CONTENTS OF BLOCK
+ 1039                 /       0000 ARE LOADED INTO 07360-07557.  THE RECOVERY ROUTINE WILL HAVE TO RECREATE
+ 1040                 /       THE PROPER CONTENTS PRIOR TO MOVING THE ENTIRE PAGE CONTENTS FROM 07360-07557
+ 1041                 /       TO 07600-07777; THIS CAN ONLY BE AVOIDED BY REWORKING THE CODE THAT STARTS UP
+ 1042                 /       AT 07400 [NORMALLY IN 07620 ONWARD] IF POSSIBLE.  WHILE THIS IS UNLIKELY, IT
+ 1043                 /       SHOULD BE POSSIBLE TO ALLOW THE RECOVERY ROUTINE TO FIT INTO THE ALLOTED CODE
+ 1044                 /       SPACE AND ALSO REBOOT THE SYSTEM BY AN ALTERNATE METHOD DESCRIBED BELOW WHILE
+ 1045                 /       STILL RESTORING THE PREVIOUS WORD.  [CODE SPACE CAN BE OBTAINED BY OTHER
+ 1046                 /       RELATED METHODS IN A VIABLE OVERALL SOLUTION.]
+ 1047   
+ 1048   007676* 0000  RDQUAD, .-.                             /READ A 12-BIT WORD FROM THE DECTAPE ROUTINE.
+ 1049   007677* 6773          SDSQ                            /QUAD LINE FLAG UP?
+ 1050   007700* 5277          JMP     .-1                     /NO, WAIT FOR IT.
+ 1051   007701* 6777          SDRD                            /YES, READ IN THE LATEST 12-BIT WORD.
+ 1052   007702* 6272          CIF     ROMFLD                  /GOING TO ROM FIELD.
+ 1053   007703* 5676          JMP I   RDQUAD                  /RETURN TO CALLER.
+ 1054   
+ 1055   007704* 6364  EQUFUN, 6364/.-.                        /EQUIVALENCE DATA WITH CHECKSUM ROUTINE.
+ 1056   007705* 7040          CMA                             /INVERT THE DATA AND ,XOR. THE DATA WORD.
+ 1057   007706* 3350          DCA     EQUTMP                  /SAVE IT.
+ 1058   007707* 1350          TAD     EQUTMP                  /GET IT BACK.
+ 1059   007710* 0333          AND     SCKSUM                  /GET THE CARRY BITS.
+ 1060   007711* 7041          CIA                             /INVERT FOR SUBTRACTION.
+ 1061   007712* 7104          CLL RAL                         /MOVE OVER.
+ 1062   007713* 1350          TAD     EQUTMP                  /NOW ADD THE LATEST.
+ 1063   007714* 1333          TAD     SCKSUM                  /ADD THE NON-CARRY BITS TO RUNNING SUM.
+ 1064   007715* 3333          DCA     SCKSUM                  /STORE BACK.
+ 1065   007716* 1350          TAD     EQUTMP                  /GET THE LATEST DATA BACK.
+ 1066   007717* 7140          CLL CMA                         /NOW HAVE CLEAR LINK AND THE LATEST WORD.
+ 1067   007720* 6272          CIF     ROMFLD                  /GOING TO ROM FIELD.
+ 1068   007721* 5704          JMP I   EQUFUN                  /RETURN TO CALLER.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 24
+
+ 1070                 /       THE ROM CODE RETURNS HERE WHEN ALL TAPE OPERATIONS HAVE FINISHED.
+ 1071   
+ 1072   007722* 1335  SEXIT,  TAD     SUNIT                   /GET LATEST DRIVE UNIT.
+ 1073   007723* 6774          SDLC                            /STOP THE TAPE DRIVE.
+ 1074   
+ 1075                 /       RESTORE INTERRUPT STATUS PRIOR TO THE DEVICE HANDLER CALL.
+ 1076   
+ 1077   007724* 6002  SINTXIT,IOF                             /OR ION.
+ 1078   007725* 6203  SFLDXIT,CIF CDF 00                      /WILL BE "CIF CDF" TO CALLER'S FIELD.
+ 1079                 /       ISZ     SYSIO                   /BUMP PAST BLOCK ARGUMENT.
+ 1080   007726* 5640          JMP I   SYSIO                   /RETURN TO CALLER.
+ 1081   
+ 1082   007727* 0070  S70,    70                              /CONSTANT 0070.
+ 1083                                                         /NOTE: THIS CONSTANT COULD BE MOVED TO ALLOW
+ 1084                                                         /THE "ISZ SYSIO" INSTRUCTION IN THIS SECTION.
+ 1085   
+ 1086                 /       ALTHOUGH THE ROM-BASED CODE SETS UP A RETRY COUNTER, THE P?S/8 DEVICE HANDLER
+ 1087                 /       DOESN'T USE IT.  BY AVOIDANCE OF THAT SECTION OF THE ROM SETUP CODE, THE
+ 1088                 /       LOCATION CAN BE REPURPOSED.
+ 1089   
+ 1090           7730          TRYCNT= .                       /USED AS AN ERROR RETRY COUNT IN OTHER SYSTEMS.
+ 1091   
+ 1092   007730* 7557  SF2SET5,F2SET+5                         /POINTER TO ROM-BASED SETUP WITHOUT RETRY COUNT.
+ 1093   007731* 0000  DRVUNIT,0^4000                          /ROM COPIES "SUNIT" HERE [REDUNDANT DATA].
+ 1094   007732* 0000  SFUNCTI,0^4000                          /FUNCTION WORD BIT[0]; CLEAR=READ, SET=WRITE.
+ 1095                                                         /[NOTE: ALL OTHER BITS ARE IGNORED.]
+ 1096   007733* 0000  SCKSUM, 0/.-.                           /RUNNING CHECKSUM WORD.
+ 1097   007734* 0000  SBLK,   0000                            /LATEST DECTAPE BLOCK.
+ 1098   007735* 0000  SUNIT,  0^4000                          /DRIVE UNIT FOR LATEST FUNCTION IN BIT[0].
+ 1099   
+ 1100                 /       COMES HERE TO CONTINUE THE HANDLER CALL.
+ 1101   
+ 1102   007736* 1640  SMORE2, TAD I   SYSIO                   /GET THE FUNCTION WORD AGAIN.
+ 1103                                                         /NOTE: THE PREVIOUS WORD MAY BE MOVABLE.
+ 1104   007737* 7010          RAR                             /UNIT BIT TO LINK.
+ 1105   007740* 7210          CLA RAR                         /UNIT BIT NOW IN AC[0].
+ 1106   007741* 3335          DCA     SUNIT                   /SET THE DRIVE UNIT FOR ROM.
+ 1107   007742* 2240          ISZ     SYSIO                   /BUMP PAST FUNCTION WORD.
+ 1108   007743* 1640          TAD I   SYSIO                   /GET STARTING BLOCK NUMBER FOR TRANSFER.
+ 1109   007744* 3334          DCA     SBLK                    /STORE IT.
+ 1110   007745* 2240          ISZ     SYSIO                   /BUMP PAST BLOCK ARGUMENT.
+ 1111                                                         /NOTE: THE PREVIOUS WORD MAY BE REMOVABLE.
+ 1112   007746* 6203  SCIDF,  CIF CDF 00                      /GOING TO FIELD 0; ALSO CONSTANT 6203.
+ 1113   007747* 5265          JMP     SMORE3                  /CONTINUE THERE.
+ 1114   
+ 1115                 /       NOTE: THE "JMP SMORE3" ABOVE COULD BE REMOVED; THE CODE AT "SMORE3" COULD BE
+ 1116                 /       PLACED HERE IF OTHER CHANGES THROUGHOUT THE HANDLER ARE MADE.
+ 1117   
+ 1118                 /       TAD     SUNIT                   /GET LOGICAL DRIVE UNIT.
+ 1119                 /       CIF     ROMFLD                  /GOING TO ROM FIELD.
+ 1120                 /       JMP I   SF2SET5/(F2SET+5)       /CONTINUE SETUP THERE IN THE ROM.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 25
+
+ 1122   007750* 0000  EQUTMP, 0/.-.                           /TEMPORARY FOR EQUIVALENCE ROUTINE.
+ 1123   007751* 7600  BUFADRE,SBOOT/.-.                       /READ/WRITE BUFFER POINTER.
+ 1124   007752* 4000  PAGCNT, 20^200/.-.                      /TRANSFER PAGE COUNT.
+ 1125   007753* 7753  BUFPTR, ./.-.                           /BUFFER POINTER FOR WORD TRANSFERS.
+ 1126   007754* 7754  WORDCT, ./.-.                           /WORD COUNTER FOR LATEST BLOCK TRANSFER.
+ 1127                 /       ROMGO                           /THIS CAN USED BY THE RECOVERY ROUTINE OR HELP
+ 1128                                                         /AVOID THE NEED TO RECOVER A CONSTANT.
+ 1129                 /       NOTE: THE CODE CAN BE REWORKED TO USE THE ADDRESS CONSTANT ABOVE DIRECTLY.
+ 1130   
+ 1131   007755* 0000          ZBLOCK  7756-.                  /EMPTY SPACE.
+ 1132   
+ 1133           7756          SPARM=  .                       /=XXXX PARAMETER PASSED HERE.
+ 1134   
+ 1135           7757          SFILES= .+1                     /FILE LIST PASSED HERE THROUGH 07777.
+ 1136   
+ 1137                 /       THE CONTENTS OF THIS AREA IS THE RECOVERY ROUTINE THAT IS LOADED WITH THE SAME
+ 1138                 /       OFFSET AS THE ROUTINE THAT CAUSED THE DESTRUCTION OF TWO WORDS.  THIS IS DUE
+ 1139                 /       TO THE OFFSET APPLIED EARLIER [AT 07400 AND FOLLOWING INSTEAD OF THE NORMAL
+ 1140                 /       07620].
+ 1141   
+ 1142                 /       *7356                           /WHERE THIS CODE IS WHEN OFFSET LOADED.
+ 1143   
+ 1144   007756* 7300          CLA CLL                         /CLEAN UP.
+ 1145   007757* 6774          SDLC                            /STOP THE TAPE.
+ 1146   
+ 1147                 /       NOTE: THE PREVIOUS TWO INSTRUCTIONS ARE REDUNDANT AS THE AC IS ALREADY CLEAR
+ 1148                 /       AND THE TAPE WAS STOPPED EARLIER.  IF THE CODE THAT STARTS AT 07400 IS CHANGED
+ 1149                 /       TO REMOVE THE "SDLC" THERE, IT WOULD BE NECESSARY TO RETAIN IT HERE.
+ 1150   
+ 1151   007760* 1355          TAD     S7405-20/(ROMGO)        /GET A COPY OF THE DESTROYED VALUE.
+ 1152   007761* 3250          DCA     SROMGO-20               /PUT IT BACK.
+ 1153   007762* 1356          TAD     S5671-20/(JMP I WRQUAD) /GET A COPY OF THE DESTROYED VALUE.
+ 1154   007763* 3255          DCA     CIFR+1-20               /PUT IT BACK.
+ 1155   007764* 1753  SMVLUP, TAD I   SFROM-20                /GET A WORD.
+ 1156   007765* 3754          DCA I   STO-20                  /PUT A WORD.
+ 1157   007766* 2353          ISZ     SFROM-20                /BUMP TO NEXT WORD TO MOVE.
+ 1158   007767* 2354          ISZ     STO-20                  /BUMP POINTER/COUNTER.
+ 1159   007770* 5344          JMP     SMVLUP-20               /KEEP GOING UNTIL ALL ARE MOVED.
+ 1160   007771* 5752          JMP I   S7600-20                /GO START UP A COMPLETE REBOOT.
+ 1161   
+ 1162                 /       THE CODE ABOVE ACTUALLY EXECUTES AS DEFINED IN THE COMMENTS BELOW.
+ 1163   
+ 1164                 /       TAD     S7405&177+7420          /GET A COPY OF THE DESTROYED VALUE.
+ 1165                 /       DCA     GETFLD&177+7420         /PUT IT BACK.
+ 1166                 /       TAD     S5671&177+7420          /GET A COPY OF THE DESTROYED VALUE.
+ 1167                 /       DCA     PUTFLD&177+7420         /PUT IT BACK.
+ 1168                 /SMVLUP,TAD I   SFROM&177+7420          /GET A WORD.
+ 1169                 /       DCA I   STO&177+7420            /STORE A WORD.
+ 1170                 /       ISZ     SFROM&177+7420          /BUMP TO NEXT WORD TO MOVE.
+ 1171                 /       ISZ     STO&177+7420            /BUMP POINTER/COUNTER.
+ 1172                 /       JMP     SMVLUP&177+7420         /KEEP GOING UNTIL ALL ARE MOVED.
+ 1173                 /       JMP I   S7600&177+7420          /GO START UP A COMPLETE REBOOT.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 26
+
+ 1175   007772* 7600  S7600,  SBOOT                           /SYSTEM RESTART ADDRESS.
+ 1176   007773* 7360  SFROM,  STARTIT-20                      /BLOCK 0000 DATA LOADED HERE.
+ 1177   007774* 7600  STO,    SBOOT                           /BLOCK 0000 DATA NEEDED HERE.
+ 1178   007775* 7405  S7405,  ROMGO                           /ADDRESS OF "ROMGO" ROUTINE.
+ 1179   007776* 5671  S5671,  JMP I   WRQUAD                  /"JMP I WRQUAD" INSTRUCTION VALUE.
+ 1180   
+ 1181                 /       NOTE: FUTURE RELEASES OF THIS HANDLER MUST INCLUDE A CALL TO THE SYSTEM DEVICE
+ 1182                 /       HANDLER FOR THE PURPOSE OF RELOADING BLOCK 0001-0017; THE REBOOT AT 07600
+ 1183                 /       ["SBOOT"] WILL BE REWORKED TO USE THE ROM-BASED BOOTUP ROUTINE.
+ 1184   
+ 1185   007777* 0000          ZBLOCK  -.                      /EMPTY SPACE.
+ 1186   
+ 1187          *7600          RELOC                           /TURN RELOCATION OFF.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 27
+
+ 1189                 /       ADDITIONAL SYSTEM-DEPENDENT P?S/8 COMPONENTS.
+ 1190   
+ 1191                 /       UNLIKE OS/8, P?S/8 HAS ADDITIONAL COMPONENTS SPECIFIC TO THE SYSTEM DEVICE
+ 1192                 /       TYPE.  WHEN A SYSTEM IS CREATED, ALL DEVICE-SPECIFIC CODE OVERLAYS AN
+ 1193                 /       OTHERWISE GENERIC OPERATING SYSTEM AND RELATED COMPONENTS.
+ 1194   
+ 1195                 /       REWIND AND UNLOAD ROUTINE.
+ 1196   
+ 1197                 /       THE P?S8 KEYBOARD MONITOR SUPPORTS TWO COMMANDS DESIGNATED FOR TAPE-BASED OR
+ 1198                 /       OTHER SYSTEMS WHERE THE SYSTEM DEVICE CAN BE REWOUND AND/OR UNLOADED; THE
+ 1199                 /       TEMPLATE FOR THESE COMMANDS IS THE IMPLEMENTATION FOR THE TC01/TC08 DECTAPE
+ 1200                 /       CONTROLLER.  ON THIS CONFIGURATION, COMMANDS CAN BE TYPED THAT ALLOW OVERLAP
+ 1201                 /       OF TAPE MOTION WITH KEYBOARD MONITOR COMMANDS [CONTROL-R TO REWIND THE TAPE]
+ 1202                 /       AND UNLOAD THE THE SYSTEM DEVICE ENTIRELY [WHICH REQUIRES WAITING FOR THE
+ 1203                 /       OPERATION TO COMPLETE].
+ 1204   
+ 1205                 /       WHERE POSSIBLE, ATTEMPT TO MIMIC [OR IMPROVE] THIS BEHAVIOR FOR EACH
+ 1206                 /       CONFIGURATION.  THE TD8E CONTROLLER CANNOT ALLOW OVERLAP WITH TAPE REWIND
+ 1207                 /       BECAUSE THERE IS NO AUTOMATIC END ZONE DETECTION; AS SUCH, THE SPECIFIC
+ 1208                 /       IMPLEMENTATION DIFFERS IN SOME WAYS.  BECAUSE THERE ARE NO BRAKE-RELATED
+ 1209                 /       ISSUES, THE UNLOAD OPERATION CAN BE INITIATED AND WILL NOT WAIT FOR COMPLETION
+ 1210                 /       [HOWEVER, THE USER HAS TO STOP THE TAPE FROM INFINITE FLAPPING].
+ 1211   
+ 1212           0000          FIELD   0                       /FIELD WHERE THIS CODE IS WRITTEN OUT FROM
+ 1213                                                         /WHEN GENERATING A COMPLETE OPERATING SYSTEM.
+ 1214   
+ 1215          *1546          *REWIND-1                       /THESE ROUTINES ARE NOT RELOCATED.
+ 1216   
+ 1217   001546  3000  L3000,  3000                            /CONSTANT 3000.
+ 1218   
+ 1219                 /       THE ROUTINES ARE ENTERED HERE.  OTHER THAN COMMON OPERATIONS, EACH COMMAND
+ 1220                 /       WILL PERFORM ADDITIONAL PROGRAMMING TO COMPLETE THE SPECIFIC TASK.
+ 1221   
+ 1222   001547  4356  REWIND, JMS     TAPMOVE                 /THE AC CONTAINS 0000, START A REWIND
+ 1223                                                         /ON THE CURRENT SYSTEM DEVICE UNIT.
+ 1224   001550  1100          TAD     TEMP1                   /GET LATEST CHARACTER.
+ 1225   001551  1064          TAD     L7756/[-"R!300]         /COMPARE TO <^R>.
+ 1226   001552  7650          SNA CLA                         /SKIP IF OTHER [<^T>].
+ 1227   001553  5364          JMP     ENDWAIT                 /WAIT FOR END ZONE THERE.
+ 1228   
+ 1229                 /       WE WANT TO UNLOAD THE CURRENT SYSTEM DEVICE UNIT; SELECT THE OTHER DRIVE WHILE
+ 1230                 /       INITIATING MOTION AS WELL [AND THEN TURN MOTION OFF ON THE OTHER UNIT].  THE
+ 1231                 /       DESELECTION PROCESS DONE THIS WAY WILL CAUSE THE ORIGINAL UNIT TO FALL OFF THE
+ 1232                 /       TAKEUP REEL.
+ 1233   
+ 1234   001554  7201          NL0001                          /SET UNIT REVERSAL BIT.
+ 1235   001555  5373          JMP     DESELECT                /CONTINUE THERE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 28
+
+ 1237                 /       TAPE MOVE IN REVERSE ROUTINE.  CALL WITH AC=0000 TO REWIND THE CURRENT SYSTEM
+ 1238                 /       DEVICE UNIT; CALL WITH AC=0001 TO REWIND THE OPPOSITE SYSTEM DEVICE UNIT.
+ 1239   
+ 1240   001556  0000  TAPMOVE,.-.                             /REWIND THE TAPE ROUTINE.
+ 1241   001557  1000          TAD     UNIT                    /ADD ON THE CURRENT LOGICAL DEVICE UNIT.
+ 1242   001560  7112          CLL RTR                         /MOVE DESIRED UNIT TO AC[0].
+ 1243   001561  1346          TAD     L3000/(3000)            /ADD ON REVERSE DIRECTION AND MOTION BITS.
+ 1244   001562  6774          SDLC                            /LOAD THE COMMAND REGISTER.
+ 1245   001563  5756          JMP I   TAPMOVE                 /RETURN TO CALLER.
+ 1246   
+ 1247                 /       COMES HERE TO WAIT FOR THE END ZONE ON THE CURRENT SYSTEM DEVICE UNIT.
+ 1248   
+ 1249   001564  6771  ENDWAIT,SDSS                            /SINGLE-LINE FLAG UP?
+ 1250   001565  5364          JMP     .-1                     /NO, WAIT FOR IT
+ 1251   001566  6776          SDRC                            /YES, GET THE COMMAND REGISTER CONTENTS.
+ 1252   001567  0056          AND     L77/[77]                /JUST MARK WINDOW BITS.
+ 1253   001570  1064          TAD     L7756/[-22]             /COMPARE TO END ZONE VALUE.
+ 1254   001571  7640          SZA CLA                         /SKIP IF IN END ZONE NOW.
+ 1255   001572  5364          JMP     ENDWAIT                 /NOT YET, KEEP WAITING.
+ 1256   
+ 1257                 /       WE'RE IN THE END ZONE HAVING REWOUND THE CURRENT SYSTEM DEVICE UNIT.  FALL
+ 1258                 /       THROUGH TO THE NEXT ROUTINE WHICH WILL REDUNDANTLY SELECT THE SAME SYSTEM
+ 1259                 /       DEVICE UNIT, THEN CLEAR THE MOTION BIT.
+ 1260   
+ 1261           1573          DESELEC=.                       /DESELECT THE CURRENT SYSTEM DEVICE UNIT HERE.
+ 1262   
+ 1263                 /       IF THE AC IS SET TO 0001, THE OTHER SYSTEM DEVICE UNIT WILL BE SELECTED WITH
+ 1264                 /       REVERSE DIRECTION AND MOTION SET.  THIS WILL CAUSE THE CURRENT DEVICE UNIT
+ 1265                 /       [WHICH WAS SELECTED FOR REVERSE DIRECTION AND MOTION SET] TO LOSE CONTROL; THE
+ 1266                 /       TAPE WILL COMPLETELY UNLOAD AND NOT STOP TAPE FLAPPING UNTIL THE OPERATOR
+ 1267                 /       STOPS THE TAPE MANUALLY.  IF THE AC IS SET TO 0000 THE CURRENT SYSTEM DEVICE
+ 1268                 /       UNIT WILL BE REDUNDANTLY SELECTED FOR REVERSE DIRECTION AND MOTION [WHICH IS
+ 1269                 /       HARMLESS].
+ 1270   
+ 1271   001573  4356          JMS     TAPMOVE                 /SELECT EITHER THE CURRENT SYSTEM DEVICE
+ 1272                                                         /LOGICAL UNIT OR THE OTHER SYSTEM DEVICE
+ 1273                                                         /LOGICAL UNIT [DEPENDING ON HOW WE GOT HERE].
+ 1274   001574  6776          SDRC                            /GET THE CURRENT COMMAND REGISTER.
+ 1275   001575  1077          TAD     L7000/[-1000]           /REMOVE THE MOTION BIT.
+ 1276                 /       TAD     L7000/(7000)            /REMOVE THE MOTION BIT. **** VERSION 8Z ****
+ 1277   001576  6774          SDLC                            /LOAD THE COMMAND REGISTER TO
+ 1278                                                         /STOP THE CURRENT DECTAPE UNIT.
+ 1279   001577  5216          JMP     CHLOOP                  /KEEP GOING THERE.
+ 1280   
+ 1281                 /L7000, 7000                            /CONSTANT 7000 **** VERSION 8Z ****
+ 1282   
+ 1283                 /       ZBLOCK  .!177-.                 /EMPTY SPACE [IF ANY]. **** VERSION 8Z ****
+ 1284   
+ 1285                 /       JMP I   PCHLOOP/[CHLOOP]        /CONTINUE THERE. **** VERSION 8Z ****
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 29
+
+ 1287                 /       DEVICE LOGICAL SIZE.
+ 1288   
+ 1289                 /       THE SYSTEM GENERATION ROUTINES NEED TO KNOW THE OVERALL SIZE OF ANY ONE DEVICE
+ 1290                 /       ADDRESSED BY THE SYSTEM HANDLER; CERTAIN ENTRIES WILL BE MADE IN VARIOUS
+ 1291                 /       STRUCTURES BASED ON THIS VALUE.  [AS A PRACTICAL MATTER, THIS SIZE MUST BE
+ 1292                 /       GREATER THAN 1000 BLOCKS TO BE OF MUCH USE.]
+ 1293   
+ 1294                 /       ON VERY LARGE DEVICES, THIS COULD BE AS MUCH AS 10000 BLOCKS [WHICH SHOULD BE
+ 1295                 /       EXPRESSED AS 0000]; THIS IS THE UPPER LIMIT OF ADDRESSABILITY FOR ANY P?S/8
+ 1296                 /       SYSTEM DEVICE HANDLER [BUT MAY NOT BE THE UPPER LIMIT OF THE ACTUAL DEVICE].
+ 1297   
+ 1298                 /       THE P?S/8 SHELL IS CAPABLE OF ADDRESSING MORE STORAGE BLOCKS THAN THE BASIC
+ 1299                 /       P?S/8 SYSTEM THROUGH THE USE OF NON-SYSTEM DEVICE HANDLERS.  FOR EXAMPLE, ON
+ 1300                 /       AN RK8E/RK05 SYSTEM CONFIGURED FOR LOGICAL DRIVES 0 THROUGH 3 [WHERE EACH
+ 1301                 /       LOGICAL UNIT IS AN ENTIRE RK05 PACK], THE MAXIMUM POSSIBLE SYSTEM BLOCK
+ 1302                 /       AVAILABLE TO THE BASIC SYSTEM IS 07777 AS DEFINED ABOVE.  HOWEVER, THE MAXIMUM
+ 1303                 /       BLOCK AVAILABLE TO THE P?S/8 SHELL ENVIRONMENT WOULD BE 31277, WHERE BLOCKS
+ 1304                 /       10000-31277 ARE ONLY ACCESSIBLE THROUGH NON-SYSTEM HANDLERS AS USED IN THE
+ 1305                 /       SHELL ENVIRONMENT [AS WELL AS THE BASIC SYSTEM PROGRAM "BLKCPY" WHEN IT IS
+ 1306                 /       UPGRADED TO THE NEW SPECIFICATION FOR NON-SYSTEM HANDLERS IN THE VERSION 9A
+ 1307                 /       RELEASE].  AS SUCH, BLOCKS 00000-07777 REPRESENT THE MAXIMUM VALUE FOR THE
+ 1308                 /       BASIC P?S/8 SYSTEM THAT CAN BE CONFIGURED; SMALLER VALUES OF MAXIMUM BLOCK MAY
+ 1309                 /       BE USED IN PRACTICAL CONFIGURATIONS WHERE THE BASIC P?S/8 SYSTEM IS NOT
+ 1310                 /       REQUIRED TO SUPPORT THAT MANY STORAGE BLOCKS.  THE SYSTEM MAY BE CONFIGURED
+ 1311                 /       SUCH THAT MORE OF THE AVAILABLE STORAGE IS ALLOCATED TO THE SHELL ENVIRONMENT
+ 1312                 /       AS REQUIRED.  [NOTE: IT IS POSSIBLE TO CONFIGURE A BASIC P?S/8 SYSTEM TO ONLY
+ 1313                 /       ADDRESS BLOCKS BLOCKS 00000-00377 OR PERHAPS SOMEWHAT LESS, WITH THE REST OF
+ 1314                 /       THE DEVICE STORAGE CONFIGURED FOR USE IN THE P?S/8 SHELL ENVIRONMENT ONLY.]
+ 1315   
+ 1316          *6760          *DEVSIZE                        /OVER SYSTEM GENERATION ROUTINES.
+ 1317   
+ 1318   006760  2702          TDSIZE                          /DEFINE OUR DEVICE SIZE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 30
+
+ 1320                 /       P?S/8 BINARY FILE SLURP LOADER AND BOOTSTRAP FOR THE TD8E WITH MR8E-C ROM.
+ 1321   
+ 1322           0002          FIELD   SLPGEN&70%10            /GENERATION FIELD FOR SLURP LOADER.
+ 1323   
+ 1324          *4400          *SLPGEN&7600                    /GENERATION ADDRESS FOR SLURP LOADER.
+ 1325   
+ 1326                 SLPCORE,NOPUNCH                         /FOOL THE ASSEMBLER.
+ 1327   
+ 1328           0000          FIELD   0                       /WHERE IT LOADS LATER.
+ 1329   
+ 1330          *4400          *SLPCORE                        /RESET THE ORIGIN BACK IN CASE FIELD CHANGES IT.
+ 1331   
+ 1332                         ENPUNCH                         /UN-FOOL THE ASSEMBLER.
+ 1333   
+ 1334          *7600          RELOC   SBOOT                   /WHERE THE SLURP LOADER AND BOOTSTRAP EXECUTES.
+ 1335   
+ 1336                 /       DEVICE DEPENDENT BOOTSTRAP STARTING AT 07600.  ALSO USED WITH THE P?S/8
+ 1337                 /       VERSION OF THE PAPER-TAPE "BIN" LOADER [INSTEAD OF THE SLURP LOADER].
+ 1338   
+ 1339                 /       P?S/8 BOOTSTRAP CONVENTIONS ARE AS FOLLOWS:
+ 1340   
+ 1341                 /       1) AC CONTENTS UNIMPORTANT.
+ 1342   
+ 1343                 /       2) LINK CONTENTS UNIMPORTANT.
+ 1344   
+ 1345                 /       3) IN GENERAL, THE INTERRUPT SYSTEM SHOULD BE TURNED OFF; HOWEVER, BECAUSE
+ 1346                 /          INTERRUPTS ARE PARTICULARLY A PROBLEM FOR TD8E-BASED SYSTEMS, THIS
+ 1347                 /          BOOTSTRAP FORCES INTERRUPTS OFF AS THERE IS SUFFICIENT CODE SPACE FOR THE
+ 1348                 /          "IOF" INSTRUCTION.  [NOTE: IF THE SYSTEM DEVICE OPERATES BY DMA OR PROGRAM
+ 1349                 /          TRANSFER WITHOUT CRITICAL TIMING, THIS WILL NOT BE A PROBLEM.  THE CODING
+ 1350                 /          OF THE P?S/8 KEYBOARD MONITOR AND (EMBEDDED EDITOR) IS SUCH THAT INTERRUPTS CAUSE AN ADDITIONAL SYSTEM RESTART WITH
+ 1351                 /          INTERRUPTS TURNED OFF.]
+ 1352   
+ 1353                 /       4) THE DATA FIELD MUST BE 0.
+ 1354   
+ 1355                 /       5) ALL WORDS OF THE BOOTSTRAP MUST BE INTACT.  AS LONG AS ONLY WELL-BEHAVED
+ 1356                 /          PROGRAMS ARE LOADED, THIS SHOULD NEVER BE A PROBLEM.
+ 1357   
+ 1358                 SBOOT,                                  /BOOTSTRAP RELOAD STARTS HERE.
+ 1359   007600* 6002          IOF                             /TURN INTERRUPTS OFF.
+ 1360   007601* 7670  B7670,  SNA SZL CLA/(-110)              /CONSTANT 7670; CLEARS THE AC AND MIGHT SKIP.
+ 1361   007602* 7470  BROMBOO,ROMBOOT/(SNA SZL)               /ENTRY POINT INTO THE ROM TO REBOOT; CANNOT
+ 1362                                                         /SKIP BECAUSE THE AC IS NOW CLEAR.
+ 1363   007603* 6272          CIF     ROMFLD                  /GOING TO ROM FIELD.
+ 1364   007604* 5602          JMP I   BROMBOOT/(ROMBOOT)      /GO TO BOOTUP ROUTINE.
+ 1365   
+ 1366           7605          SLBTEND=.                       /ACTUAL END OF BOOTSTRAP-REQUIRED CODE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 31
+
+ 1368                 /       NOTE: AS OF VERSION 8Z, THERE IS AN SPECIFIC UPPER LIMIT ON THE SIZE OF THE
+ 1369                 /       CODE NEEDED TO REBOOT P?S/8 WHEN REMOVED FROM THE SLURP LOADER [TO BE USED
+ 1370                 /       WITH THE P?S/8 VERSIONS OF THE BIN AND RIM LOADERS].  VARIOUS EARLIER RELEASES
+ 1371                 /       MAY HAVE MADE DIFFERENT DEMANDS ON THIS CODE LENGTH [AND VERSION 9A WILL
+ 1372                 /       CHANGE THIS UPPER LIMIT TO ONE WORD LESS].  IT IS NOT EXPECTED THIS NEW
+ 1373                 /       REQUIREMENT WILL AFFECT TOO MANY SYSTEM CONFIGURATIONS; EACH WILL HAVE TO BE
+ 1374                 /       RECODED AS REQUIRED.  HOWEVER, THIS CONFIGURATION USES ONE OF THE SMALLEST
+ 1375                 /       BOOTUP SECTIONS; AS SUCH, NO CHANGES WILL BE NEEDED FOR THE P?S/8 TD8E WITH
+ 1376                 /       MR8E-C ROM VARIANT.  [NOTE: THE TC01/TC08 SYSTEM, ONCE REASSEMBLED FOR USE
+ 1377                 /       WITH VERSION 9A, IS ONE WORD SHORTER THAN THE NEW LIMITATION.  EACH SYSTEM
+ 1378                 /       DEVICE HANDLER WILL BE EVALUATED REGARDING THIS POINT.]
+ 1379   
+ 1380                 /       ALL BOOTSTRAP CODE MUST BE WITHIN 07600-07642 IN P?S/8 VERSION 8Z.  [NOTE:
+ 1381                 /       IN VERSION 9A, THIS WILL BE FURTHER RESTRICTED TO 07600-07641.  THIS WILL
+ 1382                 /       FACILITATE IMPROVING THE P?S/8 VERSION OF THE PAPER-TAPE "BIN" LOADER BY
+ 1383                 /       ALLOWING ONE ADDITIONAL WORD TO BE AVAILABLE.  THIS WILL BE USED TO IMPROVE
+ 1384                 /       THE LOADER; WHEN COMPLETED, IT WILL BE IMMUNE TO INTERNAL DESTRUCTION BY THE
+ 1385                 /       EXECUTION OF ALL PROGRAMS FOR THREE-CYCLE DATA BREAK DEVICES.  BY CONTRAST,
+ 1386                 /       NO OTHER VERSION OF THE PAPER-TAPE BIN LOADER IS ROBUST ENOUGH TO PREVENT
+ 1387                 /       DESTRUCTION BY THE EXECUTION OF PROGRAMS FOR AT LEAST ONE OF THE PREVAILING
+ 1388                 /       DEVICES [DF32/RF08, TC58 MAGNETIC TAPE, TC01/TC08 DECTAPE].
+ 1389   
+ 1390                 /       THE SLURP LOADER AND BOOTSTRAP ARE WRITTEN OUT TO A SYSTEM-DESIGNATED BLOCK.
+ 1391                 /       THE P?S/8 "BIN" PROGRAM WILL USE THE ENTIRE BLOCK CONTENTS WHEN LOADING TFS
+ 1392                 /       BINARY FILES; ONLY THE BOOTSTRAP WILL BE USED IN CONJUNCTION WITH THE P?S/8
+ 1393                 /       VERSION OF THE PAPER-TAPE "BIN" AND "RIM" LOADERS.  THIS WILL ALLOW RELOAD OF
+ 1394                 /       P?S/8 AS LONG AS THE LOCATIONS FROM 07600-ONWARD ARE NOT DESTROYED BY THE
+ 1395                 /       PROGRAMS LOADED BY BIN [OR RIM].
+ 1396   
+ 1397                 /       ENSURE THIS SIZE CONVENTION IS MET.
+ 1398   
+ 1399                         IFNZRO  SBOOT+BBLEN-.&4000      <ERROR  .>
+ 1401   
+ 1402                 /       DETAILED DESCRIPTION OF SLURP FORMAT P?S/8 BINARY FILES.
+ 1403   
+ 1404                 /       EVERY BLOCK OF A SLURP FILE IS INDEPENDENT OF ALL OTHER BLOCKS OTHER THAN ANY
+ 1405                 /       CONSIDERATION OF CURRENT LOADING ORIGIN AND CURRENT LOADING FIELD INHERITED
+ 1406                 /       FROM THE PREVIOUS BLOCK PROCESSED.  TO ENSURE PROPER LOADING, EVERY SLURP FILE
+ 1407                 /       CONTAINS INITIAL FIELD 0 AND ORIGIN 0200 SETTINGS; THIS AVOIDS DEPENDENCE ON
+ 1408                 /       ORDER OF LOADING, EVEN IN THE CASE OF MULTIPLE OUTPUT FILES CREATED BY A
+ 1409                 /       SINGLE ASSEMBLY [OR BINARY PAPER-TAPE CONVERSION].  SINCE THIS FIXED SEQUENCE
+ 1410                 /       IS PART OF THE OPENING WORDS OF A BINARY FILE, CONFORMING PROGRAMS CAN
+ 1411                 /       DETERMINE THE FILE IS BINARY.  [NOTE: P?S/8 SYSTEM PROGRAMS SUCH AS "FOCAL"
+ 1412                 /       USE BOTH BINARY AND TEXT FILES; BY USING THIS FIXED SEQUENCE AS PART OF A
+ 1413                 /       SIGNATURE CHECK, THE PROGRAM IS ABLE TO DIFFERENTIATE AND PROCESS THE FILES
+ 1414                 /       PASSED IN A MIXED SEQUENCE; FOCAL REQUIRES ALL BINARY FILES TO BE PASSED PRIOR
+ 1415                 /       TO ALL TEXT FILES, ETC.]
+ 1416   
+ 1417                 /       WHILE TFS FILES ARE RESTRICTED TO AT MOST 16 BLOCKS OF DATA, THE SLURP FORMAT
+ 1418                 /       DOES NOT HAVE ANY INHERENT BOUNDARY RESTRICTIONS.  FUTURE RELEASES OF P?S/8
+ 1419                 /       WILL SUPPORT THE "BINCON" UTILITY WITH THE ABILITY TO CREATE EXTENDED-LENGTH
+ 1420                 /       BINARY FILES THAT CAN BE CONVERTED TO OS/8 BINARY FORMAT AFTER PROCESSING TO
+ 1421                 /       REMOVE THE PROBLEMS ASSOCIATED WITH THE DEFECTIVE IMPLEMENTATION OF THE DTORG
+ 1422                 /       DIRECTIVE.  THIS IN TURN WILL FACILITATE FUTURE METHODS OF P?S/8 SYSTEM
+ 1423                 /       GENERATION.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 32
+
+ 1425                 /       SLURP LOADER BLOCK FORMAT.
+ 1426   
+ 1427                 /       WITHIN ANY SLURP FORMAT BINARY BLOCK THERE ARE 18 GROUPS OF SEVEN WORDS.  ANY
+ 1428                 /       ADDITIONAL WORDS ARE IGNORED.
+ 1429   
+ 1430                 /       SINCE SLURP LOADERS OPERATE AT THE PHYSICAL DEVICE LEVEL, EACH SLURP LOADER
+ 1431                 /       HAS THE SPECIFIC RESPONSIBILITY TO ACCESS THE DATA IN A MANNER ANALOGOUS TO A
+ 1432                 /       TYPICAL DEVICE HANDLER, BUT ALSO HAS THE ADDITIONAL RESPONSIBILITY TO DEAL
+ 1433                 /       WITH PREVAILING WORDS KNOWN TO EXIST THAT ARE NOT SPECIFICALLY PART OF THE
+ 1434                 /       BINARY DATA.  SINCE PDP-8 FORMAT DECTAPES ARE 129 WORDS PER BLOCK,
+ 1435                 /       DECTAPE-SPECIFIC SLURP LOADERS [FOR THE TC01/TC08 AND THE TD8E] MUST IGNORE
+ 1436                 /       THE THREE ADDITIONAL DATA WORDS IN THE BLOCK [AND ANY ADDITIONAL WORDS THAT
+ 1437                 /       ARE PRESENT AS PART OF THE OVERALL LOW-LEVEL DECTAPE FORMAT].  [NOTE: SLURP
+ 1438                 /       LOADERS FOR OTHER DEVICES GENERALLY FUNCTION IN AN ANALOGOUS MANNER; HOWEVER
+ 1439                 /       CERTAIN DEVICE-SPECIFIC QUIRKS MAY APPLY.]  ALL P?S/8 RELEASES ALSO SUPPORT A
+ 1440                 /       DEVICE-INDEPENDENT VIRTUAL SLURP LOADER AS A COMMAND-LINE OPTION OF THE "BIN"
+ 1441                 /       SYSTEM PROGRAM THAT LAUNCHES A SLURP LOADER [WHEN LOADING THE CONTENTS OF
+ 1442                 /       BINARY FILES, ONE OF SEVERAL OPERATING MODES OF THE BIN PROGRAM]; FOR SYSTEM
+ 1443                 /       CONFIGURATIONS THAT DO NOT SUPPORT A DEVICE-SPECIFIC SLURP LOADER, THE VIRTUAL
+ 1444                 /       SLURP LOADER IS ALWAYS USED BY DEFAULT.
+ 1445   
+ 1446                 /       NOTE: SLURP BINARY FORMAT IS ALSO USED IN SEVERAL OTHER OPERATING SYSTEMS,
+ 1447                 /       INCLUDING CERTAIN OPERATING SYSTEMS SOLD BY DEC.  [IT IS EXTREMELY LIKELY DEC
+ 1448                 /       MANAGEMENT PERSONNEL NEVER UNDERSTOOD THIS DESPITE THE OBVIOUS COPYRIGHT
+ 1449                 /       IMPLICATIONS.]  THESE INCLUDE THE R-L MONITOR SYSTEM [WHICH WAS WRITTEN BY
+ 1450                 /       RICHARD LARY AND LENNY ELEKMAN WITH ADDITIONAL CONTRIBUTIONS BY HANK MAURER,
+ 1451                 /       JACK BURNESS, JOE FISCHETTI, ROD DORMAN AND CHARLES LASNER], DIBOL-8 [A
+ 1452                 /       HACKED-UP VARIANT OF THE R-L MONITOR SYSTEM TRIVIALLY CREATED BY HANK MAURER
+ 1453                 /       TO SUPPORT THE FIRST DIBOL COMPILER AS AN R-L MONITOR SYSTEM PROGRAM] AND ALL
+ 1454                 /       VARIANT RELEASES OF EDU-SYSTEM 3O [WHICH IS IN TURN BASED ON POLY BASIC, A
+ 1455                 /       PRODUCT OF RICHARD LARY AND LENNY ELEKMAN WHILE STUDENTS AT BROOKLYN POLYTECH
+ 1456                 /       AND AS SUCH, NOT EMPLOYEES OF DEC].  POLY BASIC WAS DEVELOPED AS A STANDALONE
+ 1457                 /       OPERATING SYSTEM ON THE R-L MONITOR, THE PROGENITOR SYSTEM FROM WHICH P?S/8 IS
+ 1458                 /       DESCENDED; WHILE THERE IS NO INTERNAL FILE SYSTEM ASSOCIATED WITH SLURP FORMAT
+ 1459                 /       IN THESE BASIC-ONLY SYSTEMS, IT IS THE INTERNAL FORMAT OF ALL BINARY
+ 1460                 /       OPERATIONS FOR THE INTERNAL RUN-TIME SYSTEM.
+ 1461   
+ 1462                 /       SLURP GROUP FORMAT.
+ 1463   
+ 1464                 /       EACH OF THE [UP TO] 18 GROUPS IN ANY ONE LOGICAL BLOCK IS PROCESSED IN
+ 1465                 /       SEQUENCE BEFORE MOVING ON TO THE NEXT BLOCK IN THE FILE [IF APPLICABLE].  THE
+ 1466                 /       CONTROL [OR FLAG] WORD [FOR THE NEXT SIX DATA WORDS] IS PROCESSED FIRST TO
+ 1467                 /       DETERMINE THE DISPOSITION OF EACH OF THE SIX DATA WORDS THAT FOLLOW.
+ 1468   
+ 1469                 /       EACH CONTROL WORD CONTAINS SIX PAIRS OF CONTROL BITS, EACH FOR THE
+ 1470                 /       CORRESPONDING DATA WORD.  [BIT PAIRS ARE RECKONED LEFT TO RIGHT.]
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 33
+
+ 1472                 /       WITHIN EACH BIT PAIR, THE FOLLOWING DEFINITIONS APPLY:
+ 1473   
+ 1474                 /       00 - THE CORRESPONDING WORD IS DATA TO BE LOADED INTO THE LOCATION INDICATED
+ 1475                 /            BY THE CURRENT LOADING ORIGIN AND THE CURRENT LOADING FIELD.  THE
+ 1476                 /            LOADING ORIGIN IS INCREMENTED FOR ANY ADDITIONAL DATA WORD LOADING.
+ 1477   
+ 1478                 /       10 - THE CORRESPONDING WORD IS AN ORIGIN SETTING; THE LOADING ORIGIN WILL BE
+ 1479                 /            UPDATED TO THE CONTENTS OF THIS WORD FOR ANY ADDITIONAL DATA WORD
+ 1480                 /            LOADING.
+ 1481   
+ 1482                 /       11 - THE CORRESPONDING WORD IS A FIELD SETTING EXPRESSED AS A "CDF X" [62X1]
+ 1483                 /            INSTRUCTION TO THE NEW LOADING FIELD X; THE CONTENTS OF THIS WORD WILL BE
+ 1484                 /            STORED INLINE TO CHANGE THE EFFECTIVE LOADING FIELD FOR ANY ADDITIONAL
+ 1485                 /            DATA WORDS.
+ 1486   
+ 1487                 /       01 - END OF FILE HAS BEEN DETECTED; IGNORE ALL ADDITIONAL DATA WORDS IN THIS
+ 1488                 /            DATA BLOCK AND ANY ADDITIONAL BLOCKS IN THE CURRENT FILE.  THE SLURP
+ 1489                 /            LOADER WILL MOVE ON TO PROCESSING ADDITIONAL SLURP FILES [IF APPLICABLE].
+ 1490   
+ 1491                 /       NOTE: WHEN APPROPRIATE COMMAND-LINE OPTIONS ARE INVOKED, THE P?S/8 "BIN"
+ 1492                 /       PROGRAM IS ALSO CAPABLE OF READING BINARY PAPER-TAPES [FROM EITHER THE
+ 1493                 /       LOW-SPEED OR HIGH-SPEED READER] AND CONVERTING THE BINARY DATA INTO THE
+ 1494                 /       CONTENTS OF SPECIFIED SLURP BINARY TFS FILES.  USING ADDITIONAL COMMAND-LINE
+ 1495                 /       OPTIONS, THE SLURP LOADER CAN BE INVOKED IN THE SAME COMMAND TO LOAD THE
+ 1496                 /       CONTENTS OF THE FILES CREATED EARLIER IN THE COMMAND OPERATION.
+ 1497   
+ 1498                 /       NOTE: THE P?S/8 "BIN" PROGRAM IS ALSO CAPABLE OF ADDITIONAL OPERATIONS TO
+ 1499                 /       PUNCH THE CONTENTS OF SLURP BINARY FILES OR TO PLACE A COPY OF THE RIM LOADER
+ 1500                 /       AND A CUSTOMIZED VERSION OF THE BIN LOADER INTO MEMORY WITH A COPY OF THE
+ 1501                 /       SLURP LOADER BOOTSTRAP AS DEFINED ABOVE.  OTHER THAN THE DEVICE-DEPENDENT
+ 1502                 /       BOOTSTRAP WORDS, THIS OPERATION IS DEVICE-INDEPENDENT; APPROPRIATE
+ 1503                 /       COMMAND-LINE OPTIONS ARE AVAILABLE FOR ALL OPERATING MODES OF THE P?S/8 "BIN"
+ 1504                 /       SYSTEM PROGRAM.
+ 1505   
+ 1506                 /       SINCE NO CHECKSUM SCHEME IS USED IN THE SLURP FILE FORMAT, ADVANCED USERS CAN
+ 1507                 /       FREELY PATCH ANY BINARY FILE AS REQUIRED.  THIS IS USEFUL WHEN MODIFYING
+ 1508                 /       PAPER-TAPE SOURCED/CONVERTED BINARY FILES WHICH MAY REQUIRE ALTERNATE MEMORY
+ 1509                 /       FIELDS THAN THE PROGRAM WAS ORIGINALLY ASSEMBLED FOR LOADING.
+ 1510   
+ 1511                 /       SELF-STARTING BINARY PROGRAM ISSUES.
+ 1512   
+ 1513                 /       "SPARM" [07756] CONTAINS THE 12-BIT STARTING ADDRESS OF THE PROGRAM.  BY
+ 1514                 /       DIRECTLY LOADING INTO THIS ADDRESS, THE PROGRAM WILL ALWAYS START ACCORDING
+ 1515                 /       TO THE USER'S PREFERENCE.
+ 1516   
+ 1517                 /       "BCIF" [07746] CONTAINS THE STARTING FIELD IN THE FORM OF A "CIF CDF XX"
+ 1518                 /       INSTRUCTION WHERE XX IS THE STARTING FIELD [IN BITS(6-8)].  [NOTE: THIS
+ 1519                 /       SPECIFIC ADDRESS APPLIES TO VERSION 8Z AND IS SUBJECT TO CHANGE.]
+ 1520   
+ 1521                 /       NOTE: SELF-STARTING INFORMATION IS IGNORED IF THE VIRTUAL BINARY SLURP LOADER
+ 1522                 /       IS IN EFFECT [AS ALL ATTEMPTS TO LOAD INTO 07600-07777 ARE IGNORED].
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 34
+
+ 1524                 /       COMES HERE TO STOP THE LATEST DECTAPE DRIVE UNIT AT THE END OF EVERY FILE.
+ 1525   
+ 1526   007605* 1350  BREAD2, TAD     BUNIT                   /GET LATEST UNIT INTO AC[0].
+ 1527   007606* 6774          SDLC                            /STOP THE LATEST TAPE UNIT WE WERE READING.
+ 1528   
+ 1529                 /       FALLS THROUGH TO PROCESS THE NEXT FILE [IF ANY].
+ 1530   
+ 1531                 /       THIS IS THE SLURP LOADER STARTING ADDRESS.  THE FILE POINTER MUST BE
+ 1532                 /       INCREMENTED BEFORE USING TO OBTAIN THE LATEST FILE BLOCK AND UNIT BIT
+ 1533                 /       DATA.  IF THE LATEST FILE LIST ELEMENT OBTAINED IS 0000 THERE ARE NO
+ 1534                 /       ADDITIONAL FILES TO LOAD.  [NOTE: IF THE FILE LIST IS THE LARGEST SIZE ENDING
+ 1535                 /       IN 07777, THE 0000 VALUE IS OBTAINED BECAUSE THE "ISZ BFLPTR" INSTRUCTION
+ 1536                 /       SKIPS THE NEXT INSTRUCTION.  AS SUCH, ONLY SHORTER FILE LISTS ARE TERMINATED
+ 1537                 /       WITH A SENTINEL 0000 VALUE PAST THE LAST PASSED FILE ELEMENT.]
+ 1538   
+ 1539   007607* 2354  BREAD,  ISZ     BFLPTR                  /BUMP TO NEXT FILE.
+ 1540   007610* 1754          TAD I   BFLPTR                  /GET THE NEXT FILE HANDLE WORD.
+ 1541   007611* 0353          AND     B7770/(7770)            /JUST FILE BLOCK BITS.
+ 1542   007612* 7450          SNA                             /SKIP IF AN ACTVIE ENTRY.
+ 1543   007613* 5334          JMP     BCIF                    /JUMP IF ALL FILES PROCESSED.
+ 1544   007614* 3347          DCA     BBLK                    /SAVE LATEST FILE BLOCK.
+ 1545   007615* 1754          TAD I   BFLPTR                  /GET FILE HANDLE AGAIN.
+ 1546   007616* 7010          RAR                             /LOW-ORDER UNIT BIT TO LINK.
+ 1547   007617* 7210          CLA RAR                         /LOW-ORDER UNIT BIT TO AC[0].
+ 1548   007620* 3350          DCA     BUNIT                   /SAVE UNIT BIT FOR NOW.
+ 1549   007621* 7710  BCONT,  SPA CLA                         /SKIP NEXT IF CLEAR.
+ 1550   007622* 7330  BTURNX, NL4000                          /SET REVERSING BIT.
+ 1551   007623* 1351          TAD     BDIRGO                  /GET CURRENT DIRECTION AND GO BITS.
+ 1552   007624* 3351          DCA     BDIRGO                  /SAVE [WITH POTENTIALLY UPDATED] DIRECTION.
+ 1553   007625* 1351          TAD     BDIRGO                  /GET CURRENT DIRECTION AND GO BITS
+ 1554   007626* 7110          CLL RAR                         /MOVE TO HARDWARE DIRECTION AND GO BITS.
+ 1555   007627* 1350          TAD     BUNIT                   /ADD ON CURRENT UNIT BIT.
+ 1556   007630* 6774          SDLC                            /GET THE TAPE MOVING IN THE DESIRED DIRECTION.
+ 1557   007631* 4327          JMS     BGETWD                  /WAIT FOR
+ 1558   007632* 4327          JMS     BGETWD                  /SOME LINES.
+ 1559   007633* 6771  BSRCHMO,SDSS                            /SINGLE LINE FLAG UP?
+ 1560   007634* 5233          JMP     .-1                     /NO, WAIT FOR IT.
+ 1561   007635* 6776          SDRC                            /YES, READ THE COMMAND REGISTER.
+ 1562   007636* 7106          CLL RTL                         /MOVE UP TWO BITS; DIRECTION TO LINK.
+ 1563   007637* 0266          AND     B374/(374)              /JUST MARK TRACK BITS.
+ 1564   007640* 1201          TAD     B7670/(-110)            /COMPARE TO END ZONE VALUE.
+ 1565   007641* 7450          SNA                             /SKIP IF NOT IN THE END ZONE.
+ 1566   007642* 5222          JMP     BTURNX                  /REVERSE DIRECTION IF SO.
+ 1567   007643* 1346          TAD     B7760/(-130+110)        /COMPARE TO BLOCK MARK VALUE.
+ 1568   007644* 7640          SZA CLA                         /SKIP IF AT BLOCK MARK.
+ 1569   007645* 5233          JMP     BSRCHMORE               /GO BACK AND KEEP SEARCHING.
+ 1570   007646* 6777          SDRD                            /GET LATEST BLOCK.
+ 1571   007647* 7430          SZL                             /SKIP IF GOING FORWARD.
+ 1572   007650* 1352          TAD     B4002                   /ADD ON UNDERSHOOT VALUE IF REVERSE SEARCH.
+ 1573   007651* 7041          CIA                             /INVERT FOR TESTING.
+ 1574   007652* 1347          TAD     BBLK                    /COMPARE TO DESIRED BLOCK.
+ 1575   007653* 7440          SZA                             /SKIP IF IT MATCHES.
+ 1576   007654* 5221          JMP     BCONT                   /DETERMINE WHAT TO DO NEXT THERE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 35
+
+ 1578                 /       THE SELECTED DECTAPE IS MOVING FORWARD AND THE DESIRED BLOCK MARK FOUND.
+ 1579   
+ 1580                 /       NOW WE NEED TO LOCATE THE 40 MARK WINDOW VALUE [PART OF THE LOCK WORD].
+ 1581   
+ 1582   007655* 6771  BFNDLOC,SDSS                            /SINGLE LINE FLAG UP?
+ 1583   007656* 5255          JMP     .-1                     /NO, WAIT FOR IT.
+ 1584   007657* 6776          SDRC                            /YES, GET THE COMMAND REGISTER.
+ 1585   007660* 0343          AND     B77/(77)                /JUST MARK WINDOW BITS.
+ 1586   007661* 1265          TAD     B7740/(-40)             /COMPARE TO MARK WINDOW VALUE [LOCK MARK].
+ 1587   007662* 7640          SZA CLA                         /SKIP IF IT MATCHES.
+ 1588   007663* 5255          JMP     BFNDLOCK40              /JUMP IF NOT.
+ 1589   
+ 1590                 /       READ ONE MORE WORD; WE WILL BE LOCATED AT THE FIRST DATA WORD OF THE BLOCK.
+ 1591   
+ 1592   007664* 4327          JMS     BGETWD                  /READ THE LAST NON-DATA WORD.
+ 1593   007665* 7740  B7740,  SMA SZA CLA                     /CLEAN UP; THIS MIGHT SKIP.
+ 1594   007666* 0374  B374,   374                             /CONSTANT 0374; EXECUTES AS A HARMLESS
+ 1595                                                         /"AND" INSTRUCTION IF NOT SKIPPED.
+ 1596   
+ 1597                 /       START LOADING THE LATEST BLOCK BINARY DATA.
+ 1598   
+ 1599   007667* 1345  BNWREC, TAD     B7756/(-22)             /22 GROUPS IN ONE BLOCK.
+ 1600   007670* 3340          DCA     BGRPCT                  /INTO GROUP COUNTER.
+ 1601   007671* 1342  BNWGRP, TAD     B7772/(-6)              /6 BINARY WORDS IN A GROUP.
+ 1602   007672* 3341          DCA     BWDCT                   /INTO WORD COUNTER.
+ 1603   007673* 4327          JMS     BGETWD                  /GET LATEST CONTROL WORD.
+ 1604   007674* 7110          CLL RAR                         /DO AN INITIAL SHIFT.
+ 1605   007675* 7410          SKP                             /DON'T GET RUNNING VALUE FIRST TIME THROUGH.
+ 1606   007676* 1337  BGRPLP, TAD     BRLBTS                  /GET CURRENT CONTROL WORD.
+ 1607   007677* 7006          RTL                             /ROTATE NEXT PAIR TO LINK AND AC[0].
+ 1608   007700* 3337          DCA     BRLBTS                  /STORE BACK FOR NEXT TIME.
+ 1609   007701* 1337          TAD     BRLBTS                  /RESTORE LATEST TO AC[0].
+ 1610   007702* 7710          SPA CLA                         /<EOF> OR FIELD SETTING?
+ 1611   007703* 5322          JMP     BEOF                    /YES.  [LINK IS OFF IF <EOF>]
+ 1612   007704* 4327          JMS     BGETWD                  /NO, GET DATA OR ORIGIN VALUE.
+ 1613   007705* 6201  BCDF,   CDF     00+.-.                  /PREVAILING FIELD BITS WILL BE FILLED IN.
+ 1614   007706* 7420          SNL                             /SKIP IF ORIGIN SETTING.
+ 1615   007707* 3736          DCA I   BLOC                    /STORE DATA WORD.
+ 1616   007710* 6201          CDF     00                      /RESTORE OUR FIELD.
+ 1617   007711* 2336          ISZ     BLOC                    /BUMP STORAGE POINTER [EVEN IF WRONG TO DO SO].
+ 1618   007712* 7430          SZL                             /SKIP IF DATA WORD; UNIMPORTANT IF SKIPPED.
+ 1619   007713* 3336          DCA     BLOC                    /SET NEW ORIGIN IF NOT DATA WORD.
+ 1620   007714* 2341  BNXTWD, ISZ     BWDCT                   /DONE SIX WORDS IN THIS GROUP YET?
+ 1621   007715* 5276          JMP     BGRPLP                  /NO, GO DO ANOTHER ONE
+ 1622   007716* 2340          ISZ     BGRPCT                  /DONE 22 GROUPS IN THIS BLOCK YET?
+ 1623   007717* 5271          JMP     BNWGRP                  /NO, GO DO ANOTHER ONE.
+ 1624   
+ 1625                 /       ALL BINARY DATA IN THIS BLOCK IS NOW LOADED; GO ON TO THE NEXT BLOCK.
+ 1626   
+ 1627   007720* 2347          ISZ     BBLK                    /BUMP TO NEXT BLOCK.
+ 1628   007721* 5221          JMP     BCONT                   /KEEP GOING.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 36
+
+ 1630                 /       COMES HERE IF THE LATEST WORD IS EITHER A FIELD SETTING OR AT THE END OF DATA
+ 1631                 /       WITHIN THE LATEST FILE.
+ 1632   
+ 1633   007722* 7620  BEOF,   SNL CLA                         /FIELD SETTING?
+ 1634   007723* 5205          JMP     BREAD2                  /NO, IT'S THE END OF THIS FILE.
+ 1635   007724* 4327          JMS     BGETWD                  /YES, GET THE NEXT WORD.
+ 1636   007725* 3305          DCA     BCDF                    /STORE IN-LINE AS A "CDF" INSTRUCTION
+ 1637                                                         /TO THE LATEST FIELD.
+ 1638   007726* 5314          JMP     BNXTWD                  /GO DO ANOTHER WORD.
+ 1639   
+ 1640   007727* 0000  BGETWD, .-.                             /GET A NEW WORD ROUTINE.
+ 1641   007730* 6773          SDSQ                            /QUAD LINE FLAG UP?
+ 1642   007731* 5330          JMP     .-1                     /NO, WAIT FOR IT.
+ 1643   007732* 6777          SDRD                            /YES, GET THE DATA WORD.
+ 1644   007733* 5727          JMP I   BGETWD                  /RETURN TO CALLER.
+ 1645   
+ 1646                 /       WHEN ALL FILES HAVE BEEN LOADED, START THE PROGRAM HERE.  THE "BIN" PROGRAM
+ 1647                 /       STORED THE STARTING FIELD HERE; THE STARTING ADDRESS IS IN "SPARM" [07756].
+ 1648   
+ 1649   007734* 6203  BCIF,   .-.^10+CIF CDF                  /CHANGE FIELD TO STARTUP FIELD
+ 1650   007735* 5756          JMP I   SPARM                   /AND START THE USER PROGRAM.
+ 1651   
+ 1652   007736* 0000  BLOC,   .-.                             /MEMORY STORAGE POINTER.
+ 1653   007737* 0000  BRLBTS, .-.                             /CONTROL FLAGS WORD STORED HERE.
+ 1654   007740* 0000  BGRPCTR,.-.                             /GROUP COUNTER.
+ 1655   007741* 0000  BWDCT,  .-.                             /WORD COUNTER.
+ 1656   
+ 1657                 /       DEFAULT STARTING ADDRESS [SAFE HALT].
+ 1658   
+ 1659                 BERR,                                   /DEFAULT STARTING ADDRESS.
+ 1660   007742* 7772  B7772,  SPA SNA SZL CLA HLT             /THIS HALTS.    
+ 1661   007743* 0077  B77,    77                              /CONSTANT 0077; IF CONTINUE IS PRESSED, THIS
+ 1662                                                         /EXECUTES AS A HARMLESS "AND" INSTRUCTION THAT
+ 1663                                                         /CAN BE SKIPPED.
+ 1664   
+ 1665                 /       IN CASE CONTINUE IS PRESSED, JMP BACK TO THE SAFE HALT.
+ 1666   
+ 1667   007744* 5342          JMP     BERR                    /INFINITE LOOP IF CONTINUE PRESSED.
+ 1668   
+ 1669   007745* 7756  B7756,  7756                            /CONSTANT 7756.
+ 1670   007746* 7760  B7760,  7760                            /CONSTANT 7760.
+ 1671   007747* 0000  BBLK,   .-.                             /LATEST FILE BLOCK.
+ 1672   007750* 0000  BUNIT,  .-.                             /CURRENT DRIVE IN BIT[0].
+ 1673   007751* 2000  BDIRGO, 2000+.-.                        /CURRENT TAPE DIRECTION AND GO BITS.
+ 1674   007752* 4002  B4002,  4002                            /CONSTANT 4002.
+ 1675   007753* 7770  B7770,  7770                            /CONSTANT 7770.
+ 1676   007754* 7756  BFLPTR, SFILES-1                        /FILE LIST POINTER [INCREMENT BEFORE USING].
+ 1677   007755* 0000          0
+ 1678   007756* 7742  SPARM,  BERR                            /STARTING ADDRESS PASSED HERE [DEFAULT SET].
+ 1679   007757* 0000  SFILES, ZBLOCK  -.                      /FILE HANDLES PASSED HERE.
+ 1680   
+ 1681          *4600          RELOC                           /TURN OFF RELOCATION.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 37
+
+ 1683                 /       P?S/8 SYSTEM DEVICE HANDLER RELOADER.
+ 1684   
+ 1685                 /       WHEN THE DEVICE-DEPENDENT BINARY FILE SLURP LOADER [AS OPPOSED TO THE
+ 1686                 /       DEVICE-INDEPENDENT VIRTUAL BINARY FILE SLURP LOADER SUPPORTED ON ALL P?S/8
+ 1687                 /       SYSTEMS] IS IN EFFECT, THE CONTENTS OF 07600-07777 NO LONGER CONTAIN THE
+ 1688                 /       SYSTEM DEVICE HANDLER; A REBOOT ROUTINE IS PROVIDED AT 07600 [AND SOME
+ 1689                 /       ADDITIONAL WORDS FOLLOWING] TO ALLOW A TOTAL SYSTEM RELOAD CONSISTENT WITH
+ 1690                 /       THE MORE USUAL RESTARTING OF THE SYSTEM AT THE SAME ADDRESS.
+ 1691   
+ 1692                 /       AT FIRST GLANCE, IT WOULD APPEAR THAT AS PART OF THE TRADEOFF OF LOADER
+ 1693                 /       CHOICE, EITHER MORE EFFICIENT BINARY FILE LOADING [WITH NO NEED TO
+ 1694                 /       WRITE-ENABLE THE SYSTEM DEVICE] AND THE LACK OF ACCESS TO THE NORMAL SYSTEM
+ 1695                 /       KERNEL IS PROVIDED [OR THE SYSTEM DEVICE MUST BE WRITE-ENABLED AND THE SYSTEM
+ 1696                 /       KERNEL IS RESIDENT IN MEMORY AS IS NORMALLY THE CASE].
+ 1697   
+ 1698                 /       HOWEVER, THIS IS NOT THE CASE.  BY INVOKING THE P?S/8 "BIN" PROGRAM FOR BINARY
+ 1699                 /       FILE LOADING AND INCLUDING THE '/I' COMMAND-LINE OPTION SWITCH, AT THE END OF
+ 1700                 /       ALL LOADING OF THE ENTIRETY OF THE CONTENTS OF ALL BINARY FILES, IT IS
+ 1701                 /       POSSIBLE TO ALSO HAVE THE SYSTEM DEVICE HANDLER AS WELL!  THERE ARE A FEW
+ 1702                 /       PROVISOS:
+ 1703   
+ 1704                 /       1)      THE BLOCK JUST PAST THE END OF THE LAST FILE LOADED FROM THE SYSTEM
+ 1705                 /               DEVICE WILL DETERMINE THE FINAL POSITION OF THE DEVICE.  [NOTE:
+ 1706                 /               THE DESCRIPTION USED HERE ENVISIONS DECTAPE AND RELATED SYSTEMS].
+ 1707                 /               HOWEVER, IF THE '/I' COMMAND-LINE OPTION SWITCH IS INVOKED, THERE WILL BE
+ 1708                 /               SEVERAL ADDITIONAL DEVICE OPERATIONS THAT WILL TEND TO LEAVE THE
+ 1709                 /               SYSTEM DEVICE POSITIONED JUST PAST BLOCK 0000 [WHICH WILL BE RELOADED
+ 1710                 /               AS PART OF THE EXTRA TAPE MOTION].
+ 1711   
+ 1712                 /               ASSUMING A PROGRAM NORMALLY [EVENTUALLY] EXITS TO 07600, THIS IS NOT
+ 1713                 /               AN OVERALL ISSUE PER SE; THE DEVICE MUST BE REWOUND TO BLOCK 0000 AS
+ 1714                 /               PART OF THE SYSTEM RESTART OPERATION.  AS SUCH, THIS IS MERELY A
+ 1715                 /               MATTER OF REWINDING BEFORE THE PROGRAM STARTS AS OPPOSED TO WHEN THE
+ 1716                 /               PROGRAM EXITS.
+ 1717   
+ 1718                 /       2)      PART OF THE ADDITIONAL OPERATIONS IS A BINARY LOADING OPERATION OF
+ 1719                 /               BLOCK 0060 ON THE SYSTEM DEVICE.  THIS IS THE MECHANISM THAT PERFORMS
+ 1720                 /               THE SEEMINGLY IMPOSSIBLE TASK OF CONVERTING THE CONTENTS OF MEMORY
+ 1721                 /               LOCATIONS 07600-07777 FROM THE SYSTEM RESTART BOOTSTAP [AND BINARY
+ 1722                 /               LOADER ARTIFACTS] INTO THE CONTENTS OF BLOCK 0000 [THE IMAGE OF THE
+ 1723                 /               SYSTEM KERNEL].
+ 1724   
+ 1725                 /       3)      BLOCK 0060 IS APPENDED TO THE LIST OF SLURP BINARY INPUT FILES; THE
+ 1726                 /               RELOAD OPERATION MUST BE PERFORMED AFTER THE NORMAL BINARY LOADING IS
+ 1727                 /               OTHERWISE COMPLETE.  AS SUCH, BLOCK 0060 BECOMES THE LAST FILE HANDLE
+ 1728                 /               IN THE PASSED FILE LIST.  [THE CONTENTS OF BLOCK 0060 ARE GENERALLY
+ 1729                 /               CONSISTENT WITH A SMALL SLURP BINARY FILE THAT ENDS WITHIN THE FIRST
+ 1730                 /               BLOCK.]
+ 1731   
+ 1732                 /               IF THE '/I' COMMAND-LINE OPTION IS IN EFFECT, THE MAXIMUM NUMBER OF
+ 1733                 /               INPUT FILES IS LOWERED FROM 17 TO 16 TO ENSURE A FILE HANDLE CAN BE
+ 1734                 /               PLACED AT THE END OF THE FILE LIST.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 38
+
+ 1736                 /               SINCE SLURP BINARY FILE FORMAT APPROACHES 6/7 OF THE LOADING
+ 1737                 /               EFFICIENCY OF CORE-IMAGE DATA, THIS LOWERS THE MAXIMUM AMOUNT OF
+ 1738                 /               BINARY DATA THAT CAN BE LOADED WITH A SINGLE COMMAND LINE FROM
+ 1739                 /               APPROXIMATELY 7.25 MEMORY FIELDS TO 6.9 MEMORY FIELDS; HOWEVER, SINCE
+ 1740                 /               TYPICAL PROGRAM LOADING FOR PRACTICAL PROGRAMMING PROJECTS SELDOM
+ 1741                 /               EXCEEDS 8K OF PROGRAM MEMORY, THIS IS NOT AN IMPORTANT CONSIDERATION.
+ 1742                 /               [NOTE: EXTREMELY LARGE PROGRAMS MIGHT REQUIRE TWO COMMANDS TO LOAD
+ 1743                 /               ALL PROGRAM COMPONENTS.]
+ 1744                 /               
+ 1745                 /               FUTURE RELEASES OF P?S/8 WILL INCLUDE A BINARY CONVERSION PROGRAM
+ 1746                 /               KNOWN AS "BINCON" WHICH HAS SEVERAL MODES OF OPERATION.  ADVANCED
+ 1747                 /               USERS OF BINCON WILL BE ABLE TO CONCATENATE THE CONTENTS OF A GROUP OF
+ 1748                 /               TFS SLURP BINARY FILES INTO A SINGLE EXTENDED-LENGTH FILE; AS SUCH,
+ 1749                 /               PROGRAM LOADING WILL BE MORE EASILY ACCOMPLISHED IN FEWER UNIQUE FILE
+ 1750                 /               NAMES.  THE MINOR RESTRICTION ON MAXIMUM PASSED FILES WILL BECOME
+ 1751                 /               UNIMPORTANT.
+ 1752   
+ 1753                 /       THE FOLLOWING PROGRAMMING GENERATES THE IMAGE IN MEMORY OF A CONTRIVED SLURP
+ 1754                 /       BINARY FILE TO BE WRITTEN OUT TO BLOCK 0060 OF THE SYSTEM DEVICE.  [NOTE:
+ 1755                 /       SINCE THIS BLOCK IS READ ONLY BY THE SLURP LOADER, IT DOES NOT HAVE TO CONFORM
+ 1756                 /       TO THE USUAL ORIGIN AND FIELD SETTING CONVENTIONS; THIS IS DONE TO MINIMIZE
+ 1757                 /       THE SIZE OF THE DATA, ALL OF WHICH MUST FIT INTO A SINGLE BLOCK.]
+ 1758   
+ 1759           0002          FIELD   IGEN&70%10              /RELOADER BLOCK GENERATION FIELD.
+ 1760   
+ 1761          *4000          *IGEN&7600                      /RELOADER BLOCK GENERATION ADDRESS.
+ 1762   
+ 1763                 ICOR,   NOPUNCH                         /FOOL THE ASSEMBLER.
+ 1764   
+ 1765           0000          FIELD   0                       /WHERE THIS LOADS.
+ 1766   
+ 1767          *4000          *ICOR                           /RESTORE ORIGIN [IN CASE FIELD CHANGES IT].
+ 1768   
+ 1769                         ENPUNCH                         /UN-FOOL THE ASSEMBLER.
+ 1770   
+ 1771   004000  5640          OR^4+FL^4+OR^4+OR^4+DA^4+DA     /CONTROL WORD.
+ 1772   
+ 1773   004001  0200          0200                            /*200.  NOTE: THIS IS SUPERFLUOUS.
+ 1774   
+ 1775   004002  6201          CDF     00                      /FIELD 0.
+ 1776   
+ 1777   004003  0200          0200                            /*200.  NOTE: THIS IS SUPERFLUOUS.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 39
+
+ 1779                 /       MOST OF THE CODE LOADS IN OVER THE [NOW UNNEEDED] FILE LIST AREA.
+ 1780   
+ 1781   004004  7757          SFILES                          /*SFILES; THIS IS WHERE THE CODE STARTS LOADING.
+ 1782   
+ 1783          *7757          RELOC   SFILES                  /FOOL THE ASSEMBLER.
+ 1784   
+ 1785                 /       SINCE THE RELOADER SLURP FILE BLOCK IS THE LAST ELEMENT IN THE FILE LIST, THE
+ 1786                 /       ENTIRE FILE LIST AREA IS AVAILABLE FOR THE PURPOSE OF [SELECTIVELY] USING THE
+ 1787                 /       SLURP LOADER CODE FOR THE PURPOSE OF RELOADING THE SYSTEM DEVICE HANDLER.  THE
+ 1788                 /       FOLLOWING CODE LOADS IN THE FILE LIST AREA WHICH IS ALLOWED AT THIS POINT.
+ 1789   
+ 1790   007757* 7600  RLPOINT,SBOOT/CLA!400                   /CLEAR THE AC; ALSO STORAGE POINTER.
+ 1791   
+ 1792   007760* 1334          TAD     BCIF                    /GET PROGRAM STARTING FIELD INSTRUCTION.
+ 1793   
+ 1794   007761* 0000          DA^4+DA^4+DA^4+DA^4+DA^4+DA     /NEXT CONTROL WORD.
+ 1795   
+ 1796          *7761          RELOC   .-1                     /FOOL THE ASSEMBLER.
+ 1797   
+ 1798   007761* 3372          DCA     7772                    /STORE OUT OF HARM'S WAY.
+ 1799   
+ 1800                 /       NOW READ THE SYSTEM DEVICE HANDLER IN ONE WORD AT A TIME.
+ 1801   
+ 1802   007762* 6773  RELOOP, SDSQ                            /QUAD LINE FLAG UP?
+ 1803   007763* 5362          JMP     .-1                     /NO, WAIT FOR IT.
+ 1804   007764* 6777          SDRD                            /YES, GET THE DATA WORD.
+ 1805   007765* 3757          DCA I   RLPOINTER               /STORE A WORD.
+ 1806   007766* 2357          ISZ     RLPOINTER               /BUMP TO NEXT.
+ 1807   
+ 1808   007767* 0000          DA^4+DA^4+DA^4+DA^4+DA^4+DA     /NEXT CONTROL WORD.
+ 1809   
+ 1810          *7767          RELOC   .-1                     /FOOL THE ASSEMBLER.
+ 1811   
+ 1812   007767* 2374          ISZ     RLCNTR                  /DONE ENOUGH WORDS?
+ 1813   007770* 5362          JMP     RELOOP                  /NO, KEEP GOING.
+ 1814   007771* 6774          SDLC                            /YES, STOP THE DECTAPE.
+ 1815   007772* 6203  RLCIF,  .-.^10+CIF CDF                  /WILL BE THE STARTING FIELD INSTRUCTION.
+ 1816   007773* 5756          JMP I   SPARM                   /GO START THE PROGRAM UP.
+ 1817   
+ 1818   007774* 7622  RLCNTR, SBOOT-SPARM                     /COUNT OF WORDS TO MOVE.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 40
+
+ 1820                 /       THE RELOADER CODE HAS NOW BEEN READ INTO THE FILE LIST AREA; THE SLURP LOADER
+ 1821                 /       WILL NOW BE MODIFIED TO READ IN THE CONTENTS OF BLOCK 0000.
+ 1822   
+ 1823   007775* 4210          OR^4+DA^4+OR^4+DA^4+OR^4+DA     /NEXT CONTROL WORD.
+ 1824   
+ 1825                 /       ALL OF THE RELOADER CODE WORDS HAVE BEEN READ IN.  THE SLURP LOADER IS NO
+ 1826                 /       LONGER NEEDED FOR ITS NORMAL PURPOSE.  THE SLURP LOADER WILL NOW BE MODIFIED
+ 1827                 /       TO CAUSE IT TO READ IN BLOCK 0000 DATA.
+ 1828   
+ 1829                 /       AFTER THE END OF FILE IS DETECTED IN THE [STILL-FUNCTIONING] SLURP LOADER, THE
+ 1830                 /       CODE GOES BACK TO [NORMALLY] DETECT THE END OF THE FILE LIST [WHICH WOULD THEN
+ 1831                 /       START THE PROGRAM UP].  BEFORE THAT HAPPENS, IT WILL BE MODIFIED TO INSTEAD
+ 1832                 /       SEARCH FOR BLOCK 0000.  WHEN THE SEARCH COMPLETES AND BLOCK 0000 DATA IS
+ 1833                 /       AVAILABLE, PREVENT THE SLURP LOADER READ OPERATIONS, AND INSTEAD EXECUTE THE
+ 1834                 /       RELOAD CODE READ IN OVER THE [AVAILABLE] FILE LIST AREA.
+ 1835   
+ 1836          *7667          RELOC   BNWREC                  /FOOL THE ASSEMBLER.
+ 1837   
+ 1838   007667* 7667          BNWREC                          /*BNWREC.
+ 1839   
+ 1840   007670* 5357          JMP     RLPOINTER               /RELOAD BLOCK 0000 INSTEAD OF SLURP LOADING.
+ 1841   
+ 1842                 /       THE SLURP LOADER SEARCH ROUTINE SUPPORTS BOTH DRIVE UNITS.  THE FOLLOWING CODE
+ 1843                 /       FORCES ACCESS TO THE SYSTEM DRIVE UNIT [0].
+ 1844   
+ 1845          *7627          RELOC   BTURNX+5                /FOOL THE ASSEMBLER.
+ 1846   
+ 1847   007627* 7627          BTURNX+5                        /*BTURNX+5.
+ 1848   
+ 1849   007630* 7000          NOP                             /THIS FORCES THE SYSTEM DEVICE UNIT [0].
+ 1850   
+ 1851                 /       WHEN THE SLURP LOADER GOES BACK TO DETECT ANOTHER FILE, FORCE IT TO INSTEAD
+ 1852                 /       USE BLOCK 0000 AND START A SEARCH ON THAT BLOCK.
+ 1853   
+ 1854          *7607          RELOC   BREAD                   /FOOL THE ASSEMBLER
+ 1855   
+ 1856   007607* 7607          BREAD                           /*BREAD.
+ 1857   
+ 1858   007610* 5214          JMP     BREAD+5                 /FORCE BLOCK 0000 TO BE LOCATED FOR READING.
+ 1859   
+ 1860          *7771          RELOC   SFILES+12               /FOOL THE ASSEMBLER [REALLY DOESN'T MATTER].
+ 1861   
+ 1862   007771* 2525          EF^4+EF^4+EF^4+EF^4+EF^4+EF     /NEXT CONTROL WORD.
+ 1863   
+ 1864   007772* 0000          ZBLOCK  6                       /NO DATA, JUST END OF FILE.
+ 1865   
+ 1866                 /       THIS IS THE END OF FILE.  THE SLURP LOADER WILL NOW GO BACK AND START LOADING
+ 1867                 /       IN [MOST OF] BLOCK 0000.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 41
+
+ 1869          *4043          RELOC                           /TURN OFF RELOCATION.
+ 1870   
+ 1871                 /       END OF THE RELOADER FILE IMAGE WHICH MUST FIT IN ONE PAGE.  CHECK TO MAKE SURE
+ 1872                 /       THE CODE DOES NOT EXCEED THIS RESTRICTION.  [MOST SLURP FILES ARE SEVERAL
+ 1873                 /       BLOCKS LONG; THIS IS NOT CONSIDERED A "FILE".]
+ 1874   
+ 1875           4200          ICOREND=ICOR+200                /FIRST LOCATION AFTER MAXIMUM
+ 1876                                                         /SIZE RELOADER CODE IMAGE.
+ 1877   
+ 1878           4043          IMAGEND=.                       /FIRST LOCATION AFTER ACTUAL RELOADER IMAGE.
+ 1879   
+ 1880           0135          IM=ICOREND-IMAGEND              /COUNT OF ADDITIONAL WORDS AVAILABLE.
+ 1881   
+ 1882                         IFNZRO  IM&4000 <ERROR  .>      /ENSURE CODE LIMIT NOT EXCEEDED.
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE 42
+
+ 1885                 /       STUFF TO PUT IN SOMEWHERE ELSE LATER.  [AFTER I FIGURE OUT MORE THINGS!]
+ 1886   
+ 1887                 /       SYSTEM NAME TDRM [THIS IS MEANINGFUL TO THE LOGICAL CONSOLE OVERLAY SUPPORT
+ 1888                 /       SECTION OF THIS FILE].
+ 1889   
+ 1890                 /       FOR NOW, THE MR8E-C SOURCE CODE IS NOT INCLUDED; IT IS NEEDED DURING THE
+ 1891                 /       ACTUAL USAGE ON NON-ROM SYSTEMS.  HOWEVER, THE SOURCE CODE IN THIS SECTION
+ 1892                 /       CAN BE ASSEMBLED WITHOUT THE INCLUSION OF THAT SOURCE MODULE [BEING DEVELOPED
+ 1893                 /       SEPARATELY AND IN PRE-FINAL STATE].  WHEN IT IS STABLE, IT WILL BE ADDED TO
+ 1894                 /       THIS SOURCE FILE FOR COMPLETENESS.
+ 1895   
+ 1896                         $                               /THAT'S ALL FOR NOW, FOLKS!
+
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE S-1
+USER SYMBOL TABLE LISTING
+
+
+ADRLST=7603     DSPBLB=0024     READLP=7677     SYSBLK=0000 
+AT7577 7577     EF    =0001     RELOOP 7762     SYSIO  7640 
+BBLEN =0043     ENDWAI 1564     REWIND 1547     SYSNUM=0014 
+BBLK   7747     EQUFUN 7704     RLCIF  7772     SYSTAR 7637 
+BCDF   7705     EQUTMP 7750     RLCNTR 7774     S5671  7776 
+BCIF   7734     ERRTRP=0046     RLPOIN 7757     S6000  7642 
+BCONT  7621     ESTATU=0077     ROMBOO=7470     S70    7727 
+BDIRGO 7751     FILBLB=0023     ROMFLD=0070     S7405  7775 
+BEOF   7722     FL    =0003     ROMGO =7405     S7600  7772 
+BERR   7742     F2SET =7552     SBLK   7734     TADGTC 7553 
+BFLPTR 7754     GENAD1=7400     SBLOCK 7635     TAPMOV 1556 
+BFNDLO 7655     GET    7312     SBOOT  7600     TDSIZE=2702 
+BGETWD 7727     GETFLD 7650     SBTFUN 7602     TEMP1 =0100 
+BGRPCT 7740     GETWRD 7647     SCIDF  7746     TRAPIO=1041 
+BGRPLP 7676     GTCMPV 7575     SCKSUM 7733     TRPERR=1200 
+BINADR=0020     GTCT   7561     SCORE  7633     TRPGEN=1020 
+BINIT =0020     GTLOOP 7565     SCRSIZ 7611     TRYCNT=7730 
+BINITL=0020     GTMARK 7544     SDATE  7610     UNIT  =0000 
+BINIT2=0031     GTSRCH 7547     SDCODE=0077     WAITIO=1110 
+BISTRT=7776     GT1000 7545     SDLC  =6774     WCT    7326 
+BLKDAT=7360     GT77   7560     SDLD  =6775     WORDCT 7754 
+BLOC   7736     HIDWRD=7600     SDRC  =6776     WRITE =4000 
+BNWGRP 7671     ICOR   4000     SDRD  =6777     WRQ   =7724 
+BNWREC 7667     ICOREN=4200     SDSQ  =6773     WRQUAD 7671 
+BNXTWD 7714     IGEN  =4020     SDSS  =6771     ZAPLST=7627 
+BOOTBU=7354     IM    =0135     SDST  =6772     
+BREAD  7607     IMAGEN=4043     SERR   7661 
+BREAD2 7605     INSERT=1305     SEXIT  7722 
+BRLBTS 7737     IOTRAP=0045     SFILES 7757 
+BROMBO 7602     IOWAIT=0047     SFLDXI 7725 
+BSRCHM 7633     K1000  7300     SFROM  7773 
+BTURNX 7622     K77    7331     SFUN   7634 
+BUFADR 7751     L200  =0105     SFUNCT 7732 
+BUFPTR 7753     L3000  1546     SF2SET 7730 
+BUNIT  7750     L7    =0177     SINTXI 7724 
+BUTSTR 7562     L7000 =0077     SLBTEN=7605 
+BWDCT  7741     L77   =0056     SLOAD  7632 
+B374   7666     L7756 =0064     SLPCOR 4400 
+B4002  7752     L7770 =0040     SLPGEN=4420 
+B7670  7601     MARKSE 7321     SLPSA =7777 
+B77    7743     MONSTR=0353     SLUPAG=2600 
+B7740  7665     MOVBLB=0022     SMORE  7612 
+B7756  7745     MRKSRC 7315     SMORE2 7736 
+B7760  7746     MRKVAL 7327     SMORE3 7665 
+B7770  7753     NL0001=7201     SMVLUP 7764 
+B7772  7742     NL2000=7332     SOUTFL 7607 
+CALADR=0020     NL4000=7330     SPARM  7756 
+CALFLD=0021     NL7776=7344     SROMGO 7670 
+CHLOOP=1416     OR    =0002     STARTI=7400 
+CIFR   7674     PAGCNT 7752     STO    7774 
+CNTLST=7615     PCHLOO=0162     STRT   7332 
+DA    =0000     PUTFLD 7655     SUNIT  7735 
+DESELE=1573     PUTWRD 7654     SWAL   7604 
+DEVSIZ=6760     RD     7303     SWMX   7605 
+DRVUNI 7731     RDQUAD 7676     SWY9   7606 
+
+/     P?S/8 SYSTEM HANDLER TD8E/MR8E-C        P?S PAL V08S    SAT  05-MAR-16  PAGE S-2
+ASSEMBLY STATISTICS
+
+
+NO ERRORS DETECTED 
+
+NO LINKS GENERATED
+
+6K MEMORY UTILIZED 
+
+1 FILE  CREATED
+
+190 SYMBOLS
+
+
+
+MAP OF FIELD 0          P?S BITMAP V04E    SAT  05-MAR-16  PAGE M-1
+NO MAPPING RESTRICTIONS
+
+
+
+
+00000
+00100
+
+00200
+00300
+
+00400
+00500
+
+00600
+00700
+
+01000
+01100
+
+01200
+01300
+
+01400
+01500 00000000 00000000 00000000 00000000 00000011 11111111 11111111 11111111 
+
+01600
+01700
+
+02000
+02100
+
+02200
+02300
+
+02400
+02500
+
+02600
+02700
+
+03000
+03100
+
+03200
+03300
+
+03400
+03500
+
+03600
+03700
+
+MAP OF FIELD 0          P?S BITMAP V04E    SAT  05-MAR-16  PAGE M-2
+
+
+
+
+
+04000
+04100
+
+04200
+04300
+
+04400
+04500
+
+04600
+04700
+
+05000
+05100
+
+05200
+05300
+
+05400
+05500
+
+05600
+05700
+
+06000
+06100
+
+06200
+06300
+
+06400
+06500
+
+06600
+06700 00000000 00000000 00000000 00000000 00000000 00000000 10000000 00000000 
+
+07000
+07100
+
+07200
+07300
+
+07400 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 
+07500 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 
+
+07600
+07700
+
+MAP OF FIELD 2          P?S BITMAP V04E    SAT  05-MAR-16  PAGE M-3
+
+
+
+
+
+20000
+20100
+
+20200
+20300
+
+20400
+20500
+
+20600
+20700
+
+21000
+21100
+
+21200
+21300
+
+21400
+21500
+
+21600
+21700
+
+22000
+22100
+
+22200
+22300
+
+22400
+22500
+
+22600
+22700
+
+23000
+23100
+
+23200
+23300
+
+23400
+23500
+
+23600
+23700
+
+MAP OF FIELD 2          P?S BITMAP V04E    SAT  05-MAR-16  PAGE M-4
+
+
+
+
+
+24000 11111111 11111111 11111111 11111111 11100000 00000000 00000000 00000000 
+24100
+
+24200
+24300
+
+24400 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 
+24500 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 
+
+24600
+24700
+
+25000
+25100
+
+25200
+25300
+
+25400
+25500
+
+25600
+25700
+
+26000
+26100
+
+26200
+26300
+
+26400
+26500
+
+26600
+26700
+
+27000
+27100
+
+27200
+27300
+
+27400
+27500
+
+27600
+27700
