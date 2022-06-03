@@ -2457,7 +2457,15 @@ do_linc()
                     if (ESF&0400)
                         linc_trap();
                     else {
-// BUGBUG: RDC, RCG, RDE, MTB, WRC, WCG, WRI, CHK?
+                        int32 tc12_inst (int32 IR1, int32 IR2, int32 AC);
+                        /* RDC, RCG, RDE, MTB, WRC, WCG, WRI, CHK
+                         * Unit is in IR & 010
+                         * Motion is IR & 020, set to continue, clear to stop
+                         * Second word has memory and tape block numbers
+                        */
+                        tmp = M[PC];
+                        PC = (PC&06000) + ((PC+1)&01777);
+                        tc12_inst(IR, tmp, LAC);
                     }
                     break;
                 case 017: /* 0740+xx Illegal */
