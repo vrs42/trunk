@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+open(INPUT, "extract_cmi5619") || die "extract_cmi5619: $!";
+binmode(INPUT);
+open(OUTPUT, ">cmi5619") || die "cmi5619: $!";
+
+while (read(INPUT, $buf, 2) == 2) {
+  ($b1, $b2) = unpack("CC", $buf);
+  $b1 >>= 2;
+  $b2 >>= 2;
+  $b1 = ($b1<<6) + $b2;
+  $buf = pack("S", $b1);
+  print OUTPUT $buf;
+}
+

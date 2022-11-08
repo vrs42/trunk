@@ -1,0 +1,38 @@
+/	FORMAT SQ555
+
+	*200
+
+START,	CLA
+	6703
+	6706
+	SMA CLA
+	JMP	.-2
+	TAD	(COMM)
+	6704
+	6701
+	JMP	.-1
+	6702
+	AND I	0
+	AND I	0
+	AND I	0
+	AND I	0
+	AND I	0
+	AND I	0
+	AND I	0
+	AND I	0
+	6707
+	6706
+	SPA CLA
+	JMP	.-2
+	6706
+	MQL
+	6457
+	JMP I	(7600)
+
+COMM,	1^400+6
+	004
+	000
+	0
+	0
+	0
+	0

@@ -1,0 +1,1451 @@
+/   MODEM.PA  Communications with PDP-8
+/ Ron Larkin, October 1980; modified from:
+/HARRIS-PDP8 LINK;CRL;DEPT.OF.PSYCH;UOI;CLAPMAN-MANKOVICH;3/15/78
+/
+/ Modified to reliably finish a ^T operation  16-Mar-81
+/ Modified to turn off interrupts while manipulating MFLAG.  This is
+/   an attempt to get reliable modem output at 1200 baud.  RL 7 July 85
+/ Modifications to make Version 2:   (19 Sept 85  RL)
+/	Now called "MODEM" instead of "CSO"
+/	ENTRY replaces HLT for subroutines
+/	Asks what the host system is upon entry or restart
+/	Errors generate messages, not HLTs
+/	Former ^T function is now ^X (^T useful on VMS)
+/	Allows file name to be specified for ^X and ^R
+/	^C is now passed through to host; ^P + menu used to exit to OS/8
+/
+/
+/
+/
+/ Hardware for this version:  PDP8/E mini with:
+/   Serial line (KL8-E or Quadart
+/   4800 or 9600 baud terminal
+/   300/1200 baud modem (Prometheus ProModem with Options 1 & 2)
+/
+/
+/ Possible hosts:
+/   1	TSX
+/   2	VAX/VMS or MicroVAX/MicroVMS
+/   3	Cyber NOS (Cyber 174 or 175)
+/   4	Generic (no special characters)
+/
+/
+/
+/   File COMMOD.BI:
+/$JOB Compile MODEM.PA with a listing (cross-referenced) to DSK:MODEM.LS
+/.R PAL8
+/*MODEM,MODEM<MODEM,S$
+/.R CREF
+/*MODEM<MODEM$
+/.PRINT MODEM.LS(DFW)
+/$END
+/
+/	Memory Layout (Field 0)
+/
+/	0000	Interrupt-catching code & constants
+/	0200	START
+/		MENU
+/		SKPCHN
+/	0400	MREAD
+/		MWRITE
+/		READ
+/		WRITE
+/		CHKCH
+/	0600	XMIT
+/		QUEUE
+/	1000	PACK
+/		CHKCON
+/	1200	MXMIT
+/		MINPUT
+/		TYPE
+/	1400	RCV
+/		INT
+/	1600	GO
+/		GETCH
+/		WRAPUP
+/		UNPACK
+/	2000	BUFER
+/	2200	  (400 octal words)
+/	2400	Subroutines to signal unexpected interrupts
+/	2600	AERR
+/		UNEX
+/		CRLF
+/		ERROR1 ff
+/	3000	INTOUT
+/		POSOUT
+/		ATYPE
+/		STROUT
+/		SIXOUT
+/	3200	LINOUT
+/		DECOUT
+/		ERBOOP
+/	3400	CGOTO
+/		RDECHO
+/		GETFN
+/		GETNAM
+/	3600	ERTRAP
+/	4000	MESGnn
+/	4400	First free page
+/
+/    University of Illinois Cyber 174/175 Systems:
+/
+/AFTER CONVERSING WITH MIKE GARDNER IN COMPUTING SERVICES, CONCLUDE THAT THE
+/  FOLLOWING ARE CONVENTIONS SPECIAL TO THE CYBER SYSTEM.
+/
+/ 1.	S	DURING CYBER OUTPUT STOPS THE PROCESS
+/ 2.	I	  "      "     "  INTERRUPTS THE PROCESS.
+/ 3.	^S	  "      "     "  CAUSES CYBER TO WAIT FOR ^Q
+/ 4.	^Q	RECOVERS FROM ^S.
+/ 5.	CR	CARRIAGE RETURNS ARE PADDED WITH CA. 6 CHARACTERS.
+/		  (CAN BE DISABLED BY "ROUT,0".)
+/		  NOTE THAT THE CYBER GOES AWAY FOR A WHILE AFTER
+/		  ONE SENDS IT A CARRIAGE RETURN FROM A TERMINAL.
+/		  BEST WAY TO AVOID MISSING FIRST CHARACTER AFTER A CR
+/		  IS TO PROGRAM IN A FEW (CA. 6) CHARACTER-TIMES TO DELAY
+/		  BEFORE SENDING THE NEXT LINE.
+/ 6.	LF	LINE FEEDS MUST BE ADDED BY THE TERMINAL.  CYBER WILL
+/		  IGNORE LF ON INPUT.
+/ 7.	ASCII	IF FILE INCLUDES LOWER CASE, MUST USE "/ASCII" SWITCH.
+/
+/	NOTE THAT CYBER SENDS NO END-OF-FILE MARKER AT THE END OF
+/	A FILE TRANSMISSION TO A TERMINAL.  SO ONE HAS TO MAKE UP ONE'S
+/	OWN CONVENTION FOR A SPECIAL EOF CHARACTER OR STRING.
+/
+/
+/
+/   CYBER TRANSMITS EVEN PARITY, USUALLY.
+/
+/ CONVENTIONS FOR OPERATION OF THIS PROGRAM:
+/ TERMINAL BEHAVES LIKE IT IS DIRECTLY CONNECTED TO CYBER, EXCEPT
+/ IT HAPPENS TO HAVE A DISK ATTACHED.  
+/ WHEN THE OPERATOR KEYS "^R", THE PDP-8 IS TO RECEIVE A FILE FROM
+/ CYBER.  THE INTENDED METHOD OF ACCOMPLISHING THIS IS:
+/	"/TYPE,FILENAME<CNTRL R>"
+/ THE PDP-8 LOOKS FOR AN END-OF-FILE CHARACTER WHICH IS STORED AS
+/ A NEGATIVE CONSTANT IN "EOFCHR".  IT CLOSES THE RECEIVED
+/FILE WHEN THIS EOF CHARACTER IS SEEN.
+/
+/ WHEN THE OPERATOR KEYS "^X", THE PDP-8 IS TO TRANSMIT A FILE TO CYBER.
+/ ALL OF IT WILL BE TRANSMITTED VERBATIM
+/ UNTIL A PDP-8 EOF CHARACTER (CNTRL Z) IS ENCOUNTERED.
+/ THE CNTRL Z WILL NOT BE SENT.
+/ USE "COPYCR" TO ACCEPT A FILE FROM THE PDP8.  CYBER WILL ACCEPT
+/ UNTIL A "CR,CR" IS TRANSMITTED, SO YOU MUST BE SURE THE FILE CONTAINS
+/ NO BLANK LINES.  THE PROGRAM WILL SEND AN EXTRA CR WHEN THE PDP8 EOF IS FOUND.
+/
+/--Sometimes a file xfer will end with a fragmentary cyber message
+/such as "EETER" or "AIT".  Ignore these.
+/
+/--FILE TRANSMISSIONS TAKE CA. 35 SEC/OS8 BLOCK at 300 baud.
+/ SOME EFFICIENCY WILL
+/BE GAINED BY DOING A "ROUT,0" ON THE CYBER.
+/RECEIVING FROM THE CYBER TAKES PLACE AT ABOUT 14 SECONDS/OS8 BLOCK AT
+/ 300 baud.
+/
+/--One should convert multiple tabs to spaces before sending a file to
+/CYBER.  Use the "/T" option in PIP.
+/
+/--TO ADD AN EOF CHARACTER TO A CYBER COMMAND (FOR INSTANCE, TO A
+/"HEARYE"), TRY:  P.HEARYE/S=7;TYPE,DOLLAR^R
+/
+
+
+/ EXAMPLES OF TRANSFERS:
+/	/COPYCR,INPUT,PDP8
+/       ? ^X			, WHERE ^X IS TYPED BUT NOT ECHOED.
+/	/TYPE,LISTING,DOLLAR^R	, WHERE FILE "DOLLAR" IS MERELY AN EOF
+/					(DOLLAR SIGN)
+/ TO RUN MODEM.SV:
+/ HAVE OUTPUT TO CYBER (IF ANY) READY IN an ASCII file on device DSK:
+/ TYPE "R MODEM"
+/ Select a host
+/ Use ATD on ProModem to dial your system
+/ Use ^P to restart MODEM
+/ BE SURE TO HANG UP MODEM WITH ATH BEFORE SHUTTING DOWN PDP-8
+/         TSX and VMS as host: 
+/
+/
+/
+/       Control-Z (^Z) is the EOF character for these operating systems.
+/  When transmitting a file with ^X, no ^Z is included with the characters
+/  off disk sent to the host.  Therefore, press ^Z from the terminal if
+/  you want to send an EOF to the host (e.g. if doing a .COPY from 
+/  device TT:).  When receiving from a host, ^Z from the host will
+/  close the OS/8 file and ^Z from the PDP8 keyboard will also close
+/  the OS/8 file (latter happens immediately, even in the middle
+/  of a transmission or in a hang.)
+/     To copy a file to such a host from the PDP-8:
+/  COPY
+/   From:   TT:
+/   To:     <filename & extension>
+
+/
+/
+/
+/
+/       When receiving a file from these systems, ^Z on the terminal will
+/  close the OS/8 file but will not be transmitted to the host.
+/  This is usually done when host output has finished, as seen from the
+/  terminal's echo of the characters coming in from the host.
+/
+/	SOME NOTES ON MODEM.PA
+/
+/--Because PDP8 devices often take >>30 msec to access files, we need
+/to use interrupt in order not to miss characters coming from the modem.
+/This includes especially receiving the "? " which tells the PDP8
+/when it may transmit a line during a pdp8-to-cyber file transmission.
+/So modem (devices 33 & 34) is on interrupt, while console (03 & 04)
+/is on programmed interrupt.
+/
+/--The KIE instruction turns interrputs on or off for both input and
+/output at once.  So, in order to receive from the modem on interrupt,
+/we might as well transmit to it the same way.  A software flag, "MFLAG"
+/accomplishes this.
+/
+/--You may use the usual ^P command, which restarts the program.
+/Ergo ^P cannot be used on the host although it may
+/be transmitted as part of the contents of files.
+/
+EJECT
+CDF0=6201
+CDF1=6211
+CIF0=6202
+CIF1=6212
+PCIE=6667		/FOR PRINTER INTERRUPTS
+MKRB=7007&KRB 300
+MKSF=7007&KSF 300
+MTCF=7007&TCF 310
+MTLS=7007&TLS 310
+MTSF=7007&TSF 310
+MKIE=7007&KIE 300
+FIXMRI INC=ISZ
+QLNGTH=100		/Octal.  Gives more than 2 seconds of
+ERROR=JMS I [ERTRAP		/We try to avoid HLTs
+/			  buffer at 300 baud and 1/2 sec at 1200 baud
+
+	*0
+	.-.		/PC STORED HERE ON INTERRUPT
+	JMP I .+1
+	INT
+	*16
+QA,	.-.		/POINTER FOR ADDING TO INPUT QUEUE
+QB,	.-.		/POINTER FOR REMOVING FROM INPUT QUEUE
+NAME,	FILENAME ANY.DA	/Becomes filename and extension
+	ZBLOCK 2	/Needed to take possible extra extension characters
+WORD1,	.-.
+WORD2,	.-.
+WORD3,	.-.
+ENTR,	.-.
+NQ,	.-.		/LENGTH OF INPUT QUEUE
+ACSV,	.-.		/ACC SAVED HERE ON INTERRUPT
+FLAGSV,	.-.		/LINK ETC. SAVED HERE ON INTERRUPT
+MFLAG,	.-.		/MODEM OUTPUT FLAG IN SOFTWARE.  IS -1 IF BUSY.
+CH,	.-.		/CONSOLE CHARACTER BUFFER (CONS. KB. -> CH -> MOD. KB)
+MCH,	.-.     	/MODEM BUFFER   (MOD. TP. -> MCH -> CONS. TP.)
+WCNT,	.-.
+PNT,	.-.
+FLAG,	.-.
+TEMP1,	.-.
+TEMP2,	.-.
+DATA,	.-.
+LAST,	.-.
+BB,	.-.
+ENTADD,	.-.
+MTEMP,	.-.
+HOST,	.-.		/An integer coding type of host we are logged onto.
+THOST,	.-.		/Temporary stash for HOST in GETFN routine
+FNCNT,	.-.		/Counter used in GETNAM subroutine
+BASE,	BASE8		/Initialize the radix list to octal
+FNADDR,	.-.		/Pointer into file name and extension; see GETFN
+NOTFAT,	.-.		/.TRUE. (-1) if error was not fatal
+KNOWN,	.-.		/.TRUE. (-1) if source of interrupt was known
+ADDR,	.-.
+REM,	.-.
+ZERO,	.-.
+DCNT,	.-.
+TADDR,	.-.
+EOFCHR,	.-.		/Signals End-of-file when receiving
+
+			/Constants:
+NHOST,	4		/Max number of possible hosts.
+DEVNAM,	DEVICE DSK	/Default device name
+BUF,	BUFER		/
+	DECIMAL
+NVER,	3		/Version number of this program.
+	OCTAL
+	FIELD 0
+	*200
+START,	CAF		/CLEAR ALL FLAGS
+	DCA CH		/Clear out any control chars. here
+	DCA MFLAG	/Clear the software serial output flag
+
+	KIE		/CLEAR KEYBOARD & PRINTER INTERRUPT ENABLES
+	MKIE		/Clear modem serial line enables
+	PCIE
+	TLS
+        KRB
+        MKRB
+	CLA		/Write program's name and version number
+	JMS STROUT	/Program name
+	MESG35
+	TAD NVER	/Version number
+	JMS DECOUT
+	JMS CRLF
+	JMS CRLF
+MENU,	CLA		/Write the menu on the terminal
+	TAD [4		/Set host to "generic"
+	DCA HOST	/   for the benefit of CHKCON
+	JMS LINOUT	/Write one line
+	MESG09
+	JMS LINOUT
+	MESG10
+	JMS LINOUT
+	MESG11		/Cyber NOS
+	JMS LINOUT
+	MESG12		/TSX
+	JMS LINOUT
+	MESG13		/VMS or MicroVMS
+	JMS STROUT
+	MESG14		/Generic (no special characters)
+	JMS STROUT
+	MESG18		/"   "
+	KSF		/Wait for the keystrike
+	JMP .-1
+	JMS RDECHO	/Read the selection, a small + integer we hope.
+	JMS CRLF	/End the line of input.
+	TAD CH		/Mask off the top bit if any
+	AND [177
+	TAD [-60	/Legal ASCII integers are 1 through NHOST
+	DCA HOST
+	TAD HOST
+	SNA
+	JMP EXIT	/"0" means return to OS/8
+	SMA CLA
+	JMP CHOK1	/Is not negative, ok so far.
+CHNG1,	JMS CRLF	/
+	JMS LINOUT	/Is illegal; complain and ask again.
+	MESG22
+	JMP MENU
+CHOK1,	TAD HOST	/Zero is illegal.
+	SNA
+	JMP CHNG1
+	CIA		/Now compare against max. supported hosts
+	TAD NHOST
+	SPA CLA
+	JMP CHNG1	/Is too large.
+			/HOST is ok.
+
+
+	JMS CGOTO	/Use computed GOTO.  Set up the EOF character.
+	DOLEOF		/Dollar sign for Cyber NOS (must be preceded by LF)
+	CZEOF		/Control-Z for TSX and
+	CZEOF		/              VMS
+	GETUSR		/None for generic
+	(ERROR8
+DOLEOF,	TAD [44		/Dollar sign; change this loc to change Cyber char
+	JMP SETEOF
+CZEOF,	TAD [32		/^Z = EOF character
+SETEOF,	DCA EOFCHR	/Establishes the EOF character for this host
+
+GETUSR,	CLA		/COPY DEVICE NAME INTO FETCH ROUTINE
+	TAD DEVNAM
+	DCA DEV
+	TAD DEVNAM+1
+	DCA DEV2
+	CLA		/LOCK USER FUNCTION INTO CORE
+	CDF0
+	CIF1
+	JMS I [7700
+	10
+/
+	CLA		/FETCH DSK DEVICE HANDLER
+	CDF0
+	CIF1
+	JMS I [200
+	1
+DEV,	.-.		/BECOMES DEVICE NAME
+DEV2,	.-.		/BECOMES DEVICE NAME, THEN DEVICE NUMBER
+ENTP,	6001		/BECOMES ENTRY ADDRESS
+	JMP ERROR1
+	CIF0
+        CLA
+        DCA CH		/CLEAR BUFFERS
+        DCA MCH
+/
+	CLA IAC		/SET UP FOR INTERRUPT
+	MKIE		/  ON INPUTS FROM MODEM.
+	CLA
+	DCA NQ
+	TAD [QUEUE-1
+	DCA QA
+	TAD [QUEUE-1
+	DCA QB
+	ION
+	JMP SKPCHN	/Start looping
+
+	PAGE
+/
+/
+/  **************** LOOP FOREVER UNTIL ^P ***********************************
+/
+SKPCHN, CLA		/CHECK THE SOFTWARE OUTPUT FLAGS
+	TSF		/CHECK CONSOLE DEVICE OUTPUT FLAG IN HARDWARE
+	SKP
+        JMS WRITE
+DONE,	CLA
+	TAD MFLAG
+	SNA CLA
+        JMS MWRITE
+        KSF		/CHECK THE KEYBOARD FLAG IN HARDWARE
+        SKP
+        JMS READ
+	CLA		/CHECK THE INPUT QUEUE
+	TAD MCH		/BUT FIRST MCH MUST BE VACANT
+	SZA CLA
+	JMP SKPCHN
+	TAD NQ
+	SZA CLA
+        JMS MREAD
+        JMP SKPCHN
+/
+/    ************************************************************************
+/
+/
+MREAD,  ENTRY
+        CLA
+	IOF		/MANIPULATE THE QUEUE WITH INTERRUPTS OFF
+	TAD I QB	/MOVE THE NEXT CHARACTER TO MCH
+	DCA MCH
+	CLA CMA		/DECREMENT NQ
+	TAD NQ
+	DCA NQ
+	TAD QB		/QB SHOULD GO MODULO QLNGTH
+	TAD [-QEND	/SEE IF WE ARE PAST QEND
+	SZA CLA		/   , REMEMBERING THAT AUTOINDEX IS INVOLVED.
+	JMP MRET	/NOT PAST END
+	TAD [QUEUE-1	/RESET QB BACK TO QUEUE
+	DCA QB
+MRET,	ION		/TURN INTERRUPTS ON AGAIN
+        JMP I MREAD
+/
+MWRITE, ENTRY
+	CLA
+        TAD CH		/WRITE IF CHARACTER IN BUFFER
+        SNA CLA
+        JMP I MWRITE
+	JMS CHKCH	/Check CH for ^P
+	TAD CH
+	AND [177
+	TAD [-30	/IS IT A CONTROL X?
+	SNA CLA		/IF CH = ^X THEN TRANSMIT    ("XMIT")
+	JMS XMIT
+	TAD CH
+	AND [177
+	TAD [-22	/IS IT A CONTROL R?
+	SNA CLA		/IF CH = ^R THEN RECEIVE
+	JMS RCV		/YES,THEN RECEIVE A FILE
+	TAD CH		/NONE OF THE ABOVE.  OUTPUT IT.
+	IOF		/Fend off interrupts while manipulating MFLAG
+        MTLS
+	CLA CMA
+	DCA MFLAG	/SET THE SOFTWARE OUTPUT FLAG TO "BUSY"
+	DCA CH		/CLEAR BUFFER
+	ION		/Restore interrupts
+        JMP I MWRITE
+/
+READ,   ENTRY
+        CLA
+        KRB
+        DCA CH		/PUT IN CONSOLE BUFFER
+	JMS CHKCH	/Check CH for ^P
+        JMP I READ
+/
+WRITE,  ENTRY
+	CLA
+        TAD MCH
+        SNA
+        JMP I WRITE	/WHEN KL8 IS FINISHED OUTPUTTING,
+        TLS		/   IT WILL RAISE ITS FLAG
+	CLA
+        DCA MCH		/CLEAR BUFFER
+        JMP I WRITE
+
+CHKCH,	ENTRY		/Check CH for control-P
+	TAD CH
+	AND [177
+	TAD [-20
+	SNA CLA
+	JMP START
+	JMP I CHKCH
+
+	PAGE
+XMIT,	ENTRY		/XMIT A FILE FROM OS/8 TO host
+	CLA
+	DCA BLNUM	/RESET BLOCK NUMBER
+	JMS GETFN	/Get file name & put in NAME
+	TAD BUF
+	DCA PNT		/POINTS TO BUFER
+	TAD [-400
+	DCA WCNT
+	TAD [NAME	/Need to stuff FWA of name in STBL each time
+	DCA STBL
+	TAD DEV2	/Look up file to send on DSK
+	CDF0
+	CIF1
+	JMS I [200
+	2
+STBL,	.-.		/Becomes NAME; is overwritten by USR
+BLNUM,	.-.
+	JMP ERROR2
+	CIF0
+	CLA
+	TAD STBL
+	DCA BL
+/
+	TAD ENTP	/CALL THE DSK HANDLER
+	DCA ENTADD	/READ 256 DECIMAL WORDS INTO BUFER
+MORE,	CDF0
+	CIF0
+	JMS I ENTADD
+	200
+	BUFER
+BL,	.-.
+	JMP ERROR3
+NEXT,	CLA
+	TAD WCNT	/WCNT IS BUMPED BELOW IN "PACK" SECTION
+	SZA CLA
+	JMP PACK
+	ISZ BL
+	NOP
+	CLA
+	TAD [-400
+	DCA WCNT
+	TAD BUF
+	DCA PNT
+	JMP MORE
+/
+QUEUE,	ZBLOCK QLNGTH	/BEGINNING OF INPUT QUEUE
+QEND=.-1		/END OF INPUT QUEUE
+	PAGE
+/
+PACK,	CLA		/UNPACK 2 DATA WORDS TO 3 BYTES
+	TAD I PNT
+	AND [0377
+	DCA WORD1
+	TAD I PNT
+	RTR
+	RTR
+	AND [0360
+	DCA WORD3
+	ISZ PNT
+	ISZ WCNT
+	NOP
+	TAD I PNT
+	AND [0377
+	DCA WORD2
+	TAD I PNT
+	RTR
+	RTR
+	RTR
+	RTR
+	AND [0017
+	TAD WORD3
+	DCA WORD3
+	ISZ PNT
+	ISZ WCNT
+	NOP
+	TAD WORD1
+	DCA CH
+	JMS MXMIT	/XMIT 1 CHARACTER TO MODEM
+	TAD WORD2
+	DCA CH
+	JMS MXMIT	/XMIT 1 CHARACTER TO MODEM
+	TAD WORD3
+	DCA CH
+	JMS MXMIT	/XMIT 1 CHARACTER TO MODEM
+	JMP NEXT
+/
+CHKCON,	ENTRY		/ROUTINE TO CHECK FOR CONTROL CHARACTERS
+	CLA
+	KRS		/INCLUSIVE OR KEYBOARD CHARACTER; DON'T DISTURB
+	AND [177	/  THE FLAG.
+	TAD [-20	/^P?
+	SNA CLA
+	JMP START	/YES, RESTART
+	KRS		/^Z?\
+	AND [177
+	TAD [-32	/Use a constant, not the EOFCHR
+	SZA CLA
+	JMP I CHKCON	/No; exit.
+	JMS CGOTO	/Yes, is a ^Z.  Use computed GOTO subject to HOST
+	CEXIT		/Cyber NOS.  Ignore ^Z from OS8 keyboard.
+	RCVEOF		/For TSX, see if we are receiving a file
+	RCVEOF		/For VMS, ditto
+	CEXIT		/Generic system:  ignore ^Z from keyboard
+	(ERROR8
+RCVEOF,	TAD I CHKCON	/Are we receving?  See who called CHKCON.
+	CIA
+	TAD LOP10+1	/Address+1 of GO location that calls CHKCON
+	SNA CLA
+	JMP WRAPUP	/The two addresses were the same.  End the file.
+CEXIT,	JMP I CHKCON	/Differed.  Ignore ^Z for now.
+
+	PAGE
+/ MXMIT	ROUTINE TO CHECK CH AND XMIT IT
+/
+MXMIT,	ENTRY		/Routine to check CH, send it, and output the echo.
+	CLA
+	TAD CH
+	AND [177
+	TAD [-12
+	SNA CLA		/IF CH = L.F. THEN RETURN
+	JMP I MXMIT
+	TAD CH
+	AND [177
+	TAD [-14
+	SNA CLA		/IF CH = F.F. THEN RETURN
+	JMP I MXMIT
+	TAD CH
+	AND [177
+	TAD [-32
+	SZA CLA		/IF CH = ^Z, type CRLF and proceed with skip chain
+	JMP CHK0
+	JMS CRLF
+	JMP SKPCHN
+CHK0,	TAD CH
+	SNA		/IF CH = 0
+	JMP I MXMIT	/THEN IGNORE AND RETURN
+WSOF,	JMS CHKCON	/CHECK FOR CONTROL CHARACTERS
+	MQL		/WAIT FOR THE SOFTWARE OUTPUT FLAG
+	TAD MFLAG
+	SZA CLA		/WE KEEP CH IN THE MQ TO SHOW SOME ACTION
+	JMP WSOF
+	TAD CH
+	IOF		/Fend off interrupts while manipulating MFLAG
+	MTLS		/NOW WRITE IT TO MODEM
+	DCA ECHO	/SAVE IT TO COMPARE WITH WHAT COMES BACK
+	CLA CMA		/SET THE SOFTWARE OUTPUT FLAG TO INDICATE "BUSY"
+	DCA MFLAG
+	ION		/Turn interrputs on again
+	JMS MINPUT	/WAIT FOR ECHO
+ECHO,	.-.
+	TAD CH
+	AND [177
+	TAD [-15	/IS IT A CARRIAGE RETURN?
+	SZA CLA
+	JMP CHKDON	/NO
+	JMS CGOTO	/Yes.  Emulate a FORTRAN computed GOTO using HOST
+	WAITQ		/Cyber NOS: wait for the "? "
+	GIVELF		/TSX:  wait for LF
+	GIVELF		/VMS or MicroVMS:  wait for LF
+	CHKDON		/Generic, no wait
+	(ERROR6
+WAITQ,	JMS MINPUT	/  WAIT FOR THE "?"
+	77
+	JMS MINPUT	/  AND THE " "
+	40
+	JMP CHKDON
+GIVELF,	JMS MINPUT	/System will echo LF after CR
+	12
+CHKDON,	CLA
+	DCA CH
+	JMP I MXMIT	/EXIT
+/
+MINPUT,	ENTRY		/CHECK THE INPUT QUEUE FOR A CHARACTER
+MLOOP,	CLA		/CHARACTER IS SPECIFIED IN <CALL+1>
+	IOF		/INSPECT THE QUEUE WITH INTERRUPTS OFF
+	TAD NQ
+	SZA
+	JMP MCHK	/QUEUE HAS ONE OR MORE CHARACTERS
+	ION		/QUEUE IS EMPTY.  TRY AGAIN.
+	JMS CHKCON	/Check the keyboard while waiting
+	JMP MLOOP
+MCHK,	TAD [-1		/CHECK A CHARACTER
+	DCA NQ		/But first decrement NQ
+	TAD I MINPUT
+	AND [177	/MASK IT TO 7 BITS
+	CIA
+	DCA MTEMP
+	TAD I QB	/ADD THE NEXT CHARACTER ON THE QUEUE
+	AND [177	/MASK TO 7 BITS
+	TAD MTEMP
+	SZA CLA
+	NOP		/Unexpected character.  Do nothing in this version.
+	TAD QB		/CHARACTER IS EXPECTED ONE.  CHECK THE
+	TAD [-QEND	/   MODULO OF QB.
+	SZA CLA
+	JMP MEXIT	/IS NOT YET AT END OF QUEUE AREA.
+	TAD [QUEUE-1	/IS AT END.  RESET QB.
+	DCA QB
+MEXIT,	ION		/READY TO GO!
+	TAD MTEMP	/Echo the xmitted (=received) character on
+	CIA		/   the terminal
+	JMS ATYPE
+	INC MINPUT
+	JMP I MINPUT
+
+BOOP,	ENTRY		/Subroutine to ring the terminal's BEL
+	TAD [7
+	JMS ATYPE
+	JMP I BOOP
+
+/
+/////UNEXP,	TAD QB		/CHECK QB AND KEEP LOOKING
+/////	TAD [-QEND	/  FOR THAT SPECIAL CHARACTER
+/////	SZA CLA
+/////	JMP MLOOP
+/////	TAD [QUEUE-1
+/////	DCA QB
+/////	JMP MLOOP
+/
+TYPE,	ENTRY
+LOOP4,	TSF
+	JMP LOOP4
+	JMS WRITE
+	JMP I TYPE
+/
+	PAGE
+RCV,	ENTRY		/RECEIVE A FILE SUBROUTINE
+	CLA
+	TAD BUF		/RESET BUFFER POINTER
+	DCA PNT
+	JMS GETFN	/Get file name and put in NAME
+	TAD [-400	/RESET WORD COUNT
+	DCA WCNT
+	DCA FLAG	/CLEAR DONE FLAG
+	DCA LAST
+	DCA BB
+	TAD [NAME	/Need to stuff NAME in STBLR each time
+	DCA STBLR
+
+	CLA		/CALL THE ENTER FUNCTION
+	TAD DEV2
+	CDF0
+	CIF1
+	JMS I [200
+	3
+STBLR,	.-.		/Becomes NAME; is overwritten by USR
+	0
+	JMP ERROR4
+	CDF CIF 0
+	CLA
+	TAD STBLR
+	DCA BLR
+/
+	JMS CGOTO	/Computed GOTO depending on HOST
+	XMITCR		/Cyber NOS
+	NEXT2		/TSX
+	NEXT2		/VMS
+	NEXT2		/Generic
+	ERROR8
+XMITCR,	TAD MFLAG	/TRANSMIT A CR
+	SZA CLA
+	JMP .-2
+	TAD [15
+	IOF		/Fend off interrupts while manipulating MFLAG
+	MTLS
+	CLA CMA
+	DCA MFLAG
+	ION		/Turn interrupts on again
+/
+NEXT2,	CLA
+	TAD FLAG	/TEST THE DONE FLAG [GETCH SETS IT]
+	SZA CLA		/IS IT ZERO?
+	JMP DUMP	/NO,THEN DUMP LAST BLOCK
+			/YES, KEEP GOING
+	TAD WCNT	/IS THE BUFFER FULL?
+	SZA		/YES,THEN WRITE BUFFER TO DISK
+	JMP GO		/NO,THEN CONTINUE FILLING BUFFER
+/
+	CLA		/WRITE THE BUFFER TO DISK
+	TAD [-400	/RESET THE WORD COUNT
+	DCA WCNT
+	TAD BUF		/RESET BUFFER POINTER
+	DCA PNT
+/
+DUMP,	TAD ENTP	/CALL HANDLER DSK AND
+	DCA ENTR	/WRITE BUFER TO DISK
+	CDF0
+	CIF0
+	JMS I ENTR
+	4200
+	BUFER
+BLR,	.-.
+	JMP ERROR5
+	ISZ BB
+	NOP
+	CLA
+	TAD FLAG	/TEST DONE FLAG
+	SZA CLA		/IS IT ZERO?
+	JMP CLOSE
+	ISZ BLR		/INCREMENT BLOCK NO.
+	NOP
+	JMP NEXT2
+
+INT,	DCA ACSV	/WE HAVE AN INTERRUPT.
+	GTF		/SAVE ACC AND LINK, ETC.
+	DCA FLAGSV
+	MKSF		/SKIP IF MODEM INPUT
+	SKP
+	JMP MKIN	/TAKE CARE OF MODEM INPUT
+	MTSF		/SKIP IF MODEM OUTPUT
+	SKP
+	JMP MOUT
+	TSF		/SKIP IF CONSOLE OUTPUT
+	JMS UNEX	/STRAY INTERRUPT
+/
+	TCF
+	JMP INTRET
+MOUT,	DCA MFLAG	/CLEAR SOFTWARE "BUSY" FLAG
+	MTCF
+	JMP INTRET
+MKIN,	MKRB		/READ THE MODEM
+	DCA I QA	/SAVE IT IN THE QUEUE
+	INC NQ		/BUMP THE QUEUE LENGTH
+	TAD NQ		/CHECK FOR QUEUE OVERFLOW
+	TAD [-QLNGTH
+	SMA CLA
+	JMP ERROR7	/ERROR.  QUEUE OVERFLOWED.
+	TAD QA
+	TAD [-QEND
+	SZA CLA
+	JMP INTRET
+	TAD [QUEUE-1	/QA IS PAST QEND.  RESET IT.
+	DCA QA
+INTRET,	TAD FLAGSV	/RESTORE FLAGS
+	RTF		/ENABLES INTERRUPTS AFTER THE NEXT JMP I
+	CLA		/RESTORE ACC
+	TAD ACSV
+	JMP I Z 0	/RETURN FROM INTERRUPT
+
+	PAGE
+GO,	CLA
+	DCA WORD1
+	DCA WORD2
+	DCA WORD3
+	DCA TEMP1
+	DCA TEMP2	/JUST CLEARED TEMP STORAGE
+	JMS GETCH	/Get host's char
+	CLA
+	TAD DATA
+	DCA WORD1	/STORE CHAR IN WORD1
+	JMS DDONE
+	JMS GETCH
+	CLA
+	TAD DATA
+	DCA WORD2
+	JMS DDONE
+	JMS GETCH
+	CLA
+	TAD DATA
+	DCA WORD3
+FINIS,	JMS UNPACK	/UNPACK THE DATA WORDS
+	JMP NEXT2
+/
+DDONE,	ENTRY
+	CLA
+	TAD FLAG
+	SZA		/IS THE DONE FLAG SET
+	JMP FINIS
+	JMP I DDONE
+/
+CLOSE,	CLA
+	TAD BB
+	DCA NBB
+	TAD DEV2	/CLOSE THE OUTPUT FILE
+	CDF0
+	CIF1
+	JMS I [200
+	4
+	NAME
+NBB,	15
+	JMP ERROR6
+	CDF CIF 0
+	JMP SKPCHN	/Resume the skip chain
+
+GETCH,	ENTRY		/Get host's data word
+LOP10,	JMS CHKCON	/CHECK FOR CONTROL CHARACTERS
+	CLA		/WAIT FOR the host
+	TAD NQ		/CHECK QUEUE LENGTH
+	SNA CLA
+	JMP LOP10	/Note that LOP10 is also referenced in RCVEOF
+	JMS MREAD
+	CLA
+	TAD MCH
+	MQL		/KEEP MCH IN THE MQ TO SHOW SOME ACTION
+	MQA
+	SNA		/DISCARD ALL RUBOUTS
+	JMP LOP10
+	DCA DATA
+	TAD DATA	/STORE CHAR IN DATA
+	AND [177
+	TAD EOFCHR
+	SNA		/IS THE CHAR AN EOF??
+	JMP HUM		/YES,THEN SEE IF END OF FILE
+REMEMB,	CLA
+	TAD DATA
+	DCA LAST	/REMEMBER LAST CHAR FOR EOF
+	JMS TYPE	/ECHO THE CHARACTER
+	JMP I GETCH
+HUM,	CLA
+	TAD LAST	/WHAT WAS THE LAST CHAR?
+	AND [177
+	TAD [-12	/WAS IT A LINE FEED?
+	SZA
+	JMP REMEMB	/NO,THEN FORGET AND CONTINUE
+WRAPUP,	CLA CMA		/YES, A LF.  Set the done flag for the file.
+	DCA FLAG
+	TAD [232	/ADD A CONTROL Z TO DATA
+	DCA DATA
+	JMP REMEMB	/RETURN FINALLY
+/
+UNPACK,	ENTRY		/UNPACK THE DATA WORDS AND STORE IN BUFFER
+	CLA
+	TAD WORD1	/GET FIRST CHAR
+	DCA TEMP1	/STORE IN TEMP1
+	TAD WORD3	/GET THIRD WORD
+	RTL		/ROTATE 2 LEFT
+	RTL		/ROTATE 2 LEFT
+	AND [7400	/MASK OFF LAST 4 BITS
+	TAD TEMP1
+	DCA TEMP1	/ADD WORD1 AND STORE BACK IN TEMP1
+	TAD WORD2	/GET WORD2 AND STORE IN TEMP2
+	DCA TEMP2
+	TAD WORD3	/GET WORD3
+	RTL		/ROTATE 8 LEFT
+	RTL
+	RTL
+	RTL
+	AND [7400	/MASK OFF GARBAGE
+	TAD TEMP2	/ADD TEMP2
+	DCA TEMP2	/AND STORE BACK IN TEMP2
+			/NOW WE STORE IN BUFFER
+	TAD TEMP1	/GET FIRST WORD
+	DCA I PNT
+	ISZ PNT		/BUMP POINTER
+	NOP
+	ISZ WCNT	/BUMP COUNTER
+	NOP
+	CLA
+	TAD TEMP2	/GET SECOND WORD
+	DCA I PNT	/STORE IN BUFFER
+	ISZ PNT		/BUMP POINTER
+	NOP
+	ISZ WCNT	/BUMP COUNTER
+	NOP
+	JMP I UNPACK
+/
+	PAGE
+BUFER,	ZBLOCK 400
+/
+	PAGE
+/		SUBROUTINES TO SIGNAL UNEXPECTED INTERRUPTS
+
+ITIMSH,	ENTRY		/Time share		subroutine entry
+			/			read status if any
+	JMS UNEX	/No status to report	deliver the bad news
+	CINT		/			clear the flag
+	JMP I ITIMSH	/			return from subroutine
+
+IPOWER,	ENTRY		/KP8/e power-fail restart
+	TAD (START	/Set up restart address
+	DCA Z 0
+	TAD (600	/Reset the Sykes floppy and
+	SYIOP1
+	TAD (11
+	SYIOP1		/Raise the disk head
+	CLA		/No status to report
+	JMS UNEX
+	0100		/Device code
+	DCA NOTFAT	/This is definitely a fatal interrupt
+	JMP I IPOWER
+
+IADTIM,	ENTRY		/A/D timing error
+	ADRS
+	JMS UNEX
+	ADCL
+	ADLE
+	JMS LINOUT	/Special remark to identify the error
+	MESG04
+	DCA NOTFAT	/A fatal error
+	JMP I IADTIM
+
+IAD,	ENTRY		/A/D converter #1
+	ADRS
+	JMS UNEX
+	ADCL
+	ADLE
+	DCA NOTFAT	/A fatal error
+	JMP I IAD
+
+IDISK,	ENTRY		/Sykes floppy disk
+	JMS ERBOOP
+	JMS LINOUT	/This one is not amenable to using subroutine UNEX
+	MESG01
+	JMS LINOUT
+	MESG05
+	JMS STROUT
+	MESG03
+	TAD (400	/Get status of disk
+	SYIOP3
+	JMS POSOUT	/Print it in octal
+	TAD (600	/Reset the disk
+	SYIOP1
+	CLA
+	JMS CRLF
+	JMS LINOUT
+	MESG06
+	JMS LINOUT
+	MESG07
+	DCA NOTFAT	/A fatal error
+	CLA CMA
+	DCA KNOWN	/UNEX does this, so we must also do it.
+	JMP I IDISK
+
+IADT2,	ENTRY		/Timing error, A/D #2
+	ADRS2
+	JMS UNEX
+	ADCL2
+	ADLE2
+	JMS LINOUT
+	MESG04
+	JMP I IADT2
+
+IPRNT,	ENTRY		/Line printer, Epson or Printronix for instance
+	PSKE		/Skip on printer error
+	SKP		/Report "status" as 1 if printer error flag is up
+	IAC
+	JMS UNEX	/
+	PCIE
+	JMP I IPRNT
+
+IFPP,	ENTRY		/FPP8/A
+	JMS UNEX	/SKIP INSTR. HAS ALREADY READ FPP STATUS INTO ACC
+	FPICL
+	CLA
+	DCA NOTFAT	/IS FATAL
+	JMP I IFPP
+
+
+TIN,	ENTRY		/Asynchronous device 35, Tektronix input
+	JMS UNEX	/No status to report
+	TKIE
+	JMP I TIN
+
+TOUT,	ENTRY		/Asynchronous device 36, Tektronix output
+	JMS UNEX	/No status to report
+	TKIE
+	JMP I TOUT
+
+SPAREI,	ENTRY		/Asynchronous device 60, spare input
+	JMS UNEX	/No status to report
+	SKIE
+	JMP I SPAREI
+
+SPAREO,	ENTRY		/Asynchronous device 61, spare output
+	JMS UNEX	/No status to report
+	SKIE
+	JMP I SPAREO
+
+WINI,	ENTRY		/CESI Winchester disk interrupt
+	DSRS
+	JMP UNEX
+	DSEI
+	JMP I WINI
+
+	PAGE
+AERR,	ENTRY		/Arithmetic error
+	IOF		/A FATAL ERROR:  TURN INTERRUPTS OFF
+	DCA ATEMP	/Call:   <Perform a MUL, DVI, or something>
+			/	 <Instruction to skip on no EAE error>
+			/	 <JMS AERR>
+	RDF		/Get flags.  We may need to know link & field
+	DCA ERFLG
+	MQA		/SAVE THE MQ TEMPORARILY
+	DCA MQTEMP
+	CDF 0		/Field may not have been this one.
+	JMS ERBOOP
+	JMS STROUT
+	MESG19
+	CLA CMA
+	TAD AERR	/Print the PC following the error
+	JMS POSOUT
+	JMS CRLF
+	JMS STROUT	/Output GTF flags & message
+	MESG26
+	TAD ERFLG
+	JMS POSOUT
+	JMS CRLF
+	JMS STROUT
+	MESG20
+	TAD ATEMP	/Print the AC when the error occurred
+	JMS POSOUT
+	JMS STROUT
+	MESG21		/Print the MQ  "    "   "
+	TAD MQTEMP
+	JMS POSOUT
+	JMS LINOUT
+	MESG24		/"Is EAE installed?"
+	JMP EXIT	/Always fatal.  Either hardware trouble or no EAE.
+ATEMP,	0		/Temporary storage
+ERFLG,	0		/Flag storage for arithmetic error routine
+UTEMP,	0		/Temporary storage
+MQTEMP,	0		/MQ UPON ARITHMETIC ERROR
+
+
+UNEX,	ENTRY		/Subroutine to say "unexpected interrupt" on the
+	DCA UTEMP	/  console device and give diagnostic info
+	JMS CRLF	/  Entry:  <status of device in acc>
+	JMS STROUT	/	   JMS UNEX
+	MESG02		/	   <interrupt clearing instruction here>
+	TAD I UNEX	/	   <UNEX returns here>
+	INC UNEX	/UTEMP is used for temporary storage
+	DCA INTCLR	/Deposit, then execute the interrupt-clearing instruc.
+INTCLR,	ERROR		/(Replaced by an IOT instruction.)
+	CLA		/Just in case.
+	TAD INTCLR	/Output the device code of the IOT, in octal
+	RAR
+	RTR		/Rotate it into 6 least sigfificant bits
+	AND (77
+	JMS INTOUT
+	JMS STROUT
+	MESG03
+	TAD UTEMP	/Output the status of the device
+	JMS POSOUT
+	JMS CRLF	/Carriage return/line feed
+	CLA CMA
+	DCA KNOWN	/At least one probable source of the interrupt is known
+	JMP I UNEX
+
+CRLF,	ENTRY		/TYPE A CARRIAGE RETURN AND LINE FEED.
+	CLA
+	TAD (215
+	JMS ATYPE
+	TAD (212
+	JMS ATYPE
+	JMP I CRLF
+
+ERROR8,	IAC		/Illegal host found at CGOTO call
+ERROR7,	IAC		/Queue full
+ERROR6, IAC		/Error trying to close output file after ^R
+ERROR5,	IAC		/Error in writing after a ^R
+ERROR4,	IAC		/Error in ENTER after a ^R
+ERROR3,	IAC		/Error reading in the disk handler after ^X
+ERROR2,	IAC		/Error in file lookup following ^X
+ERROR1,	IAC		/Error in USR call to FETCH device handler
+	IOF
+	CDF 0
+	DCA ARG1
+	CIF 10
+	JMS I [200
+	7		/USR ERROR ROUTINE
+ARG1,	.-.		/BECOMES ERROR NUMBER
+EXIT,	CLA		/EXIT TO OS/8
+	IOF
+	CDF CIF 0
+	JMS CRLF
+	JMS LINOUT	/First remind the user to hang up the modem
+	MESG34
+	JMP I [7600
+/
+	PAGE
+INTOUT,	ENTRY		/Type an integer, 11 bits plus sign
+	SMA		/Type a "-" if it was negative
+	JMP WASPOS
+	CIA
+	DCA REM
+	TAD (255	/"-"
+	JMS ATYPE
+	TAD REM
+WASPOS,	JMS POSOUT	/Now use POSOUT to do the output
+	JMP I INTOUT
+
+POSOUT,	ENTRY		/TYPE AN INTEGER.  Integer is 12 bit, positive.
+	DCA REM		/ENTER WITH INTEGER IN ACC.
+	TAD BASE	/SET TABLE ADDRESS
+	DCA TADDR
+	TAD (-4
+	DCA DCNT	/COUNT OF DIGITS TO BE TYPED.
+	TAD (400	/LEADING ZERO SHIFT VARIABLE.
+	DCA ZERO	/ZERO BITS INDICATE LEADING ZEROS IN 7000 POSITION.
+INT1,	TAD I TADDR
+	INC TADDR
+	DCA DARG
+	TAD REM		/DIVIDEND (REMAINDER LATER)
+	MQL		/EAE HARDWARE DIVIDE
+	DVI
+DARG,	0		/DIVISOR
+	SZL		/SKIP IF NO DIVIDE ERROR.
+	JMS AERR	/ERROR IN EAE DIVIDE.
+	DCA REM		/SAVE THE REMAINDER.
+	TAD ZERO	/SEE IF LEADING ZERO.
+	RAL		/STICK THE NEXT POSITION IN THE LINK
+	DCA ZERO	/SAVE THE LEADING ZERO SHIFT VARIABLE.
+	CLA MQA		/BRING THE QUOTIENT INTO THE ACC.
+	SZA
+	JMP TYPIT	/NOT A ZERO. TYPE IT.
+	SNL		/A ZERO.  TYPE IT UNLESS A LEADING ZERO.
+	JMP INT2	/IT WAS, IN FACT, A LEADING ZERO.
+TYPIT,	TAD (60		/CONVERT IT TO SIXBIT
+	JMS SIXOUT	/OUTPUT IT TO THE CONSOLE DEVICE.
+	CLA CMA		/NO MORE LEADING ZEROES.
+	DCA ZERO
+INT2,	ISZ DCNT	/DONE WITH 4 DIGITS?
+	JMP INT1	/NO.
+	JMP I POSOUT	/YES, EXIT.
+BASE8,	1000
+	100
+	10
+	1
+BASE10,	1750
+	144
+	12
+	1
+
+
+ATYPE,	ENTRY		/TYPE AN ASCII CHARACTER.
+	TSF
+	JMP .-1
+	TLS
+	CLA
+	JMP I ATYPE	/LEAVE THE ACC CLEAR.
+
+STROUT,	ENTRY		/TYPE A STRING
+	TAD I STROUT	/Entry:  <AC is clear>
+	INC STROUT	/	 JMS STROUT
+	DCA ADDR	/	 <address of message.  Outputs up to 1st null.>
+LOOP,	TAD I ADDR	/BRING IN THE WORD
+	BSW
+	JMS SIXOUT		/OUTPUT IT
+	SNA CLA			/WAS IT A NULL?
+	JMP I STROUT		/YES.  END OF STRING
+	TAD I ADDR		/DO THE OTHER 6 BITS OF THIS WORD
+	JMS SIXOUT
+	SNA CLA
+	JMP I STROUT
+	INC ADDR
+	NOP			/JUST IN CASE
+	JMP LOOP		/DO THE NEXT WORD IN THE STRING
+
+
+SIXOUT,	ENTRY		/TYPE A SIXBIT CHARACTER
+	AND (77		/MASK OFF LEFT HALF
+	SNA		/SKIP IF NULL
+	JMP I SIXOUT
+	TAD (-40	/0-37 BECOME 300-337
+	SPA		/40-77 BECOME 240-277
+	TAD (100
+	TAD (240
+	JMS ATYPE
+	CLA CMA
+	JMP I SIXOUT	/EXIT WITH ACC NONZERO
+
+	PAGE
+LINOUT,	ENTRY		/Output a line on console device
+	TAD I LINOUT	/Entry is same as STROUT
+	INC LINOUT
+	DCA .+2
+	JMS STROUT
+	ERROR		/Replaced by address of a message
+	JMS CRLF
+	JMP I LINOUT
+
+DECOUT,	ENTRY		/DECIMAL OUTPUT ROUTINE FOR CONSOLE DEVICE
+	MQL		/USE THE MQ TO STASH THE NUMBER FOR NOW
+	TAD (BASE10	/CHANGE BASE OF INTOUT TO DECIMAL
+	DCA BASE
+	MQA		/FETCH BACK THE NUMBER
+	JMS INTOUT
+	TAD (BASE8	/RESTORE THE BASE TO OCTAL
+	DCA BASE
+	JMP I DECOUT
+
+ERBOOP,	ENTRY
+	JMS CRLF	/OUTPUT A CR, LF, AND BOOP
+	TAD (07		/ASCII BEL
+	JMS ATYPE
+	JMP I ERBOOP
+
+	PAGE
+CGOTO,	ENTRY		/Subroutine to perform a FORTRAN-like
+	CLA		/  computed GOTO in PAL8
+	TAD (CDF 0
+	RDF		/Inclusive-OR the current DF into bits 6-8
+	DCA CFLD	/Creates a CDF instruction
+	TAD HOST	/Pick up HOST, a small postive integer
+	SPA SNA		/Check it
+	ERROR		/Error:  mode is less than 1
+	CIA
+	TAD NHOST
+	CIA
+	SMA SZA CLA	/Skip if ACC is .LE. 0
+	ERROR		/Error:  Mode greater than NHOST
+	CLA CMA		/Subtract 1 from HOST to yield value to add to CGOTO
+	TAD HOST	/Mode is ok.
+	CDF 0		/Data field to PAL8
+	TAD CGOTO	/Obtain the branch address
+	DCA CGOTO
+	TAD I CGOTO
+	DCA CGOTO
+CFLD,	ERROR		/Becomes a CDF to restore the data field
+	JMP I CGOTO	/ ... and branch
+
+RDECHO,	ENTRY		/Subroutine to read & echo an ASCII character
+RDECH1,	JMS CHKCON	/Check for control characters
+	KSF
+	JMP RDECH1
+	JMS READ
+	TAD CH		/Echo it
+	JMS ATYPE
+	TAD CH		/Return with char in CH and in the ACC
+	JMP I RDECHO
+
+GETFN,	ENTRY		/Subroutine to read file name & extension from term
+	JMS CRLF	/Advance to next line on terminal
+	JMS STROUT	/Prompt "File name?"
+	MESG23
+	JMS GETNAM	/File name
+	NAME
+	-56		/Minus a "." in SIXBIT
+	JMS GETNAM	/Extension
+	NAME+3
+	-15		/Minus a CR in SIXBIT
+	TAD [15		/Send a <CR> to the host and
+	DCA CH		/  echo a <CR,LF>
+	TAD HOST	/(Set HOST to generic to avoid Cyber ??.)
+	DCA THOST
+	TAD [4
+	DCA HOST
+	JMS MXMIT
+	TAD [12		/Send LF to terminal
+	JMS ATYPE
+	TAD THOST	/Restore HOST to former value
+	DCA HOST
+	JMP I GETFN
+
+GETNAM,	ENTRY		/Subroutine to read a string from terminal
+	TAD I GETNAM	/Call:		JMS GETNAM
+	DCA FNADDR	/		<FWA destination of string>
+	DCA I FNADDR	/		<negative of ASCII end-character>
+	INC FNADDR	/First, clear the destination array
+	DCA I FNADDR
+	INC FNADDR
+	DCA I FNADDR
+	TAD I GETNAM
+	DCA FNADDR
+	INC GETNAM
+	DCA FNCNT
+FNLOOP,	INC FNCNT	/FNCNT counts incoming characters
+	JMS RDECHO	/Read & echo 1 character
+	TAD I GETNAM	/Compare it with the end-character
+	SNA CLA
+	JMP FNDONE	/Is the end-character.
+	TAD FNCNT	/Is a real character.  
+	CIA		/Odd-numbered characters go on the left of
+	RAR		/  12-bit words.
+	CLA		/Link is 1 if char goes on the left.
+	TAD CH		/Make SIXBIT by masking and then
+	AND [77		/  shift to the left half if FNCNT was odd.
+	SZL
+	BSW
+	TAD I FNADDR
+	DCA I FNADDR
+	SNL
+	INC FNADDR
+	TAD FNCNT	/See if we are done with 6 characters	
+	TAD [-6
+	SZA CLA
+	JMP FNLOOP
+WTEND,	JMS RDECHO	/Wait for the end-character
+	AND [177
+	TAD I GETNAM	
+	SZA CLA
+	JMP WTEND	/Continue waiting
+FNDONE,	INC GETNAM	/Bump GETNAM past end-character
+	NOP		/Just a precaution
+	JMP I GETNAM	/Exit the subroutine
+
+	PAGE
+ERRACC,	.-.		/AC upon entry to ERTRAP
+ERRFLD,	.-.		/Data field  "
+ERRLNK,	.-.		/Link        "
+ERRIF,	.-.
+ERTRAP,			/Routine to trap fatal errors.
+	IOF		/Kill all interrupts
+	DCA ERRACC	/Save ACC
+	RDF		/Save data field
+	DCA ERRFLD
+	CDF 0		/Set data field to this one
+	RAR		/Save Link
+	DCA ERRLNK
+	JMS LINOUT	/Output Message number 30
+	MESG30
+	JMS STROUT
+	MESG21		/"MQ ="
+	CLA MQA
+	JMS INTOUT	/Output as signed integer
+	JMS CRLF
+	JMS STROUT
+	MESG31		/"Data field ="
+	TAD ERRFLD	/Output as unsigned integer
+	JMS POSOUT
+	JMS CRLF
+	JMS STROUT	/"IF ="
+	MESG33		/Output as unsigned integer
+	TAD ERRIF
+	JMS POSOUT
+	JMS CRLF
+	JMS STROUT	/"AC ="
+	MESG20
+	TAD ERRACC	/Output as signed integer
+	JMS INTOUT
+	JMS CRLF
+	JMS STROUT
+	MESG32		/"Link ="
+	TAD ERRLNK
+	JMS POSOUT	/Output as unsigned integer
+	JMS CRLF
+	JMS STROUT	/"PC ="
+	MESG29
+	CLA CMA		/-1 to ACC.  We want (ERTRAP-1), not (ERTRAP)
+	TAD ERTRAP
+	JMS POSOUT	/Output as unsigned integer
+	JMS CRLF
+	JMP EXIT	/Error is fatal.
+
+
+	PAGE
+
+MESG01,	TEXT "UNEXPECTED INTERRUPT"
+MESG02,	TEXT "DEVICE "
+MESG03,	TEXT ", STATUS = "
+MESG04,	TEXT "A/D TIMING ERROR"
+MESG05,	TEXT " FROM SYKES FLOPPY DISK"
+MESG06,	TEXT "NOTE WHICH UNIT IS SELECTED"
+MESG07,	TEXT "CHECK THAT SYKES INTERRUPT SWITCH IS OFF"
+MESG08,	TEXT "UNKNOWN"
+MESG09,	TEXT "PICK A HOST"
+MESG10,	TEXT "   0  -  RETURN TO OS/8"
+MESG11,	TEXT "   1  -  CYBER NOS"
+MESG12,	TEXT "   2  -  TSX"
+MESG13,	TEXT "   3  -  VMS OR MICROVMS"
+MESG14, TEXT "   4  -  GENERIC"
+
+MESG15, .-.
+MESG18,	TEXT "           "
+MESG19,	TEXT "ARITHMETIC ERROR IN PAL8 CODE.  PROGRAM COUNTER = "
+MESG20,	TEXT "AC = "
+MESG21,	TEXT "   MQ = "
+MESG22, TEXT "ILLEGAL VALUE"
+MESG23,	TEXT "FILE NAME AND EXTENSION? "
+MESG24,	TEXT "  IS EAE INSTALLED?"
+MESG26,	TEXT "GTF FLAGS = "
+MESG27,	TEXT "QUEUE LENGTH = "
+MESG28,	TEXT "ERROR IN DISPLAY ARGUMENT"
+MESG29,	TEXT "   PC="
+MESG30,	TEXT "COPY DOWN THESE DATA"
+MESG31,	TEXT "DATA FIELD="
+MESG32,	TEXT "LINK="
+MESG33,	TEXT "IF="
+MESG34,	TEXT "           DID YOU HANG UP THE MODEM WITH 'ATH'?"
+MESG35,	TEXT "MODEM, VERSION "

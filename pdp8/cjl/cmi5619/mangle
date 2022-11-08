@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+open(INPUT, "cmi5619") || die "cmi5619: $!";
+binmode(INPUT);
+
+#
+# Most volumes, including ours, have a reserved area at the front which
+# contains an interactive bootstrap.
+$offset = 040;
+
+#
+# File systems are each $fsize sectors long.
+$fsize = 4096;
+$fsize = 4096 * 2; # 4096 blocks, not sectors!
+
+seek(INPUT, $offset*0200*2, 0);
+$group = $idnum = 0;
+while (read(INPUT, $buf, $fsize*0200*2) != 0) {
+  $gid = pack("C", 0101+$group);
+  $nid = pack("C", 0060+$idnum);
+  open(OUTPUT, ">volume$gid$nid") || die "cmi5619: $!";
+  print OUTPUT $buf;
+  close(OUTPUT);
+  $idnum++;
+  if ($idnum > 7) {
+    $idnum = 0;
+    $group++;
+  }
+}
+
