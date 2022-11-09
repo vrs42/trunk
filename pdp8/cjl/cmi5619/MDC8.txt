@@ -1,0 +1,66 @@
+/	MDC8 IOT DEFINITIONS.
+
+	IFNDEF	DEVCODE	<DEVCODE=70>	/USES 670X BY DEFAULT
+
+	DSEI=	DEVCODE^10+6000		/INTERRUPT ENABLE/DISABLE PER AC[11]
+	DSSF=	DEVCODE^10+6001		/SKIP ON DONE FLAG
+	DSCF=	DEVCODE^10+6002		/CLEAR DONE FLAG
+	DSHI=	DEVCODE^10+6003		/LOAD HIGH-ORDER COMMAND ADDRESS
+	DSGO=	DEVCODE^10+6004		/LOAD LOW-ORDER COMMAND AND GO
+/	    =	DEVCODE^10+6005		/UNUSED
+	DSRS=	DEVCODE^10+6006		/READ STATUS
+	DSIM=	DEVCODE^10+6007		/INTERFACE MAINTENANCE INSTRUCTION
+
+/ Commands live in memory and are retrieved with DMA.  Here's the memory layout for
+/ the command.
+TABLE,	6!DMA			/TABLE LENGTH PLUS DMA INDICATOR
+RWCOM,	.-.&377			/0010 IF READING, 0012 IF WRITING
+				/0000 TEST READY
+				/0006 FORMAT TRACK
+				/0010 READ DATA
+				/0012 WRITE DATA
+				/0013 SEEK
+				/0015 SEEK STATUS
+				/0300 DEFINE DISK FORMAT
+				/0354 READ DMA BUFFER
+				/0357 WRITE DMA BUFFER
+SECTHI,	.-.&377			/UNIT BITS AND HIGH-ORDER SECTOR ADDRESS
+				/(UNIT^40 + SECTH)
+SECTMD,	.-.&377			/MIDDLE SECTOR ADDRESS
+SECTLO,	.-.&377			/LOW-ORDER SECTOR ADDRESS
+SCTCNT,	.-.&377			/SECTOR COUNTER (1-40)
+CONTRL,	0&377			/CONTROL WORD
+				/???
+TRFLD,	.-.&377			/BANK (0000) AND TRANSFER FIELD (0-7)
+				/(FIELD IN 9-11)
+				/MORE BITS TO INCLUDE A BANK, UP TO 128K
+TRADDR,	.-.			/TRANSFER ADDRESS
+/ N.B. Most of these are *byte* values, not word values, as indicate by
+/ the masking with 0377.
+/
+/ Note also that the addressing is by logical sector number, so an OS/8
+/ driver must scale block numbers by 2 (sectors per block)..
+
+/ The DSRS IOT can be used to retrieve status.  The top bit is BUSY; any other
+/ bit signifies an error occurred.  The exact meaning of individual bits is
+/ not yet known.
+
+/ To initiate a read/write, the above block is initialized, then typically a
+/ RIF IOT is done to get the current IF, which is loaded into the controller
+/ by the DSHI IOT.  Then the address of TABLE is loaded into the controller
+/ with a DSGO IOT.
+
+/ Between attempts to talk to the controller, the status should be polled
+/ with DSRS until it shows not BUSY, and then cleared with DSCF.  This
+/ includes the interval between DSHI and DSGO, above.
+
+/ Once a command is initiated, one again uses DSSF to wait for controller ready
+/ then DSCF / to clear the done flag.  Then a DSIM IOT can be issued to wait
+/ for the actual I/O (as opposed to waiting for the controller).  When the
+/ DSIM reports complete, the I/O is done.
+
+/ Command values for DSIM are not yet known, but allow formatting and other
+/ maintenance operations.
+
+/ Some of the programs seem to use a sequence of a half-dozen "AND I 0"
+/ instructions as a delay, rather than fiddle about with the status register.
