@@ -1,0 +1,4331 @@
+   1               /       MENU-8 SYSTEM
+   2               
+   3               /       LAST EDIT:      20-NOV-89       13:00:00        CJL
+   4               
+   5               /       THE MENU-8 UTILITY SYSTEM FOR THE PDP-8/E AND MDC8.
+   6               
+   7               /       THIS IS THE COMPLETE  SOURCE  OF THE RUNNING MENU UTILITY SYSTEM FOR THE PDP-8
+   8               /       INCLUDING ALL VARIATIONS AND THE  MENU  UTILITY VOLUME.  THE MENU I/O ROUTINES
+   9               /       AND PRIMARY CONTROL PROGRAM ARE ALSO GENERATED FROM THIS FILE.
+  10               
+  11               /       THINGS TO DO:
+  12               
+  13               /       MAKE DDT AND GT GENERATION BE CONDITIONAL INSTEAD OF FORCED.
+  14               /       GREATLY ENHANCE MENUVOLUME CONTENTS.
+  15               
+  16               /       MUST BE ASSEMBLED WITH '/J' (PAL8 '/F') SWITCH SET.
+  20                       XLIST   ON
+  21               /      DEFINITIONS.
+  22               
+  23               /       CONSOLE DEFINITIONS.
+  24               
+  25                       TTY=    03                      /SYSTEM CONSOLE DEVICE CODE
+  26               
+  27                       KCCIOT= TTY^10+6002             /CLEAR KEYBOARD FLAG
+  28                       KRBIOT= TTY^10+6006             /READ KEYBOARD BUFFER, CLEAR FLAG
+  29                       KRSIOT= TTY^10+6004             /READ KEYBOARD BUFFER
+  30                       KSFIOT= TTY^10+6001             /SKIP ON KEYBOARD FLAG
+  31                       TFLIOT= TTY^10+6000             /SET TELEPRINTER FLAG
+  32                       TLSIOT= TTY+1^10+6006           /LOAD TELEPRINTER SEQUENCE
+  33                       TSFIOT= TTY+1^10+6001           /SKIP ON TELEPRINTER FLAG
+  34               
+  35               /       MDC8 IOT DEFINITIONS.
+  36               
+  37                       IFNDEF  DEVCODE <DEVCODE=70>    /USES 670X BY DEFAULT
+  38               
+  39                       DSEI=   DEVCODE^10+6000         /INTERRUPT ENABLE/DISABLE PER AC[11]
+  40                       DSSF=   DEVCODE^10+6001         /SKIP ON DONE FLAG
+  41                       DSCF=   DEVCODE^10+6002         /CLEAR DONE FLAG
+  42                       DSHI=   DEVCODE^10+6003         /LOAD HIGH-ORDER COMMAND ADDRESS
+  43                       DSGO=   DEVCODE^10+6004         /LOAD LOW-ORDER COMMAND AND GO
+  44               /           =   DEVCODE^10+6005         /UNUSED
+  45                       DSRS=   DEVCODE^10+6006         /READ STATUS
+  46                       DSIM=   DEVCODE^10+6007         /INTERFACE MAINTENANCE INSTRUCTION
+  47               
+  48               /       SAT DEFINITIONS.
+  49               
+  50                       ALT=    0100                    /DEFECT ALTERNATE
+  51                       BTVOL=  4000                    /STARTUP VOLUME
+  52                       COS=    04                      /COS-310 OWNER ID
+  53                       DATA=   1000                    /DATA
+  54                       MNU=    37                      /MENU-8 OWNER ID
+  55                       NOBOOT= 0400                    /NON-BOOTABLE
+  56                       NOREL=  0200                    /NON-RELOCATABLE
+  57                       NX=     0040                    /NON-EXISTENT
+  58                       PQ1=    02                      /P?S/8 #1 OWNER ID
+  59                       PQ2=    03                      /P?S/8 #2 OWNER ID
+  60                       OS1=    00                      /OS/8 #1 OWNER ID
+  61                       OS2=    01                      /OS/8 #2 OWNER ID
+  62                       RES=    06                      /RESERVED OWNER ID
+  63                       RO=     2000                    /READ-ONLY
+  64                       UNUSED= 36                      /UNUSED ID
+  65                       WPS=    05                      /WPS-8 OWNER ID
+  66               /      VOLUME TABLE DEFINITIONS.
+  67               
+  68                       BTVOL=  4000                    /STARTUP VOLUME
+  69                       DATA=   1000                    /DATA
+  70                       MENUBT= 0100                    /MENU-8 ONLY BOOT
+  71                       MOVED=  0040                    /MOVED NON-RELOCATABLE VOLUME
+  72                       NOBOOT= 0400                    /NON-BOOTABLE
+  73                       NOREL=  0200                    /NON-RELOCATABLE
+  74                       RO=     2000                    /READ-ONLY
+  75               
+  76               /       GEOMETRY DEFINITIONS.
+  77               
+  78                       AUSIZE= 16                      /ALLOCATION UNITS ARE 2^14 WORDS EACH
+  79                       DEFBASE=3425                    /FIRST REPLACEMENT TRACK IS 1813
+  80                       HEADS=  6                       /6 HEADS/CYLINDER
+  81                       REPCNT= 27                      /23 REPLACED TRACKS ALLOWED IN DDT
+  82                       TRACKS= 462                     /306 CYLINDERS/DISK
+  83                       TSIZE=  41                      /33 SECTORS/TRACK
+  84               
+  85               /       MENU UTILITY VOLUME DEFINITIONS.
+  86               
+  87                       MNGFLD= 20                      /MENU UTILITY VOLUME GENERATION FIELD
+  88                       MENHI=  0016                    /MENU UTILITY VOLUME - HIGH-ORDER
+  89                       MENLO=  4440                    /MENU UTILITY VOLUME - LOW-ORDER
+  90               
+  91               /       EXTENDED ARITHMETIC DEFINITIONS.
+  92               
+  99                       XLIST   ON
+ 100                       CAM=    CLA MQL                 /CLEAR AC, MQ
+ 101                       DAD=    JMS I   [DADD]          /DOUBLE-PRECISION ADD
+ 102                       DCM=    JMS I   [DCOM]          /DOUBLE-PRECISION COMPLEMENT
+ 103                       DLD=    JMS I   [DLOAD]         /DOUBLE-PRECISION LOAD
+ 104                       DST=    JMS I   [DSTORE]        /DOUBLE-PRECISION STORE
+ 105                       DVI=    JMS I   [DIVIDE]        /DIVIDE
+ 106               /      OTHER DEFINITIONS.
+ 107               
+ 108                       DDTADR= 7000                    /DISK DEFECT TABLE ADDRESS
+ 109                       DMA=    4000                    /DMA INDICATOR
+ 110                       EXTEND= 6000                    /EXTENDED HANDLER ROUTINE ADDRESS
+ 111                       GENADR= 7400                    /SYSTEM GENERATION ADDRESS
+ 112                       GENFLD= 0010                    /SYSTEM GENERATION FIELD
+ 113                       GENUNIT=00                      /SYSTEM GENERATION UNIT
+ 114                       GTADDR= 7400                    /GEOMETRY TABLE ADDRESS
+ 115                       NL0002= CLA CLL CML RTL         /LOAD AC WITH 0002
+ 116                       NL0003= CLA CLL CML IAC RAL     /LOAD AC WITH 0003
+ 117                       NL3777= CLA CLL CMA RAR         /LOAD AC WITH 3777
+ 118                       NL4000= CLA CLL CML RAR         /LOAD AC WITH 4000
+ 119                       NL7775= CLA CLL CMA RTL         /LOAD AC WITH 7775
+ 120                       NL7777= CLA CMA                 /LOAD AC WITH 7777
+ 121                       PRGFLD= 0000                    /SYSTEM EXECUTION FIELD
+ 122                       REVISI= "A&77                   /REVISION OF PROGRAM
+ 123                       SATADR= 4400                    /STORAGE ALLOCATION TABLE ADDRESS
+ 124                       SBOOT=  7600                    /SYSTEM LOAD ADDRESS
+ 125                       STRTADR=0200                    /PRIMARY CONTROL PROGRAM STARTING ADDRESS
+ 126                       SYSGEN= 0200                    /SYSTEM GENERATION STARTING ADDRESS IN GENFLD
+ 127                       VERSION=1                       /VERSION OF PROGRAM
+ 128                       VTADDR= 5400                    /VOLUME TABLE ADDRESS
+ 129                       WRITE=  4000                    /SYSIO WRITE BIT
+ 130               /      PAGE ZERO OF MENU-8 PRIMARY CONTROL PROGRAM.
+ 131               
+ 132                       *0                      /START AT THE BEGINNING
+ 133               
+ 134 000000  0000  TEMP,   .-.                     /TEMPORARY
+ 135               
+ 136                       IFNZRO  .-1     <ERROR  .>
+ 137 000001  0016  AS,     AUSIZE                  /SIZE OF AN ALLOCATION UNIT IS 2^AUSIZE
+ 138 000002  0000  TEMP2,  .-.                     /TEMPORARY
+ 139               
+ 140                       *10                     /DEFINE AUTO-INDEX AREA
+ 141               
+ 142 000010  0000  XR1,    .-.                     /AUTO-INDEX NUMBER 1
+ 143 000011  0000  XR2,    .-.                     /AUTO-INDEX NUMBER 2
+ 144 000012  0000  ECHOSW, 0                       /ECHO SWITCH
+ 145 000013  0000  INCHAR, .-.                     /KEYBOARD INPUT CHARACTER
+ 146 000014  0000  P7TEMP, .-.                     /PRINTING TEMPORARY
+ 147 000015  7771  TSTCNT, -7                      /STARTUP MEMORY TEST COUNT; ALSO FORCED MENU SWITCH
+ 148               
+ 149                       *20                     /GET PAST AUTO-INDEX AREA
+ 150               
+ 151 000020  0000  GETBASE,.-.                     /GET HALF-WORD BASE
+ 152 000021  0000  GETNDX, .-.                     /GET HALF-WORD INDEX
+ 153 000022  0000  GTSTATU,.-.                     /VALIDITY STATUS OF GT
+ 154 000023  0000  MEMFLAG,.-.                     /MEMORY FLAGS FROM VT ENTRY
+ 155 000024  0000  PHYSIZE,.-.                     /PHYSICAL MEMORY SIZE
+ 156 000025  0000  SATSTAT,.-.                     /VALIDITY STATUS OF SAT
+ 157 000026  0000  SVAU,   .-.                     /LOWEST START VOLUME AU ADDRESS
+ 158 000027  0000  SVAUCNT,.-.                     /START VOLUME AU COUNT
+ 159 000030  0000  SVID,   .-.                     /LOWEST START VOLUME ID WORD
+ 160 000031  0000  VOLFLAG,.-.                     /VOLUME FLAGS FROM VT ENTRY
+ 161 000032  0000  VTSTATU,.-.                     /VALIDITY STATUS OF VT
+ 162 000033  0000  WRNFLG, 0                       /ISSUE WARNING FLAG
+ 163                      PAGE
+ 164               
+ 165               /       CONTROL PROGRAM STARTS HERE.
+ 166               
+ 167 000200  7300  STRTADR,CLA CLL                 /CLEANUP
+ 168               
+ 169               /       MEMORY SIZING ROUTINE.
+ 170               
+ 171 000201  6201  TRYNXT, CDF     PRGFLD          /RESET FOR PDP-8/L, ETC.
+ 172 000202  6211  CDFNXT, CDF     10              /TRY TEST FIELD
+ 173 000203  1777          TAD I   (TEST)          /GET TEST CONTENTS
+ 174 000204  3322          DCA     SAVLOC          /SAVE FOR NOW
+ 175 000205  1376          TAD     (7000)          /GET TEST VALUE
+ 176 000206  3777          DCA I   (TEST)          /STORE IT TENTATIVELY
+ 177 000207  1777          TAD I   (TEST)          /GET IT BACK
+ 178 000210  1375          TAD     (-7000)         /COMPARE TO EXPECTED VALUE
+ 179 000211  7450          SNA                     /SKIP IF ALREADY FAILED
+ 180 000212  1323          TAD     TEST            /ELSE GET POTENTIAL VICTIM LOCATION
+ 181 000213  7640          SZA CLA                 /SKIP IF NOT TOUCHED
+ 182 000214  5224          JMP     HARDEND         /JUMP IF WE ZAPPED OUR LOCATION
+ 183 000215  1322          TAD     SAVLOC          /GET OLD CONTENTS
+ 184 000216  3777          DCA I   (TEST)          /RESTORE IT
+ 185 000217  1202          TAD     CDFNXT          /GET CDF CURRENT TEST FIELD
+ 186 000220  1374          TAD     (10)            /UPDATE TO NEXT FIELD
+ 187 000221  3202          DCA     CDFNXT          /STORE UPDATED INSTRUCTION
+ 188 000222  2015          ISZ     TSTCNT          /TESTED ENOUGH FIELDS?
+ 189 000223  5201          JMP     TRYNXT          /NO, KEEP GOING
+ 190 000224  6201  HARDEND,CDF     PRGFLD          /RESTORE OUR FIELD
+ 191 000225  1015          TAD     TSTCNT          /GET FIELD COUNT
+ 192 000226  1373          TAD     (7)             /MAKE IT POSITIVE
+ 193 000227  3024          DCA     PHYSIZE         /STORE AS PHYSICAL MEMORY SIZE
+ 194               
+ 195               /       TERMINAL TIME-OUT TEST HERE.
+ 196               
+ 197 000230  6041  TTYTST, TSFIOT                  /FLAG UP?
+ 198 000231  5306          JMP     TTIMTST         /NO, GO TIME IT OUT
+ 199 000232  6030          TFLIOT                  /RESET FLAG (FOR LIKES OF 6120)
+ 200 000233  6031  KEYTST, KSFIOT                  /FLAG UP?
+ 201 000234  5314          JMP     KTIMTST         /NO, GO TIME IT OUT
+ 202 000235  6036          KRBIOT                  /YES, READ IT IN
+ 203 000236  0372          AND     (177)           /JUST SEVEN BITS
+ 204 000237  1371          TAD     (-"M!300)       /COMPARE TO <CR>
+ 205 000240  7650          SNA CLA                 /SKIP IF OTHER CHARACTER
+ 206 000241  7240          NL7777                  /INDICATE FORCED START
+ 207 000242  3015  INITDON,DCA     TSTCNT          /SAVE FOR NOW
+ 208               
+ 209               /       OUTPUT OPENING BANNER.
+ 210               
+ 211 000243  4572  OPENING,JMS I   [SCRIBE]        /PRINT OUT
+ 212 000244  0347          BANMSG                  /OPENING MESSAGE
+ 213               /      CHECK FOR CLOCK HARDWARE HERE.
+ 214               
+ 215 000245  0000          ZBLOCK  40              /RESERVED FOR CLOCK HARDWARE CODE
+     000246  0000  
+     000247  0000  
+     000250  0000  
+     000251  0000  
+     000252  0000  
+     000253  0000  
+     000254  0000  
+     000255  0000  
+     000256  0000  
+     000257  0000  
+     000260  0000  
+     000261  0000  
+     000262  0000  
+     000263  0000  
+     000264  0000  
+     000265  0000  
+     000266  0000  
+     000267  0000  
+     000270  0000  
+     000271  0000  
+     000272  0000  
+     000273  0000  
+     000274  0000  
+     000275  0000  
+     000276  0000  
+     000277  0000  
+     000300  0000  
+     000301  0000  
+     000302  0000  
+     000303  0000  
+     000304  0000  
+ 216               
+ 217               /       PRINT OUT DATE AND TIME IF CLOCK AVAILABLE.
+ 218               
+ 219 000305  5770          JMP I   (MEMSTUFF)      /CONTINUE THERE
+ 220               /      COMES HERE TO TIME OUT THE TERMINAL FLAG.
+ 221               
+ 222 000306  2201  TTIMTST,ISZ     TRYNXT          /TRIED ENOUGH?
+ 223 000307  5230          JMP     TTYTST          /NO, TRY AGAIN
+ 224 000310  2324          ISZ     TTIMOUT         /TRIED TOO MANY TIMES?
+ 225 000311  5230          JMP     TTYTST          /NO, TRY AGAIN
+ 226 000312  6046          TLSIOT                  /YES, SET THE FLAG NOW
+ 227 000313  5233          JMP     KEYTST          /CONTINUE THERE
+ 228               
+ 229               /       COMES HERE TIME OUT THE KEYBOARD FLAG.
+ 230               
+ 231 000314  2201  KTIMTST,ISZ     TRYNXT          /TRIED ENOUGH?
+ 232 000315  5233          JMP     KEYTST          /NO, TRY AGAIN
+ 233 000316  2321          ISZ     KTIMOUT         /TRIED TOO MANY TIMES?
+ 234 000317  5233          JMP     KEYTST          /NO, TRY AGAIN
+ 235               
+ 236               /       THE FLAG WON'T COME UP IN TIME, SO FORGET IT.
+ 237               
+ 238 000320  5242          JMP     INITDONE        /CONTINUE THERE
+ 239               
+ 240 000321  7770  KTIMOUT,-10                     /KEYBOARD TIME-OUT COUNTER
+ 241 000322  0000  SAVLOC, .-.                     /MEMORY SAVE LOCATION
+ 242 000323  0000  TEST,   0000                    /TEST LOCATION
+ 243 000324  7770  TTIMOUT,-10                     /TERMINAL TIME-OUT COUNTER
+ 244               
+ 245               /       AVAILABLE MEMORY MESSAGE.
+ 246               
+ 247 000325  4536  AVLMSG, TEXT    "%^A^VAILABLE ^M^AIN ^M^EMORY:      "
+     000326  0136  
+     000327  2601  
+     000330  1114  
+     000331  0102  
+     000332  1405  
+     000333  4036  
+     000334  1536  
+     000335  0111  
+     000336  1640  
+     000337  3615  
+     000340  3605  
+     000341  1517  
+     000342  2231  
+     000343  7240  
+     000344  4040  
+     000345  4040  
+     000346  4000  
+ 248               /      OPENING BANNER MESSAGE.
+ 249               
+ 250 000347  4536  BANMSG, TEXT    "%^M^ENU-8 ^V"          /OPENING TEXT
+     000350  1536  
+     000351  0516  
+     000352  2555  
+     000353  7040  
+     000354  3626  
+     000355  0000  
+ 251               
+ 252 000356  6061          VERSION%12^66+VERSION+6060      /<HIGH VERSION DIGIT>
+ 253                                                       /<LOW VERSION DIGIT>
+ 254 000357  3601          "^^100+REVISION;0               /REVISION
+     000360  0000  
+ 255               
+ 256 000370  0400          PAGE
+     000371  7763  
+     000372  0177  
+     000373  0007  
+     000374  0010  
+     000375  1000  
+     000376  7000  
+     000377  0323  
+ 257 000400  4571  MEMSTUF,JMS I  [CRLF]                  /DO A <CR>, <LF>
+ 258 000401  4572          JMS I   [SCRIBE]                /PRINT OUT THE
+ 259 000402  0325          AVLMSG                          /AVAILABLE MAIN MEMORY MESSAGE
+ 260 000403  4570          JMS I   [MEMPRT]                /PRINT OUT MAIN MEMORY SIZE
+ 261 000404  4571          JMS I   [CRLF]                  /DO A <CR>, <LF>
+ 262 000405  4572          JMS I   [SCRIBE]                /PRINT OUT THE
+ 263 000406  2342          VALMSG                          /TABLE VALIDATION MESSAGE
+ 264 000407  4777          JMS I   (VALGT)                 /VALIDATE GT
+ 265 000410  7650          SNA CLA                         /SKIP IF BAD
+ 266 000411  5215          JMP     GTOK                    /JUMP IF GOOD
+ 267 000412  4572          JMS I   [SCRIBE]                /TELL THEM
+ 268 000413  1676          GBADMSG                         /GT IS BAD
+ 269 000414  5217          JMP     GTCOMMON                /CONTINUE THERE
+ 270               
+ 271               /       COMES HERE IF GEOMETRY TABLE IS OK.
+ 272               
+ 273 000415  4572  GTOK,   JMS I   [SCRIBE]                /TELL THEM THAT
+ 274 000416  1713          GOKMSG                          /GT IS GOOD
+ 275 000417  4776  GTCOMMO,JMS I   (VALSAT)                /VALIDATE SAT
+ 276 000420  7650          SNA CLA                         /SKIP IF BAD
+ 277 000421  5225          JMP     SATOK                   /JUMP IF GOOD
+ 278 000422  4572          JMS I   [SCRIBE]                /TELL THEM
+ 279 000423  2173          SBADMSG                         /SAT IS BAD
+ 280 000424  5227          JMP     SATCOMMON               /CONTINUE THERE
+ 281               
+ 282               /       COMES HERE IF STORAGE ALLOCATION TABLE IS OK.
+ 283               
+ 284 000425  4572  SATOK,  JMS I   [SCRIBE]                /TELL THEM THAT
+ 285 000426  2230          SOKMSG                          /SAT IS GOOD
+ 286 000427  4775  SATCOMM,JMS I   (VALVT)                 /VALIDATE VOLUME TABLE
+ 287 000430  7650          SNA CLA                         /SKIP IF BAD
+ 288 000431  5235          JMP     VTOK                    /JUMP IF GOOD
+ 289 000432  4572          JMS I   [SCRIBE]                /TELL THEM
+ 290 000433  2360          VBADMSG                         /VT IS BAD
+ 291 000434  5237          JMP     VTCOMMON                /CONTINUE THERE
+ 292               
+ 293               /       COMES HERE IF VOLUME TABLE IS OK.
+ 294               
+ 295 000435  4572  VTOK,   JMS I   [SCRIBE]                /TELL THEM
+ 296 000436  2375          VOKMSG                          /VT IS GOOD
+ 297 000437  4572  VTCOMMO,JMS I   [SCRIBE]                /ISSUE THE
+ 298 000440  2276          TPSMSG                          /PHYSICAL STORAGE MESSAGE
+ 299               /      CALCULATE DEVICE PHYSICAL BLOCK COUNT.
+ 300               
+ 301 000441  1774          TAD I   (HD)                    /GET HEAD COUNT
+ 302 000442  7041          CIA                             /WANT NEGATIVE FORM
+ 303 000443  3000          DCA     TEMP                    /STASH THE COUNTER
+ 304 000444  7621          CAM                             /CLEAN UP
+ 305 000445  4577  PC1LUP, DAD;    TR                      /ADD ON PHYSICAL CYLINDER COUNT
+     000446  7406  
+ 306 000447  2000          ISZ     TEMP                    /DONE ENOUGH?
+ 307 000450  5245          JMP     PC1LUP                  /NO, KEEP GOING
+ 308 000451  4574          DST;    DTEMP                   /STORE PHYSICAL TRACK COUNT
+     000452  2462  
+ 309 000453  7621          CAM                             /CLEAN UP
+ 310 000454  1773          TAD I   (TF)                    /GET TRACK FACTOR
+ 311 000455  7041          CIA                             /WANT NEGATIVE FORM
+ 312 000456  3000          DCA     TEMP                    /STORE AS COUNTER
+ 313 000457  4577  PC2LUP, DAD;    DTEMP                   /GET PHYSICAL TRACK COUNT
+     000460  2462  
+ 314 000461  2000          ISZ     TEMP                    /DONE ENOUGH?
+ 315 000462  5257          JMP     PC2LUP                  /NO, KEEP GOING
+ 316 000463  4574          DST;    PBLOCKS                 /STORE PHYSICAL BLOCK COUNT
+     000464  2466  
+ 317 000465  4567          JMS I   [PSECTORS]              /PRINT IT OUT
+ 318 000466  4572          JMS I   [SCRIBE]                /PRINT OUT THE
+ 319 000467  2254          TASMSG                          /ALLOCATED STORAGE MESSAGE
+ 320               
+ 321               /       CALCULATE DEVICE ALLOCATED BLOCK COUNT.
+ 322               
+ 323 000470  1166          TAD     [SATADR-SATFIN]         /SETUP THE
+ 324 000471  3000          DCA     TEMP                    /TABLE COUNT
+ 325 000472  3013          DCA     INCHAR                  /CLEAR AU COUNTER
+ 326 000473  1165          TAD     [SATADR-1]              /SETUP THE
+ 327 000474  3010          DCA     XR1                     /TABLE POINTER
+ 328 000475  1410  SATLUP, TAD I   XR1                     /GET AN AU VALUE
+ 329 000476  3014          DCA     P7TEMP                  /SAVE IT
+ 330 000477  1014          TAD     P7TEMP                  /GET IT BACK
+ 331 000500  0164          AND     [40]                    /JUST NX FLAG
+ 332 000501  7640          SZA CLA                         /SKIP IF EXISTENT
+ 333 000502  5314          JMP     SATBOT                  /JUMP IF NON-EXISTENT
+ 334 000503  1014          TAD     P7TEMP                  /GET IT AGAIN
+ 335 000504  0372          AND     (100)                   /JUST ALT FLAG
+ 336 000505  7650          SNA CLA                         /SKIP IF SET
+ 337 000506  5313          JMP     SATSET                  /JUMP IF NOT
+ 338 000507  1014          TAD     P7TEMP                  /GET IT AGAIN
+ 339 000510  0163          AND     [37]                    /JUST ID BITS
+ 340 000511  1162          TAD     [-MNU]                  /COMPARE TO MENUVOLUME VALUE
+ 341 000512  7650          SNA CLA                         /SKIP IF OTHER THAN MENUVOLUME (THIS IS LEGAL)
+ 342 000513  2013  SATSET, ISZ     INCHAR                  /INDICATE AU IN STORAGE COUNT
+ 343 000514  2000  SATBOT, ISZ     TEMP                    /DONE ENOUGH?
+ 344 000515  5275          JMP     SATLUP                  /NO, KEEP GOING
+ 345               /      CALCULATE TOTAL SECTORS=AUS*(AUSIZE-7).
+ 346               
+ 347 000516  1013          TAD     INCHAR                  /GET ENTRY COUNT
+ 348 000517  4561          JMS I   [AUBLKS]                /CONVERT TO BLOCK COUNT
+ 349 000520  4574          DST;    ABLOCKS                 /STORE ALLOCATED BLOCK COUNT
+     000521  2460  
+ 350 000522  4567          JMS I   [PSECTORS]              /PRINT IT OUT
+ 351 000523  4572          JMS I   [SCRIBE]                /PRINT OUT THE
+ 352 000524  2320          TVSMSG                          /AVAILABLE STORAGE MESSAGE
+ 353               
+ 354               /       CALCULATE DEVICE AVAILABLE BLOCK COUNT.
+ 355               
+ 356 000525  1773          TAD I   (TF)                    /GET TRACK FACTOR
+ 357 000526  7041          CIA                             /WANT NEGATIVE FORM
+ 358 000527  3000          DCA     TEMP                    /STASH THE COUNTER
+ 359 000530  7621          CAM                             /CLEAN UP
+ 360 000531  4577  AVCLUP, DAD;    DRBA                    /GET AVAILABLE TRACK COUNT
+     000532  7400  
+ 361 000533  2000          ISZ     TEMP                    /ENOUGH TIMES?
+ 362 000534  5331          JMP     AVCLUP                  /NO, KEEP GOING
+ 363 000535  4574          DST;    VBLOCKS                 /YES, STORE AVAILABLE BLOCK COUNT
+     000536  2470  
+ 364 000537  4567          JMS I   [PSECTORS]              /PRINT IT OUT
+ 365 000540  5771          JMP I   (PHTEST)                /CONTINUE THERE
+ 366               
+ 367 000571  0600          PAGE
+     000572  0100  
+     000573  7405  
+     000574  7402  
+     000575  1302  
+     000576  1200  
+     000577  1441  
+ 368               /      IF PHYSICAL SIZE < AVAILABLE SIZE THEN COMPLAIN.
+ 369               
+ 370 000600  4575  PHTEST, DLD;    VBLOCKS                 /GET AVAILABLE SIZE
+     000601  2470  
+ 371 000602  4576          DCM                             /NEGATE FOR TESTING
+ 372 000603  4577          DAD;    PBLOCKS                 /COMPARE TO PHYSICAL SIZE
+     000604  2466  
+ 373 000605  7510          SPA                             /SKIP IF NO PROBLEMS
+ 374 000606  5215          JMP     DSPCOMPLAIN             /JUMP IF PROBLEMS
+ 375 000607  7501          MQA                             /OR LOW-ORDER WITH HIGH-ORDER
+ 376 000610  7640          SZA CLA                         /SKIP IF PHYSICAL = AVAILABLE
+ 377 000611  5220          JMP     POK                     /JUMP IF PHYSICAL > AVAILABLE
+ 378 000612  4572          JMS I   [SCRIBE]                /TELL THEM
+ 379 000613  2134          NDMSG                           /WE HAVE NO DEFECTS
+ 380 000614  5220          JMP     POK                     /CONTINUE THERE
+ 381               
+ 382               /       COMES HERE IF DEVICE AVAILABLE SIZE > PHYSICAL SIZE.
+ 383               
+ 384 000615  4572  DSPCOMP,JMS I   [SCRIBE]                /TELL THEM ABOUT
+ 385 000616  1653          DSPMSG                          /SIZE PROBLEM
+ 386 000617  2033          ISZ     WRNFLG                  /SET WARNING FLAG
+ 387               
+ 388               /       IF AVAILABLE SIZE > ALLOCATED SIZE THEN COMPLAIN.
+ 389               
+ 390 000620  4575  POK,    DLD;    VBLOCKS                 /GET AVAILABLE SIZE
+     000621  2470  
+ 391 000622  4576          DCM                             /NEGATE FOR TEST
+ 392 000623  4577          DAD;    ABLOCKS                 /COMPARE TO ALLOCATED SIZE
+     000624  2460  
+ 393 000625  7700          SMA CLA                         /SKIP IF AVAILABLE > ALLOCATED
+ 394 000626  5232          JMP     ALOK                    /JUMP IF AVAILABLE <= ALLOCATED
+ 395 000627  4572          JMS I   [SCRIBE]                /COMPLAIN ABOUT
+ 396 000630  1602          DAPMSG                          /DEVICE ALLOCATION PROBLEM
+ 397 000631  2033          ISZ     WRNFLG                  /SET WARNING FLAG
+ 398 000632  7330  ALOK,   NL4000                          /INDICATE START VOLUME MODE
+ 399 000633  4560          JMS I   [SRCHSAT]               /TRY TO FIND A START VOLUME
+ 400 000634  7510          SPA                             /SKIP IF ONE OR LESS
+ 401 000635  5245          JMP     DUPST                   /JUMP IF TOO MANY
+ 402 000636  7640          SZA CLA                         /SKIP IF NONE
+ 403 000637  5252          JMP     STOK                    /JUMP IF EXACTLY ONE
+ 404 000640  7240          NL7777                          /INDICATE
+ 405 000641  3015          DCA     TSTCNT                  /MENU VOLUME MUST BE USED
+ 406 000642  4572          JMS I   [SCRIBE]                /COMPLAIN ABOUT
+ 407 000643  2153          NSMSG                           /NO START VOLUME
+ 408 000644  5252          JMP     STOK                    /CONTINUE THERE
+ 409               
+ 410               /       COMES HERE IF TOO MANY START VOLUMES.
+ 411               
+ 412 000645  7240  DUPST,  NL7777                          /INDICATE
+ 413 000646  3015          DCA     TSTCNT                  /MENU VOLUME MUST BE USED
+ 414 000647  4572          JMS I   [SCRIBE]                /COMPLAIN ABOUT
+ 415 000650  1627          DSMSG                           /TOO MANY START VOLUMES
+ 416 000651  2033          ISZ     WRNFLG                  /SET WARNING FLAG
+ 417 000652  4777  STOK,  JMS I   (CHKSTRT)               /CHECK IF STARTUP VOLUME ENTRY IS VALID
+ 418 000653  7650          SNA CLA                         /SKIP IF NOT
+ 419 000654  5262          JMP     STVOK                   /JUMP IF SO
+ 420 000655  7240          NL7777                          /INDICATE
+ 421 000656  3015          DCA     TSTCNT                  /MENU VOLUME MUST BE USED
+ 422 000657  4572          JMS I   [SCRIBE]                /COMPLAIN ABOUT
+ 423 000660  2032          ISVEMSG                         /INVALID START VOLUME ENTRY
+ 424 000661  2033          ISZ     WRNFLG                  /SET WARNING FLAG
+ 425               
+ 426               /       COMES HERE IF START VOLUME ENTRY IS OK.
+ 427               
+ 428 000662  2015  STVOK,  ISZ     TSTCNT                  /ARE WE FORCED TO ATTEMPT THE MENU VOLUME?
+ 429 000663  5301          JMP     LOADREGULAR             /NO, JUST USE INTENDED VOLUME
+ 430 000664  1163          TAD     [MNU]                   /INDICATE EXPLICIT SEARCH MODE
+ 431 000665  4560          JMS I   [SRCHSAT]               /ATTEMPT TO FIND MENU VOLUME
+ 432 000666  7750          SPA SNA CLA                     /SKIP IF POSSIBLE
+ 433 000667  5273          JMP     STMBAD                  /JUMP IF NOT
+ 434 000670  4777          JMS I   (CHKSTRT)               /CHECK IF MENU VOLUME ENTRY IS VALID
+ 435 000671  7650          SNA CLA                         /SKIP IF NOT
+ 436 000672  5310          JMP     JUSTLOAD                /JUMP IF SO
+ 437 000673  4572  STMBAD, JMS I   [SCRIBE]                /TELL THEM
+ 438 000674  2101          MMMSG                           /WE CANT LOCATE MENU VOLUME
+ 439 000675  4572  SHALT,  JMS I   [SCRIBE]                /TELL THEM
+ 440 000676  2216          SHMSG                           /SYSTEM IS HALTED
+ 441 000677  7402          HLT                             /STOP!
+ 442 000700  5277          JMP     .-1                     /JUST IN CASE THEY HIT CONTINUE
+ 443               
+ 444               /       COMES HERE FOR NORMAL VOLUME LOADING.
+ 445               
+ 446 000701  1033  LOADREG,TAD     WRNFLG                  /GET WARNING FLAG
+ 447 000702  7650          SNA CLA                         /SKIP IF SET
+ 448 000703  5310          JMP     JUSTLOAD                /JUMP IF NOT
+ 449 000704  4572          JMS I   [SCRIBE]                /ISSUE THE
+ 450 000705  2420          WRNMSG                          /WARNING MESSAGE
+ 451 000706  4557          JMS I   [INPUT]                 /WAIT FOR A CHARACTER
+ 452 000707  7200          CLA                             /THROW IT AWAY
+ 453 000710  1026  JUSTLOA,TAD     SVAU                    /GET AU OF STARTING BLOCK
+ 454 000711  4561          JMS I   [AUBLKS]                /CONVERT TO BLOCKS
+ 455 000712  4577          DAD;    D40                     /ADD ON ABSOLUTE OFFSET
+     000713  2464  
+ 456 000714  4574          DST;    LOADBLK                 /STORE IN BOOT LOADER
+     000715  3416  
+ 457 000716  7621          CAM                             /CLEAN UP
+ 458               /      CHECK IF MAIN MEMORY IS ADEQUATE TO LOAD THE VOLUME.
+ 459               
+ 460 000717  1023          TAD     MEMFLAGS                /GET VOLUME MEMORY FLAGS
+ 461 000720  0376          AND     (1770)                  /JUST FIELD BITS
+ 462 000721  7112          CLL RTR;RAR                     /%10
+     000722  7010  
+ 463 000723  7041          CIA                             /INVERT FOR TEST
+ 464 000724  1024          TAD     PHYSIZE                 /COMPARE TO MEMORY SIZE
+ 465 000725  7700          SMA CLA                         /SKIP IF PROBLEMATIC
+ 466 000726  5332          JMP     MEMOK                   /JUMP IF NO MEMORY PROBLEM
+ 467 000727  4572          JMS I   [SCRIBE]                /TELL THEM
+ 468 000730  1736          IMMSG                           /OF INADEQUATE MEMORY
+ 469 000731  5275          JMP     SHALT                   /CONTINUE THERE
+ 470               
+ 471               /       COMES HERE IF MEMORY OK.
+ 472               
+ 473               /       NOTE:   EVENTUALLY WE NEED SPECIAL MENU-8 BOOT PROCEDURES HANDLED HERE WHEN WE
+ 474               /       KNOW WHAT EXACTLY THAT MEANS.
+ 475               
+ 476 000732  1775  MEMOK,  TAD I   (SBTUNIT)               /GET BOOTSTRAP UNIT
+ 477 000733  3774          DCA I   (SLUNIT)                /SETUP VOLUME LOADER
+ 478 000734  5773          JMP I   (SYSLOAD)               /CONTINUE THERE
+ 479               
+ 480 000773  3400          PAGE
+     000774  3415  
+     000775  7603  
+     000776  1770  
+     000777  1115  
+ 481               /      SAT START VOLUME SEARCH ROUTINE.
+ 482               
+ 483 001000  0000  SRCHSAT,.-.                     /SEARCH THE SAT ROUTINE
+ 484 001001  3267          DCA     SMODE           /SAVE PASSED MODE
+ 485 001002  1166          TAD     [SATADR-SATFIN] /SETUP THE
+ 486 001003  3000          DCA     TEMP            /SEARCH COUNT
+ 487 001004  3027          DCA     SVAUCNT         /CLEAR START VOLUME AU COUNT
+ 488 001005  1165          TAD     [SATADR-1]      /SETUP THE
+ 489 001006  3010          DCA     XR1             /SEARCH POINTER
+ 490 001007  1410  SSATLUP,TAD I   XR1             /GET AN ENTRY
+ 491 001010  3014          DCA     P7TEMP          /SAVE IT
+ 492 001011  1267          TAD     SMODE           /GET OPERATING MODE
+ 493 001012  7710          SPA CLA                 /SKIP IF MENU MODE
+ 494 001013  5223          JMP     NORSRCH         /JUMP IF NORMAL SEARCH
+ 495 001014  1014          TAD     P7TEMP          /GET THE ENTRY
+ 496 001015  7041          CIA                     /INVERT FOR TEST
+ 497 001016  1267          TAD     SMODE           /COMPARE TO DESIRED ID
+ 498 001017  0156          AND     [ALT+NX+37]     /JUST ID BITS (PREVENTING ALT AND NX)
+ 499 001020  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 500 001021  5257          JMP     SSATEST         /JUMP IF NOT
+ 501               
+ 502               /       THIS AU ENTRY IS FOR THE DESIRED VOLUME; CHECK AS BELOW.
+ 503               
+ 504 001022  5226          JMP     ENTCOMMON       /CONTINUE THERE
+ 505               
+ 506               /       COMES HERE IF IN NORMAL SEARCH MODE.
+ 507               
+ 508 001023  1014  NORSRCH,TAD     P7TEMP          /GET IT BACK
+ 509 001024  7700          SMA CLA                 /SKIP IF A START VOLUME AU
+ 510 001025  5257          JMP     SSATEST         /JUMP IF NOT
+ 511               
+ 512               /       THIS ENTRY  IS A START VOLUME AU ENTRY.  IF SVAUCNT = 0 THEN THIS IS THE FIRST
+ 513               /       START VOLUME ENTRY;    ELSE IF SVAUCNT IS + THEN THIS ENTRY MUST HAVE THE SAME
+ 514               /       VALUE AS THE FIRST  ENTRY  FOUND  EARLIER.    IF  SVAUCNT  IS - THEN THERE ARE
+ 515               /       DUPLICATE START VOLUME ENTRIES AS  THE  SEQUENCE  FOR  THE  START  VOLUME  HAS
+ 516               /       ALREADY CLOSED.
+ 517               
+ 518 001026  1027  ENTCOMM,TAD     SVAUCNT         /GET CURRENT COUNT
+ 519 001027  7510          SPA                     /SKIP IF ACTIVE
+ 520 001030  5253          JMP     DUPSTRT         /ALREADY CLOSED, COMPLAIN OF MULTIPLE ENTRIES
+ 521 001031  7640          SZA CLA                 /SKIP IF THIS IS THE FIRST START VOLUME AU ENTRY
+ 522 001032  5240          JMP     BUMPAUCNT       /JUMP IF ADDITIONAL ENTRY ONLY
+ 523 001033  1010          TAD     XR1             /GET THE POINTER
+ 524 001034  1155          TAD     [-SATADR]       /MAKE IT RELATIVE
+ 525 001035  3026          DCA     SVAU            /SAVE AU ADDRESS
+ 526 001036  1014          TAD     P7TEMP          /GET THIS ENTRY
+ 527 001037  3030          DCA     SVID            /SAVE AS PROTOTYPE AU ENTRY
+ 528 001040  1014  BUMPAUC,TAD     P7TEMP          /GET LATEST AU ENTRY
+ 529 001041  7041          CIA                     /INVERT FOR TESTING
+ 530 001042  1030          TAD     SVID            /COMPARE TO PROTOTYPE VALUE
+ 531 001043  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 532 001044  5253          JMP     DUPSTRT         /ELSE COMPLAIN OF MULTIPLE START VOLUME ID
+ 533 001045  2027          ISZ     SVAUCNT         /COUNT THIS AU ENTRY
+ 534 001046  2000  SSATEND,ISZ     TEMP            /DONE WHOLE TABLE?
+ 535 001047  5207          JMP     SSATLUP         /NO, KEEP GOING
+ 536               /      WE'RE DONE; RETURN WITH AU COUNT IN AC.
+ 537               
+ 538 001050  7350          NL3777                  /SETUP MASK
+ 539 001051  0027          AND     SVAUCNT         /GET THE COUNT WITHOUT CLOSE BIT
+ 540 001052  7410          SKP                     /DON'T INDICATE ERROR
+ 541 001053  7330  DUPSTRT,NL4000                  /INDICATE MULTIPLE ID ERROR
+ 542 001054  3027          DCA     SVAUCNT         /STORE THE AU COUNT VALUE
+ 543 001055  1027          TAD     SVAUCNT         /GET IT BACK
+ 544 001056  5600          JMP I   SRCHSAT         /RETURN
+ 545               
+ 546               /       COMES HERE IF LATEST AU ENTRY IS NOT A START VOLUME ENTRY.
+ 547               
+ 548 001057  1027  SSATEST,TAD     SVAUCNT         /GET THE AU COUNT VALUE
+ 549 001060  7450          SNA                     /SKIP IF ANY
+ 550 001061  5246          JMP     SSATEND         /JUST KEEP GOING
+ 551 001062  7700          SMA CLA                 /SKIP IF ALREADY CLOSED
+ 552 001063  7330          NL4000                  /ELSE SET CLOSE BIT
+ 553 001064  1027          TAD     SVAUCNT         /UPDATE THE COUNT
+ 554 001065  3027          DCA     SVAUCNT         /STORE THE NEW VALUE
+ 555 001066  5246          JMP     SSATEND         /CONTINUE THERE
+ 556               
+ 557 001067  0000  SMODE,  .-.                     /SEARCH MODE
+ 558               
+ 559               /       NAME VALIDATION ROUTINE.
+ 560               
+ 561 001070  0000  CHKNAME,.-.                     /NAME CHECK ROUTINE
+ 562 001071  1420          TAD I   GETBASE         /CHECK FIRST PAIR
+ 563 001072  7650          SNA CLA                 /SKIP IF SOMETHING
+ 564 001073  5670          JMP I   CHKNAME         /TAKE BAD RETURN IF NULL NAME
+ 565 001074  1154          TAD     [-10]           /SETUP THE
+ 566 001075  3000          DCA     TEMP            /NAME COUNT
+ 567 001076  3021          DCA     GETNDX          /CLEAR INDEX
+ 568 001077  4553  CHKNLP, JMS I   [GETHALF]       /GET A CHARACTER
+ 569 001100  2021          ISZ     GETNDX          /BUMP TO NEXT
+ 570 001101  7650          SNA CLA                 /SKIP IF NOT <NUL>
+ 571 001102  5312          JMP     CHKNEND         /JUMP IF <NUL>
+ 572 001103  2000          ISZ     TEMP            /DONE ALL?
+ 573 001104  5277          JMP     CHKNLP          /NO, KEEP GOING
+ 574 001105  2270  CHKNXIT,ISZ     CHKNAME         /BUMP TO GOOD RETURN
+ 575 001106  5670          JMP I   CHKNAME         /RETURN TO CALLER
+ 576               
+ 577               /       COMES HERE TO CHECK FOR TRAILING <NUL> CHARACTER.
+ 578               
+ 579 001107  4553  CHKENLP,JMS I   [GETHALF]       /GET A CHARACTER
+ 580 001110  7640          SZA CLA                 /SKIP IF <NUL>
+ 581 001111  5670          JMP I   CHKNAME         /TAKE BAD RETURN IF NOT <NUL>
+ 582 001112  2000  CHKNEND,ISZ     TEMP            /DONE ALL?
+ 583 001113  5307          JMP     CHKENLP         /NO, KEEP GOING
+ 584               /       ISZ     CHKNAME         /BUMP TO GOOD RETURN
+ 585               /       JMP I   CHKNAME         /RETURN TO CALLER
+ 586 001114  5305          JMP     CHKNXIT         /CONTINUE THERE
+ 587               /      START VOLUME ENTRY VALIDATION ROUTINE.
+ 588               
+ 589               /       SET SVID TO PROTOTYPE OF DESIRED ID (FROM SAT AU ENTRY).
+ 590               
+ 591               /       SET SVAUCNT TO AU COUNT (FROM SAT).
+ 592               
+ 593               /       RETURNS AC=7777 IF ENTRY IS PROBLEMATIC.
+ 594               
+ 595               /       RETURNS AC=0 IF ENTRY IS OK WITH GETBASE POINTING AT BEGINNING OF VT ENTRY.
+ 596               
+ 597               /       SETS MEMFLAGS AND VOLFLAGS IF OK.
+ 598               
+ 599               /       NOTE:  BTVOL BITS ARE NOT CHECKED FOR IN THE ID AND VOLFLAGS WORDS  SINCE  THE
+ 600               /       ENTRY COULD BE FOR THE MENU VOLUME WHICH WAS FORCED RATHER THAN THE DESIGNATED
+ 601               /       START VOLUME.
+ 602               
+ 603 001115  0000  CHKSTRT,.-.                             /CHECK START VOLUME ENTRY ROUTINE
+ 604 001116  1030          TAD     SVID                    /GET ID VALUE
+ 605 001117  0377          AND     (DATA+NOBOOT+ALT+NX)    /JUST PROBLEM BITS
+ 606 001120  7640          SZA CLA                         /SKIP IF NO PROBLEM BITS SET
+ 607 001121  5351          JMP     BADSTRT                 /JUMP IF ANY PROBLEM BITS
+ 608 001122  1030          TAD     SVID                    /GET ID AGAIN
+ 609 001123  0163          AND     [37]                    /JUST ID BITS
+ 610 001124  7106          CLL RTL;RAL                     /*10
+     001125  7004  
+ 611 001126  1152          TAD     [VTADDR]                /ADD ON TABLE BASE
+ 612 001127  3020          DCA     GETBASE                 /STASH THE POINTER
+ 613 001130  4551          JMS I   [CHKNAME]               /CHECK IF NAME PORTION IS VALID
+ 614 001131  5351          JMP     BADSTRT                 /NAME WAS BAD
+ 615 001132  1020          TAD     GETBASE                 /GET THE POINTER
+ 616 001133  1150          TAD     [5-1]                   /POINT TO SIZE WORD
+ 617 001134  3010          DCA     XR1                     /STASH THE POINTER
+ 618 001135  1410          TAD I   XR1                     /GET VT AU COUNT
+ 619 001136  7041          CIA                             /INVERT FOR TEST
+ 620 001137  1027          TAD     SVAUCNT                 /COMPARE TO SAT-DERIVED COUNT
+ 621 001140  7640          SZA CLA                         /SKIP IF THEY MATCH
+ 622 001141  5351          JMP     BADSTRT                 /SIZE IS BAD
+ 623 001142  1410          TAD I   XR1                     /GET THE MEMORY FLAGS
+ 624 001143  3023          DCA     MEMFLAGS                /STASH THEM
+ 625 001144  1410          TAD I   XR1                     /GET VOLUME FLAGS
+ 626 001145  3031          DCA     VOLFLAGS                /STASH THEM
+ 627 001146  1031          TAD     VOLFLAGS                /GET THEM BACK
+ 628 001147  0376          AND     (DATA+NOBOOT+MOVED)     /JUST PROBLEMATIC BITS
+ 629 001150  7640          SZA CLA                         /SKIP IF NO PROBLEM BITS
+ 630 001151  7240  BADSTRT,NL7777                          /INDICATE PROBLEM
+ 631 001152  5715          JMP I   CHKSTRT                 /RETURN EITHER WAY
+ 632               /      CONVERT AUS => BLOCKS ROUTINE.
+ 633               
+ 634               /       SINCE THE  AUSIZE  FACTOR  IS EXPRESSED AS 2^AUSIZE, USE AUSIZE-7 TO CALCULATE
+ 635               /       BLOCKS, NOT WORDS.
+ 636               
+ 637 001153  0000  AUBLKS, .-.                     /CONVERT AUS TO BLOCKS ROUTINE
+ 638 001154  7421          MQL                     /PASSED VALUE TO LOW-ORDER
+ 639 001155  1001          TAD     AS              /GET AUSIZE (AS IN 2^AS)
+ 640 001156  1147          TAD     [-7]            /MAKE IT BLOCKSIZE
+ 641 001157  7041          CIA                     /WANT NEGATIVE FORM
+ 642 001160  3000          DCA     TEMP            /STASH THE COUNTER
+ 643 001161  7521  SHFTLUP,SWP                     /WANT LOW-ORDER FIRST
+ 644 001162  7104          CLL RAL                 /MOVE UP
+ 645 001163  7521          SWP                     /NOW GET HIGH-ORDER
+ 646 001164  7004          RAL                     /MOVE UP
+ 647 001165  2000          ISZ     TEMP            /DONE ENOUGH?
+ 648 001166  5361          JMP     SHFTLUP         /NO, KEEP GOING
+ 649 001167  5753          JMP I   AUBLKS          /YES, RETURN
+ 650               
+ 651 001176  1440          PAGE
+     001177  1540  
+ 652               /      SAT VALIDATION ROUTINE.
+ 653               
+ 654 001200  0000  VALSAT, .-.                     /VALIDATE THE SAT
+ 655               
+ 656               /       THE SAT MUST  CONSIST  OF SEQUENTIAL ENTRIES OF THE NORMAL VARIETY FOLLOWED BY
+ 657               /       OPTIONAL ALTERNATE ENTRIES FOLLOWED BY OPTIONAL NON-EXISTENT ENTRIES.
+ 658               
+ 659 001201  3025          DCA     SATSTATUS       /START WITH CLEAR STATUS
+ 660 001202  1166          TAD     [SATADR-SATFIN] /SETUP THE
+ 661 001203  3000          DCA     TEMP            /SEARCH COUNT
+ 662 001204  1165          TAD     [SATADR-1]      /SETUP THE
+ 663 001205  3010          DCA     XR1             /SEARCH POINTER
+ 664 001206  3364          DCA     REGCNT          /CLEAR REGULAR ENTRY COUNT
+ 665 001207  3362          DCA     ALTCNT          /CLEAR DEFECT ALTERNATE ENTRY COUNT
+ 666 001210  3363          DCA     NXCNT           /CLEAR NON-EXISTENT ENTRY COUNT
+ 667 001211  1410  VALSLP, TAD I   XR1             /GET AN ENTRY
+ 668 001212  3014          DCA     P7TEMP          /STASH IT
+ 669 001213  1014          TAD     P7TEMP          /GET IT BACK
+ 670 001214  0146          AND     [ALT+NX]        /JUST IMPORTANT BITS
+ 671 001215  7450          SNA                     /SKIP IF EITHER SET
+ 672 001216  5240          JMP     REGENTRY        /JUMP IF NEITHER SET
+ 673 001217  0164          AND     [NX]            /JUST NX BIT
+ 674 001220  7650          SNA CLA                 /SKIP IF NX ENTRY
+ 675 001221  5225          JMP     ALTENTRY        /JUMP IF ALT ENTRY
+ 676               
+ 677               /       ENTRY  IS  A NON-EXISTENT ENTRY.    PREVENT  ANY  FURTHER  REGULAR  OR  DEFECT
+ 678               /       ALTERNATE ENTRIES;  THERE MUST HAVE BEEN SOME REGULAR ENTRIES.
+ 679               
+ 680 001222  2363          ISZ     NXCNT           /BUMP NON-EXISTENT ENTRY COUNT
+ 681 001223  7350          NL3777                  /CLOSE THE
+ 682 001224  3362          DCA     ALTCNT          /ALTERNATE COUNT
+ 683               
+ 684               /       COMES HERE IF A DEFECT ALTERNATE ENTRY.   PREVENT ANY FURTHER REGULAR ENTRIES;
+ 685               /       THERE MUST HAVE BEEN SOME REGULAR ENTRIES.
+ 686               
+ 687 001225  2362  ALTENTR,ISZ     ALTCNT          /BUMP DEFECT ALTERNATE ENTRY COUNT
+ 688 001226  1364          TAD     REGCNT          /GET REGULAR COUNT NOW
+ 689 001227  7650          SNA CLA                 /SKIP IF ANY
+ 690 001230  2025          ISZ     SATSTATUS       /INDICATE BAD STATUS
+ 691 001231  7330          NL4000                  /CLOSE THE
+ 692 001232  3364          DCA     REGCNT          /REGULAR COUNT
+ 693 001233  1014          TAD     P7TEMP          /GET THE ENTRY
+ 694 001234  0377          AND     (BTVOL+DATA)    /JUST IMPROPER BITS
+ 695 001235  7640          SZA CLA                 /SKIP IF CLEAR
+ 696 001236  2025          ISZ     SATSTATUS       /INDICATE BAD STATUS
+ 697 001237  5244          JMP     ALNXCOMMON      /CONTINUE THERE
+ 698               
+ 699               /       COMES HERE IF A REGULAR ENTRY.
+ 700               
+ 701 001240  1364  REGENTR,TAD     REGCNT          /GET REGULAR COUNT
+ 702 001241  7710          SPA CLA                 /SKIP IF NOT CLOSED
+ 703 001242  2025          ISZ     SATSTATUS       /INDICATE BAD STATUS
+ 704 001243  2364          ISZ     REGCNT          /BUMP REGULAR ENTRY COUNT
+ 705 001244  1014  ALNXCOM,TAD    P7TEMP                  /GET THE ENTRY
+ 706 001245  7700          SMA CLA                         /SKIP IF START VOLUME ENTRY
+ 707 001246  5253          JMP     ENTROK                  /JUMP IF NOT START VOLUME ENTRY
+ 708 001247  1014          TAD     P7TEMP                  /GET THE ENTRY
+ 709 001250  0376          AND     (DATA+NOBOOT+ALT+NX)    /JUST PROBLEM BITS
+ 710 001251  7640          SZA CLA                         /SKIP IF NONE SET
+ 711 001252  2025          ISZ     SATSTATUS               /INDICATE BAD STATUS
+ 712 001253  2000  ENTROK, ISZ     TEMP                    /DONE ALL YET?
+ 713 001254  5211          JMP     VALSLP                  /NO, KEEP GOING
+ 714               
+ 715               /       WE HAVE A CLEAN STATUS SO FAR IF THE ENTRIES ARE PROPERLY ORDERED.
+ 716               
+ 717 001255  1145          TAD     [-40]                   /SETUP THE
+ 718 001256  3002          DCA     TEMP2                   /ENTRY COUNT
+ 719 001257  1375          TAD     (SATLST-1)              /SETUP THE
+ 720 001260  3011          DCA     XR2                     /ENTRY POINTER
+ 721 001261  1002  VTSLP,  TAD     TEMP2                   /GET COUNTER
+ 722 001262  1164          TAD     [40]                    /TURN INTO ID
+ 723 001263  4560          JMS I   [SRCHSAT]               /SEARCH FOR AUS WITH THIS ID
+ 724 001264  7700          SMA CLA                         /SKIP IF A PROBLEM ENTRY
+ 725 001265  5272          JMP     VTSOK                   /JUMP IF OK
+ 726 001266  7326          NL0002                          /SET 40-36
+ 727 001267  1002          TAD     TEMP2                   /COMPARE TO ID FOR UNUSED SPACE
+ 728 001270  7640          SZA CLA                         /SKIP IF UNUSED ID
+ 729 001271  2025          ISZ     SATSTATUS               /INDICATE BAD STATUS
+ 730 001272  1027  VTSOK,  TAD     SVAUCNT                 /GET AU COUNT
+ 731 001273  3411          DCA I   XR2                     /STORE IN COUNT TABLE
+ 732 001274  2002          ISZ     TEMP2                   /DONE ALL YET?
+ 733 001275  5261          JMP     VTSLP                   /NO, KEEP GOING
+ 734 001276  1025          TAD     SATSTATUS               /GET IT BACK
+ 735 001277  7440          SZA                             /SKIP IF OK
+ 736 001300  2033          ISZ     WRNFLG                  /SET WARNING FLAG
+ 737 001301  5600          JMP I   VALSAT                  /RETURN
+ 738               /      VT VALIDATION ROUTINE.
+ 739               
+ 740 001302  0000  VALVT,  .-.                     /VALIDATE THE VT
+ 741 001303  3032          DCA     VTSTATUS        /START WITH CLEAR STATUS
+ 742 001304  1375          TAD     (SATLST-1)      /SETUP THE
+ 743 001305  3011          DCA     XR2             /AU COUNT LIST POINTER
+ 744 001306  1145          TAD     [-40]           /SETUP THE
+ 745 001307  3002          DCA     TEMP2           /ENTRY COUNT
+ 746 001310  1002  VTCLUP, TAD     TEMP2           /GET THE COUNTER
+ 747 001311  1164          TAD     [40]            /MAKE IT RELATIVE ENTRY
+ 748 001312  7106          CLL RTL;RAL             /*10
+     001313  7004  
+ 749 001314  1152          TAD     [VTADDR]        /POINT TO PROPER ENTRY
+ 750 001315  3020          DCA     GETBASE         /STASH THE POINTER
+ 751 001316  1411          TAD I   XR2             /GET THE AU COUNT
+ 752 001317  3027          DCA     SVAUCNT         /STASH IT
+ 753               
+ 754               /       CHECK FOR SPECIAL UNUSED ENTRY.
+ 755               
+ 756 001320  7326          NL0002                  /SET 40-36 (ID VALUE FOR UNUSED)
+ 757 001321  1002          TAD     TEMP2           /COMPARE TO LATEST VALUE
+ 758 001322  7650          SNA CLA                 /SKIP IF OTHER
+ 759 001323  5354          JMP     VTCEND          /JUMP IF IT MATCHES
+ 760 001324  1420          TAD I   GETBASE         /GET VOLUME NAME FIRST PAIR
+ 761 001325  7650          SNA CLA                 /SKIP IF SOMETHING THERE
+ 762 001326  5335          JMP     NONAME          /JUMP IF NOT
+ 763               
+ 764               /       THERE APPEARS  TO  BE  A  VOLUME  NAME.   IT MUST BE VALID AND PART OF A VALID
+ 765               /       VOLUME ENTRY.
+ 766               
+ 767 001327  4551          JMS I   [CHKNAME]       /CHECK FOR VALID NAME
+ 768 001330  2032          ISZ     VTSTATUS        /WASN'T VALID, INDICATE BAD STATUS
+ 769 001331  1027          TAD     SVAUCNT         /GET AU COUNT FROM SAT
+ 770 001332  7650          SNA CLA                 /SKIP IF ANY
+ 771 001333  2032          ISZ     VTSTATUS        /INDICATE NULL COUNT AS BAD
+ 772 001334  5340          JMP     VTCKCOMMON      /CONTINUE THERE
+ 773               
+ 774               /       COMES HERE IF NO VOLUME NAME FOR THIS ENTRY.
+ 775               
+ 776 001335  1027  NONAME, TAD     SVAUCNT         /GET THE AU COUNT FOR THIS ENTRY
+ 777 001336  7640          SZA CLA                 /SKIP IF NONE FOR THIS ONE
+ 778 001337  2032          ISZ     VTSTATUS        /INDICATE NON-ZERO COUNT AS BAD
+ 779 001340  1020  VTCKCOM,TAD     GETBASE         /GET POINTER
+ 780 001341  1150          TAD     [5-1]           /BUMP PAST NAME FIELD
+ 781 001342  3010          DCA     XR1             /STASH THE POINTER
+ 782 001343  1027          TAD     SVAUCNT         /GET AU COUNT FOR THIS ENTRY
+ 783 001344  7041          CIA                     /INVERT FOR TEST
+ 784 001345  1410          TAD I   XR1             /COMPARE TO VT ENTRY OF SAME
+ 785 001346  7640          SZA CLA                 /SKIP IF THEY MATCH
+ 786 001347  2032          ISZ     VTSTATUS        /INDICATE BAD STATUS ON MISMATCH
+ 787 001350  1410          TAD I   XR1             /GET MEMORY FLAGS
+ 788 001351  0374          AND     (6007)          /JUST RESERVED BITS
+ 789 001352  7640          SZA CLA                 /SKIP IF OFF
+ 790 001353  2032          ISZ     VTSTATUS        /INDICATE BAD MEMORY FLAGS STATUS
+ 791 001354  2002  VTCEND,        ISZ     TEMP2           /DONE ALL YET?
+ 792 001355  5310          JMP     VTCLUP          /NO, KEEP GOING
+ 793 001356  1032          TAD     VTSTATUS        /GET IT BACK
+ 794 001357  7440          SZA                     /SKIP IF OK
+ 795 001360  2033          ISZ     WRNFLG          /SET WARNING FLAG
+ 796 001361  5702          JMP I   VALVT           /RETURN
+ 797               
+ 798 001362  0000  ALTCNT, .-.                     /ALTERNATE ENTRY COUNT
+ 799 001363  0000  NXCNT,  .-.                     /NON-EXISTENT ENTRY COUNT
+ 800 001364  0000  REGCNT, .-.                     /REGULAR ENTRY COUNT
+ 801               
+ 802 001374  6007          PAGE
+     001375  2471  
+     001376  1540  
+     001377  5000  
+ 803               /      MAIN MEMORY PRINT ROUTINE.
+ 804               
+ 805 001400  0000  MEMPRT, .-.                     /MEMORY PRINT ROUTINE
+ 806 001401  1024          TAD     PHYSIZE         /GET THE PHYSICAL SIZE
+ 807 001402  7001          IAC                     /MAKE IT FIELD COUNT
+ 808 001403  7106          CLL RTL                 /MAKE IT K'S
+ 809 001404  7421          MQL                     /TO LOW-ORDER
+ 810 001405  4573          DVI;    [12]            /DIVIDE BY TEN
+     001406  0144  
+ 811 001407  7521          SWP                     /WANT QUOTIENT FIRST
+ 812 001410  7440          SZA                     /SKIP IF NOT SIGNIFICANT
+ 813 001411  4543          JMS I   [DIGPRT]        /PRINT LEADING DIGIT
+ 814 001412  7501          MQA                     /GET REMAINDER
+ 815 001413  4543          JMS I   [DIGPRT]        /PRINT TRAILING DIGIT
+ 816 001414  4572          JMS I   [SCRIBE]        /PRINT OUT
+ 817 001415  2061          KWMSG                   /K WORDS MESSAGE
+ 818 001416  5600          JMP I   MEMPRT          /RETURN
+ 819               
+ 820               /       SECTOR COUNT PRINT ROUTINE.
+ 821               
+ 822 001417  0000  PSECTOR,.-.                     /PRINT SECTOR COUNT
+ 823 001420  4542          JMS I   [P8DIGITS]      /PRINT THE PASSED VALUE
+ 824 001421  4572          JMS I   [SCRIBE]        /PRINT OUT THE
+ 825 001422  2210          SECSMSG                 /SECTORS MESSAGE
+ 826 001423  5617          JMP I   PSECTORS        /RETURN
+ 827               
+ 828 001424  0000  GETHALF,.-.                     /GET HALF-WORD ROUTINE
+ 829 001425  1021          TAD     GETNDX          /GET HALF-WORD INDEX
+ 830 001426  7110          CLL RAR                 /SHIFT WHICH HALF BIT INTO LINK
+ 831 001427  1020          TAD     GETBASE         /ADD BASE TO INDEX/2
+ 832 001430  3217          DCA     PSECTOR         /SAVE POINTER
+ 833 001431  1617          TAD I   PSECTOR         /GET BOTH HALVES
+ 834 001432  7430          SZL                     /SKIP IF EVEN HALF WANTED
+ 835 001433  5237          JMP     .+4             /ELSE LEAVE IT ALONE
+ 836 001434  7012          RTR;RTR;RTR             /GET EVEN HALF
+     001435  7012  
+     001436  7012  
+ 837 001437  0141          AND     [77]            /JUST SIX BITS
+ 838 001440  5624          JMP I   GETHALF         /RETURN
+ 839               
+ 840               /       GT VALIDATION ROUTINE.
+ 841               
+ 842 001441  0000  VALGT,  .-.                     /VALIDATE THE GT
+ 843 001442  1377          TAD     (GTADDR-1)      /SETUP THE
+ 844 001443  3010          DCA     XR1             /VALIDATION POINTER
+ 845 001444  1140          TAD     [-200]          /SETUP THE
+ 846 001445  3000          DCA     TEMP            /VALIDATION COUNT
+ 847 001446  1410  VALGLP, TAD I   XR1             /GET A VALUE
+ 848 001447  2000          ISZ     TEMP            /DONE YET?
+ 849 001450  5246          JMP     VALGLP          /NO, KEEP GOING
+ 850 001451  3022          DCA     GTSTATUS        /YES, STORE STATUS
+ 851 001452  1022          TAD     GTSTATUS        /GET IT BACK
+ 852 001453  7440          SZA                     /SKIP IF OK
+ 853 001454  2033          ISZ     WRNFLG          /SET WARNING FLAG
+ 854 001455  5641          JMP I   VALGT           /RETURN
+ 855               /      EIGHT DIGIT DECIMAL PRINT ROUTINE.
+ 856               
+ 857 001456  0000  P8DIGIT,.-.                     /PRINT DECIMAL EIGHT DIGITS ROUTINE
+ 858 001457  3345          DCA     P8TMP+1         /SAVE HIGH-ORDER
+ 859 001460  7501          MQA                     /GET LOW-ORDER
+ 860 001461  3344          DCA     P8TMP           /SAVE IT
+ 861 001462  1376          TAD     (P8BUF+10-1)    /SETUP THE
+ 862 001463  3343          DCA     P8PTR           /OUTPUT POINTER
+ 863 001464  1154          TAD     [-10]           /SETUP THE
+ 864 001465  3341          DCA     P8CNT           /OUTPUT COUNT
+ 865 001466  1345  P8DLUP, TAD     P8TMP+1         /GET HIGH-ORDER
+ 866 001467  7421          MQL                     /SETUP AS LOW-ORDER DIVIDEND
+ 867 001470  4573          DVI;    [12]            /DIVIDE BY TEN
+     001471  0144  
+ 868 001472  7521          SWP                     /GET QUOTIENT
+ 869 001473  3345          DCA     P8TMP+1         /SAVE AS NEW HIGH-ORDER
+ 870 001474  1344          TAD     P8TMP           /GET LOW-ORDER
+ 871 001475  7521          SWP                     /NOW HAVE OLD REMAINDER.LOW-ORDER
+ 872 001476  4573          DVI;    [12]            /DIVIDE BY TEN
+     001477  0144  
+ 873 001500  3743          DCA I   P8PTR           /STORE IN BUFFER
+ 874 001501  7501          MQA                     /GET LOW-ORDER QUOTIENT
+ 875 001502  3344          DCA     P8TMP           /SAVE AS NEW LOW-ORDER
+ 876 001503  7240          NL7777                  /BACKUP THE
+ 877 001504  1343          TAD     P8PTR           /OUTPUT POINTER
+ 878 001505  3343          DCA     P8PTR           /STORE BACK
+ 879 001506  2341          ISZ     P8CNT           /DONE SIX YET?
+ 880 001507  5266          JMP     P8DLUP          /NO, KEEP GOING
+ 881 001510  1375          TAD     (P8BUF-1)       /YES, POINT AT
+ 882 001511  3010          DCA     XR1             /OUTPUT BUFFER
+ 883 001512  1147          TAD     [-10+1]         /SETUP THE
+ 884 001513  3341          DCA     P8CNT           /OUTPUT COUNTER
+ 885 001514  3342          DCA     P8FLAG          /CLEAR LEADING ZERO FLAG
+ 886 001515  1410  P8OTLP, TAD I   XR1             /GET A DIGIT
+ 887 001516  1342          TAD     P8FLAG          /ADD ON FLAG
+ 888 001517  7450          SNA                     /SKIP IF SIGNIFICANT DIGIT
+ 889 001520  5323          JMP     P8SKIP          /JUMP IF NOT
+ 890 001521  4543          JMS I   [DIGPRT]        /PRINT IT
+ 891 001522  7330          NL4000                  /SET THE
+ 892 001523  3342  P8SKIP, DCA     P8FLAG          /DIGIT FLAG
+ 893 001524  2341          ISZ     P8CNT           /DONE YET?
+ 894 001525  5315          JMP     P8OTLP          /NO, KEEP GOING
+ 895 001526  1410          TAD I   XR1             /GET LAST DIGIT
+ 896 001527  4543          JMS I   [DIGPRT]        /PRINT IT
+ 897 001530  5656          JMP I   P8DIGITS        /YES, RETURN
+ 898               
+ 899 001531  0000  P8BUF,  ZBLOCK  10              /OUTPUT BUFFER
+     001532  0000  
+     001533  0000  
+     001534  0000  
+     001535  0000  
+     001536  0000  
+     001537  0000  
+     001540  0000  
+ 900 001541  0000  P8CNT,  .-.                     /OUTPUT COUNTER
+ 901 001542  0000  P8FLAG, .-.                     /LEADING ZERO FLAG
+ 902 001543  0000  P8PTR,  .-.                     /OUTPUT POINTER
+ 903 001544  0000  P8TMP,  ZBLOCK  2               /PASSED VALUE STORED HERE
+     001545  0000  
+ 904 001575  1530         PAGE
+     001576  1540  
+     001577  7377  
+ 905               /      TEXT MESSAGES.
+ 906               
+ 907 001600  7240  BRDMSG, TEXT    ":  "
+     001601  4000  
+ 908 001602  4536  DAPMSG, TEXT    "%^ERROR - D^EVICE ^A^LLOCATION ^P^ROBLEM%"
+     001603  0522  
+     001604  2217  
+     001605  2240  
+     001606  5540  
+     001607  0436  
+     001610  0526  
+     001611  1103  
+     001612  0540  
+     001613  3601  
+     001614  3614  
+     001615  1417  
+     001616  0301  
+     001617  2411  
+     001620  1716  
+     001621  4036  
+     001622  2036  
+     001623  2217  
+     001624  0214  
+     001625  0515  
+     001626  4500  
+ 909 001627  4536  DSMSG,  TEXT    "%^ERROR - M^ULTIPLE ^S^TART ^V^OLUMES%^"
+     001630  0522  
+     001631  2217  
+     001632  2240  
+     001633  5540  
+     001634  1536  
+     001635  2514  
+     001636  2411  
+     001637  2014  
+     001640  0540  
+     001641  3623  
+     001642  3624  
+     001643  0122  
+     001644  2440  
+     001645  3626  
+     001646  3617  
+     001647  1425  
+     001650  1505  
+     001651  2345  
+     001652  3600  
+ 910 001653  4536  DSPMSG,        TEXT    "%^ERROR - D^EVICE ^S^IZING ^P^ROBLEM%"
+     001654  0522  
+     001655  2217  
+     001656  2240  
+     001657  5540  
+     001660  0436  
+     001661  0526  
+     001662  1103  
+     001663  0540  
+     001664  3623  
+     001665  3611  
+     001666  3211  
+     001667  1607  
+     001670  4036  
+     001671  2036  
+     001672  2217  
+     001673  0214  
+     001674  0515  
+     001675  4500  
+ 911 001676  4536  GBADMSG,TEXT    "%^ERROR - GT C^ORRUPTED%^"
+     001677  0522  
+     001700  2217  
+     001701  2240  
+     001702  5540  
+     001703  0724  
+     001704  4003  
+     001705  3617  
+     001706  2222  
+     001707  2520  
+     001710  2405  
+     001711  0445  
+     001712  3600  
+ 912 001713  4536  GOKMSG, TEXT    "%^G^EOMETRY ^T^ABLE:             ^OK%"
+     001714  0736  
+     001715  0517  
+     001716  1505  
+     001717  2422  
+     001720  3140  
+     001721  3624  
+     001722  3601  
+     001723  0214  
+     001724  0572  
+     001725  4040  
+     001726  4040  
+     001727  4040  
+     001730  4040  
+     001731  4040  
+     001732  4040  
+     001733  4036  
+     001734  1713  
+     001735  4500  
+ 913 001736  4536  IMMSG, TEXT    "%^ERROR - I^NSUFFICIENT ^M^EMORY TO ^L^OAD ^V^OLUME%^"
+     001737  0522  
+     001740  2217  
+     001741  2240  
+     001742  5540  
+     001743  1136  
+     001744  1623  
+     001745  2506  
+     001746  0611  
+     001747  0311  
+     001750  0516  
+     001751  2440  
+     001752  3615  
+     001753  3605  
+     001754  1517  
+     001755  2231  
+     001756  4024  
+     001757  1740  
+     001760  3614  
+     001761  3617  
+     001762  0104  
+     001763  4036  
+     001764  2636  
+     001765  1714  
+     001766  2515  
+     001767  0545  
+     001770  3600  
+ 914 001771  4536  IOERMSG,TEXT   "%^ERROR - C^AN'T ^L^OAD ^V^OLUME.  ^P^RESS ANY ^K^EY TO ^R^ETRY ^"
+     001772  0522  
+     001773  2217  
+     001774  2240  
+     001775  5540  
+     001776  0336  
+     001777  0116  
+     002000  4724  
+     002001  4036  
+     002002  1436  
+     002003  1701  
+     002004  0440  
+     002005  3626  
+     002006  3617  
+     002007  1425  
+     002010  1505  
+     002011  5640  
+     002012  4036  
+     002013  2036  
+     002014  2205  
+     002015  2323  
+     002016  4001  
+     002017  1631  
+     002020  4036  
+     002021  1336  
+     002022  0531  
+     002023  4024  
+     002024  1740  
+     002025  3622  
+     002026  3605  
+     002027  2422  
+     002030  3140  
+     002031  3600  
+ 915 002032  4536  ISVEMSG,TEXT   "%^ERROR - I^NVALID ^S^TART ^V^OLUME ^E^NTRY%^"
+     002033  0522  
+     002034  2217  
+     002035  2240  
+     002036  5540  
+     002037  1136  
+     002040  1626  
+     002041  0114  
+     002042  1104  
+     002043  4036  
+     002044  2336  
+     002045  2401  
+     002046  2224  
+     002047  4036  
+     002050  2636  
+     002051  1714  
+     002052  2515  
+     002053  0540  
+     002054  3605  
+     002055  3616  
+     002056  2422  
+     002057  3145  
+     002060  3600  
+ 916 002061  3613  KWMSG,  TEXT    "^K W^ORDS"
+     002062  4027  
+     002063  3617  
+     002064  2204  
+     002065  2300  
+ 917 002066  4536  LVMSG,  TEXT    "%^L^OADING ^V^OLUME ^"
+     002067  1436  
+     002070  1701  
+     002071  0411  
+     002072  1607  
+     002073  4036  
+     002074  2636  
+     002075  1714  
+     002076  2515  
+     002077  0540  
+     002100  3600  
+ 918 002101  4536  MMMSG, TEXT    "%^ERROR - C^ANNOT ^L^OCATE ^M^ENU ^U^TILITY ^V^OLUME%"
+     002102  0522  
+     002103  2217  
+     002104  2240  
+     002105  5540  
+     002106  0336  
+     002107  0116  
+     002110  1617  
+     002111  2440  
+     002112  3614  
+     002113  3617  
+     002114  0301  
+     002115  2405  
+     002116  4036  
+     002117  1536  
+     002120  0516  
+     002121  2540  
+     002122  3625  
+     002123  3624  
+     002124  1114  
+     002125  1124  
+     002126  3140  
+     002127  3626  
+     002130  3617  
+     002131  1425  
+     002132  1505  
+     002133  4500  
+ 919 002134  4536  NDMSG,  TEXT    "%^D^EVICE HAS ^N^O ^D^EFECTS%"
+     002135  0436  
+     002136  0526  
+     002137  1103  
+     002140  0540  
+     002141  1001  
+     002142  2340  
+     002143  3616  
+     002144  3617  
+     002145  4036  
+     002146  0436  
+     002147  0506  
+     002150  0503  
+     002151  2423  
+     002152  4500  
+ 920 002153  4536  NSMSG, TEXT    "%^ERROR - N^O ^S^TART ^V^OLUME%"
+     002154  0522  
+     002155  2217  
+     002156  2240  
+     002157  5540  
+     002160  1636  
+     002161  1740  
+     002162  3623  
+     002163  3624  
+     002164  0122  
+     002165  2440  
+     002166  3626  
+     002167  3617  
+     002170  1425  
+     002171  1505  
+     002172  4500  
+ 921 002173  4536  SBADMSG,TEXT    "%^ERROR - SAT C^ORRUPTED%"
+     002174  0522  
+     002175  2217  
+     002176  2240  
+     002177  5540  
+     002200  2301  
+     002201  2440  
+     002202  0336  
+     002203  1722  
+     002204  2225  
+     002205  2024  
+     002206  0504  
+     002207  4500  
+ 922 002210  4036  SECSMSG,TEXT    " ^S^ECTORS%"
+     002211  2336  
+     002212  0503  
+     002213  2417  
+     002214  2223  
+     002215  4500  
+ 923 002216  4536  SHMSG,  TEXT    "%^S^YSTEM ^H^ALTED%"
+     002217  2336  
+     002220  3123  
+     002221  2405  
+     002222  1540  
+     002223  3610  
+     002224  3601  
+     002225  1424  
+     002226  0504  
+     002227  4500  
+ 924 002230  4536  SOKMSG,        TEXT    "%^S^TORAGE ^A^LLOCATION ^T^ABLE:   ^OK%"
+     002231  2336  
+     002232  2417  
+     002233  2201  
+     002234  0705  
+     002235  4036  
+     002236  0136  
+     002237  1414  
+     002240  1703  
+     002241  0124  
+     002242  1117  
+     002243  1640  
+     002244  3624  
+     002245  3601  
+     002246  0214  
+     002247  0572  
+     002250  4040  
+     002251  4036  
+     002252  1713  
+     002253  4500  
+ 925 002254  4536  TASMSG, TEXT    "%^T^OTAL ^A^LLOCATED ^S^TORAGE:    "
+     002255  2436  
+     002256  1724  
+     002257  0114  
+     002260  4036  
+     002261  0136  
+     002262  1414  
+     002263  1703  
+     002264  0124  
+     002265  0504  
+     002266  4036  
+     002267  2336  
+     002270  2417  
+     002271  2201  
+     002272  0705  
+     002273  7240  
+     002274  4040  
+     002275  4000  
+ 926 002276  4536  TPSMSG,        TEXT    "%^T^OTAL ^P^HYSICAL ^S^TORAGE:     "
+     002277  2436  
+     002300  1724  
+     002301  0114  
+     002302  4036  
+     002303  2036  
+     002304  1031  
+     002305  2311  
+     002306  0301  
+     002307  1440  
+     002310  3623  
+     002311  3624  
+     002312  1722  
+     002313  0107  
+     002314  0572  
+     002315  4040  
+     002316  4040  
+     002317  4000  
+ 927 002320  4536  TVSMSG, TEXT    "%^T^OTAL ^A^VAILABLE ^S^TORAGE:    "
+     002321  2436  
+     002322  1724  
+     002323  0114  
+     002324  4036  
+     002325  0136  
+     002326  2601  
+     002327  1114  
+     002330  0102  
+     002331  1405  
+     002332  4036  
+     002333  2336  
+     002334  2417  
+     002335  2201  
+     002336  0705  
+     002337  7240  
+     002340  4040  
+     002341  4000  
+ 928 002342  4536  VALMSG, TEXT    "%^V^ALIDATING ^T^ABLES...%^"
+     002343  2636  
+     002344  0114  
+     002345  1104  
+     002346  0124  
+     002347  1116  
+     002350  0740  
+     002351  3624  
+     002352  3601  
+     002353  0214  
+     002354  0523  
+     002355  5656  
+     002356  5645  
+     002357  3600  
+ 929 002360  4536  VBADMSG,TEXT   "%^ERROR - VT C^ORRUPTED%^"
+     002361  0522  
+     002362  2217  
+     002363  2240  
+     002364  5540  
+     002365  2624  
+     002366  4003  
+     002367  3617  
+     002370  2222  
+     002371  2520  
+     002372  2405  
+     002373  0445  
+     002374  3600  
+ 930 002375  4536  VOKMSG, TEXT    "%^V^OLUME ^T^ABLE:               ^OK%"
+     002376  2636  
+     002377  1714  
+     002400  2515  
+     002401  0540  
+     002402  3624  
+     002403  3601  
+     002404  0214  
+     002405  0572  
+     002406  4040  
+     002407  4040  
+     002410  4040  
+     002411  4040  
+     002412  4040  
+     002413  4040  
+     002414  4040  
+     002415  4036  
+     002416  1713  
+     002417  4500  
+ 931 002420  4536  WRNMSG,        TEXT    "%^WARNING:  C^ORRUPTED ^D^ATA.  ^P^RESS ANY ^K^EY TO ^P^ROCEED."
+     002421  2701  
+     002422  2216  
+     002423  1116  
+     002424  0772  
+     002425  4040  
+     002426  0336  
+     002427  1722  
+     002430  2225  
+     002431  2024  
+     002432  0504  
+     002433  4036  
+     002434  0436  
+     002435  0124  
+     002436  0156  
+     002437  4040  
+     002440  3620  
+     002441  3622  
+     002442  0523  
+     002443  2340  
+     002444  0116  
+     002445  3140  
+     002446  3613  
+     002447  3605  
+     002450  3140  
+     002451  2417  
+     002452  4036  
+     002453  2036  
+     002454  2217  
+     002455  0305  
+     002456  0504  
+     002457  5600  
+ 932               
+ 933               /       DOUBLE-PRECISION VALUES.
+ 934               
+ 935 002460  0000  ABLOCKS,ZBLOCK  2               /ALLOCATED BLOCK COUNT
+     002461  0000  
+ 936 002462  0000  DTEMP,  ZBLOCK  2               /TEMPORARY
+     002463  0000  
+ 937 002464  0040  D40,    40;     0               /CONSTANT 00000040
+     002465  0000  
+ 938 002466  0000  PBLOCKS,ZBLOCK  2               /PHYSICAL BLOCK COUNT
+     002467  0000  
+ 939 002470  0000  VBLOCKS,ZBLOCK  2               /AVAILABLE BLOCK COUNT
+     002471  0000  
+ 940               
+ 941               /       SAT AU COUNT LIST.
+ 942               
+ 943 002472  0000  SATLST, ZBLOCK  40              /SAT AU COUNTS STORED HERE
+     002473  0000  
+     002474  0000  
+     002475  0000  
+     002476  0000  
+     002477  0000  
+     002500  0000  
+     002501  0000  
+     002502  0000  
+     002503  0000  
+     002504  0000  
+     002505  0000  
+     002506  0000  
+     002507  0000  
+     002510  0000  
+     002511  0000  
+     002512  0000  
+     002513  0000  
+     002514  0000  
+     002515  0000  
+     002516  0000  
+     002517  0000  
+     002520  0000  
+     002521  0000  
+     002522  0000  
+     002523  0000  
+     002524  0000  
+     002525  0000  
+     002526  0000  
+     002527  0000  
+     002530  0000  
+     002531  0000  
+ 944               
+ 945                       PAGE                    /FOR GOOD ALIGNMENT OF SAVE AREA
+ 946               
+ 947               /       PAGE ZERO SAVE AREA.
+ 948               
+ 949 002600  0000  PZSAVE, ZBLOCK  200             /PAGE ZERO SAVED HERE
+     002601  0000  
+     002602  0000  
+     002603  0000  
+     002604  0000  
+     002605  0000  
+     002606  0000  
+     002607  0000  
+     002610  0000  
+     002611  0000  
+     002612  0000  
+     002613  0000  
+     002614  0000  
+     002615  0000  
+     002616  0000  
+     002617  0000  
+     002620  0000  
+     002621  0000  
+     002622  0000  
+     002623  0000  
+     002624  0000  
+     002625  0000  
+     002626  0000  
+     002627  0000  
+     002630  0000  
+     002631  0000  
+     002632  0000  
+     002633  0000  
+     002634  0000  
+     002635  0000  
+     002636  0000  
+     002637  0000  
+     002640  0000  
+     002641  0000  
+     002642  0000  
+     002643  0000  
+     002644  0000  
+     002645  0000  
+     002646  0000  
+     002647  0000  
+     002650  0000  
+     002651  0000  
+     002652  0000  
+     002653  0000  
+     002654  0000  
+     002655  0000  
+     002656  0000  
+     002657  0000  
+     002660  0000  
+     002661  0000  
+     002662  0000  
+     002663  0000  
+     002664  0000  
+     002665  0000  
+     002666  0000  
+     002667  0000  
+     002670  0000  
+     002671  0000  
+     002672  0000  
+     002673  0000  
+     002674  0000  
+     002675  0000  
+     002676  0000  
+     002677  0000  
+     002700  0000  
+     002701  0000  
+     002702  0000  
+     002703  0000  
+     002704  0000  
+     002705  0000  
+     002706  0000  
+     002707  0000  
+     002710  0000  
+     002711  0000  
+     002712  0000  
+     002713  0000  
+     002714  0000  
+     002715  0000  
+     002716  0000  
+     002717  0000  
+     002720  0000  
+     002721  0000  
+     002722  0000  
+     002723  0000  
+     002724  0000  
+     002725  0000  
+     002726  0000  
+     002727  0000  
+     002730  0000  
+     002731  0000  
+     002732  0000  
+     002733  0000  
+     002734  0000  
+     002735  0000  
+     002736  0000  
+     002737  0000  
+     002740  0000  
+     002741  0000  
+     002742  0000  
+     002743  0000  
+     002744  0000  
+     002745  0000  
+     002746  0000  
+     002747  0000  
+     002750  0000  
+     002751  0000  
+     002752  0000  
+     002753  0000  
+     002754  0000  
+     002755  0000  
+     002756  0000  
+     002757  0000  
+     002760  0000  
+     002761  0000  
+     002762  0000  
+     002763  0000  
+     002764  0000  
+     002765  0000  
+     002766  0000  
+     002767  0000  
+     002770  0000  
+     002771  0000  
+     002772  0000  
+     002773  0000  
+     002774  0000  
+     002775  0000  
+     002776  0000  
+     002777  0000  
+ 950               /      TERMINAL OUTPUT ROUTINE.
+ 951               
+ 952 003000  0000  P7CH,   .-.                     /SEVEN-BIT PRINT ROUTINE
+ 953 003001  3014          DCA     P7TEMP          /SAVE PASSED VALUE
+ 954 003002  4222  P7AGN,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 955 003003  1012          TAD     ECHOSW          /GET ECHO SWITCH
+ 956 003004  7710          SPA CLA                 /SKIP IF ECHO ON
+ 957 003005  5212          JMP     P7OFF           /ELSE FORGET IT
+ 958 003006  1014          TAD     P7TEMP          /GET THE VALUE
+ 959 003007  6041          TSFIOT                  /OUTPUT FLAG UP?
+ 960 003010  5202          JMP     P7AGN           /NO, CHECK KEYBOARD AND TRY AGAIN
+ 961 003011  6046          TLSIOT                  /YES, OUTPUT THE CHARACTER
+ 962 003012  4222  P7OFF,  JMS     CHKUP           /CHECK FOR <^C>, ETC.
+ 963 003013  5600          JMP I   P7CH            /RETURN
+ 964               
+ 965               /       INDEPENDENT OUTPUT ROUTINE.
+ 966               
+ 967 003014  0000  P7OUT,  .-.                     /DEDICATED OUTPUT ROUTINE
+ 968 003015  6041          TSFIOT                  /OUTPUT FLAG UP?
+ 969 003016  5215          JMP     .-1             /NO, WAIT FOR IT
+ 970 003017  6046          TLSIOT                  /YES, OUTPUT THE CHARACTER
+ 971 003020  7200          CLA                     /CLEAN UP
+ 972 003021  5614          JMP I   P7OUT           /RETURN
+ 973               
+ 974               /       CONTROL CHARACTER CHECK ROUTINE.
+ 975               
+ 976 003022  0000  CHKUP,  .-.                     /CHECK FOR <^C>, ETC. ROUTINE
+ 977 003023  4247          JMS     CTLCTST         /CHECK FOR <^C>, ETC.
+ 978 003024  1377          TAD     (-"O!300)       /COMPARE TO <^O>
+ 979 003025  7450          SNA                     /SKIP IF DIFFERENT
+ 980 003026  5237          JMP     DOUO            /JUMP IF IT MATCHES
+ 981 003027  1376          TAD     (-"S+"O)        /COMPARE TO <^S>
+ 982 003030  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 983 003031  5622          JMP I   CHKUP           /RETURN IF NOT
+ 984 003032  4247          JMS     CTLCTST         /CHECK FOR <^C>, ETC.
+ 985 003033  1375          TAD     (-"Q!300)       /COMPARE TO <^Q>
+ 986 003034  7640          SZA CLA                 /SKIP IF IT MATCHES
+ 987 003035  5232          JMP     .-3             /JUMP IF NOT
+ 988 003036  5622          JMP I   CHKUP           /RETURN IF SO
+ 989               
+ 990               /       COMES HERE TO HANDLE <^O>.
+ 991               
+ 992 003037  1374  DOUO,   TAD     ("^&177)        /GET AN "^"
+ 993 003040  4214          JMS     P7OUT           /PRINT IT
+ 994 003041  1373          TAD     ("O&177)        /GET AN "O"
+ 995 003042  4214          JMS     P7OUT           /PRINT IT
+ 996 003043  7000  UPOENAB,NOP/NL4000              /SET INVERSION BIT
+ 997 003044  1012          TAD     ECHOSW          /INVERT ECHO STATUS
+ 998 003045  3012          DCA     ECHOSW          /STORE IT BACK
+ 999 003046  5622          JMP I   CHKUP           /RETURN
+1000               /      LOW-LEVEL INPUT CHARACTER CHECK ROUTINE
+1001               
+1002 003047  0000  CTLCTST,.-.                     /TEST FOR <^C>, ETC.
+1003 003050  7200          CLA                     /CLEAN UP
+1004 003051  6031          KSFIOT                  /KEYBOARD FLAG UP?
+1005 003052  5647          JMP I   CTLCTST         /NO, JUST RETURN
+1006 003053  6036          KRBIOT                  /YES, READ IN THE CHARACTER
+1007 003054  0156          AND     [177]           /JUST SEVEN-BIT
+1008 003055  3013          DCA     INCHAR          /SAVE IT
+1009 003056  1013          TAD     INCHAR          /GET THE CHARACTER
+1010 003057  5647          JMP I   CTLCTST         /RETURN
+1011               
+1012               /       <CR>, <LF> ROUTINE.
+1013               
+1014 003060  0000  CRLF,   .-.                     /<CR>, <LF> ROUTINE
+1015 003061  7200          CLA                     /JUST IN CASE
+1016 003062  1137          TAD     ["M&37]         /GET A <CR>
+1017 003063  4536          JMS I   [P7CH]          /PRINT IT
+1018 003064  1144          TAD     ["J&37]         /GET A <LF>
+1019 003065  4536          JMS I   [P7CH]          /PRINT IT
+1020 003066  5660          JMP I   CRLF            /RETURN
+1021               
+1022               /       CONSOLE INPUT ROUTINE.
+1023               
+1024 003067  0000  INPUT,  .-.                     /KEYBOARD INPUT ROUTINE
+1025 003070  3013          DCA     INCHAR          /OBLITERATE PREVIOUS CHARACTER
+1026 003071  4222  INLOOP, JMS     CHKUP           /CHECK FOR AVAILABLE CHARACTER
+1027 003072  1013          TAD     INCHAR          /GET THE LATEST CHARACTER
+1028 003073  7450          SNA                     /SKIP IF ANYTHING THERE
+1029 003074  5271          JMP     INLOOP          /GO TRY IT AGAIN
+1030 003075  5667          JMP I   INPUT           /RETURN TO CALLER
+1031               
+1032               /       MESSAGE PRINTING ROUTINE.
+1033               
+1034 003076  0000  SCRIBE, .-.                     /MESSAGE PRINT ROUTINE
+1035 003077  7200          CLA                     /JUST IN CASE
+1036 003100  1676          TAD I   SCRIBE          /GET MESSAGE POINTER
+1037 003101  3356          DCA     SCRPTR          /STASH IT
+1038 003102  2276          ISZ     SCRIBE          /BUMP PAST ARGUMENT
+1039 003103  1146          TAD     [140]           /INITIALIZE TO LOWER-CASE
+1040 003104  3354          DCA     SCRCASE         /**** UPPER-CASE ONLY **** CLA
+1041 003105  1756  SCRLUP, TAD I   SCRPTR          /GET LEFT HALF-WORD
+1042 003106  7012          RTR;RTR;RTR             /MOVE OVER
+     003107  7012  
+     003110  7012  
+1043 003111  4316          JMS     SCRPRNT         /PRINT IT
+1044 003112  1756          TAD I   SCRPTR          /GET RIGHT HALF-WORD
+1045 003113  4316          JMS     SCRPRNT         /PRINT IT
+1046 003114  2356          ISZ     SCRPTR          /BUMP TO NEXT PAIR
+1047 003115  5305          JMP     SCRLUP          /KEEP GOING
+1048               /      MESSAGE CHARACTER PRINT ROUTINE.
+1049               
+1050 003116  0000  SCRPRNT,.-.                     /CHARACTER PRINT ROUTINE
+1051 003117  0141          AND     [77]            /JUST SIX-BIT
+1052 003120  7450          SNA                     /END OF MESSAGE?
+1053 003121  5676          JMP I   SCRIBE          /YES, RETURN TO ORIGINAL CALLER
+1054 003122  3355          DCA     SCRCHAR         /NO, SAVE FOR NOW
+1055 003123  1355          TAD     SCRCHAR         /GET IT BACK
+1056 003124  1372          TAD     (-"%!200)       /IS IT "%"?
+1057 003125  7450          SNA                     /SKIP IF NOT
+1058 003126  5341          JMP     SCRCRLF         /JUMP IF IT MATCHES
+1059 003127  1135          TAD     [-"^+100+"%]    /IS IT "^"
+1060 003130  7650          SNA CLA                 /SKIP IF NOT
+1061 003131  5343          JMP     SCRFLIP         /JUMP IF IT MATCHES
+1062 003132  1355          TAD     SCRCHAR         /GET THE CHARACTER
+1063 003133  0164          AND     [40]            /DOES CASE MATTER?
+1064 003134  7650          SNA CLA                 /SKIP IF NOT
+1065 003135  1354          TAD     SCRCASE         /ELSE GET PREVAILING CASE
+1066 003136  1355          TAD     SCRCHAR         /GET THE CHARACTER
+1067 003137  4536          JMS I   [P7CH]          /PRINT THE CHARACTER
+1068 003140  5716          JMP I   SCRPRNT         /RETURN
+1069               
+1070 003141  4571  SCRCRLF,JMS I   [CRLF]          /DO A <CR>, <LF>
+1071 003142  5716          JMP I   SCRPRNT         /RETURN
+1072               
+1073 003143  1354  SCRFLIP,TAD     SCRCASE         /GET CURRENT CASE
+1074 003144  7041          CIA                     /INVERT IT
+1075 003145  1371          TAD     (140+100)       /ADD SUM OF POSSIBLE VALUES
+1076 003146  3354  CASZP2, DCA     SCRCASE         /**** UPPER-CASE ONLY **** CLA
+1077 003147  5716          JMP I   SCRPRNT         /RETURN
+1078               
+1079               /       DIGIT PRINT ROUTINE.
+1080               
+1081 003150  0000  DIGPRT, .-.                     /PRINT A DIGIT ROUTINE
+1082 003151  1370          TAD     ("0&177)        /MAKE IT ASCII
+1083 003152  4536          JMS I   [P7CH]          /PRINT IT
+1084 003153  5750          JMP I   DIGPRT          /RETURN
+1085               
+1086 003154  0100  SCRCASE,100                     /ALPHABETIC CASE
+1087 003155  0000  SCRCHAR,.-.                     /LATEST OUTPUT CHARACTER
+1088 003156  0000  SCRPTR, .-.                     /MESSAGE POINTER
+1089               
+1090 003170  0060          PAGE
+     003171  0240  
+     003172  7733  
+     003173  0117  
+     003174  0136  
+     003175  7757  
+     003176  7774  
+     003177  7761  
+1091               /      DOUBLE-PRECISION SIMULATOR ROUTINES.
+1092               
+1093               /       DOUBLE-PRECISION ADD.
+1094               
+1095 003200  0000  DADD,   .-.                     /ADD ROUTINE
+1096 003201  3314          DCA     DCOM            /SAVE HIGH-ORDER
+1097 003202  6214          RDF                     /GET CURRENT DATA FIELD
+1098 003203  1134          TAD     [CDF]           /TURN INTO CDF INSTRUCTION
+1099 003204  3210          DCA     DADCDF          /STORE IN-LINE
+1100 003205  6201          CDF     PRGFLD          /BACK TO OUR FIELD
+1101 003206  1600          TAD I   DADD            /GET ARGUMENT
+1102 003207  3244          DCA     DLOAD           /STASH IT
+1103 003210  0000  DADCDF, .-.                     /RESTORE PREVAILING FIELD
+1104 003211  7501          MQA                     /GET LOW-ORDER
+1105 003212  7100          CLL                     /INITIALIZE CARRY
+1106 003213  1644          TAD I   DLOAD           /ADD ON LOW-ORDER ARGUMENT
+1107 003214  7421          MQL                     /PUT INTO MQ
+1108 003215  2200          ISZ     DADD            /BUMP PAST ARGUMENT
+1109 003216  2244          ISZ     DLOAD           /BUMP TO HIGH-ORDER
+1110 003217  7004          RAL                     /GET CARRY
+1111 003220  1314          TAD     DCOM            /RESTORE AC
+1112 003221  1644          TAD I   DLOAD           /ADD ON HIGH-ORDER ARGUMENT
+1113 003222  5600          JMP I   DADD            /RETURN
+1114               
+1115               /       DOUBLE-PRECISION STORE.
+1116               
+1117 003223  0000  DSTORE, .-.                     /STORE ROUTINE
+1118 003224  3314          DCA     DCOM            /SAVE AC
+1119 003225  6214          RDF                     /GET CURRENT DATA FIELD
+1120 003226  1134          TAD     [CDF]           /TURN INTO CDF INSTRUCTION
+1121 003227  3233          DCA     DSTCDF          /STORE IN-LINE
+1122 003230  6201          CDF     PRGFLD          /BACK TO OUR FIELD
+1123 003231  1623          TAD I   DSTORE          /GET ARGUMENT
+1124 003232  3244          DCA     DLOAD           /STASH IT
+1125 003233  0000  DSTCDF, .-.                     /RESTORE PREVAILING FIELD
+1126 003234  7501          MQA                     /GET LOW-ORDER
+1127 003235  3644          DCA I   DLOAD           /STORE IT
+1128 003236  2223          ISZ     DSTORE          /BUMP PAST ARGUMENT
+1129 003237  2244          ISZ     DLOAD           /BUMP TO HIGH-ORDER
+1130 003240  1314          TAD     DCOM            /RESTORE AC
+1131 003241  3644          DCA I   DLOAD           /STORE IT
+1132 003242  1314          TAD     DCOM            /RESTORE AC AGAIN
+1133 003243  5623          JMP I   DSTORE          /RETURN
+1134               /      DOUBLE-PRECISION LOAD.
+1135               
+1136 003244  0000  DLOAD,  .-.                     /LOAD ROUTINE
+1137 003245  7621          CAM                     /CLEAN UP
+1138 003246  1244          TAD     DLOAD           /GET OUR CALLER
+1139 003247  3200          DCA     DADD            /MAKE IT THEIRS
+1140 003250  5201          JMP     DADD+1          /CONTINUE THERE
+1141               
+1142               /       DIVIDE.
+1143               
+1144 003251  0000  DIVIDE, .-.                     /DIVIDE ROUTINE
+1145 003252  3200          DCA     DIVAC           /SAVE PASSED AC
+1146 003253  6214          RDF                     /GET PREVAILING FIELD
+1147 003254  1134          TAD     [CDF]           /TURN INTO CDF INSTRUCTION
+1148 003255  3262          DCA     DIVCDF          /SET IT UP
+1149 003256  6201          CDF     PRGFLD          /GOTO OUR FIELD
+1150 003257  1651          TAD I   DIVIDE          /GET ARGUMENT POINTER
+1151 003260  3314          DCA     MDIVSOR         /STASH IT
+1152 003261  2251          ISZ     DIVIDE          /BUMP PAST ARGUMENT
+1153 003262  0000  DIVCDF, .-.                     /RESTORE PREVAILING FIELD
+1154 003263  1714          TAD I   MDIVSOR         /GET DIVISOR
+1155 003264  7041          CIA                     /WANT NEGATIVE FORM
+1156 003265  3314          DCA     MDIVSOR         /STORE IT
+1157 003266  7501          MQA                     /GET LOW-ORDER
+1158 003267  3244          DCA     DIVMQ           /STORE IT
+1159 003270  1377          TAD     (-14)           /SETUP THE
+1160 003271  3223          DCA     DSHIFT          /SHIFT COUNTER
+1161 003272  1244  DIVLUP, TAD     DIVMQ           /GET LOW-ORDER
+1162 003273  7104          CLL RAL                 /MOVE UP
+1163 003274  3244          DCA     DIVMQ           /STORE BACK
+1164 003275  1200          TAD     DIVAC           /GET HIGH-ORDER
+1165 003276  7004          RAL                     /MOVE UP
+1166 003277  3200          DCA     DIVAC           /STORE BACK
+1167 003300  1200          TAD     DIVAC           /GET IT BACK
+1168 003301  1314          TAD     MDIVSOR         /COMPARE TO DIVISOR
+1169 003302  7430          SZL                     /CARRY?
+1170 003303  3200          DCA     DIVAC           /YES, STORE BACK
+1171 003304  7630          SZL CLA                 /CARRY?
+1172 003305  2244          ISZ     DIVMQ           /YES, BUMP QUOTIENT
+1173 003306  2223          ISZ     DSHIFT          /DONE ALL YET?
+1174 003307  5272          JMP     DIVLUP          /NO, GO BACK
+1175 003310  1244          TAD     DIVMQ           /GET LOW-ORDER
+1176 003311  7421          MQL                     /RESTORE IT
+1177 003312  1200          TAD     DIVAC           /GET REMAINDER
+1178 003313  5651          JMP I   DIVIDE          /RETURN
+1179               /      DOUBLE-PRECISION COMPLEMENT.
+1180               
+1181 003314  0000  DCOM,   .-.                     /COMPLEMENT ROUTINE
+1182 003315  7521          SWP                     /GET LOW-ORDER FIRST
+1183 003316  7141          CLL CIA                 /INVERT IT
+1184 003317  7521          SWP                     /PUT IT BACK
+1185 003320  7040          CMA                     /INVERT HIGH-ORDER
+1186 003321  7430          SZL                     /CARRY?
+1187 003322  7001          IAC                     /YES, SO INCREMENT
+1188 003323  5714          JMP I   DCOM            /RETURN
+1189               
+1190               /       STORAGE DEFINITIONS FOR DIVIDE ROUTINE.
+1191               
+1192                       DIVAC=  DADD            /DIVIDE AC
+1193                       DIVMQ=  DLOAD           /DIVIDE MQ
+1194                       MDIVSOR=DCOM            /DIVISOR
+1195                       DSHIFT= DSTORE          /SHIFT COUNTER
+1196               /      VOLUME NAME PRINT ROUTINE.
+1197               
+1198 003324  0000  NAMPRT, .-.                     /NAME PRINT ROUTINE
+1199 003325  3021          DCA     GETNDX          /CLEAR INPUT INDEX
+1200 003326  1376          TAD     (-12)           /SETUP THE
+1201 003327  3000          DCA     TEMP            /MAXIMUM NAME COUNT
+1202 003330  4553  NAMLUP, JMS I   [GETHALF]       /GET A CHARACTER
+1203 003331  7450          SNA                     /SKIP IF NOT <NUL>
+1204 003332  5724          JMP I   NAMPRT          /RETURN IF AT END OF NAME
+1205 003333  1164          TAD     [" &177]        /INVERT THE CHARACTER
+1206 003334  0141          AND     [77]            /JUST SIX-BIT
+1207 003335  1164          TAD     [" &177]        /MAKE IT ASCII
+1208 003336  4536          JMS I   [P7CH]          /PRINT IT
+1209 003337  2021          ISZ     GETNDX          /BUMP TO NEXT
+1210 003340  2000          ISZ     TEMP            /DONE ALL?
+1211 003341  5330          JMP     NAMLUP          /NO, KEEP GOING
+1212 003342  5724          JMP I   NAMPRT          /YES, RETURN
+1213               
+1214               /       PAGE MOVING ROUTINE.
+1215               
+1216 003343  0000  PAGMOVE,.-.                     /MOVE A PAGE ROUTINE
+1217 003344  1743          TAD I   PAGMOVE         /GET "FROM" ARGUMENT
+1218 003345  3363          DCA     PAG1            /STASH IT
+1219 003346  2343          ISZ     PAGMOVE         /BUMP TO NEXT
+1220 003347  1743          TAD I   PAGMOVE         /GET "TO" ARGUMENT
+1221 003350  3364          DCA     PAG2            /STASH IT
+1222 003351  2343          ISZ     PAGMOVE         /BUMP PAST ARGUMENTS
+1223 003352  1375          TAD     (-200)/*NOT []* /SETUP THE
+1224 003353  3365          DCA     PAG3            /MOVE COUNT
+1225 003354  1763  PAGLUP, TAD I   PAG1            /GET A WORD
+1226 003355  3764          DCA I   PAG2            /PUT A WORD
+1227 003356  2363          ISZ     PAG1            /BUMP "FROM" POINTER
+1228 003357  2364          ISZ     PAG2            /BUMP "TO" POINTER
+1229 003360  2365          ISZ     PAG3            /DONE ENOUGH?
+1230 003361  5354          JMP     PAGLUP          /NO, KEEP GOING
+1231 003362  5743          JMP I   PAGMOVE         /YES, RETURN
+1232               
+1233 003363  0000  PAG1,   .-.                     /"FROM" POINTER
+1234 003364  0000  PAG2,   .-.                     /"TO" POINTER
+1235 003365  0000  PAG3,   .-.                     /MOVE COUNTER
+1236               
+1237 003375  7600          PAGE
+     003376  7766  
+     003377  7764  
+1238               /      BOOTSTRAP LOADING ROUTINE.
+1239               
+1240               /       NOTE: WATCH LITERAL USAGE HERE!
+1241               
+1242 003400  4572  SYSLOAD,JMS I   [SCRIBE]        /GIVE THEM THE
+1243 003401  2066          LVMSG                   /VOLUME LOADING MESSAGE
+1244 003402  4777          JMS I   (NAMPRT)        /PRINT THE VOLUME NAME
+1245 003403  4572          JMS I   [SCRIBE]        /PRINT THE
+1246 003404  1600          BRDMSG                  /BRIDGING MESSAGE
+1247 003405  4776          JMS I   (PAGMOVE)       /MOVE PAGE ZERO
+1248 003406  0000          0000                    /FROM PAGE ZERO
+1249 003407  2600          PZSAVE                  /TO SAVE AREA
+1250 003410  7346          NL7775                  /SETUP THE
+1251 003411  3251          DCA     RETCNT          /RETRY COUNT
+1252 003412  4775  SLOAD,  JMS I   (SYSIO)         /CALL I/O ROUTINES
+1253 003413  0000  SWASTE, 0000                    /LOAD INTO 0000000
+1254 003414  0200          2^100+PRGFLD            /LOAD TWO PAGES
+1255 003415  0000  SLUNIT, .-.                     /WILL BE BOOTSTRAP UNIT
+1256 003416  0000  LOADBLK,ZBLOCK  2               /BLOCK ARGUMENT
+     003417  0000  
+1257 003420  5236          JMP     IOERROR         /ERROR!
+1258 003421  1650  OUTLUP, TAD I   MSGPTR          /GET A CHARACTER
+1259 003422  7450          SNA                     /END OF MESSAGE?
+1260 003423  5227          JMP     ENDMSG          /JUMP IF AT END OF MESSAGE
+1261 003424  4774          JMS I   (P7OUT)         /PRINT THE CHARACTER
+1262 003425  2250          ISZ     MSGPTR          /BUMP TO NEXT
+1263 003426  5221          JMP     OUTLUP          /KEEP GOING
+1264               
+1265 003427  7346  ENDMSG, NL7775                  /SETUP THE
+1266 003430  3251          DCA     RETCNT          /TIME WASTER
+1267 003431  2213          ISZ     SWASTE          /WASTE
+1268 003432  5231          JMP     .-1             /SOME TIME
+1269 003433  2251          ISZ     RETCNT          /WASTED ENOUGH?
+1270 003434  5232          JMP     .-2             /NO, WASTE MORE TIME
+1271 003435  5025          JMP     BJMP25&177      /YES, GO START IT UP
+1272               
+1273               /       COMES HERE ON I/O ERRORS.
+1274               
+1275 003436  2251  IOERROR,ISZ     RETCNT          /TOO MANY ERRORS?
+1276 003437  5212          JMP     SLOAD           /NO, TRY AGAIN
+1277 003440  4776          JMS I   (PAGMOVE)       /RESTORE PAGE ZERO
+1278 003441  2600          PZSAVE                  /FROM HERE
+1279 003442  0000          0000                    /TO HERE
+1280 003443  4572          JMS I   [SCRIBE]        /TELL THEM
+1281 003444  1771          IOERMSG                 /ABOUT I/O PROBLEM
+1282 003445  4557          JMS I   [INPUT]         /GET ANY INPUT
+1283 003446  4571          JMS I   [CRLF]          /DO A <CR>, <LF>
+1284 003447  5200          JMP     SYSLOAD         /TRY IT ALL AGAIN
+1285               
+1286 003450  3452  MSGPTR, MESSAGE                 /MESSAGE POINTER
+1287 003451  0000  RETCNT, .-.                     /RETRY COUNTER
+1288 003452  0117  MESSAGE,"O&177                 /FINAL MESSAGE; O
+1289 003453  0113          "K&177                  /K
+1290 003454  0015          "M&37                   /<CR>
+1291 003455  0012          "J&37                   /<LF>
+1292 003456  0006          "M%37                   /<CR>
+1293 003457  0012          "J&37                   /<LF>
+1294 003460  0000          0                       /THIS ENDS THE LIST
+1295               
+1296 003574  3014          PAGE
+     003575  7640  
+     003576  3343  
+     003577  3324  
+1297               /      STORAGE ALLOCATION TABLE.
+1298               
+1299                       *SATADR                 /DEFINE TABLE ORIGIN
+1300               
+1301               /       THIS TABLE CONSISTS OF 512 ENTRIES  FOR  THE CONTROL OF THE REAL AND IMAGINARY
+1302               /       STORAGE CONTAINED WITHIN A (MYTHICAL) DISK OF  A SIZE EQUAL TO THE ACTUAL SIZE
+1303               /       OF THE REAL DISK ROUNDED UP TO THE  NEXT  POWER OF TWO.  THE CORRECT WEIGHT OF
+1304               /       EACH ENTRY IS DETERMINED IN THE GEOMETRY TABLE, AND  MUST  BE  CONSISTANT WITH
+1305               /       THIS OBJECTIVE.
+1306               
+1307               /       THE  CURRENT TABLE IS SPECIFICALLY DEFINED FOR A 15 MBYTE CMI DISK  CONSISTING
+1308               /       OF  306 CYLINDERS, 6 HEADS, AND 33 SECTORS/TRACK EACH CONSISTING OF 256 BYTES.
+1309               /       THIS  DEMANDS  AN  ALLOCATION  SIZE  OF 128 BLOCKS PER ENTRY, OR 32 KBYTES (16
+1310               /       KWORDS) PER ENTRY FOR A TOTAL OF 16 MBYTES (8 MWORDS).
+1311               
+1312               /       THE LAST 4 TRACKS ARE SET ASIDE FOR THE USE OF THE MENU-8 UM VOLUME  AND UP TO
+1313               /       23 ALTERNATES.
+1314               
+1315               /       THE TABLE  IS  LOADED AS ALL ZEROES, AND WILL BE REDEFINED CORRECTLY AT SYSTEM
+1316               /       GENERATION TIME.
+1317               
+1318 004400  0000  SATADR, ZBLOCK  4^200           /DEFINE STORAGE ALLOCATION TABLE AREA
+     004401  0000  
+     004402  0000  
+     004403  0000  
+     004404  0000  
+     004405  0000  
+     004406  0000  
+     004407  0000  
+     004410  0000  
+     004411  0000  
+     004412  0000  
+     004413  0000  
+     004414  0000  
+     004415  0000  
+     004416  0000  
+     004417  0000  
+     004420  0000  
+     004421  0000  
+     004422  0000  
+     004423  0000  
+     004424  0000  
+     004425  0000  
+     004426  0000  
+     004427  0000  
+     004430  0000  
+     004431  0000  
+     004432  0000  
+     004433  0000  
+     004434  0000  
+     004435  0000  
+     004436  0000  
+     004437  0000  
+     004440  0000  
+     004441  0000  
+     004442  0000  
+     004443  0000  
+     004444  0000  
+     004445  0000  
+     004446  0000  
+     004447  0000  
+     004450  0000  
+     004451  0000  
+     004452  0000  
+     004453  0000  
+     004454  0000  
+     004455  0000  
+     004456  0000  
+     004457  0000  
+     004460  0000  
+     004461  0000  
+     004462  0000  
+     004463  0000  
+     004464  0000  
+     004465  0000  
+     004466  0000  
+     004467  0000  
+     004470  0000  
+     004471  0000  
+     004472  0000  
+     004473  0000  
+     004474  0000  
+     004475  0000  
+     004476  0000  
+     004477  0000  
+     004500  0000  
+     004501  0000  
+     004502  0000  
+     004503  0000  
+     004504  0000  
+     004505  0000  
+     004506  0000  
+     004507  0000  
+     004510  0000  
+     004511  0000  
+     004512  0000  
+     004513  0000  
+     004514  0000  
+     004515  0000  
+     004516  0000  
+     004517  0000  
+     004520  0000  
+     004521  0000  
+     004522  0000  
+     004523  0000  
+     004524  0000  
+     004525  0000  
+     004526  0000  
+     004527  0000  
+     004530  0000  
+     004531  0000  
+     004532  0000  
+     004533  0000  
+     004534  0000  
+     004535  0000  
+     004536  0000  
+     004537  0000  
+     004540  0000  
+     004541  0000  
+     004542  0000  
+     004543  0000  
+     004544  0000  
+     004545  0000  
+     004546  0000  
+     004547  0000  
+     004550  0000  
+     004551  0000  
+     004552  0000  
+     004553  0000  
+     004554  0000  
+     004555  0000  
+     004556  0000  
+     004557  0000  
+     004560  0000  
+     004561  0000  
+     004562  0000  
+     004563  0000  
+     004564  0000  
+     004565  0000  
+     004566  0000  
+     004567  0000  
+     004570  0000  
+     004571  0000  
+     004572  0000  
+     004573  0000  
+     004574  0000  
+     004575  0000  
+     004576  0000  
+     004577  0000  
+     004600  0000  
+     004601  0000  
+     004602  0000  
+     004603  0000  
+     004604  0000  
+     004605  0000  
+     004606  0000  
+     004607  0000  
+     004610  0000  
+     004611  0000  
+     004612  0000  
+     004613  0000  
+     004614  0000  
+     004615  0000  
+     004616  0000  
+     004617  0000  
+     004620  0000  
+     004621  0000  
+     004622  0000  
+     004623  0000  
+     004624  0000  
+     004625  0000  
+     004626  0000  
+     004627  0000  
+     004630  0000  
+     004631  0000  
+     004632  0000  
+     004633  0000  
+     004634  0000  
+     004635  0000  
+     004636  0000  
+     004637  0000  
+     004640  0000  
+     004641  0000  
+     004642  0000  
+     004643  0000  
+     004644  0000  
+     004645  0000  
+     004646  0000  
+     004647  0000  
+     004650  0000  
+     004651  0000  
+     004652  0000  
+     004653  0000  
+     004654  0000  
+     004655  0000  
+     004656  0000  
+     004657  0000  
+     004660  0000  
+     004661  0000  
+     004662  0000  
+     004663  0000  
+     004664  0000  
+     004665  0000  
+     004666  0000  
+     004667  0000  
+     004670  0000  
+     004671  0000  
+     004672  0000  
+     004673  0000  
+     004674  0000  
+     004675  0000  
+     004676  0000  
+     004677  0000  
+     004700  0000  
+     004701  0000  
+     004702  0000  
+     004703  0000  
+     004704  0000  
+     004705  0000  
+     004706  0000  
+     004707  0000  
+     004710  0000  
+     004711  0000  
+     004712  0000  
+     004713  0000  
+     004714  0000  
+     004715  0000  
+     004716  0000  
+     004717  0000  
+     004720  0000  
+     004721  0000  
+     004722  0000  
+     004723  0000  
+     004724  0000  
+     004725  0000  
+     004726  0000  
+     004727  0000  
+     004730  0000  
+     004731  0000  
+     004732  0000  
+     004733  0000  
+     004734  0000  
+     004735  0000  
+     004736  0000  
+     004737  0000  
+     004740  0000  
+     004741  0000  
+     004742  0000  
+     004743  0000  
+     004744  0000  
+     004745  0000  
+     004746  0000  
+     004747  0000  
+     004750  0000  
+     004751  0000  
+     004752  0000  
+     004753  0000  
+     004754  0000  
+     004755  0000  
+     004756  0000  
+     004757  0000  
+     004760  0000  
+     004761  0000  
+     004762  0000  
+     004763  0000  
+     004764  0000  
+     004765  0000  
+     004766  0000  
+     004767  0000  
+     004770  0000  
+     004771  0000  
+     004772  0000  
+     004773  0000  
+     004774  0000  
+     004775  0000  
+     004776  0000  
+     004777  0000  
+     005000  0000  
+     005001  0000  
+     005002  0000  
+     005003  0000  
+     005004  0000  
+     005005  0000  
+     005006  0000  
+     005007  0000  
+     005010  0000  
+     005011  0000  
+     005012  0000  
+     005013  0000  
+     005014  0000  
+     005015  0000  
+     005016  0000  
+     005017  0000  
+     005020  0000  
+     005021  0000  
+     005022  0000  
+     005023  0000  
+     005024  0000  
+     005025  0000  
+     005026  0000  
+     005027  0000  
+     005030  0000  
+     005031  0000  
+     005032  0000  
+     005033  0000  
+     005034  0000  
+     005035  0000  
+     005036  0000  
+     005037  0000  
+     005040  0000  
+     005041  0000  
+     005042  0000  
+     005043  0000  
+     005044  0000  
+     005045  0000  
+     005046  0000  
+     005047  0000  
+     005050  0000  
+     005051  0000  
+     005052  0000  
+     005053  0000  
+     005054  0000  
+     005055  0000  
+     005056  0000  
+     005057  0000  
+     005060  0000  
+     005061  0000  
+     005062  0000  
+     005063  0000  
+     005064  0000  
+     005065  0000  
+     005066  0000  
+     005067  0000  
+     005070  0000  
+     005071  0000  
+     005072  0000  
+     005073  0000  
+     005074  0000  
+     005075  0000  
+     005076  0000  
+     005077  0000  
+     005100  0000  
+     005101  0000  
+     005102  0000  
+     005103  0000  
+     005104  0000  
+     005105  0000  
+     005106  0000  
+     005107  0000  
+     005110  0000  
+     005111  0000  
+     005112  0000  
+     005113  0000  
+     005114  0000  
+     005115  0000  
+     005116  0000  
+     005117  0000  
+     005120  0000  
+     005121  0000  
+     005122  0000  
+     005123  0000  
+     005124  0000  
+     005125  0000  
+     005126  0000  
+     005127  0000  
+     005130  0000  
+     005131  0000  
+     005132  0000  
+     005133  0000  
+     005134  0000  
+     005135  0000  
+     005136  0000  
+     005137  0000  
+     005140  0000  
+     005141  0000  
+     005142  0000  
+     005143  0000  
+     005144  0000  
+     005145  0000  
+     005146  0000  
+     005147  0000  
+     005150  0000  
+     005151  0000  
+     005152  0000  
+     005153  0000  
+     005154  0000  
+     005155  0000  
+     005156  0000  
+     005157  0000  
+     005160  0000  
+     005161  0000  
+     005162  0000  
+     005163  0000  
+     005164  0000  
+     005165  0000  
+     005166  0000  
+     005167  0000  
+     005170  0000  
+     005171  0000  
+     005172  0000  
+     005173  0000  
+     005174  0000  
+     005175  0000  
+     005176  0000  
+     005177  0000  
+     005200  0000  
+     005201  0000  
+     005202  0000  
+     005203  0000  
+     005204  0000  
+     005205  0000  
+     005206  0000  
+     005207  0000  
+     005210  0000  
+     005211  0000  
+     005212  0000  
+     005213  0000  
+     005214  0000  
+     005215  0000  
+     005216  0000  
+     005217  0000  
+     005220  0000  
+     005221  0000  
+     005222  0000  
+     005223  0000  
+     005224  0000  
+     005225  0000  
+     005226  0000  
+     005227  0000  
+     005230  0000  
+     005231  0000  
+     005232  0000  
+     005233  0000  
+     005234  0000  
+     005235  0000  
+     005236  0000  
+     005237  0000  
+     005240  0000  
+     005241  0000  
+     005242  0000  
+     005243  0000  
+     005244  0000  
+     005245  0000  
+     005246  0000  
+     005247  0000  
+     005250  0000  
+     005251  0000  
+     005252  0000  
+     005253  0000  
+     005254  0000  
+     005255  0000  
+     005256  0000  
+     005257  0000  
+     005260  0000  
+     005261  0000  
+     005262  0000  
+     005263  0000  
+     005264  0000  
+     005265  0000  
+     005266  0000  
+     005267  0000  
+     005270  0000  
+     005271  0000  
+     005272  0000  
+     005273  0000  
+     005274  0000  
+     005275  0000  
+     005276  0000  
+     005277  0000  
+     005300  0000  
+     005301  0000  
+     005302  0000  
+     005303  0000  
+     005304  0000  
+     005305  0000  
+     005306  0000  
+     005307  0000  
+     005310  0000  
+     005311  0000  
+     005312  0000  
+     005313  0000  
+     005314  0000  
+     005315  0000  
+     005316  0000  
+     005317  0000  
+     005320  0000  
+     005321  0000  
+     005322  0000  
+     005323  0000  
+     005324  0000  
+     005325  0000  
+     005326  0000  
+     005327  0000  
+     005330  0000  
+     005331  0000  
+     005332  0000  
+     005333  0000  
+     005334  0000  
+     005335  0000  
+     005336  0000  
+     005337  0000  
+     005340  0000  
+     005341  0000  
+     005342  0000  
+     005343  0000  
+     005344  0000  
+     005345  0000  
+     005346  0000  
+     005347  0000  
+     005350  0000  
+     005351  0000  
+     005352  0000  
+     005353  0000  
+     005354  0000  
+     005355  0000  
+     005356  0000  
+     005357  0000  
+     005360  0000  
+     005361  0000  
+     005362  0000  
+     005363  0000  
+     005364  0000  
+     005365  0000  
+     005366  0000  
+     005367  0000  
+     005370  0000  
+     005371  0000  
+     005372  0000  
+     005373  0000  
+     005374  0000  
+     005375  0000  
+     005376  0000  
+     005377  0000  
+1319               
+1320                       SATFIN= .               /END OF SAT AREA
+1321                      NOPUNCH                 /FOOL THE ASSEMBLER
+1322               
+1323               /       HIGHLIGHTS OF THE SAT TABLE.
+1324               
+1325                       *SATADR                 /START AT FIRST DEVICE
+1326               
+1327 004400  4200  OS1B,   OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 000032-000159   0000-0077
+1328 004401  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 000160-000287   0100-0177
+1329 004402  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 000288-000415   0200-0277
+1330 004403  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 000416-000543   0300-0377
+1331               
+1332                       *SATADR+100-4           /GET NEAR END OF FIRST DEVICE
+1333               
+1334 004474  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 007712-007839   7400-7477
+1335 004475  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 007840-007967   7500-7577
+1336 004476  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 007968-008095   7600-7677
+1337 004477  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA0: 008096-008223   7700-7777
+1338               
+1339 004500  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 008224-008351   0000-0077
+1340 004501  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 008352-008479   0100-0177
+1341 004502  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 008480-008607   0200-0277
+1342 004503  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 008608-008735   0300-0377
+1343               
+1344                       *SATADR+200-4           /GET NEAR END OF SECOND DEVICE
+1345               
+1346 004574  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 015904-016031   7400-7477
+1347 004575  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 016032-016159   7500-7577
+1348 004576  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 016160-016287   7600-7677
+1349 004577  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA1: 016288-016415   7700-7777
+1350               
+1351 004600  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 016416-016543   0000-0077
+1352 004601  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 016544-016671   0100-0177
+1353 004602  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 016672-016799   0200-0277
+1354 004603  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 016800-016927   0300-0377
+1355               
+1356                       *SATADR+300-4           /GET NEAR END OF THIRD DEVICE
+1357               
+1358 004674  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 024096-024223   7400-7477
+1359 004675  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 024224-024351   7500-7577
+1360 004676  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 024352-024479   7600-7677
+1361 004677  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA2: 024480-024607   7700-7777
+1362               
+1363 004700  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 024608-024735   0000-0077
+1364 004701  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 024736-024863   0100-0177
+1365 004702  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 024864-024991   0200-0277
+1366 004703  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 024992-025119   0300-0377
+1367               
+1368                       *SATADR+400-4           /GET NEAR END OF FOURTH DEVICE
+1369               
+1370 004774  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 032288-032415   7400-7477
+1371 004775  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 032416-032543   7500-7577
+1372 004776  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 032544-032671   7600-7677
+1373 004777  4200          OS1+BTVOL+NOREL         /OS/8 #1  WNA3: 032672-032799   7700-7777
+1374               
+1375                       OS1E=   .               /END OF OS/8 #1 ENTRIES
+1376 005000  0002  PQ1B,  PQ1                     /P?S/8 #1 WAB0: 032800-032927   0000-0177
+1377 005001  0002          PQ1                     /P?S/8 #1 WAB0: 032928-033055   0200-0377
+1378 005002  0002          PQ1                     /P?S/8 #1 WAB0: 033056-033183   0400-0577
+1379 005003  0002          PQ1                     /P?S/8 #1 WAB0: 033184-033311   0600-0777
+1380               
+1381                       *SATADR+440-4           /GET NEAR END OF FIRST DEVICE
+1382               
+1383 005034  0002          PQ1                     /P?S/8 #1 WAB0: 036384-036511   7000-7177
+1384 005035  0002          PQ1                     /P?S/8 #1 WAB0: 036512-036639   7200-7377
+1385 005036  0002          PQ1                     /P?S/8 #1 WAB0: 036640-036767   7400-7577
+1386 005037  0002          PQ1                     /P?S/8 #1 WAB0: 036768-036895   7600-7777
+1387               
+1388 005040  0002          PQ1                     /P?S/8 #1 WAB1: 036896-037023   0000-0177
+1389 005041  0002          PQ1                     /P?S/8 #1 WAB1: 037024-037151   0200-0377
+1390 005042  0002          PQ1                     /P?S/8 #1 WAB1: 037152-037279   0400-0577
+1391 005043  0002          PQ1                     /P?S/8 #1 WAB1: 037280-037407   0600-0777
+1392               
+1393                       *SATADR+500-4           /GET NEAR END OF SECOND DEVICE
+1394               
+1395 005074  0002          PQ1                     /P?S/8 #1 WAB1: 040480-040607   7000-7177
+1396 005075  0002          PQ1                     /P?S/8 #1 WAB1: 040608-040735   7200-7377
+1397 005076  0002          PQ1                     /P?S/8 #1 WAB1: 040736-040863   7400-7577
+1398 005077  0002          PQ1                     /P?S/8 #1 WAB1: 040864-040991   7600-7777
+1399               
+1400 005100  0002          PQ1                     /P?S/8 #1 WAB2: 040992-041119   0000-0177
+1401 005101  0002          PQ1                     /P?S/8 #1 WAB2: 041120-041247   0200-0377
+1402 005102  0002          PQ1                     /P?S/8 #1 WAB2: 041248-041375   0400-0577
+1403 005103  0002          PQ1                     /P?S/8 #1 WAB2: 041376-041503   0600-0777
+1404               
+1405                       *SATADR+540-4           /GET NEAR END OF THIRD DEVICE
+1406               
+1407 005134  0002          PQ1                     /P?S/8 #1 WAB2: 044576-044703   7000-7177
+1408 005135  0002          PQ1                     /P?S/8 #1 WAB2: 044704-044831   7200-7377
+1409 005136  0002          PQ1                     /P?S/8 #1 WAB2: 044832-044959   7400-7577
+1410 005137  0002          PQ1                     /P?S/8 #1 WAB2: 044960-045087   7600-7777
+1411               
+1412 005140  0002          PQ1                     /P?S/8 #1 WAB3: 045088-045215   0000-0177
+1413 005141  0002          PQ1                     /P?S/8 #1 WAB3: 045216-045343   0200-0377
+1414 005142  0002          PQ1                     /P?S/8 #1 WAB3: 045344-045471   0400-0577
+1415 005143  0002          PQ1                     /P?S/8 #1 WAB3: 045472-045599   0600-0777
+1416               
+1417                       *SATADR+600-4           /GET NEAR END OF FOURTH DEVICE
+1418               
+1419 005174  0002          PQ1                     /P?S/8 #1 WAB3: 048672-048799   7000-7177
+1420 005175  0002          PQ1                     /P?S/8 #1 WAB3: 048800-048927   7200-7377
+1421 005176  0002          PQ1                     /P?S/8 #1 WAB3: 048928-049055   7400-7577
+1422 005177  0002          PQ1                     /P?S/8 #1 WAB3: 049056-049183   7600-7777
+1423               
+1424 005200  0002          PQ1                     /P?S/8 #1 WAB4: 049184-049311   0000-0177
+1425 005201  0002          PQ1                     /P?S/8 #1 WAB4: 049312-049439   0200-0377
+1426 005202  0002          PQ1                     /P?S/8 #1 WAB4: 049440-049567   0400-0577
+1427 005203  0002          PQ1                     /P?S/8 #1 WAB4: 049568-049695   0600-0777
+1428                      *SATADR+640-4           /GET NEAR END OF FIFTH DEVICE
+1429               
+1430 005234  0002          PQ1                     /P?S/8 #1 WAB4: 052768-052895   7000-7177
+1431 005235  0002          PQ1                     /P?S/8 #1 WAB4: 052896-053023   7200-7377
+1432 005236  0002          PQ1                     /P?S/8 #1 WAB4: 053024-053151   7400-7577
+1433 005237  0002          PQ1                     /P?S/8 #1 WAB4: 053152-053279   7600-7777
+1434               
+1435 005240  0002          PQ1                     /P?S/8 #1 WAB5: 053280-053407   0000-0177
+1436 005241  0002          PQ1                     /P?S/8 #1 WAB5: 053408-053535   0200-0377
+1437 005242  0002          PQ1                     /P?S/8 #1 WAB5: 053536-053663   0400-0577
+1438 005243  0002          PQ1                     /P?S/8 #1 WAB5: 053664-053791   0600-0777
+1439               
+1440                       *SATADR+700-4           /GET NEAR END OF SIXTH DEVICE
+1441               
+1442 005274  0002          PQ1                     /P?S/8 #1 WAB5: 056864-056991   7000-7177
+1443 005275  0002          PQ1                     /P?S/8 #1 WAB5: 056992-057119   7200-7377
+1444 005276  0002          PQ1                     /P?S/8 #1 WAB5: 057120-057247   7400-7577
+1445 005277  0002          PQ1                     /P?S/8 #1 WAB5: 057248-057375   7600-7777
+1446               
+1447 005300  0002          PQ1                     /P?S/8 #1 WAB6: 057376-057503   0000-0177
+1448 005301  0002          PQ1                     /P?S/8 #1 WAB6: 057504-057631   0200-0377
+1449 005302  0002          PQ1                     /P?S/8 #1 WAB6: 057632-057759   0400-0577
+1450 005303  0002          PQ1                     /P?S/8 #1 WAB6: 057760-057887   0600-0777
+1451 005304  0002          PQ1                     /P?S/8 #1 WAB6: 057888-058015   1000-1177
+1452 005305  0002          PQ1                     /P?S/8 #1 WAB6: 058016-058143   1200-1377
+1453 005306  0002          PQ1                     /P?S/8 #1 WAB6: 058144-058271   1400-1577
+1454 005307  0002          PQ1                     /P?S/8 #1 WAB6: 058272-058399   1600-1777
+1455 005310  0002          PQ1                     /P?S/8 #1 WAB6: 058400-058527   2000-2177
+1456 005311  0002          PQ1                     /P?S/8 #1 WAB6: 058528-058655   2200-2377
+1457 005312  0002          PQ1                     /P?S/8 #1 WAB6: 058656-058783   2400-2577
+1458 005313  0002          PQ1                     /P?S/8 #1 WAB6: 058784-058911   2600-2777
+1459 005314  0002          PQ1                     /P?S/8 #1 WAB6: 058912-059039   3000-3177
+1460 005315  0002          PQ1                     /P?S/8 #1 WAB6: 059040-059167   3200-3377
+1461 005316  0002          PQ1                     /P?S/8 #1 WAB6: 059168-059295   3400-3577
+1462 005317  0002          PQ1                     /P?S/8 #1 WAB6: 059296-059423   3600-3777
+1463 005320  0002          PQ1                     /P?S/8 #1 WAB6: 059424-059551   4000-4177
+1464 005321  0002          PQ1                     /P?S/8 #1 WAB6: 059552-059679   4200-4377
+1465               
+1466                       PQ1E=   .               /END OF P?S/8 #1 ENTRIES
+1467               
+1468 005322  2037          MNU+RO                  /MENU-8         059680-059807   0000-0177
+1469               
+1470 005323  2137          ALT+MNU+RO              /MENU-8         059808-059828   0200-0224
+1471                                               /ALTERNATE      059829-059935 (059829- ALT #1)
+1472               
+1473 005324  0100  ALTB,   ALT                     /ALTERNATE      059936-060063
+1474 005325  0100          ALT                     /ALTERNATE      060064-060191
+1475 005326  0100          ALT                     /ALTERNATE      060192-060319
+1476 005327  0100          ALT                     /ALTERNATE      060320-060447
+1477 005330  0100          ALT                     /ALTERNATE      060448-060575 (060555- ALT #23)
+1478 005331  0100          ALT                     /ALTERNATE      060576-060587
+1479                                               /NON-EXISTENT   060588-060703
+1480               
+1481                       ALTE=   .               /END OF ALTERNATE ENTRIES
+1482 005332  0040  NXB,   NX                      /NON-EXISTENT   060704-060831
+1483 005333  0040          NX                      /NON-EXISTENT   060832-060959
+1484 005334  0040          NX                      /NON-EXISTENT   060960-061087
+1485 005335  0040          NX                      /NON-EXISTENT   061088-061215
+1486 005336  0040          NX                      /NON-EXISTENT   061216-061343
+1487 005337  0040          NX                      /NON-EXISTENT   061344-061471
+1488 005340  0040          NX                      /NON-EXISTENT   061472-061599
+1489 005341  0040          NX                      /NON-EXISTENT   061600-061727
+1490 005342  0040          NX                      /NON-EXISTENT   061728-061855
+1491 005343  0040          NX                      /NON-EXISTENT   061856-061983
+1492 005344  0040          NX                      /NON-EXISTENT   061984-062111
+1493 005345  0040          NX                      /NON-EXISTENT   062112-062239
+1494 005346  0040          NX                      /NON-EXISTENT   062240-062367
+1495 005347  0040          NX                      /NON-EXISTENT   062368-062495
+1496 005350  0040          NX                      /NON-EXISTENT   062496-062623
+1497 005351  0040          NX                      /NON-EXISTENT   062624-062751
+1498 005352  0040          NX                      /NON-EXISTENT   062752-062879
+1499 005353  0040          NX                      /NON-EXISTENT   062880-063007
+1500 005354  0040          NX                      /NON-EXISTENT   063008-063135
+1501 005355  0040          NX                      /NON-EXISTENT   063136-063263
+1502 005356  0040          NX                      /NON-EXISTENT   063264-063391
+1503 005357  0040          NX                      /NON-EXISTENT   063392-063519
+1504 005360  0040          NX                      /NON-EXISTENT   063520-063647
+1505 005361  0040          NX                      /NON-EXISTENT   063648-063775
+1506 005362  0040          NX                      /NON-EXISTENT   063776-063903
+1507 005363  0040          NX                      /NON-EXISTENT   063904-064031
+1508 005364  0040          NX                      /NON-EXISTENT   064032-064159
+1509 005365  0040          NX                      /NON-EXISTENT   064160-064287
+1510 005366  0040          NX                      /NON-EXISTENT   064288-064415
+1511 005367  0040          NX                      /NON-EXISTENT   064416-064543
+1512 005370  0040          NX                      /NON-EXISTENT   064544-064671
+1513 005371  0040          NX                      /NON-EXISTENT   064672-064799
+1514 005372  0040          NX                      /NON-EXISTENT   064800-064927
+1515 005373  0040          NX                      /NON-EXISTENT   064928-065055
+1516 005374  0040          NX                      /NON-EXISTENT   065056-065183
+1517 005375  0040          NX                      /NON-EXISTENT   065184-065311
+1518 005376  0040          NX                      /NON-EXISTENT   065312-065439
+1519 005377  0040          NX                      /NON-EXISTENT   065440-065567
+1520               
+1521                       NXE=    .               /END OF NON-EXISTENT ENTRIES
+1522               
+1523                       ENPUNCH                 /UN-FOOL THE ASSEMBLER
+1524               /      VOLUME TABLE.
+1525               
+1526                       *VTADDR                 /SET TABLE ADDRESS
+1527               
+1528 005400  1723  VTADDR, TEXT    "OS8VOLUME1"    /VOLUME NAME
+     005401  7026  
+     005402  1714  
+     005403  2515  
+     005404  0561  
+     005405  0000  
+1529 005406  0400          OS1E-OS1B               /VOLUME SIZE
+1530 005407  0010          0010                    /FIELDS 0-1 ARE REQUIRED
+1531 005410  4200          BTVOL+NOREL             /VOLUME FLAGS
+1532               
+1533 005411  0000          ZBLOCK  10              /ENTRY FOR OS/8 #2
+     005412  0000  
+     005413  0000  
+     005414  0000  
+     005415  0000  
+     005416  0000  
+     005417  0000  
+     005420  0000  
+1534               
+1535 005421  2021          TEXT    "PQSVOLUME1"    /VOLUME NAME
+     005422  2326  
+     005423  1714  
+     005424  2515  
+     005425  0561  
+     005426  0000  
+1536 005427  0322          PQ1E-PQ1B               /VOLUME SIZE
+1537 005430  0000          0000                    /FIELD ZERO IS GOOD ENOUGH
+1538 005431  0000          0000                    /VOLUME FLAGS
+1539               
+1540 005432  0000          ZBLOCK  10              /ENTRY FOR P?S/8 #2
+     005433  0000  
+     005434  0000  
+     005435  0000  
+     005436  0000  
+     005437  0000  
+     005440  0000  
+     005441  0000  
+1541               
+1542 005442  0000          ZBLOCK  10              /ENTRY FOR COS-310
+     005443  0000  
+     005444  0000  
+     005445  0000  
+     005446  0000  
+     005447  0000  
+     005450  0000  
+     005451  0000  
+1543               
+1544 005452  0000          ZBLOCK  10              /ENTRY FOR WPS-8
+     005453  0000  
+     005454  0000  
+     005455  0000  
+     005456  0000  
+     005457  0000  
+     005460  0000  
+     005461  0000  
+1545               
+1546 005462  0000          ZBLOCK  10              /ENTRY FOR RESERVED OS (06)
+     005463  0000  
+     005464  0000  
+     005465  0000  
+     005466  0000  
+     005467  0000  
+     005470  0000  
+     005471  0000  
+1547               
+1548 005472  0000          ZBLOCK  10              /RESERVED ENTRY (07)
+     005473  0000  
+     005474  0000  
+     005475  0000  
+     005476  0000  
+     005477  0000  
+     005500  0000  
+     005501  0000  
+1549               
+1550 005502  0000          ZBLOCK  10              /RESERVED ENTRY (10)
+     005503  0000  
+     005504  0000  
+     005505  0000  
+     005506  0000  
+     005507  0000  
+     005510  0000  
+     005511  0000  
+1551               
+1552 005512  0000          ZBLOCK  10              /RESERVED ENTRY (11)
+     005513  0000  
+     005514  0000  
+     005515  0000  
+     005516  0000  
+     005517  0000  
+     005520  0000  
+     005521  0000  
+1553               
+1554 005522  0000          ZBLOCK  10              /RESERVED ENTRY (12)
+     005523  0000  
+     005524  0000  
+     005525  0000  
+     005526  0000  
+     005527  0000  
+     005530  0000  
+     005531  0000  
+1555               
+1556 005532  0000          ZBLOCK  10              /RESERVED ENTRY (13)
+     005533  0000  
+     005534  0000  
+     005535  0000  
+     005536  0000  
+     005537  0000  
+     005540  0000  
+     005541  0000  
+1557               
+1558 005542  0000          ZBLOCK  10              /RESERVED ENTRY (14)
+     005543  0000  
+     005544  0000  
+     005545  0000  
+     005546  0000  
+     005547  0000  
+     005550  0000  
+     005551  0000  
+1559               
+1560 005552  0000          ZBLOCK  10              /RESERVED ENTRY (15)
+     005553  0000  
+     005554  0000  
+     005555  0000  
+     005556  0000  
+     005557  0000  
+     005560  0000  
+     005561  0000  
+1561               
+1562 005562  0000          ZBLOCK  10              /RESERVED ENTRY (16)
+     005563  0000  
+     005564  0000  
+     005565  0000  
+     005566  0000  
+     005567  0000  
+     005570  0000  
+     005571  0000  
+1563               
+1564 005572  0000          ZBLOCK  10              /RESERVED ENTRY (17)
+     005573  0000  
+     005574  0000  
+     005575  0000  
+     005576  0000  
+     005577  0000  
+     005600  0000  
+     005601  0000  
+1565 005602  0000         ZBLOCK  10              /RESERVED ENTRY (20)
+     005603  0000  
+     005604  0000  
+     005605  0000  
+     005606  0000  
+     005607  0000  
+     005610  0000  
+     005611  0000  
+1566               
+1567 005612  0000          ZBLOCK  10              /RESERVED ENTRY (21)
+     005613  0000  
+     005614  0000  
+     005615  0000  
+     005616  0000  
+     005617  0000  
+     005620  0000  
+     005621  0000  
+1568               
+1569 005622  0000          ZBLOCK  10              /RESERVED ENTRY (22)
+     005623  0000  
+     005624  0000  
+     005625  0000  
+     005626  0000  
+     005627  0000  
+     005630  0000  
+     005631  0000  
+1570               
+1571 005632  0000          ZBLOCK  10              /RESERVED ENTRY (23)
+     005633  0000  
+     005634  0000  
+     005635  0000  
+     005636  0000  
+     005637  0000  
+     005640  0000  
+     005641  0000  
+1572               
+1573 005642  0000          ZBLOCK  10              /RESERVED ENTRY (24)
+     005643  0000  
+     005644  0000  
+     005645  0000  
+     005646  0000  
+     005647  0000  
+     005650  0000  
+     005651  0000  
+1574               
+1575 005652  0000          ZBLOCK  10              /RESERVED ENTRY (25)
+     005653  0000  
+     005654  0000  
+     005655  0000  
+     005656  0000  
+     005657  0000  
+     005660  0000  
+     005661  0000  
+1576               
+1577 005662  0000          ZBLOCK  10              /RESERVED ENTRY (26)
+     005663  0000  
+     005664  0000  
+     005665  0000  
+     005666  0000  
+     005667  0000  
+     005670  0000  
+     005671  0000  
+1578               
+1579 005672  0000          ZBLOCK  10              /RESERVED ENTRY (27)
+     005673  0000  
+     005674  0000  
+     005675  0000  
+     005676  0000  
+     005677  0000  
+     005700  0000  
+     005701  0000  
+1580               
+1581 005702  0000          ZBLOCK  10              /RESERVED ENTRY (30)
+     005703  0000  
+     005704  0000  
+     005705  0000  
+     005706  0000  
+     005707  0000  
+     005710  0000  
+     005711  0000  
+1582               
+1583 005712  0000          ZBLOCK  10              /RESERVED ENTRY (31)
+     005713  0000  
+     005714  0000  
+     005715  0000  
+     005716  0000  
+     005717  0000  
+     005720  0000  
+     005721  0000  
+1584               
+1585 005722  0000          ZBLOCK  10              /RESERVED ENTRY (32)
+     005723  0000  
+     005724  0000  
+     005725  0000  
+     005726  0000  
+     005727  0000  
+     005730  0000  
+     005731  0000  
+1586               
+1587 005732  0000          ZBLOCK  10              /RESERVED ENTRY (33)
+     005733  0000  
+     005734  0000  
+     005735  0000  
+     005736  0000  
+     005737  0000  
+     005740  0000  
+     005741  0000  
+1588               
+1589 005742  0000          ZBLOCK  10              /RESERVED ENTRY (34)
+     005743  0000  
+     005744  0000  
+     005745  0000  
+     005746  0000  
+     005747  0000  
+     005750  0000  
+     005751  0000  
+1590               
+1591 005752  0000          ZBLOCK  10              /RESERVED ENTRY (35)
+     005753  0000  
+     005754  0000  
+     005755  0000  
+     005756  0000  
+     005757  0000  
+     005760  0000  
+     005761  0000  
+1592               
+1593 005762  0000          ZBLOCK  10              /RESERVED ENTRY (36)
+     005763  0000  
+     005764  0000  
+     005765  0000  
+     005766  0000  
+     005767  0000  
+     005770  0000  
+     005771  0000  
+1594               
+1595 005772  1505          TEXT    "MENUVOLUME"    /VOLUME NAME
+     005773  1625  
+     005774  2617  
+     005775  1425  
+     005776  1505  
+     005777  0000  
+1596 006000  0001          1                       /VOLUME SIZE
+1597 006001  0000          0000                    /FIELD ZERO IS GOOD ENOUGH
+1598 006002  2100          RO+MENUBT               /VOLUME FLAGS
+1599               /      AUXILIARY DEVICE HANDLER CODE.
+1600               
+1601               /       THE FOLLOWING FOUR PAGES ARE  RESERVED  FOR  THE  ADH  CODE WHICH AUGMENTS THE
+1602               /       SYSTEM LOADER ROUTINES.  IT WILL  BE RESIDENT AFTER THE SYSTEM LOADER READS IN
+1603               /       THE ENTIRE PRIMARY CONTROL PROGRAM.
+1604               
+1605                       *EXTEND                 /DEFINE ADH STARTING ADDRESS
+1606               
+1607               /       COMES HERE TO ESTABLISH WHICH EXTENDED UNIT  IS  BEING  ADDRESSED  WITH THE AC
+1608               /       CONTAINING THE EXTENDED UNIT BITS.
+1609               
+1610 006000  3226  EXTEND, DCA     EXTEMP          /SAVE EXTENDED UNIT BITS
+1611 006001  6214          RDF                     /GET CALLING FIELD
+1612 006002  1377          TAD     (CDF)           /FORM CDF CALLING FIELD
+1613 006003  3207          DCA     CDFCALLER       /SAVE IN-LINE FOR LATER
+1614 006004  6201          CDF     PRGFLD          /GOTO OUR FIELD
+1615 006005  1533          TAD I   [SYSIO]         /GET CALLER'S ADDRESS
+1616 006006  3225          DCA     EXSYSIO         /STASH IT
+1617 006007  0000  CDFCALL,.-.                     /WILL BE CDF CALLING FIELD
+1618               
+1619               /       BEFORE  HANDLING  EXTENDED  DEVICES,  CHECK  FOR  ILLEGAL UNITS  IN  OTHERWISE
+1620               /       STANDARD CALLS.
+1621               
+1622 006010  1226          TAD     EXTEMP          /GET EXTENDED UNIT BITS
+1623 006011  0376          AND     (7700)          /JUST ACTUAL EXTENDED BITS
+1624 006012  7650          SNA CLA                 /SKIP IF ANY SET
+1625 006013  5215          JMP     BADUNIT         /JUMP IF NORMAL CALL, BUT PROBLEM UNIT
+1626               
+1627               /       CUSTOMIZE  ADH CODE HERE FOR EXTENDED DEVICE SUPPORT.   THE  STANDARD  VERSION
+1628               /       TAKES THE ERROR RETURN SINCE NO EXTENDED DEVICES ARE SUPPORTED.
+1629               
+1630 006014  5215          JMP     BADUNIT         /JUST COMPLAIN THERE
+1631               
+1632               /       COMES HERE TO COMPLAIN ABOUT BAD UNITS.
+1633               
+1634 006015  6201  BADUNIT,CDF     PRGFLD          /GOTO OUR FIELD
+1635 006016  2533          ISZ I   [SYSIO]         /BUMP TO LOW-ORDER BLOCK
+1636 006017  2533          ISZ I   [SYSIO]         /BUMP TO HIGH-ORDER BLOCK
+1637 006020  2533          ISZ I   [SYSIO]         /BUMP TO ERROR RETURN
+1638 006021  1207          TAD     CDFCALLER       /GET CDF CALLING FIELD
+1639 006022  3223          DCA     .+1             /STORE IN-LINE
+1640 006023  0000          .-.                     /WILL BE CDF CALLING FIELD
+1641 006024  5775          JMP I   (SRETURN)       /TAKE ERROR RETURN THERE
+1642               
+1643 006025  0000  EXSYSIO,.-.                     /CALLING ADDRESS STORED HERE
+1644 006026  0000  EXTEMP, .-.                     /EXTENDED UNIT BITS STORED HERE
+1645 006175  7755         PAGE
+     006176  7700  
+     006177  6201  
+1646               
+1647 006200  0000          ZBLOCK  4^200+EXTEND-.  /DEFINE REST OF ADH AREA
+     006201  0000  
+     006202  0000  
+     006203  0000  
+     006204  0000  
+     006205  0000  
+     006206  0000  
+     006207  0000  
+     006210  0000  
+     006211  0000  
+     006212  0000  
+     006213  0000  
+     006214  0000  
+     006215  0000  
+     006216  0000  
+     006217  0000  
+     006220  0000  
+     006221  0000  
+     006222  0000  
+     006223  0000  
+     006224  0000  
+     006225  0000  
+     006226  0000  
+     006227  0000  
+     006230  0000  
+     006231  0000  
+     006232  0000  
+     006233  0000  
+     006234  0000  
+     006235  0000  
+     006236  0000  
+     006237  0000  
+     006240  0000  
+     006241  0000  
+     006242  0000  
+     006243  0000  
+     006244  0000  
+     006245  0000  
+     006246  0000  
+     006247  0000  
+     006250  0000  
+     006251  0000  
+     006252  0000  
+     006253  0000  
+     006254  0000  
+     006255  0000  
+     006256  0000  
+     006257  0000  
+     006260  0000  
+     006261  0000  
+     006262  0000  
+     006263  0000  
+     006264  0000  
+     006265  0000  
+     006266  0000  
+     006267  0000  
+     006270  0000  
+     006271  0000  
+     006272  0000  
+     006273  0000  
+     006274  0000  
+     006275  0000  
+     006276  0000  
+     006277  0000  
+     006300  0000  
+     006301  0000  
+     006302  0000  
+     006303  0000  
+     006304  0000  
+     006305  0000  
+     006306  0000  
+     006307  0000  
+     006310  0000  
+     006311  0000  
+     006312  0000  
+     006313  0000  
+     006314  0000  
+     006315  0000  
+     006316  0000  
+     006317  0000  
+     006320  0000  
+     006321  0000  
+     006322  0000  
+     006323  0000  
+     006324  0000  
+     006325  0000  
+     006326  0000  
+     006327  0000  
+     006330  0000  
+     006331  0000  
+     006332  0000  
+     006333  0000  
+     006334  0000  
+     006335  0000  
+     006336  0000  
+     006337  0000  
+     006340  0000  
+     006341  0000  
+     006342  0000  
+     006343  0000  
+     006344  0000  
+     006345  0000  
+     006346  0000  
+     006347  0000  
+     006350  0000  
+     006351  0000  
+     006352  0000  
+     006353  0000  
+     006354  0000  
+     006355  0000  
+     006356  0000  
+     006357  0000  
+     006360  0000  
+     006361  0000  
+     006362  0000  
+     006363  0000  
+     006364  0000  
+     006365  0000  
+     006366  0000  
+     006367  0000  
+     006370  0000  
+     006371  0000  
+     006372  0000  
+     006373  0000  
+     006374  0000  
+     006375  0000  
+     006376  0000  
+     006377  0000  
+     006400  0000  
+     006401  0000  
+     006402  0000  
+     006403  0000  
+     006404  0000  
+     006405  0000  
+     006406  0000  
+     006407  0000  
+     006410  0000  
+     006411  0000  
+     006412  0000  
+     006413  0000  
+     006414  0000  
+     006415  0000  
+     006416  0000  
+     006417  0000  
+     006420  0000  
+     006421  0000  
+     006422  0000  
+     006423  0000  
+     006424  0000  
+     006425  0000  
+     006426  0000  
+     006427  0000  
+     006430  0000  
+     006431  0000  
+     006432  0000  
+     006433  0000  
+     006434  0000  
+     006435  0000  
+     006436  0000  
+     006437  0000  
+     006440  0000  
+     006441  0000  
+     006442  0000  
+     006443  0000  
+     006444  0000  
+     006445  0000  
+     006446  0000  
+     006447  0000  
+     006450  0000  
+     006451  0000  
+     006452  0000  
+     006453  0000  
+     006454  0000  
+     006455  0000  
+     006456  0000  
+     006457  0000  
+     006460  0000  
+     006461  0000  
+     006462  0000  
+     006463  0000  
+     006464  0000  
+     006465  0000  
+     006466  0000  
+     006467  0000  
+     006470  0000  
+     006471  0000  
+     006472  0000  
+     006473  0000  
+     006474  0000  
+     006475  0000  
+     006476  0000  
+     006477  0000  
+     006500  0000  
+     006501  0000  
+     006502  0000  
+     006503  0000  
+     006504  0000  
+     006505  0000  
+     006506  0000  
+     006507  0000  
+     006510  0000  
+     006511  0000  
+     006512  0000  
+     006513  0000  
+     006514  0000  
+     006515  0000  
+     006516  0000  
+     006517  0000  
+     006520  0000  
+     006521  0000  
+     006522  0000  
+     006523  0000  
+     006524  0000  
+     006525  0000  
+     006526  0000  
+     006527  0000  
+     006530  0000  
+     006531  0000  
+     006532  0000  
+     006533  0000  
+     006534  0000  
+     006535  0000  
+     006536  0000  
+     006537  0000  
+     006540  0000  
+     006541  0000  
+     006542  0000  
+     006543  0000  
+     006544  0000  
+     006545  0000  
+     006546  0000  
+     006547  0000  
+     006550  0000  
+     006551  0000  
+     006552  0000  
+     006553  0000  
+     006554  0000  
+     006555  0000  
+     006556  0000  
+     006557  0000  
+     006560  0000  
+     006561  0000  
+     006562  0000  
+     006563  0000  
+     006564  0000  
+     006565  0000  
+     006566  0000  
+     006567  0000  
+     006570  0000  
+     006571  0000  
+     006572  0000  
+     006573  0000  
+     006574  0000  
+     006575  0000  
+     006576  0000  
+     006577  0000  
+     006600  0000  
+     006601  0000  
+     006602  0000  
+     006603  0000  
+     006604  0000  
+     006605  0000  
+     006606  0000  
+     006607  0000  
+     006610  0000  
+     006611  0000  
+     006612  0000  
+     006613  0000  
+     006614  0000  
+     006615  0000  
+     006616  0000  
+     006617  0000  
+     006620  0000  
+     006621  0000  
+     006622  0000  
+     006623  0000  
+     006624  0000  
+     006625  0000  
+     006626  0000  
+     006627  0000  
+     006630  0000  
+     006631  0000  
+     006632  0000  
+     006633  0000  
+     006634  0000  
+     006635  0000  
+     006636  0000  
+     006637  0000  
+     006640  0000  
+     006641  0000  
+     006642  0000  
+     006643  0000  
+     006644  0000  
+     006645  0000  
+     006646  0000  
+     006647  0000  
+     006650  0000  
+     006651  0000  
+     006652  0000  
+     006653  0000  
+     006654  0000  
+     006655  0000  
+     006656  0000  
+     006657  0000  
+     006660  0000  
+     006661  0000  
+     006662  0000  
+     006663  0000  
+     006664  0000  
+     006665  0000  
+     006666  0000  
+     006667  0000  
+     006670  0000  
+     006671  0000  
+     006672  0000  
+     006673  0000  
+     006674  0000  
+     006675  0000  
+     006676  0000  
+     006677  0000  
+     006700  0000  
+     006701  0000  
+     006702  0000  
+     006703  0000  
+     006704  0000  
+     006705  0000  
+     006706  0000  
+     006707  0000  
+     006710  0000  
+     006711  0000  
+     006712  0000  
+     006713  0000  
+     006714  0000  
+     006715  0000  
+     006716  0000  
+     006717  0000  
+     006720  0000  
+     006721  0000  
+     006722  0000  
+     006723  0000  
+     006724  0000  
+     006725  0000  
+     006726  0000  
+     006727  0000  
+     006730  0000  
+     006731  0000  
+     006732  0000  
+     006733  0000  
+     006734  0000  
+     006735  0000  
+     006736  0000  
+     006737  0000  
+     006740  0000  
+     006741  0000  
+     006742  0000  
+     006743  0000  
+     006744  0000  
+     006745  0000  
+     006746  0000  
+     006747  0000  
+     006750  0000  
+     006751  0000  
+     006752  0000  
+     006753  0000  
+     006754  0000  
+     006755  0000  
+     006756  0000  
+     006757  0000  
+     006760  0000  
+     006761  0000  
+     006762  0000  
+     006763  0000  
+     006764  0000  
+     006765  0000  
+     006766  0000  
+     006767  0000  
+     006770  0000  
+     006771  0000  
+     006772  0000  
+     006773  0000  
+     006774  0000  
+     006775  0000  
+     006776  0000  
+     006777  0000  
+1648               
+1649                       EXTFIN= .               /END OF ADH AREA
+1650               /      DISK DEFECT TABLE.
+1651               
+1652                       *DDTADR                 /SET TABLE ORIGIN
+1653               
+1654 007000  0000          ZBLOCK  2^200+DDTADR-.  /TABLE SPACE
+     007001  0000  
+     007002  0000  
+     007003  0000  
+     007004  0000  
+     007005  0000  
+     007006  0000  
+     007007  0000  
+     007010  0000  
+     007011  0000  
+     007012  0000  
+     007013  0000  
+     007014  0000  
+     007015  0000  
+     007016  0000  
+     007017  0000  
+     007020  0000  
+     007021  0000  
+     007022  0000  
+     007023  0000  
+     007024  0000  
+     007025  0000  
+     007026  0000  
+     007027  0000  
+     007030  0000  
+     007031  0000  
+     007032  0000  
+     007033  0000  
+     007034  0000  
+     007035  0000  
+     007036  0000  
+     007037  0000  
+     007040  0000  
+     007041  0000  
+     007042  0000  
+     007043  0000  
+     007044  0000  
+     007045  0000  
+     007046  0000  
+     007047  0000  
+     007050  0000  
+     007051  0000  
+     007052  0000  
+     007053  0000  
+     007054  0000  
+     007055  0000  
+     007056  0000  
+     007057  0000  
+     007060  0000  
+     007061  0000  
+     007062  0000  
+     007063  0000  
+     007064  0000  
+     007065  0000  
+     007066  0000  
+     007067  0000  
+     007070  0000  
+     007071  0000  
+     007072  0000  
+     007073  0000  
+     007074  0000  
+     007075  0000  
+     007076  0000  
+     007077  0000  
+     007100  0000  
+     007101  0000  
+     007102  0000  
+     007103  0000  
+     007104  0000  
+     007105  0000  
+     007106  0000  
+     007107  0000  
+     007110  0000  
+     007111  0000  
+     007112  0000  
+     007113  0000  
+     007114  0000  
+     007115  0000  
+     007116  0000  
+     007117  0000  
+     007120  0000  
+     007121  0000  
+     007122  0000  
+     007123  0000  
+     007124  0000  
+     007125  0000  
+     007126  0000  
+     007127  0000  
+     007130  0000  
+     007131  0000  
+     007132  0000  
+     007133  0000  
+     007134  0000  
+     007135  0000  
+     007136  0000  
+     007137  0000  
+     007140  0000  
+     007141  0000  
+     007142  0000  
+     007143  0000  
+     007144  0000  
+     007145  0000  
+     007146  0000  
+     007147  0000  
+     007150  0000  
+     007151  0000  
+     007152  0000  
+     007153  0000  
+     007154  0000  
+     007155  0000  
+     007156  0000  
+     007157  0000  
+     007160  0000  
+     007161  0000  
+     007162  0000  
+     007163  0000  
+     007164  0000  
+     007165  0000  
+     007166  0000  
+     007167  0000  
+     007170  0000  
+     007171  0000  
+     007172  0000  
+     007173  0000  
+     007174  0000  
+     007175  0000  
+     007176  0000  
+     007177  0000  
+     007200  0000  
+     007201  0000  
+     007202  0000  
+     007203  0000  
+     007204  0000  
+     007205  0000  
+     007206  0000  
+     007207  0000  
+     007210  0000  
+     007211  0000  
+     007212  0000  
+     007213  0000  
+     007214  0000  
+     007215  0000  
+     007216  0000  
+     007217  0000  
+     007220  0000  
+     007221  0000  
+     007222  0000  
+     007223  0000  
+     007224  0000  
+     007225  0000  
+     007226  0000  
+     007227  0000  
+     007230  0000  
+     007231  0000  
+     007232  0000  
+     007233  0000  
+     007234  0000  
+     007235  0000  
+     007236  0000  
+     007237  0000  
+     007240  0000  
+     007241  0000  
+     007242  0000  
+     007243  0000  
+     007244  0000  
+     007245  0000  
+     007246  0000  
+     007247  0000  
+     007250  0000  
+     007251  0000  
+     007252  0000  
+     007253  0000  
+     007254  0000  
+     007255  0000  
+     007256  0000  
+     007257  0000  
+     007260  0000  
+     007261  0000  
+     007262  0000  
+     007263  0000  
+     007264  0000  
+     007265  0000  
+     007266  0000  
+     007267  0000  
+     007270  0000  
+     007271  0000  
+     007272  0000  
+     007273  0000  
+     007274  0000  
+     007275  0000  
+     007276  0000  
+     007277  0000  
+     007300  0000  
+     007301  0000  
+     007302  0000  
+     007303  0000  
+     007304  0000  
+     007305  0000  
+     007306  0000  
+     007307  0000  
+     007310  0000  
+     007311  0000  
+     007312  0000  
+     007313  0000  
+     007314  0000  
+     007315  0000  
+     007316  0000  
+     007317  0000  
+     007320  0000  
+     007321  0000  
+     007322  0000  
+     007323  0000  
+     007324  0000  
+     007325  0000  
+     007326  0000  
+     007327  0000  
+     007330  0000  
+     007331  0000  
+     007332  0000  
+     007333  0000  
+     007334  0000  
+     007335  0000  
+     007336  0000  
+     007337  0000  
+     007340  0000  
+     007341  0000  
+     007342  0000  
+     007343  0000  
+     007344  0000  
+     007345  0000  
+     007346  0000  
+     007347  0000  
+     007350  0000  
+     007351  0000  
+     007352  0000  
+     007353  0000  
+     007354  0000  
+     007355  0000  
+     007356  0000  
+     007357  0000  
+     007360  0000  
+     007361  0000  
+     007362  0000  
+     007363  0000  
+     007364  0000  
+     007365  0000  
+     007366  0000  
+     007367  0000  
+     007370  0000  
+     007371  0000  
+     007372  0000  
+     007373  0000  
+     007374  0000  
+     007375  0000  
+     007376  0000  
+     007377  0000  
+1655               
+1656                       DDTEND= .               /END OF DISK DEFECT TABLE
+1657               /      GEOMETRY TABLE.
+1658               
+1659                       *GTADDR                 /SET TABLE ORIGIN
+1660               
+1661 007400  3425  DRBA,   DEFBASE;0               /BASE TRACK ADDRESS OF DEFECT ALTERNATE AREA
+     007401  0000  
+1662 007402  0006  HD,     HEADS                   /NUMBER OF HEADS/CYLINDER
+1663 007403  0027  RC,     REPCNT;0                /COUNT OF VALID ENTRIES IN DDT
+     007404  0000  
+1664 007405  0041  TF,     TSIZE                   /TSIZE SECTORS/TRACK
+1665 007406  0462  TR,     TRACKS;0                /NUMBER OF CYLINDERS/DISK
+     007407  0000  
+1666               
+1667 007410  0000          ZBLOCK  GTADDR+177-.    /CLEAR REST OF TABLE
+     007411  0000  
+     007412  0000  
+     007413  0000  
+     007414  0000  
+     007415  0000  
+     007416  0000  
+     007417  0000  
+     007420  0000  
+     007421  0000  
+     007422  0000  
+     007423  0000  
+     007424  0000  
+     007425  0000  
+     007426  0000  
+     007427  0000  
+     007430  0000  
+     007431  0000  
+     007432  0000  
+     007433  0000  
+     007434  0000  
+     007435  0000  
+     007436  0000  
+     007437  0000  
+     007440  0000  
+     007441  0000  
+     007442  0000  
+     007443  0000  
+     007444  0000  
+     007445  0000  
+     007446  0000  
+     007447  0000  
+     007450  0000  
+     007451  0000  
+     007452  0000  
+     007453  0000  
+     007454  0000  
+     007455  0000  
+     007456  0000  
+     007457  0000  
+     007460  0000  
+     007461  0000  
+     007462  0000  
+     007463  0000  
+     007464  0000  
+     007465  0000  
+     007466  0000  
+     007467  0000  
+     007470  0000  
+     007471  0000  
+     007472  0000  
+     007473  0000  
+     007474  0000  
+     007475  0000  
+     007476  0000  
+     007477  0000  
+     007500  0000  
+     007501  0000  
+     007502  0000  
+     007503  0000  
+     007504  0000  
+     007505  0000  
+     007506  0000  
+     007507  0000  
+     007510  0000  
+     007511  0000  
+     007512  0000  
+     007513  0000  
+     007514  0000  
+     007515  0000  
+     007516  0000  
+     007517  0000  
+     007520  0000  
+     007521  0000  
+     007522  0000  
+     007523  0000  
+     007524  0000  
+     007525  0000  
+     007526  0000  
+     007527  0000  
+     007530  0000  
+     007531  0000  
+     007532  0000  
+     007533  0000  
+     007534  0000  
+     007535  0000  
+     007536  0000  
+     007537  0000  
+     007540  0000  
+     007541  0000  
+     007542  0000  
+     007543  0000  
+     007544  0000  
+     007545  0000  
+     007546  0000  
+     007547  0000  
+     007550  0000  
+     007551  0000  
+     007552  0000  
+     007553  0000  
+     007554  0000  
+     007555  0000  
+     007556  0000  
+     007557  0000  
+     007560  0000  
+     007561  0000  
+     007562  0000  
+     007563  0000  
+     007564  0000  
+     007565  0000  
+     007566  0000  
+     007567  0000  
+     007570  0000  
+     007571  0000  
+     007572  0000  
+     007573  0000  
+     007574  0000  
+     007575  0000  
+     007576  0000  
+1668               
+1669 007577  0000  GTSUM,  .-.                     /WILL BE CHECKSUM OF ALL OTHER GT WORDS
+1670               
+1671                       GTEND=  .               /END OF GEOMETRY TABLE
+1672 000133  7640         FIELD   PRGFLD%10       /DUMP PAGE ZERO LITERALS NOW
+     000134  6201  
+     000135  0007  
+     000136  3000  
+     000137  0015  
+     000140  7600  
+     000141  0077  
+     000142  1456  
+     000143  3150  
+     000144  0012  
+     000145  7740  
+     000146  0140  
+     000147  7771  
+     000150  0004  
+     000151  1070  
+     000152  5400  
+     000153  1424  
+     000154  7770  
+     000155  3400  
+     000156  0177  
+     000157  3067  
+     000160  1000  
+     000161  1153  
+     000162  7741  
+     000163  0037  
+     000164  0040  
+     000165  4377  
+     000166  7000  
+     000167  1417  
+     000170  1400  
+     000171  3060  
+     000172  3076  
+     000173  3251  
+     000174  3223  
+     000175  3244  
+     000176  3314  
+     000177  3200  
+1673               /      MENU UTILITY VOLUME.
+1674               
+1675                       FIELD   MNGFLD%10       /SET GENERATION FIELD
+1676               
+1677                       *0000                   /START AT THE BEGINNING
+1678               
+1679                       MENLOAD=.               /MENU UTILITY VOLUME LOADS HERE
+1680               
+1681                       NOPUNCH                 /FOOL THE ASSEMBLER
+1682               
+1683                       FIELD   PRGFLD%10       /INDICATE EXECUTION FIELD
+1684               
+1685                       *MENLOAD                /INDICATE EXECUTION ADDRESS
+1686               
+1687                       ENPUNCH                 /UN-FOOL THE ASSEMBLER
+1688               
+1689 000000  0000  MENLOAD,ZBLOCK  25-.            /EMPTRY SPACE
+     000001  0000  
+     000002  0000  
+     000003  0000  
+     000004  0000  
+     000005  0000  
+     000006  0000  
+     000007  0000  
+     000010  0000  
+     000011  0000  
+     000012  0000  
+     000013  0000  
+     000014  0000  
+     000015  0000  
+     000016  0000  
+     000017  0000  
+     000020  0000  
+     000021  0000  
+     000022  0000  
+     000023  0000  
+     000024  0000  
+1690               
+1691 000025  1435  BJ25,   TAD I   MPTR            /GET A WORD
+1692                       JMS I   (P7OUT)         /PRINT IT
+page zero       	     	^
+page zero       	     	^
+     000026  4577  
+1693 000027  1435          TAD I   MPTR            /GET IT AGAIN
+1694 000030  2035          ISZ     MPTR            /BUMP TO NEXT
+1695 000031  7640          SZA CLA                 /SKIP IF AT END
+1696 000032  5025          JMP     BJ25            /ELSE KEEP GOING
+1697 000033  7402          HLT
+1698                       JMP I   (SBOOT)         /CONTINUE THERE
+page zero       	     	^
+page zero       	     	^
+     000034  5576  
+1699 000035  0036  MPTR,  .+1                     /MESSAGE POINTER
+1700               
+1701 000036  0015          "M&37;"J&37;"M&37;"J&37
+     000037  0012  
+     000040  0015  
+     000041  0012  
+1702 000042  0315          "M;"E+40;"N+40;"U+40;" ;"U;"T+40;"I+40;"L+40;"I+40;"T+40;"Y+40
+     000043  0345  
+     000044  0356  
+     000045  0365  
+     000046  0240  
+     000047  0325  
+     000050  0364  
+     000051  0351  
+     000052  0354  
+     000053  0351  
+     000054  0364  
+     000055  0371  
+1703 000056  0240          " ;"N;"O+40;"T+40
+     000057  0316  
+     000060  0357  
+     000061  0364  
+1704 000062  0240          " ;"I;"M+40;"P+40;"L+40;"E+40;"M+40;"E+40;"N+40;"T+40;"E+40;"D+40
+     000063  0311  
+     000064  0355  
+     000065  0360  
+     000066  0354  
+     000067  0345  
+     000070  0355  
+     000071  0345  
+     000072  0356  
+     000073  0364  
+     000074  0345  
+     000075  0344  
+1705 000076  0240          " ;"Y;"E+40;"T+40;"!
+     000077  0331  
+     000100  0345  
+     000101  0364  
+     000102  0241  
+1706 000103  0015          "M&37;"J&37;"M&37;"J&37;0
+     000104  0012  
+     000105  0015  
+     000106  0012  
+     000107  0000  
+1707               
+1708 000176  7600          FIELD   MNGFLD%10       /DUMP LITERALS NOW
+     000177  3014  
+1709               /      SYSTEM LOADER AND PRIMARY I/O ROUTINES.
+1710               
+1711               /       THIS IS THE CONTENTS OF ABSOLUTE BLOCK ZERO.  IT IS LOADED IN  BY  THE PRIMARY
+1712               /       BOOTSTRAP  VIA EITHER A PROGRAM WHICH WAITS AT 24 (JMP 24) OR LOADS THIS  CODE
+1713               /       AND THEN JUMPS TO 25 AFTER THE I/O IS COMPLETE.
+1714               
+1715                       FIELD   GENFLD%10               /SET GENERATION FIELD
+1716               
+1717                       *GENADR                         /SET GENERATION ADDRESS
+1718               
+1719                       NOPUNCH                         /FOOL THE ASSEMBLER
+1720               
+1721                       FIELD   PRGFLD%10               /INDICATE EXECUTION FIELD
+1722               
+1723                       *SBOOT                          /INDICATE EXECUTION ADDRESS
+1724               
+1725                       ENPUNCH                         /UN-FOOL THE ASSEMBLER
+1726               
+1727 007600  4240  SBOOT,  JMS     SYSIO                   /CALL I/O ROUTINES TO RELOAD CONTROL PROGRAM
+1728 007601  0000          0000                            /TRANSFER ADDRESS
+1729 007602  3700  S3700,  37^100                          /READ 37 PAGES INTO FIELD 0
+1730 007603  0000  SBTUNIT,00^100+.-.                      /I/O UNIT; ID AND UNIT BITS WILL BE FILLED IN
+1731 007604  0001          0001                            /LOW-ORDER BLOCK
+1732 007605  0000          0000                            /HIGH-ORDER BLOCK
+1733 007606  5200          JMP     SBOOT                   /TRY AGAIN ON ERROR
+1734 007607  5610          JMP I   STARTIT                 /GO START IT UP
+1735               
+1736 007610  0200  STARTIT,STRTADR                         /STARTING ADDRESS OF CONTROL PROGRAM
+1737               
+1738               /       THE FOLLOWING WORDS ARE EXECUTED ON PAGE ZERO AT COLD BOOT TIME.
+1739               
+1740               /       THE FOLLOWING  LOCATION MUST BE AN AUTO-INDEX REGISTER WHEN THE CODE IS LOADED
+1741               /       INTO PAGE ZERO.
+1742               
+1743                       IFNZRO  .&170-10        <ERROR  .>
+1744 007611  7777  BFROM,  0000-1                          /=> WHERE CODE IS AT COLD BOOT TIME (AUTO-XR)
+1745               
+1746 007612  3024  BSTART, DCA     BJMP24&177              /STORE OVER HIGHEST AVAILABLE LOCATION
+1747 007613  6706          DSRS                            /GET STATUS NOW
+1748 007614  7510          SPA                             /SKIP IF NOT BUSY
+1749 007615  5013          JMP     .-2&177                 /ELSE WAIT FOR IT
+1750 007616  7440  S7440,  SZA                             /BETTER BE CLEAR; ALSO CONSTANT 7440
+1751 007617  7402          HLT                             /ELSE BARF
+1752 007620  5160          JMP     TABLE&177               /CONTINUE THERE
+1753               
+1754 007621  6000  SEXTEND,EXTEND                          /POINTER TO EXTENDED HANDLING ROUTINES
+1755 007622  4006  S4006,  4006                            /CONSTANT 4006
+1756 007623  7704  S7704,  7704                            /CONSTANT 7704
+1757               
+1758                       ZBLOCK  7624-.                  /EMPTY SPACE
+1759               
+1760               /       THE CODE IS STARTED HERE IF WE ARE LOADED BY DMA OVERLAY.
+1761               
+1762                       IFNZRO  .&177-24        <ERROR  .>
+1763 007624  5012  BJMP24, JMP     BSTART&177              /CONTINUE THERE
+1764               /      THE CODE IS STARTED HERE AFTER DMA IS COMPLETE IF NON-OVERLAY METHOD USED.
+1765               
+1766                       IFNZRO  .&177-25        <ERROR  .>
+1767 007625  3024  BJMP25, DCA     BJMP24&177              /STORE BOOTSTRAP UNIT BITS
+1768 007626  5160          JMP     TABLE&177               /CONTINUE THERE
+1769               
+1770               /       I/O WAIT ROUTINE.
+1771               
+1772 007627  1400  SWAIT,  1400                            /WAIT ROUTINE; INITIALIZED FOR COLD BOOTSTRAP
+1773 007630  6701          DSSF                            /FLAG UP?
+1774 007631  5230          JMP     .-1                     /NO, WAIT FOR IT
+1775 007632  6702          DSCF                            /YES, CLEAR IT
+1776 007633  6706          DSRS                            /GET STATUS NOW
+1777 007634  7104          CLL RAL                         /REMOVE BUSY BIT
+1778 007635  7650          SNA CLA                         /SKIP IF ANY ERRORS
+1779 007636  5627          JMP I   SWAIT                   /RETURN IF OK
+1780               
+1781               /       I/O FAILURE.
+1782               
+1783 007637  5355          JMP     SRETURN                 /TAKE ERROR RETURN THERE
+1784               
+1785                       ZBLOCK  7640-.                  /EMPTY SPACE
+1786               
+1787               /       THE I/O ROUTINES ARE ENTERED HERE.
+1788               
+1789                       IFNZRO  7640-.  <ERROR  .>
+1790 007640  7600  SYSIO,  SBOOT                           /I/O ENTRY POINT; INITIALIZED FOR COLD BOOT
+1791 007641  7760  S7760,  SMA SZA SNL CLA                 /THIS CLEARS THE AC; ALSO CONSTANT 7760
+1792 007642  0070  S70,    70                              /CONSTANT 0070; THIS CAN BE SKIPPED
+1793 007643  6214          RDF                             /GET CALLING FIELD
+1794 007644  1357          TAD     SCIF/(CIF)              /TURN INTO CIF CALLING FIELD
+1795 007645  3355          DCA     SRETURN                 /STORE IN-LINE
+1796 007646  1640          TAD I   SYSIO                   /GET TRANSFER ADDRESS
+1797 007647  3370          DCA     TRADDRESS               /STORE IN COMMAND
+1798 007650  2240          ISZ     SYSIO                   /BUMP TO NEXT
+1799 007651  7330          NL4000                          /SET READ/WRITE MASK
+1800 007652  0640          AND I   SYSIO                   /GET THE BIT
+1801 007653  7107          CLL IAC RTL;RAL                 /10 IF READING, 12 IF WRITING
+     007654  7004  
+1802 007655  3361          DCA     RWCOM                   /STORE IN COMMAND
+1803 007656  1640          TAD I   SYSIO                   /GET FUNCTION WORD
+1804 007657  0202          AND      S3700/(3700)           /JUST PAGE BITS
+1805 007660  7450          SNA                             /SKIP IF ANY
+1806 007661  7330          NL4000                          /ELSE USE MAXIMUM
+1807 007662  7002          BSW                             /MOVE DOWN
+1808 007663  3365          DCA     SCTCNT                  /STORE IN COMMAND
+1809 007664  1640          TAD I   SYSIO                   /GET FUNCTION WORD
+1810 007665  0242          AND     S70/(70)                /ISOLATE FIELD BITS
+1811 007666  7112          CLL RTR;RAR                     /MOVE DOWN
+     007667  7010  
+1812 007670  3367          DCA     TRFLD                   /STORE (BANK AND) FIELD IN COMMAND
+1813 007671  2240          ISZ     SYSIO                   /BUMP TO NEXT
+1814 007672  1640         TAD I   SYSIO                   /GET UNIT WORD
+1815 007673  0223          AND     S7704/(7704)            /JUST EXTENDED BITS
+1816 007674  7440          SZA                             /SKIP IF ALL CLEAR
+1817 007675  5621          JMP I   SEXTEND/(EXTEND)        /JUMP IF EXTENDED CALL
+1818 007676  1640          TAD I   SYSIO                   /GET UNIT WORD
+1819 007677  0242          AND     S70/(70)                /JUST ID BITS
+1820 007700  7002          BSW;RAR                         /MOVE UP
+     007701  7010  
+1821 007702  1222          TAD     S4006/(DMA!6)           /GET SKELETON VALUE
+1822 007703  3360          DCA     TABLE                   /STORE IN TABLE
+1823 007704  7325          NL0003                          /SET UNIT MASK
+1824 007705  0640          AND I   SYSIO                   /GET UNIT BITS
+1825 007706  7002          BSW;RAR                         /MOVE UP
+     007707  7010  
+1826 007710  3362          DCA     SECTHI                  /STORE FOR NOW
+1827 007711  2240          ISZ     SYSIO                   /BUMP TO NEXT
+1828 007712  1640          TAD I   SYSIO                   /GET LOW-ORDER BLOCK
+1829 007713  3364          DCA     SECTLO                  /STORE IN COMMAND
+1830 007714  1364          TAD     SECTLO                  /GET IT BACK
+1831 007715  0216          AND     S7440/(7400)            /JUST HIGH-ORDER BITS
+1832 007716  7002          BSW;RTR
+     007717  7012  
+1833 007720  3363          DCA     SECTMD                  /STORE FOR NOW
+1834 007721  2240          ISZ     SYSIO                   /BUMP TO NEXT
+1835 007722  1640          TAD I   SYSIO                   /GET HIGH-ORDER BLOCK
+1836 007723  7002          BSW                             /MOVE UP
+1837 007724  0202          AND     S3700/(1700)            /JUST LOW-ORDER BITS
+1838 007725  7112          CLL RTR                         /MOVE UP
+1839 007726  1363          TAD     SECTMD                  /GET OTHER BITS
+1840 007727  3363          DCA     SECTMD                  /STORE IN COMMAND
+1841 007730  1640          TAD I   SYSIO                   /GET HIGH-ORDER BLOCK
+1842 007731  7106          CLL RTL                         /MOVE UP
+1843 007732  0202          AND     S3700/(3700)            /JUST GROUP BITS
+1844 007733  7002          BSW                             /MOVE DOWN
+1845 007734  1362          TAD     SECTHI                  /GET UNIT BITS
+1846 007735  3362          DCA     SECTHI                  /STORE IN COMMAND
+1847 007736  2240          ISZ     SYSIO                   /BUMP TO ERROR RETURN
+1848 007737  6706          DSRS                            /GET STATUS NOW
+1849 007740  7710          SPA CLA                         /SKIP IF IDLE
+1850 007741  5337          JMP     .-2                     /ELSE WAIT FOR IT
+1851 007742  6703          DSHI                            /SEND HIGH-ORDER COMMAND ADDRESS
+1852 007743  6706          DSRS                            /GET STATUS
+1853 007744  7700          SMA CLA                         /SKIP IF NOW BUSY
+1854 007745  5343          JMP     .-2                     /ELSE WAIT FOR IT
+1855 007746  6702          DSCF                            /CLEAR FLAG NOW
+1856 007747  1241          TAD     S7760/(TABLE)           /POINT TO OUR COMMAND
+1857 007750  6704          DSGO                            /GO START IT UP
+1858 007751  4227          JMS     SWAIT                   /WAIT FOR COMMAND TO TAKE
+1859 007752  6707          DSIM                            /FINISH THE COMMAND
+1860 007753  4227          JMS     SWAIT                   /WAIT FOR COMMAND TO COMPLETE
+1861 007754  2240          ISZ     SYSIO                   /BUMP TO GOOD RETURN
+1862 007755  0000  SRETURN,.-.                             /WILL BE CIF RETURN FIELD INSTRUCTION
+1863 007756  5640          JMP I   SYSIO                   /RETURN TO CALLER
+1864               
+1865 007757  6202  SCIF,   CIF     00                      /CONSTANT 6202
+1866               /      COMES HERE  TO  CONTINUE  COLD  BOOT INITIALIZATION AFTER DMA IS COMPLETED VIA
+1867               /       EITHER METHOD (EXECUTED ON PAGE ZERO).
+1868               
+1869 007760  7600  TABLE,  7600                            /CLEAN UP; ALSO MOVE POINTER AND COUNTER
+1870 007761  1024          TAD     BJMP24&177              /GET PASSED UNIT BITS
+1871 007762  0027          AND     SWAIT&177/[1400]        /JUST DRIVE BITS
+1872 007763  7002          BSW;CLL RTR                     /MOVE DOWN
+     007764  7112  
+1873 007765  3003          DCA     SBTUNIT&177             /STORE FOR NOW
+1874 007766  0000  CONTRL, 0000                            /THIS WORD MUST BE ZERO
+1875 007767  1024          TAD     BJMP24&177              /GET PASSED UNIT BITS
+1876 007770  0042          AND     S70&177/[70]            /ISOLATE ID BITS
+1877 007771  1003          TAD     SBTUNIT&177             /ADD ON DRIVE BITS
+1878 007772  3003          DCA     SBTUNIT&177             /STORE AS COMPOSITE UNIT
+1879               
+1880               /       THE I/O ROUTINE MUST NOW BE MOVED TO 7600 FOR FURTHER USE.
+1881               
+1882 007773  1411  BMVLUP, TAD I   BFROM&177               /GET A WORD
+1883 007774  3440          DCA I   SYSIO&177               /PUT A WORD
+1884 007775  2040          ISZ     SYSIO&177               /DONE YET?
+1885 007776  5173          JMP     BMVLUP&177              /NO, KEEP GOING
+1886               
+1887               /       THE I/O HANDLER IS NOW RELOCATED TO 7600.
+1888               
+1889 007777  5560          JMP I   TABLE&177/(SBOOT)       /GO START IT UP
+1890               
+1891                       NOPUNCH                         /FOOL THE ASSEMBLER
+1892               
+1893                       *TABLE                          /OVER COMMAND TABLE
+1894               
+1895               /       COMMAND TABLE.
+1896               
+1897                       IFNZRO  7760-.  <ERROR  .>
+1898 007760  4006  TABLE,  .-.^400!DMA!6                   /ID, DMA INDICATOR, TABLE LENGTH
+1899 007761  0000  RWCOM,  .-.&377                         /010 IF READING, 012 IF WRITING
+1900 007762  0000  SECTHI, .-.&140+.-.&377                 /UNIT, HIGH-ORDER SECTOR ADDRESS
+1901 007763  0000  SECTMD, .-.&377                         /MIDDLE SECTOR ADDRESS
+1902 007764  0000  SECTLO, .-.&377                         /LOW-ORDER SECTOR ADDRESS
+1903 007765  0000  SCTCNT, .-.&377                         /SECTOR COUNT (1-40)
+1904 007766  0000  CONTRL, 000&377                         /CONTROL WORD
+1905 007767  0000  TRFLD,  .-.&377                         /TRANSFER BANK AND FIELD
+1906 007770  0000  TRADDR, .-.                             /TRANSFER ADDRESS
+1907               
+1908                       ENPUNCH                         /UN-FOOL THE ASSEMBLER
+1909                      FIELD   GENFLD%10               /SET GENERATION FIELD
+1910               
+1911                       *SYSGEN                         /SET GENERATION ADDRESS
+1912               
+1913 010200  7200  SYSGEN, CLA                             /CLEAN UP
+1914 010201  1377          TAD     ("G&37)                 /GET A <BEL>
+1915 010202  6046          TLSIOT                          /RING IT
+1916 010203  7402          HLT                             /WAIT FOR AWHILE
+1917 010204  7200          CLA                             /CLEAN UP
+1918               
+1919               /       MOVE THE SYSTEM LOADER TO ITS OPERATING ADDRESS.
+1920               
+1921 010205  6211  GMVLUP, CDF     GENFLD                  /SET OUR FIELD
+1922 010206  1733          TAD I   SYS1                    /GET A WORD
+1923 010207  6201          CDF     PRGFLD                  /SET MAIN PROGRAM FIELD
+1924 010210  3734          DCA I   SYS2                    /PUT A WORD
+1925 010211  2333          ISZ     SYS1                    /BUMP TO NEXT
+1926 010212  2334          ISZ     SYS2                    /DONE ENOUGH?
+1927 010213  5205          JMP     GMVLUP                  /NO, KEEP GOING
+1928               
+1929               /       WRITE THE SYSTEM LOADER IMAGE TO THE ABSOLUTE BOOTSTRAP BLOCK.
+1930               
+1931 010214  6211          CDF     GENFLD                  /INDICATE OUR FIELD
+1932 010215  6202          CIF     PRGFLD                  /CALLING MAIN FIELD
+1933 010216  4776          JMS I   (SYSIO)                 /CALL I/O ROUTINES
+1934 010217  7400          GENADR                          /TRANSFER ADDRESS
+1935 010220  4110          1^100+GENFLD+WRITE              /WRITE ONE PAGE
+1936 010221  0000          GENUNIT                         /UNIT
+1937 010222  0000          0;      0                       /BLOCK
+     010223  0000  
+1938 010224  7402          HLT                             /BARF!
+1939               
+1940               /       WRITE THE MENU UTILITY VOLUME IMAGE TO THE APPROPRIATE BLOCK.
+1941               
+1942 010225  6202          CIF     PRGFLD                  /CALLING MAIN FIELD
+1943 010226  4776          JMS I   (SYSIO)                 /CALL I/O ROUTINES
+1944 010227  0000          MENLOAD                         /MENU LOADING ADDRESS
+1945 010230  4020          0^100+MNGFLD+WRITE              /WRITE ENTIRE FIELD
+1946 010231  0000          GENUNIT                         /UNIT
+1947 010232  4440          MENLO;  MENHI                   /BLOCK
+     010233  0016  
+1948 010234  7402          HLT                             /BARF!
+1949               
+1950               /       INITIALIZE ENTRY ROUTINE FOR SAT TABLE.
+1951               
+1952 010235  1375          TAD     (SATADR-1)              /SETUP THE
+1953 010236  3010          DCA     XR1                     /TABLE POINTER
+1954               
+1955               /       MAKE OS/8 #1 ENTRIES INTO THE SAT TABLE.
+1956               
+1957 010237  4311          JMS     MAKENTRY                /CALL TABLE ROUTINE
+1958 010240  4200          OS1+BTVOL+NOREL                 /VALUE
+1959 010241  0400          OS1E-OS1B                       /COUNT
+1960               /      MAKE P?S/8 #1 ENTRIES INTO THE SAT TABLE.
+1961               
+1962 010242  4311          JMS     MAKENTRY                /CALL TABLE ROUTINE
+1963 010243  0002          PQ1                             /VALUE
+1964 010244  0322          PQ1E-PQ1B                       /COUNT
+1965               
+1966               /       MAKE MENU-8 ENTRIES INTO THE SAT TABLE.
+1967               
+1968 010245  4311          JMS     MAKENTRY                /CALL TABLE ROUTINE
+1969 010246  2037          MNU+RO                          /VALUE
+1970 010247  0001          1                               /COUNT
+1971 010250  4311          JMS     MAKENTRY                /CALL TABLE ROUTINE
+1972 010251  2137          ALT+MNU+RO                      /VALUE
+1973 010252  0001          1                               /COUNT
+1974               
+1975               /       MAKE DEFECT ALTERNATE ENTRIES INTO THE SAT TABLE.
+1976               
+1977 010253  4311          JMS     MAKENTRY                /CALL TABLE ROUTINE
+1978 010254  0100          ALT                             /VALUE
+1979 010255  0006          ALTE-ALTB                       /COUNT
+1980               
+1981               /       MAKE NON-EXISTENT ENTRIES INTO THE SAT TABLE.
+1982               
+1983 010256  4311          JMS     MAKENTRY                /CALL TABLE ROUTINE
+1984 010257  0040          NX                              /VALUE
+1985 010260  0046          NXE-NXB                         /COUNT
+1986               
+1987               /       SET GT CHECKSUM.
+1988               
+1989 010261  1374          TAD     (GTADDR-1)              /SETUP THE
+1990 010262  3010          DCA     XR1                     /POINTER
+1991 010263  6201          CDF     PRGFLD                  /GOTO THEIR FIELD
+1992 010264  1410  GTLOOP, TAD I   XR1                     /GET A WORD
+1993 010265  2332          ISZ     GTCNT                   /DONE YET?
+1994 010266  5264          JMP     GTLOOP                  /NO, KEEP GOING
+1995 010267  7041          CIA                             /YES, INVERT IT
+1996 010270  3410          DCA I   XR1                     /STORE IN LAST WORD
+1997 010271  6211          CDF     GENFLD                  /BACK TO OUR FIELD
+1998               
+1999               /       WRITE OUT THE PRIMARY CONTROL PROGRAM.
+2000               
+2001 010272  6202          CIF     PRGFLD                  /CALLING MAIN FIELD
+2002 010273  4776          JMS I   (SYSIO)                 /CALL I/O ROUTINES
+2003 010274  0000          0000                            /TRANSFER ADDRESS
+2004 010275  7700          37^100+PRGFLD+WRITE             /WRITE 37 PAGES
+2005 010276  0000          GENUNIT                         /UNIT
+2006 010277  0001          1;      0                       /BLOCK
+     010300  0000  
+2007 010301  7402          HLT                             /BARF!
+2008 010302  7240          NL7777                          /INDICATE SUCCESS
+2009 010303  7402          HLT                             /WE'RE DONE!
+2010               /      SETUP BOOTSTRAP UNIT IN CASE WE'RE TRYING IT NOW.
+2011               
+2012 010304  7200          CLA                             /CLEAN UP
+2013 010305  1373          TAD     (GENUNIT)               /GET GENERATION UNIT
+2014 010306  6203          CIF CDF PRGFLD                  /GOING TO SYSTEM FIELD
+2015 010307  3772          DCA I   (SBTUNIT)               /STORE AS UNIT ARGUMENT
+2016 010310  5771          JMP I   (SBOOT)                 /GO START IT UP
+2017               
+2018               /       TABLE ENTRY ROUTINE.
+2019               
+2020 010311  0000  MAKENTR,.-.                             /MAKE AN ENTRY ROUTINE
+2021 010312  7200          CLA                             /CLEAN UP JUST IN CASE
+2022 010313  6211          CDF     GENFLD                  /GOTO OUR FIELD
+2023 010314  1711          TAD I   MAKENTRY                /GET VALUE
+2024 010315  3333          DCA     SYS1                    /STASH IT
+2025 010316  2311          ISZ     MAKENTRY                /BUMP TO NEXT
+2026 010317  1711          TAD I   MAKENTRY                /GET COUNT
+2027 010320  7041          CIA                             /INVERT FOR COUNTING
+2028 010321  3334          DCA     SYS2                    /STASH THE COUNTER
+2029 010322  2311          ISZ     MAKENTRY                /BUMP PAST ARGUMENTS
+2030 010323  6201          CDF     PRGFLD                  /GOTO TABLE FIELD
+2031 010324  1333  PUTLUP, TAD     SYS1                    /GET THE VALUE
+2032 010325  3410          DCA I   XR1                     /STORE IT
+2033 010326  2334          ISZ     SYS2                    /DONE ENOUGH?
+2034 010327  5324          JMP     PUTLUP                  /NO, KEEP GOING
+2035 010330  6211          CDF     GENFLD                  /BACK TO OUR FIELD
+2036 010331  5711          JMP I   MAKENTRY                /RETURN
+2037               
+2038 010332  7601  GTCNT,  -177                            /GT CHECKSUM COUNT
+2039 010333  7400  SYS1,   GENADR                          /WHERE SYSTEM LOADER IS NOW
+2040 010334  7600  SYS2,   SBOOT                           /WHERE SYSTEM LOADER EXECUTES LATER
+2041               
+2042 010371  7600          PAGE
+     010372  7603  
+     010373  0000  
+     010374  7377  
+     010375  4377  
+     010376  7640  
+     010377  0007  
+2043                       
+2044                       $                               /THAT'S ALL FOLK!
