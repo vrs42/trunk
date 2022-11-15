@@ -1,0 +1,183 @@
+/VC8E POINT PLOT DISPLAY HANDLER
+/
+/
+/MAX-PLANCK-INSTITUT FUER PSYCHATRIE
+/STEPHAN V. BECHTOLSHEIM, ULRICH GSCHREI
+/KRAEPELINSTR.2
+/D-8000 MUENCHEN 40
+/WESTERN GERMANY
+/
+/DATE: SATURDAY,  APRIL 5, 1975
+/
+/VERSION A
+/
+/
+FIXMRI INC=2000
+             /ISZ USED AS INSTRUCTION TO INCREMENT
+             /THE CONTENT OF A LOCATION
+             /THE SKIP INSTRUCTION IS NOT USED
+CLAL=7300    /CLEAR AC AND LINK
+AC0001=7301  /AC:=+1
+AC4000=7330  /AC:=4000
+/HEADER BLOCK
+        *0
+        -2              /2 ENTRIES
+/
+/
+/
+/
+/ ***** O U T P *****
+/FIRST ENTRY CALLED OUTP
+/ERASE AND INITIALIZE SCREEN
+        DEVICE VC8E     /GROUP NAME
+        DEVICE OUTP     /DEVICE NAME
+        1500            /DEVICE CONTROL BLOCK:
+                        /WRITE ONLY
+                        /DEVICE CODE NUMBER 50
+        OUTP-BEGIN      /ENTRY POINT WORD:
+                        /ONE PAGE HANDLER
+                        /RELATIVE ENTRY
+        0;0
+/
+/
+/
+/
+/ ***** D I S P *****
+/SECOND ENTRY CALLED DISP
+/SCREEN IS NOT ERASED ON FIRST ENTRY
+        DEVICE VC8E     /GROUP NAME
+        DEVICE DISP     /DEVICE NAME
+        1510            /DEVICE CONTROL BLOCK:
+                        /WRITE ONLY
+                        /DEVICE CODE NUMBER 51
+        DISP-BEGIN      /ENTRY POINT WORD:
+                        /ONE PAGE HANDLER
+                        /RELATIVE ENTRY
+        0;0
+/BODY OF THE HANDLER
+        *200
+BEGIN,
+OUTP,
+ENTRY,  0               /ENTRYPOINT TO HANDLER OUTP
+        CLAL
+        ISZ FIRST       /SKIP ON FIRST ENTRY
+        AC0001          /HANDLER HAS BEEN CALLED
+                        /ONCE ALREADY
+        DCA MQHELP      /MQ=0: IF HELP IS CALLED
+                        /FIRST ERASE SCREEN
+START,  AC4000
+        AND I ENTRY     /READ OR WRITE
+        RAL             /LINK =0 YOU TRIED TO READ
+        TAD I ENTRY
+        AND (3700       /WORD COUNT=NUMBER OF
+                        /128-WORD-RECORDS
+        CMA
+        DCA WC          /-(WC+1) STORED AS WORDCOUNT
+        RDF             /READ DATA FIELD =
+                        /INSTRUCTION FIELD
+                        /OF CALLING PROGRAM
+        TAD (CDF CIF
+        DCA EXCIDF      /INSTRUCTION CIF CDF
+                        /ON RETURN
+        TAD I ENTRY     /FIRST ARGUMENT
+                        /LOADED A THIRD TIME
+        AND (0070       /MEMORY FIELD BUFFER
+        TAD (CDF
+        DCA BUFCDF      /CDF FOR BUFFER
+        INC ENTRY
+        TAD I ENTRY     /GET SECOND ARGUMENT
+        DCA CA          /BUFFER ADDRESS
+        INC ENTRY       /STARTING BLOCKNUMBER
+                        /IS IGNORED
+        INC ENTRY       /ENTRY HOLDS
+                        /ERROR RETURN ADDRESS
+        SNL
+        JMP ERROR       /YOU TRIED TO READ
+        TAD MQHELP
+        SWP             /MQ LOADED FOR CALL
+                        /OF PROGRAM HELP
+        CLAL
+READ,   ISZ WC          /UPDATE WORDCOUNT
+        JMP BUFCDF
+        JMP RETURN      /BUFFER EXHAUSTED
+/UNPACK CHARACTERS
+BUFCDF, HLT             /CDF BUFFER
+        CLAL
+        TAD I CA        /GET FIRST WORD IN BUFFER
+        AND (0377
+        DCA CH1         /STORE FIRST CHARACTER
+        TAD I CA
+        AND (7400
+        DCA CH3         /STORE LEFT HALF
+                        /OF THIRD CHARACTER
+        INC CA
+        TAD I CA
+        AND (0377
+        DCA CH2         /STORE SECOND CHARACTER
+        TAD I CA
+        AND (7400       /RIGHT HALF
+                        /OF THIRD CHARACTER
+        RTR
+        RTR
+        TAD CH3
+        RTR
+        RTR
+        DCA CH3         /STORE THIRD CHARACTER
+        INC CA
+        KRB
+        TAD CTRLC
+        SNA CLA         /SKIP IF NOT CTRL/C TYPED
+        JMP MONIT       /CALL MONITOR
+        CDF 00
+        CIF HEL
+        JMS I (STRTHL+4 /CALL PROGRAM HELP
+CH1,    0
+CH2,    0
+CH3,    0
+RETA,   JMP RETURN      /RETURN A FROM HELP
+                        /CTRL/Z FOUND IN BUFFER
+                        /OR READ FROM KEYBOARD
+RETB,   AC0001          /RETURN B FROM HELP
+                        /TO AVOID FURTHER
+                        /FORMFEEDS
+        SWP
+        JMP READ        /UNPACK NEXT CHARACTERS
+/RETURN FROM HANDLER
+RETURN, CLAL
+        INC ENTRY       /NO ERROR RETURN
+EXCIDF, HLT             /CIF CDF CALLING PROGRAM
+        JMP I ENTRY     /RETURN
+ERROR,  AC4000          /ERROR RETURN AC=4000
+        JMP EXCIDF
+MONIT,  CIF CDF 00      /CTRL/C CALLS MONITOR
+        JMP I (7600
+/
+/
+/
+/
+DISP,   0               /ENTRYPOINT TO HANDLER DISP
+        CLAL
+        TAD DISP
+        DCA ENTRY       /ENTRY HOLDS ADDRESS
+                        /OF FIRST ARGUMENT
+        AC0001
+        DCA MQHELP      /ERASE FUNCTION IS
+                        /SUPRESSED ON FIRST
+                        /ENTRY TO HELP
+        JMP START       /JUMP TO GET ARGUMENTS
+/
+/
+/
+/
+WC,     0               /WORD COUNT
+                        /COUNTS 2 WORDS
+                        /=3 CHARACTERS
+CA,     0               /PRESENT ADDRESS IN BUFFER
+FIRST,  -1              /TO CONTROL FIRST ENTRY
+                        /TO THE HANDLER
+CTRLC,  -203            /NEGATIVE VALUE OF CTRL/C
+MQHELP, 0               /VALUE OF MQ, IF HELP
+                        /IS CALLED FIRST
+                        /=0 FORCES ERASE
+        $
+

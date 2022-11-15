@@ -1,0 +1,485 @@
+/HELP
+/ASSISTANT PROGRAM FOR VC8E HANDLER
+/
+/
+/
+/MAX-PLANCK-INSTITUT FUER PSYCHIATRIE
+/STEPHAN V. BECHTOLSHEIM, ULRICH GSCHREI
+/KRAEPELINSTR.2
+/D-8000 MUENCHEN 40
+/WESTERN GERMANY
+/
+/
+/VERSION A
+/
+/DATE: SATURDAY  APRIL 5, 1975
+/
+/
+/
+FIXMRI INC=2000
+             /ISZ USED AS INSTRUCTION TO INCREMENT
+             /THE CONTENT OF A LOCATION
+             /THE SKIP INSTRUCTION IS NOT USED
+FIXMRI EXIT=5400   /RETURN FROM A SUBROUTINE
+DISD=6052    /SKIP ON DONE FLAG
+DILX=6053    /LOAD X-REGISTER
+DILY=6054    /LOAD Y-REGISTER
+DIXY=6055    /INTENSIFY
+DILE=6056    /LOAD ENABLE REGISTER
+DIRE=6057    /READ ENABLE REGISTER
+AC7777=7240  /AC:=-1
+CLAL=7300    /CLEAR AC AND LINK
+CAM=7621     /CLEAR AC AND MQ
+        FIELD HEL%10
+        *STRTHL
+/
+/
+/START ADDRESS LOAD IS WITH IMMEDIATE RETURN
+/TO MONITOR AFTER EXECUTION, I.E. THE RUN 
+/COMMAND ACTS AS A LOAD COMMAND
+/OF PROGRAM HELP
+/
+/
+/
+HELP,
+LOAD,   CLAL
+MONIT,  CDF CIF 00
+        JMP I D7600     /CALLS MONITOR
+D7600,  7600
+HAND,   0               /ENTRY FOR HANDLER
+        CLAL
+        TAD I HAND      /GET FIRST CHARACTER
+        DCA CH1         /AND STORE IT
+        INC HAND
+        TAD I HAND      /GET SECOND CHARACTER
+        DCA CH2         /AND STORE IT
+        INC HAND
+        TAD I HAND      /GET THIRD CHARACTER
+        DCA CH3         /AND STORE IT
+        INC HAND        /HAND HOLDS ADDRESS
+                        /OF RETURN A
+                        /IN HANDLER
+        CDF HEL         /ALL ARGUMENTS FROM HANDLER
+                        /ARE FETCHED NOW
+        SWP
+        SNA CLA         /MQ=0 FORCES ERASE
+        JMS ERASE
+/
+/
+/
+        JMS CHAR
+CH1,    0
+        JMS CHAR
+CH2,    0
+        JMS CHAR
+CH3,    0
+        INC HAND        /HAND HOLDS ADDRESS OF
+                        /RETURN B TO HANDLER
+CTZFND, CDF CIF 00      /JUMP TO THIS LOCATION
+                        /OCCURS, IF CTRL/Z
+                        /READ FROM KEYBOARD
+                        /OR IN BUFFER
+        EXIT HAND       /RETURN TO HANDLER
+/SUBROUTINE TO EXECUTE LINEFEED
+LFCR,   0
+        TAD XINI
+        DILX
+        DCA XPOS        /XPOS LOADED
+                        /WITH INITIAL VALUE
+        TAD YPOS
+        TAD NEWLNE      /ADD INCREMENT FOR NEWLINE
+        DILY
+        DCA YPOS        /YPOS UPDATED
+        AC7777
+        DCA POSNUM      /POSNUM=-1
+        TAD YPOS
+        TAD YMIN
+        SPA CLA         /TOO MANY LINES?
+        JMS FF          /YES, CALL FORMFEED
+        EXIT LFCR
+/
+/
+/
+/SUBROUTINE TO ERASE SCREEN
+/AND TO RESET BEAM
+ERASE,  0
+        IFNZRO ERFUNC <
+        TAD (30         /ERASE AND STORE MODE
+        DILE
+WAIT,   DIRE            /WAIT FOR DONE FLAG
+        SMA CLA         /SKIP ON DONE FLAG
+        JMP WAIT
+        >
+        AC7777
+        DCA POSNUM      /POSNUM=-1
+        TAD XINI
+        DILX
+        DCA XPOS        /XPOS LOADED
+                        /WITH INITIAL VALUE
+        TAD YINI
+        DILY
+        DCA YPOS        /SAME TO YPOS
+        EXIT ERASE      /RETURN FROM ERASE
+        IFNZRO FFAUTO <
+/SUBROUTINE TO EXECUTE AN AUTOMATIC AND
+/DELAYED FORMFEED
+FF,     0
+        CLAL            /INITIALIZE COUNTERS
+        TAD SECOND
+        DCA DELSEC      /DELAY IN SECONDS
+LOOP,   TAD INDEL1
+        DCA DEL1        /DELAY COUNTER 1 INITIALIZED
+LOOPIN, ISZ DEL2        /BUSY WAITING
+        JMP .-1
+        KRB
+        TAD CTRLC
+        SNA CLA
+        JMP MONIT       /CALL MONITOR
+        KRB
+        TAD CTRLZ
+        SZA CLA
+        JMP WZ
+        JMS ERASE
+        JMP CTZFND      /CTRL/Z TYPED: USE RETURN A
+                        /IN HANDLER
+WZ,     KRB
+        TAD CTRLS
+        SNA CLA
+        JMP STOP        /CTRL/S TYPED:
+                        /DELAY UNTIL SPACE TYPED
+        ISZ DEL1
+        JMP LOOPIN
+        ISZ DELSEC
+        JMP LOOP        /DELAY FOR A FURTHER SECOND
+        JMP FFEND       /ERASE TIME EXCEEDED
+STOP,   KRB
+        TAD SPACE       /IF SPACE IS TYPED,
+                        /ERASE IS EXECUTED
+        SZA CLA
+        JMP STOP
+FFEND,  JMS ERASE       /RETURN FROM FORMFEED
+        EXIT FF
+DELSEC, 0               /COUNTS DELAY IN SECONDS
+DEL1,   0               /DELAY COUNTER
+DEL2,   0               /DELAY COUNTER
+SECOND, -2              /NEGATIVE VALUE OF DELAY
+                        /IN SECONDS
+INDEL1, -76             /INITIAL VALUE FOR DEL1
+CTRLS,  -223            /NEGATIVE VALUE OF CTRL/S
+        >
+        IFZERO FFAUTO <
+/SUBROUTINE TO EXECUTE FORMFEED
+/IF SPACE TYPED ON KEYBOARD
+FF,     0
+AGAIN,  KCF
+        KSF
+        JMP .-1
+        KRB
+        TAD CTRLC
+        SNA CLA
+        JMP MONIT       /CTRL/C TYPED, CALL MONITOR
+        KRB
+        TAD SPACE
+        SZA CLA
+        JMP M1
+        JMS ERASE       /SPACE TYPED
+                        /EXECUTE FORMFEED AND ERASE
+        EXIT FF
+M1,     KRB
+        TAD CTRLZ
+        SZA CLA
+        JMP AGAIN       /NO RELEVANT CHARACTER
+                        /READ FROM KEYBOARD
+        JMS ERASE       /CTRL/Z TYPED
+                        /RETURN AS IF
+                        /CTRL/Z  FOUND IN BUFFER
+                        /ERASE SCREEN
+        JMP CTZFND      /RETURN A TO HANDLER
+        >
+/SUBROUTINE TO DISPLAY A SPACE:
+/ONLY THE X-POSITION IS INCREMENTED
+/
+SPADIS, 0
+        TAD XPOS
+        TAD XINCR
+        DCA XPOS        /XPOS INCREMENTED
+        EXIT SPADIS
+/
+/
+/
+/SUBROUTINE WHICH CALLS SUBROUTINE LFCR
+/IF LINE TOO LONG
+TOOLON, 0
+        TAD XPOS
+        TAD XEND
+        SMA CLA
+        JMS LFCR        /LINE WAS TOO LONG
+        EXIT TOOLON
+/
+/
+/
+/
+POSNUM, 0               /NUMBER OF POSITION OF
+                        /NEXT CHARACTER, WHICH
+                        /IS DISPLAYED
+XINI,   7001            /INITIAL VALUE OF X
+XINCR,  SIZE^6+1
+YINI,   0730            /INITIAL VALUE OF Y
+YMIN,   0777            /TO CONTROL THE MAXIMUM
+                        /NUMBER OF LINES
+                        /ON SCREEN
+XEND,   -765            /TO CONTROL THE LENGTH
+                        /OF A LINE
+SPACE,  -240            /8 BIT ASCII SPACE
+CTRLC,  -203            /NEGATIVE VALUE OF CTRL/C
+CTRLZ,  -232            /NEGATIVE VALUE OF CTRL/Z
+NEWLNE, -SIZE^10-10     /DETERMINES DISTANCE
+                        /OF LINES
+        PAGE
+/CHAR DETECTS CONTROL CHARACTERS
+/ORDINARY CHARACTERS ARE DISPLAYED
+/FIRST LOOK FOR CONTROL CHARACTERS
+CHAR,   0
+        INC POSNUM
+        NOP
+        TAD I CHAR      /GET CHARACTER
+        TAD SPACE
+        SZA CLA
+        JMP W1
+SPSP,   JMS SPADIS      /SPACE IS FOUND
+        JMP CHREND
+W1,     TAD I CHAR
+        TAD FORMFD
+        SZA CLA         /SKIP ON FORMFEED
+        JMP W2
+        IFZERO BUFFFF <
+        JMS LFCR        /FF REPLACED BY LF
+        >
+        IFNZRO BUFFFF <
+        JMS FF          /FF IS EXECUTED
+        >
+        JMP BACK        /RETURN FROM CHAR
+W2,     TAD I CHAR
+        TAD CTRLZ
+        SNA CLA         /SKIP IF NO CTRL/Z FOUND
+        JMP CTZFND      /CTRL/Z FOUND
+                        /USE RETURN A IN HANDLER
+        TAD I CHAR
+        TAD LNEFD
+        SNA CLA         /SKIP ON NO LINEFEED
+        JMP BACK        /IGNORE LINEFEED
+        TAD I CHAR
+        TAD CARRET
+        SZA CLA         /SKIP, IF CR FOUND
+        JMP W3
+        JMS LFCR        /EXECUTE LINEFEED
+                        /AND CARRIAGE RETURN
+        JMP BACK
+W3,     TAD I CHAR
+        TAD (-12        /OCTAL 012 FROM PIP
+                        /IS IGNORED. OCCURS,
+                        /IF DIRECTORIES ARE LISTED
+        SNA CLA
+        JMP BACK
+        TAD I CHAR
+        TAD LETR
+        SNA CLA         /IGNORE LEADER/TRAILER
+        JMP BACK
+        TAD I CHAR
+        TAD TABU
+        SZA CLA         /IS IT TABULATOR?
+        JMP W4          /NO
+MOSA,   TAD POSNUM      /SPACES UNTIL
+                        /POSNUM=0 MOD 8
+        AND (0007
+        SNA CLA
+        JMP SPSP        /ONE MORE
+        JMS SPADIS      /DISPLAY A SPACE
+        INC POSNUM
+        JMP MOSA
+W4,     TAD I CHAR
+        TAD RUBOUT
+        SNA CLA         /IS IT RUBOUT
+        JMP CHREND      /YES: IGNORE IT
+/IT WAS NOT A CONTROL-CHARACTER
+/
+/CALCULATE ADDRESS OF THE FIRST DISPLAY WORD
+/OF THE CHARACTER
+DISCH,  TAD I CHAR
+        AND (0077       /6 BIT ASCII
+        DCA CHV
+        TAD CHV
+        TAD CHV
+        TAD CHV         /AC:=CHV*3
+        TAD (TABLE      /ADD BASIC ADDRESS OF TABLE
+        DCA CHV         /ADDRESS OF FIRST
+                        /DISPLAY WORD
+/DISPLAY CHARACTER
+        TAD (-4
+        DCA CTW         /INITIAL VALUE OF CTW IS -4
+        AC7777
+        DCA UNCT        /UNCT:=-1
+        CAM
+NEWX,   TAD XPOS
+        TAD (SIZE       /XPOS IS INCREMENTED
+        DILX
+        DCA XPOS
+        TAD (-7
+        DCA YCNT        /INITIALIZE COUNTER FOR Y
+        TAD YPOS
+CYCL,   SWP             /YPOS TO MQ
+        ISZ UNCT        /SKIP IF NO BIT
+                        /IN THE DISPLAY WORD
+                        /IS LEFT
+        JMP CTUE        /THERE ARE BITS LEFT
+        ISZ CTW         /SKIP, IF NO WORD LEFT
+        JMP DXM         /JUMP TO GET NEXT WORD
+                        /OF TABLE
+        INC XPOS        /TO HAVE SPACE
+                        /BETWEEN TWO CHARACTERS
+        NOP
+        JMP CHREND      /JUMP TO THE END OF CHAR
+DXM,    TAD (-14
+        DCA UNCT        /INITIALIZE UNCT
+        TAD I CHV       /LOAD AC
+                        /WITH NEW DISPLAY-WORD
+        INC CHV         /CHV POINTS TO THE NEXT
+                        /DISPLAY WORD
+CTUE,   CLL RAL         /LINK LOADED BY NEXT BIT
+                        /OF THE DISPLAY WORD
+        SWP
+        SNL             /LINK=L SKIP TO INTENSIFY
+        JMP DNIX        /DO NOT INTENSIFY
+        DILY            /AC HOLDS VALUE OF YPOS
+        DISD
+        JMP .-1
+        DIXY
+DNIX,   TAD (SIZE       /YPOS IN AC IS INCREMENTED
+        ISZ YCNT        /SKIP IF 7 POINTS
+                        /IN THE DIRECTION
+                        /OF THE Y-AXIS
+                        /HAVE BEEN DISPLAYED
+        JMP CYCL
+        CLAL
+        JMP NEWX        /GET NEW VALUE FOR XPOS
+CHREND, JMS TOOLON      /CHARACTER DISPLAYED
+                        /LINE TOO LONG?
+BACK,   INC CHAR        /RETURN ADDRESS OF CHAR
+        EXIT CHAR
+CHV,    0               /ADDRESS OF DISPLAY WORD
+CTW,    0               /COUNTS NUMBER
+                        /OF DISPLAY WORDS
+LETR,   -200            /NEGATIVE VALUE OF
+                        /LEADER/TRAILER CODE
+TABU,   -211            /NEGATIVE VALUE OF TABULATOR
+LNEFD,  -212            /NEGATIVE VALUE OF LINEFEED
+FORMFD, -214            /NEGATIVE VALUE OF FORMFEED
+CARRET, -215            /NEGATIVE VALUE OF
+                        /CARRIAGE RETURN
+RUBOUT, -377            /NEGATIVE VALUE OF RUBOUT
+UNCT,   0               /COUNTS BITS OF DISPLAY WORD
+YCNT,   0               /COUNTS THE POINTS
+                        /IN THE DIRECTION
+                        /OF THE Y-AXIS
+XPOS,   0               /X-POSITION OF BEAM
+YPOS,   0               /Y-POSITION OF BEAM
+      PAGE
+/TABLE CONTAINING THE DISPLAY WORDS FOR EACH
+/CHARACTER. A  5 X 7  POINT MATRIX IS USED.
+/SO THREE DISPLAY WORDS BELONG TO EACH CHARACTER
+/REFERENCE: MAX-PLANCK-INSTITUT FUER PHYSIK
+/UND ASTROPHYSIK, A.J. FLAVELL
+/D-8000 MEUNCHEN, WESTERN GERMANY
+TABLE,
+0000;   0000;   0000;   /00 SPACE
+7604;   4211;   1370    /01 A
+4077;   7114;   4554    /02 B
+3720;   3014;   0504    /03 C
+4077;   7014;   0574    /04 D
+7762;   3114;   4602    /05 E
+7742;   2110;   4402    /06 F
+3720;   3015;   0744    /07 G
+7742;   0100;   4376    /10 H
+0020;   3774;   0400    /11 I
+2020;   3014;   0576    /12 J
+7742;   0242;   1202    /13 K
+7760;   1004;   0200    /14 L
+7740;   4140;   1376    /15 M
+7741;   4103;   0376    /16 N
+3720;   3014;   0574    /17 O
+7742;   2110;   4414    /20 P
+3720;   3212;   0674    /21 Q
+7742;   2312;   4614    /22 R
+2322;   3114;   4544    /23 S
+0040;   3770;   0402    /24 T
+3760;   1004;   0176    /25 U
+0356;   1003;   4016    /26 V
+7750;   0302;   0376    /27 W
+6145;   0101;   2306    /30 X
+0141;   1700;   2006    /31 Y
+6064;   3114;   2606    /32 Z
+0037;   7014;   0400    /33 [
+0101;   0101;   0100    /34 BACKSLASH
+0020;   3017;   7400    /35 ]
+0200;   5770;   1010    /36 ^
+0407;   0520;   4020    /37 BACK ARROW
+0000;   0000;   0000    /40 SPACE
+0000;   1370;   0000    /41 !
+0000;   6000;   1400    /42 "
+1237;   6247;   7450    /43 #
+2212;   5772;   5044    /44 $
+2144;   6106;   2304    /45 %
+3322;   3262;   0240    /46 &
+0000;   0030;   0000    /47 '
+0007;   0424;   0400    /50 (
+0020;   2421;   6000    /51 )
+4452;   4342;   5222    /52 *
+0402;   0760;   4020    /53 +
+0024;   0600;   0000    /54 ,
+0402;   0100;   4020    /55 -
+0030;   1400;   0000    /56 .
+2004;   0100;   2004    /57 /
+1620;   5024;   1160    /60 0
+0020;   5774;   0000    /61 1
+4130;   3215;   0634    /62 2
+2120;   3114;   4554    /63 3
+1405;   0227;   7440    /64 4
+2361;   3054;   2562    /65 5
+3722;   3114;   4540    /66 6
+4050;   2210;   4416    /67 7
+3123;   3114;   6544    /70 8
+0322;   3114;   4574    /71 9
+0030;   7430;   0000    /72 :
+0024;   6630;   0000    /73 ;
+0405;   0424;   0400    /74 <
+1205;   0241;   2050    /75 =
+4050;   4240;   4000    /76 >
+0100;   3310;   4414    /77 ?
+CHONE,  0               /ENTRY TO DISPLAY
+                        /A SINGLE CHARACTER
+        DCA CH4         /AC HOLDS CHARACTER
+        RDF
+        TAD (CDF CIF
+        DCA CDIRET
+        CDF HEL
+        TAD CH4
+        TAD CTRLG
+        SNA CLA         /IS IT BELL?
+        JMP CTGFND      /YES
+	TAD CH4
+	TAD CTRLC
+	SNA CLA		/IS IT CTRL/C?
+	JMP MONIT	/YES: CALL MONITOR
+        JMS CHAR        /DISPLAY CHARACTER
+CH4,    0
+RETCHO, CLAL
+CDIRET, HLT             /RESTORE DF AND IF
+        EXIT CHONE
+CTGFND, TAD CH4
+        TLS
+        TSF
+        JMP .-1
+        JMP RETCHO
+CTRLG,  -207            /NEGATIVE VALUE OF CTRL/G
+        $
+

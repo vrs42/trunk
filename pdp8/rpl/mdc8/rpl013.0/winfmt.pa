@@ -1,0 +1,46 @@
+/File:  WINFMT.PA  Format the MDC-8 Winchester Disk
+
+/ To run:  R WINFMT, with a floppy disk as SYS:
+/ Source from WINFMT.SV octal code.  R. Larkin, Dec 1983
+
+	*200
+	CLA CLL
+	6703
+	JMS WAIT
+	TAD (TABLE
+	6704
+	JMS WAIT
+	6701
+	JMP .-1
+	6702
+6707
+	JMS WAIT
+	6701
+	JMP .-1
+	6702
+	NOP
+	6705
+	JMS WAIT
+	CLA CLL
+	JMP I (7600
+
+WAIT,	HLT		/Subroutine to twiddle thumbs on
+	DCA ACSAV	/  a wait loop.
+	TAD TIME
+	DCA COUNT
+	ISZ COUNT
+	JMP .-1
+	TAD ACSAV
+	JMP I WAIT
+
+TABLE,	6
+	0
+	4
+	0
+	0
+	13
+	0
+	0
+TIME,	-22
+ACSAV,	0
+COUNT,	0

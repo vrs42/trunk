@@ -1,0 +1,300 @@
+/ FLOPNS  Non-system handler for Sykes 7250
+/
+/
+/Modified from FLOPSY.PA,  Ron Larkin January, 1984
+/
+/
+/
+/THIS HANDLER PACKS AND UNPACKS STORED
+/DATA TO INCREASE DISK CAPACITY BY 33% -
+/2 12-BIT CORE WORDS ARE COMPRESSED
+/INTO 3 8-BIT DISK BYTES AS FOLLOWS:
+/
+/BYTE 1:	   HIGH 1  HIGH 2
+/BYTE 2:	       LOW 1
+/BYTE 3:	       LOW 2
+/
+/N B  STORAGE STARTS AT TRACK 0 SECTOR 1 OF DISK
+/ALL DISK IS USED, IBM COMPATIBILITY LOST
+/
+/
+/DEVICE CODE IS 32
+/DEVICE TYPE IS 50
+/
+/SET BLOCK COUNT IN PIP TO 6546 (-666 DECIMAL) BY:
+/	.GET SYS PIP
+/	.ODT
+/	13650/0000 6546
+/	^C
+/	.SAVE SYS PIP
+/
+	*0	      /HEADER BLOCK
+	-2
+	DEVICE SYKS;DEVICE F0;4500;F0&177+4000;0;1232
+	DEVICE SYKS;DEVICE F1;4500;F1&177+4000;0;1232
+	SYOP=6321
+	SYSK=6322
+	SYIN=6324
+
+FIXMRI INC=ISZ
+/
+/1ST PAGE
+/
+	*200
+/
+OVERFL,	CLA CLL CMA	/-1 to ACC
+	JMP I PTR	/PTR still points to error routine
+
+RETURN, SMA		/SKIP IF ERROR (AC.LT.0)
+	ISZ F0		/NORMAL RETURN
+	ISZ F0		/ERROR RETURN
+RTNFLD, HLT		/RETURNING FIELD.  Becomes a CDF CIF instruction.
+
+	JMP I F0	/EXIT
+/
+MAXBLK, -1233		/LAST BLOCK
+K6201,	CDF 0
+	DECIMAL
+M32,	-26
+	OCTAL
+K433,	433
+M10,	-10		/Number of error retries.
+K70,	70
+K577,	577
+P602,	602
+OFFST,	ERRCNT-OURPC	/Offsets for making absolute
+RETOFS,	RETURN-OURPC	/  addresses to communicate with page 2.
+CDFCIF,	CDF CIF 0	/An instruction.
+PTR,	0		/Used as pointer into page 2.
+BUFFER,	0		/
+TRACK,	0		/
+SECTOR,	0		/
+TEMP,	0		/
+FUNC,	0		/Function
+/
+
+	ZBLOCK 10	/Moves the entry point
+
+F0,	0	      /ENTRY Unit 1 (bottom unit)
+	CLA CLL CMA	/-1
+	JMP SELECT
+/
+F1,	0		      /ENTRY UNIT 2
+	CLA CLL
+	TAD F1
+	DCA F0
+SELECT, TAD P602	/SELECT UNIT
+	SYOP
+	CLA
+	RDF		/Get calling field again
+	TAD CDFCIF	/Construct a CDF CIF instruction
+	DCA RTNFLD	/PREPARE FOR RETURN
+	TAD F0		/RETURN FROM INIT AND ERROR
+	DCA F0		/RESET ARG LIST POINTER
+/SCDF,	HLT	     /CHANGE TO CALLING FIELD
+	TAD I F0	/GET FUNCTION WORD
+	DCA FUNC
+	TAD FUNC
+	AND K70		/GET BUFFER FIELD
+	TAD K6201
+	DCA BUFFLD
+	ISZ F0
+	TAD I F0	/GET BUFFER ADDR
+	DCA BUFFER
+	DCA TRACK	/CLEAR TRACK NO
+	ISZ F0
+	TAD I F0	/GET BLOCK NO
+	CLL RAL
+	TAD I F0	/SECTOR=BLOCK * 3
+	ISZ TRACK	/FIND TRACK NO
+	TAD M32		/26 SECTORS PER TRACK
+	SMA
+	JMP .-3
+	TAD K433
+	DCA SECTOR
+	TAD FUNC
+	RAL
+	AND K7600	/GET WORD COUNT
+	DCA TEMP
+	TAD TEMP	/CONVERT TO BLOCKS
+	SNA
+	IAC
+	BSW
+	CLL RTR
+	SZL		/IS THERE AN EXTRA PAGE?
+	CLL IAC		/YES, ADD 1 BLOCK TO COUNT
+	TAD I F0	/GET STARTING BLOCK
+	TAD MAXBLK	/LAST BLOCK
+	SZL CLA		/OVERFLOW?
+	JMP OVERFL	/YES.  No retries with this error.
+	JMS .+1		/Put the Program Counter
+OURPC,	HLT		/  here; needed 'cause we are relocatable.
+	TAD OURPC	/Get 12-bit address
+	TAD OFFST	/Add offset factor.  Becomes a pointer
+	DCA PTR		/  into 2nd page of handler.
+	RIF		/Get the field in which we are running
+	TAD K6201	/Add a CDF 0 instruction
+	DCA OURCDF	/Makes an "CDF us".
+OURCDF,	HLT		/Becomes CDF current.      DF = current
+	TAD M10		/Set up number of error retries.
+	DCA I PTR	/
+	INC PTR		/
+	TAD BUFFER	/MOVE BUFFER ADDRESS
+	DCA I PTR	/  to 2nd page.
+	INC PTR		/Bump the pointer
+	TAD TEMP
+	CLL RAR		/DIVIDE BY 2
+	SNA
+	STL RAR
+	CIA
+	DCA I PTR	/Move count to 2nd page.
+	INC PTR		/Bump the pointer
+	TAD OURPC	/Now move the
+	TAD RETOFS	/  return address
+	DCA I PTR	/  to the 2nd page.
+	INC PTR		/Bump the pointer
+	TAD CDFCIF	/Move a CDF CIF current to
+	RDF		/  the second page
+	DCA I PTR	/
+	TAD K7600
+	SYOP		/RESET DISK FLAGS
+	TAD	K577
+	TAD TRACK	/TRACK=TRACK-1; BIT 3 ON
+	SYOP		/SELECT TRACK
+K7600,	7600	      /CLA AND CONSTANT
+BUFFLD, HLT		/Change to buffer field.       DF=buffer
+	TAD FUNC
+	RAL		/LINK HAS FUNCTION
+	CLA
+	TAD SECTOR	/GET SECTOR READY
+	JMP GO		/G0 TO FIELD 2
+
+	*377
+GO,	NOP		/Pass into 2nd page of handler
+	PAGE
+/
+/2ND PAGE
+/
+	SZL	   	/Start of 2nd page code.  Falls through
+	TAD K40		/  from 1st page.
+	SYOP
+	SZL CLA
+	JMP WRITE
+READ,	JMS IN	     /H1, H2
+	RTL
+	DCA HIGH
+	JMS IN		/L1
+	DCA LOW
+	TAD HIGH
+	RTL
+	AND L7400
+	TAD LOW
+	DCA I B		/WORD 1
+	ISZ B
+	JMS IN		/L2
+	DCA LOW
+	TAD HIGH
+	BSW
+	AND L7400
+	TAD LOW
+	DCA I B		/WORD 2
+	ISZ B
+L7400,	7400		/NOP
+	ISZ WRDCNT	/FINISHED?
+	JMP READ	/NO
+TERM,	TAD L603
+	SYOP		/ISSUE TERMINATE
+TWAIT,	JMS TSTKBD	/Check for control-C.
+	SYSK		/WAIT FOR FLAG
+	JMP TWAIT
+	SYIN		/GET FLAGS
+	AND L110
+	SNA
+	JMP RTN		/NORMAL RETURN, AC=0
+/RESTART HERE AFTER WRITELOCK ERROR:
+ERROR,	CLA CLL CMA RAL /AC= -2
+	ISZ ERRCNT	/8 ERROR TRIES?
+RETRY=RTN		/A kludge to be prettied up later.
+	JMP RETRY
+	JMP RTN		/Return to page 1 of handler.
+/
+ERRCNT,	0		/1st in list.  Error counter.
+B,	0		/2nd in list.  Buffer address.
+WRDCNT,	0		/3rd in list.  Word count.
+GOBACK,	0		/4th in list.  Return address.
+RTN,	HLT		/5th in list.  CDF CIF this field
+	IFNZRO ERRCNT-RTN+4 <MISTAKE>	/Error if not in order.
+	JMP I GOBACK	/Return to page 1.
+L110,	110
+L377,	377
+/ERRSET, 0		/SETUP ROUTINE
+/	TAD M10
+/	DCA ERRCNT	/8 ERROR TRIES
+/RETRY,	XX
+/L603,	JMP I ERRSET    /TRY OPERATION AGAIN
+/ERRCNT, 0		/ERROR COUNT
+/M10,	-10
+/
+TEM,
+LOW,	0
+HIGH,	0
+K40,	40
+L603,	603
+WRITE,	TAD I B	      /WORD 1
+	DCA TEM
+	ISZ B
+	TAD TEM
+	AND L7400
+	RTR
+	DCA HIGH
+	TAD I B		/WORD 2
+	AND L7400
+	BSW
+	TAD HIGH
+	RTR
+	JMS OUT		/H1,H2
+	TAD TEM
+	JMS OUT		/L1
+	TAD I B
+	JMS OUT		/L2
+	ISZ B
+	NOP		/FOR ADDRESS WRAP-AROUND
+	ISZ WRDCNT	/FINISHED?
+	JMP WRITE	/NO
+	JMP TERM	/YES, TERMINATE
+/
+IN,	HLT		/Entry to read
+IWAIT,	JMS TSTKBD	/Check for control-C.
+	SYSK
+	JMP IWAIT
+	SYIN		/READ 1 BYTE
+	JMP I IN
+
+
+OUT,	HLT		/Entry to write
+	AND L377
+WWAIT,	JMS TSTKBD	/Check for control-C.
+	SYSK
+	JMP WWAIT
+	SYOP		/WRITE 1 BYTE
+	CLA CLL
+	JMP I OUT
+
+TSTKBD,	HLT		/Entry to check for ^C.
+	KSF		/Is console flag up?
+	JMP I TSTKBD	/No.
+	DCA ACSAV	/Yes.  Stash the ACC.
+	KRS		/This instr. doesn't clear the flag
+	AND K177	/Mask off the 200 bit.
+	TAD M3		/Subtract 003:  Control-C in ASCII
+	SNA CLA		/
+	JMP TOOS8	/Was 003.  Return to OS/8 monitor
+	TAD ACSAV	/Was another key.  Restore
+	JMP I TSTKBD	/  the ACC and continue.
+TOOS8,	CDF CIF 0	/Return
+	JMP I OS8	/  to OS/8
+OS8,	7600
+K177,	177
+M3,	-3
+ACSAV,	.-.		/Stores the ACC during ^C check.
+
