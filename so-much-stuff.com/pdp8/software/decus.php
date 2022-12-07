@@ -2108,6 +2108,7 @@ have taken the time to scan and archive this software and documentation.
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250 target=_blank>8-250
 </a><td><div>Fast Fourier Transform (FFT) </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/Makefile target=_blank>Makefile</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-1-pa target=_blank>decus-8-250-1-pa</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-1-pa.lbl target=_blank>decus-8-250-1-pa.lbl</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-1-pa.od target=_blank>decus-8-250-1-pa.od</a></div>
@@ -2116,7 +2117,16 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-3-pa.lbl target=_blank>decus-8-250-3-pa.lbl</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-3-pa.od target=_blank>decus-8-250-3-pa.od</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-3-pa.txt target=_blank>decus-8-250-3-pa.txt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-4-pa target=_blank>decus-8-250-4-pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-4-pa.od target=_blank>decus-8-250-4-pa.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-4-pa.txt target=_blank>decus-8-250-4-pa.txt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-5-pa target=_blank>decus-8-250-5-pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-5-pa.od target=_blank>decus-8-250-5-pa.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250-5-pa.txt target=_blank>decus-8-250-5-pa.txt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250.bin target=_blank>decus-8-250.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250.htm target=_blank>decus-8-250.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250.lst target=_blank>decus-8-250.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250.pal target=_blank>decus-8-250.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-250/decus-8-250.pdf target=_blank>decus-8-250.pdf</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-251 target=_blank>8-251
@@ -5228,7 +5238,7 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-688/decus-8-688.htm target=_blank>decus-8-688.htm</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-689 target=_blank>8-689
-</a><td><div>UFDSPY: A TSS/8 Une-Printer UFD Dump </div>
+</a><td><div>UFDSPY: A TSS/8 Line-Printer UFD Dump </div>
 <div>  Program </div>
 <td>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-689/decus-8-689.htm target=_blank>decus-8-689.htm</a></div>
@@ -5897,6 +5907,8 @@ System</div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/bndstd.mu.txt target=_blank>bndstd.mu.txt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/decus-8-804.htm target=_blank>decus-8-804.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/decus-8-804.pdf target=_blank>decus-8-804.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/dtape.bi target=_blank>dtape.bi</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/dtape.dt target=_blank>dtape.dt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/dtape.tar target=_blank>dtape.tar</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/enter.mu target=_blank>enter.mu</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/enter.mu.txt target=_blank>enter.mu.txt</a></div>
@@ -5904,7 +5916,11 @@ System</div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/fifth1.mu.txt target=_blank>fifth1.mu.txt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/fifth3.mu target=_blank>fifth3.mu</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/fifth3.mu.txt target=_blank>fifth3.mu.txt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/flop1.bi target=_blank>flop1.bi</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/flop1.rx1 target=_blank>flop1.rx1</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/flop1.tar target=_blank>flop1.tar</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/flop2.bi target=_blank>flop2.bi</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/flop2.rx1 target=_blank>flop2.rx1</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/flop2.tar target=_blank>flop2.tar</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/fugue.mu target=_blank>fugue.mu</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/fugue.mu.txt target=_blank>fugue.mu.txt</a></div>
@@ -5944,6 +5960,7 @@ System</div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/musc4k.bn target=_blank>musc4k.bn</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/musc4k.lst target=_blank>musc4k.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/musc4k.pal target=_blank>musc4k.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/music.bi target=_blank>music.bi</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/music.bk target=_blank>music.bk</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/music.bk.txt target=_blank>music.bk.txt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/music.hl target=_blank>music.hl</a></div>
@@ -5978,6 +5995,7 @@ System</div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/musicc.pal target=_blank>musicc.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/musicr.pa target=_blank>musicr.pa</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/musicr.pal target=_blank>musicr.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/pdp8.ini target=_blank>pdp8.ini</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/playov.bin target=_blank>playov.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/playov.bn target=_blank>playov.bn</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-804/playov.lst target=_blank>playov.lst</a></div>

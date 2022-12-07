@@ -262,6 +262,16 @@ schematics work. (Has a consistency problem to highlight changes.)
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/8lPanel target=_blank>./DEC/8lPanel</a></b>: PDP-8/L Front Panel PCB
+
+</LEGEND><DL>
+<DT>8LPanelDec</A>
+  <DD>needs a drawing.
+<DT>8LPerspex</A>
+  <DD>is a drawing of the artwork that mounts in the front of the PDP-8/L panel.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Axxx target=_blank>./DEC/Axxx</a></b>: Axxx Modules
 
 </LEGEND><FIELDSET><LEGEND>
@@ -2061,7 +2071,15 @@ LM837.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G8360 target=_blank>./DEC/Gxxx/G8360</a></b>: VR14 Power Supply and Regulator
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G838 target=_blank>./DEC/Gxxx/G838</a></b>: Fault Protection, provides +5V for intensity board W682, in VR14
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G840 target=_blank>./DEC/Gxxx/G840</a></b>: VT40 Light Pen Amplifier
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -2261,6 +2279,16 @@ LM837.
 </LEGEND><DL>
 <DT>H3190B</A>
   <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx/H851 target=_blank>./DEC/Hxxx/H851</a></b>: Top Connector Block
+
+</LEGEND><DL>
+<DT>H851C</A>
+  <DD>is a drawing of DEC's H851C.
+<DT>H851X</A>
+  <DD>is a drawing of a 'modernized' H851.
 </DL>
 </FIELDSET>
 </FIELDSET>
@@ -5572,6 +5600,28 @@ board.
 select DEC7384 replaced with a more readily available gate.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/Mxxx target=_blank>./DEC/Mxxx/Mxxx</a></b>: CPLD versions of Mxxx
+
+</LEGEND><DL>
+<DT>single44</A>
+  <DD>is a single-height module using a 44 pin PLCC.
+<DT>single84</A>
+  <DD>is a single-height module using a 84 pin PLCC.
+</DL>
+</FIELDSET>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PC04 target=_blank>./DEC/PC04</a></b>: PC04 Paper Taoe Reader Punch
+
+</LEGEND><DL>
+<DT>7006268-0</A>
+  <DD>is a drawing of DEC's PC04 backplane for the 8/I.
+<DT>7006268-0</A>
+  <DD>is a drawing of DEC's PC04 backplane for the 8/I.
+<DT>7006268-1</A>
+  <DD>is a drawing of DEC's PC04 backplane for the 8/E/F/M and the 8/L.
+</DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8I target=_blank>./DEC/PDP8I</a></b>: PDP-8/i
@@ -6940,6 +6990,10 @@ It is based on www.chd.dyndns.org/pdp8/VC8.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W684 target=_blank>./DEC/Wxxx/W684</a></b>: Unblank Amplifier and 8 Level Intensity Control
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Wxxx/W690 target=_blank>./DEC/Wxxx/W690</a></b>: DEC to IBM N Line Converter
 
 </LEGEND></FIELDSET>
@@ -7944,6 +7998,9 @@ SuperPro to a PC.
 card to interface the Xeltec SuperPro to a PC.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./atdh1150usb target=_blank>./atdh1150usb</a></b>: Schematic for ATDH1150 USB JEDEC interface.
+</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./chipfudge target=_blank>./chipfudge</a></b>: Replacements for obsolete chips
 
