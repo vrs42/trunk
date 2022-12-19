@@ -1,0 +1,62 @@
+#!/usr/bin/perl
+
+#
+# Check the hash tables and meta data for consistency issues.
+#
+
+$PDP8 = "$ENV{'HOME'}/pdp8";
+$DB = "$PDP8/shadb";
+
+chdir $DB || die "$DB: $!";
+
+#
+# Initializing Referenced here suppressed warnings about our
+# favorite orphaned metadata files below.  These are typically
+# script generated, so just pretend they are referenced.
+%referenced = (
+  "src/dec/digital-8-12-s/digital-8-12-s-pb", 1,
+);
+
+#
+# Check the hashtable.
+# Errors here usually mean an indexed file was moved (or removed).
+foreach $h (<[0-9a-f]*>) {
+  # Look up the hashed file.
+  open(HASH, $h) || die "$h: $!";
+  $name = <HASH>; chop $name;
+  # It must exist in the $PDP8 hierarchy.
+  # In addition, it must hash to $h.
+  ($hash) = split(/\s+/, `sha256sum '$PDP8/$name'`);
+  warn "$h: Wrong hashcode for $name\n" unless $h eq $hash;
+  # Remember that the metadata file was referenced.
+  $referenced{$name} = 1;
+}
+
+#
+# Check for orpan metadata files.
+# Errors here usually mean an indexed file was moved (or removed).
+# Other errors relate to the "true name" mythology.  That is, identical
+# files which have multiple names and we want to keep it that way.
+# For example, digital-8-12-s-l-pb (ODT low) and digital-8-12-s-pb
+# (the default ODT).
+#
+foreach $d (<*/.>) {
+  $d =~ s:/[.]::;
+  open(INPUT, "find $d -type f -print |") || die "$d: $!";
+  while (<INPUT>) {
+    $md = <INPUT>; chop $md;
+#warn "$md ok\n" if $referenced{$md};
+    next if $referenced{$md};
+    # Metadata for files that don't exist (yet) is expected.
+    next unless -f "$PDP8/$md";
+    # File exists, but wasn't hashed.  Hashed under another name?
+    ($hash) = split(/\s+/, `sha256sum '$PDP8/$md'`);
+    open(HASH, $hash) || die "$hash: $!";
+    $name = <HASH>; chop $name;
+    # It hashed to a used hashcode, so it should be identical.
+    die "$md vs $name: hashcode collision!\n"
+      if system "cmp $PDP8/$md $PDP8/$name";
+    warn "$md aliases $name\n"
+    # If a file has somehow hashed to an existing hashcode, abort
+  }
+}

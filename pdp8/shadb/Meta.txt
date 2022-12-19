@@ -1,0 +1,34 @@
+This thing currently has two layers.
+
+Every extant file has a hash code (currently the result of sh256sum) which
+loooks up the "true name" of the file.  This name is a shorthand for an
+URL, and provides the unaliased "name" of the file to the later step(s).
+
+There are also "true names" which refer to files which do not (yet)
+exist.  This allows known meta-data to be attached to lost versions
+of DEC products and other files which haven't actually been found.
+
+The meta data archive mimics the "true name" directory structure to quickly
+look up the meta data.
+
+Related files are grouped with the folder mechanism.  A meta data reference
+needs to propogate this information, too.  Generally the parallel nature
+of the true name structure makes this implicit.
+
+Meta Data files should probably repeat the true name, allowing a quick
+check for misplaced data, etc.
+
+Each file should have a description; some brief text be which it can be
+identified whether it is currently of interest.
+
+Every file should have a type, which determines which rules and which tools
+apply.  Usually, the type can be inferred from the extension, or a quick
+inspection of the contents (linux "file" command).
+
+Some files are known faulty copies, which should be flagged, preferably
+with why they are faulty.
+
+Some files are not defective, but are deprecated, as when a known better
+version exists, etc.  Sometimes these are just issues file format; some
+text files are ASCII, but with parity set, the "wrong" kind of newlines,
+etc.

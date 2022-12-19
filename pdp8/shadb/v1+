@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+open(INPUT, "vv") || die "vv: $!";
+while (<INPUT>) {
+  chop;
+  ($x, $_, $y) = split(/\s+/, $_);
+# print "\n$x\n$y\n";
+  open(MD, "$ENV{'HOME'}/pdp8/shadb/$y") || die "meta $y: $!";
+  $md = join("", (<MD>));
+  if ($md !~ s/.alias/.alias\n$x/) {
+    $md = ".alias\n$x\n$md";
+  }
+  print $md
+# open(MD, ">$ENV{'HOME'}/pdp8/shadb/$y") || die "meta $y: $!";
+# print MD $md;
+}

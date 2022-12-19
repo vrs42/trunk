@@ -1,0 +1,16 @@
+.bad
+This file has a BIN format checksum error, caused by two single bit
+error frames (missing the 040 bit).  It will fail to detect stuck low
+IR1 and IR2.
+.description
+8A CPU test diagnostic (bad copy)
+.name
+Images/diag-games-kermit.0/8acpu.bn
+.notes
+8acpu.bn is the 8A CPU test diagnostic.  It is essentially a copy of 
+maindec-08-djkka-c-pb, with a checksum error and minor differences,
+which in fact do explain the checksum error.  These errors have the net
+effect that the diagnostic will fail to detect when IR1 and IR2 are stuck
+low on the bus.
+.partnumber
+maindec-08-djkka-c-pb
