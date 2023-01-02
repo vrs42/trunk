@@ -27,7 +27,13 @@ foreach $h (<[0-9a-f]*>) {
   # It must exist in the $PDP8 hierarchy.
   # In addition, it must hash to $h.
   ($hash) = split(/\s+/, `sha256sum '$PDP8/$name'`);
-  warn "$h: Wrong hashcode for $name\n" unless $h eq $hash;
+  unless ($h eq $hash) {
+    warn "$h: $name: Wrong hashcode\n" if $hash;
+    warn "$h: $name: Removed\n" unless $hash;
+    print "rm $h\n";
+# BUGBUG: Possible hashcode collision with new hash!
+    print "echo '$name' >$hash\n" if $hash;
+  }
   # Remember that the metadata file was referenced.
   $referenced{$name} = 1;
 }
@@ -49,14 +55,22 @@ foreach $d (<*/.>) {
     next if $referenced{$md};
     # Metadata for files that don't exist (yet) is expected.
     next unless -f "$PDP8/$md";
-    # File exists, but wasn't hashed.  Hashed under another name?
+    # The file corresponding to the metadata exists, but wasn't hashed.
+    # Hashed under another name?
     ($hash) = split(/\s+/, `sha256sum '$PDP8/$md'`);
     open(HASH, $hash) || die "$hash: $!";
     $name = <HASH>; chop $name;
     # It hashed to a used hashcode, so it should be identical.
     die "$md vs $name: hashcode collision!\n"
       if system "cmp $PDP8/$md $PDP8/$name";
-    warn "$md aliases $name\n"
+    # Warn the user that the hashdata won't be found!
+    warn "$md: aliases $name\n";
+    if (-f $name) {
+      warn "$name metadata also exists!\n";
+    } else {
+      # It suffices to redirect the hash.
+      print "echo $md >$hash\n";
+    }
     # If a file has somehow hashed to an existing hashcode, abort
   }
 }

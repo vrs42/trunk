@@ -5,5 +5,7 @@ Images/diag-games-kermit.0/k12mit.sv
 .notes
 This version if k12mit.bn is customized by Dave's parameter file "param.pa" to
 operate on the console port.
+.group
+misc/kermit
 .partnumber
 misc/kermit/k12mit.bin
