@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+
+# Enumerate the part numbers and create the skeleton metadata.
+
+$ROOT = "$ENV{'HOME'}/pdp8";
+$META = "$ROOT/shadb";
+$SRC = "src/dec";
+
+# Make note of the files described in the Files.txt of each directory.
+foreach (<$ROOT/$SRC/*>) {
+  next unless -d $_;
+  s:$ROOT/$SRC/::;
+  $group = $_;
+  $dir = "$SRC/$group";
+  # Make sure a directory exists to contain the metadata.
+  system "mkdir -p '$META/$dir'";
+  # Open and read the old metadata.
+  open(INPUT, "$ROOT/$dir/Files.txt") || die "$ROOT/$dir/Files.txt: $!";
+  while (<INPUT>) {
+    # Obtain the part number, any "modern alias", and description.
+    die unless /(.*)\t(.*)\t(.*)\t(.*)/;
+    ($pa, $mt, $pn, $desc) = ($1, $2, $3, $4);
+    # Infer the file name from the part number.
+    $f = $pn;
+    $pn =~ /(-[^-]*)$/; $ext = $1;
+    $f .= ".pdf" if $f =~ /-d\d*$/;
+    $f .= ".pdf" if $f =~ /-dn\d*$/;
+    $f .= ".pdf" if $f =~ /-la\d*$/;
+    $f .= ".pdf" if $f =~ /^aa-/;
+    $files{"$f"} = 1;
+    # If output metadata exists, retain it.
+    next if -f "meta/$f";
+    # Open and output the metadata file.
+    open(OUTPUT, ">$META/$dir/$f") || die "$META/$dir/$f: $!";
+#print "open(OUTPUT, >$META/$dir/$f)";
+#open(OUTPUT, ">&STDOUT");
+    print OUTPUT ".name\n$dir/$f\n";
+    print OUTPUT ".description\n$desc\n";
+    print OUTPUT ".partnumber\n$pn\n";
+    print OUTPUT ".group\n$group\n";
+    print OUTPUT ".alias\n$mt-$pa$ext\n" if $pa;
+  }
+}

@@ -1,0 +1,58 @@
+#!/usr/bin/perl
+
+# Enumerate the part numbers and create the skeleton metadata.
+
+$ROOT = "$ENV{'HOME'}/pdp8";
+$META = "$ROOT/shadb";
+$SRC = "src/decus";
+
+# Make note of the files described in the Files.txt of each directory.
+foreach (<$ROOT/$SRC/*>) {
+  next unless -d $_;
+  s:$ROOT/$SRC/::;
+  $group = $_;
+  $dir = "$SRC/$group";
+  # Make sure a directory exists to contain the metadata.
+  system "mkdir -p '$META/$dir'";
+  # Open and read the old metadata.
+  open(INPUT, "$ROOT/$dir/decus-$group.htm") || die "$ROOT/$dir/decus-$group.htm: $!";
+  while (<INPUT>) {
+    # Obtain the part number and description.
+    last if /<table/;
+  }
+  $desc = "";
+  while ($desc !~ m:</div>:) {
+    $desc .= <INPUT>;
+  }
+  $desc =~ s/<[^>]*>//g;
+  $desc =~ s/[\r\n]+/ /g;
+  $desc =~ s/\s+$//;
+  $pn = <INPUT>;
+  $pn =~ s/<[^>]*>//g;
+  $pn =~ s/[ \r]*$//;
+  chop $pn;
+  $pn =~ y/A-Z/a-z/;
+die "$pn ne $group" unless $pn =~ /^$group$/i;
+  $desc = "DECUS-$group $desc";
+  $group = "$SRC/$group";
+  # At this point we have the name and description for the group.
+  # Enumerate the files in $dir and process them.
+  foreach (<$ROOT/$dir/*>) {
+    $f = $_; $f =~ s:$ROOT/::;
+    # If output metadata exists, retain it.
+    next if -f "$META/$f";
+    # Get file extension
+    $basename = $f; $basename =~ s:.*/::;
+    $ext = "";
+    ($basename, $ext) = ($1, $2) if $f =~ m:([^/]*)[.]([^/]*)$:;
+    # Open and output the metadata file.
+    next if -d "$META/$f";
+    open(OUTPUT, ">$META/$f") || die "$META/$f: $!";
+#print "open(OUTPUT, >$META/$dir/$f)";
+#open(OUTPUT, ">&STDOUT");
+    print OUTPUT ".name\n$f\n";
+    print OUTPUT ".description\n$desc\n";
+    print OUTPUT ".group\n$SRC/$group\n";
+    print OUTPUT ".partnumber\n$f\n";
+  }
+}

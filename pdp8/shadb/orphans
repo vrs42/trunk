@@ -58,19 +58,19 @@ foreach $d (<*/.>) {
     # The file corresponding to the metadata exists, but wasn't hashed.
     # Hashed under another name?
     ($hash) = split(/\s+/, `sha256sum '$PDP8/$md'`);
-    open(HASH, $hash) || die "$hash: $!";
-    $name = <HASH>; chop $name;
-    # It hashed to a used hashcode, so it should be identical.
-    die "$md vs $name: hashcode collision!\n"
-      if system "cmp $PDP8/$md $PDP8/$name";
-    # Warn the user that the hashdata won't be found!
-    warn "$md: aliases $name\n";
-    if (-f $name) {
-      warn "$name metadata also exists!\n";
-    } else {
-      # It suffices to redirect the hash.
-      print "echo $md >$hash\n";
+    if (open(HASH, $hash)) {
+      $name = <HASH>; chop $name;
+      # It hashed to a used hashcode, so it should be identical.
+      die "$md vs $name: hashcode collision!\n"
+        if system "cmp $PDP8/$md $PDP8/$name";
+      # Warn the user that the hashdata won't be found!
+      warn "$md: aliases $name\n";
+      if (-f $name) {
+        warn "$name metadata also exists!\n";
+        next;
+      }
     }
-    # If a file has somehow hashed to an existing hashcode, abort
+    # It suffices to redirect the hash.
+    print "echo $md >$hash\n";
   }
 }
