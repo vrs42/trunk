@@ -1,2 +1,26 @@
 .name
-src/omsi/basic/omsi_basic-main/dg/dhtdab.dg
+Images/diagpack2.0/dhtdab.dg
+.alias
+ak-6405b-pb
+.description
+TD8E DECtape Diagnostic
+.group
+maindec-08-dhtda
+.partnumber
+maindec-08-dhtda-b-pb
+.bad
+The corruption/patch disables the TTY output routine.
+.notes
+This is maindec-08-dhtda-b-pb, but it has these differences:
+0023: 0000 != 6257
+0024: 0000 != 6266
+0025: 0000 != 6301
+0026: 0000 != 6306
+0027: 0000 != 6356
+0030: 0000 != 6360
+0032: 6046 != 0000
+0033: 6041 != 0000
+0034: 5033 != 0000
+0035: 6042 != 0000
+which have the unfortunate effect of replacing the TTY output
+with a no-op.

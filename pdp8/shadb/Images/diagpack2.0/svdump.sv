@@ -1,2 +1,7 @@
 .name
-src/decus/8-889/2.0/advent.0/svdump.sv
+Images/diagpack2.0/svdump.sv
+.description
+SVDUMP Dump a .SV File
+.notes
+The /N option configures the output for TTY width instead of printer
+width.  The default output file is LPT:.

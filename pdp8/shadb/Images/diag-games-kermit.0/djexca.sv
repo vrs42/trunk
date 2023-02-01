@@ -6,3 +6,5 @@ AJEXCC0 4K TO 32K PROCESSOR EXERCISER
 Images/diag-games-kermit.0/djexca.sv
 .partnumber
 maindec-08-djexc-a-pb
+.obsolete
+maindec-08-djexc-c-pb

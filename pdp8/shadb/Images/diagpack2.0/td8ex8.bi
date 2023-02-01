@@ -1,2 +1,2 @@
 .name
-src/omsi/basic/omsi_basic-main/diagpack2.0/td8ex8.bi
+Images/diagpack2.0/td8ex8.bi

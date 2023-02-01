@@ -1,2 +1,2 @@
 .name
-src/omsi/basic/omsi_basic-main/diagpack2.0/cuspak.bi
+Images/diagpack2.0/cuspak.bi

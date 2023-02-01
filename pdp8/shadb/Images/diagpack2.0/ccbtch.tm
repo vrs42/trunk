@@ -1,2 +1,2 @@
 .name
-src/omsi/basic/omsi_basic-main/diagpack2.0/ccbtch.tm
+Images/diagpack2.0/ccbtch.tm

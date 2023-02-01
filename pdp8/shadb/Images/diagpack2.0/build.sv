@@ -1,2 +1,2 @@
 .name
-src/omsi/basic/omsi_basic-main/diagpack2.0/build.sv
+Images/diagpack2.0/build.sv
