@@ -1,5 +1,6 @@
 .alias
 ak-4757c-ps
+src/dec/dec-s8-osysb/dec-s8-osysb-a-uc2.0/geniox.rl
 .description
 OS/8 V3D EXT GENIOX.RL
 .group
