@@ -1,0 +1,66 @@
+#!/usr/bin/perl
+
+#
+# Normalize file names, checking for conflicting descriptions.
+#
+
+#
+# Given a list of attribute files, load the attributes.
+# Subsequent files in the list will override earlier values.
+#
+$shadb = ".";
+sub getattr {
+  local(@f) = @_;
+  local($f, $attr, $value);
+
+  %value = ();
+  foreach $f (@f) {
+    if (!open(META, "$shadb/$f")) {
+      warn "$shadb/$f: $!";
+      next;
+    }
+    $attr = $value = "";
+    while (<META>) {
+      if (/^[.](\S+)/) {
+        $value{$attr} = $value if $attr;
+        $value = "";
+        $attr = $1;
+      } else {
+        $value .= $_;
+      }
+    }
+    $value{$attr} = $value if $attr;
+  }
+}
+
+%desc = ();
+foreach $f (<*>) {
+  next unless $f =~ m/^md|^a/;
+  if ($f =~ /^md-(.*)-(.).*$/) {
+    ($name, $version) = ($1, $2);
+  } elsif ($f =~ /^a(.*)-(.).*$/) {
+# BUGBUG: This picks up ac-* as well.
+    ($name, $version) = ("d$1", $2);
+    $name = "08-$name";
+  }
+  $name =~ s/0*$//;
+  $name .= "0" if length($name) < 6; # 08-xx gets padded
+  $dir = "maindec-$name";
+  $norm = $dir;
+# $norm =~ y/[0o]/00/;
+# $norm =~ y/[1l]/11/;
+# $norm =~ y/[5s]/55/;
+  # Get the attributes, including description.
+  &getattr($f);
+#$attr = $value{'description'};
+#print "$f: $attr";
+  # Check the descriptions match.
+  if (defined $desc{$norm}) {
+    next if $desc{$norm} eq $value{'description'};
+    print "$f: $value{'description'}";
+    print "$f{$norm}: $desc{$norm}";
+  } else {
+    $desc{$norm} = $value{'description'};
+    $f{$norm} = $f;
+  }
+}

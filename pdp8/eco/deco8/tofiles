@@ -1,0 +1,107 @@
+#!/usr/bin/perl
+
+#
+# Given a list of attribute files, load the attributes.
+# Subsequent files in the list will override earlier values.
+#
+$shadb = ".";
+sub getattr {
+  local(@f) = @_;
+  local($f, $attr, $value);
+
+  %value = ();
+  foreach $f (@f) {
+    if (!open(META, "$shadb/$f")) {
+      warn "$shadb/$f: $!";
+      next;
+    }
+    $attr = $value = "";
+    while (<META>) {
+      if (/^[.](\S+)/) {
+        $value{$attr} = $value if $attr;
+        $value = "";
+        $attr = $1;
+      } else {
+        $value .= $_;
+      }
+    }
+    $value{$attr} = $value if $attr;
+  }
+}
+
+#
+# A quick table of media class codes, and the associated file format.
+# These are basically guesswork, as file format should be more
+# specific than the media class.
+%mt = (
+  "aa", "d",    # Manual/Handbook
+  "ab", "d",    # System Listing
+  "ac", "d",    # Diagnostic Listing
+  "ad", "dn",   # Documentation Update
+  "ae", "dn",   # SPD (Software Product Description)
+  "af", "dn",   # Change/Patch Orders
+  "ah", "la",   # Microfiche (documents)
+# "aj", "?c",   # RP04
+  "ak", "pb",   # Paper Tape
+  "al", "uc",   # DECTape/LINCTape
+# "am", "?c",   # RK06
+  "an", "hc",   # RK05
+  "ap", "mc",   # Magtape
+  "ar", "tc",   # Cassette
+  "as", "yc",   # Floppy
+  "at", "cb",   # Card Deck
+# "av", "?c",   # Miscellaneous (documents)
+  "ax", "hc",   # RL01
+# "aw", "?c",   # RP06
+  "ba", "yc",   # RX02
+);
+
+#
+# Convert local attribute format to Files.txt entries.
+#
+open(OUTPUT, ">files.txt") || die "files.txt: $!";
+foreach $f (@ARGV) {
+  $basename = $f; $basename =~ s:.*/::;
+  next unless $basename =~ m/^md|^a/;
+  &getattr($f);
+  if ($basename =~ /^md-(.*)-(.).*$/) {
+    ($name, $version) = ($1, $2);
+  } elsif ($f =~ /^a(.*)-(.).*$/) {
+# BUGBUG: This picks up ac-* as well.
+    ($name, $version) = ("d$1", $2);
+    $name = "08-$name";
+  }
+  $name =~ s/0*$//;
+  $name .= "0" if length($name) < 6; # 08-xx gets padded
+  $targets++;
+  $dir = "$ENV{'HOME'}/pdp8/src/dec/maindec-$name";
+  # Make a directory if it doesn't exist yet.
+  print "mkdir $dir\n" unless -d $dir;
+  # Compute the old style filename, less extension.
+  $dash = ""; $dash = "-" unless length($name) < 7;
+  $target = "maindec-$name$dash$version";
+  # Obtain the description.
+  $desc = $value{'description'}; chop $desc;
+  die "$f: no description" unless $desc;
+  # Determine the applicable media types.
+  # At minimum, there chould be an "ac" and an "ak" for each file,
+  # though there may not be a part number specified for them.
+  %media = ('ac', '', 'ak', '');
+  foreach $c (split(/\s+/, $value{'components'})) {
+    # Components are expected to be formatted ??-?????-??.
+    next unless $c =~ /^(..)-(.*)-(..)/;
+    ($mt, $pn, $fmt) = ($1, $2, $3);
+    $media{$mt} = $2;
+  }
+  # For each media type, emit a suitable Files.txt entry, if applicable.
+  foreach $mt (sort keys %media) {
+    # Print the new-style part number, if any.
+    if ($media{$mt}) {
+      print OUTPUT "$media{$mt}\t$mt";
+    } else {
+      print OUTPUT "\t";
+    }
+    # Print the archival file name and the description.
+    print OUTPUT "\t$target-$mt{$mt}\t$desc\n";
+  }
+}

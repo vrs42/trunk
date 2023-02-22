@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+
+#
+# Merge files.txt with the Files.txt scattered through pdp8/src/dec.
+# Emit proposed new files, to be moved to their respective directories,
+# replacing the originals.
+#
+
+open(INPUT, "files.txt") || die "files.txt: $!";
+%files = $dirty = ();
+foreach $line (<INPUT>) {
+  # Split the fields
+  ($npn, $nmt, $nfn, $ndesc) = split(/\t/, $line);
+  # Compute a directory name from $nfn
+  $dir = $nfn;
+  $dir =~ s/.-[^-]*$// unless $dir =~ s/-.-[^-]*$//;
+  # Obtain the Files.txt info, if any
+  if (!defined $files{$dir}) {
+    $files{$dir} = "";
+    if (open(FILESTXT, "$ENV{'HOME'}/pdp8/src/dec/$dir/Files.txt")) {
+      $files{$dir} = "";
+      while (<FILESTXT>) {
+        $files{$dir} .= $_;
+      }
+    }
+#warn "$dir:\n$files{$dir}";
+  }
+  # Obtain the Files.txt info, if changed
+  $dirt = 1; # No match implies dirty
+  foreach (split(/\n/, $files{$dir})) {
+    $ol = $_;
+    ($opn, $omt, $ofn, $odesc) = split(/\t/, $ol);
+    next unless $ofn eq $nfn;
+#print "matched $ofn $nfn:\n  $ol\n  $line";
+    # Got a match
+    $dirt = 0; # Not dirty if the match is clean
+    $npn = $opn unless $npn;
+    $nmt = $omt unless $nmt;
+    die "$nfn: $npn ne $opn" unless $npn eq $opn;
+    die "$nfn: $nmt ne $omt" unless $nmt eq $omt;
+    last if $ndesc eq $odesc;
+    $dirt = 1;
+    last;
+  }
+  # Done with this line if clean match found
+  next unless $dirt;
+  $dirty{$dir} = 1; # No clean match
+  # Fix matched line or create a new output line
+  $line = join("\t", $npn, $nmt, $nfn, $ndesc);
+  # Splice the modified data into $files{$dir}
+  if ($nfn eq $ofn) {
+    $ol =~ s/\(/\\(/g; # Guard prens in text
+    $ol =~ s/\)/\\)/g;
+    warn "no match: $ol\n" unless $files{$dir} =~ s/$ol\n/$line/;
+  } else {
+    $files{$dir} .= $line;
+  }
+}
+# Output the dirty %files entries.
+foreach $dir (sort keys %dirty) {
+  # Open and write the proposed replacement data
+  print "$dir:\n";
+  print $files{$dir};
+}
+exit 0;
