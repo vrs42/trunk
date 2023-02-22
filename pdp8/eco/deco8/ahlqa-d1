@@ -1,0 +1,50 @@
+.date
+27-Jun-80
+.copyright
+1977-1979
+.code
+ahlqa-d1
+.description
+AHLQAD1 LQP8 Printer Diagnostic
+.components
+.problem
+Diagnostic prints out ahlqac instead of ahlqad.
+.solution
+Change rev c to a d.
+Install patch below.
+This is an unconditional patch.
+.patch
+Loc	From	To
+6120	0340	0440
+6177	0340	0440
+.runpass1
+.runpass2
+.processors
+89 90 91 92
+.environment
+00 99
+.devices
+VT78
+LQP8
+.reports
+.kits
+zf008
+zf014
+zf016
+.author
+Dave Orin
+.submittor
+H. Cziria
+.maneng
+J. Beike
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+John Vrobel
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3725

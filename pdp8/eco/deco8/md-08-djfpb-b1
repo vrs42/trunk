@@ -1,0 +1,47 @@
+.date
+28-Jun-77
+.copyright
+1976-1977
+.code
+md-08-djfpb-b1
+.description
+FPP8A Instruction Test and Data Exerciser
+.components
+.problem
+If running data exerciser on system with a memory
+size more than 16k, the program will generate exponents
+for 'test 15" that cannot be aligned in calculations
+made in fields 4-7.
+.solution
+Please make the following patch in field 1:
+.patch
+Loc	From	To
+10701	3014	5363
+10763	3014	3014
+10764	3014	7100
+10765	3014	5302
+.runpass1
+.runpass2
+.processors
+89 90 91 92
+.environment
+00 20 99
+.devices
+FPP8A
+.kits
+.author
+W. Heavey
+.submittor
+W. Heavey
+.maneng
+.charge
+v89-08202
+.maintgroup
+diagnostics
+.maintainer
+G. Johnson
+.fse
+.releaseeng
+T. Davies
+.coord
+MC1453

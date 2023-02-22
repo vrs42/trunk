@@ -1,0 +1,51 @@
+.date
+10-Jan-78
+.copyright
+1975-1977
+.code
+md-08-dirxb-e1
+.description
+RX8/RX01 Data Reliability Exerciser
+.components
+.problem
+Diagnostic would get lost should a characeter be typed from
+the keyboard while a message was printing
+.solution
+Enter the following patch.
+.patch
+Loc	From	To
+05304	3023	3174
+05313	1023	1174
+10332	5304	5310
+.runpass1
+.runpass2
+.processors
+.environment
+.devices
+RX8E
+RX01
+.kits
+zf008
+zf122
+zf177
+zf127
+zf012
+zf117
+.author
+M. Sturak
+.submittor
+D. Rice
+.maneng
+T. Shallow
+.charge
+v89-08825
+.maintgroup
+small systems
+.maintainer
+G. Johnson
+.fse
+C. Cline
+.releaseeng
+K. Fleming
+.coord
+MC1784

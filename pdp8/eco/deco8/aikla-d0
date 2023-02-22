@@ -1,0 +1,57 @@
+.date
+10-Jan-79
+.copyright
+1973-1979
+.code
+aikla-d0
+.description
+AIKLAD0 KL8J/KL8K Loop Back Test
+.components
+ac-6527d-ma
+ak-6529d-ma
+ah-6528d-ma
+.problem
+The KL-8L loop back test diagnostic will not run the teletype
+interrogation to the control/data test; because the hardware
+switch register cannot be enabled due to location
+21=0000. Console package and filler
+characters are both defined as bit 3=1. Confliction
+exists between IOT's and pseudo switch register under APT.
+.solution
+Location 21 was changed from 0000 to 4000 to enable
+the hardware switch register. Changed filler character
+to bit 4=1. All pseudo switch functions of bit 10 were
+inhibited.
+.runpass1
+.runpass2
+.processors
+89 90 91 92 93 12
+.environment
+00 99 20
+.devices
+KL8J
+KL8K
+.reports
+cc0001004
+.kits
+zf010
+zf144
+zf238
+zf016
+.author
+B. Hansen
+.submittor
+H. Cziria
+.maneng
+G. Bean
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC2815

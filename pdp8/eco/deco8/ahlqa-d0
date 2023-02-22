@@ -1,0 +1,54 @@
+.date
+13-Aug-79
+.copyright
+1977-1979
+.code
+ahlqa-d0
+.description
+AHLQAD0 LQP8 Printer Diagnostic
+.components
+ac-6315d-ma
+ak-6318d-ma
+ah-6317d-ma
+al-6319d-ma
+.problem
+Program does not overwrite for bits 10 and 11 in
+status register when ruwmn6 on a VT78. After
+maindec title is printed program does not come
+back with SR=0000 so you can have the option of using
+pseudo SR.
+.solution
+Program now overwrites for bits 10 and 11 in status
+register if running on a VT78. After maindec title
+is printed, comes back with SR=0000 so you can have
+the option of using pseudo SR.
+.runpass1
+.runpass2
+.processors
+89 90 91 92
+.environment
+00 99
+.devices
+VT78
+LQP8
+.reports
+.kits
+zf008
+zf014
+.author
+Dave Orin
+.submittor
+H. Cziria
+.maneng
+J. Beike
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+John Vrobel
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3260

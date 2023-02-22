@@ -1,0 +1,60 @@
+.date
+09-Mar-80
+.copyright
+1978-1980
+.code
+ajrle-c0
+.description
+AJRLEC0 RL8-A/RL01 Performance Exerciser
+.components
+ak-c674c-ma
+ac-c672c-ma
+ah-c673c-ma
+al-c675c-ma
+.problem
+This diagnostic will not return to the monitor when
+Control c is typed because a data pattern is written
+into all of field 2 where part of the RL01 and RX02
+device handler resides.
+.solution
+Diagnostic was enhanced so if you had an RL01 or RX02
+as system disk you would not overwrite field 2 beyond
+7400 and you would be able to return to the monitor
+when a Control c is typed.
+.runpass1
+150
+.runpass2
+150
+.processors
+89 90 91 92
+.environment
+00 99 20
+.devices
+RL8A
+RL01
+.reports
+aa0000299
+.kits
+zf233
+zf015
+zf239
+zj238
+zf240
+zf017
+.author
+D. Orin
+.submittor
+H. Cziria
+.maneng
+J. Beike
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3680

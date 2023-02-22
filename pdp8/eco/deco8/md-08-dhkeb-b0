@@ -1,0 +1,50 @@
+.date
+21-Sep-77
+.copyright
+1972-1977
+.code
+md-08-dhkeb-a0
+.description
+KE8E (EAE) Instruction Test 1
+.components
+dhkeb-b-pb
+dhkeb-b-ua
+dhkeb-b-d
+.problem
+Program entered "TICK" subroutine without a cleared
+acc and consequently falsely recognized "APT"
+as being available, thereby proceeding to branch
+according to "APT", resulting in program failure.
+.solution
+1. Clear acc as "TICK" routine is entered.
+2. Found incorrect combination of a subroutine
+call and a microinstruction written as one command.
+.runpass1
+.runpass2
+.processors
+88
+.environment
+00 20 99
+.devices
+KE8E
+.kits
+zf011
+zf139
+zf013
+.author
+A. Balamotis
+.submittor
+A. Balamotis
+.maneng
+D. Brown
+.charge
+v98-08162
+.maintgroup
+diagnostics
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC1551

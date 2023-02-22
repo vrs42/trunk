@@ -1,0 +1,47 @@
+.date
+30-Jan-79
+.copyright
+1972-1979
+.code
+ahdra-c0
+.description
+AHDRAC0 DR8-EA 12 Channel Interface Test
+.components
+ac-6229c-ma
+ak-6231c-ma
+ah-6230c-ma
+.problem
+When running dhdra under APT the diagnostic will hang
+in an error loop.
+.solution
+To effectively run ahdra under apt. Location 4414
+was changed to a CMA to correctly set up the
+interrupt jumper mask for input register bits.
+.runpass1
+.runpass2
+.processors
+90 89 91 92
+.environment
+00 20
+.devices
+DR8EA
+.kits
+zf013
+zf136
+.author
+D. Macomber
+.submittor
+H. Cziria
+.maneng
+G. Bean
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC2842

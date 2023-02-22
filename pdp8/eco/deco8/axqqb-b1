@@ -1,0 +1,52 @@
+.date
+01-Aug-79
+.copyright
+1975-1979
+.code
+axqqb-b1
+.description
+AXQQBB1 DEC/X8 APT-8 System
+.components
+ak-c613b-aa
+ac-c612b-aa
+al-c614b-na
+.problem
+The EAEDP and EAEALL modules fail with KT8A
+above 64K of memory. The failure only occurs
+when running above 64K of memory.
+.solution
+Install conditional patch to correct problem.
+.patch
+Loc	From	To
+21674	7450	7000
+21675	5300	6005
+21676	6005	7200
+.runpass1
+.runpass2
+.processors
+12 88 89 90 91 92
+.environment
+99
+.devices
+DEC/X8
+.reports
+cc0000949
+.kits
+.author
+D. Rice
+.submittor
+J. Vrobel
+.prodeng
+.maneng
+J. Casella
+.charge
+v98-05460
+.maintgroup
+diagnostics
+.maintainer
+Glenn Johnson
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3161

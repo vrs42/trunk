@@ -1,0 +1,46 @@
+.date
+27-Jun-80
+.copyright
+1978-1980
+.code
+ajrxh-h1
+.description
+AJRXHH1 WS200 Floppy Test
+.components
+as-e113h-m1
+.problem
+The AILQAAO LQPT diagnostic is initialized to assume
+a VT78 system and will fail on non-VT78 systems.
+.solution
+Iniiialize diagnostic on floppy for non VT78 system.
+Install patch:
+.patch
+Loc	From	To
+0022	1400	0400
+.runpass1
+.runpass2
+.processors
+88 90 91 92 89
+.environment
+00 99
+.devices
+WS200
+.kits
+zf016
+.author
+J. Vrobel
+.submittor
+H. Cziria
+.maneng
+J. Casella
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3723

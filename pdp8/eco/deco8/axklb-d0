@@ -1,0 +1,54 @@
+.date
+27-Jun-80
+.copyright
+1974-1980
+.code
+axklb-d0
+.description
+AXKLBD0 DEC/X8 Module "TTYLUP"
+.components
+ac-c253d-ma
+ak-c255d-ma
+ah-c254d-ma
+.problem
+Multiple KL8's cut to a high baud rate (i.e. 8 KL8's
+at 9600) interrupt at a high frequency rate. Interrupts
+from other software modules are not being serviced as
+frequently causing an unequal rate of data transfers.
+.solution
+Solution is in documentation under attention. After
+initialization of module use Control-o to change loc's
+to insert a preset counter which on reaching zero will
+exit to the interrupt service; to service the other
+software modules more frequently.
+.runpass1
+.runpass2
+.processors
+12 88 89 90 91 92
+.environment
+50
+.devices
+DEC/X8
+.reports
+dd0000078
+.kits
+zf229
+zk229
+zf238
+.author
+J. Vrobel
+.submittor
+H. Cziria
+.maneng
+J. Beike
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3722

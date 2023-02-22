@@ -1,0 +1,59 @@
+.date
+19-May-80
+.copyright
+1975-1980
+.code
+airxb-g0
+.description
+AIRXBG0 RX01/RX02 Performance Exerciser
+.components
+ac-6585g-ma
+ak-6587g-ma
+ah-6586g-ma
+al-6588g-ma
+.problem
+Any attempts to restart diagnostic via "CTRVG" then
+"IF" will result in a hung loop when run on a PDP8A
+or VT78 with no console.
+.solution
+Entered a nop so if on a system that has no console
+the CAF would not be bypassed. DCA passes so
+counter will be at zero again.
+.runpass1
+.runpass2
+.processors
+88 89 90 91 92 93 94 95
+.environment
+00 20 99
+.devices
+RX01
+RX02
+VT78
+.reports
+cc0000405
+.kits
+zf008
+zf013
+zf220
+zf014
+zf010
+zf016
+zf238
+zf240
+.author
+B. Irrgang
+.submittor
+H. Cziria
+.maneng
+J. Casella
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3691

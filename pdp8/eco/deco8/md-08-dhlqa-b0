@@ -1,0 +1,43 @@
+.date
+06-Jul-77
+.copyright
+1977
+.code
+md-08-dhlqa-b0
+.description
+LQP-8 Printer Diagnostic
+.components
+.problem
+Program needs changes to make compatible with VT78;
+correct power fail and loop on test malfunctons.
+.solution
+Added code to test if running under VT78 control.
+If so, avoid testing of status bits 5, 8 and 9 which
+do not exist in VT78 printer interface.
+.runpass1
+.runpass2
+.processors
+89 90 91 92
+.environment
+00 99
+.devices
+VT78
+.kits
+xf008
+zf014
+.author
+Dave Orin
+.submittor
+B. Poland
+.maneng
+.charge
+E89-09394
+.maintgroup
+diagnostics
+.maintainer
+Bob Misner
+.fse
+.releaseeng
+T. Davies
+.coord
+MC1459

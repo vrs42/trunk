@@ -1,0 +1,56 @@
+.date
+15-Oct-79
+.copyright
+1971-1980
+.code
+ahxya-c0
+.description
+AHXYAC0 XY8E Plotter Control and Display Test
+.components
+ac-b839c-ma
+ak-b841c-ma
+ah-b840c-ma
+al-b842c-ma
+.problem
+Timing problem. PLLR IOT with AC=nn set flag
+prior to 5ms. Program does not take into
+consideration some tty do not have an altmodE
+but use an escape key. Program does not run
+on an unencoded 663 Cal Comp plotter series.
+.solution
+Because of different kinds of memory, timing
+constants were changed so it takes this
+into consideration. Because of tty differences,
+program tests for altmode or escape key. Program
+changed to test for unencoded or encoded. 8 or 24
+vectors plotter series.
+.runpass1
+.runpass2
+.processors
+89 92
+.environment
+00
+.devices
+XY8E
+.reports
+hh0000340
+.kits
+zf011
+zf194
+.author
+L. Beyersdorfer
+.submittor
+H. Cziria
+.maneng
+J. Casella
+.charge
+v98-05460
+.maintgroup
+product enhancement
+.maintainer
+Misner
+.fse
+.releaseeng
+S. Dumdey
+.coord
+MC3408

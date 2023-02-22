@@ -1,0 +1,54 @@
+.date
+06-Jan-77
+.copyright
+1972-1977
+.code
+md-08-dhrkb-g1
+.description
+RK8E Drive Control Test
+.components
+.problem
+Status error in test 13 when testing drives other than drive 0.
+.solution
+Toggle in patch below.
+.patch
+ Loc	From	To
+0741	7301	4453
+0742	4453	1157
+0743	3143	4774
+0745	7640	7610
+0774		1370
+1370		0000
+1371		3143
+1372		4444
+1373		5770
+.runpass1
+.runpass2
+.processors
+89 90 91 92 93 94 12
+.environment
+00 20 99
+.devices
+RK8E
+RK05J
+RK05F
+.kits
+.author
+J. Vrobel
+.submittor
+D. Rice
+.prodeng
+T. Shallow III
+.maneng
+T. Shallow III
+.charge
+v89-08202
+.maintgroup
+small systems
+.maintainer
+Misner
+.fse
+.releaseeng
+D. Beausoleil
+.coord
+MC1303

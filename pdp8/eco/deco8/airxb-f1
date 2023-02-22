@@ -1,0 +1,57 @@
+.date
+18-Oct-78
+.copyright
+1975-1978
+.code
+airxb-f1
+.description
+AIRXBF1 RX01/RX02 Performance Exerciser
+.components
+ak-6587f-ma
+ac-6585f-ma
+ah-6586f-ma
+al-6588f-ma
+.problem
+Programs get lost at end of pass and will not restart.
+.solution
+This prcblem only occurs when an error happens on a pass.
+Problem is in routine "ERROR3" DCA to address "MDIRECTIVE"
+is to wrong field. Solution NOP's the DCA.
+This will be cleared up better in next revision.
+.patch
+Loc	From	To
+01161	3221	7200
+11701	6000	6100
+.runpass1
+.runpass2
+.processors
+88 89 90 91 92 93 94 95
+.environment
+00 20 99
+.devices
+RX01
+RX02
+.reports
+cc0001007
+.kits
+zf008
+zf013
+zf220
+zf014
+zf010
+.author
+B. Irrgang
+.submittor
+B. Irrgang
+.maneng
+.charge
+v98-05350
+.maintgroup
+diagnostics
+.maintainer
+small systems
+.fse
+.releaseeng
+Maureen Hansen
+.coord
+MC2479
