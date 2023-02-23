@@ -60,6 +60,7 @@ sub getattr {
 # Convert local attribute format to Files.txt entries.
 #
 open(OUTPUT, ">files.txt") || die "files.txt: $!";
+%new = %old = ();
 foreach $f (@ARGV) {
   $basename = $f; $basename =~ s:.*/::;
   next unless $basename =~ m/^md|^a/;
@@ -76,7 +77,7 @@ foreach $f (@ARGV) {
   $targets++;
   $dir = "$ENV{'HOME'}/pdp8/src/dec/maindec-$name";
   # Make a directory if it doesn't exist yet.
-  print "mkdir $dir\n" unless -d $dir;
+# print "mkdir $dir\n" unless -d $dir;
   # Compute the old style filename, less extension.
   $dash = ""; $dash = "-" unless length($name) < 7;
   $target = "maindec-$name$dash$version";
@@ -98,10 +99,26 @@ foreach $f (@ARGV) {
     # Print the new-style part number, if any.
     if ($media{$mt}) {
       print OUTPUT "$media{$mt}\t$mt";
+      $new = "$mt-$media{$mt}";
+      if (defined $new{$new}) {
+        $tmp = $f; chop $tmp;
+        next if $new{$new} =~ /^$tmp/;
+        warn "$f: $new is duplicated:\n  $f\n  $new{$new}\n"
+      }
+      $new{$media{$mt}} = $f;
     } else {
       print OUTPUT "\t";
     }
     # Print the archival file name and the description.
-    print OUTPUT "\t$target-$mt{$mt}\t$desc\n";
+    $old = "$target-$mt{$mt}";
+    print OUTPUT "\t$old\t$desc\n";
+    if (defined $old{$old}) {
+        $tmp = $f; chop $tmp;
+        next if $old{$old} =~ /^$tmp/;
+      warn "$f: $old is duplicated:\n  $f\n  $old{$old}\n"
+    }
+    $old{$old} = $f;
   }
 }
+#@tmp = sort keys %new;
+#warn "@tmp\n";

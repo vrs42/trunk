@@ -38,9 +38,12 @@ foreach $f (<*>) {
   next unless $f =~ m/^md|^a/;
   if ($f =~ /^md-(.*)-(.).*$/) {
     ($name, $version) = ($1, $2);
+    $filter = "";
   } elsif ($f =~ /^a(.*)-(.).*$/) {
 # BUGBUG: This picks up ac-* as well.
     ($name, $version) = ("d$1", $2);
+    $filter = $f; $filter =~ s/-//g; $filter =~ y/a-z/A-Z/;
+#warn "filter set to $filter\n";
     $name = "08-$name";
   }
   $name =~ s/0*$//;
@@ -52,6 +55,8 @@ foreach $f (<*>) {
 # $norm =~ y/[5s]/55/;
   # Get the attributes, including description.
   &getattr($f);
+  # Lose file/version if included in description.
+  $value{'description'} =~ s/^$filter //;
 #$attr = $value{'description'};
 #print "$f: $attr";
   # Check the descriptions match.
