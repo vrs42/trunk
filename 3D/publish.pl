@@ -7,7 +7,7 @@ $url = "https://svn.so-much-stuff.com/svn/trunk/3D";
 $head = <<'EOM';
 <?php
   $title = "3D CAD Files";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <BODY><FONT size=4>
 EOM
@@ -65,7 +65,7 @@ print "</TABLE>\n";
 
 
 $tail = <<'EOM';
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>
 EOM
 print $tail;
 

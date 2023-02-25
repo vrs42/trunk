@@ -41,7 +41,7 @@ foreach $f (@ARGV) {
         open(OUTPUT, ">$b.php") || die "$b.php: $!";
         print OUTPUT "<?php\n";
         print OUTPUT "  \$title = \"$title\";\n";
-        print OUTPUT "  include \$_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';\n";
+        print OUTPUT "  include \$_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';\n";
         print OUTPUT "?>\n";
         # Now copy the body, deleting the last table.
         $body = '';
@@ -56,7 +56,7 @@ foreach $f (@ARGV) {
             last if ?</BODY>?;
         }
         # Emit the epilogue.
-        print OUTPUT "<?php include \$_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>\n";
+        print OUTPUT "<?php include \$_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>\n";
         close(OUTPUT) || die "$b.php: $!";
         next;
     }
@@ -81,7 +81,7 @@ foreach $f (@ARGV) {
         open(OUTPUT, ">$b.php") || die "$b.php: $!";
         print OUTPUT "<?php\n";
         print OUTPUT "  \$title = \"$title\";\n";
-        print OUTPUT "  include \$_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';\n";
+        print OUTPUT "  include \$_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';\n";
         print OUTPUT "?>\n";
         # Now copy the body, deleting the #include 
         $body = '';
@@ -96,7 +96,7 @@ foreach $f (@ARGV) {
             $body .= $_;
         }
         # Emit the epilogue.
-        print OUTPUT "<?php include \$_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>\n";
+        print OUTPUT "<?php include \$_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>\n";
         close(OUTPUT) || die "$b.php: $!";
         next;
     }
