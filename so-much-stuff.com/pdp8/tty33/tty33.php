@@ -1,6 +1,6 @@
 <?php
   $title = "ASR33 Teletypes";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -56,4 +56,4 @@ having trouble sourcing the varactors (I have 4, so far).  I have drawn CAD draw
 for the board, which is quite simple.  (My thought is to eventually manufacture a 
 dozen or so of the boards.)
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

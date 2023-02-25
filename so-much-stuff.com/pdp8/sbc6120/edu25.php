@@ -1,6 +1,6 @@
 <?php
   $title = "EDU25 Basic";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -119,4 +119,4 @@ a single 4K field of memory, but a few use language features not found (nor easi
 in EDU25 BASIC.
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

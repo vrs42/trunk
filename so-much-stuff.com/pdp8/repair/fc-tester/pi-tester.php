@@ -1,6 +1,6 @@
 <?php
     $title = "RasPi 0W Tester";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 This page describes the changes made to <A>Warren's tester</A>
 to interface it to the Raspberry Pi 0W.  (I chose the 0W for 
@@ -182,4 +182,4 @@ tester software running.  The tests themselves live
 in ~/TESTS.
 <P>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

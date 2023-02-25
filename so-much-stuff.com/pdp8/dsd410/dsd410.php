@@ -1,6 +1,6 @@
 <?php
   $title = "DSD410 Floppy";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -24,4 +24,4 @@ become intermittent. That makes the drives do random maintenance functions at in
 moments, so I don't use them much. (I once lost a system disk when the drive decided to 
 do a read-write test on the media.)
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

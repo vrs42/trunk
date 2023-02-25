@@ -1,6 +1,6 @@
 <?php
   $title = "Eagle Notes";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <P>
@@ -128,4 +128,4 @@ have a ".wtb" file, and modules I have an excess of should have a ".wts"
 file.
 </DL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

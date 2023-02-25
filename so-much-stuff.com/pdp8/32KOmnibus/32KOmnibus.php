@@ -1,6 +1,6 @@
 <?php
   $title = "32K Memory + Bootstraps for Omnibus";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <TABLE>
 <P>This page describes a replacement for core memory, which also provides
@@ -180,4 +180,4 @@ and IC4, too.  (Sorry, no handles come with your kit.)
 </TR>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
   $title = "IOB6120 Page";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -153,4 +153,4 @@ but we haven't made it <em>do</em> much yet.
 <BL>For that, continue to the <A href=/pdp8/sbc6120/edu25.php>EDU25 BASIC page</A>...
 </UL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
   $title = "32K Memory for Omnibus";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <P>Here is one possible solution to the interference fit issue 
 with the PDP-8/A.
@@ -34,4 +34,4 @@ when installed should now easily clear the card guides as shown in the photo.
   </A></TD>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

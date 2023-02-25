@@ -1,6 +1,6 @@
 <?php
     $title = "Switch Handle Page";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -127,4 +127,4 @@ don&#039;t need the added coloring. I believe any bubble defects can be kept sma
 confined to the non-cosmetic areas. (Basically, if I can get the hinge tabs to come out, 
 the larger pins on the drive select should be doable.)
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

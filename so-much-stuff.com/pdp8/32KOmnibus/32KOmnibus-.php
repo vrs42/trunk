@@ -1,6 +1,6 @@
 <?php
   $title = "32K Memory for Omnibus";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <P>Some of you have asked, so
 <A HREF=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/>here</A>
@@ -212,4 +212,4 @@ and IC4, too.  (Sorry, no handles come with your kit.)
   </TD>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

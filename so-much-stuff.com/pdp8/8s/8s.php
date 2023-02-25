@@ -1,6 +1,6 @@
 <?php
   $title = "PDP-8/S Computer";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -86,4 +86,4 @@ both the terminal controller and the CPU to fit into the nice desktop box.
 Each PT08 controls a single serial terminal, usually an ASR33 with reader-run 
 control and interfaced with current loops.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

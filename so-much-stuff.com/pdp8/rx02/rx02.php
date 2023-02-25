@@ -1,6 +1,6 @@
 <?php
   $title = "RX02 Floppy";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -24,4 +24,4 @@ way that was specific to the DEC "double density".
 exactly the IBM standard).
     <P>I plan to leave these on the PDP-8/A for now.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

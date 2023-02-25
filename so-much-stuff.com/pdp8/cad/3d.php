@@ -1,6 +1,6 @@
 <?php
   $title = "3D CAD Files";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <BODY><FONT size=4>
 Here are some 3D design files mostly relevant to the PDP-8.
@@ -327,4 +327,4 @@ You're better off getting these duplicated at your local
 locksmith.
 </TD>
 </TABLE>
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

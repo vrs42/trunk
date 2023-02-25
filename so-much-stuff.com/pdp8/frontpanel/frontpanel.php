@@ -1,6 +1,6 @@
 <?php
     $title = "Front Panel";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 <P><FONT size=3>
 <DIV>The front panel boards in a PDP-8/i are not very robust, and are easily
@@ -36,4 +36,4 @@ damaged by soldering, etc.  So...
     </DL>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

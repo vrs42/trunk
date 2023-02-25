@@ -1,6 +1,6 @@
 <?php
   $title = "DEC Part Substitution";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 I have added copies of these documents, which cross reference DEC part numbers
 to vendor information, because I can no longer find them elsewhere online:
@@ -33,4 +33,4 @@ no substitute at all, presumably depending on how it is used in the module.
 <GREEN>
 DEC Parts Substitution List
 </IFRAME>
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

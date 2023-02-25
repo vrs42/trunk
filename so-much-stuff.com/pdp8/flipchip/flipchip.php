@@ -1,6 +1,6 @@
 <?php
   $title = "FlipChip Modules";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -82,4 +82,4 @@ for many of the module images.
 link at the top of the page.  <A href=eagle.php>This page</A> also 
 gives information about how these drawings are created.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

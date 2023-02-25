@@ -1,6 +1,6 @@
 <?php
   $title = "KSR43 Teletype";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -22,4 +22,4 @@ units that bolt on the side, but I have never found those.
 as it seems virtually impossible to find ribbons for them.  (I actually have several 
 of the ribbons, but it seems they are all dried out.)
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
     $title = "PDP-8 Stuff";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 <TABLE>
 <TR>
@@ -30,4 +30,4 @@ Vince Slyngstad
 </TR>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

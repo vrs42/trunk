@@ -1,6 +1,6 @@
 <?php
     $title = "Flip Chip Tester(s)";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 Over the years, there has been an ongoing interest in a way 
 to test the flip-chip modules from which various DEC gear, 
@@ -87,4 +87,4 @@ for software to conveniently run it, and test vectors for
 complex modules.
 </DL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

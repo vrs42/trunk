@@ -1,6 +1,6 @@
 <?php
   $title = "LA-36 Terminal";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -23,4 +23,4 @@ ink rather faint.  Should make a nice terminal for one of the rack-mounted syste
     <P>My other is much rougher shape, with a lot of corrosion, etc.  Pretty much 
 just a parts unit.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

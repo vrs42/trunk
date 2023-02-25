@@ -1,6 +1,6 @@
 <?php
   $title = "TU56 DECTape";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <P>
@@ -26,4 +26,4 @@ the M868 controller.
 in this drive, which is described <A HREF=tu56repair.php>here</A>.  I did eventually 
 acquire the correct replacement capacitor (thanks Dave!) and install it properly.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

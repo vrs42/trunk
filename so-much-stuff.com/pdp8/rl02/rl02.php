@@ -1,6 +1,6 @@
 <?php
   $title = "RL02 Disks";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -25,4 +25,4 @@ X 128 words, or 2,621,440 12 bit words.
 The RL8A controller for them requires a hex backplane slot, which is too large 
 for an 8/E (without an expansion backplane, anyway).
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

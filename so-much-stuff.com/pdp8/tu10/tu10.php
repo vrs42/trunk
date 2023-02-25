@@ -1,6 +1,6 @@
 <?php
   $title = "TU10 Tape Drive";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -22,4 +22,4 @@ work with.  (The Omnibus controller would be much more useful.)
     <P>My plan is to hang this off of a PDP-8/A, assuming I ever get around to making 
 it work.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

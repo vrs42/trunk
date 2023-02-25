@@ -1,6 +1,6 @@
 <?php
   $title = "TU55 DECTape";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -23,4 +23,4 @@
 </TABLE>
     <P>I hope to hook this to my large PDP-8/i configuration using my TC01 controller.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

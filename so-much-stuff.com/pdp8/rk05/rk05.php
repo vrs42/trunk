@@ -1,6 +1,6 @@
 <?php
   $title = "RK05 Disks";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -30,4 +30,4 @@ pictured sold new for about $13,000 (plus installation).
     <P>My hope is to interface these through my RK8F controller and DW8E to my large 
 PDP-8/i system.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

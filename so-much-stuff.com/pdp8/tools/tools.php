@@ -1,6 +1,6 @@
 <?php
   $title = "PDP-8 Tools";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
     <P>At the suggestion of Bill Cattey, I have made available a suite of
@@ -78,4 +78,4 @@ The tools "3to4" and "4to3" are useful to convert back and forth,
 if you need to visualize the data as octal words, rather than bytes..
 </DL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

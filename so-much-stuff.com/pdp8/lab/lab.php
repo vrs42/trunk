@@ -1,6 +1,6 @@
 <?php
   $title = "Logic Lab";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -32,4 +32,4 @@ That means they work with most of the older Rxxx, Sxxx, Wxxx modules, but only a
 small minority of the newer Mxxx.
     <P>I'd love to get ahold of some of the "911" patch-cords for these.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

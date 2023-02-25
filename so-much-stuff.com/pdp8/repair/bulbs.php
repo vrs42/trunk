@@ -1,6 +1,6 @@
 <?php
     $title = "Bulb Page";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 <HT>
 Here are some part numbers for replacement front panel bulbs.
@@ -193,4 +193,4 @@ dome light or license plate light.
 (According to Dave McGuire.)
 </DL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

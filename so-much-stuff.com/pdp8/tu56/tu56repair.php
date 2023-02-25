@@ -1,6 +1,6 @@
 <?php
   $title = "TU56 Repair Misadventures";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 My TU56 had a bad motor run capacitor in it when I got it. I have tried a couple of times to repair this problem:
@@ -102,4 +102,4 @@ understand why, as each capacitor seems to go to a different motor.
 </TR>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

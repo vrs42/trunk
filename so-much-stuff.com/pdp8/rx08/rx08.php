@@ -1,6 +1,6 @@
 <?php
   $title = "RX08 Controller";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -29,4 +29,4 @@ into some of the status latches.  It could definitely use more debug work.
     <P>My hope is to someday get it to work and to use it with one of the PDP-8/L,
 to allow the 8/L to exchange files more easily with the other systems.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

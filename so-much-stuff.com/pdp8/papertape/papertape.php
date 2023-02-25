@@ -1,6 +1,6 @@
 <?php
   $title = "Paper Tape Images";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <P><FONT size=3>
@@ -33,4 +33,4 @@ with modern equipment.
 <P><P>Vince Slyngstad
 <P><P><A href="../tapes/theworks.tar.gz">tarball</A>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

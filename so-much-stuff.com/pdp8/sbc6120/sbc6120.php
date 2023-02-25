@@ -1,6 +1,6 @@
 <?php
   $title = "SBC6120 Computer";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -101,4 +101,4 @@ Bob Armstrong's wonderful kits.  From here, the story gets more complicated:
 <BL>Continue to the <A href=/pdp8/sbc6120/iob6120.php>IOB6120 page</A>...
 </UL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

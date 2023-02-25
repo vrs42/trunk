@@ -1,6 +1,6 @@
 <?php
     $title = "Stuff for Sale";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 <P><FONT size=3>
 <DIV>I have extras from some of my projects for sale:
@@ -37,4 +37,4 @@
     </UL></DL>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

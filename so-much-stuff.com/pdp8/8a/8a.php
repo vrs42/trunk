@@ -1,6 +1,6 @@
 <?php
     $title = "PDP-8/A Computers";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 <TABLE>
 <TR>
@@ -63,4 +63,4 @@ option.  (The 8/A is the only model that can support more than 32K of memory.)
 </TR>
 </TABLE>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
     $title = "RL02 Drive Numbers";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 
 <P>
@@ -45,4 +45,4 @@ If there is interest in these, I&#039;d have to make another (more robust) mold,
 which takes a couple of days, and start casting parts. Each casting takes
 about 3 hours to set up well enough to remove from the mold.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

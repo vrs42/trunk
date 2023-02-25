@@ -1,6 +1,6 @@
 <?php
   $title = "PDP-8/E Computers";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -54,4 +54,4 @@ it quit working.  Hopefully it will turn out to be just a breaker or something s
     <P>The peripherals that used to be on the other 8/E are now split between this 8/E,
 the 8/A, and the 8/i.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

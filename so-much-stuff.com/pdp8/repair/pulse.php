@@ -1,6 +1,6 @@
 <?php
   $title = "DEC Pulse Transformers";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 In 2004, I obtained a data sheet with 
 <A href="T2037.pdf">manufacturing instructions for the T2037</A>
@@ -49,4 +49,4 @@ Here are some photos:
 <TD><A href=T2052josh.jpg><IMG src=T2052josh.jpg width=320></A>
 <P>Partially disassembled "gumdrop" T2052.
 </TD>
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

@@ -32,10 +32,10 @@ P,H1,H2,H3,H4,H5,H6 { colorx: #00ff00 }
       <FONT size=2>
 <?php
     // Surely there is an easier way to do this.
-    //$dot = $_SERVER{'DOCUMENT_ROOT'} . $_SERVER{'PHP_SELF'};
+    //$dot = $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'];
     //$i = strrpos($dot, '/');
     //$dot = substr($dot, 0, $i);
-    $root = $_SERVER{'DOCUMENT_ROOT'} . '/pdp8';
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/pdp8';
     if ($handle = opendir($root)) {
         error_reporting(0);
         /* This is the correct way to loop over the directory. */

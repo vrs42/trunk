@@ -1,6 +1,6 @@
 <?php
   $title = "Repair Stuff";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <P>
@@ -23,4 +23,4 @@ new switch toggles.<P>
 <DD>provides information potentially useful for attempting to create or find replacements for pulse transformers.<P>
 </DL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

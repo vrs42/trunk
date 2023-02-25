@@ -1,6 +1,6 @@
 <?php
   $title = "$DIR Software Files";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <BODY><FONT size=4>
 This is an archive of miscellaneous software titles.
@@ -863,4 +863,4 @@ If you know or discover something about these, please let me know.
 </table>
 </FIELDSET>
 </FIELDSET>
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

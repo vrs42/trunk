@@ -1,6 +1,6 @@
 <?php
   $title = "PC04 Paper Tape Reader";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -21,4 +21,4 @@ is configured for an 8/E, and I'll either have to do some conversion work, or in
 it with the DW8E.  Since the DW8E is doing a bunch of stuff already (DSD410, RK8F), I'll 
 have to see how it goes.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

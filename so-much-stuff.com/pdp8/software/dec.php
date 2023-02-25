@@ -1,6 +1,6 @@
 <?php
   $title = "$DIR Software Files";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <BODY><FONT size=4>
 <P>
@@ -8090,4 +8090,4 @@ are some navigation shortcuts as well:
 </div>
 <P>1437 of 2891 files linked (49.7%), in 1234 directories
 </div>
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

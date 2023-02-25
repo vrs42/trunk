@@ -1,6 +1,6 @@
 <?php
   $title = "ASR38 Teletype";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -37,4 +37,4 @@ or black ink (with a two-color ribbon).
     <P>I haven't made time to do anything with it yet, but I think it would be 
 nice on one of the Omnibus machines.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

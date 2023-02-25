@@ -1,6 +1,6 @@
 <?php
   $title = "PDP-8 Typesetting";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -27,4 +27,4 @@ to be able to assemble anything like a complete set of typesetting gear.  For no
 I'm mostly just storing it and trying to keep it safe in case an opportunity comes 
 along for it to be useful.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

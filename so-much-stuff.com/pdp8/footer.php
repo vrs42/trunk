@@ -6,7 +6,7 @@
     <TD width=5><BR></TD>
     <TD width=746 colSpan=13>
       <P><FONT size=1><B>
-	<?php $file = $_SERVER{'DOCUMENT_ROOT'} . $_SERVER{'PHP_SELF'};
+	<?php $file = $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'];
 	      echo "Last updated on ",  date("m/j/y h:i", filemtime($file));
         ?>
        </B></FONT></P>

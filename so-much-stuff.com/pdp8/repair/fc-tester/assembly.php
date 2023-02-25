@@ -1,6 +1,6 @@
 <?php
     $title = "Flip Chip Tester Assembly";
-    include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/header.php';
 ?>
 If you have received a flip-chip tester kit, you should have 
 receieved these pictured items:
@@ -229,4 +229,4 @@ Michael Thompson and the team at RICM, for his extensive assistance
 with the hardware debug, as well as their work with Warren.
 </DL>
 
-<?php include $_SERVER{'DOCUMENT_ROOT'} . '/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/pdp8/footer.php'; ?>

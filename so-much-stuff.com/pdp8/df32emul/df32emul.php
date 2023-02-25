@@ -1,6 +1,6 @@
 <?php
   $title = "DF32 Emulation";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 
 <TABLE>
@@ -29,4 +29,4 @@ the upper or lower 16K of each "drive".  This version uses NVRAM (with a 10
 year life) to hold the data, and TTL to implement the controller.  The whole
 works is mounted in a nice 1U enclosure.
 
-<?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
   $title = "DECUS Software Files";
-  include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/header.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/pdp8/header.php';
 ?>
 <BODY><FONT size=4>
 <P>
@@ -11311,4 +11311,4 @@ Anonymous</div>
 <td>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/L-69/decus-L-69.htm target=_blank>decus-L-69.htm</a></div>
 </table>
-</div><?php include $_SERVER{'DOCUMENT_ROOT'}.'/pdp8/footer.php'; ?>
+</div><?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>
