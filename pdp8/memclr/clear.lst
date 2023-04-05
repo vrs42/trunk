@@ -1,0 +1,25 @@
+   1                       *2763
+   2 002763  7300  START,  CLA CLL
+   3 002764  3776  LOOP,   DCA I MYPTR     / Clear a word, starting at 3000
+   4               / BUGBUG: When the ISZ skips, we think we're done.
+   5               / Reversed these two instructions to work around the problem.
+   6               /       ISZ MYPTR       / Bump pointer
+   7               /       TAD START       / Reached ourself?
+   8 002765  1363          TAD START       / Reached ourself?
+   9 002766  2376          ISZ MYPTR       / Bump pointer
+  10 002767  7640          SZA CLA 
+  11 002770  5364  MYJMP,  JMP LOOP        / No, keep going
+  12 002771  1376          TAD MYPTR       / Yes, get pointer
+  13 002772  3000  MYDCA,  DCA 0           / Store at zero
+  14 002773  3376          DCA MYPTR       / Clear a couple of words
+  15 002774  3370          DCA MYJMP       / So we can fall through
+  16 002775  3372          DCA MYDCA       / without mangling 0 or DCA I 0
+  17 002776  3000  MYPTR,  .+2             / Where to clear next.
+  18 002777  3400          DCA I 0         / Clear a word, fall through again
+  19               $
+
+LOOP    2764
+MYDCA   2772
+MYJMP   2770
+MYPTR   2776
+START   2763

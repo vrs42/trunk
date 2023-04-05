@@ -1,0 +1,19 @@
+	*2763
+START,	CLA CLL
+LOOP,	DCA I MYPTR	/ Clear a word, starting at 3000
+/ BUGBUG: When the ISZ skips, we think we're done.
+/ Reversed these two instructions to work around the problem.
+/	ISZ MYPTR	/ Bump pointer
+/	TAD START	/ Reached ourself?
+	TAD START	/ Reached ourself?
+	ISZ MYPTR	/ Bump pointer
+	SZA CLA 
+MYJMP,	JMP LOOP	/ No, keep going
+	TAD MYPTR	/ Yes, get pointer
+MYDCA,	DCA 0		/ Store at zero
+	DCA MYPTR	/ Clear a couple of words
+	DCA MYJMP	/ So we can fall through
+	DCA MYDCA	/ without mangling 0 or DCA I 0
+MYPTR,	.+2		/ Where to clear next.
+	DCA I 0		/ Clear a word, fall through again
+$

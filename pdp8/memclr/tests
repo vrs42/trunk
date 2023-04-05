@@ -1,0 +1,71 @@
+# Each test will preload junk.bin, then load the test, then run it.
+# After the run, there must be no memory <0, nor >0.
+echo Running memclr.bin
+load junk.bin
+load memclr.bin
+g 3002 until 3002
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
+echo Running memclr2.bin
+load junk.bin
+load memclr2.bin
+g 7764 until 7764
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
+echo Running memclr3.bin
+load junk.bin
+load memclr3.bin
+g 7764 until 7764
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
+echo Running memclr4.bin
+load junk.bin
+load memclr4.bin
+g 7764 until 7764
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
+# Clear started as a disassembly of decus-5/8-27a.
+# (Modified to work properly.)
+echo Running clear.bin
+load junk.bin
+load clear.bin
+g 2763 until 2763
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
+# Clear2 is Fredrick R. Kling's improvement of decus-5/8-27a.
+echo Running clear2.bin
+load junk.bin
+load clear2.bin
+g 2774 until 2774
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
+# Absclr is Fredrick R. Kling's faster memory clear.
+echo Running absclr.bin
+load junk.bin
+load absclr.bin
+g 7771 until 7771
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
+# Abshlt is Fredrick R. Kling's amazing code to set all to HLT.
+echo Running abshlt.bin
+load junk.bin
+load abshlt.bin
+g 7403
+e <7402 0-7777
+e >7402 0-7777
+
+q

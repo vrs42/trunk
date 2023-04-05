@@ -1,0 +1,38 @@
+   1               /
+   2               / Absolute Halt
+   3               /
+   4               / Frederick R. Kling
+   5               / Educational Testing Service
+   6               / Princeton, NJ 08540
+   7               /
+   8               / As described in DECUSscope, 1968 - Volume 7, Number 1
+   9               /
+  10               / The following assumes locations 0013 through 7324 are clear.
+  11               *0
+  12 000000  7402          HLT
+  13               *10
+  14 000010  7670          7670
+  15 000011  0011          0011
+  16               *7375
+  17 007375  3410          DCA I 10
+  18 007376  1000          TAD 0
+  19 007377  3411          DCA I 11
+  20 007400  1000  START2, TAD 0           /START, AC=0
+  21 007401  4411          JMS I 11
+  22 007402  3411          DCA I 11
+  23               / First, clear low memory so the above can work.
+  24 007403  3610  START,  DCA I PTR       /Clear low memory
+  25 007404  2210          ISZ PTR
+  26 007405  2211          ISZ CNT
+  27 007406  5203          JMP START
+  28 007407  5612          JMP I STRT2
+  29 007410  0012  PTR,    12
+  30 007411  0415  CNT,    -7374+11
+  31 007412  7400  STRT2,  START2
+  32               $
+
+CNT     7411
+PTR     7410
+START   7403
+START2  7400
+STRT2   7412
