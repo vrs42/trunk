@@ -68,4 +68,13 @@ g 7403
 e <7402 0-7777
 e >7402 0-7777
 
+# Clear3 is L. C. Wang's memory clear.
+echo Running clear3.bin
+load junk.bin
+load clear3.bin
+g 0004 until 0004
+s 1000000
+e <0 0-7777
+e >0 0-7777
+
 q
