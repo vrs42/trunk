@@ -1,0 +1,14 @@
+/ Yet another memory clear.
+/ This one from an unknown author in DECUScope Volume 6, Number 6.
+*2767
+C2770,	2770
+LOOP,	DCA I POINT
+	TAD C2770
+	ISZ POINT
+	SZA CLA
+	JMP LOOP
+	DCA .-1
+	DCA POINT
+POINT,	3001
+	DCA I 0
+$
