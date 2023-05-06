@@ -1,6 +1,6 @@
 /*************************************************************************
  *                                                                       *
- * Copyright (c) 2007-2020 Howard M. Harte.                              *
+ * Copyright (c) 2007-2022 Howard M. Harte.                              *
  * https://github.com/hharte                                             *
  *                                                                       *
  * Permission is hereby granted, free of charge, to any person obtaining *
@@ -16,16 +16,17 @@
  *                                                                       *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       *
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    *
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND                 *
- * NONINFRINGEMENT. IN NO EVENT SHALL HOWARD M. HARTE BE LIABLE FOR ANY  *
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  *
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     *
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                *
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-            *
+ * INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE   *
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN       *
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN     *
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE      *
+ * SOFTWARE.                                                             *
  *                                                                       *
- * Except as contained in this notice, the name of Howard M. Harte shall *
+ * Except as contained in this notice, the names of The Authors shall    *
  * not be used in advertising or otherwise to promote the sale, use or   *
  * other dealings in this Software without prior written authorization   *
- * Howard M. Harte.                                                      *
+ * from the Authors.                                                     *
  *                                                                       *
  * SIMH Interface based on altairz80_hdsk.c, by Peter Schorn.            *
  *                                                                       *
@@ -307,7 +308,7 @@ static t_stat hdc1001_detach(UNIT *uptr)
 {
     HDC1001_DRIVE_INFO *pDrive;
     t_stat r;
-    int8 i;
+    int32 i;
 
     i = find_unit_index(uptr);
 
@@ -332,7 +333,7 @@ static t_stat hdc1001_detach(UNIT *uptr)
 static t_stat hdc1001_unit_set_geometry(UNIT* uptr, int32 value, CONST char* cptr, void* desc)
 {
     HDC1001_DRIVE_INFO* pDrive;
-    int8 i;
+    int32 i;
     int32 result;
     uint16 newCyls, newHeads, newSPT, newSecLen;
 
@@ -385,7 +386,7 @@ static t_stat hdc1001_unit_set_geometry(UNIT* uptr, int32 value, CONST char* cpt
 static t_stat hdc1001_unit_show_geometry(FILE* st, UNIT* uptr, int32 val, CONST void* desc)
 {
     HDC1001_DRIVE_INFO* pDrive;
-    int8 i;
+    int32 i;
 
     i = find_unit_index(uptr);
 
@@ -406,7 +407,7 @@ static t_stat hdc1001_unit_show_geometry(FILE* st, UNIT* uptr, int32 val, CONST 
 static int32 hdc1001dev(const int32 port, const int32 io, const int32 data)
 {
     if(io) {
-        HDC1001_Write(port, data);
+        HDC1001_Write(port, (uint8)data);
         return 0;
     } else {
         return(HDC1001_Read(port));
@@ -721,11 +722,16 @@ static t_stat HDC1001_doCommand(void)
                 file_offset *= pDrive->sectsize;    /* Convert #sectors to byte offset */
 
                 fmtBuffer = calloc(data_len, sizeof(uint8));
+
+                if (fmtBuffer == NULL) {
+                    return SCPE_IERR;
+                }
+
                 if (HDC1001_FORMAT_FILL_BYTE != 0) {
                     memset(fmtBuffer, HDC1001_FORMAT_FILL_BYTE, data_len);
                 }
 
-                if (0 != (r = sim_fseek((pDrive->uptr)->fileref, file_offset, SEEK_SET))) {
+                if (0 == (r = sim_fseek((pDrive->uptr)->fileref, file_offset, SEEK_SET))) {
                     if (sim_fwrite(fmtBuffer, 1, data_len, (pDrive->uptr)->fileref) != data_len) {
                         r = SCPE_IOERR;
                     }

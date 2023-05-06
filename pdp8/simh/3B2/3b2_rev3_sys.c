@@ -1,6 +1,6 @@
-/* 3b2_rev3_sys.c: AT&T 3B2/600G system definition
+/* 3b2_rev3_sys.c: Version 3 (3B2/700) System Definition
 
-   Copyright (c) 2020, Seth J. Morabito
+   Copyright (c) 2020-2022, Seth J. Morabito
 
    Permission is hereby granted, free of charge, to any person
    obtaining a copy of this software and associated documentation
@@ -41,7 +41,7 @@
 #include "3b2_stddev.h"
 #include "3b2_timer.h"
 
-char sim_name[] = "AT&T 3B2/600G";
+char sim_name[] = "AT&T 3B2/700";
 
 DEVICE *sim_devices[] = {
     &cpu_dev,
@@ -60,6 +60,7 @@ DEVICE *sim_devices[] = {
     &if_dev,
     &ha_dev,
     &ports_dev,
+    &lpt_dev,
     &ni_dev,
     NULL
 };
@@ -76,5 +77,6 @@ void full_reset()
     ha_reset(&ha_dev);
     csr_reset(&csr_dev);
     ports_reset(&ports_dev);
+    lpt_reset(&lpt_dev);
     ni_reset(&ni_dev);
 }

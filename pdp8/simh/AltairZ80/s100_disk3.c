@@ -1,9 +1,7 @@
 /*************************************************************************
  *                                                                       *
- * $Id: s100_disk3.c 1997 2008-07-18 05:29:52Z hharte $                  *
- *                                                                       *
- * Copyright (c) 2007-2008 Howard M. Harte.                              *
- * http://www.hartetec.com                                               *
+ * Copyright (c) 2007-2023 Howard M. Harte.                              *
+ * https://github.com/hharte                                             *
  *                                                                       *
  * Permission is hereby granted, free of charge, to any person obtaining *
  * a copy of this software and associated documentation files (the       *
@@ -18,24 +16,22 @@
  *                                                                       *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       *
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    *
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND                 *
- * NONINFRINGEMENT. IN NO EVENT SHALL HOWARD M. HARTE BE LIABLE FOR ANY  *
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  *
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     *
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                *
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-            *
+ * INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE   *
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN       *
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN     *
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE      *
+ * SOFTWARE.                                                             *
  *                                                                       *
- * Except as contained in this notice, the name of Howard M. Harte shall *
+ * Except as contained in this notice, the names of The Authors shall    *
  * not be used in advertising or otherwise to promote the sale, use or   *
  * other dealings in this Software without prior written authorization   *
- * Howard M. Harte.                                                      *
+ * from the Authors.                                                     *
  *                                                                       *
  * SIMH Interface based on altairz80_hdsk.c, by Peter Schorn.            *
  *                                                                       *
  * Module Description:                                                   *
  *     CompuPro DISK3 Hard Disk Controller module for SIMH.              *
- *                                                                       *
- * Environment:                                                          *
- *     User mode only                                                    *
  *                                                                       *
  *************************************************************************/
 
@@ -541,6 +537,11 @@ static uint8 DISK3_Write(const uint32 Addr, uint8 cData)
 
                 dataBuffer = (uint8 *)malloc(xfr_len);
 
+                if (dataBuffer == NULL) {
+                    sim_printf("%s: memory allocation failure.\n", sim_uname(pDrive->uptr));
+                    break;
+                }
+
                 if(sim_fseek((pDrive->uptr)->fileref, file_offset, SEEK_SET) == 0) {
 
                     if(disk3_info->iopb[DISK3_IOPB_ARG1] == 1) { /* Read */
@@ -619,6 +620,12 @@ static uint8 DISK3_Write(const uint32 Addr, uint8 cData)
                 file_offset += (disk3_info->iopb[DISK3_IOPB_ARG3] * data_len);
 
                 fmtBuffer = (uint8 *)malloc(data_len);
+
+                if (fmtBuffer == NULL) {
+                    sim_printf("%s: memory allocation failure.\n", sim_uname(pDrive->uptr));
+                    break;
+                }
+
                 memset(fmtBuffer, disk3_info->iopb[DISK3_IOPB_ARG2], data_len);
 
                 if(sim_fseek((pDrive->uptr)->fileref, file_offset, SEEK_SET) == 0) {

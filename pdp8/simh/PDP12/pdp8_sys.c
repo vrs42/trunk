@@ -115,7 +115,9 @@ DEVICE *sim_devices[] = {
     &td_dev,
     &mt_dev,
     &ct_dev,
+#ifdef PDP12D
     &vc12_dev,
+#endif
     NULL
     };
 

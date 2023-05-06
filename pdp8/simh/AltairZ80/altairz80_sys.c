@@ -29,7 +29,7 @@
     03/27/14 -- MWD Add MITS Hard Disk device (mhdsk_dev)
 */
 
-#include "m68k.h"
+#include "m68k/m68k.h"
 #include <ctype.h>
 
 #define SIM_EMAX 6
@@ -60,6 +60,11 @@ extern DEVICE selchan_dev;
 extern DEVICE ss1_dev;
 extern DEVICE if3_dev;
 extern DEVICE i8272_dev;
+extern DEVICE ibc_dev;
+extern DEVICE ibc_hdc_dev;
+extern DEVICE ibc_smd_dev;
+extern DEVICE ibctimer_device;
+extern DEVICE ibcrtctimer_device;
 extern DEVICE mdriveh_dev;
 extern DEVICE switchcpu_dev;
 
@@ -68,12 +73,21 @@ extern DEVICE hdc1001_dev;
 
 extern DEVICE jade_dev;
 extern DEVICE tarbell_dev;
+extern DEVICE tdd_dev;
 extern DEVICE icom_dev;
 extern DEVICE dj2d_dev;
 extern DEVICE m2sio0_dev;
 extern DEVICE m2sio1_dev;
 extern DEVICE pmmi_dev;
 extern DEVICE hayes_dev;
+extern DEVICE mmd_dev;
+extern DEVICE mmdm_dev;
+extern DEVICE sol20_dev;
+extern DEVICE sol20k_dev;
+extern DEVICE sol20t_dev;
+extern DEVICE sol20s_dev;
+extern DEVICE sol20p_dev;
+extern DEVICE vdm1_dev;
 
 extern DEVICE cromfdc_dev;
 extern DEVICE wd179x_dev;
@@ -81,6 +95,7 @@ extern DEVICE n8vem_dev;
 extern DEVICE wdi2_dev;
 
 extern DEVICE scp300f_dev;
+extern DEVICE djhdc_dev;
 
 extern long disasm (unsigned char *data, char *output, int segsize, long offset);
 extern t_stat parse_sym_m68k(char* c, t_addr a, UNIT* u, t_value* val, int32 sw);
@@ -117,6 +132,12 @@ DEVICE      *sim_devices[]  = {
     &disk1a_dev, &disk2_dev, &disk3_dev, &ss1_dev, &mdriveh_dev, &selchan_dev, &if3_dev,
     /* Cromemco Devices */
     &cromfdc_dev,
+    /* Integrated Business Computers (IBC) Devices */
+    &ibc_dev,
+    &ibctimer_device,
+    &ibcrtctimer_device,
+    &ibc_hdc_dev,
+    &ibc_smd_dev,
     /* IMSAI Devices */
     &fif_dev,
     /* Micropolis Devices */
@@ -129,10 +150,21 @@ DEVICE      *sim_devices[]  = {
     &jade_dev,
     /* Tarbell Devices */
     &tarbell_dev,
+    &tdd_dev,
     /* iCOM Devices */
     &icom_dev,
-    /* Disk Jockey 2D Devices */
+    /* Morrow Devices */
     &dj2d_dev,
+    &djhdc_dev,
+    &mmd_dev,
+    &mmdm_dev,
+    /* Processor Technology Devices */
+    &sol20_dev,
+    &sol20k_dev,
+    &sol20t_dev,
+    &sol20s_dev,
+    &sol20p_dev,
+    &vdm1_dev,
     /* MITS 88-2SIO */
     &m2sio0_dev,
     &m2sio1_dev,
@@ -152,11 +184,12 @@ DEVICE      *sim_devices[]  = {
 static char memoryAccessMessage[256];
 static char instructionMessage[256];
 const char *sim_stop_messages[SCPE_BASE] = {
-    "HALT instruction",
+    "Unknown error",            /* 0 is reserved/unknown */
     "Breakpoint",
     memoryAccessMessage,
     instructionMessage,
-    "Invalid Opcode"
+    "Invalid Opcode",
+    "HALT instruction"
 };
 
 static const char *const Mnemonics8080[] = {
@@ -930,3 +963,19 @@ t_stat show_iobase(FILE *st, UNIT *uptr, int32 val, CONST void *desc)
     return SCPE_OK;
 }
 
+/* find_unit_index   find index of a unit
+
+   Inputs:
+        uptr    =       pointer to unit
+   Outputs:
+        result  =       index of device
+*/
+int32 find_unit_index(UNIT* uptr)
+{
+    DEVICE *dptr = find_dev_from_unit(uptr);
+
+    if (dptr == NULL)
+        return -1;
+
+    return (uptr - dptr->units);
+}

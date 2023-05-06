@@ -27,7 +27,7 @@
     Code for Z80 CPU from Frank D. Cringle ((c) 1995 under GNU license)
 */
 
-#include "m68k.h"
+#include "m68k/m68k.h"
 #include <ctype.h>
 
 #define SWITCHCPU_DEFAULT 0xfd
@@ -43,6 +43,9 @@
 #define PCQ_ENTRY(PC)   if (pcq[pcq_p] != (PC)) { pcq[pcq_p = (pcq_p - 1) & PCQ_MASK] = (PC); }
 
 #define INST_MAX_BYTES  4                       /* instruction max bytes */
+
+#define IFF1    1                               /* Interrupt flip-flop 1 */
+#define IFF2    2                               /* Interrupt flip-flop 2 */
 
 #define FLAG_C  1
 #define FLAG_N  2
@@ -145,6 +148,9 @@ extern uint8 MOPT[MAXBANKSIZE];
 extern t_stat sim_instr_8086(void);
 extern void cpu8086reset(void);
 
+extern unsigned int m68k_cpu_read_byte_raw(unsigned int address);
+void m68k_cpu_write_byte_raw(unsigned int address, unsigned int value);
+
 /* function prototypes */
 static t_stat cpu_set_switcher  (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
 static t_stat cpu_reset_switcher(UNIT *uptr, int32 value, CONST char *cptr, void *desc);
@@ -159,6 +165,7 @@ static t_stat cpu_set_nonbanked     (UNIT *uptr, int32 value, CONST char *cptr, 
 static t_stat cpu_set_ramtype       (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
 static t_stat cpu_set_chiptype      (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
 static t_stat cpu_set_size          (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
+static t_stat m68k_set_chiptype     (UNIT * uptr, int32 value, CONST char* cptr, void* desc);
 static t_stat cpu_set_memory        (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
 static t_stat cpu_set_hist          (UNIT *uptr, int32 val, CONST char *cptr, void *desc);
 static t_stat cpu_show_hist         (FILE *st, UNIT *uptr, int32 val, CONST void *desc);
@@ -170,11 +177,14 @@ static t_stat cpu_ex(t_value *vptr, t_addr addr, UNIT *uptr, int32 sw);
 static t_stat cpu_dep(t_value val, t_addr addr, UNIT *uptr, int32 sw);
 static t_stat cpu_reset(DEVICE *dptr);
 static t_bool cpu_is_pc_a_subroutine_call (t_addr **ret_addrs);
+static t_stat cpu_hex_load(FILE *fileref, CONST char *cptr, CONST char *fnam, int flag);
 static t_stat sim_instr_mmu(void);
 static uint32 GetBYTE(register uint32 Addr);
 static void PutWORD(register uint32 Addr, const register uint32 Value);
 static void PutBYTE(register uint32 Addr, const register uint32 Value);
 static const char* cpu_description(DEVICE *dptr);
+static t_stat cpu_cmd_memory(int32 flag, CONST char *cptr);
+static t_stat cpu_cmd_reg(int32 flag, CONST char *cptr);
 void out(const uint32 Port, const uint32 Value);
 uint32 in(const uint32 Port);
 void altairz80_init(void);
@@ -242,6 +252,7 @@ UNIT cpu_unit = {
         int32 IP_S;                                 /* IP register (8086)                           */
         int32 FLAGS_S;                              /* flags register (8086)                        */
         int32 SR                = 0;                /* switch register                              */
+        uint32 nmiInterrupt     = 0;                /* Non-maskable Interrupt                       */
         uint32 vectorInterrupt  = 0;                /* VI0-7 Vector Interrupt bitfield              */
         uint8 dataBus[MAX_INT_VECTORS];             /* Vector Interrupt data bus value              */
 static  int32 bankSelect        = 0;                /* determines selected memory bank              */
@@ -276,12 +287,14 @@ typedef struct {
     t_value op[INST_MAX_BYTES];
 } insthist_t;
 
-static  uint32 hst_p = 0;                           /* history pointer      */
-static  uint32 hst_lnt = 0;                         /* history length       */
-static  insthist_t *hst = NULL;                     /* instruction history  */
+static  uint32 hst_p = 0;                           /* history pointer          */
+static  uint32 hst_lnt = 0;                         /* history length           */
+static  insthist_t *hst = NULL;                     /* instruction history      */
 
-uint32 m68k_registers[M68K_REG_CPU_TYPE + 1];       /* M68K CPU registers   */
-
+uint32 m68k_registers[M68K_REG_CPU_TYPE + 1];       /* M68K CPU registers       */
+uint32 mmiobase = 0xff0000;                         /* M68K MMIO base address   */
+uint32 mmiosize = 0x10000;                          /* M68K MMIO window size    */
+uint32 m68kvariant = M68K_CPU_TYPE_68000;
 
 /* data structure for IN/OUT instructions */
 struct idev {
@@ -475,10 +488,18 @@ REG cpu_reg[] = {
     }, /* 82 */
     { HRDATAD(COMMONLOW,common_low,         1, "If set, use low memory for common area"),
     }, /* 83 */
-    { HRDATAD(VECINT,vectorInterrupt,       2, "Vector Interrupt psuedo register"),
+    { HRDATAD(VECINT,vectorInterrupt,       8, "Vector Interrupt pseudo register"),
     }, /* 84 */
     { BRDATAD (DATABUS, dataBus, 16, 8,     MAX_INT_VECTORS, "Data bus pseudo register"),
         REG_RO + REG_CIRC   }, /* 85 */
+    { HRDATAD(MMIOBASE,  mmiobase,          24, "Base address for 68K Memory-mapped I/O"),
+    }, /* 86 */
+    { HRDATAD(MMIOSIZE,  mmiosize,          17, "Size of 68K Memory-mapped I/O window"),
+    }, /* 87 */
+    { DRDATAD(M68KVAR,   m68kvariant,       17, "M68K Type (68000, 68010, etc.)"),
+    }, /* 88 */
+    { HRDATAD(NMI,       nmiInterrupt,       1, "NMI Interrupt pseudo register"),
+    }, /* 89 */
     { NULL }
 };
 
@@ -569,9 +590,36 @@ static MTAB cpu_mod[] = {
         NULL, NULL, "Sets the RAM size to 60KB for 8080 / Z80 / 8086"       },
     { MTAB_VDV,             64,                 NULL,           "64KB",         &cpu_set_size,
         NULL, NULL, "Sets the RAM size to 64KB for 8080 / Z80 / 8086"       },
+    { MTAB_VDV,  M68K_CPU_TYPE_68000,NULL,           "68000",        &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68000"  },
+    { MTAB_VDV,  M68K_CPU_TYPE_68010,NULL,           "68010",        &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68010"  },
+    { MTAB_VDV,  M68K_CPU_TYPE_68020,NULL,           "68020",        &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68020"  },
+    { MTAB_XTD | MTAB_VDV,  M68K_CPU_TYPE_68EC020,NULL,         "68EC020",      &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68EC020"  },
+    { MTAB_XTD | MTAB_VDV,  M68K_CPU_TYPE_68030,NULL,           "68030",        &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68030"  },
+    { MTAB_XTD | MTAB_VDV,  M68K_CPU_TYPE_68EC030,NULL,         "68EC030",      &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68EC030"  },
+    { MTAB_XTD | MTAB_VDV,  M68K_CPU_TYPE_68040,NULL,           "68040",        &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68040"  },
+    { MTAB_XTD | MTAB_VDV,  M68K_CPU_TYPE_68EC040,NULL,         "68EC040",      &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68EC040"  },
+    { MTAB_XTD | MTAB_VDV,  M68K_CPU_TYPE_68LC040,NULL,         "68LC040",      &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to 68LC040"  },
+    { MTAB_XTD | MTAB_VDV,  M68K_CPU_TYPE_SCC68070,NULL,        "SCC68070",     &m68k_set_chiptype,
+        NULL, NULL, "Sets the M68K variant to SCC68070" },
     { MTAB_XTD|MTAB_VDV|MTAB_NMO|MTAB_VALO|MTAB_SHP, 0, "HISTORY", "HISTORY",   &cpu_set_hist, &cpu_show_hist,
       NULL, "CPU instruction history buffer"},
     { 0 }
+};
+
+/* Simulator-specific commands */
+static CTAB cpu_cmd_tbl[] = {
+    { "MEM", &cpu_cmd_memory, 0, "MEM <address>    Dump a block of memory\n" },
+    { "REG", &cpu_cmd_reg,    0, "REG              Display registers\n" },
+    { NULL, NULL, 0, NULL }
 };
 
 /* Debug Flags */
@@ -1953,6 +2001,8 @@ uint32 getCommon(void) {
 uint8 GetBYTEWrapper(const uint32 Addr) {
     if (chiptype == CHIP_TYPE_8086)
         return GetBYTEExtended(Addr);
+    else if (chiptype == CHIP_TYPE_M68K)
+        return m68k_cpu_read_byte_raw(Addr);
     else if (cpu_unit.flags & UNIT_CPU_MMU)
         return GetBYTE(Addr);
     else
@@ -1963,6 +2013,8 @@ uint8 GetBYTEWrapper(const uint32 Addr) {
 void PutBYTEWrapper(const uint32 Addr, const uint32 Value) {
     if (chiptype == CHIP_TYPE_8086)
         PutBYTEExtended(Addr, Value);
+    else if (chiptype == CHIP_TYPE_M68K)
+        m68k_cpu_write_byte_raw(Addr, Value);
     else if (cpu_unit.flags & UNIT_CPU_MMU)
         PutBYTE(Addr, Value);
     else
@@ -1971,14 +2023,18 @@ void PutBYTEWrapper(const uint32 Addr, const uint32 Value) {
 
 /* DMA memory access during a simulation, suggested by Tony Nicholson */
 uint8 GetByteDMA(const uint32 Addr) {
-    if ((chiptype == CHIP_TYPE_8086) || (cpu_unit.flags & UNIT_CPU_MMU))
+    if (chiptype == CHIP_TYPE_M68K)
+        return m68k_cpu_read_byte_raw(Addr);
+    else if ((chiptype == CHIP_TYPE_8086) || (cpu_unit.flags & UNIT_CPU_MMU))
         return GetBYTEExtended(Addr);
     else
         return MOPT[Addr & ADDRMASK];
 }
 
 void PutByteDMA(const uint32 Addr, const uint32 Value) {
-    if ((chiptype == CHIP_TYPE_8086) || (cpu_unit.flags & UNIT_CPU_MMU))
+    if (chiptype == CHIP_TYPE_M68K)
+        m68k_cpu_write_byte_raw(Addr, Value);
+    else if ((chiptype == CHIP_TYPE_8086) || (cpu_unit.flags & UNIT_CPU_MMU))
         PutBYTEExtended(Addr, Value);
     else
         MOPT[Addr & ADDRMASK] = Value & 0xff;
@@ -2142,7 +2198,7 @@ static t_stat sim_instr_mmu (void) {
     SP = SP_S;
     IX = IX_S;
     IY = IY_S;
-    specialProcessing = clockFrequency | timerInterrupt | vectorInterrupt | keyboardInterrupt | sim_brk_summ;
+    specialProcessing = clockFrequency | nmiInterrupt | timerInterrupt | vectorInterrupt | keyboardInterrupt | sim_brk_summ;
     tStates = 0;
     if (rtc_avail) {
         startTime = sim_os_msec();
@@ -2164,7 +2220,7 @@ static t_stat sim_instr_mmu (void) {
                 } else /* make sure that sim_os_msec() is not called later */
                     clockFrequency = startTime = tStatesInSlice = 0;
             }
-            specialProcessing = clockFrequency | timerInterrupt | vectorInterrupt | keyboardInterrupt | sim_brk_summ;
+            specialProcessing = clockFrequency | nmiInterrupt | timerInterrupt | vectorInterrupt | keyboardInterrupt | sim_brk_summ;
         }
 
         if (specialProcessing) { /* quick check for special processing */
@@ -2178,11 +2234,28 @@ static t_stat sim_instr_mmu (void) {
                     sim_os_ms_sleep(startTime - now);
             }
 
-            if (timerInterrupt && (IFF_S & 1)) {
+            if (nmiInterrupt) {
+                nmiInterrupt = FALSE;
+                specialProcessing = clockFrequency | sim_brk_summ;
+                IFF_S &= IFF2; /* Clear IFF1 */
+                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (nmiInterrupt = TRUE, IFF_S |= IFF1));
+                if ((GetBYTE(PC) == HALTINSTRUCTION) && ((cpu_unit.flags & UNIT_CPU_STOPONHALT) == 0)) {
+                    PUSH(PC + 1);
+                    PCQ_ENTRY(PC);
+                }
+                else {
+                    PUSH(PC);
+                    PCQ_ENTRY(PC - 1);
+                }
+                tStates += 11;
+                PC = 0x0066;
+            }
+
+            if (timerInterrupt && (IFF_S & IFF1)) {
                 timerInterrupt = FALSE;
                 specialProcessing = clockFrequency | sim_brk_summ;
                 IFF_S = 0; /* disable interrupts */
-                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (timerInterrupt = TRUE, IFF_S |= 1));
+                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (timerInterrupt = TRUE, IFF_S |= (IFF1 | IFF2)));
                 if ((GetBYTE(PC) == HALTINSTRUCTION) && ((cpu_unit.flags & UNIT_CPU_STOPONHALT) == 0)) {
                     PUSH(PC + 1);
                     PCQ_ENTRY(PC);
@@ -2193,7 +2266,7 @@ static t_stat sim_instr_mmu (void) {
                 PC = timerInterruptHandler & ADDRMASK;
             }
 
-            if ((IM_S == 1) && vectorInterrupt && (IFF_S & 1)) {    /* Z80 Interrupt Mode 1 */
+            if ((IM_S == 1) && vectorInterrupt && (IFF_S & IFF1)) {    /* Z80 Interrupt Mode 1 */
                 uint32 tempVectorInterrupt = vectorInterrupt;
                 uint8 intVector = 0;
 
@@ -2206,7 +2279,7 @@ static t_stat sim_instr_mmu (void) {
 
                 specialProcessing = clockFrequency | sim_brk_summ;
                 IFF_S = 0; /* disable interrupts */
-                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (vectorInterrupt |= (1 << intVector), IFF_S |= 1));
+                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (vectorInterrupt |= (1 << intVector), IFF_S |= (IFF1 | IFF2)));
                 if ((GetBYTE(PC) == HALTINSTRUCTION) && ((cpu_unit.flags & UNIT_CPU_STOPONHALT) == 0)) {
                     PUSH(PC + 1);
                     PCQ_ENTRY(PC);
@@ -2220,7 +2293,7 @@ static t_stat sim_instr_mmu (void) {
 
                 sim_debug(INT_MSG, &cpu_dev, ADDRESS_FORMAT
                     " INT(mode=1 intVector=%d PC=%04X)\n", PCX, intVector, PC);
-            } else if ((IM_S == 2) && vectorInterrupt && (IFF_S & 1)) {
+            } else if ((IM_S == 2) && vectorInterrupt && (IFF_S & IFF1)) {
                 int32 vector;
                 uint32 tempVectorInterrupt = vectorInterrupt;
                 uint8 intVector = 0;
@@ -2234,7 +2307,7 @@ static t_stat sim_instr_mmu (void) {
 
                 specialProcessing = clockFrequency | sim_brk_summ;
                 IFF_S = 0; /* disable interrupts */
-                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (vectorInterrupt |= (1 << intVector), IFF_S |= 1));
+                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (vectorInterrupt |= (1 << intVector), IFF_S |= (IFF1 | IFF2)));
                 if ((GetBYTE(PC) == HALTINSTRUCTION) && ((cpu_unit.flags & UNIT_CPU_STOPONHALT) == 0)) {
                     PUSH(PC + 1);
                     PCQ_ENTRY(PC);
@@ -2251,11 +2324,11 @@ static t_stat sim_instr_mmu (void) {
                     " INT(mode=2 intVector=%d vector=%04X PC=%04X)\n", PCX, intVector, vector, PC);
             }
 
-            if (keyboardInterrupt && (IFF_S & 1)) {
+            if (keyboardInterrupt && (IFF_S & IFF1)) {
                 keyboardInterrupt = FALSE;
                 specialProcessing = clockFrequency | sim_brk_summ;
                 IFF_S = 0; /* disable interrupts */
-                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (keyboardInterrupt = TRUE, IFF_S |= 1));
+                CHECK_BREAK_TWO_BYTES_EXTENDED(SP - 2, SP - 1, (keyboardInterrupt = TRUE, IFF_S |= (IFF1 | IFF2)));
                 if ((GetBYTE(PC) == HALTINSTRUCTION) && ((cpu_unit.flags & UNIT_CPU_STOPONHALT) == 0)) {
                     PUSH(PC + 1);
                     PCQ_ENTRY(PC);
@@ -2288,7 +2361,7 @@ static t_stat sim_instr_mmu (void) {
            Instruction to execute (ex. RST0-7) is on the data bus
            NOTE: does not support multi-byte instructions such as CALL
         */
-        if ((IM_S == 0) && vectorInterrupt && (IFF_S & 1)) {    /* 8080/Z80 Interrupt Mode 0 */
+        if ((IM_S == 0) && vectorInterrupt && (IFF_S & IFF1)) {    /* 8080/Z80 Interrupt Mode 0 */
             uint32 tempVectorInterrupt = vectorInterrupt;
             uint8 intVector = 0;
 
@@ -4970,7 +5043,7 @@ static t_stat sim_instr_mmu (void) {
 
                     case 0x57:      /* LD A,I */
                         tStates += 9;
-                        AF = (AF & 0x29) | (IR_S & ~0xff) | ((IR_S >> 8) & 0x80) | (((IR_S & ~0xff) == 0) << 6) | ((IFF_S & 2) << 1);
+                        AF = (AF & 0x29) | (IR_S & ~0xff) | ((IR_S >> 8) & 0x80) | (((IR_S & ~0xff) == 0) << 6) | ((IFF_S & IFF2) << 1);
                         break;
 
                     case 0x58:      /* IN E,(C) */
@@ -5011,7 +5084,7 @@ static t_stat sim_instr_mmu (void) {
                     case 0x5f:      /* LD A,R */
                         tStates += 9;
                         AF = (AF & 0x29) | ((IR_S & 0xff) << 8) | (IR_S & 0x80) |
-                            (((IR_S & 0xff) == 0) << 6) | ((IFF_S & 2) << 1);
+                            (((IR_S & 0xff) == 0) << 6) | ((IFF_S & IFF2) << 1);
                         break;
 
                     case 0x60:      /* IN H,(C) */
@@ -5503,7 +5576,7 @@ static t_stat sim_instr_mmu (void) {
 
             case 0xfb:          /* EI */
                 tStates += 4;   /* EI 4 */
-                IFF_S = 3;
+                IFF_S = (IFF1 | IFF2);
                 break;
 
             case 0xfc:              /* CALL M,nnnn */
@@ -6310,22 +6383,41 @@ static t_stat sim_instr_mmu (void) {
     return reason;
 }
 
+/*
+ * This sequence of instructions is a mix that mimics
+ * a resonable instruction set that is a close estimate
+ * to the calibrated result.
+ */
+
+static const char *cpu_clock_precalibrate_commands[] = {
+    "-m 100 LXI H,200H",
+    "-m 103 MVI B,0",
+    "-m 105 DCR B",
+    "-m 106 MOV M,B",
+    "-m 107 INX H",
+    "-m 108 JNZ 0105H",
+    "-m 10B JMP 0100H",
+    "PC 100",
+    NULL};
+
 /* reset routine */
 
 static t_stat cpu_reset(DEVICE *dptr) {
     int32 i;
     if (sim_vm_is_subroutine_call == NULL) { /* First time reset? */
         sim_vm_is_subroutine_call = cpu_is_pc_a_subroutine_call;
+        sim_vm_cmd = cpu_cmd_tbl;
         altairz80_init();
     }
     AF_S = AF1_S = 0;
     BC_S = DE_S = HL_S = 0;
     BC1_S = DE1_S = HL1_S = 0;
-    IR_S = IX_S = IY_S = SP_S = 0;
+    IR_S = IX_S = IY_S = SP_S = PC_S = 0;
     IM_S = IFF_S = 0;  /* Set IM0, reset IFF1 and IFF2 */
     setBankSelect(0);
     cpu8086reset();
     m68k_cpu_reset();
+    sim_clock_precalibrate_commands = cpu_clock_precalibrate_commands;
     sim_brk_types = (SWMASK('E') | SWMASK('I') | SWMASK('M'));
     sim_brk_dflt = SWMASK('E');
     for (i = 0; i < PCQ_SIZE; i++)
@@ -6525,13 +6617,27 @@ const static CPUFLAG *cpuflags[NUM_CHIP_TYPE] = { cpuflags8080, cpuflagsZ80,
 /* needs to be set for each ramtype <= MAX_RAM_TYPE */
 static const char *ramTypeToString[] = { "AZ80", "HRAM", "VRAM", "CRAM", "B810" };
 
+static const char* m68kVariantToString[] = {
+    "INVALID",
+    "68000",   "68010",
+    "68EC020", "68020",
+    "68EC030", "68030",
+    "68EC040", "680LC40", "68040",
+    "SCC68070"
+};
+
 static t_stat chip_show(FILE *st, UNIT *uptr, int32 val, CONST void *desc) {
     fprintf(st, cpu_unit.flags & UNIT_CPU_OPSTOP ? "ITRAP, " : "NOITRAP, ");
-    if (chiptype < NUM_CHIP_TYPE)
+    if ((chiptype >= 0) && (chiptype < NUM_CHIP_TYPE)) {
         fprintf(st, "%s", cpu_mod[chiptype].mstring);
+        if (chiptype == CHIP_TYPE_M68K) {
+            fprintf(st, " (%s)", m68kVariantToString[m68kvariant]);
+        }
+    }
     fprintf(st, ", ");
     if (ramtype <= MAX_RAM_TYPE)
         fprintf(st, "%s", ramTypeToString[ramtype]);
+
     return SCPE_OK;
 }
 
@@ -6571,18 +6677,22 @@ static t_stat cpu_show(FILE *st, UNIT *uptr, int32 val, CONST void *desc) {
             }
         fprintf(st, "]");
     }
-    if (chiptype < NUM_CHIP_TYPE) {
+    if ((chiptype >= 0) && (chiptype < NUM_CHIP_TYPE)) {
         first = TRUE;
         /* show verbose CPU flags */
         for (i = 0; cpuflags[chiptype][i].mask; i++)
             if (*flagregister[chiptype] & cpuflags[chiptype][i].mask) {
                 if (first) {
                     first = FALSE;
-                    fprintf(st, "\nFlags");
+                    fprintf(st, "\n\tFlags");
                 }
                 fprintf(st, " %s", cpuflags[chiptype][i].flagName);
             }
     }
+    if (chiptype == CHIP_TYPE_M68K) {
+        fprintf(st, "\n\tMemory-Mapped I/O: 0x%06x-0x%06x", mmiobase, mmiobase + (mmiosize - 1));
+    }
+
     return SCPE_OK;
 }
 
@@ -6751,7 +6861,7 @@ static int32 bankseldev(const int32 port, const int32 io, const int32 data) {
 }
 
 static void cpu_set_chiptype_short(const int32 value) {
-    if ((chiptype == value) || (chiptype >= NUM_CHIP_TYPE))
+    if ((chiptype == value) || (value < 0) || (value >= NUM_CHIP_TYPE))
         return; /* nothing to do */
     if (((chiptype == CHIP_TYPE_8080) && (value == CHIP_TYPE_Z80)) ||
         ((chiptype == CHIP_TYPE_Z80) && (value == CHIP_TYPE_8080))) {
@@ -6964,11 +7074,23 @@ static t_stat cpu_set_memory(UNIT *uptr, int32 value, CONST char *cptr, void *de
     return SCPE_ARG;
 }
 
+static t_stat m68k_set_chiptype(UNIT* uptr, int32 value, CONST char* cptr, void* desc) {
+
+    if (value == m68kvariant) {
+        if (cpu_unit.flags & UNIT_CPU_VERBOSE)
+            sim_printf("M68K Variant unchanged\n");
+        return SCPE_OK;
+    }
+
+    m68kvariant = value;
+    return SCPE_OK;
+}
+
 static t_stat cpu_set_hist(UNIT *uptr, int32 val, CONST char *cptr, void *desc) {
    uint32 i, lnt;
    t_stat r;
 
-    if ((chiptype != CHIP_TYPE_8080) && (chiptype != CHIP_TYPE_Z80)) {
+    if ((chiptype >= 0) && (chiptype != CHIP_TYPE_8080) && (chiptype != CHIP_TYPE_Z80)) {
         sim_printf("History not supported for chiptype: %s\n",
                (chiptype < NUM_CHIP_TYPE) ? cpu_mod[chiptype].mstring : "????");
         return SCPE_NOFNC;
@@ -7036,7 +7158,8 @@ t_stat cpu_show_hist (FILE *st, UNIT *uptr, int32 val, CONST void *desc)
 
     if ((chiptype != CHIP_TYPE_8080) && (chiptype != CHIP_TYPE_Z80)) {
         sim_printf("History not supported for chiptype: %s\n",
-               (chiptype < NUM_CHIP_TYPE) ? cpu_mod[chiptype].mstring : "????");
+            (0 <= chiptype) && (chiptype < NUM_CHIP_TYPE) ?
+            cpu_mod[chiptype].mstring : "????");
         return SCPE_NOFNC;
     }
 
@@ -7164,6 +7287,8 @@ t_stat sim_load(FILE *fileref, CONST char *cptr, CONST char *fnam, int flag) {
     char gbuf[CBUFSIZE];
     if (chiptype == CHIP_TYPE_M68K)
         return sim_load_m68k(fileref, cptr, fnam, flag);
+    if (sim_switches & SWMASK ('H'))
+        return cpu_hex_load(fileref, cptr, fnam, flag);
     if (flag) {
         result = get_range(NULL, cptr, &lo, &hi, 16, ADDRMASKEXTENDED, 0);
         if (result == NULL)
@@ -7220,6 +7345,71 @@ t_stat sim_load(FILE *fileref, CONST char *cptr, CONST char *fnam, int flag) {
     return SCPE_OK;
 }
 
+/* cpu_hex_load will load an Intel hex file into RAM.
+   Based on HEX2BIN by Mike Douglas
+   https://deramp.com/downloads/misc_software/hex-binary utilities for the PC/
+*/
+static t_stat cpu_hex_load(FILE *fileref, CONST char *cptr, CONST char *fnam, int flag) {
+    char linebuf[1024], datastr[1024], *bufptr;
+    int32 bytecnt, rectype, databyte, chksum, line = 0, cnt = 0;
+    t_addr addr, org = 0;
+
+    while (!feof(fileref)) {
+        if (fgets(linebuf, sizeof(linebuf), fileref) == NULL)
+            break;
+
+        line++;
+
+        /* Strip EOL characters */
+        if ((bufptr = strchr(linebuf, '\r')) != NULL) {
+            *bufptr = '\0';
+        }
+        if ((bufptr = strchr(linebuf, '\n')) != NULL) {
+            *bufptr = '\0';
+        }
+
+        if (strlen(linebuf) == 0)
+            continue;
+
+        if (sscanf(linebuf, ":%2x%4x%2x%s", &bytecnt, &addr, &rectype, datastr) != 4) {
+            return sim_messagef(SCPE_IERR, "Hex file format error at line %d\n", line);
+        }
+        chksum = bytecnt + (addr >> 8) + (addr & 0xff) + rectype;
+
+        bufptr = datastr;
+
+        /* Ensure datastr is NULL-terminated. */
+        datastr[sizeof(datastr) - 1] = '\0';
+
+        if ((rectype == 0) && (bytecnt > 0) && (addr+bytecnt <= MAXMEMORY)) {
+            if (cnt == 0)
+                org = addr;
+
+            do {
+                if (sscanf(bufptr, "%2x", &databyte) != 1) {
+                    return sim_messagef(SCPE_IERR, "Hex file format error at line %d\n", line);
+                }
+                bufptr += 2;
+
+                PutBYTE(addr++, databyte);
+
+                chksum += databyte;
+                cnt++;
+            } while (--bytecnt != 0);
+
+            if (sscanf(bufptr, "%2x", &databyte) != 1) {            /* checksum byte */
+                return sim_messagef(SCPE_IERR, "Hex file format error at line %d\n", line);
+            }
+
+            if (0 != ((chksum+databyte) & 0xff)) {
+                return sim_messagef(SCPE_IERR, "Checksum error at line %d\n   %s\n", line, linebuf);
+            }
+        }
+    }
+
+    return sim_messagef(SCPE_OK, "%d byte%s loaded at %x.\n", PLURAL(cnt), org);
+}
+
 void cpu_raise_interrupt(uint32 irq) {
     extern void cpu8086_intr(uint8 intrnum);
 
@@ -7227,6 +7417,114 @@ void cpu_raise_interrupt(uint32 irq) {
         cpu8086_intr(irq);
     } else if (cpu_unit.flags & UNIT_CPU_VERBOSE) {
         sim_printf("Interrupts not fully supported for chiptype: %s\n",
-               (chiptype < NUM_CHIP_TYPE) ? cpu_mod[chiptype].mstring : "????");
+            (0 <= chiptype) && (chiptype < NUM_CHIP_TYPE) ?
+            cpu_mod[chiptype].mstring : "????");
     }
 }
+
+static t_addr disp_addr = 0;
+
+static t_stat cpu_cmd_memory(int32 flag, const char *cptr) {
+    const char *result;
+    char abuf[16];
+    t_addr lo, hi, last;
+    t_value byte;
+
+    if ((result = get_range(NULL, cptr, &lo, &hi, 16, MEMORYMASK, 0)) == NULL) {
+        lo = hi = disp_addr;
+    }
+    else {
+        disp_addr = lo & ~(0x0f);
+    }
+
+    if (hi == lo) {
+        hi = (lo & ~(0x0f)) + 0xff;
+    }
+
+    last = hi | 0x00000f;
+
+    while (disp_addr <= last && disp_addr <= MEMORYMASK) {
+
+        if (!(disp_addr & 0x0f)) {
+            if (MEMORYSIZE <= 0x10000) {
+                sim_printf("%04X ", disp_addr);
+            }
+            else {
+                sim_printf("%02X:%04X ", disp_addr >> 16, disp_addr & 0xffff);
+            }
+        }
+
+        if (disp_addr < lo || disp_addr > hi) {
+            sim_printf("   ");
+            abuf[disp_addr & 0x0f] = ' ';
+        }
+        else {
+            cpu_ex(&byte, disp_addr, &cpu_unit, 0);
+            sim_printf("%02X ", byte);
+            abuf[disp_addr & 0x0f] = sim_isprint(byte) ? byte : '.';
+        }
+
+        if ((disp_addr & 0x000f) == 0x000f) {
+            sim_printf("%16.16s\n", abuf);
+        }
+
+        disp_addr++;
+    }
+
+    if (disp_addr > MEMORYMASK) {
+        disp_addr = 0;
+    }
+
+    return SCPE_OK | SCPE_NOMESSAGE;
+}
+
+static t_stat cpu_cmd_reg(int32 flag, CONST char *cptr)
+{
+    t_value op[INST_MAX_BYTES];
+    int i;
+
+    if (chiptype != CHIP_TYPE_8080 && chiptype != CHIP_TYPE_Z80) {
+        sim_printf("REG requires 8080 or Z80 CPU\n");
+        return SCPE_NOFNC;
+    }
+
+    for (i = 0; i < INST_MAX_BYTES; i++) {
+        op[i] = GetBYTE(PC_S + i);
+    }
+
+    if (chiptype == CHIP_TYPE_8080) {
+        /*
+        ** Use DDT output:
+        ** CfZfMfEfIf A=bb B=dddd D=dddd H=dddd S=dddd P=dddd inst
+        */
+        sim_printf("C%dZ%dM%dE%dI%d A=%02X B=%04X D=%04X H=%04X S=%04X P=%04X ",
+            TSTFLAG2(AF_S, C),
+            TSTFLAG2(AF_S, Z),
+            TSTFLAG2(AF_S, S),
+            TSTFLAG2(AF_S, P),
+            TSTFLAG2(AF_S, H),
+            HIGH_REGISTER(AF_S), (uint16) BC_S, (uint16) DE_S, (uint16) HL_S, (uint16) SP_S, (uint16) PC_S);
+        fprint_sym (stdout, PC_S, op, &cpu_unit, SWMASK ('M'));
+    } else {    /* Z80 */
+        /*
+        ** Use DDT/Z output:
+        */
+        sim_printf("C%dZ%dS%dV%dH%dN%d A =%02X BC =%04X DE =%04X HL =%04X S =%04X P =%04X ",
+            TSTFLAG2(AF_S, C),
+            TSTFLAG2(AF_S, Z),
+            TSTFLAG2(AF_S, S),
+            TSTFLAG2(AF_S, P),
+            TSTFLAG2(AF_S, H),
+            TSTFLAG2(AF_S, N),
+            HIGH_REGISTER(AF_S), (uint16) BC_S, (uint16) DE_S, (uint16) HL_S, (uint16) SP_S, (uint16) PC_S);
+        fprint_sym (stdout, PC_S, op, &cpu_unit, SWMASK ('M'));
+        sim_printf("\n");
+        sim_printf("             A'=%02X BC'=%04X DE'=%04X HL'=%04X IX=%04X IY=%04X",
+            HIGH_REGISTER(AF1_S), (uint16) BC1_S, (uint16) DE1_S, (uint16) HL1_S, (uint16) IX_S, (uint16) IY_S);
+    }
+
+    sim_printf("\n");
+
+    return SCPE_OK | SCPE_NOMESSAGE;
+}
+

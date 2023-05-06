@@ -22,6 +22,8 @@
    Except as contained in this notice, the name of Robert M Supnik shall not be
    used in advertising or otherwise to promote the sale, use or other dealings
    in this Software without prior written authorization from Robert M Supnik.
+
+   21-Jul-22    RMS     Channel UEND flag in wrong bit position (Ken Rector)
 */
 
 #ifndef SIGMA_IO_DEFS_H_
@@ -97,7 +99,7 @@ typedef struct {
 /* Channel flags */
 
 #define CHF_INP         0x8000                          /* int pending */
-#define CHF_UEN         0x0400                          /* unusual end */
+#define CHF_UEN         0x0800                          /* unusual end */
 #define CHF_LNTE        0x0080                          /* length error */
 #define CHF_XMDE        0x0040                          /* xmit data error */
 #define CHF_XMME        0x0020                          /* xmit mem error */
@@ -250,6 +252,7 @@ void chan_set_chi (uint32 dva, uint32 fl);
 void chan_set_dvi (uint32 dva);
 int32 chan_clr_chi (uint32 dva);
 int32 chan_chk_chi (uint32 dva);
+t_bool chan_chk_dvi (uint32 dva);
 uint32 chan_end (uint32 dva);
 uint32 chan_uen (uint32 dva);
 uint32 chan_RdMemB (uint32 dva, uint32 *dat);

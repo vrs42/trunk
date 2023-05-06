@@ -1,6 +1,6 @@
-/* 3b2_ports.h: AT&T 3B2 Model 400 "PORTS" feature card
+/* 3b2_ports.h: CM195B 4-Port Serial CIO Card
 
-   Copyright (c) 2018, Seth J. Morabito
+   Copyright (c) 2018-2022, Seth J. Morabito
 
    Permission is hereby granted, free of charge, to any person
    obtaining a copy of this software and associated documentation
@@ -51,15 +51,15 @@
 #define PORTS_IPL       10
 #define PORTS_VERSION   1
 
-#define MAX_PORTS_CARDS 12
-#define PORTS_LINES     4
-#define PORTS_RCV_QUEUE 5
+#define MAX_CARDS        8   /* Up to 8 PORTS cards supported */
+#define PORTS_CENTRONICS 4   /* Subdevice 4 is the centronics port */
+#define PORTS_LINES      4   /* Subdevices 0-3 are RS232 ports */
+#define PORTS_RCV_QUEUE  5   /* Total of 5 receive queues for all ports */
 
 /*
- * Sub-field values for the PPC_DEVICE request entry; these are placed
- * in app_data.bt[0] in the PPC_DEVICE application field. The prefix
- * DR indicates that this is a code for use in "device" request
- * entries only.
+ * Sub-field values for the PPC_DEVICE request entry; these are placed in
+ * app_data.bt[0] in the PPC_DEVICE application field. The prefix DR
+ * indicates that this is a code for use in "device" request entries only.
 */
 
 #define DR_ENA      1       /* enable a device */
@@ -216,15 +216,18 @@ typedef struct {
 
 t_stat ports_reset(DEVICE *dptr);
 t_stat ports_setnl(UNIT *uptr, int32 val, CONST char *cptr, void *desc);
-t_stat ports_show_cqueue(FILE *st, UNIT *uptr, int32 val, CONST void *desc);
-t_stat ports_show_rqueue(FILE *st, UNIT *uptr, int32 val, CONST void *desc);
 t_stat ports_rcv_svc(UNIT *uptr);
 t_stat ports_xmt_svc(UNIT *uptr);
 t_stat ports_cio_svc(UNIT *uptr);
 t_stat ports_attach(UNIT *uptr, CONST char *cptr);
 t_stat ports_detach(UNIT *uptr);
-void ports_sysgen(uint8 cid);
-void ports_express(uint8 cid);
-void ports_full(uint8 cid);
+t_stat lpt_reset (DEVICE *dptr);
+t_stat lpt_attach (UNIT *uptr, CONST char *ptr);
+t_stat lpt_detach (UNIT *uptr);
+t_stat lpt_help (FILE *st, DEVICE *dptr, UNIT *uptr, int32 flag, const char *cptr);
+const char *lpt_description (DEVICE *dptr);
+void ports_sysgen(uint8 slot);
+void ports_express(uint8 slot);
+void ports_full(uint8 slot);
 
 #endif /* _3B2_PORTS_H_ */

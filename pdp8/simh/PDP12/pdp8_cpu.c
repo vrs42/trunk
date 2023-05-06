@@ -25,6 +25,7 @@
 
    cpu          central processor
 
+   21-Oct-21    RMS     Fixed bug in reporting device conflicts (Hans-Bernd Eggenstein)
    07-Sep-17    RMS     Fixed sim_eval declaration in history routine (COVERITY)
    09-Mar-17    RMS     Fixed PCQ_ENTRY for interrupts (COVERITY)
    13-Feb-17    RMS     RESET clear L'AC, per schematics
@@ -357,7 +358,11 @@ DEVICE cpu_dev = {
 
 int32 IR, MB, IF, DF, LAC, MQ;
 uint32 PC, MA;
+#ifdef PDP12D
 int32 MODEL = PDP12;
+#else
+int32 MODEL = PDP8E;
+#endif
 uint32 LIF, LDF, P, A, B, S, Z; /* LINC-8 saved state for mode switch */
 uint32 LIB; /* Buffer for LIF change */
 uint32 DJR; /* Disable LINC JMP return */
@@ -434,6 +439,7 @@ while (reason == 0) {                                   /* loop until halted */
     int_req = int_req | INT_NO_ION_PENDING;             /* clear ION delay */
     sim_interval = sim_interval - 1;
 
+#ifdef PDP12D
     /* Instruction decoding.
        We execute a LINC or a PDP8 instruction, depending.
        Note that MA contains IF'PC.
@@ -442,9 +448,12 @@ while (reason == 0) {                                   /* loop until halted */
         PC = (PC&06000) + ((PC + 1) & 01777);           /* increment PC */
         do_linc();
     } else {
+#endif /*PDP12D*/
         PC = (PC + 1) & 07777;                          /* increment PC */
         do_pdp8();
-    }
+#ifdef PDP12D
+    } 
+#endif /*PDP12D*/
 
     }                                                   /* end while */ 
 
@@ -478,7 +487,7 @@ static const char *pdp8_clock_precalibrate_commands[] = {
 t_stat cpu_reset (DEVICE *dptr)
 {
 saved_LAC = 0;
-int_req = (int_req & ~INT_ION) | INT_NO_CIF_PENDING;
+int_req = (int_req & ~INT_ION) | INT_NO_CIF_PENDING | INT_NO_LIF_PENDING;
 saved_DF = IB = saved_PC & 070000;
 UF = UB = gtf = emode = 0;
 FLO = 0; // BUGBUG: Initialize other LINC stuff here
@@ -1798,7 +1807,7 @@ do_pdp8()
                 }
                 gtf = 0;
                 emode = 0;
-                int_req = int_req & INT_NO_CIF_PENDING;
+                int_req = int_req & (INT_NO_LIF_PENDING|INT_NO_CIF_PENDING);
                 dev_done = 0;
                 int_enable = INT_INIT_ENABLE;
                 LAC = 0;
@@ -1911,6 +1920,7 @@ do_pdp8()
                 }                                       /* end switch pulse */
             break;                                      /* end case 10 */
 
+#ifdef PDP12D
         case 014:                                       /* LINC or PDP12 */
         case 015:                                       /* LINC */
         case 016:                                       /* LINC */
@@ -1918,6 +1928,7 @@ do_pdp8()
             if (linciot(device, pulse))                 /* Do IOT if needed */
                 break;                                  /* IOT was done */
             /* FALL THROUGH */
+#endif /*PDP12D*/
 
         default:                                        /* I/O device */
             if (dev_tab[device]) {                      /* dev present? */
@@ -1953,6 +1964,7 @@ linc_trap()
     int_req = int_req & ~INT_NO_CIF_PENDING;     /* Set intr inhibit */
 }
 
+#ifdef PDP12D
 /*
    The LINC does all arithmetic in one's complement.
 
@@ -2753,3 +2765,4 @@ int device, pulse;
     }
     return TRUE;
 }
+#endif /*PDP12D*/

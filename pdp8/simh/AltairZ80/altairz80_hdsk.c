@@ -26,7 +26,7 @@
     Contains code from Howard M. Harte for defining and changing disk geometry.
 */
 
-#include "m68k.h"
+#include "m68k/m68k.h"
 #include "sim_imd.h"
 
 /* Debug flags */
@@ -692,6 +692,9 @@ static t_stat set_format(UNIT *uptr, int32 val, CONST char *cptr, void *desc) {
         sim_printf("Cannot set format for not attached unit %i.\n", find_unit_index(uptr));
         return SCPE_ARG;
     }
+
+    fmtname[DPB_NAME_LENGTH] = '\0';
+
     for (i = 0; dpb[i].capac != 0; i++) {
         if (strncmp(fmtname, dpb[i].name, strlen(fmtname)) == 0) {
             uptr -> HDSK_FORMAT_TYPE = i;

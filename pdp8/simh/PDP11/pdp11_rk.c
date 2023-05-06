@@ -1,6 +1,6 @@
 /* pdp11_rk.c: RK11/RKV11 cartridge disk simulator
 
-   Copyright (c) 1993-2016, Robert M Supnik
+   Copyright (c) 1993-2022, Robert M Supnik
 
    Permission is hereby granted, free of charge, to any person obtaining a
    copy of this software and associated documentation files (the "Software"),
@@ -25,6 +25,7 @@
 
    rk           RK11/RKV11/RK05 cartridge disk
 
+   28-Nov-22    RMS     Fixed word count adjustment on NXM (Anthony Lawrence)
    12-Mar-16    RMS     Revised to support UC15 (18b IO)
    23-Oct-13    RMS     Revised for new boot setup routine
    20-Mar-09    RMS     Fixed bug in read header (Walter F Mueller)
@@ -121,7 +122,7 @@ struct drvtyp {
     };
 
 static struct drvtyp drv_tab[] = {
-    { RK_NUMSC, RK_NUMSF, RK_NUMCY*2, RK_SIZE, "RK05" },
+    { RK_NUMSC, RK_NUMSF, RK_NUMCY, RK_SIZE, "RK05" },
     { 0 }
     };
 
@@ -426,9 +427,9 @@ REG rk_reg[] = {
 
 MTAB rk_mod[] = {
     { MTAB_XTD|MTAB_VUN, 0, "write enabled", "WRITEENABLED", 
-        &set_writelock, &show_writelock,   NULL, "Write enable tape drive" },
+        &set_writelock, &show_writelock,   NULL, "Write enable disk drive" },
     { MTAB_XTD|MTAB_VUN, 1, NULL, "LOCKED", 
-        &set_writelock, NULL,   NULL, "Write lock tape drive" },
+        &set_writelock, NULL,   NULL, "Write lock disk drive" },
     { MTAB_XTD|MTAB_VUN, 0, "TYPE", NULL,
       NULL, &rk_show_type, NULL, "Display device type" },
     { UNIT_NOAUTO,           0, "autosize", "AUTOSIZE", 
@@ -764,7 +765,7 @@ if (wc && (err == 0)) {                                 /* seek ok? */
                 rkxb[i] = comp;
             }
         else {                                          /* normal fetch */
-            if ((t = MAP_RDW (ma, wc << 1, rkxb))) {  /* get buf */
+            if ((t = MAP_RDW (ma, wc << 1, rkxb))) {   /* get buf */
                 rker = rker | RKER_NXM;                 /* NXM? set flg */
                 wc = wc - t;                            /* adj wd cnt */
                 }
@@ -816,6 +817,7 @@ if ((uptr->FUNC == RKCS_READ) && (rkcs & RKCS_FMT))     /* read format? */
 else da = da + wc + (RK_NUMWD - 1);                     /* count by words */
 track = (da / RK_NUMWD) / RK_NUMSC;
 sect = (da / RK_NUMWD) % RK_NUMSC;
+uptr->CYL = track / RK_NUMSF;                           /* update position */
 rkda = (rkda & RKDA_DRIVE) | (track << RKDA_V_TRACK) | (sect << RKDA_V_SECT);
 rk_set_done (0);
 
@@ -1014,7 +1016,7 @@ const char *const text =
 " the RK11-D (There's also a -E for the PDP-15.). The -C is described in\n"
 " the 1972 PDP11 Peripherals handbook. In that controller, RKDS<11>\n"
 " distinguishes an RK02 (low density, 128 words/sector) drive from an RK03\n"
-" (high density, 256 words/drive).\n"
+" (high density, 256 words/sector).\n"
 "\n"
 " By 1973, the RK11-C had been superseded by the RK11-D. The RK11-D only\n"
 " supports high density drives: the RK03 Diablo drive, and the RK05 DEC\n"

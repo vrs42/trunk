@@ -65,11 +65,13 @@ extern DEVICE rx_dev;
 extern DEVICE df_dev, rf_dev;
 extern DEVICE dt_dev, td_dev;
 extern DEVICE mt_dev, ct_dev;
+extern DEVICE vc12_dev;
 extern DEVICE ttix_dev, ttox_dev;
 extern REG cpu_reg[];
 extern uint16 M[];
 
 t_stat fprint_sym_fpp (FILE *of, t_value *val);
+t_stat fprint_sym_linc (FILE *of, t_value *val);
 t_stat parse_sym_fpp (CONST char *cptr, t_value *val);
 CONST char *parse_field (CONST char *cptr, uint32 max, uint32 *val, uint32 c);
 CONST char *parse_fpp_xr (CONST char *cptr, uint32 *xr, t_bool inc);
@@ -113,6 +115,9 @@ DEVICE *sim_devices[] = {
     &td_dev,
     &mt_dev,
     &ct_dev,
+#ifdef PDP12D
+    &vc12_dev,
+#endif
     NULL
     };
 
@@ -633,6 +638,11 @@ if (!(sw & SWMASK ('M')))
 
 /* Instruction decode */
 
+if (LINC) {
+    fprint_sym_linc(of, val);
+    return SCPE_OK;
+}
+
 opc = (inst >> 9) & 07;                                 /* get major opcode */
 if (opc == 07)                                          /* operate? */
     inst = inst | ((emode & 1) << 12);                  /* include EAE mode */
@@ -1056,4 +1066,214 @@ if (((off % 3) != 0) ||
     (off > (max * 3)))
     return -1;
 return ((int32) off / 3);
+}
+
+
+/* LINC instruction decode */
+
+char *laopcode[] = { /* Alpha mode addressing */
+    0,
+    "SET",
+    "SAM",
+    "DIS",
+    "XSK",
+    "ROL",
+    "ROR",
+    "SCR",
+    0, /* SXL is less readable than KST, etc. */
+    0, /* SNS is less readable than AZE, etc. */
+    0,
+    "0540",
+    "0600",
+    "0640",
+    0,
+    "0740",
+
+};
+char *lbopcode[] = { /* Beta mode addressing */
+    "LDA",
+    "STA",
+    "ADA",
+    "ADM",
+    "LAM",
+    "MUL",
+    "LDH",
+    "STH",
+    "SHD",
+    "SAE",
+    "SRO",
+    "BCL",
+    "BSE",
+    "BCO",
+    "1700",
+    "DSC",
+};
+char *lmopcode[] = { /* Memory reference */
+    0,
+    "ADD",
+    "STC",
+    "JMP",
+};
+
+t_stat fprint_sym_linc (FILE *of, t_value *val)
+{
+    int32 i, nwd;
+    int32 wd1, wd2;
+
+    nwd = 1; /* Most are one word */
+
+    wd1 = val[0];
+    if (wd1 < 01000) {
+        i = wd1 >> 5;
+        wd2 = wd1 & 017;
+        switch (i) {
+            case 000: /* 00xx */
+                if (wd1 == 0000)
+                    fprintf (of, "HLT");
+                else if (wd1 == 0001)
+                    fprintf (of, "AXO");
+                else if (wd1 == 0002)
+                    fprintf (of, "PDP");
+                else if (wd1 == 0003)
+                    fprintf (of, "TAC");
+                else if (wd1 == 0004)
+                    fprintf (of, "ESF");
+                else if (wd1 == 0005)
+                    fprintf (of, "ZTA");
+                else if (wd1 == 0006)
+                    fprintf (of, "DJR");
+                else if (wd1 == 0010)
+                    fprintf (of, "ENI");
+                else if (wd1 == 0011)
+                    fprintf (of, "CLR");
+                else if (wd1 == 0014)
+                    fprintf (of, "ATR");
+                else if (wd1 == 0015)
+                    fprintf (of, "RTA");
+                else if (wd1 == 0016)
+                    fprintf (of, "NOP");
+                else if (wd1 == 0017)
+                    fprintf (of, "COM");
+                else if (wd1 == 0021)
+                    fprintf (of, "XOA");
+                else if (wd1 == 0023)
+                    fprintf (of, "TMA");
+                else if (wd1 == 0024)
+                    fprintf (of, "SFA");
+                else
+                    fprintf (of, "%04o", wd1);
+                break;
+            case 010: /* 0400+xx SXL */
+                if (wd2 == 015)
+                    fprintf (of, "KST");
+                else if (wd2 == 016)
+                    fprintf (of, "STD");
+                else if (wd2 == 017)
+                    fprintf (of, "TWC");
+                else {
+                    fprintf (of, "SXL");
+                    if (wd1 & 020)
+                        fprintf (of, " I");
+                    fprintf (of, " %03o", wd2);
+                    break;
+                }
+                if (wd1 & 020)
+                    fprintf (of, " I");
+                break;
+            case 011: /* 0440+xx SNS */
+                if (wd2 == 010)
+                    fprintf (of, "AZE");
+                else if (wd2 == 011)
+                    fprintf (of, "APO");
+                else if (wd2 == 012)
+                    fprintf (of, "LZE");
+                else if (wd2 == 013)
+                    fprintf (of, "IBZ");
+                else if (wd2 == 014)
+                    fprintf (of, "FLO");
+                else if (wd2 == 015)
+                    fprintf (of, "QLZ");
+                else if (wd2 == 016)
+                    fprintf (of, "SKP");
+                else {
+                    fprintf (of, "SNS");
+                    if (wd1 & 020)
+                        fprintf (of, " I");
+                    fprintf (of, " %03o", wd2);
+                    break;
+                }
+                if (wd1 & 020)
+                    fprintf (of, " I");
+                break;
+            case 012: /* 05xx */
+                if (wd1 == 0500) {
+                    wd2 = val[1];
+                    fprintf (of, "IOB; %04o", wd2);
+                    nwd = -2;
+                } else if (wd1 == 0515)
+                    fprintf (of, "KBD");
+                else if (wd1 == 0516)
+                    fprintf (of, "RSW");
+                else if (wd1 == 0517)
+                    fprintf (of, "LSW");
+                else
+                    fprintf (of, "%04o", wd1);
+                break;
+            case 014: /* 060x-063x */
+                fprintf (of, "LIF %03o", wd1&037);
+                break;
+            case 015: /* 064x-067x */
+                fprintf (of, "LDF %03o", wd1&037);
+                break;
+            case 016: /* 07xx */
+                if (wd1 == 0700)
+                    fprintf (of, "RDC");
+                else if (wd1 == 0701)
+                    fprintf (of, "RCG");
+                else if (wd1 == 0702)
+                    fprintf (of, "RDE");
+                else if (wd1 == 0703)
+                    fprintf (of, "MTB");
+                else if (wd1 == 0704)
+                    fprintf (of, "WRC");
+                else if (wd1 == 0705)
+                    fprintf (of, "WCC");
+                else if (wd1 == 0706)
+                    fprintf (of, "WRI");
+                else if (wd1 == 0707)
+                    fprintf (of, "CHK");
+                else
+                    fprintf (of, "%04o", wd1);
+                break;
+            default:
+                fprintf (of, "%s", laopcode[i]);
+                if (wd1 & 020)
+                    fprintf (of, " I");
+                fprintf (of, " %03o", wd2);
+                if (i == 001) { /* SET */
+                    wd2 = val[1];
+                    fprintf (of, "; %04o", wd2);
+                    nwd = -2;
+                }
+                break;
+        }
+    } else if (wd1 < 02000) {
+        i = (wd1 - 01000) >> 5;
+        wd2 = wd1 & 017;
+        fprintf (of, "%s", lbopcode[i]);
+        if (wd1 & 020)
+            fprintf (of, " I");
+        if (wd2)
+            fprintf (of, " %03o", wd2);
+        else {
+            wd2 = val[1];
+            fprintf (of, "; %04o", wd2);
+            nwd = -2;
+        }
+    } else {
+        i = wd1 >> 10;
+        wd2 = wd1 & 01777;
+        fprintf (of, "%s %04o", lmopcode[i], wd2);
+    }
+    return -nwd;
 }

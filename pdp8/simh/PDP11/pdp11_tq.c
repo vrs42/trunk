@@ -1,6 +1,6 @@
 /* pdp11_tq.c: TMSCP tape controller simulator
 
-   Copyright (c) 2002-2013, Robert M Supnik
+   Copyright (c) 2002-2022, Robert M Supnik
 
    Permission is hereby granted, free of charge, to any person obtaining a
    copy of this software and associated documentation files (the "Software"),
@@ -25,6 +25,7 @@
 
    tq           TQK50 tape controller
 
+   26-Mar-22    RMS     Added extra case points for new MTSE definitions
    23-Oct-13    RMS     Revised for new boot setup routine
    23-Jan-12    MP      Added missing support for Logical EOT detection while
                         positioning.
@@ -464,7 +465,7 @@ REG tq_reg[] = {
     { DRDATAD (QTIME,               tq_qtime, 24,             "response time for 'immediate' packets"), PV_LEFT + REG_NZ },
     { DRDATAD (XTIME,               tq_xtime, 24,             "response time for data transfers"), PV_LEFT + REG_NZ },
     { DRDATAD (RWTIME,             tq_rwtime, 32,             "rewind time 2 sec (adjusted later)"), PV_LEFT + REG_NZ },
-    { BRDATAD (PKTS,                 tq_pkt, DEV_RDX, 16, TQ_NPKTS * (TQ_PKT_SIZE_W + 1), "packet buffers, 33W each, 32 entries") },
+    { VBRDATAD (PKTS,                 tq_pkt, DEV_RDX, 16, TQ_NPKTS * (TQ_PKT_SIZE_W + 1), "packet buffers, 33W each, 32 entries") },
     { URDATAD (PLUG,    tq_unit[0].unit_plug, 10, 32, 0, TQ_NUMDR, PV_LEFT | REG_RO, "unit plug value, units 0 to 3") },
     { DRDATA  (DEVTYPE,               tq_typ, 2), REG_HRO },
     { DRDATA  (DEVCAP, drv_tab[TQU_TYPE].cap, T_ADDR_W), PV_LEFT | REG_HRO },
@@ -1583,11 +1584,12 @@ switch (st) {
         uptr->flags = uptr->flags | UNIT_SXC;
         return ST_WPR;
 
+    default:
+        uptr->flags = uptr->flags | UNIT_SXC;
+        return SCPE_IERR;
+
     case MTSE_LEOT:
         return ST_LED;
-
-    default:                                            /* shouldn't happen */
-        return SCPE_IERR;
         }
 
 return ST_SUC;

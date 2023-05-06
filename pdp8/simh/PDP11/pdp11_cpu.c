@@ -25,6 +25,20 @@
 
    cpu          PDP-11 CPU
 
+   30-Nov022    RMS     More 11/45,11/70 trap hackery (Walter Mueller)
+   29-Nov-22    RMS     Trap stack abort must clear other traps/aborts (Walter Mueller)
+   23-Oct-22    RMS     Fixed priority of MME traps (Walter Mueller)
+   02-Sep-22    RMS     Fixed handling of PDR<A> (Walter Mueller)
+   31-Aug-22    RMS     MMR0<15:13> != 0 locks bits<15:13> (Walter Mueller)
+                        MMR0<12> = 1 disables further traps (Walter Mueller)
+   25-Aug-22    RMS     11/45,70 clear MMR1 in trap sequence (Walter Mueller)
+   23-Aug-22    RMS     11/45,70 detect red stack abort before memory write
+                        in JSR, MFPx (Walter Mueller)
+   20-Aug-22    RMS     MMR1 reads as 0 on subset memory mmgt systems
+                        11/44, 45, 70 track PC changes (Walter Mueller)
+                        J11 tracks PC changes on -(PC) and @-(PC)
+   25-Jul-22    RMS     Removed deprecated CPU models (Q22, UHR11, URH70)
+   04-Jun-18    RMS     Removed CPU model entries for UC15 (Mark Pizzolato)
    04-Dec-16    RMS     Removed duplicate IDLE entries in MTAB
    30-Aug-16    RMS     Fixed overloading of -d in ex/mod
    14-Mar-16    RMS     Added UC15 support
@@ -338,6 +352,7 @@ int32 relocR (int32 addr);
 int32 relocW (int32 addr);
 void relocR_test (int32 va, int32 apridx);
 void relocW_test (int32 va, int32 apridx);
+int32 relocC (int32 va, int32 sw);
 t_bool PLF_test (int32 va, int32 apr);
 void reloc_abort (int32 err, int32 apridx);
 int32 ReadE (int32 addr);
@@ -372,22 +387,35 @@ extern int32 get_vector (int32 nipl);
 /* Trap data structures */
 
 int32 trap_vec[TRAP_V_MAX] = {                          /* trap req to vector */
-    VEC_RED, VEC_ODD, VEC_MME, VEC_NXM,
+    VEC_RED, VEC_ODD, VEC_NXM, VEC_MME,
     VEC_PAR, VEC_PRV, VEC_ILL, VEC_BPT,
     VEC_IOT, VEC_EMT, VEC_TRAP, VEC_TRC,
     VEC_YEL, VEC_PWRFL, VEC_FPE
     };
 
+t_bool trap_load_mmr2[TRAP_V_MAX + 1] = {               /* do trap requests load MMR2? */
+    TRUE, TRUE, TRUE, TRUE,
+    TRUE, FALSE, FALSE, FALSE,
+    FALSE, FALSE, FALSE, TRUE,
+    TRUE, TRUE, TRUE, TRUE                              /* last is interrupt */
+    };
+
 int32 trap_clear[TRAP_V_MAX] = {                        /* trap clears */
-    TRAP_RED+TRAP_PAR+TRAP_YEL+TRAP_TRC+TRAP_ODD+TRAP_NXM,
-    TRAP_ODD+TRAP_PAR+TRAP_YEL+TRAP_TRC,
-    TRAP_MME+TRAP_PAR+TRAP_YEL+TRAP_TRC,
-    TRAP_NXM+TRAP_PAR+TRAP_YEL+TRAP_TRC,
-    TRAP_PAR+TRAP_TRC, TRAP_PRV+TRAP_TRC,
-    TRAP_ILL+TRAP_TRC, TRAP_BPT+TRAP_TRC,
-    TRAP_IOT+TRAP_TRC, TRAP_EMT+TRAP_TRC,
-    TRAP_TRAP+TRAP_TRC, TRAP_TRC,
-    TRAP_YEL, TRAP_PWRFL, TRAP_FPE
+    TRAP_RED+TRAP_ODD+TRAP_NXM+TRAP_PAR+TRAP_YEL+TRAP_TRC+TRAP_MME, /* red stack abort */
+    TRAP_ODD+TRAP_NXM+TRAP_PAR+TRAP_YEL+TRAP_TRC+TRAP_MME, /* odd address abort */
+    TRAP_NXM+TRAP_PAR+TRAP_YEL+TRAP_TRC+TRAP_MME,       /* nxm abort */
+    TRAP_MME+TRAP_PAR+TRAP_YEL+TRAP_TRC,                /* mme abort or trap */
+    TRAP_PAR+TRAP_YEL+TRAP_TRC,
+    TRAP_PRV+TRAP_TRC,                                  /* instruction traps */
+    TRAP_ILL+TRAP_TRC,                                  /* occur in fetch or */
+    TRAP_BPT+TRAP_TRC,                                  /* initial decode */
+    TRAP_IOT+TRAP_TRC,                                  /* no yelstk possible */
+    TRAP_EMT+TRAP_TRC,
+    TRAP_TRAP+TRAP_TRC,
+    TRAP_TRC,
+    TRAP_YEL,
+    TRAP_PWRFL,
+    TRAP_FPE
     };
 
 /* CPU data structures
@@ -636,6 +664,7 @@ MTAB cpu_mod[] = {
     { UNIT_MSIZE, 98304, NULL, "96K", &cpu_set_size, NULL, NULL, "Set memory size to 96Kb"},
     { UNIT_MSIZE, 131072, NULL, "128K", &cpu_set_size, NULL, NULL, "Set memory size to 128Kb"},
     { UNIT_MSIZE, 196608, NULL, "192K", &cpu_set_size, NULL, NULL, "Set memory size to 192Kb"},
+    { UNIT_MSIZE, 221184, NULL, "216K", &cpu_set_size, NULL, NULL, "Set memory size to 216Kb"},
     { UNIT_MSIZE, 262144, NULL, "256K", &cpu_set_size, NULL, NULL, "Set memory size to 256Kb"},
     { UNIT_MSIZE, 393216, NULL, "384K", &cpu_set_size, NULL, NULL, "Set memory size to 384Kb"},
     { UNIT_MSIZE, 524288, NULL, "512K", &cpu_set_size, NULL, NULL, "Set memory size to 512Kb"},
@@ -727,7 +756,7 @@ isenable = calc_is (cm);
 dsenable = calc_ds (cm);
 put_PIRQ (PIRQ);                                        /* rewrite PIRQ */
 STKLIM = STKLIM & STKLIM_RW;                            /* clean up STKLIM */
-MMR0 = MMR0 | MMR0_IC;                                  /* usually on */
+MMR0 = MMR0 & ~MMR0_IC;                                 /* usually off */
 
 trap_req = calc_ints (ipl, trap_req);                   /* upd int req */
 trapea = 0;
@@ -789,7 +818,8 @@ else {
             (CPUT (STOP_STKA) || stop_spabort))
             reason = STOP_SPABORT;
         if (trapea == ~MD_KER) {                        /* kernel stk abort? */
-            setTRAP (TRAP_RED);
+            trap_req = trap_req & ~trap_clear[TRAP_RED];/* clear all traps */
+            setTRAP (TRAP_RED);                         /* set red stack trap */
             setCPUERR (CPUE_RED);
             STACKFILE[MD_KER] = 4;
             if (cm == MD_KER)
@@ -877,20 +907,19 @@ while (reason == 0)  {
    6. Update SP, PSW, and PC
    7. If not stack overflow, check for stack overflow
 
-   If the reads in step 3, or the writes in step 5, match a data breakpoint,
-   the breakpoint status will be set but the interrupt actions will continue.
-   The breakpoint stop will occur at the beginning of the next instruction 
-   cycle.
+   If the MMU registers are not frozen, the 11/45 and 11/70 will
+   also clear MMR1 and store the trap vector in MMR2, <except>
+   for the four instruction traps (EMT, TRAP, IOT, BPT).
 */
 
         wait_state = 0;                                 /* exit wait state */
         STACKFILE[cm] = SP;
         PSW = get_PSW ();                               /* assemble PSW */
         oldrs = rs;
-        if (CPUT (HAS_MMTR)) {                          /* 45,70? */
-            if (update_MM)                              /* save vector */
-                MMR2 = trapea;
-            MMR0 = MMR0 & ~MMR0_IC;                     /* clear IC */
+        if ((CPUT (HAS_MMTR)) && (update_MM)) {         /* 45,70, not frozen? */
+            MMR1 = 0;                                   /* clear MMR1 */
+            if (trap_load_mmr2[trapnum])                /* load MMR2? */
+                MMR2 = trapea;                          /* save vector */
             }
         src = ReadCW (trapea | calc_ds (MD_KER));       /* new PC */
         src2 = ReadCW ((trapea + 2) | calc_ds (MD_KER)); /* new PSW */
@@ -915,7 +944,6 @@ while (reason == 0)  {
         if ((cm == MD_KER) && (SP < (STKLIM + STKL_Y)) &&
             (trapnum != TRAP_V_RED) && (trapnum != TRAP_V_YEL))
             set_stack_trap (SP);
-        MMR0 = MMR0 | MMR0_IC;                          /* back to instr */
         continue;                                       /* end if traps */
         }
 
@@ -937,7 +965,7 @@ while (reason == 0)  {
     inst_psw = get_PSW ();
     saved_sim_interval = sim_interval;
     if (BPT_SUMM_PC) {                                  /* possible breakpoint */
-        t_addr pa = relocR (PC | isenable);             /* relocate PC */
+        t_addr pa = relocC (PC, 0);                     /* relocate PC */
         if (sim_brk_test (PC, BPT_PCVIR) ||             /* Normal PC breakpoint? */
             sim_brk_test (pa, BPT_PCPHY))               /* Physical Address breakpoint? */
             ABORT (ABRT_BKPT);                          /* stop simulation */
@@ -2885,14 +2913,16 @@ switch (apr & PDR_ACF) {                                /* case on ACF */
 
     case 1: case 4:                                     /* trap read */
         if (CPUT (HAS_MMTR)) {                          /* traps implemented? */
-            APRFILE[apridx] = APRFILE[apridx] | PDR_A;  /* set A */
-            if (MMR0 & MMR0_TENB) {                     /* traps enabled? */
+            int32 old_mmr0 = MMR0;
+            APRFILE[apridx] |= PDR_A;                   /* set A */
+            MMR0 = MMR0 | MMR0_TRAP;                    /* set trap flag */
+            if ((MMR0 & MMR0_TENB) != 0) {              /* traps enabled? */
                 if (update_MM)                          /* update MMR0 */
                     MMR0 = (MMR0 & ~MMR0_PAGE) | (apridx << MMR0_V_PAGE);
-                MMR0 = MMR0 | MMR0_TRAP;                /* set trap flag */
-                setTRAP (TRAP_MME);                     /* set trap */
+                if ((old_mmr0 & MMR0_TRAP) == 0)        /* first trap? */
+                    setTRAP (TRAP_MME);                 /* set trap */
                 }
-            return;                                     /* continue op */
+            return;                                     /* continue */
             }                                           /* not impl, abort NR */
     case 0: case 3: case 7:                             /* non-resident */
         err = MMR0_NR;                                  /* set MMR0 */
@@ -2918,10 +2948,10 @@ return ((apr & PDR_ED)? (dbn < plf): (dbn > plf));      /* pg lnt error? */
 
 void reloc_abort (int32 err, int32 apridx)
 {
-if (update_MM) MMR0 =                                   /* update MMR0 */
-    (MMR0 & ~MMR0_PAGE) | (apridx << MMR0_V_PAGE);
-APRFILE[apridx] = APRFILE[apridx] | PDR_A;              /* set A */
-MMR0 = MMR0 | err;                                      /* set aborts */
+if (update_MM) {                                        /* MMR0 not frozen? */
+    MMR0 = (MMR0 & ~MMR0_PAGE) | (apridx << MMR0_V_PAGE); /* record page */
+    MMR0 = MMR0 | err;                                  /* OR in aborts */
+    }
 ABORT (TRAP_MME);                                       /* abort ref */
 return;
 }
@@ -2953,7 +2983,7 @@ if (MMR0 & MMR0_MME) {                                  /* if mmgt */
         relocW_test (va, apridx);                       /* long test */
     if (PLF_test (va, apr))                             /* pg lnt error? */
         reloc_abort (MMR0_PL, apridx);
-    APRFILE[apridx] = apr | PDR_W;                      /* set W */
+    APRFILE[apridx] |= PDR_W;                           /* set W */
     pa = ((va & VA_DF) + ((apr >> 10) & 017777700)) & PAMASK;
     if ((MMR3 & MMR3_M22E) == 0) {
         pa = pa & 0777777;
@@ -2993,14 +3023,16 @@ switch (apr & PDR_ACF) {                                /* case on ACF */
 
     case 4: case 5:                                     /* trap write */
         if (CPUT (HAS_MMTR)) {                          /* traps implemented? */
-            APRFILE[apridx] = APRFILE[apridx] | PDR_A;  /* set A */
-            if (MMR0 & MMR0_TENB) {                     /* traps enabled? */
+            int32 old_mmr0 = MMR0;
+            APRFILE[apridx] |= PDR_A;                   /* set PDR <A> */
+            MMR0 = MMR0 | MMR0_TRAP;                    /* set trap flag */
+            if ((MMR0 & MMR0_TENB) != 0) {              /* traps enabled? */
                 if (update_MM)                          /* update MMR0 */
                     MMR0 = (MMR0 & ~MMR0_PAGE) | (apridx << MMR0_V_PAGE);
-                MMR0 = MMR0 | MMR0_TRAP;                /* set trap flag */
-                setTRAP (TRAP_MME);                     /* set trap */
+                if ((old_mmr0 & MMR0_TRAP) == 0)        /* first trap? */
+                    setTRAP (TRAP_MME);                 /* set trap */
                 }
-            return;                                     /* continue op */
+            return;                               /* continue, set A */
             }                                           /* not impl, abort NR */
     case 0: case 3: case 7:                             /* non-resident */
         err = MMR0_NR;                                  /* MMR0 status */

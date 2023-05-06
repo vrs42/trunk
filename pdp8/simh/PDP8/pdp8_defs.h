@@ -211,6 +211,7 @@ typedef struct {
 #define INT_V_NO_ION_PENDING (INT_V_OVHD+0)             /* ion pending */
 #define INT_V_NO_CIF_PENDING (INT_V_OVHD+1)             /* cif pending */
 #define INT_V_ION       (INT_V_OVHD+2)                  /* interrupts on */
+#define INT_V_NO_LIF_PENDING (INT_V_OVHD+3)             /* lif pending */
 
 #define INT_LPT         (1 << INT_V_LPT)
 #define INT_PTP         (1 << INT_V_PTP)
@@ -240,12 +241,13 @@ typedef struct {
 #define INT_FPP         (1 << INT_V_FPP)
 #define INT_NO_ION_PENDING (1 << INT_V_NO_ION_PENDING)
 #define INT_NO_CIF_PENDING (1 << INT_V_NO_CIF_PENDING)
+#define INT_NO_LIF_PENDING (1 << INT_V_NO_LIF_PENDING)
 #define INT_ION         (1 << INT_V_ION)
 #define INT_DEV_ENABLE  ((1 << INT_V_DIRECT) - 1)       /* devices w/enables */
 #define INT_ALL         ((1 << INT_V_OVHD) - 1)         /* all interrupts */
 #define INT_INIT_ENABLE (INT_TTI+INT_TTO+INT_PTR+INT_PTP+INT_LPT) | \
                         (INT_TTI1+INT_TTO1)
-#define INT_PENDING     (INT_ION+INT_NO_CIF_PENDING+INT_NO_ION_PENDING)
+#define INT_PENDING     (INT_ION+INT_NO_CIF_PENDING+INT_NO_LIF_PENDING+INT_NO_ION_PENDING)
 #define INT_UPDATE      ((int_req & ~INT_DEV_ENABLE) | (dev_done & int_enable))
 
 /* Function prototypes */
@@ -254,5 +256,39 @@ t_stat set_dev (UNIT *uptr, int32 val, CONST char *cptr, void *desc);
 t_stat show_dev (FILE *st, UNIT *uptr, int32 val, CONST void *desc);
 
 void cpu_set_bootpc (int32 pc);
+
+/* Model Information
+
+   The global MODEL notes which model of the PDP-5/8/12 is currently in
+   use.  These values should be consecutive starting with 1.  The ordering
+   is carefully chosen to simplify checking for features.
+*/
+extern int32 MODEL;
+#define PDP5  1
+#define PDP8S 2
+#define PDP8_ 3
+#define LINC8 4
+#define PDP8L 5
+#define PDP8I 6
+#define PDP12 7
+#define PDP8E 8
+#define PDP8A 9
+#define VT78  10
+#define DMI   11
+#define DMII  12
+#define DMIII 13
+/*
+   Old-style IOP IOT implementations cannot perform IOT 6xx0.  They also 
+   generally have simpler decoding.
+*/
+#define IOPIOT (MODEL < PDP8E)
+/*
+    DECmate IOT implementations are notorious for using the various
+    chips made for the I/O devices, which do a poor job.  We detect
+    DECmate models and similarly damage the implementations to match.
+*/
+#define DECMATE (MODEL > VT78)
+
+extern t_bool LINC; /* In LINC mode */
 
 #endif

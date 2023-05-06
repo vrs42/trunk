@@ -252,12 +252,11 @@ switch (IR & 07) {                                      /* decode IR<9:11> */
         return AC;
 
     case 1:                                             /* TSF */
-        if (DECMATE) {
+        if (DECMATE && (dev_done & INT_TTO)) {
             /* Stupid DECmate clears flag while checking it */
-            if (dev_done & INT_TTO)
-                AC += IOT_SKP;
-            dev_done &= ~INT_TTO;
-            return AC;
+            dev_done &= ~INT_TTO;			/* clear flag */
+            int_req = int_req & ~INT_TTO;		/* clear int req */
+            return (dev_done & INT_TTO)? IOT_SKP + AC: AC;
         }
         return (dev_done & INT_TTO)? IOT_SKP + AC: AC;
 

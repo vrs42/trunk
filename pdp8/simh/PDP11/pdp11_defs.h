@@ -26,6 +26,8 @@
    The author gratefully acknowledges the help of Max Burnet, Megan Gentry,
    and John Wilson in resolving questions about the PDP-11
 
+   23-Oct-22    RMS     Moved NXM abort priority above MME trap priority
+   25-Jul-22    RMS     Removed OPT_RH11 (Mark Pizzolato)
    10-Feb-17    RMS     Fixed RJS11 register block length (Mark Hill)
    19-Jan-17    RMS     Moved CR11 to BR6, leaving CD11 at BR4 (Mark Pizzolato)
    10-Mar-16    RMS     Added UC15 support
@@ -409,14 +411,17 @@ typedef struct {
 #define CSR_BUSY        (1u << CSR_V_BUSY)
 #define CSR_ERR         (1u << CSR_V_ERR)
 
-/* Trap masks, descending priority order, following J-11
-   An interrupt summary bit is kept with traps, to minimize overhead
+/* Trap masks, descending priority order. Rules:
+
+   - Aborts are mutually exclusive, no more than one per instrution.
+   - Aborts must be higher priority than traps. Because MME can be
+     either an abort or a trap, it is lower priority than NXM.
 */
 
 #define TRAP_V_RED      0                               /* red stk abort  4 */
 #define TRAP_V_ODD      1                               /* odd address    4 */
-#define TRAP_V_MME      2                               /* mem mgt      250 */
-#define TRAP_V_NXM      3                               /* nx memory      4 */
+#define TRAP_V_NXM      2                               /* nx memory      4 */
+#define TRAP_V_MME      3                               /* mem mgt      250 */
 #define TRAP_V_PAR      4                               /* parity err   114 */
 #define TRAP_V_PRV      5                               /* priv inst      4 */
 #define TRAP_V_ILL      6                               /* illegal inst  10 */
@@ -633,6 +638,8 @@ typedef struct pdp_dib DIB;
 #define INT_V_UCB       25
 #define INT_V_CH        26
 #define INT_V_NG        27
+#define INT_V_DHRX      28
+#define INT_V_DHTX      29
 
 #define INT_V_PIR4      0                               /* BR4 */
 #define INT_V_TTI       1
@@ -720,6 +727,8 @@ typedef struct pdp_dib DIB;
 #define INT_TDTX        (1u << INT_V_TDTX)
 #define INT_CH          (1u << INT_V_CH)
 #define INT_NG          (1u << INT_V_NG)
+#define INT_DHRX        (1u << INT_V_DHRX)
+#define INT_DHTX        (1u << INT_V_DHTX)
 
 #define INT_INTERNAL7   (INT_PIR7)
 #define INT_INTERNAL6   (INT_PIR6 | INT_CLK)
@@ -730,6 +739,7 @@ typedef struct pdp_dib DIB;
 #define INT_INTERNAL1   (INT_PIR1)
 
 #define IPL_UCB         7                               /* int pri levels */
+#define IPL_MB          7
 #define IPL_CLK         6
 #define IPL_PCLK        6
 #define IPL_DTA         6
@@ -762,6 +772,8 @@ typedef struct pdp_dib DIB;
 #define IPL_DUPTX       5
 #define IPL_UCA         5
 #define IPL_NG          5
+#define IPL_DHRX        5
+#define IPL_DHTX        5
 #define IPL_PTR         4
 #define IPL_PTP         4
 #define IPL_TTI         4

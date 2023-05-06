@@ -1,9 +1,7 @@
 /*************************************************************************
  *                                                                       *
- * $Id: i8272.c 1999 2008-07-22 04:25:28Z hharte $                       *
- *                                                                       *
- * Copyright (c) 2007-2008 Howard M. Harte.                              *
- * http://www.hartetec.com                                               *
+ * Copyright (c) 2007-2022 Howard M. Harte.                              *
+ * https://github.com/hharte                                             *
  *                                                                       *
  * Permission is hereby granted, free of charge, to any person obtaining *
  * a copy of this software and associated documentation files (the       *
@@ -18,24 +16,22 @@
  *                                                                       *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       *
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    *
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND                 *
- * NONINFRINGEMENT. IN NO EVENT SHALL HOWARD M. HARTE BE LIABLE FOR ANY  *
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  *
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     *
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                *
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-            *
+ * INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE   *
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN       *
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN     *
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE      *
+ * SOFTWARE.                                                             *
  *                                                                       *
- * Except as contained in this notice, the name of Howard M. Harte shall *
+ * Except as contained in this notice, the names of The Authors shall    *
  * not be used in advertising or otherwise to promote the sale, use or   *
  * other dealings in this Software without prior written authorization   *
- * Howard M. Harte.                                                      *
+ * from the Authors.                                                     *
  *                                                                       *
  * SIMH Interface based on altairz80_hdsk.c, by Peter Schorn.            *
  *                                                                       *
  * Module Description:                                                   *
  *     Generic Intel 8272 Disk Controller module for SIMH.               *
- *                                                                       *
- * Environment:                                                          *
- *     User mode only                                                    *
  *                                                                       *
  *************************************************************************/
 
@@ -133,6 +129,7 @@ extern t_stat set_iobase(UNIT *uptr, int32 val, CONST char *cptr, void *desc);
 extern t_stat show_iobase(FILE *st, UNIT *uptr, int32 val, CONST void *desc);
 extern uint32 sim_map_resource(uint32 baseaddr, uint32 size, uint32 resource_type,
                                int32 (*routine)(const int32, const int32, const int32), const char* name, uint8 unmap);
+extern int32 find_unit_index(UNIT* uptr);
 
 /* These are needed for DMA.  PIO Mode has not been implemented yet. */
 extern void PutByteDMA(const uint32 Addr, const uint32 Value);
@@ -170,7 +167,6 @@ extern uint8 GetByteDMA(const uint32 Addr);
 static void raise_i8272_interrupt(void);
 static int32 i8272dev(const int32 port, const int32 io, const int32 data);
 static t_stat i8272_reset(DEVICE *dptr);
-int32 find_unit_index (UNIT *uptr);
 static const char* i8272_description(DEVICE *dptr);
 
 I8272_INFO i8272_info_data = { { 0x0, 0, 0xC0, 2 } };
@@ -246,32 +242,6 @@ static t_stat i8272_reset(DEVICE *dptr)
     return SCPE_OK;
 }
 
-
-/* find_unit_index   find index of a unit
-
-   Inputs:
-        uptr    =       pointer to unit
-   Outputs:
-        result  =       index of device
-*/
-int32 find_unit_index (UNIT *uptr)
-{
-    DEVICE *dptr;
-    uint32 i;
-
-    if (uptr == NULL)
-        return (-1);
-    dptr = find_dev_from_unit(uptr);
-    for(i=0; i<dptr->numunits; i++) {
-        if(dptr->units + i == uptr) {
-            break;
-        }
-    }
-    if(i == dptr->numunits) {
-        return (-1);
-    }
-    return (i);
-}
 
 /* Attach routine */
 t_stat i8272_attach(UNIT *uptr, CONST char *cptr)

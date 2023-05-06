@@ -1,0 +1,42 @@
+   CPU Models and Limitations:
+
+   Various improvements were made to the PDP-8 instruction set over time.
+   These interact with design compromises, so that the PDP-8/S, while newer
+   than the straight-8, is the least capable model after the PDP-5.
+
+   Model        Limitations
+   5            No IAC rotate, no CMA rotate, no EAE, 4K maximum, 15x slower
+                PC at 0000, Interrupts at 0001, no DMA (data break)
+   8/S          No IAC rotate, no CMA rotate, no EAE, 8K maximum, 15x slower
+   (straight) 8 No IAC rotate, IOT 0 is special, no SWP, no SCL
+                Nonexistent memory reference is special
+   LINC-8	Like straight-8, but with LINC & LINC peripherals, 4K
+   8/L          group 3 CLA is NOP, no EAE, 8K maximum, protect switch
+                CDF/CIF to non-existant field is a NOP
+                RAL RAR and RTL RTR, perform both, AND results
+   8/I          RAL RAR and RTL RTR, perform both, AND results
+   PDP-12       Same as 8/I, but with LINC & LINC peripherals
+                IOT 0 is special, DTLA conflicts with PUSHJ
+   8/E/F/M	CAF, BSW, Omnibus I/O, MQL, MQA, SWP
+                Odd semantics for RAL RAR, RTL RTR
+                EAE option has mode B
+   8/A		CAF, BSW, Omnibus I/O, PUSH/POP, 128K support
+                Yet different semantics for RAL RAR
+                non-standard LPT
+   VT78		CAF, BSW, Omnibus I/O, PUSH/POP
+		RAL RAR and RTL RTR are NOPs
+		Autoindex suppressed for current page accesses
+		No restart from HLT, No DMA (data break)
+   DECmates	CAF, BSW, R3L, Omnibus I/O, PUSH/POP
+		RAL RAR is R3L, RTL RTR is NOP
+                No EAE, EAE operations hang
+                Incompatible second serial port (also model dependent)
+		KSF, TSF, PSF implementation botched
+		No restart from HLT in DECmate I
+		Color graphics options
+		Optional Z80 and 8086 coprocessor
+
+   Most of these differences have to do with the treatment of IOT and OPR
+   instructions.  There is a difference in the treatment of non-existant
+   memory, and of current page indirection where the current page is page
+   zero.

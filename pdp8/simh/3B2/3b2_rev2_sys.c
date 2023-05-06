@@ -1,6 +1,6 @@
-/* 3b2_rev2_sys.c: AT&T 3B2 Rev 2 (Model 400) system definition
+/* 3b2_rev2_sys.c: Version 2 (3B2/400) System Definition
 
-   Copyright (c) 2017, Seth J. Morabito
+   Copyright (c) 2017-2022, Seth J. Morabito
 
    Permission is hereby granted, free of charge, to any person
    obtaining a copy of this software and associated documentation
@@ -60,6 +60,7 @@ DEVICE *sim_devices[] = {
     &if_dev,
     &id_dev,
     &ports_dev,
+    &lpt_dev,
     &ctc_dev,
     &ni_dev,
     NULL
@@ -77,6 +78,7 @@ void full_reset()
     id_reset(&id_dev);
     csr_reset(&csr_dev);
     ports_reset(&ports_dev);
+    lpt_reset(&lpt_dev);
     ctc_reset(&ctc_dev);
     ni_reset(&ni_dev);
 }

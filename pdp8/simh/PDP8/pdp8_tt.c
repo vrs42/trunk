@@ -158,11 +158,20 @@ int32 tti (int32 IR, int32 AC)
 {
 switch (IR & 07) {                                      /* decode IR<9:11> */
     case 0:                                             /* KCF */
+        if (IOPIOT)
+            return (stop_inst << IOT_V_REASON) + AC;    /* Illegal IOT */
         dev_done = dev_done & ~INT_TTI;                 /* clear flag */
         int_req = int_req & ~INT_TTI;
         return AC;
 
     case 1:                                             /* KSF */
+        if (DECMATE) {
+            /* Stupid DECmate clears flag while checking it */
+            if (dev_done & INT_TTI)
+                AC += IOT_SKP;
+            dev_done &= ~INT_TTI;
+            return AC;
+        }
         return (dev_done & INT_TTI)? IOT_SKP + AC: AC;
 
     case 2:                                             /* KCC */
@@ -174,6 +183,8 @@ switch (IR & 07) {                                      /* decode IR<9:11> */
         return (AC | tti_unit.buf);                     /* return buffer */
 
     case 5:                                             /* KIE */
+        if (IOPIOT)
+            return (stop_inst << IOT_V_REASON) + AC;    /* Illegal IOT */
         if (AC & 1)
             int_enable = int_enable | (INT_TTI+INT_TTO);
         else int_enable = int_enable & ~(INT_TTI+INT_TTO);
@@ -234,11 +245,19 @@ int32 tto (int32 IR, int32 AC)
 switch (IR & 07) {                                      /* decode IR<9:11> */
 
     case 0:                                             /* TLF */
+        if (IOPIOT)
+            return (stop_inst << IOT_V_REASON) + AC;    /* Illegal IOT */
         dev_done = dev_done | INT_TTO;                  /* set flag */
         int_req = INT_UPDATE;                           /* update interrupts */
         return AC;
 
     case 1:                                             /* TSF */
+        if (DECMATE && (dev_done & INT_TTO)) {
+            /* Stupid DECmate clears flag while checking it */
+            dev_done &= ~INT_TTO;			/* clear flag */
+            int_req = int_req & ~INT_TTO;		/* clear int req */
+            return (dev_done & INT_TTO)? IOT_SKP + AC: AC;
+        }
         return (dev_done & INT_TTO)? IOT_SKP + AC: AC;
 
     case 2:                                             /* TCF */
@@ -247,6 +266,8 @@ switch (IR & 07) {                                      /* decode IR<9:11> */
         return AC;
 
     case 5:                                             /* SPI */
+        if (IOPIOT)
+            return (stop_inst << IOT_V_REASON) + AC;    /* Illegal IOT */
         return (int_req & (INT_TTI+INT_TTO))? IOT_SKP + AC: AC;
 
     case 6:                                             /* TLS */
