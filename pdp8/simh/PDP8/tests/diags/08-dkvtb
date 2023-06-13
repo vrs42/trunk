@@ -1,0 +1,44 @@
+:: VT78: CPU Diagnostic
+echof "** VT78: CPU Diagnostic "
+load diags/maindec-08-dkvtb-a-pb
+# This will not pass unless we mimic the VT78 MMU.
+set cpu vt78
+#
+# VT78 does not have a hardware switch register.
+# 0020 Software Switch Register:
+# 0	Inhibit Error Halts
+# 1	Loop on Error
+# 2	Loop on Test
+# 3	Halt at end of test
+# 4	Inhibit Error Typeout
+# 5	Inhibit CPU Test
+# 6	Inhibit Memory Extension Test
+# 7	Inhibit SLU Test
+# 8	Inhibit RX01 Test
+# 9	Inhibit Parallel Port Test
+# 10	Inhibit RTC Test
+# 11	Run Baud Rate Selector Test
+d 0020 0400
+#
+# 0023 HCW3 Bits:
+# 0	Floppy Drive 0 Not Ready
+# 1	No RX01 Cabled
+# 2	No Parallel Connection
+# 3	Use Parallel Device 50
+# 4	Peripheral Simulator Attached
+# 5	SLU #2, #3 Have Loopback
+d 0023 7000
+#
+# Set a HLT at 7320, after "END OF PASS" message.
+d 7320 7402
+# Get past the SR prompt
+expect "SR=0400 "; send "\r"; c
+expect "HW3=7000 "; send "\r"; c
+#br 3017
+br 3623
+br 4000
+br 5000
+br 5400
+run 0200
+#if (pc != 7321) e state; echof "MAINDEC-08-DKVTB failed."; exit 1
+echof "** VT78: CPU Diagnostic passed"

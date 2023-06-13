@@ -1,0 +1,13 @@
+:: Autoindexing, Indirect addressing, and the DCA instruction with
+:: "minimal" testing for interrupt, AND, TAD, ISZ, JMS, JMP and
+:: processor IOT instructions.
+echof -n "** PDP-8/E: Basic Instruction Test (2): "
+load diags/maindec-8e-d0bb-pb.bin
+:: Patch address 3740 with HLT, otherwise the test will loop every
+:: 1550 iterations and send BEL to the TTY. We really do want the
+:: test to halt.
+dep 3740 7402
+dep sr 0
+go -q 200
+if (PC != 03741) echof "MAINDEC-8/E-D0BB failed."; exit 1
+echof "passed"

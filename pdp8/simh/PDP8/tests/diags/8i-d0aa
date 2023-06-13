@@ -1,0 +1,11 @@
+:: PDP-8/I Instruction Test (EAE) - Part 3A
+echof "** PDP-8/I: Instruction Test Part 3A: "
+load diags/maindec-8i-d0aa-pb
+:: Patch address 5517 with HLT. Otherwise the test loops
+:: indefinitely, printing "3A" every complete test.
+dep 5517 7402
+dep sr 5000
+go -q 0200
+echof
+if (PC != 05520) echof "MAINDEC-8I-D0AA failed."; exit 1
+echof "** PDP-8: PDP-8/I Instruction Test (EAE) Part 3A passed"

@@ -1,0 +1,24 @@
+:: PDP-8/A: PDP-8/A Processor Exerciser
+echof "** PDP-8: PDP-8/A Processor Exerciser "
+load diags/maindec-08-djexb-a-pb
+#
+# 0021 Memory Size
+# 0	Hardware Switch Register Available
+# 1	Also Test Option Board 1 (requires loopback cabling)
+# 7-11	Number of Kwords, -1
+dep 0021 4037
+# 0022 Software Switch Register
+#
+# Hardware Switch Register:
+# 0	Inhibit MRI/OPR Error Halts
+# 1	Loop on Test
+# 1	Inhibit Relocation
+# 3	Halt at end of test
+dep sr 0000
+# Deposit a HLT at 00406.  This allows us to roll up through
+# 32K, then back down, and then stop.  The sr=0400 halt stops
+# between relocations, which is too soon.
+d 0406 7402
+go -q 0200
+if (PC != 00407) e pc; echof "MAINDEC-08-DJEXB failed."; exit 1
+echof "** PDP-8: PDP-8/A Processor Exerciser passed"

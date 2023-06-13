@@ -1,0 +1,10 @@
+:: Basic JMP/JMS Test (D0IA)
+load diags/maindec-8e-d0ia-pb
+:: Patch address 03565 with HLT to stop execution after a
+:: full pass is done or else it will send BEL every 3456
+:: iterations.
+dep 03565 7402
+dep sr 0000
+go -q 200
+if (PC != 03566) echof "MAINDEC-8/E-D0IA failed."; exit 1
+echof "** PDP-8/E: Basic JMP/JMS Test: passed"

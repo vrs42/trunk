@@ -1,0 +1,18 @@
+:: Instruction Test 3
+:: maindec-12-d0cb-pb Instruction Test 3
+:: Also tests extended (banked) memory.
+echof -n "** PDP-12: Instruction Test 3: "
+load diags/maindec-12-d0cb-pb.bin
+:: Patch address 5462 with HLT.
+dep 5462 0000
+:: Set SR5 to test a PDP-12B or PDP-12C.
+:: (PDP-12A has most features, PDP-12C least.)
+dep sr 0100
+#dep sr 0000
+# Start in PDP mode.
+d linc 0
+run -q 400
+#e pc,l,ac,mq
+if (PC != 05463) echof "MAINDEC-12-D0CB failed."; exit 1
+#echof -n "** PDP-12: Instruction Test 3: "
+echof "passed."

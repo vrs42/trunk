@@ -1,0 +1,12 @@
+:: Random JMP Test (D0HC)
+#echof -n "** PDP-8/E: Random JMP Test: "
+load diags/maindec-8e-d0hc-pb
+:: Patch address 0340 with HLT to stop execution after a
+:: full pass is done or else it will send "HC" every 72000
+:: iterations.
+dep 0340 7402
+dep sr 0000
+go -q 200
+echof ""
+if (PC != 0341) echof "MAINDEC-8/E-D0HC failed."; exit 1
+echof "** PDP-8/E: Random JMP Test: passed"

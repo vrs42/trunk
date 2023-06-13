@@ -1,0 +1,10 @@
+:: 4K Memory Checkerboard (D1AB)
+load diags/maindec-8e-d1ab-pb
+:: Patch 0350 with HLT to stop the test after 5 "minutes". Would
+:: normally output a "5" until manually halted.
+dep 0350 7402
+dep sr 0000
+go -q 200
+echof ""
+if ((PC != 0351) && (PC != 07151)) echof "MAINDEC-8/E-D1AB failed."; exit 1
+echof "4K Memory Checkerboard passed"

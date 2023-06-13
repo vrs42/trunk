@@ -1,0 +1,8 @@
+:: Random AND tests
+echof -n "** PDP-8/E: Random AND test: "
+load diags/maindec-8e-d0db-pb.bin
+:: Halt after one 4096 loop pass, suppress output
+dep sr 02400
+go -q 200
+if (PC != 00355) echof "MAINDEC-8/E-D0DB failed."; exit 1
+echof "passed"

@@ -1,0 +1,33 @@
+:: PDP-8/A: KM8-A Option Test 2
+echof "** PDP-8: KM8-A Option Test 2 "
+load diags/maindec-08-djkma-a-pb
+#
+# 0021 Memory Size
+# 0	Hardware Switch Register Available
+# 2	Have Test Option Board 2 (must be set)
+# 4	Will use G5041 Test Jig
+# 7-11	Number of Kwords, -1
+dep 0021 5037
+# 0022 Software Switch Register, if used
+#
+# Hardware Switch Register:
+# 0	Inhibit MRI/OPR Error Halts
+# 1	Loop on Test
+# 1	Inhibit Relocation
+# 3	Halt at end of test
+#
+# SR=0000 to run Memory Extension tests.
+dep sr 0400
+go -q 0200
+if (pc != 05041) e pc,ac; echof "MAINDEC-08-DJKMA failed."; exit 1
+# Now check if Time Share is properly Disabled.
+set cpu nots
+g -q 4255
+if (pc != 04276) e pc; echof "MAINDEC-08-DJKMA failed."; exit 1
+set cpu ts
+#
+# Skip the bootstrap tests.
+#
+# Skip the Auto Restart/Power Fail tests.
+#
+echof "** PDP-8: KM8-A Option Test 2 passed"

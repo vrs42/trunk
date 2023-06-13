@@ -1,0 +1,11 @@
+:: Random JMP/JMS Test (D0IA)
+load diags/maindec-8e-d0ja-pb
+:: Patch address 0372 with HLT to stop execution after a
+:: full pass is done or else it will send "JC" every 61000
+:: iterations.
+dep 0372 7402
+dep sr 0000
+go -q 200
+echof ""
+if (PC != 0373) echof "MAINDEC-8/E-D0JA failed."; exit 1
+echof "** PDP-8/E: Random JMP/JMS Test: passed"

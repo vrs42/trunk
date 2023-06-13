@@ -202,9 +202,11 @@
 #define PCQ_ENTRY(x)    pcq[pcq_p = (pcq_p - 1) & PCQ_MASK] = x
 #define UNIT_V_NOEAE    (UNIT_V_UF)                     /* EAE absent */
 #define UNIT_NOEAE      (1 << UNIT_V_NOEAE)
-#define UNIT_V_MSIZE    (UNIT_V_UF + 1)                 /* dummy mask */
+#define UNIT_V_MSIZE    (UNIT_V_UF + 1)                 /* memory size */
 #define UNIT_MSIZE      (1 << UNIT_V_MSIZE)
-#define UNIT_V_MODEL    (UNIT_V_UF + 2)                 /* dummy mask */
+#define UNIT_V_NOTS     (UNIT_V_UF + 2)                 /* time share */
+#define UNIT_NOTS       (1 << UNIT_V_MODEL)
+#define UNIT_V_MODEL    (UNIT_V_UF + 3)                 /* model */
 #define UNIT_MODEL      (1 << UNIT_V_MODEL)
 #define OP_KSF          06031                           /* for idle */
 
@@ -319,6 +321,8 @@ REG cpu_reg[] = {
 MTAB cpu_mod[] = {
     { UNIT_NOEAE, UNIT_NOEAE, "no EAE", "NOEAE", NULL },
     { UNIT_NOEAE, 0, "EAE", "EAE", NULL },
+    { UNIT_NOTS, UNIT_NOTS, "no TS", "NOTS", NULL },
+    { UNIT_NOTS, 0, "TS", "TS", NULL },
     { UNIT_MODEL, 0, "MODEL", "MODEL", 0, &cpu_show_model },
     { UNIT_MODEL, PDP5,  "pdp5",     "PDP5",     &cpu_set_model },
     { UNIT_MODEL, PDP8_, "pdp8",     "PDP8",     &cpu_set_model },
@@ -409,6 +413,8 @@ while (reason == 0) {                                   /* loop until halted */
             LIF = LDF = 0;
         } else
             SF = (UF << 6) | (IF >> 9) | (DF >> 12);    /* form save field */
+	if (MODEL == VT78)
+		SF &= ~00004;
         PCQ_ENTRY (IF | PC);                            /* save old PC w/ IF */
         IF = IB = DF = UF = UB = 0;                     /* clear mem ext */
         if (LINC) {
@@ -798,6 +804,9 @@ return SCPE_OK;
    VT78         CAF, BSW, Omnibus I/O, PUSH/POP
                 RAL RAR and RTL RTR are NOPs
                 Autoindex suppressed for current page accesses
+		The IF is only 2 bits long (16K)
+		The MMU reads only 2 bits of DF during RDF
+		The MMU maps DF 7 onto panel memory
                 No restart from HLT, No DMA (data break)
    DECmates     CAF, BSW, R3L, Omnibus I/O, PUSH/POP
                 RAL RAR is R3L, RTL RTR is NOP
@@ -941,7 +950,7 @@ do_pdp8()
 /* Opcode 2, ISZ */
 // BUGBUG: The implementation PDP5 PC in location 0 currently ignores ISZ 0.
 // AND 0, TAD 0, and DCA 0 are implemented. JMS 0 and JMP 0 should never
-// occur in valid PDP-5 code..
+// occur in valid PDP-5 code.
 
     case 010:                                           /* ISZ, dir, zero */
         MA = IF | (IR & 0177);                          /* dir addr, page zero */
@@ -1774,6 +1783,10 @@ do_pdp8()
                       ((LAC & 010000) >> 1) | (gtf << 10) |
                       (((int_req & INT_ALL) != 0) << 9) |
                       (((int_req & INT_ION) != 0) << 7) | SF;
+                if (MODEL == VT78) {
+		    if (LAC & 00400) /* II */
+			LAC &= ~01000; /* Clear IR in AC */
+		}
                 break;
 
             case 5:                                     /* RTF */
@@ -1782,9 +1795,11 @@ do_pdp8()
                     break;
                 }
                 gtf = ((LAC & 02000) >> 10);
+// BUGBUG: Can RTF set UB with TS disabled?
                 UB = (LAC & 0100) >> 6;
                 IB = (LAC & 0070) << 9;
                 DF = (LAC & 0007) << 12;
+// BUGBUG: What? RTF changes AC and Link??
                 LAC = ((LAC & 04000) << 1) | iot_data;
                 int_req = (int_req | INT_ION) & ~INT_NO_CIF_PENDING;
                 break;
@@ -1821,16 +1836,20 @@ do_pdp8()
             switch (pulse) {                            /* decode IR<9:11> */
 
             case 1:                                     /* CDF */
-                DF = (IR & 0070) << 9;
+		DF = (IR & 0070) << 9;
                 break;
 
             case 2:                                     /* CIF */
-                IB = (IR & 0070) << 9;
+		IB = (IR & 0070) << 9;
+		if (MODEL == VT78)
+			IB &= 0030 << 9;
                 int_req = int_req & ~INT_NO_CIF_PENDING;
                 break;
 
             case 3:                                     /* CDF CIF */
-                DF = IB = (IR & 0070) << 9;
+		DF = IB = (IR & 0070) << 9;
+		if (MODEL == VT78)
+			IB &= 0030 << 9;
                 int_req = int_req & ~INT_NO_CIF_PENDING;
                 break;
 
@@ -1845,7 +1864,10 @@ do_pdp8()
                     if (LINC)
                         LAC = LAC | (LDF << 1);
                     else
-                        LAC = LAC | (DF >> 9);
+			if (MODEL == VT78)
+			    LAC = LAC | (030 & (DF >> 9));
+			else
+			    LAC = LAC | (DF >> 9);
                     break;
 
                 case 2:                                 /* RIF */
@@ -1869,6 +1891,7 @@ do_pdp8()
                         LDF = SF & 037;
                         DF = LDF >> 2;
                     } else {
+// BUGBUG: Can RMF set UB with TS disabled?
                         UB = (SF & 0100) >> 6;
                         IB = (SF & 0070) << 9;
                         DF = (SF & 0007) << 12;
@@ -1887,6 +1910,8 @@ do_pdp8()
                     break;
 
                 case 7:                                 /* SUF */
+		    if (cpu_unit.flags & UNIT_NOTS)
+			break;				/* Refuse if disabled */
                     UB = 1;
                     int_req = int_req & ~INT_NO_CIF_PENDING;
                     break;

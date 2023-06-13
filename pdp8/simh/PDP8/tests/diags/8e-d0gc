@@ -1,0 +1,9 @@
+:: Random DCA tests
+echof -n "** PDP-8/E: Random DCA test: "
+load diags/maindec-8e-d0gc-pb.bin
+:: Patch 0404 with HLT to stop the test after 28,328 iterations (one complete pass)
+dep 0404 7402
+dep sr 0
+go -q 200
+if (PC != 0405) echof "MAINDEC-8/E-D0GC failed."; exit 1
+echof "passed"

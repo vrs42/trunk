@@ -1,0 +1,22 @@
+:: PDP-8/A CPU Test
+echof "** PDP-8: PDP-8/A CPU Test: "
+load diags/maindec-08-djkka-b-pb
+#
+# 0021 Software Switch Register:
+# 0	Switch Register Present
+# 3	I/O Simulator Available
+# 5	Running XOR Version
+# 6	PDP-8/E CPU in chassis
+dep 0021 4000
+#
+# Hardware Switch Register:
+# 3	Halt at end of test
+dep sr 0400
+run -q 0200
+# Computer should halt with MA=0222, AC=7777, and LINK»1
+if (PC != 00222) e state; echof "MAINDEC-08-DJKKA failed."; exit 1
+if (AC != 07777) e ac; echof "MAINDEC-08-DJKKA failed."; exit 1
+if (L != 00001) e l;echof "MAINDEC-08-DJKKA failed."; exit 1
+c -q
+if (PC != 01763) echof "MAINDEC-08-DJKKA failed."; exit 1
+echof "** PDP-8: PDP-8/A CPU Test passed"

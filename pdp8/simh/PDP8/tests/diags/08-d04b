@@ -1,0 +1,14 @@
+:: Random JMP Test
+echof "** PDP-8: Random JMP Test: "
+load diags/maindec-08-d04b-pb
+:: Patch address 0340 with HLT. Otherwise the test loops
+:: indefinitely, printing "04" every 10 seconds.
+dep 0340 7402
+# Set switches:
+# 0	Stop on error
+# 2	Constant From Address
+# 3	Constant To Address
+dep sr 04000
+go -q 0200
+if (PC != 00341) echof "MAINDEC-08-D04B failed."; exit 1
+echof "** PDP-8: Random JMP Test passed"

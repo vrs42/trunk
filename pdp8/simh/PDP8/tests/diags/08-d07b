@@ -1,0 +1,20 @@
+:: Random ISZ Test
+echof "** PDP-8: Random ISZ Test: "
+load diags/maindec-08-d07b-pb
+:: Patch address 7611 with HLT. Otherwise the test loops
+:: indefinitely, printing "07" every 10 seconds.
+dep 7611 7402
+# Set switches:
+# 0	Stop on error
+# 1	Inhibit error printout
+# 3	Constant From Address
+# 4	Constant To Address
+# 5	Constant Operand
+# 9	One ISZ Only (Scope Loop)
+# 11	Do Part 2 (Exhaustive test)
+dep sr 04000
+# Need flags clear
+reset all
+go -q 0037
+if (PC != 07612) echof "MAINDEC-08-D07B failed."; exit 1
+echof "** PDP-8: Random ISZ Test passed"

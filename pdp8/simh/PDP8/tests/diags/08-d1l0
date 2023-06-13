@@ -1,0 +1,26 @@
+:: 4K Memory Checkerboard
+echof "** PDP-8: 4K Memory Checkerboard: "
+:: Normally, these should run until the user was satisfied and 
+:: stopped them.  But we're not looking for hardware failures,
+:: so hopefully a single pass of each suffices.
+:: Start with low version
+load -r diags/maindec-08-d1l1-pm
+:: Patch address 0072 with HLT. Otherwise the test loops
+:: indefinitely.
+dep 0030 7402
+# Set switches:
+# 0100	Straight-8
+# 0101	PDP-8/I
+dep sr 0101
+# Need flags clear?
+#reset all
+go -q 0005
+if (PC != 00031) echof "MAINDEC-08-D1L1 failed."; exit 1
+:: Now run high version
+load diags/maindec-08-d1l2-pb
+:: Patch address 7451 with HLT. Otherwise the test loops
+:: indefinitely.
+dep 7472 7402
+go -q 7430
+if (PC != 07473) echof "MAINDEC-08-D1L2 failed."; exit 1
+echof "** PDP-8: 4K Memory Checkerboard passed"

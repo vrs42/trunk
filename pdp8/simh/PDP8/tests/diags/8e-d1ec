@@ -1,0 +1,6 @@
+:: Memory Address Test (D1EC)
+load diags/maindec-8e-d1ec-pb
+dep sr 0000
+expect -r [25] "\r\nEC" echof; echof "** PDP-8/E: Memory Address test: passed"
+expect -r "A [0-7]{4}" echof; echof "** PDP-8/E: Memory Address test: MAINDEC-8/E-D1EC failed."; exit 1
+go -q 200

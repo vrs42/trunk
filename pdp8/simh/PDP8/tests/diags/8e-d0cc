@@ -1,0 +1,12 @@
+:: The ADDER test
+echof "** PDP-8/E: Adder tests: "
+load diags/maindec-8e-d0cc-pb.bin
+:: Patch address 4561 with HLT. Test loops between SIMAD, SIMROT, FCT and
+:: RANDOM, ad infinitum. We really want the test to halt.
+dep 4561 7402
+:: And ask the tests to be quiet, test extended (banked) memory.
+dep sr 0200
+go -q 200
+if (PC != 04622) echof "MAINDEC-8/E-D0CC failed."; exit 1
+echof
+echof "** PDP-8: Adder tests passed"

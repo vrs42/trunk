@@ -1,0 +1,11 @@
+:: Random TAD tests
+echof -n "** PDP-8/E: Random TAD test: "
+load diags/maindec-8e-d0eb-pb.bin
+:: Patch 6743 with HLT to stop the test after 4096 iterations. Would
+:: normally output a "T" until machine halted.
+dep 6743 7402
+:: Suppress output
+dep sr 00400
+go -q 200
+if (PC != 06744) echof "MAINDEC-8/E-D0EB failed."; exit 1
+echof "passed"

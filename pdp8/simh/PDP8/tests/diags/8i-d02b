@@ -1,0 +1,10 @@
+:: Instruction Test 2
+echof "** PDP-8/I: Instruction Test 2: "
+load diags/maindec-8i-d02b-pb
+:: Patch address 3621 with HLT. Otherwise the test loops
+:: indefinitely, printing a BEL every 40 passes.
+dep 3621 7402
+#dep sr 07777 # SR not used
+go -q 0201
+if (PC != 03622) echof "MAINDEC-8I-D02B failed."; exit 1
+echof "** PDP-8/I: Instruction Test 2 passed"

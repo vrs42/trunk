@@ -1,0 +1,22 @@
+:: PDP-12 CP Test 1: LINC Instruction Test 1 (D0BA)
+:: maindec-12-d0ba-pb Instruction Test 1
+echof -n "** PDP-12: LINC Instruction Test (1): "
+load diags/maindec-12-d0ba-pb.bin
+:: Patch address 5103 with HLT to stop execution after a 
+:: full pass is done or else it will run forever.
+dep 5103 0000
+dep sr 7777
+dep lsr 7777
+# Start in LINC mode.
+#d linc 1
+#go -q 4020
+# For now, force a LINC instruction at 4017.
+dep 4017 6141
+run -q 4017
+#e PC
+if (PC != 04023 || AC != 0) echof "MAINDEC-12-D0BA failed."; exit 1
+go -q
+#e 0001,4004,4006,4007,4010,4013
+if (PC != 05104) echof "MAINDEC-12-D0BA failed."; exit 1
+#echof -n "** PDP-12: LINC Instruction Test (1): "
+echof "passed"
