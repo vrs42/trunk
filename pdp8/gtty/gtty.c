@@ -24,8 +24,8 @@
 #include "comm.h"
 #include "video.h"
 
-static unsigned baudrate[]={_110, _300, _600, _1200, _2400, _4800, _9600, _19200, _38400};
-static char *baudtext[]={"110", "300", "600", "1200", "2400", "4800", "9600", "19200", "38400"};
+static unsigned baudrate[]={_110, _300, _600, _1200, _2400, _4800, _9600, _19200, _38400, _57600, _115200};
+static char *baudtext[]={"110", "300", "600", "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200"};
 
 int
 main(int argc, char *argv[])
@@ -70,7 +70,7 @@ main(int argc, char *argv[])
                 }
                 ptxt=p;
                 found=0;
-                for (j=0; j<9; ++j) {
+                for (j=0; j<sizeof(baudtext)/sizeof(*baudtext); ++j) {
                     if(!strcmp(ptxt, baudtext[j])) {
                         baud=baudrate[j];
                         found=1;
