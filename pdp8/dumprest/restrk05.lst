@@ -1,0 +1,417 @@
+   1               / RK05 RESTORE Program
+   2               / This program will receive a RK05 image and write it to the disk.  The
+   3               / entire disk it written, with each sector having a reread check.
+   4               /
+   5               / This program should be started before the program (PC) sending the data
+   6               /
+   7               / See dump for the format of the serial data.
+   8               / To run start at 0200.
+   9               /    SR 9-11 should be drive
+  10               / Should halt at HLT at label GDHLT (140) with AC = 0 if it worked.
+  11               / Hit cont to display in AC number of recoverable errors
+  12               / At normal exit hitting cont again will restart the program
+  13               /
+  14               / The current location being written to will be displayed in the AC
+  15               / while running.  It is (cylinder * 16 + sector) / 2
+  16               
+  17                       DSKP=6741
+  18                       DCLR=6742
+  19                       DLAG=6743
+  20                       DLCA=6744
+  21                       DRST=6745
+  22                       DLDC=6746
+  23               
+  24                       INAD=030                / Address of serial input, 30 for console
+  25                       KCF2=6000 INAD
+  26                       KSF2=6001 INAD
+  27                       KCC2=6002 INAD
+  28                       KRS2=6004 INAD
+  29                       KIE2=6005 INAD
+  30                       KRB2=6006 INAD
+  31               
+  32                       OUTAD=040               / Address of serial output, 40 for console
+  33                       TFL2=6000 OUTAD
+  34                       TSF2=6001 OUTAD
+  35                       TCF2=6002 OUTAD
+  36                       TPC2=6004 OUTAD
+  37                       TSK2=6005 OUTAD
+  38                       TLS2=6006 OUTAD
+  39               
+  40                       *20
+  41 000020  7760  ERRCNT, 7760            / Stop when err count = 0, init at startup
+  42 000021  0000  DRIVE,  0               / Drive # * 2
+  43 000022  0200  K0200,  0200
+  44 000023  4000  K4000,  4000
+  45 000024  0010  FLD,    10              / Use field 1 for data buffer
+  46 000025  0000  TRACK,  0
+  47 000026  4537  MAXTRK, 4537
+  48 000027  0000  EXBIT,  0
+  49 000030  4000  WRTDAT, 4000
+  50 000031  0000  REDDAT, 0000
+  51 000032  0000  WRTLOC, 0000            / Address to write data to disk
+  52 000033  0000  BUFLOC, 0000            / Address to store next word received
+  53 000034  0000  NUMSEC, 0               / Number of sectors received but not written
+  54 000035  1000  RDBUF,  1000            / Buffer for reread check
+  55 000036  0000  DSPTRK, 0
+  56 000037  0000  LOC,    0
+  57 000040  0000  LEN,    0
+  58 000041  0006  K6,     6
+  59 000042  0017  K17,    17
+  60 000043  0377  K377,   377
+  61 000044  7400  K7400,  7400
+  62 000045  7777  KN1,    7777
+  63 000046  0000  CHKSUM, 0
+  64 000047  0000  TEMP,   0
+  65 000050  0000  LAST,   0
+  66 000051  0000  DONEFG, 0               / 1 when end of data flag received
+  67 000052  0000  STATE,  0               / Where in serial data we are 0 = Need ff sector head,
+  68                                       /  -1 = byte1, ... -3 = byte 3
+  69 000053  0000  BUFCNT, 0               / Count of words received in sector
+  70 000054  0000  ISRAC,  0
+  71 000055  0000  ISRFLG, 0
+  72 000056  0600  RISR,   ISR
+  73                       DECIMAL
+  74 000057  7400  NBLKSZ, -256
+  75                       OCTAL
+  76 000060  0400  WRITEF, WRITE
+  77 000061  0225  RECALF, RECAL
+  78 000062  0200  STARTF, START
+  79               
+  80                       *1000
+  81 001000  1234          1234
+  82 001001  4321          4321
+  83               
+  84                       *1
+  85 000001  5456          JMP I RISR      / Interrupt handler
+  86               
+  87                       *140
+  88 000140  7402  GDHLT,  HLT             / Stop with sum of all words (including -checksum)
+  89                                       / Should be 0
+  90               /       CLA
+  91               /       TAD K17
+  92               /       TAD ERRCNT
+  93               /       HLT             / # of errors
+  94 000141  5462          JMP I STARTF
+  95               
+  96                       *200
+  97 000200  6201  START,  CDF 0           / Init all our variables
+  98 000201  6007          CAF
+  99 000202  7704          CLA CLL OSR     / Init variables changed during run
+ 100 000203  7004          RAL
+ 101 000204  0041          AND K6          / Clear out high bits such as 0200 start address
+ 102 000205  3021          DCA DRIVE
+ 103 000206  3025          DCA TRACK
+ 104 000207  3027          DCA EXBIT
+ 105 000210  3046          DCA CHKSUM
+ 106 000211  3052          DCA STATE
+ 107 000212  3032          DCA WRTLOC
+ 108 000213  3033          DCA BUFLOC
+ 109 000214  3034          DCA NUMSEC
+ 110 000215  3051          DCA DONEFG
+ 111 000216  1042          TAD K17
+ 112 000217  7041          CIA
+ 113 000220  3020          DCA ERRCNT
+ 114 000221  6001          ION             / Turn on serial interrupt handler
+ 115 000222  7301          CLA CLL IAC     / Set bit 11 to enable interrupts
+ 116 000223  6035          KIE2
+ 117 000224  6036          KRB2
+ 118               /       RPE             / PTR Testing, use paper tape with emulator
+ 119               /       RFC
+ 120 000225  7301  RECAL,  CLA CLL IAC     / Recal drive, clear errors and set to cyl 0
+ 121 000226  6742          DCLR            / From manual
+ 122 000227  1021          TAD DRIVE
+ 123 000230  6746          DLDC
+ 124 000231  7326          CLA CLL CML RTL
+ 125 000232  6742          DCLR
+ 126 000233  6741          DSKP
+ 127 000234  5233          JMP .-1
+ 128 000235  1022          TAD K0200
+ 129 000236  1021          TAD DRIVE
+ 130 000237  6746          DLDC
+ 131 000240  6741          DSKP
+ 132 000241  5240          JMP .-1
+ 133 000242  6745          DRST
+ 134 000243  7041          CIA
+ 135 000244  1023          TAD K4000
+ 136 000245  7640          SZA CLA
+ 137 000246  5250          JMP BADSTA
+ 138 000247  5460          JMP I WRITEF
+ 139 000250  7402  BADSTA, HLT
+ 140               
+ 141                       PAGE
+ 142 000400  7300  WRITE,  CLA CLL
+ 143 000401  1027          TAD EXBIT
+ 144 000402  7010          RAR
+ 145 000403  1025          TAD TRACK
+ 146 000404  7010          RAR
+ 147 000405  3036          DCA DSPTRK      / Save track for display
+ 148 000406  7200  CDAT,   CLA
+ 149 000407  1036          TAD DSPTRK      / Display write location
+ 150 000410  0036          AND DSPTRK      / Kill time to make brighter
+ 151 000411  0036          AND DSPTRK
+ 152 000412  0036          AND DSPTRK
+ 153 000413  6002          IOF             / Turn off interrupts so we can safely update
+ 154 000414  7200          CLA             / # of sectors in buffer
+ 155 000415  1034          TAD NUMSEC
+ 156 000416  7450          SNA
+ 157 000417  5223          JMP NODAT
+ 158 000420  1045          TAD KN1
+ 159 000421  3034          DCA NUMSEC
+ 160 000422  7001          IAC             / 1 flags sector to write
+ 161 000423  6001  NODAT,  ION
+ 162 000424  7440          SZA
+ 163 000425  5232          JMP DOWRT       / Got data write it
+ 164 000426  1051          TAD DONEFG      / No more data flag?
+ 165 000427  7450          SNA
+ 166 000430  5206          JMP CDAT        / No, try again
+ 167 000431  5326          JMP DONE        / yes
+ 168 000432  7301  DOWRT,  CLA CLL IAC     / We have one waiting, write it
+ 169 000433  6742          DCLR
+ 170 000434  1032          TAD WRTLOC
+ 171 000435  6744          DLCA
+ 172 000436  1021          TAD DRIVE
+ 173 000437  1030          TAD WRTDAT
+ 174 000440  1024          TAD FLD
+ 175 000441  1027          TAD EXBIT
+ 176 000442  6746          DLDC
+ 177 000443  1025          TAD TRACK
+ 178 000444  6743          DLAG
+ 179 000445  7100          CLL
+ 180 000446  1036          TAD DSPTRK
+ 181 000447  6741          DSKP
+ 182 000450  5247          JMP .-1
+ 183 000451  6745          DRST
+ 184 000452  7041          CIA
+ 185 000453  1023          TAD K4000
+ 186 000454  7640          SZA CLA
+ 187 000455  5337          JMP ERROR
+ 188 000456  7301  RDCHK,  CLA CLL IAC     / And now reread sector
+ 189 000457  6742          DCLR
+ 190 000460  1035          TAD RDBUF
+ 191 000461  6744          DLCA
+ 192 000462  1021          TAD DRIVE
+ 193 000463  1031          TAD REDDAT
+ 194 000464  1027          TAD EXBIT
+ 195 000465  6746          DLDC
+ 196 000466  1025          TAD TRACK
+ 197 000467  6743          DLAG
+ 198 000470  7300          CLA CLL
+ 199 000471  1036          TAD DSPTRK
+ 200 000472  6741          DSKP
+ 201 000473  5272          JMP .-1
+ 202 000474  6745          DRST
+ 203 000475  7041          CIA
+ 204 000476  1023          TAD K4000
+ 205 000477  7640          SZA CLA
+ 206 000500  5337          JMP ERROR
+ 207 000501  1035          TAD RDBUF
+ 208 000502  3037          DCA LOC
+ 209 000503  1057          TAD NBLKSZ
+ 210 000504  3040          DCA LEN
+ 211 000505  6211  CHKDAT, CDF 10          / And now compare
+ 212 000506  1432          TAD I WRTLOC
+ 213 000507  7041          CIA
+ 214 000510  6201          CDF 0
+ 215 000511  1437          TAD I LOC
+ 216 000512  7440          SZA
+ 217 000513  7402          HLT             / Big trouble, sector is bad without CRC error
+ 218 000514  2032          ISZ WRTLOC
+ 219 000515  2037          ISZ LOC
+ 220 000516  2040          ISZ LEN
+ 221 000517  5305          JMP CHKDAT
+ 222 000520  7300          CLA CLL
+ 223 000521  2025  INCTRK, ISZ TRACK       / Increment track and exbit value for next sector
+ 224 000522  5200          JMP WRITE
+ 225 000523  2027          ISZ EXBIT
+ 226 000524  5200          JMP WRITE
+ 227 000525  7402          HLT
+ 228 000526  7340  DONE,   CLA CLL CMA     / Done, wait for one more word
+ 229 000527  1033          TAD BUFLOC
+ 230 000530  0042          AND K17
+ 231 000531  7440          SZA
+ 232 000532  5326          JMP DONE
+ 233 000533  1046          TAD CHKSUM      / Get final checksum, receive has added checksum
+ 234 000534  7440          SZA             / word to running sum,  Halt here if checksum
+ 235 000535  7402          HLT             / is not zero.
+ 236 000536  5140          JMP GDHLT
+ 237               
+ 238 000537  2020  ERROR,  ISZ ERRCNT      / To many errors?
+ 239 000540  5461          JMP I RECALF    / No, recal drive and try again
+ 240 000541  6745          DRST            / Yes, leave error in AC and halt
+ 241 000542  7402          HLT
+ 242               
+ 243                       PAGE
+ 244               ISR,
+ 245 000600  3054          DCA ISRAC       / Save AC
+ 246 000601  6004          GTF
+ 247 000602  3055          DCA ISRFLG      / And flags
+ 248 000603  6211          CDF 10          / Buffer in field 1
+ 249               /       RSF             / PTR
+ 250 000604  6031          KSF2            / Have character waiting
+ 251 000605  7402          HLT             / Stop, not our interrupt
+ 252               /        JMP IRET        / No, not our interrupt
+ 253 000606  7200          CLA
+ 254               /       RRB RFC         / PTR
+ 255 000607  6036          KRB2            / Get character
+ 256 000610  3047          DCA TEMP
+ 257 000611  1052          TAD STATE       / Find out where in sequence we are
+ 258 000612  7450          SNA
+ 259 000613  5316          JMP SBLK        / Start of block
+ 260 000614  7001          IAC
+ 261 000615  7450          SNA
+ 262 000616  5307          JMP BYTE1
+ 263 000617  7001          IAC
+ 264 000620  7450          SNA
+ 265 000621  5260          JMP BYTE2
+ 266 000622  7200          CLA             / Byte 3
+ 267 000623  1047          TAD TEMP
+ 268 000624  7100          CLL
+ 269 000625  7006          RTL
+ 270 000626  7006          RTL
+ 271 000627  1050          TAD LAST
+ 272 000630  3433          DCA I BUFLOC
+ 273 000631  1046          TAD CHKSUM
+ 274 000632  1433          TAD I BUFLOC
+ 275 000633  3046          DCA CHKSUM
+ 276 000634  1033          TAD BUFLOC
+ 277 000635  7001          IAC
+ 278 000636  3033          DCA BUFLOC
+ 279 000637  7240          STA             / -1 for byte 1
+ 280 000640  3052          DCA STATE
+ 281 000641  2053          ISZ BUFCNT
+ 282 000642  5252          JMP IRET
+ 283 000643  3052          DCA STATE       / End of sector, set to 0 to check header byte
+ 284 000644  2034          ISZ NUMSEC      / Inc number of sectors buffered
+ 285 000645  1042          TAD K17
+ 286 000646  7041          CIA
+ 287 000647  1034          TAD NUMSEC
+ 288 000650  7450          SNA
+ 289 000651  7402          HLT             / To many buffered, halt.  Must of had to many
+ 290                                       / retries in a row
+ 291 000652  7200  IRET,   CLA
+ 292 000653  1055          TAD ISRFLG
+ 293 000654  6005          RTF
+ 294 000655  7200          CLA
+ 295 000656  1054          TAD ISRAC
+ 296 000657  5400          JMP I 0
+ 297 000660  7200  BYTE2,  CLA
+ 298 000661  1047          TAD TEMP
+ 299 000662  7006          RTL
+ 300 000663  7006          RTL
+ 301 000664  7006          RTL
+ 302 000665  7006          RTL
+ 303 000666  0044          AND K7400
+ 304 000667  1050          TAD LAST
+ 305 000670  3433          DCA I BUFLOC
+ 306 000671  1046          TAD CHKSUM
+ 307 000672  1433          TAD I BUFLOC
+ 308 000673  3046          DCA CHKSUM
+ 309 000674  2033          ISZ BUFLOC
+ 310 000675  2053          ISZ BUFCNT
+ 311 000676  1047          TAD TEMP
+ 312 000677  7012          RTR
+ 313 000700  7012          RTR
+ 314 000701  0042          AND K17
+ 315 000702  3050          DCA LAST
+ 316 000703  7040          CMA
+ 317 000704  1052          TAD STATE
+ 318 000705  3052          DCA STATE
+ 319 000706  5252          JMP IRET
+ 320 000707  7200  BYTE1,  CLA
+ 321 000710  1047          TAD TEMP
+ 322 000711  3050          DCA LAST
+ 323 000712  7040          CMA
+ 324 000713  1052          TAD STATE
+ 325 000714  3052          DCA STATE
+ 326 000715  5252          JMP IRET
+ 327 000716  1043  SBLK,   TAD K377
+ 328 000717  7041          CIA
+ 329 000720  1047          TAD TEMP        / Is is a ff?
+ 330 000721  7450          SNA
+ 331 000722  5330          JMP FLAGOK      / Yes
+ 332 000723  7001          IAC             / Is it a fe?
+ 333 000724  7440          SZA
+ 334 000725  7402          HLT             / No, halt
+ 335 000726  7001          IAC
+ 336 000727  3051          DCA DONEFG
+ 337 000730  7240  FLAGOK, STA             / -1 for byte 1
+ 338 000731  3052          DCA STATE
+ 339 000732  1057          TAD NBLKSZ      / And setup to look for 256 words
+ 340 000733  3053          DCA BUFCNT
+ 341 000734  5252          JMP IRET
+ 342                       $
+
+BADSTA  0250
+BUFCNT  0053
+BUFLOC  0033
+BYTE1   0707
+BYTE2   0660
+CDAT    0406
+CHKDAT  0505
+CHKSUM  0046
+DCLR    6742
+DLAG    6743
+DLCA    6744
+DLDC    6746
+DONE    0526
+DONEFG  0051
+DOWRT   0432
+DRIVE   0021
+DRST    6745
+DSKP    6741
+DSPTRK  0036
+ERRCNT  0020
+ERROR   0537
+EXBIT   0027
+FLAGOK  0730
+FLD     0024
+GDHLT   0140
+INAD    0030
+INCTRK  0521 unreferenced
+IRET    0652
+ISR     0600
+ISRAC   0054
+ISRFLG  0055
+K0200   0022
+K17     0042
+K377    0043
+K4000   0023
+K6      0041
+K7400   0044
+KCC2    6032 unreferenced
+KCF2    6030 unreferenced
+KIE2    6035
+KN1     0045
+KRB2    6036
+KRS2    6034 unreferenced
+KSF2    6031
+LAST    0050
+LEN     0040
+LOC     0037
+MAXTRK  0026 unreferenced
+NBLKSZ  0057
+NODAT   0423
+NUMSEC  0034
+OUTAD   0040
+RDBUF   0035
+RDCHK   0456 unreferenced
+RECAL   0225
+RECALF  0061
+REDDAT  0031
+RISR    0056
+SBLK    0716
+START   0200
+STARTF  0062
+STATE   0052
+TCF2    6042 unreferenced
+TEMP    0047
+TFL2    6040 unreferenced
+TLS2    6046 unreferenced
+TPC2    6044 unreferenced
+TRACK   0025
+TSF2    6041 unreferenced
+TSK2    6045 unreferenced
+WRITE   0400
+WRITEF  0060
+WRTDAT  0030
+WRTLOC  0032

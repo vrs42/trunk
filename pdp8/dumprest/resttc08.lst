@@ -1,0 +1,493 @@
+    1             / TC08 Dectape RESTORE Program
+    2             / This program will receive a DECtape image and write it to the tape.  The
+    3             / tape is written, then it is reread to verify.
+    4             /
+    5             / The program (PC) sending the data should be started before this program
+    6             /
+    7             / See dump for the format of the serial data.
+    8             / To run start at 0200.
+    9             /    SR 9-11 should be drive number 0-7
+   10             /    SR 6-8 not used.
+   11             / Should halt at label FINISH (140) with AC = 0 if it worked, AC not equal to
+   12             / zero indicates checksum on read didn't match that of data received
+   13             / Hitting cont will restart the program if at normal end
+   14             /
+   15             / Number of retries is set to 3 for reading and writing.
+   16             /
+   17             / The current block being written to will be displayed in the AC
+   18             / while serial data is transfering.
+   19             /
+   20             / This program only will work with the resttd8e C program since it needs
+   21             / to handshake transfers to prevent overrun on the serial data.
+   22             / The C program must be started first.
+   23             /
+   24             / This transfers the standard 129 word by 1474 blocks used by OS/8 etc.
+   25             / Other formats can be handled by changing constants below
+   26             
+   27                     /INAD=400                / Address of serial input, 30 for console
+   28       0030          INAD=030                / Address of serial input, 30 for console
+   29       6030          KCF2=6000 INAD
+   30       6031          KSF2=6001 INAD
+   31       6032          KCC2=6002 INAD
+   32       6034          KRS2=6004 INAD
+   33       6035          KIE2=6005 INAD
+   34       6036          KRB2=6006 INAD
+   35             
+   36                     /OUTAD=410               / Address of serial output, 40 for console
+   37       0040          OUTAD=040               / Address of serial output, 40 for console
+   38       6040          TFL2=6000 OUTAD
+   39       6041          TSF2=6001 OUTAD
+   40       6042          TCF2=6002 OUTAD
+   41       6044          TPC2=6004 OUTAD
+   42       6045          TSK2=6005 OUTAD
+   43       6046          TLS2=6006 OUTAD
+   44             
+   45       0201          WDSBLK=201      /129 WORDS PER BLOCK
+   46             
+   47       0020          *20
+   48 00020 7776  RETRY,  7776            / RETRY UP TO 1 TIME
+   49 00021 2702  NUMBLK, 2702            / NUMBER OF BLOCKS
+   50 00022 7577  MWORDS, -WDSBLK         / WORDS PER BLOCK
+   51 00023 0000  WCOUNT, 0
+   52 00024 0037  BLKFLD, 37              / BLOCKS PER FIELD, 31 MAX FOR 129 WORDS/BLOCK
+   53                                     / WRAPPING PAST END OF LAST FIELD DOESN'T WORK
+   54 00025 0000  FIELDS, 0
+   55 00026 0000  RDSIZE, 0               / NUMBER BLOCKS PER READ
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 1
+
+
+   56 00027 0000  CBLOCK, 0               / CURRENT BLOCK TO XFER
+   57 00030 0000  CLKSUM, 0
+   58 00031 0000  DRVSEL, 0
+   59 00032 0377  READST, 377
+   60 00033 0000  LOC,    0
+   61 00034 0000  LEN,    0
+   62 00035 0000  BCNT,   0
+   63 00036 0000  TEMP,   0
+   64 00037 0017  C17,    17
+   65 00040 7400  C7400,  7400
+   66 00041 0000  CHKSM,  0
+   67 00042 0000  DONEFG, 0
+   68             
+   69                     /DECTAPE HANDLERS(PAGE RELOCATABLE) FOR PS/8 MONITOR
+   70 00043 0000  DFUN,   0               /0 = 1 for write, 1-5 = unused, 
+   71                                     / 6-8 = field to write to, 11 = 1 for start forward
+   72 00044 7575  DM203,  -203
+   73 00045 0000  DLOC,   0               / BUFFER ADDRESS - 1
+   74 00046 0000  DBLOCK, 0               / BLOCK TO TRANSFER
+   75 00047 0000  BLOCK,  0               / NEXT BLOCK TO READ
+   76 00050 0000  DNUMBK, 0               / NUMBER OF BLOCKS TO TRANFER
+   77 00051 0000  DBLKCT, 0               / WORKING NUMBER OF BLOCKS TO TRANFER
+   78 00052 0000  DRIVE,  0               / DRIVE TO ACCESS
+   79 00053 0003  D3,     3
+   80 00054 7754  WC,     7754
+   81 00055 7755  CA,     7755
+   82 00056 0001  DERRCT, TCVERSION
+   83 00057 4000  D4000,  4000
+   84 00060 0400  D400,   400
+   85 00061 0200  D200,   200
+   86 00062 0210  D210,   210
+   87             
+   88       0140          *140
+   89 00140 7402  FINISH, HLT             / Normal good halt
+   90 00141 5777@         JMP START       / And restart if requested
+   91             
+   92       0200          *200
+   93 00200 6201  START,  CDF 0
+   94 00201 6007          CAF
+   95 00202 7704          CLA CLL OSR     / Get drive
+   96 00203 0377          AND (7
+   97 00204 7012          RTR
+   98 00205 3031          DCA DRVSEL
+   99                     /CLA CLL OSR     / Get max field
+  100                     /RTR
+  101                     /RAR
+  102                     /AND (7
+  103                     /SNA
+  104                     /HLT             / Must have at least 1 field for buffer
+  105                     /CIA
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 2
+
+
+  106 00206 7040          CMA
+  107 00207 3025          DCA FIELDS
+  108 00210 1024  RDSZLP, TAD BLKFLD      / Multiply by number of fields available
+  109 00211 2025          ISZ FIELDS
+  110 00212 5210          JMP RDSZLP
+  111 00213 3026          DCA RDSIZE      / NUMBER BLOCK PER READ
+  112 00214 3027          DCA CBLOCK
+  113 00215 3041          DCA CHKSM
+  114 00216 3042          DCA DONEFG
+  115             
+  116 00217 7200  DUMPLP, CLA
+  117 00220 1042          TAD DONEFG      / If all transfered do finish stuff
+  118 00221 7440          SZA
+  119 00222 5264          JMP DONE
+  120 00223 1026          TAD RDSIZE      / Always ask for maximum number of blocks
+  121 00224 3257          DCA ARGSZ       / Will accept less
+  122 00225 1027          TAD CBLOCK      / The serial read routine uses these variables
+  123 00226 3261          DCA ARGBK
+  124             
+  125 00227 3033          DCA LOC
+  126 00230 1257          TAD ARGSZ
+  127 00231 4776@         JMS PUN         / ASK FOR UP TO THIS MANY BLOCKS
+  128 00232 1257          TAD ARGSZ
+  129 00233 7041          CIA
+  130 00234 3035          DCA BCNT        / Our block counter
+  131 00235 6211          CDF 10
+  132 00236 4775@ INBL1,  JMS INBLK       / Get a block
+  133 00237 5250          JMP GOTALL      / If Not last block
+  134 00240 1257          TAD ARGSZ       / Is last block, calculate number received
+  135 00241 1035          TAD BCNT
+  136 00242 7450          SNA             / If no blocks transfered must be done flag
+  137 00243 5264          JMP DONE        / Do finish processing
+  138 00244 3257          DCA ARGSZ       / Else write data received
+  139 00245 7001          IAC
+  140 00246 3042          DCA DONEFG
+  141 00247 5253          JMP WRTIT
+  142             
+  143 00250 2027  GOTALL, ISZ CBLOCK      / Go get next block
+  144 00251 2035          ISZ BCNT
+  145 00252 5236          JMP INBL1
+  146 00253 6201  WRTIT,  CDF 0           / Got all, write them out
+  147 00254 1031          TAD DRVSEL
+  148 00255 4774@         JMS DTA
+  149 00256 4010          4010            / ONLY EVEN # WORDS/BLOCK WORKS
+  150 00257 0000  ARGSZ,  0
+  151 00260 0000          0
+  152 00261 0000  ARGBK,  0
+  153 00262 5350          JMP ERRRET
+  154 00263 5217          JMP DUMPLP      / Go get more
+  155             
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 3
+
+
+  156 00264 7200  DONE,   CLA             / Send a character to get checksum
+  157 00265 6201          CDF 0
+  158 00266 4776@         JMS PUN
+  159 00267 4773@         JMS GETCH
+  160 00270 3036          DCA TEMP
+  161 00271 4773@         JMS GETCH       / Convert the 2 bytes to 12 bit word
+  162 00272 7006          RTL             / Shift low 4 bits to top 4
+  163 00273 7006          RTL
+  164 00274 7006          RTL
+  165 00275 7006          RTL
+  166 00276 0040          AND C7400
+  167 00277 1036          TAD TEMP
+  168 00300 3036          DCA TEMP
+  169 00301 1036          TAD TEMP
+  170 00302 1041          TAD CHKSM
+  171 00303 7440          SZA             / Checksum received is - sum so should be 0
+  172 00304 7402          HLT             / Give up if not, serial error
+  173                                     / Do reread check
+  174 00305 1257          TAD ARGSZ       / Get size of last block written for first
+  175 00306 3323          DCA ARGSZ2      / to reread
+  176 00307 1027          TAD CBLOCK      / And last block number
+  177 00310 3325          DCA ARGBK2
+  178 00311 1036          TAD TEMP        / Store checksum received in our checksum
+  179 00312 3041          DCA CHKSM       / Should give 0 at end
+  180 00313 7200  RDCHK,  CLA
+  181 00314 1323          TAD ARGSZ2      / Decrease block number by number of blocks to
+  182 00315 7041          CIA             / Read so we read starting at first block
+  183 00316 1325          TAD ARGBK2      / Read routine can't read backward
+  184 00317 3325          DCA ARGBK2
+  185 00320 1031          TAD DRVSEL
+  186 00321 4774@         JMS DTA        / REREAD AND CHECK
+  187 00322 0010          10            
+  188 00323 0000  ARGSZ2, 0
+  189 00324 0000          0
+  190 00325 0000  ARGBK2, 0
+  191 00326 5347          JMP RDERR
+  192 00327 1323          TAD ARGSZ2      / Checksum over number of blocks read
+  193 00330 7041          CIA
+  194 00331 3035          DCA BCNT
+  195 00332 3033          DCA LOC
+  196 00333 6211          CDF 10
+  197 00334 4772@ SUMIT,  JMS SUMBLK      / Sum each block
+  198 00335 2035          ISZ BCNT
+  199 00336 5334          JMP SUMIT
+  200 00337 6201          CDF 0
+  201 00340 1026          TAD RDSIZE      / Read full blocks for rest of read
+  202 00341 3323          DCA ARGSZ2
+  203 00342 1325          TAD ARGBK2      / If at block 0 then we are done
+  204 00343 7440          SZA
+  205 00344 5313          JMP RDCHK
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 4
+
+
+  206             
+  207 00345 1041          TAD CHKSM       / Leave AC with checksum, should be 0
+  208 00346 5140          JMP FINISH
+  209             
+  210 00347 7402  RDERR,  HLT
+  211 00350 7402  ERRRET, HLT
+  212             
+      00372 0474
+      00373 0524
+      00374 0600
+      00375 0400
+      00376 0514
+      00377 0007
+  213                     PAGE
+  214 00400 0000  INBLK,  0               / Read a block of data from serial port
+  215 00401 7200          CLA             / Read block size words
+  216 00402 1022          TAD MWORDS
+  217 00403 3034          DCA LEN
+  218 00404 4324          JMS GETCH       / Get start of block flag
+  219 00405 7041          CIA
+  220 00406 1377          TAD (377
+  221 00407 7450          SNA
+  222 00410 5216          JMP IN
+  223 00411 1376          TAD (-1         / Is it end of data flag?
+  224 00412 7440          SZA
+  225 00413 7402          HLT             / Not it, give up, we lost sync on serial data
+  226 00414 2200          ISZ INBLK       / Return end of data state
+  227 00415 5600          JMP I INBLK
+  228             IN,
+  229 00416 4324          JMS GETCH       / Get 3 bytes and convert to 2 words
+  230 00417 3433          DCA I LOC
+  231 00420 4324          JMS GETCH
+  232 00421 3036          DCA TEMP
+  233 00422 1036          TAD TEMP
+  234 00423 7006          RTL             / Shift low 4 bits to top 4
+  235 00424 7006          RTL
+  236 00425 7006          RTL
+  237 00426 7006          RTL
+  238 00427 0040          AND C7400
+  239 00430 1433          TAD I LOC
+  240 00431 3433          DCA I LOC
+  241 00432 1433          TAD I LOC
+  242 00433 1041          TAD CHKSM       /Keep checksum of all words received
+  243 00434 3041          DCA CHKSM
+  244 00435 2033          ISZ LOC
+  245 00436 5243          JMP STFLD3+1    /NOT AT END OF FIELD (DJG)
+  246 00437 6214          RDF             /At end, inc field
+  247 00440 1375          TAD (6211
+  248 00441 3242          DCA STFLD3
+  249 00442 7000  STFLD3, NOP
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 5
+
+
+  250 00443 2034          ISZ LEN         /END IF BUFFER?
+  251 00444 7410          SKP             /NO
+  252 00445 5600          JMP I INBLK     /YES, DONE
+  253 00446 1036          TAD TEMP
+  254 00447 7012          RTR
+  255 00450 7012          RTR
+  256 00451 0037          AND C17
+  257 00452 3036          DCA TEMP
+  258 00453 4324          JMS GETCH
+  259 00454 7006          RTL
+  260 00455 7006          RTL
+  261 00456 1036          TAD TEMP
+  262 00457 3433          DCA I LOC
+  263 00460 1433          TAD I LOC
+  264 00461 1041          TAD CHKSM
+  265 00462 3041          DCA CHKSM
+  266 00463 2033          ISZ LOC
+  267 00464 5271          JMP STFLD4+1    /Not at end of field
+  268 00465 6214          RDF             /At end, inc field
+  269 00466 1375          TAD (6211
+  270 00467 3270          DCA STFLD4
+  271 00470 7000  STFLD4, NOP
+  272 00471 2034          ISZ LEN
+  273 00472 5216          JMP IN
+  274 00473 5600          JMP I INBLK
+  275             
+  276 00474 0000  SUMBLK, 0               / Sum a block of memory
+  277 00475 7200          CLA
+  278 00476 1022          TAD MWORDS
+  279 00477 3034          DCA LEN
+  280 00500 1433  SUMLP,  TAD I LOC
+  281 00501 1041          TAD CHKSM       / Keep checksum of all words
+  282 00502 3041          DCA CHKSM
+  283 00503 2033          ISZ LOC
+  284 00504 5311          JMP STFLD5+1    /Not at end of field
+  285 00505 6214          RDF             /At end, inc field
+  286 00506 1375          TAD (6211
+  287 00507 3310          DCA STFLD5
+  288 00510 7000  STFLD5, NOP
+  289 00511 2034          ISZ LEN
+  290 00512 5300          JMP SUMLP
+  291 00513 5674          JMP I SUMBLK
+  292             
+  293 00514 0000  PUN,    0               / Send a character
+  294             /       PLS             / Punch for testing with emulator
+  295 00515 6046          TLS2            / Send out console
+  296 00516 7300          CLA CLL
+  297 00517 1027          TAD CBLOCK
+  298             /       PSF
+  299 00520 6041          TSF2            /Wait until character sent
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 6
+
+
+  300 00521 5320          JMP .-1
+  301 00522 7200          CLA
+  302 00523 5714          JMP I PUN
+  303             
+  304 00524 0000  GETCH,  0               / Get a character
+  305 00525 7300          CLA CLL
+  306 00526 1027          TAD CBLOCK
+  307             /       RSF
+  308 00527 6031          KSF2            / Have character waiting
+  309 00530 5327          JMP .-1         / No, try again
+  310             /       RRB RFC
+  311 00531 6036          KRB2            / Get character
+  312 00532 5724          JMP I GETCH
+  313             
+  314             /2 TC08 HANDLER FOR BUILD
+  315             /COPYRIGHT  (C)  1974,1975 BY DIGITAL EQUIPMENT CORPORATION
+  316       6772          DTRB=6772
+  317       6774          DTLB=6774
+  318       6764          DTXA=6764
+  319       6762          DTCA=6762
+  320       6761          DTRA=6761
+  321       6771          DTSF=6771
+  322       0001          TCVERSION="A&77
+  323             
+  324             
+  325             / On entry ACC = drive to write to
+  326             / arg1 = DFUN,
+  327             / arg1b = number of block
+  328             / arg2 = transfer address
+  329             / arg3 = number of blocks to transfer
+      00575 6211
+      00576 7777
+      00577 0377
+  330                     PAGE
+  331 00600 0000  DTA,    0
+  332 00601 3052          DCA DRIVE
+  333 00602 7346          CLA CLL CMA RTL
+  334 00603 3056          DCA DERRCT      /SET TO REPEAT THREE TIMES IN CASE OF ERROR
+  335 00604 1600          TAD I DTA
+  336 00605 3043          DCA DFUN        /STORE AWAY FUNCTION WORD FOR FUTURE USE
+  337 00606 2200          ISZ DTA
+  338 00607 1600          TAD I DTA
+  339 00610 3050          DCA DNUMBK
+  340 00611 2200          ISZ DTA
+  341 00612 7140          CLL CMA
+  342 00613 1600          TAD I DTA
+  343 00614 3045          DCA DLOC        /BUFFER ADDRESS -1
+  344 00615 2200          ISZ DTA
+  345 00616 1600          TAD I DTA
+  346 00617 3046          DCA DBLOCK      /DECTAPE BLOCK #
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 7
+
+
+  347 00620 2200          ISZ DTA
+  348 00621 1046  DTATRY, TAD DBLOCK
+  349 00622 3047          DCA BLOCK
+  350 00623 1050          TAD DNUMBK
+  351 00624 3051          DCA DBLKCT
+  352 00625 1054          TAD WC
+  353 00626 3455          DCA I CA
+  354 00627 1043          TAD DFUN
+  355 00630 7010          RAR
+  356 00631 7220          CLA CML         /COMPLEMENT OF BIT 11 OF DFUN NOW IN THE LINK
+  357 00632 1052          TAD DRIVE
+  358 00633 7012          RTR
+  359 00634 7012          RTR             /THESE TWO ROTATES FORM THE FLLOWING NUMBER
+  360                                     /IN THE AC: YYYF00000000, WHERE YYY = DRIVE
+  361                                     /AND F IS THE COMPLEMENT OF DFUN(11)
+  362 00635 1062          TAD D210        /SET THE REST OF THE AC TO F10001000 WHICH IS A
+  363                                     /SEARCH IN DIRECTION F(F=1 MEANS BACKWARDS) WITH
+  364                                     /THE MOTION BIT ON.
+  365 00636 6766          DTCA DTXA
+  366 00637 6774          DTLB            /SET DECTAPE FIELD TO 0 FOR SEARCHING
+  367 00640 5250          JMP DC+3        /JUMP INTO THE BLOCK SEARCH ROUTINE
+  368 00641 7006  DERR,   RTL             /DECTAPE STATUS REGISTER B IS USUALLY IN THE AC HERE
+  369 00642 7004          RAL
+  370 00643 7600  D7600,  7600            /CLA GET THE "END OF TAPE" FLAG INTO THE LINK AND CLEAR THE AC
+  371 00644 1061          TAD D200        /GET MOTION BIT
+  372 00645 7430  DC,     SZL             /AND, IF LINK IS ON
+  373 00646 1060  DTATAD, TAD D400        /REVERSE DIRECTION OF MOTION
+  374 00647 6764          DTXA
+  375 00650 7200          CLA
+  376 00651 6773  DTAWT,  DTSF DTRB
+  377 00652 5251          JMP .-1         /WAIT FOR SEARCH TO COMPLETE
+  378 00653 7510          SPA             /HAS AN ERROR OCCURED?
+  379 00654 5241          JMP DERR        /DO SOMETHING APPROPRIATE
+  380 00655 6761          DTRA
+  381 00656 7006          RTL
+  382 00657 7046          CMA RTL
+  383 00660 7620          SNL CLA         /WAS MOTIOZ OF TAPE FORWARDS?
+  384 00661 1053          TAD D3          /NO, SO ONLY SUCCEED IF WE ARE 3 BLOCKS IN FRONT 
+  385                                     /OF TARGET BLOCK
+  386 00662 1454          TAD I WC
+  387 00663 7040          CMA
+  388 00664 1046          TAD DBLOCK
+  389 00665 7040          CMA             /AFTER THIS OPERATION WE HAVE THE FOLLOWING 4 POSSIBILITIES
+  390                                     /1)AC=0, L=1    /SEARCH COMPLETE
+  391                                     /2)AC=0, L=0    /RIGHT PLACE ON TAPE,WRONG DIRECTION
+  392                                     /3)AC .GT. 0, L=0       /WEVE PASSED THE CORRECT BLOCK
+  393                                     /4)AC .GT. 0, L=1       /WE HAVENT REACHED THE CORRECT BLOCK YET
+  394 00666 7640          SZA CLA
+  395 00667 5245          JMP DC
+  396 00670 7420          SNL
+
+
+
+      CBLOCK, 0               / CURRENT BLOCK TO XFER                     Page 8
+
+
+  397 00671 5246          JMP DTATAD      /DC+1
+  398 00672 1045          TAD DLOC
+  399 00673 3455          DCA I CA        /SET THE CURRENT ADDRESS REGISTER TO THE BUFFER -1
+  400 00674 1043          TAD DFUN
+  401 00675 6774          DTLB            /SET FIELD TO BUFFER FIELD
+  402 00676 1057          TAD D4000
+  403 00677 0043          AND DFUN        /GET DIRECTION
+  404 00700 7104          CLL RAL
+  405 00701 7004          RAL
+  406 00702 7001          IAC
+  407 00703 7126          CLL CML RTL
+  408 00704 7006          RTL             /FORM A 50 IF L=1, A 30 IF L=0
+  409 00705 6764  DL,     DTXA            /XOR IN 50(WRITE) OR 30(READ) OR 0(CONTINUE PREVIOUS OP)
+  410 00706 1022          TAD MWORDS
+  411 00707 3454          DCA I WC        /READ/WRITE 129 WORDS FROM/INTO EACH BLOCK
+  412 00710 6773          DTSF DTRB
+  413 00711 5310          JMP .-1
+  414 00712 7120          CLL CML         /SET ERROR FLAG ON INITIALLY
+  415 00713 7700  D7700,  SMA CLA
+  416 00714 5320          JMP DJ
+  417 00715 2056          ISZ DERRCT      /ERROR-IS IT THE THIRD?
+  418 00716 5221          JMP DTATRY      /NO-TRY AGAIN
+  419 00717 5330          JMP DSTOP1      /3 ERRORS-STOP TAPE!
+  420 00720 2047  DJ,     ISZ BLOCK       /INC BLOCK READ
+  421 00721 7040          CMA
+  422 00722 1051          TAD DBLKCT
+  423 00723 7450          SNA             /DEC BLOCK COUNT AND SEE IF 0
+  424                                     /ALSO REVERSE LINK.
+  425 00724 5327          JMP DOVER       /YES - DONE
+  426 00725 3051          DCA DBLKCT      /SAVE DECREMENTED WORD COUNT
+  427 00726 5305          JMP DL          /AND LOOP
+  428 00727 2200  DOVER,  ISZ DTA         /SKIP ERROR RETURN
+  429 00730 1061  DSTOP1, TAD D200        /STOP THE TAPE
+  430 00731 6764          DTXA
+  431 00732 7010          RAR             /GET ERROR CODE FROM LINK INTO AC0
+  432 00733 5600          JMP I DTA       /AND EXIT
+      00177 0200
+  433                     $
+
+      No detected errors

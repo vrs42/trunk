@@ -1,0 +1,403 @@
+/ TC08 (and TC01) Dectape DUMP Program
+/ This program will send a Dectape image out the console port.
+/ The format of the data sent is 0xff (0377) or 0xfd if read error
+/ followed by 128 word  of data for each block.
+/ After the last block a 0xfe (0376) is sent
+/ with a two byte checksum, low 8 bits first then upper 4.
+/ The words in a block are sent as three bytes for each 2 words.
+/   1 = low 8 bits first word
+/   2 = upper 4 bits first and lower 4 bits second
+/   3 = upper 8 bits second word
+/
+/ The program (PC) receiving the data should be started before this program
+/
+/ To run start at 0200.
+/    SR 9-11 should be drive 0-7
+/    SR 6-8 ignored, only 8k works
+/ The receiving program should be running first.
+/ At normal exit hitting cont will restart the program
+/
+/ Should halt at label finish (140) with number of unrecoverable errors in AC
+/ The current block being read will be displayed in the AC
+/ while running.
+/
+/ If a unrecoverable error occurs the program will continue.
+/ To halt with the error in the AC uncomment the halt.  Hit continue to 
+/ dump more. search for *****.
+/ The PC program will print out the bad block number if an error occurs
+/
+/ We will retry each read up to 3 times on error
+/
+/ This transfers the standard 129 word by 1474 blocks used by OS/8 etc.
+/ Other formats can be handled by changing constants below
+
+        INAD=030                / Address of serial input, 30 for console
+        /INAD=400                / Address of serial input, 30 for console
+        KCF2=6000 INAD
+        KSF2=6001 INAD
+        KCC2=6002 INAD
+        KRS2=6004 INAD
+        KIE2=6005 INAD
+        KRB2=6006 INAD
+
+        OUTAD=040               / Address of serial output, 40 for console
+        /OUTAD=410               / Address of serial output, 40 for console
+        TFL2=6000 OUTAD
+        TSF2=6001 OUTAD
+        TCF2=6002 OUTAD
+        TPC2=6004 OUTAD
+        TSK2=6005 OUTAD
+        TLS2=6006 OUTAD
+
+        WDSBLK=201      /129 WORDS PER BLOCK
+
+        *20
+RETRY,  7774            / RETRY UP TO 4 TIME
+NUMBLK, 2702            / NUMBER OF BLOCKS
+MWORDS, -WDSBLK         / WORDS PER BLOCK
+BLKFLD, 37              / 31 129 word blocks per field
+                        / WRAPPING PAST END OF LAST FIELD DOESN'T WORK
+FIELDS, 0		/ NUMBER OF FIELD FOR DATA BUFFER
+RDSIZE, 0               / NUMBER BLOCKS PER READ
+CBLOCK, 0               / CURRENT BLOCK TO XFER
+CLKSUM, 0
+DRVSEL, 0
+READST, 377
+LOC,    0
+LEN,    0
+BCNT,   0		/ BLOCKS TO SEND TO PC
+TEMP,   0
+C17,    17
+C360,   360
+CHKSM,  0
+ERRCN2, 0
+
+	/DECTAPE HANDLERS(PAGE RELOCATABLE) FOR PS/8 MONITOR
+DFUN,	0		/0 = 1 for write, 1-5 = unused, 
+			/ 6-8 = field to write to, 11 = 1 for start forward
+DM203,	-203
+DLOC,	0		/ BUFFER ADDRESS - 1
+DBLOCK,	0		/ BLOCK TO TRANSFER
+BLOCK,	0		/ NEXT BLOCK TO READ
+DNUMBK,	0		/ NUMBER OF BLOCKS TO TRANFER
+DBLKCT,	0		/ WORKING NUMBER OF BLOCKS TO TRANFER
+DRIVE,	0		/ DRIVE TO ACCESS
+D3,	3
+WC,	7754
+CA,	7755
+DERRCT,	TCVERSION
+D4000,	4000
+D400,	400
+D200,	200
+D210,	210
+
+	*140
+FINISH, HLT             / Normal good halt
+        JMP START
+
+        *200
+START,  CDF 0
+        CAF
+        CLA CLL OSR     / Get drive
+        AND (7
+        DCA DRVSEL
+        /CLA CLL OSR     / Get max field
+        /RTR
+        /RAR
+        /AND (7
+        /SNA
+        /HLT             / Must have at least 1 field for buffer
+        /CIA
+	CMA
+        DCA FIELDS	/ Only works for 1 field since controller doesn't go
+			/ to next field
+        DCA ERRCN2
+RDSZLP, TAD BLKFLD      / Multiply by number of fields available
+        ISZ FIELDS
+        JMP RDSZLP
+        DCA RDSIZE      / NUMBER BLOCK PER READ
+        DCA CBLOCK
+        DCA CHKSM
+
+DUMPLP, CLA
+        TAD RDSIZE
+        TAD CBLOCK
+        CIA
+        TAD NUMBLK      / MORE BLOCKS LEFT THAN READSIZE?
+        SMA             / NO, READ NUMBER LEFT
+        CLA             / YES, ONLY READ RDSIZE
+        TAD RDSIZE
+        SNA             / ANY MORE BLOCKS?
+        JMP DONE        / NO, DO FINISH STUFF
+        DCA ARGSZ
+        TAD CBLOCK
+        DCA ARGBK
+        TAD DRVSEL
+        JMS DTA
+        0010              / READ STARTING IN FIELD 1
+ARGSZ,  0
+        0
+ARGBK,  0
+        JMP ERRRET
+	CLA CLL
+        TAD (377        / All blocks good
+        DCA READST
+                        / Send data, each block starts with FF
+        CLA CLL         / then 2 12 bit words in 3 bytes
+        DCA LOC         / ERRRET DUPLICATES SOME OF THIS
+        TAD ARGSZ
+        CIA
+        DCA BCNT        / Setup loop counter with number blocks read
+        CDF 10
+OUTBL1, JMS OUTBLK      / Send a block
+        ISZ CBLOCK
+        ISZ BCNT        / Send all read?
+        JMP OUTBL1      / No
+        CDF 0
+        JMP DUMPLP      / Go read next batch
+
+
+DONE,   CLA             / Send FE and -checksum of all words
+        TAD (376
+        JMS PUN
+        CLA CLL
+        TAD CHKSM       / Send checksum in two bytes, low bits first
+        CIA
+        JMS PUN
+        CLA CLL
+        TAD CHKSM
+        CIA
+        RTR
+        RTR
+        RTR
+        RTR
+        AND C17
+        JMS PUN
+        CLA
+        TAD DRVSEL
+        JMS DTA        / REWIND TAPE
+        0010
+        1
+        0
+        0
+        NOP
+        TAD ERRCN2      / Leave AC with # of errors
+	JMP FINISH
+
+                        /SEND GOOD BLOCKS READ WITH GOOD BLOCK FLAG
+                        /THEN BAD WITH BAD BLOCK FLAG.
+ERRRET,
+/       HLT             / ****** If we want to stop on error
+        CDF 10
+        CLA CLL
+        DCA LOC
+        TAD CBLOCK
+        CIA
+        TAD BLOCK       /Get - number good blocks read
+        CIA             /Last was bad
+	SNA
+	JMP FSTBAD	/First block is bad, no good to send
+        DCA BCNT
+        TAD (377
+        DCA READST
+OUTBL2, JMS OUTBLK      /Send good blocks
+        ISZ CBLOCK
+        ISZ BCNT
+        JMP OUTBL2
+FSTBAD,	TAD (375        /NOW SEND BAD BLOCK
+        DCA READST
+        JMS OUTBLK
+        ISZ CBLOCK
+        ISZ ERRCN2
+        CDF 0
+        JMP DUMPLP      /And read from here on
+
+        PAGE
+OUTBLK, 0               /Send a block of data out serial port
+        CLA
+        TAD MWORDS
+        DCA LEN
+        TAD READST      /Send good/bad flag
+        JMS PUN
+OUT,    CLA CLL
+        TAD I LOC
+        TAD CHKSM       / Keep checksum of all words sent
+        DCA CHKSM
+        TAD I LOC       / Send 2 words as 3 bytes
+        JMS PUN
+        CLA CLL
+        TAD I LOC
+        RTR             / Shift top 4 bits to low 4
+        RTR
+        RTR
+        RTR
+        AND C17
+        DCA TEMP
+        ISZ LOC
+        JMP STFLD3+1    /NOT AT END OF FIELD (DJG)
+        RDF             /At end, inc to next field
+        TAD (6211	/BUILD CDF
+        DCA STFLD3
+STFLD3, NOP
+	ISZ LEN		/END IF BUFFER?
+	SKP		/NO
+	JMP ENDBK	/YES
+        TAD I LOC
+        TAD CHKSM
+        DCA CHKSM
+        TAD I LOC
+        RTL
+        RTL
+        AND C360
+        TAD TEMP
+        JMS PUN
+        CLA CLL
+        TAD I LOC
+        RTR
+        RTR
+        JMS PUN
+        ISZ LOC
+        JMP STFLD4+1    /NOT AT END OF FIELD (DJG)
+        RDF
+        TAD (6211	/BUILD CDF
+        DCA STFLD4
+STFLD4, NOP
+        ISZ LEN
+        JMP OUT
+        JMP I OUTBLK
+ENDBK,	TAD TEMP	/SEND LAST PART OF WORD
+	JMS PUN
+	JMP I OUTBLK
+
+PUN,    0               / Send byte out serial port
+/       PLS             / Punch for testing with emulator
+        TLS2            / Send out console
+        CLA CLL
+        TAD CBLOCK
+/       PSF
+        TSF2            /Wait until character sent
+        JMP .-1
+        CLA
+        JMP I PUN
+
+/2 TC08 HANDLER FOR BUILD
+/COPYRIGHT  (C)  1974,1975 BY DIGITAL EQUIPMENT CORPORATION
+	DTRB=6772
+	DTLB=6774
+	DTXA=6764
+	DTCA=6762
+	DTRA=6761
+	DTSF=6771
+	TCVERSION="A&77
+
+
+/ On entry ACC = drive to write to
+/ arg1 = DFUN,
+/ arg1b = number of block
+/ arg2 = transfer address
+/ arg3 = number of blocks to transfer
+	PAGE
+DTA,	0
+	DCA DRIVE
+	CLA CLL CMA RTL
+	DCA DERRCT	/SET TO REPEAT THREE TIMES IN CASE OF ERROR
+	TAD I DTA
+	DCA DFUN	/STORE AWAY FUNCTION WORD FOR FUTURE USE
+	ISZ DTA
+	TAD I DTA
+	DCA DNUMBK
+	ISZ DTA
+	CLL CMA
+	TAD I DTA
+	DCA DLOC	/BUFFER ADDRESS -1
+	ISZ DTA
+	TAD I DTA
+	DCA DBLOCK	/DECTAPE BLOCK #
+	ISZ DTA
+DTATRY,	TAD DBLOCK
+	DCA BLOCK
+	TAD DNUMBK
+	DCA DBLKCT
+	TAD WC
+	DCA I CA
+	TAD DFUN
+	RAR
+	CLA CML		/COMPLEMENT OF BIT 11 OF DFUN NOW IN THE LINK
+	TAD DRIVE
+	RTR
+	RTR		/THESE TWO ROTATES FORM THE FLLOWING NUMBER
+			/IN THE AC: YYYF00000000, WHERE YYY = DRIVE
+			/AND F IS THE COMPLEMENT OF DFUN(11)
+	TAD D210	/SET THE REST OF THE AC TO F10001000 WHICH IS A
+			/SEARCH IN DIRECTION F(F=1 MEANS BACKWARDS) WITH
+			/THE MOTION BIT ON.
+	DTCA DTXA
+	DTLB		/SET DECTAPE FIELD TO 0 FOR SEARCHING
+	JMP DC+3	/JUMP INTO THE BLOCK SEARCH ROUTINE
+DERR,	RTL		/DECTAPE STATUS REGISTER B IS USUALLY IN THE AC HERE
+	RAL
+D7600,	7600		/CLA GET THE "END OF TAPE" FLAG INTO THE LINK AND CLEAR THE AC
+	TAD D200	/GET MOTION BIT
+DC,	SZL		/AND, IF LINK IS ON
+DTATAD,	TAD D400	/REVERSE DIRECTION OF MOTION
+	DTXA
+	CLA
+DTAWT,	DTSF DTRB
+	JMP .-1		/WAIT FOR SEARCH TO COMPLETE
+	SPA		/HAS AN ERROR OCCURED?
+	JMP DERR	/DO SOMETHING APPROPRIATE
+	DTRA
+	RTL
+	CMA RTL
+	SNL CLA		/WAS MOTIOZ OF TAPE FORWARDS?
+	TAD D3		/NO, SO ONLY SUCCEED IF WE ARE 3 BLOCKS IN FRONT 
+			/OF TARGET BLOCK
+	TAD I WC
+	CMA
+	TAD DBLOCK
+	CMA		/AFTER THIS OPERATION WE HAVE THE FOLLOWING 4 POSSIBILITIES
+			/1)AC=0, L=1	/SEARCH COMPLETE
+			/2)AC=0, L=0	/RIGHT PLACE ON TAPE,WRONG DIRECTION
+			/3)AC .GT. 0, L=0	/WEVE PASSED THE CORRECT BLOCK
+			/4)AC .GT. 0, L=1	/WE HAVENT REACHED THE CORRECT BLOCK YET
+	SZA CLA
+	JMP DC
+	SNL
+	JMP DTATAD	/DC+1
+	TAD DLOC
+	DCA I CA	/SET THE CURRENT ADDRESS REGISTER TO THE BUFFER -1
+	TAD DFUN
+	DTLB		/SET FIELD TO BUFFER FIELD
+	TAD D4000
+	AND DFUN	/GET DIRECTION
+	CLL RAL
+	RAL
+	IAC
+	CLL CML RTL
+	RTL		/FORM A 50 IF L=1, A 30 IF L=0
+DL,	DTXA		/XOR IN 50(WRITE) OR 30(READ) OR 0(CONTINUE PREVIOUS OP)
+	TAD MWORDS
+	DCA I WC	/READ/WRITE 129 WORDS FROM/INTO EACH BLOCK
+	DTSF DTRB
+	JMP .-1
+	CLL CML		/SET ERROR FLAG ON INITIALLY
+D7700,	SMA CLA
+	JMP DJ
+	ISZ DERRCT	/ERROR-IS IT THE THIRD?
+	JMP DTATRY	/NO-TRY AGAIN
+	JMP DSTOP1	/3 ERRORS-STOP TAPE!
+DJ,	ISZ BLOCK	/INC BLOCK READ
+	CMA
+	TAD DBLKCT
+	SNA		/DEC BLOCK COUNT AND SEE IF 0
+			/ALSO REVERSE LINK.
+	JMP DOVER	/YES - DONE
+	DCA DBLKCT	/SAVE DECREMENTED WORD COUNT
+	JMP DL		/AND LOOP
+DOVER,	ISZ DTA		/SKIP ERROR RETURN
+DSTOP1,	TAD D200	/STOP THE TAPE
+	DTXA
+	RAR		/GET ERROR CODE FROM LINK INTO AC0
+	JMP I DTA	/AND EXIT
+	$
+        $

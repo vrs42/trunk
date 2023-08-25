@@ -1,0 +1,83 @@
+   1               / RX01 Set Density
+   2               / This program will set the density on a disk.  This will only work on a
+   3               / RX02 operating in RX28 mode.
+   4               / To run start at 0200.
+   5               /    SR9-11 shoulb be drive number
+   6               /    SR0 should be 1 for double density (RX02), 0 for single density (RX01)
+   7               / Should halt at label GDHLT (140) with AC = 0 if it worked.
+   8               / At normal exit hitting cont will restart the program
+   9               
+  10                       LCD=6751        / Load the command reg with AC
+  11                       XDR=6752        / Load or read the transfer register
+  12                       STR=6753        / Skip on transfer request flag
+  13                       SER=6754        / Skip on error flag
+  14                       SDN=6755        / Skip on done flag
+  15                       INTR=6756       / AC = 0 interrupt off, 1 = on
+  16                       INIT=6757       / Initialize RX8/RX01
+  17               
+  18                       *20
+  19 000020  0000  DRIVE,  0               / Drive # * 2
+  20 000021  0060  DRVMSK, 60              / Mask for drive bits
+  21 000022  0010  DENCMD, 010             / Set density command
+  22 000023  0000  DEN,    0               / Density bit for command
+  23 000024  0111  CHARI,  111             / Character I
+  24 000025  0200  STARTF, START
+  25               
+  26                       *140
+  27 000140  7402  GDHLT,  HLT
+  28 000141  5425          JMP I STARTF
+  29               
+  30                       *200
+  31 000200  6201  START,  CDF 0           / Init all our variables
+  32 000201  6007          CAF
+  33 000202  7704          CLA CLL OSR     / Get drive
+  34 000203  7006          RTL
+  35 000204  7006          RTL
+  36 000205  0021          AND DRVMSK
+  37 000206  3020          DCA DRIVE
+  38 000207  7704          CLA CLL OSR     / Get density
+  39 000210  7004          RAL
+  40 000211  7200          CLA
+  41 000212  7012          RTR
+  42 000213  7012          RTR
+  43 000214  3023          DCA DEN
+  44               
+  45 000215  7300  RECAL,  CLA CLL
+  46 000216  6757          INIT
+  47 000217  6755          SDN            / Done?
+  48 000220  5217          JMP .-1
+  49               
+  50 000221  0000  TYPE,   0
+  51 000222  1022          TAD     DENCMD    /Make a set density command
+  52 000223  1020          TAD     DRIVE
+  53 000224  1023          TAD     DEN
+  54 000225  6751          LCD
+  55 000226  6753          STR
+  56 000227  5226          JMP     .-1
+  57 000230  7200          CLA
+  58 000231  1024          TAD     CHARI
+  59 000232  6752          XDR             /Send character I to start format
+  60 000233  6755          SDN
+  61 000234  5233          JMP .-1
+  62 000235  6754          SER
+  63 000236  5140          JMP GDHLT
+  64 000237  7402          HLT             /Error on format command
+  65                       $
+
+CHARI   0024
+DEN     0023
+DENCMD  0022
+DRIVE   0020
+DRVMSK  0021
+GDHLT   0140
+INIT    6757
+INTR    6756 unreferenced
+LCD     6751
+RECAL   0215 unreferenced
+SDN     6755
+SER     6754
+START   0200
+STARTF  0025
+STR     6753
+TYPE    0221 unreferenced
+XDR     6752

@@ -1,0 +1,894 @@
+   1               / TD8E Dectape RESTORE Program
+   2               / This program will receive a DECtape image and write it to the tape.  The
+   3               / tape is written, then it is reread to verify.
+   4               /
+   5               / The program (PC) sending the data should be started before this program
+   6               /
+   7               / See dump for the format of the serial data.
+   8               / To run start at 0200.
+   9               /    SR 11 should be drive, only 0 and 1 supported without reassembling
+  10               /    SR 6-8 should be maximum memory field in computer, needs 8k minimum
+  11               / Should halt at label FINISH (140) with AC = 0 if it worked, AC not equal to
+  12               / zero indicates checksum on read didn't match that of data received
+  13               / Hitting cont will restart the program if at normal end
+  14               /
+  15               / Number of retries is set to 1 for reading and writing.
+  16               /
+  17               / The current block being written to will be displayed in the AC
+  18               / while serial data is transfering.
+  19               /
+  20               / This program only will work with the resttd8e C program since it needs
+  21               / to hanshake transfers to prevent overrun on the serial data.
+  22               / The C program must be started first.
+  23               /
+  24               / This transfers the standard 129 word by 1474 blocks used by OS/8 etc.
+  25               / Other formats can be handled by changing constants below
+  26               
+  27                       INAD=030                / Address of serial input, 30 for console
+  28                       KCF2=6000 INAD
+  29                       KSF2=6001 INAD
+  30                       KCC2=6002 INAD
+  31                       KRS2=6004 INAD
+  32                       KIE2=6005 INAD
+  33                       KRB2=6006 INAD
+  34               
+  35                       OUTAD=040               / Address of serial output, 40 for console
+  36                       TFL2=6000 OUTAD
+  37                       TSF2=6001 OUTAD
+  38                       TCF2=6002 OUTAD
+  39                       TPC2=6004 OUTAD
+  40                       TSK2=6005 OUTAD
+  41                       TLS2=6006 OUTAD
+  42               
+  43               /2 TD8E INITIALIZER PROGRAM, V7A
+  44               /
+  45               /COPYRIGHT (C) 1975, 1977
+  46               /DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS.
+  47               /
+  48               /
+  49               /
+  50               /THIS SOFTWARE IS FURNISHED UNDER A LICENSE FOR USE ONLY ON A
+  51               /SINGLE COMPUTER SYSTEM AND MAY BE COPIED ONLY WITH THE INCLU-
+  52               /SION OF THE ABOVE COPYRIGHT NOTICE.  THIS SOFTWARE, OR ANT OTHER
+  53               /COPIES THEREOF, MAY NOT BR PROVIDED OR OTHERWISE MADE AVAILABLE
+  54               /TO ANY OTHER PERSON EXCEPT FOR USE ON SUCH SYSTEM AND TO ONE WHO
+  55               /AGREES TO THESE LICENSE TERMS.  TITLE TO AND OWNERSHIP OF THE
+  56               /SOFTWARE SHALL AT ALL TIMES REMAIN IN DEC.
+  57               /
+  58               /
+  59               /THE INFORMATION IN THIS SOFTWARE IS SUBJECT TO CHANGE WITHOUT
+  60               /NOTICE AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL
+  61               /EQUIPMRNT COROPATION.
+  62               /
+  63               /DEC ASSUMES NO RESPONSIBILITY FOR THE USE OR RELIABILITY OF ITS
+  64               /SOFTWARE ON EQUIPMENT WHICH IS NOT SUPPLIED BY DEC.
+  65               /
+  66               /
+  67               /
+  68               /
+  69               /
+  70               /
+  71               
+  72               /DECEMBER 21, 1973              GB/RL/EF/SR
+  73               
+  74               /ABSTRACT--
+  75               /       THE ROUTINE DESCRIBED AND LISTED HERE IS A GENERAL
+  76               /DATA HANDLER FOR THE TD8E DECTAPE SYSTEM. THE ROUTINE
+  77               /CONTAINS SEARCH, READ, AND WRITE FUNCTIONS IN A FORMAT
+  78               /WHICH IS COMPATIBLE WITH OS/8 DEVICE HANDLER CALLING
+  79               /SEQUENCES.
+  80               
+  81               /FIXES SINCE FIELD-TEST RELEASE:
+  82               
+  83               /1.     FIXED BUG RE CLA ON RETRY AFTER ERROR
+  84               /2.     ALLOWED FINAL BOOTSTRAP TO BE INTO A WRITE-LOCKED DEVICE
+  85               
+  86               /OS/8 V3D CHANGES:
+  87               
+  88               /3.     FIXED BUG RE TD8E BUILD (V6B PATCH)
+  89               
+  90               /THIS ROUTINE CAN BE RE-EDITED AND ASSEMBLED TO PRODUCE
+  91               /VARIATIONS ON THE BASIC TD8E SYSTEM. ASSEMBLY PARAMETERS
+  92               /CONTROL:
+  93               /A) WHAT DRIVES (UNITS 0-7) WILL BE USED
+  94               /B) THE ORIGIN OF THE TWO PAGE ROUTINE
+  95               /C) WHAT MEMORY FIELD THE ROUTINE WILL RUN IN
+  96               /D) THE SIZE OF THE DECTAPE BLOCK TO BE READ/WRITTEN
+  97               
+  98               /FOLLOWING ARE THE PARAMETERS SET UP FOR THE STANDARD
+  99               /DEC VERSION OF THIS ROUTINE:
+ 100               
+ 101                       DRIVE=10        /UNITS 0 AND 1 SELECTED
+ 102                       ORIGIN=600      /ENTER AT ORIGIN, ORIGIN+4
+ 103                       AFIELD=0        /INITIAL FIELD SETTING
+ 104                       MFIELD=00       /AFIELD*10=MFIELD
+ 105                       WDSBLK=201      /129 WORDS PER BLOCK
+ 106               
+ 107               /THE USE OF THE PARAMETERS IS AS FOLLOWS:
+ 108               
+ 109               / DRIVE: DRIVE DETERMINES WHICH UNITS WILL BE SELECTED
+ 110               /       DRIVE=10 IMPLIES UNITS 0 &1
+ 111               /       DRIVE=20 IMPLIES UNITS 2&3
+ 112               /       DRIVE=30 IMPLIES UNITS 4&5
+ 113               /       DRIVE=40 IMPLIES UNITS 6&7
+ 114               
+ 115               /ORIGIN: ALTERING ORIGIN CAUSES ASSEMBLY IN A DIFFERENT
+ 116               /       MEMORY LOCATION. WHEN CHANGING ORIGIN KEEP IN MIND
+ 117               /THAT THIS IS A TWO PAGE ROUTINE.
+ 118               
+ 119               /AFIELD: AFIELD DETERMINES THE INITIAL FIELD SETTING FOR THE
+ 120               /       LOADER. PERMISSIBLE VALUES FOR AFIELD ARE 0 TO 7.
+ 121               
+ 122               /MFIELD: MFIELD IS USED IN A CIF CDF MFIELD INSTRUCTION.
+ 123               /       THE VALUE INSERTED FOR MFIELD SHOULD BE 10(8) TIMES
+ 124               /       THE VALUE FOR AFIELD. THE PERMISSIBLE VALUES ARE 00-70.
+ 125               
+ 126               /WDSBLK: WDSBLK GOVERNS HOW MANY WORDS THE ROUTINE THINKS ARE
+ 127               /       IN A DECTAPE BLOCK. THE STANDARD VALUE IS 201(8) OR
+ 128               /       128 DECIMAL. NOTE THAT THE FUNCTION WORD BIT 10 CAN
+ 129               / 129 DECIMAL ??? (DJG)
+ 130               /       BE USED TO SUBTRACT ONE FROM WDSBLK. THE VALUE USED
+ 131               /       FOR WDSBLK SHOULD BE THE NUMBER OF WORDS THE TAPE WAS
+ 132               /       FORMATTED TO CONTAIN.
+ 133               
+ 134               /IF WE WANT A HANDLER FOR UNITS 2&3 TO RESIDE IN
+ 135               /FIELD 2 AT LOCATION 3000 AND READ/WRITE 256(10) WORDS
+ 136               /PER BLOCK, THE PARAMETERS WOULD BE:
+ 137               /       DRIVE=20
+ 138               /       ORIGIN=3000
+ 139               /       AFIELD=2
+ 140               /       MFIELD=20
+ 141               /       WDSBLK=400
+ 142               /THE CALL TO THE SUBROUTINE FOLLOWS BASICALLY THE
+ 143               /CALLING SEQUENCE FOR OS/8 DEVICE HANDLERS.
+ 144               /THE CALLING SEQUENCE IS:
+ 145               
+ 146               /       CDF CURRENT
+ 147               /       CIF MFIELD      /MFIELD=FIELD ASSEMBLED IN
+ 148               /       JMS ENTRY       /ENTRY=ORIGIN (EVEN NUMBERED DRIVE
+ 149                                       /AND ORIGIN+4 FOR ODD NUMBERED DRIVE.
+ 150               /       ARG1
+ 151               /       ARG1B (DJG)
+ 152               /       ARG2
+ 153               /       ARG3
+ 154               /       ERROR RETURN
+ 155               /       NORMAL RETURN
+ 156               
+ 157               /THE ARGUMENTS ARE:
+ 158               
+ 159               /ARG1: FUNCTION WORD    BIT0: 0=READ, 1=WRITE
+ 160               /                       BITS 1-5: UNUSED, WAS # BLOCKS IN OPERATION (DJG)
+ 161               /                       BITS 6-8: FIELD OF BUFFER AREA
+ 162               /                       BIT 9: UNUSED
+ 163               /                       BIT 10: # OF WORDS/BLOCK.
+ 164               /                       0= WDSBLK, 1=WDSBLK-1
+ 165               /                       BIT 11: 1=START FORWARD, 0=REVERSE
+ 166               /ARG1A: # OF BLOCKS IN OPERATIONA (DJG)
+ 167               /ARG2: BUFFER ADDRESS FOR OPERATION
+ 168               /ARG3: STARTING BLOCK FOR OPERATION
+ 169               
+ 170               /ERRORS: THE HANDLER DETECTS TWO TYPES OF ERRORS:
+ 171               /A) FATAL ERRORS- PARITY ERROR, TIMING ERROR,
+ 172               /               TOO GREAT A BLOCK NUMBER
+ 173               /       FATAL ERRORS TAKE ERROR RETURN WITH THE
+ 174               /       AC=4000.
+ 175               /B) NON-FATAL- SELECT ERROR.
+ 176               /       IF NO PROPER UNIT IS SELECTED, THE ERROR
+ 177               /       RETURN IS TAKEN WITH CLEAR AC.
+ 178               /FATAL ERRORS TRY THREE TIMES BEFORE TAKING ERROR RETURN.
+ 179               /THE NORMAL RETURN IS TAKEN AFTER ALL INDICATED
+ 180               /BLOCKS HAVE BEEN TRANSFERRED. THE AC IS CLEAR.
+ 181               
+ 182               /THE TD8E IOT'S ARE:
+ 183                       SDSS=7001-DRIVE /SKIP ON SINGLE LINE FLAG
+ 184                       SDST=7002-DRIVE /SKIP ON TIMING ERROR
+ 185                       SDSQ=7003-DRIVE /SKIP ON QUAD LINE FLAG
+ 186                       SDLC=7004-DRIVE /LOAD COMMAND REGISTER
+ 187                       SDLD=7005-DRIVE /LOAD DATA REGISTER
+ 188                       SDRC=7006-DRIVE /READ COMMAND REGISTER
+ 189                       SDRD=7007-DRIVE /READ DATA REGISTER
+ 190               
+ 191               /THE IOT'S IN GENERAL ARE 677X,676X,675X,AND 674X.
+ 192               /THE OTHERS CONTROL UNITS 2-7.
+ 193               
+ 194               /       THIS HANDLER USES DECTAPE BLOCKS NOT OS/8 BLOCKS !
+ 195               
+ 196                       *ORIGIN
+ 197               
+ 198               /       MODIFIED SO BIT 0 ON ENTRY IS UNIT 1
+ 199 000600  0000  DTA0,   0
+ 200 000601  3357          DCA UNIT        /SAVE UNIT POSITION
+ 201 000602  6214          RDF
+ 202 000603  1353          TAD C6203       /GET DATA FIELD AND SETUP RETURN
+ 203 000604  3351          DCA LEAVE
+ 204 000605  1600          TAD I DTA0      /GET FUNCTION WORD
+ 205 000606  6775          SDLD            /PUT FUNCTION INTO DATA REGISTER
+ 206 000607  7112          CLL RTR         /AC STILL HAS FUNCTION. PUT # WORDS PER
+ 207                                       /BLOCK INTO LINK
+ 208 000610  7630          SZL CLA         /KNOCK ONE OFF WDSBLK?
+ 209 000611  7001          IAC             /YES
+ 210 000612  1022          TAD MWORDS
+ 211 000613  3023          DCA WCOUNT      /STORE MASTER WORD COUNT
+ 212 000614  2200          ISZ DTA0        /TO BLOCK COUNT (DJG)
+ 213 000615  1600          TAD I DTA0      / (DJG)
+ 214 000616  7041          CIA             / (DJG)
+ 215 000617  3362          DCA PGCT        / (DJG)
+ 216 000620  2200          ISZ DTA0        /TO BUFFER
+ 217 000621  1600          TAD I DTA0
+ 218 000622  3044          DCA XBUFF       /SAVE ADDRESS (DJG)
+ 219               /       DCA BUFF
+ 220 000623  2200          ISZ DTA0        /TO BLOCK NUMBER
+ 221 000624  1600          TAD I DTA0
+ 222 000625  3046          DCA BLOCK
+ 223 000626  2200          ISZ DTA0        /POINT TO ERROR EXIT
+ 224 000627  6203          CIF CDF MFIELD  /TO ROUTINES DATA FIELD
+ 225               /       SDRD            /GET FUNCTION INTO AC
+ 226               /       CLL RAL
+ 227               /       AND CM200       /GET # PAGES TO XFER
+ 228               /       DCA PGCT
+ 229 000630  6777          SDRD
+ 230 000631  0376          AND C70         /GET FIELD FOR XFER
+ 231 000632  1354          TAD C6201       /FORM CDF N
+ 232 000633  3255          DCA XFIELD      /IF=0 AND DF=N AT XFER.
+ 233 000634  1020          TAD RETRY
+ 234 000635  3365          DCA TRYCNT      /3 ERROR TRIES
+ 235 000636  1357          TAD UNIT        /TEST FOR SELECT ERROR
+ 236 000637  6774          SDLC
+ 237 000640  7200          CLA             / Moved here because my drive 1 is slow selecting
+ 238 000641  1020          TAD RETRY
+ 239 000642  3365          DCA TRYCNT      /3 ERROR TRIES
+ 240 000643  6776          SDRC
+ 241 000644  0364          AND C100
+ 242 000645  7640          SZA CLA
+ 243 000646  5345          JMP FATAL-1
+ 244 000647  6777          SDRD            /PUT FUNCT INTO XFUNCT IN SECOND PG.
+ 245 000650  3760          DCA I CXFUN
+ 246 000651  1023          TAD WCOUNT
+ 247 000652  3763          DCA I CXWCT
+ 248 000653  6777          SDRD            /GET MOTION BIT TO LINK
+ 249 000654  7110          CLL RAR
+ 250 000655  7402  XFIELD, HLT             /INTO NEXT PAGE
+ 251 000656  5267          JMP GO          /AND START THE MOTION.
+ 252 000657  6772  RWCOM,  SDST            /ANY CHECKSUM ERRORS?
+ 253 000660  7640          SZA CLA         /OR CHECKSUM ERRORS?
+ 254 000661  5335          JMP TRY3        /PLEASE NOTE THAT THE LINK IS ALWAYS
+ 255                                       /SET AT RWCOM. GETCHK SETS IT.
+ 256               /       TAD PGCT        /NO ERROR..FINISHED XFER?
+ 257               /       TAD CM200
+ 258               /       SNA
+ 259 000662  2362          ISZ PGCT        / (DJG)
+ 260 000663  7410          SKP             / (DJG)
+ 261 000664  5344          JMP EXIT        /ALL DONE. GET OUT
+ 262               /       DCA PGCT        /NEW PAGE COUNT
+ 263 000665  2046          ISZ BLOCK       /NEXT BLOCK TO XFER
+ 264               /       TAD WCOUNT      /FORM NEXT BUFFER ADDRESS
+ 265               /       CIA
+ 266               /       TAD BUFF
+ 267               /       DCA XBUFF       /SAVE ADDRESS (DJG)
+ 268               /       DCA BUFF        / (DJG)
+ 269 000666  7120          CLL CML         /FORCES MOTION FORWARD
+ 270 000667  7232  GO,     CLA CML RTR     /LINK BECOMES MOTION BIT
+ 271 000670  1366          TAD C1000
+ 272 000671  1357          TAD UNIT        /PUT IN 'GO' AND UNIT #
+ 273 000672  6774          SDLC            /LOOK FOR BLOCK NO.
+ 274 000673  7200          CLA
+ 275 000674  1044          TAD XBUFF       /SAVE LOC OF BLOCK START SO
+ 276 000675  3043          DCA OLDBUF      /CAN RETRY ON ERROR
+ 277 000676  6214          RDF
+ 278 000677  1354          TAD C6201
+ 279 000700  3336          DCA OLDFLD
+ 280 000701  4755          JMS I CRDQUD    /WAIT AT LEAST 6 LINES TO LOOK
+ 281 000702  4755          JMS I CRDQUD
+ 282 000703  7600  CM200,  7600            /COULD HAVE SAVED A LOC. HERE
+ 283 000704  6771  SRCH,   SDSS
+ 284 000705  5304          JMP .-1         /WAIT FOR SINGLE LINE FLAG
+ 285 000706  6776          SDRC
+ 286 000707  7106          CLL RTL         /DIRECTION TO LINK. INFO BITS
+ 287                                       /ARE SHIFTED.
+ 288 000710  0045          AND C374        /ISOLATE MARK TRACK BITS
+ 289 000711  1327          TAD M110        /IS IT END ZONE?
+ 290 000712  7450          SNA             /THE LINK STAYS SAME THRU THIS
+ 291 000713  5331          JMP ENDZ
+ 292 000714  1361          TAD M20         /CHECK FOR BLOCK MARK
+ 293 000715  7640          SZA CLA
+ 294 000716  5304          JMP SRCH
+ 295 000717  6777          SDRD            /GET THE BLOCK NUMBER
+ 296 000720  7430          SZL             /IF WE ARE IN REVERSE, LOOK FOR 3
+ 297                                       /BLOCKS BEFORE TARGET BLOCK. THIS
+ 298                                       /ALLOWS TURNAROUND AND UP TO SPEED.
+ 299 000721  1377          TAD C3          /REVERSE
+ 300 000722  7040          CMA
+ 301 000723  1046          TAD BLOCK
+ 302 000724  7040          CMA             /IS IT RIGHT BLOCK?
+ 303 000725  7450          SNA
+ 304 000726  5372          JMP FOUND       /YES..HOORAY!
+ 305 000727  7670  M110,   SZL SNA CLA     /NO, BUT ARE WE HEADED FOR IT?
+ 306                                       /ABOVE SNA IS SUPERFLUOUS.
+ 307 000730  5304          JMP SRCH        /YES
+ 308 000731  6776  ENDZ,   SDRC            /WE ARE IN THE END ZONE
+ 309 000732  7106          CLL RTL         /DIRECTION TO LINK
+ 310 000733  7200          CLA             /ARE WE IN REVERSE?
+ 311 000734  5267          JMP GO          /YES..TURN US AROUND
+ 312               /IF WE ARE IN THE END ZONE GOING FORWARD, IT IS AN ERROR
+ 313 000735  7200  TRY3,   CLA
+ 314 000736  7000  OLDFLD, NOP             /RESET FIELD
+ 315 000737  1043          TAD OLDBUF      /RESET BACK TO START OF BLOCK
+ 316 000740  3044          DCA XBUFF
+ 317 000741  2365          ISZ TRYCNT
+ 318 000742  5267          JMP GO          /TRY 3 TIMES
+ 319 000743  5346          JMP FATAL               /LINK OFF MEANS AC=4000 ON RETURN
+ 320 000744  2200  EXIT,   ISZ DTA0
+ 321 000745  7120          CLL CML         /AC=0 ON NORMAL RETURN
+ 322 000746  1357  FATAL,  TAD UNIT
+ 323 000747  6774          SDLC            /STOP THE UNIT
+ 324 000750  7230          CLA CML RAR
+ 325 000751  7402  LEAVE,  HLT
+ 326 000752  5600          JMP I DTA0
+ 327               
+ 328               
+ 329 000753  6203  C6203,  6203
+ 330 000754  6201  C6201,  6201
+ 331 000755  1126  CRDQUD, RDQUAD
+ 332               /WCOUNT,        0       (MOVED PAGE 0 DJG)
+ 333 000756  0000  BUFF,   0
+ 334               /MWORDS,        -WDSBLK (MOVED PAGE 0 DJG)
+ 335 000757  0000  UNIT,   0
+ 336 000760  1166  CXFUN,  XFUNCT
+ 337 000761  7760  M20,    -20
+ 338 000762  0000  PGCT,   0
+ 339 000763  1173  CXWCT,  XWCT
+ 340 000764  0100  C100,   100
+ 341 000765  7775  TRYCNT, -3
+ 342 000766  1000  C1000,  1000
+ 343               
+ 344               
+ 345                       *ORIGIN+172
+ 346 000772  7630  FOUND,  SZL CLA         /RIGHT BLOCK. HOW ABOUT DIRECTION?
+ 347 000773  5267          JMP GO          /WRONG..TURN AROUND
+ 348 000774  1357          TAD UNIT        /PUT UNIT INTO LINK
+ 349 000775  7104          CLL RAL         /AC IS NOW 0
+ 350 000776  0070  C70,    70              /********DON'T MOVE THIS!!!!******
+ 351 000777  0003  C3,     3
+ 352               /       TAD BUFF        /GET BUFFER ADDRESS (DJG)
+ 353               /XFIELD, HLT         /INTO NEXT PAGE
+ 354                      *ORIGIN+200
+ 355 001000  6202          CIF MFIELD
+ 356               /       DCA XBUFF       /SAVE ADDRESS (DJG)
+ 357 001001  7010          RAR             /NOW GET UNIT #
+ 358 001002  3333          DCA XUNIT
+ 359 001003  6776          SDRC
+ 360 001004  6774          SDLC
+ 361 001005  6771  REVGRD, SDSS
+ 362 001006  5205          JMP .-1         /LOOK FOR REVERSE GUARD
+ 363 001007  6776          SDRC
+ 364 001010  0261          AND K77
+ 365 001011  1367          TAD CM32        /IS IT REVERSE GUARD?
+ 366 001012  7640          SZA CLA
+ 367 001013  5205          JMP REVGRD      /NO.KEEP LOOKING
+ 368 001014  1373          TAD XWCT
+ 369 001015  3372          DCA WORDS       /WORD COUNTER
+ 370 001016  1366          TAD XFUNCT      /GET FUNCTION  READ OR WRITE
+ 371 001017  7700  K7700,  SMA CLA
+ 372 001020  5262          JMP READ        /NEG. IS WRITE
+ 373 001021  6776  WRITE,  SDRC
+ 374 001022  0316          AND C300        /CHECK FOR WRITE LOCK AND SELECT ERROR
+ 375 001023  7120          CLL CML         /LOCK OUT AND SELECT ARE AC 0 ERRORS
+ 376 001024  7640          SZA CLA
+ 377 001025  5764          JMP I CFATAL    /FATAL ERROR. LINK MUST BE ON
+ 378 001026  4326          JMS RDQUAD      /NO ONE EVER USES THIS WORD!
+ 379 001027  7600  C7600,  7600
+ 380 001030  1370          TAD C1400
+ 381 001031  1333          TAD XUNIT       /INITIATE WRITE MODE
+ 382 001032  6774          SDLC
+ 383 001033  7240          CLA CMA
+ 384 001034  4317          JMS WRQUAD      /PUT 77 IN REVERSE CHECKSUM
+ 385 001035  7240          CLA CMA
+ 386 001036  3371          DCA CHKSUM
+ 387 001037  1444  WRLP,   TAD I XBUFF     /GLORY BE! THE ACTUAL WRITE!
+ 388 001040  4317          JMS WRQUAD
+ 389 001041  2044          ISZ XBUFF       /BUMP CORE POINTER
+ 390 001042  5247          JMP STFLD1+1    /NOT AT END OF FIELD (DJG)
+ 391 001043  6214          RDF
+ 392 001044  1377          TAD (6211
+ 393 001045  3246          DCA STFLD1
+ 394 001046  7000  STFLD1, NOP
+ 395 001047  2372          ISZ WORDS       /DONE THIS BLOCK?
+ 396 001050  5237          JMP WRLP        /NOT YET..LOOP A WHILE
+ 397 001051  1366          TAD XFUNCT      /IS THE OPERATION FOR WDSBLK PER BLOCK?
+ 398 001052  7112          CLL RTR         /IF NO, WRITE A 0 WORD
+ 399 001053  7630          SZL CLA
+ 400 001054  4317          JMS WRQUAD      /WRITE A WORD OF 0
+ 401 001055  4350          JMS GETCHK      /DO THE CHECK SUM
+ 402 001056  4317          JMS WRQUAD      /WRITE FORWARD CHECKSUM
+ 403 001057  4317          JMS WRQUAD      /ALLOW CHECKSUM TO BE WRITTEN
+ 404 001060  5765          JMP I CRWCOM
+ 405 001061  0077  K77,    77              /ABOVE MAY SKIP (NOT ANYMORE DJG)
+ 406 001062  4326  READ,  JMS RDQUAD
+ 407 001063  4326          JMS RDQUAD
+ 408 001064  4326          JMS RDQUAD      /SKIP CONTROL WORDS
+ 409 001065  0261          AND K77
+ 410 001066  1217          TAD K7700       /TACK 7700 ONTO CHECKSUM.
+ 411 001067  3371          DCA CHKSUM      /CHECKSUM ONLY LOW 6 BITS ANYWAY
+ 412 001070  4326  RDLP,   JMS RDQUAD
+ 413 001071  4333          JMS EQUFUN      /COMPUT CHECKSUM AS WE GO
+ 414 001072  3444          DCA I XBUFF     /IT GETS CONDENSED LATER
+ 415 001073  2044          ISZ XBUFF       /AT END OF FIELD?
+ 416 001074  5301          JMP STFLD2+1    /NOT AT END OF FIELD (DJG)
+ 417 001075  6214          RDF
+ 418 001076  1377          TAD (6211
+ 419 001077  3300          DCA STFLD2
+ 420 001100  7000  STFLD2, NOP
+ 421 001101  2372          ISZ WORDS       /DONE THIS OP?
+ 422 001102  5270          JMP RDLP        /NO SUCH LUCK
+ 423 001103  1366          TAD XFUNCT      /IF OP WAS FOR WDSBLK-1, READ AND
+ 424 001104  7112          CLL RTR         /CHECKSUM THE LAST TAPE WORD
+ 425 001105  7620          SNL CLA
+ 426 001106  5311          JMP RDLP2
+ 427 001107  4326          JMS RDQUAD      /NOT NEEDED FOR WDSBLK/BLOCK
+ 428 001110  4333          JMS EQUFUN      /CHECKSUM IT
+ 429 001111  4326  RDLP2,  JMS RDQUAD      /READ CHECKSUM
+ 430 001112  0217          AND K7700
+ 431 001113  4333          JMS EQUFUN
+ 432 001114  4350          JMS GETCHK      /GET SIX BIT CHECKSUM
+ 433 001115  5765          JMP I CRWCOM
+ 434 001116  0300  C300,   300             /PROTECTION (NOT ANYMORE DJG)
+ 435               
+ 436 001117  0000  WRQUAD, 0               /WRITE OUT A 12 BIT WORD
+ 437 001120  4333          JMS EQUFUN      /ADD THIS TO CHECKSUM
+ 438 001121  6773          SDSQ            /SKIP ON QUADLINE FLAG
+ 439 001122  5321          JMP .-1
+ 440 001123  6775          SDLD            /LOAD DATA  ONTO BUS
+ 441 001124  7200          CLA             /SDLD DOESN'T CLEAR AC
+ 442 001125  5717          JMP I WRQUAD
+ 443               
+ 444 001126  0000  RDQUAD, 0               /READ A 12 BIT WORD
+ 445 001127  6773          SDSQ
+ 446 001130  5327          JMP .-1
+ 447 001131  6777          SDRD            /READ DATA
+ 448 001132  5726          JMP I RDQUAD
+ 449               
+ 450               XUNIT,
+ 451 001133  0000  EQUFUN, 0               /COMPUTE EQUIVALENCE CHECKSUM
+ 452 001134  7040          CMA
+ 453 001135  3374          DCA EQUTMP      /ACTUALLY CHECKSUMS ON DECTAPE ARE
+ 454 001136  1374          TAD EQUTMP      /EQUIVALENCE OF ALL WORDS IN A RECORD
+ 455 001137  0371          AND CHKSUM      /SIX BITS AT A TIME. BUT SINCE EQUIVALENCE
+ 456 001140  7041          CIA             /IS ASSOCIATIVE, WE CAN DO IT 12
+ 457 001141  7104          CLL RAL         /BITS AT A TIME AND CONDENSE LATER.
+ 458 001142  1374          TAD EQUTMP      /THIS ROUTINE USES THESE IDENTITIES:
+ 459 001143  1371          TAD CHKSUM      /A+B=(A.XOR.B)+2*(A.AND.B)
+ 460 001144  3371          DCA CHKSUM      /A.EQU.B=.NOT.(A.XOR.B)=A.XOR.(.NOT.B)
+ 461 001145  1374          TAD EQUTMP      /A.EQU.B=(A+(.NOT.B))-2*(A.AND.(.NOT.B))
+ 462 001146  7040          CMA
+ 463 001147  5733          JMP I EQUFUN
+ 464               
+ 465 001150  0000  GETCHK, 0               /FORM 6 BIT CHECKSUM
+ 466 001151  7200          CLA
+ 467 001152  1371          TAD CHKSUM
+ 468 001153  7040          CMA
+ 469 001154  7106          CLL RTL
+ 470 001155  7006          RTL
+ 471 001156  7006          RTL
+ 472 001157  4333          JMS EQUFUN
+ 473 001160  7320          CLA CLL CML     /FORCES LINK ON AT RWCOM
+ 474 001161  1371          TAD CHKSUM
+ 475 001162  0217          AND K7700
+ 476 001163  5750          JMP I GETCHK
+ 477               
+ 478 001164  0746  CFATAL, FATAL
+ 479 001165  0657  CRWCOM, RWCOM
+ 480 001166  0000  XFUNCT, 0
+ 481 001167  7746  CM32,   -32
+ 482 001170  1400  C1400,  1400
+ 483 001171  0000  CHKSUM, 0
+ 484 001172  0000  WORDS,  0
+ 485 001173  0000  XWCT,   0
+ 486 001174  0000  EQUTMP, 0
+ 487               
+ 488 001177  6211          *20
+ 489 000020  7776  RETRY,  7776            / RETRY UP TO 1 TIME
+ 490 000021  2702  NUMBLK, 2702            / NUMBER OF BLOCKS
+ 491 000022  7577  MWORDS, -WDSBLK         / WORDS PER BLOCK
+ 492 000023  0000  WCOUNT, 0
+ 493 000024  0037  BLKFLD, 37              / BLOCKS PER FIELD, 31 MAX FOR 129 WORDS/BLOCK
+ 494                                       / WRAPPING PAST END OF LAST FIELD DOESN'T WORK
+ 495 000025  0000  FIELDS, 0
+ 496 000026  0000  RDSIZE, 0               / NUMBER BLOCKS PER READ
+ 497 000027  0000  CBLOCK, 0               / CURRENT BLOCK TO XFER
+ 498 000030  0000  CLKSUM, 0
+ 499 000031  0000  DRVSEL, 0
+ 500 000032  0377  READST, 377
+ 501 000033  0000  LOC,    0
+ 502 000034  0000  LEN,    0
+ 503 000035  0000  BCNT,   0
+ 504 000036  0000  TEMP,   0
+ 505 000037  0017  C17,    17
+ 506 000040  7400  C7400,  7400
+ 507 000041  0000  CHKSM,  0
+ 508 000042  0000  DONEFG, 0
+ 509 000043  0000  OLDBUF, 0               / USED BY DTA0 ROUTINE
+ 510 000044  0000  XBUFF,  0               / USED BY DTA0 ROUTINE
+ 511 000045  0374  C374,   374             / USED BY DTA0 ROUTINE
+ 512 000046  0000  BLOCK,  0               / USED BY DTA0 ROUTINE
+ 513               
+ 514                       *140
+ 515 000140  7402  FINISH, HLT             / Normal good halt
+ 516                       JMP START       / And restart if requested
+off page                               ^
+     000141  5777  
+ 517               
+ 518                       *200
+ 519 000200  6201  START,  CDF 0
+ 520 000201  6007          CAF
+ 521 000202  7704          CLA CLL OSR     / Get drive
+ 522 000203  0377          AND (1
+ 523 000204  7012          RTR
+ 524 000205  3031          DCA DRVSEL
+ 525 000206  7704          CLA CLL OSR     / Get max field
+ 526 000207  7012          RTR
+ 527 000210  7010          RAR
+ 528 000211  0376          AND (7
+ 529 000212  7450          SNA
+ 530 000213  7402          HLT             / Must have at least 1 field for buffer
+ 531 000214  7041          CIA
+ 532 000215  3025          DCA FIELDS
+ 533 000216  1024  RDSZLP, TAD BLKFLD      / Multiply by number of fields available
+ 534 000217  2025          ISZ FIELDS
+ 535 000220  5216          JMP RDSZLP
+ 536 000221  3026          DCA RDSIZE      / NUMBER BLOCK PER READ
+ 537 000222  3027          DCA CBLOCK
+ 538 000223  3041          DCA CHKSM
+ 539 000224  3042          DCA DONEFG
+ 540               
+ 541 000225  7200  DUMPLP, CLA
+ 542 000226  1042          TAD DONEFG      / If all transfered do finish stuff
+ 543 000227  7440          SZA
+ 544 000230  5272          JMP DONE
+ 545 000231  1026          TAD RDSIZE      / Always ask for maximum number of blocks
+ 546 000232  3265          DCA ARGSZ       / Will accept less
+ 547 000233  1027          TAD CBLOCK      / The serial read routine uses these variables
+ 548 000234  3267          DCA ARGBK
+ 549               
+ 550 000235  3033          DCA LOC
+ 551 000236  1265          TAD ARGSZ
+ 552                       JMS PUN         / ASK FOR UP TO THIS MANY BLOCKS
+off page                               ^
+     000237  4775  
+ 553 000240  1265          TAD ARGSZ
+ 554 000241  7041          CIA
+ 555 000242  3035          DCA BCNT        / Our block counter
+ 556 000243  6211          CDF 10
+ 557               INBL1,  JMS INBLK       / Get a block
+off page                               ^
+     000244  4774  
+ 558 000245  5256          JMP GOTALL      / If Not last block
+ 559 000246  1265          TAD ARGSZ       / Is last block, calculate number received
+ 560 000247  1035          TAD BCNT
+ 561 000250  7450          SNA             / If no blocks transfered must be done flag
+ 562 000251  5272          JMP DONE        / Do finish processing
+ 563 000252  3265          DCA ARGSZ       / Else write data received
+ 564 000253  7001          IAC
+ 565 000254  3042          DCA DONEFG
+ 566 000255  5261          JMP WRTIT
+ 567               
+ 568 000256  2027  GOTALL, ISZ CBLOCK      / Go get next block
+ 569 000257  2035          ISZ BCNT
+ 570 000260  5244          JMP INBL1
+ 571 000261  6201  WRTIT,  CDF 0           / Got all, write them out
+ 572 000262  1031          TAD DRVSEL
+ 573                       JMS DTA0
+off page                       ^
+     000263  4773  
+ 574 000264  4010          4010            / ONLY EVEN # WORDS/BLOCK WORKS
+ 575 000265  0000  ARGSZ,  0
+ 576 000266  0000          0
+ 577 000267  0000  ARGBK,  0
+ 578 000270  5356          JMP ERRRET
+ 579 000271  5225          JMP DUMPLP      / Go get more
+ 580               
+ 581 000272  7200  DONE,   CLA             / Send a character to get checksum
+ 582 000273  6201          CDF 0
+ 583                       JMS PUN
+off page                      ^
+     000274  4775  
+ 584                       JMS GETCH
+off page                        ^
+     000275  4772  
+ 585 000276  3036          DCA TEMP
+ 586                       JMS GETCH       / Convert the 2 bytes to 12 bit word
+off page                               ^
+     000277  4772  
+ 587 000300  7006          RTL             / Shift low 4 bits to top 4
+ 588 000301  7006          RTL
+ 589 000302  7006          RTL
+ 590 000303  7006          RTL
+ 591 000304  0040          AND C7400
+ 592 000305  1036          TAD TEMP
+ 593 000306  3036          DCA TEMP
+ 594 000307  1036          TAD TEMP
+ 595 000310  1041          TAD CHKSM
+ 596 000311  7440          SZA             / Checksum received is - sum so should be 0
+ 597 000312  7402          HLT             / Give up if not, serial error
+ 598                                       / Do reread check
+ 599 000313  1265          TAD ARGSZ       / Get size of last block written for first
+ 600 000314  3331          DCA ARGSZ2      / to reread
+ 601 000315  1027          TAD CBLOCK      / And last block number
+ 602 000316  3333          DCA ARGBK2
+ 603 000317  1036          TAD TEMP        / Store checksum received in our checksum
+ 604 000320  3041          DCA CHKSM       / Should give 0 at end
+ 605 000321  7200  RDCHK,  CLA
+ 606 000322  1331          TAD ARGSZ2      / Decrease block number by number of blocks to
+ 607 000323  7041          CIA             / Read so we read starting at first block
+ 608 000324  1333          TAD ARGBK2      / Read routine can't read backward
+ 609 000325  3333          DCA ARGBK2
+ 610 000326  1031          TAD DRVSEL
+ 611                       JMS DTA0        / REREAD AND CHECK
+off page                               ^
+     000327  4773  
+ 612 000330  0010          10            
+ 613 000331  0000  ARGSZ2, 0
+ 614 000332  0000          0
+ 615 000333  0000  ARGBK2, 0
+ 616 000334  5355          JMP RDERR
+ 617 000335  1331          TAD ARGSZ2      / Checksum over number of blocks read
+ 618 000336  7041          CIA
+ 619 000337  3035          DCA BCNT
+ 620 000340  3033          DCA LOC
+ 621 000341  6211          CDF 10
+ 622               SUMIT,  JMS SUMBLK      / Sum each block
+off page                               ^
+     000342  4771  
+ 623 000343  2035          ISZ BCNT
+ 624 000344  5342          JMP SUMIT
+ 625 000345  6201          CDF 0
+ 626 000346  1026          TAD RDSIZE      / Read full blocks for rest of read
+ 627 000347  3331          DCA ARGSZ2
+ 628 000350  1333          TAD ARGBK2      / If at block 0 then we are done
+ 629 000351  7440          SZA
+ 630 000352  5321          JMP RDCHK
+ 631               
+ 632 000353  1041          TAD CHKSM       / Leave AC with checksum, should be 0
+ 633 000354  5140          JMP FINISH
+ 634               
+ 635 000355  7402  RDERR,  HLT
+ 636 000356  7402  ERRRET, HLT
+ 637               
+ 638 000371  0474          PAGE
+     000372  0524  
+     000373  0600  
+     000374  0400  
+     000375  0514  
+     000376  0007  
+     000377  0001  
+ 639 000400  0000  INBLK,  0               / Read a block of data from serial port
+ 640 000401  7200          CLA             / Read block size words
+ 641 000402  1022          TAD MWORDS
+ 642 000403  3034          DCA LEN
+ 643 000404  4324          JMS GETCH       / Get start of block flag
+ 644 000405  7041          CIA
+ 645 000406  1377          TAD (377
+ 646 000407  7450          SNA
+ 647 000410  5216          JMP IN
+ 648 000411  1376          TAD (-1         / Is it end of data flag?
+ 649 000412  7440          SZA
+ 650 000413  7402          HLT             / Not it, give up, we lost sync on serial data
+ 651 000414  2200          ISZ INBLK       / Return end of data state
+ 652 000415  5600          JMP I INBLK
+ 653               IN,
+ 654 000416  4324          JMS GETCH       / Get 3 bytes and convert to 2 words
+ 655 000417  3433          DCA I LOC
+ 656 000420  4324          JMS GETCH
+ 657 000421  3036          DCA TEMP
+ 658 000422  1036          TAD TEMP
+ 659 000423  7006          RTL             / Shift low 4 bits to top 4
+ 660 000424  7006          RTL
+ 661 000425  7006          RTL
+ 662 000426  7006          RTL
+ 663 000427  0040          AND C7400
+ 664 000430  1433          TAD I LOC
+ 665 000431  3433          DCA I LOC
+ 666 000432  1433          TAD I LOC
+ 667 000433  1041          TAD CHKSM       /Keep checksum of all words received
+ 668 000434  3041          DCA CHKSM
+ 669 000435  2033          ISZ LOC
+ 670 000436  5243          JMP STFLD3+1    /NOT AT END OF FIELD (DJG)
+ 671 000437  6214          RDF             /At end, inc field
+ 672 000440  1375          TAD (6211
+ 673 000441  3242          DCA STFLD3
+ 674 000442  7000  STFLD3, NOP
+ 675 000443  2034          ISZ LEN         /END IF BUFFER?
+ 676 000444  7410          SKP             /NO
+ 677 000445  5600          JMP I INBLK     /YES, DONE
+ 678 000446  1036          TAD TEMP
+ 679 000447  7012          RTR
+ 680 000450  7012          RTR
+ 681 000451  0037          AND C17
+ 682 000452  3036          DCA TEMP
+ 683 000453  4324          JMS GETCH
+ 684 000454  7006          RTL
+ 685 000455  7006          RTL
+ 686 000456  1036          TAD TEMP
+ 687 000457  3433          DCA I LOC
+ 688 000460  1433          TAD I LOC
+ 689 000461  1041          TAD CHKSM
+ 690 000462  3041          DCA CHKSM
+ 691 000463  2033          ISZ LOC
+ 692 000464  5271          JMP STFLD4+1    /Not at end of field
+ 693 000465  6214          RDF             /At end, inc field
+ 694 000466  1375          TAD (6211
+ 695 000467  3270          DCA STFLD4
+ 696 000470  7000  STFLD4, NOP
+ 697 000471  2034          ISZ LEN
+ 698 000472  5216          JMP IN
+ 699 000473  5600          JMP I INBLK
+ 700               
+ 701 000474  0000  SUMBLK, 0               / Sum a block of memory
+ 702 000475  7200          CLA
+ 703 000476  1022          TAD MWORDS
+ 704 000477  3034          DCA LEN
+ 705 000500  1433  SUMLP,  TAD I LOC
+ 706 000501  1041          TAD CHKSM       / Keep checksum of all words
+ 707 000502  3041          DCA CHKSM
+ 708 000503  2033          ISZ LOC
+ 709 000504  5311          JMP STFLD5+1    /Not at end of field
+ 710 000505  6214          RDF             /At end, inc field
+ 711 000506  1375          TAD (6211
+ 712 000507  3310          DCA STFLD5
+ 713 000510  7000  STFLD5, NOP
+ 714 000511  2034          ISZ LEN
+ 715 000512  5300          JMP SUMLP
+ 716 000513  5674          JMP I SUMBLK
+ 717               
+ 718 000514  0000  PUN,    0               / Send a character
+ 719               /       PLS             / Punch for testing with emulator
+ 720 000515  6046          TLS2            / Send out console
+ 721 000516  7300          CLA CLL
+ 722 000517  1027          TAD CBLOCK
+ 723               /       PSF
+ 724 000520  6041          TSF2            /Wait until character sent
+ 725 000521  5320          JMP .-1
+ 726 000522  7200          CLA
+ 727 000523  5714          JMP I PUN
+ 728               
+ 729 000524  0000  GETCH,  0               / Get a character
+ 730 000525  7300          CLA CLL
+ 731 000526  1027          TAD CBLOCK
+ 732               /       RSF
+ 733 000527  6031          KSF2            / Have character waiting
+ 734 000530  5327          JMP .-1         / No, try again
+ 735               /       RRB RFC
+ 736 000531  6036          KRB2            / Get character
+ 737 000532  5724          JMP I GETCH
+ 738 000575  6211          $
+     000576  7777  
+     000577  0377  
+     000177  0200  
+
+AFIELD  0000 unreferenced
+ARGBK   0267
+ARGBK2  0333
+ARGSZ   0265
+ARGSZ2  0331
+BCNT    0035
+BLKFLD  0024
+BLOCK   0046
+BUFF    0756 unreferenced
+C100    0764
+C1000   0766
+C1400   1170
+C17     0037
+C3      0777
+C300    1116
+C374    0045
+C6201   0754
+C6203   0753
+C70     0776
+C7400   0040
+C7600   1027 unreferenced
+CBLOCK  0027
+CFATAL  1164
+CHKSM   0041
+CHKSUM  1171
+CLKSUM  0030 unreferenced
+CM200   0703 unreferenced
+CM32    1167
+CRDQUD  0755
+CRWCOM  1165
+CXFUN   0760
+CXWCT   0763
+DONE    0272
+DONEFG  0042
+DRIVE   0010
+DRVSEL  0031
+DTA0    0600
+DUMPLP  0225
+ENDZ    0731
+EQUFUN  1133
+EQUTMP  1174
+ERRRET  0356
+EXIT    0744
+FATAL   0746
+FIELDS  0025
+FINISH  0140
+FOUND   0772
+GETCH   0524
+GETCHK  1150
+GO      0667
+GOTALL  0256
+IN      0416
+INAD    0030
+INBL1   0244
+INBLK   0400
+K77     1061
+K7700   1017
+KCC2    6032 unreferenced
+KCF2    6030 unreferenced
+KIE2    6035 unreferenced
+KRB2    6036
+KRS2    6034 unreferenced
+KSF2    6031
+LEAVE   0751
+LEN     0034
+LOC     0033
+M110    0727
+M20     0761
+MFIELD  0000
+MWORDS  0022
+NUMBLK  0021 unreferenced
+OLDBUF  0043
+OLDFLD  0736
+ORIGIN  0600
+OUTAD   0040
+PGCT    0762
+PUN     0514
+RDCHK   0321
+RDERR   0355
+RDLP    1070
+RDLP2   1111
+RDQUAD  1126
+RDSIZE  0026
+RDSZLP  0216
+READ    1062
+READST  0032 unreferenced
+RETRY   0020
+REVGRD  1005
+RWCOM   0657
+SDLC    6774
+SDLD    6775
+SDRC    6776
+SDRD    6777
+SDSQ    6773
+SDSS    6771
+SDST    6772
+SRCH    0704
+START   0200
+STFLD1  1046
+STFLD2  1100
+STFLD3  0442
+STFLD4  0470
+STFLD5  0510
+SUMBLK  0474
+SUMIT   0342
+SUMLP   0500
+TCF2    6042 unreferenced
+TEMP    0036
+TFL2    6040 unreferenced
+TLS2    6046
+TPC2    6044 unreferenced
+TRY3    0735
+TRYCNT  0765
+TSF2    6041
+TSK2    6045 unreferenced
+UNIT    0757
+WCOUNT  0023
+WDSBLK  0201
+WORDS   1172
+WRITE   1021 unreferenced
+WRLP    1037
+WRQUAD  1117
+WRTIT   0261
+XBUFF   0044
+XFIELD  0655
+XFUNCT  1166
+XUNIT   1133
+XWCT    1173
