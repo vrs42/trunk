@@ -1,0 +1,190 @@
+#!/usr/bin/perl
+
+#
+# BUGBUG: Known bugs:
+# 1) Implicit symbols in a device don't get enumerated properly.
+#    This is why the power pins don't show for the TTL.  Hopefully
+#    all logic will be explicit in the schematics.
+# 2) Pads which would be marked ***unused*** in OUTPUT PINLIST
+#    are omitted.
+
+#
+# Read a schematic and "export" the partlist and pinlist.
+# Note that we don't try to properly parse the XML.
+#
+# Extract the information in a format similar to the Eable
+# EXPORT PARTLIST and EXPORT PINLIST commands.
+#
+sub mycmp {
+  $sa = $a; $sb = $b; # Copies to whittle on.
+  while ($sa cmp "") {
+    if ($sa =~ s/^(\d+)//) {
+      $da = $1;
+      if ($sb =~ s/^(\d+)//) {
+        return $da <=> $1 if $da <=> $1;
+        next; # Both numeric and equal
+      }
+      return $da cmp $sa if $da cmp $sa;
+    }
+    # Not numbers, check next character.
+    undef $da, $db;
+    $da = $1 if $sa =~ s/^(.)//;
+    $db = $1 if $sb =~ s/^(.)//;
+    return $da cmp $db if $da cmp $db;
+  }
+}
+
+$status = 0;
+foreach $if (@ARGV) {
+  if (! -r $if) {
+    warn "$if: $!\n";
+    $status = 2;
+    next;
+  }
+  #
+  # Make the output directory, if it is missing.
+  $of = $if;
+  $of =~ s/[.]sch$//i;
+  $of =~ s:.*/::; # basename
+  mkdir $of unless -d $of;
+  #
+  # Check the ...pins.txt and ...prts.txt timestamps.
+  $pins = "$of/${of}pins.txt";
+  $prts = "$of/${of}prts.txt";
+  if ((-r $pins)		# ...pins.txt exists
+  &&  (-M $pins < -M $if)	# and is newer
+  &&  (-r $prts)		# ...prts.txt exists
+  &&  (-M $prts < -M $if)) {	# and is also newer
+    next; # Output files are up to date!
+  }
+  #
+  # One or more of the output files needs to be remade.
+  # First, read the schematic and figure out what is what.
+  warn "remaking $pins, $prts\n";
+  open(INPUT, "$if") || die "$if: $!";
+  $sheet = 0;
+  # Undef the databases here to allow iteration to succeed.
+  undef %haspad, %direction, %symbol, %package, %pad;
+  undef %part, %sheet, %partpad;
+  while (<INPUT>) {
+    $sheet++ if /<sheet>/;
+    $library = $1 if m:<library\s+name="([^"]*)">:;
+    $library = undef if m:</library>:;
+    #
+    # Within a library, packages are defined before use.
+    # Make note of packages with pads or smds.
+    $package = $1 if /<package\s+name="([^"]*)"/;
+    $haspad{"$library;$package"} = 1 if /<(pad|smd)\s/;
+    #
+    # Within a library, symbols are defined before use.
+    # Make note of pins because we want to look up their
+    # direction later.
+    $symbol = $1 if /<symbol\s+name="([^"]*)"/;
+    if (/<pin\s+name="([^"]*)"/) {
+      $pin = $1;
+      $dir = "io"; # default
+      $dir = $1 if /direction="([^"]*)"/;
+      $direction{"$library;$symbol;$pin"} = $dir;
+    }
+    #
+    # Devicessets group <gates> and <devices> within a <library>.
+    # First, remember the symbols for the gates.
+    $set = $1 if /<deviceset\s+name="([^"]*)"/;
+    if (/<gate\s+name="([^"]*)"\s+symbol="([^"]*)"/) {
+      ($name, $symbol) = ($1, $2);
+      $symbol{"$library;$set;$name"} = $symbol;
+    }
+    #
+    # Devices also occur inside <devicesets> within a <library>.
+    # They make a reference to a package, and if the package
+    # has pads, we care about it.
+    if (/<device\s+name="([^"]*)"\s+package="([^"]*)">/) {
+      ($device, $package) = ($1, $2);
+      next unless defined $haspad{"$library;$package"};
+#warn "remembering <device> for ($device:$package)\n";
+      $package{"$library;$device"} = $package;
+      next;
+    }
+    # Also make note of <connect>, as it associates pads with pins
+    # within the device.
+    if (m:<connect\s+gate="([^"]*)"\s+pin="([^"]*)"\s+pad="([^"]*)"/>:) {
+      ($gate, $pin, $pad) = ($1, $2, $3);
+      $pad{"$library;$device;$gate;$pin"} = $pad;
+    }
+    #
+    # Once the libraries have been described, the parts used
+    # can be identified.
+    if (/<part /) {
+      # Technology and value may not be present.
+      die "unrecognized: $_"
+        unless m:<part\s+name="([^"]*)"\s+library="([^"]*)"\s+deviceset="([^"]*)"\s+device="([^"]*)":;
+      ($part, $library, $set, $device) = ($1, $2, $3, $4);
+      $tech = ""; # For implied technology
+      $tech = $1 if m:\s+technology="([^"]*)":;
+#warn "tech is '$tech'\n";
+#     $set =~ s/[*]/$tech/;
+      $value = ""; # For implied values
+      $value = $1 if m:\s+value="([^"]*)"\s*/>:;
+      next unless defined $package{"$library;$device"};
+      $package = $package{"$library;$device"};
+      $part{$part} = "$value;$set;$device;$package;$library";
+    }
+    #
+    # Instance updates $sheet
+    if (/<instance\s+part="([^"]*)"\s+gate="([^"]*)"/) {
+      $sheet{$1} = $sheet unless defined $sheet{$1};
+    }
+    #
+    # The netlist itself is a <net name= class= > followed by
+    # a number of <pinref part= gate= pin= />.
+    # This requires us to look up the corresponding pad.  We are also
+    # expected to look up the pin direction.
+    $net = $1 if /<net\s+name="([^"]*)"\s+class="([^"]*)"/;
+    if (/<pinref\s+part="([^"]*)"\s+gate="([^"]*)"\s+pin="([^"]*)"/) {
+      # $net is known from context above.
+      ($part, $gate, $pin) = ($1, $2, $3);
+      # Don't sweat parts without packages.
+      next unless defined $part{$part};
+      # At last we have a reference to a signal!
+      # Look up the relevant stuff.
+      ($value, $set, $device, $package, $library) = split(/;/, $part{$part});
+      $symbol = $symbol{"$library;$set;$gate"};
+      $dir = $direction{"$library;$symbol;$pin"};
+      $pad = $pad{"$library;$device;$gate;$pin"};
+      # Add the expanded reference to the pin list for later sorted output.
+      $partpad{"$part;$pad"} = "$pin;$dir;$net";
+    }
+  }
+  #
+  # Open and write the sorted parts list.
+  open(PRT, ">$prts") || die "$prts: $!";
+  print PRT "Exported from $if\n\n";
+  print PRT "Part     Value          Device          Package      Library  Sheet\n\n";
+  foreach $part (sort keys %part) {
+    ($value, $set, $device, $package, $library) = split(/;/, $part{$part});
+$set =~ s/[*]//;
+    printf PRT "%-8s %-14s %-15s %-12s %-8s %d\n",
+            $part, $value, "$set$device", $package, $library, $sheet;
+  }
+  #
+  # Open and write the sorted pins list.
+  open(PIN, ">$pins") || die "$pins: $!";
+  print PIN "Exported from $if\n\n";
+  print PIN "Part     Pad      Pin        Dir      Net\n";
+  $opart = "";
+  foreach $partpad (sort mycmp keys %partpad) {
+    ($part, $pad) = split(/;/, $partpad);
+    next unless defined $part{$part};
+    if ($part eq $opart) {
+      $part = "";
+    } else {
+      print PIN "\n";
+      $opart = $part;
+    }
+    ($pin, $dir, $net) = split(/;/, $partpad{$partpad});
+    printf PIN "%-8s %-8s %-10s %-8s %-s\n",
+            $part, $pad, $pin, $dir, $net;
+  }
+}
+
+exit $status;
