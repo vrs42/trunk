@@ -1,16 +1,27 @@
-~/Verilator/bin/topld.pl M709X
-info: cpol_use ne cpol_use15_5axial
-info: cpol_use ne cpol_use15_5axial
-info: 1n4154 ne diode_sod61b
-warning: making d1/1n4154/ a connector
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7410n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: double ne e15_5
-warning: making u$2/double/ a connector
-warning: non-bypass capacitor deleted: c26
-warning: non-bypass capacitor deleted: c27
-warning: non-pullup resistor deleted: r3
+~/Verilog/bin/smaller.pl M709X.PLD >vv || (rm vv; exit 1)
+19 signals were removed:
+  n_t_26x: !n_t_5x
+  n_t_38x: !n_t_8x
+  n_t_39x: !n_t_6x
+  n_t_40x: !n_t_39x
+  n_t_41x: !n_t_38x
+  n_t_42x: !n_t_37x
+  n_t_43x: !n_t_36x
+  n_t_44x: !n_t_35x
+  n_t_45x: !n_t_34x
+  n_t_46x: !n_t_33x
+  n_t_47x: !n_t_32x
+  n_t_48x: !n_t_31x
+  n_t_49x: !n_t_30x
+  n_t_50x: !n_t_29x
+  n_t_51x: !n_t_28x
+  n_t_53x: !n_t_10x
+  n_t_58x: !gate
+  n_t_7x: !n_t_4x
+  n_t_86x: !transfer
+~/Verilog/bin/smaller.pl vv >M709XX.PLD || (rm M709XX.PLD; exit 1)
+1 signals were removed:
+  n_t_38x: !n_t_8x
+~/Verilog/bin/cupl2v.pl M709XX.PLD >vv || (rm vv; exit 1)
+mv vv M709X.v
+rm M709XX.PLD

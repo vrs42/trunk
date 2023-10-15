@@ -3,6 +3,19 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c8: c_us 
+// c9: c_us 
+// c10: c_us 
+// c11: c_us 
+// c12: c_us 
+// c14: c_us 
+// e2: sn7440 
 module m453x (n_t_13x, n_t_6x, n_t_7x, tp_l, a1, aa1, ab1, ab2, ac1, ad1, ad2, adder3, adder4, ae1, ae2, ae2w, af1, af1w, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av1w, av2, av2w, ba1, bb1, bb2, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, h2, j1, j2, k2, l1, l2, m1, m2, mb3_h, n1, n2, n3v3, n_t_11x, n_t_1x, n_t_28x, n_t_2x, n_t_3x, n_t_5x, n_t_60x, n_t_66x, n_t_8x, p1, p2, r1, r2, s1, tck, tdo, u1, v1, x2_rate, x8_rate_l);
 output n_t_13x;
 output n_t_6x;
@@ -117,47 +130,60 @@ output x8_rate_l;
 reg k2_m;
 reg m2_m;
 
-wire ac3_h;
-wire adder5;
-wire aj1w;
-wire al2w;
-wire am1w;
-wire am2w;
-wire an1w;
-wire ap1w;
-wire ar2w;
-wire at2w;
-wire au2w;
-wire b2;
-wire bd115200;
-wire c3;
-wire e2rc;
-wire ma2_h;
-wire ma2_l;
-wire ma3_h;
-wire ma3_l;
-wire mb2_h;
-wire mb2_l;
-wire mb3_l;
-wire n_t_10x;
-wire n_t_20x;
-wire n_t_25x;
 wire x8_rate;
-// code nodes 
-// equations 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c8: c_us 
-// c9: c_us 
-// c10: c_us 
-// c11: c_us 
-// c12: c_us 
-// c14: c_us 
-// e2: sn7440 
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
 assign j2 = ~h2;
 // e3: sn7474 
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
 always @(h2, n3v3, n3v3, n2)
   if (~n3v3) begin
     m2_m <= 1'b0;
@@ -178,7 +204,137 @@ always @(h2, n3v3, n3v3, m2_m)
   if (h2) begin
     m2 <= m2_m;
   end
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
 assign n2 = ~m2;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
 always @(m2, n3v3, n3v3, l2)
   if (~(~n3v3)) begin
     k2_m <= 1'b0;
@@ -199,9 +355,191 @@ always @(m2, n3v3, n3v3, k2_m)
   if (~m2) begin
     k2 <= k2_m;
   end
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
 assign l2 = k2;
 // e4: sn7400 
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
 assign n_t_2x = ~(n_t_25x & x2_rate);
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
+wire x8_rate;
 assign n_t_1x = ~(p2 & n_t_2x);
 // r1: r_us_ 
 // r2: r_us_ 

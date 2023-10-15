@@ -1,99 +1,43 @@
-~/Verilator/bin/topld.pl M7106B
-info: 4700pf ne c_us8
-warning: making c26/4700pf/ a connector
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: .022uf ne c_us8
-warning: making c33/.022uf/ a connector
-info: .022uf ne c_us8
-warning: making c36/.022uf/ a connector
-info: 4700pf ne c_us8
-warning: making c37/4700pf/ a connector
-info: 4700pf ne c_us8
-warning: making c38/4700pf/ a connector
-info: 2.88mhz ne crystalhc49tl_h
-warning: making cr1/2.88mhz/ a connector
-info: d664 ne diode_do35_10
-warning: making d3/d664/ a connector
-info: edge_top ne 3006y
-warning: making e/edge_top/ a connector
-info: 74161n ne dil14
-info: 74h10n ne 7410n
-info: 74h04n ne 7404n
-info: 7400n ne dil16
-info: 7402n ne dil16
-info: 7400n ne dil16
-info: 7400n ne dil16
-info: 74161n ne dil14
-info: 7402n ne dil16
-info: 7402n ne dil16
-info: 7400n ne dil16
-info: 7452 ne 3006y
-warning: making e28/sn7452/ a connector
-info: 7402n ne dil16
-info: 74161n ne dil14
-info: 7402n ne dil16
-info: 74155n ne dil16
-info: 7400n ne dil16
-info: 74123n ne dil16
-warning: making e38/sn74123/ a connector
-info: 74161n ne dil14
-info: 7402n ne dil16
-info: sp380n ne dil14
-info: 74123n ne dil16
-warning: making e43/sn74123/ a connector
-info: ds75452n ne dil14
-info: 7400n ne dil16
-info: 7485n ne dil16
-info: ds75452n ne dil14
-info: ds75452n ne dil14
-info: 74161n ne dil14
-info: ds75452n ne dil14
-info: sp380n ne dil14
-info: sp380n ne dil14
-info: sp380n ne dil14
-info: sp380n ne dil14
-info: 74161n ne dil14
-info: 74h04n ne 7404n
-info: 7400n ne dil16
-info: edge_top ne 3006y
-warning: making f/edge_top/ a connector
-info: dec40pinsh ne dec40pinh
-warning: making j1/dec40pinsh/ a connector
-info: dec40pinsh ne dec40pinh
-warning: making j2/dec40pinsh/ a connector
-info: quad ne 3006y
-warning: making omnibus/quad/ a connector
-info: 10k ne 275p
-warning: making r12/10k/ a connector
-info: 10k ne 275p
-warning: making r4/10k/ a connector
-info: pad_0420 ne 0420
-warning: making tp1/pad_0420/ a connector
-info: pad_0420 ne 0420
-warning: making tp2/pad_0420/ a connector
-info: pad_0420 ne 0420
-warning: making tp3/pad_0420/ a connector
-warning: non-bypass capacitor deleted: c30
-warning: non-bypass capacitor deleted: c31
-warning: non-bypass capacitor deleted: c32
-warning: non-bypass capacitor deleted: c34
-warning: non-bypass capacitor deleted: c35
-warning: non-bypass capacitor deleted: c39
-warning: non-bypass capacitor deleted: c40
-unexpected OC output: wrt_clk_data at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2947.
-unexpected OC output: strobe at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 3008.
-unexpected OC output: read at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 3024.
-unexpected OC output: write at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 3039.
-warning: non-pullup resistor deleted: r1
-warning: non-pullup resistor deleted: r3
-warning: non-pullup resistor deleted: r5
-warning: non-pullup resistor deleted: r6
-warning: non-pullup resistor deleted: r7
-warning: non-pullup resistor deleted: r13
-warning: non-pullup resistor deleted: r14
-warning: non-pullup resistor deleted: r15
-warning: non-pullup resistor deleted: r17
-warning: non-pullup resistor deleted: r18
-warning: non-pullup resistor deleted: r55
+~/Verilog/bin/smaller.pl M7106B.PLD >vv || (rm vv; exit 1)
+34 signals were removed:
+  acknowledge: !dsk_acknowledge_l
+  b_idle: !idle_l
+  bdata3: !go
+  brk_rq: !wrt_cmd
+  check_header_cmd_l: !strobe
+  clr_drive_cmd: !clr_drive_cmd_l
+  clr_states: !n6rk3_ok
+  drive1_l: !clr_cntrs
+  dsk_sec2: !dsk_sec2_l
+  header_a: !header_c
+  n12th_carry: !last_word_pl_l
+  n16th_bit: !last_word_pl
+  n_t_17x: !clr_all
+  n_t_26x: !n_t_20x
+  n_t_2x: !go_l
+  n_t_30x: !bdata6
+  n_t_39x: !n_t_4x
+  n_t_40x: !wrt_clk_l
+  n_t_56x: !read_clk
+  n_t_59x: !rd_clk1_l
+  n_t_5x: !inc_cntrs_l
+  n_t_66x: !n_t_64x
+  n_t_6x: !crc_data
+  n_t_81x: !data5_l
+  n_t_82x: !dsk_sec8_l
+  n_t_83x: !dsk_sec4_l
+  n_t_84x: !dsk_sec1_l
+  not_chk_header_cmd: !header_d
+  rd_brk_l: !wrt_brk_l
+  rd_clk2_l: !rd_clk1_l
+  read_data_in_l: !wrt_lock_out_l
+  set_sector_seek_l: 'b'1
+  wrt_lock_out: !nbr
+  wt_buff_data_l: !data_enable
+~/Verilog/bin/smaller.pl vv >M7106BX.PLD || (rm M7106BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M7106BX.PLD >vv || (rm vv; exit 1)
+data_enable.j at /home/vrs/Verilog/bin/cupl2v.pl line 272, <INPUT> line 1793.
+../Makefile:29: recipe for target 'M7106B.v' failed
+make: *** [M7106B.v] Error 1
+rm M7106BX.PLD

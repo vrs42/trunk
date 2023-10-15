@@ -3,6 +3,15 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// e1: sn7410 
 module m651a (a1, aa1, ab1, ac1, ad1, ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, n15v, n_t_10x, n_t_11x, n_t_12x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_28x, n_t_29x, n_t_2x, n_t_33x, n_t_34x, n_t_41x, n_t_42x, n_t_4x, n_t_58x, n_t_60x, n_t_62x, n_t_66x, n_t_7x, n_t_9x);
 output a1;
 output aa1;
@@ -101,32 +110,53 @@ output n_t_7x;
 input n_t_9x;
 
 
-wire ab2;
-wire adder3;
-wire adder4;
-wire ae2w;
-wire af1w;
-wire ak2;
-wire av1w;
-wire av2w;
-wire bb2;
-wire erws_l;
-wire h1;
-wire j1;
-wire mb3_h;
-wire tck;
 wire tdo;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// e1: sn7410 
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_4x = ~(n_t_14x & n_t_1x & n_t_15x);
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_24x = ~(n_t_21x & n_t_23x & n_t_22x);
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_12x = ~(n_t_9x & n_t_11x & n_t_10x);
 // r1: r_us_ 
 // r2: r_us_ 

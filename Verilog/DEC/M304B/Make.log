@@ -1,63 +1,7 @@
-~/Verilator/bin/topld.pl M304B
-info: 1n645 ne 1n4148do35_10
-warning: making d1/1n645/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d10/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d11/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d12/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d13/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d14/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d15/1n3606/ a connector
-info: 1n645 ne 1n4148do35_10
-warning: making d16/1n645/ a connector
-info: 1n645 ne 1n4148do35_10
-warning: making d2/1n645/ a connector
-info: 1n645 ne 1n4148do35_10
-warning: making d3/1n645/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d4/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d5/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d6/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d7/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d8/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d9/1n3606/ a connector
-info: 7440n ne 7420n
-info: 7400n ne dil14
-info: 7440n ne 7420n
-info: 7402n ne dil14
-info: 7440n ne 7420n
-info: 7440n ne 7420n
-info: 7400n ne dil14
-info: 2n3009 ne _npn_to39_ebc
-warning: making q1/2n3009/ a connector
-info: 2n3009 ne _npn_to39_ebc
-warning: making q2/2n3009/ a connector
-info: 2n3009 ne _npn_to39_ebc
-warning: making q3/2n3009/ a connector
-info: 2n3009 ne _npn_to39_ebc
-warning: making q4/2n3009/ a connector
-info: single ne edge_con2
-warning: making u$1/single/ a connector
-warning: non-bypass capacitor deleted: c8
-warning: non-bypass capacitor deleted: c9
-warning: non-bypass capacitor deleted: c10
-warning: non-bypass capacitor deleted: c11
-warning: non-bypass capacitor deleted: c12
-warning: non-bypass capacitor deleted: c13
-warning: non-bypass capacitor deleted: c14
-warning: non-bypass capacitor deleted: c15
-warning: non-bypass capacitor deleted: c16
-warning: non-pullup resistor deleted: r5
-warning: non-pullup resistor deleted: r9
-warning: non-pullup resistor deleted: r13
-warning: non-pullup resistor deleted: r17
+~/Verilog/bin/smaller.pl M304B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M304BX.PLD || (rm M304BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M304BX.PLD >vv || (rm vv; exit 1)
+mv vv M304B.v
+rm M304BX.PLD

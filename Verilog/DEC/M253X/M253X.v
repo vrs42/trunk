@@ -3,6 +3,15 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: cpol_use 
+// e4: sn74h00 
 module m253x (bm2, bu2, aa1, ab1, ab2, ac1, ac3_h, ad1, ad2, adder3, adder4, adder5, ae1, ae2, ae2w, af1, af1w, af2, ah1, ah2, aj1, aj1w, aj2, ak1, ak2, al1, al2, al2w, am1, am1w, am2, am2w, an1, an1w, an2, ap1, ap1w, ap2, ar1, ar2, ar2w, as1, as2, at2, at2w, au1, au2, au2w, av1, av1w, av2, av2w, b2, ba1, bb2, bc1, bd2, be2, bf1, bf2, bh1, bh2, bj1, bl1, bl2, bv1, bv2, c0_l, c1_l, c3, cs, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, mb2_h, mb2_l, mb3_h, mb3_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, skip_l, tck, tdo, tp3);
 output bm2;
 output bu2;
@@ -140,19 +149,10 @@ output tdo;
 output tp3;
 
 
-wire ma2_h;
-wire ma2_l;
-wire ma3_h;
 wire ma3_l;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: cpol_use 
-// e4: sn74h00 
+wire ma3_l;
+wire ma3_l;
+wire ma3_l;
 assign n_t_1x = ~cs;
 // r1: r_us_ 
 // r2: r_us_ 

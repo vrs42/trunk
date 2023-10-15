@@ -3,6 +3,23 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: c_us 
+// c8: c_us 
+// c9: c_us 
+// c10: c_us 
+// c11: c_us 
+// c12: cpol_use 
+// c13: c_us 
+// c14: c_us 
+// e1: sn7482 
 module m164x (c1_l, n_t_80x, n_t_10x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_26x, n_t_2x, n_t_30x, n_t_31x, n_t_33x, n_t_34x, n_t_37x, n_t_39x, n_t_3x, n_t_40x, n_t_49x, n_t_4x, n_t_50x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, r2);
 output c1_l;
 output n_t_80x;
@@ -39,118 +56,584 @@ output n_t_9x;
 output r2;
 
 
-wire a0;
-wire a7;
-wire as2;
-wire h1;
-wire l2;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
-wire n_t_14x;
-wire n_t_25x;
-wire n_t_27x;
-wire n_t_28x;
-wire n_t_29x;
-wire n_t_35x;
-wire n_t_36x;
-wire n_t_43x;
-wire n_t_44x;
-wire n_t_45x;
-wire n_t_46x;
-wire n_t_47x;
 wire n_t_69x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// c7: c_us 
-// c8: c_us 
-// c9: c_us 
-// c10: c_us 
-// c11: c_us 
-// c12: cpol_use 
-// c13: c_us 
-// c14: c_us 
-// e1: sn7482 
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_14x = n_t_19x
                   ^ n_t_5x
                   ^ n_t_6x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign gdollar_0 = n_t_19x & n_t_5x
                     | n_t_5x & n_t_6x
                     | n_t_19x & n_t_6x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_12x = n_t_7x
                   ^ n_t_8x
                   ^ gdollar_0;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_15x = gdollar_0 & n_t_7x
                   | n_t_7x & n_t_8x
                   | n_t_8x & gdollar_0;
 // e2: sn7482 
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_13x = n_t_20x
                   ^ n_t_6x
                   ^ n_t_5x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign gdollar_1 = n_t_20x & n_t_6x
                     | n_t_6x & n_t_5x
                     | n_t_20x & n_t_5x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_11x = n_t_7x
                   ^ n_t_8x
                   ^ gdollar_1;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_16x = gdollar_1 & n_t_7x
                   | n_t_7x & n_t_8x
                   | n_t_8x & gdollar_1;
 // e3: sn7450 
 // e4: sn7450 
 // e5: sn7482 
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_30x = n_t_47x
                   ^ n_t_21x
                   ^ n_t_22x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign gdollar_2 = n_t_47x & n_t_21x
                     | n_t_21x & n_t_22x
                     | n_t_47x & n_t_22x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_28x = n_t_23x
                   ^ n_t_24x
                   ^ gdollar_2;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_19x = gdollar_2 & n_t_23x
                   | n_t_23x & n_t_24x
                   | n_t_24x & gdollar_2;
 // e6: sn7482 
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_29x = n_t_36x
                   ^ n_t_22x
                   ^ n_t_21x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign gdollar_3 = n_t_36x & n_t_22x
                     | n_t_22x & n_t_21x
                     | n_t_36x & n_t_21x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_27x = n_t_23x
                   ^ n_t_24x
                   ^ gdollar_3;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_20x = gdollar_3 & n_t_23x
                   | n_t_23x & n_t_24x
                   | n_t_24x & gdollar_3;
 // e7: sn7450 
 // e9: sn7482 
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_46x = n_t_25x
                   ^ n_t_37x
                   ^ n_t_26x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign gdollar_4 = n_t_25x & n_t_37x
                     | n_t_37x & n_t_26x
                     | n_t_25x & n_t_26x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_44x = n_t_39x
                   ^ n_t_40x
                   ^ gdollar_4;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_47x = gdollar_4 & n_t_39x
                   | n_t_39x & n_t_40x
                   | n_t_40x & gdollar_4;
 // e10: sn7482 
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_45x = n_t_26x
                   ^ n_t_37x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign gdollar_5 = n_t_26x & n_t_37x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_43x = n_t_39x
                   ^ n_t_40x
                   ^ gdollar_5;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
+wire n_t_69x;
 assign n_t_36x = gdollar_5 & n_t_39x
                   | n_t_39x & n_t_40x
                   | n_t_40x & gdollar_5;

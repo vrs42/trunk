@@ -3,6 +3,42 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: cpol_use 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: c_us 
+// c8: c_us 
+// c9: c_us 
+// c10: c_us 
+// c11: cpol_use 
+// c12: cpol_use 
+// c13: cpol_use 
+// c14: c_us 
+// c15: c_us 
+// c16: c_us 
+// c17: c_us 
+// c18: c_us 
+// c19: cpol_use 
+// c20: c_us 
+// c21: c_us 
+// c22: c_us 
+// c23: c_us 
+// c24: c_us 
+// c25: c_us 
+// c26: cpol_use 
+// c27: c_us 
+// c28: c_us 
+// c29: c_us 
+// c30: c_us 
+// c31: c_us 
+// c32: c_us 
+// c33: cpol_use 
+// e1: sn7400 
 module m8320d (a_intr_done_h, a_master_clear_h, a_master_l, a_request_1_h, a_request_2_h, a_sack_enbl_l, a_start_intr_l, b2, b_intr_done_h, b_master_clear_h, b_master_l, b_request_1_h, b_request_2_h, b_start_intr_l, brk_cycle_l, brk_d_ctl_l, brk_in_prog_l, bus_a_bg_in_h, bus_a_bg_out_h, bus_a_br_l, bus_b_bg_in_h, bus_b_bg_out_h, bus_b_br_l, bus_bsy_l, bus_d02_l, bus_d03_l, bus_d04_l, bus_d05_l, bus_d06_l, bus_d07_l, bus_d08_l, bus_intr_l, bus_npr_l, bus_sack_l, bus_ssyn_l, bus_strobe_l, c0_l, c1_l, c2_l, cpma_disabl_l, d_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e_l, ema0_l, ema1_l, ema2_l, f_l, f_set_l, ind1_l, ind2_l, inhibit, initialize, int_in_prog, int_req_l, int_strobe, int_strobe_l, internal_io_l, ir0_l, ir1_l, ir2_l, key_ctl_l, la_enable_l, link_data_l, link_l, link_load_l, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, mams_l_ctl_l, md0_l, md10_l, md11_l, md1_l, md2_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, mem_dir_in_l, mem_start_l, ms_ir_disabl_l, n15v, n_t_16x, n_t_17x, n_t_1x, n_t_24x, n_t_2x, n_t_30x, n_t_31x, n_t_35x, not_lst_xfr_l, overflow_l, pause_l, power_ok, pulse_la, res1, res2, return, rom_addr_l, run_l, skip_l, source, stop_l, strobe, sw_l, tp1, tp2, tp2_l, tp3, tp4, tp4_l, ts1_l, ts2_l, ts3_l, ts4_l, user_mode_l, vector_bit_02_h, write);
 output a_intr_done_h;
 output a_master_clear_h;
@@ -147,90 +183,146 @@ output vector_bit_02_h;
 output write;
 
 
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ad1;
-wire ad2;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire am1;
-wire am2;
-wire an1;
-wire an2;
-wire ap1;
-wire ap2;
-wire ar1;
-wire ar2;
-wire as1;
-wire as2;
-wire at2;
-wire au1;
-wire au2;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bh1;
-wire data_f;
-wire n_t_32x;
-wire tck;
-wire tdo;
 wire ts4fset!ms_dis;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: cpol_use 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// c7: c_us 
-// c8: c_us 
-// c9: c_us 
-// c10: c_us 
-// c11: cpol_use 
-// c12: cpol_use 
-// c13: cpol_use 
-// c14: c_us 
-// c15: c_us 
-// c16: c_us 
-// c17: c_us 
-// c18: c_us 
-// c19: cpol_use 
-// c20: c_us 
-// c21: c_us 
-// c22: c_us 
-// c23: c_us 
-// c24: c_us 
-// c25: c_us 
-// c26: cpol_use 
-// c27: c_us 
-// c28: c_us 
-// c29: c_us 
-// c30: c_us 
-// c31: c_us 
-// c32: c_us 
-// c33: cpol_use 
-// e1: sn7400 
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
 assign tp4_l = ~tp4;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
 assign tp2_l = ~tp2;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
+wire ts4fset!ms_dis;
 assign int_strobe_l = ~int_strobe;
 // r1: r_us_ 
 // r2: r_us_ 

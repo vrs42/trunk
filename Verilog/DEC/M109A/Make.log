@@ -1,19 +1,14 @@
-~/Verilator/bin/topld.pl M109A
-info: sp380n ne dil14
-info: sp380n ne dil14
-info: sp380n ne dil14
-info: sp380n ne dil14
-info: sp314n ne dil14
-info: sp380n ne dil14
-info: single ne edge_con2
-warning: making u$1/single/ a connector
-warning: non-pullup resistor deleted: bit13_0
-warning: non-pullup resistor deleted: bit13_1
-warning: non-pullup resistor deleted: bit14_0
-warning: non-pullup resistor deleted: bit14_1
-warning: non-pullup resistor deleted: bit15_0
-warning: non-pullup resistor deleted: bit15_1
-warning: non-pullup resistor deleted: bit16_0
-warning: non-pullup resistor deleted: bit16_1
-warning: non-pullup resistor deleted: bit17_0
-warning: non-pullup resistor deleted: bit17_1
+~/Verilog/bin/smaller.pl M109A.PLD >vv || (rm vv; exit 1)
+7 signals were removed:
+  n_t_20x: !n_t_14x
+  n_t_21x: !n_t_13x
+  n_t_33x: !n_t_31x
+  n_t_35x: !n_t_34x
+  n_t_45x: !e1
+  n_t_46x: !f2
+  n_t_9x: !n_t_15x
+~/Verilog/bin/smaller.pl vv >M109AX.PLD || (rm M109AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M109AX.PLD >vv || (rm vv; exit 1)
+mv vv M109A.v
+rm M109AX.PLD

@@ -3,6 +3,12 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// e1: sn7408 
 module m1103x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
@@ -39,34 +45,128 @@ output v1;
 output v2;
 
 
-wire n_t_10x;
-wire n_t_12x;
-wire n_t_18x;
-wire n_t_22x;
-wire n_t_24x;
-wire n_t_26x;
-wire n_t_28x;
-wire n_t_29x;
-wire n_t_4x;
 wire n_t_8x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// e1: sn7408 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign c1 = (a1 & b1);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign f1 = (d1 & e1);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign k2 = (j2 & h2);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign f2 = (e2 & d2);
 // e2: sn7408 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n1 = (l1 & m1);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign s1 = (p1 & r1);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign v2 = (u2 & t2);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign s2 = (r2 & p2);
 // e3: sn7408 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign k1 = (h1 & j1);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n2 = (m2 & l2);
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign 'b'0 = (n_t_29x & n_t_8x);
 // r1: r_us_ 
 // r2: r_us_ 

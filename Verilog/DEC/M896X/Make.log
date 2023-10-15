@@ -1,11 +1,8 @@
-~/Verilator/bin/topld.pl M896X
-info: 7486n ne dil16
-info: 7486n ne dil16
-info: 7430n ne dil16
-info: 7486n ne dil16
-info: 7486n ne dil16
-info: 74174n ne dil16
-info: 74174n ne dil16
-info: 7410n ne dil16
-info: edge_2connector ne edge_con2
-warning: making u$1/edge_2connector/ a connector
+~/Verilog/bin/smaller.pl M896X.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n_t_16x: !l2
+~/Verilog/bin/smaller.pl vv >M896XX.PLD || (rm M896XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M896XX.PLD >vv || (rm vv; exit 1)
+mv vv M896X.v
+rm M896XX.PLD

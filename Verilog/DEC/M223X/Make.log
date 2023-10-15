@@ -1,12 +1,7 @@
-~/Verilator/bin/topld.pl M223X
-info: 74h50n ne 7450n
-warning: making e1/sn74h50/ a connector
-info: 74h50n ne 7450n
-warning: making e3/sn74h50/ a connector
-info: 74h50n ne 7450n
-warning: making e4/sn74h50/ a connector
-info: 74h50n ne 7450n
-warning: making e6/sn74h50/ a connector
-info: 74h00n ne 7400n
-info: single ne edge_con2
-warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M223X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M223XX.PLD || (rm M223XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M223XX.PLD >vv || (rm vv; exit 1)
+mv vv M223X.v
+rm M223XX.PLD

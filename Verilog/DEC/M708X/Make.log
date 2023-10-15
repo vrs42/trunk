@@ -1,12 +1,16 @@
-~/Verilator/bin/topld.pl M708X
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7430n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: single ne edge_con2
-warning: making u$1/single/ a connector
-unexpected OC output: flag at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 642.
-unexpected OC output: n_t_15x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 642.
-unexpected OC output: n_t_32x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 642.
-unexpected OC output: n_t_14x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 642.
+~/Verilog/bin/smaller.pl M708X.PLD >vv || (rm vv; exit 1)
+7 signals were removed:
+  al1: !flag
+  n3v1: 'b'1
+  n_t_19x: !ar1
+  n_t_22x: !n_t_31x
+  n_t_39x: !irq_enb
+  n_t_41x: !n_t_40x
+  n_t_7x: !flag_buffer
+~/Verilog/bin/smaller.pl vv >M708XX.PLD || (rm M708XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M708XX.PLD >vv || (rm vv; exit 1)
+OE qualifier on FF output flag at /home/vrs/Verilog/bin/cupl2v.pl line 223, <INPUT> line 620.
+../Makefile:29: recipe for target 'M708X.v' failed
+make: *** [M708X.v] Error 1
+rm M708XX.PLD

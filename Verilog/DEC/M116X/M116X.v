@@ -3,6 +3,12 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// e4: n8815 
 module m116x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
@@ -39,43 +45,82 @@ output v1;
 output v2;
 
 
-wire bit17;
-wire n_t_11x;
-wire n_t_16x;
-wire n_t_18x;
-wire n_t_31x;
-wire n_t_35x;
-wire n_t_37x;
-wire n_t_46x;
 wire n_t_9x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// e4: n8815 
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
 assign j2 = ~(h2
                | f2
                | e2
                | d2);
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
 assign e1 = ~(d1
                | c1
                | b1
                | a1);
 // e5: n8815 
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
 assign p2 = ~(n2
                | m2
                | l2
                | k2);
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
 assign l1 = ~(k1
                | j1
                | h1
                | f1);
 // e6: n8815 
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
 assign v2 = ~(r2
                | s2
                | t2
                | u2);
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
 assign s1 = ~(r1
                | p1
                | n1

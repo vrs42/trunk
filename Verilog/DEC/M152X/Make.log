@@ -1,12 +1,9 @@
-~/Verilator/bin/topld.pl M152X
-info: 74h21n ne 7421n
-info: 74h21n ne 7421n
-info: 74h21n ne 7421n
-info: 74h21n ne 7421n
-info: 74h21n ne 7421n
-info: 74h21n ne 7421n
-info: 74h21n ne 7421n
-info: 74h21n ne 7421n
-info: 74h20n ne 7420n
-info: single ne edge_con2
-warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M152X.PLD >vv || (rm vv; exit 1)
+2 signals were removed:
+  n_t_1x: 'b'1
+  n_t_2x: 'b'1
+~/Verilog/bin/smaller.pl vv >M152XX.PLD || (rm M152XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M152XX.PLD >vv || (rm vv; exit 1)
+mv vv M152X.v
+rm M152XX.PLD

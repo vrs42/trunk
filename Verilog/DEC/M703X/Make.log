@@ -1,54 +1,18 @@
-~/Verilator/bin/topld.pl M703X
-info: cpol_use ne cpol_use12_4axial
-info: cpol_use ne cpol_use12_4axial
-info: 1n4154 ne 1n4148do35_10
-warning: making d1/1n4154/ a connector
-info: 1n4154 ne 1n4148do35_10
-warning: making d3/1n4154/ a connector
-info: 1n4154 ne 1n4148do35_10
-warning: making d4/1n4154/ a connector
-info: 7430n ne dil14
-info: 7400n ne dil14
-info: 7460n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7460n ne dil14
-info: mps6534 ne 2n2904
-warning: making q1/mps6534/ a connector
-info: mps6534 ne 2n2904
-warning: making q2/mps6534/ a connector
-info: mps6534 ne 2n2904
-warning: making q3/mps6534/ a connector
-info: mps6534 ne 2n2904
-warning: making q4/mps6534/ a connector
-info: pn3569 ne 2n2219
-warning: making q5/pn3569/ a connector
-info: pn3569 ne 2n2219
-warning: making q6/pn3569/ a connector
-info: mps6534 ne 2n2904
-warning: making q7/mps6534/ a connector
-info: pn3569 ne 2n2219
-warning: making q8/pn3569/ a connector
-info: pn3569 ne 2n2219
-warning: making q9/pn3569/ a connector
-warning: making sw1/se14/ a connector
-warning: making swgnd/se14/ a connector
-info: single ne e12_4
-warning: making u$2/single/ a connector
-warning: non-bypass capacitor deleted: c1
-warning: non-bypass capacitor deleted: c2
-warning: non-bypass capacitor deleted: c7
-warning: non-bypass capacitor deleted: c14
-warning: non-pullup resistor deleted: r5
-warning: non-pullup resistor deleted: r9
-warning: non-pullup resistor deleted: r11
-warning: non-pullup resistor deleted: r15
-warning: non-pullup resistor deleted: r18
-warning: non-pullup resistor deleted: r20
-warning: non-pullup resistor deleted: r21
-warning: non-pullup resistor deleted: r27
-warning: non-pullup resistor deleted: r28
-warning: non-pullup resistor deleted: r30
-warning: non-pullup resistor deleted: r35
-warning: non-pullup resistor deleted: r36
+~/Verilog/bin/smaller.pl M703X.PLD >vv || (rm vv; exit 1)
+10 signals were removed:
+  n_t_11x: !n_t_10x
+  n_t_19x: !n_t_2x
+  n_t_23x: !n_t_24x
+  n_t_28x: !n_t_26x
+  n_t_30x: 'b'1
+  n_t_3x: !n_t_1x
+  n_t_4x: 'b'1
+  n_t_5x: !n_t_26x
+  n_t_8x: !n_t_24x
+  n_t_9x: 'b'1
+~/Verilog/bin/smaller.pl vv >M703XX.PLD || (rm M703XX.PLD; exit 1)
+1 signals were removed:
+  y_strobe: !'b'1
+~/Verilog/bin/cupl2v.pl M703XX.PLD >vv || (rm vv; exit 1)
+mv vv M703X.v
+rm M703XX.PLD

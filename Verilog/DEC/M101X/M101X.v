@@ -3,6 +3,13 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// e1: sn7400 
 module m101x (a1, b1, c1, d1, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 output b1;
@@ -38,34 +45,72 @@ input v1;
 output v2;
 
 
-wire n_t_31x;
-wire n_t_34x;
 wire n_t_4x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// e1: sn7400 
+wire n_t_4x;
+wire n_t_4x;
 assign b1 = ~(c1 & a1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign e1 = ~(c1 & d1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign h1 = ~(f1 & c1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign f2 = ~(e2 & c1);
 // e2: sn7400 
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign k1 = ~(c1 & j1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign j2 = ~(c1 & h2);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign m1 = ~(l1 & c1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign l2 = ~(k2 & c1);
 // e3: sn7400 
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign n2 = ~(m2 & c1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign p1 = ~(n1 & c1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign s1 = ~(r1 & c1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign r2 = ~(p2 & c1);
 // e4: sn7400 
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign n_t_31x = ~(n_t_4x & n_t_34x);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign t2 = ~(c1 & s2);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign u1 = ~(v1 & c1);
+wire n_t_4x;
+wire n_t_4x;
+wire n_t_4x;
 assign v2 = ~(u2 & c1);
 // open collector 'wire-or's 
 endmodule

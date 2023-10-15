@@ -3,6 +3,12 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// e1: sn7474 
 module m216b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
@@ -45,23 +51,17 @@ reg p2_m;
 reg s1_m;
 reg v2_m;
 
-wire n_t_10x;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_17x;
-wire n_t_20x;
-wire n_t_4x;
-wire n_t_7x;
 wire n_t_8x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// e1: sn7474 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 always @(b1, a1, d1, c1)
   if (~a1) begin
     e1_m <= 1'b0;
@@ -82,7 +82,62 @@ always @(b1, a1, d1, e1_m)
   if (b1) begin
     e1 <= e1_m;
   end
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign f1 = ~e1;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 always @(d2, a1, f2, e2)
   if (~a1) begin
     h2_m <= 1'b0;
@@ -103,8 +158,63 @@ always @(d2, a1, f2, h2_m)
   if (d2) begin
     h2 <= h2_m;
   end
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign j2 = ~h2;
 // e2: sn7474 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 always @(h1, a1, k1, j1)
   if (~a1) begin
     l1_m <= 1'b0;
@@ -125,7 +235,62 @@ always @(h1, a1, k1, l1_m)
   if (h1) begin
     l1 <= l1_m;
   end
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign m1 = ~l1;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 always @(l2, k2, n2, m2)
   if (~k2) begin
     p2_m <= 1'b0;
@@ -146,8 +311,63 @@ always @(l2, k2, n2, p2_m)
   if (l2) begin
     p2 <= p2_m;
   end
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign r2 = ~p2;
 // e3: sn7474 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 always @(n1, k2, r1, p1)
   if (~k2) begin
     s1_m <= 1'b0;
@@ -168,7 +388,62 @@ always @(n1, k2, r1, s1_m)
   if (n1) begin
     s1 <= s1_m;
   end
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign u1 = ~s1;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 always @(s2, k2, u2, t2)
   if (~k2) begin
     v2_m <= 1'b0;
@@ -189,6 +464,50 @@ always @(s2, k2, u2, v2_m)
   if (s2) begin
     v2 <= v2_m;
   end
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign v1 = ~v2;
 // open collector 'wire-or's 
 endmodule

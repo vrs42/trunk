@@ -3,6 +3,24 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: c_us 
+// c8: c_us 
+// c9: c_us 
+// c10: c_us 
+// c11: c_us 
+// c12: c_us 
+// c13: c_us 
+// c14: c_us 
+// c15: cpol_use 
+// e1: sp380n 
 module m105b (c1_l, n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_23x, n_t_24x, n_t_2x, n_t_3x, n_t_43x, n_t_44x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, out_high, out_l, select0, select2, select4, select6, ssyn_l);
 inout c1_l;
 output n15v;
@@ -39,61 +57,227 @@ output select6;
 output ssyn_l;
 
 
-wire a00_l;
-wire a01;
-wire a01_l;
-wire a02;
-wire a03;
-wire a04;
-wire a05;
-wire a06;
-wire a07;
-wire a08;
-wire a09;
-wire a10;
-wire a11;
-wire a12;
-wire a1314;
-wire a1516;
-wire a17syn;
-wire c0;
-wire c0_l;
-wire c1;
-wire n_t_25x;
-wire n_t_38x;
 wire n_t_41x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// c7: c_us 
-// c8: c_us 
-// c9: c_us 
-// c10: c_us 
-// c11: c_us 
-// c12: c_us 
-// c13: c_us 
-// c14: c_us 
-// c15: cpol_use 
-// e1: sp380n 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a00 = ~a00;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a00 = ~(n_t_18x
                 | );
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a02 = ~n_t_17x;
 // e2: sp380n 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_6x = ~(c0
                    | n_t_23x);
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_5x = ~;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a1516 = ~(n_t_3x
                   | n_t_4x);
 // e3: sp380n 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign 'b'0 = ~c1;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_8x = ~(n_t_24x
                    | );
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a12 = ~n_t_7x;
 // e4: dec8242 
 // n_t_43x = !(!'b'1 & !a11
@@ -105,21 +289,251 @@ assign a12 = ~n_t_7x;
 // n_t_43x = !(!a12 & !'b'1
 //        # a12 & 'b'1); 
 // e5: sn74h00 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a01 = ~(a01_l & a01);
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign c1_l = ~c1;
 // e6: sn7402 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_38x = ~(c1_l
                     | out_l);
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign out_high = ~(c1_l
                      | n_t_41x);
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_41x = ~(a00
                     | c0_l);
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign c0_l = ~(n_t_38x
                  | a00_l);
 // e7: sp380n 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign 'b'0 = ~a08;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_12x = ~(n_t_10x
                     | );
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a09 = ~n_t_11x;
 // e8: dec8242 
 // n_t_43x = !(!'b'1 & !a07
@@ -131,27 +545,188 @@ assign a09 = ~n_t_11x;
 // n_t_43x = !(!a09 & !'b'1
 //        # a09 & 'b'1); 
 // e9: n8815 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign select6 = ~(n_t_25x
                     | ~a02
                     | n_t_25x
                     | a01_l);
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign select4 = ~(n_t_25x
                     | a01
                     | ~a02
                     | ~a02);
 // e10: n8815 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign select2 = ~(n_t_25x
                     | a01_l
                     | a01_l
                     | a02);
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign select0 = ~(a02
                     | a01
                     | n_t_25x
                     | n_t_25x);
 // e11: sp380n 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign 'b'0 = ~a04;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_16x = ~(n_t_15x
                     | );
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign a05 = ~n_t_14x;
 // e12: dec8242 
 // n_t_43x = !(!'b'1 & !a03
@@ -190,6 +765,52 @@ assign a05 = ~n_t_14x;
 // r13: r_us_ 
 // r14: r_us_ 
 // open collector 'wire-or's 
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign n_t_43x = a11
                   | a1314
                   | a1516
@@ -202,5 +823,51 @@ assign n_t_43x = a11
                   | a04
                   | a06
                   | a05? 1'b0: 1'bz;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
+wire n_t_41x;
 assign ssyn_l = n_t_44x? ~n_t_44x: 1'bz;
 endmodule

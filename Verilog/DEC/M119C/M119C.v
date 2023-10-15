@@ -3,6 +3,12 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// ic1: sn7430 
 module m119c (a1, b1, c1, d1, d2, e2, f1, f2, h1, h2, j1, j2, k1, k2, l2, m1, m2, n1, n2, p1, p2, r1, r2, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
@@ -36,16 +42,12 @@ output v2;
 
 
 wire e1;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// ic1: sn7430 
 assign j2 = ~(h2 & f2 & e2 & d2 & c1 & d1 & b1 & a1);
 // ic2: sn7430 
+wire e1;
 assign p2 = ~(n2 & m2 & l2 & k2 & j1 & k1 & h1 & f1);
 // ic3: sn7430 
+wire e1;
 assign v2 = ~(u2 & t2 & s2 & r2 & p1 & r1 & n1 & m1);
 // r1: r_us_ 
 // r2: r_us_ 

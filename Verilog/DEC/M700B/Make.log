@@ -1,34 +1,24 @@
-~/Verilator/bin/topld.pl M700B
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: 1n3606 ne 1n4148do35_10
-warning: making d1/1n3606/ a connector
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 2n3009 ne 2n2102
-warning: making q1/2n3009/ a connector
-info: 2n3009 ne 2n2102
-warning: making q2/2n3009/ a connector
-info: 2n3009 ne 2n2102
-warning: making q3/2n3009/ a connector
-info: mps6534 ne 2n2905
-warning: making q4/mps6534/ a connector
-info: double ne e12_8
-warning: making u$1/double/ a connector
-warning: non-bypass capacitor deleted: c8
-warning: non-bypass capacitor deleted: c9
-warning: non-bypass capacitor deleted: c10
-warning: non-bypass capacitor deleted: c11
-warning: non-bypass capacitor deleted: c12
-warning: non-bypass capacitor deleted: c13
-warning: non-bypass capacitor deleted: c14
-warning: non-pullup resistor deleted: r6
-warning: non-pullup resistor deleted: r7
-warning: non-pullup resistor deleted: r16
-warning: non-pullup resistor deleted: r19
+~/Verilog/bin/smaller.pl M700B.PLD >vv || (rm vv; exit 1)
+15 signals were removed:
+  n_t_17x: 'b'1
+  n_t_1x: !n_t_5x
+  n_t_20x: 'b'1
+  n_t_24x: !n_t_20x
+  n_t_26x: 'b'1
+  n_t_27x: !n_t_26x
+  n_t_29x: !n_t_27x
+  n_t_30x: 'b'1
+  n_t_31x: !mftp1
+  n_t_33x: 'b'1
+  n_t_34x: !n_t_33x
+  n_t_36x: !n_t_34x
+  n_t_38x: !n_t_35x
+  n_t_3x: 'b'1
+  n_t_7x: 'b'1
+~/Verilog/bin/smaller.pl vv >M700BX.PLD || (rm M700BX.PLD; exit 1)
+2 signals were removed:
+  n_t_20x: 'b'1
+  n_t_27x: !'b'1
+~/Verilog/bin/cupl2v.pl M700BX.PLD >vv || (rm vv; exit 1)
+mv vv M700B.v
+rm M700BX.PLD

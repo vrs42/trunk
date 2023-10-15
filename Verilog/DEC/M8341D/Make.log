@@ -1,62 +1,55 @@
-~/Verilator/bin/topld.pl M8341D
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: 74h74n ne 7474n
-info: 7486n ne dil14
-info: 74h11n ne 7411n
-info: 74h74n ne 7474n
-info: 7410n ne dil14
-info: 7412n ne dil14
-info: dec8235 ne dil16
-info: 74h74n ne 7474n
-info: sn97401 ne 7401n
-info: 7410n ne dil14
-info: dec8235 ne dil16
-info: 74h74n ne 7474n
-info: n8881n ne dil14
-info: 7416n ne dil14
-info: dec8235 ne dil16
-info: sn97401 ne 7401n
-info: 7486n ne dil14
-info: dec8235 ne dil16
-info: sp380n ne dil14
-info: sp380n ne dil14
-info: sp384n ne dil14
-info: dec8235 ne dil16
-info: n8881n ne dil14
-info: 7410n ne dil14
-info: 7402n ne dil14
-info: 7410n ne dil14
-info: n8881n ne dil14
-info: sn97401 ne 7401n
-info: sp380n ne dil14
-info: 74h74n ne 7474n
-info: dm8093 ne 74125n
-info: 74h74n ne 7474n
-info: 7402n ne dil14
-info: 74h53n ne dil16
-info: 7402n ne dil14
-info: edge_top ne dil16
-warning: making f/edge_top/ a connector
-info: edge_top ne dil16
-warning: making h/edge_top/ a connector
-info: quad ne dil16
-warning: making u$2/quad/ a connector
-unexpected OC output: n3v0 at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2216.
-unexpected OC output: a02_l at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2216.
-unexpected OC output: n_t_20x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2265.
-unexpected OC output: n_t_69x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2265.
-unexpected OC output: shift3 at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2265.
-unexpected OC output: n_t_53x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2265.
-unexpected OC output: n_t_8x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2362.
-unexpected OC output: n_t_15x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2362.
-unexpected OC output: lp_dcm_or_dpic_or_sam_rp_and_ts3 at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2395.
-unexpected OC output: n_t_12x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2395.
-unexpected OC output: next_loc at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2395.
-unexpected OC output: eae_on_l at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2395.
-unexpected OC output: n_t_34x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2570.
-unexpected OC output: last_dvi_l at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2587.
-unexpected OC output: dcm_or_dpic_l at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2587.
-unexpected OC output: gtf_or_ind at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2587.
-unexpected OC output: n_t_39x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2587.
+~/Verilog/bin/smaller.pl M8341D.PLD >vv || (rm vv; exit 1)
+39 signals were removed:
+  a02_l: !'b'0
+  ad10l: !ts3_l
+  be: !srq_l
+  bmq0: !mq0_l
+  eae_on_l: !eae_on
+  f_l: !n3vb
+  modea: !n3vc
+  n3vc: 'b'1
+  n3vd: 'b'1
+  n_t_12x: !n_t_33x
+  n_t_15x: !fetch
+  n_t_19x: !n_t_22x
+  n_t_20x: !n_t_19x
+  n_t_25x: !btp3
+  n_t_26x: fault_l
+  n_t_29x: !n_t_28x
+  n_t_32x: !n_t_31x
+  n_t_36x: !n_t_24x
+  n_t_37x: !exec_multiply
+  n_t_39x: !sgt_l
+  n_t_41x: !n_t_43x
+  n_t_42x: !stall_l
+  n_t_47x: !rom_24_l
+  n_t_50x: !rom_11_l
+  n_t_51x: !skon_l
+  n_t_59x: !n_t_60x
+  n_t_62x: !n_t_23x
+  n_t_6x: !aceq0
+  n_t_71x: !rom_17_l
+  n_t_75x: !rtf_l
+  n_t_77x: !int_rq_l
+  n_t_7x: !n_t_84x
+  n_t_81x: bdata2_l
+  n_t_8x: !n_t_3x
+  n_t_91x: !last_step_l
+  rom_12: !rom_12_l
+  shift3: !rom_15_l
+  shift_ok: !rom_21_l
+  skip_l: !f_l
+~/Verilog/bin/smaller.pl vv >M8341DX.PLD || (rm M8341DX.PLD; exit 1)
+7 signals were removed:
+  exec_multiply: ac_load_l
+  f_l: !n3vb
+  n3vc: 'b'1
+  n_t_19x: !n_t_22x
+  n_t_3x: !rom_12_l
+  n_t_60x: tp2_d
+  rom_21_l: exec_multiply
+~/Verilog/bin/cupl2v.pl M8341DX.PLD >vv || (rm vv; exit 1)
+OE qualifier on FF output fault_l at /home/vrs/Verilog/bin/cupl2v.pl line 223, <INPUT> line 1746.
+../Makefile:29: recipe for target 'M8341D.v' failed
+make: *** [M8341D.v] Error 1
+rm M8341DX.PLD

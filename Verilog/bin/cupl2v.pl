@@ -160,11 +160,19 @@ while (<INPUT>) {
       next;
     }
     #
-    # Parse node designations.  The first node also 
-    # triggers output of the module declaration.
+    # Parse node designations.  Just remember them until after
+    # the module declaration is emitted.
     if ($s =~ s/node\s+(\S*)\s*$//i) {
       $node = $1;
       push(@nodes, $1);
+      next;
+    }
+    #
+    # Maybe it's an assignment!  The first assignment triggers
+    # output of the module declaration, as well as the saved up nodes.
+#warn "as:$s\n";
+    if ($s =~ s/(\S+)\s+=\s*(.*)$//i) {
+      ($lh, $rh) = ($1, $2);
       if (@iface) {
         print "module $module (", join(", ", @iface), ");\n";
         foreach $pin (@iface) {
@@ -190,20 +198,14 @@ while (<INPUT>) {
         # Clear @iface to prevent repitition.
         @iface = ();
       }
-      # Finally, output a wire declaration.
-      push(@nodes, $node);
-      if (defined $islatch{$node}) {
-        print "reg $node;\n";
-      } else {
-        print "wire $node;\n";
+      # Finally, output the wire declarations.
+      foreach $done (@nodes) {
+        if (defined $islatch{$node}) {
+          print "reg $node;\n";
+        } else {
+          print "wire $node;\n";
+        }
       }
-      next;
-    }
-    #
-    # Maybe it's an assignment!
-#warn "as:$s\n";
-    if ($s =~ s/(\S+)\s+=\s*(.*)$//i) {
-      ($lh, $rh) = ($1, $2);
 #warn "Got $lh = $rh";
       # Check $lh for inversion.
       $rh = "!($rh)" if $lh =~ s/^!//;

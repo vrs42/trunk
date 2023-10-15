@@ -1,0 +1,7 @@
+~/Verilog/bin/smaller.pl M060A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M060AX.PLD || (rm M060AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M060AX.PLD >vv || (rm vv; exit 1)
+mv vv M060A.v
+rm M060AX.PLD

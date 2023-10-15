@@ -1,58 +1,7 @@
-~/Verilator/bin/topld.pl M628X
-info: cpol_use ne cpol_use20_8axial
-info: 74h50n ne 7450n
-warning: making e1/sn74h50/ a connector
-info: 74h00n ne 7400n
-info: 7482n ne dil14
-info: j10mm ne 10
-warning: making j1/j10mm/ a connector
-info: j10mm ne 10
-warning: making j10/j10mm/ a connector
-info: j10mm ne 10
-warning: making j11/j10mm/ a connector
-info: j10mm ne 10
-warning: making j12/j10mm/ a connector
-info: j10mm ne 10
-warning: making j13/j10mm/ a connector
-info: j10mm ne 10
-warning: making j14/j10mm/ a connector
-info: j10mm ne 10
-warning: making j15/j10mm/ a connector
-info: j10mm ne 10
-warning: making j16/j10mm/ a connector
-info: j10mm ne 10
-warning: making j2/j10mm/ a connector
-info: j10mm ne 10
-warning: making j3/j10mm/ a connector
-info: j10mm ne 10
-warning: making j4/j10mm/ a connector
-info: j10mm ne 10
-warning: making j5/j10mm/ a connector
-info: j10mm ne 10
-warning: making j6/j10mm/ a connector
-info: j10mm ne 10
-warning: making j7/j10mm/ a connector
-info: j10mm ne 10
-warning: making j8/j10mm/ a connector
-info: j10mm ne 10
-warning: making j9/j10mm/ a connector
-info: pad_0420 ne 0420
-warning: making pad1/pad_0420/ a connector
-info: pad_0420 ne 0420
-warning: making pad2/pad_0420/ a connector
-info: pad_0420 ne 0420
-warning: making pad3/pad_0420/ a connector
-info: pad_0420 ne 0420
-warning: making pad4/pad_0420/ a connector
-info: pad_0420 ne 0420
-warning: making pad5/pad_0420/ a connector
-info: pad_0420 ne 0420
-warning: making pad6/pad_0420/ a connector
-info: pn3569 ne 2n2102
-warning: making q1/pn3569/ a connector
-info: pn3569 ne 2n2102
-warning: making q2/pn3569/ a connector
-info: single ne e12_8
-warning: making u$2/single/ a connector
-warning: non-pullup resistor deleted: r2
-warning: non-pullup resistor deleted: r4
+~/Verilog/bin/smaller.pl M628X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M628XX.PLD || (rm M628XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M628XX.PLD >vv || (rm vv; exit 1)
+mv vv M628X.v
+rm M628XX.PLD

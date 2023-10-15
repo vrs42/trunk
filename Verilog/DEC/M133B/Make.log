@@ -1,0 +1,7 @@
+~/Verilog/bin/smaller.pl M133B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M133BX.PLD || (rm M133BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M133BX.PLD >vv || (rm vv; exit 1)
+mv vv M133B.v
+rm M133BX.PLD

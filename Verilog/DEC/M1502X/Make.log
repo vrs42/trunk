@@ -1,39 +1,37 @@
-~/Verilator/bin/topld.pl M1502X
-info: cpol_use ne cpol_use20_8axial
-info: 1n4154 ne diode_do35_10
-warning: making d1/1n4154/ a connector
-info: 1n4154 ne diode_do35_10
-warning: making d2/1n4154/ a connector
-info: 1n4154 ne diode_do35_10
-warning: making d3/1n4154/ a connector
-info: 1n4154 ne diode_do35_10
-warning: making d4/1n4154/ a connector
-info: 7400n ne dil16
-info: n8881n ne dil14
-info: 7406n ne dil16
-info: 7406n ne dil16
-info: ds8640n ne dil14
-info: ds8640n ne dil14
-info: ds8640n ne dil14
-info: ds8640n ne dil14
-info: 7404n ne dil16
-info: 7404n ne dil16
-info: 74175n ne dil16
-info: ds8640n ne dil14
-info: 74175n ne dil16
-info: 7404n ne dil16
-info: 74175n ne dil16
-info: 74175n ne dil16
-info: 7402n ne dil16
-info: 7402n ne dil16
-info: 7400n ne dil16
-info: 7437n ne dil16
-info: 7406n ne dil16
-info: dec40pinsh ne dec40pinh
-warning: making j1/dec40pinsh/ a connector
-info: double ne edge_con4
-warning: making u$3/double/ a connector
-warning: non-bypass capacitor deleted: c25
-unexpected OC output: testpoint at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 966.
-unexpected OC output: au2 at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 966.
-unexpected OC output: n_t_68x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 966.
+~/Verilog/bin/smaller.pl M1502X.PLD >vv || (rm vv; exit 1)
+29 signals were removed:
+  an1d: !ak1
+  ba1clk: !ae2
+  ba1d: !aj2
+  n3v: !ak2
+  n_t_132x: !bv1
+  n_t_133x: !ac1
+  n_t_134x: !ad1
+  n_t_135x: !bt2
+  n_t_154x: !n_t_49x
+  n_t_156x: !bh2
+  n_t_157x: !be2
+  n_t_158x: !bd2
+  n_t_159x: !bf2
+  n_t_15x: 'b'1
+  n_t_168x: !bf1
+  n_t_169x: !bd1
+  n_t_170x: !be1
+  n_t_171x: !bh1
+  n_t_180x: !bk1
+  n_t_181x: !bb1
+  n_t_182x: !bc1
+  n_t_183x: !bj1
+  n_t_194x: !bj2
+  n_t_25x: !af1
+  n_t_40x: !aj1
+  n_t_52x: !n_t_56x
+  n_t_56x: !d2
+  n_t_80x: !am1
+  n_t_8x: !ae1
+~/Verilog/bin/smaller.pl vv >M1502XX.PLD || (rm M1502XX.PLD; exit 1)
+1 signals were removed:
+  n_t_56x: !d2
+~/Verilog/bin/cupl2v.pl M1502XX.PLD >vv || (rm vv; exit 1)
+mv vv M1502X.v
+rm M1502XX.PLD

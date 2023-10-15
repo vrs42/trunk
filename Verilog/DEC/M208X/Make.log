@@ -1,10 +1,8 @@
-~/Verilator/bin/topld.pl M208X
-info: 7450n ne dil14
-info: 7450n ne dil14
-info: 7450n ne dil14
-info: 7400n ne dil14
-info: 74h40n ne 7420n
-warning: making e6/sn74h40/ a connector
-info: 7450n ne dil14
-info: single ne edge_con2
-warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M208X.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n3v3: 'b'1
+~/Verilog/bin/smaller.pl vv >M208XX.PLD || (rm M208XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M208XX.PLD >vv || (rm vv; exit 1)
+mv vv M208X.v
+rm M208XX.PLD

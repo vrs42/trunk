@@ -1,6 +1,7 @@
-~/Verilator/bin/topld.pl M238X
-info: cpol_use ne cpol_use20_8axial
-info: 74193n ne 74192n
-info: 74193n ne 74192n
-info: single ne e12_8
-warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M238X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M238XX.PLD || (rm M238XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M238XX.PLD >vv || (rm vv; exit 1)
+mv vv M238X.v
+rm M238XX.PLD

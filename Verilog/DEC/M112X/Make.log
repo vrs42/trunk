@@ -1,6 +1,9 @@
-~/Verilator/bin/topld.pl M112X
-info: 7402n ne dil14
-info: 7402n ne dil14
-info: 7402n ne dil14
-info: single ne edge_con2
-warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M112X.PLD >vv || (rm vv; exit 1)
+2 signals were removed:
+  n_t_2x: 'b'1
+  n_t_4x: 'b'1
+~/Verilog/bin/smaller.pl vv >M112XX.PLD || (rm M112XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M112XX.PLD >vv || (rm vv; exit 1)
+mv vv M112X.v
+rm M112XX.PLD

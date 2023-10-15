@@ -1,22 +1,7 @@
-~/Verilator/bin/topld.pl M640X
-warning: making ak2/1,6/ a connector
-warning: making as2/1,6/ a connector
-warning: making bh2/1,6/ a connector
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: ds75451n ne dil08
-info: double ne e12_8
-warning: making u$1/double/ a connector
-unexpected OC output: data at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 1262.
+~/Verilog/bin/smaller.pl M640X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M640XX.PLD || (rm M640XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M640XX.PLD >vv || (rm vv; exit 1)
+mv vv M640X.v
+rm M640XX.PLD

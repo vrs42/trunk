@@ -3,6 +3,17 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: cpol_use 
+// c7: c_us 
+// e1: sn7450 
+// e2: sn74h00 
 module m621x (a1, b1, b2, c0_l, c1, c1_l, d1, d2, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e1, e2, f1, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, k1, k2, l1, m1, m2, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n1, n3v3, n_t_10x, n_t_14x, n_t_16x, n_t_18x, n_t_7x, p1, p2, r1, s1, s2, skip_l, t2, tp3, u1, v2);
 output a1;
 output b1;
@@ -67,106 +78,95 @@ output u1;
 output v2;
 
 
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac3_h;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bh2;
-wire bj1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
-wire f2;
-wire l2;
-wire ma2_h;
-wire ma2_l;
-wire ma3_h;
-wire ma3_l;
-wire mb2_h;
-wire mb2_l;
-wire mb3_h;
-wire mb3_l;
-wire n_t_13x;
-wire n_t_15x;
-wire n_t_20x;
-wire n_t_25x;
-wire n_t_27x;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
-wire r2;
-wire t2_l;
-wire tck;
 wire tdo;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: cpol_use 
-// c7: c_us 
-// e1: sn7450 
-// e2: sn74h00 
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign p2 = ~(l2 & k2);
 // e3: sn7450 
 // e4: sn74h00 

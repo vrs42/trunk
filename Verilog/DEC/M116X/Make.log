@@ -1,6 +1,7 @@
-~/Verilator/bin/topld.pl M116X
-info: n8815 ne dil14
-info: n8815 ne dil14
-info: n8815 ne dil14
-info: single ne dil14
-warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M116X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M116XX.PLD || (rm M116XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M116XX.PLD >vv || (rm vv; exit 1)
+mv vv M116X.v
+rm M116XX.PLD

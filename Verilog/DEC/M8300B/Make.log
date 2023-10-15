@@ -1,79 +1,11 @@
-~/Verilator/bin/topld.pl M8300B
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: edge_top ne edge_con2
-warning: making e/edge_top/ a connector
-info: n8881n ne dil14
-info: 7487 ne edge_con2
-warning: making e10/sn7487/ a connector
-info: 74151n ne dil14
-info: mc8266 ne edge_con2
-info: 7400n ne dil14
-info: mc8266 ne edge_con2
-info: 7483n ne dil14
-warning: making e15/sn7483/ a connector
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-warning: making e19/sn74153/ a connector
-info: n8881n ne dil14
-info: dec8271 ne edge_con2
-info: 74151n ne dil14
-info: n8881n ne dil14
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-info: mc8266 ne edge_con2
-info: n8881n ne dil14
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-warning: making e30/sn74153/ a connector
-info: 7487 ne edge_con2
-warning: making e31/sn7487/ a connector
-info: dec8235 ne edge_con2
-info: 74151n ne dil14
-info: mc8266 ne edge_con2
-info: 7400n ne dil14
-info: mc8266 ne edge_con2
-info: 7483n ne dil14
-warning: making e37/sn7483/ a connector
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-info: 7402n ne dil14
-warning: making e41/sn74153/ a connector
-info: dec8271 ne edge_con2
-info: 74151n ne dil14
-info: n8881n ne dil14
-info: 7430n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-info: 74151n ne dil14
-info: n8881n ne dil14
-info: mc8266 ne edge_con2
-info: dec8271 ne edge_con2
-warning: making e51/sn74153/ a connector
-info: 7483n ne dil14
-warning: making e52/sn7483/ a connector
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-info: mc8266 ne edge_con2
-info: 7487 ne edge_con2
-warning: making e57/sn7487/ a connector
-info: 74151n ne dil14
-info: mc8266 ne edge_con2
-info: 74151n ne dil14
-info: dec8235 ne edge_con2
-info: 7400n ne dil14
-warning: making e62/sn74153/ a connector
-info: 74h04n ne 7404n
-info: 74h04n ne 7404n
-info: dec8235 ne edge_con2
-info: dec8271 ne edge_con2
-warning: making e9/sn74153/ a connector
-info: edge_top ne edge_con2
-warning: making h/edge_top/ a connector
-info: quad ne edge_con2
-warning: making u$2/quad/ a connector
+~/Verilog/bin/smaller.pl M8300B.PLD >vv || (rm vv; exit 1)
+4 signals were removed:
+  left: !left_l
+  n_t_5x: !md_dir_l
+  right: !right_l
+  twice: !twice_l
+~/Verilog/bin/smaller.pl vv >M8300BX.PLD || (rm M8300BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M8300BX.PLD >vv || (rm vv; exit 1)
+mv vv M8300B.v
+rm M8300BX.PLD

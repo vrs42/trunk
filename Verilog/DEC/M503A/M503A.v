@@ -3,6 +3,24 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: c_us 
+// c8: c_us 
+// c9: c_us 
+// c10: c_us 
+// c11: c_us 
+// c12: c_us 
+// c13: c_us 
+// c14: c_us 
+// c15: c_us 
+// e1: sn7400 
 module m503a (bu2, n3v3, n_t_19x, n_t_20x, n_t_27x, n_t_28x, n_t_43x, n_t_44x, n_t_52x, n_t_60x, n_t_6x, af1w, agnd, al2w, am2w, an1w, ap1w, av1w, b2, bc1, bd2, be2, bf1, bf2, bh2, bj1, bv1, bv2, c0_l, c1_l, c3, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, f1, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, ma2_h, ma2_l, ma3_h, ma3_l, mb2_h, mb2_l, mb3_h, mb3_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n1, n15v, n_t_10x, n_t_11x, n_t_14x, n_t_15x, n_t_18x, n_t_1x, n_t_21x, n_t_23x, n_t_26x, n_t_2x, n_t_33x, n_t_34x, n_t_36x, n_t_38x, n_t_3x, n_t_42x, n_t_48x, n_t_49x, n_t_50x, n_t_51x, n_t_58x, n_t_5x, n_t_9x, p1, skip_l, tp3, tp_m, tp_n, u1);
 output bu2;
 output n3v3;
@@ -103,83 +121,330 @@ output tp_n;
 output u1;
 
 
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac3_h;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire am1;
-wire am1w;
-wire am2;
-wire an1;
-wire an2;
-wire ap1;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
-wire bh1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire e2rc;
-wire tck;
 wire tdo;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// c7: c_us 
-// c8: c_us 
-// c9: c_us 
-// c10: c_us 
-// c11: c_us 
-// c12: c_us 
-// c13: c_us 
-// c14: c_us 
-// c15: c_us 
-// e1: sn7400 
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_9x = ~n_t_1x;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_1x = ~(n_t_5x & n_t_2x);
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_2x = ~(n_t_1x & n_t_6x);
 // e2: sn7400 
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_11x = ~(n_t_19x & n_t_10x);
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_10x = ~(n_t_11x & n_t_14x);
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign n_t_18x = ~n_t_10x;
 // r1: r_us_ 
 // r2: r_us_ 

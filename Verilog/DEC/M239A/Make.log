@@ -1,11 +1,11 @@
-~/Verilator/bin/topld.pl M239A
-info: 74h04n ne 7404n
-info: 74h04n ne 7404n
-info: 74197 ne 74ls197
-warning: making e3/sn74197/ a connector
-info: 74197 ne 74ls197
-warning: making e4/sn74197/ a connector
-info: 74197 ne 74ls197
-warning: making e5/sn74197/ a connector
-info: single ne dil14
-warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M239A.PLD >vv || (rm vv; exit 1)
+4 signals were removed:
+  ar2: 'b'1
+  e1: 'b'1
+  e2: 'b'1
+  mk_end_l: 'b'1
+~/Verilog/bin/smaller.pl vv >M239AX.PLD || (rm M239AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M239AX.PLD >vv || (rm vv; exit 1)
+mv vv M239A.v
+rm M239AX.PLD

@@ -1,11 +1,7 @@
-~/Verilator/bin/topld.pl M207X
-info: 0r ne 0r/10
-warning: making j1/0r/ a connector
-info: 0r ne 0r/10
-warning: making j2/0r/ a connector
-warning: making pad1/1,6/ a connector
-warning: making pad2/1,6/ a connector
-warning: making pad3/1,6/ a connector
-warning: making pad4/1,6/ a connector
-info: single ne edge_con2
-warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M207X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M207XX.PLD || (rm M207XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M207XX.PLD >vv || (rm vv; exit 1)
+mv vv M207X.v
+rm M207XX.PLD

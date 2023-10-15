@@ -1,7 +1,7 @@
-~/Verilator/bin/topld.pl M139X
-info: cpol_use ne cpol_use20_8axial
-info: 74h30n ne 7430n
-info: 74h30n ne 7430n
-info: 74h30n ne 7430n
-info: single ne e12_8
-warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M139X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M139XX.PLD || (rm M139XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M139XX.PLD >vv || (rm vv; exit 1)
+mv vv M139X.v
+rm M139XX.PLD

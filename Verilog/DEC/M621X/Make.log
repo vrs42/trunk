@@ -1,27 +1,14 @@
-~/Verilator/bin/topld.pl M621X
-info: cpol_use ne cpol_use15_5axial
-info: 7450n ne dil14
-info: 74h00n ne 7400n
-info: 7450n ne dil14
-info: 74h00n ne 7400n
-info: 7450n ne dil14
-info: pn3569 ne _npn_to5
-warning: making q1/pn3569/ a connector
-info: pn3569 ne _npn_to5
-warning: making q2/pn3569/ a connector
-info: pn3569 ne _npn_to5
-warning: making q3/pn3569/ a connector
-info: pn3569 ne _npn_to5
-warning: making q4/pn3569/ a connector
-info: pn3569 ne _npn_to5
-warning: making q5/pn3569/ a connector
-info: pn3569 ne _npn_to5
-warning: making q6/pn3569/ a connector
-info: edge ne single
-warning: making u$2/edge/ a connector
-warning: non-pullup resistor deleted: r7
-warning: non-pullup resistor deleted: r8
-warning: non-pullup resistor deleted: r9
-warning: non-pullup resistor deleted: r10
-warning: non-pullup resistor deleted: r11
-warning: non-pullup resistor deleted: r12
+~/Verilog/bin/smaller.pl M621X.PLD >vv || (rm vv; exit 1)
+7 signals were removed:
+  n_t_1x: !n_t_14x
+  n_t_22x: !n3v3
+  n_t_2x: !n_t_13x
+  n_t_3x: !n_t_18x
+  n_t_4x: !n_t_20x
+  n_t_5x: !n_t_25x
+  n_t_6x: !n_t_27x
+~/Verilog/bin/smaller.pl vv >M621XX.PLD || (rm M621XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M621XX.PLD >vv || (rm vv; exit 1)
+mv vv M621X.v
+rm M621XX.PLD

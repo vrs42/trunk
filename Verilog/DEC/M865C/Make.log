@@ -1,136 +1,36 @@
-~/Verilator/bin/topld.pl M865C
-warning: making 0/2,15/ a connector
-warning: making 2/2,15/ a connector
-warning: making 3/2,15/ a connector
-warning: making 4/2,15/ a connector
-warning: making 5/2,15/ a connector
-warning: making 6/2,15/ a connector
-warning: making 7/2,15/ a connector
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use15_5axial
-info: d662 ne diode_do35_10
-warning: making d1/d662/ a connector
-info: d664 ne diode_do35_10
-warning: making d10/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d2/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d3/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d4/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d5/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d6/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d7/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d8/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d9/d664/ a connector
-info: sp380n ne dil14
-info: 7440n ne dil14
-info: 7493n ne dil14
-info: 74h00n ne 7400n
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7460n ne dil14
-info: 7410n ne dil14
-info: 7404n ne dil14
-info: sp380n ne dil14
-info: sp314n ne dil14
-info: 7402n ne dil14
-info: 7402n ne dil14
-info: sp384n ne dil14
-info: sp314n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 97401n ne 7401n
-warning: making e31/97401n/ a connector
-info: 97401n ne 7401n
-warning: making e32/97401n/ a connector
-info: 97401n ne 7401n
-warning: making e33/97401n/ a connector
-info: dec8251 ne e15_5
-info: sp380n ne dil14
-info: 7430n ne dil14
-info: 7440n ne dil14
-info: dec8251 ne e15_5
-info: 97401n ne 7401n
-warning: making e39/97401n/ a connector
-info: 7493n ne dil14
-info: sp384n ne dil14
-info: sp384n ne dil14
-info: 7493n ne dil14
-info: 97401n ne 7401n
-warning: making e50/97401n/ a connector
-info: 7404n ne dil14
-info: 7493n ne dil14
-info: 74h72n ne 7472n
-warning: making e9/sn74h72/ a connector
-warning: making gnd/2,15/ a connector
-info: 2n3009b ne _npn_to5
-warning: making q1/2n3009b/ a connector
-info: mps6534d ne _pnp_to5
-warning: making q2/mps6534d/ a connector
-info: 2n3009b ne _npn_to5
-warning: making q3/2n3009b/ a connector
-info: 560 ne 1/2w
-warning: making r10/560/ a connector
-info: 750 ne 2w
-warning: making r11/750/ a connector
-info: 680 ne 1/2w
-warning: making r23/680/ a connector
-info: 750 ne 1/2w
-warning: making r24/750/ a connector
-info: 680 ne 1/2w
-warning: making r25/680/ a connector
-info: 0r2 ne 0r2/10
-warning: making stop/0r2/ a connector
-info: j10mm ne 10
-warning: making stop2/j10mm/ a connector
-info: 16_09651 ne dil16
-warning: making t1/16_09651/ a connector
-info: quad ne e15_5
-warning: making u$1/quad/ a connector
-info: j10mm ne 10
-warning: making v10/j10mm/ a connector
-info: j10mm ne 10
-warning: making v11/j10mm/ a connector
-info: j10mm ne 10
-warning: making v12/j10mm/ a connector
-info: j10mm ne 10
-warning: making v14/j10mm/ a connector
-info: j10mm ne 10
-warning: making v3/j10mm/ a connector
-info: j10mm ne 10
-warning: making v4/j10mm/ a connector
-info: j10mm ne 10
-warning: making v5/j10mm/ a connector
-info: 14.418mhz ne crystalhc18u_h
-warning: making y1/14.418mhz/ a connector
-warning: non-bypass capacitor deleted: c3
-warning: non-bypass capacitor deleted: c4
-warning: non-bypass capacitor deleted: c5
-warning: non-bypass capacitor deleted: c6
-warning: non-bypass capacitor deleted: c7
-warning: non-bypass capacitor deleted: c8
-warning: non-bypass capacitor deleted: c9
-warning: non-bypass capacitor deleted: c10
-warning: non-bypass capacitor deleted: c11
-warning: non-bypass capacitor deleted: c12
-warning: non-bypass capacitor deleted: c13
-warning: non-bypass capacitor deleted: c14
-warning: non-bypass capacitor deleted: c15
-warning: non-bypass capacitor deleted: c16
-warning: non-pullup resistor deleted: r4
-warning: non-pullup resistor deleted: r7
-warning: non-pullup resistor deleted: r22
-warning: non-pullup resistor deleted: r29
-warning: non-pullup resistor deleted: r30
+~/Verilog/bin/smaller.pl M865C.PLD >vv || (rm vv; exit 1)
+28 signals were removed:
+  bcd1: !n603x
+  ckkcc_l: !init_l
+  freq_div_l: !freq_div
+  init_h: !tx_buf_empty
+  initialize: init
+  initialize_l: !initialize
+  la_enable_l: !btp3
+  last_unit_l: !last_unit
+  n_t_109x: !n_t_105x
+  n_t_111x: !n_t_105x
+  n_t_122x: !rx_clr_l
+  n_t_123x: !dtx_active_l
+  n_t_125x: !rx_clk
+  n_t_127x: !tflnow_l
+  n_t_130x: !n_t_32x
+  n_t_134x: !n_t_57x
+  n_t_135x: !n_t_136x
+  n_t_138x: !n_t_137x
+  n_t_41x: !n_t_124x
+  n_t_64x: !n_t_38x
+  n_t_90x: !n_t_20x
+  n_t_94x: !rx_active
+  np: !preset
+  rx_active_l: 'b'1
+  shift_clock: !rx_clk_l
+  trans_1: !trans_0
+  tx_busy_l: !bd150
+  xmit_active_l: !xmit_active
+~/Verilog/bin/smaller.pl vv >M865CX.PLD || (rm M865CX.PLD; exit 1)
+1 signals were removed:
+  rx_clk: !xmit_active
+~/Verilog/bin/cupl2v.pl M865CX.PLD >vv || (rm vv; exit 1)
+mv vv M865C.v
+rm M865CX.PLD

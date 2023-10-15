@@ -1,28 +1,8 @@
-~/Verilator/bin/topld.pl M310A
-info: 1n3606 ne 1n4148do35_10
-warning: making d1/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d2/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d3/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d4/1n3606/ a connector
-warning: making dl1/16_05530/ a connector
-info: 7400n ne dil14
-info: 7440n ne 7420n
-info: mps6534 ne 2n3637
-warning: making q1/mps6534/ a connector
-info: 2n3009 ne _npn_to39_ebc
-warning: making q2/2n3009/ a connector
-info: 2n3009 ne _npn_to39_ebc
-warning: making q3/2n3009/ a connector
-info: mps6534 ne 2n3637
-warning: making q4/mps6534/ a connector
-info: 2n3009 ne _npn_to39_ebc
-warning: making q5/2n3009/ a connector
-info: single ne 16_05530
-warning: making u$4/single/ a connector
-warning: non-bypass capacitor deleted: c1
-warning: non-bypass capacitor deleted: c5
-warning: non-pullup resistor deleted: r1
-warning: non-pullup resistor deleted: r10
+~/Verilog/bin/smaller.pl M310A.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n_t_20x: !n_t_13x
+~/Verilog/bin/smaller.pl vv >M310AX.PLD || (rm M310AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M310AX.PLD >vv || (rm vv; exit 1)
+mv vv M310A.v
+rm M310AX.PLD

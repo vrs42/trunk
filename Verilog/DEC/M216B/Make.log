@@ -1,3 +1,7 @@
-~/Verilator/bin/topld.pl M216B
-info: single ne edge_con2
-warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M216B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M216BX.PLD || (rm M216BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M216BX.PLD >vv || (rm vv; exit 1)
+mv vv M216B.v
+rm M216BX.PLD

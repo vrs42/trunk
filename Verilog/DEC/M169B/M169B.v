@@ -3,6 +3,26 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// !e2: sn7453 
+// e2 = !(n_t_11x & n_t_3x
+//   # n_t_6x & n_t_12x
+//   # n_t_5x & n_t_10x
+//   # n_t_13x & n_t_4x); 
+// !e2 = !e2; 
+// e2: sn7453 
+// k2 = !(n_t_16x & n_t_3x
+//   # n_t_6x & n_t_17x
+//   # n_t_5x & n_t_15x
+//   # n_t_9x & n_t_4x); 
+// !k2 = !k2; 
+// e3: sn7400 
 module m169b (n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x);
 output n15v;
 input n_t_10x;
@@ -39,39 +59,49 @@ output n_t_8x;
 input n_t_9x;
 
 
-wire e2;
-wire f2;
-wire h1;
-wire k2;
-wire l2;
-wire m1;
-wire n_t_46x;
-wire out;
-wire r2;
 wire s1;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// !e2: sn7453 
-// e2 = !(n_t_11x & n_t_3x
-//   # n_t_6x & n_t_12x
-//   # n_t_5x & n_t_10x
-//   # n_t_13x & n_t_4x); 
-// !e2 = !e2; 
-// e2: sn7453 
-// k2 = !(n_t_16x & n_t_3x
-//   # n_t_6x & n_t_17x
-//   # n_t_5x & n_t_15x
-//   # n_t_9x & n_t_4x); 
-// !k2 = !k2; 
-// e3: sn7400 
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_36x = ~(n_t_34x & ~n_t_3x);
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_35x = ~(n_t_3x & n_t_30x);
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_8x = ~(n_t_24x & k2);
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_2x = ~(n_t_14x & e2);
 // e4: sn7453 
 // !n_t_3x = !(n_t_32x & n_t_18x
@@ -86,15 +116,85 @@ assign n_t_2x = ~(n_t_14x & e2);
 //       # n_t_29x & n_t_19x); 
 // n_t_28x = !n_t_3x; 
 // open collector 'wire-or's 
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign e2 = ~((n_t_11x & n_t_3x
                 | n_t_6x & n_t_12x
                 | n_t_5x & n_t_10x
                 | n_t_13x & n_t_4x));
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign k2 = ~((n_t_16x & n_t_3x
                 | n_t_6x & n_t_17x
                 | n_t_5x & n_t_15x
                 | n_t_9x & n_t_4x));
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_28x = n_t_3x? ~n_t_3x: 1'bz;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_3x = (n_t_26x & n_t_18x
                   | n_t_21x & n_t_28x
                   | n_t_20x & n_t_27x

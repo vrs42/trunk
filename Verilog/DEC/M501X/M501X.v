@@ -3,6 +3,13 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: cpol_use 
+// c2: cpol_use 
+// c3: c_us 
+// c4: c_us 
+// e1: sn7400 
 module m501x (a1, ab2, ac1, ad00h, ad01h, ad02h, ad03h, ad04h, ad05h, ad06h, ad07h, ad08h, ad09h, ad10h, ad11h, ad2, adoneh, adonel, ae1, af1, af2, aflagh, ah1, ainith, aj1, aj2, ak1, al1, al2, am1, am2, an1, an2, ap1, ap2, ar2, areadyh, areadyl, as1, as2, astrobeh, astrobel, at2, au1, av1, b1, bb1, bb2, bd00h, bd01h, bd02h, bd03h, bd04h, bd05h, bd06h, bd07h, bd08h, bd09h, bd10h, bd11h, bdoneh, bdonel, be1, bf1, bf2, bflagh, bh1, binith, bj1, bj2, bk1, bl1, bl2, bm1, bm2, bn1, bp2, br1, br2, breadyh, breadyl, bs1, bs2, bstrobeh, bstrobel, bt2, bu1, bu2, bv1, bv2, c1, carry_in_l, d1, d2, e, e1, f, f1, h1, h2, j1, j2, k, k1, l, l1, load_tac, m, m1, n, n1, n10v, n15v, n21v, n_t_10x, n_t_28x, n_t_29x, n_t_30x, n_t_35x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, p, p1, r, r1, s1, tac3_l, tb2_h, tb3_h, tma3, tmasu2, u1, v1, v2);
 output a1;
 output ab2;
@@ -142,34 +149,47 @@ output v1;
 output v2;
 
 
-wire aa1;
-wire ab1;
-wire ad1;
-wire adder3;
-wire adder4;
-wire ae2;
-wire ae2w;
-wire af1w;
-wire ah2;
-wire ak2;
-wire ar1;
-wire au2;
-wire av1w;
-wire av2;
-wire av2w;
-wire ba1;
-wire bc1;
-wire mb3_h;
-wire tck;
 wire tdo;
-// code nodes 
-// equations 
-// c1: cpol_use 
-// c2: cpol_use 
-// c3: c_us 
-// c4: c_us 
-// e1: sn7400 
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign e = ~f;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
+wire tdo;
 assign f = ~k;
 // r1: r_us_ 
 // r2: r_us_ 

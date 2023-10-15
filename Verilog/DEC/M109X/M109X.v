@@ -3,6 +3,26 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// bit13_0: r_us_ 
+// bit13_1: r_us_ 
+// bit14_0: r_us_ 
+// bit14_1: r_us_ 
+// bit15_0: r_us_ 
+// bit15_1: r_us_ 
+// bit16_0: r_us_ 
+// bit16_1: r_us_ 
+// bit17_0: r_us_ 
+// bit17_1: r_us_ 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: cpol_use 
+// e1: sp380n 
 module m109x (n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_34x, n_t_37x, n_t_38x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x);
 output n15v;
 input n_t_10x;
@@ -39,65 +59,266 @@ output n_t_7x;
 output n_t_8x;
 
 
-wire b1;
-wire bit13;
-wire bit14;
-wire bit15;
-wire bit16;
-wire bit17;
-wire e1;
-wire f2;
-wire h2;
-wire k1;
-wire k2;
-wire n_t_56x;
-wire n_t_57x;
-wire n_t_76x;
-wire r2;
-wire syn_l;
 wire v1;
-// code nodes 
-// equations 
-// bit13_0: r_us_ 
-// bit13_1: r_us_ 
-// bit14_0: r_us_ 
-// bit14_1: r_us_ 
-// bit15_0: r_us_ 
-// bit15_1: r_us_ 
-// bit16_0: r_us_ 
-// bit16_1: r_us_ 
-// bit17_0: r_us_ 
-// bit17_1: r_us_ 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// c7: cpol_use 
-// e1: sp380n 
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_3x = ~n_t_1x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_4x = ~n_t_18x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_22x = ~n_t_19x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_23x = ~n_t_17x;
 // e2: sp380n 
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_6x = ~n_t_27x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_25x = ~n_t_26x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_24x = ~n_t_5x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_7x = ~n_t_2x;
 // e3: sp380n 
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_32x = ~n_t_38x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_12x = ~n_t_10x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_28x = ~n_t_30x;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_8x = ~n_t_29x;
 // e4: sp380n 
 // e5: sp314n 
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_37x = ~(bit13
                     | bit14
                     | bit15
                     | bit17
                     | bit16);
 // e6: sp380n 
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
+wire v1;
 assign n_t_16x = ~n_t_11x;
 // r1: r_us_ 
 // open collector 'wire-or's 

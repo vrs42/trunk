@@ -3,6 +3,12 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// e1: sn7474 
 module m205a (c0_l, c1_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp3);
 output c0_l;
 output c1_l;
@@ -74,15 +80,9 @@ reg n_t_25x_m;
 reg n_t_31x_m;
 reg n_t_4x_m;
 
-wire md04h;
-wire n_t_34x;
 wire s1;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// e1: sn7474 
+wire s1;
+wire s1;
 always @(n_t_7x, n_t_8x, n_t_6x, n_t_5x)
   if (~n_t_8x) begin
     n_t_4x_m <= 1'b0;
@@ -103,7 +103,22 @@ always @(n_t_7x, n_t_8x, n_t_6x, n_t_4x_m)
   if (n_t_7x) begin
     n_t_4x <= n_t_4x_m;
   end
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_3x = ~n_t_4x;
+wire s1;
+wire s1;
+wire s1;
 always @(n_t_22x, n_t_21x, n_t_23x, n_t_26x)
   if (~n_t_21x) begin
     n_t_25x_m <= 1'b0;
@@ -124,8 +139,23 @@ always @(n_t_22x, n_t_21x, n_t_23x, n_t_25x_m)
   if (n_t_22x) begin
     n_t_25x <= n_t_25x_m;
   end
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_24x = ~n_t_25x;
 // e2: sn7474 
+wire s1;
+wire s1;
+wire s1;
 always @(n_t_10x, n_t_9x, n_t_12x, n_t_11x)
   if (~n_t_9x) begin
     n_t_14x_m <= 1'b0;
@@ -146,7 +176,22 @@ always @(n_t_10x, n_t_9x, n_t_12x, n_t_14x_m)
   if (n_t_10x) begin
     n_t_14x <= n_t_14x_m;
   end
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_13x = ~n_t_14x;
+wire s1;
+wire s1;
+wire s1;
 always @(n_t_28x, n_t_27x, n_t_30x, n_t_29x)
   if (~n_t_27x) begin
     n_t_31x_m <= 1'b0;
@@ -167,8 +212,23 @@ always @(n_t_28x, n_t_27x, n_t_30x, n_t_31x_m)
   if (n_t_28x) begin
     n_t_31x <= n_t_31x_m;
   end
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_32x = ~n_t_31x;
 // e3: sn7474 
+wire s1;
+wire s1;
+wire s1;
 always @(n_t_16x, n_t_15x, n_t_20x, n_t_17x)
   if (~n_t_15x) begin
     n_t_19x_m <= 1'b0;
@@ -189,7 +249,22 @@ always @(n_t_16x, n_t_15x, n_t_20x, n_t_19x_m)
   if (n_t_16x) begin
     n_t_19x <= n_t_19x_m;
   end
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_18x = ~n_t_19x;
+wire s1;
+wire s1;
+wire s1;
 always @(n_t_34x, n_t_32x, 1'b0)
   if (~n_t_34x) begin
     n_t_17x_m <= 1'b0;
@@ -210,6 +285,18 @@ always @(n_t_34x, n_t_32x, n_t_17x_m)
   if (1'b0) begin
     n_t_17x <= n_t_17x_m;
   end
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
+wire s1;
 assign n_t_30x = ~n_t_17x;
 // r1: r_us_ 
 // r2: r_us_ 

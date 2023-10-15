@@ -3,6 +3,17 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// e1: sn7453 
+// n_t_1x = !(n_t_3x & n_t_2x
+//       # n_t_4x & n_t_5x
+//       # n_t_6x & n_t_7x); 
+// n_t_8x = !n_t_1x; 
 module m160c (n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_9x);
 output n15v;
 input n_t_10x;
@@ -39,25 +50,14 @@ input n_t_7x;
 input n_t_9x;
 
 
-wire aj1;
-wire l2;
-wire n_t_1x;
-wire n_t_21x;
-wire n_t_22x;
-wire n_t_46x;
-wire n_t_80x;
 wire n_t_8x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// e1: sn7453 
-// n_t_1x = !(n_t_3x & n_t_2x
-//       # n_t_4x & n_t_5x
-//       # n_t_6x & n_t_7x); 
-// n_t_8x = !n_t_1x; 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n_t_16x = n_t_1x;
 // e2: sn7460 
 // n_t_1x = !(n_t_9x & n_t_10x & n_t_11x & n_t_12x); 
@@ -73,13 +73,45 @@ assign n_t_16x = n_t_1x;
 // r1: r_us_ 
 // r2: r_us_ 
 // open collector 'wire-or's 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n_t_1x = ~((n_t_3x & n_t_2x
                     | n_t_4x & n_t_5x
                     | n_t_6x & n_t_7x)
                    | (n_t_9x & n_t_10x & n_t_11x & n_t_12x)
                    | (n_t_15x & n_t_14x & n_t_13x));
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n_t_21x = ~n_t_22x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n_t_22x = ~((n_t_25x & n_t_24x & n_t_23x & n_t_26x)
                     | (n_t_27x & n_t_30x & n_t_28x & n_t_29x));
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n_t_8x = ~n_t_1x;
 endmodule

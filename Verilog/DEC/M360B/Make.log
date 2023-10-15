@@ -1,30 +1,7 @@
-~/Verilator/bin/topld.pl M360B
-info: 1n3606 ne 1n4148do35_10
-warning: making d1/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d2/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d3/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d4/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d5/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d6/1n3606/ a connector
-info: 1n3606 ne 1n4148do35_10
-warning: making d7/1n3606/ a connector
-info: 500 ne ns
-warning: making dl1/500/ a connector
-info: 7400n ne dil14
-info: mps6534 ne 2n3637
-warning: making q1/mps6534/ a connector
-info: 2n3009 ne 2n3019
-warning: making q2/2n3009/ a connector
-info: 2n3009 ne 2n3019
-warning: making q3/2n3009/ a connector
-info: 2n3009 ne 2n3019
-warning: making q4/2n3009/ a connector
-info: single ne delayline
-warning: making u$4/single/ a connector
-warning: non-bypass capacitor deleted: c1
-warning: non-pullup resistor deleted: r2
+~/Verilog/bin/smaller.pl M360B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M360BX.PLD || (rm M360BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M360BX.PLD >vv || (rm vv; exit 1)
+mv vv M360B.v
+rm M360BX.PLD

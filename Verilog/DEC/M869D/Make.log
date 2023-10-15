@@ -1,78 +1,84 @@
-~/Verilator/bin/topld.pl M869D
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: .022uf ne c_us8
-warning: making c34/.022uf/ a connector
-info: .22uf ne c_us8
-warning: making c35/.22uf/ a connector
-info: d664 ne diode_do35_10
-warning: making d1/d664/ a connector
-info: d664 ne diode_do35_10
-warning: making d2/d664/ a connector
-info: 74123n ne dil14
-warning: making e1/sn74123/ a connector
-info: 7406n ne dil14
-info: sp380n ne dil14
-info: sp314n ne dil14
-info: sp380n ne dil14
-info: 7404n ne dil14
-info: 9601 ne 23_021
-warning: making e15/9601/ a connector
-info: n8881n ne dil14
-info: n8881n ne dil14
-info: 74123n ne dil14
-warning: making e2/sn74123/ a connector
-info: 7402n ne dil14
-info: 7404n ne dil14
-info: 7400n ne dil14
-info: 74h21n ne 7421n
-info: sp380n ne dil14
-info: dec8251 ne 23_021
-info: 7400n ne dil14
-info: 7400n ne dil14
-info: 7416n ne dil14
-info: 7402n ne dil14
-info: 9601 ne 23_021
-warning: making e4/9601/ a connector
-info: n8881n ne dil14
-info: n8881n ne dil14
-info: sp380n ne dil14
-info: edge_top ne 23_021
-warning: making f/edge_top/ a connector
-info: edge_top ne 23_021
-warning: making h/edge_top/ a connector
-info: 1_480459_0 ne 23_021
-warning: making j1/1_480459_0/ a connector
-info: quad ne 23_021
-warning: making omnibus/quad/ a connector
-info: 2n3009 ne _npn_to18_
-warning: making q1/2n3009/ a connector
-info: 12_09698 ne 23_021
-warning: making s1/12_09698/ a connector
-info: 12_09698 ne 23_021
-warning: making s2/12_09698/ a connector
-info: tpsqpad1_17 ne p1_17
-warning: making tp1/tpsqpad1_17/ a connector
-info: tpsqpad1_17 ne p1_17
-warning: making tp2/tpsqpad1_17/ a connector
-info: 0 ne 0r
-warning: making w1/0/ a connector
-info: open ne 0r
-warning: making w2/open/ a connector
-info: 0 ne 0r
-warning: making w3/0/ a connector
-info: open ne 0r
-warning: making w4/open/ a connector
-warning: non-bypass capacitor deleted: c33
-warning: non-bypass capacitor deleted: c36
-warning: non-bypass capacitor deleted: c37
-warning: non-bypass capacitor deleted: c38
-warning: non-bypass capacitor deleted: c39
-warning: non-bypass capacitor deleted: c40
-unexpected OC output: n3v at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2016.
-unexpected OC output: preset_l at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2016.
-unexpected OC output: n3v3 at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2040.
-unexpected OC output: mtr1_l at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 2077.
-warning: non-pullup resistor deleted: r14
+~/Verilog/bin/smaller.pl M869D.PLD >vv || (rm vv; exit 1)
+17 signals were removed:
+  clear_l: !clear
+  dicd: !dicd_l
+  dilx: !dilx_l
+  dily: !dily_l
+  dire: !dire_l
+  disd: !disd_l
+  iot_l: !iot
+  mtr1_l: !sr07
+  n_t_100x: !n_t_1x
+  n_t_10x: !chan
+  n_t_147x: !write_thru
+  n_t_17x: !n_t_17x
+  n_t_18x: !clear
+  n_t_80x: !n_t_73x
+  n_t_85x: !btp3_l
+  pin: s_!g
+  store_l: !store
+~/Verilog/bin/smaller.pl vv >M869DX.PLD || (rm M869DX.PLD; exit 1)
+58 signals were removed:
+  btp3: !btp3_l
+  c1_l: dire_l
+  chan_l: !chan
+  col_red_l: !color
+  color_l: !color
+  erase_l: !erase
+  internal_io_l: !iot
+  n3v: 'b'1
+  n3v3: !tpg0
+  n_t_11x: s_!g
+  n_t_12x: s_!g
+  n_t_131x: s_!g
+  n_t_138x: s_!g
+  n_t_13x: s_!g
+  n_t_14x: s_!g
+  n_t_15x: s_!g
+  n_t_16x: !pause_l
+  n_t_17x: !n_t_17x
+  n_t_1x: s_!g
+  n_t_20x: s_!g
+  n_t_21x: s_!g
+  n_t_22x: s_!g
+  n_t_23x: s_!g
+  n_t_24x: s_!g
+  n_t_27x: !n_t_25x
+  n_t_28x: s_!g
+  n_t_29x: s_!g
+  n_t_30x: s_!g
+  n_t_31x: s_!g
+  n_t_32x: s_!g
+  n_t_33x: s_!g
+  n_t_34x: !int_en
+  n_t_35x: s_!g
+  n_t_36x: s_!g
+  n_t_37x: s_!g
+  n_t_3x: s_!g
+  n_t_40x: s_!g
+  n_t_41x: !erase
+  n_t_42x: s_!g
+  n_t_43x: !color_l
+  n_t_45x: s_!g
+  n_t_47x: s_!g
+  n_t_48x: s_!g
+  n_t_49x: s_!g
+  n_t_4x: !c0_l
+  n_t_51x: s_!g
+  n_t_57x: s_!g
+  n_t_5x: !load_data_l
+  n_t_61x: s_!g
+  n_t_6x: !n_t_16x
+  n_t_71x: s_!g
+  n_t_72x: s_!g
+  n_t_7x: !dixy_l
+  n_t_8x: s_!g
+  n_t_9x: !n_t_8x
+  non_store_l: store
+  s_g: !xmit_active_l
+  write_thru_l: !write_thru
+~/Verilog/bin/cupl2v.pl M869DX.PLD >vv || (rm vv; exit 1)
+OE qualifier on FF output write_thru at /home/vrs/Verilog/bin/cupl2v.pl line 223, <INPUT> line 1316.
+../Makefile:29: recipe for target 'M869D.v' failed
+make: *** [M869D.v] Error 1
+rm M869DX.PLD

@@ -1,19 +1,7 @@
-~/Verilator/bin/topld.pl M452X
-info: baud ne ma13_2
-warning: making baud/baud/ a connector
-info: 7440n ne 7420n
-info: 74393n ne dil14
-warning: making e2/sn74393/ a connector
-info: 74393n ne dil14
-warning: making e3/sn74393/ a connector
-info: 74393n ne dil14
-warning: making e4/sn74393/ a connector
-info: 74ls11n ne 7411n
-info: 74ls00n ne 7400n
-info: 3.6864 ne mhz
-warning: making osc/3.6864/ a connector
-info: 3.6864 ne mhz
-warning: making osc1/3.6864/ a connector
-info: edge_1 ne edge_con1
-warning: making u$2/edge_1/ a connector
-warning: non-bypass capacitor deleted: c6
+~/Verilog/bin/smaller.pl M452X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M452XX.PLD || (rm M452XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M452XX.PLD >vv || (rm vv; exit 1)
+mv vv M452X.v
+rm M452XX.PLD

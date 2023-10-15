@@ -3,6 +3,19 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: c_us 
+// c8: cpol_use 
+// c10: cpol_use 
+// c11: cpol_use 
+// e2: sn7404 
 module m688b (bu2, erws_l, n_t_12x, n_t_15x, n_t_26x, n_t_27x, n_t_3x, n_t_6x, xrd0_l, xrd1_l, aa1, ab1, ab2, ac1, ad1, ad2, adder3, adder4, ae1, ae2, ae2w, af1, af1w, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, al2w, am1, am2, am2w, an1, an1w, an2, ap1, ap1w, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av1w, av2, av2w, b1, b2, ba1, bb2, bc1, bd2, be2, bf1, bf2, bh1, bh2, bj1, bv1, bv2, c0_l, c1, c1_l, c3, d1, d2, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e1, e2, f1, f2, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, j2, k1, k2, l1, l2, m1, m2, ma2_h, ma2_l, ma3_h, ma3_l, mb2_h, mb2_l, mb3_h, mb3_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n_t_10x, n_t_11x, n_t_14x, n_t_16x, n_t_19x, n_t_1x, n_t_20x, n_t_2x, n_t_5x, p1, p2, r1, r2, s1, s2, skip_l, t2, t2_l, tck, tdo, tp3, u1, u2, v1, v2);
 output bu2;
 output erws_l;
@@ -153,33 +166,53 @@ output v1;
 output v2;
 
 
-wire ac3_h;
-wire adder5;
-wire aj1w;
-wire am1w;
-wire ar2w;
-wire at2w;
-wire au2w;
-wire bl1;
-wire bl2;
-wire bm2;
 wire ebot_l;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// c7: c_us 
-// c8: cpol_use 
-// c10: cpol_use 
-// c11: cpol_use 
-// e2: sn7404 
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
 assign n_t_20x = 1'b0;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
 assign n_t_26x = ~n_t_27x;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
 assign n_t_19x = ~n_t_15x;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
+wire ebot_l;
 assign n_t_15x = ~n_t_16x;
 // r1: r_us_ 
 // r2: r_us_ 

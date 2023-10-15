@@ -1,75 +1,17 @@
-~/Verilator/bin/topld.pl M225A
-info: cpol_use ne cpol_use20_8axial
-info: cpol_use ne cpol_use20_8axial
-info: 7402n ne dil14
-info: n8881n ne dil14
-info: 74h53n ne e12_8
-info: 7481 ne e12_8
-warning: making e12/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e13/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e14/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e15/sn7481/ a connector
-info: 74h00n ne 7400n
-info: 7440n ne dil14
-info: 74h53n ne e12_8
-info: 7402n ne dil14
-info: 7402n ne dil14
-info: 7402n ne dil14
-info: n8881n ne dil14
-info: 74h53n ne e12_8
-info: 7481 ne e12_8
-warning: making e23/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e24/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e25/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e26/sn7481/ a connector
-info: 7402n ne dil14
-info: 7402n ne dil14
-info: 7481 ne e12_8
-warning: making e29/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e3/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e30/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e31/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e32/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e4/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e5/sn7481/ a connector
-info: 7481 ne e12_8
-warning: making e6/sn7481/ a connector
-info: 74h53n ne e12_8
-info: 7402n ne dil14
-info: 7402n ne dil14
-info: dec3009 ne _npn_to5
-warning: making q1/dec3009/ a connector
-info: dec3009 ne _npn_to5
-warning: making q2/dec3009/ a connector
-info: dec3009 ne _npn_to5
-warning: making q3/dec3009/ a connector
-info: dec3009 ne _npn_to5
-warning: making q4/dec3009/ a connector
-info: dec3009 ne _npn_to5
-warning: making q5/dec3009/ a connector
-info: dec3009 ne _npn_to5
-warning: making q6/dec3009/ a connector
-info: dec3009 ne _npn_to5
-warning: making q7/dec3009/ a connector
-info: dec3009 ne _npn_to5
-warning: making q8/dec3009/ a connector
-info: double ne e12_8
-warning: making u$3/double/ a connector
-unexpected OC output: n_t_70x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 1713.
-unexpected OC output: n_t_49x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 1713.
-unexpected OC output: n_t_65x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 1713.
-unexpected OC output: n_t_72x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 1878.
-unexpected OC output: n_t_81x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 1878.
-unexpected OC output: n_t_67x at /home/vrs/Verilator/bin/topld.pl line 2034, <INPUT> line 1878.
+~/Verilog/bin/smaller.pl M225A.PLD >vv || (rm vv; exit 1)
+8 signals were removed:
+  n_t_26x: !n_t_69x
+  n_t_30x: !n_t_11x
+  n_t_65x: n_t_14x
+  n_t_67x: n_t_57x
+  n_t_68x: ac_2
+  n_t_70x: !n_t_65x
+  n_t_71x: !n_t_66x
+  n_t_74x: !n_t_68x
+~/Verilog/bin/smaller.pl vv >M225AX.PLD || (rm M225AX.PLD; exit 1)
+2 signals were removed:
+  n_t_65x: n_t_14x
+  n_t_68x: ac_2
+~/Verilog/bin/cupl2v.pl M225AX.PLD >vv || (rm vv; exit 1)
+mv vv M225A.v
+rm M225AX.PLD

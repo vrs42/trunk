@@ -3,6 +3,17 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: c_us 
+// c8: c_us 
+// e4: sn7400 
 module m102x (n_t_10x, n_t_13x, n_t_15x, n_t_20x, n_t_23x, n_t_8x, a1, b1, c1, d1, e1, f1, f2, h1, j1, k1, l1, l2, m1, m2, n1, n15v, n2, n3v3, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
 input n_t_10x;
 output n_t_13x;
@@ -40,21 +51,14 @@ input u2;
 output v2;
 
 
-wire n_t_31x;
 wire n_t_9x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// c4: c_us 
-// c5: c_us 
-// c6: c_us 
-// c7: c_us 
-// c8: c_us 
-// e4: sn7400 
+wire n_t_9x;
 assign n_t_31x = ~(n_t_8x & u2);
+wire n_t_9x;
+wire n_t_9x;
 assign n_t_9x = ~(c1 & s2);
+wire n_t_9x;
+wire n_t_9x;
 assign n1 = ~(n_t_15x & n_t_10x);
 // r1: r_us_ 
 // r2: r_us_ 

@@ -1,6 +1,7 @@
-~/Verilator/bin/topld.pl M119B
-info: 7430n ne dil14
-info: 7430n ne dil14
-info: 7430n ne dil14
-info: single ne edge_con2
-warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M119B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M119BX.PLD || (rm M119BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M119BX.PLD >vv || (rm vv; exit 1)
+mv vv M119B.v
+rm M119BX.PLD

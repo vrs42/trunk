@@ -3,6 +3,27 @@
 // input pins 
 // output pins 
 // internal nodes 
+// code nodes 
+// equations 
+// c1: c_us 
+// c2: c_us 
+// c3: c_us 
+// e1: n8881n 
+// h2 = !(d2 & f2); 
+// j2 = !(f2 & e2); 
+// e1 = !(b1 & c1); 
+// d1 = !(c1 & a1); 
+// e2: n8881n 
+// n2 = !(k2 & m2); 
+// p2 = !(m2 & l2); 
+// l1 = !(h1 & j1); 
+// k1 = !(j1 & f1); 
+// e3: n8881n 
+// u2 = !(r2 & t2); 
+// v2 = !(t2 & s2); 
+// s1 = !(n1 & p1); 
+// r1 = !(p1 & m1); 
+// open collector 'wire-or's 
 module m106x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n_t_19x, n_t_21x, p1, p2, r1, r2, s1, s2, t2, u2, v2);
 input a1;
 input b1;
@@ -39,43 +60,160 @@ output u2;
 output v2;
 
 
-wire a12;
-wire a16;
-wire n_t_2x;
-wire n_t_4x;
-wire n_t_5x;
 wire n_t_8x;
-// code nodes 
-// equations 
-// c1: c_us 
-// c2: c_us 
-// c3: c_us 
-// e1: n8881n 
-// h2 = !(d2 & f2); 
-// j2 = !(f2 & e2); 
-// e1 = !(b1 & c1); 
-// d1 = !(c1 & a1); 
-// e2: n8881n 
-// n2 = !(k2 & m2); 
-// p2 = !(m2 & l2); 
-// l1 = !(h1 & j1); 
-// k1 = !(j1 & f1); 
-// e3: n8881n 
-// u2 = !(r2 & t2); 
-// v2 = !(t2 & s2); 
-// s1 = !(n1 & p1); 
-// r1 = !(p1 & m1); 
-// open collector 'wire-or's 
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign d1 = (c1 & a1)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign e1 = (b1 & c1)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign h2 = (d2 & f2)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign j2 = (f2 & e2)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign k1 = (j1 & f1)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign l1 = (h1 & j1)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign n2 = (k2 & m2)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign p2 = (m2 & l2)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign r1 = (p1 & m1)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign s1 = (n1 & p1)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign u2 = (r2 & t2)? 1'b0: 1'bz;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
+wire n_t_8x;
 assign v2 = (t2 & s2)? 1'b0: 1'bz;
 endmodule
