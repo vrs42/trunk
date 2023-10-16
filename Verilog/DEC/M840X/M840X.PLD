@@ -3,7 +3,7 @@
 
 Name     M840X ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -702,13 +702,11 @@ n_t_79x.ap = !punch_done_l;
 n_t_129x = !n_t_79x;
 
 /* e17: sn7438 */
-/* n_t_32x = !iot02; */
 /* internal_io_l = !(n_t_69x & db); */
 /* c1_l = !rdata_to_bus; */
 /* n_t_93x = !(n_t_109x & n_t_107x); */
 
 /* e18: sn7438 */
-/* n_t_41x = !(piop1 & punch_flag); */
 /* skip_l = !(bmb05 & n_t_6x); */
 /* skip_l = !(n_t_23x & int_ena); */
 /* interrupt_l = !(int_ena & punch_flag); */
@@ -790,7 +788,6 @@ clock_pulse = !(n_t_118x & n_t_117x);
 n_t_117x = !(n_t_114x & n_t_112x);
 
 /* e33: sn7438 */
-/* n_t_54x = !(n_t_24x & rdata_to_bus); */
 /* data04_l = !(n_t_22x & n_t_34x); */
 /* data05_l = !rdata_to_bus; */
 /* data06_l = !(rdata_to_bus & n_t_27x); */
@@ -818,7 +815,6 @@ n_t_54x = !n_t_58x;
 pn_hole8 = !n_t_53x;
 
 /* e39: sn7438 */
-/* la = !(n_t_29x & rdata_to_bus); */
 /* data08_l = !(ts1 & ts1_l); */
 /* data10_l = !rdata_to_bus; */
 /* data11_l = !(rdata_to_bus & n_t_32x); */
@@ -1037,12 +1033,6 @@ internal_io_l.oe = (n_t_69x & db);
 property atmel {open_collector= interrupt_l};
 !interrupt_l = (int_ena & punch_flag);
 interrupt_l.oe = (int_ena & punch_flag);
-property atmel {open_collector= la};
-!la = (n_t_29x & rdata_to_bus);
-la.oe = (n_t_29x & rdata_to_bus);
-!n_t_32x = iot02;
-!n_t_41x = (piop1 & punch_flag);
-!n_t_54x = (n_t_24x & rdata_to_bus);
 property atmel {open_collector= n_t_93x};
 !n_t_93x = (n_t_109x & n_t_107x);
 n_t_93x.oe = (n_t_109x & n_t_107x);

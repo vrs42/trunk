@@ -3,7 +3,7 @@
 
 Name     M8655B ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -807,10 +807,6 @@ md04 = n_t_14x
      # b_pause_l;
 
 /* e11: sn97401 */
-/* overrun_err = !(n_t_110x & ck_pulse); */
-/* n_t_42x = !(n_t_42x & n_t_41x); */
-/* n_t_110x = !(has_error & n_t_110x); */
-/* n_t_110x = !(data01_l & parity_err); */
 
 /* e12: sp384n */
 b_pause_l = n_t_19x
@@ -924,10 +920,6 @@ tx_clk = bd96_192 & !'b'0 & !b1 & !b2 & !b3
 tx_clk_l = !tx_clk;
 
 /* e23: sn97401 */
-/* rd4 = !(io_read_h & selected_l); */
-/* n_t_4x = !(md07 & n_t_92x); */
-/* io_read_h = !(io_read_h & rd7); */
-/* rd6 = !(data05_l & io_read_h); */
 
 /* e24: sp380n */
 !n_t_90x = trans_246_l;
@@ -972,10 +964,6 @@ n_t_36x.ap = !n3v3;
 sync_l = !n_t_36x;
 
 /* e29: sn97401 */
-/* rd0 = !(io_read_h & tx_div); */
-/* tx_active = !(line & line_l); */
-/* io_read_h = !(io_read_h & rd3); */
-/* rd2 = !(data09_l & io_read_h); */
 
 /* e30: sp380n */
 !n_t_69x = trans_246_l;
@@ -1301,32 +1289,3 @@ trans_246_l = 'b'1;
 /* r62: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= io_read_h};
-!io_read_h = (io_read_h & rd7)
-             # (io_read_h & rd3);
-io_read_h.oe = (io_read_h & rd7)
-             # (io_read_h & rd3);
-!n_t_110x = (has_error & n_t_110x)
-            # (data01_l & parity_err);
-!n_t_42x = (n_t_42x & n_t_41x);
-property atmel {open_collector= n_t_4x};
-!n_t_4x = (md07 & n_t_92x);
-n_t_4x.oe = (md07 & n_t_92x);
-property atmel {open_collector= overrun_err};
-!overrun_err = (n_t_110x & ck_pulse);
-overrun_err.oe = (n_t_110x & ck_pulse);
-property atmel {open_collector= rd0};
-!rd0 = (io_read_h & tx_div);
-rd0.oe = (io_read_h & tx_div);
-property atmel {open_collector= rd2};
-!rd2 = (data09_l & io_read_h);
-rd2.oe = (data09_l & io_read_h);
-property atmel {open_collector= rd4};
-!rd4 = (io_read_h & selected_l);
-rd4.oe = (io_read_h & selected_l);
-property atmel {open_collector= rd6};
-!rd6 = (data05_l & io_read_h);
-rd6.oe = (data05_l & io_read_h);
-property atmel {open_collector= tx_active};
-!tx_active = (line & line_l);
-tx_active.oe = (line & line_l);

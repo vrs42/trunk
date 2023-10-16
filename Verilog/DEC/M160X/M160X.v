@@ -73,45 +73,13 @@ assign n_t_16x = n_t_1x;
 // r1: r_us_ 
 // r2: r_us_ 
 // open collector 'wire-or's 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n_t_1x = ~((n_t_3x & n_t_2x
                     | n_t_4x & n_t_5x
                     | n_t_6x & n_t_7x)
                    | (n_t_9x & n_t_10x & n_t_11x & n_t_12x)
                    | (n_t_15x & n_t_14x & n_t_13x));
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n_t_21x = ~n_t_22x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n_t_22x = ~((n_t_25x & n_t_24x & n_t_23x & n_t_26x)
                     | (n_t_27x & n_t_30x & n_t_28x & n_t_29x));
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n_t_8x = ~n_t_1x;
 endmodule

@@ -58,69 +58,24 @@ assign j2 = ~(h2
                | f2
                | e2
                | d2);
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign e1 = ~(d1
                | c1
                | b1
                | a1);
 // e5: n8815 
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign p2 = ~(n2
                | m2
                | l2
                | k2);
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign l1 = ~(k1
                | j1
                | h1
                | f1);
 // e6: n8815 
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign v2 = ~(r2
                | s2
                | t2
                | u2);
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign s1 = ~(r1
                | p1
                | n1

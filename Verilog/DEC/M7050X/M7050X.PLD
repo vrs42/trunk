@@ -3,7 +3,7 @@
 
 Name     M7050X ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -358,16 +358,10 @@ rdr_flag.ap = !n3va;
 n_t_15x = !rdr_flag;
 
 /* e6: sn7401 */
-/* rdr_flag = !(rdr_flag & n_t_102x); */
 /* skip = !(n_t_4x & out_of_tape); */
-/* out_of_tape_l = !(n_t_37x & out_of_tape_l); */
-/* n_t_38x = !(n_t_2x & n_t_34x); */
 
 /* e7: sn7401 */
-/* n_t_2x = !(at2 & n_t_7x); */
 /* iob_in_9 = !(n_t_8x & iob_in_7); */
-/* at2 = !(iob_in_11 & at2); */
-/* n_t_14x = !(n_t_24x & at2); */
 
 /* e8: sn7404 */
 clr_run_l = !n_t_6x;
@@ -389,10 +383,7 @@ n_t_33x = !(n_t_21x & stop_complete & br0= 1;
 br1=0 = !(ba1 & rfc_delayed_l & clr_run_l);
 
 /* e11: sn7401 */
-/* n_t_3x = !(at2 & y_strobe); */
 /* iob_in_8 = !(n_t_3x & iob_in_6); */
-/* at2 = !(iob_in_10 & n_t_11x); */
-/* n_t_13x = !(mb7= 1 & at2; */
 
 /* e12: sn7440 */
 n_t_27x = !(n_t_39x & ac1 & n_t_39x & n_t_39x);
@@ -488,26 +479,12 @@ n_t_120x = !(n_t_41x & enable_l);
 /* r17: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= at2};
-!at2 = (iob_in_11 & at2)
-       # (iob_in_10 & n_t_11x);
-at2.oe = (iob_in_11 & at2)
-       # (iob_in_10 & n_t_11x);
 property atmel {open_collector= iob_in_8};
 !iob_in_8 = (n_t_3x & iob_in_6);
 iob_in_8.oe = (n_t_3x & iob_in_6);
 property atmel {open_collector= iob_in_9};
 !iob_in_9 = (n_t_8x & iob_in_7);
 iob_in_9.oe = (n_t_8x & iob_in_7);
-!n_t_13x = (mb7= 1 & at2;
-!n_t_14x = (n_t_24x & at2);
-property atmel {open_collector= n_t_2x};
-!n_t_2x = (at2 & n_t_7x);
-n_t_2x.oe = (at2 & n_t_7x);
-!n_t_38x = (n_t_2x & n_t_34x);
-!n_t_3x = (at2 & y_strobe);
-!out_of_tape_l = (n_t_37x & out_of_tape_l);
-!rdr_flag = (rdr_flag & n_t_102x);
 property atmel {open_collector= skip};
 !skip = (n_t_4x & out_of_tape);
 skip.oe = (n_t_4x & out_of_tape);

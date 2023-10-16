@@ -107,11 +107,7 @@ output testpoint;
 wire n_t_31x;
 wire n_t_31x;
 assign n_t_29x = ~(a13 & a14);
-wire n_t_31x;
-wire n_t_31x;
 assign n_t_30x = ~(a15 & a16);
-wire n_t_31x;
-wire n_t_31x;
 assign n_t_31x = ~(msyn & a17);
 // e4: sn7438 
 // testpoint = !(!n_t_31x & n_t_43x); 
@@ -119,43 +115,19 @@ assign n_t_31x = ~(msyn & a17);
 // syn_l = !n_t_44x; 
 // !c1 = !c1; 
 // e8: sn74139 
-wire n_t_31x;
-wire n_t_31x;
 assign select0 = ~[a1,a2]:'b'00;
-wire n_t_31x;
-wire n_t_31x;
 assign select2 = ~[a1,a2]:'b'01;
-wire n_t_31x;
-wire n_t_31x;
 assign select4 = ~[a1,a2]:'b'10;
-wire n_t_31x;
-wire n_t_31x;
 assign select6 = ~[a1,a2]:'b'11;
-wire n_t_31x;
-wire n_t_31x;
 assign a09 = ~(c1 & [a0,c0]:'b'00);
-wire n_t_31x;
-wire n_t_31x;
 assign n_t_43x = ~(c1 & [a0,c0]:'b'01);
-wire n_t_31x;
-wire n_t_31x;
 assign outhigh = ~(c1 & [a0,c0]:'b'10);
-wire n_t_31x;
-wire n_t_31x;
 assign outlow = ~(c1 & [a0,c0]:'b'11);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
 // r4: r_us_ 
 // open collector 'wire-or's 
-wire n_t_31x;
-wire n_t_31x;
-wire n_t_31x;
-wire n_t_31x;
 assign syn_l = n_t_44x? ~n_t_44x: 1'bz;
-wire n_t_31x;
-wire n_t_31x;
-wire n_t_31x;
-wire n_t_31x;
 assign testpoint = (~n_t_31x & n_t_43x)? 1'b0: 1'bz;
 endmodule

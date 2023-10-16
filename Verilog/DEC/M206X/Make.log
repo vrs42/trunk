@@ -1,7 +1,11 @@
-~/Verilog/bin/smaller.pl M206X.PLD >vv || (rm vv; exit 1)
-0 signals were removed:
-~/Verilog/bin/smaller.pl vv >M206XX.PLD || (rm M206XX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M206XX.PLD >vv || (rm vv; exit 1)
-mv vv M206X.v
-rm M206XX.PLD
+~/Verilog/bin/topld.pl M206X
+warning: making ff1/1,6/ a connector
+warning: making ff2/1,6/ a connector
+info: 0r ne 0r/10
+warning: making j1/0r/ a connector
+info: 0r ne 0r/10
+warning: making j2/0r/ a connector
+warning: making pad1/1,6/ a connector
+warning: making pad2/1,6/ a connector
+info: single ne edge_con2
+warning: making u$4/single/ a connector

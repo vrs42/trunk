@@ -206,6 +206,7 @@ while (<INPUT>) {
           print "wire $node;\n";
         }
       }
+      @nodes = ();
 #warn "Got $lh = $rh";
       # Check $lh for inversion.
       $rh = "!($rh)" if $lh =~ s/^!//;

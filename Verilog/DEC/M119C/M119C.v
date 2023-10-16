@@ -44,10 +44,8 @@ output v2;
 wire e1;
 assign j2 = ~(h2 & f2 & e2 & d2 & c1 & d1 & b1 & a1);
 // ic2: sn7430 
-wire e1;
 assign p2 = ~(n2 & m2 & l2 & k2 & j1 & k1 & h1 & f1);
 // ic3: sn7430 
-wire e1;
 assign v2 = ~(u2 & t2 & s2 & r2 & p1 & r1 & n1 & m1);
 // r1: r_us_ 
 // r2: r_us_ 

@@ -1,108 +1,101 @@
-~/Verilog/bin/smaller.pl M8310F.PLD >vv || (rm vv; exit 1)
-58 signals were removed:
-  a03_l: !en1
-  a07_l: !fset
-  ad02_l: !c0_l
-  ad_ld_d15_l: 'b'1
-  bd: !ts4_l
-  bkc: !tad_l
-  bmd05: !md05_l
-  bmd06: !md07_l
-  bmd07: !c2_l
-  bmd08: !md08_l
-  bmd09: !bmd10
-  bmd11: !md11_l
-  bms_dis: !ms_dis_l
-  btp3: !tp3
-  bts2: !bts4
-  bts3: !eset
-  bus_strobe: !bus_strobe_l
-  cpma11: !'b'0
-  cpma_load: !keycontrol_l
-  dset_l: !d_l
-  header_c: !d
-  in: !be
-  link_data_l: 'b'1
-  mq06_l: !f_l
-  ms_dis_l: ms_ir_dis_l
-  n3b: 'b'1
-  n3va: 'b'1
-  n_t_10x: !link_load_l
-  n_t_13x: !mb06
-  n_t_21x: !n_t_23x
-  n_t_22x: !link
-  n_t_24x: !carry_out_l
-  n_t_25x: !right
-  n_t_41x: !md10_l
-  n_t_42x: !n_t_44x
-  n_t_46x: !jmp
-  n_t_47x: !ind2
-  n_t_51x: !and_l
-  n_t_53x: !dca_l
-  n_t_54x: !tp4!malc
-  n_t_57x: !dcaets2
-  n_t_59x: !tp4
-  n_t_60x: !ac04
-  n_t_61x: !n_t_27x
-  n_t_62x: !ac10
-  n_t_65x: !ts3_l
-  n_t_66x: !header_b
-  n_t_67x: !n_t_71x
-  n_t_76x: !n_t_2x
-  n_t_77x: !mb09
-  n_t_78x: !mb10
-  n_t_79x: !ts4fset!ms_dis
-  n_t_7x: !initialize
-  opets3: !op2ts3
-  opr_iot_l: !ts1_l
-  pin: tp4!malc
-  regbus02_l: !oprf
-  regbus09_l: !e_l
-~/Verilog/bin/smaller.pl vv >M8310FX.PLD || (rm M8310FX.PLD; exit 1)
-41 signals were removed:
-  ad00_l: !ad06_l
-  ad03_l: !la_enable_l
-  ad09_l: md10_l
-  ad10_l: !btp2
-  adlk_l: !pc_load_l
-  btp2: tp2
-  cpma_load_l: !'b'0
-  left: c0_l
-  link_l: !link
-  mac_l: !mq00_l
-  ms_dis_l: ms_ir_dis_l
-  n3v: !oprf_l
-  n_t_16x: tp4!malc
-  n_t_17x: tp4!malc
-  n_t_18x: tp4!malc
-  n_t_1x: tp4!malc
-  n_t_23x: tp4!malc
-  n_t_26x: tp4!malc
-  n_t_28x: tp4!malc
-  n_t_29x: tp4!malc
-  n_t_2x: tp4!malc
-  n_t_30x: tp4!malc
-  n_t_31x: tp4!malc
-  n_t_32x: !ov
-  n_t_33x: !skip1
-  n_t_34x: tp4!malc
-  n_t_35x: tp4!malc
-  n_t_36x: tp4!malc
-  n_t_37x: !ma03_l
-  n_t_38x: tp4!malc
-  n_t_39x: !fset_l
-  n_t_3x: tp4!malc
-  n_t_40x: !opr_iot
-  n_t_45x: tp4!malc
-  n_t_48x: !n_t_37x
-  n_t_49x: eset
-  n_t_4x: !n_t_74x
-  n_t_55x: tp4!malc
-  pagez: !eset_l
-  regbus00: !pwr_ok
-  tp4malc: !vector_bit_02_h
-~/Verilog/bin/cupl2v.pl M8310FX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output link at /home/vrs/Verilog/bin/cupl2v.pl line 223, <INPUT> line 1640.
-../Makefile:29: recipe for target 'M8310F.v' failed
-make: *** [M8310F.v] Error 1
-rm M8310FX.PLD
+~/Verilog/bin/topld.pl M8310F
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: edge_top ne dil16
+warning: making e/edge_top/ a connector
+info: n8881n ne dil14
+info: 7405n ne dil14
+warning: making e10/sn7405/ a connector
+info: 7412n ne dil14
+info: 7410n ne dil14
+info: 7412n ne dil14
+info: 74h04n ne 7404n
+info: n8881n ne dil14
+info: 7404n ne dil14
+info: 74h00n ne 7400n
+info: 7402n ne dil14
+info: n8881n ne dil14
+info: 7404n ne dil14
+info: 74h00n ne 7400n
+info: 7402n ne dil14
+info: n8881n ne dil14
+info: 74151n ne dil14
+info: 7402n ne dil14
+info: 7404n ne dil14
+info: 7405n ne dil14
+warning: making e27/sn7405/ a connector
+info: 7405n ne dil14
+warning: making e28/sn7405/ a connector
+info: sp384n ne dil14
+info: n8881n ne dil14
+info: 7410n ne dil14
+info: 7404n ne dil14
+info: 74h00n ne 7400n
+info: 74h04n ne 7404n
+info: 7402n ne dil14
+info: 7486n ne dil14
+info: n8881n ne dil14
+info: 74h74n ne 7474n
+info: 7402n ne dil14
+info: n8881n ne dil14
+info: n8881n ne dil14
+info: 74h74n ne 7474n
+info: dec8251 ne dil16
+info: 7404n ne dil14
+info: 7404n ne dil14
+info: n8881n ne dil14
+info: n8881n ne dil14
+info: 7402n ne dil14
+info: n8881n ne dil14
+info: n8881n ne dil14
+info: 7404n ne dil14
+info: 7405n ne dil14
+warning: making e8/sn7405/ a connector
+info: 7412n ne dil14
+info: edge_top ne dil16
+warning: making f/edge_top/ a connector
+info: edge_top ne dil16
+warning: making h/edge_top/ a connector
+info: 2n3009 ne _npn_to5
+warning: making q1/2n3009/ a connector
+info: quad ne dil16
+warning: making u$2/quad/ a connector
+warning: non-bypass capacitor deleted: c1
+unexpected OC output: bts4 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2002.
+unexpected OC output: op1ts3 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2002.
+unexpected OC output: skip1 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2044.
+unexpected OC output: bts1 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2044.
+unexpected OC output: n3b at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2086.
+unexpected OC output: op2ts3 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2086.
+unexpected OC output: bts1 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2086.
+unexpected OC output: n3a at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2107.
+unexpected OC output: aceq0 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2107.
+unexpected OC output: op1ts3 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2107.
+unexpected OC output: n_t_42x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2131.
+unexpected OC output: bf at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2131.
+unexpected OC output: bts2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2131.
+unexpected OC output: mq01_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2223.
+unexpected OC output: pg01_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2256.
+unexpected OC output: ac02 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2304.
+unexpected OC output: mb03 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2304.
+unexpected OC output: b00_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2338.
+unexpected OC output: n_t_25x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2338.
+unexpected OC output: n_t_28x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2338.
+unexpected OC output: ad06_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2484.
+unexpected OC output: n_t_15x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2484.
+unexpected OC output: op1ts3 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2484.
+unexpected OC output: ad10_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2805.
+unexpected OC output: btp3 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2805.
+unexpected OC output: 'b'0 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2821.
+unexpected OC output: ms_dis_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2821.
+unexpected OC output: dset_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2900.
+unexpected OC output: ms_dis_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2900.
+unexpected OC output: a08_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2950.
+unexpected OC output: bf at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2950.
+unexpected OC output: bts3 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2950.
+unexpected OC output: adlk_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2966.
+unexpected OC output: jmp at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2966.
+unexpected OC output: btp3 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2966.
+warning: non-pullup resistor deleted: r35
+warning: non-pullup resistor deleted: r37
+warning: non-pullup resistor deleted: r38

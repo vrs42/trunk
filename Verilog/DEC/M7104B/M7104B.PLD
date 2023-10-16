@@ -3,7 +3,7 @@
 
 Name     M7104B ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -827,10 +827,7 @@ n_t_18x = !(n_t_105x
 n_t_71x = !data7_l;
 
 /* e36: n8881n */
-/* n_t_41x = !(n6rk1 & n_t_18x); */
-/* n_t_104x = !(n_t_16x & skip_l); */
 /* internal_io_l = !device_rk; */
-/* n_t_12x = !(bd08 & data8_l); */
 
 /* e38: sn74h74 */
 btp1.ar = !btp2;
@@ -1025,8 +1022,3 @@ md_rk_l = 'b'1;
 property atmel {open_collector= internal_io_l};
 !internal_io_l = device_rk;
 internal_io_l.oe = device_rk;
-!n_t_104x = (n_t_16x & skip_l);
-property atmel {open_collector= n_t_12x};
-!n_t_12x = (bd08 & data8_l);
-n_t_12x.oe = (bd08 & data8_l);
-!n_t_41x = (n6rk1 & n_t_18x);

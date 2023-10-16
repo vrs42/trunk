@@ -1,109 +1,118 @@
-~/Verilog/bin/smaller.pl M868H.PLD >vv || (rm vv; exit 1)
-31 signals were removed:
-  b3: io_pause_l
-  cc_clk_te_l: !cc_67x
-  cc_dtp0_l: !cc_dtp0
-  cc_init_l: !cc_init
-  cc_run: !cc_run_l
-  cc_tp3_l: !tp3
-  df_sel_er: !df_sel_er_l
-  dokcc: !cc_dtp1_l
-  kcf_l: !cc_wrt_ok
-  krb_l: !cc_r_w
-  n3v3: !tpg0
-  n603x: !cc_sdsq_l
-  n604x: !cc_sdst_l
-  n_t_10x: !n_t_29x
-  n_t_112x: !cc_tpg_clk
-  n_t_141x: !cc_run_l
-  n_t_19x: !
-  n_t_24x: !krs_l
-  n_t_2x: !dokcc
-  n_t_32x: !n_t_72x
-  n_t_34x: !rcvr_clk
-  n_t_35x: !cc_dtp0_l
-  n_t_46x: !cc_sdss_l
-  n_t_83x: !ksf_l
-  n_t_84x: 'b'1
-  n_t_85x: !data07_l
-  n_t_88x: !n_t_20x
-  ns200: !cc_btp3
-  osc: !cc_uts
-  pin: s_!g
-  read_buffer: !cc_t_m_en
-~/Verilog/bin/smaller.pl vv >M868HX.PLD || (rm M868HX.PLD; exit 1)
-69 signals were removed:
-  cc_dtp0_l: !cc_dtp0
-  cc_dtp1_l: !dokcc
-  con_all_halt: cc_run_l
-  initialize_l: !set_rr_l
-  internal_io: !cc_67x
-  n_t_108x: s_!g
-  n_t_110x: s_!g
-  n_t_116x: s_!g
-  n_t_117x: s_!g
-  n_t_118x: s_!g
-  n_t_119x: s_!g
-  n_t_11x: s_!g
-  n_t_122x: s_!g
-  n_t_128x: s_!g
-  n_t_12x: !n_t_69x
-  n_t_13x: s_!g
-  n_t_14x: s_!g
-  n_t_16x: s_!g
-  n_t_17x: s_!g
-  n_t_1x: s_!g
-  n_t_20x: s_!g
-  n_t_218x: s_!g
-  n_t_219x: s_!g
-  n_t_22x: s_!g
-  n_t_23x: s_!g
-  n_t_26x: s_!g
-  n_t_31x: s_!g
-  n_t_38x: s_!g
-  n_t_41x: s_!g
-  n_t_42x: s_!g
-  n_t_47x: !cc_t_!m_en
-  n_t_4x: s_!g
-  n_t_51x: !n_t_12x
-  n_t_52x: s_!g
-  n_t_53x: cc_sdst_l
-  n_t_54x: s_!g
-  n_t_55x: s_!g
-  n_t_56x: s_!g
-  n_t_57x: s_!g
-  n_t_58x: s_!g
-  n_t_59x: s_!g
-  n_t_5x: s_!g
-  n_t_60x: s_!g
-  n_t_61x: s_!g
-  n_t_62x: s_!g
-  n_t_63x: s_!g
-  n_t_64x: s_!g
-  n_t_65x: s_!g
-  n_t_67x: n_t_72x
-  n_t_68x: s_!g
-  n_t_69x: s_!g
-  n_t_70x: s_!g
-  n_t_71x: s_!g
-  n_t_76x: s_!g
-  n_t_77x: s_!g
-  n_t_78x: s_!g
-  n_t_79x: s_!g
-  n_t_7x: s_!g
-  n_t_80x: s_!g
-  n_t_81x: s_!g
-  n_t_82x: s_!g
-  n_t_8x: !cc_unit
-  n_t_90x: s_!g
-  n_t_92x: s_!g
-  n_t_94x: s_!g
-  n_t_95x: s_!g
-  n_t_96x: s_!g
-  n_t_9x: s_!g
-  s_g: !zone1
-~/Verilog/bin/cupl2v.pl M868HX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output s_!g at /home/vrs/Verilog/bin/cupl2v.pl line 223, <INPUT> line 1200.
-../Makefile:29: recipe for target 'M868H.v' failed
-make: *** [M868H.v] Error 1
-rm M868HX.PLD
+~/Verilog/bin/topld.pl M868H
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: d664 ne 1n4148do35_10
+warning: making d1/d664/ a connector
+info: d664 ne 1n4148do35_10
+warning: making d10/d664/ a connector
+info: d662 ne 1n4148do35_10
+warning: making d2/d662/ a connector
+info: d662 ne 1n4148do35_10
+warning: making d3/d662/ a connector
+info: d662 ne 1n4148do35_10
+warning: making d4/d662/ a connector
+info: d664 ne 1n4148do35_10
+warning: making d5/d664/ a connector
+info: d662 ne 1n4148do35_10
+warning: making d6/d662/ a connector
+info: d664 ne 1n4148do35_10
+warning: making d7/d664/ a connector
+info: d664 ne 1n4148do35_10
+warning: making d8/d664/ a connector
+info: d664 ne 1n4148do35_10
+warning: making d9/d664/ a connector
+info: 74h04n ne 7404n
+info: 7402n ne dil14
+info: 74123n ne dil14
+warning: making e04/sn74123/ a connector
+info: dec8235 ne edge_con8
+info: dec8271 ne edge_con8
+info: sp380n ne dil14
+info: 74123n ne dil14
+warning: making e08/sn74123/ a connector
+info: dec8235 ne edge_con8
+info: dec8271 ne edge_con8
+info: sp380n ne dil14
+info: 7475n ne dil14
+info: dec8235 ne edge_con8
+info: dec8271 ne edge_con8
+info: sp380n ne dil14
+info: dec8242 ne 74266n
+info: 7400n ne dil14
+info: sp380n ne dil14
+info: dec8271 ne edge_con8
+info: 7400n ne dil14
+info: 7410n ne dil14
+info: sp314n ne dil14
+info: spare ne dil14
+info: 7404n ne dil14
+info: 7410n ne dil14
+info: sp384n ne dil14
+info: dec8271 ne edge_con8
+info: 7404n ne dil14
+info: 7404n ne dil14
+info: n8881n ne dil14
+info: 7410n ne dil14
+info: 7493n ne dil14
+info: 7402n ne dil14
+info: 7400n ne dil14
+info: 7417n ne dil14
+info: 7430n ne dil14
+info: n8881n ne dil14
+info: dec8242 ne 74266n
+info: sp380n ne dil14
+info: dec8251 ne edge_con8
+info: quad ne edge_con8
+warning: making edge$/quad/ a connector
+warning: making j1/dec40pinh/ a connector
+info: mps6534 ne 2n2219
+warning: making q1/mps6534/ a connector
+info: mps6534 ne 2n2219
+warning: making q2/mps6534/ a connector
+info: mps6534 ne 2n2219
+warning: making q3/mps6534/ a connector
+info: mps6534 ne 2n2219
+warning: making q4/mps6534/ a connector
+info: mps6534 ne 2n2219
+warning: making q5/mps6534/ a connector
+info: 20k ne 275p
+warning: making r26/20k/ a connector
+info: 0r2 ne 0r2/10
+warning: making w2w1/0r2/ a connector
+info: 0r2 ne 0r2/10
+warning: making w4w3/0r2/ a connector
+info: 31_xx ne b3f_31x
+warning: making wtm/31_xx/ a connector
+warning: non-bypass capacitor deleted: c37
+warning: non-bypass capacitor deleted: c38
+warning: non-bypass capacitor deleted: c39
+warning: non-bypass capacitor deleted: c40
+warning: non-bypass capacitor deleted: c41
+warning: non-bypass capacitor deleted: c42
+warning: non-bypass capacitor deleted: c44
+warning: non-bypass capacitor deleted: c47
+warning: non-bypass capacitor deleted: c48
+unexpected OC output: df_db01 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2140.
+unexpected OC output: df_comp_wd at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2140.
+unexpected OC output: n_t_98x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2532.
+unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2532.
+unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2532.
+unexpected OC output: recv_5 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2564.
+unexpected OC output: sync at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2580.
+unexpected OC output: cc_s_g at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2580.
+warning: non-pullup resistor deleted: r25
+warning: non-pullup resistor deleted: r29
+warning: non-pullup resistor deleted: r30
+warning: non-pullup resistor deleted: r31
+warning: non-pullup resistor deleted: r32
+warning: non-pullup resistor deleted: r33
+warning: non-pullup resistor deleted: r34
+warning: non-pullup resistor deleted: r35
+warning: non-pullup resistor deleted: r38
+warning: non-pullup resistor deleted: r39
+warning: non-pullup resistor deleted: r40
+warning: non-pullup resistor deleted: r41
+warning: non-pullup resistor deleted: r43
+warning: non-pullup resistor deleted: r48

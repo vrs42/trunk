@@ -3,7 +3,7 @@
 
 Name     M8416C ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -903,9 +903,6 @@ n_t_86x = !(n_t_23x
 n_t_26x = !link_l;
 
 /* e4: n8881n */
-/* n_t_37x = !(p4_int_in_prog_l & n_t_39x); */
-/* enable = !(n_t_40x & p4_int_in); */
-/* n_t_27x = !(n_t_45x & n_t_26x); */
 /* break_in_prog_l = !p3_mbk; */
 
 /* e5: sn7404 */
@@ -931,9 +928,6 @@ p3_bm3_l = !n_t_79x;
 p3_bm4_l = !p3_bm4;
 
 /* e8: n8881n */
-/* n_t_85x = !user_mode_l; */
-/* p3_bm2 = !(p6_usm & n_t_179x); */
-/* p2_suf_out = !(init_or_eot_l & n_t_168x); */
 /* rd3_l = !(n_t_132x & n_t_131x); */
 
 /* e9: sn7420 */
@@ -1013,16 +1007,9 @@ n_t_98x = !(p6_maint & p4_new_fld);
 n_t_131x = !p4_gtf_l;
 
 /* e19: n8881n */
-/* n_t_316x = !(cpma_disable_l & msirdis_l); */
-/* p3_mbk = !p3_mbk; */
-/* n_t_73x = !(n_t_107x & n_t_73x); */
 /* c0_l = !n_t_74x; */
 
 /* e20: sn7401 */
-/* p3_bts4 = !(p3_mbk & n_t_77x); */
-/* p4_bts1 = !(p6_bind2 & n_t_77x); */
-/* n_t_306x = !(n_t_5x & n_t_313x); */
-/* p3_bts3 = !(n_t_77x & n_t_72x); */
 
 /* e21: sn7410 */
 n_t_291x = !(p3_bm1 & p3_bf & p3_bm0);
@@ -1231,9 +1218,6 @@ p4_bts1 = !(ts1_l
           # n_t_28x);
 
 /* e42: n8881n */
-/* n_t_36x = !(skip_l & int_rqst_l); */
-/* n_t_103x = !(n_t_103x & p4_usint); */
-/* n_t_128x = !(data09_l & n_t_128x); */
 /* int_rqst_l = !p4_usint; */
 
 /* e43: sn7420 */
@@ -2140,19 +2124,14 @@ data10_l.oe = (n_t_76x & n_t_77x & n_t_77x);
 property atmel {open_collector= data11_l};
 !data11_l = (n_t_70x & n_t_77x & n_t_77x);
 data11_l.oe = (n_t_70x & n_t_77x & n_t_77x);
-!enable = (n_t_40x & p4_int_in);
 property atmel {open_collector= int_rqst_l};
 !int_rqst_l = p4_usint;
 int_rqst_l.oe = p4_usint;
 !ma10_l = (!gdollar_5 & !p3_binit & !p4_rmr_l);
 !mq10_l = (!gdollar_6 & !p3_binit & !p4_rmr_l);
-!n_t_103x = (n_t_103x & p4_usint);
 property atmel {open_collector= n_t_10x};
 !n_t_10x = (!gdollar_1 & !p2_elar_l & !p2_elar_l);
 n_t_10x.oe = (!gdollar_1 & !p2_elar_l & !p2_elar_l);
-property atmel {open_collector= n_t_128x};
-!n_t_128x = (data09_l & n_t_128x);
-n_t_128x.oe = (data09_l & n_t_128x);
 property atmel {open_collector= n_t_139x};
 !n_t_139x = (!gdollar_50 & !p3_binit & !p4_rlb_l);
 n_t_139x.oe = (!gdollar_50 & !p3_binit & !p4_rlb_l);
@@ -2231,17 +2210,6 @@ property atmel {open_collector= n_t_25x};
            # (!gdollar_67 & !p2_elar_l & !p2_elar_l);
 n_t_25x.oe = (!gdollar_65 & !p4_pclr & !p2_elar_l)
            # (!gdollar_67 & !p2_elar_l & !p2_elar_l);
-property atmel {open_collector= n_t_27x};
-!n_t_27x = (n_t_45x & n_t_26x);
-n_t_27x.oe = (n_t_45x & n_t_26x);
-!n_t_306x = (n_t_5x & n_t_313x);
-!n_t_316x = (cpma_disable_l & msirdis_l);
-property atmel {open_collector= n_t_36x};
-!n_t_36x = (skip_l & int_rqst_l);
-n_t_36x.oe = (skip_l & int_rqst_l);
-property atmel {open_collector= n_t_37x};
-!n_t_37x = (p4_int_in_prog_l & n_t_39x);
-n_t_37x.oe = (p4_int_in_prog_l & n_t_39x);
 !n_t_38x = (!gdollar_13 & !p4_pclr & !p2_emaen_l)
            # (!n_t_42x & !p2_ifa_l)
            # (!p4_let_io_l & p1_bfl0)
@@ -2260,23 +2228,9 @@ n_t_37x.oe = (p4_int_in_prog_l & n_t_39x);
            # (!p4_rmf_l & !p2_sf5);
 !n_t_45x = (!gdollar_2 & !p2_elar_l & !p2_elar_l);
 !n_t_48x = (!gdollar_7 & !p3_binit & !p4_rmr_l);
-property atmel {open_collector= n_t_73x};
-!n_t_73x = (n_t_107x & n_t_73x);
-n_t_73x.oe = (n_t_107x & n_t_73x);
 property atmel {open_collector= n_t_7x};
 !n_t_7x = (!gdollar_0 & !p2_elar_l & !p2_elar_l);
 n_t_7x.oe = (!gdollar_0 & !p2_elar_l & !p2_elar_l);
-!n_t_85x = user_mode_l;
-!p2_suf_out = (init_or_eot_l & n_t_168x);
-property atmel {open_collector= p3_bm2};
-!p3_bm2 = (p6_usm & n_t_179x);
-p3_bm2.oe = (p6_usm & n_t_179x);
-!p3_bts3 = (n_t_77x & n_t_72x);
-property atmel {open_collector= p3_bts4};
-!p3_bts4 = (p3_mbk & n_t_77x);
-p3_bts4.oe = (p3_mbk & n_t_77x);
-!p3_mbk = p3_mbk;
-!p4_bts1 = (p6_bind2 & n_t_77x);
 !p5_ibs2_l = (!gdollar_62 & !p6_prup_l & !p6_bs3_l)
              # (!gdollar_64 & !p6_prup_l & !p2_enbs_l);
 !p5_ibs3_l = (!gdollar_61 & !p6_prup_l & !p6_bs3_l)

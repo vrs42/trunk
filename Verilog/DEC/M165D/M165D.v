@@ -50,27 +50,13 @@ output n_t_9x;
 wire n_t_80x;
 wire n_t_80x;
 assign n_t_4x = ~(n_t_1x & n3v3);
-wire n_t_80x;
-wire n_t_80x;
 assign n_t_6x = ~(n3v3 & n_t_2x);
-wire n_t_80x;
-wire n_t_80x;
 assign n_t_9x = ~(n_t_7x & n3v3);
-wire n_t_80x;
-wire n_t_80x;
 assign n_t_12x = ~(n_t_10x & n3v3);
 // e3: sn7400 
-wire n_t_80x;
-wire n_t_80x;
 assign n_t_15x = ~(n_t_13x & n3v3);
-wire n_t_80x;
-wire n_t_80x;
 assign n_t_18x = ~(n3v3 & n_t_16x);
-wire n_t_80x;
-wire n_t_80x;
 assign n_t_21x = ~(n_t_19x & n3v3);
-wire n_t_80x;
-wire n_t_80x;
 assign n_t_24x = ~(n_t_22x & n3v3);
 // r1: r_us_ 
 // r2: r_us_ 

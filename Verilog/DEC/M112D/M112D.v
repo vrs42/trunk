@@ -54,87 +54,24 @@ wire n_t_8x;
 wire n_t_8x;
 assign k1 = ~(j1
                | h1);
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign f1 = ~(d1
                | e1);
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign f2 = ~(e2
                | d2);
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign c1 = ~(b1
                | a1);
 // e2: sn7402 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign k2 = ~(j2
                | h2);
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n1 = ~(m1
                | l1);
 // e3: sn7402 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign v2 = ~(u2
                | t2);
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign s2 = ~(r2
                | p2);
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n2 = ~(m2
                | l2);
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign s1 = ~(r1
                | p1);
 // r1: r_us_ 

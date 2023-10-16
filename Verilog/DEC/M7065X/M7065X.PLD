@@ -3,7 +3,7 @@
 
 Name     M7065X ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -283,14 +283,6 @@ $ENDIF
 /* c19: c_us */
 
 /* e1: dec8242 */
-/* aj2 = !(!n_t_2x & !d1
-    # n_t_2x & d1); */
-/* n_t_3x = !(!h2 & !j2
-       # h2 & j2); */
-/* f2 = !(!j2 & !n_t_1x
-   # j2 & n_t_1x); */
-/* aj2 = !(!s1 & !c1
-    # s1 & c1); */
 
 /* e2: sn7475 */
 a1.ap = r1 & n_t_2x;
@@ -371,12 +363,6 @@ n_t_36x = !(r1 & n_t_29x);
 iot_012 = !(f1 & e1);
 
 /* e9: dec8242 */
-/* y_strobe = !(!n_t_38x & !j2
-         # n_t_38x & j2); */
-/* n_t_120x = !(!t2 & !j2
-         # t2 & j2); */
-/* s2 = !(!j2 & !n_t_37x
-   # j2 & n_t_37x); */
 /* skip = !(!v2 & !r2
      # v2 & r2); */
 
@@ -469,19 +455,6 @@ enable_l = !n_t_19x;
 /* r11: r_us_ */
 
 /* Open collector 'wire-or's */
-!aj2 = (!n_t_2x & !d1
-    # n_t_2x & d1)
-    # (!s1 & !c1
-    # s1 & c1);
-property atmel {open_collector= f2};
-!f2 = (!j2 & !n_t_1x
-   # j2 & n_t_1x);
-f2.oe = (!j2 & !n_t_1x
-   # j2 & n_t_1x);
-!n_t_120x = (!t2 & !j2
-         # t2 & j2);
-!n_t_3x = (!h2 & !j2
-       # h2 & j2);
 !n_t_5x = n_t_36x;
 !n_t_77x = n_t_72x;
 !n_t_78x = n_t_19x;
@@ -490,12 +463,5 @@ f2.oe = (!j2 & !n_t_1x
 property atmel {open_collector= r1};
 !r1 = n_t_71x;
 r1.oe = n_t_71x;
-property atmel {open_collector= s2};
-!s2 = (!j2 & !n_t_37x
-   # j2 & n_t_37x);
-s2.oe = (!j2 & !n_t_37x
-   # j2 & n_t_37x);
 !skip = (!v2 & !r2
      # v2 & r2);
-!y_strobe = (!n_t_38x & !j2
-         # n_t_38x & j2);

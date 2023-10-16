@@ -66,14 +66,6 @@ wire n_t_8x;
 //   # l1 & n2 & m2
 //   # k1 & j1); 
 // h1 = !n2; 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign p2 = n2;
 // e3: sn74h53 
 // j2 = !(m1 & n1
@@ -81,125 +73,21 @@ assign p2 = n2;
 //   # s1 & u2 & t2
 //   # r1 & p1); 
 // n1 = !j2; 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign v2 = j2;
 // r3: r_us_ 
 // r4: r_us_ 
 // open collector 'wire-or's 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign a1 = (b1 & (1'b0)
               | c1 & d1
               | e1 & h2 & f2
               | e2 & d2)? 1'b0: 1'bz;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign b1 = a1? ~a1: 1'bz;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign h1 = n2? ~n2: 1'bz;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign j2 = (m1 & n1
               | r2 & s2
               | s1 & u2 & t2
               | r1 & p1)? 1'b0: 1'bz;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n1 = j2? ~j2: 1'bz;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
 assign n2 = (f1 & h1
               | k2 & l2
               | l1 & (1'b0) & m2

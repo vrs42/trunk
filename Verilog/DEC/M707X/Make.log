@@ -1,25 +1,27 @@
-~/Verilog/bin/smaller.pl M707X.PLD >vv || (rm vv; exit 1)
-16 signals were removed:
-  active_l: !active
-  flag_l: !irq
-  n_t_10x: !n_t_38x
-  n_t_142x: !bit6
-  n_t_152x: !bit7
-  n_t_153x: !bit5
-  n_t_167x: !n_t_133x
-  n_t_18x: !bit2
-  n_t_19x: !ar1
-  n_t_21x: !n_t_35x
-  n_t_38x: !n_t_16x
-  n_t_460x: !n_t_6x
-  n_t_49x: !bit4
-  n_t_4x: !n_t_2x
-  n_t_5x: !n_t_38x
-  n_t_7x: !bit8
-~/Verilog/bin/smaller.pl vv >M707XX.PLD || (rm M707XX.PLD; exit 1)
-2 signals were removed:
-  bit8: line
-  n_t_38x: !n_t_16x
-~/Verilog/bin/cupl2v.pl M707XX.PLD >vv || (rm vv; exit 1)
-mv vv M707X.v
-rm M707XX.PLD
+~/Verilog/bin/topld.pl M707X
+info: 1n914 ne 1n4148do35_10
+warning: making d1/1n914/ a connector
+info: 1n914 ne 1n4148do35_10
+warning: making d2/1n914/ a connector
+info: 7430n ne dil14
+info: 7440n ne 7420n
+info: 7400n ne dil14
+info: 7410n ne dil14
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: 7430n ne dil14
+info: pn3569 ne _npn_to39_ebc
+warning: making q1/pn3569/ a connector
+info: pn3569 ne _npn_to39_ebc
+warning: making q2/pn3569/ a connector
+info: 6534b ne _pnp_to39_ebc
+warning: making q3/6534b/ a connector
+info: double ne edge_con4
+warning: making u$2/double/ a connector
+warning: non-bypass capacitor deleted: c19
+warning: non-pullup resistor deleted: r5
+warning: non-pullup resistor deleted: r9
+warning: non-pullup resistor deleted: r12

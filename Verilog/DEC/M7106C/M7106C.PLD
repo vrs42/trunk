@@ -3,7 +3,7 @@
 
 Name     M7106C ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -1058,7 +1058,6 @@ n_t_23x = !n_t_25x;
 
 /* e44: ds75452n */
 /* dsk_wrt_clk_data_l = !(!(bdata10 & ma9_l)); */
-/* wrt_clk_data = !(!(n_t_45x & mak)); */
 
 /* e45: sn7400 */
 n_t_28x = !(n_t_26x & inside_in_l);
@@ -1111,15 +1110,12 @@ ainith = !sector_seek & !in & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3
 
 /* e48: ds75452n */
 /* dsk_strobe_l = !(!(brk_enab_clk & dsk_head_sel1_l)); */
-/* strobe = !(!top_surf); */
 
 /* e49: ds75452n */
 /* dsk_read_l = !(!(main_data & dsk_restore_l)); */
-/* read = !(!restore); */
 
 /* e50: ds75452n */
 /* dsk_wrt_erase_gate_l = !(!(n3v & dsk_wrt_protect_l)); */
-/* write = !(!(n6rk3_ok & wrt_lock_out)); */
 
 /* e51: sp380n */
 !n_t_26x = n_t_20x;
@@ -1278,11 +1274,3 @@ dsk_wrt_clk_data_l.oe = (!(bdata10 & ma9_l));
 property atmel {open_collector= dsk_wrt_erase_gate_l};
 !dsk_wrt_erase_gate_l = (!(n3v & dsk_wrt_protect_l));
 dsk_wrt_erase_gate_l.oe = (!(n3v & dsk_wrt_protect_l));
-!read = (!restore);
-property atmel {open_collector= strobe};
-!strobe = (!top_surf);
-strobe.oe = (!top_surf);
-property atmel {open_collector= write};
-!write = (!(n6rk3_ok & wrt_lock_out));
-write.oe = (!(n6rk3_ok & wrt_lock_out));
-!wrt_clk_data = (!(n_t_45x & mak));

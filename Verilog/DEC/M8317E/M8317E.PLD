@@ -3,7 +3,7 @@
 
 Name     M8317E ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -751,24 +751,13 @@ $ENDIF
 /* c101: c_us */
 
 /* e1: sn7412 */
-/* c1_l = !(ma03_l & n_t_37x & n_t_37x); */
 /* fe_fd_l = !(n_t_37x & bts4 & bkc); */
-/* n_t_1x = !(bmd06 & op1ts3 & n_t_36x); */
 
 /* e2: sn7412 */
-/* skip1 = !(md03_l & ac2bus_l & carry_in_l); */
-/* n_t_56x = !(carry_in_l & skip1 & ts4fset); */
-/* n_t_12x = !(n_t_55x & bts1 & jmsets2); */
 
 /* e3: sn7412 */
-/* bf_kc = !(n3b & en1 & en0); */
-/* bts4 = !(n_t_30x & op2ts3 & n_t_43x); */
-/* n_t_36x = !(bf_kc & bts1 & bts1); */
 
 /* e4: sn7412 */
-/* link = !(n3a & md_dis & link_l); */
-/* bms_dis = !(n_t_35x & aceq0 & bmd06); */
-/* n_t_10x = !(bmd11 & op1ts3 & link); */
 
 /* e5: sn74173 */
 gdollar_0.ar = 'b'1;
@@ -1116,23 +1105,11 @@ n_t_65x = !(md01_l & n3v);
 
 /* e46: n8881n */
 /* ir2_l = 'b'1; */
-/* jms_l = !(and_l & cpma_load_l); */
-/* tad_l = !(ld_disk_addrs & iot_l); */
-/* opr_l = !(jmp_l & dca_l); */
 
 /* e47: n8881n */
 /* e_l = !(regbus09_l & be); */
-/* in = !(keycontrol_l & cpma_load); */
-/* n_t_53x = !(bkc & tad_l); */
-/* and_l = !(dca_l & n_t_51x); */
 
 /* e48: sn7417 */
-/* ad10_l = !; */
-/* ad09_l = !; */
-/* btp3 = !; */
-/* n_t_41x = !; */
-/* bmd09 = !; */
-/* bmd08 = !; */
 
 /* e49: sn74173 */
 gdollar_20.ar = cyl_addrs_er;
@@ -1165,18 +1142,10 @@ n_t_78x = !(n3v & fset_l & n3v & mb10);
 n_t_77x = !(mb09 & n3v & dset_l & n3v);
 
 /* e51: n8881n */
-/* ets3_l = !(and_l & andets3); */
-/* ets3_l = !(tad_l & tadets3); */
-/* isz_l = !(iszets2 & ets2_l); */
-/* ets3_l = !(iszets3 & isz_l); */
 
 /* e52: sn7417 */
 /* n_t_30x = !; */
 /* bf = !; */
-/* ov = !; */
-/* a10_l = !; */
-/* bts3 = !; */
-/* keycontrol_l = !; */
 
 /* e53: sn7411 */
 btp2 = adlk_l & pc_load_l & n_t_34x;
@@ -1197,10 +1166,6 @@ ac_load_l = ( & ac10);
 ac08 = 'b'0;
 
 /* e56: n8881n */
-/* n_t_43x = !(n_t_43x & a11_l); */
-/* a10_l = !n_t_42x; */
-/* n_t_10x = !( & en0); */
-/* a09_l = !(n_t_10x & a08_l); */
 
 /* e57: n8881n */
 /* data_f = !(data08 & b08_l); */
@@ -1208,9 +1173,6 @@ ac08 = 'b'0;
 /* data09 = !( & b09_l); */
 
 /* e58: n8881n */
-/* ad00_l = !(left & ad05_l); */
-/* ad11_l = !(regbus11_l & regbus11); */
-/* and11_l = !( & md11_l); */
 
 /* e59: sn7404 */
 mq11_l = !ac10;
@@ -1401,36 +1363,17 @@ property atmel {open_collector= 'b'0};
         # (!gdollar_18 & !ma11_l & !ir2_l);
 'b'0.oe = (!gdollar_17 & !ma11_l & !ir2_l)
         # (!gdollar_18 & !ma11_l & !ir2_l);
-!a09_l = (n_t_10x & a08_l);
-!a10_l = ()
-         # (n_t_42x);
 !ac2bus_l = (!gdollar_0 & !n_t_42x & !data_t);
-!ad00_l = (left & ad05_l);
-!ad09_l = ;
-!ad10_l = ;
-!ad11_l = (regbus11_l & regbus11);
-!and11_l = ( & md11_l);
-!and_l = (dca_l & n_t_51x);
 property atmel {open_collector= bf};
 !bf = (!gdollar_1 & !n_t_42x & !data_t)
       # ();
 bf.oe = (!gdollar_1 & !n_t_42x & !data_t)
       # ();
-!bf_kc = (n3b & en1 & en0);
-!bmd08 = ;
-!bmd09 = ;
-!bms_dis = (n_t_35x & aceq0 & bmd06);
-!btp3 = ;
 !bts2 = (!gdollar_2 & !n_t_42x & !data_t)
         # (!gdollar_3 & !n_t_42x & !data_t);
-property atmel {open_collector= bts3};
-!bts3 = ;
-bts3.oe = ;
-!bts4 = (n_t_30x & op2ts3 & n_t_43x);
 property atmel {open_collector= bus_strobe};
 !bus_strobe = (!gdollar_11 & !b00_l & !pc_load_l);
 bus_strobe.oe = (!gdollar_11 & !b00_l & !pc_load_l);
-!c1_l = (ma03_l & n_t_37x & n_t_37x);
 !data09 = ( & b09_l);
 !data10 = (data_t & b10_l);
 !data_f = (data08 & b08_l);
@@ -1441,63 +1384,29 @@ dcaets2.oe = (!gdollar_4 & !dcaets2 & !data02);
 !dset_l = (!gdollar_21 & !md11_l & !e_l);
 !e_l = (regbus09_l & be);
 !eset_l = (!gdollar_22 & !md11_l & !e_l);
-!ets3_l = (and_l & andets3)
-          # (tad_l & tadets3)
-          # (iszets3 & isz_l);
 !fe_fd_l = (n_t_37x & bts4 & bkc);
 !fset_l = (!gdollar_20 & !md11_l & !e_l);
-!in = (keycontrol_l & cpma_load);
 !ir2_l = 'b'0;
-!isz_l = (iszets2 & ets2_l);
-!jms_l = (and_l & cpma_load_l);
-!keycontrol_l = ;
-!link = (n3a & md_dis & link_l);
 !ms_dis_l = (!gdollar_19 & !ma11_l & !ir2_l);
 property atmel {open_collector= n3v};
 !n3v = (!gdollar_16 & !ma11_l & !ir2_l);
 n3v.oe = (!gdollar_16 & !ma11_l & !ir2_l);
-property atmel {open_collector= n_t_10x};
-!n_t_10x = (bmd11 & op1ts3 & link)
-           # ( & en0);
-n_t_10x.oe = (bmd11 & op1ts3 & link)
-           # ( & en0);
-property atmel {open_collector= n_t_12x};
-!n_t_12x = (n_t_55x & bts1 & jmsets2);
-n_t_12x.oe = (n_t_55x & bts1 & jmsets2);
 property atmel {open_collector= n_t_17x};
 !n_t_17x = (!gdollar_8 & !b00_l & !pc_load_l);
 n_t_17x.oe = (!gdollar_8 & !b00_l & !pc_load_l);
-property atmel {open_collector= n_t_1x};
-!n_t_1x = (bmd06 & op1ts3 & n_t_36x);
-n_t_1x.oe = (bmd06 & op1ts3 & n_t_36x);
 property atmel {open_collector= n_t_25x};
 !n_t_25x = (!gdollar_9 & !b00_l & !pc_load_l);
 n_t_25x.oe = (!gdollar_9 & !b00_l & !pc_load_l);
 !n_t_30x = ;
-property atmel {open_collector= n_t_36x};
-!n_t_36x = (bf_kc & bts1 & bts1);
-n_t_36x.oe = (bf_kc & bts1 & bts1);
-property atmel {open_collector= n_t_41x};
-!n_t_41x = ;
-n_t_41x.oe = ;
-!n_t_43x = (n_t_43x & a11_l);
 !n_t_45x = (!gdollar_5 & !dcaets2 & !data02);
 property atmel {open_collector= n_t_48x};
 !n_t_48x = (!gdollar_6 & !dcaets2 & !data02);
 n_t_48x.oe = (!gdollar_6 & !dcaets2 & !data02);
-!n_t_53x = (bkc & tad_l);
 property atmel {open_collector= n_t_55x};
 !n_t_55x = (!gdollar_12 & !ind2 & !ind1);
 n_t_55x.oe = (!gdollar_12 & !ind2 & !ind1);
-!n_t_56x = (carry_in_l & skip1 & ts4fset)
-           # (!gdollar_15 & !ind2 & !ind1);
+!n_t_56x = (!gdollar_15 & !ind2 & !ind1);
 !n_t_58x = (!gdollar_13 & !ind2 & !ind1);
 !n_t_73x = (!gdollar_23 & !md11_l & !e_l);
-property atmel {open_collector= opr_l};
-!opr_l = (jmp_l & dca_l);
-opr_l.oe = (jmp_l & dca_l);
-!ov = ;
 !pause_l = (!gdollar_14 & !ind2 & !ind1);
 !run = (!gdollar_10 & !b00_l & !pc_load_l);
-!skip1 = (md03_l & ac2bus_l & carry_in_l);
-!tad_l = (ld_disk_addrs & iot_l);

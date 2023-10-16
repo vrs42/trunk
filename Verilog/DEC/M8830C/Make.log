@@ -1,18 +1,57 @@
-~/Verilog/bin/smaller.pl M8830C.PLD >vv || (rm vv; exit 1)
-9 signals were removed:
-  biopause_l: !io_pause
-  init_l: !init
-  io6133: !io6133_l
-  io_pause: !io_pause_l
-  maybecldi_l: !mymd11_l
-  mymd10: !tp1_l
-  mymd10_l: !mymd10
-  n3v3: 'b'1
-  n_t_134x: !ck_flag
-~/Verilog/bin/smaller.pl vv >M8830CX.PLD || (rm M8830CX.PLD; exit 1)
-2 signals were removed:
-  io6133_l: ck_flag
-  mymd10: !tp1_l
-~/Verilog/bin/cupl2v.pl M8830CX.PLD >vv || (rm vv; exit 1)
-mv vv M8830C.v
-rm M8830CX.PLD
+~/Verilog/bin/topld.pl M8830C
+warning: making 1hz/ma01_1/ a connector
+warning: making 500hz/ma01_1/ a connector
+warning: making 50hz/ma01_1/ a connector
+warning: making 5khz/ma01_1/ a connector
+info: 20mhz ne crystalhc49tl_h
+warning: making cr1/20mhz/ a connector
+info: d664 ne diode_do35_10
+warning: making d1/d664/ a connector
+info: sp380n ne dil14
+info: 7490n ne dil14
+warning: making e11/sn7490/ a connector
+info: sp380n ne dil14
+info: sp380n ne dil14
+info: 7402n ne dil14
+info: 7490n ne dil14
+warning: making e15/sn7490/ a connector
+info: 7470n ne dil14
+warning: making e16/sn7470/ a connector
+info: 7470n ne dil14
+warning: making e17/sn7470/ a connector
+info: 7490n ne dil14
+warning: making e18/sn7490/ a connector
+info: 7490n ne dil14
+warning: making e19/sn7490/ a connector
+info: 7402n ne dil14
+info: 7490n ne dil14
+warning: making e20/sn7490/ a connector
+info: 7490n ne dil14
+warning: making e21/sn7490/ a connector
+info: 7400n ne dil14
+info: 7490n ne dil14
+warning: making e4/sn7490/ a connector
+info: sp314n ne dil14
+info: 7410n ne dil14
+info: 7475n ne dil14
+info: n8881n ne dil14
+info: 7400n ne dil14
+info: quad ne ma01_1
+warning: making edge/quad/ a connector
+warning: making freq/ma01_1/ a connector
+info: 2n3009b ne _npn_to5
+warning: making q1/2n3009b/ a connector
+info: 16_09651 ne ma01_1
+warning: making t1/16_09651/ a connector
+info: r_eu_0207/10 ne 0207/10
+warning: making w1/r_eu_0207/ a connector
+warning: non-bypass capacitor deleted: c21
+warning: non-bypass capacitor deleted: c22
+warning: non-bypass capacitor deleted: c23
+warning: non-bypass capacitor deleted: c24
+warning: non-bypass capacitor deleted: c26
+warning: non-bypass capacitor deleted: c27
+warning: non-bypass capacitor deleted: c29
+warning: non-pullup resistor deleted: r2
+warning: non-pullup resistor deleted: r5
+warning: non-pullup resistor deleted: r9

@@ -1,29 +1,28 @@
-~/Verilog/bin/smaller.pl M7065X.PLD >vv || (rm vv; exit 1)
-20 signals were removed:
-  aj2: !p1
-  clr_flag: !m1
-  n_t_4x: 'b'1
-  n_t_52x: !n_t_49x
-  n_t_56x: !l2
-  n_t_58x: !k2
-  n_t_5x: !n_t_36x
-  n_t_60x: !n_t_21x
-  n_t_64x: !n_t_51x
-  n_t_6x: !e2
-  n_t_71x: !r1
-  n_t_72x: !n_t_16x
-  n_t_77x: !n_t_72x
-  n_t_78x: !n_t_19x
-  n_t_79x: !n_t_19x
-  n_t_80x: !n_t_76x
-  n_t_88x: !n_t_27x
-  rd_hole_5: !s1
-  rdr_run_l: !p2
-  rfc_delayed: !a1
-~/Verilog/bin/smaller.pl vv >M7065XX.PLD || (rm M7065XX.PLD; exit 1)
-2 signals were removed:
-  n_t_36x: v2
-  n_t_72x: !n_t_16x
-~/Verilog/bin/cupl2v.pl M7065XX.PLD >vv || (rm vv; exit 1)
-mv vv M7065X.v
-rm M7065XX.PLD
+~/Verilog/bin/topld.pl M7065X
+info: dec8242 ne 74266n
+info: 7475n ne dil14
+info: dec8271 ne dil16
+info: 7416n ne dil14
+info: 7400n ne dil14
+info: 7475n ne dil14
+info: dec8271 ne dil16
+info: 7404n ne dil14
+info: 7450n ne dil14
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: dec8242 ne 74266n
+info: single ne dil16
+warning: making u$2/single/ a connector
+warning: non-bypass capacitor deleted: c17
+warning: non-bypass capacitor deleted: c18
+warning: non-bypass capacitor deleted: c19
+unexpected OC output: aj2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 870.
+unexpected OC output: n_t_3x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 870.
+unexpected OC output: f2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 870.
+unexpected OC output: aj2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 870.
+unexpected OC output: y_strobe at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1090.
+unexpected OC output: n_t_120x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1090.
+unexpected OC output: s2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1090.
+warning: non-pullup resistor deleted: r8
+warning: non-pullup resistor deleted: r9
+warning: non-pullup resistor deleted: r10

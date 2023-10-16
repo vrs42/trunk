@@ -3,7 +3,7 @@
 
 Name     M843E ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -672,9 +672,6 @@ itclk = !(tp3_l
        # md11_l;
 
 /* e5: n8881n */
-/* cdone = !(rcni & n_t_85x); */
-/* n_t_55x = !(rd2_l & data1_l); */
-/* drdy = !(data0_l & rdy2_l); */
 /* data3_l = !(rdy & n_t_5x); */
 
 /* e6: sn7400 */
@@ -704,9 +701,6 @@ rcsi = !rcsi_l;
 n_t_43x = !rdy2_l;
 
 /* e9: n8881n */
-/* rcrb = !(zone1 & n_t_65x); */
-/* n_t_134x = !(mbct4_l & data3_l); */
-/* rcrb = !(data2_l & rcrb); */
 /* data0_l = !(zone12 & rcrb); */
 
 /* e10: sn7475 */
@@ -753,19 +747,12 @@ cdone_l = !cdone;
         # md07_l;
 
 /* e13: n8881n */
-/* zone5 = !(rcrb & p3_bd5); */
-/* data04_l = !(n_t_81x & data7_l); */
-/* cerr = !(data6_l & rcrc); */
-/* p3_bd7 = !(n_t_78x & data06_l); */
 
 /* e14: sn7440 */
 rcrc = !rcrc_l;
 rcrb = !rcrb_l;
 
 /* e15: n8881n */
-/* transit = !(trbl & n_t_172x); */
-/* p3_bd6 = !(p3_bd7 & int_rqst_l); */
-/* drdy = !(n_t_177x & int); */
 /* int_rqst_l = !(int & cdone); */
 
 /* e16: sp314n */
@@ -778,9 +765,6 @@ rcrb = !rcrb_l;
          # md05p;
 
 /* e17: n8881n */
-/* zone3 = !(rcrb & n_t_32x); */
-/* p3_bd0 = !(p3_bd1 & data5_l); */
-/* rcrc = !(data4_l & rcrb); */
 /* data5_l = !(rcrc & zone12); */
 
 /* e18: sn7475 */
@@ -808,15 +792,9 @@ zone2_l = !zone2;
 /* e19: sn7450 */
 
 /* e20: n8881n */
-/* rdy = !(rcse & n_t_77x); */
-/* p4_bts1 = !(p6_bind2 & skip_l); */
-/* n_t_42x = !(skip_l & rcsi); */
 /* skip_l = !(cdone & n_t_43x); */
 
 /* e21: n8881n */
-/* zone10 = !(rcrc & n_t_69x); */
-/* p3_btp2 = !(p3_binit_l & data7_l); */
-/* rcra = !(data6_l & n_t_23x); */
 /* data7_l = !(rcra & n_t_20x); */
 
 /* e22: sn7420 */
@@ -884,15 +862,9 @@ n_t_10x = !(bcd1 & n_t_8x);
 bcd2 = !(n_t_33x & n_t_1x);
 
 /* e31: n8881n */
-/* rcr = !(rcr & p4_lusr_l); */
-/* p4_rusr_l = !(p4_lrr_l & c1_l); */
-/* iot63 = !(internal_io_l & iot63); */
 /* c1_l = !rcni; */
 
 /* e33: n8881n */
-/* bcd1 = !(rcrc & n_t_66x); */
-/* n_t_97x = !(p4_cint_l & data11_l); */
-/* bcd2 = !(data10_l & rcrc); */
 /* data11_l = !(rcrb & zone9); */
 
 /* e34: sn7420 */
@@ -917,9 +889,6 @@ n_t_39x = !ena_pun_buffr_l;
 n_t_44x = !n_t_3x;
 
 /* e37: n8881n */
-/* zone7 = !(rcrb & rd6_l); */
-/* p6_ebm_l = !(rd5_l & data9_l); */
-/* rcrc = !(data8_l & rcrb); */
 /* data9_l = !(rcrc & bcd4); */
 
 /* e38: sn7475 */
@@ -956,9 +925,6 @@ strobe = !n_t_6x;
 !rdy = rdy1_l;
 
 /* e41: n8881n */
-/* n_t_21x = !(rcra & n_t_88x); */
-/* pause_l = 'b'1; */
-/* rcra = !(data10_l & n_t_24x); */
 /* data9_l = !(rcra & bcd4); */
 
 /* e42: sn7400 */
@@ -994,14 +960,9 @@ n3v = 'b'1;
 /* r12: r_us_ */
 
 /* Open collector 'wire-or's */
-!bcd1 = (rcrc & n_t_66x);
-!bcd2 = (data10_l & rcrc);
 property atmel {open_collector= c1_l};
 !c1_l = rcni;
 c1_l.oe = rcni;
-!cdone = (rcni & n_t_85x);
-!cerr = (data6_l & rcrc);
-!data04_l = (n_t_81x & data7_l);
 property atmel {open_collector= data0_l};
 !data0_l = (zone12 & rcrb);
 data0_l.oe = (zone12 & rcrb);
@@ -1022,47 +983,9 @@ property atmel {open_collector= data9_l};
            # (rcra & bcd4);
 data9_l.oe = (rcrc & bcd4)
            # (rcra & bcd4);
-!drdy = (data0_l & rdy2_l)
-        # (n_t_177x & int);
 property atmel {open_collector= int_rqst_l};
 !int_rqst_l = (int & cdone);
 int_rqst_l.oe = (int & cdone);
-!iot63 = (internal_io_l & iot63);
-!n_t_134x = (mbct4_l & data3_l);
-!n_t_21x = (rcra & n_t_88x);
-!n_t_42x = (skip_l & rcsi);
-!n_t_55x = (rd2_l & data1_l);
-!n_t_97x = (p4_cint_l & data11_l);
-!p3_bd0 = (p3_bd1 & data5_l);
-!p3_bd6 = (p3_bd7 & int_rqst_l);
-!p3_bd7 = (n_t_78x & data06_l);
-!p3_btp2 = (p3_binit_l & data7_l);
-!p4_bts1 = (p6_bind2 & skip_l);
-!p4_rusr_l = (p4_lrr_l & c1_l);
-!p6_ebm_l = (rd5_l & data9_l);
-!pause_l = 'b'0;
-!rcr = (rcr & p4_lusr_l);
-property atmel {open_collector= rcra};
-!rcra = (data6_l & n_t_23x)
-        # (data10_l & n_t_24x);
-rcra.oe = (data6_l & n_t_23x)
-        # (data10_l & n_t_24x);
-property atmel {open_collector= rcrb};
-!rcrb = (zone1 & n_t_65x)
-        # (data2_l & rcrb);
-rcrb.oe = (zone1 & n_t_65x)
-        # (data2_l & rcrb);
-property atmel {open_collector= rcrc};
-!rcrc = (data4_l & rcrb)
-        # (data8_l & rcrb);
-rcrc.oe = (data4_l & rcrb)
-        # (data8_l & rcrb);
-!rdy = (rcse & n_t_77x);
 property atmel {open_collector= skip_l};
 !skip_l = (cdone & n_t_43x);
 skip_l.oe = (cdone & n_t_43x);
-!transit = (trbl & n_t_172x);
-!zone10 = (rcrc & n_t_69x);
-!zone3 = (rcrb & n_t_32x);
-!zone5 = (rcrb & p3_bd5);
-!zone7 = (rcrb & rd6_l);

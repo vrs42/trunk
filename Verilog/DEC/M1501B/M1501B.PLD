@@ -3,7 +3,7 @@
 
 Name     M1501B ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -150,9 +150,6 @@ d1 = !n_t_163x;
 a1 = !n_t_164x;
 
 /* e3: n8881n */
-/* n3v3 = !(j1 & k1); */
-/* ll = !(n_t_80x & jj); */
-/* ff = !(n_t_17x & n_t_80x); */
 /* m2 = !(dd & n_t_80x); */
 
 /* e4: sn7402 */
@@ -174,8 +171,6 @@ n_t_197x = !f1;
 
 /* e6: n8881n */
 /* r2 = !(l1 & m1); */
-/* rr = !(n_t_80x & nn); */
-/* tt = !(s1 & n_t_80x); */
 /* p2 = !(n_t_80x & vv); */
 
 /* e7: sn7400 */
@@ -185,15 +180,9 @@ n_t_52x = !n_t_57x;
 n_t_69x = !(f2 & n_t_55x);
 
 /* e8: n8881n */
-/* n_t_57x = !(n1 & p1); */
-/* b = !(n_t_80x & d); */
-/* f = !(n_t_17x & n_t_80x); */
 /* s2 = !(n_t_80x & j); */
 
 /* e9: n8881n */
-/* a8 = !(r1 & s1); */
-/* t = !(n_t_80x & r); */
-/* l = !(n_t_43x & n_t_80x); */
 /* u2 = !(n_t_80x & n); */
 
 /* r1: r_us_ */
@@ -201,47 +190,18 @@ n_t_69x = !(f2 & n_t_55x);
 /* r2: r_us_ */
 
 /* Open collector 'wire-or's */
-!a8 = (r1 & s1);
-property atmel {open_collector= b};
-!b = (n_t_80x & d);
-b.oe = (n_t_80x & d);
-property atmel {open_collector= f};
-!f = (n_t_17x & n_t_80x);
-f.oe = (n_t_17x & n_t_80x);
-property atmel {open_collector= ff};
-!ff = (n_t_17x & n_t_80x);
-ff.oe = (n_t_17x & n_t_80x);
-property atmel {open_collector= l};
-!l = (n_t_43x & n_t_80x);
-l.oe = (n_t_43x & n_t_80x);
-property atmel {open_collector= ll};
-!ll = (n_t_80x & jj);
-ll.oe = (n_t_80x & jj);
 property atmel {open_collector= m2};
 !m2 = (dd & n_t_80x);
 m2.oe = (dd & n_t_80x);
-property atmel {open_collector= n3v3};
-!n3v3 = (j1 & k1);
-n3v3.oe = (j1 & k1);
-!n_t_57x = (n1 & p1);
 property atmel {open_collector= p2};
 !p2 = (n_t_80x & vv);
 p2.oe = (n_t_80x & vv);
 property atmel {open_collector= r2};
 !r2 = (l1 & m1);
 r2.oe = (l1 & m1);
-property atmel {open_collector= rr};
-!rr = (n_t_80x & nn);
-rr.oe = (n_t_80x & nn);
 property atmel {open_collector= s2};
 !s2 = (n_t_80x & j);
 s2.oe = (n_t_80x & j);
-property atmel {open_collector= t};
-!t = (n_t_80x & r);
-t.oe = (n_t_80x & r);
-property atmel {open_collector= tt};
-!tt = (s1 & n_t_80x);
-tt.oe = (s1 & n_t_80x);
 property atmel {open_collector= u2};
 !u2 = (n_t_80x & n);
 u2.oe = (n_t_80x & n);

@@ -2032,6 +2032,7 @@ sub ocassign {
 #warn "info: edebug is $edebug\n";
   $rh = &expression($indent);
   warn "unexpected OC output: $lh" unless $oc{$lh};
+  return unless $oc{$lh};
   &qcode("/* $lh = !($rh);");
   $qcode =~ s/\r*\n$//;
   &qcode(" */\n");
@@ -2172,6 +2173,7 @@ sub eagle2pld {
   $signal =~ s/__+/_/g;
   $signal =~ s/^_//;
   $signal =~ s/_$//;
+  $signal =~ s/_[!]/_not_/;
   $signal = 'and_h' if $signal eq 'and';
   $signal = 'end_h' if $signal eq 'end';
   $signal =~ s/^/n/ if $signal =~ /^\d/;
@@ -2321,6 +2323,7 @@ while (<INPUT>) {
         warn "error: No definition for $part: $partlist{$part}\n";
       }
     }
+    undef %pad; # Start fresh accumulating pad bindings.
     undef $part; # Don't keep warning over and over.
     next;
   }

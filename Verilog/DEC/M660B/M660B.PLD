@@ -3,7 +3,7 @@
 
 Name     M660B ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -172,8 +172,6 @@ $ENDIF
 
 /* e2: sn7401 */
 /* n_t_15x = !(n_t_13x & n_t_14x); */
-/* n_t_22x = !(cbot_l & ebot_l); */
-/* n_t_19x = !(n_t_26x & n_t_27x); */
 /* n_t_16x = !n_t_15x; */
 
 /* r1: r_us_ */
@@ -204,8 +202,6 @@ n_t_15x.oe = (n_t_13x & n_t_14x);
 property atmel {open_collector= n_t_16x};
 !n_t_16x = n_t_15x;
 n_t_16x.oe = n_t_15x;
-!n_t_19x = (n_t_26x & n_t_27x);
-!n_t_22x = (cbot_l & ebot_l);
 property atmel {open_collector= n_t_3x};
 !n_t_3x = (n_t_1x & n_t_2x);
 n_t_3x.oe = (n_t_1x & n_t_2x);

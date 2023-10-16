@@ -1,45 +1,48 @@
-~/Verilog/bin/smaller.pl M8340E.PLD >vv || (rm vv; exit 1)
-36 signals were removed:
-  be: !modea
-  bfetch: fetch
-  bmd10: md10
-  bmd11: md11
-  bmd8: md8
-  bmd9: md9
-  carry_in_l: !regbus00
-  data_to_sc: !rom_21_l
-  e_l: !e
-  fetch_l: !e_l
-  init_l: !init
-  ld_eir: !io_time
-  md05_l: !tp2_d
-  modea: !link
-  n3v: 'b'1
-  n3v0: 'b'1
-  n_t_22x: !modeb
-  n_t_23x: !swab
-  n_t_24x: 'b'1
-  n_t_28x: tp1
-  n_t_29x: int_in_prog
-  n_t_32x: data10
-  n_t_33x: data11
-  n_t_39x: !md07_l
-  n_t_41x: ma_ms_lc
-  n_t_45x: data7
-  n_t_47x: !dad_or_dst_l
-  n_t_50x: tp4
-  n_t_52x: !n_t_54x
-  n_t_55x: !n_t_51x
-  n_t_58x: not_last_l
-  n_t_6x: !ac2bus_l
-  ns1000: !bmd06
-  ns600: 'b'0
-  skip1: !bfetch
-  tp3_l: !tp3
-~/Verilog/bin/smaller.pl vv >M8340EX.PLD || (rm M8340EX.PLD; exit 1)
-2 signals were removed:
-  io_time: md11_l
-  n_t_54x: dad_or_dst
-~/Verilog/bin/cupl2v.pl M8340EX.PLD >vv || (rm vv; exit 1)
-mv vv M8340E.v
-rm M8340EX.PLD
+~/Verilog/bin/topld.pl M8340E
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: sn97401 ne 7401n
+info: dec23001a1 ne 5600
+info: 74h11n ne 7411n
+info: 74h30n ne 7430n
+info: 74h04n ne 7404n
+info: sp384n ne dil16
+info: dec23002a1 ne 5600
+info: 74h04n ne 7404n
+info: sp380n ne dil16
+info: sp384n ne dil16
+info: 74h30n ne 7430n
+info: 7410n ne dil14
+info: sp380n ne dil16
+info: 74h00n ne 7400n
+info: 74h11n ne 7411n
+info: sp384n ne dil16
+info: 74h20n ne 7420n
+info: 74h74n ne 7474n
+info: 7402n ne dil14
+info: sp384n ne dil16
+info: 7412n ne dil14
+info: 74193n ne dil16
+info: sn97401 ne 7401n
+info: mc8266 ne e12_8
+info: 74193n ne dil16
+info: 74h106n ne 7476n
+info: 74h30n ne 7430n
+info: 7402n ne dil14
+info: sn97401 ne 7401n
+info: edge_top ne e12_8
+warning: making h/edge_top/ a connector
+info: edge_top ne e12_8
+warning: making j/edge_top/ a connector
+info: quad ne e12_8
+warning: making u$2/quad/ a connector
+unexpected OC output: n_t_52x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1564.
+unexpected OC output: n_t_28x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1564.
+unexpected OC output: e_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1564.
+unexpected OC output: data_to_sc at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1761.
+unexpected OC output: n_t_38x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1761.
+unexpected OC output: bmd05 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1761.
+unexpected OC output: n_t_39x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2188.
+unexpected OC output: sc_to_data at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2188.
+unexpected OC output: n_t_42x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2188.

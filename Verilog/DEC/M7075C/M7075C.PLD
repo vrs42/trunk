@@ -3,7 +3,7 @@
 
 Name     M7075C ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -361,7 +361,6 @@ shift = !(k2 & n_t_20x);
 
 /* e7: sn7416 */
 /* p1_l = !p1; */
-/* n_t_5x = !buffer_strobe; */
 /* n1 = !n_t_51x; */
 /* m1 = !n_t_50x; */
 /* m1 = !n_t_52x; */
@@ -373,7 +372,6 @@ shift = !(k2 & n_t_20x);
 /* m1 = !n_t_39x; */
 /* m1 = !n_t_42x; */
 /* m1 = !n_t_38x; */
-/* n_t_2x = !n3v3; */
 
 /* e9: sn7400 */
 n_t_22x = !(e1 & n_t_69x);
@@ -476,8 +474,4 @@ m2_l.oe = m2;
 property atmel {open_collector= n1};
 !n1 = n_t_51x;
 n1.oe = n_t_51x;
-!n_t_2x = n3v3;
-property atmel {open_collector= n_t_5x};
-!n_t_5x = buffer_strobe;
-n_t_5x.oe = buffer_strobe;
 !p1_l = p1;

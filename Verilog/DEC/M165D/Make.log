@@ -1,7 +1,10 @@
-~/Verilog/bin/smaller.pl M165D.PLD >vv || (rm vv; exit 1)
-0 signals were removed:
-~/Verilog/bin/smaller.pl vv >M165DX.PLD || (rm M165DX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M165DX.PLD >vv || (rm vv; exit 1)
-mv vv M165D.v
-rm M165DX.PLD
+~/Verilog/bin/topld.pl M165D
+info: 7400n ne dil14
+info: dec3001n ne 7408n
+warning: making e2/dec3001n/ a connector
+info: 7400n ne dil14
+info: dec3001n ne 7408n
+warning: making e4/dec3001n/ a connector
+info: single ne edge_con2
+warning: making u$1/single/ a connector
+warning: non-bypass capacitor deleted: c7

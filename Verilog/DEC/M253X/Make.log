@@ -1,11 +1,11 @@
-~/Verilog/bin/smaller.pl M253X.PLD >vv || (rm vv; exit 1)
-4 signals were removed:
-  n3v3: 'b'1
-  n_t_37x: 'b'1
-  n_t_56x: 'b'1
-  n_t_57x: 'b'1
-~/Verilog/bin/smaller.pl vv >M253XX.PLD || (rm M253XX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M253XX.PLD >vv || (rm vv; exit 1)
-mv vv M253X.v
-rm M253XX.PLD
+~/Verilog/bin/topld.pl M253X
+info: 7489 ne dil16
+warning: making e1/sn7489/ a connector
+info: 7489 ne dil16
+warning: making e2/sn7489/ a connector
+info: 7489 ne dil16
+warning: making e3/sn7489/ a connector
+info: 74h00n ne 7400n
+info: single ne dil16
+warning: making u$2/single/ a connector
+warning: non-bypass capacitor deleted: c5

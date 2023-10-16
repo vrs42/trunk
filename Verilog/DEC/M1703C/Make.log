@@ -1,14 +1,49 @@
-~/Verilog/bin/smaller.pl M1703C.PLD >vv || (rm vv; exit 1)
-7 signals were removed:
-  initialize_l: !initialize
-  io_pauseh: !io_pause_l
-  l: !iotl
-  md09h: !md09_l
-  md10h: !md10_l
-  md11h: !md11_l
-  n_t_337x: !iot4l
-~/Verilog/bin/smaller.pl vv >M1703CX.PLD || (rm M1703CX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M1703CX.PLD >vv || (rm vv; exit 1)
-mv vv M1703C.v
-rm M1703CX.PLD
+~/Verilog/bin/topld.pl M1703C
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: n8881n ne dil14
+info: 7400n ne dil14
+info: 7404n ne dil14
+info: n8881n ne dil14
+info: ds8640n ne dil14
+info: ds8640n ne dil14
+info: ds8640n ne dil14
+info: 7404n ne dil14
+info: n8881n ne dil14
+info: 7430n ne dil14
+info: n8881n ne dil14
+info: 7410n ne dil14
+info: n8881n ne dil14
+info: input ne dec40pinh
+warning: making j1/input/ a connector
+info: quad ne e12_8
+warning: making u$2/quad/ a connector
+warning: making w1/j10mm/ a connector
+warning: making w10/j10mm/ a connector
+warning: making w11/j10mm/ a connector
+warning: making w12/j10mm/ a connector
+warning: making w13/j10mm/ a connector
+warning: making w2/j10mm/ a connector
+warning: making w3/j10mm/ a connector
+warning: making w4/j10mm/ a connector
+warning: making w5/j10mm/ a connector
+warning: making w6/j10mm/ a connector
+warning: making w7/j10mm/ a connector
+warning: making w8/j10mm/ a connector
+warning: making w9/j10mm/ a connector
+unexpected OC output: n_t_9x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 641.
+unexpected OC output: d03 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 641.
+unexpected OC output: n_t_1x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 641.
+unexpected OC output: d07 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 701.
+unexpected OC output: n_t_1x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 701.
+unexpected OC output: n_t_29x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 733.
+unexpected OC output: n_t_196x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 733.
+unexpected OC output: n_t_337x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 733.
+unexpected OC output: n_t_9x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 733.
+unexpected OC output: n_t_46x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 764.
+unexpected OC output: n_t_10x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 764.
+unexpected OC output: n_t_47x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 764.
+unexpected OC output: n_t_39x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 764.
+unexpected OC output: d11 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 825.
+unexpected OC output: n_t_3x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 825.

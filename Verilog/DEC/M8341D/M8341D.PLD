@@ -3,7 +3,7 @@
 
 Name     M8341D ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -633,9 +633,7 @@ n_t_33x = !(n_t_74x & n_t_31x & ts3_l);
 n_t_15x = !(eae_on & norms_or_shl_or_asr_or_lsr & fetch_l);
 
 /* e15: sn7412 */
-/* n3v0 = !(dvi & carry_out_l & n_t_84x); */
 /* skip = !(n_t_4x & ac2_8_0 & ac_0); */
-/* a02_l = 'b'1; */
 
 /* e16: dec8235 */
 /* n_t_43x = !(!n_t_25x & !rtf
@@ -660,10 +658,6 @@ tp2_d.ap = !n3vd;
 n_t_59x = !tp2_d;
 
 /* e18: sn97401 */
-/* n_t_20x = !(modeb & c0); */
-/* n_t_69x = !(n_t_4x & not_last_xfer); */
-/* shift3 = !(ac_to_bus_l & ts3_l); */
-/* n_t_53x = !(carry_in & ts3_l); */
 
 /* e19: sn7404 */
 shift_ok = !rom_21_l;
@@ -700,8 +694,6 @@ n_t_59x = !n_t_60x;
 /* carry_in = !(n_t_56x & next_loc); */
 
 /* e23: sn7416 */
-/* n_t_8x = !n_t_3x; */
-/* n_t_15x = !fetch; */
 /* link_data = !n_t_49x; */
 /* ac_to_mq_ena_l = !n_t_31x; */
 /* en0 = !ac_load_l; */
@@ -717,10 +709,6 @@ n_t_59x = !n_t_60x;
 /* left_l = !(!n_t_47x & !lp_shl_or_norms_rp_and_eae_on_l); */
 
 /* e25: sn97401 */
-/* lp_dcm_or_dpic_or_sam_rp_and_ts3 = !(eir2 & data_f); */
-/* n_t_12x = !(n_t_12x & n_t_46x); */
-/* next_loc = !(en0 & n_t_56x); */
-/* eae_on_l = !(carry_in & lp_dcm_or_dpic_or_sam_rp_and_ts3); */
 
 /* e26: sn7486 */
 n_t_3x = n_t_7x
@@ -809,13 +797,8 @@ muy_and_eae_on_l = !(rom_12 & n_t_61x & rom_14_l);
 /* restart = !n_t_3x; */
 /* restart = !n_t_3x; */
 /* ac_load_l = !(n_t_4x & btp3); */
-/* n_t_34x = !(bmd10 & n_t_35x); */
 
 /* e37: sn97401 */
-/* last_dvi_l = !(eae_on & n_t_46x); */
-/* dcm_or_dpic_l = !(rom_15_l & n_t_4x); */
-/* gtf_or_ind = !(data1 & n_t_13x); */
-/* n_t_39x = !(skip & n_t_13x); */
 
 /* e38: sn7400 */
 incr_sc = !(shift3 & n_t_64x);
@@ -912,7 +895,6 @@ n3vd = 'b'1;
 /* r20: r_us_ */
 
 /* Open collector 'wire-or's */
-!a02_l = 'b'0;
 property atmel {open_collector= ac_load_l};
 !ac_load_l = (n_t_12x & btp3)
              # (n_t_4x & btp3);
@@ -937,8 +919,6 @@ data_f.oe = (!mq10_l & !last_dvi_l
 property atmel {open_collector= data_t};
 !data_t = (!eir3 & !n_t_5x);
 data_t.oe = (!eir3 & !n_t_5x);
-!dcm_or_dpic_l = (rom_15_l & n_t_4x);
-!eae_on_l = (carry_in & lp_dcm_or_dpic_or_sam_rp_and_ts3);
 property atmel {open_collector= en0};
 !en0 = ac_load_l;
 en0.oe = ac_load_l;
@@ -959,10 +939,6 @@ property atmel {open_collector= en2};
 en2.oe = (!n3vc & !rtf
     # n3vc & !sam_l);
 !exec_multiply = n_t_37x;
-property atmel {open_collector= gtf_or_ind};
-!gtf_or_ind = (data1 & n_t_13x);
-gtf_or_ind.oe = (data1 & n_t_13x);
-!last_dvi_l = (eae_on & n_t_46x);
 property atmel {open_collector= left_l};
 !left_l = (!n_t_47x & !lp_shl_or_norms_rp_and_eae_on_l)
        # (!n3vb & !last_dvi_l
@@ -986,7 +962,6 @@ link_load.oe = (btp3 & n_t_71x)
              # (n_t_44x & n_t_64x)
              # (n_t_64x & n_t_44x)
              # (n_t_71x & btp3);
-!lp_dcm_or_dpic_or_sam_rp_and_ts3 = (eir2 & data_f);
 property atmel {open_collector= md_disable};
 !md_disable = (!eir3 & !n_t_5x);
 md_disable.oe = (!eir3 & !n_t_5x);
@@ -1000,15 +975,9 @@ property atmel {open_collector= mq_to_bus_l};
             # n3vc & !n_t_33x);
 mq_to_bus_l.oe = (!n_t_5x
             # n3vc & !n_t_33x);
-!n3v0 = (dvi & carry_out_l & n_t_84x);
-!n_t_12x = (n_t_12x & n_t_46x);
-!n_t_15x = fetch;
-!n_t_20x = (modeb & c0);
-!n_t_34x = (bmd10 & n_t_35x);
 !n_t_37x = (ac0_ne_ac1 & n_t_18x
         # modeb & n_t_30x & norms_or_shl_or_asr_or_lsr
         # ac2_mq11_0 & n_t_29x);
-!n_t_39x = (skip & n_t_13x);
 !n_t_40x = (!data1 & !rtf
         # mq0_gt_ac0 & !sam_l)
         # (!n3vc & !rtf
@@ -1021,12 +990,6 @@ mq_to_bus_l.oe = (!n_t_5x
         # n_t_64x & !lp_asr_or_lsr_rp_and_eae_on_l);
 !n_t_46x = (!n3vb & !last_dvi_l
         # n3vb & !normal_dvi_l);
-!n_t_53x = (carry_in & ts3_l);
-!n_t_69x = (n_t_4x & not_last_xfer);
-!n_t_8x = n_t_3x;
-property atmel {open_collector= next_loc};
-!next_loc = (en0 & n_t_56x);
-next_loc.oe = (en0 & n_t_56x);
 property atmel {open_collector= restart};
 !restart = (n_t_3x)
            # (n_t_3x);
@@ -1037,7 +1000,6 @@ property atmel {open_collector= right_l};
         # shift_ok & !lp_asr_or_lsr_rp_and_eae_on_l);
 right_l.oe = (!muy_and_eae_on_l
         # shift_ok & !lp_asr_or_lsr_rp_and_eae_on_l);
-!shift3 = (ac_to_bus_l & ts3_l);
 property atmel {open_collector= shl_ena_l};
 !shl_ena_l = (!n_t_47x & !lp_shl_or_norms_rp_and_eae_on_l
           # n3vb & !dvi_and_ts3);

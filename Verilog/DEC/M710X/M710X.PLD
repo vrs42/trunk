@@ -3,7 +3,7 @@
 
 Name     M710X ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -440,10 +440,6 @@ pun_done = !pun_flag;
 pun_flag = !(mb3_lp_0_rp & pun_flag & mb7_lp_1_rp & mb8_lp_0_rp & n_t_5x & mb4_lp_0_rp & mb4_lp_0_rp);
 
 /* e12: sn7401 */
-/* n_t_15x = !(n_t_15x & n_t_4x); */
-/* n_t_3x = !(n_t_3x & pun_done); */
-/* n_t_15x = !(pun_done & n_t_15x); */
-/* iop_02 = !(n_t_6x & pun_flag); */
 
 /* e13: sn7440 */
 feed_l = !(n_t_53x & n_t_41x & n_t_41x & n_t_41x);
@@ -496,12 +492,3 @@ n_t_4x = !n_t_53x;
 /* r15: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= iop_02};
-!iop_02 = (n_t_6x & pun_flag);
-iop_02.oe = (n_t_6x & pun_flag);
-property atmel {open_collector= n_t_15x};
-!n_t_15x = (n_t_15x & n_t_4x)
-           # (pun_done & n_t_15x);
-n_t_15x.oe = (n_t_15x & n_t_4x)
-           # (pun_done & n_t_15x);
-!n_t_3x = (n_t_3x & pun_done);

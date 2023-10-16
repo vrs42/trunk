@@ -3,7 +3,7 @@
 
 Name     M1502C ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -349,9 +349,6 @@ an1_l = !n_t_90x;
 /* bb = !n_t_90x; */
 
 /* e10: n8881n */
-/* testpoint = !(av1 & av2); */
-/* au2 = !at2; */
-/* n_t_68x = !(select0 & am2); */
 /* ap2 = !(n_t_68x & an2); */
 
 /* e11: sn7406 */
@@ -534,9 +531,6 @@ bn1_l = !n_t_125x;
 property atmel {open_collector= ap2};
 !ap2 = (n_t_68x & an2);
 ap2.oe = (n_t_68x & an2);
-property atmel {open_collector= au2};
-!au2 = at2;
-au2.oe = at2;
 property atmel {open_collector= b};
 !b = n_t_100x;
 b.oe = n_t_100x;
@@ -570,7 +564,6 @@ ll.oe = n_t_113x;
 property atmel {open_collector= n};
 !n = n_t_124x;
 n.oe = n_t_124x;
-!n_t_68x = (select0 & am2);
 property atmel {open_collector= nn};
 !nn = n_t_110x;
 nn.oe = n_t_110x;
@@ -583,7 +576,6 @@ rr.oe = n_t_102x;
 property atmel {open_collector= t};
 !t = n_t_123x;
 t.oe = n_t_123x;
-!testpoint = (av1 & av2);
 property atmel {open_collector= tt};
 !tt = n_t_98x;
 tt.oe = n_t_98x;

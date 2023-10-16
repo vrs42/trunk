@@ -54,11 +54,7 @@ output v2;
 wire n_t_9x;
 wire n_t_9x;
 assign n_t_31x = ~(n_t_8x & u2);
-wire n_t_9x;
-wire n_t_9x;
 assign n_t_9x = ~(c1 & s2);
-wire n_t_9x;
-wire n_t_9x;
 assign n1 = ~(n_t_15x & n_t_10x);
 // r1: r_us_ 
 // r2: r_us_ 

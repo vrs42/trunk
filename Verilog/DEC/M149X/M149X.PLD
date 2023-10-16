@@ -3,7 +3,7 @@
 
 Name     M149X ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -96,16 +96,8 @@ $ENDIF
 /* c9: c_us */
 
 /* e1: sn7401 */
-/* d1 = !(u2_l & f1); */
-/* v2_l = !(b1 & c1); */
-/* u2_l = !(c1 & a1); */
-/* e1 = !(f1 & v2_l); */
 
 /* e2: sn7401 */
-/* h2 = !(u2_l & k2); */
-/* v2_l = !(e2 & f2); */
-/* u2_l = !(f2 & d2); */
-/* j2 = !(k2 & v2_l); */
 
 /* e3: sn7400 */
 v1 = !(n3v3 & u1);
@@ -114,22 +106,10 @@ n_t_17x = !(n_t_16x & n_t_18x);
 v2_l = !(v2 & n3v3);
 
 /* e4: sn7401 */
-/* l1 = !(u2_l & n1); */
-/* v2_l = !(j1 & k1); */
-/* u2_l = !(k1 & h1); */
-/* m1 = !(n1 & v2_l); */
 
 /* e5: sn7401 */
-/* r1 = !(v2_l & s1); */
-/* v2_l = !(m2 & n2); */
-/* u2_l = !(n2 & l2); */
-/* p1 = !(s1 & u2_l); */
 
 /* e6: sn7401 */
-/* r2 = !(v2_l & s2); */
-/* u2_l = !(p2 & s2); */
-/* p1 = !(s1 & r1); */
-/* m1 = 'b'1; */
 
 /* r1: r_us_ */
 n3v3 = 'b'1;
@@ -138,43 +118,3 @@ n3v3 = 'b'1;
 n3v3 = 'b'1;
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= d1};
-!d1 = (u2_l & f1);
-d1.oe = (u2_l & f1);
-property atmel {open_collector= e1};
-!e1 = (f1 & v2_l);
-e1.oe = (f1 & v2_l);
-property atmel {open_collector= h2};
-!h2 = (u2_l & k2);
-h2.oe = (u2_l & k2);
-property atmel {open_collector= j2};
-!j2 = (k2 & v2_l);
-j2.oe = (k2 & v2_l);
-property atmel {open_collector= l1};
-!l1 = (u2_l & n1);
-l1.oe = (u2_l & n1);
-property atmel {open_collector= m1};
-!m1 = (n1 & v2_l)
-      # ('b'0);
-m1.oe = (n1 & v2_l)
-      # ('b'0);
-property atmel {open_collector= p1};
-!p1 = (s1 & u2_l)
-      # (s1 & r1);
-p1.oe = (s1 & u2_l)
-      # (s1 & r1);
-property atmel {open_collector= r1};
-!r1 = (v2_l & s1);
-r1.oe = (v2_l & s1);
-property atmel {open_collector= r2};
-!r2 = (v2_l & s2);
-r2.oe = (v2_l & s2);
-!u2_l = (c1 & a1)
-        # (f2 & d2)
-        # (k1 & h1)
-        # (n2 & l2)
-        # (p2 & s2);
-!v2_l = (b1 & c1)
-        # (e2 & f2)
-        # (j1 & k1)
-        # (m2 & n2);

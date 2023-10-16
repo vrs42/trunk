@@ -3,7 +3,7 @@
 
 Name     M869D ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -97,8 +97,8 @@ pin = ema0_l;
 pin = ema1_l;
 pin = ema2_l;
 pin = erase_l;
-pin = f_!r;
 pin = f_l;
+pin = f_not_r;
 pin = f_set_l;
 pin = grn_delay;
 pin = gtf_or_ind;
@@ -252,7 +252,7 @@ pin = rtf;
 pin = rtt_l;
 pin = run_l;
 pin = rx_div4_l;
-pin = s_!g;
+pin = s_not_g;
 pin = sel_echo;
 pin = set_done;
 pin = set_done_l;
@@ -594,12 +594,9 @@ color_l = !color;
 /* e7: n8881n */
 /* col_red_l = !color; */
 /* n_t_25x = !(store_l & color_l); */
-/* n3v = !(n_t_134x & n_t_57x); */
-/* preset_l = !(n_t_90x & n_t_92x); */
 
 /* e8: n8881n */
 /* data07_l = !(dire & store); */
-/* n3v3 = !(last_unit & n3v3); */
 /* data09_l = !(color & dire); */
 /* data06_l = !(dire & write_thru); */
 
@@ -614,7 +611,6 @@ color_l = !color;
          # data09_l;
 
 /* e10: sn7406 */
-/* mtr1_l = !sr07; */
 /* erase_l = !erase; */
 /* n_t_27x = !n_t_25x; */
 /* write_thru_l = !write_thru; */
@@ -852,13 +848,6 @@ property atmel {open_collector= interrupt_l};
 interrupt_l.oe = (n_t_1x & int_en);
 !iot_l = iot;
 !load_data_l = n_t_5x;
-!mtr1_l = sr07;
-property atmel {open_collector= n3v};
-!n3v = (n_t_134x & n_t_57x);
-n3v.oe = (n_t_134x & n_t_57x);
-property atmel {open_collector= n3v3};
-!n3v3 = (last_unit & n3v3);
-n3v3.oe = (last_unit & n3v3);
 !n_t_25x = (store_l & color_l);
 property atmel {open_collector= n_t_27x};
 !n_t_27x = n_t_25x;
@@ -872,9 +861,6 @@ n_t_9x.oe = n_t_8x;
 property atmel {open_collector= non_store_l};
 !non_store_l = store_l;
 non_store_l.oe = store_l;
-property atmel {open_collector= preset_l};
-!preset_l = (n_t_90x & n_t_92x);
-preset_l.oe = (n_t_90x & n_t_92x);
 property atmel {open_collector= skip_l};
 !skip_l = (disd & n_t_1x);
 skip_l.oe = (disd & n_t_1x);

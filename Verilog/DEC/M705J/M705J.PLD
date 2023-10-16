@@ -3,7 +3,7 @@
 
 Name     M705J ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -316,22 +316,12 @@ n_t_3x.ck = aj2;
 n_t_3x.ap = !n_t_10x;
 
 /* e5: sn7401 */
-/* n_t_2x = !(iot_012 & aj2); */
-/* rfc_delayed_l = !(rdr_flag & iob_in_4); */
-/* n_t_12x = !(iob_in_9 & n_t_14x); */
-/* n_t_10x = !(iob_in_7 & iot_012); */
 
 /* e6: sn7401 */
-/* feed_hole = !(feed_hole & n_t_102x); */
 /* skip = !(n_t_4x & n_t_31x); */
-/* rdr_flag = !(int_request & rdr_flag); */
-/* iot_011 = !(skip & rdr_flag); */
 
 /* e7: sn7401 */
-/* n_t_3x = !(iot_012 & n_t_7x); */
 /* iob_in_9 = !(n_t_8x & iob_in_5); */
-/* n_t_11x = !(iob_in_8 & n_t_9x); */
-/* n_t_13x = !(iob_in_10 & iot_012); */
 
 /* e8: sn7400 */
 rfc_delayed_l = !(n_t_8x & iop2);
@@ -420,23 +410,9 @@ n_t_15x = !n_t_1x;
 /* r4: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= feed_hole};
-!feed_hole = (feed_hole & n_t_102x);
-feed_hole.oe = (feed_hole & n_t_102x);
 property atmel {open_collector= iob_in_9};
 !iob_in_9 = (n_t_8x & iob_in_5);
 iob_in_9.oe = (n_t_8x & iob_in_5);
-property atmel {open_collector= iot_011};
-!iot_011 = (skip & rdr_flag);
-iot_011.oe = (skip & rdr_flag);
-!n_t_10x = (iob_in_7 & iot_012);
-!n_t_11x = (iob_in_8 & n_t_9x);
-!n_t_12x = (iob_in_9 & n_t_14x);
-!n_t_13x = (iob_in_10 & iot_012);
-!n_t_2x = (iot_012 & aj2);
-!n_t_3x = (iot_012 & n_t_7x);
-!rdr_flag = (int_request & rdr_flag);
-!rfc_delayed_l = (rdr_flag & iob_in_4);
 property atmel {open_collector= skip};
 !skip = (n_t_4x & n_t_31x);
 skip.oe = (n_t_4x & n_t_31x);

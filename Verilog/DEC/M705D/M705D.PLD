@@ -3,7 +3,7 @@
 
 Name     M705D ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -334,16 +334,10 @@ rdr_run.ap = !rfc_delayed;
 rdr_run_l = !rdr_run;
 
 /* e6: sn7401 */
-/* n_t_10x = !(iot_012 & n_t_102x); */
 /* skip = !(n_t_4x & iob_in_7); */
-/* iot_012 = !(iob_in_6 & n_t_3x); */
-/* n_t_2x = !(iob_in_4 & iot_012); */
 
 /* e7: sn7401 */
-/* n_t_14x = !(iot_012 & n_t_7x); */
 /* iob_in_9 = !(n_t_8x & iob_in_11); */
-/* n_t_13x = !(iob_in_8 & n_t_11x); */
-/* n_t_12x = !(iob_in_9 & iot_012); */
 
 /* e8: sn7400 */
 rfc_delayed_l = !n_t_7x;
@@ -352,10 +346,6 @@ iot_012 = !(n_t_6x & n_t_8x);
 n_t_7x = !(iop1 & n_t_8x);
 
 /* e9: sn7401 */
-/* feed_hole = !(feed_hole & y_strobe); */
-/* iot_014_l = !(x_strobe & n_t_31x); */
-/* rdr_flag = !(int_request & rdr_flag); */
-/* iot_011 = !(skip & rdr_flag); */
 
 /* e10: sn7430 */
 br1=0 = !(mb3_lp_0_rp & n_t_21x & mb4_lp_0_rp & mb8_lp_1_rp & n_t_5x & mb6_lp_0_rp & mb5_lp_0_rp);
@@ -426,27 +416,9 @@ n_t_29x = !(iot_014_l & rfc_delayed);
 /* r4: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= feed_hole};
-!feed_hole = (feed_hole & y_strobe);
-feed_hole.oe = (feed_hole & y_strobe);
 property atmel {open_collector= iob_in_9};
 !iob_in_9 = (n_t_8x & iob_in_11);
 iob_in_9.oe = (n_t_8x & iob_in_11);
-property atmel {open_collector= iot_011};
-!iot_011 = (skip & rdr_flag);
-iot_011.oe = (skip & rdr_flag);
-property atmel {open_collector= iot_012};
-!iot_012 = (iob_in_6 & n_t_3x);
-iot_012.oe = (iob_in_6 & n_t_3x);
-property atmel {open_collector= iot_014_l};
-!iot_014_l = (x_strobe & n_t_31x);
-iot_014_l.oe = (x_strobe & n_t_31x);
-!n_t_10x = (iot_012 & n_t_102x);
-!n_t_12x = (iob_in_9 & iot_012);
-!n_t_13x = (iob_in_8 & n_t_11x);
-!n_t_14x = (iot_012 & n_t_7x);
-!n_t_2x = (iob_in_4 & iot_012);
-!rdr_flag = (int_request & rdr_flag);
 property atmel {open_collector= skip};
 !skip = (n_t_4x & iob_in_7);
 skip.oe = (n_t_4x & iob_in_7);

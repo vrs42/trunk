@@ -3,7 +3,7 @@
 
 Name     M8340E ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -506,9 +506,6 @@ $ENDIF
 /* c37: cpol_use */
 
 /* e1: sn97401 */
-/* n_t_52x = !(n_t_29x & fetch_l); */
-/* n_t_28x = !(tp4 & n0_to_eir); */
-/* e_l = !(fe_set & ex1); */
 /* c0 = !(n_t_26x & modeb); */
 
 /* e2: sn74h04 */
@@ -563,9 +560,6 @@ iszets2 = !(n_t_37x
           # exec_multiply);
 
 /* e9: sn97401 */
-/* data_to_sc = !(n_t_45x & sc_to_data); */
-/* n_t_38x = !(n_t_47x & data7); */
-/* bmd05 = !(mq2bus_l & opets3); */
 /* n_t_44x = !(n_t_43x & n_t_44x); */
 
 /* e10: sn7474 */
@@ -915,9 +909,6 @@ ns600 = 'b'0;
 ns550 = !n_t_38x & !ns400 & !dset_l;
 
 /* e35: sn97401 */
-/* n_t_39x = !(sc_to_data & n_t_40x); */
-/* sc_to_data = !(fault_l & data10); */
-/* n_t_42x = !(data8 & sc_to_data); */
 /* data9 = !(sc_to_data & data11); */
 
 /* e36: mc8266 */
@@ -994,15 +985,12 @@ adlk_dis_l.oe = (!n_t_25x & (e11_x0010
                        # e11_011x1
                        # e11_01110
                        # e11_100x1));
-!bmd05 = (mq2bus_l & opets3);
 property atmel {open_collector= c0};
 !c0 = (n_t_26x & modeb);
 c0.oe = (n_t_26x & modeb);
 property atmel {open_collector= data9};
 !data9 = (sc_to_data & data11);
 data9.oe = (sc_to_data & data11);
-!data_to_sc = (n_t_45x & sc_to_data);
-!e_l = (fe_set & ex1);
 property atmel {open_collector= fd_set};
 !fd_set = (!n_t_21x & (e19_0001x
                    # e19_1x011
@@ -1050,12 +1038,7 @@ property atmel {open_collector= last_step_l};
 last_step_l.oe = (n_t_38x & n_t_19x & n_t_20x)
                # (n_t_19x & exec_divide & n_t_42x)
                # (exec_multiply & n_t_49x & n_t_20x);
-!n_t_28x = (tp4 & n0_to_eir);
-!n_t_38x = (n_t_47x & data7);
-!n_t_39x = (sc_to_data & n_t_40x);
-!n_t_42x = (data8 & sc_to_data);
 !n_t_44x = (n_t_43x & n_t_44x);
-!n_t_52x = (n_t_29x & fetch_l);
 property atmel {open_collector= rom_11_l};
 !rom_11_l = (!n_t_25x & (e11_10x01
                      # e11_1011x));
@@ -1170,4 +1153,3 @@ rom_24_l.oe = (!n_t_21x & (e19_x0101
                      # e19_10001
                      # e19_1x010
                      # e19_10100));
-!sc_to_data = (fault_l & data10);

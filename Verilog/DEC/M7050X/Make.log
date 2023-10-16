@@ -1,23 +1,76 @@
-~/Verilog/bin/smaller.pl M7050X.PLD >vv || (rm vv; exit 1)
-12 signals were removed:
-  ba_l: !ba
-  bb_l: !bb
-  n3v: 'b'1
-  n_t_15x: !rdr_flag
-  n_t_27x: !pwr
-  n_t_31x: !n_t_36x
-  n_t_32x: !binit_l
-  n_t_33x: !clr_flag
-  n_t_35x: !out_of_tape_l
-  n_t_36x: !rfc_delayed_l
-  n_t_38x: !n_t_40x
-  n_t_8x: !n_t_5x
-~/Verilog/bin/smaller.pl vv >M7050XX.PLD || (rm M7050XX.PLD; exit 1)
-2 signals were removed:
-  binit_l: initialize_l
-  n_t_36x: !rfc_delayed_l
-~/Verilog/bin/cupl2v.pl M7050XX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output n_t_2x at /home/vrs/Verilog/bin/cupl2v.pl line 223, <INPUT> line 809.
-../Makefile:29: recipe for target 'M7050X.v' failed
-make: *** [M7050X.v] Error 1
-rm M7050XX.PLD
+~/Verilog/bin/topld.pl M7050X
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use15_5axial
+info: 1n4154 ne 1n4148do35_10
+warning: making d1/1n4154/ a connector
+info: 1n4154 ne 1n4148do35_10
+warning: making d2/1n4154/ a connector
+info: 7475n ne dil14
+info: 7410n ne dil14
+info: 7440n ne 7420n
+info: 7404n ne dil14
+info: 7430n ne dil14
+info: 7400n ne dil14
+info: 7404n ne dil14
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: 9601 ne e15_5
+warning: making e3/9601/ a connector
+info: 7475n ne dil14
+info: 7404n ne dil14
+info: 7400n ne dil14
+info: mps6531 ne 2n2102
+warning: making q1/mps6531/ a connector
+info: mps6531 ne 2n2102
+warning: making q2/mps6531/ a connector
+info: double ne e15_5
+warning: making u$5/double/ a connector
+warning: non-bypass capacitor deleted: c1
+warning: non-bypass capacitor deleted: c2
+warning: non-bypass capacitor deleted: c3
+warning: non-bypass capacitor deleted: c4
+warning: non-bypass capacitor deleted: c5
+warning: non-bypass capacitor deleted: c6
+warning: non-bypass capacitor deleted: c7
+warning: non-bypass capacitor deleted: c8
+warning: non-bypass capacitor deleted: c9
+warning: non-bypass capacitor deleted: c10
+warning: non-bypass capacitor deleted: c11
+warning: non-bypass capacitor deleted: c12
+warning: non-bypass capacitor deleted: c13
+warning: non-bypass capacitor deleted: c14
+warning: non-bypass capacitor deleted: c15
+warning: non-bypass capacitor deleted: c16
+warning: non-bypass capacitor deleted: c17
+warning: non-bypass capacitor deleted: c18
+warning: non-bypass capacitor deleted: c19
+warning: non-bypass capacitor deleted: c20
+warning: non-bypass capacitor deleted: c21
+warning: non-bypass capacitor deleted: c22
+warning: non-bypass capacitor deleted: c23
+warning: non-bypass capacitor deleted: c24
+unexpected OC output: rdr_flag at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1174.
+unexpected OC output: out_of_tape_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1174.
+unexpected OC output: n_t_38x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1174.
+unexpected OC output: n_t_2x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1198.
+unexpected OC output: at2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1198.
+unexpected OC output: n_t_14x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1198.
+unexpected OC output: n_t_3x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1274.
+unexpected OC output: at2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1274.
+unexpected OC output: n_t_13x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1274.
+warning: non-pullup resistor deleted: r1
+warning: non-pullup resistor deleted: r2
+warning: non-pullup resistor deleted: r3
+warning: non-pullup resistor deleted: r6
+warning: non-pullup resistor deleted: r7
+warning: non-pullup resistor deleted: r8
+warning: non-pullup resistor deleted: r9
+warning: non-pullup resistor deleted: r11
+warning: non-pullup resistor deleted: r12
+warning: non-pullup resistor deleted: r13
+warning: non-pullup resistor deleted: r14
+warning: non-pullup resistor deleted: r15
+warning: non-pullup resistor deleted: r16
+warning: non-pullup resistor deleted: r17

@@ -3,7 +3,7 @@
 
 Name     M840K ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -728,15 +728,10 @@ n_t_41x = pause_l;
 ena_pun_buffr_l = n_t_18x;
 
 /* e17: n8881n */
-/* iot02 = !(iot02 & n_t_32x); */
-/* n_t_69x = !(db & internal_io_l); */
-/* rdata_to_bus = !(internal_io_l & rdata_to_bus); */
 /* n_t_93x = !(n_t_109x & n_t_107x); */
 
 /* e18: n8881n */
-/* piop1 = !(punch_flag & n_t_41x); */
 /* bmb05 = !(n_t_6x & skip_l); */
-/* int_ena = !(skip_l & n_t_23x); */
 /* interrupt_l = !(int_ena & punch_flag); */
 
 /* e20: sp380n */
@@ -847,9 +842,6 @@ n_t_117x = !(clock_pulse & n_t_118x);
 n_t_112x = !(n_t_117x & n_t_114x);
 
 /* e33: n8881n */
-/* n_t_24x = !(rdata_to_bus & n_t_54x); */
-/* n_t_22x = !(n_t_34x & data04_l); */
-/* rdata_to_bus = !(data05_l & rdata_to_bus); */
 /* data06_l = !(rdata_to_bus & n_t_27x); */
 
 /* e34: dec8271 */
@@ -911,9 +903,6 @@ n_t_52x = !n_t_58x;
 pn_hole7 = !n_t_52x;
 
 /* e39: n8881n */
-/* n_t_29x = !(rdata_to_bus & la); */
-/* ts1 = !(ts1_l & data08_l); */
-/* rdata_to_bus = !(data09_l & rdata_to_bus); */
 /* data11_l = !(rdata_to_bus & n_t_32x); */
 
 /* e40: dec8271 */
@@ -1091,26 +1080,9 @@ data06_l.oe = (rdata_to_bus & n_t_27x);
 property atmel {open_collector= data11_l};
 !data11_l = (rdata_to_bus & n_t_32x);
 data11_l.oe = (rdata_to_bus & n_t_32x);
-!int_ena = (skip_l & n_t_23x);
 property atmel {open_collector= interrupt_l};
 !interrupt_l = (int_ena & punch_flag);
 interrupt_l.oe = (int_ena & punch_flag);
-!iot02 = (iot02 & n_t_32x);
-property atmel {open_collector= n_t_22x};
-!n_t_22x = (n_t_34x & data04_l);
-n_t_22x.oe = (n_t_34x & data04_l);
-!n_t_24x = (rdata_to_bus & n_t_54x);
-!n_t_29x = (rdata_to_bus & la);
-!n_t_69x = (db & internal_io_l);
 property atmel {open_collector= n_t_93x};
 !n_t_93x = (n_t_109x & n_t_107x);
 n_t_93x.oe = (n_t_109x & n_t_107x);
-!piop1 = (punch_flag & n_t_41x);
-property atmel {open_collector= rdata_to_bus};
-!rdata_to_bus = (internal_io_l & rdata_to_bus)
-                # (data05_l & rdata_to_bus)
-                # (data09_l & rdata_to_bus);
-rdata_to_bus.oe = (internal_io_l & rdata_to_bus)
-                # (data05_l & rdata_to_bus)
-                # (data09_l & rdata_to_bus);
-!ts1 = (ts1_l & data08_l);

@@ -1,13 +1,33 @@
-~/Verilog/bin/smaller.pl M7347B.PLD >vv || (rm vv; exit 1)
-6 signals were removed:
-  n_t_18x: !n3v
-  n_t_20x: !n_t_26x
-  n_t_23x: !n_t_26x
-  n_t_3x: !n_t_9x
-  n_t_4x: !n_t_10x
-  n_t_8x: !h
-~/Verilog/bin/smaller.pl vv >M7347BX.PLD || (rm M7347BX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M7347BX.PLD >vv || (rm vv; exit 1)
-mv vv M7347B.v
-rm M7347BX.PLD
+~/Verilog/bin/topld.pl M7347B
+warning: making 1/2,15/ a connector
+warning: making 2/2,15/ a connector
+warning: making 3/2,15/ a connector
+warning: making 4/2,15/ a connector
+warning: making 5/2,15/ a connector
+warning: making 6/2,15/ a connector
+warning: making 7/2,15/ a connector
+warning: making 8/2,15/ a connector
+warning: making blk/2,15/ a connector
+info: cpol_use ne cpol_use20_8axial
+info: 7404n ne dil14
+info: 7400n ne dil14
+info: 7474n ne dil14
+warning: making grn/2,15/ a connector
+info: _pnp_to5 ne to5
+warning: making q1/_pnp_to5/ a connector
+info: r_us_0207/10 ne 0207/10
+warning: making r1/r_us_0207/ a connector
+info: r_us_0207/10 ne 0207/10
+warning: making r2/r_us_0207/ a connector
+info: r_us_0207/10 ne 0207/10
+warning: making r3/r_us_0207/ a connector
+info: r_us_0207/10 ne 0207/10
+warning: making r4/r_us_0207/ a connector
+info: r_us_0207/10 ne 0207/10
+warning: making r5/r_us_0207/ a connector
+info: r_us_0207/10 ne 0207/10
+warning: making r6/r_us_0207/ a connector
+warning: making red/2,15/ a connector
+info: edge_1 ne e12_8
+warning: making u$1/edge_1/ a connector
+warning: making wht/2,15/ a connector

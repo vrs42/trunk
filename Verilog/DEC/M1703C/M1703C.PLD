@@ -3,7 +3,7 @@
 
 Name     M1703C ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -185,9 +185,6 @@ $ENDIF
 /* c102: cpol_use */
 
 /* e1: n8881n */
-/* n_t_9x = !(data2_l & data3_l); */
-/* d03 = !(n_t_1x & d02); */
-/* n_t_1x = !(n_t_1x & d01); */
 /* data0_l = !(d00 & n_t_1x); */
 
 /* e2: ds8640n */
@@ -211,18 +208,12 @@ md04l = !md04h;
 md08l = !md03h;
 
 /* e5b: n8881n */
-/* d07 = !(n_t_3x & d06); */
-/* n_t_1x = !( & d04); */
 /* data5_l = !(d05 & n_t_1x); */
 
 /* e6: sn7430 */
 n_t_36x = !(md08ok & n_t_21x & md04ok & md05ok & io_pauseh & md07ok & md06ok);
 
 /* e7: n8881n */
-/* n_t_29x = !(c1_l & internal_io_l); */
-/* n_t_196x = !(n_t_196x & n_t_337x); */
-/* n_t_337x = !(n_t_33x & n_t_337x); */
-/* n_t_9x = !(n_t_69x & n_t_22x); */
 
 /* e8: sn7410 */
 rd_done_l = !(iot4l & device_flag_l);
@@ -230,10 +221,6 @@ n_t_13x = !(initialize_l & iot0l & iot2l);
 n_t_26x = !(iot2l & initialize_l & iot4l);
 
 /* e9: n8881n */
-/* n_t_46x = !(int_rqst_l & skip_l); */
-/* n_t_10x = !(n_t_10x & device_flag); */
-/* n_t_47x = !(n_t_34x & n_t_1x); */
-/* n_t_39x = !(n_t_26x & n_t_44x); */
 
 /* e10: sn7442 */
 !iot0l = !iotl & !md09h & !md10h & !md11h;
@@ -262,8 +249,6 @@ n_t_1x = !n_t_3x;
 n_t_337x = !iot4l;
 
 /* e13b: n8881n */
-/* d11 = !(n_t_3x & d10); */
-/* n_t_3x = !( & d09); */
 /* data8_l = !(d08 & n_t_3x); */
 
 /* e14: ds8640n */
@@ -275,15 +260,6 @@ md08h = !md08_l;
 /* r1: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= d03};
-!d03 = (n_t_1x & d02);
-d03.oe = (n_t_1x & d02);
-property atmel {open_collector= d07};
-!d07 = (n_t_3x & d06);
-d07.oe = (n_t_3x & d06);
-property atmel {open_collector= d11};
-!d11 = (n_t_3x & d10);
-d11.oe = (n_t_3x & d10);
 property atmel {open_collector= data0_l};
 !data0_l = (d00 & n_t_1x);
 data0_l.oe = (d00 & n_t_1x);
@@ -293,25 +269,3 @@ data5_l.oe = (d05 & n_t_1x);
 property atmel {open_collector= data8_l};
 !data8_l = (d08 & n_t_3x);
 data8_l.oe = (d08 & n_t_3x);
-property atmel {open_collector= n_t_10x};
-!n_t_10x = (n_t_10x & device_flag);
-n_t_10x.oe = (n_t_10x & device_flag);
-!n_t_196x = (n_t_196x & n_t_337x);
-property atmel {open_collector= n_t_1x};
-!n_t_1x = (n_t_1x & d01)
-          # ( & d04);
-n_t_1x.oe = (n_t_1x & d01)
-          # ( & d04);
-!n_t_29x = (c1_l & internal_io_l);
-!n_t_337x = (n_t_33x & n_t_337x);
-!n_t_39x = (n_t_26x & n_t_44x);
-property atmel {open_collector= n_t_3x};
-!n_t_3x = ( & d09);
-n_t_3x.oe = ( & d09);
-!n_t_46x = (int_rqst_l & skip_l);
-!n_t_47x = (n_t_34x & n_t_1x);
-property atmel {open_collector= n_t_9x};
-!n_t_9x = (data2_l & data3_l)
-          # (n_t_69x & n_t_22x);
-n_t_9x.oe = (data2_l & data3_l)
-          # (n_t_69x & n_t_22x);

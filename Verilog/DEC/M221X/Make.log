@@ -1,20 +1,20 @@
-~/Verilog/bin/smaller.pl M221X.PLD >vv || (rm vv; exit 1)
-13 signals were removed:
-  ac3_l: !ac3_h
-  am2: !'b'0
-  bn1: !'b'0
-  mb3_l: !'b'0
-  n_t_10x: !lsw3
-  n_t_19x: !ps_2
-  n_t_1x: ps_left_3
-  n_t_20x: !ps_3
-  n_t_3x: ps_2
-  n_t_4x: carry_ok_l
-  n_t_6x: ps_left_2
-  n_t_8x: ps_3
-  n_t_9x: !lsw2
-~/Verilog/bin/smaller.pl vv >M221XX.PLD || (rm M221XX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M221XX.PLD >vv || (rm vv; exit 1)
-mv vv M221X.v
-rm M221XX.PLD
+~/Verilog/bin/topld.pl M221X
+info: 7453n ne dil14
+info: 7460n ne dil14
+info: 7453n ne dil14
+info: 7460n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 74h00n ne 7400n
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 74h00n ne 7400n
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7482n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7400n ne dil14
+info: double ne edge_con4
+warning: making u$1/double/ a connector

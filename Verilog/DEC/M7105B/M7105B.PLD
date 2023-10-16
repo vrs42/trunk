@@ -3,7 +3,7 @@
 
 Name     M7105B ;
 PartNo   cpld ;
-Date     10/14/2023 ;
+Date     10/16/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -553,8 +553,6 @@ $ENDIF
 
 /* e1: n8881n */
 /* n_t_15x = !(ema1_l & ema2_l); */
-/* ema2 = !(data_enable & ema1); */
-/* ema0 = !(n_t_2x & data_enable); */
 /* md_dir_l = !(data_enable & brk_dir_l); */
 
 /* e2: dec8271 */
@@ -626,16 +624,11 @@ crc13.ar = !ld_disk_addrs & !clr_dsk_ad_l;
 
 /* e5: ds75452n */
 /* dsk_cyl_ad1_l = !(!(n_t_68x & dsk_cyl_ad8_l)); */
-/* strobe = !(!(crc8 & strobe)); */
 
 /* e6: ds75452n */
 /* dsk_cyl_ad4_l = !(!(n1_db2 & dsk_cyl_ad2_l)); */
-/* crc9 = !(!(crc10 & strobe)); */
 
 /* e7: n8881n */
-/* n_t_22x = !(ma2_l & ma3_l); */
-/* n_t_39x = !(mak & n_t_38x); */
-/* n_t_37x = !(test_clk_l & mak); */
 /* ma0_l = !(mak & n_t_26x); */
 
 /* e8: sn74161 */
@@ -677,11 +670,9 @@ n_t_60x = !(unit_sel0 & !unit_sel1 & !n_t_40x & !n_t_50x);
 
 /* e11: ds75451n */
 /* dsk_drive1_l = !((n12th_bit_ok & dsk_drive0_l)); */
-/* drive1_l = !drive0_l; */
 
 /* e12: ds75451n */
 /* dsk_drive3_l = !((n_t_15x & dsk_drive2_l)); */
-/* drive3_l = !drive2_l; */
 
 /* e13: sp380n */
 !bdata3 = data_enab_l
@@ -717,11 +708,9 @@ crc8.ar = !ld_disk_addrs & !clr_dsk_ad_l;
 
 /* e15: ds75452n */
 /* dsk_cyl_ad16_l = !(!(md6_l & dsk_cyl_ad32_l)); */
-/* crc7 = !(!(strobe & crc6)); */
 
 /* e16: ds75452n */
 /* dsk_cyl_ad128_l = !(!(rk_data6 & dsk_cyl_ad64_l)); */
-/* crc4 = !(!(crc5 & strobe)); */
 
 /* e17: dec8271 */
 ema2.ar = !clr_all_l;
@@ -780,9 +769,6 @@ n_t_17x = !(clr_all & n_t_16x);
 drive_status_bad = !(file_rdy & rdy_s_r_w);
 
 /* e20: n8881n */
-/* lo_main_shft_l = !(ma6_l & ma7_l); */
-/* mak = !(n_t_48x & n_t_41x); */
-/* n_t_40x = !(n_t_34x & mak); */
 /* ma5_l = !(mak & n_t_43x); */
 
 /* e21: sn74161 */
@@ -859,9 +845,6 @@ n_t_14x = (rd_clk1 & state_enab_b);
 shft_surf = (main_pl & bdata4);
 
 /* e26: n8881n */
-/* 'b'0 = !(msir_dis_l & bk_cycle_l); */
-/* data_enable = !data_enable; */
-/* nbr = !(db4_ena & nbr); */
 /* mams_load_cont_l = !malc; */
 
 /* e27: sp384n */
@@ -945,9 +928,6 @@ rd_brk_l = !(db_cont4 & brk_enable & brk_in);
 wt_buff_data_l = !(data_enable & brk_dir & bts2);
 
 /* e38: n8881n */
-/* btp2 = !(bd11l & data_enab_l); */
-/* device_rk = !(device_rk & n_t_71x); */
-/* nbr = !(bd08h & nbr); */
 /* priority = !(nbr & bts4); */
 
 /* e39: sn74h74 */
@@ -991,9 +971,6 @@ bdata11_l = !rdy_s_r_w_l;
 bdata10_l = !bdata10;
 
 /* e44: n8881n */
-/* bdata10 = !(ma9_l & ma10_l); */
-/* n_t_44x = !(mak & n_t_45x); */
-/* mak = !(n_t_3x & n_t_42x); */
 /* ma11_l = !(mak & n_t_47x); */
 
 /* e45: sn74h74 */
@@ -1103,26 +1080,6 @@ hi_data_in = !(hi_main_data_l & data_in_l);
 /* r31: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= 'b'0};
-!'b'0 = (msir_dis_l & bk_cycle_l);
-'b'0.oe = (msir_dis_l & bk_cycle_l);
-property atmel {open_collector= bdata10};
-!bdata10 = (ma9_l & ma10_l);
-bdata10.oe = (ma9_l & ma10_l);
-property atmel {open_collector= btp2};
-!btp2 = (bd11l & data_enab_l);
-btp2.oe = (bd11l & data_enab_l);
-!crc4 = (!(crc5 & strobe));
-!crc7 = (!(strobe & crc6));
-!crc9 = (!(crc10 & strobe));
-property atmel {open_collector= data_enable};
-!data_enable = data_enable;
-data_enable.oe = data_enable;
-property atmel {open_collector= device_rk};
-!device_rk = (device_rk & n_t_71x);
-device_rk.oe = (device_rk & n_t_71x);
-!drive1_l = drive0_l;
-!drive3_l = drive2_l;
 property atmel {open_collector= dsk_cyl_ad128_l};
 !dsk_cyl_ad128_l = (!(rk_data6 & dsk_cyl_ad64_l));
 dsk_cyl_ad128_l.oe = (!(rk_data6 & dsk_cyl_ad64_l));
@@ -1141,11 +1098,6 @@ dsk_drive1_l.oe = ((n12th_bit_ok & dsk_drive0_l));
 property atmel {open_collector= dsk_drive3_l};
 !dsk_drive3_l = ((n_t_15x & dsk_drive2_l));
 dsk_drive3_l.oe = ((n_t_15x & dsk_drive2_l));
-!ema0 = (n_t_2x & data_enable);
-!ema2 = (data_enable & ema1);
-property atmel {open_collector= lo_main_shft_l};
-!lo_main_shft_l = (ma6_l & ma7_l);
-lo_main_shft_l.oe = (ma6_l & ma7_l);
 property atmel {open_collector= ma0_l};
 !ma0_l = (mak & n_t_26x);
 ma0_l.oe = (mak & n_t_26x);
@@ -1155,8 +1107,6 @@ ma11_l.oe = (mak & n_t_47x);
 property atmel {open_collector= ma5_l};
 !ma5_l = (mak & n_t_43x);
 ma5_l.oe = (mak & n_t_43x);
-!mak = (n_t_48x & n_t_41x)
-       # (n_t_3x & n_t_42x);
 property atmel {open_collector= mams_load_cont_l};
 !mams_load_cont_l = malc;
 mams_load_cont_l.oe = malc;
@@ -1164,16 +1114,6 @@ property atmel {open_collector= md_dir_l};
 !md_dir_l = (data_enable & brk_dir_l);
 md_dir_l.oe = (data_enable & brk_dir_l);
 !n_t_15x = (ema1_l & ema2_l);
-!n_t_22x = (ma2_l & ma3_l);
-!n_t_37x = (test_clk_l & mak);
-!n_t_39x = (mak & n_t_38x);
-!n_t_40x = (n_t_34x & mak);
-!n_t_44x = (mak & n_t_45x);
-!nbr = (db4_ena & nbr)
-       # (bd08h & nbr);
 property atmel {open_collector= priority};
 !priority = (nbr & bts4);
 priority.oe = (nbr & bts4);
-property atmel {open_collector= strobe};
-!strobe = (!(crc8 & strobe));
-strobe.oe = (!(crc8 & strobe));

@@ -1,29 +1,74 @@
-~/Verilog/bin/smaller.pl M7104B.PLD >vv || (rm vv; exit 1)
-20 signals were removed:
-  bd08h: !b_brk_rq
-  btp1: tp1
-  db_cont2_l: !db_cont2
-  mb10: !n6rk6_l
-  md_rk_l: 'b'1
-  n6rk1: !n6rk1_l
-  n6rk2: !n6rk2_l
-  n_t_101x: !btp3
-  n_t_113x: !idle
-  n_t_131x: !rk_data10
-  n_t_14x: !md_rd_buff
-  n_t_29x: !device_rk
-  n_t_30x: !md_rd_buff_l
-  n_t_34x: !n_t_72x
-  n_t_530x: !bstrobeh
-  n_t_60x: !n_t_66x
-  n_t_71x: !btp1
-  n_t_85x: !btp3
-  q4: !n6rk7_l
-  set_count: !rk_data1
-~/Verilog/bin/smaller.pl vv >M7104BX.PLD || (rm M7104BX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M7104BX.PLD >vv || (rm vv; exit 1)
-no busy_error.j at /home/vrs/Verilog/bin/cupl2v.pl line 282, <INPUT> line 1885.
-../Makefile:29: recipe for target 'M7104B.v' failed
-make: *** [M7104B.v] Error 1
-rm M7104BX.PLD
+~/Verilog/bin/topld.pl M7104B
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: 100ns ne rc_l_22
+warning: making dl1/100ns/ a connector
+info: sp314n ne dil16
+info: 74174n ne dil14
+info: 7402n ne dil14
+info: 7476n ne dil14
+info: ds8640n ne dil16
+info: 7404n ne dil14
+info: 7495n ne dil14
+info: 74174n ne dil14
+info: 7402n ne dil14
+info: ds8640n ne dil16
+info: 74h00n ne 7400n
+info: 74h04n ne 7404n
+info: dec8235 ne edge_con2
+info: 7404n ne dil14
+info: 7495n ne dil14
+info: 74174n ne dil14
+info: 74h53n ne edge_con2
+info: 7404n ne dil14
+info: 7402n ne dil14
+info: dec8235 ne edge_con2
+info: 7495n ne dil14
+info: sp384n ne dil16
+info: 7404n ne dil14
+info: 7495n ne dil14
+info: 7437n ne dil14
+info: 7402n ne dil14
+info: ds8640n ne dil16
+info: n8881n ne dil16
+info: dec8251 ne edge_con2
+info: 74h74n ne 7474n
+info: 74174n ne dil14
+info: 7440n ne dil16
+info: ds8640n ne dil16
+info: 74193n ne dil16
+info: 7440n ne dil16
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: 7410n ne dil14
+info: dec8235 ne edge_con2
+info: 7495n ne dil14
+info: 7402n ne dil14
+info: 7402n ne dil14
+info: 7400n ne dil14
+info: 74h53n ne edge_con2
+info: 74123n ne dil14
+warning: making e7/sn74123/ a connector
+info: dec8235 ne edge_con2
+info: 7495n ne dil14
+info: edge_top ne edge_con2
+warning: making h/edge_top/ a connector
+info: edge_top ne edge_con2
+warning: making j/edge_top/ a connector
+info: quad ne edge_con2
+warning: making omnibus/quad/ a connector
+info: 0r2 ne 0r2/10
+warning: making w1w4/0r2/ a connector
+info: 0r2 ne 0r2/10
+warning: making w2w5/0r2/ a connector
+info: 0r2 ne 0r2/10
+warning: making w3w6/0r2/ a connector
+unexpected OC output: n_t_41x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2611.
+unexpected OC output: n_t_104x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2611.
+unexpected OC output: n_t_12x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2611.
+warning: non-pullup resistor deleted: r5
+warning: non-pullup resistor deleted: r8
+warning: non-pullup resistor deleted: r10
+warning: non-pullup resistor deleted: r14
+warning: non-pullup resistor deleted: r15

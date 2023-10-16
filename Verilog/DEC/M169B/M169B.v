@@ -70,38 +70,8 @@ wire s1;
 wire s1;
 wire s1;
 assign n_t_36x = ~(n_t_34x & ~n_t_3x);
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
 assign n_t_35x = ~(n_t_3x & n_t_30x);
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
 assign n_t_8x = ~(n_t_24x & k2);
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
 assign n_t_2x = ~(n_t_14x & e2);
 // e4: sn7453 
 // !n_t_3x = !(n_t_32x & n_t_18x
@@ -116,85 +86,15 @@ assign n_t_2x = ~(n_t_14x & e2);
 //       # n_t_29x & n_t_19x); 
 // n_t_28x = !n_t_3x; 
 // open collector 'wire-or's 
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
 assign e2 = ~((n_t_11x & n_t_3x
                 | n_t_6x & n_t_12x
                 | n_t_5x & n_t_10x
                 | n_t_13x & n_t_4x));
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
 assign k2 = ~((n_t_16x & n_t_3x
                 | n_t_6x & n_t_17x
                 | n_t_5x & n_t_15x
                 | n_t_9x & n_t_4x));
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
 assign n_t_28x = n_t_3x? ~n_t_3x: 1'bz;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
 assign n_t_3x = (n_t_26x & n_t_18x
                   | n_t_21x & n_t_28x
                   | n_t_20x & n_t_27x

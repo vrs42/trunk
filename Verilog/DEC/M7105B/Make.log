@@ -1,34 +1,92 @@
-~/Verilog/bin/smaller.pl M7105B.PLD >vv || (rm vv; exit 1)
-24 signals were removed:
-  bdata0: !main
-  bdata2_l: !rdy_s_r_w
-  bint_strobe: int_strobe
-  brk_enable: !brk_enable_l
-  brk_in: !brk_in_l
-  btp1: tp1
-  bts2: !ts2
-  bts4: !ts4
-  data_enable_l: !data_enable
-  disk_priority: !data_state_l
-  drive1_l: !drive0_l
-  drive3_l: !drive2_l
-  last_brk_l: !last_brk
-  mad: !mak
-  malc_l: !malc
-  md_rk_l: 'b'1
-  n3v: !b_last_brk
-  n_t_103x: !ema1
-  n_t_15x: !bdata2
-  n_t_48x: !ext_cyl_addrs
-  n_t_530x: !dsk_seek_fail_l
-  n_t_7x: !aiot5l
-  nbr_l: !nbr
-  set_main_brk: !set_main_brk_l
-~/Verilog/bin/smaller.pl vv >M7105BX.PLD || (rm M7105BX.PLD; exit 1)
-1 signals were removed:
-  brk_in_l: brk_dir
-~/Verilog/bin/cupl2v.pl M7105BX.PLD >vv || (rm vv; exit 1)
-ext_cyl_addrs.j at /home/vrs/Verilog/bin/cupl2v.pl line 272, <INPUT> line 1845.
-../Makefile:29: recipe for target 'M7105B.v' failed
-make: *** [M7105B.v] Error 1
-rm M7105BX.PLD
+~/Verilog/bin/topld.pl M7105B
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: edge_top ne dil14
+warning: making e/edge_top/ a connector
+info: n8881n ne dil14
+info: 74155n ne dil14
+info: ds75451n ne dil14
+info: ds75451n ne dil14
+info: sp380n ne dil14
+info: ds75452n ne dil14
+info: ds75452n ne dil14
+info: dec8271 ne dil14
+info: 74161n ne dil14
+info: 74h00n ne 7400n
+info: dec8271 ne dil14
+info: n8881n ne dil14
+info: 74161n ne dil14
+info: sp380n ne dil14
+info: 74174n ne dil14
+info: 7486n ne dil14
+info: n8881n ne dil14
+info: sp384n ne dil14
+info: 7402n ne dil14
+info: 7400n ne dil14
+info: dec8271 ne dil14
+info: 7400n ne dil14
+info: sp380n ne dil14
+info: 74h11n ne 7411n
+info: 74h74n ne 7474n
+info: 7400n ne dil14
+info: 74h10n ne 7410n
+info: n8881n ne dil14
+info: 74h74n ne 7474n
+info: 7400n ne dil14
+info: 7404n ne dil14
+info: 7404n ne dil14
+info: n8881n ne dil14
+info: 74h74n ne 7474n
+info: 7440n ne dil14
+info: 7402n ne dil14
+info: 74h74n ne 7474n
+info: 7400n ne dil14
+info: ds75452n ne dil14
+info: ds75452n ne dil14
+info: n8881n ne dil14
+info: 74161n ne dil14
+info: 7452 ne dil14
+warning: making e9/sn7452/ a connector
+info: edge_top ne dil14
+warning: making f/edge_top/ a connector
+info: edge_top ne dil14
+warning: making h/edge_top/ a connector
+info: edge_top ne dil14
+warning: making j/edge_top/ a connector
+info: quad ne dil14
+warning: making omnibus/quad/ a connector
+warning: making w1/r_eu_/ a connector
+warning: making w2/r_eu_/ a connector
+warning: making w3/r_eu_/ a connector
+warning: making w4/r_eu_/ a connector
+warning: making w5/r_eu_/ a connector
+warning: non-bypass capacitor deleted: c31
+warning: non-bypass capacitor deleted: c32
+warning: non-bypass capacitor deleted: c33
+warning: non-bypass capacitor deleted: c37
+unexpected OC output: ema2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1887.
+unexpected OC output: ema0 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1887.
+unexpected OC output: strobe at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2015.
+unexpected OC output: crc9 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2039.
+unexpected OC output: n_t_22x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2063.
+unexpected OC output: n_t_39x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2063.
+unexpected OC output: n_t_37x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2063.
+unexpected OC output: drive1_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2140.
+unexpected OC output: drive3_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2164.
+unexpected OC output: crc7 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2220.
+unexpected OC output: crc4 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2236.
+unexpected OC output: lo_main_shft_l at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2309.
+unexpected OC output: mak at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2309.
+unexpected OC output: n_t_40x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2309.
+unexpected OC output: 'b'0 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2414.
+unexpected OC output: data_enable at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2414.
+unexpected OC output: nbr at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2414.
+unexpected OC output: btp2 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2592.
+unexpected OC output: device_rk at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2592.
+unexpected OC output: nbr at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2592.
+unexpected OC output: bdata10 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2679.
+unexpected OC output: n_t_44x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2679.
+unexpected OC output: mak at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2679.
+warning: non-pullup resistor deleted: r30
+warning: non-pullup resistor deleted: r31

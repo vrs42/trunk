@@ -152,9 +152,7 @@ output v1;
 
 wire n_t_34x;
 assign n_t_34x = ~(n_t_33x & n_t_32x & n_t_35x);
-wire n_t_34x;
 assign n_t_29x = ~n_t_31x;
-wire n_t_34x;
 assign n_t_28x = ~n_t_34x;
 // r1: r_us_ 
 // r2: r_us_ 

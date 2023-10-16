@@ -1,20 +1,25 @@
-~/Verilog/bin/smaller.pl M220A.PLD >vv || (rm vv; exit 1)
-13 signals were removed:
-  mb2_l: !mb2_h
-  mb3_l: !mb3_h
-  n_t_11x: ak2
-  n_t_12x: n_t_32x
-  n_t_13x: aj1
-  n_t_14x: n_t_63x
-  n_t_20x: 'b'1
-  n_t_33x: !n_t_32x
-  n_t_43x: n_t_6x
-  n_t_5x: n_t_6x
-  n_t_60x: !n_t_63x
-  n_t_74x: n_t_4x
-  n_t_8x: n_t_4x
-~/Verilog/bin/smaller.pl vv >M220AX.PLD || (rm M220AX.PLD; exit 1)
-0 signals were removed:
-~/Verilog/bin/cupl2v.pl M220AX.PLD >vv || (rm vv; exit 1)
-mv vv M220A.v
-rm M220AX.PLD
+~/Verilog/bin/topld.pl M220A
+info: cpol_use ne cpol_use15_5axial
+info: cpol_use ne cpol_use15_5axial
+info: cpol_use ne cpol_use15_5axial
+info: cpol_use ne cpol_use15_5axial
+info: cpol_use ne cpol_use15_5axial
+info: cpol_use ne cpol_use15_5axial
+info: cpol_use ne cpol_use15_5axial
+info: cpol_use ne cpol_use15_5axial
+info: 7453n ne dil14
+info: 7440n ne 7420n
+info: 7482n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7453n ne dil14
+info: 7460n ne dil14
+info: 7460n ne dil14
+info: 7400n ne dil14
+info: 7440n ne 7420n
+info: double ne e15_5
+warning: making u$1/double/ a connector

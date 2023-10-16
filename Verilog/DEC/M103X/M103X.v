@@ -53,17 +53,8 @@ wire n_t_9x;
 wire n_t_9x;
 assign a1 = ~(f2 & h2 & b1 & j2 & k2 & n_t_8x & d2 & e2);
 // e4: sn7400 
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign n_t_2x = ~(c1 & s2);
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign n_t_9x = ~(l1 & n_t_8x);
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
 assign k1 = ~(h1 & j1);
 // r1: r_us_ 
 // r2: r_us_ 

@@ -170,26 +170,6 @@ wire tdo;
 wire tdo;
 wire tdo;
 assign e = ~f;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
 assign f = ~k;
 // r1: r_us_ 
 // r2: r_us_ 
