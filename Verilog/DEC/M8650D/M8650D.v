@@ -668,7 +668,7 @@ assign n_t_50x = ~(b_pause_l
                     | md03);
 assign n_t_30x = ~(n_t_26x
                     | n_t_30x);
-// e2: sn97401 
+// e2: sn7401 
 // e3: sn7474 
 always @(rx_rate, n3v3, n3v3, n_t_76x)
   if (~n3v3) begin
@@ -881,7 +881,7 @@ always @(negedge bd300)
     bd150 <= ~bd150;
   end
 // e14: sp314n 
-// e15: sn97401 
+// e15: sn7401 
 // e16: sn7474 
 always @(tx_rate, n3v3, init_l, n_t_94x)
   if (~n3v3) begin
@@ -1127,7 +1127,7 @@ assign n_t_55x = ~(data11_l
                     | dotpc_l);
 assign data10_l = ~(n_t_54x
                      | dotpc_l);
-// e33: sn97401 
+// e33: sn7401 
 // e34: sp384n 
 assign n_t_2x = n_t_2x
                  | data11_l;
@@ -1145,7 +1145,7 @@ assign n_t_85x = n_t_27x
                   | n_t_128x;
 assign n_t_14x = initialize
                   | n_t_27x;
-// e37: sn97401 
+// e37: sn7401 
 // e38: sn7474 
 always @(tx_div, cktfl_l, n_t_20x, n_t_24x)
   if (~cktfl_l) begin

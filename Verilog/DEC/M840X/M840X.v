@@ -69,16 +69,14 @@
 // c65: cpol_use 
 // c66: cpol_use 
 // e1: sn7410 
-module m840x (a00_l, a02_l, ac01, ac2bus_l, ad02_l, cif_l, la, md08, md7, modea, mq01_l, multi_out_l, n3v, n3v3, n_t_101x, n_t_104x, n_t_11x, n_t_12x, n_t_131x, n_t_13x, n_t_22x, n_t_44x, n_t_68x, n_t_70x, n_t_82x, n_t_83x, n_t_85x, n_t_8x, n_t_92x, pun_to_speed, punch_feed_l, r_feed_sw_l, r_offline_l, rd_hole1, rd_hole2, rd_hole3, rd_hole4, rd_hole5, rd_hole6, rd_hole7, rd_hole8, rdf, rdf_l, tp3h, tp_db1, ba, ba_l, bb, bb1, bk_cycle_l, brk_in_prog_l, c0_l, c1_l, cpma_dis_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, ema0_l, ema1_l, ema2_l, enable, fd_set, ind_l, initialize, int_strobe, internal_io_l, interrupt_l, iot01, iot02, load_addr, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, mams_load_cont_l, md0_l, md10_l, md11_l, md1_l, md2_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8, md8_l, md9_l, md_dir_l, motor_power, motor_stopping_l, msir_dis_l, n15v, n_t_100x, n_t_102x, n_t_106x, n_t_107x, n_t_10x, n_t_129x, n_t_132x, n_t_134x, n_t_135x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_19x, n_t_20x, n_t_21x, n_t_23x, n_t_26x, n_t_28x, n_t_2x, n_t_3x, n_t_45x, n_t_4x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_6x, n_t_71x, n_t_72x, n_t_76x, n_t_78x, n_t_7x, n_t_84x, n_t_86x, n_t_87x, n_t_89x, n_t_90x, n_t_93x, n_t_94x, n_t_9x, pause, pause_l, pls, pn_hole1, pn_hole2, pn_hole3, pn_hole4, pn_hole5, pn_hole6, pn_hole7, pn_hole8, punch_done, punch_done_l, r, rdata_to_bus, skip_l, tp1, tp2, tp3, tp4, tp_ba1, ts2, ts3_l, ts4);
+module m840x (a00_l, a02_l, ac01, ac2bus_l, cif_l, la, md08, modea, mq01_l, multi_out_l, n3v, n3v3, n_t_101x, n_t_104x, n_t_11x, n_t_12x, n_t_131x, n_t_13x, n_t_22x, n_t_44x, n_t_68x, n_t_82x, n_t_83x, n_t_85x, n_t_8x, n_t_92x, pun_to_speed, punch_feed_l, r_feed_sw_l, r_offline_l, rd_hole1, rd_hole2, rd_hole3, rd_hole4, rd_hole5, rd_hole6, rd_hole7, rd_hole8, rdf, rdf_l, tp3h, ba, ba_l, bb, bb1, bk_cycle_l, brk_in_prog_l, c0_l, c1_l, cpma_dis_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, ema0_l, ema1_l, ema2_l, enable, fd_set, initialize, int_strobe, internal_io_l, interrupt_l, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, mams_load_cont_l, md0_l, md10_l, md11_l, md1_l, md2_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, md_dir_l, motor_power, motor_stopping_l, msir_dis_l, n15v, n_t_100x, n_t_102x, n_t_106x, n_t_107x, n_t_10x, n_t_129x, n_t_132x, n_t_14x, n_t_15x, n_t_16x, n_t_19x, n_t_20x, n_t_21x, n_t_23x, n_t_2x, n_t_3x, n_t_45x, n_t_4x, n_t_5x, n_t_60x, n_t_61x, n_t_6x, n_t_71x, n_t_72x, n_t_76x, n_t_78x, n_t_7x, n_t_84x, n_t_86x, n_t_87x, n_t_89x, n_t_93x, n_t_94x, n_t_9x, pause_l, pls, pn_hole1, pn_hole2, pn_hole3, pn_hole4, pn_hole5, pn_hole6, pn_hole7, pn_hole8, punch_done, punch_done_l, r, rdata_to_bus, skip_l, tp1, tp2, tp3, tp4, tp_ba1, ts2, ts3_l, ts4);
 output a00_l;
 output a02_l;
 output ac01;
 output ac2bus_l;
-output ad02_l;
 output cif_l;
 output la;
 output md08;
-output md7;
 output modea;
 output mq01_l;
 input multi_out_l;
@@ -93,7 +91,6 @@ output n_t_13x;
 input n_t_22x;
 output n_t_44x;
 output n_t_68x;
-input n_t_70x;
 output n_t_82x;
 output n_t_83x;
 output n_t_85x;
@@ -114,7 +111,6 @@ input rd_hole8;
 output rdf;
 output rdf_l;
 input tp3h;
-output tp_db1;
 input ba;
 inout reg ba_l;
 inout bb;
@@ -141,14 +137,10 @@ output ema1_l;
 output ema2_l;
 input enable;
 output fd_set;
-output ind_l;
 input initialize;
 output int_strobe;
 output internal_io_l;
 output interrupt_l;
-input iot01;
-inout iot02;
-output load_addr;
 output ma0_l;
 output ma10_l;
 output ma11_l;
@@ -168,12 +160,11 @@ input md11_l;
 output md1_l;
 output md2_l;
 output md3_l;
-output md4_l;
-output md5_l;
-output md6_l;
-output md7_l;
-output md8;
-output md8_l;
+inout md4_l;
+input md5_l;
+input md6_l;
+input md7_l;
+input md8_l;
 input md9_l;
 output md_dir_l;
 input motor_power;
@@ -187,26 +178,20 @@ inout n_t_107x;
 output n_t_10x;
 output n_t_129x;
 output n_t_132x;
-output n_t_134x;
-output n_t_135x;
 output n_t_14x;
 output n_t_15x;
 inout n_t_16x;
-output n_t_17x;
 inout n_t_19x;
 inout n_t_20x;
 output n_t_21x;
 inout reg n_t_23x;
-output reg n_t_26x;
-output reg n_t_28x;
 output n_t_2x;
 output n_t_3x;
 output n_t_45x;
 output n_t_4x;
-input n_t_5x;
+inout n_t_5x;
 inout reg n_t_60x;
 inout reg n_t_61x;
-output reg n_t_62x;
 inout n_t_6x;
 inout n_t_71x;
 output n_t_72x;
@@ -217,12 +202,10 @@ output n_t_84x;
 output n_t_86x;
 output n_t_87x;
 input n_t_89x;
-inout n_t_90x;
 output n_t_93x;
 output n_t_94x;
 output n_t_9x;
-output pause;
-output pause_l;
+input pause_l;
 inout pls;
 output pn_hole1;
 output pn_hole2;
@@ -253,7 +236,6 @@ reg md03_l_m;
 reg n_t_23x_m;
 reg n_t_60x_m;
 reg n_t_61x_m;
-reg n_t_62x_m;
 reg n_t_63x_m;
 reg n_t_79x_m;
 reg pn_hole4_m;
@@ -261,7 +243,6 @@ reg pn_hole5_m;
 reg punch_flag_m;
 reg rdata_strobe_m;
 reg rdr_run_m;
-reg rotate_pulse_m;
 
 wire user_mode_l;
 wire user_mode_l;
@@ -494,12 +475,23 @@ wire user_mode_l;
 wire user_mode_l;
 wire user_mode_l;
 wire user_mode_l;
-assign n_t_121x = ~(n_t_121x & riop2_l & init_or_eot_l);
-assign n_t_72x = ~(init_or_eot_l & shift_pulse_l & enable);
-assign n_t_71x = ~(n_t_71x & ~init_or_eot_l & n_t_75x);
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+wire user_mode_l;
+assign n_t_121x = ~(n_t_121x & riop2_l & ~clock_pulse_l);
+assign n_t_72x = ~(~clock_pulse_l & shift_pulse_l & enable);
+assign n_t_71x = ~(n_t_71x & clock_pulse_l & n_t_75x);
 // e2: sn7474 
-always @(rdata_strobe, init_or_eot_l, riop4_l, 1'b0)
-  if (~init_or_eot_l) begin
+always @(rdata_strobe, clock_pulse_l, riop4_l, 1'b0)
+  if (clock_pulse_l) begin
     rdr_run_m <= 1'b0;
   end else
   if (~riop4_l) begin
@@ -508,8 +500,8 @@ always @(rdata_strobe, init_or_eot_l, riop4_l, 1'b0)
   if (~(rdata_strobe)) begin
     rdr_run_m <= 1'b0;
   end
-always @(rdata_strobe, init_or_eot_l, riop4_l, rdr_run_m)
-  if (~init_or_eot_l) begin
+always @(rdata_strobe, clock_pulse_l, riop4_l, rdr_run_m)
+  if (clock_pulse_l) begin
     rdr_run <= 1'b0;
   end else
   if (~riop4_l) begin
@@ -538,59 +530,41 @@ always @(clock_pulse, pn_hole7, n_t_73x, rdata_strobe_m)
   if (clock_pulse) begin
     rdata_strobe <= rdata_strobe_m;
   end
-assign n_t_90x = ~rdata_strobe;
 // e3: sn7404 
 assign n_t_71x = ~multi_out_l;
 // e5: sn7400 
-assign n_t_76x = ~(~init_or_eot_l & n_t_71x);
+assign n_t_76x = ~(clock_pulse_l & n_t_71x);
 assign pn_hole7 = ~(~(n_t_121x & n_t_35x));
 assign out_of_tape = ~(clock_pulse & n_t_35x);
-assign n_t_90x = ~(r_feed_sw_l & enable);
 // e6: sn7400 
 assign n_t_125x = ~(n_t_119x & r_feed_sw_l);
 assign shift_pulse_l = ~(rotate_pulse & catch_pulse_l);
 assign n_t_88x = ~(n_t_89x & catch_pulse_l);
 // e8: sn7404 
 // e9: sn7474 
-always @(rotate_pulse, n_t_70x, n_t_70x, rotate_pulse)
-  if (~(~n_t_70x)) begin
+always @(rotate_pulse, rotate_pulse)
+  if (1'b1) begin
     ba_l_m <= 1'b0;
   end else
-  if (~(~n_t_70x)) begin
+  if (1'b1) begin
     ba_l_m <= 1'b1;
   end else
   if (~(~rotate_pulse)) begin
     ba_l_m <= ~(~rotate_pulse);
   end
-always @(rotate_pulse, n_t_70x, n_t_70x, ba_l_m)
-  if (~(~n_t_70x)) begin
+always @(rotate_pulse, ba_l_m)
+  if (1'b1) begin
     ba_l <= 1'b0;
   end else
-  if (~(~n_t_70x)) begin
+  if (1'b1) begin
     ba_l <= 1'b1;
   end else
   if (~rotate_pulse) begin
     ba_l <= ba_l_m;
   end
-always @(rotate_pulse, n_t_70x, n_t_70x, ba_l)
-  if (~n_t_70x) begin
-    rotate_pulse_m <= 1'b0;
-  end else
-  if (~n_t_70x) begin
-    rotate_pulse_m <= 1'b1;
-  end else
-  if (~(rotate_pulse)) begin
-    rotate_pulse_m <= ~ba_l;
-  end
-always @(rotate_pulse, n_t_70x, n_t_70x, rotate_pulse_m)
-  if (~n_t_70x) begin
-    rotate_pulse <= 1'b0;
-  end else
-  if (~n_t_70x) begin
-    rotate_pulse <= 1'b1;
-  end else
+always @(posedge rotate_pulse)
   if (rotate_pulse) begin
-    rotate_pulse <= rotate_pulse_m;
+    rotate_pulse <= ~ba_l;
   end
 // e10: sn7474 
 always @(punch_done_l, enable, 1'b0)
@@ -711,19 +685,27 @@ assign n_t_129x = ~n_t_79x;
 // skip_l = !(bmb05 & n_t_6x); 
 // skip_l = !(n_t_23x & int_ena); 
 // interrupt_l = !(int_ena & punch_flag); 
+// e20: sn7404 
+assign n_t_6x = ~md8;
+assign n_t_5x = ~n_t_134x;
+assign md4_l = ~rpe_l;
+// e21: sn7430 
+assign ind_l = ~(~iot01 & md4_l & md5_l & md6_l & md7_l & md8 & ~pause_l);
 // e22: sn7400 
 assign btp3 = ~(riop2_l & rdata_to_bus);
 assign piop0 = ~(n_t_80x & btp3);
-assign iot02 = ~(~(btp3 & n_t_79x));
+assign rpe_l = ~(~(btp3 & n_t_79x));
 assign btp3 = ~(piop4 & enable);
 // e23: sn7400 
 assign n_t_110x = ~(n_t_111x & n_t_106x);
 assign n_t_107x = ~(r_offline_l & out_of_tape);
 assign n_t_108x = ~(n_t_106x & n_t_115x);
-// e24: sn74hct02 
+// e24: sn7402 
 assign iot_l = ~(iot01
-                  | iot02);
+                  | rpe_l);
 assign n_t_6x = 1'b1;
+// e25: sn7430 
+assign load_addr = ~(n_t_134x & md4_l & md5_l & md6_l & md7 & md8_l & ~pause_l);
 // e26: sn7404 
 assign tp_cb1 = ~n_t_106x;
 assign punch_done = ~punch_done_l;
@@ -742,9 +724,8 @@ assign rfc_l = ~(n_t_25x & rbc_l);
 assign pcf_l = ~(pls & piop2);
 assign pls = ~(ppc_l & piop4);
 // e29: sn7404 
-assign iot02 = ~(~rpe_l);
 assign n_t_16x = ~piop0;
-// e30: sn74hct02 
+// e30: sn7402 
 assign n_t_20x = ~(md11_l
                     | iot_l);
 assign pn_hole7 = ~(~initialize);
@@ -770,16 +751,16 @@ assign n_t_117x = ~(n_t_114x & n_t_112x);
 // data05_l = !rdata_to_bus; 
 // data06_l = !(rdata_to_bus & n_t_27x); 
 // e35: sn7420 
-assign n_t_110x = ~(n_t_90x & n_t_111x & n_t_111x);
+assign n_t_110x = ~(~rdata_strobe & n_t_111x & n_t_111x);
 assign n_t_123x = ~(~pn_hole7 & n_t_122x & n_t_122x);
-// e36: sn74hct02 
+// e36: sn7402 
 assign n_t_50x = ~(data07_l
-                    | ~iot02);
-assign n_t_46x = ~(~iot02
+                    | ~rpe_l);
+assign n_t_46x = ~(~rpe_l
                     | data06_l);
 assign n_t_43x = ~(data05_l
-                    | ~iot02);
-assign n_t_42x = ~(~iot02
+                    | ~rpe_l);
+assign n_t_42x = ~(~rpe_l
                     | data04_l);
 // e38: sn7404 
 // e39: sn7438 
@@ -788,14 +769,14 @@ assign n_t_42x = ~(~iot02
 // data11_l = !(rdata_to_bus & n_t_32x); 
 // e41: sn7404 
 assign pn_hole1 = ~pn_hole6;
-// e42: sn74hct02 
+// e42: sn7402 
 assign n_t_36x = ~(data11_l
-                    | ~iot02);
-assign n_t_39x = ~(~iot02
+                    | ~rpe_l);
+assign n_t_39x = ~(~rpe_l
                     | data10_l);
 assign n_t_40x = ~(data09_l
-                    | ~iot02);
-assign n_t_41x = ~(~iot02
+                    | ~rpe_l);
+assign n_t_41x = ~(~rpe_l
                     | data08_l);
 // e44: sn7404 
 // ic34: sn74175 
@@ -876,12 +857,12 @@ always @(out_of_tape, punch_feed_l, n_t_60x_m)
   if (~out_of_tape) begin
     n_t_60x <= n_t_60x_m;
   end
-always @(out_of_tape, punch_feed_l, n_t_39x)
+always @(out_of_tape, punch_feed_l, n_t_40x)
   if (~punch_feed_l) begin
     n_t_63x_m <= 1'b0;
   end else
   if (~(~out_of_tape)) begin
-    n_t_63x_m <= n_t_39x;
+    n_t_63x_m <= n_t_40x;
   end
 always @(out_of_tape, punch_feed_l, n_t_63x_m)
   if (~punch_feed_l) begin
@@ -903,20 +884,6 @@ always @(out_of_tape, punch_feed_l, n_t_61x_m)
   end else
   if (~out_of_tape) begin
     n_t_61x <= n_t_61x_m;
-  end
-always @(out_of_tape, punch_feed_l, n_t_40x)
-  if (~punch_feed_l) begin
-    n_t_62x_m <= 1'b0;
-  end else
-  if (~(~out_of_tape)) begin
-    n_t_62x_m <= n_t_40x;
-  end
-always @(out_of_tape, punch_feed_l, n_t_62x_m)
-  if (~punch_feed_l) begin
-    n_t_62x <= 1'b0;
-  end else
-  if (~out_of_tape) begin
-    n_t_62x <= n_t_62x_m;
   end
 // r1: r_us_ 
 // r2: r_us_ 

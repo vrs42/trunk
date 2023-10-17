@@ -408,7 +408,7 @@ assign n_t_113x = gdollar_3 & ~biot0l
 //       # n_t_80x & n_t_1x); 
 // !mb_2_l = !mb_2_l; 
 // e22: sn74h53 
-// ac_2 = !(!n_t_57x & n_t_2x
+// ac_2 = !(!ac_2 & n_t_2x
 //        # n_t_76x & n_t_4x
 //        # n_t_78x & n_t_20x & n_t_20x
 //        # n_t_72x & n_t_1x); 
@@ -441,7 +441,6 @@ assign n_t_40x = ad07l;
 assign n_t_47x = ad07h;
 // e27: sn74h00 
 // e28: sn74h00 
-assign n_t_57x = ~(~ac_2);
 // e29: sn74h00 
 // e30: sn74h00 
 // e31: sn74h53 
@@ -559,7 +558,7 @@ assign n_t_4x = (n_t_27x & n_t_26x
                   | n_t_28x & n_t_21x
                   | n_t_29x & n_t_31x & n_t_31x
                   | n_t_30x & n_t_23x)? 1'b0: 1'bz;
-assign ac_2 = ~((~n_t_57x & n_t_2x
+assign ac_2 = ~((~ac_2 & n_t_2x
                   | n_t_76x & n_t_4x
                   | n_t_78x & n_t_20x & n_t_20x
                   | n_t_72x & n_t_1x));

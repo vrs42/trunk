@@ -3,6 +3,35 @@
 # Perl script to read the partlist and pinlist from Eagle and 
 # output CUPL to instantiate the parts.
 
+# Parts left external:
+#   The 8t13 and 8t14 are line drivers and receivers.
+#   The DEC4011 is a transistor array.
+#   7545x are higher power drivers than can be emulated in the CPLD.
+#   The 1808 is a 1013-style UART.
+#   The 9601 is a monostable.
+#   The 7412x are monostables.
+#   The dec2501 is a diode clamp array.
+#   The mc1439 is an op amp.
+#   The mc1709 is an op amp.
+
+# TODO: f3341 (FIFO)
+# TODO: 11380n (Fast sp380)
+# TODO: (n)8t38 is a quad bus tranceiver.
+# TODO: AM26s10 is a quad bus tranceiver.
+# TODO: 97401 is a fast sn7401.
+# TODO: dec3001n is a buffer with 7408 pinout.
+# TODO: dec4015 is a quad R/S latch (with common R).
+# TODO: n8202 is a 10 bit latch.
+# TODO: The {dec|n}8234 is a {dec|n}8235 in which S0 inhibits S1.
+# TODO: n8242 is essentially a 74266n (aka dec8242!).
+# TODO: n8263 is a quad 3-1 MUX (with common selects).
+# TODO: (n)8266 is a quad 2-1 MUX (with common selects).
+# TODO: sn7405 sn7413 sn74150 sn74153 sn74164 sn74181 sn74182
+# TODO: sn74191 sn74197 sn74221 sn74257 sn74266 sn74287 sn74288
+# TODO: sn74393 sn7452 sn7462 sn7470 sn7472 sn7481 sn74821t sn7483
+# TODO: sn7487 sn7489 sn7490 sn7492 sn74h40n sn74h50 sn74h52
+# TODO: sn74h55 sn74h60 sn74h62n sn74h72
+
 #
 # Known bugs:
 #  Signal names are sometimes generated to provide access to
@@ -375,6 +404,10 @@ sub sn74h40 {
   &sn7440;
 }
 $hidden{'sn74h40'} = 0;
+sub sn74h40n {
+  &sn7440;
+}
+$hidden{'sn74h40n'} = 0;
 
 sub sn7442 {
   &qcode("!$pad{1} = !$pad{12} & !$pad{13} & !$pad{14} & !$pad{15};\n") if defined $pad{1};
@@ -2098,8 +2131,13 @@ while (<INPUT>) {
   warn "info: $value ne $device\n" unless $value eq $device;
   next if $value eq "spare";
   $value =~ s:/.*::;
+  $value =~ s/^3341$/f3341/; # FIFO memory
+  $value =~ s/^974/74/;
   $value =~ s/^74s/74/;
   $value =~ s/^74ls/74/;
+  $value =~ s/^74act/74/;
+  $value =~ s/^74hct/74/;
+  $value =~ s/^74als/74/;
   $value =~ s/^lm(.*)n/lm\1/;
   $value =~ s/^74(.*)n/sn74\1/;
   $value =~ s/^(\d*74\d*)$/sn\1/;

@@ -77,12 +77,7 @@
 // c70: c_us 
 // c71: c_us 
 // e1: sn7474 
-module m865c (ad05_l, clr_all_l, clr_status_l, data_enab, ind_l, n3v, n3v3, n_t_106x, n_t_113x, n_t_115x, n_t_116x, n_t_119x, n_t_124x, n_t_59x, n_t_65x, n_t_77x, n_t_87x, n_t_98x, p3_bm6, p3_bm7, p3_bm8, p3_decen_l, , a3, b_set, break_in_prog_l, btp3, c0_l, c1_l, clear_y, clk_l, clock_1, cpma_disable_l, crd1_l, crd2_l, d_l, data00_l, data01_l, data02_l, data03_l, data08_l, data10_l, data11_l, data3, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, dokcc, dotpc, e, ema0_l, ema1_l, ema2_l, enable_l, f_l, f_set_l, ind1_l, ind2_l, init, int_ena, int_in_prog_l, int_rqst_l, internal_io_l, io3, io_pause_l, iop2, iop4, ir0_l, ir1_l, key_control_l, la_en_l, link_data, link_l, link_load, mams_ld_ctl, mb5=0, mb7=1, mb8=0, md00_l, md01_l, md02_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, msirdis_l, n15v, n3_3v, n603x, n604_l, n604x, n_t_100x, n_t_101x, n_t_104x, n_t_107x, n_t_10x, n_t_114x, n_t_117x, n_t_11x, n_t_121x, n_t_128x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_31x, n_t_32x, n_t_39x, n_t_3x, n_t_43x, n_t_44x, n_t_46x, n_t_4x, n_t_50x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_5x, n_t_60x, n_t_62x, n_t_63x, n_t_67x, n_t_6x, n_t_76x, n_t_79x, n_t_7x, n_t_82x, n_t_83x, n_t_88x, n_t_8x, n_t_93x, n_t_95x, n_t_96x, n_t_97x, n_t_99x, n_t_9x, not_last_xfer, p4_cuf_l, p4_suf_l, p6_bs0_l, p6_bs1_l, p6_bs2_l, p6_bs3_l, power_clear_l, power_ok, pulse_la, read_buffer, rsdwn_l, rtur_l, run_l, rx_active, sc3, shift, skip_l, stop1_l, stop2_l, stop_complete, stop_delay, sw, tb3_h, tp1, tp2, tp3, tp4, tpcnow_l, ts1_l, ts2, ts3_l, ts4_l, tx_data, user_mode_l, xmit_active, xrd2_l);
-output ad05_l;
-output clr_all_l;
-output clr_status_l;
-output data_enab;
-output ind_l;
+module m865c (n3v, n3v3, n_t_106x, n_t_113x, n_t_115x, n_t_116x, n_t_119x, n_t_124x, n_t_59x, n_t_65x, n_t_77x, , a3, b_set, break_in_prog_l, c0_l, c1_l, clear_y, clk_l, clock_1, cpma_disable_l, crd1_l, crd2_l, d_l, data00_l, data01_l, data02_l, data03_l, data10_l, data11_l, data3, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e, ema0_l, ema1_l, ema2_l, enable_l, f_l, f_set_l, ind1_l, ind2_l, init, int_ena, int_in_prog_l, int_rqst_l, internal_io_l, io3, io_pause_l, iop2, iop4, ir0_l, ir1_l, key_control_l, la_en_l, link_data, link_l, link_load, mams_ld_ctl, mb5=0, mb7=1, mb8=0, md00_l, md01_l, md02_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, msirdis_l, n15v, n3_3v, n_t_107x, n_t_10x, n_t_114x, n_t_117x, n_t_11x, n_t_121x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_31x, n_t_32x, n_t_39x, n_t_3x, n_t_4x, n_t_50x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_5x, n_t_60x, n_t_62x, n_t_63x, n_t_67x, n_t_6x, n_t_76x, n_t_7x, n_t_82x, n_t_83x, n_t_8x, n_t_96x, n_t_9x, not_last_xfer, p6_bs0_l, p6_bs1_l, p6_bs2_l, p6_bs3_l, power_clear_l, power_ok, pulse_la, rsdwn_l, rtur_l, run_l, rx_active, sc3, shift, skip_l, stop1_l, stop2_l, stop_complete, stop_delay, sw, tb3_h, tp1, tp2, tp3, tp4, ts1_l, ts2, ts3_l, ts4_l, user_mode_l, xmit_active, xrd2_l);
 input n3v;
 inout n3v3;
 output n_t_106x;
@@ -94,17 +89,10 @@ inout n_t_124x;
 input n_t_59x;
 output n_t_65x;
 input n_t_77x;
-output n_t_87x;
-output n_t_98x;
-output p3_bm6;
-output p3_bm7;
-output p3_bm8;
-output p3_decen_l;
 input ;
 output a3;
 output b_set;
 output break_in_prog_l;
-inout btp3;
 output c0_l;
 output c1_l;
 output clear_y;
@@ -118,18 +106,15 @@ output data00_l;
 output data01_l;
 output data02_l;
 output data03_l;
-output data08_l;
 output data10_l;
 inout data11_l;
 output data3;
 output data4_l;
 output data5_l;
-input data6_l;
-input data7_l;
+inout data6_l;
+inout data7_l;
 output data8_l;
-input data9_l;
-input dokcc;
-input dotpc;
+inout data9_l;
 output e;
 output ema0_l;
 output ema1_l;
@@ -140,7 +125,7 @@ output f_set_l;
 output ind1_l;
 output ind2_l;
 inout init;
-output int_ena;
+inout int_ena;
 output int_in_prog_l;
 output int_rqst_l;
 output internal_io_l;
@@ -174,19 +159,12 @@ output md9_l;
 output msirdis_l;
 output n15v;
 output n3_3v;
-output n603x;
-input n604_l;
-output n604x;
-inout reg n_t_100x;
-output n_t_101x;
-output n_t_104x;
 input n_t_107x;
 inout n_t_10x;
 inout n_t_114x;
 inout reg n_t_117x;
 input n_t_11x;
 input n_t_121x;
-input n_t_128x;
 output n_t_12x;
 output n_t_13x;
 output n_t_14x;
@@ -209,9 +187,6 @@ output n_t_31x;
 input n_t_32x;
 inout reg n_t_39x;
 inout n_t_3x;
-output n_t_43x;
-input n_t_44x;
-output n_t_46x;
 inout reg n_t_4x;
 output n_t_50x;
 output n_t_52x;
@@ -226,21 +201,13 @@ input n_t_63x;
 inout n_t_67x;
 inout reg n_t_6x;
 inout reg n_t_76x;
-inout reg n_t_79x;
 input n_t_7x;
 output n_t_82x;
 inout n_t_83x;
-input n_t_88x;
 output n_t_8x;
-output n_t_93x;
-inout reg n_t_95x;
 output n_t_96x;
-output n_t_97x;
-inout reg n_t_99x;
 inout n_t_9x;
 output not_last_xfer;
-output p4_cuf_l;
-output p4_suf_l;
 output p6_bs0_l;
 output p6_bs1_l;
 output p6_bs2_l;
@@ -248,7 +215,6 @@ output p6_bs3_l;
 output power_clear_l;
 output power_ok;
 output pulse_la;
-input read_buffer;
 output rsdwn_l;
 output rtur_l;
 output run_l;
@@ -266,12 +232,10 @@ output tp1;
 output tp2;
 output tp3;
 output tp4;
-inout tpcnow_l;
 output ts1_l;
 output ts2;
 output ts3_l;
 output ts4_l;
-output tx_data;
 output user_mode_l;
 inout reg xmit_active;
 output xrd2_l;
@@ -325,6 +289,38 @@ reg tx_rate_m;
 reg xmit_active_m;
 reg xmit_clk_m;
 
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
+wire zone9;
 wire zone9;
 wire zone9;
 wire zone9;
@@ -1219,14 +1215,26 @@ assign kcc_l = ~(dokcc & krb_l);
 assign krb_l = ~(read_buffer & krs_l);
 assign init = ~(~(set_rr_l & n_t_1x));
 assign btp3 = ~(dokcc & set_rr_l);
+// e31: sn7401 
+// c1_l = !dokcc; 
+// c1_l = !read_buffer; 
+// c0_l = !dokcc; 
+// e32: sn7401 
+// internal_io_l = !n603x; 
+// internal_io_l = !n604x; 
+// !n604x = !n604x; 
+// tpcnow_l = !(btp3 & dotpc); 
+// e33: sn7401 
+// skip_l = !(n_t_46x & n_t_44x); 
+// int_rqst_l = !(n_t_44x & int_ena); 
+// skip_l = !n_t_39x; 
+// skip_l = !n_t_43x; 
 // e34: dec8251 
 assign kcf_l = ~(~n603_l & ~n_t_42x & n_t_124x & ~n_t_40x);
 assign ksf_l = ~(~n603_l & ~n_t_42x & n_t_124x & n_t_40x);
 assign kcc_l = ~(~n603_l & ~n_t_42x & ~n_t_124x & ~n_t_40x);
-assign c0_l = ~(~n603_l & ~n_t_42x & ~n_t_124x & n_t_40x);
 assign kie_l = ~(~n603_l & n_t_42x & n_t_124x & n_t_40x);
 assign krb_l = ~(~n603_l & n_t_42x & ~n_t_124x & ~n_t_40x);
-assign data11_l = ~(~n603_l & n_t_42x & ~n_t_124x & n_t_40x);
 assign n_t_8x = ~(n603_l & ~n_t_42x & n_t_124x & ~n_t_40x);
 assign p4_racb_l = ~(n603_l & ~n_t_42x & n_t_124x & n_t_40x);
 // e35: sp380n 
@@ -1240,16 +1248,21 @@ assign n_t_124x = io_pause
 assign n_t_14x = ~(n_t_26x & n_t_22x & io_rdrrun_l & n_t_24x & n_t_25x & n_t_32x & enable_l & n_t_23x);
 // e37: sn7440 
 // e38: dec8251 
-assign tfl_l = ~(~n604_l & ~n_t_42x & n_t_124x & ~n_t_40x);
-assign tsf_l = ~(~n604_l & ~n_t_42x & n_t_124x & n_t_40x);
-assign tcf_l = ~(~n604_l & ~n_t_42x & ~n_t_124x & ~n_t_40x);
-assign n3v3 = ~(~n604_l & ~n_t_42x & ~n_t_124x & n_t_40x);
-assign tpc_l = ~(~n604_l & n_t_42x & n_t_124x & ~n_t_40x);
-assign tsk_l = ~(~n604_l & n_t_42x & n_t_124x & n_t_40x);
-assign tls_l = ~(~n604_l & n_t_42x & ~n_t_124x & ~n_t_40x);
-assign tflg_l = ~(~n604_l & n_t_42x & ~n_t_124x & n_t_40x);
-assign i09 = ~(n604_l & ~n_t_42x & n_t_124x & ~n_t_40x);
-assign i08 = ~(n604_l & ~n_t_42x & n_t_124x & n_t_40x);
+assign tfl_l = ~(n604x & ~n_t_42x & n_t_124x & ~n_t_40x);
+assign tsf_l = ~(n604x & ~n_t_42x & n_t_124x & n_t_40x);
+assign tcf_l = ~(n604x & ~n_t_42x & ~n_t_124x & ~n_t_40x);
+assign n3v3 = ~(n604x & ~n_t_42x & ~n_t_124x & n_t_40x);
+assign tpc_l = ~(n604x & n_t_42x & n_t_124x & ~n_t_40x);
+assign tsk_l = ~(n604x & n_t_42x & n_t_124x & n_t_40x);
+assign tls_l = ~(n604x & n_t_42x & ~n_t_124x & ~n_t_40x);
+assign tflg_l = ~(n604x & n_t_42x & ~n_t_124x & n_t_40x);
+assign i09 = ~(~n604x & ~n_t_42x & n_t_124x & ~n_t_40x);
+assign i08 = ~(~n604x & ~n_t_42x & n_t_124x & n_t_40x);
+// e39: sn7401 
+// data7_l = !(n_t_98x & read_buffer); 
+// data6_l = !(!n_t_79x & read_buffer); 
+// data5_l = !(read_buffer & n_t_79x); 
+// data4_l = !(read_buffer & n_t_95x); 
 // e40: sn7474 
 always @(tsk_l, recv_0, tx_sel_l, n3v)
   if (~recv_0) begin
@@ -1334,7 +1347,6 @@ always @(xmit_active, rx_clr_l, rx_clr_l, n_t_79x_m)
   if (~xmit_active) begin
     n_t_79x <= n_t_79x_m;
   end
-assign n_t_97x = ~n_t_79x;
 // e42: sn7474 
 always @(btp3, n3v3, n_t_72x, init)
   if (~n3v3) begin
@@ -1587,6 +1599,11 @@ always @(freq_div, init, n_t_2x, n_t_28x_m)
     n_t_28x <= n_t_28x_m;
   end
 assign n_t_17x = ~n_t_28x;
+// e50: sn7401 
+// data11_l = !(!n_t_99x & read_buffer); 
+// data10_l = !(!n_t_100x & read_buffer); 
+// data9_l = !(read_buffer & n_t_100x); 
+// data8_l = !(read_buffer & n_t_99x); 
 // e51: sn7474 
 always @(rx20ma_data_l, buf_d_in_l, rx20ma_data_l, n3v)
   if (~buf_d_in_l) begin
@@ -1629,7 +1646,6 @@ always @(xmit_active, rx_clr_l, rx_clr_l, n_t_99x_m)
   if (~xmit_active) begin
     n_t_99x <= n_t_99x_m;
   end
-assign n_t_93x = ~n_t_99x;
 // e52: sn7474 
 always @(n_t_23x, n_t_126x, selected_l, n3v)
   if (~n_t_126x) begin
@@ -1672,7 +1688,6 @@ always @(xmit_active, rx_clr_l, rx_clr_l, n_t_100x_m)
   if (~xmit_active) begin
     n_t_100x <= n_t_100x_m;
   end
-assign n_t_101x = ~n_t_100x;
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
@@ -1699,6 +1714,24 @@ assign n_t_101x = ~n_t_100x;
 // r29: r_us_ 
 // r30: r_us_ 
 // open collector 'wire-or's 
+assign c0_l = dokcc? ~dokcc: 1'bz;
+assign c1_l = dokcc
+               | read_buffer? 1'b0: 1'bz;
+assign data10_l = (~n_t_100x & read_buffer)? 1'b0: 1'bz;
+assign data11_l = (~n_t_99x & read_buffer)? 1'b0: 1'bz;
+assign data4_l = (read_buffer & n_t_95x)? 1'b0: 1'bz;
+assign data5_l = (read_buffer & n_t_79x)? 1'b0: 1'bz;
+assign data6_l = (~n_t_79x & read_buffer)? 1'b0: 1'bz;
+assign data7_l = (n_t_98x & read_buffer)? 1'b0: 1'bz;
+assign data8_l = (read_buffer & n_t_99x)? 1'b0: 1'bz;
+assign data9_l = (read_buffer & n_t_100x)? 1'b0: 1'bz;
+assign int_rqst_l = (n_t_44x & int_ena)? 1'b0: 1'bz;
+assign internal_io_l = n603x
+                        | n604x? 1'b0: 1'bz;
 assign n_t_105x = ~(n_t_107x
                      | (~n_t_105x));
+assign skip_l = (n_t_46x & n_t_44x)
+                 | n_t_39x
+                 | n_t_43x? 1'b0: 1'bz;
+assign tpcnow_l = ~((btp3 & dotpc));
 endmodule

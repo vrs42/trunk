@@ -1,0 +1,17 @@
+~/Verilog/bin/topld.pl M240B
+info: 74h40 ne 7420n
+info: 74h40 ne 7420n
+info: 74h40 ne 7420n
+info: 74h40 ne 7420n
+info: 74h40 ne 7420n
+info: 74h40 ne 7420n
+info: single ne edge_con2
+warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M240B.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n3v3: 'b'1
+~/Verilog/bin/smaller.pl vv >M240BX.PLD || (rm M240BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M240BX.PLD >vv || (rm vv; exit 1)
+mv vv M240B.v
+rm M240BX.PLD

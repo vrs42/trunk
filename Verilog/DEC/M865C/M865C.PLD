@@ -3,7 +3,7 @@
 
 Name     M865C ;
 PartNo   cpld ;
-Date     10/16/2023 ;
+Date     10/17/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,11 +16,6 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = ad05_l;
-pin = clr_all_l;
-pin = clr_status_l;
-pin = data_enab;
-pin = ind_l;
 pin = n3v;
 pin = n3v3;
 pin = n_t_106x;
@@ -32,19 +27,12 @@ pin = n_t_124x;
 pin = n_t_59x;
 pin = n_t_65x;
 pin = n_t_77x;
-pin = n_t_87x;
-pin = n_t_98x;
-pin = p3_bm6;
-pin = p3_bm7;
-pin = p3_bm8;
-pin = p3_decen_l;
 
 /* Output Pins */
 pin = ;
 pin = a3;
 pin = b_set;
 pin = break_in_prog_l;
-pin = btp3;
 pin = c0_l;
 pin = c1_l;
 pin = clear_y;
@@ -58,7 +46,6 @@ pin = data00_l;
 pin = data01_l;
 pin = data02_l;
 pin = data03_l;
-pin = data08_l;
 pin = data10_l;
 pin = data11_l;
 pin = data3;
@@ -68,8 +55,6 @@ pin = data6_l;
 pin = data7_l;
 pin = data8_l;
 pin = data9_l;
-pin = dokcc;
-pin = dotpc;
 pin = e;
 pin = ema0_l;
 pin = ema1_l;
@@ -114,19 +99,12 @@ pin = md9_l;
 pin = msirdis_l;
 pin = n15v;
 pin = n3_3v;
-pin = n603x;
-pin = n604_l;
-pin = n604x;
-pin = n_t_100x;
-pin = n_t_101x;
-pin = n_t_104x;
 pin = n_t_107x;
 pin = n_t_10x;
 pin = n_t_114x;
 pin = n_t_117x;
 pin = n_t_11x;
 pin = n_t_121x;
-pin = n_t_128x;
 pin = n_t_12x;
 pin = n_t_13x;
 pin = n_t_14x;
@@ -149,9 +127,6 @@ pin = n_t_31x;
 pin = n_t_32x;
 pin = n_t_39x;
 pin = n_t_3x;
-pin = n_t_43x;
-pin = n_t_44x;
-pin = n_t_46x;
 pin = n_t_4x;
 pin = n_t_50x;
 pin = n_t_52x;
@@ -166,21 +141,13 @@ pin = n_t_63x;
 pin = n_t_67x;
 pin = n_t_6x;
 pin = n_t_76x;
-pin = n_t_79x;
 pin = n_t_7x;
 pin = n_t_82x;
 pin = n_t_83x;
-pin = n_t_88x;
 pin = n_t_8x;
-pin = n_t_93x;
-pin = n_t_95x;
 pin = n_t_96x;
-pin = n_t_97x;
-pin = n_t_99x;
 pin = n_t_9x;
 pin = not_last_xfer;
-pin = p4_cuf_l;
-pin = p4_suf_l;
 pin = p6_bs0_l;
 pin = p6_bs1_l;
 pin = p6_bs2_l;
@@ -188,7 +155,6 @@ pin = p6_bs3_l;
 pin = power_clear_l;
 pin = power_ok;
 pin = pulse_la;
-pin = read_buffer;
 pin = rsdwn_l;
 pin = rtur_l;
 pin = run_l;
@@ -206,12 +172,10 @@ pin = tp1;
 pin = tp2;
 pin = tp3;
 pin = tp4;
-pin = tpcnow_l;
 pin = ts1_l;
 pin = ts2;
 pin = ts3_l;
 pin = ts4_l;
-pin = tx_data;
 pin = user_mode_l;
 pin = xmit_active;
 pin = xrd2_l;
@@ -237,7 +201,9 @@ node n_t_34x;
 node n_t_38x;
 node tx_rate;
 node bd150;
+node n_t_95x;
 node trans_0;
+node n_t_79x;
 node n_t_78x;
 node krs_l;
 node tskp;
@@ -245,7 +211,9 @@ node tx_buf_empty;
 node p3_btp3_l;
 node n_t_42x;
 node n_t_145x;
+node n_t_99x;
 node selected_l;
+node n_t_100x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
@@ -259,6 +227,7 @@ node ac4_11_0;
 node ac_0;
 node ac_to_bus_l;
 node ad03_l;
+node ad05_l;
 node ad07_l;
 node ad08_l;
 node af1w;
@@ -284,6 +253,7 @@ node bf2;
 node bl2;
 node bm2;
 node bms_dis;
+node btp3;
 node btp3_l;
 node btx_buf_empty;
 node bu2;
@@ -298,22 +268,28 @@ node clear_rx_flag;
 node clk;
 node clock;
 node clr_active_l;
+node clr_all_l;
 node clr_dsk_ad_l;
+node clr_status_l;
 node count_fillchar;
 node cpma11;
 node dad_or_dst_l;
 node data04_l;
 node data06_l;
 node data07_l;
+node data08_l;
 node data09_l;
 node data0_l;
 node data1_l;
 node data2_l;
 node data3_l;
+node data_enab;
 node df_enable;
 node div349;
+node dokcc;
 node dokrs;
 node dotcf;
+node dotpc;
 node dotpc_l;
 node dtx_active_l;
 node enab;
@@ -327,6 +303,7 @@ node freq_div_l;
 node gtf_or_ind;
 node i08;
 node i09;
+node ind_l;
 node init_add_l;
 node init_h;
 node init_l;
@@ -396,7 +373,12 @@ node modeb;
 node mq0_l;
 node mq_load;
 node n603_l;
+node n603x;
+node n604_l;
+node n604x;
+node n_t_101x;
 node n_t_102x;
+node n_t_104x;
 node n_t_105x;
 node n_t_108x;
 node n_t_109x;
@@ -410,6 +392,7 @@ node n_t_123x;
 node n_t_125x;
 node n_t_126x;
 node n_t_127x;
+node n_t_128x;
 node n_t_130x;
 node n_t_133x;
 node n_t_134x;
@@ -440,7 +423,10 @@ node n_t_36x;
 node n_t_37x;
 node n_t_40x;
 node n_t_41x;
+node n_t_43x;
+node n_t_44x;
 node n_t_45x;
+node n_t_46x;
 node n_t_47x;
 node n_t_48x;
 node n_t_586x;
@@ -451,10 +437,15 @@ node n_t_69x;
 node n_t_70x;
 node n_t_71x;
 node n_t_81x;
+node n_t_87x;
+node n_t_88x;
 node n_t_89x;
 node n_t_90x;
 node n_t_92x;
+node n_t_93x;
 node n_t_94x;
+node n_t_97x;
+node n_t_98x;
 node nb1;
 node nb2;
 node np;
@@ -464,12 +455,18 @@ node p3_bm2;
 node p3_bm3;
 node p3_bm4;
 node p3_bm5;
+node p3_bm6;
+node p3_bm7;
+node p3_bm8;
+node p3_decen_l;
 node p3_inioen;
+node p4_cuf_l;
 node p4_lxa;
 node p4_pclr;
 node p4_pclr_l;
 node p4_raca_l;
 node p4_racb_l;
+node p4_suf_l;
 node p6_dioi;
 node p6_eem;
 node parity_err;
@@ -482,6 +479,7 @@ node preset;
 node preset_l;
 node rd4_l;
 node rd5;
+node read_buffer;
 node recv_0;
 node recv_246;
 node recv_5;
@@ -536,6 +534,7 @@ node tp3_l;
 node tp_aa1;
 node tp_ab1;
 node tpc_l;
+node tpcnow_l;
 node trans_1;
 node trans_246;
 node ts_disable_l;
@@ -545,6 +544,7 @@ node tsk_l;
 node tx_busy_l;
 node tx_clk;
 node tx_clk_l;
+node tx_data;
 node tx_flag_l;
 node tx_sel_l;
 node tx_shift_l;
@@ -975,6 +975,23 @@ krb_l = !(read_buffer & krs_l);
 initialize_l = !(set_rr_l & n_t_1x);
 btp3 = !(dokcc & set_rr_l);
 
+/* e31: sn7401 */
+/* c1_l = !dokcc; */
+/* c1_l = !read_buffer; */
+/* c0_l = !dokcc; */
+
+/* e32: sn7401 */
+/* internal_io_l = !n603x; */
+/* internal_io_l = !n604x; */
+/* n604_l = !n604x; */
+/* tpcnow_l = !(btp3 & dotpc); */
+
+/* e33: sn7401 */
+/* skip_l = !(n_t_46x & n_t_44x); */
+/* int_rqst_l = !(n_t_44x & int_ena); */
+/* skip_l = !n_t_39x; */
+/* skip_l = !n_t_43x; */
+
 /* e34: dec8251 */
 !kcf_l = !n603_l & !n_t_42x & !n_t_41x & !n_t_40x;
 !ksf_l = !n603_l & !n_t_42x & !n_t_41x & n_t_40x;
@@ -1014,6 +1031,12 @@ freq_div_l = !freq_div;
 !tflg_l = !n604_l & n_t_42x & n_t_41x & n_t_40x;
 !i09 = n604_l & !n_t_42x & !n_t_41x & !n_t_40x;
 !i08 = n604_l & !n_t_42x & !n_t_41x & n_t_40x;
+
+/* e39: sn7401 */
+/* data7_l = !(n_t_98x & read_buffer); */
+/* data6_l = !(n_t_97x & read_buffer); */
+/* data5_l = !(read_buffer & n_t_79x); */
+/* data4_l = !(read_buffer & n_t_95x); */
 
 /* e40: sn7474 */
 n_t_29x.ar = !recv_0;
@@ -1130,6 +1153,12 @@ n_t_28x.ck = freq_div_l;
 n_t_28x.ap = !n_t_2x;
 n_t_17x = !n_t_28x;
 
+/* e50: sn7401 */
+/* data11_l = !(n_t_93x & read_buffer); */
+/* data10_l = !(n_t_101x & read_buffer); */
+/* data9_l = !(read_buffer & n_t_100x); */
+/* data8_l = !(read_buffer & n_t_99x); */
+
 /* e51: sn7474 */
 n_t_145x.ar = !buf_d_in_l;
 n_t_145x.d = n3v;
@@ -1205,7 +1234,56 @@ n_t_101x = !n_t_100x;
 /* r30: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= c0_l};
+!c0_l = dokcc;
+c0_l.oe = dokcc;
+property atmel {open_collector= c1_l};
+!c1_l = (dokcc)
+        # (read_buffer);
+c1_l.oe = (dokcc)
+        # (read_buffer);
+property atmel {open_collector= data10_l};
+!data10_l = (n_t_101x & read_buffer);
+data10_l.oe = (n_t_101x & read_buffer);
+property atmel {open_collector= data11_l};
+!data11_l = (n_t_93x & read_buffer);
+data11_l.oe = (n_t_93x & read_buffer);
+property atmel {open_collector= data4_l};
+!data4_l = (read_buffer & n_t_95x);
+data4_l.oe = (read_buffer & n_t_95x);
+property atmel {open_collector= data5_l};
+!data5_l = (read_buffer & n_t_79x);
+data5_l.oe = (read_buffer & n_t_79x);
+property atmel {open_collector= data6_l};
+!data6_l = (n_t_97x & read_buffer);
+data6_l.oe = (n_t_97x & read_buffer);
+property atmel {open_collector= data7_l};
+!data7_l = (n_t_98x & read_buffer);
+data7_l.oe = (n_t_98x & read_buffer);
+property atmel {open_collector= data8_l};
+!data8_l = (read_buffer & n_t_99x);
+data8_l.oe = (read_buffer & n_t_99x);
+property atmel {open_collector= data9_l};
+!data9_l = (read_buffer & n_t_100x);
+data9_l.oe = (read_buffer & n_t_100x);
+property atmel {open_collector= int_rqst_l};
+!int_rqst_l = (n_t_44x & int_ena);
+int_rqst_l.oe = (n_t_44x & int_ena);
+property atmel {open_collector= internal_io_l};
+!internal_io_l = (n603x)
+                 # (n604x);
+internal_io_l.oe = (n603x)
+                 # (n604x);
+!n604_l = n604x;
 !n_t_105x = (n_t_107x)
             # (n_t_109x);
 !n_t_109x = n_t_105x;
 !n_t_111x = n_t_105x;
+property atmel {open_collector= skip_l};
+!skip_l = (n_t_46x & n_t_44x)
+          # (n_t_39x)
+          # (n_t_43x);
+skip_l.oe = (n_t_46x & n_t_44x)
+          # (n_t_39x)
+          # (n_t_43x);
+!tpcnow_l = (btp3 & dotpc);

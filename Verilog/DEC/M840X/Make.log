@@ -39,14 +39,11 @@ warning: making e15/sn74121/ a connector
 info: 74121n ne dil14
 warning: making e19/sn74121/ a connector
 info: 74hct04n ne 7404n
-warning: making e20/sn74hct04/ a connector
 info: 74hct30n ne 7430n
-warning: making e21/sn74hct30/ a connector
 info: 7400n ne dil14
 info: 7400n ne dil14
 info: 74hct02n ne 7402n
 info: 74hct30n ne 7430n
-warning: making e25/sn74hct30/ a connector
 info: 7404n ne dil14
 info: 74ls138n ne 74138n
 info: 7400n ne dil14
@@ -121,10 +118,10 @@ warning: non-bypass capacitor deleted: c63
 warning: non-bypass capacitor deleted: c64
 warning: non-bypass capacitor deleted: c65
 warning: non-bypass capacitor deleted: c66
-unexpected OC output: n_t_32x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2738.
-unexpected OC output: n_t_41x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2755.
-unexpected OC output: n_t_54x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 3013.
-unexpected OC output: la at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 3079.
+unexpected OC output: n_t_32x at /home/vrs/Verilog/bin/topld.pl line 2072, <INPUT> line 2738.
+unexpected OC output: n_t_41x at /home/vrs/Verilog/bin/topld.pl line 2072, <INPUT> line 2755.
+unexpected OC output: n_t_54x at /home/vrs/Verilog/bin/topld.pl line 2072, <INPUT> line 3013.
+unexpected OC output: la at /home/vrs/Verilog/bin/topld.pl line 2072, <INPUT> line 3079.
 warning: non-pullup resistor deleted: r1
 warning: non-pullup resistor deleted: r2
 warning: non-pullup resistor deleted: r11
@@ -147,7 +144,7 @@ warning: non-pullup resistor deleted: r45
 warning: non-pullup resistor deleted: r50
 warning: non-pullup resistor deleted: r51
 ~/Verilog/bin/smaller.pl M840X.PLD >vv || (rm vv; exit 1)
-31 signals were removed:
+36 signals were removed:
   ena_pun_buffr_l: !iot02
   enable_l: !punch_strobe_l
   init_or_eot_l: !clock_pulse_l
@@ -159,6 +156,8 @@ warning: non-pullup resistor deleted: r51
   n_t_116x: !rdata_strobe
   n_t_124x: !tp3h
   n_t_126x: 'b'1
+  n_t_135x: !iot01
+  n_t_17x: !md7_l
   n_t_18x: !pce_l
   n_t_1x: !tp3
   n_t_33x: 'b'1
@@ -174,20 +173,24 @@ warning: non-pullup resistor deleted: r51
   n_t_66x: !pn_hole2
   n_t_67x: !n_t_62x
   n_t_69x: !bb
+  n_t_70x: 'b'1
   n_t_74x: !init_or_eot_l
   n_t_81x: 'b'1
+  n_t_90x: !rdata_strobe
+  pause: !pause_l
   piop1: !psf_l
   punch_strobe: !out_of_tape
   riop0: !iot02
 ~/Verilog/bin/smaller.pl vv >M840XX.PLD || (rm M840XX.PLD; exit 1)
-8 signals were removed:
-  clock_pulse_l: !init_or_eot_l
+9 signals were removed:
+  iot02: rpe_l
   n_t_130x: n_t_121x
   n_t_1x: !tp3
   n_t_56x: pn_hole4
   n_t_57x: pn_hole4
   n_t_58x: pn_hole5
   n_t_59x: pn_hole5
+  n_t_62x: n_t_63x
   punch_strobe_l: enable
 ~/Verilog/bin/cupl2v.pl M840XX.PLD >vv || (rm vv; exit 1)
 mv vv M840X.v

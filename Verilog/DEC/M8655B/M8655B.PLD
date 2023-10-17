@@ -3,7 +3,7 @@
 
 Name     M8655B ;
 PartNo   cpld ;
-Date     10/16/2023 ;
+Date     10/17/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,7 +16,6 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = ad05_l;
 pin = b1;
 pin = b3;
 pin = bd96_192;
@@ -28,7 +27,6 @@ pin = clock;
 pin = clr_all_l;
 pin = clr_status_l;
 pin = dad_or_dst_l;
-pin = dokrs;
 pin = dotpc_l;
 pin = evn;
 pin = field_l;
@@ -58,7 +56,6 @@ pin = n_t_171x;
 pin = n_t_24x;
 pin = n_t_33x;
 pin = n_t_44x;
-pin = n_t_46x;
 pin = n_t_51x;
 pin = n_t_6x;
 pin = nb1;
@@ -71,7 +68,6 @@ pin = p4_rxm_l;
 pin = p6_prup;
 pin = p_pulse_l;
 pin = r=150;
-pin = rd_hole6;
 pin = regbus08;
 pin = rom_11_l;
 pin = rom_15_l;
@@ -113,7 +109,6 @@ pin = break_cycle_l;
 pin = brk_data_cont_l;
 pin = brk_in_prog_l;
 pin = bs2;
-pin = btp3;
 pin = btp3_l;
 pin = buf_d_in_l;
 pin = bus_a_bg_in_h;
@@ -180,7 +175,6 @@ pin = inhibit;
 pin = init_add_l;
 pin = initialize;
 pin = int_enab;
-pin = int_enab_h;
 pin = int_enab_l;
 pin = int_in_prog;
 pin = int_rqst_l;
@@ -214,7 +208,6 @@ pin = io70;
 pin = io_kcf_l;
 pin = io_pause_l;
 pin = io_rdrrun_l;
-pin = io_read_h;
 pin = io_tcf_l;
 pin = io_tpc_l;
 pin = ir00_l;
@@ -310,9 +303,7 @@ pin = n_t_37x;
 pin = n_t_3x;
 pin = n_t_40x;
 pin = n_t_41x;
-pin = n_t_45x;
 pin = n_t_47x;
-pin = n_t_48x;
 pin = n_t_4x;
 pin = n_t_50x;
 pin = n_t_55x;
@@ -342,7 +333,6 @@ pin = p3_btp3_l;
 pin = p4_lxa;
 pin = p4_pclr;
 pin = p4_pclr_l;
-pin = p4_racb_l;
 pin = p6_bs0_l;
 pin = parity_err;
 pin = pause_l;
@@ -365,7 +355,6 @@ pin = reader_run_or;
 pin = reset_dav_l;
 pin = restart;
 pin = return;
-pin = rflag_h;
 pin = rom_12_l;
 pin = rom_14_l;
 pin = rom_17_l;
@@ -400,7 +389,6 @@ pin = tclko;
 pin = tdo;
 pin = tdo2;
 pin = testp4;
-pin = tflag_h;
 pin = tms;
 pin = tms2;
 pin = tp1;
@@ -458,7 +446,9 @@ node n_t_114x;
 node krb_l;
 node n_t_116x;
 node ckkcc_l;
+node int_enab_h;
 node n_t_39x;
+node tflag_h;
 node filch_h;
 
 /* Internal nodes */
@@ -468,6 +458,7 @@ node a04_l;
 node active;
 node active_l;
 node ad03_l;
+node ad05_l;
 node ad07_l;
 node ad08_l;
 node af1w;
@@ -487,6 +478,7 @@ node be2;
 node bf1;
 node bf2;
 node bm2;
+node btp3;
 node btx_buf_empty;
 node bu2;
 node bv1;
@@ -502,6 +494,7 @@ node cpma11;
 node data8_l;
 node data_enab;
 node div349;
+node dokrs;
 node dotcf;
 node en0;
 node enab;
@@ -513,6 +506,7 @@ node i08;
 node init;
 node init_h;
 node internal_io;
+node io_read_h;
 node kcc_l;
 node kcf_l;
 node kie_l;
@@ -556,6 +550,9 @@ node n_t_303x;
 node n_t_30x;
 node n_t_42x;
 node n_t_43x;
+node n_t_45x;
+node n_t_46x;
+node n_t_48x;
 node n_t_49x;
 node n_t_54x;
 node n_t_586x;
@@ -596,10 +593,12 @@ node p3_btp4;
 node p3_decen_l;
 node p4_cuf_l;
 node p4_raca_l;
+node p4_racb_l;
 node p4_suf_l;
 node p6_dioi;
 node p6_eem;
 node rd4_l;
+node rd_hole6;
 node recv_0;
 node recv_1;
 node recv_246;
@@ -607,6 +606,7 @@ node recv_5;
 node regbus01;
 node regbus04_l;
 node regbus05;
+node rflag_h;
 node rflg_l;
 node rx_active_l;
 node rx_again_l;
@@ -806,7 +806,7 @@ n3v3 = md07
 md04 = n_t_14x
      # b_pause_l;
 
-/* e11: sn97401 */
+/* e11: sn7401 */
 
 /* e12: sp384n */
 b_pause_l = n_t_19x
@@ -919,7 +919,7 @@ tx_clk = bd96_192 & !'b'0 & !b1 & !b2 & !b3
     # bd110 & !'b'0 &  b1 &  b2 &  b3;
 tx_clk_l = !tx_clk;
 
-/* e23: sn97401 */
+/* e23: sn7401 */
 
 /* e24: sp380n */
 !n_t_90x = trans_246_l;
@@ -963,7 +963,7 @@ n_t_36x.ck = n_t_44x;
 n_t_36x.ap = !n3v3;
 sync_l = !n_t_36x;
 
-/* e29: sn97401 */
+/* e29: sn7401 */
 
 /* e30: sp380n */
 !n_t_69x = trans_246_l;
@@ -999,6 +999,11 @@ rtsdtr = !io_tpc_l;
 n_t_45x = !count_fillchar;
 n_t_95x = !n_t_94x;
 n_t_105x = !fill;
+
+/* e33: sn7401 */
+
+/* e34: sn7401 */
+/* c0_l = !n_t_24x; */
 
 /* e35: sn7402 */
 n_t_27x = !(recv_246
@@ -1289,3 +1294,6 @@ trans_246_l = 'b'1;
 /* r62: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= c0_l};
+!c0_l = n_t_24x;
+c0_l.oe = n_t_24x;
