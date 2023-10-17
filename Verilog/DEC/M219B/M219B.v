@@ -23,8 +23,8 @@
 // c16: c_us 
 // c17: c_us 
 // c18: c_us 
-// e3: sn7400 
-module m219b (ad02h, ad03h, bd01, bd03h, bd05, biot5l, bt2, c1_l, clrbufl, data4, f2, h1, int_enable, k1, n1, n2, n3v3, n_t_11x, n_t_146x, n_t_147x, n_t_219x, n_t_30x, n_t_8x, bd04, bd04l, bd06, bd07, bd07l, bdoneh, bdonel, bn1_l, bv2, data1_l, data4_l, data5, data5_l, n_t_10x, n_t_125x, n_t_12x, n_t_134x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_33x, n_t_34x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_42x, n_t_43x, n_t_44x, n_t_45x, n_t_46x, n_t_47x, n_t_48x, n_t_49x, n_t_4x, n_t_51x, n_t_52x, n_t_53x, n_t_55x, n_t_56x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_69x, n_t_6x, n_t_70x, n_t_71x, n_t_73x, n_t_74x, n_t_75x, n_t_76x, n_t_77x, n_t_78x, n_t_79x, n_t_80x, n_t_81x, n_t_82x, n_t_83x, n_t_84x, n_t_85x, n_t_86x, n_t_87x, n_t_89x, n_t_90x, n_t_91x, n_t_96x, n_t_97x, n_t_99x, n_t_9x, r2);
+// e1: sn74h40 
+module m219b (ad02h, ad03h, bd01, bd03h, bd05, biot5l, bt2, c1_l, clrbufl, data4, int_enable, k1, n1, n2, n3v3, n_t_146x, n_t_147x, n_t_219x, n_t_30x, n_t_8x, bd04, bd04l, bd06, bd07, bd07l, bdoneh, bdonel, bn1_l, bv2, data1_l, data4_l, data5, data5_l, n_t_10x, n_t_125x, n_t_12x, n_t_134x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_28x, n_t_29x, n_t_2x, n_t_33x, n_t_34x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_42x, n_t_43x, n_t_44x, n_t_45x, n_t_47x, n_t_48x, n_t_49x, n_t_4x, n_t_51x, n_t_52x, n_t_53x, n_t_55x, n_t_56x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_69x, n_t_6x, n_t_70x, n_t_71x, n_t_74x, n_t_75x, n_t_76x, n_t_77x, n_t_78x, n_t_79x, n_t_80x, n_t_81x, n_t_82x, n_t_83x, n_t_84x, n_t_85x, n_t_86x, n_t_87x, n_t_89x, n_t_90x, n_t_91x, n_t_96x, n_t_97x, n_t_99x, n_t_9x, r2);
 output ad02h;
 output ad03h;
 output bd01;
@@ -35,19 +35,16 @@ output bt2;
 output c1_l;
 output clrbufl;
 output data4;
-output f2;
-output h1;
 output int_enable;
 output k1;
 output n1;
 output n2;
 input n3v3;
-output n_t_11x;
 output n_t_146x;
 output n_t_147x;
 output n_t_219x;
 output n_t_30x;
-output n_t_8x;
+input n_t_8x;
 output bd04;
 output bd04l;
 output bd06;
@@ -80,7 +77,6 @@ input n_t_23x;
 input n_t_24x;
 input n_t_25x;
 output n_t_26x;
-input n_t_27x;
 inout n_t_28x;
 output n_t_29x;
 output n_t_2x;
@@ -90,12 +86,11 @@ input n_t_37x;
 output n_t_38x;
 output n_t_39x;
 input n_t_3x;
-output n_t_40x;
+input n_t_40x;
 output n_t_42x;
 inout n_t_43x;
 output n_t_44x;
 input n_t_45x;
-output n_t_46x;
 input n_t_47x;
 input n_t_48x;
 output n_t_49x;
@@ -114,13 +109,12 @@ output n_t_63x;
 output n_t_64x;
 output n_t_65x;
 output n_t_66x;
-output n_t_67x;
+input n_t_67x;
 input n_t_68x;
-output n_t_69x;
+input n_t_69x;
 inout n_t_6x;
-output n_t_70x;
+input n_t_70x;
 input n_t_71x;
-inout n_t_73x;
 output n_t_74x;
 inout n_t_75x;
 input n_t_76x;
@@ -181,6 +175,14 @@ wire u2;
 wire u2;
 wire u2;
 wire u2;
+wire u2;
+wire u2;
+wire u2;
+wire u2;
+wire u2;
+assign n_t_9x = ~(n3v3 & n_t_40x & n_t_8x);
+assign n_t_42x = ~n_t_1x;
+// e3: sn7400 
 assign n_t_6x = ~n_t_13x;
 assign n_t_26x = ~(n_t_27x & n_t_31x);
 assign n_t_18x = ~(n_t_6x & n_t_19x);
@@ -195,8 +197,7 @@ assign n_t_29x = ~(n_t_28x & ~n_t_33x);
 assign n_t_28x = ~n_t_12x;
 assign n_t_14x = ~(n_t_13x & n_t_6x);
 // e7: sn74h00 
-assign n_t_73x = ~n_t_31x;
-assign n_t_75x = ~(n_t_73x & n_t_41x);
+assign n_t_75x = ~(~n_t_31x & n_t_41x);
 assign n_t_6x = ~n_t_4x;
 assign n_t_44x = ~n_t_43x;
 // e10: sn7474 
@@ -241,6 +242,9 @@ always @(n_t_76x, n_t_75x, n_t_78x, n_t_79x_m)
     n_t_79x <= n_t_79x_m;
   end
 assign n_t_82x = ~n_t_79x;
+// e11: sn74h40 
+assign n_t_39x = ~(n3v3 & n_t_67x & n_t_46x);
+assign n_t_31x = ~(~(n_t_68x & n_t_70x & n_t_69x & n_t_69x));
 // e12: sn74h30 
 assign n_t_43x = ~(n_t_20x & n_t_21x & n_t_22x & n_t_24x & n3v3 & n3v3 & n_t_25x & n_t_23x);
 // e14: sn74h00 

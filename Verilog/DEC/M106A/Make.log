@@ -28,3 +28,10 @@ info: n8881n ne dil14
 info: n8881n ne dil14
 info: single ne edge_con2
 warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M106A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M106AX.PLD || (rm M106AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M106AX.PLD >vv || (rm vv; exit 1)
+mv vv M106A.v
+rm M106AX.PLD

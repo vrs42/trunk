@@ -134,3 +134,39 @@ warning: non-pullup resistor deleted: r7
 warning: non-pullup resistor deleted: r22
 warning: non-pullup resistor deleted: r29
 warning: non-pullup resistor deleted: r30
+~/Verilog/bin/smaller.pl M865C.PLD >vv || (rm vv; exit 1)
+28 signals were removed:
+  bcd1: !n603x
+  ckkcc_l: !init_l
+  freq_div_l: !freq_div
+  init_h: !tx_buf_empty
+  initialize: init
+  initialize_l: !initialize
+  la_enable_l: !btp3
+  last_unit_l: !last_unit
+  n_t_109x: !n_t_105x
+  n_t_111x: !n_t_105x
+  n_t_122x: !rx_clr_l
+  n_t_123x: !dtx_active_l
+  n_t_125x: !rx_clk
+  n_t_127x: !tflnow_l
+  n_t_130x: !n_t_32x
+  n_t_134x: !n_t_57x
+  n_t_135x: !n_t_136x
+  n_t_138x: !n_t_137x
+  n_t_41x: !n_t_124x
+  n_t_64x: !n_t_38x
+  n_t_90x: !n_t_20x
+  n_t_94x: !rx_active
+  np: !preset
+  rx_active_l: 'b'1
+  shift_clock: !rx_clk_l
+  trans_1: !trans_0
+  tx_busy_l: !bd150
+  xmit_active_l: !xmit_active
+~/Verilog/bin/smaller.pl vv >M865CX.PLD || (rm M865CX.PLD; exit 1)
+1 signals were removed:
+  rx_clk: !xmit_active
+~/Verilog/bin/cupl2v.pl M865CX.PLD >vv || (rm vv; exit 1)
+mv vv M865C.v
+rm M865CX.PLD

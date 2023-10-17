@@ -130,3 +130,10 @@ warning: non-pullup resistor deleted: r66
 warning: non-pullup resistor deleted: r67
 warning: non-pullup resistor deleted: r69
 warning: non-pullup resistor deleted: r72
+~/Verilog/bin/smaller.pl M514H.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M514HX.PLD || (rm M514HX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M514HX.PLD >vv || (rm vv; exit 1)
+mv vv M514H.v
+rm M514HX.PLD

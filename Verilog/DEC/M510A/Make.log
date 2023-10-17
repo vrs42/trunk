@@ -78,3 +78,10 @@ warning: non-pullup resistor deleted: r32
 warning: non-pullup resistor deleted: r34
 warning: non-pullup resistor deleted: r37
 warning: non-pullup resistor deleted: r39
+~/Verilog/bin/smaller.pl M510A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M510AX.PLD || (rm M510AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M510AX.PLD >vv || (rm vv; exit 1)
+mv vv M510A.v
+rm M510AX.PLD

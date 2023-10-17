@@ -15,3 +15,10 @@ info: 7482n ne dil14
 info: single ne e12_8
 warning: making u$1/single/ a connector
 warning: non-bypass capacitor deleted: c13
+~/Verilog/bin/smaller.pl M164X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M164XX.PLD || (rm M164XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M164XX.PLD >vv || (rm vv; exit 1)
+mv vv M164X.v
+rm M164XX.PLD

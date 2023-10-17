@@ -51,3 +51,10 @@ warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r12
 warning: non-pullup resistor deleted: r13
 warning: non-pullup resistor deleted: r16
+~/Verilog/bin/smaller.pl M060X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M060XX.PLD || (rm M060XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M060XX.PLD >vv || (rm vv; exit 1)
+mv vv M060X.v
+rm M060XX.PLD

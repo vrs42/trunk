@@ -5,7 +5,6 @@ info: 100ns ne rc_l_22
 warning: making dl2/100ns/ a connector
 info: 7400n ne dil14
 info: 74h40n ne 7420n
-warning: making e3/sn74h40/ a connector
 info: 2n3009b ne _npn_to39_ebc
 warning: making q1/2n3009b/ a connector
 info: 68 ne 1/2w
@@ -17,3 +16,12 @@ warning: non-bypass capacitor deleted: c8
 warning: non-bypass capacitor deleted: c9
 warning: non-pullup resistor deleted: r6
 warning: non-pullup resistor deleted: r11
+~/Verilog/bin/smaller.pl M104C.PLD >vv || (rm vv; exit 1)
+2 signals were removed:
+  n_t_6x: !k1
+  n_t_9x: !n_t_8x
+~/Verilog/bin/smaller.pl vv >M104CX.PLD || (rm M104CX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M104CX.PLD >vv || (rm vv; exit 1)
+mv vv M104C.v
+rm M104CX.PLD

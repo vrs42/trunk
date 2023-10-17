@@ -35,3 +35,10 @@ info: single ne edge_con2
 warning: making u$2/single/ a connector
 warning: non-bypass capacitor deleted: c4
 warning: non-bypass capacitor deleted: c5
+~/Verilog/bin/smaller.pl M516X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M516XX.PLD || (rm M516XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M516XX.PLD >vv || (rm vv; exit 1)
+mv vv M516X.v
+rm M516XX.PLD

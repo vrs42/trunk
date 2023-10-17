@@ -29,3 +29,10 @@ warning: non-bypass capacitor deleted: c16
 warning: non-bypass capacitor deleted: c17
 warning: non-pullup resistor deleted: r3
 warning: non-pullup resistor deleted: r7
+~/Verilog/bin/smaller.pl M307A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M307AX.PLD || (rm M307AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M307AX.PLD >vv || (rm vv; exit 1)
+mv vv M307A.v
+rm M307AX.PLD

@@ -48,3 +48,10 @@ warning: non-pullup resistor deleted: r7
 warning: non-pullup resistor deleted: r8
 warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r10
+~/Verilog/bin/smaller.pl M594X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M594XX.PLD || (rm M594XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M594XX.PLD >vv || (rm vv; exit 1)
+mv vv M594X.v
+rm M594XX.PLD

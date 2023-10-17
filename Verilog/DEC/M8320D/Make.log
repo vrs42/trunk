@@ -532,3 +532,11 @@ warning: non-pullup resistor deleted: r114
 warning: non-pullup resistor deleted: r115
 warning: non-pullup resistor deleted: r116
 warning: non-pullup resistor deleted: r117
+~/Verilog/bin/smaller.pl M8320D.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n3v0: 'b'1
+~/Verilog/bin/smaller.pl vv >M8320DX.PLD || (rm M8320DX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M8320DX.PLD >vv || (rm vv; exit 1)
+mv vv M8320D.v
+rm M8320DX.PLD

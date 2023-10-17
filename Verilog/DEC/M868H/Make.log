@@ -94,14 +94,14 @@ warning: non-bypass capacitor deleted: c42
 warning: non-bypass capacitor deleted: c44
 warning: non-bypass capacitor deleted: c47
 warning: non-bypass capacitor deleted: c48
-unexpected OC output: df_db01 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2140.
-unexpected OC output: df_comp_wd at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2140.
-unexpected OC output: n_t_98x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2532.
-unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2532.
-unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2532.
-unexpected OC output: recv_5 at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2564.
-unexpected OC output: sync at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2580.
-unexpected OC output: cc_s_g at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2580.
+unexpected OC output: df_db01 at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2140.
+unexpected OC output: df_comp_wd at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2140.
+unexpected OC output: n_t_98x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2532.
+unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2532.
+unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2532.
+unexpected OC output: recv_5 at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2564.
+unexpected OC output: sync at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2580.
+unexpected OC output: cc_s_g at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2580.
 warning: non-pullup resistor deleted: r25
 warning: non-pullup resistor deleted: r29
 warning: non-pullup resistor deleted: r30
@@ -116,3 +116,41 @@ warning: non-pullup resistor deleted: r40
 warning: non-pullup resistor deleted: r41
 warning: non-pullup resistor deleted: r43
 warning: non-pullup resistor deleted: r48
+~/Verilog/bin/smaller.pl M868H.PLD >vv || (rm vv; exit 1)
+30 signals were removed:
+  b3: io_pause_l
+  cc_clk_te_l: !cc_67x
+  cc_dtp0_l: !cc_dtp0
+  cc_init_l: !cc_init
+  cc_run: !cc_run_l
+  cc_tp3_l: !tp3
+  df_sel_er: !df_sel_er_l
+  dokcc: !cc_dtp1_l
+  kcf_l: !cc_wrt_ok
+  krb_l: !cc_r_w
+  n3v3: !tpg0
+  n603x: !cc_sdsq_l
+  n604x: !cc_sdst_l
+  n_t_10x: !n_t_29x
+  n_t_112x: !cc_tpg_clk
+  n_t_141x: !cc_run_l
+  n_t_19x: !
+  n_t_24x: !krs_l
+  n_t_2x: !dokcc
+  n_t_32x: !n_t_72x
+  n_t_34x: !rcvr_clk
+  n_t_35x: !cc_dtp0_l
+  n_t_46x: !cc_sdss_l
+  n_t_83x: !ksf_l
+  n_t_84x: 'b'1
+  n_t_85x: !data07_l
+  n_t_88x: !n_t_20x
+  ns200: !cc_btp3
+  osc: !cc_uts
+  read_buffer: !cc_t_m_en
+~/Verilog/bin/smaller.pl vv >M868HX.PLD || (rm M868HX.PLD; exit 1)
+1 signals were removed:
+  cc_dtp0_l: !cc_dtp0
+~/Verilog/bin/cupl2v.pl M868HX.PLD >vv || (rm vv; exit 1)
+mv vv M868H.v
+rm M868HX.PLD

@@ -33,3 +33,10 @@ warning: non-pullup resistor deleted: r7
 warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r10
 warning: non-pullup resistor deleted: r12
+~/Verilog/bin/smaller.pl M452A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M452AX.PLD || (rm M452AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M452AX.PLD >vv || (rm vv; exit 1)
+mv vv M452A.v
+rm M452AX.PLD

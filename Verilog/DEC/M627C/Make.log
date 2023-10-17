@@ -1,0 +1,13 @@
+~/Verilog/bin/topld.pl M627C
+info: 74h40n ne 7420n
+info: 74h40n ne 7420n
+info: 74h40n ne 7420n
+info: single ne edge_con2
+warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M627C.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M627CX.PLD || (rm M627CX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M627CX.PLD >vv || (rm vv; exit 1)
+mv vv M627C.v
+rm M627CX.PLD

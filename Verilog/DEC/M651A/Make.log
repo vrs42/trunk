@@ -81,3 +81,10 @@ warning: non-pullup resistor deleted: r16
 warning: non-pullup resistor deleted: r18
 warning: non-pullup resistor deleted: r19
 warning: non-pullup resistor deleted: r20
+~/Verilog/bin/smaller.pl M651A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M651AX.PLD || (rm M651AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M651AX.PLD >vv || (rm vv; exit 1)
+mv vv M651A.v
+rm M651AX.PLD

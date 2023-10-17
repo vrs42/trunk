@@ -17,3 +17,17 @@ warning: non-pullup resistor deleted: bit16_0
 warning: non-pullup resistor deleted: bit16_1
 warning: non-pullup resistor deleted: bit17_0
 warning: non-pullup resistor deleted: bit17_1
+~/Verilog/bin/smaller.pl M109X.PLD >vv || (rm vv; exit 1)
+7 signals were removed:
+  n_t_20x: !n_t_14x
+  n_t_21x: !n_t_13x
+  n_t_33x: !n_t_31x
+  n_t_35x: !n_t_34x
+  n_t_45x: !e1
+  n_t_46x: !f2
+  n_t_9x: !n_t_15x
+~/Verilog/bin/smaller.pl vv >M109XX.PLD || (rm M109XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M109XX.PLD >vv || (rm vv; exit 1)
+mv vv M109X.v
+rm M109XX.PLD

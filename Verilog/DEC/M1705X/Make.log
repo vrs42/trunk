@@ -132,3 +132,58 @@ warning: non-pullup resistor deleted: r4
 warning: non-pullup resistor deleted: r6
 warning: non-pullup resistor deleted: r21
 warning: non-pullup resistor deleted: r22
+~/Verilog/bin/smaller.pl M1705X.PLD >vv || (rm vv; exit 1)
+44 signals were removed:
+  ad00l: !ad00
+  ad01l: !ad01
+  ad02l: !ad02
+  ad03l: !ad03
+  ad04l: !ad04
+  ad05l: !ad05
+  ad06l: !ad06
+  ad07l: !ad07
+  ad08l: !ad08
+  ad09l: !ad09
+  ad10l: !ad10
+  ad11l: !ad11
+  aiot2h: !aiot2l
+  bd00l: !bd00
+  bd01l: !bd01
+  bd02l: !bd02
+  bd03l: !bd03
+  bd04l: !bd04
+  bd05l: !bd05
+  bd06l: !bd06
+  bd07l: !bd07
+  bd08l: !bd08
+  bd09l: !bd09
+  bd10l: !bd10
+  bd11l: !bd11
+  biot2h: !biot2l
+  biot3h: !aiot3l
+  initializeh: !initializel
+  initializel: !initialize
+  initl: !initializeh
+  io_pauseh: !io_pause_l
+  md09h: !md09_l
+  md10h: !md10_l
+  md11h: !md11_l
+  n3v2: 'b'1
+  n3v3: 'b'1
+  n3v4: 'b'1
+  n_t_196x: !internal_io_l
+  n_t_337x: !c1_l
+  n_t_347x: !bflagh
+  n_t_350x: !int_rqst_l
+  n_t_386x: !aflagh
+  n_t_53x: !skip_l
+  n_t_64x: !n_t_57x
+~/Verilog/bin/smaller.pl vv >M1705XX.PLD || (rm M1705XX.PLD; exit 1)
+2 signals were removed:
+  aiot2l: biot3l
+  initializel: !initialize
+~/Verilog/bin/cupl2v.pl M1705XX.PLD >vv || (rm vv; exit 1)
+no aintenh.j at /home/vrs/Verilog/bin/cupl2v.pl line 283, <INPUT> line 1232.
+../Makefile:29: recipe for target 'M1705X.v' failed
+make: *** [M1705X.v] Error 1
+rm M1705XX.PLD

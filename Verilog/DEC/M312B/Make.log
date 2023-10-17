@@ -1,0 +1,24 @@
+~/Verilog/bin/topld.pl M312B
+info: do130 ne rc_l_22
+warning: making dl1/do130/ a connector
+info: do150 ne rc_l_22
+warning: making dl2/do150/ a connector
+info: do150 ne rc_l_22
+warning: making dl3/do150/ a connector
+info: do150 ne rc_l_22
+warning: making dl4/do150/ a connector
+info: do150 ne rc_l_22
+warning: making dl5/do150/ a connector
+warning: making dl6/dv540/ a connector
+info: 74h40n ne 7420n
+info: 74h40n ne 7420n
+info: 74h40n ne 7420n
+info: single ne dv540
+warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M312B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M312BX.PLD || (rm M312BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M312BX.PLD >vv || (rm vv; exit 1)
+mv vv M312B.v
+rm M312BX.PLD

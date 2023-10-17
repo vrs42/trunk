@@ -494,13 +494,12 @@ wire user_mode_l;
 wire user_mode_l;
 wire user_mode_l;
 wire user_mode_l;
-wire user_mode_l;
-assign n_t_121x = ~(n_t_121x & riop2_l & ~clock_pulse_l);
-assign n_t_72x = ~(~clock_pulse_l & shift_pulse_l & enable);
-assign n_t_71x = ~(n_t_71x & clock_pulse_l & n_t_75x);
+assign n_t_121x = ~(n_t_121x & riop2_l & init_or_eot_l);
+assign n_t_72x = ~(init_or_eot_l & shift_pulse_l & enable);
+assign n_t_71x = ~(n_t_71x & ~init_or_eot_l & n_t_75x);
 // e2: sn7474 
-always @(rdata_strobe, clock_pulse_l, riop4_l, 1'b0)
-  if (clock_pulse_l) begin
+always @(rdata_strobe, init_or_eot_l, riop4_l, 1'b0)
+  if (~init_or_eot_l) begin
     rdr_run_m <= 1'b0;
   end else
   if (~riop4_l) begin
@@ -509,8 +508,8 @@ always @(rdata_strobe, clock_pulse_l, riop4_l, 1'b0)
   if (~(rdata_strobe)) begin
     rdr_run_m <= 1'b0;
   end
-always @(rdata_strobe, clock_pulse_l, riop4_l, rdr_run_m)
-  if (clock_pulse_l) begin
+always @(rdata_strobe, init_or_eot_l, riop4_l, rdr_run_m)
+  if (~init_or_eot_l) begin
     rdr_run <= 1'b0;
   end else
   if (~riop4_l) begin
@@ -543,7 +542,7 @@ assign n_t_90x = ~rdata_strobe;
 // e3: sn7404 
 assign n_t_71x = ~multi_out_l;
 // e5: sn7400 
-assign n_t_76x = ~(clock_pulse_l & n_t_71x);
+assign n_t_76x = ~(~init_or_eot_l & n_t_71x);
 assign pn_hole7 = ~(~(n_t_121x & n_t_35x));
 assign out_of_tape = ~(clock_pulse & n_t_35x);
 assign n_t_90x = ~(r_feed_sw_l & enable);

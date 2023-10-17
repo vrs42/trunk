@@ -3,3 +3,10 @@ info: 7400n ne dil14
 info: 7400n ne dil14
 info: single ne edge_con2
 warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M217A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M217AX.PLD || (rm M217AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M217AX.PLD >vv || (rm vv; exit 1)
+mv vv M217A.v
+rm M217AX.PLD

@@ -65,3 +65,10 @@ warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r10
 warning: non-pullup resistor deleted: r11
 warning: non-pullup resistor deleted: r12
+~/Verilog/bin/smaller.pl M623A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M623AX.PLD || (rm M623AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M623AX.PLD >vv || (rm vv; exit 1)
+mv vv M623A.v
+rm M623AX.PLD

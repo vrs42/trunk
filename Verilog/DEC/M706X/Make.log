@@ -35,3 +35,22 @@ warning: non-bypass capacitor deleted: c24
 warning: non-bypass capacitor deleted: c25
 warning: non-bypass capacitor deleted: c27
 warning: non-bypass capacitor deleted: c28
+~/Verilog/bin/smaller.pl M706X.PLD >vv || (rm vv; exit 1)
+11 signals were removed:
+  in_last_l: !in_last
+  n_t_1x: !n_t_45x
+  n_t_22x: !shift
+  n_t_23x: !n_t_12x
+  n_t_28x: !spike
+  n_t_33x: !n_t_5x
+  n_t_34x: !serial_l
+  n_t_38x: !n_t_39x
+  n_t_39x: !serial_l
+  n_t_42x: !io_clear_l
+  n_t_48x: 'b'1
+~/Verilog/bin/smaller.pl vv >M706XX.PLD || (rm M706XX.PLD; exit 1)
+1 signals were removed:
+  n_t_39x: !serial_l
+~/Verilog/bin/cupl2v.pl M706XX.PLD >vv || (rm vv; exit 1)
+mv vv M706X.v
+rm M706XX.PLD

@@ -17,14 +17,9 @@
 // c10: c_us 
 // c11: c_us 
 // e1: sn7474 
-module m208c (a1, b1, bd00, bd00l, bd01l, bd02l, bd03, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_27x, n_t_29x, n_t_30x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
-output a1;
+module m208c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_30x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+input a1;
 input b1;
-output bd00;
-output bd00l;
-output bd01l;
-output bd02l;
-output bd03;
 inout reg c1;
 output d1;
 output d2;
@@ -44,8 +39,6 @@ inout reg m1;
 output m2;
 output n1;
 output n2;
-input n_t_27x;
-input n_t_29x;
 output n_t_30x;
 inout reg p1;
 output p2;
@@ -55,7 +48,7 @@ output s1;
 inout reg s2;
 output t2;
 inout reg u1;
-output u2;
+input u2;
 output v1;
 output v2;
 
@@ -107,20 +100,20 @@ wire n_t_9x;
 wire n_t_9x;
 wire n_t_9x;
 wire n_t_9x;
-always @(n_t_27x, n_t_29x, n_t_32x, n_t_7x)
-  if (~n_t_29x) begin
-    e1_m <= 1'b0;
-  end else
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+wire n_t_9x;
+always @(n_t_27x, n_t_32x, n_t_7x)
   if (~n_t_32x) begin
     e1_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     e1_m <= n_t_7x;
   end
-always @(n_t_27x, n_t_29x, n_t_32x, e1_m)
-  if (~n_t_29x) begin
-    e1 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_32x, e1_m)
   if (~n_t_32x) begin
     e1 <= 1'b1;
   end else
@@ -128,20 +121,14 @@ always @(n_t_27x, n_t_29x, n_t_32x, e1_m)
     e1 <= e1_m;
   end
 assign f2 = ~e1;
-always @(n_t_27x, n_t_29x, n_t_32x, n_t_8x)
-  if (~n_t_29x) begin
-    c1_m <= 1'b0;
-  end else
+always @(n_t_27x, n_t_32x, n_t_8x)
   if (~n_t_32x) begin
     c1_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     c1_m <= n_t_8x;
   end
-always @(n_t_27x, n_t_29x, n_t_32x, c1_m)
-  if (~n_t_29x) begin
-    c1 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_32x, c1_m)
   if (~n_t_32x) begin
     c1 <= 1'b1;
   end else
@@ -151,20 +138,14 @@ always @(n_t_27x, n_t_29x, n_t_32x, c1_m)
 assign d2 = ~c1;
 // e2: sn7450 
 // e3: sn7474 
-always @(n_t_27x, n_t_29x, n_t_32x, n_t_5x)
-  if (~n_t_29x) begin
-    k1_m <= 1'b0;
-  end else
+always @(n_t_27x, n_t_32x, n_t_5x)
   if (~n_t_32x) begin
     k1_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     k1_m <= n_t_5x;
   end
-always @(n_t_27x, n_t_29x, n_t_32x, k1_m)
-  if (~n_t_29x) begin
-    k1 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_32x, k1_m)
   if (~n_t_32x) begin
     k1 <= 1'b1;
   end else
@@ -172,20 +153,14 @@ always @(n_t_27x, n_t_29x, n_t_32x, k1_m)
     k1 <= k1_m;
   end
 assign l2 = ~k1;
-always @(n_t_27x, n_t_29x, n_t_32x, n_t_6x)
-  if (~n_t_29x) begin
-    h1_m <= 1'b0;
-  end else
+always @(n_t_27x, n_t_32x, n_t_6x)
   if (~n_t_32x) begin
     h1_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     h1_m <= n_t_6x;
   end
-always @(n_t_27x, n_t_29x, n_t_32x, h1_m)
-  if (~n_t_29x) begin
-    h1 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_32x, h1_m)
   if (~n_t_32x) begin
     h1 <= 1'b1;
   end else
@@ -199,21 +174,17 @@ assign data3 = ~b1;
 assign n_t_31x = ~(n_t_4x & n_t_2x);
 assign n_t_14x = ~k2;
 assign n_t_32x = ~b1;
+// e6: sn74h40 
+assign n_t_27x = ~(a1 & u2);
 // e7: sn7474 
-always @(n_t_27x, n_t_29x, n_t_31x, n_t_1x)
-  if (~n_t_29x) begin
-    u1_m <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, n_t_1x)
   if (~n_t_31x) begin
     u1_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     u1_m <= n_t_1x;
   end
-always @(n_t_27x, n_t_29x, n_t_31x, u1_m)
-  if (~n_t_29x) begin
-    u1 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, u1_m)
   if (~n_t_31x) begin
     u1 <= 1'b1;
   end else
@@ -221,20 +192,14 @@ always @(n_t_27x, n_t_29x, n_t_31x, u1_m)
     u1 <= u1_m;
   end
 assign v2 = ~u1;
-always @(n_t_27x, n_t_29x, n_t_31x, n_t_2x)
-  if (~n_t_29x) begin
-    s2_m <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, n_t_2x)
   if (~n_t_31x) begin
     s2_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     s2_m <= n_t_2x;
   end
-always @(n_t_27x, n_t_29x, n_t_31x, s2_m)
-  if (~n_t_29x) begin
-    s2 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, s2_m)
   if (~n_t_31x) begin
     s2 <= 1'b1;
   end else
@@ -244,20 +209,14 @@ always @(n_t_27x, n_t_29x, n_t_31x, s2_m)
 assign t2 = ~s2;
 // e8: sn7450 
 // e9: sn7474 
-always @(n_t_27x, n_t_29x, n_t_31x, n_t_3x)
-  if (~n_t_29x) begin
-    p1_m <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, n_t_3x)
   if (~n_t_31x) begin
     p1_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     p1_m <= n_t_3x;
   end
-always @(n_t_27x, n_t_29x, n_t_31x, p1_m)
-  if (~n_t_29x) begin
-    p1 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, p1_m)
   if (~n_t_31x) begin
     p1 <= 1'b1;
   end else
@@ -265,20 +224,14 @@ always @(n_t_27x, n_t_29x, n_t_31x, p1_m)
     p1 <= p1_m;
   end
 assign r2 = ~p1;
-always @(n_t_27x, n_t_29x, n_t_31x, n_t_4x)
-  if (~n_t_29x) begin
-    m1_m <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, n_t_4x)
   if (~n_t_31x) begin
     m1_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
     m1_m <= n_t_4x;
   end
-always @(n_t_27x, n_t_29x, n_t_31x, m1_m)
-  if (~n_t_29x) begin
-    m1 <= 1'b0;
-  end else
+always @(n_t_27x, n_t_31x, m1_m)
   if (~n_t_31x) begin
     m1 <= 1'b1;
   end else

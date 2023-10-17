@@ -371,6 +371,11 @@ sub sn7440 {
 }
 $hidden{'sn7440'} = 0;
 
+sub sn74h40 {
+  &sn7440;
+}
+$hidden{'sn74h40'} = 0;
+
 sub sn7442 {
   &qcode("!$pad{1} = !$pad{12} & !$pad{13} & !$pad{14} & !$pad{15};\n") if defined $pad{1};
   &qcode("!$pad{2} = !$pad{12} & !$pad{13} & !$pad{14} & $pad{15};\n") if defined $pad{2};

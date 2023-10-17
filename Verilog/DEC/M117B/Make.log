@@ -1,3 +1,10 @@
 ~/Verilog/bin/topld.pl M117B
 info: single ne edge_con2
 warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M117B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M117BX.PLD || (rm M117BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M117BX.PLD >vv || (rm vv; exit 1)
+mv vv M117B.v
+rm M117BX.PLD

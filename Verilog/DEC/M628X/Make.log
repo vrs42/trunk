@@ -56,3 +56,10 @@ info: single ne e12_8
 warning: making u$2/single/ a connector
 warning: non-pullup resistor deleted: r2
 warning: non-pullup resistor deleted: r4
+~/Verilog/bin/smaller.pl M628X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M628XX.PLD || (rm M628XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M628XX.PLD >vv || (rm vv; exit 1)
+mv vv M628X.v
+rm M628XX.PLD

@@ -15,15 +15,14 @@
 // c8: c_us 
 // c9: c_us 
 // e1: sn7474 
-module m104c (pwr_clr_l, a1, b1, c1, clr_flag_l, d1, d2, en_in, en_out, flag, grant, io_sync, k1, k2, l1, l2, m1, n15v, n2, n3v3, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, p2, pwr_clr, r1, r2, t2, u1, v2);
-input pwr_clr_l;
+module m104c (a1, b1, c1, clr_flag_l, d1, d2, en_in, en_out, flag, grant, io_sync, k1, k2, l1, l2, m1, n15v, n2, n3v3, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, p2, pwr_clr, r1, r2, t2, u1, v2);
 output a1;
 output b1;
 output c1;
-output clr_flag_l;
+input clr_flag_l;
 output d1;
 output d2;
-output en_in;
+input en_in;
 output en_out;
 input flag;
 input grant;
@@ -44,10 +43,8 @@ inout reg n_t_14x;
 inout reg n_t_15x;
 inout n_t_1x;
 inout reg n_t_2x;
-output n_t_3x;
+inout n_t_3x;
 input n_t_4x;
-output n_t_5x;
-input n_t_6x;
 output p2;
 output pwr_clr;
 output r1;
@@ -61,6 +58,8 @@ reg n_t_15x_m;
 reg n_t_16x_m;
 reg n_t_2x_m;
 
+wire s2;
+wire s2;
 wire s2;
 wire s2;
 wire s2;
@@ -108,9 +107,11 @@ always @(io_sync, n3v3, n3v3, n_t_14x_m)
   end
 assign n_t_13x = ~n_t_14x;
 // e2: sn7400 
-assign k1 = ~n_t_6x;
 assign n_t_7x = ~(v2 & s2);
 assign n_t_10x = ~(grant & n_t_12x);
+// e3: sn74h40 
+assign n_t_5x = ~(n3v3 & n_t_3x & en_in);
+assign k1 = ~(~(en_in & clr_flag_l & pwr_clr_l & n3v3));
 // e4: sn7474 
 always @(grant, n_t_8x, n3v3, n_t_4x)
   if (n_t_8x) begin

@@ -82,3 +82,10 @@ warning: non-pullup resistor deleted: r17
 warning: non-pullup resistor deleted: r18
 warning: non-pullup resistor deleted: r19
 warning: non-pullup resistor deleted: r23
+~/Verilog/bin/smaller.pl M402X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M402XX.PLD || (rm M402XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M402XX.PLD >vv || (rm vv; exit 1)
+mv vv M402X.v
+rm M402XX.PLD

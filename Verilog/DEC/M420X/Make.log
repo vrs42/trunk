@@ -89,3 +89,10 @@ warning: non-pullup resistor deleted: r21
 warning: non-pullup resistor deleted: r22
 warning: non-pullup resistor deleted: r23
 warning: non-pullup resistor deleted: r26
+~/Verilog/bin/smaller.pl M420X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M420XX.PLD || (rm M420XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M420XX.PLD >vv || (rm vv; exit 1)
+mv vv M420X.v
+rm M420XX.PLD

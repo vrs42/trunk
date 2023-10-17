@@ -77,3 +77,14 @@ info: edge_top ne edge_con2
 warning: making h/edge_top/ a connector
 info: quad ne edge_con2
 warning: making u$2/quad/ a connector
+~/Verilog/bin/smaller.pl M8300B.PLD >vv || (rm vv; exit 1)
+4 signals were removed:
+  left: !left_l
+  n_t_5x: !md_dir_l
+  right: !right_l
+  twice: !twice_l
+~/Verilog/bin/smaller.pl vv >M8300BX.PLD || (rm M8300BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M8300BX.PLD >vv || (rm vv; exit 1)
+mv vv M8300B.v
+rm M8300BX.PLD

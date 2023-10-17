@@ -48,3 +48,10 @@ warning: non-pullup resistor deleted: r6
 warning: non-pullup resistor deleted: r7
 warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r10
+~/Verilog/bin/smaller.pl M307X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M307XX.PLD || (rm M307XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M307XX.PLD >vv || (rm vv; exit 1)
+mv vv M307X.v
+rm M307XX.PLD

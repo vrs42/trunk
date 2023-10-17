@@ -1,0 +1,13 @@
+~/Verilog/bin/topld.pl M311A
+warning: making dl1/16_05529/ a connector
+warning: making dl2/16_05529/ a connector
+info: 74h40n ne 7420n
+info: single ne 16_05529
+warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M311A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M311AX.PLD || (rm M311AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M311AX.PLD >vv || (rm vv; exit 1)
+mv vv M311A.v
+rm M311AX.PLD

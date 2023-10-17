@@ -30,17 +30,14 @@ pin = c1;
 pin = d1;
 pin = e1;
 pin = f1;
-pin = f2;
 pin = h1;
 pin = j1;
 pin = k1;
 pin = l1;
-pin = l2;
 pin = m1;
 pin = m2;
 pin = n1;
 pin = n15v;
-pin = n2;
 pin = n3v3;
 pin = p1;
 pin = p2;
@@ -55,6 +52,9 @@ pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node f2;
+node l2;
+node n2;
 node n_t_2x;
 node n_t_31x;
 node n_t_9x;
@@ -79,6 +79,18 @@ $ENDIF
 /* c7: c_us */
 
 /* c8: c_us */
+
+/* e1: sn74h40 */
+b1 = !(n_t_13x & v2 & n3v3 & n3v3);
+a1 = !(b1 & n3v3 & n3v3 & n3v3);
+
+/* e2: sn74h40 */
+d1 = !(n_t_20x & v2 & n3v3 & n3v3);
+c1 = !(d1 & n3v3 & n3v3 & n3v3);
+
+/* e3: sn74h40 */
+f1 = !(v2 & n_t_23x & n3v3 & n3v3);
+e1 = !(f1 & n3v3 & n3v3 & n3v3);
 
 /* e4: sn7400 */
 n_t_31x = !(n_t_8x & u2);

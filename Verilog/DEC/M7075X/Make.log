@@ -17,5 +17,17 @@ info: 7416n ne dil14
 info: 7400n ne dil14
 info: single ne dil16
 warning: making u$2/single/ a connector
-unexpected OC output: n_t_5x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 991.
-unexpected OC output: n_t_2x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 1015.
+unexpected OC output: n_t_5x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 991.
+unexpected OC output: n_t_2x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 1015.
+~/Verilog/bin/smaller.pl M7075X.PLD >vv || (rm vv; exit 1)
+5 signals were removed:
+  n_t_23x: !n_t_42x
+  n_t_67x: !e1
+  n_t_80x: !u1
+  n_t_81x: !n_t_101x
+  p1_l: !p1
+~/Verilog/bin/smaller.pl vv >M7075XX.PLD || (rm M7075XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M7075XX.PLD >vv || (rm vv; exit 1)
+mv vv M7075X.v
+rm M7075XX.PLD

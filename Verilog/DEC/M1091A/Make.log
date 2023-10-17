@@ -67,3 +67,16 @@ warning: non-pullup resistor deleted: r19
 warning: non-pullup resistor deleted: r20
 warning: non-pullup resistor deleted: r21
 warning: non-pullup resistor deleted: r22
+~/Verilog/bin/smaller.pl M1091A.PLD >vv || (rm vv; exit 1)
+5 signals were removed:
+  a09: !c0
+  n_t_27x: !n_t_38x
+  n_t_43x: !outhigh
+  n_t_4x: !s2
+  testpoint: !testpoint
+~/Verilog/bin/smaller.pl vv >M1091AX.PLD || (rm M1091AX.PLD; exit 1)
+1 signals were removed:
+  testpoint: !testpoint
+~/Verilog/bin/cupl2v.pl M1091AX.PLD >vv || (rm vv; exit 1)
+mv vv M1091A.v
+rm M1091AX.PLD

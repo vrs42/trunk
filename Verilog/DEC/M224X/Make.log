@@ -39,3 +39,76 @@ info: 7482n ne dil14
 info: 74h00n ne 7400n
 info: double ne dil14
 warning: making u$3/double/ a connector
+~/Verilog/bin/smaller.pl M224X.PLD >vv || (rm vv; exit 1)
+55 signals were removed:
+  ac2_l: !ac_2
+  data7: !ad07l
+  data8_l: !bd08
+  gdollar_4: !aiotl
+  gdollar_5: !n3v2
+  mb2_h: !mb_2_l
+  md10h: !md11_l
+  n_t_100x: !n_t_51x
+  n_t_101x: !n_t_76x
+  n_t_102x: !n_t_77x
+  n_t_103x: !n_t_67x
+  n_t_104x: !n_t_89x
+  n_t_105x: !n_t_91x
+  n_t_106x: n_t_41x
+  n_t_107x: n3v2
+  n_t_108x: bd08
+  n_t_109x: n_t_24x
+  n_t_10x: !n_t_6x
+  n_t_11x: load_tac
+  n_t_147x: !n_t_24x
+  n_t_14x: !n_t_23x
+  n_t_17x: !n_t_34x
+  n_t_22x: n_t_5x
+  n_t_33x: !n_t_11x
+  n_t_34x: !n_t_32x
+  n_t_362x: !biot0l
+  n_t_36x: !n_t_41x
+  n_t_37x: !n_t_35x
+  n_t_50x: !n_t_49x
+  n_t_53x: n_t_10x
+  n_t_54x: !n_t_53x
+  n_t_55x: tape_bus2
+  n_t_57x: ac_2
+  n_t_59x: n_t_10x
+  n_t_5x: !n_t_8x
+  n_t_64x: !n_t_55x
+  n_t_68x: !n_t_72x
+  n_t_71x: !n_t_74x
+  n_t_73x: !n_t_84x
+  n_t_74x: n_t_57x
+  n_t_75x: mb_2_l
+  n_t_79x: !n_t_75x
+  n_t_82x: !n_t_80x
+  n_t_83x: n_t_362x
+  n_t_85x: !n_t_57x
+  n_t_86x: gdollar_4
+  n_t_87x: !n_t_83x
+  n_t_90x: !n_t_88x
+  n_t_93x: !n_t_86x
+  n_t_94x: !n_t_59x
+  n_t_95x: !n_t_106x
+  n_t_96x: !n_t_109x
+  n_t_97x: !n_t_108x
+  n_t_98x: !n_t_107x
+  n_t_99x: !n_t_70x
+~/Verilog/bin/smaller.pl vv >M224XX.PLD || (rm M224XX.PLD; exit 1)
+11 signals were removed:
+  gdollar_4: !aiotl
+  n_t_106x: n_t_41x
+  n_t_108x: bd08
+  n_t_11x: load_tac
+  n_t_362x: !biot0l
+  n_t_57x: ac_2
+  n_t_59x: !n_t_6x
+  n_t_5x: !n_t_8x
+  n_t_74x: ac_2
+  n_t_75x: mb_2_l
+  n_t_83x: n_t_362x
+~/Verilog/bin/cupl2v.pl M224XX.PLD >vv || (rm vv; exit 1)
+mv vv M224X.v
+rm M224XX.PLD

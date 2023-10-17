@@ -69,3 +69,10 @@ warning: non-pullup resistor deleted: r13
 warning: non-pullup resistor deleted: r14
 warning: non-pullup resistor deleted: r15
 warning: non-pullup resistor deleted: r16
+~/Verilog/bin/smaller.pl M650D.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M650DX.PLD || (rm M650DX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M650DX.PLD >vv || (rm vv; exit 1)
+mv vv M650D.v
+rm M650DX.PLD

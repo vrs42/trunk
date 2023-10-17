@@ -8,3 +8,10 @@ warning: making e4/dec3001n/ a connector
 info: single ne edge_con2
 warning: making u$1/single/ a connector
 warning: non-bypass capacitor deleted: c7
+~/Verilog/bin/smaller.pl M165D.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M165DX.PLD || (rm M165DX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M165DX.PLD >vv || (rm vv; exit 1)
+mv vv M165D.v
+rm M165DX.PLD

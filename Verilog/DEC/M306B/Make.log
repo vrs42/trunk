@@ -35,3 +35,10 @@ warning: non-pullup resistor deleted: r13
 warning: non-pullup resistor deleted: r14
 warning: non-pullup resistor deleted: r16
 warning: non-pullup resistor deleted: r19
+~/Verilog/bin/smaller.pl M306B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M306BX.PLD || (rm M306BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M306BX.PLD >vv || (rm vv; exit 1)
+mv vv M306B.v
+rm M306BX.PLD

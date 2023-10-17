@@ -8,3 +8,11 @@ info: 74191n ne dil14
 warning: making e4/sn74191/ a connector
 info: single ne edge_con2
 warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M236B.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n3v3: 'b'1
+~/Verilog/bin/smaller.pl vv >M236BX.PLD || (rm M236BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M236BX.PLD >vv || (rm vv; exit 1)
+mv vv M236B.v
+rm M236BX.PLD

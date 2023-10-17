@@ -53,3 +53,10 @@ warning: non-pullup resistor deleted: r2
 warning: non-pullup resistor deleted: r4
 warning: non-pullup resistor deleted: r6
 warning: non-pullup resistor deleted: r8
+~/Verilog/bin/smaller.pl M044B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M044BX.PLD || (rm M044BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M044BX.PLD >vv || (rm vv; exit 1)
+mv vv M044B.v
+rm M044BX.PLD

@@ -440,7 +440,6 @@ assign n_t_40x = ad07l;
 // ad07l = !ad07h; 
 assign n_t_47x = ad07h;
 // e27: sn74h00 
-assign gdollar_4 = ~aiotl;
 // e28: sn74h00 
 // e29: sn74h00 
 // e30: sn74h00 
@@ -459,7 +458,7 @@ assign n_t_45x = n_t_217x;
 // !md11_l = !md11_l; 
 assign n_t_46x = md11_l;
 // e33: sn74h53 
-// !aiotl = !(!gdollar_4 & n_t_2x
+// !aiotl = !(aiotl & n_t_2x
 //          # n_t_91x & n_t_4x
 //          # n_t_3x
 //          # n_t_84x & n_t_1x); 
@@ -500,7 +499,7 @@ assign bd08 = ~((~bd08 & n_t_12x
                   | ~n_t_88x & n_t_18x
                   | ~n_t_89x & n_t_16x & n_t_16x
                   | n_t_89x & n_t_13x));
-assign aiotl = (~gdollar_4 & n_t_2x
+assign aiotl = (aiotl & n_t_2x
                  | n_t_91x & n_t_4x
                  | n_t_3x
                  | n_t_84x & n_t_1x);

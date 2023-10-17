@@ -64,11 +64,41 @@ info: 0r2 ne 0r2/10
 warning: making w2w5/0r2/ a connector
 info: 0r2 ne 0r2/10
 warning: making w3w6/0r2/ a connector
-unexpected OC output: n_t_41x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2611.
-unexpected OC output: n_t_104x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2611.
-unexpected OC output: n_t_12x at /home/vrs/Verilog/bin/topld.pl line 2034, <INPUT> line 2611.
+unexpected OC output: n_t_41x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2611.
+unexpected OC output: n_t_104x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2611.
+unexpected OC output: n_t_12x at /home/vrs/Verilog/bin/topld.pl line 2039, <INPUT> line 2611.
 warning: non-pullup resistor deleted: r5
 warning: non-pullup resistor deleted: r8
 warning: non-pullup resistor deleted: r10
 warning: non-pullup resistor deleted: r14
 warning: non-pullup resistor deleted: r15
+~/Verilog/bin/smaller.pl M7104B.PLD >vv || (rm vv; exit 1)
+20 signals were removed:
+  bd08h: !b_brk_rq
+  btp1: tp1
+  db_cont2_l: !db_cont2
+  mb10: !n6rk6_l
+  md_rk_l: 'b'1
+  n6rk1: !n6rk1_l
+  n6rk2: !n6rk2_l
+  n_t_101x: !btp3
+  n_t_113x: !idle
+  n_t_131x: !rk_data10
+  n_t_14x: !md_rd_buff
+  n_t_29x: !device_rk
+  n_t_30x: !md_rd_buff_l
+  n_t_34x: !n_t_72x
+  n_t_530x: !bstrobeh
+  n_t_60x: !n_t_66x
+  n_t_71x: !btp1
+  n_t_85x: !btp3
+  q4: !n6rk7_l
+  set_count: !rk_data1
+~/Verilog/bin/smaller.pl vv >M7104BX.PLD || (rm M7104BX.PLD; exit 1)
+1 signals were removed:
+  btp1: tp1
+~/Verilog/bin/cupl2v.pl M7104BX.PLD >vv || (rm vv; exit 1)
+no busy_error.j at /home/vrs/Verilog/bin/cupl2v.pl line 283, <INPUT> line 1874.
+../Makefile:29: recipe for target 'M7104B.v' failed
+make: *** [M7104B.v] Error 1
+rm M7104BX.PLD

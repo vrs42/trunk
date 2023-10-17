@@ -22,3 +22,15 @@ warning: non-bypass capacitor deleted: c11
 warning: non-bypass capacitor deleted: c12
 warning: non-bypass capacitor deleted: c15
 warning: non-bypass capacitor deleted: c16
+~/Verilog/bin/smaller.pl M7672X.PLD >vv || (rm vv; exit 1)
+5 signals were removed:
+  ac2_h: !bd38400
+  ac_enabl_l: !aj1
+  bd57600: !bd115200
+  div3: !bd230400
+  tp_l: !tp_n
+~/Verilog/bin/smaller.pl vv >M7672XX.PLD || (rm M7672XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M7672XX.PLD >vv || (rm vv; exit 1)
+mv vv M7672X.v
+rm M7672XX.PLD

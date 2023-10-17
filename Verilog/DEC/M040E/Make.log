@@ -19,3 +19,10 @@ info: edge_1 ne edge_con1
 warning: making u$2/edge_1/ a connector
 warning: non-pullup resistor deleted: r3
 warning: non-pullup resistor deleted: r7
+~/Verilog/bin/smaller.pl M040E.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M040EX.PLD || (rm M040EX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M040EX.PLD >vv || (rm vv; exit 1)
+mv vv M040E.v
+rm M040EX.PLD

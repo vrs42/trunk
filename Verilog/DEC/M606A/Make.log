@@ -68,3 +68,10 @@ warning: non-bypass capacitor deleted: c3
 warning: non-bypass capacitor deleted: c4
 warning: non-bypass capacitor deleted: c5
 warning: non-bypass capacitor deleted: c6
+~/Verilog/bin/smaller.pl M606A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M606AX.PLD || (rm M606AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M606AX.PLD >vv || (rm vv; exit 1)
+mv vv M606A.v
+rm M606AX.PLD

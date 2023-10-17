@@ -5,3 +5,11 @@ info: 7450n ne dil14
 info: 7460n ne dil14
 info: single ne edge_con2
 warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M160C.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n3v: 'b'1
+~/Verilog/bin/smaller.pl vv >M160CX.PLD || (rm M160CX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M160CX.PLD >vv || (rm vv; exit 1)
+mv vv M160C.v
+rm M160CX.PLD

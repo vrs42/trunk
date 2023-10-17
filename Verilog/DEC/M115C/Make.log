@@ -4,3 +4,10 @@ info: 7410n ne dil14
 info: 7410n ne dil14
 info: single ne edge_con2
 warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M115C.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M115CX.PLD || (rm M115CX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M115CX.PLD >vv || (rm vv; exit 1)
+mv vv M115C.v
+rm M115CX.PLD

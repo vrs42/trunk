@@ -4,3 +4,10 @@ info: 7486n ne dil14
 info: 7486n ne dil14
 info: single ne edge_con2
 warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M1125X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M1125XX.PLD || (rm M1125XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M1125XX.PLD >vv || (rm vv; exit 1)
+mv vv M1125X.v
+rm M1125XX.PLD

@@ -53,3 +53,10 @@ warning: non-pullup resistor deleted: r4
 warning: non-pullup resistor deleted: r6
 warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r11
+~/Verilog/bin/smaller.pl M405A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M405AX.PLD || (rm M405AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M405AX.PLD >vv || (rm vv; exit 1)
+mv vv M405A.v
+rm M405AX.PLD

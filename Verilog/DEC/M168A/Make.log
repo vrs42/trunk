@@ -4,3 +4,10 @@ info: 7485n ne dil16
 info: 7485n ne dil16
 info: single ne edge_con2
 warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M168A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M168AX.PLD || (rm M168AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M168AX.PLD >vv || (rm vv; exit 1)
+mv vv M168A.v
+rm M168AX.PLD

@@ -51,3 +51,10 @@ warning: non-pullup resistor deleted: r5
 warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r13
 warning: non-pullup resistor deleted: r17
+~/Verilog/bin/smaller.pl M304A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M304AX.PLD || (rm M304AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M304AX.PLD >vv || (rm vv; exit 1)
+mv vv M304A.v
+rm M304AX.PLD

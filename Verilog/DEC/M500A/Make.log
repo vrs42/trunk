@@ -130,3 +130,10 @@ warning: non-pullup resistor deleted: r31
 warning: non-pullup resistor deleted: r32
 warning: non-pullup resistor deleted: r33
 warning: non-pullup resistor deleted: r34
+~/Verilog/bin/smaller.pl M500A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M500AX.PLD || (rm M500AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M500AX.PLD >vv || (rm vv; exit 1)
+mv vv M500A.v
+rm M500AX.PLD

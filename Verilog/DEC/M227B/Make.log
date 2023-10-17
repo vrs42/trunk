@@ -32,3 +32,28 @@ warning: making u$3/double/ a connector
 warning: non-bypass capacitor deleted: c25
 warning: non-bypass capacitor deleted: c26
 warning: non-bypass capacitor deleted: c27
+~/Verilog/bin/smaller.pl M227B.PLD >vv || (rm vv; exit 1)
+14 signals were removed:
+  n_t_14x: !n_t_27x
+  n_t_16x: !n_t_17x
+  n_t_17x: bc1
+  n_t_18x: !n_t_19x
+  n_t_19x: bd1
+  n_t_1x: !n_t_2x
+  n_t_21x: bd2
+  n_t_22x: bk1
+  n_t_23x: !n_t_22x
+  n_t_24x: !n_t_25x
+  n_t_27x: bs2
+  n_t_3x: !n_t_4x
+  n_t_4x: ar2
+  n_t_6x: aj2
+~/Verilog/bin/smaller.pl vv >M227BX.PLD || (rm M227BX.PLD; exit 1)
+2 signals were removed:
+  n_t_19x: bd1
+  n_t_22x: bk1
+~/Verilog/bin/cupl2v.pl M227BX.PLD >vv || (rm vv; exit 1)
+OE qualifier on FF output n_t_20x at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 819.
+../Makefile:29: recipe for target 'M227B.v' failed
+make: *** [M227B.v] Error 1
+rm M227BX.PLD

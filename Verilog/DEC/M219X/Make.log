@@ -1,9 +1,7 @@
 ~/Verilog/bin/topld.pl M219X
 info: cpol_use ne cpol_use20_8axial
 info: 74h40n ne 7440n
-warning: making e1/sn74h40/ a connector
 info: 74h40n ne 7440n
-warning: making e11/sn74h40/ a connector
 info: 74h30n ne 7430n
 info: 74h55n ne 7455n
 warning: making e13/sn74h55/ a connector
@@ -33,3 +31,16 @@ info: double ne e12_8
 warning: making u$3/double/ a connector
 warning: non-bypass capacitor deleted: c1
 warning: non-bypass capacitor deleted: c2
+~/Verilog/bin/smaller.pl M219X.PLD >vv || (rm vv; exit 1)
+6 signals were removed:
+  n_t_32x: !n_t_33x
+  n_t_50x: !n_t_54x
+  n_t_58x: !n_t_59x
+  n_t_73x: !n_t_31x
+  n_t_7x: !n_t_3x
+  n_t_93x: !n_t_81x
+~/Verilog/bin/smaller.pl vv >M219XX.PLD || (rm M219XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M219XX.PLD >vv || (rm vv; exit 1)
+mv vv M219X.v
+rm M219XX.PLD
