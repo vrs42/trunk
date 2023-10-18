@@ -59,15 +59,15 @@ output n_t_8x;
 input n_t_9x;
 
 
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
-wire s1;
+wire e2;
+wire f2;
+wire h1;
+wire k2;
+wire l2;
+wire m1;
+wire n_t_46x;
+wire out;
+wire r2;
 wire s1;
 assign n_t_36x = ~(n_t_34x & ~n_t_3x);
 assign n_t_35x = ~(n_t_3x & n_t_30x);

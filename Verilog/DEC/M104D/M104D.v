@@ -58,11 +58,11 @@ reg n_t_15x_m;
 reg n_t_16x_m;
 reg n_t_2x_m;
 
-wire s2;
-wire s2;
-wire s2;
-wire s2;
-wire s2;
+reg n_t_16x;
+wire n_t_5x;
+wire n_t_7x;
+wire n_t_8x;
+wire pwr_clr_l;
 wire s2;
 always @(io_sync, n_t_1x, pwr_clr_l, n_t_11x)
   if (~n_t_1x) begin

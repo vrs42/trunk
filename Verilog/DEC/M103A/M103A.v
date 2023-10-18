@@ -48,8 +48,8 @@ output u2;
 input v2;
 
 
-wire n_t_9x;
-wire n_t_9x;
+wire n_t_2x;
+wire n_t_8x;
 wire n_t_9x;
 assign a1 = ~(f2 & h2 & b1 & j2 & k2 & n_t_8x & d2 & e2);
 // e2: sn74h40 

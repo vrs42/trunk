@@ -47,7 +47,7 @@ output n_t_8x;
 output n_t_9x;
 
 
-wire n_t_80x;
+wire l2;
 wire n_t_80x;
 assign n_t_4x = ~(n_t_1x & n3v3);
 assign n_t_6x = ~(n3v3 & n_t_2x);

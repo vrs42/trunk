@@ -101,17 +101,17 @@ inout n_t_6x;
 output n_t_7x;
 
 
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
+wire ab2;
+wire adder3;
+wire adder4;
+wire ae2w;
+wire af1w;
+wire ak2;
+wire av1w;
+wire av2w;
+wire bb2;
+wire mb3_h;
+wire tck;
 wire tdo;
 assign n_t_6x = ~(n_t_5x & n_t_4x);
 assign n_t_2x = ~n_t_1x;

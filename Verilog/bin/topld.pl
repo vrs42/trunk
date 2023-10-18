@@ -18,7 +18,6 @@
 # TODO: 11380n (Fast sp380)
 # TODO: (n)8t38 is a quad bus tranceiver.
 # TODO: AM26s10 is a quad bus tranceiver.
-# TODO: 97401 is a fast sn7401.
 # TODO: dec3001n is a buffer with 7408 pinout.
 # TODO: dec4015 is a quad R/S latch (with common R).
 # TODO: n8202 is a 10 bit latch.

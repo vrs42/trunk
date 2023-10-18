@@ -73,20 +73,20 @@ output v1;
 input v2;
 
 
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
-wire syn_l;
+wire a0;
+wire a11;
+wire a3;
+wire c0;
+wire c1_l;
+wire n_t_11x;
+wire n_t_12x;
+wire n_t_16x;
+wire n_t_33x;
+wire n_t_38x;
+wire n_t_8x;
+wire out_l;
+wire outhigh;
+wire select6;
 wire syn_l;
 assign f2 = ~(j2
                | f2);

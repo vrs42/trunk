@@ -45,13 +45,13 @@ output v1;
 output v2;
 
 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
+wire n_t_10x;
+wire n_t_18x;
+wire n_t_22x;
+wire n_t_24x;
+wire n_t_26x;
+wire n_t_28x;
+wire n_t_4x;
 wire n_t_8x;
 assign j2 = ~(h2 & f2 & e2 & d2);
 assign e1 = ~(d1 & c1 & b1 & a1);

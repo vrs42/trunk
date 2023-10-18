@@ -45,15 +45,15 @@ output v1;
 output v2;
 
 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
+wire n_t_10x;
+wire n_t_12x;
+wire n_t_18x;
+wire n_t_22x;
+wire n_t_24x;
+wire n_t_26x;
+wire n_t_28x;
+wire n_t_29x;
+wire n_t_4x;
 wire n_t_8x;
 assign c1 = (a1 & b1);
 assign f1 = (d1 & e1);

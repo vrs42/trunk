@@ -48,10 +48,10 @@ input u2;
 input v2;
 
 
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
+wire f2;
+wire l2;
+wire n2;
+wire n_t_31x;
 wire n_t_9x;
 assign b1 = ~(n_t_13x & v2 & n3v3 & n3v3);
 assign a1 = ~(b1 & n3v3 & n3v3 & n3v3);

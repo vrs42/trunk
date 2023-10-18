@@ -199,7 +199,7 @@ while (<INPUT>) {
         @iface = ();
       }
       # Finally, output the wire declarations.
-      foreach $done (@nodes) {
+      foreach $node (@nodes) {
         if (defined $islatch{$node}) {
           print "reg $node;\n";
         } else {

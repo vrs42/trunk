@@ -146,14 +146,14 @@ inout n_t_7x;
 output n_t_9x;
 
 
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
-wire tdo;
+wire ab2;
+wire af1w;
+wire av1w;
+wire av2w;
+wire bb2;
+wire mb3_h;
+wire select_remote_l;
+wire tck;
 wire tdo;
 assign n_t_7x = ~n_t_8x;
 assign n_t_6x = ~n_t_7x;

@@ -45,14 +45,14 @@ output v1;
 output v2;
 
 
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
-wire n_t_9x;
+wire bit17;
+wire n_t_11x;
+wire n_t_16x;
+wire n_t_18x;
+wire n_t_31x;
+wire n_t_35x;
+wire n_t_37x;
+wire n_t_46x;
 wire n_t_9x;
 assign j2 = ~(h2
                | f2

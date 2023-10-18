@@ -60,11 +60,11 @@ output u2;
 output v2;
 
 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
+wire a12;
+wire a16;
+wire n_t_2x;
+wire n_t_4x;
+wire n_t_5x;
 wire n_t_8x;
 assign d1 = (c1 & a1)? 1'b0: 1'bz;
 assign e1 = (b1 & c1)? 1'b0: 1'bz;

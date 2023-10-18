@@ -45,8 +45,8 @@ input v1;
 output v2;
 
 
-wire n_t_4x;
-wire n_t_4x;
+wire n_t_31x;
+wire n_t_34x;
 wire n_t_4x;
 assign b1 = ~(c1 & a1);
 assign e1 = ~(c1 & d1);

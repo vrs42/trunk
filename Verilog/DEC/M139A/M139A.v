@@ -45,14 +45,14 @@ input n_t_8x;
 output n_t_9x;
 
 
-wire t2;
-wire t2;
-wire t2;
-wire t2;
-wire t2;
-wire t2;
-wire t2;
-wire t2;
+wire b1;
+wire c1;
+wire f2;
+wire k2;
+wire l2;
+wire n_t_28x;
+wire p2;
+wire r2;
 wire t2;
 assign n_t_9x = ~(n_t_1x & n_t_2x & n_t_3x & n_t_4x & n_t_6x & n_t_5x & n_t_7x & n_t_8x);
 // e2: sn74h30 

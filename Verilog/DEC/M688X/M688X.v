@@ -166,16 +166,16 @@ output v1;
 output v2;
 
 
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
-wire ebot_l;
+wire ac3_h;
+wire adder5;
+wire aj1w;
+wire am1w;
+wire ar2w;
+wire at2w;
+wire au2w;
+wire bl1;
+wire bl2;
+wire bm2;
 wire ebot_l;
 assign n_t_20x = 1'b0;
 assign n_t_26x = ~n_t_27x;

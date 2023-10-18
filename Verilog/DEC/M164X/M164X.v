@@ -56,26 +56,26 @@ output n_t_9x;
 output r2;
 
 
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
-wire n_t_69x;
+wire a0;
+wire a7;
+wire as2;
+wire h1;
+wire l2;
+wire n_t_11x;
+wire n_t_12x;
+wire n_t_13x;
+wire n_t_14x;
+wire n_t_25x;
+wire n_t_27x;
+wire n_t_28x;
+wire n_t_29x;
+wire n_t_35x;
+wire n_t_36x;
+wire n_t_43x;
+wire n_t_44x;
+wire n_t_45x;
+wire n_t_46x;
+wire n_t_47x;
 wire n_t_69x;
 assign n_t_14x = n_t_19x
                   ^ n_t_5x

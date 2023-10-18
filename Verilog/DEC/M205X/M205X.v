@@ -80,8 +80,8 @@ reg n_t_25x_m;
 reg n_t_31x_m;
 reg n_t_4x_m;
 
-wire s1;
-wire s1;
+wire md04h;
+wire n_t_34x;
 wire s1;
 always @(n_t_7x, n_t_8x, n_t_6x, n_t_5x)
   if (~n_t_8x) begin

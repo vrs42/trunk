@@ -104,7 +104,7 @@ output syn_l;
 output testpoint;
 
 
-wire n_t_31x;
+wire a09;
 wire n_t_31x;
 assign n_t_29x = ~(a13 & a14);
 assign n_t_30x = ~(a15 & a16);

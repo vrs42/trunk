@@ -46,15 +46,15 @@ input v1;
 output v2;
 
 
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
-wire n_t_8x;
+wire n_t_10x;
+wire n_t_18x;
+wire n_t_22x;
+wire n_t_24x;
+wire n_t_26x;
+wire n_t_28x;
+wire n_t_31x;
+wire n_t_46x;
+wire n_t_4x;
 wire n_t_8x;
 assign l2 = ~k2;
 assign j2 = ~h2;

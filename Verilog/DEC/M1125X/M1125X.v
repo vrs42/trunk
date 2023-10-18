@@ -45,10 +45,10 @@ input n_t_8x;
 input n_t_9x;
 
 
-wire r2;
-wire r2;
-wire r2;
-wire r2;
+wire l1;
+wire m1;
+wire n3v3;
+wire p2;
 wire r2;
 assign n_t_20x = n_t_19x
                   ^ n_t_18x;

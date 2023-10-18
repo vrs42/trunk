@@ -149,9 +149,9 @@ output tdo;
 output tp3;
 
 
-wire ma3_l;
-wire ma3_l;
-wire ma3_l;
+wire ma2_h;
+wire ma2_l;
+wire ma3_h;
 wire ma3_l;
 assign n_t_1x = ~cs;
 // r1: r_us_ 

@@ -46,8 +46,8 @@ input n_t_8x;
 output n_t_9x;
 
 
-wire n_t_46x;
-wire n_t_46x;
+wire b1;
+wire c1;
 wire n_t_46x;
 assign 'b'1 = ~(n_t_30x & n_t_32x & n_t_29x);
 // e2: sn7401 
