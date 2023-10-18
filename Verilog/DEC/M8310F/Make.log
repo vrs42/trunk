@@ -61,7 +61,7 @@ warning: making q1/2n3009/ a connector
 info: quad ne edge_con8
 warning: making u$2/quad/ a connector
 warning: non-bypass capacitor deleted: c1
-unexpected OC output: and03_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2023.
+unexpected OC output: and03_l at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2023.
 warning: non-pullup resistor deleted: r35
 warning: non-pullup resistor deleted: r37
 warning: non-pullup resistor deleted: r38
@@ -128,12 +128,14 @@ warning: non-pullup resistor deleted: r38
   oprf_l: !oprf
   pin: tp4!malc
 ~/Verilog/bin/smaller.pl vv >M8310FX.PLD || (rm M8310FX.PLD; exit 1)
-37 signals were removed:
+39 signals were removed:
   ad00_l: !ad06_l
   ad01_l: !ad02_l
   btp2: tp2
   btp3: tp3
+  bts3: !ts3_l
   cpma_load_l: !'b'0
+  djmp_l: d!jmp
   link_l: !link
   link_load_l: right
   mac_l: !mq00_l
@@ -167,7 +169,7 @@ warning: non-pullup resistor deleted: r38
   n_t_79x: !ts4fset!ms_dis
   tp4malc: !v2
 ~/Verilog/bin/cupl2v.pl M8310FX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output link at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 1512.
+OE qualifier on FF output link at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 1516.
 ../Makefile:29: recipe for target 'M8310F.v' failed
 make: *** [M8310F.v] Error 1
 rm M8310FX.PLD

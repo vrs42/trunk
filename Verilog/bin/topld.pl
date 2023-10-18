@@ -463,6 +463,18 @@ sub sn74h53 {
 }
 $hidden{'sn74h53'} = 0;
 
+sub sn74h55 {
+  # X and X\ are frequently NC, but we'll need a name.
+  $pad{5} = &gnext unless defined $pad{5};
+  $pad{9} = &gnext unless defined $pad{9};
+  $oc{$pad{5}} = 1;
+  $oc{$pad{9}} = 1;
+  &ocassign($pad{5}, "$pad{1}&$pad{2}&$pad{3}&$pad{4} # $pad{10}&$pad{11}&$pad{12}&$pad{13}");
+  &ocassign($pad{9}, $pad{5});
+  &qcode("$pad{8} = $pad{5};\n");
+}
+$hidden{'sn74h55'} = 0;
+
 sub sn7460 {
   # X and X\ are frequently NC, but we'll need a name.
   $pad{11} = &gnext unless defined $pad{11};
@@ -1410,6 +1422,11 @@ sub dec8251 {
   &qcode("!$pad{7} = $pad{2} & !$pad{1} & !$pad{14} & $pad{15};\n") if defined $pad{7};
 }
 $hidden{'dec8251'} = 0;
+
+sub dec9301 {
+  &dec8251;
+}
+$hidden{'dec9301'} = 0;
 
 sub dec8271 {
   &mc8271;

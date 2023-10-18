@@ -22,8 +22,9 @@ warning: non-bypass capacitor deleted: c1
   n_t_5x: n_t_27x
   n_t_6x: n_t_119x
 ~/Verilog/bin/smaller.pl vv >M212BX.PLD || (rm M212BX.PLD; exit 1)
-1 signals were removed:
+2 signals were removed:
   n_t_27x: !l2
+  n_t_32x: !n3v3
 ~/Verilog/bin/cupl2v.pl M212BX.PLD >vv || (rm vv; exit 1)
 mv vv M212B.v
 rm M212BX.PLD

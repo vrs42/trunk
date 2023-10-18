@@ -244,7 +244,6 @@ assign n_t_44x = gdollar_1 & ~n_t_6x
                   | ac_2 & gdollar_1;
 // e9: sn74h00 
 // e10: sn74h00 
-assign n_t_10x = ~n_t_6x;
 // e11: sn74h00 
 assign n_t_32x = ~n_t_7x;
 // e12: sn74h00 
@@ -275,7 +274,7 @@ assign n_t_112x = gdollar_2 & ac_2
 //          # n_t_67x & n_t_1x); 
 // n_t_2x = !tape_bus2; 
 // e16: sn74h53 
-// !n_t_6x = !(!n_t_10x & n_t_2x
+// !n_t_6x = !(n_t_6x & n_t_2x
 //        # n_t_51x & n_t_4x
 //        # n_t_52x & n_t_20x & n_t_20x
 //        # n_t_49x & n_t_1x); 

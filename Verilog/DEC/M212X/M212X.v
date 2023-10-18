@@ -130,11 +130,11 @@ assign n_t_10x = ~n_t_9x;
 //        # n_t_14x & left_shift); 
 // !n_t_29x = !n_t_29x; 
 // e5: sn7453 
-// !n3v3 = !(n_t_12x & right_shift
+// !'b'1 = !(n_t_12x & right_shift
 //        # ina3_l & enable_a
 //        # inb3_l & enable_b
 //        # n_t_16x & left_shift); 
-// 'b'1 = n3v3; 
+// 'b'1 = 'b'1; 
 // e6: sn7474 
 always @(clock, clear_reg_l, n_t_29x)
   if (~clear_reg_l) begin
@@ -151,12 +151,12 @@ always @(clock, clear_reg_l, n_t_11x_m)
     n_t_11x <= n_t_11x_m;
   end
 assign n_t_12x = ~n_t_11x;
-always @(clock, clear_reg_l, n3v3)
+always @(clock, clear_reg_l, 1'b0)
   if (~clear_reg_l) begin
     n_t_13x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_13x_m <= ~n3v3;
+    n_t_13x_m <= 1'b0;
   end
 always @(clock, clear_reg_l, n_t_13x_m)
   if (~clear_reg_l) begin
@@ -215,7 +215,6 @@ assign l2 = ~((n_t_8x & right_shift
                 | ina1_l & enable_a
                 | inb1_l & enable_b
                 | n_t_12x & left_shift));
-assign 'b'1 = ~(~n3v3);
 assign n_t_119x = ~((n_t_16x & right_shift
                       | ina5_l & enable_a
                       | inb5_l & enable_b
@@ -232,7 +231,7 @@ assign n_t_29x = ~((n_t_10x & right_shift
                      | ina2_l & enable_a
                      | inb2_l & enable_b
                      | n_t_14x & left_shift));
-assign n3v3 = (n_t_12x & right_shift
+assign 'b'1 = (n_t_12x & right_shift
                 | ina3_l & enable_a
                 | inb3_l & enable_b
                 | n_t_16x & left_shift);

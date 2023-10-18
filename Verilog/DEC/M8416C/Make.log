@@ -138,8 +138,8 @@ info: hex ne edge_con12
 warning: making u$1/hex/ a connector
 warning: non-bypass capacitor deleted: c12
 warning: non-bypass capacitor deleted: c19
-unexpected OC output: motor_stopping_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2878.
-unexpected OC output: pause at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3200.
+unexpected OC output: motor_stopping_l at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2878.
+unexpected OC output: pause at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 3200.
 warning: non-pullup resistor deleted: r5
 ~/Verilog/bin/smaller.pl M8416C.PLD >vv || (rm vv; exit 1)
 99 signals were removed:
@@ -243,10 +243,12 @@ warning: non-pullup resistor deleted: r5
   p6_rvfen_l: !p6_rvfen
   regbus11: !regbus11_l
 ~/Verilog/bin/smaller.pl vv >M8416CX.PLD || (rm M8416CX.PLD; exit 1)
-3 signals were removed:
+5 signals were removed:
   n_t_165x: ind1_l
   p3_binit: initialize
   p3_btp2: tp2
+  p3_btp3_l: !tp3
+  p3_bts3: !ts3_l
 ~/Verilog/bin/cupl2v.pl M8416CX.PLD >vv || (rm vv; exit 1)
 OE qualifier on FF output gdollar_0 at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 3009.
 ../Makefile:29: recipe for target 'M8416C.v' failed

@@ -82,7 +82,7 @@ warning: non-bypass capacitor deleted: c34
 warning: non-bypass capacitor deleted: c35
 warning: non-bypass capacitor deleted: c39
 warning: non-bypass capacitor deleted: c40
-unexpected OC output: n_t_45x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2668.
+unexpected OC output: n_t_45x at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2668.
 warning: non-pullup resistor deleted: r1
 warning: non-pullup resistor deleted: r3
 warning: non-pullup resistor deleted: r5
@@ -139,8 +139,7 @@ warning: non-pullup resistor deleted: r55
   wrt_lock_out: !wrt_lock_out_l
   wrt_sync_bit_l: !wrt_sync_bit
 ~/Verilog/bin/smaller.pl vv >M7106BX.PLD || (rm M7106BX.PLD; exit 1)
-1 signals were removed:
-  n_t_5x: !n_t_2x
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M7106BX.PLD >vv || (rm vv; exit 1)
 mv vv M7106B.v
 rm M7106BX.PLD

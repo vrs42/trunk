@@ -220,7 +220,7 @@ assign n_t_43x = gdollar_0 & n_t_8x
 // !n_t_23x = !n_t_23x; 
 assign n_t_15x = n_t_23x;
 // e6: sn74h53 
-// !n_t_8x = !(n_t_12x & !n_t_5x
+// !n_t_8x = !(n_t_12x & n_t_8x
 //       # n_t_13x & n_t_35x
 //       # n_t_16x & !n_t_35x & !n_t_35x
 //       # n_t_18x & !n_t_32x); 
@@ -247,7 +247,6 @@ assign n_t_44x = gdollar_1 & ~n_t_6x
 // e11: sn74h00 
 assign n_t_32x = ~n_t_7x;
 // e12: sn74h00 
-assign n_t_5x = ~n_t_8x;
 // e13: sn74h53 
 // n_t_13x = !(n_t_27x & n_t_23x
 //        # n_t_28x & n_t_42x
